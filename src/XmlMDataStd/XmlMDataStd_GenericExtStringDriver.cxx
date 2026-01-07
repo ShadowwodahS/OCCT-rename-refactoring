@@ -54,7 +54,7 @@ Standard_Boolean XmlMDataStd_GenericExtStringDriver::Paste(const XmlObjMgt_Persi
 {
   if (!theTarget.IsNull())
   {
-    TCollection_ExtendedString aString;
+    UtfString aString;
     if (XmlObjMgt::GetExtendedString(theSource, aString))
     {
       Handle(TDataStd_GenericExtString)::DownCast(theTarget)->Set(aString);

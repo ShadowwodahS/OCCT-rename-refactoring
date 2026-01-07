@@ -25,7 +25,7 @@
 class TCollection_HAsciiString;
 class RefObject;
 class Interface_InterfaceModel;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IGESSelect_SelectName;
 DEFINE_STANDARD_HANDLE(IGESSelect_SelectName, IFSelect_SelectExtract)
@@ -58,7 +58,7 @@ public:
   Standard_EXPORT Handle(TCollection_HAsciiString) Name() const;
 
   //! Returns the Selection criterium : "IGES Entity, Name : <name>"
-  Standard_EXPORT TCollection_AsciiString ExtractLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExtractLabel() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_SelectName, IFSelect_SelectExtract)
 

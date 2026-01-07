@@ -27,8 +27,8 @@
 
 class TDataStd_Real;
 class Standard_GUID;
-class TDF_Label;
-class TNaming_NamedShape;
+class DataLabel;
+class ShapeAttribute;
 class TDF_RelocationTable;
 class TDF_DataSet;
 
@@ -57,29 +57,29 @@ public:
   //! and the label label.
   //! Constraint methods
   //! ==================
-  Standard_EXPORT static Handle(TDataXtd_Constraint) Set(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataXtd_Constraint) Set(const DataLabel& label);
 
   Standard_EXPORT TDataXtd_Constraint();
 
   //! Finds or creates the constraint attribute defined
   //! by the topological attribute G1 and the constraint type type.
   Standard_EXPORT void Set(const TDataXtd_ConstraintEnum     type,
-                           const Handle(TNaming_NamedShape)& G1);
+                           const Handle(ShapeAttribute)& G1);
 
   //! Finds or creates the constraint attribute defined
   //! by the topological attributes G1 and G2, and by
   //! the constraint type type.
   Standard_EXPORT void Set(const TDataXtd_ConstraintEnum     type,
-                           const Handle(TNaming_NamedShape)& G1,
-                           const Handle(TNaming_NamedShape)& G2);
+                           const Handle(ShapeAttribute)& G1,
+                           const Handle(ShapeAttribute)& G2);
 
   //! Finds or creates the constraint attribute defined
   //! by the topological attributes G1, G2 and G3, and
   //! by the constraint type type.
   Standard_EXPORT void Set(const TDataXtd_ConstraintEnum     type,
-                           const Handle(TNaming_NamedShape)& G1,
-                           const Handle(TNaming_NamedShape)& G2,
-                           const Handle(TNaming_NamedShape)& G3);
+                           const Handle(ShapeAttribute)& G1,
+                           const Handle(ShapeAttribute)& G2,
+                           const Handle(ShapeAttribute)& G3);
 
   //! Finds or creates the constraint attribute defined
   //! by the topological attributes G1, G2, G3 and G4,
@@ -87,10 +87,10 @@ public:
   //! methods to read constraint fields
   //! =================================
   Standard_EXPORT void Set(const TDataXtd_ConstraintEnum     type,
-                           const Handle(TNaming_NamedShape)& G1,
-                           const Handle(TNaming_NamedShape)& G2,
-                           const Handle(TNaming_NamedShape)& G3,
-                           const Handle(TNaming_NamedShape)& G4);
+                           const Handle(ShapeAttribute)& G1,
+                           const Handle(ShapeAttribute)& G2,
+                           const Handle(ShapeAttribute)& G3,
+                           const Handle(ShapeAttribute)& G4);
 
   //! Returns true if this constraint attribute is valid.
   //! By default, true is returned.
@@ -113,7 +113,7 @@ public:
   //! This plane is attached to another label.
   //! If the constraint is not planar, in other words, 3D,
   //! this function will return a null handle.
-  Standard_EXPORT const Handle(TNaming_NamedShape)& GetPlane() const;
+  Standard_EXPORT const Handle(ShapeAttribute)& GetPlane() const;
 
   //! Returns true if this constraint attribute is a
   //! dimension, and therefore has a value.
@@ -134,7 +134,7 @@ public:
   //! Index has a value between 1 and 4.
   //! methods to write constraint fields (use builder)
   //! ==================================
-  Standard_EXPORT Handle(TNaming_NamedShape) GetGeometry(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(ShapeAttribute) GetGeometry(const Standard_Integer Index) const;
 
   //! Removes the geometries involved in the
   //! constraint or dimension from the array of
@@ -146,7 +146,7 @@ public:
 
   //! Finds or creates the plane of the 2D constraint
   //! attribute, defined by the planar topological attribute plane.
-  Standard_EXPORT void SetPlane(const Handle(TNaming_NamedShape)& plane);
+  Standard_EXPORT void SetPlane(const Handle(ShapeAttribute)& plane);
 
   //! Finds or creates the real number value V of the dimension constraint attribute.
   Standard_EXPORT void SetValue(const Handle(TDataStd_Real)& V);
@@ -155,7 +155,7 @@ public:
   //! constraint defined by the topological attribute G
   //! and the integer index Index.
   Standard_EXPORT void SetGeometry(const Standard_Integer            Index,
-                                   const Handle(TNaming_NamedShape)& G);
+                                   const Handle(ShapeAttribute)& G);
 
   //! Returns true if this constraint attribute defined by status is valid.
   //! By default, true is returned.
@@ -174,7 +174,7 @@ public:
   Standard_EXPORT Standard_Boolean Reversed() const;
 
   //! collects constraints on Childs for label <aLabel>
-  Standard_EXPORT static void CollectChildConstraints(const TDF_Label& aLabel,
+  Standard_EXPORT static void CollectChildConstraints(const DataLabel& aLabel,
                                                       TDF_LabelList&   TheList);
 
   Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
@@ -197,7 +197,7 @@ private:
   TDataXtd_ConstraintEnum    myType;
   Handle(TDataStd_Real)      myValue;
   Handle(TDF_Attribute)      myGeometries[4];
-  Handle(TNaming_NamedShape) myPlane;
+  Handle(ShapeAttribute) myPlane;
   Standard_Boolean           myIsReversed;
   Standard_Boolean           myIsInverted;
   Standard_Boolean           myIsVerified;

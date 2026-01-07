@@ -77,8 +77,8 @@ public:
   //! Aknowledges the list in once. Name identifies the Signature
   Standard_EXPORT void Init(
     const Standard_CString                                                                 name,
-    const NCollection_IndexedDataMap<TCollection_AsciiString, Standard_Integer>&           count,
-    const NCollection_IndexedDataMap<TCollection_AsciiString, Handle(RefObject)>& list,
+    const NCollection_IndexedDataMap<AsciiString1, Standard_Integer>&           count,
+    const NCollection_IndexedDataMap<AsciiString1, Handle(RefObject)>& list,
     const Standard_Integer                                                                 nbnuls);
 
   //! Returns the list of signatures, as a sequence of strings
@@ -143,9 +143,9 @@ private:
   Standard_Boolean                                                                thelistat;
   Standard_Integer                                                                thenbnuls;
   Handle(TCollection_HAsciiString)                                                thename;
-  TCollection_AsciiString                                                         thelastval;
-  NCollection_IndexedDataMap<TCollection_AsciiString, Standard_Integer>           thedicount;
-  NCollection_IndexedDataMap<TCollection_AsciiString, Handle(RefObject)> thediclist;
+  AsciiString1                                                         thelastval;
+  NCollection_IndexedDataMap<AsciiString1, Standard_Integer>           thedicount;
+  NCollection_IndexedDataMap<AsciiString1, Handle(RefObject)> thediclist;
 };
 
 #endif // _IFSelect_SignatureList_HeaderFile

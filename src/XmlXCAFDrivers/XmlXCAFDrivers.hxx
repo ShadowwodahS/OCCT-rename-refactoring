@@ -20,7 +20,7 @@
 
 class RefObject;
 class Standard_GUID;
-class TDocStd_Application;
+class AppManager;
 
 class XmlXCAFDrivers
 {
@@ -42,7 +42,7 @@ public:
 
   //! Defines format "XmlXCAF" and registers its read and write drivers
   //! in the specified application
-  Standard_EXPORT static void DefineFormat(const Handle(TDocStd_Application)& theApp);
+  Standard_EXPORT static void DefineFormat(const Handle(AppManager)& theApp);
 };
 
 #endif // _XmlXCAFDrivers_HeaderFile

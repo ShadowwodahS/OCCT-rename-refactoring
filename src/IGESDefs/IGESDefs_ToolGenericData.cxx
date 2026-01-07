@@ -35,9 +35,9 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColStd_HArray1OfTransient.hxx>
 
-IGESDefs_ToolGenericData::IGESDefs_ToolGenericData() {}
+GenericDataTool::GenericDataTool() {}
 
-void IGESDefs_ToolGenericData::ReadOwnParams(const Handle(IGESDefs_GenericData)&    ent,
+void GenericDataTool::ReadOwnParams(const Handle(IGESDefs_GenericData)&    ent,
                                              const Handle(IGESData_IGESReaderData)& IR,
                                              IGESData_ParamReader&                  PR) const
 {
@@ -133,7 +133,7 @@ void IGESDefs_ToolGenericData::ReadOwnParams(const Handle(IGESDefs_GenericData)&
   ent->Init(tempNbPropVal, tempName, tempTypes, tempValues);
 }
 
-void IGESDefs_ToolGenericData::WriteOwnParams(const Handle(IGESDefs_GenericData)& ent,
+void GenericDataTool::WriteOwnParams(const Handle(IGESDefs_GenericData)& ent,
                                               IGESData_IGESWriter&                IW) const
 {
   Standard_Integer i, num;
@@ -172,7 +172,7 @@ void IGESDefs_ToolGenericData::WriteOwnParams(const Handle(IGESDefs_GenericData)
   }
 }
 
-void IGESDefs_ToolGenericData::OwnShared(const Handle(IGESDefs_GenericData)& ent,
+void GenericDataTool::OwnShared(const Handle(IGESDefs_GenericData)& ent,
                                          Interface_EntityIterator&           iter) const
 {
   Standard_Integer i, num;
@@ -183,7 +183,7 @@ void IGESDefs_ToolGenericData::OwnShared(const Handle(IGESDefs_GenericData)& ent
   }
 }
 
-void IGESDefs_ToolGenericData::OwnCopy(const Handle(IGESDefs_GenericData)& another,
+void GenericDataTool::OwnCopy(const Handle(IGESDefs_GenericData)& another,
                                        const Handle(IGESDefs_GenericData)& ent,
                                        Interface_CopyTool&                 TC) const
 {
@@ -239,10 +239,10 @@ void IGESDefs_ToolGenericData::OwnCopy(const Handle(IGESDefs_GenericData)& anoth
   ent->Init(tempNbPropVal, tempName, tempTypes, tempValues);
 }
 
-IGESData_DirChecker IGESDefs_ToolGenericData::DirChecker(
+DirectoryChecker GenericDataTool::DirChecker(
   const Handle(IGESDefs_GenericData)& /* ent */) const
 {
-  IGESData_DirChecker DC(406, 27);
+  DirectoryChecker DC(406, 27);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -255,7 +255,7 @@ IGESData_DirChecker IGESDefs_ToolGenericData::DirChecker(
   return DC;
 }
 
-void IGESDefs_ToolGenericData::OwnCheck(const Handle(IGESDefs_GenericData)& ent,
+void GenericDataTool::OwnCheck(const Handle(IGESDefs_GenericData)& ent,
                                         const Interface_ShareTool&,
                                         Handle(Interface_Check)& ach) const
 {
@@ -263,7 +263,7 @@ void IGESDefs_ToolGenericData::OwnCheck(const Handle(IGESDefs_GenericData)& ent,
     ach->AddFail("Nb. of Property Values not consistent with Nb. of Type/value Pairs");
 }
 
-void IGESDefs_ToolGenericData::OwnDump(const Handle(IGESDefs_GenericData)& ent,
+void GenericDataTool::OwnDump(const Handle(IGESDefs_GenericData)& ent,
                                        const IGESData_IGESDumper&          dumper,
                                        Standard_OStream&                   S,
                                        const Standard_Integer              level) const

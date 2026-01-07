@@ -28,13 +28,13 @@ class ToolsDraw
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Loads all Draw commands of  tools. Used for plugin.
-  //! \param theDI Draw interpreter
-  Standard_EXPORT static void Factory(Draw_Interpretor& theDI);
+  //! Loads all Draw1 commands of  tools. Used for plugin.
+  //! \param theDI Draw1 interpreter
+  Standard_EXPORT static void Factory(DrawInterpreter& theDI);
 
-  //! Adds all tools command in the Draw_Interpretor
+  //! Adds all tools command in the DrawInterpreter
   //! \param theCommands
-  Standard_EXPORT static void Commands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void Commands(DrawInterpreter& theCommands);
 
   //! Returns default communicator used in DRAW commands
   Standard_EXPORT static TInspector_Communicator* Communicator();

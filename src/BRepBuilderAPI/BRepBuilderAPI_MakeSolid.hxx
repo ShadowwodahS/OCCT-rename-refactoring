@@ -24,9 +24,9 @@
 #include <BRepLib_MakeSolid.hxx>
 #include <BRepBuilderAPI_MakeShape.hxx>
 class TopoDS_CompSolid;
-class TopoDS_Shell;
-class TopoDS_Solid;
-class TopoDS_Shape;
+class TopoShell;
+class TopoSolid;
+class TopoShape;
 
 //! Describes functions to build a solid from shells.
 //! A solid is made of one shell, or a series of shells, which
@@ -52,10 +52,10 @@ public:
   Standard_EXPORT BRepBuilderAPI_MakeSolid(const TopoDS_CompSolid& S);
 
   //! Make a solid from a shell.
-  Standard_EXPORT BRepBuilderAPI_MakeSolid(const TopoDS_Shell& S);
+  Standard_EXPORT BRepBuilderAPI_MakeSolid(const TopoShell& S);
 
   //! Make a solid from two shells.
-  Standard_EXPORT BRepBuilderAPI_MakeSolid(const TopoDS_Shell& S1, const TopoDS_Shell& S2);
+  Standard_EXPORT BRepBuilderAPI_MakeSolid(const TopoShell& S1, const TopoShell& S2);
 
   //! Make a solid from three shells.
   //! Constructs a solid
@@ -72,12 +72,12 @@ public:
   //! skin of the solid; it may be closed (a finite solid) or open
   //! (an infinite solid). Other shells form hollows (cavities) in
   //! these previous ones. Each must bound a closed volume.
-  Standard_EXPORT BRepBuilderAPI_MakeSolid(const TopoDS_Shell& S1,
-                                           const TopoDS_Shell& S2,
-                                           const TopoDS_Shell& S3);
+  Standard_EXPORT BRepBuilderAPI_MakeSolid(const TopoShell& S1,
+                                           const TopoShell& S2,
+                                           const TopoShell& S3);
 
   //! Make a solid from a solid. useful for adding later.
-  Standard_EXPORT BRepBuilderAPI_MakeSolid(const TopoDS_Solid& So);
+  Standard_EXPORT BRepBuilderAPI_MakeSolid(const TopoSolid& So);
 
   //! Add a shell to a solid.
   //!
@@ -92,7 +92,7 @@ public:
   //! skin of the solid. It may be closed (a finite solid) or open
   //! (an infinite solid). Other shells form hollows (cavities) in
   //! the previous ones. Each must bound a closed volume.
-  Standard_EXPORT BRepBuilderAPI_MakeSolid(const TopoDS_Solid& So, const TopoDS_Shell& S);
+  Standard_EXPORT BRepBuilderAPI_MakeSolid(const TopoSolid& So, const TopoShell& S);
 
   //! Adds the shell to the current solid.
   //! Warning
@@ -104,7 +104,7 @@ public:
   //! solid. It may be closed (a finite solid) or open (an
   //! infinite solid). Other shells form hollows (cavities) in
   //! these previous ones. Each must bound a closed volume.
-  Standard_EXPORT void Add(const TopoDS_Shell& S);
+  Standard_EXPORT void Add(const TopoShell& S);
 
   //! Returns true if the solid is built.
   //! For this class, a solid under construction is always valid.
@@ -114,10 +114,10 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsDone() const Standard_OVERRIDE;
 
   //! Returns the new Solid.
-  Standard_EXPORT const TopoDS_Solid& Solid();
-  Standard_EXPORT                     operator TopoDS_Solid();
+  Standard_EXPORT const TopoSolid& Solid();
+  Standard_EXPORT                     operator TopoSolid();
 
-  Standard_EXPORT virtual Standard_Boolean IsDeleted(const TopoDS_Shape& S) Standard_OVERRIDE;
+  Standard_EXPORT virtual Standard_Boolean IsDeleted(const TopoShape& S) Standard_OVERRIDE;
 
 protected:
 private:

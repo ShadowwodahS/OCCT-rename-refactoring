@@ -28,8 +28,8 @@
 #include <TColStd_SequenceOfAsciiString.hxx>
 #include <TColStd_SequenceOfExtendedString.hxx>
 
-class TCollection_AsciiString;
-class TCollection_ExtendedString;
+class AsciiString1;
+class UtfString;
 class Storage_HeaderData;
 
 // Macro that tells if bytes must be reversed when read/write
@@ -54,7 +54,7 @@ public:
 public:
   Standard_EXPORT FSD_BinaryFile();
 
-  Standard_EXPORT Storage_Error Open(const TCollection_AsciiString& aName,
+  Standard_EXPORT Storage_Error Open(const AsciiString1& aName,
                                      const Storage_OpenMode         aMode) Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Boolean IsEnd() Standard_OVERRIDE;
@@ -62,31 +62,31 @@ public:
   //! return position in the file. Return -1 upon error.
   Standard_EXPORT Storage_Position Tell() Standard_OVERRIDE;
 
-  Standard_EXPORT static Storage_Error IsGoodFileType(const TCollection_AsciiString& aName);
+  Standard_EXPORT static Storage_Error IsGoodFileType(const AsciiString1& aName);
 
   Standard_EXPORT Storage_Error BeginWriteInfoSection() Standard_OVERRIDE;
 
   Standard_EXPORT static Standard_Integer WriteInfo(
     Standard_OStream&                    theOStream,
     const Standard_Integer               nbObj,
-    const TCollection_AsciiString&       dbVersion,
-    const TCollection_AsciiString&       date,
-    const TCollection_AsciiString&       schemaName,
-    const TCollection_AsciiString&       schemaVersion,
-    const TCollection_ExtendedString&    appName,
-    const TCollection_AsciiString&       appVersion,
-    const TCollection_ExtendedString&    objectType,
+    const AsciiString1&       dbVersion,
+    const AsciiString1&       date,
+    const AsciiString1&       schemaName,
+    const AsciiString1&       schemaVersion,
+    const UtfString&    appName,
+    const AsciiString1&       appVersion,
+    const UtfString&    objectType,
     const TColStd_SequenceOfAsciiString& userInfo,
     const Standard_Boolean               theOnlyCount = Standard_False);
 
   Standard_EXPORT void WriteInfo(const Standard_Integer               nbObj,
-                                 const TCollection_AsciiString&       dbVersion,
-                                 const TCollection_AsciiString&       date,
-                                 const TCollection_AsciiString&       schemaName,
-                                 const TCollection_AsciiString&       schemaVersion,
-                                 const TCollection_ExtendedString&    appName,
-                                 const TCollection_AsciiString&       appVersion,
-                                 const TCollection_ExtendedString&    objectType,
+                                 const AsciiString1&       dbVersion,
+                                 const AsciiString1&       date,
+                                 const AsciiString1&       schemaName,
+                                 const AsciiString1&       schemaVersion,
+                                 const UtfString&    appName,
+                                 const AsciiString1&       appVersion,
+                                 const UtfString&    objectType,
                                  const TColStd_SequenceOfAsciiString& userInfo) Standard_OVERRIDE;
 
   Standard_EXPORT Storage_Error EndWriteInfoSection() Standard_OVERRIDE;
@@ -96,13 +96,13 @@ public:
   Standard_EXPORT Storage_Error BeginReadInfoSection() Standard_OVERRIDE;
 
   Standard_EXPORT void ReadInfo(Standard_Integer&              nbObj,
-                                TCollection_AsciiString&       dbVersion,
-                                TCollection_AsciiString&       date,
-                                TCollection_AsciiString&       schemaName,
-                                TCollection_AsciiString&       schemaVersion,
-                                TCollection_ExtendedString&    appName,
-                                TCollection_AsciiString&       appVersion,
-                                TCollection_ExtendedString&    objectType,
+                                AsciiString1&       dbVersion,
+                                AsciiString1&       date,
+                                AsciiString1&       schemaName,
+                                AsciiString1&       schemaVersion,
+                                UtfString&    appName,
+                                AsciiString1&       appVersion,
+                                UtfString&    objectType,
                                 TColStd_SequenceOfAsciiString& userInfo) Standard_OVERRIDE;
 
   Standard_EXPORT void ReadCompleteInfo(Standard_IStream&     theIStream,
@@ -141,7 +141,7 @@ public:
   Standard_EXPORT void SetTypeSectionSize(const Standard_Integer aSize) Standard_OVERRIDE;
 
   Standard_EXPORT void WriteTypeInformations(const Standard_Integer         typeNum,
-                                             const TCollection_AsciiString& typeName)
+                                             const AsciiString1& typeName)
     Standard_OVERRIDE;
 
   Standard_EXPORT Storage_Error EndWriteTypeSection() Standard_OVERRIDE;
@@ -153,11 +153,11 @@ public:
   Standard_EXPORT static Standard_Integer TypeSectionSize(Standard_IStream& theIStream);
 
   Standard_EXPORT void ReadTypeInformations(Standard_Integer&        typeNum,
-                                            TCollection_AsciiString& typeName) Standard_OVERRIDE;
+                                            AsciiString1& typeName) Standard_OVERRIDE;
 
   Standard_EXPORT static void ReadTypeInformations(Standard_IStream&        theIStream,
                                                    Standard_Integer&        typeNum,
-                                                   TCollection_AsciiString& typeName);
+                                                   AsciiString1& typeName);
 
   Standard_EXPORT Storage_Error EndReadTypeSection() Standard_OVERRIDE;
 
@@ -165,9 +165,9 @@ public:
 
   Standard_EXPORT void SetRootSectionSize(const Standard_Integer aSize) Standard_OVERRIDE;
 
-  Standard_EXPORT void WriteRoot(const TCollection_AsciiString& rootName,
+  Standard_EXPORT void WriteRoot(const AsciiString1& rootName,
                                  const Standard_Integer         aRef,
-                                 const TCollection_AsciiString& aType) Standard_OVERRIDE;
+                                 const AsciiString1& aType) Standard_OVERRIDE;
 
   Standard_EXPORT Storage_Error EndWriteRootSection() Standard_OVERRIDE;
 
@@ -177,14 +177,14 @@ public:
 
   Standard_EXPORT static Standard_Integer RootSectionSize(Standard_IStream& theIStream);
 
-  Standard_EXPORT void ReadRoot(TCollection_AsciiString& rootName,
+  Standard_EXPORT void ReadRoot(AsciiString1& rootName,
                                 Standard_Integer&        aRef,
-                                TCollection_AsciiString& aType) Standard_OVERRIDE;
+                                AsciiString1& aType) Standard_OVERRIDE;
 
   Standard_EXPORT static void ReadRoot(Standard_IStream&        theIStream,
-                                       TCollection_AsciiString& rootName,
+                                       AsciiString1& rootName,
                                        Standard_Integer&        aRef,
-                                       TCollection_AsciiString& aType);
+                                       AsciiString1& aType);
 
   Standard_EXPORT Storage_Error EndReadRootSection() Standard_OVERRIDE;
 
@@ -325,10 +325,10 @@ public:
                                              const Handle(Storage_HeaderData)& theHeaderData);
 
   Standard_EXPORT static void ReadString(Standard_IStream&        theIStream,
-                                         TCollection_AsciiString& buffer);
+                                         AsciiString1& buffer);
 
   Standard_EXPORT static void ReadExtendedString(Standard_IStream&           theIStream,
-                                                 TCollection_ExtendedString& buffer);
+                                                 UtfString& buffer);
 
   Standard_EXPORT static Standard_Integer WriteHeader(
     Standard_OStream&      theOStream,
@@ -339,30 +339,30 @@ public:
 
 protected:
   //! read <rsize> character from the current position.
-  Standard_EXPORT void ReadChar(TCollection_AsciiString& buffer, const Standard_Size rsize);
+  Standard_EXPORT void ReadChar(AsciiString1& buffer, const Standard_Size rsize);
 
   //! read string from the current position.
-  Standard_EXPORT void ReadString(TCollection_AsciiString& buffer);
+  Standard_EXPORT void ReadString(AsciiString1& buffer);
 
   //! write string at the current position.
-  Standard_EXPORT void WriteString(const TCollection_AsciiString& buffer);
+  Standard_EXPORT void WriteString(const AsciiString1& buffer);
 
   //! write string at the current position.
   Standard_EXPORT static Standard_Integer WriteString(
     Standard_OStream&              theOStream,
-    const TCollection_AsciiString& theString,
+    const AsciiString1& theString,
     const Standard_Boolean         theOnlyCount = Standard_False);
 
   //! read string from the current position.
-  Standard_EXPORT void ReadExtendedString(TCollection_ExtendedString& buffer);
+  Standard_EXPORT void ReadExtendedString(UtfString& buffer);
 
   //! write string at the current position.
-  Standard_EXPORT void WriteExtendedString(const TCollection_ExtendedString& buffer);
+  Standard_EXPORT void WriteExtendedString(const UtfString& buffer);
 
   //! write string at the current position.
   Standard_EXPORT static Standard_Integer WriteExtendedString(
     Standard_OStream&                 theOStream,
-    const TCollection_ExtendedString& theString,
+    const UtfString& theString,
     const Standard_Boolean            theOnlyCount = Standard_False);
 
 private:

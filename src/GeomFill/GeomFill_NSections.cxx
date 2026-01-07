@@ -301,8 +301,8 @@ Standard_Boolean GeomFill_NSections::D0(const Standard_Real   V,
   }
   else
   {
-    Handle(Geom_BSplineCurve) Curve =
-      Handle(Geom_BSplineCurve)::DownCast(mySurface->VIso(V, Standard_False));
+    Handle(BSplineCurve3d) Curve =
+      Handle(BSplineCurve3d)::DownCast(mySurface->VIso(V, Standard_False));
     TColgp_Array1OfPnt   poles(1, mySurface->NbUPoles());
     TColStd_Array1OfReal weights(1, mySurface->NbUPoles());
     Curve->Poles(poles);
@@ -576,10 +576,10 @@ void GeomFill_NSections::ComputeSurface()
     {
 
       // read the j-th curve
-      Handle(Geom_Curve) curv = mySections(j);
+      Handle(GeomCurve3d) curv = mySections(j);
 
       // transformation to BSpline reparametrized to [UFirst,ULast]
-      Handle(Geom_BSplineCurve) curvBS = Handle(Geom_BSplineCurve)::DownCast(curv);
+      Handle(BSplineCurve3d) curvBS = Handle(BSplineCurve3d)::DownCast(curv);
       if (curvBS.IsNull())
       {
         curvBS = GeomConvert::CurveToBSplineCurve(curv, Convert_QuasiAngular);
@@ -608,8 +608,8 @@ void GeomFill_NSections::ComputeSurface()
       TColStd_Array1OfInteger Mult(1,2);
       Mult(1) = (Standard_Integer ) Deg+1;
       Mult(2) = (Standard_Integer ) Deg+1;
-      Handle(Geom_BSplineCurve) BSPoint
-        = new Geom_BSplineCurve(Extremities,Bounds,Mult,(Standard_Integer ) Deg);
+      Handle(BSplineCurve3d) BSPoint
+        = new BSplineCurve3d(Extremities,Bounds,Mult,(Standard_Integer ) Deg);
       section.AddCurve(BSPoint);
     }*/
 
@@ -681,7 +681,7 @@ void GeomFill_NSections::ComputeSurface()
   #ifdef DRAW
     char name[256];
     sprintf(name, "NS_Surf_%d", NbSurf);
-    DrawTrSurf::Set(name, BS);
+    DrawTrSurf1::Set(name, BS);
     std::cout << std::endl
               << "RESULTAT de ComputeSurface : NS_Surf_" << NbSurf << std::endl
               << std::endl;
@@ -970,12 +970,12 @@ Standard_Boolean GeomFill_NSections::IsConstant(Standard_Real& Error) const
 //=======================================================
 // Purpose : ConstantSection
 //=======================================================
-Handle(Geom_Curve) GeomFill_NSections::ConstantSection() const
+Handle(GeomCurve3d) GeomFill_NSections::ConstantSection() const
 {
   //  Standard_Real Err;
   //  if (!IsConstant(Err)) throw StdFail_NotDone("The Law is not Constant!");
-  Handle(Geom_Curve) C;
-  C = Handle(Geom_Curve)::DownCast(mySections(1)->Copy());
+  Handle(GeomCurve3d) C;
+  C = Handle(GeomCurve3d)::DownCast(mySections(1)->Copy());
   return C;
 }
 
@@ -1041,7 +1041,7 @@ Standard_Boolean GeomFill_NSections::IsConicalLaw(Standard_Real& Error) const
 //=======================================================
 // Purpose : CirclSection
 //=======================================================
-Handle(Geom_Curve) GeomFill_NSections::CirclSection(const Standard_Real V) const
+Handle(GeomCurve3d) GeomFill_NSections::CirclSection(const Standard_Real V) const
 {
   Standard_Real Err;
   if (!IsConicalLaw(Err))
@@ -1056,7 +1056,7 @@ Handle(Geom_Curve) GeomFill_NSections::CirclSection(const Standard_Real V) const
   Standard_Real radius = (C2.Radius() - C1.Radius()) * (V - p1) / (p2 - p1) + C1.Radius();
 
   C1.SetRadius(radius);
-  Handle(Geom_Curve) C = new (Geom_Circle)(C1);
+  Handle(GeomCurve3d) C = new (GeomCircle)(C1);
 
   const Standard_Real aParF   = AC1.FirstParameter();
   const Standard_Real aParL   = AC1.LastParameter();
@@ -1064,7 +1064,7 @@ Handle(Geom_Curve) GeomFill_NSections::CirclSection(const Standard_Real V) const
 
   if ((aPeriod == 0.0) || (Abs(aParL - aParF - aPeriod) > Precision::PConfusion()))
   {
-    Handle(Geom_Curve) Cbis = new Geom_TrimmedCurve(C, aParF, aParL);
+    Handle(GeomCurve3d) Cbis = new Geom_TrimmedCurve(C, aParF, aParL);
     C                       = Cbis;
   }
   return C;

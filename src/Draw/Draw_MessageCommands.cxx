@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-static Standard_Boolean printerType(const TCollection_AsciiString& theTypeName,
+static Standard_Boolean printerType(const AsciiString1& theTypeName,
                                     Handle(TypeInfo)&         theType)
 {
   if (theTypeName == "ostream")
@@ -51,10 +51,10 @@ static Standard_Boolean printerType(const TCollection_AsciiString& theTypeName,
 
 //=================================================================================================
 
-static Handle(Message_Printer) createPrinter(const Handle(TypeInfo)& theType,
-                                             Draw_Interpretor&            theDI)
+static Handle(LogPrinter) createPrinter(const Handle(TypeInfo)& theType,
+                                             DrawInterpreter&            theDI)
 {
-  const TCollection_AsciiString aTypeName(theType->Name());
+  const AsciiString1 aTypeName(theType->Name());
   if (aTypeName == STANDARD_TYPE(Message_PrinterOStream)->Name())
   {
     return new Message_PrinterOStream();
@@ -74,12 +74,12 @@ static Handle(Message_Printer) createPrinter(const Handle(TypeInfo)& theType,
   {
     return new Draw_Printer(theDI);
   }
-  return Handle(Message_Printer)();
+  return Handle(LogPrinter)();
 }
 
 //=================================================================================================
 
-static Standard_Integer SendMessage(Draw_Interpretor& theDI,
+static Standard_Integer SendMessage(DrawInterpreter& theDI,
                                     Standard_Integer  theArgNb,
                                     const char**      theArgVec)
 {
@@ -92,7 +92,7 @@ static Standard_Integer SendMessage(Draw_Interpretor& theDI,
   const Handle(Message_Messenger)& aMessenger = Message::DefaultMessenger();
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     aMessenger->Send(anArg);
   }
@@ -102,7 +102,7 @@ static Standard_Integer SendMessage(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer PrintMessenger(Draw_Interpretor& theDI, Standard_Integer, const char**)
+static Standard_Integer PrintMessenger(DrawInterpreter& theDI, Standard_Integer, const char**)
 {
   const Handle(Message_Messenger)& aMessenger = Message::DefaultMessenger();
 
@@ -116,7 +116,7 @@ static Standard_Integer PrintMessenger(Draw_Interpretor& theDI, Standard_Integer
 
 //=================================================================================================
 
-static Standard_Integer SetMessagePrinter(Draw_Interpretor& theDI,
+static Standard_Integer SetMessagePrinter(DrawInterpreter& theDI,
                                           Standard_Integer  theArgNb,
                                           const char**      theArgVec)
 {
@@ -127,22 +127,22 @@ static Standard_Integer SetMessagePrinter(Draw_Interpretor& theDI,
   }
 
   Standard_Boolean                          toAddPrinter = Standard_True;
-  NCollection_List<TCollection_AsciiString> aPrinterTypes;
+  NCollection_List<AsciiString1> aPrinterTypes;
   const Handle(Message_Messenger)&          aMessenger = Message::DefaultMessenger();
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     if (anArg == "-state")
     {
-      if (anArgIter + 1 < theArgNb && Draw::ParseOnOff(theArgVec[anArgIter + 1], toAddPrinter))
+      if (anArgIter + 1 < theArgNb && Draw1::ParseOnOff(theArgVec[anArgIter + 1], toAddPrinter))
       {
         ++anArgIter;
       }
     }
     else if (anArg == "-type" && anArgIter + 1 < theArgNb)
     {
-      TCollection_AsciiString aVal(theArgVec[++anArgIter]);
+      AsciiString1 aVal(theArgVec[++anArgIter]);
       aPrinterTypes.Append(aVal);
     }
     else
@@ -152,7 +152,7 @@ static Standard_Integer SetMessagePrinter(Draw_Interpretor& theDI,
     }
   }
 
-  for (NCollection_List<TCollection_AsciiString>::Iterator anIterator(aPrinterTypes);
+  for (NCollection_List<AsciiString1>::Iterator anIterator(aPrinterTypes);
        anIterator.More();
        anIterator.Next())
   {
@@ -165,7 +165,7 @@ static Standard_Integer SetMessagePrinter(Draw_Interpretor& theDI,
 
     if (toAddPrinter)
     {
-      Handle(Message_Printer) aPrinter = createPrinter(aPrinterType, theDI);
+      Handle(LogPrinter) aPrinter = createPrinter(aPrinterType, theDI);
       aMessenger->AddPrinter(aPrinter);
       if (!Handle(Message_PrinterToReport)::DownCast(aPrinter).IsNull())
       {
@@ -182,7 +182,7 @@ static Standard_Integer SetMessagePrinter(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer ClearReport(Draw_Interpretor& theDI,
+static Standard_Integer ClearReport(DrawInterpreter& theDI,
                                     Standard_Integer  theArgNb,
                                     const char**)
 {
@@ -205,7 +205,7 @@ static Standard_Integer ClearReport(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer SetReportMetric(Draw_Interpretor& theDI,
+static Standard_Integer SetReportMetric(DrawInterpreter& theDI,
                                         Standard_Integer  theArgNb,
                                         const char**      theArgVec)
 {
@@ -224,7 +224,7 @@ static Standard_Integer SetReportMetric(Draw_Interpretor& theDI,
   aReport->ClearMetrics();
   for (int i = 1; i < theArgNb; i++)
   {
-    Standard_Integer aMetricId = Draw::Atoi(theArgVec[i]);
+    Standard_Integer aMetricId = Draw1::Atoi(theArgVec[i]);
     if (aMetricId < Message_MetricType_ThreadCPUUserTime
         || aMetricId > Message_MetricType_MemHeapUsage)
     {
@@ -238,7 +238,7 @@ static Standard_Integer SetReportMetric(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer CollectMetricMessages(Draw_Interpretor& theDI,
+static Standard_Integer CollectMetricMessages(DrawInterpreter& theDI,
                                               Standard_Integer  theArgNb,
                                               const char**      theArgVec)
 {
@@ -253,11 +253,11 @@ static Standard_Integer CollectMetricMessages(Draw_Interpretor& theDI,
   Standard_Boolean toActivate = Standard_False;
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     if (anArg == "-activate")
     {
-      if (anArgIter + 1 < theArgNb && Draw::ParseOnOff(theArgVec[anArgIter + 1], toActivate))
+      if (anArgIter + 1 < theArgNb && Draw1::ParseOnOff(theArgVec[anArgIter + 1], toActivate))
       {
         ++anArgIter;
       }
@@ -287,7 +287,7 @@ static Standard_Integer CollectMetricMessages(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer PrintReport(Draw_Interpretor& theDI,
+static Standard_Integer PrintReport(DrawInterpreter& theDI,
                                     Standard_Integer  theArgNb,
                                     const char**      theArgVec)
 {
@@ -306,7 +306,7 @@ static Standard_Integer PrintReport(Draw_Interpretor& theDI,
 
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArgCase(theArgVec[anArgIter]);
+    AsciiString1 anArgCase(theArgVec[anArgIter]);
     anArgCase.LowerCase();
     if (anArgCase == "-messenger")
     {
@@ -329,7 +329,7 @@ static Standard_Integer PrintReport(Draw_Interpretor& theDI,
   return 0;
 }
 
-void Draw::MessageCommands(Draw_Interpretor& theCommands)
+void Draw1::MessageCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean Done = Standard_False;
   if (Done)

@@ -30,10 +30,10 @@ public:
   Standard_EXPORT SelectMgr_FrustumBuilder();
 
   //! Returns current camera
-  const Handle(Graphic3d_Camera)& Camera() const { return myCamera; }
+  const Handle(CameraOn3d)& Camera() const { return myCamera; }
 
   //! Stores current camera
-  Standard_EXPORT void SetCamera(const Handle(Graphic3d_Camera)& theCamera);
+  Standard_EXPORT void SetCamera(const Handle(CameraOn3d)& theCamera);
 
   //! Stores current window width and height
   Standard_EXPORT void SetWindowSize(const Standard_Integer theWidth,
@@ -64,7 +64,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(SelectMgr_FrustumBuilder, RefObject)
 
 private:
-  Handle(Graphic3d_Camera)        myCamera;
+  Handle(CameraOn3d)        myCamera;
   Standard_Integer                myWidth;
   Standard_Integer                myHeight;
   NCollection_Vec4<Standard_Real> myViewport;

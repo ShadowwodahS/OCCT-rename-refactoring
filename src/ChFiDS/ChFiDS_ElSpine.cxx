@@ -240,7 +240,7 @@ void ChFiDS_ElSpine::SetOrigin(const Standard_Real O)
 {
   if (!periodic)
     throw ExceptionBase("Elspine non periodique");
-  Handle(Geom_BSplineCurve) bs = Handle(Geom_BSplineCurve)::DownCast(curve.Curve());
+  Handle(BSplineCurve3d) bs = Handle(BSplineCurve3d)::DownCast(curve.Curve());
   if (!bs.IsNull())
   {
     bs->SetOrigin(O, Precision::PConfusion());
@@ -303,7 +303,7 @@ const Axis3d& ChFiDS_ElSpine::VertexWithTangent(const Standard_Integer Index) co
 
 //=================================================================================================
 
-void ChFiDS_ElSpine::SetCurve(const Handle(Geom_Curve)& C)
+void ChFiDS_ElSpine::SetCurve(const Handle(GeomCurve3d)& C)
 {
   curve.Load(C);
 }
@@ -378,14 +378,14 @@ gp_Parab ChFiDS_ElSpine::Parabola() const
 
 //=================================================================================================
 
-Handle(Geom_BezierCurve) ChFiDS_ElSpine::Bezier() const
+Handle(BezierCurve3d) ChFiDS_ElSpine::Bezier() const
 {
   return curve.Bezier();
 }
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) ChFiDS_ElSpine::BSpline() const
+Handle(BSplineCurve3d) ChFiDS_ElSpine::BSpline() const
 {
   return curve.BSpline();
 }

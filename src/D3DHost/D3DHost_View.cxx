@@ -37,7 +37,7 @@ enum D3DHost_VendorId
 
 //=================================================================================================
 
-TCollection_AsciiString D3DHost_View::d3dFormatError(const long theErrCode)
+AsciiString1 D3DHost_View::d3dFormatError(const long theErrCode)
 {
   switch (theErrCode)
   {
@@ -54,7 +54,7 @@ TCollection_AsciiString D3DHost_View::d3dFormatError(const long theErrCode)
     case D3DERR_INVALIDCALL:
       return "Invalid call";
     default:
-      return TCollection_AsciiString("Error #") + int(theErrCode) + ")";
+      return AsciiString1("Error #") + int(theErrCode) + ")";
   }
 }
 
@@ -173,7 +173,7 @@ void D3DHost_View::DiagnosticInformation(TColStd_IndexedDataMapOfStringString& t
     return;
   }
 
-  TCollection_AsciiString aVendorId((int)aDevId.VendorId);
+  AsciiString1 aVendorId((int)aDevId.VendorId);
   switch (aDevId.VendorId)
   {
     case D3DHost_VendorId_AMD:
@@ -190,7 +190,7 @@ void D3DHost_View::DiagnosticInformation(TColStd_IndexedDataMapOfStringString& t
   theDict.Add("D3Ddescription", aDevId.Description);
   theDict.Add("D3DdeviceName", aDevId.DeviceName);
   theDict.Add("D3Ddriver", aDevId.Driver);
-  theDict.Add("D3DdeviceId", TCollection_AsciiString((int)aDevId.DeviceId));
+  theDict.Add("D3DdeviceId", AsciiString1((int)aDevId.DeviceId));
   theDict.Add("D3Dinterop",
               myD3dWglFbo.IsNull() || myD3dWglFbo->D3dFallback() ? "Software Fallback"
                                                                  : "WGL_NV_DX_interop");
@@ -374,7 +374,7 @@ bool D3DHost_View::d3dSwap()
       GL_DEBUG_TYPE_ERROR,
       0,
       GL_DEBUG_SEVERITY_HIGH,
-      TCollection_AsciiString("Direct3D9, Present device failed, ") + d3dFormatError(isOK));
+      AsciiString1("Direct3D9, Present device failed, ") + d3dFormatError(isOK));
   }
   return isOK == D3D_OK;
 }

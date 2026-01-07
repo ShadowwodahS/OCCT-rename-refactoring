@@ -28,11 +28,11 @@
 #include <STEPConstruct_DataMapOfAsciiStringTransient.hxx>
 #include <STEPConstruct_DataMapOfPointTransient.hxx>
 
-class XSControl_WorkSession;
+class ExchangeSession;
 class StepVisual_StyledItem;
 class StepRepr_RepresentationItem;
 class StepVisual_PresentationStyleAssignment;
-class TopoDS_Shape;
+class TopoShape;
 class StepRepr_RepresentationContext;
 class StepVisual_MechanicalDesignGeometricPresentationRepresentation;
 class StepShape_ContextDependentShapeRepresentation;
@@ -57,10 +57,10 @@ public:
   Standard_EXPORT STEPConstruct_Styles();
 
   //! Creates a tool and initializes it
-  Standard_EXPORT STEPConstruct_Styles(const Handle(XSControl_WorkSession)& WS);
+  Standard_EXPORT STEPConstruct_Styles(const Handle(ExchangeSession)& WS);
 
   //! Initializes tool; returns True if succeeded
-  Standard_EXPORT Standard_Boolean Init(const Handle(XSControl_WorkSession)& WS);
+  Standard_EXPORT Standard_Boolean Init(const Handle(ExchangeSession)& WS);
 
   //! Returns number of defined styles
   Standard_EXPORT Standard_Integer NbStyles() const;
@@ -92,9 +92,9 @@ public:
   //! sequence of stored styles. If Override is not Null, then
   //! the resulting style will be of the subtype OverridingStyledItem.
   //! The Sape is used to find corresponding STEP entity by call to
-  //! STEPConstruct::FindEntity(), then previous method is called.
+  //! STEPConstruct1::FindEntity(), then previous method is called.
   Standard_EXPORT Handle(StepVisual_StyledItem) AddStyle(
-    const TopoDS_Shape&                                   Shape,
+    const TopoShape&                                   Shape,
     const Handle(StepVisual_PresentationStyleAssignment)& PSA,
     const Handle(StepVisual_StyledItem)&                  Override);
 
@@ -118,7 +118,7 @@ public:
   //! given shape is defined. This context (if found) can be used
   //! then in call to CreateMDGPR()
   Standard_EXPORT Handle(StepRepr_RepresentationContext) FindContext(
-    const TopoDS_Shape& Shape) const;
+    const TopoShape& Shape) const;
 
   //! Searches the STEP model for the MDGPR or DM entities
   //! (which bring styles) and fills sequence of styles

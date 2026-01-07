@@ -240,7 +240,7 @@ Standard_Boolean FairCurve_MinimalVariation::Compute(const gp_Vec2d&         Del
   }
 
   // Interpolation
-  gp_XY AuxXY(0, 0);
+  Coords2d AuxXY(0, 0);
   for (ii = 1; ii <= L; ii++)
   {
     AuxXY.SetCoord(0.0, 0);

@@ -213,7 +213,7 @@ Interface_EntityIterator IFSelect_SelectPointed::RootResult(const Interface_Grap
   return result;
 }
 
-TCollection_AsciiString IFSelect_SelectPointed::Label() const
+AsciiString1 IFSelect_SelectPointed::Label() const
 {
-  return TCollection_AsciiString("Pointed Entities");
+  return AsciiString1("Pointed Entities");
 }

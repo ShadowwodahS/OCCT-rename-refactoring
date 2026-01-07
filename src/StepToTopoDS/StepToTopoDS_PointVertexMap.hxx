@@ -21,9 +21,9 @@
 #include <TopoDS_Vertex.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<Handle(StepGeom_CartesianPoint), TopoDS_Vertex>
+typedef NCollection_DataMap<Handle(StepGeom_CartesianPoint), TopoVertex>
   StepToTopoDS_PointVertexMap;
-typedef NCollection_DataMap<Handle(StepGeom_CartesianPoint), TopoDS_Vertex>::Iterator
+typedef NCollection_DataMap<Handle(StepGeom_CartesianPoint), TopoVertex>::Iterator
   StepToTopoDS_DataMapIteratorOfPointVertexMap;
 
 #endif

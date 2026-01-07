@@ -29,7 +29,7 @@ IMPLEMENT_STANDARD_RTTIEXT(XCAFDoc_GraphNode, TDF_Attribute)
 //     ===================================
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_GraphNode::Find(const TDF_Label& L, Handle(XCAFDoc_GraphNode)& G)
+Standard_Boolean XCAFDoc_GraphNode::Find(const DataLabel& L, Handle(XCAFDoc_GraphNode)& G)
 {
   return L.FindAttribute(XCAFDoc_GraphNode::GetDefaultGraphID(), G);
 }
@@ -50,7 +50,7 @@ const Standard_GUID& XCAFDoc_GraphNode::GetDefaultGraphID()
 // purpose  : Finds or creates a GraphNode attribute with default ID
 //=======================================================================
 
-Handle(XCAFDoc_GraphNode) XCAFDoc_GraphNode::Set(const TDF_Label& L)
+Handle(XCAFDoc_GraphNode) XCAFDoc_GraphNode::Set(const DataLabel& L)
 {
   Handle(XCAFDoc_GraphNode) GN;
   if (!L.FindAttribute(XCAFDoc_GraphNode::GetDefaultGraphID(), GN))
@@ -68,7 +68,7 @@ Handle(XCAFDoc_GraphNode) XCAFDoc_GraphNode::Set(const TDF_Label& L)
 //         : a driver for it
 //=======================================================================
 
-Handle(XCAFDoc_GraphNode) XCAFDoc_GraphNode::Set(const TDF_Label&     L,
+Handle(XCAFDoc_GraphNode) XCAFDoc_GraphNode::Set(const DataLabel&     L,
                                                  const Standard_GUID& explicitID)
 {
   Handle(XCAFDoc_GraphNode) GN;

@@ -18,7 +18,7 @@
 #include <AppStd_Application.hxx>
 #include <Standard_Dump.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AppStd_Application, TDocStd_Application)
+IMPLEMENT_STANDARD_RTTIEXT(AppStd_Application, AppManager)
 
 //=================================================================================================
 
@@ -34,5 +34,5 @@ void AppStd_Application::DumpJson(Standard_OStream& theOStream, Standard_Integer
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, TDocStd_Application)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, AppManager)
 }

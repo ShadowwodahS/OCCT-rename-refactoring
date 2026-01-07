@@ -33,7 +33,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Defines and loads all basic functions for SWDRAW on Shapes
-  Standard_EXPORT static void InitCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void InitCommands(DrawInterpreter& theCommands);
 
 protected:
 private:

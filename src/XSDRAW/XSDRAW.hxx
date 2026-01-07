@@ -25,7 +25,7 @@
 #include <XSControl_WorkSession.hxx>
 #include <TopTools_HSequenceOfShape.hxx>
 class IFSelect_SessionPilot;
-class XSControl_WorkSession;
+class ExchangeSession;
 class XSControl_Controller;
 class Interface_Protocol;
 class Interface_InterfaceModel;
@@ -33,8 +33,8 @@ class RefObject;
 class Transfer_TransientProcess;
 class Transfer_FinderProcess;
 class XSControl_TransferReader;
-class TCollection_AsciiString;
-class TDocStd_Document;
+class AsciiString1;
+class AppDocument;
 
 //! Basic package to work functions of X-STEP (IFSelect & Co)
 //! under control of DRAW
@@ -48,12 +48,12 @@ public:
   //! Takes variables to/from the DRAW session
   //! Implements ProgressIndicator for DRAW
   //! Changes the name under which a command of xstep is known by
-  //! Draw. This allows to avoid collisions
+  //! Draw1. This allows to avoid collisions
   //! To be called before LoadDraw or any other xstep initialisation
   Standard_EXPORT static void ChangeCommand(const Standard_CString oldname,
                                             const Standard_CString newname);
 
-  //! Removes a command from the interpretation list of Draw
+  //! Removes a command from the interpretation list of Draw1
   //! To be called before LoadDraw or any other xstep initialisation
   Standard_EXPORT static void RemoveCommand(const Standard_CString oldname);
 
@@ -86,7 +86,7 @@ public:
   //!
   //! See also Controller : it is part of the Context, but it must
   //! be precised separately
-  Standard_EXPORT static void LoadDraw(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void LoadDraw(DrawInterpreter& theCommands);
 
   //! Allows to execute a xstep-draw command from C++ program
   //! Fixed form :  Execute("command args...");
@@ -101,11 +101,11 @@ public:
 
   //! Updates the WorkSession defined in AddDraw (through Pilot)
   //! It is from XSControl, it brings functionalities for Transfers
-  Standard_EXPORT static void SetSession(const Handle(XSControl_WorkSession)& theSession);
+  Standard_EXPORT static void SetSession(const Handle(ExchangeSession)& theSession);
 
   //! Returns the WorkSession defined in AddDraw (through Pilot)
   //! It is from XSControl, it brings functionalities for Transfers
-  Standard_EXPORT static const Handle(XSControl_WorkSession) Session();
+  Standard_EXPORT static const Handle(ExchangeSession) Session();
 
   //! Defines a Controller for the command "xinit" and applies it
   //! (i.e. calls its method Customise)
@@ -201,8 +201,8 @@ public:
   Standard_EXPORT static Standard_Boolean FileAndVar(const Standard_CString   file,
                                                      const Standard_CString   var,
                                                      const Standard_CString   def,
-                                                     TCollection_AsciiString& resfile,
-                                                     TCollection_AsciiString& resvar);
+                                                     AsciiString1& resfile,
+                                                     AsciiString1& resvar);
 
   //! Analyses a name as designating Shapes from DRAW variables or
   //! XSTEP transfer (last Transfer on Reading). <name> can be :
@@ -221,7 +221,7 @@ public:
   //! Document unit has the highest priority.
   //! @return length unit in MM. 1.0 by default
   Standard_EXPORT static Standard_Real GetLengthUnit(
-    const Handle(TDocStd_Document)& theDoc = nullptr);
+    const Handle(AppDocument)& theDoc = nullptr);
 
   //! Returns available work sessions with their associated files.
   Standard_EXPORT static XSControl_WorkSessionMap& WorkSessionList();
@@ -231,16 +231,16 @@ public:
   //! @param[in] theWS the session object
   //! @param[in] theName the session file name
   //! @param[out] theMap collection to keep session info
-  Standard_EXPORT static void CollectActiveWorkSessions(const Handle(XSControl_WorkSession)& theWS,
-                                                        const TCollection_AsciiString& theName,
+  Standard_EXPORT static void CollectActiveWorkSessions(const Handle(ExchangeSession)& theWS,
+                                                        const AsciiString1& theName,
                                                         XSControl_WorkSessionMap&      theMap);
 
   //! Binds current session with input name.
   //! @param[in] theName the session file name
-  Standard_EXPORT static void CollectActiveWorkSessions(const TCollection_AsciiString& theName);
+  Standard_EXPORT static void CollectActiveWorkSessions(const AsciiString1& theName);
 
-  //! Loads all Draw commands of XSDRAW. Used for plugin.
-  Standard_EXPORT static void Factory(Draw_Interpretor& theDI);
+  //! Loads all Draw1 commands of XSDRAW. Used for plugin.
+  Standard_EXPORT static void Factory(DrawInterpreter& theDI);
 };
 
 #endif // _XSDRAW_HeaderFile

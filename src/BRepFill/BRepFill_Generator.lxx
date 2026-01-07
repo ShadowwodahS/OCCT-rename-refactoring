@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shell& BRepFill_Generator::Shell() const
+inline const TopoShell& BRepFill_Generator::Shell() const
 {
   return myShell;
 }

@@ -45,8 +45,8 @@ class StepRepr_ShapeRepresentationRelationship;
 class StepGeom_GeometricRepresentationItem;
 class StepRepr_MappedItem;
 class StepShape_FaceSurface;
-class TopoDS_Shell;
-class TopoDS_Compound;
+class TopoShell;
+class TopoCompound;
 class StepRepr_ConstructiveGeometryRepresentationRelationship;
 class StepRepr_MechanicalDesignAndDraughtingRelationship;
 class StepData_StepModel;
@@ -78,7 +78,7 @@ public:
   Standard_EXPORT Handle(Transfer_Binder) TransferShape(
     const Handle(RefObject)&        start,
     const Handle(Transfer_TransientProcess)& TP,
-    const StepData_Factors&                  theLocalFactors = StepData_Factors(),
+    const ConversionFactors&                  theLocalFactors = ConversionFactors(),
     const Standard_Boolean                   isManifold      = Standard_True,
     const Standard_Boolean                   theUseTrsf      = Standard_False,
     const Message_ProgressRange&             theProgress     = Message_ProgressRange());
@@ -86,12 +86,12 @@ public:
   //! set units and tolerances context by given ShapeRepresentation
   Standard_EXPORT void PrepareUnits(const Handle(StepRepr_Representation)&   rep,
                                     const Handle(Transfer_TransientProcess)& TP,
-                                    StepData_Factors&                        theLocalFactors);
+                                    ConversionFactors&                        theLocalFactors);
 
   //! reset units and tolerances context to default
   //! (mm, radians, read.precision.val, etc.)
   Standard_EXPORT void ResetUnits(Handle(StepData_StepModel)& theModel,
-                                  StepData_Factors&           theLocalFactors);
+                                  ConversionFactors&           theLocalFactors);
 
   //! Set model
   Standard_EXPORT void SetModel(const Handle(Interface_InterfaceModel)& theModel);
@@ -107,7 +107,7 @@ public:
                           const Handle(StepRepr_Representation)&   TargContext,
                           const Handle(Transfer_TransientProcess)& TP,
                           Transform3d&                                 Trsf,
-                          const StepData_Factors& theLocalFactors = StepData_Factors());
+                          const ConversionFactors& theLocalFactors = ConversionFactors());
 
   //! Computes transformation defined by given
   //! REPRESENTATION_RELATIONSHIP_WITH_TRANSFORMATION
@@ -115,7 +115,7 @@ public:
     ComputeSRRWT(const Handle(StepRepr_RepresentationRelationship)& SRR,
                  const Handle(Transfer_TransientProcess)&           TP,
                  Transform3d&                                           Trsf,
-                 const StepData_Factors& theLocalFactors = StepData_Factors());
+                 const ConversionFactors& theLocalFactors = ConversionFactors());
 
   DEFINE_STANDARD_RTTIEXT(STEPControl_ActorRead, Transfer_ActorOfTransientProcess)
 
@@ -126,7 +126,7 @@ protected:
   Standard_EXPORT Handle(TransferBRep_ShapeBinder) TransferEntity(
     const Handle(StepBasic_ProductDefinition)& PD,
     const Handle(Transfer_TransientProcess)&   TP,
-    const StepData_Factors&                    theLocalFactors = StepData_Factors(),
+    const ConversionFactors&                    theLocalFactors = ConversionFactors(),
     const Standard_Boolean                     theUseTrsf      = Standard_False,
     const Message_ProgressRange&               theProgress     = Message_ProgressRange());
 
@@ -134,7 +134,7 @@ protected:
   Standard_EXPORT Handle(TransferBRep_ShapeBinder) TransferEntity(
     const Handle(StepRepr_NextAssemblyUsageOccurrence)& NAUO,
     const Handle(Transfer_TransientProcess)&            TP,
-    const StepData_Factors&                             theLocalFactors = StepData_Factors(),
+    const ConversionFactors&                             theLocalFactors = ConversionFactors(),
     const Message_ProgressRange&                        theProgress     = Message_ProgressRange());
 
   //! Transfers shape representation entity
@@ -143,7 +143,7 @@ protected:
   Standard_EXPORT Handle(TransferBRep_ShapeBinder) TransferEntity(
     const Handle(StepShape_ShapeRepresentation)& sr,
     const Handle(Transfer_TransientProcess)&     TP,
-    const StepData_Factors&                      theLocalFactors,
+    const ConversionFactors&                      theLocalFactors,
     Standard_Boolean&                            isBound,
     const Standard_Boolean                       theUseTrsf  = Standard_False,
     const Message_ProgressRange&                 theProgress = Message_ProgressRange());
@@ -152,7 +152,7 @@ protected:
   Standard_EXPORT Handle(TransferBRep_ShapeBinder) TransferEntity(
     const Handle(StepShape_ContextDependentShapeRepresentation)& CDSR,
     const Handle(Transfer_TransientProcess)&                     TP,
-    const StepData_Factors&      theLocalFactors = StepData_Factors(),
+    const ConversionFactors&      theLocalFactors = ConversionFactors(),
     const Message_ProgressRange& theProgress     = Message_ProgressRange());
 
   //! Transfers  shape representation relationship entity
@@ -161,7 +161,7 @@ protected:
   Standard_EXPORT Handle(TransferBRep_ShapeBinder) TransferEntity(
     const Handle(StepRepr_ShapeRepresentationRelationship)& und,
     const Handle(Transfer_TransientProcess)&                TP,
-    const StepData_Factors&                                 theLocalFactors,
+    const ConversionFactors&                                 theLocalFactors,
     const Standard_Integer                                  nbrep       = 0,
     const Standard_Boolean                                  theUseTrsf  = Standard_False,
     const Message_ProgressRange&                            theProgress = Message_ProgressRange());
@@ -170,7 +170,7 @@ protected:
   Standard_EXPORT Handle(TransferBRep_ShapeBinder) TransferEntity(
     const Handle(StepGeom_GeometricRepresentationItem)& git,
     const Handle(Transfer_TransientProcess)&            TP,
-    const StepData_Factors&                             theLocalFactors,
+    const ConversionFactors&                             theLocalFactors,
     const Standard_Boolean                              isManifold,
     const Message_ProgressRange&                        theProgress);
 
@@ -178,26 +178,26 @@ protected:
   Standard_EXPORT Handle(TransferBRep_ShapeBinder) TransferEntity(
     const Handle(StepRepr_MappedItem)&       mapit,
     const Handle(Transfer_TransientProcess)& TP,
-    const StepData_Factors&                  theLocalFactors,
+    const ConversionFactors&                  theLocalFactors,
     const Message_ProgressRange&             theProgress);
 
   //! Transfers  FaceSurface entity
   Standard_EXPORT Handle(TransferBRep_ShapeBinder) TransferEntity(
     const Handle(StepShape_FaceSurface)&     fs,
     const Handle(Transfer_TransientProcess)& TP,
-    const StepData_Factors&                  theLocalFactors,
+    const ConversionFactors&                  theLocalFactors,
     const Message_ProgressRange&             theProgress);
 
   Handle(TransferBRep_ShapeBinder) TransferEntity(
     const Handle(StepRepr_ConstructiveGeometryRepresentationRelationship)& theCGRR,
     const Handle(Transfer_TransientProcess)&                               theTP,
-    const StepData_Factors& theLocalFactors = StepData_Factors());
+    const ConversionFactors& theLocalFactors = ConversionFactors());
 
   //! Transfers MechanicalDesignAndDraughtingRelationship entity
   Handle(TransferBRep_ShapeBinder) TransferEntity(
     const Handle(StepRepr_MechanicalDesignAndDraughtingRelationship)& theMDADR,
     const Handle(Transfer_TransientProcess)&                          theTP,
-    const StepData_Factors&                                           theLocalFactors,
+    const ConversionFactors&                                           theLocalFactors,
     const Message_ProgressRange&                                      theProgress);
 
   //! Translates file by old way when CDSR are roots . Acts only if "read.step.product_mode" is
@@ -208,24 +208,24 @@ protected:
     const Message_ProgressRange&             theProgress);
 
 private:
-  Standard_EXPORT TopoDS_Shell closeIDEASShell(const TopoDS_Shell&         shell,
-                                               const TopTools_ListOfShape& closingShells);
+  Standard_EXPORT TopoShell closeIDEASShell(const TopoShell&         shell,
+                                               const ShapeList& closingShells);
 
   Standard_EXPORT void computeIDEASClosings(
-    const TopoDS_Compound&                     comp,
+    const TopoCompound&                     comp,
     TopTools_IndexedDataMapOfShapeListOfShape& shellClosingMap);
 
-  Standard_EXPORT TopoDS_Shape
+  Standard_EXPORT TopoShape
     TransferRelatedSRR(const Handle(Transfer_TransientProcess)&     theTP,
                        const Handle(StepShape_ShapeRepresentation)& theRep,
                        const Standard_Boolean                       theUseTrsf,
                        const Standard_Boolean                       theReadConstructiveGeomRR,
-                       const StepData_Factors&                      theLocalFactors,
-                       TopoDS_Compound&                             theCund,
+                       const ConversionFactors&                      theLocalFactors,
+                       TopoCompound&                             theCund,
                        Message_ProgressScope&                       thePS);
 
 private:
-  StepToTopoDS_NMTool              myNMTool;
+  NamingTool2              myNMTool;
   Standard_Real                    myPrecision;
   Standard_Real                    myMaxTol;
   Handle(StepRepr_Representation)  mySRContext;

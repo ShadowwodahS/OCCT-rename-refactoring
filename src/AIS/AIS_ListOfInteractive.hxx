@@ -20,8 +20,8 @@
 #include <AIS_InteractiveObject.hxx>
 #include <NCollection_List.hxx>
 
-typedef NCollection_List<Handle(AIS_InteractiveObject)> AIS_ListOfInteractive;
-typedef NCollection_List<Handle(AIS_InteractiveObject)>::Iterator
+typedef NCollection_List<Handle(VisualEntity)> AIS_ListOfInteractive;
+typedef NCollection_List<Handle(VisualEntity)>::Iterator
   AIS_ListIteratorOfListOfInteractive;
 
 #endif

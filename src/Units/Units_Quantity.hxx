@@ -47,7 +47,7 @@ public:
                  const Handle(Units_UnitsSequence)& aunitssequence);
 
   //! Returns in a AsciiString from TCollection the name of the quantity.
-  TCollection_AsciiString Name() const;
+  AsciiString1 Name() const;
 
   //! Returns the physical dimensions of the quantity.
   Handle(Units_Dimensions) Dimensions() const;

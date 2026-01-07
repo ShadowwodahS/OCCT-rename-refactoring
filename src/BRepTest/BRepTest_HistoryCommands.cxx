@@ -25,15 +25,15 @@
 
 #include <TopoDS.hxx>
 
-static Standard_Integer SetFillHistory(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer SaveHistory(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer Modified(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer Generated(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer IsDeleted(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer SetFillHistory(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer SaveHistory(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer Modified(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer Generated(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer IsDeleted(DrawInterpreter&, Standard_Integer, const char**);
 
 //=================================================================================================
 
-void BRepTest::HistoryCommands(Draw_Interpretor& theCommands)
+void BRepTest::HistoryCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean isDone = Standard_False;
   if (isDone)
@@ -86,7 +86,7 @@ void BRepTest::HistoryCommands(Draw_Interpretor& theCommands)
 
 //=================================================================================================
 
-Standard_Integer SetFillHistory(Draw_Interpretor& theDI,
+Standard_Integer SetFillHistory(DrawInterpreter& theDI,
                                 Standard_Integer  theArgc,
                                 const char**      theArgv)
 {
@@ -103,7 +103,7 @@ Standard_Integer SetFillHistory(Draw_Interpretor& theDI,
   }
   else
   {
-    Standard_Integer iHist = Draw::Atoi(theArgv[1]);
+    Standard_Integer iHist = Draw1::Atoi(theArgv[1]);
     BRepTest_Objects::SetToFillHistory(iHist != 0);
   }
   return 0;
@@ -111,7 +111,7 @@ Standard_Integer SetFillHistory(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-Standard_Integer SaveHistory(Draw_Interpretor& theDI,
+Standard_Integer SaveHistory(DrawInterpreter& theDI,
                              Standard_Integer  theArgc,
                              const char**      theArgv)
 {
@@ -131,17 +131,17 @@ Standard_Integer SaveHistory(Draw_Interpretor& theDI,
 
   Handle(BRepTest_DrawableHistory) aDrawHist = new BRepTest_DrawableHistory(aHistory);
 
-  Draw::Set(theArgv[1], aDrawHist);
+  Draw1::Set(theArgv[1], aDrawHist);
 
   return 0;
 }
 
 //=================================================================================================
 
-static Handle(BRepTools_History) GetHistory(Draw_Interpretor& theDI, Standard_CString theName)
+static Handle(BRepTools_History) GetHistory(DrawInterpreter& theDI, Standard_CString theName)
 {
   Handle(BRepTest_DrawableHistory) aHistory =
-    Handle(BRepTest_DrawableHistory)::DownCast(Draw::Get(theName));
+    Handle(BRepTest_DrawableHistory)::DownCast(Draw1::Get(theName));
 
   if (aHistory.IsNull() || aHistory->History().IsNull())
   {
@@ -154,44 +154,44 @@ static Handle(BRepTools_History) GetHistory(Draw_Interpretor& theDI, Standard_CS
 
 //=================================================================================================
 
-static TopoDS_Shape GetShape(Draw_Interpretor& theDI, Standard_CString theName)
+static TopoShape GetShape(DrawInterpreter& theDI, Standard_CString theName)
 {
-  TopoDS_Shape aS = DBRep::Get(theName);
+  TopoShape aS = DBRep1::Get(theName);
 
   if (aS.IsNull())
   {
     theDI << theName << " is a null shape.";
-    return TopoDS_Shape();
+    return TopoShape();
   }
 
   if (!BRepTools_History::IsSupportedType(aS))
   {
     theDI << "History is not supported for this kind of shape.";
-    return TopoDS_Shape();
+    return TopoShape();
   }
   return aS;
 }
 
 //=================================================================================================
 
-static TopoDS_Shape MakeCompound(const TopTools_ListOfShape& theLS)
+static TopoShape MakeCompound(const ShapeList& theLS)
 {
-  TopoDS_Shape aC;
+  TopoShape aC;
   if (theLS.Extent() == 1)
     aC = theLS.First();
   else
   {
-    BRep_Builder().MakeCompound(TopoDS::Compound(aC));
+    ShapeBuilder().MakeCompound(TopoDS::Compound(aC));
     TopTools_ListIteratorOfListOfShape it(theLS);
     for (; it.More(); it.Next())
-      BRep_Builder().Add(aC, it.Value());
+      ShapeBuilder().Add(aC, it.Value());
   }
   return aC;
 }
 
 //=================================================================================================
 
-Standard_Integer Modified(Draw_Interpretor& theDI, Standard_Integer theArgc, const char** theArgv)
+Standard_Integer Modified(DrawInterpreter& theDI, Standard_Integer theArgc, const char** theArgv)
 {
   if (theArgc != 4)
   {
@@ -203,11 +203,11 @@ Standard_Integer Modified(Draw_Interpretor& theDI, Standard_Integer theArgc, con
   if (aHistory.IsNull())
     return 1;
 
-  TopoDS_Shape aS = GetShape(theDI, theArgv[3]);
+  TopoShape aS = GetShape(theDI, theArgv[3]);
   if (aS.IsNull())
     return 1;
 
-  const TopTools_ListOfShape& aModified = aHistory->Modified(aS);
+  const ShapeList& aModified = aHistory->Modified(aS);
 
   if (aModified.IsEmpty())
   {
@@ -215,14 +215,14 @@ Standard_Integer Modified(Draw_Interpretor& theDI, Standard_Integer theArgc, con
     return 0;
   }
 
-  DBRep::Set(theArgv[1], MakeCompound(aModified));
+  DBRep1::Set(theArgv[1], MakeCompound(aModified));
 
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer Generated(Draw_Interpretor& theDI, Standard_Integer theArgc, const char** theArgv)
+Standard_Integer Generated(DrawInterpreter& theDI, Standard_Integer theArgc, const char** theArgv)
 {
   if (theArgc != 4)
   {
@@ -234,11 +234,11 @@ Standard_Integer Generated(Draw_Interpretor& theDI, Standard_Integer theArgc, co
   if (aHistory.IsNull())
     return 1;
 
-  TopoDS_Shape aS = GetShape(theDI, theArgv[3]);
+  TopoShape aS = GetShape(theDI, theArgv[3]);
   if (aS.IsNull())
     return 1;
 
-  const TopTools_ListOfShape& aGenerated = aHistory->Generated(aS);
+  const ShapeList& aGenerated = aHistory->Generated(aS);
 
   if (aGenerated.IsEmpty())
   {
@@ -246,14 +246,14 @@ Standard_Integer Generated(Draw_Interpretor& theDI, Standard_Integer theArgc, co
     return 0;
   }
 
-  DBRep::Set(theArgv[1], MakeCompound(aGenerated));
+  DBRep1::Set(theArgv[1], MakeCompound(aGenerated));
 
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer IsDeleted(Draw_Interpretor& theDI, Standard_Integer theArgc, const char** theArgv)
+Standard_Integer IsDeleted(DrawInterpreter& theDI, Standard_Integer theArgc, const char** theArgv)
 {
   if (theArgc != 3)
   {
@@ -265,7 +265,7 @@ Standard_Integer IsDeleted(Draw_Interpretor& theDI, Standard_Integer theArgc, co
   if (aHistory.IsNull())
     return 1;
 
-  TopoDS_Shape aS = GetShape(theDI, theArgv[2]);
+  TopoShape aS = GetShape(theDI, theArgv[2]);
   if (aS.IsNull())
     return 1;
 

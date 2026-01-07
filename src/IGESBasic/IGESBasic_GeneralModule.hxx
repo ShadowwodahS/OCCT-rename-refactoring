@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class IGESData_IGESEntity;
 class Interface_EntityIterator;
-class IGESData_DirChecker;
+class DirectoryChecker;
 class Interface_ShareTool;
 class Interface_Check;
 class RefObject;
@@ -33,13 +33,13 @@ class Interface_CopyTool;
 class IGESBasic_GeneralModule;
 DEFINE_STANDARD_HANDLE(IGESBasic_GeneralModule, IGESData_GeneralModule)
 
-//! Definition of General Services for IGESBasic (specific part)
+//! Definition of General Services for IGESBasic1 (specific part)
 //! This Services comprise : Shared & Implied Lists, Copy, Check
 class IGESBasic_GeneralModule : public IGESData_GeneralModule
 {
 
 public:
-  //! Creates a GeneralModule from IGESBasic and puts it into GeneralLib
+  //! Creates a GeneralModule from IGESBasic1 and puts it into GeneralLib
   Standard_EXPORT IGESBasic_GeneralModule();
 
   //! Lists the Entities shared by a given IGESEntity <ent>, from
@@ -51,7 +51,7 @@ public:
   //! Returns a DirChecker, specific for each type of Entity
   //! (identified by its Case Number) : this DirChecker defines
   //! constraints which must be respected by the DirectoryPart
-  Standard_EXPORT IGESData_DirChecker
+  Standard_EXPORT DirectoryChecker
     DirChecker(const Standard_Integer             CN,
                const Handle(IGESData_IGESEntity)& ent) const Standard_OVERRIDE;
 

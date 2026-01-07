@@ -24,7 +24,7 @@
 #include <TopOpeBRepDS_HDataStructure.hxx>
 
 #ifdef OCCT_DEBUG
-Standard_EXPORT void debfctwesmess(const Standard_Integer i, const TCollection_AsciiString& s = "");
+Standard_EXPORT void debfctwesmess(const Standard_Integer i, const AsciiString1& s = "");
 Standard_EXPORT void debffwesON(const Standard_Integer i);
 
 Standard_EXPORT void debffwesk(const Standard_Integer i)
@@ -33,7 +33,7 @@ Standard_EXPORT void debffwesk(const Standard_Integer i)
 }
 #endif
 
-Standard_Boolean TopOpeBRepBuild_FUN_aresamegeom(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
+Standard_Boolean TopOpeBRepBuild_FUN_aresamegeom(const TopoShape& S1, const TopoShape& S2);
 
 #define M_IN(st) (st == TopAbs_IN)
 #define M_OUT(st) (st == TopAbs_OUT)
@@ -44,9 +44,9 @@ Standard_Boolean TopOpeBRepBuild_FUN_aresamegeom(const TopoDS_Shape& S1, const T
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GFillFacesWESK(const TopTools_ListOfShape&  LS1,
-                                             const TopTools_ListOfShape&  LS2,
-                                             const TopOpeBRepBuild_GTopo& G1,
+void TopOpeBRepBuild_Builder::GFillFacesWESK(const ShapeList&  LS1,
+                                             const ShapeList&  LS2,
+                                             const GTopologyClassifier& G1,
                                              TopOpeBRepBuild_WireEdgeSet& WES,
                                              const Standard_Integer       Kfill)
 {
@@ -57,7 +57,7 @@ void TopOpeBRepBuild_Builder::GFillFacesWESK(const TopTools_ListOfShape&  LS1,
 
   const TopOpeBRepDS_DataStructure& BDS = myDataStructure->DS();
 
-  const TopoDS_Shape& F1 = LS1.First();
+  const TopoShape& F1 = LS1.First();
   myFaceReference        = TopoDS::Face(F1);
 #ifdef OCCT_DEBUG
   Standard_Integer iF1 =
@@ -77,7 +77,7 @@ void TopOpeBRepBuild_Builder::GFillFacesWESK(const TopTools_ListOfShape&  LS1,
 #endif
 
   TopAbs_State                       TB;
-  TopOpeBRepBuild_GTopo              G;
+  GTopologyClassifier              G;
   TopTools_ListIteratorOfListOfShape it;
   Standard_Boolean                   gistoreverse1;
 
@@ -93,20 +93,20 @@ void TopOpeBRepBuild_Builder::GFillFacesWESK(const TopTools_ListOfShape&  LS1,
     TopAbs_State TB11, TB21;
     G.StatesON(TB11, TB21);
     std::cout << " TB = ";
-    TopAbs::Print(TB, std::cout);
+    TopAbs1::Print(TB, std::cout);
     std::cout << " ";
     std::cout << "(TB1 = ";
-    TopAbs::Print(TB11, std::cout);
+    TopAbs1::Print(TB11, std::cout);
     std::cout << ",";
     std::cout << " TB2 = ";
-    TopAbs::Print(TB21, std::cout);
+    TopAbs1::Print(TB21, std::cout);
     std::cout << ")\n\n";
   }
 #endif
 
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape& S       = it.Value();
+    const TopoShape& S       = it.Value();
     Standard_Integer    iS      = myDataStructure->Shape(S);
     Standard_Boolean    tomerge = !IsMerged(S, TB);
     if (!tomerge)
@@ -121,8 +121,8 @@ void TopOpeBRepBuild_Builder::GFillFacesWESK(const TopTools_ListOfShape&  LS1,
     //     Leur orientation dans la face resultat (reference) est le contraire
     //     de la grille.
     //  Modified by Sergey KHROMOV - Sat Apr 27 14:40:35 2002 Begin
-    //     const TopoDS_Shape& Fref = WES.Face();
-    //     const TopoDS_Shape& F = S;
+    //     const TopoShape& Fref = WES.Face();
+    //     const TopoShape& F = S;
     //     Standard_Boolean samegeom = ::TopOpeBRepBuild_FUN_aresamegeom(Fref,F);
     //     Standard_Boolean r = gistoreverse1;
     //     if ( !samegeom ) { r = !r; G.SetReverse(r); }
@@ -181,28 +181,28 @@ void TopOpeBRepBuild_Builder::GFillFacesWESK(const TopTools_ListOfShape&  LS1,
     TopAbs_State TB12, TB22;
     G.StatesON(TB12, TB22);
     std::cout << " TB = ";
-    TopAbs::Print(TB, std::cout);
+    TopAbs1::Print(TB, std::cout);
     std::cout << " ";
     std::cout << "(TB1 = ";
-    TopAbs::Print(TB12, std::cout);
+    TopAbs1::Print(TB12, std::cout);
     std::cout << ",";
     std::cout << " TB2 = ";
-    TopAbs::Print(TB22, std::cout);
+    TopAbs1::Print(TB22, std::cout);
     std::cout << ")\n\n";
   }
 #endif
 
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape& S       = it.Value();
+    const TopoShape& S       = it.Value();
     Standard_Integer    iS      = myDataStructure->Shape(S);
     Standard_Boolean    tomerge = !IsMerged(S, TB);
     if (!tomerge)
       continue;
 
     //  Modified by Sergey KHROMOV - Sat Apr 27 14:38:33 2002 Begin
-    //     const TopoDS_Shape& Fref = WES.Face();
-    //     const TopoDS_Shape& F = S;
+    //     const TopoShape& Fref = WES.Face();
+    //     const TopoShape& F = S;
     //     Standard_Boolean samegeom = ::TopOpeBRepBuild_FUN_aresamegeom(Fref,F);
     //     Standard_Boolean r = gistoreverse1;
     //     if ( !samegeom ) { r = !r; G.SetReverse(r); }

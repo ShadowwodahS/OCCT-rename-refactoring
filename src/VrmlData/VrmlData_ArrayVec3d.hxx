@@ -87,7 +87,7 @@ public:
   /**
    * Read the Node from input stream.
    */
-  Standard_EXPORT VrmlData_ErrorStatus ReadArray(VrmlData_InBuffer&     theBuffer,
+  Standard_EXPORT VrmlData_ErrorStatus ReadArray(InputBuffer&     theBuffer,
                                                  const char*            theName,
                                                  const Standard_Boolean isScale);
 

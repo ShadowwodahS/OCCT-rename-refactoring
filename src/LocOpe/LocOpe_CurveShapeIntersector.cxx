@@ -30,7 +30,7 @@ static void Perform(BRepIntCurveSurface_Inter&, LocOpe_SequenceOfPntFace&);
 
 //=================================================================================================
 
-void LocOpe_CurveShapeIntersector::Init(const Axis3d& Axis, const TopoDS_Shape& S)
+void CurveShapeIntersector::Init(const Axis3d& Axis, const TopoShape& S)
 {
   myDone = Standard_False;
   myPoints.Clear();
@@ -48,7 +48,7 @@ void LocOpe_CurveShapeIntersector::Init(const Axis3d& Axis, const TopoDS_Shape& 
 
 //=================================================================================================
 
-void LocOpe_CurveShapeIntersector::Init(const gp_Circ& C, const TopoDS_Shape& S)
+void CurveShapeIntersector::Init(const gp_Circ& C, const TopoShape& S)
 {
   myDone = Standard_False;
   myPoints.Clear();
@@ -58,7 +58,7 @@ void LocOpe_CurveShapeIntersector::Init(const gp_Circ& C, const TopoDS_Shape& S)
   }
   Standard_Real Tol = Precision::Confusion();
 
-  Handle(Geom_Circle) GC = new Geom_Circle(C);
+  Handle(GeomCircle) GC = new GeomCircle(C);
   GeomAdaptor_Curve   AC(GC, 0., 2. * M_PI);
 
   BRepIntCurveSurface_Inter theInt;
@@ -70,7 +70,7 @@ void LocOpe_CurveShapeIntersector::Init(const gp_Circ& C, const TopoDS_Shape& S)
 
 //=================================================================================================
 
-Standard_Boolean LocOpe_CurveShapeIntersector::LocalizeAfter(const Standard_Real From,
+Standard_Boolean CurveShapeIntersector::LocalizeAfter(const Standard_Real From,
                                                              TopAbs_Orientation& Or,
                                                              Standard_Integer&   IndFrom,
                                                              Standard_Integer&   IndTo) const
@@ -134,7 +134,7 @@ Standard_Boolean LocOpe_CurveShapeIntersector::LocalizeAfter(const Standard_Real
 
 //=================================================================================================
 
-Standard_Boolean LocOpe_CurveShapeIntersector::LocalizeBefore(const Standard_Real From,
+Standard_Boolean CurveShapeIntersector::LocalizeBefore(const Standard_Real From,
                                                               TopAbs_Orientation& Or,
                                                               Standard_Integer&   IndFrom,
                                                               Standard_Integer&   IndTo) const
@@ -198,7 +198,7 @@ Standard_Boolean LocOpe_CurveShapeIntersector::LocalizeBefore(const Standard_Rea
 
 //=================================================================================================
 
-Standard_Boolean LocOpe_CurveShapeIntersector::LocalizeAfter(const Standard_Integer FromInd,
+Standard_Boolean CurveShapeIntersector::LocalizeAfter(const Standard_Integer FromInd,
                                                              TopAbs_Orientation&    Or,
                                                              Standard_Integer&      IndFrom,
                                                              Standard_Integer&      IndTo) const
@@ -276,7 +276,7 @@ Standard_Boolean LocOpe_CurveShapeIntersector::LocalizeAfter(const Standard_Inte
 
 //=================================================================================================
 
-Standard_Boolean LocOpe_CurveShapeIntersector::LocalizeBefore(const Standard_Integer FromInd,
+Standard_Boolean CurveShapeIntersector::LocalizeBefore(const Standard_Integer FromInd,
                                                               TopAbs_Orientation&    Or,
                                                               Standard_Integer&      IndFrom,
                                                               Standard_Integer&      IndTo) const
@@ -364,7 +364,7 @@ static void Perform(BRepIntCurveSurface_Inter& theInt, LocOpe_SequenceOfPntFace&
   while (theInt.More())
   {
     const Point3d&      thept   = theInt.Pnt();
-    const TopoDS_Face& theface = theInt.Face();
+    const TopoFace& theface = theInt.Face();
     orface                     = theface.Orientation();
     param                      = theInt.W();
     paramu                     = theInt.U();

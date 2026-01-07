@@ -77,7 +77,7 @@ static Standard_Real GetCurvMaxParamVal(const Adaptor3d_Curve& theC)
   }
   if (theC.GetType() == GeomAbs_OffsetCurve)
   {
-    Handle(Geom_Curve)        aBC(theC.OffsetCurve()->BasisCurve());
+    Handle(GeomCurve3d)        aBC(theC.OffsetCurve()->BasisCurve());
     Handle(Geom_TrimmedCurve) aTC = Handle(Geom_TrimmedCurve)::DownCast(aBC);
     if (!aTC.IsNull())
     {

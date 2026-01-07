@@ -35,7 +35,7 @@ XmlMDataStd_IntegerDriver::XmlMDataStd_IntegerDriver(const Handle(Message_Messen
 
 Handle(TDF_Attribute) XmlMDataStd_IntegerDriver::NewEmpty() const
 {
-  return (new TDataStd_Integer());
+  return (new IntAttribute());
 }
 
 //=======================================================================
@@ -51,13 +51,13 @@ Standard_Boolean XmlMDataStd_IntegerDriver::Paste(const XmlObjMgt_Persistent&  t
 
   if (anIntStr.GetInteger(aValue) == Standard_False)
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve Integer attribute from \"") + anIntStr + "\"";
+    UtfString aMessageString =
+      UtfString("Cannot retrieve Integer attribute from \"") + anIntStr + "\"";
     myMessageDriver->Send(aMessageString, Message_Warning);
     aValue = 0;
   }
 
-  Handle(TDataStd_Integer) anInt = Handle(TDataStd_Integer)::DownCast(theTarget);
+  Handle(IntAttribute) anInt = Handle(IntAttribute)::DownCast(theTarget);
   anInt->Set(aValue);
 
   // attribute id
@@ -66,7 +66,7 @@ Standard_Boolean XmlMDataStd_IntegerDriver::Paste(const XmlObjMgt_Persistent&  t
   if (aGUIDStr.Type() != XmlObjMgt_DOMString::LDOM_NULL)
   {
     const Standard_GUID aGUID(aGUIDStr.GetString()); // user defined case
-    Handle(TDataStd_Integer)::DownCast(theTarget)->SetID(aGUID);
+    Handle(IntAttribute)::DownCast(theTarget)->SetID(aGUID);
   }
 
   return Standard_True;
@@ -80,9 +80,9 @@ void XmlMDataStd_IntegerDriver::Paste(const Handle(TDF_Attribute)& theSource,
                                       XmlObjMgt_Persistent&        theTarget,
                                       XmlObjMgt_SRelocationTable&) const
 {
-  Handle(TDataStd_Integer) anInt = Handle(TDataStd_Integer)::DownCast(theSource);
+  Handle(IntAttribute) anInt = Handle(IntAttribute)::DownCast(theSource);
   XmlObjMgt::SetStringValue(theTarget, anInt->Get());
-  if (anInt->ID() != TDataStd_Integer::GetID())
+  if (anInt->ID() != IntAttribute::GetID())
   {
     // convert GUID
     Standard_Character  aGuidStr[Standard_GUID_SIZE_ALLOC];

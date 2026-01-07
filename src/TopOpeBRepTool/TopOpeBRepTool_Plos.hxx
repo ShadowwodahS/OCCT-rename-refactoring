@@ -19,6 +19,6 @@
 
 #include <TopTools_ListOfShape.hxx>
 
-typedef TopTools_ListOfShape* TopOpeBRepTool_Plos;
+typedef ShapeList* TopOpeBRepTool_Plos;
 
 #endif // _TopOpeBRepTool_Plos_HeaderFile

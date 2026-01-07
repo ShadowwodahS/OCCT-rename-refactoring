@@ -30,9 +30,9 @@
 #include <Interface_ShareTool.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESAppli_ToolPartNumber::IGESAppli_ToolPartNumber() {}
+PartNumberTool::PartNumberTool() {}
 
-void IGESAppli_ToolPartNumber::ReadOwnParams(const Handle(IGESAppli_PartNumber)& ent,
+void PartNumberTool::ReadOwnParams(const Handle(IGESAppli_PartNumber)& ent,
                                              const Handle(IGESData_IGESReaderData)& /* IR */,
                                              IGESData_ParamReader& PR) const
 {
@@ -61,7 +61,7 @@ void IGESAppli_ToolPartNumber::ReadOwnParams(const Handle(IGESAppli_PartNumber)&
             tempInternalNumber);
 }
 
-void IGESAppli_ToolPartNumber::WriteOwnParams(const Handle(IGESAppli_PartNumber)& ent,
+void PartNumberTool::WriteOwnParams(const Handle(IGESAppli_PartNumber)& ent,
                                               IGESData_IGESWriter&                IW) const
 {
   IW.Send(ent->NbPropertyValues());
@@ -71,12 +71,12 @@ void IGESAppli_ToolPartNumber::WriteOwnParams(const Handle(IGESAppli_PartNumber)
   IW.Send(ent->InternalNumber());
 }
 
-void IGESAppli_ToolPartNumber::OwnShared(const Handle(IGESAppli_PartNumber)& /* ent */,
+void PartNumberTool::OwnShared(const Handle(IGESAppli_PartNumber)& /* ent */,
                                          Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESAppli_ToolPartNumber::OwnCopy(const Handle(IGESAppli_PartNumber)& another,
+void PartNumberTool::OwnCopy(const Handle(IGESAppli_PartNumber)& another,
                                        const Handle(IGESAppli_PartNumber)& ent,
                                        Interface_CopyTool& /* TC */) const
 {
@@ -96,7 +96,7 @@ void IGESAppli_ToolPartNumber::OwnCopy(const Handle(IGESAppli_PartNumber)& anoth
             tempInternalNumber);
 }
 
-Standard_Boolean IGESAppli_ToolPartNumber::OwnCorrect(const Handle(IGESAppli_PartNumber)& ent) const
+Standard_Boolean PartNumberTool::OwnCorrect(const Handle(IGESAppli_PartNumber)& ent) const
 {
   Standard_Boolean res = (ent->NbPropertyValues() != 4);
   if (res)
@@ -108,10 +108,10 @@ Standard_Boolean IGESAppli_ToolPartNumber::OwnCorrect(const Handle(IGESAppli_Par
   return res;
 }
 
-IGESData_DirChecker IGESAppli_ToolPartNumber::DirChecker(
+DirectoryChecker PartNumberTool::DirChecker(
   const Handle(IGESAppli_PartNumber)& /* ent */) const
 {
-  IGESData_DirChecker DC(406, 9);
+  DirectoryChecker DC(406, 9);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -123,7 +123,7 @@ IGESData_DirChecker IGESAppli_ToolPartNumber::DirChecker(
   return DC;
 }
 
-void IGESAppli_ToolPartNumber::OwnCheck(const Handle(IGESAppli_PartNumber)& ent,
+void PartNumberTool::OwnCheck(const Handle(IGESAppli_PartNumber)& ent,
                                         const Interface_ShareTool&,
                                         Handle(Interface_Check)& ach) const
 {
@@ -131,7 +131,7 @@ void IGESAppli_ToolPartNumber::OwnCheck(const Handle(IGESAppli_PartNumber)& ent,
     ach->AddFail("Number of property values != 4");
 }
 
-void IGESAppli_ToolPartNumber::OwnDump(const Handle(IGESAppli_PartNumber)& ent,
+void PartNumberTool::OwnDump(const Handle(IGESAppli_PartNumber)& ent,
                                        const IGESData_IGESDumper& /* dumper */,
                                        Standard_OStream& S,
                                        const Standard_Integer /* level */) const

@@ -34,27 +34,27 @@ public:
   TopoDS_HShape();
 
   //! Constructs a shape object defined by the shape aShape.
-  TopoDS_HShape(const TopoDS_Shape& aShape);
+  TopoDS_HShape(const TopoShape& aShape);
 
   //! Loads this shape with the shape aShape
-  void Shape(const TopoDS_Shape& aShape);
+  void Shape(const TopoShape& aShape);
 
-  //! Returns a reference to a constant TopoDS_Shape based on this shape.
-  const TopoDS_Shape& Shape() const;
+  //! Returns a reference to a constant TopoShape based on this shape.
+  const TopoShape& Shape() const;
 
-  //! Exchanges the TopoDS_Shape object defining this
+  //! Exchanges the TopoShape object defining this
   //! shape for another one referencing the same underlying shape
   //! Accesses the list of shapes within the underlying
-  //! shape referenced by the TopoDS_Shape object.
-  //! Returns a reference to a TopoDS_Shape based on
-  //! this shape. The TopoDS_Shape can be modified.
-  TopoDS_Shape& ChangeShape();
+  //! shape referenced by the TopoShape object.
+  //! Returns a reference to a TopoShape based on
+  //! this shape. The TopoShape can be modified.
+  TopoShape& ChangeShape();
 
   DEFINE_STANDARD_RTTIEXT(TopoDS_HShape, RefObject)
 
 protected:
 private:
-  TopoDS_Shape myShape;
+  TopoShape myShape;
 };
 
 #include <TopoDS_HShape.lxx>

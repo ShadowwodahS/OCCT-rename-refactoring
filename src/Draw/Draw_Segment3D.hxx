@@ -22,7 +22,7 @@
 #include <gp_Pnt.hxx>
 #include <Draw_Color.hxx>
 #include <Draw_Drawable3D.hxx>
-class Draw_Display;
+class DrawDisplay;
 
 class Draw_Segment3D;
 DEFINE_STANDARD_HANDLE(Draw_Segment3D, Draw_Drawable3D)
@@ -31,9 +31,9 @@ class Draw_Segment3D : public Draw_Drawable3D
 {
 
 public:
-  Standard_EXPORT Draw_Segment3D(const Point3d& p1, const Point3d& p2, const Draw_Color& col);
+  Standard_EXPORT Draw_Segment3D(const Point3d& p1, const Point3d& p2, const DrawColor& col);
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   Standard_EXPORT const Point3d& First() const;
 
@@ -49,7 +49,7 @@ protected:
 private:
   Point3d     myFirst;
   Point3d     myLast;
-  Draw_Color myColor;
+  DrawColor myColor;
 };
 
 #endif // _Draw_Segment3D_HeaderFile

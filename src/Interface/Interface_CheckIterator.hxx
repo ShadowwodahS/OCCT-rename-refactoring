@@ -204,7 +204,7 @@ private:
   Handle(Interface_HSequenceOfCheck) thelist;
   Handle(TColStd_HSequenceOfInteger) thenums;
   Handle(Interface_InterfaceModel)   themod;
-  TCollection_AsciiString            thename;
+  AsciiString1            thename;
   Handle(Interface_IntVal)           thecurr;
 };
 

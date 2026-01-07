@@ -290,7 +290,7 @@ Standard_Real BRepExtrema_ProximityDistTool::ComputeDistance()
 //=======================================================================
 Standard_Boolean BRepExtrema_ProximityDistTool::IsNodeOnBorder(
   const Standard_Integer            theNodeIdx,
-  const Handle(Poly_Triangulation)& theTr)
+  const Handle(MeshTriangulation)& theTr)
 {
   Poly_Connect aPolyConnect(theTr);
 
@@ -332,7 +332,7 @@ Standard_Boolean BRepExtrema_ProximityDistTool::IsEdgeOnBorder(
   const Standard_Integer            theTrgIdx,
   const Standard_Integer            theFirstEdgeNodeIdx,
   const Standard_Integer            theSecondEdgeNodeIdx,
-  const Handle(Poly_Triangulation)& theTr)
+  const Handle(MeshTriangulation)& theTr)
 {
   Poly_Connect aPolyConnect(theTr);
 
@@ -397,8 +397,8 @@ void BRepExtrema_ProximityDistTool::defineStatusProxPnt1()
     Standard_Integer aNodeIdx = mySet1->GetVtxIdxInShape(myProxVtxIdx1) + 1;
 
     TopLoc_Location            aLocation;
-    const TopoDS_Face&         aF  = TopoDS::Face(myShapeList1(aFaceID1));
-    Handle(Poly_Triangulation) aTr = BRep_Tool::Triangulation(aF, aLocation);
+    const TopoFace&         aF  = TopoDS::Face(myShapeList1(aFaceID1));
+    Handle(MeshTriangulation) aTr = BRepInspector::Triangulation(aF, aLocation);
 
     if (IsNodeOnBorder(aNodeIdx, aTr))
     {
@@ -481,8 +481,8 @@ void BRepExtrema_ProximityDistTool::defineStatusProxPnt2()
     else
     {
       TopLoc_Location            aLocation;
-      const TopoDS_Face&         aF  = TopoDS::Face(myShapeList2(aFaceID2));
-      Handle(Poly_Triangulation) aTr = BRep_Tool::Triangulation(aF, aLocation);
+      const TopoFace&         aF  = TopoDS::Face(myShapeList2(aFaceID2));
+      Handle(MeshTriangulation) aTr = BRepInspector::Triangulation(aF, aLocation);
 
       NCollection_Array1<Standard_Integer> aVtxIndicesOfTrg;
       mySet2->GetVtxIndices(aTrgIdx, aVtxIndicesOfTrg);

@@ -32,8 +32,8 @@ void TDataStd::IDList(TDF_IDList& anIDList)
 {
   anIDList.Append(TDF_TagSource::GetID());
   anIDList.Append(TDF_Reference::GetID());
-  anIDList.Append(TDataStd_Integer::GetID());
-  anIDList.Append(TDataStd_Name::GetID());
+  anIDList.Append(IntAttribute::GetID());
+  anIDList.Append(NameAttribute::GetID());
   anIDList.Append(TDataStd_Real::GetID());
   anIDList.Append(TDataStd_IntegerArray::GetID());
   anIDList.Append(TDataStd_RealArray::GetID());

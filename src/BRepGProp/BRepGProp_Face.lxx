@@ -32,7 +32,7 @@ inline BRepGProp_Face::BRepGProp_Face(const Standard_Boolean IsUseSpan)
 //           IsUseSpan flan.
 //=======================================================================
 
-inline BRepGProp_Face::BRepGProp_Face(const TopoDS_Face& F, const Standard_Boolean IsUseSpan)
+inline BRepGProp_Face::BRepGProp_Face(const TopoFace& F, const Standard_Boolean IsUseSpan)
     : myIsUseSpan(IsUseSpan)
 {
   Load(F);
@@ -45,7 +45,7 @@ inline BRepGProp_Face::BRepGProp_Face(const TopoDS_Face& F, const Standard_Boole
 
 inline Standard_Boolean BRepGProp_Face::NaturalRestriction() const
 {
-  return BRep_Tool::NaturalRestriction(mySurface.Face());
+  return BRepInspector::NaturalRestriction(mySurface.Face());
 }
 
 //
@@ -54,7 +54,7 @@ inline Standard_Boolean BRepGProp_Face::NaturalRestriction() const
 // purpose  : Returns TopoDS Face.
 //=======================================================================
 
-inline const TopoDS_Face& BRepGProp_Face::GetFace() const
+inline const TopoFace& BRepGProp_Face::GetFace() const
 {
   return mySurface.Face();
 }

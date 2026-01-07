@@ -20,7 +20,7 @@
 #include <Standard.hxx>
 #include <Standard_Macro.hxx>
 
-class Draw_Interpretor;
+class DrawInterpreter;
 class WNT_WClass;
 
 class IVtkDraw
@@ -57,8 +57,8 @@ public:
     ViewerInit(aParams);
   }
 
-  Standard_EXPORT static void Factory(Draw_Interpretor& theDI);
-  Standard_EXPORT static void Commands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void Factory(DrawInterpreter& theDI);
+  Standard_EXPORT static void Commands(DrawInterpreter& theCommands);
 
 private:
   Standard_EXPORT static const Handle(WNT_WClass)& WClass();

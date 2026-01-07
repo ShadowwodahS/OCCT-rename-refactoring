@@ -22,7 +22,7 @@
 
 #include <TopoDS_Face.hxx>
 #include <DrawDim_Dimension.hxx>
-class Draw_Display;
+class DrawDisplay;
 
 class DrawDim_Radius;
 DEFINE_STANDARD_HANDLE(DrawDim_Radius, DrawDim_Dimension)
@@ -31,19 +31,19 @@ class DrawDim_Radius : public DrawDim_Dimension
 {
 
 public:
-  Standard_EXPORT DrawDim_Radius(const TopoDS_Face& cylinder);
+  Standard_EXPORT DrawDim_Radius(const TopoFace& cylinder);
 
-  Standard_EXPORT const TopoDS_Face& Cylinder() const;
+  Standard_EXPORT const TopoFace& Cylinder() const;
 
-  Standard_EXPORT void Cylinder(const TopoDS_Face& face);
+  Standard_EXPORT void Cylinder(const TopoFace& face);
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(DrawDim_Radius, DrawDim_Dimension)
 
 protected:
 private:
-  TopoDS_Face myCylinder;
+  TopoFace myCylinder;
 };
 
 #endif // _DrawDim_Radius_HeaderFile

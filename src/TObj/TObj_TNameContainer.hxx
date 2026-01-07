@@ -44,14 +44,14 @@ public:
   //! Method for create TObj_TNameContainer object
 
   //! Creates TObj_DataMapOfNameLabel attribute on given label if not exist
-  static Standard_EXPORT Handle(TObj_TNameContainer) Set(const TDF_Label& theLabel);
+  static Standard_EXPORT Handle(TObj_TNameContainer) Set(const DataLabel& theLabel);
 
 public:
   //! Methods for adding and removing names
 
   //! Records name with label attached
   Standard_EXPORT void RecordName(const Handle(TCollection_HExtendedString)& theName,
-                                  const TDF_Label&                           theLabel);
+                                  const DataLabel&                           theLabel);
 
   //! Remove name from the map
   Standard_EXPORT void RemoveName(const Handle(TCollection_HExtendedString)& theName);

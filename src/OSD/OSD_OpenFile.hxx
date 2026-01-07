@@ -33,7 +33,7 @@
 //! @param theName name of file encoded in UTF-16
 //! @param theMode opening mode
 //! @return file handle of opened file
-Standard_EXPORT FILE* OSD_OpenFile(const TCollection_ExtendedString& theName, const char* theMode);
+Standard_EXPORT FILE* OSD_OpenFile(const UtfString& theName, const char* theMode);
 
 //! Function retrieves file timestamp.
 //! @param theName name of file encoded in UTF-8
@@ -44,7 +44,7 @@ Standard_EXPORT Standard_Time OSD_FileStatCTime(const char* theName);
 //! @param theName name of file encoded in UTF-16
 //! @param theMode opening mode
 //! @return file descriptor on success or -1 on error
-Standard_EXPORT int OSD_OpenFileDescriptor(const TCollection_ExtendedString& theName,
+Standard_EXPORT int OSD_OpenFileDescriptor(const UtfString& theName,
                                            ::std::ios_base::openmode         theMode);
 
 //! Function opens the file buffer.
@@ -53,7 +53,7 @@ Standard_EXPORT int OSD_OpenFileDescriptor(const TCollection_ExtendedString& the
 //! @param theMode opening mode
 //! @return true if success, false otherwise
 inline bool OSD_OpenStream(::std::filebuf&                   theFileBuf,
-                           const TCollection_ExtendedString& theName,
+                           const UtfString& theName,
                            const std::ios_base::openmode     theMode)
 {
   #if defined(_WIN32)
@@ -90,7 +90,7 @@ inline bool OSD_OpenStream(::std::filebuf&                   theFileBuf,
 //! @param theMode opening mode
 template <typename T>
 inline void OSD_OpenStream(T&                                theStream,
-                           const TCollection_ExtendedString& theName,
+                           const UtfString& theName,
                            const std::ios_base::openmode     theMode)
 {
   #if defined(_WIN32)
@@ -126,7 +126,7 @@ inline void OSD_OpenStream(T& theStream, const char* theName, const std::ios_bas
 {
   #if defined(_WIN32)
   // redirect to method taking UTF-16 string
-  const TCollection_ExtendedString aFileNameW(theName, Standard_True);
+  const UtfString aFileNameW(theName, Standard_True);
   OSD_OpenStream(theStream, aFileNameW, theMode);
   #else
   theStream.open(theName, theMode);

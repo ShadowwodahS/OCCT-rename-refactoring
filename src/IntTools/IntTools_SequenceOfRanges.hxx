@@ -19,6 +19,6 @@
 #include <IntTools_Range.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<IntTools_Range> IntTools_SequenceOfRanges;
+typedef NCollection_Sequence<IntToolsRange> IntTools_SequenceOfRanges;
 
 #endif

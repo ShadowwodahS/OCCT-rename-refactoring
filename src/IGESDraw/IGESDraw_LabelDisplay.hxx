@@ -36,7 +36,7 @@ class IGESDraw_LabelDisplay;
 DEFINE_STANDARD_HANDLE(IGESDraw_LabelDisplay, IGESData_LabelDisplayEntity)
 
 //! defines IGESLabelDisplay, Type <402> Form <5>
-//! in package IGESDraw
+//! in package IGESDraw1
 //!
 //! Permits one or more displays for the
 //! entity labels of an entity

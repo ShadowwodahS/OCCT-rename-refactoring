@@ -20,7 +20,7 @@ inline Standard_Boolean BRepProj_Projection::IsDone() const
   return myIsDone;
 }
 
-inline TopoDS_Compound BRepProj_Projection::Shape() const
+inline TopoCompound BRepProj_Projection::Shape() const
 {
   return myShape;
 }
@@ -40,7 +40,7 @@ inline void BRepProj_Projection::Next()
   myItr++;
 }
 
-inline TopoDS_Wire BRepProj_Projection::Current() const
+inline TopoWire BRepProj_Projection::Current() const
 {
   return TopoDS::Wire(mySection->Value(myItr));
 }

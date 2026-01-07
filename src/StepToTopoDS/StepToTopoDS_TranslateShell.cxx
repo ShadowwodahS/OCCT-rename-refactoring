@@ -52,8 +52,8 @@ StepToTopoDS_TranslateShell::StepToTopoDS_TranslateShell()
 
 void StepToTopoDS_TranslateShell::Init(const Handle(StepShape_ConnectedFaceSet)& CFS,
                                        StepToTopoDS_Tool&                        aTool,
-                                       StepToTopoDS_NMTool&                      NMTool,
-                                       const StepData_Factors&                   theLocalFactors,
+                                       NamingTool2&                      NMTool,
+                                       const ConversionFactors&                   theLocalFactors,
                                        const Message_ProgressRange&              theProgress)
 {
   // bug15697
@@ -63,14 +63,14 @@ void StepToTopoDS_TranslateShell::Init(const Handle(StepShape_ConnectedFaceSet)&
   if (!aTool.IsBound(CFS))
   {
 
-    BRep_Builder                      B;
+    ShapeBuilder                      B;
     Handle(Transfer_TransientProcess) TP = aTool.TransientProcess();
 
     Standard_Integer NbFc = CFS->NbCfsFaces();
-    TopoDS_Shell     Sh;
+    TopoShell     Sh;
     B.MakeShell(Sh);
-    TopoDS_Face            F;
-    TopoDS_Shape           S;
+    TopoFace            F;
+    TopoShape           S;
     Handle(StepShape_Face) StepFace;
 
     StepToTopoDS_TranslateFace myTranFace;
@@ -104,7 +104,7 @@ void StepToTopoDS_TranslateShell::Init(const Handle(StepShape_ConnectedFaceSet)&
         TP->AddWarning(StepFace, " Face is not of FaceSurface Type; not mapped to TopoDS");
       }
     }
-    Sh.Closed(BRep_Tool::IsClosed(Sh));
+    Sh.Closed(BRepInspector::IsClosed(Sh));
     myResult = Sh;
     aTool.Bind(CFS, myResult);
     myError = StepToTopoDS_TranslateShellDone;
@@ -125,17 +125,17 @@ void StepToTopoDS_TranslateShell::Init(const Handle(StepShape_ConnectedFaceSet)&
 
 void StepToTopoDS_TranslateShell::Init(const Handle(StepVisual_TessellatedShell)& theTSh,
                                        StepToTopoDS_Tool&                         theTool,
-                                       StepToTopoDS_NMTool&                       theNMTool,
+                                       NamingTool2&                       theNMTool,
                                        const Standard_Boolean  theReadTessellatedWhenNoBRepOnly,
                                        Standard_Boolean&       theHasGeom,
-                                       const StepData_Factors& theLocalFactors,
+                                       const ConversionFactors& theLocalFactors,
                                        const Message_ProgressRange& theProgress)
 {
   if (theTSh.IsNull())
     return;
 
-  BRep_Builder aB;
-  TopoDS_Shell aSh;
+  ShapeBuilder aB;
+  TopoShell aSh;
 
   Standard_Integer      aNb = theTSh->NbItems();
   Message_ProgressScope aPS(theProgress, "Face", theTSh->HasTopologicalLink() ? aNb + 1 : aNb);
@@ -201,7 +201,7 @@ void StepToTopoDS_TranslateShell::Init(const Handle(StepVisual_TessellatedShell)
     }
   }
 
-  aSh.Closed(BRep_Tool::IsClosed(aSh));
+  aSh.Closed(BRepInspector::IsClosed(aSh));
   myResult = aSh;
   myError  = StepToTopoDS_TranslateShellDone;
   done     = Standard_True;
@@ -212,7 +212,7 @@ void StepToTopoDS_TranslateShell::Init(const Handle(StepVisual_TessellatedShell)
 // Purpose : Return the mapped Shape
 // ============================================================================
 
-const TopoDS_Shape& StepToTopoDS_TranslateShell::Value() const
+const TopoShape& StepToTopoDS_TranslateShell::Value() const
 {
   StdFail_NotDone_Raise_if(!done, "StepToTopoDS_TranslateShell::Value() - no result");
   return myResult;

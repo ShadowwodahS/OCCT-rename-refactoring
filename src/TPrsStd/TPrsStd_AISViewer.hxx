@@ -21,10 +21,10 @@
 #include <Standard_Type.hxx>
 
 #include <TDF_Attribute.hxx>
-class AIS_InteractiveContext;
+class VisualContext;
 class Standard_GUID;
-class TDF_Label;
-class V3d_Viewer;
+class DataLabel;
+class ViewManager;
 class TDF_RelocationTable;
 
 class TPrsStd_AISViewer;
@@ -43,33 +43,33 @@ public:
 
   //! returns True if   there is an AISViewer attribute  in
   //! <acces> Data Framework.
-  Standard_EXPORT static Standard_Boolean Has(const TDF_Label& acces);
+  Standard_EXPORT static Standard_Boolean Has(const DataLabel& acces);
 
   //! create and set an  AISViewer at. Raise an exception if
   //! Has.
   Standard_EXPORT static Handle(TPrsStd_AISViewer) New(
-    const TDF_Label&                      access,
-    const Handle(AIS_InteractiveContext)& selector);
+    const DataLabel&                      access,
+    const Handle(VisualContext)& selector);
 
   //! create  and set an   AISAttribute at root  label. The
   //! interactive context is  build.  Raise an exception  if
   //! Has.
-  Standard_EXPORT static Handle(TPrsStd_AISViewer) New(const TDF_Label&          acces,
-                                                       const Handle(V3d_Viewer)& viewer);
+  Standard_EXPORT static Handle(TPrsStd_AISViewer) New(const DataLabel&          acces,
+                                                       const Handle(ViewManager)& viewer);
 
   //! Finds the viewer attribute at the label access, the
   //! root of the data framework. Calling this function can be used to initialize an AIS viewer
-  Standard_EXPORT static Standard_Boolean Find(const TDF_Label&           acces,
+  Standard_EXPORT static Standard_Boolean Find(const DataLabel&           acces,
                                                Handle(TPrsStd_AISViewer)& A);
 
-  Standard_EXPORT static Standard_Boolean Find(const TDF_Label&                acces,
-                                               Handle(AIS_InteractiveContext)& IC);
+  Standard_EXPORT static Standard_Boolean Find(const DataLabel&                acces,
+                                               Handle(VisualContext)& IC);
 
-  Standard_EXPORT static Standard_Boolean Find(const TDF_Label& acces, Handle(V3d_Viewer)& V);
+  Standard_EXPORT static Standard_Boolean Find(const DataLabel& acces, Handle(ViewManager)& V);
 
   //! AISViewer methods
   //! =================
-  Standard_EXPORT static void Update(const TDF_Label& acces);
+  Standard_EXPORT static void Update(const DataLabel& acces);
 
   Standard_EXPORT TPrsStd_AISViewer();
 
@@ -78,10 +78,10 @@ public:
   Standard_EXPORT void Update() const;
 
   //! Sets the interactive context ctx for this attribute.
-  Standard_EXPORT void SetInteractiveContext(const Handle(AIS_InteractiveContext)& ctx);
+  Standard_EXPORT void SetInteractiveContext(const Handle(VisualContext)& ctx);
 
   //! Returns the interactive context in this attribute.
-  Standard_EXPORT Handle(AIS_InteractiveContext) GetInteractiveContext() const;
+  Standard_EXPORT Handle(VisualContext) GetInteractiveContext() const;
 
   Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
 
@@ -100,7 +100,7 @@ public:
 
 protected:
 private:
-  Handle(AIS_InteractiveContext) myInteractiveContext;
+  Handle(VisualContext) myInteractiveContext;
 };
 
 #endif // _TPrsStd_AISViewer_HeaderFile

@@ -33,9 +33,9 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESSolid_ToolSphere::IGESSolid_ToolSphere() {}
+SphereTool::SphereTool() {}
 
-void IGESSolid_ToolSphere::ReadOwnParams(const Handle(IGESSolid_Sphere)& ent,
+void SphereTool::ReadOwnParams(const Handle(IGESSolid_Sphere)& ent,
                                          const Handle(IGESData_IGESReaderData)& /* IR */,
                                          IGESData_ParamReader& PR) const
 {
@@ -76,7 +76,7 @@ void IGESSolid_ToolSphere::ReadOwnParams(const Handle(IGESSolid_Sphere)& ent,
   ent->Init(tempRadius, tempCenter);
 }
 
-void IGESSolid_ToolSphere::WriteOwnParams(const Handle(IGESSolid_Sphere)& ent,
+void SphereTool::WriteOwnParams(const Handle(IGESSolid_Sphere)& ent,
                                           IGESData_IGESWriter&            IW) const
 {
   IW.Send(ent->Radius());
@@ -85,22 +85,22 @@ void IGESSolid_ToolSphere::WriteOwnParams(const Handle(IGESSolid_Sphere)& ent,
   IW.Send(ent->Center().Z());
 }
 
-void IGESSolid_ToolSphere::OwnShared(const Handle(IGESSolid_Sphere)& /* ent */,
+void SphereTool::OwnShared(const Handle(IGESSolid_Sphere)& /* ent */,
                                      Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESSolid_ToolSphere::OwnCopy(const Handle(IGESSolid_Sphere)& another,
+void SphereTool::OwnCopy(const Handle(IGESSolid_Sphere)& another,
                                    const Handle(IGESSolid_Sphere)& ent,
                                    Interface_CopyTool& /* TC */) const
 {
   ent->Init(another->Radius(), another->Center().XYZ());
 }
 
-IGESData_DirChecker IGESSolid_ToolSphere::DirChecker(
+DirectoryChecker SphereTool::DirChecker(
   const Handle(IGESSolid_Sphere)& /* ent */) const
 {
-  IGESData_DirChecker DC(158, 0);
+  DirectoryChecker DC(158, 0);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
@@ -111,7 +111,7 @@ IGESData_DirChecker IGESSolid_ToolSphere::DirChecker(
   return DC;
 }
 
-void IGESSolid_ToolSphere::OwnCheck(const Handle(IGESSolid_Sphere)& ent,
+void SphereTool::OwnCheck(const Handle(IGESSolid_Sphere)& ent,
                                     const Interface_ShareTool&,
                                     Handle(Interface_Check)& ach) const
 {
@@ -119,7 +119,7 @@ void IGESSolid_ToolSphere::OwnCheck(const Handle(IGESSolid_Sphere)& ent,
     ach->AddFail("Radius : Not Positive");
 }
 
-void IGESSolid_ToolSphere::OwnDump(const Handle(IGESSolid_Sphere)& ent,
+void SphereTool::OwnDump(const Handle(IGESSolid_Sphere)& ent,
                                    const IGESData_IGESDumper& /* dumper */,
                                    Standard_OStream&      S,
                                    const Standard_Integer level) const

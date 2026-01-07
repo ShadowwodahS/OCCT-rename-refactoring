@@ -31,8 +31,8 @@ const Standard_GUID& TDataStd_Comment::GetID()
 
 //=================================================================================================
 
-Handle(TDataStd_Comment) TDataStd_Comment::Set(const TDF_Label&                  L,
-                                               const TCollection_ExtendedString& S)
+Handle(TDataStd_Comment) TDataStd_Comment::Set(const DataLabel&                  L,
+                                               const UtfString& S)
 {
   Handle(TDataStd_Comment) A;
   if (!L.FindAttribute(TDataStd_Comment::GetID(), A))
@@ -46,7 +46,7 @@ Handle(TDataStd_Comment) TDataStd_Comment::Set(const TDF_Label&                 
 
 //=================================================================================================
 
-Handle(TDataStd_Comment) TDataStd_Comment::Set(const TDF_Label& L)
+Handle(TDataStd_Comment) TDataStd_Comment::Set(const DataLabel& L)
 {
   Handle(TDataStd_Comment) A;
   if (!L.FindAttribute(TDataStd_Comment::GetID(), A))
@@ -66,7 +66,7 @@ TDataStd_Comment::TDataStd_Comment()
 
 //=================================================================================================
 
-void TDataStd_Comment::Set(const TCollection_ExtendedString& S)
+void TDataStd_Comment::Set(const UtfString& S)
 {
   // OCC2932 correction
   if (myString == S)

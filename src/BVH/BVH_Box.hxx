@@ -223,7 +223,7 @@ public:
     Standard_Integer aPos = theStreamPos;
 
     Standard_Integer        anIsInited = 0;
-    TCollection_AsciiString aStreamStr = Standard_Dump::Text(theSStream);
+    AsciiString1 aStreamStr = Standard_Dump::Text(theSStream);
 
     OCCT_INIT_FIELD_VALUE_INTEGER(aStreamStr, aPos, anIsInited);
     myIsInited = anIsInited != 0;

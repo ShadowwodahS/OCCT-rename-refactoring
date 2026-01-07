@@ -58,7 +58,7 @@ const Standard_GUID& XCAFDoc_View::GetID()
 
 //=================================================================================================
 
-Handle(XCAFDoc_View) XCAFDoc_View::Set(const TDF_Label& theLabel)
+Handle(XCAFDoc_View) XCAFDoc_View::Set(const DataLabel& theLabel)
 {
   Handle(XCAFDoc_View) A;
   if (!theLabel.FindAttribute(XCAFDoc_View::GetID(), A))
@@ -85,7 +85,7 @@ void XCAFDoc_View::SetObject(const Handle(XCAFView_Object)& theObject)
   TDataStd_AsciiString::Set(Label().FindChild(ChildLab_Name), theObject->Name()->String());
 
   // Type
-  TDataStd_Integer::Set(Label().FindChild(ChildLab_Type), theObject->Type());
+  IntAttribute::Set(Label().FindChild(ChildLab_Type), theObject->Type());
 
   // Projection point
   TDataXtd_Point::Set(Label().FindChild(ChildLab_ProjectionPoint), theObject->ProjectionPoint());
@@ -125,7 +125,7 @@ void XCAFDoc_View::SetObject(const Handle(XCAFView_Object)& theObject)
 
   // View volume sides clipping
   Standard_Integer aValue = theObject->HasViewVolumeSidesClipping() ? 1 : 0;
-  TDataStd_Integer::Set(Label().FindChild(ChildLab_ViewVolumeSidesClipping), aValue);
+  IntAttribute::Set(Label().FindChild(ChildLab_ViewVolumeSidesClipping), aValue);
 
   // Clipping Expression
   if (!theObject->ClippingExpression().IsNull())
@@ -135,7 +135,7 @@ void XCAFDoc_View::SetObject(const Handle(XCAFView_Object)& theObject)
   // GDT points
   if (theObject->HasGDTPoints())
   {
-    TDF_Label aPointsLabel = Label().FindChild(ChildLab_GDTPoints);
+    DataLabel aPointsLabel = Label().FindChild(ChildLab_GDTPoints);
     for (Standard_Integer i = 1; i <= theObject->NbGDTPoints(); i++)
     {
       TDataXtd_Point::Set(aPointsLabel.FindChild(i), theObject->GDTPoint(i));
@@ -157,8 +157,8 @@ Handle(XCAFView_Object) XCAFDoc_View::GetObject() const
   }
 
   // Type
-  Handle(TDataStd_Integer) aType;
-  if (Label().FindChild(ChildLab_Type).FindAttribute(TDataStd_Integer::GetID(), aType))
+  Handle(IntAttribute) aType;
+  if (Label().FindChild(ChildLab_Type).FindAttribute(IntAttribute::GetID(), aType))
   {
     anObj->SetType((XCAFView_ProjectionType)aType->Get());
   }
@@ -236,10 +236,10 @@ Handle(XCAFView_Object) XCAFDoc_View::GetObject() const
   }
 
   // View volume sides clipping
-  Handle(TDataStd_Integer) aViewVolumeSidesClipping;
+  Handle(IntAttribute) aViewVolumeSidesClipping;
   if (Label()
         .FindChild(ChildLab_ViewVolumeSidesClipping)
-        .FindAttribute(TDataStd_Integer::GetID(), aViewVolumeSidesClipping))
+        .FindAttribute(IntAttribute::GetID(), aViewVolumeSidesClipping))
   {
     Standard_Boolean aValue = (aViewVolumeSidesClipping->Get() == 1);
     anObj->SetViewVolumeSidesClipping(aValue);
@@ -257,7 +257,7 @@ Handle(XCAFView_Object) XCAFDoc_View::GetObject() const
   // GDT Points
   if (!Label().FindChild(ChildLab_GDTPoints, Standard_False).IsNull())
   {
-    TDF_Label aPointsLabel = Label().FindChild(ChildLab_GDTPoints);
+    DataLabel aPointsLabel = Label().FindChild(ChildLab_GDTPoints);
 
     // Find out the number of stored GDT-points in Ocaf tree.
     Standard_Integer       aNbGDTPoints = 0;

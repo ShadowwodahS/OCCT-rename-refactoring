@@ -23,7 +23,7 @@
 #include <TopOpeBRepDS_Kind.hxx>
 #include <Standard_Integer.hxx>
 #include <Standard_OStream.hxx>
-class TopOpeBRepDS_Transition;
+class StateTransition;
 
 class TopOpeBRepDS_SolidSurfaceInterference;
 DEFINE_STANDARD_HANDLE(TopOpeBRepDS_SolidSurfaceInterference, TopOpeBRepDS_Interference)
@@ -33,7 +33,7 @@ class TopOpeBRepDS_SolidSurfaceInterference : public TopOpeBRepDS_Interference
 {
 
 public:
-  Standard_EXPORT TopOpeBRepDS_SolidSurfaceInterference(const TopOpeBRepDS_Transition& Transition,
+  Standard_EXPORT TopOpeBRepDS_SolidSurfaceInterference(const StateTransition& Transition,
                                                         const TopOpeBRepDS_Kind        SupportType,
                                                         const Standard_Integer         Support,
                                                         const TopOpeBRepDS_Kind        GeometryType,

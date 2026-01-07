@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TObj_ReferenceIterator, TObj_LabelIterator)
 
 //=================================================================================================
 
-TObj_ReferenceIterator::TObj_ReferenceIterator(const TDF_Label&             theLabel,
+TObj_ReferenceIterator::TObj_ReferenceIterator(const DataLabel&             theLabel,
                                                const Handle(TypeInfo)& theType,
                                                const Standard_Boolean       theRecursive)
     : TObj_LabelIterator(theLabel, theRecursive),
@@ -37,7 +37,7 @@ void TObj_ReferenceIterator::MakeStep()
 {
   for (; myIterator.More() && myNode.IsNull(); myIterator.Next())
   {
-    TDF_Label L = myIterator.Value();
+    DataLabel L = myIterator.Value();
 
     Handle(TObj_TReference) A;
     if (L.FindAttribute(TObj_TReference::GetID(), A))

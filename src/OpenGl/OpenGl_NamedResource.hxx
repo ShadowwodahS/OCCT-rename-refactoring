@@ -25,16 +25,16 @@ class OpenGl_NamedResource : public OpenGl_Resource
   DEFINE_STANDARD_RTTIEXT(OpenGl_NamedResource, OpenGl_Resource)
 public:
   //! Empty constructor
-  OpenGl_NamedResource(const TCollection_AsciiString& theId)
+  OpenGl_NamedResource(const AsciiString1& theId)
       : myResourceId(theId)
   {
   }
 
   //! Return resource name.
-  const TCollection_AsciiString& ResourceId() const { return myResourceId; }
+  const AsciiString1& ResourceId() const { return myResourceId; }
 
 protected:
-  TCollection_AsciiString myResourceId; //!< resource name
+  AsciiString1 myResourceId; //!< resource name
 };
 
 #endif // _OpenGl_NamedResource_HeaderFile

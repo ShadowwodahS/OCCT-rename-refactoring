@@ -25,7 +25,7 @@ class VInspector_ItemV3dViewer;
 typedef QExplicitlySharedDataPointer<VInspector_ItemV3dViewer> VInspector_ItemV3dViewerPtr;
 
 //! \class VInspector_ItemV3dViewer
-//! Parent item is context properties, that corresponds to AIS_InteractiveContext
+//! Parent item is context properties, that corresponds to VisualContext
 class VInspector_ItemV3dViewer : public VInspector_ItemBase
 {
 public:
@@ -56,7 +56,7 @@ public:
 
   //! Returns the current viewer, init item if it was not initialized yet
   //! \return interactive object
-  Handle(V3d_Viewer) GetViewer() const { return Handle(V3d_Viewer)::DownCast(Object()); }
+  Handle(ViewManager) GetViewer() const { return Handle(ViewManager)::DownCast(Object()); }
 
 protected:
   //! Initializes the current item. It is empty because Reset() is also empty.
@@ -86,7 +86,7 @@ private:
   }
 
 protected:
-  Handle(V3d_Viewer) myViewer; //!< the current viewer
+  Handle(ViewManager) myViewer; //!< the current viewer
 };
 
 #endif

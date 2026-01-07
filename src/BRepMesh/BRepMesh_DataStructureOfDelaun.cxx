@@ -453,8 +453,8 @@ Standard_CString BRepMesh_Dump(void* theMeshHandlePtr, Standard_CString theFileN
   if (aMeshData.IsNull())
     return "Error: mesh data is empty";
 
-  TopoDS_Compound aMesh;
-  BRep_Builder    aBuilder;
+  TopoCompound aMesh;
+  ShapeBuilder    aBuilder;
   aBuilder.MakeCompound(aMesh);
 
   try
@@ -466,7 +466,7 @@ Standard_CString BRepMesh_Dump(void* theMeshHandlePtr, Standard_CString theFileN
       const Standard_Integer aNodesNb = aMeshData->NbNodes();
       for (Standard_Integer i = 1; i <= aNodesNb; ++i)
       {
-        const gp_XY& aNode = aMeshData->GetNode(i).Coord();
+        const Coords2d& aNode = aMeshData->GetNode(i).Coord();
         Point3d       aPnt(aNode.X(), aNode.Y(), 0.);
         aBuilder.Add(aMesh, BRepBuilderAPI_MakeVertex(aPnt));
       }
@@ -482,18 +482,18 @@ Standard_CString BRepMesh_Dump(void* theMeshHandlePtr, Standard_CString theFileN
         {
           const Standard_Integer aNodeId = (i == 0) ? aLink.FirstNode() : aLink.LastNode();
 
-          const gp_XY& aNode = aMeshData->GetNode(aNodeId).Coord();
+          const Coords2d& aNode = aMeshData->GetNode(aNodeId).Coord();
           aPnt[i]            = Point3d(aNode.X(), aNode.Y(), 0.);
         }
 
         if (aPnt[0].SquareDistance(aPnt[1]) < Precision::SquareConfusion())
           continue;
 
-        aBuilder.Add(aMesh, BRepBuilderAPI_MakeEdge(aPnt[0], aPnt[1]));
+        aBuilder.Add(aMesh, EdgeMaker(aPnt[0], aPnt[1]));
       }
     }
 
-    if (!BRepTools::Write(aMesh, theFileNameStr))
+    if (!BRepTools1::Write(aMesh, theFileNameStr))
       return "Error: write failed";
   }
   catch (ExceptionBase const& anException)

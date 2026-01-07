@@ -23,8 +23,8 @@
 #include <Standard_Boolean.hxx>
 #include <Standard_Transient.hxx>
 #include <Standard_OStream.hxx>
-class TCollection_ExtendedString;
-class TDocStd_Document;
+class UtfString;
+class AppDocument;
 
 class TDocStd_MultiTransactionManager;
 DEFINE_STANDARD_HANDLE(TDocStd_MultiTransactionManager, RefObject)
@@ -40,7 +40,7 @@ DEFINE_STANDARD_HANDLE(TDocStd_MultiTransactionManager, RefObject)
 //! on multitransaction manager level. It only sets the flag enabling
 //! or disabling nested transactions in all its documents, so that
 //! a nested transaction can be opened for each particular document
-//! with TDocStd_Document class interface.
+//! with AppDocument class interface.
 //!
 //! NOTE: When you invoke CommitTransaction of multi transaction
 //! manager, all nested transaction of its documents will be closed (committed).
@@ -93,7 +93,7 @@ public:
 
   //! Makes the same steps as the previous function but defines the name for transaction.
   //! Returns True if new data has been added to myUndos.
-  Standard_EXPORT Standard_Boolean CommitCommand(const TCollection_ExtendedString& theName);
+  Standard_EXPORT Standard_Boolean CommitCommand(const UtfString& theName);
 
   //! Returns true if a transaction is opened.
   Standard_Boolean HasOpenCommand() const;
@@ -107,10 +107,10 @@ public:
 
   //! Adds the document to the transaction manager and
   //! checks if it has been already added
-  Standard_EXPORT void AddDocument(const Handle(TDocStd_Document)& theDoc);
+  Standard_EXPORT void AddDocument(const Handle(AppDocument)& theDoc);
 
   //! Removes the document from the transaction manager.
-  Standard_EXPORT void RemoveDocument(const Handle(TDocStd_Document)& theDoc);
+  Standard_EXPORT void RemoveDocument(const Handle(AppDocument)& theDoc);
 
   //! Returns the added documents to the transaction manager.
   const TDocStd_SequenceOfDocument& Documents() const;

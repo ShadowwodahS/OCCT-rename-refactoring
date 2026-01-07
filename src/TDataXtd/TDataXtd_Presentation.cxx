@@ -284,7 +284,7 @@ TDataXtd_Presentation::TDataXtd_Presentation()
 
 //=================================================================================================
 
-Handle(TDataXtd_Presentation) TDataXtd_Presentation::Set(const TDF_Label&     theLabel,
+Handle(TDataXtd_Presentation) TDataXtd_Presentation::Set(const DataLabel&     theLabel,
                                                          const Standard_GUID& theDriverId)
 {
   Handle(TDataXtd_Presentation) aPresentation;
@@ -301,7 +301,7 @@ Handle(TDataXtd_Presentation) TDataXtd_Presentation::Set(const TDF_Label&     th
 
 //=================================================================================================
 
-void TDataXtd_Presentation::Unset(const TDF_Label& theLabel)
+void TDataXtd_Presentation::Unset(const DataLabel& theLabel)
 {
   Handle(TDataXtd_Presentation) aPresentation;
   if (theLabel.FindAttribute(TDataXtd_Presentation::GetID(), aPresentation))

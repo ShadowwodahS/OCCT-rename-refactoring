@@ -70,7 +70,7 @@ inline Standard_Integer ShapeAnalysis_Wire::NbEdges() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Face& ShapeAnalysis_Wire::Face() const
+inline const TopoFace& ShapeAnalysis_Wire::Face() const
 {
   return myFace;
 }

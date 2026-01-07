@@ -34,12 +34,12 @@ class DrawTrSurf_BezierCurve2d : public DrawTrSurf_Curve2d
       DrawTrSurf_BezierCurve2d(const Handle(Geom2d_BezierCurve)& C);
 
   Standard_EXPORT DrawTrSurf_BezierCurve2d(const Handle(Geom2d_BezierCurve)& C,
-                                           const Draw_Color&                 CurvColor,
-                                           const Draw_Color&                 PolesColor,
+                                           const DrawColor&                 CurvColor,
+                                           const DrawColor&                 PolesColor,
                                            const Standard_Boolean            ShowPoles,
                                            const Standard_Integer            Discret);
 
-  Standard_EXPORT virtual void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   void ShowPoles() { drawPoles = Standard_True; }
 
@@ -52,20 +52,20 @@ class DrawTrSurf_BezierCurve2d : public DrawTrSurf_Curve2d
   //! value of index.
   Standard_EXPORT void FindPole(const Standard_Real X,
                                 const Standard_Real Y,
-                                const Draw_Display& D,
+                                const DrawDisplay& D,
                                 const Standard_Real Prec,
                                 Standard_Integer&   Index) const;
 
-  void SetPolesColor(const Draw_Color& theColor) { polesLook = theColor; }
+  void SetPolesColor(const DrawColor& theColor) { polesLook = theColor; }
 
-  Draw_Color PolesColor() const { return polesLook; }
+  DrawColor PolesColor() const { return polesLook; }
 
   //! For variable copy.
   Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
 
 private:
   Standard_Boolean drawPoles;
-  Draw_Color       polesLook;
+  DrawColor       polesLook;
 };
 
 #endif // _DrawTrSurf_BezierCurve2d_HeaderFile

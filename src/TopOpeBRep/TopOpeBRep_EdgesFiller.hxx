@@ -30,9 +30,9 @@
 #include <TopOpeBRepDS_Kind.hxx>
 #include <TopOpeBRepDS_Config.hxx>
 class TopOpeBRepDS_HDataStructure;
-class TopoDS_Shape;
+class TopoShape;
 class TopOpeBRep_Point2d;
-class TopOpeBRepDS_Transition;
+class StateTransition;
 class TopOpeBRepDS_Interference;
 
 //! Fills a TopOpeBRepDS_DataStructure with Edge/Edge
@@ -44,14 +44,14 @@ public:
 
   Standard_EXPORT TopOpeBRep_EdgesFiller();
 
-  Standard_EXPORT void Insert(const TopoDS_Shape&                        E1,
-                              const TopoDS_Shape&                        E2,
+  Standard_EXPORT void Insert(const TopoShape&                        E1,
+                              const TopoShape&                        E2,
                               TopOpeBRep_EdgesIntersector&               EI,
                               const Handle(TopOpeBRepDS_HDataStructure)& HDS);
 
-  Standard_EXPORT void Face(const Standard_Integer I, const TopoDS_Shape& F);
+  Standard_EXPORT void Face(const Standard_Integer I, const TopoShape& F);
 
-  Standard_EXPORT const TopoDS_Shape& Face(const Standard_Integer I) const;
+  Standard_EXPORT const TopoShape& Face(const Standard_Integer I) const;
 
 protected:
 private:
@@ -65,18 +65,18 @@ private:
                                                 TopOpeBRepDS_Kind&        K) const;
 
   Standard_EXPORT void SetShapeTransition(const TopOpeBRep_Point2d& P,
-                                          TopOpeBRepDS_Transition&  T1,
-                                          TopOpeBRepDS_Transition&  T2) const;
+                                          StateTransition&  T1,
+                                          StateTransition&  T2) const;
 
   Standard_EXPORT Handle(TopOpeBRepDS_Interference) StorePI(const TopOpeBRep_Point2d&      P,
-                                                            const TopOpeBRepDS_Transition& T,
+                                                            const StateTransition& T,
                                                             const Standard_Integer         EI,
                                                             const Standard_Integer         PI,
                                                             const Standard_Real            p,
                                                             const Standard_Integer         IE);
 
   Standard_EXPORT Handle(TopOpeBRepDS_Interference) StoreVI(const TopOpeBRep_Point2d&      P,
-                                                            const TopOpeBRepDS_Transition& T,
+                                                            const StateTransition& T,
                                                             const Standard_Integer         EI,
                                                             const Standard_Integer         VI,
                                                             const Standard_Boolean         VB,
@@ -91,13 +91,13 @@ private:
   Standard_EXPORT void StoreRecompute(const Handle(TopOpeBRepDS_Interference)& I,
                                       const Standard_Integer                   IEmother);
 
-  Standard_EXPORT void RecomputeInterferences(const TopoDS_Edge&               E,
+  Standard_EXPORT void RecomputeInterferences(const TopoEdge&               E,
                                               TopOpeBRepDS_ListOfInterference& LOI);
 
-  TopoDS_Edge                         myE1;
-  TopoDS_Edge                         myE2;
-  TopoDS_Face                         myF1;
-  TopoDS_Face                         myF2;
+  TopoEdge                         myE1;
+  TopoEdge                         myE2;
+  TopoFace                         myF1;
+  TopoFace                         myF2;
   Handle(TopOpeBRepDS_HDataStructure) myHDS;
   TopOpeBRepDS_PDataStructure         myPDS;
   TopOpeBRep_PEdgesIntersector        myPEI;

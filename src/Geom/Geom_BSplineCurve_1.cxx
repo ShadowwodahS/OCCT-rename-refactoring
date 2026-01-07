@@ -34,9 +34,9 @@
 
 //=================================================================================================
 
-Standard_Boolean Geom_BSplineCurve::IsCN(const Standard_Integer N) const
+Standard_Boolean BSplineCurve3d::IsCN(const Standard_Integer N) const
 {
-  Standard_RangeError_Raise_if(N < 0, "Geom_BSplineCurve::IsCN");
+  Standard_RangeError_Raise_if(N < 0, "BSplineCurve3d::IsCN");
 
   switch (smooth)
   {
@@ -65,7 +65,7 @@ Standard_Boolean Geom_BSplineCurve::IsCN(const Standard_Integer N) const
 
 //=================================================================================================
 
-Standard_Boolean Geom_BSplineCurve::IsG1(const Standard_Real theTf,
+Standard_Boolean BSplineCurve3d::IsG1(const Standard_Real theTf,
                                          const Standard_Real theTl,
                                          const Standard_Real theAngTol) const
 {
@@ -137,7 +137,7 @@ Standard_Boolean Geom_BSplineCurve::IsG1(const Standard_Real theTf,
 
 //=================================================================================================
 
-Standard_Boolean Geom_BSplineCurve::IsClosed() const
+Standard_Boolean BSplineCurve3d::IsClosed() const
 //-- { return (StartPoint().Distance (EndPoint())) <= gp::Resolution (); }
 {
   return (StartPoint().SquareDistance(EndPoint())) <= 1e-16;
@@ -145,28 +145,28 @@ Standard_Boolean Geom_BSplineCurve::IsClosed() const
 
 //=================================================================================================
 
-Standard_Boolean Geom_BSplineCurve::IsPeriodic() const
+Standard_Boolean BSplineCurve3d::IsPeriodic() const
 {
   return periodic;
 }
 
 //=================================================================================================
 
-GeomAbs_Shape Geom_BSplineCurve::Continuity() const
+GeomAbs_Shape BSplineCurve3d::Continuity() const
 {
   return smooth;
 }
 
 //=================================================================================================
 
-Standard_Integer Geom_BSplineCurve::Degree() const
+Standard_Integer BSplineCurve3d::Degree() const
 {
   return deg;
 }
 
 //=================================================================================================
 
-void Geom_BSplineCurve::D0(const Standard_Real U, Point3d& P) const
+void BSplineCurve3d::D0(const Standard_Real U, Point3d& P) const
 {
   Standard_Integer aSpanIndex = 0;
   Standard_Real    aNewU(U);
@@ -188,7 +188,7 @@ void Geom_BSplineCurve::D0(const Standard_Real U, Point3d& P) const
 
 //=================================================================================================
 
-void Geom_BSplineCurve::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
+void BSplineCurve3d::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
 {
   Standard_Integer aSpanIndex = 0;
   Standard_Real    aNewU(U);
@@ -211,7 +211,7 @@ void Geom_BSplineCurve::D1(const Standard_Real U, Point3d& P, Vector3d& V1) cons
 
 //=================================================================================================
 
-void Geom_BSplineCurve::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
+void BSplineCurve3d::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
   Standard_Integer aSpanIndex = 0;
   Standard_Real    aNewU(U);
@@ -235,7 +235,7 @@ void Geom_BSplineCurve::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vect
 
 //=================================================================================================
 
-void Geom_BSplineCurve::D3(const Standard_Real U,
+void BSplineCurve3d::D3(const Standard_Real U,
                            Point3d&             P,
                            Vector3d&             V1,
                            Vector3d&             V2,
@@ -264,7 +264,7 @@ void Geom_BSplineCurve::D3(const Standard_Real U,
 
 //=================================================================================================
 
-Vector3d Geom_BSplineCurve::DN(const Standard_Real U, const Standard_Integer N) const
+Vector3d BSplineCurve3d::DN(const Standard_Real U, const Standard_Integer N) const
 {
   Vector3d V;
   BSplCLib::DN(U,
@@ -282,7 +282,7 @@ Vector3d Geom_BSplineCurve::DN(const Standard_Real U, const Standard_Integer N) 
 
 //=================================================================================================
 
-Point3d Geom_BSplineCurve::EndPoint() const
+Point3d BSplineCurve3d::EndPoint() const
 {
   if (mults->Value(knots->Upper()) == deg + 1)
     return poles->Value(poles->Upper());
@@ -292,7 +292,7 @@ Point3d Geom_BSplineCurve::EndPoint() const
 
 //=================================================================================================
 
-Standard_Integer Geom_BSplineCurve::FirstUKnotIndex() const
+Standard_Integer BSplineCurve3d::FirstUKnotIndex() const
 {
   if (periodic)
     return 1;
@@ -302,59 +302,59 @@ Standard_Integer Geom_BSplineCurve::FirstUKnotIndex() const
 
 //=================================================================================================
 
-Standard_Real Geom_BSplineCurve::FirstParameter() const
+Standard_Real BSplineCurve3d::FirstParameter() const
 {
   return flatknots->Value(deg + 1);
 }
 
 //=================================================================================================
 
-Standard_Real Geom_BSplineCurve::Knot(const Standard_Integer Index) const
+Standard_Real BSplineCurve3d::Knot(const Standard_Integer Index) const
 {
-  Standard_OutOfRange_Raise_if(Index < 1 || Index > knots->Length(), "Geom_BSplineCurve::Knot");
+  Standard_OutOfRange_Raise_if(Index < 1 || Index > knots->Length(), "BSplineCurve3d::Knot");
   return knots->Value(Index);
 }
 
 //=================================================================================================
 
-GeomAbs_BSplKnotDistribution Geom_BSplineCurve::KnotDistribution() const
+GeomAbs_BSplKnotDistribution BSplineCurve3d::KnotDistribution() const
 {
   return knotSet;
 }
 
 //=================================================================================================
 
-void Geom_BSplineCurve::Knots(TColStd_Array1OfReal& K) const
+void BSplineCurve3d::Knots(TColStd_Array1OfReal& K) const
 {
   Standard_DomainError_Raise_if(K.Lower() < knots->Lower() || K.Upper() > knots->Upper(),
-                                "Geom_BSplineCurve::Knots");
+                                "BSplineCurve3d::Knots");
   for (Standard_Integer anIdx = K.Lower(); anIdx <= K.Upper(); anIdx++)
     K(anIdx) = knots->Value(anIdx);
 }
 
-const TColStd_Array1OfReal& Geom_BSplineCurve::Knots() const
+const TColStd_Array1OfReal& BSplineCurve3d::Knots() const
 {
   return knots->Array1();
 }
 
 //=================================================================================================
 
-void Geom_BSplineCurve::KnotSequence(TColStd_Array1OfReal& K) const
+void BSplineCurve3d::KnotSequence(TColStd_Array1OfReal& K) const
 {
   Standard_DomainError_Raise_if(K.Lower() < flatknots->Lower() || K.Upper() > flatknots->Upper(),
-                                "Geom_BSplineCurve::KnotSequence");
+                                "BSplineCurve3d::KnotSequence");
   for (Standard_Integer anIdx = K.Lower(); anIdx <= K.Upper(); anIdx++)
     K(anIdx) = flatknots->Value(anIdx);
 }
 
-const TColStd_Array1OfReal& Geom_BSplineCurve::KnotSequence() const
+const TColStd_Array1OfReal& BSplineCurve3d::KnotSequence() const
 {
   return flatknots->Array1();
 }
 
 //=================================================================================================
 
-Standard_Integer Geom_BSplineCurve::LastUKnotIndex() const
+Standard_Integer BSplineCurve3d::LastUKnotIndex() const
 {
   if (periodic)
     return knots->Length();
@@ -364,14 +364,14 @@ Standard_Integer Geom_BSplineCurve::LastUKnotIndex() const
 
 //=================================================================================================
 
-Standard_Real Geom_BSplineCurve::LastParameter() const
+Standard_Real BSplineCurve3d::LastParameter() const
 {
   return flatknots->Value(flatknots->Upper() - deg);
 }
 
 //=================================================================================================
 
-Point3d Geom_BSplineCurve::LocalValue(const Standard_Real    U,
+Point3d BSplineCurve3d::LocalValue(const Standard_Real    U,
                                      const Standard_Integer FromK1,
                                      const Standard_Integer ToK2) const
 {
@@ -382,12 +382,12 @@ Point3d Geom_BSplineCurve::LocalValue(const Standard_Real    U,
 
 //=================================================================================================
 
-void Geom_BSplineCurve::LocalD0(const Standard_Real    U,
+void BSplineCurve3d::LocalD0(const Standard_Real    U,
                                 const Standard_Integer FromK1,
                                 const Standard_Integer ToK2,
                                 Point3d&                P) const
 {
-  Standard_DomainError_Raise_if(FromK1 == ToK2, "Geom_BSplineCurve::LocalValue");
+  Standard_DomainError_Raise_if(FromK1 == ToK2, "BSplineCurve3d::LocalValue");
 
   Standard_Real    u     = U;
   Standard_Integer index = 0;
@@ -406,13 +406,13 @@ void Geom_BSplineCurve::LocalD0(const Standard_Real    U,
 
 //=================================================================================================
 
-void Geom_BSplineCurve::LocalD1(const Standard_Real    U,
+void BSplineCurve3d::LocalD1(const Standard_Real    U,
                                 const Standard_Integer FromK1,
                                 const Standard_Integer ToK2,
                                 Point3d&                P,
                                 Vector3d&                V1) const
 {
-  Standard_DomainError_Raise_if(FromK1 == ToK2, "Geom_BSplineCurve::LocalD1");
+  Standard_DomainError_Raise_if(FromK1 == ToK2, "BSplineCurve3d::LocalD1");
 
   Standard_Real    u     = U;
   Standard_Integer index = 0;
@@ -432,14 +432,14 @@ void Geom_BSplineCurve::LocalD1(const Standard_Real    U,
 
 //=================================================================================================
 
-void Geom_BSplineCurve::LocalD2(const Standard_Real    U,
+void BSplineCurve3d::LocalD2(const Standard_Real    U,
                                 const Standard_Integer FromK1,
                                 const Standard_Integer ToK2,
                                 Point3d&                P,
                                 Vector3d&                V1,
                                 Vector3d&                V2) const
 {
-  Standard_DomainError_Raise_if(FromK1 == ToK2, "Geom_BSplineCurve::LocalD2");
+  Standard_DomainError_Raise_if(FromK1 == ToK2, "BSplineCurve3d::LocalD2");
 
   Standard_Real    u     = U;
   Standard_Integer index = 0;
@@ -460,7 +460,7 @@ void Geom_BSplineCurve::LocalD2(const Standard_Real    U,
 
 //=================================================================================================
 
-void Geom_BSplineCurve::LocalD3(const Standard_Real    U,
+void BSplineCurve3d::LocalD3(const Standard_Real    U,
                                 const Standard_Integer FromK1,
                                 const Standard_Integer ToK2,
                                 Point3d&                P,
@@ -468,7 +468,7 @@ void Geom_BSplineCurve::LocalD3(const Standard_Real    U,
                                 Vector3d&                V2,
                                 Vector3d&                V3) const
 {
-  Standard_DomainError_Raise_if(FromK1 == ToK2, "Geom_BSplineCurve::LocalD3");
+  Standard_DomainError_Raise_if(FromK1 == ToK2, "BSplineCurve3d::LocalD3");
 
   Standard_Real    u     = U;
   Standard_Integer index = 0;
@@ -490,12 +490,12 @@ void Geom_BSplineCurve::LocalD3(const Standard_Real    U,
 
 //=================================================================================================
 
-Vector3d Geom_BSplineCurve::LocalDN(const Standard_Real    U,
+Vector3d BSplineCurve3d::LocalDN(const Standard_Real    U,
                                   const Standard_Integer FromK1,
                                   const Standard_Integer ToK2,
                                   const Standard_Integer N) const
 {
-  Standard_DomainError_Raise_if(FromK1 == ToK2, "Geom_BSplineCurve::LocalD3");
+  Standard_DomainError_Raise_if(FromK1 == ToK2, "BSplineCurve3d::LocalD3");
 
   Standard_Real    u     = U;
   Standard_Integer index = 0;
@@ -518,65 +518,65 @@ Vector3d Geom_BSplineCurve::LocalDN(const Standard_Real    U,
 
 //=================================================================================================
 
-Standard_Integer Geom_BSplineCurve::Multiplicity(const Standard_Integer Index) const
+Standard_Integer BSplineCurve3d::Multiplicity(const Standard_Integer Index) const
 {
   Standard_OutOfRange_Raise_if(Index < 1 || Index > mults->Length(),
-                               "Geom_BSplineCurve::Multiplicity");
+                               "BSplineCurve3d::Multiplicity");
   return mults->Value(Index);
 }
 
 //=================================================================================================
 
-void Geom_BSplineCurve::Multiplicities(TColStd_Array1OfInteger& M) const
+void BSplineCurve3d::Multiplicities(TColStd_Array1OfInteger& M) const
 {
   Standard_DimensionError_Raise_if(M.Length() != mults->Length(),
-                                   "Geom_BSplineCurve::Multiplicities");
+                                   "BSplineCurve3d::Multiplicities");
   M = mults->Array1();
 }
 
-const TColStd_Array1OfInteger& Geom_BSplineCurve::Multiplicities() const
+const TColStd_Array1OfInteger& BSplineCurve3d::Multiplicities() const
 {
   return mults->Array1();
 }
 
 //=================================================================================================
 
-Standard_Integer Geom_BSplineCurve::NbKnots() const
+Standard_Integer BSplineCurve3d::NbKnots() const
 {
   return knots->Length();
 }
 
 //=================================================================================================
 
-Standard_Integer Geom_BSplineCurve::NbPoles() const
+Standard_Integer BSplineCurve3d::NbPoles() const
 {
   return poles->Length();
 }
 
 //=================================================================================================
 
-const Point3d& Geom_BSplineCurve::Pole(const Standard_Integer Index) const
+const Point3d& BSplineCurve3d::Pole(const Standard_Integer Index) const
 {
-  Standard_OutOfRange_Raise_if(Index < 1 || Index > poles->Length(), "Geom_BSplineCurve::Pole");
+  Standard_OutOfRange_Raise_if(Index < 1 || Index > poles->Length(), "BSplineCurve3d::Pole");
   return poles->Value(Index);
 }
 
 //=================================================================================================
 
-void Geom_BSplineCurve::Poles(TColgp_Array1OfPnt& P) const
+void BSplineCurve3d::Poles(TColgp_Array1OfPnt& P) const
 {
-  Standard_DimensionError_Raise_if(P.Length() != poles->Length(), "Geom_BSplineCurve::Poles");
+  Standard_DimensionError_Raise_if(P.Length() != poles->Length(), "BSplineCurve3d::Poles");
   P = poles->Array1();
 }
 
-const TColgp_Array1OfPnt& Geom_BSplineCurve::Poles() const
+const TColgp_Array1OfPnt& BSplineCurve3d::Poles() const
 {
   return poles->Array1();
 }
 
 //=================================================================================================
 
-Point3d Geom_BSplineCurve::StartPoint() const
+Point3d BSplineCurve3d::StartPoint() const
 {
   if (mults->Value(1) == deg + 1)
     return poles->Value(1);
@@ -586,9 +586,9 @@ Point3d Geom_BSplineCurve::StartPoint() const
 
 //=================================================================================================
 
-Standard_Real Geom_BSplineCurve::Weight(const Standard_Integer Index) const
+Standard_Real BSplineCurve3d::Weight(const Standard_Integer Index) const
 {
-  Standard_OutOfRange_Raise_if(Index < 1 || Index > poles->Length(), "Geom_BSplineCurve::Weight");
+  Standard_OutOfRange_Raise_if(Index < 1 || Index > poles->Length(), "BSplineCurve3d::Weight");
   if (IsRational())
     return weights->Value(Index);
   else
@@ -597,9 +597,9 @@ Standard_Real Geom_BSplineCurve::Weight(const Standard_Integer Index) const
 
 //=================================================================================================
 
-void Geom_BSplineCurve::Weights(TColStd_Array1OfReal& W) const
+void BSplineCurve3d::Weights(TColStd_Array1OfReal& W) const
 {
-  Standard_DimensionError_Raise_if(W.Length() != poles->Length(), "Geom_BSplineCurve::Weights");
+  Standard_DimensionError_Raise_if(W.Length() != poles->Length(), "BSplineCurve3d::Weights");
   if (IsRational())
     W = weights->Array1();
   else
@@ -611,7 +611,7 @@ void Geom_BSplineCurve::Weights(TColStd_Array1OfReal& W) const
   }
 }
 
-const TColStd_Array1OfReal* Geom_BSplineCurve::Weights() const
+const TColStd_Array1OfReal* BSplineCurve3d::Weights() const
 {
   if (IsRational())
     return &weights->Array1();
@@ -620,14 +620,14 @@ const TColStd_Array1OfReal* Geom_BSplineCurve::Weights() const
 
 //=================================================================================================
 
-Standard_Boolean Geom_BSplineCurve::IsRational() const
+Standard_Boolean BSplineCurve3d::IsRational() const
 {
   return !weights.IsNull();
 }
 
 //=================================================================================================
 
-void Geom_BSplineCurve::Transform(const Transform3d& T)
+void BSplineCurve3d::Transform(const Transform3d& T)
 {
   TColgp_Array1OfPnt& CPoles = poles->ChangeArray1();
   for (Standard_Integer I = 1; I <= CPoles.Length(); I++)
@@ -642,7 +642,7 @@ void Geom_BSplineCurve::Transform(const Transform3d& T)
 // (PRO6988)
 //=======================================================================
 
-void Geom_BSplineCurve::LocateU(const Standard_Real    U,
+void BSplineCurve3d::LocateU(const Standard_Real    U,
                                 const Standard_Real    ParametricTolerance,
                                 Standard_Integer&      I1,
                                 Standard_Integer&      I2,
@@ -701,7 +701,7 @@ void Geom_BSplineCurve::LocateU(const Standard_Real    U,
 
 //=================================================================================================
 
-void Geom_BSplineCurve::Resolution(const Standard_Real Tolerance3D, Standard_Real& UTolerance)
+void BSplineCurve3d::Resolution(const Standard_Real Tolerance3D, Standard_Real& UTolerance)
 {
   if (!maxderivinvok)
   {
@@ -747,7 +747,7 @@ void Geom_BSplineCurve::Resolution(const Standard_Real Tolerance3D, Standard_Rea
 
 //=================================================================================================
 
-Standard_Boolean Geom_BSplineCurve::IsEqual(const Handle(Geom_BSplineCurve)& theOther,
+Standard_Boolean BSplineCurve3d::IsEqual(const Handle(BSplineCurve3d)& theOther,
                                             const Standard_Real              thePreci) const
 {
   if (knots.IsNull() || poles.IsNull() || mults.IsNull())

@@ -41,7 +41,7 @@ Draft_EdgeInfo::Draft_EdgeInfo(const Standard_Boolean HasNewGeometry)
 
 //=================================================================================================
 
-void Draft_EdgeInfo::Add(const TopoDS_Face& F)
+void Draft_EdgeInfo::Add(const TopoFace& F)
 {
   if (myFirstF.IsNull())
   {
@@ -51,12 +51,12 @@ void Draft_EdgeInfo::Add(const TopoDS_Face& F)
   {
     mySeconF = F;
   }
-  myTol = Max(myTol, BRep_Tool::Tolerance(F));
+  myTol = Max(myTol, BRepInspector::Tolerance(F));
 }
 
 //=================================================================================================
 
-void Draft_EdgeInfo::RootFace(const TopoDS_Face& F)
+void Draft_EdgeInfo::RootFace(const TopoFace& F)
 {
   myRootFace = F;
 }
@@ -93,69 +93,69 @@ void Draft_EdgeInfo::SetNewGeometry(const Standard_Boolean NewGeom)
 
 //=================================================================================================
 
-const Handle(Geom_Curve)& Draft_EdgeInfo::Geometry() const
+const Handle(GeomCurve3d)& Draft_EdgeInfo::Geometry() const
 {
   return myGeom;
 }
 
 //=================================================================================================
 
-const TopoDS_Face& Draft_EdgeInfo::FirstFace() const
+const TopoFace& Draft_EdgeInfo::FirstFace() const
 {
   return myFirstF;
 }
 
 //=================================================================================================
 
-const TopoDS_Face& Draft_EdgeInfo::SecondFace() const
+const TopoFace& Draft_EdgeInfo::SecondFace() const
 {
   return mySeconF;
 }
 
 //=================================================================================================
 
-Handle(Geom_Curve)& Draft_EdgeInfo::ChangeGeometry()
+Handle(GeomCurve3d)& Draft_EdgeInfo::ChangeGeometry()
 {
   return myGeom;
 }
 
 //=======================================================================
-// function : Handle(Geom2d_Curve)&
+// function : Handle(GeomCurve2d)&
 // purpose  :
 //=======================================================================
 
-const Handle(Geom2d_Curve)& Draft_EdgeInfo::FirstPC() const
+const Handle(GeomCurve2d)& Draft_EdgeInfo::FirstPC() const
 {
   return myFirstPC;
 }
 
 //=======================================================================
-// function : Handle(Geom2d_Curve)&
+// function : Handle(GeomCurve2d)&
 // purpose  :
 //=======================================================================
 
-const Handle(Geom2d_Curve)& Draft_EdgeInfo::SecondPC() const
+const Handle(GeomCurve2d)& Draft_EdgeInfo::SecondPC() const
 {
   return mySeconPC;
 }
 
 //=================================================================================================
 
-Handle(Geom2d_Curve)& Draft_EdgeInfo::ChangeFirstPC()
+Handle(GeomCurve2d)& Draft_EdgeInfo::ChangeFirstPC()
 {
   return myFirstPC;
 }
 
 //=================================================================================================
 
-Handle(Geom2d_Curve)& Draft_EdgeInfo::ChangeSecondPC()
+Handle(GeomCurve2d)& Draft_EdgeInfo::ChangeSecondPC()
 {
   return mySeconPC;
 }
 
 //=================================================================================================
 
-const TopoDS_Face& Draft_EdgeInfo::RootFace() const
+const TopoFace& Draft_EdgeInfo::RootFace() const
 {
   return myRootFace;
 }

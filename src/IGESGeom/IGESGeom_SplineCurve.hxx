@@ -29,7 +29,7 @@ class IGESGeom_SplineCurve;
 DEFINE_STANDARD_HANDLE(IGESGeom_SplineCurve, IGESData_IGESEntity)
 
 //! Defines IGESSplineCurve, Type <112> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! The parametric spline is a sequence of parametric
 //! polynomial segments. The curve could be of the type
 //! Linear, Quadratic, Cubic, Wilson-Fowler, Modified

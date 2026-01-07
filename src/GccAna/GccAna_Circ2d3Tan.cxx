@@ -28,7 +28,7 @@
 //=========================================================================
 //   Creation of a circle tangent to three circles.                        +
 //=========================================================================
-GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dThreeTangent::Circle2dThreeTangent(const GccEnt_QualifiedCirc& Qualified1,
                                      const GccEnt_QualifiedCirc& Qualified2,
                                      const GccEnt_QualifiedCirc& Qualified3,
                                      const Standard_Real         Tolerance)
@@ -93,8 +93,8 @@ GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedCirc& Qualified1,
   Standard_Real Y2 = center2.Y();
   Standard_Real Y3 = center3.Y();
 
-  gp_XY dir2 = center1.XY() - center2.XY();
-  gp_XY dir3 = center1.XY() - center3.XY();
+  Coords2d dir2 = center1.XY() - center2.XY();
+  Coords2d dir3 = center1.XY() - center3.XY();
 
   //////////
   if ((Abs(R1 - R2) <= Tolerance && center1.IsEqual(center2, Tolerance))
@@ -898,17 +898,17 @@ GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedCirc& Qualified1,
 
 //=========================================================================
 
-Standard_Boolean GccAna_Circ2d3Tan::IsDone() const
+Standard_Boolean Circle2dThreeTangent::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer GccAna_Circ2d3Tan::NbSolutions() const
+Standard_Integer Circle2dThreeTangent::NbSolutions() const
 {
   return NbrSol;
 }
 
-gp_Circ2d GccAna_Circ2d3Tan::ThisSolution(const Standard_Integer Index) const
+gp_Circ2d Circle2dThreeTangent::ThisSolution(const Standard_Integer Index) const
 {
   if (!WellDone)
     throw StdFail_NotDone();
@@ -919,7 +919,7 @@ gp_Circ2d GccAna_Circ2d3Tan::ThisSolution(const Standard_Integer Index) const
   return cirsol(Index);
 }
 
-void GccAna_Circ2d3Tan::WhichQualifier(const Standard_Integer Index,
+void Circle2dThreeTangent::WhichQualifier(const Standard_Integer Index,
                                        GccEnt_Position&       Qualif1,
                                        GccEnt_Position&       Qualif2,
                                        GccEnt_Position&       Qualif3) const
@@ -940,7 +940,7 @@ void GccAna_Circ2d3Tan::WhichQualifier(const Standard_Integer Index,
   }
 }
 
-void GccAna_Circ2d3Tan::Tangency1(const Standard_Integer Index,
+void Circle2dThreeTangent::Tangency1(const Standard_Integer Index,
                                   Standard_Real&         ParSol,
                                   Standard_Real&         ParArg,
                                   gp_Pnt2d&              PntSol) const
@@ -968,7 +968,7 @@ void GccAna_Circ2d3Tan::Tangency1(const Standard_Integer Index,
   }
 }
 
-void GccAna_Circ2d3Tan::Tangency2(const Standard_Integer Index,
+void Circle2dThreeTangent::Tangency2(const Standard_Integer Index,
                                   Standard_Real&         ParSol,
                                   Standard_Real&         ParArg,
                                   gp_Pnt2d&              PntSol) const
@@ -996,7 +996,7 @@ void GccAna_Circ2d3Tan::Tangency2(const Standard_Integer Index,
   }
 }
 
-void GccAna_Circ2d3Tan::Tangency3(const Standard_Integer Index,
+void Circle2dThreeTangent::Tangency3(const Standard_Integer Index,
                                   Standard_Real&         ParSol,
                                   Standard_Real&         ParArg,
                                   gp_Pnt2d&              PntSol) const
@@ -1024,7 +1024,7 @@ void GccAna_Circ2d3Tan::Tangency3(const Standard_Integer Index,
   }
 }
 
-Standard_Boolean GccAna_Circ2d3Tan::IsTheSame1(const Standard_Integer Index) const
+Standard_Boolean Circle2dThreeTangent::IsTheSame1(const Standard_Integer Index) const
 {
   if (!WellDone)
     throw StdFail_NotDone();
@@ -1038,7 +1038,7 @@ Standard_Boolean GccAna_Circ2d3Tan::IsTheSame1(const Standard_Integer Index) con
   return Standard_True;
 }
 
-Standard_Boolean GccAna_Circ2d3Tan::IsTheSame2(const Standard_Integer Index) const
+Standard_Boolean Circle2dThreeTangent::IsTheSame2(const Standard_Integer Index) const
 {
   if (!WellDone)
     throw StdFail_NotDone();
@@ -1052,7 +1052,7 @@ Standard_Boolean GccAna_Circ2d3Tan::IsTheSame2(const Standard_Integer Index) con
   return Standard_True;
 }
 
-Standard_Boolean GccAna_Circ2d3Tan::IsTheSame3(const Standard_Integer Index) const
+Standard_Boolean Circle2dThreeTangent::IsTheSame3(const Standard_Integer Index) const
 {
   if (!WellDone)
     throw StdFail_NotDone();

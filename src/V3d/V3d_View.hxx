@@ -36,7 +36,7 @@ class Graphic3d_Group;
 class Graphic3d_Structure;
 class Graphic3d_TextureEnv;
 
-DEFINE_STANDARD_HANDLE(V3d_View, RefObject)
+DEFINE_STANDARD_HANDLE(ViewWindow, RefObject)
 
 //! Defines the application object VIEW for the
 //! VIEWER application.
@@ -53,19 +53,19 @@ DEFINE_STANDARD_HANDLE(V3d_View, RefObject)
 //!
 //! View->Move(10.,20.,0.,True)     (Starting motion)
 //! View->Move(15.,-5.,0.,False)    (Next motion)
-class V3d_View : public RefObject
+class ViewWindow : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(V3d_View, RefObject)
+  DEFINE_STANDARD_RTTIEXT(ViewWindow, RefObject)
 public:
   //! Initializes the view.
-  Standard_EXPORT V3d_View(const Handle(V3d_Viewer)& theViewer,
+  Standard_EXPORT ViewWindow(const Handle(ViewManager)& theViewer,
                            const V3d_TypeOfView      theType = V3d_ORTHOGRAPHIC);
 
   //! Initializes the view by copying.
-  Standard_EXPORT V3d_View(const Handle(V3d_Viewer)& theViewer, const Handle(V3d_View)& theView);
+  Standard_EXPORT ViewWindow(const Handle(ViewManager)& theViewer, const Handle(ViewWindow)& theView);
 
   //! Default destructor.
-  Standard_EXPORT virtual ~V3d_View();
+  Standard_EXPORT virtual ~ViewWindow();
 
   //! Activates the view in the specified Window
   //! If <aContext> is not NULL the graphic context is used
@@ -90,14 +90,14 @@ public:
   //! Example: to split parent view horizontally into 2 subview,
   //! define one subview with Size=(0.5,1.0),Offset=(0.0,0.0), and 2nd with
   //! Size=(0.5,1.0),Offset=(5.0,0.0);
-  Standard_EXPORT void SetWindow(const Handle(V3d_View)&       theParentView,
+  Standard_EXPORT void SetWindow(const Handle(ViewWindow)&       theParentView,
                                  const Graphic3d_Vec2d&        theSize,
                                  Aspect_TypeOfTriedronPosition theCorner  = Aspect_TOTP_LEFT_UPPER,
                                  const Graphic3d_Vec2d&        theOffset  = Graphic3d_Vec2d(),
                                  const Graphic3d_Vec2i&        theMargins = Graphic3d_Vec2i());
 
   Standard_EXPORT void SetMagnify(const Handle(Aspect_Window)& theWindow,
-                                  const Handle(V3d_View)&      thePreviousView,
+                                  const Handle(ViewWindow)&      thePreviousView,
                                   const Standard_Integer       theX1,
                                   const Standard_Integer       theY1,
                                   const Standard_Integer       theX2,
@@ -833,7 +833,7 @@ public:
   Standard_EXPORT Standard_Integer LightLimit() const;
 
   //! Returns the viewer in which the view has been created.
-  Handle(V3d_Viewer) Viewer() const { return MyViewer; }
+  Handle(ViewManager) Viewer() const { return MyViewer; }
 
   //! Returns True if MyView is associated with a window .
   Standard_EXPORT Standard_Boolean IfWindow() const;
@@ -945,7 +945,7 @@ public:
   //!                                rotation, otherwise only the center of camera is adjusted.
   //! @return TRUE if the fit all operation can be done
   Standard_EXPORT Standard_Boolean
-    FitMinMax(const Handle(Graphic3d_Camera)& theCamera,
+    FitMinMax(const Handle(CameraOn3d)& theCamera,
               const Bnd_Box&                  theBox,
               const Standard_Real             theMargin,
               const Standard_Real             theResolution      = 0.0,
@@ -1045,20 +1045,20 @@ public:
   Standard_EXPORT Standard_Integer PlaneLimit() const;
 
   //! Change camera used by view.
-  Standard_EXPORT void SetCamera(const Handle(Graphic3d_Camera)& theCamera);
+  Standard_EXPORT void SetCamera(const Handle(CameraOn3d)& theCamera);
 
   //! Returns camera object of the view.
   //! @return: handle to camera object, or NULL if 3D view does not use
   //! the camera approach.
-  Standard_EXPORT const Handle(Graphic3d_Camera)& Camera() const;
+  Standard_EXPORT const Handle(CameraOn3d)& Camera() const;
 
   //! Return default camera.
-  const Handle(Graphic3d_Camera)& DefaultCamera() const { return myDefaultCamera; }
+  const Handle(CameraOn3d)& DefaultCamera() const { return myDefaultCamera; }
 
   //! Returns current rendering parameters and effect settings.
   //! By default it returns default parameters of current viewer.
-  //! To define view-specific settings use method V3d_View::ChangeRenderingParams().
-  //! @sa V3d_Viewer::DefaultRenderingParams()
+  //! To define view-specific settings use method ViewWindow::ChangeRenderingParams().
+  //! @sa ViewManager::DefaultRenderingParams()
   Standard_EXPORT const Graphic3d_RenderingParams& RenderingParams() const;
 
   //! Returns reference to current rendering parameters and effect settings.
@@ -1091,7 +1091,7 @@ public:
                                              Graphic3d_DiagnosticInfo              theFlags) const;
 
   //! Returns string with statistic performance info.
-  Standard_EXPORT TCollection_AsciiString StatisticInformation() const;
+  Standard_EXPORT AsciiString1 StatisticInformation() const;
 
   //! Fills in the dictionary with statistic performance info.
   Standard_EXPORT void StatisticInformation(TColStd_IndexedDataMapOfStringString& theDict) const;
@@ -1107,19 +1107,19 @@ public: //! @name subvew management
   bool IsSubview() const { return myParentView != nullptr; }
 
   //! Return parent View or NULL if this is not a subview.
-  V3d_View* ParentView() { return myParentView; }
+  ViewWindow* ParentView() { return myParentView; }
 
   //! Return subview list.
-  const NCollection_Sequence<Handle(V3d_View)>& Subviews() const { return mySubviews; }
+  const NCollection_Sequence<Handle(ViewWindow)>& Subviews() const { return mySubviews; }
 
   //! Pick subview from the given 2D point.
-  Standard_EXPORT Handle(V3d_View) PickSubview(const Graphic3d_Vec2i& thePnt) const;
+  Standard_EXPORT Handle(ViewWindow) PickSubview(const Graphic3d_Vec2i& thePnt) const;
 
   //! Add subview to the list.
-  Standard_EXPORT void AddSubview(const Handle(V3d_View)& theView);
+  Standard_EXPORT void AddSubview(const Handle(ViewWindow)& theView);
 
   //! Remove subview from the list.
-  Standard_EXPORT bool RemoveSubview(const V3d_View* theView);
+  Standard_EXPORT bool RemoveSubview(const ViewWindow* theView);
 
 public: //! @name deprecated methods
   //! Returns True if One light more can be
@@ -1154,11 +1154,11 @@ protected:
   //! for perspective adjusts Eye location about the Center point.
   //! @param[in] theSizeXv  size of viewport frame on "x" axis.
   //! @param[in] theSizeYv  size of viewport frame on "y" axis.
-  Standard_EXPORT void Scale(const Handle(Graphic3d_Camera)& theCamera,
+  Standard_EXPORT void Scale(const Handle(CameraOn3d)& theCamera,
                              const Standard_Real             theSizeXv,
                              const Standard_Real             theSizeYv) const;
 
-  Standard_EXPORT void Translate(const Handle(Graphic3d_Camera)& theCamera,
+  Standard_EXPORT void Translate(const Handle(CameraOn3d)& theCamera,
                                  const Standard_Real             theDXv,
                                  const Standard_Real             theDYv) const;
 
@@ -1207,16 +1207,16 @@ protected:
   Dir3d                   myCamStartOpDir;
   Point3d                   myCamStartOpEye;
   Point3d                   myCamStartOpCenter;
-  Handle(Graphic3d_Camera) myDefaultCamera;
+  Handle(CameraOn3d) myDefaultCamera;
   Handle(Graphic3d_CView)  myView;
   Standard_Boolean         myImmediateUpdate;
   mutable Standard_Boolean myIsInvalidatedImmediate;
 
 private:
-  V3d_Viewer* MyViewer;
+  ViewManager* MyViewer;
 
-  NCollection_Sequence<Handle(V3d_View)> mySubviews;
-  V3d_View*                              myParentView;
+  NCollection_Sequence<Handle(ViewWindow)> mySubviews;
+  ViewWindow*                              myParentView;
 
   V3d_ListOfLight             myActiveLights;
   Dir3d                      myDefaultViewAxis;

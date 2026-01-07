@@ -40,9 +40,9 @@ IMPLEMENT_STANDARD_RTTIEXT(PrsDim_EqualRadiusRelation, PrsDim_Relation)
 
 //=================================================================================================
 
-PrsDim_EqualRadiusRelation::PrsDim_EqualRadiusRelation(const TopoDS_Edge&        aFirstEdge,
-                                                       const TopoDS_Edge&        aSecondEdge,
-                                                       const Handle(Geom_Plane)& aPlane)
+PrsDim_EqualRadiusRelation::PrsDim_EqualRadiusRelation(const TopoEdge&        aFirstEdge,
+                                                       const TopoEdge&        aSecondEdge,
+                                                       const Handle(GeomPlane)& aPlane)
     : PrsDim_Relation()
 {
   myFShape = aFirstEdge;
@@ -61,7 +61,7 @@ void PrsDim_EqualRadiusRelation::Compute(const Handle(PrsMgr_PresentationManager
   Standard_Real FirstPar1 = FirstCurve.FirstParameter(), LastPar1 = FirstCurve.LastParameter(),
                 FirstPar2 = SecondCurve.FirstParameter(), LastPar2 = SecondCurve.LastParameter();
 
-  Handle(Geom_Curve) FirstProjCurve  = FirstCurve.Curve().Curve(),
+  Handle(GeomCurve3d) FirstProjCurve  = FirstCurve.Curve().Curve(),
                      SecondProjCurve = SecondCurve.Curve().Curve();
   Point3d           FirstPoint1, LastPoint1, FirstPoint2, LastPoint2;
   Standard_Boolean isFirstOnPlane, isSecondOnPlane;
@@ -94,8 +94,8 @@ void PrsDim_EqualRadiusRelation::Compute(const Handle(PrsMgr_PresentationManager
                                 FirstPoint2,
                                 LastPoint2);
 
-  gp_Circ FirstCirc  = (Handle(Geom_Circle)::DownCast(FirstProjCurve))->Circ();
-  gp_Circ SecondCirc = (Handle(Geom_Circle)::DownCast(SecondProjCurve))->Circ();
+  gp_Circ FirstCirc  = (Handle(GeomCircle)::DownCast(FirstProjCurve))->Circ();
+  gp_Circ SecondCirc = (Handle(GeomCircle)::DownCast(SecondProjCurve))->Circ();
 
   myFirstCenter  = FirstCirc.Location();
   mySecondCenter = SecondCirc.Location();
@@ -167,7 +167,7 @@ void PrsDim_EqualRadiusRelation::Compute(const Handle(PrsMgr_PresentationManager
 
 //=================================================================================================
 
-void PrsDim_EqualRadiusRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+void PrsDim_EqualRadiusRelation::ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                                   const Standard_Integer)
 {
   Handle(SelectMgr_EntityOwner)     own = new SelectMgr_EntityOwner(this, 7);
@@ -211,7 +211,7 @@ void PrsDim_EqualRadiusRelation::ComputeRadiusPosition()
   Point3d aPosition;
 
   // project myPosition to the plane of constraint
-  GeomAPI_ProjectPointOnSurf aProj(myPosition, myPlane);
+  PointOnSurfProjector aProj(myPosition, myPlane);
   aPosition = aProj.NearestPoint();
 
   Standard_Real aDist1 = myFirstPoint.Distance(aPosition);

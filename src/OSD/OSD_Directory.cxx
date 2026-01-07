@@ -47,7 +47,7 @@ OSD_Directory::OSD_Directory()
 
 //=================================================================================================
 
-OSD_Directory::OSD_Directory(const OSD_Path& theName)
+OSD_Directory::OSD_Directory(const SystemPath& theName)
     : OSD_FileNode(theName)
 {
   //
@@ -58,7 +58,7 @@ OSD_Directory::OSD_Directory(const OSD_Path& theName)
 void OSD_Directory::Build(const OSD_Protection& theProtect)
 {
 #ifdef _WIN32
-  TCollection_AsciiString aDirName;
+  AsciiString1 aDirName;
   myPath.SystemName(aDirName);
   if (aDirName.IsEmpty())
   {
@@ -72,7 +72,7 @@ void OSD_Directory::Build(const OSD_Protection& theProtect)
     myError.Reset();
 
     // create directory if it does not exist;
-    TCollection_ExtendedString aDirNameW(aDirName);
+    UtfString aDirNameW(aDirName);
     if (CreateDirectoryW(aDirNameW.ToWideString(), NULL))
     {
       isOK = Standard_True;
@@ -80,7 +80,7 @@ void OSD_Directory::Build(const OSD_Protection& theProtect)
     // if failed due to absence of intermediate directories, create them recursively
     else if (GetLastError() == ERROR_PATH_NOT_FOUND)
     {
-      OSD_Path aSupPath = myPath;
+      SystemPath aSupPath = myPath;
       aSupPath.UpTrek();
       aSupPath.SetName(myPath.TrekValue(myPath.TrekLength())); // incredible, but required!
       OSD_Directory aSupDir(aSupPath);
@@ -108,14 +108,14 @@ void OSD_Directory::Build(const OSD_Protection& theProtect)
   }
 #else
   errno = 0;
-  TCollection_AsciiString aBuffer;
+  AsciiString1 aBuffer;
   mode_t                  anInternalProt = (mode_t)theProtect.Internal();
   myPath.SystemName(aBuffer);
   umask(0);
   int aStatus = mkdir(aBuffer.ToCString(), anInternalProt);
   if (aStatus == -1 && errno == ENOENT)
   {
-    OSD_Path aSupPath = myPath;
+    SystemPath aSupPath = myPath;
     aSupPath.UpTrek();
     aSupPath.SetName(myPath.TrekValue(myPath.TrekLength())); // incredible, but required!
     OSD_Directory aSupDir(aSupPath);
@@ -147,8 +147,8 @@ OSD_Directory OSD_Directory::BuildTemporary()
     return OSD_Directory();
   }
 
-  TCollection_AsciiString aTmpName(aTmpNameW);
-  OSD_Path                aDirPath(aTmpName);
+  AsciiString1 aTmpName(aTmpNameW);
+  SystemPath                aDirPath(aTmpName);
   OSD_Directory           aDir;
   aDir.SetPath(aDirPath);
   aDir.Build(OSD_Protection());
@@ -163,7 +163,7 @@ OSD_Directory OSD_Directory::BuildTemporary()
 
   unlink(aTmpName); // destroys link but directory still exists while current process lives
   OSD_Directory aDir;
-  aDir.SetPath(TCollection_AsciiString(aTmpName));
+  aDir.SetPath(AsciiString1(aTmpName));
   return aDir;
 #endif
 }

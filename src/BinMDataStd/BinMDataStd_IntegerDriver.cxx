@@ -25,7 +25,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BinMDataStd_IntegerDriver, BinMDF_ADriver)
 //=================================================================================================
 
 BinMDataStd_IntegerDriver::BinMDataStd_IntegerDriver(const Handle(Message_Messenger)& theMsgDriver)
-    : BinMDF_ADriver(theMsgDriver, STANDARD_TYPE(TDataStd_Integer)->Name())
+    : BinMDF_ADriver(theMsgDriver, STANDARD_TYPE(IntAttribute)->Name())
 {
 }
 
@@ -33,7 +33,7 @@ BinMDataStd_IntegerDriver::BinMDataStd_IntegerDriver(const Handle(Message_Messen
 
 Handle(TDF_Attribute) BinMDataStd_IntegerDriver::NewEmpty() const
 {
-  return new TDataStd_Integer();
+  return new IntAttribute();
 }
 
 //=======================================================================
@@ -45,7 +45,7 @@ Standard_Boolean BinMDataStd_IntegerDriver::Paste(const BinObjMgt_Persistent&  t
                                                   const Handle(TDF_Attribute)& theTarget,
                                                   BinObjMgt_RRelocationTable&  theRT) const
 {
-  Handle(TDataStd_Integer) anAtt = Handle(TDataStd_Integer)::DownCast(theTarget);
+  Handle(IntAttribute) anAtt = Handle(IntAttribute)::DownCast(theTarget);
   Standard_Integer         aValue;
   Standard_Boolean         ok = theSource >> aValue;
   if (ok)
@@ -66,7 +66,7 @@ Standard_Boolean BinMDataStd_IntegerDriver::Paste(const BinObjMgt_Persistent&  t
     }
   }
   else
-    anAtt->SetID(TDataStd_Integer::GetID());
+    anAtt->SetID(IntAttribute::GetID());
   return ok;
 }
 
@@ -79,9 +79,9 @@ void BinMDataStd_IntegerDriver::Paste(const Handle(TDF_Attribute)& theSource,
                                       BinObjMgt_Persistent&        theTarget,
                                       BinObjMgt_SRelocationTable&) const
 {
-  Handle(TDataStd_Integer) anAtt = Handle(TDataStd_Integer)::DownCast(theSource);
+  Handle(IntAttribute) anAtt = Handle(IntAttribute)::DownCast(theSource);
   theTarget << anAtt->Get();
   // process user defined guid
-  if (anAtt->ID() != TDataStd_Integer::GetID())
+  if (anAtt->ID() != IntAttribute::GetID())
     theTarget << anAtt->ID();
 }

@@ -26,7 +26,7 @@ class BinObjMgt_Persistent;
 class BinMDataStd_GenericExtStringDriver;
 DEFINE_STANDARD_HANDLE(BinMDataStd_GenericExtStringDriver, BinMDF_ADriver)
 
-//! TDataStd_Name attribute Driver.
+//! NameAttribute attribute Driver.
 class BinMDataStd_GenericExtStringDriver : public BinMDF_ADriver
 {
 

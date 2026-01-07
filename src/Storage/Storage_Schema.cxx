@@ -41,7 +41,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Storage_Schema, RefObject)
   #include <OSD_Protection.hxx>
   #include <OSD_Environment.hxx>
 
-typedef NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString>
+typedef NCollection_DataMap<AsciiString1, AsciiString1>
   DataMapOfAStringAString;
 
 #endif
@@ -259,7 +259,7 @@ Storage_Schema::Storage_Schema()
 // purpose  : returns version of the schema
 //=======================================================================
 
-void Storage_Schema::SetVersion(const TCollection_AsciiString& aVersion)
+void Storage_Schema::SetVersion(const AsciiString1& aVersion)
 {
   myVersion = aVersion;
 }
@@ -269,7 +269,7 @@ void Storage_Schema::SetVersion(const TCollection_AsciiString& aVersion)
 // purpose  : returns the version of the schema
 //=======================================================================
 
-TCollection_AsciiString Storage_Schema::Version() const
+AsciiString1 Storage_Schema::Version() const
 {
   return myVersion;
 }
@@ -279,7 +279,7 @@ TCollection_AsciiString Storage_Schema::Version() const
 // purpose  : set the schema's name
 //=======================================================================
 
-void Storage_Schema::SetName(const TCollection_AsciiString& aSchemaName)
+void Storage_Schema::SetName(const AsciiString1& aSchemaName)
 {
   myName = aSchemaName;
 }
@@ -289,7 +289,7 @@ void Storage_Schema::SetName(const TCollection_AsciiString& aSchemaName)
 // purpose  : returns the schema's name
 //=======================================================================
 
-TCollection_AsciiString Storage_Schema::Name() const
+AsciiString1 Storage_Schema::Name() const
 {
   return myName;
 }
@@ -314,7 +314,7 @@ void Storage_Schema::Write(const Handle(Storage_BaseDriver)& theDriver,
   Standard_Integer            posfrom, posto;
   Handle(DbObject) p;
   Handle(Storage_HSeqOfRoot)  plist;
-  TCollection_AsciiString     errorContext("AddPersistent");
+  AsciiString1     errorContext("AddPersistent");
   Storage_Schema::ISetCurrentData(aData);
 
   Handle(Storage_InternalData) iData = aData->InternalData();
@@ -481,7 +481,7 @@ void Storage_Schema::Write(const Handle(Storage_BaseDriver)& theDriver,
 // purpose  : add two functions to the callback list
 //=======================================================================
 
-void Storage_Schema::AddReadUnknownTypeCallBack(const TCollection_AsciiString&  aTypeName,
+void Storage_Schema::AddReadUnknownTypeCallBack(const AsciiString1&  aTypeName,
                                                 const Handle(Storage_CallBack)& aCallBack)
 {
   if (!aCallBack.IsNull())
@@ -497,7 +497,7 @@ void Storage_Schema::AddReadUnknownTypeCallBack(const TCollection_AsciiString&  
 // purpose  : remove a callback for a type
 //=======================================================================
 
-void Storage_Schema::RemoveReadUnknownTypeCallBack(const TCollection_AsciiString& aTypeName)
+void Storage_Schema::RemoveReadUnknownTypeCallBack(const AsciiString1& aTypeName)
 {
   if (myCallBack.IsBound(aTypeName))
   {
@@ -602,7 +602,7 @@ Handle(Storage_CallBack) Storage_Schema::DefaultCallBack() const
 
 //=================================================================================================
 
-void Storage_Schema::BindType(const TCollection_AsciiString&  aTypeName,
+void Storage_Schema::BindType(const AsciiString1&  aTypeName,
                               const Handle(Storage_CallBack)& aCallBack) const
 {
   if (!HasTypeBinding(aTypeName))
@@ -619,7 +619,7 @@ void Storage_Schema::BindType(const TCollection_AsciiString&  aTypeName,
 
 //=================================================================================================
 
-Handle(Storage_CallBack) Storage_Schema::TypeBinding(const TCollection_AsciiString& aTypeName) const
+Handle(Storage_CallBack) Storage_Schema::TypeBinding(const AsciiString1& aTypeName) const
 {
   Handle(Storage_CallBack) result;
 
@@ -647,7 +647,7 @@ Standard_Boolean Storage_Schema::AddPersistent(const Handle(DbObject)& sp,
     if (sp->_typenum == 0)
     {
       Standard_Integer               aTypenum;
-      static TCollection_AsciiString aTypeName;
+      static AsciiString1 aTypeName;
       aTypeName                      = tName;
       Handle(Storage_TypeData) tData = Storage_Schema::ICurrentData()->TypeData();
 
@@ -696,8 +696,8 @@ void Storage_Schema::Clear() const
 // environment variable CSF_MIGRATION_TYPES should define full path of a file
 // containing migration types table: oldtype - newtype
 //=======================================================================
-Standard_Boolean Storage_Schema::CheckTypeMigration(const TCollection_AsciiString& oldName,
-                                                    TCollection_AsciiString&       newName)
+Standard_Boolean Storage_Schema::CheckTypeMigration(const AsciiString1& oldName,
+                                                    AsciiString1&       newName)
 {
   static Standard_Boolean        isChecked(Standard_False);
   static DataMapOfAStringAString aDMap;
@@ -706,11 +706,11 @@ Standard_Boolean Storage_Schema::CheckTypeMigration(const TCollection_AsciiStrin
   if (!isChecked)
   {
     isChecked = Standard_True;
-    //    TCollection_AsciiString aFileName = getenv("CSF_MIGRATION_TYPES");
-    OSD_Environment         csf(TCollection_AsciiString("CSF_MIGRATION_TYPES"));
-    TCollection_AsciiString aFileName = csf.Value();
-    OSD_File                aFile;
-    OSD_Path                aPath(aFileName, OSD_Default);
+    //    AsciiString1 aFileName = getenv("CSF_MIGRATION_TYPES");
+    OSD_Environment         csf(AsciiString1("CSF_MIGRATION_TYPES"));
+    AsciiString1 aFileName = csf.Value();
+    SystemFile                aFile;
+    SystemPath                aPath(aFileName, OSD_Default);
     aFile.SetPath(aPath);
     if (aFile.Exists())
     {
@@ -718,7 +718,7 @@ Standard_Boolean Storage_Schema::CheckTypeMigration(const TCollection_AsciiStrin
       aFile.Open(OSD_ReadOnly, aProt);
       if (aFile.IsOpen() && aFile.IsReadable())
       {
-        TCollection_AsciiString aLine;
+        AsciiString1 aLine;
         Standard_Integer        aNbReaded(0);
         for (;;)
         {
@@ -731,7 +731,7 @@ Standard_Boolean Storage_Schema::CheckTypeMigration(const TCollection_AsciiStrin
   #ifdef OCCT_DEBUG
           std::cout << "Storage_Sheme:: Line: = " << aLine << std::endl;
   #endif
-          TCollection_AsciiString aKey, aValue;
+          AsciiString1 aKey, aValue;
           aKey   = aLine.Token();
           aValue = aLine.Token(" \t\n\r", 2);
           aDMap.Bind(aKey, aValue);
@@ -801,7 +801,7 @@ Handle(Storage_Data)& Storage_Schema::ICurrentData()
 
 //=================================================================================================
 
-TCollection_AsciiString Storage_Schema::ICreationDate()
+AsciiString1 Storage_Schema::ICreationDate()
 {
   char       nowstr[SLENGTH];
   time_t     nowbin;
@@ -822,6 +822,6 @@ TCollection_AsciiString Storage_Schema::ICreationDate()
 #endif
   }
 
-  TCollection_AsciiString t(nowstr);
+  AsciiString1 t(nowstr);
   return t;
 }

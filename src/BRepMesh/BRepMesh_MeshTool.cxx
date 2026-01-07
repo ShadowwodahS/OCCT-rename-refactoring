@@ -303,8 +303,8 @@ Handle(IMeshData::MapOfInteger) BRepMesh_MeshTool::GetEdgesByType(
 void BRepMesh_MeshTool::DumpTriangles(const Standard_CString   theFileName,
                                       IMeshData::MapOfInteger* theTriangles)
 {
-  BRep_Builder    aBuilder;
-  TopoDS_Compound aResult;
+  ShapeBuilder    aBuilder;
+  TopoCompound aResult;
   aBuilder.MakeCompound(aResult);
 
   const IMeshData::MapOfInteger& aTriangles = myStructure->ElementsOfDomain();
@@ -317,18 +317,18 @@ void BRepMesh_MeshTool::DumpTriangles(const Standard_CString   theFileName,
     const BRepMesh_Triangle& aTri = myStructure->GetElement(aIt.Key());
     myStructure->ElementNodes(aTri, aNodes);
 
-    const gp_XY& aV1 = myStructure->GetNode(aNodes[0]).Coord();
-    const gp_XY& aV2 = myStructure->GetNode(aNodes[1]).Coord();
-    const gp_XY& aV3 = myStructure->GetNode(aNodes[2]).Coord();
+    const Coords2d& aV1 = myStructure->GetNode(aNodes[0]).Coord();
+    const Coords2d& aV2 = myStructure->GetNode(aNodes[1]).Coord();
+    const Coords2d& aV3 = myStructure->GetNode(aNodes[2]).Coord();
 
     BRepBuilderAPI_MakePolygon aPoly(Point3d(aV1.X(), aV1.Y(), 0.),
                                      Point3d(aV2.X(), aV2.Y(), 0.),
                                      Point3d(aV3.X(), aV3.Y(), 0.),
                                      Standard_True);
 
-    BRepBuilderAPI_MakeFace aFaceBuilder(gp_Pln(gp::XOY()), aPoly.Wire());
+    FaceMaker aFaceBuilder(gp_Pln(gp::XOY()), aPoly.Wire());
     aBuilder.Add(aResult, aFaceBuilder.Shape());
   }
 
-  BRepTools::Write(aResult, theFileName);
+  BRepTools1::Write(aResult, theFileName);
 }

@@ -23,14 +23,14 @@
 
 #include <Standard_Integer.hxx>
 #include <ShapeExtend_Status.hxx>
-class TopoDS_Edge;
-class Geom_Curve;
-class TopoDS_Face;
-class Geom_Surface;
+class TopoEdge;
+class GeomCurve3d;
+class TopoFace;
+class GeomSurface;
 class TopLoc_Location;
-class Geom2d_Curve;
+class GeomCurve2d;
 class gp_Pnt2d;
-class TopoDS_Vertex;
+class TopoVertex;
 class gp_Vec2d;
 class Point3d;
 
@@ -54,34 +54,34 @@ public:
   Standard_EXPORT ShapeAnalysis_Edge();
 
   //! Tells if the edge has a 3d curve
-  Standard_EXPORT Standard_Boolean HasCurve3d(const TopoDS_Edge& edge) const;
+  Standard_EXPORT Standard_Boolean HasCurve3d(const TopoEdge& edge) const;
 
   //! Returns the 3d curve and bounding parameters for the edge
   //! Returns False if no 3d curve.
   //! If <orient> is True (default), takes orientation into account:
   //! if the edge is reversed, cf and cl are toggled
-  Standard_EXPORT Standard_Boolean Curve3d(const TopoDS_Edge&     edge,
-                                           Handle(Geom_Curve)&    C3d,
+  Standard_EXPORT Standard_Boolean Curve3d(const TopoEdge&     edge,
+                                           Handle(GeomCurve3d)&    C3d,
                                            Standard_Real&         cf,
                                            Standard_Real&         cl,
                                            const Standard_Boolean orient = Standard_True) const;
 
   //! Gives True if the edge has a 3d curve, this curve is closed,
   //! and the edge has the same vertex at start and end
-  Standard_EXPORT Standard_Boolean IsClosed3d(const TopoDS_Edge& edge) const;
+  Standard_EXPORT Standard_Boolean IsClosed3d(const TopoEdge& edge) const;
 
   //! Tells if the Edge has a pcurve on the face.
-  Standard_EXPORT Standard_Boolean HasPCurve(const TopoDS_Edge& edge,
-                                             const TopoDS_Face& face) const;
+  Standard_EXPORT Standard_Boolean HasPCurve(const TopoEdge& edge,
+                                             const TopoFace& face) const;
 
   //! Tells if the edge has a pcurve on the surface (with location).
-  Standard_EXPORT Standard_Boolean HasPCurve(const TopoDS_Edge&          edge,
-                                             const Handle(Geom_Surface)& surface,
+  Standard_EXPORT Standard_Boolean HasPCurve(const TopoEdge&          edge,
+                                             const Handle(GeomSurface)& surface,
                                              const TopLoc_Location&      location) const;
 
-  Standard_EXPORT Standard_Boolean PCurve(const TopoDS_Edge&     edge,
-                                          const TopoDS_Face&     face,
-                                          Handle(Geom2d_Curve)&  C2d,
+  Standard_EXPORT Standard_Boolean PCurve(const TopoEdge&     edge,
+                                          const TopoFace&     face,
+                                          Handle(GeomCurve2d)&  C2d,
                                           Standard_Real&         cf,
                                           Standard_Real&         cl,
                                           const Standard_Boolean orient = Standard_True) const;
@@ -91,44 +91,44 @@ public:
   //! Returns False if the edge has no pcurve on this surface.
   //! If <orient> is True (default), takes orientation into account:
   //! if the edge is reversed, cf and cl are toggled
-  Standard_EXPORT Standard_Boolean PCurve(const TopoDS_Edge&          edge,
-                                          const Handle(Geom_Surface)& surface,
+  Standard_EXPORT Standard_Boolean PCurve(const TopoEdge&          edge,
+                                          const Handle(GeomSurface)& surface,
                                           const TopLoc_Location&      location,
-                                          Handle(Geom2d_Curve)&       C2d,
+                                          Handle(GeomCurve2d)&       C2d,
                                           Standard_Real&              cf,
                                           Standard_Real&              cl,
                                           const Standard_Boolean      orient = Standard_True) const;
 
-  Standard_EXPORT Standard_Boolean BoundUV(const TopoDS_Edge& edge,
-                                           const TopoDS_Face& face,
+  Standard_EXPORT Standard_Boolean BoundUV(const TopoEdge& edge,
+                                           const TopoFace& face,
                                            gp_Pnt2d&          first,
                                            gp_Pnt2d&          last) const;
 
   //! Returns the ends of pcurve
   //! Calls method PCurve with <orient> equal to True
-  Standard_EXPORT Standard_Boolean BoundUV(const TopoDS_Edge&          edge,
-                                           const Handle(Geom_Surface)& surface,
+  Standard_EXPORT Standard_Boolean BoundUV(const TopoEdge&          edge,
+                                           const Handle(GeomSurface)& surface,
                                            const TopLoc_Location&      location,
                                            gp_Pnt2d&                   first,
                                            gp_Pnt2d&                   last) const;
 
-  Standard_EXPORT Standard_Boolean IsSeam(const TopoDS_Edge& edge, const TopoDS_Face& face) const;
+  Standard_EXPORT Standard_Boolean IsSeam(const TopoEdge& edge, const TopoFace& face) const;
 
   //! Returns True if the edge has two pcurves on one surface
-  Standard_EXPORT Standard_Boolean IsSeam(const TopoDS_Edge&          edge,
-                                          const Handle(Geom_Surface)& surface,
+  Standard_EXPORT Standard_Boolean IsSeam(const TopoEdge&          edge,
+                                          const Handle(GeomSurface)& surface,
                                           const TopLoc_Location&      location) const;
 
   //! Returns start vertex of the edge (taking edge orientation
   //! into account).
-  Standard_EXPORT TopoDS_Vertex FirstVertex(const TopoDS_Edge& edge) const;
+  Standard_EXPORT TopoVertex FirstVertex(const TopoEdge& edge) const;
 
   //! Returns end vertex of the edge (taking edge orientation
   //! into account).
-  Standard_EXPORT TopoDS_Vertex LastVertex(const TopoDS_Edge& edge) const;
+  Standard_EXPORT TopoVertex LastVertex(const TopoEdge& edge) const;
 
-  Standard_EXPORT Standard_Boolean GetEndTangent2d(const TopoDS_Edge&     edge,
-                                                   const TopoDS_Face&     face,
+  Standard_EXPORT Standard_Boolean GetEndTangent2d(const TopoEdge&     edge,
+                                                   const TopoFace&     face,
                                                    const Standard_Boolean atEnd,
                                                    gp_Pnt2d&              pos,
                                                    gp_Vec2d&              tang,
@@ -139,8 +139,8 @@ public:
   //! If edge is REVERSED, tangent is reversed before return.
   //! Returns True if pcurve is available and tangent is computed
   //! and is not null, else False.
-  Standard_EXPORT Standard_Boolean GetEndTangent2d(const TopoDS_Edge&          edge,
-                                                   const Handle(Geom_Surface)& surface,
+  Standard_EXPORT Standard_Boolean GetEndTangent2d(const TopoEdge&          edge,
+                                                   const Handle(GeomSurface)& surface,
                                                    const TopLoc_Location&      location,
                                                    const Standard_Boolean      atEnd,
                                                    gp_Pnt2d&                   pos,
@@ -154,12 +154,12 @@ public:
   //! <vtx> = 0 : both (default)
   //! If preci < 0 the vertices are considered with their own
   //! tolerances, else with the given <preci>.
-  Standard_EXPORT Standard_Boolean CheckVerticesWithCurve3d(const TopoDS_Edge&     edge,
+  Standard_EXPORT Standard_Boolean CheckVerticesWithCurve3d(const TopoEdge&     edge,
                                                             const Standard_Real    preci = -1,
                                                             const Standard_Integer vtx   = 0);
 
-  Standard_EXPORT Standard_Boolean CheckVerticesWithPCurve(const TopoDS_Edge&     edge,
-                                                           const TopoDS_Face&     face,
+  Standard_EXPORT Standard_Boolean CheckVerticesWithPCurve(const TopoEdge&     edge,
+                                                           const TopoFace&     face,
                                                            const Standard_Real    preci = -1,
                                                            const Standard_Integer vtx   = 0);
 
@@ -170,14 +170,14 @@ public:
   //! <vtx> = 0 : both
   //! If preci < 0 the vertices are considered with their own
   //! tolerances, else with the given <preci>.
-  Standard_EXPORT Standard_Boolean CheckVerticesWithPCurve(const TopoDS_Edge&          edge,
-                                                           const Handle(Geom_Surface)& surface,
+  Standard_EXPORT Standard_Boolean CheckVerticesWithPCurve(const TopoEdge&          edge,
+                                                           const Handle(GeomSurface)& surface,
                                                            const TopLoc_Location&      location,
                                                            const Standard_Real         preci = -1,
                                                            const Standard_Integer      vtx   = 0);
 
-  Standard_EXPORT Standard_Boolean CheckVertexTolerance(const TopoDS_Edge& edge,
-                                                        const TopoDS_Face& face,
+  Standard_EXPORT Standard_Boolean CheckVertexTolerance(const TopoEdge& edge,
+                                                        const TopoFace& face,
                                                         Standard_Real&     toler1,
                                                         Standard_Real&     toler2);
 
@@ -187,17 +187,17 @@ public:
   //! (second one)
   //! toler1 returns necessary tolerance for first vertex,
   //! toler2 returns necessary tolerance for last vertex.
-  Standard_EXPORT Standard_Boolean CheckVertexTolerance(const TopoDS_Edge& edge,
+  Standard_EXPORT Standard_Boolean CheckVertexTolerance(const TopoEdge& edge,
                                                         Standard_Real&     toler1,
                                                         Standard_Real&     toler2);
 
-  Standard_EXPORT Standard_Boolean CheckCurve3dWithPCurve(const TopoDS_Edge& edge,
-                                                          const TopoDS_Face& face);
+  Standard_EXPORT Standard_Boolean CheckCurve3dWithPCurve(const TopoEdge& edge,
+                                                          const TopoFace& face);
 
   //! Checks mutual orientation of 3d curve and pcurve on the
   //! analysis of curves bounding points
-  Standard_EXPORT Standard_Boolean CheckCurve3dWithPCurve(const TopoDS_Edge&          edge,
-                                                          const Handle(Geom_Surface)& surface,
+  Standard_EXPORT Standard_Boolean CheckCurve3dWithPCurve(const TopoEdge&          edge,
+                                                          const Handle(GeomSurface)& surface,
                                                           const TopLoc_Location&      location);
 
   //! Returns the status (in the form of True/False) of last Check
@@ -210,7 +210,7 @@ public:
   //! This deviation is returned in <maxdev> parameter.
   //! If deviation is greater than tolerance of the edge (i.e.
   //! incorrect flag) returns False, else returns True.
-  Standard_EXPORT Standard_Boolean CheckSameParameter(const TopoDS_Edge&     edge,
+  Standard_EXPORT Standard_Boolean CheckSameParameter(const TopoEdge&     edge,
                                                       Standard_Real&         maxdev,
                                                       const Standard_Integer NbControl = 23);
 
@@ -221,8 +221,8 @@ public:
   //! This deviation is returned in <maxdev> parameter.
   //! If deviation is greater than tolerance of the edge (i.e.
   //! incorrect flag) returns False, else returns True.
-  Standard_EXPORT Standard_Boolean CheckSameParameter(const TopoDS_Edge&     theEdge,
-                                                      const TopoDS_Face&     theFace,
+  Standard_EXPORT Standard_Boolean CheckSameParameter(const TopoEdge&     theEdge,
+                                                      const TopoFace&     theFace,
                                                       Standard_Real&         theMaxdev,
                                                       const Standard_Integer theNbControl = 23);
 
@@ -230,14 +230,14 @@ public:
   //! having respect to real first, last parameters of thePC
   Standard_EXPORT Standard_Boolean CheckPCurveRange(const Standard_Real         theFirst,
                                                     const Standard_Real         theLast,
-                                                    const Handle(Geom2d_Curve)& thePC);
+                                                    const Handle(GeomCurve2d)& thePC);
 
   //! Checks the first edge is overlapped with second edge.
   //! If distance between two edges is less then theTolOverlap
   //! edges are overlapped.
   //! theDomainDis - length of part of edges on which edges are overlapped.
-  Standard_EXPORT Standard_Boolean CheckOverlapping(const TopoDS_Edge&  theEdge1,
-                                                    const TopoDS_Edge&  theEdge2,
+  Standard_EXPORT Standard_Boolean CheckOverlapping(const TopoEdge&  theEdge1,
+                                                    const TopoEdge&  theEdge2,
                                                     Standard_Real&      theTolOverlap,
                                                     const Standard_Real theDomainDist = 0.0);
 

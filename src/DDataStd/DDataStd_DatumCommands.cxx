@@ -47,17 +47,17 @@
 // purpose  : SetPoint (DF, entry, [drawpoint])
 //=======================================================================
 
-static Standard_Integer DDataStd_SetPoint(Draw_Interpretor& di,
+static Standard_Integer DDataStd_SetPoint(DrawInterpreter& di,
                                           Standard_Integer  nb,
                                           const char**      arg)
 {
   if (nb < 3)
     return 1;
-  TDF_Label        L;
+  DataLabel        L;
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(arg[1], DF))
+  if (!DDF1::GetDF(arg[1], DF))
     return 1;
-  DDF::AddLabel(DF, arg[2], L);
+  DDF1::AddLabel(DF, arg[2], L);
   if (nb == 3)
   {
     TDataXtd_Point::Set(L);
@@ -65,7 +65,7 @@ static Standard_Integer DDataStd_SetPoint(Draw_Interpretor& di,
   else if (nb == 4)
   {
     Point3d p;
-    if (DrawTrSurf::GetPoint(arg[3], p))
+    if (DrawTrSurf1::GetPoint(arg[3], p))
     {
       TDataXtd_Point::Set(L, p);
     }
@@ -84,24 +84,24 @@ static Standard_Integer DDataStd_SetPoint(Draw_Interpretor& di,
 // purpose  : SetAxis (DF, entry, drawline])
 //=======================================================================
 
-static Standard_Integer DDataStd_SetAxis(Draw_Interpretor& di,
+static Standard_Integer DDataStd_SetAxis(DrawInterpreter& di,
                                          Standard_Integer  nb,
                                          const char**      arg)
 {
   if (nb < 3)
     return 1;
-  TDF_Label        L;
+  DataLabel        L;
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(arg[1], DF))
+  if (!DDF1::GetDF(arg[1], DF))
     return 1;
-  DDF::AddLabel(DF, arg[2], L);
+  DDF1::AddLabel(DF, arg[2], L);
   if (nb == 3)
   {
     TDataXtd_Axis::Set(L);
   }
   else if (nb == 4)
   {
-    Handle(Geom_Line) LINE = Handle(Geom_Line)::DownCast(DrawTrSurf::Get(arg[3]));
+    Handle(GeomLine) LINE = Handle(GeomLine)::DownCast(DrawTrSurf1::Get(arg[3]));
     if (LINE.IsNull())
     {
       di << "DDataStd_SetAxis : not a line\n";
@@ -118,24 +118,24 @@ static Standard_Integer DDataStd_SetAxis(Draw_Interpretor& di,
 // purpose  : SetPlane (DF, entry, [drawplane])
 //=======================================================================
 
-static Standard_Integer DDataStd_SetPlane(Draw_Interpretor& di,
+static Standard_Integer DDataStd_SetPlane(DrawInterpreter& di,
                                           Standard_Integer  nb,
                                           const char**      arg)
 {
   if (nb < 3)
     return 1;
-  TDF_Label        L;
+  DataLabel        L;
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(arg[1], DF))
+  if (!DDF1::GetDF(arg[1], DF))
     return 1;
-  DDF::AddLabel(DF, arg[2], L);
+  DDF1::AddLabel(DF, arg[2], L);
   if (nb == 3)
   {
     TDataXtd_Plane::Set(L);
   }
   else if (nb == 4)
   {
-    Handle(Geom_Plane) PLANE = Handle(Geom_Plane)::DownCast(DrawTrSurf::Get(arg[3]));
+    Handle(GeomPlane) PLANE = Handle(GeomPlane)::DownCast(DrawTrSurf1::Get(arg[3]));
     if (PLANE.IsNull())
     {
       di << "DDataStd_SetPlane : not a plane\n";
@@ -152,23 +152,23 @@ static Standard_Integer DDataStd_SetPlane(Draw_Interpretor& di,
 // purpose  : GetPoint (DF, entry, [drawname])
 //=======================================================================
 
-static Standard_Integer DDataStd_GetPoint(Draw_Interpretor&, Standard_Integer nb, const char** arg)
+static Standard_Integer DDataStd_GetPoint(DrawInterpreter&, Standard_Integer nb, const char** arg)
 {
   if (nb < 3)
     return 1;
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(arg[1], DF))
+  if (!DDF1::GetDF(arg[1], DF))
     return 1;
   Handle(TDataXtd_Point) A;
   Point3d                 P;
-  if (!DDF::Find(DF, arg[2], TDataXtd_Point::GetID(), A))
+  if (!DDF1::Find(DF, arg[2], TDataXtd_Point::GetID(), A))
     return 1;
   if (TDataXtd_Geometry::Point(A->Label(), P))
   {
     if (nb == 4)
-      DrawTrSurf::Set(arg[3], P);
+      DrawTrSurf1::Set(arg[3], P);
     else
-      DrawTrSurf::Set(arg[2], P);
+      DrawTrSurf1::Set(arg[2], P);
     return 0;
   }
   return 1;
@@ -179,24 +179,24 @@ static Standard_Integer DDataStd_GetPoint(Draw_Interpretor&, Standard_Integer nb
 // purpose  : GetAxis (DF, entry, [drawname])
 //=======================================================================
 
-static Standard_Integer DDataStd_GetAxis(Draw_Interpretor&, Standard_Integer nb, const char** arg)
+static Standard_Integer DDataStd_GetAxis(DrawInterpreter&, Standard_Integer nb, const char** arg)
 {
   if (nb < 3)
     return 1;
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(arg[1], DF))
+  if (!DDF1::GetDF(arg[1], DF))
     return 1;
   Handle(TDataXtd_Axis) A;
-  if (!DDF::Find(DF, arg[2], TDataXtd_Axis::GetID(), A))
+  if (!DDF1::Find(DF, arg[2], TDataXtd_Axis::GetID(), A))
     return 1;
   gp_Lin l;
   if (TDataXtd_Geometry::Line(A->Label(), l))
   {
-    Handle(Geom_Line) L = new Geom_Line(l);
+    Handle(GeomLine) L = new GeomLine(l);
     if (nb == 4)
-      DrawTrSurf::Set(arg[3], L);
+      DrawTrSurf1::Set(arg[3], L);
     else
-      DrawTrSurf::Set(arg[2], L);
+      DrawTrSurf1::Set(arg[2], L);
     return 0;
   }
   return 1;
@@ -207,24 +207,24 @@ static Standard_Integer DDataStd_GetAxis(Draw_Interpretor&, Standard_Integer nb,
 // purpose  : GetPlane (DF, entry, [drawname])
 //=======================================================================
 
-static Standard_Integer DDataStd_GetPlane(Draw_Interpretor&, Standard_Integer nb, const char** arg)
+static Standard_Integer DDataStd_GetPlane(DrawInterpreter&, Standard_Integer nb, const char** arg)
 {
   if (nb < 3)
     return 1;
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(arg[1], DF))
+  if (!DDF1::GetDF(arg[1], DF))
     return 1;
   Handle(TDataXtd_Plane) A;
-  if (!DDF::Find(DF, arg[2], TDataXtd_Plane::GetID(), A))
+  if (!DDF1::Find(DF, arg[2], TDataXtd_Plane::GetID(), A))
     return 1;
   gp_Pln p;
   if (TDataXtd_Geometry::Plane(A->Label(), p))
   {
-    Handle(Geom_Plane) P = new Geom_Plane(p);
+    Handle(GeomPlane) P = new GeomPlane(p);
     if (nb == 4)
-      DrawTrSurf::Set(arg[3], P);
+      DrawTrSurf1::Set(arg[3], P);
     else
-      DrawTrSurf::Set(arg[2], P);
+      DrawTrSurf1::Set(arg[2], P);
     return 0;
   }
   return 1;
@@ -234,7 +234,7 @@ static Standard_Integer DDataStd_GetPlane(Draw_Interpretor&, Standard_Integer nb
 // function : DDataStd_SetGeometry
 // purpose  : SetGeometry (DF, entry, [type], [shape])
 //=======================================================================
-static Standard_Integer DDataStd_SetGeometry(Draw_Interpretor& di,
+static Standard_Integer DDataStd_SetGeometry(DrawInterpreter& di,
                                              Standard_Integer  nb,
                                              const char**      arg)
 {
@@ -242,17 +242,17 @@ static Standard_Integer DDataStd_SetGeometry(Draw_Interpretor& di,
     return 1;
 
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(arg[1], DF))
+  if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
-  TDF_Label L;
-  if (!DDF::FindLabel(DF, arg[2], L))
-    DDF::AddLabel(DF, arg[2], L);
+  DataLabel L;
+  if (!DDF1::FindLabel(DF, arg[2], L))
+    DDF1::AddLabel(DF, arg[2], L);
 
   if (nb == 5)
   {
     // set NS attribute
-    TopoDS_Shape s = DBRep::Get(arg[4]);
+    TopoShape s = DBRep1::Get(arg[4]);
     if (s.IsNull())
     {
       di << "shape not found\n";
@@ -307,7 +307,7 @@ static Standard_Integer DDataStd_SetGeometry(Draw_Interpretor& di,
 // function : DDataStd_GetGeometryType
 // purpose  : GetGeometryType (DF, entry)
 //=======================================================================
-static Standard_Integer DDataStd_GetGeometryType(Draw_Interpretor& di,
+static Standard_Integer DDataStd_GetGeometryType(DrawInterpreter& di,
                                                  Standard_Integer  nb,
                                                  const char**      arg)
 {
@@ -315,12 +315,12 @@ static Standard_Integer DDataStd_GetGeometryType(Draw_Interpretor& di,
     return 1;
 
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(arg[1], DF))
+  if (!DDF1::GetDF(arg[1], DF))
     return 1;
 
-  TDF_Label L;
-  if (!DDF::FindLabel(DF, arg[2], L))
-    DDF::AddLabel(DF, arg[2], L);
+  DataLabel L;
+  if (!DDF1::FindLabel(DF, arg[2], L))
+    DDF1::AddLabel(DF, arg[2], L);
 
   // get geometry attribute
   Handle(TDataXtd_Geometry) aGA;
@@ -369,7 +369,7 @@ static Standard_Integer DDataStd_GetGeometryType(Draw_Interpretor& di,
 
 //=================================================================================================
 
-void DDataStd::DatumCommands(Draw_Interpretor& theCommands)
+void DDataStd1::DatumCommands(DrawInterpreter& theCommands)
 
 {
   static Standard_Boolean done = Standard_False;

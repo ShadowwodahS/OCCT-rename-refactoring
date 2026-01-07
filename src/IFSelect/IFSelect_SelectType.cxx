@@ -38,7 +38,7 @@ Handle(TypeInfo) IFSelect_SelectType::TypeForMatch() const
   return thetype;
 }
 
-TCollection_AsciiString IFSelect_SelectType::ExtractLabel() const
+AsciiString1 IFSelect_SelectType::ExtractLabel() const
 {
-  return TCollection_AsciiString(thetype->Name());
+  return AsciiString1(thetype->Name());
 }

@@ -22,7 +22,7 @@
 #include <Standard_Boolean.hxx>
 #include <TDF_Label.hxx>
 #include <Standard_Transient.hxx>
-class XSControl_WorkSession;
+class ExchangeSession;
 class TCollection_HAsciiString;
 
 class STEPCAFControl_ExternFile;
@@ -37,9 +37,9 @@ public:
   //! Creates an empty structure
   Standard_EXPORT STEPCAFControl_ExternFile();
 
-  void SetWS(const Handle(XSControl_WorkSession)& WS);
+  void SetWS(const Handle(ExchangeSession)& WS);
 
-  Handle(XSControl_WorkSession) GetWS() const;
+  Handle(ExchangeSession) GetWS() const;
 
   void SetLoadStatus(const IFSelect_ReturnStatus stat);
 
@@ -57,20 +57,20 @@ public:
 
   Handle(TCollection_HAsciiString) GetName() const;
 
-  void SetLabel(const TDF_Label& L);
+  void SetLabel(const DataLabel& L);
 
-  TDF_Label GetLabel() const;
+  DataLabel GetLabel() const;
 
   DEFINE_STANDARD_RTTIEXT(STEPCAFControl_ExternFile, RefObject)
 
 protected:
 private:
-  Handle(XSControl_WorkSession)    myWS;
+  Handle(ExchangeSession)    myWS;
   IFSelect_ReturnStatus            myLoadStatus;
   Standard_Boolean                 myTransferStatus;
   IFSelect_ReturnStatus            myWriteStatus;
   Handle(TCollection_HAsciiString) myName;
-  TDF_Label                        myLabel;
+  DataLabel                        myLabel;
 };
 
 #include <STEPCAFControl_ExternFile.lxx>

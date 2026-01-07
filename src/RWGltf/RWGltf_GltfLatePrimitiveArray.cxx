@@ -23,8 +23,8 @@ IMPLEMENT_STANDARD_RTTIEXT(RWGltf_GltfLatePrimitiveArray, RWMesh_TriangulationSo
 
 //=================================================================================================
 
-RWGltf_GltfLatePrimitiveArray::RWGltf_GltfLatePrimitiveArray(const TCollection_AsciiString& theId,
-                                                             const TCollection_AsciiString& theName)
+RWGltf_GltfLatePrimitiveArray::RWGltf_GltfLatePrimitiveArray(const AsciiString1& theId,
+                                                             const AsciiString1& theName)
     : myId(theId),
       myName(theName),
       myPrimMode(RWGltf_GltfPrimitiveMode_UNKNOWN)
@@ -88,19 +88,19 @@ RWGltf_GltfPrimArrayData& RWGltf_GltfLatePrimitiveArray::AddPrimArrayData(
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) RWGltf_GltfLatePrimitiveArray::LoadStreamData() const
+Handle(MeshTriangulation) RWGltf_GltfLatePrimitiveArray::LoadStreamData() const
 {
   Handle(RWGltf_TriangulationReader) aGltfReader =
     Handle(RWGltf_TriangulationReader)::DownCast(myReader);
   if (aGltfReader.IsNull())
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
 
   Handle(RWMesh_TriangulationSource) aResult = new RWMesh_TriangulationSource();
   if (!aGltfReader->LoadStreamData(this, aResult))
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
   aResult->SetMeshPurpose(aResult->MeshPurpose() | Poly_MeshPurpose_Loaded);
   return aResult;

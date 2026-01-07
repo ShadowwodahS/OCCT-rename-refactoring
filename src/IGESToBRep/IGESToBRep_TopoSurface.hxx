@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <IGESToBRep_CurveAndSurface.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class IGESData_IGESEntity;
 class IGESGeom_RuledSurface;
 class IGESGeom_SurfaceOfRevolution;
@@ -61,37 +61,37 @@ public:
                                          const Standard_Boolean modeapprox,
                                          const Standard_Boolean optimized);
 
-  Standard_EXPORT TopoDS_Shape TransferTopoSurface(const Handle(IGESData_IGESEntity)& start);
+  Standard_EXPORT TopoShape TransferTopoSurface(const Handle(IGESData_IGESEntity)& start);
 
-  Standard_EXPORT TopoDS_Shape TransferTopoBasicSurface(const Handle(IGESData_IGESEntity)& start);
+  Standard_EXPORT TopoShape TransferTopoBasicSurface(const Handle(IGESData_IGESEntity)& start);
 
-  Standard_EXPORT TopoDS_Shape TransferRuledSurface(const Handle(IGESGeom_RuledSurface)& start);
+  Standard_EXPORT TopoShape TransferRuledSurface(const Handle(IGESGeom_RuledSurface)& start);
 
-  Standard_EXPORT TopoDS_Shape
+  Standard_EXPORT TopoShape
     TransferSurfaceOfRevolution(const Handle(IGESGeom_SurfaceOfRevolution)& start);
 
-  Standard_EXPORT TopoDS_Shape
+  Standard_EXPORT TopoShape
     TransferTabulatedCylinder(const Handle(IGESGeom_TabulatedCylinder)& start);
 
-  Standard_EXPORT TopoDS_Shape TransferOffsetSurface(const Handle(IGESGeom_OffsetSurface)& start);
+  Standard_EXPORT TopoShape TransferOffsetSurface(const Handle(IGESGeom_OffsetSurface)& start);
 
-  Standard_EXPORT TopoDS_Shape TransferTrimmedSurface(const Handle(IGESGeom_TrimmedSurface)& start);
+  Standard_EXPORT TopoShape TransferTrimmedSurface(const Handle(IGESGeom_TrimmedSurface)& start);
 
-  Standard_EXPORT TopoDS_Shape TransferBoundedSurface(const Handle(IGESGeom_BoundedSurface)& start);
+  Standard_EXPORT TopoShape TransferBoundedSurface(const Handle(IGESGeom_BoundedSurface)& start);
 
-  Standard_EXPORT TopoDS_Shape TransferPlane(const Handle(IGESGeom_Plane)& start);
+  Standard_EXPORT TopoShape TransferPlane(const Handle(IGESGeom_Plane)& start);
 
-  Standard_EXPORT TopoDS_Shape TransferPlaneSurface(const Handle(IGESSolid_PlaneSurface)& start);
+  Standard_EXPORT TopoShape TransferPlaneSurface(const Handle(IGESSolid_PlaneSurface)& start);
 
-  Standard_EXPORT TopoDS_Shape TransferPerforate(const Handle(IGESBasic_SingleParent)& start);
+  Standard_EXPORT TopoShape TransferPerforate(const Handle(IGESBasic_SingleParent)& start);
 
-  Standard_EXPORT TopoDS_Shape ParamSurface(const Handle(IGESData_IGESEntity)& start,
+  Standard_EXPORT TopoShape ParamSurface(const Handle(IGESData_IGESEntity)& start,
                                             gp_Trsf2d&                         trans,
                                             Standard_Real&                     uFact);
 
 protected:
 private:
-  Standard_EXPORT TopoDS_Shape TransferPlaneParts(const Handle(IGESGeom_Plane)& start,
+  Standard_EXPORT TopoShape TransferPlaneParts(const Handle(IGESGeom_Plane)& start,
                                                   gp_Pln&                       gplan,
                                                   Transform3d&                      locat,
                                                   const Standard_Boolean        first);

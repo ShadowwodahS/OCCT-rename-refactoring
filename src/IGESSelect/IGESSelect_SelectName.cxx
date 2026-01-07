@@ -70,14 +70,14 @@ Standard_Boolean IGESSelect_SelectName::Sort(
   return Standard_True;
 }
 
-TCollection_AsciiString IGESSelect_SelectName::ExtractLabel() const
+AsciiString1 IGESSelect_SelectName::ExtractLabel() const
 {
   char labl[50];
   if (!thename.IsNull())
   {
     sprintf(labl, "IGES Entity, Name : %s", thename->ToCString());
-    return TCollection_AsciiString(labl);
+    return AsciiString1(labl);
   }
   else
-    return TCollection_AsciiString("IGES Entity, Name : (undefined)");
+    return AsciiString1("IGES Entity, Name : (undefined)");
 }

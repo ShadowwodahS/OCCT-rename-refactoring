@@ -26,7 +26,7 @@
 
 //! This package provides  the topological  operations
 //! on the BRep data structure.
-class TopOpeBRep
+class TopOpeBRep1
 {
 public:
   DEFINE_STANDARD_ALLOC

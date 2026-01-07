@@ -26,15 +26,15 @@
 #include <ShapeExtend_Status.hxx>
 class ShapeFix_Edge;
 class ShapeAnalysis_Wire;
-class TopoDS_Wire;
-class TopoDS_Face;
+class TopoWire;
+class TopoFace;
 class ShapeExtend_WireData;
-class Geom_Surface;
+class GeomSurface;
 class TopLoc_Location;
 class ShapeAnalysis_WireOrder;
 
-class ShapeFix_Wire;
-DEFINE_STANDARD_HANDLE(ShapeFix_Wire, ShapeFix_Root)
+class WireHealer;
+DEFINE_STANDARD_HANDLE(WireHealer, ShapeFix_Root)
 
 //! This class provides a set of tools for repairing a wire.
 //!
@@ -74,9 +74,9 @@ DEFINE_STANDARD_HANDLE(ShapeFix_Wire, ShapeFix_Root)
 //! ShapeExtend_WireData to be ordered, so it is necessary to make
 //! call to FixReorder() before any other fixes
 //!
-//! ShapeFix_Wire should be initialized prior to any fix by the
+//! WireHealer should be initialized prior to any fix by the
 //! following data:
-//! a) Wire (ether TopoDS_Wire or ShapeExtend_Wire)
+//! a) Wire (ether TopoWire or ShapeExtend_Wire)
 //! b) Face or surface
 //! c) Precision
 //! d) Maximal tail angle and width
@@ -84,17 +84,17 @@ DEFINE_STANDARD_HANDLE(ShapeFix_Wire, ShapeFix_Root)
 //! (LoadWire, SetFace or SetSurface, SetPrecision, SetMaxTailAngle
 //! and SetMaxTailWidth), or
 //! by loading already filled ShapeAnalisis_Wire with method Load
-class ShapeFix_Wire : public ShapeFix_Root
+class WireHealer : public ShapeFix_Root
 {
 
 public:
   //! Empty Constructor, creates clear object with default flags
-  Standard_EXPORT ShapeFix_Wire();
+  Standard_EXPORT WireHealer();
 
   //! Create new object with default flags and prepare it for use
   //! (Loads analyzer with all the data for the wire and face)
-  Standard_EXPORT ShapeFix_Wire(const TopoDS_Wire&  wire,
-                                const TopoDS_Face&  face,
+  Standard_EXPORT WireHealer(const TopoWire&  wire,
+                                const TopoFace&  face,
                                 const Standard_Real prec);
 
   //! Sets all modes to default
@@ -105,8 +105,8 @@ public:
 
   //! Load analyzer with all the data for the wire and face
   //! and drops all fixing statuses
-  Standard_EXPORT void Init(const TopoDS_Wire&  wire,
-                            const TopoDS_Face&  face,
+  Standard_EXPORT void Init(const TopoWire&  wire,
+                            const TopoFace&  face,
                             const Standard_Real prec);
 
   //! Load analyzer with all the data already prepared
@@ -116,19 +116,19 @@ public:
   Standard_EXPORT void Init(const Handle(ShapeAnalysis_Wire)& saw);
 
   //! Load data for the wire, and drops all fixing statuses
-  Standard_EXPORT void Load(const TopoDS_Wire& wire);
+  Standard_EXPORT void Load(const TopoWire& wire);
 
   //! Load data for the wire, and drops all fixing statuses
   Standard_EXPORT void Load(const Handle(ShapeExtend_WireData)& sbwd);
 
   //! Set working face for the wire
-  void SetFace(const TopoDS_Face& face);
+  void SetFace(const TopoFace& face);
 
   //! Set surface for the wire
-  void SetSurface(const Handle(Geom_Surface)& surf);
+  void SetSurface(const Handle(GeomSurface)& surf);
 
   //! Set surface for the wire
-  void SetSurface(const Handle(Geom_Surface)& surf, const TopLoc_Location& loc);
+  void SetSurface(const Handle(GeomSurface)& surf, const TopLoc_Location& loc);
 
   //! Set working precision (to root and to analyzer)
   Standard_EXPORT virtual void SetPrecision(const Standard_Real prec) Standard_OVERRIDE;
@@ -149,10 +149,10 @@ public:
   Standard_EXPORT Standard_Integer NbEdges() const;
 
   //! Makes the resulting Wire (by basic Brep_Builder)
-  TopoDS_Wire Wire() const;
+  TopoWire Wire() const;
 
   //! Makes the resulting Wire (by BRepAPI_MakeWire)
-  TopoDS_Wire WireAPIMake() const;
+  TopoWire WireAPIMake() const;
 
   //! returns field Analyzer (working tool)
   Handle(ShapeAnalysis_Wire) Analyzer() const;
@@ -161,7 +161,7 @@ public:
   const Handle(ShapeExtend_WireData)& WireData() const;
 
   //! returns working face (Analyzer.Face())
-  const TopoDS_Face& Face() const;
+  const TopoFace& Face() const;
 
   //! Returns (modifiable) the flag which defines whether it is
   //! allowed to modify topology of the wire during fixing
@@ -376,7 +376,7 @@ public:
   //! if distance between ends is near to range of the surface.
   //! It also can detect and fix the case if all pcurves are connected,
   //! but lie out of parametric bounds of the surface.
-  //! In addition to FixShifted from ShapeFix_Wire, more
+  //! In addition to FixShifted from WireHealer, more
   //! sophisticated check of degenerate points is performed,
   //! and special cases like sphere given by two meridians
   //! are treated.
@@ -457,7 +457,7 @@ public:
   //! Returns tool for fixing wires.
   Handle(ShapeFix_Edge) FixEdgeTool() const;
 
-  DEFINE_STANDARD_RTTIEXT(ShapeFix_Wire, ShapeFix_Root)
+  DEFINE_STANDARD_RTTIEXT(WireHealer, ShapeFix_Root)
 
 protected:
   //! Updates WireData if some replacements are made

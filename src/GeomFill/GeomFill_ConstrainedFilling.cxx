@@ -319,7 +319,7 @@ static void killcorners(const Standard_Integer     nb,
 // purpose: The evaluator for curve approximation
 //=======================================================================
 
-class GeomFill_ConstrainedFilling_Eval : public AdvApprox_EvaluatorFunction
+class GeomFill_ConstrainedFilling_Eval : public EvaluatorFunction
 {
 public:
   GeomFill_ConstrainedFilling_Eval(GeomFill_ConstrainedFilling& theTool)

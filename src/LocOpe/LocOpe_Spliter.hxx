@@ -35,41 +35,41 @@ public:
   LocOpe_Spliter();
 
   //! Creates the algorithm on the shape <S>.
-  LocOpe_Spliter(const TopoDS_Shape& S);
+  LocOpe_Spliter(const TopoShape& S);
 
   //! Initializes the algorithm on the shape <S>.
-  void Init(const TopoDS_Shape& S);
+  void Init(const TopoShape& S);
 
   Standard_EXPORT void Perform(const Handle(LocOpe_WiresOnShape)& PW);
 
   Standard_Boolean IsDone() const;
 
   //! Returns the new shape
-  const TopoDS_Shape& ResultingShape() const;
+  const TopoShape& ResultingShape() const;
 
   //! Returns the initial shape
-  const TopoDS_Shape& Shape() const;
+  const TopoShape& Shape() const;
 
   //! Returns  the faces   which  are the  left of   the
   //! projected wires and which are
-  Standard_EXPORT const TopTools_ListOfShape& DirectLeft() const;
+  Standard_EXPORT const ShapeList& DirectLeft() const;
 
   //! Returns the faces of the "left" part on the shape.
   //! (It  is build   from  DirectLeft,  with  the faces
   //! connected to this set, and so on...).
-  Standard_EXPORT const TopTools_ListOfShape& Left() const;
+  Standard_EXPORT const ShapeList& Left() const;
 
   //! Returns the list of descendant shapes of <S>.
-  Standard_EXPORT const TopTools_ListOfShape& DescendantShapes(const TopoDS_Shape& S);
+  Standard_EXPORT const ShapeList& DescendantShapes(const TopoShape& S);
 
 protected:
 private:
-  TopoDS_Shape                       myShape;
+  TopoShape                       myShape;
   Standard_Boolean                   myDone;
-  TopoDS_Shape                       myRes;
+  TopoShape                       myRes;
   TopTools_DataMapOfShapeListOfShape myMap;
-  TopTools_ListOfShape               myDLeft;
-  TopTools_ListOfShape               myLeft;
+  ShapeList               myDLeft;
+  ShapeList               myLeft;
 };
 
 #include <LocOpe_Spliter.lxx>

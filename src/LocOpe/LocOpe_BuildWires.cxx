@@ -37,7 +37,7 @@ static Standard_Integer FindFirstEdge(const TopTools_IndexedDataMapOfShapeListOf
 
 //=================================================================================================
 
-LocOpe_BuildWires::LocOpe_BuildWires()
+WireBuilder::WireBuilder()
     : myDone(Standard_False)
 {
 }
@@ -45,7 +45,7 @@ LocOpe_BuildWires::LocOpe_BuildWires()
 //=================================================================================================
 
 //  Modified by skv - Mon May 31 12:58:27 2004 OCC5865 Begin
-LocOpe_BuildWires::LocOpe_BuildWires(const TopTools_ListOfShape&        L,
+WireBuilder::WireBuilder(const ShapeList&        L,
                                      const Handle(LocOpe_WiresOnShape)& PW)
 {
   Perform(L, PW);
@@ -56,31 +56,31 @@ LocOpe_BuildWires::LocOpe_BuildWires(const TopTools_ListOfShape&        L,
 //=================================================================================================
 
 //  Modified by skv - Mon May 31 12:59:09 2004 OCC5865 Begin
-void LocOpe_BuildWires::Perform(const TopTools_ListOfShape&        L,
+void WireBuilder::Perform(const ShapeList&        L,
                                 const Handle(LocOpe_WiresOnShape)& PW)
 {
   //  Modified by skv - Mon May 31 12:59:10 2004 OCC5865 End
   myDone = Standard_False;
   myRes.Clear();
 
-  BRep_Builder    B;
-  TopoDS_Compound C;
+  ShapeBuilder    B;
+  TopoCompound C;
   B.MakeCompound(C);
 
   TopTools_MapOfShape                theMap;
   TopTools_ListIteratorOfListOfShape itl(L);
   for (; itl.More(); itl.Next())
   {
-    const TopoDS_Shape& edg = itl.Value();
+    const TopoShape& edg = itl.Value();
     if (theMap.Add(edg) && edg.ShapeType() == TopAbs_EDGE)
     {
       B.Add(C, edg.Oriented(TopAbs_FORWARD)); // orientation importante pour
-      // appel a TopExp::Vertices
+      // appel a TopExp1::Vertices
     }
   }
 
   TopTools_IndexedDataMapOfShapeListOfShape theMapVE;
-  TopExp::MapShapesAndAncestors(C, TopAbs_VERTEX, TopAbs_EDGE, theMapVE);
+  TopExp1::MapShapesAndAncestors(C, TopAbs_VERTEX, TopAbs_EDGE, theMapVE);
 
   TopTools_MapOfShape Bords;
   //  for (Standard_Integer i = 1; i <= theMapVE.Extent(); i++) {
@@ -90,9 +90,9 @@ void LocOpe_BuildWires::Perform(const TopTools_ListOfShape&        L,
   {
     //  Modified by skv - Mon May 31 13:07:50 2004 OCC5865 Begin
     //     if (theMapVE(i).Extent() == 1) {
-    TopoDS_Vertex vtx = TopoDS::Vertex(theMapVE.FindKey(i));
-    TopoDS_Edge   etmp;
-    TopoDS_Vertex aV_border;
+    TopoVertex vtx = TopoDS::Vertex(theMapVE.FindKey(i));
+    TopoEdge   etmp;
+    TopoVertex aV_border;
     Standard_Real partmp;
     if (theMapVE(i).Extent() == 1
         || (PW->OnVertex(vtx, aV_border) || PW->OnEdge(vtx, etmp, partmp)))
@@ -106,15 +106,15 @@ void LocOpe_BuildWires::Perform(const TopTools_ListOfShape&        L,
   {
     TopTools_IndexedMapOfShape mapE;
     TopTools_MapOfShape        mapV;
-    const TopoDS_Edge&         edgf = TopoDS::Edge(theMapVE(i).First());
+    const TopoEdge&         edgf = TopoDS::Edge(theMapVE(i).First());
 
-    TopoDS_Vertex VF, VL;
-    TopExp::Vertices(edgf, VF, VL);
+    TopoVertex VF, VL;
+    TopExp1::Vertices(edgf, VF, VL);
 
     if (Bords.Contains(VL) && !Bords.Contains(VF))
     {
       mapE.Add(edgf.Oriented(TopAbs_REVERSED));
-      TopoDS_Vertex temp = VF;
+      TopoVertex temp = VF;
       VF                 = VL;
       VL                 = temp;
     }
@@ -140,9 +140,9 @@ void LocOpe_BuildWires::Perform(const TopTools_ListOfShape&        L,
       {
         throw Standard_ConstructionError();
       }
-      const TopoDS_Edge& theEdge = TopoDS::Edge(anIterl.Value());
-      TopoDS_Vertex      Vf, Vl;
-      TopExp::Vertices(theEdge, Vf, Vl);
+      const TopoEdge& theEdge = TopoDS::Edge(anIterl.Value());
+      TopoVertex      Vf, Vl;
+      TopExp1::Vertices(theEdge, Vf, Vl);
       mapV.Add(VL);
       if (Vf.IsSame(VL))
       {
@@ -156,24 +156,24 @@ void LocOpe_BuildWires::Perform(const TopTools_ListOfShape&        L,
       }
     }
 
-    TopoDS_Wire newWire;
+    TopoWire newWire;
     B.MakeWire(newWire);
 
     if (mapV.Contains(VL))
     { // on sort avec une boucle a recreer
-      TopoDS_Vertex Vf;
+      TopoVertex Vf;
       //      for (Standard_Integer j = 1; j<= mapE.Extent(); j++) {
       Standard_Integer j;
       for (j = 1; j <= mapE.Extent(); j++)
       {
-        const TopoDS_Edge& edg = TopoDS::Edge(mapE(j));
+        const TopoEdge& edg = TopoDS::Edge(mapE(j));
         if (edg.Orientation() == TopAbs_FORWARD)
         {
-          Vf = TopExp::FirstVertex(edg);
+          Vf = TopExp1::FirstVertex(edg);
         }
         else
         {
-          Vf = TopExp::LastVertex(edg);
+          Vf = TopExp1::LastVertex(edg);
         }
         if (Vf.IsSame(VL))
         {
@@ -201,7 +201,7 @@ void LocOpe_BuildWires::Perform(const TopTools_ListOfShape&        L,
     TopTools_MapIteratorOfMapOfShape itm;
     for (itm.Initialize(mapV); itm.More(); itm.Next())
     {
-      const TopoDS_Vertex& vtx = TopoDS::Vertex(itm.Key());
+      const TopoVertex& vtx = TopoDS::Vertex(itm.Key());
       Bords.Add(vtx);
       Standard_Integer ind = theMapVE.FindIndex(vtx);
       itl.Initialize(theMapVE(ind));
@@ -224,14 +224,14 @@ void LocOpe_BuildWires::Perform(const TopTools_ListOfShape&        L,
 
 //=================================================================================================
 
-Standard_Boolean LocOpe_BuildWires::IsDone() const
+Standard_Boolean WireBuilder::IsDone() const
 {
   return myDone;
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& LocOpe_BuildWires::Result() const
+const ShapeList& WireBuilder::Result() const
 {
   if (!myDone)
   {
@@ -263,7 +263,7 @@ static Standard_Integer FindFirstEdge(const TopTools_IndexedDataMapOfShapeListOf
   Standard_Integer goodi = i;
   for (; i <= theMapVE.Extent(); i++)
   {
-    const TopoDS_Shape& vtx = theMapVE.FindKey(i);
+    const TopoShape& vtx = theMapVE.FindKey(i);
     if (theMapVE(i).Extent() > 0 && theBord.Contains(vtx))
     {
       goodi = i;

@@ -24,14 +24,14 @@
 #include <Standard_OStream.hxx>
 #include <Standard_GUID.hxx>
 
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 
-class TDataStd_Integer;
-DEFINE_STANDARD_HANDLE(TDataStd_Integer, TDF_Attribute)
+class IntAttribute;
+DEFINE_STANDARD_HANDLE(IntAttribute, TDF_Attribute)
 
 //! The basis to define an integer attribute.
-class TDataStd_Integer : public TDF_Attribute
+class IntAttribute : public TDF_Attribute
 {
 
 public:
@@ -42,12 +42,12 @@ public:
 
   //! Finds, or creates, an Integer attribute and sets <value>
   //! the Integer  attribute is returned.
-  Standard_EXPORT static Handle(TDataStd_Integer) Set(const TDF_Label&       label,
+  Standard_EXPORT static Handle(IntAttribute) Set(const DataLabel&       label,
                                                       const Standard_Integer value);
 
   //! Finds, or creates, an Integer attribute with explicit user defined <guid> and sets <value>.
   //! The Integer attribute  is  returned.
-  Standard_EXPORT static Handle(TDataStd_Integer) Set(const TDF_Label&       label,
+  Standard_EXPORT static Handle(IntAttribute) Set(const DataLabel&       label,
                                                       const Standard_GUID&   guid,
                                                       const Standard_Integer value);
 
@@ -78,13 +78,13 @@ public:
 
   Standard_EXPORT virtual Standard_OStream& Dump(Standard_OStream& anOS) const Standard_OVERRIDE;
 
-  Standard_EXPORT TDataStd_Integer();
+  Standard_EXPORT IntAttribute();
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(TDataStd_Integer, TDF_Attribute)
+  DEFINE_STANDARD_RTTIEXT(IntAttribute, TDF_Attribute)
 
 protected:
 private:

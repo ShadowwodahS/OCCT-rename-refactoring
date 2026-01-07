@@ -53,7 +53,7 @@ void IFSelect_Editor::SetValue(const Standard_Integer              num,
 {
   if (num < 1 || num > thenbval)
     return;
-  TCollection_AsciiString shn(shortname);
+  AsciiString1 shn(shortname);
   Standard_Integer        lng = shn.Length();
   if (lng > 0)
     thenames.Bind(shortname, num);
@@ -141,7 +141,7 @@ void IFSelect_Editor::PrintNames(Standard_OStream& S) const
     S << Interface_MSG::Blanks(i, 3) << i << " ";
     if (themaxsh > 0)
     {
-      const TCollection_AsciiString& sho = theshorts(i);
+      const AsciiString1& sho = theshorts(i);
       S << sho << Interface_MSG::Blanks(sho.ToCString(), themaxsh) << " ";
     }
     S << tv->Name() << Interface_MSG::Blanks(tv->Name(), themaxco) << "  " << tv->Label()
@@ -178,7 +178,7 @@ void IFSelect_Editor::PrintDefs(Standard_OStream& S, const Standard_Boolean labe
     {
       if (themaxsh > 0)
       {
-        const TCollection_AsciiString& sho = theshorts(i);
+        const AsciiString1& sho = theshorts(i);
         S << sho << Interface_MSG::Blanks(sho.ToCString(), themaxsh) << " ";
       }
       S << tv->Name() << Interface_MSG::Blanks(tv->Name(), themaxco);

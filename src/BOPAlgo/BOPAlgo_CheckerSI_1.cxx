@@ -65,16 +65,16 @@ public:
   }
 
   //
-  void SetVertex(const TopoDS_Vertex& aV) { myV = aV; }
+  void SetVertex(const TopoVertex& aV) { myV = aV; }
 
   //
-  const TopoDS_Vertex& Vertex() const { return myV; }
+  const TopoVertex& Vertex() const { return myV; }
 
   //
-  void SetSolid(const TopoDS_Solid& aZ) { myZ = aZ; }
+  void SetSolid(const TopoSolid& aZ) { myZ = aZ; }
 
   //
-  const TopoDS_Solid& Solid() const { return myZ; }
+  const TopoSolid& Solid() const { return myZ; }
 
   //
   void SetContext(const Handle(IntTools_Context)& aContext) { myContext = aContext; }
@@ -102,8 +102,8 @@ public:
     //
     BRepClass3d_SolidClassifier& aSC = myContext->SolidClassifier(myZ);
     //
-    aPV  = BRep_Tool::Pnt(myV);
-    aTol = BRep_Tool::Tolerance(myV);
+    aPV  = BRepInspector::Pnt(myV);
+    aTol = BRepInspector::Tolerance(myV);
     //
     aSC.Perform(aPV, aTol);
     //
@@ -115,8 +115,8 @@ protected:
   Standard_Integer         myIV;
   Standard_Integer         myIZ;
   TopAbs_State             myState;
-  TopoDS_Vertex            myV;
-  TopoDS_Solid             myZ;
+  TopoVertex            myV;
+  TopoSolid             myZ;
   Handle(IntTools_Context) myContext;
   Message_ProgressRange    myProgressRange;
 };
@@ -271,15 +271,15 @@ void BOPAlgo_CheckerSI::PerformVZ(const Message_ProgressRange& theRange)
     Standard_Integer nVSD = nV;
     myDS->HasShapeSD(nV, nVSD);
     //
-    BOPDS_Pair aPK;
+    IndexPair aPK;
     aPK.SetIndices(nVSD, nZ);
     if (!aMPK.Add(aPK))
     {
       continue;
     }
     //
-    const TopoDS_Vertex& aV = *((TopoDS_Vertex*)&myDS->Shape(nVSD));
-    const TopoDS_Solid&  aZ = *((TopoDS_Solid*)&myDS->Shape(nZ));
+    const TopoVertex& aV = *((TopoVertex*)&myDS->Shape(nVSD));
+    const TopoSolid&  aZ = *((TopoSolid*)&myDS->Shape(nZ));
     //
     BOPAlgo_VertexSolid& aVertexSolid = aVVS.Appended();
     aVertexSolid.SetIndices(nV, nZ);
@@ -297,7 +297,7 @@ void BOPAlgo_CheckerSI::PerformVZ(const Message_ProgressRange& theRange)
     aVVS.ChangeValue(iVS).SetProgressRange(aPSParallel.Next());
   }
   //=============================================================
-  BOPTools_Parallel::Perform(myRunParallel, aVVS, myContext);
+  BooleanParallelTools::Perform(myRunParallel, aVVS, myContext);
   //=============================================================
   if (UserBreak(aPSOuter))
   {
@@ -370,7 +370,7 @@ void BOPAlgo_CheckerSI::PerformZZ(const Message_ProgressRange& theRange)
     aVSolidSolid.ChangeValue(iSS).SetProgressRange(aPSParallel.Next());
   }
   //======================================================
-  BOPTools_Parallel::Perform(myRunParallel, aVSolidSolid);
+  BooleanParallelTools::Perform(myRunParallel, aVSolidSolid);
   //======================================================
   if (UserBreak(aPSOuter))
   {
@@ -436,7 +436,7 @@ void BOPAlgo_CheckerSI::PerformSZ(const TopAbs_ShapeEnum       theTS,
     aVShapeSolid.ChangeValue(iSS).SetProgressRange(aPSParallel.Next());
   }
   //======================================================
-  BOPTools_Parallel::Perform(myRunParallel, aVShapeSolid);
+  BooleanParallelTools::Perform(myRunParallel, aVShapeSolid);
   //======================================================
   if (UserBreak(aPSOuter))
   {

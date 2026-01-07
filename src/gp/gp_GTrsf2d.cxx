@@ -37,7 +37,7 @@ void gp_GTrsf2d::SetAffinity(const gp_Ax2d& A, const Standard_Real Ratio)
   loc.Add(A.Location().XY());
 }
 
-void gp_GTrsf2d::SetTranslationPart(const gp_XY& Coord)
+void gp_GTrsf2d::SetTranslationPart(const Coords2d& Coord)
 {
   loc = Coord;
   if (Form() == gp_CompoundTrsf || Form() == gp_Other || Form() == gp_Translation)
@@ -96,7 +96,7 @@ void gp_GTrsf2d::Power(const Standard_Integer N)
     scale = 1.0;
     shape = gp_Identity;
     matrix.SetIdentity();
-    loc = gp_XY(0., 0.);
+    loc = Coords2d(0., 0.);
   }
   else if (N == 1)
   {
@@ -117,7 +117,7 @@ void gp_GTrsf2d::Power(const Standard_Integer N)
       if (Npower < 0)
         Npower = -Npower;
       Npower--;
-      gp_XY Temploc = loc;
+      Coords2d Temploc = loc;
       //      Standard_Real Tempscale = scale;
       gp_Mat2d Tempmatrix(matrix);
       for (;;)

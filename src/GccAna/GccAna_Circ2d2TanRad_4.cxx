@@ -39,7 +39,7 @@
 // Create the solution to be added to the already found solutions.         +
 // Fill the fields.                                                +
 //========================================================================
-GccAna_Circ2d2TanRad::GccAna_Circ2d2TanRad(const GccEnt_QualifiedLin& Qualified1,
+Circle2dTwoTangentRadius::Circle2dTwoTangentRadius(const GccEnt_QualifiedLin& Qualified1,
                                            const GccEnt_QualifiedLin& Qualified2,
                                            const Standard_Real        Radius,
                                            const Standard_Real)
@@ -223,9 +223,9 @@ GccAna_Circ2d2TanRad::GccAna_Circ2d2TanRad(const GccEnt_QualifiedLin& Qualified1
                 TheSame1(NbrSol) = 0;
                 TheSame2(NbrSol) = 0;
                 pnttg1sol(NbrSol) =
-                  gp_Pnt2d(Center.XY() + cote1(jcote1) * Radius * gp_XY(y1dir, -x1dir));
+                  gp_Pnt2d(Center.XY() + cote1(jcote1) * Radius * Coords2d(y1dir, -x1dir));
                 pnttg2sol(NbrSol) =
-                  gp_Pnt2d(Center.XY() + cote2(jcote2) * Radius * gp_XY(y2dir, -x2dir));
+                  gp_Pnt2d(Center.XY() + cote2(jcote2) * Radius * Coords2d(y2dir, -x2dir));
               }
             }
             WellDone = Standard_True;

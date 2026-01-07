@@ -54,7 +54,7 @@ void IGESSelect_UpdateCreationDate::Performing(IFSelect_ContextModif&           
   ctx.AddCheck(check);
 }
 
-TCollection_AsciiString IGESSelect_UpdateCreationDate::Label() const
+AsciiString1 IGESSelect_UpdateCreationDate::Label() const
 {
-  return TCollection_AsciiString("Update Creation Date in IGES Global Section");
+  return AsciiString1("Update Creation Date in IGES Global Section");
 }

@@ -34,17 +34,17 @@ class Vrml_Info
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_Info(const TCollection_AsciiString& aString = "<Undefined info>");
+  Standard_EXPORT Vrml_Info(const AsciiString1& aString = "<Undefined info>");
 
-  Standard_EXPORT void SetString(const TCollection_AsciiString& aString);
+  Standard_EXPORT void SetString(const AsciiString1& aString);
 
-  Standard_EXPORT TCollection_AsciiString String() const;
+  Standard_EXPORT AsciiString1 String() const;
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
 protected:
 private:
-  TCollection_AsciiString myString;
+  AsciiString1 myString;
 };
 
 #endif // _Vrml_Info_HeaderFile

@@ -106,7 +106,7 @@ private:
   TColStd_Array1OfInteger          theflags;
   Standard_Integer                 thelast;
   Standard_Boolean                 thebegin;
-  TCollection_AsciiString          thename;
+  AsciiString1          thename;
 };
 
 #endif // _IFSelect_PacketList_HeaderFile

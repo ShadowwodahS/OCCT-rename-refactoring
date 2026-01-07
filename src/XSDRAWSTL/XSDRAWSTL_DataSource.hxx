@@ -36,7 +36,7 @@ class XSDRAWSTL_DataSource : public MeshVS_DataSource
 
 public:
   //! Constructor
-  Standard_EXPORT XSDRAWSTL_DataSource(const Handle(Poly_Triangulation)& aMesh);
+  Standard_EXPORT XSDRAWSTL_DataSource(const Handle(MeshTriangulation)& aMesh);
 
   //! Returns geometry information about node (if IsElement is False) or element (IsElement is True)
   //! by coordinates. For element this method must return all its nodes coordinates in the strict
@@ -84,7 +84,7 @@ public:
 
 protected:
 private:
-  Handle(Poly_Triangulation)       myMesh;
+  Handle(MeshTriangulation)       myMesh;
   TColStd_PackedMapOfInteger       myNodes;
   TColStd_PackedMapOfInteger       myElements;
   Handle(TColStd_HArray2OfInteger) myElemNodes;

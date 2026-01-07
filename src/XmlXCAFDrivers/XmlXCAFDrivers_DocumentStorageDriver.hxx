@@ -20,7 +20,7 @@
 #include <Standard_Type.hxx>
 
 #include <XmlDrivers_DocumentStorageDriver.hxx>
-class TCollection_ExtendedString;
+class UtfString;
 class XmlMDF_ADriverTable;
 class Message_Messenger;
 
@@ -33,7 +33,7 @@ class XmlXCAFDrivers_DocumentStorageDriver : public XmlDrivers_DocumentStorageDr
 
 public:
   Standard_EXPORT XmlXCAFDrivers_DocumentStorageDriver(
-    const TCollection_ExtendedString& theCopyright);
+    const UtfString& theCopyright);
 
   Standard_EXPORT virtual Handle(XmlMDF_ADriverTable) AttributeDrivers(
     const Handle(Message_Messenger)& theMsgDriver) Standard_OVERRIDE;

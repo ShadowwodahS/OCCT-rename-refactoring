@@ -23,7 +23,7 @@
 
 class HeaderSection_Protocol;
 
-class HeaderSection
+class HeaderSection1
 {
 public:
   DEFINE_STANDARD_ALLOC

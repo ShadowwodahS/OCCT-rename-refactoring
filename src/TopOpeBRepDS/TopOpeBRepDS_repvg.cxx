@@ -39,8 +39,8 @@ Standard_EXPORT void FDS_repvg2(const TopOpeBRepDS_DataStructure& BDS,
                                 TopOpeBRepDS_ListOfInterference&  RLI)
 //------------------------------------------------------
 {
-  const TopoDS_Edge& E    = TopoDS::Edge(BDS.Shape(EIX));
-  Standard_Boolean   isEd = BRep_Tool::Degenerated(E);
+  const TopoEdge& E    = TopoDS::Edge(BDS.Shape(EIX));
+  Standard_Boolean   isEd = BRepInspector::Degenerated(E);
   if (isEd)
     return;
 
@@ -80,7 +80,7 @@ Standard_EXPORT void FDS_repvg2(const TopOpeBRepDS_DataStructure& BDS,
     Standard_Integer rkS1 = BDS.AncestorRank(S1);
     if (isvertex && (rkG1 != rkS1))
     {
-      TopoDS_Shape     oovG;
+      TopoShape     oovG;
       Standard_Boolean issd = FUN_ds_getoov(BDS.Shape(G1), BDS, oovG);
       if (!issd)
       {
@@ -90,18 +90,18 @@ Standard_EXPORT void FDS_repvg2(const TopOpeBRepDS_DataStructure& BDS,
       G1 = BDS.Shape(oovG);
     }
 
-    const TopoDS_Edge& E1 = TopoDS::Edge(BDS.Shape(S1));
-    const TopoDS_Face& F1 = TopoDS::Face(BDS.Shape(isb1));
-    TopOpeBRepDS_Point PDS;
-    TopoDS_Shape       VDS;
+    const TopoEdge& E1 = TopoDS::Edge(BDS.Shape(S1));
+    const TopoFace& F1 = TopoDS::Face(BDS.Shape(isb1));
+    Point1 PDS;
+    TopoShape       VDS;
     if (ispoint)
       PDS = BDS.Point(G1);
     else if (isvertex)
       VDS = BDS.Shape(G1);
     else
-      throw ExceptionBase("TopOpeBRepDS FDS_repvg2 1");
+      throw ExceptionBase("TopOpeBRepDS1 FDS_repvg2 1");
 
-    Standard_Boolean isEd1 = BRep_Tool::Degenerated(E1);
+    Standard_Boolean isEd1 = BRepInspector::Degenerated(E1);
     if (isEd1)
     {
       it1.Next();
@@ -118,7 +118,7 @@ Standard_EXPORT void FDS_repvg2(const TopOpeBRepDS_DataStructure& BDS,
 
     TopOpeBRepDS_EdgeInterferenceTool EITool;
     Standard_Boolean                  memeS = Standard_False;
-    TopOpeBRepDS_Transition           TrmemeS;
+    StateTransition           TrmemeS;
     Standard_Boolean                  isComplex = Standard_False;
 
     while (it2.More())
@@ -147,8 +147,8 @@ Standard_EXPORT void FDS_repvg2(const TopOpeBRepDS_DataStructure& BDS,
         continue;
       }
 
-      const TopoDS_Edge& E2    = TopoDS::Edge(BDS.Shape(S2));
-      Standard_Boolean   isEd2 = BRep_Tool::Degenerated(E2);
+      const TopoEdge& E2    = TopoDS::Edge(BDS.Shape(S2));
+      Standard_Boolean   isEd2 = BRepInspector::Degenerated(E2);
       if (isEd2)
       {
         it2.Next();
@@ -199,7 +199,7 @@ Standard_EXPORT void FDS_repvg2(const TopOpeBRepDS_DataStructure& BDS,
 
     if (!isComplex && memeS)
     {
-      const TopOpeBRepDS_Transition& T1 = I1->Transition();
+      const StateTransition& T1 = I1->Transition();
       TrmemeS.Index(T1.Index());
       I1->ChangeTransition() = TrmemeS;
       RLI.Append(I1);

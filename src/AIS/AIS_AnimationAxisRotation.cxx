@@ -18,9 +18,9 @@ IMPLEMENT_STANDARD_RTTIEXT(AIS_AnimationAxisRotation, AIS_BaseAnimationObject)
 //=================================================================================================
 
 AIS_AnimationAxisRotation::AIS_AnimationAxisRotation(
-  const TCollection_AsciiString&        theAnimationName,
-  const Handle(AIS_InteractiveContext)& theContext,
-  const Handle(AIS_InteractiveObject)&  theObject,
+  const AsciiString1&        theAnimationName,
+  const Handle(VisualContext)& theContext,
+  const Handle(VisualEntity)&  theObject,
   const Axis3d&                         theAxis,
   const Standard_Real                   theAngleStart,
   const Standard_Real                   theAngleEnd)

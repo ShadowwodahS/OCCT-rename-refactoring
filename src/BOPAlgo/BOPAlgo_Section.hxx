@@ -21,7 +21,7 @@
 
 #include <BOPAlgo_Builder.hxx>
 #include <NCollection_BaseAllocator.hxx>
-class BOPAlgo_PaveFiller;
+class BooleanPaveFiller;
 
 //! The algorithm to build a Section between the arguments.
 //! The Section consists of vertices and edges.
@@ -50,7 +50,7 @@ protected:
   Standard_EXPORT virtual void BuildSection(const Message_ProgressRange& theRange);
 
   //! Performs calculations using prepared Filler object <thePF>
-  Standard_EXPORT virtual void PerformInternal1(const BOPAlgo_PaveFiller&    thePF,
+  Standard_EXPORT virtual void PerformInternal1(const BooleanPaveFiller&    thePF,
                                                 const Message_ProgressRange& theRange)
     Standard_OVERRIDE;
 
@@ -70,10 +70,10 @@ protected:
 
   //! Filling steps for constant operations
   Standard_EXPORT void fillPIConstants(const Standard_Real theWhole,
-                                       BOPAlgo_PISteps&    theSteps) const Standard_OVERRIDE;
+                                       PISteps&    theSteps) const Standard_OVERRIDE;
 
   //! Filling steps for all other operations
-  Standard_EXPORT void fillPISteps(BOPAlgo_PISteps& theSteps) const Standard_OVERRIDE;
+  Standard_EXPORT void fillPISteps(PISteps& theSteps) const Standard_OVERRIDE;
 };
 
 #endif // _BOPAlgo_Section_HeaderFile

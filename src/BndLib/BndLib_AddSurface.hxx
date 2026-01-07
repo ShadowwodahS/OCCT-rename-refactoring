@@ -52,7 +52,7 @@ public:
   //! -   the services provided by a surface from the package Geom
   //! -   and those required of the surface by the computation algorithm.
   //! The adapted surface is created in the following way:
-  //! Handle(Geom_Surface) mysurface = ... ;
+  //! Handle(GeomSurface) mysurface = ... ;
   //! GeomAdaptor_Surface S(mysurface);
   //! The bounding box B is then enlarged by adding this surface:
   //! Bnd_Box B;
@@ -85,7 +85,7 @@ public:
   //! -   the services provided by a surface from the package Geom
   //! -   and those required of the surface by the computation algorithm.
   //! The adapted surface is created in the following way:
-  //! Handle(Geom_Surface) mysurface = ... ;
+  //! Handle(GeomSurface) mysurface = ... ;
   //! GeomAdaptor_Surface S(mysurface);
   //! The bounding box B is then enlarged by adding this surface:
   //! Bnd_Box B;

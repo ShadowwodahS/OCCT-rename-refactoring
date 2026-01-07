@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-Standard_OStream& TopOpeBRep::Print(const TopOpeBRep_TypeLineCurve t, Standard_OStream& OS)
+Standard_OStream& TopOpeBRep1::Print(const TopOpeBRep_TypeLineCurve t, Standard_OStream& OS)
 {
   switch (t)
   {

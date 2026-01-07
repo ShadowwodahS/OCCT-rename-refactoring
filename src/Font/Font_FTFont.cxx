@@ -80,7 +80,7 @@ void Font_FTFont::Release()
 //=================================================================================================
 
 bool Font_FTFont::Init(const Handle(NCollection_Buffer)& theData,
-                       const TCollection_AsciiString&    theFileName,
+                       const AsciiString1&    theFileName,
                        const Font_FTFontParams&          theParams,
                        const Standard_Integer            theFaceId)
 {
@@ -131,7 +131,7 @@ bool Font_FTFont::Init(const Handle(NCollection_Buffer)& theData,
                            &myFTFace)
         != 0)
     {
-      Message::SendTrace(TCollection_AsciiString("Font '") + myFontPath
+      Message::SendTrace(AsciiString1("Font '") + myFontPath
                          + "' failed to load from memory");
       Release();
       return false;
@@ -142,7 +142,7 @@ bool Font_FTFont::Init(const Handle(NCollection_Buffer)& theData,
     if (FT_New_Face(myFTLib->Instance(), myFontPath.ToCString(), (FT_Long)theFaceId, &myFTFace)
         != 0)
     {
-      // Message::SendTrace (TCollection_AsciiString("Font '") + myFontPath + "' failed to load from
+      // Message::SendTrace (AsciiString1("Font '") + myFontPath + "' failed to load from
       // file");
       Release();
       return false;
@@ -151,7 +151,7 @@ bool Font_FTFont::Init(const Handle(NCollection_Buffer)& theData,
 
   if (FT_Select_Charmap(myFTFace, ft_encoding_unicode) != 0)
   {
-    Message::SendTrace(TCollection_AsciiString("Font '") + myFontPath
+    Message::SendTrace(AsciiString1("Font '") + myFontPath
                        + "' doesn't contains Unicode charmap");
     Release();
     return false;
@@ -163,7 +163,7 @@ bool Font_FTFont::Init(const Handle(NCollection_Buffer)& theData,
                             theParams.Resolution)
            != 0)
   {
-    Message::SendTrace(TCollection_AsciiString("Font '") + myFontPath
+    Message::SendTrace(AsciiString1("Font '") + myFontPath
                        + "' doesn't contains Unicode charmap of requested size");
     Release();
     return false;
@@ -194,7 +194,7 @@ bool Font_FTFont::Init(const Handle(NCollection_Buffer)& theData,
 
 //=================================================================================================
 
-Handle(Font_FTFont) Font_FTFont::FindAndCreate(const TCollection_AsciiString& theFontName,
+Handle(Font_FTFont) Font_FTFont::FindAndCreate(const AsciiString1& theFontName,
                                                const Font_FontAspect          theFontAspect,
                                                const Font_FTFontParams&       theParams,
                                                const Font_StrictLevel         theStrictLevel)
@@ -211,7 +211,7 @@ Handle(Font_FTFont) Font_FTFont::FindAndCreate(const TCollection_AsciiString& th
     }
 
     Standard_Integer               aFaceId = 0;
-    const TCollection_AsciiString& aPath =
+    const AsciiString1& aPath =
       aRequestedFont->FontPathAny(aFontAspect, aParams.ToSynthesizeItalic, aFaceId);
     Handle(Font_FTFont) aFont = new Font_FTFont();
     if (aFont->Init(aPath, aParams, aFaceId))
@@ -249,7 +249,7 @@ Handle(Font_FTFont) Font_FTFont::FindAndCreate(const TCollection_AsciiString& th
 
 //=================================================================================================
 
-bool Font_FTFont::FindAndInit(const TCollection_AsciiString& theFontName,
+bool Font_FTFont::FindAndInit(const AsciiString1& theFontName,
                               Font_FontAspect                theFontAspect,
                               const Font_FTFontParams&       theParams,
                               Font_StrictLevel               theStrictLevel)
@@ -266,7 +266,7 @@ bool Font_FTFont::FindAndInit(const TCollection_AsciiString& theFontName,
     }
 
     Standard_Integer               aFaceId = 0;
-    const TCollection_AsciiString& aPath =
+    const AsciiString1& aPath =
       aRequestedFont->FontPathAny(myFontAspect, aParams.ToSynthesizeItalic, aFaceId);
     return Init(aPath, aParams, aFaceId);
   }
@@ -304,11 +304,11 @@ bool Font_FTFont::findAndInitFallback(Font_UnicodeSubset theSubset)
     aParams.IsSingleStrokeFont = aRequestedFont->IsSingleStrokeFont();
 
     Standard_Integer               aFaceId = 0;
-    const TCollection_AsciiString& aPath =
+    const AsciiString1& aPath =
       aRequestedFont->FontPathAny(myFontAspect, aParams.ToSynthesizeItalic, aFaceId);
     if (myFallbackFaces[theSubset]->Init(aPath, aParams, aFaceId))
     {
-      Message::SendTrace(TCollection_AsciiString("Font_FTFont, using fallback font '")
+      Message::SendTrace(AsciiString1("Font_FTFont, using fallback font '")
                          + aRequestedFont->FontName() + "'" + " for symbols unsupported by '"
                          + myFTFace->family_name + "'");
     }

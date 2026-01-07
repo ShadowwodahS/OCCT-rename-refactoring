@@ -34,8 +34,8 @@
 #include <TopTools_MapOfShape.hxx>
 #include <TopTools_SequenceOfShape.hxx>
 
-class Geom_Surface;
-class TopoDS_Edge;
+class GeomSurface;
+class TopoEdge;
 class HLRAlgo_PolyInternalData;
 class HLRAlgo_EdgeStatus;
 struct HLRAlgo_TriangleData;
@@ -105,22 +105,22 @@ public:
 
   Standard_EXPORT HLRBRep_PolyAlgo(const Handle(HLRBRep_PolyAlgo)& A);
 
-  Standard_EXPORT HLRBRep_PolyAlgo(const TopoDS_Shape& S);
+  Standard_EXPORT HLRBRep_PolyAlgo(const TopoShape& S);
 
-  Standard_Integer NbShapes() const { return myShapes.Length(); }
+  Standard_Integer NbShapes1() const { return myShapes.Length(); }
 
-  Standard_EXPORT TopoDS_Shape& Shape(const Standard_Integer I);
+  Standard_EXPORT TopoShape& Shape(const Standard_Integer I);
 
   //! remove the Shape of Index <I>.
   Standard_EXPORT void Remove(const Standard_Integer I);
 
   //! return the index of the Shape <S> and  return 0 if
   //! the Shape <S> is not found.
-  Standard_EXPORT Standard_Integer Index(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Integer Index(const TopoShape& S) const;
 
   //! Loads the shape S into this framework.
   //! Warning S must have already been triangulated.
-  void Load(const TopoDS_Shape& theShape) { myShapes.Append(theShape); }
+  void Load(const TopoShape& theShape) { myShapes.Append(theShape); }
 
   const Handle(HLRAlgo_PolyAlgo)& Algo() const { return myAlgo; }
 
@@ -155,7 +155,7 @@ public:
   void NextHide() { myAlgo->NextHide(); }
 
   Standard_EXPORT HLRAlgo_BiPoint::PointsT& Hide(HLRAlgo_EdgeStatus& status,
-                                                 TopoDS_Shape&       S,
+                                                 TopoShape&       S,
                                                  Standard_Boolean&   reg1,
                                                  Standard_Boolean&   regn,
                                                  Standard_Boolean&   outl,
@@ -167,7 +167,7 @@ public:
 
   void NextShow() { myAlgo->NextShow(); }
 
-  Standard_EXPORT HLRAlgo_BiPoint::PointsT& Show(TopoDS_Shape&     S,
+  Standard_EXPORT HLRAlgo_BiPoint::PointsT& Show(TopoShape&     S,
                                                  Standard_Boolean& reg1,
                                                  Standard_Boolean& regn,
                                                  Standard_Boolean& outl,
@@ -175,7 +175,7 @@ public:
 
   //! Make a shape  with  the internal outlines in  each
   //! face.
-  Standard_EXPORT TopoDS_Shape OutLinedShape(const TopoDS_Shape& S) const;
+  Standard_EXPORT TopoShape OutLinedShape(const TopoShape& S) const;
 
   Standard_Boolean Debug() const { return myDebug; }
 
@@ -184,13 +184,13 @@ public:
   DEFINE_STANDARD_RTTIEXT(HLRBRep_PolyAlgo, RefObject)
 
 private:
-  Standard_EXPORT TopoDS_Shape MakeShape() const;
+  Standard_EXPORT TopoShape MakeShape() const;
 
-  Standard_EXPORT Standard_Integer InitShape(const TopoDS_Shape& Shape,
+  Standard_EXPORT Standard_Integer InitShape(const TopoShape& Shape,
                                              Standard_Boolean&   IsoledF,
                                              Standard_Boolean&   IsoledE);
 
-  Standard_EXPORT void StoreShell(const TopoDS_Shape&                                   theShape,
+  Standard_EXPORT void StoreShell(const TopoShape&                                   theShape,
                                   Standard_Integer&                                     theIShell,
                                   NCollection_Array1<Handle(HLRAlgo_PolyShellData)>&    theShell,
                                   const Standard_Boolean                                theIsoledF,
@@ -248,10 +248,10 @@ private:
 
   Standard_EXPORT void InitBiPointsWithConnexity(
     const Standard_Integer                                theIEdge,
-    TopoDS_Edge&                                          theEdge,
+    TopoEdge&                                          theEdge,
     HLRAlgo_ListOfBPoint&                                 theList,
     NCollection_Array1<Handle(HLRAlgo_PolyInternalData)>& thePID,
-    TopTools_ListOfShape&                                 theLS,
+    ShapeList&                                 theLS,
     const Standard_Boolean                                theIsConnex);
 
   Standard_EXPORT void Interpolation(HLRAlgo_ListOfBPoint&                   List,
@@ -619,7 +619,7 @@ private:
   Standard_Real              myTolSta;
   Standard_Real              myTolEnd;
   Standard_Real              myTolAngular;
-  Handle(Geom_Surface)       myGSurf;
+  Handle(GeomSurface)       myGSurf;
   BRepAdaptor_Surface        myBSurf;
   BRepAdaptor_Curve          myBCurv;
   BRepAdaptor_Curve2d        myPC;

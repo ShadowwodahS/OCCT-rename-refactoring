@@ -30,7 +30,7 @@
 // function : Imported
 // purpose  : Sets imported and all its descendants.
 //=======================================================================
-void TDF_Label::Imported(const Standard_Boolean aStatus) const
+void DataLabel::Imported(const Standard_Boolean aStatus) const
 {
   if (IsNull())
     throw Standard_NullObject("A null Label has no status.");
@@ -47,7 +47,7 @@ void TDF_Label::Imported(const Standard_Boolean aStatus) const
 // purpose  : Finds an attributes according to an ID.
 //=======================================================================
 
-Standard_Boolean TDF_Label::FindAttribute(const Standard_GUID&   anID,
+Standard_Boolean DataLabel::FindAttribute(const Standard_GUID&   anID,
                                           Handle(TDF_Attribute)& anAttribute) const
 {
   if (IsNull())
@@ -69,7 +69,7 @@ Standard_Boolean TDF_Label::FindAttribute(const Standard_GUID&   anID,
 // purpose  : Finds an attributes according to an ID and a Transaction.
 //=======================================================================
 
-Standard_Boolean TDF_Label::FindAttribute(const Standard_GUID&   anID,
+Standard_Boolean DataLabel::FindAttribute(const Standard_GUID&   anID,
                                           const Standard_Integer aTransaction,
                                           Handle(TDF_Attribute)& anAttribute) const
 {
@@ -95,7 +95,7 @@ Standard_Boolean TDF_Label::FindAttribute(const Standard_GUID&   anID,
 //           Root has depth 0. So the depth is the number of fathers.
 //=======================================================================
 
-Standard_Integer TDF_Label::Depth() const
+Standard_Integer DataLabel::Depth() const
 {
   if (IsNull())
     throw Standard_NullObject("A null Label has no depth.");
@@ -107,7 +107,7 @@ Standard_Integer TDF_Label::Depth() const
 // purpose  : Returns True if <me> is a descendant of <aLabel>.
 //=======================================================================
 
-Standard_Boolean TDF_Label::IsDescendant(const TDF_Label& aLabel) const
+Standard_Boolean DataLabel::IsDescendant(const DataLabel& aLabel) const
 {
   // Cet algorithme remonte jusqu'a la racine. On peut s'arreter
   // si la profondeur atteinte est inferieure a celle de <aLabel>.
@@ -135,7 +135,7 @@ Standard_Boolean TDF_Label::IsDescendant(const TDF_Label& aLabel) const
 
 //=================================================================================================
 
-const TDF_Label TDF_Label::Root() const
+const DataLabel DataLabel::Root() const
 {
   if (IsNull())
     throw Standard_NullObject("A null Label has no root.");
@@ -147,7 +147,7 @@ const TDF_Label TDF_Label::Root() const
 // purpose  : Returns the number of children.
 //=======================================================================
 
-Standard_Integer TDF_Label::NbChildren() const
+Standard_Integer DataLabel::NbChildren() const
 {
   if (IsNull())
     throw Standard_NullObject("A null Label has no children.");
@@ -160,7 +160,7 @@ Standard_Integer TDF_Label::NbChildren() const
 
 //=================================================================================================
 
-TDF_Label TDF_Label::FindChild(const Standard_Integer aTag, const Standard_Boolean create) const
+DataLabel DataLabel::FindChild(const Standard_Integer aTag, const Standard_Boolean create) const
 {
   if (IsNull())
     throw Standard_NullObject("A null Label has no child.");
@@ -177,7 +177,7 @@ TDF_Label TDF_Label::FindChild(const Standard_Integer aTag, const Standard_Boole
 // purpose  : Returns true if owns an attribute with <anID> as ID.
 //=======================================================================
 
-// Standard_Boolean TDF_Label::IsA(const Standard_GUID& anID) const
+// Standard_Boolean DataLabel::IsA(const Standard_GUID& anID) const
 // {
 //   Handle(TDF_Attribute) att;
 //   return FindAttribute(anID,att);
@@ -188,7 +188,7 @@ TDF_Label TDF_Label::FindChild(const Standard_Integer aTag, const Standard_Boole
 // purpose  : Returns true if owns an attribute with <anID> as ID.
 //=======================================================================
 
-Standard_Boolean TDF_Label::IsAttribute(const Standard_GUID& anID) const
+Standard_Boolean DataLabel::IsAttribute(const Standard_GUID& anID) const
 {
   Handle(TDF_Attribute) att;
   return FindAttribute(anID, att);
@@ -199,7 +199,7 @@ Standard_Boolean TDF_Label::IsAttribute(const Standard_GUID& anID) const
 // purpose  : Returns true if the label has at least one unremoved attribute.
 //=======================================================================
 
-Standard_Boolean TDF_Label::HasAttribute() const
+Standard_Boolean DataLabel::HasAttribute() const
 {
   if (IsNull())
     throw Standard_NullObject("A null Label has no attribute.");
@@ -217,7 +217,7 @@ Standard_Boolean TDF_Label::HasAttribute() const
 // purpose  : Returns the number of attributes.
 //=======================================================================
 
-Standard_Integer TDF_Label::NbAttributes() const
+Standard_Integer DataLabel::NbAttributes() const
 {
   if (IsNull())
     throw Standard_NullObject("A null Label has no attribute.");
@@ -232,7 +232,7 @@ Standard_Integer TDF_Label::NbAttributes() const
 
 //=================================================================================================
 
-Standard_Integer TDF_Label::Transaction() const
+Standard_Integer DataLabel::Transaction() const
 {
   if (IsNull())
     throw Standard_NullObject("A null Label has no transaction.");
@@ -244,26 +244,26 @@ Standard_Integer TDF_Label::Transaction() const
 // purpose  : This method is equivalent to operator <<
 //=======================================================================
 
-Standard_OStream& TDF_Label::Dump(Standard_OStream& anOS) const
+Standard_OStream& DataLabel::Dump(Standard_OStream& anOS) const
 {
   TDF_IDFilter            f;
   TDF_AttributeIndexedMap m;
-  TDF_Label::InternalDump(anOS, f, m, Standard_False);
+  DataLabel::InternalDump(anOS, f, m, Standard_False);
   return anOS;
 }
 
 //=================================================================================================
 
-void TDF_Label::ExtendedDump(Standard_OStream&        anOS,
+void DataLabel::ExtendedDump(Standard_OStream&        anOS,
                              const TDF_IDFilter&      aFilter,
                              TDF_AttributeIndexedMap& aMap) const
 {
-  TDF_Label::InternalDump(anOS, aFilter, aMap, Standard_True);
+  DataLabel::InternalDump(anOS, aFilter, aMap, Standard_True);
 }
 
 //=================================================================================================
 
-void TDF_Label::EntryDump(Standard_OStream& anOS) const
+void DataLabel::EntryDump(Standard_OStream& anOS) const
 {
   if (IsNull())
   {
@@ -271,7 +271,7 @@ void TDF_Label::EntryDump(Standard_OStream& anOS) const
   }
   else
   {
-    TCollection_AsciiString entry;
+    AsciiString1 entry;
     TDF_Tool::Entry(*this, entry);
     anOS << entry;
   }
@@ -282,7 +282,7 @@ void TDF_Label::EntryDump(Standard_OStream& anOS) const
 // purpose  : Finds or adds a label child having <aTag> as tag.
 //=======================================================================
 
-TDF_LabelNode* TDF_Label::FindOrAddChild(const Standard_Integer aTag,
+TDF_LabelNode* DataLabel::FindOrAddChild(const Standard_Integer aTag,
                                          const Standard_Boolean create) const
 {
   TDF_LabelNode* currentLnp     = myLabelNode->FirstChild();
@@ -348,7 +348,7 @@ TDF_LabelNode* TDF_Label::FindOrAddChild(const Standard_Integer aTag,
 // purpose  : Private method.
 //=======================================================================
 
-void TDF_Label::InternalDump(Standard_OStream&        anOS,
+void DataLabel::InternalDump(Standard_OStream&        anOS,
                              const TDF_IDFilter&      aFilter,
                              TDF_AttributeIndexedMap& aMap,
                              const Standard_Boolean   extended) const
@@ -359,7 +359,7 @@ void TDF_Label::InternalDump(Standard_OStream&        anOS,
   }
   else
   {
-    TCollection_AsciiString entry;
+    AsciiString1 entry;
     TDF_Tool::Entry(*this, entry);
     anOS << entry << "\t";
     if (IsImported())
@@ -402,12 +402,12 @@ void TDF_Label::InternalDump(Standard_OStream&        anOS,
   }
 }
 
-Standard_Boolean TDF_Label::HasLowerNode(const TDF_Label& aLabel) const
+Standard_Boolean DataLabel::HasLowerNode(const DataLabel& aLabel) const
 {
   return (myLabelNode < aLabel.myLabelNode);
 }
 
-Standard_Boolean TDF_Label::HasGreaterNode(const TDF_Label& aLabel) const
+Standard_Boolean DataLabel::HasGreaterNode(const DataLabel& aLabel) const
 {
   return (myLabelNode > aLabel.myLabelNode);
 }
@@ -416,12 +416,12 @@ Standard_Boolean TDF_Label::HasGreaterNode(const TDF_Label& aLabel) const
 
 //=================================================================================================
 
-// void TDF_Label::Add(const Handle(TDF_Attribute)& anAttribute)  const
+// void DataLabel::Add(const Handle(TDF_Attribute)& anAttribute)  const
 // { AddToNode(myLabelNode,anAttribute); }
 
 //=================================================================================================
 
-void TDF_Label::AddAttribute(const Handle(TDF_Attribute)& anAttribute,
+void DataLabel::AddAttribute(const Handle(TDF_Attribute)& anAttribute,
                              const Standard_Boolean       append /* = Standard_False*/) const
 {
   AddToNode(myLabelNode, anAttribute, append);
@@ -429,19 +429,19 @@ void TDF_Label::AddAttribute(const Handle(TDF_Attribute)& anAttribute,
 
 //=================================================================================================
 
-// void TDF_Label::Forget(const Handle(TDF_Attribute)& anAttribute)  const
+// void DataLabel::Forget(const Handle(TDF_Attribute)& anAttribute)  const
 // { ForgetFromNode(myLabelNode,anAttribute); }
 
 //=================================================================================================
 
-void TDF_Label::ForgetAttribute(const Handle(TDF_Attribute)& anAttribute) const
+void DataLabel::ForgetAttribute(const Handle(TDF_Attribute)& anAttribute) const
 {
   ForgetFromNode(myLabelNode, anAttribute);
 }
 
 //=================================================================================================
 
-// Standard_Boolean  TDF_Label::Forget (const Standard_GUID& anID) const
+// Standard_Boolean  DataLabel::Forget (const Standard_GUID& anID) const
 // {
 //   Handle(TDF_Attribute) anAttribute;
 //   //if (Label().FindAttribute(anID,anAttribute)) {
@@ -454,7 +454,7 @@ void TDF_Label::ForgetAttribute(const Handle(TDF_Attribute)& anAttribute) const
 
 //=================================================================================================
 
-Standard_Boolean TDF_Label::ForgetAttribute(const Standard_GUID& anID) const
+Standard_Boolean DataLabel::ForgetAttribute(const Standard_GUID& anID) const
 {
   Handle(TDF_Attribute) anAttribute;
   // if (Label().FindAttribute(anID,anAttribute)) {
@@ -468,7 +468,7 @@ Standard_Boolean TDF_Label::ForgetAttribute(const Standard_GUID& anID) const
 
 //=================================================================================================
 
-// void TDF_Label::ForgetAll (const Standard_Boolean clearChildren) const
+// void DataLabel::ForgetAll (const Standard_Boolean clearChildren) const
 // {
 //   for (TDF_AttributeIterator itr1(myLabelNode); itr1.More(); itr1.Next())
 //     ForgetFromNode(myLabelNode,itr1.Value());
@@ -480,7 +480,7 @@ Standard_Boolean TDF_Label::ForgetAttribute(const Standard_GUID& anID) const
 
 //=================================================================================================
 
-void TDF_Label::ForgetAllAttributes(const Standard_Boolean clearChildren) const
+void DataLabel::ForgetAllAttributes(const Standard_Boolean clearChildren) const
 {
   TDF_AttributeIterator itr1(myLabelNode);
   // AGV-OCC5031: iterator must be incremented before removal of the attribute
@@ -503,12 +503,12 @@ void TDF_Label::ForgetAllAttributes(const Standard_Boolean clearChildren) const
 
 //=================================================================================================
 
-// void TDF_Label::Resume (const Handle(TDF_Attribute)& anAttribute)  const
+// void DataLabel::Resume (const Handle(TDF_Attribute)& anAttribute)  const
 // { ResumeToNode(myLabelNode,anAttribute); }
 
 //=================================================================================================
 
-void TDF_Label::ResumeAttribute(const Handle(TDF_Attribute)& anAttribute) const
+void DataLabel::ResumeAttribute(const Handle(TDF_Attribute)& anAttribute) const
 {
   ResumeToNode(myLabelNode, anAttribute);
 }
@@ -518,14 +518,14 @@ void TDF_Label::ResumeAttribute(const Handle(TDF_Attribute)& anAttribute) const
 // purpose  : Private method used by Add
 //=======================================================================
 
-void TDF_Label::AddToNode(const TDF_LabelNodePtr&      toNode,
+void DataLabel::AddToNode(const TDF_LabelNodePtr&      toNode,
                           const Handle(TDF_Attribute)& anAttribute,
                           const Standard_Boolean       append) const
 {
   // check that modification is allowed
   if (!toNode->Data()->IsModificationAllowed())
   {
-    TCollection_AsciiString aMess;
+    AsciiString1 aMess;
     aMess = "Attribute \"";
     aMess += anAttribute->DynamicType()->Name();
     aMess += "\" is added to label outside transaction";
@@ -562,13 +562,13 @@ void TDF_Label::AddToNode(const TDF_LabelNodePtr&      toNode,
 // purpose  : Private method used by Forget
 //=======================================================================
 
-void TDF_Label::ForgetFromNode(const TDF_LabelNodePtr&      fromNode,
+void DataLabel::ForgetFromNode(const TDF_LabelNodePtr&      fromNode,
                                const Handle(TDF_Attribute)& anAttribute) const
 {
   // check that modification is allowed
   if (!fromNode->Data()->IsModificationAllowed())
   {
-    TCollection_AsciiString aMess;
+    AsciiString1 aMess;
     aMess = "Attribute \"";
     aMess += anAttribute->DynamicType()->Name();
     aMess += "\" is removed from label outside transaction";
@@ -625,7 +625,7 @@ void TDF_Label::ForgetFromNode(const TDF_LabelNodePtr&      fromNode,
 // purpose  : Private method used by Resume
 //=======================================================================
 
-void TDF_Label::ResumeToNode(const TDF_LabelNodePtr&      toNode,
+void DataLabel::ResumeToNode(const TDF_LabelNodePtr&      toNode,
                              const Handle(TDF_Attribute)& anAttribute) const
 {
   if (anAttribute.IsNull())

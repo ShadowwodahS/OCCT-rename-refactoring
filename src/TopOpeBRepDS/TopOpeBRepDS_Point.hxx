@@ -22,21 +22,21 @@
 #include <Standard_Handle.hxx>
 
 #include <gp_Pnt.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! A Geom point and a tolerance.
-class TopOpeBRepDS_Point
+class Point1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepDS_Point();
+  Standard_EXPORT Point1();
 
-  Standard_EXPORT TopOpeBRepDS_Point(const Point3d& P, const Standard_Real T);
+  Standard_EXPORT Point1(const Point3d& P, const Standard_Real T);
 
-  Standard_EXPORT TopOpeBRepDS_Point(const TopoDS_Shape& S);
+  Standard_EXPORT Point1(const TopoShape& S);
 
-  Standard_EXPORT Standard_Boolean IsEqual(const TopOpeBRepDS_Point& other) const;
+  Standard_EXPORT Standard_Boolean IsEqual(const Point1& other) const;
 
   Standard_EXPORT const Point3d& Point() const;
 

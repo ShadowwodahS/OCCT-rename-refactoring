@@ -37,9 +37,9 @@
 #include <BRepAdaptor_Surface.hxx>
 #include <BRepAdaptor_Curve.hxx>
 
-Standard_EXPORT Handle(Geom2d_Curve) MakePCurve(const ProjLib_ProjectedCurve& PC);
+Standard_EXPORT Handle(GeomCurve2d) MakePCurve(const ProjLib_ProjectedCurve& PC);
 
-static TopAbs_State FUN_staPinF3d(const Point3d& P, const TopoDS_Face& F)
+static TopAbs_State FUN_staPinF3d(const Point3d& P, const TopoFace& F)
 // prequesitory : the compute of state(P,3dmatter of F)
 // - solid classifier -
 {
@@ -49,7 +49,7 @@ static TopAbs_State FUN_staPinF3d(const Point3d& P, const TopoDS_Face& F)
   Standard_Boolean ok = FUN_tool_projPonboundedF(P, F, UV, d);
   if (!ok)
     return st;
-  Standard_Real tolF = BRep_Tool::Tolerance(F);
+  Standard_Real tolF = BRepInspector::Tolerance(F);
   if (d < tolF)
     return TopAbs_IN; // TopAbs_ON;
   Point3d pF;
@@ -63,23 +63,23 @@ static TopAbs_State FUN_staPinF3d(const Point3d& P, const TopoDS_Face& F)
   return st;
 }
 
-Standard_EXPORT void FUN_UNKFstasta(const TopoDS_Face&              FF,
-                                    const TopoDS_Face&              FS,
-                                    const TopoDS_Edge&              EE,
+Standard_EXPORT void FUN_UNKFstasta(const TopoFace&              FF,
+                                    const TopoFace&              FS,
+                                    const TopoEdge&              EE,
                                     const Standard_Boolean          EEofFF,
                                     TopAbs_State&                   stateb,
                                     TopAbs_State&                   statea,
                                     TopOpeBRepTool_PShapeClassifier pClassif)
 {
-  BRep_Builder BB;
+  ShapeBuilder BB;
 
   stateb = statea = TopAbs_UNKNOWN;
   Standard_Real      fE, lE;
-  Handle(Geom_Curve) CEE = BRep_Tool::Curve(EE, fE, lE);
+  Handle(GeomCurve3d) CEE = BRepInspector::Curve(EE, fE, lE);
 
   if (CEE.IsNull())
     return; // NYI : get points from 2d curve
-  Handle(Geom_Surface) SFF = BRep_Tool::Surface(FF);
+  Handle(GeomSurface) SFF = BRepInspector::Surface(FF);
 
   Standard_Real ttE  = 0.41237118973;
   Standard_Real parE = (1 - ttE) * fE + ttE * lE;
@@ -87,7 +87,7 @@ Standard_EXPORT void FUN_UNKFstasta(const TopoDS_Face&              FF,
   Vector3d        VE;
   CEE->D1(parE, PE, VE);
 
-  GeomAPI_ProjectPointOnSurf PonS(PE, SFF);
+  PointOnSurfProjector PonS(PE, SFF);
   if (!PonS.Extrema().IsDone())
     return;
   if (PonS.NbPoints() == 0)
@@ -102,17 +102,17 @@ Standard_EXPORT void FUN_UNKFstasta(const TopoDS_Face&              FF,
   Standard_Real FUMin, FUMax, FVMin, FVMax;
 
   // les bornes de FF
-  BRepTools::UVBounds(FF, FUMin, FUMax, FVMin, FVMax);
+  BRepTools1::UVBounds(FF, FUMin, FUMax, FVMin, FVMax);
 
   // les bornes de EE dans FF
   Standard_Real EUMin, EUMax, EVMin, EVMax;
   if (EEofFF)
   {
-    BRepTools::UVBounds(FF, EE, EUMin, EUMax, EVMin, EVMax);
+    BRepTools1::UVBounds(FF, EE, EUMin, EUMax, EVMin, EVMax);
   }
   else
   { // EE n'est pas une arete de FF => EE est une arete de FS
-    Handle(Geom2d_Curve) CEEFFx;
+    Handle(GeomCurve2d) CEEFFx;
     if (CEE.IsNull())
     {
       Standard_Boolean            compminmaxUV = Standard_False;
@@ -128,12 +128,12 @@ Standard_EXPORT void FUN_UNKFstasta(const TopoDS_Face&              FF,
     else
     {
       // modified by NIZHNY-MKK  Mon Apr  2 15:41:01 2001.BEGIN
-      TopExp_Explorer anExp(FF, TopAbs_EDGE);
+      ShapeExplorer anExp(FF, TopAbs_EDGE);
       for (; anExp.More(); anExp.Next())
       {
         if (EE.IsSame(anExp.Current()))
         {
-          CEEFFx = BRep_Tool::CurveOnSurface(EE, FF, fE, lE);
+          CEEFFx = BRepInspector::CurveOnSurface(EE, FF, fE, lE);
         }
       }
       if (CEEFFx.IsNull())
@@ -149,19 +149,19 @@ Standard_EXPORT void FUN_UNKFstasta(const TopoDS_Face&              FF,
     if (CEEFFx.IsNull())
       return;
 
-    TopoDS_Edge EEx;
-    BB.MakeEdge(EEx, CEE, BRep_Tool::Tolerance(EE));
-    TopoDS_Vertex vf, vr;
-    TopExp::Vertices(EE, vf, vr);
+    TopoEdge EEx;
+    BB.MakeEdge(EEx, CEE, BRepInspector::Tolerance(EE));
+    TopoVertex vf, vr;
+    TopExp1::Vertices(EE, vf, vr);
     BB.Add(EEx, vf);
-    BB.UpdateVertex(vf, fE, EEx, BRep_Tool::Tolerance(vf));
+    BB.UpdateVertex(vf, fE, EEx, BRepInspector::Tolerance(vf));
     BB.Add(EEx, vr);
-    BB.UpdateVertex(vr, lE, EEx, BRep_Tool::Tolerance(vr));
+    BB.UpdateVertex(vr, lE, EEx, BRepInspector::Tolerance(vr));
 
-    TopoDS_Face FFx;
-    BB.MakeFace(FFx, SFF, BRep_Tool::Tolerance(FF));
-    BB.UpdateEdge(EEx, CEEFFx, FFx, BRep_Tool::Tolerance(FF));
-    BRepTools::UVBounds(FFx, EEx, EUMin, EUMax, EVMin, EVMax);
+    TopoFace FFx;
+    BB.MakeFace(FFx, SFF, BRepInspector::Tolerance(FF));
+    BB.UpdateEdge(EEx, CEEFFx, FFx, BRepInspector::Tolerance(FF));
+    BRepTools1::UVBounds(FFx, EEx, EUMin, EUMax, EVMin, EVMax);
   }
 
   //  Standard_Boolean EisoU = (abs(EVMax-EVMin) < Precision::Confusion());

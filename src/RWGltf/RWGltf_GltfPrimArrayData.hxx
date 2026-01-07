@@ -25,11 +25,11 @@ class RWGltf_GltfPrimArrayData
 {
 public:
   Handle(NCollection_Buffer) StreamData;
-  TCollection_AsciiString    StreamUri;
+  AsciiString1    StreamUri;
   int64_t                    StreamOffset;
   int64_t                    StreamLength;
 
-  RWGltf_GltfAccessor  Accessor;
+  GltfAccessor  Accessor;
   RWGltf_GltfArrayType Type;
 
   RWGltf_GltfPrimArrayData()

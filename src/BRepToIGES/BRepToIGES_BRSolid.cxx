@@ -59,7 +59,7 @@ BRepToIGES_BRSolid::BRepToIGES_BRSolid(const BRepToIGES_BREntity& BR)
 //=============================================================================
 
 Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferSolid(
-  const TopoDS_Shape&          start,
+  const TopoShape&          start,
   const Message_ProgressRange& theProgress)
 {
   Handle(IGESData_IGESEntity) res;
@@ -69,7 +69,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferSolid(
 
   if (start.ShapeType() == TopAbs_SOLID)
   {
-    TopoDS_Solid M = TopoDS::Solid(start);
+    TopoSolid M = TopoDS::Solid(start);
     res            = TransferSolid(M, theProgress);
   }
   else if (start.ShapeType() == TopAbs_COMPSOLID)
@@ -79,7 +79,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferSolid(
   }
   else if (start.ShapeType() == TopAbs_COMPOUND)
   {
-    TopoDS_Compound C = TopoDS::Compound(start);
+    TopoCompound C = TopoDS::Compound(start);
     res               = TransferCompound(C, theProgress);
   }
   else
@@ -95,14 +95,14 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferSolid(
 //=============================================================================
 
 Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferSolid(
-  const TopoDS_Solid&          start,
+  const TopoSolid&          start,
   const Message_ProgressRange& theProgress)
 {
   Handle(IGESData_IGESEntity) res;
   if (start.IsNull())
     return res;
 
-  TopExp_Explorer                      Ex;
+  ShapeExplorer                      Ex;
   Handle(IGESData_IGESEntity)          IShell;
   BRepToIGES_BRShell                   BS(*this);
   Handle(TColStd_HSequenceOfTransient) Seq = new TColStd_HSequenceOfTransient();
@@ -114,7 +114,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferSolid(
   for (Ex.Init(start, TopAbs_SHELL); Ex.More() && aPS.More(); Ex.Next())
   {
     Message_ProgressRange aRange = aPS.Next();
-    TopoDS_Shell          S      = TopoDS::Shell(Ex.Current());
+    TopoShell          S      = TopoDS::Shell(Ex.Current());
     if (S.IsNull())
     {
       AddWarning(start, " an Shell is a null entity");
@@ -167,7 +167,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferCompSolid(
   if (start.IsNull())
     return res;
 
-  TopExp_Explorer                      Ex;
+  ShapeExplorer                      Ex;
   Handle(IGESData_IGESEntity)          ISolid;
   Handle(TColStd_HSequenceOfTransient) Seq = new TColStd_HSequenceOfTransient();
 
@@ -178,7 +178,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferCompSolid(
   for (Ex.Init(start, TopAbs_SOLID); Ex.More() && aPS.More(); Ex.Next())
   {
     Message_ProgressRange aRange = aPS.Next();
-    TopoDS_Solid          S      = TopoDS::Solid(Ex.Current());
+    TopoSolid          S      = TopoDS::Solid(Ex.Current());
     if (S.IsNull())
     {
       AddWarning(start, " an Solid is a null entity");
@@ -224,14 +224,14 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferCompSolid(
 //=============================================================================
 
 Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferCompound(
-  const TopoDS_Compound&       start,
+  const TopoCompound&       start,
   const Message_ProgressRange& theProgress)
 {
   Handle(IGESData_IGESEntity) res;
   if (start.IsNull())
     return res;
 
-  TopExp_Explorer                      Ex;
+  ShapeExplorer                      Ex;
   Handle(IGESData_IGESEntity)          IShape;
   BRepToIGES_BRShell                   BS(*this);
   BRepToIGES_BRWire                    BW(*this);
@@ -257,7 +257,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferCompound(
   for (Ex.Init(start, TopAbs_SOLID); Ex.More() && aPS.More(); Ex.Next())
   {
     Message_ProgressRange aRange = aPS.Next();
-    TopoDS_Solid          S      = TopoDS::Solid(Ex.Current());
+    TopoSolid          S      = TopoDS::Solid(Ex.Current());
     if (S.IsNull())
     {
       AddWarning(start, " a Solid is a null entity");
@@ -274,7 +274,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferCompound(
   for (Ex.Init(start, TopAbs_SHELL, TopAbs_SOLID); Ex.More() && aPS.More(); Ex.Next())
   {
     Message_ProgressRange aRange = aPS.Next();
-    TopoDS_Shell          S      = TopoDS::Shell(Ex.Current());
+    TopoShell          S      = TopoDS::Shell(Ex.Current());
     if (S.IsNull())
     {
       AddWarning(start, " a Shell is a null entity");
@@ -291,7 +291,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferCompound(
   for (Ex.Init(start, TopAbs_FACE, TopAbs_SHELL); Ex.More() && aPS.More(); Ex.Next())
   {
     Message_ProgressRange aRange = aPS.Next();
-    TopoDS_Face           S      = TopoDS::Face(Ex.Current());
+    TopoFace           S      = TopoDS::Face(Ex.Current());
     if (S.IsNull())
     {
       AddWarning(start, " a Face is a null entity");
@@ -307,7 +307,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferCompound(
   // take all isolated Wires
   for (Ex.Init(start, TopAbs_WIRE, TopAbs_FACE); Ex.More() && aPS.More(); Ex.Next(), aPS.Next())
   {
-    TopoDS_Wire S = TopoDS::Wire(Ex.Current());
+    TopoWire S = TopoDS::Wire(Ex.Current());
     if (S.IsNull())
     {
       AddWarning(start, " a Wire is a null entity");
@@ -323,7 +323,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferCompound(
   // take all isolated Edges
   for (Ex.Init(start, TopAbs_EDGE, TopAbs_WIRE); Ex.More() && aPS.More(); Ex.Next(), aPS.Next())
   {
-    TopoDS_Edge S = TopoDS::Edge(Ex.Current());
+    TopoEdge S = TopoDS::Edge(Ex.Current());
     if (S.IsNull())
     {
       AddWarning(start, " an Edge is a null entity");
@@ -340,7 +340,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRSolid ::TransferCompound(
   // take all isolated Vertices
   for (Ex.Init(start, TopAbs_VERTEX, TopAbs_EDGE); Ex.More() && aPS.More(); Ex.Next(), aPS.Next())
   {
-    TopoDS_Vertex S = TopoDS::Vertex(Ex.Current());
+    TopoVertex S = TopoDS::Vertex(Ex.Current());
     if (S.IsNull())
     {
       AddWarning(start, " a Vertex is a null entity");

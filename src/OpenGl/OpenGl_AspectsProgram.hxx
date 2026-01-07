@@ -58,7 +58,7 @@ private:
 
 private:
   Handle(OpenGl_ShaderProgram) myShaderProgram;
-  TCollection_AsciiString      myShaderProgramId;
+  AsciiString1      myShaderProgramId;
   Standard_Boolean             myIsShaderReady;
 };
 

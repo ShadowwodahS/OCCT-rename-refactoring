@@ -287,7 +287,7 @@ void AdvApp2Var_Framework::UpdateInU(const Standard_Real CuttingValue)
     if (aPrev->Coord().X() < CuttingValue && aNext->Coord().X() > CuttingValue
         && aPrev->Coord().Y() == aNext->Coord().Y())
     {
-      gp_XY                   aNewUV(CuttingValue, aPrev->Coord().Y());
+      Coords2d                   aNewUV(CuttingValue, aPrev->Coord().Y());
       Handle(AdvApp2Var_Node) aNewNode =
         new AdvApp2Var_Node(aNewUV, aPrev->UOrder(), aPrev->VOrder());
       myNodeConstraints.InsertAfter(j, aNewNode);
@@ -376,7 +376,7 @@ void AdvApp2Var_Framework::UpdateInV(const Standard_Real CuttingValue)
   for (j = 1; j <= myUConstraints.Length() + 1; j++)
   {
     const Handle(AdvApp2Var_Node)& aJNode = myNodeConstraints.Value(j);
-    gp_XY                          NewUV(aJNode->Coord().X(), CuttingValue);
+    Coords2d                          NewUV(aJNode->Coord().X(), CuttingValue);
     Handle(AdvApp2Var_Node)        aNewNode =
       new AdvApp2Var_Node(NewUV, aJNode->UOrder(), aJNode->VOrder());
     myNodeConstraints.InsertAfter(i + j - 2, aNewNode);

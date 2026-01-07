@@ -22,7 +22,7 @@
 
 #include <TopoDS_Face.hxx>
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
-class TopoDS_Wire;
+class TopoWire;
 
 //! Builds all  the faces  limited  with a set of non
 //! jointing   and     planars     wires.    if
@@ -41,7 +41,7 @@ public:
   //! faces built.
   //! <Proj> is used to update pcurves on edges if necessary.
   //! See Add().
-  Standard_EXPORT void Init(const TopoDS_Face&     F,
+  Standard_EXPORT void Init(const TopoFace&     F,
                             const Standard_Boolean Proj               = Standard_False,
                             const Standard_Boolean ControlOrientation = Standard_False);
 
@@ -56,7 +56,7 @@ public:
   //! is positioned on <S>.
   //! if <Proj> is True, the Pcurve On <S> is the
   //! projection of the curve 3d on <F>.
-  Standard_EXPORT void Add(TopoDS_Wire& W);
+  Standard_EXPORT void Add(TopoWire& W);
 
   //! Removes all the Wires
   Standard_EXPORT void Clear();
@@ -70,7 +70,7 @@ public:
 
   Standard_EXPORT void Next();
 
-  Standard_EXPORT TopoDS_Face Current() const;
+  Standard_EXPORT TopoFace Current() const;
 
 protected:
 private:
@@ -79,9 +79,9 @@ private:
 
   Standard_Boolean                   myDone;
   Standard_Boolean                   modeProj;
-  TopoDS_Face                        myFace;
-  TopTools_ListOfShape               wires;
-  TopTools_ListOfShape               faces;
+  TopoFace                        myFace;
+  ShapeList               wires;
+  ShapeList               faces;
   Standard_Boolean                   myCorrection;
   TopTools_DataMapOfShapeListOfShape keyIsIn;
   TopTools_DataMapOfShapeListOfShape keyContains;

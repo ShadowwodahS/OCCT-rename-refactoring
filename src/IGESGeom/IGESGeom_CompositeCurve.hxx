@@ -27,7 +27,7 @@ class IGESGeom_CompositeCurve;
 DEFINE_STANDARD_HANDLE(IGESGeom_CompositeCurve, IGESData_IGESEntity)
 
 //! defines IGESCompositeCurve, Type <102> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A composite curve is defined as an ordered list of entities
 //! consisting of a point, connect point and parametrised curve
 //! entities (excluding the CompositeCurve entity).

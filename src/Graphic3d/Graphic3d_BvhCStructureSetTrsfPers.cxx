@@ -116,7 +116,7 @@ const Graphic3d_CStructure* Graphic3d_BvhCStructureSetTrsfPers::GetStructureById
 //=================================================================================================
 
 const opencascade::handle<BVH_Tree<Standard_Real, 3>>& Graphic3d_BvhCStructureSetTrsfPers::BVH(
-  const Handle(Graphic3d_Camera)&     theCamera,
+  const Handle(CameraOn3d)&     theCamera,
   const Graphic3d_Mat4d&              theProjectionMatrix,
   const Graphic3d_Mat4d&              theWorldViewMatrix,
   const Standard_Integer              theViewportWidth,

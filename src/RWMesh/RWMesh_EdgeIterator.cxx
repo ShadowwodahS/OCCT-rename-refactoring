@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-RWMesh_EdgeIterator::RWMesh_EdgeIterator(const TDF_Label&       theLabel,
+RWMesh_EdgeIterator::RWMesh_EdgeIterator(const DataLabel&       theLabel,
                                          const TopLoc_Location& theLocation,
                                          const Standard_Boolean theToMapColors,
                                          const XCAFPrs_Style&   theStyle)
@@ -37,7 +37,7 @@ RWMesh_EdgeIterator::RWMesh_EdgeIterator(const TDF_Label&       theLabel,
 
 //=================================================================================================
 
-RWMesh_EdgeIterator::RWMesh_EdgeIterator(const TopoDS_Shape&  theShape,
+RWMesh_EdgeIterator::RWMesh_EdgeIterator(const TopoShape&  theShape,
                                          const XCAFPrs_Style& theStyle)
     : RWMesh_ShapeIterator(theShape, TopAbs_EDGE, TopAbs_FACE, theStyle)
 {
@@ -51,7 +51,7 @@ void RWMesh_EdgeIterator::Next()
   for (; myIter.More(); myIter.Next())
   {
     myEdge      = TopoDS::Edge(myIter.Current());
-    myPolygon3D = BRep_Tool::Polygon3D(myEdge, myLocation);
+    myPolygon3D = BRepInspector::Polygon3D(myEdge, myLocation);
     myTrsf      = myLocation.Transformation();
     if (myPolygon3D.IsNull() || myPolygon3D->NbNodes() == 0)
     {

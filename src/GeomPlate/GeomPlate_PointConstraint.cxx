@@ -50,7 +50,7 @@ GeomPlate_PointConstraint::GeomPlate_PointConstraint(const Point3d&          Pt,
 //---------------------------------------------------------
 GeomPlate_PointConstraint::GeomPlate_PointConstraint(const Standard_Real         U,
                                                      const Standard_Real         V,
-                                                     const Handle(Geom_Surface)& Surf,
+                                                     const Handle(GeomSurface)& Surf,
                                                      const Standard_Integer      Order,
                                                      const Standard_Real         TolDist,
                                                      const Standard_Real         TolAng,
@@ -157,7 +157,7 @@ Standard_Real GeomPlate_PointConstraint::G2Criterion() const
 //---------------------------------------------------------
 // Fonction : Surface
 //---------------------------------------------------------
-// Handle(Geom_Surface) GeomPlate_PointConstraint::Surface() const
+// Handle(GeomSurface) GeomPlate_PointConstraint::Surface() const
 //{  throw ExceptionBase("GeomPlate_PointConstraint.cxx : The surface does not exist");
 //}
 //------------------------------------------------------------

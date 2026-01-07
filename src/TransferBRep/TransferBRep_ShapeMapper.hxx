@@ -22,8 +22,8 @@
 
 #include <TopoDS_Shape.hxx>
 #include <Transfer_Finder.hxx>
-class TopoDS_Shape;
-class TopTools_ShapeMapHasher;
+class TopoShape;
+class ShapeHasher;
 class TransferBRep_ShapeInfo;
 class Transfer_Finder;
 
@@ -35,12 +35,12 @@ class TransferBRep_ShapeMapper : public Transfer_Finder
 
 public:
   //! Creates a Mapper with a Value. This Value can then not be
-  //! changed. It is used by the Hasher to compute the HashCode,
+  //! changed. It is used by the Hasher1 to compute the HashCode,
   //! which will then be stored for an immediate reading.
-  Standard_EXPORT TransferBRep_ShapeMapper(const TopoDS_Shape& akey);
+  Standard_EXPORT TransferBRep_ShapeMapper(const TopoShape& akey);
 
   //! Returns the contained value
-  Standard_EXPORT const TopoDS_Shape& Value() const;
+  Standard_EXPORT const TopoShape& Value() const;
 
   //! Specific testof equality : defined as False if <other> has
   //! not the same true Type, else contents are compared (by
@@ -60,7 +60,7 @@ public:
 
 protected:
 private:
-  TopoDS_Shape theval;
+  TopoShape theval;
 };
 
 #endif // _TransferBRep_ShapeMapper_HeaderFile

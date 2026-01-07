@@ -36,9 +36,9 @@
 //=================================================================================================
 
 void DsgPrs_FilletRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                          const Handle(Prs3d_Drawer)&       aDrawer,
+                                          const Handle(StyleDrawer)&       aDrawer,
                                           const Standard_Real               theval,
-                                          const TCollection_ExtendedString& aText,
+                                          const UtfString& aText,
                                           const Point3d&                     aPosition,
                                           const Dir3d&                     aNormalDir,
                                           const Point3d&                     aBasePnt,
@@ -94,7 +94,7 @@ void DsgPrs_FilletRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPre
     aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
     HasCircle                  = Standard_True;
-    Handle(Geom_Circle) Circle = new Geom_Circle(FilletCirc);
+    Handle(GeomCircle) Circle = new GeomCircle(FilletCirc);
     TrimCurve                  = new Geom_TrimmedCurve(Circle, FirstParCirc, LastParCirc);
   }
   else // null or PI anle or Radius = 0
@@ -109,7 +109,7 @@ void DsgPrs_FilletRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPre
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   // Drawing the text
-  Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), aText, DrawPosition);
+  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, DrawPosition);
 
   // Add presentation of arrows
   DsgPrs::ComputeSymbol(aPresentation,

@@ -424,7 +424,7 @@ public:
   //! Turns usage of text rotated
   void SetTextAngle(Standard_ShortReal theAngle) { myTextAngle = (Standard_ShortReal)theAngle; }
 
-  //! @name parameters specific to Mesh Edges (of triangulation primitive) rendering
+  //! @name parameters specific to Mesh1 Edges (of triangulation primitive) rendering
 public:
   //! Returns true if mesh edges should be drawn (false by default).
   bool ToDrawEdges() const { return myToDrawEdges && myLineType != Aspect_TOL_EMPTY; }

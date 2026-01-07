@@ -19,7 +19,7 @@
 #include <gp_Pnt.hxx>
 #include <gp_Vec.hxx>
 
-ChFi3d_SearchSing::ChFi3d_SearchSing(const Handle(Geom_Curve)& C1, const Handle(Geom_Curve)& C2)
+ChFi3d_SearchSing::ChFi3d_SearchSing(const Handle(GeomCurve3d)& C1, const Handle(GeomCurve3d)& C2)
 {
   myC1 = C1;
   myC2 = C2;

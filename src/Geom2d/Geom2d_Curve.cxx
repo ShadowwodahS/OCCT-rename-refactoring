@@ -23,45 +23,45 @@
 #include <Standard_NoSuchObject.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom2d_Curve, Geom2d_Geometry)
+IMPLEMENT_STANDARD_RTTIEXT(GeomCurve2d, Geom2d_Geometry)
 
-typedef Geom2d_Curve Curve;
+typedef GeomCurve2d Curve;
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) Geom2d_Curve::Reversed() const
+Handle(GeomCurve2d) GeomCurve2d::Reversed() const
 {
-  Handle(Geom2d_Curve) C = Handle(Geom2d_Curve)::DownCast(Copy());
+  Handle(GeomCurve2d) C = Handle(GeomCurve2d)::DownCast(Copy());
   C->Reverse();
   return C;
 }
 
 //=================================================================================================
 
-Standard_Real Geom2d_Curve::TransformedParameter(const Standard_Real U, const gp_Trsf2d&) const
+Standard_Real GeomCurve2d::TransformedParameter(const Standard_Real U, const gp_Trsf2d&) const
 {
   return U;
 }
 
 //=================================================================================================
 
-Standard_Real Geom2d_Curve::ParametricTransformation(const gp_Trsf2d&) const
+Standard_Real GeomCurve2d::ParametricTransformation(const gp_Trsf2d&) const
 {
   return 1.;
 }
 
 //=================================================================================================
 
-Standard_Real Geom2d_Curve::Period() const
+Standard_Real GeomCurve2d::Period() const
 {
-  Standard_NoSuchObject_Raise_if(!IsPeriodic(), "Geom2d_Curve::Period");
+  Standard_NoSuchObject_Raise_if(!IsPeriodic(), "GeomCurve2d::Period");
 
   return (LastParameter() - FirstParameter());
 }
 
 //=================================================================================================
 
-gp_Pnt2d Geom2d_Curve::Value(const Standard_Real U) const
+gp_Pnt2d GeomCurve2d::Value(const Standard_Real U) const
 {
   gp_Pnt2d P;
   D0(U, P);
@@ -70,7 +70,7 @@ gp_Pnt2d Geom2d_Curve::Value(const Standard_Real U) const
 
 //=================================================================================================
 
-void Geom2d_Curve::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void GeomCurve2d::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 

@@ -26,7 +26,7 @@ class IFSelect_IntParam;
 class Interface_EntityIterator;
 class RefObject;
 class Interface_Graph;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_SelectAnyList;
 DEFINE_STANDARD_HANDLE(IFSelect_SelectAnyList, IFSelect_SelectDeduct)
@@ -121,11 +121,11 @@ public:
   //! then Specific List Label, then, following cases :
   //! " From .. Until .." or "From .." or "Until .." or "Rank no .."
   //! Specific type is given by deferred method ListLabel
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   //! Returns the specific label for the list, which is included as
   //! a part of Label
-  Standard_EXPORT virtual TCollection_AsciiString ListLabel() const = 0;
+  Standard_EXPORT virtual AsciiString1 ListLabel() const = 0;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectAnyList, IFSelect_SelectDeduct)
 

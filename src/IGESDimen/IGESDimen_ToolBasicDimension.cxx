@@ -33,18 +33,18 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESDimen_ToolBasicDimension::IGESDimen_ToolBasicDimension() {}
+BasicDimensionTool::BasicDimensionTool() {}
 
-void IGESDimen_ToolBasicDimension::ReadOwnParams(const Handle(IGESDimen_BasicDimension)& ent,
+void BasicDimensionTool::ReadOwnParams(const Handle(IGESDimen_BasicDimension)& ent,
                                                  const Handle(IGESData_IGESReaderData)& /* IR */,
                                                  IGESData_ParamReader& PR) const
 {
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Standard_Integer nbPropVal;
-  gp_XY            templl;
-  gp_XY            templr;
-  gp_XY            tempur;
-  gp_XY            tempul;
+  Coords2d            templl;
+  Coords2d            templr;
+  Coords2d            tempur;
+  Coords2d            tempul;
 
   // clang-format off
   PR.ReadInteger(PR.Current(),"Number of Property Values",nbPropVal); //szv#4:S4163:12Mar99 `st=` not needed
@@ -58,7 +58,7 @@ void IGESDimen_ToolBasicDimension::ReadOwnParams(const Handle(IGESDimen_BasicDim
   ent->Init(nbPropVal, templl, templr, tempur, tempul);
 }
 
-void IGESDimen_ToolBasicDimension::WriteOwnParams(const Handle(IGESDimen_BasicDimension)& ent,
+void BasicDimensionTool::WriteOwnParams(const Handle(IGESDimen_BasicDimension)& ent,
                                                   IGESData_IGESWriter&                    IW) const
 {
   IW.Send(ent->NbPropertyValues());
@@ -72,12 +72,12 @@ void IGESDimen_ToolBasicDimension::WriteOwnParams(const Handle(IGESDimen_BasicDi
   IW.Send(ent->UpperLeft().Y());
 }
 
-void IGESDimen_ToolBasicDimension::OwnShared(const Handle(IGESDimen_BasicDimension)& /* ent */,
+void BasicDimensionTool::OwnShared(const Handle(IGESDimen_BasicDimension)& /* ent */,
                                              Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESDimen_ToolBasicDimension::OwnCopy(const Handle(IGESDimen_BasicDimension)& another,
+void BasicDimensionTool::OwnCopy(const Handle(IGESDimen_BasicDimension)& another,
                                            const Handle(IGESDimen_BasicDimension)& ent,
                                            Interface_CopyTool& /* TC */) const
 {
@@ -88,7 +88,7 @@ void IGESDimen_ToolBasicDimension::OwnCopy(const Handle(IGESDimen_BasicDimension
             another->UpperLeft().XY());
 }
 
-Standard_Boolean IGESDimen_ToolBasicDimension::OwnCorrect(
+Standard_Boolean BasicDimensionTool::OwnCorrect(
   const Handle(IGESDimen_BasicDimension)& ent) const
 {
   Standard_Boolean res = (ent->NbPropertyValues() != 8);
@@ -101,10 +101,10 @@ Standard_Boolean IGESDimen_ToolBasicDimension::OwnCorrect(
   return res;
 }
 
-IGESData_DirChecker IGESDimen_ToolBasicDimension::DirChecker(
+DirectoryChecker BasicDimensionTool::DirChecker(
   const Handle(IGESDimen_BasicDimension)& /* ent */) const
 {
-  IGESData_DirChecker DC(406, 31); // Type = 406, Form = 31
+  DirectoryChecker DC(406, 31); // Type = 406, Form = 31
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.BlankStatusIgnored();
@@ -114,7 +114,7 @@ IGESData_DirChecker IGESDimen_ToolBasicDimension::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolBasicDimension::OwnCheck(const Handle(IGESDimen_BasicDimension)& ent,
+void BasicDimensionTool::OwnCheck(const Handle(IGESDimen_BasicDimension)& ent,
                                             const Interface_ShareTool&,
                                             Handle(Interface_Check)& ach) const
 {
@@ -122,7 +122,7 @@ void IGESDimen_ToolBasicDimension::OwnCheck(const Handle(IGESDimen_BasicDimensio
     ach->AddFail("Num of Property Values != 8");
 }
 
-void IGESDimen_ToolBasicDimension::OwnDump(const Handle(IGESDimen_BasicDimension)& ent,
+void BasicDimensionTool::OwnDump(const Handle(IGESDimen_BasicDimension)& ent,
                                            const IGESData_IGESDumper& /* dumper */,
                                            Standard_OStream& S,
                                            const Standard_Integer /* level */) const

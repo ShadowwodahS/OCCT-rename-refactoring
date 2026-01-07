@@ -24,16 +24,16 @@
 #include <Standard_OStream.hxx>
 #include <Standard_CString.hxx>
 
-//! Vrml package  implements the specification  of the
+//! Vrml1 package  implements the specification  of the
 //! VRML ( Virtual  Reality Modeling Language ).  VRML
 //! is a standard  language for describing interactive
 //! 3-D objects and  worlds delivered across Internet.
-//! Actual version of Vrml package have made for objects
+//! Actual version of Vrml1 package have made for objects
 //! of VRML version 1.0.
 //! This package is used by VrmlConverter package.
 //! The developer should  already be familiar with VRML
 //! specification before using this package.
-class Vrml
+class Vrml1
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -22,7 +22,7 @@
 #include <Plate_D2.hxx>
 #include <NLPlate_HPG1Constraint.hxx>
 #include <Standard_Integer.hxx>
-class gp_XY;
+class Coords2d;
 class Plate_D1;
 
 class NLPlate_HPG2Constraint;
@@ -34,7 +34,7 @@ class NLPlate_HPG2Constraint : public NLPlate_HPG1Constraint
 {
 
 public:
-  Standard_EXPORT NLPlate_HPG2Constraint(const gp_XY& UV, const Plate_D1& D1T, const Plate_D2& D2T);
+  Standard_EXPORT NLPlate_HPG2Constraint(const Coords2d& UV, const Plate_D1& D1T, const Plate_D2& D2T);
 
   Standard_EXPORT virtual Standard_Integer ActiveOrder() const Standard_OVERRIDE;
 

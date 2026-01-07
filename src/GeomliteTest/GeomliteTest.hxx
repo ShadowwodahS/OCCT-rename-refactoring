@@ -31,28 +31,28 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! defines all geometric commands.
-  Standard_EXPORT static void AllCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void AllCommands(DrawInterpreter& I);
 
   //! defines curve commands.
-  Standard_EXPORT static void CurveCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void CurveCommands(DrawInterpreter& I);
 
   //! defines surface commands.
-  Standard_EXPORT static void SurfaceCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void SurfaceCommands(DrawInterpreter& I);
 
   //! defines commands to test the Geom2dAPI
   //! - Intersection
   //! - Extrema
   //! - Projection
   //! - Approximation, interpolation
-  Standard_EXPORT static void API2dCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void API2dCommands(DrawInterpreter& I);
 
   //! defines constrained curves commands.
-  Standard_EXPORT static void ApproxCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void ApproxCommands(DrawInterpreter& I);
 
   //! defines curves and surfaces modification commands.
   //! - Curve extension to point
   //! - Surface extension by length
-  Standard_EXPORT static void ModificationCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void ModificationCommands(DrawInterpreter& I);
 
 protected:
 private:

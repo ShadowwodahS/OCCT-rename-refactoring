@@ -24,7 +24,7 @@
 #include <Transfer_ActorOfTransientProcess.hxx>
 #include <Message_ProgressRange.hxx>
 
-struct DE_ShapeFixParameters;
+struct ShapeFixParameters;
 class Interface_InterfaceModel;
 class RefObject;
 class Transfer_Binder;
@@ -34,7 +34,7 @@ class IGESToBRep_Actor;
 DEFINE_STANDARD_HANDLE(IGESToBRep_Actor, Transfer_ActorOfTransientProcess)
 
 //! This class performs the transfer of an Entity from
-//! IGESToBRep
+//! IGESToBRep1
 //!
 //! I.E. for each type of Entity, it invokes the appropriate Tool
 //! then returns the Binder which contains the Result

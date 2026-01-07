@@ -33,11 +33,11 @@
 #include <Plate_Plate.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(GeomPlate_Surface, Geom_Surface)
+IMPLEMENT_STANDARD_RTTIEXT(GeomPlate_Surface, GeomSurface)
 
 //=================================================================================================
 
-GeomPlate_Surface::GeomPlate_Surface(const Handle(Geom_Surface)& Surfinit,
+GeomPlate_Surface::GeomPlate_Surface(const Handle(GeomSurface)& Surfinit,
                                      const Plate_Plate&          Surfinter)
     : mySurfinter(Surfinter),
       mySurfinit(Surfinit),
@@ -155,18 +155,18 @@ Standard_Real GeomPlate_Surface::VPeriod() const
 
 //=================================================================================================
 
-// Handle(Geom_Curve) GeomPlate_Surface::UIso(const Standard_Real U) const
-Handle(Geom_Curve) GeomPlate_Surface::UIso(const Standard_Real) const
+// Handle(GeomCurve3d) GeomPlate_Surface::UIso(const Standard_Real U) const
+Handle(GeomCurve3d) GeomPlate_Surface::UIso(const Standard_Real) const
 { // throw ExceptionBase("UIso");
-  return Handle(Geom_Curve)();
+  return Handle(GeomCurve3d)();
 }
 
 //=================================================================================================
 
-// Handle(Geom_Curve) GeomPlate_Surface::VIso(const Standard_Real V) const
-Handle(Geom_Curve) GeomPlate_Surface::VIso(const Standard_Real) const
+// Handle(GeomCurve3d) GeomPlate_Surface::VIso(const Standard_Real V) const
+Handle(GeomCurve3d) GeomPlate_Surface::VIso(const Standard_Real) const
 { // throw ExceptionBase("VIso");
-  return Handle(Geom_Curve)();
+  return Handle(GeomCurve3d)();
 }
 
 //=================================================================================================
@@ -196,7 +196,7 @@ Standard_Boolean GeomPlate_Surface::IsCNv(const Standard_Integer) const
 
 void GeomPlate_Surface::D0(const Standard_Real U, const Standard_Real V, Point3d& P) const
 {
-  gp_XY  P1(U, V);
+  Coords2d  P1(U, V);
   Point3d P2;
   mySurfinit->D0(U, V, P2);
   gp_XYZ P3; //=mySurfinter.Evaluate(P1);
@@ -215,7 +215,7 @@ void GeomPlate_Surface::D1(const Standard_Real U,
                            Vector3d&             D1U,
                            Vector3d&             D1V) const
 {
-  gp_XY  P1(U, V);
+  Coords2d  P1(U, V);
   Point3d P2;
   D0(U, V, P);
   Vector3d V1U, V1V;
@@ -240,7 +240,7 @@ void GeomPlate_Surface::D2(const Standard_Real U,
                            Vector3d&             D2V,
                            Vector3d&             D2UV) const
 {
-  gp_XY  P1(U, V);
+  Coords2d  P1(U, V);
   Point3d P2;
 
   Vector3d V1U, V1V, V1UV, vv, v;
@@ -307,7 +307,7 @@ void GeomPlate_Surface::Transform(const Transform3d&)
 
 //=================================================================================================
 
-Handle(Geom_Surface) GeomPlate_Surface::CallSurfinit() const
+Handle(GeomSurface) GeomPlate_Surface::CallSurfinit() const
 
 {
   return mySurfinit;

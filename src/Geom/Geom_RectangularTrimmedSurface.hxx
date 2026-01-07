@@ -23,8 +23,8 @@
 #include <Geom_BoundedSurface.hxx>
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
-class Geom_Surface;
-class Geom_Curve;
+class GeomSurface;
+class GeomCurve3d;
 class Point3d;
 class Vector3d;
 class Transform3d;
@@ -73,7 +73,7 @@ public:
   //! S is not periodic in the VDirection and V1 or V2 are out of the
   //! bounds of S.
   //! U1 = U2 or V1 = V2
-  Standard_EXPORT Geom_RectangularTrimmedSurface(const Handle(Geom_Surface)& S,
+  Standard_EXPORT Geom_RectangularTrimmedSurface(const Handle(GeomSurface)& S,
                                                  const Standard_Real         U1,
                                                  const Standard_Real         U2,
                                                  const Standard_Real         V1,
@@ -102,7 +102,7 @@ public:
   //! S is not periodic in the considered parametric direction and
   //! Param1 or Param2 are out of the bounds of S.
   //! Param1 = Param2
-  Standard_EXPORT Geom_RectangularTrimmedSurface(const Handle(Geom_Surface)& S,
+  Standard_EXPORT Geom_RectangularTrimmedSurface(const Handle(GeomSurface)& S,
                                                  const Standard_Real         Param1,
                                                  const Standard_Real         Param2,
                                                  const Standard_Boolean      UTrim,
@@ -157,7 +157,7 @@ public:
                                const Standard_Boolean Sense = Standard_True);
 
   //! Returns the Basis surface of <me>.
-  Standard_EXPORT Handle(Geom_Surface) BasisSurface() const;
+  Standard_EXPORT Handle(GeomSurface) BasisSurface() const;
 
   //! Changes the orientation of this patch in the u
   //! parametric direction. The bounds of the surface are
@@ -231,10 +231,10 @@ public:
   Standard_EXPORT virtual Standard_Real VPeriod() const Standard_OVERRIDE;
 
   //! computes the U isoparametric curve.
-  Standard_EXPORT Handle(Geom_Curve) UIso(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) UIso(const Standard_Real U) const Standard_OVERRIDE;
 
   //! Computes the V isoparametric curve.
-  Standard_EXPORT Handle(Geom_Curve) VIso(const Standard_Real V) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) VIso(const Standard_Real V) const Standard_OVERRIDE;
 
   //! Can be raised if the basis surface is an OffsetSurface.
   Standard_EXPORT void D0(const Standard_Real U,
@@ -355,7 +355,7 @@ private:
                                const Standard_Boolean USense,
                                const Standard_Boolean VSense);
 
-  Handle(Geom_Surface) basisSurf;
+  Handle(GeomSurface) basisSurf;
   Standard_Real        utrim1;
   Standard_Real        vtrim1;
   Standard_Real        utrim2;

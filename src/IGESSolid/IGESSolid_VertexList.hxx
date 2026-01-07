@@ -29,7 +29,7 @@ class IGESSolid_VertexList;
 DEFINE_STANDARD_HANDLE(IGESSolid_VertexList, IGESData_IGESEntity)
 
 //! defines VertexList, Type <502> Form Number <1>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! A vertex is a point in R3. A vertex is the bound of an
 //! edge and can participate in the bounds of a face.
 //! It contains one or more vertices.

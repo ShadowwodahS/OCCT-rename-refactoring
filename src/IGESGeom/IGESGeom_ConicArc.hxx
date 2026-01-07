@@ -30,7 +30,7 @@ class Dir3d;
 class IGESGeom_ConicArc;
 DEFINE_STANDARD_HANDLE(IGESGeom_ConicArc, IGESData_IGESEntity)
 
-//! defines IGESConicArc, Type <104> Form <0-3>  in package IGESGeom
+//! defines IGESConicArc, Type <104> Form <0-3>  in package IGESGeom1
 //! A conic arc is a bounded connected portion of a parent
 //! conic curve which consists of more than one point. The
 //! parent conic curve is either an ellipse, a parabola, or
@@ -61,8 +61,8 @@ public:
                             const Standard_Real E,
                             const Standard_Real F,
                             const Standard_Real ZT,
-                            const gp_XY&        aStart,
-                            const gp_XY&        anEnd);
+                            const Coords2d&        aStart,
+                            const Coords2d&        anEnd);
 
   //! sets the Form Number equal to ComputedFormNumber,
   //! returns True if changed
@@ -157,8 +157,8 @@ private:
   Standard_Real theE;
   Standard_Real theF;
   Standard_Real theZT;
-  gp_XY         theStart;
-  gp_XY         theEnd;
+  Coords2d         theStart;
+  Coords2d         theEnd;
 };
 
 #endif // _IGESGeom_ConicArc_HeaderFile

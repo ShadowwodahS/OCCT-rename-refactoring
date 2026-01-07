@@ -32,17 +32,17 @@ public:
 
   //! Builds shape(s) from  the list <L>.  Uses only the
   //! faces of <L>.
-  LocOpe_BuildShape(const TopTools_ListOfShape& L);
+  LocOpe_BuildShape(const ShapeList& L);
 
   //! Builds shape(s) from  the list <L>.  Uses only the
   //! faces of <L>.
-  Standard_EXPORT void Perform(const TopTools_ListOfShape& L);
+  Standard_EXPORT void Perform(const ShapeList& L);
 
-  const TopoDS_Shape& Shape() const;
+  const TopoShape& Shape() const;
 
 protected:
 private:
-  TopoDS_Shape myRes;
+  TopoShape myRes;
 };
 
 #include <LocOpe_BuildShape.lxx>

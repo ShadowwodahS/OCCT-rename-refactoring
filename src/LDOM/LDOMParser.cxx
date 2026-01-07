@@ -63,9 +63,9 @@ inline
   const LDOM_XmlReader::RecordType aType = aReader.ReadRecord(theIStream, aData, theDocStart);
 #ifdef LDOM_PARSER_TRACE
   static FILE*            ff = NULL;
-  TCollection_AsciiString aTraceFileName;
+  AsciiString1 aTraceFileName;
   #ifdef _WIN32
-  aTraceFileName = TCollection_AsciiString(getenv("TEMP")) + "\\ldom.trace";
+  aTraceFileName = AsciiString1(getenv("TEMP")) + "\\ldom.trace";
   #else
   aTraceFileName = "/tmp/ldom.trace";
   #endif
@@ -116,7 +116,7 @@ inline
 // purpose  : Return text describing a parsing error
 //=======================================================================
 
-const TCollection_AsciiString& LDOMParser::GetError(TCollection_AsciiString& aData) const
+const AsciiString1& LDOMParser::GetError(AsciiString1& aData) const
 {
   char* aStr = (char*)myCurrentData.str();
   aData      = aStr;
@@ -247,7 +247,7 @@ Standard_Boolean LDOMParser::ParseDocument(std::istream&          theIStream,
             isInsertFictRootElement = Standard_True;
 
             // create fiction root element
-            TCollection_AsciiString aFicName("document");
+            AsciiString1 aFicName("document");
             myReader->CreateElement(aFicName.ToCString(), aFicName.Length());
           }
 
@@ -299,7 +299,7 @@ Standard_Boolean LDOMParser::ParseElement(Standard_IStream& theIStream,
 {
   Standard_Boolean         isError    = Standard_False;
   const LDOM_BasicElement* aParent    = &myReader->GetElement();
-  const LDOM_BasicNode*    aLastChild = NULL;
+  const BasicNode*    aLastChild = NULL;
   for (;;)
   {
     LDOM_Node::NodeType        aLocType;
@@ -359,7 +359,7 @@ Standard_Boolean LDOMParser::ParseElement(Standard_IStream& theIStream,
         aLocType = LDOM_Node::TEXT_NODE;
         {
           Standard_Integer aTextLen;
-          aTextStr = LDOM_CharReference::Decode((char*)myCurrentData.str(), aTextLen);
+          aTextStr = CharReference::Decode((char*)myCurrentData.str(), aTextLen);
           // try to convert to integer
           if (IsDigit(aTextStr[0]))
           {
@@ -374,7 +374,7 @@ Standard_Boolean LDOMParser::ParseElement(Standard_IStream& theIStream,
         aLocType = LDOM_Node::COMMENT_NODE;
         {
           Standard_Integer aTextLen;
-          aTextStr   = LDOM_CharReference::Decode((char*)myCurrentData.str(), aTextLen);
+          aTextStr   = CharReference::Decode((char*)myCurrentData.str(), aTextLen);
           aTextValue = LDOMBasicString(aTextStr, aTextLen, myDocument);
         }
         goto create_text_node;
@@ -383,7 +383,7 @@ Standard_Boolean LDOMParser::ParseElement(Standard_IStream& theIStream,
         aTextStr   = (char*)myCurrentData.str();
         aTextValue = LDOMBasicString(aTextStr, myCurrentData.Length(), myDocument);
       create_text_node: {
-        LDOM_BasicNode& aTextNode = LDOM_BasicText::Create(aLocType, aTextValue, myDocument);
+        BasicNode& aTextNode = LDOM_BasicText::Create(aLocType, aTextValue, myDocument);
         aParent->AppendChild(&aTextNode, aLastChild);
       }
         delete[] aTextStr;

@@ -28,12 +28,12 @@ class Point3d;
 class Dir3d;
 class Transform3d;
 class gp_GTrsf2d;
-class Geom_Curve;
+class GeomCurve3d;
 class Vector3d;
 class Geom_Geometry;
 
-class Geom_Plane;
-DEFINE_STANDARD_HANDLE(Geom_Plane, Geom_ElementarySurface)
+class GeomPlane;
+DEFINE_STANDARD_HANDLE(GeomPlane, Geom_ElementarySurface)
 
 //! Describes a plane in 3D space.
 //! A plane is positioned in space by a coordinate system
@@ -61,7 +61,7 @@ DEFINE_STANDARD_HANDLE(Geom_Plane, Geom_ElementarySurface)
 //! local coordinate system of the plane.
 //! The parametric range of the two parameters u and v
 //! is ] -infinity, +infinity [.
-class Geom_Plane : public Geom_ElementarySurface
+class GeomPlane : public Geom_ElementarySurface
 {
 
 public:
@@ -70,21 +70,21 @@ public:
   //! to the plane.  The "Location" point of "A3" is the origin of the plane.
   //! The "XDirection" and "YDirection" of "A3" define
   //! the directions of the U isoparametric and V isoparametric curves.
-  Standard_EXPORT Geom_Plane(const gp_Ax3& A3);
+  Standard_EXPORT GeomPlane(const gp_Ax3& A3);
 
   //! Creates a plane from a non transient plane from package gp.
-  Standard_EXPORT Geom_Plane(const gp_Pln& Pl);
+  Standard_EXPORT GeomPlane(const gp_Pln& Pl);
 
   //! P is the "Location" point or origin of the plane.
   //! V is the direction normal to the plane.
-  Standard_EXPORT Geom_Plane(const Point3d& P, const Dir3d& V);
+  Standard_EXPORT GeomPlane(const Point3d& P, const Dir3d& V);
 
   //! Creates a plane from its cartesian equation:
   //! @code
   //!   Ax + By + Cz + D = 0.0
   //! @endcode
   //! Raised if Sqrt (A*A + B*B + C*C) <= Resolution from gp
-  Standard_EXPORT Geom_Plane(const Standard_Real A,
+  Standard_EXPORT GeomPlane(const Standard_Real A,
                              const Standard_Real B,
                              const Standard_Real C,
                              const Standard_Real D);
@@ -184,11 +184,11 @@ public:
 
   //! Computes the U isoparametric curve.
   //! This is a Line parallel to the YAxis of the plane.
-  Standard_EXPORT Handle(Geom_Curve) UIso(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) UIso(const Standard_Real U) const Standard_OVERRIDE;
 
   //! Computes the V isoparametric curve.
   //! This is a Line parallel to the XAxis of the plane.
-  Standard_EXPORT Handle(Geom_Curve) VIso(const Standard_Real V) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) VIso(const Standard_Real V) const Standard_OVERRIDE;
 
   //! Computes the point P (U, V) on <me>.
   //! @code
@@ -251,7 +251,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_Plane, Geom_ElementarySurface)
+  DEFINE_STANDARD_RTTIEXT(GeomPlane, Geom_ElementarySurface)
 };
 
 #endif // _Geom_Plane_HeaderFile

@@ -29,8 +29,8 @@ public:
   //! Destructor.
   virtual ~IMeshData_Edge() {}
 
-  //! Returns TopoDS_Edge attached to model.
-  const TopoDS_Edge& GetEdge() const { return TopoDS::Edge(GetShape()); }
+  //! Returns TopoEdge attached to model.
+  const TopoEdge& GetEdge() const { return TopoDS::Edge(GetShape()); }
 
   //! Returns number of pcurves assigned to current edge.
   Standard_EXPORT virtual Standard_Integer PCurvesNb() const = 0;
@@ -100,11 +100,11 @@ public:
 protected:
   //! Constructor.
   //! Initializes empty model.
-  IMeshData_Edge(const TopoDS_Edge& theEdge)
+  IMeshData_Edge(const TopoEdge& theEdge)
       : IMeshData_TessellatedShape(theEdge),
-        mySameParam(BRep_Tool::SameParameter(theEdge)),
-        mySameRange(BRep_Tool::SameRange(theEdge)),
-        myDegenerated(BRep_Tool::Degenerated(theEdge)),
+        mySameParam(BRepInspector::SameParameter(theEdge)),
+        mySameRange(BRepInspector::SameRange(theEdge)),
+        myDegenerated(BRepInspector::Degenerated(theEdge)),
         myAngDeflection(RealLast())
   {
   }

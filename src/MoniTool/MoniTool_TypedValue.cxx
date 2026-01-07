@@ -26,10 +26,10 @@ IMPLEMENT_STANDARD_RTTIEXT(MoniTool_TypedValue, RefObject)
 
 // Not Used :
 // static  char defmess[30];
-static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> thelibtv;
-static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> astats;
+static NCollection_DataMap<AsciiString1, Handle(RefObject)> thelibtv;
+static NCollection_DataMap<AsciiString1, Handle(RefObject)> astats;
 
-static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& libtv()
+static NCollection_DataMap<AsciiString1, Handle(RefObject)>& libtv()
 {
   if (thelibtv.IsEmpty())
   {
@@ -62,8 +62,8 @@ static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& libtv()
 
 static Standard_Boolean StaticPath(const Handle(TCollection_HAsciiString)& val)
 {
-  OSD_Path apath;
-  return apath.IsValid (TCollection_AsciiString(val->ToCString()));
+  SystemPath apath;
+  return apath.IsValid (AsciiString1(val->ToCString()));
 }
 */
 
@@ -108,7 +108,7 @@ MoniTool_TypedValue::MoniTool_TypedValue(const Handle(MoniTool_TypedValue)& othe
       thehval(other->HStringValue()),
       theoval(other->ObjectValue())
 {
-  NCollection_DataMap<TCollection_AsciiString, Standard_Integer> eadds;
+  NCollection_DataMap<AsciiString1, Standard_Integer> eadds;
   Standard_CString                                               satisname;
   other->Internals(theinterp, thesatisf, satisname, eadds);
   thesatisn.AssignCat(satisname);
@@ -140,7 +140,7 @@ MoniTool_TypedValue::MoniTool_TypedValue(const Handle(MoniTool_TypedValue)& othe
   //  dupliquer theeadds
   if (!eadds.IsEmpty())
   {
-    NCollection_DataMap<TCollection_AsciiString, Standard_Integer>::Iterator itad(eadds);
+    NCollection_DataMap<AsciiString1, Standard_Integer>::Iterator itad(eadds);
     for (; itad.More(); itad.Next())
       theeadds.Bind(itad.Key(), itad.Value());
   }
@@ -154,7 +154,7 @@ void MoniTool_TypedValue::Internals(
   MoniTool_ValueInterpret&                                        interp,
   MoniTool_ValueSatisfies&                                        satisf,
   Standard_CString&                                               satisname,
-  NCollection_DataMap<TCollection_AsciiString, Standard_Integer>& enums) const
+  NCollection_DataMap<AsciiString1, Standard_Integer>& enums) const
 {
   interp    = theinterp;
   satisf    = thesatisf;
@@ -172,11 +172,11 @@ MoniTool_ValueType MoniTool_TypedValue::ValueType() const
   return thetype;
 }
 
-TCollection_AsciiString MoniTool_TypedValue::Definition() const
+AsciiString1 MoniTool_TypedValue::Definition() const
 {
   if (thedef.Length() > 0)
     return thedef;
-  TCollection_AsciiString def;
+  AsciiString1 def;
   char                    mess[50];
   switch (thetype)
   {
@@ -233,10 +233,10 @@ TCollection_AsciiString MoniTool_TypedValue::Definition() const
       if (!theeadds.IsEmpty())
       {
         def.AssignCat(" , alpha: ");
-        NCollection_DataMap<TCollection_AsciiString, Standard_Integer>::Iterator listadd(theeadds);
+        NCollection_DataMap<AsciiString1, Standard_Integer>::Iterator listadd(theeadds);
         for (; listadd.More(); listadd.Next())
         {
-          const TCollection_AsciiString& aName = listadd.Key();
+          const AsciiString1& aName = listadd.Key();
           Standard_CString               enva  = aName.ToCString();
           if (enva[0] == '?')
             continue;
@@ -499,61 +499,61 @@ void MoniTool_TypedValue::AddEnum(const Standard_CString v1,
   if (v1[0] != '\0')
   {
     theintup++;
-    theenums->SetValue(theintup, TCollection_AsciiString(v1));
+    theenums->SetValue(theintup, AsciiString1(v1));
     theeadds.Bind(v1, theintup);
   }
   if (v2[0] != '\0')
   {
     theintup++;
-    theenums->SetValue(theintup, TCollection_AsciiString(v2));
+    theenums->SetValue(theintup, AsciiString1(v2));
     theeadds.Bind(v2, theintup);
   }
   if (v3[0] != '\0')
   {
     theintup++;
-    theenums->SetValue(theintup, TCollection_AsciiString(v3));
+    theenums->SetValue(theintup, AsciiString1(v3));
     theeadds.Bind(v3, theintup);
   }
   if (v4[0] != '\0')
   {
     theintup++;
-    theenums->SetValue(theintup, TCollection_AsciiString(v4));
+    theenums->SetValue(theintup, AsciiString1(v4));
     theeadds.Bind(v4, theintup);
   }
   if (v5[0] != '\0')
   {
     theintup++;
-    theenums->SetValue(theintup, TCollection_AsciiString(v5));
+    theenums->SetValue(theintup, AsciiString1(v5));
     theeadds.Bind(v5, theintup);
   }
   if (v6[0] != '\0')
   {
     theintup++;
-    theenums->SetValue(theintup, TCollection_AsciiString(v6));
+    theenums->SetValue(theintup, AsciiString1(v6));
     theeadds.Bind(v6, theintup);
   }
   if (v7[0] != '\0')
   {
     theintup++;
-    theenums->SetValue(theintup, TCollection_AsciiString(v7));
+    theenums->SetValue(theintup, AsciiString1(v7));
     theeadds.Bind(v7, theintup);
   }
   if (v8[0] != '\0')
   {
     theintup++;
-    theenums->SetValue(theintup, TCollection_AsciiString(v8));
+    theenums->SetValue(theintup, AsciiString1(v8));
     theeadds.Bind(v8, theintup);
   }
   if (v9[0] != '\0')
   {
     theintup++;
-    theenums->SetValue(theintup, TCollection_AsciiString(v9));
+    theenums->SetValue(theintup, AsciiString1(v9));
     theeadds.Bind(v9, theintup);
   }
   if (v10[0] != '\0')
   {
     theintup++;
-    theenums->SetValue(theintup, TCollection_AsciiString(v10));
+    theenums->SetValue(theintup, AsciiString1(v10));
     theeadds.Bind(v10, theintup);
   }
 }
@@ -581,7 +581,7 @@ void MoniTool_TypedValue::AddEnumValue(const Standard_CString val, const Standar
     theintup = num;
   if (theenums->Value(num).Length() == 0)
   {
-    theenums->SetValue(num, TCollection_AsciiString(val));
+    theenums->SetValue(num, AsciiString1(val));
   }
   //    On met AUSSI dans le dictionnaire
   //  else {
@@ -964,7 +964,7 @@ Handle(TColStd_HSequenceOfAsciiString) MoniTool_TypedValue::LibList()
   Handle(TColStd_HSequenceOfAsciiString) list = new TColStd_HSequenceOfAsciiString();
   if (libtv().IsEmpty())
     return list;
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator it(libtv());
+  NCollection_DataMap<AsciiString1, Handle(RefObject)>::Iterator it(libtv());
   for (; it.More(); it.Next())
   {
     list->Append(it.Key());
@@ -972,7 +972,7 @@ Handle(TColStd_HSequenceOfAsciiString) MoniTool_TypedValue::LibList()
   return list;
 }
 
-NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& MoniTool_TypedValue::
+NCollection_DataMap<AsciiString1, Handle(RefObject)>& MoniTool_TypedValue::
   Stats()
 {
   return astats;

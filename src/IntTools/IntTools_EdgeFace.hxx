@@ -48,20 +48,20 @@ public: //! @name Constructors
 
 public: //! @name Setters/Getters
   //! Sets the edge for intersection
-  void SetEdge(const TopoDS_Edge& theEdge) { myEdge = theEdge; }
+  void SetEdge(const TopoEdge& theEdge) { myEdge = theEdge; }
 
   //! Returns the edge
-  const TopoDS_Edge& Edge() const { return myEdge; }
+  const TopoEdge& Edge() const { return myEdge; }
 
   //! Sets the face for intersection
-  void SetFace(const TopoDS_Face& theFace) { myFace = theFace; }
+  void SetFace(const TopoFace& theFace) { myFace = theFace; }
 
   //! Returns the face
-  const TopoDS_Face& Face() const { return myFace; }
+  const TopoFace& Face() const { return myFace; }
 
   //! Sets the boundaries for the edge.
   //! The algorithm processes edge inside these boundaries.
-  void SetRange(const IntTools_Range& theRange) { myRange = theRange; }
+  void SetRange(const IntToolsRange& theRange) { myRange = theRange; }
 
   //! Sets the boundaries for the edge.
   //! The algorithm processes edge inside these boundaries.
@@ -72,7 +72,7 @@ public: //! @name Setters/Getters
   }
 
   //! Returns intersection range of the edge
-  const IntTools_Range& Range() const { return myRange; }
+  const IntToolsRange& Range() const { return myRange; }
 
   //! Sets the intersection context
   void SetContext(const Handle(IntTools_Context)& theContext) { myContext = theContext; }
@@ -147,8 +147,8 @@ protected: //! @name Protected methods performing the intersection
   Standard_EXPORT Standard_Boolean IsCoincident();
 
 protected:
-  TopoDS_Edge                   myEdge;
-  TopoDS_Face                   myFace;
+  TopoEdge                   myEdge;
+  TopoFace                   myFace;
   Standard_Real                 myFuzzyValue;
   BRepAdaptor_Curve             myC;
   BRepAdaptor_Surface           myS;
@@ -157,7 +157,7 @@ protected:
   Standard_Integer              myErrorStatus;
   Handle(IntTools_Context)      myContext;
   IntTools_SequenceOfCommonPrts mySeqOfCommonPrts;
-  IntTools_Range                myRange;
+  IntToolsRange                myRange;
   Standard_Boolean              myQuickCoincidenceCheck;
   Standard_Real                 myMinDistance; //!< Minimal distance found
 };

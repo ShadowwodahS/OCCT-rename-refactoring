@@ -38,11 +38,11 @@
 // MGE 31/07/98
 //=================================================================================================
 
-IGESGeom_ToolBSplineSurface::IGESGeom_ToolBSplineSurface() {}
+BSplineSurfaceTool::BSplineSurfaceTool() {}
 
 //=================================================================================================
 
-void IGESGeom_ToolBSplineSurface::ReadOwnParams(const Handle(IGESGeom_BSplineSurface)& ent,
+void BSplineSurfaceTool::ReadOwnParams(const Handle(IGESGeom_BSplineSurface)& ent,
                                                 const Handle(IGESData_IGESReaderData)& /* IR */,
                                                 IGESData_ParamReader& PR) const
 {
@@ -256,7 +256,7 @@ void IGESGeom_ToolBSplineSurface::ReadOwnParams(const Handle(IGESGeom_BSplineSur
 
 //=================================================================================================
 
-void IGESGeom_ToolBSplineSurface::WriteOwnParams(const Handle(IGESGeom_BSplineSurface)& ent,
+void BSplineSurfaceTool::WriteOwnParams(const Handle(IGESGeom_BSplineSurface)& ent,
                                                  IGESData_IGESWriter&                   IW) const
 {
   Standard_Integer indU = ent->UpperIndexU();
@@ -300,14 +300,14 @@ void IGESGeom_ToolBSplineSurface::WriteOwnParams(const Handle(IGESGeom_BSplineSu
 
 //=================================================================================================
 
-void IGESGeom_ToolBSplineSurface::OwnShared(const Handle(IGESGeom_BSplineSurface)& /* ent */,
+void BSplineSurfaceTool::OwnShared(const Handle(IGESGeom_BSplineSurface)& /* ent */,
                                             Interface_EntityIterator& /* iter */) const
 {
 }
 
 //=================================================================================================
 
-void IGESGeom_ToolBSplineSurface::OwnCopy(const Handle(IGESGeom_BSplineSurface)& another,
+void BSplineSurfaceTool::OwnCopy(const Handle(IGESGeom_BSplineSurface)& another,
                                           const Handle(IGESGeom_BSplineSurface)& ent,
                                           Interface_CopyTool& /* TC */) const
 {
@@ -374,10 +374,10 @@ void IGESGeom_ToolBSplineSurface::OwnCopy(const Handle(IGESGeom_BSplineSurface)&
 
 //=================================================================================================
 
-IGESData_DirChecker IGESGeom_ToolBSplineSurface::DirChecker(
+DirectoryChecker BSplineSurfaceTool::DirChecker(
   const Handle(IGESGeom_BSplineSurface)& /* ent */) const
 {
-  IGESData_DirChecker DC(128, 0, 9);
+  DirectoryChecker DC(128, 0, 9);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   //  DC.LineWeight(IGESData_DefValue);
@@ -388,7 +388,7 @@ IGESData_DirChecker IGESGeom_ToolBSplineSurface::DirChecker(
 
 //=================================================================================================
 
-void IGESGeom_ToolBSplineSurface::OwnCheck(const Handle(IGESGeom_BSplineSurface)& ent,
+void BSplineSurfaceTool::OwnCheck(const Handle(IGESGeom_BSplineSurface)& ent,
                                            const Interface_ShareTool&,
                                            Handle(Interface_Check)& ach) const
 {
@@ -403,7 +403,7 @@ void IGESGeom_ToolBSplineSurface::OwnCheck(const Handle(IGESGeom_BSplineSurface)
   // Standard_Real eps = 1.E-04;    // Tolerance des tests ?? //szv#4:S4163:12Mar99 not needed
 
   // modified by rln 18/12/97 check of flag PROP2 according to IGES Standard
-  // The same as in IGESGeom_ToolBSplineCurve::OwnCheck()
+  // The same as in BSplineCurveTool::OwnCheck()
   // It is possible to compare U(0) and U(1) only if UStartingParameter = UFirstKnot
   // and UEndingParameter = ULastKnot and the same for V(0),V(1)
   //(else we must build real geometrical curve)
@@ -480,12 +480,12 @@ void IGESGeom_ToolBSplineSurface::OwnCheck(const Handle(IGESGeom_BSplineSurface)
 
 //=================================================================================================
 
-void IGESGeom_ToolBSplineSurface::OwnDump(const Handle(IGESGeom_BSplineSurface)& ent,
+void BSplineSurfaceTool::OwnDump(const Handle(IGESGeom_BSplineSurface)& ent,
                                           const IGESData_IGESDumper& /* dumper */,
                                           Standard_OStream&      S,
                                           const Standard_Integer level) const
 {
-  S << "BSplineSurface from IGESGeom\n\n";
+  S << "BSplineSurface from IGESGeom1\n\n";
 
   Standard_Integer indU = ent->UpperIndexU();
   Standard_Integer indV = ent->UpperIndexV();

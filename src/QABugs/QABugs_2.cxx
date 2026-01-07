@@ -36,7 +36,7 @@
 
 //=================================================================================================
 
-static Standard_Integer OCC527(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC527(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   try
   {
@@ -49,7 +49,7 @@ static Standard_Integer OCC527(Draw_Interpretor& di, Standard_Integer argc, cons
     }
 
     // 2. Get selected shape
-    TopoDS_Shape aShape = DBRep::Get(argv[1]);
+    TopoShape aShape = DBRep1::Get(argv[1]);
     if (aShape.IsNull())
     {
       di << "OCC527 FAULTY. Entry shape is NULL";
@@ -63,14 +63,14 @@ static Standard_Integer OCC527(Draw_Interpretor& di, Standard_Integer argc, cons
     Sprintf(str, "Test range: [%f, %f] with step %f\n", Zmin, Zmax, aStep);
     di << str;
     int             nbf = 0;
-    TopExp_Explorer aExp1;
+    ShapeExplorer aExp1;
     for (aExp1.Init(aShape, TopAbs_FACE); aExp1.More(); aExp1.Next())
     {
       // Process one face
       str[0] = 0;
       Sprintf(str, "Face #%d: \t", nbf++);
       di << str;
-      TopoDS_Face aFace = TopoDS::Face(aExp1.Current());
+      TopoFace aFace = TopoDS::Face(aExp1.Current());
 
       // Build BndBox in order to avoid try of building section
       // if plane of the one does not intersect BndBox of the face
@@ -99,16 +99,16 @@ static Standard_Integer OCC527(Draw_Interpretor& di, Standard_Integer argc, cons
 
         if (IsDone)
         {
-          const TopoDS_Shape& aResult = aSection.Shape();
+          const TopoShape& aResult = aSection.Shape();
           if (!aResult.IsNull())
           {
             double          lmaxdist = 0.0;
-            TopExp_Explorer aExp2;
+            ShapeExplorer aExp2;
             for (aExp2.Init(aResult, TopAbs_VERTEX); aExp2.More(); aExp2.Next())
             {
-              TopoDS_Vertex aV    = TopoDS::Vertex(aExp2.Current());
-              Standard_Real toler = BRep_Tool::Tolerance(aV);
-              double        dist  = pl.Distance(BRep_Tool::Pnt(aV));
+              TopoVertex aV    = TopoDS::Vertex(aExp2.Current());
+              Standard_Real toler = BRepInspector::Tolerance(aV);
+              double        dist  = pl.Distance(BRepInspector::Pnt(aV));
               if (dist > lmaxdist)
                 lmaxdist = dist;
               // If section was built check distance between vertexes and plane of the one
@@ -138,7 +138,7 @@ static Standard_Integer OCC527(Draw_Interpretor& di, Standard_Integer argc, cons
   return 0;
 }
 
-void QABugs::Commands_2(Draw_Interpretor& theCommands)
+void QABugs::Commands_2(DrawInterpreter& theCommands)
 {
   const char* group = "QABugs";
 

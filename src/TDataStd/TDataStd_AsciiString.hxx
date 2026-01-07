@@ -23,13 +23,13 @@
 #include <Standard_OStream.hxx>
 #include <Standard_GUID.hxx>
 
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 
 class TDataStd_AsciiString;
 DEFINE_STANDARD_HANDLE(TDataStd_AsciiString, TDF_Attribute)
 
-//! Used to define an AsciiString attribute containing a TCollection_AsciiString
+//! Used to define an AsciiString attribute containing a AsciiString1
 class TDataStd_AsciiString : public TDF_Attribute
 {
 
@@ -43,18 +43,18 @@ public:
   //! the AsciiString attribute is returned.
   //! AsciiString methods
   //! ===================
-  Standard_EXPORT static Handle(TDataStd_AsciiString) Set(const TDF_Label&               label,
-                                                          const TCollection_AsciiString& string);
+  Standard_EXPORT static Handle(TDataStd_AsciiString) Set(const DataLabel&               label,
+                                                          const AsciiString1& string);
 
   //! Finds, or creates, an AsciiString attribute with explicit user defined <guid> and sets
   //! <string>. The Name attribute  is  returned.
-  Standard_EXPORT static Handle(TDataStd_AsciiString) Set(const TDF_Label&               label,
+  Standard_EXPORT static Handle(TDataStd_AsciiString) Set(const DataLabel&               label,
                                                           const Standard_GUID&           guid,
-                                                          const TCollection_AsciiString& string);
+                                                          const AsciiString1& string);
 
   Standard_EXPORT TDataStd_AsciiString();
 
-  Standard_EXPORT void Set(const TCollection_AsciiString& S);
+  Standard_EXPORT void Set(const AsciiString1& S);
 
   //! Sets the explicit user defined GUID  to the attribute.
   Standard_EXPORT void SetID(const Standard_GUID& guid) Standard_OVERRIDE;
@@ -62,7 +62,7 @@ public:
   //! Sets default GUID for the attribute.
   Standard_EXPORT void SetID() Standard_OVERRIDE;
 
-  Standard_EXPORT const TCollection_AsciiString& Get() const;
+  Standard_EXPORT const AsciiString1& Get() const;
 
   Standard_EXPORT Standard_Boolean IsEmpty() const;
 
@@ -85,7 +85,7 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString myString;
+  AsciiString1 myString;
   Standard_GUID           myID;
 };
 

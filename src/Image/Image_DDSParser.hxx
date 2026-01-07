@@ -32,7 +32,7 @@ public:
   //! @return loaded face or NULL if file cannot be read or not valid DDS file
   Standard_EXPORT static Handle(Image_CompressedPixMap) Load(
     const Handle(Image_SupportedFormats)& theSupported,
-    const TCollection_AsciiString&        theFile,
+    const AsciiString1&        theFile,
     const Standard_Integer                theFaceIndex,
     const int64_t                         theFileOffset = 0);
 

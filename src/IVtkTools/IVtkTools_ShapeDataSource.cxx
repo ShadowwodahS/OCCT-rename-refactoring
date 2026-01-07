@@ -81,7 +81,7 @@ int IVtkTools_ShapeDataSource::RequestData(vtkInformation*        vtkNotUsed(the
   aPolyData->SetPoints(aPts);
 
   vtkSmartPointer<vtkPolyData> aTransformedData;
-  TopoDS_Shape                 aShape    = myOccShape->GetShape();
+  TopoShape                 aShape    = myOccShape->GetShape();
   const TopLoc_Location        aShapeLoc = aShape.Location();
   if (myIsTransformOnly)
   {

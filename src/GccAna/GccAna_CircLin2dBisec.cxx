@@ -31,7 +31,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=========================================================================
-GccAna_CircLin2dBisec::GccAna_CircLin2dBisec(const gp_Circ2d& Circle, const gp_Lin2d& Line)
+CircleLine2dBisector::CircleLine2dBisector(const gp_Circ2d& Circle, const gp_Lin2d& Line)
     :
 
       circle(Circle),
@@ -62,7 +62,7 @@ GccAna_CircLin2dBisec::GccAna_CircLin2dBisec(const gp_Circ2d& Circle, const gp_L
 //  two parabolas (biscirlin1, biscirlin1).                               +
 //=========================================================================
 
-Handle(GccInt_Bisec) GccAna_CircLin2dBisec::ThisSolution(const Standard_Integer Index) const
+Handle(GccInt_Bisec) CircleLine2dBisector::ThisSolution(const Standard_Integer Index) const
 {
 
   if (!WellDone)
@@ -104,7 +104,7 @@ Handle(GccInt_Bisec) GccAna_CircLin2dBisec::ThisSolution(const Standard_Integer 
     {
       if (Index == 1)
       {
-        axeparab1 = gp_Ax2d(gp_Pnt2d(gp_XY(xcencir + signe * ydir * (dist + R1) / 2,
+        axeparab1 = gp_Ax2d(gp_Pnt2d(Coords2d(xcencir + signe * ydir * (dist + R1) / 2,
                                            ycencir - signe * xdir * (dist + R1) / 2.)),
                             gp_Dir2d(-signe * ydir, signe * xdir));
         biscirlin = gp_Parab2d(axeparab1, (dist + R1) / 2.0);
@@ -113,13 +113,13 @@ Handle(GccInt_Bisec) GccAna_CircLin2dBisec::ThisSolution(const Standard_Integer 
       {
         if (dist < R1)
         {
-          axeparab1 = gp_Ax2d(gp_Pnt2d(gp_XY(xcencir + signe * ydir * (dist - R1) / 2,
+          axeparab1 = gp_Ax2d(gp_Pnt2d(Coords2d(xcencir + signe * ydir * (dist - R1) / 2,
                                              ycencir - signe * xdir * (dist - R1) / 2.)),
                               gp_Dir2d(signe * ydir, -signe * xdir));
         }
         else
         {
-          axeparab1 = gp_Ax2d(gp_Pnt2d(gp_XY(xcencir + signe * ydir * (dist - R1) / 2,
+          axeparab1 = gp_Ax2d(gp_Pnt2d(Coords2d(xcencir + signe * ydir * (dist - R1) / 2,
                                              ycencir - signe * xdir * (dist - R1) / 2.)),
                               gp_Dir2d(-signe * ydir, signe * xdir));
         }
@@ -130,7 +130,7 @@ Handle(GccInt_Bisec) GccAna_CircLin2dBisec::ThisSolution(const Standard_Integer 
     }
     else
     {
-      axeparab1 = gp_Ax2d(gp_Pnt2d(gp_XY(xcencir + signe * ydir * (dist + R1) / 2.,
+      axeparab1 = gp_Ax2d(gp_Pnt2d(Coords2d(xcencir + signe * ydir * (dist + R1) / 2.,
                                          ycencir - signe * xdir * (dist + R1) / 2.)),
                           gp_Dir2d(signe * (-ydir), signe * xdir));
       biscirlin = gp_Parab2d(axeparab1, R1);
@@ -144,12 +144,12 @@ Handle(GccInt_Bisec) GccAna_CircLin2dBisec::ThisSolution(const Standard_Integer 
 
 //=========================================================================
 
-Standard_Boolean GccAna_CircLin2dBisec::IsDone() const
+Standard_Boolean CircleLine2dBisector::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer GccAna_CircLin2dBisec::NbSolutions() const
+Standard_Integer CircleLine2dBisector::NbSolutions() const
 {
   return NbrSol;
 }

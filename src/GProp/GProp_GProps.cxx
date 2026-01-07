@@ -23,7 +23,7 @@
 #include <math_Jacobi.hxx>
 #include <Standard_DomainError.hxx>
 
-GProp_GProps::GProp_GProps()
+GeometricProperties::GeometricProperties()
     : g(gp::Origin()),
       loc(gp::Origin()),
       dim(0.0)
@@ -31,7 +31,7 @@ GProp_GProps::GProp_GProps()
   inertia = gp_Mat(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 }
 
-GProp_GProps::GProp_GProps(const Point3d& SystemLocation)
+GeometricProperties::GeometricProperties(const Point3d& SystemLocation)
     : g(gp::Origin()),
       loc(SystemLocation),
       dim(0.0)
@@ -39,7 +39,7 @@ GProp_GProps::GProp_GProps(const Point3d& SystemLocation)
   inertia = gp_Mat(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 }
 
-void GProp_GProps::Add(const GProp_GProps& Item, const Standard_Real Density)
+void GeometricProperties::Add(const GeometricProperties& Item, const Standard_Real Density)
 {
   if (Density <= gp::Resolution())
     throw Standard_DomainError();
@@ -85,34 +85,34 @@ void GProp_GProps::Add(const GProp_GProps& Item, const Standard_Real Density)
     if (Item.g.XYZ().Modulus() > gp::Resolution())
     {
       // Computes the inertia of Item at its dim centre
-      GProp::HOperator(Itemg, Item.loc, Item.dim, HMat);
+      GProp1::HOperator(Itemg, Item.loc, Item.dim, HMat);
       ItemInertia = ItemInertia - HMat;
     }
     // Computes the inertia of Item at the location point of the system
-    GProp::HOperator(Itemg, loc, Item.dim, HMat);
+    GProp1::HOperator(Itemg, loc, Item.dim, HMat);
     ItemInertia = ItemInertia + HMat;
     inertia     = inertia + ItemInertia * Density;
   }
 }
 
-Standard_Real GProp_GProps::Mass() const
+Standard_Real GeometricProperties::Mass() const
 {
   return dim;
 }
 
-Point3d GProp_GProps::CentreOfMass() const
+Point3d GeometricProperties::CentreOfMass() const
 {
   return Point3d(loc.XYZ() + g.XYZ());
 }
 
-gp_Mat GProp_GProps::MatrixOfInertia() const
+gp_Mat GeometricProperties::MatrixOfInertia() const
 {
   gp_Mat HMat;
-  GProp::HOperator(g, gp::Origin(), dim, HMat);
+  GProp1::HOperator(g, gp::Origin(), dim, HMat);
   return inertia - HMat;
 }
 
-void GProp_GProps::StaticMoments(Standard_Real& Ix, Standard_Real& Iy, Standard_Real& Iz) const
+void GeometricProperties::StaticMoments(Standard_Real& Ix, Standard_Real& Iy, Standard_Real& Iz) const
 {
 
   gp_XYZ G = loc.XYZ() + g.XYZ();
@@ -121,7 +121,7 @@ void GProp_GProps::StaticMoments(Standard_Real& Ix, Standard_Real& Iy, Standard_
   Iz       = G.Z() * dim;
 }
 
-Standard_Real GProp_GProps::MomentOfInertia(const Axis3d& A) const
+Standard_Real GeometricProperties::MomentOfInertia(const Axis3d& A) const
 {
   // Moment of inertia / axis A
   // 1] computes the math_Matrix of inertia / A.location()
@@ -137,19 +137,19 @@ Standard_Real GProp_GProps::MomentOfInertia(const Axis3d& A) const
   {
     gp_Mat HMat;
     gp_Mat AxisInertia = MatrixOfInertia();
-    GProp::HOperator(Point3d(loc.XYZ() + g.XYZ()), A.Location(), dim, HMat);
+    GProp1::HOperator(Point3d(loc.XYZ() + g.XYZ()), A.Location(), dim, HMat);
     AxisInertia = AxisInertia + HMat;
     return (A.Direction().XYZ()).Dot((A.Direction().XYZ()).Multiplied(AxisInertia));
   }
 }
 
-Standard_Real GProp_GProps::RadiusOfGyration(const Axis3d& A) const
+Standard_Real GeometricProperties::RadiusOfGyration(const Axis3d& A) const
 {
 
   return Sqrt(MomentOfInertia(A) / dim);
 }
 
-GProp_PrincipalProps GProp_GProps::PrincipalProperties() const
+GProp_PrincipalProps GeometricProperties::PrincipalProperties() const
 {
 
   math_Matrix      DiagMat(1, 3, 1, 3);

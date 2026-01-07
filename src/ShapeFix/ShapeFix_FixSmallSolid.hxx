@@ -21,7 +21,7 @@
 
 #include <Standard_Integer.hxx>
 #include <ShapeFix_Root.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class ShapeBuild_ReShape;
 
 class ShapeFix_FixSmallSolid;
@@ -48,11 +48,11 @@ public:
   Standard_EXPORT void SetWidthFactorThreshold(const Standard_Real theThreshold = -1.0);
 
   //! Remove small solids from the given shape
-  Standard_EXPORT TopoDS_Shape Remove(const TopoDS_Shape&               theShape,
+  Standard_EXPORT TopoShape Remove(const TopoShape&               theShape,
                                       const Handle(ShapeBuild_ReShape)& theContext) const;
 
   //! Merge small solids in the given shape to adjacent non-small ones
-  Standard_EXPORT TopoDS_Shape Merge(const TopoDS_Shape&               theShape,
+  Standard_EXPORT TopoShape Merge(const TopoShape&               theShape,
                                      const Handle(ShapeBuild_ReShape)& theContext) const;
 
   DEFINE_STANDARD_RTTIEXT(ShapeFix_FixSmallSolid, ShapeFix_Root)
@@ -61,7 +61,7 @@ protected:
 private:
   Standard_EXPORT Standard_Boolean IsThresholdsSet() const;
 
-  Standard_EXPORT Standard_Boolean IsSmall(const TopoDS_Shape& theSolid) const;
+  Standard_EXPORT Standard_Boolean IsSmall(const TopoShape& theSolid) const;
 
   Standard_EXPORT Standard_Boolean IsUsedWidthFactorThreshold() const;
 

@@ -34,8 +34,8 @@ class BRepMesh_Triangulator
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Performs conversion of the given list of triangles to Poly_Triangulation.
-  Standard_EXPORT static Handle(Poly_Triangulation) ToPolyTriangulation(
+  //! Performs conversion of the given list of triangles to MeshTriangulation.
+  Standard_EXPORT static Handle(MeshTriangulation) ToPolyTriangulation(
     const TColgp_Array1OfPnt&              theNodes,
     const NCollection_List<Poly_Triangle>& thePolyTriangles);
 

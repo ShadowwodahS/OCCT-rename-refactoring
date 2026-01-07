@@ -33,7 +33,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Geom_SphericalSurface, Geom_ElementarySurface)
 
-typedef Geom_Circle           Circle;
+typedef GeomCircle           Circle;
 typedef Geom_SphericalSurface SphericalSurface;
 typedef Frame3d                Ax2;
 typedef gp_Ax3                Ax3;
@@ -280,18 +280,18 @@ gp_Sphere Geom_SphericalSurface::Sphere() const
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_SphericalSurface::UIso(const Standard_Real U) const
+Handle(GeomCurve3d) Geom_SphericalSurface::UIso(const Standard_Real U) const
 {
-  Handle(Geom_Circle)       GC  = new Geom_Circle(ElSLib::SphereUIso(pos, radius, U));
+  Handle(GeomCircle)       GC  = new GeomCircle(ElSLib::SphereUIso(pos, radius, U));
   Handle(Geom_TrimmedCurve) iso = new Geom_TrimmedCurve(GC, -M_PI / 2., M_PI / 2);
   return iso;
 }
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_SphericalSurface::VIso(const Standard_Real V) const
+Handle(GeomCurve3d) Geom_SphericalSurface::VIso(const Standard_Real V) const
 {
-  Handle(Geom_Circle) GC = new Geom_Circle(ElSLib::SphereVIso(pos, radius, V));
+  Handle(GeomCircle) GC = new GeomCircle(ElSLib::SphereVIso(pos, radius, V));
   return GC;
 }
 

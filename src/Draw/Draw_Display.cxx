@@ -26,7 +26,7 @@ extern Standard_Boolean Draw_Bounds;
 
 //=================================================================================================
 
-void Draw_Display::DrawMarker(const Point3d&          pt,
+void DrawDisplay::DrawMarker(const Point3d&          pt,
                               const Draw_MarkerShape S,
                               const Standard_Integer Size)
 {
@@ -37,7 +37,7 @@ void Draw_Display::DrawMarker(const Point3d&          pt,
 
 //=================================================================================================
 
-void Draw_Display::DrawMarker(const gp_Pnt2d&        pt,
+void DrawDisplay::DrawMarker(const gp_Pnt2d&        pt,
                               const Draw_MarkerShape S,
                               const Standard_Integer ISize)
 {
@@ -54,50 +54,50 @@ void Draw_Display::DrawMarker(const gp_Pnt2d&        pt,
     case Draw_Square:
       p1.Translate(gp_Vec2d(-Size, -Size));
       p2.Translate(gp_Vec2d(Size, -Size));
-      Draw(p1, p2);
+      Draw1(p1, p2);
       p1.Translate(gp_Vec2d(2 * Size, 2 * Size));
-      Draw(p1, p2);
+      Draw1(p1, p2);
       p2.Translate(gp_Vec2d(-2 * Size, 2 * Size));
-      Draw(p1, p2);
+      Draw1(p1, p2);
       p1.Translate(gp_Vec2d(-2 * Size, -2 * Size));
-      Draw(p1, p2);
+      Draw1(p1, p2);
       break;
 
     case Draw_Losange:
       p1.Translate(gp_Vec2d(-Size, 0));
       p2.Translate(gp_Vec2d(0, Size));
-      Draw(p1, p2);
+      Draw1(p1, p2);
       p1.Translate(gp_Vec2d(2 * Size, 0));
-      Draw(p1, p2);
+      Draw1(p1, p2);
       p2.Translate(gp_Vec2d(0, -2 * Size));
-      Draw(p1, p2);
+      Draw1(p1, p2);
       p1.Translate(gp_Vec2d(-2 * Size, 0));
-      Draw(p1, p2);
+      Draw1(p1, p2);
       break;
 
     case Draw_X:
       p1.Translate(gp_Vec2d(-Size, -Size));
       p2.Translate(gp_Vec2d(Size, Size));
-      Draw(p1, p2);
+      Draw1(p1, p2);
       p1.Translate(gp_Vec2d(2 * Size, 0));
       p2.Translate(gp_Vec2d(-2 * Size, 0));
-      Draw(p1, p2);
+      Draw1(p1, p2);
       break;
 
     case Draw_Plus:
       p1.Translate(gp_Vec2d(-Size, 0));
       p2.Translate(gp_Vec2d(Size, 0));
-      Draw(p1, p2);
+      Draw1(p1, p2);
       p1.Translate(gp_Vec2d(Size, Size));
       p2.Translate(gp_Vec2d(-Size, -Size));
-      Draw(p1, p2);
+      Draw1(p1, p2);
       break;
 
     case Draw_Circle:
       //    gp_Circ2d C;
       C.SetRadius(ISize);
       C.SetLocation(pt);
-      Draw(C, 0, 2 * M_PI, Standard_False);
+      Draw1(C, 0, 2 * M_PI, Standard_False);
       break;
     default:
       break;
@@ -108,7 +108,7 @@ void Draw_Display::DrawMarker(const gp_Pnt2d&        pt,
 
 //=================================================================================================
 
-void Draw_Display::DrawMarker(const Point3d& pt, const Draw_MarkerShape S, const Standard_Real Size)
+void DrawDisplay::DrawMarker(const Point3d& pt, const Draw_MarkerShape S, const Standard_Real Size)
 {
   gp_Pnt2d p;
   Project(pt, p);
@@ -117,7 +117,7 @@ void Draw_Display::DrawMarker(const Point3d& pt, const Draw_MarkerShape S, const
 
 //=================================================================================================
 
-void Draw_Display::DrawMarker(const gp_Pnt2d& pt, const Draw_MarkerShape S, const Standard_Real R)
+void DrawDisplay::DrawMarker(const gp_Pnt2d& pt, const Draw_MarkerShape S, const Standard_Real R)
 {
   switch (S)
   {
@@ -141,7 +141,7 @@ void Draw_Display::DrawMarker(const gp_Pnt2d& pt, const Draw_MarkerShape S, cons
       // if the circus is too small, a "plus" is drawn to mark the point
       Standard_Boolean b = (R * Zoom()) > 2;
       if (b)
-        Draw(C, 0, 2 * M_PI);
+        Draw1(C, 0, 2 * M_PI);
       else
         DrawMarker(pt, Draw_Plus);
   }
@@ -154,7 +154,7 @@ void Draw_Display::DrawMarker(const gp_Pnt2d& pt, const Draw_MarkerShape S, cons
 
 //=================================================================================================
 
-void Draw_Display::Draw(const gp_Circ&         C,
+void DrawDisplay::Draw1(const gp_Circ&         C,
                         const Standard_Real    A1,
                         const Standard_Real    A3,
                         const Standard_Boolean ModifyWithZoom)
@@ -207,7 +207,7 @@ void Draw_Display::Draw(const gp_Circ&         C,
 
 //=================================================================================================
 
-void Draw_Display::Draw(const gp_Circ2d&       C,
+void DrawDisplay::Draw1(const gp_Circ2d&       C,
                         const Standard_Real    A1,
                         const Standard_Real    A3,
                         const Standard_Boolean ModifyWithZoom)
@@ -260,7 +260,7 @@ void Draw_Display::Draw(const gp_Circ2d&       C,
 
 //=================================================================================================
 
-gp_Pnt2d Draw_Display::Project(const Point3d& p) const
+gp_Pnt2d DrawDisplay::Project(const Point3d& p) const
 {
   gp_Pnt2d pt;
   Project(p, pt);

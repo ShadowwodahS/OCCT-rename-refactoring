@@ -21,8 +21,8 @@
 #include <TopoDS_Shape.hxx>
 #include <IMeshData_Types.hxx>
 
-class TopoDS_Face;
-class TopoDS_Edge;
+class TopoFace;
+class TopoEdge;
 
 //! Interface class representing discrete model of a shape.
 class IMeshData_Model : public IMeshData_Shape
@@ -41,7 +41,7 @@ public: //! @name discrete faces
   Standard_EXPORT virtual Standard_Integer FacesNb() const = 0;
 
   //! Adds new face to shape model.
-  Standard_EXPORT virtual const IMeshData::IFaceHandle& AddFace(const TopoDS_Face& theFace) = 0;
+  Standard_EXPORT virtual const IMeshData::IFaceHandle& AddFace(const TopoFace& theFace) = 0;
 
   //! Gets model's face with the given index.
   Standard_EXPORT virtual const IMeshData::IFaceHandle& GetFace(
@@ -52,7 +52,7 @@ public: //! @name discrete edges
   Standard_EXPORT virtual Standard_Integer EdgesNb() const = 0;
 
   //! Adds new edge to shape model.
-  Standard_EXPORT virtual const IMeshData::IEdgeHandle& AddEdge(const TopoDS_Edge& theEdge) = 0;
+  Standard_EXPORT virtual const IMeshData::IEdgeHandle& AddEdge(const TopoEdge& theEdge) = 0;
 
   //! Gets model's edge with the given index.
   Standard_EXPORT virtual const IMeshData::IEdgeHandle& GetEdge(
@@ -61,7 +61,7 @@ public: //! @name discrete edges
 protected:
   //! Constructor.
   //! Initializes empty model.
-  IMeshData_Model(const TopoDS_Shape& theShape)
+  IMeshData_Model(const TopoShape& theShape)
       : IMeshData_Shape(theShape)
   {
   }

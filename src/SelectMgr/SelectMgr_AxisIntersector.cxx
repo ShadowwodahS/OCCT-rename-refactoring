@@ -46,7 +46,7 @@ void SelectMgr_AxisIntersector::Build() {}
 
 //=================================================================================================
 
-void SelectMgr_AxisIntersector::SetCamera(const Handle(Graphic3d_Camera)&) {}
+void SelectMgr_AxisIntersector::SetCamera(const Handle(CameraOn3d)&) {}
 
 //=================================================================================================
 

@@ -18,6 +18,6 @@
 #include <TCollection_ExtendedString.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<TCollection_ExtendedString> TColStd_SequenceOfExtendedString;
+typedef NCollection_Sequence<UtfString> TColStd_SequenceOfExtendedString;
 
 #endif

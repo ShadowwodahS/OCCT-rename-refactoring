@@ -26,8 +26,8 @@
 
 //=================================================================================================
 
-Handle(TopOpeBRepDS_Interference) TopOpeBRepDS_InterferenceTool::MakeEdgeInterference(
-  const TopOpeBRepDS_Transition& T,
+Handle(TopOpeBRepDS_Interference) InterferenceTool::MakeEdgeInterference(
+  const StateTransition& T,
   const TopOpeBRepDS_Kind        SK,
   const Standard_Integer         SI,
   const TopOpeBRepDS_Kind        GK,
@@ -39,8 +39,8 @@ Handle(TopOpeBRepDS_Interference) TopOpeBRepDS_InterferenceTool::MakeEdgeInterfe
 
 //=================================================================================================
 
-Handle(TopOpeBRepDS_Interference) TopOpeBRepDS_InterferenceTool::MakeCurveInterference(
-  const TopOpeBRepDS_Transition& T,
+Handle(TopOpeBRepDS_Interference) InterferenceTool::MakeCurveInterference(
+  const StateTransition& T,
   const TopOpeBRepDS_Kind        SK,
   const Standard_Integer         SI,
   const TopOpeBRepDS_Kind        GK,
@@ -52,7 +52,7 @@ Handle(TopOpeBRepDS_Interference) TopOpeBRepDS_InterferenceTool::MakeCurveInterf
 
 //=================================================================================================
 
-Handle(TopOpeBRepDS_Interference) TopOpeBRepDS_InterferenceTool::DuplicateCurvePointInterference(
+Handle(TopOpeBRepDS_Interference) InterferenceTool::DuplicateCurvePointInterference(
   const Handle(TopOpeBRepDS_Interference)& I)
 {
   return new TopOpeBRepDS_CurvePointInterference(I->Transition().Complement(),
@@ -60,16 +60,16 @@ Handle(TopOpeBRepDS_Interference) TopOpeBRepDS_InterferenceTool::DuplicateCurveP
                                                  I->Support(),
                                                  I->GeometryType(),
                                                  I->Geometry(),
-                                                 TopOpeBRepDS_InterferenceTool::Parameter(I));
+                                                 InterferenceTool::Parameter(I));
 }
 
 //=================================================================================================
 
-Handle(TopOpeBRepDS_Interference) TopOpeBRepDS_InterferenceTool::MakeFaceCurveInterference(
-  const TopOpeBRepDS_Transition& Transition,
+Handle(TopOpeBRepDS_Interference) InterferenceTool::MakeFaceCurveInterference(
+  const StateTransition& Transition,
   const Standard_Integer         FaceI,
   const Standard_Integer         CurveI,
-  const Handle(Geom2d_Curve)&    PC)
+  const Handle(GeomCurve2d)&    PC)
 {
   return new TopOpeBRepDS_SurfaceCurveInterference(Transition,
                                                    TopOpeBRepDS_FACE,
@@ -81,8 +81,8 @@ Handle(TopOpeBRepDS_Interference) TopOpeBRepDS_InterferenceTool::MakeFaceCurveIn
 
 //=================================================================================================
 
-Handle(TopOpeBRepDS_Interference) TopOpeBRepDS_InterferenceTool::MakeSolidSurfaceInterference(
-  const TopOpeBRepDS_Transition& Transition,
+Handle(TopOpeBRepDS_Interference) InterferenceTool::MakeSolidSurfaceInterference(
+  const StateTransition& Transition,
   const Standard_Integer         SolidI,
   const Standard_Integer         SurfaceI)
 {
@@ -95,8 +95,8 @@ Handle(TopOpeBRepDS_Interference) TopOpeBRepDS_InterferenceTool::MakeSolidSurfac
 
 //=================================================================================================
 
-Handle(TopOpeBRepDS_Interference) TopOpeBRepDS_InterferenceTool::MakeEdgeVertexInterference(
-  const TopOpeBRepDS_Transition& Transition,
+Handle(TopOpeBRepDS_Interference) InterferenceTool::MakeEdgeVertexInterference(
+  const StateTransition& Transition,
   const Standard_Integer         EdgeI,
   const Standard_Integer         VertexI,
   const Standard_Boolean         VertexIsBound,
@@ -115,8 +115,8 @@ Handle(TopOpeBRepDS_Interference) TopOpeBRepDS_InterferenceTool::MakeEdgeVertexI
 
 //=================================================================================================
 
-Handle(TopOpeBRepDS_Interference) TopOpeBRepDS_InterferenceTool::MakeFaceEdgeInterference(
-  const TopOpeBRepDS_Transition& Transition,
+Handle(TopOpeBRepDS_Interference) InterferenceTool::MakeFaceEdgeInterference(
+  const StateTransition& Transition,
   const Standard_Integer         FaceI,
   const Standard_Integer         EdgeI,
   const Standard_Boolean         EdgeIsBound,
@@ -129,7 +129,7 @@ Handle(TopOpeBRepDS_Interference) TopOpeBRepDS_InterferenceTool::MakeFaceEdgeInt
 // function : Parameter
 // purpose  : only on I = CurvePointInterference
 //=======================================================================
-Standard_Real TopOpeBRepDS_InterferenceTool::Parameter(const Handle(TopOpeBRepDS_Interference)& I)
+Standard_Real InterferenceTool::Parameter(const Handle(TopOpeBRepDS_Interference)& I)
 {
   return Handle(TopOpeBRepDS_CurvePointInterference)::DownCast(I)->Parameter();
 }
@@ -138,7 +138,7 @@ Standard_Real TopOpeBRepDS_InterferenceTool::Parameter(const Handle(TopOpeBRepDS
 // function : Parameter
 // purpose  : only on I = CurvePointInterference
 //=======================================================================
-void TopOpeBRepDS_InterferenceTool::Parameter(const Handle(TopOpeBRepDS_Interference)& I,
+void InterferenceTool::Parameter(const Handle(TopOpeBRepDS_Interference)& I,
                                               const Standard_Real                      Par)
 {
   Handle(TopOpeBRepDS_CurvePointInterference)::DownCast(I)->Parameter(Par);

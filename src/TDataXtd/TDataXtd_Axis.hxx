@@ -17,7 +17,7 @@
 #define _TDataXtd_Axis_HeaderFile
 
 #include <TDataStd_GenericEmpty.hxx>
-class TDF_Label;
+class DataLabel;
 class gp_Lin;
 
 class TDataXtd_Axis;
@@ -42,13 +42,13 @@ public:
   //! Exceptions
   //! Standard_NullObject if no compatible named
   //! shape is associated with the label.
-  Standard_EXPORT static Handle(TDataXtd_Axis) Set(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataXtd_Axis) Set(const DataLabel& label);
 
   //! Find,  or create,  an Axis  attribute  and set <P>  as
   //! generated in the associated NamedShape.
   //! Axis methods
   //! ============
-  Standard_EXPORT static Handle(TDataXtd_Axis) Set(const TDF_Label& label, const gp_Lin& L);
+  Standard_EXPORT static Handle(TDataXtd_Axis) Set(const DataLabel& label, const gp_Lin& L);
 
   Standard_EXPORT TDataXtd_Axis();
 

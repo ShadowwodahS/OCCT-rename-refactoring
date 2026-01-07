@@ -34,7 +34,7 @@
 #include <Standard_WarningsRestore.hxx>
 
 //! \class ShapeView_Tools
-//! It gives auxiliary methods for TopoDS_Shape manipulation
+//! It gives auxiliary methods for TopoShape manipulation
 class ShapeView_Tools
 {
 public:
@@ -43,7 +43,7 @@ public:
   //! of possible shape types to be exploded \return true if explode is finished, all types are
   //! collected.
   Standard_EXPORT static Standard_Boolean IsPossibleToExplode(
-    const TopoDS_Shape&                 theShape,
+    const TopoShape&                 theShape,
     NCollection_List<TopAbs_ShapeEnum>& theExplodeTypes);
 };
 

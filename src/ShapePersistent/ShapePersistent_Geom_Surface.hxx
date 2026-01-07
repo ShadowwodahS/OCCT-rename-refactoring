@@ -75,7 +75,7 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
     friend class ShapePersistent_Geom_Surface;
 
   public:
-    virtual Handle(Geom_Surface) Import() const;
+    virtual Handle(GeomSurface) Import() const;
 
     inline Standard_CString PName() const { return "PGeom_SurfaceOfLinearExtrusion"; }
   };
@@ -99,7 +99,7 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
 
     inline Standard_CString PName() const { return "PGeom_SurfaceOfRevolution"; }
 
-    virtual Handle(Geom_Surface) Import() const;
+    virtual Handle(GeomSurface) Import() const;
 
   private:
     Point3d myLocation;
@@ -136,7 +136,7 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
 
     inline Standard_CString PName() const { return "PGeom_BezierSurface"; }
 
-    virtual Handle(Geom_Surface) Import() const;
+    virtual Handle(GeomSurface) Import() const;
 
   private:
     Standard_Boolean                     myURational;
@@ -194,7 +194,7 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
 
     inline Standard_CString PName() const { return "PGeom_BSplineSurface"; }
 
-    virtual Handle(Geom_Surface) Import() const;
+    virtual Handle(GeomSurface) Import() const;
 
   private:
     Standard_Boolean                        myURational;
@@ -243,7 +243,7 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
 
     inline Standard_CString PName() const { return "PGeom_RectangularTrimmedSurface"; }
 
-    virtual Handle(Geom_Surface) Import() const;
+    virtual Handle(GeomSurface) Import() const;
 
   private:
     Handle(Surface) myBasisSurface;
@@ -280,7 +280,7 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
 
     inline Standard_CString PName() const { return "PGeom_OffsetSurface"; }
 
-    virtual Handle(Geom_Surface) Import() const;
+    virtual Handle(GeomSurface) Import() const;
 
   private:
     Handle(Surface) myBasisSurface;
@@ -289,7 +289,7 @@ class ShapePersistent_Geom_Surface : private ShapePersistent_Geom
 
 public:
   typedef subBase_gp<Surface, gp_Ax3>                                Elementary;
-  typedef instance<Elementary, Geom_Plane, gp_Ax3>                   Plane;
+  typedef instance<Elementary, GeomPlane, gp_Ax3>                   Plane;
   typedef instance<Elementary, Geom_ConicalSurface, gp_Cone>         Conical;
   typedef instance<Elementary, Geom_CylindricalSurface, gp_Cylinder> Cylindrical;
   typedef instance<Elementary, Geom_SphericalSurface, gp_Sphere>     Spherical;
@@ -308,7 +308,7 @@ public:
 
 public:
   //! Create a persistent object for a plane
-  Standard_EXPORT static Handle(Surface) Translate(const Handle(Geom_Plane)&         theSurf,
+  Standard_EXPORT static Handle(Surface) Translate(const Handle(GeomPlane)&         theSurf,
                                                    StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a cylinder
   Standard_EXPORT static Handle(Surface) Translate(const Handle(Geom_CylindricalSurface)& theSurf,
@@ -357,13 +357,13 @@ Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface,
 template <>
 Standard_CString ShapePersistent_Geom::instance<
   ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
-  Geom_Plane,
+  GeomPlane,
   gp_Ax3>::PName() const;
 
 template <>
 void ShapePersistent_Geom::instance<
   ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
-  Geom_Plane,
+  GeomPlane,
   gp_Ax3>::Write(StdObjMgt_WriteData& theWriteData) const;
 
 //=======================================================================

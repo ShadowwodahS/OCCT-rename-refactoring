@@ -33,9 +33,9 @@
 #include <Standard_DomainError.hxx>
 #include <TColgp_HArray1OfXY.hxx>
 
-IGESDimen_ToolLeaderArrow::IGESDimen_ToolLeaderArrow() {}
+LeaderArrowTool::LeaderArrowTool() {}
 
-void IGESDimen_ToolLeaderArrow::ReadOwnParams(const Handle(IGESDimen_LeaderArrow)& ent,
+void LeaderArrowTool::ReadOwnParams(const Handle(IGESDimen_LeaderArrow)& ent,
                                               const Handle(IGESData_IGESReaderData)& /* IR */,
                                               IGESData_ParamReader& PR) const
 {
@@ -44,7 +44,7 @@ void IGESDimen_ToolLeaderArrow::ReadOwnParams(const Handle(IGESDimen_LeaderArrow
   Standard_Real              arrowHeadHeight;
   Standard_Real              arrowHeadWidth;
   Standard_Real              zDepth;
-  gp_XY                      arrowHead;
+  Coords2d                      arrowHead;
   Handle(TColgp_HArray1OfXY) segmentTails;
   Standard_Integer           nbval;
 
@@ -64,7 +64,7 @@ void IGESDimen_ToolLeaderArrow::ReadOwnParams(const Handle(IGESDimen_LeaderArrow
   {
     for (Standard_Integer i = 1; i <= nbval; i++)
     {
-      gp_XY tempXY;
+      Coords2d tempXY;
       // st = PR.ReadXY(PR.CurrentList(1, 2), "Segment Co-ords.", tempXY); //szv#4:S4163:12Mar99
       // moved in if
       if (PR.ReadXY(PR.CurrentList(1, 2), "Segment Co-ords.", tempXY))
@@ -75,7 +75,7 @@ void IGESDimen_ToolLeaderArrow::ReadOwnParams(const Handle(IGESDimen_LeaderArrow
   } // segmentTails.IsNull() crash in ent->Init( ...
 }
 
-void IGESDimen_ToolLeaderArrow::WriteOwnParams(const Handle(IGESDimen_LeaderArrow)& ent,
+void LeaderArrowTool::WriteOwnParams(const Handle(IGESDimen_LeaderArrow)& ent,
                                                IGESData_IGESWriter&                 IW) const
 {
   Standard_Integer upper = ent->NbSegments();
@@ -92,12 +92,12 @@ void IGESDimen_ToolLeaderArrow::WriteOwnParams(const Handle(IGESDimen_LeaderArro
   }
 }
 
-void IGESDimen_ToolLeaderArrow::OwnShared(const Handle(IGESDimen_LeaderArrow)& /* ent */,
+void LeaderArrowTool::OwnShared(const Handle(IGESDimen_LeaderArrow)& /* ent */,
                                           Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESDimen_ToolLeaderArrow::OwnCopy(const Handle(IGESDimen_LeaderArrow)& another,
+void LeaderArrowTool::OwnCopy(const Handle(IGESDimen_LeaderArrow)& another,
                                         const Handle(IGESDimen_LeaderArrow)& ent,
                                         Interface_CopyTool& /* TC */) const
 {
@@ -105,7 +105,7 @@ void IGESDimen_ToolLeaderArrow::OwnCopy(const Handle(IGESDimen_LeaderArrow)& ano
   Standard_Real    arrowHeadHeight = another->ArrowHeadHeight();
   Standard_Real    arrowHeadWidth  = another->ArrowHeadWidth();
   Standard_Real    zDepth          = another->ZDepth();
-  gp_XY            arrowHead       = another->ArrowHead().XY();
+  Coords2d            arrowHead       = another->ArrowHead().XY();
 
   Handle(TColgp_HArray1OfXY) segmentTails = new TColgp_HArray1OfXY(1, nbval);
 
@@ -118,10 +118,10 @@ void IGESDimen_ToolLeaderArrow::OwnCopy(const Handle(IGESDimen_LeaderArrow)& ano
   ent->SetFormNumber(another->FormNumber());
 }
 
-IGESData_DirChecker IGESDimen_ToolLeaderArrow::DirChecker(
+DirectoryChecker LeaderArrowTool::DirChecker(
   const Handle(IGESDimen_LeaderArrow)& /* ent */) const
 {
-  IGESData_DirChecker DC(214, 1, 12);
+  DirectoryChecker DC(214, 1, 12);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.LineWeight(IGESData_DefValue);
@@ -131,13 +131,13 @@ IGESData_DirChecker IGESDimen_ToolLeaderArrow::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolLeaderArrow::OwnCheck(const Handle(IGESDimen_LeaderArrow)& /* ent */,
+void LeaderArrowTool::OwnCheck(const Handle(IGESDimen_LeaderArrow)& /* ent */,
                                          const Interface_ShareTool&,
                                          Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESDimen_ToolLeaderArrow::OwnDump(const Handle(IGESDimen_LeaderArrow)& ent,
+void LeaderArrowTool::OwnDump(const Handle(IGESDimen_LeaderArrow)& ent,
                                         const IGESData_IGESDumper& /* dumper */,
                                         Standard_OStream&      S,
                                         const Standard_Integer level) const

@@ -78,7 +78,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_DrilledHole, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolDrilledHole tool;
+      DrilledHoleTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -86,7 +86,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_ElementResults, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolElementResults tool;
+      ElementResultsTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -94,7 +94,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_FiniteElement, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolFiniteElement tool;
+      FiniteElementTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -102,7 +102,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_Flow, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolFlow tool;
+      FlowTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -110,7 +110,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_FlowLineSpec, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolFlowLineSpec tool;
+      FlowLineSpecTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -118,7 +118,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_LevelFunction, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolLevelFunction tool;
+      LevelFunctionTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -126,7 +126,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_LevelToPWBLayerMap, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolLevelToPWBLayerMap tool;
+      LevelToPWBLayerMapTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -134,7 +134,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_LineWidening, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolLineWidening tool;
+      LineWideningTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -142,7 +142,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_NodalConstraint, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNodalConstraint tool;
+      NodalConstraintTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -150,7 +150,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_NodalDisplAndRot, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNodalDisplAndRot tool;
+      NodalDisplRotTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -158,7 +158,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_NodalResults, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNodalResults tool;
+      NodalResultsTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -166,7 +166,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_Node, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNode tool;
+      NodeTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -174,7 +174,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_PWBArtworkStackup, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPWBArtworkStackup tool;
+      PWBArtworkStackupTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -182,7 +182,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_PWBDrilledHole, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPWBDrilledHole tool;
+      PWBDrilledHoleTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -190,7 +190,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_PartNumber, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPartNumber tool;
+      PartNumberTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -198,7 +198,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_PinNumber, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPinNumber tool;
+      PinNumberTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -206,7 +206,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_PipingFlow, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPipingFlow tool;
+      PipingFlowTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -214,7 +214,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_ReferenceDesignator, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolReferenceDesignator tool;
+      ReferenceDesignatorTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -222,7 +222,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
       DeclareAndCast(IGESAppli_RegionRestriction, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolRegionRestriction tool;
+      RegionRestrictionTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -231,7 +231,7 @@ void IGESAppli_GeneralModule::OwnSharedCase(const Standard_Integer             C
   }
 }
 
-IGESData_DirChecker IGESAppli_GeneralModule::DirChecker(
+DirectoryChecker IGESAppli_GeneralModule::DirChecker(
   const Standard_Integer             CN,
   const Handle(IGESData_IGESEntity)& ent) const
 {
@@ -241,139 +241,139 @@ IGESData_DirChecker IGESAppli_GeneralModule::DirChecker(
       DeclareAndCast(IGESAppli_DrilledHole, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolDrilledHole tool;
+      DrilledHoleTool tool;
       return tool.DirChecker(anent);
     }
     case 2: {
       DeclareAndCast(IGESAppli_ElementResults, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolElementResults tool;
+      ElementResultsTool tool;
       return tool.DirChecker(anent);
     }
     case 3: {
       DeclareAndCast(IGESAppli_FiniteElement, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolFiniteElement tool;
+      FiniteElementTool tool;
       return tool.DirChecker(anent);
     }
     case 4: {
       DeclareAndCast(IGESAppli_Flow, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolFlow tool;
+      FlowTool tool;
       return tool.DirChecker(anent);
     }
     case 5: {
       DeclareAndCast(IGESAppli_FlowLineSpec, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolFlowLineSpec tool;
+      FlowLineSpecTool tool;
       return tool.DirChecker(anent);
     }
     case 6: {
       DeclareAndCast(IGESAppli_LevelFunction, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolLevelFunction tool;
+      LevelFunctionTool tool;
       return tool.DirChecker(anent);
     }
     case 7: {
       DeclareAndCast(IGESAppli_LevelToPWBLayerMap, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolLevelToPWBLayerMap tool;
+      LevelToPWBLayerMapTool tool;
       return tool.DirChecker(anent);
     }
     case 8: {
       DeclareAndCast(IGESAppli_LineWidening, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolLineWidening tool;
+      LineWideningTool tool;
       return tool.DirChecker(anent);
     }
     case 9: {
       DeclareAndCast(IGESAppli_NodalConstraint, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolNodalConstraint tool;
+      NodalConstraintTool tool;
       return tool.DirChecker(anent);
     }
     case 10: {
       DeclareAndCast(IGESAppli_NodalDisplAndRot, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolNodalDisplAndRot tool;
+      NodalDisplRotTool tool;
       return tool.DirChecker(anent);
     }
     case 11: {
       DeclareAndCast(IGESAppli_NodalResults, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolNodalResults tool;
+      NodalResultsTool tool;
       return tool.DirChecker(anent);
     }
     case 12: {
       DeclareAndCast(IGESAppli_Node, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolNode tool;
+      NodeTool tool;
       return tool.DirChecker(anent);
     }
     case 13: {
       DeclareAndCast(IGESAppli_PWBArtworkStackup, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolPWBArtworkStackup tool;
+      PWBArtworkStackupTool tool;
       return tool.DirChecker(anent);
     }
     case 14: {
       DeclareAndCast(IGESAppli_PWBDrilledHole, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolPWBDrilledHole tool;
+      PWBDrilledHoleTool tool;
       return tool.DirChecker(anent);
     }
     case 15: {
       DeclareAndCast(IGESAppli_PartNumber, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolPartNumber tool;
+      PartNumberTool tool;
       return tool.DirChecker(anent);
     }
     case 16: {
       DeclareAndCast(IGESAppli_PinNumber, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolPinNumber tool;
+      PinNumberTool tool;
       return tool.DirChecker(anent);
     }
     case 17: {
       DeclareAndCast(IGESAppli_PipingFlow, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolPipingFlow tool;
+      PipingFlowTool tool;
       return tool.DirChecker(anent);
     }
     case 18: {
       DeclareAndCast(IGESAppli_ReferenceDesignator, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolReferenceDesignator tool;
+      ReferenceDesignatorTool tool;
       return tool.DirChecker(anent);
     }
     case 19: {
       DeclareAndCast(IGESAppli_RegionRestriction, anent, ent);
       if (anent.IsNull())
         break;
-      IGESAppli_ToolRegionRestriction tool;
+      RegionRestrictionTool tool;
       return tool.DirChecker(anent);
     }
     default:
       break;
   }
-  return IGESData_DirChecker(); // by default, no specific criterium
+  return DirectoryChecker(); // by default, no specific criterium
 }
 
 void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
@@ -387,7 +387,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_DrilledHole, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolDrilledHole tool;
+      DrilledHoleTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -395,7 +395,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_ElementResults, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolElementResults tool;
+      ElementResultsTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -403,7 +403,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_FiniteElement, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolFiniteElement tool;
+      FiniteElementTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -411,7 +411,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_Flow, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolFlow tool;
+      FlowTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -419,7 +419,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_FlowLineSpec, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolFlowLineSpec tool;
+      FlowLineSpecTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -427,7 +427,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_LevelFunction, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolLevelFunction tool;
+      LevelFunctionTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -435,7 +435,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_LevelToPWBLayerMap, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolLevelToPWBLayerMap tool;
+      LevelToPWBLayerMapTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -443,7 +443,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_LineWidening, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolLineWidening tool;
+      LineWideningTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -451,7 +451,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_NodalConstraint, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNodalConstraint tool;
+      NodalConstraintTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -459,7 +459,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_NodalDisplAndRot, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNodalDisplAndRot tool;
+      NodalDisplRotTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -467,7 +467,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_NodalResults, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNodalResults tool;
+      NodalResultsTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -475,7 +475,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_Node, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNode tool;
+      NodeTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -483,7 +483,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_PWBArtworkStackup, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPWBArtworkStackup tool;
+      PWBArtworkStackupTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -491,7 +491,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_PWBDrilledHole, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPWBDrilledHole tool;
+      PWBDrilledHoleTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -499,7 +499,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_PartNumber, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPartNumber tool;
+      PartNumberTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -507,7 +507,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_PinNumber, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPinNumber tool;
+      PinNumberTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -515,7 +515,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_PipingFlow, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPipingFlow tool;
+      PipingFlowTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -523,7 +523,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_ReferenceDesignator, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolReferenceDesignator tool;
+      ReferenceDesignatorTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -531,7 +531,7 @@ void IGESAppli_GeneralModule::OwnCheckCase(const Standard_Integer             CN
       DeclareAndCast(IGESAppli_RegionRestriction, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolRegionRestriction tool;
+      RegionRestrictionTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -618,133 +618,133 @@ void IGESAppli_GeneralModule::OwnCopyCase(const Standard_Integer             CN,
     case 1: {
       DeclareAndCast(IGESAppli_DrilledHole, enfr, entfrom);
       DeclareAndCast(IGESAppli_DrilledHole, ento, entto);
-      IGESAppli_ToolDrilledHole tool;
+      DrilledHoleTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 2: {
       DeclareAndCast(IGESAppli_ElementResults, enfr, entfrom);
       DeclareAndCast(IGESAppli_ElementResults, ento, entto);
-      IGESAppli_ToolElementResults tool;
+      ElementResultsTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 3: {
       DeclareAndCast(IGESAppli_FiniteElement, enfr, entfrom);
       DeclareAndCast(IGESAppli_FiniteElement, ento, entto);
-      IGESAppli_ToolFiniteElement tool;
+      FiniteElementTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 4: {
       DeclareAndCast(IGESAppli_Flow, enfr, entfrom);
       DeclareAndCast(IGESAppli_Flow, ento, entto);
-      IGESAppli_ToolFlow tool;
+      FlowTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 5: {
       DeclareAndCast(IGESAppli_FlowLineSpec, enfr, entfrom);
       DeclareAndCast(IGESAppli_FlowLineSpec, ento, entto);
-      IGESAppli_ToolFlowLineSpec tool;
+      FlowLineSpecTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 6: {
       DeclareAndCast(IGESAppli_LevelFunction, enfr, entfrom);
       DeclareAndCast(IGESAppli_LevelFunction, ento, entto);
-      IGESAppli_ToolLevelFunction tool;
+      LevelFunctionTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 7: {
       DeclareAndCast(IGESAppli_LevelToPWBLayerMap, enfr, entfrom);
       DeclareAndCast(IGESAppli_LevelToPWBLayerMap, ento, entto);
-      IGESAppli_ToolLevelToPWBLayerMap tool;
+      LevelToPWBLayerMapTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 8: {
       DeclareAndCast(IGESAppli_LineWidening, enfr, entfrom);
       DeclareAndCast(IGESAppli_LineWidening, ento, entto);
-      IGESAppli_ToolLineWidening tool;
+      LineWideningTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 9: {
       DeclareAndCast(IGESAppli_NodalConstraint, enfr, entfrom);
       DeclareAndCast(IGESAppli_NodalConstraint, ento, entto);
-      IGESAppli_ToolNodalConstraint tool;
+      NodalConstraintTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 10: {
       DeclareAndCast(IGESAppli_NodalDisplAndRot, enfr, entfrom);
       DeclareAndCast(IGESAppli_NodalDisplAndRot, ento, entto);
-      IGESAppli_ToolNodalDisplAndRot tool;
+      NodalDisplRotTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 11: {
       DeclareAndCast(IGESAppli_NodalResults, enfr, entfrom);
       DeclareAndCast(IGESAppli_NodalResults, ento, entto);
-      IGESAppli_ToolNodalResults tool;
+      NodalResultsTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 12: {
       DeclareAndCast(IGESAppli_Node, enfr, entfrom);
       DeclareAndCast(IGESAppli_Node, ento, entto);
-      IGESAppli_ToolNode tool;
+      NodeTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 13: {
       DeclareAndCast(IGESAppli_PWBArtworkStackup, enfr, entfrom);
       DeclareAndCast(IGESAppli_PWBArtworkStackup, ento, entto);
-      IGESAppli_ToolPWBArtworkStackup tool;
+      PWBArtworkStackupTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 14: {
       DeclareAndCast(IGESAppli_PWBDrilledHole, enfr, entfrom);
       DeclareAndCast(IGESAppli_PWBDrilledHole, ento, entto);
-      IGESAppli_ToolPWBDrilledHole tool;
+      PWBDrilledHoleTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 15: {
       DeclareAndCast(IGESAppli_PartNumber, enfr, entfrom);
       DeclareAndCast(IGESAppli_PartNumber, ento, entto);
-      IGESAppli_ToolPartNumber tool;
+      PartNumberTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 16: {
       DeclareAndCast(IGESAppli_PinNumber, enfr, entfrom);
       DeclareAndCast(IGESAppli_PinNumber, ento, entto);
-      IGESAppli_ToolPinNumber tool;
+      PinNumberTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 17: {
       DeclareAndCast(IGESAppli_PipingFlow, enfr, entfrom);
       DeclareAndCast(IGESAppli_PipingFlow, ento, entto);
-      IGESAppli_ToolPipingFlow tool;
+      PipingFlowTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 18: {
       DeclareAndCast(IGESAppli_ReferenceDesignator, enfr, entfrom);
       DeclareAndCast(IGESAppli_ReferenceDesignator, ento, entto);
-      IGESAppli_ToolReferenceDesignator tool;
+      ReferenceDesignatorTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 19: {
       DeclareAndCast(IGESAppli_RegionRestriction, enfr, entfrom);
       DeclareAndCast(IGESAppli_RegionRestriction, ento, entto);
-      IGESAppli_ToolRegionRestriction tool;
+      RegionRestrictionTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;

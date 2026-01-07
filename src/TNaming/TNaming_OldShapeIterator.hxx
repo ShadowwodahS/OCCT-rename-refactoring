@@ -25,58 +25,58 @@
 #include <Standard_Integer.hxx>
 class Standard_NoMoreObject;
 class Standard_NoSuchObject;
-class TNaming_Tool;
+class Tool11;
 class TNaming_Localizer;
 class TNaming_Naming;
-class TopoDS_Shape;
+class TopoShape;
 class TNaming_UsedShapes;
-class TDF_Label;
-class TNaming_Iterator;
-class TNaming_NamedShape;
+class DataLabel;
+class Iterator1;
+class ShapeAttribute;
 
 //! Iterates on all the ascendants of a shape
-class TNaming_OldShapeIterator
+class OldShapeIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TNaming_OldShapeIterator(const TopoDS_Shape&    aShape,
+  Standard_EXPORT OldShapeIterator(const TopoShape&    aShape,
                                            const Standard_Integer Transaction,
-                                           const TDF_Label&       access);
+                                           const DataLabel&       access);
 
-  Standard_EXPORT TNaming_OldShapeIterator(const TopoDS_Shape& aShape, const TDF_Label& access);
-
-  //! Iterates from the current Shape in <anIterator>
-  Standard_EXPORT TNaming_OldShapeIterator(const TNaming_OldShapeIterator& anIterator);
+  Standard_EXPORT OldShapeIterator(const TopoShape& aShape, const DataLabel& access);
 
   //! Iterates from the current Shape in <anIterator>
-  Standard_EXPORT TNaming_OldShapeIterator(const TNaming_Iterator& anIterator);
+  Standard_EXPORT OldShapeIterator(const OldShapeIterator& anIterator);
+
+  //! Iterates from the current Shape in <anIterator>
+  Standard_EXPORT OldShapeIterator(const Iterator1& anIterator);
 
   Standard_Boolean More() const;
 
   Standard_EXPORT void Next();
 
-  Standard_EXPORT TDF_Label Label() const;
+  Standard_EXPORT DataLabel Label() const;
 
-  Standard_EXPORT Handle(TNaming_NamedShape) NamedShape() const;
+  Standard_EXPORT Handle(ShapeAttribute) NamedShape() const;
 
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
   //! True if the  new  shape is a modification  (split,
   //! fuse,etc...) of the old shape.
   Standard_EXPORT Standard_Boolean IsModification() const;
 
-  friend class TNaming_Tool;
+  friend class Tool11;
   friend class TNaming_Localizer;
   friend class TNaming_Naming;
 
 protected:
 private:
-  Standard_EXPORT TNaming_OldShapeIterator(const TopoDS_Shape&               aShape,
+  Standard_EXPORT OldShapeIterator(const TopoShape&               aShape,
                                            const Standard_Integer            Transaction,
                                            const Handle(TNaming_UsedShapes)& Shapes);
 
-  Standard_EXPORT TNaming_OldShapeIterator(const TopoDS_Shape&               aShape,
+  Standard_EXPORT OldShapeIterator(const TopoShape&               aShape,
                                            const Handle(TNaming_UsedShapes)& Shapes);
 
   TNaming_PtrNode  myNode;

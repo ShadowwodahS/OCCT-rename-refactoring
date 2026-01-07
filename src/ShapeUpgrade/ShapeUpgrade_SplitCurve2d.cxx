@@ -37,25 +37,25 @@ ShapeUpgrade_SplitCurve2d::ShapeUpgrade_SplitCurve2d() {}
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitCurve2d::Init(const Handle(Geom2d_Curve)& C)
+void ShapeUpgrade_SplitCurve2d::Init(const Handle(GeomCurve2d)& C)
 {
   Init(C, C->FirstParameter(), C->LastParameter());
 }
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitCurve2d::Init(const Handle(Geom2d_Curve)& C,
+void ShapeUpgrade_SplitCurve2d::Init(const Handle(GeomCurve2d)& C,
                                      const Standard_Real         First,
                                      const Standard_Real         Last)
 {
   //  if (ShapeUpgrade::Debug()) std::cout << "SplitCurve2d::Init"<<std::endl;
-  Handle(Geom2d_Curve) CopyOfC = Handle(Geom2d_Curve)::DownCast(C->Copy());
+  Handle(GeomCurve2d) CopyOfC = Handle(GeomCurve2d)::DownCast(C->Copy());
   myCurve                      = CopyOfC;
 
   constexpr Standard_Real precision = Precision::PConfusion();
   Standard_Real           firstPar  = First;
   Standard_Real           lastPar   = Last;
-  Handle(Geom2d_Curve)    aCurve    = myCurve;
+  Handle(GeomCurve2d)    aCurve    = myCurve;
   if (aCurve->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve)))
     aCurve = Handle(Geom2d_TrimmedCurve)::DownCast(aCurve)->BasisCurve();
   // 15.11.2002 PTV OCC966
@@ -106,7 +106,7 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment)
   if (myCurve->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve)))
   {
     Handle(Geom2d_TrimmedCurve) tmp      = Handle(Geom2d_TrimmedCurve)::DownCast(myCurve);
-    Handle(Geom2d_Curve)        BasCurve = tmp->BasisCurve();
+    Handle(GeomCurve2d)        BasCurve = tmp->BasisCurve();
     ShapeUpgrade_SplitCurve2d   spc;
     spc.Init(BasCurve, First, Last);
     spc.SetSplitValues(mySplitValues);
@@ -128,7 +128,7 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment)
   else if (myCurve->IsKind(STANDARD_TYPE(Geom2d_OffsetCurve)))
   {
     Handle(Geom2d_OffsetCurve) tmp      = Handle(Geom2d_OffsetCurve)::DownCast(myCurve);
-    Handle(Geom2d_Curve)       BasCurve = tmp->BasisCurve();
+    Handle(GeomCurve2d)       BasCurve = tmp->BasisCurve();
     Standard_Real              Offset   = tmp->Offset();
     ShapeUpgrade_SplitCurve2d  spc;
     spc.Init(BasCurve, First, Last);
@@ -163,7 +163,7 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment)
       if (myCurve->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve))
           || myCurve->IsKind(STANDARD_TYPE(Geom2d_BezierCurve)))
       {
-        Handle(Geom2d_Curve) theNewCurve = Handle(Geom2d_Curve)::DownCast(myCurve->Copy());
+        Handle(GeomCurve2d) theNewCurve = Handle(GeomCurve2d)::DownCast(myCurve->Copy());
         try
         {
           OCC_CATCH_SIGNALS
@@ -181,14 +181,14 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment)
 #endif
           (void)anException;
           theNewCurve =
-            new Geom2d_TrimmedCurve(Handle(Geom2d_Curve)::DownCast(myCurve->Copy()), First, Last);
+            new Geom2d_TrimmedCurve(Handle(GeomCurve2d)::DownCast(myCurve->Copy()), First, Last);
         }
         myResultingCurves->SetValue(1, theNewCurve);
       }
       else
       {
         Handle(Geom2d_TrimmedCurve) theNewCurve =
-          new Geom2d_TrimmedCurve(Handle(Geom2d_Curve)::DownCast(myCurve->Copy()), First, Last);
+          new Geom2d_TrimmedCurve(Handle(GeomCurve2d)::DownCast(myCurve->Copy()), First, Last);
         myResultingCurves->SetValue(1, theNewCurve);
       }
     }
@@ -222,14 +222,14 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment)
   {
     // skl : in the next block I change "First","Last" to "Firstt","Lastt"
     Standard_Real        Firstt = mySplitValues->Value(i), Lastt = mySplitValues->Value(i + 1);
-    Handle(Geom2d_Curve) theNewCurve;
+    Handle(GeomCurve2d) theNewCurve;
     if (Segment)
     {
       // creates a copy of myCurve before to segment:
       if (myCurve->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve))
           || myCurve->IsKind(STANDARD_TYPE(Geom2d_BezierCurve)))
       {
-        theNewCurve = Handle(Geom2d_Curve)::DownCast(myCurve->Copy());
+        theNewCurve = Handle(GeomCurve2d)::DownCast(myCurve->Copy());
         try
         {
           OCC_CATCH_SIGNALS
@@ -248,12 +248,12 @@ void ShapeUpgrade_SplitCurve2d::Build(const Standard_Boolean Segment)
 #endif
           (void)anException;
           theNewCurve =
-            new Geom2d_TrimmedCurve(Handle(Geom2d_Curve)::DownCast(myCurve->Copy()), Firstt, Lastt);
+            new Geom2d_TrimmedCurve(Handle(GeomCurve2d)::DownCast(myCurve->Copy()), Firstt, Lastt);
         }
       }
       else
         theNewCurve =
-          new Geom2d_TrimmedCurve(Handle(Geom2d_Curve)::DownCast(myCurve->Copy()), Firstt, Lastt);
+          new Geom2d_TrimmedCurve(Handle(GeomCurve2d)::DownCast(myCurve->Copy()), Firstt, Lastt);
     }
     myResultingCurves->SetValue(i, theNewCurve);
   }

@@ -29,11 +29,11 @@ void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
                                Vector3d&                          Norm)
 {
 
-  GeomAbs_SurfaceType typS = Adaptor3d_HSurfaceTool::GetType(S);
+  GeomAbs_SurfaceType typS = HSurfaceTool::GetType(S);
   switch (typS)
   {
     case GeomAbs_Plane: {
-      gp_Pln pl(Adaptor3d_HSurfaceTool::Plane(S));
+      gp_Pln pl(HSurfaceTool::Plane(S));
       Norm = pl.Axis().Direction();
       P    = ElSLib::Value(U, V, pl);
       if (!pl.Direct())
@@ -44,7 +44,7 @@ void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Sphere: {
-      gp_Sphere sp(Adaptor3d_HSurfaceTool::Sphere(S));
+      gp_Sphere sp(HSurfaceTool::Sphere(S));
       P    = ElSLib::Value(U, V, sp);
       Norm = Vector3d(sp.Location(), P);
       if (sp.Direct())
@@ -59,7 +59,7 @@ void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Cylinder: {
-      gp_Cylinder cy(Adaptor3d_HSurfaceTool::Cylinder(S));
+      gp_Cylinder cy(HSurfaceTool::Cylinder(S));
       P = ElSLib::Value(U, V, cy);
       Norm.SetLinearForm(Cos(U), cy.XAxis().Direction(), Sin(U), cy.YAxis().Direction());
       if (!cy.Direct())
@@ -70,7 +70,7 @@ void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Cone: {
-      gp_Cone co(Adaptor3d_HSurfaceTool::Cone(S));
+      gp_Cone co(HSurfaceTool::Cone(S));
       P                   = ElSLib::Value(U, V, co);
       Standard_Real Angle = co.SemiAngle();
       Standard_Real Sina  = sin(Angle);
@@ -81,7 +81,7 @@ void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
       if (Abs(V * Sina + Rad) <= 1e-12)
       { // on est a l`apex
         /*
-        Standard_Real Vfi = Adaptor3d_HSurfaceTool::FirstVParameter(S);
+        Standard_Real Vfi = HSurfaceTool::FirstVParameter(S);
         if (Vfi < -Rad/Sina) { // partie valide pour V < Vapex
         Vcalc = V - 1;
         }
@@ -119,7 +119,7 @@ void Contap_SurfProps::Normale(const Handle(Adaptor3d_Surface)& S,
     break;
     default: {
       Vector3d d1u, d1v;
-      Adaptor3d_HSurfaceTool::D1(S, U, V, P, d1u, d1v);
+      HSurfaceTool::D1(S, U, V, P, d1u, d1v);
       Norm = d1u.Crossed(d1v);
     }
     break;
@@ -137,11 +137,11 @@ void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
                                     Vector3d&                          Norm)
 {
 
-  GeomAbs_SurfaceType typS = Adaptor3d_HSurfaceTool::GetType(S);
+  GeomAbs_SurfaceType typS = HSurfaceTool::GetType(S);
   switch (typS)
   {
     case GeomAbs_Plane: {
-      gp_Pln pl(Adaptor3d_HSurfaceTool::Plane(S));
+      gp_Pln pl(HSurfaceTool::Plane(S));
       Norm = pl.Axis().Direction();
       ElSLib::D1(U, V, pl, P, d1u, d1v);
       if (!pl.Direct())
@@ -152,7 +152,7 @@ void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Sphere: {
-      gp_Sphere sp(Adaptor3d_HSurfaceTool::Sphere(S));
+      gp_Sphere sp(HSurfaceTool::Sphere(S));
       ElSLib::D1(U, V, sp, P, d1u, d1v);
       Norm = Vector3d(sp.Location(), P);
       if (sp.Direct())
@@ -167,7 +167,7 @@ void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Cylinder: {
-      gp_Cylinder cy(Adaptor3d_HSurfaceTool::Cylinder(S));
+      gp_Cylinder cy(HSurfaceTool::Cylinder(S));
       ElSLib::D1(U, V, cy, P, d1u, d1v);
       Norm.SetLinearForm(Cos(U), cy.XAxis().Direction(), Sin(U), cy.YAxis().Direction());
       if (!cy.Direct())
@@ -178,7 +178,7 @@ void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Cone: {
-      gp_Cone co(Adaptor3d_HSurfaceTool::Cone(S));
+      gp_Cone co(HSurfaceTool::Cone(S));
       ElSLib::D1(U, V, co, P, d1u, d1v);
       Standard_Real Angle = co.SemiAngle();
       Standard_Real Sina  = Sin(Angle);
@@ -188,7 +188,7 @@ void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
       Standard_Real Vcalc = V;
       if (Abs(V * Sina + Rad) <= RealEpsilon())
       { // on est a l`apex
-        Standard_Real Vfi = Adaptor3d_HSurfaceTool::FirstVParameter(S);
+        Standard_Real Vfi = HSurfaceTool::FirstVParameter(S);
         if (Vfi < -Rad / Sina)
         { // partie valide pour V < Vapex
           Vcalc = V - 1;
@@ -224,7 +224,7 @@ void Contap_SurfProps::DerivAndNorm(const Handle(Adaptor3d_Surface)& S,
     }
     break;
     default: {
-      Adaptor3d_HSurfaceTool::D1(S, U, V, P, d1u, d1v);
+      HSurfaceTool::D1(S, U, V, P, d1u, d1v);
       Norm = d1u.Crossed(d1v);
     }
     break;
@@ -242,11 +242,11 @@ void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
                                  Vector3d&                          Dnv)
 {
 
-  GeomAbs_SurfaceType typS = Adaptor3d_HSurfaceTool::GetType(S);
+  GeomAbs_SurfaceType typS = HSurfaceTool::GetType(S);
   switch (typS)
   {
     case GeomAbs_Plane: {
-      gp_Pln pl(Adaptor3d_HSurfaceTool::Plane(S));
+      gp_Pln pl(HSurfaceTool::Plane(S));
       P    = ElSLib::Value(U, V, pl);
       Norm = pl.Axis().Direction();
       if (!pl.Direct())
@@ -258,7 +258,7 @@ void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Sphere: {
-      gp_Sphere sp(Adaptor3d_HSurfaceTool::Sphere(S));
+      gp_Sphere sp(HSurfaceTool::Sphere(S));
       ElSLib::D1(U, V, sp, P, Dnu, Dnv);
       Norm              = Vector3d(sp.Location(), P);
       Standard_Real Rad = sp.Radius();
@@ -273,7 +273,7 @@ void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
     break;
 
     case GeomAbs_Cylinder: {
-      gp_Cylinder cy(Adaptor3d_HSurfaceTool::Cylinder(S));
+      gp_Cylinder cy(HSurfaceTool::Cylinder(S));
       P = ElSLib::Value(U, V, cy);
       Norm.SetLinearForm(Cos(U), cy.XAxis().Direction(), Sin(U), cy.YAxis().Direction());
       Dnu.SetLinearForm(-Sin(U), cy.XAxis().Direction(), Cos(U), cy.YAxis().Direction());
@@ -288,7 +288,7 @@ void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
 
     case GeomAbs_Cone: {
 
-      gp_Cone co(Adaptor3d_HSurfaceTool::Cone(S));
+      gp_Cone co(HSurfaceTool::Cone(S));
       P                   = ElSLib::Value(U, V, co);
       Standard_Real Angle = co.SemiAngle();
       Standard_Real Sina  = Sin(Angle);
@@ -297,7 +297,7 @@ void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
       Standard_Real Vcalc = V;
       if (Abs(V * Sina + Rad) <= RealEpsilon())
       { // on est a l`apex
-        Standard_Real Vfi = Adaptor3d_HSurfaceTool::FirstVParameter(S);
+        Standard_Real Vfi = HSurfaceTool::FirstVParameter(S);
         if (Vfi < -Rad / Sina)
         { // partie valide pour V < Vapex
           Vcalc = V - 1;
@@ -341,7 +341,7 @@ void Contap_SurfProps::NormAndDn(const Handle(Adaptor3d_Surface)& S,
 
     default: {
       Vector3d d1u, d1v, d2u, d2v, d2uv;
-      Adaptor3d_HSurfaceTool::D2(S, U, V, P, d1u, d1v, d2u, d2v, d2uv);
+      HSurfaceTool::D2(S, U, V, P, d1u, d1v, d2u, d2v, d2uv);
       Norm = d1u.Crossed(d1v);
       Dnu  = d2u.Crossed(d1v) + d1u.Crossed(d2uv);
       Dnv  = d2uv.Crossed(d1v) + d1u.Crossed(d2v);

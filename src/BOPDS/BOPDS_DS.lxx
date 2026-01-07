@@ -119,7 +119,7 @@ inline Standard_Integer BOPDS_DS::NbInterfTypes()
 inline Standard_Boolean BOPDS_DS::AddInterf(const Standard_Integer theI1,
                                             const Standard_Integer theI2)
 {
-  if (myInterfTB.Add(BOPDS_Pair(theI1, theI2)))
+  if (myInterfTB.Add(IndexPair(theI1, theI2)))
   {
     myInterfered.Add(theI1);
     myInterfered.Add(theI2);
@@ -144,7 +144,7 @@ inline Standard_Boolean BOPDS_DS::HasInterf(const Standard_Integer theI) const
 inline Standard_Boolean BOPDS_DS::HasInterf(const Standard_Integer theI1,
                                             const Standard_Integer theI2) const
 {
-  BOPDS_Pair aPK(theI1, theI2);
+  IndexPair aPK(theI1, theI2);
   return myInterfTB.Contains(aPK);
 }
 

@@ -29,7 +29,7 @@ class IGESGeom_Line;
 DEFINE_STANDARD_HANDLE(IGESGeom_Line, IGESData_IGESEntity)
 
 //! defines IGESLine, Type <110> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A line is a bounded, connected portion of a parent straight
 //! line which consists of more than one point. A line is
 //! defined by its end points.

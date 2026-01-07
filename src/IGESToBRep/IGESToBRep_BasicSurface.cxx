@@ -164,10 +164,10 @@ IGESToBRep_BasicSurface::IGESToBRep_BasicSurface(const Standard_Real    eps,
 // Purpose : Choice of the right transfer method
 //=============================================
 
-Handle(Geom_Surface) IGESToBRep_BasicSurface::TransferBasicSurface(
+Handle(GeomSurface) IGESToBRep_BasicSurface::TransferBasicSurface(
   const Handle(IGESData_IGESEntity)& start)
 {
-  Handle(Geom_Surface) resurf;
+  Handle(GeomSurface) resurf;
   if (start.IsNull())
   {
     Message_Msg msg1005("IGES_1005");
@@ -243,10 +243,10 @@ Handle(Geom_Surface) IGESToBRep_BasicSurface::TransferBasicSurface(
 
 //=================================================================================================
 
-Handle(Geom_Plane) IGESToBRep_BasicSurface::TransferPlaneSurface(
+Handle(GeomPlane) IGESToBRep_BasicSurface::TransferPlaneSurface(
   const Handle(IGESSolid_PlaneSurface)& start)
 {
-  Handle(Geom_Plane) res;
+  Handle(GeomPlane) res;
   if (start.IsNull())
   {
     Message_Msg msg1005("IGES_1005");
@@ -287,7 +287,7 @@ Handle(Geom_Plane) IGESToBRep_BasicSurface::TransferPlaneSurface(
     pln                               = gp_Pln(gp_Ax3(Pt, Normale, Dirgp));
   }
 
-  return new Geom_Plane(pln);
+  return new GeomPlane(pln);
 }
 
 //=================================================================================================
@@ -545,7 +545,7 @@ Handle(Geom_BSplineSurface) IGESToBRep_BasicSurface::TransferSplineSurface(
   Standard_Real epscoef = GetEpsCoeff();
   Standard_Real epsgeom = GetEpsGeom();
 
-  Standard_Integer result = IGESConvGeom::SplineSurfaceFromIGES(start, epscoef, epsgeom, resconv);
+  Standard_Integer result = IGESConvGeom1::SplineSurfaceFromIGES(start, epscoef, epsgeom, resconv);
 
   switch (result)
   {
@@ -573,7 +573,7 @@ Handle(Geom_BSplineSurface) IGESToBRep_BasicSurface::TransferSplineSurface(
   //  AddWarning ( start, "The result is not guaranteed to be C0");
   //  ===============================
 
-  IGESConvGeom::IncreaseSurfaceContinuity(resconv, epsgeom, GetContinuity());
+  IGESConvGeom1::IncreaseSurfaceContinuity(resconv, epsgeom, GetContinuity());
   return resconv;
 }
 

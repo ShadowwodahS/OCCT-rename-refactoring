@@ -62,10 +62,10 @@ BRepPrim_Torus::BRepPrim_Torus(const Point3d&       Center,
 
 //=================================================================================================
 
-TopoDS_Face BRepPrim_Torus::MakeEmptyLateralFace() const
+TopoFace BRepPrim_Torus::MakeEmptyLateralFace() const
 {
   Handle(Geom_ToroidalSurface) T = new Geom_ToroidalSurface(Axes(), myMajor, myMinor);
-  TopoDS_Face                  F;
+  TopoFace                  F;
   myBuilder.Builder().MakeFace(F, T, Precision::Confusion());
   return F;
 }
@@ -80,7 +80,7 @@ void BRepPrim_Torus::SetMeridian()
   Vector3d V = Axes().XDirection();
   V.Multiply(myMajor);
   A.Translate(V);
-  Handle(Geom_Circle)   C = new Geom_Circle(A, myMinor);
+  Handle(GeomCircle)   C = new GeomCircle(A, myMinor);
   Handle(Geom2d_Circle) C2d =
     new Geom2d_Circle(gp_Ax2d(gp_Pnt2d(myMajor, 0), gp_Dir2d(1, 0)), myMinor);
   Meridian(C, C2d);

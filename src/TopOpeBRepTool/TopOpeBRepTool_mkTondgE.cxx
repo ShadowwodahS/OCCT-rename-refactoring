@@ -54,10 +54,10 @@ TopOpeBRepTool_mkTondgE::TopOpeBRepTool_mkTondgE() {}
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_mkTondgE::Initialize(const TopoDS_Edge& dgE,
-                                                     const TopoDS_Face& F,
+Standard_Boolean TopOpeBRepTool_mkTondgE::Initialize(const TopoEdge& dgE,
+                                                     const TopoFace& F,
                                                      const gp_Pnt2d&    uvi,
-                                                     const TopoDS_Face& Fi)
+                                                     const TopoFace& Fi)
 {
   isT2d   = Standard_False;
   hasRest = Standard_False;
@@ -67,22 +67,22 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::Initialize(const TopoDS_Edge& dgE,
   mydgE = dgE;
   myF   = F;
 
-  TopExp_Explorer      exv(mydgE, TopAbs_VERTEX);
-  const TopoDS_Vertex& v   = TopoDS::Vertex(exv.Current());
-  Standard_Real        par = BRep_Tool::Parameter(v, mydgE);
+  ShapeExplorer      exv(mydgE, TopAbs_VERTEX);
+  const TopoVertex& v   = TopoDS::Vertex(exv.Current());
+  Standard_Real        par = BRepInspector::Parameter(v, mydgE);
   gp_Pnt2d             uv;
   Standard_Boolean     ok = FUN_tool_paronEF(mydgE, par, myF, uv);
   if (!ok)
     return Standard_False;
   Vector3d tmp;
-  ok    = TopOpeBRepTool_TOOL::NggeomF(uv, myF, tmp);
+  ok    = TOOL1::NggeomF(uv, myF, tmp);
   myngf = Dir3d(tmp);
   if (!ok)
     return Standard_False;
 
   myuvi                = uvi;
   myFi                 = Fi;
-  Standard_Boolean oki = TopOpeBRepTool_TOOL::NggeomF(myuvi, myFi, tmp);
+  Standard_Boolean oki = TOOL1::NggeomF(myuvi, myFi, tmp);
   myngfi               = Dir3d(tmp);
   if (!oki)
     return Standard_False;
@@ -94,7 +94,7 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::Initialize(const TopoDS_Edge& dgE,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_mkTondgE::SetclE(const TopoDS_Edge& clE)
+Standard_Boolean TopOpeBRepTool_mkTondgE::SetclE(const TopoEdge& clE)
 {
   myclE = clE;
   return Standard_True;
@@ -109,10 +109,10 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::IsT2d() const
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_mkTondgE::SetRest(const Standard_Real pari, const TopoDS_Edge& Ei)
+Standard_Boolean TopOpeBRepTool_mkTondgE::SetRest(const Standard_Real pari, const TopoEdge& Ei)
 {
   hasRest               = Standard_True;
-  Standard_Boolean clEi = TopOpeBRepTool_TOOL::IsClosingE(Ei, myFi);
+  Standard_Boolean clEi = TOOL1::IsClosingE(Ei, myFi);
   if (clEi)
   {
     hasRest = Standard_False;
@@ -125,7 +125,7 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::SetRest(const Standard_Real pari, cons
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepTool_mkTondgE::GetAllRest(TopTools_ListOfShape& lEi)
+Standard_Integer TopOpeBRepTool_mkTondgE::GetAllRest(ShapeList& lEi)
 {
   lEi.Clear();
 
@@ -133,11 +133,11 @@ Standard_Integer TopOpeBRepTool_mkTondgE::GetAllRest(TopTools_ListOfShape& lEi)
   Standard_Real       tol3d = bs.Tolerance();
   Standard_Real       tolu  = bs.UResolution(tol3d);
   Standard_Real       tolv  = bs.VResolution(tol3d);
-  TopExp_Explorer     ex(myFi, TopAbs_EDGE);
+  ShapeExplorer     ex(myFi, TopAbs_EDGE);
   for (; ex.More(); ex.Next())
   {
-    const TopoDS_Edge& ei  = TopoDS::Edge(ex.Current());
-    Standard_Boolean   cli = TopOpeBRepTool_TOOL::IsClosingE(ei, myFi);
+    const TopoEdge& ei  = TopoDS::Edge(ex.Current());
+    Standard_Boolean   cli = TOOL1::IsClosingE(ei, myFi);
     if (cli)
       continue;
 
@@ -151,7 +151,7 @@ Standard_Integer TopOpeBRepTool_mkTondgE::GetAllRest(TopTools_ListOfShape& lEi)
     Standard_Boolean isou, isov;
     gp_Dir2d         d2d;
     gp_Pnt2d         o2d;
-    Standard_Boolean uviso = TopOpeBRepTool_TOOL::UVISO(ei, myFi, isou, isov, d2d, o2d);
+    Standard_Boolean uviso = TOOL1::UVISO(ei, myFi, isou, isov, d2d, o2d);
     if (!uviso)
       continue;
 
@@ -164,7 +164,7 @@ Standard_Integer TopOpeBRepTool_mkTondgE::GetAllRest(TopTools_ListOfShape& lEi)
       continue;
 
     Standard_Real parei;
-    TopOpeBRepTool_TOOL::ParISO(myuvi, ei, myFi, parei);
+    TOOL1::ParISO(myuvi, ei, myFi, parei);
     myEpari.Bind(ei, parei);
     lEi.Append(ei);
   }
@@ -172,16 +172,16 @@ Standard_Integer TopOpeBRepTool_mkTondgE::GetAllRest(TopTools_ListOfShape& lEi)
   return nEi;
 }
 
-static Standard_Boolean FUN_getEc(const TopoDS_Face& f, const TopoDS_Vertex& v, TopoDS_Edge& cle)
+static Standard_Boolean FUN_getEc(const TopoFace& f, const TopoVertex& v, TopoEdge& cle)
 {
-  TopExp_Explorer exe(f, TopAbs_EDGE);
+  ShapeExplorer exe(f, TopAbs_EDGE);
   for (; exe.More(); exe.Next())
   {
-    const TopoDS_Edge& e      = TopoDS::Edge(exe.Current());
-    Standard_Boolean   closed = TopOpeBRepTool_TOOL::IsClosingE(e, f);
+    const TopoEdge& e      = TopoDS::Edge(exe.Current());
+    Standard_Boolean   closed = TOOL1::IsClosingE(e, f);
     if (!closed)
       continue;
-    TopExp_Explorer exv(e, TopAbs_VERTEX);
+    ShapeExplorer exv(e, TopAbs_VERTEX);
     for (; exv.More(); exv.Next())
     {
       if (exv.Current().IsSame(v))
@@ -225,7 +225,7 @@ static Standard_Boolean FUN_MkTonE(const Vector3d& faxis,
   else
   {
     if (!isONi)
-      ang = TopOpeBRepTool_TOOL::Matter(dirINcle, tgi.Reversed(), faxis);
+      ang = TOOL1::Matter(dirINcle, tgi.Reversed(), faxis);
     // Standard_Real dot = isONi ? 0 : (dirINcle^tgi).Dot(ngf);
     Standard_Real dot = isONi ? 0 : (dirINcle ^ tgi).Dot(faxis);
     if (dot1 < 0)
@@ -252,8 +252,8 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(Standard_Integer& mkT,
   mkT  = NOI;
   par1 = par2 = 1.e7;
   // v :
-  TopExp_Explorer      exv(mydgE, TopAbs_VERTEX);
-  const TopoDS_Vertex& v = TopoDS::Vertex(exv.Current());
+  ShapeExplorer      exv(mydgE, TopAbs_VERTEX);
+  const TopoVertex& v = TopoDS::Vertex(exv.Current());
   // myclE :
   if (myclE.IsNull())
   {
@@ -265,7 +265,7 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(Standard_Integer& mkT,
   // dirINcle : tangent to cle at v oriented INSIDE 1d(cle)
   Standard_Integer ovcle;
   Vector3d           dirINcle;
-  Standard_Boolean ok = TopOpeBRepTool_TOOL::TgINSIDE(v, myclE, dirINcle, ovcle);
+  Standard_Boolean ok = TOOL1::TgINSIDE(v, myclE, dirINcle, ovcle);
   if (!ok)
     return NOI;
 
@@ -276,7 +276,7 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(Standard_Integer& mkT,
 
   // xxi : normal to fi oriented INSIDE 3d(fi)
   Vector3d xxi;
-  ok = TopOpeBRepTool_TOOL::NggeomF(myuvi, myFi, xxi);
+  ok = TOOL1::NggeomF(myuvi, myFi, xxi);
   if (!ok)
     return Standard_False;
   if (M_FORWARD(myFi.Orientation()))
@@ -292,7 +292,7 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(Standard_Integer& mkT,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(const TopoDS_Edge& ei,
+Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(const TopoEdge& ei,
                                                  Standard_Integer&  mkT,
                                                  Standard_Real&     par1,
                                                  Standard_Real&     par2)
@@ -319,18 +319,18 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(const TopoDS_Edge& ei,
 
   Standard_Real pfi, pli;
   FUN_tool_bounds(ei, pfi, pli);
-  Standard_Real    tolpi = TopOpeBRepTool_TOOL::TolP(ei, myFi);
+  Standard_Real    tolpi = TOOL1::TolP(ei, myFi);
   Standard_Boolean onfi = (Abs(pari - pfi) < tolpi), onli = (Abs(pari - pli) < tolpi);
   Vector3d           tgin1di;
-  Standard_Boolean ok = TopOpeBRepTool_TOOL::TggeomE(pari, ei, tgin1di);
+  Standard_Boolean ok = TOOL1::TggeomE(pari, ei, tgin1di);
   if (!ok)
     return Standard_False;
   if (onli)
     tgin1di.Reverse();
 
   // v :
-  TopExp_Explorer      exv(mydgE, TopAbs_VERTEX);
-  const TopoDS_Vertex& v = TopoDS::Vertex(exv.Current());
+  ShapeExplorer      exv(mydgE, TopAbs_VERTEX);
+  const TopoVertex& v = TopoDS::Vertex(exv.Current());
   // myclE :
   if (myclE.IsNull())
   {
@@ -342,7 +342,7 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(const TopoDS_Edge& ei,
   // dirINcle : tangent to cle at v oriented INSIDE 1d(cle)
   Standard_Integer ovcle;
   Vector3d           dirINcle;
-  ok = TopOpeBRepTool_TOOL::TgINSIDE(v, myclE, dirINcle, ovcle);
+  ok = TOOL1::TgINSIDE(v, myclE, dirINcle, ovcle);
   if (!ok)
     return NOI;
 
@@ -359,13 +359,13 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(const TopoDS_Edge& ei,
   Dir3d xxri; // isT2d=true : oriented inside 1d(ei)
                //              oriented inside 2d(fi)
 
-  TopoDS_Vertex    vclo;
-  Standard_Boolean closedi = TopOpeBRepTool_TOOL::ClosedE(ei, vclo); //@190499
+  TopoVertex    vclo;
+  Standard_Boolean closedi = TOOL1::ClosedE(ei, vclo); //@190499
   Standard_Boolean outin;
   if (isT2d)
   {
     // xxi :
-    ok = TopOpeBRepTool_TOOL::XX(myuvi, myFi, pari, ei, xxi);
+    ok = TOOL1::XX(myuvi, myFi, pari, ei, xxi);
     if (!ok)
       return Standard_False;
 
@@ -391,7 +391,7 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(const TopoDS_Edge& ei,
   {
     // xxi :
     Vector3d tmp;
-    ok  = TopOpeBRepTool_TOOL::NggeomF(myuvi, myFi, tmp);
+    ok  = TOOL1::NggeomF(myuvi, myFi, tmp);
     xxi = Dir3d(tmp);
     if (!ok)
       return Standard_False;
@@ -404,7 +404,7 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(const TopoDS_Edge& ei,
       return Standard_False;
 
     //// modified by jgv, 21.11.01 for BUC61053 ////
-    ok = TopOpeBRepTool_TOOL::XX(myuvi, myFi, pari, ei, xxri);
+    ok = TOOL1::XX(myuvi, myFi, pari, ei, xxri);
     if (!ok)
       return Standard_False;
 
@@ -436,7 +436,7 @@ Standard_Boolean TopOpeBRepTool_mkTondgE::MkTonE(const TopoDS_Edge& ei,
     sphere's axis
     // clang-format on
         if (tgaxis) {
-          ok = TopOpeBRepTool_TOOL::XX(myuvi,myFi, pari,ei, xxri);
+          ok = TOOL1::XX(myuvi,myFi, pari,ei, xxri);
           if (!ok) return Standard_False;
         }
         else {

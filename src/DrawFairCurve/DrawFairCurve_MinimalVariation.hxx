@@ -26,7 +26,7 @@
 class DrawFairCurve_MinimalVariation;
 DEFINE_STANDARD_HANDLE(DrawFairCurve_MinimalVariation, DrawFairCurve_Batten)
 
-//! Interactive Draw object of type "MVC"
+//! Interactive Draw1 object of type "MVC"
 class DrawFairCurve_MinimalVariation : public DrawFairCurve_Batten
 {
 

@@ -22,7 +22,7 @@
 
 #include <TopoDS_Face.hxx>
 #include <DrawDim_Dimension.hxx>
-class Draw_Display;
+class DrawDisplay;
 
 class DrawDim_Distance;
 DEFINE_STANDARD_HANDLE(DrawDim_Distance, DrawDim_Dimension)
@@ -31,26 +31,26 @@ class DrawDim_Distance : public DrawDim_Dimension
 {
 
 public:
-  Standard_EXPORT DrawDim_Distance(const TopoDS_Face& plane1, const TopoDS_Face& plane2);
+  Standard_EXPORT DrawDim_Distance(const TopoFace& plane1, const TopoFace& plane2);
 
-  Standard_EXPORT DrawDim_Distance(const TopoDS_Face& plane1);
+  Standard_EXPORT DrawDim_Distance(const TopoFace& plane1);
 
-  Standard_EXPORT const TopoDS_Face& Plane1() const;
+  Standard_EXPORT const TopoFace& Plane1() const;
 
-  Standard_EXPORT void Plane1(const TopoDS_Face& face);
+  Standard_EXPORT void Plane1(const TopoFace& face);
 
-  Standard_EXPORT const TopoDS_Face& Plane2() const;
+  Standard_EXPORT const TopoFace& Plane2() const;
 
-  Standard_EXPORT void Plane2(const TopoDS_Face& face);
+  Standard_EXPORT void Plane2(const TopoFace& face);
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(DrawDim_Distance, DrawDim_Dimension)
 
 protected:
 private:
-  TopoDS_Face myPlane1;
-  TopoDS_Face myPlane2;
+  TopoFace myPlane1;
+  TopoFace myPlane2;
 };
 
 #endif // _DrawDim_Distance_HeaderFile

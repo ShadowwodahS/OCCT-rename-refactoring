@@ -60,12 +60,12 @@ signals:
 
   //! Signal about selecting of an item in the view.
   //! \param thePath path to the selected item (e.g. 0, 0:1, 0:1:1)
-  //! \param theValue value of the selected item (e.g. TDataStd_Name)
+  //! \param theValue value of the selected item (e.g. NameAttribute)
   void pathSelected(const QStringList& thePath, const QString& theValue);
 
   //! Signal about double click on an item in the view.
   //! \param thePath path to the selected item (e.g. 0, 0:1, 0:1:1)
-  //! \param theValue value of the selected item (e.g. TDataStd_Name)
+  //! \param theValue value of the selected item (e.g. NameAttribute)
   void pathDoubleClicked(const QStringList& thePath, const QString& theValue);
 
 protected slots:

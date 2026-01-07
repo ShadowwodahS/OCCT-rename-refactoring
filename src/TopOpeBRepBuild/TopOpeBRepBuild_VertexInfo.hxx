@@ -33,9 +33,9 @@ public:
 
   Standard_EXPORT TopOpeBRepBuild_VertexInfo();
 
-  Standard_EXPORT void SetVertex(const TopoDS_Vertex& aV);
+  Standard_EXPORT void SetVertex(const TopoVertex& aV);
 
-  Standard_EXPORT const TopoDS_Vertex& Vertex() const;
+  Standard_EXPORT const TopoVertex& Vertex() const;
 
   Standard_EXPORT void SetSmart(const Standard_Boolean aFlag);
 
@@ -45,11 +45,11 @@ public:
 
   Standard_EXPORT Standard_Integer FoundOut() const;
 
-  Standard_EXPORT void AddIn(const TopoDS_Edge& anE);
+  Standard_EXPORT void AddIn(const TopoEdge& anE);
 
-  Standard_EXPORT void AddOut(const TopoDS_Edge& anE);
+  Standard_EXPORT void AddOut(const TopoEdge& anE);
 
-  Standard_EXPORT void SetCurrentIn(const TopoDS_Edge& anE);
+  Standard_EXPORT void SetCurrentIn(const TopoEdge& anE);
 
   Standard_EXPORT const TopTools_IndexedMapOfOrientedShape& EdgesIn() const;
 
@@ -59,26 +59,26 @@ public:
 
   Standard_EXPORT void Dump() const;
 
-  Standard_EXPORT const TopoDS_Edge& CurrentOut();
+  Standard_EXPORT const TopoEdge& CurrentOut();
 
-  Standard_EXPORT void AppendPassed(const TopoDS_Edge& anE);
+  Standard_EXPORT void AppendPassed(const TopoEdge& anE);
 
   Standard_EXPORT void RemovePassed();
 
-  Standard_EXPORT const TopTools_ListOfShape& ListPassed() const;
+  Standard_EXPORT const ShapeList& ListPassed() const;
 
-  Standard_EXPORT void Prepare(const TopTools_ListOfShape& aL);
+  Standard_EXPORT void Prepare(const ShapeList& aL);
 
 protected:
 private:
-  TopoDS_Vertex                      myVertex;
-  TopoDS_Edge                        myCurrent;
-  TopoDS_Edge                        myCurrentIn;
+  TopoVertex                      myVertex;
+  TopoEdge                        myCurrent;
+  TopoEdge                        myCurrentIn;
   Standard_Boolean                   mySmart;
   TopTools_IndexedMapOfOrientedShape myEdgesIn;
   TopTools_IndexedMapOfOrientedShape myEdgesOut;
   TopTools_IndexedMapOfOrientedShape myLocalEdgesOut;
-  TopTools_ListOfShape               myEdgesPassed;
+  ShapeList               myEdgesPassed;
   Standard_Integer                   myFoundOut;
 };
 

@@ -24,14 +24,14 @@
 class TopOpeBRepDS_DataStructure;
 class TopOpeBRepDS_Curve;
 
-class TopOpeBRepDS_CurveExplorer
+class CurveExplorer
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepDS_CurveExplorer();
+  Standard_EXPORT CurveExplorer();
 
-  Standard_EXPORT TopOpeBRepDS_CurveExplorer(const TopOpeBRepDS_DataStructure& DS,
+  Standard_EXPORT CurveExplorer(const TopOpeBRepDS_DataStructure& DS,
                                              const Standard_Boolean FindOnlyKeep = Standard_True);
 
   Standard_EXPORT void Init(const TopOpeBRepDS_DataStructure& DS,

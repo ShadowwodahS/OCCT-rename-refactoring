@@ -24,14 +24,14 @@
 
 //! Interface for a class implementing a function to be approximated
 //! by AdvApprox_ApproxAFunction
-class AdvApprox_EvaluatorFunction
+class EvaluatorFunction
 {
 public:
   //! Empty constructor
-  AdvApprox_EvaluatorFunction() {}
+  EvaluatorFunction() {}
 
   //! Destructor should be declared as virtual
-  virtual ~AdvApprox_EvaluatorFunction() {}
+  virtual ~EvaluatorFunction() {}
 
   //! Function evaluation method to be defined by descendant
   virtual void Evaluate(Standard_Integer* Dimension,
@@ -54,10 +54,10 @@ public:
 
 private:
   //! Copy constructor is declared private to forbid copying
-  AdvApprox_EvaluatorFunction(const AdvApprox_EvaluatorFunction&) {}
+  EvaluatorFunction(const EvaluatorFunction&) {}
 
   //! Assignment operator is declared private to forbid copying
-  void operator=(const AdvApprox_EvaluatorFunction&) {}
+  void operator=(const EvaluatorFunction&) {}
 };
 
 #endif

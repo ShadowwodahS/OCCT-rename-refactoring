@@ -109,7 +109,7 @@ public:
   Standard_EXPORT void Sub(OSD_SingleProtection& aProt, const OSD_SingleProtection aRight);
 
   friend class OSD_FileNode;
-  friend class OSD_File;
+  friend class SystemFile;
   friend class OSD_Directory;
 
 protected:

@@ -35,7 +35,7 @@ bool ShapeView_VisibilityState::SetVisible(const QModelIndex& theIndex,
                                            const bool         theState,
                                            const bool         toEmitDataChanged)
 {
-  TopoDS_Shape aShape = Shape(theIndex);
+  TopoShape aShape = Shape(theIndex);
   if (aShape.IsNull())
     return false;
 
@@ -50,15 +50,15 @@ bool ShapeView_VisibilityState::SetVisible(const QModelIndex& theIndex,
 // function : Shape
 // purpose :
 // =======================================================================
-TopoDS_Shape ShapeView_VisibilityState::Shape(const QModelIndex& theIndex) const
+TopoShape ShapeView_VisibilityState::Shape(const QModelIndex& theIndex) const
 {
   TreeModel_ItemBasePtr anItemBase = TreeModel_ModelBase::GetItemByIndex(theIndex);
   if (!anItemBase)
-    return TopoDS_Shape();
+    return TopoShape();
 
   ShapeView_ItemShapePtr aShapeItem = itemDynamicCast<ShapeView_ItemShape>(anItemBase);
   if (!aShapeItem)
-    return TopoDS_Shape();
+    return TopoShape();
 
   return aShapeItem->GetItemShape();
 }

@@ -63,7 +63,7 @@ void DFBrowser_Item::Init()
   DFBrowser_ItemBasePtr aParentItem = itemDynamicCast<DFBrowser_ItemBase>(Parent());
   if (!aParentItem)
     return;
-  TDF_Label aParentLabel = aParentItem->GetLabel();
+  DataLabel aParentLabel = aParentItem->GetLabel();
   // items can exist only by items with not empty label
   if (aParentLabel.IsNull())
     return;
@@ -86,7 +86,7 @@ void DFBrowser_Item::Init()
   {
     int               aCurrentId = aRowId - aNbAttributes;
     TDF_ChildIterator aLabelsIt(aParentLabel);
-    TDF_Label         aLabel;
+    DataLabel         aLabel;
     for (int aLabelId = 0; aLabelsIt.More(); aLabelsIt.Next(), aLabelId++)
     {
       if (aLabelId < aCurrentId)
@@ -210,7 +210,7 @@ void DFBrowser_Item::SetAttribute(Handle(TDF_Attribute) theAttribute)
   }
   else
   {
-    setLabel(TDF_Label());
+    setLabel(DataLabel());
     myAttributeGUID = Standard_GUID();
   }
 }

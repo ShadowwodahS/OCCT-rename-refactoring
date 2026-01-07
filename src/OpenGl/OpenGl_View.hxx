@@ -117,7 +117,7 @@ public:
   //! @param[in] theLightName  name of the light used to generate the shadow map.
   Standard_EXPORT virtual Standard_Boolean ShadowMapDump(
     Image_PixMap&                  theImage,
-    const TCollection_AsciiString& theLightName) Standard_OVERRIDE;
+    const AsciiString1& theLightName) Standard_OVERRIDE;
 
   //! Marks BVH tree and the set of BVH primitives of correspondent priority list with id theLayerId
   //! as outdated.
@@ -284,7 +284,7 @@ public:
     Standard_OVERRIDE;
 
   //! Returns string with statistic performance info.
-  Standard_EXPORT virtual TCollection_AsciiString StatisticInformation() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 StatisticInformation() const Standard_OVERRIDE;
 
   //! Fills in the dictionary with statistic performance info.
   Standard_EXPORT virtual void StatisticInformation(
@@ -355,10 +355,10 @@ protected: //! @name Internal methods for managing GL resources
 
 protected: //! @name low-level redrawing sub-routines
   //! Prepare frame buffers for rendering.
-  Standard_EXPORT virtual bool prepareFrameBuffers(Graphic3d_Camera::Projection& theProj);
+  Standard_EXPORT virtual bool prepareFrameBuffers(CameraOn3d::Projection& theProj);
 
   //! Redraws view for the given monographic camera projection, or left/right eye.
-  Standard_EXPORT virtual void redraw(const Graphic3d_Camera::Projection theProjection,
+  Standard_EXPORT virtual void redraw(const CameraOn3d::Projection theProjection,
                                       OpenGl_FrameBuffer*                theReadDrawFbo,
                                       OpenGl_FrameBuffer*                theOitAccumFbo);
 
@@ -375,14 +375,14 @@ protected: //! @name low-level redrawing sub-routines
   //! @return false if immediate structures has been rendered directly into FrontBuffer
   //! and Buffer Swap should not be called.
   Standard_EXPORT virtual bool redrawImmediate(
-    const Graphic3d_Camera::Projection theProjection,
+    const CameraOn3d::Projection theProjection,
     OpenGl_FrameBuffer*                theReadFbo,
     OpenGl_FrameBuffer*                theDrawFbo,
     OpenGl_FrameBuffer*                theOitAccumFbo,
     const Standard_Boolean             theIsPartialUpdate = Standard_False);
 
   //! Blit subviews into this view.
-  Standard_EXPORT bool blitSubviews(const Graphic3d_Camera::Projection theProjection,
+  Standard_EXPORT bool blitSubviews(const CameraOn3d::Projection theProjection,
                                     OpenGl_FrameBuffer*                theDrawFbo);
 
   //! Blit image from/to specified buffers.
@@ -405,7 +405,7 @@ protected: //! @name Rendering of GL graphics (with prepared drawing buffer).
   //! process.
   //! @param[in] theToDrawImmediate  the flag indicates whether the rendering performs in immediate
   //! mode.
-  Standard_EXPORT virtual void render(Graphic3d_Camera::Projection theProjection,
+  Standard_EXPORT virtual void render(CameraOn3d::Projection theProjection,
                                       OpenGl_FrameBuffer*          theReadDrawFbo,
                                       OpenGl_FrameBuffer*          theOitAccumFbo,
                                       const Standard_Boolean       theToDrawImmediate);
@@ -417,14 +417,14 @@ protected: //! @name Rendering of GL graphics (with prepared drawing buffer).
   //! process.
   //! @param[in] theToDrawImmediate  the flag indicates whether the rendering performs in immediate
   //! mode.
-  Standard_EXPORT virtual void renderScene(Graphic3d_Camera::Projection theProjection,
+  Standard_EXPORT virtual void renderScene(CameraOn3d::Projection theProjection,
                                            OpenGl_FrameBuffer*          theReadDrawFbo,
                                            OpenGl_FrameBuffer*          theOitAccumFbo,
                                            const Standard_Boolean       theToDrawImmediate);
 
-  //! Draw background (gradient / image / cubemap)
+  //! Draw1 background (gradient / image / cubemap)
   Standard_EXPORT virtual void drawBackground(const Handle(OpenGl_Workspace)& theWorkspace,
-                                              Graphic3d_Camera::Projection    theProjection);
+                                              CameraOn3d::Projection    theProjection);
 
   //! Render set of structures presented in the view.
   //! @param[in] theProjection  the projection that is used for rendering.
@@ -433,7 +433,7 @@ protected: //! @name Rendering of GL graphics (with prepared drawing buffer).
   //! process.
   //! @param[in] theToDrawImmediate  the flag indicates whether the rendering performs in immediate
   //! mode.
-  Standard_EXPORT virtual void renderStructs(Graphic3d_Camera::Projection theProjection,
+  Standard_EXPORT virtual void renderStructs(CameraOn3d::Projection theProjection,
                                              OpenGl_FrameBuffer*          theReadDrawFbo,
                                              OpenGl_FrameBuffer*          theOitAccumFbo,
                                              const Standard_Boolean       theToDrawImmediate);
@@ -674,7 +674,7 @@ protected: //! @name data types related to ray-tracing
   {
   public:
     //! Default shader prefix - empty string.
-    static const TCollection_AsciiString EMPTY_PREFIX;
+    static const AsciiString1 EMPTY_PREFIX;
 
     //! Creates new uninitialized shader source.
     ShaderSource()
@@ -684,30 +684,30 @@ protected: //! @name data types related to ray-tracing
 
   public:
     //! Returns error description in case of load fail.
-    const TCollection_AsciiString& ErrorDescription() const { return myError; }
+    const AsciiString1& ErrorDescription() const { return myError; }
 
     //! Returns prefix to insert before the source.
-    const TCollection_AsciiString& Prefix() const { return myPrefix; }
+    const AsciiString1& Prefix() const { return myPrefix; }
 
     //! Sets prefix to insert before the source.
-    void SetPrefix(const TCollection_AsciiString& thePrefix) { myPrefix = thePrefix; }
+    void SetPrefix(const AsciiString1& thePrefix) { myPrefix = thePrefix; }
 
     //! Returns shader source combined with prefix.
-    TCollection_AsciiString Source(const Handle(OpenGl_Context)& theCtx,
+    AsciiString1 Source(const Handle(OpenGl_Context)& theCtx,
                                    const GLenum                  theType) const;
 
     //! Loads shader source from specified files.
-    Standard_Boolean LoadFromFiles(const TCollection_AsciiString* theFileNames,
-                                   const TCollection_AsciiString& thePrefix = EMPTY_PREFIX);
+    Standard_Boolean LoadFromFiles(const AsciiString1* theFileNames,
+                                   const AsciiString1& thePrefix = EMPTY_PREFIX);
 
     //! Loads shader source from specified strings.
-    Standard_Boolean LoadFromStrings(const TCollection_AsciiString* theStrings,
-                                     const TCollection_AsciiString& thePrefix = EMPTY_PREFIX);
+    Standard_Boolean LoadFromStrings(const AsciiString1* theStrings,
+                                     const AsciiString1& thePrefix = EMPTY_PREFIX);
 
   private:
-    TCollection_AsciiString mySource; //!< Source string of the shader object
-    TCollection_AsciiString myPrefix; //!< Prefix to insert before the source
-    TCollection_AsciiString myError;  //!< error state
+    AsciiString1 mySource; //!< Source string of the shader object
+    AsciiString1 myPrefix; //!< Prefix to insert before the source
+    AsciiString1 myError;  //!< error state
   };
 
   //! Default ray-tracing depth.
@@ -896,10 +896,10 @@ protected: //! @name methods related to ray-tracing
   Standard_Boolean uploadRaytraceData(const Handle(OpenGl_Context)& theGlContext);
 
   //! Generates shader prefix based on current ray-tracing options.
-  TCollection_AsciiString generateShaderPrefix(const Handle(OpenGl_Context)& theGlContext) const;
+  AsciiString1 generateShaderPrefix(const Handle(OpenGl_Context)& theGlContext) const;
 
   //! Performs safe exit when shaders initialization fails.
-  Standard_Boolean safeFailBack(const TCollection_ExtendedString& theMessage,
+  Standard_Boolean safeFailBack(const UtfString& theMessage,
                                 const Handle(OpenGl_Context)&     theGlContext);
 
   //! Loads and compiles shader object from specified source.
@@ -911,7 +911,7 @@ protected: //! @name methods related to ray-tracing
   Handle(OpenGl_ShaderProgram) initProgram(const Handle(OpenGl_Context)&      theGlContext,
                                            const Handle(OpenGl_ShaderObject)& theVertShader,
                                            const Handle(OpenGl_ShaderObject)& theFragShader,
-                                           const TCollection_AsciiString&     theName);
+                                           const AsciiString1&     theName);
 
   //! Initializes OpenGL/GLSL shader programs.
   Standard_Boolean initRaytraceResources(const Standard_Integer        theSizeX,
@@ -939,7 +939,7 @@ protected: //! @name methods related to ray-tracing
   //! Generate viewing rays (path tracing, perspective camera).
   void updatePerspCameraPT(const OpenGl_Mat4&           theOrientation,
                            const OpenGl_Mat4&           theViewMapping,
-                           Graphic3d_Camera::Projection theProjection,
+                           CameraOn3d::Projection theProjection,
                            OpenGl_Mat4&                 theViewPr,
                            OpenGl_Mat4&                 theUnview,
                            const int                    theWinSizeX,
@@ -955,38 +955,38 @@ protected: //! @name methods related to ray-tracing
   Standard_Boolean setUniformState(const Standard_Integer        theProgramId,
                                    const Standard_Integer        theSizeX,
                                    const Standard_Integer        theSizeY,
-                                   Graphic3d_Camera::Projection  theProjection,
+                                   CameraOn3d::Projection  theProjection,
                                    const Handle(OpenGl_Context)& theGlContext);
 
   //! Runs ray-tracing shader programs.
   Standard_Boolean runRaytraceShaders(const Standard_Integer        theSizeX,
                                       const Standard_Integer        theSizeY,
-                                      Graphic3d_Camera::Projection  theProjection,
+                                      CameraOn3d::Projection  theProjection,
                                       OpenGl_FrameBuffer*           theReadDrawFbo,
                                       const Handle(OpenGl_Context)& theGlContext);
 
   //! Runs classical (Whitted-style) ray-tracing kernel.
   Standard_Boolean runRaytrace(const Standard_Integer        theSizeX,
                                const Standard_Integer        theSizeY,
-                               Graphic3d_Camera::Projection  theProjection,
+                               CameraOn3d::Projection  theProjection,
                                OpenGl_FrameBuffer*           theReadDrawFbo,
                                const Handle(OpenGl_Context)& theGlContext);
 
   //! Runs path tracing (global illumination) kernel.
   Standard_Boolean runPathtrace(const Standard_Integer        theSizeX,
                                 const Standard_Integer        theSizeY,
-                                Graphic3d_Camera::Projection  theProjection,
+                                CameraOn3d::Projection  theProjection,
                                 const Handle(OpenGl_Context)& theGlContext);
 
   //! Runs path tracing (global illumination) kernel.
-  Standard_Boolean runPathtraceOut(Graphic3d_Camera::Projection  theProjection,
+  Standard_Boolean runPathtraceOut(CameraOn3d::Projection  theProjection,
                                    OpenGl_FrameBuffer*           theReadDrawFbo,
                                    const Handle(OpenGl_Context)& theGlContext);
 
   //! Redraws the window using OpenGL/GLSL ray-tracing or path tracing.
   Standard_Boolean raytrace(const Standard_Integer        theSizeX,
                             const Standard_Integer        theSizeY,
-                            Graphic3d_Camera::Projection  theProjection,
+                            CameraOn3d::Projection  theProjection,
                             OpenGl_FrameBuffer*           theReadDrawFbo,
                             const Handle(OpenGl_Context)& theGlContext);
 

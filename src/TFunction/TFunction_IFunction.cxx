@@ -24,7 +24,7 @@
 // function : NewFunction
 // purpose  : Static method to create a new function.
 //=======================================================================
-Standard_Boolean TFunction_IFunction::NewFunction(const TDF_Label& L, const Standard_GUID& ID)
+Standard_Boolean TFunction_IFunction::NewFunction(const DataLabel& L, const Standard_GUID& ID)
 {
   // Set Function (ID, code of failure)
   TFunction_Function::Set(L, ID)->SetFailure(0);
@@ -46,7 +46,7 @@ Standard_Boolean TFunction_IFunction::NewFunction(const TDF_Label& L, const Stan
 // purpose  : Static method to delete a function.
 //=======================================================================
 
-Standard_Boolean TFunction_IFunction::DeleteFunction(const TDF_Label& L)
+Standard_Boolean TFunction_IFunction::DeleteFunction(const DataLabel& L)
 {
   // Delete Function
   Handle(TFunction_Function) func;
@@ -68,7 +68,7 @@ Standard_Boolean TFunction_IFunction::DeleteFunction(const TDF_Label& L)
     for (; itrm.More(); itrm.Next())
     {
       const Standard_Integer      ID = itrm.Key();
-      const TDF_Label&            La = scope->GetFunctions().Find1(ID);
+      const DataLabel&            La = scope->GetFunctions().Find1(ID);
       Handle(TFunction_GraphNode) G;
       if (La.FindAttribute(TFunction_GraphNode::GetID(), G))
       {
@@ -79,7 +79,7 @@ Standard_Boolean TFunction_IFunction::DeleteFunction(const TDF_Label& L)
     for (itrm.Initialize(next); itrm.More(); itrm.Next())
     {
       const Standard_Integer      ID = itrm.Key();
-      const TDF_Label&            La = scope->GetFunctions().Find1(ID);
+      const DataLabel&            La = scope->GetFunctions().Find1(ID);
       Handle(TFunction_GraphNode) G;
       if (La.FindAttribute(TFunction_GraphNode::GetID(), G))
       {
@@ -101,7 +101,7 @@ Standard_Boolean TFunction_IFunction::DeleteFunction(const TDF_Label& L)
 // purpose  : Updates the dependencies of all functions.
 //=======================================================================
 
-Standard_Boolean TFunction_IFunction::UpdateDependencies(const TDF_Label& Access)
+Standard_Boolean TFunction_IFunction::UpdateDependencies(const DataLabel& Access)
 {
   // Take the scope of functions.
   Handle(TFunction_Scope) scope = TFunction_Scope::Set(Access);
@@ -112,7 +112,7 @@ Standard_Boolean TFunction_IFunction::UpdateDependencies(const TDF_Label& Access
   for (; itrm.More(); itrm.Next())
   {
     // Label of the function
-    const TDF_Label&    L = itrm.Key2();
+    const DataLabel&    L = itrm.Key2();
     TFunction_IFunction iFunction(L);
 
     // Take the driver.
@@ -136,7 +136,7 @@ Standard_Boolean TFunction_IFunction::UpdateDependencies(const TDF_Label& Access
   for (itrm.Initialize(scope->GetFunctions()); itrm.More(); itrm.Next())
   {
     // Label of the functions
-    const TDF_Label&    L = itrm.Key2();
+    const DataLabel&    L = itrm.Key2();
     TFunction_IFunction iFunction(L);
 
     // Take the driver.
@@ -158,7 +158,7 @@ Standard_Boolean TFunction_IFunction::UpdateDependencies(const TDF_Label& Access
     // Find the functions, which produce the arguments of this function.
     for (itrd.Initialize(table); itrd.More(); itrd.Next())
     {
-      const TDF_Label& anotherL = itrd.Key();
+      const DataLabel& anotherL = itrd.Key();
       if (L == anotherL)
         continue;
       const TDF_LabelList& anotherRes = itrd.Value();
@@ -185,7 +185,7 @@ TFunction_IFunction::TFunction_IFunction() {}
 
 //=================================================================================================
 
-TFunction_IFunction::TFunction_IFunction(const TDF_Label& L)
+TFunction_IFunction::TFunction_IFunction(const DataLabel& L)
 {
   Init(L);
 }
@@ -195,7 +195,7 @@ TFunction_IFunction::TFunction_IFunction(const TDF_Label& L)
 // purpose  : Initializes the interface.
 //=======================================================================
 
-void TFunction_IFunction::Init(const TDF_Label& L)
+void TFunction_IFunction::Init(const DataLabel& L)
 {
   myLabel = L;
 }
@@ -205,7 +205,7 @@ void TFunction_IFunction::Init(const TDF_Label& L)
 // purpose  : Returns the label of the interface.
 //=======================================================================
 
-const TDF_Label& TFunction_IFunction::Label() const
+const DataLabel& TFunction_IFunction::Label() const
 {
   return myLabel;
 }
@@ -240,7 +240,7 @@ Standard_Boolean TFunction_IFunction::UpdateDependencies() const
   TFunction_DoubleMapIteratorOfDoubleMapOfIntegerLabel itrm(scope->GetFunctions());
   for (; itrm.More(); itrm.Next())
   {
-    const TDF_Label& L = itrm.Key2();
+    const DataLabel& L = itrm.Key2();
     if (L == myLabel)
       continue;
     TFunction_IFunction iFunc(L);

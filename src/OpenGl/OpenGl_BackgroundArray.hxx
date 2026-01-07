@@ -34,7 +34,7 @@ public:
 
   //! Render primitives to the window
   Standard_EXPORT void Render(const Handle(OpenGl_Workspace)& theWorkspace,
-                              Graphic3d_Camera::Projection    theProjection) const;
+                              CameraOn3d::Projection    theProjection) const;
 
   //! Check if background parameters are set properly
   Standard_EXPORT bool IsDefined() const;

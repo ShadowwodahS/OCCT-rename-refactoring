@@ -87,7 +87,7 @@ static Standard_Boolean CheckSense(const TColGeom_SequenceOfCurve& Seq1,
   Standard_Boolean no_sing = Standard_True;
   Seq2.Clear();
 
-  const Handle(Geom_Curve)& C1 = Seq1.Value(1);
+  const Handle(GeomCurve3d)& C1 = Seq1.Value(1);
   Standard_Real             f = C1->FirstParameter(), l = C1->LastParameter();
   Standard_Integer          iP, NP                      = 21;
   TColgp_Array1OfPnt        Tab(1, NP);
@@ -129,7 +129,7 @@ static Standard_Boolean CheckSense(const TColGeom_SequenceOfCurve& Seq1,
   for (Standard_Integer iseq = 2; iseq <= Seq1.Length(); iseq++)
   {
     // discretisation de C2
-    const Handle(Geom_Curve)& C2 = Seq1.Value(iseq);
+    const Handle(GeomCurve3d)& C2 = Seq1.Value(iseq);
     f                            = C2->FirstParameter();
     l                            = C2->LastParameter();
     u                            = f;
@@ -215,7 +215,7 @@ GeomFill_Pipe::GeomFill_Pipe()
 
 //=================================================================================================
 
-GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom_Curve)& Path, const Standard_Real Radius)
+GeomFill_Pipe::GeomFill_Pipe(const Handle(GeomCurve3d)& Path, const Standard_Real Radius)
     : myStatus(GeomFill_PipeNotOk),
       myExchUV(Standard_False),
       myKPart(Standard_False)
@@ -226,8 +226,8 @@ GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom_Curve)& Path, const Standard_Real
 
 //=================================================================================================
 
-GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom_Curve)& Path,
-                             const Handle(Geom_Curve)& FirstSect,
+GeomFill_Pipe::GeomFill_Pipe(const Handle(GeomCurve3d)& Path,
+                             const Handle(GeomCurve3d)& FirstSect,
                              const GeomFill_Trihedron  Option)
     : myStatus(GeomFill_PipeNotOk),
       myExchUV(Standard_False),
@@ -239,9 +239,9 @@ GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom_Curve)& Path,
 
 //=================================================================================================
 
-GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom2d_Curve)& Path,
-                             const Handle(Geom_Surface)& Support,
-                             const Handle(Geom_Curve)&   FirstSect)
+GeomFill_Pipe::GeomFill_Pipe(const Handle(GeomCurve2d)& Path,
+                             const Handle(GeomSurface)& Support,
+                             const Handle(GeomCurve3d)&   FirstSect)
     : myStatus(GeomFill_PipeNotOk),
       myExchUV(Standard_False),
       myKPart(Standard_False)
@@ -252,9 +252,9 @@ GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom2d_Curve)& Path,
 
 //=================================================================================================
 
-GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom_Curve)& Path,
-                             const Handle(Geom_Curve)& FirstSect,
-                             const Handle(Geom_Curve)& LastSect)
+GeomFill_Pipe::GeomFill_Pipe(const Handle(GeomCurve3d)& Path,
+                             const Handle(GeomCurve3d)& FirstSect,
+                             const Handle(GeomCurve3d)& LastSect)
     : myStatus(GeomFill_PipeNotOk),
       myExchUV(Standard_False),
       myKPart(Standard_False)
@@ -265,7 +265,7 @@ GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom_Curve)& Path,
 
 //=================================================================================================
 
-GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom_Curve)&       Path,
+GeomFill_Pipe::GeomFill_Pipe(const Handle(GeomCurve3d)&       Path,
                              const TColGeom_SequenceOfCurve& NSections)
     : myStatus(GeomFill_PipeNotOk),
       myExchUV(Standard_False),
@@ -277,8 +277,8 @@ GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom_Curve)&       Path,
 
 //=================================================================================================
 
-GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom_Curve)& Path,
-                             const Handle(Geom_Curve)& Curve1,
+GeomFill_Pipe::GeomFill_Pipe(const Handle(GeomCurve3d)& Path,
+                             const Handle(GeomCurve3d)& Curve1,
                              const Dir3d&             Direction)
     : myStatus(GeomFill_PipeNotOk),
       myExchUV(Standard_False),
@@ -289,9 +289,9 @@ GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom_Curve)& Path,
 
 //=================================================================================================
 
-GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom_Curve)& Path,
-                             const Handle(Geom_Curve)& Curve1,
-                             const Handle(Geom_Curve)& Curve2,
+GeomFill_Pipe::GeomFill_Pipe(const Handle(GeomCurve3d)& Path,
+                             const Handle(GeomCurve3d)& Curve1,
+                             const Handle(GeomCurve3d)& Curve2,
                              const Standard_Real       Radius)
     : myStatus(GeomFill_PipeNotOk),
       myExchUV(Standard_False),
@@ -326,9 +326,9 @@ GeomFill_Pipe::GeomFill_Pipe(const Handle(Adaptor3d_Curve)& Path,
 // purpose  : pipe avec courbe guide
 //=======================================================================
 
-GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom_Curve)&      Path,
+GeomFill_Pipe::GeomFill_Pipe(const Handle(GeomCurve3d)&      Path,
                              const Handle(Adaptor3d_Curve)& Guide,
-                             const Handle(Geom_Curve)&      FirstSect,
+                             const Handle(GeomCurve3d)&      FirstSect,
                              const Standard_Boolean         byACR,
                              const Standard_Boolean         rotat)
     : myStatus(GeomFill_PipeNotOk),
@@ -348,9 +348,9 @@ GeomFill_Pipe::GeomFill_Pipe(const Handle(Geom_Curve)&      Path,
 // purpose  : pipe avec courbe guide
 //=======================================================================
 
-void GeomFill_Pipe::Init(const Handle(Geom_Curve)&      Path,
+void GeomFill_Pipe::Init(const Handle(GeomCurve3d)&      Path,
                          const Handle(Adaptor3d_Curve)& Guide,
-                         const Handle(Geom_Curve)&      FirstSect,
+                         const Handle(GeomCurve3d)&      FirstSect,
                          const Standard_Boolean         byACR,
                          const Standard_Boolean         rotat)
 // Path : trajectoire
@@ -360,7 +360,7 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)&      Path,
 // triedre : AC pour absc. curv. ou P pour plan ortho
 {
   Standard_Real angle;
-  myAdpPath = new (GeomAdaptor_Curve)(Handle(Geom_Curve)::DownCast(Path->Copy()));
+  myAdpPath = new (GeomAdaptor_Curve)(Handle(GeomCurve3d)::DownCast(Path->Copy()));
 
   Handle(GeomFill_TrihedronWithGuide) TLaw;
 
@@ -392,8 +392,8 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)&      Path,
   if (Affich)
   {
     char* Temp = "TheSect";
-    DrawTrSurf::Set(Temp, FirstSect);
-    //    DrawTrSurf::Set("TheSect", FirstSect );
+    DrawTrSurf1::Set(Temp, FirstSect);
+    //    DrawTrSurf1::Set("TheSect", FirstSect );
   }
 #endif
 
@@ -420,7 +420,7 @@ void GeomFill_Pipe::Init()
 
 //=================================================================================================
 
-void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path, const Standard_Real Radius)
+void GeomFill_Pipe::Init(const Handle(GeomCurve3d)& Path, const Standard_Real Radius)
 {
   // Ancienne methode
   myType   = 1;
@@ -429,7 +429,7 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path, const Standard_Real Rad
 
   // Nouvelle methode
   myAdpPath             = new (GeomAdaptor_Curve)(Path);
-  Handle(Geom_Circle) C = new (Geom_Circle)(gp::XOY(), Radius);
+  Handle(GeomCircle) C = new (GeomCircle)(gp::XOY(), Radius);
   C->Rotate(gp::OZ(), M_PI / 2.);
 
   mySec = new (GeomFill_UniformSection)(C, Path->FirstParameter(), Path->LastParameter());
@@ -441,21 +441,21 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path, const Standard_Real Rad
   if (Affich)
   {
     char* Temp = "TheSect";
-    DrawTrSurf::Set(Temp, C);
-    //    DrawTrSurf::Set("TheSect", C);
+    DrawTrSurf1::Set(Temp, C);
+    //    DrawTrSurf1::Set("TheSect", C);
   }
 #endif
 }
 
 //=================================================================================================
 
-void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path,
-                         const Handle(Geom_Curve)& FirstSect,
+void GeomFill_Pipe::Init(const Handle(GeomCurve3d)& Path,
+                         const Handle(GeomCurve3d)& FirstSect,
                          const GeomFill_Trihedron  Option)
 {
-  Handle(Geom_Curve)            Sect;
+  Handle(GeomCurve3d)            Sect;
   Handle(GeomFill_TrihedronLaw) TLaw;
-  myAdpPath           = new (GeomAdaptor_Curve)(Handle(Geom_Curve)::DownCast(Path->Copy()));
+  myAdpPath           = new (GeomAdaptor_Curve)(Handle(GeomCurve3d)::DownCast(Path->Copy()));
   Standard_Real param = Path->FirstParameter();
 
   // Construction de la loi de triedre
@@ -558,8 +558,8 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path,
     if (Affich)
     {
       char* Temp = "TheSect";
-      DrawTrSurf::Set(Temp, Sect);
-      //      DrawTrSurf::Set("TheSect",Sect);
+      DrawTrSurf1::Set(Temp, Sect);
+      //      DrawTrSurf1::Set("TheSect",Sect);
     }
 #endif
     mySec = new (GeomFill_UniformSection)(Sect, Path->FirstParameter(), Path->LastParameter());
@@ -571,11 +571,11 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path,
 // purpose  : sweep using Darboux's trihedron
 //=======================================================================
 
-void GeomFill_Pipe::Init(const Handle(Geom2d_Curve)& Path,
-                         const Handle(Geom_Surface)& Support,
-                         const Handle(Geom_Curve)&   FirstSect)
+void GeomFill_Pipe::Init(const Handle(GeomCurve2d)& Path,
+                         const Handle(GeomSurface)& Support,
+                         const Handle(GeomCurve3d)&   FirstSect)
 {
-  Handle(Geom_Curve)            Sect;
+  Handle(GeomCurve3d)            Sect;
   Handle(GeomFill_TrihedronLaw) TLaw = new (GeomFill_Darboux)();
   myAdpPath                          = new Adaptor3d_CurveOnSurface(
     Adaptor3d_CurveOnSurface(new Geom2dAdaptor_Curve(Path), new GeomAdaptor_Surface(Support)));
@@ -590,8 +590,8 @@ void GeomFill_Pipe::Init(const Handle(Geom2d_Curve)& Path,
   if (Affich)
   {
     char* temp = "TheSect";
-    DrawTrSurf::Set(temp, Sect);
-    //    DrawTrSurf::Set("TheSect",Sect);
+    DrawTrSurf1::Set(temp, Sect);
+    //    DrawTrSurf1::Set("TheSect",Sect);
   }
 #endif
   mySec =
@@ -600,14 +600,14 @@ void GeomFill_Pipe::Init(const Handle(Geom2d_Curve)& Path,
 
 //=================================================================================================
 
-void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path,
-                         const Handle(Geom_Curve)& FirstSect,
+void GeomFill_Pipe::Init(const Handle(GeomCurve3d)& Path,
+                         const Handle(GeomCurve3d)& FirstSect,
                          const Dir3d&             Direction)
 {
   Init();
 
-  Handle(Geom_Curve) Sect;
-  myAdpPath = new (GeomAdaptor_Curve)(Handle(Geom_Curve)::DownCast(Path->Copy()));
+  Handle(GeomCurve3d) Sect;
+  myAdpPath = new (GeomAdaptor_Curve)(Handle(GeomCurve3d)::DownCast(Path->Copy()));
   Vector3d V;
   V.SetXYZ(Direction.XYZ());
   Handle(GeomFill_ConstantBiNormal) TLaw = new (GeomFill_ConstantBiNormal)(V);
@@ -622,8 +622,8 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path,
   if (Affich)
   {
     char* temp = "TheSect";
-    DrawTrSurf::Set(temp, Sect);
-    //    DrawTrSurf::Set("TheSect",Sect);
+    DrawTrSurf1::Set(temp, Sect);
+    //    DrawTrSurf1::Set("TheSect",Sect);
   }
 #endif
   mySec = new (GeomFill_UniformSection)(Sect, Path->FirstParameter(), Path->LastParameter());
@@ -631,7 +631,7 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path,
 
 //=================================================================================================
 
-void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path, const TColGeom_SequenceOfCurve& NSections)
+void GeomFill_Pipe::Init(const Handle(GeomCurve3d)& Path, const TColGeom_SequenceOfCurve& NSections)
 {
   myType   = 3;
   myError  = 0;
@@ -639,7 +639,7 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path, const TColGeom_Sequence
 
   Handle(GeomFill_TrihedronLaw) TLaw;
   TLaw      = new (GeomFill_CorrectedFrenet)();
-  myAdpPath = new (GeomAdaptor_Curve)(Handle(Geom_Curve)::DownCast(Path->Copy()));
+  myAdpPath = new (GeomAdaptor_Curve)(Handle(GeomCurve3d)::DownCast(Path->Copy()));
   if (!TLaw.IsNull())
   {
     myLoc = new (GeomFill_CurveAndTrihedron)(TLaw);
@@ -699,9 +699,9 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path, const TColGeom_Sequence
 
 //=================================================================================================
 
-void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path,
-                         const Handle(Geom_Curve)& FirstSect,
-                         const Handle(Geom_Curve)& LastSect)
+void GeomFill_Pipe::Init(const Handle(GeomCurve3d)& Path,
+                         const Handle(GeomCurve3d)& FirstSect,
+                         const Handle(GeomCurve3d)& LastSect)
 {
   myType                              = 3;
   myError                             = 0;
@@ -709,7 +709,7 @@ void GeomFill_Pipe::Init(const Handle(Geom_Curve)& Path,
   Standard_Real                 first = Path->FirstParameter(), last = Path->LastParameter();
   Handle(GeomFill_TrihedronLaw) TLaw;
   TLaw      = new (GeomFill_CorrectedFrenet)();
-  myAdpPath = new (GeomAdaptor_Curve)(Handle(Geom_Curve)::DownCast(Path->Copy()));
+  myAdpPath = new (GeomAdaptor_Curve)(Handle(GeomCurve3d)::DownCast(Path->Copy()));
 
   if (!TLaw.IsNull())
   {
@@ -1047,11 +1047,11 @@ void GeomFill_Pipe::ApproxSurf(const Standard_Boolean WithParameters)
     {
       NbSections++;
       Section.Section(i, Poles, Poles2d, Weights);
-      Handle(Geom_BSplineCurve) BS = new Geom_BSplineCurve(Poles, Weights, Knots, Mults, Degree);
+      Handle(BSplineCurve3d) BS = new BSplineCurve3d(Poles, Weights, Knots, Mults, Degree);
   #ifdef DRAW
       char name[256];
       sprintf(name, "SECT_%d", NbSections);
-      DrawTrSurf::Set(name, BS);
+      DrawTrSurf1::Set(name, BS);
   #endif
     }
   }
@@ -1083,11 +1083,11 @@ void GeomFill_Pipe::ApproxSurf(const Standard_Boolean WithParameters)
     for (Standard_Integer i = 1; i <= Section.NbSections(); i++)
     {
       Section.Section(i, Poles, Poles2d, Weights);
-      Handle(Geom_BSplineCurve) BS = new Geom_BSplineCurve(Poles, Weights, Knots, Mults, Degree);
+      Handle(BSplineCurve3d) BS = new BSplineCurve3d(Poles, Weights, Knots, Mults, Degree);
   #ifdef DRAW
       char name[256];
       sprintf(name, "sect_%d", i);
-      DrawTrSurf::Set(name, BS);
+      DrawTrSurf1::Set(name, BS);
   #endif
     }
 #endif

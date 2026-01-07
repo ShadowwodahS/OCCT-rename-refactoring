@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_CurvePointInterference, TopOpeBRepDS_Int
 //=================================================================================================
 
 TopOpeBRepDS_CurvePointInterference::TopOpeBRepDS_CurvePointInterference(
-  const TopOpeBRepDS_Transition& T,
+  const StateTransition& T,
   const TopOpeBRepDS_Kind        ST,
   const Standard_Integer         S,
   const TopOpeBRepDS_Kind        GT,

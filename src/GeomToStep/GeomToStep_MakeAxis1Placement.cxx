@@ -33,7 +33,7 @@
 //=============================================================================
 GeomToStep_MakeAxis1Placement::GeomToStep_MakeAxis1Placement(
   const Axis3d&           A,
-  const StepData_Factors& theLocalFactors)
+  const ConversionFactors& theLocalFactors)
 {
 #include "GeomToStep_MakeAxis1Placement_gen.pxx"
 }
@@ -44,7 +44,7 @@ GeomToStep_MakeAxis1Placement::GeomToStep_MakeAxis1Placement(
 
 GeomToStep_MakeAxis1Placement::GeomToStep_MakeAxis1Placement(
   const gp_Ax2d&          A,
-  const StepData_Factors& theLocalFactors)
+  const ConversionFactors& theLocalFactors)
 {
 #include "GeomToStep_MakeAxis1Placement_gen.pxx"
 }
@@ -56,7 +56,7 @@ GeomToStep_MakeAxis1Placement::GeomToStep_MakeAxis1Placement(
 
 GeomToStep_MakeAxis1Placement::GeomToStep_MakeAxis1Placement(
   const Handle(Geom_Axis1Placement)& Axis1,
-  const StepData_Factors&            theLocalFactors)
+  const ConversionFactors&            theLocalFactors)
 {
   Axis3d A;
   A = Axis1->Ax1();
@@ -70,7 +70,7 @@ GeomToStep_MakeAxis1Placement::GeomToStep_MakeAxis1Placement(
 
 GeomToStep_MakeAxis1Placement::GeomToStep_MakeAxis1Placement(
   const Handle(Geom2d_AxisPlacement)& Axis1,
-  const StepData_Factors&             theLocalFactors)
+  const ConversionFactors&             theLocalFactors)
 {
   gp_Ax2d A;
   A = Axis1->Ax2d();

@@ -66,8 +66,8 @@ public:
   //! These two edges should be intersected by each other. Otherwise the geometry is not valid.
   //! @param[in] theFirstEdge  the first edge.
   //! @param[in] theSecondEdge  the second edge.
-  Standard_EXPORT PrsDim_AngleDimension(const TopoDS_Edge& theFirstEdge,
-                                        const TopoDS_Edge& theSecondEdge);
+  Standard_EXPORT PrsDim_AngleDimension(const TopoEdge& theFirstEdge,
+                                        const TopoEdge& theSecondEdge);
 
   //! Constructs the angle display object defined by three points.
   //! @param[in] theFirstPoint  the first point (point on first angle flyout).
@@ -81,27 +81,27 @@ public:
   //! @param[in] theFirstVertex  the first vertex (vertex for first angle flyout).
   //! @param[in] theSecondVertex  the center vertex of angle dimension.
   //! @param[in] theThirdPoint  the second vertex (vertex for second angle flyout).
-  Standard_EXPORT PrsDim_AngleDimension(const TopoDS_Vertex& theFirstVertex,
-                                        const TopoDS_Vertex& theSecondVertex,
-                                        const TopoDS_Vertex& theThirdVertex);
+  Standard_EXPORT PrsDim_AngleDimension(const TopoVertex& theFirstVertex,
+                                        const TopoVertex& theSecondVertex,
+                                        const TopoVertex& theThirdVertex);
 
   //! Constructs angle dimension for the cone face.
   //! @param[in] theCone  the conical face.
-  Standard_EXPORT PrsDim_AngleDimension(const TopoDS_Face& theCone);
+  Standard_EXPORT PrsDim_AngleDimension(const TopoFace& theCone);
 
   //! Constructs angle dimension between two planar faces.
   //! @param[in] theFirstFace  the first face.
   //! @param[in] theSecondFace  the second face.
-  Standard_EXPORT PrsDim_AngleDimension(const TopoDS_Face& theFirstFace,
-                                        const TopoDS_Face& theSecondFace);
+  Standard_EXPORT PrsDim_AngleDimension(const TopoFace& theFirstFace,
+                                        const TopoFace& theSecondFace);
 
   //! Constructs angle dimension between two planar faces.
   //! @param[in] theFirstFace  the first face.
   //! @param[in] theSecondFace  the second face.
   //! @param[in] thePoint  the point which the dimension plane should pass through.
   //! This point can lay on the one of the faces or not.
-  Standard_EXPORT PrsDim_AngleDimension(const TopoDS_Face& theFirstFace,
-                                        const TopoDS_Face& theSecondFace,
+  Standard_EXPORT PrsDim_AngleDimension(const TopoFace& theFirstFace,
+                                        const TopoFace& theSecondFace,
                                         const Point3d&      thePoint);
 
 public:
@@ -115,21 +115,21 @@ public:
   const Point3d& CenterPoint() const { return myCenterPoint; }
 
   //! @return first argument shape.
-  const TopoDS_Shape& FirstShape() const { return myFirstShape; }
+  const TopoShape& FirstShape() const { return myFirstShape; }
 
   //! @return second argument shape.
-  const TopoDS_Shape& SecondShape() const { return mySecondShape; }
+  const TopoShape& SecondShape() const { return mySecondShape; }
 
   //! @return third argument shape.
-  const TopoDS_Shape& ThirdShape() const { return myThirdShape; }
+  const TopoShape& ThirdShape() const { return myThirdShape; }
 
 public:
   //! Measures minimum angle dimension between two linear edges.
   //! These two edges should be intersected by each other. Otherwise the geometry is not valid.
   //! @param[in] theFirstEdge  the first edge.
   //! @param[in] theSecondEdge  the second edge.
-  Standard_EXPORT void SetMeasuredGeometry(const TopoDS_Edge& theFirstEdge,
-                                           const TopoDS_Edge& theSecondEdge);
+  Standard_EXPORT void SetMeasuredGeometry(const TopoEdge& theFirstEdge,
+                                           const TopoEdge& theSecondEdge);
 
   //! Measures angle defined by three points.
   //! @param[in] theFirstPoint  the first point (point on first angle flyout).
@@ -143,39 +143,39 @@ public:
   //! @param[in] theFirstVertex  the first vertex (vertex for first angle flyout).
   //! @param[in] theSecondVertex  the center vertex of angle dimension.
   //! @param[in] theThirdPoint  the second vertex (vertex for second angle flyout).
-  Standard_EXPORT void SetMeasuredGeometry(const TopoDS_Vertex& theFirstVertex,
-                                           const TopoDS_Vertex& theSecondVertex,
-                                           const TopoDS_Vertex& theThirdVertex);
+  Standard_EXPORT void SetMeasuredGeometry(const TopoVertex& theFirstVertex,
+                                           const TopoVertex& theSecondVertex,
+                                           const TopoVertex& theThirdVertex);
 
   //! Measures angle of conical face.
   //! @param[in] theCone  the shape to measure.
-  Standard_EXPORT void SetMeasuredGeometry(const TopoDS_Face& theCone);
+  Standard_EXPORT void SetMeasuredGeometry(const TopoFace& theCone);
 
   //! Measures angle between two planar faces.
   //! @param[in] theFirstFace  the first face.
   //! @param[in] theSecondFace  the second face..
-  Standard_EXPORT void SetMeasuredGeometry(const TopoDS_Face& theFirstFace,
-                                           const TopoDS_Face& theSecondFace);
+  Standard_EXPORT void SetMeasuredGeometry(const TopoFace& theFirstFace,
+                                           const TopoFace& theSecondFace);
 
   //! Measures angle between two planar faces.
   //! @param[in] theFirstFace  the first face.
   //! @param[in] theSecondFace  the second face.
   //! @param[in] thePoint  the point which the dimension plane should pass through.
   //! This point can lay on the one of the faces or not.
-  Standard_EXPORT void SetMeasuredGeometry(const TopoDS_Face& theFirstFace,
-                                           const TopoDS_Face& theSecondFace,
+  Standard_EXPORT void SetMeasuredGeometry(const TopoFace& theFirstFace,
+                                           const TopoFace& theSecondFace,
                                            const Point3d&      thePoint);
 
   //! @return the display units string.
-  Standard_EXPORT virtual const TCollection_AsciiString& GetDisplayUnits() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const AsciiString1& GetDisplayUnits() const Standard_OVERRIDE;
 
   //! @return the model units string.
-  Standard_EXPORT virtual const TCollection_AsciiString& GetModelUnits() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const AsciiString1& GetModelUnits() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void SetDisplayUnits(const TCollection_AsciiString& theUnits)
+  Standard_EXPORT virtual void SetDisplayUnits(const AsciiString1& theUnits)
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void SetModelUnits(const TCollection_AsciiString& theUnits)
+  Standard_EXPORT virtual void SetModelUnits(const AsciiString1& theUnits)
     Standard_OVERRIDE;
 
   //! Principle of horizontal text alignment settings:
@@ -250,7 +250,7 @@ protected:
                                        const Point3d&                     theFirstAttach,
                                        const Point3d&                     theSecondAttach,
                                        const Point3d&                     theCenter,
-                                       const TCollection_ExtendedString& theText,
+                                       const UtfString& theText,
                                        const Standard_Real               theTextWidth,
                                        const Standard_Integer            theMode,
                                        const Standard_Integer            theLabelPosition);
@@ -294,7 +294,7 @@ protected:
                                        const Standard_Integer theMode = 0) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void ComputeFlyoutSelection(
-    const Handle(SelectMgr_Selection)&   theSelection,
+    const Handle(SelectionContainer)&   theSelection,
     const Handle(SelectMgr_EntityOwner)& theOwner) Standard_OVERRIDE;
 
 protected:
@@ -346,9 +346,9 @@ private:
   Point3d       myFirstPoint;
   Point3d       mySecondPoint;
   Point3d       myCenterPoint;
-  TopoDS_Shape myFirstShape;
-  TopoDS_Shape mySecondShape;
-  TopoDS_Shape myThirdShape;
+  TopoShape myFirstShape;
+  TopoShape mySecondShape;
+  TopoShape myThirdShape;
 };
 
 #endif // _PrsDim_AngleDimension_HeaderFile

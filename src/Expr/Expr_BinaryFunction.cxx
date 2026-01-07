@@ -70,8 +70,8 @@ Handle(Expr_GeneralExpression) Expr_BinaryFunction::ShallowSimplified() const
 Handle(Expr_GeneralExpression) Expr_BinaryFunction::Copy() const
 {
   return new Expr_BinaryFunction(myFunction,
-                                 Expr::CopyShare(FirstOperand()),
-                                 Expr::CopyShare(SecondOperand()));
+                                 Expr1::CopyShare(FirstOperand()),
+                                 Expr1::CopyShare(SecondOperand()));
 }
 
 Standard_Boolean Expr_BinaryFunction::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -129,13 +129,13 @@ Handle(Expr_GeneralExpression) Expr_BinaryFunction::Derivative(
 
   Handle(Expr_GeneralFunction) myfuncder1 = myFunction->Derivative(myvar1);
   Handle(Expr_BinaryFunction)  firstpart =
-    new Expr_BinaryFunction(myfuncder1, Expr::CopyShare(myfop), Expr::CopyShare(mysop));
+    new Expr_BinaryFunction(myfuncder1, Expr1::CopyShare(myfop), Expr1::CopyShare(mysop));
 
   Handle(Expr_GeneralExpression) fpart = firstpart->ShallowSimplified() * myexpder1;
 
   Handle(Expr_GeneralFunction) myfuncder2 = myFunction->Derivative(myvar2);
   Handle(Expr_BinaryFunction)  secondpart =
-    new Expr_BinaryFunction(myfuncder2, Expr::CopyShare(myfop), Expr::CopyShare(mysop));
+    new Expr_BinaryFunction(myfuncder2, Expr1::CopyShare(myfop), Expr1::CopyShare(mysop));
 
   Handle(Expr_GeneralExpression) spart = secondpart->ShallowSimplified() * myexpder2;
 
@@ -161,10 +161,10 @@ Standard_Real Expr_BinaryFunction::Evaluate(const Expr_Array1OfNamedUnknown& var
   return myFunction->Evaluate(varsfunc, valsfunc);
 }
 
-TCollection_AsciiString Expr_BinaryFunction::String() const
+AsciiString1 Expr_BinaryFunction::String() const
 {
-  TCollection_AsciiString res = myFunction->GetStringName();
-  res += TCollection_AsciiString('(');
+  AsciiString1 res = myFunction->GetStringName();
+  res += AsciiString1('(');
   res += FirstOperand()->String();
   res += ",";
   res += SecondOperand()->String();

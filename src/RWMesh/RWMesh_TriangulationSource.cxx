@@ -15,7 +15,7 @@
 
 #include <RWMesh_TriangulationReader.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(RWMesh_TriangulationSource, Poly_Triangulation)
+IMPLEMENT_STANDARD_RTTIEXT(RWMesh_TriangulationSource, MeshTriangulation)
 
 //=================================================================================================
 
@@ -37,7 +37,7 @@ RWMesh_TriangulationSource::~RWMesh_TriangulationSource()
 
 Standard_Boolean RWMesh_TriangulationSource::loadDeferredData(
   const Handle(OSD_FileSystem)&     theFileSystem,
-  const Handle(Poly_Triangulation)& theDestTriangulation) const
+  const Handle(MeshTriangulation)& theDestTriangulation) const
 {
   myStatisticOfDegeneratedTriNb = 0;
   if (myReader.IsNull())

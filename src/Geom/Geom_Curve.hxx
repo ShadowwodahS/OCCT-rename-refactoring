@@ -28,8 +28,8 @@ class Transform3d;
 class Point3d;
 class Vector3d;
 
-class Geom_Curve;
-DEFINE_STANDARD_HANDLE(Geom_Curve, Geom_Geometry)
+class GeomCurve3d;
+DEFINE_STANDARD_HANDLE(GeomCurve3d, Geom_Geometry)
 
 //! The abstract class Curve describes the common
 //! behavior of curves in 3D space. The Geom package
@@ -37,7 +37,7 @@ DEFINE_STANDARD_HANDLE(Geom_Curve, Geom_Geometry)
 //! curves, including lines, circles, conics, Bezier or
 //! BSpline curves, etc.
 //! The main characteristic of these curves is that they
-//! are parameterized. The Geom_Curve class shows:
+//! are parameterized. The GeomCurve3d class shows:
 //! - how to work with the parametric equation of a curve
 //! in order to calculate the point of parameter u,
 //! together with the vector tangent and the derivative
@@ -56,7 +56,7 @@ DEFINE_STANDARD_HANDLE(Geom_Curve, Geom_Geometry)
 //! The Geom package does not prevent the
 //! construction of curves with null length or curves which
 //! self-intersect.
-class Geom_Curve : public Geom_Geometry
+class GeomCurve3d : public Geom_Geometry
 {
 
 public:
@@ -109,7 +109,7 @@ public:
   Standard_EXPORT virtual Standard_Real ParametricTransformation(const Transform3d& T) const;
 
   //! Returns a copy of <me> reversed.
-  Standard_NODISCARD Standard_EXPORT Handle(Geom_Curve) Reversed() const;
+  Standard_NODISCARD Standard_EXPORT Handle(GeomCurve3d) Reversed() const;
 
   //! Returns the value of the first parameter.
   //! Warnings :
@@ -224,7 +224,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_Curve, Geom_Geometry)
+  DEFINE_STANDARD_RTTIEXT(GeomCurve3d, Geom_Geometry)
 
 protected:
 private:

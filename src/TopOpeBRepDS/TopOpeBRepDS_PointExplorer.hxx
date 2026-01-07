@@ -41,13 +41,13 @@ public:
 
   Standard_EXPORT void Next();
 
-  Standard_EXPORT const TopOpeBRepDS_Point& Point() const;
+  Standard_EXPORT const Point1& Point() const;
 
   Standard_EXPORT Standard_Boolean IsPoint(const Standard_Integer I) const;
 
   Standard_EXPORT Standard_Boolean IsPointKeep(const Standard_Integer I) const;
 
-  Standard_EXPORT const TopOpeBRepDS_Point& Point(const Standard_Integer I) const;
+  Standard_EXPORT const Point1& Point(const Standard_Integer I) const;
 
   Standard_EXPORT Standard_Integer NbPoint();
 
@@ -61,7 +61,7 @@ private:
   Standard_Integer   myMax;
   Standard_Address   myDS;
   Standard_Boolean   myFound;
-  TopOpeBRepDS_Point myEmpty;
+  Point1 myEmpty;
   Standard_Boolean   myFindKeep;
 };
 

@@ -27,7 +27,7 @@ class IGESGraph_Color;
 DEFINE_STANDARD_HANDLE(IGESGraph_Color, IGESData_ColorEntity)
 
 //! defines IGESColor, Type <314> Form <0>
-//! in package IGESGraph
+//! in package IGESGraph1
 //!
 //! The Color Definition Entity is used to communicate the
 //! relationship of primary colors to the intensity level of

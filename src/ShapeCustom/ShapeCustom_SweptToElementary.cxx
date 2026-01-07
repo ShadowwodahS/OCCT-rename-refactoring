@@ -52,9 +52,9 @@ ShapeCustom_SweptToElementary::ShapeCustom_SweptToElementary() {}
 // function : IsToConvert
 // purpose  : auxiliary (Analyze surface: is it to be converted?)
 //=======================================================================
-static Standard_Boolean IsToConvert(const Handle(Geom_Surface)& S, Handle(Geom_SweptSurface)& SS)
+static Standard_Boolean IsToConvert(const Handle(GeomSurface)& S, Handle(Geom_SweptSurface)& SS)
 {
-  Handle(Geom_Surface) Stmp;
+  Handle(GeomSurface) Stmp;
 
   if (S->IsKind(STANDARD_TYPE(Geom_SweptSurface)))
   {
@@ -84,14 +84,14 @@ static Standard_Boolean IsToConvert(const Handle(Geom_Surface)& S, Handle(Geom_S
 
 //=================================================================================================
 
-Standard_Boolean ShapeCustom_SweptToElementary::NewSurface(const TopoDS_Face&    F,
-                                                           Handle(Geom_Surface)& S,
+Standard_Boolean ShapeCustom_SweptToElementary::NewSurface(const TopoFace&    F,
+                                                           Handle(GeomSurface)& S,
                                                            TopLoc_Location&      L,
                                                            Standard_Real&        Tol,
                                                            Standard_Boolean&     RevWires,
                                                            Standard_Boolean&     RevFace)
 {
-  S = BRep_Tool::Surface(F, L);
+  S = BRepInspector::Surface(F, L);
   Handle(Geom_SweptSurface) SS;
   if (!IsToConvert(S, SS))
     return Standard_False;
@@ -100,7 +100,7 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewSurface(const TopoDS_Face&   
   if (SS->IsKind(STANDARD_TYPE(Geom_SurfaceOfRevolution)))
   {
     Handle(Geom_SurfaceOfRevolution) SR  = Handle(Geom_SurfaceOfRevolution)::DownCast(SS);
-    Handle(Geom_Curve)               bc  = SR->BasisCurve();
+    Handle(GeomCurve3d)               bc  = SR->BasisCurve();
     Axis3d                           ax1 = SR->Axis();
     Handle(GeomAdaptor_Curve)        HC  = new GeomAdaptor_Curve();
     HC->Load(bc, bc->FirstParameter(), bc->LastParameter());
@@ -109,7 +109,7 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewSurface(const TopoDS_Face&   
     {
       // skl 18.12.2003 - plane not used, problems in PRO14665.igs
       // case GeomAbs_Plane : {
-      //  Handle(Geom_Plane) Pl = new Geom_Plane(AS.Plane());
+      //  Handle(GeomPlane) Pl = new GeomPlane(AS.Plane());
       //  S = Pl;
       //} break;
       case GeomAbs_Cylinder: {
@@ -141,7 +141,7 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewSurface(const TopoDS_Face&   
   else if (SS->IsKind(STANDARD_TYPE(Geom_SurfaceOfLinearExtrusion)))
   {
     Handle(Geom_SurfaceOfLinearExtrusion) SLE = Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(SS);
-    Handle(Geom_Curve)                    bc  = SLE->BasisCurve();
+    Handle(GeomCurve3d)                    bc  = SLE->BasisCurve();
     Dir3d                                dir = SLE->Direction();
     Handle(GeomAdaptor_Curve)             HC  = new GeomAdaptor_Curve();
     HC->Load(bc, bc->FirstParameter(), bc->LastParameter());
@@ -150,7 +150,7 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewSurface(const TopoDS_Face&   
     {
       // skl 18.12.2003 - plane not used, problems in ims013.igs
       // case GeomAbs_Plane : {
-      //  Handle(Geom_Plane) Pl = new Geom_Plane(AS.Plane());
+      //  Handle(GeomPlane) Pl = new GeomPlane(AS.Plane());
       //  S = Pl;
       //} break;
       case GeomAbs_Cylinder: {
@@ -166,7 +166,7 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewSurface(const TopoDS_Face&   
 
   SendMsg(F, Message_Msg("SweptToElementary.NewSurface.MSG0"));
 
-  Tol      = BRep_Tool::Tolerance(F);
+  Tol      = BRepInspector::Tolerance(F);
   RevWires = Standard_False;
   RevFace  = Standard_False;
   return Standard_True;
@@ -174,8 +174,8 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewSurface(const TopoDS_Face&   
 
 //=================================================================================================
 
-Standard_Boolean ShapeCustom_SweptToElementary::NewCurve(const TopoDS_Edge&  E,
-                                                         Handle(Geom_Curve)& C,
+Standard_Boolean ShapeCustom_SweptToElementary::NewCurve(const TopoEdge&  E,
+                                                         Handle(GeomCurve3d)& C,
                                                          TopLoc_Location&    L,
                                                          Standard_Real&      Tol)
 {
@@ -189,15 +189,15 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewCurve(const TopoDS_Edge&  E,
     Handle(BRep_GCurve) GC = Handle(BRep_GCurve)::DownCast(itcr.Value());
     if (GC.IsNull() || !GC->IsCurveOnSurface())
       continue;
-    Handle(Geom_Surface)      S = GC->Surface();
+    Handle(GeomSurface)      S = GC->Surface();
     Handle(Geom_SweptSurface) SS;
     if (!IsToConvert(S, SS))
       continue;
     Standard_Real f, l;
-    C = BRep_Tool::Curve(E, L, f, l);
+    C = BRepInspector::Curve(E, L, f, l);
     if (!C.IsNull())
-      C = Handle(Geom_Curve)::DownCast(C->Copy());
-    Tol = BRep_Tool::Tolerance(E);
+      C = Handle(GeomCurve3d)::DownCast(C->Copy());
+    Tol = BRepInspector::Tolerance(E);
     return Standard_True;
   }
   return Standard_False;
@@ -205,7 +205,7 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewCurve(const TopoDS_Edge&  E,
 
 //=================================================================================================
 
-Standard_Boolean ShapeCustom_SweptToElementary::NewPoint(const TopoDS_Vertex& /*V*/,
+Standard_Boolean ShapeCustom_SweptToElementary::NewPoint(const TopoVertex& /*V*/,
                                                          Point3d& /*P*/,
                                                          Standard_Real& /*Tol*/)
 {
@@ -215,15 +215,15 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewPoint(const TopoDS_Vertex& /*
 
 //=================================================================================================
 
-Standard_Boolean ShapeCustom_SweptToElementary::NewCurve2d(const TopoDS_Edge&    E,
-                                                           const TopoDS_Face&    F,
-                                                           const TopoDS_Edge&    NewE,
-                                                           const TopoDS_Face&    NewF,
-                                                           Handle(Geom2d_Curve)& C,
+Standard_Boolean ShapeCustom_SweptToElementary::NewCurve2d(const TopoEdge&    E,
+                                                           const TopoFace&    F,
+                                                           const TopoEdge&    NewE,
+                                                           const TopoFace&    NewF,
+                                                           Handle(GeomCurve2d)& C,
                                                            Standard_Real&        Tol)
 {
   TopLoc_Location           L;
-  Handle(Geom_Surface)      S = BRep_Tool::Surface(F, L);
+  Handle(GeomSurface)      S = BRepInspector::Surface(F, L);
   Handle(Geom_SweptSurface) SS;
 
   // just copy pcurve if either its surface is changing or edge was copied
@@ -231,11 +231,11 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewCurve2d(const TopoDS_Edge&   
     return Standard_False;
 
   Standard_Real f, l;
-  C = BRep_Tool::CurveOnSurface(E, F, f, l);
+  C = BRepInspector::CurveOnSurface(E, F, f, l);
   if (!C.IsNull())
   {
-    C                       = Handle(Geom2d_Curve)::DownCast(C->Copy());
-    Handle(Geom_Surface) NS = BRep_Tool::Surface(NewF, L);
+    C                       = Handle(GeomCurve2d)::DownCast(C->Copy());
+    Handle(GeomSurface) NS = BRepInspector::Surface(NewF, L);
     if (!NS.IsNull() && NS->IsKind(STANDARD_TYPE(Geom_ToroidalSurface)))
     {
       if (SS->IsKind(STANDARD_TYPE(Geom_SurfaceOfRevolution)))
@@ -274,14 +274,14 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewCurve2d(const TopoDS_Edge&   
     }
   }
 
-  Tol = BRep_Tool::Tolerance(E);
+  Tol = BRepInspector::Tolerance(E);
   return Standard_True;
 }
 
 //=================================================================================================
 
-Standard_Boolean ShapeCustom_SweptToElementary::NewParameter(const TopoDS_Vertex& /*V*/,
-                                                             const TopoDS_Edge& /*E*/,
+Standard_Boolean ShapeCustom_SweptToElementary::NewParameter(const TopoVertex& /*V*/,
+                                                             const TopoEdge& /*E*/,
                                                              Standard_Real& /*P*/,
                                                              Standard_Real& /*Tol*/)
 {
@@ -290,12 +290,12 @@ Standard_Boolean ShapeCustom_SweptToElementary::NewParameter(const TopoDS_Vertex
 
 //=================================================================================================
 
-GeomAbs_Shape ShapeCustom_SweptToElementary::Continuity(const TopoDS_Edge& E,
-                                                        const TopoDS_Face& F1,
-                                                        const TopoDS_Face& F2,
-                                                        const TopoDS_Edge& /*NewE*/,
-                                                        const TopoDS_Face& /*NewF1*/,
-                                                        const TopoDS_Face& /*NewF2*/)
+GeomAbs_Shape ShapeCustom_SweptToElementary::Continuity(const TopoEdge& E,
+                                                        const TopoFace& F1,
+                                                        const TopoFace& F2,
+                                                        const TopoEdge& /*NewE*/,
+                                                        const TopoFace& /*NewF1*/,
+                                                        const TopoFace& /*NewF2*/)
 {
-  return BRep_Tool::Continuity(E, F1, F2);
+  return BRepInspector::Continuity(E, F1, F2);
 }

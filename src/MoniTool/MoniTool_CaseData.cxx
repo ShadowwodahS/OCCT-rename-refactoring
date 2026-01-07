@@ -30,8 +30,8 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(MoniTool_CaseData, RefObject)
 
-static NCollection_DataMap<TCollection_AsciiString, Standard_Integer>           defch;
-static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> defms;
+static NCollection_DataMap<AsciiString1, Standard_Integer>           defch;
+static NCollection_DataMap<AsciiString1, Handle(RefObject)> defms;
 static Standard_Boolean stachr = Standard_False;
 
 // static OSD_Timer chrono;
@@ -121,7 +121,7 @@ void MoniTool_CaseData::AddData(const Handle(RefObject)& val,
                                 const Standard_Integer            kind,
                                 const Standard_CString            name)
 {
-  TCollection_AsciiString aname(name);
+  AsciiString1 aname(name);
   Standard_Integer        subs = thesubst;
 
   //  SetChange (calculer la position d apres Name)
@@ -154,7 +154,7 @@ void MoniTool_CaseData::AddRaised(const Handle(ExceptionBase)& theException,
   AddData(theException, 1, name);
 }
 
-void MoniTool_CaseData::AddShape(const TopoDS_Shape& sh, const Standard_CString name)
+void MoniTool_CaseData::AddShape(const TopoShape& sh, const Standard_CString name)
 {
   AddData(new TopoDS_HShape(sh), 4, name);
 }
@@ -164,7 +164,7 @@ void MoniTool_CaseData::AddXYZ(const gp_XYZ& aXYZ, const Standard_CString name)
   AddData(new Geom_CartesianPoint(aXYZ), 5, name);
 }
 
-void MoniTool_CaseData::AddXY(const gp_XY& aXY, const Standard_CString name)
+void MoniTool_CaseData::AddXY(const Coords2d& aXY, const Standard_CString name)
 {
   AddData(new Geom2d_CartesianPoint(aXY), 6, name);
 }
@@ -299,13 +299,13 @@ Standard_Integer MoniTool_CaseData::Kind(const Standard_Integer nd) const
   return thekind(nd);
 }
 
-static const TCollection_AsciiString& nulname()
+static const AsciiString1& nulname()
 {
-  static TCollection_AsciiString nuln;
+  static AsciiString1 nuln;
   return nuln;
 }
 
-const TCollection_AsciiString& MoniTool_CaseData::Name(const Standard_Integer nd) const
+const AsciiString1& MoniTool_CaseData::Name(const Standard_Integer nd) const
 {
   if (nd < 1 || nd > thednam.Length())
     return nulname();
@@ -395,9 +395,9 @@ Standard_Integer MoniTool_CaseData::NameNum(const Standard_CString name) const
 
 //  ####    RETOUR DES VALEURS    ####
 
-TopoDS_Shape MoniTool_CaseData::Shape(const Standard_Integer nd) const
+TopoShape MoniTool_CaseData::Shape(const Standard_Integer nd) const
 {
-  TopoDS_Shape          sh;
+  TopoShape          sh;
   Handle(TopoDS_HShape) hs = Handle(TopoDS_HShape)::DownCast(Data(nd));
   if (!hs.IsNull())
     sh = hs->Shape();
@@ -413,7 +413,7 @@ Standard_Boolean MoniTool_CaseData::XYZ(const Standard_Integer nd, gp_XYZ& val) 
   return Standard_True;
 }
 
-Standard_Boolean MoniTool_CaseData::XY(const Standard_Integer nd, gp_XY& val) const
+Standard_Boolean MoniTool_CaseData::XY(const Standard_Integer nd, Coords2d& val) const
 {
   Handle(Geom2d_CartesianPoint) p = Handle(Geom2d_CartesianPoint)::DownCast(Data(nd));
   if (p.IsNull())

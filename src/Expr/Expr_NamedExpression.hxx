@@ -33,9 +33,9 @@ class Expr_NamedExpression : public Expr_GeneralExpression
 {
 
 public:
-  Standard_EXPORT const TCollection_AsciiString& GetName() const;
+  Standard_EXPORT const AsciiString1& GetName() const;
 
-  Standard_EXPORT void SetName(const TCollection_AsciiString& name);
+  Standard_EXPORT void SetName(const AsciiString1& name);
 
   //! Tests if <me> can be shared by one or more expressions
   //! or must be copied. This method redefines to a True
@@ -49,13 +49,13 @@ public:
     IsIdentical(const Handle(Expr_GeneralExpression)& Other) const Standard_OVERRIDE;
 
   //! returns a string representing <me> in a readable way.
-  Standard_EXPORT TCollection_AsciiString String() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 String() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Expr_NamedExpression, Expr_GeneralExpression)
 
 protected:
 private:
-  TCollection_AsciiString myName;
+  AsciiString1 myName;
 };
 
 #endif // _Expr_NamedExpression_HeaderFile

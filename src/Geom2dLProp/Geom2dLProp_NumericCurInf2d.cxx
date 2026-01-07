@@ -26,28 +26,28 @@
 
 //=================================================================================================
 
-Geom2dLProp_NumericCurInf2d::Geom2dLProp_NumericCurInf2d()
+NumericCurveInfo2d::NumericCurveInfo2d()
     : isDone(Standard_False)
 {
 }
 
 //=================================================================================================
 
-void Geom2dLProp_NumericCurInf2d::PerformCurExt(const Handle(Geom2d_Curve)& C,
-                                                LProp_CurAndInf&            Result)
+void NumericCurveInfo2d::PerformCurExt(const Handle(GeomCurve2d)& C,
+                                                CurveAndInfo&            Result)
 {
   PerformCurExt(C,
-                Geom2dLProp_Curve2dTool::FirstParameter(C),
-                Geom2dLProp_Curve2dTool::LastParameter(C),
+                Curve2dTool::FirstParameter(C),
+                Curve2dTool::LastParameter(C),
                 Result);
 }
 
 //=================================================================================================
 
-void Geom2dLProp_NumericCurInf2d::PerformCurExt(const Handle(Geom2d_Curve)& C,
+void NumericCurveInfo2d::PerformCurExt(const Handle(GeomCurve2d)& C,
                                                 const Standard_Real         UMin,
                                                 const Standard_Real         UMax,
-                                                LProp_CurAndInf&            Result)
+                                                CurveAndInfo&            Result)
 {
   isDone = Standard_True;
 
@@ -86,20 +86,20 @@ void Geom2dLProp_NumericCurInf2d::PerformCurExt(const Handle(Geom2d_Curve)& C,
 
 //=================================================================================================
 
-void Geom2dLProp_NumericCurInf2d::PerformInf(const Handle(Geom2d_Curve)& C, LProp_CurAndInf& Result)
+void NumericCurveInfo2d::PerformInf(const Handle(GeomCurve2d)& C, CurveAndInfo& Result)
 {
   PerformInf(C,
-             Geom2dLProp_Curve2dTool::FirstParameter(C),
-             Geom2dLProp_Curve2dTool::LastParameter(C),
+             Curve2dTool::FirstParameter(C),
+             Curve2dTool::LastParameter(C),
              Result);
 }
 
 //=================================================================================================
 
-void Geom2dLProp_NumericCurInf2d::PerformInf(const Handle(Geom2d_Curve)& C,
+void NumericCurveInfo2d::PerformInf(const Handle(GeomCurve2d)& C,
                                              const Standard_Real         UMin,
                                              const Standard_Real         UMax,
-                                             LProp_CurAndInf&            Result)
+                                             CurveAndInfo&            Result)
 {
   isDone = Standard_True;
   Geom2dLProp_FuncCurNul F(C);
@@ -124,7 +124,7 @@ void Geom2dLProp_NumericCurInf2d::PerformInf(const Handle(Geom2d_Curve)& C,
 
 //=================================================================================================
 
-Standard_Boolean Geom2dLProp_NumericCurInf2d::IsDone() const
+Standard_Boolean NumericCurveInfo2d::IsDone() const
 {
   return isDone;
 }

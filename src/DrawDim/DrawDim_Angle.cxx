@@ -37,7 +37,7 @@ IMPLEMENT_STANDARD_RTTIEXT(DrawDim_Angle, DrawDim_Dimension)
 
 //=================================================================================================
 
-DrawDim_Angle::DrawDim_Angle(const TopoDS_Face& plane1, const TopoDS_Face& plane2)
+DrawDim_Angle::DrawDim_Angle(const TopoFace& plane1, const TopoFace& plane2)
 {
   myPlane1 = plane1;
   myPlane2 = plane2;
@@ -45,40 +45,40 @@ DrawDim_Angle::DrawDim_Angle(const TopoDS_Face& plane1, const TopoDS_Face& plane
 
 //=================================================================================================
 
-const TopoDS_Face& DrawDim_Angle::Plane1() const
+const TopoFace& DrawDim_Angle::Plane1() const
 {
   return myPlane1;
 }
 
 //=================================================================================================
 
-void DrawDim_Angle::Plane1(const TopoDS_Face& plane)
+void DrawDim_Angle::Plane1(const TopoFace& plane)
 {
   myPlane1 = plane;
 }
 
 //=================================================================================================
 
-const TopoDS_Face& DrawDim_Angle::Plane2() const
+const TopoFace& DrawDim_Angle::Plane2() const
 {
   return myPlane2;
 }
 
 //=================================================================================================
 
-void DrawDim_Angle::Plane2(const TopoDS_Face& plane)
+void DrawDim_Angle::Plane2(const TopoFace& plane)
 {
   myPlane2 = plane;
 }
 
 //=================================================================================================
 
-void DrawDim_Angle::DrawOn(Draw_Display&) const
+void DrawDim_Angle::DrawOn(DrawDisplay&) const
 {
 
   // input
-  TopoDS_Shape  myFShape = myPlane1;
-  TopoDS_Shape  mySShape = myPlane2;
+  TopoShape  myFShape = myPlane1;
+  TopoShape  mySShape = myPlane2;
   Standard_Real myVal    = GetValue();
   Axis3d        myAxis;
 
@@ -93,9 +93,9 @@ void DrawDim_Angle::DrawOn(Draw_Display&) const
 
   // calculation of myAxis
   gp_Pln pln1, pln2;
-  if (!DrawDim::Pln(myPlane1, pln1))
+  if (!DrawDim1::Pln(myPlane1, pln1))
     return;
-  if (!DrawDim::Pln(myPlane2, pln2))
+  if (!DrawDim1::Pln(myPlane2, pln2))
     return;
   IntAna_QuadQuadGeo ip(pln1, pln2, Precision::Confusion(), Precision::Angular());
   if (!ip.IsDone())
@@ -108,16 +108,16 @@ void DrawDim_Angle::DrawOn(Draw_Display&) const
 
   if (myAutomaticPosition)
   {
-    TopExp_Explorer explo1(myFShape, TopAbs_VERTEX);
+    ShapeExplorer explo1(myFShape, TopAbs_VERTEX);
     Standard_Real   curdist = 0;
     while (explo1.More())
     {
-      TopoDS_Vertex vertref = TopoDS::Vertex(explo1.Current());
-      Point3d        curpt   = BRep_Tool::Pnt(vertref);
+      TopoVertex vertref = TopoDS::Vertex(explo1.Current());
+      Point3d        curpt   = BRepInspector::Pnt(vertref);
       if (theaxis.Distance(curpt) > curdist)
       {
         curdist   = theaxis.Distance(curpt);
-        myFAttach = BRep_Tool::Pnt(vertref);
+        myFAttach = BRepInspector::Pnt(vertref);
       }
       explo1.Next();
     }
@@ -137,13 +137,13 @@ void DrawDim_Angle::DrawOn(Draw_Display&) const
     // myFAttach  = the point of myFShape closest to curpos (except for the case when this is a
     // point on the axis)
     Standard_Real   dist = RealLast();
-    TopExp_Explorer explo1(myFShape, TopAbs_VERTEX);
+    ShapeExplorer explo1(myFShape, TopAbs_VERTEX);
     Point3d          AxePosition = AxePos.Location();
     Vector3d          AxeVector(theAxisDir);
     gp_XYZ          AxeXYZ = AxeVector.XYZ();
     while (explo1.More())
     {
-      Point3d curpt = BRep_Tool::Pnt(TopoDS::Vertex(explo1.Current()));
+      Point3d curpt = BRepInspector::Pnt(TopoDS::Vertex(explo1.Current()));
       Vector3d curvec(AxePosition, curpt);
       gp_XYZ curXYZ = curvec.XYZ();
       gp_XYZ Norm(curXYZ.Crossed(AxeXYZ));

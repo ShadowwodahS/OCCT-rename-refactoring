@@ -25,7 +25,7 @@ IMPLEMENT_STANDARD_RTTIEXT(OpenGl_ShadowMap, OpenGl_NamedResource)
 OpenGl_ShadowMap::OpenGl_ShadowMap()
     : OpenGl_NamedResource("shadow_map"),
       myShadowMapFbo(new OpenGl_FrameBuffer(myResourceId + ":fbo")),
-      myShadowCamera(new Graphic3d_Camera()),
+      myShadowCamera(new CameraOn3d()),
       myShadowMapBias(0.0f)
 {
   //
@@ -101,7 +101,7 @@ bool OpenGl_ShadowMap::UpdateCamera(const Graphic3d_CView& theView, const gp_XYZ
         aDir = anOrientInv * aDir;
       }
       myShadowCamera->SetZeroToOneDepth(theView.Camera()->IsZeroToOneDepth());
-      myShadowCamera->SetProjectionType(Graphic3d_Camera::Projection_Orthographic);
+      myShadowCamera->SetProjectionType(CameraOn3d::Projection_Orthographic);
       myShadowCamera->SetDirection(Dir3d(aDir.x(), aDir.y(), aDir.z()));
       myShadowCamera->SetUp(!myShadowCamera->Direction().IsParallel(gp::DY(), Precision::Angular())
                               ? gp::DY()
@@ -148,7 +148,7 @@ bool OpenGl_ShadowMap::UpdateCamera(const Graphic3d_CView& theView, const gp_XYZ
       }
 
       myShadowCamera->SetZeroToOneDepth(theView.Camera()->IsZeroToOneDepth());
-      myShadowCamera->SetProjectionType(Graphic3d_Camera::Projection_Perspective);
+      myShadowCamera->SetProjectionType(CameraOn3d::Projection_Perspective);
 
       const Point3d& aLightPos = myShadowLight->Position();
       Standard_Real aDistance(aMinMaxBox.Distance(Bnd_Box(aLightPos, aLightPos))

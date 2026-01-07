@@ -23,22 +23,22 @@
 #include <Message_ProgressRange.hxx>
 #include <BinTools_FormatVersion.hxx>
 
-class TopoDS_Shape;
+class TopoShape;
 class Point3d;
 
 //! Writes to the stream a Point3d data
 Standard_OStream& operator<<(Standard_OStream& OS, const Point3d& P);
 
-//! A base class for all readers/writers of TopoDS_Shape into/from stream.
-class BinTools_ShapeSetBase
+//! A base class for all readers/writers of TopoShape into/from stream.
+class ShapeSetBase
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! A default constructor.
-  Standard_EXPORT BinTools_ShapeSetBase();
+  Standard_EXPORT ShapeSetBase();
 
-  Standard_EXPORT virtual ~BinTools_ShapeSetBase();
+  Standard_EXPORT virtual ~ShapeSetBase();
 
   //! Return true if shape should be stored with triangles.
   Standard_Boolean IsWithTriangles() const { return myWithTriangles; }
@@ -105,13 +105,13 @@ public:
   //! Writes   on  <OS>   the shape   <S>.    Writes the
   //! orientation, the index of the TShape and the index
   //! of the Location.
-  Standard_EXPORT virtual void Write(const TopoDS_Shape& /*theShape*/,
+  Standard_EXPORT virtual void Write(const TopoShape& /*theShape*/,
                                      Standard_OStream& /*theStream*/)
   {
   }
 
   //! An empty virtual method for redefinition in shape-reader.
-  Standard_EXPORT virtual void Read(Standard_IStream& /*theStream*/, TopoDS_Shape& /*theShape*/) {}
+  Standard_EXPORT virtual void Read(Standard_IStream& /*theStream*/, TopoShape& /*theShape*/) {}
 
   static const Standard_CString THE_ASCII_VERSIONS[BinTools_FormatVersion_UPPER + 1];
 

@@ -31,22 +31,22 @@ class DBRep_Edge : public RefObject
 {
 
 public:
-  Standard_EXPORT DBRep_Edge(const TopoDS_Edge& E, const Draw_Color& C);
+  Standard_EXPORT DBRep_Edge(const TopoEdge& E, const DrawColor& C);
 
-  const TopoDS_Edge& Edge() const;
+  const TopoEdge& Edge() const;
 
-  void Edge(const TopoDS_Edge& E);
+  void Edge(const TopoEdge& E);
 
-  const Draw_Color& Color() const;
+  const DrawColor& Color() const;
 
-  void Color(const Draw_Color& C);
+  void Color(const DrawColor& C);
 
   DEFINE_STANDARD_RTTIEXT(DBRep_Edge, RefObject)
 
 protected:
 private:
-  TopoDS_Edge myEdge;
-  Draw_Color  myColor;
+  TopoEdge myEdge;
+  DrawColor  myColor;
 };
 
 #include <DBRep_Edge.lxx>

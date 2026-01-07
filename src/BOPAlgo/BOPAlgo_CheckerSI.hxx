@@ -30,10 +30,10 @@
 //! - *BOPAlgo_AlertMultipleArguments* - The number of the input arguments is not one;
 //! - *BOPALgo_ErrorIntersectionFailed* - The check has been aborted during intersection of
 //! sub-shapes. In case the error has occurred during intersection of sub-shapes, i.e. in
-//! BOPAlgo_PaveFiller::PerformInternal() method, the errors from this method directly will be
+//! BooleanPaveFiller::PerformInternal() method, the errors from this method directly will be
 //! returned.
 
-class BOPAlgo_CheckerSI : public BOPAlgo_PaveFiller
+class BOPAlgo_CheckerSI : public BooleanPaveFiller
 {
 public:
   DEFINE_STANDARD_ALLOC

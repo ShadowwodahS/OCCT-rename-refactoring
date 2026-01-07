@@ -23,7 +23,7 @@
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
 #include <ShapeUpgrade_SplitCurve3d.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 
 class ShapeUpgrade_SplitCurve3dContinuity;
 DEFINE_STANDARD_HANDLE(ShapeUpgrade_SplitCurve3dContinuity, ShapeUpgrade_SplitCurve3d)
@@ -48,7 +48,7 @@ public:
   //! Calculates points for correction/splitting of the curve
   Standard_EXPORT virtual void Compute() Standard_OVERRIDE;
 
-  Standard_EXPORT const Handle(Geom_Curve)& GetCurve() const;
+  Standard_EXPORT const Handle(GeomCurve3d)& GetCurve() const;
 
   DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_SplitCurve3dContinuity, ShapeUpgrade_SplitCurve3d)
 

@@ -86,7 +86,7 @@ struct OpenGl_GlCore44;
 struct OpenGl_GlCore45;
 struct OpenGl_GlCore46;
 
-class Graphic3d_Camera;
+class CameraOn3d;
 class Graphic3d_PresentationAttributes;
 class OpenGl_Aspects;
 class OpenGl_FrameBuffer;
@@ -161,7 +161,7 @@ class OpenGl_Context : public RefObject
   friend struct OpenGl_GlFunctions;
 
 public:
-  typedef NCollection_Shared<NCollection_DataMap<TCollection_AsciiString, Handle(OpenGl_Resource)>>
+  typedef NCollection_Shared<NCollection_DataMap<AsciiString1, Handle(OpenGl_Resource)>>
     OpenGl_ResourcesMap;
 
   //! Function for getting power of to number larger or equal to input number.
@@ -182,16 +182,16 @@ public:
   }
 
   //! Format GL constant as hex value 0xABCD.
-  Standard_EXPORT static TCollection_AsciiString FormatGlEnumHex(int theGlEnum);
+  Standard_EXPORT static AsciiString1 FormatGlEnumHex(int theGlEnum);
 
   //! Format pointer as hex value 0xABCD.
-  Standard_EXPORT static TCollection_AsciiString FormatPointer(const void* thePtr);
+  Standard_EXPORT static AsciiString1 FormatPointer(const void* thePtr);
 
   //! Format size value.
-  Standard_EXPORT static TCollection_AsciiString FormatSize(Standard_Size theSize);
+  Standard_EXPORT static AsciiString1 FormatSize(Standard_Size theSize);
 
   //! Return text description of GL error.
-  Standard_EXPORT static TCollection_AsciiString FormatGlError(int theGlError);
+  Standard_EXPORT static AsciiString1 FormatGlError(int theGlError);
 
 public:
   //! Empty constructor. You should call Init() to perform initialization with bound GL context.
@@ -395,7 +395,7 @@ public:
 
   //! This function retrieves information from GL about GPU memory
   //! and contains more vendor-specific values than AvailableMemory().
-  Standard_EXPORT TCollection_AsciiString MemoryInfo() const;
+  Standard_EXPORT AsciiString1 MemoryInfo() const;
 
   //! This function retrieves information from GL about GPU memory.
   Standard_EXPORT void MemoryInfo(TColStd_IndexedDataMapOfStringString& theDict) const;
@@ -413,14 +413,14 @@ public:
   //! @param  theKey - unique identifier;
   //! @return handle to shared resource or NULL.
   Standard_EXPORT const Handle(OpenGl_Resource)& GetResource(
-    const TCollection_AsciiString& theKey) const;
+    const AsciiString1& theKey) const;
 
   //! Access shared resource by its name.
   //! @param  theKey   - unique identifier;
   //! @param  theValue - handle to fill;
   //! @return true if resource was shared.
   template <typename TheHandleType>
-  Standard_Boolean GetResource(const TCollection_AsciiString& theKey, TheHandleType& theValue) const
+  Standard_Boolean GetResource(const AsciiString1& theKey, TheHandleType& theValue) const
   {
     const Handle(OpenGl_Resource)& aResource = GetResource(theKey);
     if (aResource.IsNull())
@@ -437,7 +437,7 @@ public:
   //! it will be automatically released on context destruction.
   //! @param theKey      - unique identifier, shouldn't be empty;
   //! @param theResource - new resource to register, shouldn't be NULL.
-  Standard_EXPORT Standard_Boolean ShareResource(const TCollection_AsciiString& theKey,
+  Standard_EXPORT Standard_Boolean ShareResource(const AsciiString1& theKey,
                                                  const Handle(OpenGl_Resource)& theResource);
 
   //! Release shared resource.
@@ -448,7 +448,7 @@ public:
   //! only in case of fat resources to release memory for other needs.
   //! @param theKey     unique identifier
   //! @param theToDelay postpone release until next redraw call
-  Standard_EXPORT void ReleaseResource(const TCollection_AsciiString& theKey,
+  Standard_EXPORT void ReleaseResource(const AsciiString1& theKey,
                                        const Standard_Boolean         theToDelay = Standard_False);
 
   //! Append resource to queue for delayed clean up.
@@ -676,10 +676,10 @@ public:
   const Graphic3d_PolygonOffset& PolygonOffset() const { return myPolygonOffset; }
 
   //! Returns camera object.
-  const Handle(Graphic3d_Camera)& Camera() const { return myCamera; }
+  const Handle(CameraOn3d)& Camera() const { return myCamera; }
 
   //! Sets camera object to the context and update matrices.
-  Standard_EXPORT void SetCamera(const Handle(Graphic3d_Camera)& theCamera);
+  Standard_EXPORT void SetCamera(const Handle(CameraOn3d)& theCamera);
 
   //! Applies matrix into shader manager stored in ModelWorldState to OpenGl.
   //! In "model -> world -> view -> projection" it performs:
@@ -719,7 +719,7 @@ public:
                                    const unsigned int                theType,
                                    const unsigned int                theId,
                                    const unsigned int                theSeverity,
-                                   const TCollection_ExtendedString& theMessage);
+                                   const UtfString& theMessage);
 
   //! Adds a filter for messages with theId and theSource (GL_DEBUG_SOURCE_)
   Standard_EXPORT Standard_Boolean ExcludeMessage(const unsigned int theSource,
@@ -1008,7 +1008,7 @@ public: //! @name methods to alter or retrieve current state
                                         void*        theData);
 
   //! Return Graphics Driver's vendor.
-  const TCollection_AsciiString& Vendor() const { return myVendor; }
+  const AsciiString1& Vendor() const { return myVendor; }
 
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
@@ -1119,7 +1119,7 @@ private:                     // system-dependent fields
 
 private: // context info
 
-  typedef NCollection_Shared< NCollection_DataMap<TCollection_AsciiString, Standard_Integer> > OpenGl_DelayReleaseMap;
+  typedef NCollection_Shared< NCollection_DataMap<AsciiString1, Standard_Integer> > OpenGl_DelayReleaseMap;
   typedef NCollection_Shared< NCollection_List<Handle(OpenGl_Resource)> > OpenGl_ResourcesStack;
 
   Handle(OpenGl_ResourcesMap)    mySharedResources; //!< shared resources with unique identification key
@@ -1176,7 +1176,7 @@ private: // context info
   Handle(OpenGl_ShaderManager) myShaderManager; //! support object for managing shader programs
 
 private:                                           //! @name fields tracking current state
-  Handle(Graphic3d_Camera)     myCamera;           //!< active camera object
+  Handle(CameraOn3d)     myCamera;           //!< active camera object
   Handle(OpenGl_FrameStats)    myFrameStats;       //!< structure accumulating frame statistics
   Handle(OpenGl_ShaderProgram) myActiveProgram;    //!< currently active GLSL program
   Handle(OpenGl_TextureSet)    myActiveTextures;   //!< currently bound textures
@@ -1208,7 +1208,7 @@ private:                                           //! @name fields tracking cur
   Standard_Boolean              myIsWindowDeepColor; //!< indicates that window buffer is has deep color pixel format
   Standard_Boolean              myIsSRgbWindow;    //!< indicates that window buffer is sRGB-ready
   Standard_Boolean              myIsSRgbActive;    //!< flag indicating GL_FRAMEBUFFER_SRGB state
-  TCollection_AsciiString       myVendor;          //!< Graphics Driver's vendor
+  AsciiString1       myVendor;          //!< Graphics Driver's vendor
   TColStd_PackedMapOfInteger    myFilters[6];      //!< messages suppressing filter (for sources from GL_DEBUG_SOURCE_API_ARB to GL_DEBUG_SOURCE_OTHER_ARB)
   unsigned int                  myResolution;      //!< Pixels density (PPI), defines scaling factor for parameters like text size
   Standard_ShortReal            myResolutionRatio; //!< scaling factor for parameters like text size

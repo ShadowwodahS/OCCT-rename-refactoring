@@ -32,15 +32,15 @@
 //! orientation such that the plane is said to be "direct", if the
 //! coordinate system is right-handed, or "indirect" in the other case.
 //! Note: when a gp_Pln plane is converted into a
-//! Geom_Plane plane, some implicit properties of its local
+//! GeomPlane plane, some implicit properties of its local
 //! coordinate system are used explicitly:
 //! -   its origin defines the origin of the two parameters of
 //! the planar surface,
-//! -   its implicit orientation is also that of the Geom_Plane.
+//! -   its implicit orientation is also that of the GeomPlane.
 //! See Also
 //! gce_MakePln which provides functions for more complex
 //! plane constructions
-//! Geom_Plane which provides additional functions for
+//! GeomPlane which provides additional functions for
 //! constructing planes and works, in particular, with the
 //! parametric equations of planes
 class gp_Pln

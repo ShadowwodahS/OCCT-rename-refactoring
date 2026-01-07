@@ -22,7 +22,7 @@ class RefObject;
 class Standard_GUID;
 class XmlMDF_ADriverTable;
 class Message_Messenger;
-class TDocStd_Application;
+class AppManager;
 
 class XmlDrivers
 {
@@ -31,7 +31,7 @@ public:
 
   //! Defines format "XmlOcaf" and registers its read and write drivers
   //! in the specified application
-  Standard_EXPORT static void DefineFormat(const Handle(TDocStd_Application)& theApp);
+  Standard_EXPORT static void DefineFormat(const Handle(AppManager)& theApp);
 
   Standard_EXPORT static Handle(XmlMDF_ADriverTable) AttributeDrivers(
     const Handle(Message_Messenger)& theMsgDriver);

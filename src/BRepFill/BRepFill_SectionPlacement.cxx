@@ -46,17 +46,17 @@ static Standard_Boolean myDebug = Standard_False;
 
 static Standard_Real SearchParam(const Handle(BRepFill_LocationLaw)& Law,
                                  const Standard_Integer              Ind,
-                                 const TopoDS_Vertex&                TheV)
+                                 const TopoVertex&                TheV)
 {
   Standard_Real t;
-  TopoDS_Edge   E;
+  TopoEdge   E;
   E = Law->Edge(Ind);
-  t = BRep_Tool::Parameter(TheV, E);
+  t = BRepInspector::Parameter(TheV, E);
   if (E.Orientation() == TopAbs_REVERSED)
   {
     Standard_Real      f, l, Lf, Ll;
-    Handle(Geom_Curve) C;
-    C  = BRep_Tool::Curve(E, f, l);
+    Handle(GeomCurve3d) C;
+    C  = BRepInspector::Curve(E, f, l);
     Lf = Law->Law(Ind)->GetCurve()->FirstParameter();
     Ll = Law->Law(Ind)->GetCurve()->LastParameter();
     t  = Ll - (t - f) * (Ll - Lf) / (l - f);
@@ -65,20 +65,20 @@ static Standard_Real SearchParam(const Handle(BRepFill_LocationLaw)& Law,
 }
 
 BRepFill_SectionPlacement::BRepFill_SectionPlacement(const Handle(BRepFill_LocationLaw)& Law,
-                                                     const TopoDS_Shape&                 Section,
+                                                     const TopoShape&                 Section,
                                                      const Standard_Boolean WithContact,
                                                      const Standard_Boolean WithCorrection)
     : myLaw(Law),
       mySection(Section)
 {
-  TopoDS_Vertex VNull;
+  TopoVertex VNull;
   VNull.Nullify();
   Perform(WithContact, WithCorrection, VNull);
 }
 
 BRepFill_SectionPlacement::BRepFill_SectionPlacement(const Handle(BRepFill_LocationLaw)& Law,
-                                                     const TopoDS_Shape&                 Section,
-                                                     const TopoDS_Shape&                 Vertex,
+                                                     const TopoShape&                 Section,
+                                                     const TopoShape&                 Vertex,
                                                      const Standard_Boolean WithContact,
                                                      const Standard_Boolean WithCorrection)
     : myLaw(Law),
@@ -89,18 +89,18 @@ BRepFill_SectionPlacement::BRepFill_SectionPlacement(const Handle(BRepFill_Locat
 
 void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
                                         const Standard_Boolean WithCorrection,
-                                        const TopoDS_Shape&    Vertex)
+                                        const TopoShape&    Vertex)
 {
-  TopoDS_Vertex TheV;
+  TopoVertex TheV;
   TheV = TopoDS::Vertex(Vertex);
   Standard_Integer          ii;
   Standard_Integer          Ind1 = 0, Ind2 = 0;
   Standard_Boolean          Bof, isVertex  = Standard_False;
   Standard_Real             First = 0., Last = 0.;
-  TopExp_Explorer           Ex;
-  TopoDS_Edge               E;
-  TopoDS_Vertex             V;
-  Handle(Geom_Curve)        C;
+  ShapeExplorer           Ex;
+  TopoEdge               E;
+  TopoVertex             V;
+  Handle(GeomCurve3d)        C;
   Handle(Geom_TrimmedCurve) TC;
 
   // modified by NIZHNY-OCC629  Thu Jul 24 14:11:45 2003
@@ -110,9 +110,9 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   {
     E = TopoDS::Edge(Ex.Current());
     // avoid null, degenerated edges
-    if (E.IsNull() || BRep_Tool::Degenerated(E))
+    if (E.IsNull() || BRepInspector::Degenerated(E))
       continue;
-    C = BRep_Tool::Curve(E, First, Last);
+    C = BRepInspector::Curve(E, First, Last);
     if (C.IsNull())
       continue;
     isFound = Standard_True;
@@ -134,12 +134,12 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
       {
         E = TopoDS::Edge(Ex.Current());
         // avoid null, degenerated edges
-        if (E.IsNull() || BRep_Tool::Degenerated(E))
+        if (E.IsNull() || BRepInspector::Degenerated(E))
           continue;
-        TopoDS_Vertex VFirst, VLast;
-        TopExp::Vertices(E, VFirst, VLast);
-        epsV = Max(BRep_Tool::Tolerance(VFirst), BRep_Tool::Tolerance(VLast));
-        C    = BRep_Tool::Curve(E, First, Last);
+        TopoVertex VFirst, VLast;
+        TopExp1::Vertices(E, VFirst, VLast);
+        epsV = Max(BRepInspector::Tolerance(VFirst), BRepInspector::Tolerance(VLast));
+        C    = BRepInspector::Curve(E, First, Last);
         if (C.IsNull())
           continue;
         TC     = new (Geom_TrimmedCurve)(C, First, Last);
@@ -164,13 +164,13 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   //   Standard_Boolean isPonctual = Standard_False;
   //  if (Ex.More()) {
   //    E = TopoDS::Edge(Ex.Current());
-  //    isPonctual = BRep_Tool::Degenerated(E);
+  //    isPonctual = BRepInspector::Degenerated(E);
   //  }
 
   //   Ex.Init(mySection, TopAbs_EDGE);
   //   if (Ex.More()&&!isPonctual) {
   //     E = TopoDS::Edge(Ex.Current());
-  //     C = BRep_Tool::Curve(E, First, Last);
+  //     C = BRepInspector::Curve(E, First, Last);
   //     TC = new (Geom_TrimmedCurve)(C, First, Last);
   //     Ex.Next();
   //     if (Ex.More()) { // On essai d'avoir un echantillon representatif
@@ -178,10 +178,10 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   //       GeomConvert_CompCurveToBSplineCurve Conv(TC);
   //       for (; Ex.More(); Ex.Next()) {
   // 	E = TopoDS::Edge(Ex.Current());
-  // 	TopoDS_Vertex VFirst, VLast;
-  // 	TopExp::Vertices(E,VFirst, VLast);
-  // 	epsV = Max(BRep_Tool::Tolerance(VFirst), BRep_Tool::Tolerance(VLast));
-  // 	C = BRep_Tool::Curve(E, First, Last);
+  // 	TopoVertex VFirst, VLast;
+  // 	TopExp1::Vertices(E,VFirst, VLast);
+  // 	epsV = Max(BRepInspector::Tolerance(VFirst), BRepInspector::Tolerance(VLast));
+  // 	C = BRepInspector::Curve(E, First, Last);
   // 	TC = new (Geom_TrimmedCurve)(C, First, Last);
   // 	tolrac = Min(tol,epsV);
   // 	Bof = Conv.Add(TC, tolrac);
@@ -203,17 +203,17 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   //        throw Standard_ConstructionError("Distance Vertex/Spine");
 
   //     if (Ext.SupportTypeShape2(1) == BRepExtrema_IsOnEdge) {
-  //       TopoDS_Shape sbis = Ext.SupportOnShape2(1);
+  //       TopoShape sbis = Ext.SupportOnShape2(1);
   //       E = TopoDS::Edge(sbis);
   //       Ext.ParOnEdgeS2(1, Tpos);
   //     }
   //     else {
-  //       TopoDS_Vertex Vf, Vl,V;
-  //       TopoDS_Shape sbis = Ext.SupportOnShape2(1);
+  //       TopoVertex Vf, Vl,V;
+  //       TopoShape sbis = Ext.SupportOnShape2(1);
   //       V = TopoDS::Vertex(sbis);
   //       for (ii=1, Ind1=0 ; ii<=myLaw->NbLaw(); ii++) {
   // 	E = myLaw->Edge(ii);
-  // 	TopExp::Vertices(E, Vf, Vl);
+  // 	TopExp1::Vertices(E, Vf, Vl);
   // 	if ((V.IsSame(Vf)) || (V.IsSame(Vl))) {
   // 	  if (Ind1 == 0) Ind1 = ii;
   // 	  else Ind2 = ii;
@@ -223,16 +223,16 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   //       // On invente une section
   //       Dir3d D(0, 0, 1);
   //       Point3d Origine, PV;
-  //       Origine = BRep_Tool::Pnt(V);
+  //       Origine = BRepInspector::Pnt(V);
   //       Standard_Real length;
 
   //       if (Ext.SupportTypeShape1(1) == BRepExtrema_IsVertex) {
-  // 	TopoDS_Shape aLocalShape = Ext.SupportOnShape1(1);
-  //         PV = BRep_Tool::Pnt(TopoDS::Vertex(aLocalShape));
-  // //        PV = BRep_Tool::Pnt(TopoDS::Vertex(Ext.SupportOnShape1(1)));
+  // 	TopoShape aLocalShape = Ext.SupportOnShape1(1);
+  //         PV = BRepInspector::Pnt(TopoDS::Vertex(aLocalShape));
+  // //        PV = BRepInspector::Pnt(TopoDS::Vertex(Ext.SupportOnShape1(1)));
   //       }
   //       else {
-  //         PV = BRep_Tool::Pnt(TopoDS::Vertex(mySection));
+  //         PV = BRepInspector::Pnt(TopoDS::Vertex(mySection));
   //       }
   //       length = Origine.Distance(PV);
   //       if (length > Precision::Confusion()) {
@@ -240,7 +240,7 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   // 	D.SetXYZ(theVec.XYZ());
   //       }
   //       else length = 10*Precision::Confusion();
-  //       Handle(Geom_Line) CL = new (Geom_Line) (Origine, D);
+  //       Handle(GeomLine) CL = new (GeomLine) (Origine, D);
   //       TC = new (Geom_TrimmedCurve)(CL, 0., length);
   //       C = TC;
   //       isVertex = Standard_True;
@@ -277,8 +277,8 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   if (isVertex)
   {
     Ex.Init(mySection, TopAbs_VERTEX);
-    TopoDS_Vertex theVertex = TopoDS::Vertex(Ex.Current());
-    Point3d        thePoint  = BRep_Tool::Pnt(theVertex);
+    TopoVertex theVertex = TopoDS::Vertex(Ex.Current());
+    Point3d        thePoint  = BRepInspector::Pnt(theVertex);
     theSection              = new Geom_CartesianPoint(thePoint);
   }
 
@@ -328,9 +328,9 @@ void BRepFill_SectionPlacement::Perform(const Standard_Boolean WithContact,
   if (!TheV.IsNull())
     for (Ind1 = 1; Ind1 <= myLaw->NbLaw(); Ind1++)
     {
-      TopoDS_Edge   anEdge = myLaw->Edge(Ind1);
-      TopoDS_Vertex V1, V2;
-      TopExp::Vertices(anEdge, V1, V2);
+      TopoEdge   anEdge = myLaw->Edge(Ind1);
+      TopoVertex V1, V2;
+      TopExp1::Vertices(anEdge, V1, V2);
       if (V1.IsSame(TheV) || V2.IsSame(TheV))
         break;
     }

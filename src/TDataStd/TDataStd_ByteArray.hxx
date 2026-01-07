@@ -24,7 +24,7 @@
 #include <Standard_OStream.hxx>
 #include <Standard_GUID.hxx>
 
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 class TDF_DeltaOnModification;
 
@@ -48,7 +48,7 @@ public:
   //! If attribute is already set, all input parameters are refused and the found
   //! attribute is returned.
   Standard_EXPORT static Handle(TDataStd_ByteArray) Set(
-    const TDF_Label&       label,
+    const DataLabel&       label,
     const Standard_Integer lower,
     const Standard_Integer upper,
     const Standard_Boolean isDelta = Standard_False);
@@ -56,7 +56,7 @@ public:
   //! Finds or creates an attribute with byte array and explicit user defined <guid> on the
   //! specified label.
   Standard_EXPORT static Handle(TDataStd_ByteArray) Set(
-    const TDF_Label&       label,
+    const DataLabel&       label,
     const Standard_GUID&   theGuid,
     const Standard_Integer lower,
     const Standard_Integer upper,

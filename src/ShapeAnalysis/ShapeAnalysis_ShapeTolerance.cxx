@@ -63,7 +63,7 @@ static void AddTol(const Standard_Real tol,
 
 //=================================================================================================
 
-Standard_Real ShapeAnalysis_ShapeTolerance::Tolerance(const TopoDS_Shape&    shape,
+Standard_Real ShapeAnalysis_ShapeTolerance::Tolerance(const TopoShape&    shape,
                                                       const Standard_Integer mode,
                                                       const TopAbs_ShapeEnum type)
 {
@@ -75,7 +75,7 @@ Standard_Real ShapeAnalysis_ShapeTolerance::Tolerance(const TopoDS_Shape&    sha
 //=================================================================================================
 
 Handle(TopTools_HSequenceOfShape) ShapeAnalysis_ShapeTolerance::OverTolerance(
-  const TopoDS_Shape&    shape,
+  const TopoShape&    shape,
   const Standard_Real    value,
   const TopAbs_ShapeEnum type) const
 {
@@ -88,7 +88,7 @@ Handle(TopTools_HSequenceOfShape) ShapeAnalysis_ShapeTolerance::OverTolerance(
 //=================================================================================================
 
 Handle(TopTools_HSequenceOfShape) ShapeAnalysis_ShapeTolerance::InTolerance(
-  const TopoDS_Shape&    shape,
+  const TopoShape&    shape,
   const Standard_Real    valmin,
   const Standard_Real    valmax,
   const TopAbs_ShapeEnum type) const
@@ -97,7 +97,7 @@ Handle(TopTools_HSequenceOfShape) ShapeAnalysis_ShapeTolerance::InTolerance(
   Standard_Boolean                  over = (valmax < valmin); // pas de liminite max
   Handle(TopTools_HSequenceOfShape) sl   = new TopTools_HSequenceOfShape();
 
-  TopExp_Explorer myExp;
+  ShapeExplorer myExp;
 
   // Iteration sur les Faces
 
@@ -106,7 +106,7 @@ Handle(TopTools_HSequenceOfShape) ShapeAnalysis_ShapeTolerance::InTolerance(
     myExp.Init(shape, TopAbs_FACE);
     while (myExp.More())
     {
-      tol = BRep_Tool::Tolerance(TopoDS::Face(myExp.Current()));
+      tol = BRepInspector::Tolerance(TopoDS::Face(myExp.Current()));
       if (tol >= valmin && (over || (tol <= valmax)))
         sl->Append(myExp.Current());
       myExp.Next();
@@ -120,7 +120,7 @@ Handle(TopTools_HSequenceOfShape) ShapeAnalysis_ShapeTolerance::InTolerance(
     myExp.Init(shape, TopAbs_EDGE);
     while (myExp.More())
     {
-      tol = BRep_Tool::Tolerance(TopoDS::Edge(myExp.Current()));
+      tol = BRepInspector::Tolerance(TopoDS::Edge(myExp.Current()));
       if (tol >= valmin && (over || (tol <= valmax)))
         sl->Append(myExp.Current());
       myExp.Next();
@@ -134,7 +134,7 @@ Handle(TopTools_HSequenceOfShape) ShapeAnalysis_ShapeTolerance::InTolerance(
     myExp.Init(shape, TopAbs_VERTEX);
     while (myExp.More())
     {
-      tol = BRep_Tool::Tolerance(TopoDS::Vertex(myExp.Current()));
+      tol = BRepInspector::Tolerance(TopoDS::Vertex(myExp.Current()));
       if (tol >= valmin && (over || (tol >= valmax)))
         sl->Append(myExp.Current());
       myExp.Next();
@@ -151,8 +151,8 @@ Handle(TopTools_HSequenceOfShape) ShapeAnalysis_ShapeTolerance::InTolerance(
     while (myExp.More())
     {
       Standard_Boolean iashell = Standard_False;
-      TopoDS_Shape     ash     = myExp.Current();
-      for (TopExp_Explorer face(ash, TopAbs_FACE); face.More(); face.Next())
+      TopoShape     ash     = myExp.Current();
+      for (ShapeExplorer face(ash, TopAbs_FACE); face.More(); face.Next())
       {
         mapface.Add(face.Current());
         Handle(TopTools_HSequenceOfShape) fc = InTolerance(face.Current(), valmin, valmax, type);
@@ -174,7 +174,7 @@ Handle(TopTools_HSequenceOfShape) ShapeAnalysis_ShapeTolerance::InTolerance(
       Standard_Boolean iaface = Standard_False;
       if (mapface.Contains(myExp.Current()))
         continue;
-      tol = BRep_Tool::Tolerance(TopoDS::Face(myExp.Current()));
+      tol = BRepInspector::Tolerance(TopoDS::Face(myExp.Current()));
       if (tol >= valmin && (over || (tol <= valmax)))
         iaface = Standard_True;
       else
@@ -209,13 +209,13 @@ void ShapeAnalysis_ShapeTolerance::InitTolerance()
 
 //=================================================================================================
 
-void ShapeAnalysis_ShapeTolerance::AddTolerance(const TopoDS_Shape&    shape,
+void ShapeAnalysis_ShapeTolerance::AddTolerance(const TopoShape&    shape,
                                                 const TopAbs_ShapeEnum type)
 {
   Standard_Integer nbt = 0;
   Standard_Real    tol, cmin = 0., cmoy = 0., cmax = 0.;
 
-  TopExp_Explorer myExp;
+  ShapeExplorer myExp;
 
   // Iteration sur les Faces
 
@@ -224,7 +224,7 @@ void ShapeAnalysis_ShapeTolerance::AddTolerance(const TopoDS_Shape&    shape,
     myExp.Init(shape, TopAbs_FACE);
     while (myExp.More())
     {
-      tol = BRep_Tool::Tolerance(TopoDS::Face(myExp.Current()));
+      tol = BRepInspector::Tolerance(TopoDS::Face(myExp.Current()));
       AddTol(tol, nbt, cmin, cmoy, cmax);
       myExp.Next();
     }
@@ -237,7 +237,7 @@ void ShapeAnalysis_ShapeTolerance::AddTolerance(const TopoDS_Shape&    shape,
     myExp.Init(shape, TopAbs_EDGE);
     while (myExp.More())
     {
-      tol = BRep_Tool::Tolerance(TopoDS::Edge(myExp.Current()));
+      tol = BRepInspector::Tolerance(TopoDS::Edge(myExp.Current()));
       AddTol(tol, nbt, cmin, cmoy, cmax);
       myExp.Next();
     }
@@ -250,7 +250,7 @@ void ShapeAnalysis_ShapeTolerance::AddTolerance(const TopoDS_Shape&    shape,
     myExp.Init(shape, TopAbs_VERTEX);
     while (myExp.More())
     {
-      tol = BRep_Tool::Tolerance(TopoDS::Vertex(myExp.Current()));
+      tol = BRepInspector::Tolerance(TopoDS::Vertex(myExp.Current()));
       AddTol(tol, nbt, cmin, cmoy, cmax);
       myExp.Next();
     }

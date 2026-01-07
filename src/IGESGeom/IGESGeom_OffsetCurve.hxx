@@ -29,7 +29,7 @@ class IGESGeom_OffsetCurve;
 DEFINE_STANDARD_HANDLE(IGESGeom_OffsetCurve, IGESData_IGESEntity)
 
 //! defines IGESOffsetCurve, Type <130> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! An OffsetCurve entity contains the data necessary to
 //! determine the offset of a given curve C. This entity
 //! points to the base curve to be offset and contains

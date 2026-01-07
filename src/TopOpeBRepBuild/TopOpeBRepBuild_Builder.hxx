@@ -55,11 +55,11 @@ class TopOpeBRepBuild_SolidBuilder;
 class TopOpeBRepBuild_WireEdgeSet;
 class TopOpeBRepDS_PointIterator;
 class TopOpeBRepBuild_PaveSet;
-class TopOpeBRepBuild_GTopo;
+class GTopologyClassifier;
 class TopOpeBRepBuild_ShellFaceSet;
 class TopOpeBRepDS_SurfaceIterator;
 class TopOpeBRepDS_CurveIterator;
-class TopoDS_Vertex;
+class TopoVertex;
 class Point3d;
 
 // resolve name collisions with X11 headers
@@ -96,8 +96,8 @@ public:
   //! Evaluates if an operation performed on shapes S1,S2
   //! is a particular case.
   Standard_EXPORT virtual void Perform(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
-                                       const TopoDS_Shape&                        S1,
-                                       const TopoDS_Shape&                        S2);
+                                       const TopoShape&                        S1,
+                                       const TopoShape&                        S2);
 
   //! returns the DS handled by this builder
   Standard_EXPORT Handle(TopOpeBRepDS_HDataStructure) DataStructure() const;
@@ -111,9 +111,9 @@ public:
   //! Booleans onA, onB, onAB indicate whether parts of edges
   //! found as state ON respectively on first, second, and both
   //! shapes must be (or not) built.
-  Standard_EXPORT void MergeEdges(const TopTools_ListOfShape& L1,
+  Standard_EXPORT void MergeEdges(const ShapeList& L1,
                                   const TopAbs_State          TB1,
-                                  const TopTools_ListOfShape& L2,
+                                  const ShapeList& L2,
                                   const TopAbs_State          TB2,
                                   const Standard_Boolean      onA  = Standard_False,
                                   const Standard_Boolean      onB  = Standard_False,
@@ -121,9 +121,9 @@ public:
 
   //! Merges  the two faces <S1>   and <S2> keeping the
   //! parts in each face of states <TB1> and <TB2>.
-  Standard_EXPORT void MergeFaces(const TopTools_ListOfShape& S1,
+  Standard_EXPORT void MergeFaces(const ShapeList& S1,
                                   const TopAbs_State          TB1,
-                                  const TopTools_ListOfShape& S2,
+                                  const ShapeList& S2,
                                   const TopAbs_State          TB2,
                                   const Standard_Boolean      onA  = Standard_False,
                                   const Standard_Boolean      onB  = Standard_False,
@@ -131,16 +131,16 @@ public:
 
   //! Merges  the two solids <S1>   and <S2> keeping the
   //! parts in each solid of states <TB1> and <TB2>.
-  Standard_EXPORT void MergeSolids(const TopoDS_Shape& S1,
+  Standard_EXPORT void MergeSolids(const TopoShape& S1,
                                    const TopAbs_State  TB1,
-                                   const TopoDS_Shape& S2,
+                                   const TopoShape& S2,
                                    const TopAbs_State  TB2);
 
   //! Merges the two shapes <S1> and <S2> keeping the
   //! parts of states <TB1>,<TB2> in <S1>,<S2>.
-  Standard_EXPORT void MergeShapes(const TopoDS_Shape& S1,
+  Standard_EXPORT void MergeShapes(const TopoShape& S1,
                                    const TopAbs_State  TB1,
-                                   const TopoDS_Shape& S2,
+                                   const TopoShape& S2,
                                    const TopAbs_State  TB2);
 
   Standard_EXPORT void End();
@@ -151,29 +151,29 @@ public:
 
   //! Merges the solid <S>  keeping the
   //! parts of state <TB>.
-  Standard_EXPORT void MergeSolid(const TopoDS_Shape& S, const TopAbs_State TB);
+  Standard_EXPORT void MergeSolid(const TopoShape& S, const TopAbs_State TB);
 
   //! Returns the vertex created on point <I>.
-  Standard_EXPORT const TopoDS_Shape& NewVertex(const Standard_Integer I) const;
+  Standard_EXPORT const TopoShape& NewVertex(const Standard_Integer I) const;
 
   //! Returns the edges created on curve <I>.
-  Standard_EXPORT const TopTools_ListOfShape& NewEdges(const Standard_Integer I) const;
+  Standard_EXPORT const ShapeList& NewEdges(const Standard_Integer I) const;
 
   //! Returns the faces created on surface <I>.
-  Standard_EXPORT const TopTools_ListOfShape& NewFaces(const Standard_Integer I) const;
+  Standard_EXPORT const ShapeList& NewFaces(const Standard_Integer I) const;
 
   //! Returns True if the shape <S> has been split.
-  Standard_EXPORT Standard_Boolean IsSplit(const TopoDS_Shape& S, const TopAbs_State TB) const;
+  Standard_EXPORT Standard_Boolean IsSplit(const TopoShape& S, const TopAbs_State TB) const;
 
   //! Returns the split parts <TB> of shape <S>.
-  Standard_EXPORT const TopTools_ListOfShape& Splits(const TopoDS_Shape& S,
+  Standard_EXPORT const ShapeList& Splits(const TopoShape& S,
                                                      const TopAbs_State  TB) const;
 
   //! Returns True if the shape <S> has been merged.
-  Standard_EXPORT Standard_Boolean IsMerged(const TopoDS_Shape& S, const TopAbs_State TB) const;
+  Standard_EXPORT Standard_Boolean IsMerged(const TopoShape& S, const TopAbs_State TB) const;
 
   //! Returns the merged parts <TB> of shape <S>.
-  Standard_EXPORT const TopTools_ListOfShape& Merged(const TopoDS_Shape& S,
+  Standard_EXPORT const ShapeList& Merged(const TopoShape& S,
                                                      const TopAbs_State  TB) const;
 
   Standard_EXPORT void InitSection();
@@ -182,14 +182,14 @@ public:
   Standard_EXPORT void SplitSectionEdges();
 
   //! create parts ON solid of section edges
-  Standard_EXPORT virtual void SplitSectionEdge(const TopoDS_Shape& E);
+  Standard_EXPORT virtual void SplitSectionEdge(const TopoShape& E);
 
   //! return the section edges built on new curves.
-  Standard_EXPORT void SectionCurves(TopTools_ListOfShape& L);
+  Standard_EXPORT void SectionCurves(ShapeList& L);
 
   //! return the parts of edges found ON the boundary
   //! of the two arguments S1,S2 of Perform()
-  Standard_EXPORT void SectionEdges(TopTools_ListOfShape& L);
+  Standard_EXPORT void SectionEdges(ShapeList& L);
 
   //! Fills anAncMap with pairs (edge,ancestor edge) for each
   //! split from the map aMapON for the shape object identified
@@ -199,9 +199,9 @@ public:
                                               TopTools_DataMapOfShapeShape& anAncMap) const;
 
   //! return all section edges.
-  Standard_EXPORT void Section(TopTools_ListOfShape& L);
+  Standard_EXPORT void Section(ShapeList& L);
 
-  Standard_EXPORT const TopTools_ListOfShape& Section();
+  Standard_EXPORT const ShapeList& Section();
 
   //! update the DS by creating new geometries.
   //! create vertices on DS points.
@@ -217,22 +217,22 @@ public:
   Standard_EXPORT TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State& ChangeMSplit(
     const TopAbs_State s);
 
-  Standard_EXPORT void MakeEdges(const TopoDS_Shape&          E,
+  Standard_EXPORT void MakeEdges(const TopoShape&          E,
                                  TopOpeBRepBuild_EdgeBuilder& B,
-                                 TopTools_ListOfShape&        L);
+                                 ShapeList&        L);
 
-  Standard_EXPORT void MakeFaces(const TopoDS_Shape&          F,
+  Standard_EXPORT void MakeFaces(const TopoShape&          F,
                                  TopOpeBRepBuild_FaceBuilder& B,
-                                 TopTools_ListOfShape&        L);
+                                 ShapeList&        L);
 
-  Standard_EXPORT void MakeSolids(TopOpeBRepBuild_SolidBuilder& B, TopTools_ListOfShape& L);
+  Standard_EXPORT void MakeSolids(TopOpeBRepBuild_SolidBuilder& B, ShapeList& L);
 
-  Standard_EXPORT void MakeShells(TopOpeBRepBuild_SolidBuilder& B, TopTools_ListOfShape& L);
+  Standard_EXPORT void MakeShells(TopOpeBRepBuild_SolidBuilder& B, ShapeList& L);
 
   //! Returns a ref.on the list of shapes connected to <S> as
   //! <TB> split parts of <S>.
   //! Mark <S> as split in <TB> parts.
-  Standard_EXPORT TopTools_ListOfShape& ChangeSplit(const TopoDS_Shape& S, const TopAbs_State TB);
+  Standard_EXPORT ShapeList& ChangeSplit(const TopoShape& S, const TopAbs_State TB);
 
   Standard_EXPORT Standard_Boolean Opec12() const;
 
@@ -242,39 +242,39 @@ public:
 
   Standard_EXPORT Standard_Boolean Opefus() const;
 
-  Standard_EXPORT TopAbs_State ShapePosition(const TopoDS_Shape& S, const TopTools_ListOfShape& LS);
+  Standard_EXPORT TopAbs_State ShapePosition(const TopoShape& S, const ShapeList& LS);
 
-  Standard_EXPORT Standard_Boolean KeepShape(const TopoDS_Shape&         S,
-                                             const TopTools_ListOfShape& LS,
+  Standard_EXPORT Standard_Boolean KeepShape(const TopoShape&         S,
+                                             const ShapeList& LS,
                                              const TopAbs_State          T);
 
-  Standard_EXPORT static TopAbs_ShapeEnum TopType(const TopoDS_Shape& S);
+  Standard_EXPORT static TopAbs_ShapeEnum TopType(const TopoShape& S);
 
   Standard_EXPORT static Standard_Boolean Reverse(const TopAbs_State T1, const TopAbs_State T2);
 
   Standard_EXPORT static TopAbs_Orientation Orient(const TopAbs_Orientation O,
                                                    const Standard_Boolean   R);
 
-  Standard_EXPORT void FindSameDomain(TopTools_ListOfShape& L1, TopTools_ListOfShape& L2) const;
+  Standard_EXPORT void FindSameDomain(ShapeList& L1, ShapeList& L2) const;
 
-  Standard_EXPORT void FindSameDomainSameOrientation(TopTools_ListOfShape& LSO,
-                                                     TopTools_ListOfShape& LDO) const;
+  Standard_EXPORT void FindSameDomainSameOrientation(ShapeList& LSO,
+                                                     ShapeList& LDO) const;
 
-  Standard_EXPORT void MapShapes(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
+  Standard_EXPORT void MapShapes(const TopoShape& S1, const TopoShape& S2);
 
   Standard_EXPORT void ClearMaps();
 
-  Standard_EXPORT void FindSameRank(const TopTools_ListOfShape& L1,
+  Standard_EXPORT void FindSameRank(const ShapeList& L1,
                                     const Standard_Integer      R,
-                                    TopTools_ListOfShape&       L2) const;
+                                    ShapeList&       L2) const;
 
-  Standard_EXPORT Standard_Integer ShapeRank(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Integer ShapeRank(const TopoShape& S) const;
 
-  Standard_EXPORT Standard_Boolean IsShapeOf(const TopoDS_Shape&    S,
+  Standard_EXPORT Standard_Boolean IsShapeOf(const TopoShape&    S,
                                              const Standard_Integer I12) const;
 
-  Standard_EXPORT static Standard_Boolean Contains(const TopoDS_Shape&         S,
-                                                   const TopTools_ListOfShape& L);
+  Standard_EXPORT static Standard_Boolean Contains(const TopoShape&         S,
+                                                   const ShapeList& L);
 
   Standard_EXPORT Standard_Integer FindIsKPart();
 
@@ -306,43 +306,43 @@ public:
 
   Standard_EXPORT void KPClearMaps();
 
-  Standard_EXPORT Standard_Integer KPlhg(const TopoDS_Shape&    S,
+  Standard_EXPORT Standard_Integer KPlhg(const TopoShape&    S,
                                          const TopAbs_ShapeEnum T,
-                                         TopTools_ListOfShape&  L) const;
+                                         ShapeList&  L) const;
 
-  Standard_EXPORT Standard_Integer KPlhg(const TopoDS_Shape& S, const TopAbs_ShapeEnum T) const;
+  Standard_EXPORT Standard_Integer KPlhg(const TopoShape& S, const TopAbs_ShapeEnum T) const;
 
-  Standard_EXPORT Standard_Integer KPlhsd(const TopoDS_Shape&    S,
+  Standard_EXPORT Standard_Integer KPlhsd(const TopoShape&    S,
                                           const TopAbs_ShapeEnum T,
-                                          TopTools_ListOfShape&  L) const;
+                                          ShapeList&  L) const;
 
-  Standard_EXPORT Standard_Integer KPlhsd(const TopoDS_Shape& S, const TopAbs_ShapeEnum T) const;
+  Standard_EXPORT Standard_Integer KPlhsd(const TopoShape& S, const TopAbs_ShapeEnum T) const;
 
-  Standard_EXPORT TopAbs_State KPclasSS(const TopoDS_Shape&         S1,
-                                        const TopTools_ListOfShape& exceptLS1,
-                                        const TopoDS_Shape&         S2);
+  Standard_EXPORT TopAbs_State KPclasSS(const TopoShape&         S1,
+                                        const ShapeList& exceptLS1,
+                                        const TopoShape&         S2);
 
-  Standard_EXPORT TopAbs_State KPclasSS(const TopoDS_Shape& S1,
-                                        const TopoDS_Shape& exceptS1,
-                                        const TopoDS_Shape& S2);
+  Standard_EXPORT TopAbs_State KPclasSS(const TopoShape& S1,
+                                        const TopoShape& exceptS1,
+                                        const TopoShape& S2);
 
-  Standard_EXPORT TopAbs_State KPclasSS(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
+  Standard_EXPORT TopAbs_State KPclasSS(const TopoShape& S1, const TopoShape& S2);
 
-  Standard_EXPORT Standard_Boolean KPiskolesh(const TopoDS_Shape&   S,
-                                              TopTools_ListOfShape& LS,
-                                              TopTools_ListOfShape& LF) const;
+  Standard_EXPORT Standard_Boolean KPiskolesh(const TopoShape&   S,
+                                              ShapeList& LS,
+                                              ShapeList& LF) const;
 
-  Standard_EXPORT Standard_Boolean KPiskoletgesh(const TopoDS_Shape&   S,
-                                                 TopTools_ListOfShape& LS,
-                                                 TopTools_ListOfShape& LF) const;
+  Standard_EXPORT Standard_Boolean KPiskoletgesh(const TopoShape&   S,
+                                                 ShapeList& LS,
+                                                 ShapeList& LF) const;
 
-  Standard_EXPORT void KPSameDomain(TopTools_ListOfShape& L1, TopTools_ListOfShape& L2) const;
+  Standard_EXPORT void KPSameDomain(ShapeList& L1, ShapeList& L2) const;
 
-  Standard_EXPORT Standard_Integer KPisdisjsh(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Integer KPisdisjsh(const TopoShape& S) const;
 
-  Standard_EXPORT Standard_Integer KPisfafash(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Integer KPisfafash(const TopoShape& S) const;
 
-  Standard_EXPORT Standard_Integer KPissososh(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Integer KPissososh(const TopoShape& S) const;
 
   Standard_EXPORT void KPiskoleanalyse(const TopAbs_State FT1,
                                        const TopAbs_State FT2,
@@ -363,29 +363,29 @@ public:
                                        Standard_Integer&  IC1,
                                        Standard_Integer&  IC2) const;
 
-  Standard_EXPORT static Standard_Integer KPls(const TopoDS_Shape&    S,
+  Standard_EXPORT static Standard_Integer KPls(const TopoShape&    S,
                                                const TopAbs_ShapeEnum T,
-                                               TopTools_ListOfShape&  L);
+                                               ShapeList&  L);
 
-  Standard_EXPORT static Standard_Integer KPls(const TopoDS_Shape& S, const TopAbs_ShapeEnum T);
+  Standard_EXPORT static Standard_Integer KPls(const TopoShape& S, const TopAbs_ShapeEnum T);
 
-  Standard_EXPORT TopAbs_State KPclassF(const TopoDS_Shape& F1, const TopoDS_Shape& F2);
+  Standard_EXPORT TopAbs_State KPclassF(const TopoShape& F1, const TopoShape& F2);
 
-  Standard_EXPORT void KPclassFF(const TopoDS_Shape& F1,
-                                 const TopoDS_Shape& F2,
+  Standard_EXPORT void KPclassFF(const TopoShape& F1,
+                                 const TopoShape& F2,
                                  TopAbs_State&       T1,
                                  TopAbs_State&       T2);
 
-  Standard_EXPORT Standard_Boolean KPiskoleFF(const TopoDS_Shape& F1,
-                                              const TopoDS_Shape& F2,
+  Standard_EXPORT Standard_Boolean KPiskoleFF(const TopoShape& F1,
+                                              const TopoShape& F2,
                                               TopAbs_State&       T1,
                                               TopAbs_State&       T2);
 
-  Standard_EXPORT static Standard_Boolean KPContains(const TopoDS_Shape&         S,
-                                                     const TopTools_ListOfShape& L);
+  Standard_EXPORT static Standard_Boolean KPContains(const TopoShape&         S,
+                                                     const ShapeList& L);
 
-  Standard_EXPORT TopoDS_Shape KPmakeface(const TopoDS_Shape&         F1,
-                                          const TopTools_ListOfShape& LF2,
+  Standard_EXPORT TopoShape KPmakeface(const TopoShape&         F1,
+                                          const ShapeList& LF2,
                                           const TopAbs_State          T1,
                                           const TopAbs_State          T2,
                                           const Standard_Boolean      R1,
@@ -395,254 +395,254 @@ public:
 
   Standard_EXPORT void SplitEvisoONperiodicF();
 
-  Standard_EXPORT void GMergeSolids(const TopTools_ListOfShape&  LSO1,
-                                    const TopTools_ListOfShape&  LSO2,
-                                    const TopOpeBRepBuild_GTopo& G);
+  Standard_EXPORT void GMergeSolids(const ShapeList&  LSO1,
+                                    const ShapeList&  LSO2,
+                                    const GTopologyClassifier& G);
 
-  Standard_EXPORT void GFillSolidsSFS(const TopTools_ListOfShape&   LSO1,
-                                      const TopTools_ListOfShape&   LSO2,
-                                      const TopOpeBRepBuild_GTopo&  G,
+  Standard_EXPORT void GFillSolidsSFS(const ShapeList&   LSO1,
+                                      const ShapeList&   LSO2,
+                                      const GTopologyClassifier&  G,
                                       TopOpeBRepBuild_ShellFaceSet& SFS);
 
-  Standard_EXPORT virtual void GFillSolidSFS(const TopoDS_Shape&           SO1,
-                                             const TopTools_ListOfShape&   LSO2,
-                                             const TopOpeBRepBuild_GTopo&  G,
+  Standard_EXPORT virtual void GFillSolidSFS(const TopoShape&           SO1,
+                                             const ShapeList&   LSO2,
+                                             const GTopologyClassifier&  G,
                                              TopOpeBRepBuild_ShellFaceSet& SFS);
 
-  Standard_EXPORT void GFillSurfaceTopologySFS(const TopoDS_Shape&           SO1,
-                                               const TopOpeBRepBuild_GTopo&  G,
+  Standard_EXPORT void GFillSurfaceTopologySFS(const TopoShape&           SO1,
+                                               const GTopologyClassifier&  G,
                                                TopOpeBRepBuild_ShellFaceSet& SFS);
 
   Standard_EXPORT void GFillSurfaceTopologySFS(const TopOpeBRepDS_SurfaceIterator& IT,
-                                               const TopOpeBRepBuild_GTopo&        G,
+                                               const GTopologyClassifier&        G,
                                                TopOpeBRepBuild_ShellFaceSet&       SFS) const;
 
-  Standard_EXPORT virtual void GFillShellSFS(const TopoDS_Shape&           SH1,
-                                             const TopTools_ListOfShape&   LSO2,
-                                             const TopOpeBRepBuild_GTopo&  G,
+  Standard_EXPORT virtual void GFillShellSFS(const TopoShape&           SH1,
+                                             const ShapeList&   LSO2,
+                                             const GTopologyClassifier&  G,
                                              TopOpeBRepBuild_ShellFaceSet& SFS);
 
-  Standard_EXPORT void GFillFaceSFS(const TopoDS_Shape&           F1,
-                                    const TopTools_ListOfShape&   LSO2,
-                                    const TopOpeBRepBuild_GTopo&  G,
+  Standard_EXPORT void GFillFaceSFS(const TopoShape&           F1,
+                                    const ShapeList&   LSO2,
+                                    const GTopologyClassifier&  G,
                                     TopOpeBRepBuild_ShellFaceSet& SFS);
 
-  Standard_EXPORT void GSplitFaceSFS(const TopoDS_Shape&           F1,
-                                     const TopTools_ListOfShape&   LSclass,
-                                     const TopOpeBRepBuild_GTopo&  G,
+  Standard_EXPORT void GSplitFaceSFS(const TopoShape&           F1,
+                                     const ShapeList&   LSclass,
+                                     const GTopologyClassifier&  G,
                                      TopOpeBRepBuild_ShellFaceSet& SFS);
 
-  Standard_EXPORT void GMergeFaceSFS(const TopoDS_Shape&           F,
-                                     const TopOpeBRepBuild_GTopo&  G,
+  Standard_EXPORT void GMergeFaceSFS(const TopoShape&           F,
+                                     const GTopologyClassifier&  G,
                                      TopOpeBRepBuild_ShellFaceSet& SFS);
 
-  Standard_EXPORT void GSplitFace(const TopoDS_Shape&          F,
-                                  const TopOpeBRepBuild_GTopo& G,
-                                  const TopTools_ListOfShape&  LSclass);
+  Standard_EXPORT void GSplitFace(const TopoShape&          F,
+                                  const GTopologyClassifier& G,
+                                  const ShapeList&  LSclass);
 
-  Standard_EXPORT void AddONPatchesSFS(const TopOpeBRepBuild_GTopo&  G,
+  Standard_EXPORT void AddONPatchesSFS(const GTopologyClassifier&  G,
                                        TopOpeBRepBuild_ShellFaceSet& SFS);
 
-  Standard_EXPORT void FillOnPatches(const TopTools_ListOfShape&               anEdgesON,
-                                     const TopoDS_Shape&                       aBaseFace,
+  Standard_EXPORT void FillOnPatches(const ShapeList&               anEdgesON,
+                                     const TopoShape&                       aBaseFace,
                                      const TopTools_IndexedMapOfOrientedShape& avoidMap);
 
-  Standard_EXPORT void FindFacesTouchingEdge(const TopoDS_Shape&    aFace,
-                                             const TopoDS_Shape&    anEdge,
+  Standard_EXPORT void FindFacesTouchingEdge(const TopoShape&    aFace,
+                                             const TopoShape&    anEdge,
                                              const Standard_Integer aShRank,
-                                             TopTools_ListOfShape&  aFaces) const;
+                                             ShapeList&  aFaces) const;
 
-  Standard_EXPORT void GMergeFaces(const TopTools_ListOfShape&  LF1,
-                                   const TopTools_ListOfShape&  LF2,
-                                   const TopOpeBRepBuild_GTopo& G);
+  Standard_EXPORT void GMergeFaces(const ShapeList&  LF1,
+                                   const ShapeList&  LF2,
+                                   const GTopologyClassifier& G);
 
-  Standard_EXPORT void GFillFacesWES(const TopTools_ListOfShape&  LF1,
-                                     const TopTools_ListOfShape&  LF2,
-                                     const TopOpeBRepBuild_GTopo& G,
+  Standard_EXPORT void GFillFacesWES(const ShapeList&  LF1,
+                                     const ShapeList&  LF2,
+                                     const GTopologyClassifier& G,
                                      TopOpeBRepBuild_WireEdgeSet& WES);
 
-  Standard_EXPORT void GFillFacesWESK(const TopTools_ListOfShape&  LF1,
-                                      const TopTools_ListOfShape&  LF2,
-                                      const TopOpeBRepBuild_GTopo& G,
+  Standard_EXPORT void GFillFacesWESK(const ShapeList&  LF1,
+                                      const ShapeList&  LF2,
+                                      const GTopologyClassifier& G,
                                       TopOpeBRepBuild_WireEdgeSet& WES,
                                       const Standard_Integer       K);
 
-  Standard_EXPORT void GFillFacesWESMakeFaces(const TopTools_ListOfShape&  LF1,
-                                              const TopTools_ListOfShape&  LF2,
-                                              const TopTools_ListOfShape&  LSO,
-                                              const TopOpeBRepBuild_GTopo& G);
+  Standard_EXPORT void GFillFacesWESMakeFaces(const ShapeList&  LF1,
+                                              const ShapeList&  LF2,
+                                              const ShapeList&  LSO,
+                                              const GTopologyClassifier& G);
 
-  Standard_EXPORT void GFillFaceWES(const TopoDS_Shape&          F,
-                                    const TopTools_ListOfShape&  LF2,
-                                    const TopOpeBRepBuild_GTopo& G,
+  Standard_EXPORT void GFillFaceWES(const TopoShape&          F,
+                                    const ShapeList&  LF2,
+                                    const GTopologyClassifier& G,
                                     TopOpeBRepBuild_WireEdgeSet& WES);
 
-  Standard_EXPORT void GFillCurveTopologyWES(const TopoDS_Shape&          F,
-                                             const TopOpeBRepBuild_GTopo& G,
+  Standard_EXPORT void GFillCurveTopologyWES(const TopoShape&          F,
+                                             const GTopologyClassifier& G,
                                              TopOpeBRepBuild_WireEdgeSet& WES);
 
   Standard_EXPORT void GFillCurveTopologyWES(const TopOpeBRepDS_CurveIterator& IT,
-                                             const TopOpeBRepBuild_GTopo&      G,
+                                             const GTopologyClassifier&      G,
                                              TopOpeBRepBuild_WireEdgeSet&      WES) const;
 
-  Standard_EXPORT void GFillONPartsWES(const TopoDS_Shape&          F,
-                                       const TopOpeBRepBuild_GTopo& G,
-                                       const TopTools_ListOfShape&  LSclass,
+  Standard_EXPORT void GFillONPartsWES(const TopoShape&          F,
+                                       const GTopologyClassifier& G,
+                                       const ShapeList&  LSclass,
                                        TopOpeBRepBuild_WireEdgeSet& WES);
 
-  Standard_EXPORT void GFillWireWES(const TopoDS_Shape&          W,
-                                    const TopTools_ListOfShape&  LF2,
-                                    const TopOpeBRepBuild_GTopo& G,
+  Standard_EXPORT void GFillWireWES(const TopoShape&          W,
+                                    const ShapeList&  LF2,
+                                    const GTopologyClassifier& G,
                                     TopOpeBRepBuild_WireEdgeSet& WES);
 
-  Standard_EXPORT void GFillEdgeWES(const TopoDS_Shape&          E,
-                                    const TopTools_ListOfShape&  LF2,
-                                    const TopOpeBRepBuild_GTopo& G,
+  Standard_EXPORT void GFillEdgeWES(const TopoShape&          E,
+                                    const ShapeList&  LF2,
+                                    const GTopologyClassifier& G,
                                     TopOpeBRepBuild_WireEdgeSet& WES);
 
-  Standard_EXPORT void GSplitEdgeWES(const TopoDS_Shape&          E,
-                                     const TopTools_ListOfShape&  LF2,
-                                     const TopOpeBRepBuild_GTopo& G,
+  Standard_EXPORT void GSplitEdgeWES(const TopoShape&          E,
+                                     const ShapeList&  LF2,
+                                     const GTopologyClassifier& G,
                                      TopOpeBRepBuild_WireEdgeSet& WES);
 
-  Standard_EXPORT void GMergeEdgeWES(const TopoDS_Shape&          E,
-                                     const TopOpeBRepBuild_GTopo& G,
+  Standard_EXPORT void GMergeEdgeWES(const TopoShape&          E,
+                                     const GTopologyClassifier& G,
                                      TopOpeBRepBuild_WireEdgeSet& WES);
 
-  Standard_EXPORT void GSplitEdge(const TopoDS_Shape&          E,
-                                  const TopOpeBRepBuild_GTopo& G,
-                                  const TopTools_ListOfShape&  LSclass);
+  Standard_EXPORT void GSplitEdge(const TopoShape&          E,
+                                  const GTopologyClassifier& G,
+                                  const ShapeList&  LSclass);
 
-  Standard_EXPORT void GMergeEdges(const TopTools_ListOfShape&  LE1,
-                                   const TopTools_ListOfShape&  LE2,
-                                   const TopOpeBRepBuild_GTopo& G);
+  Standard_EXPORT void GMergeEdges(const ShapeList&  LE1,
+                                   const ShapeList&  LE2,
+                                   const GTopologyClassifier& G);
 
-  Standard_EXPORT void GFillEdgesPVS(const TopTools_ListOfShape&  LE1,
-                                     const TopTools_ListOfShape&  LE2,
-                                     const TopOpeBRepBuild_GTopo& G,
+  Standard_EXPORT void GFillEdgesPVS(const ShapeList&  LE1,
+                                     const ShapeList&  LE2,
+                                     const GTopologyClassifier& G,
                                      TopOpeBRepBuild_PaveSet&     PVS);
 
-  Standard_EXPORT void GFillEdgePVS(const TopoDS_Shape&          E,
-                                    const TopTools_ListOfShape&  LE2,
-                                    const TopOpeBRepBuild_GTopo& G,
+  Standard_EXPORT void GFillEdgePVS(const TopoShape&          E,
+                                    const ShapeList&  LE2,
+                                    const GTopologyClassifier& G,
                                     TopOpeBRepBuild_PaveSet&     PVS);
 
-  Standard_EXPORT void GFillPointTopologyPVS(const TopoDS_Shape&          E,
-                                             const TopOpeBRepBuild_GTopo& G,
+  Standard_EXPORT void GFillPointTopologyPVS(const TopoShape&          E,
+                                             const GTopologyClassifier& G,
                                              TopOpeBRepBuild_PaveSet&     PVS);
 
-  Standard_EXPORT void GFillPointTopologyPVS(const TopoDS_Shape&               E,
+  Standard_EXPORT void GFillPointTopologyPVS(const TopoShape&               E,
                                              const TopOpeBRepDS_PointIterator& IT,
-                                             const TopOpeBRepBuild_GTopo&      G,
+                                             const GTopologyClassifier&      G,
                                              TopOpeBRepBuild_PaveSet&          PVS) const;
 
-  Standard_EXPORT Standard_Boolean GParamOnReference(const TopoDS_Vertex& V,
-                                                     const TopoDS_Edge&   E,
+  Standard_EXPORT Standard_Boolean GParamOnReference(const TopoVertex& V,
+                                                     const TopoEdge&   E,
                                                      Standard_Real&       P) const;
 
-  Standard_EXPORT Standard_Boolean GKeepShape(const TopoDS_Shape&         S,
-                                              const TopTools_ListOfShape& Lref,
+  Standard_EXPORT Standard_Boolean GKeepShape(const TopoShape&         S,
+                                              const ShapeList& Lref,
                                               const TopAbs_State          T);
 
   //! return True if S is classified <T> / Lref shapes
-  Standard_EXPORT Standard_Boolean GKeepShape1(const TopoDS_Shape&         S,
-                                               const TopTools_ListOfShape& Lref,
+  Standard_EXPORT Standard_Boolean GKeepShape1(const TopoShape&         S,
+                                               const ShapeList& Lref,
                                                const TopAbs_State          T,
                                                TopAbs_State&               pos);
 
   //! add to Lou the shapes of Lin classified <T> / Lref shapes.
   //! Lou is not cleared. (S is a dummy trace argument)
-  Standard_EXPORT void GKeepShapes(const TopoDS_Shape&         S,
-                                   const TopTools_ListOfShape& Lref,
+  Standard_EXPORT void GKeepShapes(const TopoShape&         S,
+                                   const ShapeList& Lref,
                                    const TopAbs_State          T,
-                                   const TopTools_ListOfShape& Lin,
-                                   TopTools_ListOfShape&       Lou);
+                                   const ShapeList& Lin,
+                                   ShapeList&       Lou);
 
-  Standard_EXPORT void GSFSMakeSolids(const TopoDS_Shape&           SOF,
+  Standard_EXPORT void GSFSMakeSolids(const TopoShape&           SOF,
                                       TopOpeBRepBuild_ShellFaceSet& SFS,
-                                      TopTools_ListOfShape&         LOSO);
+                                      ShapeList&         LOSO);
 
-  Standard_EXPORT void GSOBUMakeSolids(const TopoDS_Shape&           SOF,
+  Standard_EXPORT void GSOBUMakeSolids(const TopoShape&           SOF,
                                        TopOpeBRepBuild_SolidBuilder& SOBU,
-                                       TopTools_ListOfShape&         LOSO);
+                                       ShapeList&         LOSO);
 
-  Standard_EXPORT virtual void GWESMakeFaces(const TopoDS_Shape&          FF,
+  Standard_EXPORT virtual void GWESMakeFaces(const TopoShape&          FF,
                                              TopOpeBRepBuild_WireEdgeSet& WES,
-                                             TopTools_ListOfShape&        LOF);
+                                             ShapeList&        LOF);
 
-  Standard_EXPORT void GFABUMakeFaces(const TopoDS_Shape&             FF,
+  Standard_EXPORT void GFABUMakeFaces(const TopoShape&             FF,
                                       TopOpeBRepBuild_FaceBuilder&    FABU,
-                                      TopTools_ListOfShape&           LOF,
+                                      ShapeList&           LOF,
                                       TopTools_DataMapOfShapeInteger& MWisOld);
 
-  Standard_EXPORT void RegularizeFaces(const TopoDS_Shape&         FF,
-                                       const TopTools_ListOfShape& lnewFace,
-                                       TopTools_ListOfShape&       LOF);
+  Standard_EXPORT void RegularizeFaces(const TopoShape&         FF,
+                                       const ShapeList& lnewFace,
+                                       ShapeList&       LOF);
 
-  Standard_EXPORT void RegularizeFace(const TopoDS_Shape&   FF,
-                                      const TopoDS_Shape&   newFace,
-                                      TopTools_ListOfShape& LOF);
+  Standard_EXPORT void RegularizeFace(const TopoShape&   FF,
+                                      const TopoShape&   newFace,
+                                      ShapeList& LOF);
 
-  Standard_EXPORT void RegularizeSolids(const TopoDS_Shape&         SS,
-                                        const TopTools_ListOfShape& lnewSolid,
-                                        TopTools_ListOfShape&       LOS);
+  Standard_EXPORT void RegularizeSolids(const TopoShape&         SS,
+                                        const ShapeList& lnewSolid,
+                                        ShapeList&       LOS);
 
-  Standard_EXPORT void RegularizeSolid(const TopoDS_Shape&   SS,
-                                       const TopoDS_Shape&   newSolid,
-                                       TopTools_ListOfShape& LOS);
+  Standard_EXPORT void RegularizeSolid(const TopoShape&   SS,
+                                       const TopoShape&   newSolid,
+                                       ShapeList& LOS);
 
-  Standard_EXPORT void GPVSMakeEdges(const TopoDS_Shape&      EF,
+  Standard_EXPORT void GPVSMakeEdges(const TopoShape&      EF,
                                      TopOpeBRepBuild_PaveSet& PVS,
-                                     TopTools_ListOfShape&    LOE) const;
+                                     ShapeList&    LOE) const;
 
-  Standard_EXPORT void GEDBUMakeEdges(const TopoDS_Shape&          EF,
+  Standard_EXPORT void GEDBUMakeEdges(const TopoShape&          EF,
                                       TopOpeBRepBuild_EdgeBuilder& EDBU,
-                                      TopTools_ListOfShape&        LOE) const;
+                                      ShapeList&        LOE) const;
 
-  Standard_EXPORT Standard_Boolean GToSplit(const TopoDS_Shape& S, const TopAbs_State TB) const;
+  Standard_EXPORT Standard_Boolean GToSplit(const TopoShape& S, const TopAbs_State TB) const;
 
-  Standard_EXPORT Standard_Boolean GToMerge(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Boolean GToMerge(const TopoShape& S) const;
 
-  Standard_EXPORT static Standard_Boolean GTakeCommonOfSame(const TopOpeBRepBuild_GTopo& G);
+  Standard_EXPORT static Standard_Boolean GTakeCommonOfSame(const GTopologyClassifier& G);
 
-  Standard_EXPORT static Standard_Boolean GTakeCommonOfDiff(const TopOpeBRepBuild_GTopo& G);
+  Standard_EXPORT static Standard_Boolean GTakeCommonOfDiff(const GTopologyClassifier& G);
 
-  Standard_EXPORT void GFindSamDom(const TopoDS_Shape&   S,
-                                   TopTools_ListOfShape& L1,
-                                   TopTools_ListOfShape& L2) const;
+  Standard_EXPORT void GFindSamDom(const TopoShape&   S,
+                                   ShapeList& L1,
+                                   ShapeList& L2) const;
 
-  Standard_EXPORT void GFindSamDom(TopTools_ListOfShape& L1, TopTools_ListOfShape& L2) const;
+  Standard_EXPORT void GFindSamDom(ShapeList& L1, ShapeList& L2) const;
 
-  Standard_EXPORT void GFindSamDomSODO(const TopoDS_Shape&   S,
-                                       TopTools_ListOfShape& LSO,
-                                       TopTools_ListOfShape& LDO) const;
+  Standard_EXPORT void GFindSamDomSODO(const TopoShape&   S,
+                                       ShapeList& LSO,
+                                       ShapeList& LDO) const;
 
-  Standard_EXPORT void GFindSamDomSODO(TopTools_ListOfShape& LSO, TopTools_ListOfShape& LDO) const;
+  Standard_EXPORT void GFindSamDomSODO(ShapeList& LSO, ShapeList& LDO) const;
 
-  Standard_EXPORT void GMapShapes(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
+  Standard_EXPORT void GMapShapes(const TopoShape& S1, const TopoShape& S2);
 
   Standard_EXPORT void GClearMaps();
 
-  Standard_EXPORT void GFindSameRank(const TopTools_ListOfShape& L1,
+  Standard_EXPORT void GFindSameRank(const ShapeList& L1,
                                      const Standard_Integer      R,
-                                     TopTools_ListOfShape&       L2) const;
+                                     ShapeList&       L2) const;
 
-  Standard_EXPORT Standard_Integer GShapeRank(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Integer GShapeRank(const TopoShape& S) const;
 
-  Standard_EXPORT Standard_Boolean GIsShapeOf(const TopoDS_Shape&    S,
+  Standard_EXPORT Standard_Boolean GIsShapeOf(const TopoShape&    S,
                                               const Standard_Integer I12) const;
 
-  Standard_EXPORT static Standard_Boolean GContains(const TopoDS_Shape&         S,
-                                                    const TopTools_ListOfShape& L);
+  Standard_EXPORT static Standard_Boolean GContains(const TopoShape&         S,
+                                                    const ShapeList& L);
 
-  Standard_EXPORT static void GCopyList(const TopTools_ListOfShape& Lin,
+  Standard_EXPORT static void GCopyList(const ShapeList& Lin,
                                         const Standard_Integer      i1,
                                         const Standard_Integer      i2,
-                                        TopTools_ListOfShape&       Lou);
+                                        ShapeList&       Lou);
 
-  Standard_EXPORT static void GCopyList(const TopTools_ListOfShape& Lin, TopTools_ListOfShape& Lou);
+  Standard_EXPORT static void GCopyList(const ShapeList& Lin, ShapeList& Lou);
 
-  Standard_EXPORT void GdumpLS(const TopTools_ListOfShape& L) const;
+  Standard_EXPORT void GdumpLS(const ShapeList& L) const;
 
   Standard_EXPORT static void GdumpPNT(const Point3d& P);
 
@@ -650,37 +650,37 @@ public:
                                              const Standard_Real      p,
                                              const Point3d&            Pnt);
 
-  Standard_EXPORT void GdumpSHA(const TopoDS_Shape& S, const Standard_Address str = NULL) const;
+  Standard_EXPORT void GdumpSHA(const TopoShape& S, const Standard_Address str = NULL) const;
 
-  Standard_EXPORT void GdumpSHAORI(const TopoDS_Shape& S, const Standard_Address str = NULL) const;
+  Standard_EXPORT void GdumpSHAORI(const TopoShape& S, const Standard_Address str = NULL) const;
 
-  Standard_EXPORT void GdumpSHAORIGEO(const TopoDS_Shape&    S,
+  Standard_EXPORT void GdumpSHAORIGEO(const TopoShape&    S,
                                       const Standard_Address str = NULL) const;
 
   Standard_EXPORT void GdumpSHASTA(const Standard_Integer         iS,
                                    const TopAbs_State             T,
-                                   const TCollection_AsciiString& a = "",
-                                   const TCollection_AsciiString& b = "") const;
+                                   const AsciiString1& a = "",
+                                   const AsciiString1& b = "") const;
 
-  Standard_EXPORT void GdumpSHASTA(const TopoDS_Shape&            S,
+  Standard_EXPORT void GdumpSHASTA(const TopoShape&            S,
                                    const TopAbs_State             T,
-                                   const TCollection_AsciiString& a = "",
-                                   const TCollection_AsciiString& b = "") const;
+                                   const AsciiString1& a = "",
+                                   const AsciiString1& b = "") const;
 
   Standard_EXPORT void GdumpSHASTA(const Standard_Integer          iS,
                                    const TopAbs_State              T,
                                    const TopOpeBRepBuild_ShapeSet& SS,
-                                   const TCollection_AsciiString&  a = "",
-                                   const TCollection_AsciiString&  b = "",
-                                   const TCollection_AsciiString&  c = "\n") const;
+                                   const AsciiString1&  a = "",
+                                   const AsciiString1&  b = "",
+                                   const AsciiString1&  c = "\n") const;
 
-  Standard_EXPORT void GdumpEDG(const TopoDS_Shape& S, const Standard_Address str = NULL) const;
+  Standard_EXPORT void GdumpEDG(const TopoShape& S, const Standard_Address str = NULL) const;
 
-  Standard_EXPORT void GdumpEDGVER(const TopoDS_Shape&    E,
-                                   const TopoDS_Shape&    V,
+  Standard_EXPORT void GdumpEDGVER(const TopoShape&    E,
+                                   const TopoShape&    V,
                                    const Standard_Address str = NULL) const;
 
-  Standard_EXPORT void GdumpSAMDOM(const TopTools_ListOfShape& L,
+  Standard_EXPORT void GdumpSAMDOM(const ShapeList& L,
                                    const Standard_Address      str = NULL) const;
 
   Standard_EXPORT void GdumpEXP(const TopOpeBRepTool_ShapeExplorer& E) const;
@@ -696,27 +696,27 @@ public:
   Standard_EXPORT Standard_Boolean GtraceSPS(const Standard_Integer iS,
                                              const Standard_Integer jS) const;
 
-  Standard_EXPORT Standard_Boolean GtraceSPS(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Boolean GtraceSPS(const TopoShape& S) const;
 
-  Standard_EXPORT Standard_Boolean GtraceSPS(const TopoDS_Shape& S, Standard_Integer& IS) const;
+  Standard_EXPORT Standard_Boolean GtraceSPS(const TopoShape& S, Standard_Integer& IS) const;
 
   Standard_EXPORT void GdumpSHASETreset();
 
   Standard_EXPORT Standard_Integer GdumpSHASETindex();
 
-  Standard_EXPORT static void PrintGeo(const TopoDS_Shape& S);
+  Standard_EXPORT static void PrintGeo(const TopoShape& S);
 
-  Standard_EXPORT static void PrintSur(const TopoDS_Face& F);
+  Standard_EXPORT static void PrintSur(const TopoFace& F);
 
-  Standard_EXPORT static void PrintCur(const TopoDS_Edge& E);
+  Standard_EXPORT static void PrintCur(const TopoEdge& E);
 
-  Standard_EXPORT static void PrintPnt(const TopoDS_Vertex& V);
+  Standard_EXPORT static void PrintPnt(const TopoVertex& V);
 
-  Standard_EXPORT static void PrintOri(const TopoDS_Shape& S);
+  Standard_EXPORT static void PrintOri(const TopoShape& S);
 
-  Standard_EXPORT static TCollection_AsciiString StringState(const TopAbs_State S);
+  Standard_EXPORT static AsciiString1 StringState(const TopAbs_State S);
 
-  Standard_EXPORT static Standard_Boolean GcheckNBOUNDS(const TopoDS_Shape& E);
+  Standard_EXPORT static Standard_Boolean GcheckNBOUNDS(const TopoShape& E);
 
   friend class TopOpeBRepBuild_HBuilder;
 
@@ -736,37 +736,37 @@ protected:
   Standard_EXPORT void BuildFaces(const Handle(TopOpeBRepDS_HDataStructure)& DS);
 
   //! Split <E1> keeping the parts of state <TB1>.
-  Standard_EXPORT void SplitEdge(const TopoDS_Shape& E1,
+  Standard_EXPORT void SplitEdge(const TopoShape& E1,
                                  const TopAbs_State  TB1,
                                  const TopAbs_State  TB2);
 
   //! Split <E1> keeping the parts of state <TB1>.
-  Standard_EXPORT void SplitEdge1(const TopoDS_Shape& E1,
+  Standard_EXPORT void SplitEdge1(const TopoShape& E1,
                                   const TopAbs_State  TB1,
                                   const TopAbs_State  TB2);
 
   //! Split <E1> keeping the parts of state <TB1>.
-  Standard_EXPORT void SplitEdge2(const TopoDS_Shape& E1,
+  Standard_EXPORT void SplitEdge2(const TopoShape& E1,
                                   const TopAbs_State  TB1,
                                   const TopAbs_State  TB2);
 
   //! Split <F1> keeping the  parts of state  <TB1>.
   //! Merge faces with same domain, keeping parts  of
   //! state <TB2>.
-  Standard_EXPORT void SplitFace(const TopoDS_Shape& F1,
+  Standard_EXPORT void SplitFace(const TopoShape& F1,
                                  const TopAbs_State  TB1,
                                  const TopAbs_State  TB2);
 
-  Standard_EXPORT void SplitFace1(const TopoDS_Shape& F1,
+  Standard_EXPORT void SplitFace1(const TopoShape& F1,
                                   const TopAbs_State  TB1,
                                   const TopAbs_State  TB2);
 
-  Standard_EXPORT void SplitFace2(const TopoDS_Shape& F1,
+  Standard_EXPORT void SplitFace2(const TopoShape& F1,
                                   const TopAbs_State  TB1,
                                   const TopAbs_State  TB2);
 
   //! Split <S1> keeping the parts of state <TB1>.
-  Standard_EXPORT void SplitSolid(const TopoDS_Shape& S1,
+  Standard_EXPORT void SplitSolid(const TopoShape& S1,
                                   const TopAbs_State  TB1,
                                   const TopAbs_State  TB2);
 
@@ -781,27 +781,27 @@ protected:
 
   //! Split edges of <F1> and store  wires and edges in
   //! the set <WES>. According to RevOri, reverse (or not) orientation.
-  Standard_EXPORT void FillFace(const TopoDS_Shape&          F1,
+  Standard_EXPORT void FillFace(const TopoShape&          F1,
                                 const TopAbs_State           TB1,
-                                const TopTools_ListOfShape&  LF2,
+                                const ShapeList&  LF2,
                                 const TopAbs_State           TB2,
                                 TopOpeBRepBuild_WireEdgeSet& WES,
                                 const Standard_Boolean       RevOri);
 
   //! Split faces of <S1> and store shells  and faces in
   //! the set <SS>. According to RevOri, reverse (or not) orientation.
-  Standard_EXPORT void FillSolid(const TopoDS_Shape&         S1,
+  Standard_EXPORT void FillSolid(const TopoShape&         S1,
                                  const TopAbs_State          TB1,
-                                 const TopTools_ListOfShape& LS2,
+                                 const ShapeList& LS2,
                                  const TopAbs_State          TB2,
                                  TopOpeBRepBuild_ShapeSet&   SS,
                                  const Standard_Boolean      RevOri);
 
   //! Split subshapes of <S1> and store subshapes in
   //! the set <SS>. According to RevOri, reverse (or not) orientation.
-  Standard_EXPORT void FillShape(const TopoDS_Shape&         S1,
+  Standard_EXPORT void FillShape(const TopoShape&         S1,
                                  const TopAbs_State          TB1,
-                                 const TopTools_ListOfShape& LS2,
+                                 const ShapeList& LS2,
                                  const TopAbs_State          TB2,
                                  TopOpeBRepBuild_ShapeSet&   SS,
                                  const Standard_Boolean      RevOri);
@@ -822,28 +822,28 @@ protected:
                                             TopOpeBRepBuild_PaveSet&          PVS) const;
 
   //! Returns True if the shape <S> has not already been split
-  Standard_EXPORT Standard_Boolean ToSplit(const TopoDS_Shape& S, const TopAbs_State TB) const;
+  Standard_EXPORT Standard_Boolean ToSplit(const TopoShape& S, const TopAbs_State TB) const;
 
   //! add the shape <S> to the map of split shapes.
   //! mark <S> as split/not split on <state>, according to B value.
-  Standard_EXPORT void MarkSplit(const TopoDS_Shape&    S,
+  Standard_EXPORT void MarkSplit(const TopoShape&    S,
                                  const TopAbs_State     TB,
                                  const Standard_Boolean B = Standard_True);
 
   //! Returns a ref. on the list of shapes connected to <S> as
   //! <TB> merged parts of <S>.
-  Standard_EXPORT TopTools_ListOfShape& ChangeMerged(const TopoDS_Shape& S, const TopAbs_State TB);
+  Standard_EXPORT ShapeList& ChangeMerged(const TopoShape& S, const TopAbs_State TB);
 
   //! Returns a ref. on the vertex created on point <I>.
-  Standard_EXPORT TopoDS_Shape& ChangeNewVertex(const Standard_Integer I);
+  Standard_EXPORT TopoShape& ChangeNewVertex(const Standard_Integer I);
 
   //! Returns a ref. on the list of edges created on curve <I>.
-  Standard_EXPORT TopTools_ListOfShape& ChangeNewEdges(const Standard_Integer I);
+  Standard_EXPORT ShapeList& ChangeNewEdges(const Standard_Integer I);
 
   //! Returns a ref. on the list of faces created on surface <I>.
-  Standard_EXPORT TopTools_ListOfShape& ChangeNewFaces(const Standard_Integer I);
+  Standard_EXPORT ShapeList& ChangeNewFaces(const Standard_Integer I);
 
-  Standard_EXPORT void AddIntersectionEdges(TopoDS_Shape&             F,
+  Standard_EXPORT void AddIntersectionEdges(TopoShape&             F,
                                             const TopAbs_State        TB,
                                             const Standard_Boolean    RevOri,
                                             TopOpeBRepBuild_ShapeSet& ES) const;
@@ -855,8 +855,8 @@ protected:
 
   TopAbs_State                                   myState1;
   TopAbs_State                                   myState2;
-  TopoDS_Shape                                   myShape1;
-  TopoDS_Shape                                   myShape2;
+  TopoShape                                   myShape1;
+  TopoShape                                   myShape2;
   Handle(TopOpeBRepDS_HDataStructure)            myDataStructure;
   TopOpeBRepDS_BuildTool                         myBuildTool;
   Handle(TopTools_HArray1OfShape)                myNewVertices;
@@ -868,24 +868,24 @@ protected:
   TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State myMergedIN;
   TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State myMergedON;
   TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State myMergedOUT;
-  TopTools_ListOfShape                           myEmptyShapeList;
-  TopTools_ListOfShape                           myListOfSolid;
-  TopTools_ListOfShape                           myListOfFace;
-  TopTools_ListOfShape                           myListOfEdge;
+  ShapeList                           myEmptyShapeList;
+  ShapeList                           myListOfSolid;
+  ShapeList                           myListOfFace;
+  ShapeList                           myListOfEdge;
   TopTools_DataMapOfShapeListOfShape             myFSplits;
   TopTools_DataMapOfShapeListOfShape             myESplits;
   Standard_Boolean                               mySectionDone;
   Standard_Boolean                               mySplitSectionEdgesDone;
-  TopTools_ListOfShape                           mySection;
-  TopoDS_Solid                                   mySolidReference;
-  TopoDS_Solid                                   mySolidToFill;
-  TopTools_ListOfShape                           myFaceAvoid;
-  TopoDS_Face                                    myFaceReference;
-  TopoDS_Face                                    myFaceToFill;
-  TopTools_ListOfShape                           myEdgeAvoid;
-  TopoDS_Edge                                    myEdgeReference;
-  TopoDS_Edge                                    myEdgeToFill;
-  TopTools_ListOfShape                           myVertexAvoid;
+  ShapeList                           mySection;
+  TopoSolid                                   mySolidReference;
+  TopoSolid                                   mySolidToFill;
+  ShapeList                           myFaceAvoid;
+  TopoFace                                    myFaceReference;
+  TopoFace                                    myFaceToFill;
+  ShapeList                           myEdgeAvoid;
+  TopoEdge                                    myEdgeReference;
+  TopoEdge                                    myEdgeToFill;
+  ShapeList                           myVertexAvoid;
   TopTools_IndexedMapOfShape                     myMAP1;
   TopTools_IndexedMapOfShape                     myMAP2;
   Standard_Integer                               myIsKPart;
@@ -895,7 +895,7 @@ protected:
   Standard_Boolean                               myClassifyVal;
   TopOpeBRepTool_ShapeClassifier                 myShapeClassifier;
   TopTools_MapOfShape                            myMemoSplit;
-  TCollection_AsciiString                        myEmptyAS;
+  AsciiString1                        myEmptyAS;
   Standard_Boolean                               myProcessON;
   TopTools_IndexedDataMapOfShapeShape            myONFacesMap;
   TopTools_IndexedMapOfOrientedShape             myONElemMap;

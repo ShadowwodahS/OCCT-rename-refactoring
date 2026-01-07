@@ -39,7 +39,7 @@
 //          dist-C1.Radius() if the qualifier is Outside.               +
 //          a mix of these values if the qualifier is Unqualified.  +
 //========================================================================
-GccAna_Circ2dTanCen::GccAna_Circ2dTanCen(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTangentCenter::Circle2dTangentCenter(const GccEnt_QualifiedCirc& Qualified1,
                                          const gp_Pnt2d&             Pcenter,
                                          const Standard_Real         Tolerance)
     :
@@ -195,7 +195,7 @@ GccAna_Circ2dTanCen::GccAna_Circ2dTanCen(const GccEnt_QualifiedCirc& Qualified1,
 //   Create the circle with center Pcenter of radius Radius.                  +
 //=========================================================================
 
-GccAna_Circ2dTanCen::GccAna_Circ2dTanCen(const gp_Lin2d& Linetan, const gp_Pnt2d& Pcenter)
+Circle2dTangentCenter::Circle2dTangentCenter(const gp_Lin2d& Linetan, const gp_Pnt2d& Pcenter)
     :
 
       //=========================================================================
@@ -223,13 +223,13 @@ GccAna_Circ2dTanCen::GccAna_Circ2dTanCen(const gp_Lin2d& Linetan, const gp_Pnt2d
 
   if (gp_Dir2d(xloc - Pcenter.X(), yloc - Pcenter.Y()).Dot(gp_Dir2d(-ydir, xdir)) > 0.0)
   {
-    pnttg1sol(1) = gp_Pnt2d(Pcenter.XY() + rayon * gp_XY(-ydir, xdir));
+    pnttg1sol(1) = gp_Pnt2d(Pcenter.XY() + rayon * Coords2d(-ydir, xdir));
     par1sol(1)   = ElCLib::Parameter(cirsol(1), pnttg1sol(1));
     pararg1(1)   = ElCLib::Parameter(Linetan, pnttg1sol(1));
   }
   else
   {
-    pnttg1sol(1) = gp_Pnt2d(Pcenter.XY() + rayon * gp_XY(ydir, -xdir));
+    pnttg1sol(1) = gp_Pnt2d(Pcenter.XY() + rayon * Coords2d(ydir, -xdir));
     par1sol(1)   = ElCLib::Parameter(cirsol(1), pnttg1sol(1));
     pararg1(1)   = ElCLib::Parameter(Linetan, pnttg1sol(1));
   }
@@ -243,7 +243,7 @@ GccAna_Circ2dTanCen::GccAna_Circ2dTanCen(const gp_Lin2d& Linetan, const gp_Pnt2d
 //   Create the circle with center Pcenter of radius Radius.                  +
 //=========================================================================
 
-GccAna_Circ2dTanCen::GccAna_Circ2dTanCen(const gp_Pnt2d& Point1, const gp_Pnt2d& Pcenter)
+Circle2dTangentCenter::Circle2dTangentCenter(const gp_Pnt2d& Point1, const gp_Pnt2d& Pcenter)
     :
 
       //=========================================================================
@@ -273,17 +273,17 @@ GccAna_Circ2dTanCen::GccAna_Circ2dTanCen(const gp_Pnt2d& Point1, const gp_Pnt2d&
 
 //=========================================================================
 
-Standard_Boolean GccAna_Circ2dTanCen::IsDone() const
+Standard_Boolean Circle2dTangentCenter::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer GccAna_Circ2dTanCen::NbSolutions() const
+Standard_Integer Circle2dTangentCenter::NbSolutions() const
 {
   return NbrSol;
 }
 
-gp_Circ2d GccAna_Circ2dTanCen::ThisSolution(const Standard_Integer Index) const
+gp_Circ2d Circle2dTangentCenter::ThisSolution(const Standard_Integer Index) const
 {
   if (Index > NbrSol || Index <= 0)
   {
@@ -292,7 +292,7 @@ gp_Circ2d GccAna_Circ2dTanCen::ThisSolution(const Standard_Integer Index) const
   return cirsol(Index);
 }
 
-void GccAna_Circ2dTanCen::WhichQualifier(const Standard_Integer Index,
+void Circle2dTangentCenter::WhichQualifier(const Standard_Integer Index,
                                          GccEnt_Position&       Qualif1) const
 {
   if (!WellDone)
@@ -309,7 +309,7 @@ void GccAna_Circ2dTanCen::WhichQualifier(const Standard_Integer Index,
   }
 }
 
-void GccAna_Circ2dTanCen::Tangency1(const Standard_Integer Index,
+void Circle2dTangentCenter::Tangency1(const Standard_Integer Index,
                                     Standard_Real&         ParSol,
                                     Standard_Real&         ParArg,
                                     gp_Pnt2d&              PntSol) const
@@ -337,7 +337,7 @@ void GccAna_Circ2dTanCen::Tangency1(const Standard_Integer Index,
   }
 }
 
-Standard_Boolean GccAna_Circ2dTanCen::IsTheSame1(const Standard_Integer Index) const
+Standard_Boolean Circle2dTangentCenter::IsTheSame1(const Standard_Integer Index) const
 {
   if (!WellDone)
     throw StdFail_NotDone();

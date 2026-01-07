@@ -24,10 +24,10 @@
 #include <Standard_Integer.hxx>
 #include <Message_ProgressRange.hxx>
 
-class Geom_Surface;
+class GeomSurface;
 class IGESData_IGESModel;
 class Transfer_TransientProcess;
-class TopoDS_Shape;
+class TopoShape;
 class IGESData_IGESEntity;
 class Message_Msg;
 
@@ -144,14 +144,14 @@ public:
   //! Returns the result of the transfert of any IGES Curve
   //! or Surface Entity.  If  the transfer has  failed,  this
   //! member return a NullEntity.
-  Standard_EXPORT TopoDS_Shape
+  Standard_EXPORT TopoShape
     TransferCurveAndSurface(const Handle(IGESData_IGESEntity)& start,
                             const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Returns the result of the transfert the geometry of
   //! any IGESEntity.  If  the transfer has  failed,  this
   //! member return a NullEntity.
-  Standard_EXPORT TopoDS_Shape
+  Standard_EXPORT TopoShape
     TransferGeometry(const Handle(IGESData_IGESEntity)& start,
                      const Message_ProgressRange&       theProgress = Message_ProgressRange());
 
@@ -171,11 +171,11 @@ public:
 
   //! Returns the result of the transfer of the IGESEntity "start" contained
   //! in "myMap" . (if HasShapeResult is True).
-  Standard_EXPORT TopoDS_Shape GetShapeResult(const Handle(IGESData_IGESEntity)& start) const;
+  Standard_EXPORT TopoShape GetShapeResult(const Handle(IGESData_IGESEntity)& start) const;
 
   //! set in "myMap" the result of the transfer of the IGESEntity "start".
   Standard_EXPORT void SetShapeResult(const Handle(IGESData_IGESEntity)& start,
-                                      const TopoDS_Shape&                result);
+                                      const TopoShape&                result);
 
   //! Returns the number of shapes results contained in "myMap" for the
   //! IGESEntity start ( type VertexList or EdgeList).
@@ -183,17 +183,17 @@ public:
 
   //! Returns the numth result of the IGESEntity start (type VertexList or
   //! EdgeList) in "myMap". (if NbShapeResult is not null).
-  Standard_EXPORT TopoDS_Shape GetShapeResult(const Handle(IGESData_IGESEntity)& start,
+  Standard_EXPORT TopoShape GetShapeResult(const Handle(IGESData_IGESEntity)& start,
                                               const Standard_Integer             num) const;
 
   //! set in "myMap" the result of the transfer of the entity of the
   //! IGESEntity start ( type VertexList or EdgeList).
   Standard_EXPORT void AddShapeResult(const Handle(IGESData_IGESEntity)& start,
-                                      const TopoDS_Shape&                result);
+                                      const TopoShape&                result);
 
-  Standard_EXPORT void SetSurface(const Handle(Geom_Surface)& theSurface);
+  Standard_EXPORT void SetSurface(const Handle(GeomSurface)& theSurface);
 
-  Standard_EXPORT Handle(Geom_Surface) Surface() const;
+  Standard_EXPORT Handle(GeomSurface) Surface() const;
 
   Standard_EXPORT Standard_Real GetUVResolution();
 
@@ -210,7 +210,7 @@ private:
   Standard_Real                     myUnitFactor;
   Standard_Integer                  mySurfaceCurve;
   Standard_Integer                  myContinuity;
-  Handle(Geom_Surface)              mySurface;
+  Handle(GeomSurface)              mySurface;
   Standard_Real                     myUVResolution;
   Standard_Boolean                  myIsResolCom;
   Handle(IGESData_IGESModel)        myModel;

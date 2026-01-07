@@ -36,7 +36,7 @@ class IGESData_Protocol;
 class IGESData_GlobalSection;
 class IGESData_IGESEntity;
 class TCollection_HAsciiString;
-class gp_XY;
+class Coords2d;
 class gp_XYZ;
 
 //! manages atomic file writing, under control of IGESModel :
@@ -157,7 +157,7 @@ public:
   Standard_EXPORT void SendString(const Handle(TCollection_HAsciiString)& val);
 
   //! Sends a XY, interpreted as a couple of 2 Reals (X & Y)
-  Standard_EXPORT void Send(const gp_XY& val);
+  Standard_EXPORT void Send(const Coords2d& val);
 
   //! Sends a XYZ, interpreted as a couple of 2 Reals (X , Y & Z)
   Standard_EXPORT void Send(const gp_XYZ& val);

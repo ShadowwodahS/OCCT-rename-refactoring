@@ -51,7 +51,7 @@ Handle(Geom_Geometry) Geom_TrimmedCurve::Copy() const
 
 //=================================================================================================
 
-Geom_TrimmedCurve::Geom_TrimmedCurve(const Handle(Geom_Curve)& C,
+Geom_TrimmedCurve::Geom_TrimmedCurve(const Handle(GeomCurve3d)& C,
                                      const Standard_Real       U1,
                                      const Standard_Real       U2,
                                      const Standard_Boolean    Sense,
@@ -62,9 +62,9 @@ Geom_TrimmedCurve::Geom_TrimmedCurve(const Handle(Geom_Curve)& C,
   // kill trimmed basis curves
   Handle(Geom_TrimmedCurve) T = Handle(Geom_TrimmedCurve)::DownCast(C);
   if (!T.IsNull())
-    basisCurve = Handle(Geom_Curve)::DownCast(T->BasisCurve()->Copy());
+    basisCurve = Handle(GeomCurve3d)::DownCast(T->BasisCurve()->Copy());
   else
-    basisCurve = Handle(Geom_Curve)::DownCast(C->Copy());
+    basisCurve = Handle(GeomCurve3d)::DownCast(C->Copy());
 
   SetTrim(U1, U2, Sense, theAdjustPeriodic);
 }
@@ -172,7 +172,7 @@ GeomAbs_Shape Geom_TrimmedCurve::Continuity() const
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_TrimmedCurve::BasisCurve() const
+Handle(GeomCurve3d) Geom_TrimmedCurve::BasisCurve() const
 {
 
   return basisCurve;

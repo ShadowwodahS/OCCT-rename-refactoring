@@ -34,7 +34,7 @@
 
 #ifdef OCCT_DEBUG
   #define DEBSHASET(sarg, meth, shaset, str)                                                       \
-    TCollection_AsciiString sarg((meth));                                                          \
+    AsciiString1 sarg((meth));                                                          \
     (sarg) = (sarg) + (shaset).DEBNumber() + (str);
 Standard_EXPORT Standard_Boolean TopOpeBRepBuild_GetcontextNOFUFA();
 
@@ -50,9 +50,9 @@ Standard_EXPORT void debffflo(const Standard_Integer i)
 #endif
 
 static Standard_Boolean      STATIC_motheropedef = Standard_False;
-static TopOpeBRepBuild_GTopo STATIC_Gmotherope;
+static GTopologyClassifier STATIC_Gmotherope;
 
-Standard_EXPORT void FUN_setmotherope(const TopOpeBRepBuild_GTopo& G)
+Standard_EXPORT void FUN_setmotherope(const GTopologyClassifier& G)
 {
   STATIC_Gmotherope   = G;
   STATIC_motheropedef = Standard_True;
@@ -68,7 +68,7 @@ Standard_EXPORT Standard_Boolean FUN_ismotheropedef()
   return STATIC_motheropedef;
 }
 
-Standard_EXPORT const TopOpeBRepBuild_GTopo& FUN_motherope()
+Standard_EXPORT const GTopologyClassifier& FUN_motherope()
 {
   return STATIC_Gmotherope;
 }
@@ -78,38 +78,38 @@ Standard_EXPORTEXTERN Standard_Boolean GLOBAL_classifysplitedge;
 // Standard_IMPORT extern Standard_Boolean GLOBAL_revownsplfacori;
 Standard_EXPORTEXTERN Standard_Boolean GLOBAL_revownsplfacori;
 Standard_EXPORT void                   FUNBUILD_ANCESTORRANKPREPARE(TopOpeBRepBuild_Builder&    B,
-                                                                    const TopTools_ListOfShape& LF1,
-                                                                    const TopTools_ListOfShape& LF2,
+                                                                    const ShapeList& LF1,
+                                                                    const ShapeList& LF2,
                                                                     const TopOpeBRepDS_Config   c1,
                                                                     const TopOpeBRepDS_Config   c2);
 Standard_EXPORT void                   FUNBUILD_ANCESTORRANKGET(TopOpeBRepBuild_Builder& B,
-                                                                const TopoDS_Shape&      f,
+                                                                const TopoShape&      f,
                                                                 Standard_Boolean&        of1,
                                                                 Standard_Boolean&        of2);
 
 static Standard_Integer FUN_getAncestorFsp(TopOpeBRepBuild_Builder&        B,
                                            TopOpeBRepTool_ShapeClassifier& SC,
-                                           const TopTools_ListOfShape&     LF,
-                                           const TopoDS_Shape&             fsp,
+                                           const ShapeList&     LF,
+                                           const TopoShape&             fsp,
                                            Standard_Boolean&               p3ddef,
                                            Point3d&                         p3d);
 static Standard_Integer FUN_getAncestorFsp(TopOpeBRepBuild_Builder&        B,
                                            TopOpeBRepTool_ShapeClassifier& SC,
-                                           const TopTools_ListOfShape&     LF1,
-                                           const TopTools_ListOfShape&     LF2,
-                                           const TopoDS_Shape&             fsp);
+                                           const ShapeList&     LF1,
+                                           const ShapeList&     LF2,
+                                           const TopoShape&             fsp);
 #ifdef OCCT_DEBUG
 // static void FUN_getAncestorFsp(const Handle(TopOpeBRepDS_HDataStructure)&
-// HDS,TopOpeBRepTool_ShapeClassifier& SC,const TopTools_ListOfShape& LF1,const
-// TopTools_ListOfShape& LF2,const TopTools_ListOfShape& spFOR,
+// HDS,TopOpeBRepTool_ShapeClassifier& SC,const ShapeList& LF1,const
+// ShapeList& LF2,const ShapeList& spFOR,
 // TopTools_DataMapOfShapeInteger*
 // SplitAnc);
 #endif
 
 static Standard_Integer FUN_getAncestorFsp(TopOpeBRepBuild_Builder&        B,
                                            TopOpeBRepTool_ShapeClassifier& SC,
-                                           const TopTools_ListOfShape&     LF,
-                                           const TopoDS_Shape&             fsp,
+                                           const ShapeList&     LF,
+                                           const TopoShape&             fsp,
                                            Standard_Boolean&               p3ddef,
                                            Point3d&                         p3d)
 {
@@ -118,7 +118,7 @@ static Standard_Integer FUN_getAncestorFsp(TopOpeBRepBuild_Builder&        B,
   TopTools_ListIteratorOfListOfShape itf(LF);
   for (; itf.More(); itf.Next())
   {
-    const TopoDS_Face& f  = TopoDS::Face(itf.Value());
+    const TopoFace& f  = TopoDS::Face(itf.Value());
     TopAbs_State       st = SC.StateShapeShape(fsp, f, 1);
     if ((st == TopAbs_UNKNOWN) || (st == TopAbs_OUT))
       continue;
@@ -137,7 +137,7 @@ static Standard_Integer FUN_getAncestorFsp(TopOpeBRepBuild_Builder&        B,
       Standard_Boolean ok = FUN_tool_projPonF(p3d, f, p2d, dd);
       if (!ok)
         return 0;
-      Standard_Real tolf = BRep_Tool::Tolerance(f) * 1.e1;
+      Standard_Real tolf = BRepInspector::Tolerance(f) * 1.e1;
       if (dd > tolf)
         return 0;
       Standard_Real           TolClass = 1e-8;
@@ -155,9 +155,9 @@ static Standard_Integer FUN_getAncestorFsp(TopOpeBRepBuild_Builder&        B,
 
 static Standard_Integer FUN_getAncestorFsp(TopOpeBRepBuild_Builder&        B,
                                            TopOpeBRepTool_ShapeClassifier& SC,
-                                           const TopTools_ListOfShape&     LF1,
-                                           const TopTools_ListOfShape&     LF2,
-                                           const TopoDS_Shape&             fsp)
+                                           const ShapeList&     LF1,
+                                           const ShapeList&     LF2,
+                                           const TopoShape&             fsp)
 {
   // IMPORTANT : fsp is split IN/OUT of F1,so it has only one ancestor face
   // LF1 faces sdm with LF2
@@ -206,9 +206,9 @@ Standard_EXPORT TopTools_DataMapOfShapeInteger* GLOBAL_SplitAnc = NULL; // xpu26
 
 static void FUN_getAncestorFsp(TopOpeBRepBuild_Builder&        B,
                                TopOpeBRepTool_ShapeClassifier& SC,
-                               const TopTools_ListOfShape&     LF1,
-                               const TopTools_ListOfShape&     LF2,
-                               const TopoDS_Shape&             FOR,
+                               const ShapeList&     LF1,
+                               const ShapeList&     LF2,
+                               const TopoShape&             FOR,
                                TopTools_DataMapOfShapeInteger* SplitAnc)
 {
   if (SplitAnc == NULL)
@@ -219,7 +219,7 @@ static void FUN_getAncestorFsp(TopOpeBRepBuild_Builder&        B,
   if (!issplitIN && !issplitOU)
     return;
 
-  TopTools_ListOfShape spFOR;
+  ShapeList spFOR;
   if (issplitIN)
     FDS_copy(B.Splits(FOR, TopAbs_IN), spFOR);
   if (issplitOU)
@@ -227,7 +227,7 @@ static void FUN_getAncestorFsp(TopOpeBRepBuild_Builder&        B,
 
   for (TopTools_ListIteratorOfListOfShape itsp(spFOR); itsp.More(); itsp.Next())
   {
-    const TopoDS_Shape& fsp = itsp.Value();
+    const TopoShape& fsp = itsp.Value();
 
     Standard_Boolean isbound = SplitAnc->IsBound(fsp);
     if (isbound)
@@ -241,19 +241,19 @@ static void FUN_getAncestorFsp(TopOpeBRepBuild_Builder&        B,
   } // itsp
 }
 
-Standard_EXPORT TopTools_ListOfShape* GLOBAL_lfr1         = NULL;
+Standard_EXPORT ShapeList* GLOBAL_lfr1         = NULL;
 Standard_EXPORT Standard_Boolean      GLOBAL_lfrtoprocess = Standard_False;
 
-// Standard_IMPORT extern TopTools_ListOfShape* GLOBAL_lfr1;
-// Standard_IMPORT TopTools_ListOfShape* GLOBAL_lfr1;
+// Standard_IMPORT extern ShapeList* GLOBAL_lfr1;
+// Standard_IMPORT ShapeList* GLOBAL_lfr1;
 // Standard_IMPORT extern Standard_Boolean GLOBAL_lfrtoprocess;
 // Standard_IMPORT Standard_Boolean GLOBAL_lfrtoprocess;
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoDS_Shape&           FOR,
-                                           const TopTools_ListOfShape&   LSO2,
-                                           const TopOpeBRepBuild_GTopo&  Gin,
+void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoShape&           FOR,
+                                           const ShapeList&   LSO2,
+                                           const GTopologyClassifier&  Gin,
                                            TopOpeBRepBuild_ShellFaceSet& SFS)
 {
   TopAbs_State TB1, TB2;
@@ -282,7 +282,7 @@ void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoDS_Shape&           FOR,
   }
 #endif
 
-  TopoDS_Shape FF = FOR;
+  TopoShape FF = FOR;
   FF.Orientation(TopAbs_FORWARD);
   Standard_Boolean hsd = myDataStructure->HasSameDomain(FOR); // xpu280598
   GLOBAL_lfrtoprocess  = Standard_False;
@@ -294,7 +294,7 @@ void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoDS_Shape&           FOR,
 
     // on effectue le merge ssi FOR est la reference de ses faces SameDomain
     Standard_Integer    iref  = myDataStructure->SameDomainReference(FOR);
-    const TopoDS_Shape& fref  = myDataStructure->Shape(iref);
+    const TopoShape& fref  = myDataStructure->Shape(iref);
     Standard_Boolean    isref = FOR.IsSame(fref);
 
     Standard_Boolean makemerge = isref;
@@ -323,7 +323,7 @@ void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoDS_Shape&           FOR,
         if (GLOBAL_lfrtoprocess)
         {
           if (GLOBAL_lfr1 == NULL)
-            GLOBAL_lfr1 = (TopTools_ListOfShape*)new TopTools_ListOfShape();
+            GLOBAL_lfr1 = (ShapeList*)new ShapeList();
           GLOBAL_lfr1->Clear();
         }
       }
@@ -335,7 +335,7 @@ void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoDS_Shape&           FOR,
         GLOBAL_SplitAnc = (TopTools_DataMapOfShapeInteger*)new TopTools_DataMapOfShapeInteger();
       GLOBAL_SplitAnc->Clear();
 
-      TopTools_ListOfShape LFSO, LFDO, LFSO1, LFDO1, LFSO2, LFDO2;
+      ShapeList LFSO, LFDO, LFSO1, LFDO1, LFSO2, LFDO2;
       GFindSamDomSODO(FF, LFSO, LFDO); // -980617
                                        //      FDSSDM_sordor(FF,LFSO,LFDO);
       Standard_Integer rankF = GShapeRank(FF), rankX = (rankF) ? ((rankF == 1) ? 2 : 1) : 0;
@@ -343,9 +343,9 @@ void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoDS_Shape&           FOR,
       GFindSameRank(LFDO, rankF, LFDO1);
       GFindSameRank(LFSO, rankX, LFSO2);
       GFindSameRank(LFDO, rankX, LFDO2);
-      TopTools_ListOfShape LF1, LF2;
+      ShapeList LF1, LF2;
 
-      TopOpeBRepBuild_GTopo GM;
+      GTopologyClassifier GM;
       TopAbs_State          TB, NTB;
       Standard_Boolean      dodo;
       Standard_Integer      l1, l2;
@@ -397,7 +397,7 @@ void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoDS_Shape&           FOR,
 
         // ici : GLOBAL_lfrtoprocess = t
         // clang-format off
-	if (GLOBAL_lfr1==NULL) GLOBAL_lfr1=(TopTools_ListOfShape*)new TopTools_ListOfShape(); //flo150998
+	if (GLOBAL_lfr1==NULL) GLOBAL_lfr1=(ShapeList*)new ShapeList(); //flo150998
         // clang-format on
         GLOBAL_lfr1->Clear();
         GSplitFaceSFS(FOR, LSO2, GM, SFS);
@@ -429,9 +429,9 @@ void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoDS_Shape&           FOR,
           std::cout << std::endl;
           std::cout << "@@@@" << std::endl;
           std::cout << "@@@@@@@@ partie 1 : ";
-          TopAbs::Print(TB11, std::cout);
+          TopAbs1::Print(TB11, std::cout);
           std::cout << " ";
-          TopAbs::Print(TB21, std::cout);
+          TopAbs1::Print(TB21, std::cout);
           std::cout << std::endl;
           std::cout << "@@@@" << std::endl;
           GdumpSAMDOM(LF1, (char*)"LF1 (LFSO1) : ");
@@ -462,14 +462,14 @@ void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoDS_Shape&           FOR,
           Standard_Boolean issplitIN = IsSplit(FOR, TopAbs_IN);
           if (issplitIN)
           {
-            const TopTools_ListOfShape& spFOR = Splits(FOR, TopAbs_IN);
-            TopTools_ListOfShape        spFORcopy;
+            const ShapeList& spFOR = Splits(FOR, TopAbs_IN);
+            ShapeList        spFORcopy;
             FDS_copy(spFOR, spFORcopy);
 
             TopTools_ListIteratorOfListOfShape it(LF1);
             for (; it.More(); it.Next())
             {
-              const TopoDS_Shape& f       = it.Value();
+              const TopoShape& f       = it.Value();
               Standard_Boolean    issplit = IsSplit(f, TopAbs_IN);
               if (issplit)
                 ChangeSplit(f, TopAbs_IN).Clear();
@@ -477,7 +477,7 @@ void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoDS_Shape&           FOR,
             it.Initialize(LF2);
             for (; it.More(); it.Next())
             {
-              const TopoDS_Shape& f       = it.Value();
+              const TopoShape& f       = it.Value();
               Standard_Boolean    issplit = IsSplit(f, TopAbs_IN);
               if (issplit)
                 ChangeSplit(f, TopAbs_IN).Clear();
@@ -511,9 +511,9 @@ void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoDS_Shape&           FOR,
             std::cout << std::endl;
             std::cout << "@@@@" << std::endl;
             std::cout << "@@@@@@@@ partie 2 : ";
-            TopAbs::Print(TB12, std::cout);
+            TopAbs1::Print(TB12, std::cout);
             std::cout << " ";
-            TopAbs::Print(TB22, std::cout);
+            TopAbs1::Print(TB22, std::cout);
             std::cout << std::endl;
             std::cout << "@@@@" << std::endl;
             GdumpSAMDOM(LF1, (char*)"LF1 (LFSO1) : ");
@@ -563,8 +563,8 @@ void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoDS_Shape&           FOR,
         if (tSPS)
           debffflo(iF);
 #endif
-//	const TopTools_ListOfShape& lou = Splits(FF,TopAbs_OUT); Standard_Integer nou = lou.Extent();
-//	const TopTools_ListOfShape& lin = Splits(FF,TopAbs_IN);  Standard_Integer nin = lin.Extent();
+//	const ShapeList& lou = Splits(FF,TopAbs_OUT); Standard_Integer nou = lou.Extent();
+//	const ShapeList& lin = Splits(FF,TopAbs_IN);  Standard_Integer nin = lin.Extent();
 //	GCopyList(lou,*GLOBAL_lfr1);
 //	GCopyList(lin,*GLOBAL_lfr1);
 #ifdef OCCT_DEBUG
@@ -573,7 +573,7 @@ void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoDS_Shape&           FOR,
 
         // NYI : Builder += methode pour le process fufa
         // clang-format off
-	TopOpeBRepBuild_FuseFace fufa; TopTools_ListOfShape ldum; Standard_Integer addinternal = 1; // disparition
+	FaceFusionBuilder fufa; ShapeList ldum; Standard_Integer addinternal = 1; // disparition
         // clang-format on
         fufa.Init(ldum, *GLOBAL_lfr1, addinternal);
         fufa.PerformFace();
@@ -583,13 +583,13 @@ void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoDS_Shape&           FOR,
 #ifdef OCCT_DEBUG
 //	Standard_Boolean ismodified = fufa.IsModified();
 #endif
-        const TopTools_ListOfShape& lfr2 = fufa.LFuseFace();
+        const ShapeList& lfr2 = fufa.LFuseFace();
         //
-        //	const TopTools_ListOfShape& lfr2 = *GLOBAL_lfr1
+        //	const ShapeList& lfr2 = *GLOBAL_lfr1
         // les faces remplacantes
         for (TopTools_ListIteratorOfListOfShape itlfr2(lfr2); itlfr2.More(); itlfr2.Next())
         {
-          const TopoDS_Shape& flfr2 = itlfr2.Value();
+          const TopoShape& flfr2 = itlfr2.Value();
 
 #ifdef OCCT_DEBUG
           if (tSPS)
@@ -597,8 +597,8 @@ void TopOpeBRepBuild_Builder::GFillFaceSFS(const TopoDS_Shape&           FOR,
             DEBSHASET(ss, "--- FillFaceSFS apres fufa", SFS, " AddStartElement SFS+ face ");
             GdumpSHA(flfr2, (Standard_Address)ss.ToCString());
             std::cout << " ";
-            TopAbs::Print(TB1, std::cout) << " : 1 face ";
-            TopAbs::Print(flfr2.Orientation(), std::cout);
+            TopAbs1::Print(TB1, std::cout) << " : 1 face ";
+            TopAbs1::Print(flfr2.Orientation(), std::cout);
             std::cout << std::endl;
           }
 #endif

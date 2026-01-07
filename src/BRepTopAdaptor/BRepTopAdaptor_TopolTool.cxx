@@ -75,7 +75,7 @@ void BRepTopAdaptor_TopolTool::Initialize(const Handle(Adaptor3d_Surface)& S)
   {
     throw Standard_ConstructionError();
   }
-  TopoDS_Shape s_wnt = brhs->Face();
+  TopoShape s_wnt = brhs->Face();
   s_wnt.Orientation(TopAbs_FORWARD);
   myFace = TopoDS::Face(s_wnt);
   if (myFClass2d != NULL)
@@ -86,7 +86,7 @@ void BRepTopAdaptor_TopolTool::Initialize(const Handle(Adaptor3d_Surface)& S)
   myNbSamplesU = -1;
   myS          = S;
   myCurves.Clear();
-  TopExp_Explorer ex(myFace, TopAbs_EDGE);
+  ShapeExplorer ex(myFace, TopAbs_EDGE);
   for (; ex.More(); ex.Next())
   {
     Handle(BRepAdaptor_Curve2d) aCurve =
@@ -585,10 +585,10 @@ Standard_Real BRepTopAdaptor_TopolTool::Tol3d(const Handle(Adaptor2d_Curve2d)& C
     throw Standard_DomainError("BRepTopAdaptor_TopolTool: arc has no 3d representation");
   }
 
-  const TopoDS_Edge& edge = brhc->Edge();
+  const TopoEdge& edge = brhc->Edge();
   if (edge.IsNull())
     throw Standard_DomainError("BRepTopAdaptor_TopolTool: arc has no 3d representation");
-  return BRep_Tool::Tolerance(edge);
+  return BRepInspector::Tolerance(edge);
 }
 
 //=================================================================================================
@@ -598,10 +598,10 @@ Standard_Real BRepTopAdaptor_TopolTool::Tol3d(const Handle(Adaptor3d_HVertex)& V
   Handle(BRepTopAdaptor_HVertex) brhv = Handle(BRepTopAdaptor_HVertex)::DownCast(V);
   if (brhv.IsNull())
     throw Standard_DomainError("BRepTopAdaptor_TopolTool: vertex has no 3d representation");
-  const TopoDS_Vertex& ver = brhv->Vertex();
+  const TopoVertex& ver = brhv->Vertex();
   if (ver.IsNull())
     throw Standard_DomainError("BRepTopAdaptor_TopolTool: vertex has no 3d representation");
-  return BRep_Tool::Tolerance(ver);
+  return BRepInspector::Tolerance(ver);
 }
 
 //=================================================================================================
@@ -611,8 +611,8 @@ Point3d BRepTopAdaptor_TopolTool::Pnt(const Handle(Adaptor3d_HVertex)& V) const
   Handle(BRepTopAdaptor_HVertex) brhv = Handle(BRepTopAdaptor_HVertex)::DownCast(V);
   if (brhv.IsNull())
     throw Standard_DomainError("BRepTopAdaptor_TopolTool: vertex has no 3d representation");
-  const TopoDS_Vertex& ver = brhv->Vertex();
+  const TopoVertex& ver = brhv->Vertex();
   if (ver.IsNull())
     throw Standard_DomainError("BRepTopAdaptor_TopolTool: vertex has no 3d representation");
-  return BRep_Tool::Pnt(ver);
+  return BRepInspector::Pnt(ver);
 }

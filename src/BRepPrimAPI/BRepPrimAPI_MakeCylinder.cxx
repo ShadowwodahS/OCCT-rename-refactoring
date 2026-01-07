@@ -20,14 +20,14 @@
 
 //=================================================================================================
 
-BRepPrimAPI_MakeCylinder::BRepPrimAPI_MakeCylinder(const Standard_Real R, const Standard_Real H)
+CylinderMaker::CylinderMaker(const Standard_Real R, const Standard_Real H)
     : myCylinder(gp::XOY(), R, H)
 {
 }
 
 //=================================================================================================
 
-BRepPrimAPI_MakeCylinder::BRepPrimAPI_MakeCylinder(const Standard_Real R,
+CylinderMaker::CylinderMaker(const Standard_Real R,
                                                    const Standard_Real H,
                                                    const Standard_Real Angle)
     : myCylinder(R, H)
@@ -37,7 +37,7 @@ BRepPrimAPI_MakeCylinder::BRepPrimAPI_MakeCylinder(const Standard_Real R,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeCylinder::BRepPrimAPI_MakeCylinder(const Frame3d&       Axes,
+CylinderMaker::CylinderMaker(const Frame3d&       Axes,
                                                    const Standard_Real R,
                                                    const Standard_Real H)
     : myCylinder(Axes, R, H)
@@ -46,7 +46,7 @@ BRepPrimAPI_MakeCylinder::BRepPrimAPI_MakeCylinder(const Frame3d&       Axes,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeCylinder::BRepPrimAPI_MakeCylinder(const Frame3d&       Axes,
+CylinderMaker::CylinderMaker(const Frame3d&       Axes,
                                                    const Standard_Real R,
                                                    const Standard_Real H,
                                                    const Standard_Real Angle)
@@ -57,14 +57,14 @@ BRepPrimAPI_MakeCylinder::BRepPrimAPI_MakeCylinder(const Frame3d&       Axes,
 
 //=================================================================================================
 
-Standard_Address BRepPrimAPI_MakeCylinder::OneAxis()
+Standard_Address CylinderMaker::OneAxis()
 {
   return &myCylinder;
 }
 
 //=================================================================================================
 
-BRepPrim_Cylinder& BRepPrimAPI_MakeCylinder::Cylinder()
+BRepPrim_Cylinder& CylinderMaker::Cylinder()
 {
   return myCylinder;
 }

@@ -21,7 +21,7 @@
 #include <Standard_Boolean.hxx>
 #include <TopTools_MapOfShape.hxx>
 #include <STEPControl_ActorWrite.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 class STEPCAFControl_ActorWrite;
 DEFINE_STANDARD_HANDLE(STEPCAFControl_ActorWrite, STEPControl_ActorWrite)
@@ -37,7 +37,7 @@ public:
   //! Check whether shape S is assembly
   //! Returns True if shape is registered in assemblies map
   Standard_EXPORT virtual Standard_Boolean IsAssembly(const Handle(StepData_StepModel)& theModel,
-                                                      TopoDS_Shape& S) const Standard_OVERRIDE;
+                                                      TopoShape& S) const Standard_OVERRIDE;
 
   //! Set standard mode of work
   //! In standard mode Actor (default) behaves exactly as its
@@ -48,8 +48,8 @@ public:
   Standard_EXPORT void ClearMap();
 
   //! Registers shape to be written as assembly
-  //! The shape should be TopoDS_Compound (else does nothing)
-  Standard_EXPORT void RegisterAssembly(const TopoDS_Shape& S);
+  //! The shape should be TopoCompound (else does nothing)
+  Standard_EXPORT void RegisterAssembly(const TopoShape& S);
 
   DEFINE_STANDARD_RTTIEXT(STEPCAFControl_ActorWrite, STEPControl_ActorWrite)
 

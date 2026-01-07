@@ -31,20 +31,20 @@
 #include <StdSelect_BRepOwner.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_ConnectedInteractive, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_ConnectedInteractive, VisualEntity)
 
 //=================================================================================================
 
 AIS_ConnectedInteractive::AIS_ConnectedInteractive(
   const PrsMgr_TypeOfPresentation3d aTypeOfPresentation3d)
-    : AIS_InteractiveObject(aTypeOfPresentation3d)
+    : VisualEntity(aTypeOfPresentation3d)
 {
   //
 }
 
 //=================================================================================================
 
-void AIS_ConnectedInteractive::connect(const Handle(AIS_InteractiveObject)& theAnotherObj,
+void AIS_ConnectedInteractive::connect(const Handle(VisualEntity)& theAnotherObj,
                                        const Handle(TopLoc_Datum3D)&        theLocation)
 {
   if (myReference == theAnotherObj)
@@ -127,7 +127,7 @@ void AIS_ConnectedInteractive::Compute(const Handle(PrsMgr_PresentationManager)&
 
 //=================================================================================================
 
-void AIS_ConnectedInteractive::computeHLR(const Handle(Graphic3d_Camera)&   theProjector,
+void AIS_ConnectedInteractive::computeHLR(const Handle(CameraOn3d)&   theProjector,
                                           const Handle(TopLoc_Datum3D)&     theTransformation,
                                           const Handle(Prs3d_Presentation)& thePresentation)
 {
@@ -140,12 +140,12 @@ void AIS_ConnectedInteractive::computeHLR(const Handle(Graphic3d_Camera)&   theP
   if (hasTrsf)
   {
     const TopLoc_Location& aLocation = myShape.Location();
-    TopoDS_Shape aShape = myShape.Located(TopLoc_Location(theTransformation->Trsf()) * aLocation);
-    AIS_Shape::computeHlrPresentation(theProjector, thePresentation, aShape, myDrawer);
+    TopoShape aShape = myShape.Located(TopLoc_Location(theTransformation->Trsf()) * aLocation);
+    VisualShape::computeHlrPresentation(theProjector, thePresentation, aShape, myDrawer);
   }
   else
   {
-    AIS_Shape::computeHlrPresentation(theProjector, thePresentation, myShape, myDrawer);
+    VisualShape::computeHlrPresentation(theProjector, thePresentation, myShape, myDrawer);
   }
 }
 
@@ -153,13 +153,13 @@ void AIS_ConnectedInteractive::computeHLR(const Handle(Graphic3d_Camera)&   theP
 
 void AIS_ConnectedInteractive::updateShape(const Standard_Boolean isWithLocation)
 {
-  Handle(AIS_Shape) anAisShape = Handle(AIS_Shape)::DownCast(myReference);
+  Handle(VisualShape) anAisShape = Handle(VisualShape)::DownCast(myReference);
   if (anAisShape.IsNull())
   {
     return;
   }
 
-  TopoDS_Shape aShape = anAisShape->Shape();
+  TopoShape aShape = anAisShape->Shape();
   if (aShape.IsNull())
   {
     return;
@@ -177,7 +177,7 @@ void AIS_ConnectedInteractive::updateShape(const Standard_Boolean isWithLocation
 
 //=================================================================================================
 
-void AIS_ConnectedInteractive::ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+void AIS_ConnectedInteractive::ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                                 const Standard_Integer             theMode)
 {
   if (!HasConnection())
@@ -196,7 +196,7 @@ void AIS_ConnectedInteractive::ComputeSelection(const Handle(SelectMgr_Selection
     myReference->RecomputePrimitives(theMode);
   }
 
-  const Handle(SelectMgr_Selection)& TheRefSel = myReference->Selection(theMode);
+  const Handle(SelectionContainer)& TheRefSel = myReference->Selection(theMode);
   Handle(SelectMgr_EntityOwner)      anOwner   = new SelectMgr_EntityOwner(this);
 
   TopLoc_Location aLocation(Transformation());
@@ -227,18 +227,18 @@ void AIS_ConnectedInteractive::ComputeSelection(const Handle(SelectMgr_Selection
 //=================================================================================================
 
 void AIS_ConnectedInteractive::computeSubShapeSelection(
-  const Handle(SelectMgr_Selection)& theSelection,
+  const Handle(SelectionContainer)& theSelection,
   const Standard_Integer             theMode)
 {
   typedef NCollection_List<Handle(Select3D_SensitiveEntity)> SensitiveList;
-  typedef NCollection_DataMap<TopoDS_Shape, SensitiveList>   Shapes2EntitiesMap;
+  typedef NCollection_DataMap<TopoShape, SensitiveList>   Shapes2EntitiesMap;
 
   if (!myReference->HasSelection(theMode))
   {
     myReference->RecomputePrimitives(theMode);
   }
 
-  const Handle(SelectMgr_Selection)& aRefSel = myReference->Selection(theMode);
+  const Handle(SelectionContainer)& aRefSel = myReference->Selection(theMode);
   if (aRefSel->IsEmpty() || aRefSel->UpdateStatus() == SelectMgr_TOU_Full)
   {
     myReference->RecomputePrimitives(theMode);
@@ -256,7 +256,7 @@ void AIS_ConnectedInteractive::computeSubShapeSelection(
       if (Handle(StdSelect_BRepOwner) anOwner =
             Handle(StdSelect_BRepOwner)::DownCast(aSE->OwnerId()))
       {
-        const TopoDS_Shape& aSubShape = anOwner->Shape();
+        const TopoShape& aSubShape = anOwner->Shape();
         if (!aShapes2EntitiesMap.IsBound(aSubShape))
         {
           aShapes2EntitiesMap.Bind(aSubShape, SensitiveList());

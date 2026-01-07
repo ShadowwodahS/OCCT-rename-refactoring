@@ -30,7 +30,7 @@ IFSelect_SignAncestor::IFSelect_SignAncestor(const Standard_Boolean nopk)
 
 Standard_Boolean IFSelect_SignAncestor::Matches(const Handle(RefObject)& ent,
                                                 const Handle(Interface_InterfaceModel)& /*model*/,
-                                                const TCollection_AsciiString& text,
+                                                const AsciiString1& text,
                                                 const Standard_Boolean /*exact*/) const
 {
   if (ent.IsNull())

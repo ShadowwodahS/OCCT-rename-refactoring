@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-TCollection_AsciiString OpenGl_TextureFormat::FormatFormat(GLint theInternalFormat)
+AsciiString1 OpenGl_TextureFormat::FormatFormat(GLint theInternalFormat)
 {
   switch (theInternalFormat)
   {
@@ -154,7 +154,7 @@ TCollection_AsciiString OpenGl_TextureFormat::FormatFormat(GLint theInternalForm
 
 //=================================================================================================
 
-TCollection_AsciiString OpenGl_TextureFormat::FormatDataType(GLint theDataType)
+AsciiString1 OpenGl_TextureFormat::FormatDataType(GLint theDataType)
 {
   switch (theDataType)
   {

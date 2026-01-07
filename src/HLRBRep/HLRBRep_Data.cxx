@@ -999,7 +999,7 @@ void HLRBRep_Data::InitEdge(const Standard_Integer FI, BRepTopAdaptor_MapOfShape
   HLRBRep_Surface*           p1   = (HLRBRep_Surface*)iFaceGeom;
   const BRepAdaptor_Surface& bras = p1->Surface();
 
-  const TopoDS_Face& topodsface = bras.Face();
+  const TopoFace& topodsface = bras.Face();
 
   if (MST.IsBound(topodsface))
   {
@@ -1824,7 +1824,7 @@ void HLRBRep_Data::OrientOthEdge(const Standard_Integer I, HLRBRep_FaceData& FD)
             }
             if (r < 0)
             {
-              myFEOri = TopAbs::Reverse(myFEOri);
+              myFEOri = TopAbs1::Reverse(myFEOri);
               eb1->Orientation(ie1, myFEOri);
             }
           }
@@ -2315,7 +2315,7 @@ Standard_Boolean HLRBRep_Data::RejectedPoint(const IntRes2d_IntersectionPoint& P
   }
 
   if (iFaceBack)
-    Orie = TopAbs::Complement(Orie); // change the transition
+    Orie = TopAbs1::Complement(Orie); // change the transition
   TopAbs_Orientation Ori = TopAbs_FORWARD;
   switch (Tr1->PositionOnCurve())
   {

@@ -33,7 +33,7 @@
 
 void StdPrs_PoleCurve::Add(const Handle(Prs3d_Presentation)& aPresentation,
                            const Adaptor3d_Curve&            aCurve,
-                           const Handle(Prs3d_Drawer)&       aDrawer)
+                           const Handle(StyleDrawer)&       aDrawer)
 {
   aPresentation->CurrentGroup()->SetPrimitivesAspect(aDrawer->LineAspect()->Aspect());
 
@@ -43,7 +43,7 @@ void StdPrs_PoleCurve::Add(const Handle(Prs3d_Presentation)& aPresentation,
     Standard_Integer i, Nb;
     if (CType == GeomAbs_BezierCurve)
     {
-      Handle(Geom_BezierCurve) Bz               = aCurve.Bezier();
+      Handle(BezierCurve3d) Bz               = aCurve.Bezier();
       Nb                                        = Bz->NbPoles();
       Handle(Graphic3d_ArrayOfPolylines) aPrims = new Graphic3d_ArrayOfPolylines(Nb);
       for (i = 1; i <= Nb; i++)
@@ -52,7 +52,7 @@ void StdPrs_PoleCurve::Add(const Handle(Prs3d_Presentation)& aPresentation,
     }
     else if (CType == GeomAbs_BSplineCurve)
     {
-      Handle(Geom_BSplineCurve) Bs              = aCurve.BSpline();
+      Handle(BSplineCurve3d) Bs              = aCurve.BSpline();
       Nb                                        = Bs->NbPoles();
       Handle(Graphic3d_ArrayOfPolylines) aPrims = new Graphic3d_ArrayOfPolylines(Nb);
       for (i = 1; i <= Nb; i++)
@@ -66,7 +66,7 @@ void StdPrs_PoleCurve::Add(const Handle(Prs3d_Presentation)& aPresentation,
     Point3d Location;
     Vector3d Direction;
     aCurve.D1(aCurve.LastParameter(), Location, Direction);
-    Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+    Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                       Location,
                       Dir3d(Direction),
                       aDrawer->ArrowAspect()->Angle(),
@@ -81,14 +81,14 @@ Standard_Boolean StdPrs_PoleCurve::Match(const Standard_Real    X,
                                          const Standard_Real    Z,
                                          const Standard_Real    aDistance,
                                          const Adaptor3d_Curve& aCurve,
-                                         const Handle(Prs3d_Drawer)& /*aDrawer*/)
+                                         const Handle(StyleDrawer)& /*aDrawer*/)
 {
   GeomAbs_CurveType CType = aCurve.GetType();
   Standard_Integer  i, Nb = 0;
   Standard_Real     x, y, z;
   if (CType == GeomAbs_BezierCurve)
   {
-    Handle(Geom_BezierCurve) Bz = aCurve.Bezier();
+    Handle(BezierCurve3d) Bz = aCurve.Bezier();
     Nb                          = Bz->NbPoles();
     for (i = 1; i <= Nb; i++)
     {
@@ -100,7 +100,7 @@ Standard_Boolean StdPrs_PoleCurve::Match(const Standard_Real    X,
   }
   else if (CType == GeomAbs_BSplineCurve)
   {
-    Handle(Geom_BSplineCurve) Bs = aCurve.BSpline();
+    Handle(BSplineCurve3d) Bs = aCurve.BSpline();
     Nb                           = Bs->NbPoles();
     for (i = 1; i <= Nb; i++)
     {
@@ -120,7 +120,7 @@ Standard_Integer StdPrs_PoleCurve::Pick(const Standard_Real    X,
                                         const Standard_Real    Z,
                                         const Standard_Real    aDistance,
                                         const Adaptor3d_Curve& aCurve,
-                                        const Handle(Prs3d_Drawer)& /*aDrawer*/)
+                                        const Handle(StyleDrawer)& /*aDrawer*/)
 {
   Standard_Real     x, y, z, DistMin = RealLast();
   Standard_Integer  num = 0, i, Nb = 0;
@@ -129,7 +129,7 @@ Standard_Integer StdPrs_PoleCurve::Pick(const Standard_Real    X,
 
   if (CType == GeomAbs_BezierCurve)
   {
-    Handle(Geom_BezierCurve) Bz = aCurve.Bezier();
+    Handle(BezierCurve3d) Bz = aCurve.Bezier();
     Nb                          = Bz->NbPoles();
     for (i = 1; i <= Nb; i++)
     {
@@ -147,7 +147,7 @@ Standard_Integer StdPrs_PoleCurve::Pick(const Standard_Real    X,
   }
   else if (CType == GeomAbs_BSplineCurve)
   {
-    Handle(Geom_BSplineCurve) Bs = aCurve.BSpline();
+    Handle(BSplineCurve3d) Bs = aCurve.BSpline();
     Nb                           = Bs->NbPoles();
     for (i = 1; i <= Nb; i++)
     {

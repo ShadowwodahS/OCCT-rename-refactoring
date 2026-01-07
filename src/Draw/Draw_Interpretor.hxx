@@ -25,16 +25,16 @@
 #include <Standard_SStream.hxx>
 #include <Standard_Real.hxx>
 
-class TCollection_AsciiString;
-class TCollection_ExtendedString;
+class AsciiString1;
+class UtfString;
 
-//! Provides an encapsulation of the TCL interpretor to define Draw commands.
-class Draw_Interpretor
+//! Provides an encapsulation of the TCL interpretor to define Draw1 commands.
+class DrawInterpreter
 {
 
 public:
   //! Global callback function definition
-  typedef Standard_Integer (*CommandFunction)(Draw_Interpretor& theDI,
+  typedef Standard_Integer (*CommandFunction)(DrawInterpreter& theDI,
                                               Standard_Integer  theArgNb,
                                               const char**      theArgVec);
 
@@ -43,7 +43,7 @@ public:
   {
 
     //! Main constructor
-    CallBackData(Draw_Interpretor* theDI)
+    CallBackData(DrawInterpreter* theDI)
         : myDI(theDI)
     {
     }
@@ -52,11 +52,11 @@ public:
     virtual ~CallBackData() {}
 
     //! Invoke function
-    virtual Standard_Integer Invoke(Draw_Interpretor& theDI,
+    virtual Standard_Integer Invoke(DrawInterpreter& theDI,
                                     Standard_Integer  theArgNb,
                                     const char**      theArgVec) = 0;
 
-    Draw_Interpretor* myDI; //!< pointer to Draw Interpretor
+    DrawInterpreter* myDI; //!< pointer to Draw1 Interpretor
 
     // make sure allocation and de-allocation is done by the same memory allocator
     DEFINE_STANDARD_ALLOC
@@ -67,20 +67,20 @@ protected:
   struct CallBackDataFunc : public CallBackData
   {
 
-    CallBackDataFunc(Draw_Interpretor* theDI, CommandFunction theFunc)
+    CallBackDataFunc(DrawInterpreter* theDI, CommandFunction theFunc)
         : CallBackData(theDI),
           myFunc(theFunc)
     {
     }
 
-    virtual Standard_Integer Invoke(Draw_Interpretor& theDI,
+    virtual Standard_Integer Invoke(DrawInterpreter& theDI,
                                     Standard_Integer  theArgNb,
                                     const char**      theArgVec)
     {
       return myFunc != NULL ? myFunc(theDI, theArgNb, theArgVec) : 1;
     }
 
-    Draw_Interpretor::CommandFunction myFunc;
+    DrawInterpreter::CommandFunction myFunc;
   };
 
   //! Callback implementation for class's method definition
@@ -88,18 +88,18 @@ protected:
   struct CallBackDataMethod : public CallBackData
   {
     typedef typename theObjHandle::element_type element_type;
-    typedef Standard_Integer (element_type::*methodType)(Draw_Interpretor&,
+    typedef Standard_Integer (element_type::*methodType)(DrawInterpreter&,
                                                          Standard_Integer,
                                                          const char**);
 
-    CallBackDataMethod(Draw_Interpretor* theDI, const theObjHandle& theObjPtr, methodType theMethod)
+    CallBackDataMethod(DrawInterpreter* theDI, const theObjHandle& theObjPtr, methodType theMethod)
         : CallBackData(theDI),
           myObjPtr(theObjPtr),
           myMethod(theMethod)
     {
     }
 
-    virtual Standard_Integer Invoke(Draw_Interpretor& theDI,
+    virtual Standard_Integer Invoke(DrawInterpreter& theDI,
                                     Standard_Integer  theArgNb,
                                     const char**      theArgVec)
     {
@@ -114,7 +114,7 @@ protected:
 
 public:
   //! Empty constructor
-  Standard_EXPORT Draw_Interpretor();
+  Standard_EXPORT DrawInterpreter();
 
   //! Initialize TCL interpretor
   Standard_EXPORT void Init();
@@ -152,11 +152,11 @@ public:
     Standard_CString                                                         theHelp,
     Standard_CString                                                         theFileName,
     const theHandleType&                                                     theObjPtr,
-    typename Draw_Interpretor::CallBackDataMethod<theHandleType>::methodType theMethod,
+    typename DrawInterpreter::CallBackDataMethod<theHandleType>::methodType theMethod,
     Standard_CString                                                         theGroup)
   {
-    Draw_Interpretor::CallBackDataMethod<theHandleType>* aCallback =
-      new Draw_Interpretor::CallBackDataMethod<theHandleType>(this, theObjPtr, theMethod);
+    DrawInterpreter::CallBackDataMethod<theHandleType>* aCallback =
+      new DrawInterpreter::CallBackDataMethod<theHandleType>(this, theObjPtr, theMethod);
     add(theCommandName, theHelp, theFileName, aCallback, theGroup);
   }
 
@@ -170,46 +170,46 @@ public:
   Standard_EXPORT void Reset();
 
   //! Appends to the result
-  Standard_EXPORT Draw_Interpretor& Append(const Standard_CString theResult);
+  Standard_EXPORT DrawInterpreter& Append(const Standard_CString theResult);
 
-  inline Draw_Interpretor& operator<<(const Standard_CString theResult)
+  inline DrawInterpreter& operator<<(const Standard_CString theResult)
   {
     return Append(theResult);
   }
 
   //! Appends to the result
-  Standard_EXPORT Draw_Interpretor& Append(const TCollection_AsciiString& theResult);
+  Standard_EXPORT DrawInterpreter& Append(const AsciiString1& theResult);
 
-  inline Draw_Interpretor& operator<<(const TCollection_AsciiString& theResult)
+  inline DrawInterpreter& operator<<(const AsciiString1& theResult)
   {
     return Append(theResult);
   }
 
   //! Appends to the result
-  Standard_EXPORT Draw_Interpretor& Append(const TCollection_ExtendedString& theResult);
+  Standard_EXPORT DrawInterpreter& Append(const UtfString& theResult);
 
-  inline Draw_Interpretor& operator<<(const TCollection_ExtendedString& theResult)
+  inline DrawInterpreter& operator<<(const UtfString& theResult)
   {
     return Append(theResult);
   }
 
   //! Appends to the result
-  Standard_EXPORT Draw_Interpretor& Append(const Standard_Integer theResult);
+  Standard_EXPORT DrawInterpreter& Append(const Standard_Integer theResult);
 
-  inline Draw_Interpretor& operator<<(const Standard_Integer theResult)
+  inline DrawInterpreter& operator<<(const Standard_Integer theResult)
   {
     return Append(theResult);
   }
 
   //! Appends to the result
-  Standard_EXPORT Draw_Interpretor& Append(const Standard_Real theResult);
+  Standard_EXPORT DrawInterpreter& Append(const Standard_Real theResult);
 
-  inline Draw_Interpretor& operator<<(const Standard_Real theResult) { return Append(theResult); }
+  inline DrawInterpreter& operator<<(const Standard_Real theResult) { return Append(theResult); }
 
   //! Appends to the result
-  Standard_EXPORT Draw_Interpretor& Append(const Standard_SStream& theResult);
+  Standard_EXPORT DrawInterpreter& Append(const Standard_SStream& theResult);
 
-  inline Draw_Interpretor& operator<<(const Standard_SStream& theResult)
+  inline DrawInterpreter& operator<<(const Standard_SStream& theResult)
   {
     return Append(theResult);
   }
@@ -236,9 +236,9 @@ public:
 
 public:
   //! Destructor
-  Standard_EXPORT ~Draw_Interpretor();
+  Standard_EXPORT ~DrawInterpreter();
 
-  Standard_EXPORT Draw_Interpretor(const Draw_PInterp& theInterp);
+  Standard_EXPORT DrawInterpreter(const Draw_PInterp& theInterp);
 
   Standard_EXPORT void Set(const Draw_PInterp& theInterp);
 
@@ -264,7 +264,7 @@ public:
   Standard_EXPORT void AddLog(const Standard_CString theStr);
 
   //! Returns current content of the log file as a text string
-  Standard_EXPORT TCollection_AsciiString GetLog();
+  Standard_EXPORT AsciiString1 GetLog();
 
   //! Returns current value of the log file descriptor
   Standard_Integer GetLogFileDescriptor() { return myFDLog; }

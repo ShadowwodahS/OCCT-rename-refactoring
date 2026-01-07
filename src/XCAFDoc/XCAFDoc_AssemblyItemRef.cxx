@@ -42,7 +42,7 @@ const Standard_GUID& XCAFDoc_AssemblyItemRef::GetID()
   return s_ID;
 }
 
-Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_AssemblyItemRef::Get(const TDF_Label& theLabel)
+Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_AssemblyItemRef::Get(const DataLabel& theLabel)
 {
   Handle(XCAFDoc_AssemblyItemRef) aThis;
   theLabel.FindAttribute(XCAFDoc_AssemblyItemRef::GetID(), aThis);
@@ -50,7 +50,7 @@ Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_AssemblyItemRef::Get(const TDF_Label& th
 }
 
 Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_AssemblyItemRef::Set(
-  const TDF_Label&              theLabel,
+  const DataLabel&              theLabel,
   const XCAFDoc_AssemblyItemId& theItemId)
 {
   Handle(XCAFDoc_AssemblyItemRef) aThis;
@@ -64,7 +64,7 @@ Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_AssemblyItemRef::Set(
 }
 
 Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_AssemblyItemRef::Set(
-  const TDF_Label&              theLabel,
+  const DataLabel&              theLabel,
   const XCAFDoc_AssemblyItemId& theItemId,
   const Standard_GUID&          theAttrGUID)
 {
@@ -80,7 +80,7 @@ Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_AssemblyItemRef::Set(
 }
 
 Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_AssemblyItemRef::Set(
-  const TDF_Label&              theLabel,
+  const DataLabel&              theLabel,
   const XCAFDoc_AssemblyItemId& theItemId,
   const Standard_Integer        theShapeIndex)
 {
@@ -105,13 +105,13 @@ Standard_Boolean XCAFDoc_AssemblyItemRef::IsOrphan() const
   if (myItemId.IsNull())
     return Standard_True;
 
-  TDF_Label aRoot = Label().Root();
+  DataLabel aRoot = Label().Root();
 
   Handle(TDocStd_Owner) anOwner;
   if (!aRoot.FindAttribute(TDocStd_Owner::GetID(), anOwner))
     return Standard_True;
 
-  Handle(TDocStd_Document) aDoc = anOwner->GetDocument();
+  Handle(AppDocument) aDoc = anOwner->GetDocument();
   if (aDoc.IsNull())
     return Standard_True;
 
@@ -119,7 +119,7 @@ Standard_Boolean XCAFDoc_AssemblyItemRef::IsOrphan() const
   if (aData.IsNull())
     return Standard_True;
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aData, myItemId.GetPath().Last(), aLabel);
   if (aLabel.IsNull())
     return Standard_True;
@@ -134,13 +134,13 @@ Standard_Boolean XCAFDoc_AssemblyItemRef::IsOrphan() const
     }
     else if (IsSubshapeIndex())
     {
-      Handle(TNaming_NamedShape) aNamedShape;
-      if (!aLabel.FindAttribute(TNaming_NamedShape::GetID(), aNamedShape))
+      Handle(ShapeAttribute) aNamedShape;
+      if (!aLabel.FindAttribute(ShapeAttribute::GetID(), aNamedShape))
         return Standard_True;
 
-      TopoDS_Shape               aShape = aNamedShape->Get();
+      TopoShape               aShape = aNamedShape->Get();
       TopTools_IndexedMapOfShape aMap;
-      TopExp::MapShapes(aShape, aMap);
+      TopExp1::MapShapes(aShape, aMap);
       Standard_Integer aSubshapeIndex = GetSubshapeIndex();
       if (aSubshapeIndex < 1 || aMap.Size() < aSubshapeIndex)
         return Standard_True;
@@ -200,7 +200,7 @@ void XCAFDoc_AssemblyItemRef::SetItem(const TColStd_ListOfAsciiString& thePath)
   ClearExtraRef();
 }
 
-void XCAFDoc_AssemblyItemRef::SetItem(const TCollection_AsciiString& theString)
+void XCAFDoc_AssemblyItemRef::SetItem(const AsciiString1& theString)
 {
   Backup();
   myItemId.Init(theString);

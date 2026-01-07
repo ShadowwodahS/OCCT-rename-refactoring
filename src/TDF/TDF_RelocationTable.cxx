@@ -65,8 +65,8 @@ Standard_Boolean TDF_RelocationTable::AfterRelocate() const
 //           to <aTargetLabel>.
 //=======================================================================
 
-void TDF_RelocationTable::SetRelocation(const TDF_Label& aSourceLabel,
-                                        const TDF_Label& aTargetLabel)
+void TDF_RelocationTable::SetRelocation(const DataLabel& aSourceLabel,
+                                        const DataLabel& aTargetLabel)
 {
   if (!myLabelTable.IsBound(aSourceLabel))
     myLabelTable.Bind(aSourceLabel, aTargetLabel);
@@ -78,8 +78,8 @@ void TDF_RelocationTable::SetRelocation(const TDF_Label& aSourceLabel,
 //           and returns it into <aTargetLabel>.
 //=======================================================================
 
-Standard_Boolean TDF_RelocationTable::HasRelocation(const TDF_Label& aSourceLabel,
-                                                    TDF_Label&       aTargetLabel) const
+Standard_Boolean TDF_RelocationTable::HasRelocation(const DataLabel& aSourceLabel,
+                                                    DataLabel&       aTargetLabel) const
 {
   aTargetLabel.Nullify();
   if (myLabelTable.IsBound(aSourceLabel))

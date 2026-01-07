@@ -22,7 +22,7 @@
 //=================================================================================================
 
 Graphic3d_CullingTool::Graphic3d_CullingTool()
-    : myClipVerts(0, Graphic3d_Camera::FrustumVerticesNB),
+    : myClipVerts(0, CameraOn3d::FrustumVerticesNB),
       myIsProjectionParallel(Standard_True),
       myCamScale(1.0),
       myPixelSize(1.0)
@@ -32,7 +32,7 @@ Graphic3d_CullingTool::Graphic3d_CullingTool()
 
 //=================================================================================================
 
-void Graphic3d_CullingTool::SetViewVolume(const Handle(Graphic3d_Camera)& theCamera,
+void Graphic3d_CullingTool::SetViewVolume(const Handle(CameraOn3d)& theCamera,
                                           const Graphic3d_Mat4d&          theModelWorld)
 {
   const bool hasModelTrsf = !theModelWorld.IsIdentity();
@@ -163,7 +163,7 @@ void Graphic3d_CullingTool::CacheClipPtsProjections()
   {
     Standard_Real aMaxProj = -std::numeric_limits<Standard_Real>::max();
     Standard_Real aMinProj = std::numeric_limits<Standard_Real>::max();
-    for (Standard_Integer aCornerIter = 0; aCornerIter < Graphic3d_Camera::FrustumVerticesNB;
+    for (Standard_Integer aCornerIter = 0; aCornerIter < CameraOn3d::FrustumVerticesNB;
          ++aCornerIter)
     {
       Standard_Real aProjection = myClipVerts[aCornerIter].Dot(myClipPlanes[aPlaneIter].Normal);
@@ -182,7 +182,7 @@ void Graphic3d_CullingTool::CacheClipPtsProjections()
   {
     Standard_Real aMaxProj = -std::numeric_limits<Standard_Real>::max();
     Standard_Real aMinProj = std::numeric_limits<Standard_Real>::max();
-    for (Standard_Integer aCornerIter = 0; aCornerIter < Graphic3d_Camera::FrustumVerticesNB;
+    for (Standard_Integer aCornerIter = 0; aCornerIter < CameraOn3d::FrustumVerticesNB;
          ++aCornerIter)
     {
       Standard_Real aProjection = myClipVerts[aCornerIter].Dot(anAxes[aDim]);

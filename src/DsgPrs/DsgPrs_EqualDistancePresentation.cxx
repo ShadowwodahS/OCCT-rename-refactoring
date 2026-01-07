@@ -38,12 +38,12 @@
 // function  : Add
 //=================================================================================
 void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                           const Handle(Prs3d_Drawer)&       aDrawer,
+                                           const Handle(StyleDrawer)&       aDrawer,
                                            const Point3d&                     Point1,
                                            const Point3d&                     Point2,
                                            const Point3d&                     Point3,
                                            const Point3d&                     Point4,
-                                           const Handle(Geom_Plane)&         Plane)
+                                           const Handle(GeomPlane)&         Plane)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
@@ -108,10 +108,10 @@ void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPr
     aTextPos = Middle.Translated(OrtVec);
   }
 
-  TCollection_ExtendedString aText("==");
+  UtfString aText("==");
 
-  // Draw the text
-  Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aTextPos);
+  // Draw1 the text
+  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aTextPos);
 }
 
 //==================================================================================
@@ -120,7 +120,7 @@ void DsgPrs_EqualDistancePresentation::Add(const Handle(Prs3d_Presentation)& aPr
 //            or between one line and one point.
 //==================================================================================
 void DsgPrs_EqualDistancePresentation::AddInterval(const Handle(Prs3d_Presentation)& aPresentation,
-                                                   const Handle(Prs3d_Drawer)&       aDrawer,
+                                                   const Handle(StyleDrawer)&       aDrawer,
                                                    const Point3d&                     aPoint1,
                                                    const Point3d&                     aPoint2,
                                                    const Dir3d&                     aDirection,
@@ -157,7 +157,7 @@ void DsgPrs_EqualDistancePresentation::AddInterval(const Handle(Prs3d_Presentati
 //========================================================================
 void DsgPrs_EqualDistancePresentation::AddIntervalBetweenTwoArcs(
   const Handle(Prs3d_Presentation)& aPresentation,
-  const Handle(Prs3d_Drawer)&       aDrawer,
+  const Handle(StyleDrawer)&       aDrawer,
   const gp_Circ&                    aCirc1,
   const gp_Circ&                    aCirc2,
   const Point3d&                     aPoint1,

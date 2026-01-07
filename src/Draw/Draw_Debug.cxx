@@ -31,7 +31,7 @@ Standard_EXPORT const char* Draw_Eval(const char* theCommandStr)
   try
   {
     OCC_CATCH_SIGNALS
-    Draw_Interpretor& aCommands = Draw::GetInterpretor();
+    DrawInterpreter& aCommands = Draw1::GetInterpretor();
     aCommands.Eval(theCommandStr);
     std::cout << aCommands.Result() << std::endl;
     return aCommands.Result();

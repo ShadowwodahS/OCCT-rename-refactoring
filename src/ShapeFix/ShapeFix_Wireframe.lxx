@@ -38,7 +38,7 @@ inline Standard_Boolean ShapeFix_Wireframe::StatusSmallEdges(const ShapeExtend_S
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape ShapeFix_Wireframe::Shape()
+inline TopoShape ShapeFix_Wireframe::Shape()
 {
   return myShape;
 }

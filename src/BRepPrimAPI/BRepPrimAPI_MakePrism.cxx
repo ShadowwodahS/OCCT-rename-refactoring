@@ -25,7 +25,7 @@
 #include <TopoDS_Shape.hxx>
 
 // perform checks on the argument
-static const TopoDS_Shape& check(const TopoDS_Shape& S)
+static const TopoShape& check(const TopoShape& S)
 {
   BRepLib::BuildCurves3d(S);
   return S;
@@ -33,7 +33,7 @@ static const TopoDS_Shape& check(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-BRepPrimAPI_MakePrism::BRepPrimAPI_MakePrism(const TopoDS_Shape&    S,
+BRepPrimAPI_MakePrism::BRepPrimAPI_MakePrism(const TopoShape&    S,
                                              const Vector3d&          V,
                                              const Standard_Boolean Copy,
                                              const Standard_Boolean Canonize)
@@ -44,7 +44,7 @@ BRepPrimAPI_MakePrism::BRepPrimAPI_MakePrism(const TopoDS_Shape&    S,
 
 //=================================================================================================
 
-BRepPrimAPI_MakePrism::BRepPrimAPI_MakePrism(const TopoDS_Shape&    S,
+BRepPrimAPI_MakePrism::BRepPrimAPI_MakePrism(const TopoShape&    S,
                                              const Dir3d&          D,
                                              const Standard_Boolean Inf,
                                              const Standard_Boolean Copy,
@@ -71,21 +71,21 @@ void BRepPrimAPI_MakePrism::Build(const Message_ProgressRange& /*theRange*/)
 
 //=================================================================================================
 
-TopoDS_Shape BRepPrimAPI_MakePrism::FirstShape()
+TopoShape BRepPrimAPI_MakePrism::FirstShape()
 {
   return myPrism.FirstShape();
 }
 
 //=================================================================================================
 
-TopoDS_Shape BRepPrimAPI_MakePrism::LastShape()
+TopoShape BRepPrimAPI_MakePrism::LastShape()
 {
   return myPrism.LastShape();
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepPrimAPI_MakePrism::Generated(const TopoDS_Shape& S)
+const ShapeList& BRepPrimAPI_MakePrism::Generated(const TopoShape& S)
 {
   myGenerated.Clear();
   if (myPrism.IsUsed(S) && myPrism.GenIsUsed(S))
@@ -103,7 +103,7 @@ const TopTools_ListOfShape& BRepPrimAPI_MakePrism::Generated(const TopoDS_Shape&
 //           with theShape (subShape of the generating shape)
 //=======================================================================
 
-TopoDS_Shape BRepPrimAPI_MakePrism::FirstShape(const TopoDS_Shape& theShape)
+TopoShape BRepPrimAPI_MakePrism::FirstShape(const TopoShape& theShape)
 {
   return myPrism.FirstShape(theShape);
 }
@@ -114,7 +114,7 @@ TopoDS_Shape BRepPrimAPI_MakePrism::FirstShape(const TopoDS_Shape& theShape)
 //           with theShape (subShape of the generating shape)
 //=======================================================================
 
-TopoDS_Shape BRepPrimAPI_MakePrism::LastShape(const TopoDS_Shape& theShape)
+TopoShape BRepPrimAPI_MakePrism::LastShape(const TopoShape& theShape)
 {
   return myPrism.LastShape(theShape);
 }
@@ -123,7 +123,7 @@ TopoDS_Shape BRepPrimAPI_MakePrism::LastShape(const TopoDS_Shape& theShape)
 
 //=================================================================================================
 
-Standard_Boolean BRepPrimAPI_MakePrism::IsDeleted(const TopoDS_Shape& S)
+Standard_Boolean BRepPrimAPI_MakePrism::IsDeleted(const TopoShape& S)
 {
   return !myPrism.IsUsed(S);
 }

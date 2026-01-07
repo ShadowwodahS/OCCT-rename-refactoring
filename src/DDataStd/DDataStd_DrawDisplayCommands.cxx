@@ -29,27 +29,27 @@
 #include <Message.hxx>
 
 #ifndef _WIN32
-extern Draw_Viewer dout;
+extern DrawViewer dout;
 #else
-Standard_IMPORT Draw_Viewer dout;
+Standard_IMPORT DrawViewer dout;
 #endif
 //=======================================================================
 // function : DDataStd_PNT
 // purpose  : SetPoint (DF, entry, x, y, z)
 //=======================================================================
 
-static Standard_Integer DDataStd_PNT(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer DDataStd_PNT(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
   if (nb == 6)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(arg[1], DF))
+    if (!DDF1::GetDF(arg[1], DF))
       return 1;
-    TDF_Label L;
-    DDF::AddLabel(DF, arg[2], L);
-    Standard_Real x = Draw::Atof(arg[3]);
-    Standard_Real y = Draw::Atof(arg[4]);
-    Standard_Real z = Draw::Atof(arg[5]);
+    DataLabel L;
+    DDF1::AddLabel(DF, arg[2], L);
+    Standard_Real x = Draw1::Atof(arg[3]);
+    Standard_Real y = Draw1::Atof(arg[4]);
+    Standard_Real z = Draw1::Atof(arg[5]);
     TDataXtd_Point::Set(L, Point3d(x, y, z));
     return 0;
   }
@@ -62,7 +62,7 @@ static Standard_Integer DDataStd_PNT(Draw_Interpretor& di, Standard_Integer nb, 
 // purpose  : Rmdraw (name)
 //=======================================================================
 
-static Standard_Integer DDataStd_Rmdraw(Draw_Interpretor&, Standard_Integer nb, const char** arg)
+static Standard_Integer DDataStd_Rmdraw(DrawInterpreter&, Standard_Integer nb, const char** arg)
 {
   if (nb != 2)
   {
@@ -70,7 +70,7 @@ static Standard_Integer DDataStd_Rmdraw(Draw_Interpretor&, Standard_Integer nb, 
     return 1;
   }
 
-  if (Handle(Draw_Drawable3D) D3D = Draw::Get(arg[1]))
+  if (Handle(Draw_Drawable3D) D3D = Draw1::Get(arg[1]))
   {
     dout.RemoveDrawable(D3D);
     return 0;
@@ -87,17 +87,17 @@ static Standard_Integer DDataStd_Rmdraw(Draw_Interpretor&, Standard_Integer nb, 
 // purpose  : DrawOwner (drawable)
 //=======================================================================
 
-static Standard_Integer DDataStd_DrawOwner(Draw_Interpretor& di,
+static Standard_Integer DDataStd_DrawOwner(DrawInterpreter& di,
                                            Standard_Integer  nb,
                                            const char**      arg)
 {
   if (nb == 2)
   {
-    Handle(Draw_Drawable3D) D = Draw::Get(arg[1]);
+    Handle(Draw_Drawable3D) D = Draw1::Get(arg[1]);
     if (!D.IsNull())
     {
-      TCollection_AsciiString entry;
-      TCollection_AsciiString name(D->Name());
+      AsciiString1 entry;
+      AsciiString1 name(D->Name());
       Standard_Integer        index = name.Search("_0:");
       if (index > 0)
       {
@@ -121,17 +121,17 @@ static Standard_Integer DDataStd_DrawOwner(Draw_Interpretor& di,
 // purpose  : DDisplay (DOC,entry)
 //=======================================================================
 
-static Standard_Integer DDataStd_DrawDisplay(Draw_Interpretor& di,
+static Standard_Integer DDataStd_DrawDisplay(DrawInterpreter& di,
                                              Standard_Integer  nb,
                                              const char**      arg)
 {
   if (nb == 3)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(arg[1], DF))
+    if (!DDF1::GetDF(arg[1], DF))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(DF, arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(DF, arg[2], L))
       return 1;
     DDataStd_DrawPresentation::Display(L);
     return 0;
@@ -145,15 +145,15 @@ static Standard_Integer DDataStd_DrawDisplay(Draw_Interpretor& di,
 // //purpose  : DrawRedisplay (DOC,entry)
 // //=======================================================================
 
-// static Standard_Integer DDataStd_DrawRedisplay (Draw_Interpretor&,
+// static Standard_Integer DDataStd_DrawRedisplay (DrawInterpreter&,
 // 						  Standard_Integer nb,
 // 						  const char** arg)
 // {
 //   if (nb == 3) {
 //     Handle(TDF_Data) DF;
-//     if (!DDF::GetDF(arg[1],DF)) return 1;
-//     TDF_Label L;
-//     if (!DDF::FindLabel(DF,arg[2],L)) return 1;
+//     if (!DDF1::GetDF(arg[1],DF)) return 1;
+//     DataLabel L;
+//     if (!DDF1::FindLabel(DF,arg[2],L)) return 1;
 //     DDataStd_DrawPresentation::Display(L,Standard_True);
 //     return 0;
 //   }
@@ -166,17 +166,17 @@ static Standard_Integer DDataStd_DrawDisplay(Draw_Interpretor& di,
 // purpose  : DrawErase (DOC,entry)
 //=======================================================================
 
-static Standard_Integer DDataStd_DrawErase(Draw_Interpretor& di,
+static Standard_Integer DDataStd_DrawErase(DrawInterpreter& di,
                                            Standard_Integer  nb,
                                            const char**      arg)
 {
   if (nb == 3)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(arg[1], DF))
+    if (!DDF1::GetDF(arg[1], DF))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(DF, arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(DF, arg[2], L))
       return 1;
     DDataStd_DrawPresentation::Erase(L);
     return 0;
@@ -190,17 +190,17 @@ static Standard_Integer DDataStd_DrawErase(Draw_Interpretor& di,
 // purpose  : DrawUpdate (DOC,entry)
 //=======================================================================
 
-static Standard_Integer DDataStd_DrawUpdate(Draw_Interpretor& di,
+static Standard_Integer DDataStd_DrawUpdate(DrawInterpreter& di,
                                             Standard_Integer  nb,
                                             const char**      arg)
 {
   if (nb == 3)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(arg[1], DF))
+    if (!DDF1::GetDF(arg[1], DF))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(DF, arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(DF, arg[2], L))
       return 1;
     DDataStd_DrawPresentation::Update(L);
     return 0;
@@ -211,7 +211,7 @@ static Standard_Integer DDataStd_DrawUpdate(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer DDataStd_DrawRepaint(Draw_Interpretor& /*di*/,
+static Standard_Integer DDataStd_DrawRepaint(DrawInterpreter& /*di*/,
                                              Standard_Integer /*nb*/,
                                              const char** /*arg*/)
 {
@@ -222,7 +222,7 @@ static Standard_Integer DDataStd_DrawRepaint(Draw_Interpretor& /*di*/,
 
 //=================================================================================================
 
-void DDataStd::DrawDisplayCommands(Draw_Interpretor& theCommands)
+void DDataStd1::DrawDisplayCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean done = Standard_False;

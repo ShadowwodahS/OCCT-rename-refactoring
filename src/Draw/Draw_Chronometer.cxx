@@ -29,7 +29,7 @@ Draw_Chronometer::Draw_Chronometer()
 
 //=================================================================================================
 
-void Draw_Chronometer::DrawOn(Draw_Display&) const
+void Draw_Chronometer::DrawOn(DrawDisplay&) const
 {
   //
 }
@@ -52,7 +52,7 @@ void Draw_Chronometer::Dump(Standard_OStream& S) const
 
 //=================================================================================================
 
-void Draw_Chronometer::Whatis(Draw_Interpretor& i) const
+void Draw_Chronometer::Whatis(DrawInterpreter& i) const
 {
   i << "chronometer";
 }

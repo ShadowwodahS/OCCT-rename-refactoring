@@ -94,7 +94,7 @@ GeomToIGES_GeomCurve::GeomToIGES_GeomCurve(const GeomToIGES_GeomEntity& GE)
 // TransferCurve
 //=============================================================================
 
-Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geom_Curve)& start,
+Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(GeomCurve3d)& start,
                                                                 const Standard_Real       Udeb,
                                                                 const Standard_Real       Ufin)
 {
@@ -119,9 +119,9 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
     DeclareAndCast(Geom_OffsetCurve, OffsetC, start);
     res = TransferCurve(OffsetC, Udeb, Ufin);
   }
-  else if (start->IsKind(STANDARD_TYPE(Geom_Line)))
+  else if (start->IsKind(STANDARD_TYPE(GeomLine)))
   {
-    DeclareAndCast(Geom_Line, Line, start);
+    DeclareAndCast(GeomLine, Line, start);
     res = TransferCurve(Line, Udeb, Ufin);
   }
   return res;
@@ -143,14 +143,14 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
     return res;
   }
 
-  if (start->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (start->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    DeclareAndCast(Geom_BSplineCurve, Bspline, start);
+    DeclareAndCast(BSplineCurve3d, Bspline, start);
     res = TransferCurve(Bspline, Udeb, Ufin);
   }
-  else if (start->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+  else if (start->IsKind(STANDARD_TYPE(BezierCurve3d)))
   {
-    DeclareAndCast(Geom_BezierCurve, Bezier, start);
+    DeclareAndCast(BezierCurve3d, Bezier, start);
     res = TransferCurve(Bezier, Udeb, Ufin);
   }
   else if (start->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
@@ -223,12 +223,12 @@ static Standard_Boolean ArePolesPlanar(const TColgp_Array1OfPnt& Poles, gp_XYZ& 
 // Detects if curve lies in some plane and returns normal
 // IsPlanar
 //=============================================================================
-static Standard_Boolean IsPlanar(const Handle(Geom_Curve)& curve, gp_XYZ& Normal)
+static Standard_Boolean IsPlanar(const Handle(GeomCurve3d)& curve, gp_XYZ& Normal)
 {
   Normal.SetCoord(0, 0, 0);
-  if (curve->IsKind(STANDARD_TYPE(Geom_Line)))
+  if (curve->IsKind(STANDARD_TYPE(GeomLine)))
   {
-    DeclareAndCast(Geom_Line, Line, curve);
+    DeclareAndCast(GeomLine, Line, curve);
     Normal = GetAnyNormal(Line->Position().Direction().XYZ());
     return Standard_True;
   }
@@ -248,16 +248,16 @@ static Standard_Boolean IsPlanar(const Handle(Geom_Curve)& curve, gp_XYZ& Normal
     DeclareAndCast(Geom_OffsetCurve, OffsetC, curve);
     return IsPlanar(OffsetC->BasisCurve(), Normal);
   }
-  if (curve->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (curve->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    DeclareAndCast(Geom_BSplineCurve, BSpline, curve);
+    DeclareAndCast(BSplineCurve3d, BSpline, curve);
     TColgp_Array1OfPnt Poles(1, BSpline->NbPoles());
     BSpline->Poles(Poles);
     return ArePolesPlanar(Poles, Normal);
   }
-  if (curve->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+  if (curve->IsKind(STANDARD_TYPE(BezierCurve3d)))
   {
-    DeclareAndCast(Geom_BezierCurve, Bezier, curve);
+    DeclareAndCast(BezierCurve3d, Bezier, curve);
     TColgp_Array1OfPnt Poles(1, Bezier->NbPoles());
     Bezier->Poles(Poles);
     return ArePolesPlanar(Poles, Normal);
@@ -271,7 +271,7 @@ static Standard_Boolean IsPlanar(const Handle(Geom_Curve)& curve, gp_XYZ& Normal
 //=============================================================================
 
 Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
-  const Handle(Geom_BSplineCurve)& start,
+  const Handle(BSplineCurve3d)& start,
   const Standard_Real              Udeb,
   const Standard_Real              Ufin)
 {
@@ -281,7 +281,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
     return res;
   }
 
-  Handle(Geom_BSplineCurve) mycurve;
+  Handle(BSplineCurve3d) mycurve;
   Standard_Boolean          IPlan = Standard_False;
   gp_XYZ                    Norm  = gp_XYZ(0., 0., 1.);
 
@@ -292,7 +292,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
 
   if (IPerio)
   {
-    mycurve = Handle(Geom_BSplineCurve)::DownCast(start->Copy());
+    mycurve = Handle(BSplineCurve3d)::DownCast(start->Copy());
     mycurve->SetNotPeriodic();
   }
   else
@@ -320,7 +320,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
     try
     {
       OCC_CATCH_SIGNALS
-      Handle(Geom_BSplineCurve) bspl = Handle(Geom_BSplineCurve)::DownCast(mycurve->Copy());
+      Handle(BSplineCurve3d) bspl = Handle(BSplineCurve3d)::DownCast(mycurve->Copy());
       if (!bspl.IsNull())
       {
         if (Abs(Umax - Umin) > Precision::PConfusion())
@@ -348,7 +348,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
   //  Standard_Integer Nbknots = mycurve->NbKnots();
   Standard_Integer Index = Nbpoles - 1;
 
-  // Sequence des Knots de [-Deg, Index+1] dans IGESGeom.
+  // Sequence des Knots de [-Deg, Index+1] dans IGESGeom1.
   // et de [1, Nbpoles+Deg+1] dans Geom
   Standard_Integer     Knotindex;
   Standard_Real        rtampon;
@@ -413,7 +413,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
 //=============================================================================
 
 Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
-  const Handle(Geom_BezierCurve)& start,
+  const Handle(BezierCurve3d)& start,
   const Standard_Real             Udeb,
   const Standard_Real             Ufin)
 {
@@ -424,7 +424,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
   }
 
   Handle(Geom_TrimmedCurve) mycurve3d = new Geom_TrimmedCurve(start, Udeb, Ufin);
-  Handle(Geom_BSplineCurve) Bspline =
+  Handle(BSplineCurve3d) Bspline =
     GeomConvert::CurveToBSplineCurve(mycurve3d,
                                      Convert_RationalC1); // #28 rln 19.10.98 UKI60155
   Standard_Real First = Bspline->FirstParameter();
@@ -449,11 +449,11 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
     return res;
   }
 
-  Handle(Geom_Curve) st = start->BasisCurve();
+  Handle(GeomCurve3d) st = start->BasisCurve();
   if (st->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
   {
     DeclareAndCast(Geom_TrimmedCurve, Trimmed, st);
-    Handle(Geom_Curve) st1 = Trimmed->BasisCurve();
+    Handle(GeomCurve3d) st1 = Trimmed->BasisCurve();
     res                    = TransferCurve(st1, Udeb, Ufin);
   }
 
@@ -485,9 +485,9 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   // The Direction (main direction) of the axis placement is normal
   // to the plane of the conic.
 
-  if (start->IsKind(STANDARD_TYPE(Geom_Circle)))
+  if (start->IsKind(STANDARD_TYPE(GeomCircle)))
   {
-    DeclareAndCast(Geom_Circle, Circle, start);
+    DeclareAndCast(GeomCircle, Circle, start);
     res = TransferCurve(Circle, Udeb, Ufin);
   }
   else if (start->IsKind(STANDARD_TYPE(Geom_Ellipse)))
@@ -514,7 +514,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
 // TransferCurve
 //=============================================================================
 
-Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geom_Circle)& start,
+Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(GeomCircle)& start,
                                                                 const Standard_Real        Udeb,
                                                                 const Standard_Real        Ufin)
 {
@@ -558,9 +558,9 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
   Build.EvalXYZ(pfirst.XYZ(), Xs, Ys, Zs);
   Build.EvalXYZ(plast.XYZ(), Xe, Ye, Ze);
   Circle->Init(Zc / GetUnit(),
-               gp_XY(Xc / GetUnit(), Yc / GetUnit()),
-               gp_XY(Xs / GetUnit(), Ys / GetUnit()),
-               gp_XY(Xe / GetUnit(), Ye / GetUnit()));
+               Coords2d(Xc / GetUnit(), Yc / GetUnit()),
+               Coords2d(Xs / GetUnit(), Ys / GetUnit()),
+               Coords2d(Xe / GetUnit(), Ye / GetUnit()));
 
   // creation de la Trsf (#124)
   // il faut tenir compte de l`unite pour la matrice de transformation
@@ -602,9 +602,9 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
     Handle(Geom_Ellipse) copystart = Handle(Geom_Ellipse)::DownCast(start->Copy());
     Frame3d               pos       = copystart->Position();
     copystart->SetPosition(pos.Rotated(pos.Axis(), gp_Ax3(pos).Direct() ? Udeb : 2 * M_PI - Udeb));
-    Handle(Geom_BSplineCurve) Bspline;
+    Handle(BSplineCurve3d) Bspline;
     //: q3 abv 17 Mar 99: use GeomConvert_ApproxCurve for precise conversion
-    const Handle(Geom_Curve)& aCopy = copystart; // to avoid ambiguity
+    const Handle(GeomCurve3d)& aCopy = copystart; // to avoid ambiguity
     GeomConvert_ApproxCurve   approx(aCopy, Precision::Approximation(), GeomAbs_C1, 100, 6);
     if (approx.HasResult())
       Bspline = approx.Curve();
@@ -653,8 +653,8 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
               2 * E,
               F,
               0., // #59 rln
-              gp_XY(Xs / GetUnit(), Ys / GetUnit()),
-              gp_XY(Xe / GetUnit(), Ye / GetUnit()));
+              Coords2d(Xs / GetUnit(), Ys / GetUnit()),
+              Coords2d(Xe / GetUnit(), Ye / GetUnit()));
 
   // creation de la Trsf (#124)
   // il faut tenir compte de l'unite pour la matrice de transformation
@@ -721,8 +721,8 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
               E,
               F,
               0.,
-              gp_XY(Xs / GetUnit(), Ys / GetUnit()),
-              gp_XY(Xe / GetUnit(), Ye / GetUnit()));
+              Coords2d(Xs / GetUnit(), Ys / GetUnit()),
+              Coords2d(Xe / GetUnit(), Ye / GetUnit()));
 
   // creation de la Trsf (#124)
   // il faut tenir compte de l'unite pour la matrice de transformation
@@ -788,8 +788,8 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
               E,
               F,
               0.,
-              gp_XY(Xs / GetUnit(), Ys / GetUnit()),
-              gp_XY(Xe / GetUnit(), Ye / GetUnit()));
+              Coords2d(Xs / GetUnit(), Ys / GetUnit()),
+              Coords2d(Xe / GetUnit(), Ye / GetUnit()));
 
   // creation de la Trsf (#124)
   // il faut tenir compte de l'unite pour la matrice de transformation
@@ -810,7 +810,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geo
 // TransferCurve
 //=============================================================================
 
-Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(Geom_Line)& start,
+Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(const Handle(GeomLine)& start,
                                                                 const Standard_Real      Udeb,
                                                                 const Standard_Real      Ufin)
 {
@@ -865,13 +865,13 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomCurve::TransferCurve(
   if (Precision::IsPositiveInfinite(Ufin))
     U2 = Precision::Infinite();
 
-  if (Interface_Static::IVal("write.iges.offset.mode") == 0)
+  if (ExchangeConfig::IVal("write.iges.offset.mode") == 0)
   {
     res = TransferCurve(GeomConvert::CurveToBSplineCurve(start), U1, U2);
     return res;
   }
 
-  Handle(Geom_Curve) Curve = start->BasisCurve();
+  Handle(GeomCurve3d) Curve = start->BasisCurve();
   Standard_Real      Deb   = Curve->FirstParameter();
   Standard_Real      Fin   = Curve->LastParameter();
   //%11 pdn 12.01.98 offset curve should be planar

@@ -42,9 +42,9 @@ Standard_EXPORT void debreguso(const Standard_Integer iS)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::RegularizeSolids(const TopoDS_Shape&         SO,
-                                               const TopTools_ListOfShape& lnewSolid,
-                                               TopTools_ListOfShape&       LOSO)
+void TopOpeBRepBuild_Builder::RegularizeSolids(const TopoShape&         SO,
+                                               const ShapeList& lnewSolid,
+                                               ShapeList&       LOSO)
 {
   LOSO.Clear();
   myMemoSplit.Clear();
@@ -52,8 +52,8 @@ void TopOpeBRepBuild_Builder::RegularizeSolids(const TopoDS_Shape&         SO,
   TopTools_ListIteratorOfListOfShape itl(lnewSolid);
   for (; itl.More(); itl.Next())
   {
-    const TopoDS_Shape&  newSolid = itl.Value();
-    TopTools_ListOfShape newSolidLOSO;
+    const TopoShape&  newSolid = itl.Value();
+    ShapeList newSolidLOSO;
     RegularizeSolid(SO, newSolid, newSolidLOSO);
 #ifdef OCCT_DEBUG
 //    Standard_Integer nnewSolidLOSO = newSolidLOSO.Extent(); // DEB
@@ -68,7 +68,7 @@ void TopOpeBRepBuild_Builder::RegularizeSolids(const TopoDS_Shape&         SO,
     return;
 
   // lsosdSO = solids SameDomain de SO
-  TopTools_ListOfShape lsosdSO, lsosdSO1, lsosdSO2;
+  ShapeList lsosdSO, lsosdSO1, lsosdSO2;
   GFindSamDom(SO, lsosdSO1, lsosdSO2);
   lsosdSO.Append(lsosdSO1);
   lsosdSO.Append(lsosdSO2);
@@ -76,33 +76,33 @@ void TopOpeBRepBuild_Builder::RegularizeSolids(const TopoDS_Shape&         SO,
   TopTools_ListIteratorOfListOfShape itlsosdSO(lsosdSO);
   for (; itlsosdSO.More(); itlsosdSO.Next())
   {
-    const TopoDS_Shape& sosdSO = itlsosdSO.Value();
+    const TopoShape& sosdSO = itlsosdSO.Value();
     // au moins une arete de SO dont le Split() est lui meme Split()
-    TopExp_Explorer x;
+    ShapeExplorer x;
     for (x.Init(sosdSO, TopAbs_FACE); x.More(); x.Next())
     {
-      //    for (TopExp_Explorer x(sosdSO,TopAbs_FACE);x.More();x.Next()) {
-      const TopoDS_Shape& f        = x.Current();
+      //    for (ShapeExplorer x(sosdSO,TopAbs_FACE);x.More();x.Next()) {
+      const TopoShape& f        = x.Current();
       Standard_Integer    rankf    = GShapeRank(f);
       TopAbs_State        staf     = (rankf == 1) ? myState1 : myState2;
       Standard_Boolean    issplitf = IsSplit(f, staf);
       if (!issplitf)
         continue;
 
-      TopTools_ListOfShape  newlspf;
-      TopTools_ListOfShape& lspf = ChangeSplit(f, staf);
+      ShapeList  newlspf;
+      ShapeList& lspf = ChangeSplit(f, staf);
 #ifdef OCCT_DEBUG
 //      Standard_Integer nlspf = lspf.Extent(); // DEB
 #endif
       for (TopTools_ListIteratorOfListOfShape itl1(lspf); itl1.More(); itl1.Next())
       {
-        const TopoDS_Shape& fsp     = itl1.Value();
+        const TopoShape& fsp     = itl1.Value();
         Standard_Boolean    fspmemo = myMemoSplit.Contains(fsp);
         if (!fspmemo)
           newlspf.Append(fsp);
         else
         {
-          TopTools_ListOfShape& lspfsp = ChangeSplit(fsp, staf);
+          ShapeList& lspfsp = ChangeSplit(fsp, staf);
           GCopyList(lspfsp, newlspf);
         }
       }
@@ -112,7 +112,7 @@ void TopOpeBRepBuild_Builder::RegularizeSolids(const TopoDS_Shape&         SO,
       //      if (staf == TopAbs_IN) {
       //	// IN Solide <=> ON ??? : M.A.J de Split(TopAbs_ON);
       //	Standard_Boolean issplitON = IsSplit(f,TopAbs_ON);
-      //	TopTools_ListOfShape& lONf = ChangeSplit(f,TopAbs_ON);
+      //	ShapeList& lONf = ChangeSplit(f,TopAbs_ON);
       //	Standard_Integer nONf = lONf.Extent(); // DEB
       //	lONf.Clear();
       //	GCopyList(newlspf,lONf);
@@ -124,12 +124,12 @@ void TopOpeBRepBuild_Builder::RegularizeSolids(const TopoDS_Shape&         SO,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::RegularizeSolid(const TopoDS_Shape&   SS,
-                                              const TopoDS_Shape&   anewSolid,
-                                              TopTools_ListOfShape& LOSO)
+void TopOpeBRepBuild_Builder::RegularizeSolid(const TopoShape&   SS,
+                                              const TopoShape&   anewSolid,
+                                              ShapeList& LOSO)
 {
   LOSO.Clear();
-  const TopoDS_Solid& newSolid = TopoDS::Solid(anewSolid);
+  const TopoSolid& newSolid = TopoDS::Solid(anewSolid);
   Standard_Boolean    toregu   = Standard_True;
   Standard_Boolean    usestos  = Standard_True;
 
@@ -156,7 +156,7 @@ void TopOpeBRepBuild_Builder::RegularizeSolid(const TopoDS_Shape&   SS,
   Standard_Boolean                   rf = Standard_False;
   myFSplits.Clear();
 
-  rw = TopOpeBRepTool::RegularizeShells(newSolid, osns, myFSplits);
+  rw = TopOpeBRepTool1::RegularizeShells(newSolid, osns, myFSplits);
 
   if (!rw)
   {
@@ -164,10 +164,10 @@ void TopOpeBRepBuild_Builder::RegularizeSolid(const TopoDS_Shape&   SS,
     return;
   }
 
-  TopTools_ListOfShape newSolids;
+  ShapeList newSolids;
   if (usestos)
   {
-    TopOpeBRepBuild_ShellToSolid                        stos;
+    ShellToSolidBuilder                        stos;
     TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itosns(osns);
     for (; itosns.More(); itosns.Next())
     {
@@ -181,11 +181,11 @@ void TopOpeBRepBuild_Builder::RegularizeSolid(const TopoDS_Shape&   SS,
 
             // map des edges -> list of face de oldshe
             TopTools_IndexedDataMapOfShapeListOfShape maef;
-            TopExp::MapShapesAndAncestors(oldshe,TopAbs_EDGE,TopAbs_FACE,maef);
+            TopExp1::MapShapesAndAncestors(oldshe,TopAbs_EDGE,TopAbs_FACE,maef);
             Standard_Integer ima=1,nma=maef.Extent();
             for(;ima<=nma;ima++) {
-          const TopoDS_Edge& eevit = TopoDS::Edge(maef.FindKey(ima));
-          const TopTools_ListOfShape& lfa = maef(ima);
+          const TopoEdge& eevit = TopoDS::Edge(maef.FindKey(ima));
+          const ShapeList& lfa = maef(ima);
           Standard_Integer nlfa = lfa.Extent();
           if (nlfa > 2) {
           }
@@ -193,7 +193,7 @@ void TopOpeBRepBuild_Builder::RegularizeSolid(const TopoDS_Shape&   SS,
             // fin solution1
       */
 
-      const TopTools_ListOfShape& lns = itosns.Value();
+      const ShapeList& lns = itosns.Value();
       for (TopTools_ListIteratorOfListOfShape iw(lns); iw.More(); iw.Next())
       {
         stos.AddShell(TopoDS::Shell(iw.Value()));
@@ -205,7 +205,7 @@ void TopOpeBRepBuild_Builder::RegularizeSolid(const TopoDS_Shape&   SS,
   else
   {
     rf = Standard_False;
-    //    rf = TopOpeBRepTool::RegularizeSolid(newSolid,osns,newSolids);
+    //    rf = TopOpeBRepTool1::RegularizeSolid(newSolid,osns,newSolids);
   }
 
   if (!rf)
@@ -232,15 +232,15 @@ void TopOpeBRepBuild_Builder::RegularizeSolid(const TopoDS_Shape&   SS,
   // manc : E'-->E pour pouvoir relier
   // Split(manc(E')) = {myFSplits(E')}
   TopTools_MapOfShape mfns; // mfns = faces de newSolid
-  TopExp_Explorer     x;
+  ShapeExplorer     x;
   for (x.Init(newSolid, TopAbs_FACE); x.More(); x.Next())
   {
-    const TopoDS_Shape& F = x.Current();
+    const TopoShape& F = x.Current();
     mfns.Add(F);
   }
 
   // lssdSS = Solids SameDomain de SS
-  TopTools_ListOfShape lssdSS, lssdSS1, lssdSS2;
+  ShapeList lssdSS, lssdSS1, lssdSS2;
   GFindSamDom(SS, lssdSS1, lssdSS2);
   lssdSS.Append(lssdSS1);
   lssdSS.Append(lssdSS2);
@@ -250,7 +250,7 @@ void TopOpeBRepBuild_Builder::RegularizeSolid(const TopoDS_Shape&   SS,
   TopTools_ListIteratorOfListOfShape itlssdSS(lssdSS);
   for (; itlssdSS.More(); itlssdSS.Next())
   {
-    const TopoDS_Shape& ssdSS = itlssdSS.Value();
+    const TopoShape& ssdSS = itlssdSS.Value();
 #ifdef OCCT_DEBUG
 //    Standard_Integer issdSS = myDataStructure->Shape(ssdSS); // DEB
 #endif
@@ -259,7 +259,7 @@ void TopOpeBRepBuild_Builder::RegularizeSolid(const TopoDS_Shape&   SS,
     TopAbs_State     stassdSS  = (rankssdSS == 1) ? myState1 : myState2;
 #ifdef OCCT_DEBUG
 //    Standard_Boolean issplitssdSS = IsSplit(ssdSS,stassdSS);
-//    const TopTools_ListOfShape& lspssdSS = Splits(ssdSS,stassdSS);
+//    const ShapeList& lspssdSS = Splits(ssdSS,stassdSS);
 //    Standard_Integer nlspssdSS = lspssdSS.Extent();
 #endif
 
@@ -268,7 +268,7 @@ void TopOpeBRepBuild_Builder::RegularizeSolid(const TopoDS_Shape&   SS,
     {
 
       // ssdSSf : 1 face de ssdSS = 1 solid SameDomain de Ss
-      const TopoDS_Shape& ssdSSf = x.Current();
+      const TopoShape& ssdSSf = x.Current();
 
 #ifdef OCCT_DEBUG
       Standard_Integer issdSSf    = 0;
@@ -279,17 +279,17 @@ void TopOpeBRepBuild_Builder::RegularizeSolid(const TopoDS_Shape&   SS,
 
       TopAbs_State stassdSSf = stassdSS;
 
-      TopTools_ListOfShape& lspssdSSf = ChangeSplit(ssdSSf, stassdSSf);
+      ShapeList& lspssdSSf = ChangeSplit(ssdSSf, stassdSSf);
 #ifdef OCCT_DEBUG
 //      Standard_Boolean issplitssdSSf = IsSplit(ssdSSf,stassdSSf);
 //      Standard_Integer nlspssdSSf = lspssdSSf.Extent();
 #endif
 
-      TopTools_ListOfShape newlspssdSSf; // nouvel ensemble de faces splittees de ssdSSf
+      ShapeList newlspssdSSf; // nouvel ensemble de faces splittees de ssdSSf
 
       for (TopTools_ListIteratorOfListOfShape it(lspssdSSf); it.More(); it.Next())
       {
-        const TopoDS_Shape& fspssdSSf = it.Value();
+        const TopoShape& fspssdSSf = it.Value();
 
         Standard_Boolean inmfns = mfns.Contains(fspssdSSf);
         if (!inmfns)
@@ -307,13 +307,13 @@ void TopOpeBRepBuild_Builder::RegularizeSolid(const TopoDS_Shape&   SS,
           // fspssdSSf de newFace a ete redecoupee par RegularizeWires
 
           // son decoupage lrfsplit est stocke dans la DS du Builder
-          const TopTools_ListOfShape& lrfsplit = myFSplits.Find(fspssdSSf); // Cf supra E''
+          const ShapeList& lrfsplit = myFSplits.Find(fspssdSSf); // Cf supra E''
 
           // on memorise que fspssdSSf est redecoupee ...
           myMemoSplit.Add(fspssdSSf);
 
           // on stocke le nouveau decoupage de fspssdSSf dans la DS du builder ...
-          TopTools_ListOfShape& lsp = ChangeSplit(fspssdSSf, stassdSSf);
+          ShapeList& lsp = ChangeSplit(fspssdSSf, stassdSSf);
           GCopyList(lrfsplit, lsp);
         }
       } // lspssdSSf.More()
@@ -325,9 +325,9 @@ void TopOpeBRepBuild_Builder::RegularizeSolid(const TopoDS_Shape&   SS,
     debreguso(iS);
   if (tSPS && savsregu)
   {
-    TCollection_AsciiString str("sregu");
+    AsciiString1 str("sregu");
     str = str + iS;
-    DBRep::Set(str.ToCString(), newSolid);
+    DBRep1::Set(str.ToCString(), newSolid);
     std::cout << "newSolid " << str << " built on Solid " << iS << " saved" << std::endl;
   }
 #endif

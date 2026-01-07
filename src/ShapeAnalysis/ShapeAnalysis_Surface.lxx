@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline const Handle(Geom_Surface)& ShapeAnalysis_Surface::Surface() const
+inline const Handle(GeomSurface)& ShapeAnalysis_Surface::Surface() const
 {
   return mySurf;
 }

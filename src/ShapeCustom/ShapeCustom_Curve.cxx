@@ -23,25 +23,25 @@ ShapeCustom_Curve::ShapeCustom_Curve() {}
 
 //=================================================================================================
 
-ShapeCustom_Curve::ShapeCustom_Curve(const Handle(Geom_Curve)& C)
+ShapeCustom_Curve::ShapeCustom_Curve(const Handle(GeomCurve3d)& C)
 {
   Init(C);
 }
 
 //=================================================================================================
 
-void ShapeCustom_Curve::Init(const Handle(Geom_Curve)& C)
+void ShapeCustom_Curve::Init(const Handle(GeomCurve3d)& C)
 {
   myCurve = C;
 }
 
 //=================================================================================================
 
-Handle(Geom_Curve) ShapeCustom_Curve::ConvertToPeriodic(const Standard_Boolean substitute,
+Handle(GeomCurve3d) ShapeCustom_Curve::ConvertToPeriodic(const Standard_Boolean substitute,
                                                         const Standard_Real    preci)
 {
-  Handle(Geom_Curve)        newCurve;
-  Handle(Geom_BSplineCurve) BSpl = Handle(Geom_BSplineCurve)::DownCast(myCurve);
+  Handle(GeomCurve3d)        newCurve;
+  Handle(BSplineCurve3d) BSpl = Handle(BSplineCurve3d)::DownCast(myCurve);
   if (BSpl.IsNull())
     return newCurve;
 
@@ -86,7 +86,7 @@ Handle(Geom_Curve) ShapeCustom_Curve::ConvertToPeriodic(const Standard_Boolean s
         newMults(i) = oldMults(i - 1);
       }
       newMults(2) = newMults(nbKnots + 1) = BSpl->Degree();
-      Handle(Geom_BSplineCurve) res       = new Geom_BSplineCurve(oldPoles,
+      Handle(BSplineCurve3d) res       = new BSplineCurve3d(oldPoles,
                                                             oldWeights,
                                                             newKnots,
                                                             newMults,

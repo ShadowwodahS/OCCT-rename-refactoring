@@ -38,8 +38,8 @@
 #include <QVariant>
 #include <Standard_WarningsRestore.hxx>
 
-class Geom_Line;
-class Geom_Plane;
+class GeomLine;
+class GeomPlane;
 class Geom_Transformation;
 
 //! \class Convert_Tools
@@ -50,7 +50,7 @@ public:
   //! Reads Shape using BREP reader
   //! \param theFileName a file name
   //! \return shape or NULL
-  Standard_EXPORT static TopoDS_Shape ReadShape(const TCollection_AsciiString& theFileName);
+  Standard_EXPORT static TopoShape ReadShape(const AsciiString1& theFileName);
 
   //! Creates shape presentations on the stream if possible. Tries to init some OCCT base for a new
   //! presentation \param theStream source of presentation \param thePresentations container to
@@ -72,13 +72,13 @@ public:
   //! \param theBoundingBox box shape parameters
   //! \return created shape
   Standard_EXPORT static Standard_Boolean CreateShape(const Bnd_Box& theBoundingBox,
-                                                      TopoDS_Shape&  theShape);
+                                                      TopoShape&  theShape);
 
   //! Creates box shape
   //! \param theBoundingBox box shape parameters
   //! \return created shape
   Standard_EXPORT static Standard_Boolean CreateShape(const Bnd_OBB& theBoundingBox,
-                                                      TopoDS_Shape&  theShape);
+                                                      TopoShape&  theShape);
 
   //! Creates box shape
   //! \param thePntMin minimum point on the bounding box
@@ -86,20 +86,20 @@ public:
   //! \return created shape
   Standard_EXPORT static Standard_Boolean CreateBoxShape(const Point3d& thePntMin,
                                                          const Point3d& thePntMax,
-                                                         TopoDS_Shape& theShape);
+                                                         TopoShape& theShape);
 
   //! Creates presentation AIS_Line
   //! \param theLine source line
   //! \param thePresentations container to collect new presentations
   Standard_EXPORT static void CreatePresentation(
-    const Handle(Geom_Line)&                      theLine,
+    const Handle(GeomLine)&                      theLine,
     NCollection_List<Handle(RefObject)>& thePresentations);
 
   //! Creates presentation AIS_Plane
   //! \param thePlane source plane
   //! \param thePresentations container to collect new presentations
   Standard_EXPORT static void CreatePresentation(
-    const Handle(Geom_Plane)&                     thePlane,
+    const Handle(GeomPlane)&                     thePlane,
     NCollection_List<Handle(RefObject)>& thePresentations);
 
   //! Creates two presentations base on Transform3d: box in initial place and transformed box

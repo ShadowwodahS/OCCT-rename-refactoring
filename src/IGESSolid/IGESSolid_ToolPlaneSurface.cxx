@@ -36,11 +36,11 @@
 // MGE 31/07/98
 //=================================================================================================
 
-IGESSolid_ToolPlaneSurface::IGESSolid_ToolPlaneSurface() {}
+PlaneSurfaceTool::PlaneSurfaceTool() {}
 
 //=================================================================================================
 
-void IGESSolid_ToolPlaneSurface::ReadOwnParams(const Handle(IGESSolid_PlaneSurface)&  ent,
+void PlaneSurfaceTool::ReadOwnParams(const Handle(IGESSolid_PlaneSurface)&  ent,
                                                const Handle(IGESData_IGESReaderData)& IR,
                                                IGESData_ParamReader&                  PR) const
 {
@@ -153,7 +153,7 @@ void IGESSolid_ToolPlaneSurface::ReadOwnParams(const Handle(IGESSolid_PlaneSurfa
 
 //=================================================================================================
 
-void IGESSolid_ToolPlaneSurface::WriteOwnParams(const Handle(IGESSolid_PlaneSurface)& ent,
+void PlaneSurfaceTool::WriteOwnParams(const Handle(IGESSolid_PlaneSurface)& ent,
                                                 IGESData_IGESWriter&                  IW) const
 {
   IW.Send(ent->LocationPoint());
@@ -164,7 +164,7 @@ void IGESSolid_ToolPlaneSurface::WriteOwnParams(const Handle(IGESSolid_PlaneSurf
 
 //=================================================================================================
 
-void IGESSolid_ToolPlaneSurface::OwnShared(const Handle(IGESSolid_PlaneSurface)& ent,
+void PlaneSurfaceTool::OwnShared(const Handle(IGESSolid_PlaneSurface)& ent,
                                            Interface_EntityIterator&             iter) const
 {
   iter.GetOneItem(ent->LocationPoint());
@@ -174,7 +174,7 @@ void IGESSolid_ToolPlaneSurface::OwnShared(const Handle(IGESSolid_PlaneSurface)&
 
 //=================================================================================================
 
-void IGESSolid_ToolPlaneSurface::OwnCopy(const Handle(IGESSolid_PlaneSurface)& another,
+void PlaneSurfaceTool::OwnCopy(const Handle(IGESSolid_PlaneSurface)& another,
                                          const Handle(IGESSolid_PlaneSurface)& ent,
                                          Interface_CopyTool&                   TC) const
 {
@@ -194,10 +194,10 @@ void IGESSolid_ToolPlaneSurface::OwnCopy(const Handle(IGESSolid_PlaneSurface)& a
 
 //=================================================================================================
 
-IGESData_DirChecker IGESSolid_ToolPlaneSurface::DirChecker(
+DirectoryChecker PlaneSurfaceTool::DirChecker(
   const Handle(IGESSolid_PlaneSurface)& /*ent*/) const
 {
-  IGESData_DirChecker DC(190, 0, 1);
+  DirectoryChecker DC(190, 0, 1);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
@@ -210,7 +210,7 @@ IGESData_DirChecker IGESSolid_ToolPlaneSurface::DirChecker(
 
 //=================================================================================================
 
-void IGESSolid_ToolPlaneSurface::OwnCheck(const Handle(IGESSolid_PlaneSurface)& ent,
+void PlaneSurfaceTool::OwnCheck(const Handle(IGESSolid_PlaneSurface)& ent,
                                           const Interface_ShareTool&,
                                           Handle(Interface_Check)& ach) const
 {
@@ -233,7 +233,7 @@ void IGESSolid_ToolPlaneSurface::OwnCheck(const Handle(IGESSolid_PlaneSurface)& 
 
 //=================================================================================================
 
-void IGESSolid_ToolPlaneSurface::OwnDump(const Handle(IGESSolid_PlaneSurface)& ent,
+void PlaneSurfaceTool::OwnDump(const Handle(IGESSolid_PlaneSurface)& ent,
                                          const IGESData_IGESDumper&            dumper,
                                          Standard_OStream&                     S,
                                          const Standard_Integer                level) const

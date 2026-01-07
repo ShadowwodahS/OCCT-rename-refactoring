@@ -26,7 +26,7 @@
 #include <TopAbs_Orientation.hxx>
 #include <TopAbs_State.hxx>
 
-class TopOpeBRepDS_SurfaceIterator : public TopOpeBRepDS_InterferenceIterator
+class TopOpeBRepDS_SurfaceIterator : public InterferenceIterator
 {
 public:
   DEFINE_STANDARD_ALLOC

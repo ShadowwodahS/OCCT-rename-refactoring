@@ -31,7 +31,7 @@
 // This class should not be used for standard attributes workflow.
 // Application always knows what to search at particular label.
 // So, use IsAttribute and FindAttribute methods of
-// TDF_Label to check and get attributes in usual way.
+// DataLabel to check and get attributes in usual way.
 // This class may be used for processing of content of labels
 // in generic way, like copy-tool, specific save/restore algorithms,
 // etc.
@@ -47,11 +47,11 @@ public:
   // Methods PUBLIC
   //
   Standard_EXPORT              TDF_AttributeIterator();
-  Standard_EXPORT              TDF_AttributeIterator(const TDF_Label&       aLabel,
+  Standard_EXPORT              TDF_AttributeIterator(const DataLabel&       aLabel,
                                                      const Standard_Boolean withoutForgotten = Standard_True);
   Standard_EXPORT              TDF_AttributeIterator(const TDF_LabelNodePtr aLabelNode,
                                                      const Standard_Boolean withoutForgotten = Standard_True);
-  Standard_EXPORT void         Initialize(const TDF_Label&       aLabel,
+  Standard_EXPORT void         Initialize(const DataLabel&       aLabel,
                                           const Standard_Boolean withoutForgotten = Standard_True);
   inline Standard_Boolean      More() const;
   Standard_EXPORT void         Next();

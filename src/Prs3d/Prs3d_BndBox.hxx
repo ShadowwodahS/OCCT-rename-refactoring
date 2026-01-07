@@ -33,7 +33,7 @@ public:
   //! @param[in] theDrawer  the drawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& thePresentation,
                                   const Bnd_Box&                    theBndBox,
-                                  const Handle(Prs3d_Drawer)&       theDrawer);
+                                  const Handle(StyleDrawer)&       theDrawer);
 
   //! Computes presentation of a bounding box.
   //! @param[in] thePresentation  the presentation.
@@ -41,7 +41,7 @@ public:
   //! @param[in] theDrawer  the drawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& thePresentation,
                                   const Bnd_OBB&                    theBndBox,
-                                  const Handle(Prs3d_Drawer)&       theDrawer);
+                                  const Handle(StyleDrawer)&       theDrawer);
 
 public:
   //! Create primitive array with line segments for displaying a box.

@@ -19,7 +19,7 @@
 
 //=================================================================================================
 
-TopOpeBRepDS_ShapeData::TopOpeBRepDS_ShapeData()
+ShapeData1::ShapeData1()
     : mySameDomainRef(0),
       mySameDomainOri(TopOpeBRepDS_UNSHGEOMETRY),
       mySameDomainInd(0),
@@ -32,28 +32,28 @@ TopOpeBRepDS_ShapeData::TopOpeBRepDS_ShapeData()
 
 //=================================================================================================
 
-const TopOpeBRepDS_ListOfInterference& TopOpeBRepDS_ShapeData::Interferences() const
+const TopOpeBRepDS_ListOfInterference& ShapeData1::Interferences() const
 {
   return myInterferences;
 }
 
 //=================================================================================================
 
-TopOpeBRepDS_ListOfInterference& TopOpeBRepDS_ShapeData::ChangeInterferences()
+TopOpeBRepDS_ListOfInterference& ShapeData1::ChangeInterferences()
 {
   return myInterferences;
 }
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_ShapeData::Keep() const
+Standard_Boolean ShapeData1::Keep() const
 {
   return myKeep;
 }
 
 //=================================================================================================
 
-void TopOpeBRepDS_ShapeData::ChangeKeep(const Standard_Boolean b)
+void ShapeData1::ChangeKeep(const Standard_Boolean b)
 {
   myKeep = b;
 }

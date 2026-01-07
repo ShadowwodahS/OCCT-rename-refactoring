@@ -83,7 +83,7 @@ GeomPlate_CurveConstraint ::GeomPlate_CurveConstraint(const Handle(Adaptor3d_Cur
   }
   else
   {
-    Handle(Geom_Surface)        Surf;
+    Handle(GeomSurface)        Surf;
     Handle(GeomAdaptor_Surface) GS1 =
       Handle(GeomAdaptor_Surface)::DownCast(myFrontiere->GetSurface());
 
@@ -96,7 +96,7 @@ GeomPlate_CurveConstraint ::GeomPlate_CurveConstraint(const Handle(Adaptor3d_Cur
       //      Handle(BRepAdaptor_Surface) BS1;
       //      BS1=Handle(BRepAdaptor_Surface)::DownCast(myFrontiere->
       //                                            ChangeCurve().GetSurface());
-      //      Surf = BRep_Tool::Surface(BS1->ChangeSurface().Face());
+      //      Surf = BRepInspector::Surface(BS1->ChangeSurface().Face());
       throw ExceptionBase("GeomPlate_CurveConstraint : Surface must be GeomAdaptor_Surface");
     }
 
@@ -280,11 +280,11 @@ Standard_Real GeomPlate_CurveConstraint ::G2Criterion(const Standard_Real U) con
 //---------------------------------------------------------
 // Fonction : Curve2dOnSurf
 //---------------------------------------------------------
-Handle(Geom2d_Curve) GeomPlate_CurveConstraint ::Curve2dOnSurf() const
+Handle(GeomCurve2d) GeomPlate_CurveConstraint ::Curve2dOnSurf() const
 {
   if (my2dCurve.IsNull() && !myHCurve2d.IsNull())
   {
-    Handle(Geom2d_Curve) C2d;
+    Handle(GeomCurve2d) C2d;
     GeomAbs_Shape        Continuity = GeomAbs_C1;
     Standard_Integer     MaxDegree  = 10;
     Standard_Integer     MaxSeg     = 20 + myHCurve2d->NbIntervals(GeomAbs_C3);
@@ -306,7 +306,7 @@ Handle(Geom2d_Curve) GeomPlate_CurveConstraint ::Curve2dOnSurf() const
 //---------------------------------------------------------
 // Fonction : SetCurve2dOnSurf
 //---------------------------------------------------------
-void GeomPlate_CurveConstraint ::SetCurve2dOnSurf(const Handle(Geom2d_Curve)& Curve)
+void GeomPlate_CurveConstraint ::SetCurve2dOnSurf(const Handle(GeomCurve2d)& Curve)
 {
   my2dCurve = Curve;
 }

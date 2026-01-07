@@ -124,7 +124,7 @@ VrmlData_ErrorStatus VrmlData_Node::WriteClosing() const
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Node::readBrace(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_Node::readBrace(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus;
   if (OK(aStatus, VrmlData_Scene::ReadLine(theBuffer)))
@@ -139,7 +139,7 @@ VrmlData_ErrorStatus VrmlData_Node::readBrace(VrmlData_InBuffer& theBuffer)
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Node::ReadBoolean(VrmlData_InBuffer& theBuffer,
+VrmlData_ErrorStatus VrmlData_Node::ReadBoolean(InputBuffer& theBuffer,
                                                 Standard_Boolean&  theResult)
 {
   VrmlData_ErrorStatus aStatus;
@@ -157,7 +157,7 @@ VrmlData_ErrorStatus VrmlData_Node::ReadBoolean(VrmlData_InBuffer& theBuffer,
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Node::ReadInteger(VrmlData_InBuffer& theBuffer, long& theResult)
+VrmlData_ErrorStatus VrmlData_Node::ReadInteger(InputBuffer& theBuffer, long& theResult)
 {
   VrmlData_ErrorStatus aStatus;
   if (OK(aStatus, VrmlData_Scene::ReadLine(theBuffer)))
@@ -178,8 +178,8 @@ VrmlData_ErrorStatus VrmlData_Node::ReadInteger(VrmlData_InBuffer& theBuffer, lo
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Node::ReadString(VrmlData_InBuffer&       theBuffer,
-                                               TCollection_AsciiString& theResult)
+VrmlData_ErrorStatus VrmlData_Node::ReadString(InputBuffer&       theBuffer,
+                                               AsciiString1& theResult)
 {
   VrmlData_ErrorStatus aStatus;
   if (OK(aStatus, VrmlData_Scene::ReadLine(theBuffer)))
@@ -207,8 +207,8 @@ VrmlData_ErrorStatus VrmlData_Node::ReadString(VrmlData_InBuffer&       theBuffe
 //=================================================================================================
 
 VrmlData_ErrorStatus VrmlData_Node::ReadMultiString(
-  VrmlData_InBuffer&                         theBuffer,
-  NCollection_List<TCollection_AsciiString>& theResult)
+  InputBuffer&                         theBuffer,
+  NCollection_List<AsciiString1>& theResult)
 {
   VrmlData_ErrorStatus aStatus;
   Standard_Boolean     isBracketed(Standard_False);
@@ -227,7 +227,7 @@ VrmlData_ErrorStatus VrmlData_Node::ReadMultiString(
         theBuffer.LinePtr++;
         break;
       }
-      TCollection_AsciiString aString;
+      AsciiString1 aString;
       if (!OK(aStatus, ReadString(theBuffer, aString)))
         break;
       theResult.Append(aString);
@@ -250,7 +250,7 @@ VrmlData_ErrorStatus VrmlData_Node::ReadMultiString(
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Node::ReadNode(VrmlData_InBuffer&           theBuffer,
+VrmlData_ErrorStatus VrmlData_Node::ReadNode(InputBuffer&           theBuffer,
                                              Handle(VrmlData_Node)&       theNode,
                                              const Handle(TypeInfo)& theType)
 {
@@ -261,7 +261,7 @@ VrmlData_ErrorStatus VrmlData_Node::ReadNode(VrmlData_InBuffer&           theBuf
   {
     if (VRMLDATA_LCOMPARE(theBuffer.LinePtr, "USE"))
     {
-      TCollection_AsciiString aName;
+      AsciiString1 aName;
       aStatus = VrmlData_Scene::ReadWord(theBuffer, aName);
       if (aStatus == VrmlData_StatusOK)
       {
@@ -314,7 +314,7 @@ Handle(VrmlData_Node) VrmlData_ShapeNode::Clone(const Handle(VrmlData_Node)& the
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_ShapeNode::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_ShapeNode::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus;
   while (OK(aStatus, VrmlData_Scene::ReadLine(theBuffer)))
@@ -378,7 +378,7 @@ Standard_Boolean VrmlData_ShapeNode::IsDefault() const
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_UnknownNode::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_UnknownNode::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus = VrmlData_StatusOK;
   Standard_Integer     aLevelCounter(0);
@@ -444,7 +444,7 @@ Handle(VrmlData_Node) VrmlData_Appearance::Clone(const Handle(VrmlData_Node)& th
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Appearance::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_Appearance::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus;
   while (OK(aStatus, VrmlData_Scene::ReadLine(theBuffer)))
@@ -543,7 +543,7 @@ Handle(VrmlData_Node) VrmlData_ImageTexture::Clone(const Handle(VrmlData_Node)& 
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_ImageTexture::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_ImageTexture::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus;
   Standard_Boolean     aRepeatS(Standard_True), aRepeatT(Standard_True);
@@ -580,7 +580,7 @@ VrmlData_ErrorStatus VrmlData_ImageTexture::Write(const char* thePrefix) const
   if (aScene.IsDummyWrite() == Standard_False
       && OK(aStatus, aScene.WriteLine(thePrefix, header, GlobalIndent())))
   {
-    TCollection_AsciiString url = "\"";
+    AsciiString1 url = "\"";
     url += URL().First();
     url += "\"";
 

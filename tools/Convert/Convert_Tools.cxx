@@ -36,12 +36,12 @@
 // function : ReadShape
 // purpose :
 // =======================================================================
-TopoDS_Shape Convert_Tools::ReadShape(const TCollection_AsciiString& theFileName)
+TopoShape Convert_Tools::ReadShape(const AsciiString1& theFileName)
 {
-  TopoDS_Shape aShape;
+  TopoShape aShape;
 
-  BRep_Builder aBuilder;
-  BRepTools::Read(aShape, theFileName.ToCString(), aBuilder);
+  ShapeBuilder aBuilder;
+  BRepTools1::Read(aShape, theFileName.ToCString(), aBuilder);
   return aShape;
 }
 
@@ -75,7 +75,7 @@ void Convert_Tools::ConvertStreamToPresentations(
   if (aDir.InitFromJson(theSStream, aStartPos))
   {
     gp_Lin            aLin(gp::Origin(), aDir);
-    Handle(Geom_Line) aGeomLine = new Geom_Line(aLin);
+    Handle(GeomLine) aGeomLine = new GeomLine(aLin);
     CreatePresentation(aGeomLine, thePresentations);
     return;
   }
@@ -83,7 +83,7 @@ void Convert_Tools::ConvertStreamToPresentations(
   Frame3d anAx2;
   if (anAx2.InitFromJson(theSStream, aStartPos))
   {
-    Handle(Geom_Plane) aGeomPlane = new Geom_Plane(gp_Ax3(anAx2));
+    Handle(GeomPlane) aGeomPlane = new GeomPlane(gp_Ax3(anAx2));
     CreatePresentation(aGeomPlane, thePresentations);
     return;
   }
@@ -91,7 +91,7 @@ void Convert_Tools::ConvertStreamToPresentations(
   gp_Ax3 anAx3; // should be after Frame3d
   if (anAx3.InitFromJson(theSStream, aStartPos))
   {
-    Handle(Geom_Plane) aGeomPlane = new Geom_Plane(anAx3);
+    Handle(GeomPlane) aGeomPlane = new GeomPlane(anAx3);
     CreatePresentation(aGeomPlane, thePresentations);
     return;
   }
@@ -101,7 +101,7 @@ void Convert_Tools::ConvertStreamToPresentations(
   if (anAxis.InitFromJson(theSStream, aStartPos))
   {
     thePresentations.Append(new Convert_TransientShape(
-      BRepBuilderAPI_MakeEdge(anAxis.Location(),
+      EdgeMaker(anAxis.Location(),
                               anAxis.Location().Coord() + anAxis.Direction().XYZ())));
     return;
   }
@@ -116,7 +116,7 @@ void Convert_Tools::ConvertStreamToPresentations(
   Bnd_Box aBox;
   if (aBox.InitFromJson(theSStream, aStartPos))
   {
-    TopoDS_Shape aShape;
+    TopoShape aShape;
     if (Convert_Tools::CreateShape(aBox, aShape))
       thePresentations.Append(new Convert_TransientShape(aShape));
     return;
@@ -125,7 +125,7 @@ void Convert_Tools::ConvertStreamToPresentations(
   Select3D_BndBox3d aSelectBndBox;
   if (aSelectBndBox.InitFromJson(theSStream, aStartPos))
   {
-    TopoDS_Shape aShape;
+    TopoShape aShape;
 
     Point3d aPntMin = Point3d(aSelectBndBox.CornerMin().x(),
                             aSelectBndBox.CornerMin().y(),
@@ -168,7 +168,7 @@ Standard_Boolean Convert_Tools::ConvertStreamToColor(const Standard_SStream& the
 // function : CreateShape
 // purpose  :
 //=======================================================================
-Standard_Boolean Convert_Tools::CreateShape(const Bnd_Box& theBoundingBox, TopoDS_Shape& theShape)
+Standard_Boolean Convert_Tools::CreateShape(const Bnd_Box& theBoundingBox, TopoShape& theShape)
 {
   if (theBoundingBox.IsVoid() || theBoundingBox.IsWhole())
     return Standard_False;
@@ -186,7 +186,7 @@ Standard_Boolean Convert_Tools::CreateShape(const Bnd_Box& theBoundingBox, TopoD
 // function : CreateShape
 // purpose  :
 //=======================================================================
-Standard_Boolean Convert_Tools::CreateShape(const Bnd_OBB& theBoundingBox, TopoDS_Shape& theShape)
+Standard_Boolean Convert_Tools::CreateShape(const Bnd_OBB& theBoundingBox, TopoShape& theShape)
 {
   if (theBoundingBox.IsVoid())
     return Standard_False;
@@ -194,18 +194,18 @@ Standard_Boolean Convert_Tools::CreateShape(const Bnd_OBB& theBoundingBox, TopoD
   TColgp_Array1OfPnt anArrPnts(0, 8);
   theBoundingBox.GetVertex(&anArrPnts(0));
 
-  BRep_Builder    aBuilder;
-  TopoDS_Compound aCompound;
+  ShapeBuilder    aBuilder;
+  TopoCompound aCompound;
   aBuilder.MakeCompound(aCompound);
 
   aBuilder.Add(aCompound,
-               BRepBuilderAPI_MakeEdge(Point3d(anArrPnts.Value(0)), Point3d(anArrPnts.Value(1))));
+               EdgeMaker(Point3d(anArrPnts.Value(0)), Point3d(anArrPnts.Value(1))));
   aBuilder.Add(aCompound,
-               BRepBuilderAPI_MakeEdge(Point3d(anArrPnts.Value(0)), Point3d(anArrPnts.Value(2))));
+               EdgeMaker(Point3d(anArrPnts.Value(0)), Point3d(anArrPnts.Value(2))));
   aBuilder.Add(aCompound,
-               BRepBuilderAPI_MakeEdge(Point3d(anArrPnts.Value(1)), Point3d(anArrPnts.Value(3))));
+               EdgeMaker(Point3d(anArrPnts.Value(1)), Point3d(anArrPnts.Value(3))));
   aBuilder.Add(aCompound,
-               BRepBuilderAPI_MakeEdge(Point3d(anArrPnts.Value(2)), Point3d(anArrPnts.Value(3))));
+               EdgeMaker(Point3d(anArrPnts.Value(2)), Point3d(anArrPnts.Value(3))));
 
   theShape = aCompound;
   return Standard_True;
@@ -217,7 +217,7 @@ Standard_Boolean Convert_Tools::CreateShape(const Bnd_OBB& theBoundingBox, TopoD
 //=======================================================================
 Standard_Boolean Convert_Tools::CreateBoxShape(const Point3d& thePntMin,
                                                const Point3d& thePntMax,
-                                               TopoDS_Shape& theShape)
+                                               TopoShape& theShape)
 {
   BRepPreviewAPI_MakeBox aMakeBox;
   aMakeBox.Init(thePntMin, thePntMax);
@@ -231,7 +231,7 @@ Standard_Boolean Convert_Tools::CreateBoxShape(const Point3d& thePntMin,
 // purpose  :
 //=======================================================================
 void Convert_Tools::CreatePresentation(
-  const Handle(Geom_Line)&                      theLine,
+  const Handle(GeomLine)&                      theLine,
   NCollection_List<Handle(RefObject)>& thePresentations)
 {
   Handle(AIS_Line) aLinePrs = new AIS_Line(theLine);
@@ -244,7 +244,7 @@ void Convert_Tools::CreatePresentation(
 // purpose  :
 //=======================================================================
 void Convert_Tools::CreatePresentation(
-  const Handle(Geom_Plane)&                     thePlane,
+  const Handle(GeomPlane)&                     thePlane,
   NCollection_List<Handle(RefObject)>& thePresentations)
 {
   Handle(AIS_Plane) aPlanePrs = new AIS_Plane(thePlane);
@@ -275,17 +275,17 @@ void Convert_Tools::CreatePresentation(
 {
   Bnd_Box aBox(Point3d(), Point3d(10., 10., 10));
 
-  TopoDS_Shape aBoxShape;
+  TopoShape aBoxShape;
   if (!Convert_Tools::CreateShape(aBox, aBoxShape))
     return;
 
-  Handle(AIS_Shape) aSourcePrs = new AIS_Shape(aBoxShape);
+  Handle(VisualShape) aSourcePrs = new VisualShape(aBoxShape);
   aSourcePrs->Attributes()->SetAutoTriangulation(Standard_False);
   aSourcePrs->SetColor(Quantity_NOC_WHITE);
   aSourcePrs->SetTransparency(0.5);
   thePresentations.Append(aSourcePrs);
 
-  Handle(AIS_Shape) aTransformedPrs = new AIS_Shape(aBoxShape);
+  Handle(VisualShape) aTransformedPrs = new VisualShape(aBoxShape);
   aTransformedPrs->Attributes()->SetAutoTriangulation(Standard_False);
   aTransformedPrs->SetColor(Quantity_NOC_TOMATO);
   aTransformedPrs->SetTransparency(0.5);

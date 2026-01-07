@@ -25,7 +25,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(BRepTopAdaptor_HVertex, Adaptor3d_HVertex)
 
-BRepTopAdaptor_HVertex::BRepTopAdaptor_HVertex(const TopoDS_Vertex&               V,
+BRepTopAdaptor_HVertex::BRepTopAdaptor_HVertex(const TopoVertex&               V,
                                                const Handle(BRepAdaptor_Curve2d)& C)
     : myVtx(V),
       myCurve(C)
@@ -41,16 +41,16 @@ gp_Pnt2d BRepTopAdaptor_HVertex::Value()
 Standard_Real BRepTopAdaptor_HVertex::Parameter(const Handle(Adaptor2d_Curve2d)& C)
 {
   Handle(BRepAdaptor_Curve2d) brhc = Handle(BRepAdaptor_Curve2d)::DownCast(C);
-  return BRep_Tool::Parameter(myVtx, brhc->Edge(), brhc->Face());
+  return BRepInspector::Parameter(myVtx, brhc->Edge(), brhc->Face());
 }
 
 Standard_Real BRepTopAdaptor_HVertex::Resolution(const Handle(Adaptor2d_Curve2d)& C)
 {
   Handle(BRepAdaptor_Curve2d) brhc = Handle(BRepAdaptor_Curve2d)::DownCast(C);
-  const TopoDS_Face&          F    = brhc->Face();
+  const TopoFace&          F    = brhc->Face();
   BRepAdaptor_Surface         S(F, 0);
-  Standard_Real               tv = BRep_Tool::Tolerance(myVtx);
-  Standard_Real               pp, p = BRep_Tool::Parameter(myVtx, brhc->Edge(), brhc->Face());
+  Standard_Real               tv = BRepInspector::Tolerance(myVtx);
+  Standard_Real               pp, p = BRepInspector::Parameter(myVtx, brhc->Edge(), brhc->Face());
   TopAbs_Orientation          Or = Orientation();
   gp_Pnt2d                    p2d;
   gp_Vec2d                    v2d;

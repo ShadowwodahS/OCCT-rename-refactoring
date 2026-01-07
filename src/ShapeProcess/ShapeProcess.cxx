@@ -26,7 +26,7 @@
 #include <TColStd_SequenceOfAsciiString.hxx>
 #include <TCollection_AsciiString.hxx>
 
-static NCollection_DataMap<TCollection_AsciiString, Handle(ShapeProcess_Operator)> aMapOfOperators;
+static NCollection_DataMap<AsciiString1, Handle(ShapeProcess_Operator)> aMapOfOperators;
 
 namespace
 {
@@ -94,7 +94,7 @@ Standard_Boolean ShapeProcess::Perform(const Handle(ShapeProcess_Context)& conte
   ScopeLock aSequenceScope(*context, seq);
 
   // get description of the sequence
-  TCollection_AsciiString sequence;
+  AsciiString1 sequence;
   if (!context->GetString("exec.op", sequence))
   {
 #ifdef OCCT_DEBUG
@@ -109,7 +109,7 @@ Standard_Boolean ShapeProcess::Perform(const Handle(ShapeProcess_Context)& conte
     return Standard_False;
   }
   TColStd_SequenceOfAsciiString sequenceOfOperators;
-  TCollection_AsciiString       oper;
+  AsciiString1       oper;
   Standard_Integer              i;
   for (i = 1;; i++)
   {
@@ -123,7 +123,7 @@ Standard_Boolean ShapeProcess::Perform(const Handle(ShapeProcess_Context)& conte
   if (context->TraceLevel() >= 2)
   {
     Message_Msg             SMSG0("SP.Sequence.Info.Seq"); // Sequence of operators: %s
-    TCollection_AsciiString Seq;
+    AsciiString1 Seq;
     for (Standard_Integer i1 = 1; i1 <= sequenceOfOperators.Length(); i1++)
     {
       if (i1 > 1)

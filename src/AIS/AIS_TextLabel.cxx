@@ -32,7 +32,7 @@
 
 #include <V3d_Viewer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_TextLabel, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_TextLabel, VisualEntity)
 
 //=================================================================================================
 
@@ -74,7 +74,7 @@ void AIS_TextLabel::SetTransparency(const Standard_Real theValue)
 
 //=================================================================================================
 
-void AIS_TextLabel::SetText(const TCollection_ExtendedString& theText)
+void AIS_TextLabel::SetText(const UtfString& theText)
 {
   myText = theText;
 }
@@ -161,7 +161,7 @@ const Point3d& AIS_TextLabel::Position() const
 
 //=================================================================================================
 
-const TCollection_AsciiString& AIS_TextLabel::FontName() const
+const AsciiString1& AIS_TextLabel::FontName() const
 {
   return myDrawer->TextAspect()->Aspect()->Font();
 }
@@ -265,7 +265,7 @@ void AIS_TextLabel::Compute(const Handle(PrsMgr_PresentationManager)&,
           aHasOwnAnchor = Standard_False; // always not using own anchor if flipping
         }
         Handle(Graphic3d_Text) aText =
-          Prs3d_Text::Draw(thePrs->CurrentGroup(), anAsp, myText, anOrientation, aHasOwnAnchor);
+          Prs3d_Text::Draw1(thePrs->CurrentGroup(), anAsp, myText, anOrientation, aHasOwnAnchor);
         aText->SetTextFormatter(myFormatter);
         if (myHasFlipping && isInit)
         {
@@ -275,7 +275,7 @@ void AIS_TextLabel::Compute(const Handle(PrsMgr_PresentationManager)&,
       else
       {
         Handle(Graphic3d_Text) aText =
-          Prs3d_Text::Draw(thePrs->CurrentGroup(), anAsp, myText, aPosition);
+          Prs3d_Text::Draw1(thePrs->CurrentGroup(), anAsp, myText, aPosition);
         aText->SetTextFormatter(myFormatter);
       }
 
@@ -300,7 +300,7 @@ void AIS_TextLabel::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void AIS_TextLabel::ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+void AIS_TextLabel::ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                      const Standard_Integer             theMode)
 {
   switch (theMode)

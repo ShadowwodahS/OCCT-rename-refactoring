@@ -31,10 +31,10 @@ class Select3D_SensitiveSphere;
 //! - Directional light is represented by a set of arrows at the corner of view.
 //! In addition, light source name could be displayed, and clicking on presentation will
 //! enable/disable light.
-class AIS_LightSource : public AIS_InteractiveObject
+class AIS_LightSource : public VisualEntity
 {
   friend class AIS_LightSourceOwner;
-  DEFINE_STANDARD_RTTIEXT(AIS_LightSource, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_LightSource, VisualEntity)
 public:
   //! Initializes the light source by copying Graphic3d_CLight settings.
   Standard_EXPORT AIS_LightSource(const Handle(Graphic3d_CLight)& theLightSource);
@@ -207,7 +207,7 @@ protected:
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Fills presentation.
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Drag object in the viewer.
@@ -219,8 +219,8 @@ protected:
   //! @param[in] theAction   drag action
   //! @return FALSE if object rejects dragging action (e.g. AIS_DragAction_Start)
   Standard_EXPORT virtual Standard_Boolean ProcessDragging(
-    const Handle(AIS_InteractiveContext)& theCtx,
-    const Handle(V3d_View)&               theView,
+    const Handle(VisualContext)& theCtx,
+    const Handle(ViewWindow)&               theView,
     const Handle(SelectMgr_EntityOwner)&  theOwner,
     const Graphic3d_Vec2i&                theDragFrom,
     const Graphic3d_Vec2i&                theDragTo,
@@ -303,7 +303,7 @@ public:
   //! manages highlighting on its own, execution will be passed to
   //! SelectMgr_SelectableObject::HilightOwnerWithColor method.
   Standard_EXPORT virtual void HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
-                                                const Handle(Prs3d_Drawer)&               theStyle,
+                                                const Handle(StyleDrawer)&               theStyle,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Always update dynamic highlighting.

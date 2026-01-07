@@ -29,7 +29,7 @@
 #include <TopoDS_Vertex.hxx>
 #include <Standard_Integer.hxx>
 class StepData_StepModel;
-class TopoDS_Shape;
+class TopoShape;
 class StepShape_TopologicalRepresentationItem;
 
 //! This Tool Class provides Information to build
@@ -49,34 +49,34 @@ public:
                             const Standard_Boolean                  FacetedContext,
                             Standard_Integer                        theSurfCurveMode);
 
-  Standard_EXPORT Standard_Boolean IsBound(const TopoDS_Shape& S);
+  Standard_EXPORT Standard_Boolean IsBound(const TopoShape& S);
 
-  Standard_EXPORT void Bind(const TopoDS_Shape&                                    S,
+  Standard_EXPORT void Bind(const TopoShape&                                    S,
                             const Handle(StepShape_TopologicalRepresentationItem)& T);
 
-  Standard_EXPORT Handle(StepShape_TopologicalRepresentationItem) Find(const TopoDS_Shape& S);
+  Standard_EXPORT Handle(StepShape_TopologicalRepresentationItem) Find(const TopoShape& S);
 
   Standard_EXPORT Standard_Boolean Faceted() const;
 
-  Standard_EXPORT void SetCurrentShell(const TopoDS_Shell& S);
+  Standard_EXPORT void SetCurrentShell(const TopoShell& S);
 
-  Standard_EXPORT const TopoDS_Shell& CurrentShell() const;
+  Standard_EXPORT const TopoShell& CurrentShell() const;
 
-  Standard_EXPORT void SetCurrentFace(const TopoDS_Face& F);
+  Standard_EXPORT void SetCurrentFace(const TopoFace& F);
 
-  Standard_EXPORT const TopoDS_Face& CurrentFace() const;
+  Standard_EXPORT const TopoFace& CurrentFace() const;
 
-  Standard_EXPORT void SetCurrentWire(const TopoDS_Wire& W);
+  Standard_EXPORT void SetCurrentWire(const TopoWire& W);
 
-  Standard_EXPORT const TopoDS_Wire& CurrentWire() const;
+  Standard_EXPORT const TopoWire& CurrentWire() const;
 
-  Standard_EXPORT void SetCurrentEdge(const TopoDS_Edge& E);
+  Standard_EXPORT void SetCurrentEdge(const TopoEdge& E);
 
-  Standard_EXPORT const TopoDS_Edge& CurrentEdge() const;
+  Standard_EXPORT const TopoEdge& CurrentEdge() const;
 
-  Standard_EXPORT void SetCurrentVertex(const TopoDS_Vertex& V);
+  Standard_EXPORT void SetCurrentVertex(const TopoVertex& V);
 
-  Standard_EXPORT const TopoDS_Vertex& CurrentVertex() const;
+  Standard_EXPORT const TopoVertex& CurrentVertex() const;
 
   Standard_EXPORT Standard_Real Lowest3DTolerance() const;
 
@@ -95,11 +95,11 @@ private:
   MoniTool_DataMapOfShapeTransient myDataMap;
   Standard_Boolean                 myFacetedContext;
   Standard_Real                    myLowestTol;
-  TopoDS_Shell                     myCurrentShell;
-  TopoDS_Face                      myCurrentFace;
-  TopoDS_Wire                      myCurrentWire;
-  TopoDS_Edge                      myCurrentEdge;
-  TopoDS_Vertex                    myCurrentVertex;
+  TopoShell                     myCurrentShell;
+  TopoFace                      myCurrentFace;
+  TopoWire                      myCurrentWire;
+  TopoEdge                      myCurrentEdge;
+  TopoVertex                    myCurrentVertex;
   Standard_Boolean                 myReversedSurface;
   Standard_Integer                 myPCurveMode;
 };

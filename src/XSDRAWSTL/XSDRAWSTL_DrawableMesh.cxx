@@ -29,7 +29,7 @@ XSDRAWSTL_DrawableMesh::XSDRAWSTL_DrawableMesh(const Handle(MeshVS_Mesh)& aMesh)
 
 //=================================================================================================
 
-void XSDRAWSTL_DrawableMesh::DrawOn(Draw_Display& /*d*/) const {}
+void XSDRAWSTL_DrawableMesh::DrawOn(DrawDisplay& /*d*/) const {}
 
 //=================================================================================================
 

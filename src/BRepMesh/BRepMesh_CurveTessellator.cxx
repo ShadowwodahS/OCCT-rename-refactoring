@@ -68,7 +68,7 @@ void BRepMesh_CurveTessellator::init()
     ExceptionBase::Raise("The structure \"myParameters\" is not initialized");
   }
 
-  TopExp::Vertices(myEdge, myFirstVertex, myLastVertex);
+  TopExp1::Vertices(myEdge, myFirstVertex, myLastVertex);
 
   Standard_Real aPreciseAngDef = 0.5 * myDEdge->GetAngularDeflection();
   Standard_Real aPreciseLinDef = 0.5 * myDEdge->GetDeflection();
@@ -94,7 +94,7 @@ void BRepMesh_CurveTessellator::init()
   mySquareEdgeDef = aPreciseLinDef * aPreciseLinDef;
   mySquareMinSize = Max(mySquareEdgeDef, aMinSize * aMinSize);
 
-  myEdgeSqTol = BRep_Tool::Tolerance(myEdge);
+  myEdgeSqTol = BRepInspector::Tolerance(myEdge);
   myEdgeSqTol *= myEdgeSqTol;
 
   Standard_Integer aMinPntThreshold = 2;
@@ -163,17 +163,17 @@ void BRepMesh_CurveTessellator::splitByDeflection2d()
     {
       TopLoc_Location                 aLoc;
       const IMeshData::IPCurveHandle& aPCurve  = myDEdge->GetPCurve(aPCurveIt);
-      const TopoDS_Face&              aFace    = aPCurve->GetFace()->GetFace();
-      const Handle(Geom_Surface)&     aSurface = BRep_Tool::Surface(aFace, aLoc);
-      if (aSurface->IsInstance(STANDARD_TYPE(Geom_Plane)))
+      const TopoFace&              aFace    = aPCurve->GetFace()->GetFace();
+      const Handle(GeomSurface)&     aSurface = BRepInspector::Surface(aFace, aLoc);
+      if (aSurface->IsInstance(STANDARD_TYPE(GeomPlane)))
       {
         continue;
       }
 
-      const TopoDS_Edge aCurrEdge = TopoDS::Edge(myEdge.Oriented(aPCurve->GetOrientation()));
+      const TopoEdge aCurrEdge = TopoDS::Edge(myEdge.Oriented(aPCurve->GetOrientation()));
 
       Standard_Real        aF, aL;
-      Handle(Geom2d_Curve) aCurve2d = BRep_Tool::CurveOnSurface(aCurrEdge, aFace, aF, aL);
+      Handle(GeomCurve2d) aCurve2d = BRepInspector::CurveOnSurface(aCurrEdge, aFace, aF, aL);
       TColStd_Array1OfReal aParamArray(1, aNodesNb);
       for (Standard_Integer i = 1; i <= aNodesNb; ++i)
         aParamArray.SetValue(i, myDiscretTool.Parameter(i));
@@ -190,17 +190,17 @@ void BRepMesh_CurveTessellator::addInternalVertices()
 {
   // PTv, chl/922/G9, Take into account internal vertices
   // it is necessary for internal edges, which do not split other edges, by their vertex
-  TopExp_Explorer aVertexIt(myEdge, TopAbs_VERTEX);
+  ShapeExplorer aVertexIt(myEdge, TopAbs_VERTEX);
   for (; aVertexIt.More(); aVertexIt.Next())
   {
-    const TopoDS_Vertex& aVertex = TopoDS::Vertex(aVertexIt.Current());
+    const TopoVertex& aVertex = TopoDS::Vertex(aVertexIt.Current());
     if (aVertex.Orientation() != TopAbs_INTERNAL)
     {
       continue;
     }
 
-    myDiscretTool.AddPoint(BRep_Tool::Pnt(aVertex),
-                           BRep_Tool::Parameter(aVertex, myEdge),
+    myDiscretTool.AddPoint(BRepInspector::Pnt(aVertex),
+                           BRepInspector::Parameter(aVertex, myEdge),
                            Standard_True);
   }
 }
@@ -209,10 +209,10 @@ void BRepMesh_CurveTessellator::addInternalVertices()
 
 Standard_Boolean BRepMesh_CurveTessellator::isInToleranceOfVertex(
   const Point3d&        thePoint,
-  const TopoDS_Vertex& theVertex) const
+  const TopoVertex& theVertex) const
 {
-  const Point3d        aPoint     = BRep_Tool::Pnt(theVertex);
-  const Standard_Real aTolerance = BRep_Tool::Tolerance(theVertex);
+  const Point3d        aPoint     = BRepInspector::Pnt(theVertex);
+  const Standard_Real aTolerance = BRepInspector::Tolerance(theVertex);
 
   return (thePoint.SquareDistance(aPoint) < aTolerance * aTolerance);
 }
@@ -270,8 +270,8 @@ Standard_Boolean BRepMesh_CurveTessellator::Value(const Standard_Integer theInde
 
 //=================================================================================================
 
-void BRepMesh_CurveTessellator::splitSegment(const Handle(Geom_Surface)& theSurf,
-                                             const Handle(Geom2d_Curve)& theCurve2d,
+void BRepMesh_CurveTessellator::splitSegment(const Handle(GeomSurface)& theSurf,
+                                             const Handle(GeomCurve2d)& theCurve2d,
                                              const Standard_Real         theFirst,
                                              const Standard_Real         theLast,
                                              const Standard_Integer      theNbIter)

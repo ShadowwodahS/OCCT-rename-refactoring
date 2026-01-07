@@ -53,7 +53,7 @@ typedef math_DirectPolynomialRoots Roots;
 //                   - with radius Radius.                                +
 //=========================================================================
 
-GccAna_Circ2dTanOnRad::GccAna_Circ2dTanOnRad(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTangentOnRadius::Circle2dTangentOnRadius(const GccEnt_QualifiedCirc& Qualified1,
                                              const gp_Lin2d&             OnLine,
                                              const Standard_Real         Radius,
                                              const Standard_Real         Tolerance)
@@ -319,17 +319,17 @@ GccAna_Circ2dTanOnRad::GccAna_Circ2dTanOnRad(const GccEnt_QualifiedCirc& Qualifi
   }
 }
 
-Standard_Boolean GccAna_Circ2dTanOnRad::IsDone() const
+Standard_Boolean Circle2dTangentOnRadius::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer GccAna_Circ2dTanOnRad::NbSolutions() const
+Standard_Integer Circle2dTangentOnRadius::NbSolutions() const
 {
   return NbrSol;
 }
 
-gp_Circ2d GccAna_Circ2dTanOnRad::ThisSolution(const Standard_Integer Index) const
+gp_Circ2d Circle2dTangentOnRadius::ThisSolution(const Standard_Integer Index) const
 {
   if (Index > NbrSol || Index <= 0)
   {
@@ -338,7 +338,7 @@ gp_Circ2d GccAna_Circ2dTanOnRad::ThisSolution(const Standard_Integer Index) cons
   return cirsol(Index);
 }
 
-void GccAna_Circ2dTanOnRad::WhichQualifier(const Standard_Integer Index,
+void Circle2dTangentOnRadius::WhichQualifier(const Standard_Integer Index,
                                            GccEnt_Position&       Qualif1) const
 {
   if (!WellDone)
@@ -355,7 +355,7 @@ void GccAna_Circ2dTanOnRad::WhichQualifier(const Standard_Integer Index,
   }
 }
 
-void GccAna_Circ2dTanOnRad::Tangency1(const Standard_Integer Index,
+void Circle2dTangentOnRadius::Tangency1(const Standard_Integer Index,
                                       Standard_Real&         ParSol,
                                       Standard_Real&         ParArg,
                                       gp_Pnt2d&              PntSol) const
@@ -376,7 +376,7 @@ void GccAna_Circ2dTanOnRad::Tangency1(const Standard_Integer Index,
   }
 }
 
-void GccAna_Circ2dTanOnRad::CenterOn3(const Standard_Integer Index,
+void Circle2dTangentOnRadius::CenterOn3(const Standard_Integer Index,
                                       Standard_Real&         ParArg,
                                       gp_Pnt2d&              PntSol) const
 {
@@ -395,7 +395,7 @@ void GccAna_Circ2dTanOnRad::CenterOn3(const Standard_Integer Index,
   }
 }
 
-Standard_Boolean GccAna_Circ2dTanOnRad::IsTheSame1(const Standard_Integer Index) const
+Standard_Boolean Circle2dTangentOnRadius::IsTheSame1(const Standard_Integer Index) const
 {
   if (!WellDone)
     throw StdFail_NotDone();

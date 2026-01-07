@@ -39,10 +39,10 @@ public:
   //! SecondShape and aPlane. It may be queried and
   //! edited using the functions GetTool and SetTool.
   //! The two shapes are typically two edges, two vertices or two points.
-  Standard_EXPORT PrsDim_SymmetricRelation(const TopoDS_Shape&       aSymmTool,
-                                           const TopoDS_Shape&       FirstShape,
-                                           const TopoDS_Shape&       SecondShape,
-                                           const Handle(Geom_Plane)& aPlane);
+  Standard_EXPORT PrsDim_SymmetricRelation(const TopoShape&       aSymmTool,
+                                           const TopoShape&       FirstShape,
+                                           const TopoShape&       SecondShape,
+                                           const Handle(GeomPlane)& aPlane);
 
   //! Returns true if the symmetric constraint display is movable.
   virtual Standard_Boolean IsMovable() const Standard_OVERRIDE { return Standard_True; }
@@ -50,18 +50,18 @@ public:
   //! Sets the tool aSymmetricTool composed of a first
   //! shape, a second shape, and a plane.
   //! This tool is initially created at construction time.
-  void SetTool(const TopoDS_Shape& aSymmetricTool) { myTool = aSymmetricTool; }
+  void SetTool(const TopoShape& aSymmetricTool) { myTool = aSymmetricTool; }
 
   //! Returns the tool composed of a first shape, a second
   //! shape, and a plane. This tool is created at construction time.
-  const TopoDS_Shape& GetTool() const { return myTool; }
+  const TopoShape& GetTool() const { return myTool; }
 
 private:
   Standard_EXPORT virtual void Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
                                        const Handle(Prs3d_Presentation)&         thePrs,
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT void ComputeTwoFacesSymmetric(const Handle(Prs3d_Presentation)& aprs);
@@ -71,7 +71,7 @@ private:
   Standard_EXPORT void ComputeTwoVerticesSymmetric(const Handle(Prs3d_Presentation)& aprs);
 
 private:
-  TopoDS_Shape myTool;
+  TopoShape myTool;
   Point3d       myFAttach;
   Point3d       mySAttach;
   Dir3d       myFDirAttach;

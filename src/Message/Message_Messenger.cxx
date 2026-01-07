@@ -30,20 +30,20 @@ Message_Messenger::Message_Messenger()
 
 //=================================================================================================
 
-Message_Messenger::Message_Messenger(const Handle(Message_Printer)& thePrinter)
+Message_Messenger::Message_Messenger(const Handle(LogPrinter)& thePrinter)
 {
   AddPrinter(thePrinter);
 }
 
 //=================================================================================================
 
-Standard_Boolean Message_Messenger::AddPrinter(const Handle(Message_Printer)& thePrinter)
+Standard_Boolean Message_Messenger::AddPrinter(const Handle(LogPrinter)& thePrinter)
 {
   // check whether printer is already in the list
   for (Message_SequenceOfPrinters::Iterator aPrinterIter(myPrinters); aPrinterIter.More();
        aPrinterIter.Next())
   {
-    const Handle(Message_Printer)& aPrinter = aPrinterIter.Value();
+    const Handle(LogPrinter)& aPrinter = aPrinterIter.Value();
     if (aPrinter == thePrinter)
     {
       return Standard_False;
@@ -56,13 +56,13 @@ Standard_Boolean Message_Messenger::AddPrinter(const Handle(Message_Printer)& th
 
 //=================================================================================================
 
-Standard_Boolean Message_Messenger::RemovePrinter(const Handle(Message_Printer)& thePrinter)
+Standard_Boolean Message_Messenger::RemovePrinter(const Handle(LogPrinter)& thePrinter)
 {
   // find printer in the list
   for (Message_SequenceOfPrinters::Iterator aPrinterIter(myPrinters); aPrinterIter.More();
        aPrinterIter.Next())
   {
-    const Handle(Message_Printer)& aPrinter = aPrinterIter.Value();
+    const Handle(LogPrinter)& aPrinter = aPrinterIter.Value();
     if (aPrinter == thePrinter)
     {
       myPrinters.Remove(aPrinterIter);
@@ -80,7 +80,7 @@ Standard_Integer Message_Messenger::RemovePrinters(const Handle(TypeInfo)& theTy
   Standard_Integer nb = 0;
   for (Message_SequenceOfPrinters::Iterator aPrinterIter(myPrinters); aPrinterIter.More();)
   {
-    const Handle(Message_Printer)& aPrinter = aPrinterIter.Value();
+    const Handle(LogPrinter)& aPrinter = aPrinterIter.Value();
     if (!aPrinter.IsNull() && aPrinter->IsKind(theType))
     {
       myPrinters.Remove(aPrinterIter);
@@ -102,7 +102,7 @@ void Message_Messenger::Send(const Standard_CString theString,
   for (Message_SequenceOfPrinters::Iterator aPrinterIter(myPrinters); aPrinterIter.More();
        aPrinterIter.Next())
   {
-    const Handle(Message_Printer)& aPrinter = aPrinterIter.Value();
+    const Handle(LogPrinter)& aPrinter = aPrinterIter.Value();
     if (!aPrinter.IsNull())
     {
       aPrinter->Send(theString, theGravity);
@@ -118,7 +118,7 @@ void Message_Messenger::Send(const Standard_SStream& theStream,
   for (Message_SequenceOfPrinters::Iterator aPrinterIter(myPrinters); aPrinterIter.More();
        aPrinterIter.Next())
   {
-    const Handle(Message_Printer)& aPrinter = aPrinterIter.Value();
+    const Handle(LogPrinter)& aPrinter = aPrinterIter.Value();
     if (!aPrinter.IsNull())
     {
       aPrinter->SendStringStream(theStream, theGravity);
@@ -128,13 +128,13 @@ void Message_Messenger::Send(const Standard_SStream& theStream,
 
 //=================================================================================================
 
-void Message_Messenger::Send(const TCollection_AsciiString& theString,
+void Message_Messenger::Send(const AsciiString1& theString,
                              const Message_Gravity          theGravity) const
 {
   for (Message_SequenceOfPrinters::Iterator aPrinterIter(myPrinters); aPrinterIter.More();
        aPrinterIter.Next())
   {
-    const Handle(Message_Printer)& aPrinter = aPrinterIter.Value();
+    const Handle(LogPrinter)& aPrinter = aPrinterIter.Value();
     if (!aPrinter.IsNull())
     {
       aPrinter->Send(theString, theGravity);
@@ -144,13 +144,13 @@ void Message_Messenger::Send(const TCollection_AsciiString& theString,
 
 //=================================================================================================
 
-void Message_Messenger::Send(const TCollection_ExtendedString& theString,
+void Message_Messenger::Send(const UtfString& theString,
                              const Message_Gravity             theGravity) const
 {
   for (Message_SequenceOfPrinters::Iterator aPrinterIter(myPrinters); aPrinterIter.More();
        aPrinterIter.Next())
   {
-    const Handle(Message_Printer)& aPrinter = aPrinterIter.Value();
+    const Handle(LogPrinter)& aPrinter = aPrinterIter.Value();
     if (!aPrinter.IsNull())
     {
       aPrinter->Send(theString, theGravity);
@@ -166,7 +166,7 @@ void Message_Messenger::Send(const Handle(RefObject)& theObject,
   for (Message_SequenceOfPrinters::Iterator aPrinterIter(myPrinters); aPrinterIter.More();
        aPrinterIter.Next())
   {
-    const Handle(Message_Printer)& aPrinter = aPrinterIter.Value();
+    const Handle(LogPrinter)& aPrinter = aPrinterIter.Value();
     if (!aPrinter.IsNull())
     {
       aPrinter->SendObject(theObject, theGravity);

@@ -28,9 +28,9 @@
 #include <Interface_EntityIterator.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESDimen_ToolDimensionTolerance::IGESDimen_ToolDimensionTolerance() {}
+DimensionToleranceTool::DimensionToleranceTool() {}
 
-void IGESDimen_ToolDimensionTolerance::ReadOwnParams(
+void DimensionToleranceTool::ReadOwnParams(
   const Handle(IGESDimen_DimensionTolerance)& ent,
   const Handle(IGESData_IGESReaderData)& /*IR*/,
   IGESData_ParamReader& PR) const
@@ -81,7 +81,7 @@ void IGESDimen_ToolDimensionTolerance::ReadOwnParams(
             tempPrecision);
 }
 
-void IGESDimen_ToolDimensionTolerance::WriteOwnParams(
+void DimensionToleranceTool::WriteOwnParams(
   const Handle(IGESDimen_DimensionTolerance)& ent,
   IGESData_IGESWriter&                        IW) const
 {
@@ -96,13 +96,13 @@ void IGESDimen_ToolDimensionTolerance::WriteOwnParams(
   IW.Send(ent->Precision());
 }
 
-void IGESDimen_ToolDimensionTolerance::OwnShared(
+void DimensionToleranceTool::OwnShared(
   const Handle(IGESDimen_DimensionTolerance)& /*ent*/,
   Interface_EntityIterator& /*iter*/) const
 {
 }
 
-void IGESDimen_ToolDimensionTolerance::OwnCopy(const Handle(IGESDimen_DimensionTolerance)& another,
+void DimensionToleranceTool::OwnCopy(const Handle(IGESDimen_DimensionTolerance)& another,
                                                const Handle(IGESDimen_DimensionTolerance)& ent,
                                                Interface_CopyTool& /*TC*/) const
 {
@@ -117,7 +117,7 @@ void IGESDimen_ToolDimensionTolerance::OwnCopy(const Handle(IGESDimen_DimensionT
             another->Precision());
 }
 
-Standard_Boolean IGESDimen_ToolDimensionTolerance::OwnCorrect(
+Standard_Boolean DimensionToleranceTool::OwnCorrect(
   const Handle(IGESDimen_DimensionTolerance)& ent) const
 {
   Standard_Boolean res = (ent->NbPropertyValues() != 8);
@@ -134,10 +134,10 @@ Standard_Boolean IGESDimen_ToolDimensionTolerance::OwnCorrect(
   return res;
 }
 
-IGESData_DirChecker IGESDimen_ToolDimensionTolerance::DirChecker(
+DirectoryChecker DimensionToleranceTool::DirChecker(
   const Handle(IGESDimen_DimensionTolerance)& /*ent*/) const
 {
-  IGESData_DirChecker DC(406, 29);
+  DirectoryChecker DC(406, 29);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -150,7 +150,7 @@ IGESData_DirChecker IGESDimen_ToolDimensionTolerance::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolDimensionTolerance::OwnCheck(const Handle(IGESDimen_DimensionTolerance)& ent,
+void DimensionToleranceTool::OwnCheck(const Handle(IGESDimen_DimensionTolerance)& ent,
                                                 const Interface_ShareTool&,
                                                 Handle(Interface_Check)& ach) const
 {
@@ -166,7 +166,7 @@ void IGESDimen_ToolDimensionTolerance::OwnCheck(const Handle(IGESDimen_Dimension
     ach->AddFail("Fraction Flag != 0-2");
 }
 
-void IGESDimen_ToolDimensionTolerance::OwnDump(const Handle(IGESDimen_DimensionTolerance)& ent,
+void DimensionToleranceTool::OwnDump(const Handle(IGESDimen_DimensionTolerance)& ent,
                                                const IGESData_IGESDumper& /*dumper*/,
                                                Standard_OStream& S,
                                                const Standard_Integer /*level*/) const

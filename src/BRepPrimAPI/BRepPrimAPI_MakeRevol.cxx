@@ -35,7 +35,7 @@
 #include <Adaptor3d_Curve.hxx>
 
 // perform checks on the argument
-static const TopoDS_Shape& check(const TopoDS_Shape& S)
+static const TopoShape& check(const TopoShape& S)
 {
   BRepLib::BuildCurves3d(S);
   return S;
@@ -43,7 +43,7 @@ static const TopoDS_Shape& check(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-BRepPrimAPI_MakeRevol::BRepPrimAPI_MakeRevol(const TopoDS_Shape&    S,
+BRepPrimAPI_MakeRevol::BRepPrimAPI_MakeRevol(const TopoShape&    S,
                                              const Axis3d&          A,
                                              const Standard_Real    D,
                                              const Standard_Boolean Copy)
@@ -64,7 +64,7 @@ BRepPrimAPI_MakeRevol::BRepPrimAPI_MakeRevol(const TopoDS_Shape&    S,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeRevol::BRepPrimAPI_MakeRevol(const TopoDS_Shape&    S,
+BRepPrimAPI_MakeRevol::BRepPrimAPI_MakeRevol(const TopoShape&    S,
                                              const Axis3d&          A,
                                              const Standard_Boolean Copy)
     :
@@ -108,25 +108,25 @@ void BRepPrimAPI_MakeRevol::Build(const Message_ProgressRange& /*theRange*/)
   myHist.Nullify();
   myDegenerated.Clear();
   TopTools_DataMapOfShapeListOfShape aDegE;
-  BRep_Builder                       aBB;
+  ShapeBuilder                       aBB;
 
-  TopExp_Explorer anExp(myShape, TopAbs_EDGE);
+  ShapeExplorer anExp(myShape, TopAbs_EDGE);
   // Problem is that some degenerated edges can be shared by different faces.
   // It is not valid for correct shape.
   // To solve problem it is possible to copy shared degenerated edge for each face, which has it,
   // and replace shared edge by its copy
   for (; anExp.More(); anExp.Next())
   {
-    const TopoDS_Shape& anEdge = anExp.Current();
+    const TopoShape& anEdge = anExp.Current();
     Handle(BRep_TEdge)  aTEdge = Handle(BRep_TEdge)::DownCast(anEdge.TShape());
 
     if (aTEdge->Degenerated())
     {
-      TopTools_ListOfShape* anL = aDegE.ChangeSeek(anEdge);
+      ShapeList* anL = aDegE.ChangeSeek(anEdge);
       if (anL)
       {
         // Make the copy if degenerated edge occurs more then once
-        TopoDS_Shape aCopyE = anEdge.EmptyCopied();
+        TopoShape aCopyE = anEdge.EmptyCopied();
         aCopyE.Orientation(TopAbs_FORWARD);
         TopoDS_Iterator aVIter(anEdge.Oriented(TopAbs_FORWARD), Standard_False);
         for (; aVIter.More(); aVIter.Next())
@@ -139,7 +139,7 @@ void BRepPrimAPI_MakeRevol::Build(const Message_ProgressRange& /*theRange*/)
       }
       else
       {
-        anL = aDegE.Bound(anEdge, TopTools_ListOfShape());
+        anL = aDegE.Bound(anEdge, ShapeList());
         anL->Append(anEdge);
         myDegenerated.Append(anEdge);
       }
@@ -155,17 +155,17 @@ void BRepPrimAPI_MakeRevol::Build(const Message_ProgressRange& /*theRange*/)
     // First, for each face list of d.e. is created
     for (; anExp.More(); anExp.Next())
     {
-      const TopoDS_Shape& aF = anExp.Current();
-      TopExp_Explorer     anExpE(aF, TopAbs_EDGE);
+      const TopoShape& aF = anExp.Current();
+      ShapeExplorer     anExpE(aF, TopAbs_EDGE);
       for (; anExpE.More(); anExpE.Next())
       {
-        const TopoDS_Shape& anE = anExpE.Current();
-        if (BRep_Tool::Degenerated(TopoDS::Edge(anE)))
+        const TopoShape& anE = anExpE.Current();
+        if (BRepInspector::Degenerated(TopoDS::Edge(anE)))
         {
-          TopTools_ListOfShape* anL = aDegF.ChangeSeek(aF);
+          ShapeList* anL = aDegF.ChangeSeek(aF);
           if (!anL)
           {
-            anL = aDegF.Bound(aF, TopTools_ListOfShape());
+            anL = aDegF.Bound(aF, ShapeList());
           }
           anL->Append(anE);
         }
@@ -179,15 +179,15 @@ void BRepPrimAPI_MakeRevol::Build(const Message_ProgressRange& /*theRange*/)
     {
       aSubs.Clear();
       isReplaced                              = Standard_False;
-      const TopoDS_Shape&                aF   = aFIter.Key();
-      const TopTools_ListOfShape&        aDEL = aFIter.ChangeValue();
+      const TopoShape&                aF   = aFIter.Key();
+      const ShapeList&        aDEL = aFIter.ChangeValue();
       TopTools_ListIteratorOfListOfShape anEIter(aDEL);
       for (; anEIter.More(); anEIter.Next())
       {
-        const TopoDS_Shape& anE = anEIter.Value();
+        const TopoShape& anE = anEIter.Value();
         if (aDegE.IsBound(anE))
         {
-          TopTools_ListOfShape&              aCEL = aDegE.ChangeFind(anE);
+          ShapeList&              aCEL = aDegE.ChangeFind(anE);
           TopTools_ListIteratorOfListOfShape anIt(aCEL);
           for (; anIt.More(); anIt.Next())
           {
@@ -211,7 +211,7 @@ void BRepPrimAPI_MakeRevol::Build(const Message_ProgressRange& /*theRange*/)
       }
       if (isReplaced)
       {
-        TopoDS_Shape aNF = aSubs.Apply(aF);
+        TopoShape aNF = aSubs.Apply(aF);
         aSubsF.Replace(aF, aNF);
         if (myHist.IsNull())
         {
@@ -255,7 +255,7 @@ static Standard_Boolean IsIntersect(const Handle(Adaptor3d_Curve)& theC, const A
       return Standard_False;
     }
   }
-  const Handle(Geom_Line) aL = new Geom_Line(anAxis);
+  const Handle(GeomLine) aL = new GeomLine(anAxis);
   const GeomAdaptor_Curve aLin(aL);
   const Standard_Real     aParTol = theC->Resolution(Precision::Confusion());
   const Standard_Real     aParF   = theC->FirstParameter() + aParTol,
@@ -284,25 +284,25 @@ static Standard_Boolean IsIntersect(const Handle(Adaptor3d_Curve)& theC, const A
 
 //=================================================================================================
 
-Standard_Boolean BRepPrimAPI_MakeRevol::CheckValidity(const TopoDS_Shape& theShape,
+Standard_Boolean BRepPrimAPI_MakeRevol::CheckValidity(const TopoShape& theShape,
                                                       const Axis3d&       theA)
 {
-  TopExp_Explorer  anExp(theShape, TopAbs_EDGE);
+  ShapeExplorer  anExp(theShape, TopAbs_EDGE);
   Standard_Boolean IsValid = Standard_True;
   for (; anExp.More(); anExp.Next())
   {
-    const TopoDS_Edge& anE = TopoDS::Edge(anExp.Current());
+    const TopoEdge& anE = TopoDS::Edge(anExp.Current());
 
-    if (BRep_Tool::Degenerated(anE))
+    if (BRepInspector::Degenerated(anE))
     {
       continue;
     }
 
     TopLoc_Location    L;
     Standard_Real      First, Last;
-    Handle(Geom_Curve) C  = BRep_Tool::Curve(anE, L, First, Last);
+    Handle(GeomCurve3d) C  = BRepInspector::Curve(anE, L, First, Last);
     Transform3d            Tr = L.Transformation();
-    C                     = Handle(Geom_Curve)::DownCast(C->Copy());
+    C                     = Handle(GeomCurve3d)::DownCast(C->Copy());
     C                     = new Geom_TrimmedCurve(C, First, Last);
     C->Transform(Tr);
 
@@ -340,21 +340,21 @@ Standard_Boolean BRepPrimAPI_MakeRevol::CheckValidity(const TopoDS_Shape& theSha
 
 //=================================================================================================
 
-TopoDS_Shape BRepPrimAPI_MakeRevol::FirstShape()
+TopoShape BRepPrimAPI_MakeRevol::FirstShape()
 {
   return myRevol.FirstShape();
 }
 
 //=================================================================================================
 
-TopoDS_Shape BRepPrimAPI_MakeRevol::LastShape()
+TopoShape BRepPrimAPI_MakeRevol::LastShape()
 {
   return myRevol.LastShape();
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepPrimAPI_MakeRevol::Generated(const TopoDS_Shape& S)
+const ShapeList& BRepPrimAPI_MakeRevol::Generated(const TopoShape& S)
 {
   myGenerated.Clear();
 
@@ -363,14 +363,14 @@ const TopTools_ListOfShape& BRepPrimAPI_MakeRevol::Generated(const TopoDS_Shape&
     return myGenerated;
   }
 
-  TopoDS_Shape aGS = myRevol.Shape(S);
+  TopoShape aGS = myRevol.Shape(S);
   if (!aGS.IsNull())
   {
     if (BRepTools_History::IsSupportedType(aGS))
     {
       if (aGS.ShapeType() == TopAbs_EDGE)
       {
-        Standard_Boolean isDeg = BRep_Tool::Degenerated(TopoDS::Edge(aGS));
+        Standard_Boolean isDeg = BRepInspector::Degenerated(TopoDS::Edge(aGS));
         if (isDeg)
         {
           TopTools_ListIteratorOfListOfShape anIt(myDegenerated);
@@ -418,7 +418,7 @@ const TopTools_ListOfShape& BRepPrimAPI_MakeRevol::Generated(const TopoDS_Shape&
 
 //=================================================================================================
 
-Standard_Boolean BRepPrimAPI_MakeRevol::IsDeleted(const TopoDS_Shape& S)
+Standard_Boolean BRepPrimAPI_MakeRevol::IsDeleted(const TopoShape& S)
 {
   return !myRevol.IsUsed(S);
 }
@@ -429,7 +429,7 @@ Standard_Boolean BRepPrimAPI_MakeRevol::IsDeleted(const TopoDS_Shape& S)
 //           generated with theShape (subShape of the generating shape).
 //=======================================================================
 
-TopoDS_Shape BRepPrimAPI_MakeRevol::FirstShape(const TopoDS_Shape& theShape)
+TopoShape BRepPrimAPI_MakeRevol::FirstShape(const TopoShape& theShape)
 {
   return myRevol.FirstShape(theShape);
 }
@@ -440,7 +440,7 @@ TopoDS_Shape BRepPrimAPI_MakeRevol::FirstShape(const TopoDS_Shape& theShape)
 //           generated with theShape (subShape of the generating shape).
 //=======================================================================
 
-TopoDS_Shape BRepPrimAPI_MakeRevol::LastShape(const TopoDS_Shape& theShape)
+TopoShape BRepPrimAPI_MakeRevol::LastShape(const TopoShape& theShape)
 {
   return myRevol.LastShape(theShape);
 }
@@ -454,7 +454,7 @@ Standard_Boolean BRepPrimAPI_MakeRevol::HasDegenerated() const
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepPrimAPI_MakeRevol::Degenerated() const
+const ShapeList& BRepPrimAPI_MakeRevol::Degenerated() const
 {
   return myDegenerated;
 }

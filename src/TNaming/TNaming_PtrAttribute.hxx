@@ -17,7 +17,7 @@
 #ifndef _TNaming_PtrAttribute_HeaderFile
 #define _TNaming_PtrAttribute_HeaderFile
 
-class TNaming_NamedShape;
-typedef TNaming_NamedShape* TNaming_PtrAttribute;
+class ShapeAttribute;
+typedef ShapeAttribute* TNaming_PtrAttribute;
 
 #endif // _TNaming_PtrAttribute_HeaderFile

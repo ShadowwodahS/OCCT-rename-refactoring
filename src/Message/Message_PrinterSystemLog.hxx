@@ -17,19 +17,19 @@
 #include <Message_Printer.hxx>
 #include <TCollection_AsciiString.hxx>
 
-DEFINE_STANDARD_HANDLE(Message_PrinterSystemLog, Message_Printer)
+DEFINE_STANDARD_HANDLE(Message_PrinterSystemLog, LogPrinter)
 
 //! Implementation of a message printer associated with system log.
 //! Implemented for the following systems:
 //! - Windows, through ReportEventW().
 //! - Android, through __android_log_write().
 //! - UNIX/Linux, through syslog().
-class Message_PrinterSystemLog : public Message_Printer
+class Message_PrinterSystemLog : public LogPrinter
 {
-  DEFINE_STANDARD_RTTIEXT(Message_PrinterSystemLog, Message_Printer)
+  DEFINE_STANDARD_RTTIEXT(Message_PrinterSystemLog, LogPrinter)
 public:
   //! Main constructor.
-  Standard_EXPORT Message_PrinterSystemLog(const TCollection_AsciiString& theEventSourceName,
+  Standard_EXPORT Message_PrinterSystemLog(const AsciiString1& theEventSourceName,
                                            const Message_Gravity theTraceLevel = Message_Info);
 
   //! Destructor.
@@ -37,11 +37,11 @@ public:
 
 protected:
   //! Puts a message to the system log.
-  Standard_EXPORT virtual void send(const TCollection_AsciiString& theString,
+  Standard_EXPORT virtual void send(const AsciiString1& theString,
                                     const Message_Gravity theGravity) const Standard_OVERRIDE;
 
 private:
-  TCollection_AsciiString myEventSourceName;
+  AsciiString1 myEventSourceName;
 #ifdef _WIN32
   Standard_Address myEventSource;
 #endif

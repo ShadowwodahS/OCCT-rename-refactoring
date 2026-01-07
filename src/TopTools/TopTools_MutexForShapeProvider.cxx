@@ -35,7 +35,7 @@ TopTools_MutexForShapeProvider::~TopTools_MutexForShapeProvider()
 
 //=================================================================================================
 
-void TopTools_MutexForShapeProvider::CreateMutexesForSubShapes(const TopoDS_Shape&    theShape,
+void TopTools_MutexForShapeProvider::CreateMutexesForSubShapes(const TopoShape&    theShape,
                                                                const TopAbs_ShapeEnum theType)
 {
   if (LESSCOMPLEX(theShape.ShapeType(), theType))
@@ -43,7 +43,7 @@ void TopTools_MutexForShapeProvider::CreateMutexesForSubShapes(const TopoDS_Shap
 
   for (TopoDS_Iterator anIt(theShape); anIt.More(); anIt.Next())
   {
-    const TopoDS_Shape& aShape = anIt.Value();
+    const TopoShape& aShape = anIt.Value();
     if (LESSCOMPLEX(theType, aShape.ShapeType()))
     {
       CreateMutexesForSubShapes(aShape, theType);
@@ -57,7 +57,7 @@ void TopTools_MutexForShapeProvider::CreateMutexesForSubShapes(const TopoDS_Shap
 
 //=================================================================================================
 
-void TopTools_MutexForShapeProvider::CreateMutexForShape(const TopoDS_Shape& theShape)
+void TopTools_MutexForShapeProvider::CreateMutexForShape(const TopoShape& theShape)
 {
   if (!myMap.IsBound(theShape.TShape()))
   {
@@ -68,7 +68,7 @@ void TopTools_MutexForShapeProvider::CreateMutexForShape(const TopoDS_Shape& the
 
 //=================================================================================================
 
-Standard_Mutex* TopTools_MutexForShapeProvider::GetMutex(const TopoDS_Shape& theShape) const
+Standard_Mutex* TopTools_MutexForShapeProvider::GetMutex(const TopoShape& theShape) const
 {
   if (myMap.IsBound(theShape.TShape()))
   {
@@ -85,7 +85,7 @@ Standard_Mutex* TopTools_MutexForShapeProvider::GetMutex(const TopoDS_Shape& the
 
 void TopTools_MutexForShapeProvider::RemoveAllMutexes()
 {
-  for (NCollection_DataMap<TopoDS_Shape, Standard_Mutex*>::Iterator anIter; anIter.More();
+  for (NCollection_DataMap<TopoShape, Standard_Mutex*>::Iterator anIter; anIter.More();
        anIter.Next())
   {
     delete anIter.Value();

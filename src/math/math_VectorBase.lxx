@@ -50,7 +50,7 @@ math_VectorBase<TheItemType>::math_VectorBase(const TheItemType*     theTab,
 }
 
 template <typename TheItemType>
-math_VectorBase<TheItemType>::math_VectorBase(const gp_XY& theOther)
+math_VectorBase<TheItemType>::math_VectorBase(const Coords2d& theOther)
     : Array(*myBuffer.data(), 1, 2)
 {
   Array(1) = static_cast<TheItemType>(theOther.X());

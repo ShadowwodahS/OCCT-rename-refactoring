@@ -22,9 +22,9 @@ IMPLEMENT_STANDARD_RTTIEXT(DEPLY_ConfigurationNode, DE_ConfigurationNode)
 
 namespace
 {
-static const TCollection_AsciiString& THE_CONFIGURATION_SCOPE()
+static const AsciiString1& THE_CONFIGURATION_SCOPE()
 {
-  static const TCollection_AsciiString aScope = "provider";
+  static const AsciiString1 aScope = "provider";
   return aScope;
 }
 
@@ -51,7 +51,7 @@ DEPLY_ConfigurationNode::DEPLY_ConfigurationNode(const Handle(DEPLY_Configuratio
 
 bool DEPLY_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
 {
-  TCollection_AsciiString aScope =
+  AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor();
   InternalParameters.FileLengthUnit =
     theResource->RealVal("file.length.unit", InternalParameters.FileLengthUnit, aScope);
@@ -85,13 +85,13 @@ bool DEPLY_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theRes
 
 //=================================================================================================
 
-TCollection_AsciiString DEPLY_ConfigurationNode::Save() const
+AsciiString1 DEPLY_ConfigurationNode::Save() const
 {
-  TCollection_AsciiString aResult;
+  AsciiString1 aResult;
   aResult += "!*****************************************************************************\n";
   aResult =
     aResult + "!Configuration Node " + " Vendor: " + GetVendor() + " Format: " + GetFormat() + "\n";
-  TCollection_AsciiString aScope =
+  AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor() + ".";
 
   aResult += "!\n";
@@ -199,16 +199,16 @@ bool DEPLY_ConfigurationNode::IsExportSupported() const
 
 //=================================================================================================
 
-TCollection_AsciiString DEPLY_ConfigurationNode::GetFormat() const
+AsciiString1 DEPLY_ConfigurationNode::GetFormat() const
 {
-  return TCollection_AsciiString("PLY");
+  return AsciiString1("PLY");
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DEPLY_ConfigurationNode::GetVendor() const
+AsciiString1 DEPLY_ConfigurationNode::GetVendor() const
 {
-  return TCollection_AsciiString("OCC");
+  return AsciiString1("OCC");
 }
 
 //=================================================================================================

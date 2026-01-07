@@ -22,9 +22,9 @@
 #include <Law_Laws.hxx>
 #include <TColgp_SequenceOfXY.hxx>
 
-class TopoDS_Edge;
-class TopoDS_Vertex;
-class gp_XY;
+class TopoEdge;
+class TopoVertex;
+class Coords2d;
 class Law_Function;
 class Law_Composite;
 
@@ -45,19 +45,19 @@ public:
     Standard_OVERRIDE;
 
   //! initializes the constant vector on edge E.
-  Standard_EXPORT void SetRadius(const Standard_Real Radius, const TopoDS_Edge& E);
+  Standard_EXPORT void SetRadius(const Standard_Real Radius, const TopoEdge& E);
 
   //! resets the constant vector  on   edge E.
-  Standard_EXPORT void UnSetRadius(const TopoDS_Edge& E);
+  Standard_EXPORT void UnSetRadius(const TopoEdge& E);
 
   //! initializes the  vector on Vertex V.
-  Standard_EXPORT void SetRadius(const Standard_Real Radius, const TopoDS_Vertex& V);
+  Standard_EXPORT void SetRadius(const Standard_Real Radius, const TopoVertex& V);
 
   //! resets the vector on Vertex V.
-  Standard_EXPORT void UnSetRadius(const TopoDS_Vertex& V);
+  Standard_EXPORT void UnSetRadius(const TopoVertex& V);
 
   //! initializes the vector on the point of parameter W.
-  Standard_EXPORT void SetRadius(const gp_XY& UandR, const Standard_Integer IinC);
+  Standard_EXPORT void SetRadius(const Coords2d& UandR, const Standard_Integer IinC);
 
   //! initializes the constant vector on all spine.
   Standard_EXPORT void SetRadius(const Standard_Real Radius);
@@ -83,14 +83,14 @@ public:
 
   //! returns the radius if the fillet is constant
   //! all along the edge E.
-  Standard_EXPORT Standard_Real Radius(const TopoDS_Edge& E) const;
+  Standard_EXPORT Standard_Real Radius(const TopoEdge& E) const;
 
   Standard_EXPORT virtual void AppendElSpine(const Handle(ChFiDS_ElSpine)& Els) Standard_OVERRIDE;
 
   Standard_EXPORT Handle(Law_Composite) Law(const Handle(ChFiDS_ElSpine)& Els) const;
 
   //! returns the elementary law
-  Standard_EXPORT Handle(Law_Function)& ChangeLaw(const TopoDS_Edge& E);
+  Standard_EXPORT Handle(Law_Function)& ChangeLaw(const TopoEdge& E);
 
   //! returns the maximum radius if the fillet is non-constant
   Standard_EXPORT Standard_Real MaxRadFromSeqAndLaws() const;

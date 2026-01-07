@@ -31,23 +31,23 @@ public:
   DEFINE_STANDARD_RTTIEXT(XCAFDoc_Note, TDF_Attribute)
 
   //! Checks if the given label represents a note.
-  Standard_EXPORT static Standard_Boolean IsMine(const TDF_Label& theLabel);
+  Standard_EXPORT static Standard_Boolean IsMine(const DataLabel& theLabel);
 
   //! Finds a reference attribute on the given label and returns it, if it is found
-  Standard_EXPORT static Handle(XCAFDoc_Note) Get(const TDF_Label& theLabel);
+  Standard_EXPORT static Handle(XCAFDoc_Note) Get(const DataLabel& theLabel);
 
   //! Sets the user name and the timestamp of the note.
   //! \param[in]  theUserName  - the user associated with the note.
   //! \param[in]  theTimeStamp - timestamp of the note.
   //! \return A handle to the attribute instance.
-  Standard_EXPORT void Set(const TCollection_ExtendedString& theUserName,
-                           const TCollection_ExtendedString& theTimeStamp);
+  Standard_EXPORT void Set(const UtfString& theUserName,
+                           const UtfString& theTimeStamp);
 
   //! Returns the user name, who created the note.
-  const TCollection_ExtendedString& UserName() const { return myUserName; }
+  const UtfString& UserName() const { return myUserName; }
 
   //! Returns the timestamp of the note.
-  const TCollection_ExtendedString& TimeStamp() const { return myTimeStamp; }
+  const UtfString& TimeStamp() const { return myTimeStamp; }
 
   //! Checks if the note isn't linked to annotated items.
   Standard_EXPORT Standard_Boolean IsOrphan() const;
@@ -74,8 +74,8 @@ protected:
   Standard_EXPORT XCAFDoc_Note();
 
 private:
-  TCollection_ExtendedString myUserName;  ///< Name of the user, who created the note.
-  TCollection_ExtendedString myTimeStamp; ///< Timestamp, when the note was created.
+  UtfString myUserName;  ///< Name of the user, who created the note.
+  UtfString myTimeStamp; ///< Timestamp, when the note was created.
 };
 
 DEFINE_STANDARD_HANDLE(XCAFDoc_Note, TDF_Attribute)

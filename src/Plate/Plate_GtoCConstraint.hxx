@@ -36,29 +36,29 @@ public:
 
   Standard_EXPORT Plate_GtoCConstraint(const Plate_GtoCConstraint& ref);
 
-  Standard_EXPORT Plate_GtoCConstraint(const gp_XY&    point2d,
+  Standard_EXPORT Plate_GtoCConstraint(const Coords2d&    point2d,
                                        const Plate_D1& D1S,
                                        const Plate_D1& D1T);
 
-  Standard_EXPORT Plate_GtoCConstraint(const gp_XY&    point2d,
+  Standard_EXPORT Plate_GtoCConstraint(const Coords2d&    point2d,
                                        const Plate_D1& D1S,
                                        const Plate_D1& D1T,
                                        const gp_XYZ&   nP);
 
-  Standard_EXPORT Plate_GtoCConstraint(const gp_XY&    point2d,
+  Standard_EXPORT Plate_GtoCConstraint(const Coords2d&    point2d,
                                        const Plate_D1& D1S,
                                        const Plate_D1& D1T,
                                        const Plate_D2& D2S,
                                        const Plate_D2& D2T);
 
-  Standard_EXPORT Plate_GtoCConstraint(const gp_XY&    point2d,
+  Standard_EXPORT Plate_GtoCConstraint(const Coords2d&    point2d,
                                        const Plate_D1& D1S,
                                        const Plate_D1& D1T,
                                        const Plate_D2& D2S,
                                        const Plate_D2& D2T,
                                        const gp_XYZ&   nP);
 
-  Standard_EXPORT Plate_GtoCConstraint(const gp_XY&    point2d,
+  Standard_EXPORT Plate_GtoCConstraint(const Coords2d&    point2d,
                                        const Plate_D1& D1S,
                                        const Plate_D1& D1T,
                                        const Plate_D2& D2S,
@@ -66,7 +66,7 @@ public:
                                        const Plate_D3& D3S,
                                        const Plate_D3& D3T);
 
-  Standard_EXPORT Plate_GtoCConstraint(const gp_XY&    point2d,
+  Standard_EXPORT Plate_GtoCConstraint(const Coords2d&    point2d,
                                        const Plate_D1& D1S,
                                        const Plate_D1& D1T,
                                        const Plate_D2& D2S,
@@ -85,7 +85,7 @@ protected:
 private:
   Plate_PinpointConstraint myPPC[9];
   Plate_D1                 myD1SurfInit;
-  gp_XY                    pnt2d;
+  Coords2d                    pnt2d;
   Standard_Integer         nb_PPConstraints;
 };
 

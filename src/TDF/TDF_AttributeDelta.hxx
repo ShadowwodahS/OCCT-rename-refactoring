@@ -47,7 +47,7 @@ public:
   Standard_EXPORT virtual void Apply() = 0;
 
   //! Returns the label concerned by <me>.
-  Standard_EXPORT TDF_Label Label() const;
+  Standard_EXPORT DataLabel Label() const;
 
   //! Returns the reference attribute.
   Standard_EXPORT Handle(TDF_Attribute) Attribute() const;
@@ -71,7 +71,7 @@ protected:
 
 private:
   Handle(TDF_Attribute) myAttribute;
-  TDF_Label             myLabel;
+  DataLabel             myLabel;
 };
 
 #endif // _TDF_AttributeDelta_HeaderFile

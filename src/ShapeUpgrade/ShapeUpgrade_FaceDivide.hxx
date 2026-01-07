@@ -57,10 +57,10 @@ public:
   Standard_EXPORT ShapeUpgrade_FaceDivide();
 
   //! Initialize by a Face.
-  Standard_EXPORT ShapeUpgrade_FaceDivide(const TopoDS_Face& F);
+  Standard_EXPORT ShapeUpgrade_FaceDivide(const TopoFace& F);
 
   //! Initialize by a Face.
-  Standard_EXPORT void Init(const TopoDS_Face& F);
+  Standard_EXPORT void Init(const TopoFace& F);
 
   //! Purpose sets mode for trimming (segment) surface by
   //! wire UV bounds.
@@ -87,7 +87,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean SplitCurves();
 
   //! Gives the resulting Shell, or Face, or Null shape if not done.
-  Standard_EXPORT TopoDS_Shape Result() const;
+  Standard_EXPORT TopoShape Result() const;
 
   //! Queries the status of last call to Perform
   //! OK   : no splitting was done (or no call to Perform)
@@ -116,8 +116,8 @@ public:
   DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_FaceDivide, ShapeUpgrade_Tool)
 
 protected:
-  TopoDS_Face      myFace;
-  TopoDS_Shape     myResult;
+  TopoFace      myFace;
+  TopoShape     myResult;
   Standard_Boolean mySegmentMode;
   Standard_Integer myStatus;
 

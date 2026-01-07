@@ -39,7 +39,7 @@ ShapeUpgrade_ConvertCurve2dToBezier::ShapeUpgrade_ConvertCurve2dToBezier()
   mySplitParams = new TColStd_HSequenceOfReal;
 }
 
-static Handle(Geom2d_BezierCurve) MakeBezier2d(const Handle(Geom2d_Curve)& theCurve2d,
+static Handle(Geom2d_BezierCurve) MakeBezier2d(const Handle(GeomCurve2d)& theCurve2d,
                                                const Standard_Real         theFirst,
                                                const Standard_Real         theLast)
 {
@@ -89,7 +89,7 @@ void ShapeUpgrade_ConvertCurve2dToBezier::Compute()
   if (myCurve->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve)))
   {
     Handle(Geom2d_TrimmedCurve)         tmp      = Handle(Geom2d_TrimmedCurve)::DownCast(myCurve);
-    Handle(Geom2d_Curve)                BasCurve = tmp->BasisCurve();
+    Handle(GeomCurve2d)                BasCurve = tmp->BasisCurve();
     ShapeUpgrade_ConvertCurve2dToBezier converter;
     // converter.Init(BasCurve,Max(First,BasCurve->FirstParameter()),Min(Last,BasCurve->LastParameter()));
     // //???
@@ -142,7 +142,7 @@ void ShapeUpgrade_ConvertCurve2dToBezier::Compute()
     if (myCurve->IsKind(STANDARD_TYPE(Geom2d_Conic)))
     {
       // clang-format off
-      Handle(Geom2d_Curve) tcurve = new Geom2d_TrimmedCurve(myCurve,First,Last); //protection against parabols ets
+      Handle(GeomCurve2d) tcurve = new Geom2d_TrimmedCurve(myCurve,First,Last); //protection against parabols ets
       // clang-format on
       Geom2dConvert_ApproxCurve approx(tcurve, Precision::Approximation(), GeomAbs_C1, 100, 6);
       if (approx.HasResult())
@@ -202,7 +202,7 @@ void ShapeUpgrade_ConvertCurve2dToBezier::Compute()
       Standard_Real nextKnot = knots(j + 1) + Shift;
       if (nextKnot - mySplitParams->Value(mySplitParams->Length()) > precision)
       {
-        Handle(Geom2d_Curve) aCrv2d = tool.Arc(j);
+        Handle(GeomCurve2d) aCrv2d = tool.Arc(j);
         if (aCrv2d->IsKind(STANDARD_TYPE(Geom2d_BezierCurve)))
         {
           newFirst = newLast;

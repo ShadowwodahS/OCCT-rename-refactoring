@@ -51,10 +51,10 @@ public:
   Standard_EXPORT ShapeAnalysis_TransferParameters();
 
   //! Creates a tool and initializes it with edge and face
-  Standard_EXPORT ShapeAnalysis_TransferParameters(const TopoDS_Edge& E, const TopoDS_Face& F);
+  Standard_EXPORT ShapeAnalysis_TransferParameters(const TopoEdge& E, const TopoFace& F);
 
   //! Initialize a tool with edge and face
-  Standard_EXPORT virtual void Init(const TopoDS_Edge& E, const TopoDS_Face& F);
+  Standard_EXPORT virtual void Init(const TopoEdge& E, const TopoFace& F);
 
   //! Sets maximal tolerance to use linear recomputation of
   //! parameters.
@@ -73,7 +73,7 @@ public:
 
   //! Recomputes range of curves from NewEdge.
   //! If Is2d equals True parameters are recomputed by curve2d else by curve3d.
-  Standard_EXPORT virtual void TransferRange(TopoDS_Edge&           newEdge,
+  Standard_EXPORT virtual void TransferRange(TopoEdge&           newEdge,
                                              const Standard_Real    prevPar,
                                              const Standard_Real    currPar,
                                              const Standard_Boolean To2d);
@@ -87,7 +87,7 @@ public:
 protected:
   Standard_Real myFirst;
   Standard_Real myLast;
-  TopoDS_Edge   myEdge;
+  TopoEdge   myEdge;
   Standard_Real myMaxTolerance;
 
 private:
@@ -95,7 +95,7 @@ private:
   Standard_Real myScale;
   Standard_Real myFirst2d;
   Standard_Real myLast2d;
-  TopoDS_Face   myFace;
+  TopoFace   myFace;
 };
 
 #endif // _ShapeAnalysis_TransferParameters_HeaderFile

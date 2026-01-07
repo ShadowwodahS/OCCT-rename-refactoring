@@ -26,7 +26,7 @@ class IGESBasic_ExternalRefLibName;
 DEFINE_STANDARD_HANDLE(IGESBasic_ExternalRefLibName, IGESData_IGESEntity)
 
 //! defines ExternalRefLibName, Type <416> Form <4>
-//! in package IGESBasic
+//! in package IGESBasic1
 //! Used when it is assumed that a copy of the subfigure
 //! exists in native form in a library on the receiving
 //! system

@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Wasm_Window, Aspect_Window)
 
 //=================================================================================================
 
-Wasm_Window::Wasm_Window(const TCollection_AsciiString& theCanvasId, const bool theToScaleBacking)
+Wasm_Window::Wasm_Window(const AsciiString1& theCanvasId, const bool theToScaleBacking)
     : myCanvasId(theCanvasId),
       mySize(0),
       myDevicePixelRatio(1.0),

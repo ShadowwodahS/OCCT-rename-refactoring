@@ -24,7 +24,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Expr_NamedConstant, Expr_NamedExpression)
 
-Expr_NamedConstant::Expr_NamedConstant(const TCollection_AsciiString& name,
+Expr_NamedConstant::Expr_NamedConstant(const AsciiString1& name,
                                        const Standard_Real            value)
 {
   SetName(name);

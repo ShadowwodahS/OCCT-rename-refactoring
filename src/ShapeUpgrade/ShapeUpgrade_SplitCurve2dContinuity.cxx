@@ -85,7 +85,7 @@ void ShapeUpgrade_SplitCurve2dContinuity::Compute()
   if (myCurve->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve)))
   {
     Handle(Geom2d_TrimmedCurve)         tmp      = Handle(Geom2d_TrimmedCurve)::DownCast(myCurve);
-    Handle(Geom2d_Curve)                BasCurve = tmp->BasisCurve();
+    Handle(GeomCurve2d)                BasCurve = tmp->BasisCurve();
     ShapeUpgrade_SplitCurve2dContinuity spc;
     //    spc.Init(BasCurve,Max(First,tmp->FirstParameter()),Min(Last,tmp->LastParameter()));
     spc.Init(BasCurve, First, Last);
@@ -122,7 +122,7 @@ void ShapeUpgrade_SplitCurve2dContinuity::Compute()
         break;
     }
     Handle(Geom2d_OffsetCurve) tmp      = Handle(Geom2d_OffsetCurve)::DownCast(myCurve);
-    Handle(Geom2d_Curve)       BasCurve = tmp->BasisCurve();
+    Handle(GeomCurve2d)       BasCurve = tmp->BasisCurve();
     // Standard_Real Offset = tmp->Offset(); // Offset not used (skl)
     ShapeUpgrade_SplitCurve2dContinuity spc;
     //    spc.Init(BasCurve,Max(tmp->FirstParameter(),First),Min(tmp->LastParameter(),Last));

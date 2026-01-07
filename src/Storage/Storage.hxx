@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! Storage package is used to write and read persistent objects.
 //! These objects are read and written by a retrieval or storage
@@ -48,7 +48,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! returns the version of Storage's read/write routines
-  Standard_EXPORT static TCollection_AsciiString Version();
+  Standard_EXPORT static AsciiString1 Version();
 };
 
 #endif // _Storage_HeaderFile

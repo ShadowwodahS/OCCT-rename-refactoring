@@ -48,7 +48,7 @@
 // #include <BRepAdaptor_Curve2d.hxx>
 //=================================================================================================
 
-Standard_Boolean ChFiKPart_ComputeData::Compute(TopOpeBRepDS_DataStructure&      DStr,
+Standard_Boolean ComputeData::Compute(TopOpeBRepDS_DataStructure&      DStr,
                                                 Handle(ChFiDS_SurfData)&         Data,
                                                 const Handle(Adaptor3d_Surface)& S1,
                                                 const Handle(Adaptor3d_Surface)& S2,
@@ -598,7 +598,7 @@ Standard_Boolean ChFiKPart_ComputeData::Compute(TopOpeBRepDS_DataStructure&     
 
 //=================================================================================================
 
-Standard_Boolean ChFiKPart_ComputeData::ComputeCorner(TopOpeBRepDS_DataStructure&      DStr,
+Standard_Boolean ComputeData::ComputeCorner(TopOpeBRepDS_DataStructure&      DStr,
                                                       const Handle(ChFiDS_SurfData)&   Data,
                                                       const Handle(Adaptor3d_Surface)& S1,
                                                       const Handle(Adaptor3d_Surface)& S2,
@@ -673,7 +673,7 @@ Standard_Boolean ChFiKPart_ComputeData::ComputeCorner(TopOpeBRepDS_DataStructure
 
 //=================================================================================================
 
-Standard_Boolean ChFiKPart_ComputeData::ComputeCorner(TopOpeBRepDS_DataStructure&      DStr,
+Standard_Boolean ComputeData::ComputeCorner(TopOpeBRepDS_DataStructure&      DStr,
                                                       const Handle(ChFiDS_SurfData)&   Data,
                                                       const Handle(Adaptor3d_Surface)& S1,
                                                       const Handle(Adaptor3d_Surface)& S2,
@@ -691,7 +691,7 @@ Standard_Boolean ChFiKPart_ComputeData::ComputeCorner(TopOpeBRepDS_DataStructure
 
 //=================================================================================================
 
-Standard_Boolean ChFiKPart_ComputeData::ComputeCorner(TopOpeBRepDS_DataStructure&      DStr,
+Standard_Boolean ComputeData::ComputeCorner(TopOpeBRepDS_DataStructure&      DStr,
                                                       const Handle(ChFiDS_SurfData)&   Data,
                                                       const Handle(Adaptor3d_Surface)& S,
                                                       const Handle(Adaptor3d_Surface)& S1,

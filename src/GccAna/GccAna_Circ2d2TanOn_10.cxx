@@ -44,7 +44,7 @@
 //  points among which we'll choose the solutions.   +
 //  The choice is made using Qualifiers of L1.        +
 //=========================================================================
-GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const GccEnt_QualifiedLin& Qualified1,
                                          const gp_Pnt2d&            Point2,
                                          const gp_Circ2d&           OnCirc,
                                          const Standard_Real        Tolerance)
@@ -131,7 +131,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
         qualifier1(NbrSol) = GccEnt_enclosed;
       }
       qualifier2(NbrSol) = GccEnt_noqualifier;
-      dc1                = gp_Dir2d(sign * gp_XY(-dirL1.Y(), dirL1.X()));
+      dc1                = gp_Dir2d(sign * Coords2d(-dirL1.Y(), dirL1.X()));
       pnttg1sol(NbrSol)  = gp_Pnt2d(pinterm.XY() + dist1 * dc1.XY());
       par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
       pararg1(NbrSol)    = ElCLib::Parameter(L1, pnttg1sol(NbrSol));
@@ -217,7 +217,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
               qualifier1(NbrSol) = GccEnt_enclosed;
             }
             qualifier2(NbrSol) = GccEnt_noqualifier;
-            dc1                = gp_Dir2d(sign * gp_XY(-dirL1.Y(), dirL1.X()));
+            dc1                = gp_Dir2d(sign * Coords2d(-dirL1.Y(), dirL1.X()));
             pnttg1sol(NbrSol)  = gp_Pnt2d(Center.XY() + dist1 * dc1.XY());
             par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
             pararg1(NbrSol)    = ElCLib::Parameter(L1, pnttg1sol(NbrSol));

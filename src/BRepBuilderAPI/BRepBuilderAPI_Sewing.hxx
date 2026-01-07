@@ -42,12 +42,12 @@
 #include <Message_ProgressRange.hxx>
 
 class BRepTools_ReShape;
-class TopoDS_Edge;
-class TopoDS_Face;
-class Geom_Surface;
+class TopoEdge;
+class TopoFace;
+class GeomSurface;
 class TopLoc_Location;
-class Geom2d_Curve;
-class Geom_Curve;
+class GeomCurve2d;
+class GeomCurve3d;
 
 class BRepBuilderAPI_Sewing;
 DEFINE_STANDARD_HANDLE(BRepBuilderAPI_Sewing, RefObject)
@@ -98,10 +98,10 @@ public:
                             const Standard_Boolean option4   = Standard_False);
 
   //! Loads the context shape.
-  Standard_EXPORT void Load(const TopoDS_Shape& shape);
+  Standard_EXPORT void Load(const TopoShape& shape);
 
   //! Defines the shapes to be sewed or controlled
-  Standard_EXPORT void Add(const TopoDS_Shape& shape);
+  Standard_EXPORT void Add(const TopoShape& shape);
 
   //! Computing
   //! theProgress - progress indicator of algorithm
@@ -110,7 +110,7 @@ public:
   //! Gives the sewed shape
   //! a null shape if nothing constructed
   //! may be a face, a shell, a solid or a compound
-  Standard_EXPORT const TopoDS_Shape& SewedShape() const;
+  Standard_EXPORT const TopoShape& SewedShape() const;
 
   //! set context
   Standard_EXPORT void SetContext(const Handle(BRepTools_ReShape)& theContext);
@@ -122,55 +122,55 @@ public:
   Standard_EXPORT Standard_Integer NbFreeEdges() const;
 
   //! Gives each free edge
-  Standard_EXPORT const TopoDS_Edge& FreeEdge(const Standard_Integer index) const;
+  Standard_EXPORT const TopoEdge& FreeEdge(const Standard_Integer index) const;
 
   //! Gives the number of multiple edges
   //! (edge shared by more than two faces)
   Standard_EXPORT Standard_Integer NbMultipleEdges() const;
 
   //! Gives each multiple edge
-  Standard_EXPORT const TopoDS_Edge& MultipleEdge(const Standard_Integer index) const;
+  Standard_EXPORT const TopoEdge& MultipleEdge(const Standard_Integer index) const;
 
   //! Gives the number of contiguous edges (edge shared by two faces)
   Standard_EXPORT Standard_Integer NbContigousEdges() const;
 
   //! Gives each contiguous edge
-  Standard_EXPORT const TopoDS_Edge& ContigousEdge(const Standard_Integer index) const;
+  Standard_EXPORT const TopoEdge& ContigousEdge(const Standard_Integer index) const;
 
   //! Gives the sections (edge) belonging to a contiguous edge
-  Standard_EXPORT const TopTools_ListOfShape& ContigousEdgeCouple(
+  Standard_EXPORT const ShapeList& ContigousEdgeCouple(
     const Standard_Integer index) const;
 
   //! Indicates if a section is bound (before use SectionToBoundary)
-  Standard_EXPORT Standard_Boolean IsSectionBound(const TopoDS_Edge& section) const;
+  Standard_EXPORT Standard_Boolean IsSectionBound(const TopoEdge& section) const;
 
   //! Gives the original edge (free boundary) which becomes the
   //! the section. Remember that sections constitute  common edges.
   //! This information is important for control because with
   //! original edge we can find the surface to which the section
   //! is attached.
-  Standard_EXPORT const TopoDS_Edge& SectionToBoundary(const TopoDS_Edge& section) const;
+  Standard_EXPORT const TopoEdge& SectionToBoundary(const TopoEdge& section) const;
 
   //! Gives the number of degenerated shapes
   Standard_EXPORT Standard_Integer NbDegeneratedShapes() const;
 
   //! Gives each degenerated shape
-  Standard_EXPORT const TopoDS_Shape& DegeneratedShape(const Standard_Integer index) const;
+  Standard_EXPORT const TopoShape& DegeneratedShape(const Standard_Integer index) const;
 
   //! Indicates if a input shape is degenerated
-  Standard_EXPORT Standard_Boolean IsDegenerated(const TopoDS_Shape& shape) const;
+  Standard_EXPORT Standard_Boolean IsDegenerated(const TopoShape& shape) const;
 
   //! Indicates if a input shape has been modified
-  Standard_EXPORT Standard_Boolean IsModified(const TopoDS_Shape& shape) const;
+  Standard_EXPORT Standard_Boolean IsModified(const TopoShape& shape) const;
 
   //! Gives a modifieded shape
-  Standard_EXPORT const TopoDS_Shape& Modified(const TopoDS_Shape& shape) const;
+  Standard_EXPORT const TopoShape& Modified(const TopoShape& shape) const;
 
   //! Indicates if a input subshape has been modified
-  Standard_EXPORT Standard_Boolean IsModifiedSubShape(const TopoDS_Shape& shape) const;
+  Standard_EXPORT Standard_Boolean IsModifiedSubShape(const TopoShape& shape) const;
 
   //! Gives a modifieded subshape
-  Standard_EXPORT TopoDS_Shape ModifiedSubShape(const TopoDS_Shape& shape) const;
+  Standard_EXPORT TopoShape ModifiedSubShape(const TopoShape& shape) const;
 
   //! print the information
   Standard_EXPORT void Dump() const;
@@ -179,10 +179,10 @@ public:
   Standard_EXPORT Standard_Integer NbDeletedFaces() const;
 
   //! Gives each deleted face
-  Standard_EXPORT const TopoDS_Face& DeletedFace(const Standard_Integer index) const;
+  Standard_EXPORT const TopoFace& DeletedFace(const Standard_Integer index) const;
 
   //! Gives a modified shape
-  Standard_EXPORT TopoDS_Face WhichFace(const TopoDS_Edge&     theEdg,
+  Standard_EXPORT TopoFace WhichFace(const TopoEdge&     theEdg,
                                         const Standard_Integer index = 1) const;
 
   //! Gets same parameter mode.
@@ -250,9 +250,9 @@ protected:
   Standard_EXPORT void Merging(const Standard_Boolean       passage,
                                const Message_ProgressRange& theProgress = Message_ProgressRange());
 
-  Standard_EXPORT Standard_Boolean IsMergedClosed(const TopoDS_Edge& Edge1,
-                                                  const TopoDS_Edge& Edge2,
-                                                  const TopoDS_Face& fase) const;
+  Standard_EXPORT Standard_Boolean IsMergedClosed(const TopoEdge& Edge1,
+                                                  const TopoEdge& Edge2,
+                                                  const TopoFace& fase) const;
 
   Standard_EXPORT Standard_Boolean FindCandidates(TopTools_SequenceOfShape&    seqSections,
                                                   TColStd_IndexedMapOfInteger& mapReference,
@@ -265,7 +265,7 @@ protected:
                                             const Standard_Boolean evalDist = Standard_True);
 
   //! Merged nearest edges.
-  Standard_EXPORT Standard_Boolean MergedNearestEdges(const TopoDS_Shape&        edge,
+  Standard_EXPORT Standard_Boolean MergedNearestEdges(const TopoShape&        edge,
                                                       TopTools_SequenceOfShape&  SeqMergedEdge,
                                                       TColStd_SequenceOfBoolean& SeqMergedOri);
 
@@ -279,13 +279,13 @@ protected:
   Standard_EXPORT void CreateOutputInformations();
 
   //! Defines if surface is U closed.
-  Standard_EXPORT virtual Standard_Boolean IsUClosedSurface(const Handle(Geom_Surface)& surf,
-                                                            const TopoDS_Shape&         theEdge,
+  Standard_EXPORT virtual Standard_Boolean IsUClosedSurface(const Handle(GeomSurface)& surf,
+                                                            const TopoShape&         theEdge,
                                                             const TopLoc_Location& theloc) const;
 
   //! Defines if surface is V closed.
-  Standard_EXPORT virtual Standard_Boolean IsVClosedSurface(const Handle(Geom_Surface)& surf,
-                                                            const TopoDS_Shape&         theEdge,
+  Standard_EXPORT virtual Standard_Boolean IsVClosedSurface(const Handle(GeomSurface)& surf,
+                                                            const TopoShape&         theEdge,
                                                             const TopLoc_Location& theloc) const;
 
   //! This method is called from Perform only
@@ -324,29 +324,29 @@ protected:
                                                  const Standard_Integer    indRef) const;
 
   //! This method is called from SameParameterEdge only
-  Standard_EXPORT virtual Handle(Geom2d_Curve) SameRange(const Handle(Geom2d_Curve)& CurvePtr,
+  Standard_EXPORT virtual Handle(GeomCurve2d) SameRange(const Handle(GeomCurve2d)& CurvePtr,
                                                          const Standard_Real         FirstOnCurve,
                                                          const Standard_Real         LastOnCurve,
                                                          const Standard_Real         RequestedFirst,
                                                          const Standard_Real RequestedLast) const;
 
   //! This method is called from SameParameterEdge only
-  Standard_EXPORT virtual void SameParameter(const TopoDS_Edge& edge) const;
+  Standard_EXPORT virtual void SameParameter(const TopoEdge& edge) const;
 
   //! This method is called from Merging only
-  Standard_EXPORT virtual TopoDS_Edge SameParameterEdge(
-    const TopoDS_Shape&              edge,
+  Standard_EXPORT virtual TopoEdge SameParameterEdge(
+    const TopoShape&              edge,
     const TopTools_SequenceOfShape&  seqEdges,
     const TColStd_SequenceOfBoolean& seqForward,
     TopTools_MapOfShape&             mapMerged,
     const Handle(BRepTools_ReShape)& locReShape);
 
   //! This method is called from Merging only
-  Standard_EXPORT virtual TopoDS_Edge SameParameterEdge(
-    const TopoDS_Edge&          edge1,
-    const TopoDS_Edge&          edge2,
-    const TopTools_ListOfShape& listFaces1,
-    const TopTools_ListOfShape& listFaces2,
+  Standard_EXPORT virtual TopoEdge SameParameterEdge(
+    const TopoEdge&          edge1,
+    const TopoEdge&          edge2,
+    const ShapeList& listFaces1,
+    const ShapeList& listFaces2,
     const Standard_Boolean      secForward,
     Standard_Integer&           whichSec,
     const Standard_Boolean      firstCall = Standard_True);
@@ -354,7 +354,7 @@ protected:
   //! Projects points on curve
   //! This method is called from Cutting only
   Standard_EXPORT void ProjectPointsOnCurve(const TColgp_Array1OfPnt& arrPnt,
-                                            const Handle(Geom_Curve)& Crv,
+                                            const Handle(GeomCurve3d)& Crv,
                                             const Standard_Real       first,
                                             const Standard_Real       last,
                                             TColStd_Array1OfReal&     arrDist,
@@ -365,9 +365,9 @@ protected:
   //! Creates cutting vertices on projections
   //! This method is called from Cutting only
   Standard_EXPORT virtual void CreateCuttingNodes(const TopTools_IndexedMapOfShape& MapVert,
-                                                  const TopoDS_Shape&               bound,
-                                                  const TopoDS_Shape&               vfirst,
-                                                  const TopoDS_Shape&               vlast,
+                                                  const TopoShape&               bound,
+                                                  const TopoShape&               vfirst,
+                                                  const TopoShape&               vlast,
                                                   const TColStd_Array1OfReal&       arrDist,
                                                   const TColStd_Array1OfReal&       arrPara,
                                                   const TColgp_Array1OfPnt&         arrPnt,
@@ -376,10 +376,10 @@ protected:
 
   //! Performs cutting of bound
   //! This method is called from Cutting only
-  Standard_EXPORT virtual void CreateSections(const TopoDS_Shape&             bound,
+  Standard_EXPORT virtual void CreateSections(const TopoShape&             bound,
                                               const TopTools_SequenceOfShape& seqNode,
                                               const TColStd_SequenceOfReal&   seqPara,
-                                              TopTools_ListOfShape&           listEdge);
+                                              ShapeList&           listEdge);
 
   //! Makes all edges from shape same parameter
   //! if SameParameterMode is equal to Standard_True
@@ -392,7 +392,7 @@ protected:
   Standard_Boolean                          myCutting;
   Standard_Boolean                          myNonmanifold;
   TopTools_IndexedDataMapOfShapeShape       myOldShapes;
-  TopoDS_Shape                              mySewedShape;
+  TopoShape                              mySewedShape;
   TopTools_IndexedMapOfShape                myDegenerated;
   TopTools_IndexedMapOfShape                myFreeEdges;
   TopTools_IndexedMapOfShape                myMultipleEdges;
@@ -409,7 +409,7 @@ protected:
   TopTools_DataMapOfShapeListOfShape        myNodeSections;
   TopTools_DataMapOfShapeListOfShape        myCuttingNode;
   TopTools_IndexedMapOfShape                myLittleFace;
-  TopoDS_Shape                              myShape;
+  TopoShape                              myShape;
   Handle(BRepTools_ReShape)                 myReShape;
 
 private:

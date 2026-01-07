@@ -23,7 +23,7 @@
 #include <Prs3d_TextAspect.hxx>
 #include <V3d_TypeOfAxe.hxx>
 
-class V3d_View;
+class ViewWindow;
 
 //! Class for presentation of trihedron object.
 class V3d_Trihedron : public RefObject
@@ -114,18 +114,18 @@ public:
   //! Return axis text.
   //! @param[in] theAxis  axis index
   //! @return text of the label
-  const TCollection_AsciiString& Label(V3d_TypeOfAxe theAxis) const { return myLabels[theAxis]; }
+  const AsciiString1& Label(V3d_TypeOfAxe theAxis) const { return myLabels[theAxis]; }
 
   //! Setup per-axis text.
-  Standard_EXPORT void SetLabels(const TCollection_AsciiString& theX,
-                                 const TCollection_AsciiString& theY,
-                                 const TCollection_AsciiString& theZ);
+  Standard_EXPORT void SetLabels(const AsciiString1& theX,
+                                 const AsciiString1& theY,
+                                 const AsciiString1& theZ);
 
   //! Display trihedron.
-  void Display(const Handle(V3d_View)& theView) { Display(*theView); }
+  void Display(const Handle(ViewWindow)& theView) { Display(*theView); }
 
   //! Display trihedron.
-  Standard_EXPORT void Display(const V3d_View& theView);
+  Standard_EXPORT void Display(const ViewWindow& theView);
 
   //! Erase trihedron.
   Standard_EXPORT void Erase();
@@ -151,7 +151,7 @@ protected:
   Handle(Prs3d_ShadingAspect) mySphereShadingAspect;
   Handle(Prs3d_TextAspect)    myTextAspects[3];
   Handle(Prs3d_ShadingAspect) myArrowShadingAspects[3];
-  TCollection_AsciiString     myLabels[3];
+  AsciiString1     myLabels[3];
 
   Handle(Graphic3d_Structure)     myStructure;
   Handle(Graphic3d_TransformPers) myTransformPers;

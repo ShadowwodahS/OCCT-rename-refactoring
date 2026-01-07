@@ -25,38 +25,38 @@
 class StdSelect_BRepOwner;
 
 //! Presentation of the shape with customizable sub-shapes properties.
-class AIS_ColoredShape : public AIS_Shape
+class AIS_ColoredShape : public VisualShape
 {
 public:
   //! Default constructor
-  Standard_EXPORT AIS_ColoredShape(const TopoDS_Shape& theShape);
+  Standard_EXPORT AIS_ColoredShape(const TopoShape& theShape);
 
   //! Copy constructor
-  Standard_EXPORT AIS_ColoredShape(const Handle(AIS_Shape)& theShape);
+  Standard_EXPORT AIS_ColoredShape(const Handle(VisualShape)& theShape);
 
 public: //! @name sub-shape aspects
   //! Customize properties of specified sub-shape.
   //! The shape will be stored in the map but ignored, if it is not sub-shape of main Shape!
   //! This method can be used to mark sub-shapes with customizable properties.
-  Standard_EXPORT virtual Handle(AIS_ColoredDrawer) CustomAspects(const TopoDS_Shape& theShape);
+  Standard_EXPORT virtual Handle(AIS_ColoredDrawer) CustomAspects(const TopoShape& theShape);
 
   //! Reset the map of custom sub-shape aspects.
   Standard_EXPORT virtual void ClearCustomAspects();
 
   //! Reset custom properties of specified sub-shape.
   //! @param theToUnregister unregister or not sub-shape from the map
-  Standard_EXPORT void UnsetCustomAspects(const TopoDS_Shape&    theShape,
+  Standard_EXPORT void UnsetCustomAspects(const TopoShape&    theShape,
                                           const Standard_Boolean theToUnregister = Standard_False);
 
   //! Customize color of specified sub-shape
-  Standard_EXPORT void SetCustomColor(const TopoDS_Shape& theShape, const Quantity_Color& theColor);
+  Standard_EXPORT void SetCustomColor(const TopoShape& theShape, const Quantity_Color& theColor);
 
   //! Customize transparency of specified sub-shape
-  Standard_EXPORT void SetCustomTransparency(const TopoDS_Shape& theShape,
+  Standard_EXPORT void SetCustomTransparency(const TopoShape& theShape,
                                              Standard_Real       theTransparency);
 
   //! Customize line width of specified sub-shape
-  Standard_EXPORT void SetCustomWidth(const TopoDS_Shape& theShape,
+  Standard_EXPORT void SetCustomWidth(const TopoShape& theShape,
                                       const Standard_Real theLineWidth);
 
   //! Return the map of custom aspects.
@@ -93,11 +93,11 @@ protected: //! @name override presentation computation
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Compute selection considering sub-shape hidden state.
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
 protected:
-  typedef NCollection_IndexedDataMap<Handle(AIS_ColoredDrawer), TopoDS_Compound>
+  typedef NCollection_IndexedDataMap<Handle(AIS_ColoredDrawer), TopoCompound>
     DataMapOfDrawerCompd;
 
 protected:
@@ -111,7 +111,7 @@ protected:
   //! @param theDrawerClosedFaces        the map for closed faces
   Standard_EXPORT static Standard_Boolean dispatchColors(
     const Handle(AIS_ColoredDrawer)& theParentDrawer,
-    const TopoDS_Shape&              theShapeToParse,
+    const TopoShape&              theShapeToParse,
     const AIS_DataMapOfShapeDrawer&  theShapeDrawerMap,
     const TopAbs_ShapeEnum           theParentType,
     const Standard_Boolean           theIsParentClosed,
@@ -146,7 +146,7 @@ protected:
   //!                          subshapes for new bind cycle
   //! @param theDrawer         assigned drawer
   Standard_EXPORT void bindSubShapes(AIS_DataMapOfShapeDrawer&        theShapeDrawerMap,
-                                     const TopoDS_Shape&              theKeyShape,
+                                     const TopoShape&              theKeyShape,
                                      const Handle(AIS_ColoredDrawer)& theDrawer) const;
 
   //! Add sub-shape to selection considering hidden state (recursively).
@@ -160,9 +160,9 @@ protected:
   //! @param theDeflAngle      angular deflection
   Standard_EXPORT void computeSubshapeSelection(const Handle(AIS_ColoredDrawer)& theParentDrawer,
                                                 const AIS_DataMapOfShapeDrawer&  theShapeDrawerMap,
-                                                const TopoDS_Shape&              theShape,
+                                                const TopoShape&              theShape,
                                                 const Handle(StdSelect_BRepOwner)& theOwner,
-                                                const Handle(SelectMgr_Selection)& theSelection,
+                                                const Handle(SelectionContainer)& theSelection,
                                                 const TopAbs_ShapeEnum             theTypOfSel,
                                                 const Standard_Integer             thePriority,
                                                 const Standard_Real                theDeflection,
@@ -172,9 +172,9 @@ protected:
   AIS_DataMapOfShapeDrawer myShapeColors;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(AIS_ColoredShape, AIS_Shape)
+  DEFINE_STANDARD_RTTIEXT(AIS_ColoredShape, VisualShape)
 };
 
-DEFINE_STANDARD_HANDLE(AIS_ColoredShape, AIS_Shape)
+DEFINE_STANDARD_HANDLE(AIS_ColoredShape, VisualShape)
 
 #endif // _AIS_ColoredShape_HeaderFile

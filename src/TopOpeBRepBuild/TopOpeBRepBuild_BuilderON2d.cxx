@@ -48,21 +48,21 @@ Standard_EXPORT void debON2d(const Standard_Integer iF)
 Standard_EXPORT TopAbs_State FUN_build_TB(const TopOpeBRepBuild_PBuilder& PB,const Standard_Integer rank); // xpu290698
 // clang-format on
 Standard_EXPORT Standard_Boolean FUN_keepEON(const TopOpeBRepBuild_Builder& B,
-                                             const TopoDS_Shape&            sEG,
-                                             const TopoDS_Shape&            sFOR,
-                                             const TopoDS_Shape&            sFS,
+                                             const TopoShape&            sEG,
+                                             const TopoShape&            sFOR,
+                                             const TopoShape&            sFS,
                                              const Standard_Boolean         EGBoundFOR,
-                                             const TopOpeBRepDS_Transition& TFE,
+                                             const StateTransition& TFE,
                                              const TopAbs_State             TB1,
                                              const TopAbs_State             TB2);
-Standard_EXPORT void             FUN_coutmess(const TCollection_AsciiString& m);
+Standard_EXPORT void             FUN_coutmess(const AsciiString1& m);
 
 Standard_EXPORTEXTERN TopOpeBRepDS_PDataStructure GLOBAL_DS2d;
 
 //=================================================================================================
 
 void TopOpeBRepBuild_BuilderON::Perform2d(const TopOpeBRepBuild_PBuilder&     PB,
-                                          const TopoDS_Shape&                 FOR,
+                                          const TopoShape&                 FOR,
                                           const TopOpeBRepBuild_PGTopo&       PG,
                                           const TopOpeBRepTool_Plos&          PLSclass,
                                           const TopOpeBRepBuild_PWireEdgeSet& PWES)
@@ -94,17 +94,17 @@ void TopOpeBRepBuild_BuilderON::Perform2d(const TopOpeBRepBuild_PBuilder&     PB
     Standard_Integer                         GI, SI;
     FDS_data(I, GT, GI, ST, SI);
 
-    const TopoDS_Edge& EG = TopoDS::Edge(BDS.Shape(GI));
+    const TopoEdge& EG = TopoDS::Edge(BDS.Shape(GI));
 #ifdef OCCT_DEBUG
 //    Standard_Integer iEG=BDS.Shape(EG);
 #endif
-    const TopTools_ListOfShape& lEspON = myPB->Splits(EG, TopAbs_ON);
+    const ShapeList& lEspON = myPB->Splits(EG, TopAbs_ON);
 #ifdef OCCT_DEBUG
 //    Standard_Integer nEspON=lEspON.Extent();
 #endif
     for (TopTools_ListIteratorOfListOfShape it(lEspON); it.More(); it.Next())
     {
-      const TopoDS_Shape& EspON = it.Value();
+      const TopoShape& EspON = it.Value();
       GFillONParts2dWES2(I, EspON);
     }
   }
@@ -113,7 +113,7 @@ void TopOpeBRepBuild_BuilderON::Perform2d(const TopOpeBRepBuild_PBuilder&     PB
 //=================================================================================================
 
 void TopOpeBRepBuild_BuilderON::GFillONParts2dWES2(const Handle(TopOpeBRepDS_Interference)& I,
-                                                   const TopoDS_Shape&                      EspON)
+                                                   const TopoShape&                      EspON)
 {
   const Handle(TopOpeBRepDS_HDataStructure)&  HDS = myPB->DataStructure();
   const TopOpeBRepDS_DataStructure&           BDS = HDS->DS();
@@ -124,19 +124,19 @@ void TopOpeBRepBuild_BuilderON::GFillONParts2dWES2(const Handle(TopOpeBRepDS_Int
   TopOpeBRepDS_Kind GT, ST;
   Standard_Integer  GI, SI;
   FDS_data(SSI, GT, GI, ST, SI);
-  //  const TopOpeBRepDS_Transition& TFE=SSI->Transition();
+  //  const StateTransition& TFE=SSI->Transition();
   Standard_Boolean   EGBoundFOR = SSI->GBound();
-  const TopoDS_Face& FOR        = TopoDS::Face(myFace);
+  const TopoFace& FOR        = TopoDS::Face(myFace);
   Standard_Integer   iFOR       = BDS.Shape(FOR);
-  const TopoDS_Edge& EG         = TopoDS::Edge(BDS.Shape(GI));
+  const TopoEdge& EG         = TopoDS::Edge(BDS.Shape(GI));
 #ifdef OCCT_DEBUG
 //  Standard_Integer iEG=BDS.Shape(EG);
 #endif
-  const TopoDS_Face& FS = TopoDS::Face(BDS.Shape(SI));
+  const TopoFace& FS = TopoDS::Face(BDS.Shape(SI));
 #ifdef OCCT_DEBUG
 //  Standard_Integer iFS=BDS.Shape(FS);
-//  Standard_Boolean isclosedFF=BRep_Tool::IsClosed(EG,FOR);
-//  Standard_Boolean isclosedFS=BRep_Tool::IsClosed(EG,FS);
+//  Standard_Boolean isclosedFF=BRepInspector::IsClosed(EG,FOR);
+//  Standard_Boolean isclosedFS=BRepInspector::IsClosed(EG,FS);
 //  Standard_Boolean isclosed=(isclosedFF || isclosedFS);
 //  Standard_Boolean isrest=BDS.IsSectionEdge(EG);
 //  Standard_Boolean issplit=myPB->IsSplit(EG,TopAbs_ON);
@@ -173,7 +173,7 @@ void TopOpeBRepBuild_BuilderON::GFillONParts2dWES2(const Handle(TopOpeBRepDS_Int
 //  Standard_Boolean FFinSDDO = Standard_False;
 #endif
   Standard_Boolean FFinSD = Standard_True;
-  TopoDS_Face      FCX    = FS;
+  TopoFace      FCX    = FS;
 
 #ifdef OCCT_DEBUG
 //  TopAbs_Orientation oFOR = BDS.Shape(iFOR).Orientation();
@@ -275,14 +275,14 @@ void TopOpeBRepBuild_BuilderON::GFillONParts2dWES2(const Handle(TopOpeBRepDS_Int
     if (!ok)
       return; // xpu120698
     if (!ESO)
-      neworiE = TopAbs::Complement(neworiE);
+      neworiE = TopAbs1::Complement(neworiE);
 
     TopAbs_Orientation oFOR = BDS.Shape(iFOR).Orientation();
     TopAbs_Orientation oFCX = BDS.Shape(iFCX).Orientation();
     if (oFOR != oFCX)
-      neworiE = TopAbs::Complement(neworiE);
+      neworiE = TopAbs1::Complement(neworiE);
 
-    TopoDS_Shape newE = EspON;
+    TopoShape newE = EspON;
     newE.Orientation(neworiE);
     myPWES->AddStartElement(newE);
 #ifdef OCCT_DEBUG

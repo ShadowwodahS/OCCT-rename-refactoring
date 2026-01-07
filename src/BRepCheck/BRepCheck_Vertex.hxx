@@ -21,8 +21,8 @@
 #include <Standard_Type.hxx>
 
 #include <BRepCheck_Result.hxx>
-class TopoDS_Vertex;
-class TopoDS_Shape;
+class TopoVertex;
+class TopoShape;
 
 class BRepCheck_Vertex;
 DEFINE_STANDARD_HANDLE(BRepCheck_Vertex, BRepCheck_Result)
@@ -31,9 +31,9 @@ class BRepCheck_Vertex : public BRepCheck_Result
 {
 
 public:
-  Standard_EXPORT BRepCheck_Vertex(const TopoDS_Vertex& V);
+  Standard_EXPORT BRepCheck_Vertex(const TopoVertex& V);
 
-  Standard_EXPORT void InContext(const TopoDS_Shape& ContextShape) Standard_OVERRIDE;
+  Standard_EXPORT void InContext(const TopoShape& ContextShape) Standard_OVERRIDE;
 
   Standard_EXPORT void Minimum() Standard_OVERRIDE;
 

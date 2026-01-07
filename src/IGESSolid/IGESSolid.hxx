@@ -24,7 +24,7 @@
 class IGESSolid_Protocol;
 
 //! This package consists of B-Rep and CSG Solid entities
-class IGESSolid
+class IGESSolid1
 {
 public:
   DEFINE_STANDARD_ALLOC

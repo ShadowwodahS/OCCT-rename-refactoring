@@ -111,7 +111,7 @@ void MeshVS_MeshOwner::SetDetectedEntities(const Handle(TColStd_HPackedMapOfInte
 //=================================================================================================
 
 void MeshVS_MeshOwner::HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                        const Handle(Prs3d_Drawer)&               theStyle,
+                                        const Handle(StyleDrawer)&               theStyle,
                                         const Standard_Integer /*theMode*/)
 {
   Handle(SelectMgr_SelectableObject) aSelObj;

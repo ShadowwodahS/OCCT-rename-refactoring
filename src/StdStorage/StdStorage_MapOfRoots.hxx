@@ -18,9 +18,9 @@
 #include <StdStorage_Root.hxx>
 #include <NCollection_IndexedDataMap.hxx>
 
-typedef NCollection_IndexedDataMap<TCollection_AsciiString, Handle(StdStorage_Root)>
+typedef NCollection_IndexedDataMap<AsciiString1, Handle(StdStorage_Root)>
   StdStorage_MapOfRoots;
-typedef NCollection_IndexedDataMap<TCollection_AsciiString, Handle(StdStorage_Root)>::Iterator
+typedef NCollection_IndexedDataMap<AsciiString1, Handle(StdStorage_Root)>::Iterator
   StdStorage_DataMapIteratorOfMapOfRoots;
 
 #endif // StdStorage_MapOfRoots_HeaderFile

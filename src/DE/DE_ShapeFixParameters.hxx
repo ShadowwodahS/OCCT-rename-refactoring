@@ -18,7 +18,7 @@
 #include <TopAbs_ShapeEnum.hxx>
 
 //! Struct for shape healing parameters storage
-struct DE_ShapeFixParameters
+struct ShapeFixParameters
 {
   //! Enum, classifying a type of value for parameters
   enum class FixMode : signed char

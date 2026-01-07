@@ -93,9 +93,9 @@ private:
 };
 
 //! Returns True if some of two vertcies is same with reference one.
-Standard_Boolean isSameWithSomeOf(const TopoDS_Vertex& theRefVertex,
-                                  const TopoDS_Vertex& theVertex1,
-                                  const TopoDS_Vertex& theVertex2)
+Standard_Boolean isSameWithSomeOf(const TopoVertex& theRefVertex,
+                                  const TopoVertex& theVertex1,
+                                  const TopoVertex& theVertex2)
 {
   return (theRefVertex.IsSame(theVertex1) || theRefVertex.IsSame(theVertex2));
 }
@@ -292,8 +292,8 @@ void BRepMesh_ModelHealer::process(const IMeshData::IFaceHandle& theDFace) const
 void BRepMesh_ModelHealer::fixFaceBoundaries(const IMeshData::IFaceHandle& theDFace) const
 {
 #ifdef DEBUG_HEALER
-  TopoDS_Compound aComp;
-  BRep_Builder    aBuilder;
+  TopoCompound aComp;
+  ShapeBuilder    aBuilder;
   aBuilder.MakeCompound(aComp);
 #endif
 
@@ -338,8 +338,8 @@ void BRepMesh_ModelHealer::fixFaceBoundaries(const IMeshData::IFaceHandle& theDF
         {
           aBuilder.Add(aComp, aPoly.Shape());
         }
-        TCollection_AsciiString aName("face_discr.brep");
-        BRepTools::Write(aComp, aName.ToCString());
+        AsciiString1 aName("face_discr.brep");
+        BRepTools1::Write(aComp, aName.ToCString());
 #endif
       }
 
@@ -359,10 +359,10 @@ void BRepMesh_ModelHealer::fixFaceBoundaries(const IMeshData::IFaceHandle& theDF
   }
 
 #ifdef DEBUG_HEALER
-  TCollection_AsciiString aName("face_discr.brep");
-  TCollection_AsciiString aFaceName("face_geom.brep");
-  BRepTools::Write(aComp, aName.ToCString());
-  BRepTools::Write(theDFace->GetFace(), aFaceName.ToCString());
+  AsciiString1 aName("face_discr.brep");
+  AsciiString1 aFaceName("face_geom.brep");
+  BRepTools1::Write(aComp, aName.ToCString());
+  BRepTools1::Write(theDFace->GetFace(), aFaceName.ToCString());
 #endif
 
   BRepMesh_Deflection::ComputeDeflection(theDFace, myParameters);
@@ -370,11 +370,11 @@ void BRepMesh_ModelHealer::fixFaceBoundaries(const IMeshData::IFaceHandle& theDF
 
 //=================================================================================================
 
-TopoDS_Vertex BRepMesh_ModelHealer::getCommonVertex(const IMeshData::IEdgeHandle& theEdge1,
+TopoVertex BRepMesh_ModelHealer::getCommonVertex(const IMeshData::IEdgeHandle& theEdge1,
                                                     const IMeshData::IEdgeHandle& theEdge2) const
 {
-  TopoDS_Vertex aVertex1_1, aVertex1_2;
-  TopExp::Vertices(theEdge1->GetEdge(), aVertex1_1, aVertex1_2);
+  TopoVertex aVertex1_1, aVertex1_2;
+  TopExp1::Vertices(theEdge1->GetEdge(), aVertex1_1, aVertex1_2);
 
   // Test bugs moddata_2 bug428.
   //   restore [locate_data_file OCC428.brep] rr
@@ -387,18 +387,18 @@ TopoDS_Vertex BRepMesh_ModelHealer::getCommonVertex(const IMeshData::IEdgeHandle
   // This shape is invalid and can lead to exception in this code.
 
   if (aVertex1_1.IsNull() || aVertex1_2.IsNull())
-    return TopoDS_Vertex();
+    return TopoVertex();
 
   if (theEdge1->GetEdge().IsSame(theEdge2->GetEdge()))
   {
-    return aVertex1_1.IsSame(aVertex1_2) ? aVertex1_1 : TopoDS_Vertex();
+    return aVertex1_1.IsSame(aVertex1_2) ? aVertex1_1 : TopoVertex();
   }
 
-  TopoDS_Vertex aVertex2_1, aVertex2_2;
-  TopExp::Vertices(theEdge2->GetEdge(), aVertex2_1, aVertex2_2);
+  TopoVertex aVertex2_1, aVertex2_2;
+  TopExp1::Vertices(theEdge2->GetEdge(), aVertex2_1, aVertex2_2);
 
   if (aVertex2_1.IsNull() || aVertex2_2.IsNull())
-    return TopoDS_Vertex();
+    return TopoVertex();
 
   if (isSameWithSomeOf(aVertex1_1, aVertex2_1, aVertex2_2))
   {
@@ -409,15 +409,15 @@ TopoDS_Vertex BRepMesh_ModelHealer::getCommonVertex(const IMeshData::IEdgeHandle
     return aVertex1_2;
   }
 
-  const Point3d        aPnt1_1 = BRep_Tool::Pnt(aVertex1_1);
-  const Point3d        aPnt1_2 = BRep_Tool::Pnt(aVertex1_2);
-  const Standard_Real aTol1_1 = BRep_Tool::Tolerance(aVertex1_1);
-  const Standard_Real aTol1_2 = BRep_Tool::Tolerance(aVertex1_2);
+  const Point3d        aPnt1_1 = BRepInspector::Pnt(aVertex1_1);
+  const Point3d        aPnt1_2 = BRepInspector::Pnt(aVertex1_2);
+  const Standard_Real aTol1_1 = BRepInspector::Tolerance(aVertex1_1);
+  const Standard_Real aTol1_2 = BRepInspector::Tolerance(aVertex1_2);
 
-  const Point3d        aPnt2_1 = BRep_Tool::Pnt(aVertex2_1);
-  const Point3d        aPnt2_2 = BRep_Tool::Pnt(aVertex2_2);
-  const Standard_Real aTol2_1 = BRep_Tool::Tolerance(aVertex2_1);
-  const Standard_Real aTol2_2 = BRep_Tool::Tolerance(aVertex2_2);
+  const Point3d        aPnt2_1 = BRepInspector::Pnt(aVertex2_1);
+  const Point3d        aPnt2_2 = BRepInspector::Pnt(aVertex2_2);
+  const Standard_Real aTol2_1 = BRepInspector::Tolerance(aVertex2_1);
+  const Standard_Real aTol2_2 = BRepInspector::Tolerance(aVertex2_2);
 
   if (isInToleranceWithSomeOf(aPnt1_1, aPnt2_1, aPnt2_2, aTol1_1 + Max(aTol2_1, aTol2_2)))
   {
@@ -428,7 +428,7 @@ TopoDS_Vertex BRepMesh_ModelHealer::getCommonVertex(const IMeshData::IEdgeHandle
     return aVertex1_2;
   }
 
-  return TopoDS_Vertex();
+  return TopoVertex();
 }
 
 //=================================================================================================

@@ -39,20 +39,20 @@ public:
   }
 
   //! Sets angle units
-  void SetAngleUnits(const TCollection_AsciiString& theUnits) { myAngleUnits = theUnits; }
+  void SetAngleUnits(const AsciiString1& theUnits) { myAngleUnits = theUnits; }
 
   //! @return angle units
-  const TCollection_AsciiString& GetAngleUnits() const { return myAngleUnits; }
+  const AsciiString1& GetAngleUnits() const { return myAngleUnits; }
 
   //! Sets length units
-  void SetLengthUnits(const TCollection_AsciiString& theUnits) { myLengthUnits = theUnits; }
+  void SetLengthUnits(const AsciiString1& theUnits) { myLengthUnits = theUnits; }
 
   //! @return length units
-  const TCollection_AsciiString& GetLengthUnits() const { return myLengthUnits; }
+  const AsciiString1& GetLengthUnits() const { return myLengthUnits; }
 
 private:
-  TCollection_AsciiString myLengthUnits;
-  TCollection_AsciiString myAngleUnits;
+  AsciiString1 myLengthUnits;
+  AsciiString1 myAngleUnits;
 };
 
 #endif

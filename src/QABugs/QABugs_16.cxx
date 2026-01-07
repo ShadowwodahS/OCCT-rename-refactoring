@@ -68,20 +68,20 @@ extern ViewerTest_DoubleMapOfInteractiveAndName& GetMapOfAIS();
 Standard_EXPORT ViewerTest_DoubleMapOfInteractiveAndName& GetMapOfAIS();
 #endif
 
-static Standard_Integer BUC60848(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer BUC60848(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 2)
   {
     di << "Usage : " << argv[0] << " shape \n";
     return 1;
   }
-  TopoDS_Shape S = DBRep::Get(argv[1]);
+  TopoShape S = DBRep1::Get(argv[1]);
   if (S.IsNull())
   {
     di << "Shape is empty\n";
     return 1;
   }
-  GProp_GProps G;
+  GeometricProperties G;
   BRepGProp::VolumeProperties(S, G);
   Standard_Real GRes;
   GRes = G.Mass();
@@ -98,11 +98,11 @@ static Standard_Integer BUC60848(Draw_Interpretor& di, Standard_Integer argc, co
   return 0;
 }
 
-static Standard_Integer BUC60828(Draw_Interpretor& di,
+static Standard_Integer BUC60828(DrawInterpreter& di,
                                  Standard_Integer /*argc*/,
                                  const char** /*argv*/)
 {
-  TopoDS_Edge      anEdge = BRepBuilderAPI_MakeEdge(Point3d(0., 0., 0.), Point3d(0., 0., 1.));
+  TopoEdge      anEdge = EdgeMaker(Point3d(0., 0., 0.), Point3d(0., 0., 1.));
   Standard_Boolean aValue;
   aValue = anEdge.Infinite();
   di << "Initial flag : " << (Standard_Integer)aValue << "\n";
@@ -117,7 +117,7 @@ static Standard_Integer BUC60828(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer BUC60814(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer BUC60814(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 1)
   {
@@ -125,7 +125,7 @@ static Standard_Integer BUC60814(Draw_Interpretor& di, Standard_Integer argc, co
     return 1;
   }
 
-  Handle(AIS_InteractiveContext) myAISContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) myAISContext = ViewerTest::GetAISContext();
   if (myAISContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -133,7 +133,7 @@ static Standard_Integer BUC60814(Draw_Interpretor& di, Standard_Integer argc, co
   }
 
   // TRIHEDRON
-  Handle(AIS_InteractiveObject) aTrihedron;
+  Handle(VisualEntity) aTrihedron;
   Handle(Geom_Axis2Placement)   aTrihedronAxis = new Geom_Axis2Placement(gp::XOY());
   aTrihedron                                   = new AIS_Trihedron(aTrihedronAxis);
   myAISContext->Display(aTrihedron, Standard_False);
@@ -143,11 +143,11 @@ static Standard_Integer BUC60814(Draw_Interpretor& di, Standard_Integer argc, co
   Dir3d V(1, 0, 0);
   Frame3d aAx2(P, V);
 
-  Handle(Geom_Circle)           ahCircle = new Geom_Circle(aAx2, 20);
-  Handle(AIS_InteractiveObject) aCircle  = new AIS_Circle(ahCircle);
+  Handle(GeomCircle)           ahCircle = new GeomCircle(aAx2, 20);
+  Handle(VisualEntity) aCircle  = new AIS_Circle(ahCircle);
   myAISContext->Display(aCircle, Standard_False);
 
-  const Handle(Prs3d_Drawer)& aSelStyle = myAISContext->SelectionStyle();
+  const Handle(StyleDrawer)& aSelStyle = myAISContext->SelectionStyle();
   aSelStyle->SetColor(Quantity_NOC_BLUE1);
 
   myAISContext->AddOrRemoveSelected(aTrihedron, Standard_False);
@@ -158,7 +158,7 @@ static Standard_Integer BUC60814(Draw_Interpretor& di, Standard_Integer argc, co
 
 //=================================================================================================
 
-static Standard_Integer BUC60774(Draw_Interpretor& theDi,
+static Standard_Integer BUC60774(DrawInterpreter& theDi,
                                  Standard_Integer  theArgNb,
                                  const char**      theArgv)
 {
@@ -168,14 +168,14 @@ static Standard_Integer BUC60774(Draw_Interpretor& theDi,
     return -1;
   }
 
-  const Handle(AIS_InteractiveContext)& anAISContext = ViewerTest::GetAISContext();
+  const Handle(VisualContext)& anAISContext = ViewerTest::GetAISContext();
   if (anAISContext.IsNull())
   {
     std::cout << "use 'vinit' command before " << theArgv[0] << "\n";
     return -1;
   }
 
-  const Handle(V3d_View)& aV3dView = ViewerTest::CurrentView();
+  const Handle(ViewWindow)& aV3dView = ViewerTest::CurrentView();
 
   Standard_Integer aWinWidth  = 0;
   Standard_Integer aWinHeight = 0;
@@ -219,9 +219,9 @@ static Standard_Integer BUC60774(Draw_Interpretor& theDi,
   return 0;
 }
 
-static Standard_Integer BUC60972(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer BUC60972(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -234,18 +234,18 @@ static Standard_Integer BUC60972(Draw_Interpretor& di, Standard_Integer argc, co
     return 1;
   }
 
-  TopoDS_Edge        aFirst  = TopoDS::Edge(DBRep::Get(argv[1], TopAbs_EDGE));
-  TopoDS_Edge        aSecond = TopoDS::Edge(DBRep::Get(argv[2], TopAbs_EDGE));
-  Handle(Geom_Plane) aPlane  = Handle(Geom_Plane)::DownCast(DrawTrSurf::GetSurface(argv[3]));
+  TopoEdge        aFirst  = TopoDS::Edge(DBRep1::Get(argv[1], TopAbs_EDGE));
+  TopoEdge        aSecond = TopoDS::Edge(DBRep1::Get(argv[2], TopAbs_EDGE));
+  Handle(GeomPlane) aPlane  = Handle(GeomPlane)::DownCast(DrawTrSurf1::GetSurface(argv[3]));
   if (aPlane.IsNull())
     return 1;
 
   di << aPlane->Pln().SquareDistance(Point3d(0, 0, 0)) << "\n";
 
-  TCollection_ExtendedString aText(argv[5]);
+  UtfString aText(argv[5]);
   // Standard_ExtString ExtString_aText = aText.ToExtString();
-  // di << ExtString_aText << " " << Draw::Atof(argv[4]) << "\n";
-  di << argv[5] << " " << Draw::Atof(argv[4]) << "\n";
+  // di << ExtString_aText << " " << Draw1::Atof(argv[4]) << "\n";
+  di << argv[5] << " " << Draw1::Atof(argv[4]) << "\n";
 
   Handle(PrsDim_AngleDimension) aDim = new PrsDim_AngleDimension(aFirst, aSecond);
   aContext->Display(aDim, Standard_True);
@@ -253,9 +253,9 @@ static Standard_Integer BUC60972(Draw_Interpretor& di, Standard_Integer argc, co
   return 0;
 }
 
-static Standard_Integer OCC218bug(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC218bug(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -268,16 +268,16 @@ static Standard_Integer OCC218bug(Draw_Interpretor& di, Standard_Integer argc, c
     return 1;
   }
 
-  TopoDS_Shape S = DBRep::Get(argv[2]);
+  TopoShape S = DBRep1::Get(argv[2]);
   if (S.IsNull())
   {
     di << "Shape is empty\n";
     return 1;
   }
 
-  TCollection_AsciiString name(argv[1]);
-  TCollection_AsciiString Xlabel(argv[3]);
-  TCollection_AsciiString Ylabel(argv[4]);
+  AsciiString1 name(argv[1]);
+  AsciiString1 Xlabel(argv[3]);
+  AsciiString1 Ylabel(argv[4]);
 
   // Construction de l'AIS_PlaneTrihedron
   Handle(AIS_PlaneTrihedron) theAISPlaneTri;
@@ -286,13 +286,13 @@ static Standard_Integer OCC218bug(Draw_Interpretor& di, Standard_Integer argc, c
   if (IsBound)
   {
     // on recupere la shape dans la map des objets displayes
-    Handle(AIS_InteractiveObject) aShape = GetMapOfAIS().Find2(name);
+    Handle(VisualEntity) aShape = GetMapOfAIS().Find2(name);
 
     // On verifie que l'AIS InteraciveObject est bien
     // un AIS_PlaneTrihedron
     if (aShape->Type() == AIS_KindOfInteractive_Datum && aShape->Signature() == 4)
     {
-      // On downcast aShape de AIS_InteractiveObject a AIS_PlaneTrihedron
+      // On downcast aShape de VisualEntity a AIS_PlaneTrihedron
       theAISPlaneTri = Handle(AIS_PlaneTrihedron)::DownCast(aShape);
 
       theAISPlaneTri->SetXLabel(Xlabel);
@@ -304,13 +304,13 @@ static Standard_Integer OCC218bug(Draw_Interpretor& di, Standard_Integer argc, c
   }
   else
   {
-    TopoDS_Face FaceB = TopoDS::Face(S);
+    TopoFace FaceB = TopoDS::Face(S);
 
     // Construction du Plane
     // recuperation des edges des faces.
-    TopExp_Explorer FaceExpB(FaceB, TopAbs_EDGE);
+    ShapeExplorer FaceExpB(FaceB, TopAbs_EDGE);
 
-    TopoDS_Edge EdgeB = TopoDS::Edge(FaceExpB.Current());
+    TopoEdge EdgeB = TopoDS::Edge(FaceExpB.Current());
     // declarations
     Point3d A, B, C;
 
@@ -318,7 +318,7 @@ static Standard_Integer OCC218bug(Draw_Interpretor& di, Standard_Integer argc, c
     if (FaceExpB.More())
     {
       FaceExpB.Next();
-      TopoDS_Edge       EdgeC = TopoDS::Edge(FaceExpB.Current());
+      TopoEdge       EdgeC = TopoDS::Edge(FaceExpB.Current());
       BRepAdaptor_Curve theCurveB(EdgeB);
       BRepAdaptor_Curve theCurveC(EdgeC);
       A = theCurveC.Value(0.1);
@@ -333,9 +333,9 @@ static Standard_Integer OCC218bug(Draw_Interpretor& di, Standard_Integer argc, c
       B = theCurveB.Value(0.9);
       C = theCurveB.Value(0.5);
     }
-    // Construction du Geom_Plane
+    // Construction du GeomPlane
     GC_MakePlane              MkPlane(A, B, C);
-    const Handle(Geom_Plane)& theGeomPlane = MkPlane.Value();
+    const Handle(GeomPlane)& theGeomPlane = MkPlane.Value();
 
     // on le display & bind
     theAISPlaneTri = new AIS_PlaneTrihedron(theGeomPlane);
@@ -349,7 +349,7 @@ static Standard_Integer OCC218bug(Draw_Interpretor& di, Standard_Integer argc, c
   return 0;
 }
 
-static Standard_Integer OCC295(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC295(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 4)
   {
@@ -357,20 +357,20 @@ static Standard_Integer OCC295(Draw_Interpretor& di, Standard_Integer argc, cons
     return 1;
   }
 
-  TopoDS_Shape Sh1 = DBRep::Get(argv[2]);
-  TopoDS_Shape Sh2 = DBRep::Get(argv[3]);
+  TopoShape Sh1 = DBRep1::Get(argv[2]);
+  TopoShape Sh2 = DBRep1::Get(argv[3]);
   if (Sh1.IsNull() || Sh2.IsNull())
     return 1;
   if (Sh1.ShapeType() != TopAbs_EDGE || Sh2.ShapeType() != TopAbs_EDGE)
     return 1;
-  TopoDS_Edge               e1 = TopoDS::Edge(Sh1);
-  TopoDS_Edge               e2 = TopoDS::Edge(Sh2);
+  TopoEdge               e1 = TopoDS::Edge(Sh1);
+  TopoEdge               e2 = TopoDS::Edge(Sh2);
   Standard_Real             f1, l1, f2, l2;
   Standard_Boolean          After  = Standard_True;
-  Handle(Geom_Curve)        ac1    = BRep_Tool::Curve(e1, f1, l1);
-  Handle(Geom_Curve)        ac2    = BRep_Tool::Curve(e2, f2, l2);
-  Handle(Geom_BSplineCurve) bsplc1 = Handle(Geom_BSplineCurve)::DownCast(ac1);
-  Handle(Geom_BSplineCurve) bsplc2 = Handle(Geom_BSplineCurve)::DownCast(ac2);
+  Handle(GeomCurve3d)        ac1    = BRepInspector::Curve(e1, f1, l1);
+  Handle(GeomCurve3d)        ac2    = BRepInspector::Curve(e2, f2, l2);
+  Handle(BSplineCurve3d) bsplc1 = Handle(BSplineCurve3d)::DownCast(ac1);
+  Handle(BSplineCurve3d) bsplc2 = Handle(BSplineCurve3d)::DownCast(ac2);
   if (bsplc1.IsNull() || bsplc2.IsNull())
     return 1;
   Point3d pmid = 0.5 * (bsplc1->Pole(bsplc1->NbPoles()).XYZ() + bsplc2->Pole(1).XYZ());
@@ -379,18 +379,18 @@ static Standard_Integer OCC295(Draw_Interpretor& di, Standard_Integer argc, cons
   GeomConvert_CompCurveToBSplineCurve connect3d(bsplc1);
   if (!connect3d.Add(bsplc2, Precision::Confusion(), After, Standard_False))
     return 1;
-  BRepBuilderAPI_MakeEdge MkEdge(connect3d.BSplineCurve());
+  EdgeMaker MkEdge(connect3d.BSplineCurve());
   if (MkEdge.IsDone())
   {
-    TopoDS_Edge nedge = MkEdge.Edge();
-    DBRep::Set(argv[1], nedge);
+    TopoEdge nedge = MkEdge.Edge();
+    DBRep1::Set(argv[1], nedge);
     return 0;
   }
   else
     return 1;
 }
 
-static Standard_Integer OCC49(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC49(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
 
   if (argc != 2)
@@ -399,11 +399,11 @@ static Standard_Integer OCC49(Draw_Interpretor& di, Standard_Integer argc, const
     return 1;
   }
 
-  TopoDS_Shape S = DBRep::Get(argv[1]);
+  TopoShape S = DBRep1::Get(argv[1]);
   if (S.IsNull())
     return 0;
 
-  GProp_GProps G;
+  GeometricProperties G;
   BRepGProp::VolumeProperties(S, G);
   GProp_PrincipalProps Pr     = G.PrincipalProperties();
   Standard_Boolean     Result = Pr.HasSymmetryAxis();
@@ -418,7 +418,7 @@ static Standard_Integer OCC49(Draw_Interpretor& di, Standard_Integer argc, const
   return 0;
 }
 
-static Standard_Integer OCC132(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC132(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   /*
      OCC132:
@@ -451,7 +451,7 @@ static Standard_Integer OCC132(Draw_Interpretor& di, Standard_Integer argc, cons
     try
     {
       OCC_CATCH_SIGNALS
-      OSD_Path Path(argv[1], SysType1);
+      SystemPath Path(argv[1], SysType1);
     }
     catch (Standard_ProgramError const&)
     {
@@ -464,7 +464,7 @@ static Standard_Integer OCC132(Draw_Interpretor& di, Standard_Integer argc, cons
     try
     {
       OCC_CATCH_SIGNALS
-      OSD_Path Path(argv[1], SysType2);
+      SystemPath Path(argv[1], SysType2);
     }
     catch (Standard_ProgramError const&)
     {
@@ -477,7 +477,7 @@ static Standard_Integer OCC132(Draw_Interpretor& di, Standard_Integer argc, cons
   return 0;
 }
 
-static Standard_Integer OCC405(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC405(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 4)
   {
@@ -485,18 +485,18 @@ static Standard_Integer OCC405(Draw_Interpretor& di, Standard_Integer argc, cons
     return 1;
   }
 
-  TopoDS_Shape Sh1 = DBRep::Get(argv[2]);
-  TopoDS_Shape Sh2 = DBRep::Get(argv[3]);
+  TopoShape Sh1 = DBRep1::Get(argv[2]);
+  TopoShape Sh2 = DBRep1::Get(argv[3]);
   if (Sh1.IsNull() || Sh2.IsNull())
     return 1;
   if (Sh1.ShapeType() != TopAbs_EDGE || Sh2.ShapeType() != TopAbs_EDGE)
     return 1;
-  TopoDS_Edge        e1 = TopoDS::Edge(Sh1);
-  TopoDS_Edge        e2 = TopoDS::Edge(Sh2);
+  TopoEdge        e1 = TopoDS::Edge(Sh1);
+  TopoEdge        e2 = TopoDS::Edge(Sh2);
   Standard_Real      f1, l1, f2, l2;
   Standard_Boolean   After = Standard_True;
-  Handle(Geom_Curve) ac1   = BRep_Tool::Curve(e1, f1, l1);
-  Handle(Geom_Curve) ac2   = BRep_Tool::Curve(e2, f2, l2);
+  Handle(GeomCurve3d) ac1   = BRepInspector::Curve(e1, f1, l1);
+  Handle(GeomCurve3d) ac2   = BRepInspector::Curve(e2, f2, l2);
   if (e1.Orientation() == TopAbs_REVERSED)
   {
     Standard_Real cf = f1;
@@ -511,21 +511,21 @@ static Standard_Integer OCC405(Draw_Interpretor& di, Standard_Integer argc, cons
     l2               = ac2->ReversedParameter(cf);
     ac2              = ac2->Reversed();
   }
-  Handle(Geom_BSplineCurve) bsplc1 = Handle(Geom_BSplineCurve)::DownCast(ac1);
-  Handle(Geom_BSplineCurve) bsplc2 = Handle(Geom_BSplineCurve)::DownCast(ac2);
+  Handle(BSplineCurve3d) bsplc1 = Handle(BSplineCurve3d)::DownCast(ac1);
+  Handle(BSplineCurve3d) bsplc2 = Handle(BSplineCurve3d)::DownCast(ac2);
   if (bsplc1.IsNull() || bsplc2.IsNull())
     return 1;
   if (bsplc1->FirstParameter() < f1 - Precision::PConfusion()
       || bsplc1->LastParameter() > l1 + Precision::PConfusion())
   {
-    Handle(Geom_BSplineCurve) aBstmp = Handle(Geom_BSplineCurve)::DownCast(bsplc1->Copy());
+    Handle(BSplineCurve3d) aBstmp = Handle(BSplineCurve3d)::DownCast(bsplc1->Copy());
     aBstmp->Segment(f1, l1);
     bsplc1 = aBstmp;
   }
   if (bsplc2->FirstParameter() < f2 - Precision::PConfusion()
       || bsplc2->LastParameter() > l2 + Precision::PConfusion())
   {
-    Handle(Geom_BSplineCurve) aBstmp = Handle(Geom_BSplineCurve)::DownCast(bsplc2->Copy());
+    Handle(BSplineCurve3d) aBstmp = Handle(BSplineCurve3d)::DownCast(bsplc2->Copy());
     aBstmp->Segment(f2, l2);
     bsplc2 = aBstmp;
   }
@@ -535,38 +535,38 @@ static Standard_Integer OCC405(Draw_Interpretor& di, Standard_Integer argc, cons
   GeomConvert_CompCurveToBSplineCurve connect3d(bsplc1);
   if (!connect3d.Add(bsplc2, Precision::Confusion(), After, Standard_False))
     return 1;
-  BRepBuilderAPI_MakeEdge MkEdge(connect3d.BSplineCurve());
+  EdgeMaker MkEdge(connect3d.BSplineCurve());
   if (MkEdge.IsDone())
   {
-    TopoDS_Edge nedge = MkEdge.Edge();
-    DBRep::Set(argv[1], nedge);
+    TopoEdge nedge = MkEdge.Edge();
+    DBRep1::Set(argv[1], nedge);
     return 0;
   }
   else
     return 1;
 }
 
-static Standard_Integer OCC395(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC395(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 4)
   {
     di << "Usage : " << argv[0] << " edge_result edge1 edge2\n";
     return 1;
   }
-  // TCollection_AsciiString fnom(a[1]);
+  // AsciiString1 fnom(a[1]);
   // Standard_Boolean modfic = XSDRAW::FileAndVar(a[1],a[2],a[3],"IGES",fnom,rnom,resnom);
-  TopoDS_Shape Sh1 = DBRep::Get(argv[2]);
-  TopoDS_Shape Sh2 = DBRep::Get(argv[3]);
+  TopoShape Sh1 = DBRep1::Get(argv[2]);
+  TopoShape Sh2 = DBRep1::Get(argv[3]);
   if (Sh1.IsNull() || Sh2.IsNull())
     return 1;
   if (Sh1.ShapeType() != TopAbs_EDGE || Sh2.ShapeType() != TopAbs_EDGE)
     return 1;
-  TopoDS_Edge        e1 = TopoDS::Edge(Sh1);
-  TopoDS_Edge        e2 = TopoDS::Edge(Sh2);
+  TopoEdge        e1 = TopoDS::Edge(Sh1);
+  TopoEdge        e2 = TopoDS::Edge(Sh2);
   Standard_Real      f1, l1, f2, l2;
   Standard_Boolean   After = Standard_True;
-  Handle(Geom_Curve) ac1   = BRep_Tool::Curve(e1, f1, l1);
-  Handle(Geom_Curve) ac2   = BRep_Tool::Curve(e2, f2, l2);
+  Handle(GeomCurve3d) ac1   = BRepInspector::Curve(e1, f1, l1);
+  Handle(GeomCurve3d) ac2   = BRepInspector::Curve(e2, f2, l2);
   if (e1.Orientation() == TopAbs_REVERSED)
   {
     // Standard_Real cf = cf1;
@@ -581,8 +581,8 @@ static Standard_Integer OCC395(Draw_Interpretor& di, Standard_Integer argc, cons
     // ac2 = ac2->ReversedParameter ( cf );
     ac2 = ac2->Reversed();
   }
-  Handle(Geom_BSplineCurve) bsplc1 = Handle(Geom_BSplineCurve)::DownCast(ac1);
-  Handle(Geom_BSplineCurve) bsplc2 = Handle(Geom_BSplineCurve)::DownCast(ac2);
+  Handle(BSplineCurve3d) bsplc1 = Handle(BSplineCurve3d)::DownCast(ac1);
+  Handle(BSplineCurve3d) bsplc2 = Handle(BSplineCurve3d)::DownCast(ac2);
   if (bsplc1.IsNull() || bsplc2.IsNull())
     return 1;
   Point3d pmid = 0.5 * (bsplc1->Pole(bsplc1->NbPoles()).XYZ() + bsplc2->Pole(1).XYZ());
@@ -591,38 +591,38 @@ static Standard_Integer OCC395(Draw_Interpretor& di, Standard_Integer argc, cons
   GeomConvert_CompCurveToBSplineCurve connect3d(bsplc1);
   if (!connect3d.Add(bsplc2, Precision::Confusion(), After, Standard_False))
     return 1;
-  BRepBuilderAPI_MakeEdge MkEdge(connect3d.BSplineCurve());
+  EdgeMaker MkEdge(connect3d.BSplineCurve());
   if (MkEdge.IsDone())
   {
-    TopoDS_Edge nedge = MkEdge.Edge();
-    DBRep::Set(argv[1], nedge);
+    TopoEdge nedge = MkEdge.Edge();
+    DBRep1::Set(argv[1], nedge);
     return 0;
   }
   else
     return 1;
 }
 
-static Standard_Integer OCC394(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC394(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Usage : " << argv[0] << " edge_result edge [tol [mode [tolang]]]\n";
     return 1;
   }
-  TopoDS_Shape Sh = DBRep::Get(argv[2]);
+  TopoShape Sh = DBRep1::Get(argv[2]);
 
   Standard_Integer k      = 3;
   Standard_Real    tol    = 100000;
   Standard_Integer mode   = 2;
   Standard_Real    tolang = M_PI / 2;
   if (argc > k)
-    tol = Draw::Atof(argv[k++]);
+    tol = Draw1::Atof(argv[k++]);
 
   if (argc > k)
-    mode = Draw::Atoi(argv[k++]);
+    mode = Draw1::Atoi(argv[k++]);
 
   if (argc > k)
-    tolang = Draw::Atof(argv[k++]);
+    tolang = Draw1::Atof(argv[k++]);
 
   Handle(ShapeFix_Wireframe) aSfwr    = new ShapeFix_Wireframe();
   Handle(ShapeBuild_ReShape) aReShape = new ShapeBuild_ReShape;
@@ -643,14 +643,14 @@ static Standard_Integer OCC394(Draw_Interpretor& di, Standard_Integer argc, cons
                          aModeDrop,
                          tolang);
   // aSfwr->FixSmallEdges();
-  TopoDS_Shape resShape = aSfwr->Shape();
-  DBRep::Set(argv[1], resShape);
+  TopoShape resShape = aSfwr->Shape();
+  DBRep1::Set(argv[1], resShape);
   return 0;
 }
 
-static Standard_Integer OCC301(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC301(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(AIS_InteractiveContext) context = ViewerTest::GetAISContext();
+  Handle(VisualContext) context = ViewerTest::GetAISContext();
   if (context.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -662,22 +662,22 @@ static Standard_Integer OCC301(Draw_Interpretor& di, Standard_Integer argc, cons
     return 1;
   }
 
-  Standard_Real aRadius     = Draw::Atof(argv[1]);
-  Standard_Real anArrowSize = Draw::Atof(argv[2]);
+  Standard_Real aRadius     = Draw1::Atof(argv[1]);
+  Standard_Real anArrowSize = Draw1::Atof(argv[2]);
 
   Point3d p1 = Point3d(10., 10., 0.);
   Point3d p2 = Point3d(50., 10., 0.);
   Point3d p3 = Point3d(50., 50., 0.);
 
-  TopoDS_Edge E1 = BRepBuilderAPI_MakeEdge(p1, p2);
-  TopoDS_Edge E2 = BRepBuilderAPI_MakeEdge(p2, p3);
+  TopoEdge E1 = EdgeMaker(p1, p2);
+  TopoEdge E2 = EdgeMaker(p2, p3);
 
-  context->Display(new AIS_Shape(E1), Standard_False);
-  context->Display(new AIS_Shape(E2), Standard_True);
+  context->Display(new VisualShape(E1), Standard_False);
+  context->Display(new VisualShape(E2), Standard_True);
 
   Point3d             plnpt(0, 0, 0);
   Dir3d             plndir(0, 0, 1);
-  Handle(Geom_Plane) pln = new Geom_Plane(plnpt, plndir);
+  Handle(GeomPlane) pln = new GeomPlane(plnpt, plndir);
 
   Handle(PrsDim_AngleDimension) anAngleDimension =
     new PrsDim_AngleDimension(p1.Mirrored(p2), p2, p3);
@@ -694,7 +694,7 @@ static Standard_Integer OCC301(Draw_Interpretor& di, Standard_Integer argc, cons
   return 0;
 }
 
-static Standard_Integer OCC261(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC261(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 2)
   {
@@ -702,8 +702,8 @@ static Standard_Integer OCC261(Draw_Interpretor& di, Standard_Integer argc, cons
     return 1;
   }
 
-  Handle(TDocStd_Document) Doc;
-  if (DDocStd::GetDocument(argv[1], Doc))
+  Handle(AppDocument) Doc;
+  if (DDocStd1::GetDocument(argv[1], Doc))
   {
     Doc->ClearRedos();
     return 0;
@@ -714,15 +714,15 @@ static Standard_Integer OCC261(Draw_Interpretor& di, Standard_Integer argc, cons
 
 #include <OSD_File.hxx>
 
-static Standard_Integer OCC710(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC710(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 2)
   {
     di << "Usage : " << argv[0] << " path\n";
   }
 
-  TCollection_AsciiString in(argv[1]);
-  OSD_File*               aFile    = new OSD_File(in);
+  AsciiString1 in(argv[1]);
+  SystemFile*               aFile    = new SystemFile(in);
   Standard_Boolean        anExists = aFile->Exists();
   if (anExists == Standard_True)
     di << "1\n";
@@ -734,26 +734,26 @@ static Standard_Integer OCC710(Draw_Interpretor& di, Standard_Integer argc, cons
 #include <ShapeFix_Shell.hxx>
 #include <AIS_InteractiveObject.hxx>
 
-static Standard_Integer OCC904(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC904(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 4)
   {
     di << "Usage : " << argv[0] << " result shape nonmanifoldmode(0/1)\n";
   }
-  TopoDS_Shape S = DBRep::Get(argv[2]);
+  TopoShape S = DBRep1::Get(argv[2]);
   if (S.IsNull() || S.ShapeType() != TopAbs_SHELL)
   {
     di << " Shape is null\n";
     return 1;
   }
-  Standard_Boolean       nonmanifmode = (Draw::Atoi(argv[3]) != 0);
+  Standard_Boolean       nonmanifmode = (Draw1::Atoi(argv[3]) != 0);
   Handle(ShapeFix_Shell) SFSh         = new ShapeFix_Shell;
   SFSh->FixFaceOrientation(TopoDS::Shell(S), Standard_True, nonmanifmode);
-  DBRep::Set(argv[1], SFSh->Shape());
+  DBRep1::Set(argv[1], SFSh->Shape());
   return 0;
 }
 
-void QABugs::Commands_16(Draw_Interpretor& theCommands)
+void QABugs::Commands_16(DrawInterpreter& theCommands)
 {
   const char* group = "QABugs";
 

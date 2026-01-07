@@ -35,7 +35,7 @@ class IGESDimen_NewGeneralNote;
 DEFINE_STANDARD_HANDLE(IGESDimen_NewGeneralNote, IGESData_IGESEntity)
 
 //! defines NewGeneralNote, Type <213> Form <0>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Further attributes for formatting text strings
 class IGESDimen_NewGeneralNote : public IGESData_IGESEntity
 {

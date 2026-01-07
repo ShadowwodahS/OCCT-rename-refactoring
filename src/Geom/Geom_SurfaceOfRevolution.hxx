@@ -24,7 +24,7 @@
 #include <Geom_SweptSurface.hxx>
 #include <GeomEvaluator_SurfaceOfRevolution.hxx>
 #include <Standard_Integer.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 class Axis3d;
 class Dir3d;
 class Frame3d;
@@ -95,7 +95,7 @@ public:
   //! surface axis is in the plane of the curve.
   //! It is not checked that the revolved curve C doesn't
   //! self-intersects.
-  Standard_EXPORT Geom_SurfaceOfRevolution(const Handle(Geom_Curve)& C, const Axis3d& A1);
+  Standard_EXPORT Geom_SurfaceOfRevolution(const Handle(GeomCurve3d)& C, const Axis3d& A1);
 
   //! Changes the axis of revolution.
   //! Warnings :
@@ -115,7 +115,7 @@ public:
   //! surface axis is in the plane of the curve.
   //! It is not checked that the revolved curve C doesn't
   //! self-intersects.
-  Standard_EXPORT void SetBasisCurve(const Handle(Geom_Curve)& C);
+  Standard_EXPORT void SetBasisCurve(const Handle(GeomCurve3d)& C);
 
   //! Changes the location point of the revolution axis.
   //! Warnings :
@@ -246,12 +246,12 @@ public:
   //! Computes the U isoparametric curve of this surface
   //! of revolution. It is the curve obtained by rotating the
   //! meridian through an angle U about the axis of revolution.
-  Standard_EXPORT Handle(Geom_Curve) UIso(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) UIso(const Standard_Real U) const Standard_OVERRIDE;
 
   //! Computes the U isoparametric curve of this surface
   //! of revolution. It is the curve obtained by rotating the
   //! meridian through an angle U about the axis of revolution.
-  Standard_EXPORT Handle(Geom_Curve) VIso(const Standard_Real V) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) VIso(const Standard_Real V) const Standard_OVERRIDE;
 
   //! Computes the  point P (U, V) on the surface.
   //! U is the angle of the rotation around the revolution axis.

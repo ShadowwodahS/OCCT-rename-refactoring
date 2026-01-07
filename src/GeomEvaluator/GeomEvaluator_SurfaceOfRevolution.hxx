@@ -27,7 +27,7 @@ class GeomEvaluator_SurfaceOfRevolution : public GeomEvaluator_Surface
 {
 public:
   //! Initialize evaluator by revolved curve, the axis of revolution and the location
-  Standard_EXPORT GeomEvaluator_SurfaceOfRevolution(const Handle(Geom_Curve)& theBase,
+  Standard_EXPORT GeomEvaluator_SurfaceOfRevolution(const Handle(GeomCurve3d)& theBase,
                                                     const Dir3d&             theRevolDir,
                                                     const Point3d&             theRevolLoc);
   //! Initialize evaluator by adaptor of the revolved curve, the axis of revolution and the location
@@ -89,7 +89,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(GeomEvaluator_SurfaceOfRevolution, GeomEvaluator_Surface)
 
 private:
-  Handle(Geom_Curve)      myBaseCurve;
+  Handle(GeomCurve3d)      myBaseCurve;
   Handle(Adaptor3d_Curve) myBaseAdaptor;
   Axis3d                  myRotAxis;
 };

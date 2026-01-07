@@ -33,26 +33,26 @@ class Geom2d_Vector;
 //! Vector from Geom, Geom2d and Vec, Vec2d from gp, and the class
 //! Vector from StepGeom which describes a Vector from
 //! Prostep.
-class GeomToStep_MakeVector : public GeomToStep_Root
+class GeomToStep_MakeVector : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeVector(
     const Vector3d&           V,
-    const StepData_Factors& theLocalFactors = StepData_Factors());
+    const ConversionFactors& theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeVector(
     const gp_Vec2d&         V,
-    const StepData_Factors& theLocalFactors = StepData_Factors());
+    const ConversionFactors& theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeVector(
     const Handle(Geom_Vector)& V,
-    const StepData_Factors&    theLocalFactors = StepData_Factors());
+    const ConversionFactors&    theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeVector(
     const Handle(Geom2d_Vector)& V,
-    const StepData_Factors&      theLocalFactors = StepData_Factors());
+    const ConversionFactors&      theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_Vector)& Value() const;
 

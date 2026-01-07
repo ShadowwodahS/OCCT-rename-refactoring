@@ -109,7 +109,7 @@ public:
   Standard_Real ScaleFactor() const { return scale; }
 
   //! Returns the translation part of the transformation's matrix
-  const gp_XY& TranslationPart() const { return loc; }
+  const Coords2d& TranslationPart() const { return loc; }
 
   //! Returns the vectorial part of the transformation. It is a
   //! 2*2 matrix which includes the scale factor.
@@ -181,7 +181,7 @@ public:
   void Transforms(Standard_Real& theX, Standard_Real& theY) const;
 
   //! Transforms  a doublet XY with a Trsf2d
-  void Transforms(gp_XY& theCoord) const;
+  void Transforms(Coords2d& theCoord) const;
 
   //! Sets the coefficients  of the transformation. The
   //! transformation  of the  point  x,y is  the point
@@ -210,7 +210,7 @@ private:
   Standard_Real scale;
   gp_TrsfForm   shape;
   gp_Mat2d      matrix;
-  gp_XY         loc;
+  Coords2d         loc;
 };
 
 #include <gp_Trsf.hxx>
@@ -333,7 +333,7 @@ inline Standard_Real gp_Trsf2d::Value(const Standard_Integer theRow,
 //=======================================================================
 inline void gp_Trsf2d::Transforms(Standard_Real& theX, Standard_Real& theY) const
 {
-  gp_XY aDoublet(theX, theY);
+  Coords2d aDoublet(theX, theY);
   aDoublet.Multiply(matrix);
   if (scale != 1.0)
   {
@@ -347,7 +347,7 @@ inline void gp_Trsf2d::Transforms(Standard_Real& theX, Standard_Real& theY) cons
 // function : Transforms
 // purpose :
 //=======================================================================
-inline void gp_Trsf2d::Transforms(gp_XY& theCoord) const
+inline void gp_Trsf2d::Transforms(Coords2d& theCoord) const
 {
   theCoord.Multiply(matrix);
   if (scale != 1.0)

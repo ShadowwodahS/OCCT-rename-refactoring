@@ -25,7 +25,7 @@
 
 #include <algorithm>
 
-class TDF_Label;
+class DataLabel;
 
 //! Auxiliary class to iterate through vertices.
 //! Provides functionality to iterate through the vertices of a shape.
@@ -39,7 +39,7 @@ public:
   //! @param[in] theLocation The location of the shape.
   //! @param[in] theToMapColors Flag to indicate if colors should be mapped.
   //! @param[in] theStyle The style of the shape.
-  Standard_EXPORT RWMesh_VertexIterator(const TDF_Label&       theLabel,
+  Standard_EXPORT RWMesh_VertexIterator(const DataLabel&       theLabel,
                                         const TopLoc_Location& theLocation,
                                         const Standard_Boolean theToMapColors = false,
                                         const XCAFPrs_Style&   theStyle       = XCAFPrs_Style());
@@ -47,7 +47,7 @@ public:
   //! Auxiliary constructor.
   //! @param[in] theShape The shape to iterate.
   //! @param[in] theStyle The style of the shape.
-  Standard_EXPORT RWMesh_VertexIterator(const TopoDS_Shape&  theShape,
+  Standard_EXPORT RWMesh_VertexIterator(const TopoShape&  theShape,
                                         const XCAFPrs_Style& theStyle = XCAFPrs_Style());
 
   //! Return true if iterator points to the valid triangulation.
@@ -57,10 +57,10 @@ public:
   Standard_EXPORT void Next() Standard_OVERRIDE;
 
   //! Return current edge.
-  const TopoDS_Vertex& Vertex() const { return myVertex; }
+  const TopoVertex& Vertex() const { return myVertex; }
 
   //! Return current vertex.
-  const TopoDS_Shape& Shape() const Standard_OVERRIDE { return myVertex; }
+  const TopoShape& Shape() const Standard_OVERRIDE { return myVertex; }
 
   //! Return current vertex data.
   const Point3d& Point() const { return myPoint; }
@@ -101,7 +101,7 @@ private:
   void initVertex();
 
 private:
-  TopoDS_Vertex myVertex; //!< current vertex
+  TopoVertex myVertex; //!< current vertex
   Point3d        myPoint;  //!< geometry of current vertex
 };
 

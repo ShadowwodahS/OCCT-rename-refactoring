@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <Standard_Real.hxx>
 class IGESGeom_SplineCurve;
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 class Geom2d_BSplineCurve;
 class IGESGeom_SplineSurface;
 class Geom_BSplineSurface;
@@ -34,12 +34,12 @@ class Geom_BSplineSurface;
 //! mainly, standard conversion to and from CasCade geometric and
 //! topologic data, and adaptations of IGES files as required
 //! (as replacing Spline entities to BSpline equivalents).
-class IGESConvGeom
+class IGESConvGeom1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! basic tool to build curves from IGESGeom (arrays of points,
+  //! basic tool to build curves from IGESGeom1 (arrays of points,
   //! Transformations, evaluation of points in a datum)
   //! Converts a SplineCurve from IGES to a BSplineCurve from CasCade
   //! <epscoef> gives tolerance to consider coefficient to be nul
@@ -57,7 +57,7 @@ public:
     const Handle(IGESGeom_SplineCurve)& igesent,
     const Standard_Real                 epscoef,
     const Standard_Real                 epsgeom,
-    Handle(Geom_BSplineCurve)&          result);
+    Handle(BSplineCurve3d)&          result);
 
   //! Tries to increase curve continuity with tolerance <epsgeom>
   //! <continuity> is the new desired continuity, can be 1 or 2
@@ -66,7 +66,7 @@ public:
   //! Remark that, for instance with <continuity> = 2, even if not
   //! all the knots can be passed to C2, all knots which can be are.
   Standard_EXPORT static Standard_Integer IncreaseCurveContinuity(
-    const Handle(Geom_BSplineCurve)& curve,
+    const Handle(BSplineCurve3d)& curve,
     const Standard_Real              epsgeom,
     const Standard_Integer           continuity = 2);
 

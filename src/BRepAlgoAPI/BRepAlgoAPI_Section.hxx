@@ -23,10 +23,10 @@
 
 #include <Standard_Boolean.hxx>
 #include <BRepAlgoAPI_BooleanOperation.hxx>
-class BOPAlgo_PaveFiller;
-class TopoDS_Shape;
+class BooleanPaveFiller;
+class TopoShape;
 class gp_Pln;
-class Geom_Surface;
+class GeomSurface;
 
 //! The algorithm is to build a Section operation between arguments and tools.
 //! The result of Section operation consists of vertices and edges.
@@ -46,7 +46,7 @@ public:
 
   //! Empty constructor
   //! <PF> - PaveFiller object that is carried out
-  Standard_EXPORT BRepAlgoAPI_Section(const BOPAlgo_PaveFiller& PF);
+  Standard_EXPORT BRepAlgoAPI_Section(const BooleanPaveFiller& PF);
 
   //! Constructor with two shapes
   //! <S1>  -argument
@@ -54,8 +54,8 @@ public:
   //! <PerformNow> - the flag:
   //! if <PerformNow>=True - the algorithm is performed immediately
   //! Obsolete
-  Standard_EXPORT BRepAlgoAPI_Section(const TopoDS_Shape&    S1,
-                                      const TopoDS_Shape&    S2,
+  Standard_EXPORT BRepAlgoAPI_Section(const TopoShape&    S1,
+                                      const TopoShape&    S2,
                                       const Standard_Boolean PerformNow = Standard_True);
 
   //! Constructor with two shapes
@@ -65,9 +65,9 @@ public:
   //! <PerformNow> - the flag:
   //! if <PerformNow>=True - the algorithm is performed immediately
   //! Obsolete
-  Standard_EXPORT BRepAlgoAPI_Section(const TopoDS_Shape&       S1,
-                                      const TopoDS_Shape&       S2,
-                                      const BOPAlgo_PaveFiller& aDSF,
+  Standard_EXPORT BRepAlgoAPI_Section(const TopoShape&       S1,
+                                      const TopoShape&       S2,
+                                      const BooleanPaveFiller& aDSF,
                                       const Standard_Boolean    PerformNow = Standard_True);
 
   //! Constructor with two shapes
@@ -76,7 +76,7 @@ public:
   //! <PerformNow> - the flag:
   //! if <PerformNow>=True - the algorithm is performed immediately
   //! Obsolete
-  Standard_EXPORT BRepAlgoAPI_Section(const TopoDS_Shape&    S1,
+  Standard_EXPORT BRepAlgoAPI_Section(const TopoShape&    S1,
                                       const gp_Pln&          Pl,
                                       const Standard_Boolean PerformNow = Standard_True);
 
@@ -86,8 +86,8 @@ public:
   //! <PerformNow> - the flag:
   //! if <PerformNow>=True - the algorithm is performed immediately
   //! Obsolete
-  Standard_EXPORT BRepAlgoAPI_Section(const TopoDS_Shape&         S1,
-                                      const Handle(Geom_Surface)& Sf,
+  Standard_EXPORT BRepAlgoAPI_Section(const TopoShape&         S1,
+                                      const Handle(GeomSurface)& Sf,
                                       const Standard_Boolean      PerformNow = Standard_True);
 
   //! Constructor with two shapes
@@ -96,8 +96,8 @@ public:
   //! <PerformNow> - the flag:
   //! if <PerformNow>=True - the algorithm is performed immediately
   //! Obsolete
-  Standard_EXPORT BRepAlgoAPI_Section(const Handle(Geom_Surface)& Sf,
-                                      const TopoDS_Shape&         S2,
+  Standard_EXPORT BRepAlgoAPI_Section(const Handle(GeomSurface)& Sf,
+                                      const TopoShape&         S2,
                                       const Standard_Boolean      PerformNow = Standard_True);
 
   //! Constructor with two shapes
@@ -106,14 +106,14 @@ public:
   //! <PerformNow> - the flag:
   //! if <PerformNow>=True - the algorithm is performed immediately
   //! Obsolete
-  Standard_EXPORT BRepAlgoAPI_Section(const Handle(Geom_Surface)& Sf1,
-                                      const Handle(Geom_Surface)& Sf2,
+  Standard_EXPORT BRepAlgoAPI_Section(const Handle(GeomSurface)& Sf1,
+                                      const Handle(GeomSurface)& Sf2,
                                       const Standard_Boolean      PerformNow = Standard_True);
 
   //! initialize the argument
   //! <S1>  - argument
   //! Obsolete
-  Standard_EXPORT void Init1(const TopoDS_Shape& S1);
+  Standard_EXPORT void Init1(const TopoShape& S1);
 
   //! initialize the argument
   //! <Pl>  - argument
@@ -123,12 +123,12 @@ public:
   //! initialize the argument
   //! <Sf>  - argument
   //! Obsolete
-  Standard_EXPORT void Init1(const Handle(Geom_Surface)& Sf);
+  Standard_EXPORT void Init1(const Handle(GeomSurface)& Sf);
 
   //! initialize the tool
   //! <S2>  - tool
   //! Obsolete
-  Standard_EXPORT void Init2(const TopoDS_Shape& S2);
+  Standard_EXPORT void Init2(const TopoShape& S2);
 
   //! initialize the tool
   //! <Pl>  - tool
@@ -138,7 +138,7 @@ public:
   //! initialize the tool
   //! <Sf>  - tool
   //! Obsolete
-  Standard_EXPORT void Init2(const Handle(Geom_Surface)& Sf);
+  Standard_EXPORT void Init2(const Handle(GeomSurface)& Sf);
 
   Standard_EXPORT void Approximation(const Standard_Boolean B);
 
@@ -176,7 +176,7 @@ public:
   //! is not the result of common edges)
   //! When False, F remains untouched.
   //! Obsolete
-  Standard_EXPORT Standard_Boolean HasAncestorFaceOn1(const TopoDS_Shape& E, TopoDS_Shape& F) const;
+  Standard_EXPORT Standard_Boolean HasAncestorFaceOn1(const TopoShape& E, TopoShape& F) const;
 
   //! Identifies the ancestor faces of
   //! the intersection edge E resulting from the last
@@ -197,7 +197,7 @@ public:
   //! Boolean value before using the ancestor face: F is significant
   //! only if the returned Boolean value equals true.
   //! Obsolete
-  Standard_EXPORT Standard_Boolean HasAncestorFaceOn2(const TopoDS_Shape& E, TopoDS_Shape& F) const;
+  Standard_EXPORT Standard_Boolean HasAncestorFaceOn2(const TopoShape& E, TopoShape& F) const;
 
 protected:
   Standard_EXPORT void Init(const Standard_Boolean PerformNow);

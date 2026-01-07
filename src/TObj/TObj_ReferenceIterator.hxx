@@ -34,7 +34,7 @@ public:
 
   //! Creates the iterator on references in partition
   //! theType narrows a variety of iterated objects
-  Standard_EXPORT TObj_ReferenceIterator(const TDF_Label&             theLabel,
+  Standard_EXPORT TObj_ReferenceIterator(const DataLabel&             theLabel,
                                          const Handle(TypeInfo)& theType      = NULL,
                                          const Standard_Boolean       theRecursive = Standard_True);
 

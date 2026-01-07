@@ -50,9 +50,9 @@ Standard_Boolean StepData_ReadWriteModule::IsComplex(const Standard_Integer) con
   return Standard_False;
 } // par defaut
 
-TCollection_AsciiString StepData_ReadWriteModule::ShortType(const Standard_Integer) const
+AsciiString1 StepData_ReadWriteModule::ShortType(const Standard_Integer) const
 {
-  return TCollection_AsciiString("");
+  return AsciiString1("");
 } // par defaut vide
 
 Standard_Boolean StepData_ReadWriteModule::ComplexType(const Standard_Integer,

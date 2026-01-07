@@ -50,7 +50,7 @@
 //=================================================================================================
 
 BinTools_ShapeSet::BinTools_ShapeSet()
-    : BinTools_ShapeSetBase()
+    : ShapeSetBase()
 {
 }
 
@@ -75,12 +75,12 @@ void BinTools_ShapeSet::Clear()
 
 //=================================================================================================
 
-Standard_Integer BinTools_ShapeSet::Add(const TopoDS_Shape& theShape)
+Standard_Integer BinTools_ShapeSet::Add(const TopoShape& theShape)
 {
   if (theShape.IsNull())
     return 0;
   myLocations.Add(theShape.Location());
-  TopoDS_Shape aS2 = theShape;
+  TopoShape aS2 = theShape;
   aS2.Location(TopLoc_Location());
   Standard_Integer anIndex = myShapes.FindIndex(aS2);
   if (anIndex == 0)
@@ -95,35 +95,35 @@ Standard_Integer BinTools_ShapeSet::Add(const TopoDS_Shape& theShape)
 
 //=================================================================================================
 
-const TopoDS_Shape& BinTools_ShapeSet::Shape(const Standard_Integer theIndx)
+const TopoShape& BinTools_ShapeSet::Shape(const Standard_Integer theIndx)
 {
   return myShapes(theIndx);
 }
 
 //=================================================================================================
 
-Standard_Integer BinTools_ShapeSet::Index(const TopoDS_Shape& theShape) const
+Standard_Integer BinTools_ShapeSet::Index(const TopoShape& theShape) const
 {
   return myShapes.FindIndex(theShape);
 }
 
 //=================================================================================================
 
-const BinTools_LocationSet& BinTools_ShapeSet::Locations() const
+const LocationBinarySet& BinTools_ShapeSet::Locations() const
 {
   return myLocations;
 }
 
 //=================================================================================================
 
-BinTools_LocationSet& BinTools_ShapeSet::ChangeLocations()
+LocationBinarySet& BinTools_ShapeSet::ChangeLocations()
 {
   return myLocations;
 }
 
 //=================================================================================================
 
-void BinTools_ShapeSet::AddShape(const TopoDS_Shape& S)
+void BinTools_ShapeSet::AddShape(const TopoShape& S)
 {
   // Add the geometry
 
@@ -243,7 +243,7 @@ void BinTools_ShapeSet::AddShape(const TopoDS_Shape& S)
     }
     if (IsWithTriangles() || TF->Surface().IsNull())
     {
-      Handle(Poly_Triangulation) Tr = TF->Triangulation();
+      Handle(MeshTriangulation) Tr = TF->Triangulation();
       if (!Tr.IsNull())
         myTriangulations.Add(Tr, needNormals);
     }
@@ -311,7 +311,7 @@ void BinTools_ShapeSet::Write(Standard_OStream& OS, const Message_ProgressRange&
   for (i = 1; i <= nbShapes && aPSinner.More(); i++, aPSinner.Next())
   {
 
-    const TopoDS_Shape& S = myShapes(i);
+    const TopoShape& S = myShapes(i);
 
     // Type
     OS << (Standard_Byte)S.ShapeType();
@@ -320,13 +320,13 @@ void BinTools_ShapeSet::Write(Standard_OStream& OS, const Message_ProgressRange&
     WriteShape(S, OS);
 
     // Flags
-    BinTools::PutBool(OS, S.Free() ? 1 : 0);
-    BinTools::PutBool(OS, S.Modified() ? 1 : 0);
-    BinTools::PutBool(OS, S.Checked() ? 1 : 0);
-    BinTools::PutBool(OS, S.Orientable() ? 1 : 0);
-    BinTools::PutBool(OS, S.Closed() ? 1 : 0);
-    BinTools::PutBool(OS, S.Infinite() ? 1 : 0);
-    BinTools::PutBool(OS, S.Convex() ? 1 : 0);
+    BinTools1::PutBool(OS, S.Free() ? 1 : 0);
+    BinTools1::PutBool(OS, S.Modified() ? 1 : 0);
+    BinTools1::PutBool(OS, S.Checked() ? 1 : 0);
+    BinTools1::PutBool(OS, S.Orientable() ? 1 : 0);
+    BinTools1::PutBool(OS, S.Closed() ? 1 : 0);
+    BinTools1::PutBool(OS, S.Infinite() ? 1 : 0);
+    BinTools1::PutBool(OS, S.Convex() ? 1 : 0);
 
     // sub-shapes
 
@@ -336,7 +336,7 @@ void BinTools_ShapeSet::Write(Standard_OStream& OS, const Message_ProgressRange&
       Write(its.Value(), OS);
       its.Next();
     }
-    Write(TopoDS_Shape(), OS); // Null shape to end the list
+    Write(TopoShape(), OS); // Null shape to end the list
   }
 }
 
@@ -412,7 +412,7 @@ void BinTools_ShapeSet::Read(Standard_IStream& IS, const Message_ProgressRange& 
   Message_ProgressScope aPSinner(aPSouter.Next(), "Reading Shapes", nbShapes);
   for (int i = 1; i <= nbShapes && aPSinner.More(); i++, aPSinner.Next())
   {
-    TopoDS_Shape     S;
+    TopoShape     S;
     TopAbs_ShapeEnum T = (TopAbs_ShapeEnum)IS.get();
     ReadShape(T, IS, S);
     ReadFlagsAndSubs(S, T, IS, nbShapes);
@@ -422,7 +422,7 @@ void BinTools_ShapeSet::Read(Standard_IStream& IS, const Message_ProgressRange& 
 
 //=================================================================================================
 
-void BinTools_ShapeSet::Write(const TopoDS_Shape& S, Standard_OStream& OS)
+void BinTools_ShapeSet::Write(const TopoShape& S, Standard_OStream& OS)
 {
   if (S.IsNull())
 
@@ -431,31 +431,31 @@ void BinTools_ShapeSet::Write(const TopoDS_Shape& S, Standard_OStream& OS)
   {
     // {TopAbs_FORWARD, TopAbs_REVERSED, TopAbs_INTERNAL, TopAbs_EXTERNAL}
     OS << (Standard_Byte)S.Orientation();
-    BinTools::PutInteger(OS,
+    BinTools1::PutInteger(OS,
                          myShapes.Extent() - myShapes.FindIndex(S.Located(TopLoc_Location())) + 1);
-    BinTools::PutInteger(OS, Locations().Index(S.Location()));
+    BinTools1::PutInteger(OS, Locations().Index(S.Location()));
   }
 }
 
 //=================================================================================================
 
-void BinTools_ShapeSet::ReadFlagsAndSubs(TopoDS_Shape&          S,
+void BinTools_ShapeSet::ReadFlagsAndSubs(TopoShape&          S,
                                          const TopAbs_ShapeEnum T,
                                          Standard_IStream&      IS,
                                          const Standard_Integer nbShapes)
 {
   // Set the flags
   Standard_Boolean aFree, aMod, aChecked, anOrient, aClosed, anInf, aConv;
-  BinTools::GetBool(IS, aFree);
-  BinTools::GetBool(IS, aMod);
-  BinTools::GetBool(IS, aChecked);
-  BinTools::GetBool(IS, anOrient);
-  BinTools::GetBool(IS, aClosed);
-  BinTools::GetBool(IS, anInf);
-  BinTools::GetBool(IS, aConv);
+  BinTools1::GetBool(IS, aFree);
+  BinTools1::GetBool(IS, aMod);
+  BinTools1::GetBool(IS, aChecked);
+  BinTools1::GetBool(IS, anOrient);
+  BinTools1::GetBool(IS, aClosed);
+  BinTools1::GetBool(IS, anInf);
+  BinTools1::GetBool(IS, aConv);
 
   // sub-shapes
-  TopoDS_Shape SS;
+  TopoShape SS;
   do
   {
     ReadSubs(SS, IS, nbShapes);
@@ -479,32 +479,32 @@ void BinTools_ShapeSet::ReadFlagsAndSubs(TopoDS_Shape&          S,
   if (FormatNb() == BinTools_FormatVersion_VERSION_1)
     if (T == TopAbs_FACE)
     {
-      const TopoDS_Face& F = TopoDS::Face(S);
-      BRepTools::Update(F);
+      const TopoFace& F = TopoDS::Face(S);
+      BRepTools1::Update(F);
     }
 }
 
 //=================================================================================================
 
-void BinTools_ShapeSet::ReadSubs(TopoDS_Shape&          S,
+void BinTools_ShapeSet::ReadSubs(TopoShape&          S,
                                  Standard_IStream&      IS,
                                  const Standard_Integer nbshapes)
 {
   Standard_Character aChar = '\0';
   IS >> aChar;
   if (aChar == '*')
-    S = TopoDS_Shape();
+    S = TopoShape();
   else
   {
     TopAbs_Orientation anOrient;
     anOrient = (TopAbs_Orientation)aChar;
     Standard_Integer anIndx;
-    BinTools::GetInteger(IS, anIndx);
+    BinTools1::GetInteger(IS, anIndx);
     S = Shape(nbshapes - anIndx + 1);
     S.Orientation(anOrient);
 
     Standard_Integer l;
-    BinTools::GetInteger(IS, l);
+    BinTools1::GetInteger(IS, l);
     S.Location(myLocations.Location(l), Standard_False);
   }
 }
@@ -540,7 +540,7 @@ void BinTools_ShapeSet::ReadGeometry(Standard_IStream& IS, const Message_Progres
 
 //=================================================================================================
 
-void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) const
+void BinTools_ShapeSet::WriteShape(const TopoShape& S, Standard_OStream& OS) const
 {
   // Write the geometry
   try
@@ -550,9 +550,9 @@ void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) 
     {
 
       // Write the point geometry
-      TopoDS_Vertex V = TopoDS::Vertex(S);
-      BinTools::PutReal(OS, BRep_Tool::Tolerance(V));
-      Point3d p = BRep_Tool::Pnt(V);
+      TopoVertex V = TopoDS::Vertex(S);
+      BinTools1::PutReal(OS, BRepInspector::Tolerance(V));
+      Point3d p = BRepInspector::Pnt(V);
       OS << p;
 #ifdef OCCT_DEBUG_POS
       std::streamoff aPos;
@@ -562,15 +562,15 @@ void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) 
       while (itrp.More())
       {
         const Handle(BRep_PointRepresentation)& PR = itrp.Value();
-        //	BinTools::PutReal(OS, PR->Parameter());
+        //	BinTools1::PutReal(OS, PR->Parameter());
         if (PR->IsPointOnCurve())
         {
 #ifdef OCCT_DEBUG_POS
           aPos = OS.tellp();
 #endif
           OS << (Standard_Byte)1; // 1
-          BinTools::PutReal(OS, PR->Parameter());
-          BinTools::PutInteger(OS, myCurves.Index(PR->Curve()));
+          BinTools1::PutReal(OS, PR->Parameter());
+          BinTools1::PutInteger(OS, myCurves.Index(PR->Curve()));
         }
 
         else if (PR->IsPointOnCurveOnSurface())
@@ -579,9 +579,9 @@ void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) 
           aPos = OS.tellp();
 #endif
           OS << (Standard_Byte)2; // 2
-          BinTools::PutReal(OS, PR->Parameter());
-          BinTools::PutInteger(OS, myCurves2d.Index(PR->PCurve()));
-          BinTools::PutInteger(OS, mySurfaces.Index(PR->Surface()));
+          BinTools1::PutReal(OS, PR->Parameter());
+          BinTools1::PutInteger(OS, myCurves2d.Index(PR->PCurve()));
+          BinTools1::PutInteger(OS, mySurfaces.Index(PR->Surface()));
         }
 
         else if (PR->IsPointOnSurface())
@@ -590,11 +590,11 @@ void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) 
           aPos = OS.tellp();
 #endif
           OS << (Standard_Byte)3; // 3
-          BinTools::PutReal(OS, PR->Parameter2());
-          BinTools::PutReal(OS, PR->Parameter());
-          BinTools::PutInteger(OS, mySurfaces.Index(PR->Surface()));
+          BinTools1::PutReal(OS, PR->Parameter2());
+          BinTools1::PutReal(OS, PR->Parameter());
+          BinTools1::PutInteger(OS, mySurfaces.Index(PR->Surface()));
         }
-        BinTools::PutInteger(OS, Locations().Index(PR->Location()));
+        BinTools1::PutInteger(OS, Locations().Index(PR->Location()));
         itrp.Next();
       }
 
@@ -609,14 +609,14 @@ void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) 
 
       Handle(BRep_TEdge) TE = Handle(BRep_TEdge)::DownCast(S.TShape());
 
-      BinTools::PutReal(OS, TE->Tolerance());
+      BinTools1::PutReal(OS, TE->Tolerance());
 
       Standard_Boolean aVal = (TE->SameParameter()) ? Standard_True : Standard_False;
-      BinTools::PutBool(OS, aVal);
+      BinTools1::PutBool(OS, aVal);
       aVal = (TE->SameRange()) ? Standard_True : Standard_False;
-      BinTools::PutBool(OS, aVal);
+      BinTools1::PutBool(OS, aVal);
       aVal = (TE->Degenerated()) ? Standard_True : Standard_False;
-      BinTools::PutBool(OS, aVal);
+      BinTools1::PutBool(OS, aVal);
 
       Standard_Real                                first, last;
       BRep_ListIteratorOfListOfCurveRepresentation itrc = TE->Curves();
@@ -630,10 +630,10 @@ void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) 
             Handle(BRep_GCurve) GC = Handle(BRep_GCurve)::DownCast(itrc.Value());
             GC->Range(first, last);
             OS << (Standard_Byte)1; // CURVE_3D;
-            BinTools::PutInteger(OS, myCurves.Index(CR->Curve3D()));
-            BinTools::PutInteger(OS, Locations().Index(CR->Location()));
-            BinTools::PutReal(OS, first);
-            BinTools::PutReal(OS, last);
+            BinTools1::PutInteger(OS, myCurves.Index(CR->Curve3D()));
+            BinTools1::PutInteger(OS, Locations().Index(CR->Location()));
+            BinTools1::PutReal(OS, first);
+            BinTools1::PutReal(OS, last);
           }
         }
         else if (CR->IsCurveOnSurface())
@@ -646,16 +646,16 @@ void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) 
           else
             // -3- Curve on closed surf
             OS << (Standard_Byte)3;
-          BinTools::PutInteger(OS, myCurves2d.Index(CR->PCurve()));
+          BinTools1::PutInteger(OS, myCurves2d.Index(CR->PCurve()));
           if (CR->IsCurveOnClosedSurface())
           { //+ int|char
-            BinTools::PutInteger(OS, myCurves2d.Index(CR->PCurve2()));
+            BinTools1::PutInteger(OS, myCurves2d.Index(CR->PCurve2()));
             OS << (Standard_Byte)CR->Continuity();
           }
-          BinTools::PutInteger(OS, mySurfaces.Index(CR->Surface()));
-          BinTools::PutInteger(OS, Locations().Index(CR->Location()));
-          BinTools::PutReal(OS, first);
-          BinTools::PutReal(OS, last);
+          BinTools1::PutInteger(OS, mySurfaces.Index(CR->Surface()));
+          BinTools1::PutInteger(OS, Locations().Index(CR->Location()));
+          BinTools1::PutReal(OS, first);
+          BinTools1::PutReal(OS, last);
 
           // Write UV Points for higher performance
           if (FormatNb() == BinTools_FormatVersion_VERSION_2
@@ -673,10 +673,10 @@ void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) 
               Handle(BRep_CurveOnSurface) COS = Handle(BRep_CurveOnSurface)::DownCast(CR);
               COS->UVPoints(Pf, Pl);
             }
-            BinTools::PutReal(OS, Pf.X());
-            BinTools::PutReal(OS, Pf.Y());
-            BinTools::PutReal(OS, Pl.X());
-            BinTools::PutReal(OS, Pl.Y());
+            BinTools1::PutReal(OS, Pf.X());
+            BinTools1::PutReal(OS, Pf.Y());
+            BinTools1::PutReal(OS, Pl.X());
+            BinTools1::PutReal(OS, Pl.Y());
           }
         }
         else if (CR->IsRegularity())
@@ -684,10 +684,10 @@ void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) 
           // -4- Regularity
           OS << (Standard_Byte)4;
           OS << (Standard_Byte)CR->Continuity();
-          BinTools::PutInteger(OS, mySurfaces.Index(CR->Surface()));
-          BinTools::PutInteger(OS, Locations().Index(CR->Location()));
-          BinTools::PutInteger(OS, mySurfaces.Index(CR->Surface2()));
-          BinTools::PutInteger(OS, Locations().Index(CR->Location2()));
+          BinTools1::PutInteger(OS, mySurfaces.Index(CR->Surface()));
+          BinTools1::PutInteger(OS, Locations().Index(CR->Location()));
+          BinTools1::PutInteger(OS, mySurfaces.Index(CR->Surface2()));
+          BinTools1::PutInteger(OS, Locations().Index(CR->Location2()));
         }
 
         else if (IsWithTriangles())
@@ -699,8 +699,8 @@ void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) 
             {
               // -5- Polygon3D
               OS << (Standard_Byte)5;
-              BinTools::PutInteger(OS, myPolygons3D.FindIndex(CR->Polygon3D()));
-              BinTools::PutInteger(OS, Locations().Index(CR->Location()));
+              BinTools1::PutInteger(OS, myPolygons3D.FindIndex(CR->Polygon3D()));
+              BinTools1::PutInteger(OS, Locations().Index(CR->Location()));
             }
           }
           else if (CR->IsPolygonOnTriangulation())
@@ -713,14 +713,14 @@ void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) 
             else
               // -7- Polygon on closed triangulation
               OS << (Standard_Byte)7;
-            BinTools::PutInteger(OS, myNodes.FindIndex(PT->PolygonOnTriangulation()));
+            BinTools1::PutInteger(OS, myNodes.FindIndex(PT->PolygonOnTriangulation()));
 
             if (CR->IsPolygonOnClosedTriangulation())
             {
-              BinTools::PutInteger(OS, myNodes.FindIndex(PT->PolygonOnTriangulation2()));
+              BinTools1::PutInteger(OS, myNodes.FindIndex(PT->PolygonOnTriangulation2()));
             }
-            BinTools::PutInteger(OS, myTriangulations.FindIndex(PT->Triangulation()));
-            BinTools::PutInteger(OS, Locations().Index(CR->Location()));
+            BinTools1::PutInteger(OS, myTriangulations.FindIndex(PT->Triangulation()));
+            BinTools1::PutInteger(OS, Locations().Index(CR->Location()));
           }
         }
 
@@ -735,14 +735,14 @@ void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) 
     {
 
       Handle(BRep_TFace) TF = Handle(BRep_TFace)::DownCast(S.TShape());
-      const TopoDS_Face& F  = TopoDS::Face(S);
+      const TopoFace& F  = TopoDS::Face(S);
 
       // Write the surface geometry
-      Standard_Boolean aNatRes = BRep_Tool::NaturalRestriction(F);
-      BinTools::PutBool(OS, aNatRes);
-      BinTools::PutReal(OS, TF->Tolerance());
-      BinTools::PutInteger(OS, !TF->Surface().IsNull() ? mySurfaces.Index(TF->Surface()) : 0);
-      BinTools::PutInteger(OS, Locations().Index(TF->Location()));
+      Standard_Boolean aNatRes = BRepInspector::NaturalRestriction(F);
+      BinTools1::PutBool(OS, aNatRes);
+      BinTools1::PutReal(OS, TF->Tolerance());
+      BinTools1::PutInteger(OS, !TF->Surface().IsNull() ? mySurfaces.Index(TF->Surface()) : 0);
+      BinTools1::PutInteger(OS, Locations().Index(TF->Location()));
 
       if (IsWithTriangles() || TF->Surface().IsNull())
       {
@@ -750,7 +750,7 @@ void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) 
         {
           OS << (Standard_Byte)2;
           // Write the triangulation
-          BinTools::PutInteger(OS, myTriangulations.FindIndex(TF->Triangulation()));
+          BinTools1::PutInteger(OS, myTriangulations.FindIndex(TF->Triangulation()));
         }
         else
           OS << (Standard_Byte)1;
@@ -770,7 +770,7 @@ void BinTools_ShapeSet::WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) 
 
 //=================================================================================================
 
-void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS, TopoDS_Shape& S)
+void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS, TopoShape& S)
 {
   // Read the geometry
 
@@ -791,13 +791,13 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
         //---------
 
       case TopAbs_VERTEX: {
-        TopoDS_Vertex& V = TopoDS::Vertex(S);
+        TopoVertex& V = TopoDS::Vertex(S);
 
         // Read the point geometry
-        BinTools::GetReal(IS, tol);
-        BinTools::GetReal(IS, X);
-        BinTools::GetReal(IS, Y);
-        BinTools::GetReal(IS, Z);
+        BinTools1::GetReal(IS, tol);
+        BinTools1::GetReal(IS, X);
+        BinTools1::GetReal(IS, Y);
+        BinTools1::GetReal(IS, Z);
         Point3d aPnt(X, Y, Z);
         myBuilder.MakeVertex(V, aPnt, tol);
         Handle(BRep_TVertex) TV = Handle(BRep_TVertex)::DownCast(V.TShape());
@@ -810,12 +810,12 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
           {
             val = (Standard_Integer)IS.get(); // case {0|1|2|3}
             if (val > 0 && val <= 3)
-              BinTools::GetReal(IS, p1);
+              BinTools1::GetReal(IS, p1);
           }
           else
           {
             std::streampos aPos = IS.tellg();
-            BinTools::GetReal(IS, p1);
+            BinTools1::GetReal(IS, p1);
             val = (Standard_Integer)IS.get(); // case {0|1|2|3}
 #ifdef OCCT_DEBUG
             std::cout << "\nVal = " << val << std::endl;
@@ -825,7 +825,7 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
               IS.seekg(aPos);
               val = (Standard_Integer)IS.get();
               if (val > 0 && val <= 3)
-                BinTools::GetReal(IS, p1);
+                BinTools1::GetReal(IS, p1);
             }
           }
           Handle(BRep_PointRepresentation) PR;
@@ -835,7 +835,7 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
               break;
 
             case 1: {
-              BinTools::GetInteger(IS, c);
+              BinTools1::GetInteger(IS, c);
               if (myCurves.Curve(c).IsNull())
                 break;
               Handle(BRep_PointOnCurve) POC = new BRep_PointOnCurve(p1, myCurves.Curve(c), L);
@@ -844,8 +844,8 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
             break;
 
             case 2: {
-              BinTools::GetInteger(IS, pc);
-              BinTools::GetInteger(IS, s);
+              BinTools1::GetInteger(IS, pc);
+              BinTools1::GetInteger(IS, s);
               if (myCurves2d.Curve2d(pc).IsNull() || mySurfaces.Surface(s).IsNull())
                 break;
 
@@ -859,8 +859,8 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
             break;
 
             case 3: {
-              BinTools::GetReal(IS, p2);
-              BinTools::GetInteger(IS, s);
+              BinTools1::GetReal(IS, p2);
+              BinTools1::GetInteger(IS, s);
               if (mySurfaces.Surface(s).IsNull())
                 break;
 
@@ -872,7 +872,7 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
 
             default: {
               Standard_SStream aMsg;
-              aMsg << "BinTools_SurfaceSet::ReadGeometry: UnExpected BRep_PointRepresentation = "
+              aMsg << "SurfaceBinarySet::ReadGeometry: UnExpected BRep_PointRepresentation = "
                    << val << std::endl;
               throw ExceptionBase(aMsg.str().c_str());
             }
@@ -880,7 +880,7 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
 
           if (val > 0)
           {
-            BinTools::GetInteger(IS, l); // Locations index
+            BinTools1::GetInteger(IS, l); // Locations index
 
             if (!PR.IsNull())
             {
@@ -900,19 +900,19 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
 
         // Create an edge
         {
-          TopoDS_Edge& E = TopoDS::Edge(S);
+          TopoEdge& E = TopoDS::Edge(S);
 
           myBuilder.MakeEdge(E);
 
           // Read the curve geometry
-          BinTools::GetReal(IS, tol);
-          BinTools::GetBool(IS, bval);
+          BinTools1::GetReal(IS, tol);
+          BinTools1::GetBool(IS, bval);
           myBuilder.SameParameter(E, bval);
 
-          BinTools::GetBool(IS, bval);
+          BinTools1::GetBool(IS, bval);
           myBuilder.SameRange(E, bval);
 
-          BinTools::GetBool(IS, bval);
+          BinTools1::GetBool(IS, bval);
           myBuilder.Degenerated(E, bval);
 
           do
@@ -933,14 +933,14 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
                 break;
 
               case 1: // -1- Curve 3D
-                BinTools::GetInteger(IS, c);
-                BinTools::GetInteger(IS, l);
+                BinTools1::GetInteger(IS, c);
+                BinTools1::GetInteger(IS, l);
                 if (!myCurves.Curve(c).IsNull())
                 {
                   myBuilder.UpdateEdge(E, myCurves.Curve(c), Locations().Location(l), tol);
                 }
-                BinTools::GetReal(IS, first);
-                BinTools::GetReal(IS, last);
+                BinTools1::GetReal(IS, first);
+                BinTools1::GetReal(IS, last);
                 if (!myCurves.Curve(c).IsNull())
                 {
                   Standard_Boolean Only3d = Standard_True;
@@ -951,29 +951,29 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
               case 2: // -2- Curve on surf
               case 3: // -3- Curve on closed surf
                 closed = (val == 3);
-                BinTools::GetInteger(IS, pc);
+                BinTools1::GetInteger(IS, pc);
                 if (closed)
                 {
-                  BinTools::GetInteger(IS, pc2);
+                  BinTools1::GetInteger(IS, pc2);
                   reg = (GeomAbs_Shape)IS.get();
                 }
 
                 // surface, location
-                BinTools::GetInteger(IS, s);
-                BinTools::GetInteger(IS, l);
+                BinTools1::GetInteger(IS, s);
+                BinTools1::GetInteger(IS, l);
 
                 // range
-                BinTools::GetReal(IS, first);
-                BinTools::GetReal(IS, last);
+                BinTools1::GetReal(IS, first);
+                BinTools1::GetReal(IS, last);
 
                 // read UV Points // for XML Persistence higher performance
                 if (FormatNb() == BinTools_FormatVersion_VERSION_2
                     || FormatNb() == BinTools_FormatVersion_VERSION_3)
                 {
-                  BinTools::GetReal(IS, PfX);
-                  BinTools::GetReal(IS, PfY);
-                  BinTools::GetReal(IS, PlX);
-                  BinTools::GetReal(IS, PlY);
+                  BinTools1::GetReal(IS, PfX);
+                  BinTools1::GetReal(IS, PfY);
+                  BinTools1::GetReal(IS, PlX);
+                  BinTools1::GetReal(IS, PlY);
                   aPf = gp_Pnt2d(PfX, PfY);
                   aPl = gp_Pnt2d(PlX, PlY);
                 }
@@ -1040,10 +1040,10 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
 
               case 4: // -4- Regularity
                 reg = (GeomAbs_Shape)IS.get();
-                BinTools::GetInteger(IS, s);
-                BinTools::GetInteger(IS, l);
-                BinTools::GetInteger(IS, s2);
-                BinTools::GetInteger(IS, l2);
+                BinTools1::GetInteger(IS, s);
+                BinTools1::GetInteger(IS, l);
+                BinTools1::GetInteger(IS, s2);
+                BinTools1::GetInteger(IS, l2);
                 if (mySurfaces.Surface(s).IsNull() || mySurfaces.Surface(s2).IsNull())
                   break;
                 myBuilder.Continuity(E,
@@ -1055,8 +1055,8 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
                 break;
 
               case 5: // -5- Polygon3D
-                BinTools::GetInteger(IS, c);
-                BinTools::GetInteger(IS, l);
+                BinTools1::GetInteger(IS, c);
+                BinTools1::GetInteger(IS, l);
                 //??? Bug?  myBuilder.UpdateEdge(E,myPolygons3D(c));
                 myBuilder.UpdateEdge(E, myPolygons3D(c), Locations().Location(l));
                 break;
@@ -1064,12 +1064,12 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
               case 6: // -6- Polygon on triangulation
               case 7: // -7- Polygon on closed triangulation
                 closed = (val == 7);
-                BinTools::GetInteger(IS, pt);
+                BinTools1::GetInteger(IS, pt);
                 if (closed)
-                  BinTools::GetInteger(IS, pt2);
+                  BinTools1::GetInteger(IS, pt2);
 
-                BinTools::GetInteger(IS, t);
-                BinTools::GetInteger(IS, l);
+                BinTools1::GetInteger(IS, t);
+                BinTools1::GetInteger(IS, l);
                 if (closed)
                 {
                   myBuilder.UpdateEdge(E,
@@ -1111,14 +1111,14 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
 
       case TopAbs_FACE: {
         // create a face :
-        TopoDS_Face& F = TopoDS::Face(S);
+        TopoFace& F = TopoDS::Face(S);
         myBuilder.MakeFace(F);
-        BinTools::GetBool(IS, bval); // NaturalRestriction flag
-        BinTools::GetReal(IS, tol);
-        BinTools::GetInteger(IS, s); // surface indx
-        BinTools::GetInteger(IS, l); // location indx
+        BinTools1::GetBool(IS, bval); // NaturalRestriction flag
+        BinTools1::GetReal(IS, tol);
+        BinTools1::GetInteger(IS, s); // surface indx
+        BinTools1::GetInteger(IS, l); // location indx
         myBuilder.UpdateFace(F,
-                             s > 0 ? mySurfaces.Surface(s) : Handle(Geom_Surface)(),
+                             s > 0 ? mySurfaces.Surface(s) : Handle(GeomSurface)(),
                              Locations().Location(l),
                              tol);
         myBuilder.NaturalRestriction(F, bval);
@@ -1127,7 +1127,7 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
         // cas triangulation
         if (aByte == 2)
         {
-          BinTools::GetInteger(IS, s);
+          BinTools1::GetInteger(IS, s);
           myBuilder.UpdateFace(TopoDS::Face(S), myTriangulations.FindKey(s));
         }
       }
@@ -1184,7 +1184,7 @@ void BinTools_ShapeSet::ReadShape(const TopAbs_ShapeEnum T, Standard_IStream& IS
 
 //=================================================================================================
 
-void BinTools_ShapeSet::AddShapes(TopoDS_Shape& S1, const TopoDS_Shape& S2)
+void BinTools_ShapeSet::AddShapes(TopoShape& S1, const TopoShape& S2)
 {
   myBuilder.Add(S1, S2);
 }
@@ -1204,27 +1204,27 @@ void BinTools_ShapeSet::WritePolygonOnTriangulation(Standard_OStream&           
     {
       const Handle(Poly_PolygonOnTriangulation)& aPoly  = myNodes.FindKey(aPolIter);
       const TColStd_Array1OfInteger&             aNodes = aPoly->Nodes();
-      BinTools::PutInteger(OS, aNodes.Length());
+      BinTools1::PutInteger(OS, aNodes.Length());
       for (Standard_Integer aNodeIter = 1; aNodeIter <= aNodes.Length(); ++aNodeIter)
       {
-        BinTools::PutInteger(OS, aNodes.Value(aNodeIter));
+        BinTools1::PutInteger(OS, aNodes.Value(aNodeIter));
       }
 
       // write the deflection
-      BinTools::PutReal(OS, aPoly->Deflection());
+      BinTools1::PutReal(OS, aPoly->Deflection());
 
       // writing parameters
       if (const Handle(TColStd_HArray1OfReal)& aParam = aPoly->Parameters())
       {
-        BinTools::PutBool(OS, Standard_True);
+        BinTools1::PutBool(OS, Standard_True);
         for (Standard_Integer aNodeIter = 1; aNodeIter <= aParam->Length(); ++aNodeIter)
         {
-          BinTools::PutReal(OS, aParam->Value(aNodeIter));
+          BinTools1::PutReal(OS, aParam->Value(aNodeIter));
         }
       }
       else
       {
-        BinTools::PutBool(OS, Standard_False);
+        BinTools1::PutBool(OS, Standard_False);
       }
     }
   }
@@ -1260,28 +1260,28 @@ void BinTools_ShapeSet::ReadPolygonOnTriangulation(Standard_IStream&            
     for (Standard_Integer aPolIter = 1; aPolIter <= aNbPol && aPS.More(); ++aPolIter, aPS.Next())
     {
       Standard_Integer aNbNodes = 0;
-      BinTools::GetInteger(IS, aNbNodes);
+      BinTools1::GetInteger(IS, aNbNodes);
       Handle(Poly_PolygonOnTriangulation) aPoly =
         new Poly_PolygonOnTriangulation(aNbNodes, Standard_False);
       for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
       {
         Standard_Integer aNode = 0;
-        BinTools::GetInteger(IS, aNode);
+        BinTools1::GetInteger(IS, aNode);
         aPoly->SetNode(aNodeIter, aNode);
       }
 
       Standard_Real aDefl = 0.0;
-      BinTools::GetReal(IS, aDefl);
+      BinTools1::GetReal(IS, aDefl);
       aPoly->Deflection(aDefl);
 
       Standard_Boolean hasParameters = Standard_False;
-      BinTools::GetBool(IS, hasParameters);
+      BinTools1::GetBool(IS, hasParameters);
       if (hasParameters)
       {
         Handle(TColStd_HArray1OfReal) aParams = new TColStd_HArray1OfReal(1, aNbNodes);
         for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
         {
-          BinTools::GetReal(IS, aParams->ChangeValue(aNodeIter));
+          BinTools1::GetReal(IS, aParams->ChangeValue(aNodeIter));
         }
         aPoly->SetParameters(aParams);
       }
@@ -1311,11 +1311,11 @@ void BinTools_ShapeSet::WritePolygon3D(Standard_OStream&            OS,
     for (Standard_Integer aPolIter = 1; aPolIter <= aNbPol && aPS.More(); ++aPolIter, aPS.Next())
     {
       const Handle(Poly_Polygon3D)& aPoly = myPolygons3D.FindKey(aPolIter);
-      BinTools::PutInteger(OS, aPoly->NbNodes());
-      BinTools::PutBool(OS, aPoly->HasParameters());
+      BinTools1::PutInteger(OS, aPoly->NbNodes());
+      BinTools1::PutBool(OS, aPoly->HasParameters());
 
       // write the deflection
-      BinTools::PutReal(OS, aPoly->Deflection());
+      BinTools1::PutReal(OS, aPoly->Deflection());
 
       // write the nodes
       const Standard_Integer    aNbNodes = aPoly->NbNodes();
@@ -1323,16 +1323,16 @@ void BinTools_ShapeSet::WritePolygon3D(Standard_OStream&            OS,
       for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
       {
         const Point3d& aPnt = aNodes.Value(aNodeIter);
-        BinTools::PutReal(OS, aPnt.X());
-        BinTools::PutReal(OS, aPnt.Y());
-        BinTools::PutReal(OS, aPnt.Z());
+        BinTools1::PutReal(OS, aPnt.X());
+        BinTools1::PutReal(OS, aPnt.Y());
+        BinTools1::PutReal(OS, aPnt.Z());
       }
       if (aPoly->HasParameters())
       {
         const TColStd_Array1OfReal& aParam = aPoly->Parameters();
         for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
         {
-          BinTools::PutReal(OS, aParam.Value(aNodeIter));
+          BinTools1::PutReal(OS, aParam.Value(aNodeIter));
         }
       }
     }
@@ -1372,9 +1372,9 @@ void BinTools_ShapeSet::ReadPolygon3D(Standard_IStream& IS, const Message_Progre
       Standard_Integer aNbNodes      = 0;
       Standard_Boolean hasParameters = Standard_False;
       Standard_Real    aDefl         = 0.0;
-      BinTools::GetInteger(IS, aNbNodes);
-      BinTools::GetBool(IS, hasParameters);
-      BinTools::GetReal(IS, aDefl);
+      BinTools1::GetInteger(IS, aNbNodes);
+      BinTools1::GetBool(IS, hasParameters);
+      BinTools1::GetReal(IS, aDefl);
 
       Handle(Poly_Polygon3D) aPoly = new Poly_Polygon3D(aNbNodes, hasParameters);
       aPoly->Deflection(aDefl);
@@ -1383,16 +1383,16 @@ void BinTools_ShapeSet::ReadPolygon3D(Standard_IStream& IS, const Message_Progre
       for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
       {
         gp_XYZ& aPnt = aNodes.ChangeValue(aNodeIter).ChangeCoord();
-        BinTools::GetReal(IS, aPnt.ChangeCoord(1));
-        BinTools::GetReal(IS, aPnt.ChangeCoord(2));
-        BinTools::GetReal(IS, aPnt.ChangeCoord(3));
+        BinTools1::GetReal(IS, aPnt.ChangeCoord(1));
+        BinTools1::GetReal(IS, aPnt.ChangeCoord(2));
+        BinTools1::GetReal(IS, aPnt.ChangeCoord(3));
       }
       if (hasParameters)
       {
         TColStd_Array1OfReal& aParam = aPoly->ChangeParameters();
         for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
         {
-          BinTools::GetReal(IS, aParam.ChangeValue(aNodeIter));
+          BinTools1::GetReal(IS, aParam.ChangeValue(aNodeIter));
         }
       }
 
@@ -1423,27 +1423,27 @@ void BinTools_ShapeSet::WriteTriangulation(Standard_OStream&            OS,
          aTriangulationIter <= aNbTriangulations && aPS.More();
          ++aTriangulationIter, aPS.Next())
     {
-      const Handle(Poly_Triangulation)& aTriangulation =
+      const Handle(MeshTriangulation)& aTriangulation =
         myTriangulations.FindKey(aTriangulationIter);
       Standard_Boolean NeedToWriteNormals = myTriangulations.FindFromIndex(aTriangulationIter);
       const Standard_Integer aNbNodes     = aTriangulation->NbNodes();
       const Standard_Integer aNbTriangles = aTriangulation->NbTriangles();
-      BinTools::PutInteger(OS, aNbNodes);
-      BinTools::PutInteger(OS, aNbTriangles);
-      BinTools::PutBool(OS, aTriangulation->HasUVNodes() ? 1 : 0);
+      BinTools1::PutInteger(OS, aNbNodes);
+      BinTools1::PutInteger(OS, aNbTriangles);
+      BinTools1::PutBool(OS, aTriangulation->HasUVNodes() ? 1 : 0);
       if (FormatNb() >= BinTools_FormatVersion_VERSION_4)
       {
-        BinTools::PutBool(OS, (aTriangulation->HasNormals() && NeedToWriteNormals) ? 1 : 0);
+        BinTools1::PutBool(OS, (aTriangulation->HasNormals() && NeedToWriteNormals) ? 1 : 0);
       }
-      BinTools::PutReal(OS, aTriangulation->Deflection());
+      BinTools1::PutReal(OS, aTriangulation->Deflection());
 
       // write the 3d nodes
       for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
       {
         const Point3d aPnt = aTriangulation->Node(aNodeIter);
-        BinTools::PutReal(OS, aPnt.X());
-        BinTools::PutReal(OS, aPnt.Y());
-        BinTools::PutReal(OS, aPnt.Z());
+        BinTools1::PutReal(OS, aPnt.X());
+        BinTools1::PutReal(OS, aPnt.Y());
+        BinTools1::PutReal(OS, aPnt.Z());
       }
 
       if (aTriangulation->HasUVNodes())
@@ -1451,17 +1451,17 @@ void BinTools_ShapeSet::WriteTriangulation(Standard_OStream&            OS,
         for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
         {
           const gp_Pnt2d aUV = aTriangulation->UVNode(aNodeIter);
-          BinTools::PutReal(OS, aUV.X());
-          BinTools::PutReal(OS, aUV.Y());
+          BinTools1::PutReal(OS, aUV.X());
+          BinTools1::PutReal(OS, aUV.Y());
         }
       }
 
       for (Standard_Integer aTriIter = 1; aTriIter <= aNbTriangles; ++aTriIter)
       {
         const Poly_Triangle aTri = aTriangulation->Triangle(aTriIter);
-        BinTools::PutInteger(OS, aTri.Value(1));
-        BinTools::PutInteger(OS, aTri.Value(2));
-        BinTools::PutInteger(OS, aTri.Value(3));
+        BinTools1::PutInteger(OS, aTri.Value(1));
+        BinTools1::PutInteger(OS, aTri.Value(2));
+        BinTools1::PutInteger(OS, aTri.Value(3));
       }
 
       // write the normals
@@ -1473,9 +1473,9 @@ void BinTools_ShapeSet::WriteTriangulation(Standard_OStream&            OS,
           for (Standard_Integer aNormalIter = 1; aNormalIter <= aNbNodes; ++aNormalIter)
           {
             aTriangulation->Normal(aNormalIter, aNormal);
-            BinTools::PutShortReal(OS, aNormal.x());
-            BinTools::PutShortReal(OS, aNormal.y());
-            BinTools::PutShortReal(OS, aNormal.z());
+            BinTools1::PutShortReal(OS, aNormal.x());
+            BinTools1::PutShortReal(OS, aNormal.y());
+            BinTools1::PutShortReal(OS, aNormal.z());
           }
         }
       }
@@ -1517,24 +1517,24 @@ void BinTools_ShapeSet::ReadTriangulation(Standard_IStream&            IS,
       Standard_Boolean hasUV      = Standard_False;
       Standard_Boolean hasNormals = Standard_False;
       Standard_Real    aDefl      = 0.0;
-      BinTools::GetInteger(IS, aNbNodes);
-      BinTools::GetInteger(IS, aNbTriangles);
-      BinTools::GetBool(IS, hasUV);
+      BinTools1::GetInteger(IS, aNbNodes);
+      BinTools1::GetInteger(IS, aNbTriangles);
+      BinTools1::GetBool(IS, hasUV);
       if (FormatNb() >= BinTools_FormatVersion_VERSION_4)
       {
-        BinTools::GetBool(IS, hasNormals);
+        BinTools1::GetBool(IS, hasNormals);
       }
-      BinTools::GetReal(IS, aDefl); // deflection
-      Handle(Poly_Triangulation) aTriangulation =
-        new Poly_Triangulation(aNbNodes, aNbTriangles, hasUV, hasNormals);
+      BinTools1::GetReal(IS, aDefl); // deflection
+      Handle(MeshTriangulation) aTriangulation =
+        new MeshTriangulation(aNbNodes, aNbTriangles, hasUV, hasNormals);
       aTriangulation->Deflection(aDefl);
 
       Point3d aNode;
       for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
       {
-        BinTools::GetReal(IS, aNode.ChangeCoord().ChangeCoord(1));
-        BinTools::GetReal(IS, aNode.ChangeCoord().ChangeCoord(2));
-        BinTools::GetReal(IS, aNode.ChangeCoord().ChangeCoord(3));
+        BinTools1::GetReal(IS, aNode.ChangeCoord().ChangeCoord(1));
+        BinTools1::GetReal(IS, aNode.ChangeCoord().ChangeCoord(2));
+        BinTools1::GetReal(IS, aNode.ChangeCoord().ChangeCoord(3));
         aTriangulation->SetNode(aNodeIter, aNode);
       }
 
@@ -1543,8 +1543,8 @@ void BinTools_ShapeSet::ReadTriangulation(Standard_IStream&            IS,
         gp_Pnt2d aNode2d;
         for (Standard_Integer aNodeIter = 1; aNodeIter <= aNbNodes; ++aNodeIter)
         {
-          BinTools::GetReal(IS, aNode2d.ChangeCoord().ChangeCoord(1));
-          BinTools::GetReal(IS, aNode2d.ChangeCoord().ChangeCoord(2));
+          BinTools1::GetReal(IS, aNode2d.ChangeCoord().ChangeCoord(1));
+          BinTools1::GetReal(IS, aNode2d.ChangeCoord().ChangeCoord(2));
           aTriangulation->SetUVNode(aNodeIter, aNode2d);
         }
       }
@@ -1553,9 +1553,9 @@ void BinTools_ShapeSet::ReadTriangulation(Standard_IStream&            IS,
       Standard_Integer aTriNodes[3] = {};
       for (Standard_Integer aTriIter = 1; aTriIter <= aNbTriangles; ++aTriIter)
       {
-        BinTools::GetInteger(IS, aTriNodes[0]);
-        BinTools::GetInteger(IS, aTriNodes[1]);
-        BinTools::GetInteger(IS, aTriNodes[2]);
+        BinTools1::GetInteger(IS, aTriNodes[0]);
+        BinTools1::GetInteger(IS, aTriNodes[1]);
+        BinTools1::GetInteger(IS, aTriNodes[2]);
         aTriangulation->SetTriangle(aTriIter,
                                     Poly_Triangle(aTriNodes[0], aTriNodes[1], aTriNodes[2]));
       }
@@ -1567,9 +1567,9 @@ void BinTools_ShapeSet::ReadTriangulation(Standard_IStream&            IS,
         gp_Vec3f aNormal;
         for (Standard_Integer aNormalIter = 1; aNormalIter <= aNbNodes; ++aNormalIter)
         {
-          BinTools::GetShortReal(IS, aNormal.x());
-          BinTools::GetShortReal(IS, aNormal.y());
-          BinTools::GetShortReal(IS, aNormal.z());
+          BinTools1::GetShortReal(IS, aNormal.x());
+          BinTools1::GetShortReal(IS, aNormal.y());
+          BinTools1::GetShortReal(IS, aNormal.z());
           aTriangulation->SetNormal(aNormalIter, aNormal);
         }
       }
@@ -1587,7 +1587,7 @@ void BinTools_ShapeSet::ReadTriangulation(Standard_IStream&            IS,
 
 //=================================================================================================
 
-Standard_Integer BinTools_ShapeSet::NbShapes() const
+Standard_Integer BinTools_ShapeSet::NbShapes1() const
 {
   return myShapes.Extent();
 }

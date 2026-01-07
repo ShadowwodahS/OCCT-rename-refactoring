@@ -27,7 +27,7 @@ class IGESAppli_PWBDrilledHole;
 DEFINE_STANDARD_HANDLE(IGESAppli_PWBDrilledHole, IGESData_IGESEntity)
 
 //! defines PWBDrilledHole, Type <406> Form <26>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Used to identify an entity that locates a drilled hole
 //! and to specify the characteristics of the drilled hole
 class IGESAppli_PWBDrilledHole : public IGESData_IGESEntity

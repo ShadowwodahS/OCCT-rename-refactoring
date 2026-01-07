@@ -29,7 +29,7 @@ inline Standard_Integer TDF_Transaction::Transaction() const
   return myUntilTransaction;
 }
 
-inline const TCollection_AsciiString& TDF_Transaction::Name() const
+inline const AsciiString1& TDF_Transaction::Name() const
 {
   return myName;
 }

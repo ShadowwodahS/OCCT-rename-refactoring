@@ -53,7 +53,7 @@ class gp_Circ2d;
 //! With Tolerance it gives a solution if the lowest
 //! distance between C1 and C2 is lower than or equal
 //! Tolerance.
-class GccAna_Circ2d2TanRad
+class Circle2dTwoTangentRadius
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -62,7 +62,7 @@ public:
   //! create 2d circles TANgent to two 2d circle with a
   //! radius of Radius.
   //! It raises NegativeValue if Radius is lower than zero.
-  Standard_EXPORT GccAna_Circ2d2TanRad(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentRadius(const GccEnt_QualifiedCirc& Qualified1,
                                        const GccEnt_QualifiedCirc& Qualified2,
                                        const Standard_Real         Radius,
                                        const Standard_Real         Tolerance);
@@ -71,7 +71,7 @@ public:
   //! create 2d circles TANgent to a 2d circle and a 2d line
   //! with a radius of Radius.
   //! It raises NegativeValue if Radius is lower than zero.
-  Standard_EXPORT GccAna_Circ2d2TanRad(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentRadius(const GccEnt_QualifiedCirc& Qualified1,
                                        const GccEnt_QualifiedLin&  Qualified2,
                                        const Standard_Real         Radius,
                                        const Standard_Real         Tolerance);
@@ -80,7 +80,7 @@ public:
   //! create 2d circles TANgent to a 2d circle and a point
   //! with a radius of Radius.
   //! It raises NegativeValue if Radius is lower than zero.
-  Standard_EXPORT GccAna_Circ2d2TanRad(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentRadius(const GccEnt_QualifiedCirc& Qualified1,
                                        const gp_Pnt2d&             Point2,
                                        const Standard_Real         Radius,
                                        const Standard_Real         Tolerance);
@@ -89,7 +89,7 @@ public:
   //! create 2d circles TANgent to a 2d line and a point
   //! with a radius of Radius.
   //! It raises NegativeValue if Radius is lower than zero.
-  Standard_EXPORT GccAna_Circ2d2TanRad(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentRadius(const GccEnt_QualifiedLin& Qualified1,
                                        const gp_Pnt2d&            Point2,
                                        const Standard_Real        Radius,
                                        const Standard_Real        Tolerance);
@@ -98,7 +98,7 @@ public:
   //! create 2d circles TANgent to two 2d lines
   //! with a radius of Radius.
   //! It raises NegativeValue if Radius is lower than zero.
-  Standard_EXPORT GccAna_Circ2d2TanRad(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentRadius(const GccEnt_QualifiedLin& Qualified1,
                                        const GccEnt_QualifiedLin& Qualified2,
                                        const Standard_Real        Radius,
                                        const Standard_Real        Tolerance);
@@ -107,7 +107,7 @@ public:
   //! create 2d circles passing through two points with a
   //! radius of Radius.
   //! It raises NegativeValue if Radius is lower than zero.
-  Standard_EXPORT GccAna_Circ2d2TanRad(const gp_Pnt2d&     Point1,
+  Standard_EXPORT Circle2dTwoTangentRadius(const gp_Pnt2d&     Point1,
                                        const gp_Pnt2d&     Point2,
                                        const Standard_Real Radius,
                                        const Standard_Real Tolerance);

@@ -28,7 +28,7 @@
 #include <IntAna2d_AnaIntersection.hxx>
 #include <IntAna2d_IntPoint.hxx>
 
-GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const GccEnt_QualifiedLin& Qualified1,
                                          const GccEnt_QualifiedLin& Qualified2,
                                          const gp_Circ2d&           OnCirc,
                                          const Standard_Real)
@@ -60,7 +60,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
   }
   gp_Lin2d          L1(Qualified1.Qualified());
   gp_Lin2d          L2(Qualified2.Qualified());
-  GccAna_Lin2dBisec Bis(L1, L2);
+  Line2dBisector Bis(L1, L2);
   Standard_Integer  i = 0, j = 0;
   Standard_Integer  nbsol = 0;
   Standard_Real     sgn   = 1.;
@@ -70,11 +70,11 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
   gp_Dir2d          D2(L2.Direction());
   gp_Dir2d          Dnor1(-D1.Y(), D1.X());
   gp_Dir2d          Dnor2(-D2.Y(), D2.X());
-  gp_XY             XYnor1(-D1.Y(), D1.X());
-  gp_XY             XYnor2(-D2.Y(), D2.X());
+  Coords2d             XYnor1(-D1.Y(), D1.X());
+  Coords2d             XYnor2(-D2.Y(), D2.X());
   gp_Pnt2d          originL1(L1.Location());
   gp_Pnt2d          originL2(L2.Location());
-  gp_XY             Dloc(originL1.XY() - originL2.XY());
+  Coords2d             Dloc(originL1.XY() - originL2.XY());
   if (D1.Angle(D2) <= gp::Resolution())
   {
     if (Qualified1.IsEnclosed())
@@ -390,11 +390,11 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
       Standard_Real Radius = cirsol(i).Radius();
       gp_Dir2d      dc2(originL1.XY() - pbid.XY());
       Standard_Real sign = dc2.Dot(gp_Dir2d(-L1.Direction().Y(), L1.Direction().X()));
-      dc2                = gp_Dir2d(sign * gp_XY(-L1.Direction().Y(), L1.Direction().X()));
+      dc2                = gp_Dir2d(sign * Coords2d(-L1.Direction().Y(), L1.Direction().X()));
       pnttg1sol(i)       = gp_Pnt2d(pbid.XY() + Radius * dc2.XY());
       dc2                = gp_Dir2d(originL2.XY() - pbid.XY());
       sign               = dc2.Dot(gp_Dir2d(-L2.Direction().Y(), L2.Direction().X()));
-      dc2                = gp_Dir2d(sign * gp_XY(-L2.Direction().Y(), L2.Direction().X()));
+      dc2                = gp_Dir2d(sign * Coords2d(-L2.Direction().Y(), L2.Direction().X()));
       pnttg2sol(i)       = gp_Pnt2d(pbid.XY() + Radius * dc2.XY());
       pntcen(i)          = pbid;
       par1sol(i)         = ElCLib::Parameter(cirsol(i), pnttg1sol(i));

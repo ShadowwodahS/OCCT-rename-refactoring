@@ -26,7 +26,7 @@ class gp_Ax3;
 class gp_Cylinder;
 class Transform3d;
 class gp_GTrsf2d;
-class Geom_Curve;
+class GeomCurve3d;
 class Point3d;
 class Vector3d;
 class Geom_Geometry;
@@ -181,12 +181,12 @@ public:
   //! The UIso curve is a Line. The location point of this line is
   //! on the placement plane (XAxis, YAxis) of the surface.
   //! This line is parallel to the axis of symmetry of the surface.
-  Standard_EXPORT Handle(Geom_Curve) UIso(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) UIso(const Standard_Real U) const Standard_OVERRIDE;
 
   //! The VIso curve is a circle. The start point of this circle
   //! (U = 0) is defined with the "XAxis" of the surface.
   //! The center of the circle is on the symmetry axis.
-  Standard_EXPORT Handle(Geom_Curve) VIso(const Standard_Real V) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) VIso(const Standard_Real V) const Standard_OVERRIDE;
 
   //! Computes the  point P (U, V) on the surface.
   //! P (U, V) = Loc + Radius * (cos (U) * XDir + sin (U) * YDir) +

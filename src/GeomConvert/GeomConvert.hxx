@@ -29,10 +29,10 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <TColGeom_HArray1OfBSplineCurve.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 class Geom_BSplineSurface;
-class Geom_Curve;
-class Geom_Surface;
+class GeomCurve3d;
+class GeomSurface;
 
 //! The GeomConvert package provides some global functions as follows
 //! -   converting classical Geom curves into BSpline curves,
@@ -80,8 +80,8 @@ public:
   //! Raised if FromK1 = ToK2
   //! Raised if FromK1 or ToK2 are out of the bounds
   //! [FirstUKnotIndex, LastUKnotIndex]
-  Standard_EXPORT static Handle(Geom_BSplineCurve) SplitBSplineCurve(
-    const Handle(Geom_BSplineCurve)& C,
+  Standard_EXPORT static Handle(BSplineCurve3d) SplitBSplineCurve(
+    const Handle(BSplineCurve3d)& C,
     const Standard_Integer           FromK1,
     const Standard_Integer           ToK2,
     const Standard_Boolean           SameOrientation = Standard_True);
@@ -101,8 +101,8 @@ public:
   //! curve (The tolerance criterion is ParametricTolerance).
   //! Raised if Abs (FromU1 - ToU2) <= ParametricTolerance
   //! Raised if ParametricTolerance < Resolution from gp.
-  Standard_EXPORT static Handle(Geom_BSplineCurve) SplitBSplineCurve(
-    const Handle(Geom_BSplineCurve)& C,
+  Standard_EXPORT static Handle(BSplineCurve3d) SplitBSplineCurve(
+    const Handle(BSplineCurve3d)& C,
     const Standard_Real              FromU1,
     const Standard_Real              ToU2,
     const Standard_Real              ParametricTolerance,
@@ -210,10 +210,10 @@ public:
   //! trimmed  BSpline curve or  an  OffsetCurve.  The returned  B-spline is
   //! not periodic except  if C is a Circle  or an  Ellipse.  If
   //! the  Parameterisation is  QuasiAngular than  the returned
-  //! curve is NOT periodic  in case a  periodic Geom_Circle or
+  //! curve is NOT periodic  in case a  periodic GeomCircle or
   //! Geom_Ellipse.  For TgtThetaOver2_1 and TgtThetaOver2_2 the
   //! method   raises  an exception  in    case  of a  periodic
-  //! Geom_Circle or a Geom_Ellipse ParameterisationType applies
+  //! GeomCircle or a Geom_Ellipse ParameterisationType applies
   //! only    if  the curve  is   a  Circle  or  an   ellipse :
   //! TgtThetaOver2,  -- TgtThetaOver2_1, -- TgtThetaOver2_2, --
   //! TgtThetaOver2_3, -- TgtThetaOver2_4,
@@ -268,8 +268,8 @@ public:
   //! respectively the first and the last parameters of the
   //! trimmed curve (this method of parameterization
   //! cannot be used to convert a quasi-complete circle or ellipse).
-  Standard_EXPORT static Handle(Geom_BSplineCurve) CurveToBSplineCurve(
-    const Handle(Geom_Curve)&          C,
+  Standard_EXPORT static Handle(BSplineCurve3d) CurveToBSplineCurve(
+    const Handle(GeomCurve3d)&          C,
     const Convert_ParameterisationType Parameterisation = Convert_TgtThetaOver2);
 
   //! This algorithm converts a non infinite surface from Geom
@@ -281,7 +281,7 @@ public:
   //! a B-spline curve   (see the method CurveToBSplineCurve).
   //! Raises DomainError if the type of the surface is not previously defined.
   Standard_EXPORT static Handle(Geom_BSplineSurface) SurfaceToBSplineSurface(
-    const Handle(Geom_Surface)& S);
+    const Handle(GeomSurface)& S);
 
   //! This Method concatenates G1 the ArrayOfCurves as far
   //! as it  is possible.
@@ -348,7 +348,7 @@ public:
   //! the tangents  on  the left and on  the right  to decide if  the
   //! curve is G1 or not at a given point
   Standard_EXPORT static void C0BSplineToC1BSplineCurve(
-    Handle(Geom_BSplineCurve)& BS,
+    Handle(BSplineCurve3d)& BS,
     const Standard_Real        tolerance,
     const Standard_Real        AngularTolerance = 1.0e-7);
 
@@ -356,7 +356,7 @@ public:
   //! multiplicities  of  the knots  of the BSpline  BS.(keeping the geometry).
   //! It returns an array of BSpline C1. tolerance is a geometrical tolerance.
   Standard_EXPORT static void C0BSplineToArrayOfC1BSplineCurve(
-    const Handle(Geom_BSplineCurve)&        BS,
+    const Handle(BSplineCurve3d)&        BS,
     Handle(TColGeom_HArray1OfBSplineCurve)& tabBS,
     const Standard_Real                     tolerance);
 
@@ -368,7 +368,7 @@ public:
   //! the tangents on the left and on the right to decide if the curve
   //! is C1 or not at a given point
   Standard_EXPORT static void C0BSplineToArrayOfC1BSplineCurve(
-    const Handle(Geom_BSplineCurve)&        BS,
+    const Handle(BSplineCurve3d)&        BS,
     Handle(TColGeom_HArray1OfBSplineCurve)& tabBS,
     const Standard_Real                     AngularTolerance,
     const Standard_Real                     tolerance);

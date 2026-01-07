@@ -19,9 +19,9 @@
 
 //=================================================================================================
 
-Standard_Boolean StlAPI_Reader::Read(TopoDS_Shape& theShape, const Standard_CString theFileName)
+Standard_Boolean StlReader::Read(TopoShape& theShape, const Standard_CString theFileName)
 {
-  Handle(Poly_Triangulation) aMesh = RWStl::ReadFile(theFileName);
+  Handle(MeshTriangulation) aMesh = RWStl1::ReadFile(theFileName);
   if (aMesh.IsNull())
     return Standard_False;
 
@@ -30,7 +30,7 @@ Standard_Boolean StlAPI_Reader::Read(TopoDS_Shape& theShape, const Standard_CStr
   if (!aConverter.IsDone())
     return Standard_False;
 
-  TopoDS_Shape aResult = aConverter.Shape();
+  TopoShape aResult = aConverter.Shape();
   if (aResult.IsNull())
     return Standard_False;
 

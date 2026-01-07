@@ -3516,7 +3516,7 @@ static Standard_Boolean CheckSegmSegm(const Standard_Real theRefParF,
 //
 // Attention!!!
 //            Cases when theArc is not 2d-line adaptor are supported by
-//          TopOpeBRep classes only (i.e. are archaic).
+//          TopOpeBRep1 classes only (i.e. are archaic).
 //=======================================================================
 Standard_Boolean IsCoincide(
   IntPatch_TheSurfFunction&         theFunc,

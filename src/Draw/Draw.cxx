@@ -41,8 +41,8 @@
 
 extern Standard_Boolean Draw_ParseFailed;
 
-Standard_EXPORT Draw_Viewer      dout;
-Standard_EXPORT Draw_Interpretor theCommands;
+Standard_EXPORT DrawViewer      dout;
+Standard_EXPORT DrawInterpreter theCommands;
 Standard_EXPORT Standard_Boolean Draw_Batch          = Standard_False;
 Standard_EXPORT Standard_Boolean Draw_Spying         = Standard_False;
 Standard_EXPORT Standard_Boolean Draw_Chrono         = Standard_False;
@@ -79,7 +79,7 @@ Standard_EXPORT Standard_Boolean Draw_Interprete(const char* command);
 // read an init file
 // *******************************************************************
 
-static void interpreteTclCommand(const TCollection_AsciiString& theCmd)
+static void interpreteTclCommand(const AsciiString1& theCmd)
 {
 #ifdef _WIN32
   if (!Draw_Batch)
@@ -91,7 +91,7 @@ static void interpreteTclCommand(const TCollection_AsciiString& theCmd)
         Sleep(10);
       }
       {
-        TCollection_ExtendedString aCmdWide(theCmd);
+        UtfString aCmdWide(theCmd);
         wcscpy_s(console_command, aCmdWide.ToWideString());
       }
       console_semaphore = HAS_CONSOLE_COMMAND;
@@ -113,18 +113,18 @@ static void interpreteTclCommand(const TCollection_AsciiString& theCmd)
   }
 }
 
-static void ReadInitFile(const TCollection_AsciiString& theFileName)
+static void ReadInitFile(const AsciiString1& theFileName)
 {
-  TCollection_AsciiString aCmd = theFileName;
+  AsciiString1 aCmd = theFileName;
 #ifdef _WIN32
   aCmd.ChangeAll('\\', '/');
 #endif
-  aCmd = TCollection_AsciiString("source -encoding utf-8 \"") + aCmd + "\"";
+  aCmd = AsciiString1("source -encoding utf-8 \"") + aCmd + "\"";
   interpreteTclCommand(aCmd);
 }
 
 //! Define environment variable available from Tcl and OCCT.
-static void setOcctTclEnv(const TCollection_AsciiString& theName, TCollection_AsciiString& thePath)
+static void setOcctTclEnv(const AsciiString1& theName, AsciiString1& thePath)
 {
   if (thePath.IsEmpty())
   {
@@ -136,7 +136,7 @@ static void setOcctTclEnv(const TCollection_AsciiString& theName, TCollection_As
   aRedPathEnv.SetValue(thePath);
   aRedPathEnv.Build();
 
-  const TCollection_AsciiString aPutEnv = theName + "=" + thePath;
+  const AsciiString1 aPutEnv = theName + "=" + thePath;
   Tcl_PutEnv(aPutEnv.ToCString());
 }
 
@@ -160,54 +160,54 @@ static void setOcctTclEnv(const TCollection_AsciiString& theName, TCollection_As
 //! @param theResName   [in] resource to find ("resources", "samples", etc.)
 //! @param theProbeFile [in] file to probe within resources location (e.g.
 //! "DrawResources/DrawDefault" within "resources")
-static bool searchResources(TCollection_AsciiString&       theCasRoot,
-                            TCollection_AsciiString&       theResRoot,
-                            const TCollection_AsciiString& theResName,
-                            const TCollection_AsciiString& theProbeFile)
+static bool searchResources(AsciiString1&       theCasRoot,
+                            AsciiString1&       theResRoot,
+                            const AsciiString1& theResName,
+                            const AsciiString1& theProbeFile)
 {
-  const TCollection_AsciiString aResLayouts[] = {
-    TCollection_AsciiString("/share/opencascade-" OCC_VERSION_STRING_EXT "/") + theResName,
-    TCollection_AsciiString("/share/opencascade-" OCC_VERSION_COMPLETE "/") + theResName,
-    TCollection_AsciiString("/share/opencascade-" OCC_VERSION_STRING "/") + theResName,
-    TCollection_AsciiString("/share/opencascade/") + theResName,
-    TCollection_AsciiString("/share/occt-" OCC_VERSION_STRING_EXT "/") + theResName,
-    TCollection_AsciiString("/share/occt-" OCC_VERSION_COMPLETE "/") + theResName,
-    TCollection_AsciiString("/share/occt-" OCC_VERSION_STRING "/") + theResName,
-    TCollection_AsciiString("/share/occt/") + theResName,
-    TCollection_AsciiString("/") + theResName,
-    TCollection_AsciiString("/share/opencascade"),
-    TCollection_AsciiString("/share/occt"),
-    TCollection_AsciiString("/share"),
-    TCollection_AsciiString("/src"),
-    TCollection_AsciiString("")};
+  const AsciiString1 aResLayouts[] = {
+    AsciiString1("/share/opencascade-" OCC_VERSION_STRING_EXT "/") + theResName,
+    AsciiString1("/share/opencascade-" OCC_VERSION_COMPLETE "/") + theResName,
+    AsciiString1("/share/opencascade-" OCC_VERSION_STRING "/") + theResName,
+    AsciiString1("/share/opencascade/") + theResName,
+    AsciiString1("/share/occt-" OCC_VERSION_STRING_EXT "/") + theResName,
+    AsciiString1("/share/occt-" OCC_VERSION_COMPLETE "/") + theResName,
+    AsciiString1("/share/occt-" OCC_VERSION_STRING "/") + theResName,
+    AsciiString1("/share/occt/") + theResName,
+    AsciiString1("/") + theResName,
+    AsciiString1("/share/opencascade"),
+    AsciiString1("/share/occt"),
+    AsciiString1("/share"),
+    AsciiString1("/src"),
+    AsciiString1("")};
 
-  const TCollection_AsciiString anExeDir(OSD_Process::ExecutableFolder());
+  const AsciiString1 anExeDir(OSD_Process::ExecutableFolder());
   for (Standard_Integer aLayIter = 0;; ++aLayIter)
   {
-    const TCollection_AsciiString& aResLayout = aResLayouts[aLayIter];
-    const TCollection_AsciiString  aProbeFile = aResLayout + "/" + theProbeFile;
-    if (OSD_File(anExeDir + aProbeFile).Exists())
+    const AsciiString1& aResLayout = aResLayouts[aLayIter];
+    const AsciiString1  aProbeFile = aResLayout + "/" + theProbeFile;
+    if (SystemFile(anExeDir + aProbeFile).Exists())
     {
       theCasRoot = anExeDir;
       theResRoot = theCasRoot + aResLayout;
       return true;
     }
     // <prefix>/bin(d)
-    else if (OSD_File(anExeDir + "../" + aProbeFile).Exists())
+    else if (SystemFile(anExeDir + "../" + aProbeFile).Exists())
     {
       theCasRoot = anExeDir + "..";
       theResRoot = theCasRoot + aResLayout;
       return true;
     }
     // <prefix>/gcc/bin(d)
-    else if (OSD_File(anExeDir + "../../" + aProbeFile).Exists())
+    else if (SystemFile(anExeDir + "../../" + aProbeFile).Exists())
     {
       theCasRoot = anExeDir + "../..";
       theResRoot = theCasRoot + aResLayout;
       return true;
     }
     // <prefix>/win64/vc10/bin(d)
-    else if (OSD_File(anExeDir + "../../../" + aProbeFile).Exists())
+    else if (SystemFile(anExeDir + "../../../" + aProbeFile).Exists())
     {
       theCasRoot = anExeDir + "../../..";
       theResRoot = theCasRoot + aResLayout;
@@ -223,7 +223,7 @@ static bool searchResources(TCollection_AsciiString&       theCasRoot,
 
 //=================================================================================================
 
-Draw_Interpretor& Draw::GetInterpretor()
+DrawInterpreter& Draw1::GetInterpretor()
 {
   return theCommands;
 }
@@ -232,12 +232,12 @@ Draw_Interpretor& Draw::GetInterpretor()
 // function :
 // purpose  : Set/Get Progress Indicator
 //=======================================================================
-void Draw::SetProgressBar(const Handle(Draw_ProgressIndicator)& theProgress)
+void Draw1::SetProgressBar(const Handle(Draw_ProgressIndicator)& theProgress)
 {
   global_Progress = theProgress;
 }
 
-Handle(Draw_ProgressIndicator) Draw::GetProgressBar()
+Handle(Draw_ProgressIndicator) Draw1::GetProgressBar()
 {
   return global_Progress;
 }
@@ -274,7 +274,7 @@ void Draw_Appli(int argc, char** argv, const FDraw_InitAppli Draw_InitAppli)
 // prepend extra DLL search path to override system libraries like opengl32.dll
 #ifdef _WIN32
   OSD_Environment                  aUserDllEnv("CSF_UserDllPath");
-  const TCollection_ExtendedString aUserDllPath(aUserDllEnv.Value());
+  const UtfString aUserDllPath(aUserDllEnv.Value());
   if (!aUserDllPath.IsEmpty())
   {
     // This function available since Win XP SP1 #if (_WIN32_WINNT >= 0x0502).
@@ -304,13 +304,13 @@ void Draw_Appli(int argc, char** argv, const FDraw_InitAppli Draw_InitAppli)
   // analyze arguments
   // *****************************************************************
   Draw_Batch = Standard_False;
-  TCollection_AsciiString aRunFile, aCommand;
+  AsciiString1 aRunFile, aCommand;
   Standard_Boolean        isInteractiveForced = Standard_False;
 
   // parse command line
   for (int anArgIter = 1; anArgIter < argc; ++anArgIter)
   {
-    TCollection_AsciiString anArg(argv[anArgIter]);
+    AsciiString1 anArg(argv[anArgIter]);
     anArg.LowerCase();
     if (anArg == "-h" || anArg == "--help")
     {
@@ -348,7 +348,7 @@ void Draw_Appli(int argc, char** argv, const FDraw_InitAppli Draw_InitAppli)
       Draw_VirtualWindows = !isInteractiveForced;
       if (++anArgIter < argc)
       {
-        aRunFile = TCollection_AsciiString(argv[anArgIter]);
+        aRunFile = AsciiString1(argv[anArgIter]);
       }
       break;
     }
@@ -357,7 +357,7 @@ void Draw_Appli(int argc, char** argv, const FDraw_InitAppli Draw_InitAppli)
       Draw_VirtualWindows = !isInteractiveForced;
       if (++anArgIter < argc)
       {
-        aCommand = TCollection_AsciiString(argv[anArgIter]);
+        aCommand = AsciiString1(argv[anArgIter]);
       }
       while (++anArgIter < argc)
       {
@@ -368,7 +368,7 @@ void Draw_Appli(int argc, char** argv, const FDraw_InitAppli Draw_InitAppli)
     }
     else
     {
-      std::cout << "Error: unsupported option " << TCollection_AsciiString(argv[anArgIter]) << "\n";
+      std::cout << "Error: unsupported option " << AsciiString1(argv[anArgIter]) << "\n";
     }
   }
 
@@ -424,12 +424,12 @@ void Draw_Appli(int argc, char** argv, const FDraw_InitAppli Draw_InitAppli)
   // *****************************************************************
   // standard commands
   // *****************************************************************
-  Draw::BasicCommands(theCommands);
-  Draw::MessageCommands(theCommands);
-  Draw::VariableCommands(theCommands);
-  Draw::UnitCommands(theCommands);
+  Draw1::BasicCommands(theCommands);
+  Draw1::MessageCommands(theCommands);
+  Draw1::VariableCommands(theCommands);
+  Draw1::UnitCommands(theCommands);
   if (!Draw_Batch)
-    Draw::GraphicCommands(theCommands);
+    Draw1::GraphicCommands(theCommands);
 
   // *****************************************************************
   // user commands
@@ -444,15 +444,15 @@ void Draw_Appli(int argc, char** argv, const FDraw_InitAppli Draw_InitAppli)
   // read init files
   // *****************************************************************
   // default
-  const TCollection_AsciiString aDrawDef(OSD_Environment("DRAWDEFAULT").Value());
+  const AsciiString1 aDrawDef(OSD_Environment("DRAWDEFAULT").Value());
   if (!aDrawDef.IsEmpty())
   {
     ReadInitFile(aDrawDef);
   }
   else
   {
-    TCollection_AsciiString aDrawHome;
-    TCollection_AsciiString aCasRoot(OSD_Environment("CASROOT").Value());
+    AsciiString1 aDrawHome;
+    AsciiString1 aCasRoot(OSD_Environment("CASROOT").Value());
     if (!aCasRoot.IsEmpty())
     {
       aDrawHome = aCasRoot + "/src/DrawResources";
@@ -460,7 +460,7 @@ void Draw_Appli(int argc, char** argv, const FDraw_InitAppli Draw_InitAppli)
     else
     {
       // search for relative locations within standard development environment
-      TCollection_AsciiString aResPath;
+      AsciiString1 aResPath;
       if (searchResources(aCasRoot, aResPath, "resources", "DrawResources/DrawDefault"))
       {
         aDrawHome = aResPath + "/DrawResources";
@@ -469,14 +469,14 @@ void Draw_Appli(int argc, char** argv, const FDraw_InitAppli Draw_InitAppli)
         setOcctTclEnv("CSF_OCCTResourcePath", aResPath);
       }
 
-      TCollection_AsciiString aSamplesPath;
+      AsciiString1 aSamplesPath;
       if (OSD_Environment("CSF_OCCTSamplesPath").Value().IsEmpty()
           && searchResources(aCasRoot, aSamplesPath, "samples", "tcl/Readme.txt"))
       {
         setOcctTclEnv("CSF_OCCTSamplesPath", aSamplesPath);
       }
 
-      TCollection_AsciiString aTestsPath;
+      AsciiString1 aTestsPath;
       if (OSD_Environment("CSF_TestScriptsPath").Value().IsEmpty()
           && searchResources(aCasRoot, aTestsPath, "tests", "parse.rules"))
       {
@@ -486,7 +486,7 @@ void Draw_Appli(int argc, char** argv, const FDraw_InitAppli Draw_InitAppli)
 
     if (!aDrawHome.IsEmpty())
     {
-      const TCollection_AsciiString aDefStr = aDrawHome + "/DrawDefault";
+      const AsciiString1 aDefStr = aDrawHome + "/DrawDefault";
       ReadInitFile(aDefStr);
     }
     else
@@ -527,7 +527,7 @@ void Draw_Appli(int argc, char** argv, const FDraw_InitAppli Draw_InitAppli)
       // on Windows except batch mode, commands are executed in separate thread
       while (console_semaphore == HAS_CONSOLE_COMMAND)
         Sleep(10);
-      TCollection_ExtendedString aCmdWide(aCommand);
+      UtfString aCmdWide(aCommand);
       wcscpy_s(console_command, aCmdWide.ToWideString());
       console_semaphore = HAS_CONSOLE_COMMAND;
       while (console_semaphore == HAS_CONSOLE_COMMAND)
@@ -562,7 +562,7 @@ void Draw_Appli(int argc, char** argv, const FDraw_InitAppli Draw_InitAppli)
     char      cmd[MAXCMD];
     for (int ncmd = 1;; ++ncmd)
     {
-      std::cout << "Draw[" << ncmd << "]> ";
+      std::cout << "Draw1[" << ncmd << "]> ";
       if (std::cin.getline(cmd, MAXCMD).fail())
       {
         break;
@@ -686,18 +686,18 @@ Standard_Integer Draw_Call(char* c)
 //=================================================================================
 //
 //=================================================================================
-void Draw::Load(Draw_Interpretor&              theDI,
-                const TCollection_AsciiString& theKey,
-                const TCollection_AsciiString& theResourceFileName,
-                const TCollection_AsciiString& theDefaultsDirectory,
-                const TCollection_AsciiString& theUserDefaultsDirectory,
+void Draw1::Load(DrawInterpreter&              theDI,
+                const AsciiString1& theKey,
+                const AsciiString1& theResourceFileName,
+                const AsciiString1& theDefaultsDirectory,
+                const AsciiString1& theUserDefaultsDirectory,
                 const Standard_Boolean         theIsVerbose)
 {
   static Plugin_MapOfFunctions theMapOfFunctions;
   OSD_Function                 aFunc = NULL;
   if (!theMapOfFunctions.Find(theKey, aFunc))
   {
-    TCollection_AsciiString  aPluginLibrary;
+    AsciiString1  aPluginLibrary;
     Handle(Resource_Manager) aPluginResource = new Resource_Manager(theResourceFileName,
                                                                     theDefaultsDirectory,
                                                                     theUserDefaultsDirectory,
@@ -711,7 +711,7 @@ void Draw::Load(Draw_Interpretor&              theDI,
     }
 
 #if !defined(_WIN32) || defined(__MINGW32__)
-    aPluginLibrary = TCollection_AsciiString("lib") + aPluginLibrary;
+    aPluginLibrary = AsciiString1("lib") + aPluginLibrary;
 #endif
 #ifdef _WIN32
     aPluginLibrary += ".dll";
@@ -725,7 +725,7 @@ void Draw::Load(Draw_Interpretor&              theDI,
     OSD_SharedLibrary aSharedLibrary(aPluginLibrary.ToCString());
     if (!aSharedLibrary.DlOpen(OSD_RTLD_LAZY))
     {
-      const TCollection_AsciiString anError(aSharedLibrary.DlError());
+      const AsciiString1 anError(aSharedLibrary.DlError());
       Standard_SStream              aMsg;
       aMsg << "Could not open: " << aPluginLibrary << "; reason: " << anError;
 #ifdef OCCT_DEBUG
@@ -737,7 +737,7 @@ void Draw::Load(Draw_Interpretor&              theDI,
     aFunc = aSharedLibrary.DlSymb("PLUGINFACTORY");
     if (aFunc == NULL)
     {
-      const TCollection_AsciiString anError(aSharedLibrary.DlError());
+      const AsciiString1 anError(aSharedLibrary.DlError());
       Standard_SStream              aMsg;
       aMsg << "Could not find the factory in: " << aPluginLibrary << anError;
       throw Draw_Failure(aMsg.str().c_str());
@@ -745,8 +745,8 @@ void Draw::Load(Draw_Interpretor&              theDI,
     theMapOfFunctions.Bind(theKey, aFunc);
   }
 
-  void (*fp)(Draw_Interpretor&) = NULL;
-  fp                            = (void (*)(Draw_Interpretor&))aFunc;
+  void (*fp)(DrawInterpreter&) = NULL;
+  fp                            = (void (*)(DrawInterpreter&))aFunc;
   (*fp)(theDI);
 }
 
@@ -763,7 +763,7 @@ static bool parseNumericalColorComponent(const Standard_CString theColorComponen
                                          Standard_Integer&      theIntegerColorComponent)
 {
   Standard_Integer anIntegerColorComponent;
-  if (!Draw::ParseInteger(theColorComponentString, anIntegerColorComponent))
+  if (!Draw1::ParseInteger(theColorComponentString, anIntegerColorComponent))
   {
     return false;
   }
@@ -784,7 +784,7 @@ static bool parseNumericalColorComponent(const Standard_CString theColorComponen
                                          Standard_ShortReal&    theRealColorComponent)
 {
   Standard_Real aRealColorComponent;
-  if (!Draw::ParseReal(theColorComponentString, aRealColorComponent))
+  if (!Draw1::ParseReal(theColorComponentString, aRealColorComponent))
   {
     return false;
   }
@@ -909,7 +909,7 @@ static bool parseRealColor(Standard_Integer&        theNumberOfColorComponents,
 
 //=================================================================================================
 
-Standard_Integer Draw::parseColor(const Standard_Integer   theArgNb,
+Standard_Integer Draw1::parseColor(const Standard_Integer   theArgNb,
                                   const char* const* const theArgVec,
                                   Quantity_ColorRGBA&      theColor,
                                   const bool               theToParseAlpha)
@@ -952,9 +952,9 @@ Standard_Integer Draw::parseColor(const Standard_Integer   theArgNb,
 
 //=================================================================================================
 
-Standard_Boolean Draw::ParseOnOff(Standard_CString theArg, Standard_Boolean& theIsOn)
+Standard_Boolean Draw1::ParseOnOff(Standard_CString theArg, Standard_Boolean& theIsOn)
 {
-  TCollection_AsciiString aFlag(theArg);
+  AsciiString1 aFlag(theArg);
   aFlag.LowerCase();
   if (aFlag == "on" || aFlag == "1")
   {
@@ -971,12 +971,12 @@ Standard_Boolean Draw::ParseOnOff(Standard_CString theArg, Standard_Boolean& the
 
 //=================================================================================================
 
-Standard_Boolean Draw::ParseOnOffIterator(Standard_Integer  theArgsNb,
+Standard_Boolean Draw1::ParseOnOffIterator(Standard_Integer  theArgsNb,
                                           const char**      theArgVec,
                                           Standard_Integer& theArgIter)
 {
   Standard_Boolean isOn = Standard_True;
-  if (theArgIter + 1 < theArgsNb && Draw::ParseOnOff(theArgVec[theArgIter + 1], isOn))
+  if (theArgIter + 1 < theArgsNb && Draw1::ParseOnOff(theArgVec[theArgIter + 1], isOn))
   {
     ++theArgIter;
   }
@@ -985,12 +985,12 @@ Standard_Boolean Draw::ParseOnOffIterator(Standard_Integer  theArgsNb,
 
 //=================================================================================================
 
-Standard_Boolean Draw::ParseOnOffNoIterator(Standard_Integer  theArgsNb,
+Standard_Boolean Draw1::ParseOnOffNoIterator(Standard_Integer  theArgsNb,
                                             const char**      theArgVec,
                                             Standard_Integer& theArgIter)
 {
   Standard_Boolean toReverse = strncasecmp(theArgVec[theArgIter], "no", 2) == 0
                                || strncasecmp(theArgVec[theArgIter], "-no", 3) == 0;
-  Standard_Boolean isOn = Draw::ParseOnOffIterator(theArgsNb, theArgVec, theArgIter);
+  Standard_Boolean isOn = Draw1::ParseOnOffIterator(theArgsNb, theArgVec, theArgIter);
   return toReverse ? !isOn : isOn;
 }

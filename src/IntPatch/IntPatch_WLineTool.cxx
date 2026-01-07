@@ -467,10 +467,10 @@ static Handle(IntPatch_WLine) DeleteByTube(const Handle(IntPatch_WLine)&    theW
       // c2d1 - line
       // c3d - line
       // c2d2 - geometrically line, but have uneven parametrization -> c2d2 is bspline.
-      gp_XY aPntOnS1[2] = {gp_XY(UonS1[1] - UonS1[0], VonS1[1] - VonS1[0]),
-                           gp_XY(UonS1[2] - UonS1[1], VonS1[2] - VonS1[1])};
-      gp_XY aPntOnS2[2] = {gp_XY(UonS2[1] - UonS2[0], VonS2[1] - VonS2[0]),
-                           gp_XY(UonS2[2] - UonS2[1], VonS2[2] - VonS2[1])};
+      Coords2d aPntOnS1[2] = {Coords2d(UonS1[1] - UonS1[0], VonS1[1] - VonS1[0]),
+                           Coords2d(UonS1[2] - UonS1[1], VonS1[2] - VonS1[1])};
+      Coords2d aPntOnS2[2] = {Coords2d(UonS2[1] - UonS2[0], VonS2[1] - VonS2[0]),
+                           Coords2d(UonS2[2] - UonS2[1], VonS2[2] - VonS2[1])};
 
       Standard_Real aStepOnS1 = aPntOnS1[0].SquareModulus() / aPntOnS1[1].SquareModulus();
       Standard_Real aStepOnS2 = aPntOnS2[0].SquareModulus() / aPntOnS2[1].SquareModulus();

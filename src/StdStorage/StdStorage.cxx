@@ -38,9 +38,9 @@
 //=======================================================================
 // StdStorage::Version
 //=======================================================================
-TCollection_AsciiString StdStorage::Version()
+AsciiString1 StdStorage::Version()
 {
-  TCollection_AsciiString v("1.3");
+  AsciiString1 v("1.3");
   return v;
 }
 
@@ -48,12 +48,12 @@ TCollection_AsciiString StdStorage::Version()
 // StdStorage::Read
 // Reads data from a file
 //=======================================================================
-Storage_Error StdStorage::Read(const TCollection_AsciiString& theFileName,
+Storage_Error StdStorage::Read(const AsciiString1& theFileName,
                                Handle(StdStorage_Data)&       theData)
 {
   // Create a driver appropriate for the given file
   Handle(Storage_BaseDriver) aDriver;
-  if (PCDM::FileDriverType(theFileName, aDriver) == PCDM_TOFD_Unknown)
+  if (PCDM1::FileDriverType(theFileName, aDriver) == PCDM_TOFD_Unknown)
     return Storage_VSWrongFileDriver;
 
   // Try to open the file
@@ -195,7 +195,7 @@ Storage_Error StdStorage::Read(const Handle(Storage_BaseDriver)& theDriver,
 //=======================================================================
 // StdStorage::currentDate
 //=======================================================================
-static TCollection_AsciiString currentDate()
+static AsciiString1 currentDate()
 {
 #define SLENGTH 80
 
@@ -207,7 +207,7 @@ static TCollection_AsciiString currentDate()
     nowstruct = localtime(&nowbin);
     strftime(nowstr, SLENGTH, "%m/%d/%Y", nowstruct);
   }
-  TCollection_AsciiString t(nowstr);
+  AsciiString1 t(nowstr);
   return t;
 
 #undef SLENGTH

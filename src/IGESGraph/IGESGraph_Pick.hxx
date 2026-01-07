@@ -26,7 +26,7 @@ class IGESGraph_Pick;
 DEFINE_STANDARD_HANDLE(IGESGraph_Pick, IGESData_IGESEntity)
 
 //! defines IGESPick, Type <406> Form <21>
-//! in package IGESGraph
+//! in package IGESGraph1
 //!
 //! Attaches information that an entity may be picked
 //! by whatever pick device is used in the receiving

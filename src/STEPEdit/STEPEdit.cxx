@@ -22,27 +22,27 @@
 #include <StepData_StepModel.hxx>
 #include <StepSelect_StepType.hxx>
 
-Handle(Interface_Protocol) STEPEdit::Protocol()
+Handle(Interface_Protocol) STEPEdit1::Protocol()
 {
   /*
     static Handle(StepData_FileProtocol) proto;
     if (!proto.IsNull()) return proto;
     proto =  new StepData_FileProtocol;
-    proto->Add (StepAP214::Protocol());
-    proto->Add (HeaderSection::Protocol());
+    proto->Add (StepAP2141::Protocol());
+    proto->Add (HeaderSection1::Protocol());
     return proto;
   */
-  return StepAP214::Protocol();
+  return StepAP2141::Protocol();
 }
 
-Handle(StepData_StepModel) STEPEdit::NewModel()
+Handle(StepData_StepModel) STEPEdit1::NewModel()
 {
   Handle(StepData_StepModel) stepmodel = new StepData_StepModel;
-  stepmodel->SetProtocol(STEPEdit::Protocol());
+  stepmodel->SetProtocol(STEPEdit1::Protocol());
   return stepmodel;
 }
 
-Handle(IFSelect_Signature) STEPEdit::SignType()
+Handle(IFSelect_Signature) STEPEdit1::SignType()
 {
   static Standard_Mutex              aMutex;
   Standard_Mutex::Sentry             aSentry(aMutex);
@@ -50,32 +50,32 @@ Handle(IFSelect_Signature) STEPEdit::SignType()
   if (!sty.IsNull())
     return sty;
   sty = new StepSelect_StepType;
-  sty->SetProtocol(STEPEdit::Protocol());
+  sty->SetProtocol(STEPEdit1::Protocol());
   return sty;
 }
 
-Handle(IFSelect_SelectSignature) STEPEdit::NewSelectSDR()
+Handle(IFSelect_SelectSignature) STEPEdit1::NewSelectSDR()
 {
   Handle(IFSelect_SelectSignature) sel =
-    new IFSelect_SelectSignature(STEPEdit::SignType(), "SHAPE_DEFINITION_REPRESENTATION");
+    new IFSelect_SelectSignature(STEPEdit1::SignType(), "SHAPE_DEFINITION_REPRESENTATION");
   sel->SetInput(new IFSelect_SelectModelRoots);
   return sel;
 }
 
-Handle(IFSelect_SelectSignature) STEPEdit::NewSelectPlacedItem()
+Handle(IFSelect_SelectSignature) STEPEdit1::NewSelectPlacedItem()
 {
   Handle(IFSelect_SelectSignature) sel =
-    new IFSelect_SelectSignature(STEPEdit::SignType(),
+    new IFSelect_SelectSignature(STEPEdit1::SignType(),
                                  "MAPPED_ITEM|CONTEXT_DEPENDENT_SHAPE_REPRESENTATION",
                                  Standard_False);
   sel->SetInput(new IFSelect_SelectModelEntities);
   return sel;
 }
 
-Handle(IFSelect_SelectSignature) STEPEdit::NewSelectShapeRepr()
+Handle(IFSelect_SelectSignature) STEPEdit1::NewSelectShapeRepr()
 {
   Handle(IFSelect_SelectSignature) sel =
-    new IFSelect_SelectSignature(STEPEdit::SignType(), "SHAPE_REPRESENTATION", Standard_False);
+    new IFSelect_SelectSignature(STEPEdit1::SignType(), "SHAPE_REPRESENTATION", Standard_False);
   // REPRESENTATION_RELATIONSHIP passe par CONTEXT_DEPENDENT_SHAPE_REPRESENTATION
   sel->SetInput(new IFSelect_SelectModelEntities);
   return sel;

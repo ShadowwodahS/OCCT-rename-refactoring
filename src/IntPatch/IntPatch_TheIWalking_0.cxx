@@ -43,7 +43,7 @@
 #define ThePOLIterator_hxx <IntSurf_SequenceOfInteriorPoint.hxx>
 #define ThePSurface Handle(Adaptor3d_Surface)
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
-#define ThePSurfaceTool Adaptor3d_HSurfaceTool
+#define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
 #define TheIWFunction IntPatch_TheSurfFunction
 #define TheIWFunction_hxx <IntPatch_TheSurfFunction.hxx>

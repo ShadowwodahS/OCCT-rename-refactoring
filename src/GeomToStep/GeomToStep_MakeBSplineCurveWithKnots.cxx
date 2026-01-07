@@ -36,8 +36,8 @@
 // prostep a partir d' une BSplineCurve de Geom
 //=============================================================================
 GeomToStep_MakeBSplineCurveWithKnots::GeomToStep_MakeBSplineCurveWithKnots(
-  const Handle(Geom_BSplineCurve)& BS,
-  const StepData_Factors&          theLocalFactors)
+  const Handle(BSplineCurve3d)& BS,
+  const ConversionFactors&          theLocalFactors)
 {
 #define Array1OfPnt_gen TColgp_Array1OfPnt
 #include "GeomToStep_MakeBSplineCurveWithKnots_gen.pxx"
@@ -51,7 +51,7 @@ GeomToStep_MakeBSplineCurveWithKnots::GeomToStep_MakeBSplineCurveWithKnots(
 
 GeomToStep_MakeBSplineCurveWithKnots::GeomToStep_MakeBSplineCurveWithKnots(
   const Handle(Geom2d_BSplineCurve)& BS,
-  const StepData_Factors&            theLocalFactors)
+  const ConversionFactors&            theLocalFactors)
 {
 #define Array1OfPnt_gen TColgp_Array1OfPnt2d
 #include "GeomToStep_MakeBSplineCurveWithKnots_gen.pxx"

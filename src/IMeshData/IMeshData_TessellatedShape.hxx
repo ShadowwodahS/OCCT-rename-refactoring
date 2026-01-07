@@ -43,7 +43,7 @@ protected:
   }
 
   //! Constructor.
-  IMeshData_TessellatedShape(const TopoDS_Shape& theShape)
+  IMeshData_TessellatedShape(const TopoShape& theShape)
       : IMeshData_Shape(theShape),
         myDeflection(RealLast())
   {

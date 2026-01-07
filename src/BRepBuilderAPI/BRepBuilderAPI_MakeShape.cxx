@@ -27,7 +27,7 @@ void BRepBuilderAPI_MakeShape::Build(const Message_ProgressRange& /*theRange*/) 
 
 //=================================================================================================
 
-const TopoDS_Shape& BRepBuilderAPI_MakeShape::Shape()
+const TopoShape& BRepBuilderAPI_MakeShape::Shape()
 {
   if (!IsDone())
   {
@@ -40,14 +40,14 @@ const TopoDS_Shape& BRepBuilderAPI_MakeShape::Shape()
 
 //=================================================================================================
 
-BRepBuilderAPI_MakeShape::operator TopoDS_Shape()
+BRepBuilderAPI_MakeShape::operator TopoShape()
 {
   return Shape();
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepBuilderAPI_MakeShape::Generated(const TopoDS_Shape&)
+const ShapeList& BRepBuilderAPI_MakeShape::Generated(const TopoShape&)
 
 {
   myGenerated.Clear();
@@ -56,7 +56,7 @@ const TopTools_ListOfShape& BRepBuilderAPI_MakeShape::Generated(const TopoDS_Sha
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepBuilderAPI_MakeShape::Modified(const TopoDS_Shape&)
+const ShapeList& BRepBuilderAPI_MakeShape::Modified(const TopoShape&)
 
 {
   myGenerated.Clear();
@@ -65,7 +65,7 @@ const TopTools_ListOfShape& BRepBuilderAPI_MakeShape::Modified(const TopoDS_Shap
 
 //=================================================================================================
 
-Standard_Boolean BRepBuilderAPI_MakeShape::IsDeleted(const TopoDS_Shape&)
+Standard_Boolean BRepBuilderAPI_MakeShape::IsDeleted(const TopoShape&)
 
 {
   return Standard_False;

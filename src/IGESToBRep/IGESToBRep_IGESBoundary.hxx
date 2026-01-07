@@ -57,7 +57,7 @@ public:
   //! in the IGES file
   Standard_EXPORT void Init(const IGESToBRep_CurveAndSurface&  CS,
                             const Handle(IGESData_IGESEntity)& entity,
-                            const TopoDS_Face&                 face,
+                            const TopoFace&                 face,
                             const gp_Trsf2d&                   trans,
                             const Standard_Real                uFact,
                             const Standard_Integer             filepreference);
@@ -150,14 +150,14 @@ protected:
   Standard_EXPORT static void ReverseCurves3d(const Handle(ShapeExtend_WireData)& sewd);
 
   Standard_EXPORT static void ReverseCurves2d(const Handle(ShapeExtend_WireData)& sewd,
-                                              const TopoDS_Face&                  face);
+                                              const TopoFace&                  face);
 
   IGESToBRep_CurveAndSurface   myCS;
   Handle(IGESData_IGESEntity)  myentity;
   Handle(ShapeExtend_WireData) mysewd;
   Handle(ShapeExtend_WireData) mysewd3d;
   Handle(ShapeExtend_WireData) mysewd2d;
-  TopoDS_Face                  myface;
+  TopoFace                  myface;
   gp_Trsf2d                    mytrsf;
   Standard_Real                myuFact;
   Standard_Integer             myfilepreference;

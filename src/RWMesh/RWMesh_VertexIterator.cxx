@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-RWMesh_VertexIterator::RWMesh_VertexIterator(const TDF_Label&       theLabel,
+RWMesh_VertexIterator::RWMesh_VertexIterator(const DataLabel&       theLabel,
                                              const TopLoc_Location& theLocation,
                                              const Standard_Boolean theToMapColors,
                                              const XCAFPrs_Style&   theStyle)
@@ -37,7 +37,7 @@ RWMesh_VertexIterator::RWMesh_VertexIterator(const TDF_Label&       theLabel,
 
 //=================================================================================================
 
-RWMesh_VertexIterator::RWMesh_VertexIterator(const TopoDS_Shape&  theShape,
+RWMesh_VertexIterator::RWMesh_VertexIterator(const TopoShape&  theShape,
                                              const XCAFPrs_Style& theStyle)
     : RWMesh_ShapeIterator(theShape, TopAbs_VERTEX, TopAbs_EDGE, theStyle)
 {
@@ -51,7 +51,7 @@ void RWMesh_VertexIterator::Next()
   for (; myIter.More(); myIter.Next())
   {
     myVertex = TopoDS::Vertex(myIter.Current());
-    myPoint  = BRep_Tool::Pnt(myVertex);
+    myPoint  = BRepInspector::Pnt(myVertex);
     myTrsf   = myLocation.Transformation();
     if (myVertex.IsNull())
     {

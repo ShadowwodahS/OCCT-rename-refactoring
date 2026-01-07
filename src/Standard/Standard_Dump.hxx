@@ -46,7 +46,7 @@
 //! }
 //! - OCCT_DUMP_FIELD_VALUES_NUMERICAL. Use it for unlimited list of fields of C++ double type.
 //!     It creates massive of values [value_1, value_2, ...]
-//! - OCCT_DUMP_FIELD_VALUES_STRING. Use it for unlimited list of fields of TCollection_AsciiString
+//! - OCCT_DUMP_FIELD_VALUES_STRING. Use it for unlimited list of fields of AsciiString1
 //! types.
 //!     It creates massive of values ["value_1", "value_2", ...]
 //! - OCCT_DUMP_BASE_CLASS. Use if Dump implementation of the class is virtual, to perform
@@ -88,7 +88,7 @@
 //! Append into output value: "Name": Field
 #define OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, theField)                                      \
   {                                                                                                \
-    TCollection_AsciiString aName = Standard_Dump::DumpFieldToName(#theField);                     \
+    AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField);                     \
     Standard_Dump::AddValuesSeparator(theOStream);                                                 \
     theOStream << "\"" << aName << "\": " << theField;                                             \
   }
@@ -98,7 +98,7 @@
 //! Inc name value added to the key to provide unique keys
 #define OCCT_DUMP_FIELD_VALUE_NUMERICAL_INC(theOStream, theField, theIncName)                      \
   {                                                                                                \
-    TCollection_AsciiString aName = Standard_Dump::DumpFieldToName(#theField) + theIncName;        \
+    AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField) + theIncName;        \
     Standard_Dump::AddValuesSeparator(theOStream);                                                 \
     theOStream << "\"" << aName << "\": " << theField;                                             \
   }
@@ -113,7 +113,7 @@
     Standard_Integer aStreamPos = theStreamPos;                                                    \
     if (!Standard_Dump::ProcessFieldName(theOStream, #theField, aStreamPos))                       \
       return Standard_False;                                                                       \
-    TCollection_AsciiString aValueText;                                                            \
+    AsciiString1 aValueText;                                                            \
     if (!Standard_Dump::InitValue(theOStream, aStreamPos, aValueText)                              \
         || !aValueText.IsRealValue())                                                              \
       return Standard_False;                                                                       \
@@ -131,7 +131,7 @@
     Standard_Integer aStreamPos = theStreamPos;                                                    \
     if (!Standard_Dump::ProcessFieldName(theOStream, #theField, aStreamPos))                       \
       return Standard_False;                                                                       \
-    TCollection_AsciiString aValueText;                                                            \
+    AsciiString1 aValueText;                                                            \
     if (!Standard_Dump::InitValue(theOStream, aStreamPos, aValueText)                              \
         || !aValueText.IsIntegerValue())                                                           \
       return Standard_False;                                                                       \
@@ -143,7 +143,7 @@
 //! Append into output value: "Name": "Field"
 #define OCCT_DUMP_FIELD_VALUE_STRING(theOStream, theField)                                         \
   {                                                                                                \
-    TCollection_AsciiString aName = Standard_Dump::DumpFieldToName(#theField);                     \
+    AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField);                     \
     Standard_Dump::AddValuesSeparator(theOStream);                                                 \
     theOStream << "\"" << aName << "\": \"" << theField << "\"";                                   \
   }
@@ -152,7 +152,7 @@
 //! Append into output value: "Name": "address of the pointer"
 #define OCCT_DUMP_FIELD_VALUE_POINTER(theOStream, theField)                                        \
   {                                                                                                \
-    TCollection_AsciiString aName = Standard_Dump::DumpFieldToName(#theField);                     \
+    AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField);                     \
     Standard_Dump::AddValuesSeparator(theOStream);                                                 \
     theOStream << "\"" << aName << "\": \"" << Standard_Dump::GetPointerInfo(theField) << "\"";    \
   }
@@ -161,7 +161,7 @@
 //! Append into output value: "Name": "Field"
 #define OCCT_DUMP_FIELD_VALUE_GUID(theOStream, theField)                                           \
   {                                                                                                \
-    TCollection_AsciiString aName = Standard_Dump::DumpFieldToName(#theField);                     \
+    AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField);                     \
     Standard_Dump::AddValuesSeparator(theOStream);                                                 \
     char aStr[Standard_GUID_SIZE_ALLOC];                                                           \
     theField.ToCString(aStr);                                                                      \
@@ -180,7 +180,7 @@
     {                                                                                              \
       Standard_SStream aFieldStream;                                                               \
       (theField)->DumpJson(aFieldStream, theDepth - 1);                                            \
-      TCollection_AsciiString aName = Standard_Dump::DumpFieldToName(#theField);                   \
+      AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField);                   \
       Standard_Dump::DumpKeyToClass(theOStream, aName, Standard_Dump::Text(aFieldStream));         \
     }                                                                                              \
   }
@@ -198,7 +198,7 @@
     {                                                                                              \
       Standard_SStream aFieldStream;                                                               \
       (theField)->DumpJson(aFieldStream, theDepth - 1);                                            \
-      TCollection_AsciiString aName = Standard_Dump::DumpFieldToName(#theField) + theIncName;      \
+      AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField) + theIncName;      \
       Standard_Dump::DumpKeyToClass(theOStream, aName, Standard_Dump::Text(aFieldStream));         \
     }                                                                                              \
   }
@@ -221,7 +221,7 @@
 //! Use this macro for Standard_SStream field.
 #define OCCT_DUMP_STREAM_VALUE_DUMPED(theOStream, theField)                                        \
   {                                                                                                \
-    TCollection_AsciiString aName = Standard_Dump::DumpFieldToName(#theField);                     \
+    AsciiString1 aName = Standard_Dump::DumpFieldToName(#theField);                     \
     Standard_Dump::DumpKeyToClass(theOStream, aName, Standard_Dump::Text(theField));               \
   }
 
@@ -313,13 +313,13 @@ struct Standard_DumpValue
   {
   }
 
-  Standard_DumpValue(const TCollection_AsciiString& theValue, const Standard_Integer theStartPos)
+  Standard_DumpValue(const AsciiString1& theValue, const Standard_Integer theStartPos)
       : myValue(theValue),
         myStartPosition(theStartPos)
   {
   }
 
-  TCollection_AsciiString myValue;         //!< current string value
+  AsciiString1 myValue;         //!< current string value
   Standard_Integer        myStartPosition; //!< position of the value first char in the whole stream
 };
 
@@ -330,7 +330,7 @@ public:
   //! Converts stream value to string value. The result is original stream value.
   //! @param theStream source value
   //! @return text presentation
-  Standard_EXPORT static TCollection_AsciiString Text(const Standard_SStream& theStream);
+  Standard_EXPORT static AsciiString1 Text(const Standard_SStream& theStream);
 
   //! Converts stream value to string value. Improves the text presentation with the following
   //! cases:
@@ -342,7 +342,7 @@ public:
   //! @param theStream source value
   //! @param theIndent count of ' ' symbols to apply hierarchical indent of the text values
   //! @return text presentation
-  Standard_EXPORT static TCollection_AsciiString FormatJson(const Standard_SStream& theStream,
+  Standard_EXPORT static AsciiString1 FormatJson(const Standard_SStream& theStream,
                                                             const Standard_Integer  theIndent = 3);
 
   //! Converts stream into map of values.
@@ -359,16 +359,16 @@ public:
   //! @param[out] theKeyToValues  container of split values. It contains key to value and position
   //! of the value in the stream text
   Standard_EXPORT static Standard_Boolean SplitJson(
-    const TCollection_AsciiString&                                           theStreamStr,
-    NCollection_IndexedDataMap<TCollection_AsciiString, Standard_DumpValue>& theKeyToValues);
+    const AsciiString1&                                           theStreamStr,
+    NCollection_IndexedDataMap<AsciiString1, Standard_DumpValue>& theKeyToValues);
 
   //! Returns container of indices in values, that has hierarchical value
   Standard_EXPORT static NCollection_List<Standard_Integer> HierarchicalValueIndices(
-    const NCollection_IndexedDataMap<TCollection_AsciiString, TCollection_AsciiString>& theValues);
+    const NCollection_IndexedDataMap<AsciiString1, AsciiString1>& theValues);
 
   //! Returns true if the value has bracket key
   Standard_EXPORT static Standard_Boolean HasChildKey(
-    const TCollection_AsciiString& theSourceValue);
+    const AsciiString1& theSourceValue);
 
   //! Returns key value for enum type
   Standard_EXPORT static Standard_CString JsonKeyToString(const Standard_JsonKey theKey);
@@ -381,14 +381,14 @@ public:
 
   //! Returns default prefix added for each pointer info string if short presentation of pointer
   //! used
-  static TCollection_AsciiString GetPointerPrefix() { return "0x"; }
+  static AsciiString1 GetPointerPrefix() { return "0x"; }
 
   //! Convert handle pointer to address of the pointer. If the handle is NULL, the result is an
   //! empty string.
   //! @param thePointer a pointer
   //! @param isShortInfo if true, all '0' symbols in the beginning of the pointer are skipped
   //! @return the string value
-  Standard_EXPORT static TCollection_AsciiString GetPointerInfo(
+  Standard_EXPORT static AsciiString1 GetPointerInfo(
     const Handle(RefObject)& thePointer,
     const bool                        isShortInfo = true);
 
@@ -397,7 +397,7 @@ public:
   //! @param thePointer a pointer
   //! @param isShortInfo if true, all '0' symbols in the beginning of the pointer are skipped
   //! @return the string value
-  Standard_EXPORT static TCollection_AsciiString GetPointerInfo(const void* thePointer,
+  Standard_EXPORT static AsciiString1 GetPointerInfo(const void* thePointer,
                                                                 const bool  isShortInfo = true);
 
   //! Append into output value: "Name": { Field }
@@ -405,8 +405,8 @@ public:
   //! @param theKey a source value
   //! @param theField stream value
   Standard_EXPORT static void DumpKeyToClass(Standard_OStream&              theOStream,
-                                             const TCollection_AsciiString& theKey,
-                                             const TCollection_AsciiString& theField);
+                                             const AsciiString1& theKey,
+                                             const AsciiString1& theField);
 
   //! Unite values in one value using template: "value_1", "value_2", ..., "value_n"
   //! @param[out] theOStream  stream to be fill with values
@@ -423,8 +423,8 @@ public:
   //! @param[in]  theName      stream key value
   //! @param[out] theStreamPos current position in the stream
   Standard_EXPORT static Standard_Boolean ProcessStreamName(
-    const TCollection_AsciiString& theStreamStr,
-    const TCollection_AsciiString& theName,
+    const AsciiString1& theStreamStr,
+    const AsciiString1& theName,
     Standard_Integer&              theStreamPos);
 
   //! Check whether the field name is equal to the name in the stream at position
@@ -432,8 +432,8 @@ public:
   //! @param[in]  theName      stream key field value
   //! @param[out] theStreamPos current position in the stream
   Standard_EXPORT static Standard_Boolean ProcessFieldName(
-    const TCollection_AsciiString& theStreamStr,
-    const TCollection_AsciiString& theName,
+    const AsciiString1& theStreamStr,
+    const AsciiString1& theName,
     Standard_Integer&              theStreamPos);
 
   //! Unite values in one value using template: value_1, value_2, ..., value_n
@@ -441,7 +441,7 @@ public:
   //! @param[out] theStreamPos current position in the stream
   //! @param[in]  theCount     number of values
   Standard_EXPORT static Standard_Boolean InitRealValues(
-    const TCollection_AsciiString& theStreamStr,
+    const AsciiString1& theStreamStr,
     Standard_Integer&              theStreamPos,
     int                            theCount,
     ...);
@@ -450,15 +450,15 @@ public:
   //! @param[in]  theStreamStr stream with values
   //! @param[out] theStreamPos current position in the stream
   //! @param[out] theValue     stream value
-  Standard_EXPORT static Standard_Boolean InitValue(const TCollection_AsciiString& theStreamStr,
+  Standard_EXPORT static Standard_Boolean InitValue(const AsciiString1& theStreamStr,
                                                     Standard_Integer&              theStreamPos,
-                                                    TCollection_AsciiString&       theValue);
+                                                    AsciiString1&       theValue);
 
   //! Convert field name into dump text value, removes "&" and "my" prefixes
   //! An example, for field myValue, theName is Value, for &myCLass, the name is Class
   //! @param theField a source value
-  Standard_EXPORT static TCollection_AsciiString DumpFieldToName(
-    const TCollection_AsciiString& theField);
+  Standard_EXPORT static AsciiString1 DumpFieldToName(
+    const AsciiString1& theField);
 
 private:
   //! Extracts from the string value a pair (key, value), add it into output container, update index
@@ -467,14 +467,14 @@ private:
   //! before <key>, after the index is the next position after the value splitDumped(aString) gives
   //! theSplitValue = "abc", theTailValue = "defg", theKey = "key"
   Standard_EXPORT static Standard_Boolean splitKeyToValue(
-    const TCollection_AsciiString&                                           theStreamStr,
+    const AsciiString1&                                           theStreamStr,
     Standard_Integer                                                         theStartIndex,
     Standard_Integer&                                                        theNextIndex,
-    NCollection_IndexedDataMap<TCollection_AsciiString, Standard_DumpValue>& theValues);
+    NCollection_IndexedDataMap<AsciiString1, Standard_DumpValue>& theValues);
 
   //! Returns key of json in the index position. Increment the index position to the next symbol in
   //! the row
-  Standard_EXPORT static Standard_Boolean jsonKey(const TCollection_AsciiString& theStreamStr,
+  Standard_EXPORT static Standard_Boolean jsonKey(const AsciiString1& theStreamStr,
                                                   Standard_Integer               theStartIndex,
                                                   Standard_Integer&              theNextIndex,
                                                   Standard_JsonKey&              theKey);
@@ -483,7 +483,7 @@ private:
   //! Ignore combination <symbol open> ... <symbol close> between the close symbol.
   //! Example, for case ... { ... { ... } ...} ... } it returns the position of the forth brace
   Standard_EXPORT static Standard_Integer nextClosePosition(
-    const TCollection_AsciiString& theSourceValue,
+    const AsciiString1& theSourceValue,
     const Standard_Integer         theStartPosition,
     const Standard_JsonKey         theCloseKey,
     const Standard_JsonKey         theOpenKey);

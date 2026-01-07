@@ -18,19 +18,19 @@
 
 #include <LDOM_Document.hxx>
 
-class LDOM_DocumentType;
+class DocumentType;
 
-//  Block of comments describing class LDOM_LDOMImplementation
+//  Block of comments describing class LDOMImplementation
 //
 
-class LDOM_LDOMImplementation
+class LDOMImplementation
 {
 public:
   // ---------- PUBLIC METHODS ----------
 
   static Standard_EXPORT LDOM_Document createDocument(const LDOMString&        aNamespaceURI,
                                                       const LDOMString&        aQualifiedName,
-                                                      const LDOM_DocumentType& aDocType);
+                                                      const DocumentType& aDocType);
 };
 
 #endif

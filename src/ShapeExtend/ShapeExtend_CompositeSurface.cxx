@@ -25,7 +25,7 @@
 #include <ShapeExtend_CompositeSurface.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ShapeExtend_CompositeSurface, Geom_Surface)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeExtend_CompositeSurface, GeomSurface)
 
 //=================================================================================================
 
@@ -103,7 +103,7 @@ Standard_Integer ShapeExtend_CompositeSurface::NbVPatches() const
 
 //=================================================================================================
 
-const Handle(Geom_Surface)& ShapeExtend_CompositeSurface::Patch(const Standard_Integer i,
+const Handle(GeomSurface)& ShapeExtend_CompositeSurface::Patch(const Standard_Integer i,
                                                                 const Standard_Integer j) const
 {
   return myPatches->Value(i, j);
@@ -246,7 +246,7 @@ void ShapeExtend_CompositeSurface::LocateUVPoint(const gp_Pnt2d&   pnt,
 
 //=================================================================================================
 
-const Handle(Geom_Surface)& ShapeExtend_CompositeSurface::Patch(const Standard_Real U,
+const Handle(GeomSurface)& ShapeExtend_CompositeSurface::Patch(const Standard_Real U,
                                                                 const Standard_Real V) const
 {
   return myPatches->Value(LocateUParameter(U), LocateVParameter(V));
@@ -254,7 +254,7 @@ const Handle(Geom_Surface)& ShapeExtend_CompositeSurface::Patch(const Standard_R
 
 //=================================================================================================
 
-const Handle(Geom_Surface)& ShapeExtend_CompositeSurface::Patch(const gp_Pnt2d& pnt) const
+const Handle(GeomSurface)& ShapeExtend_CompositeSurface::Patch(const gp_Pnt2d& pnt) const
 {
   return myPatches->Value(LocateUParameter(pnt.X()), LocateVParameter(pnt.Y()));
 }
@@ -373,7 +373,7 @@ Standard_Boolean ShapeExtend_CompositeSurface::GlobalToLocalTransformation(const
 }
 
 //=======================================================================
-// Inherited methods (from Geom_Geometry and Geom_Surface)
+// Inherited methods (from Geom_Geometry and GeomSurface)
 //=======================================================================
 
 //=================================================================================================
@@ -399,7 +399,7 @@ Handle(Geom_Geometry) ShapeExtend_CompositeSurface::Copy() const
     new TColGeom_HArray2OfSurface(1, NbUPatches(), 1, NbVPatches());
   for (Standard_Integer i = 1; i <= NbUPatches(); i++)
     for (Standard_Integer j = 1; j <= NbVPatches(); j++)
-      patches->SetValue(i, j, Handle(Geom_Surface)::DownCast(Patch(i, j)->Copy()));
+      patches->SetValue(i, j, Handle(GeomSurface)::DownCast(Patch(i, j)->Copy()));
   surf->Init(patches);
   return surf;
 }
@@ -455,17 +455,17 @@ Standard_Boolean ShapeExtend_CompositeSurface::IsVPeriodic() const
 
 //=================================================================================================
 
-Handle(Geom_Curve) ShapeExtend_CompositeSurface::UIso(const Standard_Real) const
+Handle(GeomCurve3d) ShapeExtend_CompositeSurface::UIso(const Standard_Real) const
 {
-  Handle(Geom_Curve) dummy;
+  Handle(GeomCurve3d) dummy;
   return dummy;
 }
 
 //=================================================================================================
 
-Handle(Geom_Curve) ShapeExtend_CompositeSurface::VIso(const Standard_Real) const
+Handle(GeomCurve3d) ShapeExtend_CompositeSurface::VIso(const Standard_Real) const
 {
-  Handle(Geom_Curve) dummy;
+  Handle(GeomCurve3d) dummy;
   return dummy;
 }
 
@@ -644,7 +644,7 @@ static inline Standard_Real LimitValue(const Standard_Real& par)
   return Precision::IsInfinite(par) ? (par < 0 ? -10000. : 10000.) : par;
 }
 
-static void GetLimitedBounds(const Handle(Geom_Surface)& surf,
+static void GetLimitedBounds(const Handle(GeomSurface)& surf,
                              Standard_Real&              U1,
                              Standard_Real&              U2,
                              Standard_Real&              V1,
@@ -671,8 +671,8 @@ Standard_Boolean ShapeExtend_CompositeSurface::CheckConnectivity(const Standard_
     Standard_Real maxdist2 = 0.;
     for (Standard_Integer k = 1; k <= NbV; k++)
     {
-      Handle(Geom_Surface) sj = myPatches->Value(j, k);
-      Handle(Geom_Surface) si = myPatches->Value(i, k);
+      Handle(GeomSurface) sj = myPatches->Value(j, k);
+      Handle(GeomSurface) si = myPatches->Value(i, k);
       Standard_Real        Uj1, Uj2, Vj1, Vj2;
       GetLimitedBounds(sj, Uj1, Uj2, Vj1, Vj2);
       Standard_Real Ui1, Ui2, Vi1, Vi2;
@@ -700,8 +700,8 @@ Standard_Boolean ShapeExtend_CompositeSurface::CheckConnectivity(const Standard_
     Standard_Real maxdist2 = 0.;
     for (Standard_Integer k = 1; k <= NbU; k++)
     {
-      Handle(Geom_Surface) sj = myPatches->Value(k, j);
-      Handle(Geom_Surface) si = myPatches->Value(k, i);
+      Handle(GeomSurface) sj = myPatches->Value(k, j);
+      Handle(GeomSurface) si = myPatches->Value(k, i);
       Standard_Real        Uj1, Uj2, Vj1, Vj2;
       GetLimitedBounds(sj, Uj1, Uj2, Vj1, Vj2);
       Standard_Real Ui1, Ui2, Vi1, Vi2;

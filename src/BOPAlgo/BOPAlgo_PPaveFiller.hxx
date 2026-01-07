@@ -15,7 +15,7 @@
 #ifndef _BOPAlgo_PPaveFiller_HeaderFile
 #define _BOPAlgo_PPaveFiller_HeaderFile
 
-class BOPAlgo_PaveFiller;
-typedef BOPAlgo_PaveFiller* BOPAlgo_PPaveFiller;
+class BooleanPaveFiller;
+typedef BooleanPaveFiller* BOPAlgo_PPaveFiller;
 
 #endif // _BOPAlgo_PPaveFiller_HeaderFile

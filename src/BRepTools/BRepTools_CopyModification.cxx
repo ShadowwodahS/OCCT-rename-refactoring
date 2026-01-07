@@ -30,35 +30,35 @@ BRepTools_CopyModification::BRepTools_CopyModification(const Standard_Boolean co
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_CopyModification::NewSurface(const TopoDS_Face&    theFace,
-                                                        Handle(Geom_Surface)& theSurf,
+Standard_Boolean BRepTools_CopyModification::NewSurface(const TopoFace&    theFace,
+                                                        Handle(GeomSurface)& theSurf,
                                                         TopLoc_Location&      theLoc,
                                                         Standard_Real&        theTol,
                                                         Standard_Boolean&     theRevWires,
                                                         Standard_Boolean&     theRevFace)
 {
-  theSurf     = BRep_Tool::Surface(theFace, theLoc);
-  theTol      = BRep_Tool::Tolerance(theFace);
+  theSurf     = BRepInspector::Surface(theFace, theLoc);
+  theTol      = BRepInspector::Tolerance(theFace);
   theRevWires = theRevFace = Standard_False;
 
   if (!theSurf.IsNull() && myCopyGeom)
-    theSurf = Handle(Geom_Surface)::DownCast(theSurf->Copy());
+    theSurf = Handle(GeomSurface)::DownCast(theSurf->Copy());
 
   return Standard_True;
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_CopyModification::NewTriangulation(const TopoDS_Face&          theFace,
-                                                              Handle(Poly_Triangulation)& theTri)
+Standard_Boolean BRepTools_CopyModification::NewTriangulation(const TopoFace&          theFace,
+                                                              Handle(MeshTriangulation)& theTri)
 {
-  if (!myCopyMesh && BRep_Tool::IsGeometric(theFace))
+  if (!myCopyMesh && BRepInspector::IsGeometric(theFace))
   {
     return Standard_False;
   }
 
   TopLoc_Location aLoc;
-  theTri = BRep_Tool::Triangulation(theFace, aLoc);
+  theTri = BRepInspector::Triangulation(theFace, aLoc);
 
   if (theTri.IsNull())
     return Standard_False;
@@ -71,33 +71,33 @@ Standard_Boolean BRepTools_CopyModification::NewTriangulation(const TopoDS_Face&
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_CopyModification::NewCurve(const TopoDS_Edge&  theEdge,
-                                                      Handle(Geom_Curve)& theCurve,
+Standard_Boolean BRepTools_CopyModification::NewCurve(const TopoEdge&  theEdge,
+                                                      Handle(GeomCurve3d)& theCurve,
                                                       TopLoc_Location&    theLoc,
                                                       Standard_Real&      theTol)
 {
   Standard_Real aFirst, aLast;
-  theCurve = BRep_Tool::Curve(theEdge, theLoc, aFirst, aLast);
-  theTol   = BRep_Tool::Tolerance(theEdge);
+  theCurve = BRepInspector::Curve(theEdge, theLoc, aFirst, aLast);
+  theTol   = BRepInspector::Tolerance(theEdge);
 
   if (!theCurve.IsNull() && myCopyGeom)
-    theCurve = Handle(Geom_Curve)::DownCast(theCurve->Copy());
+    theCurve = Handle(GeomCurve3d)::DownCast(theCurve->Copy());
 
   return Standard_True;
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_CopyModification::NewPolygon(const TopoDS_Edge&      theEdge,
+Standard_Boolean BRepTools_CopyModification::NewPolygon(const TopoEdge&      theEdge,
                                                         Handle(Poly_Polygon3D)& thePoly)
 {
-  if (!myCopyMesh && BRep_Tool::IsGeometric(theEdge))
+  if (!myCopyMesh && BRepInspector::IsGeometric(theEdge))
   {
     return Standard_False;
   }
 
   TopLoc_Location aLoc;
-  thePoly = BRep_Tool::Polygon3D(theEdge, aLoc);
+  thePoly = BRepInspector::Polygon3D(theEdge, aLoc);
 
   if (thePoly.IsNull())
     return Standard_False;
@@ -111,18 +111,18 @@ Standard_Boolean BRepTools_CopyModification::NewPolygon(const TopoDS_Edge&      
 //=================================================================================================
 
 Standard_Boolean BRepTools_CopyModification::NewPolygonOnTriangulation(
-  const TopoDS_Edge&                   theEdge,
-  const TopoDS_Face&                   theFace,
+  const TopoEdge&                   theEdge,
+  const TopoFace&                   theFace,
   Handle(Poly_PolygonOnTriangulation)& thePoly)
 {
-  if (!myCopyMesh && BRep_Tool::IsGeometric(theEdge))
+  if (!myCopyMesh && BRepInspector::IsGeometric(theEdge))
   {
     return Standard_False;
   }
 
   TopLoc_Location            aLoc;
-  Handle(Poly_Triangulation) aTria = BRep_Tool::Triangulation(theFace, aLoc);
-  thePoly                          = BRep_Tool::PolygonOnTriangulation(theEdge, aTria, aLoc);
+  Handle(MeshTriangulation) aTria = BRepInspector::Triangulation(theFace, aLoc);
+  thePoly                          = BRepInspector::PolygonOnTriangulation(theEdge, aTria, aLoc);
 
   if (thePoly.IsNull())
     return Standard_False;
@@ -135,58 +135,58 @@ Standard_Boolean BRepTools_CopyModification::NewPolygonOnTriangulation(
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_CopyModification::NewPoint(const TopoDS_Vertex& theVertex,
+Standard_Boolean BRepTools_CopyModification::NewPoint(const TopoVertex& theVertex,
                                                       Point3d&              thePnt,
                                                       Standard_Real&       theTol)
 {
-  thePnt = BRep_Tool::Pnt(theVertex);
-  theTol = BRep_Tool::Tolerance(theVertex);
+  thePnt = BRepInspector::Pnt(theVertex);
+  theTol = BRepInspector::Tolerance(theVertex);
   return Standard_True;
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_CopyModification::NewCurve2d(const TopoDS_Edge& theEdge,
-                                                        const TopoDS_Face& theFace,
-                                                        const TopoDS_Edge&,
-                                                        const TopoDS_Face&,
-                                                        Handle(Geom2d_Curve)& theCurve,
+Standard_Boolean BRepTools_CopyModification::NewCurve2d(const TopoEdge& theEdge,
+                                                        const TopoFace& theFace,
+                                                        const TopoEdge&,
+                                                        const TopoFace&,
+                                                        Handle(GeomCurve2d)& theCurve,
                                                         Standard_Real&        theTol)
 {
-  theTol = BRep_Tool::Tolerance(theEdge);
+  theTol = BRepInspector::Tolerance(theEdge);
   Standard_Real aFirst, aLast;
-  theCurve = BRep_Tool::CurveOnSurface(theEdge, theFace, aFirst, aLast);
+  theCurve = BRepInspector::CurveOnSurface(theEdge, theFace, aFirst, aLast);
 
   if (!theCurve.IsNull() && myCopyGeom)
-    theCurve = Handle(Geom2d_Curve)::DownCast(theCurve->Copy());
+    theCurve = Handle(GeomCurve2d)::DownCast(theCurve->Copy());
 
   return Standard_True;
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_CopyModification::NewParameter(const TopoDS_Vertex& theVertex,
-                                                          const TopoDS_Edge&   theEdge,
+Standard_Boolean BRepTools_CopyModification::NewParameter(const TopoVertex& theVertex,
+                                                          const TopoEdge&   theEdge,
                                                           Standard_Real&       thePnt,
                                                           Standard_Real&       theTol)
 {
   if (theVertex.IsNull())
     return Standard_False; // infinite edge may have Null vertex
 
-  theTol = BRep_Tool::Tolerance(theVertex);
-  thePnt = BRep_Tool::Parameter(theVertex, theEdge);
+  theTol = BRepInspector::Tolerance(theVertex);
+  thePnt = BRepInspector::Parameter(theVertex, theEdge);
 
   return Standard_True;
 }
 
 //=================================================================================================
 
-GeomAbs_Shape BRepTools_CopyModification::Continuity(const TopoDS_Edge& theEdge,
-                                                     const TopoDS_Face& theFace1,
-                                                     const TopoDS_Face& theFace2,
-                                                     const TopoDS_Edge&,
-                                                     const TopoDS_Face&,
-                                                     const TopoDS_Face&)
+GeomAbs_Shape BRepTools_CopyModification::Continuity(const TopoEdge& theEdge,
+                                                     const TopoFace& theFace1,
+                                                     const TopoFace& theFace2,
+                                                     const TopoEdge&,
+                                                     const TopoFace&,
+                                                     const TopoFace&)
 {
-  return BRep_Tool::Continuity(theEdge, theFace1, theFace2);
+  return BRepInspector::Continuity(theEdge, theFace1, theFace2);
 }

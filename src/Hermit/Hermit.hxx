@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 class Geom2d_BSplineCurve;
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 
 //! This  is used to  reparameterize Rational  BSpline
 //! Curves so that we can   concatenate them later to
@@ -49,7 +49,7 @@ public:
   //! returns the correct spline a(u) which will
   //! be multiplicated with BS later.
   Standard_EXPORT static Handle(Geom2d_BSplineCurve) Solution(
-    const Handle(Geom_BSplineCurve)& BS,
+    const Handle(BSplineCurve3d)& BS,
     const Standard_Real              TolPoles = 0.000001,
     const Standard_Real              TolKnots = 0.000001);
 
@@ -63,7 +63,7 @@ public:
   //! returns the knots to insert to a(u) to
   //! stay with a constant sign and in the
   //! tolerances.
-  Standard_EXPORT static void Solutionbis(const Handle(Geom_BSplineCurve)& BS,
+  Standard_EXPORT static void Solutionbis(const Handle(BSplineCurve3d)& BS,
                                           Standard_Real&                   Knotmin,
                                           Standard_Real&                   Knotmax,
                                           const Standard_Real              TolPoles = 0.000001,

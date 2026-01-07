@@ -41,8 +41,8 @@ void TopOpeBRepBuild_Builder::BuildFaces(const Standard_Integer                 
                                          const Handle(TopOpeBRepDS_HDataStructure)& HDS)
 {
   Standard_Real aTBSTol, aTBCTol;
-  BRep_Builder  aBB;
-  TopoDS_Shape  aFace;
+  ShapeBuilder  aBB;
+  TopoShape  aFace;
   //
   // modified by NIZNHY-PKV Mon Dec 13 10:00:23 2010f
   const TopOpeBRepDS_Surface& aTBS = HDS->Surface(iS);
@@ -68,14 +68,14 @@ void TopOpeBRepBuild_Builder::BuildFaces(const Standard_Integer                 
     if (tSE)
       std::cout << std::endl << "BuildFaces : C " << iC << " on S " << iS << std::endl;
 #endif
-    TopoDS_Shape                       anEdge;
+    TopoShape                       anEdge;
     TopTools_ListIteratorOfListOfShape Iti(NewEdges(iC));
     for (; Iti.More(); Iti.Next())
     {
       anEdge = Iti.Value();
       // modified by NIZNHY-PKV Mon Dec 13 10:09:38 2010f
-      TopoDS_Edge& aE = *((TopoDS_Edge*)&anEdge);
-      aTBCTol         = BRep_Tool::Tolerance(aE);
+      TopoEdge& aE = *((TopoEdge*)&anEdge);
+      aTBCTol         = BRepInspector::Tolerance(aE);
       if (aTBCTol < aTBSTol)
       {
         aBB.UpdateEdge(aE, aTBSTol);
@@ -83,14 +83,14 @@ void TopOpeBRepBuild_Builder::BuildFaces(const Standard_Integer                 
       // modified by NIZNHY-PKV Mon Dec 13 10:09:43 2010f
       TopAbs_Orientation ori = SCurves.Orientation(TopAbs_IN);
       myBuildTool.Orientation(anEdge, ori);
-      const Handle(Geom2d_Curve)& PC = SCurves.PCurve();
+      const Handle(GeomCurve2d)& PC = SCurves.PCurve();
       myBuildTool.PCurve(aFace, anEdge, CDS, PC);
       WES.AddStartElement(anEdge);
     }
   }
   //
   TopOpeBRepBuild_FaceBuilder FABU(WES, aFace);
-  TopTools_ListOfShape&       FaceList = ChangeNewFaces(iS);
+  ShapeList&       FaceList = ChangeNewFaces(iS);
   MakeFaces(aFace, FABU, FaceList);
 }
 

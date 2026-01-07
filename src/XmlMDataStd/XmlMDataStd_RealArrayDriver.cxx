@@ -78,8 +78,8 @@ Standard_Boolean XmlMDataStd_RealArrayDriver::Paste(const XmlObjMgt_Persistent& 
     aFirstInd = 1;
   else if (!aFirstIndex.GetInteger(aFirstInd))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the first index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the first index"
                                  " for RealArray attribute as \"")
       + aFirstIndex + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -89,8 +89,8 @@ Standard_Boolean XmlMDataStd_RealArrayDriver::Paste(const XmlObjMgt_Persistent& 
   // Read LastIndex; the attribute should be present
   if (!anElement.getAttribute(::LastIndexString()).GetInteger(aLastInd))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the last index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the last index"
                                  " for RealArray attribute as \"")
       + aFirstIndex + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -111,8 +111,8 @@ Standard_Boolean XmlMDataStd_RealArrayDriver::Paste(const XmlObjMgt_Persistent& 
     }
     else
     {
-      TCollection_ExtendedString aMessageString =
-        TCollection_ExtendedString("Cannot retrieve array of real members"
+      UtfString aMessageString =
+        UtfString("Cannot retrieve array of real members"
                                    " for RealArray attribute from Integer \"")
         + aString + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);
@@ -127,8 +127,8 @@ Standard_Boolean XmlMDataStd_RealArrayDriver::Paste(const XmlObjMgt_Persistent& 
     {
       if (!XmlObjMgt::GetReal(aValueStr, aValue))
       {
-        TCollection_ExtendedString aMessageString =
-          TCollection_ExtendedString("Cannot retrieve real member"
+        UtfString aMessageString =
+          UtfString("Cannot retrieve real member"
                                      " for RealArray attribute as \"")
           + aValueStr + "\"";
         myMessageDriver->Send(aMessageString, Message_Warning);
@@ -150,8 +150,8 @@ Standard_Boolean XmlMDataStd_RealArrayDriver::Paste(const XmlObjMgt_Persistent& 
     Standard_Integer aDeltaValue;
     if (!anElement.getAttribute(::IsDeltaOn()).GetInteger(aDeltaValue))
     {
-      TCollection_ExtendedString aMessageString =
-        TCollection_ExtendedString("Cannot retrieve the isDelta value"
+      UtfString aMessageString =
+        UtfString("Cannot retrieve the isDelta value"
                                    " for RealArray attribute as \"")
         + aDeltaValue + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);

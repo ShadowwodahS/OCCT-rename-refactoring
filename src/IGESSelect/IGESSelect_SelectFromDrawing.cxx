@@ -60,7 +60,7 @@ Interface_EntityIterator IGESSelect_SelectFromDrawing::RootResult(const Interfac
   return list;
 }
 
-TCollection_AsciiString IGESSelect_SelectFromDrawing::Label() const
+AsciiString1 IGESSelect_SelectFromDrawing::Label() const
 {
-  return TCollection_AsciiString("Entities attached to a Drawing");
+  return AsciiString1("Entities attached to a Drawing");
 }

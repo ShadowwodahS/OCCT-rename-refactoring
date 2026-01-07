@@ -40,7 +40,7 @@ BRepIntCurveSurface_Inter::BRepIntCurveSurface_Inter()
 
 //=================================================================================================
 
-void BRepIntCurveSurface_Inter::Init(const TopoDS_Shape&      theShape,
+void BRepIntCurveSurface_Inter::Init(const TopoShape&      theShape,
                                      const GeomAdaptor_Curve& theCurve,
                                      const Standard_Real      theTol)
 {
@@ -50,12 +50,12 @@ void BRepIntCurveSurface_Inter::Init(const TopoDS_Shape&      theShape,
 
 //=================================================================================================
 
-void BRepIntCurveSurface_Inter::Init(const TopoDS_Shape& theShape,
+void BRepIntCurveSurface_Inter::Init(const TopoShape& theShape,
                                      const gp_Lin&       theLine,
                                      const Standard_Real theTol)
 {
 
-  Handle(Geom_Line) geomline = new Geom_Line(theLine);
+  Handle(GeomLine) geomline = new GeomLine(theLine);
   GeomAdaptor_Curve aCurve(geomline);
   Load(theShape, theTol);
   Init(aCurve);
@@ -75,13 +75,13 @@ void BRepIntCurveSurface_Inter::Clear()
 
 //=================================================================================================
 
-void BRepIntCurveSurface_Inter::Load(const TopoDS_Shape& theShape, const Standard_Real theTol)
+void BRepIntCurveSurface_Inter::Load(const TopoShape& theShape, const Standard_Real theTol)
 {
   Clear();
   myFaces.Clear();
   myFaceBoxes.Nullify();
   myTolerance = theTol;
-  TopExp_Explorer explorer(theShape, TopAbs_FACE);
+  ShapeExplorer explorer(theShape, TopAbs_FACE);
   for (; explorer.More(); explorer.Next())
     myFaces.Append(explorer.Current());
 }
@@ -131,7 +131,7 @@ void BRepIntCurveSurface_Inter::Find()
   Standard_Integer i = myIndFace + 1;
   for (; i <= myFaces.Length(); i++)
   {
-    TopoDS_Shape aCurface = myFaces(i);
+    TopoShape aCurface = myFaces(i);
     if (myFaceBoxes.IsNull())
       myFaceBoxes = new Bnd_HArray1OfBox(1, myFaces.Length());
     Bnd_Box& aFaceBox = myFaceBoxes->ChangeValue(i);
@@ -257,7 +257,7 @@ IntCurveSurface_TransitionOnCurve BRepIntCurveSurface_Inter::Transition() const
 
 //=================================================================================================
 
-const TopoDS_Face& BRepIntCurveSurface_Inter::Face() const
+const TopoFace& BRepIntCurveSurface_Inter::Face() const
 {
   return (TopoDS::Face(myFaces.Value(myIndFace)));
 }

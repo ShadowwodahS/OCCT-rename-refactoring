@@ -54,7 +54,7 @@ Standard_Boolean BinTObjDrivers_ReferenceDriver::Paste(const BinObjMgt_Persisten
                                                        BinObjMgt_RRelocationTable&) const
 {
   // master label
-  TDF_Label        aMasterLabel;
+  DataLabel        aMasterLabel;
   Handle(TDF_Data) aDS = theTarget->Label().Data();
   if (!theSource.GetLabel(aDS, aMasterLabel))
     return Standard_False;
@@ -67,15 +67,15 @@ Standard_Boolean BinTObjDrivers_ReferenceDriver::Paste(const BinObjMgt_Persisten
   // DS for referred label
   if (!isSameDoc)
   {
-    TCollection_AsciiString aName;
+    AsciiString1 aName;
     if (!(theSource >> aName))
       return Standard_False;
     Handle(TObj_Model) aModel = TObj_Assistant::FindModel(aName.ToCString());
     if (aModel.IsNull())
     {
-      TCollection_AsciiString anEntry;
+      AsciiString1 anEntry;
       TDF_Tool::Entry(theTarget->Label(), anEntry);
-      myMessageDriver->Send(TCollection_ExtendedString("TObj_TReference retrieval: ")
+      myMessageDriver->Send(UtfString("TObj_TReference retrieval: ")
                               + "wrong model ID " + aName + ", entry " + anEntry,
                             Message_Fail);
       return Standard_False;
@@ -83,7 +83,7 @@ Standard_Boolean BinTObjDrivers_ReferenceDriver::Paste(const BinObjMgt_Persisten
     aDS = aModel->GetLabel().Data();
   }
   // referred label
-  TDF_Label aLabel;
+  DataLabel aLabel;
   if (!theSource.GetLabel(aDS, aLabel))
     return Standard_False;
 
@@ -113,8 +113,8 @@ void BinTObjDrivers_ReferenceDriver::Paste(const Handle(TDF_Attribute)& theSourc
     return;
 
   // labels
-  TDF_Label        aLabel       = aLObject->GetLabel();
-  TDF_Label        aMasterLabel = aSource->GetMasterLabel();
+  DataLabel        aLabel       = aLObject->GetLabel();
+  DataLabel        aMasterLabel = aSource->GetMasterLabel();
   Standard_Boolean isSameDoc    = (aLabel.Root() == aMasterLabel.Root());
 
   // store data
@@ -124,9 +124,9 @@ void BinTObjDrivers_ReferenceDriver::Paste(const Handle(TDF_Attribute)& theSourc
   theTarget << isSameDoc;
   if (!isSameDoc)
   {
-    TCollection_AsciiString aName;
+    AsciiString1 aName;
     Handle(TObj_Model)      aModel = aLObject->GetModel();
-    aName                          = TCollection_AsciiString(aModel->GetModelName()->String());
+    aName                          = AsciiString1(aModel->GetModelName()->String());
     theTarget << aName;
   }
   // 3 - referred label;

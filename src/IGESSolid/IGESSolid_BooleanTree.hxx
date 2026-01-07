@@ -28,7 +28,7 @@ class IGESSolid_BooleanTree;
 DEFINE_STANDARD_HANDLE(IGESSolid_BooleanTree, IGESData_IGESEntity)
 
 //! defines BooleanTree, Type <180> Form Number <0>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! The Boolean tree describes a binary tree structure
 //! composed of regularized Boolean operations and operands,
 //! in post-order notation.

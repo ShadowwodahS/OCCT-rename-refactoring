@@ -23,7 +23,7 @@
 #include <TopoDS_Face.hxx>
 
 //! List of shapes and their IDs for collision detection.
-typedef NCollection_Vector<TopoDS_Shape> BRepExtrema_ShapeList;
+typedef NCollection_Vector<TopoShape> BRepExtrema_ShapeList;
 
 //! Triangle set corresponding to specific face.
 class BRepExtrema_TriangleSet : public BVH_PrimitiveSet3d
@@ -93,10 +93,10 @@ public:
 
 private:
   //! Initializes triangle set from the face
-  Standard_Boolean initFace(const TopoDS_Face& theFace, const Standard_Integer theIndex);
+  Standard_Boolean initFace(const TopoFace& theFace, const Standard_Integer theIndex);
 
   //! Initializes polygon from the edge
-  Standard_Boolean initEdge(const TopoDS_Edge& theEdge, const Standard_Integer theIndex);
+  Standard_Boolean initEdge(const TopoEdge& theEdge, const Standard_Integer theIndex);
 
   //! Initializes nodes
   void initNodes(const TColgp_Array1OfPnt& theNodes,

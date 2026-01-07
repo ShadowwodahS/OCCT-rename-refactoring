@@ -21,9 +21,9 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TopoDS_Shape, Standard_Address, TopTools_ShapeMapHasher>
+typedef NCollection_DataMap<TopoShape, Standard_Address, ShapeHasher>
   BRepClass3d_MapOfInter;
-typedef NCollection_DataMap<TopoDS_Shape, Standard_Address, TopTools_ShapeMapHasher>::Iterator
+typedef NCollection_DataMap<TopoShape, Standard_Address, ShapeHasher>::Iterator
   BRepClass3d_DataMapIteratorOfMapOfInter;
 
 #endif

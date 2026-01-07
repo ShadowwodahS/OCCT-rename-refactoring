@@ -21,7 +21,7 @@
 #include <TopAbs_ShapeEnum.hxx>
 
 class Standard_Mutex;
-class TopoDS_Shape;
+class TopoShape;
 
 //! Class TopTools_MutexForShapeProvider
 //!   This class is used to create and store mutexes associated with shapes.
@@ -35,15 +35,15 @@ public:
   Standard_EXPORT ~TopTools_MutexForShapeProvider();
 
   //! Creates and associates mutexes with each sub-shape of type theType in theShape.
-  Standard_EXPORT void CreateMutexesForSubShapes(const TopoDS_Shape&    theShape,
+  Standard_EXPORT void CreateMutexesForSubShapes(const TopoShape&    theShape,
                                                  const TopAbs_ShapeEnum theType);
 
   //! Creates and associates mutex with theShape
-  Standard_EXPORT void CreateMutexForShape(const TopoDS_Shape& theShape);
+  Standard_EXPORT void CreateMutexForShape(const TopoShape& theShape);
 
   //! Returns pointer to mutex associated with theShape.
   //! In case when mutex not found returns NULL.
-  Standard_EXPORT Standard_Mutex* GetMutex(const TopoDS_Shape& theShape) const;
+  Standard_EXPORT Standard_Mutex* GetMutex(const TopoShape& theShape) const;
 
   //! Removes all mutexes
   Standard_EXPORT void RemoveAllMutexes();

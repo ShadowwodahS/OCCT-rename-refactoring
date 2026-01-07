@@ -122,10 +122,10 @@ BRepPrim_Cone::BRepPrim_Cone(const Frame3d&       Axes,
 
 //=================================================================================================
 
-TopoDS_Face BRepPrim_Cone::MakeEmptyLateralFace() const
+TopoFace BRepPrim_Cone::MakeEmptyLateralFace() const
 {
   Handle(Geom_ConicalSurface) C = new Geom_ConicalSurface(Axes(), myHalfAngle, myRadius);
-  TopoDS_Face                 F;
+  TopoFace                 F;
   myBuilder.Builder().MakeFace(F, C, Precision::Confusion());
   return F;
 }
@@ -139,7 +139,7 @@ void BRepPrim_Cone::SetMeridian()
   Vector3d V(Axes().XDirection());
   V *= myRadius;
   A.Translate(V);
-  Handle(Geom_Line)   L = new Geom_Line(A);
+  Handle(GeomLine)   L = new GeomLine(A);
   Handle(Geom2d_Line) L2d =
     new Geom2d_Line(gp_Pnt2d(myRadius, 0), gp_Dir2d(Sin(myHalfAngle), Cos(myHalfAngle)));
   Meridian(L, L2d);

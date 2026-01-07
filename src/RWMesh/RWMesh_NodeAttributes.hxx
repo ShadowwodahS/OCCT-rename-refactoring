@@ -25,13 +25,13 @@ class TDataStd_NamedData;
 //! Attributes of the node.
 struct RWMesh_NodeAttributes
 {
-  TCollection_AsciiString    Name;      //!< name for the user
-  TCollection_AsciiString    RawName;   //!< name within low-level format structure
+  AsciiString1    Name;      //!< name for the user
+  AsciiString1    RawName;   //!< name within low-level format structure
   Handle(TDataStd_NamedData) NamedData; //!< optional metadata
   XCAFPrs_Style              Style;     //!< presentation style
 };
 
-typedef NCollection_DataMap<TopoDS_Shape, RWMesh_NodeAttributes, TopTools_ShapeMapHasher>
+typedef NCollection_DataMap<TopoShape, RWMesh_NodeAttributes, ShapeHasher>
   RWMesh_NodeAttributeMap;
 
 #endif // _RWMesh_NodeAttributes_HeaderFile

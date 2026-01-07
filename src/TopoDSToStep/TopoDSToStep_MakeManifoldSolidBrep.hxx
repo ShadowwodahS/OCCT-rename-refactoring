@@ -26,30 +26,30 @@
 
 class StepShape_ManifoldSolidBrep;
 class StepVisual_TessellatedItem;
-class TopoDS_Shell;
+class TopoShell;
 class Transfer_FinderProcess;
-class TopoDS_Solid;
+class TopoSolid;
 
 //! This class implements the mapping between classes
 //! Shell or Solid from TopoDS and ManifoldSolidBrep from
 //! StepShape. All the topology and geometry comprised
 //! into the shell or the solid are taken into account and
 //! translated.
-class TopoDSToStep_MakeManifoldSolidBrep : public TopoDSToStep_Root
+class TopoDSToStep_MakeManifoldSolidBrep : public Root3
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT TopoDSToStep_MakeManifoldSolidBrep(
-    const TopoDS_Shell&                   S,
+    const TopoShell&                   S,
     const Handle(Transfer_FinderProcess)& FP,
-    const StepData_Factors&               theLocalFactors = StepData_Factors(),
+    const ConversionFactors&               theLocalFactors = ConversionFactors(),
     const Message_ProgressRange&          theProgress     = Message_ProgressRange());
 
   Standard_EXPORT TopoDSToStep_MakeManifoldSolidBrep(
-    const TopoDS_Solid&                   S,
+    const TopoSolid&                   S,
     const Handle(Transfer_FinderProcess)& FP,
-    const StepData_Factors&               theLocalFactors = StepData_Factors(),
+    const ConversionFactors&               theLocalFactors = ConversionFactors(),
     const Message_ProgressRange&          theProgress     = Message_ProgressRange());
 
   Standard_EXPORT const Handle(StepShape_ManifoldSolidBrep)& Value() const;

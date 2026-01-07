@@ -29,7 +29,7 @@ class IGESBasic_ExternalRefFileIndex;
 DEFINE_STANDARD_HANDLE(IGESBasic_ExternalRefFileIndex, IGESData_IGESEntity)
 
 //! defines ExternalRefFileIndex, Type <402> Form <12>
-//! in package IGESBasic
+//! in package IGESBasic1
 //! Contains a list of the symbolic names used by the
 //! referencing files and the DE pointers to the
 //! corresponding definitions within the referenced file

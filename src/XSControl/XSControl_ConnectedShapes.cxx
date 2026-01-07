@@ -52,7 +52,7 @@ Standard_Boolean XSControl_ConnectedShapes::Explore(const Standard_Integer /*lev
     TP = theTR->TransientProcess();
   if (TP.IsNull())
     return Standard_False;
-  TopoDS_Shape Shape = TransferBRep::ShapeResult(TP, ent);
+  TopoShape Shape = TransferBRep::ShapeResult(TP, ent);
   if (Shape.IsNull())
     return Standard_False;
   Handle(TColStd_HSequenceOfTransient) li = AdjacentEntities(Shape, TP, TopAbs_FACE);
@@ -60,14 +60,14 @@ Standard_Boolean XSControl_ConnectedShapes::Explore(const Standard_Integer /*lev
   return Standard_True;
 }
 
-TCollection_AsciiString XSControl_ConnectedShapes::ExploreLabel() const
+AsciiString1 XSControl_ConnectedShapes::ExploreLabel() const
 {
-  TCollection_AsciiString lab("Connected Entities through produced Shapes");
+  AsciiString1 lab("Connected Entities through produced Shapes");
   return lab;
 }
 
 Handle(TColStd_HSequenceOfTransient) XSControl_ConnectedShapes::AdjacentEntities(
-  const TopoDS_Shape&                      ashape,
+  const TopoShape&                      ashape,
   const Handle(Transfer_TransientProcess)& TP,
   const TopAbs_ShapeEnum                   type)
 {
@@ -76,7 +76,7 @@ Handle(TColStd_HSequenceOfTransient) XSControl_ConnectedShapes::AdjacentEntities
   //  TopTools_MapOfShape adj (nb);
   TopTools_MapOfShape vtx(20);
 
-  for (TopExp_Explorer vert(ashape, TopAbs_VERTEX); vert.More(); vert.Next())
+  for (ShapeExplorer vert(ashape, TopAbs_VERTEX); vert.More(); vert.Next())
   {
     vtx.Add(vert.Current());
   }
@@ -84,14 +84,14 @@ Handle(TColStd_HSequenceOfTransient) XSControl_ConnectedShapes::AdjacentEntities
   for (i = 1; i <= nb; i++)
   {
     Handle(Transfer_Binder) bnd = TP->MapItem(i);
-    TopoDS_Shape            sh  = TransferBRep::ShapeResult(bnd);
+    TopoShape            sh  = TransferBRep::ShapeResult(bnd);
     if (sh.IsNull())
       continue;
     if (sh.ShapeType() != type)
       continue;
-    for (TopExp_Explorer vsh(sh, TopAbs_VERTEX); vsh.More(); vsh.Next())
+    for (ShapeExplorer vsh(sh, TopAbs_VERTEX); vsh.More(); vsh.Next())
     {
-      const TopoDS_Shape& avtx = vsh.Current();
+      const TopoShape& avtx = vsh.Current();
       if (vtx.Contains(avtx))
       {
         li->Append(TP->Mapped(i));

@@ -106,7 +106,7 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
     {
       return;
     }
-    Handle(Geom_Curve)                  BasCurve = Surface->BasisCurve();
+    Handle(GeomCurve3d)                  BasCurve = Surface->BasisCurve();
     ShapeUpgrade_SplitCurve3dContinuity spc;
     spc.Init(BasCurve, VFirst, VLast);
     spc.SetCriterion(myCriterion);
@@ -132,7 +132,7 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
     {
       return;
     }
-    Handle(Geom_Curve)                  BasCurve = Surface->BasisCurve();
+    Handle(GeomCurve3d)                  BasCurve = Surface->BasisCurve();
     ShapeUpgrade_SplitCurve3dContinuity spc;
     spc.Init(BasCurve, UFirst, ULast);
     spc.SetCriterion(myCriterion);
@@ -148,7 +148,7 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
     if (spc.Status(ShapeExtend_DONE3))
     {
       myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
-      const Handle(Geom_Curve)& aNewBascurve = spc.GetCurve();
+      const Handle(GeomCurve3d)& aNewBascurve = spc.GetCurve();
       Surface->SetBasisCurve(aNewBascurve);
     }
     return;
@@ -165,7 +165,7 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
     }
     Standard_Real U1, U2, V1, V2;
     tmp->Bounds(U1, U2, V1, V2);
-    Handle(Geom_Surface)                theSurf = tmp->BasisSurface();
+    Handle(GeomSurface)                theSurf = tmp->BasisSurface();
     ShapeUpgrade_SplitSurfaceContinuity sps;
     sps.Init(theSurf, Max(U1, UFirst), Min(U2, ULast), Max(V1, VFirst), Min(V2, VLast));
     sps.SetUSplitValues(myUSplitValues);
@@ -203,7 +203,7 @@ void ShapeUpgrade_SplitSurfaceContinuity::Compute(const Standard_Boolean Segment
         break;
     }
     Handle(Geom_OffsetSurface) tmp     = Handle(Geom_OffsetSurface)::DownCast(mySurface);
-    Handle(Geom_Surface)       theSurf = tmp->BasisSurface();
+    Handle(GeomSurface)       theSurf = tmp->BasisSurface();
     if (theSurf->Continuity() >= BasCriterion && myUSplitValues->Length() == 2
         && myVSplitValues->Length() == 2)
     {

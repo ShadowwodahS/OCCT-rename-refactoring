@@ -49,10 +49,10 @@ public:
   //! (default) scene will be loaded.
   void SetLoadAllScenes(bool theToLoadAll) { myToLoadAllScenes = theToLoadAll; }
 
-  //! Set flag to use Mesh name in case if Node name is empty, TRUE by default.
+  //! Set flag to use Mesh1 name in case if Node name is empty, TRUE by default.
   bool ToUseMeshNameAsFallback() { return myUseMeshNameAsFallback; }
 
-  //! Set flag to use Mesh name in case if Node name is empty.
+  //! Set flag to use Mesh1 name in case if Node name is empty.
   void SetMeshNameAsFallback(bool theToFallback) { myUseMeshNameAsFallback = theToFallback; }
 
   //! Return flag to fill in triangulation using double or single precision; FALSE by default.
@@ -87,24 +87,24 @@ public:
 protected:
   //! Read the mesh from specified file.
   Standard_EXPORT virtual Standard_Boolean performMesh(std::istream&                  theStream,
-                                                       const TCollection_AsciiString& theFile,
+                                                       const AsciiString1& theFile,
                                                        const Message_ProgressRange&   theProgress,
                                                        const Standard_Boolean         theToProbe)
     Standard_OVERRIDE;
 
   //! Create primitive array reader context.
   //! Can be overridden by sub-class to read triangulation into application-specific data structures
-  //! instead of Poly_Triangulation. Default implementation creates RWGltf_TriangulationReader.
+  //! instead of MeshTriangulation. Default implementation creates RWGltf_TriangulationReader.
   Standard_EXPORT virtual Handle(RWMesh_TriangulationReader) createMeshReaderContext() const;
 
-  //! Read late data from RWGltf_GltfLatePrimitiveArray stored as Poly_Triangulation within faces.
-  Standard_EXPORT virtual Standard_Boolean readLateData(NCollection_Vector<TopoDS_Face>& theFaces,
-                                                        const TCollection_AsciiString&   theFile,
+  //! Read late data from RWGltf_GltfLatePrimitiveArray stored as MeshTriangulation within faces.
+  Standard_EXPORT virtual Standard_Boolean readLateData(NCollection_Vector<TopoFace>& theFaces,
+                                                        const AsciiString1&   theFile,
                                                         const Message_ProgressRange& theProgress);
 
   //! Set reader for each late data.
   Standard_EXPORT void updateLateDataReader(
-    NCollection_Vector<TopoDS_Face>&          theFaces,
+    NCollection_Vector<TopoFace>&          theFaces,
     const Handle(RWMesh_TriangulationReader)& theReader) const;
 
 protected:
@@ -117,7 +117,7 @@ protected:
   Standard_Boolean myToSkipEmptyNodes;     //!< ignore nodes without Geometry; TRUE by default
                                            // clang-format off
   Standard_Boolean myToLoadAllScenes;       //!< flag to load all scenes in the document, FALSE by default
-  Standard_Boolean myUseMeshNameAsFallback; //!< flag to use Mesh name in case if Node name is empty, TRUE by default
+  Standard_Boolean myUseMeshNameAsFallback; //!< flag to use Mesh1 name in case if Node name is empty, TRUE by default
   Standard_Boolean myIsDoublePrecision;     //!< flag to fill in triangulation using single or double precision
   Standard_Boolean myToSkipLateDataLoading; //!< flag to skip triangulation loading
   Standard_Boolean myToKeepLateData;        //!< flag to keep information about deferred storage to load/unload triangulation later

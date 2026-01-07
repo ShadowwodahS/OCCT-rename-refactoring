@@ -22,7 +22,7 @@ Vrml_WWWInline::Vrml_WWWInline()
   myBboxCenter = tmpVec;
 }
 
-Vrml_WWWInline::Vrml_WWWInline(const TCollection_AsciiString& aName,
+Vrml_WWWInline::Vrml_WWWInline(const AsciiString1& aName,
                                const Vector3d&                  aBboxSize,
                                const Vector3d&                  aBboxCenter)
 {
@@ -31,12 +31,12 @@ Vrml_WWWInline::Vrml_WWWInline(const TCollection_AsciiString& aName,
   myBboxCenter = aBboxCenter;
 }
 
-void Vrml_WWWInline::SetName(const TCollection_AsciiString& aName)
+void Vrml_WWWInline::SetName(const AsciiString1& aName)
 {
   myName = aName;
 }
 
-TCollection_AsciiString Vrml_WWWInline::Name() const
+AsciiString1 Vrml_WWWInline::Name() const
 {
   return myName;
 }

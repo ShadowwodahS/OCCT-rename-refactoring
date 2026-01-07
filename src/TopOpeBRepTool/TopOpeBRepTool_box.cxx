@@ -41,7 +41,7 @@ Standard_EXPORT Handle(TopOpeBRepTool_HBoxTool) FBOX_GetHBoxTool()
   return GLOBAL_TOOLBOX_hboxtool;
 }
 
-Standard_EXPORT const Bnd_Box& FBOX_Box(const TopoDS_Shape& S)
+Standard_EXPORT const Bnd_Box& FBOX_Box(const TopoShape& S)
 {
   Handle(TopOpeBRepTool_HBoxTool) hbt = FBOX_GetHBoxTool();
   const Bnd_Box&                  b   = hbt->Box(S);

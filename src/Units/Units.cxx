@@ -38,9 +38,9 @@ static Handle(Units_Lexicon)         lexiconformula;
 static Handle(Units_UnitsDictionary) unitsdictionary;
 static Handle(Units_UnitsSystem)     unitssystem;
 
-static TCollection_AsciiString  unitsfile;
-static TCollection_AsciiString  lexiconfile;
-static TCollection_AsciiString  lastunit;
+static AsciiString1  unitsfile;
+static AsciiString1  lexiconfile;
+static AsciiString1  lastunit;
 static Handle(Units_Dimensions) lastdimension;
 static Standard_Real            lastvalue, lastmove;
 
@@ -48,14 +48,14 @@ static Standard_Real            lastvalue, lastmove;
 
 void Units::UnitsFile(const Standard_CString afile)
 {
-  unitsfile = TCollection_AsciiString(afile);
+  unitsfile = AsciiString1(afile);
 }
 
 //=================================================================================================
 
 void Units::LexiconFile(const Standard_CString afile)
 {
-  lexiconfile = TCollection_AsciiString(afile);
+  lexiconfile = AsciiString1(afile);
 }
 
 //=================================================================================================
@@ -103,7 +103,7 @@ Handle(Units_Quantity) Units::Quantity(const Standard_CString aquantity)
 
 //=================================================================================================
 
-static TCollection_AsciiString symbol_string, quantity_string;
+static AsciiString1 symbol_string, quantity_string;
 
 Standard_CString Units::FirstQuantity(const Standard_CString aunit)
 {
@@ -113,7 +113,7 @@ Standard_CString Units::FirstQuantity(const Standard_CString aunit)
   Handle(Units_UnitsSequence)             unitssequence;
   Handle(Units_Unit)                      unit;
   Handle(TColStd_HSequenceOfHAsciiString) symbolssequence;
-  TCollection_AsciiString                 symbol(aunit);
+  AsciiString1                 symbol(aunit);
 
   if (symbol == symbol_string)
     return quantity_string.ToCString();
@@ -226,7 +226,7 @@ Standard_Real Units::ToSI(const Standard_Real       aData,
       Handle(Units_ShiftedToken) stoken = Handle(Units_ShiftedToken)::DownCast(token);
       lastmove                          = stoken->Move();
     }
-    lastunit      = TCollection_AsciiString(aUnit);
+    lastunit      = AsciiString1(aUnit);
     lastdimension = token->Dimensions();
   }
   dim = lastdimension;
@@ -265,7 +265,7 @@ Standard_Real Units::FromSI(const Standard_Real       aData,
       Handle(Units_ShiftedToken) stoken = Handle(Units_ShiftedToken)::DownCast(token);
       lastmove                          = stoken->Move();
     }
-    lastunit      = TCollection_AsciiString(aUnit);
+    lastunit      = AsciiString1(aUnit);
     lastdimension = token->Dimensions();
   }
   dim = lastdimension;

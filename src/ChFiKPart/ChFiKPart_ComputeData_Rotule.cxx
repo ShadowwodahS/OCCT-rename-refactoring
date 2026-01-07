@@ -126,7 +126,7 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
   //---------------
   Frame3d circAx2 = ppos.Ax2();
   circAx2.SetLocation(pcirc);
-  Handle(Geom_Circle) GC = new Geom_Circle(circAx2, r);
+  Handle(GeomCircle) GC = new GeomCircle(circAx2, r);
   Standard_Real       u, v;
   ElSLib::Parameters(pl, pcirc, u, v);
   gp_Pnt2d p2dcirc(u, v);
@@ -147,8 +147,8 @@ Standard_Boolean ChFiKPart_MakeRotule(TopOpeBRepDS_DataStructure&    DStr,
 
   // du cote pointu
   //--------------
-  Handle(Geom_Curve)   bid;
-  Handle(Geom2d_Curve) bid2d;
+  Handle(GeomCurve3d)   bid;
+  Handle(GeomCurve2d) bid2d;
   p2dlin.SetCoord(0., M_PI);
   Handle(Geom2d_Line) GL2dcoin = new Geom2d_Line(p2dlin, gp::DX2d());
   Data->ChangeInterferenceOnS2().SetInterference(ChFiKPart_IndexCurveInDS(bid, DStr),

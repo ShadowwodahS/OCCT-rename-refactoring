@@ -37,7 +37,7 @@ XCAFDoc_MaterialTool::XCAFDoc_MaterialTool() {}
 
 //=================================================================================================
 
-Handle(XCAFDoc_MaterialTool) XCAFDoc_MaterialTool::Set(const TDF_Label& L)
+Handle(XCAFDoc_MaterialTool) XCAFDoc_MaterialTool::Set(const DataLabel& L)
 {
   Handle(XCAFDoc_MaterialTool) A;
   if (!L.FindAttribute(XCAFDoc_MaterialTool::GetID(), A))
@@ -59,7 +59,7 @@ const Standard_GUID& XCAFDoc_MaterialTool::GetID()
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_MaterialTool::BaseLabel() const
+DataLabel XCAFDoc_MaterialTool::BaseLabel() const
 {
   return Label();
 }
@@ -75,7 +75,7 @@ const Handle(XCAFDoc_ShapeTool)& XCAFDoc_MaterialTool::ShapeTool()
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_MaterialTool::IsMaterial(const TDF_Label& lab) const
+Standard_Boolean XCAFDoc_MaterialTool::IsMaterial(const DataLabel& lab) const
 {
   Handle(XCAFDoc_Material) MatAttr;
   if (lab.FindAttribute(XCAFDoc_Material::GetID(), MatAttr))
@@ -93,7 +93,7 @@ void XCAFDoc_MaterialTool::GetMaterialLabels(TDF_LabelSequence& Labels) const
   TDF_ChildIterator ChildIterator(Label());
   for (; ChildIterator.More(); ChildIterator.Next())
   {
-    TDF_Label L = ChildIterator.Value();
+    DataLabel L = ChildIterator.Value();
     if (IsMaterial(L))
       Labels.Append(L);
   }
@@ -101,24 +101,24 @@ void XCAFDoc_MaterialTool::GetMaterialLabels(TDF_LabelSequence& Labels) const
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_MaterialTool::AddMaterial(
+DataLabel XCAFDoc_MaterialTool::AddMaterial(
   const Handle(TCollection_HAsciiString)& aName,
   const Handle(TCollection_HAsciiString)& aDescription,
   const Standard_Real                     aDensity,
   const Handle(TCollection_HAsciiString)& aDensName,
   const Handle(TCollection_HAsciiString)& aDensValType) const
 {
-  TDF_Label     MatL;
+  DataLabel     MatL;
   TDF_TagSource aTag;
   MatL = aTag.NewChild(Label());
   XCAFDoc_Material::Set(MatL, aName, aDescription, aDensity, aDensName, aDensValType);
-  TDataStd_Name::Set(MatL, TCollection_AsciiString(aName->ToCString()));
+  NameAttribute::Set(MatL, AsciiString1(aName->ToCString()));
   return MatL;
 }
 
 //=================================================================================================
 
-void XCAFDoc_MaterialTool::SetMaterial(const TDF_Label& L, const TDF_Label& MatL) const
+void XCAFDoc_MaterialTool::SetMaterial(const DataLabel& L, const DataLabel& MatL) const
 {
   // set reference
   Handle(TDataStd_TreeNode) refNode, mainNode;
@@ -130,20 +130,20 @@ void XCAFDoc_MaterialTool::SetMaterial(const TDF_Label& L, const TDF_Label& MatL
 
 //=================================================================================================
 
-void XCAFDoc_MaterialTool::SetMaterial(const TDF_Label&                        L,
+void XCAFDoc_MaterialTool::SetMaterial(const DataLabel&                        L,
                                        const Handle(TCollection_HAsciiString)& aName,
                                        const Handle(TCollection_HAsciiString)& aDescription,
                                        const Standard_Real                     aDensity,
                                        const Handle(TCollection_HAsciiString)& aDensName,
                                        const Handle(TCollection_HAsciiString)& aDensValType) const
 {
-  TDF_Label MatL = AddMaterial(aName, aDescription, aDensity, aDensName, aDensValType);
+  DataLabel MatL = AddMaterial(aName, aDescription, aDensity, aDensName, aDensValType);
   SetMaterial(L, MatL);
 }
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_MaterialTool::GetMaterial(const TDF_Label&                  MatL,
+Standard_Boolean XCAFDoc_MaterialTool::GetMaterial(const DataLabel&                  MatL,
                                                    Handle(TCollection_HAsciiString)& aName,
                                                    Handle(TCollection_HAsciiString)& aDescription,
                                                    Standard_Real&                    aDensity,
@@ -166,13 +166,13 @@ Standard_Boolean XCAFDoc_MaterialTool::GetMaterial(const TDF_Label&             
 
 //=================================================================================================
 
-Standard_Real XCAFDoc_MaterialTool::GetDensityForShape(const TDF_Label& ShapeL)
+Standard_Real XCAFDoc_MaterialTool::GetDensityForShape(const DataLabel& ShapeL)
 {
   Standard_Real             Dens = 0.0;
   Handle(TDataStd_TreeNode) Node;
   if (!ShapeL.FindAttribute(XCAFDoc::MaterialRefGUID(), Node) || !Node->HasFather())
     return Dens;
-  TDF_Label                MatL = Node->Father()->Label();
+  DataLabel                MatL = Node->Father()->Label();
   Handle(XCAFDoc_Material) MatAttr;
   if (!MatL.FindAttribute(XCAFDoc_Material::GetID(), MatAttr))
   {
@@ -204,7 +204,7 @@ void XCAFDoc_MaterialTool::DumpJson(Standard_OStream& theOStream, Standard_Integ
   for (TDF_LabelSequence::Iterator aMaterialLabelIt(aLabels); aMaterialLabelIt.More();
        aMaterialLabelIt.Next())
   {
-    TCollection_AsciiString aMaterialLabel;
+    AsciiString1 aMaterialLabel;
     TDF_Tool::Entry(aMaterialLabelIt.Value(), aMaterialLabel);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aMaterialLabel)
   }

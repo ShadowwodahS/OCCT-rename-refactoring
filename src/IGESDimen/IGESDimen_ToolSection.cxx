@@ -35,9 +35,9 @@
 #include <Standard_DomainError.hxx>
 #include <TColgp_HArray1OfXY.hxx>
 
-IGESDimen_ToolSection::IGESDimen_ToolSection() {}
+SectionTool::SectionTool() {}
 
-void IGESDimen_ToolSection::ReadOwnParams(const Handle(IGESDimen_Section)& ent,
+void SectionTool::ReadOwnParams(const Handle(IGESDimen_Section)& ent,
                                           const Handle(IGESData_IGESReaderData)& /* IR */,
                                           IGESData_ParamReader& PR) const
 {
@@ -62,7 +62,7 @@ void IGESDimen_ToolSection::ReadOwnParams(const Handle(IGESDimen_Section)& ent,
   if (!dataPoints.IsNull())
     for (Standard_Integer i = 1; i <= nbval; i++)
     {
-      gp_XY tempXY;
+      Coords2d tempXY;
       PR.ReadXY(PR.CurrentList(1, 2), "Data Points", tempXY); // szv#4:S4163:12Mar99 `st=` not
                                                               // needed
       dataPoints->SetValue(i, tempXY);
@@ -72,7 +72,7 @@ void IGESDimen_ToolSection::ReadOwnParams(const Handle(IGESDimen_Section)& ent,
   ent->Init(datatype, zDisplacement, dataPoints);
 }
 
-void IGESDimen_ToolSection::WriteOwnParams(const Handle(IGESDimen_Section)& ent,
+void SectionTool::WriteOwnParams(const Handle(IGESDimen_Section)& ent,
                                            IGESData_IGESWriter&             IW) const
 {
   Standard_Integer upper = ent->NbPoints();
@@ -86,12 +86,12 @@ void IGESDimen_ToolSection::WriteOwnParams(const Handle(IGESDimen_Section)& ent,
   }
 }
 
-void IGESDimen_ToolSection::OwnShared(const Handle(IGESDimen_Section)& /* ent */,
+void SectionTool::OwnShared(const Handle(IGESDimen_Section)& /* ent */,
                                       Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESDimen_ToolSection::OwnCopy(const Handle(IGESDimen_Section)& another,
+void SectionTool::OwnCopy(const Handle(IGESDimen_Section)& another,
                                     const Handle(IGESDimen_Section)& ent,
                                     Interface_CopyTool& /* TC */) const
 {
@@ -104,14 +104,14 @@ void IGESDimen_ToolSection::OwnCopy(const Handle(IGESDimen_Section)& another,
   for (Standard_Integer i = 1; i <= nbval; i++)
   {
     Point3d tempPnt = (another->Point(i));
-    gp_XY  tempPnt2d(tempPnt.X(), tempPnt.Y());
+    Coords2d  tempPnt2d(tempPnt.X(), tempPnt.Y());
     dataPoints->SetValue(i, tempPnt2d);
   }
   ent->Init(datatype, zDisplacement, dataPoints);
   ent->SetFormNumber(another->FormNumber());
 }
 
-Standard_Boolean IGESDimen_ToolSection::OwnCorrect(const Handle(IGESDimen_Section)& ent) const
+Standard_Boolean SectionTool::OwnCorrect(const Handle(IGESDimen_Section)& ent) const
 {
   Standard_Boolean res = (ent->RankLineFont() != 1);
   if (res)
@@ -127,15 +127,15 @@ Standard_Boolean IGESDimen_ToolSection::OwnCorrect(const Handle(IGESDimen_Sectio
     return Standard_False; // rien pu faire (est-ce possible ?)
   Handle(TColgp_HArray1OfXY) pts = new TColgp_HArray1OfXY(1, nb);
   for (Standard_Integer i = 1; i <= nb; i++)
-    pts->SetValue(i, gp_XY(ent->Point(i).X(), ent->Point(i).Y()));
+    pts->SetValue(i, Coords2d(ent->Point(i).X(), ent->Point(i).Y()));
   ent->Init(1, ent->ZDisplacement(), pts);
   return Standard_True;
 }
 
-IGESData_DirChecker IGESDimen_ToolSection::DirChecker(
+DirectoryChecker SectionTool::DirChecker(
   const Handle(IGESDimen_Section)& /* ent */) const
 {
-  IGESData_DirChecker DC(106, 31, 38);
+  DirectoryChecker DC(106, 31, 38);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefValue);
   DC.LineWeight(IGESData_DefValue);
@@ -145,7 +145,7 @@ IGESData_DirChecker IGESDimen_ToolSection::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolSection::OwnCheck(const Handle(IGESDimen_Section)& ent,
+void SectionTool::OwnCheck(const Handle(IGESDimen_Section)& ent,
                                      const Interface_ShareTool&,
                                      Handle(Interface_Check)& ach) const
 {
@@ -157,7 +157,7 @@ void IGESDimen_ToolSection::OwnCheck(const Handle(IGESDimen_Section)& ent,
     ach->AddFail("Number of data points is not even");
 }
 
-void IGESDimen_ToolSection::OwnDump(const Handle(IGESDimen_Section)& ent,
+void SectionTool::OwnDump(const Handle(IGESDimen_Section)& ent,
                                     const IGESData_IGESDumper& /* dumper */,
                                     Standard_OStream&      S,
                                     const Standard_Integer level) const

@@ -30,7 +30,7 @@ class IGESDraw_CircArraySubfigure;
 DEFINE_STANDARD_HANDLE(IGESDraw_CircArraySubfigure, IGESData_IGESEntity)
 
 //! Defines IGES Circular Array Subfigure Instance Entity,
-//! Type <414> Form Number <0> in package IGESDraw
+//! Type <414> Form Number <0> in package IGESDraw1
 //!
 //! Used to produce copies of object called the base entity,
 //! arranging them around the edge of an imaginary circle

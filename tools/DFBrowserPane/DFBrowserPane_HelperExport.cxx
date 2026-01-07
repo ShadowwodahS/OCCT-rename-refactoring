@@ -27,7 +27,7 @@
 // function : AddShape
 // purpose :
 // =======================================================================
-void DFBrowserPane_HelperExport::AddShape(const TopoDS_Shape&    theShape,
+void DFBrowserPane_HelperExport::AddShape(const TopoShape&    theShape,
                                           const QModelIndexList& theIndices)
 {
   for (int anIndicesIt = 0, aCount = theIndices.size(); anIndicesIt < aCount; anIndicesIt++)
@@ -43,7 +43,7 @@ void DFBrowserPane_HelperExport::OnButtonPressed(const QModelIndex& theIndex)
   if (!myShapes.contains(theIndex))
     return;
 
-  const TopoDS_Shape& aShape = myShapes[theIndex];
+  const TopoShape& aShape = myShapes[theIndex];
 
   if (aShape.IsNull())
     return;
@@ -67,8 +67,8 @@ void DFBrowserPane_HelperExport::OnButtonPressed(const QModelIndex& theIndex)
     if (aFileName.indexOf(aFileExtension) < 0)
       aFileName += QString(aFileExtension);
 
-    const TCollection_AsciiString anAsciiName(aFileName.toUtf8().data());
-    BRepTools::Write(aShape, anAsciiName.ToCString());
+    const AsciiString1 anAsciiName(aFileName.toUtf8().data());
+    BRepTools1::Write(aShape, anAsciiName.ToCString());
     QApplication::restoreOverrideCursor();
   }
 }

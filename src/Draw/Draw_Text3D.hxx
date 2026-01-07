@@ -23,7 +23,7 @@
 #include <Draw_Color.hxx>
 #include <TCollection_AsciiString.hxx>
 #include <Draw_Drawable3D.hxx>
-class Draw_Display;
+class DrawDisplay;
 
 class Draw_Text3D;
 DEFINE_STANDARD_HANDLE(Draw_Text3D, Draw_Drawable3D)
@@ -32,25 +32,25 @@ class Draw_Text3D : public Draw_Drawable3D
 {
 
 public:
-  Standard_EXPORT Draw_Text3D(const Point3d& p, const Standard_CString T, const Draw_Color& col);
+  Standard_EXPORT Draw_Text3D(const Point3d& p, const Standard_CString T, const DrawColor& col);
 
   Standard_EXPORT Draw_Text3D(const Point3d&          p,
                               const Standard_CString T,
-                              const Draw_Color&      col,
+                              const DrawColor&      col,
                               const Standard_Real    moveX,
                               const Standard_Real    moveY);
 
   Standard_EXPORT void SetPnt(const Point3d& p);
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Draw_Text3D, Draw_Drawable3D)
 
 protected:
 private:
   Point3d                  myPoint;
-  Draw_Color              myColor;
-  TCollection_AsciiString myText;
+  DrawColor              myColor;
+  AsciiString1 myText;
   Standard_Real           mymoveX;
   Standard_Real           mymoveY;
 };

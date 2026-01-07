@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <GeomToStep_Root.hxx>
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 class Geom2d_BSplineCurve;
 class StepGeom_BSplineCurveWithKnots;
 
@@ -31,18 +31,18 @@ class StepGeom_BSplineCurveWithKnots;
 //! BSplineCurveWithKnots from StepGeom
 //! which describes a bspline_curve_with_knots from
 //! Prostep
-class GeomToStep_MakeBSplineCurveWithKnots : public GeomToStep_Root
+class GeomToStep_MakeBSplineCurveWithKnots : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeBSplineCurveWithKnots(
-    const Handle(Geom_BSplineCurve)& Bsplin,
-    const StepData_Factors&          theLocalFactors = StepData_Factors());
+    const Handle(BSplineCurve3d)& Bsplin,
+    const ConversionFactors&          theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeBSplineCurveWithKnots(
     const Handle(Geom2d_BSplineCurve)& Bsplin,
-    const StepData_Factors&            theLocalFactors = StepData_Factors());
+    const ConversionFactors&            theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_BSplineCurveWithKnots)& Value() const;
 

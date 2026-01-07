@@ -62,7 +62,7 @@ static bool strrightadjust(char* str)
 }
 
 //! Auxiliary method for iterating string line-by-line.
-static const char* readLine(TCollection_AsciiString& theLine, const char* theString)
+static const char* readLine(AsciiString1& theLine, const char* theString)
 {
   theLine.Clear();
   if (theString == NULL)
@@ -82,7 +82,7 @@ static const char* readLine(TCollection_AsciiString& theLine, const char* theStr
       const Standard_Integer aLineLen = Standard_Integer(aCharIter - theString);
       if (aLineLen != 0)
       {
-        theLine = TCollection_AsciiString(theString, aLineLen);
+        theLine = AsciiString1(theString, aLineLen);
       }
       return aCharIter + 1;
     }
@@ -106,7 +106,7 @@ void Units_UnitsDictionary::Creates()
 
   // read file line by line
   Standard_Integer        numberofunits = 0;
-  TCollection_AsciiString aLine;
+  AsciiString1 aLine;
   for (const char* aLineIter = readLine(aLine, UnitsAPI_Units_dat); aLineIter != NULL;
        aLineIter             = readLine(aLine, aLineIter))
   {
@@ -353,7 +353,7 @@ void Units_UnitsDictionary::Creates()
 
 //=================================================================================================
 
-TCollection_AsciiString Units_UnitsDictionary::ActiveUnit(const Standard_CString aquantity) const
+AsciiString1 Units_UnitsDictionary::ActiveUnit(const Standard_CString aquantity) const
 {
   Standard_Integer            index1;
   Handle(Units_Unit)          unit;

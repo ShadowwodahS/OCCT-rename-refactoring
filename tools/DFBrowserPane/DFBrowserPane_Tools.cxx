@@ -59,12 +59,12 @@ int DFBrowserPane_Tools::DefaultPanelColumnWidth(const int theColumnId)
 // function : GetEntry
 // purpose :
 // =======================================================================
-TCollection_AsciiString DFBrowserPane_Tools::GetEntry(const TDF_Label& theLabel)
+AsciiString1 DFBrowserPane_Tools::GetEntry(const DataLabel& theLabel)
 {
   if (theLabel.IsNull())
     return "Null";
 
-  TCollection_AsciiString anAsciiEntry;
+  AsciiString1 anAsciiEntry;
   TDF_Tool::Entry(theLabel, anAsciiEntry);
   return anAsciiEntry;
 }
@@ -73,7 +73,7 @@ TCollection_AsciiString DFBrowserPane_Tools::GetEntry(const TDF_Label& theLabel)
 // function : ShapeTypeInfo
 // purpose :
 // =======================================================================
-QVariant DFBrowserPane_Tools::ShapeTypeInfo(const TopoDS_Shape& theShape)
+QVariant DFBrowserPane_Tools::ShapeTypeInfo(const TopoShape& theShape)
 {
   return theShape.IsNull()
            ? QString("Empty")
@@ -95,30 +95,30 @@ QColor DFBrowserPane_Tools::LightHighlightColor()
 // function : ToName
 // purpose :
 // =======================================================================
-TCollection_AsciiString DFBrowserPane_Tools::ToName(const DFBrowserPane_OcctEnumType& theType,
+AsciiString1 DFBrowserPane_Tools::ToName(const DFBrowserPane_OcctEnumType& theType,
                                                     const Standard_Integer&           theEnumId)
 {
   Standard_SStream aSStream;
   switch (theType)
   {
     case DB_CONSTRAINT_TYPE: {
-      TDataXtd::Print((TDataXtd_ConstraintEnum)theEnumId, aSStream);
+      TDataXtd1::Print((TDataXtd_ConstraintEnum)theEnumId, aSStream);
       break;
     }
     case DB_NAMING_TYPE: {
-      TNaming::Print((TNaming_NameType)theEnumId, aSStream);
+      TNaming1::Print((TNaming_NameType)theEnumId, aSStream);
       break;
     }
     case DB_SHAPE_TYPE: {
-      TopAbs::Print((TopAbs_ShapeEnum)theEnumId, aSStream);
+      TopAbs1::Print((TopAbs_ShapeEnum)theEnumId, aSStream);
       break;
     }
     case DB_NS_TYPE: {
-      TNaming::Print((TNaming_Evolution)theEnumId, aSStream);
+      TNaming1::Print((TNaming_Evolution)theEnumId, aSStream);
       break;
     }
     case DB_GEOM_TYPE: {
-      TDataXtd::Print((TDataXtd_GeometryEnum)theEnumId, aSStream);
+      TDataXtd1::Print((TDataXtd_GeometryEnum)theEnumId, aSStream);
       break;
     }
     case DB_DIMENSION_TYPE: {
@@ -140,7 +140,7 @@ TCollection_AsciiString DFBrowserPane_Tools::ToName(const DFBrowserPane_OcctEnum
       break;
     }
     case DB_ORIENTATION_TYPE: {
-      TopAbs::Print((TopAbs_Orientation)theEnumId, aSStream);
+      TopAbs1::Print((TopAbs_Orientation)theEnumId, aSStream);
       break;
     }
     case DB_CDM_CAN_CLOSE_STATUS: {

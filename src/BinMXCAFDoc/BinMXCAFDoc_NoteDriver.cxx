@@ -39,7 +39,7 @@ Standard_Boolean BinMXCAFDoc_NoteDriver::Paste(const BinObjMgt_Persistent&  theS
   if (aNote.IsNull())
     return Standard_False;
 
-  TCollection_ExtendedString aUserName, aTimeStamp;
+  UtfString aUserName, aTimeStamp;
   if (!(theSource >> aUserName >> aTimeStamp))
     return Standard_False;
 

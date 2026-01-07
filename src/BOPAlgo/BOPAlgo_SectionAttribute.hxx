@@ -18,11 +18,11 @@
 
 //! Class is a container of the flags used
 //! by intersection algorithm
-class BOPAlgo_SectionAttribute
+class SectionAttribute
 {
 public:
   //! Default constructor
-  BOPAlgo_SectionAttribute()
+  SectionAttribute()
       : myApproximation(Standard_True),
         myPCurve1(Standard_True),
         myPCurve2(Standard_True)
@@ -30,7 +30,7 @@ public:
   }
 
   //! Constructor
-  BOPAlgo_SectionAttribute(const Standard_Boolean theAproximation,
+  SectionAttribute(const Standard_Boolean theAproximation,
                            const Standard_Boolean thePCurveOnS1,
                            const Standard_Boolean thePCurveOnS2)
       : myApproximation(theAproximation),

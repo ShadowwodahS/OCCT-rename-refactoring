@@ -19,6 +19,6 @@
 #include <IntTools_Range.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<IntTools_Range> IntTools_Array1OfRange;
+typedef NCollection_Array1<IntToolsRange> IntTools_Array1OfRange;
 
 #endif

@@ -21,7 +21,7 @@ enum VInspector_ToolActionType
 {
   VInspector_ToolActionType_NoneId,  //!< No action activated
   VInspector_ToolActionType_UpdateId //!< Update content of tree view (content of
-                                     //!< AIS_InteractiveContext)
+                                     //!< VisualContext)
 };
 
 #endif

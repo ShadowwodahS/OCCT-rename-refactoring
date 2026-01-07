@@ -37,7 +37,7 @@ public:
   //! @param[in] theViewportWidth  the width of viewport.
   //! @param[in] theViewportHeight  the height of viewport.
   Standard_EXPORT virtual Standard_Real persistentScale(
-    const Handle(Graphic3d_Camera)& theCamera,
+    const Handle(CameraOn3d)& theCamera,
     const Standard_Integer          theViewportWidth,
     const Standard_Integer          theViewportHeight) const Standard_OVERRIDE;
 

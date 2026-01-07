@@ -55,7 +55,7 @@ GeomFill_SweepSectionGenerator::GeomFill_SweepSectionGenerator()
 
 //=================================================================================================
 
-GeomFill_SweepSectionGenerator::GeomFill_SweepSectionGenerator(const Handle(Geom_Curve)& Path,
+GeomFill_SweepSectionGenerator::GeomFill_SweepSectionGenerator(const Handle(GeomCurve3d)& Path,
                                                                const Standard_Real       Radius)
 {
   Init(Path, Radius);
@@ -63,17 +63,17 @@ GeomFill_SweepSectionGenerator::GeomFill_SweepSectionGenerator(const Handle(Geom
 
 //=================================================================================================
 
-GeomFill_SweepSectionGenerator::GeomFill_SweepSectionGenerator(const Handle(Geom_Curve)& Path,
-                                                               const Handle(Geom_Curve)& FirstSect)
+GeomFill_SweepSectionGenerator::GeomFill_SweepSectionGenerator(const Handle(GeomCurve3d)& Path,
+                                                               const Handle(GeomCurve3d)& FirstSect)
 {
   Init(Path, FirstSect);
 }
 
 //=================================================================================================
 
-GeomFill_SweepSectionGenerator::GeomFill_SweepSectionGenerator(const Handle(Geom_Curve)& Path,
-                                                               const Handle(Geom_Curve)& FirstSect,
-                                                               const Handle(Geom_Curve)& LastSect)
+GeomFill_SweepSectionGenerator::GeomFill_SweepSectionGenerator(const Handle(GeomCurve3d)& Path,
+                                                               const Handle(GeomCurve3d)& FirstSect,
+                                                               const Handle(GeomCurve3d)& LastSect)
 {
   Init(Path, FirstSect, LastSect);
 }
@@ -91,7 +91,7 @@ GeomFill_SweepSectionGenerator::GeomFill_SweepSectionGenerator(
 
 //=================================================================================================
 
-void GeomFill_SweepSectionGenerator::Init(const Handle(Geom_Curve)& Path,
+void GeomFill_SweepSectionGenerator::Init(const Handle(GeomCurve3d)& Path,
                                           const Standard_Real       Radius)
 {
   myIsDone = Standard_False;
@@ -106,9 +106,9 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(Geom_Curve)& Path,
   }
   else
     myType = 1;
-  if (Path->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (Path->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    myPath = Handle(Geom_BSplineCurve)::DownCast(Path->Copy());
+    myPath = Handle(BSplineCurve3d)::DownCast(Path->Copy());
   }
   else
   {
@@ -118,8 +118,8 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(Geom_Curve)& Path,
 
 //=================================================================================================
 
-void GeomFill_SweepSectionGenerator::Init(const Handle(Geom_Curve)& Path,
-                                          const Handle(Geom_Curve)& FirstSect)
+void GeomFill_SweepSectionGenerator::Init(const Handle(GeomCurve3d)& Path,
+                                          const Handle(GeomCurve3d)& FirstSect)
 {
   myIsDone = Standard_False;
   myRadius = 0;
@@ -134,17 +134,17 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(Geom_Curve)& Path,
   else
     myType = 2;
 
-  if (Path->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (Path->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    myPath = Handle(Geom_BSplineCurve)::DownCast(Path->Copy());
+    myPath = Handle(BSplineCurve3d)::DownCast(Path->Copy());
   }
   else
   {
     myPath = GeomConvert::CurveToBSplineCurve(Path);
   }
-  if (FirstSect->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (FirstSect->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    myFirstSect = Handle(Geom_BSplineCurve)::DownCast(FirstSect->Copy());
+    myFirstSect = Handle(BSplineCurve3d)::DownCast(FirstSect->Copy());
   }
   else
   {
@@ -157,9 +157,9 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(Geom_Curve)& Path,
 
 //=================================================================================================
 
-void GeomFill_SweepSectionGenerator::Init(const Handle(Geom_Curve)& Path,
-                                          const Handle(Geom_Curve)& FirstSect,
-                                          const Handle(Geom_Curve)& LastSect)
+void GeomFill_SweepSectionGenerator::Init(const Handle(GeomCurve3d)& Path,
+                                          const Handle(GeomCurve3d)& FirstSect,
+                                          const Handle(GeomCurve3d)& LastSect)
 {
   myIsDone = Standard_False;
   myRadius = 0;
@@ -174,9 +174,9 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(Geom_Curve)& Path,
   else
     myType = 3;
 
-  if (Path->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (Path->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    myPath = Handle(Geom_BSplineCurve)::DownCast(Path->Copy());
+    myPath = Handle(BSplineCurve3d)::DownCast(Path->Copy());
   }
   else
   {
@@ -184,17 +184,17 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(Geom_Curve)& Path,
   }
 
   // JAG
-  if (FirstSect->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (FirstSect->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    myFirstSect = Handle(Geom_BSplineCurve)::DownCast(FirstSect->Copy());
+    myFirstSect = Handle(BSplineCurve3d)::DownCast(FirstSect->Copy());
   }
   else
   {
     myFirstSect = GeomConvert::CurveToBSplineCurve(FirstSect, Convert_QuasiAngular);
   }
-  if (LastSect->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (LastSect->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    myLastSect = Handle(Geom_BSplineCurve)::DownCast(LastSect->Copy());
+    myLastSect = Handle(BSplineCurve3d)::DownCast(LastSect->Copy());
   }
   else
   {
@@ -213,8 +213,8 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(Geom_Curve)& Path,
   Profil.AddCurve(myLastSect);
   Profil.Perform(Precision::Confusion());
 
-  myFirstSect = Handle(Geom_BSplineCurve)::DownCast(Profil.Curve(1));
-  myLastSect  = Handle(Geom_BSplineCurve)::DownCast(Profil.Curve(2));
+  myFirstSect = Handle(BSplineCurve3d)::DownCast(Profil.Curve(1));
+  myLastSect  = Handle(BSplineCurve3d)::DownCast(Profil.Curve(2));
 }
 
 //=================================================================================================
@@ -228,7 +228,7 @@ void GeomFill_SweepSectionGenerator::Init(const Handle(Adaptor3d_Curve)& Path,
   myRadius = Radius;
   myType   = 0;
 
-  Handle(Geom_Curve) CC = GeomAdaptor::MakeCurve(*Path);
+  Handle(GeomCurve3d) CC = GeomAdaptor1::MakeCurve(*Path);
   myPath                = GeomConvert::CurveToBSplineCurve(CC);
   myAdpPath             = Path;
   myAdpFirstSect        = Curve1;
@@ -297,7 +297,7 @@ void GeomFill_SweepSectionGenerator::Perform(const Standard_Boolean Polynomial)
 
     Frame3d CircleAxis(PRef, D1Ref);
     /*
-        Handle(Geom_Circle) Circ = new Geom_Circle( CircleAxis, myRadius);
+        Handle(GeomCircle) Circ = new GeomCircle( CircleAxis, myRadius);
 
         myFirstSect = GeomConvert::CurveToBSplineCurve(Circ);
         // le cercle est segmente car AppBlend_AppSurf ne gere
@@ -305,7 +305,7 @@ void GeomFill_SweepSectionGenerator::Perform(const Standard_Boolean Polynomial)
         myFirstSect->Segment(0., 2.*M_PI);
     */
     Handle(Geom_TrimmedCurve) Circ =
-      new Geom_TrimmedCurve(new Geom_Circle(CircleAxis, myRadius), 0., 2. * M_PI);
+      new Geom_TrimmedCurve(new GeomCircle(CircleAxis, myRadius), 0., 2. * M_PI);
 
     myFirstSect = GeomConvert::CurveToBSplineCurve(Circ, Convert_QuasiAngular);
   }
@@ -560,7 +560,7 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
     {
       char name[256];
       sprintf(name, "SECTION_%d", ++NbSECTIONS);
-      DrawTrSurf::Set(name, myFirstSect->Transformed(cumulTR));
+      DrawTrSurf1::Set(name, myFirstSect->Transformed(cumulTR));
     }
 #endif
   }
@@ -635,9 +635,9 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
     }
     else
     {
-      Handle(Geom_Circle)       Circ = new Geom_Circle(Axis, myRadius);
+      Handle(GeomCircle)       Circ = new GeomCircle(Axis, myRadius);
       Handle(Geom_TrimmedCurve) CT   = new Geom_TrimmedCurve(Circ, 0., Angle);
-      Handle(Geom_BSplineCurve) BS;
+      Handle(BSplineCurve3d) BS;
       if (myPolynomial)
         BS = GeomConvert::CurveToBSplineCurve(CT, Convert_Polynomial);
       else
@@ -648,7 +648,7 @@ void GeomFill_SweepSectionGenerator::Section(const Standard_Integer P,
       {
         char name[256];
         sprintf(name, "SECTION_%d", ++NbSECTIONS);
-        DrawTrSurf::Set(name, BS);
+        DrawTrSurf1::Set(name, BS);
       }
 #endif
 

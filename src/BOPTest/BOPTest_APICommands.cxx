@@ -29,13 +29,13 @@
 
 #include <stdio.h>
 
-static Standard_Integer bapibuild(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bapibop(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bapisplit(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer bapibuild(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bapibop(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bapisplit(DrawInterpreter&, Standard_Integer, const char**);
 
 //=================================================================================================
 
-void BOPTest::APICommands(Draw_Interpretor& theCommands)
+void BOPTest::APICommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -82,7 +82,7 @@ void BOPTest::APICommands(Draw_Interpretor& theCommands)
 
 //=================================================================================================
 
-Standard_Integer bapibop(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bapibop(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 3)
   {
@@ -99,9 +99,9 @@ Standard_Integer bapibop(Draw_Interpretor& di, Standard_Integer n, const char** 
   //
   Standard_Boolean              bRunParallel, bNonDestructive;
   Standard_Real                 aFuzzyValue;
-  BRepAlgoAPI_Common            aCommon;
-  BRepAlgoAPI_Fuse              aFuse;
-  BRepAlgoAPI_Cut               aCut;
+  BooleanCommon            aCommon;
+  BooleanFuse              aFuse;
+  BooleanCut               aCut;
   BRepAlgoAPI_Section           aSection;
   BRepAlgoAPI_BooleanOperation* pBuilder;
   //
@@ -130,8 +130,8 @@ Standard_Integer bapibop(Draw_Interpretor& di, Standard_Integer n, const char** 
       break;
   }
   //
-  TopTools_ListOfShape& aLS = BOPTest_Objects::Shapes();
-  TopTools_ListOfShape& aLT = BOPTest_Objects::Tools();
+  ShapeList& aLS = BOPTest_Objects::Shapes();
+  ShapeList& aLT = BOPTest_Objects::Tools();
   //
   bRunParallel           = BOPTest_Objects::RunParallel();
   aFuzzyValue            = BOPTest_Objects::FuzzyValue();
@@ -182,20 +182,20 @@ Standard_Integer bapibop(Draw_Interpretor& di, Standard_Integer n, const char** 
     return 0;
   }
   //
-  const TopoDS_Shape& aR = pBuilder->Shape();
+  const TopoShape& aR = pBuilder->Shape();
   if (aR.IsNull())
   {
     di << "Result is a null shape\n";
     return 0;
   }
   //
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bapibuild(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bapibuild(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -208,8 +208,8 @@ Standard_Integer bapibuild(Draw_Interpretor& di, Standard_Integer n, const char*
   Standard_Real           aFuzzyValue;
   BRepAlgoAPI_BuilderAlgo aBuilder;
   //
-  TopTools_ListOfShape aLS = BOPTest_Objects::Shapes();
-  TopTools_ListOfShape aLT = BOPTest_Objects::Tools();
+  ShapeList aLS = BOPTest_Objects::Shapes();
+  ShapeList aLT = BOPTest_Objects::Tools();
   //
   aLS.Append(aLT);
   bRunParallel           = BOPTest_Objects::RunParallel();
@@ -252,20 +252,20 @@ Standard_Integer bapibuild(Draw_Interpretor& di, Standard_Integer n, const char*
     return 0;
   }
   //
-  const TopoDS_Shape& aR = aBuilder.Shape();
+  const TopoShape& aR = aBuilder.Shape();
   if (aR.IsNull())
   {
     di << "Result is a null shape\n";
     return 0;
   }
   //
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bapisplit(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bapisplit(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -315,13 +315,13 @@ Standard_Integer bapisplit(Draw_Interpretor& di, Standard_Integer n, const char*
   }
   //
   // getting the result of the operation
-  const TopoDS_Shape& aR = aSplitter.Shape();
+  const TopoShape& aR = aSplitter.Shape();
   if (aR.IsNull())
   {
     di << "Result is a null shape\n";
     return 0;
   }
   //
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }

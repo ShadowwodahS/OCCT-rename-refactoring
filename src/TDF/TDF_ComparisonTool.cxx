@@ -51,10 +51,10 @@ void TDF_ComparisonTool::Compare(const Handle(TDF_DataSet)&         aSourceDataS
   // Try to match source and target roots by their tag.
   for (; srcRootItr.More(); srcRootItr.Next())
   {
-    const TDF_Label& srcLab = srcRootItr.Value();
+    const DataLabel& srcLab = srcRootItr.Value();
     for (trgRootItr.Initialize(trgRoots); trgRootItr.More(); trgRootItr.Next())
     {
-      const TDF_Label& trgLab = trgRootItr.Value();
+      const DataLabel& trgLab = trgRootItr.Value();
       if (srcLab.Tag() == trgLab.Tag())
       {
         the2LabMap.Bind(srcLab, trgLab);
@@ -80,8 +80,8 @@ void TDF_ComparisonTool::Compare(const Handle(TDF_DataSet)&         aSourceDataS
 // purpose  : Internal recursive comparison method.
 //=======================================================================
 
-void TDF_ComparisonTool::Compare(const TDF_Label&                   aSrcLabel,
-                                 const TDF_Label&                   aTrgLabel,
+void TDF_ComparisonTool::Compare(const DataLabel&                   aSrcLabel,
+                                 const DataLabel&                   aTrgLabel,
                                  const Handle(TDF_DataSet)&         aSourceDataSet,
                                  const Handle(TDF_DataSet)&         aTargetDataSet,
                                  const TDF_IDFilter&                aFilter,
@@ -110,12 +110,12 @@ void TDF_ComparisonTool::Compare(const TDF_Label&                   aSrcLabel,
   TDF_ChildIterator childItr1, childItr2;
   for (childItr1.Initialize(aSrcLabel); childItr1.More(); childItr1.Next())
   {
-    const TDF_Label& childSrcLab = childItr1.Value();
+    const DataLabel& childSrcLab = childItr1.Value();
     if (aSourceDataSet->ContainsLabel(childSrcLab))
     {
       for (childItr2.Initialize(aSrcLabel); childItr2.More(); childItr2.Next())
       {
-        const TDF_Label& childTrgLab = childItr2.Value();
+        const DataLabel& childTrgLab = childItr2.Value();
         if (aTargetDataSet->ContainsLabel(childTrgLab))
         {
           if (childSrcLab.Tag() == childTrgLab.Tag())
@@ -190,7 +190,7 @@ Standard_Boolean TDF_ComparisonTool::Unbound(const Handle(TDF_DataSet)&         
       aRelocationTable->TargetLabelMap(theTLabMap);
     for (TDF_MapIteratorOfLabelMap refLabMItr(refLabs); refLabMItr.More(); refLabMItr.Next())
     {
-      const TDF_Label& refLab = refLabMItr.Key();
+      const DataLabel& refLab = refLabMItr.Key();
       if (!(theSource ? the2LabMap.IsBound(refLab) : theTLabMap.Contains(refLab)))
         diffLabs.Add(refLab);
     }
@@ -248,7 +248,7 @@ void TDF_ComparisonTool::Cut(const Handle(TDF_DataSet)& aDataSet)
 //          descendant of <aLabel>.
 //=======================================================================
 
-Standard_Boolean TDF_ComparisonTool::IsSelfContained(const TDF_Label&           aLabel,
+Standard_Boolean TDF_ComparisonTool::IsSelfContained(const DataLabel&           aLabel,
                                                      const Handle(TDF_DataSet)& aDataSet)
 {
   if (!aDataSet->IsEmpty())

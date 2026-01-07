@@ -30,14 +30,14 @@ class Geom_SphericalSurface;
 //! SphericalSurface from Geom and the class
 //! SphericalSurface from StepGeom which describes a
 //! spherical_surface from Prostep
-class GeomToStep_MakeSphericalSurface : public GeomToStep_Root
+class GeomToStep_MakeSphericalSurface : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeSphericalSurface(
     const Handle(Geom_SphericalSurface)& CSurf,
-    const StepData_Factors&              theLocalFactors = StepData_Factors());
+    const ConversionFactors&              theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_SphericalSurface)& Value() const;
 

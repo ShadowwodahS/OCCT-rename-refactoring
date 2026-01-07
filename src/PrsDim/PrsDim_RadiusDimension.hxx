@@ -54,7 +54,7 @@ public:
 
   //! Create radius dimension for the arbitrary shape (if possible).
   //! @param[in] theShape  the shape to measure.
-  Standard_EXPORT PrsDim_RadiusDimension(const TopoDS_Shape& theShape);
+  Standard_EXPORT PrsDim_RadiusDimension(const TopoShape& theShape);
 
 public:
   //! @return measured geometry circle.
@@ -64,7 +64,7 @@ public:
   const Point3d& AnchorPoint() const { return myAnchorPoint; }
 
   //! @return the measured shape.
-  const TopoDS_Shape& Shape() const { return myShape; }
+  const TopoShape& Shape() const { return myShape; }
 
 public:
   //! Measure radius of the circle.
@@ -91,7 +91,7 @@ public:
   //! The dimension will become invalid if the passed shape is not
   //! measurable or if measured diameter value is less than Precision::Confusion().
   //! @param[in] theShape  the shape to measure.
-  void SetMeasuredGeometry(const TopoDS_Shape& theShape)
+  void SetMeasuredGeometry(const TopoShape& theShape)
   {
     SetMeasuredGeometry(theShape, Point3d(), Standard_False);
   }
@@ -102,20 +102,20 @@ public:
   //! @param[in] theShape  the shape to measure.
   //! @param[in] theAnchorPoint  the point to attach the dimension lines, should be on the circle
   //! @param[in] theHasAnchor    should be set TRUE if theAnchorPoint should be used
-  Standard_EXPORT void SetMeasuredGeometry(const TopoDS_Shape&    theShape,
+  Standard_EXPORT void SetMeasuredGeometry(const TopoShape&    theShape,
                                            const Point3d&          theAnchorPoint,
                                            const Standard_Boolean theHasAnchor = Standard_True);
 
   //! @return the display units string.
-  Standard_EXPORT virtual const TCollection_AsciiString& GetDisplayUnits() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const AsciiString1& GetDisplayUnits() const Standard_OVERRIDE;
 
   //! @return the model units string.
-  Standard_EXPORT virtual const TCollection_AsciiString& GetModelUnits() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const AsciiString1& GetModelUnits() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void SetDisplayUnits(const TCollection_AsciiString& theUnits)
+  Standard_EXPORT virtual void SetDisplayUnits(const AsciiString1& theUnits)
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void SetModelUnits(const TCollection_AsciiString& theUnits)
+  Standard_EXPORT virtual void SetModelUnits(const AsciiString1& theUnits)
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual void SetTextPosition(const Point3d& theTextPos) Standard_OVERRIDE;
@@ -144,7 +144,7 @@ protected:
 private:
   gp_Circ      myCircle;
   Point3d       myAnchorPoint;
-  TopoDS_Shape myShape;
+  TopoShape myShape;
 };
 
 #endif // _PrsDim_RadiusDimension_HeaderFile

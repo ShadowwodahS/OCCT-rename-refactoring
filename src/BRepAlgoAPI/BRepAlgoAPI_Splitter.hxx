@@ -58,14 +58,14 @@ public: //! @name Constructors
   Standard_EXPORT BRepAlgoAPI_Splitter();
 
   //! Constructor with already prepared intersection tool - PaveFiller
-  Standard_EXPORT BRepAlgoAPI_Splitter(const BOPAlgo_PaveFiller& thePF);
+  Standard_EXPORT BRepAlgoAPI_Splitter(const BooleanPaveFiller& thePF);
 
 public: //! @name Setters/Getters for the Tools
   //! Sets the Tool arguments
-  void SetTools(const TopTools_ListOfShape& theLS) { myTools = theLS; }
+  void SetTools(const ShapeList& theLS) { myTools = theLS; }
 
   //! Returns the Tool arguments
-  const TopTools_ListOfShape& Tools() const { return myTools; }
+  const ShapeList& Tools() const { return myTools; }
 
 public: //! @name Performing the operation
   //! Performs the Split operation.
@@ -75,7 +75,7 @@ public: //! @name Performing the operation
     const Message_ProgressRange& theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
 protected:                      //! @name Fields
-  TopTools_ListOfShape myTools; //!< Tool arguments of the operation
+  ShapeList myTools; //!< Tool arguments of the operation
 };
 
 #endif // _BRepAlgoAPI_Splitter_HeaderFile

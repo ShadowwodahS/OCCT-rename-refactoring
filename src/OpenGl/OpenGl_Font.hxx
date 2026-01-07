@@ -51,7 +51,7 @@ public:
 public:
   //! Main constructor.
   Standard_EXPORT OpenGl_Font(const Handle(Font_FTFont)&     theFont,
-                              const TCollection_AsciiString& theKey = "");
+                              const AsciiString1& theKey = "");
 
   //! Destroy object.
   Standard_EXPORT virtual ~OpenGl_Font();
@@ -63,7 +63,7 @@ public:
   Standard_EXPORT virtual Standard_Size EstimatedDataSize() const Standard_OVERRIDE;
 
   //! @return key of shared resource
-  inline const TCollection_AsciiString& ResourceKey() const { return myKey; }
+  inline const AsciiString1& ResourceKey() const { return myKey; }
 
   //! @return FreeType font instance specified on construction.
   inline const Handle(Font_FTFont)& FTFont() const { return myFont; }
@@ -105,7 +105,7 @@ protected:
   bool createTexture(const Handle(OpenGl_Context)& theCtx);
 
 protected:
-  TCollection_AsciiString myKey;        //!< key of shared resource
+  AsciiString1 myKey;        //!< key of shared resource
   Handle(Font_FTFont)     myFont;       //!< FreeType font instance
   Standard_ShortReal      myAscender;   //!< ascender     provided my FT font
   Standard_ShortReal      myDescender;  //!< descender    provided my FT font

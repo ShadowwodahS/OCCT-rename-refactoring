@@ -53,14 +53,14 @@ void TopoDSToStep_Tool::Init(const MoniTool_DataMapOfShapeTransient& M,
 
 //=================================================================================================
 
-Standard_Boolean TopoDSToStep_Tool::IsBound(const TopoDS_Shape& S)
+Standard_Boolean TopoDSToStep_Tool::IsBound(const TopoShape& S)
 {
   return myDataMap.IsBound(S);
 }
 
 //=================================================================================================
 
-void TopoDSToStep_Tool::Bind(const TopoDS_Shape&                                    S,
+void TopoDSToStep_Tool::Bind(const TopoShape&                                    S,
                              const Handle(StepShape_TopologicalRepresentationItem)& T)
 {
   myDataMap.Bind(S, T);
@@ -68,7 +68,7 @@ void TopoDSToStep_Tool::Bind(const TopoDS_Shape&                                
 
 //=================================================================================================
 
-Handle(StepShape_TopologicalRepresentationItem) TopoDSToStep_Tool::Find(const TopoDS_Shape& S)
+Handle(StepShape_TopologicalRepresentationItem) TopoDSToStep_Tool::Find(const TopoShape& S)
 {
   return Handle(StepShape_TopologicalRepresentationItem)::DownCast(myDataMap.Find(S));
 }
@@ -82,7 +82,7 @@ Standard_Boolean TopoDSToStep_Tool::Faceted() const
 
 //=================================================================================================
 
-void TopoDSToStep_Tool::SetCurrentShell(const TopoDS_Shell& S)
+void TopoDSToStep_Tool::SetCurrentShell(const TopoShell& S)
 {
 #ifdef OCCT_DEBUG
   std::cout << "Process a Shell which is ";
@@ -106,14 +106,14 @@ void TopoDSToStep_Tool::SetCurrentShell(const TopoDS_Shell& S)
 
 //=================================================================================================
 
-const TopoDS_Shell& TopoDSToStep_Tool::CurrentShell() const
+const TopoShell& TopoDSToStep_Tool::CurrentShell() const
 {
   return myCurrentShell;
 }
 
 //=================================================================================================
 
-void TopoDSToStep_Tool::SetCurrentFace(const TopoDS_Face& F)
+void TopoDSToStep_Tool::SetCurrentFace(const TopoFace& F)
 {
 #ifdef OCCT_DEBUG
   std::cout << "  Process a Face which is ";
@@ -132,7 +132,7 @@ void TopoDSToStep_Tool::SetCurrentFace(const TopoDS_Face& F)
     }
   }
 #endif
-  Standard_Real FaceTol = BRep_Tool::Tolerance(F);
+  Standard_Real FaceTol = BRepInspector::Tolerance(F);
   if (FaceTol > myLowestTol)
     myLowestTol = FaceTol;
   myCurrentFace = F;
@@ -140,14 +140,14 @@ void TopoDSToStep_Tool::SetCurrentFace(const TopoDS_Face& F)
 
 //=================================================================================================
 
-const TopoDS_Face& TopoDSToStep_Tool::CurrentFace() const
+const TopoFace& TopoDSToStep_Tool::CurrentFace() const
 {
   return myCurrentFace;
 }
 
 //=================================================================================================
 
-void TopoDSToStep_Tool::SetCurrentWire(const TopoDS_Wire& W)
+void TopoDSToStep_Tool::SetCurrentWire(const TopoWire& W)
 {
 #ifdef OCCT_DEBUG
   std::cout << "    Process a Wire which is ";
@@ -171,14 +171,14 @@ void TopoDSToStep_Tool::SetCurrentWire(const TopoDS_Wire& W)
 
 //=================================================================================================
 
-const TopoDS_Wire& TopoDSToStep_Tool::CurrentWire() const
+const TopoWire& TopoDSToStep_Tool::CurrentWire() const
 {
   return myCurrentWire;
 }
 
 //=================================================================================================
 
-void TopoDSToStep_Tool::SetCurrentEdge(const TopoDS_Edge& E)
+void TopoDSToStep_Tool::SetCurrentEdge(const TopoEdge& E)
 {
 #ifdef OCCT_DEBUG
   std::cout << "      Process Edge which is ";
@@ -197,7 +197,7 @@ void TopoDSToStep_Tool::SetCurrentEdge(const TopoDS_Edge& E)
     }
   }
 #endif
-  Standard_Real EdgeTol = BRep_Tool::Tolerance(E);
+  Standard_Real EdgeTol = BRepInspector::Tolerance(E);
   if (EdgeTol > myLowestTol)
     myLowestTol = EdgeTol;
   myCurrentEdge = E;
@@ -205,16 +205,16 @@ void TopoDSToStep_Tool::SetCurrentEdge(const TopoDS_Edge& E)
 
 //=================================================================================================
 
-const TopoDS_Edge& TopoDSToStep_Tool::CurrentEdge() const
+const TopoEdge& TopoDSToStep_Tool::CurrentEdge() const
 {
   return myCurrentEdge;
 }
 
 //=================================================================================================
 
-void TopoDSToStep_Tool::SetCurrentVertex(const TopoDS_Vertex& V)
+void TopoDSToStep_Tool::SetCurrentVertex(const TopoVertex& V)
 {
-  Standard_Real VertexTol = BRep_Tool::Tolerance(V);
+  Standard_Real VertexTol = BRepInspector::Tolerance(V);
   if (VertexTol > myLowestTol)
     myLowestTol = VertexTol;
   myCurrentVertex = V;
@@ -222,7 +222,7 @@ void TopoDSToStep_Tool::SetCurrentVertex(const TopoDS_Vertex& V)
 
 //=================================================================================================
 
-const TopoDS_Vertex& TopoDSToStep_Tool::CurrentVertex() const
+const TopoVertex& TopoDSToStep_Tool::CurrentVertex() const
 {
   return myCurrentVertex;
 }

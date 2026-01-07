@@ -26,7 +26,7 @@
 #include <TransferBRep.hxx>
 #include <TransferBRep_ShapeMapper.hxx>
 
-Handle(TCollection_HAsciiString) TopoDSToStep::DecodeBuilderError(const TopoDSToStep_BuilderError E)
+Handle(TCollection_HAsciiString) TopoDSToStep1::DecodeBuilderError(const TopoDSToStep_BuilderError E)
 {
   Handle(TCollection_HAsciiString) mess;
   switch (E)
@@ -47,7 +47,7 @@ Handle(TCollection_HAsciiString) TopoDSToStep::DecodeBuilderError(const TopoDSTo
   return mess;
 }
 
-Handle(TCollection_HAsciiString) TopoDSToStep::DecodeFaceError(const TopoDSToStep_MakeFaceError E)
+Handle(TCollection_HAsciiString) TopoDSToStep1::DecodeFaceError(const TopoDSToStep_MakeFaceError E)
 {
   Handle(TCollection_HAsciiString) mess;
   switch (E)
@@ -76,7 +76,7 @@ Handle(TCollection_HAsciiString) TopoDSToStep::DecodeFaceError(const TopoDSToSte
   return mess;
 }
 
-Handle(TCollection_HAsciiString) TopoDSToStep::DecodeWireError(const TopoDSToStep_MakeWireError E)
+Handle(TCollection_HAsciiString) TopoDSToStep1::DecodeWireError(const TopoDSToStep_MakeWireError E)
 {
   Handle(TCollection_HAsciiString) mess;
   switch (E)
@@ -97,7 +97,7 @@ Handle(TCollection_HAsciiString) TopoDSToStep::DecodeWireError(const TopoDSToSte
   return mess;
 }
 
-Handle(TCollection_HAsciiString) TopoDSToStep::DecodeEdgeError(const TopoDSToStep_MakeEdgeError E)
+Handle(TCollection_HAsciiString) TopoDSToStep1::DecodeEdgeError(const TopoDSToStep_MakeEdgeError E)
 {
   Handle(TCollection_HAsciiString) mess;
   switch (E)
@@ -118,7 +118,7 @@ Handle(TCollection_HAsciiString) TopoDSToStep::DecodeEdgeError(const TopoDSToSte
   return mess;
 }
 
-Handle(TCollection_HAsciiString) TopoDSToStep::DecodeVertexError(
+Handle(TCollection_HAsciiString) TopoDSToStep1::DecodeVertexError(
   const TopoDSToStep_MakeVertexError E)
 {
   Handle(TCollection_HAsciiString) mess;
@@ -138,8 +138,8 @@ Handle(TCollection_HAsciiString) TopoDSToStep::DecodeVertexError(
 
 //=================================================================================================
 
-void TopoDSToStep::AddResult(const Handle(Transfer_FinderProcess)& FP,
-                             const TopoDS_Shape&                   Shape,
+void TopoDSToStep1::AddResult(const Handle(Transfer_FinderProcess)& FP,
+                             const TopoShape&                   Shape,
                              const Handle(RefObject)&     ent)
 {
   Handle(Transfer_SimpleBinderOfTransient) result = new Transfer_SimpleBinderOfTransient;
@@ -156,11 +156,11 @@ void TopoDSToStep::AddResult(const Handle(Transfer_FinderProcess)& FP,
 
 //=================================================================================================
 
-void TopoDSToStep::AddResult(const Handle(Transfer_FinderProcess)& FP,
+void TopoDSToStep1::AddResult(const Handle(Transfer_FinderProcess)& FP,
                              const TopoDSToStep_Tool&              Tool)
 {
   const MoniTool_DataMapOfShapeTransient&           Map = Tool.Map();
   MoniTool_DataMapIteratorOfDataMapOfShapeTransient it(Map);
   for (; it.More(); it.Next())
-    TopoDSToStep::AddResult(FP, it.Key(), it.Value());
+    TopoDSToStep1::AddResult(FP, it.Key(), it.Value());
 }

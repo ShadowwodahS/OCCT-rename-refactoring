@@ -14,13 +14,13 @@
 #include <StdLPersistent_Dependency.hxx>
 
 static void ImportName(const Handle(TDataStd_Expression)& theAttribute,
-                       const TCollection_ExtendedString&  theName)
+                       const UtfString&  theName)
 {
   theAttribute->SetExpression(theName);
 }
 
 static void ImportName(const Handle(TDataStd_Relation)&  theAttribute,
-                       const TCollection_ExtendedString& theName)
+                       const UtfString& theName)
 {
   theAttribute->SetRelation(theName);
 }

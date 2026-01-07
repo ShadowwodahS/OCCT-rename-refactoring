@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// + X/YAxis() returns AIS_Line instead of AIS_Axis
+// + X/YAxis() returns AIS_Line instead of VisualAxis
 // + (-1) selection mode token into account
 // (SAMTECH specific)
 
@@ -45,15 +45,15 @@
 #include <TCollection_AsciiString.hxx>
 #include <UnitsAPI.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_PlaneTrihedron, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_PlaneTrihedron, VisualEntity)
 
 void ExtremityPoints(TColgp_Array1OfPnt&         PP,
-                     const Handle(Geom_Plane)&   myPlane,
-                     const Handle(Prs3d_Drawer)& myDrawer);
+                     const Handle(GeomPlane)&   myPlane,
+                     const Handle(StyleDrawer)& myDrawer);
 
 //=================================================================================================
 
-AIS_PlaneTrihedron::AIS_PlaneTrihedron(const Handle(Geom_Plane)& aPlane)
+AIS_PlaneTrihedron::AIS_PlaneTrihedron(const Handle(GeomPlane)& aPlane)
     : myPlane(aPlane)
 {
   Handle(Prs3d_DatumAspect) DA = new Prs3d_DatumAspect();
@@ -69,20 +69,20 @@ AIS_PlaneTrihedron::AIS_PlaneTrihedron(const Handle(Geom_Plane)& aPlane)
   myShapes[1] = XAxis();
   myShapes[2] = YAxis();
 
-  myXLabel = TCollection_AsciiString("X");
-  myYLabel = TCollection_AsciiString("Y");
+  myXLabel = AsciiString1("X");
+  myYLabel = AsciiString1("Y");
 }
 
 //=================================================================================================
 
-Handle(Geom_Plane) AIS_PlaneTrihedron::Component()
+Handle(GeomPlane) AIS_PlaneTrihedron::Component()
 {
   return myPlane;
 }
 
 //=================================================================================================
 
-void AIS_PlaneTrihedron::SetComponent(const Handle(Geom_Plane)& aPlane)
+void AIS_PlaneTrihedron::SetComponent(const Handle(GeomPlane)& aPlane)
 {
   myPlane = aPlane;
 }
@@ -91,7 +91,7 @@ void AIS_PlaneTrihedron::SetComponent(const Handle(Geom_Plane)& aPlane)
 
 Handle(AIS_Line) AIS_PlaneTrihedron::XAxis() const
 {
-  Handle(Geom_Line) aGLine = new Geom_Line(myPlane->Pln().XAxis());
+  Handle(GeomLine) aGLine = new GeomLine(myPlane->Pln().XAxis());
   Handle(AIS_Line)  aLine  = new AIS_Line(aGLine);
   aLine->SetColor(Quantity_NOC_ROYALBLUE1);
   return aLine;
@@ -101,7 +101,7 @@ Handle(AIS_Line) AIS_PlaneTrihedron::XAxis() const
 
 Handle(AIS_Line) AIS_PlaneTrihedron::YAxis() const
 {
-  Handle(Geom_Line) aGLine = new Geom_Line(myPlane->Pln().YAxis());
+  Handle(GeomLine) aGLine = new GeomLine(myPlane->Pln().YAxis());
   Handle(AIS_Line)  aLine  = new AIS_Line(aGLine);
   aLine->SetColor(Quantity_NOC_ROYALBLUE1);
   return aLine;
@@ -109,11 +109,11 @@ Handle(AIS_Line) AIS_PlaneTrihedron::YAxis() const
 
 //=================================================================================================
 
-Handle(AIS_Point) AIS_PlaneTrihedron::Position() const
+Handle(VisualPoint) AIS_PlaneTrihedron::Position() const
 {
   Point3d             aPnt   = myPlane->Pln().Location();
   Handle(Geom_Point) aPoint = new Geom_CartesianPoint(aPnt);
-  Handle(AIS_Point)  aPt    = new AIS_Point(aPoint);
+  Handle(VisualPoint)  aPt    = new VisualPoint(aPoint);
   return aPt;
 }
 
@@ -177,7 +177,7 @@ void AIS_PlaneTrihedron::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void AIS_PlaneTrihedron::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+void AIS_PlaneTrihedron::ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                           const Standard_Integer             aMode)
 {
   Standard_Integer              Prior;
@@ -239,8 +239,8 @@ void AIS_PlaneTrihedron::SetColor(const Quantity_Color& aCol)
 //=======================================================================
 // void  AIS_Trihedron::ExtremityPoints(TColgp_Array1OfPnt& PP) const
 void ExtremityPoints(TColgp_Array1OfPnt&         PP,
-                     const Handle(Geom_Plane)&   myPlane,
-                     const Handle(Prs3d_Drawer)& myDrawer)
+                     const Handle(GeomPlane)&   myPlane,
+                     const Handle(StyleDrawer)& myDrawer)
 {
   //  Frame3d theax(myPlane->Ax2());
   Frame3d theax(myPlane->Position().Ax2());

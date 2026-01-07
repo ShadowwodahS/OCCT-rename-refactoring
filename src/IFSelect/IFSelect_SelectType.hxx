@@ -22,7 +22,7 @@
 
 #include <Standard_Type.hxx>
 #include <IFSelect_SelectAnyType.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_SelectType;
 DEFINE_STANDARD_HANDLE(IFSelect_SelectType, IFSelect_SelectAnyType)
@@ -48,7 +48,7 @@ public:
 
   //! Returns a text defining the criterium.
   //! (should by gotten from Type of Entity used for instantiation)
-  Standard_EXPORT TCollection_AsciiString ExtractLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExtractLabel() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectType, IFSelect_SelectAnyType)
 

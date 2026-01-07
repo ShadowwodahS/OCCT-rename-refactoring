@@ -14,7 +14,7 @@
 #ifndef _TopToolsFormatVersion_HeaderFile
 #define _TopToolsFormatVersion_HeaderFile
 
-//! Defined TopTools format version
+//! Defined TopTools1 format version
 enum TopTools_FormatVersion
 {
   TopTools_FormatVersion_VERSION_1 = 1, //!< Does not write CurveOnSurface UV Points into the file.

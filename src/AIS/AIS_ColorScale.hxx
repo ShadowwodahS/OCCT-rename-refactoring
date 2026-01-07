@@ -25,7 +25,7 @@
 #include <TColStd_SequenceOfExtendedString.hxx>
 
 class AIS_ColorScale;
-DEFINE_STANDARD_HANDLE(AIS_ColorScale, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(AIS_ColorScale, VisualEntity)
 
 //! Class for drawing a custom color scale.
 //!
@@ -36,9 +36,9 @@ DEFINE_STANDARD_HANDLE(AIS_ColorScale, AIS_InteractiveObject)
 //! Colors and labels can be either defined automatically or set by the user.
 //! Automatic labels are calculated from numerical limits of the scale,
 //! its type (logarithmic or plain), and formatted by specified format string.
-class AIS_ColorScale : public AIS_InteractiveObject
+class AIS_ColorScale : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_ColorScale, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_ColorScale, VisualEntity)
 public:
   //! Calculate color according passed value; returns true if value is in range or false, if isn't
   Standard_EXPORT static Standard_Boolean FindColor(const Standard_Real    theValue,
@@ -185,27 +185,27 @@ public:
   Standard_EXPORT void SetNumberOfIntervals(const Standard_Integer theNum);
 
   //! Returns the color scale title string, empty string by default.
-  const TCollection_ExtendedString& GetTitle() const { return myTitle; }
+  const UtfString& GetTitle() const { return myTitle; }
 
   //! Sets the color scale title string.
-  void SetTitle(const TCollection_ExtendedString& theTitle) { myTitle = theTitle; }
+  void SetTitle(const UtfString& theTitle) { myTitle = theTitle; }
 
   //! Returns the format for numbers, "%.4g" by default.
   //! The same like format for function printf().
   //! Used if GetLabelType() is TOCSD_AUTO;
-  const TCollection_AsciiString& GetFormat() const { return myFormat; }
+  const AsciiString1& GetFormat() const { return myFormat; }
 
   //! Returns the format of text.
-  const TCollection_AsciiString& Format() const { return myFormat; }
+  const AsciiString1& Format() const { return myFormat; }
 
   //! Sets the color scale auto label format specification.
-  void SetFormat(const TCollection_AsciiString& theFormat) { myFormat = theFormat; }
+  void SetFormat(const AsciiString1& theFormat) { myFormat = theFormat; }
 
   //! Returns the user specified label with index theIndex.
   //! Index is in range from 1 to GetNumberOfIntervals() or to
   //! GetNumberOfIntervals() + 1 if IsLabelAtBorder() is true.
   //! Returns empty string if label not defined.
-  Standard_EXPORT TCollection_ExtendedString GetLabel(const Standard_Integer theIndex) const;
+  Standard_EXPORT UtfString GetLabel(const Standard_Integer theIndex) const;
 
   //! Returns the user specified color from color map with index (starts at 1).
   //! Returns default color if index is out of range in color map.
@@ -327,7 +327,7 @@ public:
   //! @param theIndex index in range [1, GetNumberOfIntervals()] or [1, GetNumberOfIntervals() + 1]
   //! if IsLabelAtBorder() is true;
   //!                 label is appended to the end of list if negative index is specified
-  Standard_EXPORT void SetLabel(const TCollection_ExtendedString& theLabel,
+  Standard_EXPORT void SetLabel(const UtfString& theLabel,
                                 const Standard_Integer            theIndex);
 
   //! Returns the size of color bar, 0 and 0 by default
@@ -394,13 +394,13 @@ public:
 public:
   //! Returns the width of text.
   //! @param[in] theText  the text of which to calculate width.
-  Standard_EXPORT Standard_Integer TextWidth(const TCollection_ExtendedString& theText) const;
+  Standard_EXPORT Standard_Integer TextWidth(const UtfString& theText) const;
 
   //! Returns the height of text.
   //! @param[in] theText  the text of which to calculate height.
-  Standard_EXPORT Standard_Integer TextHeight(const TCollection_ExtendedString& theText) const;
+  Standard_EXPORT Standard_Integer TextHeight(const UtfString& theText) const;
 
-  Standard_EXPORT void TextSize(const TCollection_ExtendedString& theText,
+  Standard_EXPORT void TextSize(const UtfString& theText,
                                 const Standard_Integer            theHeight,
                                 Standard_Integer&                 theWidth,
                                 Standard_Integer&                 theAscent,
@@ -419,7 +419,7 @@ public:
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Compute selection - not implemented for color scale.
-  virtual void ComputeSelection(const Handle(SelectMgr_Selection)& /*aSelection*/,
+  virtual void ComputeSelection(const Handle(SelectionContainer)& /*aSelection*/,
                                 const Standard_Integer /*aMode*/) Standard_OVERRIDE
   {
   }
@@ -444,14 +444,14 @@ private:
   //! Initialize text aspect for drawing the labels.
   void updateTextAspect();
 
-  //! Simple alias for Prs3d_Text::Draw().
+  //! Simple alias for Prs3d_Text::Draw1().
   //! @param[in] theGroup  presentation group
   //! @param[in] theText   text to draw
   //! @param[in] theX      X coordinate of text position
   //! @param[in] theY      Y coordinate of text position
   //! @param[in] theVertAlignment  text vertical alignment
   void drawText(const Handle(Graphic3d_Group)&        theGroup,
-                const TCollection_ExtendedString&     theText,
+                const UtfString&     theText,
                 const Standard_Integer                theX,
                 const Standard_Integer                theY,
                 const Graphic3d_VerticalTextAlignment theVertAlignment);
@@ -459,7 +459,7 @@ private:
   //! Determine the maximum text label width in pixels.
   Standard_Integer computeMaxLabelWidth(const TColStd_SequenceOfExtendedString& theLabels) const;
 
-  //! Draw labels.
+  //! Draw1 labels.
   void drawLabels(const Handle(Graphic3d_Group)&          theGroup,
                   const TColStd_SequenceOfExtendedString& theLabels,
                   const Standard_Integer                  theBarBottom,
@@ -467,14 +467,14 @@ private:
                   const Standard_Integer                  theMaxLabelWidth,
                   const Standard_Integer                  theColorBreadth);
 
-  //! Draw a color bar.
+  //! Draw1 a color bar.
   void drawColorBar(const Handle(Prs3d_Presentation)& thePrs,
                     const Standard_Integer            theBarBottom,
                     const Standard_Integer            theBarHeight,
                     const Standard_Integer            theMaxLabelWidth,
                     const Standard_Integer            theColorBreadth);
 
-  //! Draw a frame.
+  //! Draw1 a frame.
   //! @param[in] theX  the X coordinate of frame position.
   //! @param[in] theY  the Y coordinate of frame position.
   //! @param[in] theWidth  the width of frame.
@@ -493,8 +493,8 @@ private:
                                                 // clang-format off
   Graphic3d_Vec3d                  myColorHlsMin;     //!< HLS color corresponding to minimum value
   Graphic3d_Vec3d                  myColorHlsMax;     //!< HLS color corresponding to maximum value
-  TCollection_ExtendedString       myTitle;           //!< optional title string     
-  TCollection_AsciiString          myFormat;          //!< sprintf() format for generating label from value
+  UtfString       myTitle;           //!< optional title string     
+  AsciiString1          myFormat;          //!< sprintf() format for generating label from value
   Standard_Integer                 myNbIntervals;     //!< number of intervals
   Aspect_TypeOfColorScaleData      myColorType;       //!< color type
   Aspect_TypeOfColorScaleData      myLabelType;       //!< label type

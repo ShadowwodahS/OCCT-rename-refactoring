@@ -17,7 +17,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(StepVisual_MarkerMember, StepData_SelectInt)
 
-static StepData_EnumTool tool(".DOT.",
+static EnumTool tool(".DOT.",
                               ".X.",
                               ".PLUS.",
                               ".ASTERISK.",

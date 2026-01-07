@@ -27,7 +27,7 @@
 #include <Standard_OStream.hxx>
 #include <Standard_IStream.hxx>
 #include <Standard_Macro.hxx>
-class TCollection_ExtendedString;
+class UtfString;
 
 //! Class defines a variable-length sequence of 8-bit characters.
 //! Despite class name (kept for historical reasons), it is intended to store UTF-8 string, not just
@@ -44,61 +44,61 @@ class TCollection_ExtendedString;
 //! easier to use than ordinary character arrays. AsciiString objects follow value semantics; in
 //! other words, they are the actual strings, not handles to strings, and are copied through
 //! assignment. You may use HAsciiString objects to get handles to strings.
-class TCollection_AsciiString
+class AsciiString1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Initializes a AsciiString to an empty AsciiString.
-  Standard_EXPORT TCollection_AsciiString();
+  Standard_EXPORT AsciiString1();
 
   //! Initializes a AsciiString with a CString.
-  Standard_EXPORT TCollection_AsciiString(const Standard_CString message);
+  Standard_EXPORT AsciiString1(const Standard_CString message);
 
   //! Initializes a AsciiString with a CString.
-  Standard_EXPORT TCollection_AsciiString(const Standard_CString message,
+  Standard_EXPORT AsciiString1(const Standard_CString message,
                                           const Standard_Integer aLen);
 
   //! Initializes a AsciiString with a single character.
-  Standard_EXPORT TCollection_AsciiString(const Standard_Character aChar);
+  Standard_EXPORT AsciiString1(const Standard_Character aChar);
 
   //! Initializes an AsciiString with <length> space allocated.
   //! and filled with <filler>. This is useful for buffers.
-  Standard_EXPORT TCollection_AsciiString(const Standard_Integer   length,
+  Standard_EXPORT AsciiString1(const Standard_Integer   length,
                                           const Standard_Character filler);
 
   //! Initializes an AsciiString with an integer value
-  Standard_EXPORT TCollection_AsciiString(const Standard_Integer value);
+  Standard_EXPORT AsciiString1(const Standard_Integer value);
 
   //! Initializes an AsciiString with a real value
-  Standard_EXPORT TCollection_AsciiString(const Standard_Real value);
+  Standard_EXPORT AsciiString1(const Standard_Real value);
 
   //! Initializes a AsciiString with another AsciiString.
-  Standard_EXPORT TCollection_AsciiString(const TCollection_AsciiString& astring);
+  Standard_EXPORT AsciiString1(const AsciiString1& astring);
 
   //! Move constructor
-  Standard_EXPORT TCollection_AsciiString(TCollection_AsciiString&& theOther) Standard_Noexcept;
+  Standard_EXPORT AsciiString1(AsciiString1&& theOther) Standard_Noexcept;
 
   //! Initializes a AsciiString with copy of another AsciiString
   //! concatenated with the message character.
-  Standard_EXPORT TCollection_AsciiString(const TCollection_AsciiString& astring,
+  Standard_EXPORT AsciiString1(const AsciiString1& astring,
                                           const Standard_Character       message);
 
   //! Initializes a AsciiString with copy of another AsciiString
   //! concatenated with the message string.
-  Standard_EXPORT TCollection_AsciiString(const TCollection_AsciiString& astring,
+  Standard_EXPORT AsciiString1(const AsciiString1& astring,
                                           const Standard_CString         message);
 
   //! Initializes a AsciiString with copy of another AsciiString
   //! concatenated with the message string.
-  Standard_EXPORT TCollection_AsciiString(const TCollection_AsciiString& astring,
-                                          const TCollection_AsciiString& message);
+  Standard_EXPORT AsciiString1(const AsciiString1& astring,
+                                          const AsciiString1& message);
 
   //! Creation by converting an extended string to an ascii string.
   //! If replaceNonAscii is non-null character, it will be used
   //! in place of any non-ascii character found in the source string.
   //! Otherwise, creates UTF-8 unicode string.
-  Standard_EXPORT TCollection_AsciiString(const TCollection_ExtendedString& astring,
+  Standard_EXPORT AsciiString1(const UtfString& astring,
                                           const Standard_Character          replaceNonAscii = 0);
 
 #if !defined(_MSC_VER) || defined(_NATIVE_WCHAR_T_DEFINED)
@@ -107,7 +107,7 @@ public:
   //!
   //! This constructor is unavailable if application is built with deprecated msvc option
   //! "-Zc:wchar_t-", since OCCT itself is never built with this option.
-  Standard_EXPORT TCollection_AsciiString(const Standard_WideChar* theStringUtf);
+  Standard_EXPORT AsciiString1(const Standard_WideChar* theStringUtf);
 #endif
 
   //! Appends <other>  to me. This is an unary operator.
@@ -137,9 +137,9 @@ public:
 
   //! Appends <other> to me. This is an unary operator.
   //! Example: aString += anotherString
-  Standard_EXPORT void AssignCat(const TCollection_AsciiString& other);
+  Standard_EXPORT void AssignCat(const AsciiString1& other);
 
-  void operator+=(const TCollection_AsciiString& other) { AssignCat(other); }
+  void operator+=(const AsciiString1& other) { AssignCat(other); }
 
   //! Converts the first character into its corresponding
   //! upper-case character and the other characters into lowercase
@@ -159,9 +159,9 @@ public:
   //! So the following example is WRONG !
   //! aString = "Hello " + "Dolly"  THIS IS NOT ALLOWED
   //! This rule is applicable to AssignCat (operator +=) too.
-  TCollection_AsciiString Cat(const Standard_Character other) const;
+  AsciiString1 Cat(const Standard_Character other) const;
 
-  TCollection_AsciiString operator+(const Standard_Character other) const { return Cat(other); }
+  AsciiString1 operator+(const Standard_Character other) const { return Cat(other); }
 
   //! Appends <other>  to me.
   //! Syntax:
@@ -172,9 +172,9 @@ public:
   //! So the following example is WRONG !
   //! aString = "Hello " + "Dolly"  THIS IS NOT ALLOWED
   //! This rule is applicable to AssignCat (operator +=) too.
-  TCollection_AsciiString Cat(const Standard_Integer other) const;
+  AsciiString1 Cat(const Standard_Integer other) const;
 
-  TCollection_AsciiString operator+(const Standard_Integer other) const { return Cat(other); }
+  AsciiString1 operator+(const Standard_Integer other) const { return Cat(other); }
 
   //! Appends <other>  to me.
   //! Syntax:
@@ -185,9 +185,9 @@ public:
   //! So the following example is WRONG !
   //! aString = "Hello " + "Dolly"  THIS IS NOT ALLOWED
   //! This rule is applicable to AssignCat (operator +=) too.
-  TCollection_AsciiString Cat(const Standard_Real other) const;
+  AsciiString1 Cat(const Standard_Real other) const;
 
-  TCollection_AsciiString operator+(const Standard_Real other) const { return Cat(other); }
+  AsciiString1 operator+(const Standard_Real other) const { return Cat(other); }
 
   //! Appends <other>  to me.
   //! Syntax:
@@ -199,15 +199,15 @@ public:
   //! So the following example is WRONG !
   //! aString = "Hello " + "Dolly"  THIS IS NOT ALLOWED
   //! This rule is applicable to AssignCat (operator +=) too.
-  TCollection_AsciiString Cat(const Standard_CString other) const;
+  AsciiString1 Cat(const Standard_CString other) const;
 
-  TCollection_AsciiString operator+(const Standard_CString other) const { return Cat(other); }
+  AsciiString1 operator+(const Standard_CString other) const { return Cat(other); }
 
   //! Appends <other> to me.
   //! Example: aString = aString + anotherString
-  TCollection_AsciiString Cat(const TCollection_AsciiString& other) const;
+  AsciiString1 Cat(const AsciiString1& other) const;
 
-  TCollection_AsciiString operator+(const TCollection_AsciiString& other) const
+  AsciiString1 operator+(const AsciiString1& other) const
   {
     return Cat(other);
   }
@@ -218,7 +218,7 @@ public:
   //! both at the beginning and at the end of this string.
   //! If Width is less than the length of this ASCII string, nothing happens.
   //! Example
-  //! TCollection_AsciiString
+  //! AsciiString1
   //! myAlphabet("abcdef");
   //! myAlphabet.Center(9,' ');
   //! assert ( myAlphabet == "
@@ -250,30 +250,30 @@ public:
   //! Copy <fromwhere> to <me>.
   //! Used as operator =
   //! Example: aString = anotherString;
-  Standard_EXPORT void Copy(const TCollection_AsciiString& fromwhere);
+  Standard_EXPORT void Copy(const AsciiString1& fromwhere);
 
   //! Copy assignment operator
-  TCollection_AsciiString& operator=(const TCollection_AsciiString& theOther)
+  AsciiString1& operator=(const AsciiString1& theOther)
   {
     Copy(theOther);
     return *this;
   }
 
   //! Moves string without reallocations
-  Standard_EXPORT void Move(TCollection_AsciiString&& theOther);
+  Standard_EXPORT void Move(AsciiString1&& theOther);
 
   //! Move assignment operator
-  TCollection_AsciiString& operator=(TCollection_AsciiString&& theOther) noexcept
+  AsciiString1& operator=(AsciiString1&& theOther) noexcept
   {
-    Move(std::forward<TCollection_AsciiString>(theOther));
+    Move(std::forward<AsciiString1>(theOther));
     return *this;
   }
 
   //! Exchange the data of two strings (without reallocating memory).
-  Standard_EXPORT void Swap(TCollection_AsciiString& theOther);
+  Standard_EXPORT void Swap(AsciiString1& theOther);
 
   //! Frees memory allocated by AsciiString.
-  Standard_EXPORT ~TCollection_AsciiString();
+  Standard_EXPORT ~AsciiString1();
 
   //! Returns the index of the first character of <me> that is
   //! present in <Set>.
@@ -287,7 +287,7 @@ public:
   //! me = "aabAcAa"
   //! returns
   //! 1
-  Standard_EXPORT Standard_Integer FirstLocationInSet(const TCollection_AsciiString& Set,
+  Standard_EXPORT Standard_Integer FirstLocationInSet(const AsciiString1& Set,
                                                       const Standard_Integer         FromIndex,
                                                       const Standard_Integer         ToIndex) const;
 
@@ -303,7 +303,7 @@ public:
   //! me = "aabAcAa"
   //! returns
   //! 3
-  Standard_EXPORT Standard_Integer FirstLocationNotInSet(const TCollection_AsciiString& Set,
+  Standard_EXPORT Standard_Integer FirstLocationNotInSet(const AsciiString1& Set,
                                                          const Standard_Integer         FromIndex,
                                                          const Standard_Integer ToIndex) const;
 
@@ -324,7 +324,7 @@ public:
   Standard_EXPORT void Insert(const Standard_Integer where, const Standard_CString what);
 
   //! Inserts a AsciiString at position <where>.
-  Standard_EXPORT void Insert(const Standard_Integer where, const TCollection_AsciiString& what);
+  Standard_EXPORT void Insert(const Standard_Integer where, const AsciiString1& what);
 
   //! Pushing a string after a specific index in the string <me>.
   //! Raises an exception if Index is out of bounds.
@@ -336,7 +336,7 @@ public:
   //! after
   //! me = "abcde" , other = "ab"
   Standard_EXPORT void InsertAfter(const Standard_Integer         Index,
-                                   const TCollection_AsciiString& other);
+                                   const AsciiString1& other);
 
   //! Pushing a string before a specific index in the string <me>.
   //! Raises an exception if Index is out of bounds.
@@ -348,7 +348,7 @@ public:
   //! after
   //! me = "abcde" , other = "ab"
   Standard_EXPORT void InsertBefore(const Standard_Integer         Index,
-                                    const TCollection_AsciiString& other);
+                                    const AsciiString1& other);
 
   //! Returns True if the string <me> contains zero character.
   Standard_Boolean IsEmpty() const { return mylength == 0; }
@@ -363,9 +363,9 @@ public:
   //! Returns true if the characters in this ASCII string
   //! are identical to the characters in ASCII string other.
   //! Note that this method is an alias of operator ==.
-  Standard_EXPORT Standard_Boolean IsEqual(const TCollection_AsciiString& other) const;
+  Standard_EXPORT Standard_Boolean IsEqual(const AsciiString1& other) const;
 
-  Standard_Boolean operator==(const TCollection_AsciiString& other) const { return IsEqual(other); }
+  Standard_Boolean operator==(const AsciiString1& other) const { return IsEqual(other); }
 
   //! Returns true if there are differences between the
   //! characters in this ASCII string and ASCII string other.
@@ -377,9 +377,9 @@ public:
   //! Returns true if there are differences between the
   //! characters in this ASCII string and ASCII string other.
   //! Note that this method is an alias of operator !=
-  Standard_EXPORT Standard_Boolean IsDifferent(const TCollection_AsciiString& other) const;
+  Standard_EXPORT Standard_Boolean IsDifferent(const AsciiString1& other) const;
 
-  Standard_Boolean operator!=(const TCollection_AsciiString& other) const
+  Standard_Boolean operator!=(const AsciiString1& other) const
   {
     return IsDifferent(other);
   }
@@ -390,9 +390,9 @@ public:
   Standard_Boolean operator<(const Standard_CString other) const { return IsLess(other); }
 
   //! Returns TRUE if <me> is 'ASCII' less than <other>.
-  Standard_EXPORT Standard_Boolean IsLess(const TCollection_AsciiString& other) const;
+  Standard_EXPORT Standard_Boolean IsLess(const AsciiString1& other) const;
 
-  Standard_Boolean operator<(const TCollection_AsciiString& other) const { return IsLess(other); }
+  Standard_Boolean operator<(const AsciiString1& other) const { return IsLess(other); }
 
   //! Returns TRUE if <me> is 'ASCII' greater than <other>.
   Standard_EXPORT Standard_Boolean IsGreater(const Standard_CString other) const;
@@ -400,18 +400,18 @@ public:
   Standard_Boolean operator>(const Standard_CString other) const { return IsGreater(other); }
 
   //! Returns TRUE if <me> is 'ASCII' greater than <other>.
-  Standard_EXPORT Standard_Boolean IsGreater(const TCollection_AsciiString& other) const;
+  Standard_EXPORT Standard_Boolean IsGreater(const AsciiString1& other) const;
 
-  Standard_Boolean operator>(const TCollection_AsciiString& other) const
+  Standard_Boolean operator>(const AsciiString1& other) const
   {
     return IsGreater(other);
   }
 
   //! Determines whether the beginning of this string instance matches the specified string.
-  Standard_EXPORT Standard_Boolean StartsWith(const TCollection_AsciiString& theStartString) const;
+  Standard_EXPORT Standard_Boolean StartsWith(const AsciiString1& theStartString) const;
 
   //! Determines whether the end of this string instance matches the specified string.
-  Standard_EXPORT Standard_Boolean EndsWith(const TCollection_AsciiString& theEndString) const;
+  Standard_EXPORT Standard_Boolean EndsWith(const AsciiString1& theEndString) const;
 
   //! Converts a AsciiString containing a numeric expression to
   //! an Integer.
@@ -453,7 +453,7 @@ public:
   //! Returns number of characters in <me>.
   //! This is the same functionality as 'strlen' in C.
   //! Example
-  //! TCollection_AsciiString myAlphabet("abcdef");
+  //! AsciiString1 myAlphabet("abcdef");
   //! assert ( myAlphabet.Length() == 6 );
   //! -   1 is the position of the first character in this string.
   //! -   The length of this string gives the position of its last character.
@@ -475,7 +475,7 @@ public:
   //! me = "aabAaAa"
   //! returns
   //! 4
-  Standard_EXPORT Standard_Integer Location(const TCollection_AsciiString& other,
+  Standard_EXPORT Standard_Integer Location(const AsciiString1& other,
                                             const Standard_Integer         FromIndex,
                                             const Standard_Integer         ToIndex) const;
 
@@ -498,7 +498,7 @@ public:
 
   //! Converts <me> to its lower-case equivalent.
   //! Example
-  //! TCollection_AsciiString myString("Hello Dolly");
+  //! AsciiString1 myString("Hello Dolly");
   //! myString.UpperCase();
   //! assert ( myString == "HELLO DOLLY" );
   //! myString.LowerCase();
@@ -507,21 +507,21 @@ public:
 
   //! Inserts the string other at the beginning of this ASCII string.
   //! Example
-  //! TCollection_AsciiString myAlphabet("cde");
-  //! TCollection_AsciiString myBegin("ab");
+  //! AsciiString1 myAlphabet("cde");
+  //! AsciiString1 myBegin("ab");
   //! myAlphabet.Prepend(myBegin);
   //! assert ( myAlphabet == "abcde" );
-  Standard_EXPORT void Prepend(const TCollection_AsciiString& other);
+  Standard_EXPORT void Prepend(const AsciiString1& other);
 
   //! Displays <me> on a stream.
   Standard_EXPORT void                     Print(Standard_OStream& astream) const;
   friend Standard_EXPORT Standard_OStream& operator<<(Standard_OStream&              astream,
-                                                      const TCollection_AsciiString& astring);
+                                                      const AsciiString1& astring);
 
   //! Read <me> from a stream.
   Standard_EXPORT void                     Read(Standard_IStream& astream);
   friend Standard_EXPORT Standard_IStream& operator>>(Standard_IStream&        astream,
-                                                      TCollection_AsciiString& astring);
+                                                      AsciiString1& astring);
 
   //! Converts an AsciiString containing a numeric expression.
   //! to a Real.
@@ -574,7 +574,7 @@ public:
   //! Searches an AsciiString in <me> from the beginning
   //! and returns position of first item <what> matching.
   //! It returns -1 if not found.
-  Standard_EXPORT Standard_Integer Search(const TCollection_AsciiString& what) const;
+  Standard_EXPORT Standard_Integer Search(const AsciiString1& what) const;
 
   //! Searches a CString in a AsciiString from the end
   //! and returns position of first item <what> matching.
@@ -587,7 +587,7 @@ public:
   //! Searches a AsciiString in another AsciiString from the end
   //! and returns position of first item <what> matching.
   //! It returns -1 if not found.
-  Standard_EXPORT Standard_Integer SearchFromEnd(const TCollection_AsciiString& what) const;
+  Standard_EXPORT Standard_Integer SearchFromEnd(const AsciiString1& what) const;
 
   //! Replaces one character in the AsciiString at position <where>.
   //! If <where> is less than zero or greater than the length of <me>
@@ -606,13 +606,13 @@ public:
   Standard_EXPORT void SetValue(const Standard_Integer where, const Standard_CString what);
 
   //! Replaces a part of <me> by another AsciiString.
-  Standard_EXPORT void SetValue(const Standard_Integer where, const TCollection_AsciiString& what);
+  Standard_EXPORT void SetValue(const Standard_Integer where, const AsciiString1& what);
 
   //! Splits a AsciiString into two sub-strings.
   //! Example:
   //! aString contains "abcdefg"
   //! aString.Split(3) gives <me> = "abc" and returns "defg"
-  Standard_EXPORT TCollection_AsciiString Split(const Standard_Integer where);
+  Standard_EXPORT AsciiString1 Split(const Standard_Integer where);
 
   //! Creation of a sub-string of the string <me>.
   //! The sub-string starts to the index Fromindex and ends
@@ -625,7 +625,7 @@ public:
   //! me = "abcdefg"
   //! returns
   //! "cdef"
-  TCollection_AsciiString SubString(const Standard_Integer FromIndex,
+  AsciiString1 SubString(const Standard_Integer FromIndex,
                                     const Standard_Integer ToIndex) const;
 
   //! Returns pointer to AsciiString (char *).
@@ -648,7 +648,7 @@ public:
   //! aString contains "1234; test:message   , value"
   //! aString.Token("; :,",4) returns "value"
   //! aString.Token("; :,",2) returns "test"
-  Standard_EXPORT TCollection_AsciiString Token(const Standard_CString separators = " \t",
+  Standard_EXPORT AsciiString1 Token(const Standard_CString separators = " \t",
                                                 const Standard_Integer whichone   = 1) const;
 
   //! Truncates <me> to <ahowmany> characters.
@@ -671,23 +671,23 @@ public:
   Standard_EXPORT Standard_Character Value(const Standard_Integer where) const;
 
   //! Computes a hash code for the given ASCII string
-  //! Returns the same integer value as the hash function for TCollection_ExtendedString
+  //! Returns the same integer value as the hash function for UtfString
   //! @return a computed hash code
   size_t HashCode() const;
 
   //! Returns True  when the two  strings are the same.
   //! (Just for HashCode for AsciiString)
-  static Standard_Boolean IsEqual(const TCollection_AsciiString& string1,
-                                  const TCollection_AsciiString& string2);
+  static Standard_Boolean IsEqual(const AsciiString1& string1,
+                                  const AsciiString1& string2);
 
   //! Returns True  when the two  strings are the same.
   //! (Just for HashCode for AsciiString)
-  static Standard_Boolean IsEqual(const TCollection_AsciiString& string1,
+  static Standard_Boolean IsEqual(const AsciiString1& string1,
                                   const Standard_CString         string2);
 
   //! Returns True if the strings contain same characters.
-  Standard_EXPORT static Standard_Boolean IsSameString(const TCollection_AsciiString& theString1,
-                                                       const TCollection_AsciiString& theString2,
+  Standard_EXPORT static Standard_Boolean IsSameString(const AsciiString1& theString1,
+                                                       const AsciiString1& theString2,
                                                        const Standard_Boolean theIsCaseSensitive);
 
   friend class TCollection_HAsciiString;

@@ -43,8 +43,8 @@ inline Standard_Boolean compareStrings(char* const            str,
 
 //=================================================================================================
 
-inline LDOM_MemManager::MemBlock::MemBlock(const Standard_Integer     aSize,
-                                           LDOM_MemManager::MemBlock* aFirst)
+inline LDOM_MemManager::MemBlock1::MemBlock1(const Standard_Integer     aSize,
+                                           LDOM_MemManager::MemBlock1* aFirst)
     : mySize(aSize),
       myNext(aFirst)
 {
@@ -54,7 +54,7 @@ inline LDOM_MemManager::MemBlock::MemBlock(const Standard_Integer     aSize,
 
 //=================================================================================================
 
-inline void* LDOM_MemManager::MemBlock::Allocate(const Standard_Integer aSize)
+inline void* LDOM_MemManager::MemBlock1::Allocate(const Standard_Integer aSize)
 {
   void* aResult = NULL;
   if (aSize <= myEndBlock - myFreeSpace)
@@ -67,9 +67,9 @@ inline void* LDOM_MemManager::MemBlock::Allocate(const Standard_Integer aSize)
 
 //=================================================================================================
 
-void* LDOM_MemManager::MemBlock::AllocateAndCheck(
+void* LDOM_MemManager::MemBlock1::AllocateAndCheck(
   const Standard_Integer            aSize,
-  const LDOM_MemManager::MemBlock*& aFirstWithoutRoom)
+  const LDOM_MemManager::MemBlock1*& aFirstWithoutRoom)
 {
   void*            aResult = NULL;
   Standard_Integer aRoom   = (Standard_Integer)(myEndBlock - myFreeSpace);
@@ -90,13 +90,13 @@ void* LDOM_MemManager::MemBlock::AllocateAndCheck(
 
 //=================================================================================================
 
-LDOM_MemManager::MemBlock::~MemBlock()
+LDOM_MemManager::MemBlock1::~MemBlock1()
 {
   delete[] myBlock;
-  MemBlock* aNext = myNext;
+  MemBlock1* aNext = myNext;
   while (aNext)
   {
-    MemBlock* aNextNext = aNext->myNext;
+    MemBlock1* aNextNext = aNext->myNext;
     aNext->myNext       = 0;
     delete aNext;
     aNext = aNextNext;
@@ -105,7 +105,7 @@ LDOM_MemManager::MemBlock::~MemBlock()
 
 //=================================================================================================
 
-LDOM_MemManager::HashTable::HashTable(/* const Standard_Integer   aMask, */
+LDOM_MemManager::HashTable1::HashTable1(/* const Standard_Integer   aMask, */
                                       LDOM_MemManager& aMemManager)
     : myManager(aMemManager)
 {
@@ -119,7 +119,7 @@ LDOM_MemManager::HashTable::HashTable(/* const Standard_Integer   aMask, */
     }
     myMask = nKeys - 1;
   */
-  myTable = (TableItem*)myManager.Allocate(sizeof(TableItem) * nKeys);
+  myTable = (TableItem1*)myManager.Allocate(sizeof(TableItem1) * nKeys);
   for (m = 0; m < nKeys; m += 2)
   {
     myTable[m].str      = NULL;
@@ -134,7 +134,7 @@ LDOM_MemManager::HashTable::HashTable(/* const Standard_Integer   aMask, */
 // purpose  : CRC-16 hash function
 //=======================================================================
 
-Standard_Integer LDOM_MemManager::HashTable::Hash(const char* aString, const Standard_Integer aLen)
+Standard_Integer LDOM_MemManager::HashTable1::Hash(const char* aString, const Standard_Integer aLen)
 {
   static const unsigned int wCRC16a[16] = {
     0000000,
@@ -189,7 +189,7 @@ Standard_Integer LDOM_MemManager::HashTable::Hash(const char* aString, const Sta
 // purpose  : Add or find a string in the hash table
 //=======================================================================
 
-const char* LDOM_MemManager::HashTable::AddString(const char*            theString,
+const char* LDOM_MemManager::HashTable1::AddString(const char*            theString,
                                                   const Standard_Integer theLen,
                                                   Standard_Integer&      theHashIndex)
 {
@@ -197,7 +197,7 @@ const char* LDOM_MemManager::HashTable::AddString(const char*            theStri
   if (theString == NULL)
     return NULL;
   Standard_Integer aHashIndex = Hash(theString, theLen);
-  TableItem*       aNode      = &myTable[aHashIndex];
+  TableItem1*       aNode      = &myTable[aHashIndex];
   if (aNode->str == NULL)
   {
     LDOM_HashValue* anAlloc =
@@ -226,7 +226,7 @@ const char* LDOM_MemManager::HashTable::AddString(const char*            theStri
     {
       // Attention!!! We can make this allocation in a separate pool
       //              improving performance
-      aNode->next = (TableItem*)myManager.Allocate(sizeof(TableItem));
+      aNode->next = (TableItem1*)myManager.Allocate(sizeof(TableItem1));
       aNode       = aNode->next;
       LDOM_HashValue* anAlloc =
         (LDOM_HashValue*)myManager.Allocate(theLen + 1 + sizeof(LDOM_HashValue));
@@ -259,7 +259,7 @@ LDOM_MemManager::~LDOM_MemManager()
 {
 #ifdef OCCT_DEBUG
   Standard_Integer aSomme = 0, aCount = 0;
-  MemBlock*        aBlock = myFirstBlock;
+  MemBlock1*        aBlock = myFirstBlock;
   // FILE * out = fopen ("/tmp/dump","w");
   while (aBlock)
   {
@@ -293,22 +293,22 @@ void* LDOM_MemManager::Allocate(const Standard_Integer theSize)
 
   if (aSize >= myBlockSize)
   {
-    myFirstBlock = new MemBlock(aSize, myFirstBlock);
+    myFirstBlock = new MemBlock1(aSize, myFirstBlock);
     aResult      = myFirstBlock->Allocate(aSize);
   }
   else
   {
-    MemBlock* aBlock = myFirstBlock;
+    MemBlock1* aBlock = myFirstBlock;
     if (aBlock == NULL)
     {
-      myFirstBlock = new MemBlock(myBlockSize, myFirstBlock);
+      myFirstBlock = new MemBlock1(myBlockSize, myFirstBlock);
       return myFirstBlock->Allocate(aSize);
     }
     aResult = aBlock->Allocate(aSize);
     if (aResult)
       return aResult;
     aBlock                            = aBlock->Next();
-    const MemBlock* aFirstWithoutRoom = NULL;
+    const MemBlock1* aFirstWithoutRoom = NULL;
     while (aBlock != myFirstWithoutRoom)
     {
       aResult = aBlock->AllocateAndCheck(aSize, aFirstWithoutRoom);
@@ -316,10 +316,10 @@ void* LDOM_MemManager::Allocate(const Standard_Integer theSize)
         break;
       aBlock = aBlock->Next();
     }
-    myFirstWithoutRoom = (MemBlock*&)aFirstWithoutRoom;
+    myFirstWithoutRoom = (MemBlock1*&)aFirstWithoutRoom;
     if (aResult == NULL)
     {
-      myFirstBlock = new MemBlock(myBlockSize, myFirstBlock);
+      myFirstBlock = new MemBlock1(myBlockSize, myFirstBlock);
       aResult      = myFirstBlock->Allocate(aSize);
     }
   }
@@ -337,7 +337,7 @@ const char* LDOM_MemManager::HashedAllocate(const char*            theString,
                                             Standard_Integer&      theHash)
 {
   if (myHashTable == NULL)
-    myHashTable = new HashTable(*this);
+    myHashTable = new HashTable1(*this);
   return myHashTable->AddString(theString, theLen, theHash);
 }
 

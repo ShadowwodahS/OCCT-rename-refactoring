@@ -26,11 +26,11 @@
 #include <TNaming_Evolution.hxx>
 class Standard_NoMoreObject;
 class Standard_NoSuchObject;
-class TNaming_NewShapeIterator;
-class TNaming_OldShapeIterator;
-class TNaming_NamedShape;
-class TDF_Label;
-class TopoDS_Shape;
+class NewShapeIterator;
+class OldShapeIterator;
+class ShapeAttribute;
+class DataLabel;
+class TopoShape;
 
 //! A tool to visit the contents of a named shape attribute.
 //! Pairs of shapes in the attribute are iterated, one
@@ -40,23 +40,23 @@ class TopoDS_Shape;
 //! contents of an attribute. If, on the other hand, you
 //! are only interested in topological entities stored
 //! in the attribute, you can use the functions
-//! GetShape and CurrentShape in TNaming_Tool.
-class TNaming_Iterator
+//! GetShape and CurrentShape in Tool11.
+class Iterator1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Iterates on all  the history records in
   //! <anAtt>.
-  Standard_EXPORT TNaming_Iterator(const Handle(TNaming_NamedShape)& anAtt);
+  Standard_EXPORT Iterator1(const Handle(ShapeAttribute)& anAtt);
 
   //! Iterates on all  the history records in
   //! the current transaction
-  Standard_EXPORT TNaming_Iterator(const TDF_Label& aLabel);
+  Standard_EXPORT Iterator1(const DataLabel& aLabel);
 
   //! Iterates on all  the history records in
   //! the transaction <aTrans>
-  Standard_EXPORT TNaming_Iterator(const TDF_Label& aLabel, const Standard_Integer aTrans);
+  Standard_EXPORT Iterator1(const DataLabel& aLabel, const Standard_Integer aTrans);
 
   //! Returns True if there is a current Item in
   //! the iteration.
@@ -67,10 +67,10 @@ public:
 
   //! Returns the old shape in this iterator object.
   //! This shape can be a null one.
-  Standard_EXPORT const TopoDS_Shape& OldShape() const;
+  Standard_EXPORT const TopoShape& OldShape() const;
 
   //! Returns the new shape in this iterator object.
-  Standard_EXPORT const TopoDS_Shape& NewShape() const;
+  Standard_EXPORT const TopoShape& NewShape() const;
 
   //! Returns true if the  new  shape is a modification  (split,
   //! fuse,etc...) of the old shape.
@@ -78,8 +78,8 @@ public:
 
   Standard_EXPORT TNaming_Evolution Evolution() const;
 
-  friend class TNaming_NewShapeIterator;
-  friend class TNaming_OldShapeIterator;
+  friend class NewShapeIterator;
+  friend class OldShapeIterator;
 
 protected:
 private:

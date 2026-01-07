@@ -22,8 +22,8 @@
 #include <TFunction_Driver.hxx>
 #include <Standard_Integer.hxx>
 class TFunction_Logbook;
-class TDF_Label;
-class BRepPrimAPI_MakeCylinder;
+class DataLabel;
+class CylinderMaker;
 
 class DNaming_CylinderDriver;
 DEFINE_STANDARD_HANDLE(DNaming_CylinderDriver, TFunction_Driver)
@@ -62,8 +62,8 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void LoadNamingDS(const TDF_Label&          theResultLabel,
-                                    BRepPrimAPI_MakeCylinder& mkCyl) const;
+  Standard_EXPORT void LoadNamingDS(const DataLabel&          theResultLabel,
+                                    CylinderMaker& mkCyl) const;
 };
 
 #endif // _DNaming_CylinderDriver_HeaderFile

@@ -95,7 +95,7 @@ DEFINE_LIST(QANCollection_ListPerf, QANCollection_BaseColPerf, ItemType)
 DEFINE_SEQUENCE(QANCollection_SequencePerf, QANCollection_BaseColPerf, ItemType)
 DEFINE_HSEQUENCE(QANCollection_HSequencePerf, QANCollection_SequencePerf)
 
-static void printAllMeters(Draw_Interpretor& theDI)
+static void printAllMeters(DrawInterpreter& theDI)
 {
   char buffer[25600];
   perf_sprint_all_meters(buffer, 25600 - 1, 1);
@@ -103,7 +103,7 @@ static void printAllMeters(Draw_Interpretor& theDI)
 }
 
 // ===================== Test perform of Array1 type ==========================
-static void CompArray1(Draw_Interpretor&      theDI,
+static void CompArray1(DrawInterpreter&      theDI,
                        const Standard_Integer theRep,
                        const Standard_Integer theSize)
 {
@@ -187,7 +187,7 @@ static void CompArray1(Draw_Interpretor&      theDI,
 }
 
 // ===================== Test perform of Array2 type ==========================
-static void CompArray2(Draw_Interpretor&      theDI,
+static void CompArray2(DrawInterpreter&      theDI,
                        const Standard_Integer theRep,
                        const Standard_Integer theSize)
 {
@@ -276,7 +276,7 @@ static void CompArray2(Draw_Interpretor&      theDI,
 }
 
 // ===================== Test perform of List type ==========================
-static void CompList(Draw_Interpretor&      theDI,
+static void CompList(DrawInterpreter&      theDI,
                      const Standard_Integer theRep,
                      const Standard_Integer theSize)
 {
@@ -348,7 +348,7 @@ static void CompList(Draw_Interpretor&      theDI,
 }
 
 // ===================== Test perform of Sequence type ==========================
-static void CompSequence(Draw_Interpretor&      theDI,
+static void CompSequence(DrawInterpreter&      theDI,
                          const Standard_Integer theRep,
                          const Standard_Integer theSize)
 {
@@ -442,7 +442,7 @@ static void CompSequence(Draw_Interpretor&      theDI,
 }
 
 // ===================== Test perform of Map type ==========================
-static void CompMap(Draw_Interpretor&      theDI,
+static void CompMap(DrawInterpreter&      theDI,
                     const Standard_Integer theRep,
                     const Standard_Integer theSize)
 {
@@ -536,7 +536,7 @@ static void CompMap(Draw_Interpretor&      theDI,
 }
 
 // ===================== Test perform of DataMap type ==========================
-static void CompDataMap(Draw_Interpretor&      theDI,
+static void CompDataMap(DrawInterpreter&      theDI,
                         const Standard_Integer theRep,
                         const Standard_Integer theSize)
 {
@@ -632,7 +632,7 @@ static void CompDataMap(Draw_Interpretor&      theDI,
 }
 
 // ===================== Test perform of DoubleMap type ==========================
-static void CompDoubleMap(Draw_Interpretor&      theDI,
+static void CompDoubleMap(DrawInterpreter&      theDI,
                           const Standard_Integer theRep,
                           const Standard_Integer theSize)
 {
@@ -745,7 +745,7 @@ static void CompDoubleMap(Draw_Interpretor&      theDI,
 }
 
 // ===================== Test perform of IndexedMap type ==========================
-static void CompIndexedMap(Draw_Interpretor&      theDI,
+static void CompIndexedMap(DrawInterpreter&      theDI,
                            const Standard_Integer theRep,
                            const Standard_Integer theSize)
 {
@@ -840,7 +840,7 @@ static void CompIndexedMap(Draw_Interpretor&      theDI,
 }
 
 // ===================== Test perform of IndexedDataMap type ==========================
-static void CompIndexedDataMap(Draw_Interpretor&      theDI,
+static void CompIndexedDataMap(DrawInterpreter&      theDI,
                                const Standard_Integer theRep,
                                const Standard_Integer theSize)
 {
@@ -937,7 +937,7 @@ static void CompIndexedDataMap(Draw_Interpretor&      theDI,
 }
 
 // ===================== Test perform of SparseArray type ==========================
-static void CompSparseArray(Draw_Interpretor&      theDI,
+static void CompSparseArray(DrawInterpreter&      theDI,
                             const Standard_Integer theRep,
                             const Standard_Integer theSize)
 {
@@ -996,7 +996,7 @@ static void CompSparseArray(Draw_Interpretor&      theDI,
 
 //=================================================================================================
 
-Standard_Integer CheckArguments(Draw_Interpretor& di,
+Standard_Integer CheckArguments(DrawInterpreter& di,
                                 Standard_Integer  argc,
                                 const char**      argv,
                                 Standard_Integer& Repeat,
@@ -1007,8 +1007,8 @@ Standard_Integer CheckArguments(Draw_Interpretor& di,
     di << "Usage : " << argv[0] << " Repeat Size\n";
     return 1;
   }
-  Repeat = Draw::Atoi(argv[1]);
-  Size   = Draw::Atoi(argv[2]);
+  Repeat = Draw1::Atoi(argv[1]);
+  Size   = Draw1::Atoi(argv[2]);
   if (Repeat < 1)
   {
     di << "Repeat > 0\n";
@@ -1024,7 +1024,7 @@ Standard_Integer CheckArguments(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColPerfArray1(Draw_Interpretor& di,
+static Standard_Integer QANColPerfArray1(DrawInterpreter& di,
                                          Standard_Integer  argc,
                                          const char**      argv)
 {
@@ -1039,7 +1039,7 @@ static Standard_Integer QANColPerfArray1(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColPerfArray2(Draw_Interpretor& di,
+static Standard_Integer QANColPerfArray2(DrawInterpreter& di,
                                          Standard_Integer  argc,
                                          const char**      argv)
 {
@@ -1054,7 +1054,7 @@ static Standard_Integer QANColPerfArray2(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColPerfList(Draw_Interpretor& di,
+static Standard_Integer QANColPerfList(DrawInterpreter& di,
                                        Standard_Integer  argc,
                                        const char**      argv)
 {
@@ -1069,7 +1069,7 @@ static Standard_Integer QANColPerfList(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColPerfSequence(Draw_Interpretor& di,
+static Standard_Integer QANColPerfSequence(DrawInterpreter& di,
                                            Standard_Integer  argc,
                                            const char**      argv)
 {
@@ -1084,7 +1084,7 @@ static Standard_Integer QANColPerfSequence(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColPerfMap(Draw_Interpretor& di,
+static Standard_Integer QANColPerfMap(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -1099,7 +1099,7 @@ static Standard_Integer QANColPerfMap(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColPerfDataMap(Draw_Interpretor& di,
+static Standard_Integer QANColPerfDataMap(DrawInterpreter& di,
                                           Standard_Integer  argc,
                                           const char**      argv)
 {
@@ -1114,7 +1114,7 @@ static Standard_Integer QANColPerfDataMap(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColPerfDoubleMap(Draw_Interpretor& di,
+static Standard_Integer QANColPerfDoubleMap(DrawInterpreter& di,
                                             Standard_Integer  argc,
                                             const char**      argv)
 {
@@ -1129,7 +1129,7 @@ static Standard_Integer QANColPerfDoubleMap(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColPerfIndexedMap(Draw_Interpretor& di,
+static Standard_Integer QANColPerfIndexedMap(DrawInterpreter& di,
                                              Standard_Integer  argc,
                                              const char**      argv)
 {
@@ -1144,7 +1144,7 @@ static Standard_Integer QANColPerfIndexedMap(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColPerfIndexedDataMap(Draw_Interpretor& di,
+static Standard_Integer QANColPerfIndexedDataMap(DrawInterpreter& di,
                                                  Standard_Integer  argc,
                                                  const char**      argv)
 {
@@ -1159,7 +1159,7 @@ static Standard_Integer QANColPerfIndexedDataMap(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColCheckSparseArray(Draw_Interpretor& di,
+static Standard_Integer QANColCheckSparseArray(DrawInterpreter& di,
                                                Standard_Integer  argc,
                                                const char**      argv)
 {
@@ -1172,7 +1172,7 @@ static Standard_Integer QANColCheckSparseArray(Draw_Interpretor& di,
   return 0;
 }
 
-void QANCollection::CommandsPerf(Draw_Interpretor& theCommands)
+void QANCollection::CommandsPerf(DrawInterpreter& theCommands)
 {
   const char* group = "QANCollection";
 

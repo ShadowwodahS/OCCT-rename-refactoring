@@ -34,13 +34,13 @@
 
 class AIS_Animation;
 class AIS_AnimationCamera;
-class AIS_InteractiveObject;
-class AIS_InteractiveContext;
-class AIS_Point;
+class VisualEntity;
+class VisualContext;
+class VisualPoint;
 class AIS_RubberBand;
 class AIS_XRTrackedDevice;
 class SelectMgr_EntityOwner;
-class V3d_View;
+class ViewWindow;
 class WNT_HIDSpaceMouse;
 
 //! Auxiliary structure for handling viewer events between GUI and Rendering threads.
@@ -487,31 +487,31 @@ public:
   //! @param theCtx interactive context
   //! @param theView active view
   //! @param theToHandle if TRUE, the HandleViewEvents() will be called
-  Standard_EXPORT virtual void FlushViewEvents(const Handle(AIS_InteractiveContext)& theCtx,
-                                               const Handle(V3d_View)&               theView,
+  Standard_EXPORT virtual void FlushViewEvents(const Handle(VisualContext)& theCtx,
+                                               const Handle(ViewWindow)&               theView,
                                                Standard_Boolean theToHandle = Standard_False);
 
   //! Process events within rendering thread.
-  Standard_EXPORT virtual void HandleViewEvents(const Handle(AIS_InteractiveContext)& theCtx,
-                                                const Handle(V3d_View)&               theView);
+  Standard_EXPORT virtual void HandleViewEvents(const Handle(VisualContext)& theCtx,
+                                                const Handle(ViewWindow)&               theView);
 
 public:
   //! Callback called by handleMoveTo() on Selection in 3D Viewer.
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual void OnSelectionChanged(const Handle(AIS_InteractiveContext)& theCtx,
-                                                  const Handle(V3d_View)&               theView);
+  Standard_EXPORT virtual void OnSelectionChanged(const Handle(VisualContext)& theCtx,
+                                                  const Handle(ViewWindow)&               theView);
 
   //! Callback called by handleMoveTo() on dragging object in 3D Viewer.
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual void OnObjectDragged(const Handle(AIS_InteractiveContext)& theCtx,
-                                               const Handle(V3d_View)&               theView,
+  Standard_EXPORT virtual void OnObjectDragged(const Handle(VisualContext)& theCtx,
+                                               const Handle(ViewWindow)&               theView,
                                                AIS_DragAction                        theAction);
 
   //! Callback called by HandleViewEvents() on Selection of another (sub)view.
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual void OnSubviewChanged(const Handle(AIS_InteractiveContext)& theCtx,
-                                                const Handle(V3d_View)&               theOldView,
-                                                const Handle(V3d_View)&               theNewView);
+  Standard_EXPORT virtual void OnSubviewChanged(const Handle(VisualContext)& theCtx,
+                                                const Handle(ViewWindow)&               theOldView,
+                                                const Handle(ViewWindow)&               theNewView);
 
   //! Pick closest point under mouse cursor.
   //! This method is expected to be called from rendering thread.
@@ -522,8 +522,8 @@ public:
   //! @param[in] theToStickToPickRay  when TRUE, the result point will lie on picking ray
   //! @return TRUE if result has been found
   Standard_EXPORT virtual bool PickPoint(Point3d&                               thePnt,
-                                         const Handle(AIS_InteractiveContext)& theCtx,
-                                         const Handle(V3d_View)&               theView,
+                                         const Handle(VisualContext)& theCtx,
+                                         const Handle(ViewWindow)&               theView,
                                          const Graphic3d_Vec2i&                theCursor,
                                          bool                                  theToStickToPickRay);
 
@@ -535,20 +535,20 @@ public:
   //! @param[in] theAxis    selection axis
   //! @return TRUE if result has been found
   Standard_EXPORT virtual bool PickAxis(Point3d&                               theTopPnt,
-                                        const Handle(AIS_InteractiveContext)& theCtx,
-                                        const Handle(V3d_View)&               theView,
+                                        const Handle(VisualContext)& theCtx,
+                                        const Handle(ViewWindow)&               theView,
                                         const Axis3d&                         theAxis);
 
   //! Compute rotation gravity center point depending on rotation mode.
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual Point3d GravityPoint(const Handle(AIS_InteractiveContext)& theCtx,
-                                              const Handle(V3d_View)&               theView);
+  Standard_EXPORT virtual Point3d GravityPoint(const Handle(VisualContext)& theCtx,
+                                              const Handle(ViewWindow)&               theView);
 
   //! Modify view camera to fit all objects.
   //! Default implementation fits either all visible and all selected objects (swapped on each
   //! call).
-  Standard_EXPORT virtual void FitAllAuto(const Handle(AIS_InteractiveContext)& theCtx,
-                                          const Handle(V3d_View)&               theView);
+  Standard_EXPORT virtual void FitAllAuto(const Handle(VisualContext)& theCtx,
+                                          const Handle(ViewWindow)&               theView);
 
 public:
   //! Handle hot-keys defining new camera orientation (Aspect_VKey_ViewTop and similar keys).
@@ -556,25 +556,25 @@ public:
   //! orientation, when specific action key was pressed. This method is expected to be called from
   //! rendering thread.
   Standard_EXPORT virtual void handleViewOrientationKeys(
-    const Handle(AIS_InteractiveContext)& theCtx,
-    const Handle(V3d_View)&               theView);
+    const Handle(VisualContext)& theCtx,
+    const Handle(ViewWindow)&               theView);
 
   //! Perform navigation (Aspect_VKey_NavForward and similar keys).
   //! This method is expected to be called from rendering thread.
   Standard_EXPORT virtual AIS_WalkDelta handleNavigationKeys(
-    const Handle(AIS_InteractiveContext)& theCtx,
-    const Handle(V3d_View)&               theView);
+    const Handle(VisualContext)& theCtx,
+    const Handle(ViewWindow)&               theView);
 
   //! Perform immediate camera actions (rotate/zoom/pan) on gesture progress.
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual void handleCameraActions(const Handle(AIS_InteractiveContext)& theCtx,
-                                                   const Handle(V3d_View)&               theView,
+  Standard_EXPORT virtual void handleCameraActions(const Handle(VisualContext)& theCtx,
+                                                   const Handle(ViewWindow)&               theView,
                                                    const AIS_WalkDelta&                  theWalk);
 
   //! Perform moveto/selection/dragging.
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual void handleMoveTo(const Handle(AIS_InteractiveContext)& theCtx,
-                                            const Handle(V3d_View)&               theView);
+  Standard_EXPORT virtual void handleMoveTo(const Handle(VisualContext)& theCtx,
+                                            const Handle(ViewWindow)&               theView);
 
   //! Return TRUE if another frame should be drawn right after this one.
   bool toAskNextFrame() const { return myToAskNextFrame; }
@@ -592,10 +592,10 @@ public:
   void setPanningAnchorPoint(const Point3d& thePnt) { myPanPnt3d = thePnt; }
 
   //! Handle panning event myGL.Panning.
-  Standard_EXPORT virtual void handlePanning(const Handle(V3d_View)& theView);
+  Standard_EXPORT virtual void handlePanning(const Handle(ViewWindow)& theView);
 
   //! Handle Z rotation event myGL.ZRotate.
-  Standard_EXPORT virtual void handleZRotate(const Handle(V3d_View)& theView);
+  Standard_EXPORT virtual void handleZRotate(const Handle(ViewWindow)& theView);
 
   //! Return minimal camera distance for zoom operation.
   double MinZoomDistance() const { return myMinCamDistance; }
@@ -605,13 +605,13 @@ public:
 
   //! Handle zoom event myGL.ZoomActions.
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual void handleZoom(const Handle(V3d_View)&   theView,
+  Standard_EXPORT virtual void handleZoom(const Handle(ViewWindow)&   theView,
                                           const Aspect_ScrollDelta& theParams,
                                           const Point3d*             thePnt);
 
   //! Handle ZScroll event myGL.ZoomActions.
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual void handleZFocusScroll(const Handle(V3d_View)&   theView,
+  Standard_EXPORT virtual void handleZFocusScroll(const Handle(ViewWindow)&   theView,
                                                   const Aspect_ScrollDelta& theParams);
 
   //! Handle orbital rotation events myGL.OrbitRotation.
@@ -619,7 +619,7 @@ public:
   //! @param thePnt 3D point to rotate around
   //! @param theToLockZUp amend camera to exclude roll angle (put camera Up vector to plane
   //! containing global Z and view direction)
-  Standard_EXPORT virtual void handleOrbitRotation(const Handle(V3d_View)& theView,
+  Standard_EXPORT virtual void handleOrbitRotation(const Handle(ViewWindow)& theView,
                                                    const Point3d&           thePnt,
                                                    bool                    theToLockZUp);
 
@@ -630,7 +630,7 @@ public:
   //! @param thePitchExtra extra pitch increment
   //! @param theRoll       roll value
   //! @param theToRestartOnIncrement flag indicating flight mode
-  Standard_EXPORT virtual void handleViewRotation(const Handle(V3d_View)& theView,
+  Standard_EXPORT virtual void handleViewRotation(const Handle(ViewWindow)& theView,
                                                   double                  theYawExtra,
                                                   double                  thePitchExtra,
                                                   double                  theRoll,
@@ -638,51 +638,51 @@ public:
 
   //! Handle view redraw.
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual void handleViewRedraw(const Handle(AIS_InteractiveContext)& theCtx,
-                                                const Handle(V3d_View)&               theView);
+  Standard_EXPORT virtual void handleViewRedraw(const Handle(VisualContext)& theCtx,
+                                                const Handle(ViewWindow)&               theView);
 
 public:
   //! Perform XR input.
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual void handleXRInput(const Handle(AIS_InteractiveContext)& theCtx,
-                                             const Handle(V3d_View)&               theView,
+  Standard_EXPORT virtual void handleXRInput(const Handle(VisualContext)& theCtx,
+                                             const Handle(ViewWindow)&               theView,
                                              const AIS_WalkDelta&                  theWalk);
 
   //! Handle trackpad view turn action.
-  Standard_EXPORT virtual void handleXRTurnPad(const Handle(AIS_InteractiveContext)& theCtx,
-                                               const Handle(V3d_View)&               theView);
+  Standard_EXPORT virtual void handleXRTurnPad(const Handle(VisualContext)& theCtx,
+                                               const Handle(ViewWindow)&               theView);
 
   //! Handle trackpad teleportation action.
-  Standard_EXPORT virtual void handleXRTeleport(const Handle(AIS_InteractiveContext)& theCtx,
-                                                const Handle(V3d_View)&               theView);
+  Standard_EXPORT virtual void handleXRTeleport(const Handle(VisualContext)& theCtx,
+                                                const Handle(ViewWindow)&               theView);
 
   //! Handle picking on trigger click.
-  Standard_EXPORT virtual void handleXRPicking(const Handle(AIS_InteractiveContext)& theCtx,
-                                               const Handle(V3d_View)&               theView);
+  Standard_EXPORT virtual void handleXRPicking(const Handle(VisualContext)& theCtx,
+                                               const Handle(ViewWindow)&               theView);
 
   //! Perform dynamic highlighting for active hand.
-  Standard_EXPORT virtual void handleXRHighlight(const Handle(AIS_InteractiveContext)& theCtx,
-                                                 const Handle(V3d_View)&               theView);
+  Standard_EXPORT virtual void handleXRHighlight(const Handle(VisualContext)& theCtx,
+                                                 const Handle(ViewWindow)&               theView);
 
   //! Display auxiliary XR presentations.
-  Standard_EXPORT virtual void handleXRPresentations(const Handle(AIS_InteractiveContext)& theCtx,
-                                                     const Handle(V3d_View)&               theView);
+  Standard_EXPORT virtual void handleXRPresentations(const Handle(VisualContext)& theCtx,
+                                                     const Handle(ViewWindow)&               theView);
 
   //! Perform picking with/without dynamic highlighting for XR pose.
   Standard_EXPORT virtual Standard_Integer handleXRMoveTo(
-    const Handle(AIS_InteractiveContext)& theCtx,
-    const Handle(V3d_View)&               theView,
+    const Handle(VisualContext)& theCtx,
+    const Handle(ViewWindow)&               theView,
     const Transform3d&                        thePose,
     const Standard_Boolean                theToHighlight);
 
 protected:
   //! Flush buffers.
-  Standard_EXPORT virtual void flushBuffers(const Handle(AIS_InteractiveContext)& theCtx,
-                                            const Handle(V3d_View)&               theView);
+  Standard_EXPORT virtual void flushBuffers(const Handle(VisualContext)& theCtx,
+                                            const Handle(ViewWindow)&               theView);
 
   //! Flush touch gestures.
-  Standard_EXPORT virtual void flushGestures(const Handle(AIS_InteractiveContext)& theCtx,
-                                             const Handle(V3d_View)&               theView);
+  Standard_EXPORT virtual void flushGestures(const Handle(VisualContext)& theCtx,
+                                             const Handle(ViewWindow)&               theView);
 
   //! Return current and previously fetched event times.
   //! This callback is intended to compute delta between sequentially processed events.
@@ -697,22 +697,22 @@ protected:
 
   //! Perform selection via mouse click.
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual void handleSelectionPick(const Handle(AIS_InteractiveContext)& theCtx,
-                                                   const Handle(V3d_View)&               theView);
+  Standard_EXPORT virtual void handleSelectionPick(const Handle(VisualContext)& theCtx,
+                                                   const Handle(ViewWindow)&               theView);
 
   //! Perform dynamic highlight on mouse move.
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual void handleDynamicHighlight(const Handle(AIS_InteractiveContext)& theCtx,
-                                                      const Handle(V3d_View)& theView);
+  Standard_EXPORT virtual void handleDynamicHighlight(const Handle(VisualContext)& theCtx,
+                                                      const Handle(ViewWindow)& theView);
 
   //! Perform rubber-band selection.
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual void handleSelectionPoly(const Handle(AIS_InteractiveContext)& theCtx,
-                                                   const Handle(V3d_View)&               theView);
+  Standard_EXPORT virtual void handleSelectionPoly(const Handle(VisualContext)& theCtx,
+                                                   const Handle(ViewWindow)&               theView);
 
-  //! Lazy AIS_InteractiveContext::MoveTo() with myPrevMoveTo check.
-  Standard_EXPORT virtual void contextLazyMoveTo(const Handle(AIS_InteractiveContext)& theCtx,
-                                                 const Handle(V3d_View)&               theView,
+  //! Lazy VisualContext::MoveTo() with myPrevMoveTo check.
+  Standard_EXPORT virtual void contextLazyMoveTo(const Handle(VisualContext)& theCtx,
+                                                 const Handle(ViewWindow)&               theView,
                                                  const Graphic3d_Vec2i&                thePnt);
 
 protected:
@@ -753,7 +753,7 @@ protected:
   Standard_Boolean       myToPauseObjAnimation;   //!< flag to pause objects animation on mouse click; FALSE by default
   Handle(AIS_RubberBand) myRubberBand;            //!< Rubber-band presentation
   Handle(SelectMgr_EntityOwner) myDragOwner;      //!< detected owner of currently dragged object
-  Handle(AIS_InteractiveObject) myDragObject;     //!< currently dragged object
+  Handle(VisualEntity) myDragObject;     //!< currently dragged object
   Graphic3d_Vec2i     myPrevMoveTo;               //!< previous position of MoveTo event in 3D viewer
   Standard_Boolean    myHasHlrOnBeforeRotation;   //!< flag for restoring Computed mode after rotation
 
@@ -817,8 +817,8 @@ protected: //! @name multi-touch input variables
 
 protected: //! @name rotation/panning transient state variables
 
-  Handle(AIS_Point)   myAnchorPointPrs1;          //!< anchor point presentation (Graphic3d_ZLayerId_Top)
-  Handle(AIS_Point)   myAnchorPointPrs2;          //!< anchor point presentation (Graphic3d_ZLayerId_Topmost)
+  Handle(VisualPoint)   myAnchorPointPrs1;          //!< anchor point presentation (Graphic3d_ZLayerId_Top)
+  Handle(VisualPoint)   myAnchorPointPrs2;          //!< anchor point presentation (Graphic3d_ZLayerId_Topmost)
   Point3d              myPanPnt3d;                 //!< active panning anchor point
   Point3d              myRotatePnt3d;              //!< active rotation center of gravity
   Dir3d              myCamStartOpUp;             //!< camera Up    direction at the beginning of rotation

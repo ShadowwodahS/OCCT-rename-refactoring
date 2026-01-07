@@ -24,7 +24,7 @@
 class Interface_EntityIterator;
 class Interface_Graph;
 class IFSelect_SelectionIterator;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_Selection;
 DEFINE_STANDARD_HANDLE(IFSelect_Selection, RefObject)
@@ -66,7 +66,7 @@ public:
   //! Returns a text which defines the criterium applied by a
   //! Selection (can be used to be printed, displayed ...)
   //! Specific to each class
-  Standard_EXPORT virtual TCollection_AsciiString Label() const = 0;
+  Standard_EXPORT virtual AsciiString1 Label() const = 0;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_Selection, RefObject)
 

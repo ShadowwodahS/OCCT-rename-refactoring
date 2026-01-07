@@ -29,7 +29,7 @@ Geom2dLProp_CurAndInf2d::Geom2dLProp_CurAndInf2d()
 
 //=================================================================================================
 
-void Geom2dLProp_CurAndInf2d::Perform(const Handle(Geom2d_Curve)& C)
+void Geom2dLProp_CurAndInf2d::Perform(const Handle(GeomCurve2d)& C)
 {
   PerformCurExt(C);
   PerformInf(C);
@@ -37,13 +37,13 @@ void Geom2dLProp_CurAndInf2d::Perform(const Handle(Geom2d_Curve)& C)
 
 //=================================================================================================
 
-void Geom2dLProp_CurAndInf2d::PerformCurExt(const Handle(Geom2d_Curve)& C)
+void Geom2dLProp_CurAndInf2d::PerformCurExt(const Handle(GeomCurve2d)& C)
 {
   isDone = Standard_True;
 
   Geom2dAdaptor_Curve         CC(C);
-  LProp_AnalyticCurInf        AC;
-  Geom2dLProp_NumericCurInf2d NC;
+  AnalyticCurveInfo        AC;
+  NumericCurveInfo2d NC;
   GeomAbs_CurveType           CType = CC.GetType();
 
   switch (CType)
@@ -95,13 +95,13 @@ void Geom2dLProp_CurAndInf2d::PerformCurExt(const Handle(Geom2d_Curve)& C)
 
 //=================================================================================================
 
-void Geom2dLProp_CurAndInf2d::PerformInf(const Handle(Geom2d_Curve)& C)
+void Geom2dLProp_CurAndInf2d::PerformInf(const Handle(GeomCurve2d)& C)
 {
   isDone = Standard_True;
 
   Geom2dAdaptor_Curve         CC(C);
   GeomAbs_CurveType           CType = CC.GetType();
-  Geom2dLProp_NumericCurInf2d NC;
+  NumericCurveInfo2d NC;
 
   switch (CType)
   {

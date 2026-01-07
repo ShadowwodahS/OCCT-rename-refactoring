@@ -77,54 +77,54 @@ static void GeomLib_ChangeVBounds(Handle(Geom_BSplineSurface)& aSurface,
 }
 
 // find 3D curve from theEdge in theMap, and return the transformed curve or NULL
-static Handle(Geom_Curve) newCurve(const TColStd_IndexedDataMapOfTransientTransient& theMap,
-                                   const TopoDS_Edge&                                theEdge,
+static Handle(GeomCurve3d) newCurve(const TColStd_IndexedDataMapOfTransientTransient& theMap,
+                                   const TopoEdge&                                theEdge,
                                    Standard_Real&                                    theFirst,
                                    Standard_Real&                                    theLast)
 {
-  Handle(Geom_Curve) aNewCurve;
+  Handle(GeomCurve3d) aNewCurve;
 
   TopLoc_Location    aLoc;
-  Handle(Geom_Curve) aCurve = BRep_Tool::Curve(theEdge, aLoc, theFirst, theLast);
+  Handle(GeomCurve3d) aCurve = BRepInspector::Curve(theEdge, aLoc, theFirst, theLast);
   if (!aCurve.IsNull() && theMap.Contains(aCurve))
   {
-    aNewCurve = Handle(Geom_Curve)::DownCast(theMap.FindFromKey(aCurve));
-    aNewCurve = Handle(Geom_Curve)::DownCast(aNewCurve->Transformed(aLoc.Transformation()));
+    aNewCurve = Handle(GeomCurve3d)::DownCast(theMap.FindFromKey(aCurve));
+    aNewCurve = Handle(GeomCurve3d)::DownCast(aNewCurve->Transformed(aLoc.Transformation()));
   }
   return aNewCurve;
 }
 
 // find 2D curve from theEdge on theFace in theMap, and return the transformed curve or NULL
-static Handle(Geom2d_Curve) newCurve(const TColStd_IndexedDataMapOfTransientTransient& theMap,
-                                     const TopoDS_Edge&                                theEdge,
-                                     const TopoDS_Face&                                theFace,
+static Handle(GeomCurve2d) newCurve(const TColStd_IndexedDataMapOfTransientTransient& theMap,
+                                     const TopoEdge&                                theEdge,
+                                     const TopoFace&                                theFace,
                                      Standard_Real&                                    theFirst,
                                      Standard_Real&                                    theLast)
 {
-  Handle(Geom2d_Curve) aC2d = BRep_Tool::CurveOnSurface(theEdge, theFace, theFirst, theLast);
+  Handle(GeomCurve2d) aC2d = BRepInspector::CurveOnSurface(theEdge, theFace, theFirst, theLast);
   return (!aC2d.IsNull() && theMap.Contains(aC2d))
-           ? Handle(Geom2d_Curve)::DownCast(theMap.FindFromKey(aC2d))
-           : Handle(Geom2d_Curve)();
+           ? Handle(GeomCurve2d)::DownCast(theMap.FindFromKey(aC2d))
+           : Handle(GeomCurve2d)();
 }
 
 // find surface from theFace in theMap, and return the transformed surface or NULL
-static Handle(Geom_Surface) newSurface(const TColStd_IndexedDataMapOfTransientTransient& theMap,
-                                       const TopoDS_Face&                                theFace)
+static Handle(GeomSurface) newSurface(const TColStd_IndexedDataMapOfTransientTransient& theMap,
+                                       const TopoFace&                                theFace)
 {
-  Handle(Geom_Surface) aNewSurf;
+  Handle(GeomSurface) aNewSurf;
 
   TopLoc_Location      aLoc;
-  Handle(Geom_Surface) aSurf = BRep_Tool::Surface(theFace, aLoc);
+  Handle(GeomSurface) aSurf = BRepInspector::Surface(theFace, aLoc);
   if (!aSurf.IsNull() && theMap.Contains(aSurf))
   {
-    aNewSurf = Handle(Geom_Surface)::DownCast(theMap.FindFromKey(aSurf));
-    aNewSurf = Handle(Geom_Surface)::DownCast(aNewSurf->Transformed(aLoc.Transformation()));
+    aNewSurf = Handle(GeomSurface)::DownCast(theMap.FindFromKey(aSurf));
+    aNewSurf = Handle(GeomSurface)::DownCast(aNewSurf->Transformed(aLoc.Transformation()));
   }
   return aNewSurf;
 }
 
 static Standard_Boolean newParameter(const Point3d&             thePoint,
-                                     const Handle(Geom_Curve)& theCurve,
+                                     const Handle(GeomCurve3d)& theCurve,
                                      const Standard_Real       theFirst,
                                      const Standard_Real       theLast,
                                      const Standard_Real       theTol,
@@ -150,7 +150,7 @@ static Standard_Boolean newParameter(const Point3d&             thePoint,
 }
 
 static Standard_Boolean newParameter(const gp_Pnt2d&             theUV,
-                                     const Handle(Geom2d_Curve)& theCurve2d,
+                                     const Handle(GeomCurve2d)& theCurve2d,
                                      const Standard_Real         theFirst,
                                      const Standard_Real         theLast,
                                      const Standard_Real         theTol,
@@ -194,7 +194,7 @@ static Standard_Boolean newParameter(const gp_Pnt2d&             theUV,
 }
 
 static Standard_Boolean newUV(const Point3d&               thePoint,
-                              const Handle(Geom_Surface)& theSurf,
+                              const Handle(GeomSurface)& theSurf,
                               const Standard_Real         theTol,
                               gp_Pnt2d&                   theUV)
 {
@@ -206,7 +206,7 @@ static Standard_Boolean newUV(const Point3d&               thePoint,
     Standard_Real aDist2Min = aProj.SquareDistance();
     if (aDist2Min < theTol * theTol)
     {
-      gp_XY& aUV = theUV.ChangeCoord();
+      Coords2d& aUV = theUV.ChangeCoord();
       aProj.Point().Parameter(aUV.ChangeCoord(1), aUV.ChangeCoord(2));
       return Standard_True;
     }
@@ -221,8 +221,8 @@ BRepTools_NurbsConvertModification::BRepTools_NurbsConvertModification() {}
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_NurbsConvertModification::NewSurface(const TopoDS_Face&    F,
-                                                                Handle(Geom_Surface)& S,
+Standard_Boolean BRepTools_NurbsConvertModification::NewSurface(const TopoFace&    F,
+                                                                Handle(GeomSurface)& S,
                                                                 TopLoc_Location&      L,
                                                                 Standard_Real&        Tol,
                                                                 Standard_Boolean&     RevWires,
@@ -232,7 +232,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewSurface(const TopoDS_Fac
   Standard_Real V1, V2, curvV1, curvV2, surfV1, surfV2, VTol;
   RevWires                = Standard_False;
   RevFace                 = Standard_False;
-  Handle(Geom_Surface) SS = BRep_Tool::Surface(F, L);
+  Handle(GeomSurface) SS = BRepInspector::Surface(F, L);
   if (SS.IsNull())
   {
     // processing the case when there is no geometry
@@ -246,8 +246,8 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewSurface(const TopoDS_Fac
     return Standard_False;
   }
   S = SS;
-  BRepTools::UVBounds(F, curvU1, curvU2, curvV1, curvV2);
-  Tol                     = BRep_Tool::Tolerance(F);
+  BRepTools1::UVBounds(F, curvU1, curvU2, curvV1, curvV2);
+  Tol                     = BRepInspector::Tolerance(F);
   Standard_Real    TolPar = 0.1 * Tol;
   Standard_Boolean IsUp = S->IsUPeriodic(), IsVp = S->IsVPeriodic();
   // OCC466(apo)->
@@ -361,7 +361,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewSurface(const TopoDS_Fac
   return Standard_True;
 }
 
-static Standard_Boolean IsConvert(const TopoDS_Edge& E)
+static Standard_Boolean IsConvert(const TopoEdge& E)
 {
   Standard_Boolean    isConvert = Standard_False;
   Handle(BRep_TEdge)& TE        = *((Handle(BRep_TEdge)*)&E.TShape());
@@ -372,8 +372,8 @@ static Standard_Boolean IsConvert(const TopoDS_Edge& E)
     Handle(BRep_GCurve) GC = Handle(BRep_GCurve)::DownCast(itcr.Value());
     if (GC.IsNull() || !GC->IsCurveOnSurface())
       continue;
-    Handle(Geom_Surface) aSurface = GC->Surface();
-    Handle(Geom2d_Curve) aCurve2d = GC->PCurve();
+    Handle(GeomSurface) aSurface = GC->Surface();
+    Handle(GeomCurve2d) aCurve2d = GC->PCurve();
     isConvert                     = ((!aSurface->IsKind(STANDARD_TYPE(Geom_BSplineSurface))
                   && !aSurface->IsKind(STANDARD_TYPE(Geom_BezierSurface)))
                  || (!aCurve2d->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve))
@@ -385,8 +385,8 @@ static Standard_Boolean IsConvert(const TopoDS_Edge& E)
 //=================================================================================================
 
 Standard_Boolean BRepTools_NurbsConvertModification::NewTriangulation(
-  const TopoDS_Face&          theFace,
-  Handle(Poly_Triangulation)& theTri)
+  const TopoFace&          theFace,
+  Handle(MeshTriangulation)& theTri)
 {
   if (!BRepTools_CopyModification::NewTriangulation(theFace, theTri))
   {
@@ -397,11 +397,11 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewTriangulation(
   if (theTri->HasUVNodes())
   {
     TopLoc_Location      aLoc;
-    Handle(Geom_Surface) aSurf    = BRep_Tool::Surface(theFace, aLoc);
-    Handle(Geom_Surface) aNewSurf = newSurface(myMap, theFace);
+    Handle(GeomSurface) aSurf    = BRepInspector::Surface(theFace, aLoc);
+    Handle(GeomSurface) aNewSurf = newSurface(myMap, theFace);
     if (!aSurf.IsNull() && !aNewSurf.IsNull())
     {
-      Standard_Real aTol = BRep_Tool::Tolerance(theFace);
+      Standard_Real aTol = BRepInspector::Tolerance(theFace);
       for (Standard_Integer anInd = 1; anInd <= theTri->NbNodes(); ++anInd)
       {
         gp_Pnt2d aUV    = theTri->UVNode(anInd);
@@ -417,14 +417,14 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewTriangulation(
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_NurbsConvertModification::NewCurve(const TopoDS_Edge&  E,
-                                                              Handle(Geom_Curve)& C,
+Standard_Boolean BRepTools_NurbsConvertModification::NewCurve(const TopoEdge&  E,
+                                                              Handle(GeomCurve3d)& C,
                                                               TopLoc_Location&    L,
                                                               Standard_Real&      Tol)
 {
 
-  Tol = BRep_Tool::Tolerance(E);
-  if (BRep_Tool::Degenerated(E))
+  Tol = BRepInspector::Tolerance(E);
+  if (BRepInspector::Degenerated(E))
   {
     C.Nullify();
     L.Identity();
@@ -432,7 +432,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve(const TopoDS_Edge&
   }
   Standard_Real f, l;
 
-  Handle(Geom_Curve) Caux = BRep_Tool::Curve(E, L, f, l);
+  Handle(GeomCurve3d) Caux = BRepInspector::Curve(E, L, f, l);
 
   if (Caux.IsNull())
   {
@@ -440,11 +440,11 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve(const TopoDS_Edge&
     return Standard_False;
   }
   Handle(TypeInfo) TheType = Caux->DynamicType();
-  if ((TheType == STANDARD_TYPE(Geom_BSplineCurve)) || (TheType == STANDARD_TYPE(Geom_BezierCurve)))
+  if ((TheType == STANDARD_TYPE(BSplineCurve3d)) || (TheType == STANDARD_TYPE(BezierCurve3d)))
   {
     if (IsConvert(E))
     {
-      C = Handle(Geom_Curve)::DownCast(Caux->Copy());
+      C = Handle(GeomCurve3d)::DownCast(Caux->Copy());
       return Standard_True;
     }
     return Standard_False;
@@ -477,7 +477,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve(const TopoDS_Edge&
 
   Standard_Real fnew = C->FirstParameter(), lnew = C->LastParameter(), UTol;
 
-  Handle(Geom_BSplineCurve) BC = Handle(Geom_BSplineCurve)::DownCast(C);
+  Handle(BSplineCurve3d) BC = Handle(BSplineCurve3d)::DownCast(C);
 
   if (!BC->IsPeriodic())
   {
@@ -500,7 +500,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve(const TopoDS_Edge&
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_NurbsConvertModification::NewPolygon(const TopoDS_Edge&      theEdge,
+Standard_Boolean BRepTools_NurbsConvertModification::NewPolygon(const TopoEdge&      theEdge,
                                                                 Handle(Poly_Polygon3D)& thePoly)
 {
   if (!BRepTools_CopyModification::NewPolygon(theEdge, thePoly))
@@ -511,10 +511,10 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewPolygon(const TopoDS_Edg
   // update parameters of polygon
   if (thePoly->HasParameters())
   {
-    Standard_Real      aTol = BRep_Tool::Tolerance(theEdge);
+    Standard_Real      aTol = BRepInspector::Tolerance(theEdge);
     Standard_Real      aFirst, aLast;
-    Handle(Geom_Curve) aCurve    = BRep_Tool::Curve(theEdge, aFirst, aLast);
-    Handle(Geom_Curve) aNewCurve = newCurve(myMap, theEdge, aFirst, aLast);
+    Handle(GeomCurve3d) aCurve    = BRepInspector::Curve(theEdge, aFirst, aLast);
+    Handle(GeomCurve3d) aNewCurve = newCurve(myMap, theEdge, aFirst, aLast);
     if (aCurve.IsNull() || aNewCurve.IsNull()) // skip processing degenerated edges
     {
       return Standard_False;
@@ -532,7 +532,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewPolygon(const TopoDS_Edg
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_NurbsConvertModification::NewPoint(const TopoDS_Vertex&,
+Standard_Boolean BRepTools_NurbsConvertModification::NewPoint(const TopoVertex&,
                                                               Point3d&,
                                                               Standard_Real&)
 {
@@ -541,26 +541,26 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewPoint(const TopoDS_Verte
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edge&    E,
-                                                                const TopoDS_Face&    F,
-                                                                const TopoDS_Edge&    newE,
-                                                                const TopoDS_Face&    newF,
-                                                                Handle(Geom2d_Curve)& Curve2d,
+Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoEdge&    E,
+                                                                const TopoFace&    F,
+                                                                const TopoEdge&    newE,
+                                                                const TopoFace&    newF,
+                                                                Handle(GeomCurve2d)& Curve2d,
                                                                 Standard_Real&        Tol)
 {
 
-  Tol = BRep_Tool::Tolerance(E);
+  Tol = BRepInspector::Tolerance(E);
   Standard_Real        f2d, l2d;
-  Handle(Geom2d_Curve) aBaseC2d = BRep_Tool::CurveOnSurface(E, F, f2d, l2d);
+  Handle(GeomCurve2d) aBaseC2d = BRepInspector::CurveOnSurface(E, F, f2d, l2d);
   Standard_Real        f3d, l3d;
   TopLoc_Location      Loc;
-  Handle(Geom_Curve)   C3d     = BRep_Tool::Curve(E, Loc, f3d, l3d);
-  Standard_Boolean isConvert2d = ((!C3d.IsNull() && !C3d->IsKind(STANDARD_TYPE(Geom_BSplineCurve))
-                                   && !C3d->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+  Handle(GeomCurve3d)   C3d     = BRepInspector::Curve(E, Loc, f3d, l3d);
+  Standard_Boolean isConvert2d = ((!C3d.IsNull() && !C3d->IsKind(STANDARD_TYPE(BSplineCurve3d))
+                                   && !C3d->IsKind(STANDARD_TYPE(BezierCurve3d)))
                                   || IsConvert(E));
 
-  Handle(Geom2d_Curve) C2d = aBaseC2d;
-  if (BRep_Tool::Degenerated(E))
+  Handle(GeomCurve2d) C2d = aBaseC2d;
+  if (BRepInspector::Degenerated(E))
   {
     // Curve2d = C2d;
     if (!C2d->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve)))
@@ -572,7 +572,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
     myMap.Add(aBaseC2d, Curve2d);
     return Standard_True;
   }
-  if (!BRepTools::IsReallyClosed(E, F))
+  if (!BRepTools1::IsReallyClosed(E, F))
   {
     Handle(TypeInfo) TheTypeC2d = C2d->DynamicType();
 
@@ -599,11 +599,11 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
 
     if (!newE.IsNull())
     {
-      C3d = BRep_Tool::Curve(newE, f3d, l3d);
+      C3d = BRepInspector::Curve(newE, f3d, l3d);
     }
     if (C3d.IsNull())
     {
-      C3d = BRep_Tool::Curve(E, f3d, l3d);
+      C3d = BRepInspector::Curve(E, f3d, l3d);
     }
     if (C3d.IsNull())
       return Standard_False;
@@ -611,9 +611,9 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
     Handle(GeomAdaptor_Curve) G3dAHC = new GeomAdaptor_Curve(G3dAC);
 
     Standard_Real         Uinf, Usup, Vinf, Vsup, u = 0, v = 0;
-    Handle(Geom_Surface)  S   = BRep_Tool::Surface(F);
+    Handle(GeomSurface)  S   = BRepInspector::Surface(F);
     Handle(TypeInfo) myT = S->DynamicType();
-    if (myT != STANDARD_TYPE(Geom_Plane))
+    if (myT != STANDARD_TYPE(GeomPlane))
     {
       if (newF.IsNull())
       {
@@ -622,8 +622,8 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
         {
           if (isConvert2d)
           {
-            Curve2d              = Handle(Geom2d_Curve)::DownCast(C2d->Copy());
-            Standard_Real newTol = BRepTools::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
+            Curve2d              = Handle(GeomCurve2d)::DownCast(C2d->Copy());
+            Standard_Real newTol = BRepTools1::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
             if (newTol > Tol)
             {
               Tol = newTol;
@@ -637,7 +637,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
       }
       else
       {
-        Handle(Geom_Surface) aNewS = BRep_Tool::Surface(newF);
+        Handle(GeomSurface) aNewS = BRepInspector::Surface(newF);
         if (!aNewS.IsNull())
           S = aNewS;
       }
@@ -678,14 +678,14 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
     }
     else
     {
-      S = BRep_Tool::Surface(F); // Si S est un plan, pas de changement de parametrisation
+      S = BRepInspector::Surface(F); // Si S est un plan, pas de changement de parametrisation
       GeomAdaptor_Surface         GAS(S);
       Handle(GeomAdaptor_Surface) GAHS = new GeomAdaptor_Surface(GAS);
       ProjLib_ComputeApprox       ProjOnCurve(G3dAHC, GAHS, Tol);
       if (ProjOnCurve.BSpline().IsNull())
       {
         Curve2d              = Geom2dConvert::CurveToBSplineCurve(ProjOnCurve.Bezier());
-        Standard_Real newTol = BRepTools::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
+        Standard_Real newTol = BRepTools1::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
         if (newTol > Tol)
         {
           Tol = newTol;
@@ -695,7 +695,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
         return Standard_True;
       }
       Curve2d              = ProjOnCurve.BSpline();
-      Standard_Real newTol = BRepTools::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
+      Standard_Real newTol = BRepTools1::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
       if (newTol > Tol)
       {
         Tol = newTol;
@@ -736,10 +736,10 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
         gp_Vec2d aT(aNewPf, aPf);
         if (aT.SquareMagnitude() > aMinDist)
         {
-          Curve2d = Handle(Geom2d_Curve)::DownCast(Curve2d->Translated(aT));
+          Curve2d = Handle(GeomCurve2d)::DownCast(Curve2d->Translated(aT));
         }
       }
-      Standard_Real newTol = BRepTools::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
+      Standard_Real newTol = BRepTools1::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
       if (newTol > Tol)
       {
         Tol = newTol;
@@ -751,7 +751,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
     else
     {
       Curve2d              = Geom2dConvert::CurveToBSplineCurve(C2d);
-      Standard_Real newTol = BRepTools::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
+      Standard_Real newTol = BRepTools1::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
       if (newTol > Tol)
       {
         Tol = newTol;
@@ -777,14 +777,14 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
     }
     if (!itled.More())
     { // on stocke l`edge et la curve2d
-      Handle(Geom2d_Curve) C2dBis;
+      Handle(GeomCurve2d) C2dBis;
       Standard_Real        f2dBis, l2dBis;
       C2d = new Geom2d_TrimmedCurve(C2d, f2d, l2d);
       Geom2dAdaptor_Curve         G2dAC(C2d, f2d, l2d);
       Handle(Geom2dAdaptor_Curve) G2dAHC  = new Geom2dAdaptor_Curve(G2dAC);
-      TopoDS_Edge                 ERevers = E;
+      TopoEdge                 ERevers = E;
       ERevers.Reverse();
-      C2dBis                              = BRep_Tool::CurveOnSurface(ERevers, F, f2dBis, l2dBis);
+      C2dBis                              = BRepInspector::CurveOnSurface(ERevers, F, f2dBis, l2dBis);
       Handle(TypeInfo) TheTypeC2dBis = C2dBis->DynamicType();
       C2dBis                              = new Geom2d_TrimmedCurve(C2dBis, f2dBis, l2dBis);
       Geom2dAdaptor_Curve         G2dACBis(C2dBis, f2dBis, l2dBis);
@@ -794,15 +794,15 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
       {
         if (isConvert2d)
         {
-          Curve2d = Handle(Geom2d_Curve)::DownCast(C2d->Copy());
+          Curve2d = Handle(GeomCurve2d)::DownCast(C2d->Copy());
 
-          Handle(Geom_Surface) S;
+          Handle(GeomSurface) S;
           if (newF.IsNull())
-            S = BRep_Tool::Surface(F);
+            S = BRepInspector::Surface(F);
           else
-            S = BRep_Tool::Surface(newF);
+            S = BRepInspector::Surface(newF);
           //
-          Standard_Real newTol = BRepTools::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
+          Standard_Real newTol = BRepTools1::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
           if (newTol > Tol)
           {
             Tol = newTol;
@@ -815,12 +815,12 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
       }
       if (!newE.IsNull())
       {
-        C3d = BRep_Tool::Curve(newE, f3d, l3d);
+        C3d = BRepInspector::Curve(newE, f3d, l3d);
       }
       GeomAdaptor_Curve         G3dAC(C3d, f3d, l3d);
       Handle(GeomAdaptor_Curve) G3dAHC = new GeomAdaptor_Curve(G3dAC);
 
-      Handle(Geom_Surface)  S   = BRep_Tool::Surface(F);
+      Handle(GeomSurface)  S   = BRepInspector::Surface(F);
       Handle(TypeInfo) myT = S->DynamicType();
       if (newF.IsNull())
       {
@@ -830,8 +830,8 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
         {
           if (isConvert2d)
           {
-            Curve2d              = Handle(Geom2d_Curve)::DownCast(C2d->Copy());
-            Standard_Real newTol = BRepTools::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
+            Curve2d              = Handle(GeomCurve2d)::DownCast(C2d->Copy());
+            Standard_Real newTol = BRepTools1::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
             if (newTol > Tol)
             {
               Tol = newTol;
@@ -845,7 +845,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
       }
       else
       {
-        S = BRep_Tool::Surface(newF); // S est une BSplineSurface : pas besoin de la trimmed
+        S = BRepInspector::Surface(newF); // S est une BSplineSurface : pas besoin de la trimmed
       }
       Standard_Real Uinf, Usup, Vinf, Vsup, u = 0, v = 0;
       S->Bounds(Uinf, Usup, Vinf, Vsup);
@@ -884,7 +884,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
       {
         Curve2d = ProjOnCurve.BSpline();
         mylcu.Append(ProjOnCurve.Curve2d());
-        Standard_Real newTol = BRepTools::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
+        Standard_Real newTol = BRepTools1::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
         if (newTol > Tol)
         {
           Tol = newTol;
@@ -896,7 +896,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
       else
       {
         Curve2d              = Geom2dConvert::CurveToBSplineCurve(C2d);
-        Standard_Real newTol = BRepTools::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
+        Standard_Real newTol = BRepTools1::EvalAndUpdateTol(newE, C3d, Curve2d, S, f3d, l3d);
         if (newTol > Tol)
         {
           Tol = newTol;
@@ -909,7 +909,7 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
     }
     else
     { // on est au 2ieme tour
-      C2d                      = Handle(Geom2d_Curve)::DownCast(itlcu.Value());
+      C2d                      = Handle(GeomCurve2d)::DownCast(itlcu.Value());
       Handle(TypeInfo) st = C2d->DynamicType();
       if (!(st == STANDARD_TYPE(Geom2d_BSplineCurve)) && !(st == STANDARD_TYPE(Geom2d_BezierCurve)))
       {
@@ -925,8 +925,8 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewCurve2d(const TopoDS_Edg
 //=================================================================================================
 
 Standard_Boolean BRepTools_NurbsConvertModification::NewPolygonOnTriangulation(
-  const TopoDS_Edge&                   theEdge,
-  const TopoDS_Face&                   theFace,
+  const TopoEdge&                   theEdge,
+  const TopoFace&                   theFace,
   Handle(Poly_PolygonOnTriangulation)& thePoly)
 {
   if (!BRepTools_CopyModification::NewPolygonOnTriangulation(theEdge, theFace, thePoly))
@@ -937,13 +937,13 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewPolygonOnTriangulation(
   // update parameters of 2D polygon
   if (thePoly->HasParameters())
   {
-    Standard_Real        aTol = Max(BRep_Tool::Tolerance(theEdge), thePoly->Deflection());
+    Standard_Real        aTol = Max(BRepInspector::Tolerance(theEdge), thePoly->Deflection());
     TopLoc_Location      aLoc;
-    Handle(Geom_Surface) aSurf    = BRep_Tool::Surface(theFace, aLoc);
-    Handle(Geom_Surface) aNewSurf = newSurface(myMap, theFace);
+    Handle(GeomSurface) aSurf    = BRepInspector::Surface(theFace, aLoc);
+    Handle(GeomSurface) aNewSurf = newSurface(myMap, theFace);
     Standard_Real        aFirst, aLast;
-    Handle(Geom2d_Curve) aC2d    = BRep_Tool::CurveOnSurface(theEdge, theFace, aFirst, aLast);
-    Handle(Geom2d_Curve) aNewC2d = newCurve(myMap, theEdge, theFace, aFirst, aLast);
+    Handle(GeomCurve2d) aC2d    = BRepInspector::CurveOnSurface(theEdge, theFace, aFirst, aLast);
+    Handle(GeomCurve2d) aNewC2d = newCurve(myMap, theEdge, theFace, aFirst, aLast);
     if (!aSurf.IsNull() && !aC2d.IsNull() && !aNewSurf.IsNull() && !aNewC2d.IsNull())
     {
       // compute 2D tolerance
@@ -968,37 +968,37 @@ Standard_Boolean BRepTools_NurbsConvertModification::NewPolygonOnTriangulation(
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_NurbsConvertModification::NewParameter(const TopoDS_Vertex& V,
-                                                                  const TopoDS_Edge&   E,
+Standard_Boolean BRepTools_NurbsConvertModification::NewParameter(const TopoVertex& V,
+                                                                  const TopoEdge&   E,
                                                                   Standard_Real&       P,
                                                                   Standard_Real&       Tol)
 {
-  Tol = BRep_Tool::Tolerance(V);
-  if (BRep_Tool::Degenerated(E))
+  Tol = BRepInspector::Tolerance(V);
+  if (BRepInspector::Degenerated(E))
     return Standard_False;
 
-  Point3d pnt = BRep_Tool::Pnt(V);
-  P          = BRep_Tool::Parameter(V, E);
+  Point3d pnt = BRepInspector::Pnt(V);
+  P          = BRepInspector::Parameter(V, E);
   Standard_Real      aFirst, aLast;
-  Handle(Geom_Curve) aNewCurve = newCurve(myMap, E, aFirst, aLast);
+  Handle(GeomCurve3d) aNewCurve = newCurve(myMap, E, aFirst, aLast);
   return !aNewCurve.IsNull() && newParameter(pnt, aNewCurve, aFirst, aLast, Tol, P);
 }
 
 //=================================================================================================
 
-GeomAbs_Shape BRepTools_NurbsConvertModification::Continuity(const TopoDS_Edge& E,
-                                                             const TopoDS_Face& F1,
-                                                             const TopoDS_Face& F2,
-                                                             const TopoDS_Edge&,
-                                                             const TopoDS_Face&,
-                                                             const TopoDS_Face&)
+GeomAbs_Shape BRepTools_NurbsConvertModification::Continuity(const TopoEdge& E,
+                                                             const TopoFace& F1,
+                                                             const TopoFace& F2,
+                                                             const TopoEdge&,
+                                                             const TopoFace&,
+                                                             const TopoFace&)
 {
-  return BRep_Tool::Continuity(E, F1, F2);
+  return BRepInspector::Continuity(E, F1, F2);
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepTools_NurbsConvertModification::GetUpdatedEdges() const
+const ShapeList& BRepTools_NurbsConvertModification::GetUpdatedEdges() const
 {
   return myUpdatedEdges;
 }

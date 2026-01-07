@@ -56,7 +56,7 @@ inline void appendTriangle(const int                        theNode1,
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) BRepMesh_Triangulator::ToPolyTriangulation(
+Handle(MeshTriangulation) BRepMesh_Triangulator::ToPolyTriangulation(
   const TColgp_Array1OfPnt&              theNodes,
   const NCollection_List<Poly_Triangle>& thePolyTriangles)
 {
@@ -67,7 +67,7 @@ Handle(Poly_Triangulation) BRepMesh_Triangulator::ToPolyTriangulation(
     aTriangles.SetValue(i, itT.Value());
   }
 
-  return new Poly_Triangulation(theNodes, aTriangles);
+  return new MeshTriangulation(theNodes, aTriangles);
 }
 
 //=================================================================================================
@@ -265,7 +265,7 @@ Standard_Boolean BRepMesh_Triangulator::triangulate(
   }
   catch (ExceptionBase const& aFailure)
   {
-    TCollection_AsciiString aStr(
+    AsciiString1 aStr(
       "makeTrianglesUsingBRepMesh: Exception raised during polygon triangulation: ");
     aStr.AssignCat(aFailure.GetMessageString());
     myMess->Send(aStr.ToCString(), Message_Fail);

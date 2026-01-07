@@ -26,7 +26,7 @@ BRepOffsetAPI_MakeOffsetShape::BRepOffsetAPI_MakeOffsetShape()
 
 //=================================================================================================
 
-void BRepOffsetAPI_MakeOffsetShape::PerformByJoin(const TopoDS_Shape&          S,
+void BRepOffsetAPI_MakeOffsetShape::PerformByJoin(const TopoShape&          S,
                                                   const Standard_Real          Offset,
                                                   const Standard_Real          Tol,
                                                   const BRepOffset_Mode        Mode,
@@ -59,7 +59,7 @@ void BRepOffsetAPI_MakeOffsetShape::PerformByJoin(const TopoDS_Shape&          S
 
 //=================================================================================================
 
-void BRepOffsetAPI_MakeOffsetShape::PerformBySimple(const TopoDS_Shape& theS,
+void BRepOffsetAPI_MakeOffsetShape::PerformBySimple(const TopoShape& theS,
                                                     const Standard_Real theOffsetValue)
 {
   NotDone();
@@ -88,7 +88,7 @@ void BRepOffsetAPI_MakeOffsetShape::Build(const Message_ProgressRange& /*theRang
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepOffsetAPI_MakeOffsetShape::Generated(const TopoDS_Shape& S)
+const ShapeList& BRepOffsetAPI_MakeOffsetShape::Generated(const TopoShape& S)
 {
   myGenerated.Clear();
   if (myLastUsedAlgo == OffsetAlgo_JOIN)
@@ -97,7 +97,7 @@ const TopTools_ListOfShape& BRepOffsetAPI_MakeOffsetShape::Generated(const TopoD
   }
   else if (myLastUsedAlgo == OffsetAlgo_SIMPLE)
   {
-    TopoDS_Shape aGenShape = mySimpleOffsetShape.Generated(S);
+    TopoShape aGenShape = mySimpleOffsetShape.Generated(S);
     if (!aGenShape.IsNull() && !aGenShape.IsSame(S))
       myGenerated.Append(aGenShape);
   }
@@ -107,7 +107,7 @@ const TopTools_ListOfShape& BRepOffsetAPI_MakeOffsetShape::Generated(const TopoD
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepOffsetAPI_MakeOffsetShape::Modified(const TopoDS_Shape& S)
+const ShapeList& BRepOffsetAPI_MakeOffsetShape::Modified(const TopoShape& S)
 {
   myGenerated.Clear();
   if (myLastUsedAlgo == OffsetAlgo_JOIN)
@@ -116,7 +116,7 @@ const TopTools_ListOfShape& BRepOffsetAPI_MakeOffsetShape::Modified(const TopoDS
   }
   else if (myLastUsedAlgo == OffsetAlgo_SIMPLE)
   {
-    TopoDS_Shape aGenShape = mySimpleOffsetShape.Modified(S);
+    TopoShape aGenShape = mySimpleOffsetShape.Modified(S);
     if (!aGenShape.IsNull() && !aGenShape.IsSame(S))
       myGenerated.Append(aGenShape);
   }
@@ -126,7 +126,7 @@ const TopTools_ListOfShape& BRepOffsetAPI_MakeOffsetShape::Modified(const TopoDS
 
 //=================================================================================================
 
-Standard_Boolean BRepOffsetAPI_MakeOffsetShape::IsDeleted(const TopoDS_Shape& S)
+Standard_Boolean BRepOffsetAPI_MakeOffsetShape::IsDeleted(const TopoShape& S)
 {
   if (myLastUsedAlgo == OffsetAlgo_JOIN)
   {

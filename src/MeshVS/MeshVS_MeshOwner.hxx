@@ -64,7 +64,7 @@ public:
                                            const Handle(TColStd_HPackedMapOfInteger)& Elems);
 
   Standard_EXPORT virtual void HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                                const Handle(Prs3d_Drawer)&               theColor,
+                                                const Handle(StyleDrawer)&               theColor,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Unhilight(const Handle(PrsMgr_PresentationManager)& PM,

@@ -23,7 +23,7 @@
 #include <Standard_NoSuchObject.hxx>
 #include <IGESData_IGESType.hxx>
 
-#define TheKey IGESData_IGESType
+#define TheKey IGESType
 #define TheKey_hxx <IGESData_IGESType.hxx>
 #define Handle_TheResul Handle(IGESData_IGESEntity)
 #define TheResul IGESData_IGESEntity

@@ -20,17 +20,17 @@
 #include <AIS_InteractiveObject.hxx>
 #include <AIS_KindOfInteractive.hxx>
 
-class Geom_Line;
+class GeomLine;
 class Geom_Point;
 
 //! Constructs line datums to be used in construction of
 //! composite shapes.
-class AIS_Line : public AIS_InteractiveObject
+class AIS_Line : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_Line, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_Line, VisualEntity)
 public:
   //! Initializes the line aLine.
-  Standard_EXPORT AIS_Line(const Handle(Geom_Line)& aLine);
+  Standard_EXPORT AIS_Line(const Handle(GeomLine)& aLine);
 
   //! Initializes a starting point aStartPoint
   //! and a finishing point aEndPoint for the line.
@@ -47,7 +47,7 @@ public:
   }
 
   //! Constructs an infinite line.
-  const Handle(Geom_Line)& Line() const { return myComponent; }
+  const Handle(GeomLine)& Line() const { return myComponent; }
 
   //! Returns the starting point thePStart and the end point thePEnd of the line set by SetPoints.
   void Points(Handle(Geom_Point)& thePStart, Handle(Geom_Point)& thePEnd) const
@@ -57,7 +57,7 @@ public:
   }
 
   //! instantiates an infinite line.
-  void SetLine(const Handle(Geom_Line)& theLine)
+  void SetLine(const Handle(GeomLine)& theLine)
   {
     myComponent     = theLine;
     myLineIsSegment = Standard_False;
@@ -90,26 +90,26 @@ private:
                                        const Handle(Prs3d_Presentation)&         thePrs,
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT void ComputeInfiniteLine(const Handle(Prs3d_Presentation)& aPresentation);
 
   Standard_EXPORT void ComputeSegmentLine(const Handle(Prs3d_Presentation)& aPresentation);
 
-  Standard_EXPORT void ComputeInfiniteLineSelection(const Handle(SelectMgr_Selection)& aSelection);
+  Standard_EXPORT void ComputeInfiniteLineSelection(const Handle(SelectionContainer)& aSelection);
 
-  Standard_EXPORT void ComputeSegmentLineSelection(const Handle(SelectMgr_Selection)& aSelection);
+  Standard_EXPORT void ComputeSegmentLineSelection(const Handle(SelectionContainer)& aSelection);
   //! Replace aspects of already computed groups with the new value.
   void replaceWithNewLineAspect(const Handle(Prs3d_LineAspect)& theAspect);
 
 private:
-  Handle(Geom_Line)  myComponent;
+  Handle(GeomLine)  myComponent;
   Handle(Geom_Point) myStartPoint;
   Handle(Geom_Point) myEndPoint;
   Standard_Boolean   myLineIsSegment;
 };
 
-DEFINE_STANDARD_HANDLE(AIS_Line, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(AIS_Line, VisualEntity)
 
 #endif // _AIS_Line_HeaderFile

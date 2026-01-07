@@ -35,35 +35,35 @@ public:
 
   Standard_EXPORT TopOpeBRepTool_mkTondgE();
 
-  Standard_EXPORT Standard_Boolean Initialize(const TopoDS_Edge& dgE,
-                                              const TopoDS_Face& F,
+  Standard_EXPORT Standard_Boolean Initialize(const TopoEdge& dgE,
+                                              const TopoFace& F,
                                               const gp_Pnt2d&    uvi,
-                                              const TopoDS_Face& Fi);
+                                              const TopoFace& Fi);
 
-  Standard_EXPORT Standard_Boolean SetclE(const TopoDS_Edge& clE);
+  Standard_EXPORT Standard_Boolean SetclE(const TopoEdge& clE);
 
   Standard_EXPORT Standard_Boolean IsT2d() const;
 
-  Standard_EXPORT Standard_Boolean SetRest(const Standard_Real pari, const TopoDS_Edge& Ei);
+  Standard_EXPORT Standard_Boolean SetRest(const Standard_Real pari, const TopoEdge& Ei);
 
-  Standard_EXPORT Standard_Integer GetAllRest(TopTools_ListOfShape& lEi);
+  Standard_EXPORT Standard_Integer GetAllRest(ShapeList& lEi);
 
   Standard_EXPORT Standard_Boolean MkTonE(Standard_Integer& mkT,
                                           Standard_Real&    par1,
                                           Standard_Real&    par2);
 
-  Standard_EXPORT Standard_Boolean MkTonE(const TopoDS_Edge& Ei,
+  Standard_EXPORT Standard_Boolean MkTonE(const TopoEdge& Ei,
                                           Standard_Integer&  mkT,
                                           Standard_Real&     par1,
                                           Standard_Real&     par2);
 
 protected:
 private:
-  TopoDS_Edge                 mydgE;
-  TopoDS_Face                 myF;
-  TopoDS_Edge                 myclE;
+  TopoEdge                 mydgE;
+  TopoFace                 myF;
+  TopoEdge                 myclE;
   Dir3d                      mydirINcle;
-  TopoDS_Face                 myFi;
+  TopoFace                 myFi;
   gp_Pnt2d                    myuvi;
   Standard_Boolean            isT2d;
   TopTools_DataMapOfShapeReal myEpari;

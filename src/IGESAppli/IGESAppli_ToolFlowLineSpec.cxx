@@ -31,9 +31,9 @@
 #include <Interface_ShareTool.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESAppli_ToolFlowLineSpec::IGESAppli_ToolFlowLineSpec() {}
+FlowLineSpecTool::FlowLineSpecTool() {}
 
-void IGESAppli_ToolFlowLineSpec::ReadOwnParams(const Handle(IGESAppli_FlowLineSpec)& ent,
+void FlowLineSpecTool::ReadOwnParams(const Handle(IGESAppli_FlowLineSpec)& ent,
                                                const Handle(IGESData_IGESReaderData)& /* IR */,
                                                IGESData_ParamReader& PR) const
 {
@@ -54,7 +54,7 @@ void IGESAppli_ToolFlowLineSpec::ReadOwnParams(const Handle(IGESAppli_FlowLineSp
   ent->Init(tempNameAndModifiers);
 }
 
-void IGESAppli_ToolFlowLineSpec::WriteOwnParams(const Handle(IGESAppli_FlowLineSpec)& ent,
+void FlowLineSpecTool::WriteOwnParams(const Handle(IGESAppli_FlowLineSpec)& ent,
                                                 IGESData_IGESWriter&                  IW) const
 {
   Standard_Integer i, num;
@@ -63,12 +63,12 @@ void IGESAppli_ToolFlowLineSpec::WriteOwnParams(const Handle(IGESAppli_FlowLineS
     IW.Send(ent->Modifier(i));
 }
 
-void IGESAppli_ToolFlowLineSpec::OwnShared(const Handle(IGESAppli_FlowLineSpec)& /* ent */,
+void FlowLineSpecTool::OwnShared(const Handle(IGESAppli_FlowLineSpec)& /* ent */,
                                            Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESAppli_ToolFlowLineSpec::OwnCopy(const Handle(IGESAppli_FlowLineSpec)& another,
+void FlowLineSpecTool::OwnCopy(const Handle(IGESAppli_FlowLineSpec)& another,
                                          const Handle(IGESAppli_FlowLineSpec)& ent,
                                          Interface_CopyTool& /* TC */) const
 {
@@ -80,10 +80,10 @@ void IGESAppli_ToolFlowLineSpec::OwnCopy(const Handle(IGESAppli_FlowLineSpec)& a
   ent->Init(tempNameAndModifiers);
 }
 
-IGESData_DirChecker IGESAppli_ToolFlowLineSpec::DirChecker(
+DirectoryChecker FlowLineSpecTool::DirChecker(
   const Handle(IGESAppli_FlowLineSpec)& /* ent */) const
 {
-  IGESData_DirChecker DC(406, 14);
+  DirectoryChecker DC(406, 14);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -95,13 +95,13 @@ IGESData_DirChecker IGESAppli_ToolFlowLineSpec::DirChecker(
   return DC;
 }
 
-void IGESAppli_ToolFlowLineSpec::OwnCheck(const Handle(IGESAppli_FlowLineSpec)& /* ent */,
+void FlowLineSpecTool::OwnCheck(const Handle(IGESAppli_FlowLineSpec)& /* ent */,
                                           const Interface_ShareTool&,
                                           Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESAppli_ToolFlowLineSpec::OwnDump(const Handle(IGESAppli_FlowLineSpec)& ent,
+void FlowLineSpecTool::OwnDump(const Handle(IGESAppli_FlowLineSpec)& ent,
                                          const IGESData_IGESDumper& /* dumper */,
                                          Standard_OStream&      S,
                                          const Standard_Integer level) const

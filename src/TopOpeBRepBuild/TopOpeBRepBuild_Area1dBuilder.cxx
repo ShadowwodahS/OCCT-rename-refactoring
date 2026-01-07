@@ -62,8 +62,8 @@ TopOpeBRepBuild_Area1dBuilder::TopOpeBRepBuild_Area1dBuilder(TopOpeBRepBuild_Pav
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Area1dBuilder::InitAreaBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                                    TopOpeBRepBuild_LoopClassifier& LC,
+void TopOpeBRepBuild_Area1dBuilder::InitAreaBuilder(LoopSet&        LS,
+                                                    LoopClassifier& LC,
                                                     const Standard_Boolean          ForceClass)
 {
   TopAbs_State     state;

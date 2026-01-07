@@ -39,7 +39,7 @@ XCAFDoc_LayerTool::XCAFDoc_LayerTool() {}
 
 //=================================================================================================
 
-Handle(XCAFDoc_LayerTool) XCAFDoc_LayerTool::Set(const TDF_Label& L)
+Handle(XCAFDoc_LayerTool) XCAFDoc_LayerTool::Set(const DataLabel& L)
 {
   Handle(XCAFDoc_LayerTool) A;
   if (!L.FindAttribute(XCAFDoc_LayerTool::GetID(), A))
@@ -61,7 +61,7 @@ const Standard_GUID& XCAFDoc_LayerTool::GetID()
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_LayerTool::BaseLabel() const
+DataLabel XCAFDoc_LayerTool::BaseLabel() const
 {
   return Label();
 }
@@ -77,25 +77,25 @@ const Handle(XCAFDoc_ShapeTool)& XCAFDoc_LayerTool::ShapeTool()
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::IsLayer(const TDF_Label& lab) const
+Standard_Boolean XCAFDoc_LayerTool::IsLayer(const DataLabel& lab) const
 {
-  TCollection_ExtendedString aLayer;
+  UtfString aLayer;
   return GetLayer(lab, aLayer);
 }
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::GetLayer(const TDF_Label&            lab,
-                                             TCollection_ExtendedString& aLayer) const
+Standard_Boolean XCAFDoc_LayerTool::GetLayer(const DataLabel&            lab,
+                                             UtfString& aLayer) const
 {
   if (lab.Father() != Label())
     return Standard_False;
   //   Handle(XCAFDoc_GraphNode) aGN;
   //   if (! lab.FindAttribute (XCAFDoc::LayerRefGUID(), aGN))
   //     return Standard_False;
-  Handle(TDataStd_Name) aName;
+  Handle(NameAttribute) aName;
   Standard_Boolean      status = Standard_False;
-  if (lab.FindAttribute(TDataStd_Name::GetID(), aName))
+  if (lab.FindAttribute(NameAttribute::GetID(), aName))
   {
     aLayer = aName->Get();
     status = Standard_True;
@@ -105,8 +105,8 @@ Standard_Boolean XCAFDoc_LayerTool::GetLayer(const TDF_Label&            lab,
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::FindLayer(const TCollection_ExtendedString& aLayer,
-                                              TDF_Label&                        lab) const
+Standard_Boolean XCAFDoc_LayerTool::FindLayer(const UtfString& aLayer,
+                                              DataLabel&                        lab) const
 {
   lab = FindLayer(aLayer);
   return (!lab.IsNull());
@@ -114,17 +114,17 @@ Standard_Boolean XCAFDoc_LayerTool::FindLayer(const TCollection_ExtendedString& 
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_LayerTool::FindLayer(const TCollection_ExtendedString& aLayer,
+DataLabel XCAFDoc_LayerTool::FindLayer(const UtfString& aLayer,
                                        const Standard_Boolean            theToFindWithProperty,
                                        const Standard_Boolean            theToFindVisible) const
 {
   TDF_ChildIterator it(Label());
-  TDF_Label         lab;
+  DataLabel         lab;
   for (; it.More(); it.Next())
   {
-    TDF_Label             aLabel = it.Value();
-    Handle(TDataStd_Name) aName;
-    if (aLabel.FindAttribute(TDataStd_Name::GetID(), aName) && (aName->Get().IsEqual(aLayer))
+    DataLabel             aLabel = it.Value();
+    Handle(NameAttribute) aName;
+    if (aLabel.FindAttribute(NameAttribute::GetID(), aName) && (aName->Get().IsEqual(aLayer))
         && (!theToFindWithProperty
             || (theToFindWithProperty && (IsVisible(aLabel) == theToFindVisible))))
     {
@@ -137,36 +137,36 @@ TDF_Label XCAFDoc_LayerTool::FindLayer(const TCollection_ExtendedString& aLayer,
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_LayerTool::AddLayer(const TCollection_ExtendedString& theLayer) const
+DataLabel XCAFDoc_LayerTool::AddLayer(const UtfString& theLayer) const
 {
-  TDF_Label lab;
+  DataLabel lab;
   if (FindLayer(theLayer, lab))
     return lab;
   TDF_TagSource         aTag;
-  TDF_Label             aLabel = aTag.NewChild(Label());
-  Handle(TDataStd_Name) aName  = new TDataStd_Name;
+  DataLabel             aLabel = aTag.NewChild(Label());
+  Handle(NameAttribute) aName  = new NameAttribute;
   aName->Set(aLabel, theLayer);
   return aLabel;
 }
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_LayerTool::AddLayer(const TCollection_ExtendedString& theLayer,
+DataLabel XCAFDoc_LayerTool::AddLayer(const UtfString& theLayer,
                                       const Standard_Boolean            theToFindVisible) const
 {
-  TDF_Label lab = FindLayer(theLayer, Standard_True, theToFindVisible);
+  DataLabel lab = FindLayer(theLayer, Standard_True, theToFindVisible);
   if (!lab.IsNull())
     return lab;
   TDF_TagSource         aTag;
-  TDF_Label             aLabel = aTag.NewChild(Label());
-  Handle(TDataStd_Name) aName  = new TDataStd_Name;
+  DataLabel             aLabel = aTag.NewChild(Label());
+  Handle(NameAttribute) aName  = new NameAttribute;
   aName->Set(aLabel, theLayer);
   return aLabel;
 }
 
 //=================================================================================================
 
-void XCAFDoc_LayerTool::RemoveLayer(const TDF_Label& lab) const
+void XCAFDoc_LayerTool::RemoveLayer(const DataLabel& lab) const
 {
   lab.ForgetAllAttributes(Standard_True);
 }
@@ -179,7 +179,7 @@ void XCAFDoc_LayerTool::GetLayerLabels(TDF_LabelSequence& Labels) const
   TDF_ChildIterator ChildIterator(Label());
   for (; ChildIterator.More(); ChildIterator.Next())
   {
-    TDF_Label L = ChildIterator.Value();
+    DataLabel L = ChildIterator.Value();
     if (IsLayer(L))
       Labels.Append(L);
   }
@@ -187,8 +187,8 @@ void XCAFDoc_LayerTool::GetLayerLabels(TDF_LabelSequence& Labels) const
 
 //=================================================================================================
 
-void XCAFDoc_LayerTool::SetLayer(const TDF_Label&       L,
-                                 const TDF_Label&       LayerL,
+void XCAFDoc_LayerTool::SetLayer(const DataLabel&       L,
+                                 const DataLabel&       LayerL,
                                  const Standard_Boolean shapeInOneLayer) const
 {
   if (shapeInOneLayer)
@@ -211,17 +211,17 @@ void XCAFDoc_LayerTool::SetLayer(const TDF_Label&       L,
 
 //=================================================================================================
 
-void XCAFDoc_LayerTool::SetLayer(const TDF_Label&                  L,
-                                 const TCollection_ExtendedString& aLayer,
+void XCAFDoc_LayerTool::SetLayer(const DataLabel&                  L,
+                                 const UtfString& aLayer,
                                  const Standard_Boolean            shapeInOneLayer) const
 {
-  TDF_Label aLayerL = AddLayer(aLayer);
+  DataLabel aLayerL = AddLayer(aLayer);
   SetLayer(L, aLayerL, shapeInOneLayer);
 }
 
 //=================================================================================================
 
-void XCAFDoc_LayerTool::UnSetLayers(const TDF_Label& L) const
+void XCAFDoc_LayerTool::UnSetLayers(const DataLabel& L) const
 {
   Handle(XCAFDoc_GraphNode) ChGNode, FGNode;
   if (L.FindAttribute(XCAFDoc::LayerRefGUID(), ChGNode))
@@ -238,10 +238,10 @@ void XCAFDoc_LayerTool::UnSetLayers(const TDF_Label& L) const
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::UnSetOneLayer(const TDF_Label&                  L,
-                                                  const TCollection_ExtendedString& aLayer) const
+Standard_Boolean XCAFDoc_LayerTool::UnSetOneLayer(const DataLabel&                  L,
+                                                  const UtfString& aLayer) const
 {
-  TDF_Label alab;
+  DataLabel alab;
   if (!FindLayer(aLayer, alab))
     return Standard_False;
   return UnSetOneLayer(L, alab);
@@ -249,8 +249,8 @@ Standard_Boolean XCAFDoc_LayerTool::UnSetOneLayer(const TDF_Label&              
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::UnSetOneLayer(const TDF_Label& L,
-                                                  const TDF_Label& aLayerL) const
+Standard_Boolean XCAFDoc_LayerTool::UnSetOneLayer(const DataLabel& L,
+                                                  const DataLabel& aLayerL) const
 {
   Handle(XCAFDoc_GraphNode) FGNode, ChGNode;
   if (!L.FindAttribute(XCAFDoc::LayerRefGUID(), ChGNode))
@@ -263,19 +263,19 @@ Standard_Boolean XCAFDoc_LayerTool::UnSetOneLayer(const TDF_Label& L,
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::IsSet(const TDF_Label&                  L,
-                                          const TCollection_ExtendedString& aLayer) const
+Standard_Boolean XCAFDoc_LayerTool::IsSet(const DataLabel&                  L,
+                                          const UtfString& aLayer) const
 {
   Handle(XCAFDoc_GraphNode) Node;
-  Handle(TDataStd_Name)     aName;
-  TDF_Label                 lab;
+  Handle(NameAttribute)     aName;
+  DataLabel                 lab;
   if (L.FindAttribute(XCAFDoc::LayerRefGUID(), Node) && (Node->NbFathers() != 0))
   {
     Standard_Integer i = 1;
     for (; i <= Node->NbFathers(); i++)
     {
       lab = Node->GetFather(i)->Label();
-      if (lab.FindAttribute(TDataStd_Name::GetID(), aName) && (aName->Get().IsEqual(aLayer)))
+      if (lab.FindAttribute(NameAttribute::GetID(), aName) && (aName->Get().IsEqual(aLayer)))
         return Standard_True;
     }
   }
@@ -284,11 +284,11 @@ Standard_Boolean XCAFDoc_LayerTool::IsSet(const TDF_Label&                  L,
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::IsSet(const TDF_Label& L, const TDF_Label& aLayerL) const
+Standard_Boolean XCAFDoc_LayerTool::IsSet(const DataLabel& L, const DataLabel& aLayerL) const
 {
   Handle(XCAFDoc_GraphNode) Node;
-  Handle(TDataStd_Name)     aName;
-  TDF_Label                 lab;
+  Handle(NameAttribute)     aName;
+  DataLabel                 lab;
   if (L.FindAttribute(XCAFDoc::LayerRefGUID(), Node) && (Node->NbFathers() != 0))
   {
     Standard_Integer i = 1;
@@ -304,7 +304,7 @@ Standard_Boolean XCAFDoc_LayerTool::IsSet(const TDF_Label& L, const TDF_Label& a
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::GetLayers(const TDF_Label&                           L,
+Standard_Boolean XCAFDoc_LayerTool::GetLayers(const DataLabel&                           L,
                                               Handle(TColStd_HSequenceOfExtendedString)& aLayerS)
 {
   aLayerS = GetLayers(L);
@@ -313,7 +313,7 @@ Standard_Boolean XCAFDoc_LayerTool::GetLayers(const TDF_Label&                  
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::GetLayers(const TDF_Label& L, TDF_LabelSequence& aLayerLS)
+Standard_Boolean XCAFDoc_LayerTool::GetLayers(const DataLabel& L, TDF_LabelSequence& aLayerLS)
 {
   aLayerLS.Clear();
   Handle(XCAFDoc_GraphNode) aGNode;
@@ -329,7 +329,7 @@ Standard_Boolean XCAFDoc_LayerTool::GetLayers(const TDF_Label& L, TDF_LabelSeque
 
 //=================================================================================================
 
-Handle(TColStd_HSequenceOfExtendedString) XCAFDoc_LayerTool::GetLayers(const TDF_Label& L)
+Handle(TColStd_HSequenceOfExtendedString) XCAFDoc_LayerTool::GetLayers(const DataLabel& L)
 {
   Handle(TColStd_HSequenceOfExtendedString) aLayerS = new TColStd_HSequenceOfExtendedString;
   TDF_LabelSequence                         aLayerLS;
@@ -337,9 +337,9 @@ Handle(TColStd_HSequenceOfExtendedString) XCAFDoc_LayerTool::GetLayers(const TDF
   {
     for (Standard_Integer i = 1; i <= aLayerLS.Length(); ++i)
     {
-      const TDF_Label&      aLab = aLayerLS(i);
-      Handle(TDataStd_Name) aName;
-      if (aLab.FindAttribute(TDataStd_Name::GetID(), aName))
+      const DataLabel&      aLab = aLayerLS(i);
+      Handle(NameAttribute) aName;
+      if (aLab.FindAttribute(NameAttribute::GetID(), aName))
       {
         aLayerS->Append(aName->Get());
       }
@@ -350,7 +350,7 @@ Handle(TColStd_HSequenceOfExtendedString) XCAFDoc_LayerTool::GetLayers(const TDF
 
 //=================================================================================================
 
-void XCAFDoc_LayerTool::GetShapesOfLayer(const TDF_Label& theLayerL, TDF_LabelSequence& theShLabels)
+void XCAFDoc_LayerTool::GetShapesOfLayer(const DataLabel& theLayerL, TDF_LabelSequence& theShLabels)
 {
   theShLabels.Clear();
   Handle(XCAFDoc_GraphNode) aGNode;
@@ -365,7 +365,7 @@ void XCAFDoc_LayerTool::GetShapesOfLayer(const TDF_Label& theLayerL, TDF_LabelSe
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::IsVisible(const TDF_Label& layerL) const
+Standard_Boolean XCAFDoc_LayerTool::IsVisible(const DataLabel& layerL) const
 {
   Handle(TDataStd_UAttribute) aUAttr;
   return (!layerL.FindAttribute(XCAFDoc::InvisibleGUID(), aUAttr));
@@ -373,7 +373,7 @@ Standard_Boolean XCAFDoc_LayerTool::IsVisible(const TDF_Label& layerL) const
 
 //=================================================================================================
 
-void XCAFDoc_LayerTool::SetVisibility(const TDF_Label&       layerL,
+void XCAFDoc_LayerTool::SetVisibility(const DataLabel&       layerL,
                                       const Standard_Boolean isvisible) const
 {
   Handle(TDataStd_UAttribute) aUAttr;
@@ -390,11 +390,11 @@ void XCAFDoc_LayerTool::SetVisibility(const TDF_Label&       layerL,
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::SetLayer(const TopoDS_Shape&    Sh,
-                                             const TDF_Label&       LayerL,
+Standard_Boolean XCAFDoc_LayerTool::SetLayer(const TopoShape&    Sh,
+                                             const DataLabel&       LayerL,
                                              const Standard_Boolean shapeInOneLayer)
 {
-  TDF_Label aLab;
+  DataLabel aLab;
   // PTV 22.01.2003 set layer for shape with location if it is necessary
   if (!myShapeTool->Search(Sh, aLab))
     return Standard_False;
@@ -404,19 +404,19 @@ Standard_Boolean XCAFDoc_LayerTool::SetLayer(const TopoDS_Shape&    Sh,
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::SetLayer(const TopoDS_Shape&               Sh,
-                                             const TCollection_ExtendedString& aLayer,
+Standard_Boolean XCAFDoc_LayerTool::SetLayer(const TopoShape&               Sh,
+                                             const UtfString& aLayer,
                                              const Standard_Boolean            shapeInOneLayer)
 {
-  TDF_Label aLayerL = AddLayer(aLayer);
+  DataLabel aLayerL = AddLayer(aLayer);
   return SetLayer(Sh, aLayerL, shapeInOneLayer);
 }
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::UnSetLayers(const TopoDS_Shape& Sh)
+Standard_Boolean XCAFDoc_LayerTool::UnSetLayers(const TopoShape& Sh)
 {
-  TDF_Label aLab;
+  DataLabel aLab;
   if (!myShapeTool->Search(Sh, aLab))
     return Standard_False;
   UnSetLayers(aLab);
@@ -425,10 +425,10 @@ Standard_Boolean XCAFDoc_LayerTool::UnSetLayers(const TopoDS_Shape& Sh)
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::UnSetOneLayer(const TopoDS_Shape&               Sh,
-                                                  const TCollection_ExtendedString& aLayer)
+Standard_Boolean XCAFDoc_LayerTool::UnSetOneLayer(const TopoShape&               Sh,
+                                                  const UtfString& aLayer)
 {
-  TDF_Label aLab;
+  DataLabel aLab;
   if (!myShapeTool->Search(Sh, aLab))
     return Standard_False;
   return UnSetOneLayer(aLab, aLayer);
@@ -436,9 +436,9 @@ Standard_Boolean XCAFDoc_LayerTool::UnSetOneLayer(const TopoDS_Shape&           
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::UnSetOneLayer(const TopoDS_Shape& Sh, const TDF_Label& aLayerL)
+Standard_Boolean XCAFDoc_LayerTool::UnSetOneLayer(const TopoShape& Sh, const DataLabel& aLayerL)
 {
-  TDF_Label aLab;
+  DataLabel aLab;
   if (!myShapeTool->Search(Sh, aLab))
     return Standard_False;
   return UnSetOneLayer(aLab, aLayerL);
@@ -446,10 +446,10 @@ Standard_Boolean XCAFDoc_LayerTool::UnSetOneLayer(const TopoDS_Shape& Sh, const 
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::IsSet(const TopoDS_Shape&               Sh,
-                                          const TCollection_ExtendedString& aLayer)
+Standard_Boolean XCAFDoc_LayerTool::IsSet(const TopoShape&               Sh,
+                                          const UtfString& aLayer)
 {
-  TDF_Label aLab;
+  DataLabel aLab;
   if (!myShapeTool->Search(Sh, aLab))
     return Standard_False;
   return IsSet(aLab, aLayer);
@@ -457,9 +457,9 @@ Standard_Boolean XCAFDoc_LayerTool::IsSet(const TopoDS_Shape&               Sh,
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::IsSet(const TopoDS_Shape& Sh, const TDF_Label& aLayerL)
+Standard_Boolean XCAFDoc_LayerTool::IsSet(const TopoShape& Sh, const DataLabel& aLayerL)
 {
-  TDF_Label aLab;
+  DataLabel aLab;
   if (!myShapeTool->Search(Sh, aLab))
     return Standard_False;
   return IsSet(aLab, aLayerL);
@@ -467,10 +467,10 @@ Standard_Boolean XCAFDoc_LayerTool::IsSet(const TopoDS_Shape& Sh, const TDF_Labe
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::GetLayers(const TopoDS_Shape&                        Sh,
+Standard_Boolean XCAFDoc_LayerTool::GetLayers(const TopoShape&                        Sh,
                                               Handle(TColStd_HSequenceOfExtendedString)& aLayerS)
 {
-  TDF_Label aLab;
+  DataLabel aLab;
   if (!myShapeTool->Search(Sh, aLab))
     return Standard_False;
   return GetLayers(aLab, aLayerS);
@@ -478,9 +478,9 @@ Standard_Boolean XCAFDoc_LayerTool::GetLayers(const TopoDS_Shape&               
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_LayerTool::GetLayers(const TopoDS_Shape& Sh, TDF_LabelSequence& aLayerLS)
+Standard_Boolean XCAFDoc_LayerTool::GetLayers(const TopoShape& Sh, TDF_LabelSequence& aLayerLS)
 {
-  TDF_Label aLab;
+  DataLabel aLab;
   if (!myShapeTool->Search(Sh, aLab))
     return Standard_False;
   return GetLayers(aLab, aLayerLS);
@@ -488,10 +488,10 @@ Standard_Boolean XCAFDoc_LayerTool::GetLayers(const TopoDS_Shape& Sh, TDF_LabelS
 
 //=================================================================================================
 
-Handle(TColStd_HSequenceOfExtendedString) XCAFDoc_LayerTool::GetLayers(const TopoDS_Shape& Sh)
+Handle(TColStd_HSequenceOfExtendedString) XCAFDoc_LayerTool::GetLayers(const TopoShape& Sh)
 {
   Handle(TColStd_HSequenceOfExtendedString) aLayerS = new TColStd_HSequenceOfExtendedString;
-  TDF_Label                                 aLab;
+  DataLabel                                 aLab;
   if (myShapeTool->Search(Sh, aLab))
     aLayerS = GetLayers(aLab);
   return aLayerS;
@@ -517,7 +517,7 @@ void XCAFDoc_LayerTool::DumpJson(Standard_OStream& theOStream, Standard_Integer 
   for (TDF_LabelSequence::Iterator aLayerLabelIt(aLabels); aLayerLabelIt.More();
        aLayerLabelIt.Next())
   {
-    TCollection_AsciiString aLayerLabel;
+    AsciiString1 aLayerLabel;
     TDF_Tool::Entry(aLayerLabelIt.Value(), aLayerLabel);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aLayerLabel)
   }

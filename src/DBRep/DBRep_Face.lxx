@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Face& DBRep_Face::Face() const
+inline const TopoFace& DBRep_Face::Face() const
 {
   return myFace;
 }
@@ -29,7 +29,7 @@ inline const TopoDS_Face& DBRep_Face::Face() const
 // purpose  :
 //=======================================================================
 
-inline void DBRep_Face::Face(const TopoDS_Face& F)
+inline void DBRep_Face::Face(const TopoFace& F)
 {
   myFace = F;
 }
@@ -86,7 +86,7 @@ inline void DBRep_Face::GetIso(const Standard_Integer I,
 // purpose  :
 //=======================================================================
 
-inline const Draw_Color& DBRep_Face::Color() const
+inline const DrawColor& DBRep_Face::Color() const
 {
   return myColor;
 }
@@ -96,7 +96,7 @@ inline const Draw_Color& DBRep_Face::Color() const
 // purpose  :
 //=======================================================================
 
-inline void DBRep_Face::Color(const Draw_Color& C)
+inline void DBRep_Face::Color(const DrawColor& C)
 {
   myColor = C;
 }

@@ -29,7 +29,7 @@ inline Standard_Boolean BRepSweep_Iterator::More() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& BRepSweep_Iterator::Value() const
+inline const TopoShape& BRepSweep_Iterator::Value() const
 {
   return myIterator.Value();
 }

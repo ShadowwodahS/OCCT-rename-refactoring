@@ -18,7 +18,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Vrml_AsciiText, RefObject)
 
 Vrml_AsciiText::Vrml_AsciiText()
 {
-  TCollection_AsciiString tmpS("");
+  AsciiString1 tmpS("");
   myString = new TColStd_HArray1OfAsciiString(1, 1, tmpS);
 
   mySpacing       = 1;

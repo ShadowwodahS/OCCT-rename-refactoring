@@ -44,13 +44,13 @@ public:
 
   Standard_EXPORT Vrml_WWWInline();
 
-  Standard_EXPORT Vrml_WWWInline(const TCollection_AsciiString& aName,
+  Standard_EXPORT Vrml_WWWInline(const AsciiString1& aName,
                                  const Vector3d&                  aBboxSize,
                                  const Vector3d&                  aBboxCenter);
 
-  Standard_EXPORT void SetName(const TCollection_AsciiString& aName);
+  Standard_EXPORT void SetName(const AsciiString1& aName);
 
-  Standard_EXPORT TCollection_AsciiString Name() const;
+  Standard_EXPORT AsciiString1 Name() const;
 
   Standard_EXPORT void SetBboxSize(const Vector3d& aBboxSize);
 
@@ -64,7 +64,7 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString myName;
+  AsciiString1 myName;
   Vector3d                  myBboxSize;
   Vector3d                  myBboxCenter;
 };

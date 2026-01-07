@@ -20,9 +20,9 @@
 #include <STEPCAFControl_ExternFile.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TDF_Label, Handle(STEPCAFControl_ExternFile)>
+typedef NCollection_DataMap<DataLabel, Handle(STEPCAFControl_ExternFile)>
   STEPCAFControl_DataMapOfLabelExternFile;
-typedef NCollection_DataMap<TDF_Label, Handle(STEPCAFControl_ExternFile)>::Iterator
+typedef NCollection_DataMap<DataLabel, Handle(STEPCAFControl_ExternFile)>::Iterator
   STEPCAFControl_DataMapIteratorOfDataMapOfLabelExternFile;
 
 #endif

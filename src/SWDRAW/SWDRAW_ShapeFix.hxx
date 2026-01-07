@@ -26,7 +26,7 @@
 //! List of DRAW commands and corresponding functionalities:
 //! edgesameparam - ShapeFix::SameParameter
 //! settolerance  - ShapeFix_ShapeTolerance
-//! stwire        - ShapeFix_Wire
+//! stwire        - WireHealer
 //! reface        - ShapeFix_Face
 //! repcurve      - ShapeFix_PCurves
 class SWDRAW_ShapeFix
@@ -35,7 +35,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Loads commands defined in ShapeFix
-  Standard_EXPORT static void InitCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void InitCommands(DrawInterpreter& theCommands);
 
 protected:
 private:

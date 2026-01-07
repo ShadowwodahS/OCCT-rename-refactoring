@@ -33,7 +33,7 @@ AIS_ManipulatorOwner::AIS_ManipulatorOwner(const Handle(SelectMgr_SelectableObje
 //=================================================================================================
 
 void AIS_ManipulatorOwner::HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                            const Handle(Prs3d_Drawer)&               theStyle,
+                                            const Handle(StyleDrawer)&               theStyle,
                                             const Standard_Integer                    theMode)
 {
   if (theMode == 0)

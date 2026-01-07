@@ -300,17 +300,17 @@ gp_Torus Geom_ToroidalSurface::Torus() const
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_ToroidalSurface::UIso(const Standard_Real U) const
+Handle(GeomCurve3d) Geom_ToroidalSurface::UIso(const Standard_Real U) const
 {
-  Handle(Geom_Circle) GC = new Geom_Circle(ElSLib::TorusUIso(pos, majorRadius, minorRadius, U));
+  Handle(GeomCircle) GC = new GeomCircle(ElSLib::TorusUIso(pos, majorRadius, minorRadius, U));
   return GC;
 }
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_ToroidalSurface::VIso(const Standard_Real V) const
+Handle(GeomCurve3d) Geom_ToroidalSurface::VIso(const Standard_Real V) const
 {
-  Handle(Geom_Circle) GC = new Geom_Circle(ElSLib::TorusVIso(pos, majorRadius, minorRadius, V));
+  Handle(GeomCircle) GC = new GeomCircle(ElSLib::TorusVIso(pos, majorRadius, minorRadius, V));
   return GC;
 }
 

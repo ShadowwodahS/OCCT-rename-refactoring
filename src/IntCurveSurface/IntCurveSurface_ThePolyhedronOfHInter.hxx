@@ -21,7 +21,7 @@
 #include <Bnd_HArray1OfBox.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-class Adaptor3d_HSurfaceTool;
+class HSurfaceTool;
 class Bnd_Box;
 
 class IntCurveSurface_ThePolyhedronOfHInter
@@ -190,7 +190,7 @@ private:
 
 #define ThePSurface Handle(Adaptor3d_Surface)
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
-#define ThePSurfaceTool Adaptor3d_HSurfaceTool
+#define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
 #define IntCurveSurface_Polyhedron IntCurveSurface_ThePolyhedronOfHInter
 #define IntCurveSurface_Polyhedron_hxx <IntCurveSurface_ThePolyhedronOfHInter.hxx>

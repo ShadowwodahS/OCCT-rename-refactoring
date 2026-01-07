@@ -126,7 +126,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin
       {
         angle2 = 0.;
       }
-      Standard_Real pscal = point3new.XY().Dot(gp_XY(-L1.Direction().Y(), L1.Direction().X()));
+      Standard_Real pscal = point3new.XY().Dot(Coords2d(-L1.Direction().Y(), L1.Direction().X()));
       if (Qualified1.IsUnqualified() || (Qualified1.IsOutside() && pscal <= 0.)
           || (Qualified1.IsEnclosed() && pscal >= 0.))
       {
@@ -679,7 +679,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin
       {
         angle2 = 0.;
       }
-      Standard_Real pscal = point3.XY().Dot(gp_XY(-L1.Direction().Y(), L1.Direction().X()));
+      Standard_Real pscal = point3.XY().Dot(Coords2d(-L1.Direction().Y(), L1.Direction().X()));
       if (Qualified1.IsUnqualified() || (Qualified1.IsOutside() && pscal <= 0.)
           || (Qualified1.IsEnclosed() && pscal >= 0.))
       {
@@ -756,7 +756,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Q
   gp_Pnt2d      point1 = Geom2dGcc_CurveTool::Value(Cu1, Param1);
   gp_Pnt2d      point2 = Geom2dGcc_CurveTool::Value(Cu2, Param2);
   Standard_Real R1     = OnCirc.Radius();
-  gp_Pnt2d      point3(OnCirc.Location().XY() + R1 * gp_XY(Cos(Param3), Sin(Param3)));
+  gp_Pnt2d      point3(OnCirc.Location().XY() + R1 * Coords2d(Cos(Param3), Sin(Param3)));
   Ufirst(4) = (point3.Distance(point2) + point3.Distance(point1)) / 2.;
   Geom2dGcc_FunctionTanCuCuOnCu Func(Cu1, Cu2, OnCirc, Max(Ufirst(4), Tol));
   math_FunctionSetRoot          Root(Func, tol);
@@ -772,7 +772,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const Geom2dGcc_QCurve& Q
 #ifdef OCCT_DEBUG
     gp_Vec2d Tan3(-Sin(Ufirst(3)), Cos(Ufirst(3)));
 #endif
-    point3 = gp_Pnt2d(OnCirc.Location().XY() + R1 * gp_XY(Cos(Ufirst(3)), Sin(Ufirst(3))));
+    point3 = gp_Pnt2d(OnCirc.Location().XY() + R1 * Coords2d(Cos(Ufirst(3)), Sin(Ufirst(3))));
     Standard_Real dist1 = point3.Distance(point1);
     Standard_Real dist2 = point3.Distance(point2);
     if (Abs(dist1 - dist2) / 2. <= Tol)
@@ -1225,7 +1225,7 @@ Geom2dGcc_Circ2d2TanOnIter::Geom2dGcc_Circ2d2TanOnIter(const GccEnt_QualifiedLin
       {
         angle2 = 0.;
       }
-      Standard_Real pscal = point3.XY().Dot(gp_XY(-L1.Direction().Y(), L1.Direction().X()));
+      Standard_Real pscal = point3.XY().Dot(Coords2d(-L1.Direction().Y(), L1.Direction().X()));
       if (Qualified1.IsUnqualified() || (Qualified1.IsOutside() && pscal <= 0.)
           || (Qualified1.IsEnclosed() && pscal >= 0.))
       {

@@ -150,7 +150,7 @@ QVariant DFBrowser_SearchLineModel::data(const QModelIndex& theIndex, int theRol
                                                       0);
         }
         else
-          anIcon = DFBrowser_Tools::GetLabelIcon(TDF_Label(), false);
+          anIcon = DFBrowser_Tools::GetLabelIcon(DataLabel(), false);
         return anIcon;
       }
       if (theRole == Qt::SizeHintRole)

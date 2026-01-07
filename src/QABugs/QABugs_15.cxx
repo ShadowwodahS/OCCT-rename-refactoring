@@ -25,9 +25,9 @@
 Handle(QABugs_PresentableObject) theObject1 = NULL;
 Handle(QABugs_PresentableObject) theObject2 = NULL;
 
-static Standard_Integer BUC60720(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer BUC60720(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(AIS_InteractiveContext) myAISContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) myAISContext = ViewerTest::GetAISContext();
   if (myAISContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -39,7 +39,7 @@ static Standard_Integer BUC60720(Draw_Interpretor& di, Standard_Integer argc, co
     di << "Usage : " << argv[0] << " 0/1\n";
   }
 
-  if (Draw::Atoi(argv[1]) == 0)
+  if (Draw1::Atoi(argv[1]) == 0)
   {
     if (theObject1.IsNull())
     {
@@ -48,7 +48,7 @@ static Standard_Integer BUC60720(Draw_Interpretor& di, Standard_Integer argc, co
       myAISContext->Display(theObject1, Standard_True);
     }
   }
-  else if (Draw::Atoi(argv[1]) == 1)
+  else if (Draw1::Atoi(argv[1]) == 1)
   {
     if (theObject2.IsNull())
     {
@@ -65,7 +65,7 @@ static Standard_Integer BUC60720(Draw_Interpretor& di, Standard_Integer argc, co
   return 0;
 }
 
-void QABugs::Commands_15(Draw_Interpretor& theCommands)
+void QABugs::Commands_15(DrawInterpreter& theCommands)
 {
   const char* group = "QABugs";
   theCommands.Add("BUC60720", "BUC60720 0/1", __FILE__, BUC60720, group);

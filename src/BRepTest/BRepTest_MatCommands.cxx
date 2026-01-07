@@ -48,7 +48,7 @@
 #include <TopoDS_Face.hxx>
 
 #ifdef _WIN32
-Standard_IMPORT Draw_Viewer dout;
+Standard_IMPORT DrawViewer dout;
 #endif
 
 static BRepMAT2d_BisectingLocus MapBiLo;
@@ -57,28 +57,28 @@ static BRepMAT2d_LinkTopoBilo   TopoBilo;
 static MAT_Side                 SideOfMat = MAT_Left;
 static Standard_Boolean         LinkComputed;
 
-static void DrawCurve(const Handle(Geom2d_Curve)& aCurve, const Standard_Integer Indice);
+static void DrawCurve(const Handle(GeomCurve2d)& aCurve, const Standard_Integer Indice);
 
 //==========================================================================
 // function : topoLoad
 //           loading of a face in the explorer.
 //==========================================================================
-static Standard_Integer topoload(Draw_Interpretor&, Standard_Integer argc, const char** argv)
+static Standard_Integer topoload(DrawInterpreter&, Standard_Integer argc, const char** argv)
 {
   if (argc < 2)
     return 1;
 
-  TopoDS_Shape C1 = DBRep::Get(argv[1], TopAbs_FACE);
+  TopoShape C1 = DBRep1::Get(argv[1], TopAbs_FACE);
 
   if (C1.IsNull())
     return 1;
 
-  TopoDS_Face aFace = TopoDS::Face(C1);
+  TopoFace aFace = TopoDS::Face(C1);
 
   if (argc >= 3 && (strcmp(argv[2], "-approx") == 0))
   {
     Standard_Real aTol = 0.1;
-    aFace              = BRepOffsetAPI_MakeOffset::ConvertFace(aFace, aTol);
+    aFace              = OffsetMaker::ConvertFace(aFace, aTol);
   }
 
   anExplo.Perform(aFace);
@@ -89,7 +89,7 @@ static Standard_Integer topoload(Draw_Interpretor&, Standard_Integer argc, const
 // function : drawcont
 //           visualization of the contour defined by the explorer.
 //==========================================================================
-static Standard_Integer drawcont(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer drawcont(DrawInterpreter&, Standard_Integer, const char**)
 {
   Handle(Geom2d_TrimmedCurve) C;
 
@@ -108,7 +108,7 @@ static Standard_Integer drawcont(Draw_Interpretor&, Standard_Integer, const char
 //           calculate the map of locations bisector on the contour defined by
 //           the explorer.
 //==========================================================================
-static Standard_Integer mat(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer mat(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   GeomAbs_JoinType theJoinType = GeomAbs_Arc;
   if (n >= 2 && strcmp(a[1], "i") == 0)
@@ -129,15 +129,15 @@ static Standard_Integer mat(Draw_Interpretor&, Standard_Integer n, const char** 
 //           construction and display of the proximity zone associated to the
 //           base elements defined by the edge or the vertex.
 //============================================================================
-static Standard_Integer zone(Draw_Interpretor&, Standard_Integer argc, const char** argv)
+static Standard_Integer zone(DrawInterpreter&, Standard_Integer argc, const char** argv)
 {
   if (argc < 2)
     return 1;
 
-  TopoDS_Shape S = DBRep::Get(argv[1], TopAbs_EDGE);
+  TopoShape S = DBRep1::Get(argv[1], TopAbs_EDGE);
   if (S.IsNull())
   {
-    S = DBRep::Get(argv[1], TopAbs_VERTEX);
+    S = DBRep1::Get(argv[1], TopAbs_VERTEX);
   }
 
   if (!LinkComputed)
@@ -167,7 +167,7 @@ static Standard_Integer zone(Draw_Interpretor&, Standard_Integer argc, const cha
 //           side = right => calculation to the right of the contour.
 //==========================================================================
 
-static Standard_Integer side(Draw_Interpretor&, Standard_Integer, const char** argv)
+static Standard_Integer side(DrawInterpreter&, Standard_Integer, const char** argv)
 {
   if (!strcmp(argv[1], "right"))
     SideOfMat = MAT_Right;
@@ -181,7 +181,7 @@ static Standard_Integer side(Draw_Interpretor&, Standard_Integer, const char** a
 // function : result
 //           Complete display of the calculated map.
 //==========================================================================
-static Standard_Integer result(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer result(DrawInterpreter&, Standard_Integer, const char**)
 {
   Standard_Integer i, NbArcs = 0;
   Standard_Boolean Rev;
@@ -203,12 +203,12 @@ static Standard_Integer result(Draw_Interpretor&, Standard_Integer, const char**
 //  Indice = 3 red,
 //  Indice = 4 green.
 //==========================================================================
-void DrawCurve(const Handle(Geom2d_Curve)& aCurve, const Standard_Integer Indice)
+void DrawCurve(const Handle(GeomCurve2d)& aCurve, const Standard_Integer Indice)
 {
   Handle(TypeInfo)      type = aCurve->DynamicType();
-  Handle(Geom2d_Curve)       curve, CurveDraw;
+  Handle(GeomCurve2d)       curve, CurveDraw;
   Handle(DrawTrSurf_Curve2d) dr;
-  Draw_Color                 Couleur;
+  DrawColor                 Couleur;
 
   if (type == STANDARD_TYPE(Geom2d_TrimmedCurve))
   {
@@ -293,7 +293,7 @@ void DrawCurve(const Handle(Geom2d_Curve)& aCurve, const Standard_Integer Indice
 // function BRepTest:: MatCommands
 //==========================================================================
 
-void BRepTest::MatCommands(Draw_Interpretor& theCommands)
+void BRepTest::MatCommands(DrawInterpreter& theCommands)
 {
   theCommands.Add("topoload", "load face: topoload face [-approx]", __FILE__, topoload);
   theCommands.Add("drawcont", "display current contour", __FILE__, drawcont);

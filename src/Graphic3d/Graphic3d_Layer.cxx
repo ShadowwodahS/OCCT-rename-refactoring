@@ -174,7 +174,7 @@ static void addBox3dToBndBox(Bnd_Box& theResBox, const Graphic3d_BndBox3d& theBo
 //=================================================================================================
 
 Bnd_Box Graphic3d_Layer::BoundingBox(Standard_Integer                theViewId,
-                                     const Handle(Graphic3d_Camera)& theCamera,
+                                     const Handle(CameraOn3d)& theCamera,
                                      Standard_Integer                theWindowWidth,
                                      Standard_Integer                theWindowHeight,
                                      Standard_Boolean                theToIncludeAuxiliary) const
@@ -331,7 +331,7 @@ Bnd_Box Graphic3d_Layer::BoundingBox(Standard_Integer                theViewId,
 
 Standard_Real Graphic3d_Layer::considerZoomPersistenceObjects(
   Standard_Integer                theViewId,
-  const Handle(Graphic3d_Camera)& theCamera,
+  const Handle(CameraOn3d)& theCamera,
   Standard_Integer                theWindowWidth,
   Standard_Integer                theWindowHeight) const
 {

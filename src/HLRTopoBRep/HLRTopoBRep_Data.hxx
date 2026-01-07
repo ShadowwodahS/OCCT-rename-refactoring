@@ -29,10 +29,10 @@
 #include <HLRTopoBRep_ListIteratorOfListOfVData.hxx>
 #include <Standard_Boolean.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Edge;
-class TopoDS_Face;
-class TopoDS_Shape;
-class TopoDS_Vertex;
+class TopoEdge;
+class TopoFace;
+class TopoShape;
+class TopoVertex;
 
 //! Stores  the results  of  the  OutLine and  IsoLine
 //! processes.
@@ -51,60 +51,60 @@ public:
   Standard_EXPORT void Clean();
 
   //! Returns True if the Edge is split.
-  Standard_EXPORT Standard_Boolean EdgeHasSplE(const TopoDS_Edge& E) const;
+  Standard_EXPORT Standard_Boolean EdgeHasSplE(const TopoEdge& E) const;
 
   //! Returns True if the Face has internal outline.
-  Standard_EXPORT Standard_Boolean FaceHasIntL(const TopoDS_Face& F) const;
+  Standard_EXPORT Standard_Boolean FaceHasIntL(const TopoFace& F) const;
 
   //! Returns True if the Face has outlines on restriction.
-  Standard_EXPORT Standard_Boolean FaceHasOutL(const TopoDS_Face& F) const;
+  Standard_EXPORT Standard_Boolean FaceHasOutL(const TopoFace& F) const;
 
   //! Returns True if the Face has isolines.
-  Standard_EXPORT Standard_Boolean FaceHasIsoL(const TopoDS_Face& F) const;
+  Standard_EXPORT Standard_Boolean FaceHasIsoL(const TopoFace& F) const;
 
-  Standard_EXPORT Standard_Boolean IsSplEEdgeEdge(const TopoDS_Edge& E1,
-                                                  const TopoDS_Edge& E2) const;
+  Standard_EXPORT Standard_Boolean IsSplEEdgeEdge(const TopoEdge& E1,
+                                                  const TopoEdge& E2) const;
 
-  Standard_EXPORT Standard_Boolean IsIntLFaceEdge(const TopoDS_Face& F, const TopoDS_Edge& E) const;
+  Standard_EXPORT Standard_Boolean IsIntLFaceEdge(const TopoFace& F, const TopoEdge& E) const;
 
-  Standard_EXPORT Standard_Boolean IsOutLFaceEdge(const TopoDS_Face& F, const TopoDS_Edge& E) const;
+  Standard_EXPORT Standard_Boolean IsOutLFaceEdge(const TopoFace& F, const TopoEdge& E) const;
 
-  Standard_EXPORT Standard_Boolean IsIsoLFaceEdge(const TopoDS_Face& F, const TopoDS_Edge& E) const;
+  Standard_EXPORT Standard_Boolean IsIsoLFaceEdge(const TopoFace& F, const TopoEdge& E) const;
 
-  Standard_EXPORT TopoDS_Shape NewSOldS(const TopoDS_Shape& New) const;
+  Standard_EXPORT TopoShape NewSOldS(const TopoShape& New) const;
 
   //! Returns the list of the edges.
-  const TopTools_ListOfShape& EdgeSplE(const TopoDS_Edge& E) const;
+  const ShapeList& EdgeSplE(const TopoEdge& E) const;
 
   //! Returns the list of the internal OutLines.
-  const TopTools_ListOfShape& FaceIntL(const TopoDS_Face& F) const;
+  const ShapeList& FaceIntL(const TopoFace& F) const;
 
   //! Returns the list of the OutLines on restriction.
-  const TopTools_ListOfShape& FaceOutL(const TopoDS_Face& F) const;
+  const ShapeList& FaceOutL(const TopoFace& F) const;
 
   //! Returns the list of the IsoLines.
-  const TopTools_ListOfShape& FaceIsoL(const TopoDS_Face& F) const;
+  const ShapeList& FaceIsoL(const TopoFace& F) const;
 
   //! Returns  True   if V is  an   outline vertex  on a
   //! restriction.
-  Standard_Boolean IsOutV(const TopoDS_Vertex& V) const;
+  Standard_Boolean IsOutV(const TopoVertex& V) const;
 
   //! Returns True if V is an internal outline vertex.
-  Standard_Boolean IsIntV(const TopoDS_Vertex& V) const;
+  Standard_Boolean IsIntV(const TopoVertex& V) const;
 
-  Standard_EXPORT void AddOldS(const TopoDS_Shape& NewS, const TopoDS_Shape& OldS);
+  Standard_EXPORT void AddOldS(const TopoShape& NewS, const TopoShape& OldS);
 
-  Standard_EXPORT TopTools_ListOfShape& AddSplE(const TopoDS_Edge& E);
+  Standard_EXPORT ShapeList& AddSplE(const TopoEdge& E);
 
-  Standard_EXPORT TopTools_ListOfShape& AddIntL(const TopoDS_Face& F);
+  Standard_EXPORT ShapeList& AddIntL(const TopoFace& F);
 
-  Standard_EXPORT TopTools_ListOfShape& AddOutL(const TopoDS_Face& F);
+  Standard_EXPORT ShapeList& AddOutL(const TopoFace& F);
 
-  Standard_EXPORT TopTools_ListOfShape& AddIsoL(const TopoDS_Face& F);
+  Standard_EXPORT ShapeList& AddIsoL(const TopoFace& F);
 
-  void AddOutV(const TopoDS_Vertex& V);
+  void AddOutV(const TopoVertex& V);
 
-  void AddIntV(const TopoDS_Vertex& V);
+  void AddIntV(const TopoVertex& V);
 
   Standard_EXPORT void InitEdge();
 
@@ -112,23 +112,23 @@ public:
 
   Standard_EXPORT void NextEdge();
 
-  const TopoDS_Edge& Edge() const;
+  const TopoEdge& Edge() const;
 
   //! Start an iteration on the vertices of E.
-  Standard_EXPORT void InitVertex(const TopoDS_Edge& E);
+  Standard_EXPORT void InitVertex(const TopoEdge& E);
 
   Standard_Boolean MoreVertex() const;
 
   void NextVertex();
 
-  Standard_EXPORT const TopoDS_Vertex& Vertex() const;
+  Standard_EXPORT const TopoVertex& Vertex() const;
 
   Standard_EXPORT Standard_Real Parameter() const;
 
   //! Insert before the current position.
-  Standard_EXPORT void InsertBefore(const TopoDS_Vertex& V, const Standard_Real P);
+  Standard_EXPORT void InsertBefore(const TopoVertex& V, const Standard_Real P);
 
-  Standard_EXPORT void Append(const TopoDS_Vertex& V, const Standard_Real P);
+  Standard_EXPORT void Append(const TopoVertex& V, const Standard_Real P);
 
 protected:
 private:

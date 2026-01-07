@@ -54,19 +54,19 @@ Standard_Boolean STEPCAFControl_Controller::Init()
 
   // Indicates whether to write sub-shape names to 'Name' attributes of
   // STEP Representation Items
-  Interface_Static::Init("stepcaf", "write.stepcaf.subshapes.name", 'e', "");
-  Interface_Static::Init("stepcaf", "write.stepcaf.subshapes.name", '&', "enum 0");
-  Interface_Static::Init("stepcaf", "write.stepcaf.subshapes.name", '&', "eval Off"); // 0
-  Interface_Static::Init("stepcaf", "write.stepcaf.subshapes.name", '&', "eval On");  // 1
-  Interface_Static::SetIVal("write.stepcaf.subshapes.name", 0); // Disabled by default
+  ExchangeConfig::Init("stepcaf", "write.stepcaf.subshapes.name", 'e', "");
+  ExchangeConfig::Init("stepcaf", "write.stepcaf.subshapes.name", '&', "enum 0");
+  ExchangeConfig::Init("stepcaf", "write.stepcaf.subshapes.name", '&', "eval Off"); // 0
+  ExchangeConfig::Init("stepcaf", "write.stepcaf.subshapes.name", '&', "eval On");  // 1
+  ExchangeConfig::SetIVal("write.stepcaf.subshapes.name", 0); // Disabled by default
 
   // Indicates whether to read sub-shape names from 'Name' attributes of
   // STEP Representation Items
-  Interface_Static::Init("stepcaf", "read.stepcaf.subshapes.name", 'e', "");
-  Interface_Static::Init("stepcaf", "read.stepcaf.subshapes.name", '&', "enum 0");
-  Interface_Static::Init("stepcaf", "read.stepcaf.subshapes.name", '&', "eval Off"); // 0
-  Interface_Static::Init("stepcaf", "read.stepcaf.subshapes.name", '&', "eval On");  // 1
-  Interface_Static::SetIVal("read.stepcaf.subshapes.name", 0); // Disabled by default
+  ExchangeConfig::Init("stepcaf", "read.stepcaf.subshapes.name", 'e', "");
+  ExchangeConfig::Init("stepcaf", "read.stepcaf.subshapes.name", '&', "enum 0");
+  ExchangeConfig::Init("stepcaf", "read.stepcaf.subshapes.name", '&', "eval Off"); // 0
+  ExchangeConfig::Init("stepcaf", "read.stepcaf.subshapes.name", '&', "eval On");  // 1
+  ExchangeConfig::SetIVal("read.stepcaf.subshapes.name", 0); // Disabled by default
 
   return Standard_True;
 }

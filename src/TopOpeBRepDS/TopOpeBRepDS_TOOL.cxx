@@ -73,12 +73,12 @@ static void FDS_sortGb(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
 #define EXTERNAL (4)
 #define CLOSING (5)
 
-Standard_Integer TopOpeBRepDS_TOOL::EShareG(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
-                                            const TopoDS_Edge&                         E,
-                                            TopTools_ListOfShape&                      lEsd)
+Standard_Integer DataStructureTool::EShareG(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
+                                            const TopoEdge&                         E,
+                                            ShapeList&                      lEsd)
 {
   lEsd.Clear();
-  Standard_Boolean dgE = BRep_Tool::Degenerated(E);
+  Standard_Boolean dgE = BRepInspector::Degenerated(E);
   if (dgE)
   {
     Standard_Boolean hsd = HDS->HasSameDomain(E);
@@ -114,29 +114,29 @@ Standard_Integer TopOpeBRepDS_TOOL::EShareG(const Handle(TopOpeBRepDS_HDataStruc
   for (; itsd.More(); itsd.Next())
   {
     const Handle(TopOpeBRepDS_Interference)& I   = itsd.Value();
-    const TopoDS_Edge&                       Esd = TopoDS::Edge(BDS.Shape(I->Support()));
+    const TopoEdge&                       Esd = TopoDS::Edge(BDS.Shape(I->Support()));
     Standard_Boolean                         isb = mapesd.Contains(Esd);
     if (isb)
       continue;
 
     Standard_Integer     G  = I->Geometry();
-    const TopoDS_Vertex& vG = TopoDS::Vertex(BDS.Shape(G));
-    TopoDS_Vertex        vsd;
+    const TopoVertex& vG = TopoDS::Vertex(BDS.Shape(G));
+    TopoVertex        vsd;
     Standard_Boolean     ok = FUN_ds_getoov(vG, BDS, vsd);
     if (!ok)
       continue;
     Standard_Boolean Gb1  = Handle(TopOpeBRepDS_ShapeShapeInterference)::DownCast(I)->GBound();
-    TopoDS_Vertex    vE   = Gb1 ? vG : vsd;
-    TopoDS_Vertex    vEsd = Gb1 ? vsd : vG;
+    TopoVertex    vE   = Gb1 ? vG : vsd;
+    TopoVertex    vEsd = Gb1 ? vsd : vG;
 
     Standard_Integer ovE;
     Vector3d           tgE;
-    ok = TopOpeBRepTool_TOOL::TgINSIDE(vE, E, tgE, ovE);
+    ok = TOOL1::TgINSIDE(vE, E, tgE, ovE);
     if (!ok)
       continue;
     Standard_Integer ovEsd;
     Vector3d           tgEsd;
-    ok = TopOpeBRepTool_TOOL::TgINSIDE(vEsd, Esd, tgEsd, ovEsd);
+    ok = TOOL1::TgINSIDE(vEsd, Esd, tgEsd, ovEsd);
     if (!ok)
       continue;
     Standard_Boolean inE   = (ovE == CLOSING) || (ovE == INTERNAL);
@@ -158,12 +158,12 @@ Standard_Integer TopOpeBRepDS_TOOL::EShareG(const Handle(TopOpeBRepDS_HDataStruc
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_TOOL::ShareG(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
+Standard_Boolean DataStructureTool::ShareG(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
                                            const Standard_Integer                     i1,
                                            const Standard_Integer                     i2)
 {
-  const TopoDS_Shape& s1 = HDS->Shape(i1);
-  const TopoDS_Shape& s2 = HDS->Shape(i2);
+  const TopoShape& s1 = HDS->Shape(i1);
+  const TopoShape& s2 = HDS->Shape(i2);
 
   Standard_Boolean hsd1 = HDS->HasSameDomain(s1);
   if (!hsd1)
@@ -181,8 +181,8 @@ Standard_Boolean TopOpeBRepDS_TOOL::ShareG(const Handle(TopOpeBRepDS_HDataStruct
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_TOOL::GetEsd(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
-                                           const TopoDS_Shape&                        S,
+Standard_Boolean DataStructureTool::GetEsd(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
+                                           const TopoShape&                        S,
                                            const Standard_Integer                     ie,
                                            Standard_Integer&                          iesd)
 {
@@ -190,10 +190,10 @@ Standard_Boolean TopOpeBRepDS_TOOL::GetEsd(const Handle(TopOpeBRepDS_HDataStruct
   //          sdm to s (ie actually sharing geometric domain with s)
   iesd = 0;
   TopTools_MapOfShape mesdS;
-  TopExp_Explorer     ex(S, TopAbs_EDGE);
+  ShapeExplorer     ex(S, TopAbs_EDGE);
   for (; ex.More(); ex.Next())
   {
-    const TopoDS_Shape& e  = ex.Current();
+    const TopoShape& e  = ex.Current();
     Standard_Boolean    hs = HDS->HasShape(e);
     if (!hs)
       continue;
@@ -208,7 +208,7 @@ Standard_Boolean TopOpeBRepDS_TOOL::GetEsd(const Handle(TopOpeBRepDS_HDataStruct
   TopTools_ListIteratorOfListOfShape it(HDS->SameDomain(HDS->Shape(ie)));
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape& esd = it.Value();
+    const TopoShape& esd = it.Value();
     Standard_Boolean    isb = mesdS.Contains(esd);
     if (!isb)
       continue;
@@ -220,26 +220,26 @@ Standard_Boolean TopOpeBRepDS_TOOL::GetEsd(const Handle(TopOpeBRepDS_HDataStruct
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_TOOL::ShareSplitON(
+Standard_Boolean DataStructureTool::ShareSplitON(
   const Handle(TopOpeBRepDS_HDataStructure)&            HDS,
   const TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State& MEspON,
   const Standard_Integer                                i1,
   const Standard_Integer                                i2,
-  TopoDS_Shape&                                         spON)
+  TopoShape&                                         spON)
 {
   spON.Nullify();
-  Standard_Boolean shareg = TopOpeBRepDS_TOOL::ShareG(HDS, i1, i2);
+  Standard_Boolean shareg = DataStructureTool::ShareG(HDS, i1, i2);
   if (!shareg)
     return Standard_False;
 
-  const TopoDS_Shape& s1 = HDS->Shape(i1);
-  const TopoDS_Shape& s2 = HDS->Shape(i2);
+  const TopoShape& s1 = HDS->Shape(i1);
+  const TopoShape& s2 = HDS->Shape(i2);
 
-  const TopOpeBRepDS_ListOfShapeOn1State& los1 = MEspON.Find(s1);
+  const ShapeListOnState& los1 = MEspON.Find(s1);
   Standard_Boolean                        issp = los1.IsSplit();
   if (!issp)
     return Standard_False;
-  const TopTools_ListOfShape& lsp1 = los1.ListOnState();
+  const ShapeList& lsp1 = los1.ListOnState();
   Standard_Integer            nsp1 = lsp1.Extent();
   if (nsp1 == 0)
     return Standard_False;
@@ -248,11 +248,11 @@ Standard_Boolean TopOpeBRepDS_TOOL::ShareSplitON(
   for (; it.More(); it.Next())
     mesp1.Add(it.Value());
 
-  const TopOpeBRepDS_ListOfShapeOn1State& los2  = MEspON.Find(s2);
+  const ShapeListOnState& los2  = MEspON.Find(s2);
   Standard_Boolean                        issp2 = los2.IsSplit();
   if (!issp2)
     return Standard_False;
-  const TopTools_ListOfShape& lsp2 = los2.ListOnState();
+  const ShapeList& lsp2 = los2.ListOnState();
   Standard_Integer            nsp2 = lsp2.Extent();
   if (nsp2 == 0)
     return Standard_False;
@@ -260,7 +260,7 @@ Standard_Boolean TopOpeBRepDS_TOOL::ShareSplitON(
   it.Initialize(lsp2);
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape& esp = it.Value();
+    const TopoShape& esp = it.Value();
     Standard_Boolean    isb = mesp1.Contains(esp);
     if (!isb)
       continue;
@@ -277,7 +277,7 @@ Standard_Boolean TopOpeBRepDS_TOOL::ShareSplitON(
 #define SAMEORIENTED (1)
 #define DIFFORIENTED (2)
 
-Standard_Boolean TopOpeBRepDS_TOOL::GetConfig(
+Standard_Boolean DataStructureTool::GetConfig(
   const Handle(TopOpeBRepDS_HDataStructure)&            HDS,
   const TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State& MEspON,
   const Standard_Integer                                ie,
@@ -285,13 +285,13 @@ Standard_Boolean TopOpeBRepDS_TOOL::GetConfig(
   Standard_Integer&                                     config)
 {
   config                  = 0;
-  Standard_Boolean shareg = TopOpeBRepDS_TOOL::ShareG(HDS, ie, iesd);
+  Standard_Boolean shareg = DataStructureTool::ShareG(HDS, ie, iesd);
   if (!shareg)
     return Standard_False;
 
-  const TopoDS_Edge&  e      = TopoDS::Edge(HDS->Shape(ie));
+  const TopoEdge&  e      = TopoDS::Edge(HDS->Shape(ie));
   TopAbs_Orientation  oe     = e.Orientation();
-  const TopoDS_Edge&  esd    = TopoDS::Edge(HDS->Shape(iesd));
+  const TopoEdge&  esd    = TopoDS::Edge(HDS->Shape(iesd));
   TopAbs_Orientation  oesd   = esd.Orientation();
   TopOpeBRepDS_Config conf   = HDS->SameDomainOrientation(e);
   Standard_Boolean    unsh   = (conf == TopOpeBRepDS_UNSHGEOMETRY);
@@ -308,8 +308,8 @@ Standard_Boolean TopOpeBRepDS_TOOL::GetConfig(
     return Standard_True;
   }
 
-  TopoDS_Shape eON;
-  shareg = TopOpeBRepDS_TOOL::ShareSplitON(HDS, MEspON, ie, iesd, eON);
+  TopoShape eON;
+  shareg = DataStructureTool::ShareSplitON(HDS, MEspON, ie, iesd, eON);
   if (!shareg)
     return Standard_False;
 
@@ -317,12 +317,12 @@ Standard_Boolean TopOpeBRepDS_TOOL::GetConfig(
   FUN_tool_bounds(TopoDS::Edge(eON), f, l);
   Standard_Real    x     = 0.45678;
   Standard_Real    parON = (1 - x) * f + x * l;
-  Standard_Real    tole  = BRep_Tool::Tolerance(TopoDS::Edge(e));
+  Standard_Real    tole  = BRepInspector::Tolerance(TopoDS::Edge(e));
   Standard_Real    pare;
   Standard_Boolean ok = FUN_tool_parE(TopoDS::Edge(eON), parON, e, pare, tole);
   if (!ok)
     return Standard_False;
-  Standard_Real tolesd = BRep_Tool::Tolerance(TopoDS::Edge(esd));
+  Standard_Real tolesd = BRepInspector::Tolerance(TopoDS::Edge(esd));
   Standard_Real paresd;
   ok = FUN_tool_parE(TopoDS::Edge(eON), parON, esd, paresd, tolesd);
   if (!ok)

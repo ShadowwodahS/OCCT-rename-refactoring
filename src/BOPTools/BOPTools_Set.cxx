@@ -54,7 +54,7 @@ BOPTools_Set::BOPTools_Set(const BOPTools_Set& theOther)
 {
   for (TopTools_ListIteratorOfListOfShape aIt(theOther.myShapes); aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aShape = aIt.Value();
+    const TopoShape& aShape = aIt.Value();
     myShapes.Append(aShape);
   }
 }
@@ -77,7 +77,7 @@ void BOPTools_Set::Clear()
 
 //=================================================================================================
 
-Standard_Integer BOPTools_Set::NbShapes() const
+Standard_Integer BOPTools_Set::NbShapes1() const
 {
   return myNbShapes;
 }
@@ -98,7 +98,7 @@ BOPTools_Set& BOPTools_Set::Assign(const BOPTools_Set& theOther)
   aIt.Initialize(theOther.myShapes);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aSx = aIt.Value();
+    const TopoShape& aSx = aIt.Value();
     myShapes.Append(aSx);
   }
   return *this;
@@ -106,7 +106,7 @@ BOPTools_Set& BOPTools_Set::Assign(const BOPTools_Set& theOther)
 
 //=================================================================================================
 
-const TopoDS_Shape& BOPTools_Set::Shape() const
+const TopoShape& BOPTools_Set::Shape() const
 {
   return myShape;
 }
@@ -130,14 +130,14 @@ Standard_Boolean BOPTools_Set::IsEqual(const BOPTools_Set& theOther) const
   aIt.Initialize(myShapes);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aSx1 = aIt.Value();
+    const TopoShape& aSx1 = aIt.Value();
     aM1.Add(aSx1);
   }
   //
   aIt.Initialize(theOther.myShapes);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aSx2 = aIt.Value();
+    const TopoShape& aSx2 = aIt.Value();
     if (!aM1.Contains(aSx2))
     {
       return bRet;
@@ -149,11 +149,11 @@ Standard_Boolean BOPTools_Set::IsEqual(const BOPTools_Set& theOther) const
 
 //=================================================================================================
 
-void BOPTools_Set::Add(const TopoDS_Shape& theS, const TopAbs_ShapeEnum theType)
+void BOPTools_Set::Add(const TopoShape& theS, const TopAbs_ShapeEnum theType)
 {
   size_t             aId, aIdN;
   TopAbs_Orientation aOr;
-  TopExp_Explorer    aExp;
+  ShapeExplorer    aExp;
   //
   myShape = theS;
   myShapes.Clear();
@@ -163,11 +163,11 @@ void BOPTools_Set::Add(const TopoDS_Shape& theS, const TopAbs_ShapeEnum theType)
   aExp.Init(theS, theType);
   for (; aExp.More(); aExp.Next())
   {
-    const TopoDS_Shape& aSx = aExp.Current();
+    const TopoShape& aSx = aExp.Current();
     if (theType == TopAbs_EDGE)
     {
-      const TopoDS_Edge& aEx = *((TopoDS_Edge*)&aSx);
-      if (BRep_Tool::Degenerated(aEx))
+      const TopoEdge& aEx = *((TopoEdge*)&aSx);
+      if (BRepInspector::Degenerated(aEx))
       {
         continue;
       }
@@ -176,7 +176,7 @@ void BOPTools_Set::Add(const TopoDS_Shape& theS, const TopAbs_ShapeEnum theType)
     aOr = aSx.Orientation();
     if (aOr == TopAbs_INTERNAL)
     {
-      TopoDS_Shape aSy;
+      TopoShape aSy;
       //
       aSy = aSx;
       //
@@ -203,8 +203,8 @@ void BOPTools_Set::Add(const TopoDS_Shape& theS, const TopAbs_ShapeEnum theType)
   aIt.Initialize(myShapes);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aSx = aIt.Value();
-    aId                     = TopTools_ShapeMapHasher{}(aSx) % myUpper + 1;
+    const TopoShape& aSx = aIt.Value();
+    aId                     = ShapeHasher{}(aSx) % myUpper + 1;
     aIdN                    = NormalizedIds(aId, myNbShapes);
     mySum += aIdN;
   }

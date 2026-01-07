@@ -26,26 +26,26 @@ class RWGltf_GltfPrimArrayData;
 class RWGltf_MaterialMetallicRoughness;
 class RWGltf_MaterialCommon;
 
-//! Mesh data wrapper for delayed primitive array loading from glTF file.
+//! Mesh1 data wrapper for delayed primitive array loading from glTF file.
 class RWGltf_GltfLatePrimitiveArray : public RWMesh_TriangulationSource
 {
   DEFINE_STANDARD_RTTIEXT(RWGltf_GltfLatePrimitiveArray, RWMesh_TriangulationSource)
 public:
   //! Constructor.
-  Standard_EXPORT RWGltf_GltfLatePrimitiveArray(const TCollection_AsciiString& theId,
-                                                const TCollection_AsciiString& theName);
+  Standard_EXPORT RWGltf_GltfLatePrimitiveArray(const AsciiString1& theId,
+                                                const AsciiString1& theName);
 
   //! Destructor.
   Standard_EXPORT virtual ~RWGltf_GltfLatePrimitiveArray();
 
   //! Entity id.
-  const TCollection_AsciiString& Id() const { return myId; }
+  const AsciiString1& Id() const { return myId; }
 
   //! Entity name.
-  const TCollection_AsciiString& Name() const { return myName; }
+  const AsciiString1& Name() const { return myName; }
 
   //! Assign entity name.
-  void SetName(const TCollection_AsciiString& theName) { myName = theName; }
+  void SetName(const AsciiString1& theName) { myName = theName; }
 
   //! Return type of primitive array.
   RWGltf_GltfPrimitiveMode PrimitiveMode() const { return myPrimMode; }
@@ -88,14 +88,14 @@ public:
   }
 
   //! Load primitive array saved as stream buffer to new triangulation object.
-  Standard_EXPORT Handle(Poly_Triangulation) LoadStreamData() const;
+  Standard_EXPORT Handle(MeshTriangulation) LoadStreamData() const;
 
 protected:
   NCollection_Sequence<RWGltf_GltfPrimArrayData> myData;
   Handle(RWGltf_MaterialMetallicRoughness)       myMaterialPbr;    //!< PBR material
   Handle(RWGltf_MaterialCommon)                  myMaterialCommon; //!< common (obsolete) material
-  TCollection_AsciiString                        myId;             //!< entity id
-  TCollection_AsciiString                        myName;           //!< entity name
+  AsciiString1                        myId;             //!< entity id
+  AsciiString1                        myName;           //!< entity name
   RWGltf_GltfPrimitiveMode                       myPrimMode;       //!< type of primitive array
 };
 

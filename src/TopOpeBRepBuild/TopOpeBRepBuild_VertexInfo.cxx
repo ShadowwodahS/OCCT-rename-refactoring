@@ -28,14 +28,14 @@ TopOpeBRepBuild_VertexInfo::TopOpeBRepBuild_VertexInfo()
 
 //=================================================================================================
 
-void TopOpeBRepBuild_VertexInfo::SetVertex(const TopoDS_Vertex& aV)
+void TopOpeBRepBuild_VertexInfo::SetVertex(const TopoVertex& aV)
 {
   myVertex = aV;
 }
 
 //=================================================================================================
 
-const TopoDS_Vertex& TopOpeBRepBuild_VertexInfo::Vertex() const
+const TopoVertex& TopOpeBRepBuild_VertexInfo::Vertex() const
 {
   return myVertex;
 }
@@ -70,21 +70,21 @@ Standard_Integer TopOpeBRepBuild_VertexInfo::FoundOut() const
 
 //=================================================================================================
 
-void TopOpeBRepBuild_VertexInfo::AddIn(const TopoDS_Edge& anE)
+void TopOpeBRepBuild_VertexInfo::AddIn(const TopoEdge& anE)
 {
   myEdgesIn.Add(anE);
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_VertexInfo::AddOut(const TopoDS_Edge& anE)
+void TopOpeBRepBuild_VertexInfo::AddOut(const TopoEdge& anE)
 {
   myEdgesOut.Add(anE);
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_VertexInfo::SetCurrentIn(const TopoDS_Edge& anE)
+void TopOpeBRepBuild_VertexInfo::SetCurrentIn(const TopoEdge& anE)
 {
   myCurrentIn = anE;
 }
@@ -123,7 +123,7 @@ void TopOpeBRepBuild_VertexInfo::Dump() const
 
 //=================================================================================================
 
-void TopOpeBRepBuild_VertexInfo::AppendPassed(const TopoDS_Edge& anE)
+void TopOpeBRepBuild_VertexInfo::AppendPassed(const TopoEdge& anE)
 {
   myEdgesPassed.Prepend(anE);
 }
@@ -137,14 +137,14 @@ void TopOpeBRepBuild_VertexInfo::RemovePassed()
 
 //=================================================================================================
 
-const TopTools_ListOfShape& TopOpeBRepBuild_VertexInfo::ListPassed() const
+const ShapeList& TopOpeBRepBuild_VertexInfo::ListPassed() const
 {
   return myEdgesPassed;
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_VertexInfo::Prepare(const TopTools_ListOfShape& aL)
+void TopOpeBRepBuild_VertexInfo::Prepare(const ShapeList& aL)
 {
   myLocalEdgesOut.Clear();
 
@@ -159,7 +159,7 @@ void TopOpeBRepBuild_VertexInfo::Prepare(const TopTools_ListOfShape& aL)
   Standard_Integer i = 1, nb = myEdgesOut.Extent();
   for (; i <= nb; i++)
   {
-    const TopoDS_Shape& aE = myEdgesOut(i);
+    const TopoShape& aE = myEdgesOut(i);
     if (!tmpMap.Contains(aE))
       myLocalEdgesOut.Add(aE);
   }
@@ -169,7 +169,7 @@ void TopOpeBRepBuild_VertexInfo::Prepare(const TopTools_ListOfShape& aL)
 
 //=================================================================================================
 
-const TopoDS_Edge& TopOpeBRepBuild_VertexInfo::CurrentOut()
+const TopoEdge& TopOpeBRepBuild_VertexInfo::CurrentOut()
 {
 
   Standard_Integer i, aNbOut;
@@ -192,7 +192,7 @@ const TopoDS_Edge& TopOpeBRepBuild_VertexInfo::CurrentOut()
     }
   }
   myFoundOut = 0;
-  TopoDS_Edge aS;
+  TopoEdge aS;
   myCurrent = aS;
   return myCurrent;
 }

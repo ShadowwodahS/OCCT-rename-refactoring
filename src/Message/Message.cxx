@@ -48,7 +48,7 @@ const Handle(Message_Messenger)& Message::DefaultMessenger()
 
 //=================================================================================================
 
-TCollection_AsciiString Message::FillTime(const Standard_Integer hour,
+AsciiString1 Message::FillTime(const Standard_Integer hour,
                                           const Standard_Integer minute,
                                           const Standard_Real    second)
 {
@@ -59,7 +59,7 @@ TCollection_AsciiString Message::FillTime(const Standard_Integer hour,
     Sprintf(t, "%02dm:%.2fs", minute, second);
   else
     Sprintf(t, "%.2fs", second);
-  return TCollection_AsciiString(t);
+  return AsciiString1(t);
 }
 
 //=================================================================================================
@@ -86,7 +86,7 @@ Standard_CString Message::MetricToString(const Message_MetricType theType)
 Standard_Boolean Message::MetricFromString(const Standard_CString theString,
                                            Message_MetricType&    theGravity)
 {
-  TCollection_AsciiString aName(theString);
+  AsciiString1 aName(theString);
   for (Standard_Integer aMetricIter = 0; aMetricIter <= Message_MetricType_MemHeapUsage;
        ++aMetricIter)
   {

@@ -25,8 +25,8 @@
 #include <ShapeFix_Root.hxx>
 #include <ShapeExtend_Status.hxx>
 class ShapeFix_Shell;
-class TopoDS_Solid;
-class TopoDS_Shell;
+class TopoSolid;
+class TopoShell;
 class ShapeExtend_BasicMsgRegistrator;
 
 // resolve name collisions with X11 headers
@@ -47,10 +47,10 @@ public:
   Standard_EXPORT ShapeFix_Solid();
 
   //! Initializes by solid.
-  Standard_EXPORT ShapeFix_Solid(const TopoDS_Solid& solid);
+  Standard_EXPORT ShapeFix_Solid(const TopoSolid& solid);
 
   //! Initializes by solid .
-  Standard_EXPORT virtual void Init(const TopoDS_Solid& solid);
+  Standard_EXPORT virtual void Init(const TopoSolid& solid);
 
   //! Iterates on shells and performs fixes
   //! (calls ShapeFix_Shell for each subshell). The passed
@@ -60,13 +60,13 @@ public:
     const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Calls MakeSolid and orients the solid to be "not infinite"
-  Standard_EXPORT TopoDS_Solid SolidFromShell(const TopoDS_Shell& shell);
+  Standard_EXPORT TopoSolid SolidFromShell(const TopoShell& shell);
 
   //! Returns the status of the last Fix.
   Standard_EXPORT Standard_Boolean Status(const ShapeExtend_Status status) const;
 
   //! Returns resulting solid.
-  Standard_EXPORT TopoDS_Shape Solid() const;
+  Standard_EXPORT TopoShape Solid() const;
 
   //! Returns tool for fixing shells.
   Handle(ShapeFix_Shell) FixShellTool() const { return myFixShell; }
@@ -101,12 +101,12 @@ public:
 
   //! In case of multiconnexity returns compound of fixed solids
   //! else returns one solid.
-  Standard_EXPORT TopoDS_Shape Shape();
+  Standard_EXPORT TopoShape Shape();
 
   DEFINE_STANDARD_RTTIEXT(ShapeFix_Solid, ShapeFix_Root)
 
 protected:
-  TopoDS_Shape           mySolid;
+  TopoShape           mySolid;
   Handle(ShapeFix_Shell) myFixShell;
   Standard_Integer       myStatus;
   Standard_Integer       myFixShellMode;

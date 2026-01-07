@@ -30,7 +30,7 @@ class IGESGeom_CopiousData;
 DEFINE_STANDARD_HANDLE(IGESGeom_CopiousData, IGESData_IGESEntity)
 
 //! defines IGESCopiousData, Type <106> Form <1-3,11-13,63>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! This entity stores data points in the form of pairs,
 //! triples, or sextuples. An interpretation flag value
 //! signifies which of these forms is being used.

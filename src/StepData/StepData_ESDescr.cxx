@@ -86,7 +86,7 @@ Standard_CString StepData_ESDescr::TypeName() const
   return thenom.ToCString();
 }
 
-const TCollection_AsciiString& StepData_ESDescr::StepType() const
+const AsciiString1& StepData_ESDescr::StepType() const
 {
   return thenom;
 }

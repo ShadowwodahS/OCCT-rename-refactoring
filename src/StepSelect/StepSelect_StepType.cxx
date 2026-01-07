@@ -25,7 +25,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(StepSelect_StepType, IFSelect_Signature)
 
-static TCollection_AsciiString lastvalue;
+static AsciiString1 lastvalue;
 
 StepSelect_StepType::StepSelect_StepType()
     : IFSelect_Signature("Step Type")

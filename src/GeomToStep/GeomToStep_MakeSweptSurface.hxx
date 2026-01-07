@@ -31,14 +31,14 @@ class Geom_SweptSurface;
 //! StepGeom which describes a SweptSurface from prostep.
 //! As SweptSurface is an abstract SweptSurface this class
 //! is an access to the sub-class required.
-class GeomToStep_MakeSweptSurface : public GeomToStep_Root
+class GeomToStep_MakeSweptSurface : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeSweptSurface(
     const Handle(Geom_SweptSurface)& S,
-    const StepData_Factors&          theLocalFactors = StepData_Factors());
+    const ConversionFactors&          theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_SweptSurface)& Value() const;
 

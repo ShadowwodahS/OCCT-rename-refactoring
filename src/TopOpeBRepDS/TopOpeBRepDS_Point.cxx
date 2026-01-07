@@ -20,14 +20,14 @@
 
 //=================================================================================================
 
-TopOpeBRepDS_Point::TopOpeBRepDS_Point()
+Point1::Point1()
     : myKeep(Standard_True)
 {
 }
 
 //=================================================================================================
 
-TopOpeBRepDS_Point::TopOpeBRepDS_Point(const Point3d& P, const Standard_Real T)
+Point1::Point1(const Point3d& P, const Standard_Real T)
     : myPoint(P),
       myTolerance(T),
       myKeep(Standard_True)
@@ -36,15 +36,15 @@ TopOpeBRepDS_Point::TopOpeBRepDS_Point(const Point3d& P, const Standard_Real T)
 
 //=================================================================================================
 
-TopOpeBRepDS_Point::TopOpeBRepDS_Point(const TopoDS_Shape& S)
+Point1::Point1(const TopoShape& S)
 {
-  myPoint     = TopOpeBRepTool_ShapeTool::Pnt(S);
-  myTolerance = TopOpeBRepTool_ShapeTool::Tolerance(S);
+  myPoint     = ShapeTool::Pnt(S);
+  myTolerance = ShapeTool::Tolerance(S);
 }
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_Point::IsEqual(const TopOpeBRepDS_Point& P) const
+Standard_Boolean Point1::IsEqual(const Point1& P) const
 {
   Standard_Real    t = Max(myTolerance, P.Tolerance());
   Standard_Boolean b = myPoint.IsEqual(P.Point(), t);
@@ -53,42 +53,42 @@ Standard_Boolean TopOpeBRepDS_Point::IsEqual(const TopOpeBRepDS_Point& P) const
 
 //=================================================================================================
 
-const Point3d& TopOpeBRepDS_Point::Point() const
+const Point3d& Point1::Point() const
 {
   return myPoint;
 }
 
 //=================================================================================================
 
-Point3d& TopOpeBRepDS_Point::ChangePoint()
+Point3d& Point1::ChangePoint()
 {
   return myPoint;
 }
 
 //=================================================================================================
 
-Standard_Real TopOpeBRepDS_Point::Tolerance() const
+Standard_Real Point1::Tolerance() const
 {
   return myTolerance;
 }
 
 //=================================================================================================
 
-void TopOpeBRepDS_Point::Tolerance(const Standard_Real Tol)
+void Point1::Tolerance(const Standard_Real Tol)
 {
   myTolerance = Tol;
 }
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_Point::Keep() const
+Standard_Boolean Point1::Keep() const
 {
   return myKeep;
 }
 
 //=================================================================================================
 
-void TopOpeBRepDS_Point::ChangeKeep(const Standard_Boolean b)
+void Point1::ChangeKeep(const Standard_Boolean b)
 {
   myKeep = b;
 }

@@ -42,22 +42,22 @@ public:
   Standard_EXPORT Standard_Integer NumberOfTypes() const;
 
   //! add a type to the list
-  Standard_EXPORT void AddType(const TCollection_AsciiString& aName,
+  Standard_EXPORT void AddType(const AsciiString1& aName,
                                const Standard_Integer         aTypeNum);
 
   //! returns the name of the type with number <aTypeNum>
-  Standard_EXPORT TCollection_AsciiString Type(const Standard_Integer aTypeNum) const;
+  Standard_EXPORT AsciiString1 Type(const Standard_Integer aTypeNum) const;
 
   //! returns the name of the type with number <aTypeNum>
-  Standard_EXPORT Standard_Integer Type(const TCollection_AsciiString& aTypeName) const;
+  Standard_EXPORT Standard_Integer Type(const AsciiString1& aTypeName) const;
 
-  Standard_EXPORT Standard_Boolean IsType(const TCollection_AsciiString& aName) const;
+  Standard_EXPORT Standard_Boolean IsType(const AsciiString1& aName) const;
 
   Standard_EXPORT Handle(TColStd_HSequenceOfAsciiString) Types() const;
 
   Standard_EXPORT Storage_Error ErrorStatus() const;
 
-  Standard_EXPORT TCollection_AsciiString ErrorStatusExtension() const;
+  Standard_EXPORT AsciiString1 ErrorStatusExtension() const;
 
   Standard_EXPORT void ClearErrorStatus();
 
@@ -71,11 +71,11 @@ protected:
 private:
   Standard_EXPORT void SetErrorStatus(const Storage_Error anError);
 
-  Standard_EXPORT void SetErrorStatusExtension(const TCollection_AsciiString& anErrorExt);
+  Standard_EXPORT void SetErrorStatusExtension(const AsciiString1& anErrorExt);
 
   Storage_PType           myPt;
   Storage_Error           myErrorStatus;
-  TCollection_AsciiString myErrorStatusExt;
+  AsciiString1 myErrorStatusExt;
 };
 
 #endif // _Storage_TypeData_HeaderFile

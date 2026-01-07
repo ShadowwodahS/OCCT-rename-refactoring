@@ -36,13 +36,13 @@ class GccInt_Bisec;
 //! A Circ2dBisec object provides a framework for:
 //! -   defining the construction of the bisecting curves,
 //! -   implementing the construction algorithm, and consulting the result.
-class GccAna_Circ2dBisec
+class Circle2dBisector
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs bisecting curves between the two circles Circ1 and Circ2.
-  Standard_EXPORT GccAna_Circ2dBisec(const gp_Circ2d& Circ1, const gp_Circ2d& Circ2);
+  Standard_EXPORT Circle2dBisector(const gp_Circ2d& Circ1, const gp_Circ2d& Circ2);
 
   //! This method returns True if the construction algorithm succeeded.
   Standard_EXPORT Standard_Boolean IsDone() const;

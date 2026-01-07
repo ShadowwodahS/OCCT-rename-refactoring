@@ -48,9 +48,9 @@ struct StdLPersistent_Collection::stringConverter
 {
   stringConverter(const Handle(TDF_Data)&) {}
 
-  const TCollection_ExtendedString& operator()(const Handle(StdObjMgt_Persistent)& theValue) const
+  const UtfString& operator()(const Handle(StdObjMgt_Persistent)& theValue) const
   {
-    static TCollection_ExtendedString anEmptyString;
+    static UtfString anEmptyString;
     if (theValue.IsNull())
       return anEmptyString;
 
@@ -66,7 +66,7 @@ struct StdLPersistent_Collection::referenceConverter
   {
   }
 
-  TDF_Label operator()(const Handle(StdObjMgt_Persistent)& theValue) const
+  DataLabel operator()(const Handle(StdObjMgt_Persistent)& theValue) const
   {
     return theValue->Label(myDF);
   }

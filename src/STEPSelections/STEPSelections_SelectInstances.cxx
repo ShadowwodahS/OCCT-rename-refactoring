@@ -194,7 +194,7 @@ Standard_Boolean STEPSelections_SelectInstances::HasUniqueResult() const
   return Standard_True;
 }
 
-TCollection_AsciiString STEPSelections_SelectInstances::ExploreLabel() const
+AsciiString1 STEPSelections_SelectInstances::ExploreLabel() const
 {
-  return TCollection_AsciiString("Instances");
+  return AsciiString1("Instances");
 }

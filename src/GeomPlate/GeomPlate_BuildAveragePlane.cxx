@@ -60,7 +60,7 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const Handle(TColgp_HAr
 
     if (POption == 1)
     {
-      myPlane = new Geom_Plane(myG, OZ);
+      myPlane = new GeomPlane(myG, OZ);
       myOX    = myPlane->Pln().XAxis().Direction();
       myOY    = myPlane->Pln().YAxis().Direction();
     }
@@ -70,7 +70,7 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const Handle(TColgp_HAr
       Dir3d NDir(myOX ^ myOY);
       Dir3d UDir(myOX);
       gp_Ax3 triedre(myG, NDir, UDir);
-      myPlane = new Geom_Plane(triedre);
+      myPlane = new GeomPlane(triedre);
     }
     Standard_Integer i, nb = myPts->Length();
     gp_Pln           P = myPlane->Pln();
@@ -94,7 +94,7 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const Handle(TColgp_HAr
 
   if (IsLine())
   {
-    myLine = new Geom_Line(myG, myOX);
+    myLine = new GeomLine(myG, myOX);
   }
 }
 
@@ -213,7 +213,7 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const TColgp_SequenceOf
   XDir ^= BestDir;
 
   gp_Ax3 Axe3(Axe.Location(), BestDir, XDir);
-  myPlane = new Geom_Plane(Axe3);
+  myPlane = new GeomPlane(Axe3);
 
   // Initializing myUmin, myVmin, myUmax, myVmax
   gp_Pln Pln = myPlane->Pln();
@@ -246,11 +246,11 @@ GeomPlate_BuildAveragePlane::GeomPlate_BuildAveragePlane(const TColgp_SequenceOf
 
 //=================================================================================================
 
-Handle(Geom_Plane) GeomPlate_BuildAveragePlane::Plane() const
+Handle(GeomPlane) GeomPlate_BuildAveragePlane::Plane() const
 {
   Standard_NoSuchObject_Raise_if(
     IsLine(),
-    "Cannot use the function 'GeomPlate_BuildAveragePlane::Plane()', the Object is a 'Geom_Line'");
+    "Cannot use the function 'GeomPlate_BuildAveragePlane::Plane()', the Object is a 'GeomLine'");
   return myPlane;
 }
 
@@ -450,11 +450,11 @@ void GeomPlate_BuildAveragePlane::BasePlan(const Vector3d& OZ)
 
 //=================================================================================================
 
-Handle(Geom_Line) GeomPlate_BuildAveragePlane::Line() const
+Handle(GeomLine) GeomPlate_BuildAveragePlane::Line() const
 {
   Standard_NoSuchObject_Raise_if(
     IsPlane(),
-    "Cannot use the function 'GeomPlate_BuildAveragePlane::Line()', the Object is a 'Geom_Plane'");
+    "Cannot use the function 'GeomPlate_BuildAveragePlane::Line()', the Object is a 'GeomPlane'");
   return myLine;
 }
 

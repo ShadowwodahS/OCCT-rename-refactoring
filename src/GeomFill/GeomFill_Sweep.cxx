@@ -71,7 +71,7 @@
 // class : GeomFill_Sweep_Eval
 // purpose: The evaluator for curve approximation
 //=======================================================================
-class GeomFill_Sweep_Eval : public AdvApprox_EvaluatorFunction
+class GeomFill_Sweep_Eval : public EvaluatorFunction
 {
 public:
   GeomFill_Sweep_Eval(GeomFill_LocFunction& theTool)
@@ -536,7 +536,7 @@ static Standard_Boolean IsSweepParallelSpine(const Handle(GeomFill_LocationLaw)&
                   GTfEnd(3, 3),
                   GTfEnd(3, 4));
 
-  Handle(Geom_Surface) aSurf = theSec->BSplineSurface();
+  Handle(GeomSurface) aSurf = theSec->BSplineSurface();
   Standard_Real        Umin;
   Standard_Real        Umax;
   Standard_Real        Vmin;
@@ -545,7 +545,7 @@ static Standard_Boolean IsSweepParallelSpine(const Handle(GeomFill_LocationLaw)&
   aSurf->Bounds(Umin, Umax, Vmin, Vmax);
 
   // Get and transform the first section
-  Handle(Geom_Curve) FirstSection = theSec->ConstantSection();
+  Handle(GeomCurve3d) FirstSection = theSec->ConstantSection();
   GeomAdaptor_Curve  ACFirst(FirstSection);
 
   Standard_Real UFirst = ACFirst.FirstParameter();
@@ -554,7 +554,7 @@ static Standard_Boolean IsSweepParallelSpine(const Handle(GeomFill_LocationLaw)&
   L.Transform(TfBegin);
 
   // Get and transform the last section
-  Handle(Geom_Curve) aLastSection    = aSurf->VIso(Vmax);
+  Handle(GeomCurve3d) aLastSection    = aSurf->VIso(Vmax);
   Standard_Real      aFirstParameter = aLastSection->FirstParameter();
   Point3d             aPntLastSec     = aLastSection->Value(aFirstParameter);
 
@@ -581,7 +581,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
   Standard_Boolean IsTrsf      = Standard_True;
 
   isUPeriodic = mySec->IsUPeriodic();
-  Handle(Geom_Surface) S;
+  Handle(GeomSurface) S;
   GeomAbs_CurveType    SectionType;
   Vector3d               V;
   gp_Mat               M;
@@ -630,7 +630,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
     // (1.1) Cas Extrusion
     if (mySec->IsConstant(error))
     {
-      Handle(Geom_Curve) Section;
+      Handle(GeomCurve3d) Section;
       Section = mySec->ConstantSection();
       GeomAdaptor_Curve AC(Section);
       SectionType = AC.GetType();
@@ -653,7 +653,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
         {
           Ok = Standard_True;
           Frame3d AxisOfPlane(L.Location(), DS ^ DP, DS);
-          S = new (Geom_Plane)(AxisOfPlane);
+          S = new (GeomPlane)(AxisOfPlane);
         }
         else
           SError = 0.;
@@ -713,7 +713,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
 
       Point3d             P1, P2, Centre0, Centre1, Centre2;
       Vector3d             dsection;
-      Handle(Geom_Curve) Section;
+      Handle(GeomCurve3d) Section;
       GeomAdaptor_Curve  AC;
       gp_Circ            C;
       Standard_Real      R1, R2;
@@ -836,7 +836,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
       //        IsTrsf = Standard_False;
       //      }
       // La section
-      Handle(Geom_Curve) Section;
+      Handle(GeomCurve3d) Section;
       Section = mySec->ConstantSection();
       GeomAdaptor_Curve AC(Section);
       SectionType = AC.GetType();
@@ -890,7 +890,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
             // Il faut donc modifier UFirst, ULast...
             Standard_Real      fpar       = AC.FirstParameter();
             Standard_Real      lpar       = AC.LastParameter();
-            Handle(Geom_Curve) theSection = new Geom_TrimmedCurve(Section, fpar, lpar);
+            Handle(GeomCurve3d) theSection = new Geom_TrimmedCurve(Section, fpar, lpar);
             theSection->Transform(Tf2);
             Point3d        FirstPoint = theSection->Value(theSection->FirstParameter());
             Point3d        LastPoint  = theSection->Value(theSection->LastParameter());
@@ -940,8 +940,8 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
             // Pour les tores on ne peut pas controler le parametre
             // V (donc U car  myExchUV = Standard_True)
             // Il faut donc modifier UFirst, ULast...
-            Handle(Geom_Circle) Iso;
-            Iso = Handle(Geom_Circle)::DownCast(S->UIso(0.));
+            Handle(GeomCircle) Iso;
+            Iso = Handle(GeomCircle)::DownCast(S->UIso(0.));
             Frame3d axeiso;
             axeiso = Iso->Circ().Position();
 
@@ -1050,7 +1050,7 @@ Standard_Boolean GeomFill_Sweep::BuildKPart()
           {
             // On reverse le parametre
             Standard_Real     uf, ul;
-            Handle(Geom_Line) CL = new (Geom_Line)(L);
+            Handle(GeomLine) CL = new (GeomLine)(L);
             uf                   = CL->ReversedParameter(ULast);
             ul                   = CL->ReversedParameter(UFirst);
 
@@ -1171,14 +1171,14 @@ void GeomFill_Sweep::ErrorOnTrace(const Standard_Integer IndexOfTrace,
 
 //=================================================================================================
 
-Handle(Geom_Surface) GeomFill_Sweep::Surface() const
+Handle(GeomSurface) GeomFill_Sweep::Surface() const
 {
   return mySurface;
 }
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) GeomFill_Sweep::Restriction(const Standard_Boolean IsFirst) const
+Handle(GeomCurve2d) GeomFill_Sweep::Restriction(const Standard_Boolean IsFirst) const
 {
   if (IsFirst)
     return myCurve2d->Value(1);
@@ -1194,7 +1194,7 @@ Standard_Integer GeomFill_Sweep::NumberOfTrace() const
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) GeomFill_Sweep::Trace(const Standard_Integer IndexOfTrace) const
+Handle(GeomCurve2d) GeomFill_Sweep::Trace(const Standard_Integer IndexOfTrace) const
 {
   Standard_Integer ind = IndexOfTrace + 1;
   if (IndexOfTrace > myLoc->TraceNumber())

@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRep_PointOnCurve, BRep_PointRepresentation)
 //=================================================================================================
 
 BRep_PointOnCurve::BRep_PointOnCurve(const Standard_Real       P,
-                                     const Handle(Geom_Curve)& C,
+                                     const Handle(GeomCurve3d)& C,
                                      const TopLoc_Location&    L)
     : BRep_PointRepresentation(P, L),
       myCurve(C)
@@ -40,7 +40,7 @@ Standard_Boolean BRep_PointOnCurve::IsPointOnCurve() const
 
 //=================================================================================================
 
-Standard_Boolean BRep_PointOnCurve::IsPointOnCurve(const Handle(Geom_Curve)& C,
+Standard_Boolean BRep_PointOnCurve::IsPointOnCurve(const Handle(GeomCurve3d)& C,
                                                    const TopLoc_Location&    L) const
 {
   return (myCurve == C) && (Location() == L);
@@ -48,14 +48,14 @@ Standard_Boolean BRep_PointOnCurve::IsPointOnCurve(const Handle(Geom_Curve)& C,
 
 //=================================================================================================
 
-const Handle(Geom_Curve)& BRep_PointOnCurve::Curve() const
+const Handle(GeomCurve3d)& BRep_PointOnCurve::Curve() const
 {
   return myCurve;
 }
 
 //=================================================================================================
 
-void BRep_PointOnCurve::Curve(const Handle(Geom_Curve)& C)
+void BRep_PointOnCurve::Curve(const Handle(GeomCurve3d)& C)
 {
   myCurve = C;
 }

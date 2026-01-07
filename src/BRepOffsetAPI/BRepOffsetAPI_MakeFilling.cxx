@@ -75,7 +75,7 @@ void BRepOffsetAPI_MakeFilling::SetApproxParam(const Standard_Integer MaxDeg,
 
 //=================================================================================================
 
-void BRepOffsetAPI_MakeFilling::LoadInitSurface(const TopoDS_Face& Surf)
+void BRepOffsetAPI_MakeFilling::LoadInitSurface(const TopoFace& Surf)
 {
   myFilling.LoadInitSurface(Surf);
 }
@@ -84,7 +84,7 @@ void BRepOffsetAPI_MakeFilling::LoadInitSurface(const TopoDS_Face& Surf)
 // function : Add
 // purpose  : adds an edge as a constraint
 //======================================================================
-Standard_Integer BRepOffsetAPI_MakeFilling::Add(const TopoDS_Edge&     Constr,
+Standard_Integer BRepOffsetAPI_MakeFilling::Add(const TopoEdge&     Constr,
                                                 const GeomAbs_Shape    Order,
                                                 const Standard_Boolean IsBound)
 {
@@ -95,8 +95,8 @@ Standard_Integer BRepOffsetAPI_MakeFilling::Add(const TopoDS_Edge&     Constr,
 // function : Add
 // purpose  : adds an edge with supporting face as a constraint
 //======================================================================
-Standard_Integer BRepOffsetAPI_MakeFilling::Add(const TopoDS_Edge&     Constr,
-                                                const TopoDS_Face&     Support,
+Standard_Integer BRepOffsetAPI_MakeFilling::Add(const TopoEdge&     Constr,
+                                                const TopoFace&     Support,
                                                 const GeomAbs_Shape    Order,
                                                 const Standard_Boolean IsBound)
 {
@@ -107,7 +107,7 @@ Standard_Integer BRepOffsetAPI_MakeFilling::Add(const TopoDS_Edge&     Constr,
 // function : Add
 // purpose  : adds a "free constraint": face without edge
 //======================================================================
-Standard_Integer BRepOffsetAPI_MakeFilling::Add(const TopoDS_Face&  Support,
+Standard_Integer BRepOffsetAPI_MakeFilling::Add(const TopoFace&  Support,
                                                 const GeomAbs_Shape Order)
 {
   return myFilling.Add(Support, Order);
@@ -128,7 +128,7 @@ Standard_Integer BRepOffsetAPI_MakeFilling::Add(const Point3d& Point)
 //======================================================================
 Standard_Integer BRepOffsetAPI_MakeFilling::Add(const Standard_Real U,
                                                 const Standard_Real V,
-                                                const TopoDS_Face&  Support,
+                                                const TopoFace&  Support,
                                                 const GeomAbs_Shape Order)
 {
   return myFilling.Add(U, V, Support, Order);
@@ -155,7 +155,7 @@ Standard_Boolean BRepOffsetAPI_MakeFilling::IsDone() const
 // function : Generated
 // purpose  : returns the new edge (first in list) made from old edge "S"
 //=======================================================================
-const TopTools_ListOfShape& BRepOffsetAPI_MakeFilling::Generated(const TopoDS_Shape& S)
+const ShapeList& BRepOffsetAPI_MakeFilling::Generated(const TopoShape& S)
 {
   return myFilling.Generated(S);
 }

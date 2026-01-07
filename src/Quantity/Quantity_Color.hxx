@@ -222,7 +222,7 @@ public:
                                            Quantity_Color&        theColor);
 
   //! Returns hex sRGB string in format "#FFAAFF".
-  static TCollection_AsciiString ColorToHex(const Quantity_Color& theColor,
+  static AsciiString1 ColorToHex(const Quantity_Color& theColor,
                                             const bool            theToPrefixHash = true)
   {
     NCollection_Vec3<Standard_ShortReal> anSRgb =

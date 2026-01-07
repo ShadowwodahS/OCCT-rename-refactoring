@@ -27,7 +27,7 @@
 #include <TColStd_HSequenceOfInteger.hxx>
 class Units_UnitsSystem;
 class Units_UnitsDictionary;
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! This class provides all the services to explore
 //! UnitsSystem or UnitsDictionary.
@@ -87,7 +87,7 @@ public:
   Standard_EXPORT void NextQuantity();
 
   //! Returns the name of the current Quantity.
-  Standard_EXPORT TCollection_AsciiString Quantity() const;
+  Standard_EXPORT AsciiString1 Quantity() const;
 
   //! Returns True if there is another Unit to explore,
   //! False otherwise.
@@ -97,7 +97,7 @@ public:
   Standard_EXPORT void NextUnit();
 
   //! Returns the name of the current unit.
-  Standard_EXPORT TCollection_AsciiString Unit() const;
+  Standard_EXPORT AsciiString1 Unit() const;
 
   //! If the  units system  to  explore  is  a user  system,
   //! returns True  if  the  current unit  is  active, False

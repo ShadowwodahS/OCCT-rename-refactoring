@@ -57,8 +57,8 @@ static Standard_Integer GeomAbsToInteger(const GeomAbs_Shape gcont)
 
 //=================================================================================================
 
-GeomAbs_Shape GeomLProp::Continuity(const Handle(Geom_Curve)& C1,
-                                    const Handle(Geom_Curve)& C2,
+GeomAbs_Shape GeomLProp1::Continuity(const Handle(GeomCurve3d)& C1,
+                                    const Handle(GeomCurve3d)& C2,
                                     const Standard_Real       u1,
                                     const Standard_Real       u2,
                                     const Standard_Boolean    r1,
@@ -77,8 +77,8 @@ GeomAbs_Shape GeomLProp::Continuity(const Handle(Geom_Curve)& C1,
   cont1 = GeomAbsToInteger(gcont1);
   cont2 = GeomAbsToInteger(gcont2);
 
-  Handle(Geom_Curve) aCurve1 = C1;
-  Handle(Geom_Curve) aCurve2 = C2;
+  Handle(GeomCurve3d) aCurve1 = C1;
+  Handle(GeomCurve3d) aCurve2 = C2;
   if (C1->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
   {
     Handle(Geom_TrimmedCurve) aTrimmed = Handle(Geom_TrimmedCurve)::DownCast(aCurve1);
@@ -89,9 +89,9 @@ GeomAbs_Shape GeomLProp::Continuity(const Handle(Geom_Curve)& C1,
     Handle(Geom_TrimmedCurve) aTrimmed = Handle(Geom_TrimmedCurve)::DownCast(aCurve2);
     aCurve2                            = aTrimmed->BasisCurve();
   }
-  if (aCurve1->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (aCurve1->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    Handle(Geom_BSplineCurve) BSplineCurve = Handle(Geom_BSplineCurve)::DownCast(aCurve1);
+    Handle(BSplineCurve3d) BSplineCurve = Handle(BSplineCurve3d)::DownCast(aCurve1);
     BSplineCurve->Resolution(tl, tolerance);
     BSplineCurve->LocateU(u1, tolerance, index1, index2);
 
@@ -104,9 +104,9 @@ GeomAbs_Shape GeomLProp::Continuity(const Handle(Geom_Curve)& C1,
       cont1 = 5;
     }
   }
-  if (aCurve2->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (aCurve2->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    Handle(Geom_BSplineCurve) BSplineCurve = Handle(Geom_BSplineCurve)::DownCast(aCurve2);
+    Handle(BSplineCurve3d) BSplineCurve = Handle(BSplineCurve3d)::DownCast(aCurve2);
     BSplineCurve->Resolution(tl, tolerance);
     BSplineCurve->LocateU(u2, tolerance, index1, index2);
 
@@ -184,8 +184,8 @@ GeomAbs_Shape GeomLProp::Continuity(const Handle(Geom_Curve)& C1,
 
 //=================================================================================================
 
-GeomAbs_Shape GeomLProp::Continuity(const Handle(Geom_Curve)& C1,
-                                    const Handle(Geom_Curve)& C2,
+GeomAbs_Shape GeomLProp1::Continuity(const Handle(GeomCurve3d)& C1,
+                                    const Handle(GeomCurve3d)& C2,
                                     const Standard_Real       u1,
                                     const Standard_Real       u2,
                                     const Standard_Boolean    r1,

@@ -60,7 +60,7 @@ void Interface_STAT::AddPhase(const Standard_Real weight, const Standard_CString
     thestw   = new TColStd_HSequenceOfReal();
   }
   thetotal += weight;
-  thephnam->Append(TCollection_AsciiString(name));
+  thephnam->Append(AsciiString1(name));
   thephw->Append(weight);
   thephdeb->Append(thestw->Length() + 1);
   thephfin->Append(0);

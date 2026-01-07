@@ -44,7 +44,7 @@
 //  us points among which we'll choose the solutions.                     +
 //  The choices are made basing on Qualifiers of C1 and L2.               +
 //=========================================================================
-GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
                                          const GccEnt_QualifiedLin&  Qualified2,
                                          const gp_Lin2d&             OnLine,
                                          const Standard_Real         Tolerance)
@@ -91,11 +91,11 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
   //=========================================================================
 
   Standard_Real distcl = OnLine.Distance(center1);
-  gp_Pnt2d pinterm(center1.XY() + distcl * gp_XY(-OnLine.Direction().Y(), OnLine.Direction().X()));
+  gp_Pnt2d pinterm(center1.XY() + distcl * Coords2d(-OnLine.Direction().Y(), OnLine.Direction().X()));
   if (OnLine.Distance(pinterm) > Tolerance)
   {
     pinterm =
-      gp_Pnt2d(center1.XY() + distcl * gp_XY(-OnLine.Direction().Y(), OnLine.Direction().X()));
+      gp_Pnt2d(center1.XY() + distcl * Coords2d(-OnLine.Direction().Y(), OnLine.Direction().X()));
   }
   Standard_Real dist2 = L2.Distance(pinterm);
   if (Qualified1.IsEnclosed() || Qualified1.IsOutside())
@@ -125,7 +125,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
   {
     if (Qualified2.IsOutside())
     {
-      gp_Pnt2d pbid(pinterm.XY() + dist2 * gp_XY(-dirL2.Y(), dirL2.X()));
+      gp_Pnt2d pbid(pinterm.XY() + dist2 * Coords2d(-dirL2.Y(), dirL2.X()));
       if (L2.Distance(pbid) <= Tol)
       {
         WellDone = Standard_True;
@@ -133,7 +133,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
     }
     else if (Qualified2.IsEnclosed())
     {
-      gp_Pnt2d pbid(pinterm.XY() - dist2 * gp_XY(-dirL2.Y(), dirL2.X()));
+      gp_Pnt2d pbid(pinterm.XY() - dist2 * Coords2d(-dirL2.Y(), dirL2.X()));
       if (L2.Distance(pbid) <= Tol)
       {
         WellDone = Standard_True;
@@ -187,7 +187,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
     }
 
     Standard_Real sign = dc2.Dot(gp_Dir2d(-dirL2.Y(), dirL2.X()));
-    dc2                = gp_Dir2d(sign * gp_XY(-dirL2.Y(), dirL2.X()));
+    dc2                = gp_Dir2d(sign * Coords2d(-dirL2.Y(), dirL2.X()));
     pnttg1sol(NbrSol)  = gp_Pnt2d(pinterm.XY() + dist2 * dc1.XY());
     pnttg2sol(NbrSol)  = gp_Pnt2d(pinterm.XY() + dist2 * dc2.XY());
     par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
@@ -203,7 +203,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
   //   General case.                                                        +
   //=========================================================================
 
-  GccAna_CircLin2dBisec Bis(C1, L2);
+  CircleLine2dBisector Bis(C1, L2);
   if (Bis.IsDone())
   {
     Standard_Integer nbsolution = Bis.NbSolutions();
@@ -329,7 +329,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
               }
               TheSame2(NbrSol)   = 0;
               Standard_Real sign = dc2.Dot(gp_Dir2d(-dirL2.Y(), dirL2.X()));
-              dc2                = gp_Dir2d(sign * gp_XY(-dirL2.Y(), dirL2.X()));
+              dc2                = gp_Dir2d(sign * Coords2d(-dirL2.Y(), dirL2.X()));
               pnttg2sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc2.XY());
               par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
               pararg2(NbrSol)    = ElCLib::Parameter(L2, pnttg2sol(NbrSol));

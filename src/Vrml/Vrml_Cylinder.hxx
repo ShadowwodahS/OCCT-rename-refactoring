@@ -31,12 +31,12 @@
 //! and  has  size  of  -1  to  +1  in  the  all  three  dimensions.
 //! The  cylinder  has  three  parts:
 //! the  sides,  the  top  (y=+1)  and  the  bottom (y=-1)
-class Vrml_Cylinder
+class Cylinder
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_Cylinder(const Vrml_CylinderParts aParts  = Vrml_CylinderALL,
+  Standard_EXPORT Cylinder(const Vrml_CylinderParts aParts  = Vrml_CylinderALL,
                                 const Standard_Real      aRadius = 1,
                                 const Standard_Real      aHeight = 2);
 

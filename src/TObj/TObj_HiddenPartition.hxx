@@ -28,7 +28,7 @@ class TObj_HiddenPartition : public TObj_Partition
 {
 public:
   //! constructor
-  Standard_EXPORT TObj_HiddenPartition(const TDF_Label& theLabel);
+  Standard_EXPORT TObj_HiddenPartition(const DataLabel& theLabel);
 
   //! Returns all flags of father except Visible
   virtual Standard_EXPORT Standard_Integer GetTypeFlags() const Standard_OVERRIDE;

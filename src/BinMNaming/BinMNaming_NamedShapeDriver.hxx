@@ -28,7 +28,7 @@
 class Message_Messenger;
 class TDF_Attribute;
 class BinObjMgt_Persistent;
-class BinTools_LocationSet;
+class LocationBinarySet;
 
 class BinMNaming_NamedShapeDriver;
 DEFINE_STANDARD_HANDLE(BinMNaming_NamedShapeDriver, BinMDF_ADriver)
@@ -76,7 +76,7 @@ public:
   //! set whether to store triangulation with normals
   void SetWithNormals(const Standard_Boolean isWithNormals);
   //! get the shapes locations
-  Standard_EXPORT BinTools_LocationSet& GetShapesLocations() const;
+  Standard_EXPORT LocationBinarySet& GetShapesLocations() const;
 
   //! Sets the flag for quick part of the document access: shapes are stored in the attribute.
   Standard_EXPORT void EnableQuickPart(const Standard_Boolean theValue)
@@ -89,12 +89,12 @@ public:
   Standard_EXPORT Standard_Boolean IsQuickPart() { return myIsQuickPart; }
 
   //! Returns shape-set of the needed type
-  Standard_EXPORT BinTools_ShapeSetBase* ShapeSet(const Standard_Boolean theReading);
+  Standard_EXPORT ShapeSetBase* ShapeSet(const Standard_Boolean theReading);
 
   DEFINE_STANDARD_RTTIEXT(BinMNaming_NamedShapeDriver, BinMDF_ADriver)
 
 private:
-  BinTools_ShapeSetBase* myShapeSet;
+  ShapeSetBase* myShapeSet;
   Standard_Boolean       myWithTriangles;
   Standard_Boolean       myWithNormals;
   //! Enables storing of whole shape data just in the attribute, not in a separated shapes section

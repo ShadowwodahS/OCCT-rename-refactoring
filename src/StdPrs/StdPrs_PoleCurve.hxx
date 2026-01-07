@@ -39,7 +39,7 @@ public:
   //! surface in a geometric algorithm.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Adaptor3d_Curve&            aCurve,
-                                  const Handle(Prs3d_Drawer)&       aDrawer);
+                                  const Handle(StyleDrawer)&       aDrawer);
 
   //! returns true if the distance between the point (X,Y,Z) and the
   //! broken line made of the poles is less then aDistance.
@@ -48,7 +48,7 @@ public:
                                                 const Standard_Real         Z,
                                                 const Standard_Real         aDistance,
                                                 const Adaptor3d_Curve&      aCurve,
-                                                const Handle(Prs3d_Drawer)& aDrawer);
+                                                const Handle(StyleDrawer)& aDrawer);
 
   //! returns the pole  the most near of the point (X,Y,Z) and
   //! returns its range. The distance between the pole and
@@ -58,7 +58,7 @@ public:
                                                const Standard_Real         Z,
                                                const Standard_Real         aDistance,
                                                const Adaptor3d_Curve&      aCurve,
-                                               const Handle(Prs3d_Drawer)& aDrawer);
+                                               const Handle(StyleDrawer)& aDrawer);
 };
 
 #endif // _StdPrs_PoleCurve_HeaderFile

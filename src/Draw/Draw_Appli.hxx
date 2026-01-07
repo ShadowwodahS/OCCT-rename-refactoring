@@ -20,7 +20,7 @@
 #include <Draw_Viewer.hxx>
 #include <Draw.hxx>
 
-typedef void (*FDraw_InitAppli)(Draw_Interpretor&);
+typedef void (*FDraw_InitAppli)(DrawInterpreter&);
 
 #ifdef _WIN32
   #include <windows.h>
@@ -35,7 +35,7 @@ extern void Draw_Appli(int argc, char** argv, const FDraw_InitAppli Draw_InitApp
 #endif
 
 #ifndef _WIN32
-extern Draw_Viewer      dout;
+extern DrawViewer      dout;
 extern Standard_Boolean Draw_Batch;
 #endif
 

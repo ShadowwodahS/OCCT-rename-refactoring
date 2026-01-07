@@ -142,7 +142,7 @@ public:
   Standard_EXPORT virtual ~Graphic3d_ShaderVariable();
 
   //! Returns name of shader variable.
-  Standard_EXPORT const TCollection_AsciiString& Name() const;
+  Standard_EXPORT const AsciiString1& Name() const;
 
   //! Checks if the shader variable is valid or not.
   Standard_EXPORT Standard_Boolean IsDone() const;
@@ -152,7 +152,7 @@ public:
 
   //! Creates new initialized shader variable.
   template <class T>
-  static Graphic3d_ShaderVariable* Create(const TCollection_AsciiString& theName,
+  static Graphic3d_ShaderVariable* Create(const AsciiString1& theName,
                                           const T&                       theValue);
 
 public:
@@ -160,11 +160,11 @@ public:
 
 protected:
   //! Creates new uninitialized shader variable.
-  Standard_EXPORT Graphic3d_ShaderVariable(const TCollection_AsciiString& theName);
+  Standard_EXPORT Graphic3d_ShaderVariable(const AsciiString1& theName);
 
 protected:
   //! The name of uniform shader variable.
-  TCollection_AsciiString myName;
+  AsciiString1 myName;
 
   //! The generic value of shader variable.
   Graphic3d_ValueInterface* myValue;

@@ -23,19 +23,19 @@
 
 #include <Standard_Boolean.hxx>
 class ExprIntrp_Generator;
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! Describes an interpreter for GeneralExpressions,
 //! GeneralFunctions, and GeneralRelations defined in
-//! package Expr.
-class ExprIntrp
+//! package Expr1.
+class ExprIntrp1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
 private:
   Standard_EXPORT static Standard_Boolean Parse(const Handle(ExprIntrp_Generator)& gen,
-                                                const TCollection_AsciiString&     str);
+                                                const AsciiString1&     str);
 
 private:
   friend class ExprIntrp_GenExp;

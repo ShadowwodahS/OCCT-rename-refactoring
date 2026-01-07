@@ -20,9 +20,9 @@
 #include <TCollection_AsciiString.hxx>
 
 // --- Enum : SurfaceSide ---
-static TCollection_AsciiString ssNegative(".NEGATIVE.");
-static TCollection_AsciiString ssPositive(".POSITIVE.");
-static TCollection_AsciiString ssBoth(".BOTH.");
+static AsciiString1 ssNegative(".NEGATIVE.");
+static AsciiString1 ssPositive(".POSITIVE.");
+static AsciiString1 ssBoth(".BOTH.");
 
 RWStepVisual_RWSurfaceStyleUsage::RWStepVisual_RWSurfaceStyleUsage() {}
 

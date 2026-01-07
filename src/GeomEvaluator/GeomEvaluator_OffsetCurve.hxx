@@ -24,7 +24,7 @@ class GeomEvaluator_OffsetCurve : public GeomEvaluator_Curve
 {
 public:
   //! Initialize evaluator by curve
-  Standard_EXPORT GeomEvaluator_OffsetCurve(const Handle(Geom_Curve)& theBase,
+  Standard_EXPORT GeomEvaluator_OffsetCurve(const Handle(GeomCurve3d)& theBase,
                                             const Standard_Real       theOffset,
                                             const Dir3d&             theDirection);
   //! Initialize evaluator by curve adaptor
@@ -113,7 +113,7 @@ private:
                                     Vector3d&                theD4) const;
 
 private:
-  Handle(Geom_Curve)        myBaseCurve;
+  Handle(GeomCurve3d)        myBaseCurve;
   Handle(GeomAdaptor_Curve) myBaseAdaptor;
 
   Standard_Real myOffset;    ///< offset value

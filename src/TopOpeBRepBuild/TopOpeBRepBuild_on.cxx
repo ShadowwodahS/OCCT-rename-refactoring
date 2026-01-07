@@ -25,9 +25,9 @@ extern Standard_Boolean GLOBAL_faces2d;
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GFillONPartsWES(const TopoDS_Shape&          FOR,
-                                              const TopOpeBRepBuild_GTopo& G,
-                                              const TopTools_ListOfShape&  LSclass,
+void TopOpeBRepBuild_Builder::GFillONPartsWES(const TopoShape&          FOR,
+                                              const GTopologyClassifier& G,
+                                              const ShapeList&  LSclass,
                                               TopOpeBRepBuild_WireEdgeSet& WES)
 {
   TopOpeBRepBuild_BuilderON BON;

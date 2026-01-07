@@ -39,13 +39,13 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Makes a Cylindrical projection of Wire om Shape
-  Standard_EXPORT BRepProj_Projection(const TopoDS_Shape& Wire,
-                                      const TopoDS_Shape& Shape,
+  Standard_EXPORT BRepProj_Projection(const TopoShape& Wire,
+                                      const TopoShape& Shape,
                                       const Dir3d&       D);
 
   //! Makes a Conical projection of Wire om Shape
-  Standard_EXPORT BRepProj_Projection(const TopoDS_Shape& Wire,
-                                      const TopoDS_Shape& Shape,
+  Standard_EXPORT BRepProj_Projection(const TopoShape& Wire,
+                                      const TopoShape& Shape,
                                       const Point3d&       P);
 
   //! returns False if the section failed
@@ -61,20 +61,20 @@ public:
   void Next();
 
   //! Returns the current result wire.
-  TopoDS_Wire Current() const;
+  TopoWire Current() const;
 
   //! Returns the complete result as compound of wires.
-  TopoDS_Compound Shape() const;
+  TopoCompound Shape() const;
 
 protected:
 private:
   //! Performs section of theShape by theTool
   //! and stores result in the fields.
-  Standard_EXPORT void BuildSection(const TopoDS_Shape& Shape, const TopoDS_Shape& Tool);
+  Standard_EXPORT void BuildSection(const TopoShape& Shape, const TopoShape& Tool);
 
   Standard_Boolean                  myIsDone;
-  TopoDS_Shape                      myLsh;
-  TopoDS_Compound                   myShape;
+  TopoShape                      myLsh;
+  TopoCompound                   myShape;
   Handle(TopTools_HSequenceOfShape) mySection;
   Standard_Integer                  myItr;
 };

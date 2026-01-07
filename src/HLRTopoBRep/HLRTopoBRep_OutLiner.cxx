@@ -43,14 +43,14 @@ HLRTopoBRep_OutLiner::HLRTopoBRep_OutLiner() {}
 
 //=================================================================================================
 
-HLRTopoBRep_OutLiner::HLRTopoBRep_OutLiner(const TopoDS_Shape& OriS)
+HLRTopoBRep_OutLiner::HLRTopoBRep_OutLiner(const TopoShape& OriS)
     : myOriginalShape(OriS)
 {
 }
 
 //=================================================================================================
 
-HLRTopoBRep_OutLiner::HLRTopoBRep_OutLiner(const TopoDS_Shape& OriS, const TopoDS_Shape& OutS)
+HLRTopoBRep_OutLiner::HLRTopoBRep_OutLiner(const TopoShape& OriS, const TopoShape& OutS)
     : myOriginalShape(OriS),
       myOutLinedShape(OutS)
 {
@@ -93,18 +93,18 @@ void HLRTopoBRep_OutLiner::Fill(const HLRAlgo_Projector&       P,
 // Purpose  : Build a Face using myDS and add the new face to a shell
 //=======================================================================
 
-void HLRTopoBRep_OutLiner::ProcessFace(const TopoDS_Face&             F,
-                                       TopoDS_Shape&                  S,
+void HLRTopoBRep_OutLiner::ProcessFace(const TopoFace&             F,
+                                       TopoShape&                  S,
                                        BRepTopAdaptor_MapOfShapeTool& MST)
 {
-  BRep_Builder    B;
-  TopExp_Explorer exE, exW;
+  ShapeBuilder    B;
+  ShapeExplorer exE, exW;
   // Standard_Boolean splitted = Standard_False;
 
   TopTools_IndexedDataMapOfShapeListOfShape aVEMap;
-  TopExp::MapShapesAndAncestors(F, TopAbs_VERTEX, TopAbs_EDGE, aVEMap);
+  TopExp1::MapShapesAndAncestors(F, TopAbs_VERTEX, TopAbs_EDGE, aVEMap);
 
-  TopoDS_Shape NF; // = F;
+  TopoShape NF; // = F;
                    // NF.Free(Standard_True);
 
   // for (exE.Init(F,TopAbs_EDGE); exE.More(); exE.Next()) {
@@ -120,19 +120,19 @@ void HLRTopoBRep_OutLiner::ProcessFace(const TopoDS_Face&             F,
 
   for (exW.Init(F, TopAbs_WIRE); exW.More(); exW.Next())
   {
-    TopoDS_Wire W;
+    TopoWire W;
     B.MakeWire(W);
 
     for (exE.Init(exW.Current(), TopAbs_EDGE); exE.More(); exE.Next())
     {
-      TopoDS_Edge E = TopoDS::Edge(exE.Current());
+      TopoEdge E = TopoDS::Edge(exE.Current());
       if (myDS.EdgeHasSplE(E))
       {
 
         TopTools_ListIteratorOfListOfShape itS;
         for (itS.Initialize(myDS.EdgeSplE(E)); itS.More(); itS.Next())
         {
-          TopoDS_Edge newE = TopoDS::Edge(itS.Value());
+          TopoEdge newE = TopoDS::Edge(itS.Value());
           newE.Orientation(E.Orientation());
           myDS.AddOldS(newE, E);
           B.Add(W, newE);
@@ -147,34 +147,34 @@ void HLRTopoBRep_OutLiner::ProcessFace(const TopoDS_Face&             F,
   }
   //}
   myDS.AddIntL(F);
-  TopTools_ListOfShape& OutL = myDS.AddOutL(F);
+  ShapeList& OutL = myDS.AddOutL(F);
 
   if (myDS.FaceHasIntL(F))
   { // get the InternalOutLines on face F
-    TopoDS_Wire W;
+    TopoWire W;
 
     TopTools_ListIteratorOfListOfShape itE;
     for (itE.Initialize(myDS.FaceIntL(F)); itE.More(); itE.Next())
     {
-      TopoDS_Edge E = TopoDS::Edge(itE.Value());
+      TopoEdge E = TopoDS::Edge(itE.Value());
       E.Orientation(TopAbs_INTERNAL);
       // Check, if outline edge coincides real edge
 
       BRepAdaptor_Curve C(E);
       Standard_Real     par = 0.34 * C.FirstParameter() + 0.66 * C.LastParameter();
       Point3d            P   = C.Value(par);
-      TopoDS_Vertex     V1, V2, aV1, aV2;
-      TopExp::Vertices(E, V1, V2);
+      TopoVertex     V1, V2, aV1, aV2;
+      TopExp1::Vertices(E, V1, V2);
 
       Standard_Boolean SameEdge = Standard_False;
       if (!V1.IsNull() && aVEMap.Contains(V1))
       {
-        const TopTools_ListOfShape&        aEList = aVEMap.FindFromKey(V1);
+        const ShapeList&        aEList = aVEMap.FindFromKey(V1);
         TopTools_ListIteratorOfListOfShape it(aEList);
         for (; it.More(); it.Next())
         {
-          const TopoDS_Edge& aE = TopoDS::Edge(it.Value());
-          TopExp::Vertices(aE, aV1, aV2);
+          const TopoEdge& aE = TopoDS::Edge(it.Value());
+          TopExp1::Vertices(aE, aV1, aV2);
 
           if ((V1.IsSame(aV1) && V2.IsSame(aV2)) || (V1.IsSame(aV2) && V2.IsSame(aV1)))
           {
@@ -226,7 +226,7 @@ void HLRTopoBRep_OutLiner::ProcessFace(const TopoDS_Face&             F,
         TopTools_ListIteratorOfListOfShape itS;
         for (itS.Initialize(myDS.EdgeSplE(E)); itS.More(); itS.Next())
         {
-          TopoDS_Shape newE = itS.Value();
+          TopoShape newE = itS.Value();
           newE.Orientation(TopAbs_INTERNAL);
           if (W.IsNull())
             B.MakeWire(W);
@@ -248,12 +248,12 @@ void HLRTopoBRep_OutLiner::ProcessFace(const TopoDS_Face&             F,
 
   if (myDS.FaceHasIsoL(F))
   { // get the IsoLines on face F
-    TopoDS_Wire W;
+    TopoWire W;
 
     TopTools_ListIteratorOfListOfShape itE;
     for (itE.Initialize(myDS.FaceIsoL(F)); itE.More(); itE.Next())
     {
-      TopoDS_Edge E = TopoDS::Edge(itE.Value());
+      TopoEdge E = TopoDS::Edge(itE.Value());
       E.Orientation(TopAbs_INTERNAL);
       if (myDS.EdgeHasSplE(E))
       { // normally IsoLines are never split.
@@ -261,7 +261,7 @@ void HLRTopoBRep_OutLiner::ProcessFace(const TopoDS_Face&             F,
         TopTools_ListIteratorOfListOfShape itS;
         for (itS.Initialize(myDS.EdgeSplE(E)); itS.More(); itS.Next())
         {
-          TopoDS_Shape newE = itS.Value();
+          TopoShape newE = itS.Value();
           newE.Orientation(TopAbs_INTERNAL);
           if (W.IsNull())
             B.MakeWire(W);
@@ -293,14 +293,14 @@ void HLRTopoBRep_OutLiner::ProcessFace(const TopoDS_Face&             F,
 
 void HLRTopoBRep_OutLiner::BuildShape(BRepTopAdaptor_MapOfShapeTool& MST)
 {
-  TopExp_Explorer exshell, exface, exedge;
-  BRep_Builder    B;
+  ShapeExplorer exshell, exface, exedge;
+  ShapeBuilder    B;
   B.MakeCompound(TopoDS::Compound(myOutLinedShape));
   TopTools_MapOfShape ShapeMap;
 
   for (exshell.Init(myOriginalShape, TopAbs_SHELL); exshell.More(); exshell.Next())
   { // faces in a shell (open or close)
-    TopoDS_Shell theShell;
+    TopoShell theShell;
     B.MakeShell(theShell);
     theShell.Closed(exshell.Current().Closed());
 

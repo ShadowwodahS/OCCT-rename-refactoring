@@ -41,7 +41,7 @@ extern "C"
 
   #include <TCollection_AsciiString.hxx>
 
-const TCollection_AsciiString& ExprIntrp_GetResult();
+const AsciiString1& ExprIntrp_GetResult();
 int                            ExprIntrp_GetDegree();
 
 #endif

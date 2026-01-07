@@ -31,12 +31,12 @@
 //! During traversal, state accumulated for a child is passed on to each successive
 //! child and then to the parents of the group (Group does not push or pop traversal
 //! state as separator does).
-class Vrml_Group
+class Group
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_Group();
+  Standard_EXPORT Group();
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream);
 

@@ -45,12 +45,12 @@ public:
   //! Returns a string presentation of the label
   //! \param theLabel a label object
   //! \return the string value
-  Standard_EXPORT static TCollection_AsciiString GetEntry(const TDF_Label& theLabel);
+  Standard_EXPORT static AsciiString1 GetEntry(const DataLabel& theLabel);
 
   //! Returns string value corresponded to the shape type if it is not null.
   //! \param theShape a checked shape
   //! \return string value or empty string value
-  Standard_EXPORT static QVariant ShapeTypeInfo(const TopoDS_Shape& theShape);
+  Standard_EXPORT static QVariant ShapeTypeInfo(const TopoShape& theShape);
 
   //! Returns "true" or "false" text for the given boolean state
   //! \param theValue a boolean value
@@ -63,7 +63,7 @@ public:
   //! Converts a Qt string to OCCT extended string
   //! \param theValue a converted string
   //! \return the extended string value
-  Standard_EXPORT static QString ToString(const TCollection_ExtendedString& theValue)
+  Standard_EXPORT static QString ToString(const UtfString& theValue)
   {
     return QString::fromUtf16((uint16_t*)theValue.ToExtString());
   }
@@ -76,7 +76,7 @@ public:
   //! \param theType an enumeration kind
   //! \param theEnumId an enumeration value
   //! \return string presentation
-  Standard_EXPORT static TCollection_AsciiString ToName(const DFBrowserPane_OcctEnumType& theType,
+  Standard_EXPORT static AsciiString1 ToName(const DFBrowserPane_OcctEnumType& theType,
                                                         const Standard_Integer& theEnumId);
 };
 

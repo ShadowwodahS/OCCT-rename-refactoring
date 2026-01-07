@@ -188,8 +188,8 @@ WNT_Window::WNT_Window(const Standard_CString     theTitle,
   myXRight  = aRect.right;
   myYBottom = aRect.bottom;
 
-  const TCollection_ExtendedString aTitleW(theTitle);
-  const TCollection_ExtendedString aClassNameW(myWClass->Name());
+  const UtfString aTitleW(theTitle);
+  const UtfString aClassNameW(myWClass->Name());
   myHWindow = CreateWindowW(aClassNameW.ToWideString(),
                             aTitleW.ToWideString(),
                             aStyle,
@@ -445,9 +445,9 @@ void WNT_Window::SetPos(const Standard_Integer theX,
 
 //=================================================================================================
 
-void WNT_Window::SetTitle(const TCollection_AsciiString& theTitle)
+void WNT_Window::SetTitle(const AsciiString1& theTitle)
 {
-  const TCollection_ExtendedString aTitleW(theTitle);
+  const UtfString aTitleW(theTitle);
   SetWindowTextW((HWND)myHWindow, aTitleW.ToWideString());
 }
 

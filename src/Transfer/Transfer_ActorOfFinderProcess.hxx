@@ -22,7 +22,7 @@
 #include <Transfer_ActorOfProcessForFinder.hxx>
 #include <XSAlgo_ShapeProcessor.hxx>
 
-struct DE_ShapeFixParameters;
+struct ShapeFixParameters;
 class Transfer_Binder;
 class Transfer_Finder;
 class Transfer_ProcessForFinder;
@@ -76,7 +76,7 @@ public:
   //! @param theParameters the parameters for shape processing.
   //! @param theAdditionalParameters the additional parameters for shape processing.
   Standard_EXPORT void SetShapeFixParameters(
-    const DE_ShapeFixParameters&               theParameters,
+    const ShapeFixParameters&               theParameters,
     const XSAlgo_ShapeProcessor::ParameterMap& theAdditionalParameters = {});
 
   //! Returns parameters for shape processing that was set by SetParameters() method.

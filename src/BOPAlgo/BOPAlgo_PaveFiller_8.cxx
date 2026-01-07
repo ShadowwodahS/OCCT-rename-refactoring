@@ -36,13 +36,13 @@
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Vertex.hxx>
 
-static void MakeSplitEdge1(const TopoDS_Edge&   aE,
-                           const TopoDS_Face&   aF,
-                           const TopoDS_Vertex& aV1,
+static void MakeSplitEdge1(const TopoEdge&   aE,
+                           const TopoFace&   aF,
+                           const TopoVertex& aV1,
                            const Standard_Real  aP1,
-                           const TopoDS_Vertex& aV2,
+                           const TopoVertex& aV2,
                            const Standard_Real  aP2,
-                           TopoDS_Edge&         aNewEdge);
+                           TopoEdge&         aNewEdge);
 
 static Standard_Boolean AddSplitPoint(const Handle(BOPDS_PaveBlock)& thePBD,
                                       const BOPDS_Pave&              thePave,
@@ -50,7 +50,7 @@ static Standard_Boolean AddSplitPoint(const Handle(BOPDS_PaveBlock)& thePBD,
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::ProcessDE(const Message_ProgressRange& theRange)
+void BooleanPaveFiller::ProcessDE(const Message_ProgressRange& theRange)
 {
   Message_ProgressScope aPSOuter(theRange, NULL, 1);
 
@@ -109,11 +109,11 @@ void BOPAlgo_PaveFiller::ProcessDE(const Message_ProgressRange& theRange)
         {
           Standard_Real        aTol = 1.e-7;
           Standard_Integer     nEn;
-          BRep_Builder         BB;
-          const TopoDS_Edge&   aDE = (*(TopoDS_Edge*)(&myDS->Shape(nE)));
-          const TopoDS_Vertex& aVn = (*(TopoDS_Vertex*)(&myDS->Shape(nV)));
+          ShapeBuilder         BB;
+          const TopoEdge&   aDE = (*(TopoEdge*)(&myDS->Shape(nE)));
+          const TopoVertex& aVn = (*(TopoVertex*)(&myDS->Shape(nV)));
           //
-          TopoDS_Edge aE = aDE;
+          TopoEdge aE = aDE;
           aE.EmptyCopy();
           BB.Add(aE, aVn);
           BB.Degenerated(aE, Standard_True);
@@ -137,7 +137,7 @@ void BOPAlgo_PaveFiller::ProcessDE(const Message_ProgressRange& theRange)
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::FindPaveBlocks(const Standard_Integer nV,
+void BooleanPaveFiller::FindPaveBlocks(const Standard_Integer nV,
                                         const Standard_Integer nF,
                                         BOPDS_ListOfPaveBlock& aLPBOut)
 {
@@ -184,21 +184,21 @@ void BOPAlgo_PaveFiller::FindPaveBlocks(const Standard_Integer nV,
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::MakeSplitEdge(const Standard_Integer nDE, const Standard_Integer nDF)
+void BooleanPaveFiller::MakeSplitEdge(const Standard_Integer nDE, const Standard_Integer nDF)
 {
   Standard_Integer                    nSp, nV1, nV2, aNbPB;
   Standard_Real                       aT1, aT2;
-  TopoDS_Edge                         aDE, aSp;
-  TopoDS_Vertex                       aV1, aV2;
+  TopoEdge                         aDE, aSp;
+  TopoVertex                       aV1, aV2;
   BOPDS_ListIteratorOfListOfPaveBlock aItLPB;
   BOPDS_ShapeInfo                     aSI;
   //
   aSI.SetShapeType(TopAbs_EDGE);
   //
-  aDE = (*(TopoDS_Edge*)(&myDS->Shape(nDE)));
+  aDE = (*(TopoEdge*)(&myDS->Shape(nDE)));
   aDE.Orientation(TopAbs_FORWARD);
   //
-  const TopoDS_Face& aDF = (*(TopoDS_Face*)(&myDS->Shape(nDF)));
+  const TopoFace& aDF = (*(TopoFace*)(&myDS->Shape(nDF)));
   //
   BOPDS_ListOfPaveBlock& aLPB = myDS->ChangePaveBlocks(nDE);
   aNbPB                       = aLPB.Extent();
@@ -216,10 +216,10 @@ void BOPAlgo_PaveFiller::MakeSplitEdge(const Standard_Integer nDE, const Standar
     //
     if (myDS->IsNewShape(nV1) || aNbPB > 1)
     {
-      aV1 = (*(TopoDS_Vertex*)(&myDS->Shape(nV1)));
+      aV1 = (*(TopoVertex*)(&myDS->Shape(nV1)));
       aV1.Orientation(TopAbs_FORWARD);
       //
-      aV2 = (*(TopoDS_Vertex*)(&myDS->Shape(nV2)));
+      aV2 = (*(TopoVertex*)(&myDS->Shape(nV2)));
       aV2.Orientation(TopAbs_REVERSED);
       //
       MakeSplitEdge1(aDE, aDF, aV1, aT1, aV2, aT2, aSp);
@@ -245,7 +245,7 @@ void BOPAlgo_PaveFiller::MakeSplitEdge(const Standard_Integer nDE, const Standar
 //           Extra paves of the pave block of degenerated edge for future
 //           splitting.
 //=======================================================================
-void BOPAlgo_PaveFiller::FillPaves(const Standard_Integer         nVD,
+void BooleanPaveFiller::FillPaves(const Standard_Integer         nVD,
                                    const Standard_Integer         nED,
                                    const Standard_Integer         nFD,
                                    const BOPDS_ListOfPaveBlock&   aLPBOut,
@@ -255,11 +255,11 @@ void BOPAlgo_PaveFiller::FillPaves(const Standard_Integer         nVD,
   BOPDS_Pave aPave;
   aPave.SetIndex(nVD);
   //
-  const TopoDS_Vertex& aDV = (*(TopoDS_Vertex*)(&myDS->Shape(nVD)));
-  const TopoDS_Edge&   aDE = (*(TopoDS_Edge*)(&myDS->Shape(nED)));
-  const TopoDS_Face&   aDF = (*(TopoDS_Face*)(&myDS->Shape(nFD)));
+  const TopoVertex& aDV = (*(TopoVertex*)(&myDS->Shape(nVD)));
+  const TopoEdge&   aDE = (*(TopoEdge*)(&myDS->Shape(nED)));
+  const TopoFace&   aDF = (*(TopoFace*)(&myDS->Shape(nFD)));
   //
-  Standard_Real              aTolV = BRep_Tool::Tolerance(aDV);
+  Standard_Real              aTolV = BRepInspector::Tolerance(aDV);
   const BRepAdaptor_Surface& aBAS  = myContext->SurfaceAdaptor(aDF);
   //
   // 2D intersection tolerance should be computed as a resolution
@@ -278,7 +278,7 @@ void BOPAlgo_PaveFiller::FillPaves(const Standard_Integer         nVD,
   Standard_Real aTolCmp = Precision::PConfusion();
   // Get 2D curve
   Standard_Real        aTD1, aTD2;
-  Handle(Geom2d_Curve) aC2DDE = BRep_Tool::CurveOnSurface(aDE, aDF, aTD1, aTD2);
+  Handle(GeomCurve2d) aC2DDE = BRepInspector::CurveOnSurface(aDE, aDF, aTD1, aTD2);
   // Get direction of the curve
   Standard_Boolean bUDir =
     Abs(aC2DDE->Value(aTD1).Y() - aC2DDE->Value(aTD2).Y()) < Precision::PConfusion();
@@ -298,9 +298,9 @@ void BOPAlgo_PaveFiller::FillPaves(const Standard_Integer         nVD,
     {
       continue;
     }
-    const TopoDS_Edge&   aE = (*(TopoDS_Edge*)(&myDS->Shape(nE)));
+    const TopoEdge&   aE = (*(TopoEdge*)(&myDS->Shape(nE)));
     Standard_Real        aT1, aT2;
-    Handle(Geom2d_Curve) aC2D = BRep_Tool::CurveOnSurface(aE, aDF, aT1, aT2);
+    Handle(GeomCurve2d) aC2D = BRepInspector::CurveOnSurface(aE, aDF, aT1, aT2);
     if (aC2D.IsNull())
     {
       continue;
@@ -351,20 +351,20 @@ void BOPAlgo_PaveFiller::FillPaves(const Standard_Integer         nVD,
 
 //=================================================================================================
 
-void MakeSplitEdge1(const TopoDS_Edge&   aE,
-                    const TopoDS_Face&   aF,
-                    const TopoDS_Vertex& aV1,
+void MakeSplitEdge1(const TopoEdge&   aE,
+                    const TopoFace&   aF,
+                    const TopoVertex& aV1,
                     const Standard_Real  aP1,
-                    const TopoDS_Vertex& aV2,
+                    const TopoVertex& aV2,
                     const Standard_Real  aP2,
-                    TopoDS_Edge&         aNewEdge)
+                    TopoEdge&         aNewEdge)
 {
   Standard_Real aTol = 1.e-7;
 
-  TopoDS_Edge E = aE;
+  TopoEdge E = aE;
 
   E.EmptyCopy();
-  BRep_Builder BB;
+  ShapeBuilder BB;
   BB.Add(E, aV1);
   BB.Add(E, aV2);
 

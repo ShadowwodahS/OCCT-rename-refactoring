@@ -28,7 +28,7 @@ inline LocOpe_FindEdgesInFace::LocOpe_FindEdgesInFace() {}
 // purpose  :
 //=======================================================================
 
-inline LocOpe_FindEdgesInFace::LocOpe_FindEdgesInFace(const TopoDS_Shape& S, const TopoDS_Face& F)
+inline LocOpe_FindEdgesInFace::LocOpe_FindEdgesInFace(const TopoShape& S, const TopoFace& F)
 {
   Set(S, F);
 }
@@ -58,7 +58,7 @@ inline Standard_Boolean LocOpe_FindEdgesInFace::More() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Edge& LocOpe_FindEdgesInFace::Edge() const
+inline const TopoEdge& LocOpe_FindEdgesInFace::Edge() const
 {
   return TopoDS::Edge(myIt.Value());
 }

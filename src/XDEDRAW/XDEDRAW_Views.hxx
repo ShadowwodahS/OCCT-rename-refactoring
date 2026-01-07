@@ -28,7 +28,7 @@ class XDEDRAW_Views
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static void InitCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void InitCommands(DrawInterpreter& theCommands);
 };
 
 #endif // _XDEDRAW_Views_HeaderFile

@@ -51,9 +51,9 @@ Standard_Boolean IGESSelect_SelectSubordinate::Sort(
   return Standard_False;
 }
 
-TCollection_AsciiString IGESSelect_SelectSubordinate::ExtractLabel() const
+AsciiString1 IGESSelect_SelectSubordinate::ExtractLabel() const
 {
-  TCollection_AsciiString lab("IGESEntity, Subordinate ");
+  AsciiString1 lab("IGESEntity, Subordinate ");
   if (thestatus == 0)
     lab.AssignCat("Independant (0)");
   if (thestatus == 1)

@@ -86,20 +86,20 @@ static Standard_Integer NbOFFSET = 0;
 #include <stdio.h>
 #include <Geom_BSplineSurface.hxx>
 
-static Point3d GetFarestCorner(const TopoDS_Wire& aWire)
+static Point3d GetFarestCorner(const TopoWire& aWire)
 {
   TopTools_IndexedMapOfShape Vertices;
-  TopExp::MapShapes(aWire, TopAbs_VERTEX, Vertices);
+  TopExp1::MapShapes(aWire, TopAbs_VERTEX, Vertices);
 
   Standard_Real MaxDist = 0.;
   Point3d        thePoint;
   for (Standard_Integer i = 1; i <= Vertices.Extent(); i++)
     for (Standard_Integer j = 1; j <= Vertices.Extent(); j++)
     {
-      const TopoDS_Vertex& V1    = TopoDS::Vertex(Vertices(i));
-      const TopoDS_Vertex& V2    = TopoDS::Vertex(Vertices(j));
-      Point3d               P1    = BRep_Tool::Pnt(V1);
-      Point3d               P2    = BRep_Tool::Pnt(V2);
+      const TopoVertex& V1    = TopoDS::Vertex(Vertices(i));
+      const TopoVertex& V2    = TopoDS::Vertex(Vertices(j));
+      Point3d               P1    = BRepInspector::Pnt(V1);
+      Point3d               P2    = BRepInspector::Pnt(V2);
       Standard_Real        aDist = P1.SquareDistance(P2);
       if (aDist > MaxDist)
       {
@@ -113,13 +113,13 @@ static Point3d GetFarestCorner(const TopoDS_Wire& aWire)
 
 //=================================================================================================
 
-static void UpdateEdge(const TopoDS_Edge&        E,
-                       const Handle(Geom_Curve)& C,
+static void UpdateEdge(const TopoEdge&        E,
+                       const Handle(GeomCurve3d)& C,
                        const TopLoc_Location&    L,
                        const Standard_Real       Tol)
 {
   // Cut curves to avoid copies in the extensions.
-  BRep_Builder              B;
+  ShapeBuilder              B;
   Handle(Geom_TrimmedCurve) BC = Handle(Geom_TrimmedCurve)::DownCast(C);
   if (!BC.IsNull())
   {
@@ -133,13 +133,13 @@ static void UpdateEdge(const TopoDS_Edge&        E,
 
 //=================================================================================================
 
-static void UpdateEdge(const TopoDS_Edge&          E,
-                       const Handle(Geom2d_Curve)& C,
-                       const TopoDS_Face&          F,
+static void UpdateEdge(const TopoEdge&          E,
+                       const Handle(GeomCurve2d)& C,
+                       const TopoFace&          F,
                        const Standard_Real         Tol)
 {
   // Cut curves to avoid copies in the extensions.
-  BRep_Builder                B;
+  ShapeBuilder                B;
   Handle(Geom2d_TrimmedCurve) BC = Handle(Geom2d_TrimmedCurve)::DownCast(C);
   if (!BC.IsNull())
   {
@@ -153,15 +153,15 @@ static void UpdateEdge(const TopoDS_Edge&          E,
 
 //=================================================================================================
 
-static void UpdateEdge(const TopoDS_Edge&          E,
-                       const Handle(Geom2d_Curve)& C1,
-                       const Handle(Geom2d_Curve)& C2,
-                       const TopoDS_Face&          F,
+static void UpdateEdge(const TopoEdge&          E,
+                       const Handle(GeomCurve2d)& C1,
+                       const Handle(GeomCurve2d)& C2,
+                       const TopoFace&          F,
                        const Standard_Real         Tol)
 {
   // Cut curves to avoid copies in the extensions.
-  BRep_Builder                B;
-  Handle(Geom2d_Curve)        NC1, NC2;
+  ShapeBuilder                B;
+  Handle(GeomCurve2d)        NC1, NC2;
   Handle(Geom2d_TrimmedCurve) BC1 = Handle(Geom2d_TrimmedCurve)::DownCast(C1);
   Handle(Geom2d_TrimmedCurve) BC2 = Handle(Geom2d_TrimmedCurve)::DownCast(C2);
   if (!BC1.IsNull())
@@ -180,9 +180,9 @@ static void UpdateEdge(const TopoDS_Edge&          E,
 // purpose  : Particular case of Curve On Surface.
 //=======================================================================
 
-static void ComputeCurve3d(const TopoDS_Edge&          Edge,
-                           const Handle(Geom2d_Curve)& Curve,
-                           const Handle(Geom_Surface)& Surf,
+static void ComputeCurve3d(const TopoEdge&          Edge,
+                           const Handle(GeomCurve2d)& Curve,
+                           const Handle(GeomSurface)& Surf,
                            const TopLoc_Location&      Loc,
                            Standard_Real               Tol)
 {
@@ -196,7 +196,7 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
   GeomAdaptor_Surface S(Surf);
   GeomAbs_CurveType   CTy = C.GetType();
   GeomAbs_SurfaceType STy = S.GetType();
-  BRep_Builder        TheBuilder;
+  ShapeBuilder        TheBuilder;
 
   if (STy != GeomAbs_Plane)
   { // if plane buildcurve3d manage KPart
@@ -220,7 +220,7 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
             Dir3d    DRev = Axis.XDirection().Crossed(Axis.YDirection());
             Axis3d    AxeRev(Axis.Location(), DRev);
             Ci.Rotate(AxeRev, P.X());
-            Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
+            Handle(GeomCircle) Circle = new GeomCircle(Ci);
             if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
               Circle->Reverse();
             UpdateEdge(Edge, Circle, Loc, Tol);
@@ -236,7 +236,7 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
           Dir3d      DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d      AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
-          Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
+          Handle(GeomCircle) Circle = new GeomCircle(Ci);
           if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
             Circle->Reverse();
           UpdateEdge(Edge, Circle, Loc, Tol);
@@ -251,7 +251,7 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
           Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
-          Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
+          Handle(GeomCircle) Circle = new GeomCircle(Ci);
           if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
             Circle->Reverse();
           UpdateEdge(Edge, Circle, Loc, Tol);
@@ -266,7 +266,7 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
           Dir3d   DRev = Axis.XDirection().Crossed(Axis.YDirection());
           Axis3d   AxeRev(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
-          Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
+          Handle(GeomCircle) Circle = new GeomCircle(Ci);
           if (D.IsOpposite(gp::DX2d(), Precision::Angular()))
             Circle->Reverse();
           UpdateEdge(Edge, Circle, Loc, Tol);
@@ -292,7 +292,7 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
           DRev   = Axis.XDirection().Crossed(Axis.YDirection());
           AxeRev = Axis3d(Axis.Location(), DRev);
           Ci.Rotate(AxeRev, P.X());
-          Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
+          Handle(GeomCircle) Circle = new GeomCircle(Ci);
 
           if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
             Circle->Reverse();
@@ -307,7 +307,7 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
           Vector3d      Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
-          Handle(Geom_Line) Line = new Geom_Line(L);
+          Handle(GeomLine) Line = new GeomLine(L);
           if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
             Line->Reverse();
           UpdateEdge(Edge, Line, Loc, Tol);
@@ -321,7 +321,7 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
           Vector3d   Tr(L.Direction());
           Tr.Multiply(P.Y());
           L.Translate(Tr);
-          Handle(Geom_Line) Line = new Geom_Line(L);
+          Handle(GeomLine) Line = new GeomLine(L);
           if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
             Line->Reverse();
           UpdateEdge(Edge, Line, Loc, Tol);
@@ -334,7 +334,7 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
           gp_Ax3   Axis = Tore.Position();
           gp_Circ  Ci   = ElSLib::TorusUIso(Axis, Tore.MajorRadius(), Tore.MinorRadius(), P.X());
           Ci.Rotate(Ci.Axis(), P.Y());
-          Handle(Geom_Circle) Circle = new Geom_Circle(Ci);
+          Handle(GeomCircle) Circle = new GeomCircle(Ci);
 
           if (D.IsOpposite(gp::DY2d(), Precision::Angular()))
             Circle->Reverse();
@@ -346,7 +346,7 @@ static void ComputeCurve3d(const TopoDS_Edge&          Edge,
   }
   else
   { // Cas Plan
-    Handle(Geom_Curve) C3d = GeomAPI::To3d(Curve, S.Plane());
+    Handle(GeomCurve3d) C3d = GeomAPI::To3d(Curve, S.Plane());
     UpdateEdge(Edge, C3d, Loc, Tol);
     IsComputed = Standard_True;
   }
@@ -367,7 +367,7 @@ BRepOffset_Offset::BRepOffset_Offset() {}
 
 //=================================================================================================
 
-BRepOffset_Offset::BRepOffset_Offset(const TopoDS_Face&     Face,
+BRepOffset_Offset::BRepOffset_Offset(const TopoFace&     Face,
                                      const Standard_Real    Offset,
                                      const Standard_Boolean OffsetOutside,
                                      const GeomAbs_JoinType JoinType)
@@ -377,7 +377,7 @@ BRepOffset_Offset::BRepOffset_Offset(const TopoDS_Face&     Face,
 
 //=================================================================================================
 
-BRepOffset_Offset::BRepOffset_Offset(const TopoDS_Face&                  Face,
+BRepOffset_Offset::BRepOffset_Offset(const TopoFace&                  Face,
                                      const Standard_Real                 Offset,
                                      const TopTools_DataMapOfShapeShape& Created,
                                      const Standard_Boolean              OffsetOutside,
@@ -388,9 +388,9 @@ BRepOffset_Offset::BRepOffset_Offset(const TopoDS_Face&                  Face,
 
 //=================================================================================================
 
-BRepOffset_Offset::BRepOffset_Offset(const TopoDS_Edge&     Path,
-                                     const TopoDS_Edge&     Edge1,
-                                     const TopoDS_Edge&     Edge2,
+BRepOffset_Offset::BRepOffset_Offset(const TopoEdge&     Path,
+                                     const TopoEdge&     Edge1,
+                                     const TopoEdge&     Edge2,
                                      const Standard_Real    Offset,
                                      const Standard_Boolean Polynomial,
                                      const Standard_Real    Tol,
@@ -401,12 +401,12 @@ BRepOffset_Offset::BRepOffset_Offset(const TopoDS_Edge&     Path,
 
 //=================================================================================================
 
-BRepOffset_Offset::BRepOffset_Offset(const TopoDS_Edge&     Path,
-                                     const TopoDS_Edge&     Edge1,
-                                     const TopoDS_Edge&     Edge2,
+BRepOffset_Offset::BRepOffset_Offset(const TopoEdge&     Path,
+                                     const TopoEdge&     Edge1,
+                                     const TopoEdge&     Edge2,
                                      const Standard_Real    Offset,
-                                     const TopoDS_Edge&     FirstEdge,
-                                     const TopoDS_Edge&     LastEdge,
+                                     const TopoEdge&     FirstEdge,
+                                     const TopoEdge&     LastEdge,
                                      const Standard_Boolean Polynomial,
                                      const Standard_Real    Tol,
                                      const GeomAbs_Shape    Conti)
@@ -416,8 +416,8 @@ BRepOffset_Offset::BRepOffset_Offset(const TopoDS_Edge&     Path,
 
 //=================================================================================================
 
-BRepOffset_Offset::BRepOffset_Offset(const TopoDS_Vertex&        Vertex,
-                                     const TopTools_ListOfShape& LEdge,
+BRepOffset_Offset::BRepOffset_Offset(const TopoVertex&        Vertex,
+                                     const ShapeList& LEdge,
                                      const Standard_Real         Offset,
                                      const Standard_Boolean      Polynomial,
                                      const Standard_Real         Tol,
@@ -428,7 +428,7 @@ BRepOffset_Offset::BRepOffset_Offset(const TopoDS_Vertex&        Vertex,
 
 //=================================================================================================
 
-void BRepOffset_Offset::Init(const TopoDS_Face&     Face,
+void BRepOffset_Offset::Init(const TopoFace&     Face,
                              const Standard_Real    Offset,
                              const Standard_Boolean OffsetOutside,
                              const GeomAbs_JoinType JoinType)
@@ -439,7 +439,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&     Face,
 
 //=================================================================================================
 
-void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
+void BRepOffset_Offset::Init(const TopoFace&                  Face,
                              const Standard_Real                 Offset,
                              const TopTools_DataMapOfShapeShape& Created,
                              const Standard_Boolean              OffsetOutside,
@@ -451,7 +451,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
     myOffset *= -1.;
 
   TopLoc_Location      L;
-  Handle(Geom_Surface) S = BRep_Tool::Surface(Face, L);
+  Handle(GeomSurface) S = BRepInspector::Surface(Face, L);
   // On detrime les surfaces, evite des recopies dans les extensions.
   Handle(Geom_RectangularTrimmedSurface) RT = Handle(Geom_RectangularTrimmedSurface)::DownCast(S);
   if (!RT.IsNull())
@@ -463,7 +463,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
        || S->IsKind(STANDARD_TYPE(Geom_OffsetSurface)))
       && !L.IsIdentity())
   {
-    S = Handle(Geom_Surface)::DownCast(S->Copy());
+    S = Handle(GeomSurface)::DownCast(S->Copy());
     S->Transform(L.Transformation());
     IsTransformed = Standard_True;
   }
@@ -476,7 +476,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
     Point3d        Apex = Co->Apex();
     ElSLib::Parameters(Co->Cone(), Apex, Uc, Vc);
     Standard_Real UU1, UU2, VV1, VV2;
-    BRepTools::UVBounds(Face, UU1, UU2, VV1, VV2);
+    BRepTools1::UVBounds(Face, UU1, UU2, VV1, VV2);
     if (VV2 < Vc && Co->SemiAngle() > 0)
       myOffset *= -1;
     else if (VV1 > Vc && Co->SemiAngle() < 0)
@@ -485,7 +485,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
       myOffset *= -1;
   }
 
-  Handle(Geom_Surface) TheSurf = BRepOffset::Surface(S, myOffset, myStatus);
+  Handle(GeomSurface) TheSurf = BRepOffset::Surface(S, myOffset, myStatus);
 
   // processing offsets of faces with possible degenerated edges
   Standard_Boolean UminDegen = Standard_False;
@@ -496,21 +496,21 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
   Point3d           MinApex, MaxApex;
   Standard_Boolean HasSingularity = Standard_False;
   Standard_Real    uf1, uf2, vf1, vf2, fpar, lpar;
-  BRepTools::UVBounds(Face, uf1, uf2, vf1, vf2);
+  BRepTools1::UVBounds(Face, uf1, uf2, vf1, vf2);
   if (!(OffsetOutside && JoinType == GeomAbs_Arc)
       && (TheSurf->DynamicType() == STANDARD_TYPE(Geom_ConicalSurface)
           || TheSurf->DynamicType() == STANDARD_TYPE(Geom_OffsetSurface)))
   {
     TopTools_SequenceOfShape DegEdges;
-    TopExp_Explorer          Explo(Face, TopAbs_EDGE);
+    ShapeExplorer          Explo(Face, TopAbs_EDGE);
     for (; Explo.More(); Explo.Next())
     {
-      const TopoDS_Edge& anEdge = TopoDS::Edge(Explo.Current());
+      const TopoEdge& anEdge = TopoDS::Edge(Explo.Current());
 
-      if (BRep_Tool::Degenerated(anEdge))
+      if (BRepInspector::Degenerated(anEdge))
       {
         Standard_Real        aF, aL;
-        Handle(Geom2d_Curve) c2d = BRep_Tool::CurveOnSurface(anEdge, Face, aF, aL);
+        Handle(GeomCurve2d) c2d = BRepInspector::CurveOnSurface(anEdge, Face, aF, aL);
 
         gp_Pnt2d aFPnt2d = c2d->Value(aF), aLPnt2d = c2d->Value(aL);
 
@@ -530,8 +530,8 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
     {
       const Standard_Real TolApex = 1.e-5;
       // define the iso of singularity (u or v)
-      TopoDS_Edge          theDegEdge = TopoDS::Edge(DegEdges(1));
-      Handle(Geom2d_Curve) aCurve     = BRep_Tool::CurveOnSurface(theDegEdge, Face, fpar, lpar);
+      TopoEdge          theDegEdge = TopoDS::Edge(DegEdges(1));
+      Handle(GeomCurve2d) aCurve     = BRepInspector::CurveOnSurface(theDegEdge, Face, fpar, lpar);
       gp_Pnt2d             fp2d       = aCurve->Value(fpar);
       gp_Pnt2d             lp2d       = aCurve->Value(lpar);
       if (Abs(fp2d.X() - lp2d.X()) <= Precision::PConfusion())
@@ -590,10 +590,10 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
       {
         if (UminDegen)
         {
-          Handle(Geom_Curve) uiso = TheSurf->UIso(uf1);
+          Handle(GeomCurve3d) uiso = TheSurf->UIso(uf1);
           if (BRepOffset_Tool::Gabarit(uiso) > TolApex)
           {
-            Handle(Geom_Surface) BasisSurf =
+            Handle(GeomSurface) BasisSurf =
               Handle(Geom_OffsetSurface)::DownCast(TheSurf)->BasisSurface();
             Point3d Papex, Pfirst, Pquart, Pmid;
             Papex                                   = BasisSurf->Value(uf1, vf1);
@@ -601,9 +601,9 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             Pquart                                  = TheSurf->Value(uf1, 0.75 * vf1 + 0.25 * vf2);
             Pmid                                    = TheSurf->Value(uf1, 0.5 * (vf1 + vf2));
             Vector3d                    DirApex       = Vector3d(Pfirst, Pquart) ^ Vector3d(Pfirst, Pmid);
-            Handle(Geom_Line)         LineApex      = new Geom_Line(Papex, DirApex);
+            Handle(GeomLine)         LineApex      = new GeomLine(Papex, DirApex);
             Vector3d                    DirGeneratrix = BasisSurf->DN(uf1, vf1, 1, 0);
-            Handle(Geom_Line)         LineGeneratrix = new Geom_Line(Pfirst, DirGeneratrix);
+            Handle(GeomLine)         LineGeneratrix = new GeomLine(Pfirst, DirGeneratrix);
             GeomAPI_ExtremaCurveCurve theExtrema(LineGeneratrix, LineApex);
             Point3d                    Pint1, Pint2;
             theExtrema.NearestPoints(Pint1, Pint2);
@@ -620,7 +620,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             }
             else
             {
-              Handle(Geom_Curve)          viso = TheSurf->VIso(vf1);
+              Handle(GeomCurve3d)          viso = TheSurf->VIso(vf1);
               GeomAPI_ProjectPointOnCurve Projector(Pint1, viso);
               Standard_Real               NewFirstU = Projector.LowerDistanceParameter();
               TheSurf = new Geom_RectangularTrimmedSurface(TheSurf, NewFirstU, uf2, vf1, vf2);
@@ -631,10 +631,10 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
         } // end of if (UminDegen)
         if (UmaxDegen)
         {
-          Handle(Geom_Curve) uiso = TheSurf->UIso(uf2);
+          Handle(GeomCurve3d) uiso = TheSurf->UIso(uf2);
           if (BRepOffset_Tool::Gabarit(uiso) > TolApex)
           {
-            Handle(Geom_Surface) BasisSurf =
+            Handle(GeomSurface) BasisSurf =
               Handle(Geom_OffsetSurface)::DownCast(TheSurf)->BasisSurface();
             Point3d Papex, Pfirst, Pquart, Pmid;
             Papex                                   = BasisSurf->Value(uf2, vf1);
@@ -642,9 +642,9 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             Pquart                                  = TheSurf->Value(uf2, 0.75 * vf1 + 0.25 * vf2);
             Pmid                                    = TheSurf->Value(uf2, 0.5 * (vf1 + vf2));
             Vector3d                    DirApex       = Vector3d(Pfirst, Pquart) ^ Vector3d(Pfirst, Pmid);
-            Handle(Geom_Line)         LineApex      = new Geom_Line(Papex, DirApex);
+            Handle(GeomLine)         LineApex      = new GeomLine(Papex, DirApex);
             Vector3d                    DirGeneratrix = BasisSurf->DN(uf2, vf1, 1, 0);
-            Handle(Geom_Line)         LineGeneratrix = new Geom_Line(Pfirst, DirGeneratrix);
+            Handle(GeomLine)         LineGeneratrix = new GeomLine(Pfirst, DirGeneratrix);
             GeomAPI_ExtremaCurveCurve theExtrema(LineGeneratrix, LineApex);
             Point3d                    Pint1, Pint2;
             theExtrema.NearestPoints(Pint1, Pint2);
@@ -661,7 +661,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             }
             else
             {
-              Handle(Geom_Curve)          viso = TheSurf->VIso(vf1);
+              Handle(GeomCurve3d)          viso = TheSurf->VIso(vf1);
               GeomAPI_ProjectPointOnCurve Projector(Pint1, viso);
               Standard_Real               NewLastU = Projector.LowerDistanceParameter();
               TheSurf = new Geom_RectangularTrimmedSurface(TheSurf, uf1, NewLastU, vf1, vf2);
@@ -672,10 +672,10 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
         } // end of if (UmaxDegen)
         if (VminDegen)
         {
-          Handle(Geom_Curve) viso = TheSurf->VIso(vf1);
+          Handle(GeomCurve3d) viso = TheSurf->VIso(vf1);
           if (BRepOffset_Tool::Gabarit(viso) > TolApex)
           {
-            Handle(Geom_Surface) BasisSurf =
+            Handle(GeomSurface) BasisSurf =
               Handle(Geom_OffsetSurface)::DownCast(TheSurf)->BasisSurface();
             Point3d Papex, Pfirst, Pquart, Pmid;
             Papex                                   = BasisSurf->Value(uf1, vf1);
@@ -683,9 +683,9 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             Pquart                                  = TheSurf->Value(0.75 * uf1 + 0.25 * uf2, vf1);
             Pmid                                    = TheSurf->Value(0.5 * (uf1 + uf2), vf1);
             Vector3d                    DirApex       = Vector3d(Pfirst, Pquart) ^ Vector3d(Pfirst, Pmid);
-            Handle(Geom_Line)         LineApex      = new Geom_Line(Papex, DirApex);
+            Handle(GeomLine)         LineApex      = new GeomLine(Papex, DirApex);
             Vector3d                    DirGeneratrix = BasisSurf->DN(uf1, vf1, 0, 1);
-            Handle(Geom_Line)         LineGeneratrix = new Geom_Line(Pfirst, DirGeneratrix);
+            Handle(GeomLine)         LineGeneratrix = new GeomLine(Pfirst, DirGeneratrix);
             GeomAPI_ExtremaCurveCurve theExtrema(LineGeneratrix, LineApex);
             Point3d                    Pint1, Pint2;
             theExtrema.NearestPoints(Pint1, Pint2);
@@ -702,7 +702,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             }
             else
             {
-              Handle(Geom_Curve)          uiso = TheSurf->UIso(uf1);
+              Handle(GeomCurve3d)          uiso = TheSurf->UIso(uf1);
               GeomAPI_ProjectPointOnCurve Projector(Pint1, uiso);
               Standard_Real               NewFirstV = Projector.LowerDistanceParameter();
               TheSurf = new Geom_RectangularTrimmedSurface(TheSurf, uf1, uf2, NewFirstV, vf2);
@@ -715,10 +715,10 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
         } // end of if (VminDegen)
         if (VmaxDegen)
         {
-          Handle(Geom_Curve) viso = TheSurf->VIso(vf2);
+          Handle(GeomCurve3d) viso = TheSurf->VIso(vf2);
           if (BRepOffset_Tool::Gabarit(viso) > TolApex)
           {
-            Handle(Geom_Surface) BasisSurf =
+            Handle(GeomSurface) BasisSurf =
               Handle(Geom_OffsetSurface)::DownCast(TheSurf)->BasisSurface();
             Point3d Papex, Pfirst, Pquart, Pmid;
             Papex                                   = BasisSurf->Value(uf1, vf2);
@@ -726,9 +726,9 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             Pquart                                  = TheSurf->Value(0.75 * uf1 + 0.25 * uf2, vf2);
             Pmid                                    = TheSurf->Value(0.5 * (uf1 + uf2), vf2);
             Vector3d                    DirApex       = Vector3d(Pfirst, Pquart) ^ Vector3d(Pfirst, Pmid);
-            Handle(Geom_Line)         LineApex      = new Geom_Line(Papex, DirApex);
+            Handle(GeomLine)         LineApex      = new GeomLine(Papex, DirApex);
             Vector3d                    DirGeneratrix = BasisSurf->DN(uf1, vf2, 0, 1);
-            Handle(Geom_Line)         LineGeneratrix = new Geom_Line(Pfirst, DirGeneratrix);
+            Handle(GeomLine)         LineGeneratrix = new GeomLine(Pfirst, DirGeneratrix);
             GeomAPI_ExtremaCurveCurve theExtrema(LineGeneratrix, LineApex);
             Point3d                    Pint1, Pint2;
             theExtrema.NearestPoints(Pint1, Pint2);
@@ -745,7 +745,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             }
             else
             {
-              Handle(Geom_Curve)          uiso = TheSurf->UIso(uf1);
+              Handle(GeomCurve3d)          uiso = TheSurf->UIso(uf1);
               GeomAPI_ProjectPointOnCurve Projector(Pint1, uiso);
               Standard_Real               NewLastV = Projector.LowerDistanceParameter();
               TheSurf = new Geom_RectangularTrimmedSurface(TheSurf, uf1, uf2, vf1, NewLastV);
@@ -762,36 +762,36 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
 
   // find the PCurves of the edges of <Faces>
 
-  BRep_Builder myBuilder;
+  ShapeBuilder myBuilder;
   myBuilder.MakeFace(myFace);
   if (!IsTransformed)
-    myBuilder.UpdateFace(myFace, TheSurf, L, BRep_Tool::Tolerance(Face));
+    myBuilder.UpdateFace(myFace, TheSurf, L, BRepInspector::Tolerance(Face));
   else
-    myBuilder.UpdateFace(myFace, TheSurf, TopLoc_Location(), BRep_Tool::Tolerance(Face));
+    myBuilder.UpdateFace(myFace, TheSurf, TopLoc_Location(), BRepInspector::Tolerance(Face));
 
   TopTools_DataMapOfShapeShape MapSS;
 
   // mise a jour de la map sur les vertex deja crees
-  TopoDS_Shape aLocalShapeOriented = Face.Oriented(TopAbs_FORWARD);
-  TopoDS_Face  CurFace             = TopoDS::Face(aLocalShapeOriented);
-  //  TopoDS_Face CurFace = TopoDS::Face(Face.Oriented(TopAbs_FORWARD));
+  TopoShape aLocalShapeOriented = Face.Oriented(TopAbs_FORWARD);
+  TopoFace  CurFace             = TopoDS::Face(aLocalShapeOriented);
+  //  TopoFace CurFace = TopoDS::Face(Face.Oriented(TopAbs_FORWARD));
 
   TopTools_MapOfShape VonDegen;
   Standard_Real       u1, u2, v1, v2;
   TheSurf->Bounds(u1, u2, v1, v2);
 
-  TopExp_Explorer exp(CurFace, TopAbs_EDGE);
+  ShapeExplorer exp(CurFace, TopAbs_EDGE);
   for (; exp.More(); exp.Next())
   {
-    const TopoDS_Edge& E = TopoDS::Edge(exp.Current());
-    TopoDS_Vertex      V1, V2, OV1, OV2;
-    TopExp::Vertices(E, V1, V2);
-    if (HasSingularity && BRep_Tool::Degenerated(E))
+    const TopoEdge& E = TopoDS::Edge(exp.Current());
+    TopoVertex      V1, V2, OV1, OV2;
+    TopExp1::Vertices(E, V1, V2);
+    if (HasSingularity && BRepInspector::Degenerated(E))
       VonDegen.Add(V1);
     if (Created.IsBound(E))
     {
-      const TopoDS_Edge& OE = TopoDS::Edge(Created(E));
-      TopExp::Vertices(OE, OV1, OV2);
+      const TopoEdge& OE = TopoDS::Edge(Created(E));
+      TopExp1::Vertices(OE, OV1, OV2);
       if (!MapSS.IsBound(V1))
         MapSS.Bind(V1, OV1);
       if (!MapSS.IsBound(V2))
@@ -809,44 +809,44 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
     }
   }
 
-  TopExp_Explorer expw(CurFace, TopAbs_WIRE);
+  ShapeExplorer expw(CurFace, TopAbs_WIRE);
   for (; expw.More(); expw.Next())
   {
-    const TopoDS_Wire& W = TopoDS::Wire(expw.Current());
-    TopExp_Explorer    expe(W.Oriented(TopAbs_FORWARD), TopAbs_EDGE);
-    TopoDS_Wire        OW;
+    const TopoWire& W = TopoDS::Wire(expw.Current());
+    ShapeExplorer    expe(W.Oriented(TopAbs_FORWARD), TopAbs_EDGE);
+    TopoWire        OW;
     myBuilder.MakeWire(OW);
     for (; expe.More(); expe.Next())
     {
-      const TopoDS_Edge& E = TopoDS::Edge(expe.Current());
-      TopoDS_Vertex      V1, V2;
-      TopExp::Vertices(E, V1, V2);
+      const TopoEdge& E = TopoDS::Edge(expe.Current());
+      TopoVertex      V1, V2;
+      TopExp1::Vertices(E, V1, V2);
       gp_Pnt2d             P2d1, P2d2;
       Point3d               P1, P2;
       Standard_Real        vstart, vend;
       Standard_Real        f, l;
-      Handle(Geom2d_Curve) C2d = BRep_Tool::CurveOnSurface(E, CurFace, f, l);
-      TopoDS_Edge          OE;
+      Handle(GeomCurve2d) C2d = BRepInspector::CurveOnSurface(E, CurFace, f, l);
+      TopoEdge          OE;
       if (MapSS.IsBound(E) && !VonDegen.Contains(V1) && !VonDegen.Contains(V2))
       { // c`est un edge de couture
         OE                               = TopoDS::Edge(MapSS(E));
-        TopoDS_Shape         aLocalShape = E.Reversed();
-        Handle(Geom2d_Curve) C2d_1 =
-          BRep_Tool::CurveOnSurface(TopoDS::Edge(aLocalShape), CurFace, f, l);
-        //	Handle(Geom2d_Curve) C2d_1 =
-        //	  BRep_Tool::CurveOnSurface(TopoDS::Edge(E.Reversed()),CurFace,f,l);
+        TopoShape         aLocalShape = E.Reversed();
+        Handle(GeomCurve2d) C2d_1 =
+          BRepInspector::CurveOnSurface(TopoDS::Edge(aLocalShape), CurFace, f, l);
+        //	Handle(GeomCurve2d) C2d_1 =
+        //	  BRepInspector::CurveOnSurface(TopoDS::Edge(E.Reversed()),CurFace,f,l);
         if (E.Orientation() == TopAbs_FORWARD)
-          UpdateEdge(OE, C2d, C2d_1, myFace, BRep_Tool::Tolerance(E));
+          UpdateEdge(OE, C2d, C2d_1, myFace, BRepInspector::Tolerance(E));
         else
-          UpdateEdge(OE, C2d_1, C2d, myFace, BRep_Tool::Tolerance(E));
+          UpdateEdge(OE, C2d_1, C2d, myFace, BRepInspector::Tolerance(E));
         myBuilder.Range(OE, f, l);
       }
       else
       {
-        TopoDS_Shape aLocalShape = E.Oriented(TopAbs_FORWARD);
-        TopoDS_Edge  Eforward    = TopoDS::Edge(aLocalShape);
-        P2d1                     = C2d->Value(BRep_Tool::Parameter(V1, Eforward, CurFace));
-        P2d2                     = C2d->Value(BRep_Tool::Parameter(V2, Eforward, CurFace));
+        TopoShape aLocalShape = E.Oriented(TopAbs_FORWARD);
+        TopoEdge  Eforward    = TopoDS::Edge(aLocalShape);
+        P2d1                     = C2d->Value(BRepInspector::Parameter(V1, Eforward, CurFace));
+        P2d2                     = C2d->Value(BRepInspector::Parameter(V2, Eforward, CurFace));
         if (VonDegen.Contains(V1))
         {
           if (Abs(P2d1.Y() - vf1) <= Precision::Confusion())
@@ -897,7 +897,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
         else
         {
           myBuilder.MakeEdge(OE);
-          TopoDS_Vertex OV1, OV2;
+          TopoVertex OV1, OV2;
           if (MapSS.IsBound(V1))
           {
             OV1 = TopoDS::Vertex(MapSS(V1));
@@ -905,7 +905,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
           else
           {
             myBuilder.MakeVertex(OV1);
-            myBuilder.UpdateVertex(OV1, P1, BRep_Tool::Tolerance(V1));
+            myBuilder.UpdateVertex(OV1, P1, BRepInspector::Tolerance(V1));
             MapSS.Bind(V1, OV1);
           }
           if (MapSS.IsBound(V2))
@@ -915,12 +915,12 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
           else
           {
             myBuilder.MakeVertex(OV2);
-            myBuilder.UpdateVertex(OV2, P2, BRep_Tool::Tolerance(V2));
+            myBuilder.UpdateVertex(OV2, P2, BRepInspector::Tolerance(V2));
             MapSS.Bind(V2, OV2);
           }
           myBuilder.Add(OE, OV1.Oriented(V1.Orientation()));
           myBuilder.Add(OE, OV2.Oriented(V2.Orientation()));
-          if (BRep_Tool::Degenerated(E))
+          if (BRepInspector::Degenerated(E))
           {
             myBuilder.Degenerated(OE, Standard_True);
             /*
@@ -929,7 +929,7 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
             gp_Pnt2d      P2d;
             P2d = C2d->Value(f); TheSurf->D0(P2d.X(),P2d.Y(),P1);
             P2d = C2d->Value(l); TheSurf->D0(P2d.X(),P2d.Y(),P2);
-            Standard_Real Tol = BRep_Tool::Tolerance(V1);
+            Standard_Real Tol = BRepInspector::Tolerance(V1);
             if (!P1.IsEqual(P2,Tol)) {
               std::cout <<"BRepOffset_Offset : E degenerated -> OE not degenerated"<<std::endl;
             }
@@ -948,49 +948,49 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
           l   = P2d1.Distance(P2d2);
           if (MapSS.IsBound(E)) // seam edge
           {
-            Handle(Geom2d_Curve) C2d_1 = BRep_Tool::CurveOnSurface(OE, myFace, f, l);
+            Handle(GeomCurve2d) C2d_1 = BRepInspector::CurveOnSurface(OE, myFace, f, l);
             if (E.Orientation() == TopAbs_FORWARD)
-              UpdateEdge(OE, C2d, C2d_1, myFace, BRep_Tool::Tolerance(E));
+              UpdateEdge(OE, C2d, C2d_1, myFace, BRepInspector::Tolerance(E));
             else
-              UpdateEdge(OE, C2d_1, C2d, myFace, BRep_Tool::Tolerance(E));
+              UpdateEdge(OE, C2d_1, C2d, myFace, BRepInspector::Tolerance(E));
           }
           else
-            UpdateEdge(OE, C2d, myFace, BRep_Tool::Tolerance(E));
+            UpdateEdge(OE, C2d, myFace, BRepInspector::Tolerance(E));
           // myBuilder.Range(OE,f,l);
           myBuilder.Range(OE, myFace, f, l);
-          if (!BRep_Tool::Degenerated(E) && TheSurf->IsUClosed())
+          if (!BRepInspector::Degenerated(E) && TheSurf->IsUClosed())
           {
-            TopoDS_Shape         aLocalShapeReversedE = E.Reversed();
-            Handle(Geom2d_Curve) C2d_1 =
-              BRep_Tool::CurveOnSurface(TopoDS::Edge(aLocalShapeReversedE), CurFace, f, l);
-            P2d1 = C2d_1->Value(BRep_Tool::Parameter(V1, E, CurFace));
-            P2d2 = C2d_1->Value(BRep_Tool::Parameter(V2, E, CurFace));
+            TopoShape         aLocalShapeReversedE = E.Reversed();
+            Handle(GeomCurve2d) C2d_1 =
+              BRepInspector::CurveOnSurface(TopoDS::Edge(aLocalShapeReversedE), CurFace, f, l);
+            P2d1 = C2d_1->Value(BRepInspector::Parameter(V1, E, CurFace));
+            P2d2 = C2d_1->Value(BRepInspector::Parameter(V2, E, CurFace));
             if (VonDegen.Contains(V1))
               P2d1.SetY(vstart);
             if (VonDegen.Contains(V2))
               P2d2.SetY(vend);
             C2d_1 = new Geom2d_Line(P2d1, gp_Vec2d(P2d1, P2d2));
             if (E.Orientation() == TopAbs_FORWARD)
-              UpdateEdge(OE, C2d, C2d_1, myFace, BRep_Tool::Tolerance(E));
+              UpdateEdge(OE, C2d, C2d_1, myFace, BRepInspector::Tolerance(E));
             else
-              UpdateEdge(OE, C2d_1, C2d, myFace, BRep_Tool::Tolerance(E));
+              UpdateEdge(OE, C2d_1, C2d, myFace, BRepInspector::Tolerance(E));
           }
           /*
-          if (!BRep_Tool::Degenerated(E))
+          if (!BRepInspector::Degenerated(E))
             {
-          Handle(Geom_Line) theLine = new Geom_Line( P1, Vector3d(P1, P2) );
-          myBuilder.UpdateEdge( OE, theLine, BRep_Tool::Tolerance(E) );
+          Handle(GeomLine) theLine = new GeomLine( P1, Vector3d(P1, P2) );
+          myBuilder.UpdateEdge( OE, theLine, BRepInspector::Tolerance(E) );
             }
           */
         }
         else
         {
-          UpdateEdge(OE, C2d, myFace, BRep_Tool::Tolerance(E));
+          UpdateEdge(OE, C2d, myFace, BRepInspector::Tolerance(E));
           myBuilder.Range(OE, f, l);
-          // ComputeCurve3d(OE,C2d,TheSurf,L,BRep_Tool::Tolerance(E));
+          // ComputeCurve3d(OE,C2d,TheSurf,L,BRepInspector::Tolerance(E));
         }
-        if (!BRep_Tool::Degenerated(OE))
-          ComputeCurve3d(OE, C2d, TheSurf, L, BRep_Tool::Tolerance(E));
+        if (!BRepInspector::Degenerated(OE))
+          ComputeCurve3d(OE, C2d, TheSurf, L, BRepInspector::Tolerance(E));
         MapSS.Bind(E, OE);
       }
       myBuilder.Add(OW, OE.Oriented(E.Orientation()));
@@ -1000,31 +1000,31 @@ void BRepOffset_Offset::Init(const TopoDS_Face&                  Face,
 
   myFace.Orientation(Face.Orientation());
 
-  BRepTools::Update(myFace);
+  BRepTools1::Update(myFace);
 }
 
 //=================================================================================================
 
-void BRepOffset_Offset::Init(const TopoDS_Edge&     Path,
-                             const TopoDS_Edge&     Edge1,
-                             const TopoDS_Edge&     Edge2,
+void BRepOffset_Offset::Init(const TopoEdge&     Path,
+                             const TopoEdge&     Edge1,
+                             const TopoEdge&     Edge2,
                              const Standard_Real    Offset,
                              const Standard_Boolean Polynomial,
                              const Standard_Real    Tol,
                              const GeomAbs_Shape    Conti)
 {
-  TopoDS_Edge FirstEdge, LastEdge;
+  TopoEdge FirstEdge, LastEdge;
   Init(Path, Edge1, Edge2, Offset, FirstEdge, LastEdge, Polynomial, Tol, Conti);
 }
 
 //=================================================================================================
 
-void BRepOffset_Offset::Init(const TopoDS_Edge&     Path,
-                             const TopoDS_Edge&     Edge1,
-                             const TopoDS_Edge&     Edge2,
+void BRepOffset_Offset::Init(const TopoEdge&     Path,
+                             const TopoEdge&     Edge1,
+                             const TopoEdge&     Edge2,
                              const Standard_Real    Offset,
-                             const TopoDS_Edge&     FirstEdge,
-                             const TopoDS_Edge&     LastEdge,
+                             const TopoEdge&     FirstEdge,
+                             const TopoEdge&     LastEdge,
                              const Standard_Boolean Polynomial,
                              const Standard_Real    Tol,
                              const GeomAbs_Shape    Conti)
@@ -1037,22 +1037,22 @@ void BRepOffset_Offset::Init(const TopoDS_Edge&     Path,
   TopLoc_Location Loc;
   Standard_Real   f[3], l[3];
 
-  Handle(Geom_Curve) CP = BRep_Tool::Curve(Path, Loc, f[0], l[0]);
+  Handle(GeomCurve3d) CP = BRepInspector::Curve(Path, Loc, f[0], l[0]);
   CP                    = new Geom_TrimmedCurve(CP, f[0], l[0]);
   CP->Transform(Loc.Transformation());
   Handle(GeomAdaptor_Curve) HCP = new GeomAdaptor_Curve(CP);
 
-  Handle(Geom_Curve) C1 = BRep_Tool::Curve(Edge1, Loc, f[1], l[1]);
+  Handle(GeomCurve3d) C1 = BRepInspector::Curve(Edge1, Loc, f[1], l[1]);
 
   Handle(Adaptor3d_Curve) HEdge1;
   Standard_Boolean        C1is3D = Standard_True;
   if (C1.IsNull())
   {
     C1is3D = Standard_False;
-    Handle(Geom2d_Curve) C12d;
-    Handle(Geom_Surface) S1;
-    BRep_Tool::CurveOnSurface(Edge1, C12d, S1, Loc, f[1], l[1]);
-    S1   = Handle(Geom_Surface)::DownCast(S1->Transformed(Loc.Transformation()));
+    Handle(GeomCurve2d) C12d;
+    Handle(GeomSurface) S1;
+    BRepInspector::CurveOnSurface(Edge1, C12d, S1, Loc, f[1], l[1]);
+    S1   = Handle(GeomSurface)::DownCast(S1->Transformed(Loc.Transformation()));
     C12d = new Geom2d_TrimmedCurve(C12d, f[1], l[1]);
     Handle(GeomAdaptor_Surface) HS1 = new GeomAdaptor_Surface(S1);
     Handle(Geom2dAdaptor_Curve) HC1 = new Geom2dAdaptor_Curve(C12d);
@@ -1071,17 +1071,17 @@ void BRepOffset_Offset::Init(const TopoDS_Edge&     Path,
     }
   }
 
-  Handle(Geom_Curve) C2 = BRep_Tool::Curve(Edge2, Loc, f[2], l[2]);
+  Handle(GeomCurve3d) C2 = BRepInspector::Curve(Edge2, Loc, f[2], l[2]);
 
   Handle(Adaptor3d_Curve) HEdge2;
   Standard_Boolean        C2is3D = Standard_True;
   if (C2.IsNull())
   {
     C2is3D = Standard_False;
-    Handle(Geom2d_Curve) C12d;
-    Handle(Geom_Surface) S1;
-    BRep_Tool::CurveOnSurface(Edge2, C12d, S1, Loc, f[2], l[2]);
-    S1   = Handle(Geom_Surface)::DownCast(S1->Transformed(Loc.Transformation()));
+    Handle(GeomCurve2d) C12d;
+    Handle(GeomSurface) S1;
+    BRepInspector::CurveOnSurface(Edge2, C12d, S1, Loc, f[2], l[2]);
+    S1   = Handle(GeomSurface)::DownCast(S1->Transformed(Loc.Transformation()));
     C12d = new Geom2d_TrimmedCurve(C12d, f[2], l[2]);
     Handle(GeomAdaptor_Surface) HS1 = new GeomAdaptor_Surface(S1);
     Handle(Geom2dAdaptor_Curve) HC1 = new Geom2dAdaptor_Curve(C12d);
@@ -1107,22 +1107,22 @@ void BRepOffset_Offset::Init(const TopoDS_Edge&     Path,
     throw Standard_ConstructionError("GeomFill_Pipe : Cannot make a surface");
   Standard_Real ErrorPipe = Pipe.ErrorOnSurf();
 
-  Handle(Geom_Surface) S      = Pipe.Surface();
+  Handle(GeomSurface) S      = Pipe.Surface();
   Standard_Boolean     ExchUV = Pipe.ExchangeUV();
   Standard_Real        f1, l1, f2, l2;
   S->Bounds(f1, l1, f2, l2);
 
   // Perform the face
-  Standard_Real PathTol = BRep_Tool::Tolerance(Path);
+  Standard_Real PathTol = BRepInspector::Tolerance(Path);
   Standard_Real TheTol;
-  BRep_Builder  myBuilder;
+  ShapeBuilder  myBuilder;
   myBuilder.MakeFace(myFace);
   TopLoc_Location Id;
   myBuilder.UpdateFace(myFace, S, Id, PathTol);
 
   // update de Edge1. (Rem : has already a 3d curve)
   Standard_Real        U, U1, U2;
-  Handle(Geom2d_Curve) PC;
+  Handle(GeomCurve2d) PC;
   if (ExchUV)
   {
     PC = new Geom2d_Line(gp_Pnt2d(0, f2), gp_Dir2d(1, 0));
@@ -1140,16 +1140,16 @@ void BRepOffset_Offset::Init(const TopoDS_Edge&     Path,
       C1 = S->UIso(f1);
   }
 
-  Handle(Geom_Curve) Dummy;
+  Handle(GeomCurve3d) Dummy;
   if (!C1is3D)
-    UpdateEdge(Edge1, C1, Id, BRep_Tool::Tolerance(Edge1));
+    UpdateEdge(Edge1, C1, Id, BRepInspector::Tolerance(Edge1));
   else if (C1Denerated)
   {
-    UpdateEdge(Edge1, Dummy, Id, BRep_Tool::Tolerance(Edge1));
+    UpdateEdge(Edge1, Dummy, Id, BRepInspector::Tolerance(Edge1));
     myBuilder.Degenerated(Edge1, Standard_True);
   }
 
-  TheTol = Max(PathTol, BRep_Tool::Tolerance(Edge1) + ErrorPipe);
+  TheTol = Max(PathTol, BRepInspector::Tolerance(Edge1) + ErrorPipe);
   UpdateEdge(Edge1, PC, myFace, TheTol);
 
   // mise a same range de la nouvelle pcurve.
@@ -1188,14 +1188,14 @@ void BRepOffset_Offset::Init(const TopoDS_Edge&     Path,
   }
 
   if (!C2is3D)
-    UpdateEdge(Edge2, C2, Id, BRep_Tool::Tolerance(Edge2));
+    UpdateEdge(Edge2, C2, Id, BRepInspector::Tolerance(Edge2));
   else if (C2Denerated)
   {
-    UpdateEdge(Edge2, Dummy, Id, BRep_Tool::Tolerance(Edge2));
+    UpdateEdge(Edge2, Dummy, Id, BRepInspector::Tolerance(Edge2));
     myBuilder.Degenerated(Edge2, Standard_True);
   }
 
-  TheTol = Max(PathTol, BRep_Tool::Tolerance(Edge2) + ErrorPipe);
+  TheTol = Max(PathTol, BRepInspector::Tolerance(Edge2) + ErrorPipe);
   UpdateEdge(Edge2, PC, myFace, TheTol);
 
   // mise a same range de la nouvelle pcurve.
@@ -1213,14 +1213,14 @@ void BRepOffset_Offset::Init(const TopoDS_Edge&     Path,
     BRepLib::SameParameter(Edge2, TheTol);
   }
 
-  TopoDS_Edge Edge3, Edge4;
+  TopoEdge Edge3, Edge4;
   // eval edge3
-  TopoDS_Vertex V1f, V1l, V2f, V2l;
-  TopExp::Vertices(Path, V1f, V1l);
+  TopoVertex V1f, V1l, V2f, V2l;
+  TopExp1::Vertices(Path, V1f, V1l);
   Standard_Boolean IsClosed = (V1f.IsSame(V1l));
 
-  TopExp::Vertices(Edge1, V1f, V1l);
-  TopExp::Vertices(Edge2, V2f, V2l);
+  TopExp1::Vertices(Edge1, V1f, V1l);
+  TopExp1::Vertices(Edge2, V2f, V2l);
 
   Standard_Boolean StartDegenerated = (V1f.IsSame(V2f));
   Standard_Boolean EndDegenerated   = (V1l.IsSame(V2l));
@@ -1228,7 +1228,7 @@ void BRepOffset_Offset::Init(const TopoDS_Edge&     Path,
   Standard_Boolean E3rev = Standard_False;
   Standard_Boolean E4rev = Standard_False;
 
-  TopoDS_Vertex VVf, VVl;
+  TopoVertex VVf, VVl;
   if (FirstEdge.IsNull())
   {
     myBuilder.MakeEdge(Edge3);
@@ -1237,10 +1237,10 @@ void BRepOffset_Offset::Init(const TopoDS_Edge&     Path,
   }
   else
   {
-    TopoDS_Shape aLocalEdge = FirstEdge.Oriented(TopAbs_FORWARD);
+    TopoShape aLocalEdge = FirstEdge.Oriented(TopAbs_FORWARD);
     Edge3                   = TopoDS::Edge(aLocalEdge);
     //    Edge3 = TopoDS::Edge(FirstEdge.Oriented(TopAbs_FORWARD));
-    TopExp::Vertices(Edge3, VVf, VVl);
+    TopExp1::Vertices(Edge3, VVf, VVl);
 #ifdef OCCT_DEBUG
     // si firstedge n est pas nul, il faut que les vertex soient partages
     if (!VVf.IsSame(V1f) && !VVf.IsSame(V2f))
@@ -1312,10 +1312,10 @@ void BRepOffset_Offset::Init(const TopoDS_Edge&     Path,
     }
     else
     {
-      TopoDS_Shape aLocalEdge = LastEdge.Oriented(TopAbs_FORWARD);
+      TopoShape aLocalEdge = LastEdge.Oriented(TopAbs_FORWARD);
       Edge4                   = TopoDS::Edge(aLocalEdge);
       //      Edge4 = TopoDS::Edge(LastEdge.Oriented(TopAbs_FORWARD));
-      TopExp::Vertices(Edge4, VVf, VVl);
+      TopExp1::Vertices(Edge4, VVf, VVl);
 #ifdef OCCT_DEBUG
       // si lastedge n est pas nul, il faut que les vertex soient partages
       if (!VVf.IsSame(V1l) && !VVf.IsSame(V2l))
@@ -1407,7 +1407,7 @@ void BRepOffset_Offset::Init(const TopoDS_Edge&     Path,
     BRepLib::SameParameter(Edge4, Tol);
   }
 
-  TopoDS_Wire W;
+  TopoWire W;
   myBuilder.MakeWire(W);
 
   myBuilder.Add(W, Edge1.Oriented(TopAbs_REVERSED));
@@ -1424,7 +1424,7 @@ void BRepOffset_Offset::Init(const TopoDS_Edge&     Path,
   if (ExchUV)
     myFace.Reverse();
 
-  BRepTools::Update(myFace);
+  BRepTools1::Update(myFace);
 
   if (Edge1.Orientation() == TopAbs_REVERSED)
     myFace.Reverse();
@@ -1432,8 +1432,8 @@ void BRepOffset_Offset::Init(const TopoDS_Edge&     Path,
 
 //=================================================================================================
 
-void BRepOffset_Offset::Init(const TopoDS_Vertex&        Vertex,
-                             const TopTools_ListOfShape& LEdge,
+void BRepOffset_Offset::Init(const TopoVertex&        Vertex,
+                             const ShapeList& LEdge,
                              const Standard_Real         Offset,
                              const Standard_Boolean      Polynomial,
                              const Standard_Real         TolApp,
@@ -1446,7 +1446,7 @@ void BRepOffset_Offset::Init(const TopoDS_Vertex&        Vertex,
   // find 3 different vertices in LEdge
   TopTools_ListIteratorOfListOfShape it;
   Point3d                             P, P1, P2, P3;
-  TopoDS_Vertex                      V1, V2, V3, V4;
+  TopoVertex                      V1, V2, V3, V4;
 
 #ifdef OCCT_DEBUG
   char* name = new char[100];
@@ -1456,33 +1456,33 @@ void BRepOffset_Offset::Init(const TopoDS_Vertex&        Vertex,
 
     sprintf(name, "VOnSph_%d", NbOFFSET);
   #ifdef DRAW
-    DBRep::Set(name, Vertex);
+    DBRep1::Set(name, Vertex);
   #endif
     Standard_Integer NbEdges = 1;
     for (it.Initialize(LEdge); it.More(); it.Next())
     {
       sprintf(name, "EOnSph_%d_%d", NbOFFSET, NbEdges++);
   #ifdef DRAW
-      const TopoDS_Shape& CurE = it.Value();
-      DBRep::Set(name, CurE);
+      const TopoShape& CurE = it.Value();
+      DBRep1::Set(name, CurE);
   #endif
     }
   }
 #endif
 
-  Point3d Origin = BRep_Tool::Pnt(Vertex);
+  Point3d Origin = BRepInspector::Pnt(Vertex);
 
   //// Find the axis of the sphere to exclude
   //// degenerated and seam edges from the face under construction
   BRepLib_MakeWire MW;
   MW.Add(LEdge);
-  TopoDS_Wire theWire = MW.Wire();
+  TopoWire theWire = MW.Wire();
 
   ShapeFix_Shape Fixer(theWire);
   Fixer.Perform();
   theWire = TopoDS::Wire(Fixer.Shape());
 
-  GProp_GProps GlobalProps;
+  GeometricProperties GlobalProps;
   BRepGProp::LinearProperties(theWire, GlobalProps);
   Point3d BaryCenter = GlobalProps.CentreOfMass();
   Vector3d Xdir(BaryCenter, Origin);
@@ -1493,14 +1493,14 @@ void BRepOffset_Offset::Init(const TopoDS_Vertex&        Vertex,
 
   gp_Ax3 Axis(Origin, Vdir, Xdir);
 
-  Handle(Geom_Surface) S = new Geom_SphericalSurface(Axis, Abs(Offset));
+  Handle(GeomSurface) S = new Geom_SphericalSurface(Axis, Abs(Offset));
 
-  Standard_Real f, l, Tol = BRep_Tool::Tolerance(Vertex);
+  Standard_Real f, l, Tol = BRepInspector::Tolerance(Vertex);
 
   TopLoc_Location Loc;
-  BRep_Builder    myBuilder;
+  ShapeBuilder    myBuilder;
   myBuilder.MakeFace(myFace);
-  Handle(Geom_Surface) SS = S;
+  Handle(GeomSurface) SS = S;
 
   // En polynomial, calcul de la surface par F(u,v).
   // Pas de changement de parametre, donc ProjLib sur la Sphere
@@ -1516,7 +1516,7 @@ void BRepOffset_Offset::Init(const TopoDS_Vertex&        Vertex,
 
   myBuilder.UpdateFace(myFace, SS, Loc, Tol);
 
-  TopoDS_Wire W;
+  TopoWire W;
   myBuilder.MakeWire(W);
 
 #ifdef DRAW
@@ -1525,20 +1525,20 @@ void BRepOffset_Offset::Init(const TopoDS_Vertex&        Vertex,
   if (Affich)
   {
     sprintf(name, "SPHERE_%d", NbOFFSET);
-    DrawTrSurf::Set(name, S);
+    DrawTrSurf1::Set(name, S);
   }
   Standard_Integer CO = 1;
 #endif
 
   for (it.Initialize(LEdge); it.More(); it.Next())
   {
-    TopoDS_Edge E = TopoDS::Edge(it.Value());
+    TopoEdge E = TopoDS::Edge(it.Value());
 
-    Handle(Geom_Curve) C = BRep_Tool::Curve(E, Loc, f, l);
+    Handle(GeomCurve3d) C = BRepInspector::Curve(E, Loc, f, l);
     if (C.IsNull())
     {
-      BRepLib::BuildCurve3d(E, BRep_Tool::Tolerance(E));
-      C = BRep_Tool::Curve(E, Loc, f, l);
+      BRepLib::BuildCurve3d(E, BRepInspector::Tolerance(E));
+      C = BRepInspector::Curve(E, Loc, f, l);
     }
     C = new Geom_TrimmedCurve(C, f, l);
     C->Transform(Loc.Transformation());
@@ -1547,12 +1547,12 @@ void BRepOffset_Offset::Init(const TopoDS_Vertex&        Vertex,
     if (Affich)
     {
       sprintf(name, "CURVE_%d_%d", NbOFFSET, CO);
-      DrawTrSurf::Set(name, C);
+      DrawTrSurf1::Set(name, C);
       CO++;
     }
 #endif
 
-    Handle(Geom2d_Curve) PCurve = GeomProjLib::Curve2d(C, S);
+    Handle(GeomCurve2d) PCurve = GeomProjLib::Curve2d(C, S);
     // check if the first point of PCurve in is the canonical boundaries
     // of the sphere. Else move it.
     // the transformation is : U` = U + PI + 2 k  PI
@@ -1592,12 +1592,12 @@ void BRepOffset_Offset::Init(const TopoDS_Vertex&        Vertex,
     myBuilder.Add(myFace, W);
   }
 
-  BRepTools::Update(myFace);
+  BRepTools1::Update(myFace);
 }
 
 //=================================================================================================
 
-void BRepOffset_Offset::Init(const TopoDS_Edge& Edge, const Standard_Real Offset)
+void BRepOffset_Offset::Init(const TopoEdge& Edge, const Standard_Real Offset)
 {
   myShape                = Edge;
   Standard_Real myOffset = Abs(Offset);
@@ -1605,7 +1605,7 @@ void BRepOffset_Offset::Init(const TopoDS_Edge& Edge, const Standard_Real Offset
   Standard_Real   f, l;
   TopLoc_Location Loc;
 
-  Handle(Geom_Curve) CP = BRep_Tool::Curve(Edge, Loc, f, l);
+  Handle(GeomCurve3d) CP = BRepInspector::Curve(Edge, Loc, f, l);
   CP                    = new Geom_TrimmedCurve(CP, f, l);
   CP->Transform(Loc.Transformation());
 
@@ -1623,22 +1623,22 @@ void BRepOffset_Offset::Init(const TopoDS_Edge& Edge, const Standard_Real Offset
 
 //=================================================================================================
 
-const TopoDS_Face& BRepOffset_Offset::Face() const
+const TopoFace& BRepOffset_Offset::Face() const
 {
   return myFace;
 }
 
 //=================================================================================================
 
-TopoDS_Shape BRepOffset_Offset::Generated(const TopoDS_Shape& Shape) const
+TopoShape BRepOffset_Offset::Generated(const TopoShape& Shape) const
 {
-  TopoDS_Shape aShape;
+  TopoShape aShape;
 
   switch (myShape.ShapeType())
   {
     case TopAbs_FACE: {
-      TopExp_Explorer exp(myShape.Oriented(TopAbs_FORWARD), TopAbs_EDGE);
-      TopExp_Explorer expo(myFace.Oriented(TopAbs_FORWARD), TopAbs_EDGE);
+      ShapeExplorer exp(myShape.Oriented(TopAbs_FORWARD), TopAbs_EDGE);
+      ShapeExplorer expo(myFace.Oriented(TopAbs_FORWARD), TopAbs_EDGE);
       for (; exp.More() && expo.More(); exp.Next(), expo.Next())
       {
         if (Shape.IsSame(exp.Current()))
@@ -1656,11 +1656,11 @@ TopoDS_Shape BRepOffset_Offset::Generated(const TopoDS_Shape& Shape) const
     case TopAbs_EDGE:
       // have generate a pipe.
       {
-        TopoDS_Vertex V1, V2;
-        TopExp::Vertices(TopoDS::Edge(myShape), V1, V2);
+        TopoVertex V1, V2;
+        TopExp1::Vertices(TopoDS::Edge(myShape), V1, V2);
 
-        TopExp_Explorer expf(myFace.Oriented(TopAbs_FORWARD), TopAbs_WIRE);
-        TopExp_Explorer expo(expf.Current().Oriented(TopAbs_FORWARD), TopAbs_EDGE);
+        ShapeExplorer expf(myFace.Oriented(TopAbs_FORWARD), TopAbs_WIRE);
+        ShapeExplorer expo(expf.Current().Oriented(TopAbs_FORWARD), TopAbs_EDGE);
         expo.Next();
         expo.Next();
 

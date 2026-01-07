@@ -103,7 +103,7 @@ void Draw_Drawable3D::Save(Standard_OStream&) const
 
 //=================================================================================================
 
-void Draw_Drawable3D::Whatis(Draw_Interpretor& S) const
+void Draw_Drawable3D::Whatis(DrawInterpreter& S) const
 {
   S << "drawable 3d";
 }

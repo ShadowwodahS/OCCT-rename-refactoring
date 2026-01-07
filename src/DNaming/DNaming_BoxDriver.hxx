@@ -22,8 +22,8 @@
 #include <TFunction_Driver.hxx>
 #include <Standard_Integer.hxx>
 class TFunction_Logbook;
-class TDF_Label;
-class BRepPrimAPI_MakeBox;
+class DataLabel;
+class BoxMaker;
 
 class DNaming_BoxDriver;
 DEFINE_STANDARD_HANDLE(DNaming_BoxDriver, TFunction_Driver)
@@ -61,8 +61,8 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void LoadNamingDS(const TDF_Label&     theResultLabel,
-                                    BRepPrimAPI_MakeBox& mkBox) const;
+  Standard_EXPORT void LoadNamingDS(const DataLabel&     theResultLabel,
+                                    BoxMaker& mkBox) const;
 };
 
 #endif // _DNaming_BoxDriver_HeaderFile

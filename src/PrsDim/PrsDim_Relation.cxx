@@ -43,12 +43,12 @@
 #include <TopoDS_Shape.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PrsDim_Relation, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(PrsDim_Relation, VisualEntity)
 
 //=================================================================================================
 
 PrsDim_Relation::PrsDim_Relation(const PrsMgr_TypeOfPresentation3d aTypeOfPresentation3d)
-    : AIS_InteractiveObject(aTypeOfPresentation3d),
+    : VisualEntity(aTypeOfPresentation3d),
       myVal(1.),
       myPosition(0., 0., 0.),
       myArrowSize(myVal / 10.),
@@ -64,8 +64,8 @@ PrsDim_Relation::PrsDim_Relation(const PrsMgr_TypeOfPresentation3d aTypeOfPresen
 //=================================================================================================
 
 void PrsDim_Relation::ComputeProjEdgePresentation(const Handle(Prs3d_Presentation)& aPrs,
-                                                  const TopoDS_Edge&                anEdge,
-                                                  const Handle(Geom_Curve)&         ProjCurv,
+                                                  const TopoEdge&                anEdge,
+                                                  const Handle(GeomCurve3d)&         ProjCurv,
                                                   const Point3d&                     FirstP,
                                                   const Point3d&                     LastP,
                                                   const Quantity_NameOfColor        aColor,
@@ -87,36 +87,36 @@ void PrsDim_Relation::ComputeProjEdgePresentation(const Handle(Prs3d_Presentatio
 
   Standard_Real      pf, pl;
   TopLoc_Location    loc;
-  Handle(Geom_Curve) curve;
+  Handle(GeomCurve3d) curve;
   Standard_Boolean   isInfinite;
-  curve      = BRep_Tool::Curve(anEdge, loc, pf, pl);
+  curve      = BRepInspector::Curve(anEdge, loc, pf, pl);
   isInfinite = (Precision::IsInfinite(pf) || Precision::IsInfinite(pl));
 
-  TopoDS_Edge E;
+  TopoEdge E;
 
   // Calcul de la presentation de l'edge
-  if (ProjCurv->IsInstance(STANDARD_TYPE(Geom_Line)))
+  if (ProjCurv->IsInstance(STANDARD_TYPE(GeomLine)))
   {
-    Handle(Geom_Line) gl(Handle(Geom_Line)::DownCast(ProjCurv));
+    Handle(GeomLine) gl(Handle(GeomLine)::DownCast(ProjCurv));
     if (!isInfinite)
     {
       pf = ElCLib::Parameter(gl->Lin(), FirstP);
       pl = ElCLib::Parameter(gl->Lin(), LastP);
-      BRepBuilderAPI_MakeEdge MakEd(gl->Lin(), pf, pl);
+      EdgeMaker MakEd(gl->Lin(), pf, pl);
       E = MakEd.Edge();
     }
     else
     {
-      BRepBuilderAPI_MakeEdge MakEd(gl->Lin());
+      EdgeMaker MakEd(gl->Lin());
       E = MakEd.Edge();
     }
   }
-  else if (ProjCurv->IsInstance(STANDARD_TYPE(Geom_Circle)))
+  else if (ProjCurv->IsInstance(STANDARD_TYPE(GeomCircle)))
   {
-    Handle(Geom_Circle) gc(Handle(Geom_Circle)::DownCast(ProjCurv));
+    Handle(GeomCircle) gc(Handle(GeomCircle)::DownCast(ProjCurv));
     pf = ElCLib::Parameter(gc->Circ(), FirstP);
     pl = ElCLib::Parameter(gc->Circ(), LastP);
-    BRepBuilderAPI_MakeEdge MakEd(gc->Circ(), pf, pl);
+    EdgeMaker MakEd(gc->Circ(), pf, pl);
     E = MakEd.Edge();
   }
   StdPrs_WFShape::Add(aPrs, E, myDrawer);
@@ -126,11 +126,11 @@ void PrsDim_Relation::ComputeProjEdgePresentation(const Handle(Prs3d_Presentatio
   if (!isInfinite)
   {
     Point3d ppf, ppl;
-    ppf = BRep_Tool::Pnt(TopExp::FirstVertex(TopoDS::Edge(anEdge)));
-    ppl = BRep_Tool::Pnt(TopExp::LastVertex(TopoDS::Edge(anEdge)));
+    ppf = BRepInspector::Pnt(TopExp1::FirstVertex(TopoDS::Edge(anEdge)));
+    ppl = BRepInspector::Pnt(TopExp1::LastVertex(TopoDS::Edge(anEdge)));
     if (FirstP.Distance(ppf) > gp::Resolution())
     {
-      BRepBuilderAPI_MakeEdge MakEd1(FirstP, ppf);
+      EdgeMaker MakEd1(FirstP, ppf);
       StdPrs_WFShape::Add(aPrs, MakEd1.Edge(), myDrawer);
     }
     else
@@ -140,7 +140,7 @@ void PrsDim_Relation::ComputeProjEdgePresentation(const Handle(Prs3d_Presentatio
     }
     if (LastP.Distance(ppl) > gp::Resolution())
     {
-      BRepBuilderAPI_MakeEdge MakEd2(LastP, ppl);
+      EdgeMaker MakEd2(LastP, ppl);
       StdPrs_WFShape::Add(aPrs, MakEd2.Edge(), myDrawer);
     }
     else
@@ -149,9 +149,9 @@ void PrsDim_Relation::ComputeProjEdgePresentation(const Handle(Prs3d_Presentatio
       StdPrs_WFShape::Add(aPrs, MakVert2.Vertex(), myDrawer);
     }
     /*
-        BRepBuilderAPI_MakeEdge MakEd1 (FirstP, ppf);
+        EdgeMaker MakEd1 (FirstP, ppf);
         StdPrs_WFShape::Add (aPrs, MakEd1.Edge(), myDrawer);
-        BRepBuilderAPI_MakeEdge MakEd2 (LastP, ppl);
+        EdgeMaker MakEd2 (LastP, ppl);
         StdPrs_WFShape::Add (aPrs, MakEd2.Edge(), myDrawer);
     */
   }
@@ -160,7 +160,7 @@ void PrsDim_Relation::ComputeProjEdgePresentation(const Handle(Prs3d_Presentatio
 //=================================================================================================
 
 void PrsDim_Relation::ComputeProjVertexPresentation(const Handle(Prs3d_Presentation)& aPrs,
-                                                    const TopoDS_Vertex&              aVertex,
+                                                    const TopoVertex&              aVertex,
                                                     const Point3d&                     ProjPoint,
                                                     const Quantity_NameOfColor        aColor,
                                                     const Standard_Real               width,
@@ -199,12 +199,12 @@ void PrsDim_Relation::ComputeProjVertexPresentation(const Handle(Prs3d_Presentat
   }
 
   // Si les points ne sont pas confondus...
-  if (!ProjPoint.IsEqual(BRep_Tool::Pnt(aVertex), Precision::Confusion()))
+  if (!ProjPoint.IsEqual(BRepInspector::Pnt(aVertex), Precision::Confusion()))
   {
     Handle(Graphic3d_Group)           aGroup         = aPrs->NewGroup();
     Handle(Graphic3d_ArrayOfSegments) anArrayOfLines = new Graphic3d_ArrayOfSegments(2);
     anArrayOfLines->AddVertex(ProjPoint);
-    anArrayOfLines->AddVertex(BRep_Tool::Pnt(aVertex));
+    anArrayOfLines->AddVertex(BRepInspector::Pnt(aVertex));
     aGroup->SetGroupPrimitivesAspect(myDrawer->WireAspect()->Aspect());
     aGroup->AddPrimitiveArray(anArrayOfLines);
   }

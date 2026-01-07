@@ -15,7 +15,7 @@
 
 #include <Standard_Version.hxx>
 
-Standard_OStream& Vrml::VrmlHeaderWriter(Standard_OStream& anOStream)
+Standard_OStream& Vrml1::VrmlHeaderWriter(Standard_OStream& anOStream)
 {
   anOStream << "#VRML V1.0 ascii\n";
   anOStream << "\n";
@@ -24,7 +24,7 @@ Standard_OStream& Vrml::VrmlHeaderWriter(Standard_OStream& anOStream)
   return anOStream;
 }
 
-Standard_OStream& Vrml::CommentWriter(const Standard_CString aComment, Standard_OStream& anOStream)
+Standard_OStream& Vrml1::CommentWriter(const Standard_CString aComment, Standard_OStream& anOStream)
 {
   anOStream << "# " << aComment << "\n";
   return anOStream;

@@ -30,7 +30,7 @@ AIS_SignatureFilter::AIS_SignatureFilter(const AIS_KindOfInteractive TheKind,
 
 Standard_Boolean AIS_SignatureFilter::IsOk(const Handle(SelectMgr_EntityOwner)& anObj) const
 {
-  Handle(AIS_InteractiveObject) IO = Handle(AIS_InteractiveObject)::DownCast(anObj->Selectable());
+  Handle(VisualEntity) IO = Handle(VisualEntity)::DownCast(anObj->Selectable());
   if (IO.IsNull())
     return Standard_False;
 

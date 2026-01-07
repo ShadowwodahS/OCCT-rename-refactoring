@@ -33,7 +33,7 @@
 //=======================================================================
 //   Creation of a circle tangent to a circle and two points.           +
 //=======================================================================
-GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dThreeTangent::Circle2dThreeTangent(const GccEnt_QualifiedCirc& Qualified1,
                                      const gp_Pnt2d&             Point2,
                                      const gp_Pnt2d&             Point3,
                                      const Standard_Real         Tolerance)
@@ -84,7 +84,7 @@ GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedCirc& Qualified1,
   }
 
   GccAna_Pnt2dBisec     Bis1(Point2, Point3);
-  GccAna_CircPnt2dBisec Bis2(C1, Point2);
+  CirclePoint2dBisector Bis2(C1, Point2);
 
   if (Bis1.IsDone() && Bis2.IsDone())
   {

@@ -408,7 +408,7 @@ void Cocoa_Window::Size (Standard_Integer& theWidth,
 // function : SetTitle
 // purpose  :
 // =======================================================================
-void Cocoa_Window::SetTitle (const TCollection_AsciiString& theTitle)
+void Cocoa_Window::SetTitle (const AsciiString1& theTitle)
 {
   if (myHView == NULL)
   {

@@ -37,7 +37,7 @@
 #include <Standard_Handle.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-class Adaptor3d_HSurfaceTool
+class HSurfaceTool
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-BRepExtrema_ExtCC::BRepExtrema_ExtCC(const TopoDS_Edge& E1, const TopoDS_Edge& E2)
+BRepExtrema_ExtCC::BRepExtrema_ExtCC(const TopoEdge& E1, const TopoEdge& E2)
 {
   Initialize(E2);
   Perform(E1);
@@ -30,32 +30,32 @@ BRepExtrema_ExtCC::BRepExtrema_ExtCC(const TopoDS_Edge& E1, const TopoDS_Edge& E
 
 //=================================================================================================
 
-void BRepExtrema_ExtCC::Initialize(const TopoDS_Edge& E2)
+void BRepExtrema_ExtCC::Initialize(const TopoEdge& E2)
 {
-  if (!BRep_Tool::IsGeometric(E2))
+  if (!BRepInspector::IsGeometric(E2))
     return; // protect against non-geometric type (e.g. polygon)
   Standard_Real     V1, V2;
   BRepAdaptor_Curve Curv(E2);
   myHC              = new BRepAdaptor_Curve(Curv);
-  Standard_Real Tol = Min(BRep_Tool::Tolerance(E2), Precision::Confusion());
+  Standard_Real Tol = Min(BRepInspector::Tolerance(E2), Precision::Confusion());
   Tol               = Max(Curv.Resolution(Tol), Precision::PConfusion());
-  BRep_Tool::Range(E2, V1, V2);
+  BRepInspector::Range(E2, V1, V2);
   myExtCC.SetCurve(2, *myHC, V1, V2);
   myExtCC.SetTolerance(2, Tol);
 }
 
 //=================================================================================================
 
-void BRepExtrema_ExtCC::Perform(const TopoDS_Edge& E1)
+void BRepExtrema_ExtCC::Perform(const TopoEdge& E1)
 {
-  if (!BRep_Tool::IsGeometric(E1))
+  if (!BRepInspector::IsGeometric(E1))
     return; // protect against non-geometric type (e.g. polygon)
   Standard_Real             U1, U2;
   BRepAdaptor_Curve         Curv(E1);
   Handle(BRepAdaptor_Curve) HC  = new BRepAdaptor_Curve(Curv);
-  Standard_Real             Tol = Min(BRep_Tool::Tolerance(E1), Precision::Confusion());
+  Standard_Real             Tol = Min(BRepInspector::Tolerance(E1), Precision::Confusion());
   Tol                           = Max(Curv.Resolution(Tol), Precision::PConfusion());
-  BRep_Tool::Range(E1, U1, U2);
+  BRepInspector::Range(E1, U1, U2);
   myExtCC.SetCurve(1, *HC, U1, U2);
   myExtCC.SetTolerance(1, Tol);
   // If we enable SetSingleSolutionFlag Extrema will run much quicker on almost parallel curves

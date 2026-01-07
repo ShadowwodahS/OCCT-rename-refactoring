@@ -45,7 +45,7 @@
 //  gives us the points among which we'll choose the solutions.           +
 //  The choices are made using Qualifiers of C1 and C2.                   +
 //=========================================================================
-GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
                                          const gp_Pnt2d&             Point2,
                                          const gp_Lin2d&             OnLine,
                                          const Standard_Real         Tolerance)
@@ -86,10 +86,10 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
 
   Standard_Real dp2l = OnLine.Distance(Point2);
   gp_Dir2d      donline(OnLine.Direction());
-  gp_Pnt2d      pinterm(Point2.XY() + dp2l * gp_XY(-donline.Y(), donline.X()));
+  gp_Pnt2d      pinterm(Point2.XY() + dp2l * Coords2d(-donline.Y(), donline.X()));
   if (OnLine.Distance(pinterm) > Tol)
   {
-    pinterm = gp_Pnt2d(Point2.XY() - dp2l * gp_XY(-donline.Y(), donline.X()));
+    pinterm = gp_Pnt2d(Point2.XY() - dp2l * Coords2d(-donline.Y(), donline.X()));
   }
   Standard_Real dist = pinterm.Distance(center1);
   if (Qualified1.IsEnclosed() && Abs(R1 - dist - dp2l) <= Tol)
@@ -148,7 +148,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
   //   General case.                                                       +
   //=========================================================================
 
-  GccAna_CircPnt2dBisec Bis(C1, Point2);
+  CirclePoint2dBisector Bis(C1, Point2);
   if (Bis.IsDone())
   {
     Standard_Integer nbsolution = Bis.NbSolutions();

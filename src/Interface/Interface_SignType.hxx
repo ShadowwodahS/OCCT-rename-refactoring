@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <MoniTool_SignText.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 class RefObject;
 class Interface_InterfaceModel;
 
@@ -38,7 +38,7 @@ public:
   //! Returns an identification of the Signature (a word), given at
   //! initialization time
   //! Specialised to consider context as an InterfaceModel
-  Standard_EXPORT TCollection_AsciiString
+  Standard_EXPORT AsciiString1
     Text(const Handle(RefObject)& ent,
          const Handle(RefObject)& context) const Standard_OVERRIDE;
 

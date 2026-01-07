@@ -23,7 +23,7 @@
 
 DEFINE_STANDARD_HANDLE(HLRTest_Projector, Draw_Drawable3D)
 
-//! Draw Variable Projector to test.
+//! Draw1 Variable Projector to test.
 class HLRTest_Projector : public Draw_Drawable3D
 {
   DEFINE_STANDARD_RTTIEXT(HLRTest_Projector, Draw_Drawable3D)
@@ -35,7 +35,7 @@ class HLRTest_Projector : public Draw_Drawable3D
   const HLRAlgo_Projector& Projector() const { return myProjector; }
 
   //! Does nothing,
-  Standard_EXPORT virtual void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   //! For variable copy.
   Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
@@ -48,7 +48,7 @@ class HLRTest_Projector : public Draw_Drawable3D
 
   //! For variable whatis command. Set  as a result  the
   //! type of the variable.
-  Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
 private:
   HLRAlgo_Projector myProjector;

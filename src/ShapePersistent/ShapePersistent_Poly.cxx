@@ -84,9 +84,9 @@ void ShapePersistent_Poly::pTriangulation::PChildren(
   theChildren.Append(myTriangles);
 }
 
-Handle(Poly_Triangulation) ShapePersistent_Poly::pTriangulation::Import() const
+Handle(MeshTriangulation) ShapePersistent_Poly::pTriangulation::Import() const
 {
-  Handle(Poly_Triangulation) aTriangulation;
+  Handle(MeshTriangulation) aTriangulation;
 
 // Triangulation is not used
 #if 1
@@ -94,9 +94,9 @@ Handle(Poly_Triangulation) ShapePersistent_Poly::pTriangulation::Import() const
   {
     if (myUVNodes)
       aTriangulation =
-        new Poly_Triangulation(*myNodes->Array(), *myUVNodes->Array(), *myTriangles->Array());
+        new MeshTriangulation(*myNodes->Array(), *myUVNodes->Array(), *myTriangles->Array());
     else
-      aTriangulation = new Poly_Triangulation(*myNodes->Array(), *myTriangles->Array());
+      aTriangulation = new MeshTriangulation(*myNodes->Array(), *myTriangles->Array());
 
     aTriangulation->Deflection(myDeflection);
   }
@@ -185,7 +185,7 @@ Handle(ShapePersistent_Poly::PolygonOnTriangulation) ShapePersistent_Poly::Trans
 }
 
 Handle(ShapePersistent_Poly::Triangulation) ShapePersistent_Poly::Translate(
-  const Handle(Poly_Triangulation)& thePolyTriang,
+  const Handle(MeshTriangulation)& thePolyTriang,
   StdObjMgt_TransientPersistentMap& theMap)
 {
   Handle(Triangulation) aPT;

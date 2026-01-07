@@ -26,27 +26,27 @@
 #include <ChFiDS_TypeOfConcavity.hxx>
 #include <GeomAbs_Shape.hxx>
 class BRepAdaptor_Surface;
-class TopoDS_Edge;
-class TopoDS_Face;
+class TopoEdge;
+class TopoFace;
 
 //! creation of spatial fillets on a solid.
-class ChFi3d
+class ChFi3d1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Defines the type of concavity in the edge of connection of two faces
   Standard_EXPORT static ChFiDS_TypeOfConcavity DefineConnectType(
-    const TopoDS_Edge&     E,
-    const TopoDS_Face&     F1,
-    const TopoDS_Face&     F2,
+    const TopoEdge&     E,
+    const TopoFace&     F1,
+    const TopoFace&     F2,
     const Standard_Real    SinTol,
     const Standard_Boolean CorrectPoint);
 
   //! Returns true if theEdge between theFace1 and theFace2 is tangent
-  Standard_EXPORT static Standard_Boolean IsTangentFaces(const TopoDS_Edge&  theEdge,
-                                                         const TopoDS_Face&  theFace1,
-                                                         const TopoDS_Face&  theFace2,
+  Standard_EXPORT static Standard_Boolean IsTangentFaces(const TopoEdge&  theEdge,
+                                                         const TopoFace&  theFace1,
+                                                         const TopoFace&  theFace2,
                                                          const GeomAbs_Shape Order = GeomAbs_G1);
 
   //! Returns  Reversed  in  Or1  and(or)  Or2  if
@@ -60,7 +60,7 @@ public:
   //! and  to  the tangent to  the  guide line read in  E.
   Standard_EXPORT static Standard_Integer ConcaveSide(const BRepAdaptor_Surface& S1,
                                                       const BRepAdaptor_Surface& S2,
-                                                      const TopoDS_Edge&         E,
+                                                      const TopoEdge&         E,
                                                       TopAbs_Orientation&        Or1,
                                                       TopAbs_Orientation&        Or2);
 

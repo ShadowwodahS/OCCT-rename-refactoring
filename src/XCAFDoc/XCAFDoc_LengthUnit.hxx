@@ -23,7 +23,7 @@
 #include <Standard_OStream.hxx>
 #include <Standard_GUID.hxx>
 
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 
 class XCAFDoc_LengthUnit;
@@ -41,33 +41,33 @@ public:
   //! @param theUnitName - name of the unit: mm, m, cm, km, micron, in, min, nin, ft, stat.mile
   //! @param theUnitValue - length scale factor to meter
   //! The LengthUnit attribute is returned.
-  Standard_EXPORT static Handle(XCAFDoc_LengthUnit) Set(const TDF_Label&               theLabel,
-                                                        const TCollection_AsciiString& theUnitName,
+  Standard_EXPORT static Handle(XCAFDoc_LengthUnit) Set(const DataLabel&               theLabel,
+                                                        const AsciiString1& theUnitName,
                                                         const Standard_Real theUnitValue);
 
   //! Finds or creates a LengthUnit attribute
   //! @param theUnitValue - length scale factor to meter
   //! The LengthUnit attribute is returned.
-  Standard_EXPORT static Handle(XCAFDoc_LengthUnit) Set(const TDF_Label&    theLabel,
+  Standard_EXPORT static Handle(XCAFDoc_LengthUnit) Set(const DataLabel&    theLabel,
                                                         const Standard_Real theUnitValue);
 
   //! Finds, or creates, a LengthUnit attribute with explicit user defined GUID
   //! @param theUnitName - name of the unit: mm, m, cm, km, micron, in, min, nin, ft, stat.mile
   //! @param theUnitValue - length scale factor to meter
   //! The LengthUnit attribute is returned
-  Standard_EXPORT static Handle(XCAFDoc_LengthUnit) Set(const TDF_Label&               theLabel,
+  Standard_EXPORT static Handle(XCAFDoc_LengthUnit) Set(const DataLabel&               theLabel,
                                                         const Standard_GUID&           theGUID,
-                                                        const TCollection_AsciiString& theUnitName,
+                                                        const AsciiString1& theUnitName,
                                                         const Standard_Real theUnitValue);
 
   //! Creates a LengthUnit attribute
   //! @param theUnitName - name of the unit: mm, m, cm, km, micron, in, min, nin, ft, stat.mile
   //! @param theUnitValue - length scale factor to meter
-  Standard_EXPORT void Set(const TCollection_AsciiString& theUnitName,
+  Standard_EXPORT void Set(const AsciiString1& theUnitName,
                            const Standard_Real            theUnitValue);
 
   //! Length unit description (could be arbitrary text)
-  const TCollection_AsciiString& GetUnitName() const { return myUnitName; }
+  const AsciiString1& GetUnitName() const { return myUnitName; }
 
   //! Returns length unit scale factor to meter
   Standard_Real GetUnitValue() const { return myUnitScaleValue; }
@@ -94,7 +94,7 @@ public:
 
 private:
   Standard_Real           myUnitScaleValue;
-  TCollection_AsciiString myUnitName;
+  AsciiString1 myUnitName;
 };
 
 #endif // _XCAFDoc_LengthUnit_HeaderFile

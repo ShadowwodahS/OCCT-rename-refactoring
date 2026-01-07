@@ -36,13 +36,13 @@ class TopLoc_Location;
 //! It can create Locations.
 //!
 //! It can be write and read from a stream.
-class TopTools_LocationSet
+class LocationSet1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns an empty set of locations.
-  Standard_EXPORT TopTools_LocationSet();
+  Standard_EXPORT LocationSet1();
 
   //! Clears the content of the set.
   Standard_EXPORT void Clear();

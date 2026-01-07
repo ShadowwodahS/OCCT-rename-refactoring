@@ -27,7 +27,7 @@
 
 //=================================================================================================
 
-void TDataXtd::IDList(TDF_IDList& anIDList)
+void TDataXtd1::IDList(TDF_IDList& anIDList)
 {
   anIDList.Append(TDataXtd_Axis::GetID());
   anIDList.Append(TDataXtd_Constraint::GetID());
@@ -45,7 +45,7 @@ void TDataXtd::IDList(TDF_IDList& anIDList)
 // purpose  : print the name of the constraint
 //=======================================================================
 
-Standard_OStream& TDataXtd::Print(const TDataXtd_ConstraintEnum C, Standard_OStream& s)
+Standard_OStream& TDataXtd1::Print(const TDataXtd_ConstraintEnum C, Standard_OStream& s)
 {
   switch (C)
   {
@@ -173,7 +173,7 @@ Standard_OStream& TDataXtd::Print(const TDataXtd_ConstraintEnum C, Standard_OStr
 // purpose  : print the name of the real dimension
 //=======================================================================
 
-Standard_OStream& TDataXtd::Print(const TDataXtd_GeometryEnum G, Standard_OStream& s)
+Standard_OStream& TDataXtd1::Print(const TDataXtd_GeometryEnum G, Standard_OStream& s)
 {
   switch (G)
   {

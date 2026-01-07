@@ -21,7 +21,7 @@
 
 #include <TDataStd_GenericEmpty.hxx>
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 class XCAFView_Object;
 
 // resolve name collisions with WinAPI headers
@@ -41,7 +41,7 @@ public:
 
   Standard_EXPORT static const Standard_GUID& GetID();
 
-  Standard_EXPORT static Handle(XCAFDoc_View) Set(const TDF_Label& theLabel);
+  Standard_EXPORT static Handle(XCAFDoc_View) Set(const DataLabel& theLabel);
 
   Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
 

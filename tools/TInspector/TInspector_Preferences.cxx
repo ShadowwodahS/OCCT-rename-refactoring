@@ -28,7 +28,7 @@
 // function : GetPreferences
 // purpose :
 // =======================================================================
-void TInspector_Preferences::GetPreferences(const TCollection_AsciiString&    thePluginName,
+void TInspector_Preferences::GetPreferences(const AsciiString1&    thePluginName,
                                             TInspectorAPI_PreferencesDataMap& theItem)
 {
   if (!myIsLoadedPreferences)
@@ -62,7 +62,7 @@ void TInspector_Preferences::StorePreferences()
   QDomElement aRootElement = aDomDocument.createElement(documentKey());
   aDomDocument.appendChild(aRootElement);
 
-  for (NCollection_DataMap<TCollection_AsciiString, TInspectorAPI_PreferencesDataMap>::Iterator
+  for (NCollection_DataMap<AsciiString1, TInspectorAPI_PreferencesDataMap>::Iterator
          aPrefsIt(myLoadedPreferences);
        aPrefsIt.More();
        aPrefsIt.Next())

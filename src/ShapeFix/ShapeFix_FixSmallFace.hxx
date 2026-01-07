@@ -24,9 +24,9 @@
 #include <Standard_Integer.hxx>
 #include <ShapeAnalysis_CheckSmallFace.hxx>
 #include <ShapeFix_Root.hxx>
-class TopoDS_Face;
-class TopoDS_Edge;
-class TopoDS_Compound;
+class TopoFace;
+class TopoEdge;
+class TopoCompound;
 
 class ShapeFix_FixSmallFace;
 DEFINE_STANDARD_HANDLE(ShapeFix_FixSmallFace, ShapeFix_Root)
@@ -38,59 +38,59 @@ class ShapeFix_FixSmallFace : public ShapeFix_Root
 public:
   Standard_EXPORT ShapeFix_FixSmallFace();
 
-  Standard_EXPORT void Init(const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const TopoShape& S);
 
   //! Fixing case of spot face
   Standard_EXPORT void Perform();
 
   //! Fixing case of spot face, if tol = -1 used local tolerance.
-  Standard_EXPORT TopoDS_Shape FixSpotFace();
+  Standard_EXPORT TopoShape FixSpotFace();
 
   //! Compute average vertex and replacing vertices by new one.
-  Standard_EXPORT Standard_Boolean ReplaceVerticesInCaseOfSpot(TopoDS_Face&        F,
+  Standard_EXPORT Standard_Boolean ReplaceVerticesInCaseOfSpot(TopoFace&        F,
                                                                const Standard_Real tol) const;
 
   //! Remove spot face from compound
-  Standard_EXPORT Standard_Boolean RemoveFacesInCaseOfSpot(const TopoDS_Face& F) const;
+  Standard_EXPORT Standard_Boolean RemoveFacesInCaseOfSpot(const TopoFace& F) const;
 
   //! Fixing case of strip face, if tol = -1 used local tolerance
-  Standard_EXPORT TopoDS_Shape FixStripFace(const Standard_Boolean wasdone = Standard_False);
+  Standard_EXPORT TopoShape FixStripFace(const Standard_Boolean wasdone = Standard_False);
 
   //! Replace veretces and edges.
-  Standard_EXPORT Standard_Boolean ReplaceInCaseOfStrip(TopoDS_Face&        F,
-                                                        TopoDS_Edge&        E1,
-                                                        TopoDS_Edge&        E2,
+  Standard_EXPORT Standard_Boolean ReplaceInCaseOfStrip(TopoFace&        F,
+                                                        TopoEdge&        E1,
+                                                        TopoEdge&        E2,
                                                         const Standard_Real tol) const;
 
   //! Remove strip face from compound.
-  Standard_EXPORT Standard_Boolean RemoveFacesInCaseOfStrip(const TopoDS_Face& F) const;
+  Standard_EXPORT Standard_Boolean RemoveFacesInCaseOfStrip(const TopoFace& F) const;
 
   //! Compute average edge for strip face
-  Standard_EXPORT TopoDS_Edge ComputeSharedEdgeForStripFace(const TopoDS_Face&  F,
-                                                            const TopoDS_Edge&  E1,
-                                                            const TopoDS_Edge&  E2,
-                                                            const TopoDS_Face&  F1,
+  Standard_EXPORT TopoEdge ComputeSharedEdgeForStripFace(const TopoFace&  F,
+                                                            const TopoEdge&  E1,
+                                                            const TopoEdge&  E2,
+                                                            const TopoFace&  F1,
                                                             const Standard_Real tol) const;
 
-  Standard_EXPORT TopoDS_Shape FixSplitFace(const TopoDS_Shape& S);
+  Standard_EXPORT TopoShape FixSplitFace(const TopoShape& S);
 
   //! Compute data for face splitting.
-  Standard_EXPORT Standard_Boolean SplitOneFace(TopoDS_Face& F, TopoDS_Compound& theSplittedFaces);
+  Standard_EXPORT Standard_Boolean SplitOneFace(TopoFace& F, TopoCompound& theSplittedFaces);
 
-  Standard_EXPORT TopoDS_Face FixFace(const TopoDS_Face& F);
+  Standard_EXPORT TopoFace FixFace(const TopoFace& F);
 
-  Standard_EXPORT TopoDS_Shape FixShape();
+  Standard_EXPORT TopoShape FixShape();
 
-  Standard_EXPORT TopoDS_Shape Shape();
+  Standard_EXPORT TopoShape Shape();
 
-  Standard_EXPORT Standard_Boolean FixPinFace(TopoDS_Face& F);
+  Standard_EXPORT Standard_Boolean FixPinFace(TopoFace& F);
 
   DEFINE_STANDARD_RTTIEXT(ShapeFix_FixSmallFace, ShapeFix_Root)
 
 protected:
 private:
-  TopoDS_Shape                 myShape;
-  TopoDS_Shape                 myResult;
+  TopoShape                 myShape;
+  TopoShape                 myResult;
   Standard_Integer             myStatus;
   ShapeAnalysis_CheckSmallFace myAnalyzer;
 };

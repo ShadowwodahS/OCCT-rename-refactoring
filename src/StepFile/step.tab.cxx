@@ -48,7 +48,7 @@
 
 #undef yylex
 #define yylex scanner->lex
-#define StepData scanner->myDataModel
+#define StepData1 scanner->myDataModel
 
 // disable MSVC warnings in bison code
 #ifdef _MSC_VER
@@ -548,107 +548,107 @@ int parser::parse()
 
           case 16: // endhead: DATA
           {
-            StepData->FinalOfHead();
+            StepData1->FinalOfHead();
           }
           break;
 
           case 17: // unarg: IDENT
           {
-            StepData->SetTypeArg(Interface_ParamIdent);
-            StepData->CreateNewArg();
+            StepData1->SetTypeArg(Interface_ParamIdent);
+            StepData1->CreateNewArg();
           }
           break;
 
           case 18: // unarg: QUID
           {        /* deja fait par lex*/
-            StepData->CreateNewArg();
+            StepData1->CreateNewArg();
           }
           break;
 
           case 19: // unarg: listarg
           {
-            StepData->CreateNewArg();
+            StepData1->CreateNewArg();
           }
           break;
 
           case 20: // unarg: listype listarg
           {
-            StepData->CreateNewArg();
+            StepData1->CreateNewArg();
           }
           break;
 
           case 21: // unarg: error
           {
-            StepData->CreateErrorArg();
+            StepData1->CreateErrorArg();
           }
           break;
 
           case 22: // listype: TYPE
           {
-            StepData->RecordTypeText();
+            StepData1->RecordTypeText();
           }
           break;
 
           case 23: // deblist: '('
           {
-            StepData->RecordListStart();
+            StepData1->RecordListStart();
           }
           break;
 
           case 24: // finlist: ')'
           {
-            if (StepData->GetModePrint() > 0)
+            if (StepData1->GetModePrint() > 0)
             {
-              printf("Record no : %d -- ", StepData->GetNbRecord() + 1);
-              StepData->PrintCurrentRecord();
+              printf("Record no : %d -- ", StepData1->GetNbRecord() + 1);
+              StepData1->PrintCurrentRecord();
             }
-            StepData->RecordNewEntity();
+            StepData1->RecordNewEntity();
             yyerrstatus_ = 0;
           }
           break;
 
           case 39: // debscop: SCOPE
           {
-            StepData->AddNewScope();
+            StepData1->AddNewScope();
           }
           break;
 
           case 40: // unid: IDENT
           {
-            StepData->SetTypeArg(Interface_ParamIdent);
-            StepData->CreateNewArg();
+            StepData1->SetTypeArg(Interface_ParamIdent);
+            StepData1->CreateNewArg();
           }
           break;
 
           case 43: // debexp: '/'
           {
-            StepData->RecordListStart();
+            StepData1->RecordListStart();
           }
           break;
 
           case 44: // finscop: ENDSCOPE
           {
-            StepData->FinalOfScope();
+            StepData1->FinalOfScope();
           }
           break;
 
           case 45: // finscop: ENDSCOPE debexp export '/'
           {
             printf("***  Warning : Export List not yet processed\n");
-            StepData->RecordNewEntity();
-            StepData->FinalOfScope();
+            StepData1->RecordNewEntity();
+            StepData1->FinalOfScope();
           }
           break;
 
           case 46: // entlab: ENTITY
           {
-            StepData->RecordIdent();
+            StepData1->RecordIdent();
           }
           break;
 
           case 47: // enttype: TYPE
           {
-            StepData->RecordType();
+            StepData1->RecordType();
           }
           break;
 
@@ -1161,5 +1161,5 @@ void step::parser::error(const std::string& m)
 
   StepFile_Interrupt(newmess, Standard_False);
 
-  StepData->AddError(newmess);
+  StepData1->AddError(newmess);
 }

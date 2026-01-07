@@ -30,9 +30,9 @@
 #include <GeomFill_PipeError.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 class GeomFill_LocationLaw;
-class TopoDS_Edge;
-class TopoDS_Vertex;
-class TopoDS_Shape;
+class TopoEdge;
+class TopoVertex;
+class TopoShape;
 
 class BRepFill_LocationLaw;
 DEFINE_STANDARD_HANDLE(BRepFill_LocationLaw, RefObject)
@@ -68,15 +68,15 @@ public:
   Standard_EXPORT const Handle(GeomFill_LocationLaw)& Law(const Standard_Integer Index) const;
 
   //! return the path
-  Standard_EXPORT const TopoDS_Wire& Wire() const;
+  Standard_EXPORT const TopoWire& Wire() const;
 
   //! Return the Edge of rank <Index> in the path
   //! <Index> have to be in [1, NbLaw()]
-  Standard_EXPORT const TopoDS_Edge& Edge(const Standard_Integer Index) const;
+  Standard_EXPORT const TopoEdge& Edge(const Standard_Integer Index) const;
 
   //! Return the vertex of rank <Index> in the path
   //! <Index> have to be in [0, NbLaw()]
-  Standard_EXPORT TopoDS_Vertex Vertex(const Standard_Integer Index) const;
+  Standard_EXPORT TopoVertex Vertex(const Standard_Integer Index) const;
 
   //! Compute <OutputVertex> like a transformation of
   //! <InputVertex>  the  transformation   is given by
@@ -87,9 +87,9 @@ public:
   //! -  1 : The law after the vertex is used.
   //! -  0 : Average of the both laws is used.
   Standard_EXPORT void PerformVertex(const Standard_Integer Index,
-                                     const TopoDS_Vertex&   InputVertex,
+                                     const TopoVertex&   InputVertex,
                                      const Standard_Real    TolMin,
-                                     TopoDS_Vertex&         OutputVertex,
+                                     TopoVertex&         OutputVertex,
                                      const Standard_Integer Location = 0) const;
 
   //! Return the Curvilinear Bounds of the <Index> Law
@@ -109,7 +109,7 @@ public:
                                         const Standard_Real    AngularTolerance = 1.0e-4) const;
 
   //! Apply the Law to a shape, for a given Curvilinear abscissa
-  Standard_EXPORT void D0(const Standard_Real Abscissa, TopoDS_Shape& Section);
+  Standard_EXPORT void D0(const Standard_Real Abscissa, TopoShape& Section);
 
   //! Find the index Law and the parameter, for a given Curvilinear abscissa
   Standard_EXPORT void Parameter(const Standard_Real Abscissa,
@@ -126,7 +126,7 @@ public:
 protected:
   //! Initialize all the fields, this methode has to
   //! be called by the constructors of Inherited class.
-  Standard_EXPORT void Init(const TopoDS_Wire& Path);
+  Standard_EXPORT void Init(const TopoWire& Path);
 
   //! To preserve if possible the Tangent in transformations
   //! It is the default mode.
@@ -138,7 +138,7 @@ protected:
   //! To preserve if possible the BiNormal in transformations
   Standard_EXPORT void BiNormalIsMain();
 
-  TopoDS_Wire                           myPath;
+  TopoWire                           myPath;
   Standard_Real                         myTol;
   Handle(GeomFill_HArray1OfLocationLaw) myLaws;
   Handle(TColStd_HArray1OfReal)         myLength;

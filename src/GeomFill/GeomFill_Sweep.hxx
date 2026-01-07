@@ -28,8 +28,8 @@
 #include <Standard_Integer.hxx>
 class GeomFill_LocationLaw;
 class GeomFill_SectionLaw;
-class Geom_Surface;
-class Geom2d_Curve;
+class GeomSurface;
+class GeomCurve2d;
 
 //! Geometrical Sweep Algorithm
 class GeomFill_Sweep
@@ -127,13 +127,13 @@ public:
                                     Standard_Real&         UError,
                                     Standard_Real&         VError) const;
 
-  Standard_EXPORT Handle(Geom_Surface) Surface() const;
+  Standard_EXPORT Handle(GeomSurface) Surface() const;
 
-  Standard_EXPORT Handle(Geom2d_Curve) Restriction(const Standard_Boolean IsFirst) const;
+  Standard_EXPORT Handle(GeomCurve2d) Restriction(const Standard_Boolean IsFirst) const;
 
   Standard_EXPORT Standard_Integer NumberOfTrace() const;
 
-  Standard_EXPORT Handle(Geom2d_Curve) Trace(const Standard_Integer IndexOfTrace) const;
+  Standard_EXPORT Handle(GeomCurve2d) Trace(const Standard_Integer IndexOfTrace) const;
 
 protected:
 private:
@@ -163,7 +163,7 @@ private:
   Standard_Boolean                  myForceApproxC1;
   Handle(GeomFill_LocationLaw)      myLoc;
   Handle(GeomFill_SectionLaw)       mySec;
-  Handle(Geom_Surface)              mySurface;
+  Handle(GeomSurface)              mySurface;
   Handle(TColGeom2d_HArray1OfCurve) myCurve2d;
   Handle(TColStd_HArray2OfReal)     CError;
   Standard_Boolean                  done;

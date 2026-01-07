@@ -37,7 +37,7 @@ public:
   Standard_EXPORT Vrml_OrthographicCamera();
 
   Standard_EXPORT Vrml_OrthographicCamera(const Vector3d&          aPosition,
-                                          const Vrml_SFRotation& aOrientation,
+                                          const SFRotation& aOrientation,
                                           const Standard_Real    aFocalDistance,
                                           const Standard_Real    aHeight);
 
@@ -45,9 +45,9 @@ public:
 
   Standard_EXPORT Vector3d Position() const;
 
-  Standard_EXPORT void SetOrientation(const Vrml_SFRotation& aOrientation);
+  Standard_EXPORT void SetOrientation(const SFRotation& aOrientation);
 
-  Standard_EXPORT Vrml_SFRotation Orientation() const;
+  Standard_EXPORT SFRotation Orientation() const;
 
   Standard_EXPORT void SetFocalDistance(const Standard_Real aFocalDistance);
 
@@ -62,7 +62,7 @@ public:
 protected:
 private:
   Vector3d          myPosition;
-  Vrml_SFRotation myOrientation;
+  SFRotation myOrientation;
   Standard_Real   myFocalDistance;
   Standard_Real   myHeight;
 };

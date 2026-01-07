@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-void LProp3d_SurfaceTool::Value(const Handle(Adaptor3d_Surface)& S,
+void SurfaceTool2::Value(const Handle(Adaptor3d_Surface)& S,
                                 const Standard_Real              U,
                                 const Standard_Real              V,
                                 Point3d&                          P)
@@ -30,7 +30,7 @@ void LProp3d_SurfaceTool::Value(const Handle(Adaptor3d_Surface)& S,
 
 //=================================================================================================
 
-void LProp3d_SurfaceTool::D1(const Handle(Adaptor3d_Surface)& S,
+void SurfaceTool2::D1(const Handle(Adaptor3d_Surface)& S,
                              const Standard_Real              U,
                              const Standard_Real              V,
                              Point3d&                          P,
@@ -42,7 +42,7 @@ void LProp3d_SurfaceTool::D1(const Handle(Adaptor3d_Surface)& S,
 
 //=================================================================================================
 
-void LProp3d_SurfaceTool::D2(const Handle(Adaptor3d_Surface)& S,
+void SurfaceTool2::D2(const Handle(Adaptor3d_Surface)& S,
                              const Standard_Real              U,
                              const Standard_Real              V,
                              Point3d&                          P,
@@ -57,7 +57,7 @@ void LProp3d_SurfaceTool::D2(const Handle(Adaptor3d_Surface)& S,
 
 //=================================================================================================
 
-Vector3d LProp3d_SurfaceTool::DN(const Handle(Adaptor3d_Surface)& S,
+Vector3d SurfaceTool2::DN(const Handle(Adaptor3d_Surface)& S,
                                const Standard_Real              U,
                                const Standard_Real              V,
                                const Standard_Integer           IU,
@@ -68,7 +68,7 @@ Vector3d LProp3d_SurfaceTool::DN(const Handle(Adaptor3d_Surface)& S,
 
 //=================================================================================================
 
-Standard_Integer LProp3d_SurfaceTool::Continuity(const Handle(Adaptor3d_Surface)& S)
+Standard_Integer SurfaceTool2::Continuity(const Handle(Adaptor3d_Surface)& S)
 {
   GeomAbs_Shape s = (GeomAbs_Shape)Min(S->UContinuity(), S->VContinuity());
   switch (s)
@@ -93,7 +93,7 @@ Standard_Integer LProp3d_SurfaceTool::Continuity(const Handle(Adaptor3d_Surface)
 
 //=================================================================================================
 
-void LProp3d_SurfaceTool::Bounds(const Handle(Adaptor3d_Surface)& S,
+void SurfaceTool2::Bounds(const Handle(Adaptor3d_Surface)& S,
                                  Standard_Real&                   U1,
                                  Standard_Real&                   V1,
                                  Standard_Real&                   U2,

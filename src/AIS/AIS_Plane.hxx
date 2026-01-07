@@ -22,19 +22,19 @@
 #include <gp_Pnt.hxx>
 #include <Select3D_TypeOfSensitivity.hxx>
 
-class Geom_Plane;
+class GeomPlane;
 class Geom_Axis2Placement;
 
 //! Constructs plane datums to be used in construction of
 //! composite shapes.
-class AIS_Plane : public AIS_InteractiveObject
+class AIS_Plane : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_Plane, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_Plane, VisualEntity)
 public:
   //! initializes the plane aComponent. If
   //! the mode aCurrentMode equals true, the drawing
   //! tool, "Drawer" is not initialized.
-  Standard_EXPORT AIS_Plane(const Handle(Geom_Plane)& aComponent,
+  Standard_EXPORT AIS_Plane(const Handle(GeomPlane)& aComponent,
                             const Standard_Boolean    aCurrentMode = Standard_False);
 
   //! initializes the plane aComponent and
@@ -42,7 +42,7 @@ public:
   //! equals true, the drawing tool, "Drawer" is not
   //! initialized. aCurrentMode equals true, the drawing
   //! tool, "Drawer" is not initialized.
-  Standard_EXPORT AIS_Plane(const Handle(Geom_Plane)& aComponent,
+  Standard_EXPORT AIS_Plane(const Handle(GeomPlane)& aComponent,
                             const Point3d&             aCenter,
                             const Standard_Boolean    aCurrentMode = Standard_False);
 
@@ -50,7 +50,7 @@ public:
   //! point aCenter, and the minimum and maximum
   //! points, aPmin and aPmax. If the mode
   //! aCurrentMode equals true, the drawing tool, "Drawer" is not initialized.
-  Standard_EXPORT AIS_Plane(const Handle(Geom_Plane)& aComponent,
+  Standard_EXPORT AIS_Plane(const Handle(GeomPlane)& aComponent,
                             const Point3d&             aCenter,
                             const Point3d&             aPmin,
                             const Point3d&             aPmax,
@@ -90,15 +90,15 @@ public:
   }
 
   //! Returns the component specified in SetComponent.
-  const Handle(Geom_Plane)& Component() { return myComponent; }
+  const Handle(GeomPlane)& Component() { return myComponent; }
 
   //! Creates an instance of the plane aComponent.
-  Standard_EXPORT void SetComponent(const Handle(Geom_Plane)& aComponent);
+  Standard_EXPORT void SetComponent(const Handle(GeomPlane)& aComponent);
 
   //! Returns the settings for the selected plane
   //! aComponent, provided in SetPlaneAttributes.
   //! These include the points aCenter, aPmin, and aPmax
-  Standard_EXPORT Standard_Boolean PlaneAttributes(Handle(Geom_Plane)& aComponent,
+  Standard_EXPORT Standard_Boolean PlaneAttributes(Handle(GeomPlane)& aComponent,
                                                    Point3d&             aCenter,
                                                    Point3d&             aPmin,
                                                    Point3d&             aPmax);
@@ -106,7 +106,7 @@ public:
   //! Allows you to provide settings other than default ones
   //! for the selected plane. These include: center point
   //! aCenter, maximum aPmax and minimum aPmin.
-  Standard_EXPORT void SetPlaneAttributes(const Handle(Geom_Plane)& aComponent,
+  Standard_EXPORT void SetPlaneAttributes(const Handle(GeomPlane)& aComponent,
                                           const Point3d&             aCenter,
                                           const Point3d&             aPmin,
                                           const Point3d&             aPmax);
@@ -151,7 +151,7 @@ public:
     Standard_OVERRIDE;
 
   //! connection to <aCtx> default drawer implies a recomputation of Frame values.
-  Standard_EXPORT virtual void SetContext(const Handle(AIS_InteractiveContext)& aCtx)
+  Standard_EXPORT virtual void SetContext(const Handle(VisualContext)& aCtx)
     Standard_OVERRIDE;
 
   //! Returns the type of sensitivity for the plane;
@@ -163,7 +163,7 @@ public:
     myTypeOfSensitivity = theTypeOfSensitivity;
   }
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT void SetColor(const Quantity_Color& aColor) Standard_OVERRIDE;
@@ -182,7 +182,7 @@ private:
   Standard_EXPORT void InitDrawerAttributes();
 
 private:
-  Handle(Geom_Plane)          myComponent;
+  Handle(GeomPlane)          myComponent;
   Handle(Geom_Axis2Placement) myAx2;
   Point3d                      myCenter;
   Point3d                      myPmin;
@@ -195,6 +195,6 @@ private:
   Select3D_TypeOfSensitivity  myTypeOfSensitivity;
 };
 
-DEFINE_STANDARD_HANDLE(AIS_Plane, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(AIS_Plane, VisualEntity)
 
 #endif // _AIS_Plane_HeaderFile

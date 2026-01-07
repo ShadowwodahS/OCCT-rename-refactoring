@@ -642,9 +642,9 @@ void BndLib::Add(const gp_Circ2d& C, const Standard_Real Tol, Bnd_Box2d& B)
 {
 
   Standard_Real R  = C.Radius();
-  gp_XY         O  = C.Location().XY();
-  gp_XY         Xd = C.XAxis().Direction().XY();
-  gp_XY         Yd = C.YAxis().Direction().XY();
+  Coords2d         O  = C.Location().XY();
+  Coords2d         Xd = C.XAxis().Direction().XY();
+  Coords2d         Yd = C.YAxis().Direction().XY();
   B.Add(gp_Pnt2d(O - R * Xd - R * Yd));
   B.Add(gp_Pnt2d(O - R * Xd + R * Yd));
   B.Add(gp_Pnt2d(O + R * Xd - R * Yd));
@@ -836,9 +836,9 @@ void BndLib::Add(const gp_Elips2d& C, const Standard_Real Tol, Bnd_Box2d& B)
 
   Standard_Real Ra = C.MajorRadius();
   Standard_Real Rb = C.MinorRadius();
-  gp_XY         Xd = C.XAxis().Direction().XY();
-  gp_XY         Yd = C.YAxis().Direction().XY();
-  gp_XY         O  = C.Location().XY();
+  Coords2d         Xd = C.XAxis().Direction().XY();
+  Coords2d         Yd = C.YAxis().Direction().XY();
+  Coords2d         O  = C.Location().XY();
   B.Add(gp_Pnt2d(O + Ra * Xd + Rb * Yd));
   B.Add(gp_Pnt2d(O - Ra * Xd + Rb * Yd));
   B.Add(gp_Pnt2d(O - Ra * Xd - Rb * Yd));

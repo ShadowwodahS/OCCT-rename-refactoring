@@ -26,7 +26,7 @@ class Interface_EntityIterator;
 class Interface_Graph;
 class RefObject;
 class Interface_InterfaceModel;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_SelectRoots;
 DEFINE_STANDARD_HANDLE(IFSelect_SelectRoots, IFSelect_SelectExtract)
@@ -55,7 +55,7 @@ public:
          const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   //! Returns a text defining the criterium : "Local Root Entities"
-  Standard_EXPORT TCollection_AsciiString ExtractLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExtractLabel() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectRoots, IFSelect_SelectExtract)
 

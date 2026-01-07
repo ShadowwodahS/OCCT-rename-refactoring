@@ -30,7 +30,7 @@ const Standard_GUID& TDataStd_Tick::GetID()
 
 //=================================================================================================
 
-Handle(TDataStd_Tick) TDataStd_Tick::Set(const TDF_Label& L)
+Handle(TDataStd_Tick) TDataStd_Tick::Set(const DataLabel& L)
 {
   Handle(TDataStd_Tick) A;
   if (!L.FindAttribute(TDataStd_Tick::GetID(), A))

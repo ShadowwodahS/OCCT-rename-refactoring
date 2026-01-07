@@ -37,7 +37,7 @@ public:
   //! The display attributes of the tangent are defined by
   //! the attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Point3d&                     OffsetPoint,
                                   const Dir3d&                     aDirection,
                                   const Standard_Real               aLength);

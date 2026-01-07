@@ -215,7 +215,7 @@ static void smoothlaw(Handle(Law_BSpline)&                 Law,
 
 //=================================================================================================
 
-static Standard_Boolean FindPlane(const Handle(Adaptor3d_Curve)& theC, Handle(Geom_Plane)& theP)
+static Standard_Boolean FindPlane(const Handle(Adaptor3d_Curve)& theC, Handle(GeomPlane)& theP)
 {
   Standard_Boolean            found = Standard_True;
   Handle(TColgp_HArray1OfPnt) TabP;
@@ -229,23 +229,23 @@ static Standard_Boolean FindPlane(const Handle(Adaptor3d_Curve)& theC, Handle(Ge
     break;
 
     case GeomAbs_Circle:
-      theP = new Geom_Plane(gp_Ax3(theC->Circle().Position()));
+      theP = new GeomPlane(gp_Ax3(theC->Circle().Position()));
       break;
 
     case GeomAbs_Ellipse:
-      theP = new Geom_Plane(gp_Ax3(theC->Ellipse().Position()));
+      theP = new GeomPlane(gp_Ax3(theC->Ellipse().Position()));
       break;
 
     case GeomAbs_Hyperbola:
-      theP = new Geom_Plane(gp_Ax3(theC->Hyperbola().Position()));
+      theP = new GeomPlane(gp_Ax3(theC->Hyperbola().Position()));
       break;
 
     case GeomAbs_Parabola:
-      theP = new Geom_Plane(gp_Ax3(theC->Parabola().Position()));
+      theP = new GeomPlane(gp_Ax3(theC->Parabola().Position()));
       break;
 
     case GeomAbs_BezierCurve: {
-      Handle(Geom_BezierCurve) GC  = theC->Bezier();
+      Handle(BezierCurve3d) GC  = theC->Bezier();
       Standard_Integer         nbp = GC->NbPoles();
       if (nbp < 2)
         found = Standard_False;
@@ -262,7 +262,7 @@ static Standard_Boolean FindPlane(const Handle(Adaptor3d_Curve)& theC, Handle(Ge
     break;
 
     case GeomAbs_BSplineCurve: {
-      Handle(Geom_BSplineCurve) GC  = theC->BSpline();
+      Handle(BSplineCurve3d) GC  = theC->BSpline();
       Standard_Integer          nbp = GC->NbPoles();
       if (nbp < 2)
         found = Standard_False;
@@ -306,7 +306,7 @@ static Standard_Boolean FindPlane(const Handle(Adaptor3d_Curve)& theC, Handle(Ge
     }
     else
     {
-      theP = new Geom_Plane(inertia);
+      theP = new GeomPlane(inertia);
     }
     if (found)
     {
@@ -428,9 +428,9 @@ void GeomFill_CorrectedFrenet::Init()
     char             tname[100];
     Standard_CString name = tname;
     sprintf(name, "Binorm_%d", ++CorrNumber);
-    Handle(Geom_BSplineCurve) BS = new (Geom_BSplineCurve)(TabP, TI, M, 1);
-    //    DrawTrSurf::Set(&name[0], BS);
-    DrawTrSurf::Set(name, BS);
+    Handle(BSplineCurve3d) BS = new (BSplineCurve3d)(TabP, TI, M, 1);
+    //    DrawTrSurf1::Set(&name[0], BS);
+    DrawTrSurf1::Set(name, BS);
   }
 #endif
 
@@ -526,7 +526,7 @@ Standard_Boolean GeomFill_CorrectedFrenet::InitInterval(const Standard_Real     
 
   Standard_Real angleAT = 0., currParam, currStep = Step;
 
-  Handle(Geom_Plane) aPlane;
+  Handle(GeomPlane) aPlane;
   Standard_Boolean   isPlanar = Standard_False;
   if (!myForEvaluation)
     isPlanar = FindPlane(myCurve, aPlane);

@@ -29,15 +29,15 @@ class IGESBasic_SpecificModule;
 DEFINE_STANDARD_HANDLE(IGESBasic_SpecificModule, IGESData_SpecificModule)
 
 //! Defines Services attached to IGES Entities :
-//! Dump & OwnCorrect, for IGESBasic
+//! Dump & OwnCorrect, for IGESBasic1
 class IGESBasic_SpecificModule : public IGESData_SpecificModule
 {
 
 public:
-  //! Creates a SpecificModule from IGESBasic & puts it into SpecificLib
+  //! Creates a SpecificModule from IGESBasic1 & puts it into SpecificLib
   Standard_EXPORT IGESBasic_SpecificModule();
 
-  //! Specific Dump (own parameters) for IGESBasic
+  //! Specific Dump (own parameters) for IGESBasic1
   Standard_EXPORT void OwnDump(const Standard_Integer             CN,
                                const Handle(IGESData_IGESEntity)& ent,
                                const IGESData_IGESDumper&         dumper,

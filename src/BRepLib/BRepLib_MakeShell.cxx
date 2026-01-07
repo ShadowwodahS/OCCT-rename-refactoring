@@ -45,7 +45,7 @@ BRepLib_MakeShell::BRepLib_MakeShell()
 
 //=================================================================================================
 
-BRepLib_MakeShell::BRepLib_MakeShell(const Handle(Geom_Surface)& S, const Standard_Boolean Segment)
+BRepLib_MakeShell::BRepLib_MakeShell(const Handle(GeomSurface)& S, const Standard_Boolean Segment)
 {
   Standard_Real UMin, UMax, VMin, VMax;
   S->Bounds(UMin, UMax, VMin, VMax);
@@ -54,7 +54,7 @@ BRepLib_MakeShell::BRepLib_MakeShell(const Handle(Geom_Surface)& S, const Standa
 
 //=================================================================================================
 
-BRepLib_MakeShell::BRepLib_MakeShell(const Handle(Geom_Surface)& S,
+BRepLib_MakeShell::BRepLib_MakeShell(const Handle(GeomSurface)& S,
                                      const Standard_Real         UMin,
                                      const Standard_Real         UMax,
                                      const Standard_Real         VMin,
@@ -66,14 +66,14 @@ BRepLib_MakeShell::BRepLib_MakeShell(const Handle(Geom_Surface)& S,
 
 //=================================================================================================
 
-void BRepLib_MakeShell::Init(const Handle(Geom_Surface)& S,
+void BRepLib_MakeShell::Init(const Handle(GeomSurface)& S,
                              const Standard_Real         UMin,
                              const Standard_Real         UMax,
                              const Standard_Real         VMin,
                              const Standard_Real         VMax,
                              const Standard_Boolean      Segment)
 {
-  Handle(Geom_Surface) BS = S;
+  Handle(GeomSurface) BS = S;
   if (S->DynamicType() == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
   {
     Handle(Geom_RectangularTrimmedSurface) RTS =
@@ -124,7 +124,7 @@ void BRepLib_MakeShell::Init(const Handle(Geom_Surface)& S,
   // create row by row
 
   // create the shell
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeShell(TopoDS::Shell(myShape));
 
   // arrays of edges and vertices for each row
@@ -135,10 +135,10 @@ void BRepLib_MakeShell::Init(const Handle(Geom_Surface)& S,
   TopTools_Array1OfShape fbotedges(1, nu);
   TopTools_Array1OfShape fbotvertices(1, nu + 1);
 
-  TopoDS_Face   F;
-  TopoDS_Wire   W;
-  TopoDS_Edge   eleft, eright, etop, ebot, feleft;
-  TopoDS_Vertex vlb, vlt, vrb, vrt, fvlt;
+  TopoFace   F;
+  TopoWire   W;
+  TopoEdge   eleft, eright, etop, ebot, feleft;
+  TopoVertex vlb, vlt, vrb, vrt, fvlt;
 
   // init the botedges and botvertices
   if (!Precision::IsInfinite(vpars(1)))
@@ -219,7 +219,7 @@ void BRepLib_MakeShell::Init(const Handle(Geom_Surface)& S,
       // create the face at iu, iv
 
       // the surface
-      Handle(Geom_Surface) SS = Handle(Geom_Surface)::DownCast(BS->Copy());
+      Handle(GeomSurface) SS = Handle(GeomSurface)::DownCast(BS->Copy());
       if (GS.GetType() == GeomAbs_BSplineSurface && Segment)
       {
         Handle(Geom_BSplineSurface)::DownCast(SS)->Segment(upars(iu),
@@ -377,18 +377,18 @@ void BRepLib_MakeShell::Init(const Handle(Geom_Surface)& S,
   // codage des courbes 3d et regularites.
   BRepLib::BuildCurves3d(myShape, tol);
   BRepLib::EncodeRegularity(myShape);
-  myShape.Closed(BRep_Tool::IsClosed(myShape));
+  myShape.Closed(BRepInspector::IsClosed(myShape));
 
   // Additional checking for degenerated edges
   Standard_Boolean        isDegenerated;
   Standard_Real           aFirst, aLast;
   constexpr Standard_Real aTol = Precision::Confusion();
   Standard_Real           anActTol;
-  TopExp_Explorer         anExp(myShape, TopAbs_EDGE);
+  ShapeExplorer         anExp(myShape, TopAbs_EDGE);
   for (; anExp.More(); anExp.Next())
   {
-    const TopoDS_Edge& anEdge = TopoDS::Edge(anExp.Current());
-    Handle(Geom_Curve) aCurve = BRep_Tool::Curve(anEdge, aFirst, aLast);
+    const TopoEdge& anEdge = TopoDS::Edge(anExp.Current());
+    Handle(GeomCurve3d) aCurve = BRepInspector::Curve(anEdge, aFirst, aLast);
     isDegenerated             = BRepLib_MakeFace::IsDegenerated(aCurve, aTol, anActTol);
     B.Degenerated(anEdge, isDegenerated);
   }
@@ -405,18 +405,18 @@ BRepLib_ShellError BRepLib_MakeShell::Error() const
 }
 
 //=======================================================================
-// function : TopoDS_Shell&
+// function : TopoShell&
 // purpose  :
 //=======================================================================
 
-const TopoDS_Shell& BRepLib_MakeShell::Shell() const
+const TopoShell& BRepLib_MakeShell::Shell() const
 {
   return TopoDS::Shell(myShape);
 }
 
 //=================================================================================================
 
-BRepLib_MakeShell::operator TopoDS_Shell() const
+BRepLib_MakeShell::operator TopoShell() const
 {
   return Shell();
 }

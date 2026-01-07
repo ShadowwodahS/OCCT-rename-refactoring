@@ -35,18 +35,18 @@ class ShapeFix_SplitCommonVertex : public ShapeFix_Root
 public:
   Standard_EXPORT ShapeFix_SplitCommonVertex();
 
-  Standard_EXPORT void Init(const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const TopoShape& S);
 
   Standard_EXPORT void Perform();
 
-  Standard_EXPORT TopoDS_Shape Shape();
+  Standard_EXPORT TopoShape Shape();
 
   DEFINE_STANDARD_RTTIEXT(ShapeFix_SplitCommonVertex, ShapeFix_Root)
 
 protected:
 private:
-  TopoDS_Shape     myShape;
-  TopoDS_Shape     myResult;
+  TopoShape     myShape;
+  TopoShape     myResult;
   Standard_Integer myStatus;
 };
 

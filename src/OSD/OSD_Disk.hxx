@@ -33,8 +33,8 @@ public:
   Standard_EXPORT OSD_Disk();
 
   //! Initializes the object Disk with the disk name
-  //! associated to the OSD_Path.
-  Standard_EXPORT OSD_Disk(const OSD_Path& Name);
+  //! associated to the SystemPath.
+  Standard_EXPORT OSD_Disk(const SystemPath& Name);
 
   //! Initializes the object Disk with <PathName>.
   //! <PathName> specifies any file within the mounted
@@ -45,10 +45,10 @@ public:
   Standard_EXPORT OSD_Disk(const Standard_CString PathName);
 
   //! Returns disk name of <me>.
-  Standard_EXPORT OSD_Path Name() const;
+  Standard_EXPORT SystemPath Name() const;
 
   //! Instantiates <me> with <Name>.
-  Standard_EXPORT void SetName(const OSD_Path& Name);
+  Standard_EXPORT void SetName(const SystemPath& Name);
 
   //! Returns total disk capacity in 512 bytes blocks.
   Standard_EXPORT Standard_Integer DiskSize();
@@ -69,7 +69,7 @@ public:
   Standard_Integer Error() const { return myError.Error(); }
 
 private:
-  TCollection_AsciiString myDiskName;
+  AsciiString1 myDiskName;
   OSD_Error               myError;
 };
 

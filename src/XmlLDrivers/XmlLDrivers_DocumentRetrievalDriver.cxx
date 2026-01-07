@@ -59,7 +59,7 @@ static void take_time(const Standard_Integer, const char*, const Handle(Message_
 }
 #endif
 
-static Standard_Integer RemoveExtraSeparator(TCollection_AsciiString& aString)
+static Standard_Integer RemoveExtraSeparator(AsciiString1& aString)
 {
 
   Standard_Integer i, j, len;
@@ -86,10 +86,10 @@ static Standard_Integer RemoveExtraSeparator(TCollection_AsciiString& aString)
   return len;
 }
 
-static TCollection_AsciiString GetDirFromFile(const TCollection_ExtendedString& aFileName)
+static AsciiString1 GetDirFromFile(const UtfString& aFileName)
 {
-  TCollection_AsciiString theCFile = UTL::CString(aFileName);
-  TCollection_AsciiString theDirectory;
+  AsciiString1 theCFile = UTL1::CString(aFileName);
+  AsciiString1 theDirectory;
   Standard_Integer        i = theCFile.SearchFromEnd("/");
 #ifdef _WIN32
   //    if(i==-1) i=theCFile.SearchFromEnd("\\");
@@ -101,10 +101,10 @@ static TCollection_AsciiString GetDirFromFile(const TCollection_ExtendedString& 
   return theDirectory;
 }
 
-static TCollection_AsciiString AbsolutePath(const TCollection_AsciiString& aDirPath,
-                                            const TCollection_AsciiString& aRelFilePath)
+static AsciiString1 AbsolutePath(const AsciiString1& aDirPath,
+                                            const AsciiString1& aRelFilePath)
 {
-  TCollection_AsciiString EmptyString = "";
+  AsciiString1 EmptyString = "";
 #ifdef _WIN32
   if (aRelFilePath.Search(":") == 2
       || (aRelFilePath.Search("\\") == 1 && aRelFilePath.Value(2) == '\\'))
@@ -113,7 +113,7 @@ static TCollection_AsciiString AbsolutePath(const TCollection_AsciiString& aDirP
 #endif
     return aRelFilePath;
 
-  TCollection_AsciiString DirPath = aDirPath, RelFilePath = aRelFilePath;
+  AsciiString1 DirPath = aDirPath, RelFilePath = aRelFilePath;
   Standard_Integer        i, len;
 
 #ifdef _WIN32
@@ -144,7 +144,7 @@ static TCollection_AsciiString AbsolutePath(const TCollection_AsciiString& aDirP
       return EmptyString;
     DirPath.Trunc(i - 1);
   }
-  TCollection_AsciiString retx;
+  AsciiString1 retx;
   retx = DirPath;
   retx += "/";
   retx += RelFilePath;
@@ -160,7 +160,7 @@ XmlLDrivers_DocumentRetrievalDriver::XmlLDrivers_DocumentRetrievalDriver()
 
 //=================================================================================================
 
-void XmlLDrivers_DocumentRetrievalDriver::Read(const TCollection_ExtendedString& theFileName,
+void XmlLDrivers_DocumentRetrievalDriver::Read(const UtfString& theFileName,
                                                const Handle(CDM_Document)&       theNewDocument,
                                                const Handle(CDM_Application)&    theApplication,
                                                const Handle(PCDM_ReaderFilter)&  theFilter,
@@ -180,7 +180,7 @@ void XmlLDrivers_DocumentRetrievalDriver::Read(const TCollection_ExtendedString&
   {
     myReaderStatus = PCDM_RS_OpenError;
 
-    TCollection_ExtendedString aMsg = TCollection_ExtendedString("Error: the file ") + theFileName
+    UtfString aMsg = UtfString("Error: the file ") + theFileName
                                       + " cannot be opened for reading";
 
     theApplication->MessageDriver()->Send(aMsg.ToExtString(), Message_Fail);
@@ -209,7 +209,7 @@ void XmlLDrivers_DocumentRetrievalDriver::Read(Standard_IStream& theIStream,
 
   if (aParser.parse(theIStream, Standard_False, aWithoutRoot))
   {
-    TCollection_AsciiString aData;
+    AsciiString1 aData;
     std::cout << aParser.GetError(aData) << ": " << aData << std::endl;
     myReaderStatus = PCDM_RS_FormatFailure;
     return;
@@ -235,9 +235,9 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
 {
   const Handle(Message_Messenger) aMsgDriver = theApplication->MessageDriver();
   // 1. Read info // to be done
-  TCollection_AsciiString anAbsoluteDirectory = GetDirFromFile(myFileName);
+  AsciiString1 anAbsoluteDirectory = GetDirFromFile(myFileName);
   Standard_Integer aCurDocVersion = TDocStd_FormatVersion_VERSION_2; // minimum supported version
-  TCollection_ExtendedString anInfo;
+  UtfString anInfo;
   const XmlObjMgt_Element    anInfoElem = theElement.GetChildByTagName("info");
   if (anInfoElem != NULL)
   {
@@ -251,8 +251,8 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
       }
       else
       {
-        TCollection_ExtendedString aMsg =
-          TCollection_ExtendedString("Cannot retrieve the current Document version"
+        UtfString aMsg =
+          UtfString("Cannot retrieve the current Document version"
                                      " attribute as \"")
           + aDocVerStr + "\"";
         if (!aMsgDriver.IsNull())
@@ -264,11 +264,11 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
 
     // oan: OCC22305 - check a document version and if it's greater than
     // current version of storage driver set an error status and return
-    if (aCurDocVersion > TDocStd_Document::CurrentStorageFormatVersion())
+    if (aCurDocVersion > AppDocument::CurrentStorageFormatVersion())
     {
-      TCollection_ExtendedString aMsg = TCollection_ExtendedString("error: wrong file version: ")
+      UtfString aMsg = UtfString("error: wrong file version: ")
                                         + aDocVerStr + " while current is "
-                                        + TDocStd_Document::CurrentStorageFormatVersion();
+                                        + AppDocument::CurrentStorageFormatVersion();
       myReaderStatus = PCDM_RS_NoVersion;
       if (!aMsgDriver.IsNull())
         aMsgDriver->Send(aMsg.ToExtString(), Message_Fail);
@@ -290,7 +290,7 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
             try
             {
               OCC_CATCH_SIGNALS
-              TCollection_AsciiString anInf(anInfo, '?');
+              AsciiString1 anInf(anInfo, '?');
               Standard_Integer        aRefCounter = anInf.Token(" ", 2).IntegerValue();
               theNewDocument->SetReferenceCounter(aRefCounter);
             }
@@ -298,7 +298,7 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
             {
               //    std::cout << "warning: could not read the reference counter in " << aFileName <<
               //    std::endl;
-              TCollection_ExtendedString aMsg("Warning: ");
+              UtfString aMsg("Warning: ");
               aMsg = aMsg.Cat("could not read the reference counter").Cat("\0");
               if (!aMsgDriver.IsNull())
                 aMsgDriver->Send(aMsg.ToExtString(), Message_Warning);
@@ -310,13 +310,13 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
             {
               OCC_CATCH_SIGNALS
 
-              TCollection_AsciiString anInf(anInfo, '?');
+              AsciiString1 anInf(anInfo, '?');
               Standard_Integer        aModCounter = anInf.Token(" ", 2).IntegerValue();
               theNewDocument->SetModifications(aModCounter);
             }
             catch (ExceptionBase const&)
             {
-              TCollection_ExtendedString aMsg("Warning: could not read the modification counter\0");
+              UtfString aMsg("Warning: could not read the modification counter\0");
               if (!aMsgDriver.IsNull())
                 aMsgDriver->Send(aMsg.ToExtString(), Message_Warning);
             }
@@ -332,19 +332,19 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
             {
               // Parce RefId, DocumentVersion and FileName
               Standard_Integer           aRefId;
-              TCollection_ExtendedString aFileName;
+              UtfString aFileName;
               Standard_Integer           aDocumentVersion;
 
-              TCollection_ExtendedString aRest = anInfo.Split(pos);
-              aRefId                           = UTL::IntegerValue(anInfo);
+              UtfString aRest = anInfo.Split(pos);
+              aRefId                           = UTL1::IntegerValue(anInfo);
 
               Standard_Integer pos2 = aRest.Search(" ");
 
               aFileName        = aRest.Split(pos2);
-              aDocumentVersion = UTL::IntegerValue(aRest);
+              aDocumentVersion = UTL1::IntegerValue(aRest);
 
-              TCollection_AsciiString aPath = UTL::CString(aFileName);
-              TCollection_AsciiString anAbsolutePath;
+              AsciiString1 aPath = UTL1::CString(aFileName);
+              AsciiString1 anAbsolutePath;
               if (!anAbsoluteDirectory.IsEmpty())
               {
                 anAbsolutePath = AbsolutePath(anAbsoluteDirectory, aPath);
@@ -356,7 +356,7 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
                 //      std::cout << "reference found; ReferenceIdentifier: " <<
                 //      theReferenceIdentifier << "; File:" << thePath << ", version:" <<
                 //      theDocumentVersion;
-                TCollection_ExtendedString aMsg("Warning: ");
+                UtfString aMsg("Warning: ");
                 aMsg = aMsg.Cat("reference found; ReferenceIdentifier:  ")
                          .Cat(aRefId)
                          .Cat("; File:")
@@ -368,23 +368,23 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
               }
               // Add new ref!
               /////////////
-              TCollection_ExtendedString theFolder, theName;
-              // TCollection_ExtendedString theFile=myReferences(myIterator).FileName();
-              TCollection_ExtendedString f(aPath);
+              UtfString theFolder, theName;
+              // UtfString theFile=myReferences(myIterator).FileName();
+              UtfString f(aPath);
 #ifndef _WIN32
 
               Standard_Integer           i = f.SearchFromEnd("/");
-              TCollection_ExtendedString n = f.Split(i);
+              UtfString n = f.Split(i);
               f.Trunc(f.Length() - 1);
               theFolder = f;
               theName   = n;
 #else
-              OSD_Path                   p = UTL::Path(f);
+              SystemPath                   p = UTL1::Path(f);
               Standard_ExtCharacter      chr;
-              TCollection_ExtendedString dir, dirRet, name;
+              UtfString dir, dirRet, name;
 
-              dir = UTL::Disk(p);
-              dir += UTL::Trek(p);
+              dir = UTL1::Disk(p);
+              dir += UTL1::Trek(p);
 
               for (int i = 1; i <= dir.Length(); ++i)
               {
@@ -408,8 +408,8 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
                 }
               }
               theFolder = dirRet;
-              theName   = UTL::Name(p);
-              theName += UTL::Extension(p);
+              theName   = UTL1::Name(p);
+              theName += UTL1::Extension(p);
 #endif // _WIN32
 
               Handle(CDM_MetaData) aMetaData =
@@ -418,7 +418,7 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
                                      theName,
                                      aPath,
                                      aPath,
-                                     UTL::IsReadOnly(aFileName));
+                                     UTL1::IsReadOnly(aFileName));
               ////////////
               theNewDocument->CreateReference(aMetaData,
                                               aRefId,
@@ -435,7 +435,7 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
   }
 
   // 2. Read comments
-  TCollection_ExtendedString aComment;
+  UtfString aComment;
   const XmlObjMgt_Element    aCommentsElem = theElement.GetChildByTagName("comments");
   if (aCommentsElem != NULL)
   {
@@ -476,7 +476,7 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
   {
     OCC_CATCH_SIGNALS
 #ifdef OCCT_DEBUG
-    TCollection_ExtendedString aMessage("PasteDocument");
+    UtfString aMessage("PasteDocument");
     aMsgDriver->Send(aMessage.ToExtString(), Message_Trace);
 #endif
     if (!MakeDocument(theElement, theNewDocument, aPS.Next()))
@@ -486,7 +486,7 @@ void XmlLDrivers_DocumentRetrievalDriver::ReadFromDomDocument(
   }
   catch (ExceptionBase const& anException)
   {
-    TCollection_ExtendedString anErrorString(anException.GetMessageString());
+    UtfString anErrorString(anException.GetMessageString());
     aMsgDriver->Send(anErrorString.ToExtString(), Message_Fail);
   }
   if (!aPS.More())
@@ -513,7 +513,7 @@ Standard_Boolean XmlLDrivers_DocumentRetrievalDriver::MakeDocument(
   const Message_ProgressRange& theRange)
 {
   Standard_Boolean         aResult = Standard_False;
-  Handle(TDocStd_Document) TDOC    = Handle(TDocStd_Document)::DownCast(theTDoc);
+  Handle(AppDocument) TDOC    = Handle(AppDocument)::DownCast(theTDoc);
   if (!TDOC.IsNull())
   {
     Handle(TDF_Data) aTDF = new TDF_Data();
@@ -556,7 +556,7 @@ static void take_time(const Standard_Integer           isReset,
 {
   struct timeb tmbuf;
   ftime(&tmbuf);
-  TCollection_ExtendedString aMessage((Standard_CString)aHeader);
+  UtfString aMessage((Standard_CString)aHeader);
   if (isReset)
     tmbuf0 = tmbuf;
   else

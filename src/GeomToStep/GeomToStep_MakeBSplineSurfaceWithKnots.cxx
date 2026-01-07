@@ -36,7 +36,7 @@
 //=============================================================================
 GeomToStep_MakeBSplineSurfaceWithKnots::GeomToStep_MakeBSplineSurfaceWithKnots(
   const Handle(Geom_BSplineSurface)& BS,
-  const StepData_Factors&            theLocalFactors)
+  const ConversionFactors&            theLocalFactors)
 {
   Handle(StepGeom_BSplineSurfaceWithKnots) BSWK;
   Standard_Integer                aUDegree, aVDegree, NU, NV, i, j, NUknots, NVknots, itampon;

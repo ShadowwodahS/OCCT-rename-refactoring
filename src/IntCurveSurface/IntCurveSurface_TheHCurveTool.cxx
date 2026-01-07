@@ -95,7 +95,7 @@ void IntCurveSurface_TheHCurveTool::SamplePars(const Handle(Adaptor3d_Curve)& C,
     return;
   }
 
-  const Handle(Geom_BSplineCurve)& aBC = C->BSpline();
+  const Handle(BSplineCurve3d)& aBC = C->BSpline();
 
   Standard_Integer i, j, k, nbi;
   Standard_Real    t1, t2, dt;

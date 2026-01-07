@@ -63,15 +63,15 @@ TopOpeBRepTool_makeTransition::TopOpeBRepTool_makeTransition() {}
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_makeTransition::Initialize(const TopoDS_Edge&  E,
+Standard_Boolean TopOpeBRepTool_makeTransition::Initialize(const TopoEdge&  E,
                                                            const Standard_Real pbef,
                                                            const Standard_Real paft,
                                                            const Standard_Real parE,
-                                                           const TopoDS_Face&  FS,
+                                                           const TopoFace&  FS,
                                                            const gp_Pnt2d&     uv,
                                                            const Standard_Real factor)
 {
-  Standard_Boolean isdge = BRep_Tool::Degenerated(E);
+  Standard_Boolean isdge = BRepInspector::Degenerated(E);
   if (isdge)
     return Standard_False;
 
@@ -88,7 +88,7 @@ Standard_Boolean TopOpeBRepTool_makeTransition::Initialize(const TopoDS_Edge&  E
   if (facko)
     return Standard_False;
 
-  Standard_Boolean ok = TopOpeBRepTool_TOOL::EdgeONFace(mypE, myE, myuv, FS, isT2d);
+  Standard_Boolean ok = TOOL1::EdgeONFace(mypE, myE, myuv, FS, isT2d);
   return ok;
 }
 
@@ -115,10 +115,10 @@ Standard_Boolean TopOpeBRepTool_makeTransition::IsT2d() const
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_makeTransition::SetRest(const TopoDS_Edge&  ES,
+Standard_Boolean TopOpeBRepTool_makeTransition::SetRest(const TopoEdge&  ES,
                                                         const Standard_Real parES)
 {
-  Standard_Boolean isdge = BRep_Tool::Degenerated(ES);
+  Standard_Boolean isdge = BRepInspector::Degenerated(ES);
   if (isdge)
     return Standard_False;
 
@@ -170,7 +170,7 @@ static Standard_Integer FUN_mkT2dquad(const Standard_Real curvC1, const Standard
   //  return 0;
 }
 
-static Standard_Boolean FUN_getnearpar(const TopoDS_Edge&     e,
+static Standard_Boolean FUN_getnearpar(const TopoEdge&     e,
                                        const Standard_Real    par,
                                        const Standard_Real    f,
                                        const Standard_Real    l,
@@ -192,7 +192,7 @@ static Standard_Boolean FUN_getnearpar(const TopoDS_Edge&     e,
   return Standard_True;
 }
 
-static Standard_Boolean FUN_tg(const TopoDS_Edge&  e,
+static Standard_Boolean FUN_tg(const TopoEdge&  e,
                                const Standard_Real par,
                                const Standard_Real f,
                                const Standard_Real l,
@@ -210,7 +210,7 @@ static Standard_Boolean FUN_tg(const TopoDS_Edge&  e,
     if (!mkp)
       continue;
     Vector3d           tmp;
-    Standard_Boolean ok = TopOpeBRepTool_TOOL::TggeomE(pn, e, tmp);
+    Standard_Boolean ok = TOOL1::TggeomE(pn, e, tmp);
     if (!ok)
       continue;
     tg = Dir3d(tmp);
@@ -270,11 +270,11 @@ static Standard_Boolean FUN_getsta(const Standard_Integer mkt,
   }
 }
 
-static Standard_Boolean FUN_mkT2dquad(const TopoDS_Edge&     e1,
+static Standard_Boolean FUN_mkT2dquad(const TopoEdge&     e1,
                                       const Standard_Real    par1,
                                       const Standard_Real    f1,
                                       const Standard_Real    l1,
-                                      const TopoDS_Edge&     e2,
+                                      const TopoEdge&     e2,
                                       const Standard_Real    par2,
                                       const Standard_Integer mkt,
                                       const Dir3d&          xx2,
@@ -328,7 +328,7 @@ Standard_Boolean TopOpeBRepTool_makeTransition::MkT2donE(TopAbs_State& Stb, TopA
   }
 
   // E is IN 2d(FS), meets restriction ES at given point :
-  Standard_Integer oriESFS = TopOpeBRepTool_TOOL::OriinSor(myES, myFS, Standard_True);
+  Standard_Integer oriESFS = TOOL1::OriinSor(myES, myFS, Standard_True);
   if (oriESFS == 0)
     return Standard_False;
 
@@ -345,12 +345,12 @@ Standard_Boolean TopOpeBRepTool_makeTransition::MkT2donE(TopAbs_State& Stb, TopA
   }
 
   Vector3d           tmp;
-  Standard_Boolean ok = TopOpeBRepTool_TOOL::TggeomE(mypE, myE, tmp);
+  Standard_Boolean ok = TOOL1::TggeomE(mypE, myE, tmp);
   if (!ok)
     return Standard_False;
   Dir3d tgE(tmp);
   Dir3d xxES;
-  ok = TopOpeBRepTool_TOOL::XX(myuv, myFS, mypES, myES, xxES);
+  ok = TOOL1::XX(myuv, myFS, mypES, myES, xxES);
   if (!ok)
     return Standard_False;
 
@@ -380,20 +380,20 @@ Standard_Boolean TopOpeBRepTool_makeTransition::MkT2donE(TopAbs_State& Stb, TopA
   // we then use curvatures to compute transition T :
   // xpu090299 PRO13455(E=e7, ES=e9, FS=f11)
   Dir3d ntFS;
-  ok = TopOpeBRepTool_TOOL::Nt(myuv, myFS, ntFS);
+  ok = TOOL1::Nt(myuv, myFS, ntFS);
   if (!ok)
     return Standard_False;
   Standard_Real curvE;
-  ok = TopOpeBRepTool_TOOL::CurvE(myE, mypE, ntFS, curvE);
+  ok = TOOL1::CurvE(myE, mypE, ntFS, curvE);
   if (!ok)
     return Standard_False;
   Standard_Real curvES;
-  ok = TopOpeBRepTool_TOOL::CurvE(myES, mypES, ntFS, curvES);
+  ok = TOOL1::CurvE(myES, mypES, ntFS, curvES);
   if (!ok)
     return Standard_False;
 
-  Standard_Boolean quadE  = TopOpeBRepTool_TOOL::IsQuad(myE);
-  Standard_Boolean quadES = TopOpeBRepTool_TOOL::IsQuad(myES);
+  Standard_Boolean quadE  = TOOL1::IsQuad(myE);
+  Standard_Boolean quadES = TOOL1::IsQuad(myES);
   if (quadE && quadES)
   { // should return INT/EXT
     TopAbs_State     sta = TopAbs_UNKNOWN;
@@ -413,7 +413,7 @@ Standard_Boolean TopOpeBRepTool_makeTransition::MkT2donE(TopAbs_State& Stb, TopA
   return Standard_False;
 }
 
-static Standard_Boolean FUN_getnearuv(const TopoDS_Face&     f,
+static Standard_Boolean FUN_getnearuv(const TopoFace&     f,
                                       const gp_Pnt2d&        uv,
                                       const Standard_Real    factor,
                                       const Standard_Integer sta,
@@ -428,7 +428,7 @@ static Standard_Boolean FUN_getnearuv(const TopoDS_Face&     f,
   nearuv = uv.Translated(xuv);
 
   Standard_Integer onu, onv;
-  TopOpeBRepTool_TOOL::stuvF(uv, f, onu, onv);
+  TOOL1::stuvF(uv, f, onu, onv);
   Standard_Boolean uok = (onu == 0);
   Standard_Boolean vok = (onv == 0);
   if (uok && vok)
@@ -463,7 +463,7 @@ static Standard_Boolean FUN_getnearuv(const TopoDS_Face&     f,
   return Standard_True;
 } // FUN_getnearuv
 
-static Standard_Boolean FUN_tgef(const TopoDS_Face&  f,
+static Standard_Boolean FUN_tgef(const TopoFace&  f,
                                  const gp_Pnt2d&     uv,
                                  const gp_Dir2d&     duv,
                                  const Standard_Real factor,
@@ -484,7 +484,7 @@ static Standard_Boolean FUN_tgef(const TopoDS_Face&  f,
     if (!mkp)
       continue;
     Dir3d           nt;
-    Standard_Boolean ok = TopOpeBRepTool_TOOL::Nt(nearuv, f, nt);
+    Standard_Boolean ok = TOOL1::Nt(nearuv, f, nt);
     if (!ok)
       return Standard_False;
     // recall : ntf^tge = tg0, (tgef(uv) = tge)
@@ -495,11 +495,11 @@ static Standard_Boolean FUN_tgef(const TopoDS_Face&  f,
   return Standard_False;
 } // FUN_tgef
 
-static Standard_Boolean FUN_mkT3dquad(const TopoDS_Edge&     e,
+static Standard_Boolean FUN_mkT3dquad(const TopoEdge&     e,
                                       const Standard_Real    pf,
                                       const Standard_Real    pl,
                                       const Standard_Real    par,
-                                      const TopoDS_Face&     f,
+                                      const TopoFace&     f,
                                       const gp_Pnt2d&        uv,
                                       const Dir3d&          tge,
                                       const Dir3d&          ntf,
@@ -531,7 +531,7 @@ static Standard_Boolean FUN_mkT3dquad(const TopoDS_Edge&     e,
     // choice : tgdir(ef,uv) = tgdir(e,pare)
     Standard_Real    fac3d = 0.01; // 0.12345; not only planar faces
     gp_Dir2d         duv;
-    Standard_Boolean ok = TopOpeBRepTool_TOOL::Getduv(f, uv, tge, fac3d, duv);
+    Standard_Boolean ok = TOOL1::Getduv(f, uv, tge, fac3d, duv);
     if (!ok)
       return Standard_False;
     Dir3d           tgnear;
@@ -582,13 +582,13 @@ static TopAbs_State FUN_stawithES(const Dir3d&          tgE,
   return str;
 }
 
-static Standard_Boolean FUN_staproj(const TopoDS_Edge&     e,
+static Standard_Boolean FUN_staproj(const TopoEdge&     e,
                                     const Standard_Real    pf,
                                     const Standard_Real    pl,
                                     const Standard_Real    pe,
                                     const Standard_Real    factor,
                                     const Standard_Integer st,
-                                    const TopoDS_Face&     f,
+                                    const TopoFace&     f,
                                     TopAbs_State&          sta)
 {
   Standard_Real    par = 0.;
@@ -600,7 +600,7 @@ static Standard_Boolean FUN_staproj(const TopoDS_Edge&     e,
   if (!ok)
     return Standard_False;
   gp_Pnt2d uv;
-  ok = TopOpeBRepTool_TOOL::Getstp3dF(pt, f, uv, sta);
+  ok = TOOL1::Getstp3dF(pt, f, uv, sta);
   return ok;
 }
 
@@ -643,12 +643,12 @@ Standard_Boolean TopOpeBRepTool_makeTransition::MkT3onE(TopAbs_State& Stb, TopAb
   if (isT2d)
     return Standard_False;
   Vector3d           tmp;
-  Standard_Boolean ok = TopOpeBRepTool_TOOL::TggeomE(mypE, myE, tmp);
+  Standard_Boolean ok = TOOL1::TggeomE(mypE, myE, tmp);
   if (!ok)
     return Standard_False;
   Dir3d tgE(tmp);
   Dir3d ntFS;
-  ok = TopOpeBRepTool_TOOL::Nt(myuv, myFS, ntFS);
+  ok = TOOL1::Nt(myuv, myFS, ntFS);
   if (!ok)
     return Standard_False;
 
@@ -667,17 +667,17 @@ Standard_Boolean TopOpeBRepTool_makeTransition::MkT3onE(TopAbs_State& Stb, TopAb
   // E is tangent to FS at interference point
   Dir3d        tg0 = ntFS.Crossed(tgE);
   Standard_Real curE;
-  ok = TopOpeBRepTool_TOOL::CurvE(myE, mypE, tg0, curE);
+  ok = TOOL1::CurvE(myE, mypE, tg0, curE);
   if (!ok)
     return Standard_False;
   Standard_Real    curFS;
   Standard_Boolean direct;
-  ok = TopOpeBRepTool_TOOL::CurvF(myFS, myuv, tg0, curFS, direct);
+  ok = TOOL1::CurvF(myFS, myuv, tg0, curFS, direct);
   if (!ok)
     return Standard_False;
 
-  Standard_Boolean quadE  = TopOpeBRepTool_TOOL::IsQuad(myE);
-  Standard_Boolean quadFS = TopOpeBRepTool_TOOL::IsQuad(myFS);
+  Standard_Boolean quadE  = TOOL1::IsQuad(myE);
+  Standard_Boolean quadFS = TOOL1::IsQuad(myFS);
   if (quadE && quadFS)
   { // should return INT/EXT
     Standard_Integer mkt = FUN_mkT2dquad(curE, curFS);
@@ -688,7 +688,7 @@ Standard_Boolean TopOpeBRepTool_makeTransition::MkT3onE(TopAbs_State& Stb, TopAb
       if (hasES)
       {
         Dir3d           xxES;
-        Standard_Boolean isOK = TopOpeBRepTool_TOOL::XX(myuv, myFS, mypES, myES, xxES);
+        Standard_Boolean isOK = TOOL1::XX(myuv, myFS, mypES, myES, xxES);
         if (!isOK)
           return Standard_False;
         Stb = FUN_stawithES(tgE, xxES, BEFORE, sta);
@@ -721,14 +721,14 @@ Standard_Boolean TopOpeBRepTool_makeTransition::MkTonE(TopAbs_State& Stb, TopAbs
   //  if (!ok) return Standard_False;
 
   Vector3d tmp;
-  ok = TopOpeBRepTool_TOOL::TggeomE(mypE, myE, tmp);
+  ok = TOOL1::TggeomE(mypE, myE, tmp);
   if (!ok)
     return Standard_False;
   Dir3d tgE(tmp);
   Dir3d xxES;
   if (hasES && ok)
   {
-    ok = TopOpeBRepTool_TOOL::XX(myuv, myFS, mypES, myES, xxES);
+    ok = TOOL1::XX(myuv, myFS, mypES, myES, xxES);
     if (!ok)
       return Standard_False;
   }

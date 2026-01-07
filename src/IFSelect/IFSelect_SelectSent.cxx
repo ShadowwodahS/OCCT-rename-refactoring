@@ -71,10 +71,10 @@ Standard_Boolean IFSelect_SelectSent::Sort(const Standard_Integer,
   return Standard_False;
 }
 
-TCollection_AsciiString IFSelect_SelectSent::ExtractLabel() const
+AsciiString1 IFSelect_SelectSent::ExtractLabel() const
 {
   char                    lb[80];
-  TCollection_AsciiString lab;
+  AsciiString1 lab;
   if (thecnt == 0)
     lab.AssignCat("Remaining (non-sent) entities");
   if (thecnt == 1 && thelst)

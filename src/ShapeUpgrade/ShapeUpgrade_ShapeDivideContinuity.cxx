@@ -36,7 +36,7 @@ ShapeUpgrade_ShapeDivideContinuity::ShapeUpgrade_ShapeDivideContinuity()
 
 //=================================================================================================
 
-ShapeUpgrade_ShapeDivideContinuity::ShapeUpgrade_ShapeDivideContinuity(const TopoDS_Shape& S)
+ShapeUpgrade_ShapeDivideContinuity::ShapeUpgrade_ShapeDivideContinuity(const TopoShape& S)
     : ShapeUpgrade_ShapeDivide(S)
 {
   myCurve3dCriterion = GeomAbs_C1;

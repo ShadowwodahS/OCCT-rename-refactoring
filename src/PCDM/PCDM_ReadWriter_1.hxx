@@ -24,10 +24,10 @@
 #include <Standard_Integer.hxx>
 #include <PCDM_SequenceOfReference.hxx>
 #include <TColStd_SequenceOfExtendedString.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 class Storage_Data;
 class CDM_Document;
-class TCollection_ExtendedString;
+class UtfString;
 class Message_Messenger;
 
 class PCDM_ReadWriter_1;
@@ -40,7 +40,7 @@ public:
   Standard_EXPORT PCDM_ReadWriter_1();
 
   //! returns PCDM_ReadWriter_1.
-  Standard_EXPORT TCollection_AsciiString Version() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Version() const Standard_OVERRIDE;
 
   Standard_EXPORT void WriteReferenceCounter(const Handle(Storage_Data)& aData,
                                              const Handle(CDM_Document)& aDocument) const
@@ -49,7 +49,7 @@ public:
   Standard_EXPORT void WriteReferences(
     const Handle(Storage_Data)&       aData,
     const Handle(CDM_Document)&       aDocument,
-    const TCollection_ExtendedString& theReferencerFileName) const Standard_OVERRIDE;
+    const UtfString& theReferencerFileName) const Standard_OVERRIDE;
 
   Standard_EXPORT void WriteExtensions(const Handle(Storage_Data)& aData,
                                        const Handle(CDM_Document)& aDocument) const
@@ -59,30 +59,30 @@ public:
                                     const Handle(CDM_Document)& aDocument) const Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Integer
-    ReadReferenceCounter(const TCollection_ExtendedString& aFileName,
+    ReadReferenceCounter(const UtfString& aFileName,
                          const Handle(Message_Messenger)&  theMsgDriver) const Standard_OVERRIDE;
 
-  Standard_EXPORT void ReadReferences(const TCollection_ExtendedString& aFileName,
+  Standard_EXPORT void ReadReferences(const UtfString& aFileName,
                                       PCDM_SequenceOfReference&         theReferences,
                                       const Handle(Message_Messenger)&  theMsgDriver) const
     Standard_OVERRIDE;
 
-  Standard_EXPORT void ReadExtensions(const TCollection_ExtendedString& aFileName,
+  Standard_EXPORT void ReadExtensions(const UtfString& aFileName,
                                       TColStd_SequenceOfExtendedString& theExtensions,
                                       const Handle(Message_Messenger)&  theMsgDriver) const
     Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Integer
-    ReadDocumentVersion(const TCollection_ExtendedString& aFileName,
+    ReadDocumentVersion(const UtfString& aFileName,
                         const Handle(Message_Messenger)&  theMsgDriver) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(PCDM_ReadWriter_1, PCDM_ReadWriter)
 
 protected:
 private:
-  Standard_EXPORT static void ReadUserInfo(const TCollection_ExtendedString& aFileName,
-                                           const TCollection_AsciiString&    Start,
-                                           const TCollection_AsciiString&    End,
+  Standard_EXPORT static void ReadUserInfo(const UtfString& aFileName,
+                                           const AsciiString1&    Start,
+                                           const AsciiString1&    End,
                                            TColStd_SequenceOfExtendedString& theUserInfo,
                                            const Handle(Message_Messenger)&  theMsgDriver);
 };

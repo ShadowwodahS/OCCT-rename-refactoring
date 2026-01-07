@@ -36,13 +36,13 @@ void XSDRAW_Vars::Set(const Standard_CString name, const Handle(RefObject)& val)
   DeclareAndCast(Geom_Geometry, geom, val);
   if (!geom.IsNull())
   {
-    DrawTrSurf::Set(name, geom);
+    DrawTrSurf1::Set(name, geom);
     return;
   }
-  DeclareAndCast(Geom2d_Curve, g2d, val);
+  DeclareAndCast(GeomCurve2d, g2d, val);
   if (!g2d.IsNull())
   {
-    DrawTrSurf::Set(name, geom);
+    DrawTrSurf1::Set(name, geom);
     return;
   }
   //  ??
@@ -59,54 +59,54 @@ Handle(RefObject)  XSDRAW_Vars::Get (const Standard_CString name) const
 
 Handle(Geom_Geometry) XSDRAW_Vars::GetGeom(Standard_CString& name) const
 { // char* nam = name;
-  return DrawTrSurf::Get(name);
+  return DrawTrSurf1::Get(name);
 }
 
-Handle(Geom2d_Curve) XSDRAW_Vars::GetCurve2d(Standard_CString& name) const
+Handle(GeomCurve2d) XSDRAW_Vars::GetCurve2d(Standard_CString& name) const
 { // char* nam = name;
-  return DrawTrSurf::GetCurve2d(name);
+  return DrawTrSurf1::GetCurve2d(name);
 }
 
-Handle(Geom_Curve) XSDRAW_Vars::GetCurve(Standard_CString& name) const
+Handle(GeomCurve3d) XSDRAW_Vars::GetCurve(Standard_CString& name) const
 { // char* nam = name;
-  return DrawTrSurf::GetCurve(name);
+  return DrawTrSurf1::GetCurve(name);
 }
 
-Handle(Geom_Surface) XSDRAW_Vars::GetSurface(Standard_CString& name) const
+Handle(GeomSurface) XSDRAW_Vars::GetSurface(Standard_CString& name) const
 { // char* nam = name;
-  return DrawTrSurf::GetSurface(name);
+  return DrawTrSurf1::GetSurface(name);
 }
 
 void XSDRAW_Vars::SetPoint(const Standard_CString name, const Point3d& val)
 {
   // char* nam = name;
-  DrawTrSurf::Set(name, val);
+  DrawTrSurf1::Set(name, val);
 }
 
 Standard_Boolean XSDRAW_Vars::GetPoint(Standard_CString& name, Point3d& pnt) const
 { // char* nam = name;
-  return DrawTrSurf::GetPoint(name, pnt);
+  return DrawTrSurf1::GetPoint(name, pnt);
 }
 
 void XSDRAW_Vars::SetPoint2d(const Standard_CString name, const gp_Pnt2d& val)
 {
   // char* nam = name;
-  DrawTrSurf::Set(name, val);
+  DrawTrSurf1::Set(name, val);
 }
 
 Standard_Boolean XSDRAW_Vars::GetPoint2d(Standard_CString& name, gp_Pnt2d& pnt) const
 {
   // char* nam = name;
-  return DrawTrSurf::GetPoint2d(name, pnt);
+  return DrawTrSurf1::GetPoint2d(name, pnt);
 }
 
-void XSDRAW_Vars::SetShape(const Standard_CString name, const TopoDS_Shape& val)
+void XSDRAW_Vars::SetShape(const Standard_CString name, const TopoShape& val)
 {
-  DBRep::Set(name, val);
+  DBRep1::Set(name, val);
 }
 
-TopoDS_Shape XSDRAW_Vars::GetShape(Standard_CString& name) const
+TopoShape XSDRAW_Vars::GetShape(Standard_CString& name) const
 {
   // char* nam = name;
-  return DBRep::Get(name);
+  return DBRep1::Get(name);
 }

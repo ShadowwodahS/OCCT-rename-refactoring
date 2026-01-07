@@ -201,8 +201,8 @@ void createShapeOnLevel()
 
   Message_Messenger::StreamBuffer sout = Message::SendInfo();
 
-  BRepBuilderAPI_MakeEdge aBuilder(Point3d(0., 0., 0.), Point3d(20., 10., 20.));
-  TopoDS_Shape            aShape = aBuilder.Shape();
+  EdgeMaker aBuilder(Point3d(0., 0., 0.), Point3d(20., 10., 20.));
+  TopoShape            aShape = aBuilder.Shape();
 
   Message::DefaultMessenger() << aShape;
 }
@@ -214,8 +214,8 @@ void createShapeOnLevel()
 void createShape()
 {
   Message_Messenger::StreamBuffer sout = Message::SendInfo();
-  BRepBuilderAPI_MakeEdge         aBuilder(Point3d(0., 0., 0.), Point3d(20., 10., 20.));
-  TopoDS_Shape                    aShape = aBuilder.Shape();
+  EdgeMaker         aBuilder(Point3d(0., 0., 0.), Point3d(20., 10., 20.));
+  TopoShape                    aShape = aBuilder.Shape();
 
   Message::DefaultMessenger() << aShape;
   createShapeOnLevel();
@@ -320,7 +320,7 @@ void levelAlerts(const int theCurrentLevel, const int theTopLevel)
   if (theTopLevel - theCurrentLevel <= 0)
     return;
 
-  OCCT_ADD_MESSAGE_LEVEL_SENTRY(TCollection_AsciiString("Level: ") + theCurrentLevel)
+  OCCT_ADD_MESSAGE_LEVEL_SENTRY(AsciiString1("Level: ") + theCurrentLevel)
 
   Message_Messenger::StreamBuffer sout = Message::SendInfo();
   sout << "Alert(" << theCurrentLevel << "): " << 1 << ", " << 2 << std::endl;

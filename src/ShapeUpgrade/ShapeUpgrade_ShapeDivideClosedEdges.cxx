@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-ShapeUpgrade_ShapeDivideClosedEdges::ShapeUpgrade_ShapeDivideClosedEdges(const TopoDS_Shape& S)
+ShapeUpgrade_ShapeDivideClosedEdges::ShapeUpgrade_ShapeDivideClosedEdges(const TopoShape& S)
     : ShapeUpgrade_ShapeDivide(S)
 {
   SetNbSplitPoints(1);

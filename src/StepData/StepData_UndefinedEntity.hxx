@@ -37,7 +37,7 @@ DEFINE_STANDARD_HANDLE(StepData_UndefinedEntity, RefObject)
 //! is defined at each instance, or is a SubList of another one
 //! Uses an UndefinedContent, that from Interface is suitable.
 //! Also an Entity defined by STEP can be "Complex Type" (see
-//! ANDOR clause in Express).
+//! ANDOR clause in Express1).
 class StepData_UndefinedEntity : public RefObject
 {
 
@@ -81,7 +81,7 @@ public:
   //! write data to StepWriter, taken from UndefinedContent
   Standard_EXPORT void WriteParams(StepData_StepWriter& SW) const;
 
-  //! reads another UndefinedEntity from StepData
+  //! reads another UndefinedEntity from StepData1
   Standard_EXPORT void GetFromAnother(const Handle(StepData_UndefinedEntity)& other,
                                       Interface_CopyTool&                     TC);
 

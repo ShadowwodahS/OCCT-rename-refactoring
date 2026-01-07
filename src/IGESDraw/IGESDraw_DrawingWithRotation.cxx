@@ -84,10 +84,10 @@ Handle(IGESData_IGESEntity) IGESDraw_DrawingWithRotation::Annotation(
   return (theAnnotations->Value(Index));
 }
 
-gp_XY IGESDraw_DrawingWithRotation::ViewToDrawing(const Standard_Integer NumView,
+Coords2d IGESDraw_DrawingWithRotation::ViewToDrawing(const Standard_Integer NumView,
                                                   const gp_XYZ&          ViewCoords) const
 {
-  gp_XY         thisOrigin     = theViewOrigins->Value(NumView);
+  Coords2d         thisOrigin     = theViewOrigins->Value(NumView);
   Standard_Real XOrigin        = thisOrigin.X();
   Standard_Real YOrigin        = thisOrigin.Y();
   Standard_Real theScaleFactor = 0.;
@@ -112,7 +112,7 @@ gp_XY IGESDraw_DrawingWithRotation::ViewToDrawing(const Standard_Integer NumView
   Standard_Real XD = XOrigin + theScaleFactor * (XV * Cos(theta) - YV * Sin(theta));
   Standard_Real YD = YOrigin + theScaleFactor * (XV * Sin(theta) + YV * Cos(theta));
 
-  return (gp_XY(XD, YD));
+  return (Coords2d(XD, YD));
 }
 
 Standard_Boolean IGESDraw_DrawingWithRotation::DrawingUnit(Standard_Real& val) const

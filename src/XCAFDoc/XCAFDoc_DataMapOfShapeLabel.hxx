@@ -20,9 +20,9 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TopoDS_Shape, TDF_Label, TopTools_ShapeMapHasher>
+typedef NCollection_DataMap<TopoShape, DataLabel, ShapeHasher>
   XCAFDoc_DataMapOfShapeLabel;
-typedef NCollection_DataMap<TopoDS_Shape, TDF_Label, TopTools_ShapeMapHasher>::Iterator
+typedef NCollection_DataMap<TopoShape, DataLabel, ShapeHasher>::Iterator
   XCAFDoc_DataMapIteratorOfDataMapOfShapeLabel;
 
 #endif

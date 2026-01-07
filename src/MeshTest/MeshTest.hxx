@@ -30,10 +30,10 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Defines meshing commands
-  Standard_EXPORT static void Commands(Draw_Interpretor& DI);
+  Standard_EXPORT static void Commands(DrawInterpreter& DI);
 
   //! Defines plugin commands
-  Standard_EXPORT static void PluginCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void PluginCommands(DrawInterpreter& DI);
 
 protected:
 private:

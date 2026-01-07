@@ -34,7 +34,7 @@ class IGESDimen_GeneralNote;
 DEFINE_STANDARD_HANDLE(IGESDimen_GeneralNote, IGESData_IGESEntity)
 
 //! defines GeneralNote, Type <212> Form <0-8, 100-200, 105>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Used for formatting boxed text in different ways
 class IGESDimen_GeneralNote : public IGESData_IGESEntity
 {

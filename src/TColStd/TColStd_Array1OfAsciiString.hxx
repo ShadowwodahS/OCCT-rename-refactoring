@@ -18,6 +18,6 @@
 #include <TCollection_AsciiString.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<TCollection_AsciiString> TColStd_Array1OfAsciiString;
+typedef NCollection_Array1<AsciiString1> TColStd_Array1OfAsciiString;
 
 #endif

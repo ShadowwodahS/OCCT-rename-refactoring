@@ -24,16 +24,16 @@
 class IGESData_Protocol;
 
 //! basic description of an IGES Interface
-class IGESData
+class IGESData1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Prepares General dynamic data used for IGESData specifically :
+  //! Prepares General dynamic data used for IGESData1 specifically :
   //! Protocol and Modules, which treat UndefinedEntity
   Standard_EXPORT static void Init();
 
-  //! Returns a Protocol from IGESData (avoids to create it)
+  //! Returns a Protocol from IGESData1 (avoids to create it)
   Standard_EXPORT static Handle(IGESData_Protocol) Protocol();
 };
 

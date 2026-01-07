@@ -26,23 +26,23 @@
 #include <TColStd_HArray1OfReal.hxx>
 
 // --- Enum : KnotType ---
-static TCollection_AsciiString ktUniformKnots(".UNIFORM_KNOTS.");
-static TCollection_AsciiString ktQuasiUniformKnots(".QUASI_UNIFORM_KNOTS.");
-static TCollection_AsciiString ktPiecewiseBezierKnots(".PIECEWISE_BEZIER_KNOTS.");
-static TCollection_AsciiString ktUnspecified(".UNSPECIFIED.");
+static AsciiString1 ktUniformKnots(".UNIFORM_KNOTS.");
+static AsciiString1 ktQuasiUniformKnots(".QUASI_UNIFORM_KNOTS.");
+static AsciiString1 ktPiecewiseBezierKnots(".PIECEWISE_BEZIER_KNOTS.");
+static AsciiString1 ktUnspecified(".UNSPECIFIED.");
 
 // --- Enum : BSplineSurfaceForm ---
-static TCollection_AsciiString bssfSurfOfLinearExtrusion(".SURF_OF_LINEAR_EXTRUSION.");
-static TCollection_AsciiString bssfPlaneSurf(".PLANE_SURF.");
-static TCollection_AsciiString bssfGeneralisedCone(".GENERALISED_CONE.");
-static TCollection_AsciiString bssfToroidalSurf(".TOROIDAL_SURF.");
-static TCollection_AsciiString bssfConicalSurf(".CONICAL_SURF.");
-static TCollection_AsciiString bssfSphericalSurf(".SPHERICAL_SURF.");
-static TCollection_AsciiString bssfUnspecified(".UNSPECIFIED.");
-static TCollection_AsciiString bssfRuledSurf(".RULED_SURF.");
-static TCollection_AsciiString bssfSurfOfRevolution(".SURF_OF_REVOLUTION.");
-static TCollection_AsciiString bssfCylindricalSurf(".CYLINDRICAL_SURF.");
-static TCollection_AsciiString bssfQuadricSurf(".QUADRIC_SURF.");
+static AsciiString1 bssfSurfOfLinearExtrusion(".SURF_OF_LINEAR_EXTRUSION.");
+static AsciiString1 bssfPlaneSurf(".PLANE_SURF.");
+static AsciiString1 bssfGeneralisedCone(".GENERALISED_CONE.");
+static AsciiString1 bssfToroidalSurf(".TOROIDAL_SURF.");
+static AsciiString1 bssfConicalSurf(".CONICAL_SURF.");
+static AsciiString1 bssfSphericalSurf(".SPHERICAL_SURF.");
+static AsciiString1 bssfUnspecified(".UNSPECIFIED.");
+static AsciiString1 bssfRuledSurf(".RULED_SURF.");
+static AsciiString1 bssfSurfOfRevolution(".SURF_OF_REVOLUTION.");
+static AsciiString1 bssfCylindricalSurf(".CYLINDRICAL_SURF.");
+static AsciiString1 bssfQuadricSurf(".QUADRIC_SURF.");
 
 RWStepGeom_RWBSplineSurfaceWithKnots::RWStepGeom_RWBSplineSurfaceWithKnots() {}
 

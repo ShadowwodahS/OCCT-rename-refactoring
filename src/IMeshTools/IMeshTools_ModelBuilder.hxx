@@ -38,7 +38,7 @@ public:
 
   //! Exceptions protected method to create discrete model for the given shape.
   //! Returns nullptr in case of failure.
-  Handle(IMeshData_Model) Perform(const TopoDS_Shape&          theShape,
+  Handle(IMeshData_Model) Perform(const TopoShape&          theShape,
                                   const IMeshTools_Parameters& theParameters)
   {
     ClearStatus();
@@ -65,7 +65,7 @@ protected:
   //! Creates discrete model for the given shape.
   //! Returns nullptr in case of failure.
   Standard_EXPORT virtual Handle(IMeshData_Model) performInternal(
-    const TopoDS_Shape&          theShape,
+    const TopoShape&          theShape,
     const IMeshTools_Parameters& theParameters) = 0;
 };
 

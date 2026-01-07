@@ -247,7 +247,7 @@ void ProjLib_ProjectOnSurface::Load(const Handle(Adaptor3d_Curve)& C, const Stan
       Mults.SetValue(i, MaxDeg);
     }
     Mults.SetValue(NbKnots, MaxDeg + 1);
-    myResult = new Geom_BSplineCurve(Poles, Knots, Mults, MaxDeg, Standard_False);
+    myResult = new BSplineCurve3d(Poles, Knots, Mults, MaxDeg, Standard_False);
     myIsDone = Standard_True;
   }
 }
@@ -258,7 +258,7 @@ ProjLib_ProjectOnSurface::~ProjLib_ProjectOnSurface() {}
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) ProjLib_ProjectOnSurface::BSpline() const
+Handle(BSplineCurve3d) ProjLib_ProjectOnSurface::BSpline() const
 {
   Standard_NoSuchObject_Raise_if(!myIsDone, "ProjLib_ProjectOnSurface:BSpline");
   return myResult;

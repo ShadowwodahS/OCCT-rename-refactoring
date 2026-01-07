@@ -34,9 +34,9 @@
 #include <Standard_DomainError.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESAppli_ToolFiniteElement::IGESAppli_ToolFiniteElement() {}
+FiniteElementTool::FiniteElementTool() {}
 
-void IGESAppli_ToolFiniteElement::ReadOwnParams(const Handle(IGESAppli_FiniteElement)& ent,
+void FiniteElementTool::ReadOwnParams(const Handle(IGESAppli_FiniteElement)& ent,
                                                 const Handle(IGESData_IGESReaderData)& IR,
                                                 IGESData_ParamReader&                  PR) const
 {
@@ -67,7 +67,7 @@ void IGESAppli_ToolFiniteElement::ReadOwnParams(const Handle(IGESAppli_FiniteEle
   ent->Init(tempTopology, tempData, tempName);
 }
 
-void IGESAppli_ToolFiniteElement::WriteOwnParams(const Handle(IGESAppli_FiniteElement)& ent,
+void FiniteElementTool::WriteOwnParams(const Handle(IGESAppli_FiniteElement)& ent,
                                                  IGESData_IGESWriter&                   IW) const
 {
   Standard_Integer upper = ent->NbNodes();
@@ -78,7 +78,7 @@ void IGESAppli_ToolFiniteElement::WriteOwnParams(const Handle(IGESAppli_FiniteEl
   IW.Send(ent->Name());
 }
 
-void IGESAppli_ToolFiniteElement::OwnShared(const Handle(IGESAppli_FiniteElement)& ent,
+void FiniteElementTool::OwnShared(const Handle(IGESAppli_FiniteElement)& ent,
                                             Interface_EntityIterator&              iter) const
 {
   Standard_Integer upper = ent->NbNodes();
@@ -86,7 +86,7 @@ void IGESAppli_ToolFiniteElement::OwnShared(const Handle(IGESAppli_FiniteElement
     iter.GetOneItem(ent->Node(i));
 }
 
-void IGESAppli_ToolFiniteElement::OwnCopy(const Handle(IGESAppli_FiniteElement)& another,
+void FiniteElementTool::OwnCopy(const Handle(IGESAppli_FiniteElement)& another,
                                           const Handle(IGESAppli_FiniteElement)& ent,
                                           Interface_CopyTool&                    TC) const
 {
@@ -102,10 +102,10 @@ void IGESAppli_ToolFiniteElement::OwnCopy(const Handle(IGESAppli_FiniteElement)&
   ent->Init(aTopology, aList, aName);
 }
 
-IGESData_DirChecker IGESAppli_ToolFiniteElement::DirChecker(
+DirectoryChecker FiniteElementTool::DirChecker(
   const Handle(IGESAppli_FiniteElement)& /* ent */) const
 {
-  IGESData_DirChecker DC(136, 0); // Form no = 0 & Type = 136
+  DirectoryChecker DC(136, 0); // Form no = 0 & Type = 136
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.LineWeight(IGESData_DefVoid);
@@ -117,13 +117,13 @@ IGESData_DirChecker IGESAppli_ToolFiniteElement::DirChecker(
   return DC;
 }
 
-void IGESAppli_ToolFiniteElement::OwnCheck(const Handle(IGESAppli_FiniteElement)& /* ent */,
+void FiniteElementTool::OwnCheck(const Handle(IGESAppli_FiniteElement)& /* ent */,
                                            const Interface_ShareTool&,
                                            Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESAppli_ToolFiniteElement::OwnDump(const Handle(IGESAppli_FiniteElement)& ent,
+void FiniteElementTool::OwnDump(const Handle(IGESAppli_FiniteElement)& ent,
                                           const IGESData_IGESDumper&             dumper,
                                           Standard_OStream&                      S,
                                           const Standard_Integer                 level) const

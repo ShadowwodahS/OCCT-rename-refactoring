@@ -66,8 +66,8 @@ Standard_Boolean XmlMDataXtd_PositionDriver::Paste(const XmlObjMgt_Persistent&  
   // X
   if (!XmlObjMgt::GetReal(aValueStr, aValue))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString(
+    UtfString aMessageString =
+      UtfString(
         "Cannot retrieve X coordinate for TDataXtd_Position attribute as \"")
       + aValueStr + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -78,8 +78,8 @@ Standard_Boolean XmlMDataXtd_PositionDriver::Paste(const XmlObjMgt_Persistent&  
   // Y
   if (!XmlObjMgt::GetReal(aValueStr, aValue))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString(
+    UtfString aMessageString =
+      UtfString(
         "Cannot retrieve Y coordinate for TDataXtd_Position attribute as \"")
       + aValueStr + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -90,8 +90,8 @@ Standard_Boolean XmlMDataXtd_PositionDriver::Paste(const XmlObjMgt_Persistent&  
   // Z
   if (!XmlObjMgt::GetReal(aValueStr, aValue))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString(
+    UtfString aMessageString =
+      UtfString(
         "Cannot retrieve Z coordinate for TDataXtd_Position attribute as \"")
       + aValueStr + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);

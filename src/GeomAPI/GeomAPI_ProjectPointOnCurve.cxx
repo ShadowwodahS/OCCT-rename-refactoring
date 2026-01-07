@@ -31,7 +31,7 @@ GeomAPI_ProjectPointOnCurve::GeomAPI_ProjectPointOnCurve()
 //=================================================================================================
 
 GeomAPI_ProjectPointOnCurve::GeomAPI_ProjectPointOnCurve(const Point3d&             P,
-                                                         const Handle(Geom_Curve)& Curve)
+                                                         const Handle(GeomCurve3d)& Curve)
 {
   Init(P, Curve);
 }
@@ -39,7 +39,7 @@ GeomAPI_ProjectPointOnCurve::GeomAPI_ProjectPointOnCurve(const Point3d&         
 //=================================================================================================
 
 GeomAPI_ProjectPointOnCurve::GeomAPI_ProjectPointOnCurve(const Point3d&             P,
-                                                         const Handle(Geom_Curve)& Curve,
+                                                         const Handle(GeomCurve3d)& Curve,
                                                          const Standard_Real       Umin,
                                                          const Standard_Real       Usup)
 {
@@ -48,7 +48,7 @@ GeomAPI_ProjectPointOnCurve::GeomAPI_ProjectPointOnCurve(const Point3d&         
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnCurve::Init(const Point3d& P, const Handle(Geom_Curve)& Curve)
+void GeomAPI_ProjectPointOnCurve::Init(const Point3d& P, const Handle(GeomCurve3d)& Curve)
 {
   myC.Load(Curve);
   /*
@@ -83,7 +83,7 @@ void GeomAPI_ProjectPointOnCurve::Init(const Point3d& P, const Handle(Geom_Curve
 //=================================================================================================
 
 void GeomAPI_ProjectPointOnCurve::Init(const Point3d&             P,
-                                       const Handle(Geom_Curve)& Curve,
+                                       const Handle(GeomCurve3d)& Curve,
                                        const Standard_Real       Umin,
                                        const Standard_Real       Usup)
 {
@@ -120,7 +120,7 @@ void GeomAPI_ProjectPointOnCurve::Init(const Point3d&             P,
 // modified by NIZNHY-PKV Wed Apr  3 17:48:51 2002f
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnCurve::Init(const Handle(Geom_Curve)& Curve,
+void GeomAPI_ProjectPointOnCurve::Init(const Handle(GeomCurve3d)& Curve,
                                        const Standard_Real       Umin,
                                        const Standard_Real       Usup)
 {

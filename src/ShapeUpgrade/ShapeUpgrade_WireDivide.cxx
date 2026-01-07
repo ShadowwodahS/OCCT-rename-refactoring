@@ -79,7 +79,7 @@ ShapeUpgrade_WireDivide::ShapeUpgrade_WireDivide()
 
 //=================================================================================================
 
-void ShapeUpgrade_WireDivide::Init(const TopoDS_Wire& W, const TopoDS_Face& F)
+void ShapeUpgrade_WireDivide::Init(const TopoWire& W, const TopoFace& F)
 {
   //  if (ShapeUpgrade::Debug()) std::cout <<"ShapeUpgrade_WireDivide::Init with Wire,
   //  Face"<<std::endl;
@@ -90,7 +90,7 @@ void ShapeUpgrade_WireDivide::Init(const TopoDS_Wire& W, const TopoDS_Face& F)
 
 //=================================================================================================
 
-void ShapeUpgrade_WireDivide::Init(const TopoDS_Wire& W, const Handle(Geom_Surface)& S)
+void ShapeUpgrade_WireDivide::Init(const TopoWire& W, const Handle(GeomSurface)& S)
 {
   //  if (ShapeUpgrade::Debug()) std::cout <<"ShapeUpgrade_WireDivide::Init with Wire, Surface
   //  "<<std::endl;
@@ -102,14 +102,14 @@ void ShapeUpgrade_WireDivide::Init(const TopoDS_Wire& W, const Handle(Geom_Surfa
 
 //=================================================================================================
 
-void ShapeUpgrade_WireDivide::Load(const TopoDS_Wire& W)
+void ShapeUpgrade_WireDivide::Load(const TopoWire& W)
 {
   myWire = W;
 }
 
 //=================================================================================================
 
-void ShapeUpgrade_WireDivide::Load(const TopoDS_Edge& E)
+void ShapeUpgrade_WireDivide::Load(const TopoEdge& E)
 {
   BRepLib_MakeWire MakeWire(E);
   if (MakeWire.IsDone())
@@ -118,14 +118,14 @@ void ShapeUpgrade_WireDivide::Load(const TopoDS_Edge& E)
 
 //=================================================================================================
 
-void ShapeUpgrade_WireDivide::SetFace(const TopoDS_Face& F)
+void ShapeUpgrade_WireDivide::SetFace(const TopoFace& F)
 {
   myFace = F;
 }
 
 //=================================================================================================
 
-void ShapeUpgrade_WireDivide::SetSurface(const Handle(Geom_Surface)& S)
+void ShapeUpgrade_WireDivide::SetSurface(const Handle(GeomSurface)& S)
 {
   BRepLib_MakeFace mkf(S, Precision::Confusion());
   myFace = mkf.Face();
@@ -133,9 +133,9 @@ void ShapeUpgrade_WireDivide::SetSurface(const Handle(Geom_Surface)& S)
 
 //=================================================================================================
 
-void ShapeUpgrade_WireDivide::SetSurface(const Handle(Geom_Surface)& S, const TopLoc_Location& L)
+void ShapeUpgrade_WireDivide::SetSurface(const Handle(GeomSurface)& S, const TopLoc_Location& L)
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeFace(myFace, S, L, Precision::Confusion());
 }
 
@@ -264,15 +264,15 @@ void ShapeUpgrade_WireDivide::Perform()
 
   //  if (ShapeUpgrade::Debug()) std::cout << "ShapeUpgrade_WireDivide::Perform" << std::endl;
 
-  BRep_Builder       B;
+  ShapeBuilder       B;
   ShapeAnalysis_Edge sae;
 
-  TopoDS_Wire newWire;
+  TopoWire newWire;
   B.MakeWire(newWire);
   TopLoc_Location      Loc;
-  Handle(Geom_Surface) Surf;
+  Handle(GeomSurface) Surf;
   if (!myFace.IsNull())
-    Surf = BRep_Tool::Surface(myFace, Loc);
+    Surf = BRepInspector::Surface(myFace, Loc);
 
   Standard_Boolean isSplit3d = Standard_True;
   switch (myEdgeMode)
@@ -295,10 +295,10 @@ void ShapeUpgrade_WireDivide::Perform()
   for (TopoDS_Iterator ItW(myWire, Standard_False); ItW.More(); ItW.Next())
   {
     // for each Edge:
-    TopoDS_Shape sh = Context()->Apply(ItW.Value(), TopAbs_SHAPE);
-    for (TopExp_Explorer exp(sh, TopAbs_EDGE); exp.More(); exp.Next())
+    TopoShape sh = Context()->Apply(ItW.Value(), TopAbs_SHAPE);
+    for (ShapeExplorer exp(sh, TopAbs_EDGE); exp.More(); exp.Next())
     {
-      TopoDS_Edge E = TopoDS::Edge(exp.Current());
+      TopoEdge E = TopoDS::Edge(exp.Current());
       //      if (ShapeUpgrade::Debug()) std::cout << ".. Edge " << (void*) &(*E.TShape()) <<
       //      std::endl;
 
@@ -367,18 +367,18 @@ void ShapeUpgrade_WireDivide::Perform()
 
       Standard_Boolean isSeam = Standard_False;
       if (!myFace.IsNull())
-        isSeam = BRep_Tool::IsClosed(E, myFace);
+        isSeam = BRepInspector::IsClosed(E, myFace);
       Handle(TColGeom2d_HArray1OfCurve) theSegments2d;
       if (myEdgeDivide->HasCurve2d())
         theSegments2d = theSplit2dTool->GetCurves();
       Handle(TColGeom2d_HArray1OfCurve) theSegments2dR;
       if (isSeam)
       {
-        Handle(Geom2d_Curve) c2;
+        Handle(GeomCurve2d) c2;
         Standard_Real        f2, l2;
         // smh#8
-        TopoDS_Shape tmpE = E.Reversed();
-        TopoDS_Edge  erev = TopoDS::Edge(tmpE);
+        TopoShape tmpE = E.Reversed();
+        TopoEdge  erev = TopoDS::Edge(tmpE);
         if (sae.PCurve(erev, myFace, c2, f2, l2, Standard_False))
         {
           theSplit2dTool->Init(c2, f2, l2);
@@ -403,28 +403,28 @@ void ShapeUpgrade_WireDivide::Perform()
       }
 
       // Exploring theEdge
-      TopoDS_Vertex    V1o       = TopExp::FirstVertex(E, Standard_False);
-      TopoDS_Vertex    V2o       = TopExp::LastVertex(E, Standard_False);
+      TopoVertex    V1o       = TopExp1::FirstVertex(E, Standard_False);
+      TopoVertex    V2o       = TopExp1::LastVertex(E, Standard_False);
       Standard_Boolean isForward = (E.Orientation() == TopAbs_FORWARD);
-      Standard_Real    TolEdge   = BRep_Tool::Tolerance(E);
-      Standard_Boolean isDeg     = BRep_Tool::Degenerated(E);
+      Standard_Real    TolEdge   = BRepInspector::Tolerance(E);
+      Standard_Boolean isDeg     = BRepInspector::Degenerated(E);
 
       // Copy vertices to protect original shape against SameParamseter
       // smh#8
-      TopoDS_Shape  emptyCopiedV1 = V1o.EmptyCopied();
-      TopoDS_Vertex V1            = TopoDS::Vertex(emptyCopiedV1);
+      TopoShape  emptyCopiedV1 = V1o.EmptyCopied();
+      TopoVertex V1            = TopoDS::Vertex(emptyCopiedV1);
       Context()->Replace(V1o, V1);
-      TopoDS_Vertex V2;
+      TopoVertex V2;
       if (V1o.IsSame(V2o))
       {
         // smh#8
-        TopoDS_Shape tmpV = V1.Oriented(V2o.Orientation());
+        TopoShape tmpV = V1.Oriented(V2o.Orientation());
         V2                = TopoDS::Vertex(tmpV);
       }
       else
       {
         // smh#8
-        TopoDS_Shape emptyCopied = V2o.EmptyCopied();
+        TopoShape emptyCopied = V2o.EmptyCopied();
         V2                       = TopoDS::Vertex(emptyCopied);
         Context()->Replace(V2o, V2);
       }
@@ -432,13 +432,13 @@ void ShapeUpgrade_WireDivide::Perform()
       // collect NM vertices
 
       Standard_Real            af = 0., al = 0.;
-      Handle(Geom_Curve)       c3d;
+      Handle(GeomCurve3d)       c3d;
       Adaptor3d_CurveOnSurface AdCS;
       if (myEdgeDivide->HasCurve3d())
         sae.Curve3d(E, c3d, af, al, Standard_False);
       else if (myEdgeDivide->HasCurve2d() && !Surf.IsNull())
       {
-        Handle(Geom2d_Curve) c2d;
+        Handle(GeomCurve2d) c2d;
         sae.PCurve(E, myFace, c2d, af, al, Standard_False);
         Handle(Adaptor3d_Surface) AdS  = new GeomAdaptor_Surface(Surf);
         Handle(Adaptor2d_Curve2d) AC2d = new Geom2dAdaptor_Curve(c2d, af, al);
@@ -454,9 +454,9 @@ void ShapeUpgrade_WireDivide::Perform()
         if (aItv.Value().Orientation() == TopAbs_INTERNAL
             || aItv.Value().Orientation() == TopAbs_EXTERNAL)
         {
-          TopoDS_Vertex aVold = TopoDS::Vertex(aItv.Value());
+          TopoVertex aVold = TopoDS::Vertex(aItv.Value());
           aSeqNMVertices.Append(aVold);
-          Point3d        aP = BRep_Tool::Pnt(TopoDS::Vertex(aVold));
+          Point3d        aP = BRepInspector::Pnt(TopoDS::Vertex(aVold));
           Standard_Real ppar;
           Point3d        pproj;
           if (!c3d.IsNull())
@@ -501,13 +501,13 @@ void ShapeUpgrade_WireDivide::Perform()
 
       myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
 
-      TopoDS_Wire resWire;
+      TopoWire resWire;
       B.MakeWire(resWire);
-      //      TopoDS_Vertex firstVertex, lastVertex;
+      //      TopoVertex firstVertex, lastVertex;
       Standard_Integer numE  = 0;
-      Point3d           pntV1 = BRep_Tool::Pnt(V1);
-      // Point3d pntV2 = BRep_Tool::Pnt(V2); // pntV2 not used - see below (skl)
-      // Standard_Real V2Tol = LimitTolerance( BRep_Tool::Tolerance(V2) ); // V2Tol not used - see
+      Point3d           pntV1 = BRepInspector::Pnt(V1);
+      // Point3d pntV2 = BRepInspector::Pnt(V2); // pntV2 not used - see below (skl)
+      // Standard_Real V2Tol = LimitTolerance( BRepInspector::Tolerance(V2) ); // V2Tol not used - see
       // below (skl)
 
       // clang-format off
@@ -524,18 +524,18 @@ void ShapeUpgrade_WireDivide::Perform()
       for (Standard_Integer icurv = 1; icurv <= nbc; icurv++)
       {
 
-        Handle(Geom_Curve) theNewCurve3d;
+        Handle(GeomCurve3d) theNewCurve3d;
         if (!theSegments3d.IsNull())
           theNewCurve3d = theSegments3d->Value(icurv);
 
-        Handle(Geom2d_Curve) theNewPCurve1;
+        Handle(GeomCurve2d) theNewPCurve1;
         if (!theSegments2d.IsNull())
           theNewPCurve1 = theSegments2d->Value(icurv);
-        Handle(Geom2d_Curve) revPCurve;
+        Handle(GeomCurve2d) revPCurve;
         if (isSeam)
           revPCurve = theSegments2dR->Value(icurv);
         // construction of the intermediate Vertex
-        TopoDS_Vertex V;
+        TopoVertex V;
         if (icurv <= nbc && nbc != 1 && !isDeg)
         {
           Standard_Real par, parf /*,SavParl*/;
@@ -562,7 +562,7 @@ void ShapeUpgrade_WireDivide::Perform()
           else
           {
             if (Surf.IsNull())
-              Surf = BRep_Tool::Surface(myFace, Loc);
+              Surf = BRepInspector::Surface(myFace, Loc);
             if (theNewPCurve1->IsKind(STANDARD_TYPE(Geom2d_BoundedCurve)))
             {
               par  = theNewPCurve1->LastParameter();
@@ -595,7 +595,7 @@ void ShapeUpgrade_WireDivide::Perform()
             Small++;
             if (icurv == nbc)
             {
-              TopoDS_Vertex VVV = V1;
+              TopoVertex VVV = V1;
               VVV.Orientation(V2.Orientation());
               Context()->Replace(V2, VVV);
             }
@@ -611,10 +611,10 @@ void ShapeUpgrade_WireDivide::Perform()
             }
             else
             {
-              Handle(Geom_Curve)   atmpCurve;
-              Handle(Geom2d_Curve) atmpCurve2d1, atmprepcurve;
+              Handle(GeomCurve3d)   atmpCurve;
+              Handle(GeomCurve2d) atmpCurve2d1, atmprepcurve;
               if (FixSmallCurveTool->Approx(atmpCurve, atmpCurve2d1, atmprepcurve, SavParf, par))
-              { // BRepTools
+              { // BRepTools1
                 theNewCurve3d = atmpCurve;
                 theNewPCurve1 = atmpCurve2d1;
                 revPCurve     = atmprepcurve;
@@ -651,7 +651,7 @@ void ShapeUpgrade_WireDivide::Perform()
         }
         // else V = V2;
 
-        TopoDS_Edge     newEdge;
+        TopoEdge     newEdge;
         ShapeBuild_Edge sbe;
         if (isForward)
         {
@@ -671,7 +671,7 @@ void ShapeUpgrade_WireDivide::Perform()
         else if (isDeg)
           B.Degenerated(newEdge, Standard_True);
         // if(isSeam) {
-        //  Handle(Geom2d_Curve) revPCurve = theSegments2dR->Value(icurv);
+        //  Handle(GeomCurve2d) revPCurve = theSegments2dR->Value(icurv);
         // if(newEdge.Orientation()==TopAbs_FORWARD)
         // B.UpdateEdge ( newEdge, theNewPCurve1, revPCurve, myFace, 0. );
         // else
@@ -733,14 +733,14 @@ void ShapeUpgrade_WireDivide::Perform()
         Standard_Real beta  = (theKnots3d->Value (icurv + 1) - f)/(l - f);
         sbe.CopyRanges(newEdge,E, alpha, beta);*/
         Savnum = 0;
-        Handle(Geom2d_Curve) c2dTmp;
+        Handle(GeomCurve2d) c2dTmp;
         Standard_Real        setF, setL;
         if (!myFace.IsNull() && sae.PCurve(newEdge, myFace, c2dTmp, setF, setL, Standard_False))
           srNew &= ((setF == f2d) && (setL == l2d));
 
         if (isSeam)
         {
-          // Handle(Geom2d_Curve  revPCurve = theSegments2dR->Value(icurv);
+          // Handle(GeomCurve2d  revPCurve = theSegments2dR->Value(icurv);
           if (newEdge.Orientation() == TopAbs_FORWARD)
             B.UpdateEdge(newEdge, theNewPCurve1, revPCurve, myFace, 0.);
           else
@@ -757,7 +757,7 @@ void ShapeUpgrade_WireDivide::Perform()
         {
           B.Range(newEdge, myFace, f2d, l2d);
         }
-        if ((!wasSR || !srNew) && !BRep_Tool::Degenerated(newEdge))
+        if ((!wasSR || !srNew) && !BRepInspector::Degenerated(newEdge))
         {
           B.SameRange(newEdge, Standard_False);
         }
@@ -768,8 +768,8 @@ void ShapeUpgrade_WireDivide::Perform()
         for (Standard_Integer n = 1; n <= aSeqParNM.Length(); ++n)
         {
           Standard_Real apar  = aSeqParNM.Value(n);
-          TopoDS_Vertex aVold = TopoDS::Vertex(aSeqNMVertices.Value(n));
-          TopoDS_Vertex aNMVer =
+          TopoVertex aVold = TopoDS::Vertex(aSeqNMVertices.Value(n));
+          TopoVertex aNMVer =
             ShapeAnalysis_TransferParametersProj::CopyNMVertex(aVold, newEdge, E);
           Context()->Replace(aVold, aNMVer);
           if (fabs(apar - afpar) <= Precision::PConfusion())
@@ -805,7 +805,7 @@ void ShapeUpgrade_WireDivide::Perform()
       }
       if (numE)
       {
-        resWire.Closed(BRep_Tool::IsClosed(resWire));
+        resWire.Closed(BRepInspector::IsClosed(resWire));
         Context()->Replace(E, resWire);
       }
       else
@@ -815,15 +815,15 @@ void ShapeUpgrade_WireDivide::Perform()
   if (Status(ShapeExtend_DONE))
   {
     // smh#8
-    newWire.Closed(BRep_Tool::IsClosed(newWire));
-    TopoDS_Shape tmpW = Context()->Apply(newWire).Oriented(myWire.Orientation());
+    newWire.Closed(BRepInspector::IsClosed(newWire));
+    TopoShape tmpW = Context()->Apply(newWire).Oriented(myWire.Orientation());
     myWire            = TopoDS::Wire(tmpW);
   }
 }
 
 //=================================================================================================
 
-const TopoDS_Wire& ShapeUpgrade_WireDivide::Wire() const
+const TopoWire& ShapeUpgrade_WireDivide::Wire() const
 {
   return myWire;
 }

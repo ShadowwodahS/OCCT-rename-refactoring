@@ -18,26 +18,26 @@
 
 static StepData_Field nulfild;
 
-StepData_FieldList::~StepData_FieldList() {}
+FieldList::~FieldList() {}
 
-StepData_FieldList::StepData_FieldList() {}
+FieldList::FieldList() {}
 
-Standard_Integer StepData_FieldList::NbFields() const
+Standard_Integer FieldList::NbFields() const
 {
   return 0;
 }
 
-const StepData_Field& StepData_FieldList::Field(const Standard_Integer) const
+const StepData_Field& FieldList::Field(const Standard_Integer) const
 {
-  throw Standard_OutOfRange("StepData_FieldList : Field");
+  throw Standard_OutOfRange("FieldList : Field");
 }
 
-StepData_Field& StepData_FieldList::CField(const Standard_Integer)
+StepData_Field& FieldList::CField(const Standard_Integer)
 {
-  throw Standard_OutOfRange("StepData_FieldList : CField");
+  throw Standard_OutOfRange("FieldList : CField");
 }
 
-void StepData_FieldList::FillShared(Interface_EntityIterator& iter) const
+void FieldList::FillShared(Interface_EntityIterator& iter) const
 {
   Standard_Integer i, nb = NbFields();
   for (i = 1; i <= nb; i++)

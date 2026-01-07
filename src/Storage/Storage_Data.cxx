@@ -36,23 +36,23 @@ Storage_Data::Storage_Data()
 void Storage_Data::AddRoot(const Handle(DbObject)& anObject) const
 {
   Handle(Storage_Root) aRoot =
-    new Storage_Root(TCollection_AsciiString(myRootData->NumberOfRoots() + 1), anObject);
+    new Storage_Root(AsciiString1(myRootData->NumberOfRoots() + 1), anObject);
   myRootData->AddRoot(aRoot);
 }
 
-void Storage_Data::AddRoot(const TCollection_AsciiString&     aName,
+void Storage_Data::AddRoot(const AsciiString1&     aName,
                            const Handle(DbObject)& anObject) const
 {
   Handle(Storage_Root) aRoot = new Storage_Root(aName, anObject);
   myRootData->AddRoot(aRoot);
 }
 
-void Storage_Data::RemoveRoot(const TCollection_AsciiString& anObject)
+void Storage_Data::RemoveRoot(const AsciiString1& anObject)
 {
   myRootData->RemoveRoot(anObject);
 }
 
-Handle(Storage_Root) Storage_Data::Find(const TCollection_AsciiString& aName) const
+Handle(Storage_Root) Storage_Data::Find(const AsciiString1& aName) const
 {
   return myRootData->Find(aName);
 }
@@ -62,7 +62,7 @@ Standard_Integer Storage_Data::NumberOfRoots() const
   return myRootData->NumberOfRoots();
 }
 
-Standard_Boolean Storage_Data::IsRoot(const TCollection_AsciiString& aName) const
+Standard_Boolean Storage_Data::IsRoot(const AsciiString1& aName) const
 {
   return myRootData->IsRoot(aName);
 }
@@ -77,7 +77,7 @@ Standard_Integer Storage_Data::NumberOfTypes() const
   return myTypeData->NumberOfTypes();
 }
 
-Standard_Boolean Storage_Data::IsType(const TCollection_AsciiString& aName) const
+Standard_Boolean Storage_Data::IsType(const AsciiString1& aName) const
 {
   return myTypeData->IsType(aName);
 }
@@ -115,42 +115,42 @@ void Storage_Data::Clear() const
 
 // HEADER
 
-TCollection_AsciiString Storage_Data::CreationDate() const
+AsciiString1 Storage_Data::CreationDate() const
 {
   return myHeaderData->CreationDate();
 }
 
-TCollection_AsciiString Storage_Data::SchemaVersion() const
+AsciiString1 Storage_Data::SchemaVersion() const
 {
   return myHeaderData->SchemaVersion();
 }
 
-TCollection_AsciiString Storage_Data::SchemaName() const
+AsciiString1 Storage_Data::SchemaName() const
 {
   return myHeaderData->SchemaName();
 }
 
-void Storage_Data::SetApplicationVersion(const TCollection_AsciiString& aVersion)
+void Storage_Data::SetApplicationVersion(const AsciiString1& aVersion)
 {
   myHeaderData->SetApplicationVersion(aVersion);
 }
 
-TCollection_AsciiString Storage_Data::ApplicationVersion() const
+AsciiString1 Storage_Data::ApplicationVersion() const
 {
   return myHeaderData->ApplicationVersion();
 }
 
-void Storage_Data::SetApplicationName(const TCollection_ExtendedString& aName)
+void Storage_Data::SetApplicationName(const UtfString& aName)
 {
   myHeaderData->SetApplicationName(aName);
 }
 
-TCollection_ExtendedString Storage_Data::ApplicationName() const
+UtfString Storage_Data::ApplicationName() const
 {
   return myHeaderData->ApplicationName();
 }
 
-void Storage_Data::AddToUserInfo(const TCollection_AsciiString& theUserInfo)
+void Storage_Data::AddToUserInfo(const AsciiString1& theUserInfo)
 {
   myHeaderData->AddToUserInfo(theUserInfo);
 }
@@ -160,7 +160,7 @@ const TColStd_SequenceOfAsciiString& Storage_Data::UserInfo() const
   return myHeaderData->UserInfo();
 }
 
-void Storage_Data::AddToComments(const TCollection_ExtendedString& theUserInfo)
+void Storage_Data::AddToComments(const UtfString& theUserInfo)
 {
   myHeaderData->AddToComments(theUserInfo);
 }
@@ -175,7 +175,7 @@ Standard_Integer Storage_Data::NumberOfObjects() const
   return myHeaderData->NumberOfObjects();
 }
 
-TCollection_AsciiString Storage_Data::StorageVersion() const
+AsciiString1 Storage_Data::StorageVersion() const
 {
   return myHeaderData->StorageVersion();
 }
@@ -199,22 +199,22 @@ void Storage_Data::ClearErrorStatus()
   myTypeData->ClearErrorStatus();
 }
 
-void Storage_Data::SetDataType(const TCollection_ExtendedString& aName)
+void Storage_Data::SetDataType(const UtfString& aName)
 {
   myHeaderData->SetDataType(aName);
 }
 
-TCollection_ExtendedString Storage_Data::DataType() const
+UtfString Storage_Data::DataType() const
 {
   return myHeaderData->DataType();
 }
 
-TCollection_AsciiString Storage_Data::ErrorStatusExtension() const
+AsciiString1 Storage_Data::ErrorStatusExtension() const
 {
   return myErrorStatusExt;
 }
 
-void Storage_Data::SetErrorStatusExtension(const TCollection_AsciiString& anErrorExt)
+void Storage_Data::SetErrorStatusExtension(const AsciiString1& anErrorExt)
 {
   myErrorStatusExt = anErrorExt;
 }

@@ -23,7 +23,7 @@
 #include <Geom_BSplineSurface.hxx>
 #include <Geom_OffsetCurve.hxx>
 
-Standard_Integer Adaptor3d_HSurfaceTool::NbSamplesU(const Handle(Adaptor3d_Surface)& S)
+Standard_Integer HSurfaceTool::NbSamplesU(const Handle(Adaptor3d_Surface)& S)
 {
   switch (S->GetType())
   {
@@ -43,7 +43,7 @@ Standard_Integer Adaptor3d_HSurfaceTool::NbSamplesU(const Handle(Adaptor3d_Surfa
   return 10;
 }
 
-Standard_Integer Adaptor3d_HSurfaceTool::NbSamplesV(const Handle(Adaptor3d_Surface)& S)
+Standard_Integer HSurfaceTool::NbSamplesV(const Handle(Adaptor3d_Surface)& S)
 {
   switch (S->GetType())
   {
@@ -68,7 +68,7 @@ Standard_Integer Adaptor3d_HSurfaceTool::NbSamplesV(const Handle(Adaptor3d_Surfa
   return 10;
 }
 
-Standard_Integer Adaptor3d_HSurfaceTool::NbSamplesU(const Handle(Adaptor3d_Surface)& S,
+Standard_Integer HSurfaceTool::NbSamplesU(const Handle(Adaptor3d_Surface)& S,
                                                     const Standard_Real              u1,
                                                     const Standard_Real              u2)
 {
@@ -87,7 +87,7 @@ Standard_Integer Adaptor3d_HSurfaceTool::NbSamplesU(const Handle(Adaptor3d_Surfa
   return n;
 }
 
-Standard_Integer Adaptor3d_HSurfaceTool::NbSamplesV(const Handle(Adaptor3d_Surface)& S,
+Standard_Integer HSurfaceTool::NbSamplesV(const Handle(Adaptor3d_Surface)& S,
                                                     const Standard_Real              v1,
                                                     const Standard_Real              v2)
 {
@@ -106,7 +106,7 @@ Standard_Integer Adaptor3d_HSurfaceTool::NbSamplesV(const Handle(Adaptor3d_Surfa
   return n;
 }
 
-Standard_Boolean Adaptor3d_HSurfaceTool::IsSurfG1(const Handle(Adaptor3d_Surface)& theSurf,
+Standard_Boolean HSurfaceTool::IsSurfG1(const Handle(Adaptor3d_Surface)& theSurf,
                                                   const Standard_Boolean           theAlongU,
                                                   const Standard_Real              theAngTol)
 {
@@ -120,7 +120,7 @@ Standard_Boolean Adaptor3d_HSurfaceTool::IsSurfG1(const Handle(Adaptor3d_Surface
   Handle(Adaptor3d_Curve)   aC;
 
   Handle(Geom_BSplineSurface) aBS;
-  Handle(Geom_BSplineCurve)   aBC;
+  Handle(BSplineCurve3d)   aBC;
 
   if (aS->GetType() == GeomAbs_OffsetSurface)
   {
@@ -157,12 +157,12 @@ Standard_Boolean Adaptor3d_HSurfaceTool::IsSurfG1(const Handle(Adaptor3d_Surface
     if (theAlongU)
     {
       const Standard_Real anIsoPar = (aVf + aVl) / 2.0;
-      aBC                          = Handle(Geom_BSplineCurve)::DownCast(aBS->VIso(anIsoPar));
+      aBC                          = Handle(BSplineCurve3d)::DownCast(aBS->VIso(anIsoPar));
     }
     else
     {
       const Standard_Real anIsoPar = (aUf + aUl) / 2.0;
-      aBC                          = Handle(Geom_BSplineCurve)::DownCast(aBS->UIso(anIsoPar));
+      aBC                          = Handle(BSplineCurve3d)::DownCast(aBS->UIso(anIsoPar));
     }
   }
 

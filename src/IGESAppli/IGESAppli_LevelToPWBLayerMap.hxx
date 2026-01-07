@@ -29,7 +29,7 @@ class IGESAppli_LevelToPWBLayerMap;
 DEFINE_STANDARD_HANDLE(IGESAppli_LevelToPWBLayerMap, IGESData_IGESEntity)
 
 //! defines LevelToPWBLayerMap, Type <406> Form <24>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Used to correlate an exchange file level number with
 //! its corresponding native level identifier, physical PWB
 //! layer number and predefined functional level

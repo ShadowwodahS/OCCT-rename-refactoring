@@ -52,7 +52,7 @@ const Standard_Real Infinite             = 100.;
 //=======================================================================
 
 void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
-                                       const TopoDS_Face&     F,
+                                       const TopoFace&     F,
                                        HLRTopoBRep_Data&      DS,
                                        const Standard_Integer nbIsos)
 {
@@ -60,19 +60,19 @@ void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
 
   Standard_Real    UMin, UMax, VMin, VMax, U1, U2;
   Standard_Integer ne = 0;
-  // BRep_Builder Builder;
-  TopoDS_Edge     Edge;
-  TopExp_Explorer ExpEdges;
-  TopoDS_Face     TF = F;
+  // ShapeBuilder Builder;
+  TopoEdge     Edge;
+  ShapeExplorer ExpEdges;
+  TopoFace     TF = F;
   TF.Orientation(TopAbs_FORWARD);
   gp_Pnt2d      P;
   Point3d        P1, P2;
-  TopoDS_Vertex V1U, V2U, V1V, V2V;
+  TopoVertex V1U, V2U, V1V, V2V;
 
   Geom2dHatch_Intersector Intersector(IntersectorConfusion, IntersectorTangency);
   Geom2dHatch_Hatcher Hatcher(Intersector, HatcherConfusion2d, HatcherConfusion3d, Standard_True);
 
-  BRepTools::UVBounds(TF, UMin, UMax, VMin, VMax);
+  BRepTools1::UVBounds(TF, UMin, UMax, VMin, VMax);
   Standard_Boolean InfiniteUMin = Precision::IsNegativeInfinite(UMin);
   Standard_Boolean InfiniteUMax = Precision::IsPositiveInfinite(UMax);
   Standard_Boolean InfiniteVMin = Precision::IsNegativeInfinite(VMin);
@@ -117,8 +117,8 @@ void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
   for (ExpEdges.Init(TF, TopAbs_EDGE); ExpEdges.More(); ExpEdges.Next())
   {
     Standard_Integer           IndE;
-    const TopoDS_Edge&         newE = TopoDS::Edge(ExpEdges.Current());
-    const Handle(Geom2d_Curve) PC   = BRep_Tool::CurveOnSurface(newE, TF, U1, U2);
+    const TopoEdge&         newE = TopoDS::Edge(ExpEdges.Current());
+    const Handle(GeomCurve2d) PC   = BRepInspector::CurveOnSurface(newE, TF, U1, U2);
     if (Abs(PC->FirstParameter() - U1) <= Precision::PConfusion()
         && Abs(PC->LastParameter() - U2) <= Precision::PConfusion())
     {
@@ -143,8 +143,8 @@ void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
     for (itE.Initialize(DS.FaceIntL(TF)); itE.More(); itE.Next())
     {
       Standard_Integer           IndE;
-      const TopoDS_Edge&         newE = TopoDS::Edge(itE.Value());
-      const Handle(Geom2d_Curve) PC   = BRep_Tool::CurveOnSurface(newE, TF, U1, U2);
+      const TopoEdge&         newE = TopoDS::Edge(itE.Value());
+      const Handle(GeomCurve2d) PC   = BRepInspector::CurveOnSurface(newE, TF, U1, U2);
       if (Abs(PC->FirstParameter() - U1) <= Precision::PConfusion()
           && Abs(PC->LastParameter() - U2) <= Precision::PConfusion())
       {
@@ -166,7 +166,7 @@ void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
   //-----------------------------------------------------------------------
 
   BRepAdaptor_Surface Surface(TF);
-  Standard_Real       Tolerance = BRep_Tool::Tolerance(TF);
+  Standard_Real       Tolerance = BRepInspector::Tolerance(TF);
 
   Standard_Integer IIso;
   Standard_Real    DeltaU    = Abs(UMax - UMin);
@@ -386,25 +386,25 @@ void HLRTopoBRep_FaceIsoLiner::Perform(const Standard_Integer FI,
 
 //=================================================================================================
 
-TopoDS_Vertex HLRTopoBRep_FaceIsoLiner::MakeVertex(const TopoDS_Edge&  E,
+TopoVertex HLRTopoBRep_FaceIsoLiner::MakeVertex(const TopoEdge&  E,
                                                    const Point3d&       P,
                                                    const Standard_Real Par,
                                                    const Standard_Real Tol,
                                                    HLRTopoBRep_Data&   DS)
 {
-  TopoDS_Vertex V, VF, VL;
-  BRep_Builder  B;
-  TopExp::Vertices(E, VF, VL);
-  if (P.IsEqual(BRep_Tool::Pnt(VF), BRep_Tool::Tolerance(VF)))
+  TopoVertex V, VF, VL;
+  ShapeBuilder  B;
+  TopExp1::Vertices(E, VF, VL);
+  if (P.IsEqual(BRepInspector::Pnt(VF), BRepInspector::Tolerance(VF)))
     return VF;
-  if (P.IsEqual(BRep_Tool::Pnt(VL), BRep_Tool::Tolerance(VL)))
+  if (P.IsEqual(BRepInspector::Pnt(VL), BRepInspector::Tolerance(VL)))
     return VL;
 
   for (DS.InitVertex(E); DS.MoreVertex(); DS.NextVertex())
   {
-    TopoDS_Vertex curV = DS.Vertex();
+    TopoVertex curV = DS.Vertex();
     Standard_Real curP = DS.Parameter();
-    if (P.IsEqual(BRep_Tool::Pnt(curV), BRep_Tool::Tolerance(curV)))
+    if (P.IsEqual(BRepInspector::Pnt(curV), BRepInspector::Tolerance(curV)))
     {
       V = curV;
       break;
@@ -430,17 +430,17 @@ TopoDS_Vertex HLRTopoBRep_FaceIsoLiner::MakeVertex(const TopoDS_Edge&  E,
 
 //=================================================================================================
 
-void HLRTopoBRep_FaceIsoLiner::MakeIsoLine(const TopoDS_Face&         F,
+void HLRTopoBRep_FaceIsoLiner::MakeIsoLine(const TopoFace&         F,
                                            const Handle(Geom2d_Line)& Iso,
-                                           TopoDS_Vertex&             V1,
-                                           TopoDS_Vertex&             V2,
+                                           TopoVertex&             V1,
+                                           TopoVertex&             V2,
                                            const Standard_Real        U1,
                                            const Standard_Real        U2,
                                            const Standard_Real        Tol,
                                            HLRTopoBRep_Data&          DS)
 {
-  BRep_Builder B;
-  TopoDS_Edge  E;
+  ShapeBuilder B;
+  TopoEdge  E;
   E.Orientation(TopAbs_INTERNAL);
   V1.Orientation(TopAbs_FORWARD);
   V2.Orientation(TopAbs_REVERSED);

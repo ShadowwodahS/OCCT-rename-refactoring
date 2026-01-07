@@ -28,7 +28,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_Deflection, RefObject)
 //=================================================================================================
 
 Standard_Real BRepMesh_Deflection::ComputeAbsoluteDeflection(
-  const TopoDS_Shape& theShape,
+  const TopoShape& theShape,
   const Standard_Real theRelativeDeflection,
   const Standard_Real theMaxShapeSize)
 {
@@ -75,20 +75,20 @@ void BRepMesh_Deflection::ComputeDeflection(const IMeshData::IEdgeHandle& theDEd
             ? theParameters.Deflection
             : ComputeAbsoluteDeflection(theDEdge->GetEdge(), theParameters.Deflection, theMaxShapeSize);
 
-  const TopoDS_Edge& anEdge = theDEdge->GetEdge();
+  const TopoEdge& anEdge = theDEdge->GetEdge();
 
-  TopoDS_Vertex aFirstVertex, aLastVertex;
-  TopExp::Vertices(anEdge, aFirstVertex, aLastVertex);
+  TopoVertex aFirstVertex, aLastVertex;
+  TopExp1::Vertices(anEdge, aFirstVertex, aLastVertex);
 
-  Handle(Geom_Curve) aCurve;
+  Handle(GeomCurve3d) aCurve;
   Standard_Real      aFirstParam, aLastParam;
   if (BRepMesh_ShapeTool::Range(anEdge, aCurve, aFirstParam, aLastParam))
   {
     const Standard_Real aDistF =
       aFirstVertex.IsNull() ? -1.0
-                            : BRep_Tool::Pnt(aFirstVertex).Distance(aCurve->Value(aFirstParam));
+                            : BRepInspector::Pnt(aFirstVertex).Distance(aCurve->Value(aFirstParam));
     const Standard_Real aDistL =
-      aLastVertex.IsNull() ? -1.0 : BRep_Tool::Pnt(aLastVertex).Distance(aCurve->Value(aLastParam));
+      aLastVertex.IsNull() ? -1.0 : BRepInspector::Pnt(aLastVertex).Distance(aCurve->Value(aLastParam));
 
     const Standard_Real aVertexAdjustDistance = Max(aDistF, aDistL);
 

@@ -24,7 +24,7 @@
 #include <DsgPrs_ArrowSide.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class TCollection_ExtendedString;
+class UtfString;
 class Point3d;
 class gp_Circ;
 
@@ -44,8 +44,8 @@ public:
   //! If the Boolean reverseArrow is true, the arrowhead
   //! will point away from the attachment point.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
                                   const Point3d&                     AttachmentPoint,
                                   const gp_Circ&                    aCircle,
                                   const Standard_Real               firstparam,
@@ -66,8 +66,8 @@ public:
   //! If the Boolean reverseArrow is true, the arrowhead
   //! will point away from the attachment point.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
                                   const Point3d&                     AttachmentPoint,
                                   const gp_Circ&                    aCircle,
                                   const Standard_Real               firstparam,
@@ -89,8 +89,8 @@ public:
   //! If the Boolean reverseArrow is true, the arrowhead
   //! will point away from the attachment point.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
                                   const Point3d&                     AttachmentPoint,
                                   const Point3d&                     Center,
                                   const Point3d&                     EndOfArrow,

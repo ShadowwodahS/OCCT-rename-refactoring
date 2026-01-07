@@ -102,11 +102,11 @@ protected:
   //! \param theShape a shape instance
   //! \param theReportDescription an additional report information
   void addReport(const Handle(Message_Report)&  theReport,
-                 const TCollection_AsciiString& theReportDescription = "");
+                 const AsciiString1& theReportDescription = "");
 
 private:
   //! Fills controls of the plugin by parameters:
-  //! - Fine AIS_InteractiveObject and fills View if it if it differs from the current context
+  //! - Fine VisualEntity and fills View if it if it differs from the current context
   //! \param theParameters a parameters container
   void Init(NCollection_List<Handle(RefObject)>& theParameters);
 
@@ -195,7 +195,7 @@ private:
 
   Handle(TInspectorAPI_PluginParameters) myParameters; //!< plugins parameters container
 
-  Handle(AIS_InteractiveObject)
+  Handle(VisualEntity)
     myPreviewPresentation; //!< presentation of preview for a selected object
 };
 

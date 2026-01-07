@@ -91,7 +91,7 @@ void IGESSelect_ChangeLevelNumber::Performing(IFSelect_ContextModif& ctx,
   }
 }
 
-TCollection_AsciiString IGESSelect_ChangeLevelNumber::Label() const
+AsciiString1 IGESSelect_ChangeLevelNumber::Label() const
 {
   char             labl[100];
   Standard_Integer oldl  = 0;
@@ -106,5 +106,5 @@ TCollection_AsciiString IGESSelect_ChangeLevelNumber::Label() const
     sprintf(labl, "Changes Level Number %d to %d", oldl, newl);
   else
     sprintf(labl, "Changes all Level Numbers positive and zero to %d", newl);
-  return TCollection_AsciiString(labl);
+  return AsciiString1(labl);
 }

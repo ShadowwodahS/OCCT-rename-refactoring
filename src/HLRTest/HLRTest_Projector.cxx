@@ -32,7 +32,7 @@ HLRTest_Projector::HLRTest_Projector(const HLRAlgo_Projector& P)
 
 //=================================================================================================
 
-void HLRTest_Projector::DrawOn(Draw_Display&) const
+void HLRTest_Projector::DrawOn(DrawDisplay&) const
 {
   //
 }
@@ -133,7 +133,7 @@ Handle(Draw_Drawable3D) HLRTest_Projector::Restore(Standard_IStream& theStream)
 
 //=================================================================================================
 
-void HLRTest_Projector::Whatis(Draw_Interpretor& I) const
+void HLRTest_Projector::Whatis(DrawInterpreter& I) const
 {
   I << "projector";
 }

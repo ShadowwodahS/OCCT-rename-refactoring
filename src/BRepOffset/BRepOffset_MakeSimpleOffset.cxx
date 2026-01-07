@@ -57,7 +57,7 @@ BRepOffset_MakeSimpleOffset::BRepOffset_MakeSimpleOffset()
 
 //=================================================================================================
 
-BRepOffset_MakeSimpleOffset::BRepOffset_MakeSimpleOffset(const TopoDS_Shape& theInputShape,
+BRepOffset_MakeSimpleOffset::BRepOffset_MakeSimpleOffset(const TopoShape& theInputShape,
                                                          const Standard_Real theOffsetValue)
     : myInputShape(theInputShape),
       myOffsetValue(theOffsetValue),
@@ -72,7 +72,7 @@ BRepOffset_MakeSimpleOffset::BRepOffset_MakeSimpleOffset(const TopoDS_Shape& the
 
 //=================================================================================================
 
-void BRepOffset_MakeSimpleOffset::Initialize(const TopoDS_Shape& theInputShape,
+void BRepOffset_MakeSimpleOffset::Initialize(const TopoShape& theInputShape,
                                              const Standard_Real theOffsetValue)
 {
   myInputShape  = theInputShape;
@@ -82,9 +82,9 @@ void BRepOffset_MakeSimpleOffset::Initialize(const TopoDS_Shape& theInputShape,
 
 //=================================================================================================
 
-TCollection_AsciiString BRepOffset_MakeSimpleOffset::GetErrorMessage() const
+AsciiString1 BRepOffset_MakeSimpleOffset::GetErrorMessage() const
 {
-  TCollection_AsciiString anError = "";
+  AsciiString1 anError = "";
 
   if (myError == BRepOffsetSimple_NullInputShape)
   {
@@ -138,7 +138,7 @@ Standard_Real BRepOffset_MakeSimpleOffset::GetSafeOffset(const Standard_Real the
     ComputeMaxAngle();
 
   Standard_Real aMaxTol = 0.0;
-  aMaxTol               = BRep_Tool::MaxTolerance(myInputShape, TopAbs_VERTEX);
+  aMaxTol               = BRepInspector::MaxTolerance(myInputShape, TopAbs_VERTEX);
 
   const Standard_Real anExpOffset = Max((theExpectedToler - aMaxTol) / (2.0 * myMaxAngle),
                                         0.0); // Minimal distance can't be lower than 0.0.
@@ -176,16 +176,16 @@ void BRepOffset_MakeSimpleOffset::Perform()
   myResShape = myBuilder.ModifiedShape(myInputShape);
 
   // Fix degeneracy. Degenerated edge should be mapped to the degenerated.
-  BRep_Builder    aBB;
-  TopExp_Explorer anExpSE(myInputShape, TopAbs_EDGE);
+  ShapeBuilder    aBB;
+  ShapeExplorer anExpSE(myInputShape, TopAbs_EDGE);
   for (; anExpSE.More(); anExpSE.Next())
   {
-    const TopoDS_Edge& aCurrEdge = TopoDS::Edge(anExpSE.Current());
+    const TopoEdge& aCurrEdge = TopoDS::Edge(anExpSE.Current());
 
-    if (!BRep_Tool::Degenerated(aCurrEdge))
+    if (!BRepInspector::Degenerated(aCurrEdge))
       continue;
 
-    const TopoDS_Edge& anEdge = TopoDS::Edge(myBuilder.ModifiedShape(aCurrEdge));
+    const TopoEdge& anEdge = TopoDS::Edge(myBuilder.ModifiedShape(aCurrEdge));
     aBB.Degenerated(anEdge, Standard_True);
   }
 
@@ -201,24 +201,24 @@ void BRepOffset_MakeSimpleOffset::Perform()
 // purpose  : check the angle at the border between two squares.
 //           Two shares should have a shared front edge.
 //=============================================================================
-static void tgtfaces(const TopoDS_Edge&     Ed,
-                     const TopoDS_Face&     F1,
-                     const TopoDS_Face&     F2,
+static void tgtfaces(const TopoEdge&     Ed,
+                     const TopoFace&     F1,
+                     const TopoFace&     F2,
                      const Standard_Boolean couture,
                      Standard_Real&         theResAngle)
 {
   // Check that pcurves exist on both faces of edge.
   Standard_Real        aFirst, aLast;
-  Handle(Geom2d_Curve) aCurve;
-  aCurve = BRep_Tool::CurveOnSurface(Ed, F1, aFirst, aLast);
+  Handle(GeomCurve2d) aCurve;
+  aCurve = BRepInspector::CurveOnSurface(Ed, F1, aFirst, aLast);
   if (aCurve.IsNull())
     return;
-  aCurve = BRep_Tool::CurveOnSurface(Ed, F2, aFirst, aLast);
+  aCurve = BRepInspector::CurveOnSurface(Ed, F2, aFirst, aLast);
   if (aCurve.IsNull())
     return;
 
   Standard_Real       u;
-  TopoDS_Edge         E = Ed;
+  TopoEdge         E = Ed;
   BRepAdaptor_Surface aBAS1(F1, Standard_False);
   BRepAdaptor_Surface aBAS2(F2, Standard_False);
 
@@ -239,7 +239,7 @@ static void tgtfaces(const TopoDS_Edge&     Ed,
   Standard_Boolean rev1 = (F1.Orientation() == TopAbs_REVERSED);
   Standard_Boolean rev2 = (F2.Orientation() == TopAbs_REVERSED);
   Standard_Real    f, l, eps;
-  BRep_Tool::Range(E, f, l);
+  BRepInspector::Range(E, f, l);
   Extrema_LocateExtPC ext;
 
   eps = (l - f) / 100.0;
@@ -293,17 +293,17 @@ static void tgtfaces(const TopoDS_Edge&     Ed,
 // purpose  : Code the regularities on all edges of the shape, boundary of
 //            two faces that do not have it.
 //=============================================================================
-static void ComputeMaxAngleOnShape(const TopoDS_Shape& S, Standard_Real& theResAngle)
+static void ComputeMaxAngleOnShape(const TopoShape& S, Standard_Real& theResAngle)
 {
   TopTools_IndexedDataMapOfShapeListOfShape M;
-  TopExp::MapShapesAndAncestors(S, TopAbs_EDGE, TopAbs_FACE, M);
+  TopExp1::MapShapesAndAncestors(S, TopAbs_EDGE, TopAbs_FACE, M);
   TopTools_ListIteratorOfListOfShape It;
-  TopExp_Explorer                    Ex;
-  TopoDS_Face                        F1, F2;
+  ShapeExplorer                    Ex;
+  TopoFace                        F1, F2;
   Standard_Boolean                   found, couture;
   for (Standard_Integer i = 1; i <= M.Extent(); i++)
   {
-    TopoDS_Edge E = TopoDS::Edge(M.FindKey(i));
+    TopoEdge E = TopoDS::Edge(M.FindKey(i));
     found         = Standard_False;
     couture       = Standard_False;
     F1.Nullify();
@@ -325,7 +325,7 @@ static void ComputeMaxAngleOnShape(const TopoDS_Shape& S, Standard_Real& theResA
     if (!found && !F1.IsNull())
     { // is it a sewing edge?
       TopAbs_Orientation orE = E.Orientation();
-      TopoDS_Edge        curE;
+      TopoEdge        curE;
       for (Ex.Init(F1, TopAbs_EDGE); Ex.More() && !found; Ex.Next())
       {
         curE = TopoDS::Edge(Ex.Current());
@@ -339,7 +339,7 @@ static void ComputeMaxAngleOnShape(const TopoDS_Shape& S, Standard_Real& theResA
     }
     if (found)
     {
-      if (BRep_Tool::Continuity(E, F1, F2) <= GeomAbs_C0)
+      if (BRepInspector::Continuity(E, F1, F2) <= GeomAbs_C0)
       {
         try
         {
@@ -369,27 +369,27 @@ void BRepOffset_MakeSimpleOffset::ComputeMaxAngle()
 Standard_Boolean BRepOffset_MakeSimpleOffset::BuildMissingWalls()
 {
   // Internal list of new faces.
-  TopoDS_Compound aNewFaces;
-  BRep_Builder    aBB;
+  TopoCompound aNewFaces;
+  ShapeBuilder    aBB;
   aBB.MakeCompound(aNewFaces);
 
   // Compute outer bounds of original shape.
   ShapeAnalysis_FreeBounds aFB(myInputShape);
-  const TopoDS_Compound&   aFreeWires = aFB.GetClosedWires();
+  const TopoCompound&   aFreeWires = aFB.GetClosedWires();
 
   // Build linear faces on each edge and its image.
-  TopExp_Explorer anExpCW(aFreeWires, TopAbs_WIRE);
+  ShapeExplorer anExpCW(aFreeWires, TopAbs_WIRE);
   for (; anExpCW.More(); anExpCW.Next())
   {
-    const TopoDS_Wire& aCurWire = TopoDS::Wire(anExpCW.Current());
+    const TopoWire& aCurWire = TopoDS::Wire(anExpCW.Current());
 
     // Iterate over outer edges in outer wires.
-    TopExp_Explorer anExpWE(aCurWire, TopAbs_EDGE);
+    ShapeExplorer anExpWE(aCurWire, TopAbs_EDGE);
     for (; anExpWE.More(); anExpWE.Next())
     {
-      const TopoDS_Edge& aCurEdge = TopoDS::Edge(anExpWE.Current());
+      const TopoEdge& aCurEdge = TopoDS::Edge(anExpWE.Current());
 
-      TopoDS_Face aNewFace = BuildWallFace(aCurEdge);
+      TopoFace aNewFace = BuildWallFace(aCurEdge);
 
       if (aNewFace.IsNull())
       {
@@ -404,20 +404,20 @@ Standard_Boolean BRepOffset_MakeSimpleOffset::BuildMissingWalls()
   // Update edges from wall faces.
   ShapeFix_Edge aSFE;
   aSFE.SetContext(myReShape);
-  TopExp_Explorer anExpCE(aNewFaces, TopAbs_EDGE);
+  ShapeExplorer anExpCE(aNewFaces, TopAbs_EDGE);
   for (; anExpCE.More(); anExpCE.Next())
   {
     // Fix same parameter and same range flags.
-    const TopoDS_Edge& aCurrEdge = TopoDS::Edge(anExpCE.Current());
+    const TopoEdge& aCurrEdge = TopoDS::Edge(anExpCE.Current());
     aSFE.FixSameParameter(aCurrEdge);
   }
 
   // Update result to be compound.
-  TopoDS_Compound aResCompound;
+  TopoCompound aResCompound;
   aBB.MakeCompound(aResCompound);
 
   // Add old faces the result.
-  TopExp_Explorer anExpSF(myInputShape, TopAbs_FACE);
+  ShapeExplorer anExpSF(myInputShape, TopAbs_FACE);
   for (; anExpSF.More(); anExpSF.Next())
     aBB.Add(aResCompound, anExpSF.Current());
 
@@ -427,10 +427,10 @@ Standard_Boolean BRepOffset_MakeSimpleOffset::BuildMissingWalls()
     aBB.Add(aResCompound, anExpSF.Current());
 
   // Add wall faces to the result.
-  TopExp_Explorer anExpCF(aNewFaces, TopAbs_FACE);
+  ShapeExplorer anExpCF(aNewFaces, TopAbs_FACE);
   for (; anExpCF.More(); anExpCF.Next())
   {
-    const TopoDS_Face& aF = TopoDS::Face(anExpCF.Current());
+    const TopoFace& aF = TopoDS::Face(anExpCF.Current());
     aBB.Add(aResCompound, aF);
   }
 
@@ -438,12 +438,12 @@ Standard_Boolean BRepOffset_MakeSimpleOffset::BuildMissingWalls()
   aResCompound = TopoDS::Compound(myReShape->Apply(aResCompound));
 
   // Create result shell.
-  BRepTools_Quilt aQuilt;
+  ShapeQuilt aQuilt;
   aQuilt.Add(aResCompound);
-  TopoDS_Shape aShells = aQuilt.Shells();
+  TopoShape aShells = aQuilt.Shells();
 
-  TopExp_Explorer anExpSSh(aShells, TopAbs_SHELL);
-  TopoDS_Shell    aResShell;
+  ShapeExplorer anExpSSh(aShells, TopAbs_SHELL);
+  TopoShell    aResShell;
   for (; anExpSSh.More(); anExpSSh.Next())
   {
     if (!aResShell.IsNull())
@@ -455,14 +455,14 @@ Standard_Boolean BRepOffset_MakeSimpleOffset::BuildMissingWalls()
     aResShell = TopoDS::Shell(anExpSSh.Current());
   }
 
-  if (!BRep_Tool::IsClosed(aResShell))
+  if (!BRepInspector::IsClosed(aResShell))
   {
     myError = BRepOffsetSimple_ErrorNonClosedShell;
     return Standard_False;
   }
 
   // Create result solid.
-  TopoDS_Solid aResSolid;
+  TopoSolid aResSolid;
   aBB.MakeSolid(aResSolid);
   aBB.Add(aResSolid, aResShell);
   myResShape = aResSolid;
@@ -472,32 +472,32 @@ Standard_Boolean BRepOffset_MakeSimpleOffset::BuildMissingWalls()
 
 //=================================================================================================
 
-TopoDS_Face BRepOffset_MakeSimpleOffset::BuildWallFace(const TopoDS_Edge& theOrigEdge)
+TopoFace BRepOffset_MakeSimpleOffset::BuildWallFace(const TopoEdge& theOrigEdge)
 {
-  TopoDS_Face aResFace;
+  TopoFace aResFace;
 
   // Get offset edge. offset edge is revered to create correct wire.
-  TopoDS_Edge aNewEdge = TopoDS::Edge(myBuilder.ModifiedShape(theOrigEdge));
+  TopoEdge aNewEdge = TopoDS::Edge(myBuilder.ModifiedShape(theOrigEdge));
   aNewEdge.Orientation(TopAbs_REVERSED);
 
-  TopoDS_Vertex aNewV1, aNewV2;
-  TopExp::Vertices(aNewEdge, aNewV1, aNewV2);
+  TopoVertex aNewV1, aNewV2;
+  TopExp1::Vertices(aNewEdge, aNewV1, aNewV2);
 
   // Wire contour is:
   // theOrigEdge (forcible forward) -> wall1 -> aNewEdge (forcible reversed) -> wall2
   // Firstly it is necessary to create copy of original shape with forward direction.
   // This simplifies walls creation.
-  TopoDS_Edge anOrigCopy = theOrigEdge;
+  TopoEdge anOrigCopy = theOrigEdge;
   anOrigCopy.Orientation(TopAbs_FORWARD);
-  TopoDS_Vertex aV1, aV2;
-  TopExp::Vertices(anOrigCopy, aV1, aV2);
+  TopoVertex aV1, aV2;
+  TopExp1::Vertices(anOrigCopy, aV1, aV2);
 
   // To simplify work with map.
-  TopoDS_Vertex aForwardV1 = TopoDS::Vertex(aV1.Oriented(TopAbs_FORWARD));
-  TopoDS_Vertex aForwardV2 = TopoDS::Vertex(aV2.Oriented(TopAbs_FORWARD));
+  TopoVertex aForwardV1 = TopoDS::Vertex(aV1.Oriented(TopAbs_FORWARD));
+  TopoVertex aForwardV2 = TopoDS::Vertex(aV2.Oriented(TopAbs_FORWARD));
 
   // Check existence of edges in stored map: Edge1
-  TopoDS_Edge aWall1;
+  TopoEdge aWall1;
   if (myMapVE.IsBound(aForwardV2))
   {
     // Edge exists - get it from map.
@@ -516,7 +516,7 @@ TopoDS_Face BRepOffset_MakeSimpleOffset::BuildWallFace(const TopoDS_Edge& theOri
   }
 
   // Check existence of edges in stored map: Edge2
-  TopoDS_Edge aWall2;
+  TopoEdge aWall2;
   if (myMapVE.IsBound(aForwardV1))
   {
     // Edge exists - get it from map.
@@ -537,9 +537,9 @@ TopoDS_Face BRepOffset_MakeSimpleOffset::BuildWallFace(const TopoDS_Edge& theOri
     aWall2.Orientation(TopAbs_REVERSED);
   }
 
-  BRep_Builder aBB;
+  ShapeBuilder aBB;
 
-  TopoDS_Wire aWire;
+  TopoWire aWire;
   aBB.MakeWire(aWire);
   aBB.Add(aWire, anOrigCopy);
   aBB.Add(aWire, aWall1);
@@ -550,7 +550,7 @@ TopoDS_Face BRepOffset_MakeSimpleOffset::BuildWallFace(const TopoDS_Edge& theOri
   BRepLib::BuildCurves3d(aWire);
 
   // Try to build using simple planar approach.
-  TopoDS_Face aF;
+  TopoFace aF;
   try
   {
     // Call of face maker is wrapped by try/catch since it generates exceptions sometimes.
@@ -567,16 +567,16 @@ TopoDS_Face BRepOffset_MakeSimpleOffset::BuildWallFace(const TopoDS_Edge& theOri
     // Build using thrusections.
     Standard_Boolean          ToReverse = Standard_False;
     Standard_Real             fpar, lpar, fparOE, lparOE;
-    Handle(Geom_Curve)        EdgeCurve     = BRep_Tool::Curve(theOrigEdge, fpar, lpar);
+    Handle(GeomCurve3d)        EdgeCurve     = BRepInspector::Curve(theOrigEdge, fpar, lpar);
     Handle(Geom_TrimmedCurve) TrEdgeCurve   = new Geom_TrimmedCurve(EdgeCurve, fpar, lpar);
-    Handle(Geom_Curve)        OffsetCurve   = BRep_Tool::Curve(aNewEdge, fparOE, lparOE);
+    Handle(GeomCurve3d)        OffsetCurve   = BRepInspector::Curve(aNewEdge, fparOE, lparOE);
     Handle(Geom_TrimmedCurve) TrOffsetCurve = new Geom_TrimmedCurve(OffsetCurve, fparOE, lparOE);
 
     GeomFill_Generator ThrusecGenerator;
     ThrusecGenerator.AddCurve(TrEdgeCurve);
     ThrusecGenerator.AddCurve(TrOffsetCurve);
     ThrusecGenerator.Perform(Precision::PConfusion());
-    Handle(Geom_Surface) theSurf = ThrusecGenerator.Surface();
+    Handle(GeomSurface) theSurf = ThrusecGenerator.Surface();
     // theSurf = new Geom_SurfaceOfLinearExtrusion( TrOffsetCurve, OffsetDir );
     Standard_Real Uf, Ul, Vf, Vl;
     theSurf->Bounds(Uf, Ul, Vf, Vl);
@@ -593,7 +593,7 @@ TopoDS_Face BRepOffset_MakeSimpleOffset::BuildWallFace(const TopoDS_Edge& theOri
     if (aWall1.IsSame(aWall2))
     {
       aBB.UpdateEdge(aWall1, aLine2d, aLine2d2, theSurf, Loc, Precision::Confusion());
-      Handle(Geom_Curve) BSplC34 = theSurf->UIso(Uf);
+      Handle(GeomCurve3d) BSplC34 = theSurf->UIso(Uf);
       aBB.UpdateEdge(aWall1, BSplC34, Precision::Confusion());
       aBB.Range(aWall1, Vf, Vl);
     }
@@ -607,10 +607,10 @@ TopoDS_Face BRepOffset_MakeSimpleOffset::BuildWallFace(const TopoDS_Edge& theOri
       aBB.Range(aWall1, theSurf, Loc, Vf, Vl);
       aBB.UpdateEdge(aWall2, aLine2d2, theSurf, Loc, Precision::Confusion());
       aBB.Range(aWall2, theSurf, Loc, Vf, Vl);
-      Handle(Geom_Curve) BSplC3 = theSurf->UIso(UonV2);
+      Handle(GeomCurve3d) BSplC3 = theSurf->UIso(UonV2);
       aBB.UpdateEdge(aWall1, BSplC3, Precision::Confusion());
       aBB.Range(aWall1, Vf, Vl, Standard_True); // only for 3d curve
-      Handle(Geom_Curve) BSplC4 = theSurf->UIso(UonV1);
+      Handle(GeomCurve3d) BSplC4 = theSurf->UIso(UonV1);
       aBB.UpdateEdge(aWall2, BSplC4, Precision::Confusion());
       aBB.Range(aWall2, Vf, Vl, Standard_True); // only for 3d curve
     }
@@ -623,10 +623,10 @@ TopoDS_Face BRepOffset_MakeSimpleOffset::BuildWallFace(const TopoDS_Edge& theOri
 
 //=================================================================================================
 
-const TopoDS_Shape BRepOffset_MakeSimpleOffset::Generated(const TopoDS_Shape& theShape) const
+const TopoShape BRepOffset_MakeSimpleOffset::Generated(const TopoShape& theShape) const
 {
   // Shape generated by modification.
-  TopoDS_Shape aRes;
+  TopoShape aRes;
   aRes = myBuilder.ModifiedShape(theShape);
 
   if (aRes.IsNull())
@@ -640,9 +640,9 @@ const TopoDS_Shape BRepOffset_MakeSimpleOffset::Generated(const TopoDS_Shape& th
 
 //=================================================================================================
 
-const TopoDS_Shape BRepOffset_MakeSimpleOffset::Modified(const TopoDS_Shape& theShape) const
+const TopoShape BRepOffset_MakeSimpleOffset::Modified(const TopoShape& theShape) const
 {
-  TopoDS_Shape aRes, anEmptyShape;
+  TopoShape aRes, anEmptyShape;
 
   // Get modification status and new shape.
   Standard_Integer aModStatus = myReShape->Status(theShape, aRes);

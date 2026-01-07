@@ -35,7 +35,7 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const Plate_GtoCConstraint& ref)
     myPPC[i] = ref.myPPC[i];
 }
 
-Plate_GtoCConstraint::Plate_GtoCConstraint(const gp_XY&    point2d,
+Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
                                            const Plate_D1& D1S,
                                            const Plate_D1& D1T)
     : myD1SurfInit(D1S)
@@ -70,7 +70,7 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const gp_XY&    point2d,
   nb_PPConstraints = 2;
 }
 
-Plate_GtoCConstraint::Plate_GtoCConstraint(const gp_XY&    point2d,
+Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
                                            const Plate_D1& D1S,
                                            const Plate_D1& D1T,
                                            const gp_XYZ&   nP)
@@ -110,7 +110,7 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const gp_XY&    point2d,
   nb_PPConstraints = 2;
 }
 
-Plate_GtoCConstraint::Plate_GtoCConstraint(const gp_XY&    point2d,
+Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
                                            const Plate_D1& D1S,
                                            const Plate_D1& D1T,
                                            const Plate_D2& D2S,
@@ -189,7 +189,7 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const gp_XY&    point2d,
   nb_PPConstraints = 5;
 }
 
-Plate_GtoCConstraint::Plate_GtoCConstraint(const gp_XY&    point2d,
+Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
                                            const Plate_D1& D1S,
                                            const Plate_D1& D1T,
                                            const Plate_D2& D2S,
@@ -274,7 +274,7 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const gp_XY&    point2d,
   nb_PPConstraints = 5;
 }
 
-Plate_GtoCConstraint::Plate_GtoCConstraint(const gp_XY&    point2d,
+Plate_GtoCConstraint::Plate_GtoCConstraint(const Coords2d&    point2d,
                                            const Plate_D1& D1S,
                                            const Plate_D1& D1T,
                                            const Plate_D2& D2S,
@@ -408,7 +408,7 @@ Plate_GtoCConstraint::Plate_GtoCConstraint(const gp_XY&    point2d,
 }
 
 Plate_GtoCConstraint::Plate_GtoCConstraint(
-  const gp_XY&    point2d,
+  const Coords2d&    point2d,
   const Plate_D1& D1S,
   const Plate_D1& D1T,
   const Plate_D2& D2S,

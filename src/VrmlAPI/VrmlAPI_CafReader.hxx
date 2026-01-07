@@ -16,7 +16,7 @@
 
 #include <RWMesh_CafReader.hxx>
 
-//! The Vrml mesh reader into XDE document.
+//! The Vrml1 mesh reader into XDE document.
 class VrmlAPI_CafReader : public RWMesh_CafReader
 {
   DEFINE_STANDARD_RTTIEXT(VrmlAPI_CafReader, RWMesh_CafReader)
@@ -29,7 +29,7 @@ protected:
   //! @param theToProbe  flag for probing file without complete reading. Not supported.
   //! @return false when theToProbe is set to true or reading has completed with error.
   Standard_EXPORT virtual Standard_Boolean performMesh(std::istream&                  theStream,
-                                                       const TCollection_AsciiString& theFile,
+                                                       const AsciiString1& theFile,
                                                        const Message_ProgressRange&   theProgress,
                                                        const Standard_Boolean         theToProbe)
     Standard_OVERRIDE;

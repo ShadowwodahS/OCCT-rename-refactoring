@@ -25,7 +25,7 @@ class BRepAdaptor_Curve;
 class Point3d;
 class Vector3d;
 
-class BRepLProp_CurveTool
+class CurveLocalPropsTool
 {
 public:
   DEFINE_STANDARD_ALLOC

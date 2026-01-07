@@ -179,9 +179,9 @@ void LocalAnalysis_CurveContinuity::CurvG2(GeomLProp_CLProps& Curv1, GeomLProp_C
 
 /*********************************************************************************/
 
-LocalAnalysis_CurveContinuity::LocalAnalysis_CurveContinuity(const Handle(Geom_Curve)& Curv1,
+LocalAnalysis_CurveContinuity::LocalAnalysis_CurveContinuity(const Handle(GeomCurve3d)& Curv1,
                                                              const Standard_Real       u1,
-                                                             const Handle(Geom_Curve)& Curv2,
+                                                             const Handle(GeomCurve3d)& Curv2,
                                                              const Standard_Real       u2,
                                                              const GeomAbs_Shape       Order,
                                                              const Standard_Real       Epsnul,

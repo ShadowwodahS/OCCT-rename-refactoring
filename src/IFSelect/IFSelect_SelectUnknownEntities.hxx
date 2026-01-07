@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class RefObject;
 class Interface_InterfaceModel;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_SelectUnknownEntities;
 DEFINE_STANDARD_HANDLE(IFSelect_SelectUnknownEntities, IFSelect_SelectExtract)
@@ -46,7 +46,7 @@ public:
          const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   //! Returns a text defining the criterium : "Recognized Entities"
-  Standard_EXPORT TCollection_AsciiString ExtractLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExtractLabel() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectUnknownEntities, IFSelect_SelectExtract)
 

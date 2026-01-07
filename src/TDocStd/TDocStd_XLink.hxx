@@ -22,7 +22,7 @@
 #include <TDocStd_XLinkPtr.hxx>
 #include <TDF_Attribute.hxx>
 #include <Standard_OStream.hxx>
-class TDF_Label;
+class DataLabel;
 class TDF_Reference;
 class Standard_GUID;
 class TDF_AttributeDelta;
@@ -40,7 +40,7 @@ class TDocStd_XLink : public TDF_Attribute
 
 public:
   //! Sets an empty external reference, at the label aLabel.
-  Standard_EXPORT static Handle(TDocStd_XLink) Set(const TDF_Label& atLabel);
+  Standard_EXPORT static Handle(TDocStd_XLink) Set(const DataLabel& atLabel);
 
   //! Initializes fields.
   Standard_EXPORT TDocStd_XLink();
@@ -56,22 +56,22 @@ public:
 
   //! Sets the name aDocEntry for the external
   //! document in this external link attribute.
-  Standard_EXPORT void DocumentEntry(const TCollection_AsciiString& aDocEntry);
+  Standard_EXPORT void DocumentEntry(const AsciiString1& aDocEntry);
 
   //! Returns the contents of the document identified by aDocEntry.
   //! aDocEntry provides external data to this external link attribute.
-  Standard_EXPORT const TCollection_AsciiString& DocumentEntry() const;
+  Standard_EXPORT const AsciiString1& DocumentEntry() const;
 
   //! Sets the label entry for this external link attribute with the label aLabel.
   //! aLabel pilots the importation of data from the document entry.
-  Standard_EXPORT void LabelEntry(const TDF_Label& aLabel);
+  Standard_EXPORT void LabelEntry(const DataLabel& aLabel);
 
   //! Sets the label entry for this external link attribute
   //! as a document identified by aLabEntry.
-  Standard_EXPORT void LabelEntry(const TCollection_AsciiString& aLabEntry);
+  Standard_EXPORT void LabelEntry(const AsciiString1& aLabEntry);
 
   //! Returns the contents of the field <myLabelEntry>.
-  Standard_EXPORT const TCollection_AsciiString& LabelEntry() const;
+  Standard_EXPORT const AsciiString1& LabelEntry() const;
 
   //! Updates the XLinkRoot attribute by adding <me>
   //! to its list.
@@ -122,8 +122,8 @@ private:
   //! Returns the contents of the field <myNext>.
   TDocStd_XLinkPtr Next() const;
 
-  TCollection_AsciiString myDocEntry;
-  TCollection_AsciiString myLabelEntry;
+  AsciiString1 myDocEntry;
+  AsciiString1 myLabelEntry;
   TDocStd_XLinkPtr        myNext;
 };
 

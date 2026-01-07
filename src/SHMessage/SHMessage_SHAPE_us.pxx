@@ -78,7 +78,7 @@ static const char SHMessage_SHAPE_us[] =
   "! Messages for Shape Healing\n"
   "! \n"
   "! ------------------------------------------------------------------------------\n"
-  "! Messages for ShapeFix_Wire\n"
+  "! Messages for WireHealer\n"
   "! \n"
   ".FixWire.FixDegenerated.MSG0\n"
   "Degenerated edge(s) detected\n"

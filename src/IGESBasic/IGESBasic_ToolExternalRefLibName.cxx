@@ -30,9 +30,9 @@
 #include <Interface_ShareTool.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESBasic_ToolExternalRefLibName::IGESBasic_ToolExternalRefLibName() {}
+ExternalRefLibNameTool::ExternalRefLibNameTool() {}
 
-void IGESBasic_ToolExternalRefLibName::ReadOwnParams(
+void ExternalRefLibNameTool::ReadOwnParams(
   const Handle(IGESBasic_ExternalRefLibName)& ent,
   const Handle(IGESData_IGESReaderData)& /* IR */,
   IGESData_ParamReader& PR) const
@@ -51,7 +51,7 @@ void IGESBasic_ToolExternalRefLibName::ReadOwnParams(
   ent->Init(tempLibName, tempExtRefEntitySymbName);
 }
 
-void IGESBasic_ToolExternalRefLibName::WriteOwnParams(
+void ExternalRefLibNameTool::WriteOwnParams(
   const Handle(IGESBasic_ExternalRefLibName)& ent,
   IGESData_IGESWriter&                        IW) const
 {
@@ -59,13 +59,13 @@ void IGESBasic_ToolExternalRefLibName::WriteOwnParams(
   IW.Send(ent->ReferenceName());
 }
 
-void IGESBasic_ToolExternalRefLibName::OwnShared(
+void ExternalRefLibNameTool::OwnShared(
   const Handle(IGESBasic_ExternalRefLibName)& /* ent */,
   Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESBasic_ToolExternalRefLibName::OwnCopy(const Handle(IGESBasic_ExternalRefLibName)& another,
+void ExternalRefLibNameTool::OwnCopy(const Handle(IGESBasic_ExternalRefLibName)& another,
                                                const Handle(IGESBasic_ExternalRefLibName)& ent,
                                                Interface_CopyTool& /* TC */) const
 {
@@ -76,10 +76,10 @@ void IGESBasic_ToolExternalRefLibName::OwnCopy(const Handle(IGESBasic_ExternalRe
   ent->Init(tempLibName, tempRefName);
 }
 
-IGESData_DirChecker IGESBasic_ToolExternalRefLibName::DirChecker(
+DirectoryChecker ExternalRefLibNameTool::DirChecker(
   const Handle(IGESBasic_ExternalRefLibName)& /* ent */) const
 {
-  IGESData_DirChecker DC(416, 4);
+  DirectoryChecker DC(416, 4);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -90,14 +90,14 @@ IGESData_DirChecker IGESBasic_ToolExternalRefLibName::DirChecker(
   return DC;
 }
 
-void IGESBasic_ToolExternalRefLibName::OwnCheck(
+void ExternalRefLibNameTool::OwnCheck(
   const Handle(IGESBasic_ExternalRefLibName)& /* ent */,
   const Interface_ShareTool&,
   Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESBasic_ToolExternalRefLibName::OwnDump(const Handle(IGESBasic_ExternalRefLibName)& ent,
+void ExternalRefLibNameTool::OwnDump(const Handle(IGESBasic_ExternalRefLibName)& ent,
                                                const IGESData_IGESDumper& /* dumper */,
                                                Standard_OStream& S,
                                                const Standard_Integer /* level */) const

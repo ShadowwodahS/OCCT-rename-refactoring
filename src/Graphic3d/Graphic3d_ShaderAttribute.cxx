@@ -19,7 +19,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_ShaderAttribute, RefObject)
 
 //=================================================================================================
 
-Graphic3d_ShaderAttribute::Graphic3d_ShaderAttribute(const TCollection_AsciiString& theName,
+Graphic3d_ShaderAttribute::Graphic3d_ShaderAttribute(const AsciiString1& theName,
                                                      const int                      theLocation)
     : myName(theName),
       myLocation(theLocation)

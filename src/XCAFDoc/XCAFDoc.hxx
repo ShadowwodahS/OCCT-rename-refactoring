@@ -32,13 +32,13 @@ class Standard_GUID;
 //! storing its own kind of data and managing by corresponding
 //! tool
 //! Some properties can be attached directly to shapes. These properties are:
-//! * Name (the standard definition from OCAF) - class TDataStd_Name
+//! * Name (the standard definition from OCAF) - class NameAttribute
 //! * Centroid (for the validation of transfer) - class XCAFDoc_Centroid
 //! * Volume (for the validation of transfer) - class XCAFDoc_Volume
 //! * Area (for the validation of transfer) - class XCafDoc_Area
 //! Management of these attributes is realized by OCAF. For getting
 //! the attributes attached to a label the method class
-//! TDF_Label::FindAttribute() should be used.
+//! DataLabel::FindAttribute() should be used.
 class XCAFDoc
 {
 public:
@@ -114,7 +114,7 @@ public:
   //! Prints attribute information into a string.
   //! @param theAtt an XDE attribute
   //! @return the generated info value
-  Standard_EXPORT static TCollection_AsciiString AttributeInfo(const Handle(TDF_Attribute)& theAtt);
+  Standard_EXPORT static AsciiString1 AttributeInfo(const Handle(TDF_Attribute)& theAtt);
 };
 
 #endif // _XCAFDoc_HeaderFile

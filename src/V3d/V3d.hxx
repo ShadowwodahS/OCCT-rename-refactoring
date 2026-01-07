@@ -25,7 +25,7 @@
 #include <V3d_TypeOfOrientation.hxx>
 
 class Graphic3d_Group;
-class V3d_View;
+class ViewWindow;
 
 //! This package contains the set of commands and services
 //! of the 3D Viewer. It provides a set of high level commands
@@ -124,8 +124,8 @@ public:
                                             const Standard_Real            VZ,
                                             const Standard_Real            Radius);
 
-  Standard_EXPORT static void SwitchViewsinWindow(const Handle(V3d_View)& aPreviousView,
-                                                  const Handle(V3d_View)& aNextView);
+  Standard_EXPORT static void SwitchViewsinWindow(const Handle(ViewWindow)& aPreviousView,
+                                                  const Handle(ViewWindow)& aNextView);
 
   //! Returns the string name for a given orientation type.
   //! @param theType orientation type

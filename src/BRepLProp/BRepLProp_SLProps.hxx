@@ -31,7 +31,7 @@ class Standard_DomainError;
 class Standard_OutOfRange;
 class LProp_NotDefined;
 class BRepAdaptor_Surface;
-class BRepLProp_SurfaceTool;
+class SurfaceLocalPropsTool;
 class Point3d;
 class Vector3d;
 class Dir3d;

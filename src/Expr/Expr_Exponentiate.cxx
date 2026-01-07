@@ -76,7 +76,7 @@ Handle(Expr_GeneralExpression) Expr_Exponentiate::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_Exponentiate::Copy() const
 {
-  return new Expr_Exponentiate(Expr::CopyShare(FirstOperand()), Expr::CopyShare(SecondOperand()));
+  return new Expr_Exponentiate(Expr1::CopyShare(FirstOperand()), Expr1::CopyShare(SecondOperand()));
 }
 
 Standard_Boolean Expr_Exponentiate::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -121,11 +121,11 @@ Handle(Expr_GeneralExpression) Expr_Exponentiate::Derivative(
   Handle(Expr_GeneralExpression) mysder = mysecond->Derivative(X);
 
   Expr_SequenceOfGeneralExpression prod1;
-  prod1.Append(Expr::CopyShare(mysecond)); // h(X)
+  prod1.Append(Expr1::CopyShare(mysecond)); // h(X)
 
-  Handle(Expr_Difference)   difh1 = Expr::CopyShare(mysecond) - 1.0; // h(X)-1
+  Handle(Expr_Difference)   difh1 = Expr1::CopyShare(mysecond) - 1.0; // h(X)-1
   Handle(Expr_Exponentiate) exp1 =
-    new Expr_Exponentiate(Expr::CopyShare(myfirst), difh1->ShallowSimplified());
+    new Expr_Exponentiate(Expr1::CopyShare(myfirst), difh1->ShallowSimplified());
   prod1.Append(exp1->ShallowSimplified()); // g(X) ** (h(X)-1)
 
   prod1.Append(myfder); // g'(X)
@@ -134,10 +134,10 @@ Handle(Expr_GeneralExpression) Expr_Exponentiate::Derivative(
 
   Expr_SequenceOfGeneralExpression prod2;
   Handle(Expr_Exponentiate)        exp2 =
-    new Expr_Exponentiate(Expr::CopyShare(myfirst), Expr::CopyShare(mysecond));
+    new Expr_Exponentiate(Expr1::CopyShare(myfirst), Expr1::CopyShare(mysecond));
   prod2.Append(exp2->ShallowSimplified()); // g(X) ** h(X)
 
-  Handle(Expr_LogOfe) log = new Expr_LogOfe(Expr::CopyShare(myfirst));
+  Handle(Expr_LogOfe) log = new Expr_LogOfe(Expr1::CopyShare(myfirst));
   prod2.Append(log->ShallowSimplified()); // Log(g(X))
   prod2.Append(mysder);                   // h'(X)
 
@@ -154,11 +154,11 @@ Standard_Real Expr_Exponentiate::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return ::Pow(res, SecondOperand()->Evaluate(vars, vals));
 }
 
-TCollection_AsciiString Expr_Exponentiate::String() const
+AsciiString1 Expr_Exponentiate::String() const
 {
   Handle(Expr_GeneralExpression) op1 = FirstOperand();
   Handle(Expr_GeneralExpression) op2 = SecondOperand();
-  TCollection_AsciiString        str;
+  AsciiString1        str;
   if (op1->NbSubExpressions() > 1)
   {
     str = "(";

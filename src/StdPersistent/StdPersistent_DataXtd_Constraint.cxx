@@ -36,7 +36,7 @@ void StdPersistent_DataXtd_Constraint::Import(const Handle(TDataXtd_Constraint)&
       if (aPGeometry)
       {
         Handle(TDF_Attribute) aTGeometry = aPGeometry->GetAttribute();
-        theAttribute->SetGeometry(i, Handle(TNaming_NamedShape)::DownCast(aTGeometry));
+        theAttribute->SetGeometry(i, Handle(ShapeAttribute)::DownCast(aTGeometry));
       }
     }
   }
@@ -50,6 +50,6 @@ void StdPersistent_DataXtd_Constraint::Import(const Handle(TDataXtd_Constraint)&
   if (myPlane)
   {
     Handle(TDF_Attribute) aPlane = myPlane->GetAttribute();
-    theAttribute->SetPlane(Handle(TNaming_NamedShape)::DownCast(aPlane));
+    theAttribute->SetPlane(Handle(ShapeAttribute)::DownCast(aPlane));
   }
 }

@@ -95,7 +95,7 @@ static Graphic3d_Vec2i computeSmallestMipMapSize(const Graphic3d_Vec2i& theBaseS
 
 //=================================================================================================
 
-OpenGl_Texture::OpenGl_Texture(const TCollection_AsciiString&         theResourceId,
+OpenGl_Texture::OpenGl_Texture(const AsciiString1&         theResourceId,
                                const Handle(Graphic3d_TextureParams)& theParams)
     : OpenGl_NamedResource(theResourceId),
       mySampler(new OpenGl_Sampler(theParams)),
@@ -227,7 +227,7 @@ bool OpenGl_Texture::Init(const Handle(OpenGl_Context)& theCtx,
                         GL_DEBUG_TYPE_ERROR,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString("Error: texture of 0 size cannot be created [")
+                        AsciiString1("Error: texture of 0 size cannot be created [")
                           + myResourceId + "]");
     Release(theCtx.get());
     return false;
@@ -295,7 +295,7 @@ bool OpenGl_Texture::Init(const Handle(OpenGl_Context)& theCtx,
       GL_DEBUG_TYPE_ERROR,
       0,
       GL_DEBUG_SEVERITY_HIGH,
-      TCollection_AsciiString("Error: floating-point textures are not supported by hardware [")
+      AsciiString1("Error: floating-point textures are not supported by hardware [")
         + myResourceId + "]");
     Release(theCtx.get());
     return false;
@@ -308,10 +308,10 @@ bool OpenGl_Texture::Init(const Handle(OpenGl_Context)& theCtx,
                         GL_DEBUG_TYPE_ERROR,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString("Error: Texture dimension - ") + theSizeXYZ.x()
+                        AsciiString1("Error: Texture dimension - ") + theSizeXYZ.x()
                           + "x" + theSizeXYZ.y()
-                          + (theSizeXYZ.z() > 1 ? TCollection_AsciiString("x") + theSizeXYZ.z()
-                                                : TCollection_AsciiString())
+                          + (theSizeXYZ.z() > 1 ? AsciiString1("x") + theSizeXYZ.z()
+                                                : AsciiString1())
                           + " exceeds hardware limits (" + aMaxSize + "x" + aMaxSize + ")" + " ["
                           + myResourceId + "]");
     Release(theCtx.get());
@@ -333,7 +333,7 @@ bool OpenGl_Texture::Init(const Handle(OpenGl_Context)& theCtx,
                           GL_DEBUG_TYPE_PORTABILITY,
                           0,
                           GL_DEBUG_SEVERITY_HIGH,
-                          TCollection_AsciiString("Error: NPOT Textures (") + theSizeXYZ.x() + "x"
+                          AsciiString1("Error: NPOT Textures (") + theSizeXYZ.x() + "x"
                             + theSizeXYZ.y()
                             + ")"
                               " are not supported by hardware ["
@@ -370,7 +370,7 @@ bool OpenGl_Texture::Init(const Handle(OpenGl_Context)& theCtx,
         GL_DEBUG_TYPE_PORTABILITY,
         0,
         GL_DEBUG_SEVERITY_HIGH,
-        TCollection_AsciiString("Error: unsupported image stride within OpenGL ES 2.0 [")
+        AsciiString1("Error: unsupported image stride within OpenGL ES 2.0 [")
           + myResourceId + "]");
       Release(theCtx.get());
       return false;
@@ -388,7 +388,7 @@ bool OpenGl_Texture::Init(const Handle(OpenGl_Context)& theCtx,
           GL_DEBUG_TYPE_ERROR,
           0,
           GL_DEBUG_SEVERITY_HIGH,
-          TCollection_AsciiString("Error: 1D textures are not supported by hardware [")
+          AsciiString1("Error: 1D textures are not supported by hardware [")
             + myResourceId + "]");
         Release(theCtx.get());
         return false;
@@ -518,7 +518,7 @@ bool OpenGl_Texture::Init(const Handle(OpenGl_Context)& theCtx,
                             GL_DEBUG_TYPE_ERROR,
                             0,
                             GL_DEBUG_SEVERITY_HIGH,
-                            TCollection_AsciiString("Error: 2D texture ") + theSizeXYZ.x() + "x"
+                            AsciiString1("Error: 2D texture ") + theSizeXYZ.x() + "x"
                               + theSizeXYZ.y()
                               + " IF: " + OpenGl_TextureFormat::FormatFormat(anIntFormat) + " PF: "
                               + OpenGl_TextureFormat::FormatFormat(theFormat.PixelFormat())
@@ -603,7 +603,7 @@ bool OpenGl_Texture::Init(const Handle(OpenGl_Context)& theCtx,
                             GL_DEBUG_TYPE_ERROR,
                             0,
                             GL_DEBUG_SEVERITY_HIGH,
-                            TCollection_AsciiString("Error: 3D texture ") + theSizeXYZ.x() + "x"
+                            AsciiString1("Error: 3D texture ") + theSizeXYZ.x() + "x"
                               + theSizeXYZ.y() + "x" + theSizeXYZ.z()
                               + " IF: " + OpenGl_TextureFormat::FormatFormat(anIntFormat) + " PF: "
                               + OpenGl_TextureFormat::FormatFormat(theFormat.PixelFormat())
@@ -653,7 +653,7 @@ bool OpenGl_Texture::GenerateMipmaps(const Handle(OpenGl_Context)& theCtx)
                           GL_DEBUG_TYPE_PORTABILITY,
                           0,
                           GL_DEBUG_SEVERITY_HIGH,
-                          TCollection_AsciiString("Warning: Mipmap NPOT Textures (") + mySize.x()
+                          AsciiString1("Warning: Mipmap NPOT Textures (") + mySize.x()
                             + "x" + mySize.y()
                             + ")"
                               " are not supported by OpenGL ES 2.0 ["
@@ -692,7 +692,7 @@ bool OpenGl_Texture::GenerateMipmaps(const Handle(OpenGl_Context)& theCtx)
         GL_DEBUG_TYPE_PORTABILITY,
         0,
         GL_DEBUG_SEVERITY_HIGH,
-        TCollection_AsciiString(
+        AsciiString1(
           "Warning: generating mipmaps requires color-renderable format, while giving ")
           + OpenGl_TextureFormat::FormatFormat(mySizedFormat) + " [" + myResourceId + "]");
     }
@@ -702,7 +702,7 @@ bool OpenGl_Texture::GenerateMipmaps(const Handle(OpenGl_Context)& theCtx)
                           GL_DEBUG_TYPE_PORTABILITY,
                           0,
                           GL_DEBUG_SEVERITY_HIGH,
-                          TCollection_AsciiString("Warning: generating mipmaps has failed [")
+                          AsciiString1("Warning: generating mipmaps has failed [")
                             + myResourceId + "]");
     }
   }
@@ -733,7 +733,7 @@ bool OpenGl_Texture::Init(const Handle(OpenGl_Context)& theCtx,
                         GL_DEBUG_TYPE_ERROR,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString("Error: No suitable texture format for ")
+                        AsciiString1("Error: No suitable texture format for ")
                           + Image_PixMap::ImageFormatToString(theImage.Format()) + " image format"
                           + " [" + myResourceId + "]");
     Release(theCtx.get());
@@ -814,7 +814,7 @@ bool OpenGl_Texture::InitCompressed(const Handle(OpenGl_Context)& theCtx,
                         GL_DEBUG_TYPE_ERROR,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString("Error: Texture dimension - ") + theImage.SizeX()
+                        AsciiString1("Error: Texture dimension - ") + theImage.SizeX()
                           + "x" + theImage.SizeY() + " exceeds hardware limits ("
                           + theCtx->MaxTextureSize() + "x" + theCtx->MaxTextureSize() + ")");
     Release(theCtx.get());
@@ -829,7 +829,7 @@ bool OpenGl_Texture::InitCompressed(const Handle(OpenGl_Context)& theCtx,
                         GL_DEBUG_TYPE_ERROR,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString("Error: No suitable texture format for ")
+                        AsciiString1("Error: No suitable texture format for ")
                           + Image_PixMap::ImageFormatToString(theImage.CompressedFormat())
                           + " image format " + " [" + myResourceId + "]");
     Release(theCtx.get());
@@ -858,13 +858,13 @@ bool OpenGl_Texture::InitCompressed(const Handle(OpenGl_Context)& theCtx,
                           GL_DEBUG_TYPE_PERFORMANCE,
                           0,
                           GL_DEBUG_SEVERITY_MEDIUM,
-                          TCollection_AsciiString("Warning: compressed 2D texture ") + myResourceId
+                          AsciiString1("Warning: compressed 2D texture ") + myResourceId
                             + " " + mySize.x() + "x" + mySize.y() + " has smallest mipmap "
                             + aMipSize.x() + "x" + aMipSize.y() + "; mipmaps will be ignored");
     }
     else
     {
-      Message::SendTrace(TCollection_AsciiString("Warning: compressed 2D texture ") + myResourceId
+      Message::SendTrace(AsciiString1("Warning: compressed 2D texture ") + myResourceId
                          + " " + mySize.x() + "x" + mySize.y() + " has smallest mipmap "
                          + aMipSize.x() + "x" + aMipSize.y());
     }
@@ -897,7 +897,7 @@ bool OpenGl_Texture::InitCompressed(const Handle(OpenGl_Context)& theCtx,
         GL_DEBUG_TYPE_ERROR,
         0,
         GL_DEBUG_SEVERITY_HIGH,
-        TCollection_AsciiString("Error: 2D compressed texture ") + aMipSizeXY.x() + "x"
+        AsciiString1("Error: 2D compressed texture ") + aMipSizeXY.x() + "x"
           + aMipSizeXY.y() + " IF: " + OpenGl_TextureFormat::FormatFormat(aFormat.Internal())
           + " PF: " + OpenGl_TextureFormat::FormatFormat(aFormat.PixelFormat())
           + " DT: " + OpenGl_TextureFormat::FormatDataType(aFormat.DataType())
@@ -937,7 +937,7 @@ bool OpenGl_Texture::Init2DMultisample(const Handle(OpenGl_Context)& theCtx,
                         GL_DEBUG_TYPE_ERROR,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString("Error: MSAA texture ") + theSizeX + "x" + theSizeY
+                        AsciiString1("Error: MSAA texture ") + theSizeX + "x" + theSizeY
                           + "@" + myNbSamples
                           + " exceeds samples limit: " + theCtx->MaxMsaaSamples() + ".");
     return false;
@@ -952,7 +952,7 @@ bool OpenGl_Texture::Init2DMultisample(const Handle(OpenGl_Context)& theCtx,
                         GL_DEBUG_TYPE_ERROR,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString("Error: MSAA texture ") + theSizeX + "x" + theSizeY
+                        AsciiString1("Error: MSAA texture ") + theSizeX + "x" + theSizeY
                           + "@" + myNbSamples + " exceeds size limit: " + theCtx->MaxTextureSize()
                           + "x" + theCtx->MaxTextureSize() + ".");
     return false;
@@ -996,7 +996,7 @@ bool OpenGl_Texture::Init2DMultisample(const Handle(OpenGl_Context)& theCtx,
       GL_DEBUG_TYPE_ERROR,
       0,
       GL_DEBUG_SEVERITY_HIGH,
-      TCollection_AsciiString("Error: MSAA texture ") + theSizeX + "x" + theSizeY + "@"
+      AsciiString1("Error: MSAA texture ") + theSizeX + "x" + theSizeY + "@"
         + myNbSamples + " IF: " + OpenGl_TextureFormat::FormatFormat(theTextFormat)
         + " cannot be created with error " + OpenGl_Context::FormatGlError(aTexImgErr) + ".");
     Unbind(theCtx);
@@ -1250,14 +1250,14 @@ bool OpenGl_Texture::InitCubeMap(const Handle(OpenGl_Context)&    theCtx,
                                 GL_DEBUG_TYPE_PERFORMANCE,
                                 0,
                                 GL_DEBUG_SEVERITY_MEDIUM,
-                                TCollection_AsciiString("Warning: Cubemap compressed texture ")
+                                AsciiString1("Warning: Cubemap compressed texture ")
                                   + theCubeMap->GetId() + " " + aCompImage->SizeX() + "x"
                                   + aCompImage->SizeX() + " has smallest mipmap " + aMipSize.x()
                                   + "x" + aMipSize.y() + "; mipmaps will be ignored");
           }
           else
           {
-            Message::SendTrace(TCollection_AsciiString("Warning: Cubemap compressed texture ")
+            Message::SendTrace(AsciiString1("Warning: Cubemap compressed texture ")
                                + theCubeMap->GetId() + " " + aCompImage->SizeX() + "x"
                                + aCompImage->SizeX() + " has smallest mipmap " + aMipSize.x() + "x"
                                + aMipSize.y());
@@ -1304,7 +1304,7 @@ bool OpenGl_Texture::InitCubeMap(const Handle(OpenGl_Context)&    theCtx,
                         GL_DEBUG_TYPE_ERROR,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString("Error: No suitable texture format for ")
+                        AsciiString1("Error: No suitable texture format for ")
                           + Image_PixMap::ImageFormatToString(theFormat) + " image format" + " ["
                           + myResourceId + "]");
     Unbind(theCtx);
@@ -1321,7 +1321,7 @@ bool OpenGl_Texture::InitCubeMap(const Handle(OpenGl_Context)&    theCtx,
       GL_DEBUG_TYPE_PORTABILITY,
       0,
       GL_DEBUG_SEVERITY_HIGH,
-      TCollection_AsciiString(
+      AsciiString1(
         "Warning, GL_EXT_sRGB disallows generation of mipmaps - fallback using non-sRGB format")
         + " [" + myResourceId + "]");
     aFormat.SetPixelFormat(aFormat.PixelFormat() == GL_SRGB_EXT ? GL_RGB : GL_RGBA);
@@ -1383,7 +1383,7 @@ bool OpenGl_Texture::InitCubeMap(const Handle(OpenGl_Context)&    theCtx,
               GL_DEBUG_TYPE_ERROR,
               0,
               GL_DEBUG_SEVERITY_HIGH,
-              TCollection_AsciiString("Error: cubemap compressed texture ") + aMipSizeXY.x() + "x"
+              AsciiString1("Error: cubemap compressed texture ") + aMipSizeXY.x() + "x"
                 + aMipSizeXY.y() + " IF: " + OpenGl_TextureFormat::FormatFormat(aFormat.Internal())
                 + " PF: " + OpenGl_TextureFormat::FormatFormat(aFormat.PixelFormat())
                 + " DT: " + OpenGl_TextureFormat::FormatDataType(aFormat.DataType())
@@ -1452,7 +1452,7 @@ bool OpenGl_Texture::InitCubeMap(const Handle(OpenGl_Context)&    theCtx,
                             GL_DEBUG_TYPE_ERROR,
                             0,
                             GL_DEBUG_SEVERITY_HIGH,
-                            TCollection_AsciiString() + "Unable to get [" + i
+                            AsciiString1() + "Unable to get [" + i
                               + "] side of cubemap");
         Unbind(theCtx);
         Release(theCtx.get());
@@ -1481,7 +1481,7 @@ bool OpenGl_Texture::InitCubeMap(const Handle(OpenGl_Context)&    theCtx,
         GL_DEBUG_TYPE_ERROR,
         0,
         GL_DEBUG_SEVERITY_HIGH,
-        TCollection_AsciiString("Error: cubemap side  ") + (int)theSize + "x" + (int)theSize
+        AsciiString1("Error: cubemap side  ") + (int)theSize + "x" + (int)theSize
           + " IF: " + OpenGl_TextureFormat::FormatFormat(anIntFormat)
           + " PF: " + OpenGl_TextureFormat::FormatFormat(aFormat.PixelFormat())
           + " DT: " + OpenGl_TextureFormat::FormatDataType(aFormat.DataType())

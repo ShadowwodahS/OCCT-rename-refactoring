@@ -21,9 +21,9 @@
 #include <TCollection_AsciiString.hxx>
 
 // --- Enum : Source ---
-static TCollection_AsciiString sBought(".BOUGHT.");
-static TCollection_AsciiString sNotKnown(".NOT_KNOWN.");
-static TCollection_AsciiString sMade(".MADE.");
+static AsciiString1 sBought(".BOUGHT.");
+static AsciiString1 sNotKnown(".NOT_KNOWN.");
+static AsciiString1 sMade(".MADE.");
 
 RWStepBasic_RWProductDefinitionFormationWithSpecifiedSource::
   RWStepBasic_RWProductDefinitionFormationWithSpecifiedSource()

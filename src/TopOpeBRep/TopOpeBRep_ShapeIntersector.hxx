@@ -44,12 +44,12 @@ class TopOpeBRepTool_HBoxTool;
 //! It  is in charge  of  exploration  of the shapes  and
 //! rejection. For this it is provided with two tools :
 //!
-//! - ShapeExplorer from TopOpeBRepTool.
-//! - ShapeScanner from TopOpeBRep which implements bounding boxes.
+//! - ShapeExplorer from TopOpeBRepTool1.
+//! - ShapeScanner from TopOpeBRep1 which implements bounding boxes.
 //!
 //! Let S1,S2 the shapes sent to InitIntersection(S1,S2) method :
-//! - S1 is always SCANNED by a ShapeScanner from TopOpeBRep.
-//! - S2 is always EXPLORED by a ShapeExplorer from TopOpeBRepTool.
+//! - S1 is always SCANNED by a ShapeScanner from TopOpeBRep1.
+//! - S2 is always EXPLORED by a ShapeExplorer from TopOpeBRepTool1.
 class TopOpeBRep_ShapeIntersector
 {
 public:
@@ -58,18 +58,18 @@ public:
   Standard_EXPORT TopOpeBRep_ShapeIntersector();
 
   //! Initialize the intersection of shapes S1,S2.
-  Standard_EXPORT void InitIntersection(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
+  Standard_EXPORT void InitIntersection(const TopoShape& S1, const TopoShape& S2);
 
   //! Initialize the intersection of shapes S1,S2.
-  Standard_EXPORT void InitIntersection(const TopoDS_Shape& S1,
-                                        const TopoDS_Shape& S2,
-                                        const TopoDS_Face&  F1,
-                                        const TopoDS_Face&  F2);
+  Standard_EXPORT void InitIntersection(const TopoShape& S1,
+                                        const TopoShape& S2,
+                                        const TopoFace&  F1,
+                                        const TopoFace&  F2);
 
   //! return  the shape  <Index> ( = 1 or 2) given to
   //! InitIntersection().
   //! Index = 1 will return S1, Index = 2 will return S2.
-  Standard_EXPORT const TopoDS_Shape& Shape(const Standard_Integer Index) const;
+  Standard_EXPORT const TopoShape& Shape(const Standard_Integer Index) const;
 
   //! returns True if there are more intersection
   //! between two the shapes.
@@ -89,25 +89,25 @@ public:
 
   //! return  geometric  shape <Index> ( = 1 or 2 )  of
   //! current intersection.
-  Standard_EXPORT const TopoDS_Shape& CurrentGeomShape(const Standard_Integer Index) const;
+  Standard_EXPORT const TopoShape& CurrentGeomShape(const Standard_Integer Index) const;
 
   //! return  MAX of intersection tolerances with
-  //! which FacesIntersector from TopOpeBRep was working.
+  //! which FacesIntersector from TopOpeBRep1 was working.
   Standard_EXPORT void GetTolerances(Standard_Real& tol1, Standard_Real& tol2) const;
 
   Standard_EXPORT void DumpCurrent(const Standard_Integer K) const;
 
   Standard_EXPORT Standard_Integer Index(const Standard_Integer K) const;
 
-  Standard_EXPORT void RejectedFaces(const TopoDS_Shape&   anObj,
-                                     const TopoDS_Shape&   aReference,
-                                     TopTools_ListOfShape& aListOfShape);
+  Standard_EXPORT void RejectedFaces(const TopoShape&   anObj,
+                                     const TopoShape&   aReference,
+                                     ShapeList& aListOfShape);
 
 protected:
 private:
   Standard_EXPORT void Reset();
 
-  Standard_EXPORT void Init(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
+  Standard_EXPORT void Init(const TopoShape& S1, const TopoShape& S2);
 
   Standard_EXPORT void SetIntersectionDone();
 
@@ -151,8 +151,8 @@ private:
 
   Standard_EXPORT void NextEECouple();
 
-  TopoDS_Shape                    myShape1;
-  TopoDS_Shape                    myShape2;
+  TopoShape                    myShape1;
+  TopoShape                    myShape2;
   Handle(TopOpeBRepTool_HBoxTool) myHBoxTool;
   TopOpeBRepTool_ShapeExplorer    myFaceExplorer;
   TopOpeBRep_ShapeScanner         myFaceScanner;
@@ -162,8 +162,8 @@ private:
   TopOpeBRep_ShapeScanner         myEdgeScanner;
   TopOpeBRep_EdgesIntersector     myEEIntersector;
   TopOpeBRep_FaceEdgeIntersector  myFEIntersector;
-  TopoDS_Face                     myEEFace1;
-  TopoDS_Face                     myEEFace2;
+  TopoFace                     myEEFace1;
+  TopoFace                     myEEFace2;
   Standard_Boolean                myIntersectionDone;
   Standard_Real                   myTol1;
   Standard_Real                   myTol2;

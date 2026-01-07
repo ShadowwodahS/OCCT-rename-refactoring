@@ -35,9 +35,9 @@
 #include <Interface_ShareTool.hxx>
 #include <Message_Messenger.hxx>
 
-IGESGraph_ToolTextDisplayTemplate::IGESGraph_ToolTextDisplayTemplate() {}
+TextDisplayTemplateTool::TextDisplayTemplateTool() {}
 
-void IGESGraph_ToolTextDisplayTemplate::ReadOwnParams(
+void TextDisplayTemplateTool::ReadOwnParams(
   const Handle(IGESGraph_TextDisplayTemplate)& ent,
   const Handle(IGESData_IGESReaderData)&       IR,
   IGESData_ParamReader&                        PR) const
@@ -112,7 +112,7 @@ void IGESGraph_ToolTextDisplayTemplate::ReadOwnParams(
             corner);
 }
 
-void IGESGraph_ToolTextDisplayTemplate::WriteOwnParams(
+void TextDisplayTemplateTool::WriteOwnParams(
   const Handle(IGESGraph_TextDisplayTemplate)& ent,
   IGESData_IGESWriter&                         IW) const
 {
@@ -133,14 +133,14 @@ void IGESGraph_ToolTextDisplayTemplate::WriteOwnParams(
   IW.Send(ent->StartingCorner().Z());
 }
 
-void IGESGraph_ToolTextDisplayTemplate::OwnShared(const Handle(IGESGraph_TextDisplayTemplate)& ent,
+void TextDisplayTemplateTool::OwnShared(const Handle(IGESGraph_TextDisplayTemplate)& ent,
                                                   Interface_EntityIterator& iter) const
 {
   if (ent->IsFontEntity())
     iter.GetOneItem(ent->FontEntity());
 }
 
-void IGESGraph_ToolTextDisplayTemplate::OwnCopy(
+void TextDisplayTemplateTool::OwnCopy(
   const Handle(IGESGraph_TextDisplayTemplate)& another,
   const Handle(IGESGraph_TextDisplayTemplate)& ent,
   Interface_CopyTool&                          TC) const
@@ -180,10 +180,10 @@ void IGESGraph_ToolTextDisplayTemplate::OwnCopy(
             corner);
 }
 
-IGESData_DirChecker IGESGraph_ToolTextDisplayTemplate::DirChecker(
+DirectoryChecker TextDisplayTemplateTool::DirChecker(
   const Handle(IGESGraph_TextDisplayTemplate)& /*ent*/) const
 {
-  IGESData_DirChecker DC(312, 0, 1);
+  DirectoryChecker DC(312, 0, 1);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -194,14 +194,14 @@ IGESData_DirChecker IGESGraph_ToolTextDisplayTemplate::DirChecker(
   return DC;
 }
 
-void IGESGraph_ToolTextDisplayTemplate::OwnCheck(
+void TextDisplayTemplateTool::OwnCheck(
   const Handle(IGESGraph_TextDisplayTemplate)& /*ent*/,
   const Interface_ShareTool&,
   Handle(Interface_Check)& /*ach*/) const
 {
 }
 
-void IGESGraph_ToolTextDisplayTemplate::OwnDump(const Handle(IGESGraph_TextDisplayTemplate)& ent,
+void TextDisplayTemplateTool::OwnDump(const Handle(IGESGraph_TextDisplayTemplate)& ent,
                                                 const IGESData_IGESDumper&                   dumper,
                                                 Standard_OStream&                            S,
                                                 const Standard_Integer level) const

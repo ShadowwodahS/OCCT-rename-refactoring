@@ -43,9 +43,9 @@
 
 #include <stdio.h>
 
-IGESDimen_ToolGeneralNote::IGESDimen_ToolGeneralNote() {}
+GeneralNoteTool::GeneralNoteTool() {}
 
-void IGESDimen_ToolGeneralNote::ReadOwnParams(const Handle(IGESDimen_GeneralNote)&   ent,
+void GeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_GeneralNote)&   ent,
                                               const Handle(IGESData_IGESReaderData)& IR,
                                               IGESData_ParamReader&                  PR) const
 {
@@ -191,7 +191,7 @@ void IGESDimen_ToolGeneralNote::ReadOwnParams(const Handle(IGESDimen_GeneralNote
   }
 }
 
-void IGESDimen_ToolGeneralNote::WriteOwnParams(const Handle(IGESDimen_GeneralNote)& ent,
+void GeneralNoteTool::WriteOwnParams(const Handle(IGESDimen_GeneralNote)& ent,
                                                IGESData_IGESWriter&                 IW) const
 {
   Standard_Integer nbval = ent->NbStrings();
@@ -217,7 +217,7 @@ void IGESDimen_ToolGeneralNote::WriteOwnParams(const Handle(IGESDimen_GeneralNot
   }
 }
 
-void IGESDimen_ToolGeneralNote::OwnShared(const Handle(IGESDimen_GeneralNote)& ent,
+void GeneralNoteTool::OwnShared(const Handle(IGESDimen_GeneralNote)& ent,
                                           Interface_EntityIterator&            iter) const
 {
   Standard_Integer nbval = ent->NbStrings();
@@ -228,7 +228,7 @@ void IGESDimen_ToolGeneralNote::OwnShared(const Handle(IGESDimen_GeneralNote)& e
   }
 }
 
-void IGESDimen_ToolGeneralNote::OwnCopy(const Handle(IGESDimen_GeneralNote)& another,
+void GeneralNoteTool::OwnCopy(const Handle(IGESDimen_GeneralNote)& another,
                                         const Handle(IGESDimen_GeneralNote)& ent,
                                         Interface_CopyTool&                  TC) const
 {
@@ -308,10 +308,10 @@ void IGESDimen_ToolGeneralNote::OwnCopy(const Handle(IGESDimen_GeneralNote)& ano
   ent->SetFormNumber(another->FormNumber());
 }
 
-IGESData_DirChecker IGESDimen_ToolGeneralNote::DirChecker(
+DirectoryChecker GeneralNoteTool::DirChecker(
   const Handle(IGESDimen_GeneralNote)& /* ent */) const
 {
-  IGESData_DirChecker DC(212, 0, 105);
+  DirectoryChecker DC(212, 0, 105);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefValue);
   DC.LineWeight(IGESData_DefValue);
@@ -321,7 +321,7 @@ IGESData_DirChecker IGESDimen_ToolGeneralNote::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolGeneralNote::OwnCheck(const Handle(IGESDimen_GeneralNote)& ent,
+void GeneralNoteTool::OwnCheck(const Handle(IGESDimen_GeneralNote)& ent,
                                          const Interface_ShareTool&,
                                          Handle(Interface_Check)& ach) const
 {
@@ -355,7 +355,7 @@ void IGESDimen_ToolGeneralNote::OwnCheck(const Handle(IGESDimen_GeneralNote)& en
   }
 }
 
-void IGESDimen_ToolGeneralNote::OwnDump(const Handle(IGESDimen_GeneralNote)& ent,
+void GeneralNoteTool::OwnDump(const Handle(IGESDimen_GeneralNote)& ent,
                                         const IGESData_IGESDumper&           dumper,
                                         Standard_OStream&                    S,
                                         const Standard_Integer               level) const

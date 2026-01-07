@@ -52,7 +52,7 @@ public:
   //! more than one owner are detected during dynamic
   //! selection, the one with the highest priority is the one stored.
   Standard_EXPORT StdSelect_BRepOwner(
-    const TopoDS_Shape&    aShape,
+    const TopoShape&    aShape,
     const Standard_Integer aPriority              = 0,
     const Standard_Boolean ComesFromDecomposition = Standard_False);
 
@@ -63,7 +63,7 @@ public:
   //! framework. If more than one owner are detected
   //! during dynamic selection, the one with the highest
   //! priority is the one stored.
-  Standard_EXPORT StdSelect_BRepOwner(const TopoDS_Shape&                       aShape,
+  Standard_EXPORT StdSelect_BRepOwner(const TopoShape&                       aShape,
                                       const Handle(SelectMgr_SelectableObject)& theOrigin,
                                       const Standard_Integer                    aPriority = 0,
                                       const Standard_Boolean FromDecomposition = Standard_False);
@@ -72,7 +72,7 @@ public:
   Standard_Boolean HasShape() const { return !myShape.IsNull(); }
 
   //! Returns the shape.
-  const TopoDS_Shape& Shape() const { return myShape; }
+  const TopoShape& Shape() const { return myShape; }
 
   //! Returns true if this framework has a highlight mode defined for it.
   Standard_Boolean HasHilightMode() const { return myCurMode == -1; }
@@ -102,7 +102,7 @@ public:
     const Standard_Integer                    aMode = 0) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                                const Handle(Prs3d_Drawer)&               theStyle,
+                                                const Handle(StyleDrawer)&               theStyle,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Removes highlighting from the type of shape
@@ -120,7 +120,7 @@ public:
   //! Implements immediate application of location transformation of parent object to dynamic
   //! highlight structure
   Standard_EXPORT virtual void UpdateHighlightTrsf(
-    const Handle(V3d_Viewer)&                 theViewer,
+    const Handle(ViewManager)&                 theViewer,
     const Handle(PrsMgr_PresentationManager)& theManager,
     const Standard_Integer                    theDispMode) Standard_OVERRIDE;
 
@@ -129,7 +129,7 @@ public:
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
 protected:
-  TopoDS_Shape            myShape;
+  TopoShape            myShape;
   Handle(StdSelect_Shape) myPrsSh;
   Standard_Integer        myCurMode;
 };

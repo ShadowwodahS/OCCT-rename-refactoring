@@ -23,11 +23,11 @@
 
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColStd_Array1OfReal.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 class Point3d;
-class Geom2d_Curve;
+class GeomCurve2d;
 class gp_Pnt2d;
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 class Geom2d_BSplineCurve;
 
 //! Adjusts curve to have start and end points at the given
@@ -45,7 +45,7 @@ public:
   //! specified.
   //!
   //! Warning : Does not check if curve should be reversed
-  Standard_EXPORT Standard_Boolean AdjustCurve(const Handle(Geom_Curve)& C3D,
+  Standard_EXPORT Standard_Boolean AdjustCurve(const Handle(GeomCurve3d)& C3D,
                                                const Point3d&             P1,
                                                const Point3d&             P2,
                                                const Standard_Boolean    take1 = Standard_True,
@@ -57,7 +57,7 @@ public:
   //!
   //! For lines works as previous method, B-Splines are segmented
   //! at the given values and then are adjusted to the points.
-  Standard_EXPORT Standard_Boolean AdjustCurveSegment(const Handle(Geom_Curve)& C3D,
+  Standard_EXPORT Standard_Boolean AdjustCurveSegment(const Handle(GeomCurve3d)& C3D,
                                                       const Point3d&             P1,
                                                       const Point3d&             P2,
                                                       const Standard_Real       U1,
@@ -73,7 +73,7 @@ public:
   //!
   //! Warning : Does not check if curve should be reversed
   Standard_EXPORT Standard_Boolean
-    AdjustCurve2d(const Handle(Geom2d_Curve)& C2D,
+    AdjustCurve2d(const Handle(GeomCurve2d)& C2D,
                   const gp_Pnt2d&             P1,
                   const gp_Pnt2d&             P2,
                   const Standard_Boolean      take1 = Standard_True,
@@ -85,7 +85,7 @@ public:
   //! BSpline -> C.Segment(first,last)
   //! Bezier and Line -> GeomConvert::CurveToBSplineCurve(C).Segment(first,last)
   //! Conic and Other -> Approx_Curve3d(C[first,last],prec,C1,9,1000)
-  Standard_EXPORT Handle(Geom_BSplineCurve) ConvertToBSpline(const Handle(Geom_Curve)& C,
+  Standard_EXPORT Handle(BSplineCurve3d) ConvertToBSpline(const Handle(GeomCurve3d)& C,
                                                              const Standard_Real       first,
                                                              const Standard_Real       last,
                                                              const Standard_Real       prec) const;
@@ -96,7 +96,7 @@ public:
   //! BSpline -> C.Segment(first,last)
   //! Bezier and Line -> GeomConvert::CurveToBSplineCurve(C).Segment(first,last)
   //! Conic and Other -> Approx_Curve2d(C[first,last],prec,C1,9,1000)
-  Standard_EXPORT Handle(Geom2d_BSplineCurve) ConvertToBSpline(const Handle(Geom2d_Curve)& C,
+  Standard_EXPORT Handle(Geom2d_BSplineCurve) ConvertToBSpline(const Handle(GeomCurve2d)& C,
                                                                const Standard_Real         first,
                                                                const Standard_Real         last,
                                                                const Standard_Real prec) const;

@@ -97,7 +97,7 @@ public:
 
   // ---------- PROTECTED METHODS ----------
 protected:
-  Standard_EXPORT VrmlData_ErrorStatus readData(VrmlData_InBuffer& theBuffer);
+  Standard_EXPORT VrmlData_ErrorStatus readData(InputBuffer& theBuffer);
 
 private:
   // ---------- PRIVATE FIELDS ----------

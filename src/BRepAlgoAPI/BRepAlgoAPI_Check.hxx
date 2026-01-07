@@ -63,7 +63,7 @@ public: //! @name Constructors
   //!                       on self-interference or not; by default it is set to TRUE;
   //! @param[in] theRange  - parameter to use progress indicator
   Standard_EXPORT BRepAlgoAPI_Check(
-    const TopoDS_Shape&          theS,
+    const TopoShape&          theS,
     const Standard_Boolean       bTestSE  = Standard_True,
     const Standard_Boolean       bTestSI  = Standard_True,
     const Message_ProgressRange& theRange = Message_ProgressRange());
@@ -83,8 +83,8 @@ public: //! @name Constructors
   //!                       on self-interference or not; by default it is set to TRUE;
   //! @param[in] theRange  - parameter to use progress indicator
   Standard_EXPORT BRepAlgoAPI_Check(
-    const TopoDS_Shape&          theS1,
-    const TopoDS_Shape&          theS2,
+    const TopoShape&          theS1,
+    const TopoShape&          theS2,
     const BOPAlgo_Operation      theOp    = BOPAlgo_UNKNOWN,
     const Standard_Boolean       bTestSE  = Standard_True,
     const Standard_Boolean       bTestSI  = Standard_True,
@@ -98,12 +98,12 @@ public: //! @name Initializing the algorithm
   //!                       on small edges or not; by default it is set to TRUE;
   //! @param[in] bTestSI  - flag which specifies whether to check the shape
   //!                       on self-interference or not; by default it is set to TRUE;
-  void SetData(const TopoDS_Shape&    theS,
+  void SetData(const TopoShape&    theS,
                const Standard_Boolean bTestSE = Standard_True,
                const Standard_Boolean bTestSI = Standard_True)
   {
     myS1     = theS;
-    myS2     = TopoDS_Shape();
+    myS2     = TopoShape();
     myTestSE = bTestSE;
     myTestSI = bTestSI;
     myFaultyShapes.Clear();
@@ -122,8 +122,8 @@ public: //! @name Initializing the algorithm
   //!                       on small edges or not; by default it is set to TRUE;
   //! @param[in] bTestSI  - flag which specifies whether to check the shape
   //!                       on self-interference or not; by default it is set to TRUE;
-  void SetData(const TopoDS_Shape&     theS1,
-               const TopoDS_Shape&     theS2,
+  void SetData(const TopoShape&     theS1,
+               const TopoShape&     theS2,
                const BOPAlgo_Operation theOp   = BOPAlgo_UNKNOWN,
                const Standard_Boolean  bTestSE = Standard_True,
                const Standard_Boolean  bTestSI = Standard_True)
@@ -149,8 +149,8 @@ public: //! @name Getting the results.
 
 protected: //! @name Fields
   // Inputs
-  TopoDS_Shape myS1;            //!< The first shape
-  TopoDS_Shape myS2;            //!< The second shape
+  TopoShape myS1;            //!< The first shape
+  TopoShape myS2;            //!< The second shape
                                 // clang-format off
   Standard_Boolean myTestSE;                //!< Flag defining whether to look for small edges in the given shapes or not
   Standard_Boolean myTestSI;                //!< Flag defining whether to check the input edges on self-interference or not

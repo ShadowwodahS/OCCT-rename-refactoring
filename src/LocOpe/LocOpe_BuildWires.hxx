@@ -24,27 +24,27 @@
 #include <TopTools_ListOfShape.hxx>
 class LocOpe_WiresOnShape;
 
-class LocOpe_BuildWires
+class WireBuilder
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT LocOpe_BuildWires();
+  Standard_EXPORT WireBuilder();
 
-  Standard_EXPORT LocOpe_BuildWires(const TopTools_ListOfShape&        Ledges,
+  Standard_EXPORT WireBuilder(const ShapeList&        Ledges,
                                     const Handle(LocOpe_WiresOnShape)& PW);
 
-  Standard_EXPORT void Perform(const TopTools_ListOfShape&        Ledges,
+  Standard_EXPORT void Perform(const ShapeList&        Ledges,
                                const Handle(LocOpe_WiresOnShape)& PW);
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 
-  Standard_EXPORT const TopTools_ListOfShape& Result() const;
+  Standard_EXPORT const ShapeList& Result() const;
 
 protected:
 private:
   Standard_Boolean     myDone;
-  TopTools_ListOfShape myRes;
+  ShapeList myRes;
 };
 
 #endif // _LocOpe_BuildWires_HeaderFile

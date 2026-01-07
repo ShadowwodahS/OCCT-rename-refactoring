@@ -22,10 +22,10 @@
 #include <Standard_ErrorHandler.hxx>
 #include <TCollection_AsciiString.hxx>
 
-static TCollection_AsciiString ExprIntrp_thestring;
+static AsciiString1 ExprIntrp_thestring;
 
-Standard_Boolean ExprIntrp::Parse(const Handle(ExprIntrp_Generator)& gen,
-                                  const TCollection_AsciiString&     str)
+Standard_Boolean ExprIntrp1::Parse(const Handle(ExprIntrp_Generator)& gen,
+                                  const AsciiString1&     str)
 {
   ExprIntrp_Recept.SetMaster(gen);
   if (str.Length() == 0)

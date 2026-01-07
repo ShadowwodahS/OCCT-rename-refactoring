@@ -28,7 +28,7 @@
 
 #define ThePSurface Handle(Adaptor3d_Surface)
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
-#define ThePSurfaceTool Adaptor3d_HSurfaceTool
+#define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
 #define TheCurve Handle(Adaptor2d_Curve2d)
 #define TheCurve_hxx <Adaptor2d_Curve2d.hxx>

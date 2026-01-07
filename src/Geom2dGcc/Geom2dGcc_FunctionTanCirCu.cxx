@@ -59,7 +59,7 @@ Geom2dGcc_FunctionTanCirCu::Geom2dGcc_FunctionTanCirCu(const gp_Circ2d&         
   Standard_Real    aLast   = Geom2dGcc_CurveTool::LastParameter(Curve);
   Standard_Real    aStep   = (aLast - aFirst) / aNbSamp;
   Standard_Real    anX     = aFirst + aStep / 2.;
-  gp_XY            aLoc(0., 0.);
+  Coords2d            aLoc(0., 0.);
 
   while (anX <= aLast)
   {

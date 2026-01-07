@@ -57,8 +57,8 @@ void ChFiDS_FilSpine::Reset(const Standard_Boolean AllData)
     Standard_Real spinedeb = FirstParameter();
     Standard_Real spinefin = LastParameter();
 
-    gp_XY FirstUandR = parandrad.First();
-    gp_XY LastUandR  = parandrad.Last();
+    Coords2d FirstUandR = parandrad.First();
+    Coords2d LastUandR  = parandrad.Last();
     if (Abs(spinedeb - FirstUandR.X()) > gp::Resolution())
     {
       FirstUandR.SetX(spinedeb);
@@ -77,18 +77,18 @@ void ChFiDS_FilSpine::Reset(const Standard_Boolean AllData)
 
 //=================================================================================================
 
-void ChFiDS_FilSpine::SetRadius(const Standard_Real Radius, const TopoDS_Edge& E)
+void ChFiDS_FilSpine::SetRadius(const Standard_Real Radius, const TopoEdge& E)
 {
   splitdone           = Standard_False;
   Standard_Integer IE = Index(E);
-  gp_XY            FirstUandR(0., Radius), LastUandR(1., Radius);
+  Coords2d            FirstUandR(0., Radius), LastUandR(1., Radius);
   SetRadius(FirstUandR, IE);
   SetRadius(LastUandR, IE);
 }
 
 //=================================================================================================
 
-void ChFiDS_FilSpine::UnSetRadius(const TopoDS_Edge& E)
+void ChFiDS_FilSpine::UnSetRadius(const TopoEdge& E)
 {
   splitdone           = Standard_False;
   Standard_Integer IE = Index(E);
@@ -109,10 +109,10 @@ void ChFiDS_FilSpine::UnSetRadius(const TopoDS_Edge& E)
 
 //=================================================================================================
 
-void ChFiDS_FilSpine::SetRadius(const Standard_Real Radius, const TopoDS_Vertex& V)
+void ChFiDS_FilSpine::SetRadius(const Standard_Real Radius, const TopoVertex& V)
 {
   Standard_Real npar = Absc(V);
-  gp_XY         UandR(npar, Radius);
+  Coords2d         UandR(npar, Radius);
   SetRadius(UandR, 0);
 }
 
@@ -121,15 +121,15 @@ void ChFiDS_FilSpine::SetRadius(const Standard_Real Radius, const TopoDS_Vertex&
 void ChFiDS_FilSpine::SetRadius(const Standard_Real Radius)
 {
   parandrad.Clear();
-  gp_XY FirstUandR(FirstParameter(), Radius);
-  gp_XY LastUandR(LastParameter(), Radius);
+  Coords2d FirstUandR(FirstParameter(), Radius);
+  Coords2d LastUandR(LastParameter(), Radius);
   SetRadius(FirstUandR, 0);
   SetRadius(LastUandR, 0);
 }
 
 //=================================================================================================
 
-void ChFiDS_FilSpine::SetRadius(const gp_XY& UandR, const Standard_Integer IinC)
+void ChFiDS_FilSpine::SetRadius(const Coords2d& UandR, const Standard_Integer IinC)
 {
   Standard_Real W;
   if (IinC == 0)
@@ -141,7 +141,7 @@ void ChFiDS_FilSpine::SetRadius(const gp_XY& UandR, const Standard_Integer IinC)
     W                = Uf + UandR.X() * (Ul - Uf);
   }
 
-  gp_XY            pr(W, UandR.Y());
+  Coords2d            pr(W, UandR.Y());
   Standard_Integer i;
   for (i = 1; i <= parandrad.Length(); i++)
   {
@@ -192,7 +192,7 @@ void ChFiDS_FilSpine::SetRadius(const gp_XY& UandR, const Standard_Integer IinC)
 
 //=================================================================================================
 
-void ChFiDS_FilSpine::UnSetRadius(const TopoDS_Vertex& V)
+void ChFiDS_FilSpine::UnSetRadius(const TopoVertex& V)
 {
   Standard_Real npar = Absc(V);
   for (Standard_Integer i = 1; i <= parandrad.Length(); i++)
@@ -271,7 +271,7 @@ Standard_Boolean ChFiDS_FilSpine::IsConstant(const Standard_Integer IE) const
 
 //=================================================================================================
 
-Standard_Real ChFiDS_FilSpine::Radius(const TopoDS_Edge& E) const
+Standard_Real ChFiDS_FilSpine::Radius(const TopoEdge& E) const
 {
   Standard_Integer IE = Index(E);
   return Radius(IE);
@@ -356,7 +356,7 @@ static void mklaw(Law_Laws&                  res,
   {
     for (Standard_Integer i = 1; i <= pr.Length(); i++)
     {
-      const gp_XY&  cur  = pr.Value(i);
+      const Coords2d&  cur  = pr.Value(i);
       Standard_Real wcur = cur.X();
       if (recadre)
         wcur = ElCLib::InPeriod(wcur, deb, fin);
@@ -365,7 +365,7 @@ static void mklaw(Law_Laws&                  res,
         if (wcur - curdeb < tol3d)
         {
           yaunpointsurledeb = Standard_True;
-          gp_XY ncur        = cur;
+          Coords2d ncur        = cur;
           if (Rdeb < 0.)
             rad = cur.Y();
           ncur.SetCoord(curdeb, rad);
@@ -374,14 +374,14 @@ static void mklaw(Law_Laws&                  res,
         else if (curfin - wcur < tol3d)
         {
           yaunpointsurlefin = Standard_True;
-          gp_XY ncur        = cur;
+          Coords2d ncur        = cur;
           if (Rfin < 0.)
             raf = cur.Y();
           ncur.SetCoord(curfin, raf);
           npr.Append(ncur);
         }
         else
-          npr.Append(gp_XY(wcur, cur.Y()));
+          npr.Append(Coords2d(wcur, cur.Y()));
       }
     }
   }
@@ -407,9 +407,9 @@ static void mklaw(Law_Laws&                  res,
   else
   {
     if (!yaunpointsurledeb && Rdeb >= 0.)
-      npr.Append(gp_XY(curdeb, Rdeb));
+      npr.Append(Coords2d(curdeb, Rdeb));
     if (!yaunpointsurlefin && Rfin >= 0.)
-      npr.Append(gp_XY(curfin, Rfin));
+      npr.Append(Coords2d(curfin, Rfin));
     Standard_Integer nbp = npr.Length();
     //    for(Standard_Integer i = 1; i < nbp; i++){
     Standard_Integer i;
@@ -419,7 +419,7 @@ static void mklaw(Law_Laws&                  res,
       {
         if (npr.Value(i).X() > npr.Value(j).X())
         {
-          gp_XY temp         = npr.Value(i);
+          Coords2d temp         = npr.Value(i);
           npr.ChangeValue(i) = npr.Value(j);
           npr.ChangeValue(j) = temp;
         }
@@ -760,7 +760,7 @@ Handle(Law_Composite) ChFiDS_FilSpine::Law(const Handle(ChFiDS_ElSpine)& Els) co
 
 //=================================================================================================
 
-Handle(Law_Function)& ChFiDS_FilSpine::ChangeLaw(const TopoDS_Edge& E)
+Handle(Law_Function)& ChFiDS_FilSpine::ChangeLaw(const TopoEdge& E)
 {
   if (!SplitDone())
   {

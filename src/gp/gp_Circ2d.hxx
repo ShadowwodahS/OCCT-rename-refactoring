@@ -272,7 +272,7 @@ inline void gp_Circ2d::Coefficients(Standard_Real& theA,
 // =======================================================================
 inline Standard_Real gp_Circ2d::Distance(const gp_Pnt2d& theP) const
 {
-  gp_XY aCoord = theP.XY();
+  Coords2d aCoord = theP.XY();
   aCoord.Subtract(pos.Location().XY());
   Standard_Real aD = radius - aCoord.Modulus();
   if (aD < 0)
@@ -301,7 +301,7 @@ inline gp_Circ2d gp_Circ2d::Reversed() const
 // =======================================================================
 inline Standard_Real gp_Circ2d::SquareDistance(const gp_Pnt2d& theP) const
 {
-  gp_XY aCoord = theP.XY();
+  Coords2d aCoord = theP.XY();
   aCoord.Subtract(pos.Location().XY());
   Standard_Real aD = radius - aCoord.Modulus();
   return aD * aD;

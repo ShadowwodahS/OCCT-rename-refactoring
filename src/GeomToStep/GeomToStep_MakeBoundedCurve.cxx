@@ -35,17 +35,17 @@
 // Creation d' une BoundedCurve de prostep a partir d' une BoundedCurve de Geom
 //=============================================================================
 GeomToStep_MakeBoundedCurve::GeomToStep_MakeBoundedCurve(const Handle(Geom_BoundedCurve)& C,
-                                                         const StepData_Factors& theLocalFactors)
+                                                         const ConversionFactors& theLocalFactors)
 {
   done = Standard_True;
 
-  if (C->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (C->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    Handle(Geom_BSplineCurve) Bspli = Handle(Geom_BSplineCurve)::DownCast(C);
+    Handle(BSplineCurve3d) Bspli = Handle(BSplineCurve3d)::DownCast(C);
     // UPDATE FMA 1-04-96
     if (C->IsPeriodic())
     {
-      Handle(Geom_BSplineCurve) newBspli = Handle(Geom_BSplineCurve)::DownCast(Bspli->Copy());
+      Handle(BSplineCurve3d) newBspli = Handle(BSplineCurve3d)::DownCast(Bspli->Copy());
       newBspli->SetNotPeriodic();
       Bspli = newBspli;
     }
@@ -61,10 +61,10 @@ GeomToStep_MakeBoundedCurve::GeomToStep_MakeBoundedCurve(const Handle(Geom_Bound
       theBoundedCurve = MkBSplineC.Value();
     }
   }
-  else if (C->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+  else if (C->IsKind(STANDARD_TYPE(BezierCurve3d)))
   {
-    Handle(Geom_BezierCurve)  Cur   = Handle(Geom_BezierCurve)::DownCast(C);
-    Handle(Geom_BSplineCurve) Bspli = GeomConvert::CurveToBSplineCurve(Cur);
+    Handle(BezierCurve3d)  Cur   = Handle(BezierCurve3d)::DownCast(C);
+    Handle(BSplineCurve3d) Bspli = GeomConvert::CurveToBSplineCurve(Cur);
     if (Bspli->IsRational())
     {
       GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve MkRatBSplineC(Bspli,
@@ -93,7 +93,7 @@ GeomToStep_MakeBoundedCurve::GeomToStep_MakeBoundedCurve(const Handle(Geom_Bound
 //=============================================================================
 
 GeomToStep_MakeBoundedCurve::GeomToStep_MakeBoundedCurve(const Handle(Geom2d_BoundedCurve)& C,
-                                                         const StepData_Factors& theLocalFactors)
+                                                         const ConversionFactors& theLocalFactors)
 {
   done = Standard_True;
   if (C->IsKind(STANDARD_TYPE(Geom2d_BSplineCurve)))

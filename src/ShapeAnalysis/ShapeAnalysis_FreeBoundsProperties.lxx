@@ -21,7 +21,7 @@
 // purpose  : Returns shape
 //=======================================================================
 
-inline TopoDS_Shape ShapeAnalysis_FreeBoundsProperties::Shape() const
+inline TopoShape ShapeAnalysis_FreeBoundsProperties::Shape() const
 {
   return myShape;
 }

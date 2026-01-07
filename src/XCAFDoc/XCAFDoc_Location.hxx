@@ -21,7 +21,7 @@
 #include <TopLoc_Location.hxx>
 #include <TDF_Attribute.hxx>
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 
 class XCAFDoc_Location;
@@ -42,7 +42,7 @@ public:
   //! the Location attribute is returned.
   //! Location methods
   //! ===============
-  Standard_EXPORT static Handle(XCAFDoc_Location) Set(const TDF_Label&       label,
+  Standard_EXPORT static Handle(XCAFDoc_Location) Set(const DataLabel&       label,
                                                       const TopLoc_Location& Loc);
 
   Standard_EXPORT void Set(const TopLoc_Location& Loc);

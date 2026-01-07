@@ -22,7 +22,7 @@
 
 void HLRBRep_EdgeData::Set(const Standard_Boolean   Rg1L,
                            const Standard_Boolean   RgNL,
-                           const TopoDS_Edge&       EG,
+                           const TopoEdge&       EG,
                            const Standard_Integer   V1,
                            const Standard_Integer   V2,
                            const Standard_Boolean   Out1,
@@ -38,7 +38,7 @@ void HLRBRep_EdgeData::Set(const Standard_Boolean   Rg1L,
   RgNLine(RgNL);
   Used(Standard_False);
   ChangeGeometry().Curve(EG);
-  myTolerance = (Standard_ShortReal)(BRep_Tool::Tolerance(EG));
+  myTolerance = (Standard_ShortReal)(BRepInspector::Tolerance(EG));
   VSta(V1);
   VEnd(V2);
   OutLVSta(Out1);

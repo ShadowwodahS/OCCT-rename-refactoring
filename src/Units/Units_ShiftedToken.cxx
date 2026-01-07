@@ -37,8 +37,8 @@ Units_ShiftedToken::Units_ShiftedToken(const Standard_CString          aword,
 
 Handle(Units_Token) Units_ShiftedToken::Creates() const
 {
-  TCollection_AsciiString word = Word();
-  TCollection_AsciiString mean = Mean();
+  AsciiString1 word = Word();
+  AsciiString1 mean = Mean();
   return new Units_ShiftedToken(word.ToCString(), mean.ToCString(), Value(), Move(), Dimensions());
 }
 

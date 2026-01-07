@@ -30,7 +30,7 @@ Bisector_FunctionInter::Bisector_FunctionInter() {}
 
 //=================================================================================================
 
-Bisector_FunctionInter::Bisector_FunctionInter(const Handle(Geom2d_Curve)&   C,
+Bisector_FunctionInter::Bisector_FunctionInter(const Handle(GeomCurve2d)&   C,
                                                const Handle(Bisector_Curve)& B1,
                                                const Handle(Bisector_Curve)& B2)
 {
@@ -41,7 +41,7 @@ Bisector_FunctionInter::Bisector_FunctionInter(const Handle(Geom2d_Curve)&   C,
 
 //=================================================================================================
 
-void Bisector_FunctionInter::Perform(const Handle(Geom2d_Curve)&   C,
+void Bisector_FunctionInter::Perform(const Handle(GeomCurve2d)&   C,
                                      const Handle(Bisector_Curve)& B1,
                                      const Handle(Bisector_Curve)& B2)
 {

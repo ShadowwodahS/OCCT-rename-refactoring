@@ -35,12 +35,12 @@ static Standard_GUID BinLRetrievalDriver("13a56836-8269-11d5-aab2-0050044b1af1")
 // function : Factory
 // purpose  : PLUGIN FACTORY
 //=======================================================================
-const Handle(RefObject)& BinLDrivers::Factory(const Standard_GUID& theGUID)
+const Handle(RefObject)& BinLDrivers1::Factory(const Standard_GUID& theGUID)
 {
   if (theGUID == BinLStorageDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "BinLDrivers : Storage Plugin" << std::endl;
+    std::cout << "BinLDrivers1 : Storage Plugin" << std::endl;
 #endif
     static Handle(RefObject) model_sd = new BinLDrivers_DocumentStorageDriver;
     return model_sd;
@@ -49,18 +49,18 @@ const Handle(RefObject)& BinLDrivers::Factory(const Standard_GUID& theGUID)
   if (theGUID == BinLRetrievalDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "BinLDrivers : Retrieval Plugin" << std::endl;
+    std::cout << "BinLDrivers1 : Retrieval Plugin" << std::endl;
 #endif
     static Handle(RefObject) model_rd = new BinLDrivers_DocumentRetrievalDriver;
     return model_rd;
   }
 
-  throw ExceptionBase("BinLDrivers : unknown GUID");
+  throw ExceptionBase("BinLDrivers1 : unknown GUID");
 }
 
 //=================================================================================================
 
-void BinLDrivers::DefineFormat(const Handle(TDocStd_Application)& theApp)
+void BinLDrivers1::DefineFormat(const Handle(AppManager)& theApp)
 {
   theApp->DefineFormat("BinLOcaf",
                        "Binary Lite OCAF Document",
@@ -71,16 +71,16 @@ void BinLDrivers::DefineFormat(const Handle(TDocStd_Application)& theApp)
 
 //=================================================================================================
 
-Handle(BinMDF_ADriverTable) BinLDrivers::AttributeDrivers(const Handle(Message_Messenger)& aMsgDrv)
+Handle(BinMDF_ADriverTable) BinLDrivers1::AttributeDrivers(const Handle(Message_Messenger)& aMsgDrv)
 {
   Handle(BinMDF_ADriverTable) aTable = new BinMDF_ADriverTable;
 
-  BinMDF ::AddDrivers(aTable, aMsgDrv);
-  BinMDataStd ::AddDrivers(aTable, aMsgDrv);
-  BinMFunction ::AddDrivers(aTable, aMsgDrv);
-  BinMDocStd ::AddDrivers(aTable, aMsgDrv);
+  BinMDF1 ::AddDrivers(aTable, aMsgDrv);
+  BinMDataStd1 ::AddDrivers(aTable, aMsgDrv);
+  BinMFunction1 ::AddDrivers(aTable, aMsgDrv);
+  BinMDocStd1 ::AddDrivers(aTable, aMsgDrv);
 
   return aTable;
 }
 
-PLUGIN(BinLDrivers)
+PLUGIN(BinLDrivers1)

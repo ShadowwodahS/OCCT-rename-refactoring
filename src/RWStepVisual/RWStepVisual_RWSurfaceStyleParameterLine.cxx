@@ -52,13 +52,13 @@ void RWStepVisual_RWSurfaceStyleParameterLine::ReadStep(
   //     ... , (U_DIRECTION_COUNT(10), V_DIRECTION_COUNT(1)) );
 
   Standard_Integer        numr, numpr;
-  TCollection_AsciiString UType("U_DIRECTION_COUNT");
-  TCollection_AsciiString VType("V_DIRECTION_COUNT");
-  TCollection_AsciiString TrueType;
+  AsciiString1 UType("U_DIRECTION_COUNT");
+  AsciiString1 VType("V_DIRECTION_COUNT");
+  AsciiString1 TrueType;
 
   Handle(StepVisual_HArray1OfDirectionCountSelect) aDirectionCounts;
   Standard_Integer                                 aDirectionCountsItem;
-  StepVisual_DirectionCountSelect                  aDirectionCountSelect;
+  DirectionCountSelect                  aDirectionCountSelect;
 
   Standard_Integer nsub2;
   if (data->ReadSubList(num, 2, "direction_counts", ach, nsub2))

@@ -168,9 +168,9 @@ private:
                                      const Standard_Boolean           IsVtx,
                                      const Handle(Adaptor3d_HVertex)& Vtx);
 
-  Standard_EXPORT Blend_Status CheckDeflectionOnRst1(const Blend_Point& CurPoint);
+  Standard_EXPORT Blend_Status CheckDeflectionOnRst1(const Point2& CurPoint);
 
-  Standard_EXPORT Blend_Status CheckDeflectionOnRst2(const Blend_Point& CurPoint);
+  Standard_EXPORT Blend_Status CheckDeflectionOnRst2(const Point2& CurPoint);
 
   Standard_EXPORT Blend_Status TestArret(Blend_RstRstFunction&  Func,
                                          const Standard_Boolean TestDeflection,
@@ -195,7 +195,7 @@ private:
   Standard_Real               pasmax;
   Standard_Real               fleche;
   Standard_Real               param;
-  Blend_Point                 previousP;
+  Point2                 previousP;
   Standard_Boolean            rebrou;
   Standard_Boolean            iscomplete;
   Standard_Boolean            comptra;

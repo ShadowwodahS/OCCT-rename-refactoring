@@ -64,22 +64,22 @@ void ShapePersistent_TopoDS::pTBase::setFlags(const Handle(TopoDS_TShape)& theTS
   theTShape->Convex((myFlags & ConvexMask) != 0);
 }
 
-static inline void AddShape(TopoDS_Shape& theParent, const Handle(StdObjMgt_Persistent)& theRef)
+static inline void AddShape(TopoShape& theParent, const Handle(StdObjMgt_Persistent)& theRef)
 {
   Handle(ShapePersistent_TopoDS::HShape) aShape =
     Handle(ShapePersistent_TopoDS::HShape)::DownCast(theRef);
 
   if (aShape)
-    BRep_Builder().Add(theParent, aShape->Import());
+    ShapeBuilder().Add(theParent, aShape->Import());
 }
 
-static inline void AddShape(TopoDS_Shape& theParent, const StdObject_Shape& theShape)
+static inline void AddShape(TopoShape& theParent, const StdObject_Shape& theShape)
 {
-  BRep_Builder().Add(theParent, theShape.Import());
+  ShapeBuilder().Add(theParent, theShape.Import());
 }
 
 template <class ShapesArray>
-void ShapePersistent_TopoDS::pTBase::addShapesT(TopoDS_Shape& theParent) const
+void ShapePersistent_TopoDS::pTBase::addShapesT(TopoShape& theParent) const
 {
   Handle(ShapesArray) aShapes = Handle(ShapesArray)::DownCast(myShapes);
   if (aShapes)
@@ -91,10 +91,10 @@ void ShapePersistent_TopoDS::pTBase::addShapesT(TopoDS_Shape& theParent) const
 }
 
 template void ShapePersistent_TopoDS::pTBase::addShapesT<StdLPersistent_HArray1::Persistent>(
-  TopoDS_Shape& theParent) const;
+  TopoShape& theParent) const;
 
 template void ShapePersistent_TopoDS::pTBase::addShapesT<StdPersistent_HArray1::Shape1>(
-  TopoDS_Shape& theParent) const;
+  TopoShape& theParent) const;
 
 template <class Target>
 Handle(TopoDS_TShape) ShapePersistent_TopoDS::pTSimple<Target>::createTShape() const
@@ -113,7 +113,7 @@ template class ShapePersistent_TopoDS::pTSimple<TopoDS_TCompound>;
 // purpose  : Creates a persistent object from a shape
 //=======================================================================
 Handle(ShapePersistent_TopoDS::HShape) ShapePersistent_TopoDS::Translate(
-  const TopoDS_Shape&               theShape,
+  const TopoShape&               theShape,
   StdObjMgt_TransientPersistentMap& theMap,
   ShapePersistent_TriangleMode      theTriangleMode)
 {
@@ -221,7 +221,7 @@ Handle(ShapePersistent_TopoDS::HShape) ShapePersistent_TopoDS::Translate(
     aPTShape->myFlags = aFlags;
 
     // Copy current Shape
-    TopoDS_Shape S = theShape;
+    TopoShape S = theShape;
     S.Orientation(TopAbs_FORWARD);
     S.Location(TopLoc_Location());
     // Count the number of <sub-shape> of the Shape's TShape

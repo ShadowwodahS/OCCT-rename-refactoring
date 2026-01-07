@@ -108,12 +108,12 @@ static int getSysLogPriority(const Message_Gravity theGravity)
 }
 #endif
 
-IMPLEMENT_STANDARD_RTTIEXT(Message_PrinterSystemLog, Message_Printer)
+IMPLEMENT_STANDARD_RTTIEXT(Message_PrinterSystemLog, LogPrinter)
 
 //=================================================================================================
 
 Message_PrinterSystemLog::Message_PrinterSystemLog(
-  const TCollection_AsciiString& theEventSourceName,
+  const AsciiString1& theEventSourceName,
   const Message_Gravity          theTraceLevel)
     : myEventSourceName(theEventSourceName)
 {
@@ -121,7 +121,7 @@ Message_PrinterSystemLog::Message_PrinterSystemLog(
 #if defined(OCCT_UWP)
   myEventSource = NULL;
 #elif defined(_WIN32)
-  const TCollection_ExtendedString aWideSrcName(theEventSourceName);
+  const UtfString aWideSrcName(theEventSourceName);
   myEventSource = (Standard_Address)RegisterEventSourceW(NULL, aWideSrcName.ToWideString());
 #elif defined(__ANDROID__)
   //
@@ -154,7 +154,7 @@ Message_PrinterSystemLog::~Message_PrinterSystemLog()
 
 //=================================================================================================
 
-void Message_PrinterSystemLog::send(const TCollection_AsciiString& theString,
+void Message_PrinterSystemLog::send(const AsciiString1& theString,
                                     const Message_Gravity          theGravity) const
 {
   if (theGravity < myTraceLevel)
@@ -166,7 +166,7 @@ void Message_PrinterSystemLog::send(const TCollection_AsciiString& theString,
   if (myEventSource != NULL)
   {
   #if !defined(OCCT_UWP)
-    const TCollection_ExtendedString aWideString(theString);
+    const UtfString aWideString(theString);
     const WORD                       aLogType    = getEventLogPriority(theGravity);
     const wchar_t*                   aMessage[1] = {aWideString.ToWideString()};
     ReportEventW((HANDLE)myEventSource, aLogType, 0, 0, NULL, 1, 0, aMessage, NULL);

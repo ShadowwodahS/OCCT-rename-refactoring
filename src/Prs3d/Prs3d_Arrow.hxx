@@ -67,7 +67,7 @@ public:
   //! @param theDirection direction of the arrow
   //! @param theAngle     angle of opening of the arrow head
   //! @param theLength    length of the arrow (from the tip)
-  Standard_EXPORT static void Draw(const Handle(Graphic3d_Group)& theGroup,
+  Standard_EXPORT static void Draw1(const Handle(Graphic3d_Group)& theGroup,
                                    const Point3d&                  theLocation,
                                    const Dir3d&                  theDirection,
                                    const Standard_Real            theAngle,

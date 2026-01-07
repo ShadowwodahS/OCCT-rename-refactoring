@@ -82,12 +82,12 @@ Standard_Boolean BinMDataXtd_ConstraintDriver::Paste(
       return Standard_False;
     if (aNb > 0)
     {
-      Handle(TNaming_NamedShape) aG;
+      Handle(ShapeAttribute) aG;
       if (theRelocTable.IsBound(aNb))
-        aG = Handle(TNaming_NamedShape)::DownCast(theRelocTable.Find(aNb));
+        aG = Handle(ShapeAttribute)::DownCast(theRelocTable.Find(aNb));
       else
       {
-        aG = new TNaming_NamedShape;
+        aG = new ShapeAttribute;
         theRelocTable.Bind(aNb, aG);
       }
       aC->SetGeometry(iG++, aG);
@@ -99,12 +99,12 @@ Standard_Boolean BinMDataXtd_ConstraintDriver::Paste(
     return Standard_False;
   if (aNb > 0)
   {
-    Handle(TNaming_NamedShape) aTPlane;
+    Handle(ShapeAttribute) aTPlane;
     if (theRelocTable.IsBound(aNb))
-      aTPlane = Handle(TNaming_NamedShape)::DownCast(theRelocTable.Find(aNb));
+      aTPlane = Handle(ShapeAttribute)::DownCast(theRelocTable.Find(aNb));
     else
     {
-      aTPlane = new TNaming_NamedShape;
+      aTPlane = new ShapeAttribute;
       theRelocTable.Bind(aNb, aTPlane);
     }
     aC->SetPlane(aTPlane);
@@ -153,7 +153,7 @@ void BinMDataXtd_ConstraintDriver::Paste(const Handle(TDF_Attribute)& theSource,
   Standard_Integer iG;
   for (iG = 1; iG <= NbGeom; iG++)
   {
-    Handle(TNaming_NamedShape) aG = aC->GetGeometry(iG);
+    Handle(ShapeAttribute) aG = aC->GetGeometry(iG);
     if (!aG.IsNull())
       aNb = theRelocTable.Add(aG);
     else
@@ -162,7 +162,7 @@ void BinMDataXtd_ConstraintDriver::Paste(const Handle(TDF_Attribute)& theSource,
   }
 
   // plane
-  Handle(TNaming_NamedShape) aTPlane = aC->GetPlane();
+  Handle(ShapeAttribute) aTPlane = aC->GetPlane();
   if (!aTPlane.IsNull())
     aNb = theRelocTable.Add(aTPlane);
   else

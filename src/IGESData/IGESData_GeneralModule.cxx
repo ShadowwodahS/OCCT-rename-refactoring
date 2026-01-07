@@ -83,7 +83,7 @@ void IGESData_GeneralModule::CheckCase(const Standard_Integer            CN,
 {
   DeclareAndCast(IGESData_IGESEntity, anent, ent);
 
-  IGESData_DirChecker dc = DirChecker(CN, anent);
+  DirectoryChecker dc = DirChecker(CN, anent);
   dc.Check(ach, anent);
   OwnCheckCase(CN, anent, shares, ach);
 }

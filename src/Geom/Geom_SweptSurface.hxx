@@ -23,17 +23,17 @@
 #include <gp_Dir.hxx>
 #include <GeomAbs_Shape.hxx>
 #include <Geom_Surface.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 
 class Geom_SweptSurface;
-DEFINE_STANDARD_HANDLE(Geom_SweptSurface, Geom_Surface)
+DEFINE_STANDARD_HANDLE(Geom_SweptSurface, GeomSurface)
 
 //! Describes the common behavior for surfaces
 //! constructed by sweeping a curve with another curve.
 //! The Geom package provides two concrete derived
 //! surfaces: surface of revolution (a revolved surface),
 //! and surface of linear extrusion (an extruded surface).
-class Geom_SweptSurface : public Geom_Surface
+class Geom_SweptSurface : public GeomSurface
 {
 
 public:
@@ -56,16 +56,16 @@ public:
   //! Returns the referenced curve of the surface.
   //! For a surface of revolution it is the revolution curve,
   //! for a surface of linear extrusion it is the extruded curve.
-  Standard_EXPORT Handle(Geom_Curve) BasisCurve() const;
+  Standard_EXPORT Handle(GeomCurve3d) BasisCurve() const;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_SweptSurface, Geom_Surface)
+  DEFINE_STANDARD_RTTIEXT(Geom_SweptSurface, GeomSurface)
 
 protected:
-  Handle(Geom_Curve) basisCurve;
+  Handle(GeomCurve3d) basisCurve;
   Dir3d             direction;
   GeomAbs_Shape      smooth;
 

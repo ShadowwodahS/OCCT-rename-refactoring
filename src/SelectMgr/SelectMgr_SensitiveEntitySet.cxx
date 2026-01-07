@@ -58,7 +58,7 @@ void SelectMgr_SensitiveEntitySet::Append(const Handle(SelectMgr_SensitiveEntity
 // purpose  : Adds every entity of selection theSelection to the set
 //            and marks BVH tree for rebuild
 //=======================================================================
-void SelectMgr_SensitiveEntitySet::Append(const Handle(SelectMgr_Selection)& theSelection)
+void SelectMgr_SensitiveEntitySet::Append(const Handle(SelectionContainer)& theSelection)
 {
   for (NCollection_Vector<Handle(SelectMgr_SensitiveEntity)>::Iterator aSelEntIter(
          theSelection->Entities());
@@ -90,7 +90,7 @@ void SelectMgr_SensitiveEntitySet::Append(const Handle(SelectMgr_Selection)& the
 // purpose  : Removes every entity of selection theSelection from the set
 //            and marks BVH tree for rebuild
 //=======================================================================
-void SelectMgr_SensitiveEntitySet::Remove(const Handle(SelectMgr_Selection)& theSelection)
+void SelectMgr_SensitiveEntitySet::Remove(const Handle(SelectionContainer)& theSelection)
 {
   for (NCollection_Vector<Handle(SelectMgr_SensitiveEntity)>::Iterator aSelEntIter(
          theSelection->Entities());

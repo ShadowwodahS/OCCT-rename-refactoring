@@ -53,16 +53,16 @@
 //=============================================================================
 
 TopoDSToStep_MakeBrepWithVoids::TopoDSToStep_MakeBrepWithVoids(
-  const TopoDS_Solid&                   aSolid,
+  const TopoSolid&                   aSolid,
   const Handle(Transfer_FinderProcess)& FP,
-  const StepData_Factors&               theLocalFactors,
+  const ConversionFactors&               theLocalFactors,
   const Message_ProgressRange&          theProgress)
 {
   done = Standard_False;
   TopoDS_Iterator                  It;
   MoniTool_DataMapOfShapeTransient aMap;
   TColStd_SequenceOfTransient      S;
-  TopoDS_Shell                     aOutShell;
+  TopoShell                     aOutShell;
 
   Handle(StepShape_TopologicalRepresentationItem) aItem;
   Handle(StepShape_ClosedShell)                   aOuter, aCShell;
@@ -94,7 +94,7 @@ TopoDSToStep_MakeBrepWithVoids::TopoDSToStep_MakeBrepWithVoids(
   {
     if (It.Value().ShapeType() == TopAbs_SHELL)
     {
-      TopoDS_Shell CurrentShell = TopoDS::Shell(It.Value());
+      TopoShell CurrentShell = TopoDS::Shell(It.Value());
       if (!aOutShell.IsNull()
           && !aOutShell.IsEqual(CurrentShell)) //: e0 abv 25 Mar 98: voids should be reversed
                                                //: according to EXPRESS for ABSR
@@ -103,7 +103,7 @@ TopoDSToStep_MakeBrepWithVoids::TopoDSToStep_MakeBrepWithVoids(
       // IsClosed() is often incorrect (taken from MakeManifoldSolid(Solid))
       aTool.Init(aMap, Standard_False, aStepModel->InternalParameters.WriteSurfaceCurMode);
       StepB.Init(CurrentShell, aTool, FP, aWriteTessGeom, theLocalFactors, aPS.Next());
-      TopoDSToStep::AddResult(FP, aTool);
+      TopoDSToStep1::AddResult(FP, aTool);
       if (StepB.IsDone())
       {
         aCShell = Handle(StepShape_ClosedShell)::DownCast(StepB.Value());
@@ -147,7 +147,7 @@ TopoDSToStep_MakeBrepWithVoids::TopoDSToStep_MakeBrepWithVoids(
         if (It.Value().Closed()) {
           aTool.Init(aMap, Standard_False);
           StepB.Init(CurrentShell, aTool, FP);
-          TopoDSToStep::AddResult ( FP, aTool );
+          TopoDSToStep1::AddResult ( FP, aTool );
           if (StepB.IsDone()) {
             aCShell = Handle(StepShape_ClosedShell)::DownCast(StepB.Value());
             if ( aOutShell.IsEqual(It.Value()) )
@@ -182,7 +182,7 @@ TopoDSToStep_MakeBrepWithVoids::TopoDSToStep_MakeBrepWithVoids(
       aOCShell = new StepShape_OrientedClosedShell;
       // Warning : the Oriented Shell Orientation is not always
       //           TRUE.
-      //           Shall check the TopoDS_Shell orientation.
+      //           Shall check the TopoShell orientation.
       // => if the Shell is reversed, shall create an OrientedShell.
       aOCShell->Init(aName,
                      Handle(StepShape_ClosedShell)::DownCast(S.Value(i)),

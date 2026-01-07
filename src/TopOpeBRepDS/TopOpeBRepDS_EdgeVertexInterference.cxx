@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_EdgeVertexInterference, TopOpeBRepDS_Sha
 //=================================================================================================
 
 TopOpeBRepDS_EdgeVertexInterference::TopOpeBRepDS_EdgeVertexInterference(
-  const TopOpeBRepDS_Transition& T,
+  const StateTransition& T,
   const TopOpeBRepDS_Kind        ST,
   const Standard_Integer         S,
   const Standard_Integer         G,
@@ -38,7 +38,7 @@ TopOpeBRepDS_EdgeVertexInterference::TopOpeBRepDS_EdgeVertexInterference(
 //=================================================================================================
 
 TopOpeBRepDS_EdgeVertexInterference::TopOpeBRepDS_EdgeVertexInterference(
-  const TopOpeBRepDS_Transition& T,
+  const StateTransition& T,
   const Standard_Integer         S,
   const Standard_Integer         G,
   const Standard_Boolean         GIsBound,

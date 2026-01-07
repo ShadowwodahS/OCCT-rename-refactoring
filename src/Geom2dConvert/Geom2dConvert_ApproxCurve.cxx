@@ -32,7 +32,7 @@
 // class : Geom2dConvert_ApproxCurve_Eval
 // purpose: evaluator class for approximation
 //=======================================================================
-class Geom2dConvert_ApproxCurve_Eval : public AdvApprox_EvaluatorFunction
+class Geom2dConvert_ApproxCurve_Eval : public EvaluatorFunction
 {
 public:
   Geom2dConvert_ApproxCurve_Eval(const Handle(Adaptor2d_Curve2d)& theFunc,
@@ -110,7 +110,7 @@ void Geom2dConvert_ApproxCurve_Eval::Evaluate(Standard_Integer* Dimension,
   }
 }
 
-Geom2dConvert_ApproxCurve::Geom2dConvert_ApproxCurve(const Handle(Geom2d_Curve)& Curve,
+Geom2dConvert_ApproxCurve::Geom2dConvert_ApproxCurve(const Handle(GeomCurve2d)& Curve,
                                                      const Standard_Real         Tol2d,
                                                      const GeomAbs_Shape         Order,
                                                      const Standard_Integer      MaxSegments,

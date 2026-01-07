@@ -109,11 +109,11 @@ void ChFiDS_Stripe::SetCurve(const Standard_Integer Index, const Standard_Boolea
 }
 
 //=======================================================================
-// function : Handle(Geom2d_Curve)&
+// function : Handle(GeomCurve2d)&
 // purpose  :
 //=======================================================================
 
-const Handle(Geom2d_Curve)& ChFiDS_Stripe::PCurve(const Standard_Boolean First) const
+const Handle(GeomCurve2d)& ChFiDS_Stripe::PCurve(const Standard_Boolean First) const
 {
   if (First)
     return pcrv1;
@@ -123,7 +123,7 @@ const Handle(Geom2d_Curve)& ChFiDS_Stripe::PCurve(const Standard_Boolean First) 
 
 //=================================================================================================
 
-Handle(Geom2d_Curve)& ChFiDS_Stripe::ChangePCurve(const Standard_Boolean First)
+Handle(GeomCurve2d)& ChFiDS_Stripe::ChangePCurve(const Standard_Boolean First)
 {
   if (First)
     return pcrv1;

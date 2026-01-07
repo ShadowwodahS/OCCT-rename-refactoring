@@ -37,9 +37,9 @@
 #include <stdio.h>
 
 // MGE 28/07/98
-IGESGeom_ToolCircularArc::IGESGeom_ToolCircularArc() {}
+CircularArcTool::CircularArcTool() {}
 
-void IGESGeom_ToolCircularArc::ReadOwnParams(const Handle(IGESGeom_CircularArc)& ent,
+void CircularArcTool::ReadOwnParams(const Handle(IGESGeom_CircularArc)& ent,
                                              const Handle(IGESData_IGESReaderData)& /* IR */,
                                              IGESData_ParamReader& PR) const
 {
@@ -52,7 +52,7 @@ void IGESGeom_ToolCircularArc::ReadOwnParams(const Handle(IGESGeom_CircularArc)&
   //=====================================
 
   Standard_Real aZT;
-  gp_XY         aCenter, aStart, anEnd;
+  Coords2d         aCenter, aStart, anEnd;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 
   // MGE 28/07/98
@@ -76,7 +76,7 @@ void IGESGeom_ToolCircularArc::ReadOwnParams(const Handle(IGESGeom_CircularArc)&
   ent->Init(aZT, aCenter, aStart, anEnd);
 }
 
-void IGESGeom_ToolCircularArc::WriteOwnParams(const Handle(IGESGeom_CircularArc)& ent,
+void CircularArcTool::WriteOwnParams(const Handle(IGESGeom_CircularArc)& ent,
                                               IGESData_IGESWriter&                IW) const
 {
   IW.Send(ent->ZPlane());
@@ -88,12 +88,12 @@ void IGESGeom_ToolCircularArc::WriteOwnParams(const Handle(IGESGeom_CircularArc)
   IW.Send(ent->EndPoint().Y());
 }
 
-void IGESGeom_ToolCircularArc::OwnShared(const Handle(IGESGeom_CircularArc)& /* ent */,
+void CircularArcTool::OwnShared(const Handle(IGESGeom_CircularArc)& /* ent */,
                                          Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESGeom_ToolCircularArc::OwnCopy(const Handle(IGESGeom_CircularArc)& another,
+void CircularArcTool::OwnCopy(const Handle(IGESGeom_CircularArc)& another,
                                        const Handle(IGESGeom_CircularArc)& ent,
                                        Interface_CopyTool& /* TC */) const
 {
@@ -103,10 +103,10 @@ void IGESGeom_ToolCircularArc::OwnCopy(const Handle(IGESGeom_CircularArc)& anoth
             another->EndPoint().XY());
 }
 
-IGESData_DirChecker IGESGeom_ToolCircularArc::DirChecker(
+DirectoryChecker CircularArcTool::DirChecker(
   const Handle(IGESGeom_CircularArc)& /* ent */) const
 {
-  IGESData_DirChecker DC(100, 0);
+  DirectoryChecker DC(100, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   //  DC.LineWeight(IGESData_DefValue);
@@ -115,7 +115,7 @@ IGESData_DirChecker IGESGeom_ToolCircularArc::DirChecker(
   return DC;
 }
 
-void IGESGeom_ToolCircularArc::OwnCheck(const Handle(IGESGeom_CircularArc)& /*ent*/,
+void CircularArcTool::OwnCheck(const Handle(IGESGeom_CircularArc)& /*ent*/,
                                         const Interface_ShareTool&,
                                         Handle(Interface_Check)& /*ach*/) const
 {
@@ -137,12 +137,12 @@ void IGESGeom_ToolCircularArc::OwnCheck(const Handle(IGESGeom_CircularArc)& /*en
   */
 }
 
-void IGESGeom_ToolCircularArc::OwnDump(const Handle(IGESGeom_CircularArc)& ent,
+void CircularArcTool::OwnDump(const Handle(IGESGeom_CircularArc)& ent,
                                        const IGESData_IGESDumper& /* dumper */,
                                        Standard_OStream&      S,
                                        const Standard_Integer level) const
 {
-  S << "CircularArc from IGESGeom]\n"
+  S << "CircularArc from IGESGeom1]\n"
     << "Z-Plane Displacement : " << ent->ZPlane() << "\n"
     << "Center      : ";
   IGESData_DumpXYLZ(S, level, ent->Center(), ent->Location(), ent->ZPlane());

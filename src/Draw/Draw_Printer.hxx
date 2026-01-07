@@ -20,24 +20,24 @@
 #include <Draw_Interpretor.hxx>
 
 class Draw_Printer;
-DEFINE_STANDARD_HANDLE(Draw_Printer, Message_Printer)
+DEFINE_STANDARD_HANDLE(Draw_Printer, LogPrinter)
 
 //! Implementation of Printer class with output
-//! (Message_Messenge) directed to Draw_Interpretor
-class Draw_Printer : public Message_Printer
+//! (Message_Messenge) directed to DrawInterpreter
+class Draw_Printer : public LogPrinter
 {
-  DEFINE_STANDARD_RTTIEXT(Draw_Printer, Message_Printer)
+  DEFINE_STANDARD_RTTIEXT(Draw_Printer, LogPrinter)
 public:
   //! Creates a printer connected to the interpretor.
-  Standard_EXPORT Draw_Printer(Draw_Interpretor& theTcl);
+  Standard_EXPORT Draw_Printer(DrawInterpreter& theTcl);
 
 protected:
   //! Send a string message with specified trace level.
-  Standard_EXPORT virtual void send(const TCollection_AsciiString& theString,
+  Standard_EXPORT virtual void send(const AsciiString1& theString,
                                     const Message_Gravity theGravity) const Standard_OVERRIDE;
 
 private:
-  Draw_Interpretor* myTcl;
+  DrawInterpreter* myTcl;
 };
 
 #endif // _Draw_Printer_HeaderFile

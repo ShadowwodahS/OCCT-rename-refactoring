@@ -27,7 +27,7 @@
 // function : parsing
 // purpose  : parsing of unit's expression
 //=======================================================================
-static Standard_Integer parsing(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer parsing(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 2)
   {
@@ -35,10 +35,10 @@ static Standard_Integer parsing(Draw_Interpretor& di, Standard_Integer argc, con
     return 1;
   }
 
-  TCollection_AsciiString aStrTok(argv[1]);
+  AsciiString1 aStrTok(argv[1]);
   Standard_Integer        nbIter = 1;
   if (argc > 2)
-    nbIter = Draw::Atoi(argv[2]);
+    nbIter = Draw1::Atoi(argv[2]);
   UnitsAPI::SetLocalSystem();
   Handle(Units_Token) atoken;
   Units_UnitSentence  aUnitSent(aStrTok.ToCString());
@@ -65,7 +65,7 @@ static Standard_Integer parsing(Draw_Interpretor& di, Standard_Integer argc, con
 // function : unitsdico
 // purpose  : dump dictionary of units
 //=======================================================================
-static Standard_Integer unitsdico(Draw_Interpretor& /* di */,
+static Standard_Integer unitsdico(DrawInterpreter& /* di */,
                                   Standard_Integer /*argc*/,
                                   const char** /*argv*/)
 {
@@ -77,7 +77,7 @@ static Standard_Integer unitsdico(Draw_Interpretor& /* di */,
 
 //=================================================================================================
 
-static Standard_Integer converttoSI(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer converttoSI(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
@@ -85,7 +85,7 @@ static Standard_Integer converttoSI(Draw_Interpretor& di, Standard_Integer argc,
     return 1;
   }
 
-  Standard_Real    aData = Draw::Atof(argv[1]);
+  Standard_Real    aData = Draw1::Atof(argv[1]);
   Standard_CString aUnit = argv[2];
 
   Standard_Real res = UnitsAPI::AnyToSI(aData, aUnit);
@@ -96,7 +96,7 @@ static Standard_Integer converttoSI(Draw_Interpretor& di, Standard_Integer argc,
 
 //=================================================================================================
 
-static Standard_Integer converttoMDTV(Draw_Interpretor& di,
+static Standard_Integer converttoMDTV(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -106,7 +106,7 @@ static Standard_Integer converttoMDTV(Draw_Interpretor& di,
     return 1;
   }
 
-  Standard_Real    aData = Draw::Atof(argv[1]);
+  Standard_Real    aData = Draw1::Atof(argv[1]);
   Standard_CString aUnit = argv[2];
 
   UnitsAPI::SetLocalSystem(UnitsAPI_MDTV);
@@ -118,11 +118,11 @@ static Standard_Integer converttoMDTV(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer unit(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer unit(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n == 4)
   {
-    di << Units::Convert(Draw::Atof(a[1]), a[2], a[3]);
+    di << Units::Convert(Draw1::Atof(a[1]), a[2], a[3]);
     return 0;
   }
   else
@@ -131,7 +131,7 @@ static Standard_Integer unit(Draw_Interpretor& di, Standard_Integer n, const cha
 
 //=================================================================================================
 
-void Draw::UnitCommands(Draw_Interpretor& theCommands)
+void Draw1::UnitCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean Done = Standard_False;
   if (Done)

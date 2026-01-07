@@ -29,7 +29,7 @@
 
 class AIS_Trihedron;
 class AIS_ViewCube;
-class V3d_View;
+class ViewWindow;
 class View_DisplayPreview;
 
 //! \class View_Displayer
@@ -54,7 +54,7 @@ public:
   //! Stores the current context where the presentations will be displayed/erased.
   //! Erases previously displayed presentations if there were some displayed
   //! \param theContext a context instance
-  Standard_EXPORT void SetContext(const Handle(AIS_InteractiveContext)& theContext);
+  Standard_EXPORT void SetContext(const Handle(VisualContext)& theContext);
 
   //! Stores boolean value if presentations should be keeped. If true, new displayed presentation is
   //! added to already displayed ones, otherwise the displayed presentation is shown only. \param
@@ -88,7 +88,7 @@ public:
   //! Display mode is equal to the view state
   //! If KeepPresentations is false, the viewer is fit all
   //! Displayed presentation is stored in an internal map of displayed presentations
-  //! \param thePresentation a presentation, it will be casted to AIS_InteractiveObject
+  //! \param thePresentation a presentation, it will be casted to VisualEntity
   //! \param theType presentation type
   //! \param isToUpdateView boolean state if viewer should be updated
   Standard_EXPORT void DisplayPresentation(
@@ -97,7 +97,7 @@ public:
     const bool                        theToUpdateViewer = true);
 
   //! Redisplays the parameter presentation in current context
-  //! \param thePresentation a presentation, it will be casted to AIS_InteractiveObject
+  //! \param thePresentation a presentation, it will be casted to VisualEntity
   //! \param isToUpdateView boolean state if viewer should be updated
   Standard_EXPORT void RedisplayPresentation(const Handle(RefObject)& thePresentation,
                                              const bool theToUpdateViewer = true);
@@ -115,7 +115,7 @@ public:
     const bool                  theToUpdateViewer = true);
 
   //! Erases presentation from viewer
-  //! \param thePresentation a presentation, it will be casted to AIS_InteractiveObject
+  //! \param thePresentation a presentation, it will be casted to VisualEntity
   //! \param theType presentation type
   //! \param isToUpdateView boolean state if viewer should be updated
   Standard_EXPORT void ErasePresentation(
@@ -138,14 +138,14 @@ public:
   //! Sets shape visible/invisible
   //! \theShape shape instance
   //! \theState visibility state
-  Standard_EXPORT void SetVisible(const TopoDS_Shape&         theShape,
+  Standard_EXPORT void SetVisible(const TopoShape&         theShape,
                                   const bool                  theState,
                                   const View_PresentationType theType = View_PresentationType_Main);
 
   //! Returns visibility state value
   //! \theShape shape instance
   Standard_EXPORT bool IsVisible(
-    const TopoDS_Shape&         theShape,
+    const TopoShape&         theShape,
     const View_PresentationType theType = View_PresentationType_Main) const;
 
   //! Updates visibility of the presentations for the display type
@@ -176,26 +176,26 @@ public:
     return myDisplayed;
   }
 
-  //! Returns presentation if there is displayed AIS_Shape presentation for the parameter shape
+  //! Returns presentation if there is displayed VisualShape presentation for the parameter shape
   //! \param theShape a shape instance
   //! \param theType presentation type
   //! \return presentation instance or NULL
-  Standard_EXPORT Handle(AIS_InteractiveObject) FindPresentation(
-    const TopoDS_Shape&         theShape,
+  Standard_EXPORT Handle(VisualEntity) FindPresentation(
+    const TopoShape&         theShape,
     const View_PresentationType theType = View_PresentationType_Main) const;
 
-  //! Creates AIS_Shape for the shape
+  //! Creates VisualShape for the shape
   //! \param theShape a shape
   //! \return presentation
   Standard_EXPORT static Handle(RefObject) CreatePresentation(
-    const TopoDS_Shape& theShape);
+    const TopoShape& theShape);
 
 private:
   //! Returns the current context
-  const Handle(AIS_InteractiveContext)& GetContext() const { return myContext; }
+  const Handle(VisualContext)& GetContext() const { return myContext; }
 
   //! Returns 3d view
-  Handle(V3d_View) GetView() const;
+  Handle(ViewWindow) GetView() const;
 
   //! Fits all view
   void fitAllView();
@@ -207,7 +207,7 @@ private:
 private:
   View_DisplayPreview* myDisplayPreview; //!< class for preview display
 
-  Handle(AIS_InteractiveContext) myContext; //!< context, where the displayer works
+  Handle(VisualContext) myContext; //!< context, where the displayer works
   Handle(AIS_Trihedron) myDefaultTrihedron; //!< trihedron presentation for the current context
   Handle(AIS_ViewCube)  myViewCube;         //!< view cube presentation for current context
 

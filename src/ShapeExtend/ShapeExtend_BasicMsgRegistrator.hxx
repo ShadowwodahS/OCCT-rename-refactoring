@@ -22,7 +22,7 @@
 #include <Standard_Transient.hxx>
 #include <Message_Gravity.hxx>
 class Message_Msg;
-class TopoDS_Shape;
+class TopoShape;
 
 class ShapeExtend_BasicMsgRegistrator;
 DEFINE_STANDARD_HANDLE(ShapeExtend_BasicMsgRegistrator, RefObject)
@@ -50,7 +50,7 @@ public:
                                     const Message_Gravity             gravity);
 
   //! Sends a message to be attached to the shape.
-  Standard_EXPORT virtual void Send(const TopoDS_Shape&   shape,
+  Standard_EXPORT virtual void Send(const TopoShape&   shape,
                                     const Message_Msg&    message,
                                     const Message_Gravity gravity);
 

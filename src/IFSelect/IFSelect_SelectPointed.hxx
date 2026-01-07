@@ -28,7 +28,7 @@ class Interface_CopyControl;
 class IFSelect_Transformer;
 class Interface_EntityIterator;
 class Interface_Graph;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_SelectPointed;
 DEFINE_STANDARD_HANDLE(IFSelect_SelectPointed, IFSelect_SelectBase)
@@ -117,7 +117,7 @@ public:
 
   //! Returns a text which identifies the type of selection made.
   //! It is "Pointed Entities"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectPointed, IFSelect_SelectBase)
 

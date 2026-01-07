@@ -23,14 +23,14 @@
 
 #include <Draw_ColorKind.hxx>
 
-class Draw_Color
+class DrawColor
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Draw_Color();
+  Standard_EXPORT DrawColor();
 
-  Standard_EXPORT Draw_Color(const Draw_ColorKind c);
+  Standard_EXPORT DrawColor(const Draw_ColorKind c);
 
   Standard_EXPORT Draw_ColorKind ID() const;
 

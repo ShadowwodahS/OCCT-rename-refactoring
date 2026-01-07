@@ -447,7 +447,7 @@ void OSD::SetSignal(OSD_SignalMode theSignalMode, Standard_Boolean theFloatingSi
 
   #if !defined(OCCT_UWP) || defined(NTDDI_WIN10_TH2)
   OSD_Environment         env("CSF_DEBUG_MODE");
-  TCollection_AsciiString val = env.Value();
+  AsciiString1 val = env.Value();
   if (!env.Failed())
   {
     std::cout << "Environment variable CSF_DEBUG_MODE set.\n";

@@ -37,19 +37,19 @@ public:
   Standard_EXPORT OSD_Host();
 
   //! Returns system name and version
-  Standard_EXPORT TCollection_AsciiString SystemVersion();
+  Standard_EXPORT AsciiString1 SystemVersion();
 
   //! Returns the system type (UNIX System V, UNIX BSD, MS-DOS...)
   Standard_EXPORT OSD_SysType SystemId() const;
 
   //! Returns host name.
-  Standard_EXPORT TCollection_AsciiString HostName();
+  Standard_EXPORT AsciiString1 HostName();
 
   //! Returns available memory in Kilobytes.
   Standard_EXPORT Standard_Integer AvailableMemory();
 
   //! Returns Internet address of current host.
-  Standard_EXPORT TCollection_AsciiString InternetAddress();
+  Standard_EXPORT AsciiString1 InternetAddress();
 
   //! Returns type of current machine.
   Standard_EXPORT OSD_OEMType MachineType();
@@ -68,7 +68,7 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString myName;
+  AsciiString1 myName;
   OSD_Error               myError;
 };
 

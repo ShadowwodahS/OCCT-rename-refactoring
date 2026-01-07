@@ -28,7 +28,7 @@
 class Standard_DomainError;
 class BRepClass3d_Intersector3d;
 class gp_Lin;
-class TopoDS_Face;
+class TopoFace;
 
 class BRepClass3d_SolidPassiveClassifier
 {
@@ -47,7 +47,7 @@ public:
 
   //! Updates  the classification process with  the face
   //! <F> from the boundary.
-  Standard_EXPORT void Compare(const TopoDS_Face& F, const TopAbs_Orientation Or);
+  Standard_EXPORT void Compare(const TopoFace& F, const TopAbs_Orientation Or);
 
   //! Returns the current value of the parameter.
   Standard_Real Parameter() const { return myParam; }
@@ -63,7 +63,7 @@ public:
 
 private:
   Standard_Boolean          isSet;
-  TopoDS_Face               myFace;
+  TopoFace               myFace;
   gp_Lin                    myLin;
   Standard_Real             myParam;
   Standard_Real             myTolerance;

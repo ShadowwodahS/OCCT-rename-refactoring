@@ -36,15 +36,15 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESDraw_ToolPerspectiveView::IGESDraw_ToolPerspectiveView() {}
+PerspectiveViewTool::PerspectiveViewTool() {}
 
-void IGESDraw_ToolPerspectiveView::ReadOwnParams(const Handle(IGESDraw_PerspectiveView)& ent,
+void PerspectiveViewTool::ReadOwnParams(const Handle(IGESDraw_PerspectiveView)& ent,
                                                  const Handle(IGESData_IGESReaderData)& /*IR*/,
                                                  IGESData_ParamReader& PR) const
 {
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 
-  gp_XY            tempTopLeft, tempBottomRight;
+  Coords2d            tempTopLeft, tempBottomRight;
   Standard_Real    tempLeft, tempRight, tempTop, tempBottom;
   gp_XYZ           tempCenterOfProjection, tempViewUpVector;
   gp_XYZ           tempViewNormalVector, tempViewReferencePoint;
@@ -101,7 +101,7 @@ void IGESDraw_ToolPerspectiveView::ReadOwnParams(const Handle(IGESDraw_Perspecti
             tempFrontPlaneDistance);
 }
 
-void IGESDraw_ToolPerspectiveView::WriteOwnParams(const Handle(IGESDraw_PerspectiveView)& ent,
+void PerspectiveViewTool::WriteOwnParams(const Handle(IGESDraw_PerspectiveView)& ent,
                                                   IGESData_IGESWriter&                    IW) const
 {
   IW.Send(ent->ViewNumber());
@@ -128,12 +128,12 @@ void IGESDraw_ToolPerspectiveView::WriteOwnParams(const Handle(IGESDraw_Perspect
   IW.Send(ent->FrontPlaneDistance());
 }
 
-void IGESDraw_ToolPerspectiveView::OwnShared(const Handle(IGESDraw_PerspectiveView)& /*ent*/,
+void PerspectiveViewTool::OwnShared(const Handle(IGESDraw_PerspectiveView)& /*ent*/,
                                              Interface_EntityIterator& /*iter*/) const
 {
 }
 
-void IGESDraw_ToolPerspectiveView::OwnCopy(const Handle(IGESDraw_PerspectiveView)& another,
+void PerspectiveViewTool::OwnCopy(const Handle(IGESDraw_PerspectiveView)& another,
                                            const Handle(IGESDraw_PerspectiveView)& ent,
                                            Interface_CopyTool& /*TC*/) const
 {
@@ -151,10 +151,10 @@ void IGESDraw_ToolPerspectiveView::OwnCopy(const Handle(IGESDraw_PerspectiveView
             another->FrontPlaneDistance());
 }
 
-IGESData_DirChecker IGESDraw_ToolPerspectiveView::DirChecker(
+DirectoryChecker PerspectiveViewTool::DirChecker(
   const Handle(IGESDraw_PerspectiveView)& /*ent*/) const
 {
-  IGESData_DirChecker DC(410, 1);
+  DirectoryChecker DC(410, 1);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -166,7 +166,7 @@ IGESData_DirChecker IGESDraw_ToolPerspectiveView::DirChecker(
   return DC;
 }
 
-void IGESDraw_ToolPerspectiveView::OwnCheck(const Handle(IGESDraw_PerspectiveView)& ent,
+void PerspectiveViewTool::OwnCheck(const Handle(IGESDraw_PerspectiveView)& ent,
                                             const Interface_ShareTool&,
                                             Handle(Interface_Check)& ach) const
 {
@@ -179,7 +179,7 @@ void IGESDraw_ToolPerspectiveView::OwnCheck(const Handle(IGESDraw_PerspectiveVie
   }
 }
 
-void IGESDraw_ToolPerspectiveView::OwnDump(const Handle(IGESDraw_PerspectiveView)& ent,
+void PerspectiveViewTool::OwnDump(const Handle(IGESDraw_PerspectiveView)& ent,
                                            const IGESData_IGESDumper& /*dumper*/,
                                            Standard_OStream&      S,
                                            const Standard_Integer level) const

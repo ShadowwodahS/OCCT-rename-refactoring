@@ -69,10 +69,10 @@ Standard_Boolean BinMFunction_ScopeDriver::Paste(const BinObjMgt_Persistent&  th
   Standard_Integer freeID = 0;
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    TCollection_AsciiString entry;
+    AsciiString1 entry;
     if (!(theSource >> entry))
       return Standard_False;
-    TDF_Label L;
+    DataLabel L;
     TDF_Tool::Label(S->Label().Data(), entry, L, Standard_True);
     if (!L.IsNull())
     {
@@ -124,10 +124,10 @@ void BinMFunction_ScopeDriver::Paste(const Handle(TDF_Attribute)& theSource,
     TFunction_DoubleMapIteratorOfDoubleMapOfIntegerLabel itr(map);
     for (; itr.More(); itr.Next())
     {
-      TDF_Label L = itr.Key2();
+      DataLabel L = itr.Key2();
       if (!L.IsNull())
       {
-        TCollection_AsciiString entry;
+        AsciiString1 entry;
         TDF_Tool::Entry(L, entry);
         theTarget << entry;
       }

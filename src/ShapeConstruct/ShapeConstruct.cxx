@@ -57,7 +57,7 @@
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) ShapeConstruct::ConvertCurveToBSpline(const Handle(Geom_Curve)& C3D,
+Handle(BSplineCurve3d) ShapeConstruct::ConvertCurveToBSpline(const Handle(GeomCurve3d)& C3D,
                                                                 const Standard_Real       First,
                                                                 const Standard_Real       Last,
                                                                 const Standard_Real       Tol3d,
@@ -66,16 +66,16 @@ Handle(Geom_BSplineCurve) ShapeConstruct::ConvertCurveToBSpline(const Handle(Geo
                                                                 const Standard_Integer MaxDegree)
 {
   Standard_Integer          MaxDeg = MaxDegree;
-  Handle(Geom_BSplineCurve) aBSpline;
-  if (C3D->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
-    aBSpline = Handle(Geom_BSplineCurve)::DownCast(C3D);
+  Handle(BSplineCurve3d) aBSpline;
+  if (C3D->IsKind(STANDARD_TYPE(BSplineCurve3d)))
+    aBSpline = Handle(BSplineCurve3d)::DownCast(C3D);
   else
   {
     if (C3D->IsKind(STANDARD_TYPE(Geom_Conic)))
       MaxDeg = Min(MaxDeg, 6);
 
     // clang-format off
-    Handle(Geom_Curve) tcurve = new Geom_TrimmedCurve(C3D,First,Last); //protection against parabols ets
+    Handle(GeomCurve3d) tcurve = new Geom_TrimmedCurve(C3D,First,Last); //protection against parabols ets
     // clang-format on
     try
     {
@@ -103,7 +103,7 @@ Handle(Geom_BSplineCurve) ShapeConstruct::ConvertCurveToBSpline(const Handle(Geo
 //=================================================================================================
 
 Handle(Geom2d_BSplineCurve) ShapeConstruct::ConvertCurveToBSpline(
-  const Handle(Geom2d_Curve)& C2D,
+  const Handle(GeomCurve2d)& C2D,
   const Standard_Real         First,
   const Standard_Real         Last,
   const Standard_Real         Tol2d,
@@ -115,7 +115,7 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct::ConvertCurveToBSpline(
   if (C2D->IsKind(STANDARD_TYPE(Geom2d_Conic)))
   {
     // clang-format off
-    Handle(Geom2d_Curve) tcurve = new Geom2d_TrimmedCurve(C2D,First,Last); //protection against parabols ets
+    Handle(GeomCurve2d) tcurve = new Geom2d_TrimmedCurve(C2D,First,Last); //protection against parabols ets
     // clang-format on
     Geom2dConvert_ApproxCurve approx(tcurve, Tol2d, Continuity, MaxSegments, MaxDegree);
     if (approx.HasResult())
@@ -141,7 +141,7 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct::ConvertCurveToBSpline(
 // Eventually it may be merged back to GeomConvert.
 
 Handle(Geom_BSplineSurface) ShapeConstruct::ConvertSurfaceToBSpline(
-  const Handle(Geom_Surface)& surf,
+  const Handle(GeomSurface)& surf,
   const Standard_Real         UF,
   const Standard_Real         UL,
   const Standard_Real         VF,
@@ -153,7 +153,7 @@ Handle(Geom_BSplineSurface) ShapeConstruct::ConvertSurfaceToBSpline(
 {
   Handle(Geom_BSplineSurface) res;
 
-  Handle(Geom_Surface) S = surf;
+  Handle(GeomSurface) S = surf;
   if (surf->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
   {
     Handle(Geom_RectangularTrimmedSurface) RTS =
@@ -172,11 +172,11 @@ Handle(Geom_BSplineSurface) ShapeConstruct::ConvertSurfaceToBSpline(
   if (S->IsKind(STANDARD_TYPE(Geom_SurfaceOfLinearExtrusion)))
   {
     Handle(Geom_SurfaceOfLinearExtrusion) extr = Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(S);
-    Handle(Geom_Curve)                    basis = extr->BasisCurve();
+    Handle(GeomCurve3d)                    basis = extr->BasisCurve();
     // Dir3d direction = extr->Direction(); // direction not used (skl)
 
     GeomAbs_Shape             cnt = (Continuity > GeomAbs_C2 ? GeomAbs_C2 : Continuity);
-    Handle(Geom_BSplineCurve) bspl =
+    Handle(BSplineCurve3d) bspl =
       ConvertCurveToBSpline(basis, UF, UL, Tol3d, cnt, MaxSegments, MaxDegree);
 
     Transform3d shiftF, shiftL;
@@ -227,12 +227,12 @@ Handle(Geom_BSplineSurface) ShapeConstruct::ConvertSurfaceToBSpline(
   if (S->IsKind(STANDARD_TYPE(Geom_SurfaceOfRevolution)))
   {
     Handle(Geom_SurfaceOfRevolution) revol = Handle(Geom_SurfaceOfRevolution)::DownCast(S);
-    Handle(Geom_Curve)               basis = revol->BasisCurve();
+    Handle(GeomCurve3d)               basis = revol->BasisCurve();
     if (basis->IsKind(STANDARD_TYPE(Geom_OffsetCurve)))
     {
       GeomAbs_Shape cnt = basis->Continuity();
       cnt               = (cnt > GeomAbs_C2 ? GeomAbs_C2 : cnt);
-      Handle(Geom_BSplineCurve) bspl =
+      Handle(BSplineCurve3d) bspl =
         ConvertCurveToBSpline(basis, VF, VL, Tol3d, cnt, MaxSegments, MaxDegree);
       Axis3d                           axis     = revol->Axis();
       Handle(Geom_SurfaceOfRevolution) newRevol = new Geom_SurfaceOfRevolution(bspl, axis);
@@ -243,7 +243,7 @@ Handle(Geom_BSplineSurface) ShapeConstruct::ConvertSurfaceToBSpline(
     }
   }
 
-  Handle(Geom_Surface)        aSurface = new Geom_RectangularTrimmedSurface(S, UF, UL, VF, VL);
+  Handle(GeomSurface)        aSurface = new Geom_RectangularTrimmedSurface(S, UF, UL, VF, VL);
   Handle(Geom_BSplineSurface) errSpl;
   for (Standard_Integer cnt = (Continuity > GeomAbs_C3 ? GeomAbs_C3 : Continuity); cnt >= 0;)
   {
@@ -298,34 +298,34 @@ Handle(Geom_BSplineSurface) ShapeConstruct::ConvertSurfaceToBSpline(
 //=================================================================================================
 
 Standard_Boolean ShapeConstruct::JoinPCurves(const Handle(TopTools_HSequenceOfShape)& edges,
-                                             const TopoDS_Face&                       theFace,
-                                             TopoDS_Edge&                             theEdge)
+                                             const TopoFace&                       theFace,
+                                             TopoEdge&                             theEdge)
 {
   ShapeAnalysis_Edge sae;
-  BRep_Builder       B;
+  ShapeBuilder       B;
 
   try
   {
     OCC_CATCH_SIGNALS
     // check if current face is plane.
-    Handle(Geom_Surface) aGeomSurf = BRep_Tool::Surface(theFace);
+    Handle(GeomSurface) aGeomSurf = BRepInspector::Surface(theFace);
     while (aGeomSurf->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
     {
 
       aGeomSurf = Handle(Geom_RectangularTrimmedSurface)::DownCast(aGeomSurf)->BasisSurface();
     }
-    if (aGeomSurf->IsKind(STANDARD_TYPE(Geom_Plane)))
+    if (aGeomSurf->IsKind(STANDARD_TYPE(GeomPlane)))
       return Standard_True;
 
     Standard_Boolean     IsEdgeSeam = Standard_False;
-    Handle(Geom2d_Curve) aCrvRes1, aCrvRes2;
+    Handle(GeomCurve2d) aCrvRes1, aCrvRes2;
     TopAbs_Orientation   resOrient;
     Standard_Real        newf = 0., newl = 0.;
     // iterates on edges
     Standard_Integer i = 1;
     for (; i <= edges->Length(); i++)
     {
-      TopoDS_Edge Edge = TopoDS::Edge(edges->Value(i));
+      TopoEdge Edge = TopoDS::Edge(edges->Value(i));
       if (i == 1)
         IsEdgeSeam = sae.IsSeam(Edge, theFace);
       else if (IsEdgeSeam && (!sae.IsSeam(Edge, theFace)))
@@ -334,14 +334,14 @@ Standard_Boolean ShapeConstruct::JoinPCurves(const Handle(TopTools_HSequenceOfSh
         break; // different cases
 
       resOrient = TopAbs_FORWARD;
-      Handle(Geom2d_Curve) c2d, c2d2;
+      Handle(GeomCurve2d) c2d, c2d2;
       Standard_Real        first, last, first2, last2;
       if (!sae.PCurve(Edge, theFace, c2d, first, last, Standard_False))
         break;
 
       if (IsEdgeSeam)
       {
-        TopoDS_Edge tmpE1 = TopoDS::Edge(Edge.Reversed());
+        TopoEdge tmpE1 = TopoDS::Edge(Edge.Reversed());
         sae.PCurve(tmpE1, theFace, c2d2, first2, last2, Standard_False);
       }
 
@@ -358,7 +358,7 @@ Standard_Boolean ShapeConstruct::JoinPCurves(const Handle(TopTools_HSequenceOfSh
       }
       else
       {
-        Handle(Geom2d_Curve) newCrv;
+        Handle(GeomCurve2d) newCrv;
         Standard_Boolean     isRev1, isRev2;
         if (!JoinCurves(aCrvRes1,
                         c2d,
@@ -375,7 +375,7 @@ Standard_Boolean ShapeConstruct::JoinPCurves(const Handle(TopTools_HSequenceOfSh
 
         if (IsEdgeSeam)
         {
-          Handle(Geom2d_Curve) newCrv2;
+          Handle(GeomCurve2d) newCrv2;
           Standard_Real        newf2 = newf, newl2 = newl;
 
           if (!JoinCurves(aCrvRes2,
@@ -487,28 +487,28 @@ static inline void GetReversedParameters(const HPoint&     p11,
 
 //=================================================================================================
 
-Standard_Boolean ShapeConstruct::JoinCurves(const Handle(Geom_Curve)& ac3d1,
-                                            const Handle(Geom_Curve)& ac3d2,
+Standard_Boolean ShapeConstruct::JoinCurves(const Handle(GeomCurve3d)& ac3d1,
+                                            const Handle(GeomCurve3d)& ac3d2,
                                             const TopAbs_Orientation  Orient1,
                                             const TopAbs_Orientation  Orient2,
                                             Standard_Real&            first1,
                                             Standard_Real&            last1,
                                             Standard_Real&            first2,
                                             Standard_Real&            last2,
-                                            Handle(Geom_Curve)&       c3dOut,
+                                            Handle(GeomCurve3d)&       c3dOut,
                                             Standard_Boolean&         isRev1,
                                             Standard_Boolean&         isRev2)
 
 {
-  Handle(Geom_Curve) c3d1, c3d2;
+  Handle(GeomCurve3d) c3d1, c3d2;
 
   c3d1 = GetCurveCopy(ac3d1, first1, last1, Orient1);
   c3d2 = GetCurveCopy(ac3d2, first2, last2, Orient2);
   ShapeConstruct_Curve      scc;
   Standard_Boolean          After = Standard_True;
-  Handle(Geom_BSplineCurve) bsplc1 =
+  Handle(BSplineCurve3d) bsplc1 =
     scc.ConvertToBSpline(c3d1, first1, last1, Precision::Confusion());
-  Handle(Geom_BSplineCurve) bsplc2 =
+  Handle(BSplineCurve3d) bsplc2 =
     scc.ConvertToBSpline(c3d2, first2, last2, Precision::Confusion());
   //  newf = first1;
   //  newl = last1 + last2 - first2;
@@ -547,20 +547,20 @@ Standard_Boolean ShapeConstruct::JoinCurves(const Handle(Geom_Curve)& ac3d1,
 
 //=================================================================================================
 
-Standard_Boolean ShapeConstruct::JoinCurves(const Handle(Geom2d_Curve)& aC2d1,
-                                            const Handle(Geom2d_Curve)& aC2d2,
+Standard_Boolean ShapeConstruct::JoinCurves(const Handle(GeomCurve2d)& aC2d1,
+                                            const Handle(GeomCurve2d)& aC2d2,
                                             const TopAbs_Orientation    Orient1,
                                             const TopAbs_Orientation    Orient2,
                                             Standard_Real&              first1,
                                             Standard_Real&              last1,
                                             Standard_Real&              first2,
                                             Standard_Real&              last2,
-                                            Handle(Geom2d_Curve)&       C2dOut,
+                                            Handle(GeomCurve2d)&       C2dOut,
                                             Standard_Boolean&           isRev1,
                                             Standard_Boolean&           isRev2,
                                             const Standard_Boolean      isError)
 {
-  Handle(Geom2d_Curve) c2d1, c2d2;
+  Handle(GeomCurve2d) c2d1, c2d2;
   c2d1 = GetCurveCopy(aC2d1, first1, last1, Orient1);
   c2d2 = GetCurveCopy(aC2d2, first2, last2, Orient2);
   ShapeConstruct_Curve scc;
@@ -620,10 +620,10 @@ Standard_Boolean ShapeConstruct::JoinCurves(const Handle(Geom2d_Curve)& aC2d1,
   Point3d                    vPnt(0, 0, 0);
   Vector3d                    vDir(0, 0, 1);
   gp_Pln                    vPln(vPnt, vDir);
-  Handle(Geom_BSplineCurve) bspl1 =
-    Handle(Geom_BSplineCurve)::DownCast(GeomAPI::To3d(bsplc12d, vPln));
-  Handle(Geom_BSplineCurve) bspl2 =
-    Handle(Geom_BSplineCurve)::DownCast(GeomAPI::To3d(bsplc22d, vPln));
+  Handle(BSplineCurve3d) bspl1 =
+    Handle(BSplineCurve3d)::DownCast(GeomAPI::To3d(bsplc12d, vPln));
+  Handle(BSplineCurve3d) bspl2 =
+    Handle(BSplineCurve3d)::DownCast(GeomAPI::To3d(bsplc22d, vPln));
   GeomConvert_CompCurveToBSplineCurve connect2d(bspl1);
   if (!connect2d.Add(bspl2, Precision::PConfusion(), After, Standard_False))
     return Standard_False;

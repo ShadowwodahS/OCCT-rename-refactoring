@@ -32,7 +32,7 @@ class Transfer_Binder;
 class XSAlgo_ShapeProcessor
 {
 public:
-  using ParameterMap   = NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString>;
+  using ParameterMap   = NCollection_DataMap<AsciiString1, AsciiString1>;
   using ProcessingData = std::pair<ParameterMap, ShapeProcess::OperationsFlags>;
   // Flags defining operations to be performed on shapes. Since there is no std::optional in C++11,
   // we use a pair. The first element is the flags, the second element is a boolean value that
@@ -46,18 +46,18 @@ public:
   //!        If @p theParameters has some shape healing values, they will override the
   //!        corresponding values from @p theShapeFixParameters.
   Standard_EXPORT XSAlgo_ShapeProcessor(const ParameterMap&          theParameters,
-                                        const DE_ShapeFixParameters& theShapeFixParameters = {});
+                                        const ShapeFixParameters& theShapeFixParameters = {});
 
   //! Constructor.
   //! @param theParameters Parameters to be used in the processing.
-  Standard_EXPORT XSAlgo_ShapeProcessor(const DE_ShapeFixParameters& theParameters);
+  Standard_EXPORT XSAlgo_ShapeProcessor(const ShapeFixParameters& theParameters);
 
   //! Process the shape by applying the specified operations.
   //! @param theShape Shape to process.
   //! @param theOperations Operations to be performed.
   //! @param theProgress Progress indicator.
   //! @return Processed shape. May be the same as the input shape if no modifications were made.
-  Standard_EXPORT TopoDS_Shape ProcessShape(const TopoDS_Shape&                  theShape,
+  Standard_EXPORT TopoShape ProcessShape(const TopoShape&                  theShape,
                                             const ShapeProcess::OperationsFlags& theOperations,
                                             const Message_ProgressRange&         theProgress);
 
@@ -84,8 +84,8 @@ public:
   //! @param thePrecision Precision to use for checking.
   //! @param theIsSeam Flag indicating whether the edge is a seam edge.
   //! @return True if the pcurve was corrected, false if it was dropped.
-  Standard_EXPORT static Standard_Boolean CheckPCurve(const TopoDS_Edge&     theEdge,
-                                                      const TopoDS_Face&     theFace,
+  Standard_EXPORT static Standard_Boolean CheckPCurve(const TopoEdge&     theEdge,
+                                                      const TopoFace&     theFace,
                                                       const Standard_Real    thePrecision,
                                                       const Standard_Boolean theIsSeam);
 
@@ -98,15 +98,15 @@ public:
   //!        "FromIGES".
   //! @return Read parameter map.
   Standard_EXPORT static ProcessingData ReadProcessingData(
-    const TCollection_AsciiString& theFileResourceName,
-    const TCollection_AsciiString& theScopeResourceName);
+    const AsciiString1& theFileResourceName,
+    const AsciiString1& theScopeResourceName);
 
   //! Fill the parameter map with the values from the specified parameters.
   //! @param theParameters Parameters to be used in the processing.
   //! @param theIsForce Flag indicating whether parameter should be replaced if it already exists in
   //! the map.
   //! @param theMap Map to fill.
-  Standard_EXPORT static void FillParameterMap(const DE_ShapeFixParameters& theParameters,
+  Standard_EXPORT static void FillParameterMap(const ShapeFixParameters& theParameters,
                                                const bool                   theIsReplace,
                                                ParameterMap&                theMap);
 
@@ -117,7 +117,7 @@ public:
   //! @param theParameters the parameters for shape processing.
   //! @param theAdditionalParameters the additional parameters for shape processing.
   //! @param theTargetParameterMap Map to set the parameters in.
-  Standard_EXPORT static void SetShapeFixParameters(const DE_ShapeFixParameters& theParameters,
+  Standard_EXPORT static void SetShapeFixParameters(const ShapeFixParameters& theParameters,
                                                     const ParameterMap& theAdditionalParameters,
                                                     ParameterMap&       theTargetParameterMap);
 
@@ -128,7 +128,7 @@ public:
   //! in the map.
   //! @param theMap Map to set the parameter in.
   Standard_EXPORT static void SetParameter(const char*                          theKey,
-                                           const DE_ShapeFixParameters::FixMode theValue,
+                                           const ShapeFixParameters::FixMode theValue,
                                            const bool                           theIsReplace,
                                            XSAlgo_ShapeProcessor::ParameterMap& theMap);
 
@@ -150,7 +150,7 @@ public:
   //! in the map.
   //! @param theMap Map to set the parameter in.
   Standard_EXPORT static void SetParameter(const char*                    theKey,
-                                           const TCollection_AsciiString& theValue,
+                                           const AsciiString1& theValue,
                                            const bool                     theIsReplace,
                                            ParameterMap&                  theMap);
 
@@ -183,20 +183,20 @@ public:
 private:
   //! Initialize the context with the specified shape.
   //! @param theShape Shape to process.
-  void initializeContext(const TopoDS_Shape& theShape);
+  void initializeContext(const TopoShape& theShape);
 
   //! Add messages from the specified shape to the transfer binder.
   //! @param theMessages Container with messages.
   //! @param theShape Shape to get messages from.
   //! @param theBinder Transfer binder to add messages to.
   static void addMessages(const Handle(ShapeExtend_MsgRegistrator)& theMessages,
-                          const TopoDS_Shape&                       theShape,
+                          const TopoShape&                       theShape,
                           Handle(Transfer_Binder)&                  theBinder);
 
   //! Create a new edge with the same geometry as the source edge.
   //! @param theSourceEdge Source edge.
   //! @return New edge with the same geometry.
-  static TopoDS_Edge MakeEdgeOnCurve(const TopoDS_Edge& aSourceEdge);
+  static TopoEdge MakeEdgeOnCurve(const TopoEdge& aSourceEdge);
 
 private:
   ParameterMap                      myParameters; //!< Parameters to be used in the processing.

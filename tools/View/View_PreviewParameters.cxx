@@ -26,7 +26,7 @@
 // =======================================================================
 View_PreviewParameters::View_PreviewParameters(const Standard_Boolean theToTransparent)
 {
-  myDrawer = new Prs3d_Drawer();
+  myDrawer = new StyleDrawer();
 
   Quantity_Color aColor(Quantity_NOC_TOMATO);
 

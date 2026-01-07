@@ -46,7 +46,7 @@ LocOpe_Prism::LocOpe_Prism()
 
 //=================================================================================================
 
-LocOpe_Prism::LocOpe_Prism(const TopoDS_Shape& Base, const Vector3d& V)
+LocOpe_Prism::LocOpe_Prism(const TopoShape& Base, const Vector3d& V)
     : myBase(Base),
       myVec(V),
       myIsTrans(Standard_False)
@@ -57,7 +57,7 @@ LocOpe_Prism::LocOpe_Prism(const TopoDS_Shape& Base, const Vector3d& V)
 
 //=================================================================================================
 
-LocOpe_Prism::LocOpe_Prism(const TopoDS_Shape& Base, const Vector3d& V, const Vector3d& Vtra)
+LocOpe_Prism::LocOpe_Prism(const TopoShape& Base, const Vector3d& V, const Vector3d& Vtra)
     : myBase(Base),
       myVec(V),
       myTra(Vtra),
@@ -69,7 +69,7 @@ LocOpe_Prism::LocOpe_Prism(const TopoDS_Shape& Base, const Vector3d& V, const Ve
 
 //=================================================================================================
 
-void LocOpe_Prism::Perform(const TopoDS_Shape& Base, const Vector3d& V)
+void LocOpe_Prism::Perform(const TopoShape& Base, const Vector3d& V)
 {
   myMap.Clear();
   myFirstShape.Nullify();
@@ -85,7 +85,7 @@ void LocOpe_Prism::Perform(const TopoDS_Shape& Base, const Vector3d& V)
 
 //=================================================================================================
 
-void LocOpe_Prism::Perform(const TopoDS_Shape& Base, const Vector3d& V, const Vector3d& Vtra)
+void LocOpe_Prism::Perform(const TopoShape& Base, const Vector3d& V, const Vector3d& Vtra)
 {
   myMap.Clear();
   myFirstShape.Nullify();
@@ -104,8 +104,8 @@ void LocOpe_Prism::Perform(const TopoDS_Shape& Base, const Vector3d& V, const Ve
 
 void LocOpe_Prism::IntPerf()
 {
-  TopoDS_Shape       theBase = myBase;
-  BRepTools_Modifier Modif;
+  TopoShape       theBase = myBase;
+  ShapeModifier Modif;
   if (myIsTrans)
   {
     Transform3d T;
@@ -121,17 +121,17 @@ void LocOpe_Prism::IntPerf()
   myFirstShape = thePrism.FirstShape();
   myLastShape  = thePrism.LastShape();
 
-  TopExp_Explorer exp;
+  ShapeExplorer exp;
   if (theBase.ShapeType() == TopAbs_FACE)
   {
     for (exp.Init(theBase, TopAbs_EDGE); exp.More(); exp.Next())
     {
-      const TopoDS_Edge& edg = TopoDS::Edge(exp.Current());
+      const TopoEdge& edg = TopoDS::Edge(exp.Current());
       if (!myMap.IsBound(edg))
       {
-        TopTools_ListOfShape thelist;
+        ShapeList thelist;
         myMap.Bind(edg, thelist);
-        TopoDS_Shape desc = thePrism.Shape(edg);
+        TopoShape desc = thePrism.Shape(edg);
         if (!desc.IsNull())
         {
           myMap(edg).Append(desc);
@@ -145,15 +145,15 @@ void LocOpe_Prism::IntPerf()
   {
     // Cas base != FACE
     TopTools_IndexedDataMapOfShapeListOfShape theEFMap;
-    TopExp::MapShapesAndAncestors(theBase, TopAbs_EDGE, TopAbs_FACE, theEFMap);
-    TopTools_ListOfShape lfaces;
+    TopExp1::MapShapesAndAncestors(theBase, TopAbs_EDGE, TopAbs_FACE, theEFMap);
+    ShapeList lfaces;
     Standard_Boolean     toremove = Standard_False;
     for (Standard_Integer i = 1; i <= theEFMap.Extent(); i++)
     {
-      const TopoDS_Shape&  edg = theEFMap.FindKey(i);
-      TopTools_ListOfShape thelist1;
+      const TopoShape&  edg = theEFMap.FindKey(i);
+      ShapeList thelist1;
       myMap.Bind(edg, thelist1);
-      TopoDS_Shape desc = thePrism.Shape(edg);
+      TopoShape desc = thePrism.Shape(edg);
       if (!desc.IsNull())
       {
         if (theEFMap(i).Extent() >= 2)
@@ -186,12 +186,12 @@ void LocOpe_Prism::IntPerf()
     {
       for (exp.Init(theBase, TopAbs_EDGE); exp.More(); exp.Next())
       {
-        const TopoDS_Edge& edg = TopoDS::Edge(exp.Current());
+        const TopoEdge& edg = TopoDS::Edge(exp.Current());
         if (!myMap.IsBound(edg))
         {
-          TopTools_ListOfShape thelist2;
+          ShapeList thelist2;
           myMap.Bind(edg, thelist2);
-          TopoDS_Shape desc = thePrism.Shape(edg);
+          TopoShape desc = thePrism.Shape(edg);
           if (!desc.IsNull())
           {
             myMap(edg).Append(desc);
@@ -205,11 +205,11 @@ void LocOpe_Prism::IntPerf()
   if (myIsTrans)
   {
     // m-a-j des descendants
-    TopExp_Explorer anExp;
+    ShapeExplorer anExp;
     for (anExp.Init(myBase, TopAbs_EDGE); anExp.More(); anExp.Next())
     {
-      const TopoDS_Edge& edg    = TopoDS::Edge(anExp.Current());
-      const TopoDS_Edge& edgbis = TopoDS::Edge(Modif.ModifiedShape(edg));
+      const TopoEdge& edg    = TopoDS::Edge(anExp.Current());
+      const TopoEdge& edgbis = TopoDS::Edge(Modif.ModifiedShape(edg));
       if (!edgbis.IsSame(edg) && myMap.IsBound(edgbis))
       {
         myMap.Bind(edg, myMap(edgbis));
@@ -222,7 +222,7 @@ void LocOpe_Prism::IntPerf()
 
 //=================================================================================================
 
-const TopoDS_Shape& LocOpe_Prism::Shape() const
+const TopoShape& LocOpe_Prism::Shape() const
 {
   if (!myDone)
   {
@@ -233,21 +233,21 @@ const TopoDS_Shape& LocOpe_Prism::Shape() const
 
 //=================================================================================================
 
-const TopoDS_Shape& LocOpe_Prism::FirstShape() const
+const TopoShape& LocOpe_Prism::FirstShape() const
 {
   return myFirstShape;
 }
 
 //=================================================================================================
 
-const TopoDS_Shape& LocOpe_Prism::LastShape() const
+const TopoShape& LocOpe_Prism::LastShape() const
 {
   return myLastShape;
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& LocOpe_Prism::Shapes(const TopoDS_Shape& S) const
+const ShapeList& LocOpe_Prism::Shapes(const TopoShape& S) const
 {
   return myMap(S);
 }
@@ -258,7 +258,7 @@ void LocOpe_Prism::Curves(TColGeom_SequenceOfCurve& Scurves) const
 {
   Scurves.Clear();
   TColgp_SequenceOfPnt spt;
-  LocOpe::SampleEdges(myFirstShape, spt);
+  LocOpe1::SampleEdges(myFirstShape, spt);
   Standard_Real height =
     Sqrt(myVec.X() * myVec.X() + myVec.Y() * myVec.Y() + myVec.Z() * myVec.Z());
   Standard_Real u1 = -2 * height;
@@ -267,7 +267,7 @@ void LocOpe_Prism::Curves(TColGeom_SequenceOfCurve& Scurves) const
   for (Standard_Integer jj = 1; jj <= spt.Length(); jj++)
   {
     Axis3d                    theAx(spt(jj), myVec);
-    Handle(Geom_Line)         theLin = new Geom_Line(theAx);
+    Handle(GeomLine)         theLin = new GeomLine(theAx);
     Handle(Geom_TrimmedCurve) trlin  = new Geom_TrimmedCurve(theLin, u1, u2, Standard_True);
     Scurves.Append(trlin);
   }
@@ -275,11 +275,11 @@ void LocOpe_Prism::Curves(TColGeom_SequenceOfCurve& Scurves) const
 
 //=================================================================================================
 
-Handle(Geom_Curve) LocOpe_Prism::BarycCurve() const
+Handle(GeomCurve3d) LocOpe_Prism::BarycCurve() const
 {
   Point3d               bar(0., 0., 0.);
   TColgp_SequenceOfPnt spt;
-  LocOpe::SampleEdges(myFirstShape, spt);
+  LocOpe1::SampleEdges(myFirstShape, spt);
   for (Standard_Integer jj = 1; jj <= spt.Length(); jj++)
   {
     const Point3d& pvt = spt(jj);
@@ -287,6 +287,6 @@ Handle(Geom_Curve) LocOpe_Prism::BarycCurve() const
   }
   bar.ChangeCoord().Divide(spt.Length());
   Axis3d            newAx(bar, myVec);
-  Handle(Geom_Line) theLin = new Geom_Line(newAx);
+  Handle(GeomLine) theLin = new GeomLine(newAx);
   return theLin;
 }

@@ -33,9 +33,9 @@
 #include <Message_Msg.hxx>
 
 // MGE 28/07/98
-IGESGeom_ToolCompositeCurve::IGESGeom_ToolCompositeCurve() {}
+CompositeCurveTool::CompositeCurveTool() {}
 
-void IGESGeom_ToolCompositeCurve::ReadOwnParams(const Handle(IGESGeom_CompositeCurve)& ent,
+void CompositeCurveTool::ReadOwnParams(const Handle(IGESGeom_CompositeCurve)& ent,
                                                 const Handle(IGESData_IGESReaderData)& IR,
                                                 IGESData_ParamReader&                  PR) const
 {
@@ -67,7 +67,7 @@ void IGESGeom_ToolCompositeCurve::ReadOwnParams(const Handle(IGESGeom_CompositeC
   ent->Init(tempEntities);
 }
 
-void IGESGeom_ToolCompositeCurve::WriteOwnParams(const Handle(IGESGeom_CompositeCurve)& ent,
+void CompositeCurveTool::WriteOwnParams(const Handle(IGESGeom_CompositeCurve)& ent,
                                                  IGESData_IGESWriter&                   IW) const
 {
   Standard_Integer num = ent->NbCurves();
@@ -77,7 +77,7 @@ void IGESGeom_ToolCompositeCurve::WriteOwnParams(const Handle(IGESGeom_Composite
     IW.Send(ent->Curve(i));
 }
 
-void IGESGeom_ToolCompositeCurve::OwnShared(const Handle(IGESGeom_CompositeCurve)& ent,
+void CompositeCurveTool::OwnShared(const Handle(IGESGeom_CompositeCurve)& ent,
                                             Interface_EntityIterator&              iter) const
 {
   Standard_Integer num = ent->NbCurves();
@@ -85,7 +85,7 @@ void IGESGeom_ToolCompositeCurve::OwnShared(const Handle(IGESGeom_CompositeCurve
     iter.GetOneItem(ent->Curve(i));
 }
 
-void IGESGeom_ToolCompositeCurve::OwnCopy(const Handle(IGESGeom_CompositeCurve)& another,
+void CompositeCurveTool::OwnCopy(const Handle(IGESGeom_CompositeCurve)& another,
                                           const Handle(IGESGeom_CompositeCurve)& ent,
                                           Interface_CopyTool&                    TC) const
 {
@@ -99,10 +99,10 @@ void IGESGeom_ToolCompositeCurve::OwnCopy(const Handle(IGESGeom_CompositeCurve)&
   ent->Init(tempEntities);
 }
 
-IGESData_DirChecker IGESGeom_ToolCompositeCurve::DirChecker(
+DirectoryChecker CompositeCurveTool::DirChecker(
   const Handle(IGESGeom_CompositeCurve)& /* ent */) const
 {
-  IGESData_DirChecker DC(102, 0);
+  DirectoryChecker DC(102, 0);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefAny);
@@ -111,13 +111,13 @@ IGESData_DirChecker IGESGeom_ToolCompositeCurve::DirChecker(
   return DC;
 }
 
-void IGESGeom_ToolCompositeCurve::OwnCheck(const Handle(IGESGeom_CompositeCurve)& /* ent */,
+void CompositeCurveTool::OwnCheck(const Handle(IGESGeom_CompositeCurve)& /* ent */,
                                            const Interface_ShareTool&,
                                            Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESGeom_ToolCompositeCurve::OwnDump(const Handle(IGESGeom_CompositeCurve)& ent,
+void CompositeCurveTool::OwnDump(const Handle(IGESGeom_CompositeCurve)& ent,
                                           const IGESData_IGESDumper&             dumper,
                                           Standard_OStream&                      S,
                                           const Standard_Integer                 level) const

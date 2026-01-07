@@ -24,12 +24,12 @@
 #include <Standard_OStream.hxx>
 
 //! defines a PointSet node of VRML specifying geometry shapes.
-class Vrml_PointSet
+class PointSet
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_PointSet(const Standard_Integer aStartIndex = 0,
+  Standard_EXPORT PointSet(const Standard_Integer aStartIndex = 0,
                                 const Standard_Integer aNumPoints  = -1);
 
   Standard_EXPORT void SetStartIndex(const Standard_Integer aStartIndex);

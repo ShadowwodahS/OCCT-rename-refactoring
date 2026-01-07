@@ -27,7 +27,7 @@ class IGESAppli_PartNumber;
 DEFINE_STANDARD_HANDLE(IGESAppli_PartNumber, IGESData_IGESEntity)
 
 //! defines PartNumber, Type <406> Form <9>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Attaches a set of text strings that define the common
 //! part numbers to an entity being used to represent a
 //! physical component

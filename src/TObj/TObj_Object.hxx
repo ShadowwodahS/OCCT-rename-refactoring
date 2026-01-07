@@ -96,14 +96,14 @@ protected:
   //! to be ensured by implementations and by persistence mechanism.
   //! If the flag theSetName is true (default) the object is assign the default name
   //! that is generated using the father partition object if any.
-  Standard_EXPORT TObj_Object(const TDF_Label&       theLabel,
+  Standard_EXPORT TObj_Object(const DataLabel&       theLabel,
                               const Standard_Boolean theSetName = Standard_True);
 
   //! The special constructor intended for implementation of persistence
   //! mechanism. See class TObj_Persistence for more details.
   //! The first argument is used only to avoid confusion with
   //! other constructors.
-  TObj_Object(const TObj_Persistence*, const TDF_Label& theLabel)
+  TObj_Object(const TObj_Persistence*, const DataLabel& theLabel)
       : myLabel(theLabel)
   {
   }
@@ -131,10 +131,10 @@ public:
     const Handle(TypeInfo)& theType = NULL) const;
 
   //! Returns the label under which children are stored
-  Standard_EXPORT TDF_Label GetChildLabel() const;
+  Standard_EXPORT DataLabel GetChildLabel() const;
 
   //! Returns the label for child with rank
-  Standard_EXPORT TDF_Label getChildLabel(const Standard_Integer theRank) const;
+  Standard_EXPORT DataLabel getChildLabel(const Standard_Integer theRank) const;
 
 public:
   /**
@@ -142,13 +142,13 @@ public:
    */
 
   //! Returns the OCAF label on which object`s data are stored
-  Standard_EXPORT TDF_Label GetLabel() const;
+  Standard_EXPORT DataLabel GetLabel() const;
 
   //! Returns the label which is the root for data OCAF sub-tree
-  Standard_EXPORT TDF_Label GetDataLabel() const;
+  Standard_EXPORT DataLabel GetDataLabel() const;
 
   //! Returns the label which is the root for reference OCAF sub-tree
-  Standard_EXPORT TDF_Label GetReferenceLabel() const;
+  Standard_EXPORT DataLabel GetReferenceLabel() const;
 
 public:
   /**
@@ -163,10 +163,10 @@ public:
   virtual Standard_EXPORT Handle(TCollection_HExtendedString) GetName() const;
 
   //! Returns the Standard_True is object has name and returns name to theName
-  Standard_EXPORT Standard_Boolean GetName(TCollection_ExtendedString& theName) const;
+  Standard_EXPORT Standard_Boolean GetName(UtfString& theName) const;
 
   //! Returns the Standard_True is object has name and returns name to theName
-  Standard_EXPORT Standard_Boolean GetName(TCollection_AsciiString& theName) const;
+  Standard_EXPORT Standard_Boolean GetName(AsciiString1& theName) const;
 
   //! Sets name of the object. Returns False if theName is not unique.
   virtual Standard_EXPORT Standard_Boolean
@@ -238,8 +238,8 @@ public:
   //! Return True if this refers to the model theRoot belongs
   //! to and a referred label is not a descendant of theRoot.
   //! In this case theBadReference returns the currently referred label.
-  virtual Standard_EXPORT Standard_Boolean GetBadReference(const TDF_Label& theRoot,
-                                                           TDF_Label&       theBadReference) const;
+  virtual Standard_EXPORT Standard_Boolean GetBadReference(const DataLabel& theRoot,
+                                                           DataLabel&       theBadReference) const;
 
   //! Make that each reference pointing to a descendant label of
   //! theFromRoot to point to an equivalent label under theToRoot.
@@ -251,8 +251,8 @@ public:
   //! theToRoot               = 0:2
   //! a new referred label    = 0:2:7:2:7
   virtual Standard_EXPORT Standard_Boolean
-    RelocateReferences(const TDF_Label&       theFromRoot,
-                       const TDF_Label&       theToRoot,
+    RelocateReferences(const DataLabel&       theFromRoot,
+                       const DataLabel&       theToRoot,
                        const Standard_Boolean theUpdateBackRefs = Standard_True);
 
   //! Returns True if the referred object theObject can be deleted
@@ -267,7 +267,7 @@ public:
   //! Invokes from TObj_TReference::BeforeForget().
   //! theLabel - label on that reference become removed
   //! Default implementation is empty
-  virtual void BeforeForgetReference(const TDF_Label& /*theLabel*/) {}
+  virtual void BeforeForgetReference(const DataLabel& /*theLabel*/) {}
 
 public:
   /**
@@ -289,7 +289,7 @@ public:
   //! Deletes the object from the label. Checks if object can be deleted.
   //! Finds object on the label and detaches it by calling previous method.
   //! Returns true if there is no object on the label after detaching
-  static Standard_EXPORT Standard_Boolean Detach(const TDF_Label&        theLabel,
+  static Standard_EXPORT Standard_Boolean Detach(const DataLabel&        theLabel,
                                                  const TObj_DeletingMode theMode = TObj_FreeOnly);
 
 public:
@@ -301,7 +301,7 @@ public:
   //! Returns False if no object of type TObj_Object is stored on the
   //! specified label.
   //! If isSuper is true tries to find on the super labels.
-  static Standard_EXPORT Standard_Boolean GetObj(const TDF_Label&       theLabel,
+  static Standard_EXPORT Standard_Boolean GetObj(const DataLabel&       theLabel,
                                                  Handle(TObj_Object)&   theResult,
                                                  const Standard_Boolean isSuper = Standard_False);
 
@@ -331,7 +331,7 @@ public:
   //! NOTE: BackReferences not coping.
   //! After cloning all objects it is necessary to call copy references
   //! with the same relocation table
-  virtual Standard_EXPORT Handle(TObj_Object) Clone(const TDF_Label&            theTargetLabel,
+  virtual Standard_EXPORT Handle(TObj_Object) Clone(const DataLabel&            theTargetLabel,
                                                     Handle(TDF_RelocationTable) theRelocTable = 0);
 
   //! Coping the references.
@@ -340,7 +340,7 @@ public:
                                               const Handle(TDF_RelocationTable)& theRelocTable);
 
   //! Coping the children from source label to the target.
-  virtual Standard_EXPORT void CopyChildren(TDF_Label&                         theTargetLabel,
+  virtual Standard_EXPORT void CopyChildren(DataLabel&                         theTargetLabel,
                                             const Handle(TDF_RelocationTable)& theRelocTable);
 
 public:
@@ -372,8 +372,8 @@ protected:
   virtual Standard_EXPORT Standard_Boolean copyData(const Handle(TObj_Object)& theTargetObject);
 
   //! Coping the references from source label to the target.
-  Standard_EXPORT void copyReferences(const TDF_Label&                   theSourceLabel,
-                                      TDF_Label&                         theTargetLabel,
+  Standard_EXPORT void copyReferences(const DataLabel&                   theSourceLabel,
+                                      DataLabel&                         theTargetLabel,
                                       const Handle(TDF_RelocationTable)& theRelocTable);
 
 public:
@@ -420,14 +420,14 @@ protected:
   //! Data label of the object.
   //! If theRank2 is 0 (default), sub label theRank1 of Data label is returned.
   //! If requested label does not exist, it is created.
-  Standard_EXPORT TDF_Label getDataLabel(const Standard_Integer theRank1,
+  Standard_EXPORT DataLabel getDataLabel(const Standard_Integer theRank1,
                                          const Standard_Integer theRank2 = 0) const;
 
   //! Returns the theRank2-th sub label of the theRank1-th  sublabel of the
   //! Reference label of the object.
   //! If theRank2 is 0 (default), sub label theRank1 of Reference label is returned.
   //! If requested label does not exist, it is created.
-  Standard_EXPORT TDF_Label getReferenceLabel(const Standard_Integer theRank1,
+  Standard_EXPORT DataLabel getReferenceLabel(const Standard_Integer theRank1,
                                               const Standard_Integer theRank2 = 0) const;
 
   //! Returns True if there is an attribute having theGUID on the
@@ -590,14 +590,14 @@ protected:
 
   //! Adds the reference to theObject on next free sublabel of theRank1-th
   //! sublabel of the References label of the object and returns the Label.
-  Standard_EXPORT TDF_Label addReference(const Standard_Integer     theRank1,
+  Standard_EXPORT DataLabel addReference(const Standard_Integer     theRank1,
                                          const Handle(TObj_Object)& theObject);
 
 private:
   /**
    * Fields
    */
-  TDF_Label myLabel; //!< Label on which object`s data are stored
+  DataLabel myLabel; //!< Label on which object`s data are stored
 
   Handle(TObj_HSequenceOfObject) myHSeqBackRef; //!< hsequence of back references.
 

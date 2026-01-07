@@ -22,7 +22,7 @@
 #include <Select3D_SensitivePrimitiveArray.hxx>
 #include <V3d_Viewer.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_MediaPlayer, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_MediaPlayer, VisualEntity)
 
 //! Create an array of triangles defining a rectangle.
 static Handle(Graphic3d_ArrayOfTriangles) createRectangleArray(const Graphic3d_Vec2i& theLower,
@@ -73,7 +73,7 @@ AIS_MediaPlayer::~AIS_MediaPlayer()
 
 //=================================================================================================
 
-void AIS_MediaPlayer::OpenInput(const TCollection_AsciiString& thePath, Standard_Boolean theToWait)
+void AIS_MediaPlayer::OpenInput(const AsciiString1& thePath, Standard_Boolean theToWait)
 {
   if (myFramePair->PlayerContext().IsNull() && thePath.IsEmpty())
   {
@@ -102,8 +102,8 @@ bool AIS_MediaPlayer::PresentFrame(const Graphic3d_Vec2i& theLeftCorner,
       myFramePair->PlayerContext()->Pause();
     }
 
-    Handle(AIS_InteractiveContext) aCtx  = GetContext();
-    Handle(AIS_InteractiveObject)  aThis = this;
+    Handle(VisualContext) aCtx  = GetContext();
+    Handle(VisualEntity)  aThis = this;
     aCtx->Remove(aThis, false);
     aCtx->CurrentViewer()->Invalidate();
     return true;
@@ -219,7 +219,7 @@ void AIS_MediaPlayer::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void AIS_MediaPlayer::ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+void AIS_MediaPlayer::ComputeSelection(const Handle(SelectionContainer)& theSel,
                                        const Standard_Integer             theMode)
 {
   if (theMode != 0)

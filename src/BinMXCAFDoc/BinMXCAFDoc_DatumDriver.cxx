@@ -45,7 +45,7 @@ Standard_Boolean BinMXCAFDoc_DatumDriver::Paste(const BinObjMgt_Persistent&  the
                                                 BinObjMgt_RRelocationTable& /*theRelocTable*/) const
 {
   Handle(XCAFDoc_Datum)   anAtt = Handle(XCAFDoc_Datum)::DownCast(theTarget);
-  TCollection_AsciiString aName, aDescr, anId;
+  AsciiString1 aName, aDescr, anId;
   if (!(theSource >> aName >> aDescr >> anId))
     return Standard_False;
 
@@ -65,15 +65,15 @@ void BinMXCAFDoc_DatumDriver::Paste(const Handle(TDF_Attribute)& theSource,
   if (!anAtt->GetName().IsNull())
     theTarget << anAtt->GetName()->String();
   else
-    theTarget << TCollection_AsciiString("");
+    theTarget << AsciiString1("");
 
   if (!anAtt->GetDescription().IsNull())
     theTarget << anAtt->GetDescription()->String();
   else
-    theTarget << TCollection_AsciiString("");
+    theTarget << AsciiString1("");
 
   if (!anAtt->GetIdentification().IsNull())
     theTarget << anAtt->GetIdentification()->String();
   else
-    theTarget << TCollection_AsciiString("");
+    theTarget << AsciiString1("");
 }

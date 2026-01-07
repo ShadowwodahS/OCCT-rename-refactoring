@@ -60,7 +60,7 @@ TreeModel_ItemBasePtr VInspector_ViewModel::createRootItem(const int theColumnId
 // function : GetContext
 // purpose :
 // =======================================================================
-Handle(AIS_InteractiveContext) VInspector_ViewModel::GetContext() const
+Handle(VisualContext) VInspector_ViewModel::GetContext() const
 {
   return itemDynamicCast<VInspector_ItemContext>(RootItem(0))->GetContext();
 }
@@ -69,7 +69,7 @@ Handle(AIS_InteractiveContext) VInspector_ViewModel::GetContext() const
 // function : SetContext
 // purpose :
 // =======================================================================
-void VInspector_ViewModel::SetContext(const Handle(AIS_InteractiveContext)& theContext)
+void VInspector_ViewModel::SetContext(const Handle(VisualContext)& theContext)
 {
   // fill root item by the application
   for (int aColId = 0, aNbColumns = columnCount(); aColId < aNbColumns; aColId++)
@@ -104,7 +104,7 @@ void VInspector_ViewModel::FindPointers(const QStringList& thePointers,
     if (!aVItem)
       continue;
     const Handle(RefObject)& anObject = aVItem->Object();
-    TCollection_AsciiString aPointerInfo = Standard_Dump::GetPointerInfo (anObject);
+    AsciiString1 aPointerInfo = Standard_Dump::GetPointerInfo (anObject);
     if (thePointers.contains (aPointerInfo.ToCString()))
       theFoundIndices.append (anIndex);
 
@@ -117,7 +117,7 @@ void VInspector_ViewModel::FindPointers(const QStringList& thePointers,
 // purpose :
 // =======================================================================
 QModelIndex VInspector_ViewModel::FindIndex(
-  const Handle(AIS_InteractiveObject)& thePresentation) const
+  const Handle(VisualEntity)& thePresentation) const
 {
   QModelIndex           aParentIndex = index(0, 0);
   TreeModel_ItemBasePtr aParentItem =

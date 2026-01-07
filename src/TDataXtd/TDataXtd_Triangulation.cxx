@@ -33,7 +33,7 @@ const Standard_GUID& TDataXtd_Triangulation::GetID()
 // function : Set
 // purpose  : Finds or creates a triangulation attribute.
 //=======================================================================
-Handle(TDataXtd_Triangulation) TDataXtd_Triangulation::Set(const TDF_Label& theLabel)
+Handle(TDataXtd_Triangulation) TDataXtd_Triangulation::Set(const DataLabel& theLabel)
 {
   Handle(TDataXtd_Triangulation) A;
   if (!theLabel.FindAttribute(TDataXtd_Triangulation::GetID(), A))
@@ -47,11 +47,11 @@ Handle(TDataXtd_Triangulation) TDataXtd_Triangulation::Set(const TDF_Label& theL
 //=======================================================================
 // function : Set
 // purpose  : Finds or creates a triangulation attribute.
-//           Initializes the attribute by a Poly_Triangulation object.
+//           Initializes the attribute by a MeshTriangulation object.
 //=======================================================================
 Handle(TDataXtd_Triangulation) TDataXtd_Triangulation::Set(
-  const TDF_Label&                  theLabel,
-  const Handle(Poly_Triangulation)& theMesh)
+  const DataLabel&                  theLabel,
+  const Handle(MeshTriangulation)& theMesh)
 {
   Handle(TDataXtd_Triangulation) M = TDataXtd_Triangulation::Set(theLabel);
   M->Set(theMesh);
@@ -71,7 +71,7 @@ TDataXtd_Triangulation::TDataXtd_Triangulation() {}
 // function : TDataXtd_Triangulation
 // purpose  : Sets the triangulation.
 //=======================================================================
-void TDataXtd_Triangulation::Set(const Handle(Poly_Triangulation)& theTriangulation)
+void TDataXtd_Triangulation::Set(const Handle(MeshTriangulation)& theTriangulation)
 {
   Backup();
   myTriangulation = theTriangulation;
@@ -81,15 +81,15 @@ void TDataXtd_Triangulation::Set(const Handle(Poly_Triangulation)& theTriangulat
 // function : TDataXtd_Triangulation
 // purpose  : Returns the underlying mesh.
 //=======================================================================
-const Handle(Poly_Triangulation)& TDataXtd_Triangulation::Get() const
+const Handle(MeshTriangulation)& TDataXtd_Triangulation::Get() const
 {
   return myTriangulation;
 }
 
-// Poly_Triangulation methods
+// MeshTriangulation methods
 
 // The methods are "covered" by this attribute to prevent direct modification of the mesh.
-// There is no performance problem to call Poly_Triangulation method through this attribute.
+// There is no performance problem to call MeshTriangulation method through this attribute.
 // The most of the methods are considered as "inline" by the compiler in release mode.
 
 //=======================================================================
@@ -162,7 +162,7 @@ Point3d TDataXtd_Triangulation::Node(const Standard_Integer theIndex) const
 
 //=======================================================================
 // function : SetNode
-// purpose  : The method differs from Poly_Triangulation
+// purpose  : The method differs from MeshTriangulation
 //           Sets a node at the given index.
 //           Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than
 //           NbNodes.
@@ -186,7 +186,7 @@ gp_Pnt2d TDataXtd_Triangulation::UVNode(const Standard_Integer theIndex) const
 
 //=======================================================================
 // function : SetUVNode
-// purpose  : The method differs from Poly_Triangulation
+// purpose  : The method differs from MeshTriangulation
 //           Sets a UVNode at the given index.
 //           Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than
 //           NbNodes.
@@ -210,7 +210,7 @@ Poly_Triangle TDataXtd_Triangulation::Triangle(const Standard_Integer theIndex) 
 
 //=======================================================================
 // function : SetTriangle
-// purpose  : The method differs from Poly_Triangulation
+// purpose  : The method differs from MeshTriangulation
 //           Sets a triangle at the given index.
 //           Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than
 //           NbTriangles.
@@ -274,7 +274,7 @@ void TDataXtd_Triangulation::Restore(const Handle(TDF_Attribute)& theAttribute)
   Handle(TDataXtd_Triangulation) M = Handle(TDataXtd_Triangulation)::DownCast(theAttribute);
   if (!M->myTriangulation.IsNull())
   {
-    Handle(Poly_Triangulation) T = M->myTriangulation->Copy();
+    Handle(MeshTriangulation) T = M->myTriangulation->Copy();
     if (!T.IsNull())
       myTriangulation = T;
   }
@@ -289,7 +289,7 @@ void TDataXtd_Triangulation::Paste(const Handle(TDF_Attribute)& theIntoAttribute
   M->myTriangulation.Nullify();
   if (!myTriangulation.IsNull())
   {
-    Handle(Poly_Triangulation) T = myTriangulation->Copy();
+    Handle(MeshTriangulation) T = myTriangulation->Copy();
     if (!T.IsNull())
       M->myTriangulation = T;
   }

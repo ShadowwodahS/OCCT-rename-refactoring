@@ -22,7 +22,7 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_IndexedDataMap.hxx>
 
-typedef NCollection_IndexedDataMap<TopoDS_Edge, Draft_EdgeInfo, TopTools_ShapeMapHasher>
+typedef NCollection_IndexedDataMap<TopoEdge, Draft_EdgeInfo, ShapeHasher>
   Draft_IndexedDataMapOfEdgeEdgeInfo;
 
 #endif

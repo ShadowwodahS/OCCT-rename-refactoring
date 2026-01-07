@@ -25,7 +25,7 @@
 #include <Expr_Array1OfNamedUnknown.hxx>
 #include <TColStd_Array1OfReal.hxx>
 class Expr_GeneralExpression;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class Expr_NamedUnknown;
 DEFINE_STANDARD_HANDLE(Expr_NamedUnknown, Expr_NamedExpression)
@@ -36,7 +36,7 @@ class Expr_NamedUnknown : public Expr_NamedExpression
 {
 
 public:
-  Standard_EXPORT Expr_NamedUnknown(const TCollection_AsciiString& name);
+  Standard_EXPORT Expr_NamedUnknown(const AsciiString1& name);
 
   //! Tests if an expression is assigned to <me>.
   Standard_Boolean IsAssigned() const;

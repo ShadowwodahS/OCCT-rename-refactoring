@@ -56,7 +56,7 @@ void IGESSelect_UpdateLastChange::Performing(IFSelect_ContextModif&            c
   ctx.AddCheck(check);
 }
 
-TCollection_AsciiString IGESSelect_UpdateLastChange::Label() const
+AsciiString1 IGESSelect_UpdateLastChange::Label() const
 {
-  return TCollection_AsciiString("Update Last Change Date in IGES Global Section");
+  return AsciiString1("Update Last Change Date in IGES Global Section");
 }

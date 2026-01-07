@@ -256,7 +256,7 @@ Standard_Integer __fastcall _get_file_type(Standard_CString theFileName, HANDLE 
     case FILE_TYPE_UNKNOWN:
       return FLAG_SOCKET;
     case FILE_TYPE_DISK: {
-      const TCollection_ExtendedString aFileNameW(theFileName, Standard_True);
+      const UtfString aFileNameW(theFileName, Standard_True);
       WIN32_FILE_ATTRIBUTE_DATA        aFileInfo;
       if (GetFileAttributesExW(aFileNameW.ToWideString(), GetFileExInfoStandard, &aFileInfo))
       {
@@ -304,7 +304,7 @@ static Standard_Integer OSD_File_getLine(char* theBuffer, DWORD theBuffSize, LON
   return theBuffSize;
 }
 
-static HANDLE OSD_File_openFile(const TCollection_AsciiString& theFileName,
+static HANDLE OSD_File_openFile(const AsciiString1& theFileName,
                                 OSD_OpenMode                   theOpenMode,
                                 DWORD                          theOptions,
                                 bool*                          theIsNew = NULL)
@@ -326,7 +326,7 @@ static HANDLE OSD_File_openFile(const TCollection_AsciiString& theFileName,
   }
 
   DWORD dwCreationDistribution = (theOptions != OPEN_NEW) ? OPEN_EXISTING : CREATE_ALWAYS;
-  const TCollection_ExtendedString aFileNameW(theFileName);
+  const UtfString aFileNameW(theFileName);
   #ifndef OCCT_UWP
   HANDLE aFileHandle = CreateFileW(aFileNameW.ToWideString(),
                                    dwDesiredAccess,
@@ -400,7 +400,7 @@ const OSD_WhoAmI Iam = OSD_WFile;
 
 //=================================================================================================
 
-OSD_File::OSD_File()
+SystemFile::SystemFile()
     :
 #ifdef _WIN32
       myFileHandle(INVALID_HANDLE_VALUE),
@@ -418,7 +418,7 @@ OSD_File::OSD_File()
 
 //=================================================================================================
 
-OSD_File::OSD_File(const OSD_Path& theName)
+SystemFile::SystemFile(const SystemPath& theName)
     : OSD_FileNode(theName),
 #ifdef _WIN32
       myFileHandle(INVALID_HANDLE_VALUE),
@@ -436,7 +436,7 @@ OSD_File::OSD_File(const OSD_Path& theName)
 
 //=================================================================================================
 
-OSD_File::~OSD_File()
+SystemFile::~SystemFile()
 {
   if (IsOpen())
   {
@@ -450,23 +450,23 @@ OSD_File::~OSD_File()
 
 //=================================================================================================
 
-void OSD_File::Build(const OSD_OpenMode theMode, const OSD_Protection& theProtect)
+void SystemFile::Build(const OSD_OpenMode theMode, const OSD_Protection& theProtect)
 {
-  if (OSD_File::KindOfFile() == OSD_DIRECTORY)
+  if (SystemFile::KindOfFile() == OSD_DIRECTORY)
   {
-    throw Standard_ProgramError("OSD_File::Build(): it is a directory");
+    throw Standard_ProgramError("SystemFile::Build(): it is a directory");
   }
   if (IsOpen())
   {
-    throw Standard_ProgramError("OSD_File::Build(): incorrect call - file already opened");
+    throw Standard_ProgramError("SystemFile::Build(): incorrect call - file already opened");
   }
 
-  TCollection_AsciiString aFileName;
+  AsciiString1 aFileName;
   myPath.SystemName(aFileName);
 #ifdef _WIN32
   if (aFileName.IsEmpty())
   {
-    throw Standard_ProgramError("OSD_File::Build(): incorrect call - no filename given");
+    throw Standard_ProgramError("SystemFile::Build(): incorrect call - no filename given");
   }
 
   myMode       = theMode;
@@ -487,7 +487,7 @@ void OSD_File::Build(const OSD_OpenMode theMode, const OSD_Protection& theProtec
 #else
   if (myPath.Name().Length() == 0)
   {
-    throw Standard_ProgramError("OSD_File::Build(): no name was given");
+    throw Standard_ProgramError("SystemFile::Build(): no name was given");
   }
 
   const char*      anFDOpenMode;
@@ -523,23 +523,23 @@ void OSD_File::Build(const OSD_OpenMode theMode, const OSD_Protection& theProtec
 
 //=================================================================================================
 
-void OSD_File::Append(const OSD_OpenMode theMode, const OSD_Protection& theProtect)
+void SystemFile::Append(const OSD_OpenMode theMode, const OSD_Protection& theProtect)
 {
-  if (OSD_File::KindOfFile() == OSD_DIRECTORY)
+  if (SystemFile::KindOfFile() == OSD_DIRECTORY)
   {
-    throw Standard_ProgramError("OSD_File::Append(): it is a directory");
+    throw Standard_ProgramError("SystemFile::Append(): it is a directory");
   }
   if (IsOpen())
   {
-    throw Standard_ProgramError("OSD_File::Append(): incorrect call - file already opened");
+    throw Standard_ProgramError("SystemFile::Append(): incorrect call - file already opened");
   }
 
-  TCollection_AsciiString aFileName;
+  AsciiString1 aFileName;
   myPath.SystemName(aFileName);
 #ifdef _WIN32
   if (aFileName.IsEmpty())
   {
-    throw Standard_ProgramError("OSD_File::Append(): incorrect call - no filename given");
+    throw Standard_ProgramError("SystemFile::Append(): incorrect call - no filename given");
   }
 
   bool isNewFile = false;
@@ -569,7 +569,7 @@ void OSD_File::Append(const OSD_OpenMode theMode, const OSD_Protection& theProte
 #else
   if (myPath.Name().Length() == 0)
   {
-    throw Standard_ProgramError("OSD_File::Append(): no name was given");
+    throw Standard_ProgramError("SystemFile::Append(): no name was given");
   }
 
   const char*      anFDOpenMode;
@@ -611,23 +611,23 @@ void OSD_File::Append(const OSD_OpenMode theMode, const OSD_Protection& theProte
 
 //=================================================================================================
 
-void OSD_File::Open(const OSD_OpenMode theMode, const OSD_Protection& theProtect)
+void SystemFile::Open(const OSD_OpenMode theMode, const OSD_Protection& theProtect)
 {
-  if (OSD_File::KindOfFile() == OSD_DIRECTORY)
+  if (SystemFile::KindOfFile() == OSD_DIRECTORY)
   {
-    throw Standard_ProgramError("OSD_File::Open(): it is a directory");
+    throw Standard_ProgramError("SystemFile::Open(): it is a directory");
   }
   if (IsOpen())
   {
-    throw Standard_ProgramError("OSD_File::Open(): incorrect call - file already opened");
+    throw Standard_ProgramError("SystemFile::Open(): incorrect call - file already opened");
   }
 
-  TCollection_AsciiString aFileName;
+  AsciiString1 aFileName;
   myPath.SystemName(aFileName);
 #ifdef _WIN32
   if (aFileName.IsEmpty())
   {
-    throw Standard_ProgramError("OSD_File::Open(): incorrect call - no filename given");
+    throw Standard_ProgramError("SystemFile::Open(): incorrect call - no filename given");
   }
 
   (void)theProtect;
@@ -644,7 +644,7 @@ void OSD_File::Open(const OSD_OpenMode theMode, const OSD_Protection& theProtect
 #else
   if (myPath.Name().Length() == 0)
   {
-    throw Standard_ProgramError("OSD_File::Open(): no name was given");
+    throw Standard_ProgramError("SystemFile::Open(): no name was given");
   }
 
   const char*      anFDOpenMode;
@@ -680,11 +680,11 @@ void OSD_File::Open(const OSD_OpenMode theMode, const OSD_Protection& theProtect
 
 //=================================================================================================
 
-void OSD_File::BuildTemporary()
+void SystemFile::BuildTemporary()
 {
 #ifdef _WIN32
 
-  TCollection_ExtendedString aTmpFolderW;
+  UtfString aTmpFolderW;
   BOOL                       fOK = FALSE;
   #ifndef OCCT_UWP
   const OSD_File_WntKey TheRegKeys[2] = {
@@ -717,11 +717,11 @@ void OSD_File::BuildTemporary()
       {
         wchar_t aTmpBuffer[MAX_PATH];
         ExpandEnvironmentStringsW(&aKeyValW.First(), aTmpBuffer, MAX_PATH);
-        aTmpFolderW = TCollection_ExtendedString(aTmpBuffer);
+        aTmpFolderW = UtfString(aTmpBuffer);
       }
       else
       {
-        aTmpFolderW = TCollection_ExtendedString(&aKeyValW.First());
+        aTmpFolderW = UtfString(&aKeyValW.First());
       }
       fOK = TRUE;
     }
@@ -734,7 +734,7 @@ void OSD_File::BuildTemporary()
   {
     wchar_t aTmpBuffer[MAX_PATH];
     fOK         = GetTempPathW(_countof(aTmpBuffer), aTmpBuffer) != 0;
-    aTmpFolderW = TCollection_ExtendedString(aTmpBuffer);
+    aTmpFolderW = UtfString(aTmpBuffer);
   }
   #endif
   if (!fOK)
@@ -749,7 +749,7 @@ void OSD_File::BuildTemporary()
     Close();
   }
 
-  SetPath(OSD_Path(TCollection_AsciiString(aTmpPathW)));
+  SetPath(SystemPath(AsciiString1(aTmpPathW)));
   Build(OSD_ReadWrite, OSD_Protection());
 
 #else /* _WIN32 */
@@ -767,8 +767,8 @@ void OSD_File::BuildTemporary()
   #else
   char aTmpName[] = "/tmp/CSFXXXXXX";
   myFileChannel   = mkstemp(aTmpName);
-  const TCollection_AsciiString aName(aTmpName);
-  const OSD_Path                aPath(aName);
+  const AsciiString1 aName(aTmpName);
+  const SystemPath                aPath(aName);
   SetPath(aPath);
   myFILE = fdopen(myFileChannel, "w+");
   #endif
@@ -779,15 +779,15 @@ void OSD_File::BuildTemporary()
 
 //=================================================================================================
 
-void OSD_File::Read(TCollection_AsciiString& theBuffer, const Standard_Integer theNbBytes)
+void SystemFile::Read(AsciiString1& theBuffer, const Standard_Integer theNbBytes)
 {
-  if (OSD_File::KindOfFile() == OSD_DIRECTORY)
+  if (SystemFile::KindOfFile() == OSD_DIRECTORY)
   {
-    throw Standard_ProgramError("OSD_File::Read(): it is a directory");
+    throw Standard_ProgramError("SystemFile::Read(): it is a directory");
   }
   if (!IsOpen())
   {
-    throw Standard_ProgramError("OSD_File::Read(): file is not open");
+    throw Standard_ProgramError("SystemFile::Read(): file is not open");
   }
   if (Failed())
   {
@@ -795,11 +795,11 @@ void OSD_File::Read(TCollection_AsciiString& theBuffer, const Standard_Integer t
   }
   if (myMode == OSD_WriteOnly)
   {
-    throw Standard_ProgramError("OSD_File::Read(): file is Write only");
+    throw Standard_ProgramError("SystemFile::Read(): file is Write only");
   }
   if (theNbBytes <= 0)
   {
-    throw Standard_ProgramError("OSD_File::Read(): theNbBytes is 0");
+    throw Standard_ProgramError("SystemFile::Read(): theNbBytes is 0");
   }
 
   NCollection_Array1<char> aBuffer(0, theNbBytes);
@@ -831,17 +831,17 @@ void OSD_File::Read(TCollection_AsciiString& theBuffer, const Standard_Integer t
 
 //=================================================================================================
 
-void OSD_File::ReadLine(TCollection_AsciiString& theBuffer,
+void SystemFile::ReadLine(AsciiString1& theBuffer,
                         const Standard_Integer   theNbBytes,
                         Standard_Integer&        theNbBytesRead)
 {
-  if (OSD_File::KindOfFile() == OSD_DIRECTORY)
+  if (SystemFile::KindOfFile() == OSD_DIRECTORY)
   {
-    throw Standard_ProgramError("OSD_File::ReadLine(): it is a directory");
+    throw Standard_ProgramError("SystemFile::ReadLine(): it is a directory");
   }
   if (!IsOpen())
   {
-    throw Standard_ProgramError("OSD_File::ReadLine(): file is not open");
+    throw Standard_ProgramError("SystemFile::ReadLine(): file is not open");
   }
   if (Failed())
   {
@@ -849,16 +849,16 @@ void OSD_File::ReadLine(TCollection_AsciiString& theBuffer,
   }
   if (myMode == OSD_WriteOnly)
   {
-    throw Standard_ProgramError("OSD_File::ReadLine(): file is Write only");
+    throw Standard_ProgramError("SystemFile::ReadLine(): file is Write only");
   }
   if (theNbBytes <= 0)
   {
-    throw Standard_ProgramError("OSD_File::ReadLine(): theNbBytes is 0");
+    throw Standard_ProgramError("SystemFile::ReadLine(): theNbBytes is 0");
   }
 #ifdef _WIN32
   if (myIO & FLAG_PIPE && !(myIO & FLAG_READ_PIPE))
   {
-    throw Standard_ProgramError("OSD_File::ReadLine(): attempt to read from write only pipe");
+    throw Standard_ProgramError("SystemFile::ReadLine(): attempt to read from write only pipe");
   }
 
   DWORD aNbBytesRead = 0;
@@ -982,7 +982,7 @@ void OSD_File::ReadLine(TCollection_AsciiString& theBuffer,
   }
   else
   {
-    throw Standard_ProgramError("OSD_File::ReadLine(): incorrect call - file is a directory");
+    throw Standard_ProgramError("SystemFile::ReadLine(): incorrect call - file is a directory");
   }
 
   if (!Failed() && !IsAtEnd())
@@ -1016,9 +1016,9 @@ void OSD_File::ReadLine(TCollection_AsciiString& theBuffer,
 
 //=================================================================================================
 
-OSD_KindFile OSD_File::KindOfFile() const
+OSD_KindFile SystemFile::KindOfFile() const
 {
-  TCollection_AsciiString aFullName;
+  AsciiString1 aFullName;
   myPath.SystemName(aFullName);
 #ifdef _WIN32
   Standard_Integer aFlags = myIO;
@@ -1026,7 +1026,7 @@ OSD_KindFile OSD_File::KindOfFile() const
   {
     if (aFullName.IsEmpty())
     {
-      throw Standard_ProgramError("OSD_File::KindOfFile(): incorrect call - no filename given");
+      throw Standard_ProgramError("SystemFile::KindOfFile(): incorrect call - no filename given");
     }
     aFlags = _get_file_type(aFullName.ToCString(), INVALID_HANDLE_VALUE);
   }
@@ -1068,17 +1068,17 @@ OSD_KindFile OSD_File::KindOfFile() const
 
 //=================================================================================================
 
-void OSD_File::Read(const Standard_Address theBuffer,
+void SystemFile::Read(const Standard_Address theBuffer,
                     const Standard_Integer theNbBytes,
                     Standard_Integer&      theNbReadBytes)
 {
-  if (OSD_File::KindOfFile() == OSD_DIRECTORY)
+  if (SystemFile::KindOfFile() == OSD_DIRECTORY)
   {
-    throw Standard_ProgramError("OSD_File::Read(): it is a directory");
+    throw Standard_ProgramError("SystemFile::Read(): it is a directory");
   }
   if (!IsOpen())
   {
-    throw Standard_ProgramError("OSD_File::Read(): file is not open");
+    throw Standard_ProgramError("SystemFile::Read(): file is not open");
   }
   if (Failed())
   {
@@ -1086,20 +1086,20 @@ void OSD_File::Read(const Standard_Address theBuffer,
   }
   if (myMode == OSD_WriteOnly)
   {
-    throw Standard_ProgramError("OSD_File::Read(): file is Write only");
+    throw Standard_ProgramError("SystemFile::Read(): file is Write only");
   }
   if (theNbBytes <= 0)
   {
-    throw Standard_ProgramError("OSD_File::Read(): theNbBytes is 0");
+    throw Standard_ProgramError("SystemFile::Read(): theNbBytes is 0");
   }
   if (theBuffer == NULL)
   {
-    throw Standard_ProgramError("OSD_File::Read(): theBuffer is NULL");
+    throw Standard_ProgramError("SystemFile::Read(): theBuffer is NULL");
   }
 #ifdef _WIN32
   if (myIO & FLAG_PIPE && !(myIO & FLAG_READ_PIPE))
   {
-    throw Standard_ProgramError("OSD_File::Read(): attempt to read from write only pipe");
+    throw Standard_ProgramError("SystemFile::Read(): attempt to read from write only pipe");
   }
 
   DWORD aNbReadBytes = 0;
@@ -1138,11 +1138,11 @@ void OSD_File::Read(const Standard_Address theBuffer,
 
 //=================================================================================================
 
-void OSD_File::Write(const Standard_Address theBuffer, const Standard_Integer theNbBytes)
+void SystemFile::Write(const Standard_Address theBuffer, const Standard_Integer theNbBytes)
 {
   if (!IsOpen())
   {
-    throw Standard_ProgramError("OSD_File::Write(): file is not open");
+    throw Standard_ProgramError("SystemFile::Write(): file is not open");
   }
   if (Failed())
   {
@@ -1150,16 +1150,16 @@ void OSD_File::Write(const Standard_Address theBuffer, const Standard_Integer th
   }
   if (myMode == OSD_ReadOnly)
   {
-    throw Standard_ProgramError("OSD_File::Write(): file is Read only");
+    throw Standard_ProgramError("SystemFile::Write(): file is Read only");
   }
   if (theNbBytes <= 0)
   {
-    throw Standard_ProgramError("OSD_File::Write(): theNbBytes is null");
+    throw Standard_ProgramError("SystemFile::Write(): theNbBytes is null");
   }
 #ifdef _WIN32
   if ((myIO & FLAG_PIPE) != 0 && (myIO & FLAG_READ_PIPE) != 0)
   {
-    throw Standard_ProgramError("OSD_File::Write(): attempt to write to read only pipe");
+    throw Standard_ProgramError("SystemFile::Write(): attempt to write to read only pipe");
   }
 
   DWORD aNbWritten = 0;
@@ -1183,11 +1183,11 @@ void OSD_File::Write(const Standard_Address theBuffer, const Standard_Integer th
 
 //=================================================================================================
 
-void OSD_File::Seek(const Standard_Integer theOffset, const OSD_FromWhere theWhence)
+void SystemFile::Seek(const Standard_Integer theOffset, const OSD_FromWhere theWhence)
 {
   if (!IsOpen())
   {
-    throw Standard_ProgramError("OSD_File::Seek(): file is not open");
+    throw Standard_ProgramError("SystemFile::Seek(): file is not open");
   }
   if (Failed())
   {
@@ -1210,7 +1210,7 @@ void OSD_File::Seek(const Standard_Integer theOffset, const OSD_FromWhere theWhe
         aWhere = FILE_END;
         break;
       default:
-        throw Standard_ProgramError("OSD_File::Seek(): invalid parameter");
+        throw Standard_ProgramError("SystemFile::Seek(): invalid parameter");
     }
 
     LARGE_INTEGER aDistanceToMove, aNewFilePointer;
@@ -1236,7 +1236,7 @@ void OSD_File::Seek(const Standard_Integer theOffset, const OSD_FromWhere theWhe
       aWhere = SEEK_END;
       break;
     default:
-      throw Standard_ProgramError("OSD_File::Seek(): invalid parameter");
+      throw Standard_ProgramError("SystemFile::Seek(): invalid parameter");
   }
 
   off_t aStatus = lseek(myFileChannel, theOffset, aWhere);
@@ -1249,11 +1249,11 @@ void OSD_File::Seek(const Standard_Integer theOffset, const OSD_FromWhere theWhe
 
 //=================================================================================================
 
-void OSD_File::Close()
+void SystemFile::Close()
 {
   if (!IsOpen())
   {
-    throw Standard_ProgramError("OSD_File::Close(): file is not open");
+    throw Standard_ProgramError("SystemFile::Close(): file is not open");
   }
   if (Failed())
   {
@@ -1281,11 +1281,11 @@ void OSD_File::Close()
 
 //=================================================================================================
 
-Standard_Boolean OSD_File::IsAtEnd()
+Standard_Boolean SystemFile::IsAtEnd()
 {
   if (!IsOpen())
   {
-    throw Standard_ProgramError("OSD_File::IsAtEnd(): file is not open");
+    throw Standard_ProgramError("SystemFile::IsAtEnd(): file is not open");
   }
 
 #ifdef _WIN32
@@ -1297,14 +1297,14 @@ Standard_Boolean OSD_File::IsAtEnd()
 
 //=================================================================================================
 
-/*void OSD_File::Link (const TCollection_AsciiString& theToFile)
+/*void SystemFile::Link (const AsciiString1& theToFile)
 {
   if (!IsOpen())
   {
-    throw Standard_ProgramError ("OSD_File::Link(): file is not open");
+    throw Standard_ProgramError ("SystemFile::Link(): file is not open");
   }
 
-  TCollection_AsciiString aFilePath;
+  AsciiString1 aFilePath;
   myPath.SystemName (aFilePath);
   link (aFilePath.ToCString(), theToFile.ToCString());
 }*/
@@ -1320,11 +1320,11 @@ Standard_Boolean OSD_File::IsAtEnd()
 
 //=================================================================================================
 
-void OSD_File::SetLock(const OSD_LockType theLock)
+void SystemFile::SetLock(const OSD_LockType theLock)
 {
   if (!IsOpen())
   {
-    throw Standard_ProgramError("OSD_File::SetLock(): file is not open");
+    throw Standard_ProgramError("SystemFile::SetLock(): file is not open");
   }
 #ifdef _WIN32
   DWORD dwFlags = 0;
@@ -1420,7 +1420,7 @@ void OSD_File::SetLock(const OSD_LockType theLock)
   {
     struct stat aStatBuf;
     fstat(myFileChannel, &aStatBuf);
-    TCollection_AsciiString aFilePath;
+    AsciiString1 aFilePath;
     myPath.SystemName(aFilePath);
     chmod(aFilePath.ToCString(), aStatBuf.st_mode | S_ISGID);
     ImperativeFlag = Standard_True;
@@ -1461,11 +1461,11 @@ void OSD_File::SetLock(const OSD_LockType theLock)
 
 //=================================================================================================
 
-void OSD_File::UnLock()
+void SystemFile::UnLock()
 {
   if (!IsOpen())
   {
-    throw Standard_ProgramError("OSD_File::UnLock(): file is not open");
+    throw Standard_ProgramError("SystemFile::UnLock(): file is not open");
   }
 #ifdef _WIN32
   if (ImperativeFlag)
@@ -1504,7 +1504,7 @@ void OSD_File::UnLock()
   {
     struct stat aStatBuf;
     fstat(myFileChannel, &aStatBuf);
-    TCollection_AsciiString aBuffer;
+    AsciiString1 aBuffer;
     myPath.SystemName(aBuffer);
     chmod(aBuffer.ToCString(), aStatBuf.st_mode & ~S_ISGID);
     ImperativeFlag = Standard_False;
@@ -1536,12 +1536,12 @@ void OSD_File::UnLock()
 
 //=================================================================================================
 
-Standard_Size OSD_File::Size()
+Standard_Size SystemFile::Size()
 {
 #ifdef _WIN32
   if (!IsOpen())
   {
-    throw Standard_ProgramError("OSD_File::Size(): file is not open");
+    throw Standard_ProgramError("SystemFile::Size(): file is not open");
   }
   #if (_WIN32_WINNT >= 0x0500)
   LARGE_INTEGER aSize;
@@ -1562,10 +1562,10 @@ Standard_Size OSD_File::Size()
 #else
   if (myPath.Name().Length() == 0)
   {
-    throw Standard_ProgramError("OSD_File::Size(): empty file name");
+    throw Standard_ProgramError("SystemFile::Size(): empty file name");
   }
 
-  TCollection_AsciiString aFilePath;
+  AsciiString1 aFilePath;
   myPath.SystemName(aFilePath);
 
   struct stat aStatBuf;
@@ -1581,7 +1581,7 @@ Standard_Size OSD_File::Size()
 
 //=================================================================================================
 
-Standard_Boolean OSD_File::IsOpen() const
+Standard_Boolean SystemFile::IsOpen() const
 {
 #ifdef _WIN32
   return myFileHandle != INVALID_HANDLE_VALUE;
@@ -1592,9 +1592,9 @@ Standard_Boolean OSD_File::IsOpen() const
 
 //=================================================================================================
 
-Standard_Boolean OSD_File::IsReadable()
+Standard_Boolean SystemFile::IsReadable()
 {
-  TCollection_AsciiString aFileName;
+  AsciiString1 aFileName;
   myPath.SystemName(aFileName);
 #ifdef _WIN32
   HANDLE aChannel = OSD_File_openFile(aFileName, OSD_ReadOnly, OPEN_OLD);
@@ -1612,9 +1612,9 @@ Standard_Boolean OSD_File::IsReadable()
 
 //=================================================================================================
 
-Standard_Boolean OSD_File::IsWriteable()
+Standard_Boolean SystemFile::IsWriteable()
 {
-  TCollection_AsciiString aFileName;
+  AsciiString1 aFileName;
   myPath.SystemName(aFileName);
 #ifdef _WIN32
   HANDLE aChannel = OSD_File_openFile(aFileName, OSD_ReadWrite, OPEN_OLD);
@@ -1632,12 +1632,12 @@ Standard_Boolean OSD_File::IsWriteable()
 
 //=================================================================================================
 
-Standard_Boolean OSD_File::IsExecutable()
+Standard_Boolean SystemFile::IsExecutable()
 {
 #ifdef _WIN32
   return IsReadable();
 #else
-  TCollection_AsciiString aFileName;
+  AsciiString1 aFileName;
   myPath.SystemName(aFileName);
   return access(aFileName.ToCString(), F_OK | X_OK) == 0;
 #endif
@@ -1645,7 +1645,7 @@ Standard_Boolean OSD_File::IsExecutable()
 
 //=================================================================================================
 
-void OSD_File::Rewind()
+void SystemFile::Rewind()
 {
 #ifdef _WIN32
   LARGE_INTEGER aDistanceToMove;
@@ -1658,7 +1658,7 @@ void OSD_File::Rewind()
 
 //=================================================================================================
 
-Standard_Boolean OSD_File::ReadLastLine(TCollection_AsciiString& theLine,
+Standard_Boolean SystemFile::ReadLastLine(AsciiString1& theLine,
                                         const Standard_Integer   theDelay,
                                         const Standard_Integer   theNbTries)
 {
@@ -1683,9 +1683,9 @@ Standard_Boolean OSD_File::ReadLastLine(TCollection_AsciiString& theLine,
 
 //=================================================================================================
 
-Standard_Boolean OSD_File::Edit()
+Standard_Boolean SystemFile::Edit()
 {
-  std::cout << "Function OSD_File::Edit() not yet implemented.\n";
+  std::cout << "Function SystemFile::Edit() not yet implemented.\n";
   return Standard_False;
 }
 

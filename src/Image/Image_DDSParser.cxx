@@ -68,7 +68,7 @@ struct Image_DDSParser::DDSFileHeader
 
 Handle(Image_CompressedPixMap) Image_DDSParser::Load(
   const Handle(Image_SupportedFormats)& theSupported,
-  const TCollection_AsciiString&        theFile,
+  const AsciiString1&        theFile,
   const Standard_Integer                theFaceIndex,
   const int64_t                         theFileOffset)
 {
@@ -109,7 +109,7 @@ Handle(Image_CompressedPixMap) Image_DDSParser::Load(
 
   if (theFaceIndex >= aDef->NbFaces() || aDef->FaceBytes() == 0)
   {
-    Message::SendFail(TCollection_AsciiString("DDS Reader error - invalid face index #")
+    Message::SendFail(AsciiString1("DDS Reader error - invalid face index #")
                       + theFaceIndex + " within file\n" + theFile);
     return Handle(Image_CompressedPixMap)();
   }
@@ -125,7 +125,7 @@ Handle(Image_CompressedPixMap) Image_DDSParser::Load(
   aNbReadBytes = (Standard_Size)aFile->gcount();
   if (aNbReadBytes < aDef->FaceBytes())
   {
-    Message::SendFail(TCollection_AsciiString("DDS Reader error - unable to read face #")
+    Message::SendFail(AsciiString1("DDS Reader error - unable to read face #")
                       + theFaceIndex + " data from file\n" + theFile);
     return Handle(Image_CompressedPixMap)();
   }
@@ -163,7 +163,7 @@ Handle(Image_CompressedPixMap) Image_DDSParser::Load(
 
   if (theFaceIndex >= aDef->NbFaces() || aDef->FaceBytes() == 0)
   {
-    Message::SendFail(TCollection_AsciiString("DDS Reader error - invalid face index #")
+    Message::SendFail(AsciiString1("DDS Reader error - invalid face index #")
                       + theFaceIndex + " within buffer");
     return Handle(Image_CompressedPixMap)();
   }
@@ -171,7 +171,7 @@ Handle(Image_CompressedPixMap) Image_DDSParser::Load(
   const Standard_Size anOffset = aDef->FaceBytes() * theFaceIndex + 128;
   if (theBuffer->Size() < anOffset + aDef->FaceBytes())
   {
-    Message::SendFail(TCollection_AsciiString("DDS Reader error - unable to read face #")
+    Message::SendFail(AsciiString1("DDS Reader error - unable to read face #")
                       + theFaceIndex + " data from buffer");
     return Handle(Image_CompressedPixMap)();
   }

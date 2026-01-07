@@ -22,7 +22,7 @@
 
 #include <Standard_Boolean.hxx>
 #include <TDF_Label.hxx>
-class TDF_Label;
+class DataLabel;
 
 //! Iterates on the children of a label, at the first
 //! level only. It is possible to ask the iterator to
@@ -41,7 +41,7 @@ public:
   //! the label aLabel.  Iterates on the children of the given label. If
   //! <allLevels> option is set to true, it explores not
   //! only the first, but all the sub label levels.
-  Standard_EXPORT TDF_ChildIterator(const TDF_Label&       aLabel,
+  Standard_EXPORT TDF_ChildIterator(const DataLabel&       aLabel,
                                     const Standard_Boolean allLevels = Standard_False);
 
   //! Initializes the iteration on the children of the
@@ -56,10 +56,10 @@ public:
   //! child labels dumped using TDF_Tool::Entry.
   //! Example
   //! void DumpChildren(const
-  //! TDF_Label& aLabel)
+  //! DataLabel& aLabel)
   //! {
   //! TDF_ChildIterator it;
-  //! TCollection_AsciiString es;
+  //! AsciiString1 es;
   //! for
   //! (it.Initialize(aLabel,Standard_True);
   //! it.More(); it.Next()){
@@ -67,7 +67,7 @@ public:
   //! std::cout << as.ToCString() << std::endl;
   //! }
   //! }
-  Standard_EXPORT void Initialize(const TDF_Label&       aLabel,
+  Standard_EXPORT void Initialize(const DataLabel&       aLabel,
                                   const Standard_Boolean allLevels = Standard_False);
 
   //! Returns true if a current label is found in the
@@ -91,7 +91,7 @@ public:
 
   //! Returns the current label; or, if there is
   //! none, a null label.
-  const TDF_Label Value() const;
+  const DataLabel Value() const;
 
 protected:
 private:

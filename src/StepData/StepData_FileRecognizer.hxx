@@ -23,7 +23,7 @@
 #include <Standard_Transient.hxx>
 class RefObject;
 class Standard_NoSuchObject;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class StepData_FileRecognizer;
 DEFINE_STANDARD_HANDLE(StepData_FileRecognizer, RefObject)
@@ -37,7 +37,7 @@ public:
   //! In case of Failure, simply Returns False
   //! Works by calling deferred method Eval, and in case of failure,
   //! looks for Added Recognizers to work
-  Standard_EXPORT Standard_Boolean Evaluate(const TCollection_AsciiString& akey,
+  Standard_EXPORT Standard_Boolean Evaluate(const AsciiString1& akey,
                                             Handle(RefObject)&    res);
 
   //! Returns result of last recognition (call of Evaluate)
@@ -68,7 +68,7 @@ protected:
   //! each precise type of Recognizer
   //! For a suitable type of akey, it calls SetOK(result) where
   //! result is an empty result of appropriate type, then returns
-  Standard_EXPORT virtual void Eval(const TCollection_AsciiString& akey) = 0;
+  Standard_EXPORT virtual void Eval(const AsciiString1& akey) = 0;
 
 private:
   Handle(RefObject)      theres;

@@ -59,7 +59,7 @@ public:
   //! (relative to face);
   //! otherwise it's using maximum between input tolerance(aTol) and tolerances of face bounds
   //! (edges).
-  Standard_EXPORT IntCurvesFace_Intersector(const TopoDS_Face&     F,
+  Standard_EXPORT IntCurvesFace_Intersector(const TopoFace&     F,
                                             const Standard_Real    aTol,
                                             const Standard_Boolean aRestr    = Standard_True,
                                             const Standard_Boolean UseBToler = Standard_True);
@@ -121,7 +121,7 @@ public:
 
   //! Returns the significant face used to determine
   //! the intersection.
-  const TopoDS_Face& Face() const;
+  const TopoFace& Face() const;
 
   Standard_EXPORT TopAbs_State ClassifyUVPoint(const gp_Pnt2d& Puv) const;
 
@@ -149,7 +149,7 @@ private:
   Standard_Boolean                                       done;
   Standard_Boolean                                       myReady;
   Standard_Integer                                       nbpnt;
-  TopoDS_Face                                            face;
+  TopoFace                                            face;
   std::unique_ptr<IntCurveSurface_ThePolyhedronOfHInter> myPolyhedron;
   std::unique_ptr<Bnd_BoundSortBox>                      myBndBounding;
   Standard_Boolean                                       myUseBoundTol;

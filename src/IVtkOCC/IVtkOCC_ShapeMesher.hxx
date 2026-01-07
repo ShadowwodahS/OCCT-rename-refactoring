@@ -26,11 +26,11 @@
 #include <TopoDS_Vertex.hxx>
 #include <TopTools_ShapeMapHasher.hxx>
 
-typedef NCollection_DataMap<TopoDS_Shape, IVtk_MeshType, TopTools_ShapeMapHasher> IVtk_ShapeTypeMap;
+typedef NCollection_DataMap<TopoShape, IVtk_MeshType, ShapeHasher> IVtk_ShapeTypeMap;
 typedef NCollection_Sequence<Point3d>                                              IVtk_Polyline;
 typedef NCollection_List<IVtk_Polyline>                                           IVtk_PolylineList;
 
-class Prs3d_Drawer;
+class StyleDrawer;
 
 class IVtkOCC_ShapeMesher;
 DEFINE_STANDARD_HANDLE(IVtkOCC_ShapeMesher, IVtk_IShapeMesher)
@@ -87,7 +87,7 @@ private:
   //!
   //! @param theVertex OCCT vertex to be added to the mesh
   //! @param theShapeId global point ID needed for connectivity data creation
-  void addVertex(const TopoDS_Vertex& theVertex,
+  void addVertex(const TopoVertex& theVertex,
                  const IVtk_IdType    theShapeId,
                  const IVtk_MeshType  theMeshType);
 
@@ -97,28 +97,28 @@ private:
   //! @param theEdge OCCT edge to be meshed
   //! @param theShapeId the edge's subshape ID
   //! @see IVtkOCC_ShapeMesher::meshShape
-  void addEdge(const TopoDS_Edge&  theEdge,
+  void addEdge(const TopoEdge&  theEdge,
                const IVtk_IdType   theShapeId,
                const IVtk_MeshType theMeshType);
 
-  //! Generates wireframe representation of the given TopoDS_Face object
+  //! Generates wireframe representation of the given TopoFace object
   //! with help of OCCT algorithms. The resulting polylines are passed to IPolyData
   //! interface and associated with the given sub-shape ID.
-  //! @param[in]  theFace TopoDS_Face object to build wireframe representation for
+  //! @param[in]  theFace TopoFace object to build wireframe representation for
   //! @param[in]  theShapeId The face' sub-shape ID
   //! @param[in]  theDeflection curve deflection
-  void addWFFace(const TopoDS_Face&  theFace,
+  void addWFFace(const TopoFace&  theFace,
                  const IVtk_IdType   theShapeId,
                  const Standard_Real theDeflection);
 
-  //! Creates shaded representation of the given TopoDS_Face object
+  //! Creates shaded representation of the given TopoFace object
   //! starting from OCCT triangulation that should be created in advance.
   //! The resulting triangles are passed to IPolyData
   //! interface and associated with the given sub-shape ID.
-  //! @param[in]  theFace    TopoDS_Face object to build shaded representation for
+  //! @param[in]  theFace    TopoFace object to build shaded representation for
   //! @param[in]  theShapeId the face' sub-shape ID
   //! @see IVtkOCC_ShapeMesher::meshShape, IVtkOCC_ShapeMesher::addEdge
-  void addShadedFace(const TopoDS_Face& theFace, const IVtk_IdType theShapeId);
+  void addShadedFace(const TopoFace& theFace, const IVtk_IdType theShapeId);
 
   //! Get the IShape as OCC implementation
   const IVtkOCC_Shape::Handle GetShapeObj() const;

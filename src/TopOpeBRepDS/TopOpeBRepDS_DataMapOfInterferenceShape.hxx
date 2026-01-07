@@ -21,9 +21,9 @@
 #include <TopoDS_Shape.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<Handle(TopOpeBRepDS_Interference), TopoDS_Shape>
+typedef NCollection_DataMap<Handle(TopOpeBRepDS_Interference), TopoShape>
   TopOpeBRepDS_DataMapOfInterferenceShape;
-typedef NCollection_DataMap<Handle(TopOpeBRepDS_Interference), TopoDS_Shape>::Iterator
+typedef NCollection_DataMap<Handle(TopOpeBRepDS_Interference), TopoShape>::Iterator
   TopOpeBRepDS_DataMapIteratorOfDataMapOfInterferenceShape;
 
 #endif

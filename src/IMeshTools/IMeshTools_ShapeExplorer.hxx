@@ -21,12 +21,12 @@
 #include <IMeshTools_ShapeVisitor.hxx>
 #include <TopoDS_Shape.hxx>
 
-//! Explores TopoDS_Shape for parts to be meshed - faces and free edges.
+//! Explores TopoShape for parts to be meshed - faces and free edges.
 class IMeshTools_ShapeExplorer : public IMeshData_Shape
 {
 public:
   //! Constructor.
-  Standard_EXPORT IMeshTools_ShapeExplorer(const TopoDS_Shape& theShape);
+  Standard_EXPORT IMeshTools_ShapeExplorer(const TopoShape& theShape);
 
   //! Destructor.
   Standard_EXPORT virtual ~IMeshTools_ShapeExplorer();

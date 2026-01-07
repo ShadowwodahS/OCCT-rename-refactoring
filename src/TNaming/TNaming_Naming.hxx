@@ -26,9 +26,9 @@
 #include <Standard_OStream.hxx>
 #include <TDF_AttributeIndexedMap.hxx>
 class Standard_GUID;
-class TDF_Label;
-class TNaming_NamedShape;
-class TopoDS_Shape;
+class DataLabel;
+class ShapeAttribute;
+class TopoShape;
 class TDF_RelocationTable;
 class TDF_DataSet;
 class TDF_IDFilter;
@@ -49,7 +49,7 @@ public:
   //! ==============================
   Standard_EXPORT static const Standard_GUID& GetID();
 
-  Standard_EXPORT static Handle(TNaming_Naming) Insert(const TDF_Label& under);
+  Standard_EXPORT static Handle(TNaming_Naming) Insert(const DataLabel& under);
 
   //! Creates  a   Namimg  attribute  at  label <where>   to
   //! identify  the   shape   <Selection>.    Geometry is
@@ -62,10 +62,10 @@ public:
   //! in  DF have orientation differences with Context shape itself.
   //! instance method
   //! ===============
-  Standard_EXPORT static Handle(TNaming_NamedShape) Name(
-    const TDF_Label&       where,
-    const TopoDS_Shape&    Selection,
-    const TopoDS_Shape&    Context,
+  Standard_EXPORT static Handle(ShapeAttribute) Name(
+    const DataLabel&       where,
+    const TopoShape&    Selection,
+    const TopoShape&    Context,
     const Standard_Boolean Geometry        = Standard_False,
     const Standard_Boolean KeepOrientation = Standard_False,
     const Standard_Boolean BNproblem       = Standard_False);

@@ -38,7 +38,7 @@ gce_MakeDir2d::gce_MakeDir2d(const gp_Pnt2d& P1, const gp_Pnt2d& P2)
   }
 }
 
-gce_MakeDir2d::gce_MakeDir2d(const gp_XY& Coord)
+gce_MakeDir2d::gce_MakeDir2d(const Coords2d& Coord)
 {
   if (Coord.Modulus() <= gp::Resolution())
   {

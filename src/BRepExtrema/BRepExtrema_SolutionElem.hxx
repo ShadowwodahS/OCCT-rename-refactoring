@@ -45,7 +45,7 @@ public:
   BRepExtrema_SolutionElem(const Standard_Real           theDist,
                            const Point3d&                 thePoint,
                            const BRepExtrema_SupportType theSolType,
-                           const TopoDS_Vertex&          theVertex)
+                           const TopoVertex&          theVertex)
       : myDist(theDist),
         myPoint(thePoint),
         mySupType(theSolType),
@@ -65,7 +65,7 @@ public:
   BRepExtrema_SolutionElem(const Standard_Real           theDist,
                            const Point3d&                 thePoint,
                            const BRepExtrema_SupportType theSolType,
-                           const TopoDS_Edge&            theEdge,
+                           const TopoEdge&            theEdge,
                            const Standard_Real           theParam)
       : myDist(theDist),
         myPoint(thePoint),
@@ -87,7 +87,7 @@ public:
   BRepExtrema_SolutionElem(const Standard_Real           theDist,
                            const Point3d&                 thePoint,
                            const BRepExtrema_SupportType theSolType,
-                           const TopoDS_Face&            theFace,
+                           const TopoFace&            theFace,
                            const Standard_Real           theU,
                            const Standard_Real           theV)
       : myDist(theDist),
@@ -112,13 +112,13 @@ public:
   BRepExtrema_SupportType SupportKind() const { return mySupType; }
 
   //! Returns the vertex if the solution is a Vertex.
-  const TopoDS_Vertex& Vertex() const { return myVertex; }
+  const TopoVertex& Vertex() const { return myVertex; }
 
   //! Returns the vertex if the solution is an Edge.
-  const TopoDS_Edge& Edge() const { return myEdge; }
+  const TopoEdge& Edge() const { return myEdge; }
 
   //! Returns the vertex if the solution is an Face.
-  const TopoDS_Face& Face() const { return myFace; }
+  const TopoFace& Face() const { return myFace; }
 
   //! Returns the parameter value if the solution is on Edge.
   void EdgeParameter(Standard_Real& theParam) const { theParam = myPar1; }
@@ -134,9 +134,9 @@ private:
   Standard_Real           myDist;
   Point3d                  myPoint;
   BRepExtrema_SupportType mySupType;
-  TopoDS_Vertex           myVertex;
-  TopoDS_Edge             myEdge;
-  TopoDS_Face             myFace;
+  TopoVertex           myVertex;
+  TopoEdge             myEdge;
+  TopoFace             myFace;
   Standard_Real           myPar1;
   Standard_Real           myPar2;
 };

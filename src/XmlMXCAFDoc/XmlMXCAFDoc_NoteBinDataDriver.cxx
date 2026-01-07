@@ -92,7 +92,7 @@ void XmlMXCAFDoc_NoteBinDataDriver::Paste(const Handle(TDF_Attribute)& theSource
 
   Handle(XCAFDoc_NoteBinData) aNote = Handle(XCAFDoc_NoteBinData)::DownCast(theSource);
 
-  XmlObjMgt_DOMString aTitle(TCollection_AsciiString(aNote->Title()).ToCString());
+  XmlObjMgt_DOMString aTitle(AsciiString1(aNote->Title()).ToCString());
   XmlObjMgt_DOMString aMIMEtype(aNote->MIMEtype().ToCString());
 
   theTarget.Element().setAttribute(::Title(), aTitle);

@@ -39,7 +39,7 @@ StdSelect_BRepOwner::StdSelect_BRepOwner(const Standard_Integer thePriority)
 
 //=================================================================================================
 
-StdSelect_BRepOwner::StdSelect_BRepOwner(const TopoDS_Shape&    theShape,
+StdSelect_BRepOwner::StdSelect_BRepOwner(const TopoShape&    theShape,
                                          const Standard_Integer thePriority,
                                          const Standard_Boolean theComesFromDecomposition)
     : SelectMgr_EntityOwner(thePriority),
@@ -51,7 +51,7 @@ StdSelect_BRepOwner::StdSelect_BRepOwner(const TopoDS_Shape&    theShape,
 
 //=================================================================================================
 
-StdSelect_BRepOwner::StdSelect_BRepOwner(const TopoDS_Shape&                       theShape,
+StdSelect_BRepOwner::StdSelect_BRepOwner(const TopoShape&                       theShape,
                                          const Handle(SelectMgr_SelectableObject)& theOrigin,
                                          const Standard_Integer                    thePriority,
                                          const Standard_Boolean theComesFromDecomposition)
@@ -76,7 +76,7 @@ Standard_Boolean StdSelect_BRepOwner::IsHilighted(const Handle(PrsMgr_Presentati
 //=================================================================================================
 
 void StdSelect_BRepOwner::HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                           const Handle(Prs3d_Drawer)&               theStyle,
+                                           const Handle(StyleDrawer)&               theStyle,
                                            const Standard_Integer                    theMode)
 {
   if (!HasSelectable())
@@ -152,7 +152,7 @@ void StdSelect_BRepOwner::SetLocation(const TopLoc_Location& aLoc)
 
 //=================================================================================================
 
-void StdSelect_BRepOwner::UpdateHighlightTrsf(const Handle(V3d_Viewer)&                 theViewer,
+void StdSelect_BRepOwner::UpdateHighlightTrsf(const Handle(ViewManager)&                 theViewer,
                                               const Handle(PrsMgr_PresentationManager)& theManager,
                                               const Standard_Integer                    theDispMode)
 {

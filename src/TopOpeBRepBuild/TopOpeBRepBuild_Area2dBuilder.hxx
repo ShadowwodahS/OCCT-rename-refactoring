@@ -23,8 +23,8 @@
 
 #include <TopOpeBRepBuild_AreaBuilder.hxx>
 #include <Standard_Boolean.hxx>
-class TopOpeBRepBuild_LoopSet;
-class TopOpeBRepBuild_LoopClassifier;
+class LoopSet;
+class LoopClassifier;
 
 //! The Area2dBuilder algorithm is used to construct Faces from a LoopSet,
 //! where the Loop is the composite topological object of the boundary,
@@ -34,7 +34,7 @@ class TopOpeBRepBuild_LoopClassifier;
 //! results from  an interference (block of edges).
 //! The result of the Area2dBuilder is an iteration on areas.
 //! An area is described by a set of Loops.
-class TopOpeBRepBuild_Area2dBuilder : public TopOpeBRepBuild_AreaBuilder
+class TopOpeBRepBuild_Area2dBuilder : public AreaBuilder
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -43,14 +43,14 @@ public:
 
   //! Creates a Area2dBuilder to build faces on
   //! the (wires,blocks of edge) of <LS>, using the classifier <LC>.
-  Standard_EXPORT TopOpeBRepBuild_Area2dBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                                TopOpeBRepBuild_LoopClassifier& LC,
+  Standard_EXPORT TopOpeBRepBuild_Area2dBuilder(LoopSet&        LS,
+                                                LoopClassifier& LC,
                                                 const Standard_Boolean ForceClass = Standard_False);
 
   //! Sets a Area1dBuilder to find the areas of
   //! the shapes described by <LS> using the classifier <LC>.
-  Standard_EXPORT virtual void InitAreaBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                               TopOpeBRepBuild_LoopClassifier& LC,
+  Standard_EXPORT virtual void InitAreaBuilder(LoopSet&        LS,
+                                               LoopClassifier& LC,
                                                const Standard_Boolean ForceClass = Standard_False)
     Standard_OVERRIDE;
 

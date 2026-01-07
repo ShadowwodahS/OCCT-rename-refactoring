@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Texture2Dplane, Graphic3d_Texture2D)
 
 //=================================================================================================
 
-Graphic3d_Texture2Dplane::Graphic3d_Texture2Dplane(const TCollection_AsciiString& theFileName)
+Graphic3d_Texture2Dplane::Graphic3d_Texture2Dplane(const AsciiString1& theFileName)
     : Graphic3d_Texture2D(theFileName)
 {
   myParams->SetGenMode(Graphic3d_TOTM_OBJECT,

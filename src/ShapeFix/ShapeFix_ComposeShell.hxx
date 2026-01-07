@@ -36,7 +36,7 @@ class ShapeAnalysis_TransferParameters;
 class ShapeExtend_WireData;
 class gp_Lin2d;
 class ShapeFix_WireSegment;
-class Geom_Surface;
+class GeomSurface;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -96,7 +96,7 @@ public:
   //! for handling subtle cases, such as tangential intersections.
   Standard_EXPORT void Init(const Handle(ShapeExtend_CompositeSurface)& Grid,
                             const TopLoc_Location&                      L,
-                            const TopoDS_Face&                          Face,
+                            const TopoFace&                          Face,
                             const Standard_Real                         Prec);
 
   //! Returns (modifiable) flag for special 'closed'
@@ -121,7 +121,7 @@ public:
   Standard_EXPORT void SplitEdges();
 
   //! Returns resulting shell or face (or Null shape if not done)
-  Standard_EXPORT const TopoDS_Shape& Result() const;
+  Standard_EXPORT const TopoShape& Result() const;
 
   //! Queries status of last call to Perform()
   //! OK   : nothing done (some kind of error)
@@ -255,17 +255,17 @@ protected:
   //! (wires) into one or several faces depending on their mutual
   //! position.
   Standard_EXPORT void MakeFacesOnPatch(TopTools_SequenceOfShape&   faces,
-                                        const Handle(Geom_Surface)& surf,
+                                        const Handle(GeomSurface)& surf,
                                         TopTools_SequenceOfShape&   loops) const;
 
   TopAbs_Orientation myOrient;
-  TopoDS_Shape       myResult;
+  TopoShape       myResult;
   Standard_Integer   myStatus;
 
 private:
   Handle(ShapeExtend_CompositeSurface)     myGrid;
   TopLoc_Location                          myLoc;
-  TopoDS_Face                              myFace;
+  TopoFace                              myFace;
   Standard_Real                            myUResolution;
   Standard_Real                            myVResolution;
   Handle(ShapeAnalysis_TransferParameters) myTransferParamTool;

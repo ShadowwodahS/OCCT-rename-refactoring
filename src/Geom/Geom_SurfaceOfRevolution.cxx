@@ -50,7 +50,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_SurfaceOfRevolution, Geom_SweptSurface)
 #define FMULTS (BSplCLib::NoMults())
 
 typedef Geom_SurfaceOfRevolution SurfaceOfRevolution;
-typedef Geom_Curve               Curve;
+typedef GeomCurve3d               Curve;
 typedef Axis3d                   Ax1;
 typedef Frame3d                   Ax2;
 typedef Dir3d                   Dir;
@@ -70,7 +70,7 @@ Handle(Geom_Geometry) Geom_SurfaceOfRevolution::Copy() const
 
 //=================================================================================================
 
-Geom_SurfaceOfRevolution::Geom_SurfaceOfRevolution(const Handle(Geom_Curve)& C, const Ax1& A1)
+Geom_SurfaceOfRevolution::Geom_SurfaceOfRevolution(const Handle(GeomCurve3d)& C, const Ax1& A1)
     : loc(A1.Location())
 {
 
@@ -196,10 +196,10 @@ void Geom_SurfaceOfRevolution::SetDirection(const Dir& V)
 
 //=================================================================================================
 
-void Geom_SurfaceOfRevolution::SetBasisCurve(const Handle(Geom_Curve)& C)
+void Geom_SurfaceOfRevolution::SetBasisCurve(const Handle(GeomCurve3d)& C)
 {
 
-  basisCurve  = Handle(Geom_Curve)::DownCast(C->Copy());
+  basisCurve  = Handle(GeomCurve3d)::DownCast(C->Copy());
   smooth      = C->Continuity();
   myEvaluator = new GeomEvaluator_SurfaceOfRevolution(basisCurve, direction, loc);
 }
@@ -297,10 +297,10 @@ Ax2 Geom_SurfaceOfRevolution::ReferencePlane() const
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_SurfaceOfRevolution::UIso(const Standard_Real U) const
+Handle(GeomCurve3d) Geom_SurfaceOfRevolution::UIso(const Standard_Real U) const
 {
 
-  Handle(Geom_Curve) C       = Handle(Geom_Curve)::DownCast(basisCurve->Copy());
+  Handle(GeomCurve3d) C       = Handle(GeomCurve3d)::DownCast(basisCurve->Copy());
   Ax1                RotAxis = Ax1(loc, direction);
   C->Rotate(RotAxis, U);
   return C;
@@ -308,10 +308,10 @@ Handle(Geom_Curve) Geom_SurfaceOfRevolution::UIso(const Standard_Real U) const
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_SurfaceOfRevolution::VIso(const Standard_Real V) const
+Handle(GeomCurve3d) Geom_SurfaceOfRevolution::VIso(const Standard_Real V) const
 {
 
-  Handle(Geom_Circle) Circ;
+  Handle(GeomCircle) Circ;
   Pnt                 Pc = basisCurve->Value(V);
   gp_Lin              L1(loc, direction);
   Standard_Real       Rad = L1.Distance(Pc);
@@ -334,7 +334,7 @@ Handle(Geom_Curve) Geom_SurfaceOfRevolution::VIso(const Standard_Real V) const
   else
     Rep = Frame3d(Pc, direction);
 
-  Circ = new Geom_Circle(Rep, Rad);
+  Circ = new GeomCircle(Rep, Rad);
   return Circ;
 }
 

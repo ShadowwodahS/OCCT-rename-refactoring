@@ -33,7 +33,7 @@ class IGESDefs_AttributeDef;
 DEFINE_STANDARD_HANDLE(IGESDefs_AttributeDef, IGESData_IGESEntity)
 
 //! defines IGES Attribute Table Definition Entity,
-//! Type <322> Form [0, 1, 2] in package IGESDefs.
+//! Type <322> Form [0, 1, 2] in package IGESDefs1.
 //! This is class is used to support the concept of well
 //! defined collection of attributes, whether it is a table
 //! or a single row of attributes.

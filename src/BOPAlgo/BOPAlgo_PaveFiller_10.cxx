@@ -36,7 +36,7 @@
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::SetNonDestructive()
+void BooleanPaveFiller::SetNonDestructive()
 {
   if (!myIsPrimary || myNonDestructive)
   {
@@ -50,7 +50,7 @@ void BOPAlgo_PaveFiller::SetNonDestructive()
   aItLS.Initialize(myArguments);
   for (; aItLS.More() && (!bFlag); aItLS.Next())
   {
-    const TopoDS_Shape& aS = aItLS.Value();
+    const TopoShape& aS = aItLS.Value();
     bFlag                  = aS.Locked();
   }
   myNonDestructive = bFlag;
@@ -58,7 +58,7 @@ void BOPAlgo_PaveFiller::SetNonDestructive()
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::UpdateEdgeTolerance(const Standard_Integer nE, const Standard_Real theTol)
+void BooleanPaveFiller::UpdateEdgeTolerance(const Standard_Integer nE, const Standard_Real theTol)
 {
   BOPDS_ShapeInfo&             aSIE = myDS->ChangeShapeInfo(nE);
   const TColStd_ListOfInteger& aLI  = aSIE.SubShapes();
@@ -79,8 +79,8 @@ void BOPAlgo_PaveFiller::UpdateEdgeTolerance(const Standard_Integer nE, const St
   }
 
   // Update edge
-  const TopoDS_Edge& aE = *(TopoDS_Edge*)&myDS->Shape(nE);
-  BRep_Builder().UpdateEdge(aE, theTol);
+  const TopoEdge& aE = *(TopoEdge*)&myDS->Shape(nE);
+  ShapeBuilder().UpdateEdge(aE, theTol);
   Bnd_Box& aBoxE = aSIE.ChangeBox();
   BRepBndLib::Add(aE, aBoxE);
   aBoxE.SetGap(aBoxE.GetGap() + Precision::Confusion());
@@ -96,19 +96,19 @@ void BOPAlgo_PaveFiller::UpdateEdgeTolerance(const Standard_Integer nE, const St
 
 //=================================================================================================
 
-Standard_Integer BOPAlgo_PaveFiller::UpdateVertex(const Standard_Integer nV,
+Standard_Integer BooleanPaveFiller::UpdateVertex(const Standard_Integer nV,
                                                   const Standard_Real    aTolNew)
 {
   Standard_Integer nVNew;
   Standard_Real    aTolV;
-  BRep_Builder     aBB;
+  ShapeBuilder     aBB;
 
   nVNew = nV;
   if (myDS->IsNewShape(nVNew) || myDS->HasShapeSD(nV, nVNew) || !myNonDestructive)
   {
     // nV is a new vertex, it has SD or non-destructive mode is not in force
-    const TopoDS_Vertex& aVSD = *(TopoDS_Vertex*)&myDS->Shape(nVNew);
-    aTolV                     = BRep_Tool::Tolerance(aVSD);
+    const TopoVertex& aVSD = *(TopoVertex*)&myDS->Shape(nVNew);
+    aTolV                     = BRepInspector::Tolerance(aVSD);
     if (aTolV < aTolNew)
     {
       aBB.UpdateVertex(aVSD, aTolNew);
@@ -122,12 +122,12 @@ Standard_Integer BOPAlgo_PaveFiller::UpdateVertex(const Standard_Integer nV,
   }
   //
   // nV is old vertex
-  const TopoDS_Vertex& aV = *(TopoDS_Vertex*)&myDS->Shape(nV);
-  aTolV                   = BRep_Tool::Tolerance(aV);
+  const TopoVertex& aV = *(TopoVertex*)&myDS->Shape(nV);
+  aTolV                   = BRepInspector::Tolerance(aV);
   //
   // create new vertex
-  TopoDS_Vertex aVNew;
-  Point3d        aPV = BRep_Tool::Pnt(aV);
+  TopoVertex aVNew;
+  Point3d        aPV = BRepInspector::Pnt(aV);
   aBB.MakeVertex(aVNew, aPV, Max(aTolV, aTolNew));
   //
   // append new vertex to DS
@@ -156,14 +156,14 @@ Standard_Integer BOPAlgo_PaveFiller::UpdateVertex(const Standard_Integer nV,
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::UpdatePaveBlocksWithSDVertices()
+void BooleanPaveFiller::UpdatePaveBlocksWithSDVertices()
 {
   myDS->UpdatePaveBlocksWithSDVertices();
 }
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::UpdateCommonBlocksWithSDVertices()
+void BooleanPaveFiller::UpdateCommonBlocksWithSDVertices()
 {
   if (!myNonDestructive)
   {
@@ -237,7 +237,7 @@ void UpdateIntfsWithSDVertices(BOPDS_PDS theDS, NCollection_Vector<InterfType>& 
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::UpdateInterfsWithSDVertices()
+void BooleanPaveFiller::UpdateInterfsWithSDVertices()
 {
   UpdateIntfsWithSDVertices(myDS, myDS->InterfVV());
   UpdateIntfsWithSDVertices(myDS, myDS->InterfVE());

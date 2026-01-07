@@ -36,10 +36,10 @@
 #include <TopOpeBRepBuild_define.hxx>
 
 #ifdef OCCT_DEBUG
-static TCollection_AsciiString PRODINS("dins ");
+static AsciiString1 PRODINS("dins ");
 #endif
 
-#define MYBB ((TopOpeBRepBuild_BlockBuilder*)myBlockBuilder)
+#define MYBB ((BlockBuilder*)myBlockBuilder)
 
 #define SAME (-1)
 #define DIFF (-2)
@@ -50,8 +50,8 @@ static TCollection_AsciiString PRODINS("dins ");
 //=================================================================================================
 
 TopOpeBRepBuild_WireEdgeClassifier::TopOpeBRepBuild_WireEdgeClassifier(
-  const TopoDS_Shape&                 F,
-  const TopOpeBRepBuild_BlockBuilder& BB)
+  const TopoShape&                 F,
+  const BlockBuilder& BB)
     : TopOpeBRepBuild_CompositeClassifier(BB)
 {
   myBCEdge.Face() = TopoDS::Face(F);
@@ -69,19 +69,19 @@ TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::Compare(const Handle(TopOpeBRep
 
   if (isshape2 && isshape1)
   { // L1 is Shape , L2 is Shape
-    const TopoDS_Shape& s1 = L1->Shape();
-    const TopoDS_Shape& s2 = L2->Shape();
+    const TopoShape& s1 = L1->Shape();
+    const TopoShape& s2 = L2->Shape();
     state                  = CompareShapes(s1, s2);
   }
   else if (isshape2 && !isshape1)
   { // L1 is Block , L2 is Shape
-    TopOpeBRepBuild_BlockIterator Bit1 = L1->BlockIterator();
+    TopOpeBRepBuildBlockIterator Bit1 = L1->BlockIterator();
     Bit1.Initialize();
     Standard_Boolean yena1 = Bit1.More();
     while (yena1)
     {
-      const TopoDS_Shape& s1 = MYBB->Element(Bit1);
-      const TopoDS_Shape& s2 = L2->Shape();
+      const TopoShape& s1 = MYBB->Element(Bit1);
+      const TopoShape& s2 = L2->Shape();
       state                  = CompareElementToShape(s1, s2);
       yena1                  = Standard_False;
       if (state == TopAbs_UNKNOWN)
@@ -94,12 +94,12 @@ TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::Compare(const Handle(TopOpeBRep
   }
   else if (!isshape2 && isshape1)
   { // L1 is Shape , L2 is Block
-    const TopoDS_Shape& s1 = L1->Shape();
+    const TopoShape& s1 = L1->Shape();
     ResetShape(s1);
-    TopOpeBRepBuild_BlockIterator Bit2 = L2->BlockIterator();
+    TopOpeBRepBuildBlockIterator Bit2 = L2->BlockIterator();
     for (Bit2.Initialize(); Bit2.More(); Bit2.Next())
     {
-      const TopoDS_Shape& s2 = MYBB->Element(Bit2);
+      const TopoShape& s2 = MYBB->Element(Bit2);
       CompareElement(s2);
     }
     state = State();
@@ -109,17 +109,17 @@ TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::Compare(const Handle(TopOpeBRep
 
     if (state == TopAbs_UNKNOWN)
     {
-      TopOpeBRepBuild_BlockIterator Bit1 = L1->BlockIterator();
+      TopOpeBRepBuildBlockIterator Bit1 = L1->BlockIterator();
       Bit1.Initialize();
       Standard_Boolean yena1 = Bit1.More();
       while (yena1)
       {
-        const TopoDS_Shape& s1 = MYBB->Element(Bit1);
+        const TopoShape& s1 = MYBB->Element(Bit1);
         ResetElement(s1);
-        TopOpeBRepBuild_BlockIterator Bit2 = L2->BlockIterator();
+        TopOpeBRepBuildBlockIterator Bit2 = L2->BlockIterator();
         for (Bit2.Initialize(); Bit2.More(); Bit2.Next())
         {
-          const TopoDS_Shape& s2 = MYBB->Element(Bit2);
+          const TopoShape& s2 = MYBB->Element(Bit2);
           CompareElement(s2);
         }
         state = State();
@@ -135,17 +135,17 @@ TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::Compare(const Handle(TopOpeBRep
 
     if (state == TopAbs_UNKNOWN)
     {
-      TopoDS_Shape s1 = LoopToShape(L1);
+      TopoShape s1 = LoopToShape(L1);
       if (s1.IsNull())
         return state;
-      TopoDS_Shape s2 = LoopToShape(L2);
+      TopoShape s2 = LoopToShape(L2);
       if (s2.IsNull())
         return state;
       TopOpeBRepTool_ShapeClassifier& SC         = FSC_GetPSC();
       Standard_Integer                samedomain = SC.SameDomain();
       SC.SameDomain(1);
       SC.SetReference(s2);
-      const TopoDS_Shape& AvS = s2;
+      const TopoShape& AvS = s2;
       state                   = SC.StateShapeReference(s1, AvS);
       SC.SameDomain(samedomain);
     } // UNKNOWN
@@ -155,33 +155,33 @@ TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::Compare(const Handle(TopOpeBRep
 
 //=================================================================================================
 
-TopoDS_Shape TopOpeBRepBuild_WireEdgeClassifier::LoopToShape(const Handle(TopOpeBRepBuild_Loop)& L)
+TopoShape TopOpeBRepBuild_WireEdgeClassifier::LoopToShape(const Handle(TopOpeBRepBuild_Loop)& L)
 {
   myShape.Nullify();
-  TopOpeBRepBuild_BlockIterator Bit = L->BlockIterator();
+  TopOpeBRepBuildBlockIterator Bit = L->BlockIterator();
   Bit.Initialize();
   if (!Bit.More())
     return myShape;
 
-  TopoDS_Shape       aLocalShape = myBCEdge.Face();
-  const TopoDS_Face& F1          = TopoDS::Face(aLocalShape);
-  //  const TopoDS_Face& F1 = TopoDS::Face(myBCEdge.Face());
+  TopoShape       aLocalShape = myBCEdge.Face();
+  const TopoFace& F1          = TopoDS::Face(aLocalShape);
+  //  const TopoFace& F1 = TopoDS::Face(myBCEdge.Face());
   aLocalShape   = F1.EmptyCopied();
-  TopoDS_Face F = TopoDS::Face(aLocalShape);
-  //  TopoDS_Face F = TopoDS::Face(F1.EmptyCopied());
-  BRep_Builder BB;
-  TopoDS_Wire  W;
+  TopoFace F = TopoDS::Face(aLocalShape);
+  //  TopoFace F = TopoDS::Face(F1.EmptyCopied());
+  ShapeBuilder BB;
+  TopoWire  W;
   BB.MakeWire(W);
   for (; Bit.More(); Bit.Next())
   {
-    const TopoDS_Edge& E = TopoDS::Edge(MYBB->Element(Bit));
+    const TopoEdge& E = TopoDS::Edge(MYBB->Element(Bit));
     Standard_Real      tolE;
-    tolE                   = BRep_Tool::Tolerance(E);
+    tolE                   = BRepInspector::Tolerance(E);
     Standard_Boolean haspc = FC2D_HasCurveOnSurface(E, F);
     if (!haspc)
     {
       Standard_Real        f, l, tolpc;
-      Handle(Geom2d_Curve) C2D;
+      Handle(GeomCurve2d) C2D;
       C2D = FC2D_CurveOnSurface(E, F, f, l, tolpc);
       if (!C2D.IsNull())
       {
@@ -197,13 +197,13 @@ TopoDS_Shape TopOpeBRepBuild_WireEdgeClassifier::LoopToShape(const Handle(TopOpe
   return myShape;
 }
 
-static Vector3d FUN_tgINE(const TopoDS_Vertex& v, const TopoDS_Vertex& vl, const TopoDS_Edge& e)
+static Vector3d FUN_tgINE(const TopoVertex& v, const TopoVertex& vl, const TopoEdge& e)
 // tg oriented INSIDE 1d(e)
 // vl : last vertex of e
 {
-  Standard_Real    par = BRep_Tool::Parameter(v, e);
+  Standard_Real    par = BRepInspector::Parameter(v, e);
   Vector3d           tg;
-  Standard_Boolean ok = TopOpeBRepTool_TOOL::TggeomE(par, e, tg);
+  Standard_Boolean ok = TOOL1::TggeomE(par, e, tg);
   if (!ok)
     return Vector3d(0., 0., 0.); // NYIRAISE
   if (v.IsSame(vl))
@@ -213,8 +213,8 @@ static Vector3d FUN_tgINE(const TopoDS_Vertex& v, const TopoDS_Vertex& vl, const
 
 //=================================================================================================
 
-TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::CompareShapes(const TopoDS_Shape& B1,
-                                                               const TopoDS_Shape& B2)
+TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::CompareShapes(const TopoShape& B1,
+                                                               const TopoShape& B2)
 {
   // evolution xpu101198 : - cto009K4, regularisation de f24,
   // on classifie 1 wire / 1 des wires connexes.
@@ -230,14 +230,14 @@ TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::CompareShapes(const TopoDS_Shap
 //  TopAbs_ShapeEnum t2 = B2.ShapeType();
 #endif
   TopAbs_State    state = TopAbs_UNKNOWN;
-  TopExp_Explorer ex1(B1, TopAbs_EDGE);
+  ShapeExplorer ex1(B1, TopAbs_EDGE);
   if (!ex1.More())
     return state;
   for (; ex1.More(); ex1.Next())
   {
-    const TopoDS_Edge& e1 = TopoDS::Edge(ex1.Current());
-    TopoDS_Vertex      vf1, vl1;
-    TopExp::Vertices(e1, vf1, vl1); // xpu101198
+    const TopoEdge& e1 = TopoDS::Edge(ex1.Current());
+    TopoVertex      vf1, vl1;
+    TopExp1::Vertices(e1, vf1, vl1); // xpu101198
     Standard_Boolean           e1clo = vf1.IsSame(vl1);
     TopTools_IndexedMapOfShape mapv1;
     mapv1.Add(vf1);
@@ -245,25 +245,25 @@ TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::CompareShapes(const TopoDS_Shap
 
     ResetShape(e1);
     Standard_Boolean indy = Standard_False;
-    TopExp_Explorer  Ex;
+    ShapeExplorer  Ex;
     for (Ex.Init(B2, TopAbs_EDGE); Ex.More(); Ex.Next())
     {
-      //    for(TopExp_Explorer Ex(B2,TopAbs_EDGE); Ex.More(); Ex.Next()) {
-      const TopoDS_Edge& E = TopoDS::Edge(Ex.Current());
+      //    for(ShapeExplorer Ex(B2,TopAbs_EDGE); Ex.More(); Ex.Next()) {
+      const TopoEdge& E = TopoDS::Edge(Ex.Current());
       if (E.IsSame(e1))
       {
         state = TopAbs_UNKNOWN;
         break;
       } // eap occ416
-      TopoDS_Vertex vf, vl;
-      TopExp::Vertices(E, vf, vl);                                     // xpu101198
+      TopoVertex vf, vl;
+      TopExp1::Vertices(E, vf, vl);                                     // xpu101198
       Standard_Boolean Eclo   = vf.IsSame(vl);                         // xpu101198
       Standard_Boolean hasf   = mapv1.Contains(vf);                    // xpu101198
       Standard_Boolean hasl   = mapv1.Contains(vl);                    // xpu101198
       Standard_Boolean filter = (hasf || hasl) && (!e1clo) && (!Eclo); // nyi : Eclo || e1clo
       if (filter)
       { // xpu101198
-        TopoDS_Vertex vshared;
+        TopoVertex vshared;
         if (hasf)
           vshared = vf;
         if (hasl)
@@ -297,25 +297,25 @@ TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::CompareShapes(const TopoDS_Shap
   if (resta)
   {
     TopTools_IndexedMapOfShape mape1;
-    TopExp::MapShapes(B1, TopAbs_EDGE, mape1);
+    TopExp1::MapShapes(B1, TopAbs_EDGE, mape1);
     // recall : avoid auto-intersection wires (ie B1 and B2 are disjoint)
-    TopExp_Explorer ex2(B2, TopAbs_EDGE);
+    ShapeExplorer ex2(B2, TopAbs_EDGE);
     for (; ex2.More(); ex2.Next())
     {
-      const TopoDS_Edge& E2 = TopoDS::Edge(ex2.Current());
+      const TopoEdge& E2 = TopoDS::Edge(ex2.Current());
       if (mape1.Contains(E2))
         continue;
 
-      const TopoDS_Face& theFace = myBCEdge.Face();
-      BRep_Builder       BB;
+      const TopoFace& theFace = myBCEdge.Face();
+      ShapeBuilder       BB;
 
       // p2d on E2 of B2, E2 not shared by B1
-      TopoDS_Shape aLocalShape = theFace.Oriented(TopAbs_FORWARD);
-      TopoDS_Face  ftmp        = TopoDS::Face(aLocalShape);
-      //      TopoDS_Face ftmp = TopoDS::Face(theFace.Oriented(TopAbs_FORWARD));
+      TopoShape aLocalShape = theFace.Oriented(TopAbs_FORWARD);
+      TopoFace  ftmp        = TopoDS::Face(aLocalShape);
+      //      TopoFace ftmp = TopoDS::Face(theFace.Oriented(TopAbs_FORWARD));
       aLocalShape    = ftmp.EmptyCopied();
-      TopoDS_Face F2 = TopoDS::Face(aLocalShape);
-      //      TopoDS_Face F2 = TopoDS::Face(ftmp.EmptyCopied());
+      TopoFace F2 = TopoDS::Face(aLocalShape);
+      //      TopoFace F2 = TopoDS::Face(ftmp.EmptyCopied());
       BB.Add(F2, TopoDS::Wire(B2));
 
       BRepAdaptor_Curve2d BC2d(E2, F2);
@@ -326,11 +326,11 @@ TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::CompareShapes(const TopoDS_Shap
       gp_Pnt2d      p2d = BC2d.Value(p2);
 
       aLocalShape    = ftmp.EmptyCopied();
-      TopoDS_Face F1 = TopoDS::Face(aLocalShape);
-      //      TopoDS_Face F1 = TopoDS::Face(ftmp.EmptyCopied());
+      TopoFace F1 = TopoDS::Face(aLocalShape);
+      //      TopoFace F1 = TopoDS::Face(ftmp.EmptyCopied());
       BB.Add(F1, TopoDS::Wire(B1));
 
-      Standard_Real            tolF1 = BRep_Tool::Tolerance(F1);
+      Standard_Real            tolF1 = BRepInspector::Tolerance(F1);
       BRepClass_FaceClassifier Fclass(F1, p2d, tolF1);
       state = Fclass.State();
       return state;
@@ -338,7 +338,7 @@ TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::CompareShapes(const TopoDS_Shap
   }
 
   /*if (state == TopAbs_UNKNOWN) {
-    const TopoDS_Face& F = TopoDS::Face(myBCEdge.Face());
+    const TopoFace& F = TopoDS::Face(myBCEdge.Face());
     Bnd_Array1OfBox2d bnd(1,2);
     FUN_tool_mkBnd2d(B1,F,bnd(1)); FUN_tool_mkBnd2d(B2,F,bnd(2));
     TopTools_Array1OfShape B(1,2);
@@ -362,15 +362,15 @@ B1)
 
 //=================================================================================================
 
-TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::CompareElementToShape(const TopoDS_Shape& EE,
-                                                                       const TopoDS_Shape& B)
+TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::CompareElementToShape(const TopoShape& EE,
+                                                                       const TopoShape& B)
 {
   // isEdge : edge E inits myPoint2d
   ResetElement(EE);
-  TopExp_Explorer Ex;
+  ShapeExplorer Ex;
   for (Ex.Init(B, TopAbs_EDGE); Ex.More(); Ex.Next())
   {
-    const TopoDS_Shape& E = Ex.Current();
+    const TopoShape& E = Ex.Current();
     CompareElement(E);
   }
   TopAbs_State state = State();
@@ -379,7 +379,7 @@ TopAbs_State TopOpeBRepBuild_WireEdgeClassifier::CompareElementToShape(const Top
 
 //=================================================================================================
 
-void TopOpeBRepBuild_WireEdgeClassifier::ResetShape(const TopoDS_Shape& B)
+void TopOpeBRepBuild_WireEdgeClassifier::ResetShape(const TopoShape& B)
 {
   if (B.ShapeType() == TopAbs_EDGE)
   {
@@ -387,10 +387,10 @@ void TopOpeBRepBuild_WireEdgeClassifier::ResetShape(const TopoDS_Shape& B)
   }
   else
   {
-    TopExp_Explorer ex(B, TopAbs_EDGE);
+    ShapeExplorer ex(B, TopAbs_EDGE);
     if (ex.More())
     {
-      const TopoDS_Shape& E = ex.Current();
+      const TopoShape& E = ex.Current();
       ResetElement(E);
     }
   }
@@ -398,21 +398,21 @@ void TopOpeBRepBuild_WireEdgeClassifier::ResetShape(const TopoDS_Shape& B)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_WireEdgeClassifier::ResetElement(const TopoDS_Shape& EE)
+void TopOpeBRepBuild_WireEdgeClassifier::ResetElement(const TopoShape& EE)
 {
-  const TopoDS_Edge&   E = TopoDS::Edge(EE);
-  const TopoDS_Face&   F = myBCEdge.Face();
+  const TopoEdge&   E = TopoDS::Edge(EE);
+  const TopoFace&   F = myBCEdge.Face();
   Standard_Real        f2, l2, tolpc;
-  Handle(Geom2d_Curve) C2D;                                  // jyl980406+
+  Handle(GeomCurve2d) C2D;                                  // jyl980406+
   Standard_Boolean     haspc = FC2D_HasCurveOnSurface(E, F); // jyl980406+
   if (!haspc)
   { // jyl980406+
     // clang-format off
     Standard_Boolean trim3d = Standard_True; C2D = FC2D_CurveOnSurface(E,F,f2,l2,tolpc,trim3d); //jyl980406+
     // clang-format on
-    Standard_Real tolE = BRep_Tool::Tolerance(E); // jyl980406+
+    Standard_Real tolE = BRepInspector::Tolerance(E); // jyl980406+
     Standard_Real tol  = Max(tolE, tolpc);        // jyl980406+
-    BRep_Builder  BB;
+    ShapeBuilder  BB;
     BB.UpdateEdge(E, C2D, F, tol); // jyl980406+
   } // jyl980406+
 
@@ -426,7 +426,7 @@ void TopOpeBRepBuild_WireEdgeClassifier::ResetElement(const TopoDS_Shape& EE)
 
 #ifdef OCCT_DEBUG
   Standard_Real      f3, l3;
-  Handle(Geom_Curve) C3D = BRep_Tool::Curve(E, f3, l3);
+  Handle(GeomCurve3d) C3D = BRepInspector::Curve(E, f3, l3);
   Point3d             P3D;
   if (!C3D.IsNull())
     P3D = C3D->Value(par);
@@ -437,14 +437,14 @@ void TopOpeBRepBuild_WireEdgeClassifier::ResetElement(const TopoDS_Shape& EE)
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_WireEdgeClassifier::CompareElement(const TopoDS_Shape& EE)
+Standard_Boolean TopOpeBRepBuild_WireEdgeClassifier::CompareElement(const TopoShape& EE)
 {
   Standard_Boolean   bRet = Standard_True;
-  const TopoDS_Edge& E    = TopoDS::Edge(EE);
-  const TopoDS_Face& F    = myBCEdge.Face();
+  const TopoEdge& E    = TopoDS::Edge(EE);
+  const TopoFace& F    = myBCEdge.Face();
 
   Standard_Real        f2, l2, tolpc;
-  Handle(Geom2d_Curve) C2D;                                  // jyl980402+
+  Handle(GeomCurve2d) C2D;                                  // jyl980402+
   Standard_Boolean     haspc = FC2D_HasCurveOnSurface(E, F); // jyl980402+
   if (!haspc)
   { // jyl980402+
@@ -452,9 +452,9 @@ Standard_Boolean TopOpeBRepBuild_WireEdgeClassifier::CompareElement(const TopoDS
     Standard_Boolean trim3d = Standard_True; C2D = FC2D_CurveOnSurface(E,F,f2,l2,tolpc,trim3d); //jyl980406+
     // C2D = FC2D_CurveOnSurface(E,F,f2,l2,tolpc,trim3d); //jyl980406-
     // clang-format on
-    Standard_Real tolE = BRep_Tool::Tolerance(E); // jyl980402+
+    Standard_Real tolE = BRepInspector::Tolerance(E); // jyl980402+
     Standard_Real tol  = Max(tolE, tolpc);        // jyl980402+
-    BRep_Builder  BB;
+    ShapeBuilder  BB;
     BB.UpdateEdge(E, C2D, F, tol); // jyl980402+
   } // jyl980402+
 
@@ -467,7 +467,7 @@ Standard_Boolean TopOpeBRepBuild_WireEdgeClassifier::CompareElement(const TopoDS
 
 #ifdef OCCT_DEBUG
     Standard_Real      f3, l3;
-    Handle(Geom_Curve) C3D = BRep_Tool::Curve(E, f3, l3);
+    Handle(GeomCurve3d) C3D = BRepInspector::Curve(E, f3, l3);
     Point3d             P3D;
     if (!C3D.IsNull())
       P3D = C3D->Value(par);

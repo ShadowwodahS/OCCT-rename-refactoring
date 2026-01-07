@@ -22,25 +22,25 @@
 
 //=================================================================================================
 
-TopOpeBRepBuild_WireToFace::TopOpeBRepBuild_WireToFace() {}
+WireToFaceBuilder::WireToFaceBuilder() {}
 
 //=================================================================================================
 
-void TopOpeBRepBuild_WireToFace::Init()
+void WireToFaceBuilder::Init()
 {
   myLW.Clear();
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_WireToFace::AddWire(const TopoDS_Wire& W)
+void WireToFaceBuilder::AddWire(const TopoWire& W)
 {
   myLW.Append(W);
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_WireToFace::MakeFaces(const TopoDS_Face& F, TopTools_ListOfShape& LF)
+void WireToFaceBuilder::MakeFaces(const TopoFace& F, ShapeList& LF)
 {
   LF.Clear();
 

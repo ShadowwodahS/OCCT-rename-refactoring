@@ -23,13 +23,13 @@ class Graphic3d_Texture3D : public Graphic3d_TextureMap
   DEFINE_STANDARD_RTTIEXT(Graphic3d_Texture3D, Graphic3d_TextureMap)
 public:
   //! Creates a texture from a file.
-  Standard_EXPORT Graphic3d_Texture3D(const TCollection_AsciiString& theFileName);
+  Standard_EXPORT Graphic3d_Texture3D(const AsciiString1& theFileName);
 
   //! Creates a texture from the pixmap.
   Standard_EXPORT Graphic3d_Texture3D(const Handle(Image_PixMap)& thePixMap);
 
   //! Creates a texture from a file.
-  Standard_EXPORT Graphic3d_Texture3D(const NCollection_Array1<TCollection_AsciiString>& theFiles);
+  Standard_EXPORT Graphic3d_Texture3D(const NCollection_Array1<AsciiString1>& theFiles);
 
   //! Destructor.
   Standard_EXPORT virtual ~Graphic3d_Texture3D();
@@ -44,7 +44,7 @@ public:
     const Handle(Image_SupportedFormats)& theSupported) Standard_OVERRIDE;
 
 protected:
-  NCollection_Array1<TCollection_AsciiString> myPaths;
+  NCollection_Array1<AsciiString1> myPaths;
 };
 
 #endif // _Graphic3d_Texture3D_HeaderFile

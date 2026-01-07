@@ -73,19 +73,19 @@ static Standard_Boolean Affich = 0;
 
 //=================================================================================================
 
-static void ComputeTrsf(const TopoDS_Wire& W, const Dir3d& D, Bnd_Box& Box, Transform3d& Tf)
+static void ComputeTrsf(const TopoWire& W, const Dir3d& D, Bnd_Box& Box, Transform3d& Tf)
 {
   // Calculate approximate barycenter
   BRepTools_WireExplorer Exp(W);
-  // Class BRep_Tool without fields and without Constructor :
-  //  BRep_Tool BT;
+  // Class BRepInspector without fields and without Constructor :
+  //  BRepInspector BT;
   gp_XYZ           Bary(0., 0., 0.);
   Standard_Integer nb;
 
   for (nb = 0; Exp.More(); Exp.Next())
   {
     //    Bary += BT.Pnt(Exp.CurrentVertex()).XYZ();
-    Bary += BRep_Tool::Pnt(Exp.CurrentVertex()).XYZ();
+    Bary += BRepInspector::Pnt(Exp.CurrentVertex()).XYZ();
     nb++;
   }
   Bary /= nb;
@@ -97,7 +97,7 @@ static void ComputeTrsf(const TopoDS_Wire& W, const Dir3d& D, Bnd_Box& Box, Tran
   //  BndLib_Add3dCurve BC;
 
   // transformation to the wire
-  TopoDS_Wire     TheW = W;
+  TopoWire     TheW = W;
   TopLoc_Location Loc(Tf);
   TheW.Location(Loc);
 
@@ -199,7 +199,7 @@ static Standard_Boolean GoodOrientation(const Bnd_Box&                      B,
 
 //=================================================================================================
 
-BRepFill_Draft::BRepFill_Draft(const TopoDS_Shape& S, const Dir3d& Dir, const Standard_Real Angle)
+BRepFill_Draft::BRepFill_Draft(const TopoShape& S, const Dir3d& Dir, const Standard_Real Angle)
 {
   myLoc.Nullify();
   mySec.Nullify();
@@ -218,15 +218,15 @@ BRepFill_Draft::BRepFill_Draft(const TopoDS_Shape& S, const Dir3d& Dir, const St
       break;
     }
     case TopAbs_SHELL: {
-      TopTools_ListOfShape                      List;
+      ShapeList                      List;
       TopTools_IndexedDataMapOfShapeListOfShape edgemap;
-      TopExp::MapShapesAndAncestors(S, TopAbs_EDGE, TopAbs_FACE, edgemap);
+      TopExp1::MapShapesAndAncestors(S, TopAbs_EDGE, TopAbs_FACE, edgemap);
       Standard_Integer iedge, nbf;
       for (iedge = 1; iedge <= edgemap.Extent(); iedge++)
       {
-        const TopoDS_Edge& theEdge = TopoDS::Edge(edgemap.FindKey(iedge));
+        const TopoEdge& theEdge = TopoDS::Edge(edgemap.FindKey(iedge));
         // skip degenerated edges
-        if (!BRep_Tool::Degenerated(theEdge))
+        if (!BRepInspector::Degenerated(theEdge))
         {
           nbf = edgemap(iedge).Extent();
           if (nbf == 1)
@@ -267,15 +267,15 @@ BRepFill_Draft::BRepFill_Draft(const TopoDS_Shape& S, const Dir3d& Dir, const St
   // Attention to closed non declared wires !
   if (!myWire.Closed())
   {
-    TopoDS_Vertex Vf, Vl;
-    TopExp::Vertices(myWire, Vf, Vl);
+    TopoVertex Vf, Vl;
+    TopExp1::Vertices(myWire, Vf, Vl);
     if (Vf.IsSame(Vl))
       myWire.Closed(Standard_True);
   }
 #ifdef DRAW
   if (Affich)
   {
-    DBRep::Set("TheWire", myWire);
+    DBRep1::Set("TheWire", myWire);
   }
 #endif
 
@@ -315,7 +315,7 @@ void BRepFill_Draft::SetDraft(const Standard_Boolean Internal)
 //======================================================================
 void BRepFill_Draft::Perform(const Standard_Real LengthMax)
 {
-  Handle(Geom_Surface) S;
+  Handle(GeomSurface) S;
   S.Nullify();
   Bnd_Box WBox; //, SBox;
   Transform3d Trsf;
@@ -330,7 +330,7 @@ void BRepFill_Draft::Perform(const Standard_Real LengthMax)
 // function :Perform
 // purpose  : calculate a surface of skinning
 //======================================================================
-void BRepFill_Draft::Perform(const Handle(Geom_Surface)& Surface,
+void BRepFill_Draft::Perform(const Handle(GeomSurface)& Surface,
                              const Standard_Boolean      KeepInsideSurface)
 {
   Bnd_Box       WBox, SBox;
@@ -341,8 +341,8 @@ void BRepFill_Draft::Perform(const Handle(Geom_Surface)& Surface,
   ComputeTrsf(myWire, myDir, WBox, Trsf);
 
   // box with bounds of the stop surface
-  Handle(Geom_Surface) Surf;
-  Surf = Handle(Geom_Surface)::DownCast(Surface->Transformed(Trsf));
+  Handle(GeomSurface) Surf;
+  Surf = Handle(GeomSurface)::DownCast(Surface->Transformed(Trsf));
   GeomAdaptor_Surface S1(Surf);
   //  BndLib_AddSurface AS;
   //  AS.Add(S1, 0.1, SBox);
@@ -362,7 +362,7 @@ void BRepFill_Draft::Perform(const Handle(Geom_Surface)& Surface,
 // function :Perform
 // purpose  : calculate the surface of skinning, stopped by a shape
 //================================================================
-void BRepFill_Draft::Perform(const TopoDS_Shape& StopShape, const Standard_Boolean KeepOutSide)
+void BRepFill_Draft::Perform(const TopoShape& StopShape, const Standard_Boolean KeepOutSide)
 {
   Bnd_Box       WBox, SBox;
   Transform3d       Trsf;
@@ -374,22 +374,22 @@ void BRepFill_Draft::Perform(const TopoDS_Shape& StopShape, const Standard_Boole
   // bounding box of the stop shape
   Bnd_Box       BSurf; //, TheBox;
   Standard_Real Umin, Umax, Vmin, Vmax;
-  //  BRepTools B;
-  //  BRep_Tool BT;
-  Handle(Geom_Surface) Surf;
+  //  BRepTools1 B;
+  //  BRepInspector BT;
+  Handle(GeomSurface) Surf;
 
   //  BndLib_AddSurface AS;
 
-  TopExp_Explorer Ex(StopShape, TopAbs_FACE);
+  ShapeExplorer Ex(StopShape, TopAbs_FACE);
 
   SBox.SetVoid();
   while (Ex.More())
   { // parse faces of the stop shape
     //    B.UVBounds(TopoDS::Face(Ex.Current()), Umin,Umax,Vmin,Vmax);
-    BRepTools::UVBounds(TopoDS::Face(Ex.Current()), Umin, Umax, Vmin, Vmax);
-    Surf = Handle(Geom_Surface)::DownCast(
+    BRepTools1::UVBounds(TopoDS::Face(Ex.Current()), Umin, Umax, Vmin, Vmax);
+    Surf = Handle(GeomSurface)::DownCast(
       //     BT.Surface(TopoDS::Face(Ex.Current()))->Transformed(Trsf) );
-      BRep_Tool::Surface(TopoDS::Face(Ex.Current()))->Transformed(Trsf));
+      BRepInspector::Surface(TopoDS::Face(Ex.Current()))->Transformed(Trsf));
     GeomAdaptor_Surface S1(Surf);
     // bounding box of the current face
     //    AS.Add(S1, Umin, Umax, Vmin, Vmax, 0.1, BSurf);
@@ -406,15 +406,15 @@ void BRepFill_Draft::Perform(const TopoDS_Shape& StopShape, const Standard_Boole
   Transform3d Inv;
   Inv = Trsf.Inverted(); // inverted transformation
   Pt.Transform(Inv);     // coordinate in the absolute reference
-  Handle(Geom_Plane) Plan = new (Geom_Plane)(Pt, myDir);
+  Handle(GeomPlane) Plan = new (GeomPlane)(Pt, myDir);
   Surf                    = new (Geom_RectangularTrimmedSurface)(Plan, -L, L, -L, L);
 
 #ifdef DRAW
   if (Affich)
   {
     char* Temp = "ThePlan";
-    DrawTrSurf::Set(Temp, Surf);
-    //    DrawTrSurf::Set("ThePlan", Surf);
+    DrawTrSurf1::Set(Temp, Surf);
+    //    DrawTrSurf1::Set("ThePlan", Surf);
   }
 #endif
 
@@ -429,7 +429,7 @@ void BRepFill_Draft::Perform(const TopoDS_Shape& StopShape, const Standard_Boole
 // function : Init
 // purpose  : Construction of laws.
 //======================================================================
-void BRepFill_Draft::Init(const Handle(Geom_Surface)&,
+void BRepFill_Draft::Init(const Handle(GeomSurface)&,
                           const Standard_Real Length,
                           const Bnd_Box&      Box)
 {
@@ -467,22 +467,22 @@ void BRepFill_Draft::Init(const Handle(Geom_Surface)&,
   Standard_Real ang = myDir.Angle(BN);
   if (ang > M_PI / 2)
     D.Reverse();
-  Handle(Geom_Line) L = new (Geom_Line)(P, D);
+  Handle(GeomLine) L = new (GeomLine)(P, D);
 
-  Handle(Geom_Curve) TC = new (Geom_TrimmedCurve)(L, 0, Length);
+  Handle(GeomCurve3d) TC = new (Geom_TrimmedCurve)(L, 0, Length);
 
 #ifdef DRAW
   if (Affich > 2)
   {
-    TC = new (Geom_Circle)(gp::XOY(), Length);
+    TC = new (GeomCircle)(gp::XOY(), Length);
   }
 #endif
 
   BRepLib_MakeEdge ME(TC);
-  TopoDS_Edge      EG = ME.Edge();
+  TopoEdge      EG = ME.Edge();
 
   BRepLib_MakeWire MW(EG);
-  TopoDS_Wire      G = MW.Wire();
+  TopoWire      G = MW.Wire();
 
   mySec = new (BRepFill_ShapeLaw)(G, Standard_True);
 }
@@ -491,7 +491,7 @@ void BRepFill_Draft::Init(const Handle(Geom_Surface)&,
 // function : BuildShell
 // purpose  : Construction of the skinning surface
 //======================================================================
-void BRepFill_Draft::BuildShell(const Handle(Geom_Surface)& Surf,
+void BRepFill_Draft::BuildShell(const Handle(GeomSurface)& Surf,
                                 const Standard_Boolean      KeepOutSide)
 {
   // construction of the surface
@@ -511,8 +511,8 @@ void BRepFill_Draft::BuildShell(const Handle(Geom_Surface)& Surf,
     myDone     = Standard_True;
     // Control of the orientation
     Standard_Boolean out = Standard_True;
-    TopExp_Explorer  ex(myShell, TopAbs_FACE);
-    TopoDS_Face      F;
+    ShapeExplorer  ex(myShell, TopAbs_FACE);
+    TopoFace      F;
     F = TopoDS::Face(ex.Current());
     BRepAdaptor_Surface SF(F);
     Standard_Real       u, v;
@@ -556,12 +556,12 @@ void BRepFill_Draft::BuildShell(const Handle(Geom_Surface)& Surf,
 // purpose  : Boolean operation between the skin and the
 //           stop shape
 //======================================================================
-Standard_Boolean BRepFill_Draft::Fuse(const TopoDS_Shape&    StopShape,
+Standard_Boolean BRepFill_Draft::Fuse(const TopoShape&    StopShape,
                                       const Standard_Boolean KeepOutSide)
 {
-  BRep_Builder     B;
+  ShapeBuilder     B;
   Standard_Boolean issolid = Standard_False;
-  TopoDS_Solid     Sol1, Sol2;
+  TopoSolid     Sol1, Sol2;
   TopAbs_State     State1 = TopAbs_OUT, State2 = TopAbs_OUT;
 
   if (myShape.ShapeType() == TopAbs_SOLID)
@@ -592,10 +592,10 @@ Standard_Boolean BRepFill_Draft::Fuse(const TopoDS_Shape&    StopShape,
     }
 
     case TopAbs_FACE: {
-      TopoDS_Shell S;
+      TopoShell S;
       B.MakeShell(S);
       B.Add(S, StopShape);
-      S.Closed(BRep_Tool::IsClosed(S));
+      S.Closed(BRepInspector::IsClosed(S));
       B.MakeSolid(Sol2);
       B.Add(Sol2, S); // shell => solid (for fusion)
       break;
@@ -607,8 +607,8 @@ Standard_Boolean BRepFill_Draft::Fuse(const TopoDS_Shape&    StopShape,
   }
 
   // Perform intersection of solids
-  BOPAlgo_PaveFiller   aPF;
-  TopTools_ListOfShape anArgs;
+  BooleanPaveFiller   aPF;
+  ShapeList anArgs;
   anArgs.Append(Sol1);
   anArgs.Append(Sol2);
   aPF.SetArguments(anArgs);
@@ -617,9 +617,9 @@ Standard_Boolean BRepFill_Draft::Fuse(const TopoDS_Shape&    StopShape,
     return Standard_False;
 
   BRepAlgoAPI_Section aSec(Sol1, Sol2, aPF);
-  const TopoDS_Shape& aSection = aSec.Shape();
+  const TopoShape& aSection = aSec.Shape();
 
-  TopExp_Explorer exp(aSection, TopAbs_EDGE);
+  ShapeExplorer exp(aSection, TopAbs_EDGE);
   if (!exp.More())
     // No section edges produced
     return Standard_False;
@@ -629,14 +629,14 @@ Standard_Boolean BRepFill_Draft::Fuse(const TopoDS_Shape&    StopShape,
     // It is required to choose the state by the geometry
 
     // We need to find the section edge, closest to myWire
-    TopoDS_Edge                aSEMin;
+    TopoEdge                aSEMin;
     Standard_Real              Dmin = Precision::Infinite();
     BRepExtrema_DistShapeShape DistTool;
     DistTool.LoadS1(myWire);
 
     for (; exp.More(); exp.Next())
     {
-      const TopoDS_Shape& aSE = exp.Current();
+      const TopoShape& aSE = exp.Current();
       DistTool.LoadS2(aSE);
       DistTool.Perform();
       if (DistTool.IsDone())
@@ -655,12 +655,12 @@ Standard_Boolean BRepFill_Draft::Fuse(const TopoDS_Shape&    StopShape,
     if (!aSEMin.IsNull())
     {
       // Get geometry of StopShape
-      Handle(Geom_Surface) S;
-      Handle(Geom2d_Curve) C2d;
+      Handle(GeomSurface) S;
+      Handle(GeomCurve2d) C2d;
       gp_Pnt2d             P2d;
       Standard_Real        f, l;
       TopLoc_Location      L;
-      BRep_Tool::CurveOnSurface(aSEMin, C2d, S, L, f, l, 2);
+      BRepInspector::CurveOnSurface(aSEMin, C2d, S, L, f, l, 2);
 
       // Find a normal.
       C2d->D0((f + l) / 2, P2d);
@@ -703,21 +703,21 @@ Standard_Boolean BRepFill_Draft::Fuse(const TopoDS_Shape&    StopShape,
   if (aBuilder.HasErrors())
     return Standard_False;
 
-  TopoDS_Shape              result;
+  TopoShape              result;
   Handle(BRepTools_History) aHistory = new BRepTools_History;
 
   Standard_Boolean isSingleOpNeeded = Standard_True;
   // To get rid of the unnecessary parts of first solid make the cutting first
   if (State1 == TopAbs_OUT)
   {
-    TopTools_ListOfShape aLO, aLT;
+    ShapeList aLO, aLT;
     aLO.Append(Sol1);
     aLT.Append(Sol2);
     aBuilder.BuildBOP(aLO, aLT, BOPAlgo_CUT, Message_ProgressRange());
     if (!aBuilder.HasErrors())
     {
-      TopoDS_Solid    aCutMin;
-      TopExp_Explorer anExpS(aBuilder.Shape(), TopAbs_SOLID);
+      TopoSolid    aCutMin;
+      ShapeExplorer anExpS(aBuilder.Shape(), TopAbs_SOLID);
       if (anExpS.More())
       {
         aCutMin = TopoDS::Solid(anExpS.Current());
@@ -730,7 +730,7 @@ Standard_Boolean BRepFill_Draft::Fuse(const TopoDS_Shape&    StopShape,
 
           for (anExpS.ReInit(); anExpS.More(); anExpS.Next())
           {
-            const TopoDS_Shape& aCut = anExpS.Current();
+            const TopoShape& aCut = anExpS.Current();
             DistTool.LoadS2(aCut);
             DistTool.Perform();
             if (DistTool.IsDone())
@@ -778,7 +778,7 @@ Standard_Boolean BRepFill_Draft::Fuse(const TopoDS_Shape&    StopShape,
   {
     aHistory->Clear();
 
-    TopTools_ListOfShape aLO, aLT;
+    ShapeList aLO, aLT;
     aLO.Append(Sol1);
     aLT.Append(Sol2);
 
@@ -794,7 +794,7 @@ Standard_Boolean BRepFill_Draft::Fuse(const TopoDS_Shape&    StopShape,
     myShape = result;
   else
   {
-    TopExp_Explorer Exp;
+    ShapeExplorer Exp;
     Exp.Init(result, TopAbs_SHELL);
     if (Exp.More())
       myShape = Exp.Current();
@@ -804,13 +804,13 @@ Standard_Boolean BRepFill_Draft::Fuse(const TopoDS_Shape&    StopShape,
   Standard_Integer ii;
   for (ii = 1; ii <= myLoc->NbLaw(); ii++)
   {
-    const TopTools_ListOfShape& L = aHistory->Modified(myFaces->Value(1, ii));
+    const ShapeList& L = aHistory->Modified(myFaces->Value(1, ii));
     if (L.Extent() > 0)
       myFaces->SetValue(1, ii, L.First());
   }
   for (ii = 1; ii <= myLoc->NbLaw() + 1; ii++)
   {
-    const TopTools_ListOfShape& L = aHistory->Modified(mySections->Value(1, ii));
+    const ShapeList& L = aHistory->Modified(mySections->Value(1, ii));
     if (L.Extent() > 0)
       mySections->SetValue(1, ii, L.First());
   }
@@ -846,7 +846,7 @@ Standard_Boolean BRepFill_Draft::Sewing()
 
   if (NbCE > 0)
   {
-    TopoDS_Shape res;
+    TopoShape res;
     res = Ass->SewedShape();
     if ((res.ShapeType() == TopAbs_SHELL) || (res.ShapeType() == TopAbs_SOLID))
     {
@@ -883,8 +883,8 @@ Standard_Boolean BRepFill_Draft::Sewing()
 
     if (myShape.Closed())
     { // Make a Solid
-      TopoDS_Solid solid;
-      BRep_Builder BS;
+      TopoSolid solid;
+      ShapeBuilder BS;
       BS.MakeSolid(solid);
       BS.Add(solid, TopoDS::Shell(myShape));
 
@@ -910,10 +910,10 @@ Standard_Boolean BRepFill_Draft::Sewing()
 // function : Generated
 // purpose  : return a sub-part generated by sweeping
 //======================================================================
-const TopTools_ListOfShape& BRepFill_Draft::Generated(const TopoDS_Shape& S)
+const ShapeList& BRepFill_Draft::Generated(const TopoShape& S)
 {
   myGenerated.Clear();
-  TopoDS_Edge      E;
+  TopoEdge      E;
   Standard_Integer ii;
   E = TopoDS::Edge(S);
   if (E.IsNull())
@@ -942,7 +942,7 @@ const TopTools_ListOfShape& BRepFill_Draft::Generated(const TopoDS_Shape& S)
 // function : Shape
 // purpose  : return the complete shape
 //======================================================================
-TopoDS_Shape BRepFill_Draft::Shape() const
+TopoShape BRepFill_Draft::Shape() const
 {
   return myShape;
 }
@@ -951,7 +951,7 @@ TopoDS_Shape BRepFill_Draft::Shape() const
 // function : Shell
 // purpose  : surface of skinning with the input face (=>shell)
 //=====================================================================
-TopoDS_Shell BRepFill_Draft::Shell() const
+TopoShell BRepFill_Draft::Shell() const
 {
   return myShell;
 }

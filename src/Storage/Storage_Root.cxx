@@ -24,7 +24,7 @@ Storage_Root::Storage_Root()
 {
 }
 
-Storage_Root::Storage_Root(const TCollection_AsciiString&     theName,
+Storage_Root::Storage_Root(const AsciiString1&     theName,
                            const Handle(DbObject)& theObject)
     : myName(theName),
       myObject(theObject),
@@ -32,21 +32,21 @@ Storage_Root::Storage_Root(const TCollection_AsciiString&     theName,
 {
 }
 
-Storage_Root::Storage_Root(const TCollection_AsciiString& theName,
+Storage_Root::Storage_Root(const AsciiString1& theName,
                            const Standard_Integer         theRef,
-                           const TCollection_AsciiString& theType)
+                           const AsciiString1& theType)
     : myName(theName),
       myType(theType),
       myRef(theRef)
 {
 }
 
-void Storage_Root::SetName(const TCollection_AsciiString& theName)
+void Storage_Root::SetName(const AsciiString1& theName)
 {
   myName = theName;
 }
 
-TCollection_AsciiString Storage_Root::Name() const
+AsciiString1 Storage_Root::Name() const
 {
   return myName;
 }
@@ -61,7 +61,7 @@ Handle(DbObject) Storage_Root::Object() const
   return myObject;
 }
 
-TCollection_AsciiString Storage_Root::Type() const
+AsciiString1 Storage_Root::Type() const
 {
   return myType;
 }
@@ -76,7 +76,7 @@ Standard_Integer Storage_Root::Reference() const
   return myRef;
 }
 
-void Storage_Root::SetType(const TCollection_AsciiString& aType)
+void Storage_Root::SetType(const AsciiString1& aType)
 {
   myType = aType;
 }

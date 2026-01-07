@@ -102,8 +102,8 @@ Media_PlayerContext::~Media_PlayerContext()
 
 //=================================================================================================
 
-Handle(Media_Frame) Media_PlayerContext::DumpFirstFrame(const TCollection_AsciiString& theSrcVideo,
-                                                        TCollection_AsciiString&       theMediaInfo)
+Handle(Media_Frame) Media_PlayerContext::DumpFirstFrame(const AsciiString1& theSrcVideo,
+                                                        AsciiString1&       theMediaInfo)
 {
   theMediaInfo.Clear();
   Handle(Media_FormatContext) aFormatCtx = new Media_FormatContext();
@@ -133,7 +133,7 @@ Handle(Media_Frame) Media_PlayerContext::DumpFirstFrame(const TCollection_AsciiS
 #endif
   if (aVideoCtx.IsNull())
   {
-    Message::SendFail(TCollection_AsciiString("FFmpeg: no video stream in '") + theSrcVideo + "'");
+    Message::SendFail(AsciiString1("FFmpeg: no video stream in '") + theSrcVideo + "'");
     return Handle(Media_Frame)();
   }
 
@@ -143,7 +143,7 @@ Handle(Media_Frame) Media_PlayerContext::DumpFirstFrame(const TCollection_AsciiS
   {
     if (!aFormatCtx->ReadPacket(aPacket))
     {
-      Message::SendFail(TCollection_AsciiString("FFmpeg: unable to read from '") + theSrcVideo
+      Message::SendFail(AsciiString1("FFmpeg: unable to read from '") + theSrcVideo
                         + "'");
       return Handle(Media_Frame)();
     }
@@ -159,7 +159,7 @@ Handle(Media_Frame) Media_PlayerContext::DumpFirstFrame(const TCollection_AsciiS
   }
   if (aFrame->IsEmpty() || aFrame->SizeX() < 1 || aFrame->SizeY() < 1)
   {
-    Message::SendFail(TCollection_AsciiString("FFmpeg: unable to decode first video frame from '")
+    Message::SendFail(AsciiString1("FFmpeg: unable to decode first video frame from '")
                       + theSrcVideo + "'");
     return Handle(Media_Frame)();
   }
@@ -168,9 +168,9 @@ Handle(Media_Frame) Media_PlayerContext::DumpFirstFrame(const TCollection_AsciiS
 
 //=================================================================================================
 
-bool Media_PlayerContext::DumpFirstFrame(const TCollection_AsciiString& theSrcVideo,
-                                         const TCollection_AsciiString& theOutImage,
-                                         TCollection_AsciiString&       theMediaInfo,
+bool Media_PlayerContext::DumpFirstFrame(const AsciiString1& theSrcVideo,
+                                         const AsciiString1& theOutImage,
+                                         AsciiString1&       theMediaInfo,
                                          int                            theMaxSize)
 {
   Handle(Media_Frame) aFrame = DumpFirstFrame(theSrcVideo, theMediaInfo);
@@ -209,7 +209,7 @@ bool Media_PlayerContext::DumpFirstFrame(const TCollection_AsciiString& theSrcVi
     Media_Scaler aScaler;
     if (!aScaler.Convert(aFrame, anRgbFrame))
     {
-      Message::SendFail(TCollection_AsciiString("FFmpeg: unable to convert frame into RGB '")
+      Message::SendFail(AsciiString1("FFmpeg: unable to convert frame into RGB '")
                         + theSrcVideo + "'");
       return false;
     }
@@ -221,7 +221,7 @@ bool Media_PlayerContext::DumpFirstFrame(const TCollection_AsciiString& theSrcVi
 
 //=================================================================================================
 
-void Media_PlayerContext::SetInput(const TCollection_AsciiString& theInputPath,
+void Media_PlayerContext::SetInput(const AsciiString1& theInputPath,
                                    Standard_Boolean               theToWait)
 {
   {
@@ -493,7 +493,7 @@ void Media_PlayerContext::doThreadLoop()
       return;
     }
 
-    TCollection_AsciiString anInput;
+    AsciiString1 anInput;
     {
       Standard_Mutex::Sentry aLock(myMutex);
       std::swap(anInput, myInputPath);
@@ -536,7 +536,7 @@ void Media_PlayerContext::doThreadLoop()
 #endif
     if (aVideoCtx.IsNull())
     {
-      Message::SendFail(TCollection_AsciiString("FFmpeg: no video stream in '") + anInput + "'");
+      Message::SendFail(AsciiString1("FFmpeg: no video stream in '") + anInput + "'");
       continue;
     }
 

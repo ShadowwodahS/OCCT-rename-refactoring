@@ -26,7 +26,7 @@ BRepAlgoAPI_Splitter::BRepAlgoAPI_Splitter()
 
 //=================================================================================================
 
-BRepAlgoAPI_Splitter::BRepAlgoAPI_Splitter(const BOPAlgo_PaveFiller& thePF)
+BRepAlgoAPI_Splitter::BRepAlgoAPI_Splitter(const BooleanPaveFiller& thePF)
     : BRepAlgoAPI_BuilderAlgo(thePF)
 {
 }
@@ -53,8 +53,8 @@ void BRepAlgoAPI_Splitter::Build(const Message_ProgressRange& theRange)
   if (myIsIntersectionNeeded)
   {
     // Combine Arguments and Tools for intersection into a single list
-    TopTools_ListOfShape aLArgs = myArguments;
-    for (TopTools_ListOfShape::Iterator it(myTools); it.More(); it.Next())
+    ShapeList aLArgs = myArguments;
+    for (ShapeList::Iterator it(myTools); it.More(); it.Next())
       aLArgs.Append(it.Value());
 
     // Perform intersection

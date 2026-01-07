@@ -19,19 +19,19 @@
 #include <BOPAlgo_GlueEnum.hxx>
 
 #include <string.h>
-static Standard_Integer boptions(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer brunparallel(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bnondestructive(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bfuzzyvalue(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bGlue(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bdrawwarnshapes(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bcheckinverted(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer buseobb(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bsimplify(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer boptions(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer brunparallel(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bnondestructive(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bfuzzyvalue(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bGlue(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bdrawwarnshapes(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bcheckinverted(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer buseobb(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bsimplify(DrawInterpreter&, Standard_Integer, const char**);
 
 //=================================================================================================
 
-void BOPTest::OptionCommands(Draw_Interpretor& theCommands)
+void BOPTest::OptionCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -112,7 +112,7 @@ void BOPTest::OptionCommands(Draw_Interpretor& theCommands)
 
 //=================================================================================================
 
-Standard_Integer boptions(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer boptions(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n > 2)
   {
@@ -157,7 +157,7 @@ Standard_Integer boptions(Draw_Interpretor& di, Standard_Integer n, const char**
           "use \"bglue\" command to change");
   di << buf;
   Sprintf(buf,
-          " Draw Warning Shapes: %s \t(%s)\n",
+          " Draw1 Warning Shapes: %s \t(%s)\n",
           BOPTest_Objects::DrawWarnShapes() ? "Yes" : "No",
           "use \"bdrawwarnshapes\" command to change");
   di << buf;
@@ -192,7 +192,7 @@ Standard_Integer boptions(Draw_Interpretor& di, Standard_Integer n, const char**
 
 //=================================================================================================
 
-Standard_Integer bfuzzyvalue(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bfuzzyvalue(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -200,14 +200,14 @@ Standard_Integer bfuzzyvalue(Draw_Interpretor& di, Standard_Integer n, const cha
     return 1;
   }
 
-  Standard_Real aFuzzyValue = Draw::Atof(a[1]);
+  Standard_Real aFuzzyValue = Draw1::Atof(a[1]);
   BOPTest_Objects::SetFuzzyValue(aFuzzyValue);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer brunparallel(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer brunparallel(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -215,14 +215,14 @@ Standard_Integer brunparallel(Draw_Interpretor& di, Standard_Integer n, const ch
     return 1;
   }
 
-  Standard_Integer iRunParallel = Draw::Atoi(a[1]);
+  Standard_Integer iRunParallel = Draw1::Atoi(a[1]);
   BOPTest_Objects::SetRunParallel(iRunParallel != 0);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bnondestructive(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bnondestructive(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -230,14 +230,14 @@ Standard_Integer bnondestructive(Draw_Interpretor& di, Standard_Integer n, const
     return 1;
   }
 
-  Standard_Integer iNonDestructive = Draw::Atoi(a[1]);
+  Standard_Integer iNonDestructive = Draw1::Atoi(a[1]);
   BOPTest_Objects::SetNonDestructive(iNonDestructive != 0);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bGlue(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bGlue(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -245,7 +245,7 @@ Standard_Integer bGlue(Draw_Interpretor& di, Standard_Integer n, const char** a)
     return 1;
   }
 
-  Standard_Integer iGlue = Draw::Atoi(a[1]);
+  Standard_Integer iGlue = Draw1::Atoi(a[1]);
   if (iGlue < 0 || iGlue > 2)
   {
     di << "Wrong value.\n";
@@ -260,7 +260,7 @@ Standard_Integer bGlue(Draw_Interpretor& di, Standard_Integer n, const char** a)
 
 //=================================================================================================
 
-Standard_Integer bdrawwarnshapes(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bdrawwarnshapes(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -268,14 +268,14 @@ Standard_Integer bdrawwarnshapes(Draw_Interpretor& di, Standard_Integer n, const
     return 1;
   }
 
-  Standard_Integer iDraw = Draw::Atoi(a[1]);
+  Standard_Integer iDraw = Draw1::Atoi(a[1]);
   BOPTest_Objects::SetDrawWarnShapes(iDraw != 0);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bcheckinverted(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bcheckinverted(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -283,14 +283,14 @@ Standard_Integer bcheckinverted(Draw_Interpretor& di, Standard_Integer n, const 
     return 1;
   }
 
-  Standard_Integer iCheck = Draw::Atoi(a[1]);
+  Standard_Integer iCheck = Draw1::Atoi(a[1]);
   BOPTest_Objects::SetCheckInverted(iCheck != 0);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer buseobb(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer buseobb(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -298,14 +298,14 @@ Standard_Integer buseobb(Draw_Interpretor& di, Standard_Integer n, const char** 
     return 1;
   }
 
-  Standard_Integer iUse = Draw::Atoi(a[1]);
+  Standard_Integer iUse = Draw1::Atoi(a[1]);
   BOPTest_Objects::SetUseOBB(iUse != 0);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bsimplify(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bsimplify(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n == 1 || n % 2 == 0)
   {
@@ -317,17 +317,17 @@ Standard_Integer bsimplify(Draw_Interpretor& di, Standard_Integer n, const char*
   {
     if (!strcmp(a[i], "-e"))
     {
-      Standard_Integer iUnifyEdges = Draw::Atoi(a[++i]);
+      Standard_Integer iUnifyEdges = Draw1::Atoi(a[++i]);
       BOPTest_Objects::SetUnifyEdges(iUnifyEdges != 0);
     }
     else if (!strcmp(a[i], "-f"))
     {
-      Standard_Integer iUnifyFaces = Draw::Atoi(a[++i]);
+      Standard_Integer iUnifyFaces = Draw1::Atoi(a[++i]);
       BOPTest_Objects::SetUnifyFaces(iUnifyFaces != 0);
     }
     else if (!strcmp(a[i], "-a"))
     {
-      Standard_Real anAngTol = Draw::Atof(a[++i]) * (M_PI / 180.0);
+      Standard_Real anAngTol = Draw1::Atof(a[++i]) * (M_PI / 180.0);
       BOPTest_Objects::SetAngular(anAngTol);
     }
     else

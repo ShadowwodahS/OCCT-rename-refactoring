@@ -44,22 +44,22 @@
 #define MDSevi TopOpeBRepDS_EdgeVertexInterference
 #define MDShfei Handle(TopOpeBRepDS_FaceEdgeInterference)
 #define MDShsci Handle(TopOpeBRepDS_SurfaceCurveInterference)
-#define MDScux TopOpeBRepDS_CurveExplorer
+#define MDScux CurveExplorer
 #define MDScud TopOpeBRepDS_CurveData
 #define MDScu TopOpeBRepDS_Curve
 #define MDSpox TopOpeBRepDS_PointExplorer
 #define MDSpod TopOpeBRepDS_PointData
-#define MDSpo TopOpeBRepDS_Point
-#define MDSii TopOpeBRepDS_InterferenceIterator
+#define MDSpo Point1
+#define MDSii InterferenceIterator
 #define MDShds Handle(TopOpeBRepDS_HDataStructure)
 #define MDSds TopOpeBRepDS_DataStructure
 #define MDSpds TopOpeBRepDS_PDataStructure
 #define MDSk TopOpeBRepDS_Kind
 #define MDSc TopOpeBRepDS_Config
-#define MDSt TopOpeBRepDS_Transition
+#define MDSt StateTransition
 
-#define MDSsd TopOpeBRepDS_ShapeData
+#define MDSsd ShapeData1
 #define MDSmosd TopOpeBRepDS_MapOfShapeData
-#define MDSitl TopOpeBRepDS_InterferenceTool
+#define MDSitl InterferenceTool
 
 #endif

@@ -23,7 +23,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Message_PrinterOStream, Message_Printer)
+IMPLEMENT_STANDARD_RTTIEXT(Message_PrinterOStream, LogPrinter)
 
 #if !defined(_MSC_VER)
   #include <strings.h>
@@ -65,7 +65,7 @@ Message_PrinterOStream::Message_PrinterOStream(const Standard_CString theFileNam
     return;
   }
 
-  TCollection_AsciiString aFileName(theFileName);
+  AsciiString1 aFileName(theFileName);
 #ifdef _WIN32
   aFileName.ChangeAll('/', '\\');
 #endif
@@ -111,7 +111,7 @@ void Message_PrinterOStream::Close()
 
 //=================================================================================================
 
-void Message_PrinterOStream::send(const TCollection_AsciiString& theString,
+void Message_PrinterOStream::send(const AsciiString1& theString,
                                   const Message_Gravity          theGravity) const
 {
   if (theGravity < myTraceLevel || myStream == NULL)

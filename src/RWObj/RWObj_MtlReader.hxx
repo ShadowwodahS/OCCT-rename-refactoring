@@ -24,13 +24,13 @@ class RWObj_MtlReader
 {
 public:
   //! Main constructor.
-  RWObj_MtlReader(NCollection_DataMap<TCollection_AsciiString, RWObj_Material>& theMaterials);
+  RWObj_MtlReader(NCollection_DataMap<AsciiString1, RWObj_Material>& theMaterials);
 
   //! Destructor.
   ~RWObj_MtlReader();
 
   //! Read the file.
-  bool Read(const TCollection_AsciiString& theFolder, const TCollection_AsciiString& theFile);
+  bool Read(const AsciiString1& theFolder, const AsciiString1& theFile);
 
 private:
   //! Validate scalar value
@@ -40,13 +40,13 @@ private:
   bool validateColor(const Graphic3d_Vec3& theVec);
 
   //! Process texture path.
-  void processTexturePath(TCollection_AsciiString&       theTexturePath,
-                          const TCollection_AsciiString& theFolder);
+  void processTexturePath(AsciiString1&       theTexturePath,
+                          const AsciiString1& theFolder);
 
 private:
   FILE*                                                         myFile;
-  TCollection_AsciiString                                       myPath;
-  NCollection_DataMap<TCollection_AsciiString, RWObj_Material>* myMaterials;
+  AsciiString1                                       myPath;
+  NCollection_DataMap<AsciiString1, RWObj_Material>* myMaterials;
   int                                                           myNbLines;
 };
 

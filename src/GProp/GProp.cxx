@@ -17,7 +17,7 @@
 #include <gp_Pnt.hxx>
 #include <gp_XYZ.hxx>
 
-void GProp::HOperator(
+void GProp1::HOperator(
 
   const Point3d&       G,
   const Point3d&       Q,

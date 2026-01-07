@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Boolean.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 
 class Resource_LexicalCompare
 {
@@ -32,8 +32,8 @@ public:
   Standard_EXPORT Resource_LexicalCompare();
 
   //! Returns True if <Left> is lower than <Right>.
-  Standard_EXPORT Standard_Boolean IsLower(const TCollection_AsciiString& Left,
-                                           const TCollection_AsciiString& Right) const;
+  Standard_EXPORT Standard_Boolean IsLower(const AsciiString1& Left,
+                                           const AsciiString1& Right) const;
 
 protected:
 private:

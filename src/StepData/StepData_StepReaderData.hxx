@@ -30,16 +30,16 @@
 #include <TColStd_SequenceOfAsciiString.hxx>
 #include <StepData_Logical.hxx>
 class Interface_Check;
-class TCollection_AsciiString;
+class AsciiString1;
 class StepData_PDescr;
 class RefObject;
 class StepData_SelectMember;
 class StepData_Field;
 class StepData_ESDescr;
-class StepData_FieldList;
+class FieldList;
 class StepData_SelectType;
 class TCollection_HAsciiString;
-class StepData_EnumTool;
+class EnumTool;
 
 class StepData_StepReaderData;
 DEFINE_STANDARD_HANDLE(StepData_StepReaderData, Interface_FileReaderData)
@@ -77,7 +77,7 @@ public:
                                     const Standard_Integer    nument = 0);
 
   //! Returns Record Type
-  Standard_EXPORT const TCollection_AsciiString& RecordType(const Standard_Integer num) const;
+  Standard_EXPORT const AsciiString1& RecordType(const Standard_Integer num) const;
 
   //! Returns Record Type as a CString
   //! was C++ : return const
@@ -96,7 +96,7 @@ public:
                                                  const Standard_Boolean aslast) const;
 
   //! Returns True if <num> corresponds to a Complex Type Entity
-  //! (as can be defined by ANDOR Express clause)
+  //! (as can be defined by ANDOR Express1 clause)
   Standard_EXPORT Standard_Boolean IsComplex(const Standard_Integer num) const;
 
   //! Returns the List of Types which correspond to a Complex Type
@@ -237,7 +237,7 @@ public:
   Standard_EXPORT Standard_Boolean ReadList(const Standard_Integer          num,
                                             Handle(Interface_Check)&        ach,
                                             const Handle(StepData_ESDescr)& descr,
-                                            StepData_FieldList&             list) const;
+                                            FieldList&             list) const;
 
   //! Reads parameter <nump> of record <num> into a Transient Value
   //! according to the type of the parameter :
@@ -386,7 +386,7 @@ public:
                                             const Standard_Integer   nump,
                                             const Standard_CString   mess,
                                             Handle(Interface_Check)& ach,
-                                            const StepData_EnumTool& enumtool,
+                                            const EnumTool& enumtool,
                                             Standard_Integer&        val) const;
 
   //! Resolves a parameter which can be enclosed in a type def., as
@@ -406,7 +406,7 @@ public:
                                                   Handle(Interface_Check)& ach,
                                                   Standard_Integer&        numr,
                                                   Standard_Integer&        numrp,
-                                                  TCollection_AsciiString& typ) const;
+                                                  AsciiString1& typ) const;
 
   //! Checks if parameter <nump> of record <num> is given as Derived
   //! If this Check is successful (i.e. Param = "*"), returns True

@@ -26,12 +26,12 @@
 class IntTools_CurveRangeSample;
 class Bnd_Box;
 
-class IntTools_CurveRangeLocalizeData
+class CurveRangeLocalizeData
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntTools_CurveRangeLocalizeData(const Standard_Integer theNbSample,
+  Standard_EXPORT CurveRangeLocalizeData(const Standard_Integer theNbSample,
                                                   const Standard_Real    theMinRange);
 
   Standard_Integer GetNbSample() const { return myNbSampleC; }

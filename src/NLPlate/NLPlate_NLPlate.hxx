@@ -24,17 +24,17 @@
 #include <NLPlate_SequenceOfHGPPConstraint.hxx>
 #include <NLPlate_StackOfPlate.hxx>
 #include <Standard_Integer.hxx>
-class Geom_Surface;
+class GeomSurface;
 class NLPlate_HGPPConstraint;
 class gp_XYZ;
-class gp_XY;
+class Coords2d;
 
 class NLPlate_NLPlate
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT NLPlate_NLPlate(const Handle(Geom_Surface)& InitialSurface);
+  Standard_EXPORT NLPlate_NLPlate(const Handle(GeomSurface)& InitialSurface);
 
   Standard_EXPORT void Load(const Handle(NLPlate_HGPPConstraint)& GConst);
 
@@ -60,9 +60,9 @@ public:
   //! ( same as after Create((Surface))
   Standard_EXPORT void Init();
 
-  Standard_EXPORT gp_XYZ Evaluate(const gp_XY& point2d) const;
+  Standard_EXPORT gp_XYZ Evaluate(const Coords2d& point2d) const;
 
-  Standard_EXPORT gp_XYZ EvaluateDerivative(const gp_XY&           point2d,
+  Standard_EXPORT gp_XYZ EvaluateDerivative(const Coords2d&           point2d,
                                             const Standard_Integer iu,
                                             const Standard_Integer iv) const;
 
@@ -78,7 +78,7 @@ private:
                                            const Standard_Integer ResolutionOrder,
                                            const Standard_Real    IncrementalLoading = 1.0);
 
-  Handle(Geom_Surface)             myInitialSurface;
+  Handle(GeomSurface)             myInitialSurface;
   NLPlate_SequenceOfHGPPConstraint myHGPPConstraints;
   NLPlate_StackOfPlate             mySOP;
   Standard_Boolean                 OK;

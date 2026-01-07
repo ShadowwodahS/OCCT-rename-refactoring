@@ -38,19 +38,19 @@ class Prs3d_PlaneAspect;
 class Prs3d_ArrowAspect;
 class Prs3d_DatumAspect;
 class Prs3d_DimensionAspect;
-class TCollection_AsciiString;
+class AsciiString1;
 
-DEFINE_STANDARD_HANDLE(Prs3d_Drawer, Graphic3d_PresentationAttributes)
+DEFINE_STANDARD_HANDLE(StyleDrawer, Graphic3d_PresentationAttributes)
 
 //! A graphic attribute manager which governs how
 //! objects such as color, width, line thickness and deflection are displayed.
 //! A drawer includes an instance of the Aspect classes with particular default values.
-class Prs3d_Drawer : public Graphic3d_PresentationAttributes
+class StyleDrawer : public Graphic3d_PresentationAttributes
 {
-  DEFINE_STANDARD_RTTIEXT(Prs3d_Drawer, Graphic3d_PresentationAttributes)
+  DEFINE_STANDARD_RTTIEXT(StyleDrawer, Graphic3d_PresentationAttributes)
 public:
   //! Default constructor.
-  Standard_EXPORT Prs3d_Drawer();
+  Standard_EXPORT StyleDrawer();
 
   //! Setup all own aspects with default values.
   Standard_EXPORT void SetupOwnDefaults();
@@ -371,7 +371,7 @@ public:
   //! Sets own point aspect, which is a yellow Aspect_TOM_PLUS marker by default.
   //! Returns FALSE if the drawer already has its own attribute for point aspect.
   Standard_EXPORT Standard_Boolean
-    SetupOwnPointAspect(const Handle(Prs3d_Drawer)& theDefaults = Handle(Prs3d_Drawer)());
+    SetupOwnPointAspect(const Handle(StyleDrawer)& theDefaults = Handle(StyleDrawer)());
 
   //! Returns own settings for line aspects, settings from linked Drawer or NULL if neither was set.
   //! These attributes are used by the following algorithms:
@@ -394,12 +394,12 @@ public:
   //! green free boundary (::FreeBoundaryAspect()), yellow unfree boundary
   //! (::UnFreeBoundaryAspect()). Returns FALSE if own line aspect are already set.
   Standard_EXPORT Standard_Boolean
-    SetOwnLineAspects(const Handle(Prs3d_Drawer)& theDefaults = Handle(Prs3d_Drawer)());
+    SetOwnLineAspects(const Handle(StyleDrawer)& theDefaults = Handle(StyleDrawer)());
 
   //! Sets own line aspects for datums.
   //! Returns FALSE if own line for datums are already set.
   Standard_EXPORT Standard_Boolean
-    SetOwnDatumAspects(const Handle(Prs3d_Drawer)& theDefaults = Handle(Prs3d_Drawer)());
+    SetOwnDatumAspects(const Handle(StyleDrawer)& theDefaults = Handle(StyleDrawer)());
 
   //! Returns own settings for text aspect, settings from linked Drawer or NULL if neither was set.
   Standard_EXPORT const Handle(Prs3d_TextAspect)& TextAspect() const;
@@ -428,7 +428,7 @@ public:
   //! Sets own shading aspect, which is Graphic3d_NameOfMaterial_Brass material by default.
   //! Returns FALSE if the drawer already has its own attribute for shading aspect.
   Standard_EXPORT Standard_Boolean
-    SetupOwnShadingAspect(const Handle(Prs3d_Drawer)& theDefaults = Handle(Prs3d_Drawer)());
+    SetupOwnShadingAspect(const Handle(StyleDrawer)& theDefaults = Handle(StyleDrawer)());
 
   //! Returns own settings for seen line aspects, settings of linked Drawer or NULL if neither was
   //! set.
@@ -538,7 +538,7 @@ public:
   //! vector aspect that overrides the one in the link.
   Standard_Boolean HasOwnVectorAspect() const { return !myVectorAspect.IsNull(); }
 
-  //! Sets the mode of visualization of vertices of a TopoDS_Shape instance.
+  //! Sets the mode of visualization of vertices of a TopoShape instance.
   //! By default, only stand-alone vertices (not belonging topologically to an edge) are drawn,
   //! that corresponds to Prs3d_VDM_Standalone mode.
   //! Switching to Prs3d_VDM_Standalone mode makes all shape's vertices visible.
@@ -546,7 +546,7 @@ public:
   //! Prs3d_VDM_Inherited value should be used.
   Standard_EXPORT void SetVertexDrawMode(const Prs3d_VertexDrawMode theMode);
 
-  //! Returns the current mode of visualization of vertices of a TopoDS_Shape instance.
+  //! Returns the current mode of visualization of vertices of a TopoShape instance.
   Standard_EXPORT Prs3d_VertexDrawMode VertexDrawMode() const;
 
   //! Returns true if the vertex draw mode is not equal to <b>Prs3d_VDM_Inherited</b>.
@@ -684,7 +684,7 @@ public:
   //! Sets own face boundary aspect, which is a black solid line by default.
   //! Returns FALSE if the drawer already has its own attribute for face boundary aspect.
   Standard_EXPORT Standard_Boolean
-    SetupOwnFaceBoundaryAspect(const Handle(Prs3d_Drawer)& theDefaults = Handle(Prs3d_Drawer)());
+    SetupOwnFaceBoundaryAspect(const Handle(StyleDrawer)& theDefaults = Handle(StyleDrawer)());
 
   //! Enables or disables face boundary drawing for shading presentations.
   //! The method sets drawing flag owned by the drawer that will be used during
@@ -753,22 +753,22 @@ public:
   //! Sets dimension length model units for computing of dimension presentation.
   //! The method sets value owned by the drawer that will be used during
   //! visualization instead of the one set in link.
-  Standard_EXPORT void SetDimLengthModelUnits(const TCollection_AsciiString& theUnits);
+  Standard_EXPORT void SetDimLengthModelUnits(const AsciiString1& theUnits);
 
   //! Sets dimension angle model units for computing of dimension presentation.
   //! The method sets value owned by the drawer that will be used during
   //! visualization instead of the one set in link.
-  Standard_EXPORT void SetDimAngleModelUnits(const TCollection_AsciiString& theUnits);
+  Standard_EXPORT void SetDimAngleModelUnits(const AsciiString1& theUnits);
 
   //! Returns length model units for the dimension presentation.
-  const TCollection_AsciiString& DimLengthModelUnits() const
+  const AsciiString1& DimLengthModelUnits() const
   {
     return myHasOwnDimLengthModelUnits || myLink.IsNull() ? myDimensionModelUnits.GetLengthUnits()
                                                           : myLink->DimLengthModelUnits();
   }
 
   //! Returns angle model units for the dimension presentation.
-  const TCollection_AsciiString& DimAngleModelUnits() const
+  const AsciiString1& DimAngleModelUnits() const
   {
     return myHasOwnDimAngleModelUnits || myLink.IsNull() ? myDimensionModelUnits.GetAngleUnits()
                                                          : myLink->DimAngleModelUnits();
@@ -799,15 +799,15 @@ public:
   //! Sets length units in which value for dimension presentation is displayed.
   //! The method sets value owned by the drawer that will be used during
   //! visualization instead of the one set in link.
-  Standard_EXPORT void SetDimLengthDisplayUnits(const TCollection_AsciiString& theUnits);
+  Standard_EXPORT void SetDimLengthDisplayUnits(const AsciiString1& theUnits);
 
   //! Sets angle units in which value for dimension presentation is displayed.
   //! The method sets value owned by the drawer that will be used during
   //! visualization instead of the one set in link.
-  Standard_EXPORT void SetDimAngleDisplayUnits(const TCollection_AsciiString& theUnits);
+  Standard_EXPORT void SetDimAngleDisplayUnits(const AsciiString1& theUnits);
 
   //! Returns length units in which dimension presentation is displayed.
-  const TCollection_AsciiString& DimLengthDisplayUnits() const
+  const AsciiString1& DimLengthDisplayUnits() const
   {
     return myHasOwnDimLengthDisplayUnits || myLink.IsNull()
              ? myDimensionDisplayUnits.GetLengthUnits()
@@ -815,7 +815,7 @@ public:
   }
 
   //! Returns angle units in which dimension presentation is displayed.
-  const TCollection_AsciiString& DimAngleDisplayUnits() const
+  const AsciiString1& DimAngleDisplayUnits() const
   {
     return myHasOwnDimAngleDisplayUnits || myLink.IsNull() ? myDimensionDisplayUnits.GetAngleUnits()
                                                            : myLink->DimAngleDisplayUnits();
@@ -847,16 +847,16 @@ public:
 
 public:
   //! Returns the drawer to which the current object references.
-  const Handle(Prs3d_Drawer)& Link() const { return myLink; }
+  const Handle(StyleDrawer)& Link() const { return myLink; }
 
   //! Returns true if the current object has a link on the other drawer.
   Standard_Boolean HasLink() const { return !myLink.IsNull(); }
 
   //! Sets theDrawer as a link to which the current object references.
-  void Link(const Handle(Prs3d_Drawer)& theDrawer) { SetLink(theDrawer); }
+  void Link(const Handle(StyleDrawer)& theDrawer) { SetLink(theDrawer); }
 
   //! Sets theDrawer as a link to which the current object references.
-  void SetLink(const Handle(Prs3d_Drawer)& theDrawer) { myLink = theDrawer; }
+  void SetLink(const Handle(StyleDrawer)& theDrawer) { myLink = theDrawer; }
 
   //! Removes local attributes.
   Standard_EXPORT void ClearLocalAttributes();
@@ -903,7 +903,7 @@ public: //! @name deprecated methods
   Standard_Real PreviousHLRDeviationAngle() const { return PreviousDeviationAngle(); }
 
 protected:
-  Handle(Prs3d_Drawer) myLink;
+  Handle(StyleDrawer) myLink;
 
   Standard_Integer        myNbPoints;
   Standard_Real           myMaximalParameterValue;

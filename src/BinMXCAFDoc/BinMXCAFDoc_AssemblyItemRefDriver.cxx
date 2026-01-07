@@ -47,7 +47,7 @@ Standard_Boolean BinMXCAFDoc_AssemblyItemRefDriver::Paste(
   if (aThis.IsNull())
     return Standard_False;
 
-  TCollection_AsciiString aPathStr;
+  AsciiString1 aPathStr;
   if (!(theSource >> aPathStr))
     return Standard_False;
 

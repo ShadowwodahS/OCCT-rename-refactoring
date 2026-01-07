@@ -27,10 +27,10 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(StepData_DefaultGeneral, StepData_GeneralModule)
 
-//  DefaultGeneral de StepData  reconnait  UN SEUL TYPE : UndefinedEntity
+//  DefaultGeneral de StepData1  reconnait  UN SEUL TYPE : UndefinedEntity
 StepData_DefaultGeneral::StepData_DefaultGeneral()
 {
-  Interface_GeneralLib::SetGlobal(this, StepData::Protocol());
+  Interface_GeneralLib::SetGlobal(this, StepData1::Protocol());
 }
 
 void StepData_DefaultGeneral::FillSharedCase(const Standard_Integer            casenum,

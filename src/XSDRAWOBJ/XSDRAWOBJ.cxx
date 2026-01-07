@@ -38,7 +38,7 @@
 //=============================================================================
 static bool parseCoordinateSystem(const char* theArg, RWMesh_CoordinateSystem& theSystem)
 {
-  TCollection_AsciiString aCSStr(theArg);
+  AsciiString1 aCSStr(theArg);
   aCSStr.LowerCase();
   if (aCSStr == "zup")
   {
@@ -59,27 +59,27 @@ static bool parseCoordinateSystem(const char* theArg, RWMesh_CoordinateSystem& t
 // function : ReadObj
 // purpose  : Reads OBJ file
 //=============================================================================
-static Standard_Integer ReadObj(Draw_Interpretor& theDI,
+static Standard_Integer ReadObj(DrawInterpreter& theDI,
                                 Standard_Integer  theNbArgs,
                                 const char**      theArgVec)
 {
-  TCollection_AsciiString aDestName, aFilePath;
+  AsciiString1 aDestName, aFilePath;
   Standard_Boolean        toUseExistingDoc = Standard_False;
   Standard_Real           aFileUnitFactor  = -1.0;
   RWMesh_CoordinateSystem aResultCoordSys  = RWMesh_CoordinateSystem_Zup,
                           aFileCoordSys    = RWMesh_CoordinateSystem_Yup;
   Standard_Boolean toListExternalFiles = Standard_False, isSingleFace = Standard_False,
                    isSinglePrecision = Standard_False;
-  Standard_Boolean isNoDoc           = (TCollection_AsciiString(theArgVec[0]) == "readobj");
+  Standard_Boolean isNoDoc           = (AsciiString1(theArgVec[0]) == "readobj");
   for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   {
-    TCollection_AsciiString anArgCase(theArgVec[anArgIter]);
+    AsciiString1 anArgCase(theArgVec[anArgIter]);
     anArgCase.LowerCase();
     if (anArgIter + 1 < theNbArgs
         && (anArgCase == "-unit" || anArgCase == "-units" || anArgCase == "-fileunit"
             || anArgCase == "-fileunits"))
     {
-      const TCollection_AsciiString aUnitStr(theArgVec[++anArgIter]);
+      const AsciiString1 aUnitStr(theArgVec[++anArgIter]);
       aFileUnitFactor = UnitsAPI::AnyToSI(1.0, aUnitStr.ToCString());
       if (aFileUnitFactor <= 0.0)
       {
@@ -113,7 +113,7 @@ static Standard_Integer ReadObj(Draw_Interpretor& theDI,
     {
       isSinglePrecision = Standard_True;
       if (anArgIter + 1 < theNbArgs
-          && Draw::ParseOnOff(theArgVec[anArgIter + 1], isSinglePrecision))
+          && Draw1::ParseOnOff(theArgVec[anArgIter + 1], isSinglePrecision))
       {
         ++anArgIter;
       }
@@ -125,7 +125,7 @@ static Standard_Integer ReadObj(Draw_Interpretor& theDI,
     else if (!isNoDoc && (anArgCase == "-nocreate" || anArgCase == "-nocreatedoc"))
     {
       toUseExistingDoc = Standard_True;
-      if (anArgIter + 1 < theNbArgs && Draw::ParseOnOff(theArgVec[anArgIter + 1], toUseExistingDoc))
+      if (anArgIter + 1 < theNbArgs && Draw1::ParseOnOff(theArgVec[anArgIter + 1], toUseExistingDoc))
       {
         ++anArgIter;
       }
@@ -157,12 +157,12 @@ static Standard_Integer ReadObj(Draw_Interpretor& theDI,
   }
 
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(theDI, 1);
-  Handle(TDocStd_Document)       aDoc;
+  Handle(AppDocument)       aDoc;
   if (!isNoDoc && !toListExternalFiles)
   {
-    Handle(TDocStd_Application) anApp    = DDocStd::GetApplication();
+    Handle(AppManager) anApp    = DDocStd1::GetApplication();
     Standard_CString            aNameVar = aDestName.ToCString();
-    DDocStd::GetDocument(aNameVar, aDoc, Standard_False);
+    DDocStd1::GetDocument(aNameVar, aDoc, Standard_False);
     if (aDoc.IsNull())
     {
       if (toUseExistingDoc)
@@ -170,7 +170,7 @@ static Standard_Integer ReadObj(Draw_Interpretor& theDI,
         Message::SendFail() << "Error: document with name " << aDestName << " does not exist";
         return 1;
       }
-      anApp->NewDocument(TCollection_ExtendedString("BinXCAF"), aDoc);
+      anApp->NewDocument(UtfString("BinXCAF"), aDoc);
     }
     else if (!toUseExistingDoc)
     {
@@ -195,19 +195,19 @@ static Standard_Integer ReadObj(Draw_Interpretor& theDI,
     aSimpleReader.SetTransformation(aReader.CoordinateSystemConverter());
     aSimpleReader.Read(aFilePath.ToCString(), aProgress->Start());
 
-    Handle(Poly_Triangulation) aTriangulation = aSimpleReader.GetTriangulation();
-    TopoDS_Face                aFace;
-    BRep_Builder               aBuiler;
+    Handle(MeshTriangulation) aTriangulation = aSimpleReader.GetTriangulation();
+    TopoFace                aFace;
+    ShapeBuilder               aBuiler;
     aBuiler.MakeFace(aFace);
     aBuiler.UpdateFace(aFace, aTriangulation);
-    DBRep::Set(aDestName.ToCString(), aFace);
+    DBRep1::Set(aDestName.ToCString(), aFace);
     return 0;
   }
 
   if (toListExternalFiles)
   {
     aReader.ProbeHeader(aFilePath);
-    for (NCollection_IndexedMap<TCollection_AsciiString>::Iterator aFileIter(
+    for (NCollection_IndexedMap<AsciiString1>::Iterator aFileIter(
            aReader.ExternalFiles());
          aFileIter.More();
          aFileIter.Next())
@@ -220,13 +220,13 @@ static Standard_Integer ReadObj(Draw_Interpretor& theDI,
     aReader.Perform(aFilePath, aProgress->Start());
     if (isNoDoc)
     {
-      DBRep::Set(aDestName.ToCString(), aReader.SingleShape());
+      DBRep1::Set(aDestName.ToCString(), aReader.SingleShape());
     }
     else
     {
       Handle(DDocStd_DrawDocument) aDrawDoc = new DDocStd_DrawDocument(aDoc);
-      TDataStd_Name::Set(aDoc->GetData()->Root(), aDestName);
-      Draw::Set(aDestName.ToCString(), aDrawDoc);
+      NameAttribute::Set(aDoc->GetData()->Root(), aDestName);
+      Draw1::Set(aDestName.ToCString(), aDrawDoc);
     }
   }
   return 0;
@@ -236,26 +236,26 @@ static Standard_Integer ReadObj(Draw_Interpretor& theDI,
 // function : WriteObj
 // purpose  : Writes OBJ file
 //=============================================================================
-static Standard_Integer WriteObj(Draw_Interpretor& theDI,
+static Standard_Integer WriteObj(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
-  TCollection_AsciiString              anObjFilePath;
-  Handle(TDocStd_Document)             aDoc;
-  Handle(TDocStd_Application)          anApp = DDocStd::GetApplication();
+  AsciiString1              anObjFilePath;
+  Handle(AppDocument)             aDoc;
+  Handle(AppManager)          anApp = DDocStd1::GetApplication();
   TColStd_IndexedDataMapOfStringString aFileInfo;
   Standard_Real                        aFileUnitFactor = -1.0;
   RWMesh_CoordinateSystem              aSystemCoordSys = RWMesh_CoordinateSystem_Zup,
                           aFileCoordSys                = RWMesh_CoordinateSystem_Yup;
   for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   {
-    TCollection_AsciiString anArgCase(theArgVec[anArgIter]);
+    AsciiString1 anArgCase(theArgVec[anArgIter]);
     anArgCase.LowerCase();
     if (anArgIter + 1 < theNbArgs
         && (anArgCase == "-unit" || anArgCase == "-units" || anArgCase == "-fileunit"
             || anArgCase == "-fileunits"))
     {
-      const TCollection_AsciiString aUnitStr(theArgVec[++anArgIter]);
+      const AsciiString1 aUnitStr(theArgVec[++anArgIter]);
       aFileUnitFactor = UnitsAPI::AnyToSI(1.0, aUnitStr.ToCString());
       if (aFileUnitFactor <= 0.0)
       {
@@ -296,17 +296,17 @@ static Standard_Integer WriteObj(Draw_Interpretor& theDI,
     else if (aDoc.IsNull())
     {
       Standard_CString aNameVar = theArgVec[anArgIter];
-      DDocStd::GetDocument(aNameVar, aDoc, false);
+      DDocStd1::GetDocument(aNameVar, aDoc, false);
       if (aDoc.IsNull())
       {
-        TopoDS_Shape aShape = DBRep::Get(aNameVar);
+        TopoShape aShape = DBRep1::Get(aNameVar);
         if (aShape.IsNull())
         {
           Message::SendFail() << "Syntax error: '" << aNameVar << "' is not a shape nor document";
           return 1;
         }
 
-        anApp->NewDocument(TCollection_ExtendedString("BinXCAF"), aDoc);
+        anApp->NewDocument(UtfString("BinXCAF"), aDoc);
         Handle(XCAFDoc_ShapeTool) aShapeTool = XCAFDoc_DocumentTool::ShapeTool(aDoc->Main());
         aShapeTool->AddShape(aShape);
       }
@@ -341,7 +341,7 @@ static Standard_Integer WriteObj(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-void XSDRAWOBJ::Factory(Draw_Interpretor& theDI)
+void XSDRAWOBJ::Factory(DrawInterpreter& theDI)
 {
   static Standard_Boolean aIsActivated = Standard_False;
   if (aIsActivated)

@@ -25,7 +25,7 @@ Express_Integer::Express_Integer() {}
 
 //=================================================================================================
 
-const TCollection_AsciiString Express_Integer::CPPName() const
+const AsciiString1 Express_Integer::CPPName() const
 {
   return "Standard_Integer";
 }

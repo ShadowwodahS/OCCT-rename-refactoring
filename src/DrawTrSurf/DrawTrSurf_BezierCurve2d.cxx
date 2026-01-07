@@ -34,8 +34,8 @@ DrawTrSurf_BezierCurve2d::DrawTrSurf_BezierCurve2d(const Handle(Geom2d_BezierCur
 }
 
 DrawTrSurf_BezierCurve2d::DrawTrSurf_BezierCurve2d(const Handle(Geom2d_BezierCurve)& C,
-                                                   const Draw_Color&                 CurvColor,
-                                                   const Draw_Color&                 PolesColor,
+                                                   const DrawColor&                 CurvColor,
+                                                   const DrawColor&                 PolesColor,
                                                    const Standard_Boolean            ShowPoles,
                                                    const Standard_Integer            Discret)
     : DrawTrSurf_Curve2d(C, CurvColor, Discret)
@@ -44,7 +44,7 @@ DrawTrSurf_BezierCurve2d::DrawTrSurf_BezierCurve2d(const Handle(Geom2d_BezierCur
   polesLook = PolesColor;
 }
 
-void DrawTrSurf_BezierCurve2d::DrawOn(Draw_Display& dis) const
+void DrawTrSurf_BezierCurve2d::DrawOn(DrawDisplay& dis) const
 {
   Handle(Geom2d_BezierCurve) C = Handle(Geom2d_BezierCurve)::DownCast(curv);
   if (drawPoles)
@@ -64,7 +64,7 @@ void DrawTrSurf_BezierCurve2d::DrawOn(Draw_Display& dis) const
 
 void DrawTrSurf_BezierCurve2d::FindPole(const Standard_Real X,
                                         const Standard_Real Y,
-                                        const Draw_Display& D,
+                                        const DrawDisplay& D,
                                         const Standard_Real XPrec,
                                         Standard_Integer&   Index) const
 {
@@ -104,7 +104,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_BezierCurve2d::Copy() const
 
 Handle(Draw_Drawable3D) DrawTrSurf_BezierCurve2d::Restore(Standard_IStream& theStream)
 {
-  const DrawTrSurf_Params&   aParams = DrawTrSurf::Parameters();
+  const DrawTrSurf_Params&   aParams = DrawTrSurf1::Parameters();
   Handle(Geom2d_BezierCurve) aGeomCurve =
     Handle(Geom2d_BezierCurve)::DownCast(GeomTools_Curve2dSet::ReadCurve2d(theStream));
   Handle(DrawTrSurf_BezierCurve2d) aDrawCurve = new DrawTrSurf_BezierCurve2d(aGeomCurve,

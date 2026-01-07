@@ -35,8 +35,8 @@ const Standard_GUID& TPrsStd_AISViewer::GetID()
 
 //=================================================================================================
 
-Handle(TPrsStd_AISViewer) TPrsStd_AISViewer::New(const TDF_Label&          acces,
-                                                 const Handle(V3d_Viewer)& viewer)
+Handle(TPrsStd_AISViewer) TPrsStd_AISViewer::New(const DataLabel&          acces,
+                                                 const Handle(ViewManager)& viewer)
 {
   Handle(TPrsStd_AISViewer) V;
   if (acces.Root().FindAttribute(TPrsStd_AISViewer::GetID(), V))
@@ -44,7 +44,7 @@ Handle(TPrsStd_AISViewer) TPrsStd_AISViewer::New(const TDF_Label&          acces
     throw Standard_DomainError("already done");
   }
   V = new TPrsStd_AISViewer();
-  V->SetInteractiveContext(new AIS_InteractiveContext(viewer));
+  V->SetInteractiveContext(new VisualContext(viewer));
   acces.Root().AddAttribute(V);
 
   // put TPrsStd_AISPresentation attribute at all labels containing
@@ -63,8 +63,8 @@ Handle(TPrsStd_AISViewer) TPrsStd_AISViewer::New(const TDF_Label&          acces
 
 //=================================================================================================
 
-Handle(TPrsStd_AISViewer) TPrsStd_AISViewer::New(const TDF_Label&                      acces,
-                                                 const Handle(AIS_InteractiveContext)& IC)
+Handle(TPrsStd_AISViewer) TPrsStd_AISViewer::New(const DataLabel&                      acces,
+                                                 const Handle(VisualContext)& IC)
 {
   Handle(TPrsStd_AISViewer) V;
   if (acces.Root().FindAttribute(TPrsStd_AISViewer::GetID(), V))
@@ -91,14 +91,14 @@ Handle(TPrsStd_AISViewer) TPrsStd_AISViewer::New(const TDF_Label&               
 
 //=================================================================================================
 
-Standard_Boolean TPrsStd_AISViewer::Find(const TDF_Label& acces, Handle(TPrsStd_AISViewer)& V)
+Standard_Boolean TPrsStd_AISViewer::Find(const DataLabel& acces, Handle(TPrsStd_AISViewer)& V)
 {
   return (acces.Root().FindAttribute(TPrsStd_AISViewer::GetID(), V));
 }
 
 //=================================================================================================
 
-Standard_Boolean TPrsStd_AISViewer::Find(const TDF_Label& acces, Handle(AIS_InteractiveContext)& IC)
+Standard_Boolean TPrsStd_AISViewer::Find(const DataLabel& acces, Handle(VisualContext)& IC)
 {
   Handle(TPrsStd_AISViewer) V;
   if (acces.Root().FindAttribute(TPrsStd_AISViewer::GetID(), V))
@@ -111,7 +111,7 @@ Standard_Boolean TPrsStd_AISViewer::Find(const TDF_Label& acces, Handle(AIS_Inte
 
 //=================================================================================================
 
-Standard_Boolean TPrsStd_AISViewer::Find(const TDF_Label& acces, Handle(V3d_Viewer)& VIEW)
+Standard_Boolean TPrsStd_AISViewer::Find(const DataLabel& acces, Handle(ViewManager)& VIEW)
 {
   Handle(TPrsStd_AISViewer) V;
   if (acces.Root().FindAttribute(TPrsStd_AISViewer::GetID(), V))
@@ -124,14 +124,14 @@ Standard_Boolean TPrsStd_AISViewer::Find(const TDF_Label& acces, Handle(V3d_View
 
 //=================================================================================================
 
-Standard_Boolean TPrsStd_AISViewer::Has(const TDF_Label& acces)
+Standard_Boolean TPrsStd_AISViewer::Has(const DataLabel& acces)
 {
   return (acces.Root().IsAttribute(TPrsStd_AISViewer::GetID()));
 }
 
 //=================================================================================================
 
-void TPrsStd_AISViewer::Update(const TDF_Label& acces)
+void TPrsStd_AISViewer::Update(const DataLabel& acces)
 {
   Handle(TPrsStd_AISViewer) viewer;
   if (Find(acces, viewer))
@@ -151,14 +151,14 @@ void TPrsStd_AISViewer::Update() const
 
 //=================================================================================================
 
-void TPrsStd_AISViewer::SetInteractiveContext(const Handle(AIS_InteractiveContext)& ctx)
+void TPrsStd_AISViewer::SetInteractiveContext(const Handle(VisualContext)& ctx)
 {
   myInteractiveContext = ctx;
 }
 
 //=================================================================================================
 
-Handle(AIS_InteractiveContext) TPrsStd_AISViewer::GetInteractiveContext() const
+Handle(VisualContext) TPrsStd_AISViewer::GetInteractiveContext() const
 {
   return myInteractiveContext;
 }

@@ -22,7 +22,7 @@
 #include <AppParCurves_Constraint.hxx>
 
 class Geom2d_BSplineCurve;
-class Geom2d_Curve;
+class GeomCurve2d;
 
 //! Approximate the  projection  of a  3d curve  on an
 //! polar  surface  and  stores the result  in  Approx.
@@ -120,7 +120,7 @@ public:
   //! Returns result curve 2d.
   Standard_EXPORT Handle(Geom2d_BSplineCurve) BSpline() const;
   //! Returns second 2d curve.
-  Standard_EXPORT Handle(Geom2d_Curve) Curve2d() const;
+  Standard_EXPORT Handle(GeomCurve2d) Curve2d() const;
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 
@@ -132,7 +132,7 @@ private:
   Standard_Boolean            myProjIsDone;
   Standard_Real               myTolerance;
   Handle(Geom2d_BSplineCurve) myBSpline;
-  Handle(Geom2d_Curve)        my2ndCurve;
+  Handle(GeomCurve2d)        my2ndCurve;
   Standard_Real               myTolReached;
   Standard_Integer            myDegMin;
   Standard_Integer            myDegMax;

@@ -110,8 +110,8 @@ struct VtkPointerHasher
 };
 } // namespace
 
-typedef NCollection_DoubleMap<TopoDS_Shape, TCollection_AsciiString> DoubleMapOfShapesAndNames;
-typedef NCollection_DoubleMap<vtkSmartPointer<vtkActor>, TCollection_AsciiString, VtkPointerHasher>
+typedef NCollection_DoubleMap<TopoShape, AsciiString1> DoubleMapOfShapesAndNames;
+typedef NCollection_DoubleMap<vtkSmartPointer<vtkActor>, AsciiString1, VtkPointerHasher>
   DoubleMapOfActorsAndNames;
 
 typedef IVtkDraw_HighlightAndSelectionPipeline PipelinePtr;
@@ -177,26 +177,26 @@ static Handle(PipelinePtr) PipelineByActor(const vtkSmartPointer<vtkActor>& theA
 }
 
 //! Get VTK render pipeline with actor that has the input name.
-static Handle(PipelinePtr) PipelineByActorName(const TCollection_AsciiString& theName)
+static Handle(PipelinePtr) PipelineByActorName(const AsciiString1& theName)
 {
   const vtkSmartPointer<vtkActor>& anActor = GetMapOfActors().Find2(theName);
   return PipelineByActor(anActor);
 }
 
 //! Create global presentation attributes.
-static Handle(Prs3d_Drawer) createDefaultDrawer()
+static Handle(StyleDrawer) createDefaultDrawer()
 {
-  Handle(Prs3d_Drawer) aGlobalDrawer = new Prs3d_Drawer();
+  Handle(StyleDrawer) aGlobalDrawer = new StyleDrawer();
   aGlobalDrawer->SetupOwnDefaults();
   aGlobalDrawer->SetTypeOfDeflection(Aspect_TOD_RELATIVE);
   aGlobalDrawer->SetDeviationCoefficient(0.0001);
   return aGlobalDrawer;
 }
 
-//! Get global presentation attributes (analog of AIS_InteractiveContext::DefaultDrawer()).
-static const Handle(Prs3d_Drawer)& GetDefaultDrawer()
+//! Get global presentation attributes (analog of VisualContext::DefaultDrawer()).
+static const Handle(StyleDrawer)& GetDefaultDrawer()
 {
-  static Handle(Prs3d_Drawer) aGlobalDrawer = createDefaultDrawer();
+  static Handle(StyleDrawer) aGlobalDrawer = createDefaultDrawer();
   return aGlobalDrawer;
 }
 
@@ -379,7 +379,7 @@ void IVtkDraw::ViewerInit(const IVtkWinParams& theParams)
 
 //=================================================================================================
 
-static Standard_Integer VtkInit(Draw_Interpretor&,
+static Standard_Integer VtkInit(DrawInterpreter&,
                                 Standard_Integer theNbArgs,
                                 const char**     theArgVec)
 {
@@ -387,27 +387,27 @@ static Standard_Integer VtkInit(Draw_Interpretor&,
   IVtkDraw::IVtkWinParams aParams;
   for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     if (anArg == "-msaa" && anArgIter + 1 < theNbArgs)
     {
-      aParams.NbMsaaSample = Draw::Atoi(theArgVec[++anArgIter]);
+      aParams.NbMsaaSample = Draw1::Atoi(theArgVec[++anArgIter]);
     }
     else if (anArg == "-srgb")
     {
       aParams.UseSRGBColorSpace = true;
       if (anArgIter + 1 < theNbArgs
-          && Draw::ParseOnOff(theArgVec[anArgIter + 1], aParams.UseSRGBColorSpace))
+          && Draw1::ParseOnOff(theArgVec[anArgIter + 1], aParams.UseSRGBColorSpace))
       {
         ++anArgIter;
       }
     }
     else if (!hasSize && anArgIter + 3 < theNbArgs)
     {
-      aParams.TopLeft.SetValues(Draw::Atoi(theArgVec[anArgIter + 0]),
-                                Draw::Atoi(theArgVec[anArgIter + 1]));
-      aParams.Size.SetValues(Draw::Atoi(theArgVec[anArgIter + 2]),
-                             Draw::Atoi(theArgVec[anArgIter + 3]));
+      aParams.TopLeft.SetValues(Draw1::Atoi(theArgVec[anArgIter + 0]),
+                                Draw1::Atoi(theArgVec[anArgIter + 1]));
+      aParams.Size.SetValues(Draw1::Atoi(theArgVec[anArgIter + 2]),
+                             Draw1::Atoi(theArgVec[anArgIter + 3]));
     }
     else
     {
@@ -422,7 +422,7 @@ static Standard_Integer VtkInit(Draw_Interpretor&,
 
 //=================================================================================================
 
-static Standard_Integer VtkClose(Draw_Interpretor&, Standard_Integer theNbArgs, const char**)
+static Standard_Integer VtkClose(DrawInterpreter&, Standard_Integer theNbArgs, const char**)
 {
   if (theNbArgs > 1)
   {
@@ -451,7 +451,7 @@ static Standard_Integer VtkClose(Draw_Interpretor&, Standard_Integer theNbArgs, 
 
 //=================================================================================================
 
-static Standard_Integer VtkRenderParams(Draw_Interpretor&,
+static Standard_Integer VtkRenderParams(DrawInterpreter&,
                                         Standard_Integer theNbArgs,
                                         const char**     theArgVec)
 {
@@ -468,18 +468,18 @@ static Standard_Integer VtkRenderParams(Draw_Interpretor&,
 
   for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     if (anArg == "-depthpeeling" && anArgIter + 1 < theNbArgs)
     {
-      Standard_Integer aNbLayers = Draw::Atoi(theArgVec[++anArgIter]);
+      Standard_Integer aNbLayers = Draw1::Atoi(theArgVec[++anArgIter]);
       GetRenderer()->SetUseDepthPeeling(aNbLayers > 0);
       GetRenderer()->SetMaximumNumberOfPeels(aNbLayers);
     }
     else if (anArg == "-shadows")
     {
       bool toUseShadows = true;
-      if (anArgIter + 1 < theNbArgs && Draw::ParseOnOff(theArgVec[anArgIter + 1], toUseShadows))
+      if (anArgIter + 1 < theNbArgs && Draw1::ParseOnOff(theArgVec[anArgIter + 1], toUseShadows))
       {
         ++anArgIter;
       }
@@ -502,7 +502,7 @@ static Standard_Integer VtkRenderParams(Draw_Interpretor&,
 
 //=================================================================================================
 
-vtkActor* CreateActor(const Standard_Integer theId, const TopoDS_Shape& theShape)
+vtkActor* CreateActor(const Standard_Integer theId, const TopoShape& theShape)
 {
   if (theShape.IsNull())
   {
@@ -518,9 +518,9 @@ vtkActor* CreateActor(const Standard_Integer theId, const TopoDS_Shape& theShape
 
 //=================================================================================================
 
-static int VtkDefaults(Draw_Interpretor& theDi, Standard_Integer theArgsNb, const char** theArgVec)
+static int VtkDefaults(DrawInterpreter& theDi, Standard_Integer theArgsNb, const char** theArgVec)
 {
-  const Handle(Prs3d_Drawer)& aDefParams = GetDefaultDrawer();
+  const Handle(StyleDrawer)& aDefParams = GetDefaultDrawer();
   if (theArgsNb < 2)
   {
     if (aDefParams->TypeOfDeflection() == Aspect_TOD_RELATIVE)
@@ -540,7 +540,7 @@ static int VtkDefaults(Draw_Interpretor& theDi, Standard_Integer theArgsNb, cons
 
   for (Standard_Integer anArgIter = 1; anArgIter < theArgsNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.UpperCase();
     if (anArg == "-ABSDEFL" || anArg == "-ABSOLUTEDEFLECTION" || anArg == "-DEFL"
         || anArg == "-DEFLECTION")
@@ -551,7 +551,7 @@ static int VtkDefaults(Draw_Interpretor& theDi, Standard_Integer theArgsNb, cons
         return 1;
       }
       aDefParams->SetTypeOfDeflection(Aspect_TOD_ABSOLUTE);
-      aDefParams->SetMaximalChordialDeviation(Draw::Atof(theArgVec[anArgIter]));
+      aDefParams->SetMaximalChordialDeviation(Draw1::Atof(theArgVec[anArgIter]));
     }
     else if (anArg == "-RELDEFL" || anArg == "-RELATIVEDEFLECTION" || anArg == "-DEVCOEFF"
              || anArg == "-DEVIATIONCOEFF" || anArg == "-DEVIATIONCOEFFICIENT")
@@ -562,7 +562,7 @@ static int VtkDefaults(Draw_Interpretor& theDi, Standard_Integer theArgsNb, cons
         return 1;
       }
       aDefParams->SetTypeOfDeflection(Aspect_TOD_RELATIVE);
-      aDefParams->SetDeviationCoefficient(Draw::Atof(theArgVec[anArgIter]));
+      aDefParams->SetDeviationCoefficient(Draw1::Atof(theArgVec[anArgIter]));
     }
     else if (anArg == "-ANGDEFL" || anArg == "-ANGULARDEFL" || anArg == "-ANGULARDEFLECTION")
     {
@@ -571,13 +571,13 @@ static int VtkDefaults(Draw_Interpretor& theDi, Standard_Integer theArgsNb, cons
         theDi << "Syntax error at " << anArg;
         return 1;
       }
-      aDefParams->SetDeviationAngle(M_PI * Draw::Atof(theArgVec[anArgIter]) / 180.0);
+      aDefParams->SetDeviationAngle(M_PI * Draw1::Atof(theArgVec[anArgIter]) / 180.0);
     }
     else if (anArg == "-AUTOTR" || anArg == "-AUTOTRIANG" || anArg == "-AUTOTRIANGULATION")
     {
       ++anArgIter;
       bool toTurnOn = true;
-      if (anArgIter >= theArgsNb || !Draw::ParseOnOff(theArgVec[anArgIter], toTurnOn))
+      if (anArgIter >= theArgsNb || !Draw1::ParseOnOff(theArgVec[anArgIter], toTurnOn))
       {
         theDi << "Syntax error at '" << anArg << "'";
         return 1;
@@ -596,7 +596,7 @@ static int VtkDefaults(Draw_Interpretor& theDi, Standard_Integer theArgsNb, cons
 
 //=================================================================================================
 
-static Standard_Integer VtkDisplay(Draw_Interpretor&,
+static Standard_Integer VtkDisplay(DrawInterpreter&,
                                    Standard_Integer theArgNum,
                                    const char**     theArgs)
 {
@@ -611,15 +611,15 @@ static Standard_Integer VtkDisplay(Draw_Interpretor&,
     return 1;
   }
 
-  TCollection_AsciiString       aName;
-  TopoDS_Shape                  anOldShape, aNewShape;
+  AsciiString1       aName;
+  TopoShape                  anOldShape, aNewShape;
   vtkSmartPointer<vtkRenderer>& aRenderer = GetRenderer();
   for (Standard_Integer anIndex = 1; anIndex < theArgNum; ++anIndex)
   {
     // Get name of shape
     aName = theArgs[anIndex];
     // Get shape from DRAW
-    aNewShape = DBRep::Get(theArgs[anIndex]);
+    aNewShape = DBRep1::Get(theArgs[anIndex]);
 
     // The shape is already in the map
     if (GetMapOfShapes().IsBound2(aName))
@@ -680,7 +680,7 @@ static Standard_Integer VtkDisplay(Draw_Interpretor&,
 
 //=================================================================================================
 
-static Standard_Integer VtkErase(Draw_Interpretor&,
+static Standard_Integer VtkErase(DrawInterpreter&,
                                  Standard_Integer theArgNum,
                                  const char**     theArgs)
 {
@@ -706,7 +706,7 @@ static Standard_Integer VtkErase(Draw_Interpretor&,
     // Erase named objects
     for (Standard_Integer anIndex = 1; anIndex < theArgNum; ++anIndex)
     {
-      TCollection_AsciiString   aName = theArgs[anIndex];
+      AsciiString1   aName = theArgs[anIndex];
       vtkSmartPointer<vtkActor> anActor;
       if (!GetMapOfActors().Find2(aName, anActor))
       {
@@ -728,7 +728,7 @@ static Standard_Integer VtkErase(Draw_Interpretor&,
 // Function : VtkRemove
 // Purpose  : Remove the actor from memory.
 //================================================================
-static Standard_Integer VtkRemove(Draw_Interpretor&,
+static Standard_Integer VtkRemove(DrawInterpreter&,
                                   Standard_Integer theArgNum,
                                   const char**     theArgs)
 {
@@ -772,7 +772,7 @@ static Standard_Integer VtkRemove(Draw_Interpretor&,
     // Remove named objects
     for (Standard_Integer anIndex = 1; anIndex < theArgNum; ++anIndex)
     {
-      TCollection_AsciiString   aName = theArgs[anIndex];
+      AsciiString1   aName = theArgs[anIndex];
       vtkSmartPointer<vtkActor> anActor;
       if (!GetMapOfActors().Find2(aName, anActor))
       {
@@ -794,7 +794,7 @@ static Standard_Integer VtkRemove(Draw_Interpretor&,
       {
         aRenderer->RemoveActor(anActor);
       }
-      // Remove the TopoDS_Shape and the actor
+      // Remove the TopoShape and the actor
       GetMapOfShapes().UnBind2(aName); // Remove a TopoDS shape
       GetMapOfActors().UnBind2(aName); // Remove an actor
     }
@@ -808,7 +808,7 @@ static Standard_Integer VtkRemove(Draw_Interpretor&,
 
 //=================================================================================================
 
-static Standard_Integer VtkSetDisplayMode(Draw_Interpretor& theDI,
+static Standard_Integer VtkSetDisplayMode(DrawInterpreter& theDI,
                                           Standard_Integer  theArgNum,
                                           const char**      theArgs)
 {
@@ -824,22 +824,22 @@ static Standard_Integer VtkSetDisplayMode(Draw_Interpretor& theDI,
   NCollection_Sequence<vtkSmartPointer<vtkActor>> anActors;
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNum; ++anArgIter)
   {
-    TCollection_AsciiString anArgCase(theArgs[anArgIter]);
+    AsciiString1 anArgCase(theArgs[anArgIter]);
     anArgCase.LowerCase();
     if (anArgCase == "-faceboundarydraw" || anArgCase == "-drawfaceboundary"
         || anArgCase == "-faceboundary")
     {
-      bool toDraw        = Draw::ParseOnOffNoIterator(theArgNum, theArgs, anArgIter);
+      bool toDraw        = Draw1::ParseOnOffNoIterator(theArgNum, theArgs, anArgIter);
       isFaceBoundaryDraw = toDraw ? 1 : 0;
     }
     else if (anArgCase == "-smoothshading" || anArgCase == "-smooth")
     {
-      bool toEnable   = Draw::ParseOnOffNoIterator(theArgNum, theArgs, anArgIter);
+      bool toEnable   = Draw1::ParseOnOffNoIterator(theArgNum, theArgs, anArgIter);
       isSmoothShading = toEnable ? 1 : 0;
     }
     else if (anArgIter + 1 < theArgNum && (anArgCase == "-shadingmodel"))
     {
-      TCollection_AsciiString aModelName(theArgs[++anArgIter]);
+      AsciiString1 aModelName(theArgs[++anArgIter]);
       aModelName.LowerCase();
       if (aModelName == "fragment" || aModelName == "frag" || aModelName == "phong")
       {
@@ -861,7 +861,7 @@ static Standard_Integer VtkSetDisplayMode(Draw_Interpretor& theDI,
     }
     else if (aDispMode == -1 && (anArgCase == "0" || anArgCase == "1"))
     {
-      aDispMode = Draw::Atoi(theArgs[anArgIter]);
+      aDispMode = Draw1::Atoi(theArgs[anArgIter]);
     }
     else if (aDispMode == -1 && (anArgCase == "-shaded" || anArgCase == "-shading"))
     {
@@ -873,7 +873,7 @@ static Standard_Integer VtkSetDisplayMode(Draw_Interpretor& theDI,
     }
     else
     {
-      TCollection_AsciiString   aName = theArgs[anArgIter];
+      AsciiString1   aName = theArgs[anArgIter];
       vtkSmartPointer<vtkActor> anActor;
       if (!GetMapOfActors().Find2(aName, anActor))
       {
@@ -956,7 +956,7 @@ static Standard_Integer VtkSetDisplayMode(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer VtkSetSelectionMode(Draw_Interpretor&,
+static Standard_Integer VtkSetSelectionMode(DrawInterpreter&,
                                             Standard_Integer theArgNum,
                                             const char**     theArgs)
 {
@@ -974,9 +974,9 @@ static Standard_Integer VtkSetSelectionMode(Draw_Interpretor&,
   if (theArgNum == 3)
   {
     // Set sel mode for all objects
-    const Standard_Integer aMode    = Draw::Atoi(theArgs[1]);
+    const Standard_Integer aMode    = Draw1::Atoi(theArgs[1]);
     Standard_Boolean       isTurnOn = true;
-    if (aMode < 0 || aMode > 8 || !Draw::ParseOnOff(theArgs[2], isTurnOn))
+    if (aMode < 0 || aMode > 8 || !Draw1::ParseOnOff(theArgs[2], isTurnOn))
     {
       Message::SendFail() << "Syntax error: only 0-8 selection modes are supported";
       return 1;
@@ -1036,15 +1036,15 @@ static Standard_Integer VtkSetSelectionMode(Draw_Interpretor&,
   if (theArgNum == 4)
   {
     // Set sel mode for named object
-    const Standard_Integer aMode    = Draw::Atoi(theArgs[2]);
+    const Standard_Integer aMode    = Draw1::Atoi(theArgs[2]);
     Standard_Boolean       isTurnOn = true;
-    if (aMode < 0 || aMode > 8 || !Draw::ParseOnOff(theArgs[3], isTurnOn))
+    if (aMode < 0 || aMode > 8 || !Draw1::ParseOnOff(theArgs[3], isTurnOn))
     {
       Message::SendFail() << "Syntax error: only 0-8 selection modes are supported";
       return 1;
     }
 
-    TCollection_AsciiString aName = theArgs[1];
+    AsciiString1 aName = theArgs[1];
     if (GetMapOfActors().IsBound2(aName))
     {
       vtkSmartPointer<vtkActor> anActor = GetMapOfActors().Find2(aName);
@@ -1102,7 +1102,7 @@ static Standard_Integer VtkSetSelectionMode(Draw_Interpretor&,
 
 //=================================================================================================
 
-static Standard_Integer VtkSetColor(Draw_Interpretor&,
+static Standard_Integer VtkSetColor(DrawInterpreter&,
                                     Standard_Integer theArgNb,
                                     const char**     theArgVec)
 {
@@ -1117,7 +1117,7 @@ static Standard_Integer VtkSetColor(Draw_Interpretor&,
   bool                                            hasColor = false;
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString   anArg(theArgVec[anArgIter]);
+    AsciiString1   anArg(theArgVec[anArgIter]);
     vtkSmartPointer<vtkActor> anActor;
     if (hasColor)
     {
@@ -1131,7 +1131,7 @@ static Standard_Integer VtkSetColor(Draw_Interpretor&,
     else
     {
       Standard_Integer aNbParsed =
-        Draw::ParseColor(theArgNb - anArgIter, theArgVec + anArgIter, aQColor);
+        Draw1::ParseColor(theArgNb - anArgIter, theArgVec + anArgIter, aQColor);
       if (aNbParsed == 0)
       {
         Message::SendFail() << "Syntax error at '" << anArg << "'";
@@ -1169,7 +1169,7 @@ static Standard_Integer VtkSetColor(Draw_Interpretor&,
 
 //=================================================================================================
 
-static Standard_Integer VtkSetTransparency(Draw_Interpretor&,
+static Standard_Integer VtkSetTransparency(DrawInterpreter&,
                                            Standard_Integer theArgNb,
                                            const char**     theArgVec)
 {
@@ -1183,7 +1183,7 @@ static Standard_Integer VtkSetTransparency(Draw_Interpretor&,
   Standard_Real                                   aTransparency = -1.0;
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString   anArg(theArgVec[anArgIter]);
+    AsciiString1   anArg(theArgVec[anArgIter]);
     vtkSmartPointer<vtkActor> anActor;
     if (aTransparency >= 0.0)
     {
@@ -1194,7 +1194,7 @@ static Standard_Integer VtkSetTransparency(Draw_Interpretor&,
     {
       anActorSeq.Append(anActor);
     }
-    else if (!Draw::ParseReal(theArgVec[anArgIter], aTransparency) || aTransparency < 0.0
+    else if (!Draw1::ParseReal(theArgVec[anArgIter], aTransparency) || aTransparency < 0.0
              || aTransparency >= 1.0)
     {
       Message::SendFail() << "Syntax error at '" << anArg << "'";
@@ -1222,9 +1222,9 @@ static Standard_Integer VtkSetTransparency(Draw_Interpretor&,
 //================================================================
 // Function  : VtkMoveTo
 // Purpose   :
-// Draw args : ivtkmoveto x y
+// Draw1 args : ivtkmoveto x y
 //================================================================
-static Standard_Integer VtkMoveTo(Draw_Interpretor& theDI,
+static Standard_Integer VtkMoveTo(DrawInterpreter& theDI,
                                   Standard_Integer  theArgNum,
                                   const char**      theArgs)
 {
@@ -1250,7 +1250,7 @@ static Standard_Integer VtkMoveTo(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer VtkSelect(Draw_Interpretor&,
+static Standard_Integer VtkSelect(DrawInterpreter&,
                                   Standard_Integer theArgNum,
                                   const char**     theArgs)
 {
@@ -1275,7 +1275,7 @@ static Standard_Integer VtkSelect(Draw_Interpretor&,
 // Fubction  : VtkViewProj
 // Purpose   :
 //===================================================================
-static Standard_Integer VtkViewProj(Draw_Interpretor&,
+static Standard_Integer VtkViewProj(DrawInterpreter&,
                                     Standard_Integer theNbArgs,
                                     const char**     theArgVec)
 {
@@ -1290,7 +1290,7 @@ static Standard_Integer VtkViewProj(Draw_Interpretor&,
     return 1;
   }
 
-  TCollection_AsciiString aCmd(theArgVec[0]);
+  AsciiString1 aCmd(theArgVec[0]);
   aCmd.LowerCase();
 
   V3d_TypeOfOrientation aProj      = V3d_Xpos;
@@ -1361,7 +1361,7 @@ static Standard_Integer VtkViewProj(Draw_Interpretor&,
 
 //=================================================================================================
 
-static int VtkViewParams(Draw_Interpretor& theDI,
+static int VtkViewParams(DrawInterpreter& theDI,
                          Standard_Integer  theArgsNb,
                          const char** /*theArgVec*/)
 {
@@ -1460,7 +1460,7 @@ static int VtkViewParams(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static int VtkCamera(Draw_Interpretor& theDI, Standard_Integer theArgsNb, const char** theArgVec)
+static int VtkCamera(DrawInterpreter& theDI, Standard_Integer theArgsNb, const char** theArgVec)
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
@@ -1486,7 +1486,7 @@ static int VtkCamera(Draw_Interpretor& theDI, Standard_Integer theArgsNb, const 
   for (Standard_Integer anArgIter = 1; anArgIter < theArgsNb; ++anArgIter)
   {
     Standard_CString        anArg = theArgVec[anArgIter];
-    TCollection_AsciiString anArgCase(anArg);
+    AsciiString1 anArgCase(anArg);
     anArgCase.LowerCase();
     if (anArgCase == "-ortho" || anArgCase == "-orthographic")
     {
@@ -1511,7 +1511,7 @@ static int VtkCamera(Draw_Interpretor& theDI, Standard_Integer theArgsNb, const 
 // Fubction  : VtkDump
 // Purpose   :
 //===================================================================
-static Standard_Integer VtkDump(Draw_Interpretor&, Standard_Integer theArgNum, const char** theArgs)
+static Standard_Integer VtkDump(DrawInterpreter&, Standard_Integer theArgNum, const char** theArgs)
 {
   if (!GetInteractor() || !GetInteractor()->IsEnabled())
   {
@@ -1530,7 +1530,7 @@ static Standard_Integer VtkDump(Draw_Interpretor&, Standard_Integer theArgNum, c
   // Set custom buffer type
   if (theArgNum > 2)
   {
-    TCollection_AsciiString aBufferType(theArgs[2]);
+    AsciiString1 aBufferType(theArgs[2]);
     aBufferType.LowerCase();
     if (aBufferType.IsEqual("rgb"))
     {
@@ -1576,10 +1576,10 @@ static Standard_Integer VtkDump(Draw_Interpretor&, Standard_Integer theArgNum, c
 
   // Set parameters for image writer
   vtkSmartPointer<vtkImageWriter> anImageWriter;
-  TCollection_AsciiString         aFilename(theArgs[1]);
-  Standard_Integer        anExtStart = aFilename.SearchFromEnd(TCollection_AsciiString("."));
-  TCollection_AsciiString aFormat    = (anExtStart == -1)
-                                         ? TCollection_AsciiString("")
+  AsciiString1         aFilename(theArgs[1]);
+  Standard_Integer        anExtStart = aFilename.SearchFromEnd(AsciiString1("."));
+  AsciiString1 aFormat    = (anExtStart == -1)
+                                         ? AsciiString1("")
                                          : aFilename.SubString(anExtStart + 1, aFilename.Length());
   aFormat.LowerCase();
 
@@ -1610,7 +1610,7 @@ static Standard_Integer VtkDump(Draw_Interpretor&, Standard_Integer theArgNum, c
       Message::SendWarning() << "Warning: the image format is not set.\n"
                              << "The image will be saved into PNG format.";
       anImageWriter = vtkSmartPointer<vtkPNGWriter>::New();
-      aFormat       = TCollection_AsciiString("png");
+      aFormat       = AsciiString1("png");
       if (anExtStart != -1)
       {
         aFilename.Split(anExtStart);
@@ -1658,7 +1658,7 @@ static Standard_Integer VtkDump(Draw_Interpretor&, Standard_Integer theArgNum, c
 // Fubction  : VtkBackgroundColor
 // Purpose   :
 //===================================================================
-static Standard_Integer VtkBackgroundColor(Draw_Interpretor&,
+static Standard_Integer VtkBackgroundColor(DrawInterpreter&,
                                            Standard_Integer theArgNum,
                                            const char**     theArgs)
 {
@@ -1669,7 +1669,7 @@ static Standard_Integer VtkBackgroundColor(Draw_Interpretor&,
   }
 
   Quantity_Color         aQColor1;
-  const Standard_Integer aNbParsed1 = Draw::ParseColor(theArgNum - 1, theArgs + 1, aQColor1);
+  const Standard_Integer aNbParsed1 = Draw1::ParseColor(theArgNum - 1, theArgs + 1, aQColor1);
   if (aNbParsed1 == 0)
   {
     Message::SendFail() << "Syntax error: wrong number of parameters";
@@ -1689,7 +1689,7 @@ static Standard_Integer VtkBackgroundColor(Draw_Interpretor&,
   {
     Quantity_Color         aQColor2;
     const Standard_Integer aNbParsed2 =
-      Draw::ParseColor(theArgNum - 1 - aNbParsed1, theArgs + 1 + aNbParsed1, aQColor2);
+      Draw1::ParseColor(theArgNum - 1 - aNbParsed1, theArgs + 1 + aNbParsed1, aQColor2);
     if (aNbParsed2 == 0)
     {
       Message::SendFail() << "Syntax error: wrong number of parameters";
@@ -1709,7 +1709,7 @@ static Standard_Integer VtkBackgroundColor(Draw_Interpretor&,
 
 //=================================================================================================
 
-void IVtkDraw::Commands(Draw_Interpretor& theCommands)
+void IVtkDraw::Commands(DrawInterpreter& theCommands)
 {
   const char* group = "VtkViewer";
 
@@ -1910,7 +1910,7 @@ void IVtkDraw::Commands(Draw_Interpretor& theCommands)
 
 //=================================================================================================
 
-void IVtkDraw::Factory(Draw_Interpretor& theDI)
+void IVtkDraw::Factory(DrawInterpreter& theDI)
 {
   // definition of Viewer Commands
   IVtkDraw::Commands(theDI);

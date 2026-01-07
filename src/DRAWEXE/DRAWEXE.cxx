@@ -63,7 +63,7 @@ EM_JS(void, occJSEvalAsyncCompleted, (int theResult), {
   }
 });
 
-//! Draw Harness interface for JavaScript.
+//! Draw1 Harness interface for JavaScript.
 class DRAWEXE
 {
 public:
@@ -74,7 +74,7 @@ public:
     try
     {
       OCC_CATCH_SIGNALS
-      // aRes = Draw::GetInterpretor().Eval (theCommand.c_str());
+      // aRes = Draw1::GetInterpretor().Eval (theCommand.c_str());
       aRes = Draw_Interprete(theCommand.c_str()) ? 1 : 0;
     }
     catch (ExceptionBase& anExcept)
@@ -87,7 +87,7 @@ public:
   //! Check if Tcl command is complete.
   static bool isComplete(const std::string& theCommand)
   {
-    return Draw::GetInterpretor().Complete(theCommand.c_str());
+    return Draw1::GetInterpretor().Complete(theCommand.c_str());
   }
 
   //! Evaluate Tcl command asynchronously.
@@ -141,9 +141,9 @@ EM_JS(void, occJSPrintMessage, (const char* theStr, int theGravity), {
 });
 
 //! Auxiliary printer to a Module.printMessage callback accepting text and gravity.
-class DRAWEXE_WasmModulePrinter : public Message_Printer
+class DRAWEXE_WasmModulePrinter : public LogPrinter
 {
-  DEFINE_STANDARD_RTTI_INLINE(DRAWEXE_WasmModulePrinter, Message_Printer)
+  DEFINE_STANDARD_RTTI_INLINE(DRAWEXE_WasmModulePrinter, LogPrinter)
 public:
   //! Main constructor.
   DRAWEXE_WasmModulePrinter(const Message_Gravity theTraceLevel = Message_Info)
@@ -156,7 +156,7 @@ public:
 
 protected:
   //! Puts a message.
-  virtual void send(const TCollection_AsciiString& theString,
+  virtual void send(const AsciiString1& theString,
                     const Message_Gravity          theGravity) const Standard_OVERRIDE
   {
     if (theGravity >= myTraceLevel)
@@ -180,14 +180,14 @@ EMSCRIPTEN_BINDINGS(DRAWEXE)
   #include <unordered_map>
 
 //! Mimic pload command by loading pre-defined set of statically linked plugins.
-static Standard_Integer Pload(Draw_Interpretor& theDI,
+static Standard_Integer Pload(DrawInterpreter& theDI,
                               Standard_Integer  theNbArgs,
                               const char**      theArgVec)
 {
   // Define a map of aPlugin keys to their corresponding factory methods
-  std::unordered_map<std::string, std::function<void(Draw_Interpretor&)>> aPluginMap = {
+  std::unordered_map<std::string, std::function<void(DrawInterpreter&)>> aPluginMap = {
     {"TOPTEST", BOPTest::Factory},
-    {"DCAF", DPrsStd::Factory},
+    {"DCAF", DPrsStd1::Factory},
     {"AISV", ViewerTest::Factory},
   #if defined(HAVE_OPENGL)
     {"GL", OpenGlTest::Factory},
@@ -220,16 +220,16 @@ static Standard_Integer Pload(Draw_Interpretor& theDI,
     {"XDE", {"DATAEXCHANGEKERNEL", "XDEDRAW", "STEP", "IGES", "GLTF", "OBJ", "PLY", "STL", "VRML"}},
     {"ALL", {"MODELING", "OCAFKERNEL", "DATAEXCHANGE"}}};
 
-  NCollection_IndexedMap<TCollection_AsciiString> aPlugins;
+  NCollection_IndexedMap<AsciiString1> aPlugins;
 
-  std::function<void(const TCollection_AsciiString&)> processAlias;
-  processAlias = [&](const TCollection_AsciiString& theAlias) -> void {
+  std::function<void(const AsciiString1&)> processAlias;
+  processAlias = [&](const AsciiString1& theAlias) -> void {
     auto anAliasIt = anAliasMap.find(theAlias.ToCString());
     if (anAliasIt != anAliasMap.end())
     {
       for (const auto& aPlugin : anAliasIt->second)
       {
-        processAlias(TCollection_AsciiString(aPlugin.c_str()));
+        processAlias(AsciiString1(aPlugin.c_str()));
       }
     }
     else
@@ -240,16 +240,16 @@ static Standard_Integer Pload(Draw_Interpretor& theDI,
 
   for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.UpperCase();
     processAlias(anArg);
   }
 
-  for (NCollection_IndexedMap<TCollection_AsciiString>::Iterator aPluginIter(aPlugins);
+  for (NCollection_IndexedMap<AsciiString1>::Iterator aPluginIter(aPlugins);
        aPluginIter.More();
        aPluginIter.Next())
   {
-    const TCollection_AsciiString& aPlugin = aPluginIter.Value();
+    const AsciiString1& aPlugin = aPluginIter.Value();
     auto                           anIter  = aPluginMap.find(aPlugin.ToCString());
     if (anIter != aPluginMap.end())
     {
@@ -268,7 +268,7 @@ static Standard_Integer Pload(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-void Draw_InitAppli(Draw_Interpretor& theDI)
+void Draw_InitAppli(DrawInterpreter& theDI)
 {
 #if defined(__EMSCRIPTEN__)
   // open JavaScript console within the Browser to see this output
@@ -283,16 +283,16 @@ void Draw_InitAppli(Draw_Interpretor& theDI)
   Message::DefaultMessenger()->AddPrinter(aJSModulePrinter);
 #endif
 
-  Draw::Commands(theDI);
-  DBRep::BasicCommands(theDI);
-  DrawTrSurf::BasicCommands(theDI);
+  Draw1::Commands(theDI);
+  DBRep1::BasicCommands(theDI);
+  DrawTrSurf1::BasicCommands(theDI);
 
 #ifdef OCCT_NO_PLUGINS
   theDI.Add("pload",
-            "pload [[Key1] [Key2] ...]: Loads Draw plugins",
+            "pload [[Key1] [Key2] ...]: Loads Draw1 plugins",
             __FILE__,
             Pload,
-            "Draw Plugin");
+            "Draw1 Plugin");
 #endif
 }
 

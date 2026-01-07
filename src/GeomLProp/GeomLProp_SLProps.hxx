@@ -26,12 +26,12 @@
 #include <gp_Vec.hxx>
 #include <gp_Dir.hxx>
 #include <LProp_Status.hxx>
-class Geom_Surface;
+class GeomSurface;
 class LProp_BadContinuity;
 class Standard_DomainError;
 class Standard_OutOfRange;
 class LProp_NotDefined;
-class GeomLProp_SurfaceTool;
+class SurfaceTool1;
 class Point3d;
 class Vector3d;
 class Dir3d;
@@ -51,7 +51,7 @@ public:
   //! only the tangent, N should be equal to 1.
   //! <Resolution> is the linear tolerance (it is used to test
   //! if a vector is null).
-  Standard_EXPORT GeomLProp_SLProps(const Handle(Geom_Surface)& S,
+  Standard_EXPORT GeomLProp_SLProps(const Handle(GeomSurface)& S,
                                     const Standard_Real         U,
                                     const Standard_Real         V,
                                     const Standard_Integer      N,
@@ -59,7 +59,7 @@ public:
 
   //! idem as previous constructor but without setting the value
   //! of parameters <U> and <V>.
-  Standard_EXPORT GeomLProp_SLProps(const Handle(Geom_Surface)& S,
+  Standard_EXPORT GeomLProp_SLProps(const Handle(GeomSurface)& S,
                                     const Standard_Integer      N,
                                     const Standard_Real         Resolution);
 
@@ -70,7 +70,7 @@ public:
 
   //! Initializes the local properties of the surface S
   //! for the new surface.
-  Standard_EXPORT void SetSurface(const Handle(Geom_Surface)& S);
+  Standard_EXPORT void SetSurface(const Handle(GeomSurface)& S);
 
   //! Initializes the local properties of the surface S
   //! for the new parameter values (<U>, <V>).
@@ -146,7 +146,7 @@ public:
 
 protected:
 private:
-  Handle(Geom_Surface) mySurf;
+  Handle(GeomSurface) mySurf;
   Standard_Real        myU;
   Standard_Real        myV;
   Standard_Integer     myDerOrder;

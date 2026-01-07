@@ -24,8 +24,8 @@
 #include <Standard_OStream.hxx>
 #include <Standard_GUID.hxx>
 
-class TDF_Label;
-class TCollection_ExtendedString;
+class DataLabel;
+class UtfString;
 class TDF_RelocationTable;
 class TDF_DeltaOnModification;
 
@@ -33,7 +33,7 @@ class TDataStd_ExtStringArray;
 DEFINE_STANDARD_HANDLE(TDataStd_ExtStringArray, TDF_Attribute)
 
 //! ExtStringArray Attribute. Handles an array of UNICODE strings (represented by the
-//! TCollection_ExtendedString class).
+//! UtfString class).
 class TDataStd_ExtStringArray : public TDF_Attribute
 {
   friend class TDataStd_DeltaOnModificationOfExtStringArray;
@@ -51,7 +51,7 @@ public:
   //! If attribute is already set, all input parameters are refused and the found
   //! attribute is returned.
   Standard_EXPORT static Handle(TDataStd_ExtStringArray) Set(
-    const TDF_Label&       label,
+    const DataLabel&       label,
     const Standard_Integer lower,
     const Standard_Integer upper,
     const Standard_Boolean isDelta = Standard_False);
@@ -59,7 +59,7 @@ public:
   //! Finds, or creates, an ExtStringArray attribute with explicit user defined <guid>.
   //! The ExtStringArray attribute  is  returned.
   Standard_EXPORT static Handle(TDataStd_ExtStringArray) Set(
-    const TDF_Label&       label,
+    const DataLabel&       label,
     const Standard_GUID&   theGuid,
     const Standard_Integer lower,
     const Standard_Integer upper,
@@ -72,7 +72,7 @@ public:
   //! OutOfRange exception is raised if <Index> doesn't respect Lower and Upper bounds of the
   //! internal  array.
   Standard_EXPORT void SetValue(const Standard_Integer            Index,
-                                const TCollection_ExtendedString& Value);
+                                const UtfString& Value);
 
   //! Sets the explicit GUID (user defined) for the attribute.
   Standard_EXPORT void SetID(const Standard_GUID& theGuid) Standard_OVERRIDE;
@@ -81,9 +81,9 @@ public:
   Standard_EXPORT void SetID() Standard_OVERRIDE;
 
   //! Returns the value of  the  <Index>th element of the array
-  Standard_EXPORT const TCollection_ExtendedString& Value(const Standard_Integer Index) const;
+  Standard_EXPORT const UtfString& Value(const Standard_Integer Index) const;
 
-  const TCollection_ExtendedString& operator()(const Standard_Integer Index) const
+  const UtfString& operator()(const Standard_Integer Index) const
   {
     return Value(Index);
   }

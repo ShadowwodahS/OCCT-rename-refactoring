@@ -29,7 +29,7 @@ class IGESSolid_Torus;
 DEFINE_STANDARD_HANDLE(IGESSolid_Torus, IGESData_IGESEntity)
 
 //! defines Torus, Type <160> Form Number <0>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! A Torus is a solid formed by revolving a circular disc
 //! about a specified coplanar axis.
 class IGESSolid_Torus : public IGESData_IGESEntity

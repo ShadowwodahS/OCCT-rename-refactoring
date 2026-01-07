@@ -20,41 +20,41 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Integer.hxx>
-class TopoDS_Edge;
-class TopoDS_Face;
+class TopoEdge;
+class TopoFace;
 class Dir3d;
-class Geom_Surface;
-class Geom2d_Curve;
+class GeomSurface;
+class GeomCurve2d;
 class Point3d;
 class IntTools_Context;
 class gp_Pnt2d;
-class TopoDS_Shape;
+class TopoShape;
 
 //! The class contains handy static functions
 //! dealing with the topology
-//! This is the copy of BOPTools_AlgoTools3D.cdl file
-class BOPTools_AlgoTools3D
+//! This is the copy of AlgoTools3D.cdl file
+class AlgoTools3D
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Makes the edge <theESplit> seam edge for the face <theFace> basing on the surface properties
   //! (U and V periods)
-  Standard_EXPORT static Standard_Boolean DoSplitSEAMOnFace(const TopoDS_Edge& theESplit,
-                                                            const TopoDS_Face& theFace);
+  Standard_EXPORT static Standard_Boolean DoSplitSEAMOnFace(const TopoEdge& theESplit,
+                                                            const TopoFace& theFace);
 
   //! Makes the split edge <theESplit> seam edge for the face <theFace> basing on the positions
   //! of 2d curves of the original edge <theEOrigin>.
-  Standard_EXPORT static Standard_Boolean DoSplitSEAMOnFace(const TopoDS_Edge& theEOrigin,
-                                                            const TopoDS_Edge& theESplit,
-                                                            const TopoDS_Face& theFace);
+  Standard_EXPORT static Standard_Boolean DoSplitSEAMOnFace(const TopoEdge& theEOrigin,
+                                                            const TopoEdge& theESplit,
+                                                            const TopoFace& theFace);
 
   //! Computes normal to the face <aF> for the point on the edge <aE>
   //! at parameter <aT>.<br>
   //! <theContext> - storage for caching the geometrical tools
   Standard_EXPORT static void GetNormalToFaceOnEdge(
-    const TopoDS_Edge&              aE,
-    const TopoDS_Face&              aF,
+    const TopoEdge&              aE,
+    const TopoFace&              aF,
     const Standard_Real             aT,
     Dir3d&                         aD,
     const Handle(IntTools_Context)& theContext = Handle(IntTools_Context)());
@@ -63,8 +63,8 @@ public:
   //! at arbitrary intermediate parameter.<br>
   //! <theContext> - storage for caching the geometrical tools
   Standard_EXPORT static void GetNormalToFaceOnEdge(
-    const TopoDS_Edge&              aE,
-    const TopoDS_Face&              aF,
+    const TopoEdge&              aE,
+    const TopoFace&              aF,
     Dir3d&                         aD,
     const Handle(IntTools_Context)& theContext = Handle(IntTools_Context)());
 
@@ -75,7 +75,7 @@ public:
 
   //! Compute normal <aD> to surface <aS> in point (U,V)
   //! Returns TRUE if directions aD1U, aD1V coincide
-  Standard_EXPORT static Standard_Boolean GetNormalToSurface(const Handle(Geom_Surface)& aS,
+  Standard_EXPORT static Standard_Boolean GetNormalToSurface(const Handle(GeomSurface)& aS,
                                                              const Standard_Real         U,
                                                              const Standard_Real         V,
                                                              Dir3d&                     aD);
@@ -90,13 +90,13 @@ public:
   //! edge, but in point that is near to the edge towards to
   //! the face material (so, we'll have approx. normal);<br>
   //! The point is computed using PointNearEdge function,
-  //! with the shifting value BOPTools_AlgoTools3D::MinStepIn2d(),
+  //! with the shifting value AlgoTools3D::MinStepIn2d(),
   //! from the edge, but if this value is too big,
   //! the point will be computed using Hatcher (PointInFace function).<br>
   //! Returns TRUE in case of success.
   Standard_EXPORT static Standard_Boolean GetApproxNormalToFaceOnEdge(
-    const TopoDS_Edge&              aE,
-    const TopoDS_Face&              aF,
+    const TopoEdge&              aE,
+    const TopoFace&              aF,
     const Standard_Real             aT,
     Point3d&                         aPx,
     Dir3d&                         aD,
@@ -115,8 +115,8 @@ public:
   //! with the shifting value <aDt2D> from the edge;<br>
   //! No checks on this value will be done.<br>
   //! Returns TRUE in case of success.
-  Standard_EXPORT static Standard_Boolean GetApproxNormalToFaceOnEdge(const TopoDS_Edge&  theE,
-                                                                      const TopoDS_Face&  theF,
+  Standard_EXPORT static Standard_Boolean GetApproxNormalToFaceOnEdge(const TopoEdge&  theE,
+                                                                      const TopoFace&  theF,
                                                                       const Standard_Real aT,
                                                                       Point3d&             aP,
                                                                       Dir3d&             aDNF,
@@ -137,8 +137,8 @@ public:
   //! computed using Hatcher (PointInFace function).<br>
   //! Returns TRUE in case of success.
   Standard_EXPORT static Standard_Boolean GetApproxNormalToFaceOnEdge(
-    const TopoDS_Edge&              theE,
-    const TopoDS_Face&              theF,
+    const TopoEdge&              theE,
+    const TopoFace&              theF,
     const Standard_Real             aT,
     const Standard_Real             aDt2D,
     Point3d&                         aP,
@@ -155,8 +155,8 @@ public:
   //! 0 - in case of success;<br>
   //! 1 - <aE> does not have 2d curve on the face <aF>;<br>
   //! 2 - the computed point is out of the face.
-  Standard_EXPORT static Standard_Integer PointNearEdge(const TopoDS_Edge&              aE,
-                                                        const TopoDS_Face&              aF,
+  Standard_EXPORT static Standard_Integer PointNearEdge(const TopoEdge&              aE,
+                                                        const TopoFace&              aF,
                                                         const Standard_Real             aT,
                                                         const Standard_Real             aDt2D,
                                                         gp_Pnt2d&                       aP2D,
@@ -170,8 +170,8 @@ public:
   //! Returns error status:<br>
   //! 0 - in case of success;<br>
   //! 1 - <aE> does not have 2d curve on the face <aF>.
-  Standard_EXPORT static Standard_Integer PointNearEdge(const TopoDS_Edge&  aE,
-                                                        const TopoDS_Face&  aF,
+  Standard_EXPORT static Standard_Integer PointNearEdge(const TopoEdge&  aE,
+                                                        const TopoFace&  aF,
                                                         const Standard_Real aT,
                                                         const Standard_Real aDt2D,
                                                         gp_Pnt2d&           aP2D,
@@ -180,15 +180,15 @@ public:
   //! Computes the point <aPx>,  (<aP2D>)  that is near to
   //! the edge <aE>   at parameter <aT>  towards to the
   //! material of the face <aF>. The value of shifting in
-  //! 2D is  dt2D=BOPTools_AlgoTools3D::MinStepIn2d()<br>
+  //! 2D is  dt2D=AlgoTools3D::MinStepIn2d()<br>
   //! If the value of shifting is too big the point will be computed
   //! using Hatcher (PointInFace function).<br>
   //! Returns error status:<br>
   //! 0 - in case of success;<br>
   //! 1 - <aE> does not have 2d curve on the face <aF>;<br>
   //! 2 - the computed point is out of the face.
-  Standard_EXPORT static Standard_Integer PointNearEdge(const TopoDS_Edge&              aE,
-                                                        const TopoDS_Face&              aF,
+  Standard_EXPORT static Standard_Integer PointNearEdge(const TopoEdge&              aE,
+                                                        const TopoFace&              aF,
                                                         const Standard_Real             aT,
                                                         gp_Pnt2d&                       aP2D,
                                                         Point3d&                         aPx,
@@ -197,15 +197,15 @@ public:
   //! Compute the point <aPx>,  (<aP2D>)  that is near to
   //! the edge <aE>   at arbitrary  parameter  towards to the
   //! material of the face <aF>. The value of shifting in
-  //! 2D is  dt2D=BOPTools_AlgoTools3D::MinStepIn2d().<br>
+  //! 2D is  dt2D=AlgoTools3D::MinStepIn2d().<br>
   //! If the value of shifting is too big the point will be computed
   //! using Hatcher (PointInFace function).<br>
   //! Returns error status:<br>
   //! 0 - in case of success;<br>
   //! 1 - <aE> does not have 2d curve on the face <aF>;<br>
   //! 2 - the computed point is out of the face.
-  Standard_EXPORT static Standard_Integer PointNearEdge(const TopoDS_Edge&              aE,
-                                                        const TopoDS_Face&              aF,
+  Standard_EXPORT static Standard_Integer PointNearEdge(const TopoEdge&              aE,
+                                                        const TopoFace&              aF,
                                                         gp_Pnt2d&                       aP2D,
                                                         Point3d&                         aPx,
                                                         const Handle(IntTools_Context)& theContext);
@@ -216,19 +216,19 @@ public:
 
   //! Returns TRUE if the shape <aS> does not contain
   //! geometry information  (e.g. empty compound)
-  Standard_EXPORT static Standard_Boolean IsEmptyShape(const TopoDS_Shape& aS);
+  Standard_EXPORT static Standard_Boolean IsEmptyShape(const TopoShape& aS);
 
   //! Get the edge <aER> from the face <aF> that is the same as
   //! the edge <aE>
-  Standard_EXPORT static void OrientEdgeOnFace(const TopoDS_Edge& aE,
-                                               const TopoDS_Face& aF,
-                                               TopoDS_Edge&       aER);
+  Standard_EXPORT static void OrientEdgeOnFace(const TopoEdge& aE,
+                                               const TopoFace& aF,
+                                               TopoEdge&       aER);
 
   //! Computes arbitrary point <theP> inside the face <theF>.<br>
   //! <theP2D> -  2D  representation of <theP>
   //! on the surface of <theF><br>
   //! Returns 0 in case of success.
-  Standard_EXPORT static Standard_Integer PointInFace(const TopoDS_Face&              theF,
+  Standard_EXPORT static Standard_Integer PointInFace(const TopoFace&              theF,
                                                       Point3d&                         theP,
                                                       gp_Pnt2d&                       theP2D,
                                                       const Handle(IntTools_Context)& theContext);
@@ -242,8 +242,8 @@ public:
   //! <theP2D> -  2D  representation of <theP>
   //! on the surface of <theF><br>
   //! Returns 0 in case of success.
-  Standard_EXPORT static Standard_Integer PointInFace(const TopoDS_Face&              theF,
-                                                      const TopoDS_Edge&              theE,
+  Standard_EXPORT static Standard_Integer PointInFace(const TopoFace&              theF,
+                                                      const TopoEdge&              theE,
                                                       const Standard_Real             theT,
                                                       const Standard_Real             theDt2D,
                                                       Point3d&                         theP,
@@ -255,8 +255,8 @@ public:
   //! <theP2D>, 2D representation of <theP>
   //! on the surface of <theF>, lies on that line.<br>
   //! Returns 0 in case of success.
-  Standard_EXPORT static Standard_Integer PointInFace(const TopoDS_Face&              theF,
-                                                      const Handle(Geom2d_Curve)&     theL,
+  Standard_EXPORT static Standard_Integer PointInFace(const TopoFace&              theF,
+                                                      const Handle(GeomCurve2d)&     theL,
                                                       Point3d&                         theP,
                                                       gp_Pnt2d&                       theP2D,
                                                       const Handle(IntTools_Context)& theContext,

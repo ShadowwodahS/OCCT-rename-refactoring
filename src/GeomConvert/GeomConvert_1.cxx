@@ -52,7 +52,7 @@
 #include <TColStd_Array2OfInteger.hxx>
 #include <TColStd_Array2OfReal.hxx>
 
-typedef Geom_Surface            Surface;
+typedef GeomSurface            Surface;
 typedef Geom_BSplineSurface     BSplineSurface;
 typedef TColStd_Array1OfReal    Array1OfReal;
 typedef TColStd_Array2OfReal    Array2OfReal;
@@ -339,7 +339,7 @@ Handle(Geom_BSplineSurface) GeomConvert::SplitBSplineSurface(
 
 //=================================================================================================
 
-Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(Geom_Surface)& Sr)
+Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(GeomSurface)& Sr)
 {
 
   Standard_Real U1, U2, V1, V2;
@@ -357,7 +357,7 @@ Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(Ge
   }
 
   Handle(Geom_BSplineSurface) TheSurface;
-  Handle(Geom_Surface)        S;
+  Handle(GeomSurface)        S;
   Handle(Geom_OffsetSurface)  OffsetSur;
   if (Sr->IsKind(STANDARD_TYPE(Geom_OffsetSurface)))
   {
@@ -375,7 +375,7 @@ Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(Ge
     Handle(Geom_RectangularTrimmedSurface) Strim =
       Handle(Geom_RectangularTrimmedSurface)::DownCast(S);
 
-    Handle(Geom_Surface) Surf = Strim->BasisSurface();
+    Handle(GeomSurface) Surf = Strim->BasisSurface();
     UFirst                    = U1;
     ULast                     = U2;
     VFirst                    = V1;
@@ -404,7 +404,7 @@ Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(Ge
     const Standard_Boolean isUClosed = Abs((ULast - UFirst) - 2. * M_PI) <= Precision::PConfusion();
     const Standard_Real    eps       = 100. * Epsilon(2. * M_PI);
     //
-    if (Surf->IsKind(STANDARD_TYPE(Geom_Plane)))
+    if (Surf->IsKind(STANDARD_TYPE(GeomPlane)))
     {
       TColgp_Array2OfPnt Poles(1, 2, 1, 2);
       Poles(1, 1) = Strim->Value(U1, V1);
@@ -536,8 +536,8 @@ Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(Ge
     {
       Handle(Geom_SurfaceOfRevolution) Revol = Handle(Geom_SurfaceOfRevolution)::DownCast(Surf);
 
-      Handle(Geom_Curve)        Meridian = Revol->BasisCurve();
-      Handle(Geom_BSplineCurve) C;
+      Handle(GeomCurve3d)        Meridian = Revol->BasisCurve();
+      Handle(BSplineCurve3d) C;
       if (Strim->IsVClosed())
       {
         C = GeomConvert::CurveToBSplineCurve(Meridian);
@@ -648,8 +648,8 @@ Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(Ge
       Handle(Geom_SurfaceOfLinearExtrusion) Extru =
         Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(Surf);
 
-      Handle(Geom_Curve)        Meridian = Extru->BasisCurve();
-      Handle(Geom_BSplineCurve) C;
+      Handle(GeomCurve3d)        Meridian = Extru->BasisCurve();
+      Handle(BSplineCurve3d) C;
       if (Strim->IsUClosed())
       {
         C = GeomConvert::CurveToBSplineCurve(Meridian);
@@ -799,8 +799,8 @@ Handle(Geom_BSplineSurface) GeomConvert::SurfaceToBSplineSurface(const Handle(Ge
 
       Handle(Geom_SurfaceOfRevolution) Revol = Handle(Geom_SurfaceOfRevolution)::DownCast(S);
 
-      Handle(Geom_Curve)        Meridian = Revol->BasisCurve();
-      Handle(Geom_BSplineCurve) C        = GeomConvert::CurveToBSplineCurve(Meridian);
+      Handle(GeomCurve3d)        Meridian = Revol->BasisCurve();
+      Handle(BSplineCurve3d) C        = GeomConvert::CurveToBSplineCurve(Meridian);
 
       Standard_Integer NbUPoles, NbUKnots;
       Standard_Integer NbVPoles, NbVKnots;

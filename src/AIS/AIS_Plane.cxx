@@ -46,11 +46,11 @@
 #include <StdPrs_Plane.hxx>
 #include <TColgp_Array1OfPnt.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_Plane, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_Plane, VisualEntity)
 
 //=================================================================================================
 
-AIS_Plane::AIS_Plane(const Handle(Geom_Plane)& aComponent, const Standard_Boolean aCurrentMode)
+AIS_Plane::AIS_Plane(const Handle(GeomPlane)& aComponent, const Standard_Boolean aCurrentMode)
     : myComponent(aComponent),
       myCenter(Point3d(0., 0., 0.)),
       myCurrentMode(aCurrentMode),
@@ -66,7 +66,7 @@ AIS_Plane::AIS_Plane(const Handle(Geom_Plane)& aComponent, const Standard_Boolea
 // function : AIS_Plane
 // purpose  : avec une position
 //=======================================================================
-AIS_Plane::AIS_Plane(const Handle(Geom_Plane)& aComponent,
+AIS_Plane::AIS_Plane(const Handle(GeomPlane)& aComponent,
                      const Point3d&             aCenter,
                      const Standard_Boolean    aCurrentMode)
     : myComponent(aComponent),
@@ -82,7 +82,7 @@ AIS_Plane::AIS_Plane(const Handle(Geom_Plane)& aComponent,
 
 //=================================================================================================
 
-AIS_Plane::AIS_Plane(const Handle(Geom_Plane)& aComponent,
+AIS_Plane::AIS_Plane(const Handle(GeomPlane)& aComponent,
                      const Point3d&             aCenter,
                      const Point3d&             aPmin,
                      const Point3d&             aPmax,
@@ -120,7 +120,7 @@ AIS_Plane::AIS_Plane(const Handle(Geom_Axis2Placement)& aComponent,
 
 //=================================================================================================
 
-void AIS_Plane::SetComponent(const Handle(Geom_Plane)& aComponent)
+void AIS_Plane::SetComponent(const Handle(GeomPlane)& aComponent)
 {
   myComponent   = aComponent;
   myTypeOfPlane = AIS_TOPL_Unknown;
@@ -151,7 +151,7 @@ void AIS_Plane::SetAxis2Placement(const Handle(Geom_Axis2Placement)& aComponent,
 
 //=================================================================================================
 
-Standard_Boolean AIS_Plane::PlaneAttributes(Handle(Geom_Plane)& aComponent,
+Standard_Boolean AIS_Plane::PlaneAttributes(Handle(GeomPlane)& aComponent,
                                             Point3d&             aCenter,
                                             Point3d&             aPmin,
                                             Point3d&             aPmax)
@@ -170,7 +170,7 @@ Standard_Boolean AIS_Plane::PlaneAttributes(Handle(Geom_Plane)& aComponent,
 
 //=================================================================================================
 
-void AIS_Plane::SetPlaneAttributes(const Handle(Geom_Plane)& aComponent,
+void AIS_Plane::SetPlaneAttributes(const Handle(GeomPlane)& aComponent,
                                    const Point3d&             aCenter,
                                    const Point3d&             aPmin,
                                    const Point3d&             aPmax)
@@ -200,9 +200,9 @@ void AIS_Plane::Compute(const Handle(PrsMgr_PresentationManager)&,
       if (!myIsXYZPlane)
       {
         ComputeFrame();
-        const Handle(Geom_Plane)& pl = myComponent;
-        Handle(Geom_Plane)        thegoodpl(
-                 Handle(Geom_Plane)::DownCast(pl->Translated(pl->Location(), myCenter)));
+        const Handle(GeomPlane)& pl = myComponent;
+        Handle(GeomPlane)        thegoodpl(
+                 Handle(GeomPlane)::DownCast(pl->Translated(pl->Location(), myCenter)));
         GeomAdaptor_Surface surf(thegoodpl);
         StdPrs_Plane::Add(thePrs, surf, myDrawer);
       }
@@ -247,20 +247,20 @@ void AIS_Plane::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void AIS_Plane::ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+void AIS_Plane::ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                  const Standard_Integer /*theMode*/)
 {
   theSelection->Clear();
   Handle(SelectMgr_EntityOwner) aSensitiveOwner = new SelectMgr_EntityOwner(this, 10);
-  Handle(Poly_Triangulation)    aSensitivePoly;
+  Handle(MeshTriangulation)    aSensitivePoly;
 
   if (!myIsXYZPlane)
   {
     // plane representing rectangle
     Standard_Real      aLengthX = myDrawer->PlaneAspect()->PlaneXLength() / 2.0;
     Standard_Real      aLengthY = myDrawer->PlaneAspect()->PlaneYLength() / 2.0;
-    Handle(Geom_Plane) aPlane =
-      Handle(Geom_Plane)::DownCast(myComponent->Translated(myComponent->Location(), myCenter));
+    Handle(GeomPlane) aPlane =
+      Handle(GeomPlane)::DownCast(myComponent->Translated(myComponent->Location(), myCenter));
 
     TColgp_Array1OfPnt aRectanglePoints(1, 4);
     aPlane->D0(aLengthX, aLengthY, aRectanglePoints.ChangeValue(1));
@@ -272,7 +272,7 @@ void AIS_Plane::ComputeSelection(const Handle(SelectMgr_Selection)& theSelection
     aTriangles.ChangeValue(1) = Poly_Triangle(1, 2, 3);
     aTriangles.ChangeValue(2) = Poly_Triangle(1, 3, 4);
 
-    aSensitivePoly = new Poly_Triangulation(aRectanglePoints, aTriangles);
+    aSensitivePoly = new MeshTriangulation(aRectanglePoints, aTriangles);
   }
   else
   {
@@ -285,7 +285,7 @@ void AIS_Plane::ComputeSelection(const Handle(SelectMgr_Selection)& theSelection
     Poly_Array1OfTriangle aTriangles(1, 1);
     aTriangles.ChangeValue(1) = Poly_Triangle(1, 2, 3);
 
-    aSensitivePoly = new Poly_Triangulation(aTrianglePoints, aTriangles);
+    aSensitivePoly = new MeshTriangulation(aTrianglePoints, aTriangles);
   }
 
   Standard_Boolean isSensitiveInterior = myTypeOfSensitivity == Select3D_TOS_INTERIOR;
@@ -485,7 +485,7 @@ void AIS_Plane::UnsetColor()
 void AIS_Plane::ComputeFrame()
 {
 
-  const Handle(Geom_Plane)& pl = myComponent;
+  const Handle(GeomPlane)& pl = myComponent;
   Standard_Real             U, V;
 
   if (myAutomaticPosition)
@@ -495,8 +495,8 @@ void AIS_Plane::ComputeFrame()
   }
   else
   {
-    Handle(Geom_Plane) thegoodpl(
-      Handle(Geom_Plane)::DownCast(pl->Translated(pl->Location(), myCenter)));
+    Handle(GeomPlane) thegoodpl(
+      Handle(GeomPlane)::DownCast(pl->Translated(pl->Location(), myCenter)));
     ElSLib::Parameters(thegoodpl->Pln(), myPmin, U, V);
 
     U = 2.4 * Abs(U);
@@ -538,7 +538,7 @@ void AIS_Plane::ComputeFields()
     {
       case AIS_TOPL_XYPlane: {
         gp_Pln XYP(0, 0, 1, 0);
-        myComponent = new Geom_Plane(XYP);
+        myComponent = new GeomPlane(XYP);
         x4          = xo + x1 * DS1;
         y4          = yo + y1 * DS1;
         z4          = zo + z1 * DS1;
@@ -549,7 +549,7 @@ void AIS_Plane::ComputeFields()
       }
       case AIS_TOPL_XZPlane: {
         gp_Pln XZP(0, 1, 0, 0);
-        myComponent = new Geom_Plane(XZP);
+        myComponent = new GeomPlane(XZP);
         x4          = xo + x1 * DS1;
         y4          = yo + y1 * DS1;
         z4          = zo + z1 * DS1;
@@ -560,7 +560,7 @@ void AIS_Plane::ComputeFields()
       }
       case AIS_TOPL_YZPlane: {
         gp_Pln XZP(1, 0, 0, 0);
-        myComponent = new Geom_Plane(XZP);
+        myComponent = new GeomPlane(XZP);
         x4          = xo + x2 * DS2;
         y4          = yo + y2 * DS2;
         z4          = zo + z2 * DS2;
@@ -601,8 +601,8 @@ Standard_Boolean AIS_Plane::AcceptDisplayMode(const Standard_Integer aMode) cons
 
 //=================================================================================================
 
-void AIS_Plane::SetContext(const Handle(AIS_InteractiveContext)& Ctx)
+void AIS_Plane::SetContext(const Handle(VisualContext)& Ctx)
 {
-  AIS_InteractiveObject::SetContext(Ctx);
+  VisualEntity::SetContext(Ctx);
   ComputeFields();
 }

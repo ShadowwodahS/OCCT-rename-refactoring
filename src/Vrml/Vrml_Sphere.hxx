@@ -27,12 +27,12 @@
 //! defines a Sphere node of VRML specifying geometry shapes.
 //! This  node  represents  a  sphere.
 //! By  default ,  the  sphere  is  centred  at  (0,0,0) and  has  a  radius  of  1.
-class Vrml_Sphere
+class Sphere1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_Sphere(const Standard_Real aRadius = 1);
+  Standard_EXPORT Sphere1(const Standard_Real aRadius = 1);
 
   Standard_EXPORT void SetRadius(const Standard_Real aRadius);
 

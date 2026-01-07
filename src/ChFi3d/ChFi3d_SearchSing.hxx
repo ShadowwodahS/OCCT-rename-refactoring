@@ -24,7 +24,7 @@
 #include <math_FunctionWithDerivative.hxx>
 #include <Standard_Boolean.hxx>
 #include <Standard_Real.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 
 //! Searches   singularities on fillet.
 //! F(t) = (C1(t) - C2(t)).(C1'(t) - C2'(t));
@@ -33,7 +33,7 @@ class ChFi3d_SearchSing : public math_FunctionWithDerivative
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT ChFi3d_SearchSing(const Handle(Geom_Curve)& C1, const Handle(Geom_Curve)& C2);
+  Standard_EXPORT ChFi3d_SearchSing(const Handle(GeomCurve3d)& C1, const Handle(GeomCurve3d)& C2);
 
   //! computes the value of the function <F> for the
   //! variable <X>.
@@ -57,8 +57,8 @@ public:
 
 protected:
 private:
-  Handle(Geom_Curve) myC1;
-  Handle(Geom_Curve) myC2;
+  Handle(GeomCurve3d) myC1;
+  Handle(GeomCurve3d) myC2;
 };
 
 #endif // _ChFi3d_SearchSing_HeaderFile

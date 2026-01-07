@@ -41,7 +41,7 @@ const Standard_GUID& TObj_TNameContainer::ID() const
 
 //=================================================================================================
 
-Handle(TObj_TNameContainer) TObj_TNameContainer::Set(const TDF_Label& theLabel)
+Handle(TObj_TNameContainer) TObj_TNameContainer::Set(const DataLabel& theLabel)
 {
   Handle(TObj_TNameContainer) A;
   if (!theLabel.FindAttribute(TObj_TNameContainer::GetID(), A))
@@ -55,7 +55,7 @@ Handle(TObj_TNameContainer) TObj_TNameContainer::Set(const TDF_Label& theLabel)
 //=================================================================================================
 
 void TObj_TNameContainer::RecordName(const Handle(TCollection_HExtendedString)& theName,
-                                     const TDF_Label&                           theLabel)
+                                     const DataLabel&                           theLabel)
 {
   if (!IsRegistered(theName))
   {

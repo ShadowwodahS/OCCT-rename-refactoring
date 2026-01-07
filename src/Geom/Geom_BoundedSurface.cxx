@@ -17,4 +17,4 @@
 #include <Geom_BoundedSurface.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_BoundedSurface, Geom_Surface)
+IMPLEMENT_STANDARD_RTTIEXT(Geom_BoundedSurface, GeomSurface)

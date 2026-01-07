@@ -31,7 +31,7 @@ Geom2dAPI_ProjectPointOnCurve::Geom2dAPI_ProjectPointOnCurve()
 //=================================================================================================
 
 Geom2dAPI_ProjectPointOnCurve::Geom2dAPI_ProjectPointOnCurve(const gp_Pnt2d&             P,
-                                                             const Handle(Geom2d_Curve)& Curve)
+                                                             const Handle(GeomCurve2d)& Curve)
 {
   Init(P, Curve);
 }
@@ -39,7 +39,7 @@ Geom2dAPI_ProjectPointOnCurve::Geom2dAPI_ProjectPointOnCurve(const gp_Pnt2d&    
 //=================================================================================================
 
 Geom2dAPI_ProjectPointOnCurve::Geom2dAPI_ProjectPointOnCurve(const gp_Pnt2d&             P,
-                                                             const Handle(Geom2d_Curve)& Curve,
+                                                             const Handle(GeomCurve2d)& Curve,
                                                              const Standard_Real         Umin,
                                                              const Standard_Real         Usup)
 {
@@ -48,7 +48,7 @@ Geom2dAPI_ProjectPointOnCurve::Geom2dAPI_ProjectPointOnCurve(const gp_Pnt2d&    
 
 //=================================================================================================
 
-void Geom2dAPI_ProjectPointOnCurve::Init(const gp_Pnt2d& P, const Handle(Geom2d_Curve)& Curve)
+void Geom2dAPI_ProjectPointOnCurve::Init(const gp_Pnt2d& P, const Handle(GeomCurve2d)& Curve)
 {
   Init(P, Curve, Curve->FirstParameter(), Curve->LastParameter());
 }
@@ -56,7 +56,7 @@ void Geom2dAPI_ProjectPointOnCurve::Init(const gp_Pnt2d& P, const Handle(Geom2d_
 //=================================================================================================
 
 void Geom2dAPI_ProjectPointOnCurve::Init(const gp_Pnt2d&             P,
-                                         const Handle(Geom2d_Curve)& Curve,
+                                         const Handle(GeomCurve2d)& Curve,
                                          const Standard_Real         Umin,
                                          const Standard_Real         Usup)
 {

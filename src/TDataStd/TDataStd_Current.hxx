@@ -40,22 +40,22 @@ public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
   //! Set <L> as current of <L> Framework.
-  Standard_EXPORT static void Set(const TDF_Label& L);
+  Standard_EXPORT static void Set(const DataLabel& L);
 
   //! returns current of <acces> Framework. raise if (!Has)
-  Standard_EXPORT static TDF_Label Get(const TDF_Label& acces);
+  Standard_EXPORT static DataLabel Get(const DataLabel& acces);
 
   //! returns True if a  current label is managed in <acces>
   //! Framework.
   //! class methods
   //! =============
-  Standard_EXPORT static Standard_Boolean Has(const TDF_Label& acces);
+  Standard_EXPORT static Standard_Boolean Has(const DataLabel& acces);
 
   Standard_EXPORT TDataStd_Current();
 
-  Standard_EXPORT void SetLabel(const TDF_Label& current);
+  Standard_EXPORT void SetLabel(const DataLabel& current);
 
-  Standard_EXPORT TDF_Label GetLabel() const;
+  Standard_EXPORT DataLabel GetLabel() const;
 
   Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
 
@@ -76,7 +76,7 @@ public:
 
 protected:
 private:
-  TDF_Label myLabel;
+  DataLabel myLabel;
 };
 
 #endif // _TDataStd_Current_HeaderFile

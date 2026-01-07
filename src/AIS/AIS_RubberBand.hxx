@@ -22,7 +22,7 @@
 #include <Graphic3d_Vec2.hxx>
 #include <NCollection_Sequence.hxx>
 
-DEFINE_STANDARD_HANDLE(AIS_RubberBand, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(AIS_RubberBand, VisualEntity)
 
 //! Presentation for drawing rubber band selection.
 //! It supports rectangle and polygonal selection.
@@ -30,10 +30,10 @@ DEFINE_STANDARD_HANDLE(AIS_RubberBand, AIS_InteractiveObject)
 //! Default configuration is built without filling.
 //! For rectangle selection use SetRectangle() method.
 //! For polygonal selection use AddPoint() and GetPoints() methods.
-class AIS_RubberBand : public AIS_InteractiveObject
+class AIS_RubberBand : public VisualEntity
 {
 public:
-  DEFINE_STANDARD_RTTIEXT(AIS_RubberBand, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_RubberBand, VisualEntity)
 
   //! Constructs rubber band with default configuration: empty filling and white solid lines.
   //! @warning It binds this object with Graphic3d_ZLayerId_TopOSD layer.
@@ -149,7 +149,7 @@ protected:
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Does not fill selection primitives for rubber band.
-  virtual void ComputeSelection(const Handle(SelectMgr_Selection)& /*aSelection*/,
+  virtual void ComputeSelection(const Handle(SelectionContainer)& /*aSelection*/,
                                 const Standard_Integer /*aMode*/) Standard_OVERRIDE {};
 
   //! Fills triangles primitive array for rubber band filling.

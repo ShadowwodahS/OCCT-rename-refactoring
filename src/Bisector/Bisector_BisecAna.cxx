@@ -220,8 +220,8 @@ Standard_Real Bisector_BisecAna::Distance(const gp_Pnt2d&             apoint,
 //   adirection    :   shows the side of the bissectrice to be preserved.       +
 //   tolerance     :   threshold starting from which the bisectrices are degenerated +
 //===========================================================================
-void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
-                                const Handle(Geom2d_Curve)& asecondcurve,
+void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
+                                const Handle(GeomCurve2d)& asecondcurve,
                                 const gp_Pnt2d&             apoint,
                                 const gp_Vec2d&             afirstvector,
                                 const gp_Vec2d&             asecondvector,
@@ -240,8 +240,8 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
 
   Handle(TypeInfo) type1 = afirstcurve->DynamicType();
   Handle(TypeInfo) type2 = asecondcurve->DynamicType();
-  Handle(Geom2d_Curve)  CurveF;
-  Handle(Geom2d_Curve)  CurveE;
+  Handle(GeomCurve2d)  CurveF;
+  Handle(GeomCurve2d)  CurveE;
   Handle(GccInt_Bisec)  TheSol;
 
   // jgv: for OCC26296
@@ -396,7 +396,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
                                    sense,
                                    ok);
         //  Modified by skv - Tue Feb 15 17:51:29 2005 Integration End
-        Handle(Geom2d_Curve) bisectorcurve = new Geom2d_Line(line);
+        Handle(GeomCurve2d) bisectorcurve = new Geom2d_Line(line);
         if (!sense)
           thebisector = new Geom2d_TrimmedCurve(bisectorcurve, parameter, -Precision::Infinite());
         else
@@ -451,7 +451,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
         }
       } // end of reframing.
 
-      GccAna_Circ2dBisec Bisector(circle1, circle2);
+      Circle2dBisector Bisector(circle1, circle2);
 
       distancemini = Precision::Infinite();
 
@@ -512,7 +512,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
         }
         if (!TheSol.IsNull())
         {
-          Handle(Geom2d_Curve) bisectorcurve;
+          Handle(GeomCurve2d) bisectorcurve;
           GccInt_IType         type = TheSol->ArcType();
           if (type == GccInt_Lin)
           {
@@ -648,7 +648,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
         }
       }
 
-      GccAna_CircLin2dBisec Bisector(circle1, line2);
+      CircleLine2dBisector Bisector(circle1, line2);
 
       distancemini = Precision::Infinite();
 
@@ -702,7 +702,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
         if (!TheSol.IsNull())
         {
           GccInt_IType         type = TheSol->ArcType();
-          Handle(Geom2d_Curve) bisectorcurve;
+          Handle(GeomCurve2d) bisectorcurve;
           if (type == GccInt_Lin)
           {
             // -----------------------------------------------------------------
@@ -827,7 +827,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
         //  Modified by skv - Tue Feb 15 17:51:29 2005 Integration End
         // 	if (distanceptsol <= distancemini) {
         firstparameter = parameter;
-        Handle(Geom2d_Curve) bisectorcurve;
+        Handle(GeomCurve2d) bisectorcurve;
         bisectorcurve = new Geom2d_Line(line);
         if (!sense)
           thebisector =
@@ -870,7 +870,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
           distancemini = distanceptsol;
         }
         TheSol = new GccInt_BLine(l);
-        Handle(Geom2d_Curve) bisectorcurve;
+        Handle(GeomCurve2d) bisectorcurve;
         bisectorcurve = new Geom2d_Line(TheSol->Line());
         if (!thesense)
           thebisector = new Geom2d_TrimmedCurve(bisectorcurve, 0., -Precision::Infinite());
@@ -898,7 +898,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
 //   tolerance     :   threshold starting from which the bisectrices are degenerated+
 //===========================================================================
 
-void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
+void Bisector_BisecAna::Perform(const Handle(GeomCurve2d)& afirstcurve,
                                 const Handle(Geom2d_Point)& asecondpoint,
                                 const gp_Pnt2d&             apoint,
                                 const gp_Vec2d&             afirstvector,
@@ -911,7 +911,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
   Standard_Boolean     thesense = Standard_False, sense;
   Standard_Real        distanceptsol, parameter, firstparameter = 0., secondparameter;
   gp_Vec2d             VecRef(0., 0.);
-  Handle(Geom2d_Curve) curve;
+  Handle(GeomCurve2d) curve;
   Handle(GccInt_Bisec) TheSol;
 
   gp_Circ2d circle;
@@ -958,7 +958,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
       //                       Bissectrice point - circle.                          +
       //=============================================================================
     case 1: {
-      GccAna_CircPnt2dBisec Bisector(circle, asecondpoint->Pnt2d(), tolerance);
+      CirclePoint2dBisector Bisector(circle, asecondpoint->Pnt2d(), tolerance);
       Standard_Real         distancemini = Precision::Infinite();
       if (Bisector.IsDone())
       {
@@ -989,7 +989,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
         if (!TheSol.IsNull())
         {
           GccInt_IType         aSolType = TheSol->ArcType();
-          Handle(Geom2d_Curve) bisectorcurve;
+          Handle(GeomCurve2d) bisectorcurve;
           if (aSolType == GccInt_Lin)
           {
 
@@ -1088,7 +1088,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
       Handle(GccInt_Bisec) solution = Bisector.ThisSolution();
       Degenerate(solution, tolerance);
       GccInt_IType         type = solution->ArcType();
-      Handle(Geom2d_Curve) bisectorcurve;
+      Handle(GeomCurve2d) bisectorcurve;
 
       if (type == GccInt_Lin)
       {
@@ -1143,7 +1143,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Curve)& afirstcurve,
 //===========================================================================
 
 void Bisector_BisecAna::Perform(const Handle(Geom2d_Point)& afirstpoint,
-                                const Handle(Geom2d_Curve)& asecondcurve,
+                                const Handle(GeomCurve2d)& asecondcurve,
                                 const gp_Pnt2d&             apoint,
                                 const gp_Vec2d&             afirstvector,
                                 const gp_Vec2d&             asecondvector,
@@ -1199,7 +1199,7 @@ void Bisector_BisecAna::Perform(const Handle(Geom2d_Point)& afirstpoint,
   Distance(apoint, solution, afirstvector, asecondvector, VecRef, adirection, parameter, sense, ok);
   if (ok || !oncurve)
   {
-    Handle(Geom2d_Curve) bisectorcurve = new Geom2d_Line(line);
+    Handle(GeomCurve2d) bisectorcurve = new Geom2d_Line(line);
     if (!sense)
       thebisector = new Geom2d_TrimmedCurve(bisectorcurve, parameter, -Precision::Infinite());
     else
@@ -1229,16 +1229,16 @@ Standard_Boolean Bisector_BisecAna::IsExtendAtEnd() const
 //           For the calculation the domain is extended. Extension of Epsilon1 of the
 //           First and the Last parameter of the curve.
 //=============================================================================
-// void Bisector_BisecAna::SetTrim(const Handle(Geom2d_Curve)& Cu)
-void Bisector_BisecAna::SetTrim(const Handle(Geom2d_Curve)&)
+// void Bisector_BisecAna::SetTrim(const Handle(GeomCurve2d)& Cu)
+void Bisector_BisecAna::SetTrim(const Handle(GeomCurve2d)&)
 {
   /*
     Handle(TypeInfo)       Type;
-    Handle(Geom2d_Curve)        TheCurve;
+    Handle(GeomCurve2d)        TheCurve;
     Handle(Geom2d_Circle)       CircleCu;
     Handle(Geom2d_Line)         LineCu;
-    Handle(Geom2d_Curve)        FirstLimit;
-    Handle(Geom2d_Curve)        LastLimit;
+    Handle(GeomCurve2d)        FirstLimit;
+    Handle(GeomCurve2d)        LastLimit;
 
     gp_Lin2d                    gpLine;
     gp_Pnt2d                    P, PFirst, PLast, FirstPointBisector, Center;
@@ -1337,7 +1337,7 @@ void Bisector_BisecAna::SetTrim(const Handle(Geom2d_Curve)&)
     UB2 = thebisector->LastParameter();
     if (UB2 > 10000.) {
       UB2 = 10000.;
-      Handle(Geom2d_Curve)  BasisCurve = thebisector->BasisCurve();
+      Handle(GeomCurve2d)  BasisCurve = thebisector->BasisCurve();
       Handle(TypeInfo) Type1 = BasisCurve->DynamicType();
       gp_Parab2d gpParabola;
       gp_Hypr2d  gpHyperbola;
@@ -1541,7 +1541,7 @@ gp_Vec2d Bisector_BisecAna::DN(const Standard_Real U, const Standard_Integer N) 
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) Bisector_BisecAna::Geom2dCurve() const
+Handle(GeomCurve2d) Bisector_BisecAna::Geom2dCurve() const
 {
   return thebisector->BasisCurve();
 }
@@ -1570,7 +1570,7 @@ Standard_Real Bisector_BisecAna::Parameter(const gp_Pnt2d& P) const
   gp_Circ2d  gpcircle;
   gp_Lin2d   gpline;
 
-  Handle(Geom2d_Curve)  BasisCurve = thebisector->BasisCurve();
+  Handle(GeomCurve2d)  BasisCurve = thebisector->BasisCurve();
   Handle(TypeInfo) Type       = BasisCurve->DynamicType();
 
   if (Type == STANDARD_TYPE(Geom2d_Line))

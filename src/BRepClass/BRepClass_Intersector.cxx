@@ -37,19 +37,19 @@
 #include <TopExp.hxx>
 #include <TopoDS_Vertex.hxx>
 
-static void GetTangentAsChord(const Handle(Geom2d_Curve)& thePCurve,
+static void GetTangentAsChord(const Handle(GeomCurve2d)& thePCurve,
                               gp_Dir2d&                   theTangent,
                               const Standard_Real         theParam,
                               const Standard_Real         theFirst,
                               const Standard_Real         theLast);
 
-static void RefineTolerance(const TopoDS_Face&         aF,
+static void RefineTolerance(const TopoFace&         aF,
                             const Geom2dAdaptor_Curve& aC,
                             const Standard_Real        aT,
                             Standard_Real&             aTolZ);
 
 static Standard_Boolean CheckOn(IntRes2d_IntersectionPoint& thePntInter,
-                                const TopoDS_Face&          theF,
+                                const TopoFace&          theF,
                                 const gp_Lin2d&             theL,
                                 const Geom2dAdaptor_Curve&  theCur,
                                 Standard_Real&              theTolZ,
@@ -59,7 +59,7 @@ static Standard_Boolean CheckOn(IntRes2d_IntersectionPoint& thePntInter,
 static void CheckSkip(Geom2dInt_GInter&           theInter,
                       const gp_Lin2d&             theL,
                       const BRepClass_Edge&       theE,
-                      const Handle(Geom2d_Curve)& theC2D,
+                      const Handle(GeomCurve2d)& theC2D,
                       const IntRes2d_Domain&      theDL,
                       Geom2dAdaptor_Curve&        theCur,
                       const Geom2dAdaptor_Curve&  theCGA,
@@ -69,9 +69,9 @@ static void CheckSkip(Geom2dInt_GInter&           theInter,
                       gp_Pnt2d&                   thePdeb,
                       gp_Pnt2d&                   thePfin);
 
-static Standard_Real MaxTol2DCurEdge(const TopoDS_Vertex& theV1,
-                                     const TopoDS_Vertex& theV2,
-                                     const TopoDS_Face&   theF,
+static Standard_Real MaxTol2DCurEdge(const TopoVertex& theV1,
+                                     const TopoVertex& theV2,
+                                     const TopoFace&   theF,
                                      const Standard_Real  theTol);
 
 static Standard_Boolean IsInter(Bnd_Box2d& theBox, const gp_Lin2d& theL, const Standard_Real theP);
@@ -82,9 +82,9 @@ BRepClass_Intersector::BRepClass_Intersector() {}
 
 //=================================================================================================
 
-Standard_Real MaxTol2DCurEdge(const TopoDS_Vertex& theV1,
-                              const TopoDS_Vertex& theV2,
-                              const TopoDS_Face&   theF,
+Standard_Real MaxTol2DCurEdge(const TopoVertex& theV1,
+                              const TopoVertex& theV2,
+                              const TopoFace&   theF,
                               const Standard_Real  theTol)
 {
   Standard_Real aTolV3D1, aTolV3D2;
@@ -94,7 +94,7 @@ Standard_Real MaxTol2DCurEdge(const TopoDS_Vertex& theV1,
   }
   else
   {
-    aTolV3D1 = BRep_Tool::Tolerance(theV1);
+    aTolV3D1 = BRepInspector::Tolerance(theV1);
   }
   if (theV2.IsNull())
   {
@@ -102,7 +102,7 @@ Standard_Real MaxTol2DCurEdge(const TopoDS_Vertex& theV1,
   }
   else
   {
-    aTolV3D2 = BRep_Tool::Tolerance(theV2);
+    aTolV3D2 = BRepInspector::Tolerance(theV2);
   }
   Standard_Real aTol2D, anUr, aVr;
 
@@ -138,7 +138,7 @@ Standard_Boolean IsInter(Bnd_Box2d& theBox, const gp_Lin2d& theL, const Standard
 //=================================================================================================
 
 Standard_Boolean CheckOn(IntRes2d_IntersectionPoint& thePntInter,
-                         const TopoDS_Face&          theF,
+                         const TopoFace&          theF,
                          const gp_Lin2d&             theL,
                          const Geom2dAdaptor_Curve&  theCur,
                          Standard_Real&              theTolZ,
@@ -202,7 +202,7 @@ Standard_Boolean CheckOn(IntRes2d_IntersectionPoint& thePntInter,
 void CheckSkip(Geom2dInt_GInter&           theInter,
                const gp_Lin2d&             theL,
                const BRepClass_Edge&       theE,
-               const Handle(Geom2d_Curve)& theC2D,
+               const Handle(GeomCurve2d)& theC2D,
                const IntRes2d_Domain&      theDL,
                Geom2dAdaptor_Curve&        theCur,
                const Geom2dAdaptor_Curve&  theCGA,
@@ -217,23 +217,23 @@ void CheckSkip(Geom2dInt_GInter&           theInter,
     return;
   }
   Standard_Boolean anIsLSkip = Standard_False;
-  TopoDS_Vertex    aVl; // the last vertex of current edge
+  TopoVertex    aVl; // the last vertex of current edge
 
-  Handle(Geom2d_Curve) aSkipC2D;
+  Handle(GeomCurve2d) aSkipC2D;
 
-  aVl = TopExp::LastVertex(theE.Edge(), Standard_True);
+  aVl = TopExp1::LastVertex(theE.Edge(), Standard_True);
   if (aVl.IsNull())
   {
     return;
   }
-  if (!(BRep_Tool::Tolerance(aVl) > theMaxTol) || theE.NextEdge().IsNull())
+  if (!(BRepInspector::Tolerance(aVl) > theMaxTol) || theE.NextEdge().IsNull())
   {
     return;
   }
   Standard_Real        aLdeb = 0.0, aLfin = 0.0;
-  Handle(Geom2d_Curve) aLC2D; // the next curve
+  Handle(GeomCurve2d) aLC2D; // the next curve
 
-  aLC2D = BRep_Tool::CurveOnSurface(theE.NextEdge(), theE.Face(), aLdeb, aLfin);
+  aLC2D = BRepInspector::CurveOnSurface(theE.NextEdge(), theE.Face(), aLdeb, aLfin);
   if (aLC2D.IsNull())
   {
     return;
@@ -333,13 +333,13 @@ void BRepClass_Intersector::Perform(const gp_Lin2d&       L,
                                     const BRepClass_Edge& E)
 {
   Standard_Real        deb = 0.0, fin = 0.0, aTolZ = Tol;
-  Handle(Geom2d_Curve) aC2D;
+  Handle(GeomCurve2d) aC2D;
   //
-  const TopoDS_Edge& EE = E.Edge();
-  const TopoDS_Face& F  = E.Face();
+  const TopoEdge& EE = E.Edge();
+  const TopoFace& F  = E.Face();
 
   //
-  aC2D = BRep_Tool::CurveOnSurface(EE, F, deb, fin);
+  aC2D = BRepInspector::CurveOnSurface(EE, F, deb, fin);
   if (aC2D.IsNull())
   {
     done = Standard_False; // !IsDone()
@@ -384,8 +384,8 @@ void BRepClass_Intersector::Perform(const gp_Lin2d&       L,
   //
   if (anUseBndBox)
   {
-    TopoDS_Vertex aVF, aVL;
-    TopExp::Vertices(EE, aVF, aVL);
+    TopoVertex aVF, aVL;
+    TopExp1::Vertices(EE, aVF, aVL);
 
     aTolZ = MaxTol2DCurEdge(aVF, aVL, F, Tol);
     aBond.SetGap(aTolZ);
@@ -450,7 +450,7 @@ void BRepClass_Intersector::LocalGeometry(const BRepClass_Edge& E,
                                           Standard_Real&        C) const
 {
   Standard_Real         fpar, lpar;
-  Handle(Geom2d_Curve)  aPCurve = BRep_Tool::CurveOnSurface(E.Edge(), E.Face(), fpar, lpar);
+  Handle(GeomCurve2d)  aPCurve = BRepInspector::CurveOnSurface(E.Edge(), E.Face(), fpar, lpar);
   Geom2dLProp_CLProps2d Prop(aPCurve, U, 2, Precision::PConfusion());
 
   C = 0.;
@@ -470,7 +470,7 @@ void BRepClass_Intersector::LocalGeometry(const BRepClass_Edge& E,
 
 //=================================================================================================
 
-void RefineTolerance(const TopoDS_Face&         aF,
+void RefineTolerance(const TopoFace&         aF,
                      const Geom2dAdaptor_Curve& aC,
                      const Standard_Real        aT,
                      Standard_Real&             aTolZ)
@@ -512,7 +512,7 @@ void RefineTolerance(const TopoDS_Face&         aF,
 
 //=================================================================================================
 
-void GetTangentAsChord(const Handle(Geom2d_Curve)& thePCurve,
+void GetTangentAsChord(const Handle(GeomCurve2d)& thePCurve,
                        gp_Dir2d&                   theTangent,
                        const Standard_Real         theParam,
                        const Standard_Real         theFirst,

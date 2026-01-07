@@ -49,7 +49,7 @@ inline BOPDS_ShapeInfo::~BOPDS_ShapeInfo() {}
 // function : SetShape
 // purpose  :
 //=======================================================================
-inline void BOPDS_ShapeInfo::SetShape(const TopoDS_Shape& theS)
+inline void BOPDS_ShapeInfo::SetShape(const TopoShape& theS)
 {
   myShape = theS;
 }
@@ -58,7 +58,7 @@ inline void BOPDS_ShapeInfo::SetShape(const TopoDS_Shape& theS)
 // function : Shape
 // purpose  :
 //=======================================================================
-inline const TopoDS_Shape& BOPDS_ShapeInfo::Shape() const
+inline const TopoShape& BOPDS_ShapeInfo::Shape() const
 {
   return myShape;
 }
@@ -168,7 +168,7 @@ inline Standard_Integer BOPDS_ShapeInfo::Reference() const
 //=======================================================================
 inline Standard_Boolean BOPDS_ShapeInfo::HasBRep() const
 {
-  return (BOPDS_Tools::HasBRep(myType));
+  return (Tools1::HasBRep(myType));
 }
 
 //=======================================================================

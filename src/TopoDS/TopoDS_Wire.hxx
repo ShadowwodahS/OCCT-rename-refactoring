@@ -26,23 +26,23 @@
 //! placement in the local coordinate system
 //! - has an orientation for the underlying wire, in terms
 //! of its geometry (as opposed to orientation in relation to other shapes).
-class TopoDS_Wire : public TopoDS_Shape
+class TopoWire : public TopoShape
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Undefined Wire.
-  TopoDS_Wire() {}
+  TopoWire() {}
 };
 
 namespace std
 {
 template <>
-struct hash<TopoDS_Wire>
+struct hash<TopoWire>
 {
-  size_t operator()(const TopoDS_Wire& theShape) const
+  size_t operator()(const TopoWire& theShape) const
   {
-    return std::hash<TopoDS_Shape>{}(theShape);
+    return std::hash<TopoShape>{}(theShape);
   }
 };
 } // namespace std

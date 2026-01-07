@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-LDOM_SBuffer::LDOM_StringElem::LDOM_StringElem(const int                                theLength,
+StringBuffer::StringElement::StringElement(const int                                theLength,
                                                const Handle(NCollection_BaseAllocator)& theAlloc)
     : buf(reinterpret_cast<char*>(theAlloc->Allocate(theLength))),
       len(0),
@@ -31,39 +31,39 @@ LDOM_SBuffer::LDOM_StringElem::LDOM_StringElem(const int                        
 
 //=================================================================================================
 
-LDOM_SBuffer::LDOM_SBuffer(const Standard_Integer theMaxBuf)
+StringBuffer::StringBuffer(const Standard_Integer theMaxBuf)
     : myMaxBuf(theMaxBuf),
       myLength(0),
       myAlloc(new NCollection_IncAllocator)
 {
-  myFirstString = new (myAlloc) LDOM_StringElem(theMaxBuf, myAlloc);
+  myFirstString = new (myAlloc) StringElement(theMaxBuf, myAlloc);
   myCurString   = myFirstString;
 }
 
 //=================================================================================================
 
-LDOM_SBuffer::~LDOM_SBuffer()
+StringBuffer::~StringBuffer()
 {
   // no destruction is required as IncAllocator is used
 }
 
 //=================================================================================================
 
-void LDOM_SBuffer::Clear()
+void StringBuffer::Clear()
 {
   myAlloc       = new NCollection_IncAllocator;
-  myFirstString = new (myAlloc) LDOM_StringElem(myMaxBuf, myAlloc);
+  myFirstString = new (myAlloc) StringElement(myMaxBuf, myAlloc);
   myLength      = 0;
   myCurString   = myFirstString;
 }
 
 //=================================================================================================
 
-Standard_CString LDOM_SBuffer::str() const
+Standard_CString StringBuffer::str() const
 {
   char* aRetStr = new char[myLength + 1];
 
-  LDOM_StringElem* aCurElem = myFirstString;
+  StringElement* aCurElem = myFirstString;
   int              aCurLen  = 0;
   while (aCurElem)
   {
@@ -80,7 +80,7 @@ Standard_CString LDOM_SBuffer::str() const
 // function : overflow()
 // purpose  : redefined virtual
 //=======================================================================
-int LDOM_SBuffer::overflow(int c)
+int StringBuffer::overflow(int c)
 {
   char cc = (char)c;
   xsputn(&cc, 1);
@@ -92,22 +92,22 @@ int LDOM_SBuffer::overflow(int c)
 // purpose  : redefined virtual
 //=======================================================================
 
-int LDOM_SBuffer::underflow()
+int StringBuffer::underflow()
 {
   return EOF;
 }
 
-// int LDOM_SBuffer::uflow()
+// int StringBuffer::uflow()
 //{ return EOF; }
 
 //=======================================================================
 // function : xsputn()
 // purpose  : redefined virtual
 //=======================================================================
-std::streamsize LDOM_SBuffer::xsputn(const char* aStr, std::streamsize n)
+std::streamsize StringBuffer::xsputn(const char* aStr, std::streamsize n)
 {
   Standard_ASSERT_RAISE(n < IntegerLast(),
-                        "LDOM_SBuffer cannot work with strings greater than 2 Gb");
+                        "StringBuffer cannot work with strings greater than 2 Gb");
 
   Standard_Integer aLen    = static_cast<int>(n) + 1;
   Standard_Integer freeLen = myMaxBuf - myCurString->len - 1;
@@ -117,7 +117,7 @@ std::streamsize LDOM_SBuffer::xsputn(const char* aStr, std::streamsize n)
   }
   else if (freeLen <= 0)
   {
-    LDOM_StringElem* aNextElem = new (myAlloc) LDOM_StringElem(Max(aLen, myMaxBuf), myAlloc);
+    StringElement* aNextElem = new (myAlloc) StringElement(Max(aLen, myMaxBuf), myAlloc);
     myCurString->next          = aNextElem;
     myCurString                = aNextElem;
     strncpy(myCurString->buf + myCurString->len, aStr, aLen);
@@ -129,7 +129,7 @@ std::streamsize LDOM_SBuffer::xsputn(const char* aStr, std::streamsize n)
     myCurString->len += freeLen;
     *(myCurString->buf + myCurString->len) = '\0';
     aLen -= freeLen;
-    LDOM_StringElem* aNextElem = new (myAlloc) LDOM_StringElem(Max(aLen, myMaxBuf), myAlloc);
+    StringElement* aNextElem = new (myAlloc) StringElement(Max(aLen, myMaxBuf), myAlloc);
     myCurString->next          = aNextElem;
     myCurString                = aNextElem;
     strncpy(myCurString->buf + myCurString->len, aStr + freeLen, aLen);
@@ -141,7 +141,7 @@ std::streamsize LDOM_SBuffer::xsputn(const char* aStr, std::streamsize n)
   return n;
 }
 
-// streamsize LDOM_SBuffer::xsgetn(char* s, streamsize n)
+// streamsize StringBuffer::xsgetn(char* s, streamsize n)
 //{ return _IO_default_xsgetn(this, s, n); }
 
 //=================================================================================================

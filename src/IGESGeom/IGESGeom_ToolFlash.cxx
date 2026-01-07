@@ -35,13 +35,13 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESGeom_ToolFlash::IGESGeom_ToolFlash() {}
+FlashTool::FlashTool() {}
 
-void IGESGeom_ToolFlash::ReadOwnParams(const Handle(IGESGeom_Flash)&          ent,
+void FlashTool::ReadOwnParams(const Handle(IGESGeom_Flash)&          ent,
                                        const Handle(IGESData_IGESReaderData)& IR,
                                        IGESData_ParamReader&                  PR) const
 {
-  gp_XY                       aPoint;
+  Coords2d                       aPoint;
   Standard_Real               aDim1, aDim2, aRotation;
   Handle(IGESData_IGESEntity) aReference;
   Standard_Integer            fn = ent->FormNumber(); // for default cases
@@ -82,7 +82,7 @@ void IGESGeom_ToolFlash::ReadOwnParams(const Handle(IGESGeom_Flash)&          en
   ent->Init(aPoint, aDim1, aDim2, aRotation, aReference);
 }
 
-void IGESGeom_ToolFlash::WriteOwnParams(const Handle(IGESGeom_Flash)& ent,
+void FlashTool::WriteOwnParams(const Handle(IGESGeom_Flash)& ent,
                                         IGESData_IGESWriter&          IW) const
 {
   IW.Send(ent->ReferencePoint().X());
@@ -93,17 +93,17 @@ void IGESGeom_ToolFlash::WriteOwnParams(const Handle(IGESGeom_Flash)& ent,
   IW.Send(ent->ReferenceEntity());
 }
 
-void IGESGeom_ToolFlash::OwnShared(const Handle(IGESGeom_Flash)& ent,
+void FlashTool::OwnShared(const Handle(IGESGeom_Flash)& ent,
                                    Interface_EntityIterator&     iter) const
 {
   iter.GetOneItem(ent->ReferenceEntity());
 }
 
-void IGESGeom_ToolFlash::OwnCopy(const Handle(IGESGeom_Flash)& another,
+void FlashTool::OwnCopy(const Handle(IGESGeom_Flash)& another,
                                  const Handle(IGESGeom_Flash)& ent,
                                  Interface_CopyTool&           TC) const
 {
-  gp_XY         aPoint    = (another->ReferencePoint()).XY();
+  Coords2d         aPoint    = (another->ReferencePoint()).XY();
   Standard_Real aDim1     = another->Dimension1();
   Standard_Real aDim2     = another->Dimension2();
   Standard_Real aRotation = another->Rotation();
@@ -113,7 +113,7 @@ void IGESGeom_ToolFlash::OwnCopy(const Handle(IGESGeom_Flash)& another,
   ent->Init(aPoint, aDim1, aDim2, aRotation, aReference);
 }
 
-Standard_Boolean IGESGeom_ToolFlash::OwnCorrect(const Handle(IGESGeom_Flash)& ent) const
+Standard_Boolean FlashTool::OwnCorrect(const Handle(IGESGeom_Flash)& ent) const
 {
   Standard_Integer fn   = ent->FormNumber();
   Standard_Boolean res0 = (ent->RankLineFont() != 1);
@@ -152,9 +152,9 @@ Standard_Boolean IGESGeom_ToolFlash::OwnCorrect(const Handle(IGESGeom_Flash)& en
   return (res0 || res1);
 }
 
-IGESData_DirChecker IGESGeom_ToolFlash::DirChecker(const Handle(IGESGeom_Flash)& /* ent */) const
+DirectoryChecker FlashTool::DirChecker(const Handle(IGESGeom_Flash)& /* ent */) const
 {
-  IGESData_DirChecker DC(125, 0, 4);
+  DirectoryChecker DC(125, 0, 4);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefValue);
   //  DC.LineWeight(IGESData_DefValue);
@@ -163,7 +163,7 @@ IGESData_DirChecker IGESGeom_ToolFlash::DirChecker(const Handle(IGESGeom_Flash)&
   return DC;
 }
 
-void IGESGeom_ToolFlash::OwnCheck(const Handle(IGESGeom_Flash)& ent,
+void FlashTool::OwnCheck(const Handle(IGESGeom_Flash)& ent,
                                   const Interface_ShareTool&,
                                   Handle(Interface_Check)& ach) const
 {
@@ -183,7 +183,7 @@ void IGESGeom_ToolFlash::OwnCheck(const Handle(IGESGeom_Flash)& ent,
     ach->AddWarning("Rotation present though useless");
 }
 
-void IGESGeom_ToolFlash::OwnDump(const Handle(IGESGeom_Flash)& ent,
+void FlashTool::OwnDump(const Handle(IGESGeom_Flash)& ent,
                                  const IGESData_IGESDumper&    dumper,
                                  Standard_OStream&             S,
                                  const Standard_Integer        level) const

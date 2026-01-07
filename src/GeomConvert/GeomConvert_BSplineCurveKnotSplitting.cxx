@@ -25,7 +25,7 @@ typedef TColStd_HArray1OfInteger HArray1OfInteger;
 
 GeomConvert_BSplineCurveKnotSplitting::GeomConvert_BSplineCurveKnotSplitting(
 
-  const Handle(Geom_BSplineCurve)& BasisCurve,
+  const Handle(BSplineCurve3d)& BasisCurve,
   const Standard_Integer           ContinuityRange
 
 )

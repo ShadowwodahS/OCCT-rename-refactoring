@@ -25,7 +25,7 @@ Draft_FaceInfo::Draft_FaceInfo() {}
 
 //=================================================================================================
 
-Draft_FaceInfo::Draft_FaceInfo(const Handle(Geom_Surface)& S, const Standard_Boolean HasNewGeometry)
+Draft_FaceInfo::Draft_FaceInfo(const Handle(GeomSurface)& S, const Standard_Boolean HasNewGeometry)
     : myNewGeom(HasNewGeometry)
 {
   Handle(Geom_RectangularTrimmedSurface) T = Handle(Geom_RectangularTrimmedSurface)::DownCast(S);
@@ -37,14 +37,14 @@ Draft_FaceInfo::Draft_FaceInfo(const Handle(Geom_Surface)& S, const Standard_Boo
 
 //=================================================================================================
 
-void Draft_FaceInfo::RootFace(const TopoDS_Face& F)
+void Draft_FaceInfo::RootFace(const TopoFace& F)
 {
   myRootFace = F;
 }
 
 //=================================================================================================
 
-void Draft_FaceInfo::Add(const TopoDS_Face& F)
+void Draft_FaceInfo::Add(const TopoFace& F)
 {
   if (myF1.IsNull())
   {
@@ -58,14 +58,14 @@ void Draft_FaceInfo::Add(const TopoDS_Face& F)
 
 //=================================================================================================
 
-const TopoDS_Face& Draft_FaceInfo::FirstFace() const
+const TopoFace& Draft_FaceInfo::FirstFace() const
 {
   return myF1;
 }
 
 //=================================================================================================
 
-const TopoDS_Face& Draft_FaceInfo::SecondFace() const
+const TopoFace& Draft_FaceInfo::SecondFace() const
 {
   return myF2;
 }
@@ -79,35 +79,35 @@ Standard_Boolean Draft_FaceInfo::NewGeometry() const
 
 //=================================================================================================
 
-const Handle(Geom_Surface)& Draft_FaceInfo::Geometry() const
+const Handle(GeomSurface)& Draft_FaceInfo::Geometry() const
 {
   return myGeom;
 }
 
 //=================================================================================================
 
-Handle(Geom_Surface)& Draft_FaceInfo::ChangeGeometry()
+Handle(GeomSurface)& Draft_FaceInfo::ChangeGeometry()
 {
   return myGeom;
 }
 
 //=================================================================================================
 
-const Handle(Geom_Curve)& Draft_FaceInfo::Curve() const
+const Handle(GeomCurve3d)& Draft_FaceInfo::Curve() const
 {
   return myCurv;
 }
 
 //=================================================================================================
 
-Handle(Geom_Curve)& Draft_FaceInfo::ChangeCurve()
+Handle(GeomCurve3d)& Draft_FaceInfo::ChangeCurve()
 {
   return myCurv;
 }
 
 //=================================================================================================
 
-const TopoDS_Face& Draft_FaceInfo::RootFace() const
+const TopoFace& Draft_FaceInfo::RootFace() const
 {
   return myRootFace;
 }

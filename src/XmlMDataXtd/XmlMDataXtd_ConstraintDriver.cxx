@@ -90,7 +90,7 @@ Standard_Boolean XmlMDataXtd_ConstraintDriver::Paste(
   const XmlObjMgt_Element&    anElem = theSource;
 
   Standard_Integer           aNb;
-  TCollection_ExtendedString aMsgString;
+  UtfString aMsgString;
 
   // value
   Handle(TDataStd_Real) aTValue;
@@ -100,7 +100,7 @@ Standard_Boolean XmlMDataXtd_ConstraintDriver::Paste(
     if (!aDOMStr.GetInteger(aNb))
     {
       aMsgString =
-        TCollection_ExtendedString("XmlMDataXtd_ConstraintDriver: "
+        UtfString("XmlMDataXtd_ConstraintDriver: "
                                    "Cannot retrieve reference on Integer attribute from \"")
         + aDOMStr + "\"";
       myMessageDriver->Send(aMsgString, Message_Fail);
@@ -129,7 +129,7 @@ Standard_Boolean XmlMDataXtd_ConstraintDriver::Paste(
     if (!XmlObjMgt::GetInteger(aGs, aNb))
     {
       aMsgString =
-        TCollection_ExtendedString(
+        UtfString(
           "XmlMDataXtd_ConstraintDriver: Cannot retrieve reference on first Geometry from \"")
         + aDOMStr + "\"";
       myMessageDriver->Send(aMsgString, Message_Fail);
@@ -138,12 +138,12 @@ Standard_Boolean XmlMDataXtd_ConstraintDriver::Paste(
     Standard_Integer i = 1;
     while (aNb > 0)
     {
-      Handle(TNaming_NamedShape) aG;
+      Handle(ShapeAttribute) aG;
       if (theRelocTable.IsBound(aNb))
-        aG = Handle(TNaming_NamedShape)::DownCast(theRelocTable.Find(aNb));
+        aG = Handle(ShapeAttribute)::DownCast(theRelocTable.Find(aNb));
       else
       {
-        aG = new TNaming_NamedShape;
+        aG = new ShapeAttribute;
         theRelocTable.Bind(aNb, aG);
       }
       aC->SetGeometry(i, aG);
@@ -161,20 +161,20 @@ Standard_Boolean XmlMDataXtd_ConstraintDriver::Paste(
   {
     if (!aDOMStr.GetInteger(aNb))
     {
-      aMsgString = TCollection_ExtendedString(
+      aMsgString = UtfString(
                      "XmlMDataXtd_ConstraintDriver: Cannot retrieve reference on Plane from \"")
                    + aDOMStr + "\"";
       myMessageDriver->Send(aMsgString, Message_Fail);
       return Standard_False;
     }
-    Handle(TNaming_NamedShape) aTPlane;
+    Handle(ShapeAttribute) aTPlane;
     if (aNb > 0)
     {
       if (theRelocTable.IsBound(aNb))
-        aTPlane = Handle(TNaming_NamedShape)::DownCast(theRelocTable.Find(aNb));
+        aTPlane = Handle(ShapeAttribute)::DownCast(theRelocTable.Find(aNb));
       else
       {
-        aTPlane = new TNaming_NamedShape;
+        aTPlane = new ShapeAttribute;
         theRelocTable.Bind(aNb, aTPlane);
       }
       aC->SetPlane(aTPlane);
@@ -226,10 +226,10 @@ void XmlMDataXtd_ConstraintDriver::Paste(const Handle(TDF_Attribute)& theSource,
   Standard_Integer NbGeom = aC->NbGeometries();
   if (NbGeom >= 1)
   {
-    TCollection_AsciiString aGsStr;
+    AsciiString1 aGsStr;
     for (Standard_Integer i = 1; i <= NbGeom; i++)
     {
-      Handle(TNaming_NamedShape) aG = aC->GetGeometry(i);
+      Handle(ShapeAttribute) aG = aC->GetGeometry(i);
       aNb                           = 0;
       if (!aG.IsNull())
       {
@@ -238,7 +238,7 @@ void XmlMDataXtd_ConstraintDriver::Paste(const Handle(TDF_Attribute)& theSource,
         {
           aNb = theRelocTable.Add(aG);
         }
-        aGsStr += TCollection_AsciiString(aNb) + " ";
+        aGsStr += AsciiString1(aNb) + " ";
       }
       else
         aGsStr += "0 ";
@@ -247,7 +247,7 @@ void XmlMDataXtd_ConstraintDriver::Paste(const Handle(TDF_Attribute)& theSource,
   }
 
   // plane
-  Handle(TNaming_NamedShape) aTPlane = aC->GetPlane();
+  Handle(ShapeAttribute) aTPlane = aC->GetPlane();
   if (!aTPlane.IsNull())
   {
     aNb = theRelocTable.FindIndex(aTPlane);
@@ -262,7 +262,7 @@ void XmlMDataXtd_ConstraintDriver::Paste(const Handle(TDF_Attribute)& theSource,
   anElem.setAttribute(::TypeString(), ConstraintTypeString(aC->GetType()));
 
   // flags
-  TCollection_AsciiString aStatusStr;
+  AsciiString1 aStatusStr;
 
   if (aC->Verified())
     aStatusStr += "+";

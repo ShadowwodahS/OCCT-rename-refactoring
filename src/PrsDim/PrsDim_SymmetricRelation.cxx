@@ -45,10 +45,10 @@ IMPLEMENT_STANDARD_RTTIEXT(PrsDim_SymmetricRelation, PrsDim_Relation)
 
 //=================================================================================================
 
-PrsDim_SymmetricRelation::PrsDim_SymmetricRelation(const TopoDS_Shape&       aSymmTool,
-                                                   const TopoDS_Shape&       FirstShape,
-                                                   const TopoDS_Shape&       SecondShape,
-                                                   const Handle(Geom_Plane)& aPlane)
+PrsDim_SymmetricRelation::PrsDim_SymmetricRelation(const TopoShape&       aSymmTool,
+                                                   const TopoShape&       FirstShape,
+                                                   const TopoShape&       SecondShape,
+                                                   const Handle(GeomPlane)& aPlane)
     : PrsDim_Relation(),
       myTool(aSymmTool)
 {
@@ -86,7 +86,7 @@ void PrsDim_SymmetricRelation::Compute(const Handle(PrsMgr_PresentationManager)&
   }
   if (myTool.ShapeType() == TopAbs_EDGE)
   {
-    Handle(Geom_Curve) aCurve, extcurve;
+    Handle(GeomCurve3d) aCurve, extcurve;
     Point3d             p1, p2;
     Standard_Boolean   isinfinite, isonplane;
     if (PrsDim::ComputeGeometry(TopoDS::Edge(myTool),
@@ -116,14 +116,14 @@ void PrsDim_SymmetricRelation::Compute(const Handle(PrsMgr_PresentationManager)&
 
 //=================================================================================================
 
-void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSel,
+void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectionContainer)& aSel,
                                                 const Standard_Integer)
 {
   Handle(Select3D_SensitiveSegment) seg;
   Handle(SelectMgr_EntityOwner)     own = new SelectMgr_EntityOwner(this, 7);
   Standard_Real                     F, L;
 
-  Handle(Geom_Curve) geom_axis, extcurve;
+  Handle(GeomCurve3d) geom_axis, extcurve;
   Point3d             p1, p2;
   Standard_Boolean   isinfinite, isonplane;
   if (!PrsDim::ComputeGeometry(TopoDS::Edge(myTool),
@@ -136,7 +136,7 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection
                                myPlane))
     return;
 
-  Handle(Geom_Line) geom_line = Handle(Geom_Line)::DownCast(geom_axis);
+  Handle(GeomLine) geom_line = Handle(GeomLine)::DownCast(geom_axis);
   gp_Lin            laxis(geom_line->Lin());
 
   if (myFShape.ShapeType() != TopAbs_VERTEX)
@@ -215,10 +215,10 @@ void PrsDim_SymmetricRelation::ComputeSelection(const Handle(SelectMgr_Selection
     //=======================Pour les arcs======================
     if (cu1.GetType() == GeomAbs_Circle)
     {
-      Handle(Geom_Curve)  aGeomCurve = BRep_Tool::Curve(TopoDS::Edge(myFShape), F, L);
-      Handle(Geom_Circle) geom_circ1 = Handle(Geom_Circle)::DownCast(aGeomCurve);
-      //    Handle(Geom_Circle) geom_circ1 = (const Handle(Geom_Circle)&)
-      //    BRep_Tool::Curve(TopoDS::Edge(myFShape),F,L);
+      Handle(GeomCurve3d)  aGeomCurve = BRepInspector::Curve(TopoDS::Edge(myFShape), F, L);
+      Handle(GeomCircle) geom_circ1 = Handle(GeomCircle)::DownCast(aGeomCurve);
+      //    Handle(GeomCircle) geom_circ1 = (const Handle(GeomCircle)&)
+      //    BRepInspector::Curve(TopoDS::Edge(myFShape),F,L);
       gp_Circ circ1(geom_circ1->Circ());
       Point3d  OffsetPnt(myPosition.X(), myPosition.Y(), myPosition.Z());
       Point3d  Center1         = circ1.Location();
@@ -366,9 +366,9 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
     return;
   //  Point3d pint3d,ptat11,ptat12,ptat21,ptat22;
   Point3d             ptat11, ptat12, ptat21, ptat22;
-  Handle(Geom_Curve) geom1, geom2;
+  Handle(GeomCurve3d) geom1, geom2;
   Standard_Boolean   isInfinite1, isInfinite2;
-  Handle(Geom_Curve) extCurv;
+  Handle(GeomCurve3d) extCurv;
   if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape),
                                TopoDS::Edge(mySShape),
                                myExtShape,
@@ -386,7 +386,7 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
     return;
   }
   aprs->SetInfiniteState((isInfinite1 || isInfinite2) && (myExtShape != 0));
-  Handle(Geom_Curve) geom_axis, extcurve;
+  Handle(GeomCurve3d) geom_axis, extcurve;
   Point3d             p1, p2;
   Standard_Boolean   isinfinite, isonplane;
   if (!PrsDim::ComputeGeometry(TopoDS::Edge(myTool),
@@ -399,20 +399,20 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
                                myPlane))
     return;
 
-  Handle(Geom_Line) geom_line = Handle(Geom_Line)::DownCast(geom_axis);
+  Handle(GeomLine) geom_line = Handle(GeomLine)::DownCast(geom_axis);
   gp_Lin            laxis(geom_line->Lin());
   myAxisDirAttach = laxis.Direction();
 
   if (cu1.GetType() == GeomAbs_Line)
   {
-    Handle(Geom_Line) geom_lin1(Handle(Geom_Line)::DownCast(geom1));
+    Handle(GeomLine) geom_lin1(Handle(GeomLine)::DownCast(geom1));
     gp_Lin            l1(geom_lin1->Lin());
     myFDirAttach = l1.Direction();
   }
   gp_Circ circ;
   if (cu1.GetType() == GeomAbs_Circle)
   {
-    Handle(Geom_Circle) geom_cir1(Handle(Geom_Circle)::DownCast(geom1));
+    Handle(GeomCircle) geom_cir1(Handle(GeomCircle)::DownCast(geom1));
     gp_Circ             c(geom_cir1->Circ());
     circ = c;
   }
@@ -434,15 +434,15 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   Standard_Boolean idem = Standard_False;
   if (isInfinite1 && isInfinite2)
   { // geom1 et geom2 sont des lignes
-    const gp_Lin& line2 = Handle(Geom_Line)::DownCast(geom2)->Lin();
+    const gp_Lin& line2 = Handle(GeomLine)::DownCast(geom2)->Lin();
     if (myAutomaticPosition)
     {
-      myFAttach = Handle(Geom_Line)::DownCast(geom1)->Lin().Location();
+      myFAttach = Handle(GeomLine)::DownCast(geom1)->Lin().Location();
       mySAttach = ElCLib::Value(ElCLib::Parameter(line2, myFAttach), line2);
     }
     else
     {
-      const gp_Lin& line1 = Handle(Geom_Line)::DownCast(geom1)->Lin();
+      const gp_Lin& line1 = Handle(GeomLine)::DownCast(geom1)->Lin();
       myFAttach           = ElCLib::Value(ElCLib::Parameter(line1, myPosition), line1);
       mySAttach           = ElCLib::Value(ElCLib::Parameter(line2, myFAttach), line2);
     }
@@ -489,13 +489,13 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
   else if (isInfinite1)
   { // geom1 et geom2 sont des lignes
     mySAttach           = ptat21;
-    const gp_Lin& line1 = Handle(Geom_Line)::DownCast(geom1)->Lin();
+    const gp_Lin& line1 = Handle(GeomLine)::DownCast(geom1)->Lin();
     myFAttach           = ElCLib::Value(ElCLib::Parameter(line1, mySAttach), line1);
   }
   else if (isInfinite2)
   { // geom1 et geom2 sont des lignes
     myFAttach           = ptat11;
-    const gp_Lin& line2 = Handle(Geom_Line)::DownCast(geom2)->Lin();
+    const gp_Lin& line2 = Handle(GeomLine)::DownCast(geom2)->Lin();
     mySAttach           = ElCLib::Value(ElCLib::Parameter(line2, myFAttach), line2);
   }
 
@@ -510,7 +510,7 @@ void PrsDim_SymmetricRelation::ComputeTwoEdgesSymmetric(const Handle(Prs3d_Prese
 
   if (PjFAttach.IsEqual(myFAttach, Precision::Confusion()))
   {
-    Handle(Geom_Line) geom_lin2(Handle(Geom_Line)::DownCast(geom2));
+    Handle(GeomLine) geom_lin2(Handle(GeomLine)::DownCast(geom2));
     gp_Lin            l2(geom_lin2->Lin());
     myFDirAttach = l2.Direction();
     Point3d PntTempo;
@@ -590,7 +590,7 @@ void PrsDim_SymmetricRelation::ComputeTwoVerticesSymmetric(const Handle(Prs3d_Pr
 {
   if (myFShape.ShapeType() != TopAbs_VERTEX || mySShape.ShapeType() != TopAbs_VERTEX)
     return;
-  Handle(Geom_Curve) geom_axis, extcurve;
+  Handle(GeomCurve3d) geom_axis, extcurve;
   Point3d             p1, p2;
   Standard_Boolean   isinfinite, isonplane;
   if (!PrsDim::ComputeGeometry(TopoDS::Edge(myTool),
@@ -620,7 +620,7 @@ void PrsDim_SymmetricRelation::ComputeTwoVerticesSymmetric(const Handle(Prs3d_Pr
   else
     return;
 
-  Handle(Geom_Line) geom_line = Handle(Geom_Line)::DownCast(geom_axis);
+  Handle(GeomLine) geom_line = Handle(GeomLine)::DownCast(geom_axis);
   gp_Lin            laxis(geom_line->Lin());
   myAxisDirAttach = laxis.Direction();
 

@@ -28,7 +28,7 @@ public:
   //! @param theFormatter formatter which defines aligned text
   //! @param thePenLoc start position and orientation on the baseline
   //! @return result shape with pen transformation applied as shape location
-  Standard_EXPORT TopoDS_Shape Perform(StdPrs_BRepFont&                  theFont,
+  Standard_EXPORT TopoShape Perform(StdPrs_BRepFont&                  theFont,
                                        const Handle(Font_TextFormatter)& theFormatter,
                                        const gp_Ax3&                     thePenLoc = gp_Ax3());
   //! Render text as BRep shape.
@@ -37,7 +37,7 @@ public:
   //! @param theHAlign horizontal alignment of the text
   //! @param theVAlign vertical alignment of the text
   //! @return result shape with pen transformation applied as shape location
-  Standard_EXPORT TopoDS_Shape
+  Standard_EXPORT TopoShape
     Perform(StdPrs_BRepFont&                        theFont,
             const NCollection_String&               theString,
             const gp_Ax3&                           thePenLoc = gp_Ax3(),
@@ -45,7 +45,7 @@ public:
             const Graphic3d_VerticalTextAlignment   theVAlign = Graphic3d_VTA_BOTTOM);
 
 protected:
-  BRep_Builder myBuilder;
+  ShapeBuilder myBuilder;
 };
 
 #endif // StdPrs_BRepTextBuilder_Header

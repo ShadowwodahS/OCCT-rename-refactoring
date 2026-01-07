@@ -41,19 +41,19 @@
 
 //  Constantes litterales (interessantes, pour les performances ET LA MEMOIRE)
 
-static TCollection_AsciiString textscope(" &SCOPE");
-static TCollection_AsciiString textendscope("        ENDSCOPE");
-static TCollection_AsciiString textcomm("  /*  ");
-static TCollection_AsciiString textendcomm("  */");
-static TCollection_AsciiString textlist("(");
-static TCollection_AsciiString textendlist(")");
-static TCollection_AsciiString textendent(");");
-static TCollection_AsciiString textparam(",");
-static TCollection_AsciiString textundef("$");
-static TCollection_AsciiString textderived("*");
-static TCollection_AsciiString texttrue(".T.");
-static TCollection_AsciiString textfalse(".F.");
-static TCollection_AsciiString textunknown(".U.");
+static AsciiString1 textscope(" &SCOPE");
+static AsciiString1 textendscope("        ENDSCOPE");
+static AsciiString1 textcomm("  /*  ");
+static AsciiString1 textendcomm("  */");
+static AsciiString1 textlist("(");
+static AsciiString1 textendlist(")");
+static AsciiString1 textendent(");");
+static AsciiString1 textparam(",");
+static AsciiString1 textundef("$");
+static AsciiString1 textderived("*");
+static AsciiString1 texttrue(".T.");
+static AsciiString1 textfalse(".F.");
+static AsciiString1 textunknown(".U.");
 
 //=================================================================================================
 
@@ -173,7 +173,7 @@ void StepData_StepWriter::SendModel(const Handle(StepData_Protocol)& protocol,
         StartComplex();
       else
       {
-        TCollection_AsciiString styp;
+        AsciiString1 styp;
         if (thetypmode > 0)
           styp = module->ShortType(CN);
         if (styp.Length() == 0)
@@ -338,7 +338,7 @@ void StepData_StepWriter::SendEntity(const Standard_Integer num, const StepData_
     if (und.IsNull())
     {
       thechecks.CCheck(num)->AddFail("Erroneous Entity, Content lost");
-      StartEntity(TCollection_AsciiString("!?LOST_DATA"));
+      StartEntity(AsciiString1("!?LOST_DATA"));
     }
     else
     {
@@ -374,7 +374,7 @@ void StepData_StepWriter::SendEntity(const Standard_Integer num, const StepData_
       StartComplex();
     else
     {
-      TCollection_AsciiString styp;
+      AsciiString1 styp;
       if (thetypmode > 0)
         styp = module->ShortType(CN);
       if (styp.Length() == 0)
@@ -496,7 +496,7 @@ void StepData_StepWriter::SendComment(const Standard_CString text)
 
 //=================================================================================================
 
-void StepData_StepWriter::StartEntity(const TCollection_AsciiString& atype)
+void StepData_StepWriter::StartEntity(const AsciiString1& atype)
 {
   if (atype.Length() == 0)
     return;
@@ -742,7 +742,7 @@ void StepData_StepWriter::SendSelect(const Handle(StepData_SelectMember)& sm,
 
 //=================================================================================================
 
-void StepData_StepWriter::SendList(const StepData_FieldList&       list,
+void StepData_StepWriter::SendList(const FieldList&       list,
                                    const Handle(StepData_ESDescr)& descr)
 {
   // start entity  ?
@@ -825,10 +825,10 @@ void StepData_StepWriter::Send(const Standard_Real val)
 
 //=================================================================================================
 
-void StepData_StepWriter::Send(const TCollection_AsciiString& val)
+void StepData_StepWriter::Send(const AsciiString1& val)
 {
   AddParam();
-  TCollection_AsciiString aval(val); // on duplique pour trafiquer si besoin
+  AsciiString1 aval(val); // on duplique pour trafiquer si besoin
   Standard_Integer        nb = aval.Length();
   Standard_Integer        nn = nb;
   aval.AssignCat('\''); // comme cela, Insert(i+1) est OK
@@ -915,7 +915,7 @@ void StepData_StepWriter::Send(const TCollection_AsciiString& val)
               stop = StepLong;
           }
         }
-        TCollection_AsciiString bval = aval.Split(stop);
+        AsciiString1 bval = aval.Split(stop);
         thefile->Append(new TCollection_HAsciiString(aval));
         aval = bval;
         nn -= stop;
@@ -937,7 +937,7 @@ void StepData_StepWriter::Send(const TCollection_AsciiString& val)
       thecurr.FreezeInitial();
       break;
         }
-        TCollection_AsciiString bval = aval.Split(StepLong);
+        AsciiString1 bval = aval.Split(StepLong);
         thefile->Append(new TCollection_HAsciiString(bval));
         nn -= StepLong;
       }
@@ -969,7 +969,7 @@ void StepData_StepWriter::Send(const Handle(RefObject)& val)
     if (val->IsKind(STANDARD_TYPE(TCollection_HAsciiString)))
     {
       DeclareAndCast(TCollection_HAsciiString, strval, val);
-      Send(TCollection_AsciiString(strval->ToCString()));
+      Send(AsciiString1(strval->ToCString()));
       return;
     }
     //  SelectMember ? (toujours, si non repertoriee)
@@ -1036,7 +1036,7 @@ void StepData_StepWriter::SendLogical(const StepData_Logical val)
 
 //=================================================================================================
 
-void StepData_StepWriter::SendString(const TCollection_AsciiString& val)
+void StepData_StepWriter::SendString(const AsciiString1& val)
 {
   AddParam();
   AddString(val);
@@ -1056,7 +1056,7 @@ void StepData_StepWriter::SendString(const Standard_CString val)
 
 //=================================================================================================
 
-void StepData_StepWriter::SendEnum(const TCollection_AsciiString& val)
+void StepData_StepWriter::SendEnum(const AsciiString1& val)
 {
   if (val.Length() == 1 && val.Value(1) == '$')
   {
@@ -1064,7 +1064,7 @@ void StepData_StepWriter::SendEnum(const TCollection_AsciiString& val)
     return;
   }
   AddParam();
-  TCollection_AsciiString aValue = val;
+  AsciiString1 aValue = val;
   if (aValue.Value(1) != '.')
     aValue.Prepend('.');
   if (aValue.Value(aValue.Length()) != '.')
@@ -1084,7 +1084,7 @@ void StepData_StepWriter::SendEnum(const Standard_CString val)
     SendUndef();
     return;
   }
-  TCollection_AsciiString aValue(val);
+  AsciiString1 aValue(val);
   SendEnum(aValue);
 }
 
@@ -1146,7 +1146,7 @@ void StepData_StepWriter::EndEntity()
 
 //=================================================================================================
 
-void StepData_StepWriter::AddString(const TCollection_AsciiString& astr,
+void StepData_StepWriter::AddString(const AsciiString1& astr,
                                     const Standard_Integer         more)
 {
   while (!thecurr.CanGet(astr.Length() + more))

@@ -87,8 +87,8 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString thename;
-  TCollection_AsciiString thehelp;
+  AsciiString1 thename;
+  AsciiString1 thehelp;
   IFSelect_ActFunc        thefunc;
 };
 

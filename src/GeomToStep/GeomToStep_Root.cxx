@@ -16,7 +16,7 @@
 
 #include <GeomToStep_Root.hxx>
 
-Standard_Boolean GeomToStep_Root::IsDone() const
+Standard_Boolean Root1::IsDone() const
 {
   return done;
 }

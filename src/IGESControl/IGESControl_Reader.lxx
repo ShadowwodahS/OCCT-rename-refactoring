@@ -16,7 +16,7 @@
 // purpose  :
 //=======================================================================
 
-inline void IGESControl_Reader::SetReadVisible(const Standard_Boolean ReadRoot)
+inline void IgesFileReader::SetReadVisible(const Standard_Boolean ReadRoot)
 {
   theReadOnlyVisible = ReadRoot;
 }
@@ -26,7 +26,7 @@ inline void IGESControl_Reader::SetReadVisible(const Standard_Boolean ReadRoot)
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean IGESControl_Reader::GetReadVisible() const
+inline Standard_Boolean IgesFileReader::GetReadVisible() const
 {
   return theReadOnlyVisible;
 }

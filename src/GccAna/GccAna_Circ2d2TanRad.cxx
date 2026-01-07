@@ -39,7 +39,7 @@
 // Create the solution to be added to already found solutions.     +
 // Fill the fields.                                                +
 //==================================================================
-GccAna_Circ2d2TanRad::GccAna_Circ2d2TanRad(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTwoTangentRadius::Circle2dTwoTangentRadius(const GccEnt_QualifiedCirc& Qualified1,
                                            const GccEnt_QualifiedCirc& Qualified2,
                                            const Standard_Real         Radius,
                                            const Standard_Real         Tolerance)
@@ -796,17 +796,17 @@ GccAna_Circ2d2TanRad::GccAna_Circ2d2TanRad(const GccEnt_QualifiedCirc& Qualified
   }
 }
 
-Standard_Boolean GccAna_Circ2d2TanRad::IsDone() const
+Standard_Boolean Circle2dTwoTangentRadius::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer GccAna_Circ2d2TanRad::NbSolutions() const
+Standard_Integer Circle2dTwoTangentRadius::NbSolutions() const
 {
   return NbrSol;
 }
 
-gp_Circ2d GccAna_Circ2d2TanRad::ThisSolution(const Standard_Integer Index) const
+gp_Circ2d Circle2dTwoTangentRadius::ThisSolution(const Standard_Integer Index) const
 {
   if (!WellDone)
   {
@@ -819,7 +819,7 @@ gp_Circ2d GccAna_Circ2d2TanRad::ThisSolution(const Standard_Integer Index) const
   return cirsol(Index);
 }
 
-void GccAna_Circ2d2TanRad::WhichQualifier(const Standard_Integer Index,
+void Circle2dTwoTangentRadius::WhichQualifier(const Standard_Integer Index,
                                           GccEnt_Position&       Qualif1,
                                           GccEnt_Position&       Qualif2) const
 {
@@ -836,7 +836,7 @@ void GccAna_Circ2d2TanRad::WhichQualifier(const Standard_Integer Index,
   Qualif2 = qualifier2(Index);
 }
 
-void GccAna_Circ2d2TanRad::Tangency1(const Standard_Integer Index,
+void Circle2dTwoTangentRadius::Tangency1(const Standard_Integer Index,
                                      Standard_Real&         ParSol,
                                      Standard_Real&         ParArg,
                                      gp_Pnt2d&              PntSol) const
@@ -864,7 +864,7 @@ void GccAna_Circ2d2TanRad::Tangency1(const Standard_Integer Index,
   }
 }
 
-void GccAna_Circ2d2TanRad::Tangency2(const Standard_Integer Index,
+void Circle2dTwoTangentRadius::Tangency2(const Standard_Integer Index,
                                      Standard_Real&         ParSol,
                                      Standard_Real&         ParArg,
                                      gp_Pnt2d&              PntSol) const
@@ -892,7 +892,7 @@ void GccAna_Circ2d2TanRad::Tangency2(const Standard_Integer Index,
   }
 }
 
-Standard_Boolean GccAna_Circ2d2TanRad::IsTheSame1(const Standard_Integer Index) const
+Standard_Boolean Circle2dTwoTangentRadius::IsTheSame1(const Standard_Integer Index) const
 {
   if (!WellDone)
   {
@@ -911,7 +911,7 @@ Standard_Boolean GccAna_Circ2d2TanRad::IsTheSame1(const Standard_Integer Index) 
   return Standard_True;
 }
 
-Standard_Boolean GccAna_Circ2d2TanRad::IsTheSame2(const Standard_Integer Index) const
+Standard_Boolean Circle2dTwoTangentRadius::IsTheSame2(const Standard_Integer Index) const
 {
   if (!WellDone)
   {

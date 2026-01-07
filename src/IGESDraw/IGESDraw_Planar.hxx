@@ -28,7 +28,7 @@ class IGESDraw_Planar;
 DEFINE_STANDARD_HANDLE(IGESDraw_Planar, IGESData_IGESEntity)
 
 //! defines IGESPlanar, Type <402> Form <16>
-//! in package IGESDraw
+//! in package IGESDraw1
 //!
 //! Indicates that a collection of entities is coplanar.The
 //! entities may be geometric, annotative, and/or structural.

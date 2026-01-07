@@ -60,7 +60,7 @@ public:
   //! Tolerance <closetoler> should be greater than tolerance
   //! <sewtoler> used for initializing sewing analyzer, otherwise
   //! connection of open wires is not performed.
-  Standard_EXPORT ShapeFix_FreeBounds(const TopoDS_Shape&    shape,
+  Standard_EXPORT ShapeFix_FreeBounds(const TopoShape&    shape,
                                       const Standard_Real    sewtoler,
                                       const Standard_Real    closetoler,
                                       const Standard_Boolean splitclosed,
@@ -69,27 +69,27 @@ public:
   //! Builds actual free bounds of the <shape> and connects
   //! open wires with tolerance <closetoler>.
   //! <shape> should be a compound of shells.
-  Standard_EXPORT ShapeFix_FreeBounds(const TopoDS_Shape&    shape,
+  Standard_EXPORT ShapeFix_FreeBounds(const TopoShape&    shape,
                                       const Standard_Real    closetoler,
                                       const Standard_Boolean splitclosed,
                                       const Standard_Boolean splitopen);
 
   //! Returns compound of closed wires out of free edges.
-  const TopoDS_Compound& GetClosedWires() const;
+  const TopoCompound& GetClosedWires() const;
 
   //! Returns compound of open wires out of free edges.
-  const TopoDS_Compound& GetOpenWires() const;
+  const TopoCompound& GetOpenWires() const;
 
   //! Returns modified source shape.
-  const TopoDS_Shape& GetShape() const;
+  const TopoShape& GetShape() const;
 
 protected:
 private:
   Standard_EXPORT Standard_Boolean Perform();
 
-  TopoDS_Compound  myWires;
-  TopoDS_Compound  myEdges;
-  TopoDS_Shape     myShape;
+  TopoCompound  myWires;
+  TopoCompound  myEdges;
+  TopoShape     myShape;
   Standard_Boolean myShared;
   Standard_Real    mySewToler;
   Standard_Real    myCloseToler;

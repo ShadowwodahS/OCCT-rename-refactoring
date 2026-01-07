@@ -59,8 +59,8 @@ Standard_Boolean XmlMDataStd_BooleanArrayDriver::Paste(const XmlObjMgt_Persisten
     aFirstInd = 1;
   else if (!aFirstIndex.GetInteger(aFirstInd))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the first index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the first index"
                                  " for BooleanArray attribute as \"")
       + aFirstIndex + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -70,8 +70,8 @@ Standard_Boolean XmlMDataStd_BooleanArrayDriver::Paste(const XmlObjMgt_Persisten
   // Read the LastIndex; the attribute should be present
   if (!anElement.getAttribute(::LastIndexString()).GetInteger(aLastInd))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the last index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the last index"
                                  " for BooleanArray attribute as \"")
       + aFirstIndex + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -80,8 +80,8 @@ Standard_Boolean XmlMDataStd_BooleanArrayDriver::Paste(const XmlObjMgt_Persisten
 
   if (aFirstInd > aLastInd)
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("The last index is greater than the first index"
+    UtfString aMessageString =
+      UtfString("The last index is greater than the first index"
                                  " for BooleanArray attribute \"");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
@@ -108,8 +108,8 @@ Standard_Boolean XmlMDataStd_BooleanArrayDriver::Paste(const XmlObjMgt_Persisten
   {
     if (!XmlObjMgt::GetInteger(aValueStr, aValue))
     {
-      TCollection_ExtendedString aMessageString =
-        TCollection_ExtendedString("Cannot retrieve integer member"
+      UtfString aMessageString =
+        UtfString("Cannot retrieve integer member"
                                    " for BooleanArray attribute as \"")
         + aValueStr + "\"";
       myMessageDriver->Send(aMessageString, Message_Warning);

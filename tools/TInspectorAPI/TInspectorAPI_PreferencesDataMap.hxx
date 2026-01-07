@@ -19,9 +19,9 @@
 #include <NCollection_DataMap.hxx>
 #include <TCollection_AsciiString.hxx>
 
-typedef NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString>
+typedef NCollection_DataMap<AsciiString1, AsciiString1>
   TInspectorAPI_PreferencesDataMap;
-typedef NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString>::Iterator
+typedef NCollection_DataMap<AsciiString1, AsciiString1>::Iterator
   TInspectorAPI_IteratorOfPreferencesDataMap;
 
 #endif

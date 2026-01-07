@@ -30,9 +30,9 @@
 #include <Interface_ShareTool.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESBasic_ToolAssocGroupType::IGESBasic_ToolAssocGroupType() {}
+AssocGroupTypeTool::AssocGroupTypeTool() {}
 
-void IGESBasic_ToolAssocGroupType::ReadOwnParams(const Handle(IGESBasic_AssocGroupType)& ent,
+void AssocGroupTypeTool::ReadOwnParams(const Handle(IGESBasic_AssocGroupType)& ent,
                                                  const Handle(IGESData_IGESReaderData)& /* IR */,
                                                  IGESData_ParamReader& PR) const
 {
@@ -52,7 +52,7 @@ void IGESBasic_ToolAssocGroupType::ReadOwnParams(const Handle(IGESBasic_AssocGro
   ent->Init(tempNbData, tempType, tempName);
 }
 
-void IGESBasic_ToolAssocGroupType::WriteOwnParams(const Handle(IGESBasic_AssocGroupType)& ent,
+void AssocGroupTypeTool::WriteOwnParams(const Handle(IGESBasic_AssocGroupType)& ent,
                                                   IGESData_IGESWriter&                    IW) const
 {
   IW.Send(ent->NbData());
@@ -60,12 +60,12 @@ void IGESBasic_ToolAssocGroupType::WriteOwnParams(const Handle(IGESBasic_AssocGr
   IW.Send(ent->Name());
 }
 
-void IGESBasic_ToolAssocGroupType::OwnShared(const Handle(IGESBasic_AssocGroupType)& /* ent */,
+void AssocGroupTypeTool::OwnShared(const Handle(IGESBasic_AssocGroupType)& /* ent */,
                                              Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESBasic_ToolAssocGroupType::OwnCopy(const Handle(IGESBasic_AssocGroupType)& another,
+void AssocGroupTypeTool::OwnCopy(const Handle(IGESBasic_AssocGroupType)& another,
                                            const Handle(IGESBasic_AssocGroupType)& ent,
                                            Interface_CopyTool& /* TC */) const
 {
@@ -75,7 +75,7 @@ void IGESBasic_ToolAssocGroupType::OwnCopy(const Handle(IGESBasic_AssocGroupType
   ent->Init(tempNbData, tempType, tempName);
 }
 
-Standard_Boolean IGESBasic_ToolAssocGroupType::OwnCorrect(
+Standard_Boolean AssocGroupTypeTool::OwnCorrect(
   const Handle(IGESBasic_AssocGroupType)& ent) const
 {
   Standard_Boolean res = (ent->NbData() != 2);
@@ -84,10 +84,10 @@ Standard_Boolean IGESBasic_ToolAssocGroupType::OwnCorrect(
   return res; // nbdata=2
 }
 
-IGESData_DirChecker IGESBasic_ToolAssocGroupType::DirChecker(
+DirectoryChecker AssocGroupTypeTool::DirChecker(
   const Handle(IGESBasic_AssocGroupType)& /* ent */) const
 {
-  IGESData_DirChecker DC(406, 23);
+  DirectoryChecker DC(406, 23);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -99,7 +99,7 @@ IGESData_DirChecker IGESBasic_ToolAssocGroupType::DirChecker(
   return DC;
 }
 
-void IGESBasic_ToolAssocGroupType::OwnCheck(const Handle(IGESBasic_AssocGroupType)& ent,
+void AssocGroupTypeTool::OwnCheck(const Handle(IGESBasic_AssocGroupType)& ent,
                                             const Interface_ShareTool&,
                                             Handle(Interface_Check)& ach) const
 {
@@ -107,7 +107,7 @@ void IGESBasic_ToolAssocGroupType::OwnCheck(const Handle(IGESBasic_AssocGroupTyp
     ach->AddFail("Number of data fields != 2");
 }
 
-void IGESBasic_ToolAssocGroupType::OwnDump(const Handle(IGESBasic_AssocGroupType)& ent,
+void AssocGroupTypeTool::OwnDump(const Handle(IGESBasic_AssocGroupType)& ent,
                                            const IGESData_IGESDumper& /* dumper */,
                                            Standard_OStream& S,
                                            const Standard_Integer /* level */) const

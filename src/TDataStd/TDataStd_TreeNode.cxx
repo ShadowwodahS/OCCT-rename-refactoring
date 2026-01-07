@@ -29,7 +29,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TDataStd_TreeNode, TDF_Attribute)
 
 //=================================================================================================
 
-Standard_Boolean TDataStd_TreeNode::Find(const TDF_Label& L, Handle(TDataStd_TreeNode)& T)
+Standard_Boolean TDataStd_TreeNode::Find(const DataLabel& L, Handle(TDataStd_TreeNode)& T)
 {
   return L.FindAttribute(TDataStd_TreeNode::GetDefaultTreeID(), T);
 }
@@ -50,7 +50,7 @@ const Standard_GUID& TDataStd_TreeNode::GetDefaultTreeID()
 // purpose  : Finds or creates a TreeNode attribute with default ID
 //=======================================================================
 
-Handle(TDataStd_TreeNode) TDataStd_TreeNode::Set(const TDF_Label& L)
+Handle(TDataStd_TreeNode) TDataStd_TreeNode::Set(const DataLabel& L)
 {
   Handle(TDataStd_TreeNode) TN;
   if (!L.FindAttribute(TDataStd_TreeNode::GetDefaultTreeID(), TN))
@@ -68,7 +68,7 @@ Handle(TDataStd_TreeNode) TDataStd_TreeNode::Set(const TDF_Label& L)
 //         : a driver for it
 //=======================================================================
 
-Handle(TDataStd_TreeNode) TDataStd_TreeNode::Set(const TDF_Label&     L,
+Handle(TDataStd_TreeNode) TDataStd_TreeNode::Set(const DataLabel&     L,
                                                  const Standard_GUID& explicitID)
 {
   Handle(TDataStd_TreeNode) TN;
@@ -726,31 +726,31 @@ void TDataStd_TreeNode::DumpJson(Standard_OStream& theOStream, Standard_Integer 
 
   if (myFather)
   {
-    TCollection_AsciiString aFather;
+    AsciiString1 aFather;
     TDF_Tool::Entry(myFather->Label(), aFather);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aFather)
   }
   if (myPrevious)
   {
-    TCollection_AsciiString aPrevious;
+    AsciiString1 aPrevious;
     TDF_Tool::Entry(myPrevious->Label(), aPrevious);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aPrevious)
   }
   if (myNext)
   {
-    TCollection_AsciiString aNext;
+    AsciiString1 aNext;
     TDF_Tool::Entry(myNext->Label(), aNext);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aNext)
   }
   if (myFirst)
   {
-    TCollection_AsciiString aFirst;
+    AsciiString1 aFirst;
     TDF_Tool::Entry(myFirst->Label(), aFirst);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aFirst)
   }
   if (myLast)
   {
-    TCollection_AsciiString aLast;
+    AsciiString1 aLast;
     TDF_Tool::Entry(myLast->Label(), aLast);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aLast)
   }

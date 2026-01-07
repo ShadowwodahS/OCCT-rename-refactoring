@@ -57,7 +57,7 @@ void Contap_SurfFunction::Set(const Handle(Adaptor3d_Surface)& S)
     for (i = 1; i <= nbs; i++)
     {
       Contap_HContTool::SamplePoint(S, i, U, V);
-      //      Adaptor3d_HSurfaceTool::D1(S,U,V,solpt,d1u,d1v);
+      //      HSurfaceTool::D1(S,U,V,solpt,d1u,d1v);
       //      myMean = myMean + d1u.Crossed(d1v).Magnitude();
       Contap_SurfProps::Normale(S, U, V, solpt, norm);
       myMean = myMean + norm.Magnitude();
@@ -82,7 +82,7 @@ Standard_Boolean Contap_SurfFunction::Value(const math_Vector& X, math_Vector& F
 {
   Usol = X(1);
   Vsol = X(2);
-  //  Adaptor3d_HSurfaceTool::D1(mySurf,Usol,Vsol,solpt,d1u,d1v);
+  //  HSurfaceTool::D1(mySurf,Usol,Vsol,solpt,d1u,d1v);
   //  Vector3d norm(d1u.Crossed(d1v));
   Vector3d norm;
   Contap_SurfProps::Normale(mySurf, Usol, Vsol, solpt, norm);
@@ -113,7 +113,7 @@ Standard_Boolean Contap_SurfFunction::Derivatives(const math_Vector& X, math_Mat
   //  Vector3d d2u,d2v,d2uv;
   Usol = X(1);
   Vsol = X(2);
-  //  Adaptor3d_HSurfaceTool::D2(mySurf,Usol,Vsol,solpt,d1u,d1v,d2u,d2v,d2uv);
+  //  HSurfaceTool::D2(mySurf,Usol,Vsol,solpt,d1u,d1v,d2u,d2v,d2uv);
 
   Vector3d norm, dnu, dnv;
   Contap_SurfProps::NormAndDn(mySurf, Usol, Vsol, solpt, norm, dnu, dnv);
@@ -163,7 +163,7 @@ Standard_Boolean Contap_SurfFunction::Values(const math_Vector& X,
 
   Usol = X(1);
   Vsol = X(2);
-  //  Adaptor3d_HSurfaceTool::D2(mySurf,Usol,Vsol,solpt,d1u,d1v,d2u,d2v,d2uv);
+  //  HSurfaceTool::D2(mySurf,Usol,Vsol,solpt,d1u,d1v,d2u,d2v,d2uv);
   //  Vector3d norm(d1u.Crossed(d1v));
   Vector3d norm, dnu, dnv;
   Contap_SurfProps::NormAndDn(mySurf, Usol, Vsol, solpt, norm, dnu, dnv);
@@ -221,7 +221,7 @@ Standard_Boolean Contap_SurfFunction::IsTangent()
     if (!derived)
     {
       //      Vector3d d2u,d2v,d2uv;
-      //      Adaptor3d_HSurfaceTool::D2(mySurf, Usol, Vsol, solpt, d1u, d1v, d2u, d2v, d2uv);
+      //      HSurfaceTool::D2(mySurf, Usol, Vsol, solpt, d1u, d1v, d2u, d2v, d2uv);
       Vector3d norm, dnu, dnv;
       Contap_SurfProps::NormAndDn(mySurf, Usol, Vsol, solpt, norm, dnu, dnv);
 
@@ -272,7 +272,7 @@ Standard_Boolean Contap_SurfFunction::IsTangent()
     {
       d2d = gp_Dir2d(-Fpv, Fpu);
       Vector3d d1u, d1v;
-      Adaptor3d_HSurfaceTool::D1(mySurf, Usol, Vsol, solpt, d1u, d1v); // ajout jag 02.95
+      HSurfaceTool::D1(mySurf, Usol, Vsol, solpt, d1u, d1v); // ajout jag 02.95
 
       gp_XYZ d3dxyz(-Fpv * d1u.XYZ());
       d3dxyz.Add(Fpu * d1v.XYZ());

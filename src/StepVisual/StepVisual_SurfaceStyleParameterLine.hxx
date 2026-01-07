@@ -24,7 +24,7 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Integer.hxx>
 class StepVisual_CurveStyle;
-class StepVisual_DirectionCountSelect;
+class DirectionCountSelect;
 
 class StepVisual_SurfaceStyleParameterLine;
 DEFINE_STANDARD_HANDLE(StepVisual_SurfaceStyleParameterLine, RefObject)
@@ -50,7 +50,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_HArray1OfDirectionCountSelect) DirectionCounts() const;
 
-  Standard_EXPORT StepVisual_DirectionCountSelect
+  Standard_EXPORT DirectionCountSelect
     DirectionCountsValue(const Standard_Integer num) const;
 
   Standard_EXPORT Standard_Integer NbDirectionCounts() const;

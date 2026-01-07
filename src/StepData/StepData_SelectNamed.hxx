@@ -72,7 +72,7 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString thename;
+  AsciiString1 thename;
   StepData_Field          theval;
 };
 

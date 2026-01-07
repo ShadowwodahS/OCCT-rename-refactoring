@@ -18,12 +18,12 @@
 #include <TopAbs_Orientation.hxx>
 #include <TColgp_Array1OfPnt.hxx>
 
-class Poly_Triangulation;
+class MeshTriangulation;
 class TopLoc_Location;
 
 //! Computes the global properties of a surface mesh. The mesh can be
 //! interpreted as just a surface or as a piece of volume limited by this surface.
-class BRepGProp_MeshProps : public GProp_GProps
+class BRepGProp_MeshProps : public GeometricProperties
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -52,11 +52,11 @@ public:
   //! over triangle surfaces using Gauss cubature formulas.
   //! Depending on the mesh object type used in constructor this method can
   //! calculate the surface or volume properties of the mesh.
-  Standard_EXPORT void Perform(const Handle(Poly_Triangulation)& theMesh,
+  Standard_EXPORT void Perform(const Handle(MeshTriangulation)& theMesh,
                                const TopLoc_Location&            theLoc,
                                const TopAbs_Orientation          theOri);
 
-  Standard_EXPORT void Perform(const Handle(Poly_Triangulation)& theMesh,
+  Standard_EXPORT void Perform(const Handle(MeshTriangulation)& theMesh,
                                const TopAbs_Orientation          theOri);
 
   //! Computes the global properties of triangle {p1, p2, p3} relatively

@@ -28,7 +28,7 @@
 #include <Standard_OStream.hxx>
 #include <NCollection_DataMap.hxx>
 class TDF_Delta;
-class TDF_Label;
+class DataLabel;
 
 class TDF_Data;
 DEFINE_STANDARD_HANDLE(TDF_Data, RefObject)
@@ -52,7 +52,7 @@ public:
   Standard_EXPORT TDF_Data();
 
   //! Returns the root label of the Data structure.
-  const TDF_Label Root() const;
+  const DataLabel Root() const;
 
   //! Returns the current transaction number.
   Standard_Integer Transaction() const;
@@ -103,14 +103,14 @@ public:
   //! Returns a label by an entry.
   //! Returns Standard_False, if such a label doesn't exist
   //! or mechanism for fast access to the label by entry is not initialized.
-  Standard_Boolean GetLabel(const TCollection_AsciiString& anEntry, TDF_Label& aLabel)
+  Standard_Boolean GetLabel(const AsciiString1& anEntry, DataLabel& aLabel)
   {
     return myAccessByEntriesTable.Find(anEntry, aLabel);
   }
 
   //! An internal method. It is used internally on creation of new labels.
   //! It adds a new label into internal table for fast access to the labels by entry.
-  Standard_EXPORT void RegisterLabel(const TDF_Label& aLabel);
+  Standard_EXPORT void RegisterLabel(const DataLabel& aLabel);
 
   //! Returns TDF_HAllocator, which is an
   //! incremental allocator used by
@@ -197,7 +197,7 @@ private:
   //! attributes (new, modified or deleted) has been
   //! committed from the previous transaction into the
   //! current one.
-  Standard_EXPORT Standard_Integer CommitTransaction(const TDF_Label&         aLabel,
+  Standard_EXPORT Standard_Integer CommitTransaction(const DataLabel&         aLabel,
                                                      const Handle(TDF_Delta)& aDelta,
                                                      const Standard_Boolean   withDelta);
 
@@ -210,7 +210,7 @@ private:
   TDF_HAllocator                                          myLabelNodeAllocator;
   Standard_Boolean                                        myAllowModification;
   Standard_Boolean                                        myAccessByEntries;
-  NCollection_DataMap<TCollection_AsciiString, TDF_Label> myAccessByEntriesTable;
+  NCollection_DataMap<AsciiString1, DataLabel> myAccessByEntriesTable;
 };
 
 #include <TDF_Data.lxx>

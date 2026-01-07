@@ -41,7 +41,7 @@ public:
                   const Standard_Real    y1,
                   const Standard_Real    x2,
                   const Standard_Real    y2,
-                  const TopoDS_Shape&    S,
+                  const TopoShape&    S,
                   const Standard_Boolean reg1,
                   const Standard_Boolean regn,
                   const Standard_Boolean outl,
@@ -56,9 +56,9 @@ public:
   {
   }
 
-  HLRBRep_BiPnt2D(const gp_XY&           thePoint1,
-                  const gp_XY&           thePoint2,
-                  const TopoDS_Shape&    S,
+  HLRBRep_BiPnt2D(const Coords2d&           thePoint1,
+                  const Coords2d&           thePoint2,
+                  const TopoShape&    S,
                   const Standard_Boolean reg1,
                   const Standard_Boolean regn,
                   const Standard_Boolean outl,
@@ -77,9 +77,9 @@ public:
 
   const gp_Pnt2d& P2() const { return myP2; }
 
-  const TopoDS_Shape& Shape() const { return myShape; }
+  const TopoShape& Shape() const { return myShape; }
 
-  void Shape(const TopoDS_Shape& S) { myShape = S; }
+  void Shape(const TopoShape& S) { myShape = S; }
 
   Standard_Boolean Rg1Line() const { return myRg1Line; }
 
@@ -100,7 +100,7 @@ public:
 private:
   gp_Pnt2d         myP1;
   gp_Pnt2d         myP2;
-  TopoDS_Shape     myShape;
+  TopoShape     myShape;
   Standard_Boolean myRg1Line;
   Standard_Boolean myRgNLine;
   Standard_Boolean myOutLine;

@@ -31,7 +31,7 @@ class VrmlConverter_Drawer;
 //! are specify in  aDrawer.
 //! This kind of the presentation is converted into
 //! IndexedLineSet ( VRML ).
-class VrmlConverter_WFRestrictedFace
+class WFRestrictedFaceConverter
 {
 public:
   DEFINE_STANDARD_ALLOC

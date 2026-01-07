@@ -26,11 +26,11 @@
 #include <Geom2dAdaptor_Curve.hxx>
 #include <GeomAbs_JoinType.hxx>
 #include <TColgp_SequenceOfPnt.hxx>
-class Geom2d_Curve;
+class GeomCurve2d;
 class Geom2d_Geometry;
-class TopoDS_Edge;
-class TopoDS_Shape;
-class TopoDS_Vertex;
+class TopoEdge;
+class TopoShape;
+class TopoVertex;
 
 //! Geometric Tool using to construct Offset Wires.
 class BRepFill_TrimEdgeTool
@@ -45,19 +45,19 @@ public:
                                         const Handle(Geom2d_Geometry)& S2,
                                         const Standard_Real            Offset);
 
-  Standard_EXPORT void IntersectWith(const TopoDS_Edge&     Edge1,
-                                     const TopoDS_Edge&     Edge2,
-                                     const TopoDS_Shape&    InitShape1,
-                                     const TopoDS_Shape&    InitShape2,
-                                     const TopoDS_Vertex&   End1,
-                                     const TopoDS_Vertex&   End2,
+  Standard_EXPORT void IntersectWith(const TopoEdge&     Edge1,
+                                     const TopoEdge&     Edge2,
+                                     const TopoShape&    InitShape1,
+                                     const TopoShape&    InitShape2,
+                                     const TopoVertex&   End1,
+                                     const TopoVertex&   End2,
                                      const GeomAbs_JoinType theJoinType,
                                      const Standard_Boolean IsOpenResult,
                                      TColgp_SequenceOfPnt&  Params);
 
   Standard_EXPORT void AddOrConfuse(const Standard_Boolean Start,
-                                    const TopoDS_Edge&     Edge1,
-                                    const TopoDS_Edge&     Edge2,
+                                    const TopoEdge&     Edge1,
+                                    const TopoEdge&     Edge2,
                                     TColgp_SequenceOfPnt&  Params) const;
 
   Standard_EXPORT Standard_Boolean IsInside(const gp_Pnt2d& P) const;
@@ -68,8 +68,8 @@ private:
   Standard_Boolean     isPoint2;
   gp_Pnt2d             myP1;
   gp_Pnt2d             myP2;
-  Handle(Geom2d_Curve) myC1;
-  Handle(Geom2d_Curve) myC2;
+  Handle(GeomCurve2d) myC1;
+  Handle(GeomCurve2d) myC2;
   Standard_Real        myOffset;
   Bisector_Bisec       myBisec;
   Geom2dAdaptor_Curve  myBis;

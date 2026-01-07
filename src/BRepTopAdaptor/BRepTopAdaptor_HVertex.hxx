@@ -33,12 +33,12 @@ class BRepTopAdaptor_HVertex : public Adaptor3d_HVertex
 {
 
 public:
-  Standard_EXPORT BRepTopAdaptor_HVertex(const TopoDS_Vertex&               Vtx,
+  Standard_EXPORT BRepTopAdaptor_HVertex(const TopoVertex&               Vtx,
                                          const Handle(BRepAdaptor_Curve2d)& Curve);
 
-  const TopoDS_Vertex& Vertex() const;
+  const TopoVertex& Vertex() const;
 
-  TopoDS_Vertex& ChangeVertex();
+  TopoVertex& ChangeVertex();
 
   Standard_EXPORT virtual gp_Pnt2d Value() Standard_OVERRIDE;
 
@@ -58,7 +58,7 @@ public:
 
 protected:
 private:
-  TopoDS_Vertex               myVtx;
+  TopoVertex               myVtx;
   Handle(BRepAdaptor_Curve2d) myCurve;
 };
 

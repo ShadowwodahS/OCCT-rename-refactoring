@@ -37,11 +37,11 @@ public:
   Standard_EXPORT TopOpeBRep_FacesIntersector();
 
   //! Computes the intersection of faces S1 and S2.
-  Standard_EXPORT void Perform(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
+  Standard_EXPORT void Perform(const TopoShape& S1, const TopoShape& S2);
 
   //! Computes the intersection of faces S1 and S2.
-  Standard_EXPORT void Perform(const TopoDS_Shape& S1,
-                               const TopoDS_Shape& S2,
+  Standard_EXPORT void Perform(const TopoShape& S1,
+                               const TopoShape& S2,
                                const Bnd_Box&      B1,
                                const Bnd_Box&      B2);
 
@@ -54,7 +54,7 @@ public:
   Standard_EXPORT Standard_Boolean SameDomain() const;
 
   //! returns first or second intersected face.
-  Standard_EXPORT const TopoDS_Shape& Face(const Standard_Integer Index) const;
+  Standard_EXPORT const TopoShape& Face(const Standard_Integer Index) const;
 
   //! Returns True if Perform() arguments are two faces
   //! SameDomain() and normals on both side.
@@ -63,7 +63,7 @@ public:
 
   //! returns true if edge <E> is found as same as the edge
   //! associated with a RESTRICTION line.
-  Standard_EXPORT Standard_Boolean IsRestriction(const TopoDS_Shape& E) const;
+  Standard_EXPORT Standard_Boolean IsRestriction(const TopoShape& E) const;
 
   //! returns the map of edges found as TopeBRepBRep_RESTRICTION
   Standard_EXPORT const TopTools_IndexedMapOfShape& Restrictions() const;
@@ -105,13 +105,13 @@ private:
   //! with tolerance values "fitting" the shape tolerances.
   //! (called by Perform() by default, when ForceTolerances() has not
   //! been called)
-  Standard_EXPORT void ShapeTolerances(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
+  Standard_EXPORT void ShapeTolerances(const TopoShape& S1, const TopoShape& S2);
 
   //! returns the max tolerance of sub-shapes of type <T>
   //! found in shape <S>. If no such sub-shape found, return
   //! Precision::Intersection()
   //! (called by ShapeTolerances())
-  Standard_EXPORT Standard_Real ToleranceMax(const TopoDS_Shape& S, const TopAbs_ShapeEnum T) const;
+  Standard_EXPORT Standard_Real ToleranceMax(const TopoShape& S, const TopAbs_ShapeEnum T) const;
 
   IntPatch_Intersection                 myIntersector;
   Standard_Boolean                      myIntersectionDone;
@@ -123,8 +123,8 @@ private:
   Standard_Integer                      myLineIndex;
   Standard_Boolean                      myLineFound;
   Standard_Integer                      myLineNb;
-  TopoDS_Face                           myFace1;
-  TopoDS_Face                           myFace2;
+  TopoFace                           myFace1;
+  TopoFace                           myFace2;
   Handle(BRepAdaptor_Surface)           mySurface1;
   Handle(BRepAdaptor_Surface)           mySurface2;
   GeomAbs_SurfaceType                   mySurfaceType1;
@@ -133,7 +133,7 @@ private:
   Handle(BRepTopAdaptor_TopolTool)      myDomain1;
   Handle(BRepTopAdaptor_TopolTool)      myDomain2;
   TopTools_IndexedMapOfShape            myEdgeRestrictionMap;
-  TopoDS_Shape                          myNullShape;
+  TopoShape                          myNullShape;
 };
 
 #endif // _TopOpeBRep_FacesIntersector_HeaderFile

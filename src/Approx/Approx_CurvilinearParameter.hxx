@@ -68,7 +68,7 @@ public:
   Standard_EXPORT Standard_Boolean HasResult() const;
 
   //! returns the Bspline curve corresponding to the reparametrized 3D curve
-  Standard_EXPORT Handle(Geom_BSplineCurve) Curve3d() const;
+  Standard_EXPORT Handle(BSplineCurve3d) Curve3d() const;
 
   //! returns the maximum error on the reparametrized 3D curve
   Standard_EXPORT Standard_Real MaxError3d() const;
@@ -102,7 +102,7 @@ private:
   Standard_Integer            myCase;
   Standard_Boolean            myDone;
   Standard_Boolean            myHasResult;
-  Handle(Geom_BSplineCurve)   myCurve3d;
+  Handle(BSplineCurve3d)   myCurve3d;
   Standard_Real               myMaxError3d;
   Handle(Geom2d_BSplineCurve) myCurve2d1;
   Standard_Real               myMaxError2d1;

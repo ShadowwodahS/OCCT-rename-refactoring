@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(XmlTObjDrivers_DocumentStorageDriver, XmlLDrivers_Doc
 //=================================================================================================
 
 XmlTObjDrivers_DocumentStorageDriver::XmlTObjDrivers_DocumentStorageDriver(
-  const TCollection_ExtendedString& theCopyright)
+  const UtfString& theCopyright)
     : XmlLDrivers_DocumentStorageDriver(theCopyright)
 {
 }

@@ -51,16 +51,16 @@ Standard_Boolean XmlMDF_TagSourceDriver::Paste(const XmlObjMgt_Persistent&  theS
 
   if (aTagStr.GetInteger(aTag) == Standard_False)
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve TagSource attribute from \"") + aTagStr + "\"";
+    UtfString aMessageString =
+      UtfString("Cannot retrieve TagSource attribute from \"") + aTagStr + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
   }
 
   if (aTag < 0)
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Invalid value of TagSource retrieved: ") + aTag;
+    UtfString aMessageString =
+      UtfString("Invalid value of TagSource retrieved: ") + aTag;
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
   }

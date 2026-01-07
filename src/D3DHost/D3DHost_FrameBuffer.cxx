@@ -128,7 +128,7 @@ Standard_Boolean D3DHost_FrameBuffer::InitD3dFallback(const Handle(OpenGl_Contex
                         GL_DEBUG_TYPE_ERROR,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString(
+                        AsciiString1(
                           "D3DHost_FrameBuffer, could not create D3DFMT_X8R8G8B8 render target ")
                           + aSizeX + "x" + aSizeY);
     return Standard_False;
@@ -184,7 +184,7 @@ Standard_Boolean D3DHost_FrameBuffer::InitD3dInterop(const Handle(OpenGl_Context
                         GL_DEBUG_TYPE_ERROR,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString(
+                        AsciiString1(
                           "D3DHost_FrameBuffer, could not create D3DFMT_X8R8G8B8 render target ")
                           + aSizeX + "x" + aSizeY);
     return Standard_False;
@@ -226,7 +226,7 @@ Standard_Boolean D3DHost_FrameBuffer::InitD3dInterop(const Handle(OpenGl_Context
                         GL_DEBUG_TYPE_ERROR,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString(
+                        AsciiString1(
                           "D3DHost_FrameBuffer, could not initialize GL_DEPTH24_STENCIL8 texture ")
                           + aSizeX + "x" + aSizeY);
     return Standard_False;

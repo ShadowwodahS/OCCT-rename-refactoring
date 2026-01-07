@@ -44,7 +44,7 @@ Poly_Connect::Poly_Connect()
 
 //=================================================================================================
 
-Poly_Connect::Poly_Connect(const Handle(Poly_Triangulation)& theTriangulation)
+Poly_Connect::Poly_Connect(const Handle(MeshTriangulation)& theTriangulation)
     : myTriangulation(theTriangulation),
       myTriangles(1, theTriangulation->NbNodes()),
       myAdjacents(1, 6 * theTriangulation->NbTriangles()),
@@ -60,7 +60,7 @@ Poly_Connect::Poly_Connect(const Handle(Poly_Triangulation)& theTriangulation)
 
 //=================================================================================================
 
-void Poly_Connect::Load(const Handle(Poly_Triangulation)& theTriangulation)
+void Poly_Connect::Load(const Handle(MeshTriangulation)& theTriangulation)
 {
   myTriangulation = theTriangulation;
   mytr            = 0;

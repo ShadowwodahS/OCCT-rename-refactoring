@@ -17,11 +17,11 @@
 // pdn 30.11.98: fixes improved
 // pdn 20.12.98: to keep pcurves
 // pdn 28.12.98: PRO10366 shifting pcurve between two singularities
-//: p4 abv, pdn 23.02.99: PRO9234 #15720: call BRepTools::Update() for faces
+//: p4 abv, pdn 23.02.99: PRO9234 #15720: call BRepTools1::Update() for faces
 //: q7 abv 23.03.99: bm4_al_eye.stp #53710: remove pseudo-seams
 //    rln 31.03.99 S4135: prohibit fixing intersection of non-adjacent edges (temporarily)
 // #4  szv          S4163: optimization
-//%19 pdn 17.04.99 using ShapeFix_Wire::FixEdgeCurves instead of ShapeFix_PCurves
+//%19 pdn 17.04.99 using WireHealer::FixEdgeCurves instead of ShapeFix_PCurves
 //    smh 31.01.01 Bad data in file : case of vertex loop on plane face
 // sln 01.10.2001 BUC61003. StepToTopoDS_TranslateFace::Init function is corrected (verifying
 // Handle(...).IsNull() is added)
@@ -105,7 +105,7 @@ namespace
 // Method  : SetNodes
 // Purpose : Set nodes to the triangulation from an array
 // ============================================================================
-static void SetNodes(const Handle(Poly_Triangulation)& theMesh,
+static void SetNodes(const Handle(MeshTriangulation)& theMesh,
                      Handle(TColgp_HArray1OfXYZ)&      theNodes,
                      const Standard_Integer            theNumPnindex,
                      Handle(TColStd_HArray1OfInteger)& thePnindices,
@@ -123,7 +123,7 @@ static void SetNodes(const Handle(Poly_Triangulation)& theMesh,
 // Method  : SetNormals
 // Purpose : Set normals to the triangulation from an array
 // ============================================================================
-static void SetNormals(const Handle(Poly_Triangulation)&    theMesh,
+static void SetNormals(const Handle(MeshTriangulation)&    theMesh,
                        const Handle(TColStd_HArray2OfReal)& theNormals,
                        const Standard_Integer               theNormNum,
                        const Standard_Integer               theNumPnindex)
@@ -159,7 +159,7 @@ static void SetNormals(const Handle(Poly_Triangulation)&    theMesh,
 // Method  : SetTriangles
 // Purpose : Set triangles to the triangulation from an array
 // ============================================================================
-static void SetTriangles(const Handle(Poly_Triangulation)&         theMesh,
+static void SetTriangles(const Handle(MeshTriangulation)&         theMesh,
                          const Handle(TColStd_HArray2OfInteger)    theTriangles,
                          const Standard_Integer                    theTrianStripsNum,
                          const Handle(TColStd_HArray1OfTransient)& theTrianStrips,
@@ -288,14 +288,14 @@ static void GetComplexFaceElements(Type                                theFace,
 // Method  : CreatePolyTriangulation
 // Purpose : Create PolyTriangulation
 // ============================================================================
-static Handle(Poly_Triangulation) CreatePolyTriangulation(
+static Handle(MeshTriangulation) CreatePolyTriangulation(
   const Handle(StepVisual_TessellatedItem)& theTI,
-  const StepData_Factors&                   theLocalFactors)
+  const ConversionFactors&                   theLocalFactors)
 {
-  Handle(Poly_Triangulation) aMesh;
+  Handle(MeshTriangulation) aMesh;
   if (theTI.IsNull())
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
 
   Handle(TColgp_HArray1OfXYZ)      aNodes;
@@ -368,7 +368,7 @@ static Handle(Poly_Triangulation) CreatePolyTriangulation(
   }
   else
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
 
   const Standard_Boolean aHasUVNodes = Standard_False;
@@ -377,7 +377,7 @@ static Handle(Poly_Triangulation) CreatePolyTriangulation(
 
   if (aTrianStripsNum == 0 && aTrianFansNum == 0)
   {
-    aMesh = new Poly_Triangulation(aNbNodes, aTrianNum, aHasUVNodes, aHasNormals);
+    aMesh = new MeshTriangulation(aNbNodes, aTrianNum, aHasUVNodes, aHasNormals);
   }
   else
   {
@@ -410,7 +410,7 @@ static Handle(Poly_Triangulation) CreatePolyTriangulation(
       aNbTriaFans += aTriangleFan->Length() - 2;
     }
 
-    aMesh = new Poly_Triangulation(aNbNodes, aNbTriaStrips + aNbTriaFans, aHasUVNodes, aHasNormals);
+    aMesh = new MeshTriangulation(aNbNodes, aNbTriaStrips + aNbTriaFans, aHasUVNodes, aHasNormals);
   }
 
   SetNodes(aMesh, aNodes, aNumPnindex, aPnindices, theLocalFactors.LengthFactor());
@@ -442,8 +442,8 @@ StepToTopoDS_TranslateFace::StepToTopoDS_TranslateFace()
 // ============================================================================
 StepToTopoDS_TranslateFace::StepToTopoDS_TranslateFace(const Handle(StepShape_FaceSurface)& FS,
                                                        StepToTopoDS_Tool&                   T,
-                                                       StepToTopoDS_NMTool&                 NMTool,
-                                                       const StepData_Factors& theLocalFactors)
+                                                       NamingTool2&                 NMTool,
+                                                       const ConversionFactors& theLocalFactors)
 {
   Init(FS, T, NMTool, theLocalFactors);
 }
@@ -456,10 +456,10 @@ StepToTopoDS_TranslateFace::StepToTopoDS_TranslateFace(const Handle(StepShape_Fa
 StepToTopoDS_TranslateFace::StepToTopoDS_TranslateFace(
   const Handle(StepVisual_TessellatedFace)& theTF,
   StepToTopoDS_Tool&                        theTool,
-  StepToTopoDS_NMTool&                      theNMTool,
+  NamingTool2&                      theNMTool,
   const Standard_Boolean                    theReadTessellatedWhenNoBRepOnly,
   Standard_Boolean&                         theHasGeom,
-  const StepData_Factors&                   theLocalFactors)
+  const ConversionFactors&                   theLocalFactors)
 {
   Init(theTF, theTool, theNMTool, theReadTessellatedWhenNoBRepOnly, theHasGeom, theLocalFactors);
 }
@@ -472,8 +472,8 @@ StepToTopoDS_TranslateFace::StepToTopoDS_TranslateFace(
 StepToTopoDS_TranslateFace::StepToTopoDS_TranslateFace(
   const Handle(StepVisual_TessellatedSurfaceSet)& theTSS,
   StepToTopoDS_Tool&                              theTool,
-  StepToTopoDS_NMTool&                            theNMTool,
-  const StepData_Factors&                         theLocalFactors)
+  NamingTool2&                            theNMTool,
+  const ConversionFactors&                         theLocalFactors)
 {
   Init(theTSS, theTool, theNMTool, theLocalFactors);
 }
@@ -503,8 +503,8 @@ static inline Standard_Boolean isReversed(const Handle(StepGeom_Surface)& theSte
 // ============================================================================
 void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFaceSurface,
                                       StepToTopoDS_Tool&                   theTopoDSTool,
-                                      StepToTopoDS_NMTool&                 theTopoDSToolNM,
-                                      const StepData_Factors&              theLocalFactors)
+                                      NamingTool2&                 theTopoDSToolNM,
+                                      const ConversionFactors&              theLocalFactors)
 {
   done = Standard_True;
   if (theTopoDSTool.IsBound(theFaceSurface))
@@ -519,7 +519,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
   Handle(Transfer_TransientProcess) aMessageHandler = theTopoDSTool.TransientProcess();
 
   // ----------------------------------------------
-  // Map the Face Geometry and create a TopoDS_Face
+  // Map the Face Geometry and create a TopoFace
   // ----------------------------------------------
   Handle(StepGeom_Surface) aStepGeomSurface = theFaceSurface->FaceGeometry();
   // sln 01.10.2001 BUC61003. If corresponding entity was read with error StepSurface may be NULL.
@@ -535,7 +535,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
   // [BEGIN] Added to process non-manifold topology (ssv; 14.11.2010)
   if (theTopoDSToolNM.IsActive() && theTopoDSToolNM.IsBound(aStepGeomSurface))
   {
-    TopoDS_Shape anExistingShape = theTopoDSToolNM.Find(aStepGeomSurface);
+    TopoShape anExistingShape = theTopoDSToolNM.Find(aStepGeomSurface);
     // Reverse shape's orientation for the next shell
     anExistingShape.Reverse();
     myResult = anExistingShape;
@@ -550,7 +550,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
     aMessageHandler->AddWarning(aStepGeomSurface, " Type OffsetSurface is out of scope of AP 214");
   }
 
-  Handle(Geom_Surface) aGeomSurface = StepToGeom::MakeSurface(aStepGeomSurface, theLocalFactors);
+  Handle(GeomSurface) aGeomSurface = StepToGeom1::MakeSurface(aStepGeomSurface, theLocalFactors);
   if (aGeomSurface.IsNull())
   {
     aMessageHandler->AddFail(aStepGeomSurface, " Surface has not been created");
@@ -562,7 +562,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
   // pdn to force bsplsurf to be periodic
   if (!Handle(StepGeom_BSplineSurface)::DownCast(aStepGeomSurface).IsNull())
   {
-    Handle(Geom_Surface) periodicSurf = ShapeAlgo::AlgoContainer()->ConvertToPeriodic(aGeomSurface);
+    Handle(GeomSurface) periodicSurf = ShapeAlgo::AlgoContainer()->ConvertToPeriodic(aGeomSurface);
     if (!periodicSurf.IsNull())
     {
       aMessageHandler->AddWarning(aStepGeomSurface, "Surface forced to be periodic");
@@ -579,8 +579,8 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
   // -- Statistics --
   theTopoDSTool.AddContinuity(aGeomSurface);
 
-  TopoDS_Face  aResultFace;
-  BRep_Builder aFaceBuilder;
+  TopoFace  aResultFace;
+  ShapeBuilder aFaceBuilder;
   aFaceBuilder.MakeFace(aResultFace, aGeomSurface, Precision::Confusion());
 
   // ----------------------------------
@@ -630,7 +630,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
         // surface shall be closed (e.g. a spherical_surface.)"
         // - natural bounds are applied only in case if VertexLoop is only the one defined face
         // bound.
-        BRepBuilderAPI_MakeFace anAuxiliaryFaceBuilder(aGeomSurface, Precision());
+        FaceMaker anAuxiliaryFaceBuilder(aGeomSurface, Precision());
         for (TopoDS_Iterator aFaceIt(anAuxiliaryFaceBuilder); aFaceIt.More(); aFaceIt.Next())
         {
           aFaceBuilder.Add(aResultFace, aFaceIt.Value());
@@ -644,7 +644,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
       }
 
       Handle(StepShape_VertexLoop) aVertexLoop = Handle(StepShape_VertexLoop)::DownCast(aFaceLoop);
-      if (aGeomSurface->IsKind(STANDARD_TYPE(Geom_Plane)))
+      if (aGeomSurface->IsKind(STANDARD_TYPE(GeomPlane)))
       {
         aMessageHandler->AddWarning(aVertexLoop, "VertexLoop on plane is ignored");
         continue; // smh : BUC60809
@@ -680,7 +680,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
                                theLocalFactors);
       if (aPolyLoopTranslator.IsDone())
       {
-        TopoDS_Wire aPolyLoopWire = TopoDS::Wire(aPolyLoopTranslator.Value());
+        TopoWire aPolyLoopWire = TopoDS::Wire(aPolyLoopTranslator.Value());
         aPolyLoopWire.Orientation(aFaceBound->Orientation() ? TopAbs_FORWARD : TopAbs_REVERSED);
         aFaceBuilder.Add(aResultFace, aPolyLoopWire);
       }
@@ -708,7 +708,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
 
       if (anEdgeLoopTranslator.IsDone())
       {
-        TopoDS_Wire anEdgeLoopWire = TopoDS::Wire(anEdgeLoopTranslator.Value());
+        TopoWire anEdgeLoopWire = TopoDS::Wire(anEdgeLoopTranslator.Value());
 
         // STEP Face_Surface orientation :
         // if the topological orientation is opposite to the geometric
@@ -773,18 +773,18 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepShape_FaceSurface)& theFa
 // ============================================================================
 void StepToTopoDS_TranslateFace::Init(const Handle(StepVisual_TessellatedFace)& theTF,
                                       StepToTopoDS_Tool&                        theTool,
-                                      StepToTopoDS_NMTool&                      theNMTool,
+                                      NamingTool2&                      theNMTool,
                                       const Standard_Boolean  theReadTessellatedWhenNoBRepOnly,
                                       Standard_Boolean&       theHasGeom,
-                                      const StepData_Factors& theLocalFactors)
+                                      const ConversionFactors& theLocalFactors)
 {
   if (theTF.IsNull())
     return;
 
   Handle(Transfer_TransientProcess) aTP = theTool.TransientProcess();
 
-  BRep_Builder aB;
-  TopoDS_Face  aF;
+  ShapeBuilder aB;
+  TopoFace  aF;
 
   if (theTF->HasGeometricLink())
   {
@@ -795,7 +795,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepVisual_TessellatedFace)& 
       aF         = aBinder->Face();
       theHasGeom = Standard_True;
     }
-    if (!aF.IsNull() && !BRep_Tool::Surface(aF).IsNull() && theReadTessellatedWhenNoBRepOnly)
+    if (!aF.IsNull() && !BRepInspector::Surface(aF).IsNull() && theReadTessellatedWhenNoBRepOnly)
     {
       // Face has BRep but OnNoBRep param is specified
       return;
@@ -808,7 +808,7 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepVisual_TessellatedFace)& 
     theHasGeom = Standard_False;
   }
 
-  Handle(Poly_Triangulation) aMesh;
+  Handle(MeshTriangulation) aMesh;
   if (DeclareAndCast(StepVisual_TriangulatedFace, aTriaF, theTF))
   {
     aMesh = createMesh(aTriaF, theLocalFactors);
@@ -848,18 +848,18 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepVisual_TessellatedFace)& 
 // ============================================================================
 void StepToTopoDS_TranslateFace::Init(const Handle(StepVisual_TessellatedSurfaceSet)& theTSS,
                                       StepToTopoDS_Tool&                              theTool,
-                                      StepToTopoDS_NMTool&                            theNMTool,
-                                      const StepData_Factors& theLocalFactors)
+                                      NamingTool2&                            theNMTool,
+                                      const ConversionFactors& theLocalFactors)
 {
   if (theTSS.IsNull())
     return;
 
   Handle(Transfer_TransientProcess) aTP = theTool.TransientProcess();
-  BRep_Builder                      aB;
-  TopoDS_Face                       aF;
+  ShapeBuilder                      aB;
+  TopoFace                       aF;
   aB.MakeFace(aF);
 
-  Handle(Poly_Triangulation) aMesh;
+  Handle(MeshTriangulation) aMesh;
   if (DeclareAndCast(StepVisual_TriangulatedSurfaceSet, aTriaSS, theTSS))
   {
     aMesh = createMesh(aTriaSS, theLocalFactors);
@@ -889,12 +889,12 @@ void StepToTopoDS_TranslateFace::Init(const Handle(StepVisual_TessellatedSurface
 
 // ============================================================================
 // Method  : createMesh
-// Purpose : creates a Poly_Triangulation from simple/complex
+// Purpose : creates a MeshTriangulation from simple/complex
 //           TriangulatedFace or TriangulatedSurfaceSet
 // ============================================================================
-Handle(Poly_Triangulation) StepToTopoDS_TranslateFace::createMesh(
+Handle(MeshTriangulation) StepToTopoDS_TranslateFace::createMesh(
   const Handle(StepVisual_TessellatedItem)& theTI,
-  const StepData_Factors&                   theLocalFactors) const
+  const ConversionFactors&                   theLocalFactors) const
 {
   return CreatePolyTriangulation(theTI, theLocalFactors);
 }
@@ -903,7 +903,7 @@ Handle(Poly_Triangulation) StepToTopoDS_TranslateFace::createMesh(
 // Method  : Value
 // Purpose : Return the mapped Shape
 // ============================================================================
-const TopoDS_Shape& StepToTopoDS_TranslateFace::Value() const
+const TopoShape& StepToTopoDS_TranslateFace::Value() const
 {
   StdFail_NotDone_Raise_if(!done, "StepToTopoDS_TranslateFace::Value() - no result");
   return myResult;

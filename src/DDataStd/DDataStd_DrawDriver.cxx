@@ -67,11 +67,11 @@ DDataStd_DrawDriver::DDataStd_DrawDriver() {}
 
 //=================================================================================================
 
-static TopoDS_Shape Geometry(const Handle(TDataXtd_Constraint)& A,
+static TopoShape Geometry(const Handle(TDataXtd_Constraint)& A,
                              const Standard_Integer             i,
                              TopAbs_ShapeEnum                   T)
 {
-  TopoDS_Shape S = TNaming_Tool::GetShape(A->GetGeometry(i));
+  TopoShape S = Tool11::GetShape(A->GetGeometry(i));
   if (!S.IsNull())
   {
     if (T != TopAbs_SHAPE && T != S.ShapeType())
@@ -82,7 +82,7 @@ static TopoDS_Shape Geometry(const Handle(TDataXtd_Constraint)& A,
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DDataStd_DrawDriver::Drawable(const TDF_Label& L) const
+Handle(Draw_Drawable3D) DDataStd_DrawDriver::Drawable(const DataLabel& L) const
 {
   // CONSTRAINT
 
@@ -94,7 +94,7 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::Drawable(const TDF_Label& L) const
 
   // OBJECT
 
-  TopoDS_Shape s;
+  TopoShape s;
 
   // Handle(TDataStd_Object) OBJ;
   // if (L.FindAttribute(TDataStd_Object::GetID(),OBJ)) {
@@ -148,8 +148,8 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::Drawable(const TDF_Label& L) const
 
   // PURE SHAPE
 
-  Handle(TNaming_NamedShape) NS;
-  if (L.FindAttribute(TNaming_NamedShape::GetID(), NS))
+  Handle(ShapeAttribute) NS;
+  if (L.FindAttribute(ShapeAttribute::GetID(), NS))
   {
     return DrawableShape(NS->Label(), Draw_jaune);
   }
@@ -171,13 +171,13 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableConstraint(
     case TDataXtd_RADIUS: {
       if (A->IsPlanar())
       {
-        D = new DrawDim_PlanarRadius(TNaming_Tool::GetShape(A->GetGeometry(1)));
+        D = new DrawDim_PlanarRadius(Tool11::GetShape(A->GetGeometry(1)));
       }
       else
       {
-        TopoDS_Shape aLocalShape = Geometry(A, 1, TopAbs_FACE);
-        TopoDS_Face  F1          = TopoDS::Face(aLocalShape);
-        // TopoDS_Face F1 = TopoDS::Face(Geometry(A,1,TopAbs_FACE));
+        TopoShape aLocalShape = Geometry(A, 1, TopAbs_FACE);
+        TopoFace  F1          = TopoDS::Face(aLocalShape);
+        // TopoFace F1 = TopoDS::Face(Geometry(A,1,TopAbs_FACE));
         if (!F1.IsNull())
           D = new DrawDim_Radius(F1);
       }
@@ -187,7 +187,7 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableConstraint(
     case TDataXtd_DIAMETER:
       if (A->IsPlanar())
       {
-        D = new DrawDim_PlanarDiameter(TNaming_Tool::GetShape(A->GetGeometry(1)));
+        D = new DrawDim_PlanarDiameter(Tool11::GetShape(A->GetGeometry(1)));
       }
       break;
 
@@ -215,8 +215,8 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableConstraint(
     case TDataXtd_DISTANCE: {
       if (A->IsPlanar())
       {
-        D = new DrawDim_PlanarDistance(TNaming_Tool::GetShape(A->GetGeometry(1)),
-                                       TNaming_Tool::GetShape(A->GetGeometry(2)));
+        D = new DrawDim_PlanarDistance(Tool11::GetShape(A->GetGeometry(1)),
+                                       Tool11::GetShape(A->GetGeometry(2)));
       }
       break;
     }
@@ -224,22 +224,22 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableConstraint(
       if (A->IsPlanar())
       {
         Handle(DrawDim_PlanarAngle) DAng =
-          new DrawDim_PlanarAngle(TNaming_Tool::GetShape(A->GetGeometry(1)),
-                                  TNaming_Tool::GetShape(A->GetGeometry(2)));
+          new DrawDim_PlanarAngle(Tool11::GetShape(A->GetGeometry(1)),
+                                  Tool11::GetShape(A->GetGeometry(2)));
         DAng->Sector(A->Reversed(), A->Inverted());
-        TopoDS_Shape aLocalShape = TNaming_Tool::GetShape(A->GetPlane());
+        TopoShape aLocalShape = Tool11::GetShape(A->GetPlane());
         DAng->SetPlane(TopoDS::Face(aLocalShape));
-        //	DAng->SetPlane(TopoDS::Face(TNaming_Tool::GetShape(A->GetPlane())));
+        //	DAng->SetPlane(TopoDS::Face(Tool11::GetShape(A->GetPlane())));
         D = DAng;
       }
       else
       {
-        TopoDS_Shape aLocalShape = Geometry(A, 1, TopAbs_FACE);
-        TopoDS_Face  F1          = TopoDS::Face(aLocalShape);
+        TopoShape aLocalShape = Geometry(A, 1, TopAbs_FACE);
+        TopoFace  F1          = TopoDS::Face(aLocalShape);
         aLocalShape              = Geometry(A, 2, TopAbs_FACE);
-        TopoDS_Face F2           = TopoDS::Face(aLocalShape);
-        //	TopoDS_Face F1 = TopoDS::Face(Geometry(A,1,TopAbs_FACE));
-        //	TopoDS_Face F2 = TopoDS::Face(Geometry(A,2,TopAbs_FACE));
+        TopoFace F2           = TopoDS::Face(aLocalShape);
+        //	TopoFace F1 = TopoDS::Face(Geometry(A,1,TopAbs_FACE));
+        //	TopoFace F2 = TopoDS::Face(Geometry(A,2,TopAbs_FACE));
         if (!F1.IsNull() && !F2.IsNull())
           D = new DrawDim_Angle(F1, F2);
       }
@@ -273,24 +273,24 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableConstraint(
       break;
 
     case TDataXtd_MATE: {
-      TopoDS_Shape aLocalShape = Geometry(A, 1, TopAbs_FACE);
-      TopoDS_Face  F1          = TopoDS::Face(aLocalShape);
+      TopoShape aLocalShape = Geometry(A, 1, TopAbs_FACE);
+      TopoFace  F1          = TopoDS::Face(aLocalShape);
       aLocalShape              = Geometry(A, 2, TopAbs_FACE);
-      TopoDS_Face F2           = TopoDS::Face(aLocalShape);
-      //      TopoDS_Face F1 = TopoDS::Face(Geometry(A,1,TopAbs_FACE));
-      //      TopoDS_Face F2 = TopoDS::Face(Geometry(A,2,TopAbs_FACE));
+      TopoFace F2           = TopoDS::Face(aLocalShape);
+      //      TopoFace F1 = TopoDS::Face(Geometry(A,1,TopAbs_FACE));
+      //      TopoFace F2 = TopoDS::Face(Geometry(A,2,TopAbs_FACE));
       if (!F1.IsNull() && !F2.IsNull())
         D = new DrawDim_Distance(F1, F2);
     }
     break;
 
     case TDataXtd_ALIGN_FACES: {
-      TopoDS_Shape aLocalShape = Geometry(A, 1, TopAbs_FACE);
-      TopoDS_Face  F1          = TopoDS::Face(aLocalShape);
+      TopoShape aLocalShape = Geometry(A, 1, TopAbs_FACE);
+      TopoFace  F1          = TopoDS::Face(aLocalShape);
       aLocalShape              = Geometry(A, 2, TopAbs_FACE);
-      TopoDS_Face F2           = TopoDS::Face(aLocalShape);
-      //      TopoDS_Face F1 = TopoDS::Face(Geometry(A,1,TopAbs_FACE));
-      //      TopoDS_Face F2 = TopoDS::Face(Geometry(A,2,TopAbs_FACE));
+      TopoFace F2           = TopoDS::Face(aLocalShape);
+      //      TopoFace F1 = TopoDS::Face(Geometry(A,1,TopAbs_FACE));
+      //      TopoFace F2 = TopoDS::Face(Geometry(A,2,TopAbs_FACE));
       if (!F1.IsNull() && !F2.IsNull())
         D = new DrawDim_Distance(F1, F2);
     }
@@ -330,19 +330,19 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableConstraint(
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableShape(const TDF_Label&       L,
+Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableShape(const DataLabel&       L,
                                                            const Draw_ColorKind   color,
                                                            const Standard_Boolean current) const
 {
   Handle(Draw_Drawable3D)    DS;
-  Handle(TNaming_NamedShape) NS;
-  if (L.FindAttribute(TNaming_NamedShape::GetID(), NS))
+  Handle(ShapeAttribute) NS;
+  if (L.FindAttribute(ShapeAttribute::GetID(), NS))
   {
-    TopoDS_Shape S;
+    TopoShape S;
     if (current)
-      S = TNaming_Tool::CurrentShape(NS);
+      S = Tool11::CurrentShape(NS);
     else
-      S = TNaming_Tool::GetShape(NS);
+      S = Tool11::GetShape(NS);
     DS = DrawableShape(S, color);
   }
   return DS;
@@ -350,7 +350,7 @@ Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableShape(const TDF_Label&     
 
 //=================================================================================================
 
-Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableShape(const TopoDS_Shape&  s,
+Handle(Draw_Drawable3D) DDataStd_DrawDriver::DrawableShape(const TopoShape&  s,
                                                            const Draw_ColorKind color)
 {
   Handle(DBRep_DrawableShape) DS;

@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-TopOpeBRep_WPointInterIterator::TopOpeBRep_WPointInterIterator()
+WPointIntersectionIterator::WPointIntersectionIterator()
     : myLineInter(NULL),
       myWPointIndex(0),
       myWPointNb(0)
@@ -29,14 +29,14 @@ TopOpeBRep_WPointInterIterator::TopOpeBRep_WPointInterIterator()
 
 //=================================================================================================
 
-TopOpeBRep_WPointInterIterator::TopOpeBRep_WPointInterIterator(const TopOpeBRep_LineInter& LI)
+WPointIntersectionIterator::WPointIntersectionIterator(const TopOpeBRep_LineInter& LI)
 {
   Init(LI);
 }
 
 //=================================================================================================
 
-void TopOpeBRep_WPointInterIterator::Init(const TopOpeBRep_LineInter& LI)
+void WPointIntersectionIterator::Init(const TopOpeBRep_LineInter& LI)
 {
   myLineInter = (TopOpeBRep_LineInter*)&LI;
   Init();
@@ -44,7 +44,7 @@ void TopOpeBRep_WPointInterIterator::Init(const TopOpeBRep_LineInter& LI)
 
 //=================================================================================================
 
-void TopOpeBRep_WPointInterIterator::Init()
+void WPointIntersectionIterator::Init()
 {
   myWPointIndex = 1;
   myWPointNb    = myLineInter->NbWPoint();
@@ -52,29 +52,29 @@ void TopOpeBRep_WPointInterIterator::Init()
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRep_WPointInterIterator::More() const
+Standard_Boolean WPointIntersectionIterator::More() const
 {
   return (myWPointIndex <= myWPointNb);
 }
 
 //=================================================================================================
 
-void TopOpeBRep_WPointInterIterator::Next()
+void WPointIntersectionIterator::Next()
 {
   myWPointIndex++;
 }
 
 //=================================================================================================
 
-const TopOpeBRep_WPointInter& TopOpeBRep_WPointInterIterator::CurrentWP()
+const WPointIntersection& WPointIntersectionIterator::CurrentWP()
 {
   if (!More())
-    throw Standard_ProgramError("TopOpeBRep_WPointInterIterator::Current");
-  const TopOpeBRep_WPointInter& WP = myLineInter->WPoint(myWPointIndex);
+    throw Standard_ProgramError("WPointIntersectionIterator::Current");
+  const WPointIntersection& WP = myLineInter->WPoint(myWPointIndex);
   return WP;
 }
 
-TopOpeBRep_PLineInter TopOpeBRep_WPointInterIterator::PLineInterDummy() const
+TopOpeBRep_PLineInter WPointIntersectionIterator::PLineInterDummy() const
 {
   return myLineInter;
 }

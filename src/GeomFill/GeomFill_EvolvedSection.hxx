@@ -27,9 +27,9 @@
 #include <Standard_Integer.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 #include <GeomAbs_Shape.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 class Law_Function;
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 class Geom_BSplineSurface;
 class Point3d;
 
@@ -42,7 +42,7 @@ class GeomFill_EvolvedSection : public GeomFill_SectionLaw
 
 public:
   //! Make an SectionLaw with a Curve and a real  Law.
-  Standard_EXPORT GeomFill_EvolvedSection(const Handle(Geom_Curve)&   C,
+  Standard_EXPORT GeomFill_EvolvedSection(const Handle(GeomCurve3d)&   C,
                                           const Handle(Law_Function)& L);
 
   //! compute the section for v = param
@@ -161,7 +161,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsConstant(Standard_Real& Error) const Standard_OVERRIDE;
 
   //! Return the constant Section if <me>  IsConstant.
-  Standard_EXPORT virtual Handle(Geom_Curve) ConstantSection() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(GeomCurve3d) ConstantSection() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(GeomFill_EvolvedSection, GeomFill_SectionLaw)
 
@@ -169,10 +169,10 @@ protected:
 private:
   Standard_Real             First;
   Standard_Real             Last;
-  Handle(Geom_Curve)        mySection;
+  Handle(GeomCurve3d)        mySection;
   Handle(Law_Function)      myLaw;
   Handle(Law_Function)      TLaw;
-  Handle(Geom_BSplineCurve) myCurve;
+  Handle(BSplineCurve3d) myCurve;
 };
 
 #endif // _GeomFill_EvolvedSection_HeaderFile

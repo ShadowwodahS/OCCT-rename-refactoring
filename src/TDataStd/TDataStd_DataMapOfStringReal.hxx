@@ -20,8 +20,8 @@
 #include <TCollection_ExtendedString.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TCollection_ExtendedString, Standard_Real> TDataStd_DataMapOfStringReal;
-typedef NCollection_DataMap<TCollection_ExtendedString, Standard_Real>::Iterator
+typedef NCollection_DataMap<UtfString, Standard_Real> TDataStd_DataMapOfStringReal;
+typedef NCollection_DataMap<UtfString, Standard_Real>::Iterator
   TDataStd_DataMapIteratorOfDataMapOfStringReal;
 
 #endif

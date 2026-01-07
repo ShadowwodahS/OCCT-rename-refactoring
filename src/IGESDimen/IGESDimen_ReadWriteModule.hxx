@@ -30,7 +30,7 @@ class IGESData_IGESWriter;
 class IGESDimen_ReadWriteModule;
 DEFINE_STANDARD_HANDLE(IGESDimen_ReadWriteModule, IGESData_ReadWriteModule)
 
-//! Defines Dimen File Access Module for IGESDimen (specific parts)
+//! Defines Dimen File Access Module for IGESDimen1 (specific parts)
 //! Specific actions concern : Read and Write Own Parameters of
 //! an IGESEntity
 class IGESDimen_ReadWriteModule : public IGESData_ReadWriteModule
@@ -40,11 +40,11 @@ public:
   //! Creates a ReadWriteModule & puts it into ReaderLib & WriterLib
   Standard_EXPORT IGESDimen_ReadWriteModule();
 
-  //! Defines Case Numbers for Entities of IGESDimen
+  //! Defines Case Numbers for Entities of IGESDimen1
   Standard_EXPORT Standard_Integer CaseIGES(const Standard_Integer typenum,
                                             const Standard_Integer formnum) const Standard_OVERRIDE;
 
-  //! Reads own parameters from file for an Entity of IGESDimen
+  //! Reads own parameters from file for an Entity of IGESDimen1
   Standard_EXPORT void ReadOwnParams(const Standard_Integer                 CN,
                                      const Handle(IGESData_IGESEntity)&     ent,
                                      const Handle(IGESData_IGESReaderData)& IR,

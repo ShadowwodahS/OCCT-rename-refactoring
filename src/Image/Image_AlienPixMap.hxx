@@ -18,7 +18,7 @@
 
 #include <Image_PixMap.hxx>
 
-class TCollection_AsciiString;
+class AsciiString1;
 struct IWICPalette;
 struct FIBITMAP;
 
@@ -49,10 +49,10 @@ public:
   Standard_EXPORT virtual ~Image_AlienPixMap();
 
   //! Read image data from file.
-  bool Load(const TCollection_AsciiString& theFileName) { return Load(NULL, 0, theFileName); }
+  bool Load(const AsciiString1& theFileName) { return Load(NULL, 0, theFileName); }
 
   //! Read image data from stream.
-  Standard_EXPORT bool Load(std::istream& theStream, const TCollection_AsciiString& theFileName);
+  Standard_EXPORT bool Load(std::istream& theStream, const AsciiString1& theFileName);
 
   //! Read image data from memory buffer.
   //! @param[in] theData     memory pointer to read from;
@@ -61,16 +61,16 @@ public:
   //! @param[in] theFileName optional file name
   Standard_EXPORT bool Load(const Standard_Byte*           theData,
                             const Standard_Size            theLength,
-                            const TCollection_AsciiString& theFileName);
+                            const AsciiString1& theFileName);
 
   //! Write image data to file.
   //! @param[in] theFileName file name to save
-  bool Save(const TCollection_AsciiString& theFileName) { return Save(NULL, 0, theFileName); }
+  bool Save(const AsciiString1& theFileName) { return Save(NULL, 0, theFileName); }
 
   //! Write image data to stream.
   //! @param[out] theStream   stream where to write
   //! @param[in] theExtension image format
-  Standard_EXPORT bool Save(std::ostream& theStream, const TCollection_AsciiString& theExtension);
+  Standard_EXPORT bool Save(std::ostream& theStream, const AsciiString1& theExtension);
 
   //! Write image data to file or memory buffer using file extension to determine format.
   //! @param[out] theBuffer  buffer pointer where to write
@@ -80,7 +80,7 @@ public:
   //!                        when theBuffer isn't NULL used only to determine format
   Standard_EXPORT bool Save(Standard_Byte*                 theBuffer,
                             const Standard_Size            theLength,
-                            const TCollection_AsciiString& theFileName);
+                            const AsciiString1& theFileName);
 
   //! Initialize image plane with required dimensions.
   //! @param[in] thePixelFormat  if specified pixel format doesn't supported by image library
@@ -121,7 +121,7 @@ private:
                                            const Standard_Size theSizeRowBytes) Standard_OVERRIDE;
 
   //! Built-in PPM export
-  Standard_EXPORT bool savePPM(const TCollection_AsciiString& theFileName) const;
+  Standard_EXPORT bool savePPM(const AsciiString1& theFileName) const;
 
   FIBITMAP* getImageToDump(const Standard_Integer theFormat);
 

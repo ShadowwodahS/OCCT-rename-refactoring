@@ -96,7 +96,7 @@ Handle(Expr_GeneralExpression) Expr_Difference::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_Difference::Copy() const
 {
-  return Expr::CopyShare(FirstOperand()) - Expr::CopyShare(SecondOperand());
+  return Expr1::CopyShare(FirstOperand()) - Expr1::CopyShare(SecondOperand());
 }
 
 Standard_Boolean Expr_Difference::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -166,11 +166,11 @@ Standard_Real Expr_Difference::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return res - SecondOperand()->Evaluate(vars, vals);
 }
 
-TCollection_AsciiString Expr_Difference::String() const
+AsciiString1 Expr_Difference::String() const
 {
   Handle(Expr_GeneralExpression) op1 = FirstOperand();
   Handle(Expr_GeneralExpression) op2 = SecondOperand();
-  TCollection_AsciiString        str;
+  AsciiString1        str;
   if (op1->NbSubExpressions() > 1)
   {
     str += "(";

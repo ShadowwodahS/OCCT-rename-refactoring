@@ -24,19 +24,19 @@
 #include <TopTools_SequenceOfShape.hxx>
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Edge;
+class TopoEdge;
 
 //! Constructs a sequence of Wires (with good orientation
 //! and origin) agreed each other so that the surface passing
 //! through these sections is not twisted
-class BRepFill_CompatibleWires
+class CompatibleWires
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepFill_CompatibleWires();
+  Standard_EXPORT CompatibleWires();
 
-  Standard_EXPORT BRepFill_CompatibleWires(const TopTools_SequenceOfShape& Sections);
+  Standard_EXPORT CompatibleWires(const TopTools_SequenceOfShape& Sections);
 
   Standard_EXPORT void Init(const TopTools_SequenceOfShape& Sections);
 
@@ -55,7 +55,7 @@ public:
 
   //! Returns   the  shapes  created  from   a  subshape
   //! <SubSection> of a section.
-  Standard_EXPORT const TopTools_ListOfShape& GeneratedShapes(const TopoDS_Edge& SubSection) const;
+  Standard_EXPORT const ShapeList& GeneratedShapes(const TopoEdge& SubSection) const;
 
   Standard_EXPORT const TopTools_DataMapOfShapeListOfShape& Generated() const;
 

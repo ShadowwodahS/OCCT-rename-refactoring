@@ -84,10 +84,10 @@ TopoDSToStep_MakeStepFace::TopoDSToStep_MakeStepFace()
   done = Standard_False;
 }
 
-TopoDSToStep_MakeStepFace::TopoDSToStep_MakeStepFace(const TopoDS_Face&                    F,
+TopoDSToStep_MakeStepFace::TopoDSToStep_MakeStepFace(const TopoFace&                    F,
                                                      TopoDSToStep_Tool&                    T,
                                                      const Handle(Transfer_FinderProcess)& FP,
-                                                     const StepData_Factors& theLocalFactors)
+                                                     const ConversionFactors& theLocalFactors)
 {
   done = Standard_False;
   Init(F, T, FP, theLocalFactors);
@@ -97,18 +97,18 @@ TopoDSToStep_MakeStepFace::TopoDSToStep_MakeStepFace(const TopoDS_Face&         
 // Method  : Init
 // Purpose :
 // ----------------------------------------------------------------------------
-void TopoDSToStep_MakeStepFace::Init(const TopoDS_Face&                    aFace,
+void TopoDSToStep_MakeStepFace::Init(const TopoFace&                    aFace,
                                      TopoDSToStep_Tool&                    aTool,
                                      const Handle(Transfer_FinderProcess)& FP,
-                                     const StepData_Factors&               theLocalFactors)
+                                     const ConversionFactors&               theLocalFactors)
 {
   // --------------------------------------------------------------
   // the face is given with its relative orientation (in the Shell)
   // --------------------------------------------------------------
 
   // szv#4:S4163:12Mar99 SGI warns
-  TopoDS_Shape      sh          = aFace.Oriented(TopAbs_FORWARD);
-  const TopoDS_Face ForwardFace = TopoDS::Face(sh);
+  TopoShape      sh          = aFace.Oriented(TopAbs_FORWARD);
+  const TopoFace ForwardFace = TopoDS::Face(sh);
   aTool.SetCurrentFace(ForwardFace);
   Handle(TransferBRep_ShapeMapper) errShape =
     new TransferBRep_ShapeMapper(aFace); // on ne sait jamais
@@ -151,7 +151,7 @@ void TopoDSToStep_MakeStepFace::Init(const TopoDS_Face&                    aFace
   // ------------------
   // Get the Outer Wire
   // ------------------
-  const TopoDS_Wire theOuterWire = BRepTools::OuterWire(ForwardFace);
+  const TopoWire theOuterWire = BRepTools1::OuterWire(ForwardFace);
   if (theOuterWire.IsNull())
   {
     FP->AddWarning(errShape, " Face without wire not mapped");
@@ -165,7 +165,7 @@ void TopoDSToStep_MakeStepFace::Init(const TopoDS_Face&                    aFace
     // -----------------
     // Translate Surface
     // -----------------
-    Handle(Geom_Surface) Su = BRep_Tool::Surface(ForwardFace);
+    Handle(GeomSurface) Su = BRepInspector::Surface(ForwardFace);
     if (Su.IsNull())
     {
       FP->AddWarning(errShape, " Face without geometry not mapped");
@@ -221,7 +221,7 @@ void TopoDSToStep_MakeStepFace::Init(const TopoDS_Face&                    aFace
           Standard_Real UF, VF, UL, VL;
           ShapeAlgo::AlgoContainer()->GetFaceUVBounds(aFace, UF, UL, VF, VL);
           Frame3d             Ax2(pos.XYZ() + X.XYZ() * TS->MajorRadius(), X ^ dir, X);
-          Handle(Geom_Curve) BasisCurve = new Geom_Circle(Ax2, TS->MinorRadius());
+          Handle(GeomCurve3d) BasisCurve = new GeomCircle(Ax2, TS->MinorRadius());
           // convert basis curve to bspline in order to avoid self-intersecting
           // surface of revolution (necessary e.g. for CATIA)
           if (VL - VF - 2 * M_PI < -Precision::PConfusion())
@@ -265,11 +265,11 @@ void TopoDSToStep_MakeStepFace::Init(const TopoDS_Face&                    aFace
     TColStd_SequenceOfTransient mySeq;
 
     // Initialize the Wire Explorer with the forward face
-    TopExp_Explorer WireExp;
+    ShapeExplorer WireExp;
     for (WireExp.Init(ForwardFace, TopAbs_WIRE); WireExp.More(); WireExp.Next())
     {
 
-      const TopoDS_Wire CurrentWire = TopoDS::Wire(WireExp.Current());
+      const TopoWire CurrentWire = TopoDS::Wire(WireExp.Current());
       if (!CurrentWire.IsNull())
       {
         MkWire.Init(CurrentWire, aTool, FP, theLocalFactors);
@@ -317,17 +317,17 @@ void TopoDSToStep_MakeStepFace::Init(const TopoDS_Face&                    aFace
     if (!aTool.Faceted() && aTool.PCurveMode() != 0)
     {
 
-      TopExp_Explorer Ex(ForwardFace, TopAbs_EDGE);
+      ShapeExplorer Ex(ForwardFace, TopAbs_EDGE);
 
       // ------------------------------------------------
       // Exploration of all the Edges in the current face
       // ------------------------------------------------
       for (; Ex.More(); Ex.Next())
       {
-        TopoDS_Edge          E = TopoDS::Edge(Ex.Current());
+        TopoEdge          E = TopoDS::Edge(Ex.Current());
         Standard_Real        cf, cl;
-        Handle(Geom2d_Curve) C2d = BRep_Tool::CurveOnSurface(E, ForwardFace, cf, cl);
-        if (BRep_Tool::Degenerated(E) || C2d.IsNull())
+        Handle(GeomCurve2d) C2d = BRepInspector::CurveOnSurface(E, ForwardFace, cf, cl);
+        if (BRepInspector::Degenerated(E) || C2d.IsNull())
         {
           // The edge 2D Geometry degenerates in 3D
           // The edge 2D geometry is not mapped onto any Step entity
@@ -335,7 +335,7 @@ void TopoDSToStep_MakeStepFace::Init(const TopoDS_Face&                    aFace
           continue;
         }
         // Copy the Curve2d which might be changed
-        C2d = Handle(Geom2d_Curve)::DownCast(C2d->Copy());
+        C2d = Handle(GeomCurve2d)::DownCast(C2d->Copy());
 
         // for writing VERTEX_LOOP
         if (!aTool.IsBound(E))
@@ -369,7 +369,7 @@ void TopoDSToStep_MakeStepFace::Init(const TopoDS_Face&                    aFace
           // use the BasisSurface.
           //   CKY  23 SEP 1996 : on reste en Radian car on code des Radians
           //    sauf que ca ne marche pas bien ...
-          Handle(Geom2d_Curve) C2dMapped;
+          Handle(GeomCurve2d) C2dMapped;
           if (Su->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
           {
             Handle(Geom_RectangularTrimmedSurface) alocalRTS =

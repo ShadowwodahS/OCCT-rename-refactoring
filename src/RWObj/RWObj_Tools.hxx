@@ -47,7 +47,7 @@ inline bool ReadVec3(const char* thePos, char*& theNext, gp_XYZ& theVec)
 }
 
 //! Read string.
-inline bool ReadName(const char* thePos, TCollection_AsciiString& theName)
+inline bool ReadName(const char* thePos, AsciiString1& theName)
 {
   Standard_Integer aFrom = 0;
   Standard_Integer aTail = (Standard_Integer)std::strlen(thePos) - 1;
@@ -70,7 +70,7 @@ inline bool ReadName(const char* thePos, TCollection_AsciiString& theName)
     theName.Clear();
     return false;
   }
-  theName = TCollection_AsciiString(thePos + aFrom, aTail - aFrom + 1);
+  theName = AsciiString1(thePos + aFrom, aTail - aFrom + 1);
   return true;
 }
 

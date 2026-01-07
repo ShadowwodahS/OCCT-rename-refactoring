@@ -141,7 +141,7 @@ private:
   //! @param thePoint point to be expanded.
   //! @param[out] theMinPoint bottom left corner of area defined by expanded point.
   //! @param[out] theMaxPoint top right corner of area defined by expanded point.
-  void expandPoint(const gp_XY& thePoint, gp_XY& theMinPoint, gp_XY& theMaxPoint)
+  void expandPoint(const Coords2d& thePoint, Coords2d& theMinPoint, Coords2d& theMaxPoint)
   {
     theMinPoint.SetX(thePoint.X() - myTolerance[0]);
     theMinPoint.SetY(thePoint.Y() - myTolerance[1]);

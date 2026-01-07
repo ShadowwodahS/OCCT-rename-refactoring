@@ -28,17 +28,17 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 
 #ifdef _WIN32
-Standard_IMPORT Draw_Viewer dout;
+Standard_IMPORT DrawViewer dout;
 #endif
 //=================================================================================================
 
-static Standard_Integer polytr(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer polytr(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
 
-  Standard_Integer nbNodes = Draw::Atoi(a[2]);
-  Standard_Integer nbTri   = Draw::Atoi(a[3]);
+  Standard_Integer nbNodes = Draw1::Atoi(a[2]);
+  Standard_Integer nbTri   = Draw1::Atoi(a[3]);
 
   // read the nodes
   Standard_Integer   i, j = 4;
@@ -51,7 +51,7 @@ static Standard_Integer polytr(Draw_Interpretor& di, Standard_Integer n, const c
       di << "Not enough nodes";
       return 1;
     }
-    Nodes(i).SetCoord(Draw::Atof(a[j]), Draw::Atof(a[j + 1]), Draw::Atof(a[j + 2]));
+    Nodes(i).SetCoord(Draw1::Atof(a[j]), Draw1::Atof(a[j + 1]), Draw1::Atof(a[j + 2]));
     j += 3;
   }
 
@@ -65,25 +65,25 @@ static Standard_Integer polytr(Draw_Interpretor& di, Standard_Integer n, const c
       di << "Not enough triangles";
       return 1;
     }
-    Triangles(i).Set(Draw::Atoi(a[j]), Draw::Atoi(a[j + 1]), Draw::Atoi(a[j + 2]));
+    Triangles(i).Set(Draw1::Atoi(a[j]), Draw1::Atoi(a[j + 1]), Draw1::Atoi(a[j + 2]));
     j += 3;
   }
 
-  Handle(Poly_Triangulation) T = new Poly_Triangulation(Nodes, Triangles);
+  Handle(MeshTriangulation) T = new MeshTriangulation(Nodes, Triangles);
 
-  DrawTrSurf::Set(a[1], T);
+  DrawTrSurf1::Set(a[1], T);
 
   return 0; // wnt
 }
 
 //=================================================================================================
 
-static Standard_Integer polygon3d(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer polygon3d(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
 
-  Standard_Integer nbNodes = Draw::Atoi(a[2]);
+  Standard_Integer nbNodes = Draw1::Atoi(a[2]);
 
   // read the nodes
   Standard_Integer   i, j = 3;
@@ -96,25 +96,25 @@ static Standard_Integer polygon3d(Draw_Interpretor& di, Standard_Integer n, cons
       di << "Not enough nodes";
       return 1;
     }
-    Nodes(i).SetCoord(Draw::Atof(a[j]), Draw::Atof(a[j + 1]), Draw::Atof(a[j + 2]));
+    Nodes(i).SetCoord(Draw1::Atof(a[j]), Draw1::Atof(a[j + 1]), Draw1::Atof(a[j + 2]));
     j += 3;
   }
 
   Handle(Poly_Polygon3D) P3d = new Poly_Polygon3D(Nodes);
 
-  DrawTrSurf::Set(a[1], P3d);
+  DrawTrSurf1::Set(a[1], P3d);
 
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer polygon2d(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer polygon2d(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
 
-  Standard_Integer nbNodes = Draw::Atoi(a[2]);
+  Standard_Integer nbNodes = Draw1::Atoi(a[2]);
 
   // read the nodes
   Standard_Integer     i, j = 3;
@@ -127,24 +127,24 @@ static Standard_Integer polygon2d(Draw_Interpretor& di, Standard_Integer n, cons
       di << "Not enough nodes";
       return 1;
     }
-    Nodes(i).SetCoord(Draw::Atof(a[j]), Draw::Atof(a[j + 1]));
+    Nodes(i).SetCoord(Draw1::Atof(a[j]), Draw1::Atof(a[j + 1]));
     j += 2;
   }
 
   Handle(Poly_Polygon2D) P2d = new Poly_Polygon2D(Nodes);
 
-  DrawTrSurf::Set(a[1], P2d);
+  DrawTrSurf1::Set(a[1], P2d);
 
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer shnodes(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer shnodes(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n != 2)
     return 1;
-  Handle(DrawTrSurf_Triangulation) T = Handle(DrawTrSurf_Triangulation)::DownCast(Draw::Get(a[1]));
+  Handle(DrawTrSurf_Triangulation) T = Handle(DrawTrSurf_Triangulation)::DownCast(Draw1::Get(a[1]));
 
   if (!T.IsNull())
   {
@@ -159,12 +159,12 @@ static Standard_Integer shnodes(Draw_Interpretor&, Standard_Integer n, const cha
 
 //=================================================================================================
 
-static Standard_Integer shtriangles(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer shtriangles(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n != 2)
     return 1;
 
-  Handle(DrawTrSurf_Triangulation) T = Handle(DrawTrSurf_Triangulation)::DownCast(Draw::Get(a[1]));
+  Handle(DrawTrSurf_Triangulation) T = Handle(DrawTrSurf_Triangulation)::DownCast(Draw1::Get(a[1]));
   Standard_Boolean                 SHOWTRIANGLES = T->ShowTriangles();
   T->ShowTriangles(!SHOWTRIANGLES);
   dout.RepaintAll();
@@ -186,7 +186,7 @@ static inline void AddNode(const Handle(Poly)& thePolygon, const Point& thePnt, 
 
 //=================================================================================================
 
-static Standard_Integer AddNode(Draw_Interpretor& theDI,
+static Standard_Integer AddNode(DrawInterpreter& theDI,
                                 Standard_Integer  theNArg,
                                 const char**      theArgVal)
 {
@@ -198,23 +198,23 @@ static Standard_Integer AddNode(Draw_Interpretor& theDI,
 
   if (theNArg == 4)
   {
-    Handle(Poly_Polygon2D) aPoly2d = DrawTrSurf::GetPolygon2D(theArgVal[1]);
+    Handle(Poly_Polygon2D) aPoly2d = DrawTrSurf1::GetPolygon2D(theArgVal[1]);
     TColgp_Array1OfPnt2d   aNodes(aPoly2d->Nodes().Lower(), aPoly2d->Nodes().Upper() + 1);
-    AddNode(aPoly2d, gp_Pnt2d(Draw::Atof(theArgVal[2]), Draw::Atof(theArgVal[3])), aNodes);
+    AddNode(aPoly2d, gp_Pnt2d(Draw1::Atof(theArgVal[2]), Draw1::Atof(theArgVal[3])), aNodes);
     aPoly2d.Nullify();
     aPoly2d = new Poly_Polygon2D(aNodes);
-    DrawTrSurf::Set(theArgVal[1], aPoly2d);
+    DrawTrSurf1::Set(theArgVal[1], aPoly2d);
   }
   else
   {
-    Handle(Poly_Polygon3D) aPoly3d = DrawTrSurf::GetPolygon3D(theArgVal[1]);
+    Handle(Poly_Polygon3D) aPoly3d = DrawTrSurf1::GetPolygon3D(theArgVal[1]);
     TColgp_Array1OfPnt     aNodes(aPoly3d->Nodes().Lower(), aPoly3d->Nodes().Upper() + 1);
     AddNode(aPoly3d,
-            Point3d(Draw::Atof(theArgVal[2]), Draw::Atof(theArgVal[3]), Draw::Atof(theArgVal[4])),
+            Point3d(Draw1::Atof(theArgVal[2]), Draw1::Atof(theArgVal[3]), Draw1::Atof(theArgVal[4])),
             aNodes);
     aPoly3d.Nullify();
     aPoly3d = new Poly_Polygon3D(aNodes);
-    DrawTrSurf::Set(theArgVal[1], aPoly3d);
+    DrawTrSurf1::Set(theArgVal[1], aPoly3d);
   }
 
   return 0;
@@ -222,7 +222,7 @@ static Standard_Integer AddNode(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer PolygonProps(Draw_Interpretor& theDI,
+static Standard_Integer PolygonProps(DrawInterpreter& theDI,
                                      Standard_Integer  theNArg,
                                      const char**      theArgVal)
 {
@@ -232,7 +232,7 @@ static Standard_Integer PolygonProps(Draw_Interpretor& theDI,
     return 1;
   }
 
-  Handle(Poly_Polygon2D) aPoly2d = DrawTrSurf::GetPolygon2D(theArgVal[1]);
+  Handle(Poly_Polygon2D) aPoly2d = DrawTrSurf1::GetPolygon2D(theArgVal[1]);
 
   Standard_Real anArea = 0.0, aPerimeter = 0.0;
   Poly::PolygonProperties(aPoly2d->Nodes(), anArea, aPerimeter);
@@ -244,13 +244,13 @@ static Standard_Integer PolygonProps(Draw_Interpretor& theDI,
   {
     if (!strcmp(theArgVal[i], "-area"))
     {
-      Draw::Set(theArgVal[++i], anArea);
+      Draw1::Set(theArgVal[++i], anArea);
       continue;
     }
 
     if (!strcmp(theArgVal[i], "-perimeter"))
     {
-      Draw::Set(theArgVal[++i], aPerimeter);
+      Draw1::Set(theArgVal[++i], aPerimeter);
       continue;
     }
 
@@ -263,7 +263,7 @@ static Standard_Integer PolygonProps(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-void GeometryTest::PolyCommands(Draw_Interpretor& theCommands)
+void GeometryTest::PolyCommands(DrawInterpreter& theCommands)
 {
 
   const char* g = "Poly Commands";

@@ -43,7 +43,7 @@ class gp_Circ2d;
 //! -   defining the construction of 2D circles(s),
 //! -   implementing the construction algorithm, and
 //! -   consulting the result(s).
-class GccAna_Circ2d2TanOn
+class Circle2dTwoTangentOn
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -51,7 +51,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to two 2d circles and
   //! having the center ON a 2d line.
-  Standard_EXPORT GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
                                       const GccEnt_QualifiedCirc& Qualified2,
                                       const gp_Lin2d&             OnLine,
                                       const Standard_Real         Tolerance);
@@ -59,7 +59,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to a 2d circle and a 2d line
   //! having the center ON a 2d line.
-  Standard_EXPORT GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
                                       const GccEnt_QualifiedLin&  Qualified2,
                                       const gp_Lin2d&             OnLine,
                                       const Standard_Real         Tolerance);
@@ -67,7 +67,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to two 2d lines
   //! having the center ON a 2d line.
-  Standard_EXPORT GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedLin& Qualified1,
                                       const GccEnt_QualifiedLin& Qualified2,
                                       const gp_Lin2d&            OnLine,
                                       const Standard_Real        Tolerance);
@@ -75,7 +75,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to a 2d circle and a point
   //! having the center ON a 2d line.
-  Standard_EXPORT GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
                                       const gp_Pnt2d&             Point2,
                                       const gp_Lin2d&             OnLine,
                                       const Standard_Real         Tolerance);
@@ -83,7 +83,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to a 2d line and a point
   //! having the center ON a 2d line.
-  Standard_EXPORT GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedLin& Qualified1,
                                       const gp_Pnt2d&            Point2,
                                       const gp_Lin2d&            OnLine,
                                       const Standard_Real        Tolerance);
@@ -91,7 +91,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to two points
   //! having the center ON a 2d line.
-  Standard_EXPORT GccAna_Circ2d2TanOn(const gp_Pnt2d&     Point1,
+  Standard_EXPORT Circle2dTwoTangentOn(const gp_Pnt2d&     Point1,
                                       const gp_Pnt2d&     Point2,
                                       const gp_Lin2d&     OnLine,
                                       const Standard_Real Tolerance);
@@ -99,7 +99,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to two 2d circles and
   //! having the center ON a 2d circle.
-  Standard_EXPORT GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
                                       const GccEnt_QualifiedCirc& Qualified2,
                                       const gp_Circ2d&            OnCirc,
                                       const Standard_Real         Tolerance);
@@ -107,7 +107,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to a circle and a line
   //! having the center ON a 2d circle.
-  Standard_EXPORT GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
                                       const GccEnt_QualifiedLin&  Qualified2,
                                       const gp_Circ2d&            OnCirc,
                                       const Standard_Real         Tolerance);
@@ -115,7 +115,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to a circle and a point
   //! having the center ON a 2d circle.
-  Standard_EXPORT GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
                                       const gp_Pnt2d&             Point2,
                                       const gp_Circ2d&            OnCirc,
                                       const Standard_Real         Tolerance);
@@ -123,7 +123,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to two 2d lines
   //! having the center ON a 2d circle.
-  Standard_EXPORT GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedLin& Qualified1,
                                       const GccEnt_QualifiedLin& Qualified2,
                                       const gp_Circ2d&           OnCirc,
                                       const Standard_Real        Tolerance);
@@ -131,7 +131,7 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles TANgent to a line and a point
   //! having the center ON a 2d circle.
-  Standard_EXPORT GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
+  Standard_EXPORT Circle2dTwoTangentOn(const GccEnt_QualifiedLin& Qualified1,
                                       const gp_Pnt2d&            Point2,
                                       const gp_Circ2d&           OnCirc,
                                       const Standard_Real        Tolerance);
@@ -139,7 +139,7 @@ public:
   //! This method implements the algorithms used to create
   //! 2d circles TANgent to two points having the center ON
   //! a 2d circle.
-  Standard_EXPORT GccAna_Circ2d2TanOn(const gp_Pnt2d&     Point1,
+  Standard_EXPORT Circle2dTwoTangentOn(const gp_Pnt2d&     Point1,
                                       const gp_Pnt2d&     Point2,
                                       const gp_Circ2d&    OnCirc,
                                       const Standard_Real Tolerance);

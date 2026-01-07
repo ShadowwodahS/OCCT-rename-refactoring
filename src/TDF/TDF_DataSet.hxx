@@ -24,7 +24,7 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Boolean.hxx>
 #include <Standard_OStream.hxx>
-class TDF_Label;
+class DataLabel;
 class TDF_Attribute;
 
 class TDF_DataSet;
@@ -46,10 +46,10 @@ public:
   Standard_Boolean IsEmpty() const;
 
   //! Adds <aLabel> in  the  current  data  set.
-  void AddLabel(const TDF_Label& aLabel);
+  void AddLabel(const DataLabel& aLabel);
 
   //! Returns true if the label  <alabel>   is in the data set.
-  Standard_Boolean ContainsLabel(const TDF_Label& aLabel) const;
+  Standard_Boolean ContainsLabel(const DataLabel& aLabel) const;
 
   //! Returns the map of labels in this data set.
   //! This map can be used directly, or updated.
@@ -66,7 +66,7 @@ public:
   TDF_AttributeMap& Attributes();
 
   //! Adds a root label to <myRootLabels>.
-  void AddRoot(const TDF_Label& aLabel);
+  void AddRoot(const DataLabel& aLabel);
 
   //! Returns <myRootLabels> to be used or updated.
   TDF_LabelList& Roots();

@@ -30,7 +30,7 @@ class Frame3d;
 //! -   defining the construction of a cylinder,
 //! -   implementing the construction algorithm, and
 //! -   consulting the result.
-class BRepPrimAPI_MakeCylinder : public BRepPrimAPI_MakeOneAxis
+class CylinderMaker : public BRepPrimAPI_MakeOneAxis
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -38,13 +38,13 @@ public:
   //! Make a cylinder.
   //! @param[in] R  cylinder radius
   //! @param[in] H  cylinder height
-  Standard_EXPORT BRepPrimAPI_MakeCylinder(const Standard_Real R, const Standard_Real H);
+  Standard_EXPORT CylinderMaker(const Standard_Real R, const Standard_Real H);
 
   //! Make a cylinder (part cylinder).
   //! @param[in] R      cylinder radius
   //! @param[in] H      cylinder height
   //! @param[in] Angle  defines the missing portion of the cylinder
-  Standard_EXPORT BRepPrimAPI_MakeCylinder(const Standard_Real R,
+  Standard_EXPORT CylinderMaker(const Standard_Real R,
                                            const Standard_Real H,
                                            const Standard_Real Angle);
 
@@ -52,7 +52,7 @@ public:
   //! @param[in] Axes  coordinate system for the construction of the cylinder
   //! @param[in] R     cylinder radius
   //! @param[in] H     cylinder height
-  Standard_EXPORT BRepPrimAPI_MakeCylinder(const Frame3d&       Axes,
+  Standard_EXPORT CylinderMaker(const Frame3d&       Axes,
                                            const Standard_Real R,
                                            const Standard_Real H);
 
@@ -82,7 +82,7 @@ public:
   //! Exceptions Standard_DomainError if:
   //! -   R is less than or equal to Precision::Confusion(), or
   //! -   H is less than or equal to Precision::Confusion().
-  Standard_EXPORT BRepPrimAPI_MakeCylinder(const Frame3d&       Axes,
+  Standard_EXPORT CylinderMaker(const Frame3d&       Axes,
                                            const Standard_Real R,
                                            const Standard_Real H,
                                            const Standard_Real Angle);

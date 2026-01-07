@@ -26,10 +26,10 @@
 #include <Standard_Real.hxx>
 #include <BRepBuilderAPI_TransitionMode.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class Dir3d;
-class Geom_Surface;
-class TopoDS_Shell;
+class GeomSurface;
+class TopoShell;
 
 //! Build a draft surface along a wire
 class BRepOffsetAPI_MakeDraft : public BRepBuilderAPI_MakeShape
@@ -39,12 +39,12 @@ public:
 
   //! Constructs the draft surface object defined by the shape
   //! Shape, the direction Dir, and the angle Angle.
-  //! Shape must be a TopoDS_Wire, Topo_DS_Face or
-  //! TopoDS_Shell with free boundaries.
+  //! Shape must be a TopoWire, Topo_DS_Face or
+  //! TopoShell with free boundaries.
   //! Exceptions
-  //! Standard_NotDone if Shape is not a TopoDS_Wire,
-  //! Topo_DS_Face or TopoDS_Shell with free boundaries.
-  Standard_EXPORT BRepOffsetAPI_MakeDraft(const TopoDS_Shape& Shape,
+  //! Standard_NotDone if Shape is not a TopoWire,
+  //! Topo_DS_Face or TopoShell with free boundaries.
+  Standard_EXPORT BRepOffsetAPI_MakeDraft(const TopoShape& Shape,
                                           const Dir3d&       Dir,
                                           const Standard_Real Angle);
 
@@ -75,22 +75,22 @@ public:
   //! Performs the draft up to the surface Surface.
   //! If KeepInsideSurface is true, the part of Surface inside
   //! the draft is kept in the result.
-  Standard_EXPORT void Perform(const Handle(Geom_Surface)& Surface,
+  Standard_EXPORT void Perform(const Handle(GeomSurface)& Surface,
                                const Standard_Boolean      KeepInsideSurface = Standard_True);
 
   //! Performs the draft up to the shape StopShape.
   //! If KeepOutSide is true, the part of StopShape which is
   //! outside the Draft is kept in the result.
-  Standard_EXPORT void Perform(const TopoDS_Shape&    StopShape,
+  Standard_EXPORT void Perform(const TopoShape&    StopShape,
                                const Standard_Boolean KeepOutSide = Standard_True);
 
   //! Returns the shell resulting from performance of the
   //! draft along the wire.
-  Standard_EXPORT TopoDS_Shell Shell() const;
+  Standard_EXPORT TopoShell Shell() const;
 
   //! Returns the  list   of shapes generated   from the
   //! shape <S>.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Generated(const TopoDS_Shape& S)
+  Standard_EXPORT virtual const ShapeList& Generated(const TopoShape& S)
     Standard_OVERRIDE;
 
 protected:

@@ -154,7 +154,7 @@ void XmlMXCAFDoc_GraphNodeDriver::Paste(const Handle(TDF_Attribute)& theSource,
   theTarget.Element().setAttribute(::TreeIdString(), aGuidStr);
 
   Standard_Integer          aNb;
-  TCollection_AsciiString   aStr;
+  AsciiString1   aStr;
   Handle(XCAFDoc_GraphNode) aF;
   Standard_Integer          i;
 
@@ -169,7 +169,7 @@ void XmlMXCAFDoc_GraphNodeDriver::Paste(const Handle(TDF_Attribute)& theSource,
       {
         aNb = theRelocTable.Add(aF);
       }
-      TCollection_AsciiString aNbStr(aNb);
+      AsciiString1 aNbStr(aNb);
       aStr += aNbStr + " ";
     }
   }
@@ -188,7 +188,7 @@ void XmlMXCAFDoc_GraphNodeDriver::Paste(const Handle(TDF_Attribute)& theSource,
       {
         aNb = theRelocTable.Add(aF);
       }
-      TCollection_AsciiString aNbStr(aNb);
+      AsciiString1 aNbStr(aNb);
       aStr += aNbStr + " ";
     }
   }

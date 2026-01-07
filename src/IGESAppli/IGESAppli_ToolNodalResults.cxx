@@ -34,9 +34,9 @@
 #include <TColStd_HArray1OfInteger.hxx>
 #include <TColStd_HArray2OfReal.hxx>
 
-IGESAppli_ToolNodalResults::IGESAppli_ToolNodalResults() {}
+NodalResultsTool::NodalResultsTool() {}
 
-void IGESAppli_ToolNodalResults::ReadOwnParams(const Handle(IGESAppli_NodalResults)&  ent,
+void NodalResultsTool::ReadOwnParams(const Handle(IGESAppli_NodalResults)&  ent,
                                                const Handle(IGESData_IGESReaderData)& IR,
                                                IGESData_ParamReader&                  PR) const
 {
@@ -89,7 +89,7 @@ void IGESAppli_ToolNodalResults::ReadOwnParams(const Handle(IGESAppli_NodalResul
   ent->Init(tempNote, tempSubCaseNum, tempTime, tempNodeIdentifiers, tempNodes, tempData);
 }
 
-void IGESAppli_ToolNodalResults::WriteOwnParams(const Handle(IGESAppli_NodalResults)& ent,
+void NodalResultsTool::WriteOwnParams(const Handle(IGESAppli_NodalResults)& ent,
                                                 IGESData_IGESWriter&                  IW) const
 {
   Standard_Integer nbnodes = ent->NbNodes();
@@ -108,7 +108,7 @@ void IGESAppli_ToolNodalResults::WriteOwnParams(const Handle(IGESAppli_NodalResu
   }
 }
 
-void IGESAppli_ToolNodalResults::OwnShared(const Handle(IGESAppli_NodalResults)& ent,
+void NodalResultsTool::OwnShared(const Handle(IGESAppli_NodalResults)& ent,
                                            Interface_EntityIterator&             iter) const
 {
   Standard_Integer nbnodes = ent->NbNodes();
@@ -117,7 +117,7 @@ void IGESAppli_ToolNodalResults::OwnShared(const Handle(IGESAppli_NodalResults)&
     iter.GetOneItem(ent->Node(i));
 }
 
-void IGESAppli_ToolNodalResults::OwnCopy(const Handle(IGESAppli_NodalResults)& another,
+void NodalResultsTool::OwnCopy(const Handle(IGESAppli_NodalResults)& another,
                                          const Handle(IGESAppli_NodalResults)& ent,
                                          Interface_CopyTool&                   TC) const
 {
@@ -144,10 +144,10 @@ void IGESAppli_ToolNodalResults::OwnCopy(const Handle(IGESAppli_NodalResults)& a
   ent->SetFormNumber(another->FormNumber());
 }
 
-IGESData_DirChecker IGESAppli_ToolNodalResults::DirChecker(
+DirectoryChecker NodalResultsTool::DirChecker(
   const Handle(IGESAppli_NodalResults)& /* ent */) const
 {
-  IGESData_DirChecker DC(146, 0, 34); // Type = 146 Form No. = 0 to 34
+  DirectoryChecker DC(146, 0, 34); // Type = 146 Form No. = 0 to 34
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -158,7 +158,7 @@ IGESData_DirChecker IGESAppli_ToolNodalResults::DirChecker(
   return DC;
 }
 
-void IGESAppli_ToolNodalResults::OwnCheck(const Handle(IGESAppli_NodalResults)& ent,
+void NodalResultsTool::OwnCheck(const Handle(IGESAppli_NodalResults)& ent,
                                           const Interface_ShareTool&,
                                           Handle(Interface_Check)& ach) const
 {
@@ -315,7 +315,7 @@ void IGESAppli_ToolNodalResults::OwnCheck(const Handle(IGESAppli_NodalResults)& 
     ach->AddFail("Incorrect count of real values in array V for FEM node");
 }
 
-void IGESAppli_ToolNodalResults::OwnDump(const Handle(IGESAppli_NodalResults)& ent,
+void NodalResultsTool::OwnDump(const Handle(IGESAppli_NodalResults)& ent,
                                          const IGESData_IGESDumper&            dumper,
                                          Standard_OStream&                     S,
                                          const Standard_Integer                level) const

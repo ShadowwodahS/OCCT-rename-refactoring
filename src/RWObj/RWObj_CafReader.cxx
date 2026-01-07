@@ -29,8 +29,8 @@ RWObj_CafReader::RWObj_CafReader()
 
 //=================================================================================================
 
-void RWObj_CafReader::BindNamedShape(const TopoDS_Shape&            theShape,
-                                     const TCollection_AsciiString& theName,
+void RWObj_CafReader::BindNamedShape(const TopoShape&            theShape,
+                                     const AsciiString1& theName,
                                      const RWObj_Material*          theMaterial,
                                      const Standard_Boolean         theIsRootShape)
 {
@@ -89,7 +89,7 @@ Handle(RWObj_TriangulationReader) RWObj_CafReader::createReaderContext()
 //=================================================================================================
 
 Standard_Boolean RWObj_CafReader::performMesh(std::istream&                  theStream,
-                                              const TCollection_AsciiString& theFile,
+                                              const AsciiString1& theFile,
                                               const Message_ProgressRange&   theProgress,
                                               const Standard_Boolean         theToProbe)
 {
@@ -113,7 +113,7 @@ Standard_Boolean RWObj_CafReader::performMesh(std::istream&                  the
   {
     myMetadata.Add("Comments", aCtx->FileComments());
   }
-  for (NCollection_IndexedMap<TCollection_AsciiString>::Iterator aFileIter(aCtx->ExternalFiles());
+  for (NCollection_IndexedMap<AsciiString1>::Iterator aFileIter(aCtx->ExternalFiles());
        aFileIter.More();
        aFileIter.Next())
   {

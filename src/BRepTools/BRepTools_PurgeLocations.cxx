@@ -28,7 +28,7 @@ BRepTools_PurgeLocations::BRepTools_PurgeLocations()
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_PurgeLocations::Perform(const TopoDS_Shape& theShape)
+Standard_Boolean BRepTools_PurgeLocations::Perform(const TopoShape& theShape)
 {
   myShape = theShape;
   myMapShapes.Clear();
@@ -65,7 +65,7 @@ Standard_Boolean BRepTools_PurgeLocations::Perform(const TopoDS_Shape& theShape)
   Standard_Integer inds;
   for (inds = 1; inds <= aNbShapes; ++inds)
   {
-    const TopoDS_Shape& anS     = myMapShapes(inds);
+    const TopoShape& anS     = myMapShapes(inds);
     Standard_Integer    aLocInd = myLocations.Index(anS.Location());
     if (aLocInd == 0)
     {
@@ -76,7 +76,7 @@ Standard_Boolean BRepTools_PurgeLocations::Perform(const TopoDS_Shape& theShape)
     {
       if (aBadTrsfInds(il) == aLocInd)
       {
-        TopoDS_Shape     aTrS;
+        TopoShape     aTrS;
         Standard_Boolean isDone = PurgeLocation(anS, aTrS);
         myDone                  = myDone && isDone;
         myMapNewShapes.Bind(anS, aTrS);
@@ -96,8 +96,8 @@ Standard_Boolean BRepTools_PurgeLocations::Perform(const TopoDS_Shape& theShape)
   TopTools_DataMapIteratorOfDataMapOfShapeShape anIter(myMapNewShapes);
   for (; anIter.More(); anIter.Next())
   {
-    const TopoDS_Shape& anOldS = anIter.Key();
-    const TopoDS_Shape& aNewS  = anIter.Value();
+    const TopoShape& anOldS = anIter.Key();
+    const TopoShape& aNewS  = anIter.Value();
     myReShape->Replace(anOldS, aNewS);
   }
 
@@ -108,8 +108,8 @@ Standard_Boolean BRepTools_PurgeLocations::Perform(const TopoDS_Shape& theShape)
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_PurgeLocations::PurgeLocation(const TopoDS_Shape& theS,
-                                                         TopoDS_Shape&       theRes)
+Standard_Boolean BRepTools_PurgeLocations::PurgeLocation(const TopoShape& theS,
+                                                         TopoShape&       theRes)
 {
   Standard_Boolean isDone  = Standard_True;
   TopLoc_Location  aRefLoc = theS.Location();
@@ -136,7 +136,7 @@ Standard_Boolean BRepTools_PurgeLocations::PurgeLocation(const TopoDS_Shape& the
     if (isBad)
     {
       Handle(BRepTools_TrsfModification) aModification = new BRepTools_TrsfModification(aTrsf);
-      BRepTools_Modifier                 aModifier(theRes, aModification);
+      ShapeModifier                 aModifier(theRes, aModification);
       if (aModifier.IsDone())
       {
         theRes = aModifier.ModifiedShape(theRes);
@@ -161,7 +161,7 @@ Standard_Boolean BRepTools_PurgeLocations::PurgeLocation(const TopoDS_Shape& the
 
 //=================================================================================================
 
-void BRepTools_PurgeLocations::AddShape(const TopoDS_Shape& theS)
+void BRepTools_PurgeLocations::AddShape(const TopoShape& theS)
 {
   myMapShapes.Add(theS);
   myLocations.Add(theS.Location());
@@ -176,7 +176,7 @@ void BRepTools_PurgeLocations::AddShape(const TopoDS_Shape& theS)
 
 //=================================================================================================
 
-const TopoDS_Shape& BRepTools_PurgeLocations::GetResult() const
+const TopoShape& BRepTools_PurgeLocations::GetResult() const
 {
   return myShape;
 }
@@ -190,9 +190,9 @@ Standard_Boolean BRepTools_PurgeLocations::IsDone() const
 
 //=================================================================================================
 
-TopoDS_Shape BRepTools_PurgeLocations::ModifiedShape(const TopoDS_Shape& theInitShape) const
+TopoShape BRepTools_PurgeLocations::ModifiedShape(const TopoShape& theInitShape) const
 {
-  TopoDS_Shape aShape = theInitShape;
+  TopoShape aShape = theInitShape;
   if (myMapNewShapes.IsBound(theInitShape))
     aShape = myMapNewShapes.Find(theInitShape);
   return aShape;

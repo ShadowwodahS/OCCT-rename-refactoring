@@ -28,7 +28,7 @@ class Interface_Graph;
 //! This package defines the library of the most used tools for
 //! IGES Files : Selections & Modifiers specific to the IGES norm,
 //! and the most needed converters
-class IGESSelect
+class IGESSelect1
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -55,7 +55,7 @@ public:
 
 public:
   //! Returns formatted string.
-  Standard_EXPORT virtual TCollection_AsciiString FormatStats(
+  Standard_EXPORT virtual AsciiString1 FormatStats(
     Graphic3d_RenderingParams::PerfCounters theFlags) const;
 
   //! Fill in the dictionary with formatted statistic info.

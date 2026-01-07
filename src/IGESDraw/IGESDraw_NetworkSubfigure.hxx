@@ -33,7 +33,7 @@ class IGESDraw_NetworkSubfigure;
 DEFINE_STANDARD_HANDLE(IGESDraw_NetworkSubfigure, IGESData_IGESEntity)
 
 //! defines IGES Network Subfigure Instance Entity,
-//! Type <420> Form Number <0> in package IGESDraw
+//! Type <420> Form Number <0> in package IGESDraw1
 //!
 //! Used to specify each instance of Network Subfigure
 //! Definition Entity (Type 320, Form 0).

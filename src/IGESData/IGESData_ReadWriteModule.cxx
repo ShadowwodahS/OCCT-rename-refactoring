@@ -26,7 +26,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESData_ReadWriteModule, Interface_ReaderModule)
 Standard_Integer IGESData_ReadWriteModule::CaseNum(const Handle(Interface_FileReaderData)& data,
                                                    const Standard_Integer num) const
 {
-  IGESData_IGESType DT = GetCasted(IGESData_IGESReaderData, data)->DirType(num);
+  IGESType DT = GetCasted(IGESData_IGESReaderData, data)->DirType(num);
   return CaseIGES(DT.Type(), DT.Form());
 }
 

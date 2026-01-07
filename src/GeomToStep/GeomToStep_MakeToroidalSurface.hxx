@@ -30,14 +30,14 @@ class Geom_ToroidalSurface;
 //! ToroidalSurface from Geom and the class
 //! ToroidalSurface from StepGeom which describes a
 //! toroidal_surface from Prostep
-class GeomToStep_MakeToroidalSurface : public GeomToStep_Root
+class GeomToStep_MakeToroidalSurface : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeToroidalSurface(
     const Handle(Geom_ToroidalSurface)& TorSurf,
-    const StepData_Factors&             theLocalFactors = StepData_Factors());
+    const ConversionFactors&             theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_ToroidalSurface)& Value() const;
 

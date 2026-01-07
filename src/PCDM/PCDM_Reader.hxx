@@ -27,7 +27,7 @@
 #include <Message_ProgressRange.hxx>
 
 class CDM_Document;
-class TCollection_ExtendedString;
+class UtfString;
 class CDM_Application;
 class PCDM_ReaderFilter;
 
@@ -40,7 +40,7 @@ class PCDM_Reader : public RefObject
 public:
   //! retrieves the content of the file into a new Document.
   Standard_EXPORT virtual void Read(
-    const TCollection_ExtendedString& aFileName,
+    const UtfString& aFileName,
     const Handle(CDM_Document)&       aNewDocument,
     const Handle(CDM_Application)&    anApplication,
     const Handle(PCDM_ReaderFilter)&  theFilter   = Handle(PCDM_ReaderFilter)(),

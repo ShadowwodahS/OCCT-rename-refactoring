@@ -37,7 +37,7 @@ const Standard_GUID& TDataStd_RealList::GetID()
 // function : SetAttr
 // purpose  : Implements Set functionality
 //=======================================================================
-static Handle(TDataStd_RealList) SetAttr(const TDF_Label& label, const Standard_GUID& theGuid)
+static Handle(TDataStd_RealList) SetAttr(const DataLabel& label, const Standard_GUID& theGuid)
 {
   Handle(TDataStd_RealList) A;
   if (!label.FindAttribute(theGuid, A))
@@ -60,7 +60,7 @@ TDataStd_RealList::TDataStd_RealList()
 
 //=================================================================================================
 
-Handle(TDataStd_RealList) TDataStd_RealList::Set(const TDF_Label& label)
+Handle(TDataStd_RealList) TDataStd_RealList::Set(const DataLabel& label)
 {
   return SetAttr(label, GetID());
 }
@@ -69,7 +69,7 @@ Handle(TDataStd_RealList) TDataStd_RealList::Set(const TDF_Label& label)
 // function : Set
 // purpose  : Set user defined attribute with specific ID
 //=======================================================================
-Handle(TDataStd_RealList) TDataStd_RealList::Set(const TDF_Label&     label,
+Handle(TDataStd_RealList) TDataStd_RealList::Set(const DataLabel&     label,
                                                  const Standard_GUID& theGuid)
 {
   return SetAttr(label, theGuid);

@@ -20,6 +20,6 @@
 #include <gp_XY.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<gp_XY> TColgp_SequenceOfXY;
+typedef NCollection_Sequence<Coords2d> TColgp_SequenceOfXY;
 
 #endif

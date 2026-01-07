@@ -35,7 +35,7 @@
 // purpose  : Parses command: "qcircle name x y radius
 // [-unqualified|-enclosing|-enclosed|-outside|-noqualifier]"
 //=======================================================================
-static Standard_Integer qcurve(Draw_Interpretor&,
+static Standard_Integer qcurve(DrawInterpreter&,
                                Standard_Integer theArgsNb,
                                const char**     theArgVec)
 {
@@ -45,19 +45,19 @@ static Standard_Integer qcurve(Draw_Interpretor&,
     return 1;
   }
 
-  Handle(Geom2d_Curve)    aResult2d;
-  TCollection_AsciiString aPositionType;
+  Handle(GeomCurve2d)    aResult2d;
+  AsciiString1 aPositionType;
   if (!strcmp(theArgVec[0], "qcircle"))
   {
     if (theArgsNb == 5 || theArgsNb == 6)
       aResult2d = new Geom2d_Circle(
-        gp_Ax22d(gp_Pnt2d(Draw::Atof(theArgVec[2]), Draw::Atof(theArgVec[3])), gp_Dir2d(1, 0)),
-        Draw::Atof(theArgVec[4]));
+        gp_Ax22d(gp_Pnt2d(Draw1::Atof(theArgVec[2]), Draw1::Atof(theArgVec[3])), gp_Dir2d(1, 0)),
+        Draw1::Atof(theArgVec[4]));
     else if (theArgsNb == 7 || theArgsNb == 8)
       aResult2d =
-        new Geom2d_Circle(gp_Ax22d(gp_Pnt2d(Draw::Atof(theArgVec[2]), Draw::Atof(theArgVec[3])),
-                                   gp_Dir2d(Draw::Atof(theArgVec[4]), Draw::Atof(theArgVec[5]))),
-                          Draw::Atof(theArgVec[6]));
+        new Geom2d_Circle(gp_Ax22d(gp_Pnt2d(Draw1::Atof(theArgVec[2]), Draw1::Atof(theArgVec[3])),
+                                   gp_Dir2d(Draw1::Atof(theArgVec[4]), Draw1::Atof(theArgVec[5]))),
+                          Draw1::Atof(theArgVec[6]));
 
     if (theArgsNb == 6)
       aPositionType = theArgVec[5];
@@ -71,8 +71,8 @@ static Standard_Integer qcurve(Draw_Interpretor&,
       Message::SendFail() << "Error: wrong number of arguments";
       return 1;
     }
-    aResult2d = new Geom2d_Line(gp_Pnt2d(Draw::Atof(theArgVec[2]), Draw::Atof(theArgVec[3])),
-                                gp_Dir2d(Draw::Atof(theArgVec[4]), Draw::Atof(theArgVec[5])));
+    aResult2d = new Geom2d_Line(gp_Pnt2d(Draw1::Atof(theArgVec[2]), Draw1::Atof(theArgVec[3])),
+                                gp_Dir2d(Draw1::Atof(theArgVec[4]), Draw1::Atof(theArgVec[5])));
     if (theArgsNb == 7)
       aPositionType = theArgVec[6];
   }
@@ -90,32 +90,32 @@ static Standard_Integer qcurve(Draw_Interpretor&,
       aKindOfPosition = aParameterPosition;
   }
 
-  Draw::Set(theArgVec[1], new GeometryTest_DrawableQualifiedCurve2d(aResult2d, aKindOfPosition));
+  Draw1::Set(theArgVec[1], new GeometryTest_DrawableQualifiedCurve2d(aResult2d, aKindOfPosition));
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer solutions(Draw_Interpretor&  theDI,
-                                  GccAna_Circ2d3Tan& theCirTan3,
+static Standard_Integer solutions(DrawInterpreter&  theDI,
+                                  Circle2dThreeTangent& theCirTan3,
                                   const char*        theName)
 {
   if (!theCirTan3.IsDone())
   {
-    Message::SendFail() << "GccAna_Circ2d3Tan is not done";
+    Message::SendFail() << "Circle2dThreeTangent is not done";
     return 1;
   }
 
-  TCollection_AsciiString aName = TCollection_AsciiString(theName) + "_";
+  AsciiString1 aName = AsciiString1(theName) + "_";
   GccEnt_Position         aQualifier1, aQualifier2, aQualifier3;
   Standard_Real           aParSol, aParArg;
   gp_Pnt2d                aPntSol;
   for (Standard_Integer aSolId = 1; aSolId <= theCirTan3.NbSolutions(); aSolId++)
   {
     Handle(Geom2d_Circle)   aCircle    = new Geom2d_Circle(theCirTan3.ThisSolution(aSolId));
-    TCollection_AsciiString aSolIdName = aName;
-    aSolIdName += TCollection_AsciiString(aSolId);
-    DrawTrSurf::Set(aSolIdName.ToCString(), aCircle);
+    AsciiString1 aSolIdName = aName;
+    aSolIdName += AsciiString1(aSolId);
+    DrawTrSurf1::Set(aSolIdName.ToCString(), aCircle);
     theCirTan3.WhichQualifier(aSolId, aQualifier1, aQualifier2, aQualifier3);
     theDI << "circle: " << aSolIdName.ToCString() << ", "
           << "qualifiers: " << GccEnt::PositionToString(aQualifier1) << ", "
@@ -129,8 +129,8 @@ static Standard_Integer solutions(Draw_Interpretor&  theDI,
     else
     {
       theCirTan3.Tangency1(aSolId, aParSol, aParArg, aPntSol);
-      TCollection_AsciiString aTanPntIdName = aSolIdName + "_tp_1";
-      DrawTrSurf::Set(aTanPntIdName.ToCString(), aPntSol);
+      AsciiString1 aTanPntIdName = aSolIdName + "_tp_1";
+      DrawTrSurf1::Set(aTanPntIdName.ToCString(), aPntSol);
       theDI << "    " << aTanPntIdName.ToCString() << " (" << aParSol << ", " << aParArg << ")\n";
     }
     // the second tangent point
@@ -139,8 +139,8 @@ static Standard_Integer solutions(Draw_Interpretor&  theDI,
     else
     {
       theCirTan3.Tangency2(aSolId, aParSol, aParArg, aPntSol);
-      TCollection_AsciiString aTanPntIdName = aSolIdName + "_tp_2";
-      DrawTrSurf::Set(aTanPntIdName.ToCString(), aPntSol);
+      AsciiString1 aTanPntIdName = aSolIdName + "_tp_2";
+      DrawTrSurf1::Set(aTanPntIdName.ToCString(), aPntSol);
       theDI << "    " << aTanPntIdName.ToCString() << " (" << aParSol << ", " << aParArg << ")\n";
     }
     // the third tangent point
@@ -149,8 +149,8 @@ static Standard_Integer solutions(Draw_Interpretor&  theDI,
     else
     {
       theCirTan3.Tangency3(aSolId, aParSol, aParArg, aPntSol);
-      TCollection_AsciiString aTanPntIdName = aSolIdName + "_tp_3";
-      DrawTrSurf::Set(aTanPntIdName.ToCString(), aPntSol);
+      AsciiString1 aTanPntIdName = aSolIdName + "_tp_3";
+      DrawTrSurf1::Set(aTanPntIdName.ToCString(), aPntSol);
       theDI << "    " << aTanPntIdName.ToCString() << " (" << aParSol << ", " << aParArg << ")";
     }
     if (aSolId != theCirTan3.NbSolutions())
@@ -165,7 +165,7 @@ static Standard_Integer solutions(Draw_Interpretor&  theDI,
 // qcicrle3/qlin3/point3
 //                            tolerance]
 //=======================================================================
-static Standard_Integer circ2d3Tan(Draw_Interpretor& theDI,
+static Standard_Integer circ2d3Tan(DrawInterpreter& theDI,
                                    Standard_Integer  theArgsNb,
                                    const char**      theArgVec)
 {
@@ -176,20 +176,20 @@ static Standard_Integer circ2d3Tan(Draw_Interpretor& theDI,
   }
 
   Handle(GeometryTest_DrawableQualifiedCurve2d) aQCurve1 =
-    Handle(GeometryTest_DrawableQualifiedCurve2d)::DownCast(Draw::Get(theArgVec[2]));
+    Handle(GeometryTest_DrawableQualifiedCurve2d)::DownCast(Draw1::Get(theArgVec[2]));
   Handle(GeometryTest_DrawableQualifiedCurve2d) aQCurve2 =
-    Handle(GeometryTest_DrawableQualifiedCurve2d)::DownCast(Draw::Get(theArgVec[3]));
+    Handle(GeometryTest_DrawableQualifiedCurve2d)::DownCast(Draw1::Get(theArgVec[3]));
   Handle(GeometryTest_DrawableQualifiedCurve2d) aQCurve3 =
-    Handle(GeometryTest_DrawableQualifiedCurve2d)::DownCast(Draw::Get(theArgVec[4]));
+    Handle(GeometryTest_DrawableQualifiedCurve2d)::DownCast(Draw1::Get(theArgVec[4]));
 
   gp_Pnt2d         aPoint1, aPoint2, aPoint3;
-  Standard_Boolean anIsPoint1 = DrawTrSurf::GetPoint2d(theArgVec[2], aPoint1);
-  Standard_Boolean anIsPoint2 = DrawTrSurf::GetPoint2d(theArgVec[3], aPoint2);
-  Standard_Boolean anIsPoint3 = DrawTrSurf::GetPoint2d(theArgVec[4], aPoint3);
+  Standard_Boolean anIsPoint1 = DrawTrSurf1::GetPoint2d(theArgVec[2], aPoint1);
+  Standard_Boolean anIsPoint2 = DrawTrSurf1::GetPoint2d(theArgVec[3], aPoint2);
+  Standard_Boolean anIsPoint3 = DrawTrSurf1::GetPoint2d(theArgVec[4], aPoint3);
 
   Standard_Real aTolerance = Precision::Confusion();
   if (theArgsNb > 5)
-    aTolerance = Draw::Atof(theArgVec[5]);
+    aTolerance = Draw1::Atof(theArgVec[5]);
 
   if (aQCurve1.IsNull()) // <point, point, point>
   {
@@ -198,7 +198,7 @@ static Standard_Integer circ2d3Tan(Draw_Interpretor& theDI,
       Message::SendFail() << "Error: wrong points definition";
       return 1;
     }
-    GccAna_Circ2d3Tan aCircBuilder(aPoint1, aPoint2, aPoint3, aTolerance);
+    Circle2dThreeTangent aCircBuilder(aPoint1, aPoint2, aPoint3, aTolerance);
     return solutions(theDI, aCircBuilder, theArgVec[1]);
   }
 
@@ -214,13 +214,13 @@ static Standard_Integer circ2d3Tan(Draw_Interpretor& theDI,
     if (anAdaptorCurve1.GetType() == GeomAbs_Circle)
     {
       GccEnt_QualifiedCirc aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
-      GccAna_Circ2d3Tan    aCircBuilder(aQualifiedCircle1, aPoint2, aPoint3, aTolerance);
+      Circle2dThreeTangent    aCircBuilder(aQualifiedCircle1, aPoint2, aPoint3, aTolerance);
       return solutions(theDI, aCircBuilder, theArgVec[1]);
     }
     else if (anAdaptorCurve1.GetType() == GeomAbs_Line)
     {
       GccEnt_QualifiedLin aQualifiedLin1(anAdaptorCurve1.Line(), aQCurve1->GetPosition());
-      GccAna_Circ2d3Tan   aCircBuilder(aQualifiedLin1, aPoint2, aPoint3, aTolerance);
+      Circle2dThreeTangent   aCircBuilder(aQualifiedLin1, aPoint2, aPoint3, aTolerance);
       return solutions(theDI, aCircBuilder, theArgVec[1]);
     }
     Message::SendFail() << "Error: wrong curve type";
@@ -242,7 +242,7 @@ static Standard_Integer circ2d3Tan(Draw_Interpretor& theDI,
     {
       GccEnt_QualifiedCirc aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
       GccEnt_QualifiedCirc aQualifiedCircle2(anAdaptorCurve2.Circle(), aQCurve2->GetPosition());
-      GccAna_Circ2d3Tan    aCircBuilder(aQualifiedCircle1, aQualifiedCircle2, aPoint3, aTolerance);
+      Circle2dThreeTangent    aCircBuilder(aQualifiedCircle1, aQualifiedCircle2, aPoint3, aTolerance);
       return solutions(theDI, aCircBuilder, theArgVec[1]);
     }
     else if (anAdaptorCurve1.GetType() == GeomAbs_Circle
@@ -250,14 +250,14 @@ static Standard_Integer circ2d3Tan(Draw_Interpretor& theDI,
     {
       GccEnt_QualifiedCirc aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
       GccEnt_QualifiedLin  aQualifiedLin2(anAdaptorCurve2.Line(), aQCurve2->GetPosition());
-      GccAna_Circ2d3Tan    aCircBuilder(aQualifiedCircle1, aQualifiedLin2, aPoint3, aTolerance);
+      Circle2dThreeTangent    aCircBuilder(aQualifiedCircle1, aQualifiedLin2, aPoint3, aTolerance);
       return solutions(theDI, aCircBuilder, theArgVec[1]);
     }
     else if (anAdaptorCurve1.GetType() == GeomAbs_Line && anAdaptorCurve2.GetType() == GeomAbs_Line)
     {
       GccEnt_QualifiedLin aQualifiedLin1(anAdaptorCurve1.Line(), aQCurve1->GetPosition());
       GccEnt_QualifiedLin aQualifiedLin2(anAdaptorCurve2.Line(), aQCurve2->GetPosition());
-      GccAna_Circ2d3Tan   aCircBuilder(aQualifiedLin1, aQualifiedLin2, aPoint3, aTolerance);
+      Circle2dThreeTangent   aCircBuilder(aQualifiedLin1, aQualifiedLin2, aPoint3, aTolerance);
       return solutions(theDI, aCircBuilder, theArgVec[1]);
     }
     Message::SendFail() << "Error: wrong curve type";
@@ -276,7 +276,7 @@ static Standard_Integer circ2d3Tan(Draw_Interpretor& theDI,
     GccEnt_QualifiedCirc aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
     GccEnt_QualifiedCirc aQualifiedCircle2(anAdaptorCurve2.Circle(), aQCurve2->GetPosition());
     GccEnt_QualifiedCirc aQualifiedCircle3(anAdaptorCurve3.Circle(), aQCurve3->GetPosition());
-    GccAna_Circ2d3Tan    aCircBuilder(aQualifiedCircle1,
+    Circle2dThreeTangent    aCircBuilder(aQualifiedCircle1,
                                    aQualifiedCircle2,
                                    aQualifiedCircle3,
                                    aTolerance);
@@ -288,7 +288,7 @@ static Standard_Integer circ2d3Tan(Draw_Interpretor& theDI,
     GccEnt_QualifiedCirc aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
     GccEnt_QualifiedCirc aQualifiedCircle2(anAdaptorCurve2.Circle(), aQCurve2->GetPosition());
     GccEnt_QualifiedLin  aQualifiedLin3(anAdaptorCurve3.Line(), aQCurve3->GetPosition());
-    GccAna_Circ2d3Tan    aCircBuilder(aQualifiedCircle1,
+    Circle2dThreeTangent    aCircBuilder(aQualifiedCircle1,
                                    aQualifiedCircle2,
                                    aQualifiedLin3,
                                    aTolerance);
@@ -300,7 +300,7 @@ static Standard_Integer circ2d3Tan(Draw_Interpretor& theDI,
     GccEnt_QualifiedCirc aQualifiedCircle1(anAdaptorCurve1.Circle(), aQCurve1->GetPosition());
     GccEnt_QualifiedLin  aQualifiedLin2(anAdaptorCurve2.Line(), aQCurve2->GetPosition());
     GccEnt_QualifiedLin  aQualifiedLin3(anAdaptorCurve3.Line(), aQCurve3->GetPosition());
-    GccAna_Circ2d3Tan aCircBuilder(aQualifiedCircle1, aQualifiedLin2, aQualifiedLin3, aTolerance);
+    Circle2dThreeTangent aCircBuilder(aQualifiedCircle1, aQualifiedLin2, aQualifiedLin3, aTolerance);
     return solutions(theDI, aCircBuilder, theArgVec[1]);
   }
   if (anAdaptorCurve1.GetType() == GeomAbs_Line && anAdaptorCurve2.GetType() == GeomAbs_Line
@@ -309,7 +309,7 @@ static Standard_Integer circ2d3Tan(Draw_Interpretor& theDI,
     GccEnt_QualifiedLin aQualifiedLin1(anAdaptorCurve1.Line(), aQCurve1->GetPosition());
     GccEnt_QualifiedLin aQualifiedLin2(anAdaptorCurve2.Line(), aQCurve2->GetPosition());
     GccEnt_QualifiedLin aQualifiedLin3(anAdaptorCurve3.Line(), aQCurve3->GetPosition());
-    GccAna_Circ2d3Tan   aCircBuilder(aQualifiedLin1, aQualifiedLin2, aQualifiedLin3, aTolerance);
+    Circle2dThreeTangent   aCircBuilder(aQualifiedLin1, aQualifiedLin2, aQualifiedLin3, aTolerance);
     return solutions(theDI, aCircBuilder, theArgVec[1]);
   }
 
@@ -319,14 +319,14 @@ static Standard_Integer circ2d3Tan(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-void GeometryTest::CurveTanCommands(Draw_Interpretor& theCommands)
+void GeometryTest::CurveTanCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean aLoaded = Standard_False;
   if (aLoaded)
     return;
   aLoaded = Standard_True;
 
-  DrawTrSurf::BasicCommands(theCommands);
+  DrawTrSurf1::BasicCommands(theCommands);
 
   const char* aGroup;
   aGroup = "GEOMETRY tangent curves creation";

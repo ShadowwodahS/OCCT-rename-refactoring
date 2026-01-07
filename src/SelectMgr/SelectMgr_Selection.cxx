@@ -19,11 +19,11 @@
 #include <SelectMgr_EntityOwner.hxx>
 #include <Standard_NullObject.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(SelectMgr_Selection, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(SelectionContainer, RefObject)
 
 //=================================================================================================
 
-SelectMgr_Selection::SelectMgr_Selection(const Standard_Integer theModeIdx)
+SelectionContainer::SelectionContainer(const Standard_Integer theModeIdx)
     : myMode(theModeIdx),
       mySelectionState(SelectMgr_SOS_Unknown),
       myBVHUpdateStatus(SelectMgr_TBU_None),
@@ -32,14 +32,14 @@ SelectMgr_Selection::SelectMgr_Selection(const Standard_Integer theModeIdx)
 {
 }
 
-SelectMgr_Selection::~SelectMgr_Selection()
+SelectionContainer::~SelectionContainer()
 {
   Destroy();
 }
 
 //=================================================================================================
 
-void SelectMgr_Selection::Destroy()
+void SelectionContainer::Destroy()
 {
   for (NCollection_Vector<Handle(SelectMgr_SensitiveEntity)>::Iterator anEntityIter(myEntities);
        anEntityIter.More();
@@ -53,7 +53,7 @@ void SelectMgr_Selection::Destroy()
 
 //=================================================================================================
 
-void SelectMgr_Selection::Add(const Handle(Select3D_SensitiveEntity)& theSensitive)
+void SelectionContainer::Add(const Handle(Select3D_SensitiveEntity)& theSensitive)
 {
   // if input is null: in debug mode raise exception
   Standard_NullObject_Raise_if(theSensitive.IsNull(),
@@ -83,7 +83,7 @@ void SelectMgr_Selection::Add(const Handle(Select3D_SensitiveEntity)& theSensiti
 
 //=================================================================================================
 
-void SelectMgr_Selection::Clear()
+void SelectionContainer::Clear()
 {
   for (NCollection_Vector<Handle(SelectMgr_SensitiveEntity)>::Iterator anEntityIter(myEntities);
        anEntityIter.More();
@@ -102,7 +102,7 @@ void SelectMgr_Selection::Clear()
 //           IMPORTANT: This method does not update any outer selection structures, so for
 //           proper updates use SelectMgr_SelectionManager::SetSelectionSensitivity method.
 //==================================================
-void SelectMgr_Selection::SetSensitivity(const Standard_Integer theNewSens)
+void SelectionContainer::SetSensitivity(const Standard_Integer theNewSens)
 {
   mySensFactor   = theNewSens;
   myIsCustomSens = Standard_True;
@@ -117,7 +117,7 @@ void SelectMgr_Selection::SetSensitivity(const Standard_Integer theNewSens)
 
 //=================================================================================================
 
-void SelectMgr_Selection::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void SelectionContainer::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 

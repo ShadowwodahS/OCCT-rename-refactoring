@@ -31,13 +31,13 @@ inline Standard_Boolean TDF_DataSet::IsEmpty() const
 
 // Labels
 //========
-inline void TDF_DataSet::AddLabel(const TDF_Label& aLabel)
+inline void TDF_DataSet::AddLabel(const DataLabel& aLabel)
 {
   if (!aLabel.IsNull())
     myLabelMap.Add(aLabel);
 }
 
-inline Standard_Boolean TDF_DataSet::ContainsLabel(const TDF_Label& aLabel) const
+inline Standard_Boolean TDF_DataSet::ContainsLabel(const DataLabel& aLabel) const
 {
   return myLabelMap.Contains(aLabel);
 }
@@ -70,7 +70,7 @@ inline TDF_AttributeMap& TDF_DataSet::Attributes()
 // Root labels
 //=============
 
-inline void TDF_DataSet::AddRoot(const TDF_Label& aLabel)
+inline void TDF_DataSet::AddRoot(const DataLabel& aLabel)
 {
   if (ContainsLabel(aLabel))
     myRootLabels.Append(aLabel);

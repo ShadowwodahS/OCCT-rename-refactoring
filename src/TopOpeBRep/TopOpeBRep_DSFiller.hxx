@@ -27,9 +27,9 @@
 #include <TopOpeBRep_EdgesFiller.hxx>
 #include <TopOpeBRep_FaceEdgeFiller.hxx>
 #include <TopOpeBRepTool_PShapeClassifier.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class TopOpeBRepDS_HDataStructure;
-class TopoDS_Face;
+class TopoFace;
 
 //! Provides class  methods  to  fill  a datastructure
 //! with  results  of intersections.
@@ -59,8 +59,8 @@ public:
   //! if orientFORWARD = True
   //! S FORWARD,REVERSED   --> FORWARD
   //! S EXTERNAL,INTERNAL --> EXTERNAL,INTERNAL
-  Standard_EXPORT void Insert(const TopoDS_Shape&                        S1,
-                              const TopoDS_Shape&                        S2,
+  Standard_EXPORT void Insert(const TopoShape&                        S1,
+                              const TopoShape&                        S2,
                               const Handle(TopOpeBRepDS_HDataStructure)& HDS,
                               const Standard_Boolean orientFORWARD = Standard_True);
 
@@ -68,8 +68,8 @@ public:
   //! if orientFORWARD = True
   //! S FORWAR,REVERSED   --> FORWARD
   //! S EXTERNAL,INTERNAL --> EXTERNAL,INTERNAL
-  Standard_EXPORT void InsertIntersection(const TopoDS_Shape&                        S1,
-                                          const TopoDS_Shape&                        S2,
+  Standard_EXPORT void InsertIntersection(const TopoShape&                        S1,
+                                          const TopoShape&                        S2,
                                           const Handle(TopOpeBRepDS_HDataStructure)& HDS,
                                           const Standard_Boolean orientFORWARD = Standard_True);
 
@@ -77,20 +77,20 @@ public:
 
   //! Stores in <DS> the intersections of <S1> and <S2>.
   //! S1 et S2 contain only SameDomain Face
-  Standard_EXPORT void Insert2d(const TopoDS_Shape&                        S1,
-                                const TopoDS_Shape&                        S2,
+  Standard_EXPORT void Insert2d(const TopoShape&                        S1,
+                                const TopoShape&                        S2,
                                 const Handle(TopOpeBRepDS_HDataStructure)& HDS);
 
   //! S1, S2 set of tangent face
   //! lance les intersections 2d pour coder correctement
   //! les faces SameDomain.
-  Standard_EXPORT void InsertIntersection2d(const TopoDS_Shape&                        S1,
-                                            const TopoDS_Shape&                        S2,
+  Standard_EXPORT void InsertIntersection2d(const TopoShape&                        S1,
+                                            const TopoShape&                        S2,
                                             const Handle(TopOpeBRepDS_HDataStructure)& HDS);
 
-  Standard_EXPORT Standard_Boolean IsMadeOf1d(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Boolean IsMadeOf1d(const TopoShape& S) const;
 
-  Standard_EXPORT Standard_Boolean IsContext1d(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Boolean IsContext1d(const TopoShape& S) const;
 
   //! Stores in <DS> the intersections of <S1> and <S2>.
   //! S1 and S2 are edges or wires.
@@ -101,10 +101,10 @@ public:
   //! if orientFORWARD = True
   //! S FORWARD,REVERSED  --> FORWARD
   //! S EXTERNAL,INTERNAL --> EXTERNAL,INTERNAL
-  Standard_EXPORT void Insert1d(const TopoDS_Shape&                        S1,
-                                const TopoDS_Shape&                        S2,
-                                const TopoDS_Face&                         F1,
-                                const TopoDS_Face&                         F2,
+  Standard_EXPORT void Insert1d(const TopoShape&                        S1,
+                                const TopoShape&                        S2,
+                                const TopoFace&                         F1,
+                                const TopoFace&                         F2,
                                 const Handle(TopOpeBRepDS_HDataStructure)& HDS,
                                 const Standard_Boolean orientFORWARD = Standard_False);
 
@@ -116,7 +116,7 @@ public:
 
   Standard_EXPORT TopOpeBRep_EdgesFiller& ChangeEdgesFiller();
 
-  Standard_EXPORT TopOpeBRep_FaceEdgeFiller& ChangeFaceEdgeFiller();
+  Standard_EXPORT FaceEdgeFiller& ChangeFaceEdgeFiller();
 
   Standard_EXPORT void GapFiller(const Handle(TopOpeBRepDS_HDataStructure)& HDS) const;
 
@@ -146,19 +146,19 @@ public:
 
 protected:
 private:
-  Standard_EXPORT Standard_Boolean CheckInsert(const TopoDS_Shape& S1,
-                                               const TopoDS_Shape& S2) const;
+  Standard_EXPORT Standard_Boolean CheckInsert(const TopoShape& S1,
+                                               const TopoShape& S2) const;
 
   Standard_EXPORT Standard_Boolean
-    ClearShapeSameDomain(const TopoDS_Shape&                        S1,
-                         const TopoDS_Shape&                        S2,
+    ClearShapeSameDomain(const TopoShape&                        S1,
+                         const TopoShape&                        S2,
                          const Handle(TopOpeBRepDS_HDataStructure)& HDS);
 
   TopOpeBRep_ShapeIntersector     myShapeIntersector;
   TopOpeBRep_ShapeIntersector2d   myShapeIntersector2d;
   TopOpeBRep_FacesFiller          myFacesFiller;
   TopOpeBRep_EdgesFiller          myEdgesFiller;
-  TopOpeBRep_FaceEdgeFiller       myFaceEdgeFiller;
+  FaceEdgeFiller       myFaceEdgeFiller;
   TopOpeBRepTool_PShapeClassifier myPShapeClassifier;
 };
 

@@ -39,7 +39,7 @@
 
 XSControl_Reader::XSControl_Reader()
 {
-  SetWS(new XSControl_WorkSession);
+  SetWS(new ExchangeSession);
 }
 
 //=================================================================================================
@@ -51,7 +51,7 @@ XSControl_Reader::XSControl_Reader(const Standard_CString norm)
 
 //=================================================================================================
 
-XSControl_Reader::XSControl_Reader(const Handle(XSControl_WorkSession)& WS,
+XSControl_Reader::XSControl_Reader(const Handle(ExchangeSession)& WS,
                                    const Standard_Boolean               scratch)
 {
   SetWS(WS, scratch);
@@ -62,7 +62,7 @@ XSControl_Reader::XSControl_Reader(const Handle(XSControl_WorkSession)& WS,
 Standard_Boolean XSControl_Reader::SetNorm(const Standard_CString norm)
 {
   if (thesession.IsNull())
-    SetWS(new XSControl_WorkSession);
+    SetWS(new ExchangeSession);
   Standard_Boolean stat = thesession->SelectNorm(norm);
   if (stat)
   {
@@ -74,7 +74,7 @@ Standard_Boolean XSControl_Reader::SetNorm(const Standard_CString norm)
 
 //=================================================================================================
 
-void XSControl_Reader::SetWS(const Handle(XSControl_WorkSession)& WS,
+void XSControl_Reader::SetWS(const Handle(ExchangeSession)& WS,
                              const Standard_Boolean               scratch)
 {
   therootsta = Standard_False;
@@ -92,7 +92,7 @@ void XSControl_Reader::SetWS(const Handle(XSControl_WorkSession)& WS,
 
 //=================================================================================================
 
-Handle(XSControl_WorkSession) XSControl_Reader::WS() const
+Handle(ExchangeSession) XSControl_Reader::WS() const
 {
   return thesession;
 }
@@ -209,7 +209,7 @@ Standard_Boolean XSControl_Reader::TransferEntity(const Handle(RefObject)& start
   InitializeMissingParameters();
   if (TR->TransferOne(start, Standard_True, theProgress) == 0)
     return Standard_False;
-  TopoDS_Shape sh = TR->ShapeResult(start);
+  TopoShape sh = TR->ShapeResult(start);
   // ShapeExtend_Explorer STU;
   // SMH May 00: allow empty shapes (STEP CAX-IF, external references)
   // if (STU.ShapeType(sh,Standard_True) == TopAbs_SHAPE) return Standard_False;  // nulle-vide
@@ -237,7 +237,7 @@ Standard_Integer XSControl_Reader::TransferList(const Handle(TColStd_HSequenceOf
     Handle(RefObject) start = list->Value(i);
     if (TR->TransferOne(start, Standard_True, PS.Next()) == 0)
       continue;
-    TopoDS_Shape sh = TR->ShapeResult(start);
+    TopoShape sh = TR->ShapeResult(start);
     if (STU.ShapeType(sh, Standard_True) == TopAbs_SHAPE)
       continue; // nulle-vide
     theshapes.Append(sh);
@@ -265,7 +265,7 @@ Standard_Integer XSControl_Reader::TransferRoots(const Message_ProgressRange& th
     Handle(RefObject) start = theroots.Value(i);
     if (TR->TransferOne(start, Standard_True, PS.Next()) == 0)
       continue;
-    TopoDS_Shape sh = TR->ShapeResult(start);
+    TopoShape sh = TR->ShapeResult(start);
     if (STU.ShapeType(sh, Standard_True) == TopAbs_SHAPE)
       continue; // nulle-vide
     theshapes.Append(sh);
@@ -283,7 +283,7 @@ void XSControl_Reader::ClearShapes()
 
 //=================================================================================================
 
-Standard_Integer XSControl_Reader::NbShapes() const
+Standard_Integer XSControl_Reader::NbShapes1() const
 {
   return theshapes.Length();
 }
@@ -297,23 +297,23 @@ TopTools_SequenceOfShape& XSControl_Reader::Shapes()
 
 //=================================================================================================
 
-TopoDS_Shape XSControl_Reader::Shape(const Standard_Integer num) const
+TopoShape XSControl_Reader::Shape(const Standard_Integer num) const
 {
   return theshapes.Value(num);
 }
 
 //=================================================================================================
 
-TopoDS_Shape XSControl_Reader::OneShape() const
+TopoShape XSControl_Reader::OneShape() const
 {
-  TopoDS_Shape     sh;
+  TopoShape     sh;
   Standard_Integer i, nb = theshapes.Length();
   if (nb == 0)
     return sh;
   if (nb == 1)
     return theshapes.Value(1);
-  TopoDS_Compound C;
-  BRep_Builder    B;
+  TopoCompound C;
+  ShapeBuilder    B;
   // pdn 26.02.99 testing S4133
   B.MakeCompound(C);
   for (i = 1; i <= nb; i++)
@@ -435,7 +435,7 @@ void XSControl_Reader::SetShapeFixParameters(XSAlgo_ShapeProcessor::ParameterMap
 //=============================================================================
 
 void XSControl_Reader::SetShapeFixParameters(
-  const DE_ShapeFixParameters&               theParameters,
+  const ShapeFixParameters&               theParameters,
   const XSAlgo_ShapeProcessor::ParameterMap& theAdditionalParameters)
 {
   if (Handle(Transfer_ActorOfTransientProcess) anActor = GetActor())
@@ -476,7 +476,7 @@ const XSAlgo_ShapeProcessor::ProcessingFlags& XSControl_Reader::GetShapeProcessF
 
 Handle(Transfer_ActorOfTransientProcess) XSControl_Reader::GetActor() const
 {
-  Handle(XSControl_WorkSession) aSession = WS();
+  Handle(ExchangeSession) aSession = WS();
   if (aSession.IsNull())
   {
     return nullptr;

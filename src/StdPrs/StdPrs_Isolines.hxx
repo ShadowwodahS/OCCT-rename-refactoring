@@ -28,24 +28,24 @@
 class TopLoc_Location;
 
 //! Tool for computing isoline representation for a face or surface.
-//! Depending on a flags set to the given Prs3d_Drawer instance, on-surface (is used
+//! Depending on a flags set to the given StyleDrawer instance, on-surface (is used
 //! by default) or on-triangulation isoline builder algorithm will be used.
 //! If the given shape is not triangulated, on-surface isoline builder will be applied
-//! regardless of Prs3d_Drawer flags.
+//! regardless of StyleDrawer flags.
 class StdPrs_Isolines : public Prs3d_Root
 {
 public:
   //! Computes isolines presentation for a TopoDS face.
   //! This method chooses proper version of isoline builder algorithm : on triangulation
-  //! or surface depending on the flag passed from Prs3d_Drawer attributes.
+  //! or surface depending on the flag passed from StyleDrawer attributes.
   //! This method is a default way to display isolines for a given TopoDS face.
   //! @param[in] thePresentation  the presentation.
   //! @param[in] theFace  the face.
   //! @param[in] theDrawer  the display settings.
   //! @param[in] theDeflection  the deflection for isolines-on-surface version.
   inline static void Add(const Handle(Prs3d_Presentation)& thePresentation,
-                         const TopoDS_Face&                theFace,
-                         const Handle(Prs3d_Drawer)&       theDrawer,
+                         const TopoFace&                theFace,
+                         const Handle(StyleDrawer)&       theDrawer,
                          const Standard_Real               theDeflection)
   {
     if (theDrawer->IsoOnTriangulation() && StdPrs_ToolTriangulatedShape::IsTriangulated(theFace))
@@ -60,13 +60,13 @@ public:
 
   //! Computes isolines presentation for a TopoDS face.
   //! This method chooses proper version of isoline builder algorithm : on triangulation
-  //! or surface depending on the flag passed from Prs3d_Drawer attributes.
+  //! or surface depending on the flag passed from StyleDrawer attributes.
   //! This method is a default way to display isolines for a given TopoDS face.
   //! @param[in] theFace  the face.
   //! @param[in] theDrawer  the display settings.
   //! @param[in] theDeflection  the deflection for isolines-on-surface version.
-  static void Add(const TopoDS_Face&          theFace,
-                  const Handle(Prs3d_Drawer)& theDrawer,
+  static void Add(const TopoFace&          theFace,
+                  const Handle(StyleDrawer)& theDrawer,
                   const Standard_Real         theDeflection,
                   Prs3d_NListOfSequenceOfPnt& theUPolylines,
                   Prs3d_NListOfSequenceOfPnt& theVPolylines)
@@ -86,16 +86,16 @@ public:
   //! @param[in] theFace  the face.
   //! @param[in] theDrawer  the display settings.
   Standard_EXPORT static void AddOnTriangulation(const Handle(Prs3d_Presentation)& thePresentation,
-                                                 const TopoDS_Face&                theFace,
-                                                 const Handle(Prs3d_Drawer)&       theDrawer);
+                                                 const TopoFace&                theFace,
+                                                 const Handle(StyleDrawer)&       theDrawer);
 
   //! Computes isolines on triangulation.
   //! @param[in] theFace  the face.
   //! @param[in] theDrawer  the display settings.
   //! @param[out] theUPolylines  the sequence of result polylines
   //! @param[out] theVPolylines  the sequence of result polylines
-  Standard_EXPORT static void AddOnTriangulation(const TopoDS_Face&          theFace,
-                                                 const Handle(Prs3d_Drawer)& theDrawer,
+  Standard_EXPORT static void AddOnTriangulation(const TopoFace&          theFace,
+                                                 const Handle(StyleDrawer)& theDrawer,
                                                  Prs3d_NListOfSequenceOfPnt& theUPolylines,
                                                  Prs3d_NListOfSequenceOfPnt& theVPolylines);
 
@@ -112,10 +112,10 @@ public:
   //! @param[in] theUIsoParams  the parameters of u isolines to compute.
   //! @param[in] theVIsoParams  the parameters of v isolines to compute.
   Standard_EXPORT static void AddOnTriangulation(const Handle(Prs3d_Presentation)& thePresentation,
-                                                 const Handle(Poly_Triangulation)& theTriangulation,
-                                                 const Handle(Geom_Surface)&       theSurface,
+                                                 const Handle(MeshTriangulation)& theTriangulation,
+                                                 const Handle(GeomSurface)&       theSurface,
                                                  const TopLoc_Location&            theLocation,
-                                                 const Handle(Prs3d_Drawer)&       theDrawer,
+                                                 const Handle(StyleDrawer)&       theDrawer,
                                                  const TColStd_SequenceOfReal&     theUIsoParams,
                                                  const TColStd_SequenceOfReal&     theVIsoParams);
 
@@ -125,8 +125,8 @@ public:
   //! @param[in] theDrawer  the display settings.
   //! @param[in] theDeflection  the deflection value.
   Standard_EXPORT static void AddOnSurface(const Handle(Prs3d_Presentation)& thePresentation,
-                                           const TopoDS_Face&                theFace,
-                                           const Handle(Prs3d_Drawer)&       theDrawer,
+                                           const TopoFace&                theFace,
+                                           const Handle(StyleDrawer)&       theDrawer,
                                            const Standard_Real               theDeflection);
 
   //! Computes isolines on surface and adds them to presentation.
@@ -135,8 +135,8 @@ public:
   //! @param[in] theDeflection  the deflection value
   //! @param[out] theUPolylines  the sequence of result polylines
   //! @param[out] theVPolylines  the sequence of result polylines
-  Standard_EXPORT static void AddOnSurface(const TopoDS_Face&          theFace,
-                                           const Handle(Prs3d_Drawer)& theDrawer,
+  Standard_EXPORT static void AddOnSurface(const TopoFace&          theFace,
+                                           const Handle(StyleDrawer)& theDrawer,
                                            const Standard_Real         theDeflection,
                                            Prs3d_NListOfSequenceOfPnt& theUPolylines,
                                            Prs3d_NListOfSequenceOfPnt& theVPolylines);
@@ -150,7 +150,7 @@ public:
   //! @param[in] theVIsoParams  the parameters of v isolines to compute.
   Standard_EXPORT static void AddOnSurface(const Handle(Prs3d_Presentation)&  thePresentation,
                                            const Handle(BRepAdaptor_Surface)& theSurface,
-                                           const Handle(Prs3d_Drawer)&        theDrawer,
+                                           const Handle(StyleDrawer)&        theDrawer,
                                            const Standard_Real                theDeflection,
                                            const TColStd_SequenceOfReal&      theUIsoParams,
                                            const TColStd_SequenceOfReal&      theVIsoParams);
@@ -166,7 +166,7 @@ public:
   //! @param[out] theUmax  the upper U boundary of  theFace.
   //! @param[out] theVmin  the lower V boundary of  theFace.
   //! @param[out] theVmax  the upper V boundary of  theFace.
-  Standard_EXPORT static void UVIsoParameters(const TopoDS_Face&      theFace,
+  Standard_EXPORT static void UVIsoParameters(const TopoFace&      theFace,
                                               const Standard_Integer  theNbIsoU,
                                               const Standard_Integer  theNbIsoV,
                                               const Standard_Real     theUVLimit,
@@ -211,7 +211,7 @@ private:
   //! @param[out] theUPolylines  the sequence of result polylines
   //! @param[out] theVPolylines  the sequence of result polylines
   Standard_EXPORT static void addOnSurface(const Handle(BRepAdaptor_Surface)& theSurface,
-                                           const Handle(Prs3d_Drawer)&        theDrawer,
+                                           const Handle(StyleDrawer)&        theDrawer,
                                            const Standard_Real                theDeflection,
                                            const TColStd_SequenceOfReal&      theUIsoParams,
                                            const TColStd_SequenceOfReal&      theVIsoParams,
@@ -232,8 +232,8 @@ private:
   //! @param[in] theVIsoParams  the parameters of v isolines to compute
   //! @param[out] theUPolylines  the sequence of result polylines
   //! @param[out] theVPolylines  the sequence of result polylines
-  Standard_EXPORT static void addOnTriangulation(const Handle(Poly_Triangulation)& theTriangulation,
-                                                 const Handle(Geom_Surface)&       theSurface,
+  Standard_EXPORT static void addOnTriangulation(const Handle(MeshTriangulation)& theTriangulation,
+                                                 const Handle(GeomSurface)&       theSurface,
                                                  const TopLoc_Location&            theLocation,
                                                  const TColStd_SequenceOfReal&     theUIsoParams,
                                                  const TColStd_SequenceOfReal&     theVIsoParams,
@@ -251,7 +251,7 @@ private:
   //!                         or V parameters for U isoline (depending on theIsU)
   //! @return TRUE if the isoline passes through the triangle.
   Standard_EXPORT static Standard_Boolean findSegmentOnTriangulation(
-    const Handle(Geom_Surface)& theSurface,
+    const Handle(GeomSurface)& theSurface,
     const bool                  theIsU,
     const gp_Lin2d&             theIsoline,
     const Point3d*               theNodesXYZ,

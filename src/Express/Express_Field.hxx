@@ -18,7 +18,7 @@
 
 class Express_Type;
 class TCollection_HAsciiString;
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! Represents field of the ENTITY item in the EXPRESS schema
 class Express_Field : public RefObject
@@ -36,7 +36,7 @@ public:
                                 const Standard_Boolean                  theOpt);
 
   //! Returns field name
-  Standard_EXPORT const TCollection_AsciiString& Name() const;
+  Standard_EXPORT const AsciiString1& Name() const;
 
   //! Returns a pointer to the field name to modify it
   Standard_EXPORT Handle(TCollection_HAsciiString) HName() const;

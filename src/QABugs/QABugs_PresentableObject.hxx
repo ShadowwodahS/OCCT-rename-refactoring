@@ -18,17 +18,17 @@
 
 #include <AIS_InteractiveObject.hxx>
 
-DEFINE_STANDARD_HANDLE(QABugs_PresentableObject, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(QABugs_PresentableObject, VisualEntity)
 
-class QABugs_PresentableObject : public AIS_InteractiveObject
+class QABugs_PresentableObject : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(QABugs_PresentableObject, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(QABugs_PresentableObject, VisualEntity)
 public:
   Standard_EXPORT QABugs_PresentableObject(
     const PrsMgr_TypeOfPresentation3d aTypeOfPresentation3d = PrsMgr_TOP_AllView);
 
 protected:
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,

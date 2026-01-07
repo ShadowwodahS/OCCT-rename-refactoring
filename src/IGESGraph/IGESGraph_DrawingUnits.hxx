@@ -28,7 +28,7 @@ class IGESGraph_DrawingUnits;
 DEFINE_STANDARD_HANDLE(IGESGraph_DrawingUnits, IGESData_IGESEntity)
 
 //! defines IGESDrawingUnits, Type <406> Form <17>
-//! in package IGESGraph
+//! in package IGESGraph1
 //!
 //! Specifies the drawing space units as outlined
 //! in the Drawing entity
@@ -57,7 +57,7 @@ public:
   Standard_EXPORT Handle(TCollection_HAsciiString) Unit() const;
 
   //! Computes the value of the unit, in meters, according Flag
-  //! (same values as for GlobalSection from IGESData)
+  //! (same values as for GlobalSection from IGESData1)
   Standard_EXPORT Standard_Real UnitValue() const;
 
   DEFINE_STANDARD_RTTIEXT(IGESGraph_DrawingUnits, IGESData_IGESEntity)

@@ -45,10 +45,10 @@ public:
   {
   }
 
-  GeomAdaptor_Curve(const Handle(Geom_Curve)& theCurve) { Load(theCurve); }
+  GeomAdaptor_Curve(const Handle(GeomCurve3d)& theCurve) { Load(theCurve); }
 
   //! Standard_ConstructionError is raised if theUFirst>theULast
-  GeomAdaptor_Curve(const Handle(Geom_Curve)& theCurve,
+  GeomAdaptor_Curve(const Handle(GeomCurve3d)& theCurve,
                     const Standard_Real       theUFirst,
                     const Standard_Real       theULast)
   {
@@ -61,7 +61,7 @@ public:
   //! Reset currently loaded curve (undone Load()).
   Standard_EXPORT void Reset();
 
-  void Load(const Handle(Geom_Curve)& theCurve)
+  void Load(const Handle(GeomCurve3d)& theCurve)
   {
     if (theCurve.IsNull())
     {
@@ -71,7 +71,7 @@ public:
   }
 
   //! Standard_ConstructionError is raised if theUFirst>theULast
-  void Load(const Handle(Geom_Curve)& theCurve,
+  void Load(const Handle(GeomCurve3d)& theCurve,
             const Standard_Real       theUFirst,
             const Standard_Real       theULast)
   {
@@ -88,7 +88,7 @@ public:
 
   //! Provides a curve inherited from Hcurve from Adaptor.
   //! This is inherited to provide easy to use constructors.
-  const Handle(Geom_Curve)& Curve() const { return myCurve; }
+  const Handle(GeomCurve3d)& Curve() const { return myCurve; }
 
   virtual Standard_Real FirstParameter() const Standard_OVERRIDE { return myFirst; }
 
@@ -212,14 +212,14 @@ public:
   //! the Curve please make a copy yourself
   //! Also it will NOT trim the surface to
   //! myFirst/Last.
-  Standard_EXPORT Handle(Geom_BezierCurve) Bezier() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BezierCurve3d) Bezier() const Standard_OVERRIDE;
 
   //! this will NOT make a copy of the
   //! BSpline Curve : If you want to modify
   //! the Curve please make a copy yourself
   //! Also it will NOT trim the surface to
   //! myFirst/Last.
-  Standard_EXPORT Handle(Geom_BSplineCurve) BSpline() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BSplineCurve3d) BSpline() const Standard_OVERRIDE;
 
   Standard_EXPORT Handle(Geom_OffsetCurve) OffsetCurve() const Standard_OVERRIDE;
 
@@ -229,7 +229,7 @@ private:
   Standard_EXPORT GeomAbs_Shape LocalContinuity(const Standard_Real U1,
                                                 const Standard_Real U2) const;
 
-  Standard_EXPORT void load(const Handle(Geom_Curve)& C,
+  Standard_EXPORT void load(const Handle(GeomCurve3d)& C,
                             const Standard_Real       UFirst,
                             const Standard_Real       ULast);
 
@@ -244,12 +244,12 @@ private:
   void RebuildCache(const Standard_Real theParameter) const;
 
 private:
-  Handle(Geom_Curve) myCurve;
+  Handle(GeomCurve3d) myCurve;
   GeomAbs_CurveType  myTypeCurve;
   Standard_Real      myFirst;
   Standard_Real      myLast;
 
-  Handle(Geom_BSplineCurve)      myBSplineCurve;    ///< B-spline representation to prevent castings
+  Handle(BSplineCurve3d)      myBSplineCurve;    ///< B-spline representation to prevent castings
   mutable Handle(BSplCLib_Cache) myCurveCache;      ///< Cached data for B-spline or Bezier curve
   Handle(GeomEvaluator_Curve)    myNestedEvaluator; ///< Calculates value of offset curve
 };

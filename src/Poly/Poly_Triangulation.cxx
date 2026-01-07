@@ -22,11 +22,11 @@
 #include <Standard_Dump.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Poly_Triangulation, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(MeshTriangulation, RefObject)
 
 //=================================================================================================
 
-Poly_Triangulation::Poly_Triangulation()
+MeshTriangulation::MeshTriangulation()
     : myCachedMinMax(NULL),
       myDeflection(0),
       myPurpose(Poly_MeshPurpose_NONE)
@@ -36,7 +36,7 @@ Poly_Triangulation::Poly_Triangulation()
 
 //=================================================================================================
 
-Poly_Triangulation::Poly_Triangulation(const Standard_Integer theNbNodes,
+MeshTriangulation::MeshTriangulation(const Standard_Integer theNbNodes,
                                        const Standard_Integer theNbTriangles,
                                        const Standard_Boolean theHasUVNodes,
                                        const Standard_Boolean theHasNormals)
@@ -58,7 +58,7 @@ Poly_Triangulation::Poly_Triangulation(const Standard_Integer theNbNodes,
 
 //=================================================================================================
 
-Poly_Triangulation::Poly_Triangulation(const TColgp_Array1OfPnt&    theNodes,
+MeshTriangulation::MeshTriangulation(const TColgp_Array1OfPnt&    theNodes,
                                        const Poly_Array1OfTriangle& theTriangles)
     : myCachedMinMax(NULL),
       myDeflection(0),
@@ -73,7 +73,7 @@ Poly_Triangulation::Poly_Triangulation(const TColgp_Array1OfPnt&    theNodes,
 
 //=================================================================================================
 
-Poly_Triangulation::Poly_Triangulation(const TColgp_Array1OfPnt&    theNodes,
+MeshTriangulation::MeshTriangulation(const TColgp_Array1OfPnt&    theNodes,
                                        const TColgp_Array1OfPnt2d&  theUVNodes,
                                        const Poly_Array1OfTriangle& theTriangles)
     : myCachedMinMax(NULL),
@@ -92,21 +92,21 @@ Poly_Triangulation::Poly_Triangulation(const TColgp_Array1OfPnt&    theNodes,
 
 //=================================================================================================
 
-Poly_Triangulation::~Poly_Triangulation()
+MeshTriangulation::~MeshTriangulation()
 {
   delete myCachedMinMax;
 }
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) Poly_Triangulation::Copy() const
+Handle(MeshTriangulation) MeshTriangulation::Copy() const
 {
-  return new Poly_Triangulation(this);
+  return new MeshTriangulation(this);
 }
 
 //=================================================================================================
 
-Poly_Triangulation::Poly_Triangulation(const Handle(Poly_Triangulation)& theTriangulation)
+MeshTriangulation::MeshTriangulation(const Handle(MeshTriangulation)& theTriangulation)
     : myCachedMinMax(NULL),
       myDeflection(theTriangulation->myDeflection),
       myNodes(theTriangulation->myNodes),
@@ -120,7 +120,7 @@ Poly_Triangulation::Poly_Triangulation(const Handle(Poly_Triangulation)& theTria
 
 //=================================================================================================
 
-void Poly_Triangulation::Clear()
+void MeshTriangulation::Clear()
 {
   if (!myNodes.IsEmpty())
   {
@@ -139,7 +139,7 @@ void Poly_Triangulation::Clear()
 
 //=================================================================================================
 
-void Poly_Triangulation::RemoveUVNodes()
+void MeshTriangulation::RemoveUVNodes()
 {
   if (!myUVNodes.IsEmpty())
   {
@@ -151,7 +151,7 @@ void Poly_Triangulation::RemoveUVNodes()
 
 //=================================================================================================
 
-void Poly_Triangulation::RemoveNormals()
+void MeshTriangulation::RemoveNormals()
 {
   if (!myNormals.IsEmpty())
   {
@@ -162,7 +162,7 @@ void Poly_Triangulation::RemoveNormals()
 
 //=================================================================================================
 
-Handle(TColgp_HArray1OfPnt) Poly_Triangulation::MapNodeArray() const
+Handle(TColgp_HArray1OfPnt) MeshTriangulation::MapNodeArray() const
 {
   if (myNodes.IsEmpty())
   {
@@ -191,7 +191,7 @@ Handle(TColgp_HArray1OfPnt) Poly_Triangulation::MapNodeArray() const
 
 //=================================================================================================
 
-Handle(Poly_HArray1OfTriangle) Poly_Triangulation::MapTriangleArray() const
+Handle(Poly_HArray1OfTriangle) MeshTriangulation::MapTriangleArray() const
 {
   if (myTriangles.IsEmpty())
   {
@@ -206,7 +206,7 @@ Handle(Poly_HArray1OfTriangle) Poly_Triangulation::MapTriangleArray() const
 
 //=================================================================================================
 
-Handle(TColgp_HArray1OfPnt2d) Poly_Triangulation::MapUVNodeArray() const
+Handle(TColgp_HArray1OfPnt2d) MeshTriangulation::MapUVNodeArray() const
 {
   if (myUVNodes.IsEmpty())
   {
@@ -235,7 +235,7 @@ Handle(TColgp_HArray1OfPnt2d) Poly_Triangulation::MapUVNodeArray() const
 
 //=================================================================================================
 
-Handle(TShort_HArray1OfShortReal) Poly_Triangulation::MapNormalArray() const
+Handle(TShort_HArray1OfShortReal) MeshTriangulation::MapNormalArray() const
 {
   if (myNormals.IsEmpty())
   {
@@ -250,11 +250,11 @@ Handle(TShort_HArray1OfShortReal) Poly_Triangulation::MapNormalArray() const
 
 //=================================================================================================
 
-void Poly_Triangulation::SetNormals(const Handle(TShort_HArray1OfShortReal)& theNormals)
+void MeshTriangulation::SetNormals(const Handle(TShort_HArray1OfShortReal)& theNormals)
 {
   if (theNormals.IsNull() || theNormals->Length() != 3 * NbNodes())
   {
-    throw Standard_DomainError("Poly_Triangulation::SetNormals : wrong length");
+    throw Standard_DomainError("MeshTriangulation::SetNormals : wrong length");
   }
 
   AddNormals();
@@ -271,7 +271,7 @@ void Poly_Triangulation::SetNormals(const Handle(TShort_HArray1OfShortReal)& the
 
 //=================================================================================================
 
-void Poly_Triangulation::SetDoublePrecision(bool theIsDouble)
+void MeshTriangulation::SetDoublePrecision(bool theIsDouble)
 {
   myNodes.SetDoublePrecision(theIsDouble);
   myUVNodes.SetDoublePrecision(theIsDouble);
@@ -279,7 +279,7 @@ void Poly_Triangulation::SetDoublePrecision(bool theIsDouble)
 
 //=================================================================================================
 
-void Poly_Triangulation::ResizeNodes(Standard_Integer theNbNodes, Standard_Boolean theToCopyOld)
+void MeshTriangulation::ResizeNodes(Standard_Integer theNbNodes, Standard_Boolean theToCopyOld)
 {
   myNodes.Resize(theNbNodes, theToCopyOld);
   if (!myUVNodes.IsEmpty())
@@ -294,7 +294,7 @@ void Poly_Triangulation::ResizeNodes(Standard_Integer theNbNodes, Standard_Boole
 
 //=================================================================================================
 
-void Poly_Triangulation::ResizeTriangles(Standard_Integer theNbTriangles,
+void MeshTriangulation::ResizeTriangles(Standard_Integer theNbTriangles,
                                          Standard_Boolean theToCopyOld)
 {
   myTriangles.Resize(1, theNbTriangles, theToCopyOld);
@@ -302,7 +302,7 @@ void Poly_Triangulation::ResizeTriangles(Standard_Integer theNbTriangles,
 
 //=================================================================================================
 
-void Poly_Triangulation::AddUVNodes()
+void MeshTriangulation::AddUVNodes()
 {
   if (myUVNodes.IsEmpty() || myUVNodes.Size() != myNodes.Size())
   {
@@ -312,7 +312,7 @@ void Poly_Triangulation::AddUVNodes()
 
 //=================================================================================================
 
-void Poly_Triangulation::AddNormals()
+void MeshTriangulation::AddNormals()
 {
   if (myNormals.IsEmpty() || myNormals.Size() != myNodes.Size())
   {
@@ -322,7 +322,7 @@ void Poly_Triangulation::AddNormals()
 
 //=================================================================================================
 
-void Poly_Triangulation::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
+void MeshTriangulation::DumpJson(Standard_OStream& theOStream, Standard_Integer) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
@@ -339,7 +339,7 @@ void Poly_Triangulation::DumpJson(Standard_OStream& theOStream, Standard_Integer
 
 //=================================================================================================
 
-const Bnd_Box& Poly_Triangulation::CachedMinMax() const
+const Bnd_Box& MeshTriangulation::CachedMinMax() const
 {
   static const Bnd_Box anEmptyBox;
   return (myCachedMinMax == NULL) ? anEmptyBox : *myCachedMinMax;
@@ -347,7 +347,7 @@ const Bnd_Box& Poly_Triangulation::CachedMinMax() const
 
 //=================================================================================================
 
-void Poly_Triangulation::SetCachedMinMax(const Bnd_Box& theBox)
+void MeshTriangulation::SetCachedMinMax(const Bnd_Box& theBox)
 {
   if (theBox.IsVoid())
   {
@@ -363,7 +363,7 @@ void Poly_Triangulation::SetCachedMinMax(const Bnd_Box& theBox)
 
 //=================================================================================================
 
-void Poly_Triangulation::unsetCachedMinMax()
+void MeshTriangulation::unsetCachedMinMax()
 {
   if (myCachedMinMax != NULL)
   {
@@ -374,7 +374,7 @@ void Poly_Triangulation::unsetCachedMinMax()
 
 //=================================================================================================
 
-Standard_Boolean Poly_Triangulation::MinMax(Bnd_Box&       theBox,
+Standard_Boolean MeshTriangulation::MinMax(Bnd_Box&       theBox,
                                             const Transform3d& theTrsf,
                                             const bool     theIsAccurate) const
 {
@@ -400,7 +400,7 @@ Standard_Boolean Poly_Triangulation::MinMax(Bnd_Box&       theBox,
 
 //=================================================================================================
 
-Bnd_Box Poly_Triangulation::computeBoundingBox(const Transform3d& theTrsf) const
+Bnd_Box MeshTriangulation::computeBoundingBox(const Transform3d& theTrsf) const
 {
   Bnd_Box aBox;
   if (theTrsf.Form() == gp_Identity)
@@ -422,7 +422,7 @@ Bnd_Box Poly_Triangulation::computeBoundingBox(const Transform3d& theTrsf) const
 
 //=================================================================================================
 
-void Poly_Triangulation::ComputeNormals()
+void MeshTriangulation::ComputeNormals()
 {
   // zero values
   AddNormals();
@@ -459,7 +459,7 @@ void Poly_Triangulation::ComputeNormals()
 
 //=================================================================================================
 
-Standard_Boolean Poly_Triangulation::LoadDeferredData(const Handle(OSD_FileSystem)& theFileSystem)
+Standard_Boolean MeshTriangulation::LoadDeferredData(const Handle(OSD_FileSystem)& theFileSystem)
 {
   if (!HasDeferredData())
   {
@@ -475,17 +475,17 @@ Standard_Boolean Poly_Triangulation::LoadDeferredData(const Handle(OSD_FileSyste
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) Poly_Triangulation::DetachedLoadDeferredData(
+Handle(MeshTriangulation) MeshTriangulation::DetachedLoadDeferredData(
   const Handle(OSD_FileSystem)& theFileSystem) const
 {
   if (!HasDeferredData())
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
-  Handle(Poly_Triangulation) aResult = createNewEntity();
+  Handle(MeshTriangulation) aResult = createNewEntity();
   if (!loadDeferredData(theFileSystem, aResult))
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
   aResult->SetMeshPurpose(aResult->MeshPurpose() | Poly_MeshPurpose_Loaded);
   return aResult;
@@ -493,7 +493,7 @@ Handle(Poly_Triangulation) Poly_Triangulation::DetachedLoadDeferredData(
 
 //=================================================================================================
 
-Standard_Boolean Poly_Triangulation::UnloadDeferredData()
+Standard_Boolean MeshTriangulation::UnloadDeferredData()
 {
   if (HasDeferredData())
   {

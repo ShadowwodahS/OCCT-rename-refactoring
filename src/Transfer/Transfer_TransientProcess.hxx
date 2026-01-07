@@ -78,7 +78,7 @@ public:
 
   //! Returns (modifiable) the whole definition of Context
   //! Rather for internal use (ex.: preparing and setting in once)
-  Standard_EXPORT NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>&
+  Standard_EXPORT NCollection_DataMap<AsciiString1, Handle(RefObject)>&
                   Context();
 
   //! Specific printing to trace an entity : prints label and type
@@ -121,7 +121,7 @@ protected:
 private:
   Handle(Interface_InterfaceModel)                                         themodel;
   Handle(Interface_HGraph)                                                 thegraph;
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> thectx;
+  NCollection_DataMap<AsciiString1, Handle(RefObject)> thectx;
   Handle(TColStd_HSequenceOfTransient)                                     thetrroots;
 };
 

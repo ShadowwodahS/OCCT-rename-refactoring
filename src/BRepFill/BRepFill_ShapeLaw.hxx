@@ -26,10 +26,10 @@
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
 class Law_Function;
-class TopoDS_Vertex;
-class TopoDS_Wire;
+class TopoVertex;
+class TopoWire;
 class GeomFill_SectionLaw;
-class TopoDS_Edge;
+class TopoEdge;
 
 class BRepFill_ShapeLaw;
 DEFINE_STANDARD_HANDLE(BRepFill_ShapeLaw, BRepFill_SectionLaw)
@@ -40,15 +40,15 @@ class BRepFill_ShapeLaw : public BRepFill_SectionLaw
 
 public:
   //! Construct an constant Law
-  Standard_EXPORT BRepFill_ShapeLaw(const TopoDS_Vertex&   V,
+  Standard_EXPORT BRepFill_ShapeLaw(const TopoVertex&   V,
                                     const Standard_Boolean Build = Standard_True);
 
   //! Construct an constant Law
-  Standard_EXPORT BRepFill_ShapeLaw(const TopoDS_Wire&     W,
+  Standard_EXPORT BRepFill_ShapeLaw(const TopoWire&     W,
                                     const Standard_Boolean Build = Standard_True);
 
   //! Construct an evolutive Law
-  Standard_EXPORT BRepFill_ShapeLaw(const TopoDS_Wire&          W,
+  Standard_EXPORT BRepFill_ShapeLaw(const TopoWire&          W,
                                     const Handle(Law_Function)& L,
                                     const Standard_Boolean      Build = Standard_True);
 
@@ -69,12 +69,12 @@ public:
                                                   const Standard_Real    Param) const
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual TopoDS_Vertex Vertex(const Standard_Integer Index,
+  Standard_EXPORT virtual TopoVertex Vertex(const Standard_Integer Index,
                                                const Standard_Real Param) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void D0(const Standard_Real Param, TopoDS_Shape& S) Standard_OVERRIDE;
+  Standard_EXPORT virtual void D0(const Standard_Real Param, TopoShape& S) Standard_OVERRIDE;
 
-  const TopoDS_Edge& Edge(const Standard_Integer Index) const;
+  const TopoEdge& Edge(const Standard_Integer Index) const;
 
   DEFINE_STANDARD_RTTIEXT(BRepFill_ShapeLaw, BRepFill_SectionLaw)
 
@@ -84,7 +84,7 @@ protected:
 private:
   Standard_EXPORT void Init(const Standard_Boolean B);
 
-  TopoDS_Shape                    myShape;
+  TopoShape                    myShape;
   Handle(TopTools_HArray1OfShape) myEdges;
   Handle(Law_Function)            TheLaw;
 };

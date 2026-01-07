@@ -34,12 +34,12 @@ class Storage_TypedCallBack : public RefObject
 public:
   Standard_EXPORT Storage_TypedCallBack();
 
-  Standard_EXPORT Storage_TypedCallBack(const TCollection_AsciiString&  aTypeName,
+  Standard_EXPORT Storage_TypedCallBack(const AsciiString1&  aTypeName,
                                         const Handle(Storage_CallBack)& aCallBack);
 
-  Standard_EXPORT void SetType(const TCollection_AsciiString& aType);
+  Standard_EXPORT void SetType(const AsciiString1& aType);
 
-  Standard_EXPORT TCollection_AsciiString Type() const;
+  Standard_EXPORT AsciiString1 Type() const;
 
   Standard_EXPORT void SetCallBack(const Handle(Storage_CallBack)& aCallBack);
 
@@ -53,7 +53,7 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString  myType;
+  AsciiString1  myType;
   Handle(Storage_CallBack) myCallBack;
   Standard_Integer         myIndex;
 };

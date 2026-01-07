@@ -432,10 +432,10 @@ void Transfer_ProcessForFinder::AddFail(const Handle(Transfer_Finder)& start,
 {
   if (amsg.IsEdited())
     AddFail(start,
-            TCollection_AsciiString(amsg.Value()).ToCString(),
-            TCollection_AsciiString(amsg.Original()).ToCString());
+            AsciiString1(amsg.Value()).ToCString(),
+            AsciiString1(amsg.Original()).ToCString());
   else
-    AddFail(start, TCollection_AsciiString(amsg.Value()).ToCString());
+    AddFail(start, AsciiString1(amsg.Value()).ToCString());
 }
 
 //=================================================================================================
@@ -469,10 +469,10 @@ void Transfer_ProcessForFinder::AddWarning(const Handle(Transfer_Finder)& start,
 {
   if (amsg.IsEdited())
     AddWarning(start,
-               TCollection_AsciiString(amsg.Value()).ToCString(),
-               TCollection_AsciiString(amsg.Original()).ToCString());
+               AsciiString1(amsg.Value()).ToCString(),
+               AsciiString1(amsg.Original()).ToCString());
   else
-    AddWarning(start, TCollection_AsciiString(amsg.Value()).ToCString());
+    AddWarning(start, AsciiString1(amsg.Value()).ToCString());
 }
 
 //=================================================================================================

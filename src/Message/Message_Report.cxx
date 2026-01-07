@@ -132,7 +132,7 @@ void Message_Report::ActivateInMessenger(const Standard_Boolean           toActi
     for (Message_SequenceOfPrinters::Iterator anIterator(aMessenger->Printers()); anIterator.More();
          anIterator.Next())
     {
-      const Handle(Message_Printer)& aPrinter = anIterator.Value();
+      const Handle(LogPrinter)& aPrinter = anIterator.Value();
       if (aPrinter->IsKind(STANDARD_TYPE(Message_PrinterToReport))
           && Handle(Message_PrinterToReport)::DownCast(aPrinter)->Report() == this)
         aPrintersToRemove.Append(aPrinter);
@@ -166,7 +166,7 @@ void Message_Report::UpdateActiveInMessenger(const Handle(Message_Messenger)& th
 
 //=================================================================================================
 
-void Message_Report::AddLevel(Message_Level* theLevel, const TCollection_AsciiString& theName)
+void Message_Report::AddLevel(Message_Level* theLevel, const AsciiString1& theName)
 {
   Standard_Mutex::Sentry aSentry(myMutex);
 

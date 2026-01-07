@@ -35,7 +35,7 @@ TDF_ChildIDIterator::TDF_ChildIDIterator() {}
 
 //=================================================================================================
 
-TDF_ChildIDIterator::TDF_ChildIDIterator(const TDF_Label&       aLabel,
+TDF_ChildIDIterator::TDF_ChildIDIterator(const DataLabel&       aLabel,
                                          const Standard_GUID&   anID,
                                          const Standard_Boolean allLevels)
     : myID(anID),
@@ -46,7 +46,7 @@ TDF_ChildIDIterator::TDF_ChildIDIterator(const TDF_Label&       aLabel,
 
 //=================================================================================================
 
-void TDF_ChildIDIterator::Initialize(const TDF_Label&       aLabel,
+void TDF_ChildIDIterator::Initialize(const DataLabel&       aLabel,
                                      const Standard_GUID&   anID,
                                      const Standard_Boolean allLevels)
 {

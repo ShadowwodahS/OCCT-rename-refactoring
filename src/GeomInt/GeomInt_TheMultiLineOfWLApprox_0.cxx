@@ -22,7 +22,7 @@
 #define Handle_TheLine Handle(IntPatch_WLine)
 #define TheLine IntPatch_WLine
 #define TheLine_hxx <IntPatch_WLine.hxx>
-#define TheSvSurfaces ApproxInt_SvSurfaces
+#define TheSvSurfaces SurfaceSurfaces
 #define TheSvSurfaces_hxx <ApproxInt_SvSurfaces.hxx>
 #define ApproxInt_MultiLine GeomInt_TheMultiLineOfWLApprox
 #define ApproxInt_MultiLine_hxx <GeomInt_TheMultiLineOfWLApprox.hxx>

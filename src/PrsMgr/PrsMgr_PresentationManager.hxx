@@ -25,10 +25,10 @@ class Graphic3d_Structure;
 typedef Graphic3d_Structure Prs3d_Presentation;
 
 class TopLoc_Datum3D;
-class Prs3d_Drawer;
+class StyleDrawer;
 class PrsMgr_Presentation;
 class PrsMgr_PresentableObject;
-class V3d_Viewer;
+class ViewManager;
 
 DEFINE_STANDARD_HANDLE(PrsMgr_PresentationManager, RefObject)
 
@@ -120,10 +120,10 @@ public:
 
   //! Allows rapid drawing of the each view in theViewer by avoiding an update of the whole
   //! background.
-  Standard_EXPORT void EndImmediateDraw(const Handle(V3d_Viewer)& theViewer);
+  Standard_EXPORT void EndImmediateDraw(const Handle(ViewManager)& theViewer);
 
   //! Clears and redisplays immediate structures of the viewer taking into account its affinity.
-  Standard_EXPORT void RedrawImmediate(const Handle(V3d_Viewer)& theViewer);
+  Standard_EXPORT void RedrawImmediate(const Handle(ViewManager)& theViewer);
 
   //! Returns true if Presentation Manager is accumulating transient list of presentations to be
   //! displayed in immediate mode.
@@ -134,7 +134,7 @@ public:
   //! this has the default value of 0, that is, the wireframe display mode.
   Standard_EXPORT void Color(
     const Handle(PrsMgr_PresentableObject)& thePrsObject,
-    const Handle(Prs3d_Drawer)&             theStyle,
+    const Handle(StyleDrawer)&             theStyle,
     const Standard_Integer                  theMode                   = 0,
     const Handle(PrsMgr_PresentableObject)& theSelObj                 = NULL,
     const Graphic3d_ZLayerId                theImmediateStructLayerId = Graphic3d_ZLayerId_Topmost);
@@ -178,7 +178,7 @@ public:
   //! @param theSelObj defines the object produced after decomposition of the base object for local
   //! selection
   Standard_EXPORT void UpdateHighlightTrsf(
-    const Handle(V3d_Viewer)&               theViewer,
+    const Handle(ViewManager)&               theViewer,
     const Handle(PrsMgr_PresentableObject)& theObj,
     const Standard_Integer                  theMode   = 0,
     const Handle(PrsMgr_PresentableObject)& theSelObj = NULL);
@@ -193,7 +193,7 @@ protected:
 private:
   //! Handles the structures from <myImmediateList> and displays it separating view-dependent
   //! structures and taking into account structure visibility by setting proper affinity.
-  void displayImmediate(const Handle(V3d_Viewer)& theViewer);
+  void displayImmediate(const Handle(ViewManager)& theViewer);
 
 protected:
   Handle(Graphic3d_StructureManager) myStructureManager;

@@ -29,7 +29,7 @@ class IGESBasic_SubfigureDef;
 DEFINE_STANDARD_HANDLE(IGESBasic_SubfigureDef, IGESData_IGESEntity)
 
 //! defines SubfigureDef, Type <308> Form <0>
-//! in package IGESBasic
+//! in package IGESBasic1
 //! This Entity permits a single definition of a detail to
 //! be utilized in multiple instances in the creation of
 //! the whole picture

@@ -22,13 +22,13 @@
 
 #include <BRepTopAdaptor_MapOfShapeTool.hxx>
 #include <Standard_Integer.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class Contap_Contour;
 class HLRTopoBRep_Data;
-class TopoDS_Face;
-class TopoDS_Vertex;
+class TopoFace;
+class TopoVertex;
 class Contap_Point;
-class TopoDS_Edge;
+class TopoEdge;
 
 //! Provides methods  to  fill a HLRTopoBRep_Data.
 class HLRTopoBRep_DSFiller
@@ -38,7 +38,7 @@ public:
 
   //! Stores in <DS> the outlines of  <S> using the current
   //! outliner and stores the isolines in <DS> using a Hatcher.
-  Standard_EXPORT static void Insert(const TopoDS_Shape&            S,
+  Standard_EXPORT static void Insert(const TopoShape&            S,
                                      Contap_Contour&                FO,
                                      HLRTopoBRep_Data&              DS,
                                      BRepTopAdaptor_MapOfShapeTool& MST,
@@ -49,14 +49,14 @@ private:
   //! Stores in <DS> the outlines of  <F> using the current
   //! outliner.
   Standard_EXPORT static void InsertFace(const Standard_Integer FI,
-                                         const TopoDS_Face&     F,
+                                         const TopoFace&     F,
                                          Contap_Contour&        FO,
                                          HLRTopoBRep_Data&      DS,
                                          const Standard_Boolean withPCurve);
 
   //! Make a  vertex  from an intersection  point <P>and
   //! store it in the data structure <DS>.
-  Standard_EXPORT static TopoDS_Vertex MakeVertex(const Contap_Point& P,
+  Standard_EXPORT static TopoVertex MakeVertex(const Contap_Point& P,
                                                   const Standard_Real tol,
                                                   HLRTopoBRep_Data&   DS);
 
@@ -65,7 +65,7 @@ private:
   //! data structure <DS>.
   Standard_EXPORT static void InsertVertex(const Contap_Point& P,
                                            const Standard_Real tol,
-                                           const TopoDS_Edge&  E,
+                                           const TopoEdge&  E,
                                            HLRTopoBRep_Data&   DS);
 
   //! Split all  the edges  with  vertices in   the data

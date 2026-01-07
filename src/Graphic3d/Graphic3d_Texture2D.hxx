@@ -29,12 +29,12 @@ public:
   Standard_EXPORT static Standard_Integer NumberOfTextures();
 
   //! Returns the name of the predefined texture of rank <aRank>
-  Standard_EXPORT static TCollection_AsciiString TextureName(const Standard_Integer theRank);
+  Standard_EXPORT static AsciiString1 TextureName(const Standard_Integer theRank);
 
 public:
   //! Creates a texture from a file.
   //! MipMaps levels will be automatically generated if needed.
-  Standard_EXPORT Graphic3d_Texture2D(const TCollection_AsciiString& theFileName);
+  Standard_EXPORT Graphic3d_Texture2D(const AsciiString1& theFileName);
 
   //! Creates a texture from a predefined texture name set.
   //! MipMaps levels will be automatically generated if needed.
@@ -54,7 +54,7 @@ public:
   Standard_EXPORT void SetImage(const Handle(Image_PixMap)& thePixMap);
 
 protected:
-  Standard_EXPORT Graphic3d_Texture2D(const TCollection_AsciiString& theFileName,
+  Standard_EXPORT Graphic3d_Texture2D(const AsciiString1& theFileName,
                                       const Graphic3d_TypeOfTexture  theType);
 
   Standard_EXPORT Graphic3d_Texture2D(const Graphic3d_NameOfTexture2D theName,

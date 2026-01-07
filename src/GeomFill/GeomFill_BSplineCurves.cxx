@@ -47,22 +47,22 @@
 //                  ----->-----
 //                   CC1 = C1
 //=======================================================================
-static Standard_Boolean Arrange(const Handle(Geom_BSplineCurve)& C1,
-                                const Handle(Geom_BSplineCurve)& C2,
-                                const Handle(Geom_BSplineCurve)& C3,
-                                const Handle(Geom_BSplineCurve)& C4,
-                                Handle(Geom_BSplineCurve)&       CC1,
-                                Handle(Geom_BSplineCurve)&       CC2,
-                                Handle(Geom_BSplineCurve)&       CC3,
-                                Handle(Geom_BSplineCurve)&       CC4,
+static Standard_Boolean Arrange(const Handle(BSplineCurve3d)& C1,
+                                const Handle(BSplineCurve3d)& C2,
+                                const Handle(BSplineCurve3d)& C3,
+                                const Handle(BSplineCurve3d)& C4,
+                                Handle(BSplineCurve3d)&       CC1,
+                                Handle(BSplineCurve3d)&       CC2,
+                                Handle(BSplineCurve3d)&       CC3,
+                                Handle(BSplineCurve3d)&       CC4,
                                 const Standard_Real              Tol)
 {
-  Handle(Geom_BSplineCurve) GC[4];
-  Handle(Geom_BSplineCurve) Dummy;
-  GC[0] = Handle(Geom_BSplineCurve)::DownCast(C1->Copy());
-  GC[1] = Handle(Geom_BSplineCurve)::DownCast(C2->Copy());
-  GC[2] = Handle(Geom_BSplineCurve)::DownCast(C3->Copy());
-  GC[3] = Handle(Geom_BSplineCurve)::DownCast(C4->Copy());
+  Handle(BSplineCurve3d) GC[4];
+  Handle(BSplineCurve3d) Dummy;
+  GC[0] = Handle(BSplineCurve3d)::DownCast(C1->Copy());
+  GC[1] = Handle(BSplineCurve3d)::DownCast(C2->Copy());
+  GC[2] = Handle(BSplineCurve3d)::DownCast(C3->Copy());
+  GC[3] = Handle(BSplineCurve3d)::DownCast(C4->Copy());
 
   Standard_Integer i, j;
   Standard_Boolean Trouve;
@@ -81,7 +81,7 @@ static Standard_Boolean Arrange(const Handle(Geom_BSplineCurve)& C1,
       }
       else if (GC[j]->EndPoint().Distance(GC[i - 1]->EndPoint()) < Tol)
       {
-        GC[j]  = Handle(Geom_BSplineCurve)::DownCast(GC[j]->Reversed());
+        GC[j]  = Handle(BSplineCurve3d)::DownCast(GC[j]->Reversed());
         Dummy  = GC[i];
         GC[i]  = GC[j];
         GC[j]  = Dummy;
@@ -94,8 +94,8 @@ static Standard_Boolean Arrange(const Handle(Geom_BSplineCurve)& C1,
 
   CC1 = GC[0];
   CC2 = GC[1];
-  CC3 = Handle(Geom_BSplineCurve)::DownCast(GC[2]->Reversed());
-  CC4 = Handle(Geom_BSplineCurve)::DownCast(GC[3]->Reversed());
+  CC3 = Handle(BSplineCurve3d)::DownCast(GC[2]->Reversed());
+  CC4 = Handle(BSplineCurve3d)::DownCast(GC[3]->Reversed());
 
   return Standard_True;
 }
@@ -105,8 +105,8 @@ static Standard_Boolean Arrange(const Handle(Geom_BSplineCurve)& C1,
 // purpose  : Internal Use Only
 //=======================================================================
 
-static Standard_Integer SetSameDistribution(Handle(Geom_BSplineCurve)& C1,
-                                            Handle(Geom_BSplineCurve)& C2)
+static Standard_Integer SetSameDistribution(Handle(BSplineCurve3d)& C1,
+                                            Handle(BSplineCurve3d)& C2)
 {
   Standard_Integer     nbp1 = C1->NbPoles();
   Standard_Integer     nbk1 = C1->NbKnots();
@@ -189,11 +189,11 @@ static Standard_Integer SetSameDistribution(Handle(Geom_BSplineCurve)& C1,
                           Standard_False);
     if (C1->IsRational())
     {
-      C1 = new Geom_BSplineCurve(NewP, NewW, NewK, NewM, C1->Degree());
+      C1 = new BSplineCurve3d(NewP, NewW, NewK, NewM, C1->Degree());
     }
     else
     {
-      C1 = new Geom_BSplineCurve(NewP, NewK, NewM, C1->Degree());
+      C1 = new BSplineCurve3d(NewP, NewK, NewM, C1->Degree());
     }
     BSplCLib::InsertKnots(C2->Degree(),
                           Standard_False,
@@ -211,11 +211,11 @@ static Standard_Integer SetSameDistribution(Handle(Geom_BSplineCurve)& C1,
                           Standard_False);
     if (C2->IsRational())
     {
-      C2 = new Geom_BSplineCurve(NewP, NewW, NewK, NewM, C2->Degree());
+      C2 = new BSplineCurve3d(NewP, NewW, NewK, NewM, C2->Degree());
     }
     else
     {
-      C2 = new Geom_BSplineCurve(NewP, NewK, NewM, C2->Degree());
+      C2 = new BSplineCurve3d(NewP, NewK, NewM, C2->Degree());
     }
   }
   else
@@ -232,10 +232,10 @@ GeomFill_BSplineCurves::GeomFill_BSplineCurves() {}
 
 //=================================================================================================
 
-GeomFill_BSplineCurves::GeomFill_BSplineCurves(const Handle(Geom_BSplineCurve)& C1,
-                                               const Handle(Geom_BSplineCurve)& C2,
-                                               const Handle(Geom_BSplineCurve)& C3,
-                                               const Handle(Geom_BSplineCurve)& C4,
+GeomFill_BSplineCurves::GeomFill_BSplineCurves(const Handle(BSplineCurve3d)& C1,
+                                               const Handle(BSplineCurve3d)& C2,
+                                               const Handle(BSplineCurve3d)& C3,
+                                               const Handle(BSplineCurve3d)& C4,
                                                const GeomFill_FillingStyle      Type)
 {
   Init(C1, C2, C3, C4, Type);
@@ -243,9 +243,9 @@ GeomFill_BSplineCurves::GeomFill_BSplineCurves(const Handle(Geom_BSplineCurve)& 
 
 //=================================================================================================
 
-GeomFill_BSplineCurves::GeomFill_BSplineCurves(const Handle(Geom_BSplineCurve)& C1,
-                                               const Handle(Geom_BSplineCurve)& C2,
-                                               const Handle(Geom_BSplineCurve)& C3,
+GeomFill_BSplineCurves::GeomFill_BSplineCurves(const Handle(BSplineCurve3d)& C1,
+                                               const Handle(BSplineCurve3d)& C2,
+                                               const Handle(BSplineCurve3d)& C3,
                                                const GeomFill_FillingStyle      Type)
 {
   Init(C1, C2, C3, Type);
@@ -253,8 +253,8 @@ GeomFill_BSplineCurves::GeomFill_BSplineCurves(const Handle(Geom_BSplineCurve)& 
 
 //=================================================================================================
 
-GeomFill_BSplineCurves::GeomFill_BSplineCurves(const Handle(Geom_BSplineCurve)& C1,
-                                               const Handle(Geom_BSplineCurve)& C2,
+GeomFill_BSplineCurves::GeomFill_BSplineCurves(const Handle(BSplineCurve3d)& C1,
+                                               const Handle(BSplineCurve3d)& C2,
                                                const GeomFill_FillingStyle      Type)
 {
   Init(C1, C2, Type);
@@ -262,14 +262,14 @@ GeomFill_BSplineCurves::GeomFill_BSplineCurves(const Handle(Geom_BSplineCurve)& 
 
 //=================================================================================================
 
-void GeomFill_BSplineCurves::Init(const Handle(Geom_BSplineCurve)& C1,
-                                  const Handle(Geom_BSplineCurve)& C2,
-                                  const Handle(Geom_BSplineCurve)& C3,
-                                  const Handle(Geom_BSplineCurve)& C4,
+void GeomFill_BSplineCurves::Init(const Handle(BSplineCurve3d)& C1,
+                                  const Handle(BSplineCurve3d)& C2,
+                                  const Handle(BSplineCurve3d)& C3,
+                                  const Handle(BSplineCurve3d)& C4,
                                   const GeomFill_FillingStyle      Type)
 {
   // On ordonne les courbes
-  Handle(Geom_BSplineCurve) CC1, CC2, CC3, CC4;
+  Handle(BSplineCurve3d) CC1, CC2, CC3, CC4;
 
   constexpr Standard_Real Tol = Precision::Confusion();
 #ifndef No_Exception
@@ -419,12 +419,12 @@ void GeomFill_BSplineCurves::Init(const Handle(Geom_BSplineCurve)& C1,
 
 //=================================================================================================
 
-void GeomFill_BSplineCurves::Init(const Handle(Geom_BSplineCurve)& C1,
-                                  const Handle(Geom_BSplineCurve)& C2,
-                                  const Handle(Geom_BSplineCurve)& C3,
+void GeomFill_BSplineCurves::Init(const Handle(BSplineCurve3d)& C1,
+                                  const Handle(BSplineCurve3d)& C2,
+                                  const Handle(BSplineCurve3d)& C3,
                                   const GeomFill_FillingStyle      Type)
 {
-  Handle(Geom_BSplineCurve) C4;
+  Handle(BSplineCurve3d) C4;
   TColgp_Array1OfPnt        Poles(1, 2);
   TColStd_Array1OfReal      Knots(1, 2);
   TColStd_Array1OfInteger   Mults(1, 2);
@@ -445,18 +445,18 @@ void GeomFill_BSplineCurves::Init(const Handle(Geom_BSplineCurve)& C1,
   Knots(1) = C2->Knot(C2->FirstUKnotIndex());
   Knots(2) = C2->Knot(C2->LastUKnotIndex());
   Mults(1) = Mults(2) = 2;
-  C4                  = new Geom_BSplineCurve(Poles, Knots, Mults, 1);
+  C4                  = new BSplineCurve3d(Poles, Knots, Mults, 1);
   Init(C1, C2, C3, C4, Type);
 }
 
 //=================================================================================================
 
-void GeomFill_BSplineCurves::Init(const Handle(Geom_BSplineCurve)& C1,
-                                  const Handle(Geom_BSplineCurve)& C2,
+void GeomFill_BSplineCurves::Init(const Handle(BSplineCurve3d)& C1,
+                                  const Handle(BSplineCurve3d)& C2,
                                   const GeomFill_FillingStyle      Type)
 {
-  Handle(Geom_BSplineCurve) CC1 = Handle(Geom_BSplineCurve)::DownCast(C1->Copy());
-  Handle(Geom_BSplineCurve) CC2 = Handle(Geom_BSplineCurve)::DownCast(C2->Copy());
+  Handle(BSplineCurve3d) CC1 = Handle(BSplineCurve3d)::DownCast(C1->Copy());
+  Handle(BSplineCurve3d) CC2 = Handle(BSplineCurve3d)::DownCast(C2->Copy());
 
   Standard_Integer Deg1 = CC1->Degree();
   Standard_Integer Deg2 = CC2->Degree();

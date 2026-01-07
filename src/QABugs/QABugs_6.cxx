@@ -23,9 +23,9 @@
 #include <V3d_View.hxx>
 #include <Graphic3d_AspectMarker3d.hxx>
 
-static Standard_Integer OCC281bug(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC281bug(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
     std::cerr << "use 'vinit' command before " << argv[0] << "\n";
@@ -38,9 +38,9 @@ static Standard_Integer OCC281bug(Draw_Interpretor& di, Standard_Integer argc, c
   }
 
   Standard_Integer x, y, TypeOfMarker;
-  x            = Draw::Atoi(argv[1]);
-  y            = Draw::Atoi(argv[2]);
-  TypeOfMarker = Draw::Atoi(argv[3]);
+  x            = Draw1::Atoi(argv[1]);
+  y            = Draw1::Atoi(argv[2]);
+  TypeOfMarker = Draw1::Atoi(argv[3]);
   if (x <= 0)
   {
     di << "Bad value x=" << x << "\n";
@@ -93,8 +93,8 @@ static Standard_Integer OCC281bug(Draw_Interpretor& di, Standard_Integer argc, c
         ---Category: Enumerations
   */
 
-  Handle(V3d_Viewer) aViewer = ViewerTest::GetViewerFromContext();
-  Handle(V3d_View)   aView   = ViewerTest::CurrentView();
+  Handle(ViewManager) aViewer = ViewerTest::GetViewerFromContext();
+  Handle(ViewWindow)   aView   = ViewerTest::CurrentView();
 
   aViewer->ActivateGrid(Aspect_GT_Rectangular, Aspect_GDM_Lines);
   Handle(Graphic3d_AspectMarker3d) GridAsp =
@@ -122,7 +122,7 @@ static Standard_Integer OCC281bug(Draw_Interpretor& di, Standard_Integer argc, c
   return 0;
 }
 
-void QABugs::Commands_6(Draw_Interpretor& theCommands)
+void QABugs::Commands_6(DrawInterpreter& theCommands)
 {
   const char* group = "QABugs";
 

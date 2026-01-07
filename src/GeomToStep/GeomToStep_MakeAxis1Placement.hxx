@@ -34,26 +34,26 @@ class Geom2d_AxisPlacement;
 //! Axis1Placement from Geom and Ax1 from gp, and the class
 //! Axis1Placement from StepGeom which describes an
 //! Axis1Placement from Prostep.
-class GeomToStep_MakeAxis1Placement : public GeomToStep_Root
+class GeomToStep_MakeAxis1Placement : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeAxis1Placement(
     const Axis3d&           A,
-    const StepData_Factors& theLocalFactors = StepData_Factors());
+    const ConversionFactors& theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeAxis1Placement(
     const gp_Ax2d&          A,
-    const StepData_Factors& theLocalFactors = StepData_Factors());
+    const ConversionFactors& theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeAxis1Placement(
     const Handle(Geom_Axis1Placement)& A,
-    const StepData_Factors&            theLocalFactors = StepData_Factors());
+    const ConversionFactors&            theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeAxis1Placement(
     const Handle(Geom2d_AxisPlacement)& A,
-    const StepData_Factors&             theLocalFactors = StepData_Factors());
+    const ConversionFactors&             theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_Axis1Placement)& Value() const;
 

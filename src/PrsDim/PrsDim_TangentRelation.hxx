@@ -34,9 +34,9 @@ public:
   //! second shape aSShape, the plane aPlane and the index anExternRef.
   //! aPlane serves as an optional axis.
   //! anExternRef set to 0 indicates that there is no relation.
-  Standard_EXPORT PrsDim_TangentRelation(const TopoDS_Shape&       aFShape,
-                                         const TopoDS_Shape&       aSShape,
-                                         const Handle(Geom_Plane)& aPlane,
+  Standard_EXPORT PrsDim_TangentRelation(const TopoShape&       aFShape,
+                                         const TopoShape&       aSShape,
+                                         const Handle(GeomPlane)& aPlane,
                                          const Standard_Integer    anExternRef = 0);
 
   //! Returns the external reference for tangency.
@@ -60,7 +60,7 @@ private:
                                        const Handle(Prs3d_Presentation)&         thePrs,
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT void ComputeTwoFacesTangent(const Handle(Prs3d_Presentation)& aPresentation);

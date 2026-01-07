@@ -56,8 +56,8 @@ ShapeAnalysis_TransferParametersProj::ShapeAnalysis_TransferParametersProj()
 
 //=================================================================================================
 
-ShapeAnalysis_TransferParametersProj::ShapeAnalysis_TransferParametersProj(const TopoDS_Edge& E,
-                                                                           const TopoDS_Face& F)
+ShapeAnalysis_TransferParametersProj::ShapeAnalysis_TransferParametersProj(const TopoEdge& E,
+                                                                           const TopoFace& F)
 {
   myMaxTolerance = 1; // Precision::Infinite(); ?? pdn
   myForceProj    = Standard_False;
@@ -66,15 +66,15 @@ ShapeAnalysis_TransferParametersProj::ShapeAnalysis_TransferParametersProj(const
 
 //=================================================================================================
 
-void ShapeAnalysis_TransferParametersProj::Init(const TopoDS_Edge& E, const TopoDS_Face& F)
+void ShapeAnalysis_TransferParametersProj::Init(const TopoEdge& E, const TopoFace& F)
 {
   myInitOK = Standard_False;
   ShapeAnalysis_TransferParameters::Init(E, F);
   myEdge      = E;
-  myPrecision = BRep_Tool::Tolerance(E); // it is better - skl OCC2851
+  myPrecision = BRepInspector::Tolerance(E); // it is better - skl OCC2851
   // myPrecision = Precision::Confusion();
 
-  myCurve = BRep_Tool::Curve(E, myFirst, myLast);
+  myCurve = BRepInspector::Curve(E, myFirst, myLast);
   if (myCurve.IsNull())
   {
     myFirst = 0.;
@@ -91,7 +91,7 @@ void ShapeAnalysis_TransferParametersProj::Init(const TopoDS_Edge& E, const Topo
   {
 
     Handle(Geom2dAdaptor_Curve) AC2d     = new Geom2dAdaptor_Curve(myCurve2d, f2d, l2d);
-    Handle(Geom_Surface)        aSurface = BRep_Tool::Surface(F, myLocation);
+    Handle(GeomSurface)        aSurface = BRepInspector::Surface(F, myLocation);
     Handle(GeomAdaptor_Surface) AdS      = new GeomAdaptor_Surface(aSurface);
 
     Adaptor3d_CurveOnSurface Ad1(AC2d, AdS);
@@ -108,7 +108,7 @@ Handle(TColStd_HSequenceOfReal) ShapeAnalysis_TransferParametersProj::Perform(
 {
   // pdn
   if (!myInitOK
-      || (!myForceProj && myPrecision < myMaxTolerance && BRep_Tool::SameParameter(myEdge)))
+      || (!myForceProj && myPrecision < myMaxTolerance && BRepInspector::SameParameter(myEdge)))
     return ShapeAnalysis_TransferParameters::Perform(Knots, To2d);
 
   Handle(TColStd_HSequenceOfReal) resKnots = new TColStd_HSequenceOfReal;
@@ -166,7 +166,7 @@ Standard_Real ShapeAnalysis_TransferParametersProj::PreformSegment(const Standar
 {
   Standard_Real linPar = ShapeAnalysis_TransferParameters::Perform(Param, To2d);
   if (!myInitOK
-      || (!myForceProj && myPrecision < myMaxTolerance && BRep_Tool::SameParameter(myEdge)))
+      || (!myForceProj && myPrecision < myMaxTolerance && BRepInspector::SameParameter(myEdge)))
     return linPar;
 
   Standard_Real linDev, projDev;
@@ -201,7 +201,7 @@ Standard_Real ShapeAnalysis_TransferParametersProj::Perform(const Standard_Real 
                                                             const Standard_Boolean To2d)
 {
   if (!myInitOK
-      || (!myForceProj && myPrecision < myMaxTolerance && BRep_Tool::SameParameter(myEdge)))
+      || (!myForceProj && myPrecision < myMaxTolerance && BRepInspector::SameParameter(myEdge)))
     return ShapeAnalysis_TransferParameters::Perform(Knot, To2d);
 
   Standard_Real res;
@@ -222,7 +222,7 @@ Standard_Real ShapeAnalysis_TransferParametersProj::Perform(const Standard_Real 
 
 //=================================================================================================
 
-static Standard_Real CorrectParameter(const Handle(Geom2d_Curve)& crv, const Standard_Real param)
+static Standard_Real CorrectParameter(const Handle(GeomCurve2d)& crv, const Standard_Real param)
 {
   if (crv->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve)))
   {
@@ -249,19 +249,19 @@ static Standard_Real CorrectParameter(const Handle(Geom2d_Curve)& crv, const Sta
 
 //=================================================================================================
 
-void ShapeAnalysis_TransferParametersProj::TransferRange(TopoDS_Edge&           newEdge,
+void ShapeAnalysis_TransferParametersProj::TransferRange(TopoEdge&           newEdge,
                                                          const Standard_Real    prevPar,
                                                          const Standard_Real    currPar,
                                                          const Standard_Boolean Is2d)
 {
   if (!myInitOK
-      || (!myForceProj && myPrecision < myMaxTolerance && BRep_Tool::SameParameter(myEdge)))
+      || (!myForceProj && myPrecision < myMaxTolerance && BRepInspector::SameParameter(myEdge)))
   {
     ShapeAnalysis_TransferParameters::TransferRange(newEdge, prevPar, currPar, Is2d);
     return;
   }
 
-  BRep_Builder     B;
+  ShapeBuilder     B;
   Standard_Boolean samerange = Standard_True;
   ShapeBuild_Edge  sbe;
   sbe.CopyRanges(newEdge, myEdge);
@@ -350,7 +350,7 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoDS_Edge&           
       }
       else
       {
-        Handle(Geom_Curve) C3d = toGC->Curve3D();
+        Handle(GeomCurve3d) C3d = toGC->Curve3D();
         if (C3d.IsNull())
           continue;
         Standard_Real     first = toGC->First();
@@ -405,7 +405,7 @@ void ShapeAnalysis_TransferParametersProj::TransferRange(TopoDS_Edge&           
 
       Standard_Boolean            localLinearFirst = useLinearFirst;
       Standard_Boolean            localLinearLast  = useLinearLast;
-      Handle(Geom2d_Curve)        C2d              = toGC->PCurve();
+      Handle(GeomCurve2d)        C2d              = toGC->PCurve();
       Standard_Real               first            = toGC->First();
       Standard_Real               last             = toGC->Last();
       Standard_Real               len              = last - first;
@@ -477,7 +477,7 @@ Standard_Boolean ShapeAnalysis_TransferParametersProj::IsSameRange() const
 {
 
   if (!myInitOK
-      || (!myForceProj && myPrecision < myMaxTolerance && BRep_Tool::SameParameter(myEdge)))
+      || (!myForceProj && myPrecision < myMaxTolerance && BRepInspector::SameParameter(myEdge)))
     return ShapeAnalysis_TransferParameters::IsSameRange();
   else
     return Standard_False;
@@ -492,24 +492,24 @@ Standard_Boolean& ShapeAnalysis_TransferParametersProj::ForceProjection()
 
 //=================================================================================================
 
-TopoDS_Vertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoDS_Vertex& theV,
-                                                                 const TopoDS_Edge&   toedge,
-                                                                 const TopoDS_Edge&   fromedge)
+TopoVertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoVertex& theV,
+                                                                 const TopoEdge&   toedge,
+                                                                 const TopoEdge&   fromedge)
 {
-  TopoDS_Vertex anewV;
+  TopoVertex anewV;
   if (theV.Orientation() != TopAbs_INTERNAL && theV.Orientation() != TopAbs_EXTERNAL)
     return anewV;
 
   TopLoc_Location           fromLoc;
   Standard_Real             f1, l1;
-  const Handle(Geom_Curve)& C1 = BRep_Tool::Curve(fromedge, fromLoc, f1, l1);
+  const Handle(GeomCurve3d)& C1 = BRepInspector::Curve(fromedge, fromLoc, f1, l1);
   fromLoc                      = fromLoc.Predivided(theV.Location());
 
   Standard_Real      f2, l2;
-  Handle(Geom_Curve) C2 = BRep_Tool::Curve(toedge, f2, l2);
+  Handle(GeomCurve3d) C2 = BRepInspector::Curve(toedge, f2, l2);
 
   anewV      = TopoDS::Vertex(theV.EmptyCopied());
-  Point3d apv = BRep_Tool::Pnt(anewV);
+  Point3d apv = BRepInspector::Pnt(anewV);
 
   BRep_ListOfPointRepresentation& alistrep =
     (*((Handle(BRep_TVertex)*)&anewV.TShape()))->ChangePoints();
@@ -553,8 +553,8 @@ TopoDS_Vertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoDS_Ve
           continue;
 
         TopLoc_Location      aL       = fromGC->Location().Predivided(theV.Location());
-        Handle(Geom_Surface) surface1 = fromGC->Surface();
-        Handle(Geom2d_Curve) ac2d1    = fromGC->PCurve();
+        Handle(GeomSurface) surface1 = fromGC->Surface();
+        Handle(GeomCurve2d) ac2d1    = fromGC->PCurve();
         if (pr->IsPointOnCurveOnSurface(ac2d1, surface1, aL))
         {
           found = Standard_True;
@@ -583,7 +583,7 @@ TopoDS_Vertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoDS_Ve
     }
   }
   Standard_Real apar = aOldPar;
-  Standard_Real aTol = BRep_Tool::Tolerance(theV);
+  Standard_Real aTol = BRepInspector::Tolerance(theV);
   if (!hasRepr
       || (fabs(f1 - f2) > Precision::PConfusion() || fabs(l1 - l2) > Precision::PConfusion()))
   {
@@ -593,7 +593,7 @@ TopoDS_Vertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoDS_Ve
     if (aTol < adist)
       aTol = adist;
   }
-  BRep_Builder aB;
+  ShapeBuilder aB;
   aB.UpdateVertex(anewV, apar, toedge, aTol);
 
   // update tolerance
@@ -611,8 +611,8 @@ TopoDS_Vertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoDS_Ve
 
     TopLoc_Location aL = (toLoc * toGC->Location()).Predivided(theV.Location());
     // aL.Predivided(theV.Location());
-    Handle(Geom_Surface) surface1 = toGC->Surface();
-    Handle(Geom2d_Curve) ac2d1    = toGC->PCurve();
+    Handle(GeomSurface) surface1 = toGC->Surface();
+    Handle(GeomCurve2d) ac2d1    = toGC->PCurve();
     gp_Pnt2d             aP2d     = ac2d1->Value(apar);
     Point3d               aP3d     = surface1->Value(aP2d.X(), aP2d.Y());
     aP3d.Transform(aL.Transformation());
@@ -630,22 +630,22 @@ TopoDS_Vertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoDS_Ve
 
 //=================================================================================================
 
-TopoDS_Vertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoDS_Vertex& theV,
-                                                                 const TopoDS_Face&   toFace,
-                                                                 const TopoDS_Face&   fromFace)
+TopoVertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoVertex& theV,
+                                                                 const TopoFace&   toFace,
+                                                                 const TopoFace&   fromFace)
 {
-  TopoDS_Vertex anewV;
+  TopoVertex anewV;
   if (theV.Orientation() != TopAbs_INTERNAL && theV.Orientation() != TopAbs_EXTERNAL)
     return anewV;
 
   TopLoc_Location      fromLoc;
   TopLoc_Location      toLoc;
-  Handle(Geom_Surface) fromSurf = BRep_Tool::Surface(fromFace, fromLoc);
-  Handle(Geom_Surface) toSurf   = BRep_Tool::Surface(toFace, toLoc);
+  Handle(GeomSurface) fromSurf = BRepInspector::Surface(fromFace, fromLoc);
+  Handle(GeomSurface) toSurf   = BRepInspector::Surface(toFace, toLoc);
   fromLoc                       = fromLoc.Predivided(theV.Location());
 
   anewV      = TopoDS::Vertex(theV.EmptyCopied());
-  Point3d apv = BRep_Tool::Pnt(anewV);
+  Point3d apv = BRepInspector::Pnt(anewV);
 
   BRep_ListOfPointRepresentation& alistrep =
     (*((Handle(BRep_TVertex)*)&anewV.TShape()))->ChangePoints();
@@ -692,10 +692,10 @@ TopoDS_Vertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoDS_Ve
       }
     }
   }
-  Standard_Real aTol = BRep_Tool::Tolerance(anewV);
+  Standard_Real aTol = BRepInspector::Tolerance(anewV);
   if (!hasRepr || (fromSurf != toSurf || fromLoc != toLoc))
   {
-    Handle(Geom_Surface)          aS        = BRep_Tool::Surface(toFace);
+    Handle(GeomSurface)          aS        = BRepInspector::Surface(toFace);
     Handle(ShapeAnalysis_Surface) aSurfTool = new ShapeAnalysis_Surface(aS);
     gp_Pnt2d                      aP2d      = aSurfTool->ValueOfUV(apv, Precision::Confusion());
     apar1                                   = aP2d.X();
@@ -707,7 +707,7 @@ TopoDS_Vertex ShapeAnalysis_TransferParametersProj::CopyNMVertex(const TopoDS_Ve
     // alistrep.Append(aPS);
   }
 
-  BRep_Builder aB;
+  ShapeBuilder aB;
   aB.UpdateVertex(anewV, apar1, apar2, toFace, aTol);
   return anewV;
 }

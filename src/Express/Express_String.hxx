@@ -17,7 +17,7 @@
 #include <Express_PredefinedType.hxx>
 #include <Standard_Type.hxx>
 
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! Implements EXPRESS type 'STRING'
 class Express_String : public Express_PredefinedType
@@ -28,7 +28,7 @@ public:
   Standard_EXPORT Express_String();
 
   //! Returns "TCollection_HAsciiString"
-  Standard_EXPORT virtual const TCollection_AsciiString CPPName() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const AsciiString1 CPPName() const Standard_OVERRIDE;
 
   //! Returns False
   Standard_EXPORT virtual Standard_Boolean IsStandard() const Standard_OVERRIDE;

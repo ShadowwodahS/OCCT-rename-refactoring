@@ -25,14 +25,14 @@
 
 //! taken from directory part of an entity (from file or model),
 //! gives "type" and "form" data, used to recognize entity's type
-class IGESData_IGESType
+class IGESType
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IGESData_IGESType();
+  Standard_EXPORT IGESType();
 
-  Standard_EXPORT IGESData_IGESType(const Standard_Integer atype, const Standard_Integer aform);
+  Standard_EXPORT IGESType(const Standard_Integer atype, const Standard_Integer aform);
 
   //! returns "type" data
   Standard_EXPORT Standard_Integer Type() const;
@@ -41,9 +41,9 @@ public:
   Standard_EXPORT Standard_Integer Form() const;
 
   //! compares two IGESTypes, avoiding comparing their fields
-  Standard_EXPORT Standard_Boolean IsEqual(const IGESData_IGESType& another) const;
+  Standard_EXPORT Standard_Boolean IsEqual(const IGESType& another) const;
 
-  Standard_Boolean operator==(const IGESData_IGESType& another) const { return IsEqual(another); }
+  Standard_Boolean operator==(const IGESType& another) const { return IsEqual(another); }
 
   //! resets fields (useful when an IGESType is stored as mask)
   Standard_EXPORT void Nullify();

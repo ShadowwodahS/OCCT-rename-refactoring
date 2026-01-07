@@ -64,11 +64,11 @@ extern Standard_Boolean ChFi3d_GettraceCHRON();
 //=======================================================================
 
 void SearchCommonFaces(const ChFiDS_Map&  EFMap,
-                       const TopoDS_Edge& E,
-                       TopoDS_Face&       F1,
-                       TopoDS_Face&       F2)
+                       const TopoEdge& E,
+                       TopoFace&       F1,
+                       TopoFace&       F2)
 {
-  TopoDS_Face                        Fc;
+  TopoFace                        Fc;
   TopTools_ListIteratorOfListOfShape It;
 
   F1.Nullify();
@@ -85,7 +85,7 @@ void SearchCommonFaces(const ChFiDS_Map&  EFMap,
     }
   }
 
-  if (!F1.IsNull() && F2.IsNull() && BRepTools::IsReallyClosed(E, F1))
+  if (!F1.IsNull() && F2.IsNull() && BRepTools1::IsReallyClosed(E, F1))
     F2 = F1;
 }
 
@@ -99,7 +99,7 @@ void SearchCommonFaces(const ChFiDS_Map&  EFMap,
 
 void ExtentSpineOnCommonFace(Handle(ChFiDS_Spine)&  Spine1,
                              Handle(ChFiDS_Spine)&  Spine2,
-                             const TopoDS_Vertex&   V,
+                             const TopoVertex&   V,
                              const Standard_Real    dis1,
                              const Standard_Real    dis2,
                              const Standard_Boolean isfirst1,
@@ -177,7 +177,7 @@ void ExtentSpineOnCommonFace(Handle(ChFiDS_Spine)&  Spine1,
 
 //=================================================================================================
 
-ChFi3d_ChBuilder::ChFi3d_ChBuilder(const TopoDS_Shape& S, const Standard_Real Ta)
+ChFi3d_ChBuilder::ChFi3d_ChBuilder(const TopoShape& S, const Standard_Real Ta)
     : ChFi3d_Builder(S, Ta)
 {
   myMode = ChFiDS_ClassicChamfer;
@@ -189,9 +189,9 @@ ChFi3d_ChBuilder::ChFi3d_ChBuilder(const TopoDS_Shape& S, const Standard_Real Ta
 //           add on the spine the tangential edges to <E>
 //=======================================================================
 
-void ChFi3d_ChBuilder::Add(const TopoDS_Edge& E)
+void ChFi3d_ChBuilder::Add(const TopoEdge& E)
 {
-  TopoDS_Face dummy;
+  TopoFace dummy;
 
   if (!Contains(E) && myEFMap.Contains(E))
   {
@@ -200,7 +200,7 @@ void ChFi3d_ChBuilder::Add(const TopoDS_Edge& E)
     Sp                              = new ChFiDS_ChamfSpine(tolesp);
     Handle(ChFiDS_ChamfSpine) Spine = Handle(ChFiDS_ChamfSpine)::DownCast(Sp);
 
-    TopoDS_Edge E_wnt = E;
+    TopoEdge E_wnt = E;
     E_wnt.Orientation(TopAbs_FORWARD);
     Spine->SetEdges(E_wnt);
     if (PerformElement(Spine, -1, dummy))
@@ -220,14 +220,14 @@ void ChFi3d_ChBuilder::Add(const TopoDS_Edge& E)
 //
 //=======================================================================
 
-void ChFi3d_ChBuilder::Add(const Standard_Real Dis, const TopoDS_Edge& E)
+void ChFi3d_ChBuilder::Add(const Standard_Real Dis, const TopoEdge& E)
 {
   if (!Contains(E) && myEFMap.Contains(E))
   {
 
-    TopoDS_Face dummy;
+    TopoFace dummy;
 
-    TopoDS_Edge E_wnt = E;
+    TopoEdge E_wnt = E;
     E_wnt.Orientation(TopAbs_FORWARD);
 
     Handle(ChFiDS_Stripe) Stripe    = new ChFiDS_Stripe();
@@ -258,7 +258,7 @@ void ChFi3d_ChBuilder::Add(const Standard_Real Dis, const TopoDS_Edge& E)
 
 void ChFi3d_ChBuilder::SetDist(const Standard_Real    Dis,
                                const Standard_Integer IC,
-                               const TopoDS_Face&     F)
+                               const TopoFace&     F)
 {
 
   if (IC <= NbElements())
@@ -266,7 +266,7 @@ void ChFi3d_ChBuilder::SetDist(const Standard_Real    Dis,
     Handle(ChFiDS_ChamfSpine) csp = Handle(ChFiDS_ChamfSpine)::DownCast(Value(IC));
 
     // Search the first edge which has a common face equal to F
-    TopoDS_Face F1, F2, FirstF1, FirstF2;
+    TopoFace F1, F2, FirstF1, FirstF2;
     // TopAbs_Orientation Or1,Or2;
     // Standard_Integer Choix, ChoixConge;
     BRepAdaptor_Surface Sb1, Sb2;
@@ -316,13 +316,13 @@ void ChFi3d_ChBuilder::GetDist(const Standard_Integer IC, Standard_Real& Dis) co
 
 void ChFi3d_ChBuilder::Add(const Standard_Real Dis1,
                            const Standard_Real Dis2,
-                           const TopoDS_Edge&  E,
-                           const TopoDS_Face&  F)
+                           const TopoEdge&  E,
+                           const TopoFace&  F)
 {
   if (!Contains(E) && myEFMap.Contains(E))
   {
 
-    TopoDS_Edge E_wnt = E;
+    TopoEdge E_wnt = E;
     E_wnt.Orientation(TopAbs_FORWARD);
 
     Handle(ChFiDS_Stripe) Stripe    = new ChFiDS_Stripe();
@@ -359,7 +359,7 @@ void ChFi3d_ChBuilder::Add(const Standard_Real Dis1,
 void ChFi3d_ChBuilder::SetDists(const Standard_Real    Dis1,
                                 const Standard_Real    Dis2,
                                 const Standard_Integer IC,
-                                const TopoDS_Face&     F)
+                                const TopoFace&     F)
 {
 
   if (IC <= NbElements())
@@ -367,7 +367,7 @@ void ChFi3d_ChBuilder::SetDists(const Standard_Real    Dis1,
     Handle(ChFiDS_ChamfSpine) csp = Handle(ChFiDS_ChamfSpine)::DownCast(Value(IC));
 
     // Search the first edge which has a common face equal to F
-    TopoDS_Face         F1, F2, FirstF1, FirstF2;
+    TopoFace         F1, F2, FirstF1, FirstF2;
     TopAbs_Orientation  Or1, Or2;
     Standard_Integer    Choix, ChoixConge;
     BRepAdaptor_Surface Sb1, Sb2;
@@ -394,10 +394,10 @@ void ChFi3d_ChBuilder::SetDists(const Standard_Real    Dis1,
       }
       Sb1.Initialize(F1);
       Sb2.Initialize(F2);
-      Choix = ChFi3d::ConcaveSide(Sb1, Sb2, csp->Edges(i - 1), Or1, Or2);
+      Choix = ChFi3d1::ConcaveSide(Sb1, Sb2, csp->Edges(i - 1), Or1, Or2);
       Sb1.Initialize(FirstF1);
       Sb2.Initialize(FirstF2);
-      ChoixConge = ChFi3d::ConcaveSide(Sb1, Sb2, csp->Edges(1), Or1, Or2);
+      ChoixConge = ChFi3d1::ConcaveSide(Sb1, Sb2, csp->Edges(1), Or1, Or2);
       if (ChoixConge % 2 != Choix % 2)
         csp->SetDists(Dis2, Dis1);
       else
@@ -431,13 +431,13 @@ void ChFi3d_ChBuilder::Dists(const Standard_Integer IC,
 
 void ChFi3d_ChBuilder::AddDA(const Standard_Real Dis1,
                              const Standard_Real Angle,
-                             const TopoDS_Edge&  E,
-                             const TopoDS_Face&  F)
+                             const TopoEdge&  E,
+                             const TopoFace&  F)
 {
   if (!Contains(E) && myEFMap.Contains(E))
   {
 
-    TopoDS_Edge E_wnt = E;
+    TopoEdge E_wnt = E;
     E_wnt.Orientation(TopAbs_FORWARD);
 
     Handle(ChFiDS_Stripe) Stripe    = new ChFiDS_Stripe();
@@ -467,7 +467,7 @@ void ChFi3d_ChBuilder::AddDA(const Standard_Real Dis1,
 void ChFi3d_ChBuilder::SetDistAngle(const Standard_Real    Dis,
                                     const Standard_Real    Angle,
                                     const Standard_Integer IC,
-                                    const TopoDS_Face&     F)
+                                    const TopoFace&     F)
 {
 
   if (IC <= NbElements())
@@ -475,7 +475,7 @@ void ChFi3d_ChBuilder::SetDistAngle(const Standard_Real    Dis,
     Handle(ChFiDS_ChamfSpine) csp = Handle(ChFiDS_ChamfSpine)::DownCast(Value(IC));
 
     // Search the first edge which has a common face equal to F
-    TopoDS_Face         F1, F2, FirstF1, FirstF2;
+    TopoFace         F1, F2, FirstF1, FirstF2;
     BRepAdaptor_Surface Sb1, Sb2;
     Standard_Integer    i     = 1;
     Standard_Boolean    Found = Standard_False;
@@ -645,7 +645,7 @@ Handle(ChFiDS_SecHArray1) ChFi3d_ChBuilder::Sect(const Standard_Integer IC,
 void ChFi3d_ChBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
 {
   TopOpeBRepDS_DataStructure& DStr = myDS->ChangeDS();
-  Handle(Geom_Surface)        S    = DStr.Surface(SD->Surf()).Surface();
+  Handle(GeomSurface)        S    = DStr.Surface(SD->Surf()).Surface();
   gp_Pnt2d                    p1f =
     SD->InterferenceOnS1().PCurveOnSurf()->Value(SD->InterferenceOnS1().FirstParameter());
   gp_Pnt2d p1l =
@@ -667,8 +667,8 @@ void ChFi3d_ChBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       u2                       = Min(p1l.X(), p2l.X());
       sec                      = new ChFiDS_SecHArray1(1, 2);
       gp_Pln              Pl   = AS.Plane();
-      ChFiDS_CircSection& sec1 = sec->ChangeValue(1);
-      ChFiDS_CircSection& sec2 = sec->ChangeValue(2);
+      CircularSection& sec1 = sec->ChangeValue(1);
+      CircularSection& sec2 = sec->ChangeValue(2);
       sec1.Set(ElSLib::PlaneUIso(Pl.Position(), u1), v1, v2);
       sec2.Set(ElSLib::PlaneUIso(Pl.Position(), u2), v1, v2);
     }
@@ -687,7 +687,7 @@ void ChFi3d_ChBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       sec = new ChFiDS_SecHArray1(1, n);
       for (Standard_Integer i = 1; i <= n; i++)
       {
-        ChFiDS_CircSection& isec = sec->ChangeValue(i);
+        CircularSection& isec = sec->ChangeValue(i);
         Standard_Real       u    = u1 + (i - 1) * (u2 - u1) / (n - 1);
         isec.Set(ElSLib::ConeUIso(Co.Position(), rad, sang, u), v1, v2);
       }
@@ -813,10 +813,10 @@ Standard_Boolean ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (i = 1; i <= nbp; i++)
     {
-      ChFiDS_CircSection& isec = sec->ChangeValue(i);
+      CircularSection& isec = sec->ChangeValue(i);
       Standard_Real       u1, v1, u2, v2, ww, p1, p2;
       gp_Lin              line;
-      const Blend_Point&  p = lin->Point(i);
+      const Point2&  p = lin->Point(i);
       p.ParametersOnS1(u1, v1);
       p.ParametersOnS2(u2, v2);
       ww = p.Parameter();
@@ -864,16 +864,16 @@ Standard_Boolean ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           
       const ChFiDS_CommonPoint& cp1 = Data->VertexFirstOnS1();
       if (cp1.IsOnArc())
       {
-        TopoDS_Face F1 = S1->Face();
-        TopoDS_Face bid;
+        TopoFace F1 = S1->Face();
+        TopoFace bid;
         intf = !SearchFace(Spine, cp1, F1, bid);
         ok   = intf != 0;
       }
       const ChFiDS_CommonPoint& cp2 = Data->VertexFirstOnS2();
       if (cp2.IsOnArc() && !ok)
       {
-        TopoDS_Face F2 = S2->Face();
-        TopoDS_Face bid;
+        TopoFace F2 = S2->Face();
+        TopoFace bid;
         intf = !SearchFace(Spine, cp2, F2, bid);
       }
     }
@@ -883,16 +883,16 @@ Standard_Boolean ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           
       const ChFiDS_CommonPoint& cp1 = Data->VertexLastOnS1();
       if (cp1.IsOnArc())
       {
-        TopoDS_Face F1 = S1->Face();
-        TopoDS_Face bid;
+        TopoFace F1 = S1->Face();
+        TopoFace bid;
         intl = !SearchFace(Spine, cp1, F1, bid);
         ok   = intl != 0;
       }
       const ChFiDS_CommonPoint& cp2 = Data->VertexLastOnS2();
       if (cp2.IsOnArc() && !ok)
       {
-        TopoDS_Face F2 = S2->Face();
-        TopoDS_Face bid;
+        TopoFace F2 = S2->Face();
+        TopoFace bid;
         intl = !SearchFace(Spine, cp2, F2, bid);
       }
     }
@@ -971,10 +971,10 @@ Standard_Boolean ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (i = 1; i <= nbp; i++)
     {
-      ChFiDS_CircSection& isec = sec->ChangeValue(i);
+      CircularSection& isec = sec->ChangeValue(i);
       Standard_Real       u1, v1, u2, v2, ww, p1, p2;
       gp_Lin              line;
-      const Blend_Point&  p = lin->Point(i);
+      const Point2&  p = lin->Point(i);
       p.ParametersOnS1(u1, v1);
       p.ParametersOnS2(u2, v2);
       ww = p.Parameter();
@@ -1022,16 +1022,16 @@ Standard_Boolean ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           
       const ChFiDS_CommonPoint& cp1 = Data->VertexFirstOnS1();
       if (cp1.IsOnArc())
       {
-        TopoDS_Face F1 = S1->Face();
-        TopoDS_Face bid;
+        TopoFace F1 = S1->Face();
+        TopoFace bid;
         intf = !SearchFace(Spine, cp1, F1, bid);
         ok   = intf != 0;
       }
       const ChFiDS_CommonPoint& cp2 = Data->VertexFirstOnS2();
       if (cp2.IsOnArc() && !ok)
       {
-        TopoDS_Face F2 = S2->Face();
-        TopoDS_Face bid;
+        TopoFace F2 = S2->Face();
+        TopoFace bid;
         intf = !SearchFace(Spine, cp2, F2, bid);
       }
     }
@@ -1041,16 +1041,16 @@ Standard_Boolean ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           
       const ChFiDS_CommonPoint& cp1 = Data->VertexLastOnS1();
       if (cp1.IsOnArc())
       {
-        TopoDS_Face F1 = S1->Face();
-        TopoDS_Face bid;
+        TopoFace F1 = S1->Face();
+        TopoFace bid;
         intl = !SearchFace(Spine, cp1, F1, bid);
         ok   = intl != 0;
       }
       const ChFiDS_CommonPoint& cp2 = Data->VertexLastOnS2();
       if (cp2.IsOnArc() && !ok)
       {
-        TopoDS_Face F2 = S2->Face();
-        TopoDS_Face bid;
+        TopoFace F2 = S2->Face();
+        TopoFace bid;
         intl = !SearchFace(Spine, cp2, F2, bid);
       }
     }
@@ -1104,10 +1104,10 @@ Standard_Boolean ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (i = 1; i <= nbp; i++)
     {
-      ChFiDS_CircSection& isec = sec->ChangeValue(i);
+      CircularSection& isec = sec->ChangeValue(i);
       Standard_Real       u1, v1, u2, v2, ww, p1, p2;
       gp_Lin              line;
-      const Blend_Point&  p = lin->Point(i);
+      const Point2&  p = lin->Point(i);
       p.ParametersOnS1(u1, v1);
       p.ParametersOnS2(u2, v2);
       ww = p.Parameter();
@@ -1155,16 +1155,16 @@ Standard_Boolean ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           
       const ChFiDS_CommonPoint& cp1 = Data->VertexFirstOnS1();
       if (cp1.IsOnArc())
       {
-        TopoDS_Face F1 = S1->Face();
-        TopoDS_Face bid;
+        TopoFace F1 = S1->Face();
+        TopoFace bid;
         intf = !SearchFace(Spine, cp1, F1, bid);
         ok   = intf != 0;
       }
       const ChFiDS_CommonPoint& cp2 = Data->VertexFirstOnS2();
       if (cp2.IsOnArc() && !ok)
       {
-        TopoDS_Face F2 = S2->Face();
-        TopoDS_Face bid;
+        TopoFace F2 = S2->Face();
+        TopoFace bid;
         intf = !SearchFace(Spine, cp2, F2, bid);
       }
     }
@@ -1175,16 +1175,16 @@ Standard_Boolean ChFi3d_ChBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           
       const ChFiDS_CommonPoint& cp1 = Data->VertexLastOnS1();
       if (cp1.IsOnArc())
       {
-        TopoDS_Face F1 = S1->Face();
-        TopoDS_Face bid;
+        TopoFace F1 = S1->Face();
+        TopoFace bid;
         intl = !SearchFace(Spine, cp1, F1, bid);
         ok   = intl != 0;
       }
       const ChFiDS_CommonPoint& cp2 = Data->VertexLastOnS2();
       if (cp2.IsOnArc() && !ok)
       {
-        TopoDS_Face F2 = S2->Face();
-        TopoDS_Face bid;
+        TopoFace F2 = S2->Face();
+        TopoFace bid;
         intl = !SearchFace(Spine, cp2, F2, bid);
       }
     }
@@ -1874,7 +1874,7 @@ void ChFi3d_ChBuilder::PerformSurf(ChFiDS_SequenceOfSurfData&,
 // PMN : 28/11/97 : Reproduces the code of fillets, and it seems to work better...
 //=======================================================================
 
-void ChFi3d_ChBuilder::ExtentOneCorner(const TopoDS_Vertex& V, const Handle(ChFiDS_Stripe)& S)
+void ChFi3d_ChBuilder::ExtentOneCorner(const TopoVertex& V, const Handle(ChFiDS_Stripe)& S)
 {
   Standard_Integer     Sens  = 0;
   Standard_Real        Coeff = 0.5;
@@ -1909,9 +1909,9 @@ void ChFi3d_ChBuilder::ExtentOneCorner(const TopoDS_Vertex& V, const Handle(ChFi
       Iedge = Spine->NbEdges();
 
     TopTools_ListIteratorOfListOfShape It, Jt;
-    TopoDS_Edge E1, E2, Ec;
-    TopoDS_Face F1, F2, Fc;
-    TopoDS_Edge EdgeSp = Spine->Edges(Iedge);
+    TopoEdge E1, E2, Ec;
+    TopoFace F1, F2, Fc;
+    TopoEdge EdgeSp = Spine->Edges(Iedge);
 
     ConexFaces(Spine,Iedge,F1,F2);
 
@@ -1989,7 +1989,7 @@ void ChFi3d_ChBuilder::ExtentOneCorner(const TopoDS_Vertex& V, const Handle(ChFi
 //           on the side of the vertex V
 //=======================================================================
 
-void ChFi3d_ChBuilder::ExtentTwoCorner(const TopoDS_Vertex& V, const ChFiDS_ListOfStripe& LS)
+void ChFi3d_ChBuilder::ExtentTwoCorner(const TopoVertex& V, const ChFiDS_ListOfStripe& LS)
 {
   Standard_Integer                  Sens = 0;
   ChFiDS_ListIteratorOfListOfStripe itel(LS);
@@ -2020,7 +2020,7 @@ void ChFi3d_ChBuilder::ExtentTwoCorner(const TopoDS_Vertex& V, const ChFiDS_List
   Handle(ChFiDS_ChamfSpine) chsp[2];
   Standard_Real             d[4], dis[2] = {0.0, 0.0};
   Standard_Integer          j;
-  TopoDS_Face               F[4];
+  TopoFace               F[4];
   Standard_Real             tmpang, tmd;
 
   for (i = 0, j = 0; i < 2; i++, j += 2)
@@ -2105,7 +2105,7 @@ void ChFi3d_ChBuilder::ExtentTwoCorner(const TopoDS_Vertex& V, const ChFiDS_List
 
 //=================================================================================================
 
-void ChFi3d_ChBuilder::ExtentThreeCorner(const TopoDS_Vertex& V, const ChFiDS_ListOfStripe& LS)
+void ChFi3d_ChBuilder::ExtentThreeCorner(const TopoVertex& V, const ChFiDS_ListOfStripe& LS)
 {
   Standard_Integer    Sens = 0;
   ChFiDS_ListOfStripe check;
@@ -2140,7 +2140,7 @@ void ChFi3d_ChBuilder::ExtentThreeCorner(const TopoDS_Vertex& V, const ChFiDS_Li
 
   Standard_Real    d[3][2], tmd, tmpangle;
   Standard_Integer j;
-  TopoDS_Face      F[3][2];
+  TopoFace      F[3][2];
 
   Handle(ChFiDS_ChamfSpine) chsp[3];
 
@@ -2220,24 +2220,24 @@ void ChFi3d_ChBuilder::SetRegul()
   Standard_Real                      u, v, t;
   Point3d                             p;
   Vector3d                             n1, n2, du, dv;
-  BRep_Builder                       B;
+  ShapeBuilder                       B;
   Standard_Real                      Seuil  = M_PI / 360.;
   Standard_Real                      Seuil2 = Seuil * Seuil;
   for (it.Initialize(myRegul); it.More(); it.Next())
   {
-    const ChFiDS_Regul& reg = it.Value();
+    const Regularity& reg = it.Value();
     itc.Initialize(myCoup->NewEdges(reg.Curve()));
     if (itc.More())
     {
-      TopoDS_Edge E = TopoDS::Edge(itc.Value());
+      TopoEdge E = TopoDS::Edge(itc.Value());
       if (reg.IsSurface1() && reg.IsSurface2())
       {
         its1.Initialize(myCoup->NewFaces(reg.S1()));
         its2.Initialize(myCoup->NewFaces(reg.S2()));
         if (its1.More() && its2.More())
         {
-          TopoDS_Face F1 = TopoDS::Face(its1.Value());
-          TopoDS_Face F2 = TopoDS::Face(its2.Value());
+          TopoFace F1 = TopoDS::Face(its1.Value());
+          TopoFace F2 = TopoDS::Face(its2.Value());
           S.Initialize(F1, Standard_False);
           PC.Initialize(E, F1);
           t = 0.5 * (PC.FirstParameter() + PC.LastParameter());
@@ -2275,13 +2275,13 @@ void ChFi3d_ChBuilder::SetRegul()
 
 void ChFi3d_ChBuilder::ConexFaces(const Handle(ChFiDS_Spine)& Spine,
                                   const Standard_Integer      IEdge,
-                                  TopoDS_Face&                F1,
-                                  TopoDS_Face&                F2) const
+                                  TopoFace&                F1,
+                                  TopoFace&                F2) const
 {
   BRepAdaptor_Surface Sb1, Sb2;
   TopAbs_Orientation  tmp1, tmp2;
   Standard_Integer    RC, Choix;
-  TopoDS_Face         f1, f2, ff1, ff2;
+  TopoFace         f1, f2, ff1, ff2;
 
   // calculate the reference orientation
   //  ChFi3d_Builder::StripeOrientations is private
@@ -2290,13 +2290,13 @@ void ChFi3d_ChBuilder::ConexFaces(const Handle(ChFiDS_Spine)& Spine,
   Sb1.Initialize(ff1);
   ff2.Orientation(TopAbs_FORWARD);
   Sb2.Initialize(ff2);
-  RC = ChFi3d::ConcaveSide(Sb1, Sb2, Spine->Edges(1), tmp1, tmp2);
+  RC = ChFi3d1::ConcaveSide(Sb1, Sb2, Spine->Edges(1), tmp1, tmp2);
 
   // calculate the connected faces
   SearchCommonFaces(myEFMap, Spine->Edges(IEdge), f1, f2);
   Sb1.Initialize(f1);
   Sb2.Initialize(f2);
-  Choix = ChFi3d::ConcaveSide(Sb1, Sb2, Spine->Edges(IEdge), tmp1, tmp2);
+  Choix = ChFi3d1::ConcaveSide(Sb1, Sb2, Spine->Edges(IEdge), tmp1, tmp2);
 
   if (RC % 2 != Choix % 2)
   {

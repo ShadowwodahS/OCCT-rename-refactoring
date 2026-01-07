@@ -30,7 +30,7 @@
 // Geom2d
 //=============================================================================
 GeomToStep_MakeParabola::GeomToStep_MakeParabola(const Handle(Geom2d_Parabola)& C,
-                                                 const StepData_Factors&        theLocalFactors)
+                                                 const ConversionFactors&        theLocalFactors)
 {
   gp_Parab2d gpPar;
   gpPar = C->Parab2d();
@@ -56,7 +56,7 @@ GeomToStep_MakeParabola::GeomToStep_MakeParabola(const Handle(Geom2d_Parabola)& 
 //=============================================================================
 
 GeomToStep_MakeParabola::GeomToStep_MakeParabola(const Handle(Geom_Parabola)& C,
-                                                 const StepData_Factors&      theLocalFactors)
+                                                 const ConversionFactors&      theLocalFactors)
 {
   gp_Parab gpPar;
   gpPar = C->Parab();

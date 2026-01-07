@@ -31,34 +31,34 @@ class Vector3d;
 class Transform3d;
 class Geom_Geometry;
 
-class Geom_Line;
-DEFINE_STANDARD_HANDLE(Geom_Line, Geom_Curve)
+class GeomLine;
+DEFINE_STANDARD_HANDLE(GeomLine, GeomCurve3d)
 
 //! Describes an infinite line.
 //! A line is defined and positioned in space with an axis
 //! (Axis3d object) which gives it an origin and a unit vector.
-//! The Geom_Line line is parameterized:
+//! The GeomLine line is parameterized:
 //! P (U) = O + U*Dir, where:
 //! - P is the point of parameter U,
 //! - O is the origin and Dir the unit vector of its positioning axis.
 //! The parameter range is ] -infinite, +infinite [.
 //! The orientation of the line is given by the unit vector
 //! of its positioning axis.
-class Geom_Line : public Geom_Curve
+class GeomLine : public GeomCurve3d
 {
 
 public:
   //! Creates a line located in 3D space with the axis placement A1.
   //! The Location of A1 is the origin of the line.
-  Standard_EXPORT Geom_Line(const Axis3d& A1);
+  Standard_EXPORT GeomLine(const Axis3d& A1);
 
   //! Creates a line from a non transient line from package gp.
-  Standard_EXPORT Geom_Line(const gp_Lin& L);
+  Standard_EXPORT GeomLine(const gp_Lin& L);
 
   //! Constructs a line passing through point P and parallel to vector V
   //! (P and V are, respectively, the origin and the unit
   //! vector of the positioning axis of the line).
-  Standard_EXPORT Geom_Line(const Point3d& P, const Dir3d& V);
+  Standard_EXPORT GeomLine(const Point3d& P, const Dir3d& V);
 
   //! Set <me> so that <me> has the same geometric properties as L.
   Standard_EXPORT void SetLin(const gp_Lin& L);
@@ -176,7 +176,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_Line, Geom_Curve)
+  DEFINE_STANDARD_RTTIEXT(GeomLine, GeomCurve3d)
 
 protected:
 private:

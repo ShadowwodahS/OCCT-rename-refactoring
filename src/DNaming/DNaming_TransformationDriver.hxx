@@ -22,8 +22,8 @@
 #include <TFunction_Driver.hxx>
 #include <Standard_Integer.hxx>
 class TFunction_Logbook;
-class TDF_Label;
-class TNaming_NamedShape;
+class DataLabel;
+class ShapeAttribute;
 class Transform3d;
 
 class DNaming_TransformationDriver;
@@ -62,8 +62,8 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void LoadNamingDS(const TDF_Label&                  theResultLabel,
-                                    const Handle(TNaming_NamedShape)& theSourceNS,
+  Standard_EXPORT void LoadNamingDS(const DataLabel&                  theResultLabel,
+                                    const Handle(ShapeAttribute)& theSourceNS,
                                     const Transform3d&                    theTrsf) const;
 };
 

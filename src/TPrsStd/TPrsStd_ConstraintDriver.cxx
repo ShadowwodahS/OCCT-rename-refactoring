@@ -30,8 +30,8 @@ TPrsStd_ConstraintDriver::TPrsStd_ConstraintDriver() {}
 
 //=================================================================================================
 
-Standard_Boolean TPrsStd_ConstraintDriver::Update(const TDF_Label&               aLabel,
-                                                  Handle(AIS_InteractiveObject)& anAISObject)
+Standard_Boolean TPrsStd_ConstraintDriver::Update(const DataLabel&               aLabel,
+                                                  Handle(VisualEntity)& anAISObject)
 {
   Handle(TDataXtd_Constraint) apConstraint;
   if (!aLabel.FindAttribute(TDataXtd_Constraint::GetID(), apConstraint))
@@ -54,7 +54,7 @@ Standard_Boolean TPrsStd_ConstraintDriver::Update(const TDF_Label&              
     }
   }
 
-  Handle(AIS_InteractiveObject) anAIS = anAISObject;
+  Handle(VisualEntity) anAIS = anAISObject;
 
   // recuperation
   TDataXtd_ConstraintEnum thetype = apConstraint->GetType();

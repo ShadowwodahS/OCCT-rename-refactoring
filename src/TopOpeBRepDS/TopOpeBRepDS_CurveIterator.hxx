@@ -27,9 +27,9 @@
 #include <TopAbs_Orientation.hxx>
 #include <TopAbs_State.hxx>
 class TopOpeBRepDS_Interference;
-class Geom2d_Curve;
+class GeomCurve2d;
 
-class TopOpeBRepDS_CurveIterator : public TopOpeBRepDS_InterferenceIterator
+class TopOpeBRepDS_CurveIterator : public InterferenceIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -49,7 +49,7 @@ public:
 
   Standard_EXPORT TopAbs_Orientation Orientation(const TopAbs_State S) const;
 
-  Standard_EXPORT const Handle(Geom2d_Curve)& PCurve() const;
+  Standard_EXPORT const Handle(GeomCurve2d)& PCurve() const;
 
 protected:
 private:

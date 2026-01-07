@@ -28,15 +28,15 @@ class Interface_Protocol;
 class StepAP214_Protocol;
 DEFINE_STANDARD_HANDLE(StepAP214_Protocol, StepData_Protocol)
 
-//! Protocol for StepAP214 Entities
-//! It requires StepAP214 as a Resource
+//! Protocol for StepAP2141 Entities
+//! It requires StepAP2141 as a Resource
 class StepAP214_Protocol : public StepData_Protocol
 {
 
 public:
   Standard_EXPORT StepAP214_Protocol();
 
-  //! Returns a Case Number for each of the StepAP214 Entities
+  //! Returns a Case Number for each of the StepAP2141 Entities
   Standard_EXPORT virtual Standard_Integer TypeNumber(const Handle(TypeInfo)& atype) const
     Standard_OVERRIDE;
 

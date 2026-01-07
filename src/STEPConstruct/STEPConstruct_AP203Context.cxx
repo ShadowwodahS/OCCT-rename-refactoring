@@ -144,7 +144,7 @@ Handle(StepBasic_PersonAndOrganization) STEPConstruct_AP203Context::DefaultPerso
     // get IP address as a unique id of organization
     Handle(TCollection_HAsciiString) orgId = new TCollection_HAsciiString("IP");
     OSD_Host                         aHost;
-    TCollection_AsciiString          anIP = aHost.InternetAddress();
+    AsciiString1          anIP = aHost.InternetAddress();
     // cut off last number
     Standard_Integer aLastDotIndex = anIP.SearchFromEnd(".");
     if (aLastDotIndex > 0)
@@ -161,7 +161,7 @@ Handle(StepBasic_PersonAndOrganization) STEPConstruct_AP203Context::DefaultPerso
 
     // construct person`s name
     OSD_Process             sys;
-    TCollection_AsciiString user(sys.UserName());
+    AsciiString1 user(sys.UserName());
 #if !defined(_WIN32) && !defined(__ANDROID__) && !defined(__EMSCRIPTEN__)
     if (!user.IsEmpty())
     {
@@ -183,7 +183,7 @@ Handle(StepBasic_PersonAndOrganization) STEPConstruct_AP203Context::DefaultPerso
     Standard_Integer                        i; // svv Jan11 2000 : porting on DEC
     for (i = 1;; i++)
     {
-      TCollection_AsciiString token = user.Token(" \t", i);
+      AsciiString1 token = user.Token(" \t", i);
       if (!token.Length())
         break;
       names.Append(token);

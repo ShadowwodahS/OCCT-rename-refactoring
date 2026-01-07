@@ -84,12 +84,12 @@ static void PrintPoints(Handle(TColgp_HArray1OfVec)&        aHAV1,
                         const Handle(VrmlConverter_Drawer)& aDrawer,
                         Standard_OStream&                   anOStream)
 {
-  // creation of Vrml objects
+  // creation of Vrml1 objects
   Handle(VrmlConverter_LineAspect) LA = new VrmlConverter_LineAspect;
   LA                                  = aDrawer->LineAspect();
 
   // Separator 1 {
-  Vrml_Separator SE1;
+  Separator SE1;
   SE1.Print(anOStream);
   // Material
   if (LA->HasMaterial())
@@ -285,7 +285,7 @@ static Standard_Real GetDeflection(const Adaptor3d_Curve&              aCurve,
 
 //=================================================================================================
 
-void VrmlConverter_DeflectionCurve::Add(Standard_OStream&                   anOStream,
+void DeflectionCurveConverter::Add(Standard_OStream&                   anOStream,
                                         Adaptor3d_Curve&                    aCurve,
                                         const Handle(VrmlConverter_Drawer)& aDrawer)
 {
@@ -301,7 +301,7 @@ void VrmlConverter_DeflectionCurve::Add(Standard_OStream&                   anOS
 
 //=================================================================================================
 
-void VrmlConverter_DeflectionCurve::Add(Standard_OStream&                   anOStream,
+void DeflectionCurveConverter::Add(Standard_OStream&                   anOStream,
                                         Adaptor3d_Curve&                    aCurve,
                                         const Standard_Real                 U1,
                                         const Standard_Real                 U2,
@@ -321,7 +321,7 @@ void VrmlConverter_DeflectionCurve::Add(Standard_OStream&                   anOS
 
 //=================================================================================================
 
-void VrmlConverter_DeflectionCurve::Add(Standard_OStream&   anOStream,
+void DeflectionCurveConverter::Add(Standard_OStream&   anOStream,
                                         Adaptor3d_Curve&    aCurve,
                                         const Standard_Real aDeflection,
                                         const Standard_Real aLimit)
@@ -338,7 +338,7 @@ void VrmlConverter_DeflectionCurve::Add(Standard_OStream&   anOStream,
 
 //=================================================================================================
 
-void VrmlConverter_DeflectionCurve::Add(Standard_OStream&                   anOStream,
+void DeflectionCurveConverter::Add(Standard_OStream&                   anOStream,
                                         Adaptor3d_Curve&                    aCurve,
                                         const Standard_Real                 aDeflection,
                                         const Handle(VrmlConverter_Drawer)& aDrawer)
@@ -352,7 +352,7 @@ void VrmlConverter_DeflectionCurve::Add(Standard_OStream&                   anOS
 
 //=================================================================================================
 
-void VrmlConverter_DeflectionCurve::Add(Standard_OStream&   anOStream,
+void DeflectionCurveConverter::Add(Standard_OStream&   anOStream,
                                         Adaptor3d_Curve&    aCurve,
                                         const Standard_Real U1,
                                         const Standard_Real U2,
@@ -367,7 +367,7 @@ void VrmlConverter_DeflectionCurve::Add(Standard_OStream&   anOStream,
 
 //=================================================================================================
 
-void VrmlConverter_DeflectionCurve::Add(Standard_OStream&                    anOStream,
+void DeflectionCurveConverter::Add(Standard_OStream&                    anOStream,
                                         const Adaptor3d_Curve&               aCurve,
                                         const Handle(TColStd_HArray1OfReal)& aParams,
                                         const Standard_Integer               aNbNodes,

@@ -74,7 +74,7 @@ Standard_Boolean MeshVS_MeshEntityOwner::IsHilighted(const Handle(PrsMgr_Present
 //=================================================================================================
 
 void MeshVS_MeshEntityOwner::HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                              const Handle(Prs3d_Drawer)&               theStyle,
+                                              const Handle(StyleDrawer)&               theStyle,
                                               const Standard_Integer /*theMode*/)
 {
   Handle(SelectMgr_SelectableObject) aSelObj;

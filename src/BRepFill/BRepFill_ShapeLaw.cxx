@@ -49,7 +49,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRepFill_ShapeLaw, BRepFill_SectionLaw)
 // purpose  : Process the case of Vertex by constructing a line
 //           with the vertex in the origin
 //=======================================================================
-BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoDS_Vertex& V, const Standard_Boolean Build)
+BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoVertex& V, const Standard_Boolean Build)
     : vertex(Standard_True),
       myShape(V)
 {
@@ -64,8 +64,8 @@ BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoDS_Vertex& V, const Standard_Bool
     myLaws = new (GeomFill_HArray1OfSectionLaw)(1, 1);
     //    Point3d Origine;
     Dir3d                    D(1, 0, 0); // Following the normal
-    Handle(Geom_Line)         L    = new (Geom_Line)(BRep_Tool::Pnt(V), D);
-    Standard_Real             Last = 2 * BRep_Tool::Tolerance(V) + Precision::PConfusion();
+    Handle(GeomLine)         L    = new (GeomLine)(BRepInspector::Pnt(V), D);
+    Standard_Real             Last = 2 * BRepInspector::Tolerance(V) + Precision::PConfusion();
     Handle(Geom_TrimmedCurve) TC   = new (Geom_TrimmedCurve)(L, 0, Last);
 
     myLaws->ChangeValue(1) = new (GeomFill_UniformSection)(TC);
@@ -75,7 +75,7 @@ BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoDS_Vertex& V, const Standard_Bool
 
 //=================================================================================================
 
-BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoDS_Wire& W, const Standard_Boolean Build)
+BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoWire& W, const Standard_Boolean Build)
     : vertex(Standard_False),
       myShape(W)
 
@@ -90,7 +90,7 @@ BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoDS_Wire& W, const Standard_Boolea
 // purpose  : Evolutive Wire
 //=======================================================================
 
-BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoDS_Wire&          W,
+BRepFill_ShapeLaw::BRepFill_ShapeLaw(const TopoWire&          W,
                                      const Handle(Law_Function)& L,
                                      const Standard_Boolean      Build)
     : vertex(Standard_False),
@@ -110,18 +110,18 @@ void BRepFill_ShapeLaw::Init(const Standard_Boolean Build)
 {
   vclosed = Standard_True;
   BRepTools_WireExplorer wexp;
-  TopoDS_Edge            E;
+  TopoEdge            E;
   Standard_Integer       NbEdge, ii;
   Standard_Real          First, Last;
-  TopoDS_Wire            W;
+  TopoWire            W;
   W = TopoDS::Wire(myShape);
 
   for (NbEdge = 0, wexp.Init(W); wexp.More(); wexp.Next())
   {
     E = wexp.Current();
-    if (!E.IsNull() && !BRep_Tool::Degenerated(E))
+    if (!E.IsNull() && !BRepInspector::Degenerated(E))
     {
-      Handle(Geom_Curve) C = BRep_Tool::Curve(E, First, Last);
+      Handle(GeomCurve3d) C = BRepInspector::Curve(E, First, Last);
       if (!C.IsNull())
       {
         NbEdge++;
@@ -137,20 +137,20 @@ void BRepFill_ShapeLaw::Init(const Standard_Boolean Build)
   for (wexp.Init(W); wexp.More(); wexp.Next())
   {
     E = wexp.Current();
-    if (!E.IsNull() && !BRep_Tool::Degenerated(wexp.Current()))
+    if (!E.IsNull() && !BRepInspector::Degenerated(wexp.Current()))
     {
-      Handle(Geom_Curve) C = BRep_Tool::Curve(E, First, Last);
+      Handle(GeomCurve3d) C = BRepInspector::Curve(E, First, Last);
       if (!C.IsNull())
       {
         myEdges->SetValue(ii, E);
         myIndices.Bind(E, ii);
         if (Build)
         {
-          // Handle(Geom_Curve) C = BRep_Tool::Curve(E,First,Last);
+          // Handle(GeomCurve3d) C = BRepInspector::Curve(E,First,Last);
           if (E.Orientation() == TopAbs_REVERSED)
           {
             Standard_Real      aux;
-            Handle(Geom_Curve) CBis;
+            Handle(GeomCurve3d) CBis;
             CBis  = C->Reversed(); // To avoid the deterioration of the topology
             aux   = C->ReversedParameter(First);
             First = C->ReversedParameter(Last);
@@ -158,7 +158,7 @@ void BRepFill_ShapeLaw::Init(const Standard_Boolean Build)
             C     = CBis;
           }
 
-          Standard_Boolean IsClosed = BRep_Tool::IsClosed(E);
+          Standard_Boolean IsClosed = BRepInspector::IsClosed(E);
           if (IsClosed && Abs(C->FirstParameter() - First) > Precision::PConfusion())
             IsClosed = Standard_False; // trimmed curve differs
 
@@ -189,27 +189,27 @@ void BRepFill_ShapeLaw::Init(const Standard_Boolean Build)
   if (!uclosed)
   {
     // if not sure about the flag, make check
-    TopoDS_Edge   Edge1, Edge2;
-    TopoDS_Vertex V1, V2;
+    TopoEdge   Edge1, Edge2;
+    TopoVertex V1, V2;
     Edge1 = TopoDS::Edge(myEdges->Value(myEdges->Length()));
     Edge2 = TopoDS::Edge(myEdges->Value(1));
 
     if (Edge1.Orientation() == TopAbs_REVERSED)
     {
-      V1 = TopExp::FirstVertex(Edge1);
+      V1 = TopExp1::FirstVertex(Edge1);
     }
     else
     {
-      V1 = TopExp::LastVertex(Edge1);
+      V1 = TopExp1::LastVertex(Edge1);
     }
 
     if (Edge2.Orientation() == TopAbs_REVERSED)
     {
-      V2 = TopExp::LastVertex(Edge2);
+      V2 = TopExp1::LastVertex(Edge2);
     }
     else
     {
-      V2 = TopExp::FirstVertex(Edge2);
+      V2 = TopExp1::FirstVertex(Edge2);
     }
     if (V1.IsSame(V2))
     {
@@ -219,9 +219,9 @@ void BRepFill_ShapeLaw::Init(const Standard_Boolean Build)
     {
       BRepAdaptor_Curve Curve1(Edge1);
       BRepAdaptor_Curve Curve2(Edge2);
-      Standard_Real     U1  = BRep_Tool::Parameter(V1, Edge1);
-      Standard_Real     U2  = BRep_Tool::Parameter(V2, Edge2);
-      Standard_Real     Eps = BRep_Tool::Tolerance(V2) + BRep_Tool::Tolerance(V1);
+      Standard_Real     U1  = BRepInspector::Parameter(V1, Edge1);
+      Standard_Real     U2  = BRepInspector::Parameter(V2, Edge2);
+      Standard_Real     Eps = BRepInspector::Tolerance(V2) + BRepInspector::Tolerance(V1);
 
       uclosed = Curve1.Value(U1).IsEqual(Curve2.Value(U2), Eps);
     }
@@ -244,26 +244,26 @@ Standard_Boolean BRepFill_ShapeLaw::IsConstant() const
 
 //=================================================================================================
 
-TopoDS_Vertex BRepFill_ShapeLaw::Vertex(const Standard_Integer Index,
+TopoVertex BRepFill_ShapeLaw::Vertex(const Standard_Integer Index,
                                         const Standard_Real    Param) const
 {
-  TopoDS_Edge   E;
-  TopoDS_Vertex V;
+  TopoEdge   E;
+  TopoVertex V;
   if (Index <= myEdges->Length())
   {
     E = TopoDS::Edge(myEdges->Value(Index));
     if (E.Orientation() == TopAbs_REVERSED)
-      V = TopExp::LastVertex(E);
+      V = TopExp1::LastVertex(E);
     else
-      V = TopExp::FirstVertex(E);
+      V = TopExp1::FirstVertex(E);
   }
   else if (Index == myEdges->Length() + 1)
   {
     E = TopoDS::Edge(myEdges->Value(Index - 1));
     if (E.Orientation() == TopAbs_REVERSED)
-      V = TopExp::FirstVertex(E);
+      V = TopExp1::FirstVertex(E);
     else
-      V = TopExp::LastVertex(E);
+      V = TopExp1::LastVertex(E);
   }
 
   if (!TheLaw.IsNull())
@@ -304,7 +304,7 @@ Standard_Real BRepFill_ShapeLaw::VertexTol(const Standard_Integer Index,
   Handle(TColgp_HArray1OfPnt)      Poles;
   Handle(TColStd_HArray1OfReal)    Knots, Weigth;
   Handle(TColStd_HArray1OfInteger) Mults;
-  Handle(Geom_BSplineCurve)        BS;
+  Handle(BSplineCurve3d)        BS;
   Point3d                           PFirst;
 
   Loi = myLaws->Value(I1);
@@ -316,7 +316,7 @@ Standard_Real BRepFill_ShapeLaw::VertexTol(const Standard_Integer Index,
   Loi->Knots(Knots->ChangeArray1());
   Mults = new (TColStd_HArray1OfInteger)(1, NbKnots);
   Loi->Mults(Mults->ChangeArray1());
-  BS     = new (Geom_BSplineCurve)(Poles->Array1(),
+  BS     = new (BSplineCurve3d)(Poles->Array1(),
                                Weigth->Array1(),
                                Knots->Array1(),
                                Mults->Array1(),
@@ -333,7 +333,7 @@ Standard_Real BRepFill_ShapeLaw::VertexTol(const Standard_Integer Index,
   Loi->Knots(Knots->ChangeArray1());
   Mults = new (TColStd_HArray1OfInteger)(1, NbKnots);
   Loi->Mults(Mults->ChangeArray1());
-  BS = new (Geom_BSplineCurve)(Poles->Array1(),
+  BS = new (BSplineCurve3d)(Poles->Array1(),
                                Weigth->Array1(),
                                Knots->Array1(),
                                Mults->Array1(),
@@ -352,8 +352,8 @@ Handle(GeomFill_SectionLaw) BRepFill_ShapeLaw::ConcatenedLaw() const
     return myLaws->Value(1);
   else
   {
-    TopoDS_Wire   W;
-    TopoDS_Vertex V;
+    TopoWire   W;
+    TopoVertex V;
     W = TopoDS::Wire(myShape);
     if (!W.IsNull())
     {
@@ -361,20 +361,20 @@ Handle(GeomFill_SectionLaw) BRepFill_ShapeLaw::ConcatenedLaw() const
       Standard_Integer          ii;
       Standard_Real             epsV, f, l;
       Standard_Boolean          Bof;
-      Handle(Geom_Curve)        Composite;
+      Handle(GeomCurve3d)        Composite;
       Handle(Geom_TrimmedCurve) TC;
-      Composite = BRep_Tool::Curve(Edge(1), f, l);
+      Composite = BRepInspector::Curve(Edge(1), f, l);
       TC        = new (Geom_TrimmedCurve)(Composite, f, l);
       GeomConvert_CompCurveToBSplineCurve Concat(TC);
 
       for (ii = 2, Bof = Standard_True; ii <= myEdges->Length() && Bof; ii++)
       {
-        Composite = BRep_Tool::Curve(Edge(ii), f, l);
+        Composite = BRepInspector::Curve(Edge(ii), f, l);
         TC        = new (Geom_TrimmedCurve)(Composite, f, l);
-        Bof       = TopExp::CommonVertex(Edge(ii - 1), Edge(ii), V);
+        Bof       = TopExp1::CommonVertex(Edge(ii - 1), Edge(ii), V);
         if (Bof)
         {
-          epsV = BRep_Tool::Tolerance(V);
+          epsV = BRepInspector::Tolerance(V);
         }
         else
           epsV = 10 * Precision::PConfusion();
@@ -407,7 +407,7 @@ GeomAbs_Shape BRepFill_ShapeLaw::Continuity(const Standard_Integer Index,
                                             const Standard_Real    TolAngular) const
 {
 
-  TopoDS_Edge Edge1, Edge2;
+  TopoEdge Edge1, Edge2;
   if ((Index == 0) || (Index == myEdges->Length()))
   {
     if (!uclosed)
@@ -422,10 +422,10 @@ GeomAbs_Shape BRepFill_ShapeLaw::Continuity(const Standard_Integer Index,
     Edge2 = TopoDS::Edge(myEdges->Value(Index + 1));
   }
 
-  TopoDS_Vertex V1, V2; // common vertex
-  TopoDS_Vertex vv1, vv2, vv3, vv4;
-  TopExp::Vertices(Edge1, vv1, vv2);
-  TopExp::Vertices(Edge2, vv3, vv4);
+  TopoVertex V1, V2; // common vertex
+  TopoVertex vv1, vv2, vv3, vv4;
+  TopExp1::Vertices(Edge1, vv1, vv2);
+  TopExp1::Vertices(Edge2, vv3, vv4);
   if (vv1.IsSame(vv3))
   {
     V1 = vv1;
@@ -447,20 +447,20 @@ GeomAbs_Shape BRepFill_ShapeLaw::Continuity(const Standard_Integer Index,
     V2 = vv4;
   }
 
-  Standard_Real     U1 = BRep_Tool::Parameter(V1, Edge1);
-  Standard_Real     U2 = BRep_Tool::Parameter(V2, Edge2);
+  Standard_Real     U1 = BRepInspector::Parameter(V1, Edge1);
+  Standard_Real     U2 = BRepInspector::Parameter(V2, Edge2);
   BRepAdaptor_Curve Curve1(Edge1);
   BRepAdaptor_Curve Curve2(Edge2);
-  Standard_Real     Eps = BRep_Tool::Tolerance(V2) + BRep_Tool::Tolerance(V1);
+  Standard_Real     Eps = BRepInspector::Tolerance(V2) + BRepInspector::Tolerance(V1);
   GeomAbs_Shape     cont;
-  cont = BRepLProp::Continuity(Curve1, Curve2, U1, U2, Eps, TolAngular);
+  cont = BRepLProp1::Continuity(Curve1, Curve2, U1, U2, Eps, TolAngular);
 
   return cont;
 }
 
 //=================================================================================================
 
-void BRepFill_ShapeLaw::D0(const Standard_Real U, TopoDS_Shape& S)
+void BRepFill_ShapeLaw::D0(const Standard_Real U, TopoShape& S)
 {
   S = myShape;
   if (!TheLaw.IsNull())

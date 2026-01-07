@@ -30,9 +30,9 @@
 
 //=================================================================================================
 
-Handle(StepRepr_RepresentationItem) STEPConstruct::FindEntity(
+Handle(StepRepr_RepresentationItem) STEPConstruct1::FindEntity(
   const Handle(Transfer_FinderProcess)& FinderProcess,
-  const TopoDS_Shape&                   Shape)
+  const TopoShape&                   Shape)
 {
   Handle(StepRepr_RepresentationItem) item;
   Handle(TransferBRep_ShapeMapper)    mapper = TransferBRep::ShapeMapper(FinderProcess, Shape);
@@ -49,9 +49,9 @@ Handle(StepRepr_RepresentationItem) STEPConstruct::FindEntity(
 
 //=================================================================================================
 
-Handle(StepRepr_RepresentationItem) STEPConstruct::FindEntity(
+Handle(StepRepr_RepresentationItem) STEPConstruct1::FindEntity(
   const Handle(Transfer_FinderProcess)& FinderProcess,
-  const TopoDS_Shape&                   Shape,
+  const TopoShape&                   Shape,
   TopLoc_Location&                      Loc)
 {
   Handle(StepRepr_RepresentationItem) item;
@@ -61,7 +61,7 @@ Handle(StepRepr_RepresentationItem) STEPConstruct::FindEntity(
       && !Loc.IsIdentity())
   {
     Loc.Identity();
-    TopoDS_Shape S = Shape;
+    TopoShape S = Shape;
     S.Location(Loc);
     mapper = TransferBRep::ShapeMapper(FinderProcess, S);
     FinderProcess->FindTypedTransient(mapper, STANDARD_TYPE(StepRepr_RepresentationItem), item);
@@ -82,10 +82,10 @@ Handle(StepRepr_RepresentationItem) STEPConstruct::FindEntity(
 
 //=================================================================================================
 
-TopoDS_Shape STEPConstruct::FindShape(const Handle(Transfer_TransientProcess)&   TransientProcess,
+TopoShape STEPConstruct1::FindShape(const Handle(Transfer_TransientProcess)&   TransientProcess,
                                       const Handle(StepRepr_RepresentationItem)& item)
 {
-  TopoDS_Shape            S;
+  TopoShape            S;
   Handle(Transfer_Binder) binder = TransientProcess->Find(item);
   if (!binder.IsNull() && binder->HasResult())
   {
@@ -96,7 +96,7 @@ TopoDS_Shape STEPConstruct::FindShape(const Handle(Transfer_TransientProcess)&  
 
 //=================================================================================================
 
-Standard_Boolean STEPConstruct::FindCDSR(
+Standard_Boolean STEPConstruct1::FindCDSR(
   const Handle(Transfer_Binder)&                         ComponentBinder,
   const Handle(StepShape_ShapeDefinitionRepresentation)& AssemblySDR,
   Handle(StepShape_ContextDependentShapeRepresentation)& ComponentCDSR)

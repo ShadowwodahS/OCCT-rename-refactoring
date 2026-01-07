@@ -23,9 +23,9 @@
 
 #include <TopoDS_Shape.hxx>
 #include <TNaming_PtrNode.hxx>
-class TopoDS_Shape;
-class TDF_Label;
-class TNaming_NamedShape;
+class TopoShape;
+class DataLabel;
+class ShapeAttribute;
 
 class TNaming_RefShape
 {
@@ -34,26 +34,26 @@ public:
 
   TNaming_RefShape();
 
-  TNaming_RefShape(const TopoDS_Shape& S);
+  TNaming_RefShape(const TopoShape& S);
 
-  void Shape(const TopoDS_Shape& S);
+  void Shape(const TopoShape& S);
 
   void FirstUse(const TNaming_PtrNode& aPtr);
 
   TNaming_PtrNode FirstUse() const;
 
-  const TopoDS_Shape& Shape() const;
+  const TopoShape& Shape() const;
 
-  Standard_EXPORT TDF_Label Label() const;
+  Standard_EXPORT DataLabel Label() const;
 
-  Standard_EXPORT Handle(TNaming_NamedShape) NamedShape() const;
+  Standard_EXPORT Handle(ShapeAttribute) NamedShape() const;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
 protected:
 private:
-  TopoDS_Shape    myShape;
+  TopoShape    myShape;
   TNaming_PtrNode myFirstUse;
 };
 

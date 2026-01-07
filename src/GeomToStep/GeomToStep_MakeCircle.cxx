@@ -32,7 +32,7 @@
 // Creation d' un cercle de prostep a partir d' un cercle 3d de gp
 //=============================================================================
 GeomToStep_MakeCircle::GeomToStep_MakeCircle(const gp_Circ&          C,
-                                             const StepData_Factors& theLocalFactors)
+                                             const ConversionFactors& theLocalFactors)
 {
 #include "GeomToStep_MakeCircle_gen.pxx"
 }
@@ -42,8 +42,8 @@ GeomToStep_MakeCircle::GeomToStep_MakeCircle(const gp_Circ&          C,
 // Geom
 //=============================================================================
 
-GeomToStep_MakeCircle::GeomToStep_MakeCircle(const Handle(Geom_Circle)& Cer,
-                                             const StepData_Factors&    theLocalFactors)
+GeomToStep_MakeCircle::GeomToStep_MakeCircle(const Handle(GeomCircle)& Cer,
+                                             const ConversionFactors&    theLocalFactors)
 {
   gp_Circ C;
   C = Cer->Circ();
@@ -56,7 +56,7 @@ GeomToStep_MakeCircle::GeomToStep_MakeCircle(const Handle(Geom_Circle)& Cer,
 //=============================================================================
 
 GeomToStep_MakeCircle::GeomToStep_MakeCircle(const Handle(Geom2d_Circle)& Cer,
-                                             const StepData_Factors&      theLocalFactors)
+                                             const ConversionFactors&      theLocalFactors)
 {
   gp_Circ2d C2d;
   C2d = Cer->Circ2d();

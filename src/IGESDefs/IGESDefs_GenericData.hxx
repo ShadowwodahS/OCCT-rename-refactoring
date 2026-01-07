@@ -31,7 +31,7 @@ class IGESDefs_GenericData;
 DEFINE_STANDARD_HANDLE(IGESDefs_GenericData, IGESData_IGESEntity)
 
 //! defines IGES Generic Data, Type <406> Form <27>
-//! in package IGESDefs
+//! in package IGESDefs1
 //! Used to communicate information defined by the system
 //! operator while creating the model. The information is
 //! system specific and does not map into one of the

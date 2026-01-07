@@ -33,29 +33,29 @@ public:
   //! It expects a wire consisting of two edges of type (any combination of):
   //! - segment
   //! - arc of circle.
-  Standard_EXPORT ChFi2d_AnaFilletAlgo(const TopoDS_Wire& theWire, const gp_Pln& thePlane);
+  Standard_EXPORT ChFi2d_AnaFilletAlgo(const TopoWire& theWire, const gp_Pln& thePlane);
 
   //! A constructor.
   //! It expects two edges having a common point of type:
   //! - segment
   //! - arc of circle.
-  Standard_EXPORT ChFi2d_AnaFilletAlgo(const TopoDS_Edge& theEdge1,
-                                       const TopoDS_Edge& theEdge2,
+  Standard_EXPORT ChFi2d_AnaFilletAlgo(const TopoEdge& theEdge1,
+                                       const TopoEdge& theEdge2,
                                        const gp_Pln&      thePlane);
 
   //! Initializes the class by a wire consisting of two edges.
-  Standard_EXPORT void Init(const TopoDS_Wire& theWire, const gp_Pln& thePlane);
+  Standard_EXPORT void Init(const TopoWire& theWire, const gp_Pln& thePlane);
 
   //! Initializes the class by two edges.
-  Standard_EXPORT void Init(const TopoDS_Edge& theEdge1,
-                            const TopoDS_Edge& theEdge2,
+  Standard_EXPORT void Init(const TopoEdge& theEdge1,
+                            const TopoEdge& theEdge2,
                             const gp_Pln&      thePlane);
 
   //! Calculates a fillet.
   Standard_EXPORT Standard_Boolean Perform(const Standard_Real radius);
 
   //! Retrieves a result (fillet and shrinked neighbours).
-  Standard_EXPORT const TopoDS_Edge& Result(TopoDS_Edge& e1, TopoDS_Edge& e2);
+  Standard_EXPORT const TopoEdge& Result(TopoEdge& e1, TopoEdge& e2);
 
 private:
   // WW5 method to compute fillet.
@@ -105,13 +105,13 @@ private:
                                 Standard_Real&      end);
 
   // Cuts intersecting edges of a contour.
-  Standard_Boolean Cut(const gp_Pln& plane, TopoDS_Edge& e1, TopoDS_Edge& e2);
+  Standard_Boolean Cut(const gp_Pln& plane, TopoEdge& e1, TopoEdge& e2);
 
   // Plane.
   gp_Pln plane;
 
   // Left neighbour.
-  TopoDS_Edge      e1;
+  TopoEdge      e1;
   Standard_Boolean segment1;
   Standard_Real    x11;
   Standard_Real    y11;
@@ -123,7 +123,7 @@ private:
   Standard_Boolean cw1;
 
   // Right neighbour.
-  TopoDS_Edge      e2;
+  TopoEdge      e2;
   Standard_Boolean segment2;
   Standard_Real    x21;
   Standard_Real    y21;
@@ -135,9 +135,9 @@ private:
   Standard_Boolean cw2;
 
   // Fillet (result).
-  TopoDS_Edge fillet;
-  TopoDS_Edge shrinke1;
-  TopoDS_Edge shrinke2;
+  TopoEdge fillet;
+  TopoEdge shrinke1;
+  TopoEdge shrinke2;
 };
 
 #endif // _ANAFILLETALGO_H_

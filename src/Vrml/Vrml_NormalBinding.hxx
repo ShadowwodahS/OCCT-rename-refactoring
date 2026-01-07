@@ -32,14 +32,14 @@
 //! faces and vertices. Similarly, the indexed bindings are only used by the shapes that allow
 //! indexing. For bindings that require multiple normals, be sure to have at least as many
 //! normals defined as are necessary; otherwise, errors will occur.
-class Vrml_NormalBinding
+class NormalBinding
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_NormalBinding(const Vrml_MaterialBindingAndNormalBinding aValue);
+  Standard_EXPORT NormalBinding(const Vrml_MaterialBindingAndNormalBinding aValue);
 
-  Standard_EXPORT Vrml_NormalBinding();
+  Standard_EXPORT NormalBinding();
 
   Standard_EXPORT void SetValue(const Vrml_MaterialBindingAndNormalBinding aValue);
 

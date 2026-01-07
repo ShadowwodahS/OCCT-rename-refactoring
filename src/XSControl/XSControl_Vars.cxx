@@ -47,19 +47,19 @@ Handle(Geom_Geometry) XSControl_Vars::GetGeom(Standard_CString& name) const
   return GetCasted(Geom_Geometry, Get(name));
 }
 
-Handle(Geom2d_Curve) XSControl_Vars::GetCurve2d(Standard_CString& name) const
+Handle(GeomCurve2d) XSControl_Vars::GetCurve2d(Standard_CString& name) const
 {
-  return GetCasted(Geom2d_Curve, Get(name));
+  return GetCasted(GeomCurve2d, Get(name));
 }
 
-Handle(Geom_Curve) XSControl_Vars::GetCurve(Standard_CString& name) const
+Handle(GeomCurve3d) XSControl_Vars::GetCurve(Standard_CString& name) const
 {
-  return GetCasted(Geom_Curve, Get(name));
+  return GetCasted(GeomCurve3d, Get(name));
 }
 
-Handle(Geom_Surface) XSControl_Vars::GetSurface(Standard_CString& name) const
+Handle(GeomSurface) XSControl_Vars::GetSurface(Standard_CString& name) const
 {
-  return GetCasted(Geom_Surface, Get(name));
+  return GetCasted(GeomSurface, Get(name));
 }
 
 void XSControl_Vars::SetPoint(const Standard_CString name, const Point3d& val)
@@ -90,14 +90,14 @@ Standard_Boolean XSControl_Vars::GetPoint2d(Standard_CString& name, gp_Pnt2d& pn
   return Standard_True;
 }
 
-void XSControl_Vars::SetShape(const Standard_CString name, const TopoDS_Shape& val)
+void XSControl_Vars::SetShape(const Standard_CString name, const TopoShape& val)
 {
   Set(name, new TopoDS_HShape(val));
 }
 
-TopoDS_Shape XSControl_Vars::GetShape(Standard_CString& name) const
+TopoShape XSControl_Vars::GetShape(Standard_CString& name) const
 {
-  TopoDS_Shape sh;
+  TopoShape sh;
   DeclareAndCast(TopoDS_HShape, val, Get(name));
   if (!val.IsNull())
     sh = val->Shape();

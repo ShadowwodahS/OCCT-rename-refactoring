@@ -21,31 +21,31 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <BRepAlgoAPI_BooleanOperation.hxx>
-class BOPAlgo_PaveFiller;
-class TopoDS_Shape;
+class BooleanPaveFiller;
+class TopoShape;
 
 //! The class provides Boolean fusion operation
 //! between arguments and tools  (Boolean Union).
-class BRepAlgoAPI_Fuse : public BRepAlgoAPI_BooleanOperation
+class BooleanFuse : public BRepAlgoAPI_BooleanOperation
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor
-  Standard_EXPORT BRepAlgoAPI_Fuse();
-  Standard_EXPORT virtual ~BRepAlgoAPI_Fuse();
+  Standard_EXPORT BooleanFuse();
+  Standard_EXPORT virtual ~BooleanFuse();
 
   //! Empty constructor
   //! <PF> - PaveFiller object that is carried out
-  Standard_EXPORT BRepAlgoAPI_Fuse(const BOPAlgo_PaveFiller& PF);
+  Standard_EXPORT BooleanFuse(const BooleanPaveFiller& PF);
 
   //! Constructor with two shapes
   //! <S1>  -argument
   //! <S2>  -tool
   //! <anOperation> - the type of the operation
   //! Obsolete
-  Standard_EXPORT BRepAlgoAPI_Fuse(const TopoDS_Shape&          S1,
-                                   const TopoDS_Shape&          S2,
+  Standard_EXPORT BooleanFuse(const TopoShape&          S1,
+                                   const TopoShape&          S2,
                                    const Message_ProgressRange& theRange = Message_ProgressRange());
 
   //! Constructor with two shapes
@@ -54,9 +54,9 @@ public:
   //! <anOperation> - the type of the operation
   //! <PF> - PaveFiller object that is carried out
   //! Obsolete
-  Standard_EXPORT BRepAlgoAPI_Fuse(const TopoDS_Shape&          S1,
-                                   const TopoDS_Shape&          S2,
-                                   const BOPAlgo_PaveFiller&    aDSF,
+  Standard_EXPORT BooleanFuse(const TopoShape&          S1,
+                                   const TopoShape&          S2,
+                                   const BooleanPaveFiller&    aDSF,
                                    const Message_ProgressRange& theRange = Message_ProgressRange());
 
 protected:

@@ -34,17 +34,17 @@ IMPLEMENT_STANDARD_RTTIEXT(PCDM_ReadWriter, RefObject)
 
 #define FILE_FORMAT "FILE_FORMAT: "
 
-static TCollection_ExtendedString TryXmlDriverType(const TCollection_AsciiString& theFileName);
+static UtfString TryXmlDriverType(const AsciiString1& theFileName);
 
-static TCollection_ExtendedString TryXmlDriverType(Standard_IStream& theIStream);
+static UtfString TryXmlDriverType(Standard_IStream& theIStream);
 
 //=================================================================================================
 
 void PCDM_ReadWriter::Open(const Handle(Storage_BaseDriver)& aDriver,
-                           const TCollection_ExtendedString& aFileName,
+                           const UtfString& aFileName,
                            const Storage_OpenMode            aMode)
 {
-  Storage_Error error = UTL::OpenFile(aDriver, aFileName, aMode);
+  Storage_Error error = UTL1::OpenFile(aDriver, aFileName, aMode);
   if (error != Storage_VSOk)
   {
     Standard_SStream aMsg;
@@ -67,7 +67,7 @@ void PCDM_ReadWriter::Open(const Handle(Storage_BaseDriver)& aDriver,
 
 //=================================================================================================
 
-Handle(PCDM_ReadWriter) PCDM_ReadWriter::Reader(const TCollection_ExtendedString&)
+Handle(PCDM_ReadWriter) PCDM_ReadWriter::Reader(const UtfString&)
 {
   return (new PCDM_ReadWriter_1);
 }
@@ -84,23 +84,23 @@ Handle(PCDM_ReadWriter) PCDM_ReadWriter::Writer()
 void PCDM_ReadWriter::WriteFileFormat(const Handle(Storage_Data)& aData,
                                       const Handle(CDM_Document)& aDocument)
 {
-  TCollection_AsciiString ligne(FILE_FORMAT);
-  ligne += TCollection_AsciiString(aDocument->StorageFormat(), '?');
+  AsciiString1 ligne(FILE_FORMAT);
+  ligne += AsciiString1(aDocument->StorageFormat(), '?');
 
   aData->AddToUserInfo(ligne);
 }
 
 //=================================================================================================
 
-TCollection_ExtendedString PCDM_ReadWriter::FileFormat(const TCollection_ExtendedString& aFileName)
+UtfString PCDM_ReadWriter::FileFormat(const UtfString& aFileName)
 {
-  TCollection_ExtendedString theFormat;
+  UtfString theFormat;
 
   Handle(Storage_BaseDriver) theFileDriver;
 
   // conversion to UTF-8 is done inside
-  TCollection_AsciiString theFileName(aFileName);
-  if (PCDM::FileDriverType(theFileName, theFileDriver) == PCDM_TOFD_Unknown)
+  AsciiString1 theFileName(aFileName);
+  if (PCDM1::FileDriverType(theFileName, theFileDriver) == PCDM_TOFD_Unknown)
     return ::TryXmlDriverType(theFileName);
 
   Standard_Boolean theFileIsOpen(Standard_False);
@@ -120,7 +120,7 @@ TCollection_ExtendedString PCDM_ReadWriter::FileFormat(const TCollection_Extende
       {
         found = Standard_True;
         theFormat =
-          TCollection_ExtendedString(refUserInfo(i).Token(" ", 2).ToCString(), Standard_True);
+          UtfString(refUserInfo(i).Token(" ", 2).ToCString(), Standard_True);
       }
     }
     if (!found)
@@ -144,13 +144,13 @@ TCollection_ExtendedString PCDM_ReadWriter::FileFormat(const TCollection_Extende
 
 //=================================================================================================
 
-TCollection_ExtendedString PCDM_ReadWriter::FileFormat(Standard_IStream&     theIStream,
+UtfString PCDM_ReadWriter::FileFormat(Standard_IStream&     theIStream,
                                                        Handle(Storage_Data)& theData)
 {
-  TCollection_ExtendedString aFormat;
+  UtfString aFormat;
 
   Handle(Storage_BaseDriver) aFileDriver;
-  if (PCDM::FileDriverType(theIStream, aFileDriver) == PCDM_TOFD_XmlFile)
+  if (PCDM1::FileDriverType(theIStream, aFileDriver) == PCDM_TOFD_XmlFile)
   {
     return ::TryXmlDriverType(theIStream);
   }
@@ -164,11 +164,11 @@ TCollection_ExtendedString PCDM_ReadWriter::FileFormat(Standard_IStream&     the
 
   for (Standard_Integer i = 1; i <= theData->HeaderData()->UserInfo().Length(); i++)
   {
-    const TCollection_AsciiString& aLine = theData->HeaderData()->UserInfo().Value(i);
+    const AsciiString1& aLine = theData->HeaderData()->UserInfo().Value(i);
 
     if (aLine.Search(FILE_FORMAT) != -1)
     {
-      aFormat = TCollection_ExtendedString(aLine.Token(" ", 2).ToCString(), Standard_True);
+      aFormat = UtfString(aLine.Token(" ", 2).ToCString(), Standard_True);
     }
   }
 
@@ -180,9 +180,9 @@ TCollection_ExtendedString PCDM_ReadWriter::FileFormat(Standard_IStream&     the
 // purpose  : called from FileFormat()
 //=======================================================================
 
-static TCollection_ExtendedString TryXmlDriverType(const TCollection_AsciiString& theFileName)
+static UtfString TryXmlDriverType(const AsciiString1& theFileName)
 {
-  TCollection_ExtendedString theFormat;
+  UtfString theFormat;
   PCDM_DOMHeaderParser       aParser;
   const char*                aDocumentElementName = "document";
   aParser.SetStartElementName(Standard_CString(aDocumentElementName));
@@ -203,9 +203,9 @@ static TCollection_ExtendedString TryXmlDriverType(const TCollection_AsciiString
 // purpose  : called from FileFormat()
 //=======================================================================
 
-static TCollection_ExtendedString TryXmlDriverType(Standard_IStream& theIStream)
+static UtfString TryXmlDriverType(Standard_IStream& theIStream)
 {
-  TCollection_ExtendedString theFormat;
+  UtfString theFormat;
   PCDM_DOMHeaderParser       aParser;
   const char*                aDocumentElementName = "document";
   aParser.SetStartElementName(Standard_CString(aDocumentElementName));

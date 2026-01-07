@@ -37,7 +37,7 @@ extern Standard_Boolean Draw_Bounds;
 
 //=================================================================================================
 
-DrawTrSurf_Curve2d::DrawTrSurf_Curve2d(const Handle(Geom2d_Curve)& C,
+DrawTrSurf_Curve2d::DrawTrSurf_Curve2d(const Handle(GeomCurve2d)& C,
                                        const Standard_Boolean      DispOrigin)
     : DrawTrSurf_Drawable(50)
 {
@@ -51,8 +51,8 @@ DrawTrSurf_Curve2d::DrawTrSurf_Curve2d(const Handle(Geom2d_Curve)& C,
 
 //=================================================================================================
 
-DrawTrSurf_Curve2d::DrawTrSurf_Curve2d(const Handle(Geom2d_Curve)& C,
-                                       const Draw_Color&           aColor,
+DrawTrSurf_Curve2d::DrawTrSurf_Curve2d(const Handle(GeomCurve2d)& C,
+                                       const DrawColor&           aColor,
                                        const Standard_Integer      Discret,
                                        const Standard_Boolean      DispOrigin,
                                        const Standard_Boolean      DispCurvRadius,
@@ -70,7 +70,7 @@ DrawTrSurf_Curve2d::DrawTrSurf_Curve2d(const Handle(Geom2d_Curve)& C,
 
 //=================================================================================================
 
-void DrawTrSurf_Curve2d::DrawOn(Draw_Display& dis) const
+void DrawTrSurf_Curve2d::DrawOn(DrawDisplay& dis) const
 {
 
   Standard_Real    First    = curv->FirstParameter();
@@ -141,7 +141,7 @@ void DrawTrSurf_Curve2d::DrawOn(Draw_Display& dis) const
     Draw_Bounds = Standard_True;
   }
 
-  // Draw the curvature Radius
+  // Draw1 the curvature Radius
   if (dispcurvradius && (C2d.GetType() != GeomAbs_Line))
   {
     Standard_Integer     ii;
@@ -186,7 +186,7 @@ void DrawTrSurf_Curve2d::DrawOn(Draw_Display& dis) const
 Handle(Draw_Drawable3D) DrawTrSurf_Curve2d::Copy() const
 {
   Handle(DrawTrSurf_Curve2d) DC =
-    new DrawTrSurf_Curve2d(Handle(Geom2d_Curve)::DownCast(curv->Copy()), look, GetDiscretisation());
+    new DrawTrSurf_Curve2d(Handle(GeomCurve2d)::DownCast(curv->Copy()), look, GetDiscretisation());
 
   return DC;
 }
@@ -209,8 +209,8 @@ void DrawTrSurf_Curve2d::Save(Standard_OStream& theStream) const
 
 Handle(Draw_Drawable3D) DrawTrSurf_Curve2d::Restore(Standard_IStream& theStream)
 {
-  const DrawTrSurf_Params&   aParams    = DrawTrSurf::Parameters();
-  Handle(Geom2d_Curve)       aGeomCurve = GeomTools_Curve2dSet::ReadCurve2d(theStream);
+  const DrawTrSurf_Params&   aParams    = DrawTrSurf1::Parameters();
+  Handle(GeomCurve2d)       aGeomCurve = GeomTools_Curve2dSet::ReadCurve2d(theStream);
   Handle(DrawTrSurf_Curve2d) aDrawCurve =
     new DrawTrSurf_Curve2d(aGeomCurve, aParams.CurvColor, aParams.Discret);
   return aDrawCurve;
@@ -218,7 +218,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_Curve2d::Restore(Standard_IStream& theStream)
 
 //=================================================================================================
 
-void DrawTrSurf_Curve2d::Whatis(Draw_Interpretor& S) const
+void DrawTrSurf_Curve2d::Whatis(DrawInterpreter& S) const
 {
   S << "2d curve";
 }

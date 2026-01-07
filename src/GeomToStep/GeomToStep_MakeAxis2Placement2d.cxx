@@ -31,7 +31,7 @@
 //=============================================================================
 GeomToStep_MakeAxis2Placement2d::GeomToStep_MakeAxis2Placement2d(
   const Frame3d&           A,
-  const StepData_Factors& theLocalFactors)
+  const ConversionFactors& theLocalFactors)
 {
   Handle(StepGeom_Axis2Placement2d) Axe;
   Handle(StepGeom_CartesianPoint)   P;
@@ -58,7 +58,7 @@ GeomToStep_MakeAxis2Placement2d::GeomToStep_MakeAxis2Placement2d(
 
 GeomToStep_MakeAxis2Placement2d::GeomToStep_MakeAxis2Placement2d(
   const gp_Ax22d&         A,
-  const StepData_Factors& theLocalFactors)
+  const ConversionFactors& theLocalFactors)
 {
   Handle(StepGeom_Axis2Placement2d) Axe;
   Handle(StepGeom_CartesianPoint)   P;

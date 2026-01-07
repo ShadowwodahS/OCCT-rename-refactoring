@@ -41,9 +41,9 @@ namespace
 // function : EncodeRegul
 // purpose  : INTERNAL to encode regularity on edges
 //=======================================================================
-static Standard_Boolean EncodeRegul(const TopoDS_Shape& theShape)
+static Standard_Boolean EncodeRegul(const TopoShape& theShape)
 {
-  const Standard_Real aToleranceAngle = Interface_Static::RVal("read.encoderegularity.angle");
+  const Standard_Real aToleranceAngle = ExchangeConfig::RVal("read.encoderegularity.angle");
   if (theShape.IsNull())
   {
     return Standard_True;
@@ -69,14 +69,14 @@ static Standard_Boolean EncodeRegul(const TopoDS_Shape& theShape)
 // function : TrimTolerances
 // purpose  : Trims tolerances of the shape according to static parameters
 //=======================================================================
-static void TrimTolerances(const TopoDS_Shape& theShape, const Standard_Real theTolerance)
+static void TrimTolerances(const TopoShape& theShape, const Standard_Real theTolerance)
 {
-  if (Interface_Static::IVal("read.maxprecision.mode") == 1)
+  if (ExchangeConfig::IVal("read.maxprecision.mode") == 1)
   {
     ShapeFix_ShapeTolerance aSFST;
     aSFST.LimitTolerance(theShape,
                          0,
-                         Max(theTolerance, Interface_Static::RVal("read.maxprecision.val")));
+                         Max(theTolerance, ExchangeConfig::RVal("read.maxprecision.val")));
   }
 }
 } // namespace
@@ -123,7 +123,7 @@ Standard_Boolean IGESToBRep_Actor::Recognize(const Handle(RefObject)& start)
   //   Cas reconnus
   Standard_Integer typnum = ent->TypeNumber();
   Standard_Integer fornum = ent->FormNumber();
-  if (IGESToBRep::IsCurveAndSurface(ent)
+  if (IGESToBRep1::IsCurveAndSurface(ent)
       || ((typnum == 402 && (fornum == 1 || fornum == 7 || fornum == 14 || fornum == 15))
           || (typnum == 408) || (typnum == 308)))
     return Standard_True;
@@ -144,15 +144,15 @@ Handle(Transfer_Binder) IGESToBRep_Actor::Transfer(const Handle(RefObject)&     
     return NullResult();
   Standard_Integer anum = mymodel->Number(start);
 
-  if (Interface_Static::IVal("read.iges.faulty.entities") == 0 && mymodel->IsErrorEntity(anum))
+  if (ExchangeConfig::IVal("read.iges.faulty.entities") == 0 && mymodel->IsErrorEntity(anum))
     return NullResult();
-  TopoDS_Shape shape;
+  TopoShape shape;
 
   // Call the transfer only if type is OK.
   Standard_Integer typnum = ent->TypeNumber();
   Standard_Integer fornum = ent->FormNumber();
   Standard_Real    eps;
-  if (IGESToBRep::IsCurveAndSurface(ent)
+  if (IGESToBRep1::IsCurveAndSurface(ent)
       || (typnum == 402 && (fornum == 1 || fornum == 7 || fornum == 14 || fornum == 15))
       || (typnum == 408) || (typnum == 308))
   {
@@ -165,15 +165,15 @@ Handle(Transfer_Binder) IGESToBRep_Actor::Transfer(const Handle(RefObject)&     
     CAS.SetModel(mymodel);
     CAS.SetContinuity(thecontinuity);
     CAS.SetTransferProcess(TP);
-    Standard_Integer Ival = Interface_Static::IVal("read.precision.mode");
+    Standard_Integer Ival = ExchangeConfig::IVal("read.precision.mode");
     if (Ival == 0)
       eps = mymodel->GlobalSection().Resolution();
     else
-      eps = Interface_Static::RVal("read.precision.val"); //: 10 ABV 11 Nov 97
+      eps = ExchangeConfig::RVal("read.precision.val"); //: 10 ABV 11 Nov 97
     //: 10      eps = BRepAPI::Precision();
-    Ival = Interface_Static::IVal("read.iges.bspline.approxd1.mode");
+    Ival = ExchangeConfig::IVal("read.iges.bspline.approxd1.mode");
     CAS.SetModeApprox((Ival > 0));
-    Ival = Interface_Static::IVal("read.surfacecurve.mode");
+    Ival = ExchangeConfig::IVal("read.surfacecurve.mode");
     CAS.SetSurfaceCurve(Ival);
 
     if (eps > 1.E-08)

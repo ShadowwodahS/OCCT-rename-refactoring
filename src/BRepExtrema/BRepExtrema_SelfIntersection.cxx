@@ -28,7 +28,7 @@ BRepExtrema_SelfIntersection::BRepExtrema_SelfIntersection(const Standard_Real t
 
 //=================================================================================================
 
-BRepExtrema_SelfIntersection::BRepExtrema_SelfIntersection(const TopoDS_Shape& theShape,
+BRepExtrema_SelfIntersection::BRepExtrema_SelfIntersection(const TopoShape& theShape,
                                                            const Standard_Real theTolerance)
     : myTolerance(theTolerance)
 {
@@ -37,13 +37,13 @@ BRepExtrema_SelfIntersection::BRepExtrema_SelfIntersection(const TopoDS_Shape& t
 
 //=================================================================================================
 
-Standard_Boolean BRepExtrema_SelfIntersection::LoadShape(const TopoDS_Shape& theShape)
+Standard_Boolean BRepExtrema_SelfIntersection::LoadShape(const TopoShape& theShape)
 {
   myFaceList.Clear();
 
-  for (TopExp_Explorer anIter(theShape, TopAbs_FACE); anIter.More(); anIter.Next())
+  for (ShapeExplorer anIter(theShape, TopAbs_FACE); anIter.More(); anIter.Next())
   {
-    myFaceList.Append(static_cast<const TopoDS_Face&>(anIter.Current()));
+    myFaceList.Append(static_cast<const TopoFace&>(anIter.Current()));
   }
 
   if (myElementSet.IsNull())

@@ -26,8 +26,8 @@
 
 //=================================================================================================
 
-BRepLib_CheckCurveOnSurface::BRepLib_CheckCurveOnSurface(const TopoDS_Edge& theEdge,
-                                                         const TopoDS_Face& theFace)
+BRepLib_CheckCurveOnSurface::BRepLib_CheckCurveOnSurface(const TopoEdge& theEdge,
+                                                         const TopoFace& theFace)
     : myIsParallel(Standard_False)
 {
   Init(theEdge, theFace);
@@ -35,7 +35,7 @@ BRepLib_CheckCurveOnSurface::BRepLib_CheckCurveOnSurface(const TopoDS_Edge& theE
 
 //=================================================================================================
 
-void BRepLib_CheckCurveOnSurface::Init(const TopoDS_Edge& theEdge, const TopoDS_Face& theFace)
+void BRepLib_CheckCurveOnSurface::Init(const TopoEdge& theEdge, const TopoFace& theFace)
 {
   myCOnSurfGeom.Init();
 
@@ -44,7 +44,7 @@ void BRepLib_CheckCurveOnSurface::Init(const TopoDS_Edge& theEdge, const TopoDS_
     return;
   }
   //
-  if (BRep_Tool::Degenerated(theEdge) || !BRep_Tool::IsGeometric(theEdge))
+  if (BRepInspector::Degenerated(theEdge) || !BRepInspector::IsGeometric(theEdge))
   {
     return;
   }
@@ -57,9 +57,9 @@ void BRepLib_CheckCurveOnSurface::Init(const TopoDS_Edge& theEdge, const TopoDS_
   TopLoc_Location aLocation;
   Standard_Real   aFirstParam, aLastParam;
 
-  Handle(Geom2d_Curve) aGeom2dCurve =
-    BRep_Tool::CurveOnSurface(theEdge, theFace, aFirstParam, aLastParam);
-  Handle(Geom_Surface) aGeomSurface = BRep_Tool::Surface(theFace);
+  Handle(GeomCurve2d) aGeom2dCurve =
+    BRepInspector::CurveOnSurface(theEdge, theFace, aFirstParam, aLastParam);
+  Handle(GeomSurface) aGeomSurface = BRepInspector::Surface(theFace);
 
   // 2D curves initialization
   Handle(Adaptor2d_Curve2d) anAdaptorCurve =
@@ -68,10 +68,10 @@ void BRepLib_CheckCurveOnSurface::Init(const TopoDS_Edge& theEdge, const TopoDS_
 
   myAdaptorCurveOnSurface = new Adaptor3d_CurveOnSurface(anAdaptorCurve, aGeomAdaptorSurface);
 
-  if (BRep_Tool::IsClosed(theEdge, theFace))
+  if (BRepInspector::IsClosed(theEdge, theFace))
   {
-    Handle(Geom2d_Curve) aGeom2dReversedCurve =
-      BRep_Tool::CurveOnSurface(TopoDS::Edge(theEdge.Reversed()), theFace, aFirstParam, aLastParam);
+    Handle(GeomCurve2d) aGeom2dReversedCurve =
+      BRepInspector::CurveOnSurface(TopoDS::Edge(theEdge.Reversed()), theFace, aFirstParam, aLastParam);
     Handle(Adaptor2d_Curve2d) anAdaptorReversedCurve =
       new Geom2dAdaptor_Curve(aGeom2dReversedCurve, aFirstParam, aLastParam);
     myAdaptorCurveOnSurface2 =

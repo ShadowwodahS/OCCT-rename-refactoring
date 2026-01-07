@@ -47,7 +47,7 @@ void IMeshTools_MeshBuilder::Perform(const Message_ProgressRange& theRange)
     return;
   }
 
-  Message_ProgressScope aPS(theRange, "Mesh Perform", 10);
+  Message_ProgressScope aPS(theRange, "Mesh1 Perform", 10);
 
   if (aContext->BuildModel())
   {

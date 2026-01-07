@@ -183,7 +183,7 @@ IGESSelect_EditHeader::IGESSelect_EditHeader()
   unitname->StartEnum(1);
   for (i = 1; i <= 11; i++)
     unitname->AddEnumValue(IGESData_BasicEditor::UnitFlagName(i), i);
-  //  similaire a Interface_Static::Static("XSTEP.iges.unit");
+  //  similaire a ExchangeConfig::Static("XSTEP.iges.unit");
   SetValue(16, unitname, "G15:UnitName", IFSelect_Optional);
   Handle(Interface_TypedValue) unitval =
     new Interface_TypedValue("Computed Unit Value", Interface_ParamReal);
@@ -246,9 +246,9 @@ IGESSelect_EditHeader::IGESSelect_EditHeader()
   SetValue(30, proto, "G26:Protocol", IFSelect_Optional);
 }
 
-TCollection_AsciiString IGESSelect_EditHeader::Label() const
+AsciiString1 IGESSelect_EditHeader::Label() const
 {
-  return TCollection_AsciiString("IGES Header");
+  return AsciiString1("IGES Header");
 }
 
 Standard_Boolean IGESSelect_EditHeader::Recognize(const Handle(IFSelect_EditForm)& /*form*/) const

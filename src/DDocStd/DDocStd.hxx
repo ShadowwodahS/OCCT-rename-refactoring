@@ -22,13 +22,13 @@
 
 #include <Standard_Boolean.hxx>
 #include <Draw_Interpretor.hxx>
-class TDocStd_Application;
-class TDocStd_Document;
-class TDF_Label;
+class AppManager;
+class AppDocument;
+class DataLabel;
 class Standard_GUID;
 class TDF_Attribute;
 
-//! This package   provides Draw services to test  CAF
+//! This package   provides Draw1 services to test  CAF
 //! standard documents (see TDocStd package)
 //!
 //! It provides :
@@ -40,25 +40,25 @@ class TDF_Attribute;
 //! * UNDO/REDO
 //!
 //! * Document Creation, Save and Restore
-class DDocStd
+class DDocStd1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns the global instance of application.
-  Standard_EXPORT static const Handle(TDocStd_Application)& GetApplication();
+  Standard_EXPORT static const Handle(AppManager)& GetApplication();
 
   Standard_EXPORT static Standard_Boolean GetDocument(
     Standard_CString&         Name,
-    Handle(TDocStd_Document)& Doc,
+    Handle(AppDocument)& Doc,
     const Standard_Boolean    Complain = Standard_True);
 
-  Standard_EXPORT static Standard_Boolean Find(const Handle(TDocStd_Document)& Document,
+  Standard_EXPORT static Standard_Boolean Find(const Handle(AppDocument)& Document,
                                                const Standard_CString          Entry,
-                                               TDF_Label&                      Label,
+                                               DataLabel&                      Label,
                                                const Standard_Boolean Complain = Standard_True);
 
-  Standard_EXPORT static Standard_Boolean Find(const Handle(TDocStd_Document)& Document,
+  Standard_EXPORT static Standard_Boolean Find(const Handle(AppDocument)& Document,
                                                const Standard_CString          Entry,
                                                const Standard_GUID&            ID,
                                                Handle(TDF_Attribute)&          A,
@@ -66,7 +66,7 @@ public:
 
   //! Safe variant for arbitrary type of argument
   template <class T>
-  static Standard_Boolean Find(const Handle(TDocStd_Document)& Document,
+  static Standard_Boolean Find(const Handle(AppDocument)& Document,
                                const Standard_CString          Entry,
                                const Standard_GUID&            ID,
                                Handle(T)&                      A,
@@ -77,25 +77,25 @@ public:
            && !(A = Handle(T)::DownCast(anAttr)).IsNull();
   }
 
-  Standard_EXPORT static Draw_Interpretor& ReturnLabel(Draw_Interpretor& theCommands,
-                                                       const TDF_Label&  L);
+  Standard_EXPORT static DrawInterpreter& ReturnLabel(DrawInterpreter& theCommands,
+                                                       const DataLabel&  L);
 
-  Standard_EXPORT static void AllCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void AllCommands(DrawInterpreter& theCommands);
 
   //! NewDocument, Open, SaveAs, Save
-  Standard_EXPORT static void ApplicationCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void ApplicationCommands(DrawInterpreter& theCommands);
 
   //! Undo, Redo, SetModified, Propagate
-  Standard_EXPORT static void DocumentCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void DocumentCommands(DrawInterpreter& theCommands);
 
   //! Modified, Update
-  Standard_EXPORT static void ToolsCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void ToolsCommands(DrawInterpreter& theCommands);
 
   //! Create, Add, Remove, Open, Commit, Undo, Redo, SetNestedMode
-  Standard_EXPORT static void MTMCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void MTMCommands(DrawInterpreter& theCommands);
 
   //! ShapeSchema_Read
-  Standard_EXPORT static void ShapeSchemaCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void ShapeSchemaCommands(DrawInterpreter& theCommands);
 };
 
 #endif // _DDocStd_HeaderFile

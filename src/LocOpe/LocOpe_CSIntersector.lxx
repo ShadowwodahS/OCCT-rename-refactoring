@@ -33,7 +33,7 @@ inline LocOpe_CSIntersector::LocOpe_CSIntersector()
 // purpose  :
 //=======================================================================
 
-inline LocOpe_CSIntersector::LocOpe_CSIntersector(const TopoDS_Shape& S)
+inline LocOpe_CSIntersector::LocOpe_CSIntersector(const TopoShape& S)
     : myDone(Standard_False),
       myShape(S),
       myPoints(NULL),

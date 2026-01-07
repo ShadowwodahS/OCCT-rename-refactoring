@@ -22,9 +22,9 @@
 #include <BRepCheck_Status.hxx>
 #include <Standard_OStream.hxx>
 
-class TopoDS_Wire;
-class TopoDS_Face;
-class TopoDS_Edge;
+class TopoWire;
+class TopoFace;
+class TopoEdge;
 class Adaptor3d_Curve;
 
 //! This package  provides tools to check the validity
@@ -38,10 +38,10 @@ public:
 
   Standard_EXPORT static void Print(const BRepCheck_Status Stat, Standard_OStream& OS);
 
-  Standard_EXPORT static Standard_Boolean SelfIntersection(const TopoDS_Wire& W,
-                                                           const TopoDS_Face& F,
-                                                           TopoDS_Edge&       E1,
-                                                           TopoDS_Edge&       E2);
+  Standard_EXPORT static Standard_Boolean SelfIntersection(const TopoWire& W,
+                                                           const TopoFace& F,
+                                                           TopoEdge&       E1,
+                                                           TopoEdge&       E2);
 
   //! Returns the resolution on the 3d curve
   Standard_EXPORT static Standard_Real PrecCurve(const Adaptor3d_Curve& aAC3D);

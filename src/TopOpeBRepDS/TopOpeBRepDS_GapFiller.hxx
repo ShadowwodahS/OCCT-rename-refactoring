@@ -27,9 +27,9 @@ class TopOpeBRepDS_HDataStructure;
 class TopOpeBRepDS_GapTool;
 class TopOpeBRepDS_Association;
 class TopOpeBRepDS_Interference;
-class TopoDS_Shape;
-class TopoDS_Face;
-class TopoDS_Edge;
+class TopoShape;
+class TopoFace;
+class TopoEdge;
 
 class TopOpeBRepDS_GapFiller
 {
@@ -51,32 +51,32 @@ public:
   //! peuvent correspondre a une Point donne.
   Standard_EXPORT Standard_Boolean CheckConnexity(TopOpeBRepDS_ListOfInterference& LI);
 
-  Standard_EXPORT void AddPointsOnShape(const TopoDS_Shape& S, TopOpeBRepDS_ListOfInterference& LI);
+  Standard_EXPORT void AddPointsOnShape(const TopoShape& S, TopOpeBRepDS_ListOfInterference& LI);
 
   //! Methodes pour  reduire la liste des Points qui
   //! peuvent correspondre a une Point donne.
-  Standard_EXPORT void AddPointsOnConnexShape(const TopoDS_Shape&                    F,
+  Standard_EXPORT void AddPointsOnConnexShape(const TopoShape&                    F,
                                               const TopOpeBRepDS_ListOfInterference& LI);
 
-  Standard_EXPORT void FilterByFace(const TopoDS_Face& F, TopOpeBRepDS_ListOfInterference& LI);
+  Standard_EXPORT void FilterByFace(const TopoFace& F, TopOpeBRepDS_ListOfInterference& LI);
 
-  Standard_EXPORT void FilterByEdge(const TopoDS_Edge& E, TopOpeBRepDS_ListOfInterference& LI);
+  Standard_EXPORT void FilterByEdge(const TopoEdge& E, TopOpeBRepDS_ListOfInterference& LI);
 
-  Standard_EXPORT void FilterByIncidentDistance(const TopoDS_Face&                       F,
+  Standard_EXPORT void FilterByIncidentDistance(const TopoFace&                       F,
                                                 const Handle(TopOpeBRepDS_Interference)& I,
                                                 TopOpeBRepDS_ListOfInterference&         LI);
 
   //! Return TRUE si I a ete obtenu par une intersection
   //! avec <F>.
   Standard_EXPORT Standard_Boolean IsOnFace(const Handle(TopOpeBRepDS_Interference)& I,
-                                            const TopoDS_Face&                       F) const;
+                                            const TopoFace&                       F) const;
 
   //! Return TRUE  si I ou une  de  ses representaions a
   //! pour support <E>.
   //! Methodes de  reconstructions des  geometries des point
   //! et des courbes de section
   Standard_EXPORT Standard_Boolean IsOnEdge(const Handle(TopOpeBRepDS_Interference)& I,
-                                            const TopoDS_Edge&                       E) const;
+                                            const TopoEdge&                       E) const;
 
   Standard_EXPORT void BuildNewGeometries();
 

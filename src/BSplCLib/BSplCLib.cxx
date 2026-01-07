@@ -1981,7 +1981,7 @@ Standard_Boolean BSplCLib::PrepareInsertKnots(const Standard_Integer         Deg
   if (Periodic)
   {
     // for periodic B-Spline the requirement is that multiplicities of the first
-    // and last knots must be equal (see Geom_BSplineCurve constructor for
+    // and last knots must be equal (see BSplineCurve3d constructor for
     // instance);
     // respectively AddMults() must meet this requirement if AddKnots() contains
     // knot(s) coincident with first or last

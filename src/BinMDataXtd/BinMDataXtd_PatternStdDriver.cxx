@@ -66,7 +66,7 @@ Standard_Boolean BinMDataXtd_PatternStdDriver::Paste(
   aP->Axis1Reversed((revFlags & 1) != 0);
   aP->Axis2Reversed((revFlags & 2) != 0);
 
-  Handle(TNaming_NamedShape) TNS;
+  Handle(ShapeAttribute) TNS;
   Standard_Integer           aNb;
 
   if (signature == 5) // mirror
@@ -74,10 +74,10 @@ Standard_Boolean BinMDataXtd_PatternStdDriver::Paste(
     if (!(theSource >> aNb))
       return Standard_False;
     if (theRelocTable.IsBound(aNb))
-      TNS = Handle(TNaming_NamedShape)::DownCast(theRelocTable.Find(aNb));
+      TNS = Handle(ShapeAttribute)::DownCast(theRelocTable.Find(aNb));
     else
     {
-      TNS = new TNaming_NamedShape;
+      TNS = new ShapeAttribute;
       theRelocTable.Bind(aNb, TNS);
     }
     aP->Mirror(TNS);
@@ -85,16 +85,16 @@ Standard_Boolean BinMDataXtd_PatternStdDriver::Paste(
   else
   {
     Handle(TDataStd_Real)    TReal;
-    Handle(TDataStd_Integer) TInt;
+    Handle(IntAttribute) TInt;
 
     // axis 1
     if (!(theSource >> aNb))
       return Standard_False;
     if (theRelocTable.IsBound(aNb))
-      TNS = Handle(TNaming_NamedShape)::DownCast(theRelocTable.Find(aNb));
+      TNS = Handle(ShapeAttribute)::DownCast(theRelocTable.Find(aNb));
     else
     {
-      TNS = new TNaming_NamedShape;
+      TNS = new ShapeAttribute;
       theRelocTable.Bind(aNb, TNS);
     }
     aP->Axis1(TNS);
@@ -115,10 +115,10 @@ Standard_Boolean BinMDataXtd_PatternStdDriver::Paste(
     if (!(theSource >> aNb))
       return Standard_False;
     if (theRelocTable.IsBound(aNb))
-      TInt = Handle(TDataStd_Integer)::DownCast(theRelocTable.Find(aNb));
+      TInt = Handle(IntAttribute)::DownCast(theRelocTable.Find(aNb));
     else
     {
-      TInt = new TDataStd_Integer;
+      TInt = new IntAttribute;
       theRelocTable.Bind(aNb, TInt);
     }
     aP->NbInstances1(TInt);
@@ -129,10 +129,10 @@ Standard_Boolean BinMDataXtd_PatternStdDriver::Paste(
       if (!(theSource >> aNb))
         return Standard_False;
       if (theRelocTable.IsBound(aNb))
-        TNS = Handle(TNaming_NamedShape)::DownCast(theRelocTable.Find(aNb));
+        TNS = Handle(ShapeAttribute)::DownCast(theRelocTable.Find(aNb));
       else
       {
-        TNS = new TNaming_NamedShape;
+        TNS = new ShapeAttribute;
         theRelocTable.Bind(aNb, TNS);
       }
       aP->Axis2(TNS);
@@ -153,10 +153,10 @@ Standard_Boolean BinMDataXtd_PatternStdDriver::Paste(
       if (!(theSource >> aNb))
         return Standard_False;
       if (theRelocTable.IsBound(aNb))
-        TInt = Handle(TDataStd_Integer)::DownCast(theRelocTable.Find(aNb));
+        TInt = Handle(IntAttribute)::DownCast(theRelocTable.Find(aNb));
       else
       {
-        TInt = new TDataStd_Integer;
+        TInt = new IntAttribute;
         theRelocTable.Bind(aNb, TInt);
       }
       aP->NbInstances2(TInt);
@@ -193,14 +193,14 @@ void BinMDataXtd_PatternStdDriver::Paste(const Handle(TDF_Attribute)& theSource,
   Standard_Integer aNb;
   if (signature == 5) // mirror
   {
-    Handle(TNaming_NamedShape) Plane = aP->Mirror();
+    Handle(ShapeAttribute) Plane = aP->Mirror();
     aNb                              = theRelocTable.Add(Plane);
     theTarget << aNb;
   }
   else
   {
     // axis 1
-    Handle(TNaming_NamedShape) Axis = aP->Axis1();
+    Handle(ShapeAttribute) Axis = aP->Axis1();
     aNb                             = theRelocTable.Add(Axis);
     theTarget << aNb;
 
@@ -210,7 +210,7 @@ void BinMDataXtd_PatternStdDriver::Paste(const Handle(TDF_Attribute)& theSource,
     theTarget << aNb;
 
     // number of instances 1
-    Handle(TDataStd_Integer) NbInstances = aP->NbInstances1();
+    Handle(IntAttribute) NbInstances = aP->NbInstances1();
     aNb                                  = theRelocTable.Add(NbInstances);
     theTarget << aNb;
 

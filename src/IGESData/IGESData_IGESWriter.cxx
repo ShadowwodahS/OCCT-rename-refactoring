@@ -238,7 +238,7 @@ void IGESData_IGESWriter::DirPart(const Handle(IGESData_IGESEntity)& anent)
   Standard_Integer   nument = themodel->Number(anent);
   if (nument == 0)
     return;
-  IGESData_DirPart& DP = thedirs.ChangeValue(nument);
+  DirectoryPart& DP = thedirs.ChangeValue(nument);
   //                                            Remplissage du DirPart
   v[0] = anent->TypeNumber();
   v[1] = 0; // numero en section P : calcule ulterieurement
@@ -511,7 +511,7 @@ void IGESData_IGESWriter::Send(const Handle(IGESData_IGESEntity)& val,
   Send(num); // qui faut tout, une fois Entity convertie en Integer
 }
 
-void IGESData_IGESWriter::Send(const gp_XY& val)
+void IGESData_IGESWriter::Send(const Coords2d& val)
 {
   Send(val.X());
   Send(val.Y());

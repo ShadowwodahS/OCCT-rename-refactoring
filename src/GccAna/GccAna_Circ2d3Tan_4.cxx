@@ -37,7 +37,7 @@ static Standard_Integer MaxSol = 20;
 //   Creation of a circle tangent to two circles and a point.           +
 //=========================================================================
 
-GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dThreeTangent::Circle2dThreeTangent(const GccEnt_QualifiedCirc& Qualified1,
                                      const GccEnt_QualifiedCirc& Qualified2,
                                      const gp_Pnt2d&             Point3,
                                      const Standard_Real         Tolerance)
@@ -90,8 +90,8 @@ GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedCirc& Qualified1,
   gp_Pnt2d      center2(C2.Location());
 
   TColStd_Array1OfReal  Radius(1, 2);
-  GccAna_Circ2dBisec    Bis1(C1, C2);
-  GccAna_CircPnt2dBisec Bis2(C1, Point3);
+  Circle2dBisector    Bis1(C1, C2);
+  CirclePoint2dBisector Bis2(C1, Point3);
   if (Bis1.IsDone() && Bis2.IsDone())
   {
     Standard_Integer nbsolution1 = Bis1.NbSolutions();

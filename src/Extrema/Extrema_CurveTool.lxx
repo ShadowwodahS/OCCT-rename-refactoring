@@ -265,7 +265,7 @@ inline Standard_Integer Extrema_CurveTool::NbKnots(const Adaptor3d_Curve& C)
 // purpose  :
 //=======================================================================
 
-inline Handle(Geom_BezierCurve) Extrema_CurveTool::Bezier(const Adaptor3d_Curve& C)
+inline Handle(BezierCurve3d) Extrema_CurveTool::Bezier(const Adaptor3d_Curve& C)
 {
   return C.Bezier();
 }
@@ -275,7 +275,7 @@ inline Handle(Geom_BezierCurve) Extrema_CurveTool::Bezier(const Adaptor3d_Curve&
 // purpose  :
 //=======================================================================
 
-inline Handle(Geom_BSplineCurve) Extrema_CurveTool::BSpline(const Adaptor3d_Curve& C)
+inline Handle(BSplineCurve3d) Extrema_CurveTool::BSpline(const Adaptor3d_Curve& C)
 {
   return C.BSpline();
 }

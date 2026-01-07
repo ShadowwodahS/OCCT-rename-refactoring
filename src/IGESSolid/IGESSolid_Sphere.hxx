@@ -28,7 +28,7 @@ class IGESSolid_Sphere;
 DEFINE_STANDARD_HANDLE(IGESSolid_Sphere, IGESData_IGESEntity)
 
 //! defines Sphere, Type <158> Form Number <0>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! This defines a sphere with a center and radius
 class IGESSolid_Sphere : public IGESData_IGESEntity
 {

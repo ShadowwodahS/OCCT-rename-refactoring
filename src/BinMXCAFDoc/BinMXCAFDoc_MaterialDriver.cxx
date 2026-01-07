@@ -47,7 +47,7 @@ Standard_Boolean BinMXCAFDoc_MaterialDriver::Paste(
 {
   Handle(XCAFDoc_Material) anAtt = Handle(XCAFDoc_Material)::DownCast(theTarget);
   Standard_Real            aDensity;
-  TCollection_AsciiString  aName, aDescr, aDensName, aDensValType;
+  AsciiString1  aName, aDescr, aDensName, aDensValType;
   if (!(theSource >> aName >> aDescr >> aDensity >> aDensName >> aDensValType))
     return Standard_False;
 
@@ -64,7 +64,7 @@ static void pasteString(BinObjMgt_Persistent& theTarget, Handle(TCollection_HAsc
   if (!theStr.IsNull())
     theTarget << theStr->String();
   else
-    theTarget << TCollection_AsciiString("");
+    theTarget << AsciiString1("");
 }
 
 //=================================================================================================

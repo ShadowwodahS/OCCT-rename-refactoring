@@ -27,7 +27,7 @@ class IGESAppli_DrilledHole;
 DEFINE_STANDARD_HANDLE(IGESAppli_DrilledHole, IGESData_IGESEntity)
 
 //! defines DrilledHole, Type <406> Form <6>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Identifies an entity representing a drilled hole
 //! through a printed circuit board.
 class IGESAppli_DrilledHole : public IGESData_IGESEntity

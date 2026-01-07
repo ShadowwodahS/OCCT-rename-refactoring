@@ -64,7 +64,7 @@ Standard_Boolean BinMDataStd_IntegerListDriver::Paste(
     }
   }
 
-  BinMDataStd::SetAttributeID(theSource,
+  BinMDataStd1::SetAttributeID(theSource,
                               anAtt,
                               theRelocTable.GetHeaderData()->StorageVersion().IntegerValue());
   return Standard_True;

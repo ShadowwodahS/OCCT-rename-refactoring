@@ -49,7 +49,7 @@ Bisector_BisecPC::Bisector_BisecPC()
 
 //=================================================================================================
 
-Bisector_BisecPC::Bisector_BisecPC(const Handle(Geom2d_Curve)& Cu,
+Bisector_BisecPC::Bisector_BisecPC(const Handle(GeomCurve2d)& Cu,
                                    const gp_Pnt2d&             P,
                                    const Standard_Real         Side,
                                    const Standard_Real         DistMax)
@@ -59,14 +59,14 @@ Bisector_BisecPC::Bisector_BisecPC(const Handle(Geom2d_Curve)& Cu,
 
 //=================================================================================================
 
-Bisector_BisecPC::Bisector_BisecPC(const Handle(Geom2d_Curve)& Cu,
+Bisector_BisecPC::Bisector_BisecPC(const Handle(GeomCurve2d)& Cu,
                                    const gp_Pnt2d&             P,
                                    const Standard_Real         Side,
                                    const Standard_Real         UMin,
                                    const Standard_Real         UMax)
 
 {
-  curve = Handle(Geom2d_Curve)::DownCast(Cu->Copy());
+  curve = Handle(GeomCurve2d)::DownCast(Cu->Copy());
   point = P;
   sign  = Side;
   startIntervals.Append(UMin);
@@ -81,12 +81,12 @@ Bisector_BisecPC::Bisector_BisecPC(const Handle(Geom2d_Curve)& Cu,
 
 //=================================================================================================
 
-void Bisector_BisecPC::Perform(const Handle(Geom2d_Curve)& Cu,
+void Bisector_BisecPC::Perform(const Handle(GeomCurve2d)& Cu,
                                const gp_Pnt2d&             P,
                                const Standard_Real         Side,
                                const Standard_Real         DistMax)
 {
-  curve    = Handle(Geom2d_Curve)::DownCast(Cu->Copy());
+  curve    = Handle(GeomCurve2d)::DownCast(Cu->Copy());
   point    = P;
   distMax  = DistMax;
   sign     = Side;
@@ -160,7 +160,7 @@ Standard_Real Bisector_BisecPC::ReversedParameter(const Standard_Real U) const
 
 Handle(Geom2d_Geometry) Bisector_BisecPC::Copy() const
 {
-  Handle(Geom2d_Curve)     CopyC = Handle(Geom2d_Curve)::DownCast(curve->Copy());
+  Handle(GeomCurve2d)     CopyC = Handle(GeomCurve2d)::DownCast(curve->Copy());
   Handle(Bisector_BisecPC) C     = new Bisector_BisecPC();
 
   C->Init(CopyC,
@@ -438,7 +438,7 @@ void Bisector_BisecPC::Values(const Standard_Real    U,
 
 // Unused :
 #ifdef OCCT_DEBUG_CUR
-static Standard_Real Curvature(const Handle(Geom2d_Curve)& C, Standard_Real U, Standard_Real Tol)
+static Standard_Real Curvature(const Handle(GeomCurve2d)& C, Standard_Real U, Standard_Real Tol)
 {
   Standard_Real K1;
   gp_Vec2d      D1, D2;
@@ -809,7 +809,7 @@ static void Indent(const Standard_Integer Offset)
 
 //=================================================================================================
 
-void Bisector_BisecPC::Init(const Handle(Geom2d_Curve)&   Curve,
+void Bisector_BisecPC::Init(const Handle(GeomCurve2d)&   Curve,
                             const gp_Pnt2d&               Point,
                             const Standard_Real           Sign,
                             const TColStd_SequenceOfReal& StartIntervals,

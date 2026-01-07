@@ -44,7 +44,7 @@ Standard_Boolean Storage_TypeData::Read(const Handle(Storage_BaseDriver)& theDri
   }
 
   Standard_Integer        aTypeNum;
-  TCollection_AsciiString aTypeName;
+  AsciiString1 aTypeName;
 
   Standard_Integer len = theDriver->TypeSectionSize();
   for (Standard_Integer i = 1; i <= len; i++)
@@ -79,7 +79,7 @@ Standard_Integer Storage_TypeData::NumberOfTypes() const
   return myPt.Extent();
 }
 
-Standard_Boolean Storage_TypeData::IsType(const TCollection_AsciiString& aName) const
+Standard_Boolean Storage_TypeData::IsType(const AsciiString1& aName) const
 {
   return myPt.Contains(aName);
 }
@@ -97,15 +97,15 @@ Handle(TColStd_HSequenceOfAsciiString) Storage_TypeData::Types() const
   return r;
 }
 
-void Storage_TypeData::AddType(const TCollection_AsciiString& aName,
+void Storage_TypeData::AddType(const AsciiString1& aName,
                                const Standard_Integer         aTypeNum)
 {
   myPt.Add(aName, aTypeNum);
 }
 
-TCollection_AsciiString Storage_TypeData::Type(const Standard_Integer aTypeNum) const
+AsciiString1 Storage_TypeData::Type(const Standard_Integer aTypeNum) const
 {
-  TCollection_AsciiString r;
+  AsciiString1 r;
 
   if (aTypeNum <= myPt.Extent() && aTypeNum > 0)
   {
@@ -119,7 +119,7 @@ TCollection_AsciiString Storage_TypeData::Type(const Standard_Integer aTypeNum) 
   return r;
 }
 
-Standard_Integer Storage_TypeData::Type(const TCollection_AsciiString& aTypeName) const
+Standard_Integer Storage_TypeData::Type(const AsciiString1& aTypeName) const
 {
   Standard_Integer r = 0;
 
@@ -156,12 +156,12 @@ void Storage_TypeData::ClearErrorStatus()
   myErrorStatusExt.Clear();
 }
 
-TCollection_AsciiString Storage_TypeData::ErrorStatusExtension() const
+AsciiString1 Storage_TypeData::ErrorStatusExtension() const
 {
   return myErrorStatusExt;
 }
 
-void Storage_TypeData::SetErrorStatusExtension(const TCollection_AsciiString& anErrorExt)
+void Storage_TypeData::SetErrorStatusExtension(const AsciiString1& anErrorExt)
 {
   myErrorStatusExt = anErrorExt;
 }

@@ -108,7 +108,7 @@ public:
   //!        theWidth, theHeight [in] view properties used for computation of
   //!        bounding boxes within the world view camera space.
   BVHBuilderAdaptorPersistent(ObjectsMap&                     theObjects,
-                              const Handle(Graphic3d_Camera)& theCamera,
+                              const Handle(CameraOn3d)& theCamera,
                               const Graphic3d_Mat4d&          theProjectionMat,
                               const Graphic3d_Mat4d&          theWorldViewMat,
                               const Graphic3d_Vec2i&          theWinSize)
@@ -356,7 +356,7 @@ void SelectMgr_SelectableObjectSet::ChangeSubset(
 
 //=================================================================================================
 
-void SelectMgr_SelectableObjectSet::UpdateBVH(const Handle(Graphic3d_Camera)& theCam,
+void SelectMgr_SelectableObjectSet::UpdateBVH(const Handle(CameraOn3d)& theCam,
                                               const Graphic3d_Vec2i&          theWinSize)
 {
   // -----------------------------------------
@@ -429,9 +429,9 @@ void SelectMgr_SelectableObjectSet::UpdateBVH(const Handle(Graphic3d_Camera)& th
             || isWinSizeChanged))
     {
       // clang-format off
-      Handle(Graphic3d_Camera) aNewOrthoCam = new Graphic3d_Camera (*theCam); // If OrthoPers, copy camera and set to orthographic projection
+      Handle(CameraOn3d) aNewOrthoCam = new CameraOn3d (*theCam); // If OrthoPers, copy camera and set to orthographic projection
       // clang-format on
-      aNewOrthoCam->SetProjectionType(Graphic3d_Camera::Projection_Orthographic);
+      aNewOrthoCam->SetProjectionType(CameraOn3d::Projection_Orthographic);
 
       // construct adaptor over private fields to provide direct access for the BVH builder
       BVHBuilderAdaptorPersistent anAdaptor(myObjects[BVHSubset_ortho3dPersistent],
@@ -454,9 +454,9 @@ void SelectMgr_SelectableObjectSet::UpdateBVH(const Handle(Graphic3d_Camera)& th
             || myLastViewState.IsProjectionChanged(aViewState) || isWinSizeChanged))
     {
       // clang-format off
-      Handle(Graphic3d_Camera) aNewOrthoCam = new Graphic3d_Camera (*theCam); // If OrthoPers, copy camera and set to orthographic projection
+      Handle(CameraOn3d) aNewOrthoCam = new CameraOn3d (*theCam); // If OrthoPers, copy camera and set to orthographic projection
       // clang-format on
-      aNewOrthoCam->SetProjectionType(Graphic3d_Camera::Projection_Orthographic);
+      aNewOrthoCam->SetProjectionType(CameraOn3d::Projection_Orthographic);
 
       // construct adaptor over private fields to provide direct access for the BVH builder
       BVHBuilderAdaptorPersistent anAdaptor(myObjects[BVHSubset_ortho2dPersistent],
@@ -516,7 +516,7 @@ void SelectMgr_SelectableObjectSet::DumpJson(Standard_OStream& theOStream, Stand
       OCCT_DUMP_FIELD_VALUE_POINTER(theOStream, SelectableObject.get())
     }
 
-    TCollection_AsciiString separator;
+    AsciiString1 separator;
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, separator)
   }
   OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, myLastWinSize.x())

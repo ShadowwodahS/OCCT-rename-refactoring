@@ -25,7 +25,7 @@
 #include <Message_ProgressIndicator.hxx>
 
 class CDM_Document;
-class TCollection_ExtendedString;
+class UtfString;
 
 class PCDM_Writer;
 DEFINE_STANDARD_HANDLE(PCDM_Writer, RefObject)
@@ -35,7 +35,7 @@ class PCDM_Writer : public RefObject
 public:
   Standard_EXPORT virtual void Write(
     const Handle(CDM_Document)&       aDocument,
-    const TCollection_ExtendedString& aFileName,
+    const UtfString& aFileName,
     const Message_ProgressRange&      theRange = Message_ProgressRange()) = 0;
 
   //! Write <theDocument> to theOStream

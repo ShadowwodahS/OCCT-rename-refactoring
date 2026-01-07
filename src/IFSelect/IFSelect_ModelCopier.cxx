@@ -57,7 +57,7 @@ void IFSelect_ModelCopier::ClearResult()
   theremain.Nullify();
 }
 
-Standard_Boolean IFSelect_ModelCopier::AddFile(const TCollection_AsciiString&          filename,
+Standard_Boolean IFSelect_ModelCopier::AddFile(const AsciiString1&          filename,
                                                const Handle(Interface_InterfaceModel)& content)
 {
   Standard_Integer nb = thefilenames.Length();
@@ -76,7 +76,7 @@ Standard_Boolean IFSelect_ModelCopier::AddFile(const TCollection_AsciiString&   
 }
 
 Standard_Boolean IFSelect_ModelCopier::NameFile(const Standard_Integer         num,
-                                                const TCollection_AsciiString& filename)
+                                                const AsciiString1& filename)
 {
   Standard_Integer nb = thefilenames.Length();
   if (num <= 0 || num > nb)
@@ -147,7 +147,7 @@ Interface_CheckIterator IFSelect_ModelCopier::Copying(IFSelect_ShareOutResult&  
   for (eval.Evaluate(); eval.More(); eval.Next())
   {
     Handle(Interface_InterfaceModel) model;
-    TCollection_AsciiString          filename = eval.FileName();
+    AsciiString1          filename = eval.FileName();
     Standard_Integer                 dispnum  = eval.DispatchRank();
     Standard_Integer                 numod, nbmod;
     eval.PacketsInDispatch(numod, nbmod);
@@ -239,7 +239,7 @@ Interface_CheckIterator IFSelect_ModelCopier::Sending(IFSelect_ShareOutResult&  
   {
     i++;
     Handle(Interface_InterfaceModel) model;
-    TCollection_AsciiString          filename = eval.FileName();
+    AsciiString1          filename = eval.FileName();
     Standard_Integer                 dispnum  = eval.DispatchRank();
     Standard_Integer                 numod, nbmod;
     eval.PacketsInDispatch(numod, nbmod);
@@ -307,7 +307,7 @@ Interface_CheckIterator IFSelect_ModelCopier::SendAll(const Standard_CString    
               WL,
               protocol,
               pipo,
-              TCollection_AsciiString(filename),
+              AsciiString1(filename),
               0,
               0,
               TC,
@@ -370,7 +370,7 @@ Interface_CheckIterator IFSelect_ModelCopier::SendSelected(
               WL,
               protocol,
               pipo,
-              TCollection_AsciiString(filename),
+              AsciiString1(filename),
               0,
               0,
               TC,
@@ -406,7 +406,7 @@ void IFSelect_ModelCopier::CopiedModel(const Interface_Graph&              G,
                                        const Handle(IFSelect_WorkLibrary)& WL,
                                        const Handle(Interface_Protocol)&   protocol,
                                        const Interface_EntityIterator&     tocopy,
-                                       const TCollection_AsciiString&      filename,
+                                       const AsciiString1&      filename,
                                        const Standard_Integer              dispnum,
                                        const Standard_Integer /* numod */,
                                        Interface_CopyTool&                TC,
@@ -591,7 +591,7 @@ Standard_Integer IFSelect_ModelCopier::NbFiles() const
   return thefilemodels.Length();
 }
 
-TCollection_AsciiString IFSelect_ModelCopier::FileName(const Standard_Integer num) const
+AsciiString1 IFSelect_ModelCopier::FileName(const Standard_Integer num) const
 {
   return thefilenames.Value(num);
 }

@@ -23,7 +23,7 @@
 
 namespace
 {
-static const TCollection_AsciiString THE_EMPTY_KEY;
+static const AsciiString1 THE_EMPTY_KEY;
 }
 
 //=================================================================================================
@@ -46,13 +46,13 @@ void OpenGl_AspectsSprite::Release(OpenGl_Context* theCtx)
     else
     {
       {
-        const TCollection_AsciiString aSpriteKey = mySprite->ResourceId();
+        const AsciiString1 aSpriteKey = mySprite->ResourceId();
         mySprite.Nullify(); // we need nullify all handles before ReleaseResource() call
         theCtx->ReleaseResource(aSpriteKey, Standard_True);
       }
       if (!mySpriteA.IsNull())
       {
-        const TCollection_AsciiString aSpriteKeyA = mySpriteA->ResourceId();
+        const AsciiString1 aSpriteKeyA = mySpriteA->ResourceId();
         mySpriteA.Nullify();
         theCtx->ReleaseResource(aSpriteKeyA, Standard_True);
       }
@@ -90,16 +90,16 @@ bool OpenGl_AspectsSprite::IsDisplayListSprite(const Handle(OpenGl_Context)&    
 void OpenGl_AspectsSprite::UpdateRediness(const Handle(Graphic3d_Aspects)& theAspect)
 {
   // update sprite resource bindings
-  TCollection_AsciiString aSpriteKeyNew, aSpriteAKeyNew;
+  AsciiString1 aSpriteKeyNew, aSpriteAKeyNew;
   spriteKeys(theAspect->MarkerImage(),
              theAspect->MarkerType(),
              theAspect->MarkerScale(),
              theAspect->ColorRGBA(),
              aSpriteKeyNew,
              aSpriteAKeyNew);
-  const TCollection_AsciiString& aSpriteKeyOld =
+  const AsciiString1& aSpriteKeyOld =
     !mySprite.IsNull() ? mySprite->ResourceId() : THE_EMPTY_KEY;
-  const TCollection_AsciiString& aSpriteAKeyOld =
+  const AsciiString1& aSpriteAKeyOld =
     !mySpriteA.IsNull() ? mySpriteA->ResourceId() : THE_EMPTY_KEY;
   if (aSpriteKeyNew.IsEmpty() || aSpriteKeyOld != aSpriteKeyNew || aSpriteAKeyNew.IsEmpty()
       || aSpriteAKeyOld != aSpriteAKeyNew)
@@ -139,12 +139,12 @@ void OpenGl_AspectsSprite::build(const Handle(OpenGl_Context)&        theCtx,
                                  Standard_ShortReal&                  theMarkerSize)
 {
   // generate key for shared resource
-  TCollection_AsciiString aNewKey, aNewKeyA;
+  AsciiString1 aNewKey, aNewKeyA;
   spriteKeys(theMarkerImage, theType, theScale, theColor, aNewKey, aNewKeyA);
 
-  const TCollection_AsciiString& aSpriteKeyOld =
+  const AsciiString1& aSpriteKeyOld =
     !mySprite.IsNull() ? mySprite->ResourceId() : THE_EMPTY_KEY;
-  const TCollection_AsciiString& aSpriteAKeyOld =
+  const AsciiString1& aSpriteAKeyOld =
     !mySpriteA.IsNull() ? mySpriteA->ResourceId() : THE_EMPTY_KEY;
 
   // release old shared resources
@@ -160,7 +160,7 @@ void OpenGl_AspectsSprite::build(const Handle(OpenGl_Context)&        theCtx,
       }
       else
       {
-        const TCollection_AsciiString anOldKey = mySprite->ResourceId();
+        const AsciiString1 anOldKey = mySprite->ResourceId();
         mySprite.Nullify(); // we need nullify all handles before ReleaseResource() call
         theCtx->ReleaseResource(anOldKey, Standard_True);
       }
@@ -177,7 +177,7 @@ void OpenGl_AspectsSprite::build(const Handle(OpenGl_Context)&        theCtx,
       }
       else
       {
-        const TCollection_AsciiString anOldKey = mySpriteA->ResourceId();
+        const AsciiString1 anOldKey = mySpriteA->ResourceId();
         mySpriteA.Nullify(); // we need nullify all handles before ReleaseResource() call
         theCtx->ReleaseResource(anOldKey, Standard_True);
       }
@@ -348,8 +348,8 @@ void OpenGl_AspectsSprite::spriteKeys(const Handle(Graphic3d_MarkerImage)& theMa
                                       Aspect_TypeOfMarker                  theType,
                                       Standard_ShortReal                   theScale,
                                       const Graphic3d_Vec4&                theColor,
-                                      TCollection_AsciiString&             theKey,
-                                      TCollection_AsciiString&             theKeyA)
+                                      AsciiString1&             theKey,
+                                      AsciiString1&             theKeyA)
 {
   // generate key for shared resource
   if (theType == Aspect_TOM_USERDEFINED)
@@ -364,7 +364,7 @@ void OpenGl_AspectsSprite::spriteKeys(const Handle(Graphic3d_MarkerImage)& theMa
   {
     // predefined markers are defined with 0.5 step
     const Standard_Integer aScale = Standard_Integer(theScale * 10.0f + 0.5f);
-    theKey  = TCollection_AsciiString("OpenGl_AspectMarker") + theType + "_" + aScale;
+    theKey  = AsciiString1("OpenGl_AspectMarker") + theType + "_" + aScale;
     theKeyA = theKey + "A";
     if (theType == Aspect_TOM_BALL)
     {

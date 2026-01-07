@@ -23,7 +23,7 @@
 #include <Prs3d_NListOfSequenceOfPnt.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class Poly_Triangulation;
+class MeshTriangulation;
 
 //! The Prs3d package provides the following services
 //! -   a presentation object (the context for all
@@ -54,11 +54,11 @@ public:
                                                        Standard_Real&      dist);
 
   //! Computes the absolute deflection value based on relative deflection
-  //! Prs3d_Drawer::DeviationCoefficient().
+  //! StyleDrawer::DeviationCoefficient().
   //! @param[in] theBndMin  bounding box min corner
   //! @param[in] theBndMax  bounding box max corner
   //! @param[in] theDeviationCoefficient  relative deflection coefficient from
-  //! Prs3d_Drawer::DeviationCoefficient()
+  //! StyleDrawer::DeviationCoefficient()
   //! @return absolute deflection coefficient based on bounding box dimensions
   static Standard_Real GetDeflection(const Graphic3d_Vec3d& theBndMin,
                                      const Graphic3d_Vec3d& theBndMax,
@@ -69,12 +69,12 @@ public:
   }
 
   //! Computes the absolute deflection value based on relative deflection
-  //! Prs3d_Drawer::DeviationCoefficient().
+  //! StyleDrawer::DeviationCoefficient().
   //! @param[in] theBndBox  bounding box
   //! @param[in] theDeviationCoefficient  relative deflection coefficient from
-  //! Prs3d_Drawer::DeviationCoefficient()
+  //! StyleDrawer::DeviationCoefficient()
   //! @param[in] theMaximalChordialDeviation  absolute deflection coefficient from
-  //! Prs3d_Drawer::MaximalChordialDeviation()
+  //! StyleDrawer::MaximalChordialDeviation()
   //! @return absolute deflection coefficient based on bounding box dimensions or
   //! theMaximalChordialDeviation if bounding box is Void or Infinite
   static Standard_Real GetDeflection(const Bnd_Box&      theBndBox,
@@ -117,7 +117,7 @@ public:
   //! @param[in] thePolyTri    triangulation to process
   //! @param[in] theLocation   transformation to apply
   Standard_EXPORT static void AddFreeEdges(TColgp_SequenceOfPnt&             theSegments,
-                                           const Handle(Poly_Triangulation)& thePolyTri,
+                                           const Handle(MeshTriangulation)& thePolyTri,
                                            const Transform3d&                    theLocation);
 };
 

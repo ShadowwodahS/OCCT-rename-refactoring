@@ -23,16 +23,16 @@
 #include <Standard_Integer.hxx>
 #include <Standard_OStream.hxx>
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 
 class TDataXtd_Triangulation;
 DEFINE_STANDARD_HANDLE(TDataXtd_Triangulation, TDF_Attribute)
 
-//! An Ocaf attribute containing a mesh (Poly_Triangulation).
-//! It duplicates all methods from Poly_Triangulation.
+//! An Ocaf attribute containing a mesh (MeshTriangulation).
+//! It duplicates all methods from MeshTriangulation.
 //! It is highly recommended to modify the mesh through the methods of this attribute,
-//! but not directly via the underlying Poly_Triangulation object.
+//! but not directly via the underlying MeshTriangulation object.
 //! In this case Undo/Redo will work fine and robust.
 class TDataXtd_Triangulation : public TDF_Attribute
 {
@@ -44,13 +44,13 @@ public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
   //! Finds or creates a triangulation attribute.
-  Standard_EXPORT static Handle(TDataXtd_Triangulation) Set(const TDF_Label& theLabel);
+  Standard_EXPORT static Handle(TDataXtd_Triangulation) Set(const DataLabel& theLabel);
 
   //! Finds or creates a triangulation attribute.
-  //! Initializes the attribute by a Poly_Triangulation object.
+  //! Initializes the attribute by a MeshTriangulation object.
   Standard_EXPORT static Handle(TDataXtd_Triangulation) Set(
-    const TDF_Label&                  theLabel,
-    const Handle(Poly_Triangulation)& theTriangulation);
+    const DataLabel&                  theLabel,
+    const Handle(MeshTriangulation)& theTriangulation);
 
   //! Object methods
   //  ==============
@@ -62,16 +62,16 @@ public:
   Standard_EXPORT TDataXtd_Triangulation();
 
   //! Sets the triangulation.
-  Standard_EXPORT void Set(const Handle(Poly_Triangulation)& theTriangulation);
+  Standard_EXPORT void Set(const Handle(MeshTriangulation)& theTriangulation);
 
   //! Returns the underlying triangulation.
-  Standard_EXPORT const Handle(Poly_Triangulation)& Get() const;
+  Standard_EXPORT const Handle(MeshTriangulation)& Get() const;
 
-  //! Poly_Triangulation methods
+  //! MeshTriangulation methods
   //  =================
 
   //! The methods are "covered" by this attribute to prevent direct modification of the mesh.
-  //! There is no performance problem to call Poly_Triangulation method through this attribute.
+  //! There is no performance problem to call MeshTriangulation method through this attribute.
   //! The most of the methods are considered as "inline" by the compiler in release mode.
 
   //! Returns the deflection of this triangulation.
@@ -97,7 +97,7 @@ public:
   //! Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than NbNodes.
   Standard_EXPORT Point3d Node(const Standard_Integer theIndex) const;
 
-  //! The method differs from Poly_Triangulation!
+  //! The method differs from MeshTriangulation!
   //! Sets a node at the given index.
   //! Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than NbNodes.
   Standard_EXPORT void SetNode(const Standard_Integer theIndex, const Point3d& theNode);
@@ -106,7 +106,7 @@ public:
   //! Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than NbNodes.
   Standard_EXPORT gp_Pnt2d UVNode(const Standard_Integer theIndex) const;
 
-  //! The method differs from Poly_Triangulation!
+  //! The method differs from MeshTriangulation!
   //! Sets a UVNode at the given index.
   //! Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than NbNodes.
   Standard_EXPORT void SetUVNode(const Standard_Integer theIndex, const gp_Pnt2d& theUVNode);
@@ -115,7 +115,7 @@ public:
   //! Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than NbTriangles.
   Standard_EXPORT Poly_Triangle Triangle(const Standard_Integer theIndex) const;
 
-  //! The method differs from Poly_Triangulation!
+  //! The method differs from MeshTriangulation!
   //! Sets a triangle at the given index.
   //! Raises Standard_OutOfRange exception if theIndex is less than 1 or greater than NbTriangles.
   Standard_EXPORT void SetTriangle(const Standard_Integer theIndex,
@@ -149,7 +149,7 @@ public:
   DEFINE_STANDARD_RTTI_INLINE(TDataXtd_Triangulation, TDF_Attribute)
 
 private:
-  Handle(Poly_Triangulation) myTriangulation;
+  Handle(MeshTriangulation) myTriangulation;
 };
 
 #endif // _TDataXtd_Triangulation_HeaderFile

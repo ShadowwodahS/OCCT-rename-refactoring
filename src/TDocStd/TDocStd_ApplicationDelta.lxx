@@ -28,7 +28,7 @@ inline TDocStd_SequenceOfDocument& TDocStd_ApplicationDelta::GetDocuments()
 // purpose  :
 //=======================================================================
 
-inline const TCollection_ExtendedString& TDocStd_ApplicationDelta::GetName() const
+inline const UtfString& TDocStd_ApplicationDelta::GetName() const
 {
   return myName;
 }
@@ -38,7 +38,7 @@ inline const TCollection_ExtendedString& TDocStd_ApplicationDelta::GetName() con
 // purpose  :
 //=======================================================================
 
-inline void TDocStd_ApplicationDelta::SetName(const TCollection_ExtendedString& theName)
+inline void TDocStd_ApplicationDelta::SetName(const UtfString& theName)
 {
   myName = theName;
 }

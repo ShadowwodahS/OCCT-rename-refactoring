@@ -28,7 +28,7 @@ class Point3d;
 class Vector3d;
 
 //! Provides  the required  methods    to instantiate
-//! CGProps from GProp with a Curve from BRepAdaptor.
+//! CGProps from GProp1 with a Curve from BRepAdaptor.
 class BRepGProp_EdgeTool
 {
 public:

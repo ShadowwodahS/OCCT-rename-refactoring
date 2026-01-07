@@ -26,8 +26,8 @@
 #include <TopoDS_Wire.hxx>
 #include <BRepFeat_Form.hxx>
 #include <Standard_Integer.hxx>
-class Geom_Curve;
-class TopoDS_Edge;
+class GeomCurve3d;
+class TopoEdge;
 
 //! Constructs compound shapes with pipe
 //! features. These can be depressions or protrusions.
@@ -63,10 +63,10 @@ public:
   //! The sketch face Skface serves to determine
   //! the type of operation. If it is inside the basis
   //! shape, a local operation such as glueing can be performed.
-  BRepFeat_MakePipe(const TopoDS_Shape&    Sbase,
-                    const TopoDS_Shape&    Pbase,
-                    const TopoDS_Face&     Skface,
-                    const TopoDS_Wire&     Spine,
+  BRepFeat_MakePipe(const TopoShape&    Sbase,
+                    const TopoShape&    Pbase,
+                    const TopoFace&     Skface,
+                    const TopoWire&     Spine,
                     const Standard_Integer Fuse,
                     const Standard_Boolean Modify);
 
@@ -79,40 +79,40 @@ public:
   //! The sketch face Skface serves to determine
   //! the type of operation. If it is inside the basis
   //! shape, a local operation such as glueing can be performed.
-  Standard_EXPORT void Init(const TopoDS_Shape&    Sbase,
-                            const TopoDS_Shape&    Pbase,
-                            const TopoDS_Face&     Skface,
-                            const TopoDS_Wire&     Spine,
+  Standard_EXPORT void Init(const TopoShape&    Sbase,
+                            const TopoShape&    Pbase,
+                            const TopoFace&     Skface,
+                            const TopoWire&     Spine,
                             const Standard_Integer Fuse,
                             const Standard_Boolean Modify);
 
   //! Indicates that the edge <E> will slide on the face
   //! <OnFace>. Raises ConstructionError  if the  face does not belong to the
   //! basis shape, or the edge to the prismed shape.
-  Standard_EXPORT void Add(const TopoDS_Edge& E, const TopoDS_Face& OnFace);
+  Standard_EXPORT void Add(const TopoEdge& E, const TopoFace& OnFace);
 
   Standard_EXPORT void Perform();
 
-  Standard_EXPORT void Perform(const TopoDS_Shape& Until);
+  Standard_EXPORT void Perform(const TopoShape& Until);
 
   //! Assigns one of the following semantics
   //! -   to a face Until
   //! -   from a face From to a height Until.
   //! Reconstructs the feature topologically according to the semantic option chosen.
-  Standard_EXPORT void Perform(const TopoDS_Shape& From, const TopoDS_Shape& Until);
+  Standard_EXPORT void Perform(const TopoShape& From, const TopoShape& Until);
 
   Standard_EXPORT void Curves(TColGeom_SequenceOfCurve& S);
 
-  Standard_EXPORT Handle(Geom_Curve) BarycCurve();
+  Standard_EXPORT Handle(GeomCurve3d) BarycCurve();
 
 protected:
 private:
-  TopoDS_Shape                       myPbase;
-  TopoDS_Face                        mySkface;
+  TopoShape                       myPbase;
+  TopoFace                        mySkface;
   TopTools_DataMapOfShapeListOfShape mySlface;
-  TopoDS_Wire                        mySpine;
+  TopoWire                        mySpine;
   TColGeom_SequenceOfCurve           myCurves;
-  Handle(Geom_Curve)                 myBCurve;
+  Handle(GeomCurve3d)                 myBCurve;
 };
 
 #include <BRepFeat_MakePipe.lxx>

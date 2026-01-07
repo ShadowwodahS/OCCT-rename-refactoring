@@ -82,7 +82,7 @@ void IVtkOCC_SelectableObject::SetShape(const IVtkOCC_Shape::Handle& theShape)
 // Method:  ComputeSelection
 // Purpose:
 //============================================================================
-void IVtkOCC_SelectableObject::ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+void IVtkOCC_SelectableObject::ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                                 const Standard_Integer             theMode)
 {
   if (myShape.IsNull())
@@ -90,15 +90,15 @@ void IVtkOCC_SelectableObject::ComputeSelection(const Handle(SelectMgr_Selection
     return;
   }
 
-  const TopoDS_Shape& anOcctShape = myShape->GetShape();
+  const TopoShape& anOcctShape = myShape->GetShape();
   if (anOcctShape.ShapeType() == TopAbs_COMPOUND && anOcctShape.NbChildren() == 0)
   {
     // Shape empty -> go away
     return;
   }
 
-  const TopAbs_ShapeEnum      aTypeOfSel = AIS_Shape::SelectionType(theMode);
-  const Handle(Prs3d_Drawer)& aDrawer    = myShape->Attributes();
+  const TopAbs_ShapeEnum      aTypeOfSel = VisualShape::SelectionType(theMode);
+  const Handle(StyleDrawer)& aDrawer    = myShape->Attributes();
   const Standard_Real         aDeflection =
     StdPrs_ToolTriangulatedShape::GetDeflection(anOcctShape, aDrawer);
   try
@@ -114,7 +114,7 @@ void IVtkOCC_SelectableObject::ComputeSelection(const Handle(SelectMgr_Selection
   }
   catch (const ExceptionBase& anException)
   {
-    Message::SendFail(TCollection_AsciiString("Error: IVtkOCC_SelectableObject::ComputeSelection(")
+    Message::SendFail(AsciiString1("Error: IVtkOCC_SelectableObject::ComputeSelection(")
                       + theMode + ") has failed (" + anException.GetMessageString() + ")");
     if (theMode == 0)
     {
@@ -138,7 +138,7 @@ const Bnd_Box& IVtkOCC_SelectableObject::BoundingBox()
     return myBndBox;
   }
 
-  const TopoDS_Shape& anOcctShape = myShape->GetShape();
+  const TopoShape& anOcctShape = myShape->GetShape();
   if (anOcctShape.ShapeType() == TopAbs_COMPOUND && anOcctShape.NbChildren() == 0)
   {
     // Shape empty -> nothing to do

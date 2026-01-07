@@ -27,7 +27,7 @@ class IGESData_IGESReaderData;
 class IGESData_ParamReader;
 class IGESData_IGESWriter;
 class Interface_EntityIterator;
-class IGESData_DirChecker;
+class DirectoryChecker;
 class Interface_ShareTool;
 class Interface_Check;
 class Interface_CopyTool;
@@ -35,13 +35,13 @@ class IGESData_IGESDumper;
 
 //! Tool to work on a OrderedGroupWithoutBackP. Called by various Modules
 //! (ReadWriteModule, GeneralModule, SpecificModule)
-class IGESBasic_ToolOrderedGroupWithoutBackP
+class OrderedGroupWithoutBackPTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns a ToolOrderedGroupWithoutBackP, ready to work
-  Standard_EXPORT IGESBasic_ToolOrderedGroupWithoutBackP();
+  Standard_EXPORT OrderedGroupWithoutBackPTool();
 
   //! Reads own parameters from file. <PR> gives access to them,
   //! <IR> detains parameter types and values
@@ -64,7 +64,7 @@ public:
     OwnCorrect(const Handle(IGESBasic_OrderedGroupWithoutBackP)& ent) const;
 
   //! Returns specific DirChecker
-  Standard_EXPORT IGESData_DirChecker
+  Standard_EXPORT DirectoryChecker
     DirChecker(const Handle(IGESBasic_OrderedGroupWithoutBackP)& ent) const;
 
   //! Performs Specific Semantic Check

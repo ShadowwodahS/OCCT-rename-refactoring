@@ -33,7 +33,7 @@ class IGESAppli_PipingFlow;
 DEFINE_STANDARD_HANDLE(IGESAppli_PipingFlow, IGESData_IGESEntity)
 
 //! defines PipingFlow, Type <402> Form <20>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Represents a single fluid flow path
 class IGESAppli_PipingFlow : public IGESData_IGESEntity
 {

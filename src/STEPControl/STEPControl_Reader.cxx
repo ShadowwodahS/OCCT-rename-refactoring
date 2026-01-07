@@ -66,7 +66,7 @@
 
 //=================================================================================================
 
-STEPControl_Reader::STEPControl_Reader()
+StepFileReader::StepFileReader()
 {
   STEPControl_Controller::Init();
   SetNorm("STEP");
@@ -74,7 +74,7 @@ STEPControl_Reader::STEPControl_Reader()
 
 //=================================================================================================
 
-STEPControl_Reader::STEPControl_Reader(const Handle(XSControl_WorkSession)& WS,
+StepFileReader::StepFileReader(const Handle(ExchangeSession)& WS,
                                        const Standard_Boolean               scratch)
 {
   STEPControl_Controller::Init();
@@ -84,14 +84,14 @@ STEPControl_Reader::STEPControl_Reader(const Handle(XSControl_WorkSession)& WS,
 
 //=================================================================================================
 
-Handle(StepData_StepModel) STEPControl_Reader::StepModel() const
+Handle(StepData_StepModel) StepFileReader::StepModel() const
 {
   return Handle(StepData_StepModel)::DownCast(Model());
 }
 
 //=================================================================================================
 
-IFSelect_ReturnStatus STEPControl_Reader::ReadFile(const Standard_CString filename)
+IFSelect_ReturnStatus StepFileReader::ReadFile(const Standard_CString filename)
 {
   Handle(IFSelect_WorkLibrary) aLibrary  = WS()->WorkLibrary();
   Handle(Interface_Protocol)   aProtocol = WS()->Protocol();
@@ -134,7 +134,7 @@ IFSelect_ReturnStatus STEPControl_Reader::ReadFile(const Standard_CString filena
 
 //=================================================================================================
 
-IFSelect_ReturnStatus STEPControl_Reader::ReadFile(const Standard_CString   filename,
+IFSelect_ReturnStatus StepFileReader::ReadFile(const Standard_CString   filename,
                                                    const DESTEP_Parameters& theParams)
 {
   Handle(IFSelect_WorkLibrary) aLibrary  = WS()->WorkLibrary();
@@ -178,7 +178,7 @@ IFSelect_ReturnStatus STEPControl_Reader::ReadFile(const Standard_CString   file
 
 //=================================================================================================
 
-IFSelect_ReturnStatus STEPControl_Reader::ReadStream(const Standard_CString theName,
+IFSelect_ReturnStatus StepFileReader::ReadStream(const Standard_CString theName,
                                                      std::istream&          theIStream)
 {
   Handle(IFSelect_WorkLibrary) aLibrary  = WS()->WorkLibrary();
@@ -222,7 +222,7 @@ IFSelect_ReturnStatus STEPControl_Reader::ReadStream(const Standard_CString theN
 
 //=================================================================================================
 
-IFSelect_ReturnStatus STEPControl_Reader::ReadStream(const Standard_CString   theName,
+IFSelect_ReturnStatus StepFileReader::ReadStream(const Standard_CString   theName,
                                                      const DESTEP_Parameters& theParams,
                                                      std::istream&            theIStream)
 {
@@ -267,7 +267,7 @@ IFSelect_ReturnStatus STEPControl_Reader::ReadStream(const Standard_CString   th
 
 //=================================================================================================
 
-Standard_Boolean STEPControl_Reader::TransferRoot(const Standard_Integer       num,
+Standard_Boolean StepFileReader::TransferRoot(const Standard_Integer       num,
                                                   const Message_ProgressRange& theProgress)
 {
   return TransferOneRoot(num, theProgress);
@@ -275,7 +275,7 @@ Standard_Boolean STEPControl_Reader::TransferRoot(const Standard_Integer       n
 
 //=================================================================================================
 
-Standard_Integer STEPControl_Reader::NbRootsForTransfer()
+Standard_Integer StepFileReader::NbRootsForTransfer()
 {
   if (therootsta)
     return theroots.Length();
@@ -338,7 +338,7 @@ Standard_Integer STEPControl_Reader::NbRootsForTransfer()
         if (iSexclude)
         {
 #ifdef OCCT_DEBUG
-          std::cout << "Warning: STEPControl_Reader::NbRootsForTransfer exclude PDWAD from roots"
+          std::cout << "Warning: StepFileReader::NbRootsForTransfer exclude PDWAD from roots"
                     << std::endl;
 #endif
           continue;
@@ -363,7 +363,7 @@ Standard_Integer STEPControl_Reader::NbRootsForTransfer()
       {
         DESTEP_Parameters::ReadMode_ProductContext aProdContMode =
           aStepModel->InternalParameters.ReadProductContext;
-        TCollection_AsciiString str1 = aStepModel->InternalParameters.GetString(aProdContMode);
+        AsciiString1 str1 = aStepModel->InternalParameters.GetString(aProdContMode);
         Standard_Integer        ICS  = aStepModel->InternalParameters.ReadProductContext;
         if (ICS > 1)
         {
@@ -528,7 +528,7 @@ Standard_Integer STEPControl_Reader::NbRootsForTransfer()
 
 //=================================================================================================
 
-void STEPControl_Reader::FileUnits(TColStd_SequenceOfAsciiString& theUnitLengthNames,
+void StepFileReader::FileUnits(TColStd_SequenceOfAsciiString& theUnitLengthNames,
                                    TColStd_SequenceOfAsciiString& theUnitAngleNames,
                                    TColStd_SequenceOfAsciiString& theUnitSolidAngleNames)
 {
@@ -648,7 +648,7 @@ void STEPControl_Reader::FileUnits(TColStd_SequenceOfAsciiString& theUnitLengthN
 
 //=================================================================================================
 
-void STEPControl_Reader::SetSystemLengthUnit(const Standard_Real theLengthUnit)
+void StepFileReader::SetSystemLengthUnit(const Standard_Real theLengthUnit)
 {
   if (StepModel().IsNull())
   {
@@ -659,7 +659,7 @@ void STEPControl_Reader::SetSystemLengthUnit(const Standard_Real theLengthUnit)
 
 //=================================================================================================
 
-Standard_Real STEPControl_Reader::SystemLengthUnit() const
+Standard_Real StepFileReader::SystemLengthUnit() const
 {
   if (StepModel().IsNull())
   {
@@ -670,10 +670,10 @@ Standard_Real STEPControl_Reader::SystemLengthUnit() const
 
 //=================================================================================================
 
-inline static TCollection_AsciiString getSiName(const Handle(StepBasic_SiUnit)& theUnit)
+inline static AsciiString1 getSiName(const Handle(StepBasic_SiUnit)& theUnit)
 {
 
-  TCollection_AsciiString aName;
+  AsciiString1 aName;
   if (theUnit->HasPrefix())
   {
     switch (theUnit->Prefix())
@@ -752,14 +752,14 @@ inline static TCollection_AsciiString getSiName(const Handle(StepBasic_SiUnit)& 
 
 //=================================================================================================
 
-DE_ShapeFixParameters STEPControl_Reader::GetDefaultShapeFixParameters() const
+ShapeFixParameters StepFileReader::GetDefaultShapeFixParameters() const
 {
   return DESTEP_Parameters::GetDefaultShapeFixParameters();
 }
 
 //=================================================================================================
 
-ShapeProcess::OperationsFlags STEPControl_Reader::GetDefaultShapeProcessFlags() const
+ShapeProcess::OperationsFlags StepFileReader::GetDefaultShapeProcessFlags() const
 {
   ShapeProcess::OperationsFlags aFlags;
   aFlags.set(ShapeProcess::Operation::FixShape);
@@ -768,7 +768,7 @@ ShapeProcess::OperationsFlags STEPControl_Reader::GetDefaultShapeProcessFlags() 
 
 //=================================================================================================
 
-Standard_Boolean STEPControl_Reader::findUnits(
+Standard_Boolean StepFileReader::findUnits(
   const Handle(StepRepr_RepresentationContext)& theRepCont,
   TColStd_Array1OfAsciiString&                  theNameUnits,
   TColStd_Array1OfReal&                         theFactorUnits)
@@ -804,7 +804,7 @@ Standard_Boolean STEPControl_Reader::findUnits(
     Handle(StepBasic_ConversionBasedUnit) aConvUnit =
       Handle(StepBasic_ConversionBasedUnit)::DownCast(aNamedUnit);
     Standard_Integer        anInd = 0;
-    TCollection_AsciiString aName;
+    AsciiString1 aName;
     Standard_Real           anUnitFact = 0;
     if (!aConvUnit.IsNull())
     {

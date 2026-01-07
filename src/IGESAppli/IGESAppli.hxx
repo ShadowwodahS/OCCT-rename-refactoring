@@ -25,7 +25,7 @@ class IGESAppli_Protocol;
 
 //! This package represents collection of miscellaneous
 //! entities from IGES
-class IGESAppli
+class IGESAppli1
 {
 public:
   DEFINE_STANDARD_ALLOC

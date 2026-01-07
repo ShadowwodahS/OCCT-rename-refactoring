@@ -34,9 +34,9 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESSolid_ToolBlock::IGESSolid_ToolBlock() {}
+BlockTool::BlockTool() {}
 
-void IGESSolid_ToolBlock::ReadOwnParams(const Handle(IGESSolid_Block)& ent,
+void BlockTool::ReadOwnParams(const Handle(IGESSolid_Block)& ent,
                                         const Handle(IGESData_IGESReaderData)& /* IR */,
                                         IGESData_ParamReader& PR) const
 {
@@ -147,7 +147,7 @@ void IGESSolid_ToolBlock::ReadOwnParams(const Handle(IGESSolid_Block)& ent,
     PR.AddWarning("ZAxis poorly unitary, normalized");
 }
 
-void IGESSolid_ToolBlock::WriteOwnParams(const Handle(IGESSolid_Block)& ent,
+void BlockTool::WriteOwnParams(const Handle(IGESSolid_Block)& ent,
                                          IGESData_IGESWriter&           IW) const
 {
   IW.Send(ent->Size().X());
@@ -164,12 +164,12 @@ void IGESSolid_ToolBlock::WriteOwnParams(const Handle(IGESSolid_Block)& ent,
   IW.Send(ent->ZAxis().Z());
 }
 
-void IGESSolid_ToolBlock::OwnShared(const Handle(IGESSolid_Block)& /* ent */,
+void BlockTool::OwnShared(const Handle(IGESSolid_Block)& /* ent */,
                                     Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESSolid_ToolBlock::OwnCopy(const Handle(IGESSolid_Block)& another,
+void BlockTool::OwnCopy(const Handle(IGESSolid_Block)& another,
                                   const Handle(IGESSolid_Block)& ent,
                                   Interface_CopyTool& /* TC */) const
 {
@@ -179,9 +179,9 @@ void IGESSolid_ToolBlock::OwnCopy(const Handle(IGESSolid_Block)& another,
             another->ZAxis().XYZ());
 }
 
-IGESData_DirChecker IGESSolid_ToolBlock::DirChecker(const Handle(IGESSolid_Block)& /* ent */) const
+DirectoryChecker BlockTool::DirChecker(const Handle(IGESSolid_Block)& /* ent */) const
 {
-  IGESData_DirChecker DC(150, 0);
+  DirectoryChecker DC(150, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.Color(IGESData_DefAny);
@@ -190,7 +190,7 @@ IGESData_DirChecker IGESSolid_ToolBlock::DirChecker(const Handle(IGESSolid_Block
   return DC;
 }
 
-void IGESSolid_ToolBlock::OwnCheck(const Handle(IGESSolid_Block)& ent,
+void BlockTool::OwnCheck(const Handle(IGESSolid_Block)& ent,
                                    const Interface_ShareTool&,
                                    Handle(Interface_Check)& ach) const
 {
@@ -202,7 +202,7 @@ void IGESSolid_ToolBlock::OwnCheck(const Handle(IGESSolid_Block)& ent,
     ach->AddFail("Size : Not positive lengths");
 }
 
-void IGESSolid_ToolBlock::OwnDump(const Handle(IGESSolid_Block)& ent,
+void BlockTool::OwnDump(const Handle(IGESSolid_Block)& ent,
                                   const IGESData_IGESDumper& /* dumper */,
                                   Standard_OStream&      S,
                                   const Standard_Integer level) const

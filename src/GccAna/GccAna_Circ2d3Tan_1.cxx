@@ -33,7 +33,7 @@
 //=========================================================================
 //   Creation of a circle tangent to two circles and a straight line.     +
 //=========================================================================
-GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dThreeTangent::Circle2dThreeTangent(const GccEnt_QualifiedCirc& Qualified1,
                                      const GccEnt_QualifiedCirc& Qualified2,
                                      const GccEnt_QualifiedLin&  Qualified3,
                                      const Standard_Real         Tolerance)
@@ -93,8 +93,8 @@ GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedCirc& Qualified1,
   gp_Dir2d normL3(-dir3.Y(), dir3.X());
 
   TColStd_Array1OfReal  Radius(1, 2);
-  GccAna_CircLin2dBisec Bis1(C1, L3);
-  GccAna_CircLin2dBisec Bis2(C2, L3);
+  CircleLine2dBisector Bis1(C1, L3);
+  CircleLine2dBisector Bis2(C2, L3);
   if (Bis1.IsDone() && Bis2.IsDone())
   {
     Standard_Integer nbsolution1 = Bis1.NbSolutions();
@@ -381,7 +381,7 @@ GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedCirc& Qualified1,
                   TheSame3(NbrSol) = 0;
                   gp_Dir2d      dc(L3.Location().XY() - Center.XY());
                   Standard_Real sign = dc.Dot(gp_Dir2d(-L3.Direction().Y(), L3.Direction().X()));
-                  dc = gp_Dir2d(sign * gp_XY(-L3.Direction().Y(), L3.Direction().X()));
+                  dc = gp_Dir2d(sign * Coords2d(-L3.Direction().Y(), L3.Direction().X()));
                   pnttg3sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius(ind3) * dc.XY());
                   par3sol(NbrSol)   = ElCLib::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
                   pararg3(NbrSol)   = ElCLib::Parameter(L3, pnttg3sol(NbrSol));

@@ -29,7 +29,7 @@ class Aspect_Window;
 class Graphic3d_CView;
 class Graphic3d_Layer;
 class Graphic3d_StructureManager;
-class TCollection_AsciiString;
+class AsciiString1;
 
 DEFINE_STANDARD_HANDLE(Graphic3d_GraphicDriver, RefObject)
 
@@ -86,7 +86,7 @@ public:
 
   //! Returns information about GPU memory usage.
   virtual Standard_Boolean MemoryInfo(Standard_Size&           theFreeBytes,
-                                      TCollection_AsciiString& theInfo) const = 0;
+                                      AsciiString1& theInfo) const = 0;
 
   virtual Standard_ShortReal DefaultTextHeight() const = 0;
 

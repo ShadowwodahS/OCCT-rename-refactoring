@@ -31,9 +31,9 @@
 #include <Interface_Macros.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESSolid_ToolSphericalSurface::IGESSolid_ToolSphericalSurface() {}
+SphericalSurfaceTool::SphericalSurfaceTool() {}
 
-void IGESSolid_ToolSphericalSurface::ReadOwnParams(const Handle(IGESSolid_SphericalSurface)& ent,
+void SphericalSurfaceTool::ReadOwnParams(const Handle(IGESSolid_SphericalSurface)& ent,
                                                    const Handle(IGESData_IGESReaderData)&    IR,
                                                    IGESData_ParamReader& PR) const
 {
@@ -70,7 +70,7 @@ void IGESSolid_ToolSphericalSurface::ReadOwnParams(const Handle(IGESSolid_Spheri
   ent->Init(tempCenter, tempRadius, tempAxis, tempRefdir);
 }
 
-void IGESSolid_ToolSphericalSurface::WriteOwnParams(const Handle(IGESSolid_SphericalSurface)& ent,
+void SphericalSurfaceTool::WriteOwnParams(const Handle(IGESSolid_SphericalSurface)& ent,
                                                     IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->Center());
@@ -82,7 +82,7 @@ void IGESSolid_ToolSphericalSurface::WriteOwnParams(const Handle(IGESSolid_Spher
   }
 }
 
-void IGESSolid_ToolSphericalSurface::OwnShared(const Handle(IGESSolid_SphericalSurface)& ent,
+void SphericalSurfaceTool::OwnShared(const Handle(IGESSolid_SphericalSurface)& ent,
                                                Interface_EntityIterator&                 iter) const
 {
   iter.GetOneItem(ent->Center());
@@ -90,7 +90,7 @@ void IGESSolid_ToolSphericalSurface::OwnShared(const Handle(IGESSolid_SphericalS
   iter.GetOneItem(ent->ReferenceDir());
 }
 
-void IGESSolid_ToolSphericalSurface::OwnCopy(const Handle(IGESSolid_SphericalSurface)& another,
+void SphericalSurfaceTool::OwnCopy(const Handle(IGESSolid_SphericalSurface)& another,
                                              const Handle(IGESSolid_SphericalSurface)& ent,
                                              Interface_CopyTool&                       TC) const
 {
@@ -110,10 +110,10 @@ void IGESSolid_ToolSphericalSurface::OwnCopy(const Handle(IGESSolid_SphericalSur
   }
 }
 
-IGESData_DirChecker IGESSolid_ToolSphericalSurface::DirChecker(
+DirectoryChecker SphericalSurfaceTool::DirChecker(
   const Handle(IGESSolid_SphericalSurface)& /*ent*/) const
 {
-  IGESData_DirChecker DC(196, 0, 1);
+  DirectoryChecker DC(196, 0, 1);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
@@ -125,7 +125,7 @@ IGESData_DirChecker IGESSolid_ToolSphericalSurface::DirChecker(
   return DC;
 }
 
-void IGESSolid_ToolSphericalSurface::OwnCheck(const Handle(IGESSolid_SphericalSurface)& ent,
+void SphericalSurfaceTool::OwnCheck(const Handle(IGESSolid_SphericalSurface)& ent,
                                               const Interface_ShareTool&,
                                               Handle(Interface_Check)& ach) const
 {
@@ -141,7 +141,7 @@ void IGESSolid_ToolSphericalSurface::OwnCheck(const Handle(IGESSolid_SphericalSu
       ach->AddFail("Parametrised Spherical Surface : no Axis is defined");
 }
 
-void IGESSolid_ToolSphericalSurface::OwnDump(const Handle(IGESSolid_SphericalSurface)& ent,
+void SphericalSurfaceTool::OwnDump(const Handle(IGESSolid_SphericalSurface)& ent,
                                              const IGESData_IGESDumper&                dumper,
                                              Standard_OStream&                         S,
                                              const Standard_Integer                    level) const

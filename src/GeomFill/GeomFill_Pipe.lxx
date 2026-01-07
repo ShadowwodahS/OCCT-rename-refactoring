@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline const Handle(Geom_Surface)& GeomFill_Pipe::Surface() const
+inline const Handle(GeomSurface)& GeomFill_Pipe::Surface() const
 {
   return mySurface;
 }

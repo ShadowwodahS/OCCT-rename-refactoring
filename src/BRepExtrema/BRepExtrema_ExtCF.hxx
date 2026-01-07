@@ -23,8 +23,8 @@
 #include <Extrema_POnSurf.hxx>
 #include <Standard_DefineAlloc.hxx>
 
-class TopoDS_Edge;
-class TopoDS_Face;
+class TopoEdge;
+class TopoFace;
 
 class BRepExtrema_ExtCF
 {
@@ -34,12 +34,12 @@ public:
   BRepExtrema_ExtCF() {}
 
   //! It calculates all the distances. <br>
-  Standard_EXPORT BRepExtrema_ExtCF(const TopoDS_Edge& E, const TopoDS_Face& F);
+  Standard_EXPORT BRepExtrema_ExtCF(const TopoEdge& E, const TopoFace& F);
 
-  Standard_EXPORT void Initialize(const TopoDS_Edge& E, const TopoDS_Face& F);
+  Standard_EXPORT void Initialize(const TopoEdge& E, const TopoFace& F);
   //! An exception is raised if the fields have not been initialized. <br>
   //! Be careful: this method uses the Face only for classify not for the fields. <br>
-  Standard_EXPORT void Perform(const TopoDS_Edge& E, const TopoDS_Face& F);
+  Standard_EXPORT void Perform(const TopoEdge& E, const TopoFace& F);
 
   //! True if the distances are found. <br>
   Standard_Boolean IsDone() const { return myExtCS.IsDone(); }

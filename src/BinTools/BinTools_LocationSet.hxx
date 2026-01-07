@@ -34,13 +34,13 @@ Standard_OStream& operator<<(Standard_OStream& OS, const Transform3d& T);
 //! It can be created from Locations.
 //!
 //! It can create Locations.
-class BinTools_LocationSet
+class LocationBinarySet
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns an empty set of locations.
-  Standard_EXPORT BinTools_LocationSet();
+  Standard_EXPORT LocationBinarySet();
 
   //! Clears the content of the set.
   Standard_EXPORT void Clear();

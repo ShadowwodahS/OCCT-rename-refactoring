@@ -25,21 +25,21 @@
 
 //=================================================================================================
 
-static Handle(Geom2d_Curve) Project(const Handle(Geom_Curve)& M, const gp_Ax3& Axis)
+static Handle(GeomCurve2d) Project(const Handle(GeomCurve3d)& M, const gp_Ax3& Axis)
 {
-  Handle(Geom2d_Curve) C;
-  C = GeomProjLib::Curve2d(M, new Geom_Plane(Axis));
+  Handle(GeomCurve2d) C;
+  C = GeomProjLib::Curve2d(M, new GeomPlane(Axis));
   return C;
 }
 
-static Handle(Geom2d_Curve) Project(const Handle(Geom_Curve)& M)
+static Handle(GeomCurve2d) Project(const Handle(GeomCurve3d)& M)
 {
   return Project(M, Frame3d(gp::Origin(), -gp::DY(), gp::DX()));
 }
 
 //=================================================================================================
 
-BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Handle(Geom_Curve)& Meridian)
+BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Handle(GeomCurve3d)& Meridian)
     : myRevolution(gp::XOY(),
                    Meridian->FirstParameter(),
                    Meridian->LastParameter(),
@@ -50,7 +50,7 @@ BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Handle(Geom_Curve)&
 
 //=================================================================================================
 
-BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Handle(Geom_Curve)& Meridian,
+BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Handle(GeomCurve3d)& Meridian,
                                                        const Standard_Real       angle)
     : myRevolution(Frame3d(Point3d(0, 0, 0), Dir3d(0, 0, 1), Dir3d(1, 0, 0)),
                    Meridian->FirstParameter(),
@@ -63,7 +63,7 @@ BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Handle(Geom_Curve)&
 
 //=================================================================================================
 
-BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Handle(Geom_Curve)& Meridian,
+BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Handle(GeomCurve3d)& Meridian,
                                                        const Standard_Real       VMin,
                                                        const Standard_Real       VMax)
     : myRevolution(Frame3d(Point3d(0, 0, 0), Dir3d(0, 0, 1), Dir3d(1, 0, 0)),
@@ -76,7 +76,7 @@ BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Handle(Geom_Curve)&
 
 //=================================================================================================
 
-BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Handle(Geom_Curve)& Meridian,
+BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Handle(GeomCurve3d)& Meridian,
                                                        const Standard_Real       VMin,
                                                        const Standard_Real       VMax,
                                                        const Standard_Real       angle)
@@ -92,7 +92,7 @@ BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Handle(Geom_Curve)&
 //=================================================================================================
 
 BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Frame3d&             Axes,
-                                                       const Handle(Geom_Curve)& Meridian)
+                                                       const Handle(GeomCurve3d)& Meridian)
     : myRevolution(Axes,
                    Meridian->FirstParameter(),
                    Meridian->LastParameter(),
@@ -104,7 +104,7 @@ BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Frame3d&           
 //=================================================================================================
 
 BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Frame3d&             Axes,
-                                                       const Handle(Geom_Curve)& Meridian,
+                                                       const Handle(GeomCurve3d)& Meridian,
                                                        const Standard_Real       angle)
     : myRevolution(Axes,
                    Meridian->FirstParameter(),
@@ -118,7 +118,7 @@ BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Frame3d&           
 //=================================================================================================
 
 BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Frame3d&             Axes,
-                                                       const Handle(Geom_Curve)& Meridian,
+                                                       const Handle(GeomCurve3d)& Meridian,
                                                        const Standard_Real       VMin,
                                                        const Standard_Real       VMax)
     : myRevolution(Axes, VMin, VMax, Meridian, Project(Meridian))
@@ -128,7 +128,7 @@ BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Frame3d&           
 //=================================================================================================
 
 BRepPrimAPI_MakeRevolution::BRepPrimAPI_MakeRevolution(const Frame3d&             Axes,
-                                                       const Handle(Geom_Curve)& Meridian,
+                                                       const Handle(GeomCurve3d)& Meridian,
                                                        const Standard_Real       VMin,
                                                        const Standard_Real       VMax,
                                                        const Standard_Real       angle)

@@ -13,7 +13,7 @@
 
 #include <Vrml_Texture2Transform.hxx>
 
-Vrml_Texture2Transform::Vrml_Texture2Transform()
+Texture2Transform::Texture2Transform()
 {
   gp_Vec2d tmpVec(0, 0);
   myTranslation = tmpVec;
@@ -25,7 +25,7 @@ Vrml_Texture2Transform::Vrml_Texture2Transform()
   myScaleFactor = tmpVec;
 }
 
-Vrml_Texture2Transform::Vrml_Texture2Transform(const gp_Vec2d&     aTranslation,
+Texture2Transform::Texture2Transform(const gp_Vec2d&     aTranslation,
                                                const Standard_Real aRotation,
                                                const gp_Vec2d&     aScaleFactor,
                                                const gp_Vec2d&     aCenter)
@@ -36,47 +36,47 @@ Vrml_Texture2Transform::Vrml_Texture2Transform(const gp_Vec2d&     aTranslation,
   myCenter      = aCenter;
 }
 
-void Vrml_Texture2Transform::SetTranslation(const gp_Vec2d& aTranslation)
+void Texture2Transform::SetTranslation(const gp_Vec2d& aTranslation)
 {
   myTranslation = aTranslation;
 }
 
-gp_Vec2d Vrml_Texture2Transform::Translation() const
+gp_Vec2d Texture2Transform::Translation() const
 {
   return myTranslation;
 }
 
-void Vrml_Texture2Transform::SetRotation(const Standard_Real aRotation)
+void Texture2Transform::SetRotation(const Standard_Real aRotation)
 {
   myRotation = aRotation;
 }
 
-Standard_Real Vrml_Texture2Transform::Rotation() const
+Standard_Real Texture2Transform::Rotation() const
 {
   return myRotation;
 }
 
-void Vrml_Texture2Transform::SetScaleFactor(const gp_Vec2d& aScaleFactor)
+void Texture2Transform::SetScaleFactor(const gp_Vec2d& aScaleFactor)
 {
   myScaleFactor = aScaleFactor;
 }
 
-gp_Vec2d Vrml_Texture2Transform::ScaleFactor() const
+gp_Vec2d Texture2Transform::ScaleFactor() const
 {
   return myScaleFactor;
 }
 
-void Vrml_Texture2Transform::SetCenter(const gp_Vec2d& aCenter)
+void Texture2Transform::SetCenter(const gp_Vec2d& aCenter)
 {
   myCenter = aCenter;
 }
 
-gp_Vec2d Vrml_Texture2Transform::Center() const
+gp_Vec2d Texture2Transform::Center() const
 {
   return myCenter;
 }
 
-Standard_OStream& Vrml_Texture2Transform::Print(Standard_OStream& anOStream) const
+Standard_OStream& Texture2Transform::Print(Standard_OStream& anOStream) const
 {
   anOStream << "Texture2Transform {\n";
 

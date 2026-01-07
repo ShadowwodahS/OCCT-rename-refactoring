@@ -25,7 +25,7 @@ GeomTools_UndefinedTypeHandler::GeomTools_UndefinedTypeHandler() {}
 
 //=================================================================================================
 
-void GeomTools_UndefinedTypeHandler::PrintCurve(const Handle(Geom_Curve)& /*C*/,
+void GeomTools_UndefinedTypeHandler::PrintCurve(const Handle(GeomCurve3d)& /*C*/,
                                                 Standard_OStream&      OS,
                                                 const Standard_Boolean compact) const
 {
@@ -39,14 +39,14 @@ void GeomTools_UndefinedTypeHandler::PrintCurve(const Handle(Geom_Curve)& /*C*/,
 
 Standard_IStream& GeomTools_UndefinedTypeHandler::ReadCurve(const Standard_Integer /*ctype*/,
                                                             Standard_IStream& IS,
-                                                            Handle(Geom_Curve)& /*C*/) const
+                                                            Handle(GeomCurve3d)& /*C*/) const
 {
   return IS;
 }
 
 //=================================================================================================
 
-void GeomTools_UndefinedTypeHandler::PrintCurve2d(const Handle(Geom2d_Curve)& /*C*/,
+void GeomTools_UndefinedTypeHandler::PrintCurve2d(const Handle(GeomCurve2d)& /*C*/,
                                                   Standard_OStream&      OS,
                                                   const Standard_Boolean compact) const
 {
@@ -60,14 +60,14 @@ void GeomTools_UndefinedTypeHandler::PrintCurve2d(const Handle(Geom2d_Curve)& /*
 
 Standard_IStream& GeomTools_UndefinedTypeHandler::ReadCurve2d(const Standard_Integer /*ctype*/,
                                                               Standard_IStream& IS,
-                                                              Handle(Geom2d_Curve)& /*C*/) const
+                                                              Handle(GeomCurve2d)& /*C*/) const
 {
   return IS;
 }
 
 //=================================================================================================
 
-void GeomTools_UndefinedTypeHandler::PrintSurface(const Handle(Geom_Surface)& /*S*/,
+void GeomTools_UndefinedTypeHandler::PrintSurface(const Handle(GeomSurface)& /*S*/,
                                                   Standard_OStream&      OS,
                                                   const Standard_Boolean compact) const
 {
@@ -79,7 +79,7 @@ void GeomTools_UndefinedTypeHandler::PrintSurface(const Handle(Geom_Surface)& /*
 
 Standard_IStream& GeomTools_UndefinedTypeHandler::ReadSurface(const Standard_Integer /*ctype*/,
                                                               Standard_IStream& IS,
-                                                              Handle(Geom_Surface)& /*S*/) const
+                                                              Handle(GeomSurface)& /*S*/) const
 {
   return IS;
 }

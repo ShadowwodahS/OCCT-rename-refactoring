@@ -31,9 +31,9 @@
 #include <Message_Messenger.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESDimen_ToolDimensionUnits::IGESDimen_ToolDimensionUnits() {}
+DimensionUnitsTool::DimensionUnitsTool() {}
 
-void IGESDimen_ToolDimensionUnits::ReadOwnParams(const Handle(IGESDimen_DimensionUnits)& ent,
+void DimensionUnitsTool::ReadOwnParams(const Handle(IGESDimen_DimensionUnits)& ent,
                                                  const Handle(IGESData_IGESReaderData)& /* IR */,
                                                  IGESData_ParamReader& PR) const
 {
@@ -75,7 +75,7 @@ void IGESDimen_ToolDimensionUnits::ReadOwnParams(const Handle(IGESDimen_Dimensio
             tempPrecision);
 }
 
-void IGESDimen_ToolDimensionUnits::WriteOwnParams(const Handle(IGESDimen_DimensionUnits)& ent,
+void DimensionUnitsTool::WriteOwnParams(const Handle(IGESDimen_DimensionUnits)& ent,
                                                   IGESData_IGESWriter&                    IW) const
 {
   IW.Send(ent->NbPropertyValues());
@@ -87,12 +87,12 @@ void IGESDimen_ToolDimensionUnits::WriteOwnParams(const Handle(IGESDimen_Dimensi
   IW.Send(ent->PrecisionOrDenominator());
 }
 
-void IGESDimen_ToolDimensionUnits::OwnShared(const Handle(IGESDimen_DimensionUnits)& /* ent */,
+void DimensionUnitsTool::OwnShared(const Handle(IGESDimen_DimensionUnits)& /* ent */,
                                              Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESDimen_ToolDimensionUnits::OwnCopy(const Handle(IGESDimen_DimensionUnits)& another,
+void DimensionUnitsTool::OwnCopy(const Handle(IGESDimen_DimensionUnits)& another,
                                            const Handle(IGESDimen_DimensionUnits)& ent,
                                            Interface_CopyTool& /* TC */) const
 {
@@ -113,7 +113,7 @@ void IGESDimen_ToolDimensionUnits::OwnCopy(const Handle(IGESDimen_DimensionUnits
             tempPrecision);
 }
 
-Standard_Boolean IGESDimen_ToolDimensionUnits::OwnCorrect(
+Standard_Boolean DimensionUnitsTool::OwnCorrect(
   const Handle(IGESDimen_DimensionUnits)& ent) const
 {
   Standard_Boolean res = (ent->NbPropertyValues() != 6);
@@ -128,10 +128,10 @@ Standard_Boolean IGESDimen_ToolDimensionUnits::OwnCorrect(
   return res; // nbpropertyvalues = 6
 }
 
-IGESData_DirChecker IGESDimen_ToolDimensionUnits::DirChecker(
+DirectoryChecker DimensionUnitsTool::DirChecker(
   const Handle(IGESDimen_DimensionUnits)& /* ent */) const
 {
-  IGESData_DirChecker DC(406, 28);
+  DirectoryChecker DC(406, 28);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -144,7 +144,7 @@ IGESData_DirChecker IGESDimen_ToolDimensionUnits::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolDimensionUnits::OwnCheck(const Handle(IGESDimen_DimensionUnits)& ent,
+void DimensionUnitsTool::OwnCheck(const Handle(IGESDimen_DimensionUnits)& ent,
                                             const Interface_ShareTool&,
                                             Handle(Interface_Check)& ach) const
 {
@@ -158,7 +158,7 @@ void IGESDimen_ToolDimensionUnits::OwnCheck(const Handle(IGESDimen_DimensionUnit
     ach->AddFail("Fraction Flag != 0,1");
 }
 
-void IGESDimen_ToolDimensionUnits::OwnDump(const Handle(IGESDimen_DimensionUnits)& ent,
+void DimensionUnitsTool::OwnDump(const Handle(IGESDimen_DimensionUnits)& ent,
                                            const IGESData_IGESDumper& /* dumper */,
                                            Standard_OStream& S,
                                            const Standard_Integer /* level */) const

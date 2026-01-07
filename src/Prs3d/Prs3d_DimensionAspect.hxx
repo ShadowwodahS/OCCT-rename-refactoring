@@ -121,13 +121,13 @@ public:
   Standard_Real ArrowTailSize() const { return myArrowTailSize; }
 
   //! Sets "sprintf"-syntax format for formatting dimension value labels.
-  void SetValueStringFormat(const TCollection_AsciiString& theFormat)
+  void SetValueStringFormat(const AsciiString1& theFormat)
   {
     myValueStringFormat = theFormat;
   }
 
   //! Returns format.
-  const TCollection_AsciiString& ValueStringFormat() const { return myValueStringFormat; }
+  const AsciiString1& ValueStringFormat() const { return myValueStringFormat; }
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
@@ -137,7 +137,7 @@ protected:
   Handle(Prs3d_LineAspect)              myLineAspect;
   Handle(Prs3d_TextAspect)              myTextAspect;
   Handle(Prs3d_ArrowAspect)             myArrowAspect;
-  TCollection_AsciiString               myValueStringFormat;
+  AsciiString1               myValueStringFormat;
   Standard_Real                         myExtensionSize;
   Standard_Real                         myArrowTailSize;
   Prs3d_DimensionArrowOrientation       myArrowOrientation;

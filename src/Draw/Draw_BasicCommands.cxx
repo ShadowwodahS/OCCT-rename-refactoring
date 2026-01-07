@@ -74,7 +74,7 @@ static OSD_Timer aTimer;
 
 extern Standard_Boolean Draw_Chrono;
 
-static Standard_Integer dchronom(Draw_Interpretor& theDI,
+static Standard_Integer dchronom(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
@@ -95,14 +95,14 @@ static Standard_Integer dchronom(Draw_Interpretor& theDI,
 
   const char*              aTimerName = theArgVec[1];
   Handle(Draw_Chronometer) aChronom;
-  if (Handle(Draw_Drawable3D) aDrawable = Draw::Get(aTimerName))
+  if (Handle(Draw_Drawable3D) aDrawable = Draw1::Get(aTimerName))
   {
     aChronom = Handle(Draw_Chronometer)::DownCast(aDrawable);
   }
   if (aChronom.IsNull())
   {
     aChronom = new Draw_Chronometer();
-    Draw::Set(aTimerName, aChronom, false);
+    Draw1::Set(aTimerName, aChronom, false);
   }
 
   if (theNbArgs <= 2)
@@ -111,11 +111,11 @@ static Standard_Integer dchronom(Draw_Interpretor& theDI,
     return 0;
   }
 
-  const bool toShowCout = (TCollection_AsciiString(theArgVec[0]) == "chrono");
+  const bool toShowCout = (AsciiString1(theArgVec[0]) == "chrono");
   int        aNbPuts    = false;
   for (Standard_Integer anIter = 2; anIter < theNbArgs; ++anIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anIter]);
+    AsciiString1 anArg(theArgVec[anIter]);
     anArg.LowerCase();
     if (anArg == "-reset" || anArg == "reset")
     {
@@ -187,14 +187,14 @@ static Standard_Integer dchronom(Draw_Interpretor& theDI,
     }
     else if (anArg == "-thread" || anArg == "-threadonly")
     {
-      bool isThreadOnly = Draw::ParseOnOffIterator(theNbArgs, theArgVec, anIter);
+      bool isThreadOnly = Draw1::ParseOnOffIterator(theNbArgs, theArgVec, anIter);
       aChronom->Timer().Stop();
       aChronom->Timer().Reset();
       aChronom->Timer().SetThisThreadOnly(isThreadOnly);
     }
     else if (anArg == "-process")
     {
-      bool isProcessTime = Draw::ParseOnOffIterator(theNbArgs, theArgVec, anIter);
+      bool isProcessTime = Draw1::ParseOnOffIterator(theNbArgs, theArgVec, anIter);
       aChronom->Timer().Stop();
       aChronom->Timer().Reset();
       aChronom->Timer().SetThisThreadOnly(!isProcessTime);
@@ -210,7 +210,7 @@ static Standard_Integer dchronom(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer ifbatch(Draw_Interpretor& DI, Standard_Integer, const char**)
+static Standard_Integer ifbatch(DrawInterpreter& DI, Standard_Integer, const char**)
 {
   if (Draw_Batch)
     DI << "1";
@@ -225,7 +225,7 @@ static Standard_Integer ifbatch(Draw_Interpretor& DI, Standard_Integer, const ch
 extern Standard_Boolean Draw_Spying;
 extern std::filebuf     Draw_Spyfile;
 
-static Standard_Integer spy(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer spy(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (Draw_Spying)
     Draw_Spyfile.close();
@@ -242,7 +242,7 @@ static Standard_Integer spy(Draw_Interpretor& di, Standard_Integer n, const char
   return 0;
 }
 
-static Standard_Integer dlog(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer dlog(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2 && n != 3)
   {
@@ -286,7 +286,7 @@ static Standard_Integer dlog(Draw_Interpretor& di, Standard_Integer n, const cha
   return 0;
 }
 
-static Standard_Integer decho(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer decho(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -310,7 +310,7 @@ static Standard_Integer decho(Draw_Interpretor& di, Standard_Integer n, const ch
   return 0;
 }
 
-static Standard_Integer dbreak(Draw_Interpretor& di, Standard_Integer, const char**)
+static Standard_Integer dbreak(DrawInterpreter& di, Standard_Integer, const char**)
 {
   try
   {
@@ -325,7 +325,7 @@ static Standard_Integer dbreak(Draw_Interpretor& di, Standard_Integer, const cha
   return 0;
 }
 
-static Standard_Integer dversion(Draw_Interpretor& di, Standard_Integer, const char**)
+static Standard_Integer dversion(DrawInterpreter& di, Standard_Integer, const char**)
 {
   // print OCCT version and OCCTY-specific macros used
   di << "Open CASCADE Technology " << OCC_VERSION_STRING_EXT << "\n";
@@ -506,11 +506,11 @@ static Standard_Integer dversion(Draw_Interpretor& di, Standard_Integer, const c
 
 //=================================================================================================
 
-static Standard_Integer Draw_wait(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer Draw_wait(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   Standard_Integer w = 10;
   if (n > 1)
-    w = Draw::Atoi(a[1]);
+    w = Draw1::Atoi(a[1]);
   time_t ct = time(NULL) + w;
   while (time(NULL) < ct)
   {
@@ -596,18 +596,18 @@ static void* CpuFunc(void* /*threadarg*/)
 // CSF_CPULIMIT_FACTOR (if it exists, 1 otherwise)
 static clock_t GetCpuLimit(const Standard_CString theParam)
 {
-  clock_t aValue = Draw::Atoi(theParam);
+  clock_t aValue = Draw1::Atoi(theParam);
 
   OSD_Environment         aEnv("CSF_CPULIMIT_FACTOR");
-  TCollection_AsciiString aEnvStr = aEnv.Value();
+  AsciiString1 aEnvStr = aEnv.Value();
   if (!aEnvStr.IsEmpty())
   {
-    aValue *= Draw::Atoi(aEnvStr.ToCString());
+    aValue *= Draw1::Atoi(aEnvStr.ToCString());
   }
   return aValue;
 }
 
-static Standard_Integer cpulimit(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer cpulimit(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   static int aFirst = 1;
 #ifdef _WIN32
@@ -677,7 +677,7 @@ static Standard_Integer cpulimit(Draw_Interpretor& di, Standard_Integer n, const
 
 //=================================================================================================
 
-static Standard_Integer mallochook(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer mallochook(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
   {
@@ -705,7 +705,7 @@ By default <logfile> is \"mem-log.txt\", <outfile> is \"mem-stat.txt\""
   }
   if (strcmp(a[1], "set") == 0)
   {
-    int aType = (n > 2 ? Draw::Atoi(a[2]) : 1);
+    int aType = (n > 2 ? Draw1::Atoi(a[2]) : 1);
     if (aType < 0 || aType > 2)
     {
       di << "unknown op of the command set\n";
@@ -769,7 +769,7 @@ By default <logfile> is \"mem-log.txt\", <outfile> is \"mem-stat.txt\""
     const char*      aOutFile     = "mem-stat.txt";
     if (n > 2)
     {
-      includeAlive = (Draw::Atoi(a[2]) != 0);
+      includeAlive = (Draw1::Atoi(a[2]) != 0);
       if (n > 3)
       {
         aLogFile = a[3];
@@ -797,7 +797,7 @@ By default <logfile> is \"mem-log.txt\", <outfile> is \"mem-stat.txt\""
 
 //=================================================================================================
 
-static int dlocale(Draw_Interpretor& di, Standard_Integer n, const char** argv)
+static int dlocale(DrawInterpreter& di, Standard_Integer n, const char** argv)
 {
   int category = LC_ALL;
   if (n > 1)
@@ -832,7 +832,7 @@ static int dlocale(Draw_Interpretor& di, Standard_Integer n, const char** argv)
 
 //=================================================================================================
 
-static int dmeminfo(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theArgVec)
+static int dmeminfo(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
   if (theArgNb <= 1)
   {
@@ -844,7 +844,7 @@ static int dmeminfo(Draw_Interpretor& theDI, Standard_Integer theArgNb, const ch
   NCollection_Map<OSD_MemInfo::Counter> aCounters;
   for (Standard_Integer anIter = 1; anIter < theArgNb; ++anIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anIter]);
+    AsciiString1 anArg(theArgVec[anIter]);
     anArg.LowerCase();
     if (anArg == "virt" || anArg == "v")
     {
@@ -901,7 +901,7 @@ static int dmeminfo(Draw_Interpretor& theDI, Standard_Integer theArgNb, const ch
 
 //=================================================================================================
 
-static int dparallel(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theArgVec)
+static int dparallel(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
   const Handle(OSD_ThreadPool)& aDefPool = OSD_ThreadPool::DefaultPool();
   if (theArgNb <= 1)
@@ -915,18 +915,18 @@ static int dparallel(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
 
   for (Standard_Integer anIter = 1; anIter < theArgNb; ++anIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anIter]);
+    AsciiString1 anArg(theArgVec[anIter]);
     anArg.LowerCase();
     if (anIter + 1 < theArgNb && (anArg == "-nbthreads" || anArg == "-threads"))
     {
-      const Standard_Integer aVal = Draw::Atoi(theArgVec[++anIter]);
+      const Standard_Integer aVal = Draw1::Atoi(theArgVec[++anIter]);
       aDefPool->Init(aVal);
     }
     else if (anIter + 1 < theArgNb
              && (anArg == "-nbdefthreads" || anArg == "-defthreads" || anArg == "-nbmaxdefthreads"
                  || anArg == "-maxdefthreads"))
     {
-      const Standard_Integer aVal = Draw::Atoi(theArgVec[++anIter]);
+      const Standard_Integer aVal = Draw1::Atoi(theArgVec[++anIter]);
       if (aVal <= 0 || aVal > aDefPool->NbThreads())
       {
         Message::SendFail()
@@ -938,7 +938,7 @@ static int dparallel(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
     else if (anIter + 1 < theArgNb
              && (anArg == "-useocct" || anArg == "-touseocct" || anArg == "-occt"))
     {
-      const Standard_Integer aVal = Draw::Atoi(theArgVec[++anIter]);
+      const Standard_Integer aVal = Draw1::Atoi(theArgVec[++anIter]);
       OSD_Parallel::SetUseOcctThreads(aVal == 1);
       if (OSD_Parallel::ToUseOcctThreads() != (aVal == 1))
       {
@@ -948,7 +948,7 @@ static int dparallel(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
     else if (anIter + 1 < theArgNb
              && (anArg == "-usetbb" || anArg == "-tousetbb" || anArg == "-tbb"))
     {
-      const Standard_Integer aVal = Draw::Atoi(theArgVec[++anIter]);
+      const Standard_Integer aVal = Draw1::Atoi(theArgVec[++anIter]);
       OSD_Parallel::SetUseOcctThreads(aVal == 0);
       if (OSD_Parallel::ToUseOcctThreads() != (aVal == 0))
       {
@@ -966,7 +966,7 @@ static int dparallel(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
 
 //=================================================================================================
 
-static int dperf(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theArgVec)
+static int dperf(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
   // reset if argument is provided and it is not '0'
   int  reset = (theArgNb > 1 ? theArgVec[1][0] != '0' && theArgVec[1][0] != '\0' : 0);
@@ -978,7 +978,7 @@ static int dperf(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char*
 
 //=================================================================================================
 
-static int dsetsignal(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theArgVec)
+static int dsetsignal(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
   OSD_SignalMode   aMode     = OSD_SignalMode_Set;
   Standard_Boolean aSetFPE   = OSD::ToCatchFloatingSignals();
@@ -986,7 +986,7 @@ static int dsetsignal(Draw_Interpretor& theDI, Standard_Integer theArgNb, const 
 
   // default for FPE signal is defined by CSF_FPE variable, if set
   OSD_Environment         aEnv("CSF_FPE");
-  TCollection_AsciiString aEnvStr = aEnv.Value();
+  AsciiString1 aEnvStr = aEnv.Value();
   if (!aEnvStr.IsEmpty())
   {
     aSetFPE = (aEnvStr.Value(1) != '0');
@@ -995,7 +995,7 @@ static int dsetsignal(Draw_Interpretor& theDI, Standard_Integer theArgNb, const 
   // parse arguments
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     if (anArg == "asis")
     {
@@ -1028,7 +1028,7 @@ static int dsetsignal(Draw_Interpretor& theDI, Standard_Integer theArgNb, const 
              && (anArg == "-stracktracelength" || anArg == "-stracktracelen"
                  || anArg == "-stracklength" || anArg == "-stracklen"))
     {
-      aStackLen = Draw::Atoi(theArgVec[++anArgIter]);
+      aStackLen = Draw1::Atoi(theArgVec[++anArgIter]);
     }
     else
     {
@@ -1066,7 +1066,7 @@ static int dsetsignal(Draw_Interpretor& theDI, Standard_Integer theArgNb, const 
 
 //=================================================================================================
 
-static int dtracelevel(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theArgVec)
+static int dtracelevel(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
   Message_Gravity aLevel = Message_Info;
   if (theArgNb < 1 || theArgNb > 2)
@@ -1077,7 +1077,7 @@ static int dtracelevel(Draw_Interpretor& theDI, Standard_Integer theArgNb, const
   }
   else if (theArgNb == 2)
   {
-    TCollection_AsciiString aVal(theArgVec[1]);
+    AsciiString1 aVal(theArgVec[1]);
     aVal.LowerCase();
     if (aVal == "trace")
     {
@@ -1122,7 +1122,7 @@ static int dtracelevel(Draw_Interpretor& theDI, Standard_Integer theArgNb, const
 
   for (Standard_Integer aPrinterIter = 1; aPrinterIter <= aPrinters.Length(); ++aPrinterIter)
   {
-    Handle(Message_Printer)& aPrinter = aPrinters.ChangeValue(aPrinterIter);
+    Handle(LogPrinter)& aPrinter = aPrinters.ChangeValue(aPrinterIter);
     if (theArgNb == 1)
     {
       if (aPrinterIter == 1)
@@ -1163,7 +1163,7 @@ static int dtracelevel(Draw_Interpretor& theDI, Standard_Integer theArgNb, const
 
 //=================================================================================================
 
-static int ddebugtraces(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theArgVec)
+static int ddebugtraces(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
   if (theArgNb < 2)
   {
@@ -1176,20 +1176,20 @@ static int ddebugtraces(Draw_Interpretor& theDI, Standard_Integer theArgNb, cons
     return 1;
   }
 
-  ExceptionBase::SetDefaultStackTraceLength(Draw::Atoi(theArgVec[1]));
+  ExceptionBase::SetDefaultStackTraceLength(Draw1::Atoi(theArgVec[1]));
   return 0;
 }
 
 //=================================================================================================
 
-static int dputs(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theArgVec)
+static int dputs(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
   Standard_OStream*    aStream     = &std::cout;
   bool                 isNoNewline = false, toIntense = false;
   Message_ConsoleColor aColor = Message_ConsoleColor_Default;
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     if (anArg == "-nonewline")
     {
@@ -1274,7 +1274,7 @@ static int dputs(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char*
   return 1;
 }
 
-void Draw::BasicCommands(Draw_Interpretor& theCommands)
+void Draw1::BasicCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean Done = Standard_False;
   if (Done)
@@ -1358,7 +1358,7 @@ void Draw::BasicCommands(Draw_Interpretor& theCommands)
     g);
 
   // Logging commands; note that their names are hard-coded in the code
-  // of Draw_Interpretor, thus should not be changed without update of that code!
+  // of DrawInterpreter, thus should not be changed without update of that code!
   theCommands.Add("dlog",
                   "manage logging of commands and output; run without args to get help",
                   __FILE__,

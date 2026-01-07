@@ -34,8 +34,8 @@ public:
   //! @param[in] theToForce return merged triangulation even if it's statistics is equal to input
   //! one
   //! @return merged triangulation or NULL on no result
-  Standard_EXPORT static Handle(Poly_Triangulation) MergeNodes(
-    const Handle(Poly_Triangulation)& theTris,
+  Standard_EXPORT static Handle(MeshTriangulation) MergeNodes(
+    const Handle(MeshTriangulation)& theTris,
     const Transform3d&                    theTrsf,
     const Standard_Boolean            theToReverse,
     const double                      theSmoothAngle,
@@ -101,12 +101,12 @@ public:
   //! @param[in] theTris triangulation to add
   //! @param[in] theTrsf transformation to apply
   //! @param[in] theToReverse reverse triangle nodes order
-  Standard_EXPORT virtual void AddTriangulation(const Handle(Poly_Triangulation)& theTris,
+  Standard_EXPORT virtual void AddTriangulation(const Handle(MeshTriangulation)& theTris,
                                                 const Transform3d&         theTrsf      = Transform3d(),
                                                 const Standard_Boolean theToReverse = false);
 
   //! Prepare and return result triangulation (temporary data will be truncated to result size).
-  Standard_EXPORT Handle(Poly_Triangulation) Result();
+  Standard_EXPORT Handle(MeshTriangulation) Result();
 
 public:
   //! Add new triangle.
@@ -153,7 +153,7 @@ public:
   //! Setup output triangulation for modifications.
   //! When set to NULL, the tool could be used as a merge map for filling in external mesh
   //! structure.
-  Handle(Poly_Triangulation)& ChangeOutput() { return myPolyData; }
+  Handle(MeshTriangulation)& ChangeOutput() { return myPolyData; }
 
 private:
   //! Push triangle node with normal angle comparison.
@@ -211,7 +211,7 @@ private:
   };
 
   //! Custom map class with key as Node + element normal and value as Node index.
-  //! NCollection_DataMap is not used, as it requires Hasher to be defined as class template and not
+  //! NCollection_DataMap is not used, as it requires Hasher1 to be defined as class template and not
   //! class field.
   class MergedNodesMap : public NCollection_BaseMap
   {
@@ -314,7 +314,7 @@ private:
     bool  myToMergeOpposite; //!< merge nodes with opposite normals
   };
 
-  //! Hasher for merging equal elements (with pre-sorted indexes).
+  //! Hasher1 for merging equal elements (with pre-sorted indexes).
   struct MergedElemHasher
   {
     size_t operator()(const NCollection_Vec4<int>& theVec) const
@@ -330,7 +330,7 @@ private:
   };
 
 private:
-  Handle(Poly_Triangulation)                               myPolyData;     //!< output triangulation
+  Handle(MeshTriangulation)                               myPolyData;     //!< output triangulation
   MergedNodesMap                                           myNodeIndexMap; //!< map of merged nodes
   NCollection_Map<NCollection_Vec4<int>, MergedElemHasher> myElemMap;      //!< map of elements
   NCollection_Vec4<int>                                    myNodeInds;  //!< current element indexes

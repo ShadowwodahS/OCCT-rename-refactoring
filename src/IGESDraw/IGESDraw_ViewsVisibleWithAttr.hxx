@@ -34,7 +34,7 @@ class IGESDraw_ViewsVisibleWithAttr;
 DEFINE_STANDARD_HANDLE(IGESDraw_ViewsVisibleWithAttr, IGESData_ViewKindEntity)
 
 //! defines IGESViewsVisibleWithAttr, Type <402>, Form <4>
-//! in package IGESDraw
+//! in package IGESDraw1
 //!
 //! This class is extension of Class ViewsVisible.  It is used
 //! for those entities that are visible in multiple views, but

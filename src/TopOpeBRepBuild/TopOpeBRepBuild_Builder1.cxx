@@ -49,12 +49,12 @@ const Standard_Real PAR_T = 0.43213918;
 
 static TopTools_IndexedMapOfShape mySDEdgeMap;
 
-static TopAbs_State ClassifyEdgeToFaceByOnePoint(const TopoDS_Edge& E, const TopoDS_Face& F);
+static TopAbs_State ClassifyEdgeToFaceByOnePoint(const TopoEdge& E, const TopoFace& F);
 
 // modified by NIZHNY-MZV  Thu Apr 20 09:58:59 2000
 ///////////////////
 // this variable used to separate old algo from the new one
-// because new algo can not be used in LocOpe and Mechanical Features (for the moment)
+// because new algo can not be used in LocOpe1 and Mechanical Features (for the moment)
 // that's why we use new algo only in BRepAlgoAPI_BooleanOperation
 // in all other cases old algo is called (see the methods GFillSolidSFS, GFillShellSFS, etc.);
 Standard_Boolean GLOBAL_USE_NEW_BUILDER = Standard_False;
@@ -105,8 +105,8 @@ void TopOpeBRepBuild_Builder1::Perform(const Handle(TopOpeBRepDS_HDataStructure)
 //=================================================================================================
 
 void TopOpeBRepBuild_Builder1::Perform(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
-                                       const TopoDS_Shape&                        S1,
-                                       const TopoDS_Shape&                        S2)
+                                       const TopoShape&                        S1,
+                                       const TopoShape&                        S2)
 {
   // modified by NIZHNY-MZV  Wed Apr 19 17:23:12 2000
   // see the comments at the top of file about this global variable
@@ -180,9 +180,9 @@ void TopOpeBRepBuild_Builder1::MergeKPart()
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder1::GFillSolidSFS(const TopoDS_Shape&           SO1,
-                                             const TopTools_ListOfShape&   LSO2,
-                                             const TopOpeBRepBuild_GTopo&  G1,
+void TopOpeBRepBuild_Builder1::GFillSolidSFS(const TopoShape&           SO1,
+                                             const ShapeList&   LSO2,
+                                             const GTopologyClassifier&  G1,
                                              TopOpeBRepBuild_ShellFaceSet& SFS)
 {
   // modified by NIZHNY-MZV  Wed Apr 19 17:23:12 2000
@@ -195,8 +195,8 @@ void TopOpeBRepBuild_Builder1::GFillSolidSFS(const TopoDS_Shape&           SO1,
 
   myMapOfEdgeFaces.Clear();
 
-  TopExp::MapShapesAndAncestors(myShape1, TopAbs_EDGE, TopAbs_FACE, myMapOfEdgeFaces);
-  TopExp::MapShapesAndAncestors(myShape2, TopAbs_EDGE, TopAbs_FACE, myMapOfEdgeFaces);
+  TopExp1::MapShapesAndAncestors(myShape1, TopAbs_EDGE, TopAbs_FACE, myMapOfEdgeFaces);
+  TopExp1::MapShapesAndAncestors(myShape2, TopAbs_EDGE, TopAbs_FACE, myMapOfEdgeFaces);
 
   TopAbs_State TB1, TB2;
   G1.StatesON(TB1, TB2);
@@ -205,13 +205,13 @@ void TopOpeBRepBuild_Builder1::GFillSolidSFS(const TopoDS_Shape&           SO1,
 
   Standard_Boolean RevOri1 = G1.IsToReverse1();
 
-  TopoDS_Shape SOF = SO1;
+  TopoShape SOF = SO1;
   mySolidToFill    = TopoDS::Solid(SOF);
 
   TopOpeBRepTool_ShapeExplorer exShell(SOF, TopAbs_SHELL);
   for (; exShell.More(); exShell.Next())
   {
-    TopoDS_Shape     SH       = exShell.Current();
+    TopoShape     SH       = exShell.Current();
     Standard_Boolean hasshape = myDataStructure->HasShape(SH);
 
     if (!hasshape)
@@ -237,9 +237,9 @@ void TopOpeBRepBuild_Builder1::GFillSolidSFS(const TopoDS_Shape&           SO1,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder1::GFillShellSFS(const TopoDS_Shape&           SH,
-                                             const TopTools_ListOfShape&   LSO2,
-                                             const TopOpeBRepBuild_GTopo&  G1,
+void TopOpeBRepBuild_Builder1::GFillShellSFS(const TopoShape&           SH,
+                                             const ShapeList&   LSO2,
+                                             const GTopologyClassifier&  G1,
                                              TopOpeBRepBuild_ShellFaceSet& SFS)
 {
   // modified by NIZHNY-MZV  Wed Apr 19 17:23:12 2000
@@ -256,12 +256,12 @@ void TopOpeBRepBuild_Builder1::GFillShellSFS(const TopoDS_Shape&           SH,
 
   TopOpeBRepTool_ShapeExplorer exFace;
 
-  const TopoDS_Shape& SH1 = SH; // SH1.Orientation(TopAbs_FORWARD);
+  const TopoShape& SH1 = SH; // SH1.Orientation(TopAbs_FORWARD);
 
   // 1) process firstly same domain faces and non-interference faces
   for (exFace.Init(SH1, TopAbs_FACE); exFace.More(); exFace.Next())
   {
-    TopoDS_Shape FOR = exFace.Current();
+    TopoShape FOR = exFace.Current();
     if (!myDataStructure->HasShape(FOR))
     {
       // DS doesn't contain FACE , get its state and define to keep or not
@@ -284,7 +284,7 @@ void TopOpeBRepBuild_Builder1::GFillShellSFS(const TopoDS_Shape&           SH,
   // 2 Process all other faces
   for (exFace.Init(SH1, TopAbs_FACE); exFace.More(); exFace.Next())
   {
-    const TopoDS_Shape& FOR = exFace.Current();
+    const TopoShape& FOR = exFace.Current();
     if (!myDataStructure->HasShape(FOR) || myDataStructure->HasSameDomain(FOR))
       continue;
     GFillFaceNotSameDomSFS(FOR, LSO2, G1, SFS);
@@ -293,12 +293,12 @@ void TopOpeBRepBuild_Builder1::GFillShellSFS(const TopoDS_Shape&           SH,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder1::GFillFaceNotSameDomSFS(const TopoDS_Shape&           FOR,
-                                                      const TopTools_ListOfShape&   LSO2,
-                                                      const TopOpeBRepBuild_GTopo&  Gin,
+void TopOpeBRepBuild_Builder1::GFillFaceNotSameDomSFS(const TopoShape&           FOR,
+                                                      const ShapeList&   LSO2,
+                                                      const GTopologyClassifier&  Gin,
                                                       TopOpeBRepBuild_ShellFaceSet& SFS)
 {
-  TopOpeBRepBuild_GTopo G1     = Gin;
+  GTopologyClassifier G1     = Gin;
   Standard_Boolean      RevOri = Standard_False;
   G1.SetReverse(RevOri);
 
@@ -306,7 +306,7 @@ void TopOpeBRepBuild_Builder1::GFillFaceNotSameDomSFS(const TopoDS_Shape&       
   G1.StatesON(TB1, TB2);
 
   // work on a FORWARD face <FForward>
-  TopoDS_Shape FF = FOR;
+  TopoShape FF = FOR;
   FF.Orientation(TopAbs_FORWARD);
 
   // make a WireEdgeSet WES on face FF
@@ -316,7 +316,7 @@ void TopOpeBRepBuild_Builder1::GFillFaceNotSameDomSFS(const TopoDS_Shape&       
   GFillONPartsWES(FOR, G1, LSO2, WES);
 
   // save these edges
-  TopTools_ListOfShape               anEdgesON;
+  ShapeList               anEdgesON;
   TopTools_ListIteratorOfListOfShape it;
   if (myProcessON)
   {
@@ -338,7 +338,7 @@ void TopOpeBRepBuild_Builder1::GFillFaceNotSameDomSFS(const TopoDS_Shape&       
   MarkSplit(FF, TB1);
 
   // build the new faces LOF on FF from the Wire/Edge set WES
-  TopTools_ListOfShape LOF;
+  ShapeList LOF;
   GWESMakeFaces(FF, WES, LOF);
 
   if (myProcessON && (!anEdgesON.IsEmpty() || !myONElemMap.IsEmpty()))
@@ -347,7 +347,7 @@ void TopOpeBRepBuild_Builder1::GFillFaceNotSameDomSFS(const TopoDS_Shape&       
     // prepare the map of used edges to not take the same matter two times
     TopTools_IndexedMapOfOrientedShape aMapOE;
     for (it.Initialize(LOF); it.More(); it.Next())
-      for (TopExp_Explorer ex(it.Value(), TopAbs_EDGE); ex.More(); ex.Next())
+      for (ShapeExplorer ex(it.Value(), TopAbs_EDGE); ex.More(); ex.Next())
         aMapOE.Add(ex.Current());
 
     FillOnPatches(anEdgesON, FOR, aMapOE);
@@ -355,7 +355,7 @@ void TopOpeBRepBuild_Builder1::GFillFaceNotSameDomSFS(const TopoDS_Shape&       
   }
 
   // LOFS : LOF faces located TB1 / LSclass = split faces of state TB1 of FF
-  TopTools_ListOfShape& LOFS = ChangeSplit(FF, TB1);
+  ShapeList& LOFS = ChangeSplit(FF, TB1);
   LOFS.Clear();
   GKeepShapes(FF, myEmptyShapeList, TB1, LOF, LOFS);
 
@@ -364,9 +364,9 @@ void TopOpeBRepBuild_Builder1::GFillFaceNotSameDomSFS(const TopoDS_Shape&       
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder1::GFillFaceNotSameDomWES(const TopoDS_Shape&          FOR1,
-                                                      const TopTools_ListOfShape&  LFclass,
-                                                      const TopOpeBRepBuild_GTopo& G1,
+void TopOpeBRepBuild_Builder1::GFillFaceNotSameDomWES(const TopoShape&          FOR1,
+                                                      const ShapeList&  LFclass,
+                                                      const GTopologyClassifier& G1,
                                                       TopOpeBRepBuild_WireEdgeSet& WES)
 {
   TopAbs_State TB1, TB2;
@@ -376,13 +376,13 @@ void TopOpeBRepBuild_Builder1::GFillFaceNotSameDomWES(const TopoDS_Shape&       
   mySourceShapes.Clear();
 
   // work on a FORWARD face FF
-  TopoDS_Shape FF = FOR1;
+  TopoShape FF = FOR1;
   FF.Orientation(TopAbs_FORWARD);
 
   TopOpeBRepTool_ShapeExplorer exWire(FF, TopAbs_WIRE);
   for (; exWire.More(); exWire.Next())
   {
-    TopoDS_Shape     W        = exWire.Current();
+    TopoShape     W        = exWire.Current();
     Standard_Boolean hasshape = myDataStructure->HasShape(W);
 
     if (!hasshape)
@@ -412,21 +412,21 @@ void TopOpeBRepBuild_Builder1::GFillFaceNotSameDomWES(const TopoDS_Shape&       
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder1::GFillWireNotSameDomWES(const TopoDS_Shape&          W,
-                                                      const TopTools_ListOfShape&  LSclass,
-                                                      const TopOpeBRepBuild_GTopo& G1,
+void TopOpeBRepBuild_Builder1::GFillWireNotSameDomWES(const TopoShape&          W,
+                                                      const ShapeList&  LSclass,
+                                                      const GTopologyClassifier& G1,
                                                       TopOpeBRepBuild_WireEdgeSet& WES)
 {
   TopAbs_State TB1, TB2;
   G1.StatesON(TB1, TB2);
   Standard_Boolean RevOri1 = G1.IsToReverse1();
 
-  const TopoDS_Shape& WW = W; // WW.Orientation(TopAbs_FORWARD);
+  const TopoShape& WW = W; // WW.Orientation(TopAbs_FORWARD);
 
   TopOpeBRepTool_ShapeExplorer exEdge(WW, TopAbs_EDGE);
   for (; exEdge.More(); exEdge.Next())
   {
-    TopoDS_Shape     EOR      = exEdge.Current();
+    TopoShape     EOR      = exEdge.Current();
     Standard_Boolean hasshape = myDataStructure->HasShape(EOR);
 
     if (!hasshape)
@@ -455,9 +455,9 @@ void TopOpeBRepBuild_Builder1::GFillWireNotSameDomWES(const TopoDS_Shape&       
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder1::GFillEdgeNotSameDomWES(const TopoDS_Shape& EOR,
-                                                      const TopTools_ListOfShape& /*LSclass*/,
-                                                      const TopOpeBRepBuild_GTopo& G1,
+void TopOpeBRepBuild_Builder1::GFillEdgeNotSameDomWES(const TopoShape& EOR,
+                                                      const ShapeList& /*LSclass*/,
+                                                      const GTopologyClassifier& G1,
                                                       TopOpeBRepBuild_WireEdgeSet& WES)
 {
   TopAbs_State TB1, TB2;
@@ -467,23 +467,23 @@ void TopOpeBRepBuild_Builder1::GFillEdgeNotSameDomWES(const TopoDS_Shape& EOR,
   TopAbs_Orientation oriE    = EOR.Orientation();
   TopAbs_Orientation neworiE = Orient(oriE, RevOri1);
   // 1) Get split parts of edge with state TB1
-  const TopTools_ListOfShape&        LSE = myDataStructure->DS().GetShapeWithState(EOR).Part(TB1);
+  const ShapeList&        LSE = myDataStructure->DS().GetShapeWithState(EOR).Part(TB1);
   TopTools_ListIteratorOfListOfShape it(LSE);
 
   for (; it.More(); it.Next())
   {
-    TopoDS_Edge newE = TopoDS::Edge(it.Value());
+    TopoEdge newE = TopoDS::Edge(it.Value());
     newE.Orientation(neworiE);
     WES.AddStartElement(newE);
     mySourceShapes.Add(newE);
   }
 
   // 2) Get ON parts of the edge and define to keep it or not
-  const TopTools_ListOfShape& LSEOn = myDataStructure->DS().GetShapeWithState(EOR).Part(TopAbs_ON);
+  const ShapeList& LSEOn = myDataStructure->DS().GetShapeWithState(EOR).Part(TopAbs_ON);
   TopTools_ListIteratorOfListOfShape itON(LSEOn);
   for (; itON.More(); itON.Next())
   {
-    TopoDS_Edge newE = TopoDS::Edge(itON.Value());
+    TopoEdge newE = TopoDS::Edge(itON.Value());
     newE.Orientation(neworiE);
     if (mySplitsONtoKeep.Contains(newE))
     {
@@ -491,7 +491,7 @@ void TopOpeBRepBuild_Builder1::GFillEdgeNotSameDomWES(const TopoDS_Shape& EOR,
       continue;
     }
     // we keep all degenerated edges here because FillONPartsWES can not process them
-    if (BRep_Tool::Degenerated(newE))
+    if (BRepInspector::Degenerated(newE))
     {
       WES.AddStartElement(newE);
       mySourceShapes.Add(newE);
@@ -507,9 +507,9 @@ void TopOpeBRepBuild_Builder1::GFillEdgeNotSameDomWES(const TopoDS_Shape& EOR,
 /////////////////// ALL FUNCTIONS FOR SAME DOMAIN FACES
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder1::GFillFaceSameDomSFS(const TopoDS_Shape&           FOR,
-                                                   const TopTools_ListOfShape&   LSO2,
-                                                   const TopOpeBRepBuild_GTopo&  Gin,
+void TopOpeBRepBuild_Builder1::GFillFaceSameDomSFS(const TopoShape&           FOR,
+                                                   const ShapeList&   LSO2,
+                                                   const GTopologyClassifier&  Gin,
                                                    TopOpeBRepBuild_ShellFaceSet& SFS)
 {
   myProcessedPartsOut2d.Clear();
@@ -522,13 +522,13 @@ void TopOpeBRepBuild_Builder1::GFillFaceSameDomSFS(const TopoDS_Shape&          
   if (myDataStructure->DS().AncestorRank(FOR) != 1)
     return;
 
-  const TopOpeBRepBuild_GTopo& G1 = Gin;
+  const GTopologyClassifier& G1 = Gin;
 
   TopAbs_State TB1, TB2;
   G1.StatesON(TB1, TB2);
 
   // work on a FORWARD face <FForward>
-  TopoDS_Shape FF = FOR;
+  TopoShape FF = FOR;
   FF.Orientation(TopAbs_FORWARD);
 
   // make a WireEdgeSet WES on face FF
@@ -543,24 +543,24 @@ void TopOpeBRepBuild_Builder1::GFillFaceSameDomSFS(const TopoDS_Shape&          
   MarkSplit(FF, TB1);
 
   // build the new faces LOF on FF from the Wire/Edge set WES
-  TopTools_ListOfShape LOF, oriLOF;
+  ShapeList LOF, oriLOF;
   GWESMakeFaces(FF, WES, LOF);
 
   // LOFS : LOF faces located TB1 / LSclass = split faces of state TB1 of FF
-  TopTools_ListOfShape& LOFS = ChangeSplit(FF, TB1);
+  ShapeList& LOFS = ChangeSplit(FF, TB1);
 
   // orientate new faces by the right way
   Standard_Boolean OrigRev = (FOR.Orientation() == TopAbs_FORWARD ? Standard_False : Standard_True);
   TopTools_ListIteratorOfListOfShape LOFit(LOF);
   for (; LOFit.More(); LOFit.Next())
   {
-    TopoDS_Shape               aFace = LOFit.Value();
+    TopoShape               aFace = LOFit.Value();
     TopTools_IndexedMapOfShape aEM;
-    TopExp::MapShapes(aFace, TopAbs_EDGE, aEM);
+    TopExp1::MapShapes(aFace, TopAbs_EDGE, aEM);
     Standard_Boolean rev = Standard_False;
     for (Standard_Integer i = 1; i <= aEM.Extent(); i++)
     {
-      const TopoDS_Shape& anEdge = aEM(i);
+      const TopoShape& anEdge = aEM(i);
       if (myMapOfEdgeWithFaceState.Find(anEdge, rev))
       {
         break;
@@ -582,9 +582,9 @@ void TopOpeBRepBuild_Builder1::GFillFaceSameDomSFS(const TopoDS_Shape&          
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder1::GFillFaceSameDomWES(const TopoDS_Shape& FOR1,
-                                                   const TopTools_ListOfShape& /*LFclass*/,
-                                                   const TopOpeBRepBuild_GTopo& G1,
+void TopOpeBRepBuild_Builder1::GFillFaceSameDomWES(const TopoShape& FOR1,
+                                                   const ShapeList& /*LFclass*/,
+                                                   const GTopologyClassifier& G1,
                                                    TopOpeBRepBuild_WireEdgeSet& WES)
 {
   TopAbs_State TB1, TB2;
@@ -601,20 +601,20 @@ void TopOpeBRepBuild_Builder1::GFillFaceSameDomWES(const TopoDS_Shape& FOR1,
     TopTools_ListIteratorOfListOfShape it = myDataStructure->SameDomain(curSameDomMap(i));
     for (; it.More(); it.Next())
     {
-      const TopoDS_Shape& SDF = it.Value();
+      const TopoShape& SDF = it.Value();
       curSameDomMap.Add(SDF);
       mySameDomMap.Add(SDF);
 
-      TopExp::MapShapes(SDF, TopAbs_EDGE, mySDEdgeMap);
+      TopExp1::MapShapes(SDF, TopAbs_EDGE, mySDEdgeMap);
     }
   }
 
   nF = curSameDomMap.Extent();
   for (i = 1; i <= nF; i++)
   {
-    TopoDS_Shape curF = curSameDomMap(i);
+    TopoShape curF = curSameDomMap(i);
 
-    TopoDS_Shape curFF = curF;
+    TopoShape curFF = curF;
     curFF.Orientation(TopAbs_FORWARD);
 
     mySDFaceToFill        = TopoDS::Face(curF);
@@ -622,7 +622,7 @@ void TopOpeBRepBuild_Builder1::GFillFaceSameDomWES(const TopoDS_Shape& FOR1,
 
     TopAbs_State          TB;
     Standard_Boolean      RevOri = Standard_False;
-    TopOpeBRepBuild_GTopo GFTW   = G1;
+    GTopologyClassifier GFTW   = G1;
     if (iref == 1)
     { // object
       TB     = TB1;
@@ -641,12 +641,12 @@ void TopOpeBRepBuild_Builder1::GFillFaceSameDomWES(const TopoDS_Shape& FOR1,
     // process ON parts from not SD faces
     PerformONParts(curFF, curSameDomMap, G1, WES);
 
-    const TopTools_ListOfShape& LSF = myDataStructure->DS().ShapeSameDomain(curFF);
+    const ShapeList& LSF = myDataStructure->DS().ShapeSameDomain(curFF);
 
     TopOpeBRepTool_ShapeExplorer exWire(curFF, TopAbs_WIRE);
     for (; exWire.More(); exWire.Next())
     {
-      TopoDS_Shape     W        = exWire.Current();
+      TopoShape     W        = exWire.Current();
       Standard_Boolean hasshape = myDataStructure->HasShape(W);
       TopAbs_State     shSt     = myDataStructure->DS().GetShapeWithState(W).State();
 
@@ -660,7 +660,7 @@ void TopOpeBRepBuild_Builder1::GFillFaceSameDomWES(const TopoDS_Shape& FOR1,
           TopAbs_Orientation neworiW = Orient(oriW, RevOri);
 
           if (myBaseFaceToFill != mySDFaceToFill)
-            TopOpeBRepBuild_Tools::UpdatePCurves(TopoDS::Wire(W),
+            Tools3::UpdatePCurves(TopoDS::Wire(W),
                                                  TopoDS::Face(mySDFaceToFill),
                                                  TopoDS::Face(myBaseFaceToFill));
           else
@@ -668,12 +668,12 @@ void TopOpeBRepBuild_Builder1::GFillFaceSameDomWES(const TopoDS_Shape& FOR1,
             mySourceShapes.Add(W);
           }
 
-          TopExp_Explorer  we(W, TopAbs_EDGE);
+          ShapeExplorer  we(W, TopAbs_EDGE);
           Standard_Boolean stateOfFaceOri = Standard_False;
           Standard_Boolean UseEdges       = Standard_False;
           for (; we.More(); we.Next())
           {
-            TopoDS_Edge EOR = TopoDS::Edge(we.Current());
+            TopoEdge EOR = TopoDS::Edge(we.Current());
 
             TopAbs_Orientation oldori = EOR.Orientation();
             OrientateEdgeOnFace(EOR,
@@ -711,15 +711,15 @@ void TopOpeBRepBuild_Builder1::GFillFaceSameDomWES(const TopoDS_Shape& FOR1,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder1::GFillWireSameDomWES(const TopoDS_Shape&          W,
-                                                   const TopTools_ListOfShape&  LSclass,
-                                                   const TopOpeBRepBuild_GTopo& G1,
+void TopOpeBRepBuild_Builder1::GFillWireSameDomWES(const TopoShape&          W,
+                                                   const ShapeList&  LSclass,
+                                                   const GTopologyClassifier& G1,
                                                    TopOpeBRepBuild_WireEdgeSet& WES)
 {
   TopAbs_State TB1, TB2;
   G1.StatesON(TB1, TB2);
 
-  const TopoDS_Shape& WW = W; // WW.Orientation(TopAbs_FORWARD);
+  const TopoShape& WW = W; // WW.Orientation(TopAbs_FORWARD);
 
   Standard_Integer iref = myDataStructure->DS().AncestorRank(W);
 
@@ -739,7 +739,7 @@ void TopOpeBRepBuild_Builder1::GFillWireSameDomWES(const TopoDS_Shape&          
   TopOpeBRepTool_ShapeExplorer exEdge(WW, TopAbs_EDGE);
   for (; exEdge.More(); exEdge.Next())
   {
-    TopoDS_Shape     EOR      = exEdge.Current();
+    TopoShape     EOR      = exEdge.Current();
     Standard_Boolean hasshape = myDataStructure->HasShape(EOR);
     if (!hasshape)
     {
@@ -753,7 +753,7 @@ void TopOpeBRepBuild_Builder1::GFillWireSameDomWES(const TopoDS_Shape&          
 
         if (mySDFaceToFill != myBaseFaceToFill)
         {
-          TopOpeBRepBuild_Tools::UpdateEdgeOnFace(TopoDS::Edge(EOR),
+          Tools3::UpdateEdgeOnFace(TopoDS::Edge(EOR),
                                                   TopoDS::Face(mySDFaceToFill),
                                                   TopoDS::Face(myBaseFaceToFill));
         }
@@ -782,9 +782,9 @@ void TopOpeBRepBuild_Builder1::GFillWireSameDomWES(const TopoDS_Shape&          
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoDS_Shape&          EOR,
-                                                   const TopTools_ListOfShape&  LSclass,
-                                                   const TopOpeBRepBuild_GTopo& G1,
+void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoShape&          EOR,
+                                                   const ShapeList&  LSclass,
+                                                   const GTopologyClassifier& G1,
                                                    TopOpeBRepBuild_WireEdgeSet& WES)
 {
   TopAbs_State TB1, TB2, TB;
@@ -808,17 +808,17 @@ void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoDS_Shape&          
   Orient(oriE, RevOri);
 
   // 1) Get split parts of edge with state TB
-  const TopTools_ListOfShape&        LSE = myDataStructure->DS().GetShapeWithState(EOR).Part(TB);
+  const ShapeList&        LSE = myDataStructure->DS().GetShapeWithState(EOR).Part(TB);
   TopTools_ListIteratorOfListOfShape it(LSE);
   for (; it.More(); it.Next())
   {
 
-    TopoDS_Edge newE = TopoDS::Edge(it.Value());
+    TopoEdge newE = TopoDS::Edge(it.Value());
     newE.Orientation(oriE);
 
     if (mySDFaceToFill != myBaseFaceToFill)
     {
-      TopOpeBRepBuild_Tools::UpdateEdgeOnFace(newE,
+      Tools3::UpdateEdgeOnFace(newE,
                                               TopoDS::Face(mySDFaceToFill),
                                               TopoDS::Face(myBaseFaceToFill));
     }
@@ -839,12 +839,12 @@ void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoDS_Shape&          
   }
 
   // 2) Get ON parts of the edge and define to keep it or not
-  const TopTools_ListOfShape& LSEOn = myDataStructure->DS().GetShapeWithState(EOR).Part(TopAbs_ON);
+  const ShapeList& LSEOn = myDataStructure->DS().GetShapeWithState(EOR).Part(TopAbs_ON);
   it.Initialize(LSEOn);
   for (; it.More(); it.Next())
   {
 
-    TopoDS_Edge aSplitPart = TopoDS::Edge(it.Value());
+    TopoEdge aSplitPart = TopoDS::Edge(it.Value());
     aSplitPart.Orientation(EOR.Orientation());
 
     // do ON 2D computation
@@ -852,14 +852,14 @@ void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoDS_Shape&          
     {
       Standard_Integer flag = 0;
       // First of All : if SDFaceToFill is REVERSED we need to reverse aSplitPart
-      TopoDS_Shape eON  = aSplitPart;
-      TopoDS_Shape nEOR = EOR;
+      TopoShape eON  = aSplitPart;
+      TopoShape nEOR = EOR;
       if (mySDFaceToFill.Orientation() == TopAbs_REVERSED)
       {
         eON.Reverse();
         nEOR.Reverse();
       }
-      TopTools_ListOfShape aListOfPieces, aListOfFaces, aListOfPieceOut2d;
+      ShapeList aListOfPieces, aListOfFaces, aListOfPieceOut2d;
       // Out 2d pieces we compute only one time : for the Object
       if (myProcessedPartsOut2d.Contains(eON))
         continue;
@@ -868,8 +868,8 @@ void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoDS_Shape&          
       TopTools_ListIteratorOfListOfShape aPIt2d(aListOfPieceOut2d);
       for (; aPIt2d.More(); aPIt2d.Next())
       {
-        TopoDS_Shape aFP = aPIt2d.Value();
-        TopoDS_Shape aRP = aPIt2d.Value();
+        TopoShape aFP = aPIt2d.Value();
+        TopoShape aRP = aPIt2d.Value();
         aFP.Reverse();
         WES.AddStartElement(aFP);
         WES.AddStartElement(aRP);
@@ -878,8 +878,8 @@ void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoDS_Shape&          
       TopTools_ListIteratorOfListOfShape aPIt(aListOfPieces), aFIt(aListOfFaces);
       for (; aPIt.More(); aPIt.Next())
       {
-        TopoDS_Shape        aPieceToKeep = aPIt.Value();
-        const TopoDS_Shape& aPieceFace   = aFIt.Value();
+        TopoShape        aPieceToKeep = aPIt.Value();
+        const TopoShape& aPieceFace   = aFIt.Value();
         if (aPieceFace == mySDFaceToFill)
         {
           Standard_Boolean IsRev = (aPieceToKeep.Orientation() == nEOR.Orientation());
@@ -906,7 +906,7 @@ void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoDS_Shape&          
     }
 
     // do IN 2D computation
-    TopoDS_Shape aSDShape;
+    TopoShape aSDShape;
     TopAbs_State aState = TopAbs_UNKNOWN;
 
     if (LSclass.Extent() == 1)
@@ -920,7 +920,7 @@ void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoDS_Shape&          
       TopTools_ListIteratorOfListOfShape LSClassIt(LSclass);
       for (; LSClassIt.More(); LSClassIt.Next())
       {
-        TopoDS_Face curSD = TopoDS::Face(LSClassIt.Value());
+        TopoFace curSD = TopoDS::Face(LSClassIt.Value());
         aState            = ClassifyEdgeToFaceByOnePoint(aSplitPart, curSD);
         //	aState = ClassifyEdgeToFaceByOnePoint(aSplitPart, TopoDS::Face(curSD));
         if (aState == TopAbs_IN || aState == TopAbs_ON)
@@ -952,8 +952,8 @@ void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoDS_Shape&          
       }
 
       // compute adjacents
-      TopoDS_Shape                       aAdjSDFace;
-      const TopTools_ListOfShape&        aFEL = myMapOfEdgeFaces.FindFromKey(EOR);
+      TopoShape                       aAdjSDFace;
+      const ShapeList&        aFEL = myMapOfEdgeFaces.FindFromKey(EOR);
       TopTools_ListIteratorOfListOfShape aEFIt(aFEL);
       if (aFEL.Extent() <= 2)
       { // we don't compute adjacent if we have more than one adjacent face
@@ -975,27 +975,27 @@ void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoDS_Shape&          
       if (!aAdjSDFace.IsNull())
       {
         TopTools_IndexedMapOfShape aEAdjMap;
-        TopExp::MapShapes(aAdjSDFace, TopAbs_EDGE, aEAdjMap);
+        TopExp1::MapShapes(aAdjSDFace, TopAbs_EDGE, aEAdjMap);
 
         Standard_Integer index  = aEAdjMap.FindIndex(EOR);
-        TopoDS_Shape     AdjEOR = aEAdjMap.FindKey(index);
+        TopoShape     AdjEOR = aEAdjMap.FindKey(index);
 
         TopTools_ListIteratorOfListOfShape it1          = myDataStructure->SameDomain(aAdjSDFace);
-        TopoDS_Shape                       aSDToAdjFace = it1.Value();
+        TopoShape                       aSDToAdjFace = it1.Value();
 
-        TopoDS_Edge aSplitP = aSplitPart;
+        TopoEdge aSplitP = aSplitPart;
         aSplitP.Orientation(AdjEOR.Orientation());
 
         Vector3d aTg, aN1, aN2, aN3, aBiN;
-        TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(aSDToAdjFace), aSplitP, aN2);
+        Tools3::GetNormalToFaceOnEdge(TopoDS::Face(aSDToAdjFace), aSplitP, aN2);
         if (aSDToAdjFace.Orientation() == TopAbs_REVERSED)
           aN2.Reverse();
 
-        TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(aAdjSDFace), aSplitP, aN3);
+        Tools3::GetNormalToFaceOnEdge(TopoDS::Face(aAdjSDFace), aSplitP, aN3);
         if (aAdjSDFace.Orientation() == TopAbs_REVERSED)
           aN3.Reverse();
 
-        TopOpeBRepBuild_Tools::GetTangentToEdge(aSplitP, aTg);
+        Tools3::GetTangentToEdge(aSplitP, aTg);
         if (aSplitP.Orientation() == TopAbs_REVERSED)
         {
           aTg.Reverse();
@@ -1005,14 +1005,14 @@ void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoDS_Shape&          
 
         Standard_Real scalarPr = 0.;
 
-        TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(mySDFaceToFill), aSplitP, aN1);
+        Tools3::GetNormalToFaceOnEdge(TopoDS::Face(mySDFaceToFill), aSplitP, aN1);
         if (mySDFaceToFill.Orientation() == TopAbs_REVERSED)
           aN1.Reverse();
         scalarPr = aBiN * aN1;
 
         if (fabs(scalarPr) <= 1e-10) // try to step inside
         {
-          TopOpeBRepBuild_Tools::GetNormalInNearestPoint(TopoDS::Face(mySDFaceToFill),
+          Tools3::GetNormalInNearestPoint(TopoDS::Face(mySDFaceToFill),
                                                          aSplitP,
                                                          aN1);
           if (mySDFaceToFill.Orientation() == TopAbs_REVERSED)
@@ -1039,7 +1039,7 @@ void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoDS_Shape&          
       {
         if (mySDFaceToFill != myBaseFaceToFill)
         {
-          TopOpeBRepBuild_Tools::UpdateEdgeOnFace(aSplitPart,
+          Tools3::UpdateEdgeOnFace(aSplitPart,
                                                   TopoDS::Face(mySDFaceToFill),
                                                   TopoDS::Face(myBaseFaceToFill));
         }
@@ -1063,9 +1063,9 @@ void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoDS_Shape&          
     // end case OUT2D
 
     // IN2D computation
-    TopoDS_Edge aSplitP = aSplitPart;
+    TopoEdge aSplitP = aSplitPart;
     aSplitP.Orientation(EOR.Orientation());
-    TopoDS_Face aSDFace = TopoDS::Face(aSDShape);
+    TopoFace aSDFace = TopoDS::Face(aSDShape);
 
     Standard_Boolean keep = Standard_False;
     PerformPieceIn2D(aSplitPart,
@@ -1094,14 +1094,14 @@ void TopOpeBRepBuild_Builder1::GFillEdgeSameDomWES(const TopoDS_Shape&          
   }
 } // GFillEdgeWES
 
-extern Standard_Boolean TopOpeBRepBuild_FUN_aresamegeom(const TopoDS_Shape& S1,
-                                                        const TopoDS_Shape& S2);
+extern Standard_Boolean TopOpeBRepBuild_FUN_aresamegeom(const TopoShape& S1,
+                                                        const TopoShape& S2);
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder1::PerformONParts(const TopoDS_Shape& FOR1,
+void TopOpeBRepBuild_Builder1::PerformONParts(const TopoShape& FOR1,
                                               const TopTools_IndexedMapOfShape& /*SDFaces*/,
-                                              const TopOpeBRepBuild_GTopo& G1,
+                                              const GTopologyClassifier& G1,
                                               TopOpeBRepBuild_WireEdgeSet& WES)
 {
   TopAbs_State ETB1, ETB2, ETB;
@@ -1138,17 +1138,17 @@ void TopOpeBRepBuild_Builder1::PerformONParts(const TopoDS_Shape& FOR1,
     if (GT != TopOpeBRepDS_EDGE || ST != TopOpeBRepDS_FACE)
       continue;
 
-    const TopoDS_Edge& EG = TopoDS::Edge(myDataStructure->DS().Shape(GI, Standard_False));
+    const TopoEdge& EG = TopoDS::Edge(myDataStructure->DS().Shape(GI, Standard_False));
     // we process only the edges which are not from the current SD faces
     if (mySDEdgeMap.Contains(EG))
       continue;
 
     // take ON splits of the edge
-    const TopTools_ListOfShape& splON = myDataStructure->DS().GetShapeWithState(EG).Part(TopAbs_ON);
+    const ShapeList& splON = myDataStructure->DS().GetShapeWithState(EG).Part(TopAbs_ON);
     if (!splON.Extent())
       continue;
 
-    const TopOpeBRepDS_Transition& aTr = SSI->Transition();
+    const StateTransition& aTr = SSI->Transition();
 
     Standard_Integer irefE = myDataStructure->DS().AncestorRank(EG);
 
@@ -1165,14 +1165,14 @@ void TopOpeBRepBuild_Builder1::PerformONParts(const TopoDS_Shape& FOR1,
     }
 
     // take list of edge faces
-    const TopTools_ListOfShape& EdgeFaces = myMapOfEdgeFaces.FindFromKey(EG);
-    TopExp_Explorer             Exp;
+    const ShapeList& EdgeFaces = myMapOfEdgeFaces.FindFromKey(EG);
+    ShapeExplorer             Exp;
 
     for (TopTools_ListIteratorOfListOfShape itON(splON); itON.More(); itON.Next())
     {
-      TopoDS_Shape newE = itON.Value();
+      TopoShape newE = itON.Value();
 
-      TopoDS_Shape aSDShape = FOR1;
+      TopoShape aSDShape = FOR1;
       TopAbs_State aState   = TopAbs_UNKNOWN;
 
       aState = ClassifyEdgeToFaceByOnePoint(TopoDS::Edge(newE), TopoDS::Face(FOR1));
@@ -1180,16 +1180,16 @@ void TopOpeBRepBuild_Builder1::PerformONParts(const TopoDS_Shape& FOR1,
         continue;
 
       Standard_Boolean keep    = Standard_False;
-      TopoDS_Face      aSDFace = TopoDS::Face(aSDShape);
+      TopoFace      aSDFace = TopoDS::Face(aSDShape);
 
       TopAbs_Orientation oriE;
       TopAbs_Orientation neworiE;
 
       for (TopTools_ListIteratorOfListOfShape it(EdgeFaces); it.More(); it.Next())
       {
-        const TopoDS_Shape& FOR = it.Value();
+        const TopoShape& FOR = it.Value();
         Exp.Init(FOR, TopAbs_EDGE);
-        TopoDS_Shape EOR;
+        TopoShape EOR;
         for (; Exp.More(); Exp.Next())
         {
           EOR = Exp.Current();
@@ -1206,15 +1206,15 @@ void TopOpeBRepBuild_Builder1::PerformONParts(const TopoDS_Shape& FOR1,
 
         newE.Orientation(oriE);
         Vector3d aTg, aN2, aN3, aBiN;
-        TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(FOR), TopoDS::Edge(newE), aN2);
+        Tools3::GetNormalToFaceOnEdge(TopoDS::Face(FOR), TopoDS::Edge(newE), aN2);
         if (FOR.Orientation() == TopAbs_REVERSED)
           aN2.Reverse();
-        TopOpeBRepBuild_Tools::GetTangentToEdge(TopoDS::Edge(newE), aTg);
+        Tools3::GetTangentToEdge(TopoDS::Edge(newE), aTg);
         if (newE.Orientation() == TopAbs_REVERSED)
         {
           aTg.Reverse();
         }
-        TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(aSDFace, TopoDS::Edge(newE), aN3);
+        Tools3::GetNormalToFaceOnEdge(aSDFace, TopoDS::Edge(newE), aN3);
         if (aSDFace.Orientation() == TopAbs_REVERSED)
           aN3.Reverse();
         keep                   = Standard_False;
@@ -1224,7 +1224,7 @@ void TopOpeBRepBuild_Builder1::PerformONParts(const TopoDS_Shape& FOR1,
 
         if (fabs(scalarPr) <= 1e-10)
         { // try to step inside
-          TopOpeBRepBuild_Tools::GetNormalInNearestPoint(TopoDS::Face(FOR),
+          Tools3::GetNormalInNearestPoint(TopoDS::Face(FOR),
                                                          TopoDS::Edge(newE),
                                                          aN2);
           if (FOR.Orientation() == TopAbs_REVERSED)
@@ -1245,13 +1245,13 @@ void TopOpeBRepBuild_Builder1::PerformONParts(const TopoDS_Shape& FOR1,
         // compute orientation of the future face
         Standard_Boolean stateOfFaceOri = Standard_False;
         Vector3d           aNbf, aNsf, OrigNormalbf; // aTg, aBiN, aOut;
-        TopoDS_Edge      aLocalEdge = TopoDS::Edge(newE);
-        TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(aSDFace, aLocalEdge, aNsf);
-        //	TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(aSDFace), TopoDS::Edge(newE),
+        TopoEdge      aLocalEdge = TopoDS::Edge(newE);
+        Tools3::GetNormalToFaceOnEdge(aSDFace, aLocalEdge, aNsf);
+        //	Tools3::GetNormalToFaceOnEdge(TopoDS::Face(aSDFace), TopoDS::Edge(newE),
         // aNsf);
         if (aSDFace.Orientation() == TopAbs_REVERSED)
           aNsf.Reverse();
-        TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(myBaseFaceToFill),
+        Tools3::GetNormalToFaceOnEdge(TopoDS::Face(myBaseFaceToFill),
                                                      TopoDS::Edge(newE),
                                                      OrigNormalbf);
         aNbf = OrigNormalbf;
@@ -1276,7 +1276,7 @@ void TopOpeBRepBuild_Builder1::PerformONParts(const TopoDS_Shape& FOR1,
         Standard_Boolean samegeom = TopOpeBRepBuild_FUN_aresamegeom(FOR1, myBaseFaceToFill);
         if (!samegeom)
         {
-          neworiE = TopAbs::Complement(neworiE);
+          neworiE = TopAbs1::Complement(neworiE);
         }
         newE.Orientation(neworiE);
 
@@ -1289,20 +1289,20 @@ void TopOpeBRepBuild_Builder1::PerformONParts(const TopoDS_Shape& FOR1,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder1::GWESMakeFaces(const TopoDS_Shape&          FF,
+void TopOpeBRepBuild_Builder1::GWESMakeFaces(const TopoShape&          FF,
                                              TopOpeBRepBuild_WireEdgeSet& WES,
-                                             TopTools_ListOfShape&        LOF)
+                                             ShapeList&        LOF)
 {
   TopOpeBRepBuild_Builder::GWESMakeFaces(FF, WES, LOF);
   TopTools_ListIteratorOfListOfShape aLOFit(LOF);
-  TopTools_ListOfShape               corrLOF;
+  ShapeList               corrLOF;
   if (myIsKPart == 4)
   {
     for (; aLOFit.More(); aLOFit.Next())
     {
-      const TopoDS_Shape& ff = aLOFit.Value();
-      TopoDS_Shape        corrFF;
-      TopOpeBRepBuild_Tools::NormalizeFace(ff, corrFF);
+      const TopoShape& ff = aLOFit.Value();
+      TopoShape        corrFF;
+      Tools3::NormalizeFace(ff, corrFF);
       corrLOF.Append(corrFF);
     }
   }
@@ -1314,12 +1314,12 @@ void TopOpeBRepBuild_Builder1::GWESMakeFaces(const TopoDS_Shape&          FF,
 
   // correct face2d
   aLOFit.Initialize(corrLOF);
-  TopTools_ListOfShape corrLOF1;
+  ShapeList corrLOF1;
   for (; aLOFit.More(); aLOFit.Next())
   {
-    const TopoDS_Shape& ff = aLOFit.Value();
-    TopoDS_Shape        corrFF;
-    TopOpeBRepBuild_Tools::CorrectFace2d(ff, corrFF, mySourceShapes, myMapOfCorrect2dEdges);
+    const TopoShape& ff = aLOFit.Value();
+    TopoShape        corrFF;
+    Tools3::CorrectFace2d(ff, corrFF, mySourceShapes, myMapOfCorrect2dEdges);
     corrLOF1.Append(corrFF);
   }
 
@@ -1329,11 +1329,11 @@ void TopOpeBRepBuild_Builder1::GWESMakeFaces(const TopoDS_Shape&          FF,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder1::PerformPieceIn2D(const TopoDS_Edge&           EdgeToPerform,
-                                                const TopoDS_Edge&           EOR,
-                                                const TopoDS_Face&           edgeFace,
-                                                const TopoDS_Face&           toFace,
-                                                const TopOpeBRepBuild_GTopo& G1,
+void TopOpeBRepBuild_Builder1::PerformPieceIn2D(const TopoEdge&           EdgeToPerform,
+                                                const TopoEdge&           EOR,
+                                                const TopoFace&           edgeFace,
+                                                const TopoFace&           toFace,
+                                                const GTopologyClassifier& G1,
                                                 Standard_Boolean&            keep)
 {
   keep = Standard_False;
@@ -1351,22 +1351,22 @@ void TopOpeBRepBuild_Builder1::PerformPieceIn2D(const TopoDS_Edge&           Edg
   TopAbs_Orientation O2   = toFace.Orientation();
   TopAbs_Orientation oriE = EdgeToPerform.Orientation();
 
-  TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(toFace, EdgeToPerform, aN2);
+  Tools3::GetNormalToFaceOnEdge(toFace, EdgeToPerform, aN2);
   if (O2 == TopAbs_REVERSED)
     aN2.Reverse();
 
-  TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(edgeFace, EdgeToPerform, aN3);
+  Tools3::GetNormalToFaceOnEdge(edgeFace, EdgeToPerform, aN3);
   if (O1 == TopAbs_REVERSED)
     aN3.Reverse();
 
-  TopOpeBRepBuild_Tools::GetTangentToEdge(EdgeToPerform, aTg);
+  Tools3::GetTangentToEdge(EdgeToPerform, aTg);
   if (oriE == TopAbs_REVERSED)
     aTg.Reverse();
   if (O1 == TopAbs_REVERSED)
     aTg.Reverse();
 
   aBiN                                    = aTg ^ aN2;
-  const TopTools_ListOfShape&        aFEL = myMapOfEdgeFaces.FindFromKey(EOR);
+  const ShapeList&        aFEL = myMapOfEdgeFaces.FindFromKey(EOR);
   TopTools_ListIteratorOfListOfShape aEFIt(aFEL);
   Standard_Real                      scalarPr = 0.;
 
@@ -1379,16 +1379,16 @@ void TopOpeBRepBuild_Builder1::PerformPieceIn2D(const TopoDS_Edge&           Edg
         continue;
       else
       { // compute bi-normal state
-        TopoDS_Face aAdjF = TopoDS::Face(aEFIt.Value());
-        TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(aAdjF, EdgeToPerform, aN1);
+        TopoFace aAdjF = TopoDS::Face(aEFIt.Value());
+        Tools3::GetNormalToFaceOnEdge(aAdjF, EdgeToPerform, aN1);
         if (aAdjF.Orientation() == TopAbs_REVERSED)
           aN1.Reverse();
         scalarPr = aBiN * aN1;
 
         if (fabs(scalarPr) <= 1e-10)
         { // try to step inside
-          TopOpeBRepBuild_Tools::GetNormalInNearestPoint(aAdjF, EdgeToPerform, aN1);
-          //	  TopOpeBRepBuild_Tools::GetNormalInNearestPoint(TopoDS::Face(aAdjF), EdgeToPerform,
+          Tools3::GetNormalInNearestPoint(aAdjF, EdgeToPerform, aN1);
+          //	  Tools3::GetNormalInNearestPoint(TopoDS::Face(aAdjF), EdgeToPerform,
           // aN1);
           if (aAdjF.Orientation() == TopAbs_REVERSED)
             aN1.Reverse();
@@ -1424,12 +1424,12 @@ void TopOpeBRepBuild_Builder1::PerformPieceIn2D(const TopoDS_Edge&           Edg
 //=================================================================================================
 
 Standard_Integer TopOpeBRepBuild_Builder1::PerformPieceOn2D(
-  const TopoDS_Shape&   aPieceObj,
-  const TopoDS_Shape&   aFaceObj,
-  const TopoDS_Shape&   anEdgeObj,
-  TopTools_ListOfShape& aListOfPieces,
-  TopTools_ListOfShape& aListOfFaces,
-  TopTools_ListOfShape& aListOfPiecesOut2d)
+  const TopoShape&   aPieceObj,
+  const TopoShape&   aFaceObj,
+  const TopoShape&   anEdgeObj,
+  ShapeList& aListOfPieces,
+  ShapeList& aListOfFaces,
+  ShapeList& aListOfPiecesOut2d)
 {
   // eap 30 May occ417, aCasesMap instead of aCase14 and aCase12
   Standard_Integer     i, j, k, flag = 0, priz; //, aCase14=0, aCase12=0;
@@ -1449,49 +1449,49 @@ Standard_Integer TopOpeBRepBuild_Builder1::PerformPieceOn2D(
   TopTools_ListIteratorOfListOfShape anIt(myDataStructure->SameDomain(aFaceObj));
   for (i = 1; anIt.More(); anIt.Next(), i++)
   {
-    const TopoDS_Shape& aFaceTool = anIt.Value();
+    const TopoShape& aFaceTool = anIt.Value();
 
     TopTools_IndexedMapOfShape anEdgesToolMap;
-    TopExp::MapShapes(aFaceTool, TopAbs_EDGE, anEdgesToolMap);
+    TopExp1::MapShapes(aFaceTool, TopAbs_EDGE, anEdgesToolMap);
 
     if (myDataStructure->HasSameDomain(anEdgeObj))
     {
       TopTools_ListIteratorOfListOfShape anItE = myDataStructure->SameDomain(anEdgeObj);
       for (j = 1; anItE.More(); anItE.Next(), j++)
       {
-        TopoDS_Shape anEdgeTool = anItE.Value();
+        TopoShape anEdgeTool = anItE.Value();
 
         if (anEdgesToolMap.Contains(anEdgeTool))
         {
 
-          TopExp_Explorer anExpEdges;
+          ShapeExplorer anExpEdges;
           for (anExpEdges.Init(aFaceTool, TopAbs_EDGE); anExpEdges.More(); anExpEdges.Next())
           {
-            const TopoDS_Shape& anExpEdgeTool = anExpEdges.Current();
+            const TopoShape& anExpEdgeTool = anExpEdges.Current();
             if (!anExpEdgeTool.IsSame(anEdgeTool))
               continue;
 
             anEdgeTool.Orientation(anExpEdgeTool.Orientation());
 
-            const TopOpeBRepDS_ShapeWithState& aSWSTool =
+            const ShapeWithState& aSWSTool =
               aMapOfShapeWithStateTool.FindFromKey(anEdgeTool);
 
-            const TopTools_ListOfShape& aPartOnTool = aSWSTool.Part(TopAbs_ON);
+            const ShapeList& aPartOnTool = aSWSTool.Part(TopAbs_ON);
 
             // we are looking for the same piece as aPieceObj among aPartOnTool
             TopTools_ListIteratorOfListOfShape anItTool(aPartOnTool);
             for (k = 1; anItTool.More(); anItTool.Next(), k++)
             {
-              TopoDS_Shape& aPieceTool = anItTool.ChangeValue();
+              TopoShape& aPieceTool = anItTool.ChangeValue();
               aPieceTool.Orientation(anEdgeTool.Orientation());
 
               Standard_Boolean aIsSameCnd, IsDegFlag;
 
-              IsDegFlag = BRep_Tool::Degenerated(TopoDS::Edge(aPieceObj))
-                          && BRep_Tool::Degenerated(TopoDS::Edge(aPieceTool));
+              IsDegFlag = BRepInspector::Degenerated(TopoDS::Edge(aPieceObj))
+                          && BRepInspector::Degenerated(TopoDS::Edge(aPieceTool));
 
               aIsSameCnd = IsDegFlag
-                             ? TopOpeBRepBuild_Tools::IsDegEdgesTheSame(aPieceObj, aPieceTool)
+                             ? Tools3::IsDegEdgesTheSame(aPieceObj, aPieceTool)
                              : aPieceObj.IsSame(aPieceTool);
 
               if (aIsSameCnd)
@@ -1541,19 +1541,19 @@ Standard_Integer TopOpeBRepBuild_Builder1::PerformPieceOn2D(
 //=================================================================================================
 
 Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOfShape& aSeq,
-                                                       TopTools_ListOfShape& aListOfPieces,
-                                                       TopTools_ListOfShape& aListOfFaces,
-                                                       TopTools_ListOfShape& aListOfPiecesOut2d)
+                                                       ShapeList& aListOfPieces,
+                                                       ShapeList& aListOfFaces,
+                                                       ShapeList& aListOfPiecesOut2d)
 {
   // Restore Data
   if (aSeq.Length() < 6)
     return -2;
-  TopoDS_Shape aFaceObj   = aSeq(1);
-  TopoDS_Shape anEObj     = aSeq(2);
-  TopoDS_Shape aPieceObj  = aSeq(3);
-  TopoDS_Shape aFaceTool  = aSeq(4);
-  TopoDS_Shape anETool    = aSeq(5);
-  TopoDS_Shape aPieceTool = aSeq(6);
+  TopoShape aFaceObj   = aSeq(1);
+  TopoShape anEObj     = aSeq(2);
+  TopoShape aPieceObj  = aSeq(3);
+  TopoShape aFaceTool  = aSeq(4);
+  TopoShape anETool    = aSeq(5);
+  TopoShape aPieceTool = aSeq(6);
 
   // The two Maps for adjacent faces
   Standard_Integer iRef = myDataStructure->DS().AncestorRank(aFaceObj);
@@ -1562,14 +1562,14 @@ Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOf
 
   if (iRef == 1)
   {
-    TopExp::MapShapesAndAncestors(myShape1, TopAbs_EDGE, TopAbs_FACE, anEdgeFaceMapObj);
-    TopExp::MapShapesAndAncestors(myShape2, TopAbs_EDGE, TopAbs_FACE, anEdgeFaceMapTool);
+    TopExp1::MapShapesAndAncestors(myShape1, TopAbs_EDGE, TopAbs_FACE, anEdgeFaceMapObj);
+    TopExp1::MapShapesAndAncestors(myShape2, TopAbs_EDGE, TopAbs_FACE, anEdgeFaceMapTool);
   }
   else
   {
-    TopExp::MapShapesAndAncestors(myShape1, TopAbs_EDGE, TopAbs_FACE, anEdgeFaceMapObj);
-    TopExp::MapShapesAndAncestors(myShape2, TopAbs_EDGE, TopAbs_FACE, anEdgeFaceMapTool);
-    TopoDS_Shape tmpFace = aFaceObj, tmpPiece = aPieceObj, tmpEdge = anEObj;
+    TopExp1::MapShapesAndAncestors(myShape1, TopAbs_EDGE, TopAbs_FACE, anEdgeFaceMapObj);
+    TopExp1::MapShapesAndAncestors(myShape2, TopAbs_EDGE, TopAbs_FACE, anEdgeFaceMapTool);
+    TopoShape tmpFace = aFaceObj, tmpPiece = aPieceObj, tmpEdge = anEObj;
     aFaceObj   = aFaceTool;
     aPieceObj  = aPieceTool;
     anEObj     = anETool;
@@ -1588,27 +1588,27 @@ Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOf
   Standard_Real aScPrObj = 0., aScPrTool = 0.;
   Vector3d        anyN;
 
-  TopoDS_Shape anAdjFaceObj, anAdjFaceTool;
+  TopoShape anAdjFaceObj, anAdjFaceTool;
 
   // Faces
-  TopoDS_Face aFObj  = TopoDS::Face(aFaceObj);
-  TopoDS_Face aFTool = TopoDS::Face(aFaceTool);
+  TopoFace aFObj  = TopoDS::Face(aFaceObj);
+  TopoFace aFTool = TopoDS::Face(aFaceTool);
   // Pieces
-  TopoDS_Edge anEdgeObj  = TopoDS::Edge(aPieceObj);
-  TopoDS_Edge anEdgeTool = TopoDS::Edge(aPieceTool);
+  TopoEdge anEdgeObj  = TopoDS::Edge(aPieceObj);
+  TopoEdge anEdgeTool = TopoDS::Edge(aPieceTool);
 
   // OldEdges
-  TopoDS_Edge aOriEObj  = TopoDS::Edge(anEObj);
-  TopoDS_Edge aOriETool = TopoDS::Edge(anETool);
+  TopoEdge aOriEObj  = TopoDS::Edge(anEObj);
+  TopoEdge aOriETool = TopoDS::Edge(anETool);
 
   // Normals to the Faces
-  TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(aFObj, anEdgeObj, anyN);
+  Tools3::GetNormalToFaceOnEdge(aFObj, anEdgeObj, anyN);
   if (aFObj.Orientation() == TopAbs_REVERSED)
     anyN.Reverse();
   Dir3d aDNObj(anyN);
 
   //
-  TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(aFTool, anEdgeTool, anyN);
+  Tools3::GetNormalToFaceOnEdge(aFTool, anEdgeTool, anyN);
   if (aFTool.Orientation() == TopAbs_REVERSED)
     anyN.Reverse();
   Dir3d aDNTool(anyN);
@@ -1617,7 +1617,7 @@ Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOf
   IsFacesDifOriented = aDNObj * aDNTool < 0.;
   // Sense of the Pieces
   Standard_Boolean RevObj =
-    TopOpeBRepBuild_Tools::GetTangentToEdgeEdge(aFObj, anEdgeObj, aOriEObj, anyN);
+    Tools3::GetTangentToEdgeEdge(aFObj, anEdgeObj, aOriEObj, anyN);
   if (RevObj)
   {
     aPieceObj.Reverse();
@@ -1626,7 +1626,7 @@ Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOf
 
   Dir3d           aDTObj(anyN);
   Standard_Boolean RevTool =
-    TopOpeBRepBuild_Tools::GetTangentToEdgeEdge(aFTool, anEdgeTool, aOriETool, anyN);
+    Tools3::GetTangentToEdgeEdge(aFTool, anEdgeTool, aOriETool, anyN);
   if (RevTool)
   {
     aPieceTool.Reverse();
@@ -1637,19 +1637,19 @@ Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOf
   IsEdgesRevSense = aDTObj * aDTTool < 0.;
 
   // try to get adjacent faces for Obj and Tool. Ad1, Ad2 indicate that the face exists.
-  anAd1 = TopOpeBRepBuild_Tools::GetAdjacentFace(aFaceObj, anEObj, anEdgeFaceMapObj, anAdjFaceObj);
+  anAd1 = Tools3::GetAdjacentFace(aFaceObj, anEObj, anEdgeFaceMapObj, anAdjFaceObj);
   anAd2 =
-    TopOpeBRepBuild_Tools::GetAdjacentFace(aFaceTool, anETool, anEdgeFaceMapTool, anAdjFaceTool);
+    Tools3::GetAdjacentFace(aFaceTool, anETool, anEdgeFaceMapTool, anAdjFaceTool);
 
   if (anAd1 && anAd2)
   {
     // both adjacents are found , so we can calculate the scalar products
-    TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(anAdjFaceObj), anEdgeObj, anyN);
+    Tools3::GetNormalToFaceOnEdge(TopoDS::Face(anAdjFaceObj), anEdgeObj, anyN);
     if (anAdjFaceObj.Orientation() == TopAbs_REVERSED)
       anyN.Reverse();
     Dir3d aDNAObj(anyN);
 
-    TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(anAdjFaceTool), anEdgeTool, anyN);
+    Tools3::GetNormalToFaceOnEdge(TopoDS::Face(anAdjFaceTool), anEdgeTool, anyN);
     if (anAdjFaceTool.Orientation() == TopAbs_REVERSED)
       anyN.Reverse();
     Dir3d aDNATool(anyN);
@@ -1659,7 +1659,7 @@ Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOf
 
     if (fabs(aScPrObj) <= aTol)
     { // if scalar product is == 0 try to move a little from this point
-      TopOpeBRepBuild_Tools::GetNormalInNearestPoint(TopoDS::Face(anAdjFaceObj), anEdgeObj, anyN);
+      Tools3::GetNormalInNearestPoint(TopoDS::Face(anAdjFaceObj), anEdgeObj, anyN);
       if (anAdjFaceObj.Orientation() == TopAbs_REVERSED)
         anyN.Reverse();
       aDNAObj.SetXYZ(anyN.XYZ());
@@ -1668,7 +1668,7 @@ Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOf
 
     if (fabs(aScPrTool) <= aTol)
     { // if scalar product is == 0 try to move a little from this point
-      TopOpeBRepBuild_Tools::GetNormalInNearestPoint(TopoDS::Face(anAdjFaceTool), anEdgeTool, anyN);
+      Tools3::GetNormalInNearestPoint(TopoDS::Face(anAdjFaceTool), anEdgeTool, anyN);
       if (anAdjFaceTool.Orientation() == TopAbs_REVERSED)
         anyN.Reverse();
       aDNATool.SetXYZ(anyN.XYZ());
@@ -1701,7 +1701,7 @@ Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOf
     {
       if (Opec12())
       {
-        Standard_Boolean poisc = BRep_Tool::IsClosed(anEdgeObj, aFObj);
+        Standard_Boolean poisc = BRepInspector::IsClosed(anEdgeObj, aFObj);
         if (!poisc)
         {
           aListOfPieces.Append(aPieceObj);
@@ -1976,40 +1976,40 @@ Standard_Integer TopOpeBRepBuild_Builder1::TwoPiecesON(const TopTools_SequenceOf
 //=================================================================================================
 
 Standard_Integer TopOpeBRepBuild_Builder1::IsSame2d(const TopTools_SequenceOfShape& aSeq,
-                                                    TopTools_ListOfShape& aListOfPiecesOut2d)
+                                                    ShapeList& aListOfPiecesOut2d)
 {
   if (aSeq.Length() < 6)
     return 0;
 
-  TopoDS_Shape aFaceObj   = aSeq(1);
-  TopoDS_Shape anEdgeObj  = aSeq(2);
-  TopoDS_Shape aPieceObj  = aSeq(3);
-  TopoDS_Shape aFaceTool  = aSeq(4);
-  TopoDS_Shape anEdgeTool = aSeq(5);
-  TopoDS_Shape aPieceTool = aSeq(6);
+  TopoShape aFaceObj   = aSeq(1);
+  TopoShape anEdgeObj  = aSeq(2);
+  TopoShape aPieceObj  = aSeq(3);
+  TopoShape aFaceTool  = aSeq(4);
+  TopoShape anEdgeTool = aSeq(5);
+  TopoShape aPieceTool = aSeq(6);
 
-  TopoDS_Face aFObj   = TopoDS::Face(aFaceObj);
-  TopoDS_Face aFTool  = TopoDS::Face(aFaceTool);
-  TopoDS_Edge anEObj  = TopoDS::Edge(anEdgeObj);
-  TopoDS_Edge anETool = TopoDS::Edge(anEdgeTool);
-  TopoDS_Edge aPObj   = TopoDS::Edge(aPieceObj);
-  TopoDS_Edge aPTool  = TopoDS::Edge(aPieceTool);
+  TopoFace aFObj   = TopoDS::Face(aFaceObj);
+  TopoFace aFTool  = TopoDS::Face(aFaceTool);
+  TopoEdge anEObj  = TopoDS::Edge(anEdgeObj);
+  TopoEdge anETool = TopoDS::Edge(anEdgeTool);
+  TopoEdge aPObj   = TopoDS::Edge(aPieceObj);
+  TopoEdge aPTool  = TopoDS::Edge(aPieceTool);
 
   BRepAdaptor_Surface aBAS(aFObj);
   if (!(aBAS.IsUPeriodic() || aBAS.IsVPeriodic()))
     return 1;
 
   // we process here only fully closed edges (Vf == Vl)
-  if (!BRep_Tool::IsClosed(anEdgeObj) || !BRep_Tool::IsClosed(anEdgeTool))
+  if (!BRepInspector::IsClosed(anEdgeObj) || !BRepInspector::IsClosed(anEdgeTool))
     return 1;
 
   Standard_Real f = 0., l = 0., tolpc = 0., par = 0., parOri = 0., f1 = 0., l1 = 0., parP = 0.,
                 gp_Resolution = 1.e-10;
   gp_Pnt2d aUV1;
 
-  Handle(Geom2d_Curve) C2D;
+  Handle(GeomCurve2d) C2D;
   // C2DPieceTool
-  Handle(Geom2d_Curve) C2DPieceTool =
+  Handle(GeomCurve2d) C2DPieceTool =
     FC2D_CurveOnSurface(aPTool, aFObj, f1, l1, tolpc, Standard_True);
 
   parP = f1 * PAR_T + (1 - PAR_T) * l1;
@@ -2034,7 +2034,7 @@ Standard_Integer TopOpeBRepBuild_Builder1::IsSame2d(const TopTools_SequenceOfSha
   gp_Pnt2d aUV2;
   C2D->D0(parOri, aUV2);
   // C2DPieceObj
-  Handle(Geom2d_Curve) C2DPieceObj = FC2D_CurveOnSurface(aPObj, aFObj, f, l, tolpc, Standard_True);
+  Handle(GeomCurve2d) C2DPieceObj = FC2D_CurveOnSurface(aPObj, aFObj, f, l, tolpc, Standard_True);
 
   par = f * PAR_T + (1 - PAR_T) * l;
   C2DPieceObj->D0(par, aUV1);
@@ -2042,7 +2042,7 @@ Standard_Integer TopOpeBRepBuild_Builder1::IsSame2d(const TopTools_SequenceOfSha
   if (aTranslateV.Magnitude() >= gp_Resolution)
   {
 
-    Handle(Geom2d_Curve) aTrC2D = Handle(Geom2d_Curve)::DownCast(C2DPieceTool->Copy());
+    Handle(GeomCurve2d) aTrC2D = Handle(GeomCurve2d)::DownCast(C2DPieceTool->Copy());
     aTrC2D->Translate(aTranslateV);
     gp_Pnt2d aTFuv, aTLuv;
     aTrC2D->D0(f1, aTFuv);
@@ -2050,7 +2050,7 @@ Standard_Integer TopOpeBRepBuild_Builder1::IsSame2d(const TopTools_SequenceOfSha
     gp_Vec2d aTrVec(aTFuv, aTLuv);
 
     Standard_Real        fo = 0., lo = 0.;
-    Handle(Geom2d_Curve) C2DEdgeObj =
+    Handle(GeomCurve2d) C2DEdgeObj =
       FC2D_CurveOnSurface(anEObj, aFObj, fo, lo, tolpc, Standard_True);
     gp_Pnt2d aOFuv, aOLuv;
     C2DEdgeObj->D0(fo, aOFuv);
@@ -2060,8 +2060,8 @@ Standard_Integer TopOpeBRepBuild_Builder1::IsSame2d(const TopTools_SequenceOfSha
       aOVec.Reverse();
     IsTrFirst = (aTrVec * aOVec > 0) ? Standard_False : Standard_True;
 
-    BRep_Builder  BB;
-    Standard_Real tolE = BRep_Tool::Tolerance(aPTool);
+    ShapeBuilder  BB;
+    Standard_Real tolE = BRepInspector::Tolerance(aPTool);
 
     if (IsTrFirst)
       BB.UpdateEdge(aPTool, aTrC2D, C2DPieceTool, aFObj, tolE);
@@ -2077,10 +2077,10 @@ Standard_Integer TopOpeBRepBuild_Builder1::IsSame2d(const TopTools_SequenceOfSha
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder1::OrientateEdgeOnFace(TopoDS_Edge&                 EdgeToPerform,
-                                                   const TopoDS_Face&           baseFace,
-                                                   const TopoDS_Face&           edgeFace,
-                                                   const TopOpeBRepBuild_GTopo& G1,
+void TopOpeBRepBuild_Builder1::OrientateEdgeOnFace(TopoEdge&                 EdgeToPerform,
+                                                   const TopoFace&           baseFace,
+                                                   const TopoFace&           edgeFace,
+                                                   const GTopologyClassifier& G1,
                                                    Standard_Boolean& stateOfFaceOri) const
 {
   Vector3d aN1, aN2;
@@ -2106,11 +2106,11 @@ void TopOpeBRepBuild_Builder1::OrientateEdgeOnFace(TopoDS_Edge&                 
   TopAbs_Orientation baseOri = baseFace.Orientation();
   TopAbs_Orientation currOri = mySDFaceToFill.Orientation();
 
-  TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(edgeFace, EdgeToPerform, aN1);
+  Tools3::GetNormalToFaceOnEdge(edgeFace, EdgeToPerform, aN1);
   if (faceOri == TopAbs_REVERSED)
     aN1.Reverse();
 
-  TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(baseFace, EdgeToPerform, aN2);
+  Tools3::GetNormalToFaceOnEdge(baseFace, EdgeToPerform, aN2);
   if (baseOri == TopAbs_REVERSED)
     aN2.Reverse();
 
@@ -2132,10 +2132,10 @@ void TopOpeBRepBuild_Builder1::OrientateEdgeOnFace(TopoDS_Edge&                 
 }
 
 /////////////// STATIC FUNCTIONS
-static TopAbs_State ClassifyEdgeToFaceByOnePoint(const TopoDS_Edge& E, const TopoDS_Face& F)
+static TopAbs_State ClassifyEdgeToFaceByOnePoint(const TopoEdge& E, const TopoFace& F)
 {
   Standard_Real        f2 = 0., l2 = 0., tolpc = 0., par = 0.;
-  Handle(Geom2d_Curve) C2D = FC2D_CurveOnSurface(E, F, f2, l2, tolpc, Standard_True);
+  Handle(GeomCurve2d) C2D = FC2D_CurveOnSurface(E, F, f2, l2, tolpc, Standard_True);
 
   par = f2 * PAR_T + (1 - PAR_T) * l2;
 

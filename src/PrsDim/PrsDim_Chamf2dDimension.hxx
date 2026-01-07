@@ -21,7 +21,7 @@
 #include <DsgPrs_ArrowSide.hxx>
 #include <gp_Dir.hxx>
 
-class Geom_Plane;
+class GeomPlane;
 
 DEFINE_STANDARD_HANDLE(PrsDim_Chamf2dDimension, PrsDim_Relation)
 
@@ -36,20 +36,20 @@ public:
   //! Constructs the display object for 2D chamfers.
   //! This object is defined by the face aFShape, the
   //! dimension aVal, the plane aPlane and the text aText.
-  Standard_EXPORT PrsDim_Chamf2dDimension(const TopoDS_Shape&               aFShape,
-                                          const Handle(Geom_Plane)&         aPlane,
+  Standard_EXPORT PrsDim_Chamf2dDimension(const TopoShape&               aFShape,
+                                          const Handle(GeomPlane)&         aPlane,
                                           const Standard_Real               aVal,
-                                          const TCollection_ExtendedString& aText);
+                                          const UtfString& aText);
 
   //! Constructs the display object for 2D chamfers.
   //! This object is defined by the face aFShape, the plane
   //! aPlane, the dimension aVal, the position aPosition,
   //! the type of arrow aSymbolPrs with the size
   //! anArrowSize, and the text aText.
-  Standard_EXPORT PrsDim_Chamf2dDimension(const TopoDS_Shape&               aFShape,
-                                          const Handle(Geom_Plane)&         aPlane,
+  Standard_EXPORT PrsDim_Chamf2dDimension(const TopoShape&               aFShape,
+                                          const Handle(GeomPlane)&         aPlane,
                                           const Standard_Real               aVal,
-                                          const TCollection_ExtendedString& aText,
+                                          const UtfString& aText,
                                           const Point3d&                     aPosition,
                                           const DsgPrs_ArrowSide            aSymbolPrs,
                                           const Standard_Real               anArrowSize = 0.0);
@@ -68,7 +68,7 @@ private:
                                        const Handle(Prs3d_Presentation)&         thePrs,
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
 private:

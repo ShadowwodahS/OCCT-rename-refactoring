@@ -24,20 +24,20 @@
 #include <Standard_Boolean.hxx>
 #include <TopAbs_State.hxx>
 #include <Standard_OStream.hxx>
-class TopOpeBRepBuild_GTopo;
+class GTopologyClassifier;
 
-class TopOpeBRepBuild_GIter
+class GTopologyIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepBuild_GIter();
+  Standard_EXPORT GTopologyIterator();
 
-  Standard_EXPORT TopOpeBRepBuild_GIter(const TopOpeBRepBuild_GTopo& G);
+  Standard_EXPORT GTopologyIterator(const GTopologyClassifier& G);
 
   Standard_EXPORT void Init();
 
-  Standard_EXPORT void Init(const TopOpeBRepBuild_GTopo& G);
+  Standard_EXPORT void Init(const GTopologyClassifier& G);
 
   Standard_EXPORT Standard_Boolean More() const;
 

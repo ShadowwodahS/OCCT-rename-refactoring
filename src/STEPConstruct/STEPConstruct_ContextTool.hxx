@@ -53,7 +53,7 @@ public:
   //! entity of that type found in the model
   Standard_EXPORT void SetModel(const Handle(StepData_StepModel)& aStepModel);
 
-  Standard_EXPORT void SetGlobalFactor(const StepData_Factors& theGlobalFactor);
+  Standard_EXPORT void SetGlobalFactor(const ConversionFactors& theGlobalFactor);
 
   Standard_EXPORT Handle(StepBasic_ApplicationProtocolDefinition) GetAPD();
 
@@ -130,9 +130,9 @@ private:
   Handle(StepBasic_ApplicationProtocolDefinition) theAPD;
   STEPConstruct_AP203Context                      theAP203;
   Handle(StepGeom_Axis2Placement3d)               myAxis;
-  StepData_Factors                                myGlobalFactor;
+  ConversionFactors                                myGlobalFactor;
   DESTEP_Parameters::WriteMode_StepSchema         mySchema;
-  TCollection_AsciiString                         myProductName;
+  AsciiString1                         myProductName;
 };
 
 #endif // _STEPConstruct_ContextTool_HeaderFile

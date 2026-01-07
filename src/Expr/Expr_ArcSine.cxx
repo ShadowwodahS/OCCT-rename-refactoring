@@ -50,7 +50,7 @@ Handle(Expr_GeneralExpression) Expr_ArcSine::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_ArcSine::Copy() const
 {
-  return new Expr_ArcSine(Expr::CopyShare(Operand()));
+  return new Expr_ArcSine(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_ArcSine::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -81,7 +81,7 @@ Handle(Expr_GeneralExpression) Expr_ArcSine::Derivative(const Handle(Expr_NamedU
   Handle(Expr_GeneralExpression) op    = Operand();
   Handle(Expr_GeneralExpression) derop = op->Derivative(X);
 
-  Handle(Expr_Square) sq = new Expr_Square(Expr::CopyShare(op));
+  Handle(Expr_Square) sq = new Expr_Square(Expr1::CopyShare(op));
   // 1 - X2
   Handle(Expr_Difference) thedif = 1.0 - sq->ShallowSimplified();
 
@@ -100,9 +100,9 @@ Standard_Real Expr_ArcSine::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return ::ASin(Operand()->Evaluate(vars, vals));
 }
 
-TCollection_AsciiString Expr_ArcSine::String() const
+AsciiString1 Expr_ArcSine::String() const
 {
-  TCollection_AsciiString str("ASin(");
+  AsciiString1 str("ASin(");
   str += Operand()->String();
   str += ")";
   return str;

@@ -38,7 +38,7 @@
 #include <TDocStd_XLink.hxx>
 #include <TDocStd_XLinkIterator.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TDocStd_Document, CDM_Document)
+IMPLEMENT_STANDARD_RTTIEXT(AppDocument, CDM_Document)
 
 // List should have a RemoveLast...
 #define TDocStd_List_RemoveLast(theList)                                                           \
@@ -56,19 +56,19 @@ IMPLEMENT_STANDARD_RTTIEXT(TDocStd_Document, CDM_Document)
 
 //=================================================================================================
 
-Handle(TDocStd_Document) TDocStd_Document::Get(const TDF_Label& acces)
+Handle(AppDocument) AppDocument::Get(const DataLabel& acces)
 {
   // avoid creation of Handle(TDF_Data) during TDF_Data destruction
   if (acces.Root().HasAttribute())
   {
     return TDocStd_Owner::GetDocument(acces.Data());
   }
-  return Handle(TDocStd_Document)();
+  return Handle(AppDocument)();
 }
 
 //=================================================================================================
 
-TDocStd_Document::TDocStd_Document(const TCollection_ExtendedString& aStorageFormat)
+AppDocument::AppDocument(const UtfString& aStorageFormat)
     : myStorageFormat(aStorageFormat),
       myData(new TDF_Data()),
       myUndoLimit(0),
@@ -89,28 +89,28 @@ TDocStd_Document::TDocStd_Document(const TCollection_ExtendedString& aStorageFor
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_Document::IsSaved() const
+Standard_Boolean AppDocument::IsSaved() const
 {
   return CDM_Document::IsStored();
 }
 
 //=================================================================================================
 
-TCollection_ExtendedString TDocStd_Document::GetName() const
+UtfString AppDocument::GetName() const
 {
   return CDM_Document::MetaData()->Name();
 }
 
 //=================================================================================================
 
-TCollection_ExtendedString TDocStd_Document::GetPath() const
+UtfString AppDocument::GetPath() const
 {
   return CDM_Document::MetaData()->Path();
 }
 
 //=================================================================================================
 
-void TDocStd_Document::SetData(const Handle(TDF_Data)& D)
+void AppDocument::SetData(const Handle(TDF_Data)& D)
 {
   myData = D;
   myUndoTransaction.Initialize(myData);
@@ -118,21 +118,21 @@ void TDocStd_Document::SetData(const Handle(TDF_Data)& D)
 
 //=================================================================================================
 
-Handle(TDF_Data) TDocStd_Document::GetData() const
+Handle(TDF_Data) AppDocument::GetData() const
 {
   return myData;
 }
 
 //=================================================================================================
 
-TDF_Label TDocStd_Document::Main() const
+DataLabel AppDocument::Main() const
 {
   return myData->Root().FindChild(1, Standard_True);
 }
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_Document::IsEmpty() const
+Standard_Boolean AppDocument::IsEmpty() const
 {
   TDF_AttributeIterator It(Main());
   return !It.More();
@@ -140,49 +140,49 @@ Standard_Boolean TDocStd_Document::IsEmpty() const
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_Document::IsValid() const
+Standard_Boolean AppDocument::IsValid() const
 {
   return TDocStd_Modified::IsEmpty(Main());
 }
 
 //=================================================================================================
 
-void TDocStd_Document::SetModified(const TDF_Label& L)
+void AppDocument::SetModified(const DataLabel& L)
 {
   TDocStd_Modified::Add(L);
 }
 
 //=================================================================================================
 
-// Standard_Boolean TDocStd_Document::IsModified (const TDF_Label& L) const
+// Standard_Boolean AppDocument::IsModified (const DataLabel& L) const
 //{
 //  return TDocStd_Modified::Contains(L);
 //}
 
 //=================================================================================================
 
-void TDocStd_Document::PurgeModified()
+void AppDocument::PurgeModified()
 {
   TDocStd_Modified::Clear(Main());
 }
 
 //=================================================================================================
 
-const TDF_LabelMap& TDocStd_Document::GetModified() const
+const TDF_LabelMap& AppDocument::GetModified() const
 {
   return TDocStd_Modified::Get(Main());
 }
 
 //=================================================================================================
 
-void TDocStd_Document::Update(const Handle(CDM_Document)& /*aToDocument*/,
+void AppDocument::Update(const Handle(CDM_Document)& /*aToDocument*/,
                               const Standard_Integer aReferenceIdentifier,
                               const Standard_Address aModifContext)
 {
   const TDocStd_Context* CC = static_cast<TDocStd_Context*>(aModifContext);
   if (CC->ModifiedReferences() || !IsUpToDate(aReferenceIdentifier))
   {
-    TCollection_AsciiString aDocEntry(aReferenceIdentifier);
+    AsciiString1 aDocEntry(aReferenceIdentifier);
     UpdateReferences(aDocEntry);
     SetIsUpToDate(aReferenceIdentifier);
   }
@@ -190,7 +190,7 @@ void TDocStd_Document::Update(const Handle(CDM_Document)& /*aToDocument*/,
 
 //=================================================================================================
 
-void TDocStd_Document::NewCommand()
+void AppDocument::NewCommand()
 {
 #ifdef OCCT_DEBUG_TRANS
   if (myUndoTransaction.IsOpen() && myData->Transaction() > 1)
@@ -209,18 +209,18 @@ void TDocStd_Document::NewCommand()
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_Document::HasOpenCommand() const
+Standard_Boolean AppDocument::HasOpenCommand() const
 {
   return myUndoTransaction.IsOpen();
 }
 
 //=================================================================================================
 
-void TDocStd_Document::OpenCommand()
+void AppDocument::OpenCommand()
 {
   if (!myIsNestedTransactionMode && myUndoTransaction.IsOpen())
   {
-    throw Standard_DomainError("TDocStd_Document::OpenCommand : already open");
+    throw Standard_DomainError("AppDocument::OpenCommand : already open");
   }
   OpenTransaction();
   //  if (myUndoLimit != 0) myUndoTransaction.Open();
@@ -228,14 +228,14 @@ void TDocStd_Document::OpenCommand()
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_Document::CommitCommand()
+Standard_Boolean AppDocument::CommitCommand()
 {
   return CommitTransaction();
 }
 
 //=================================================================================================
 
-void TDocStd_Document::AbortCommand()
+void AppDocument::AbortCommand()
 {
   AbortTransaction();
 }
@@ -245,7 +245,7 @@ void TDocStd_Document::AbortCommand()
 // purpose  : Private method.
 //=======================================================================
 
-Standard_Boolean TDocStd_Document::CommitTransaction()
+Standard_Boolean AppDocument::CommitTransaction()
 {
   myData->AllowModification(Standard_True);
 
@@ -331,8 +331,8 @@ Standard_Boolean TDocStd_Document::CommitTransaction()
   // Notify CDM_Application of the successful commit
   if (isDone && IsOpened())
   {
-    const Handle(TDocStd_Application) anAppli =
-      Handle(TDocStd_Application)::DownCast(Application());
+    const Handle(AppManager) anAppli =
+      Handle(AppManager)::DownCast(Application());
     if (!anAppli.IsNull())
       anAppli->OnCommitTransaction(this);
   }
@@ -344,7 +344,7 @@ Standard_Boolean TDocStd_Document::CommitTransaction()
 // purpose  : Private method.
 //=======================================================================
 
-void TDocStd_Document::AbortTransaction()
+void AppDocument::AbortTransaction()
 {
   myData->AllowModification(Standard_True);
 
@@ -369,8 +369,8 @@ void TDocStd_Document::AbortTransaction()
   // Notify CDM_Application of the event
   if (IsOpened())
   {
-    const Handle(TDocStd_Application) anAppli =
-      Handle(TDocStd_Application)::DownCast(Application());
+    const Handle(AppManager) anAppli =
+      Handle(AppManager)::DownCast(Application());
     if (!anAppli.IsNull())
       anAppli->OnAbortTransaction(this);
   }
@@ -381,7 +381,7 @@ void TDocStd_Document::AbortTransaction()
 // purpose  : Private method.
 //=======================================================================
 
-void TDocStd_Document::OpenTransaction()
+void AppDocument::OpenTransaction()
 {
   myData->AllowModification(Standard_True);
 
@@ -416,8 +416,8 @@ void TDocStd_Document::OpenTransaction()
   // Notify CDM_Application of the event
   if (IsOpened())
   {
-    const Handle(TDocStd_Application) anAppli =
-      Handle(TDocStd_Application)::DownCast(Application());
+    const Handle(AppManager) anAppli =
+      Handle(AppManager)::DownCast(Application());
     if (!anAppli.IsNull())
       anAppli->OnOpenTransaction(this);
   }
@@ -425,7 +425,7 @@ void TDocStd_Document::OpenTransaction()
 
 //=================================================================================================
 
-void TDocStd_Document::SetUndoLimit(const Standard_Integer L)
+void AppDocument::SetUndoLimit(const Standard_Integer L)
 {
 #ifdef SRN_DELTA_COMPACT
   myFromUndo.Nullify(); // Compaction has to aborted
@@ -451,21 +451,21 @@ void TDocStd_Document::SetUndoLimit(const Standard_Integer L)
 
 //=================================================================================================
 
-Standard_Integer TDocStd_Document::GetUndoLimit() const
+Standard_Integer AppDocument::GetUndoLimit() const
 {
   return myUndoLimit;
 }
 
 //=================================================================================================
 
-Standard_Integer TDocStd_Document::GetAvailableUndos() const
+Standard_Integer AppDocument::GetAvailableUndos() const
 {
   return myUndos.Extent();
 }
 
 //=================================================================================================
 
-void TDocStd_Document::ClearUndos()
+void AppDocument::ClearUndos()
 {
   myUndos.Clear();
   myRedos.Clear();
@@ -477,7 +477,7 @@ void TDocStd_Document::ClearUndos()
 
 //=================================================================================================
 
-void TDocStd_Document::ClearRedos()
+void AppDocument::ClearRedos()
 {
   myRedos.Clear();
 #ifdef SRN_DELTA_COMPACT
@@ -495,14 +495,14 @@ void TDocStd_Document::ClearRedos()
 // 3) To make fun, the redos are not like the undos: the most recent delta
 //    is at the beginning! Like this, it is easier to remove it after use.
 //=======================================================================
-Standard_Boolean TDocStd_Document::Undo()
+Standard_Boolean AppDocument::Undo()
 {
   // Don't call NewCommand(), because it may commit Interactive Attributes
   // and generate a undesirable Delta!
 
   Standard_Boolean isOpened = myUndoTransaction.IsOpen();
   Standard_Boolean undoDone = Standard_False;
-  // TDF_Label currentObjectLabel = CurrentLabel (); //Sauve pour usage ulterieur.
+  // DataLabel currentObjectLabel = CurrentLabel (); //Sauve pour usage ulterieur.
 
   if (!myUndos.IsEmpty())
   {
@@ -550,7 +550,7 @@ Standard_Boolean TDocStd_Document::Undo()
 
 //=================================================================================================
 
-Standard_Integer TDocStd_Document::GetAvailableRedos() const
+Standard_Integer AppDocument::GetAvailableRedos() const
 {
   // should test the applicability before.
   return myRedos.Extent();
@@ -558,7 +558,7 @@ Standard_Integer TDocStd_Document::GetAvailableRedos() const
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_Document::Redo()
+Standard_Boolean AppDocument::Redo()
 {
   Standard_Boolean isOpened = myUndoTransaction.IsOpen();
   Standard_Boolean undoDone = Standard_False;
@@ -608,7 +608,7 @@ Standard_Boolean TDocStd_Document::Redo()
 
 //=================================================================================================
 
-void TDocStd_Document::UpdateReferences(const TCollection_AsciiString& aDocEntry)
+void AppDocument::UpdateReferences(const AsciiString1& aDocEntry)
 {
 
   TDF_AttributeList aRefList;
@@ -631,21 +631,21 @@ void TDocStd_Document::UpdateReferences(const TCollection_AsciiString& aDocEntry
 
 //=================================================================================================
 
-const TDF_DeltaList& TDocStd_Document::GetUndos() const
+const TDF_DeltaList& AppDocument::GetUndos() const
 {
   return myUndos;
 }
 
 //=================================================================================================
 
-const TDF_DeltaList& TDocStd_Document::GetRedos() const
+const TDF_DeltaList& AppDocument::GetRedos() const
 {
   return myRedos;
 }
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_Document::InitDeltaCompaction()
+Standard_Boolean AppDocument::InitDeltaCompaction()
 {
 #ifdef SRN_DELTA_COMPACT
   if (myUndoLimit == 0 || myUndos.Extent() == 0)
@@ -666,7 +666,7 @@ Standard_Boolean TDocStd_Document::InitDeltaCompaction()
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_Document::PerformDeltaCompaction()
+Standard_Boolean AppDocument::PerformDeltaCompaction()
 {
 #ifdef SRN_DELTA_COMPACT
   if (myFromUndo.IsNull())
@@ -743,14 +743,14 @@ Standard_Boolean TDocStd_Document::PerformDeltaCompaction()
 
 //=================================================================================================
 
-TCollection_ExtendedString TDocStd_Document::StorageFormat() const
+UtfString AppDocument::StorageFormat() const
 {
   return myStorageFormat;
 }
 
 //=================================================================================================
 
-void TDocStd_Document::ChangeStorageFormat(const TCollection_ExtendedString& newStorageFormat)
+void AppDocument::ChangeStorageFormat(const UtfString& newStorageFormat)
 {
   if (newStorageFormat != myStorageFormat)
   {
@@ -762,7 +762,7 @@ void TDocStd_Document::ChangeStorageFormat(const TCollection_ExtendedString& new
 
 //=================================================================================================
 
-void TDocStd_Document::Recompute()
+void AppDocument::Recompute()
 {
   if (IsValid())
     return;
@@ -780,7 +780,7 @@ void TDocStd_Document::Recompute()
 // purpose  : Appends delta to the first delta in the myUndoFILO
 //=======================================================================
 
-void TDocStd_Document::AppendDeltaToTheFirst(const Handle(TDocStd_CompoundDelta)& theDelta1,
+void AppDocument::AppendDeltaToTheFirst(const Handle(TDocStd_CompoundDelta)& theDelta1,
                                              const Handle(TDF_Delta)&             theDelta2)
 {
   if (theDelta2->IsEmpty())
@@ -790,7 +790,7 @@ void TDocStd_Document::AppendDeltaToTheFirst(const Handle(TDocStd_CompoundDelta)
   TDF_ListIteratorOfAttributeDeltaList aDeltasIterator1(theDelta1->AttributeDeltas());
   for (; aDeltasIterator1.More(); aDeltasIterator1.Next())
   {
-    TDF_Label aLabel = aDeltasIterator1.Value()->Label();
+    DataLabel aLabel = aDeltasIterator1.Value()->Label();
     if (!aMap.IsBound(aLabel))
     {
       TDF_IDMap aTmpIDMap;
@@ -805,7 +805,7 @@ void TDocStd_Document::AppendDeltaToTheFirst(const Handle(TDocStd_CompoundDelta)
   TDF_ListIteratorOfAttributeDeltaList aDeltasIterator2(theDelta2->AttributeDeltas());
   for (; aDeltasIterator2.More(); aDeltasIterator2.Next())
   {
-    TDF_Label     aLabel = aDeltasIterator2.Value()->Label();
+    DataLabel     aLabel = aDeltasIterator2.Value()->Label();
     Standard_GUID anID   = aDeltasIterator2.Value()->ID();
     if (aMap.IsBound(aLabel))
     {
@@ -819,7 +819,7 @@ void TDocStd_Document::AppendDeltaToTheFirst(const Handle(TDocStd_CompoundDelta)
 
 //=================================================================================================
 
-void TDocStd_Document::RemoveFirstUndo()
+void AppDocument::RemoveFirstUndo()
 {
   if (myUndos.IsEmpty())
     return;
@@ -828,7 +828,7 @@ void TDocStd_Document::RemoveFirstUndo()
 
 //=================================================================================================
 
-void TDocStd_Document::BeforeClose()
+void AppDocument::BeforeClose()
 {
   SetModificationMode(Standard_False);
   AbortTransaction();
@@ -839,7 +839,7 @@ void TDocStd_Document::BeforeClose()
 
 //=================================================================================================
 
-TDocStd_FormatVersion TDocStd_Document::StorageFormatVersion() const
+TDocStd_FormatVersion AppDocument::StorageFormatVersion() const
 {
   return myStorageFormatVersion;
 }
@@ -848,7 +848,7 @@ TDocStd_FormatVersion TDocStd_Document::StorageFormatVersion() const
 // function : ChangeStorageFormatVersion
 // purpose  : Sets <theVersion> of the format to be used to store the document
 //=======================================================================
-void TDocStd_Document::ChangeStorageFormatVersion(const TDocStd_FormatVersion theVersion)
+void AppDocument::ChangeStorageFormatVersion(const TDocStd_FormatVersion theVersion)
 {
   myStorageFormatVersion = theVersion;
 }
@@ -857,14 +857,14 @@ void TDocStd_Document::ChangeStorageFormatVersion(const TDocStd_FormatVersion th
 // function : CurrentStorageFormatVersion
 // purpose  : Returns current storage format version of the document.
 //=======================================================================
-TDocStd_FormatVersion TDocStd_Document::CurrentStorageFormatVersion()
+TDocStd_FormatVersion AppDocument::CurrentStorageFormatVersion()
 {
   return TDocStd_FormatVersion_CURRENT;
 }
 
 //=================================================================================================
 
-void TDocStd_Document::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void AppDocument::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 

@@ -63,18 +63,18 @@ void DsgPrs::ComputeSymbol(const Handle(Prs3d_Presentation)&    aPresentation,
       break;
     }
     case DsgPrs_AS_FIRSTAR: {
-      Prs3d_Arrow::Draw(aGroup, pt1, dir1, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
+      Prs3d_Arrow::Draw1(aGroup, pt1, dir1, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
       break;
     }
     case DsgPrs_AS_LASTAR: {
 
-      Prs3d_Arrow::Draw(aGroup, pt2, dir2, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
+      Prs3d_Arrow::Draw1(aGroup, pt2, dir2, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
       break;
     }
 
     case DsgPrs_AS_BOTHAR: {
-      Prs3d_Arrow::Draw(aGroup, pt1, dir1, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
-      Prs3d_Arrow::Draw(aGroup, pt2, dir2, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
+      Prs3d_Arrow::Draw1(aGroup, pt1, dir1, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
+      Prs3d_Arrow::Draw1(aGroup, pt2, dir2, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
 
       break;
     }
@@ -111,7 +111,7 @@ void DsgPrs::ComputeSymbol(const Handle(Prs3d_Presentation)&    aPresentation,
 
     case DsgPrs_AS_FIRSTAR_LASTPT: {
       // an Arrow
-      Prs3d_Arrow::Draw(aGroup, pt1, dir1, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
+      Prs3d_Arrow::Draw1(aGroup, pt1, dir1, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
       // a Round
       Handle(Graphic3d_ArrayOfPoints) anArrayOfPoints = new Graphic3d_ArrayOfPoints(1);
       anArrayOfPoints->AddVertex(pt2.X(), pt2.Y(), pt2.Z());
@@ -122,7 +122,7 @@ void DsgPrs::ComputeSymbol(const Handle(Prs3d_Presentation)&    aPresentation,
 
     case DsgPrs_AS_FIRSTPT_LASTAR: {
       // an Arrow
-      Prs3d_Arrow::Draw(aGroup, pt2, dir2, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
+      Prs3d_Arrow::Draw1(aGroup, pt2, dir2, LA->ArrowAspect()->Angle(), LA->ArrowAspect()->Length());
 
       // a Round
       if (drawFromCenter)
@@ -173,20 +173,20 @@ void DsgPrs::ComputePlanarFacesLengthPresentation(const Standard_Real FirstArrow
 
 void DsgPrs::ComputeCurvilinearFacesLengthPresentation(const Standard_Real FirstArrowLength,
                                                        const Standard_Real SecondArrowLength,
-                                                       const Handle(Geom_Surface)& SecondSurf,
+                                                       const Handle(GeomSurface)& SecondSurf,
                                                        const Point3d&               AttachmentPoint1,
                                                        const Point3d&               AttachmentPoint2,
                                                        const Dir3d&               DirAttach,
                                                        Point3d&                     EndOfArrow2,
                                                        Dir3d&                     DirOfArrow1,
-                                                       Handle(Geom_Curve)&         VCurve,
-                                                       Handle(Geom_Curve)&         UCurve,
+                                                       Handle(GeomCurve3d)&         VCurve,
+                                                       Handle(GeomCurve3d)&         UCurve,
                                                        Standard_Real&              FirstU,
                                                        Standard_Real&              deltaU,
                                                        Standard_Real&              FirstV,
                                                        Standard_Real&              deltaV)
 {
-  GeomAPI_ProjectPointOnSurf  ProjectorOnSurface;
+  PointOnSurfProjector  ProjectorOnSurface;
   GeomAPI_ProjectPointOnCurve ProjectorOnCurve;
   Standard_Real               U1, V1, U2, V2;
   Standard_Real               LastU, LastV;
@@ -383,7 +383,7 @@ void DsgPrs::ComputeFacesAnglePresentation(const Standard_Real    ArrowLength,
       AttachCirc.SetPosition(Ax2);
       AttachCirc.SetRadius(CenterOfArc.Distance(AttachmentPoint2));
 
-      GeomAPI_ExtremaCurveCurve Intersection(new Geom_Circle(AttachCirc), new Geom_Line(SecondLin));
+      GeomAPI_ExtremaCurveCurve Intersection(new GeomCircle(AttachCirc), new GeomLine(SecondLin));
       Intersection.NearestPoints(ProjAttachPoint2, ProjAttachPoint2);
 
       Standard_Real U2 = ElCLib::Parameter(AttachCirc, ProjAttachPoint2);

@@ -53,7 +53,7 @@ ShapeUpgrade_SplitSurface::ShapeUpgrade_SplitSurface()
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitSurface::Init(const Handle(Geom_Surface)& S)
+void ShapeUpgrade_SplitSurface::Init(const Handle(GeomSurface)& S)
 {
   myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
 
@@ -75,7 +75,7 @@ void ShapeUpgrade_SplitSurface::Init(const Handle(Geom_Surface)& S)
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitSurface::Init(const Handle(Geom_Surface)& S,
+void ShapeUpgrade_SplitSurface::Init(const Handle(GeomSurface)& S,
                                      const Standard_Real         UFirst,
                                      const Standard_Real         ULast,
                                      const Standard_Real         VFirst,
@@ -136,11 +136,11 @@ void ShapeUpgrade_SplitSurface::Init(const Handle(Geom_Surface)& S,
     Standard_Real                          Umid = (UF + UL) / 2, Vmid = (VF + VL) / 2;
     Handle(Geom_RectangularTrimmedSurface) aTrSurf =
       new Geom_RectangularTrimmedSurface(mySurface, UF, UL, VF, VL);
-    Handle(Geom_Curve) anUiso     = aTrSurf->UIso(Umid);
-    Handle(Geom_Curve) aViso      = aTrSurf->VIso(Vmid);
-    TopoDS_Edge        anEdgeUiso = BRepLib_MakeEdge(anUiso);
-    TopoDS_Edge        anEdgeViso = BRepLib_MakeEdge(aViso);
-    GProp_GProps       aGprop1, aGprop2;
+    Handle(GeomCurve3d) anUiso     = aTrSurf->UIso(Umid);
+    Handle(GeomCurve3d) aViso      = aTrSurf->VIso(Vmid);
+    TopoEdge        anEdgeUiso = BRepLib_MakeEdge(anUiso);
+    TopoEdge        anEdgeViso = BRepLib_MakeEdge(aViso);
+    GeometricProperties       aGprop1, aGprop2;
     BRepGProp::LinearProperties(anEdgeViso, aGprop1);
     myUsize = aGprop1.Mass();
     BRepGProp::LinearProperties(anEdgeUiso, aGprop2);
@@ -238,7 +238,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
   {
     Handle(Geom_SurfaceOfRevolution) Surface =
       Handle(Geom_SurfaceOfRevolution)::DownCast(mySurface);
-    Handle(Geom_Curve)        BasCurve = Surface->BasisCurve();
+    Handle(GeomCurve3d)        BasCurve = Surface->BasisCurve();
     ShapeUpgrade_SplitCurve3d spc;
     spc.Init(BasCurve, VFirst, VLast);
     spc.SetSplitValues(myVSplitValues);
@@ -306,7 +306,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
   {
     Handle(Geom_SurfaceOfLinearExtrusion) Surface =
       Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(mySurface);
-    Handle(Geom_Curve)        BasCurve = Surface->BasisCurve();
+    Handle(GeomCurve3d)        BasCurve = Surface->BasisCurve();
     ShapeUpgrade_SplitCurve3d spc;
     spc.Init(BasCurve, UFirst, ULast);
     spc.SetSplitValues(myUSplitValues);
@@ -374,7 +374,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
   {
     Handle(Geom_RectangularTrimmedSurface) tmp =
       Handle(Geom_RectangularTrimmedSurface)::DownCast(mySurface);
-    Handle(Geom_Surface)      theSurf = tmp->BasisSurface();
+    Handle(GeomSurface)      theSurf = tmp->BasisSurface();
     ShapeUpgrade_SplitSurface sps;
     sps.Init(theSurf, UFirst, ULast, VFirst, VLast);
     sps.SetUSplitValues(myUSplitValues);
@@ -388,7 +388,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
   else if (mySurface->IsKind(STANDARD_TYPE(Geom_OffsetSurface)))
   {
     Handle(Geom_OffsetSurface) tmp     = Handle(Geom_OffsetSurface)::DownCast(mySurface);
-    Handle(Geom_Surface)       theSurf = tmp->BasisSurface();
+    Handle(GeomSurface)       theSurf = tmp->BasisSurface();
     ShapeUpgrade_SplitSurface  sps;
     sps.Init(theSurf, UFirst, ULast, VFirst, VLast);
     sps.SetUSplitValues(myUSplitValues);
@@ -441,7 +441,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
              || !Status(ShapeExtend_DONE2))
     {
       // pdn copying of surface
-      Handle(Geom_Surface) tmp = Handle(Geom_Surface)::DownCast(mySurface->Copy());
+      Handle(GeomSurface) tmp = Handle(GeomSurface)::DownCast(mySurface->Copy());
       Handle(Geom_RectangularTrimmedSurface) Surf =
         new Geom_RectangularTrimmedSurface(tmp, UFirst, ULast, VFirst, VLast);
       Surfaces->SetValue(1, 1, Surf);
@@ -506,7 +506,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
       //	std::cout<<".. -> pos ="<<irow  <<","<<icol<<std::endl;
       //      }
       // creates a copy of theSurf before to segment:
-      Handle(Geom_Surface) theNew = Handle(Geom_Surface)::DownCast(mySurface->Copy());
+      Handle(GeomSurface) theNew = Handle(GeomSurface)::DownCast(mySurface->Copy());
       if (isBSpline || isBezier)
       {
         try
@@ -538,7 +538,7 @@ void ShapeUpgrade_SplitSurface::Build(const Standard_Boolean Segment)
           std::cout << std::endl;
 #endif
           (void)anException;
-          Handle(Geom_Surface) theNewSurf = theNew;
+          Handle(GeomSurface) theNewSurf = theNew;
           theNew = new Geom_RectangularTrimmedSurface(theNewSurf, U1, U2, V1, V2);
         }
         Surfaces->SetValue((irow - 1), (icol - 1), theNew);

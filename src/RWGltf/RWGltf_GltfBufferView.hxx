@@ -19,7 +19,7 @@
 #include <Standard_TypeDef.hxx>
 
 //! Low-level glTF data structure defining BufferView.
-struct RWGltf_GltfBufferView
+struct GltfBufferView
 {
   static const int INVALID_ID = -1;
 
@@ -30,7 +30,7 @@ public:
   int32_t                     ByteStride; //!< [0, 255]
   RWGltf_GltfBufferViewTarget Target;
 
-  RWGltf_GltfBufferView()
+  GltfBufferView()
       : Id(INVALID_ID),
         ByteOffset(0),
         ByteLength(0),

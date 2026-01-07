@@ -26,7 +26,7 @@ class IGESGeom_CurveOnSurface;
 DEFINE_STANDARD_HANDLE(IGESGeom_CurveOnSurface, IGESData_IGESEntity)
 
 //! defines IGESCurveOnSurface, Type <142> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A curve on a parametric surface entity associates a given
 //! curve with a surface and identifies the curve as lying on
 //! the surface.

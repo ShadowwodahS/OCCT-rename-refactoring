@@ -57,7 +57,7 @@ public:
     return DefaultMessenger()->Send(theGravity);
   }
 
-  static void Send(const TCollection_AsciiString& theMessage, Message_Gravity theGravity)
+  static void Send(const AsciiString1& theMessage, Message_Gravity theGravity)
   {
     DefaultMessenger()->Send(theMessage, theGravity);
   }
@@ -72,27 +72,27 @@ public:
 
   static Message_Messenger::StreamBuffer SendTrace() { return DefaultMessenger()->SendTrace(); }
 
-  static void SendFail(const TCollection_AsciiString& theMessage)
+  static void SendFail(const AsciiString1& theMessage)
   {
     return DefaultMessenger()->SendFail(theMessage);
   }
 
-  static void SendAlarm(const TCollection_AsciiString& theMessage)
+  static void SendAlarm(const AsciiString1& theMessage)
   {
     return DefaultMessenger()->SendAlarm(theMessage);
   }
 
-  static void SendWarning(const TCollection_AsciiString& theMessage)
+  static void SendWarning(const AsciiString1& theMessage)
   {
     return DefaultMessenger()->SendWarning(theMessage);
   }
 
-  static void SendInfo(const TCollection_AsciiString& theMessage)
+  static void SendInfo(const AsciiString1& theMessage)
   {
     return DefaultMessenger()->SendInfo(theMessage);
   }
 
-  static void SendTrace(const TCollection_AsciiString& theMessage)
+  static void SendTrace(const AsciiString1& theMessage)
   {
     return DefaultMessenger()->SendTrace(theMessage);
   }
@@ -103,7 +103,7 @@ public:
   //! 1. (5, 12, 26.3345) returns "05h:12m:26.33s",
   //! 2. (0,  6, 34.496 ) returns "06m:34.50s",
   //! 3. (0,  0,  4.5   ) returns "4.50s"
-  Standard_EXPORT static TCollection_AsciiString FillTime(const Standard_Integer Hour,
+  Standard_EXPORT static AsciiString1 FillTime(const Standard_Integer Hour,
                                                           const Standard_Integer Minute,
                                                           const Standard_Real    Second);
 

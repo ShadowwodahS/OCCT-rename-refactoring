@@ -24,7 +24,7 @@
 #include <TColStd_Array1OfReal.hxx>
 class Expr_GeneralExpression;
 class Expr_NamedUnknown;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class Expr_ArgCosh;
 DEFINE_STANDARD_HANDLE(Expr_ArgCosh, Expr_UnaryExpression)
@@ -63,7 +63,7 @@ public:
                                          const TColStd_Array1OfReal& vals) const Standard_OVERRIDE;
 
   //! returns a string representing <me> in a readable way.
-  Standard_EXPORT TCollection_AsciiString String() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 String() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Expr_ArgCosh, Expr_UnaryExpression)
 

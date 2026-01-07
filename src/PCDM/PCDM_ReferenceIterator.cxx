@@ -85,23 +85,23 @@ Handle(CDM_MetaData) PCDM_ReferenceIterator::MetaData(CDM_MetaDataLookUpTable& t
                                                       const Standard_Boolean) const
 {
 
-  TCollection_ExtendedString theFolder, theName;
-  TCollection_ExtendedString theFile = myReferences(myIterator).FileName();
-  TCollection_ExtendedString f(theFile);
+  UtfString theFolder, theName;
+  UtfString theFile = myReferences(myIterator).FileName();
+  UtfString f(theFile);
 #ifndef _WIN32
 
   Standard_Integer           i = f.SearchFromEnd("/");
-  TCollection_ExtendedString n = f.Split(i);
+  UtfString n = f.Split(i);
   f.Trunc(f.Length() - 1);
   theFolder = f;
   theName   = n;
 #else
-  OSD_Path                   p = UTL::Path(f);
+  SystemPath                   p = UTL1::Path(f);
   Standard_ExtCharacter      chr;
-  TCollection_ExtendedString dir, dirRet, name;
+  UtfString dir, dirRet, name;
 
-  dir = UTL::Disk(p);
-  dir += UTL::Trek(p);
+  dir = UTL1::Disk(p);
+  dir += UTL1::Trek(p);
 
   for (int i = 1; i <= dir.Length(); ++i)
   {
@@ -125,8 +125,8 @@ Handle(CDM_MetaData) PCDM_ReferenceIterator::MetaData(CDM_MetaDataLookUpTable& t
     }
   }
   theFolder = dirRet;
-  theName   = UTL::Name(p);
-  theName += UTL::Extension(p);
+  theName   = UTL1::Name(p);
+  theName += UTL1::Extension(p);
 #endif // _WIN32
 
   return CDM_MetaData::LookUp(theLookUpTable,
@@ -134,7 +134,7 @@ Handle(CDM_MetaData) PCDM_ReferenceIterator::MetaData(CDM_MetaDataLookUpTable& t
                               theName,
                               theFile,
                               theFile,
-                              UTL::IsReadOnly(theFile));
+                              UTL1::IsReadOnly(theFile));
 }
 
 //=================================================================================================

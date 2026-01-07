@@ -22,7 +22,7 @@
 // =======================================================================
 void MessageModel_ItemRoot::SetReport(const int                      theRowId,
                                       const Handle(Message_Report)&  theReport,
-                                      const TCollection_AsciiString& theReportDescription)
+                                      const AsciiString1& theReportDescription)
 {
   NCollection_List<MessageModel_ReportInformation>::Iterator aReportsIt(myReports);
   for (int aRowId = 0; aReportsIt.More(); aReportsIt.Next(), aRowId++)
@@ -40,7 +40,7 @@ void MessageModel_ItemRoot::SetReport(const int                      theRowId,
 // =======================================================================
 const Handle(Message_Report)& MessageModel_ItemRoot::GetReport(
   const int                theRowId,
-  TCollection_AsciiString& theReportDescription)
+  AsciiString1& theReportDescription)
 {
   NCollection_List<MessageModel_ReportInformation>::Iterator aReportsIt(myReports);
   for (int aRowId = 0; aReportsIt.More(); aReportsIt.Next(), aRowId++)

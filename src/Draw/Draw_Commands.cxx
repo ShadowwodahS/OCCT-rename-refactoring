@@ -17,12 +17,12 @@
 #include <Draw.hxx>
 #include <Draw_Drawable3D.hxx>
 
-void Draw::Commands(Draw_Interpretor& theCommands)
+void Draw1::Commands(DrawInterpreter& theCommands)
 {
-  Draw::BasicCommands(theCommands);
-  Draw::MessageCommands(theCommands);
-  Draw::VariableCommands(theCommands);
-  Draw::GraphicCommands(theCommands);
-  Draw::PloadCommands(theCommands);
-  Draw::UnitCommands(theCommands);
+  Draw1::BasicCommands(theCommands);
+  Draw1::MessageCommands(theCommands);
+  Draw1::VariableCommands(theCommands);
+  Draw1::GraphicCommands(theCommands);
+  Draw1::PloadCommands(theCommands);
+  Draw1::UnitCommands(theCommands);
 }

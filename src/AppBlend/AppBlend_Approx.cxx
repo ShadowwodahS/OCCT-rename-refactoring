@@ -18,4 +18,4 @@
 
 //=================================================================================================
 
-AppBlend_Approx::~AppBlend_Approx() {}
+BlendApproximation::~BlendApproximation() {}

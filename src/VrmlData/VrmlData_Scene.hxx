@@ -33,7 +33,7 @@
   #undef Status
 #endif
 
-struct VrmlData_InBuffer;
+struct InputBuffer;
 
 /**
  * Block of comments describing class VrmlData_Scene
@@ -69,7 +69,7 @@ public:
    * ("."). It takes effect if the list is empty or if there is no match with
    * existing directories.
    */
-  Standard_EXPORT void SetVrmlDir(const TCollection_ExtendedString&);
+  Standard_EXPORT void SetVrmlDir(const UtfString&);
 
   /**
    * Set the scale factor that would be further used in methods
@@ -82,9 +82,9 @@ public:
    * Returns the directory iterator, to check the presence of requested VRML
    * file in each iterated directory.
    */
-  inline NCollection_List<TCollection_ExtendedString>::Iterator VrmlDirIterator() const
+  inline NCollection_List<UtfString>::Iterator VrmlDirIterator() const
   {
-    return NCollection_List<TCollection_ExtendedString>::Iterator(myVrmlDir);
+    return NCollection_List<UtfString>::Iterator(myVrmlDir);
   }
 
   /**
@@ -155,21 +155,21 @@ public:
   /**
    * Convert the scene to a Shape.
    */
-  Standard_EXPORT operator TopoDS_Shape() const;
+  Standard_EXPORT operator TopoShape() const;
 
   /**
    * Convert the scene to a Shape, with the information on materials defined
-   * for each sub-shape. This method should be used instead of TopoDS_Shape
+   * for each sub-shape. This method should be used instead of TopoShape
    * explicit conversion operator when you need to retrieve the material
    * aspect for each face or edge in the returned topological object.
    * @param M
    *   Data Map that binds an Appearance instance to each created TFace or
    *   TEdge if the Appearance node is defined in VRML scene for that geometry.
    * @return
-   *   TopoDS_Shape (Compound) holding all the scene, similar to the result of
-   *   explicit TopoDS_Shape conversion operator.
+   *   TopoShape (Compound) holding all the scene, similar to the result of
+   *   explicit TopoShape conversion operator.
    */
-  Standard_EXPORT TopoDS_Shape GetShape(VrmlData_DataMapOfShapeAppearance& M);
+  Standard_EXPORT TopoShape GetShape(VrmlData_DataMapOfShapeAppearance& M);
 
   /**
    * Query the WorldInfo member.
@@ -188,13 +188,13 @@ public:
    * @param theLen
    *   Length of the input buffer (maximal line length)
    */
-  Standard_EXPORT static VrmlData_ErrorStatus ReadLine(VrmlData_InBuffer& theBuffer);
+  Standard_EXPORT static VrmlData_ErrorStatus ReadLine(InputBuffer& theBuffer);
 
   /**
    * Read a single word from the input stream, delimited by whitespace.
    */
-  Standard_EXPORT static VrmlData_ErrorStatus ReadWord(VrmlData_InBuffer&       theBuffer,
-                                                       TCollection_AsciiString& theStr);
+  Standard_EXPORT static VrmlData_ErrorStatus ReadWord(InputBuffer&       theBuffer,
+                                                       AsciiString1& theStr);
 
   /**
    * Diagnostic dump of the contents
@@ -204,7 +204,7 @@ public:
   /**
    * Read one real value.
    */
-  Standard_EXPORT VrmlData_ErrorStatus ReadReal(VrmlData_InBuffer& theBuffer,
+  Standard_EXPORT VrmlData_ErrorStatus ReadReal(InputBuffer& theBuffer,
                                                 Standard_Real&     theResult,
                                                 Standard_Boolean   isApplyScale,
                                                 Standard_Boolean   isOnlyPositive) const;
@@ -212,7 +212,7 @@ public:
   /**
    * Read one triplet of real values.
    */
-  Standard_EXPORT VrmlData_ErrorStatus ReadXYZ(VrmlData_InBuffer& theBuffer,
+  Standard_EXPORT VrmlData_ErrorStatus ReadXYZ(InputBuffer& theBuffer,
                                                gp_XYZ&            theXYZ,
                                                Standard_Boolean   isApplyScale,
                                                Standard_Boolean   isOnlyPositive) const;
@@ -220,14 +220,14 @@ public:
   /**
    * Read one doublet of real values.
    */
-  Standard_EXPORT VrmlData_ErrorStatus ReadXY(VrmlData_InBuffer& theBuffer,
-                                              gp_XY&             theXYZ,
+  Standard_EXPORT VrmlData_ErrorStatus ReadXY(InputBuffer& theBuffer,
+                                              Coords2d&             theXYZ,
                                               Standard_Boolean   isApplyScale,
                                               Standard_Boolean   isOnlyPositive) const;
   /**
    * Read an array of integer indices, for IndexedfaceSet and IndexedLineSet.
    */
-  Standard_EXPORT VrmlData_ErrorStatus ReadArrIndex(VrmlData_InBuffer&        theBuffer,
+  Standard_EXPORT VrmlData_ErrorStatus ReadArrIndex(InputBuffer&        theBuffer,
                                                     const Standard_Integer**& theArr,
                                                     Standard_Size&            theNBl) const;
 
@@ -303,12 +303,12 @@ protected:
   /**
    * Read whatever line from the input checking the std::istream flags.
    */
-  Standard_EXPORT static VrmlData_ErrorStatus readLine(VrmlData_InBuffer& theBuffer);
+  Standard_EXPORT static VrmlData_ErrorStatus readLine(InputBuffer& theBuffer);
 
   /**
    * Read and verify the VRML header (the 1st line of the file)
    */
-  Standard_EXPORT static VrmlData_ErrorStatus readHeader(VrmlData_InBuffer& theBuffer);
+  Standard_EXPORT static VrmlData_ErrorStatus readHeader(InputBuffer& theBuffer);
 
   /**
    * Create the node.
@@ -321,14 +321,14 @@ protected:
    *   Otherwise the created node is matched and an error is returned if
    *   no match detected.
    */
-  Standard_EXPORT VrmlData_ErrorStatus createNode(VrmlData_InBuffer&           theBuffer,
+  Standard_EXPORT VrmlData_ErrorStatus createNode(InputBuffer&           theBuffer,
                                                   Handle(VrmlData_Node)&       theNode,
                                                   const Handle(TypeInfo)& Type);
 
   /**
    * Create a single Shape object from all geometric nodes in the list.
    */
-  Standard_EXPORT static void createShape(TopoDS_Shape& outShape,
+  Standard_EXPORT static void createShape(TopoShape& outShape,
                                           const VrmlData_ListOfNode&,
                                           VrmlData_DataMapOfShapeAppearance*);
 
@@ -343,7 +343,7 @@ private:
   VrmlData_MapOfNode               myNamedNodes;
 
   // read from stream
-  NCollection_List<TCollection_ExtendedString> myVrmlDir;
+  NCollection_List<UtfString> myVrmlDir;
   Standard_Mutex                               myMutex;
   Standard_Integer                             myLineError; ///! #0 if error
 

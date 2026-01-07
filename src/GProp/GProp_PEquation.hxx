@@ -33,7 +33,7 @@ class gp_Lin;
 //! so, it also computes the mean point, the mean
 //! line or the mean plane of the points. If not, it
 //! computes the minimal box which includes all the points.
-class GProp_PEquation
+class PrincipalEquation
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -51,7 +51,7 @@ public:
   //! and IsSpace to find the result of the analysis, and
   //! -   the function Point, Line, Plane or Box to
   //! access the computed result.
-  Standard_EXPORT GProp_PEquation(const TColgp_Array1OfPnt& Pnts, const Standard_Real Tol);
+  Standard_EXPORT PrincipalEquation(const TColgp_Array1OfPnt& Pnts, const Standard_Real Tol);
 
   //! Returns true if, according to the given
   //! tolerance, the points analyzed by this framework are  coplanar.

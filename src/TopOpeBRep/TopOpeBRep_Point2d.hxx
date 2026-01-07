@@ -56,15 +56,15 @@ public:
 
   Standard_Boolean IsVertex(const Standard_Integer I) const;
 
-  void SetVertex(const Standard_Integer I, const TopoDS_Vertex& V);
+  void SetVertex(const Standard_Integer I, const TopoVertex& V);
 
-  Standard_EXPORT const TopoDS_Vertex& Vertex(const Standard_Integer I) const;
+  Standard_EXPORT const TopoVertex& Vertex(const Standard_Integer I) const;
 
-  void SetTransition(const Standard_Integer I, const TopOpeBRepDS_Transition& T);
+  void SetTransition(const Standard_Integer I, const StateTransition& T);
 
-  Standard_EXPORT const TopOpeBRepDS_Transition& Transition(const Standard_Integer I) const;
+  Standard_EXPORT const StateTransition& Transition(const Standard_Integer I) const;
 
-  Standard_EXPORT TopOpeBRepDS_Transition& ChangeTransition(const Standard_Integer I);
+  Standard_EXPORT StateTransition& ChangeTransition(const Standard_Integer I);
 
   void SetParameter(const Standard_Integer I, const Standard_Real P);
 
@@ -121,12 +121,12 @@ private:
   IntRes2d_IntersectionPoint  mypint;
   Standard_Boolean            myhaspint;
   Standard_Boolean            myisvertex1;
-  TopoDS_Vertex               myvertex1;
-  TopOpeBRepDS_Transition     mytransition1;
+  TopoVertex               myvertex1;
+  StateTransition     mytransition1;
   Standard_Real               myparameter1;
   Standard_Boolean            myisvertex2;
-  TopoDS_Vertex               myvertex2;
-  TopOpeBRepDS_Transition     mytransition2;
+  TopoVertex               myvertex2;
+  StateTransition     mytransition2;
   Standard_Real               myparameter2;
   Standard_Boolean            myispointofsegment;
   Standard_Integer            myips1;

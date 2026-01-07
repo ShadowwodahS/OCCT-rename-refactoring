@@ -32,10 +32,10 @@
 #include <TColStd_HSequenceOfInteger.hxx>
 class RefObject;
 class TCollection_HAsciiString;
-class TCollection_AsciiString;
+class AsciiString1;
 class TCollection_HExtendedString;
-class TCollection_ExtendedString;
-class TopoDS_Shape;
+class UtfString;
+class TopoShape;
 
 //! This class provides various useful utility routines, to
 //! facilitate handling of most common data structures :
@@ -104,21 +104,21 @@ public:
 
   Standard_EXPORT Standard_CString ToCString(const Handle(TCollection_HAsciiString)& strval) const;
 
-  Standard_EXPORT Standard_CString ToCString(const TCollection_AsciiString& strval) const;
+  Standard_EXPORT Standard_CString ToCString(const AsciiString1& strval) const;
 
   Standard_EXPORT Handle(TCollection_HAsciiString) ToHString(const Standard_CString strcon) const;
 
-  Standard_EXPORT TCollection_AsciiString ToAString(const Standard_CString strcon) const;
+  Standard_EXPORT AsciiString1 ToAString(const Standard_CString strcon) const;
 
   Standard_EXPORT Standard_ExtString
     ToEString(const Handle(TCollection_HExtendedString)& strval) const;
 
-  Standard_EXPORT Standard_ExtString ToEString(const TCollection_ExtendedString& strval) const;
+  Standard_EXPORT Standard_ExtString ToEString(const UtfString& strval) const;
 
   Standard_EXPORT Handle(TCollection_HExtendedString) ToHString(
     const Standard_ExtString strcon) const;
 
-  Standard_EXPORT TCollection_ExtendedString ToXString(const Standard_ExtString strcon) const;
+  Standard_EXPORT UtfString ToXString(const Standard_ExtString strcon) const;
 
   Standard_EXPORT Standard_ExtString AsciiToExtended(const Standard_CString str) const;
 
@@ -143,7 +143,7 @@ public:
                                   const Standard_ExtString                          strval) const;
 
   //! Converts a list of Shapes to a Compound (a kind of Shape)
-  Standard_EXPORT TopoDS_Shape
+  Standard_EXPORT TopoShape
     CompoundFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval) const;
 
   //! Returns the type of a Shape : true type if <compound> is False
@@ -151,7 +151,7 @@ public:
   //! its items. If all are of the same type, returns this type.
   //! Else, returns COMPOUND. If it is empty, returns SHAPE
   //! For a Null Shape, returns SHAPE
-  Standard_EXPORT TopAbs_ShapeEnum ShapeType(const TopoDS_Shape&    shape,
+  Standard_EXPORT TopAbs_ShapeEnum ShapeType(const TopoShape&    shape,
                                              const Standard_Boolean compound) const;
 
   //! From a Shape, builds a Compound as follows :
@@ -163,30 +163,30 @@ public:
   //! If <compound> is True, gathers items in compounds which
   //! correspond to starting COMPOUND,SOLID or SHELL containers, or
   //! items directly contained in a Compound
-  Standard_EXPORT TopoDS_Shape SortedCompound(const TopoDS_Shape&    shape,
+  Standard_EXPORT TopoShape SortedCompound(const TopoShape&    shape,
                                               const TopAbs_ShapeEnum type,
                                               const Standard_Boolean explore,
                                               const Standard_Boolean compound) const;
 
-  Standard_EXPORT TopoDS_Shape ShapeValue(const Handle(TopTools_HSequenceOfShape)& seqv,
+  Standard_EXPORT TopoShape ShapeValue(const Handle(TopTools_HSequenceOfShape)& seqv,
                                           const Standard_Integer                   num) const;
 
   Standard_EXPORT Handle(TopTools_HSequenceOfShape) NewSeqShape() const;
 
   Standard_EXPORT void AppendShape(const Handle(TopTools_HSequenceOfShape)& seqv,
-                                   const TopoDS_Shape&                      shape) const;
+                                   const TopoShape&                      shape) const;
 
   //! Creates a Transient Object from a Shape : it is either a Binder
   //! (used by functions which require a Transient but can process
   //! a Shape, such as viewing functions) or a HShape (according to hs)
   //! Default is a HShape
   Standard_EXPORT Handle(RefObject) ShapeBinder(
-    const TopoDS_Shape&    shape,
+    const TopoShape&    shape,
     const Standard_Boolean hs = Standard_True) const;
 
   //! From a Transient, returns a Shape.
   //! In fact, recognizes ShapeBinder ShapeMapper and HShape
-  Standard_EXPORT TopoDS_Shape BinderShape(const Handle(RefObject)& tr) const;
+  Standard_EXPORT TopoShape BinderShape(const Handle(RefObject)& tr) const;
 
   Standard_EXPORT Standard_Integer SeqLength(const Handle(RefObject)& list) const;
 

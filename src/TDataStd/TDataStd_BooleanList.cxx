@@ -37,7 +37,7 @@ const Standard_GUID& TDataStd_BooleanList::GetID()
 // function : SetAttr
 // purpose  : Implements Set functionality
 //=======================================================================
-static Handle(TDataStd_BooleanList) SetAttr(const TDF_Label& label, const Standard_GUID& theGuid)
+static Handle(TDataStd_BooleanList) SetAttr(const DataLabel& label, const Standard_GUID& theGuid)
 {
   Handle(TDataStd_BooleanList) A;
   if (!label.FindAttribute(theGuid, A))
@@ -60,7 +60,7 @@ TDataStd_BooleanList::TDataStd_BooleanList()
 
 //=================================================================================================
 
-Handle(TDataStd_BooleanList) TDataStd_BooleanList::Set(const TDF_Label& label)
+Handle(TDataStd_BooleanList) TDataStd_BooleanList::Set(const DataLabel& label)
 {
   return SetAttr(label, GetID());
 }
@@ -69,7 +69,7 @@ Handle(TDataStd_BooleanList) TDataStd_BooleanList::Set(const TDF_Label& label)
 // function : Set
 // purpose  : Set user defined attribute with specific ID
 //=======================================================================
-Handle(TDataStd_BooleanList) TDataStd_BooleanList::Set(const TDF_Label&     label,
+Handle(TDataStd_BooleanList) TDataStd_BooleanList::Set(const DataLabel&     label,
                                                        const Standard_GUID& theGuid)
 {
   return SetAttr(label, theGuid);

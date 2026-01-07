@@ -55,12 +55,12 @@
 
 //=================================================================================================
 
-TopoDS_Edge ShapeBuild_Edge::CopyReplaceVertices(const TopoDS_Edge&   edge,
-                                                 const TopoDS_Vertex& V1,
-                                                 const TopoDS_Vertex& V2) const
+TopoEdge ShapeBuild_Edge::CopyReplaceVertices(const TopoEdge&   edge,
+                                                 const TopoVertex& V1,
+                                                 const TopoVertex& V2) const
 {
   TopTools_SequenceOfShape aNMVertices;
-  TopoDS_Vertex            newV1 = V1, newV2 = V2;
+  TopoVertex            newV1 = V1, newV2 = V2;
   if (newV1.IsNull() || newV2.IsNull())
   {
     TopoDS_Iterator it;
@@ -74,7 +74,7 @@ TopoDS_Edge ShapeBuild_Edge::CopyReplaceVertices(const TopoDS_Edge&   edge,
     }
     for (; it.More(); it.Next())
     {
-      TopoDS_Vertex V = TopoDS::Vertex(it.Value());
+      TopoVertex V = TopoDS::Vertex(it.Value());
       if (V.Orientation() == TopAbs_FORWARD)
       {
         if (newV1.IsNull())
@@ -93,10 +93,10 @@ TopoDS_Edge ShapeBuild_Edge::CopyReplaceVertices(const TopoDS_Edge&   edge,
   newV2.Orientation(TopAbs_REVERSED);
 
   // szv#4:S4163:12Mar99 SGI warns
-  TopoDS_Shape sh = edge.EmptyCopied();
-  TopoDS_Edge  E  = TopoDS::Edge(sh);
+  TopoShape sh = edge.EmptyCopied();
+  TopoEdge  E  = TopoDS::Edge(sh);
 
-  BRep_Builder B;
+  ShapeBuilder B;
   if (!newV1.IsNull())
     B.Add(E, newV1);
   if (!newV2.IsNull())
@@ -146,12 +146,12 @@ static Standard_Real AdjustByPeriod(const Standard_Real Val,
   return (diff > 0 ? -P : P) * (Standard_Integer)(D / P + 0.5);
 }
 
-static Standard_Boolean IsPeriodic(const Handle(Geom_Curve)& theCurve)
+static Standard_Boolean IsPeriodic(const Handle(GeomCurve3d)& theCurve)
 {
   // 15.11.2002 PTV OCC966
   // remove regressions in DE tests (diva, divb, divc, toe3) in KAS:dev
   // ask IsPeriodic on BasisCurve
-  Handle(Geom_Curve) aTmpCurve = theCurve;
+  Handle(GeomCurve3d) aTmpCurve = theCurve;
   while ((aTmpCurve->IsKind(STANDARD_TYPE(Geom_OffsetCurve)))
          || (aTmpCurve->IsKind(STANDARD_TYPE(Geom_TrimmedCurve))))
   {
@@ -163,12 +163,12 @@ static Standard_Boolean IsPeriodic(const Handle(Geom_Curve)& theCurve)
   return aTmpCurve->IsPeriodic();
 }
 
-Standard_Boolean IsPeriodic(const Handle(Geom2d_Curve)& theCurve)
+Standard_Boolean IsPeriodic(const Handle(GeomCurve2d)& theCurve)
 {
   // 15.11.2002 PTV OCC966
   // remove regressions in DE tests (diva, divb, divc, toe3) in KAS:dev
   // ask IsPeriodic on BasisCurve
-  Handle(Geom2d_Curve) aTmpCurve = theCurve;
+  Handle(GeomCurve2d) aTmpCurve = theCurve;
   while ((aTmpCurve->IsKind(STANDARD_TYPE(Geom2d_OffsetCurve)))
          || (aTmpCurve->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve))))
   {
@@ -180,12 +180,12 @@ Standard_Boolean IsPeriodic(const Handle(Geom2d_Curve)& theCurve)
   return aTmpCurve->IsPeriodic();
 }
 
-void ShapeBuild_Edge::CopyRanges(const TopoDS_Edge&  toedge,
-                                 const TopoDS_Edge&  fromedge,
+void ShapeBuild_Edge::CopyRanges(const TopoEdge&  toedge,
+                                 const TopoEdge&  fromedge,
                                  const Standard_Real alpha,
                                  const Standard_Real beta) const
 {
-  /*  BRep_Builder B;
+  /*  ShapeBuilder B;
   for (BRep_ListIteratorOfListOfCurveRepresentation itcr
   ((*((Handle(BRep_TEdge)*)&fromedge.TShape()))->ChangeCurves()); itcr.More(); itcr.Next()) {
   Handle(BRep_GCurve) GC = Handle(BRep_GCurve)::DownCast(itcr.Value());
@@ -222,7 +222,7 @@ void ShapeBuild_Edge::CopyRanges(const TopoDS_Edge&  toedge,
       if ( ! isC3d && ! fromGC->IsCurveOnSurface()) continue; // only 3d curves and pcurves are treated
     // clang-format on
 
-    Handle(Geom_Surface) surface;
+    Handle(GeomSurface) surface;
     TopLoc_Location      L;
     if (!isC3d)
     {
@@ -257,7 +257,7 @@ void ShapeBuild_Edge::CopyRanges(const TopoDS_Edge&  toedge,
       Standard_Boolean doCheck = Standard_False;
       if (toGC->IsKind(STANDARD_TYPE(BRep_Curve3D)))
       {
-        Handle(Geom_Curve) aCrv3d = Handle(BRep_Curve3D)::DownCast(toGC)->Curve3D();
+        Handle(GeomCurve3d) aCrv3d = Handle(BRep_Curve3D)::DownCast(toGC)->Curve3D();
         // 15.11.2002 PTV OCC966
         if (!aCrv3d.IsNull() && IsPeriodic(aCrv3d))
         {
@@ -269,7 +269,7 @@ void ShapeBuild_Edge::CopyRanges(const TopoDS_Edge&  toedge,
       }
       else if (toGC->IsKind(STANDARD_TYPE(BRep_CurveOnSurface)))
       {
-        Handle(Geom2d_Curve) aCrv2d = Handle(BRep_CurveOnSurface)::DownCast(toGC)->PCurve();
+        Handle(GeomCurve2d) aCrv2d = Handle(BRep_CurveOnSurface)::DownCast(toGC)->PCurve();
         // 15.11.2002 PTV OCC966
         if (!aCrv2d.IsNull() && IsPeriodic(aCrv2d))
         {
@@ -285,8 +285,8 @@ void ShapeBuild_Edge::CopyRanges(const TopoDS_Edge&  toedge,
         Standard_Real aShift = AdjustByPeriod(newF, 0.5 * (aCrvF + aCrvL), aPeriod);
         newF += aShift;
         newL += aShift;
-        BRep_Builder().SameRange(toedge, Standard_False);
-        BRep_Builder().SameParameter(toedge, Standard_False);
+        ShapeBuilder().SameRange(toedge, Standard_False);
+        ShapeBuilder().SameParameter(toedge, Standard_False);
       }
 
       toGC->SetRange(newF, newL);
@@ -297,7 +297,7 @@ void ShapeBuild_Edge::CopyRanges(const TopoDS_Edge&  toedge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::SetRange3d(const TopoDS_Edge&  edge,
+void ShapeBuild_Edge::SetRange3d(const TopoEdge&  edge,
                                  const Standard_Real first,
                                  const Standard_Real last) const
 {
@@ -317,7 +317,7 @@ void ShapeBuild_Edge::SetRange3d(const TopoDS_Edge&  edge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::CopyPCurves(const TopoDS_Edge& toedge, const TopoDS_Edge& fromedge) const
+void ShapeBuild_Edge::CopyPCurves(const TopoEdge& toedge, const TopoEdge& fromedge) const
 {
   const TopLoc_Location& fromLoc = fromedge.Location();
   const TopLoc_Location& toLoc   = toedge.Location();
@@ -331,7 +331,7 @@ void ShapeBuild_Edge::CopyPCurves(const TopoDS_Edge& toedge, const TopoDS_Edge& 
       continue;
     if (fromGC->IsCurveOnSurface())
     {
-      Handle(Geom_Surface)            surface = fromGC->Surface();
+      Handle(GeomSurface)            surface = fromGC->Surface();
       TopLoc_Location                 L       = fromGC->Location();
       Standard_Boolean                found   = Standard_False;
       BRep_ListOfCurveRepresentation& tolist =
@@ -352,8 +352,8 @@ void ShapeBuild_Edge::CopyPCurves(const TopoDS_Edge& toedge, const TopoDS_Edge& 
         toGC = Handle(BRep_GCurve)::DownCast(fromGC->Copy());
         tolist.Append(toGC);
       }
-      Handle(Geom2d_Curve) pcurve = fromGC->PCurve();
-      toGC->PCurve(Handle(Geom2d_Curve)::DownCast(pcurve->Copy()));
+      Handle(GeomCurve2d) pcurve = fromGC->PCurve();
+      toGC->PCurve(Handle(GeomCurve2d)::DownCast(pcurve->Copy()));
 
       // bug OCC209 invalid location of pcurve in the edge after copying
       TopLoc_Location newLoc = (fromLoc * L).Predivided(toLoc); //(L * fromLoc).Predivided(toLoc);
@@ -361,7 +361,7 @@ void ShapeBuild_Edge::CopyPCurves(const TopoDS_Edge& toedge, const TopoDS_Edge& 
       if (fromGC->IsCurveOnClosedSurface())
       {
         pcurve = fromGC->PCurve2();
-        toGC->PCurve2(Handle(Geom2d_Curve)::DownCast(pcurve->Copy()));
+        toGC->PCurve2(Handle(GeomCurve2d)::DownCast(pcurve->Copy()));
       }
     }
   }
@@ -369,11 +369,11 @@ void ShapeBuild_Edge::CopyPCurves(const TopoDS_Edge& toedge, const TopoDS_Edge& 
 
 //=================================================================================================
 
-TopoDS_Edge ShapeBuild_Edge::Copy(const TopoDS_Edge&     edge,
+TopoEdge ShapeBuild_Edge::Copy(const TopoEdge&     edge,
                                   const Standard_Boolean sharepcurves) const
 {
-  TopoDS_Vertex dummy1, dummy2;
-  TopoDS_Edge   newedge = CopyReplaceVertices(edge, dummy1, dummy2);
+  TopoVertex dummy1, dummy2;
+  TopoEdge   newedge = CopyReplaceVertices(edge, dummy1, dummy2);
   if (!sharepcurves)
     CopyPCurves(newedge, edge);
   return newedge;
@@ -381,12 +381,12 @@ TopoDS_Edge ShapeBuild_Edge::Copy(const TopoDS_Edge&     edge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::RemovePCurve(const TopoDS_Edge& edge, const TopoDS_Face& face) const
+void ShapeBuild_Edge::RemovePCurve(const TopoEdge& edge, const TopoFace& face) const
 {
-  BRep_Builder         B;
-  Handle(Geom2d_Curve) c2dNull;
-  //: S4136  Standard_Real tol = BRep_Tool::Tolerance ( edge );
-  if (BRep_Tool::IsClosed(edge, face))
+  ShapeBuilder         B;
+  Handle(GeomCurve2d) c2dNull;
+  //: S4136  Standard_Real tol = BRepInspector::Tolerance ( edge );
+  if (BRepInspector::IsClosed(edge, face))
     B.UpdateEdge(edge, c2dNull, c2dNull, face, 0.); //: S4136: tol
   else
     B.UpdateEdge(edge, c2dNull, face, 0.); //: S4136: tol
@@ -394,21 +394,21 @@ void ShapeBuild_Edge::RemovePCurve(const TopoDS_Edge& edge, const TopoDS_Face& f
 
 //=================================================================================================
 
-void ShapeBuild_Edge::RemovePCurve(const TopoDS_Edge& edge, const Handle(Geom_Surface)& surf) const
+void ShapeBuild_Edge::RemovePCurve(const TopoEdge& edge, const Handle(GeomSurface)& surf) const
 {
   RemovePCurve(edge, surf, TopLoc_Location());
 }
 
 //=================================================================================================
 
-void ShapeBuild_Edge::RemovePCurve(const TopoDS_Edge&          edge,
-                                   const Handle(Geom_Surface)& surf,
+void ShapeBuild_Edge::RemovePCurve(const TopoEdge&          edge,
+                                   const Handle(GeomSurface)& surf,
                                    const TopLoc_Location&      loc) const
 {
-  BRep_Builder         B;
-  Handle(Geom2d_Curve) c2dNull;
-  //: S4136  Standard_Real tol = BRep_Tool::Tolerance ( edge );
-  if (BRep_Tool::IsClosed(edge, surf, loc))
+  ShapeBuilder         B;
+  Handle(GeomCurve2d) c2dNull;
+  //: S4136  Standard_Real tol = BRepInspector::Tolerance ( edge );
+  if (BRepInspector::IsClosed(edge, surf, loc))
     B.UpdateEdge(edge, c2dNull, c2dNull, surf, loc, 0.); //: S4136: tol
   else
     B.UpdateEdge(edge, c2dNull, surf, loc, 0.); //: S4136: tol
@@ -416,18 +416,18 @@ void ShapeBuild_Edge::RemovePCurve(const TopoDS_Edge&          edge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::ReplacePCurve(const TopoDS_Edge&          edge,
-                                    const Handle(Geom2d_Curve)& pcurve,
-                                    const TopoDS_Face&          face) const
+void ShapeBuild_Edge::ReplacePCurve(const TopoEdge&          edge,
+                                    const Handle(GeomCurve2d)& pcurve,
+                                    const TopoFace&          face) const
 {
-  BRep_Builder  B;
+  ShapeBuilder  B;
   Standard_Real f, l;
-  TopoDS_Shape  dummy   = edge.Reversed();
-  TopoDS_Edge   edgerev = TopoDS::Edge(dummy);
+  TopoShape  dummy   = edge.Reversed();
+  TopoEdge   edgerev = TopoDS::Edge(dummy);
   // reverse face to take second pcurve for seams like SA_Edge::PCurve() does
-  TopoDS_Face          F       = TopoDS::Face(face.Oriented(TopAbs_FORWARD));
-  Handle(Geom2d_Curve) pcurve0 = BRep_Tool::CurveOnSurface(edge, F, f, l);
-  Handle(Geom2d_Curve) c2d     = BRep_Tool::CurveOnSurface(edgerev, F, f, l);
+  TopoFace          F       = TopoDS::Face(face.Oriented(TopAbs_FORWARD));
+  Handle(GeomCurve2d) pcurve0 = BRepInspector::CurveOnSurface(edge, F, f, l);
+  Handle(GeomCurve2d) c2d     = BRepInspector::CurveOnSurface(edgerev, F, f, l);
   // Add pcurve to edge (either as single, or as seam)
   if (c2d.IsNull() || c2d == pcurve0)
   { // non-seam
@@ -448,10 +448,10 @@ void ShapeBuild_Edge::ReplacePCurve(const TopoDS_Edge&          edge,
 // Count exact number of pcurves STORED in edge for face
 // This makes difference for faces based on plane surfaces where pcurves can be
 // not stored but returned by BRep_Tools::CurveOnSurface
-static Standard_Integer CountPCurves(const TopoDS_Edge& edge, const TopoDS_Face& face)
+static Standard_Integer CountPCurves(const TopoEdge& edge, const TopoFace& face)
 {
   TopLoc_Location      L;
-  Handle(Geom_Surface) S = BRep_Tool::Surface(face, L);
+  Handle(GeomSurface) S = BRepInspector::Surface(face, L);
   TopLoc_Location      l = L.Predivided(edge.Location());
 
   for (BRep_ListIteratorOfListOfCurveRepresentation itcr(
@@ -466,30 +466,30 @@ static Standard_Integer CountPCurves(const TopoDS_Edge& edge, const TopoDS_Face&
   return 0;
 }
 
-Standard_Boolean ShapeBuild_Edge::ReassignPCurve(const TopoDS_Edge& edge,
-                                                 const TopoDS_Face& old,
-                                                 const TopoDS_Face& sub) const
+Standard_Boolean ShapeBuild_Edge::ReassignPCurve(const TopoEdge& edge,
+                                                 const TopoFace& old,
+                                                 const TopoFace& sub) const
 {
   Standard_Integer npcurves = CountPCurves(edge, old);
   // if ( npcurves <1 ) return Standard_False; //gka
 
   Standard_Real        f, l;
-  Handle(Geom2d_Curve) pc;
-  pc = BRep_Tool::CurveOnSurface(edge, old, f, l);
+  Handle(GeomCurve2d) pc;
+  pc = BRepInspector::CurveOnSurface(edge, old, f, l);
   if (pc.IsNull())
     return Standard_False;
   else if (npcurves == 0)
     npcurves = 1; // gka
 
-  BRep_Builder B;
+  ShapeBuilder B;
 
   // if the pcurve was only one, remove; else leave second one
   if (npcurves > 1)
   {
     // smh#8 Porting AIX
-    TopoDS_Shape         tmpshape = edge.Reversed();
-    TopoDS_Edge          erev     = TopoDS::Edge(tmpshape);
-    Handle(Geom2d_Curve) pc2      = BRep_Tool::CurveOnSurface(erev, old, f, l);
+    TopoShape         tmpshape = edge.Reversed();
+    TopoEdge          erev     = TopoDS::Edge(tmpshape);
+    Handle(GeomCurve2d) pc2      = BRepInspector::CurveOnSurface(erev, old, f, l);
     B.UpdateEdge(edge, pc2, old, 0.);
     B.Range(edge, old, f, l);
   }
@@ -503,10 +503,10 @@ Standard_Boolean ShapeBuild_Edge::ReassignPCurve(const TopoDS_Edge& edge,
   else
   {
     // smh#8 Porting AIX
-    TopoDS_Shape         tmpshape = edge.Reversed();
-    TopoDS_Edge          erev     = TopoDS::Edge(tmpshape);
+    TopoShape         tmpshape = edge.Reversed();
+    TopoEdge          erev     = TopoDS::Edge(tmpshape);
     Standard_Real        cf, cl;
-    Handle(Geom2d_Curve) pcs = BRep_Tool::CurveOnSurface(erev, sub, cf, cl);
+    Handle(GeomCurve2d) pcs = BRepInspector::CurveOnSurface(erev, sub, cf, cl);
     if (edge.Orientation()
         == TopAbs_REVERSED) // because B.UpdateEdge does not check edge orientation
       B.UpdateEdge(edge, pcs, pc, sub, 0.);
@@ -521,13 +521,13 @@ Standard_Boolean ShapeBuild_Edge::ReassignPCurve(const TopoDS_Edge& edge,
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) ShapeBuild_Edge::TransformPCurve(const Handle(Geom2d_Curve)& pcurve,
+Handle(GeomCurve2d) ShapeBuild_Edge::TransformPCurve(const Handle(GeomCurve2d)& pcurve,
                                                       const gp_Trsf2d&            trans,
                                                       const Standard_Real         uFact,
                                                       Standard_Real&              aFirst,
                                                       Standard_Real&              aLast) const
 {
-  Handle(Geom2d_Curve) result = Handle(Geom2d_Curve)::DownCast(pcurve->Copy());
+  Handle(GeomCurve2d) result = Handle(GeomCurve2d)::DownCast(pcurve->Copy());
   if (trans.Form() != gp_Identity)
   {
     result->Transform(trans);
@@ -545,7 +545,7 @@ Handle(Geom2d_Curve) ShapeBuild_Edge::TransformPCurve(const Handle(Geom2d_Curve)
 
   gp_GTrsf2d tMatu;
   tMatu.SetAffinity(gp::OY2d(), uFact);
-  gp_XY pXY;
+  Coords2d pXY;
 
   if (result->IsKind(STANDARD_TYPE(Geom2d_Line)))
   {
@@ -586,9 +586,9 @@ Handle(Geom2d_Curve) ShapeBuild_Edge::TransformPCurve(const Handle(Geom2d_Curve)
     if (result->IsKind(STANDARD_TYPE(Geom2d_Conic)))
     {
       // gp_Pln pln(Point3d(0,0,0),Dir3d(0,0,1));
-      // Handle(Geom_Curve) curve = GeomAPI::To3d(result,pln);
+      // Handle(GeomCurve3d) curve = GeomAPI::To3d(result,pln);
       // clang-format off
-      Handle(Geom2d_Curve) tcurve = new Geom2d_TrimmedCurve(result,aFirst,aLast); //protection against parabols ets
+      Handle(GeomCurve2d) tcurve = new Geom2d_TrimmedCurve(result,aFirst,aLast); //protection against parabols ets
       // clang-format on
       Geom2dConvert_ApproxCurve approx(tcurve, Precision::Approximation(), GeomAbs_C1, 100, 6);
       if (approx.HasResult())
@@ -621,17 +621,17 @@ Handle(Geom2d_Curve) ShapeBuild_Edge::TransformPCurve(const Handle(Geom2d_Curve)
 
 //=================================================================================================
 
-void ShapeBuild_Edge::RemoveCurve3d(const TopoDS_Edge& edge) const
+void ShapeBuild_Edge::RemoveCurve3d(const TopoEdge& edge) const
 {
-  BRep_Builder       B;
-  Handle(Geom_Curve) c3dNull;
-  //: S4136  Standard_Real tol = BRep_Tool::Tolerance (edge);
+  ShapeBuilder       B;
+  Handle(GeomCurve3d) c3dNull;
+  //: S4136  Standard_Real tol = BRepInspector::Tolerance (edge);
   B.UpdateEdge(edge, c3dNull, 0.); //: S4136: tol
 }
 
 //=================================================================================================
 
-Standard_Boolean ShapeBuild_Edge::BuildCurve3d(const TopoDS_Edge& edge) const
+Standard_Boolean ShapeBuild_Edge::BuildCurve3d(const TopoEdge& edge) const
 {
   try
   {
@@ -640,19 +640,19 @@ Standard_Boolean ShapeBuild_Edge::BuildCurve3d(const TopoDS_Edge& edge) const
     // C0 surface (but curve 3d is required as C1) and tolerance is 1e-07
     // lets use maximum of tolerance and default parameter 1.e-5
     // Another solutions: use quite big Tolerance or require C0 curve on C0 surface
-    if (BRepLib::BuildCurve3d(edge, Max(1.e-5, BRep_Tool::Tolerance(edge))))
+    if (BRepLib::BuildCurve3d(edge, Max(1.e-5, BRepInspector::Tolerance(edge))))
     {
       // #50 S4054 rln 14.12.98 write cylinder in BRep mode into IGES and read back
       // with 2DUse_Forced - pcurve and removed 3D curves have different ranges
-      if (BRep_Tool::SameRange(edge))
+      if (BRepInspector::SameRange(edge))
       {
         Standard_Real first, last;
-        BRep_Tool::Range(edge, first, last);
-        BRep_Builder().Range(edge, first, last); // explicit setting for all reps
+        BRepInspector::Range(edge, first, last);
+        ShapeBuilder().Range(edge, first, last); // explicit setting for all reps
       }
-      Handle(Geom_Curve) c3d;
+      Handle(GeomCurve3d) c3d;
       Standard_Real      f, l;
-      c3d = BRep_Tool::Curve(edge, f, l);
+      c3d = BRepInspector::Curve(edge, f, l);
       if (c3d.IsNull())
         return Standard_False;
       // 15.11.2002 PTV OCC966
@@ -672,7 +672,7 @@ Standard_Boolean ShapeBuild_Edge::BuildCurve3d(const TopoDS_Edge& edge) const
         if (isLess)
         {
           SetRange3d(edge, f, l);
-          BRep_Builder().SameRange(edge, Standard_False);
+          ShapeBuilder().SameRange(edge, Standard_False);
         }
       }
 
@@ -693,8 +693,8 @@ Standard_Boolean ShapeBuild_Edge::BuildCurve3d(const TopoDS_Edge& edge) const
 
 //=================================================================================================
 
-void ShapeBuild_Edge::MakeEdge(TopoDS_Edge&              edge,
-                               const Handle(Geom_Curve)& curve,
+void ShapeBuild_Edge::MakeEdge(TopoEdge&              edge,
+                               const Handle(GeomCurve3d)& curve,
                                const TopLoc_Location&    L) const
 {
   MakeEdge(edge, curve, L, curve->FirstParameter(), curve->LastParameter());
@@ -702,13 +702,13 @@ void ShapeBuild_Edge::MakeEdge(TopoDS_Edge&              edge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::MakeEdge(TopoDS_Edge&              edge,
-                               const Handle(Geom_Curve)& curve,
+void ShapeBuild_Edge::MakeEdge(TopoEdge&              edge,
+                               const Handle(GeomCurve3d)& curve,
                                const TopLoc_Location&    L,
                                const Standard_Real       p1,
                                const Standard_Real       p2) const
 {
-  BRepBuilderAPI_MakeEdge ME(curve, p1, p2);
+  EdgeMaker ME(curve, p1, p2);
   if (!ME.IsDone())
   {
 #ifdef OCCT_DEBUG
@@ -716,16 +716,16 @@ void ShapeBuild_Edge::MakeEdge(TopoDS_Edge&              edge,
 #endif
     return;
   }
-  TopoDS_Edge E = ME.Edge();
+  TopoEdge E = ME.Edge();
   if (!L.IsIdentity())
   {
-    BRep_Builder B;
+    ShapeBuilder B;
     B.UpdateEdge(E, curve, L, 0.);
     B.Range(E, p1, p2);
 
-    TopoDS_Vertex V1, V2;
-    TopExp::Vertices(E, V1, V2);
-    Point3d P1 = BRep_Tool::Pnt(V1), P2 = BRep_Tool::Pnt(V2);
+    TopoVertex V1, V2;
+    TopExp1::Vertices(E, V1, V2);
+    Point3d P1 = BRepInspector::Pnt(V1), P2 = BRepInspector::Pnt(V2);
     B.UpdateVertex(V1, P1.Transformed(L.Transformation()), 0.);
     B.UpdateVertex(V2, P2.Transformed(L.Transformation()), 0.);
   }
@@ -735,31 +735,31 @@ void ShapeBuild_Edge::MakeEdge(TopoDS_Edge&              edge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::MakeEdge(TopoDS_Edge&                edge,
-                               const Handle(Geom2d_Curve)& pcurve,
-                               const TopoDS_Face&          face) const
+void ShapeBuild_Edge::MakeEdge(TopoEdge&                edge,
+                               const Handle(GeomCurve2d)& pcurve,
+                               const TopoFace&          face) const
 {
   MakeEdge(edge, pcurve, face, pcurve->FirstParameter(), pcurve->LastParameter());
 }
 
 //=================================================================================================
 
-void ShapeBuild_Edge::MakeEdge(TopoDS_Edge&                edge,
-                               const Handle(Geom2d_Curve)& pcurve,
-                               const TopoDS_Face&          face,
+void ShapeBuild_Edge::MakeEdge(TopoEdge&                edge,
+                               const Handle(GeomCurve2d)& pcurve,
+                               const TopoFace&          face,
                                const Standard_Real         p1,
                                const Standard_Real         p2) const
 {
   TopLoc_Location             L;
-  const Handle(Geom_Surface)& S = BRep_Tool::Surface(face, L);
+  const Handle(GeomSurface)& S = BRepInspector::Surface(face, L);
   MakeEdge(edge, pcurve, S, L, p1, p2);
 }
 
 //=================================================================================================
 
-void ShapeBuild_Edge::MakeEdge(TopoDS_Edge&                edge,
-                               const Handle(Geom2d_Curve)& pcurve,
-                               const Handle(Geom_Surface)& S,
+void ShapeBuild_Edge::MakeEdge(TopoEdge&                edge,
+                               const Handle(GeomCurve2d)& pcurve,
+                               const Handle(GeomSurface)& S,
                                const TopLoc_Location&      L) const
 {
   MakeEdge(edge, pcurve, S, L, pcurve->FirstParameter(), pcurve->LastParameter());
@@ -767,14 +767,14 @@ void ShapeBuild_Edge::MakeEdge(TopoDS_Edge&                edge,
 
 //=================================================================================================
 
-void ShapeBuild_Edge::MakeEdge(TopoDS_Edge&                edge,
-                               const Handle(Geom2d_Curve)& pcurve,
-                               const Handle(Geom_Surface)& S,
+void ShapeBuild_Edge::MakeEdge(TopoEdge&                edge,
+                               const Handle(GeomCurve2d)& pcurve,
+                               const Handle(GeomSurface)& S,
                                const TopLoc_Location&      L,
                                const Standard_Real         p1,
                                const Standard_Real         p2) const
 {
-  BRepBuilderAPI_MakeEdge ME(pcurve, S, p1, p2);
+  EdgeMaker ME(pcurve, S, p1, p2);
   if (!ME.IsDone())
   {
 #ifdef OCCT_DEBUG
@@ -782,17 +782,17 @@ void ShapeBuild_Edge::MakeEdge(TopoDS_Edge&                edge,
 #endif
     return;
   }
-  TopoDS_Edge E = ME.Edge();
+  TopoEdge E = ME.Edge();
   if (!L.IsIdentity())
   {
     RemovePCurve(E, S);
-    BRep_Builder B;
+    ShapeBuilder B;
     B.UpdateEdge(E, pcurve, S, L, 0.);
     B.Range(E, S, L, p1, p2);
 
-    TopoDS_Vertex V1, V2;
-    TopExp::Vertices(E, V1, V2);
-    Point3d P1 = BRep_Tool::Pnt(V1), P2 = BRep_Tool::Pnt(V2);
+    TopoVertex V1, V2;
+    TopExp1::Vertices(E, V1, V2);
+    Point3d P1 = BRepInspector::Pnt(V1), P2 = BRepInspector::Pnt(V2);
     B.UpdateVertex(V1, P1.Transformed(L.Transformation()), 0.);
     B.UpdateVertex(V2, P2.Transformed(L.Transformation()), 0.);
   }

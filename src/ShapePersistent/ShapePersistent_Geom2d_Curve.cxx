@@ -20,7 +20,7 @@
 #include <Geom2d_TrimmedCurve.hxx>
 #include <Geom2d_OffsetCurve.hxx>
 
-Handle(Geom2d_Curve) ShapePersistent_Geom2d_Curve::pBezier::Import() const
+Handle(GeomCurve2d) ShapePersistent_Geom2d_Curve::pBezier::Import() const
 {
   if (myPoles.IsNull())
     return NULL;
@@ -35,7 +35,7 @@ Handle(Geom2d_Curve) ShapePersistent_Geom2d_Curve::pBezier::Import() const
     return new Geom2d_BezierCurve(*myPoles->Array());
 }
 
-Handle(Geom2d_Curve) ShapePersistent_Geom2d_Curve::pBSpline::Import() const
+Handle(GeomCurve2d) ShapePersistent_Geom2d_Curve::pBSpline::Import() const
 {
   if (myPoles.IsNull() || myKnots.IsNull() || myMultiplicities.IsNull())
     return NULL;
@@ -60,7 +60,7 @@ Handle(Geom2d_Curve) ShapePersistent_Geom2d_Curve::pBSpline::Import() const
                                    myPeriodic);
 }
 
-Handle(Geom2d_Curve) ShapePersistent_Geom2d_Curve::pTrimmed::Import() const
+Handle(GeomCurve2d) ShapePersistent_Geom2d_Curve::pTrimmed::Import() const
 {
   if (myBasisCurve.IsNull())
     return NULL;
@@ -68,7 +68,7 @@ Handle(Geom2d_Curve) ShapePersistent_Geom2d_Curve::pTrimmed::Import() const
   return new Geom2d_TrimmedCurve(myBasisCurve->Import(), myFirstU, myLastU);
 }
 
-Handle(Geom2d_Curve) ShapePersistent_Geom2d_Curve::pOffset::Import() const
+Handle(GeomCurve2d) ShapePersistent_Geom2d_Curve::pOffset::Import() const
 {
   if (myBasisCurve.IsNull())
     return NULL;

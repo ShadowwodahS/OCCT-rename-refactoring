@@ -48,9 +48,9 @@
 #include <TopTools_DataMapOfShapeInteger.hxx>
 #include <TopTools_ListOfShape.hxx>
 
-class BOPDS_IndexRange;
+class IndexRange;
 class BOPDS_ShapeInfo;
-class TopoDS_Shape;
+class TopoShape;
 class BOPDS_PaveBlock;
 class BOPDS_CommonBlock;
 class BOPDS_FaceInfo;
@@ -95,11 +95,11 @@ public:
 
   //! Modifier
   //! Sets the arguments [theLS] of an operation
-  Standard_EXPORT void SetArguments(const TopTools_ListOfShape& theLS);
+  Standard_EXPORT void SetArguments(const ShapeList& theLS);
 
   //! Selector
   //! Returns the arguments of an operation
-  Standard_EXPORT const TopTools_ListOfShape& Arguments() const;
+  Standard_EXPORT const ShapeList& Arguments() const;
 
   //! Initializes the data structure for
   //! the arguments
@@ -107,7 +107,7 @@ public:
 
   //! Selector
   //! Returns the total number of shapes stored
-  Standard_EXPORT Standard_Integer NbShapes() const;
+  Standard_EXPORT Standard_Integer NbShapes1() const;
 
   //! Selector
   //! Returns the total number of source shapes stored
@@ -119,7 +119,7 @@ public:
 
   //! Selector
   //! Returns the index range "i"
-  Standard_EXPORT const BOPDS_IndexRange& Range(const Standard_Integer theIndex) const;
+  Standard_EXPORT const IndexRange& Range(const Standard_Integer theIndex) const;
 
   //! Selector
   //! Returns the rank of the shape of index "i"
@@ -139,7 +139,7 @@ public:
   //! Appends the default information about the shape [theS]
   //! to the data structure
   //! Returns the index of theS in the data structure
-  Standard_EXPORT Standard_Integer Append(const TopoDS_Shape& theS);
+  Standard_EXPORT Standard_Integer Append(const TopoShape& theS);
 
   //! Selector
   //! Returns the information about the shape
@@ -154,11 +154,11 @@ public:
   //! Selector
   //! Returns the shape
   //! with index theIndex
-  Standard_EXPORT const TopoDS_Shape& Shape(const Standard_Integer theIndex) const;
+  Standard_EXPORT const TopoShape& Shape(const Standard_Integer theIndex) const;
 
   //! Selector
   //! Returns the index  of the shape theS
-  Standard_EXPORT Standard_Integer Index(const TopoDS_Shape& theS) const;
+  Standard_EXPORT Standard_Integer Index(const TopoShape& theS) const;
 
   //! Selector
   //! Returns the information about pave blocks on source edges
@@ -438,14 +438,14 @@ protected:
   //! having IN state for the face
   Standard_EXPORT void InitFaceInfoIn(const Standard_Integer theIndex);
 
-  Standard_EXPORT void InitShape(const Standard_Integer theIndex, const TopoDS_Shape& theS);
+  Standard_EXPORT void InitShape(const Standard_Integer theIndex, const TopoShape& theS);
 
   Standard_EXPORT Standard_Boolean CheckCoincidence(const Handle(BOPDS_PaveBlock)& thePB1,
                                                     const Handle(BOPDS_PaveBlock)& thePB2,
                                                     const Standard_Real            theFuzz);
 
   Handle(NCollection_BaseAllocator)     myAllocator;
-  TopTools_ListOfShape                  myArguments;
+  ShapeList                  myArguments;
   Standard_Integer                      myNbShapes;
   Standard_Integer                      myNbSourceShapes;
   BOPDS_VectorOfIndexRange              myRanges;

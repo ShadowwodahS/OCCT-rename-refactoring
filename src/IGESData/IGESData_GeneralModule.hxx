@@ -27,7 +27,7 @@ class Interface_EntityIterator;
 class IGESData_IGESEntity;
 class Interface_ShareTool;
 class Interface_Check;
-class IGESData_DirChecker;
+class DirectoryChecker;
 class Interface_CopyTool;
 class TCollection_HAsciiString;
 
@@ -82,7 +82,7 @@ public:
   //! Returns a DirChecker, specific for each type of Entity
   //! (identified by its Case Number) : this DirChecker defines
   //! constraints which must be respected by the DirectoryPart
-  Standard_EXPORT virtual IGESData_DirChecker DirChecker(
+  Standard_EXPORT virtual DirectoryChecker DirChecker(
     const Standard_Integer             CN,
     const Handle(IGESData_IGESEntity)& ent) const = 0;
 

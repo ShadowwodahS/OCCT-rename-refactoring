@@ -27,16 +27,16 @@ Standard_Boolean BRepClass3d_BndBoxTreeSelectorPoint::Accept(const Standard_Inte
   // Box-point collision.
   if (theObj > myMapOfShape.Extent())
     return Standard_False;
-  const TopoDS_Shape& shp = myMapOfShape(theObj);
+  const TopoShape& shp = myMapOfShape(theObj);
   TopAbs_ShapeEnum    sht = shp.ShapeType();
   if (sht == TopAbs_EDGE)
   {
-    const TopoDS_Edge& E       = TopoDS::Edge(shp);
-    Standard_Real      EdgeTSq = BRep_Tool::Tolerance(E);
+    const TopoEdge& E       = TopoDS::Edge(shp);
+    Standard_Real      EdgeTSq = BRepInspector::Tolerance(E);
     EdgeTSq *= EdgeTSq;
     Standard_Real     f, l;
     BRepAdaptor_Curve C(E);
-    BRep_Tool::Range(E, f, l);
+    BRepInspector::Range(E, f, l);
 
     // Edge-Point interference.
     Extrema_ExtPC ExtPC(myP, C, f, l);
@@ -52,9 +52,9 @@ Standard_Boolean BRepClass3d_BndBoxTreeSelectorPoint::Accept(const Standard_Inte
   }
   else if (sht == TopAbs_VERTEX)
   {
-    const TopoDS_Vertex& V       = TopoDS::Vertex(shp);
-    Point3d               VPnt    = BRep_Tool::Pnt(V);
-    Standard_Real        VertTSq = BRep_Tool::Tolerance(V);
+    const TopoVertex& V       = TopoDS::Vertex(shp);
+    Point3d               VPnt    = BRepInspector::Pnt(V);
+    Standard_Real        VertTSq = BRepInspector::Tolerance(V);
     VertTSq *= VertTSq;
     // Vertex-Point interference.
     if (VPnt.SquareDistance(myP) < VertTSq)
@@ -73,16 +73,16 @@ Standard_Boolean BRepClass3d_BndBoxTreeSelectorLine::Accept(const Standard_Integ
   // box-line collision
   if (theObj > myMapOfShape.Extent())
     return Standard_False;
-  const TopoDS_Shape& shp = myMapOfShape(theObj);
+  const TopoShape& shp = myMapOfShape(theObj);
   TopAbs_ShapeEnum    sht = shp.ShapeType();
   if (sht == TopAbs_EDGE)
   {
-    const TopoDS_Edge& E       = TopoDS::Edge(shp);
-    Standard_Real      EdgeTSq = BRep_Tool::Tolerance(E);
+    const TopoEdge& E       = TopoDS::Edge(shp);
+    Standard_Real      EdgeTSq = BRepInspector::Tolerance(E);
     EdgeTSq *= EdgeTSq;
     Standard_Real     f, l;
     BRepAdaptor_Curve C(E);
-    BRep_Tool::Range(E, f, l);
+    BRepInspector::Range(E, f, l);
 
     // Edge-Line interference.
     Extrema_ExtCC ExtCC(C, myLC, f, l, myLC.FirstParameter(), myLC.LastParameter());
@@ -119,11 +119,11 @@ Standard_Boolean BRepClass3d_BndBoxTreeSelectorLine::Accept(const Standard_Integ
   }
   else if (sht == TopAbs_VERTEX)
   {
-    const TopoDS_Vertex& V       = TopoDS::Vertex(shp);
-    Standard_Real        VertTSq = BRep_Tool::Tolerance(V);
+    const TopoVertex& V       = TopoDS::Vertex(shp);
+    Standard_Real        VertTSq = BRepInspector::Tolerance(V);
     VertTSq *= VertTSq;
     // Vertex-Line interference.
-    Extrema_ExtPElC ExtPL(BRep_Tool::Pnt(V),
+    Extrema_ExtPElC ExtPL(BRepInspector::Pnt(V),
                           myL,
                           Precision::Confusion(),
                           -Precision::Infinite(),

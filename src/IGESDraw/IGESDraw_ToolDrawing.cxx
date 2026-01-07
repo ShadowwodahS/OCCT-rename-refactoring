@@ -37,9 +37,9 @@
 #include <Standard_DomainError.hxx>
 #include <TColgp_HArray1OfXY.hxx>
 
-IGESDraw_ToolDrawing::IGESDraw_ToolDrawing() {}
+DrawingTool::DrawingTool() {}
 
-void IGESDraw_ToolDrawing::ReadOwnParams(const Handle(IGESDraw_Drawing)&        ent,
+void DrawingTool::ReadOwnParams(const Handle(IGESDraw_Drawing)&        ent,
                                          const Handle(IGESData_IGESReaderData)& IR,
                                          IGESData_ParamReader&                  PR) const
 {
@@ -58,7 +58,7 @@ void IGESDraw_ToolDrawing::ReadOwnParams(const Handle(IGESDraw_Drawing)&        
     viewOrigins = new TColgp_HArray1OfXY(1, nbval);
 
     Handle(IGESData_ViewKindEntity) tempView;
-    gp_XY                           tempXY;
+    Coords2d                           tempXY;
 
     for (Standard_Integer i = 1; i <= nbval; i++)
     {
@@ -114,7 +114,7 @@ void IGESDraw_ToolDrawing::ReadOwnParams(const Handle(IGESDraw_Drawing)&        
   ent->Init(views, viewOrigins, annotations);
 }
 
-void IGESDraw_ToolDrawing::WriteOwnParams(const Handle(IGESDraw_Drawing)& ent,
+void DrawingTool::WriteOwnParams(const Handle(IGESDraw_Drawing)& ent,
                                           IGESData_IGESWriter&            IW) const
 {
   Standard_Integer Up = ent->NbViews();
@@ -133,7 +133,7 @@ void IGESDraw_ToolDrawing::WriteOwnParams(const Handle(IGESDraw_Drawing)& ent,
     IW.Send(ent->Annotation(i));
 }
 
-void IGESDraw_ToolDrawing::OwnShared(const Handle(IGESDraw_Drawing)& ent,
+void DrawingTool::OwnShared(const Handle(IGESDraw_Drawing)& ent,
                                      Interface_EntityIterator&       iter) const
 {
   Standard_Integer Up = ent->NbViews();
@@ -146,7 +146,7 @@ void IGESDraw_ToolDrawing::OwnShared(const Handle(IGESDraw_Drawing)& ent,
     iter.GetOneItem(ent->Annotation(i));
 }
 
-void IGESDraw_ToolDrawing::OwnCopy(const Handle(IGESDraw_Drawing)& another,
+void DrawingTool::OwnCopy(const Handle(IGESDraw_Drawing)& another,
                                    const Handle(IGESDraw_Drawing)& ent,
                                    Interface_CopyTool&             TC) const
 {
@@ -184,7 +184,7 @@ void IGESDraw_ToolDrawing::OwnCopy(const Handle(IGESDraw_Drawing)& another,
   ent->Init(views, viewOrigins, annotations);
 }
 
-Standard_Boolean IGESDraw_ToolDrawing::OwnCorrect(const Handle(IGESDraw_Drawing)& ent) const
+Standard_Boolean DrawingTool::OwnCorrect(const Handle(IGESDraw_Drawing)& ent) const
 {
   //  Vues vides : les supprimer
   Standard_Integer i, nb = ent->NbViews();
@@ -229,9 +229,9 @@ Standard_Boolean IGESDraw_ToolDrawing::OwnCorrect(const Handle(IGESDraw_Drawing)
   return Standard_True;
 }
 
-IGESData_DirChecker IGESDraw_ToolDrawing::DirChecker(const Handle(IGESDraw_Drawing)& /*ent*/) const
+DirectoryChecker DrawingTool::DirChecker(const Handle(IGESDraw_Drawing)& /*ent*/) const
 {
-  IGESData_DirChecker DC(404, 0);
+  DirectoryChecker DC(404, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -243,7 +243,7 @@ IGESData_DirChecker IGESDraw_ToolDrawing::DirChecker(const Handle(IGESDraw_Drawi
   return DC;
 }
 
-void IGESDraw_ToolDrawing::OwnCheck(const Handle(IGESDraw_Drawing)& ent,
+void DrawingTool::OwnCheck(const Handle(IGESDraw_Drawing)& ent,
                                     const Interface_ShareTool&,
                                     Handle(Interface_Check)& ach) const
 {
@@ -278,7 +278,7 @@ void IGESDraw_ToolDrawing::OwnCheck(const Handle(IGESDraw_Drawing)& ent,
   }
 }
 
-void IGESDraw_ToolDrawing::OwnDump(const Handle(IGESDraw_Drawing)& ent,
+void DrawingTool::OwnDump(const Handle(IGESDraw_Drawing)& ent,
                                    const IGESData_IGESDumper&      dumper,
                                    Standard_OStream&               S,
                                    const Standard_Integer          level) const

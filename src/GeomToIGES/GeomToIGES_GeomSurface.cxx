@@ -109,7 +109,7 @@ GeomToIGES_GeomSurface::GeomToIGES_GeomSurface(const GeomToIGES_GeomEntity& GE)
 //=============================================================================
 
 Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
-  const Handle(Geom_Surface)& start,
+  const Handle(GeomSurface)& start,
   const Standard_Real         Udeb,
   const Standard_Real         Ufin,
   const Standard_Real         Vdeb,
@@ -334,7 +334,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   Standard_Boolean Polynom  = !(RationU || RationV); // szv#10:PRO19566:05Oct99 && was wrong
 
   // filling knots array for U :
-  // Sequence des Knots de [-DegU, IndexU+1] dans IGESGeom.
+  // Sequence des Knots de [-DegU, IndexU+1] dans IGESGeom1.
   Standard_Integer     Knotindex;
   Standard_Real        rtampon;
   Standard_Integer     itampon;
@@ -350,7 +350,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   }
 
   // filling knots array for V :
-  // Sequence des Knots de [-DegV, IndexV+1] dans IGESGeom.
+  // Sequence des Knots de [-DegV, IndexV+1] dans IGESGeom1.
   TColStd_Array1OfReal KV(1, NbVPoles + DegV + 1);
   mysurface->VKnotSequence(KV);
   itampon                              = -DegV;
@@ -475,7 +475,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
     return res;
   }
 
-  Handle(Geom_Surface) st = start->BasisSurface();
+  Handle(GeomSurface) st = start->BasisSurface();
   if (st->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
   {
     // message d'erreur pas de trimmed a partir d'une trimmed ,
@@ -510,9 +510,9 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   {
     return res;
   }
-  if (start->IsKind(STANDARD_TYPE(Geom_Plane)))
+  if (start->IsKind(STANDARD_TYPE(GeomPlane)))
   {
-    DeclareAndCast(Geom_Plane, Plane, start);
+    DeclareAndCast(GeomPlane, Plane, start);
     if (myBRepMode)
       res = TransferPlaneSurface(Plane, Udeb, Ufin, Vdeb, Vfin);
     else
@@ -559,7 +559,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
 // TransferSurface
 //=============================================================================
 
-Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(const Handle(Geom_Plane)& start,
+Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(const Handle(GeomPlane)& start,
                                                                     const Standard_Real       Udeb,
                                                                     const Standard_Real       Ufin,
                                                                     const Standard_Real       Vdeb,
@@ -572,12 +572,12 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(const Handle
   {
     return res;
   }
-  if (Interface_Static::IVal("write.iges.plane.mode") == 0)
+  if (ExchangeConfig::IVal("write.iges.plane.mode") == 0)
   {
     Handle(IGESGeom_Plane) aPlane = new IGESGeom_Plane;
     Standard_Real          A, B, C, D;
     start->Coefficients(A, B, C, D);
-    D               = -D; // because of difference in Geom_Plane class and Type 108
+    D               = -D; // because of difference in GeomPlane class and Type 108
     gp_XYZ anAttach = start->Location().XYZ().Divided(GetUnit());
     aPlane->Init(A, B, C, D / GetUnit(), 0, anAttach, 0);
     res = aPlane;
@@ -679,8 +679,8 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
     V2 = Precision::Infinite();
 
   // creation de la generatrice : Generatrix
-  Handle(Geom_Line) Ligne =
-    new Geom_Line(Point3d(start->Cylinder().Radius(), 0.0, 0.0), Dir3d(0.0, 0.0, 1.0));
+  Handle(GeomLine) Ligne =
+    new GeomLine(Point3d(start->Cylinder().Radius(), 0.0, 0.0), Dir3d(0.0, 0.0, 1.0));
   GeomToIGES_GeomCurve        GC(*this);
   Handle(IGESData_IGESEntity) Generatrix = GC.TransferCurve(Ligne, V1, V2);
   Point3d                      gen1       = Ligne->Value(V1);
@@ -756,8 +756,8 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
     V2 = Precision::Infinite();
 
   // creation de la generatrice : Generatrix
-  Handle(Geom_Line) Ligne =
-    new Geom_Line(Point3d(start->Cone().RefRadius(), 0.0, 0.0),
+  Handle(GeomLine) Ligne =
+    new GeomLine(Point3d(start->Cone().RefRadius(), 0.0, 0.0),
                   Dir3d(sin(start->Cone().SemiAngle()), 0., cos(start->Cone().SemiAngle())));
   GeomToIGES_GeomCurve        GC(*this);
   Handle(IGESData_IGESEntity) Generatrix = GC.TransferCurve(Ligne, V1, V2);
@@ -835,7 +835,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
 
   // creation de la generatrice : Generatrix (1/2 cercle)
   Frame3d                      Axe(gp::Origin(), -gp::DY(), gp::DX());
-  Handle(Geom_Circle)         Cercle = new Geom_Circle(Axe, start->Sphere().Radius());
+  Handle(GeomCircle)         Cercle = new GeomCircle(Axe, start->Sphere().Radius());
   GeomToIGES_GeomCurve        GC(*this);
   Handle(IGESData_IGESEntity) Gen = GC.TransferCurve(Cercle, V1, V2);
 
@@ -902,7 +902,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
 
   // creation de la generatrice : Generatrix (cercle)
   Frame3d Axe = Frame3d(Point3d((start->Torus().MajorRadius()), 0., 0.), -gp::DY(), gp::DX());
-  Handle(Geom_Circle)         Cercle = new Geom_Circle(Axe, start->Torus().MinorRadius());
+  Handle(GeomCircle)         Cercle = new GeomCircle(Axe, start->Torus().MinorRadius());
   GeomToIGES_GeomCurve        GC(*this);
   Handle(IGESData_IGESEntity) Gen = GC.TransferCurve(Cercle, V1, V2);
 
@@ -1010,7 +1010,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   U1 = UF;
   U2 = UL;
 
-  Handle(Geom_Curve) TheCurve = start->BasisCurve();
+  Handle(GeomCurve3d) TheCurve = start->BasisCurve();
 
   // dans IGES l'origine de la generatrice est identique a l'origine
   // de la directrice , il faut translater la courbe si les deux
@@ -1022,10 +1022,10 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
 
   GeomToIGES_GeomCurve GC(*this);
   // commented by skl 18.07.2005 for OCC9490
-  Handle(Geom_Curve) CopyCurve;
+  Handle(GeomCurve3d) CopyCurve;
   if (Abs(V1) > Precision::Confusion())
   {
-    CopyCurve = Handle(Geom_Curve)::DownCast(
+    CopyCurve = Handle(GeomCurve3d)::DownCast(
       TheCurve->Translated(start->Value(U1, 0.), start->Value(U1, V1)));
   }
   else
@@ -1086,7 +1086,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
     V2 = Precision::Infinite();
 
   // creation de la generatrice : Generatrix
-  Handle(Geom_Curve)          Curve = start->BasisCurve();
+  Handle(GeomCurve3d)          Curve = start->BasisCurve();
   GeomToIGES_GeomCurve        GC(*this);
   Handle(IGESData_IGESEntity) Generatrix = GC.TransferCurve(Curve, V1, V2);
   // pdn BUC184: decoding a trimmed curve
@@ -1096,9 +1096,9 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
     Curve                              = aTrCurve->BasisCurve();
   }
 
-  if (Curve->IsKind(STANDARD_TYPE(Geom_Line)))
+  if (Curve->IsKind(STANDARD_TYPE(GeomLine)))
   {
-    DeclareAndCast(Geom_Line, Line, Curve);
+    DeclareAndCast(GeomLine, Line, Curve);
     Point3d gen1 = Line->Value(V1);
     Point3d gen2 = Line->Value(V2);
     TheLength   = gen1.Distance(gen2);
@@ -1151,7 +1151,7 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
   }
 
   Handle(IGESGeom_OffsetSurface) Surf    = new IGESGeom_OffsetSurface;
-  Handle(Geom_Surface)           TheSurf = start->BasisSurface();
+  Handle(GeomSurface)           TheSurf = start->BasisSurface();
   Standard_Real                  U1, U2, V1, V2, Um, Vm;
   start->Bounds(U1, U2, V1, V2);
   Um                                   = (U1 + U2) / 2.;
@@ -1170,12 +1170,12 @@ Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferSurface(
 }
 
 //=============================================================================
-// Transfer des Entites Plane de Geom vers IGESSolid
+// Transfer des Entites Plane de Geom vers IGESSolid1
 // TransferPlaneSurface
 //=============================================================================
 
 Handle(IGESData_IGESEntity) GeomToIGES_GeomSurface::TransferPlaneSurface(
-  const Handle(Geom_Plane)& start,
+  const Handle(GeomPlane)& start,
   const Standard_Real /*Udeb*/,
   const Standard_Real /*Ufin*/,
   const Standard_Real /*Vdeb*/,

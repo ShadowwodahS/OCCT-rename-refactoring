@@ -19,17 +19,17 @@
 
 BRepOffsetAPI_NormalProjection::BRepOffsetAPI_NormalProjection() {}
 
-BRepOffsetAPI_NormalProjection::BRepOffsetAPI_NormalProjection(const TopoDS_Shape& S)
+BRepOffsetAPI_NormalProjection::BRepOffsetAPI_NormalProjection(const TopoShape& S)
 {
   myNormalProjector.Init(S);
 }
 
-void BRepOffsetAPI_NormalProjection::Init(const TopoDS_Shape& S)
+void BRepOffsetAPI_NormalProjection::Init(const TopoShape& S)
 {
   myNormalProjector.Init(S);
 }
 
-void BRepOffsetAPI_NormalProjection::Add(const TopoDS_Shape& ToProj)
+void BRepOffsetAPI_NormalProjection::Add(const TopoShape& ToProj)
 {
   myNormalProjector.Add(ToProj);
 }
@@ -70,29 +70,29 @@ Standard_Boolean BRepOffsetAPI_NormalProjection::IsDone() const
   return myNormalProjector.IsDone();
 }
 
-const TopoDS_Shape& BRepOffsetAPI_NormalProjection::Couple(const TopoDS_Edge& E) const
+const TopoShape& BRepOffsetAPI_NormalProjection::Couple(const TopoEdge& E) const
 {
   return myNormalProjector.Couple(E);
 }
 
-const TopTools_ListOfShape& BRepOffsetAPI_NormalProjection::Generated(const TopoDS_Shape& S)
+const ShapeList& BRepOffsetAPI_NormalProjection::Generated(const TopoShape& S)
 {
   return myNormalProjector.Generated(S);
 }
 
-const TopoDS_Shape& BRepOffsetAPI_NormalProjection::Projection() const
+const TopoShape& BRepOffsetAPI_NormalProjection::Projection() const
 {
   return myNormalProjector.Projection();
 }
 
-const TopoDS_Shape& BRepOffsetAPI_NormalProjection::Ancestor(const TopoDS_Edge& E) const
+const TopoShape& BRepOffsetAPI_NormalProjection::Ancestor(const TopoEdge& E) const
 {
   return myNormalProjector.Ancestor(E);
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepOffsetAPI_NormalProjection::BuildWire(TopTools_ListOfShape& ListOfWire) const
+Standard_Boolean BRepOffsetAPI_NormalProjection::BuildWire(ShapeList& ListOfWire) const
 {
   return myNormalProjector.BuildWire(ListOfWire);
 }

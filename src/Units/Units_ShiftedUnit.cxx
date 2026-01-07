@@ -69,7 +69,7 @@ Standard_Real Units_ShiftedUnit::Move() const
 
 Handle(Units_Token) Units_ShiftedUnit::Token() const
 {
-  TCollection_AsciiString string = SymbolsSequence()->Value(1)->String();
+  AsciiString1 string = SymbolsSequence()->Value(1)->String();
   return new Units_ShiftedToken(string.ToCString(),
                                 " ",
                                 Value(),
@@ -84,7 +84,7 @@ Handle(Units_Token) Units_ShiftedUnit::Token() const
 void Units_ShiftedUnit::Dump(const Standard_Integer, const Standard_Integer) const
 {
   Standard_Integer        index;
-  TCollection_AsciiString string;
+  AsciiString1 string;
 
   //  int i;
   //  for(i=0; i<ashift; i++)std::cout<<"  ";

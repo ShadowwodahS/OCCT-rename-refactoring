@@ -21,7 +21,7 @@
 
 #include <ShapeUpgrade_ShapeDivide.hxx>
 #include <Standard_Integer.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 class ShapeUpgrade_ShapeDivideClosedEdges : public ShapeUpgrade_ShapeDivide
 {
@@ -29,7 +29,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Initialises tool with shape and default parameter.
-  Standard_EXPORT ShapeUpgrade_ShapeDivideClosedEdges(const TopoDS_Shape& S);
+  Standard_EXPORT ShapeUpgrade_ShapeDivideClosedEdges(const TopoShape& S);
 
   //! Sets the number of cuts applied to divide closed edges.
   //! The number of resulting faces will be num+1.

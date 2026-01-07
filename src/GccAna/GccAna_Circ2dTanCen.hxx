@@ -49,7 +49,7 @@ class gp_Circ2d;
 //! outside C1.
 //! With Tolerance we will give a solution if the distance
 //! between C1 and Pcenter is lower than or equal Tolerance.
-class GccAna_Circ2dTanCen
+class Circle2dTangentCenter
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -57,14 +57,14 @@ public:
   //! This method implements the algorithms used to
   //! create 2d circles tangent to a circle and
   //! centered on a point.
-  Standard_EXPORT GccAna_Circ2dTanCen(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Circle2dTangentCenter(const GccEnt_QualifiedCirc& Qualified1,
                                       const gp_Pnt2d&             Pcenter,
                                       const Standard_Real         Tolerance);
 
   //! This method implements the algorithms used to
   //! create 2d circles tangent to a line and
   //! centered on a point.
-  Standard_EXPORT GccAna_Circ2dTanCen(const gp_Lin2d& Linetan, const gp_Pnt2d& Pcenter);
+  Standard_EXPORT Circle2dTangentCenter(const gp_Lin2d& Linetan, const gp_Pnt2d& Pcenter);
 
   //! This method implements the algorithms used to
   //! create 2d circles passing through a point and
@@ -80,7 +80,7 @@ public:
   //! Exceptions
   //! GccEnt_BadQualifier if a qualifier is inconsistent with
   //! the argument it qualifies (for example, enclosing for a line).
-  Standard_EXPORT GccAna_Circ2dTanCen(const gp_Pnt2d& Point1, const gp_Pnt2d& Pcenter);
+  Standard_EXPORT Circle2dTangentCenter(const gp_Pnt2d& Point1, const gp_Pnt2d& Pcenter);
 
   //! This method returns True if the construction
   //! algorithm succeeded.

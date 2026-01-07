@@ -33,7 +33,7 @@ public:
   //! owner theOwnerId, the curve theCurve, and the
   //! maximum number of points on the curve: theNbPnts.
   Select3D_SensitiveCurve(const Handle(SelectMgr_EntityOwner)& theOwnerId,
-                          const Handle(Geom_Curve)&            theCurve,
+                          const Handle(GeomCurve3d)&            theCurve,
                           const Standard_Integer               theNbPnts = 17)
       : Select3D_SensitivePoly(theOwnerId, Standard_True, theNbPnts)
   {
@@ -55,7 +55,7 @@ public:
   Standard_EXPORT virtual Handle(Select3D_SensitiveEntity) GetConnected() Standard_OVERRIDE;
 
 private:
-  void loadPoints(const Handle(Geom_Curve)& theCurve, const Standard_Integer theNbPnts)
+  void loadPoints(const Handle(GeomCurve3d)& theCurve, const Standard_Integer theNbPnts)
   {
     const Standard_Real aStep =
       (theCurve->LastParameter() - theCurve->FirstParameter()) / (theNbPnts - 1);

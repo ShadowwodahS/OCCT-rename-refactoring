@@ -20,7 +20,7 @@
 #include <TDF_LabelSequence.hxx>
 #include <TopoDS_Shape.hxx>
 
-class TDocStd_Document;
+class AppDocument;
 class XCAFDoc_ColorTool;
 class XCAFDoc_VisMaterialTool;
 
@@ -49,23 +49,23 @@ public: //! @name string identification tools
   //! The tailing dot simplifies parent equality check.
   //! @param theLabel child label to define id
   //! @param theParentId parent string identifier defined by this method
-  Standard_EXPORT static TCollection_AsciiString DefineChildId(
-    const TDF_Label&               theLabel,
-    const TCollection_AsciiString& theParentId);
+  Standard_EXPORT static AsciiString1 DefineChildId(
+    const DataLabel&               theLabel,
+    const AsciiString1& theParentId);
 
   //! Find a shape entity based on a text identifier constructed from OCAF labels defining full
   //! path.
   //! @sa DefineChildId()
-  Standard_EXPORT static TDF_Label FindLabelFromPathId(const Handle(TDocStd_Document)& theDocument,
-                                                       const TCollection_AsciiString&  theId,
+  Standard_EXPORT static DataLabel FindLabelFromPathId(const Handle(AppDocument)& theDocument,
+                                                       const AsciiString1&  theId,
                                                        TopLoc_Location& theParentLocation,
                                                        TopLoc_Location& theLocation);
 
   //! Find a shape entity based on a text identifier constructed from OCAF labels defining full
   //! path.
   //! @sa DefineChildId()
-  static TDF_Label FindLabelFromPathId(const Handle(TDocStd_Document)& theDocument,
-                                       const TCollection_AsciiString&  theId,
+  static DataLabel FindLabelFromPathId(const Handle(AppDocument)& theDocument,
+                                       const AsciiString1&  theId,
                                        TopLoc_Location&                theLocation)
   {
     TopLoc_Location aDummy;
@@ -75,9 +75,9 @@ public: //! @name string identification tools
   //! Find a shape entity based on a text identifier constructed from OCAF labels defining full
   //! path.
   //! @sa DefineChildId()
-  Standard_EXPORT static TopoDS_Shape FindShapeFromPathId(
-    const Handle(TDocStd_Document)& theDocument,
-    const TCollection_AsciiString&  theId);
+  Standard_EXPORT static TopoShape FindShapeFromPathId(
+    const Handle(AppDocument)& theDocument,
+    const AsciiString1&  theId);
 
 public:
   //! Empty constructor.
@@ -87,7 +87,7 @@ public:
   //! @param theDocument document to explore
   //! @param theFlags    iteration flags
   //! @param theDefStyle default style for nodes with undefined style
-  Standard_EXPORT XCAFPrs_DocumentExplorer(const Handle(TDocStd_Document)&     theDocument,
+  Standard_EXPORT XCAFPrs_DocumentExplorer(const Handle(AppDocument)&     theDocument,
                                            const XCAFPrs_DocumentExplorerFlags theFlags,
                                            const XCAFPrs_Style& theDefStyle = XCAFPrs_Style());
 
@@ -96,7 +96,7 @@ public:
   //! @param theRoots     root labels to explore within specified document
   //! @param theFlags     iteration flags
   //! @param theDefStyle  default style for nodes with undefined style
-  Standard_EXPORT XCAFPrs_DocumentExplorer(const Handle(TDocStd_Document)&     theDocument,
+  Standard_EXPORT XCAFPrs_DocumentExplorer(const Handle(AppDocument)&     theDocument,
                                            const TDF_LabelSequence&            theRoots,
                                            const XCAFPrs_DocumentExplorerFlags theFlags,
                                            const XCAFPrs_Style& theDefStyle = XCAFPrs_Style());
@@ -106,8 +106,8 @@ public:
   //! @param theRoot      single root label to explore within specified document
   //! @param theFlags     iteration flags
   //! @param theDefStyle  default style for nodes with undefined style
-  Standard_EXPORT void Init(const Handle(TDocStd_Document)&     theDocument,
-                            const TDF_Label&                    theRoot,
+  Standard_EXPORT void Init(const Handle(AppDocument)&     theDocument,
+                            const DataLabel&                    theRoot,
                             const XCAFPrs_DocumentExplorerFlags theFlags,
                             const XCAFPrs_Style&                theDefStyle = XCAFPrs_Style());
 
@@ -116,7 +116,7 @@ public:
   //! @param theRoots     root labels to explore within specified document
   //! @param theFlags     iteration flags
   //! @param theDefStyle  default style for nodes with undefined style
-  Standard_EXPORT void Init(const Handle(TDocStd_Document)&     theDocument,
+  Standard_EXPORT void Init(const Handle(AppDocument)&     theDocument,
                             const TDF_LabelSequence&            theRoots,
                             const XCAFPrs_DocumentExplorerFlags theFlags,
                             const XCAFPrs_Style&                theDefStyle = XCAFPrs_Style());

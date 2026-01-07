@@ -23,15 +23,15 @@ TopOpeBRepBuild_ShapeListOfShape::TopOpeBRepBuild_ShapeListOfShape() {}
 
 //=================================================================================================
 
-TopOpeBRepBuild_ShapeListOfShape::TopOpeBRepBuild_ShapeListOfShape(const TopoDS_Shape& S)
+TopOpeBRepBuild_ShapeListOfShape::TopOpeBRepBuild_ShapeListOfShape(const TopoShape& S)
 {
   myShape = S;
 }
 
 //=================================================================================================
 
-TopOpeBRepBuild_ShapeListOfShape::TopOpeBRepBuild_ShapeListOfShape(const TopoDS_Shape&         S,
-                                                                   const TopTools_ListOfShape& L)
+TopOpeBRepBuild_ShapeListOfShape::TopOpeBRepBuild_ShapeListOfShape(const TopoShape&         S,
+                                                                   const ShapeList& L)
 {
   myShape = S;
   myList  = L;
@@ -39,28 +39,28 @@ TopOpeBRepBuild_ShapeListOfShape::TopOpeBRepBuild_ShapeListOfShape(const TopoDS_
 
 //=================================================================================================
 
-const TopTools_ListOfShape& TopOpeBRepBuild_ShapeListOfShape::List() const
+const ShapeList& TopOpeBRepBuild_ShapeListOfShape::List() const
 {
   return myList;
 }
 
 //=================================================================================================
 
-TopTools_ListOfShape& TopOpeBRepBuild_ShapeListOfShape::ChangeList()
+ShapeList& TopOpeBRepBuild_ShapeListOfShape::ChangeList()
 {
   return myList;
 }
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepBuild_ShapeListOfShape::Shape() const
+const TopoShape& TopOpeBRepBuild_ShapeListOfShape::Shape() const
 {
   return myShape;
 }
 
 //=================================================================================================
 
-TopoDS_Shape& TopOpeBRepBuild_ShapeListOfShape::ChangeShape()
+TopoShape& TopOpeBRepBuild_ShapeListOfShape::ChangeShape()
 {
   return myShape;
 }

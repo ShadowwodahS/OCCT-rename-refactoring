@@ -34,9 +34,9 @@
 #include <Interface_ShareTool.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESAppli_ToolNodalConstraint::IGESAppli_ToolNodalConstraint() {}
+NodalConstraintTool::NodalConstraintTool() {}
 
-void IGESAppli_ToolNodalConstraint::ReadOwnParams(const Handle(IGESAppli_NodalConstraint)& ent,
+void NodalConstraintTool::ReadOwnParams(const Handle(IGESAppli_NodalConstraint)& ent,
                                                   const Handle(IGESData_IGESReaderData)&   IR,
                                                   IGESData_ParamReader&                    PR) const
 {
@@ -71,7 +71,7 @@ void IGESAppli_ToolNodalConstraint::ReadOwnParams(const Handle(IGESAppli_NodalCo
   ent->Init(tempType, tempNode, tempTabularDataProps);
 }
 
-void IGESAppli_ToolNodalConstraint::WriteOwnParams(const Handle(IGESAppli_NodalConstraint)& ent,
+void NodalConstraintTool::WriteOwnParams(const Handle(IGESAppli_NodalConstraint)& ent,
                                                    IGESData_IGESWriter& IW) const
 {
   Standard_Integer i, num;
@@ -82,7 +82,7 @@ void IGESAppli_ToolNodalConstraint::WriteOwnParams(const Handle(IGESAppli_NodalC
     IW.Send(ent->TabularData(i));
 }
 
-void IGESAppli_ToolNodalConstraint::OwnShared(const Handle(IGESAppli_NodalConstraint)& ent,
+void NodalConstraintTool::OwnShared(const Handle(IGESAppli_NodalConstraint)& ent,
                                               Interface_EntityIterator&                iter) const
 {
   Standard_Integer i, num;
@@ -91,7 +91,7 @@ void IGESAppli_ToolNodalConstraint::OwnShared(const Handle(IGESAppli_NodalConstr
     iter.GetOneItem(ent->TabularData(i));
 }
 
-void IGESAppli_ToolNodalConstraint::OwnCopy(const Handle(IGESAppli_NodalConstraint)& another,
+void NodalConstraintTool::OwnCopy(const Handle(IGESAppli_NodalConstraint)& another,
                                             const Handle(IGESAppli_NodalConstraint)& ent,
                                             Interface_CopyTool&                      TC) const
 {
@@ -108,10 +108,10 @@ void IGESAppli_ToolNodalConstraint::OwnCopy(const Handle(IGESAppli_NodalConstrai
   ent->Init(tempType, tempNode, tempTabularDataProps);
 }
 
-IGESData_DirChecker IGESAppli_ToolNodalConstraint::DirChecker(
+DirectoryChecker NodalConstraintTool::DirChecker(
   const Handle(IGESAppli_NodalConstraint)& /* ent */) const
 {
-  IGESData_DirChecker DC(418, 0);
+  DirectoryChecker DC(418, 0);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -121,7 +121,7 @@ IGESData_DirChecker IGESAppli_ToolNodalConstraint::DirChecker(
   return DC;
 }
 
-void IGESAppli_ToolNodalConstraint::OwnCheck(const Handle(IGESAppli_NodalConstraint)& ent,
+void NodalConstraintTool::OwnCheck(const Handle(IGESAppli_NodalConstraint)& ent,
                                              const Interface_ShareTool&,
                                              Handle(Interface_Check)& ach) const
 {
@@ -129,7 +129,7 @@ void IGESAppli_ToolNodalConstraint::OwnCheck(const Handle(IGESAppli_NodalConstra
     ach->AddFail("Type of Constraint != 1,2");
 }
 
-void IGESAppli_ToolNodalConstraint::OwnDump(const Handle(IGESAppli_NodalConstraint)& ent,
+void NodalConstraintTool::OwnDump(const Handle(IGESAppli_NodalConstraint)& ent,
                                             const IGESData_IGESDumper&               dumper,
                                             Standard_OStream&                        S,
                                             const Standard_Integer                   level) const

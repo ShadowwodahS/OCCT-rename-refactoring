@@ -24,10 +24,10 @@
 #include <TColStd_HSequenceOfInteger.hxx>
 #include <Standard_Integer.hxx>
 #include <Standard_Transient.hxx>
-class TopoDS_Wire;
-class TopoDS_Edge;
-class TopoDS_Shape;
-class TopoDS_Face;
+class TopoWire;
+class TopoEdge;
+class TopoShape;
+class TopoFace;
 
 class ShapeExtend_WireData;
 DEFINE_STANDARD_HANDLE(ShapeExtend_WireData, RefObject)
@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(ShapeExtend_WireData, RefObject)
 //! ordered list of edges, what is required for many algorithms. The advantage of
 //! this class is that it allows to work with wires which are not correct.
 //! The object of the class ShapeExtend_WireData can be initialized by
-//! TopoDS_Wire, and converted back to TopoDS_Wire.
+//! TopoWire, and converted back to TopoWire.
 //! An edge in the wire is defined by its rank number. Operations of accessing,
 //! adding and removing edge at the given rank number are provided. On the whole
 //! wire, operations of circular permutation and reversing (both orientations of
@@ -46,7 +46,7 @@ DEFINE_STANDARD_HANDLE(ShapeExtend_WireData, RefObject)
 //! This class is handled by reference. Such an approach gives the following advantages:
 //! 1.    Sharing the object of this class strongly optimizes the processes of
 //! analysis and fixing performed in parallel on the wire stored in the form
-//! of this class. Fixing tool (e.g. ShapeFix_Wire) fixes problems one by
+//! of this class. Fixing tool (e.g. WireHealer) fixes problems one by
 //! one using analyzing tool (e.g. ShapeAnalysis_Wire). Sharing allows not
 //! to reinitialize each time the analyzing tool with modified
 //! ShapeExtend_WireData what consumes certain time.
@@ -63,8 +63,8 @@ public:
   //! Empty constructor, creates empty wire with no edges
   Standard_EXPORT ShapeExtend_WireData();
 
-  //! Constructor initializing the data from TopoDS_Wire. Calls Init(wire,chained).
-  Standard_EXPORT ShapeExtend_WireData(const TopoDS_Wire&     wire,
+  //! Constructor initializing the data from TopoWire. Calls Init(wire,chained).
+  Standard_EXPORT ShapeExtend_WireData(const TopoWire&     wire,
                                        const Standard_Boolean chained         = Standard_True,
                                        const Standard_Boolean theManifoldMode = Standard_True);
 
@@ -81,7 +81,7 @@ public:
   //! will be found (because of limitations of
   //! BRepTools_WireExplorer for disconnected wires and wires
   //! with seam edges).
-  Standard_EXPORT Standard_Boolean Init(const TopoDS_Wire&     wire,
+  Standard_EXPORT Standard_Boolean Init(const TopoWire&     wire,
                                         const Standard_Boolean chained         = Standard_True,
                                         const Standard_Boolean theManifoldMode = Standard_True);
 
@@ -115,19 +115,19 @@ public:
   //! <num> = 1: Preprends at start
   //! else, Insert before <num>
   //! Remark : Null Edge is simply ignored
-  Standard_EXPORT void Add(const TopoDS_Edge& edge, const Standard_Integer atnum = 0);
+  Standard_EXPORT void Add(const TopoEdge& edge, const Standard_Integer atnum = 0);
 
   //! Adds an entire wire, considered as a list of edges
   //! Remark : The wire is assumed to be ordered (TopoDS_Iterator
   //! is used)
-  Standard_EXPORT void Add(const TopoDS_Wire& wire, const Standard_Integer atnum = 0);
+  Standard_EXPORT void Add(const TopoWire& wire, const Standard_Integer atnum = 0);
 
   //! Adds a wire in the form of WireData
   Standard_EXPORT void Add(const Handle(ShapeExtend_WireData)& wire,
                            const Standard_Integer              atnum = 0);
 
   //! Adds an edge or a wire invoking corresponding method Add
-  Standard_EXPORT void Add(const TopoDS_Shape& shape, const Standard_Integer atnum = 0);
+  Standard_EXPORT void Add(const TopoShape& shape, const Standard_Integer atnum = 0);
 
   //! Adds an edge to start or end of <me>, according to <mode>
   //! 0: at end, as direct
@@ -135,7 +135,7 @@ public:
   //! 2: at start, as direct
   //! 3: at start, as reversed
   //! < 0: no adding
-  Standard_EXPORT void AddOriented(const TopoDS_Edge& edge, const Standard_Integer mode);
+  Standard_EXPORT void AddOriented(const TopoEdge& edge, const Standard_Integer mode);
 
   //! Adds a wire to start or end of <me>, according to <mode>
   //! 0: at end, as direct
@@ -143,18 +143,18 @@ public:
   //! 2: at start, as direct
   //! 3: at start, as reversed
   //! < 0: no adding
-  Standard_EXPORT void AddOriented(const TopoDS_Wire& wire, const Standard_Integer mode);
+  Standard_EXPORT void AddOriented(const TopoWire& wire, const Standard_Integer mode);
 
   //! Adds an edge or a wire invoking corresponding method
   //! AddOriented
-  Standard_EXPORT void AddOriented(const TopoDS_Shape& shape, const Standard_Integer mode);
+  Standard_EXPORT void AddOriented(const TopoShape& shape, const Standard_Integer mode);
 
   //! Removes an Edge, given its rank. By default removes the last edge.
   Standard_EXPORT void Remove(const Standard_Integer num = 0);
 
   //! Replaces an edge at the given
   //! rank number <num> with new one. Default is last edge (<num> = 0).
-  Standard_EXPORT void Set(const TopoDS_Edge& edge, const Standard_Integer num = 0);
+  Standard_EXPORT void Set(const TopoEdge& edge, const Standard_Integer num = 0);
 
   //! Reverses the sense of the list and the orientation of each Edge
   //! This method should be called when either wire has no seam edges
@@ -166,7 +166,7 @@ public:
   //! (first pcurve corresponds to orientation FORWARD, and second to
   //! REVERSED; when edge is reversed, pcurves must be swapped)
   //! If face is NULL, no swapping is performed
-  Standard_EXPORT void Reverse(const TopoDS_Face& face);
+  Standard_EXPORT void Reverse(const TopoFace& face);
 
   //! Returns the count of currently recorded edges
   Standard_EXPORT Standard_Integer NbEdges() const;
@@ -175,7 +175,7 @@ public:
   Standard_EXPORT Standard_Integer NbNonManifoldEdges() const;
 
   //! Returns <num>th nonmanifold Edge
-  Standard_EXPORT TopoDS_Edge NonmanifoldEdge(const Standard_Integer num) const;
+  Standard_EXPORT TopoEdge NonmanifoldEdge(const Standard_Integer num) const;
 
   //! Returns sequence of non-manifold edges
   //! This sequence can be not empty if wire data set in manifold mode but
@@ -190,33 +190,33 @@ public:
   Standard_EXPORT Standard_Boolean& ManifoldMode();
 
   //! Returns <num>th Edge
-  Standard_EXPORT TopoDS_Edge Edge(const Standard_Integer num) const;
+  Standard_EXPORT TopoEdge Edge(const Standard_Integer num) const;
 
   //! Returns the index of the edge
   //! If the edge is a seam the orientation is also checked
   //! Returns 0 if the edge is not found in the list
-  Standard_EXPORT Standard_Integer Index(const TopoDS_Edge& edge);
+  Standard_EXPORT Standard_Integer Index(const TopoEdge& edge);
 
   //! Tells if an Edge is seam (see ComputeSeams)
   //! An edge is considered as seam if it presents twice in
   //! the edge list, once as FORWARD and once as REVERSED.
   Standard_EXPORT Standard_Boolean IsSeam(const Standard_Integer num);
 
-  //! Makes TopoDS_Wire using
-  //! BRep_Builder (just creates the TopoDS_Wire object and adds
+  //! Makes TopoWire using
+  //! ShapeBuilder (just creates the TopoWire object and adds
   //! all edges into it). This method should be called when
   //! the wire is correct (for example, after successful
-  //! fixes by ShapeFix_Wire) and adjacent edges share common
+  //! fixes by WireHealer) and adjacent edges share common
   //! vertices. In case if adjacent edges do not share the same
-  //! vertices the resulting TopoDS_Wire will be invalid.
-  Standard_EXPORT TopoDS_Wire Wire() const;
+  //! vertices the resulting TopoWire will be invalid.
+  Standard_EXPORT TopoWire Wire() const;
 
-  //! Makes TopoDS_Wire using
+  //! Makes TopoWire using
   //! BRepAPI_MakeWire. Class BRepAPI_MakeWire merges
   //! geometrically coincided vertices and can disturb
   //! correct order of edges in the wire. If this class fails,
   //! null shape is returned.
-  Standard_EXPORT TopoDS_Wire WireAPIMake() const;
+  Standard_EXPORT TopoWire WireAPIMake() const;
 
   DEFINE_STANDARD_RTTIEXT(ShapeExtend_WireData, RefObject)
 

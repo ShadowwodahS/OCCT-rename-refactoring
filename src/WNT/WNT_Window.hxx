@@ -135,7 +135,7 @@ public:
   virtual Aspect_FBConfig NativeFBConfig() const Standard_OVERRIDE { return NULL; }
 
   //! Sets window title.
-  Standard_EXPORT virtual void SetTitle(const TCollection_AsciiString& theTitle) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetTitle(const AsciiString1& theTitle) Standard_OVERRIDE;
 
   //! Invalidate entire window content by calling InvalidateRect() WinAPI function, resulting in
   //! WM_PAINT event put into window message loop. Method can be called from non-window thread, and

@@ -26,8 +26,8 @@
 
 Standard_EXPORT void FTOL_FaceTolerances(const Bnd_Box&             B1,
                                          const Bnd_Box&             B2,
-                                         const TopoDS_Face&         myFace1,
-                                         const TopoDS_Face&         myFace2,
+                                         const TopoFace&         myFace1,
+                                         const TopoFace&         myFace2,
                                          const BRepAdaptor_Surface& mySurface1,
                                          const BRepAdaptor_Surface& mySurface2,
                                          Standard_Real&             myTol1,
@@ -35,8 +35,8 @@ Standard_EXPORT void FTOL_FaceTolerances(const Bnd_Box&             B1,
                                          Standard_Real&             Deflection,
                                          Standard_Real&             MaxUV)
 {
-  Standard_Real aTolF1 = BRep_Tool::Tolerance(myFace1);
-  Standard_Real aTolF2 = BRep_Tool::Tolerance(myFace2);
+  Standard_Real aTolF1 = BRepInspector::Tolerance(myFace1);
+  Standard_Real aTolF2 = BRepInspector::Tolerance(myFace2);
   //
   myTol1 = aTolF1 + aTolF2;
   myTol2 = myTol1;
@@ -106,18 +106,18 @@ Standard_EXPORT void FTOL_FaceTolerances(const Bnd_Box&             B1,
   if (dx > 1000000.0)
     dx = 1000000.0; //-- if(dx>10000.0) dx=10000.0;
 
-  TopExp_Explorer ex;
+  ShapeExplorer ex;
   Standard_Real   tolef1 = Precision::Confusion();
   for (ex.Init(myFace1, TopAbs_EDGE); ex.More(); ex.Next())
   {
-    Standard_Real tole = BRep_Tool::Tolerance(TopoDS::Edge(ex.Current()));
+    Standard_Real tole = BRepInspector::Tolerance(TopoDS::Edge(ex.Current()));
     if (tole > tolef1)
       tolef1 = tole;
   }
   Standard_Real tolef2 = Precision::Confusion();
   for (ex.Init(myFace2, TopAbs_EDGE); ex.More(); ex.Next())
   {
-    Standard_Real tole = BRep_Tool::Tolerance(TopoDS::Edge(ex.Current()));
+    Standard_Real tole = BRepInspector::Tolerance(TopoDS::Edge(ex.Current()));
     if (tole > tolef2)
       tolef2 = tole;
   }
@@ -184,8 +184,8 @@ Standard_EXPORT void FTOL_FaceTolerances(const Bnd_Box&             B1,
   MaxUV      = MMAXUV;
 } // FTOL_FaceTolerances
 
-Standard_EXPORT void FTOL_FaceTolerances3d(const TopoDS_Face& myFace1,
-                                           const TopoDS_Face& myFace2,
+Standard_EXPORT void FTOL_FaceTolerances3d(const TopoFace& myFace1,
+                                           const TopoFace& myFace2,
                                            Standard_Real&     Tol)
 {
   const Handle(TopOpeBRepTool_HBoxTool)& hbt = FBOX_GetHBoxTool();
@@ -229,8 +229,8 @@ Standard_EXPORT void FTOL_FaceTolerances3d(const TopoDS_Face& myFace1,
 
 Standard_EXPORT void FTOL_FaceTolerances3d(const Bnd_Box&             B1,
                                            const Bnd_Box&             B2,
-                                           const TopoDS_Face&         myFace1,
-                                           const TopoDS_Face&         myFace2,
+                                           const TopoFace&         myFace1,
+                                           const TopoFace&         myFace2,
                                            const BRepAdaptor_Surface& mySurface1,
                                            const BRepAdaptor_Surface& mySurface2,
                                            Standard_Real&             myTol1,
@@ -252,8 +252,8 @@ Standard_EXPORT void FTOL_FaceTolerances3d(const Bnd_Box&             B1,
 
 Standard_EXPORT void FTOL_FaceTolerances2d(const Bnd_Box&             B1,
                                            const Bnd_Box&             B2,
-                                           const TopoDS_Face&         myFace1,
-                                           const TopoDS_Face&         myFace2,
+                                           const TopoFace&         myFace1,
+                                           const TopoFace&         myFace2,
                                            const BRepAdaptor_Surface& mySurface1,
                                            const BRepAdaptor_Surface& mySurface2,
                                            Standard_Real&             myTol1,

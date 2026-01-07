@@ -79,7 +79,7 @@ Handle(Geom2d_BSplineCurve) ChFiKPart_PCurve(const gp_Pnt2d&     UV1,
 
 void ChFiKPart_ProjPC(const GeomAdaptor_Curve&   Cg,
                       const GeomAdaptor_Surface& Sg,
-                      Handle(Geom2d_Curve)&      Pcurv)
+                      Handle(GeomCurve2d)&      Pcurv)
 {
   if (Sg.GetType() < GeomAbs_BezierSurface)
   {
@@ -177,7 +177,7 @@ void ChFiKPart_ProjPC(const GeomAdaptor_Curve&   Cg,
 // purpose  : Place a Curve in the DS and return its index.
 //=======================================================================
 
-Standard_Integer ChFiKPart_IndexCurveInDS(const Handle(Geom_Curve)&   C,
+Standard_Integer ChFiKPart_IndexCurveInDS(const Handle(GeomCurve3d)&   C,
                                           TopOpeBRepDS_DataStructure& DStr)
 {
   return DStr.AddCurve(TopOpeBRepDS_Curve(C, 0.));
@@ -188,7 +188,7 @@ Standard_Integer ChFiKPart_IndexCurveInDS(const Handle(Geom_Curve)&   C,
 // purpose  : Place a Surface in the DS and return its index.
 //=======================================================================
 
-Standard_Integer ChFiKPart_IndexSurfaceInDS(const Handle(Geom_Surface)& S,
+Standard_Integer ChFiKPart_IndexSurfaceInDS(const Handle(GeomSurface)& S,
                                             TopOpeBRepDS_DataStructure& DStr)
 {
   return DStr.AddSurface(TopOpeBRepDS_Surface(S, 0.));

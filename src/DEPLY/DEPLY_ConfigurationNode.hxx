@@ -49,7 +49,7 @@ public:
 
   //! Writes configuration to the string
   //! @return result resource string
-  Standard_EXPORT virtual TCollection_AsciiString Save() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 Save() const Standard_OVERRIDE;
 
   //! Copies values of all fields
   //! @return new object with the same field values
@@ -70,11 +70,11 @@ public:
 
   //! Gets CAD format name of associated provider
   //! @return provider CAD format
-  Standard_EXPORT virtual TCollection_AsciiString GetFormat() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 GetFormat() const Standard_OVERRIDE;
 
   //! Gets provider's vendor name of associated provider
   //! @return provider's vendor name
-  Standard_EXPORT virtual TCollection_AsciiString GetVendor() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 GetVendor() const Standard_OVERRIDE;
 
   //! Gets list of supported file extensions
   //! @return list of extensions
@@ -101,8 +101,8 @@ public:
     bool WritePartId = true; //!< Flag for write part Id as element attribute
     bool WriteFaceId = false; //!< Flag for write face Id as element attribute. Cannot be combined with HasPartId
     // clang-format on
-    TCollection_AsciiString WriteComment; //!< Export special comment
-    TCollection_AsciiString WriteAuthor;  //!< Author of exported file name
+    AsciiString1 WriteComment; //!< Export special comment
+    AsciiString1 WriteAuthor;  //!< Author of exported file name
   } InternalParameters;
 };
 

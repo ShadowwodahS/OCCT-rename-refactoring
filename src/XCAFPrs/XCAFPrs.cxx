@@ -33,7 +33,7 @@ static Standard_Boolean viewnameMode = Standard_False;
 //! Fill colors of XCAFPrs_Style structure.
 static void fillStyleColors(XCAFPrs_Style&                   theStyle,
                             const Handle(XCAFDoc_ColorTool)& theTool,
-                            const TDF_Label&                 theLabel)
+                            const DataLabel&                 theLabel)
 {
   Quantity_ColorRGBA aColor;
   if (theTool->GetColor(theLabel, XCAFDoc_ColorGen, aColor))
@@ -53,7 +53,7 @@ static void fillStyleColors(XCAFPrs_Style&                   theStyle,
 
 static Standard_Boolean getShapesOfSHUO(TopLoc_IndexedMapOfLocation&     theaPrevLocMap,
                                         const Handle(XCAFDoc_ShapeTool)& theSTool,
-                                        const TDF_Label&                 theSHUOlab,
+                                        const DataLabel&                 theSHUOlab,
                                         TopTools_SequenceOfShape&        theSHUOShapeSeq)
 {
   Handle(XCAFDoc_GraphNode) SHUO;
@@ -62,7 +62,7 @@ static Standard_Boolean getShapesOfSHUO(TopLoc_IndexedMapOfLocation&     theaPre
   if (aLabSeq.Length() >= 1)
     for (Standard_Integer i = 1; i <= aLabSeq.Length(); i++)
     {
-      TDF_Label       aSubCompL = aLabSeq.Value(i);
+      DataLabel       aSubCompL = aLabSeq.Value(i);
       TopLoc_Location compLoc   = XCAFDoc_ShapeTool::GetLocation(aSubCompL.Father());
       // create new map of laocation (to not merge locations from different shapes)
       TopLoc_IndexedMapOfLocation aNewPrevLocMap;
@@ -74,7 +74,7 @@ static Standard_Boolean getShapesOfSHUO(TopLoc_IndexedMapOfLocation&     theaPre
     }
   else
   {
-    TopoDS_Shape aSHUO_NUSh = theSTool->GetShape(theSHUOlab.Father());
+    TopoShape aSHUO_NUSh = theSTool->GetShape(theSHUOlab.Father());
     if (aSHUO_NUSh.IsNull())
       return Standard_False;
     // cause got shape with location already.
@@ -103,14 +103,14 @@ static Standard_Boolean getShapesOfSHUO(TopLoc_IndexedMapOfLocation&     theaPre
 
 //=================================================================================================
 
-void XCAFPrs::CollectStyleSettings(const TDF_Label&                    theLabel,
+void XCAFPrs::CollectStyleSettings(const DataLabel&                    theLabel,
                                    const TopLoc_Location&              theLoc,
                                    XCAFPrs_IndexedDataMapOfShapeStyle& theSettings,
                                    const Quantity_ColorRGBA&           theLayerColor)
 {
   // for references, first collect colors of referred shape
   {
-    TDF_Label aLabelRef;
+    DataLabel aLabelRef;
     if (XCAFDoc_ShapeTool::GetReferredShape(theLabel, aLabelRef))
     {
       Quantity_ColorRGBA        aLayerColor = theLayerColor;
@@ -120,7 +120,7 @@ void XCAFPrs::CollectStyleSettings(const TDF_Label&                    theLabel,
       aLayerTool->GetLayers(theLabel, aLayerNames);
       if (aLayerNames->Length() == 1)
       {
-        TDF_Label                 aLayer     = aLayerTool->FindLayer(aLayerNames->First());
+        DataLabel                 aLayer     = aLayerTool->FindLayer(aLayerNames->First());
         Handle(XCAFDoc_ColorTool) aColorTool = XCAFDoc_DocumentTool::ColorTool(theLabel);
         Quantity_ColorRGBA        aColor;
         if (aColorTool->GetColor(aLayer, XCAFDoc_ColorGen, aColor))
@@ -139,7 +139,7 @@ void XCAFPrs::CollectStyleSettings(const TDF_Label&                    theLabel,
       for (TDF_LabelSequence::Iterator aComponentIter(aComponentLabSeq); aComponentIter.More();
            aComponentIter.Next())
       {
-        const TDF_Label& aComponentLab = aComponentIter.Value();
+        const DataLabel& aComponentLab = aComponentIter.Value();
         CollectStyleSettings(aComponentLab, theLoc, theSettings, theLayerColor);
       }
     }
@@ -155,7 +155,7 @@ void XCAFPrs::CollectStyleSettings(const TDF_Label&                    theLabel,
   aLabSeq.Append(theLabel);
   for (TDF_LabelSequence::Iterator aLabIter(aLabSeq); aLabIter.More(); aLabIter.Next())
   {
-    const TDF_Label& aLabel = aLabIter.Value();
+    const DataLabel& aLabel = aLabIter.Value();
     XCAFPrs_Style    aStyle;
     aStyle.SetVisibility(aColorTool->IsVisible(aLabel));
     aStyle.SetMaterial(aMatTool->GetShapeMaterial(aLabel));
@@ -170,7 +170,7 @@ void XCAFPrs::CollectStyleSettings(const TDF_Label&                    theLabel,
       for (TColStd_HSequenceOfExtendedString::Iterator aLayerIter(*aLayerNames); aLayerIter.More();
            aLayerIter.Next())
       {
-        const TCollection_ExtendedString& aLayerName = aLayerIter.Value();
+        const UtfString& aLayerName = aLayerIter.Value();
         if (!aLayerTool->IsVisible(aLayerTool->FindLayer(aLayerName)))
         {
           ++aNbHidden;
@@ -189,7 +189,7 @@ void XCAFPrs::CollectStyleSettings(const TDF_Label&                    theLabel,
       }
       if (aLayerNames->Length() == 1)
       {
-        TDF_Label          aLayer = aLayerTool->FindLayer(aLayerNames->First());
+        DataLabel          aLayer = aLayerTool->FindLayer(aLayerNames->First());
         Quantity_ColorRGBA aColor;
         if (aColorTool->GetColor(aLayer, XCAFDoc_ColorGen, aColor))
         {
@@ -221,7 +221,7 @@ void XCAFPrs::CollectStyleSettings(const TDF_Label&                    theLabel,
           continue;
         }
 
-        const TDF_Label aShuolab = aShuoNode->Label();
+        const DataLabel aShuolab = aShuoNode->Label();
         {
           TDF_LabelSequence aShuoLabSeq;
           aShapeTool->GetSHUONextUsage(aShuolab, aShuoLabSeq);
@@ -252,7 +252,7 @@ void XCAFPrs::CollectStyleSettings(const TDF_Label&                    theLabel,
         for (TopTools_SequenceOfShape::Iterator aShuoShapeIter (aShuoShapeSeq);
         aShuoShapeIter.More(); aShuoShapeIter.Next())
         {
-          const TopoDS_Shape& aShuoShape = aShuoShapeIter.Value();
+          const TopoShape& aShuoShape = aShuoShapeIter.Value();
           if (!aShuoShape.IsNull())
             theSettings.Bind (aShuoShape, aShuoStyle);
         }*/
@@ -274,7 +274,7 @@ void XCAFPrs::CollectStyleSettings(const TDF_Label&                    theLabel,
              aShuoShapeIter.More();
              aShuoShapeIter.Next())
         {
-          const TopoDS_Shape& aShuoShape = aShuoShapeIter.Value();
+          const TopoShape& aShuoShape = aShuoShapeIter.Value();
           XCAFPrs_Style*      aMapStyle  = theSettings.ChangeSeek(aShuoShape);
           if (aMapStyle == NULL)
             theSettings.Add(aShuoShape, aShuoStyle);
@@ -290,7 +290,7 @@ void XCAFPrs::CollectStyleSettings(const TDF_Label&                    theLabel,
       continue;
     }
 
-    TopoDS_Shape aSubshape = XCAFDoc_ShapeTool::GetShape(aLabel);
+    TopoShape aSubshape = XCAFDoc_ShapeTool::GetShape(aLabel);
     if (aSubshape.ShapeType() == TopAbs_COMPOUND)
     {
       if (aSubshape.NbChildren() == 0)

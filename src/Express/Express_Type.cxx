@@ -51,4 +51,4 @@ Standard_Boolean Express_Type::Use() const
 
 //=================================================================================================
 
-void Express_Type::Use2(const TCollection_AsciiString&, const TCollection_AsciiString&) const {}
+void Express_Type::Use2(const AsciiString1&, const AsciiString1&) const {}

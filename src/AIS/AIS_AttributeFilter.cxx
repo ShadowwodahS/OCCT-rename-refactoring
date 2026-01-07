@@ -43,8 +43,8 @@ AIS_AttributeFilter::AIS_AttributeFilter(const Standard_Real aWid)
 
 Standard_Boolean AIS_AttributeFilter::IsOk(const Handle(SelectMgr_EntityOwner)& anObj) const
 {
-  Handle(AIS_InteractiveObject) aSelectable(
-    Handle(AIS_InteractiveObject)::DownCast(anObj->Selectable()));
+  Handle(VisualEntity) aSelectable(
+    Handle(VisualEntity)::DownCast(anObj->Selectable()));
   if (aSelectable.IsNull())
     return Standard_False;
 

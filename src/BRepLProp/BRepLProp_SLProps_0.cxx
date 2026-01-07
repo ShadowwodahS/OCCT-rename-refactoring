@@ -28,7 +28,7 @@
 
 #define Surface BRepAdaptor_Surface
 #define Surface_hxx <BRepAdaptor_Surface.hxx>
-#define Tool BRepLProp_SurfaceTool
+#define Tool SurfaceLocalPropsTool
 #define Tool_hxx <BRepLProp_SurfaceTool.hxx>
 #define LProp_SLProps BRepLProp_SLProps
 #define LProp_SLProps_hxx <BRepLProp_SLProps.hxx>

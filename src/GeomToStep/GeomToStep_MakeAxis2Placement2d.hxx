@@ -31,18 +31,18 @@ class gp_Ax22d;
 //! Axis2Placement from Geom and Ax2, Ax22d from gp, and the class
 //! Axis2Placement2d from StepGeom which describes an
 //! axis2_placement_2d from Prostep.
-class GeomToStep_MakeAxis2Placement2d : public GeomToStep_Root
+class GeomToStep_MakeAxis2Placement2d : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeAxis2Placement2d(
     const Frame3d&           A,
-    const StepData_Factors& theLocalFactors = StepData_Factors());
+    const ConversionFactors& theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeAxis2Placement2d(
     const gp_Ax22d&         A,
-    const StepData_Factors& theLocalFactors = StepData_Factors());
+    const ConversionFactors& theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_Axis2Placement2d)& Value() const;
 

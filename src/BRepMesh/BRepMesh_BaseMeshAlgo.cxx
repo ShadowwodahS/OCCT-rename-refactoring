@@ -211,7 +211,7 @@ TopAbs_Orientation BRepMesh_BaseMeshAlgo::fixSeamEdgeOrientation(
 
 void BRepMesh_BaseMeshAlgo::commitSurfaceTriangulation()
 {
-  Handle(Poly_Triangulation) aTriangulation = collectTriangles();
+  Handle(MeshTriangulation) aTriangulation = collectTriangles();
   if (aTriangulation.IsNull())
   {
     myDFace->SetStatus(IMeshData_Failure);
@@ -225,15 +225,15 @@ void BRepMesh_BaseMeshAlgo::commitSurfaceTriangulation()
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) BRepMesh_BaseMeshAlgo::collectTriangles()
+Handle(MeshTriangulation) BRepMesh_BaseMeshAlgo::collectTriangles()
 {
   const IMeshData::MapOfInteger& aTriangles = myStructure->ElementsOfDomain();
   if (aTriangles.IsEmpty())
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
 
-  Handle(Poly_Triangulation) aRes = new Poly_Triangulation();
+  Handle(MeshTriangulation) aRes = new MeshTriangulation();
   aRes->ResizeTriangles(aTriangles.Extent(), false);
   IMeshData::IteratorOfMapOfInteger aTriIt(aTriangles);
   for (Standard_Integer aTriangeId = 1; aTriIt.More(); aTriIt.Next(), ++aTriangeId)
@@ -262,7 +262,7 @@ Handle(Poly_Triangulation) BRepMesh_BaseMeshAlgo::collectTriangles()
 
 //=================================================================================================
 
-void BRepMesh_BaseMeshAlgo::collectNodes(const Handle(Poly_Triangulation)& theTriangulation)
+void BRepMesh_BaseMeshAlgo::collectNodes(const Handle(MeshTriangulation)& theTriangulation)
 {
   for (Standard_Integer i = 1; i <= myNodesMap->Size(); ++i)
   {

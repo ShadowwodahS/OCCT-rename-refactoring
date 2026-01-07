@@ -41,7 +41,7 @@
 class BRepCheck_ParallelAnalyzer
 {
 public:
-  BRepCheck_ParallelAnalyzer(NCollection_Array1<NCollection_Array1<TopoDS_Shape>>& theArray,
+  BRepCheck_ParallelAnalyzer(NCollection_Array1<NCollection_Array1<TopoShape>>& theArray,
                              const BRepCheck_IndexedDataMapOfShapeResult&          theMap)
       : myArray(theArray),
         myMap(theMap)
@@ -51,12 +51,12 @@ public:
 
   void operator()(const Standard_Integer theVectorIndex) const
   {
-    TopExp_Explorer exp;
+    ShapeExplorer exp;
     for (Standard_Integer aShapeIter = myArray[theVectorIndex].Lower();
          aShapeIter <= myArray[theVectorIndex].Upper();
          ++aShapeIter)
     {
-      const TopoDS_Shape&             aShape  = myArray[theVectorIndex][aShapeIter];
+      const TopoShape&             aShape  = myArray[theVectorIndex][aShapeIter];
       const TopAbs_ShapeEnum          aType   = aShape.ShapeType();
       const Handle(BRepCheck_Result)& aResult = myMap.FindFromKey(aShape);
       switch (aType)
@@ -93,7 +93,7 @@ public:
           TopTools_MapOfShape MapS;
           for (exp.Init(aShape, TopAbs_VERTEX); exp.More(); exp.Next())
           {
-            const TopoDS_Shape&      aVertex      = exp.Current();
+            const TopoShape&      aVertex      = exp.Current();
             Handle(BRepCheck_Result) aResOfVertex = myMap.FindFromKey(aVertex);
             try
             {
@@ -295,7 +295,7 @@ public:
           exp.Init(aShape, TopAbs_SHELL);
           for (; exp.More(); exp.Next())
           {
-            const TopoDS_Shape&      aShell    = exp.Current();
+            const TopoShape&      aShell    = exp.Current();
             Handle(BRepCheck_Result) aSolidRes = myMap.FindFromKey(aShell);
             try
             {
@@ -329,13 +329,13 @@ private:
   BRepCheck_ParallelAnalyzer& operator=(const BRepCheck_ParallelAnalyzer&) Standard_DELETE;
 
 private:
-  NCollection_Array1<NCollection_Array1<TopoDS_Shape>>& myArray;
+  NCollection_Array1<NCollection_Array1<TopoShape>>& myArray;
   const BRepCheck_IndexedDataMapOfShapeResult&          myMap;
 };
 
 //=================================================================================================
 
-void BRepCheck_Analyzer::Init(const TopoDS_Shape& theShape, const Standard_Boolean B)
+void BRepCheck_Analyzer::Init(const TopoShape& theShape, const Standard_Boolean B)
 {
   if (theShape.IsNull())
   {
@@ -350,7 +350,7 @@ void BRepCheck_Analyzer::Init(const TopoDS_Shape& theShape, const Standard_Boole
 
 //=================================================================================================
 
-void BRepCheck_Analyzer::Put(const TopoDS_Shape& theShape, const Standard_Boolean B)
+void BRepCheck_Analyzer::Put(const TopoShape& theShape, const Standard_Boolean B)
 {
   if (myMap.Contains(theShape))
   {
@@ -417,7 +417,7 @@ void BRepCheck_Analyzer::Perform()
     aNbTasks  = (Standard_Integer)Ceiling((double)aMapSize / aTaskSize);
   }
 
-  NCollection_Array1<NCollection_Array1<TopoDS_Shape>> aArrayOfArray(0, aNbTasks - 1);
+  NCollection_Array1<NCollection_Array1<TopoShape>> aArrayOfArray(0, aNbTasks - 1);
   for (Standard_Integer anI = 1; anI <= aMapSize; ++anI)
   {
     Standard_Integer aVectIndex  = (anI - 1) / aTaskSize;
@@ -441,7 +441,7 @@ void BRepCheck_Analyzer::Perform()
 
 //=================================================================================================
 
-Standard_Boolean BRepCheck_Analyzer::IsValid(const TopoDS_Shape& S) const
+Standard_Boolean BRepCheck_Analyzer::IsValid(const TopoShape& S) const
 {
   if (!myMap.FindFromKey(S).IsNull())
   {
@@ -492,14 +492,14 @@ Standard_Boolean BRepCheck_Analyzer::IsValid(const TopoDS_Shape& S) const
 
 //=================================================================================================
 
-Standard_Boolean BRepCheck_Analyzer::ValidSub(const TopoDS_Shape&    S,
+Standard_Boolean BRepCheck_Analyzer::ValidSub(const TopoShape&    S,
                                               const TopAbs_ShapeEnum SubType) const
 {
   BRepCheck_ListIteratorOfListOfStatus itl;
-  TopExp_Explorer                      exp;
+  ShapeExplorer                      exp;
   for (exp.Init(S, SubType); exp.More(); exp.Next())
   {
-    //  for (TopExp_Explorer exp(S,SubType);exp.More(); exp.Next()) {
+    //  for (ShapeExplorer exp(S,SubType);exp.More(); exp.Next()) {
     const Handle(BRepCheck_Result)& RV = myMap.FindFromKey(exp.Current());
     for (RV->InitContextIterator(); RV->MoreShapeInContext(); RV->NextShapeInContext())
     {

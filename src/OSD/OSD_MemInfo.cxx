@@ -260,44 +260,44 @@ void OSD_MemInfo::Update()
 
 //=================================================================================================
 
-TCollection_AsciiString OSD_MemInfo::ToString() const
+AsciiString1 OSD_MemInfo::ToString() const
 {
-  TCollection_AsciiString anInfo;
+  AsciiString1 anInfo;
   if (hasValue(MemPrivate))
   {
-    anInfo += TCollection_AsciiString("  Private memory:     ")
+    anInfo += AsciiString1("  Private memory:     ")
               + Standard_Integer(ValueMiB(MemPrivate)) + " MiB\n";
   }
   if (hasValue(MemWorkingSet))
   {
-    anInfo += TCollection_AsciiString("  Working Set:        ")
+    anInfo += AsciiString1("  Working Set:        ")
               + Standard_Integer(ValueMiB(MemWorkingSet)) + " MiB";
     if (hasValue(MemWorkingSetPeak))
     {
-      anInfo += TCollection_AsciiString(" (peak: ") + Standard_Integer(ValueMiB(MemWorkingSetPeak))
+      anInfo += AsciiString1(" (peak: ") + Standard_Integer(ValueMiB(MemWorkingSetPeak))
                 + " MiB)";
     }
     anInfo += "\n";
   }
   if (hasValue(MemSwapUsage))
   {
-    anInfo += TCollection_AsciiString("  Pagefile usage:     ")
+    anInfo += AsciiString1("  Pagefile usage:     ")
               + Standard_Integer(ValueMiB(MemSwapUsage)) + " MiB";
     if (hasValue(MemSwapUsagePeak))
     {
-      anInfo += TCollection_AsciiString(" (peak: ") + Standard_Integer(ValueMiB(MemSwapUsagePeak))
+      anInfo += AsciiString1(" (peak: ") + Standard_Integer(ValueMiB(MemSwapUsagePeak))
                 + " MiB)";
     }
     anInfo += "\n";
   }
   if (hasValue(MemVirtual))
   {
-    anInfo += TCollection_AsciiString("  Virtual memory:     ")
+    anInfo += AsciiString1("  Virtual memory:     ")
               + Standard_Integer(ValueMiB(MemVirtual)) + " MiB\n";
   }
   if (hasValue(MemHeapUsage))
   {
-    anInfo += TCollection_AsciiString("  Heap memory:     ")
+    anInfo += AsciiString1("  Heap memory:     ")
               + Standard_Integer(ValueMiB(MemHeapUsage)) + " MiB\n";
   }
   return anInfo;
@@ -341,7 +341,7 @@ Standard_Real OSD_MemInfo::ValuePreciseMiB(const OSD_MemInfo::Counter theCounter
 
 //=================================================================================================
 
-TCollection_AsciiString OSD_MemInfo::PrintInfo()
+AsciiString1 OSD_MemInfo::PrintInfo()
 {
   OSD_MemInfo anInfo;
   return anInfo.ToString();

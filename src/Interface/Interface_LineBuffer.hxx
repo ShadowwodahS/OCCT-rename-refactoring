@@ -69,7 +69,7 @@ public:
 
   //! Fills a AsciiString <str> with the Content of the Line Buffer,
   //! then Clears the LineBuffer
-  Standard_EXPORT void Move(TCollection_AsciiString& str);
+  Standard_EXPORT void Move(AsciiString1& str);
 
   //! Same as above, but <str> is known through a Handle
   Standard_EXPORT void Move(const Handle(TCollection_HAsciiString)& str);
@@ -85,7 +85,7 @@ public:
   Standard_EXPORT void Add(const Standard_CString text, const Standard_Integer lntext);
 
   //! Adds a text as a AsciiString from TCollection
-  Standard_EXPORT void Add(const TCollection_AsciiString& text);
+  Standard_EXPORT void Add(const AsciiString1& text);
 
   //! Adds a text made of only ONE Character
   Standard_EXPORT void Add(const Standard_Character text);

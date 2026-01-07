@@ -19,6 +19,6 @@
 #include <NCollection_IndexedDataMap.hxx>
 #include <TopoDS_Shape.hxx>
 
-typedef NCollection_IndexedDataMap<BOPTools_Set, TopoDS_Shape> BOPTools_IndexedDataMapOfSetShape;
+typedef NCollection_IndexedDataMap<BOPTools_Set, TopoShape> BOPTools_IndexedDataMapOfSetShape;
 
 #endif

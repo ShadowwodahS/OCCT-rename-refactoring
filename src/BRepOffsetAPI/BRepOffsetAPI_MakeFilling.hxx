@@ -27,10 +27,10 @@
 #include <Standard_Real.hxx>
 #include <GeomAbs_Shape.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Face;
-class TopoDS_Edge;
+class TopoFace;
+class TopoEdge;
 class Point3d;
-class TopoDS_Shape;
+class TopoShape;
 
 //! N-Side Filling
 //! This algorithm avoids to build a face from:
@@ -150,7 +150,7 @@ public:
   //! at each point of surface.
   //! If this condition breaks, distortions of resulting surface
   //! are possible.
-  Standard_EXPORT void LoadInitSurface(const TopoDS_Face& Surf);
+  Standard_EXPORT void LoadInitSurface(const TopoFace& Surf);
 
   //! Adds a new constraint which also defines an edge of the wire
   //! of the face
@@ -165,7 +165,7 @@ public:
   //! with the first face of the edge.
   //! Raises ConstructionError if the edge has no representation on a face and Order is
   //! GeomAbs_G1 or GeomAbs_G2.
-  Standard_EXPORT Standard_Integer Add(const TopoDS_Edge&     Constr,
+  Standard_EXPORT Standard_Integer Add(const TopoEdge&     Constr,
                                        const GeomAbs_Shape    Order,
                                        const Standard_Boolean IsBound = Standard_True);
 
@@ -181,14 +181,14 @@ public:
   //! of the edge and to respect tangency and curvature
   //! with the given face.
   //! Raises ConstructionError if the edge has no 2d representation on the given face
-  Standard_EXPORT Standard_Integer Add(const TopoDS_Edge&     Constr,
-                                       const TopoDS_Face&     Support,
+  Standard_EXPORT Standard_Integer Add(const TopoEdge&     Constr,
+                                       const TopoFace&     Support,
                                        const GeomAbs_Shape    Order,
                                        const Standard_Boolean IsBound = Standard_True);
 
   //! Adds a free constraint on a face. The corresponding edge has to
   //! be automatically recomputed. It is always a bound.
-  Standard_EXPORT Standard_Integer Add(const TopoDS_Face& Support, const GeomAbs_Shape Order);
+  Standard_EXPORT Standard_Integer Add(const TopoFace& Support, const GeomAbs_Shape Order);
 
   //! Adds a punctual constraint.
   Standard_EXPORT Standard_Integer Add(const Point3d& Point);
@@ -196,7 +196,7 @@ public:
   //! Adds a punctual constraint.
   Standard_EXPORT Standard_Integer Add(const Standard_Real U,
                                        const Standard_Real V,
-                                       const TopoDS_Face&  Support,
+                                       const TopoFace&  Support,
                                        const GeomAbs_Shape Order);
 
   //! Builds the resulting faces
@@ -208,7 +208,7 @@ public:
 
   //! Returns the list of shapes generated from the
   //! shape <S>.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Generated(const TopoDS_Shape& S)
+  Standard_EXPORT virtual const ShapeList& Generated(const TopoShape& S)
     Standard_OVERRIDE;
 
   //! Returns the maximum distance between the result and

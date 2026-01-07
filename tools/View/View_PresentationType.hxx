@@ -16,7 +16,7 @@
 #ifndef View_PresentationType_H
 #define View_PresentationType_H
 
-//! Type of displayed presentation in View displayed in AIS_InteractiveContext
+//! Type of displayed presentation in View displayed in VisualContext
 enum View_PresentationType
 {
   View_PresentationType_Main,      //!< general presentation, mostly used

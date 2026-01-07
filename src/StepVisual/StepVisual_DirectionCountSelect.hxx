@@ -21,12 +21,12 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class StepVisual_DirectionCountSelect
+class DirectionCountSelect
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT StepVisual_DirectionCountSelect();
+  Standard_EXPORT DirectionCountSelect();
 
   Standard_EXPORT void SetTypeOfContent(const Standard_Integer aTypeOfContent);
 

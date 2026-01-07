@@ -53,7 +53,7 @@ enum BOPAlgo_PIOperation
 
 //=================================================================================================
 
-BOPAlgo_PaveFiller::BOPAlgo_PaveFiller()
+BooleanPaveFiller::BooleanPaveFiller()
     : BOPAlgo_Algo()
 {
   myDS               = NULL;
@@ -66,7 +66,7 @@ BOPAlgo_PaveFiller::BOPAlgo_PaveFiller()
 
 //=================================================================================================
 
-BOPAlgo_PaveFiller::BOPAlgo_PaveFiller(const Handle(NCollection_BaseAllocator)& theAllocator)
+BooleanPaveFiller::BooleanPaveFiller(const Handle(NCollection_BaseAllocator)& theAllocator)
     : BOPAlgo_Algo(theAllocator),
       myFPBDone(1, theAllocator),
       myIncreasedSS(1, theAllocator),
@@ -83,56 +83,56 @@ BOPAlgo_PaveFiller::BOPAlgo_PaveFiller(const Handle(NCollection_BaseAllocator)& 
 
 //=================================================================================================
 
-BOPAlgo_PaveFiller::~BOPAlgo_PaveFiller()
+BooleanPaveFiller::~BooleanPaveFiller()
 {
   Clear();
 }
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::SetNonDestructive(const Standard_Boolean bFlag)
+void BooleanPaveFiller::SetNonDestructive(const Standard_Boolean bFlag)
 {
   myNonDestructive = bFlag;
 }
 
 //=================================================================================================
 
-Standard_Boolean BOPAlgo_PaveFiller::NonDestructive() const
+Standard_Boolean BooleanPaveFiller::NonDestructive() const
 {
   return myNonDestructive;
 }
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::SetGlue(const BOPAlgo_GlueEnum theGlue)
+void BooleanPaveFiller::SetGlue(const BOPAlgo_GlueEnum theGlue)
 {
   myGlue = theGlue;
 }
 
 //=================================================================================================
 
-BOPAlgo_GlueEnum BOPAlgo_PaveFiller::Glue() const
+BOPAlgo_GlueEnum BooleanPaveFiller::Glue() const
 {
   return myGlue;
 }
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::SetIsPrimary(const Standard_Boolean bFlag)
+void BooleanPaveFiller::SetIsPrimary(const Standard_Boolean bFlag)
 {
   myIsPrimary = bFlag;
 }
 
 //=================================================================================================
 
-Standard_Boolean BOPAlgo_PaveFiller::IsPrimary() const
+Standard_Boolean BooleanPaveFiller::IsPrimary() const
 {
   return myIsPrimary;
 }
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::Clear()
+void BooleanPaveFiller::Clear()
 {
   BOPAlgo_Algo::Clear();
   if (myIterator)
@@ -150,35 +150,35 @@ void BOPAlgo_PaveFiller::Clear()
 
 //=================================================================================================
 
-const BOPDS_DS& BOPAlgo_PaveFiller::DS()
+const BOPDS_DS& BooleanPaveFiller::DS()
 {
   return *myDS;
 }
 
 //=================================================================================================
 
-BOPDS_PDS BOPAlgo_PaveFiller::PDS()
+BOPDS_PDS BooleanPaveFiller::PDS()
 {
   return myDS;
 }
 
 //=================================================================================================
 
-const Handle(IntTools_Context)& BOPAlgo_PaveFiller::Context()
+const Handle(IntTools_Context)& BooleanPaveFiller::Context()
 {
   return myContext;
 }
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::SetSectionAttribute(const BOPAlgo_SectionAttribute& theSecAttr)
+void BooleanPaveFiller::SetSectionAttribute(const SectionAttribute& theSecAttr)
 {
   mySectionAttribute = theSecAttr;
 }
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::Init(const Message_ProgressRange& theRange)
+void BooleanPaveFiller::Init(const Message_ProgressRange& theRange)
 {
   if (!myArguments.Extent())
   {
@@ -220,7 +220,7 @@ void BOPAlgo_PaveFiller::Init(const Message_ProgressRange& theRange)
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::Perform(const Message_ProgressRange& theRange)
+void BooleanPaveFiller::Perform(const Message_ProgressRange& theRange)
 {
   try
   {
@@ -237,7 +237,7 @@ void BOPAlgo_PaveFiller::Perform(const Message_ProgressRange& theRange)
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::PerformInternal(const Message_ProgressRange& theRange)
+void BooleanPaveFiller::PerformInternal(const Message_ProgressRange& theRange)
 {
   Message_ProgressScope aPS(theRange, "Performing intersection of shapes", 100);
 
@@ -248,7 +248,7 @@ void BOPAlgo_PaveFiller::PerformInternal(const Message_ProgressRange& theRange)
   }
 
   // Compute steps of the PI
-  BOPAlgo_PISteps aSteps(PIOperation_Last);
+  PISteps aSteps(PIOperation_Last);
   analyzeProgress(95, aSteps);
   //
   Prepare(aPS.Next(aSteps.GetStep(PIOperation_Prepare)));
@@ -360,7 +360,7 @@ void BOPAlgo_PaveFiller::PerformInternal(const Message_ProgressRange& theRange)
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::RepeatIntersection(const Message_ProgressRange& theRange)
+void BooleanPaveFiller::RepeatIntersection(const Message_ProgressRange& theRange)
 {
   // Find all vertices with increased tolerance
   TColStd_MapOfInteger   anExtraInterfMap;
@@ -415,8 +415,8 @@ void BOPAlgo_PaveFiller::RepeatIntersection(const Message_ProgressRange& theRang
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::fillPIConstants(const Standard_Real theWhole,
-                                         BOPAlgo_PISteps&    theSteps) const
+void BooleanPaveFiller::fillPIConstants(const Standard_Real theWhole,
+                                         PISteps&    theSteps) const
 {
   if (!myNonDestructive)
   {
@@ -426,7 +426,7 @@ void BOPAlgo_PaveFiller::fillPIConstants(const Standard_Real theWhole,
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::fillPISteps(BOPAlgo_PISteps& theSteps) const
+void BooleanPaveFiller::fillPISteps(PISteps& theSteps) const
 {
   // Get number of all intersecting pairs
   Standard_Integer aVVSize = 0, aVESize = 0, aEESize = 0, aVFSize = 0, aEFSize = 0, aFFSize = 0;

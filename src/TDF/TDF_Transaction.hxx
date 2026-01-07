@@ -42,12 +42,12 @@ public:
 
   //! Creates an empty transaction context, unable to be
   //! opened.
-  Standard_EXPORT TDF_Transaction(const TCollection_AsciiString& aName = "");
+  Standard_EXPORT TDF_Transaction(const AsciiString1& aName = "");
 
   //! Creates a transaction context on <aDF>, ready to
   //! be opened.
   Standard_EXPORT TDF_Transaction(const Handle(TDF_Data)&        aDF,
-                                  const TCollection_AsciiString& aName = "");
+                                  const AsciiString1& aName = "");
 
   //! Aborts all the transactions on <myDF> and sets
   //! <aDF> to build a transaction context on <aDF>,
@@ -80,7 +80,7 @@ public:
   Standard_Integer Transaction() const;
 
   //! Returns the transaction name.
-  const TCollection_AsciiString& Name() const;
+  const AsciiString1& Name() const;
 
   //! Returns true if the transaction is open.
   Standard_Boolean IsOpen() const;
@@ -95,7 +95,7 @@ private:
 
 private:
   Handle(TDF_Data)        myDF;
-  TCollection_AsciiString myName;
+  AsciiString1 myName;
   Standard_Integer        myUntilTransaction;
 };
 

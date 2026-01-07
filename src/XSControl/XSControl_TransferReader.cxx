@@ -342,9 +342,9 @@ Handle(RefObject) XSControl_TransferReader::TransientResult(
 
 //=================================================================================================
 
-TopoDS_Shape XSControl_TransferReader::ShapeResult(const Handle(RefObject)& ent) const
+TopoShape XSControl_TransferReader::ShapeResult(const Handle(RefObject)& ent) const
 {
-  TopoDS_Shape                     tres; // DOIT RESTER NULL
+  TopoShape                     tres; // DOIT RESTER NULL
   Handle(Transfer_ResultFromModel) res = FinalResult(ent);
   if (res.IsNull())
     return tres;
@@ -352,10 +352,10 @@ TopoDS_Shape XSControl_TransferReader::ShapeResult(const Handle(RefObject)& ent)
   if (mres.IsNull())
     return tres;
   XSControl_Utils xu;
-  TopoDS_Shape    sh = xu.BinderShape(mres->Binder());
+  TopoShape    sh = xu.BinderShape(mres->Binder());
 
   //   Ouh la vilaine verrue
-  Standard_Real tolang = Interface_Static::RVal("read.encoderegularity.angle");
+  Standard_Real tolang = ExchangeConfig::RVal("read.encoderegularity.angle");
   if (tolang <= 0 || sh.IsNull())
     return sh;
   ShapeFix::EncodeRegularity(sh, tolang);
@@ -399,7 +399,7 @@ Handle(RefObject) XSControl_TransferReader::EntityFromResult(
   Handle(RefObject) nulh;
   //  cas de la shape
   XSControl_Utils xu;
-  TopoDS_Shape    sh = xu.BinderShape(res);
+  TopoShape    sh = xu.BinderShape(res);
   if (!sh.IsNull())
     return EntityFromShapeResult(sh, mode);
 
@@ -469,7 +469,7 @@ Handle(RefObject) XSControl_TransferReader::EntityFromResult(
 //=================================================================================================
 
 Handle(RefObject) XSControl_TransferReader::EntityFromShapeResult(
-  const TopoDS_Shape&    res,
+  const TopoShape&    res,
   const Standard_Integer mode) const
 {
   Handle(RefObject) nulh, samesh, partner;
@@ -490,7 +490,7 @@ Handle(RefObject) XSControl_TransferReader::EntityFromShapeResult(
         if (i == 0)
           continue;
         Handle(RefObject) ent = myTP->Mapped(i);
-        TopoDS_Shape               sh  = TransferBRep::ShapeResult(myTP, ent);
+        TopoShape               sh  = TransferBRep::ShapeResult(myTP, ent);
         if (!sh.IsNull())
         {
           if (sh == res)
@@ -529,7 +529,7 @@ Handle(RefObject) XSControl_TransferReader::EntityFromShapeResult(
         DeclareAndCast(Transfer_ResultFromTransient, rft, list->Value(ir));
         if (rft.IsNull())
           continue;
-        TopoDS_Shape sh = xu.BinderShape(rft->Binder());
+        TopoShape sh = xu.BinderShape(rft->Binder());
         if (!sh.IsNull() && sh == res)
           return rft->Start();
       }
@@ -571,7 +571,7 @@ Handle(TColStd_HSequenceOfTransient) XSControl_TransferReader::EntitiesFromShape
         i = (mode == 0 ? myModel->Number(myTP->Root(j)) : j);
         if (i == 0)
           continue;
-        TopoDS_Shape sh = xu.BinderShape(myTP->MapItem(i));
+        TopoShape sh = xu.BinderShape(myTP->MapItem(i));
         if (!sh.IsNull() && shapes.Contains(sh))
         {
           lt->Append(myTP->Mapped(i));
@@ -599,7 +599,7 @@ Handle(TColStd_HSequenceOfTransient) XSControl_TransferReader::EntitiesFromShape
         DeclareAndCast(Transfer_ResultFromTransient, rft, list->Value(i));
         if (rft.IsNull())
           continue;
-        TopoDS_Shape sh = xu.BinderShape(rft->Binder());
+        TopoShape sh = xu.BinderShape(rft->Binder());
         if (!sh.IsNull() && shapes.Contains(sh))
           lt->Append(rft->Start());
       }
@@ -755,7 +755,7 @@ Standard_Boolean XSControl_TransferReader::BeginTransfer()
   actor = Actor();
   myTP->SetActor(actor); // Set proprement dit
   myTP->SetErrorHandle(Standard_True);
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& aTPContext =
+  NCollection_DataMap<AsciiString1, Handle(RefObject)>& aTPContext =
     myTP->Context();
   aTPContext = myContext;
   return Standard_True;
@@ -1097,7 +1097,7 @@ const Handle(TopTools_HSequenceOfShape)& XSControl_TransferReader::ShapeResultLi
     Handle(TColStd_HSequenceOfTransient) li = RecordedList();
     myShapeResult                           = new TopTools_HSequenceOfShape();
     Standard_Integer i, nb = myModel->NbEntities();
-    TopoDS_Shape     sh;
+    TopoShape     sh;
     for (i = 1; i <= nb; i++)
     {
       sh = ShapeResult(myModel->Value(i));
@@ -1356,7 +1356,7 @@ void XSControl_TransferReader::PrintStatsOnList(const Handle(Transfer_TransientP
           counter->Add(ent, mess);
         if (mode >= 5)
         {
-          TCollection_AsciiString mest(model->TypeName(ent, Standard_False));
+          AsciiString1 mest(model->TypeName(ent, Standard_False));
           mest.AssignCat("	-> ");
           mest.AssignCat(mess);
           // sprintf(mest,"%s	-> %s",model->TypeName(ent,Standard_False),mess);

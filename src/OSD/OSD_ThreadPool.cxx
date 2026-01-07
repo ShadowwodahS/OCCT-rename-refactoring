@@ -227,7 +227,7 @@ void OSD_ThreadPool::Launcher::wait()
     return;
   }
 
-  TCollection_AsciiString aFailures;
+  AsciiString1 aFailures;
   for (NCollection_Array1<EnumeratedThread*>::Iterator aThreadIter(myThreads);
        aThreadIter.More() && aThreadIter.Value() != NULL;
        aThreadIter.Next())
@@ -247,7 +247,7 @@ void OSD_ThreadPool::Launcher::wait()
     }
   }
 
-  aFailures = TCollection_AsciiString("Multiple exceptions:\n") + aFailures;
+  aFailures = AsciiString1("Multiple exceptions:\n") + aFailures;
   throw Standard_ProgramError(aFailures.ToCString(), NULL);
 }
 
@@ -264,14 +264,14 @@ void OSD_ThreadPool::performJob(Handle(ExceptionBase)&     theFailure,
   }
   catch (ExceptionBase const& aFailure)
   {
-    TCollection_AsciiString aMsg =
-      TCollection_AsciiString(aFailure.DynamicType()->Name()) + ": " + aFailure.GetMessageString();
+    AsciiString1 aMsg =
+      AsciiString1(aFailure.DynamicType()->Name()) + ": " + aFailure.GetMessageString();
     theFailure = new Standard_ProgramError(aMsg.ToCString(), aFailure.GetStackString());
   }
   catch (std::exception& anStdException)
   {
-    TCollection_AsciiString aMsg =
-      TCollection_AsciiString(typeid(anStdException).name()) + ": " + anStdException.what();
+    AsciiString1 aMsg =
+      AsciiString1(typeid(anStdException).name()) + ": " + anStdException.what();
     theFailure = new Standard_ProgramError(aMsg.ToCString(), NULL);
   }
   catch (...)

@@ -28,7 +28,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRep_PolygonOnClosedTriangulation, BRep_PolygonOnTria
 BRep_PolygonOnClosedTriangulation::BRep_PolygonOnClosedTriangulation(
   const Handle(Poly_PolygonOnTriangulation)& P1,
   const Handle(Poly_PolygonOnTriangulation)& P2,
-  const Handle(Poly_Triangulation)&          T,
+  const Handle(MeshTriangulation)&          T,
   const TopLoc_Location&                     L)
     : BRep_PolygonOnTriangulation(P1, T, L),
       myPolygon2(P2)

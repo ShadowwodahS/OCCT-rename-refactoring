@@ -47,7 +47,7 @@
 #include <TopoDS_Vertex.hxx>
 #include <TopoDS_Wire.hxx>
 
-static void ParabolaTolerance(const Handle(Geom_Curve)&,
+static void ParabolaTolerance(const Handle(GeomCurve3d)&,
                               const Standard_Real,
                               const Standard_Real,
                               const Standard_Real,
@@ -56,14 +56,14 @@ static void ParabolaTolerance(const Handle(Geom_Curve)&,
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::HasInternalEdge(const TopoDS_Wire& aW)
+Standard_Boolean Tools2::HasInternalEdge(const TopoWire& aW)
 {
   Standard_Boolean bFlag = Standard_True;
 
-  TopExp_Explorer anExp(aW, TopAbs_EDGE);
+  ShapeExplorer anExp(aW, TopAbs_EDGE);
   for (; anExp.More(); anExp.Next())
   {
-    const TopoDS_Edge& aE   = TopoDS::Edge(anExp.Current());
+    const TopoEdge& aE   = TopoDS::Edge(anExp.Current());
     TopAbs_Orientation anOr = aE.Orientation();
     if (anOr == TopAbs_INTERNAL)
     {
@@ -75,7 +75,7 @@ Standard_Boolean IntTools_Tools::HasInternalEdge(const TopoDS_Wire& aW)
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::IsClosed(const Handle(Geom_Curve)& aC3D)
+Standard_Boolean Tools2::IsClosed(const Handle(GeomCurve3d)& aC3D)
 {
   Standard_Boolean bRet;
   Standard_Real    aF, aL, aDist, aPC;
@@ -103,12 +103,12 @@ Standard_Boolean IntTools_Tools::IsClosed(const Handle(Geom_Curve)& aC3D)
 
 //=================================================================================================
 
-void IntTools_Tools::RejectLines(const IntTools_SequenceOfCurves& aSIn,
+void Tools2::RejectLines(const IntTools_SequenceOfCurves& aSIn,
                                  IntTools_SequenceOfCurves&       aSOut)
 {
   Standard_Integer   i, j, aNb;
   Standard_Boolean   bFlag;
-  Handle(Geom_Curve) aC3D;
+  Handle(GeomCurve3d) aC3D;
 
   Dir3d aD1, aD2;
 
@@ -129,7 +129,7 @@ void IntTools_Tools::RejectLines(const IntTools_SequenceOfCurves& aSIn,
       pIC->SetCurve(aC3D);
     }
     //
-    Handle(Geom_Line) aGLine = Handle(Geom_Line)::DownCast(aC3D);
+    Handle(GeomLine) aGLine = Handle(GeomLine)::DownCast(aC3D);
 
     if (aGLine.IsNull())
     {
@@ -150,7 +150,7 @@ void IntTools_Tools::RejectLines(const IntTools_SequenceOfCurves& aSIn,
       continue;
     }
 
-    bFlag = IntTools_Tools::IsDirsCoinside(aD1, aD2);
+    bFlag = Tools2::IsDirsCoinside(aD1, aD2);
     if (!bFlag)
     {
       aSOut.Append(IC);
@@ -161,7 +161,7 @@ void IntTools_Tools::RejectLines(const IntTools_SequenceOfCurves& aSIn,
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::IsDirsCoinside(const Dir3d& D1, const Dir3d& D2)
+Standard_Boolean Tools2::IsDirsCoinside(const Dir3d& D1, const Dir3d& D2)
 {
   Standard_Boolean bFlag;
   Point3d           P1(D1.X(), D1.Y(), D1.Z());
@@ -174,7 +174,7 @@ Standard_Boolean IntTools_Tools::IsDirsCoinside(const Dir3d& D1, const Dir3d& D2
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::IsDirsCoinside(const Dir3d&       D1,
+Standard_Boolean Tools2::IsDirsCoinside(const Dir3d&       D1,
                                                 const Dir3d&       D2,
                                                 const Standard_Real dLim)
 {
@@ -190,18 +190,18 @@ Standard_Boolean IntTools_Tools::IsDirsCoinside(const Dir3d&       D1,
 
 //=================================================================================================
 
-Standard_Integer IntTools_Tools::SplitCurve(const IntTools_Curve&      IC,
+Standard_Integer Tools2::SplitCurve(const IntTools_Curve&      IC,
                                             IntTools_SequenceOfCurves& aCvs)
 {
-  const Handle(Geom_Curve)& aC3D = IC.Curve();
+  const Handle(GeomCurve3d)& aC3D = IC.Curve();
   if (aC3D.IsNull())
     return 0;
   //
-  const Handle(Geom2d_Curve)& aC2D1 = IC.FirstCurve2d();
-  const Handle(Geom2d_Curve)& aC2D2 = IC.SecondCurve2d();
+  const Handle(GeomCurve2d)& aC2D1 = IC.FirstCurve2d();
+  const Handle(GeomCurve2d)& aC2D2 = IC.SecondCurve2d();
   Standard_Boolean            bIsClosed;
 
-  bIsClosed = IntTools_Tools::IsClosed(aC3D);
+  bIsClosed = Tools2::IsClosed(aC3D);
   if (!bIsClosed)
   {
     return 0;
@@ -218,15 +218,15 @@ Standard_Integer IntTools_Tools::SplitCurve(const IntTools_Curve&      IC,
   if (aCT == GeomAbs_BSplineCurve || aCT == GeomAbs_BezierCurve)
   {
     // aMid=0.5*aMid;
-    aMid = IntTools_Tools::IntermediatePoint(aF, aL);
+    aMid = Tools2::IntermediatePoint(aF, aL);
   }
   //
-  Handle(Geom_Curve) aC3DNewF, aC3DNewL;
+  Handle(GeomCurve3d) aC3DNewF, aC3DNewL;
   aC3DNewF = new Geom_TrimmedCurve(aC3D, aF, aMid);
   aC3DNewL = new Geom_TrimmedCurve(aC3D, aMid, aL);
 
   //
-  Handle(Geom2d_Curve) aC2D1F, aC2D1L, aC2D2F, aC2D2L;
+  Handle(GeomCurve2d) aC2D1F, aC2D1L, aC2D2F, aC2D2L;
   //
   if (!aC2D1.IsNull())
   {
@@ -252,7 +252,7 @@ Standard_Integer IntTools_Tools::SplitCurve(const IntTools_Curve&      IC,
 
 //=================================================================================================
 
-Standard_Real IntTools_Tools::IntermediatePoint(const Standard_Real aFirst,
+Standard_Real Tools2::IntermediatePoint(const Standard_Real aFirst,
                                                 const Standard_Real aLast)
 {
   // define parameter division number as 10*e^(-M_PI) = 0.43213918
@@ -264,20 +264,20 @@ Standard_Real IntTools_Tools::IntermediatePoint(const Standard_Real aFirst,
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::IsVertex(const Point3d&        aP,
+Standard_Boolean Tools2::IsVertex(const Point3d&        aP,
                                           const Standard_Real  aTolPV,
-                                          const TopoDS_Vertex& aV)
+                                          const TopoVertex& aV)
 {
   Standard_Boolean bRet;
   Standard_Real    aTolV, aD, dTol;
   Point3d           aPv;
 
-  aTolV = BRep_Tool::Tolerance(aV);
+  aTolV = BRepInspector::Tolerance(aV);
   //
   dTol  = Precision::Confusion();
   aTolV = aTolV + aTolPV + dTol;
   //
-  aPv = BRep_Tool::Pnt(aV);
+  aPv = BRepInspector::Pnt(aV);
   //
   aD    = aPv.SquareDistance(aP);
   aTolV = aTolV * aTolV;
@@ -287,26 +287,26 @@ Standard_Boolean IntTools_Tools::IsVertex(const Point3d&        aP,
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::IsVertex(const IntTools_CommonPrt& aCmnPrt)
+Standard_Boolean Tools2::IsVertex(const IntTools_CommonPrt& aCmnPrt)
 {
   Standard_Boolean anIsVertex;
   Standard_Real    aParam;
 
-  const TopoDS_Edge&    aE1 = aCmnPrt.Edge1();
-  const IntTools_Range& aR1 = aCmnPrt.Range1();
+  const TopoEdge&    aE1 = aCmnPrt.Edge1();
+  const IntToolsRange& aR1 = aCmnPrt.Range1();
   aParam                    = 0.5 * (aR1.First() + aR1.Last());
-  anIsVertex                = IntTools_Tools::IsVertex(aE1, aParam);
+  anIsVertex                = Tools2::IsVertex(aE1, aParam);
 
   if (anIsVertex)
   {
     return Standard_True;
   }
 
-  const TopoDS_Edge&               aE2  = aCmnPrt.Edge2();
+  const TopoEdge&               aE2  = aCmnPrt.Edge2();
   const IntTools_SequenceOfRanges& aRs2 = aCmnPrt.Ranges2();
-  const IntTools_Range&            aR2  = aRs2(1);
+  const IntToolsRange&            aR2  = aRs2(1);
   aParam                                = 0.5 * (aR2.First() + aR2.Last());
-  anIsVertex                            = IntTools_Tools::IsVertex(aE2, aParam);
+  anIsVertex                            = Tools2::IsVertex(aE2, aParam);
   if (anIsVertex)
   {
     return Standard_True;
@@ -316,8 +316,8 @@ Standard_Boolean IntTools_Tools::IsVertex(const IntTools_CommonPrt& aCmnPrt)
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::IsVertex(const TopoDS_Edge&   aE,
-                                          const TopoDS_Vertex& aV,
+Standard_Boolean Tools2::IsVertex(const TopoEdge&   aE,
+                                          const TopoVertex& aV,
                                           const Standard_Real  t)
 {
   Standard_Real aTolV, aTolV2, d2;
@@ -326,9 +326,9 @@ Standard_Boolean IntTools_Tools::IsVertex(const TopoDS_Edge&   aE,
   BRepAdaptor_Curve aBAC(aE);
   aBAC.D0(t, aPt);
 
-  aTolV  = BRep_Tool::Tolerance(aV);
+  aTolV  = BRepInspector::Tolerance(aV);
   aTolV2 = aTolV * aTolV;
-  aPv    = BRep_Tool::Pnt(aV);
+  aPv    = BRepInspector::Pnt(aV);
   d2     = aPv.SquareDistance(aPt);
   if (d2 < aTolV2)
   {
@@ -339,23 +339,23 @@ Standard_Boolean IntTools_Tools::IsVertex(const TopoDS_Edge&   aE,
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::IsVertex(const TopoDS_Edge& aE, const Standard_Real t)
+Standard_Boolean Tools2::IsVertex(const TopoEdge& aE, const Standard_Real t)
 {
   Standard_Real aTolV, aTolV2, d2;
-  TopoDS_Vertex aV;
+  TopoVertex aV;
   Point3d        aPv, aPt;
 
   BRepAdaptor_Curve aBAC(aE);
   aBAC.D0(t, aPt);
 
-  TopExp_Explorer anExp(aE, TopAbs_VERTEX);
+  ShapeExplorer anExp(aE, TopAbs_VERTEX);
   for (; anExp.More(); anExp.Next())
   {
     aV     = TopoDS::Vertex(anExp.Current());
-    aTolV  = BRep_Tool::Tolerance(aV);
+    aTolV  = BRepInspector::Tolerance(aV);
     aTolV2 = aTolV * aTolV;
     aTolV2 = 1.e-12;
-    aPv    = BRep_Tool::Pnt(aV);
+    aPv    = BRepInspector::Pnt(aV);
     d2     = aPv.SquareDistance(aPt);
     if (d2 < aTolV2)
     {
@@ -367,17 +367,17 @@ Standard_Boolean IntTools_Tools::IsVertex(const TopoDS_Edge& aE, const Standard_
 
 //=================================================================================================
 
-Standard_Integer IntTools_Tools::ComputeVV(const TopoDS_Vertex& aV1, const TopoDS_Vertex& aV2)
+Standard_Integer Tools2::ComputeVV(const TopoVertex& aV1, const TopoVertex& aV2)
 {
   Standard_Real aTolV1, aTolV2, aTolSum, d;
   Point3d        aP1, aP2;
 
-  aTolV1  = BRep_Tool::Tolerance(aV1);
-  aTolV2  = BRep_Tool::Tolerance(aV2);
+  aTolV1  = BRepInspector::Tolerance(aV1);
+  aTolV2  = BRepInspector::Tolerance(aV2);
   aTolSum = aTolV1 + aTolV2;
 
-  aP1     = BRep_Tool::Pnt(aV1);
-  aP2     = BRep_Tool::Pnt(aV2);
+  aP1     = BRepInspector::Pnt(aV1);
+  aP2     = BRepInspector::Pnt(aV2);
   aTolSum = aTolSum * aTolSum;
   d       = aP1.SquareDistance(aP2);
   if (d < aTolSum)
@@ -389,26 +389,26 @@ Standard_Integer IntTools_Tools::ComputeVV(const TopoDS_Vertex& aV1, const TopoD
 
 //=================================================================================================
 
-void IntTools_Tools::MakeFaceFromWireAndFace(const TopoDS_Wire& aW,
-                                             const TopoDS_Face& aF,
-                                             TopoDS_Face&       aFNew)
+void Tools2::MakeFaceFromWireAndFace(const TopoWire& aW,
+                                             const TopoFace& aF,
+                                             TopoFace&       aFNew)
 {
-  TopoDS_Face aFF;
+  TopoFace aFF;
   aFF = aF;
   aFF.Orientation(TopAbs_FORWARD);
   aFNew = TopoDS::Face(aFF.EmptyCopied());
-  BRep_Builder BB;
+  ShapeBuilder BB;
   BB.Add(aFNew, aW);
 }
 
 //=================================================================================================
 
-TopAbs_State IntTools_Tools::ClassifyPointByFace(const TopoDS_Face& aF, const gp_Pnt2d& aP2d)
+TopAbs_State Tools2::ClassifyPointByFace(const TopoFace& aF, const gp_Pnt2d& aP2d)
 {
   Standard_Real aFaceTolerance;
   TopAbs_State  aState;
 
-  aFaceTolerance = BRep_Tool::Tolerance(aF);
+  aFaceTolerance = BRepInspector::Tolerance(aF);
   IntTools_FClass2d aClass2d(aF, aFaceTolerance);
   aState = aClass2d.Perform(aP2d);
 
@@ -417,20 +417,20 @@ TopAbs_State IntTools_Tools::ClassifyPointByFace(const TopoDS_Face& aF, const gp
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::IsMiddlePointsEqual(const TopoDS_Edge& aE1, const TopoDS_Edge& aE2)
+Standard_Boolean Tools2::IsMiddlePointsEqual(const TopoEdge& aE1, const TopoEdge& aE2)
 
 {
   Standard_Boolean bRet;
   Standard_Real    f1, l1, m1, f2, l2, m2, aTol1, aTol2, aSumTol, aD2;
   Point3d           aP1, aP2;
 
-  aTol1                 = BRep_Tool::Tolerance(aE1);
-  Handle(Geom_Curve) C1 = BRep_Tool::Curve(aE1, f1, l1);
+  aTol1                 = BRepInspector::Tolerance(aE1);
+  Handle(GeomCurve3d) C1 = BRepInspector::Curve(aE1, f1, l1);
   m1                    = 0.5 * (f1 + l1);
   C1->D0(m1, aP1);
 
-  aTol2                 = BRep_Tool::Tolerance(aE2);
-  Handle(Geom_Curve) C2 = BRep_Tool::Curve(aE2, f2, l2);
+  aTol2                 = BRepInspector::Tolerance(aE2);
+  Handle(GeomCurve3d) C2 = BRepInspector::Curve(aE2, f2, l2);
   m2                    = 0.5 * (f2 + l2);
   C2->D0(m2, aP2);
 
@@ -443,7 +443,7 @@ Standard_Boolean IntTools_Tools::IsMiddlePointsEqual(const TopoDS_Edge& aE1, con
 
 //=================================================================================================
 
-Standard_Real IntTools_Tools::CurveTolerance(const Handle(Geom_Curve)& aC3D,
+Standard_Real Tools2::CurveTolerance(const Handle(GeomCurve3d)& aC3D,
                                              const Standard_Real       aTolBase)
 {
   Standard_Real aTolReached, aTf, aTl, aTolMin, aTolMax;
@@ -472,7 +472,7 @@ Standard_Real IntTools_Tools::CurveTolerance(const Handle(Geom_Curve)& aC3D,
   //
   if (aCType == GeomAbs_Parabola)
   {
-    Handle(Geom_Curve) aC3DBase = aCT3D->BasisCurve();
+    Handle(GeomCurve3d) aC3DBase = aCT3D->BasisCurve();
     ParabolaTolerance(aC3DBase, aTf, aTl, aTolBase, aTolMin, aTolMax);
     aTolReached = aTolMax;
   }
@@ -487,7 +487,7 @@ Standard_Real IntTools_Tools::CurveTolerance(const Handle(Geom_Curve)& aC3D,
 
 //=================================================================================================
 
-void ParabolaTolerance(const Handle(Geom_Curve)& aC3D,
+void ParabolaTolerance(const Handle(GeomCurve3d)& aC3D,
                        const Standard_Real       aTf,
                        const Standard_Real       aTl,
                        const Standard_Real       aTol,
@@ -509,7 +509,7 @@ void ParabolaTolerance(const Handle(Geom_Curve)& aC3D,
   Point3d            aPf, aPl;
   gp_Parab          aParab = aGP->Parab();
   Axis3d            aXAxis = aParab.XAxis();
-  Handle(Geom_Line) aGAxis = new Geom_Line(aXAxis);
+  Handle(GeomLine) aGAxis = new GeomLine(aXAxis);
 
   aFocal = aGP->Focal();
   if (aFocal == 0.)
@@ -563,9 +563,9 @@ void ParabolaTolerance(const Handle(Geom_Curve)& aC3D,
 /////////////////////////////////////////////////////////////////////////
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::CheckCurve(const IntTools_Curve& theCurve, Bnd_Box& theBox)
+Standard_Boolean Tools2::CheckCurve(const IntTools_Curve& theCurve, Bnd_Box& theBox)
 {
-  const Handle(Geom_Curve)& aC3D   = theCurve.Curve();
+  const Handle(GeomCurve3d)& aC3D   = theCurve.Curve();
   Standard_Boolean          bValid = !aC3D.IsNull();
   if (!bValid)
   {
@@ -593,8 +593,8 @@ Standard_Boolean IntTools_Tools::CheckCurve(const IntTools_Curve& theCurve, Bnd_
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::IsOnPave(const Standard_Real   aT1,
-                                          const IntTools_Range& aRange,
+Standard_Boolean Tools2::IsOnPave(const Standard_Real   aT1,
+                                          const IntToolsRange& aRange,
                                           const Standard_Real   aTolerance)
 {
   Standard_Boolean firstisonpave1, firstisonpave2, bIsOnPave;
@@ -607,11 +607,11 @@ Standard_Boolean IntTools_Tools::IsOnPave(const Standard_Real   aT1,
 
 //=================================================================================================
 
-void IntTools_Tools::VertexParameters(const IntTools_CommonPrt& aCPart,
+void Tools2::VertexParameters(const IntTools_CommonPrt& aCPart,
                                       Standard_Real&            aT1,
                                       Standard_Real&            aT2)
 {
-  const IntTools_Range& aR1 = aCPart.Range1();
+  const IntToolsRange& aR1 = aCPart.Range1();
   aT1                       = 0.5 * (aR1.First() + aR1.Last());
   //
   if ((aCPart.VertexParameter1() >= aR1.First()) && (aCPart.VertexParameter1() <= aR1.Last()))
@@ -620,7 +620,7 @@ void IntTools_Tools::VertexParameters(const IntTools_CommonPrt& aCPart,
   }
   //
   const IntTools_SequenceOfRanges& aRanges2 = aCPart.Ranges2();
-  const IntTools_Range&            aR2      = aRanges2(1);
+  const IntToolsRange&            aR2      = aRanges2(1);
   aT2                                       = 0.5 * (aR2.First() + aR2.Last());
   //
   if ((aCPart.VertexParameter2() >= aR2.First()) && (aCPart.VertexParameter2() <= aR2.Last()))
@@ -631,9 +631,9 @@ void IntTools_Tools::VertexParameters(const IntTools_CommonPrt& aCPart,
 
 //=================================================================================================
 
-void IntTools_Tools::VertexParameter(const IntTools_CommonPrt& aCPart, Standard_Real& aT)
+void Tools2::VertexParameter(const IntTools_CommonPrt& aCPart, Standard_Real& aT)
 {
-  const IntTools_Range& aR = aCPart.Range1();
+  const IntToolsRange& aR = aCPart.Range1();
   aT                       = 0.5 * (aR.First() + aR.Last());
   if ((aCPart.VertexParameter1() >= aR.First()) && (aCPart.VertexParameter1() <= aR.Last()))
   {
@@ -643,8 +643,8 @@ void IntTools_Tools::VertexParameter(const IntTools_CommonPrt& aCPart, Standard_
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::IsOnPave1(const Standard_Real   aTR,
-                                           const IntTools_Range& aCPRange,
+Standard_Boolean Tools2::IsOnPave1(const Standard_Real   aTR,
+                                           const IntToolsRange& aCPRange,
                                            const Standard_Real   aTolerance)
 {
   Standard_Boolean bIsOnPave;
@@ -666,8 +666,8 @@ Standard_Boolean IntTools_Tools::IsOnPave1(const Standard_Real   aTR,
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::IsInRange(const IntTools_Range& aRRef,
-                                           const IntTools_Range& aR,
+Standard_Boolean Tools2::IsInRange(const IntToolsRange& aRRef,
+                                           const IntToolsRange& aR,
                                            const Standard_Real   aTolerance)
 {
   Standard_Boolean bIsIn;
@@ -686,7 +686,7 @@ Standard_Boolean IntTools_Tools::IsInRange(const IntTools_Range& aRRef,
 
 //=================================================================================================
 
-Standard_Integer IntTools_Tools::SegPln(const gp_Lin&       theLin,
+Standard_Integer Tools2::SegPln(const gp_Lin&       theLin,
                                         const Standard_Real theTLin1,
                                         const Standard_Real theTLin2,
                                         const Standard_Real theTolLin,
@@ -753,9 +753,9 @@ Standard_Integer IntTools_Tools::SegPln(const gp_Lin&       theLin,
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Tools::ComputeTolerance(const Handle(Geom_Curve)&   theCurve3D,
-                                                  const Handle(Geom2d_Curve)& theCurve2D,
-                                                  const Handle(Geom_Surface)& theSurf,
+Standard_Boolean Tools2::ComputeTolerance(const Handle(GeomCurve3d)&   theCurve3D,
+                                                  const Handle(GeomCurve2d)& theCurve2D,
+                                                  const Handle(GeomSurface)& theSurf,
                                                   const Standard_Real         theFirst,
                                                   const Standard_Real         theLast,
                                                   Standard_Real&              theMaxDist,
@@ -799,7 +799,7 @@ Standard_Boolean IntTools_Tools::ComputeTolerance(const Handle(Geom_Curve)&   th
 
 //=================================================================================================
 
-Standard_Real IntTools_Tools::ComputeIntRange(const Standard_Real theTol1,
+Standard_Real Tools2::ComputeIntRange(const Standard_Real theTol1,
                                               const Standard_Real theTol2,
                                               const Standard_Real theAngle)
 {

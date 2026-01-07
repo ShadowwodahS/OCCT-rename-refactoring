@@ -36,7 +36,7 @@
 #include <Standard_RangeError.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_OffsetCurve, Geom_Curve)
+IMPLEMENT_STANDARD_RTTIEXT(Geom_OffsetCurve, GeomCurve3d)
 
 static const Standard_Real MyAngularToleranceForG1 = Precision::Angular();
 
@@ -56,7 +56,7 @@ Handle(Geom_Geometry) Geom_OffsetCurve::Copy() const
 //            offset curve.
 //=======================================================================
 
-Geom_OffsetCurve::Geom_OffsetCurve(const Handle(Geom_Curve)& theCurve,
+Geom_OffsetCurve::Geom_OffsetCurve(const Handle(GeomCurve3d)& theCurve,
                                    const Standard_Real       theOffset,
                                    const Dir3d&             theDir,
                                    const Standard_Boolean    isTheNotCheckC0)
@@ -121,11 +121,11 @@ Standard_Real Geom_OffsetCurve::Period() const
 
 //=================================================================================================
 
-void Geom_OffsetCurve::SetBasisCurve(const Handle(Geom_Curve)& C,
+void Geom_OffsetCurve::SetBasisCurve(const Handle(GeomCurve3d)& C,
                                      const Standard_Boolean    isNotCheckC0)
 {
   const Standard_Real aUf = C->FirstParameter(), aUl = C->LastParameter();
-  Handle(Geom_Curve)  aCheckingCurve = Handle(Geom_Curve)::DownCast(C->Copy());
+  Handle(GeomCurve3d)  aCheckingCurve = Handle(GeomCurve3d)::DownCast(C->Copy());
   Standard_Boolean    isTrimmed      = Standard_False;
 
   while (aCheckingCurve->IsKind(STANDARD_TYPE(Geom_TrimmedCurve))
@@ -165,9 +165,9 @@ void Geom_OffsetCurve::SetBasisCurve(const Handle(Geom_Curve)& C,
   Standard_Boolean isC0 = !isNotCheckC0 && (myBasisCurveContinuity == GeomAbs_C0);
 
   // Basis curve must be at least C1
-  if (isC0 && aCheckingCurve->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (isC0 && aCheckingCurve->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    Handle(Geom_BSplineCurve) aBC = Handle(Geom_BSplineCurve)::DownCast(aCheckingCurve);
+    Handle(BSplineCurve3d) aBC = Handle(BSplineCurve3d)::DownCast(aCheckingCurve);
     if (aBC->IsG1(aUf, aUl, MyAngularToleranceForG1))
     {
       // Checking if basis curve has more smooth (C1, G2 and above) is not done.
@@ -195,7 +195,7 @@ void Geom_OffsetCurve::SetBasisCurve(const Handle(Geom_Curve)& C,
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_OffsetCurve::BasisCurve() const
+Handle(GeomCurve3d) Geom_OffsetCurve::BasisCurve() const
 {
   return basisCurve;
 }
@@ -374,7 +374,7 @@ void Geom_OffsetCurve::DumpJson(Standard_OStream& theOStream, Standard_Integer t
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Geom_Curve)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, GeomCurve3d)
 
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, basisCurve.get())
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &direction)

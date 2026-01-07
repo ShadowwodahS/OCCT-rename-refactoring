@@ -20,6 +20,6 @@
 #include <Blend_Point.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Blend_Point> Blend_SequenceOfPoint;
+typedef NCollection_Sequence<Point2> Blend_SequenceOfPoint;
 
 #endif

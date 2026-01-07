@@ -31,8 +31,8 @@ public:
   //! Destructor.
   virtual ~IMeshData_Wire() {}
 
-  //! Returns TopoDS_Face attached to model.
-  const TopoDS_Wire& GetWire() const { return TopoDS::Wire(GetShape()); }
+  //! Returns TopoFace attached to model.
+  const TopoWire& GetWire() const { return TopoDS::Wire(GetShape()); }
 
   //! Returns number of edges.
   Standard_EXPORT virtual Standard_Integer EdgesNb() const = 0;
@@ -55,7 +55,7 @@ public:
 protected:
   //! Constructor.
   //! Initializes empty model.
-  IMeshData_Wire(const TopoDS_Wire& theWire)
+  IMeshData_Wire(const TopoWire& theWire)
       : IMeshData_TessellatedShape(theWire)
   {
   }

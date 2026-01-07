@@ -75,9 +75,9 @@ void StepSelect_FloatFormat::SetFormatForRange(const Standard_CString form,
 }
 
 void StepSelect_FloatFormat::Format(Standard_Boolean&        zerosup,
-                                    TCollection_AsciiString& mainform,
+                                    AsciiString1& mainform,
                                     Standard_Boolean&        hasrange,
-                                    TCollection_AsciiString& formrange,
+                                    AsciiString1& formrange,
                                     Standard_Real&           rangemin,
                                     Standard_Real&           rangemax) const
 {
@@ -98,9 +98,9 @@ void StepSelect_FloatFormat::Perform(IFSelect_ContextWrite& /*ctx*/,
     writer.FloatWriter().SetFormatForRange(theformrange.ToCString(), therangemin, therangemax);
 }
 
-TCollection_AsciiString StepSelect_FloatFormat::Label() const
+AsciiString1 StepSelect_FloatFormat::Label() const
 {
-  TCollection_AsciiString lab("Float Format ");
+  AsciiString1 lab("Float Format ");
   if (thezerosup)
     lab.AssignCat(" ZeroSuppress");
   lab.AssignCat(themainform);

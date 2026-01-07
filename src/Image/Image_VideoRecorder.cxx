@@ -89,14 +89,14 @@ Image_VideoRecorder::~Image_VideoRecorder()
 
 //=================================================================================================
 
-TCollection_AsciiString Image_VideoRecorder::formatAvError(const int theError) const
+AsciiString1 Image_VideoRecorder::formatAvError(const int theError) const
 {
 #ifdef HAVE_FFMPEG
   char anErrBuf[AV_ERROR_MAX_STRING_SIZE] = {};
   av_strerror(theError, anErrBuf, AV_ERROR_MAX_STRING_SIZE);
   return anErrBuf;
 #else
-  return TCollection_AsciiString(theError);
+  return AsciiString1(theError);
 #endif
 }
 
@@ -199,7 +199,7 @@ Standard_Boolean Image_VideoRecorder::Open(const char*              theFileName,
     const int aResAv = avio_open(&myAVContext->pb, theFileName, AVIO_FLAG_WRITE);
     if (aResAv < 0)
     {
-      ::Message::SendFail(TCollection_AsciiString("Error: could not open '") + theFileName + "', "
+      ::Message::SendFail(AsciiString1("Error: could not open '") + theFileName + "', "
                           + formatAvError(aResAv));
       Close();
       return Standard_False;
@@ -210,7 +210,7 @@ Standard_Boolean Image_VideoRecorder::Open(const char*              theFileName,
   const int aResAv = avformat_write_header(myAVContext, NULL);
   if (aResAv < 0)
   {
-    ::Message::SendFail(TCollection_AsciiString("Error: can not open output file '") + theFileName
+    ::Message::SendFail(AsciiString1("Error: can not open output file '") + theFileName
                         + "', " + formatAvError(aResAv));
     Close();
     return Standard_False;
@@ -232,7 +232,7 @@ Standard_Boolean Image_VideoRecorder::addVideoStream(const Image_VideoParams& th
 
 #ifdef HAVE_FFMPEG
   // find the encoder
-  TCollection_AsciiString aCodecName;
+  AsciiString1 aCodecName;
   if (!theParams.VideoCodec.IsEmpty())
   {
     myVideoCodec = avcodec_find_encoder_by_name(theParams.VideoCodec.ToCString());
@@ -245,7 +245,7 @@ Standard_Boolean Image_VideoRecorder::addVideoStream(const Image_VideoParams& th
   }
   if (myVideoCodec == NULL)
   {
-    ::Message::SendFail(TCollection_AsciiString("Error: can not find encoder for ") + aCodecName);
+    ::Message::SendFail(AsciiString1("Error: can not find encoder for ") + aCodecName);
     return Standard_False;
   }
 
@@ -348,7 +348,7 @@ Standard_Boolean Image_VideoRecorder::openVideoCodec(const Image_VideoParams& th
     if (aPixFormat == AV_PIX_FMT_NONE)
     {
       ::Message::SendFail(
-        TCollection_AsciiString("Error: unknown pixel format has been specified '")
+        AsciiString1("Error: unknown pixel format has been specified '")
         + theParams.PixelFormat + "'");
       return Standard_False;
     }
@@ -370,7 +370,7 @@ Standard_Boolean Image_VideoRecorder::openVideoCodec(const Image_VideoParams& th
   }
   if (aResAv < 0)
   {
-    ::Message::SendFail(TCollection_AsciiString("Error: can not open video codec, ")
+    ::Message::SendFail(AsciiString1("Error: can not open video codec, ")
                         + formatAvError(aResAv));
     return Standard_False;
   }
@@ -394,7 +394,7 @@ Standard_Boolean Image_VideoRecorder::openVideoCodec(const Image_VideoParams& th
   {
     memset(myFrame->data, 0, sizeof(myFrame->data));
     memset(myFrame->linesize, 0, sizeof(myFrame->linesize));
-    ::Message::SendFail(TCollection_AsciiString("Error: can not allocate picture ")
+    ::Message::SendFail(AsciiString1("Error: can not allocate picture ")
                         + aCodecCtx->width + "x" + aCodecCtx->height + ", "
                         + formatAvError(aResAv));
     return Standard_False;
@@ -407,7 +407,7 @@ Standard_Boolean Image_VideoRecorder::openVideoCodec(const Image_VideoParams& th
   const Standard_Size aStride = aCodecCtx->width + 16 - (aCodecCtx->width % 16);
   if (!myImgSrcRgba.InitZero(Image_Format_RGBA, aCodecCtx->width, aCodecCtx->height, aStride))
   {
-    ::Message::SendFail(TCollection_AsciiString("Error: can not allocate RGBA32 picture ")
+    ::Message::SendFail(AsciiString1("Error: can not allocate RGBA32 picture ")
                         + aCodecCtx->width + "x" + aCodecCtx->height);
     return Standard_False;
   }
@@ -469,7 +469,7 @@ Standard_Boolean Image_VideoRecorder::writeVideoFrame(const Standard_Boolean the
     aResAv = avcodec_encode_video2(aCodecCtx, &aPacket, theToFlush ? NULL : myFrame, &isGotPacket);
     if (aResAv < 0)
     {
-      ::Message::SendFail(TCollection_AsciiString("Error: can not encode video frame, ")
+      ::Message::SendFail(AsciiString1("Error: can not encode video frame, ")
                           + formatAvError(aResAv));
       return Standard_False;
     }
@@ -502,7 +502,7 @@ Standard_Boolean Image_VideoRecorder::writeVideoFrame(const Standard_Boolean the
 
   if (aResAv < 0)
   {
-    ::Message::SendFail(TCollection_AsciiString("Error: can not write video frame, ")
+    ::Message::SendFail(AsciiString1("Error: can not write video frame, ")
                         + formatAvError(aResAv));
     return Standard_False;
   }

@@ -24,7 +24,7 @@
 #include <TopTools_DataMapOfShapeShape.hxx>
 #include <BRepTools_ReShape.hxx>
 
-class TopoDS_Shape;
+class TopoShape;
 
 //! Conversion of the complete geometry of a shape
 //! (all 3D analytical representation of surfaces and curves)
@@ -51,7 +51,7 @@ public:
   //! Note: the constructed framework can be reused to
   //! convert other shapes. You specify these with the
   //! function Perform.
-  Standard_EXPORT BRepBuilderAPI_NurbsConvert(const TopoDS_Shape&    S,
+  Standard_EXPORT BRepBuilderAPI_NurbsConvert(const TopoShape&    S,
                                               const Standard_Boolean Copy = Standard_False);
 
   //! Builds a new shape by converting the geometry of the
@@ -62,11 +62,11 @@ public:
   //! Use the function Shape to access the new shape.
   //! Note: this framework can be reused to convert other
   //! shapes: you specify them by calling the function Perform again.
-  Standard_EXPORT void Perform(const TopoDS_Shape& S, const Standard_Boolean Copy = Standard_False);
+  Standard_EXPORT void Perform(const TopoShape& S, const Standard_Boolean Copy = Standard_False);
 
   //! Returns the list  of shapes modified from the shape
   //! <S>.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Modified(const TopoDS_Shape& S);
+  Standard_EXPORT virtual const ShapeList& Modified(const TopoShape& S);
 
   //! Returns the modified shape corresponding to <S>.
   //! S can correspond to the entire initial shape or to its subshape.
@@ -74,7 +74,7 @@ public:
   //! Standard_NoSuchObject if S is not the initial shape or
   //! a subshape of the initial shape to which the
   //! transformation has been applied.
-  Standard_EXPORT virtual TopoDS_Shape ModifiedShape(const TopoDS_Shape& S) const;
+  Standard_EXPORT virtual TopoShape ModifiedShape(const TopoShape& S) const;
 
 protected:
 private:

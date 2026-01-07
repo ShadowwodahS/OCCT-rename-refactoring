@@ -38,9 +38,9 @@
 #include <TCollection_HAsciiString.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 
-IGESGraph_ToolTextFontDef::IGESGraph_ToolTextFontDef() {}
+TextFontDefTool::TextFontDefTool() {}
 
-void IGESGraph_ToolTextFontDef::ReadOwnParams(const Handle(IGESGraph_TextFontDef)&   ent,
+void TextFontDefTool::ReadOwnParams(const Handle(IGESGraph_TextFontDef)&   ent,
                                               const Handle(IGESData_IGESReaderData)& IR,
                                               IGESData_ParamReader&                  PR) const
 {
@@ -179,7 +179,7 @@ void IGESGraph_ToolTextFontDef::ReadOwnParams(const Handle(IGESGraph_TextFontDef
             movePenY);
 }
 
-void IGESGraph_ToolTextFontDef::WriteOwnParams(const Handle(IGESGraph_TextFontDef)& ent,
+void TextFontDefTool::WriteOwnParams(const Handle(IGESGraph_TextFontDef)& ent,
                                                IGESData_IGESWriter&                 IW) const
 {
   Standard_Integer IX, IY;
@@ -212,14 +212,14 @@ void IGESGraph_ToolTextFontDef::WriteOwnParams(const Handle(IGESGraph_TextFontDe
   }
 }
 
-void IGESGraph_ToolTextFontDef::OwnShared(const Handle(IGESGraph_TextFontDef)& ent,
+void TextFontDefTool::OwnShared(const Handle(IGESGraph_TextFontDef)& ent,
                                           Interface_EntityIterator&            iter) const
 {
   if (ent->IsSupersededFontEntity())
     iter.GetOneItem(ent->SupersededFontEntity());
 }
 
-void IGESGraph_ToolTextFontDef::OwnCopy(const Handle(IGESGraph_TextFontDef)& another,
+void TextFontDefTool::OwnCopy(const Handle(IGESGraph_TextFontDef)& another,
                                         const Handle(IGESGraph_TextFontDef)& ent,
                                         Interface_CopyTool&                  TC) const
 {
@@ -302,10 +302,10 @@ void IGESGraph_ToolTextFontDef::OwnCopy(const Handle(IGESGraph_TextFontDef)& ano
             movePenY);
 }
 
-IGESData_DirChecker IGESGraph_ToolTextFontDef::DirChecker(
+DirectoryChecker TextFontDefTool::DirChecker(
   const Handle(IGESGraph_TextFontDef)& /*ent*/) const
 {
-  IGESData_DirChecker DC(310, 0);
+  DirectoryChecker DC(310, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -317,13 +317,13 @@ IGESData_DirChecker IGESGraph_ToolTextFontDef::DirChecker(
   return DC;
 }
 
-void IGESGraph_ToolTextFontDef::OwnCheck(const Handle(IGESGraph_TextFontDef)& /*ent*/,
+void TextFontDefTool::OwnCheck(const Handle(IGESGraph_TextFontDef)& /*ent*/,
                                          const Interface_ShareTool&,
                                          Handle(Interface_Check)& /*ach*/) const
 {
 }
 
-void IGESGraph_ToolTextFontDef::OwnDump(const Handle(IGESGraph_TextFontDef)& ent,
+void TextFontDefTool::OwnDump(const Handle(IGESGraph_TextFontDef)& ent,
                                         const IGESData_IGESDumper&           dumper,
                                         Standard_OStream&                    S,
                                         const Standard_Integer               level) const

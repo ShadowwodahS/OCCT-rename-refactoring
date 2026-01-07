@@ -20,9 +20,9 @@
 #include <TCollection_AsciiString.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<Standard_Integer, TCollection_AsciiString>
+typedef NCollection_DataMap<Standard_Integer, AsciiString1>
   MeshVS_DataMapOfIntegerAsciiString;
-typedef NCollection_DataMap<Standard_Integer, TCollection_AsciiString>::Iterator
+typedef NCollection_DataMap<Standard_Integer, AsciiString1>::Iterator
   MeshVS_DataMapIteratorOfDataMapOfIntegerAsciiString;
 
 #endif

@@ -165,7 +165,7 @@ void BRepGProp_MeshProps::CalculateProps(const Point3d&          p1,
 
 //=================================================================================================
 
-void BRepGProp_MeshProps::Perform(const Handle(Poly_Triangulation)& theMesh,
+void BRepGProp_MeshProps::Perform(const Handle(MeshTriangulation)& theMesh,
                                   const TopLoc_Location&            theLoc,
                                   const TopAbs_Orientation          theOri)
 {
@@ -185,8 +185,8 @@ void BRepGProp_MeshProps::Perform(const Handle(Poly_Triangulation)& theMesh,
                                 || Abs(Abs(aTr.ScaleFactor()) - 1.) > gp::Resolution();
     if (isToCopy)
     {
-      Handle(Poly_Triangulation) aCopy =
-        new Poly_Triangulation(theMesh->NbNodes(), theMesh->NbTriangles(), false);
+      Handle(MeshTriangulation) aCopy =
+        new MeshTriangulation(theMesh->NbNodes(), theMesh->NbTriangles(), false);
       TColgp_Array1OfPnt aNodes(1, theMesh->NbNodes());
       for (Standard_Integer i = 1; i <= theMesh->NbNodes(); ++i)
       {
@@ -210,7 +210,7 @@ void BRepGProp_MeshProps::Perform(const Handle(Poly_Triangulation)& theMesh,
     g.SetXYZ(g.XYZ() + loc.XYZ());
     if (g0.XYZ().Modulus() > gp::Resolution())
     {
-      GProp::HOperator(g, loc, dim, HMat);
+      GProp1::HOperator(g, loc, dim, HMat);
       inertia0 = inertia - HMat;
     }
     else
@@ -229,14 +229,14 @@ void BRepGProp_MeshProps::Perform(const Handle(Poly_Triangulation)& theMesh,
     loc = loc_save;
     //
     // Computes the inertia tensor for loc
-    GProp::HOperator(g0, loc, dim, HMat);
+    GProp1::HOperator(g0, loc, dim, HMat);
     inertia = inertia0 + HMat;
   }
 }
 
 //=================================================================================================
 
-void BRepGProp_MeshProps::Perform(const Handle(Poly_Triangulation)& theMesh,
+void BRepGProp_MeshProps::Perform(const Handle(MeshTriangulation)& theMesh,
                                   const TopAbs_Orientation          theOri)
 {
   if (theMesh.IsNull() || theMesh->NbNodes() == 0 || theMesh->NbTriangles() == 0)
@@ -284,7 +284,7 @@ void BRepGProp_MeshProps::Perform(const Handle(Poly_Triangulation)& theMesh,
   }
 
   dim = aGProps[0];
-  if (Abs(dim) >= 1.e-20) // To be consistent with GProp_GProps
+  if (Abs(dim) >= 1.e-20) // To be consistent with GeometricProperties
   {
     g.SetX(aGProps[1] / dim);
     g.SetY(aGProps[2] / dim);

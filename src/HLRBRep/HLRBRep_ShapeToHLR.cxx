@@ -48,7 +48,7 @@ Handle(HLRBRep_Data) HLRBRep_ShapeToHLR::Load(const Handle(HLRTopoBRep_OutLiner)
   TopTools_IndexedDataMapOfShapeListOfShape VerticesToEdges;
   TopTools_IndexedDataMapOfShapeListOfShape EdgesToFaces;
 
-  TopExp_Explorer exshell, exface;
+  ShapeExplorer exshell, exface;
 
   for (exshell.Init(S->OutLinedShape(), TopAbs_SHELL); exshell.More(); exshell.Next())
   { // faces in a shell
@@ -66,18 +66,18 @@ Handle(HLRBRep_Data) HLRBRep_ShapeToHLR::Load(const Handle(HLRTopoBRep_OutLiner)
       FM.Add(exface.Current());
   }
 
-  TopExp::MapShapes(S->OutLinedShape(), TopAbs_EDGE, EM);
+  TopExp1::MapShapes(S->OutLinedShape(), TopAbs_EDGE, EM);
 
   Standard_Integer i;
   Standard_Integer nbEdge = EM.Extent();
 
   for (i = 1; i <= nbEdge; i++) // vertices back to edges
-    TopExp::MapShapesAndAncestors(EM(i), TopAbs_VERTEX, TopAbs_EDGE, VerticesToEdges);
+    TopExp1::MapShapesAndAncestors(EM(i), TopAbs_VERTEX, TopAbs_EDGE, VerticesToEdges);
 
   Standard_Integer nbVert = VerticesToEdges.Extent();
   Standard_Integer nbFace = FM.Extent();
 
-  TopoDS_Vertex                      VF, VL;
+  TopoVertex                      VF, VL;
   TopTools_ListIteratorOfListOfShape itn;
   Standard_Integer                   i1, i2;
   Standard_Boolean                   o1, o2;
@@ -94,14 +94,14 @@ Handle(HLRBRep_Data) HLRBRep_ShapeToHLR::Load(const Handle(HLRTopoBRep_OutLiner)
 
   for (i = 1; i <= nbFace; i++)
   { // test of Double edges
-    TopExp::MapShapesAndAncestors(FM(i), TopAbs_EDGE, TopAbs_FACE, EdgesToFaces);
+    TopExp1::MapShapesAndAncestors(FM(i), TopAbs_EDGE, TopAbs_FACE, EdgesToFaces);
   }
 
   for (i = 1; i <= nbEdge; i++)
   { // load the Edges
-    const TopoDS_Edge& Edg = TopoDS::Edge(EM(i));
-    TopExp::Vertices(Edg, VF, VL);
-    BRep_Tool::Range(Edg, pf, pl);
+    const TopoEdge& Edg = TopoDS::Edge(EM(i));
+    TopExp1::Vertices(Edg, VF, VL);
+    BRepInspector::Range(Edg, pf, pl);
     Standard_Boolean reg1 = Standard_False;
     Standard_Boolean regn = Standard_False;
     Standard_Integer inde = EdgesToFaces.FindIndex(Edg);
@@ -110,10 +110,10 @@ Handle(HLRBRep_Data) HLRBRep_ShapeToHLR::Load(const Handle(HLRTopoBRep_OutLiner)
       if (EdgesToFaces(inde).Extent() == 2)
       {
         itn                   = EdgesToFaces(inde);
-        const TopoDS_Face& F1 = TopoDS::Face(itn.Value());
+        const TopoFace& F1 = TopoDS::Face(itn.Value());
         itn.Next();
-        const TopoDS_Face& F2 = TopoDS::Face(itn.Value());
-        GeomAbs_Shape      rg = BRep_Tool::Continuity(Edg, F1, F2);
+        const TopoFace& F2 = TopoDS::Face(itn.Value());
+        GeomAbs_Shape      rg = BRepInspector::Continuity(Edg, F1, F2);
         reg1                  = rg >= GeomAbs_G1;
         regn                  = rg >= GeomAbs_G2;
       }
@@ -132,7 +132,7 @@ Handle(HLRBRep_Data) HLRBRep_ShapeToHLR::Load(const Handle(HLRTopoBRep_OutLiner)
       i1 = VerticesToEdges.FindIndex(VF);
       o1 = TopDS.IsOutV(VF);
       c1 = TopDS.IsIntV(VF);
-      tf = (Standard_ShortReal)BRep_Tool::Tolerance(VF);
+      tf = (Standard_ShortReal)BRepInspector::Tolerance(VF);
     }
 
     if (VL.IsNull())
@@ -148,7 +148,7 @@ Handle(HLRBRep_Data) HLRBRep_ShapeToHLR::Load(const Handle(HLRTopoBRep_OutLiner)
       i2 = VerticesToEdges.FindIndex(VL);
       o2 = TopDS.IsOutV(VL);
       c2 = TopDS.IsIntV(VL);
-      tl = (Standard_ShortReal)BRep_Tool::Tolerance(VL);
+      tl = (Standard_ShortReal)BRepInspector::Tolerance(VL);
     }
 
     ed->Set(reg1, regn, Edg, i1, i2, o1, o2, c1, c2, pf, tf, pl, tl);
@@ -167,14 +167,14 @@ void HLRBRep_ShapeToHLR::ExploreFace(const Handle(HLRTopoBRep_OutLiner)& S,
                                      const TopTools_IndexedMapOfShape&   FM,
                                      const TopTools_IndexedMapOfShape&   EM,
                                      Standard_Integer&                   i,
-                                     const TopoDS_Face&                  F,
+                                     const TopoFace&                  F,
                                      const Standard_Boolean              closed)
 {
   i++;
-  TopExp_Explorer    Ex1, Ex2;
+  ShapeExplorer    Ex1, Ex2;
   HLRTopoBRep_Data&  TopDS   = S->DataStructure();
   TopAbs_Orientation orient  = FM(i).Orientation();
-  TopoDS_Face        theFace = TopoDS::Face(FM(i));
+  TopoFace        theFace = TopoDS::Face(FM(i));
   theFace.Orientation(TopAbs_FORWARD);
   HLRBRep_FaceData& fd = DS->FDataArray().ChangeValue(i);
 
@@ -193,8 +193,8 @@ void HLRBRep_ShapeToHLR::ExploreFace(const Handle(HLRTopoBRep_OutLiner)& S,
 
     for (Ex2.Init(Ex1.Current(), TopAbs_EDGE); Ex2.More(); Ex2.Next())
     {
-      const TopoDS_Edge& anEdge = TopoDS::Edge(Ex2.Current());
-      if (!BRep_Tool::Degenerated(anEdge))
+      const TopoEdge& anEdge = TopoDS::Edge(Ex2.Current());
+      if (!BRepInspector::Degenerated(anEdge))
         ne++;
     }
 
@@ -203,8 +203,8 @@ void HLRBRep_ShapeToHLR::ExploreFace(const Handle(HLRTopoBRep_OutLiner)& S,
 
     for (Ex2.Init(Ex1.Current(), TopAbs_EDGE); Ex2.More(); Ex2.Next())
     {
-      const TopoDS_Edge& E = TopoDS::Edge(Ex2.Current());
-      if (BRep_Tool::Degenerated(E))
+      const TopoEdge& E = TopoDS::Edge(Ex2.Current());
+      if (BRepInspector::Degenerated(E))
         continue;
       ne++;
       Standard_Integer   ie        = EM.FindIndex(E);
@@ -212,7 +212,7 @@ void HLRBRep_ShapeToHLR::ExploreFace(const Handle(HLRTopoBRep_OutLiner)& S,
       Standard_Boolean   Int       = TopDS.IsIntLFaceEdge(F, E);
       Standard_Boolean   Iso       = TopDS.IsIsoLFaceEdge(F, E);
       Standard_Boolean   Out       = TopDS.IsOutLFaceEdge(F, E);
-      Standard_Boolean   Dbl       = BRepTools::IsReallyClosed(TopoDS::Edge(E), theFace);
+      Standard_Boolean   Dbl       = BRepTools1::IsReallyClosed(TopoDS::Edge(E), theFace);
       fd.SetWEdge(nw, ne, ie, anOrientE, Out, Int, Dbl, Iso);
     }
   }
@@ -227,7 +227,7 @@ void HLRBRep_ShapeToHLR::ExploreShape(const Handle(HLRTopoBRep_OutLiner)& S,
                                       const TopTools_IndexedMapOfShape&   EM)
 {
   TopTools_MapOfShape ShapeMap;
-  TopExp_Explorer     exshell, exface, exedge;
+  ShapeExplorer     exshell, exface, exedge;
   Standard_Integer    i = 0;
 
   for (exshell.Init(S->OriginalShape(), TopAbs_SHELL); exshell.More(); exshell.Next())
@@ -246,10 +246,10 @@ void HLRBRep_ShapeToHLR::ExploreShape(const Handle(HLRTopoBRep_OutLiner)& S,
 
       for (exedge.Init(exshell.Current(), TopAbs_EDGE); exedge.More(); exedge.Next())
       {
-        const TopoDS_Edge& E      = TopoDS::Edge(exedge.Current());
+        const TopoEdge& E      = TopoDS::Edge(exedge.Current());
         ie                        = EM.FindIndex(E);
         TopAbs_Orientation orient = E.Orientation();
-        if (!BRep_Tool::Degenerated(E))
+        if (!BRepInspector::Degenerated(E))
         {
           if (orient == TopAbs_FORWARD)
             flag[ie] += 1;

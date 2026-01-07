@@ -43,10 +43,10 @@ IMPLEMENT_STANDARD_RTTIEXT(PrsDim_Chamf2dDimension, PrsDim_Relation)
 
 //=================================================================================================
 
-PrsDim_Chamf2dDimension::PrsDim_Chamf2dDimension(const TopoDS_Shape&               aFShape,
-                                                 const Handle(Geom_Plane)&         aPlane,
+PrsDim_Chamf2dDimension::PrsDim_Chamf2dDimension(const TopoShape&               aFShape,
+                                                 const Handle(GeomPlane)&         aPlane,
                                                  const Standard_Real               aVal,
-                                                 const TCollection_ExtendedString& aText)
+                                                 const UtfString& aText)
     : PrsDim_Relation()
 {
   myFShape            = aFShape;
@@ -61,10 +61,10 @@ PrsDim_Chamf2dDimension::PrsDim_Chamf2dDimension(const TopoDS_Shape&            
 
 //=================================================================================================
 
-PrsDim_Chamf2dDimension::PrsDim_Chamf2dDimension(const TopoDS_Shape&               aFShape,
-                                                 const Handle(Geom_Plane)&         aPlane,
+PrsDim_Chamf2dDimension::PrsDim_Chamf2dDimension(const TopoShape&               aFShape,
+                                                 const Handle(GeomPlane)&         aPlane,
                                                  const Standard_Real               aVal,
-                                                 const TCollection_ExtendedString& aText,
+                                                 const UtfString& aText,
                                                  const Point3d&                     aPosition,
                                                  const DsgPrs_ArrowSide            aSymbolPrs,
                                                  const Standard_Real               anArrowSize)
@@ -86,13 +86,13 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
                                       const Handle(Prs3d_Presentation)& aPresentation,
                                       const Standard_Integer)
 {
-  Handle(Geom_Curve) gcurv;
+  Handle(GeomCurve3d) gcurv;
   Point3d             pfirst, plast;
-  const TopoDS_Edge& thechamfedge = TopoDS::Edge(myFShape);
+  const TopoEdge& thechamfedge = TopoDS::Edge(myFShape);
   if (!PrsDim::ComputeGeometry(thechamfedge, gcurv, pfirst, plast))
     return;
 
-  Handle(Geom_Line) glin = Handle(Geom_Line)::DownCast(gcurv);
+  Handle(GeomLine) glin = Handle(GeomLine)::DownCast(gcurv);
   Dir3d            dir1(glin->Position().Direction());
   Dir3d            norm1 = myPlane->Pln().Axis().Direction();
   myDir                   = norm1.Crossed(dir1);
@@ -103,10 +103,10 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   //-------------------------------------------------
 
   // recup. d'une edge adjacente a l'edge du chanfrein
-  /*TopoDS_Edge nextedge = TopoDS::Edge(mySShape);
+  /*TopoEdge nextedge = TopoDS::Edge(mySShape);
 
   Point3d pfirstnext,plastnext;
-  Handle(Geom_Line) glinnext;
+  Handle(GeomLine) glinnext;
   if (!PrsDim::ComputeGeometry(nextedge,glinnext,pfirstnext,plastnext) )
     return;
 
@@ -142,7 +142,7 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   {
 
     myPntAttach.SetXYZ((pfirst.XYZ() + plast.XYZ()) / 2);
-    Handle(Geom_Line) dimLin    = new Geom_Line(myPntAttach, myDir);
+    Handle(GeomLine) dimLin    = new GeomLine(myPntAttach, myDir);
     Standard_Real     parcurpos = ElCLib::Parameter(dimLin->Lin(), myPosition);
     curpos                      = ElCLib::Value(parcurpos, dimLin->Lin());
     // static Standard_Real minlength = 0.005;
@@ -189,7 +189,7 @@ void PrsDim_Chamf2dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void PrsDim_Chamf2dDimension::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+void PrsDim_Chamf2dDimension::ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                                const Standard_Integer)
 {
   Handle(SelectMgr_EntityOwner)     own = new SelectMgr_EntityOwner(this, 7);

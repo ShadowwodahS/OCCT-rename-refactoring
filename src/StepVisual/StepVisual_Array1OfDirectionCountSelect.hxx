@@ -20,6 +20,6 @@
 #include <StepVisual_DirectionCountSelect.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<StepVisual_DirectionCountSelect> StepVisual_Array1OfDirectionCountSelect;
+typedef NCollection_Array1<DirectionCountSelect> StepVisual_Array1OfDirectionCountSelect;
 
 #endif

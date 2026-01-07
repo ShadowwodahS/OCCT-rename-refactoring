@@ -41,7 +41,7 @@ DEFINE_STANDARD_HANDLE(IGESData_ReadWriteModule, Interface_ReaderModule)
 //! and Properties) are processed by IGESReaderTool & IGESWriter
 //!
 //! Each sub-class of ReadWriteModule is used in conjunction with
-//! a sub-class of Protocol from IGESData and processes several
+//! a sub-class of Protocol from IGESData1 and processes several
 //! types of IGESEntity (typically, them of a package) :
 //! The Protocol gives a unique positive integer Case Number for
 //! each type of IGESEntity it recognizes, the corresponding

@@ -37,7 +37,7 @@ SelectMgr_BaseIntersector::~SelectMgr_BaseIntersector()
 
 //=================================================================================================
 
-void SelectMgr_BaseIntersector::SetCamera(const Handle(Graphic3d_Camera)& theCamera)
+void SelectMgr_BaseIntersector::SetCamera(const Handle(CameraOn3d)& theCamera)
 {
   myCamera = theCamera;
 }

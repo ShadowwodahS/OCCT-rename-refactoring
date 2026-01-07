@@ -52,8 +52,8 @@ const Standard_GUID& TDataStd_AsciiString::ID() const
 // function : SetAttr
 // purpose  : Implements Set functionality
 //=======================================================================
-static Handle(TDataStd_AsciiString) SetAttr(const TDF_Label&               label,
-                                            const TCollection_AsciiString& theString,
+static Handle(TDataStd_AsciiString) SetAttr(const DataLabel&               label,
+                                            const AsciiString1& theString,
                                             const Standard_GUID&           theGuid)
 {
   Handle(TDataStd_AsciiString) A;
@@ -70,8 +70,8 @@ static Handle(TDataStd_AsciiString) SetAttr(const TDF_Label&               label
 //=================================================================================================
 
 Handle(TDataStd_AsciiString) TDataStd_AsciiString::Set(
-  const TDF_Label&               theLabel,
-  const TCollection_AsciiString& theAsciiString)
+  const DataLabel&               theLabel,
+  const AsciiString1& theAsciiString)
 {
   return SetAttr(theLabel, theAsciiString, GetID());
 }
@@ -82,16 +82,16 @@ Handle(TDataStd_AsciiString) TDataStd_AsciiString::Set(
 //=======================================================================
 
 Handle(TDataStd_AsciiString) TDataStd_AsciiString::Set(
-  const TDF_Label&               theLabel,
+  const DataLabel&               theLabel,
   const Standard_GUID&           theGuid,
-  const TCollection_AsciiString& theAsciiString)
+  const AsciiString1& theAsciiString)
 {
   return SetAttr(theLabel, theAsciiString, theGuid);
 }
 
 //=================================================================================================
 
-void TDataStd_AsciiString::Set(const TCollection_AsciiString& theAsciiString)
+void TDataStd_AsciiString::Set(const AsciiString1& theAsciiString)
 {
   if (myString == theAsciiString)
     return;
@@ -101,7 +101,7 @@ void TDataStd_AsciiString::Set(const TCollection_AsciiString& theAsciiString)
 
 //=================================================================================================
 
-const TCollection_AsciiString& TDataStd_AsciiString::Get() const
+const AsciiString1& TDataStd_AsciiString::Get() const
 {
   return myString;
 }

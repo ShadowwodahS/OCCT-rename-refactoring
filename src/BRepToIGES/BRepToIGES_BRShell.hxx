@@ -25,9 +25,9 @@
 #include <Message_ProgressRange.hxx>
 
 class IGESData_IGESEntity;
-class TopoDS_Shape;
-class TopoDS_Shell;
-class TopoDS_Face;
+class TopoShape;
+class TopoShell;
+class TopoFace;
 
 //! This class implements the transfer of Shape Entities from Geom
 //! To IGES. These can be :
@@ -47,19 +47,19 @@ public:
   //! This entity must be a Face or a Shell.
   //! If this Entity could not be converted, this member returns a NullEntity.
   Standard_EXPORT Handle(IGESData_IGESEntity) TransferShell(
-    const TopoDS_Shape&          start,
+    const TopoShape&          start,
     const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Transfert an Shell entity from TopoDS to IGES
   //! If this Entity could not be converted, this member returns a NullEntity.
   Standard_EXPORT Handle(IGESData_IGESEntity) TransferShell(
-    const TopoDS_Shell&          start,
+    const TopoShell&          start,
     const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Transfert a Face entity from TopoDS to IGES
   //! If this Entity could not be converted, this member returns a NullEntity.
   Standard_EXPORT Handle(IGESData_IGESEntity) TransferFace(
-    const TopoDS_Face&           start,
+    const TopoFace&           start,
     const Message_ProgressRange& theProgress = Message_ProgressRange());
 
 protected:

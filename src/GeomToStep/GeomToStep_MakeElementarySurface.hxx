@@ -31,14 +31,14 @@ class Geom_ElementarySurface;
 //! from StepGeom which describes a ElementarySurface from
 //! prostep. As ElementarySurface is an abstract Surface this
 //! class is an access to the sub-class required.
-class GeomToStep_MakeElementarySurface : public GeomToStep_Root
+class GeomToStep_MakeElementarySurface : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeElementarySurface(
     const Handle(Geom_ElementarySurface)& S,
-    const StepData_Factors&               theLocalFactors = StepData_Factors());
+    const ConversionFactors&               theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_ElementarySurface)& Value() const;
 

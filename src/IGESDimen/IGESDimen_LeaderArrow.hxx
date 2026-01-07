@@ -31,7 +31,7 @@ class IGESDimen_LeaderArrow;
 DEFINE_STANDARD_HANDLE(IGESDimen_LeaderArrow, IGESData_IGESEntity)
 
 //! defines LeaderArrow, Type <214> Form <1-12>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Consists of one or more line segments except when
 //! leader is part of an angular dimension, with links to
 //! presumed text item
@@ -51,7 +51,7 @@ public:
   Standard_EXPORT void Init(const Standard_Real               height,
                             const Standard_Real               width,
                             const Standard_Real               depth,
-                            const gp_XY&                      position,
+                            const Coords2d&                      position,
                             const Handle(TColgp_HArray1OfXY)& segments);
 
   //! Changes FormNumber (indicates the Shape of the Arrow)
@@ -91,7 +91,7 @@ private:
   Standard_Real              theArrowHeadHeight;
   Standard_Real              theArrowHeadWidth;
   Standard_Real              theZDepth;
-  gp_XY                      theArrowHead;
+  Coords2d                      theArrowHead;
   Handle(TColgp_HArray1OfXY) theSegmentTails;
 };
 

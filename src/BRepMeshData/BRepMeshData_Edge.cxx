@@ -21,7 +21,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRepMeshData_Edge, IMeshData_Edge)
 
 //=================================================================================================
 
-BRepMeshData_Edge::BRepMeshData_Edge(const TopoDS_Edge&                      theEdge,
+BRepMeshData_Edge::BRepMeshData_Edge(const TopoEdge&                      theEdge,
                                      const Handle(NCollection_IncAllocator)& theAllocator)
     : IMeshData_Edge(theEdge),
       myAllocator(theAllocator),

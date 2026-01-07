@@ -33,13 +33,13 @@
 #include <TopAbs_Orientation.hxx>
 class Dir3d;
 class gp_Pln;
-class Geom_Surface;
+class GeomSurface;
 class TopLoc_Location;
-class TopoDS_Edge;
-class Geom_Curve;
-class TopoDS_Vertex;
+class TopoEdge;
+class GeomCurve3d;
+class TopoVertex;
 class Point3d;
-class Geom2d_Curve;
+class GeomCurve2d;
 
 class Draft_Modification;
 DEFINE_STANDARD_HANDLE(Draft_Modification, BRepTools_Modification)
@@ -48,19 +48,19 @@ class Draft_Modification : public BRepTools_Modification
 {
 
 public:
-  Standard_EXPORT Draft_Modification(const TopoDS_Shape& S);
+  Standard_EXPORT Draft_Modification(const TopoShape& S);
 
   //! Resets on the same shape.
   Standard_EXPORT void Clear();
 
   //! Changes the basis shape and resets.
-  Standard_EXPORT void Init(const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const TopoShape& S);
 
   //! Adds  the  face  F    and propagates    the  draft
   //! modification to  its  neighbour faces if they  are
   //! tangent. If an error occurs, will return False and
   //! ProblematicShape  will  return the "bad" face.
-  Standard_EXPORT Standard_Boolean Add(const TopoDS_Face&     F,
+  Standard_EXPORT Standard_Boolean Add(const TopoFace&     F,
                                        const Dir3d&          Direction,
                                        const Standard_Real    Angle,
                                        const gp_Pln&          NeutralPlane,
@@ -70,7 +70,7 @@ public:
   //! are tangent.   It will be  necessary to  call this
   //! method if  the  method Add returns Standard_False,
   //! to unset ProblematicFace.
-  Standard_EXPORT void Remove(const TopoDS_Face& F);
+  Standard_EXPORT void Remove(const TopoFace& F);
 
   //! Performs the draft angle modification and sets the
   //! value returned by the method  IsDone.  If an error
@@ -89,15 +89,15 @@ public:
 
   //! Returns the shape (Face,  Edge or Vertex) on which
   //! an error occurred.
-  Standard_EXPORT const TopoDS_Shape& ProblematicShape() const;
+  Standard_EXPORT const TopoShape& ProblematicShape() const;
 
   //! Returns all  the  faces   which  have been   added
   //! together with the face <F>.
-  Standard_EXPORT const TopTools_ListOfShape& ConnectedFaces(const TopoDS_Face& F);
+  Standard_EXPORT const ShapeList& ConnectedFaces(const TopoFace& F);
 
   //! Returns all the faces  on which a modification has
   //! been given.
-  Standard_EXPORT const TopTools_ListOfShape& ModifiedFaces();
+  Standard_EXPORT const ShapeList& ModifiedFaces();
 
   //! Returns Standard_True if   the face <F>  has  been
   //! modified.  In this case,  <S> is the new geometric
@@ -112,8 +112,8 @@ public:
   //!
   //! Otherwise, returns Standard_False, and <S>,   <L>,
   //! <Tol> , <RevWires> ,<RevFace> are not  significant.
-  Standard_EXPORT Standard_Boolean NewSurface(const TopoDS_Face&    F,
-                                              Handle(Geom_Surface)& S,
+  Standard_EXPORT Standard_Boolean NewSurface(const TopoFace&    F,
+                                              Handle(GeomSurface)& S,
                                               TopLoc_Location&      L,
                                               Standard_Real&        Tol,
                                               Standard_Boolean&     RevWires,
@@ -125,8 +125,8 @@ public:
   //! the         new    tolerance.   Otherwise, returns
   //! Standard_False,    and  <C>,  <L>,   <Tol> are not
   //! significant.
-  Standard_EXPORT Standard_Boolean NewCurve(const TopoDS_Edge&  E,
-                                            Handle(Geom_Curve)& C,
+  Standard_EXPORT Standard_Boolean NewCurve(const TopoEdge&  E,
+                                            Handle(GeomCurve3d)& C,
                                             TopLoc_Location&    L,
                                             Standard_Real&      Tol) Standard_OVERRIDE;
 
@@ -135,7 +135,7 @@ public:
   //! support of the vertex,   <Tol> the new  tolerance.
   //! Otherwise, returns Standard_False, and <P>,  <Tol>
   //! are not significant.
-  Standard_EXPORT Standard_Boolean NewPoint(const TopoDS_Vertex& V,
+  Standard_EXPORT Standard_Boolean NewPoint(const TopoVertex& V,
                                             Point3d&              P,
                                             Standard_Real&       Tol) Standard_OVERRIDE;
 
@@ -149,11 +149,11 @@ public:
   //!
   //! <NewE> is the new  edge created from  <E>.  <NewF>
   //! is the new face created from <F>. They may be useful.
-  Standard_EXPORT Standard_Boolean NewCurve2d(const TopoDS_Edge&    E,
-                                              const TopoDS_Face&    F,
-                                              const TopoDS_Edge&    NewE,
-                                              const TopoDS_Face&    NewF,
-                                              Handle(Geom2d_Curve)& C,
+  Standard_EXPORT Standard_Boolean NewCurve2d(const TopoEdge&    E,
+                                              const TopoFace&    F,
+                                              const TopoEdge&    NewE,
+                                              const TopoFace&    NewF,
+                                              Handle(GeomCurve2d)& C,
                                               Standard_Real&        Tol) Standard_OVERRIDE;
 
   //! Returns Standard_True if the Vertex  <V> has a new
@@ -161,8 +161,8 @@ public:
   //! the parameter,    <Tol>  the     new    tolerance.
   //! Otherwise, returns Standard_False, and <P>,  <Tol>
   //! are not significant.
-  Standard_EXPORT Standard_Boolean NewParameter(const TopoDS_Vertex& V,
-                                                const TopoDS_Edge&   E,
+  Standard_EXPORT Standard_Boolean NewParameter(const TopoVertex& V,
+                                                const TopoEdge&   E,
                                                 Standard_Real&       P,
                                                 Standard_Real&       Tol) Standard_OVERRIDE;
 
@@ -172,18 +172,18 @@ public:
   //! <NewE> is the new  edge created from <E>.  <NewF1>
   //! (resp. <NewF2>) is the new  face created from <F1>
   //! (resp. <F2>).
-  Standard_EXPORT GeomAbs_Shape Continuity(const TopoDS_Edge& E,
-                                           const TopoDS_Face& F1,
-                                           const TopoDS_Face& F2,
-                                           const TopoDS_Edge& NewE,
-                                           const TopoDS_Face& NewF1,
-                                           const TopoDS_Face& NewF2) Standard_OVERRIDE;
+  Standard_EXPORT GeomAbs_Shape Continuity(const TopoEdge& E,
+                                           const TopoFace& F1,
+                                           const TopoFace& F2,
+                                           const TopoEdge& NewE,
+                                           const TopoFace& NewF1,
+                                           const TopoFace& NewF2) Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Draft_Modification, BRepTools_Modification)
 
 protected:
 private:
-  Standard_EXPORT Standard_Boolean InternalAdd(const TopoDS_Face&     F,
+  Standard_EXPORT Standard_Boolean InternalAdd(const TopoFace&     F,
                                                const Dir3d&          Direction,
                                                const Standard_Real    Angle,
                                                const gp_Pln&          NeutralPlane,
@@ -191,15 +191,15 @@ private:
 
   Standard_EXPORT Standard_Boolean Propagate();
 
-  Standard_EXPORT Handle(Geom_Curve) NewCurve(const Handle(Geom_Curve)&   C,
-                                              const Handle(Geom_Surface)& S,
+  Standard_EXPORT Handle(GeomCurve3d) NewCurve(const Handle(GeomCurve3d)&   C,
+                                              const Handle(GeomSurface)& S,
                                               const TopAbs_Orientation    OriS,
                                               const Dir3d&               Direction,
                                               const Standard_Real         Angle,
                                               const gp_Pln&               NeutralPlane,
                                               const Standard_Boolean      Flag = Standard_True);
 
-  Standard_EXPORT Handle(Geom_Surface) NewSurface(const Handle(Geom_Surface)& S,
+  Standard_EXPORT Handle(GeomSurface) NewSurface(const Handle(GeomSurface)& S,
                                                   const TopAbs_Orientation    OriS,
                                                   const Dir3d&               Direction,
                                                   const Standard_Real         Angle,
@@ -209,11 +209,11 @@ private:
   Draft_IndexedDataMapOfEdgeEdgeInfo        myEMap;
   Draft_IndexedDataMapOfVertexVertexInfo    myVMap;
   Standard_Boolean                          myComp;
-  TopoDS_Shape                              myShape;
-  TopoDS_Shape                              badShape;
+  TopoShape                              myShape;
+  TopoShape                              badShape;
   Draft_ErrorStatus                         errStat;
-  TopoDS_Face                               curFace;
-  TopTools_ListOfShape                      conneF;
+  TopoFace                               curFace;
+  ShapeList                      conneF;
   TopTools_IndexedDataMapOfShapeListOfShape myEFMap;
 };
 

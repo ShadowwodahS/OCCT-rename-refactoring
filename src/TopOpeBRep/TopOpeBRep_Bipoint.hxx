@@ -22,14 +22,14 @@
 
 #include <Standard_Integer.hxx>
 
-class TopOpeBRep_Bipoint
+class Bipoint
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRep_Bipoint();
+  Standard_EXPORT Bipoint();
 
-  Standard_EXPORT TopOpeBRep_Bipoint(const Standard_Integer I1, const Standard_Integer I2);
+  Standard_EXPORT Bipoint(const Standard_Integer I1, const Standard_Integer I2);
 
   Standard_EXPORT Standard_Integer I1() const;
 

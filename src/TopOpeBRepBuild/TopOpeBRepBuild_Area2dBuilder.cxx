@@ -29,8 +29,8 @@ TopOpeBRepBuild_Area2dBuilder::TopOpeBRepBuild_Area2dBuilder() {}
 
 //=================================================================================================
 
-TopOpeBRepBuild_Area2dBuilder::TopOpeBRepBuild_Area2dBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                                             TopOpeBRepBuild_LoopClassifier& LC,
+TopOpeBRepBuild_Area2dBuilder::TopOpeBRepBuild_Area2dBuilder(LoopSet&        LS,
+                                                             LoopClassifier& LC,
                                                              const Standard_Boolean ForceClass)
 {
   InitAreaBuilder(LS, LC, ForceClass);
@@ -38,8 +38,8 @@ TopOpeBRepBuild_Area2dBuilder::TopOpeBRepBuild_Area2dBuilder(TopOpeBRepBuild_Loo
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Area2dBuilder::InitAreaBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                                    TopOpeBRepBuild_LoopClassifier& LC,
+void TopOpeBRepBuild_Area2dBuilder::InitAreaBuilder(LoopSet&        LS,
+                                                    LoopClassifier& LC,
                                                     const Standard_Boolean          ForceClass)
 {
   TopAbs_State     state;

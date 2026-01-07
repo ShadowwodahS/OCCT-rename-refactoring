@@ -24,7 +24,7 @@
 #include <AdvApprox_ApproxAFunction.hxx>
 #include <Standard_Integer.hxx>
 class Geom2d_BSplineCurve;
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 
 //! this class is used to  construct the BSpline curve
 //! from an Approximation ( ApproxAFunction from AdvApprox).
@@ -75,7 +75,7 @@ public:
   //! the Index3D 3D space
   //! if Index3D not in the Range [1,Nb3dSpaces]
   //! if the Approx is not Done
-  Standard_EXPORT Handle(Geom_BSplineCurve) Curve(const Standard_Integer Index3d) const;
+  Standard_EXPORT Handle(BSplineCurve3d) Curve(const Standard_Integer Index3d) const;
 
   //! returns a rational curve whose poles correspond to
   //! the index3D of the 3D space and whose weights correspond
@@ -83,7 +83,7 @@ public:
   //! if Index1D not in the Range [1,Nb1dSpaces]
   //! if Index3D not in the Range [1,Nb3dSpaces]
   //! if the Approx is not Done
-  Standard_EXPORT Handle(Geom_BSplineCurve) Curve(const Standard_Integer Index1D,
+  Standard_EXPORT Handle(BSplineCurve3d) Curve(const Standard_Integer Index1D,
                                                   const Standard_Integer Index3D) const;
 
 protected:

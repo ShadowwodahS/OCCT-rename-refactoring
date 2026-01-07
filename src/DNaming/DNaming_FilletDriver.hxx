@@ -22,9 +22,9 @@
 #include <TFunction_Driver.hxx>
 #include <Standard_Integer.hxx>
 class TFunction_Logbook;
-class TDF_Label;
+class DataLabel;
 class BRepFilletAPI_MakeFillet;
-class TopoDS_Shape;
+class TopoShape;
 
 class DNaming_FilletDriver;
 DEFINE_STANDARD_HANDLE(DNaming_FilletDriver, TFunction_Driver)
@@ -62,9 +62,9 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void LoadNamingDS(const TDF_Label&          theResultLabel,
+  Standard_EXPORT void LoadNamingDS(const DataLabel&          theResultLabel,
                                     BRepFilletAPI_MakeFillet& mkFillet,
-                                    const TopoDS_Shape&       theContext) const;
+                                    const TopoShape&       theContext) const;
 };
 
 #endif // _DNaming_FilletDriver_HeaderFile

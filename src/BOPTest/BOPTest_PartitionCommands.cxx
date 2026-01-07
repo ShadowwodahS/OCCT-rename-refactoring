@@ -32,15 +32,15 @@
 #include <string.h>
 //
 //
-static Standard_Integer bfillds(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bbuild(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bbop(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bsplit(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer buildbop(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer bfillds(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bbuild(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bbop(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bsplit(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer buildbop(DrawInterpreter&, Standard_Integer, const char**);
 
 //=================================================================================================
 
-void BOPTest::PartitionCommands(Draw_Interpretor& theCommands)
+void BOPTest::PartitionCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -122,7 +122,7 @@ void BOPTest::PartitionCommands(Draw_Interpretor& theCommands)
 
 //=================================================================================================
 
-Standard_Integer bfillds(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bfillds(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n > 2)
   {
@@ -135,8 +135,8 @@ Standard_Integer bfillds(Draw_Interpretor& di, Standard_Integer n, const char** 
   Standard_Integer                   aNbS;
   Standard_Real                      aTol;
   TopTools_ListIteratorOfListOfShape aIt;
-  TopTools_ListOfShape               aLC;
-  TopTools_ListOfShape&              aLS = BOPTest_Objects::Shapes();
+  ShapeList               aLC;
+  ShapeList&              aLS = BOPTest_Objects::Shapes();
   aNbS                                   = aLS.Extent();
   if (!aNbS)
   {
@@ -163,23 +163,23 @@ Standard_Integer bfillds(Draw_Interpretor& di, Standard_Integer n, const char** 
     }
   }
   //
-  TopTools_ListOfShape& aLT = BOPTest_Objects::Tools();
+  ShapeList& aLT = BOPTest_Objects::Tools();
   //
   aIt.Initialize(aLS);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aS = aIt.Value();
+    const TopoShape& aS = aIt.Value();
     aLC.Append(aS);
   }
   //
   aIt.Initialize(aLT);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aS = aIt.Value();
+    const TopoShape& aS = aIt.Value();
     aLC.Append(aS);
   }
   //
-  BOPAlgo_PaveFiller& aPF = BOPTest_Objects::PaveFiller();
+  BooleanPaveFiller& aPF = BOPTest_Objects::PaveFiller();
   //
   aPF.SetArguments(aLC);
   aPF.SetRunParallel(bRunParallel);
@@ -212,7 +212,7 @@ Standard_Integer bfillds(Draw_Interpretor& di, Standard_Integer n, const char** 
 
 //=================================================================================================
 
-Standard_Integer bbuild(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bbuild(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2 || n > 3)
   {
@@ -232,25 +232,25 @@ Standard_Integer bbuild(Draw_Interpretor& di, Standard_Integer n, const char** a
 
   TopTools_ListIteratorOfListOfShape aIt;
   //
-  BOPAlgo_PaveFiller& aPF = BOPTest_Objects::PaveFiller();
+  BooleanPaveFiller& aPF = BOPTest_Objects::PaveFiller();
   //
   BOPTest_Objects::SetBuilderDefault();
   BOPAlgo_Builder& aBuilder = BOPTest_Objects::Builder();
   aBuilder.Clear();
   //
-  TopTools_ListOfShape& aLSObj = BOPTest_Objects::Shapes();
+  ShapeList& aLSObj = BOPTest_Objects::Shapes();
   aIt.Initialize(aLSObj);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aS = aIt.Value();
+    const TopoShape& aS = aIt.Value();
     aBuilder.AddArgument(aS);
   }
   //
-  TopTools_ListOfShape& aLSTool = BOPTest_Objects::Tools();
+  ShapeList& aLSTool = BOPTest_Objects::Tools();
   aIt.Initialize(aLSTool);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aS = aIt.Value();
+    const TopoShape& aS = aIt.Value();
     aBuilder.AddArgument(aS);
   }
   //
@@ -296,20 +296,20 @@ Standard_Integer bbuild(Draw_Interpretor& di, Standard_Integer n, const char** a
     di << buf;
   }
   //
-  const TopoDS_Shape& aR = aBuilder.Shape();
+  const TopoShape& aR = aBuilder.Shape();
   if (aR.IsNull())
   {
     di << "Result is a null shape\n";
     return 0;
   }
   //
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bbop(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bbop(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3 || n > 4)
   {
@@ -345,7 +345,7 @@ Standard_Integer bbop(Draw_Interpretor& di, Standard_Integer n, const char** a)
     }
   }
   //
-  BOPAlgo_PaveFiller& aPF = BOPTest_Objects::PaveFiller();
+  BooleanPaveFiller& aPF = BOPTest_Objects::PaveFiller();
   //
   BOPAlgo_Builder* pBuilder = NULL;
 
@@ -360,11 +360,11 @@ Standard_Integer bbop(Draw_Interpretor& di, Standard_Integer n, const char** a)
   //
   pBuilder->Clear();
   //
-  TopTools_ListOfShape&              aLSObj = BOPTest_Objects::Shapes();
+  ShapeList&              aLSObj = BOPTest_Objects::Shapes();
   TopTools_ListIteratorOfListOfShape aIt(aLSObj);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aS = aIt.Value();
+    const TopoShape& aS = aIt.Value();
     pBuilder->AddArgument(aS);
   }
   //
@@ -372,11 +372,11 @@ Standard_Integer bbop(Draw_Interpretor& di, Standard_Integer n, const char** a)
   {
     BOPAlgo_BOP* pBOP = (BOPAlgo_BOP*)pBuilder;
     //
-    TopTools_ListOfShape& aLSTools = BOPTest_Objects::Tools();
+    ShapeList& aLSTools = BOPTest_Objects::Tools();
     aIt.Initialize(aLSTools);
     for (; aIt.More(); aIt.Next())
     {
-      const TopoDS_Shape& aS = aIt.Value();
+      const TopoShape& aS = aIt.Value();
       pBOP->AddTool(aS);
     }
     //
@@ -384,11 +384,11 @@ Standard_Integer bbop(Draw_Interpretor& di, Standard_Integer n, const char** a)
   }
   else
   {
-    TopTools_ListOfShape& aLSTools = BOPTest_Objects::Tools();
+    ShapeList& aLSTools = BOPTest_Objects::Tools();
     aIt.Initialize(aLSTools);
     for (; aIt.More(); aIt.Next())
     {
-      const TopoDS_Shape& aS = aIt.Value();
+      const TopoShape& aS = aIt.Value();
       pBuilder->AddArgument(aS);
     }
   }
@@ -423,7 +423,7 @@ Standard_Integer bbop(Draw_Interpretor& di, Standard_Integer n, const char** a)
     di << buf;
   }
   //
-  const TopoDS_Shape& aR = pBuilder->Shape();
+  const TopoShape& aR = pBuilder->Shape();
   if (aR.IsNull())
   {
     di << "Result is a null shape\n";
@@ -432,13 +432,13 @@ Standard_Integer bbop(Draw_Interpretor& di, Standard_Integer n, const char** a)
   //
   BOPTest_Objects::SetBuilder(pBuilder);
   //
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bsplit(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bsplit(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2 || n > 3)
   {
@@ -453,17 +453,17 @@ Standard_Integer bsplit(Draw_Interpretor& di, Standard_Integer n, const char** a
     return 0;
   }
   //
-  BOPAlgo_PaveFiller& aPF = BOPTest_Objects::PaveFiller();
+  BooleanPaveFiller& aPF = BOPTest_Objects::PaveFiller();
   //
   BOPAlgo_Splitter* pSplitter = &BOPTest_Objects::Splitter();
   pSplitter->Clear();
   //
   // set objects
-  const TopTools_ListOfShape& aLSObjects = BOPTest_Objects::Shapes();
+  const ShapeList& aLSObjects = BOPTest_Objects::Shapes();
   pSplitter->SetArguments(aLSObjects);
   //
   // set tools
-  TopTools_ListOfShape& aLSTools = BOPTest_Objects::Tools();
+  ShapeList& aLSTools = BOPTest_Objects::Tools();
   pSplitter->SetTools(aLSTools);
   //
   // set options
@@ -511,20 +511,20 @@ Standard_Integer bsplit(Draw_Interpretor& di, Standard_Integer n, const char** a
   // Debug commands support
   BOPTest_Objects::SetBuilder(pSplitter);
   //
-  const TopoDS_Shape& aR = pSplitter->Shape();
+  const TopoShape& aR = pSplitter->Shape();
   if (aR.IsNull())
   {
     di << " null shape\n";
     return 0;
   }
   //
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer buildbop(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer buildbop(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
   {
@@ -553,7 +553,7 @@ Standard_Integer buildbop(Draw_Interpretor& di, Standard_Integer n, const char**
   }
 
   // Get arguments and operation
-  TopTools_ListOfShape aLObjects, aLTools;
+  ShapeList aLObjects, aLTools;
   BOPAlgo_Operation    anOp = BOPAlgo_UNKNOWN;
 
   for (Standard_Integer i = 2; i < n; ++i)
@@ -566,7 +566,7 @@ Standard_Integer buildbop(Draw_Interpretor& di, Standard_Integer n, const char**
         return 1;
       }
 
-      TopTools_ListOfShape& aList = !strcmp(a[i], "-o") ? aLObjects : aLTools;
+      ShapeList& aList = !strcmp(a[i], "-o") ? aLObjects : aLTools;
       Standard_Integer      j     = i + 1;
       for (; j < n; ++j)
       {
@@ -579,7 +579,7 @@ Standard_Integer buildbop(Draw_Interpretor& di, Standard_Integer n, const char**
         else
         {
           // Get the shape
-          TopoDS_Shape aS = DBRep::Get(a[j]);
+          TopoShape aS = DBRep1::Get(a[j]);
           if (aS.IsNull())
           {
             di << "Error: " << a[j] << " is a null shape";
@@ -665,9 +665,9 @@ Standard_Integer buildbop(Draw_Interpretor& di, Standard_Integer n, const char**
     BRepTest_Objects::SetHistory(pDS->Arguments(), *pBuilder);
 
   // Result shape
-  const TopoDS_Shape& aR = pBuilder->Shape();
-  // Draw result shape
-  DBRep::Set(a[1], aR);
+  const TopoShape& aR = pBuilder->Shape();
+  // Draw1 result shape
+  DBRep1::Set(a[1], aR);
 
   return 0;
 }

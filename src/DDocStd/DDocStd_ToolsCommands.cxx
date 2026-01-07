@@ -34,18 +34,18 @@
 // function : UpdateXLinks
 //=======================================================================
 
-static Standard_Integer DDocStd_UpdateXLinks(Draw_Interpretor& /*di*/,
+static Standard_Integer DDocStd_UpdateXLinks(DrawInterpreter& /*di*/,
                                              Standard_Integer n,
                                              const char**     a)
 {
   if (n < 3)
     return 1;
-  Handle(TDocStd_Document) D;
-  if (!DDocStd::GetDocument(a[1], D))
+  Handle(AppDocument) D;
+  if (!DDocStd1::GetDocument(a[1], D))
     return 1;
-  TCollection_AsciiString Entry(a[2]);
+  AsciiString1 Entry(a[2]);
   D->UpdateReferences(Entry);
-  // DDocStd::DisplayModified(a[1]);
+  // DDocStd1::DisplayModified(a[1]);
   return 0;
 }
 
@@ -54,14 +54,14 @@ static Standard_Integer DDocStd_UpdateXLinks(Draw_Interpretor& /*di*/,
 // purpose  : DumpDocument (DOC)
 //=======================================================================
 
-static Standard_Integer DDocStd_DumpCommand(Draw_Interpretor& di,
+static Standard_Integer DDocStd_DumpCommand(DrawInterpreter& di,
                                             Standard_Integer  nb,
                                             const char**      arg)
 {
   if (nb == 2)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
     //
     TDF_AttributeDeltaList     added, forgoten, resumed, removed, modified;
@@ -102,9 +102,9 @@ static Standard_Integer DDocStd_DumpCommand(Draw_Interpretor& di,
       }
     }
     //
-    TCollection_AsciiString string;
+    AsciiString1 string;
     //
-    TCollection_AsciiString name; // (D->Name());
+    AsciiString1 name; // (D->Name());
     di << "ADDED    :";
     it.Initialize(added);
     if (it.More())
@@ -186,14 +186,14 @@ static Standard_Integer DDocStd_DumpCommand(Draw_Interpretor& di,
 
 //=================================================================================================
 
-void DDocStd::ToolsCommands(Draw_Interpretor& theCommands)
+void DDocStd1::ToolsCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
 
-  const char* g = "DDocStd commands";
+  const char* g = "DDocStd1 commands";
 
   theCommands.Add("UpdateXLinks",
                   "UpdateXLinks DocName DocEntry",

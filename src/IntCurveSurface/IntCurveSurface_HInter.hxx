@@ -24,7 +24,7 @@
 #include <TColStd_Array1OfReal.hxx>
 
 class IntCurveSurface_TheHCurveTool;
-class Adaptor3d_HSurfaceTool;
+class HSurfaceTool;
 class IntCurveSurface_ThePolygonOfHInter;
 class IntCurveSurface_ThePolygonToolOfHInter;
 class IntCurveSurface_ThePolyhedronOfHInter;

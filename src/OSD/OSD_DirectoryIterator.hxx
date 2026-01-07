@@ -25,7 +25,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <OSD_Error.hxx>
 #include <Standard_Boolean.hxx>
-class OSD_Path;
+class SystemPath;
 
 //! Manages a breadth-only search for sub-directories in the specified
 //! Path.
@@ -41,14 +41,14 @@ public:
   //! Instantiates Object as Iterator.
   //! Wild-card "*" can be used in Mask the same way it
   //! is used by unix shell for file names
-  Standard_EXPORT OSD_DirectoryIterator(const OSD_Path& where, const TCollection_AsciiString& Mask);
+  Standard_EXPORT OSD_DirectoryIterator(const SystemPath& where, const AsciiString1& Mask);
 
   Standard_EXPORT void Destroy();
 
   ~OSD_DirectoryIterator() { Destroy(); }
 
   //! Initializes the current File Directory
-  Standard_EXPORT void Initialize(const OSD_Path& where, const TCollection_AsciiString& Mask);
+  Standard_EXPORT void Initialize(const SystemPath& where, const AsciiString1& Mask);
 
   //! Returns TRUE if other items are found while
   //! using the 'Tree' method.
@@ -77,8 +77,8 @@ public:
 private:
   OSD_Directory           TheIterator;
   Standard_Boolean        myFlag;
-  TCollection_AsciiString myMask;
-  TCollection_AsciiString myPlace;
+  AsciiString1 myMask;
+  AsciiString1 myPlace;
   OSD_Error               myError;
 
   // platform-specific fields

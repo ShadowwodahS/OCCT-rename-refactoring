@@ -31,7 +31,7 @@ class IGESDimen_NewDimensionedGeometry;
 DEFINE_STANDARD_HANDLE(IGESDimen_NewDimensionedGeometry, IGESData_IGESEntity)
 
 //! defines New Dimensioned Geometry, Type <402>, Form <21>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Links a dimension entity with the geometry entities it
 //! is dimensioning, so that later, in the receiving
 //! database, the dimension can be automatically recalculated

@@ -27,7 +27,7 @@
 class TDF_DataSet;
 class TDF_RelocationTable;
 class TDF_IDFilter;
-class TDF_Label;
+class DataLabel;
 
 //! This class provides services to build, copy or
 //! paste a set of information.
@@ -103,16 +103,16 @@ public:
 protected:
 private:
   //! Internal root label copy recursive method.
-  Standard_EXPORT static void CopyLabels(const TDF_Label&        aSLabel,
-                                         TDF_Label&              aTargetLabel,
+  Standard_EXPORT static void CopyLabels(const DataLabel&        aSLabel,
+                                         DataLabel&              aTargetLabel,
                                          TDF_LabelDataMap&       aLabMap,
                                          TDF_AttributeDataMap&   aAttMap,
                                          const TDF_LabelMap&     aSrcLabelMap,
                                          const TDF_AttributeMap& aSrcAttributeMap);
 
   //! Internal attribute copy method.
-  Standard_EXPORT static void CopyAttributes(const TDF_Label&        aSLabel,
-                                             TDF_Label&              aTargetLabel,
+  Standard_EXPORT static void CopyAttributes(const DataLabel&        aSLabel,
+                                             DataLabel&              aTargetLabel,
                                              TDF_AttributeDataMap&   aAttMap,
                                              const TDF_AttributeMap& aSrcAttributeMap);
 };

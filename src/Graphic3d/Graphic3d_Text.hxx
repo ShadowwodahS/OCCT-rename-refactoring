@@ -50,7 +50,7 @@ public:
   void SetText(const NCollection_String& theText) { myText = theText; }
 
   //! Sets text value.
-  void SetText(const TCollection_AsciiString& theText) { myText = theText.ToCString(); }
+  void SetText(const AsciiString1& theText) { myText = theText.ToCString(); }
 
   //! Sets text value.
   void SetText(Standard_CString theText) { myText = theText; }

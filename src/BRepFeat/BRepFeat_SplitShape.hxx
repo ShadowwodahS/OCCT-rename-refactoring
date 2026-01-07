@@ -27,13 +27,13 @@
 #include <TopTools_SequenceOfShape.hxx>
 
 class LocOpe_WiresOnShape;
-class TopoDS_Shape;
-class TopoDS_Wire;
-class TopoDS_Face;
-class TopoDS_Edge;
-class TopoDS_Compound;
+class TopoShape;
+class TopoWire;
+class TopoFace;
+class TopoEdge;
+class TopoCompound;
 
-//! One of the most significant aspects of BRepFeat functionality is the use of local
+//! One of the most significant aspects of BRepFeat1 functionality is the use of local
 //! operations as opposed to global ones. In a global operation, you would first construct a
 //! form of the type you wanted in your final feature, and then remove matter so that it could
 //! fit into your initial basis object. In a local operation, however, you specify the domain of
@@ -41,7 +41,7 @@ class TopoDS_Compound;
 //! These semantics are expressed in terms of a member shape of the basis shape from which -
 //! or up to which - matter will be added or removed. As a result, local operations make
 //! calculations simpler and faster than global operations.
-//! In BRepFeat, the semantics of local operations define features constructed from a contour or a
+//! In BRepFeat1, the semantics of local operations define features constructed from a contour or a
 //! part of the basis shape referred to as the tool. In a SplitShape object, wires or edges of a
 //! face in the basis shape to be used as a part of the feature are cut out and projected to a plane
 //! outside or inside the basis shape. By rebuilding the initial shape incorporating the edges and
@@ -55,7 +55,7 @@ public:
   BRepFeat_SplitShape();
 
   //! Creates the process  with the shape <S>.
-  BRepFeat_SplitShape(const TopoDS_Shape& S);
+  BRepFeat_SplitShape(const TopoShape& S);
 
   //! Add splitting edges or wires for whole initial shape
   //! without additional specification edge->face, edge->edge
@@ -63,7 +63,7 @@ public:
   Standard_Boolean Add(const TopTools_SequenceOfShape& theEdges);
 
   //! Initializes the process on the shape <S>.
-  void Init(const TopoDS_Shape& S);
+  void Init(const TopoShape& S);
 
   //! Set the flag of check internal intersections
   //! default value is True (to check)
@@ -71,10 +71,10 @@ public:
 
   //! Adds the wire <W> on the face <F>.
   //! Raises NoSuchObject  if <F> does not belong to the original shape.
-  void Add(const TopoDS_Wire& W, const TopoDS_Face& F);
+  void Add(const TopoWire& W, const TopoFace& F);
 
   //! Adds the edge <E> on the face <F>.
-  void Add(const TopoDS_Edge& E, const TopoDS_Face& F);
+  void Add(const TopoEdge& E, const TopoFace& F);
 
   //! Adds the compound <Comp> on the face <F>. The
   //! compound <Comp> must consist of edges lying on the
@@ -83,40 +83,40 @@ public:
   //! must share common vertices.
   //!
   //! Raises NoSuchObject  if <F> does not belong to the original shape.
-  void Add(const TopoDS_Compound& Comp, const TopoDS_Face& F);
+  void Add(const TopoCompound& Comp, const TopoFace& F);
 
   //! Adds the edge <E> on the existing edge <EOn>.
-  void Add(const TopoDS_Edge& E, const TopoDS_Edge& EOn);
+  void Add(const TopoEdge& E, const TopoEdge& EOn);
 
   //! Returns  the faces   which  are the  left of   the
   //! projected wires.
-  Standard_EXPORT const TopTools_ListOfShape& DirectLeft() const;
+  Standard_EXPORT const ShapeList& DirectLeft() const;
 
   //! Returns the faces of the "left" part on the shape.
   //! (It  is build   from  DirectLeft,  with  the faces
   //! connected to this set, and so on...).
   //! Raises NotDone if IsDone returns <Standard_False>.
-  Standard_EXPORT const TopTools_ListOfShape& Left() const;
+  Standard_EXPORT const ShapeList& Left() const;
 
   //! Returns the faces of the "right" part on the shape.
-  Standard_EXPORT const TopTools_ListOfShape& Right() const;
+  Standard_EXPORT const ShapeList& Right() const;
 
   //! Builds the cut and the resulting faces and edges as well.
   Standard_EXPORT void Build(const Message_ProgressRange& theRange = Message_ProgressRange())
     Standard_OVERRIDE;
 
   //! Returns true if the shape has been deleted.
-  Standard_EXPORT virtual Standard_Boolean IsDeleted(const TopoDS_Shape& S) Standard_OVERRIDE;
+  Standard_EXPORT virtual Standard_Boolean IsDeleted(const TopoShape& S) Standard_OVERRIDE;
 
   //! Returns the list of generated Faces.
-  Standard_EXPORT const TopTools_ListOfShape& Modified(const TopoDS_Shape& F) Standard_OVERRIDE;
+  Standard_EXPORT const ShapeList& Modified(const TopoShape& F) Standard_OVERRIDE;
 
 protected:
 private:
   LocOpe_Spliter              mySShape;
   Handle(LocOpe_WiresOnShape) myWOnShape;
 
-  mutable TopTools_ListOfShape myRight;
+  mutable ShapeList myRight;
 };
 
 #include <BRepFeat_SplitShape.lxx>

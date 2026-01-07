@@ -32,20 +32,20 @@ class TopOpeBRepDS_Interference;
 //! conditions  on   interferences.
 //! Nota   :
 //! inheritance  of   ListIteratorOfListOfInterference  from
-//! TopOpeBRepDS  has  not   been  done   because  of  the
+//! TopOpeBRepDS1  has  not   been  done   because  of  the
 //! impossibility of naming  the classical  More, Next
 //! methods  which are declared as static in
 //! TCollection_ListIteratorOfList ... . ListIteratorOfList
 //! has benn placed as a field of InterferenceIterator.
-class TopOpeBRepDS_InterferenceIterator
+class InterferenceIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepDS_InterferenceIterator();
+  Standard_EXPORT InterferenceIterator();
 
   //! Creates an iterator on the Interference of list <L>.
-  Standard_EXPORT TopOpeBRepDS_InterferenceIterator(const TopOpeBRepDS_ListOfInterference& L);
+  Standard_EXPORT InterferenceIterator(const TopOpeBRepDS_ListOfInterference& L);
 
   //! re-initialize  interference iteration  process  on
   //! the list of interference <L>.

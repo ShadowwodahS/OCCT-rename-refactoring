@@ -22,7 +22,7 @@
 #include <OSD_Thread.hxx>
 
 //! Implementation of Functors/Starters
-class BOPTools_Parallel
+class BooleanParallelTools
 {
   template <class TypeSolverVector>
   class Functor

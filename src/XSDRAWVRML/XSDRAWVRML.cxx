@@ -42,7 +42,7 @@
 //=============================================================================
 static bool parseCoordinateSystem(const char* theArg, RWMesh_CoordinateSystem& theSystem)
 {
-  TCollection_AsciiString aCSStr(theArg);
+  AsciiString1 aCSStr(theArg);
   aCSStr.LowerCase();
   if (aCSStr == "zup")
   {
@@ -61,7 +61,7 @@ static bool parseCoordinateSystem(const char* theArg, RWMesh_CoordinateSystem& t
 
 //=================================================================================================
 
-static Standard_Integer ReadVrml(Draw_Interpretor& theDI,
+static Standard_Integer ReadVrml(DrawInterpreter& theDI,
                                  Standard_Integer  theArgc,
                                  const char**      theArgv)
 {
@@ -71,22 +71,22 @@ static Standard_Integer ReadVrml(Draw_Interpretor& theDI,
     return 1;
   }
 
-  Handle(TDocStd_Document) aDoc;
+  Handle(AppDocument) aDoc;
   Standard_Real            aFileUnitFactor = 1.0;
   RWMesh_CoordinateSystem  aFileCoordSys   = RWMesh_CoordinateSystem_Yup,
                           aSystemCoordSys  = RWMesh_CoordinateSystem_Zup;
   Standard_Boolean        toUseExistingDoc = Standard_False;
   Standard_Boolean        toFillIncomplete = Standard_True;
   Standard_CString        aDocName         = NULL;
-  TCollection_AsciiString aFilePath;
+  AsciiString1 aFilePath;
 
   for (Standard_Integer anArgIt = 1; anArgIt < theArgc; anArgIt++)
   {
-    TCollection_AsciiString anArg(theArgv[anArgIt]);
+    AsciiString1 anArg(theArgv[anArgIt]);
     anArg.LowerCase();
     if (anArgIt + 1 < theArgc && anArg == "-fileunit")
     {
-      const TCollection_AsciiString aUnitStr(theArgv[++anArgIt]);
+      const AsciiString1 aUnitStr(theArgv[++anArgIt]);
       aFileUnitFactor = UnitsAPI::AnyToSI(1.0, aUnitStr.ToCString());
       if (aFileUnitFactor <= 0.0)
       {
@@ -113,7 +113,7 @@ static Standard_Integer ReadVrml(Draw_Interpretor& theDI,
     else if (anArg == "-fillincomplete")
     {
       toFillIncomplete = true;
-      if (anArgIt + 1 < theArgc && Draw::ParseOnOff(theArgv[anArgIt + 1], toFillIncomplete))
+      if (anArgIt + 1 < theArgc && Draw1::ParseOnOff(theArgv[anArgIt + 1], toFillIncomplete))
       {
         ++anArgIt;
       }
@@ -125,7 +125,7 @@ static Standard_Integer ReadVrml(Draw_Interpretor& theDI,
     else if (aDocName == nullptr)
     {
       aDocName = theArgv[anArgIt];
-      DDocStd::GetDocument(aDocName, aDoc, Standard_False);
+      DDocStd1::GetDocument(aDocName, aDoc, Standard_False);
     }
     else if (aFilePath.IsEmpty())
     {
@@ -151,7 +151,7 @@ static Standard_Integer ReadVrml(Draw_Interpretor& theDI,
       Message::SendFail() << "Error: document with name " << aDocName << " does not exist";
       return 1;
     }
-    Handle(TDocStd_Application) anApp = DDocStd::GetApplication();
+    Handle(AppManager) anApp = DDocStd1::GetApplication();
     anApp->NewDocument("BinXCAF", aDoc);
   }
   else if (!toUseExistingDoc)
@@ -188,27 +188,27 @@ static Standard_Integer ReadVrml(Draw_Interpretor& theDI,
                            << aFilePath;
   }
 
-  TDataStd_Name::Set(aDoc->GetData()->Root(), aDocName);
+  NameAttribute::Set(aDoc->GetData()->Root(), aDocName);
   Handle(DDocStd_DrawDocument) aDD = new DDocStd_DrawDocument(aDoc);
-  Draw::Set(aDocName, aDD);
+  Draw1::Set(aDocName, aDD);
 
   return 0;
 }
 
 //=======================================================================
 // function : WriteVrml
-// purpose  : Write DECAF document to Vrml
+// purpose  : Write DECAF document to Vrml1
 //=======================================================================
-static Standard_Integer WriteVrml(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer WriteVrml(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
-    di << "Use: " << argv[0] << " Doc filename: write document to Vrml file\n";
+    di << "Use: " << argv[0] << " Doc filename: write document to Vrml1 file\n";
     return 0;
   }
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -239,13 +239,13 @@ static Standard_Integer WriteVrml(Draw_Interpretor& di, Standard_Integer argc, c
 
 //=================================================================================================
 
-static Standard_Integer loadvrml(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer loadvrml(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
     di << "wrong number of parameters" << "\n";
   else
   {
-    TopoDS_Shape                      aShape;
+    TopoShape                      aShape;
     VrmlData_DataMapOfShapeAppearance aShapeAppMap;
 
     //-----------------------------------------------------------
@@ -256,10 +256,10 @@ static Standard_Integer loadvrml(Draw_Interpretor& di, Standard_Integer argc, co
     {
 
       // Get path of the VRML file.
-      OSD_Path                aPath(argv[2]);
-      TCollection_AsciiString aVrmlDir(".");
-      TCollection_AsciiString aDisk = aPath.Disk();
-      TCollection_AsciiString aTrek = aPath.Trek();
+      SystemPath                aPath(argv[2]);
+      AsciiString1 aVrmlDir(".");
+      AsciiString1 aDisk = aPath.Disk();
+      AsciiString1 aTrek = aPath.Trek();
       if (!aTrek.IsEmpty())
       {
         if (!aDisk.IsEmpty())
@@ -344,7 +344,7 @@ static Standard_Integer loadvrml(Draw_Interpretor& di, Standard_Integer argc, co
       }
       else
       {
-        DBRep::Set(argv[1], aShape);
+        DBRep1::Set(argv[1], aShape);
       }
     }
     else
@@ -359,7 +359,7 @@ static Standard_Integer loadvrml(Draw_Interpretor& di, Standard_Integer argc, co
 
 //=================================================================================================
 
-static Standard_Integer writevrml(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer writevrml(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3 || argc > 5)
   {
@@ -367,16 +367,16 @@ static Standard_Integer writevrml(Draw_Interpretor& di, Standard_Integer argc, c
     return 0;
   }
 
-  TopoDS_Shape aShape = DBRep::Get(argv[1]);
+  TopoShape aShape = DBRep1::Get(argv[1]);
 
   // Get the optional parameters
   Standard_Integer aVersion = 2;
   Standard_Integer aType    = 1;
   if (argc >= 4)
   {
-    aVersion = Draw::Atoi(argv[3]);
+    aVersion = Draw1::Atoi(argv[3]);
     if (argc == 5)
-      aType = Draw::Atoi(argv[4]);
+      aType = Draw1::Atoi(argv[4]);
   }
 
   // Bound parameters
@@ -410,7 +410,7 @@ static Standard_Integer writevrml(Draw_Interpretor& di, Standard_Integer argc, c
 
 //=================================================================================================
 
-void XSDRAWVRML::Factory(Draw_Interpretor& theDI)
+void XSDRAWVRML::Factory(DrawInterpreter& theDI)
 {
   static Standard_Boolean anInitActor = Standard_False;
   if (anInitActor)
@@ -425,9 +425,9 @@ void XSDRAWVRML::Factory(Draw_Interpretor& theDI)
     "ReadVrml docName filePath [-fileCoordSys {Zup|Yup}] [-fileUnit Unit]"
     "\n\t\t:                   [-systemCoordSys {Zup|Yup}] [-noCreateDoc] [-fillIncomplete "
     "{ON|OFF}]"
-    "\n\t\t: Read Vrml file into XDE document."
-    "\n\t\t:   -fileCoordSys   coordinate system defined by Vrml file; Yup when not specified."
-    "\n\t\t:   -fileUnit       length unit of Vrml file content."
+    "\n\t\t: Read Vrml1 file into XDE document."
+    "\n\t\t:   -fileCoordSys   coordinate system defined by Vrml1 file; Yup when not specified."
+    "\n\t\t:   -fileUnit       length unit of Vrml1 file content."
     "\n\t\t:   -systemCoordSys result coordinate system; Zup when not specified."
     "\n\t\t:   -noCreateDoc    read into existing XDE document."
     "\n\t\t:   -fillIncomplete fill the document with partially retrieved data even if reader has "

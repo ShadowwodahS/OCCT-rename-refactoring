@@ -23,7 +23,7 @@
 #include <NCollection_IndexedMap.hxx>
 #include <BVH_Builder3d.hxx>
 
-class Graphic3d_Camera;
+class CameraOn3d;
 class Graphic3d_CStructure;
 
 //! Set of transformation persistent OpenGl_Structure for building BVH tree.
@@ -80,7 +80,7 @@ public:
 
   //! Returns BVH tree for the given world view projection (builds it if necessary).
   Standard_EXPORT const opencascade::handle<BVH_Tree<Standard_Real, 3>>& BVH(
-    const Handle(Graphic3d_Camera)&     theCamera,
+    const Handle(CameraOn3d)&     theCamera,
     const Graphic3d_Mat4d&              theProjectionMatrix,
     const Graphic3d_Mat4d&              theWorldViewMatrix,
     const Standard_Integer              theViewportWidth,

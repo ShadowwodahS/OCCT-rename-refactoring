@@ -44,7 +44,7 @@ public:
   //! hostname      - Specifies the name of the host machine on which the display is physically
   //! attached. number        - Specifies the number of the display server on that host machine.
   //! screen_number - Specifies the screen to be used on that server. Optional variable.
-  Standard_EXPORT Aspect_DisplayConnection(const TCollection_AsciiString& theDisplayName);
+  Standard_EXPORT Aspect_DisplayConnection(const AsciiString1& theDisplayName);
 
   //! Constructor wrapping existing Display instance.
   //! WARNING! it is a responsibility of application to keep this pointer
@@ -62,7 +62,7 @@ public:
   uint64_t GetAtom(const Aspect_XAtom theAtom) const { return myAtoms.Find(theAtom); }
 
   //! @return display name for this connection.
-  const TCollection_AsciiString& GetDisplayName() { return myDisplayName; }
+  const AsciiString1& GetDisplayName() { return myDisplayName; }
 
   //! Open connection with display specified in myDisplayName class field
   //! or takes theDisplay parameter when it is not NULL.
@@ -118,7 +118,7 @@ private:
   Aspect_XVisualInfo*                         myDefVisualInfo;
   Aspect_FBConfig                             myDefFBConfig;
   NCollection_DataMap<Aspect_XAtom, uint64_t> myAtoms;
-  TCollection_AsciiString                     myDisplayName;
+  AsciiString1                     myDisplayName;
   Standard_Boolean                            myIsOwnDisplay;
 
 private:

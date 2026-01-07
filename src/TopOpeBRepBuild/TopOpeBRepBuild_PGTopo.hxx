@@ -17,7 +17,7 @@
 #ifndef _TopOpeBRepBuild_PGTopo_HeaderFile
 #define _TopOpeBRepBuild_PGTopo_HeaderFile
 
-class TopOpeBRepBuild_GTopo;
-typedef TopOpeBRepBuild_GTopo* TopOpeBRepBuild_PGTopo;
+class GTopologyClassifier;
+typedef GTopologyClassifier* TopOpeBRepBuild_PGTopo;
 
 #endif // _TopOpeBRepBuild_PGTopo_HeaderFile

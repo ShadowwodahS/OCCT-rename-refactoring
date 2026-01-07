@@ -20,20 +20,20 @@
 #include <TColStd_SequenceOfReal.hxx>
 #include <TColStd_SequenceOfInteger.hxx>
 
-class IntTools_Range;
+class IntToolsRange;
 
 //! class MarkedRangeSet provides continuous set of ranges marked with flags
-class IntTools_MarkedRangeSet
+class MarkedRangeSet
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor
-  Standard_EXPORT IntTools_MarkedRangeSet();
+  Standard_EXPORT MarkedRangeSet();
 
   //! build set of ranges which consists of one range with
   //! boundary values theFirstBoundary and theLastBoundary
-  Standard_EXPORT IntTools_MarkedRangeSet(const Standard_Real    theFirstBoundary,
+  Standard_EXPORT MarkedRangeSet(const Standard_Real    theFirstBoundary,
                                           const Standard_Real    theLastBoundary,
                                           const Standard_Integer theInitFlag);
 
@@ -42,7 +42,7 @@ public:
   //! Warning:
   //! The constructor do not check if the values of array are not sorted
   //! It should be checked before function invocation
-  Standard_EXPORT IntTools_MarkedRangeSet(const TColStd_Array1OfReal& theSortedArray,
+  Standard_EXPORT MarkedRangeSet(const TColStd_Array1OfReal& theSortedArray,
                                           const Standard_Integer      theInitFlag);
 
   //! build set of ranges which consists of one range with
@@ -73,7 +73,7 @@ public:
   //! and their flags.
   //! Returns True if the range is inside the initial boundaries,
   //! otherwise or in case of some error returns False
-  Standard_EXPORT Standard_Boolean InsertRange(const IntTools_Range&  theRange,
+  Standard_EXPORT Standard_Boolean InsertRange(const IntToolsRange&  theRange,
                                                const Standard_Integer theFlag);
 
   //! Inserts a new range marked with flag theFlag
@@ -93,7 +93,7 @@ public:
   //! The index theIndex is a position where the range will be inserted.
   //! Returns True if the range is inside the initial boundaries,
   //! otherwise or in case of some error returns False
-  Standard_EXPORT Standard_Boolean InsertRange(const IntTools_Range&  theRange,
+  Standard_EXPORT Standard_Boolean InsertRange(const IntToolsRange&  theRange,
                                                const Standard_Integer theFlag,
                                                const Standard_Integer theIndex);
 
@@ -122,7 +122,7 @@ public:
 
   //! Returns the range with index theIndex.
   //! the Index can be from 1 to Length()
-  Standard_EXPORT IntTools_Range Range(const Standard_Integer theIndex) const;
+  Standard_EXPORT IntToolsRange Range(const Standard_Integer theIndex) const;
 
 private:
   TColStd_SequenceOfReal    myRangeSetStorer;

@@ -104,7 +104,7 @@ void BOPAlgo_WireSplitter::Perform(const Message_ProgressRange& theRange)
     myContext = new IntTools_Context;
   }
   //
-  BOPTools_AlgoTools::MakeConnexityBlocks(myWES->StartElements(),
+  AlgoTools::MakeConnexityBlocks(myWES->StartElements(),
                                           TopAbs_VERTEX,
                                           TopAbs_EDGE,
                                           myLCB);
@@ -123,9 +123,9 @@ public:
   BOPAlgo_WS_ConnexityBlock() {};
   ~BOPAlgo_WS_ConnexityBlock() {};
 
-  void SetFace(const TopoDS_Face& theF) { myFace = theF; }
+  void SetFace(const TopoFace& theF) { myFace = theF; }
 
-  const TopoDS_Face& Face() const { return myFace; }
+  const TopoFace& Face() const { return myFace; }
 
   void SetConnexityBlock(const BOPTools_ConnexityBlock& theCB) { myCB = theCB; }
 
@@ -150,7 +150,7 @@ public:
   }
 
 protected:
-  TopoDS_Face              myFace;
+  TopoFace              myFace;
   BOPTools_ConnexityBlock  myCB;
   Handle(IntTools_Context) myContext;
   Message_ProgressRange    myRange;
@@ -164,14 +164,14 @@ void BOPAlgo_WireSplitter::MakeWires(const Message_ProgressRange& theRange)
 {
   Standard_Boolean                            bIsRegular;
   Standard_Integer                            aNbVCB, k;
-  TopoDS_Wire                                 aW;
+  TopoWire                                 aW;
   BOPTools_ListIteratorOfListOfConnexityBlock aItCB;
   TopTools_ListIteratorOfListOfShape          aIt;
   BOPAlgo_VectorOfConnexityBlock              aVCB;
   //
   Message_ProgressScope aPSOuter(theRange, NULL, 1);
   //
-  const TopoDS_Face& aF = myWES->Face();
+  const TopoFace& aF = myWES->Face();
   //
   aItCB.Initialize(myLCB);
   for (; aItCB.More(); aItCB.Next())
@@ -185,7 +185,7 @@ void BOPAlgo_WireSplitter::MakeWires(const Message_ProgressRange& theRange)
     bIsRegular                   = aCB.IsRegular();
     if (bIsRegular)
     {
-      TopTools_ListOfShape& aLE = aCB.ChangeShapes();
+      ShapeList& aLE = aCB.ChangeShapes();
       BOPAlgo_WireSplitter::MakeWire(aLE, aW);
       myWES->AddShape(aW);
     }
@@ -203,16 +203,16 @@ void BOPAlgo_WireSplitter::MakeWires(const Message_ProgressRange& theRange)
     aVCB.ChangeValue(iW).SetProgressRange(aPSParallel.Next());
   }
   //===================================================
-  BOPTools_Parallel::Perform(myRunParallel, aVCB, myContext);
+  BooleanParallelTools::Perform(myRunParallel, aVCB, myContext);
   //===================================================
   for (k = 0; k < aNbVCB; ++k)
   {
     const BOPAlgo_WS_ConnexityBlock& aCB = aVCB(k);
-    const TopTools_ListOfShape&      aLW = aCB.ConnexityBlock().Loops();
+    const ShapeList&      aLW = aCB.ConnexityBlock().Loops();
     aIt.Initialize(aLW);
     for (; aIt.More(); aIt.Next())
     {
-      const TopoDS_Shape& aWx = aIt.Value();
+      const TopoShape& aWx = aIt.Value();
       myWES->AddShape(aWx);
     }
   }

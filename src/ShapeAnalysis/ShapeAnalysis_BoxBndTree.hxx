@@ -53,7 +53,7 @@ public:
     myArrIndices.Init(0);
   }
 
-  void DefineVertexes(TopoDS_Vertex theVf, TopoDS_Vertex theVl)
+  void DefineVertexes(TopoVertex theVf, TopoVertex theVl)
   {
     myFVertex = theVf;
     myLVertex = theVl;
@@ -98,8 +98,8 @@ private:
   Handle(TopTools_HArray1OfShape) mySeq;
   Standard_Boolean                myShared;
   Standard_Integer                myNb;
-  TopoDS_Vertex                   myFVertex;
-  TopoDS_Vertex                   myLVertex;
+  TopoVertex                   myFVertex;
+  TopoVertex                   myLVertex;
   Point3d                          myFPnt;
   Point3d                          myLPnt;
   TColStd_MapOfInteger            myList;

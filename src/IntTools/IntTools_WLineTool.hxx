@@ -18,18 +18,18 @@
 #include <IntPatch_WLine.hxx>
 #include <IntPatch_SequenceOfLine.hxx>
 
-class TopoDS_Face;
+class TopoFace;
 class GeomInt_LineConstructor;
 class IntTools_Context;
 
-//! IntTools_WLineTool provides set of static methods related to walking lines.
-class IntTools_WLineTool
+//! WireLineTool provides set of static methods related to walking lines.
+class WireLineTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static Standard_Boolean NotUseSurfacesForApprox(const TopoDS_Face&            aF1,
-                                                                  const TopoDS_Face&            aF2,
+  Standard_EXPORT static Standard_Boolean NotUseSurfacesForApprox(const TopoFace&            aF1,
+                                                                  const TopoFace&            aF2,
                                                                   const Handle(IntPatch_WLine)& WL,
                                                                   const Standard_Integer ifprm,
                                                                   const Standard_Integer ilprm);
@@ -38,8 +38,8 @@ public:
     const Handle(IntPatch_WLine)&      theWLine,
     const Handle(GeomAdaptor_Surface)& theSurface1,
     const Handle(GeomAdaptor_Surface)& theSurface2,
-    const TopoDS_Face&                 theFace1,
-    const TopoDS_Face&                 theFace2,
+    const TopoFace&                 theFace1,
+    const TopoFace&                 theFace2,
     const GeomInt_LineConstructor&     theLConstructor,
     const Standard_Boolean             theAvoidLConstructor,
     const Standard_Real                theTol,

@@ -37,21 +37,21 @@
 #include <V3d_Viewer.hxx>
 
 #ifndef _WIN32
-extern Draw_Viewer dout;
+extern DrawViewer dout;
 #else
-Standard_IMPORT Draw_Viewer dout;
+Standard_IMPORT DrawViewer dout;
 #endif
 
 //=================================================================================================
 
-static Standard_Integer DDocStd_ListDocuments(Draw_Interpretor& di,
+static Standard_Integer DDocStd_ListDocuments(DrawInterpreter& di,
                                               Standard_Integer  nb,
                                               const char** /*a*/)
 {
   if (nb == 1)
   {
-    Handle(TDocStd_Application) A = DDocStd::GetApplication();
-    Handle(TDocStd_Document)    D;
+    Handle(AppManager) A = DDocStd1::GetApplication();
+    Handle(AppDocument)    D;
     Standard_Integer            nbdoc = A->NbDocuments();
     for (Standard_Integer i = 1; i <= nbdoc; i++)
     {
@@ -74,21 +74,21 @@ static Standard_Integer DDocStd_ListDocuments(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer DDocStd_NewDocument(Draw_Interpretor& di,
+static Standard_Integer DDocStd_NewDocument(DrawInterpreter& di,
                                             Standard_Integer  nb,
                                             const char**      a)
 {
-  Handle(TDocStd_Document)     D;
+  Handle(AppDocument)     D;
   Handle(DDocStd_DrawDocument) DD;
   if (nb == 2)
   {
-    if (!DDocStd::GetDocument(a[1], D, Standard_False))
+    if (!DDocStd1::GetDocument(a[1], D, Standard_False))
     {
-      D  = new TDocStd_Document("dummy");
+      D  = new AppDocument("dummy");
       DD = new DDocStd_DrawDocument(D);
-      Draw::Set(a[1], DD);
+      Draw1::Set(a[1], DD);
       di << "document (not handled by application)  " << a[1] << " created\n";
-      DDocStd::ReturnLabel(di, D->Main());
+      DDocStd1::ReturnLabel(di, D->Main());
     }
     else
       di << a[1] << " is already a document\n";
@@ -96,15 +96,15 @@ static Standard_Integer DDocStd_NewDocument(Draw_Interpretor& di,
   }
   if (nb == 3)
   {
-    if (!DDocStd::GetDocument(a[1], D, Standard_False))
+    if (!DDocStd1::GetDocument(a[1], D, Standard_False))
     {
-      Handle(TDocStd_Application) A = DDocStd::GetApplication();
+      Handle(AppManager) A = DDocStd1::GetApplication();
       A->NewDocument(a[2], D);
       DD = new DDocStd_DrawDocument(D);
-      TDataStd_Name::Set(D->GetData()->Root(), a[1]);
-      Draw::Set(a[1], DD);
+      NameAttribute::Set(D->GetData()->Root(), a[1]);
+      Draw1::Set(a[1], DD);
       di << "document " << a[1] << " created\n";
-      DDocStd::ReturnLabel(di, D->Main());
+      DDocStd1::ReturnLabel(di, D->Main());
     }
     else
       di << a[1] << " is already a document\n";
@@ -116,21 +116,21 @@ static Standard_Integer DDocStd_NewDocument(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer DDocStd_Open(Draw_Interpretor& di, Standard_Integer nb, const char** a)
+static Standard_Integer DDocStd_Open(DrawInterpreter& di, Standard_Integer nb, const char** a)
 {
   if (nb >= 3)
   {
-    TCollection_ExtendedString  path(a[1], Standard_True);
+    UtfString  path(a[1], Standard_True);
     Standard_CString            DocName = a[2];
-    Handle(TDocStd_Application) A       = DDocStd::GetApplication();
-    Handle(TDocStd_Document)    D;
+    Handle(AppManager) A       = DDocStd1::GetApplication();
+    Handle(AppDocument)    D;
     PCDM_ReaderStatus           theStatus;
 
     Standard_Boolean          anUseStream = Standard_False;
     Handle(PCDM_ReaderFilter) aFilter     = new PCDM_ReaderFilter;
     for (Standard_Integer i = 3; i < nb; i++)
     {
-      TCollection_AsciiString anArg(a[i]);
+      AsciiString1 anArg(a[i]);
       if (anArg == "-append")
       {
         aFilter->Mode() = PCDM_ReaderFilter::AppendMode_Protect;
@@ -146,12 +146,12 @@ static Standard_Integer DDocStd_Open(Draw_Interpretor& di, Standard_Integer nb, 
       }
       else if (anArg.StartsWith("-skip"))
       {
-        TCollection_AsciiString anAttrType = anArg.SubString(6, anArg.Length());
+        AsciiString1 anAttrType = anArg.SubString(6, anArg.Length());
         aFilter->AddSkipped(anAttrType);
       }
       else if (anArg.StartsWith("-read"))
       {
-        TCollection_AsciiString aValue = anArg.SubString(6, anArg.Length());
+        AsciiString1 aValue = anArg.SubString(6, anArg.Length());
         if (aValue.Value(1) == '0') // path
         {
           aFilter->AddPath(aValue);
@@ -163,7 +163,7 @@ static Standard_Integer DDocStd_Open(Draw_Interpretor& di, Standard_Integer nb, 
       }
     }
 
-    if (aFilter->IsAppendMode() && !DDocStd::GetDocument(DocName, D, Standard_False))
+    if (aFilter->IsAppendMode() && !DDocStd1::GetDocument(DocName, D, Standard_False))
     {
       di << "for append mode document " << DocName << " must be already created\n";
       return 1;
@@ -186,8 +186,8 @@ static Standard_Integer DDocStd_Open(Draw_Interpretor& di, Standard_Integer nb, 
       if (!aFilter->IsAppendMode())
       {
         Handle(DDocStd_DrawDocument) DD = new DDocStd_DrawDocument(D);
-        TDataStd_Name::Set(D->GetData()->Root(), DocName);
-        Draw::Set(DocName, DD);
+        NameAttribute::Set(D->GetData()->Root(), DocName);
+        Draw1::Set(DocName, DD);
       }
       return 0;
     }
@@ -234,14 +234,14 @@ static Standard_Integer DDocStd_Open(Draw_Interpretor& di, Standard_Integer nb, 
 
 //=================================================================================================
 
-static Standard_Integer DDocStd_Save(Draw_Interpretor& di, Standard_Integer nb, const char** a)
+static Standard_Integer DDocStd_Save(DrawInterpreter& di, Standard_Integer nb, const char** a)
 {
   if (nb == 2)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(a[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(a[1], D))
       return 1;
-    Handle(TDocStd_Application) A = DDocStd::GetApplication();
+    Handle(AppManager) A = DDocStd1::GetApplication();
     if (!D->IsSaved())
     {
       di << "this document has never been saved\n";
@@ -258,15 +258,15 @@ static Standard_Integer DDocStd_Save(Draw_Interpretor& di, Standard_Integer nb, 
 
 //=================================================================================================
 
-static Standard_Integer DDocStd_SaveAs(Draw_Interpretor& di, Standard_Integer nb, const char** a)
+static Standard_Integer DDocStd_SaveAs(DrawInterpreter& di, Standard_Integer nb, const char** a)
 {
   if (nb >= 3)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(a[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(a[1], D))
       return 1;
-    TCollection_ExtendedString  path(a[2], Standard_True);
-    Handle(TDocStd_Application) A = DDocStd::GetApplication();
+    UtfString  path(a[2], Standard_True);
+    Handle(AppManager) A = DDocStd1::GetApplication();
     PCDM_StoreStatus            theStatus;
 
     Standard_Boolean anUseStream(Standard_False), isSaveEmptyLabels(Standard_False);
@@ -346,20 +346,20 @@ static Standard_Integer DDocStd_SaveAs(Draw_Interpretor& di, Standard_Integer nb
 
 //=================================================================================================
 
-static Standard_Integer DDocStd_Close(Draw_Interpretor& theDI,
+static Standard_Integer DDocStd_Close(DrawInterpreter& theDI,
                                       Standard_Integer  theArgNb,
                                       const char**      theArgVec)
 {
   bool                                      toComplain = true;
-  NCollection_List<TCollection_AsciiString> aDocNames;
+  NCollection_List<AsciiString1> aDocNames;
   for (Standard_Integer anArgIt = 1; anArgIt < theArgNb; ++anArgIt)
   {
-    const TCollection_AsciiString anArg(theArgVec[anArgIt]);
-    TCollection_AsciiString       anArgCase(anArg);
+    const AsciiString1 anArg(theArgVec[anArgIt]);
+    AsciiString1       anArgCase(anArg);
     anArgCase.LowerCase();
     if (anArgCase == "*" || anArgCase == "-all" || anArgCase == "all")
     {
-      for (NCollection_Map<Handle(Draw_Drawable3D)>::Iterator anIter(Draw::Drawables());
+      for (NCollection_Map<Handle(Draw_Drawable3D)>::Iterator anIter(Draw1::Drawables());
            anIter.More();
            anIter.Next())
       {
@@ -390,21 +390,21 @@ static Standard_Integer DDocStd_Close(Draw_Interpretor& theDI,
     return 1;
   }
 
-  Handle(TDocStd_Application) aDocApp = DDocStd::GetApplication();
-  for (NCollection_List<TCollection_AsciiString>::Iterator aDocNameIter(aDocNames);
+  Handle(AppManager) aDocApp = DDocStd1::GetApplication();
+  for (NCollection_List<AsciiString1>::Iterator aDocNameIter(aDocNames);
        aDocNameIter.More();
        aDocNameIter.Next())
   {
     Standard_CString         aDocName = aDocNameIter.Value().ToCString();
-    Handle(TDocStd_Document) aDoc;
-    if (DDocStd::GetDocument(aDocName, aDoc, toComplain))
+    Handle(AppDocument) aDoc;
+    if (DDocStd1::GetDocument(aDocName, aDoc, toComplain))
     {
-      TDF_Label                 aRoot = aDoc->GetData()->Root();
+      DataLabel                 aRoot = aDoc->GetData()->Root();
       Handle(TPrsStd_AISViewer) aDocViewer;
       if (TPrsStd_AISViewer::Find(aRoot, aDocViewer)
           && !aDocViewer->GetInteractiveContext().IsNull())
       {
-        Handle(V3d_Viewer) aViewer = aDocViewer->GetInteractiveContext()->CurrentViewer();
+        Handle(ViewManager) aViewer = aDocViewer->GetInteractiveContext()->CurrentViewer();
         V3d_ListOfView     aViews;
         for (V3d_ListOfViewIterator aViewIter(
                aDocViewer->GetInteractiveContext()->CurrentViewer()->DefinedViewIterator());
@@ -415,7 +415,7 @@ static Standard_Integer DDocStd_Close(Draw_Interpretor& theDI,
         }
         for (V3d_ListOfViewIterator aViewIter(aViews); aViewIter.More(); aViewIter.Next())
         {
-          Handle(V3d_View) aView = aViewIter.Value();
+          Handle(ViewWindow) aView = aViewIter.Value();
           ViewerTest::RemoveView(aView);
         }
       }
@@ -426,24 +426,24 @@ static Standard_Integer DDocStd_Close(Draw_Interpretor& theDI,
       return 1;
     }
 
-    if (Handle(Draw_Drawable3D) aDrawable = Draw::GetExisting(aDocName))
+    if (Handle(Draw_Drawable3D) aDrawable = Draw1::GetExisting(aDocName))
     {
       dout.RemoveDrawable(aDrawable);
     }
-    Draw::Set(aDocName, Handle(Draw_Drawable3D)());
+    Draw1::Set(aDocName, Handle(Draw_Drawable3D)());
   }
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer DDocStd_IsInSession(Draw_Interpretor& di,
+static Standard_Integer DDocStd_IsInSession(DrawInterpreter& di,
                                             Standard_Integer  nb,
                                             const char**      a)
 {
   if (nb == 2)
   {
-    Handle(TDocStd_Application) A = DDocStd::GetApplication();
+    Handle(AppManager) A = DDocStd1::GetApplication();
     di << A->IsInSession(a[1]);
     return 0;
   }
@@ -453,11 +453,11 @@ static Standard_Integer DDocStd_IsInSession(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer DDocStd_OSDPath(Draw_Interpretor& di, Standard_Integer nb, const char** a)
+static Standard_Integer DDocStd_OSDPath(DrawInterpreter& di, Standard_Integer nb, const char** a)
 {
   if (nb == 2)
   {
-    OSD_Path path(a[1]);
+    SystemPath path(a[1]);
     di << "Node      : " << path.Node().ToCString() << "\n";
     di << "UserName  : " << path.UserName().ToCString() << "\n";
     di << "Password  : " << path.Password().ToCString() << "\n";
@@ -473,11 +473,11 @@ static Standard_Integer DDocStd_OSDPath(Draw_Interpretor& di, Standard_Integer n
 
 //=================================================================================================
 
-static Standard_Integer DDocStd_Path(Draw_Interpretor& di, Standard_Integer nb, const char** a)
+static Standard_Integer DDocStd_Path(DrawInterpreter& di, Standard_Integer nb, const char** a)
 {
   if (nb == 2)
   {
-    TDocStd_PathParser path(TCollection_ExtendedString(a[1], Standard_True));
+    TDocStd_PathParser path(UtfString(a[1], Standard_True));
     di << "Trek      : " << path.Trek() << "\n";
     di << "Name      : " << path.Name() << "\n";
     di << "Extension : " << path.Extension() << "\n";
@@ -490,17 +490,17 @@ static Standard_Integer DDocStd_Path(Draw_Interpretor& di, Standard_Integer nb, 
 
 //=================================================================================================
 
-static Standard_Integer DDocStd_AddComment(Draw_Interpretor& di,
+static Standard_Integer DDocStd_AddComment(DrawInterpreter& di,
                                            Standard_Integer  nb,
                                            const char**      a)
 {
   if (nb == 3)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(a[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(a[1], D))
       return 1;
-    TCollection_ExtendedString comment(a[2], Standard_True);
-    //    Handle(TDocStd_Application) A = DDocStd::GetApplication();
+    UtfString comment(a[2], Standard_True);
+    //    Handle(AppManager) A = DDocStd1::GetApplication();
     //    A->AddComment(D,comment);
     D->AddComment(comment);
     return 0;
@@ -511,14 +511,14 @@ static Standard_Integer DDocStd_AddComment(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer DDocStd_PrintComments(Draw_Interpretor& di,
+static Standard_Integer DDocStd_PrintComments(DrawInterpreter& di,
                                               Standard_Integer  nb,
                                               const char**      a)
 {
   if (nb == 2)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(a[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(a[1], D))
       return 1;
 
     TColStd_SequenceOfExtendedString comments;
@@ -537,7 +537,7 @@ static Standard_Integer DDocStd_PrintComments(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer DDocStd_StorageFormatVersion(Draw_Interpretor& theDI,
+static Standard_Integer DDocStd_StorageFormatVersion(DrawInterpreter& theDI,
                                                      Standard_Integer  theNbArgs,
                                                      const char**      theArgVec)
 {
@@ -547,8 +547,8 @@ static Standard_Integer DDocStd_StorageFormatVersion(Draw_Interpretor& theDI,
     return 1;
   }
 
-  Handle(TDocStd_Document) aDoc;
-  if (!DDocStd::GetDocument(theArgVec[1], aDoc))
+  Handle(AppDocument) aDoc;
+  if (!DDocStd1::GetDocument(theArgVec[1], aDoc))
   {
     theDI << "Syntax error: " << theArgVec[1] << " is not a document";
     return 1;
@@ -561,7 +561,7 @@ static Standard_Integer DDocStd_StorageFormatVersion(Draw_Interpretor& theDI,
   }
 
   Standard_Integer aVerInt = 0;
-  if (!Draw::ParseInteger(theArgVec[2], aVerInt) || aVerInt < TDocStd_FormatVersion_LOWER
+  if (!Draw1::ParseInteger(theArgVec[2], aVerInt) || aVerInt < TDocStd_FormatVersion_LOWER
       || aVerInt > TDocStd_FormatVersion_UPPER)
   {
     theDI << "Syntax error: unknown version '" << theArgVec[2] << "' (valid range is "
@@ -575,7 +575,7 @@ static Standard_Integer DDocStd_StorageFormatVersion(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-void DDocStd::ApplicationCommands(Draw_Interpretor& theCommands)
+void DDocStd1::ApplicationCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean done = Standard_False;
@@ -583,7 +583,7 @@ void DDocStd::ApplicationCommands(Draw_Interpretor& theCommands)
     return;
   done = Standard_True;
 
-  const char* g = "DDocStd application commands";
+  const char* g = "DDocStd1 application commands";
 
   // user application commands
   theCommands.Add("ListDocuments", "ListDocuments", __FILE__, DDocStd_ListDocuments, g);
@@ -637,8 +637,8 @@ void DDocStd::ApplicationCommands(Draw_Interpretor& theCommands)
 
   theCommands.Add("PrintComments", "PrintComments Doc", __FILE__, DDocStd_PrintComments, g);
 
-  static const TCollection_AsciiString THE_SET_VER_HELP =
-    TCollection_AsciiString()
+  static const AsciiString1 THE_SET_VER_HELP =
+    AsciiString1()
     + "StorageFormatVersion Doc [Version]"
       "\n\t\t: Print or set storage format version within range "
     + int(TDocStd_FormatVersion_LOWER) + ".." + int(TDocStd_FormatVersion_UPPER)

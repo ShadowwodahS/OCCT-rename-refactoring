@@ -43,7 +43,7 @@ protected:
 
   //! Constructor is protected;
   //! static methods are used for creation of this type of objects
-  Standard_EXPORT TObj_Partition(const TDF_Label&       theLabel,
+  Standard_EXPORT TObj_Partition(const DataLabel&       theLabel,
                                  const Standard_Boolean theSetName = Standard_True);
 
 public:
@@ -53,7 +53,7 @@ public:
 
   //! Creates a new partition on given label.
   static Standard_EXPORT Handle(TObj_Partition) Create(
-    const TDF_Label&       theLabel,
+    const DataLabel&       theLabel,
     const Standard_Boolean theSetName = Standard_True);
 
 public:
@@ -80,7 +80,7 @@ public:
    */
 
   //! Creates and Returns label for new object in partition.
-  Standard_EXPORT TDF_Label NewLabel() const;
+  Standard_EXPORT DataLabel NewLabel() const;
 
   //! Sets prefix for names of the objects in partition.
   Standard_EXPORT void SetNamePrefix(const Handle(TCollection_HExtendedString)& thePrefix);

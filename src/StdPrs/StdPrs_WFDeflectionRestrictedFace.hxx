@@ -50,7 +50,7 @@ public:
   //! as a geometric surface.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)&  aPresentation,
                                   const Handle(BRepAdaptor_Surface)& aFace,
-                                  const Handle(Prs3d_Drawer)&        aDrawer);
+                                  const Handle(StyleDrawer)&        aDrawer);
 
   //! Defines a display featuring U isoparameters
   //! respectively. Add the surface aFace to the
@@ -67,7 +67,7 @@ public:
   //! treated as a geometric surface.
   Standard_EXPORT static void AddUIso(const Handle(Prs3d_Presentation)&  aPresentation,
                                       const Handle(BRepAdaptor_Surface)& aFace,
-                                      const Handle(Prs3d_Drawer)&        aDrawer);
+                                      const Handle(StyleDrawer)&        aDrawer);
 
   //! Defines a display featuring V isoparameters
   //! respectively. Add the surface aFace to the
@@ -84,7 +84,7 @@ public:
   //! treated as a geometric surface.
   Standard_EXPORT static void AddVIso(const Handle(Prs3d_Presentation)&  aPresentation,
                                       const Handle(BRepAdaptor_Surface)& aFace,
-                                      const Handle(Prs3d_Drawer)&        aDrawer);
+                                      const Handle(StyleDrawer)&        aDrawer);
 
   //! Defines a display of a delection-specified face. The
   //! display will feature U and V isoparameters.
@@ -111,7 +111,7 @@ public:
                                   const Standard_Real                Deflection,
                                   const Standard_Integer             NBUiso,
                                   const Standard_Integer             NBViso,
-                                  const Handle(Prs3d_Drawer)&        aDrawer,
+                                  const Handle(StyleDrawer)&        aDrawer,
                                   Prs3d_NListOfSequenceOfPnt&        Curves);
 
   Standard_EXPORT static Standard_Boolean Match(const Standard_Real                X,
@@ -119,28 +119,28 @@ public:
                                                 const Standard_Real                Z,
                                                 const Standard_Real                aDistance,
                                                 const Handle(BRepAdaptor_Surface)& aFace,
-                                                const Handle(Prs3d_Drawer)&        aDrawer);
+                                                const Handle(StyleDrawer)&        aDrawer);
 
   Standard_EXPORT static Standard_Boolean MatchUIso(const Standard_Real                X,
                                                     const Standard_Real                Y,
                                                     const Standard_Real                Z,
                                                     const Standard_Real                aDistance,
                                                     const Handle(BRepAdaptor_Surface)& aFace,
-                                                    const Handle(Prs3d_Drawer)&        aDrawer);
+                                                    const Handle(StyleDrawer)&        aDrawer);
 
   Standard_EXPORT static Standard_Boolean MatchVIso(const Standard_Real                X,
                                                     const Standard_Real                Y,
                                                     const Standard_Real                Z,
                                                     const Standard_Real                aDistance,
                                                     const Handle(BRepAdaptor_Surface)& aFace,
-                                                    const Handle(Prs3d_Drawer)&        aDrawer);
+                                                    const Handle(StyleDrawer)&        aDrawer);
 
   Standard_EXPORT static Standard_Boolean Match(const Standard_Real                X,
                                                 const Standard_Real                Y,
                                                 const Standard_Real                Z,
                                                 const Standard_Real                aDistance,
                                                 const Handle(BRepAdaptor_Surface)& aFace,
-                                                const Handle(Prs3d_Drawer)&        aDrawer,
+                                                const Handle(StyleDrawer)&        aDrawer,
                                                 const Standard_Boolean             DrawUIso,
                                                 const Standard_Boolean             DrawVIso,
                                                 const Standard_Real                aDeflection,

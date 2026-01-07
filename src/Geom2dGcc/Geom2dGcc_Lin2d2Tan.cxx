@@ -44,8 +44,8 @@ Geom2dGcc_Lin2d2Tan::Geom2dGcc_Lin2d2Tan(const Geom2dGcc_QualifiedCurve& Qualifi
 {
   Geom2dAdaptor_Curve         C1    = Qualified1.Qualified();
   Geom2dAdaptor_Curve         C2    = Qualified2.Qualified();
-  const Handle(Geom2d_Curve)& CC1   = C1.Curve();
-  const Handle(Geom2d_Curve)& CC2   = C2.Curve();
+  const Handle(GeomCurve2d)& CC1   = C1.Curve();
+  const Handle(GeomCurve2d)& CC2   = C2.Curve();
   GeomAbs_CurveType           Type1 = C1.GetType();
   GeomAbs_CurveType           Type2 = C2.GetType();
 
@@ -62,7 +62,7 @@ Geom2dGcc_Lin2d2Tan::Geom2dGcc_Lin2d2Tan(const Geom2dGcc_QualifiedCurve& Qualifi
     gp_Circ2d             c2(CCC2->Circ2d());
     GccEnt_QualifiedCirc  Qc1 = GccEnt_QualifiedCirc(c1, Qualified1.Qualifier());
     GccEnt_QualifiedCirc  Qc2 = GccEnt_QualifiedCirc(c2, Qualified2.Qualifier());
-    GccAna_Lin2d2Tan      Lin(Qc1, Qc2, Tolang);
+    Line2dTwoTangent      Lin(Qc1, Qc2, Tolang);
     WellDone = Lin.IsDone();
     //  Modified by Sergey KHROMOV - Thu Apr  5 17:50:48 2001 Begin
     if (WellDone)
@@ -131,7 +131,7 @@ Geom2dGcc_Lin2d2Tan::Geom2dGcc_Lin2d2Tan(const Geom2dGcc_QualifiedCurve& Qualifi
       pararg2(1, 2)
 {
   Geom2dAdaptor_Curve         C1    = Qualified1.Qualified();
-  const Handle(Geom2d_Curve)& CC1   = C1.Curve();
+  const Handle(GeomCurve2d)& CC1   = C1.Curve();
   GeomAbs_CurveType           Type1 = C1.GetType();
 
   //=============================================================================
@@ -144,7 +144,7 @@ Geom2dGcc_Lin2d2Tan::Geom2dGcc_Lin2d2Tan(const Geom2dGcc_QualifiedCurve& Qualifi
     Handle(Geom2d_Circle) CCC1 = Handle(Geom2d_Circle)::DownCast(CC1);
     gp_Circ2d             c1(CCC1->Circ2d());
     GccEnt_QualifiedCirc  Qc1 = GccEnt_QualifiedCirc(c1, Qualified1.Qualifier());
-    GccAna_Lin2d2Tan      Lin(Qc1, ThePoint, Tolang);
+    Line2dTwoTangent      Lin(Qc1, ThePoint, Tolang);
     WellDone = Lin.IsDone();
 
     if (WellDone)
@@ -205,8 +205,8 @@ Geom2dGcc_Lin2d2Tan::Geom2dGcc_Lin2d2Tan(const Geom2dGcc_QualifiedCurve& Qualifi
 {
   Geom2dAdaptor_Curve         C1    = Qualified1.Qualified();
   Geom2dAdaptor_Curve         C2    = Qualified2.Qualified();
-  const Handle(Geom2d_Curve)& CC1   = C1.Curve();
-  const Handle(Geom2d_Curve)& CC2   = C2.Curve();
+  const Handle(GeomCurve2d)& CC1   = C1.Curve();
+  const Handle(GeomCurve2d)& CC2   = C2.Curve();
   GeomAbs_CurveType           Type1 = C1.GetType();
   GeomAbs_CurveType           Type2 = C2.GetType();
 
@@ -223,7 +223,7 @@ Geom2dGcc_Lin2d2Tan::Geom2dGcc_Lin2d2Tan(const Geom2dGcc_QualifiedCurve& Qualifi
     gp_Circ2d             c2(CCC2->Circ2d());
     GccEnt_QualifiedCirc  Qc1 = GccEnt_QualifiedCirc(c1, Qualified1.Qualifier());
     GccEnt_QualifiedCirc  Qc2 = GccEnt_QualifiedCirc(c2, Qualified2.Qualifier());
-    GccAna_Lin2d2Tan      Lin(Qc1, Qc2, Tolang);
+    Line2dTwoTangent      Lin(Qc1, Qc2, Tolang);
     WellDone = Lin.IsDone();
     //  Modified by Sergey KHROMOV - Thu Apr  5 17:50:48 2001 Begin
     if (WellDone)
@@ -273,7 +273,7 @@ Geom2dGcc_Lin2d2Tan::Geom2dGcc_Lin2d2Tan(const Geom2dGcc_QualifiedCurve& Qualifi
       pararg2(1, 2)
 {
   Geom2dAdaptor_Curve         C1    = Qualified1.Qualified();
-  const Handle(Geom2d_Curve)& CC1   = C1.Curve();
+  const Handle(GeomCurve2d)& CC1   = C1.Curve();
   GeomAbs_CurveType           Type1 = C1.GetType();
 
   //=============================================================================
@@ -286,7 +286,7 @@ Geom2dGcc_Lin2d2Tan::Geom2dGcc_Lin2d2Tan(const Geom2dGcc_QualifiedCurve& Qualifi
     Handle(Geom2d_Circle) CCC1 = Handle(Geom2d_Circle)::DownCast(CC1);
     gp_Circ2d             c1(CCC1->Circ2d());
     GccEnt_QualifiedCirc  Qc1 = GccEnt_QualifiedCirc(c1, Qualified1.Qualifier());
-    GccAna_Lin2d2Tan      Lin(Qc1, ThePoint, Tolang);
+    Line2dTwoTangent      Lin(Qc1, ThePoint, Tolang);
     WellDone = Lin.IsDone();
     //  Modified by Sergey KHROMOV - Thu Apr  5 17:52:32 2001 Begin
     if (WellDone)

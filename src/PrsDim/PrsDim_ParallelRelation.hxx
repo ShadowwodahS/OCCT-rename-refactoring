@@ -32,18 +32,18 @@ public:
   //! Constructs an object to display parallel constraints.
   //! This object is defined by the first shape aFShape and
   //! the second shape aSShape and the plane aPlane.
-  Standard_EXPORT PrsDim_ParallelRelation(const TopoDS_Shape&       aFShape,
-                                          const TopoDS_Shape&       aSShape,
-                                          const Handle(Geom_Plane)& aPlane);
+  Standard_EXPORT PrsDim_ParallelRelation(const TopoShape&       aFShape,
+                                          const TopoShape&       aSShape,
+                                          const Handle(GeomPlane)& aPlane);
 
   //! Constructs an object to display parallel constraints.
   //! This object is defined by the first shape aFShape and
   //! the second shape aSShape the plane aPlane, the
   //! position aPosition, the type of arrow, aSymbolPrs and
   //! its size anArrowSize.
-  Standard_EXPORT PrsDim_ParallelRelation(const TopoDS_Shape&       aFShape,
-                                          const TopoDS_Shape&       aSShape,
-                                          const Handle(Geom_Plane)& aPlane,
+  Standard_EXPORT PrsDim_ParallelRelation(const TopoShape&       aFShape,
+                                          const TopoShape&       aSShape,
+                                          const Handle(GeomPlane)& aPlane,
                                           const Point3d&             aPosition,
                                           const DsgPrs_ArrowSide    aSymbolPrs,
                                           const Standard_Real       anArrowSize = 0.01);
@@ -56,7 +56,7 @@ private:
                                        const Handle(Prs3d_Presentation)&         thePrs,
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT void ComputeTwoFacesParallel(const Handle(Prs3d_Presentation)& aPresentation);

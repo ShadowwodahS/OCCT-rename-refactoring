@@ -23,7 +23,7 @@
 
 #include <Standard_Real.hxx>
 #include <Standard_Boolean.hxx>
-class Geom_Surface;
+class GeomSurface;
 
 //! A Geom surface and a tolerance.
 class TopOpeBRepDS_Surface
@@ -33,7 +33,7 @@ public:
 
   Standard_EXPORT TopOpeBRepDS_Surface();
 
-  Standard_EXPORT TopOpeBRepDS_Surface(const Handle(Geom_Surface)& P, const Standard_Real T);
+  Standard_EXPORT TopOpeBRepDS_Surface(const Handle(GeomSurface)& P, const Standard_Real T);
 
   Standard_EXPORT TopOpeBRepDS_Surface(const TopOpeBRepDS_Surface& Other);
 
@@ -41,7 +41,7 @@ public:
 
   void operator=(const TopOpeBRepDS_Surface& Other) { Assign(Other); }
 
-  const Handle(Geom_Surface)& Surface() const { return mySurface; }
+  const Handle(GeomSurface)& Surface() const { return mySurface; }
 
   Standard_Real Tolerance() const { return myTolerance; }
 
@@ -53,7 +53,7 @@ public:
   void ChangeKeep(Standard_Boolean theToKeep) { myKeep = theToKeep; }
 
 private:
-  Handle(Geom_Surface) mySurface;
+  Handle(GeomSurface) mySurface;
   Standard_Real        myTolerance;
   Standard_Boolean     myKeep;
 };

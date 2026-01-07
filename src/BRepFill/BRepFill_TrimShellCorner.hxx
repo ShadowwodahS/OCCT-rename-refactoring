@@ -59,7 +59,7 @@ public:
 
   Standard_EXPORT Standard_Boolean HasSection() const;
 
-  Standard_EXPORT void Modified(const TopoDS_Shape& S, TopTools_ListOfShape& theModified);
+  Standard_EXPORT void Modified(const TopoShape& S, ShapeList& theModified);
 
 protected:
 private:
@@ -74,18 +74,18 @@ private:
                                    const Standard_Integer theFaceIndex1,
                                    const Standard_Integer theFaceIndex2);
 
-  Standard_Boolean ChooseSection(const TopoDS_Shape&  Comp,
-                                 const TopoDS_Vertex& theFirstVertex,
-                                 const TopoDS_Vertex& theLastVertex,
-                                 TopoDS_Shape&        resWire,
+  Standard_Boolean ChooseSection(const TopoShape&  Comp,
+                                 const TopoVertex& theFirstVertex,
+                                 const TopoVertex& theLastVertex,
+                                 TopoShape&        resWire,
                                  gp_Pln&              resPlane,
                                  Standard_Boolean&    IsSingular);
 
   BRepFill_TransitionStyle           myTransition;
   Frame3d                             myAxeOfBisPlane;
   Vector3d                             myIntPointCrossDir;
-  TopoDS_Shape                       myShape1;
-  TopoDS_Shape                       myShape2;
+  TopoShape                       myShape1;
+  TopoShape                       myShape2;
   Handle(TopTools_HArray2OfShape)    myBounds;
   Handle(TopTools_HArray2OfShape)    myUEdges;
   Handle(TopTools_HArray1OfShape)    myVEdges;

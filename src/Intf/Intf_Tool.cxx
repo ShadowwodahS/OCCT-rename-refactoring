@@ -231,16 +231,16 @@ void Intf_Tool::Hypr2dBox(const gp_Hypr2d& theHypr2d, const Bnd_Box2d& domain, B
       switch (bord[npi])
       {
         case 1:
-          sinan = gp_XY(-1., 0.) ^ Tan.XY();
+          sinan = Coords2d(-1., 0.) ^ Tan.XY();
           break;
         case 2:
-          sinan = gp_XY(0., -1.) ^ Tan.XY();
+          sinan = Coords2d(0., -1.) ^ Tan.XY();
           break;
         case 3:
-          sinan = gp_XY(1., 0.) ^ Tan.XY();
+          sinan = Coords2d(1., 0.) ^ Tan.XY();
           break;
         case 4:
-          sinan = gp_XY(0., 1.) ^ Tan.XY();
+          sinan = Coords2d(0., 1.) ^ Tan.XY();
           break;
       }
       if (Abs(sinan) > Precision::Angular())
@@ -472,16 +472,16 @@ void Intf_Tool::Parab2dBox(const gp_Parab2d& theParab2d,
       switch (bord[npi])
       {
         case 1:
-          sinan = gp_XY(-1., 0.) ^ Tan.XY();
+          sinan = Coords2d(-1., 0.) ^ Tan.XY();
           break;
         case 2:
-          sinan = gp_XY(0., -1.) ^ Tan.XY();
+          sinan = Coords2d(0., -1.) ^ Tan.XY();
           break;
         case 3:
-          sinan = gp_XY(1., 0.) ^ Tan.XY();
+          sinan = Coords2d(1., 0.) ^ Tan.XY();
           break;
         case 4:
-          sinan = gp_XY(0., 1.) ^ Tan.XY();
+          sinan = Coords2d(0., 1.) ^ Tan.XY();
           break;
       }
       if (Abs(sinan) > Precision::Angular())

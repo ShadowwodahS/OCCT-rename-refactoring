@@ -29,7 +29,7 @@ class StepData_StepReaderData;
 class Interface_Check;
 class StepBasic_SiUnit;
 class StepData_StepWriter;
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! Read & Write Module for SiUnit
 class RWStepBasic_RWSiUnit
@@ -53,9 +53,9 @@ public:
   Standard_HIDDEN Standard_Boolean DecodeName(StepBasic_SiUnitName&  aName,
                                               const Standard_CString text) const;
 
-  Standard_HIDDEN TCollection_AsciiString EncodePrefix(const StepBasic_SiPrefix aPrefix) const;
+  Standard_HIDDEN AsciiString1 EncodePrefix(const StepBasic_SiPrefix aPrefix) const;
 
-  Standard_HIDDEN TCollection_AsciiString EncodeName(const StepBasic_SiUnitName aName) const;
+  Standard_HIDDEN AsciiString1 EncodeName(const StepBasic_SiUnitName aName) const;
 
 protected:
 private:

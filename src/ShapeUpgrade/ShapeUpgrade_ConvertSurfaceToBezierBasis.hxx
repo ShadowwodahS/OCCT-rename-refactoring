@@ -50,7 +50,7 @@ public:
   //! original surface.
   Standard_EXPORT Handle(ShapeExtend_CompositeSurface) Segments() const;
 
-  //! Sets mode for conversion Geom_Plane to Bezier
+  //! Sets mode for conversion GeomPlane to Bezier
   void SetPlaneMode(const Standard_Boolean mode);
 
   //! Returns the Geom_Pline conversion mode.

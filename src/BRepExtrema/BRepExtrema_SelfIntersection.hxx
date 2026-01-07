@@ -40,7 +40,7 @@ public:
   Standard_EXPORT BRepExtrema_SelfIntersection(const Standard_Real theTolerance = 0.0);
 
   //! Creates self-intersection tool for the given shape.
-  Standard_EXPORT BRepExtrema_SelfIntersection(const TopoDS_Shape& theShape,
+  Standard_EXPORT BRepExtrema_SelfIntersection(const TopoShape& theShape,
                                                const Standard_Real theTolerance = 0.0);
 
 public:
@@ -51,7 +51,7 @@ public:
   void SetTolerance(const Standard_Real theTolerance) { myTolerance = theTolerance; }
 
   //! Loads shape for detection of self-intersections.
-  Standard_EXPORT Standard_Boolean LoadShape(const TopoDS_Shape& theShape);
+  Standard_EXPORT Standard_Boolean LoadShape(const TopoShape& theShape);
 
   //! Performs detection of self-intersections.
   Standard_EXPORT void Perform();
@@ -66,7 +66,7 @@ public:
   }
 
   //! Returns sub-shape from the shape for the given index (started from 0).
-  const TopoDS_Face& GetSubShape(const Standard_Integer theID) const
+  const TopoFace& GetSubShape(const Standard_Integer theID) const
   {
     return TopoDS::Face(myFaceList.Value(theID));
   }

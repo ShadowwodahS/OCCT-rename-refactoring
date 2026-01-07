@@ -36,7 +36,7 @@
  *              discussion about the number of buckets.
  */
 
-template <class TheKeyType, class Hasher = NCollection_DefaultHasher<TheKeyType>>
+template <class TheKeyType, class Hasher1 = NCollection_DefaultHasher<TheKeyType>>
 class NCollection_IndexedMap : public NCollection_BaseMap
 {
 public:
@@ -500,7 +500,7 @@ protected:
   }
 
 protected:
-  Hasher myHasher;
+  Hasher1 myHasher;
 };
 
 #endif

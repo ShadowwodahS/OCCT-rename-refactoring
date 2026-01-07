@@ -89,7 +89,7 @@ static Standard_Real EvalCurv(const Standard_Real  dim,
 
 //=================================================================================================
 
-void ApproxInt_KnotTools::BuildCurvature(const NCollection_LocalArray<Standard_Real>& theCoords,
+void KnotTools::BuildCurvature(const NCollection_LocalArray<Standard_Real>& theCoords,
                                          const Standard_Integer                       theDim,
                                          const math_Vector&                           thePars,
                                          TColStd_Array1OfReal&                        theCurv,
@@ -172,7 +172,7 @@ void ApproxInt_KnotTools::BuildCurvature(const NCollection_LocalArray<Standard_R
 
 //=================================================================================================
 
-void ApproxInt_KnotTools::ComputeKnotInds(const NCollection_LocalArray<Standard_Real>& theCoords,
+void KnotTools::ComputeKnotInds(const NCollection_LocalArray<Standard_Real>& theCoords,
                                           const Standard_Integer                       theDim,
                                           const math_Vector&                           thePars,
                                           NCollection_Sequence<Standard_Integer>&      theInds)
@@ -333,7 +333,7 @@ void ApproxInt_KnotTools::ComputeKnotInds(const NCollection_LocalArray<Standard_
 
 //=================================================================================================
 
-void ApproxInt_KnotTools::FilterKnots(NCollection_Sequence<Standard_Integer>& theInds,
+void KnotTools::FilterKnots(NCollection_Sequence<Standard_Integer>& theInds,
                                       const Standard_Integer                  theMinNbPnts,
                                       NCollection_Vector<Standard_Integer>&   theLKnots)
 {
@@ -452,7 +452,7 @@ void ApproxInt_KnotTools::FilterKnots(NCollection_Sequence<Standard_Integer>& th
 
 //=================================================================================================
 
-Standard_Boolean ApproxInt_KnotTools::InsKnotBefI(
+Standard_Boolean KnotTools::InsKnotBefI(
   const Standard_Integer                       theI,
   const TColStd_Array1OfReal&                  theCurv,
   const NCollection_LocalArray<Standard_Real>& theCoords,
@@ -558,7 +558,7 @@ Standard_Boolean ApproxInt_KnotTools::InsKnotBefI(
 
 //=================================================================================================
 
-void ApproxInt_KnotTools::BuildKnots(const TColgp_Array1OfPnt&             thePntsXYZ,
+void KnotTools::BuildKnots(const TColgp_Array1OfPnt&             thePntsXYZ,
                                      const TColgp_Array1OfPnt2d&           thePntsU1V1,
                                      const TColgp_Array1OfPnt2d&           thePntsU2V2,
                                      const math_Vector&                    thePars,
@@ -652,7 +652,7 @@ static Standard_Real MaxParamRatio(const math_Vector& thePars)
 
 //=================================================================================================
 
-Approx_ParametrizationType ApproxInt_KnotTools::DefineParType(const Handle(IntPatch_WLine)& theWL,
+Approx_ParametrizationType KnotTools::DefineParType(const Handle(IntPatch_WLine)& theWL,
                                                               const Standard_Integer        theFpar,
                                                               const Standard_Integer        theLpar,
                                                               const Standard_Boolean theApproxXYZ,

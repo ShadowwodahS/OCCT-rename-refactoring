@@ -18,8 +18,8 @@
 #include <NCollection_Sequence.hxx>
 #include <XCAFDoc_AssemblyItemId.hxx>
 
-class TDF_Label;
-class TDocStd_Document;
+class DataLabel;
+class AppDocument;
 class XCAFDoc_ShapeTool;
 
 //! Iterator in depth along the assembly tree.
@@ -29,14 +29,14 @@ public:
   //! Constructs iterator starting from assembly roots.
   //! \param[in]       theDoc   - document to iterate.
   //! \param [in, opt] theLevel - max level of hierarchy to reach (INT_MAX is for no limit).
-  Standard_EXPORT XCAFDoc_AssemblyIterator(const Handle(TDocStd_Document)& theDoc,
+  Standard_EXPORT XCAFDoc_AssemblyIterator(const Handle(AppDocument)& theDoc,
                                            const Standard_Integer          theLevel = INT_MAX);
 
   //! Constructs iterator starting from the specified position in the assembly tree.
   //! \param[in]       theDoc   - document to iterate.
   //! \param[in]       theRoot  - assembly item to start iterating from.
   //! \param [in, opt] theLevel - max level of hierarchy to reach (INT_MAX is for no limit).
-  Standard_EXPORT XCAFDoc_AssemblyIterator(const Handle(TDocStd_Document)& theDoc,
+  Standard_EXPORT XCAFDoc_AssemblyIterator(const Handle(AppDocument)& theDoc,
                                            const XCAFDoc_AssemblyItemId&   theRoot,
                                            const Standard_Integer          theLevel = INT_MAX);
 
@@ -52,11 +52,11 @@ public:
 private:
   struct AuxAssemblyItem
   {
-    TDF_Label              myLabel;
+    DataLabel              myLabel;
     XCAFDoc_AssemblyItemId myItem;
   };
 
-  void createItem(const TDF_Label&                 theLabel,
+  void createItem(const DataLabel&                 theLabel,
                   const TColStd_ListOfAsciiString& theParentPath,
                   AuxAssemblyItem&                 theAuxItem) const;
 

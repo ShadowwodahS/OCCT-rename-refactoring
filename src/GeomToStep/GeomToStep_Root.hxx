@@ -26,7 +26,7 @@
 
 //! This class implements the common services for
 //! all classes of GeomToStep which report error.
-class GeomToStep_Root
+class Root1
 {
 public:
   DEFINE_STANDARD_ALLOC

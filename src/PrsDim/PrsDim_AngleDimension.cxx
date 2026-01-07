@@ -54,7 +54,7 @@ IMPLEMENT_STANDARD_RTTIEXT(PrsDim_AngleDimension, PrsDim_Dimension)
 
 namespace
 {
-static const TCollection_ExtendedString THE_EMPTY_LABEL_STRING;
+static const UtfString THE_EMPTY_LABEL_STRING;
 static const Standard_Real              THE_EMPTY_LABEL_WIDTH = 0.0;
 static const Standard_ExtCharacter      THE_DEGREE_SYMBOL(0x00B0);
 static const Standard_Real              THE_3D_TEXT_MARGIN = 0.1;
@@ -73,8 +73,8 @@ static Standard_Boolean isSameLine(const Point3d& theFirstPoint,
 
 //=================================================================================================
 
-PrsDim_AngleDimension::PrsDim_AngleDimension(const TopoDS_Edge& theFirstEdge,
-                                             const TopoDS_Edge& theSecondEdge)
+PrsDim_AngleDimension::PrsDim_AngleDimension(const TopoEdge& theFirstEdge,
+                                             const TopoEdge& theSecondEdge)
     : PrsDim_Dimension(PrsDim_KOD_PLANEANGLE)
 {
   Init();
@@ -94,9 +94,9 @@ PrsDim_AngleDimension::PrsDim_AngleDimension(const Point3d& theFirstPoint,
 
 //=================================================================================================
 
-PrsDim_AngleDimension::PrsDim_AngleDimension(const TopoDS_Vertex& theFirstVertex,
-                                             const TopoDS_Vertex& theSecondVertex,
-                                             const TopoDS_Vertex& theThirdVertex)
+PrsDim_AngleDimension::PrsDim_AngleDimension(const TopoVertex& theFirstVertex,
+                                             const TopoVertex& theSecondVertex,
+                                             const TopoVertex& theThirdVertex)
     : PrsDim_Dimension(PrsDim_KOD_PLANEANGLE)
 {
   Init();
@@ -105,7 +105,7 @@ PrsDim_AngleDimension::PrsDim_AngleDimension(const TopoDS_Vertex& theFirstVertex
 
 //=================================================================================================
 
-PrsDim_AngleDimension::PrsDim_AngleDimension(const TopoDS_Face& theCone)
+PrsDim_AngleDimension::PrsDim_AngleDimension(const TopoFace& theCone)
     : PrsDim_Dimension(PrsDim_KOD_PLANEANGLE)
 {
   Init();
@@ -114,8 +114,8 @@ PrsDim_AngleDimension::PrsDim_AngleDimension(const TopoDS_Face& theCone)
 
 //=================================================================================================
 
-PrsDim_AngleDimension::PrsDim_AngleDimension(const TopoDS_Face& theFirstFace,
-                                             const TopoDS_Face& theSecondFace)
+PrsDim_AngleDimension::PrsDim_AngleDimension(const TopoFace& theFirstFace,
+                                             const TopoFace& theSecondFace)
     : PrsDim_Dimension(PrsDim_KOD_PLANEANGLE)
 {
   Init();
@@ -124,8 +124,8 @@ PrsDim_AngleDimension::PrsDim_AngleDimension(const TopoDS_Face& theFirstFace,
 
 //=================================================================================================
 
-PrsDim_AngleDimension::PrsDim_AngleDimension(const TopoDS_Face& theFirstFace,
-                                             const TopoDS_Face& theSecondFace,
+PrsDim_AngleDimension::PrsDim_AngleDimension(const TopoFace& theFirstFace,
+                                             const TopoFace& theSecondFace,
                                              const Point3d&      thePoint)
     : PrsDim_Dimension(PrsDim_KOD_PLANEANGLE)
 {
@@ -135,14 +135,14 @@ PrsDim_AngleDimension::PrsDim_AngleDimension(const TopoDS_Face& theFirstFace,
 
 //=================================================================================================
 
-void PrsDim_AngleDimension::SetMeasuredGeometry(const TopoDS_Edge& theFirstEdge,
-                                                const TopoDS_Edge& theSecondEdge)
+void PrsDim_AngleDimension::SetMeasuredGeometry(const TopoEdge& theFirstEdge,
+                                                const TopoEdge& theSecondEdge)
 {
   gp_Pln aComputedPlane;
 
   myFirstShape      = theFirstEdge;
   mySecondShape     = theSecondEdge;
-  myThirdShape      = TopoDS_Shape();
+  myThirdShape      = TopoShape();
   myGeometryType    = GeometryType_Edges;
   myIsGeometryValid = InitTwoEdgesAngle(aComputedPlane);
 
@@ -180,16 +180,16 @@ void PrsDim_AngleDimension::SetMeasuredGeometry(const Point3d& theFirstPoint,
 
 //=================================================================================================
 
-void PrsDim_AngleDimension::SetMeasuredGeometry(const TopoDS_Vertex& theFirstVertex,
-                                                const TopoDS_Vertex& theSecondVertex,
-                                                const TopoDS_Vertex& theThirdVertex)
+void PrsDim_AngleDimension::SetMeasuredGeometry(const TopoVertex& theFirstVertex,
+                                                const TopoVertex& theSecondVertex,
+                                                const TopoVertex& theThirdVertex)
 {
   myFirstShape      = theFirstVertex;
   mySecondShape     = theSecondVertex;
   myThirdShape      = theThirdVertex;
-  myFirstPoint      = BRep_Tool::Pnt(theFirstVertex);
-  myCenterPoint     = BRep_Tool::Pnt(theSecondVertex);
-  mySecondPoint     = BRep_Tool::Pnt(theThirdVertex);
+  myFirstPoint      = BRepInspector::Pnt(theFirstVertex);
+  myCenterPoint     = BRepInspector::Pnt(theSecondVertex);
+  mySecondPoint     = BRepInspector::Pnt(theThirdVertex);
   myGeometryType    = GeometryType_Points;
   myIsGeometryValid = IsValidPoints(myFirstPoint, myCenterPoint, mySecondPoint);
 
@@ -204,11 +204,11 @@ void PrsDim_AngleDimension::SetMeasuredGeometry(const TopoDS_Vertex& theFirstVer
 
 //=================================================================================================
 
-void PrsDim_AngleDimension::SetMeasuredGeometry(const TopoDS_Face& theCone)
+void PrsDim_AngleDimension::SetMeasuredGeometry(const TopoFace& theCone)
 {
   myFirstShape      = theCone;
-  mySecondShape     = TopoDS_Shape();
-  myThirdShape      = TopoDS_Shape();
+  mySecondShape     = TopoShape();
+  myThirdShape      = TopoShape();
   myGeometryType    = GeometryType_Face;
   myIsGeometryValid = InitConeAngle();
 
@@ -222,12 +222,12 @@ void PrsDim_AngleDimension::SetMeasuredGeometry(const TopoDS_Face& theCone)
 
 //=================================================================================================
 
-void PrsDim_AngleDimension::SetMeasuredGeometry(const TopoDS_Face& theFirstFace,
-                                                const TopoDS_Face& theSecondFace)
+void PrsDim_AngleDimension::SetMeasuredGeometry(const TopoFace& theFirstFace,
+                                                const TopoFace& theSecondFace)
 {
   myFirstShape      = theFirstFace;
   mySecondShape     = theSecondFace;
-  myThirdShape      = TopoDS_Shape();
+  myThirdShape      = TopoShape();
   myGeometryType    = GeometryType_Faces;
   myIsGeometryValid = InitTwoFacesAngle();
 
@@ -241,13 +241,13 @@ void PrsDim_AngleDimension::SetMeasuredGeometry(const TopoDS_Face& theFirstFace,
 
 //=================================================================================================
 
-void PrsDim_AngleDimension::SetMeasuredGeometry(const TopoDS_Face& theFirstFace,
-                                                const TopoDS_Face& theSecondFace,
+void PrsDim_AngleDimension::SetMeasuredGeometry(const TopoFace& theFirstFace,
+                                                const TopoFace& theSecondFace,
                                                 const Point3d&      thePoint)
 {
   myFirstShape      = theFirstFace;
   mySecondShape     = theSecondFace;
-  myThirdShape      = TopoDS_Shape();
+  myThirdShape      = TopoShape();
   myGeometryType    = GeometryType_Faces;
   myIsGeometryValid = InitTwoFacesAngle(thePoint);
 
@@ -421,7 +421,7 @@ void PrsDim_AngleDimension::DrawArcWithText(const Handle(Prs3d_Presentation)& th
                                             const Point3d&                     theFirstAttach,
                                             const Point3d&                     theSecondAttach,
                                             const Point3d&                     theCenter,
-                                            const TCollection_ExtendedString& theText,
+                                            const UtfString& theText,
                                             const Standard_Real               theTextWidth,
                                             const Standard_Integer            theMode,
                                             const Standard_Integer            theLabelPosition)
@@ -528,28 +528,28 @@ void PrsDim_AngleDimension::ComputePlane()
 
 //=================================================================================================
 
-const TCollection_AsciiString& PrsDim_AngleDimension::GetModelUnits() const
+const AsciiString1& PrsDim_AngleDimension::GetModelUnits() const
 {
   return myDrawer->DimAngleModelUnits();
 }
 
 //=================================================================================================
 
-const TCollection_AsciiString& PrsDim_AngleDimension::GetDisplayUnits() const
+const AsciiString1& PrsDim_AngleDimension::GetDisplayUnits() const
 {
   return myDrawer->DimAngleDisplayUnits();
 }
 
 //=================================================================================================
 
-void PrsDim_AngleDimension::SetModelUnits(const TCollection_AsciiString& theUnits)
+void PrsDim_AngleDimension::SetModelUnits(const AsciiString1& theUnits)
 {
   myDrawer->SetDimAngleModelUnits(theUnits);
 }
 
 //=================================================================================================
 
-void PrsDim_AngleDimension::SetDisplayUnits(const TCollection_AsciiString& theUnits)
+void PrsDim_AngleDimension::SetDisplayUnits(const AsciiString1& theUnits)
 {
   myDrawer->SetDimAngleDisplayUnits(theUnits);
 }
@@ -595,7 +595,7 @@ void PrsDim_AngleDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
 
   // prepare label string and compute its geometrical width
   Standard_Real              aLabelWidth;
-  TCollection_ExtendedString aLabelString = GetValueString(aLabelWidth);
+  UtfString aLabelString = GetValueString(aLabelWidth);
 
   // add margins to label width
   if (aDimensionAspect->IsText3d())
@@ -820,7 +820,7 @@ void PrsDim_AngleDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
 // function : ComputeFlyoutSelection
 // purpose  : computes selection for flyouts
 //=======================================================================
-void PrsDim_AngleDimension::ComputeFlyoutSelection(const Handle(SelectMgr_Selection)& theSelection,
+void PrsDim_AngleDimension::ComputeFlyoutSelection(const Handle(SelectionContainer)& theSelection,
                                                    const Handle(SelectMgr_EntityOwner)& theOwner)
 {
   Point3d aFirstAttach =
@@ -839,8 +839,8 @@ void PrsDim_AngleDimension::ComputeFlyoutSelection(const Handle(SelectMgr_Select
 
 Standard_Boolean PrsDim_AngleDimension::InitTwoEdgesAngle(gp_Pln& theComputedPlane)
 {
-  TopoDS_Edge aFirstEdge  = TopoDS::Edge(myFirstShape);
-  TopoDS_Edge aSecondEdge = TopoDS::Edge(mySecondShape);
+  TopoEdge aFirstEdge  = TopoDS::Edge(myFirstShape);
+  TopoEdge aSecondEdge = TopoDS::Edge(mySecondShape);
 
   BRepAdaptor_Curve aMakeFirstLine(aFirstEdge);
   BRepAdaptor_Curve aMakeSecondLine(aSecondEdge);
@@ -850,8 +850,8 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoEdgesAngle(gp_Pln& theComputedPla
     return Standard_False;
   }
 
-  Handle(Geom_Line) aFirstLine  = new Geom_Line(aMakeFirstLine.Line());
-  Handle(Geom_Line) aSecondLine = new Geom_Line(aMakeSecondLine.Line());
+  Handle(GeomLine) aFirstLine  = new GeomLine(aMakeFirstLine.Line());
+  Handle(GeomLine) aSecondLine = new GeomLine(aMakeSecondLine.Line());
 
   gp_Lin aFirstLin  = aFirstLine->Lin();
   gp_Lin aSecondLin = aSecondLine->Lin();
@@ -867,7 +867,7 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoEdgesAngle(gp_Pln& theComputedPla
   // Compute geometry for this plane and edges
   Standard_Boolean   isInfinite1, isInfinite2;
   Point3d             aFirstPoint1, aLastPoint1, aFirstPoint2, aLastPoint2;
-  Handle(Geom_Curve) aFirstCurve = aFirstLine, aSecondCurve = aSecondLine;
+  Handle(GeomCurve3d) aFirstCurve = aFirstLine, aSecondCurve = aSecondLine;
   if (!PrsDim::ComputeGeometry(aFirstEdge,
                                aSecondEdge,
                                aFirstCurve,
@@ -958,12 +958,12 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoEdgesAngle(gp_Pln& theComputedPla
 //=======================================================================
 Standard_Boolean PrsDim_AngleDimension::InitTwoFacesAngle()
 {
-  TopoDS_Face aFirstFace  = TopoDS::Face(myFirstShape);
-  TopoDS_Face aSecondFace = TopoDS::Face(mySecondShape);
+  TopoFace aFirstFace  = TopoDS::Face(myFirstShape);
+  TopoFace aSecondFace = TopoDS::Face(mySecondShape);
 
   Dir3d               aFirstDir, aSecondDir;
   gp_Pln               aFirstPln, aSecondPln;
-  Handle(Geom_Surface) aFirstBasisSurf, aSecondBasisSurf;
+  Handle(GeomSurface) aFirstBasisSurf, aSecondBasisSurf;
   PrsDim_KindOfSurface aFirstSurfType, aSecondSurfType;
   Standard_Real        aFirstOffset, aSecondOffset;
 
@@ -978,8 +978,8 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoFacesAngle()
   if (aFirstSurfType == PrsDim_KOS_Plane && aSecondSurfType == PrsDim_KOS_Plane)
   {
     // Planar faces angle
-    Handle(Geom_Plane) aFirstPlane  = Handle(Geom_Plane)::DownCast(aFirstBasisSurf);
-    Handle(Geom_Plane) aSecondPlane = Handle(Geom_Plane)::DownCast(aSecondBasisSurf);
+    Handle(GeomPlane) aFirstPlane  = Handle(GeomPlane)::DownCast(aFirstBasisSurf);
+    Handle(GeomPlane) aSecondPlane = Handle(GeomPlane)::DownCast(aSecondBasisSurf);
     return PrsDim::InitAngleBetweenPlanarFaces(aFirstFace,
                                                aSecondFace,
                                                myCenterPoint,
@@ -1007,12 +1007,12 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoFacesAngle()
 //=======================================================================
 Standard_Boolean PrsDim_AngleDimension::InitTwoFacesAngle(const Point3d& thePointOnFirstFace)
 {
-  TopoDS_Face aFirstFace  = TopoDS::Face(myFirstShape);
-  TopoDS_Face aSecondFace = TopoDS::Face(mySecondShape);
+  TopoFace aFirstFace  = TopoDS::Face(myFirstShape);
+  TopoFace aSecondFace = TopoDS::Face(mySecondShape);
 
   Dir3d               aFirstDir, aSecondDir;
   gp_Pln               aFirstPln, aSecondPln;
-  Handle(Geom_Surface) aFirstBasisSurf, aSecondBasisSurf;
+  Handle(GeomSurface) aFirstBasisSurf, aSecondBasisSurf;
   PrsDim_KindOfSurface aFirstSurfType, aSecondSurfType;
   Standard_Real        aFirstOffset, aSecondOffset;
 
@@ -1028,8 +1028,8 @@ Standard_Boolean PrsDim_AngleDimension::InitTwoFacesAngle(const Point3d& thePoin
   if (aFirstSurfType == PrsDim_KOS_Plane && aSecondSurfType == PrsDim_KOS_Plane)
   {
     // Planar faces angle
-    Handle(Geom_Plane) aFirstPlane  = Handle(Geom_Plane)::DownCast(aFirstBasisSurf);
-    Handle(Geom_Plane) aSecondPlane = Handle(Geom_Plane)::DownCast(aSecondBasisSurf);
+    Handle(GeomPlane) aFirstPlane  = Handle(GeomPlane)::DownCast(aFirstBasisSurf);
+    Handle(GeomPlane) aSecondPlane = Handle(GeomPlane)::DownCast(aSecondBasisSurf);
     return PrsDim::InitAngleBetweenPlanarFaces(aFirstFace,
                                                aSecondFace,
                                                myCenterPoint,
@@ -1064,18 +1064,18 @@ Standard_Boolean PrsDim_AngleDimension::InitConeAngle()
     return Standard_False;
   }
 
-  TopoDS_Face aConeShape = TopoDS::Face(myFirstShape);
+  TopoFace aConeShape = TopoDS::Face(myFirstShape);
   gp_Pln      aPln;
   gp_Cone     aCone;
   gp_Circ     aCircle;
   // A surface from the Face
-  Handle(Geom_Surface)             aSurf;
+  Handle(GeomSurface)             aSurf;
   Handle(Geom_OffsetSurface)       aOffsetSurf;
   Handle(Geom_ConicalSurface)      aConicalSurf;
   Handle(Geom_SurfaceOfRevolution) aRevSurf;
-  Handle(Geom_Line)                aLine;
+  Handle(GeomLine)                aLine;
   BRepAdaptor_Surface              aConeAdaptor(aConeShape);
-  TopoDS_Face                      aFace;
+  TopoFace                      aFace;
   PrsDim_KindOfSurface             aSurfType;
   Standard_Real                    anOffset = 0.;
   Handle(TypeInfo)            aType;
@@ -1088,9 +1088,9 @@ Standard_Boolean PrsDim_AngleDimension::InitConeAngle()
     // Surface of revolution
     aRevSurf = Handle(Geom_SurfaceOfRevolution)::DownCast(aSurf);
     gp_Lin             aLin(aRevSurf->Axis());
-    Handle(Geom_Curve) aBasisCurve = aRevSurf->BasisCurve();
+    Handle(GeomCurve3d) aBasisCurve = aRevSurf->BasisCurve();
     // Must be a part of line (basis curve should be linear)
-    if (aBasisCurve->DynamicType() != STANDARD_TYPE(Geom_Line))
+    if (aBasisCurve->DynamicType() != STANDARD_TYPE(GeomLine))
       return Standard_False;
 
     Point3d aFirst1 = aConeAdaptor.Value(0., aMinV);
@@ -1121,7 +1121,7 @@ Standard_Boolean PrsDim_AngleDimension::InitConeAngle()
       // Offset surface
       aOffsetSurf = new Geom_OffsetSurface(aSurf, anOffset);
       aSurf       = aOffsetSurf->Surface();
-      BRepBuilderAPI_MakeFace aMkFace(aSurf, Precision::Confusion());
+      FaceMaker aMkFace(aSurf, Precision::Confusion());
       aMkFace.Build();
       if (!aMkFace.IsDone())
         return Standard_False;
@@ -1133,15 +1133,15 @@ Standard_Boolean PrsDim_AngleDimension::InitConeAngle()
   }
 
   // A circle where the angle is drawn
-  Handle(Geom_Curve) aCurve;
+  Handle(GeomCurve3d) aCurve;
   Standard_Real      aMidV = (aMinV + aMaxV) / 2.5;
   aCurve                   = aSurf->VIso(aMidV);
-  aCircle                  = Handle(Geom_Circle)::DownCast(aCurve)->Circ();
+  aCircle                  = Handle(GeomCircle)::DownCast(aCurve)->Circ();
 
   aCurve            = aSurf->VIso(aMaxV);
-  gp_Circ aCircVmax = Handle(Geom_Circle)::DownCast(aCurve)->Circ();
+  gp_Circ aCircVmax = Handle(GeomCircle)::DownCast(aCurve)->Circ();
   aCurve            = aSurf->VIso(aMinV);
-  gp_Circ aCircVmin = Handle(Geom_Circle)::DownCast(aCurve)->Circ();
+  gp_Circ aCircVmin = Handle(GeomCircle)::DownCast(aCurve)->Circ();
 
   if (aCircVmax.Radius() < aCircVmin.Radius())
   {
@@ -1211,7 +1211,7 @@ Point3d PrsDim_AngleDimension::GetTextPosition() const
 
   // Prepare label string and compute its geometrical width
   Standard_Real              aLabelWidth;
-  TCollection_ExtendedString aLabelString = GetValueString(aLabelWidth);
+  UtfString aLabelString = GetValueString(aLabelWidth);
 
   Point3d aFirstAttach =
     myCenterPoint.Translated(Vector3d(myCenterPoint, myFirstPoint).Normalized() * GetFlyout());
@@ -1393,7 +1393,7 @@ void PrsDim_AngleDimension::FitTextAlignment(
 
   // Prepare label string and compute its geometrical width
   Standard_Real              aLabelWidth;
-  TCollection_ExtendedString aLabelString = GetValueString(aLabelWidth);
+  UtfString aLabelString = GetValueString(aLabelWidth);
 
   // add margins to label width
   if (aDimensionAspect->IsText3d())

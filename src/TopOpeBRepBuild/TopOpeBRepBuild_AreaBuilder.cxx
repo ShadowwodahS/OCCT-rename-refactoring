@@ -27,22 +27,22 @@
 
 //=================================================================================================
 
-TopOpeBRepBuild_AreaBuilder::TopOpeBRepBuild_AreaBuilder()
+AreaBuilder::AreaBuilder()
     : myUNKNOWNRaise(Standard_False) // no raise if UNKNOWN state found
 {
 }
 
 //=================================================================================================
 
-TopOpeBRepBuild_AreaBuilder::TopOpeBRepBuild_AreaBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                                         TopOpeBRepBuild_LoopClassifier& LC,
+AreaBuilder::AreaBuilder(LoopSet&        LS,
+                                                         LoopClassifier& LC,
                                                          const Standard_Boolean          ForceClass)
     : myUNKNOWNRaise(Standard_False) // no raise if UNKNOWN state found
 {
   InitAreaBuilder(LS, LC, ForceClass);
 }
 
-TopOpeBRepBuild_AreaBuilder::~TopOpeBRepBuild_AreaBuilder() {}
+AreaBuilder::~AreaBuilder() {}
 
 //=======================================================================
 // function : CompareLoopWithListOfLoop
@@ -56,8 +56,8 @@ TopOpeBRepBuild_AreaBuilder::~TopOpeBRepBuild_AreaBuilder() {}
 //           TopAbs_OUT if <L> is outside one of the selected Loops of <LOL>
 //           TopAbs_ON  if <L> is on one of the selected Loops of <LOL>
 //=======================================================================
-TopAbs_State TopOpeBRepBuild_AreaBuilder::CompareLoopWithListOfLoop(
-  TopOpeBRepBuild_LoopClassifier&     LC,
+TopAbs_State AreaBuilder::CompareLoopWithListOfLoop(
+  LoopClassifier&     LC,
   const Handle(TopOpeBRepBuild_Loop)& L,
   const TopOpeBRepBuild_ListOfLoop&   LOL,
   const TopOpeBRepBuild_LoopEnum      what) const
@@ -104,7 +104,7 @@ TopAbs_State TopOpeBRepBuild_AreaBuilder::CompareLoopWithListOfLoop(
 //           myUNKNOWNRaise = False--> assign a new value <newstate> to <state>
 //=======================================================================
 
-void TopOpeBRepBuild_AreaBuilder::Atomize(TopAbs_State& state, const TopAbs_State newstate) const
+void AreaBuilder::Atomize(TopAbs_State& state, const TopAbs_State newstate) const
 {
   if (myUNKNOWNRaise)
   {
@@ -118,8 +118,8 @@ void TopOpeBRepBuild_AreaBuilder::Atomize(TopAbs_State& state, const TopAbs_Stat
 
 //=================================================================================================
 
-void TopOpeBRepBuild_AreaBuilder::InitAreaBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                                  TopOpeBRepBuild_LoopClassifier& LC,
+void AreaBuilder::InitAreaBuilder(LoopSet&        LS,
+                                                  LoopClassifier& LC,
                                                   const Standard_Boolean          ForceClass)
 {
   TopAbs_State     state;
@@ -309,7 +309,7 @@ void TopOpeBRepBuild_AreaBuilder::InitAreaBuilder(TopOpeBRepBuild_LoopSet&      
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepBuild_AreaBuilder::InitArea()
+Standard_Integer AreaBuilder::InitArea()
 {
   myAreaIterator.Initialize(myArea);
   InitLoop();
@@ -319,7 +319,7 @@ Standard_Integer TopOpeBRepBuild_AreaBuilder::InitArea()
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_AreaBuilder::MoreArea() const
+Standard_Boolean AreaBuilder::MoreArea() const
 {
   Standard_Boolean b = myAreaIterator.More();
   return b;
@@ -327,7 +327,7 @@ Standard_Boolean TopOpeBRepBuild_AreaBuilder::MoreArea() const
 
 //=================================================================================================
 
-void TopOpeBRepBuild_AreaBuilder::NextArea()
+void AreaBuilder::NextArea()
 {
   myAreaIterator.Next();
   InitLoop();
@@ -335,7 +335,7 @@ void TopOpeBRepBuild_AreaBuilder::NextArea()
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepBuild_AreaBuilder::InitLoop()
+Standard_Integer AreaBuilder::InitLoop()
 {
   Standard_Integer n = 0;
   if (myAreaIterator.More())
@@ -353,7 +353,7 @@ Standard_Integer TopOpeBRepBuild_AreaBuilder::InitLoop()
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_AreaBuilder::MoreLoop() const
+Standard_Boolean AreaBuilder::MoreLoop() const
 {
   Standard_Boolean b = myLoopIterator.More();
   return b;
@@ -361,14 +361,14 @@ Standard_Boolean TopOpeBRepBuild_AreaBuilder::MoreLoop() const
 
 //=================================================================================================
 
-void TopOpeBRepBuild_AreaBuilder::NextLoop()
+void AreaBuilder::NextLoop()
 {
   myLoopIterator.Next();
 }
 
 //=================================================================================================
 
-const Handle(TopOpeBRepBuild_Loop)& TopOpeBRepBuild_AreaBuilder::Loop() const
+const Handle(TopOpeBRepBuild_Loop)& AreaBuilder::Loop() const
 {
   const Handle(TopOpeBRepBuild_Loop)& L = myLoopIterator.Value();
   return L;
@@ -376,7 +376,7 @@ const Handle(TopOpeBRepBuild_Loop)& TopOpeBRepBuild_AreaBuilder::Loop() const
 
 //=================================================================================================
 
-void TopOpeBRepBuild_AreaBuilder::ADD_Loop_TO_LISTOFLoop(const Handle(TopOpeBRepBuild_Loop)& L,
+void AreaBuilder::ADD_Loop_TO_LISTOFLoop(const Handle(TopOpeBRepBuild_Loop)& L,
                                                          TopOpeBRepBuild_ListOfLoop&         LOL,
                                                          const Standard_Address /*ss*/) const
 {
@@ -385,7 +385,7 @@ void TopOpeBRepBuild_AreaBuilder::ADD_Loop_TO_LISTOFLoop(const Handle(TopOpeBRep
 
 //=================================================================================================
 
-void TopOpeBRepBuild_AreaBuilder::REM_Loop_FROM_LISTOFLoop(
+void AreaBuilder::REM_Loop_FROM_LISTOFLoop(
   TopOpeBRepBuild_ListIteratorOfListOfLoop& ITA,
   TopOpeBRepBuild_ListOfLoop&               A,
   const Standard_Address /*ss*/) const
@@ -395,7 +395,7 @@ void TopOpeBRepBuild_AreaBuilder::REM_Loop_FROM_LISTOFLoop(
 
 //=================================================================================================
 
-void TopOpeBRepBuild_AreaBuilder::ADD_LISTOFLoop_TO_LISTOFLoop(TopOpeBRepBuild_ListOfLoop& A1,
+void AreaBuilder::ADD_LISTOFLoop_TO_LISTOFLoop(TopOpeBRepBuild_ListOfLoop& A1,
                                                                TopOpeBRepBuild_ListOfLoop& A2,
                                                                const Standard_Address /*ss*/,
                                                                const Standard_Address /*ss1*/,

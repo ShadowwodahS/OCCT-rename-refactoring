@@ -32,7 +32,7 @@
 //=========================================================================
 //   Creation of a circle tangent to a straight line and two points.      +
 //=========================================================================
-GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedLin& Qualified1,
+Circle2dThreeTangent::Circle2dThreeTangent(const GccEnt_QualifiedLin& Qualified1,
                                      const gp_Pnt2d&            Point2,
                                      const gp_Pnt2d&            Point3,
                                      const Standard_Real        Tolerance)
@@ -155,7 +155,7 @@ GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedLin& Qualified1,
               TheSame1(NbrSol)   = 0;
               gp_Dir2d      dc(origin1.XY() - Center.XY());
               Standard_Real sign = dc.Dot(gp_Dir2d(-dir1.Y(), dir1.X()));
-              dc                 = gp_Dir2d(sign * gp_XY(-dir1.Y(), dir1.X()));
+              dc                 = gp_Dir2d(sign * Coords2d(-dir1.Y(), dir1.X()));
               pnttg1sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc.XY());
               par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
               pararg1(NbrSol)    = ElCLib::Parameter(L1, pnttg1sol(NbrSol));

@@ -33,18 +33,18 @@
 // TreeNode : SetNode
 // purpose  : SetNode (DOC Entry [ID])
 //=======================================================================
-static Standard_Integer DDataStd_SetNode(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DDataStd_SetNode(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(a[1], DF))
+  if (!DDF1::GetDF(a[1], DF))
     return 1;
-  TDF_Label                 L;
+  DataLabel                 L;
   Handle(TDataStd_TreeNode) TN;
-  DDF::AddLabel(DF, a[2], L);
+  DDF1::AddLabel(DF, a[2], L);
   if (n == 3)
   {
     TN = TDataStd_TreeNode::Set(L);
-    DDF::ReturnLabel(di, TN->Label());
+    DDF1::ReturnLabel(di, TN->Label());
     return 0;
   }
   else if (n == 4)
@@ -56,7 +56,7 @@ static Standard_Integer DDataStd_SetNode(Draw_Interpretor& di, Standard_Integer 
     }
     const Standard_GUID ID(a[3]);
     TN = TDataStd_TreeNode::Set(L, ID);
-    DDF::ReturnLabel(di, TN->Label());
+    DDF1::ReturnLabel(di, TN->Label());
     return 0;
   }
   di << "DDataStd_SetNode : Error\n";
@@ -68,14 +68,14 @@ static Standard_Integer DDataStd_SetNode(Draw_Interpretor& di, Standard_Integer 
 // purpose  : AppendNode (DOC FatherEntry childEntry [fatherID])
 //=======================================================================
 
-static Standard_Integer DDataStd_AppendNode(Draw_Interpretor& di,
+static Standard_Integer DDataStd_AppendNode(DrawInterpreter& di,
                                             Standard_Integer  n,
                                             const char**      a)
 {
   if (n >= 4)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
     Handle(TDataStd_TreeNode) father, child;
 
@@ -93,11 +93,11 @@ static Standard_Integer DDataStd_AppendNode(Draw_Interpretor& di,
       ID = varID;
     }
 
-    if (!DDF::Find(DF, a[2], ID, father))
+    if (!DDF1::Find(DF, a[2], ID, father))
       return 1;
 
-    TDF_Label L;
-    DDF::AddLabel(DF, a[3], L);
+    DataLabel L;
+    DDF1::AddLabel(DF, a[3], L);
     if ((L.FindAttribute(ID, child)) && (!child->IsRoot()))
     {
       di << "DDataStd_AppendNode : Error : childTreeNode don't detach\n";
@@ -120,14 +120,14 @@ static Standard_Integer DDataStd_AppendNode(Draw_Interpretor& di,
 // purpose  : PrependNode (DOC FatherEntry childEntry [fatherID])
 //=======================================================================
 
-static Standard_Integer DDataStd_PrependNode(Draw_Interpretor& di,
+static Standard_Integer DDataStd_PrependNode(DrawInterpreter& di,
                                              Standard_Integer  n,
                                              const char**      a)
 {
   if (n >= 4)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
     Handle(TDataStd_TreeNode) father, child;
 
@@ -145,11 +145,11 @@ static Standard_Integer DDataStd_PrependNode(Draw_Interpretor& di,
       ID = varID;
     }
 
-    if (!DDF::Find(DF, a[2], ID, father))
+    if (!DDF1::Find(DF, a[2], ID, father))
       return 1;
 
-    TDF_Label L;
-    DDF::AddLabel(DF, a[3], L);
+    DataLabel L;
+    DDF1::AddLabel(DF, a[3], L);
     if ((L.FindAttribute(ID, child)) && (!child->IsRoot()))
     {
       di << "DDataStd_PrependNode : Error : childTreeNode don't detach\n";
@@ -172,12 +172,12 @@ static Standard_Integer DDataStd_PrependNode(Draw_Interpretor& di,
 // purpose  : RootNode (DOC TreeNodeEntry [ID])
 //=======================================================================
 
-static Standard_Integer DDataStd_RootNode(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DDataStd_RootNode(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n >= 3)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
     Handle(TDataStd_TreeNode) TN;
 
@@ -195,9 +195,9 @@ static Standard_Integer DDataStd_RootNode(Draw_Interpretor& di, Standard_Integer
       ID = varID;
     }
 
-    if (!DDF::Find(DF, a[2], ID, TN))
+    if (!DDF1::Find(DF, a[2], ID, TN))
       return 1;
-    DDF::ReturnLabel(di, TN->Root()->Label());
+    DDF1::ReturnLabel(di, TN->Root()->Label());
     return 0;
   }
   di << "DDataStd_RootNode : Error\n";
@@ -209,14 +209,14 @@ static Standard_Integer DDataStd_RootNode(Draw_Interpretor& di, Standard_Integer
 // purpose  : InsertNodeBefore (DOC TreeNodeEntry TreeNodeWhichHasToBeBefore [ID])
 //=======================================================================
 
-static Standard_Integer DDataStd_InsertNodeBefore(Draw_Interpretor& di,
+static Standard_Integer DDataStd_InsertNodeBefore(DrawInterpreter& di,
                                                   Standard_Integer  n,
                                                   const char**      a)
 {
   if (n >= 4)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
     Handle(TDataStd_TreeNode) current, TN;
 
@@ -234,12 +234,12 @@ static Standard_Integer DDataStd_InsertNodeBefore(Draw_Interpretor& di,
       ID = varID;
     }
 
-    if (!DDF::Find(DF, a[2], ID, current))
+    if (!DDF1::Find(DF, a[2], ID, current))
       return 1;
-    //     if (!DDF::Find(DF,a[3],ID,TN)) return 1;
+    //     if (!DDF1::Find(DF,a[3],ID,TN)) return 1;
 
-    TDF_Label L;
-    if (!DDF::FindLabel(DF, a[3], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(DF, a[3], L))
       return 1;
     TN = TDataStd_TreeNode::Set(L, ID);
     if (!current->InsertBefore(TN))
@@ -255,14 +255,14 @@ static Standard_Integer DDataStd_InsertNodeBefore(Draw_Interpretor& di,
 // purpose  : InsertNodeAfter (DOC TreeNodeEntry TreeNodeWhichHasToBeAfter [ID])
 //=======================================================================
 
-static Standard_Integer DDataStd_InsertNodeAfter(Draw_Interpretor& di,
+static Standard_Integer DDataStd_InsertNodeAfter(DrawInterpreter& di,
                                                  Standard_Integer  n,
                                                  const char**      a)
 {
   if (n >= 4)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
     Handle(TDataStd_TreeNode) current, TN;
 
@@ -280,11 +280,11 @@ static Standard_Integer DDataStd_InsertNodeAfter(Draw_Interpretor& di,
       ID = varID;
     }
 
-    if (!DDF::Find(DF, a[2], ID, current))
+    if (!DDF1::Find(DF, a[2], ID, current))
       return 1;
-    // if (!DDF::Find(DF,a[3],TDataStd_TreeNode::GetDefaultTreeID(),TN)) return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(DF, a[3], L))
+    // if (!DDF1::Find(DF,a[3],TDataStd_TreeNode::GetDefaultTreeID(),TN)) return 1;
+    DataLabel L;
+    if (!DDF1::FindLabel(DF, a[3], L))
       return 1;
     TN = TDataStd_TreeNode::Set(L);
     if (!current->InsertAfter(TN))
@@ -300,14 +300,14 @@ static Standard_Integer DDataStd_InsertNodeAfter(Draw_Interpretor& di,
 // purpose  : DetachNode (DOC TreeNodeEntry [ID])
 //=======================================================================
 
-static Standard_Integer DDataStd_DetachNode(Draw_Interpretor& di,
+static Standard_Integer DDataStd_DetachNode(DrawInterpreter& di,
                                             Standard_Integer  n,
                                             const char**      a)
 {
   if (n >= 3)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
     Handle(TDataStd_TreeNode) TN;
 
@@ -325,7 +325,7 @@ static Standard_Integer DDataStd_DetachNode(Draw_Interpretor& di,
       ID = varID;
     }
 
-    if (!DDF::Find(DF, a[2], ID, TN))
+    if (!DDF1::Find(DF, a[2], ID, TN))
       return 1;
     if (!TN->Remove())
       di << "Can't Detach the TreeNode\n";
@@ -343,7 +343,7 @@ static Standard_Integer DDataStd_DetachNode(Draw_Interpretor& di,
 // [arg 3] : Browser name
 //=======================================================================
 
-static Standard_Integer DDataStd_TreeBrowse(Draw_Interpretor& di,
+static Standard_Integer DDataStd_TreeBrowse(DrawInterpreter& di,
                                             Standard_Integer  n,
                                             const char**      a)
 {
@@ -351,10 +351,10 @@ static Standard_Integer DDataStd_TreeBrowse(Draw_Interpretor& di,
     return 1;
 
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(a[1], DF))
+  if (!DDF1::GetDF(a[1], DF))
     return 1;
 
-  TDF_Label lab;
+  DataLabel lab;
   TDF_Tool::Label(DF, a[2], lab);
 
   Handle(DDataStd_TreeBrowser) NewTreeNode = new DDataStd_TreeBrowser(lab);
@@ -364,8 +364,8 @@ static Standard_Integer DDataStd_TreeBrowse(Draw_Interpretor& di,
   else
     Sprintf(name, "treebrowser_%s", a[1]);
 
-  Draw::Set(name, NewTreeNode);
-  TCollection_AsciiString inst1("treebrowser ");
+  Draw1::Set(name, NewTreeNode);
+  AsciiString1 inst1("treebrowser ");
   inst1.AssignCat(name);
   di.Eval(inst1.ToCString());
   return 0;
@@ -378,31 +378,31 @@ static Standard_Integer DDataStd_TreeBrowse(Draw_Interpretor& di,
 // [arg 2] : Label entry
 //=======================================================================
 
-static Standard_Integer DDataStd_OpenNode(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DDataStd_OpenNode(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
 
   Handle(DDataStd_TreeBrowser) browser =
-    Handle(DDataStd_TreeBrowser)::DownCast(Draw::GetExisting(a[1]));
+    Handle(DDataStd_TreeBrowser)::DownCast(Draw1::GetExisting(a[1]));
   if (browser.IsNull())
   {
     Message::SendFail() << "Syntax error: browser '" << a[1] << "' not found";
     return 1;
   }
 
-  TDF_Label lab;
+  DataLabel lab;
   if (n == 3)
     TDF_Tool::Label(browser->Label().Data(), a[2], lab);
 
   if (n == 2 || lab.IsNull())
   {
-    TCollection_AsciiString list = browser->OpenRoot();
+    AsciiString1 list = browser->OpenRoot();
     di << list.ToCString();
   }
   else
   {
-    TCollection_AsciiString list = browser->OpenNode(lab);
+    AsciiString1 list = browser->OpenNode(lab);
     di << list.ToCString();
   }
   return 0;
@@ -413,16 +413,16 @@ static Standard_Integer DDataStd_OpenNode(Draw_Interpretor& di, Standard_Integer
 // purpose  : ChildNodeIterate Doc TreeNode AllLevels [ID]
 //=======================================================================
 
-static Standard_Integer DDataStd_ChildNodeIterate(Draw_Interpretor& di,
+static Standard_Integer DDataStd_ChildNodeIterate(DrawInterpreter& di,
                                                   Standard_Integer  n,
                                                   const char**      a)
 {
   if (n >= 4)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
-    const Standard_Boolean    AllLevels = (Draw::Atoi(a[3]) != 0);
+    const Standard_Boolean    AllLevels = (Draw1::Atoi(a[3]) != 0);
     Handle(TDataStd_TreeNode) TN, Value;
 
     Standard_GUID ID;
@@ -439,14 +439,14 @@ static Standard_Integer DDataStd_ChildNodeIterate(Draw_Interpretor& di,
       ID = varID;
     }
 
-    if (!DDF::Find(DF, a[2], ID, TN))
+    if (!DDF1::Find(DF, a[2], ID, TN))
       return 1;
     // di<<"TDataStd_ChildNodeIterator: \n";
     TDataStd_ChildNodeIterator itr(TN, AllLevels);
     for (; itr.More(); itr.Next())
     {
       Value = itr.Value();
-      TCollection_AsciiString entry;
+      AsciiString1 entry;
       TDF_Tool::Entry(Value->Label(), entry);
       di << entry << "\n";
       // di<<entry;
@@ -467,14 +467,14 @@ static TDataStd_ChildNodeIterator cni;
 // purpose  : InitChildNodeIterator Doc TreeNode AllLevels [ID]
 //=======================================================================
 
-static Standard_Integer DDataStd_InitChildNodeIterator(Draw_Interpretor& di,
+static Standard_Integer DDataStd_InitChildNodeIterator(DrawInterpreter& di,
                                                        Standard_Integer  n,
                                                        const char**      a)
 {
   if (n >= 4)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
     Handle(TDataStd_TreeNode) TN, Value;
 
@@ -492,9 +492,9 @@ static Standard_Integer DDataStd_InitChildNodeIterator(Draw_Interpretor& di,
       ID = varID;
     }
 
-    if (!DDF::Find(DF, a[2], ID, TN))
+    if (!DDF1::Find(DF, a[2], ID, TN))
       return 1;
-    const Standard_Boolean AllLevels = (Draw::Atoi(a[3]) != 0);
+    const Standard_Boolean AllLevels = (Draw1::Atoi(a[3]) != 0);
     cni.Initialize(TN, AllLevels);
     return 0;
   }
@@ -507,7 +507,7 @@ static Standard_Integer DDataStd_InitChildNodeIterator(Draw_Interpretor& di,
 // purpose  : ChildNodeMore
 //=======================================================================
 
-static Standard_Integer DDataStd_ChildNodeMore(Draw_Interpretor& di,
+static Standard_Integer DDataStd_ChildNodeMore(DrawInterpreter& di,
                                                Standard_Integer /*n*/,
                                                const char** /*a*/)
 {
@@ -527,7 +527,7 @@ static Standard_Integer DDataStd_ChildNodeMore(Draw_Interpretor& di,
 // purpose  : ChildNodeNext
 //=======================================================================
 
-static Standard_Integer DDataStd_ChildNodeNext(Draw_Interpretor& /*di*/,
+static Standard_Integer DDataStd_ChildNodeNext(DrawInterpreter& /*di*/,
                                                Standard_Integer /*n*/,
                                                const char** /*a*/)
 {
@@ -540,7 +540,7 @@ static Standard_Integer DDataStd_ChildNodeNext(Draw_Interpretor& /*di*/,
 // purpose  : ChildNodeNext Brother
 //=======================================================================
 
-static Standard_Integer DDataStd_ChildNodeNextBrother(Draw_Interpretor& /*di*/,
+static Standard_Integer DDataStd_ChildNodeNextBrother(DrawInterpreter& /*di*/,
                                                       Standard_Integer /*n*/,
                                                       const char** /*a*/)
 {
@@ -553,11 +553,11 @@ static Standard_Integer DDataStd_ChildNodeNextBrother(Draw_Interpretor& /*di*/,
 // purpose  : ChildNodeValue
 //=======================================================================
 
-static Standard_Integer DDataStd_ChildNodeValue(Draw_Interpretor& di,
+static Standard_Integer DDataStd_ChildNodeValue(DrawInterpreter& di,
                                                 Standard_Integer /*n*/,
                                                 const char** /*a*/)
 {
-  TCollection_AsciiString entry;
+  AsciiString1 entry;
   TDF_Tool::Entry(cni.Value()->Label(), entry);
   di << entry << "\n";
   return 0;
@@ -568,7 +568,7 @@ static Standard_Integer DDataStd_ChildNodeValue(Draw_Interpretor& di,
 // purpose  :
 //=======================================================================
 
-void DDataStd::TreeCommands(Draw_Interpretor& theCommands)
+void DDataStd1::TreeCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

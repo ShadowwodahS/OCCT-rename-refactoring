@@ -76,9 +76,9 @@ void IGESSelect_FloatFormat::SetFormatForRange(const Standard_CString form,
 }
 
 void IGESSelect_FloatFormat::Format(Standard_Boolean&        zerosup,
-                                    TCollection_AsciiString& mainform,
+                                    AsciiString1& mainform,
                                     Standard_Boolean&        hasrange,
-                                    TCollection_AsciiString& formrange,
+                                    AsciiString1& formrange,
                                     Standard_Real&           rangemin,
                                     Standard_Real&           rangemax) const
 {
@@ -99,9 +99,9 @@ void IGESSelect_FloatFormat::Perform(IFSelect_ContextWrite& /*ctx*/,
     writer.FloatWriter().SetFormatForRange(theformrange.ToCString(), therangemin, therangemax);
 }
 
-TCollection_AsciiString IGESSelect_FloatFormat::Label() const
+AsciiString1 IGESSelect_FloatFormat::Label() const
 {
-  TCollection_AsciiString lab("Float Format ");
+  AsciiString1 lab("Float Format ");
   if (thezerosup)
     lab.AssignCat(" ZeroSup ");
   lab.AssignCat(themainform);

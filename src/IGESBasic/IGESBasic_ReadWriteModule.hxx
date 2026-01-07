@@ -30,7 +30,7 @@ class IGESData_IGESWriter;
 class IGESBasic_ReadWriteModule;
 DEFINE_STANDARD_HANDLE(IGESBasic_ReadWriteModule, IGESData_ReadWriteModule)
 
-//! Defines basic File Access Module for IGESBasic (specific parts)
+//! Defines basic File Access Module for IGESBasic1 (specific parts)
 //! Specific actions concern : Read and Write Own Parameters of
 //! an IGESEntity.
 class IGESBasic_ReadWriteModule : public IGESData_ReadWriteModule
@@ -40,11 +40,11 @@ public:
   //! Creates a ReadWriteModule & puts it into ReaderLib & WriterLib
   Standard_EXPORT IGESBasic_ReadWriteModule();
 
-  //! Defines Case Numbers for Entities of IGESBasic
+  //! Defines Case Numbers for Entities of IGESBasic1
   Standard_EXPORT Standard_Integer CaseIGES(const Standard_Integer typenum,
                                             const Standard_Integer formnum) const Standard_OVERRIDE;
 
-  //! Reads own parameters from file for an Entity of IGESBasic
+  //! Reads own parameters from file for an Entity of IGESBasic1
   Standard_EXPORT void ReadOwnParams(const Standard_Integer                 CN,
                                      const Handle(IGESData_IGESEntity)&     ent,
                                      const Handle(IGESData_IGESReaderData)& IR,

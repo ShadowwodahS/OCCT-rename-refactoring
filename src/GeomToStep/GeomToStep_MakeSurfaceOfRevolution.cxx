@@ -31,7 +31,7 @@
 //=============================================================================
 GeomToStep_MakeSurfaceOfRevolution::GeomToStep_MakeSurfaceOfRevolution(
   const Handle(Geom_SurfaceOfRevolution)& S,
-  const StepData_Factors&                 theLocalFactors)
+  const ConversionFactors&                 theLocalFactors)
 {
   Handle(StepGeom_SurfaceOfRevolution) Surf;
   Handle(StepGeom_Curve)               aSweptCurve;

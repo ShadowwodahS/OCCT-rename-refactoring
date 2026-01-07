@@ -40,24 +40,24 @@ public:
   virtual ~TInspector_Communicator() {}
 
   //! Returns directory of Qt plugins. Firstly it founds it in QTDIR, else if not defined in PATH
-  Standard_EXPORT static Standard_Boolean PluginsDir(TCollection_AsciiString& thePlugindsDirName);
+  Standard_EXPORT static Standard_Boolean PluginsDir(AsciiString1& thePlugindsDirName);
 
   //! Registers plugin into TInspector window
   //! \param thePluginName a name of the plugin
-  void RegisterPlugin(const TCollection_AsciiString& thePluginName)
+  void RegisterPlugin(const AsciiString1& thePluginName)
   {
     myWindow->RegisterPlugin(thePluginName);
   }
 
   //! Returns list of registered plugins
   //! \return container of plugin names
-  NCollection_List<TCollection_AsciiString> RegisteredPlugins() const
+  NCollection_List<AsciiString1> RegisteredPlugins() const
   {
     return myWindow->RegisteredPlugins();
   }
 
   //! Stores parameters for the plugin
-  //! \param theParameters container of parameters(e.g. AIS_InteractiveContext, TDocStd_Application)
+  //! \param theParameters container of parameters(e.g. VisualContext, AppManager)
   //! \param theAppend boolean state whether the parameters should be added to existing
   void Init(const NCollection_List<Handle(RefObject)>& theParameters,
             const Standard_Boolean                              theAppend = Standard_False)
@@ -67,9 +67,9 @@ public:
 
   //! Stores parameters for the plugin
   //! \param thePluginName a name of the plugin
-  //! \param theParameters container of parameters(e.g. AIS_InteractiveContext, TDocStd_Application)
+  //! \param theParameters container of parameters(e.g. VisualContext, AppManager)
   //! \param theAppend boolean state whether the parameters should be added to existing
-  void Init(const TCollection_AsciiString&                      thePluginName,
+  void Init(const AsciiString1&                      thePluginName,
             const NCollection_List<Handle(RefObject)>& theParameters,
             const Standard_Boolean                              theAppend = Standard_False)
   {
@@ -83,22 +83,22 @@ public:
   void SetOpenButton(QPushButton* theButton) { myWindow->SetOpenButton(theButton); }
 
   //! Opens file in TInspector window
-  void OpenFile(const TCollection_AsciiString& thePluginName,
-                const TCollection_AsciiString& theFileName)
+  void OpenFile(const AsciiString1& thePluginName,
+                const AsciiString1& theFileName)
   {
     myWindow->OpenFile(thePluginName, theFileName);
   }
 
   //! Activates plugin
   //! \param thePluginName a name of the plugin
-  void Activate(const TCollection_AsciiString& thePluginName)
+  void Activate(const AsciiString1& thePluginName)
   {
     myWindow->ActivateTool(thePluginName);
   }
 
   //! Sets item selected in the active plugin
   //! \param theItemName a container of name of items in plugin that should become selected
-  void SetSelected(const NCollection_List<TCollection_AsciiString>& theItemNames)
+  void SetSelected(const NCollection_List<AsciiString1>& theItemNames)
   {
     myWindow->SetSelected(theItemNames);
   }
@@ -112,14 +112,14 @@ public:
 
   //! Sets path to a directory for temporary plugin files
   //! \param thePath a path
-  void SetTemporaryDirectory(const TCollection_AsciiString& thePath)
+  void SetTemporaryDirectory(const AsciiString1& thePath)
   {
     myWindow->SetTemporaryDirectory(thePath);
   }
 
   //! Returns path to a directory for temporary plugin files
   //! \return path
-  TCollection_AsciiString GetTemporaryDirectory() const
+  AsciiString1 GetTemporaryDirectory() const
   {
     return myWindow->GetTemporaryDirectory();
   }

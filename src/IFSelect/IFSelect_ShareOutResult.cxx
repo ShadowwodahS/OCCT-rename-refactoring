@@ -249,7 +249,7 @@ Interface_EntityIterator IFSelect_ShareOutResult::PacketContent()
   return GC.Result();
 }
 
-TCollection_AsciiString IFSelect_ShareOutResult::FileName() const
+AsciiString1 IFSelect_ShareOutResult::FileName() const
 {
   Standard_Integer nd = DispatchRank();
   Standard_Integer np, nbp;

@@ -248,9 +248,9 @@ const Standard_GUID& XCAFDoc::LockGUID()
 
 //=================================================================================================
 
-TCollection_AsciiString XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theAtt)
+AsciiString1 XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theAtt)
 {
-  TCollection_AsciiString anInfo;
+  AsciiString1 anInfo;
 
   if (theAtt->IsKind(STANDARD_TYPE(TDataStd_TreeNode)))
   {
@@ -270,17 +270,17 @@ TCollection_AsciiString XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theA
     else if (theAtt->ID() == XCAFDoc::MaterialRefGUID())
       type = "Material Link";
     Handle(TDataStd_TreeNode) TN = Handle(TDataStd_TreeNode)::DownCast(theAtt);
-    TCollection_AsciiString   ref;
+    AsciiString1   ref;
     if (TN->HasFather())
     {
       TDF_Tool::Entry(TN->Father()->Label(), ref);
       anInfo = type;
-      anInfo += TCollection_AsciiString(" ==> ") + ref;
+      anInfo += AsciiString1(" ==> ") + ref;
     }
     else
     {
       anInfo = type;
-      anInfo += TCollection_AsciiString(" <== (") + ref;
+      anInfo += AsciiString1(" <== (") + ref;
       Handle(TDataStd_TreeNode) child = TN->First();
       while (!child.IsNull())
       {
@@ -296,44 +296,44 @@ TCollection_AsciiString XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theA
   else if (theAtt->IsKind(STANDARD_TYPE(TDF_Reference)))
   {
     Handle(TDF_Reference)   val = Handle(TDF_Reference)::DownCast(theAtt);
-    TCollection_AsciiString ref;
+    AsciiString1 ref;
     TDF_Tool::Entry(val->Get(), ref);
-    anInfo += TCollection_AsciiString("==> ") + ref;
+    anInfo += AsciiString1("==> ") + ref;
   }
   else if (theAtt->IsKind(STANDARD_TYPE(TDF_TagSource)))
   {
     Handle(TDF_TagSource) val = Handle(TDF_TagSource)::DownCast(theAtt);
-    anInfo += TCollection_AsciiString(val->Get());
+    anInfo += AsciiString1(val->Get());
   }
-  else if (theAtt->IsKind(STANDARD_TYPE(TDataStd_Integer)))
+  else if (theAtt->IsKind(STANDARD_TYPE(IntAttribute)))
   {
-    Handle(TDataStd_Integer) val = Handle(TDataStd_Integer)::DownCast(theAtt);
-    anInfo                       = TCollection_AsciiString(val->Get());
+    Handle(IntAttribute) val = Handle(IntAttribute)::DownCast(theAtt);
+    anInfo                       = AsciiString1(val->Get());
   }
   else if (theAtt->IsKind(STANDARD_TYPE(TDataStd_Real)))
   {
     Handle(TDataStd_Real) val = Handle(TDataStd_Real)::DownCast(theAtt);
-    anInfo                    = TCollection_AsciiString(val->Get());
+    anInfo                    = AsciiString1(val->Get());
   }
-  else if (theAtt->IsKind(STANDARD_TYPE(TDataStd_Name)))
+  else if (theAtt->IsKind(STANDARD_TYPE(NameAttribute)))
   {
-    Handle(TDataStd_Name) val = Handle(TDataStd_Name)::DownCast(theAtt);
-    anInfo                    = TCollection_AsciiString(val->Get(), '?');
+    Handle(NameAttribute) val = Handle(NameAttribute)::DownCast(theAtt);
+    anInfo                    = AsciiString1(val->Get(), '?');
   }
   else if (theAtt->IsKind(STANDARD_TYPE(TDataStd_Comment)))
   {
     Handle(TDataStd_Comment) val = Handle(TDataStd_Comment)::DownCast(theAtt);
-    anInfo                       = TCollection_AsciiString(val->Get(), '?');
+    anInfo                       = AsciiString1(val->Get(), '?');
   }
   else if (theAtt->IsKind(STANDARD_TYPE(TDataStd_AsciiString)))
   {
     Handle(TDataStd_AsciiString) val = Handle(TDataStd_AsciiString)::DownCast(theAtt);
-    anInfo                           = TCollection_AsciiString(val->Get(), '?');
+    anInfo                           = AsciiString1(val->Get(), '?');
   }
   else if (theAtt->IsKind(STANDARD_TYPE(XCAFDoc_LengthUnit)))
   {
     Handle(XCAFDoc_LengthUnit) aVal = Handle(XCAFDoc_LengthUnit)::DownCast(theAtt);
-    anInfo                          = TCollection_AsciiString(aVal->GetUnitValue());
+    anInfo                          = AsciiString1(aVal->GetUnitValue());
     anInfo += " ";
     anInfo += aVal->GetUnitName();
   }
@@ -343,8 +343,8 @@ TCollection_AsciiString XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theA
     for (Standard_Integer j = val->Lower(); j <= val->Upper(); j++)
     {
       if (j > val->Lower())
-        anInfo += TCollection_AsciiString(", ");
-      anInfo += TCollection_AsciiString(val->Value(j));
+        anInfo += AsciiString1(", ");
+      anInfo += AsciiString1(val->Value(j));
     }
   }
   else if (theAtt->IsKind(STANDARD_TYPE(TDataStd_RealArray)))
@@ -353,8 +353,8 @@ TCollection_AsciiString XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theA
     for (Standard_Integer j = val->Lower(); j <= val->Upper(); j++)
     {
       if (j > val->Lower())
-        anInfo += TCollection_AsciiString(", ");
-      anInfo += TCollection_AsciiString(val->Value(j));
+        anInfo += AsciiString1(", ");
+      anInfo += AsciiString1(val->Value(j));
     }
   }
   else if (theAtt->IsKind(STANDARD_TYPE(TDataStd_ByteArray)))
@@ -363,55 +363,55 @@ TCollection_AsciiString XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theA
     for (Standard_Integer j = val->Lower(); j <= val->Upper(); j++)
     {
       if (j > val->Lower())
-        anInfo += TCollection_AsciiString(", ");
-      anInfo += TCollection_AsciiString(val->Value(j));
+        anInfo += AsciiString1(", ");
+      anInfo += AsciiString1(val->Value(j));
     }
   }
-  else if (theAtt->IsKind(STANDARD_TYPE(TNaming_NamedShape)))
+  else if (theAtt->IsKind(STANDARD_TYPE(ShapeAttribute)))
   {
-    Handle(TNaming_NamedShape) val = Handle(TNaming_NamedShape)::DownCast(theAtt);
-    TopoDS_Shape               S   = val->Get();
+    Handle(ShapeAttribute) val = Handle(ShapeAttribute)::DownCast(theAtt);
+    TopoShape               S   = val->Get();
     if (!S.IsNull())
       anInfo = S.TShape()->DynamicType()->Name();
     else
       anInfo = "Empty Shape";
     if (!S.Location().IsIdentity())
-      anInfo += TCollection_AsciiString("(located)");
+      anInfo += AsciiString1("(located)");
   }
   else if (theAtt->IsKind(STANDARD_TYPE(XCAFDoc_ShapeMapTool)))
   {
 
     Handle(XCAFDoc_ShapeMapTool) anAttr = Handle(XCAFDoc_ShapeMapTool)::DownCast(theAtt);
-    anInfo += TCollection_AsciiString(anAttr->GetMap().Extent());
+    anInfo += AsciiString1(anAttr->GetMap().Extent());
   }
   else if (theAtt->IsKind(STANDARD_TYPE(XCAFDoc_Volume)))
   {
     Handle(XCAFDoc_Volume) val = Handle(XCAFDoc_Volume)::DownCast(theAtt);
-    anInfo += TCollection_AsciiString(val->Get());
+    anInfo += AsciiString1(val->Get());
   }
   else if (theAtt->IsKind(STANDARD_TYPE(XCAFDoc_Area)))
   {
     Handle(XCAFDoc_Area) val = Handle(XCAFDoc_Area)::DownCast(theAtt);
-    anInfo                   = TCollection_AsciiString(val->Get());
+    anInfo                   = AsciiString1(val->Get());
   }
   else if (theAtt->IsKind(STANDARD_TYPE(XCAFDoc_Centroid)))
   {
     Handle(XCAFDoc_Centroid) val        = Handle(XCAFDoc_Centroid)::DownCast(theAtt);
     Point3d                   myCentroid = val->Get();
     anInfo                              = "(";
-    anInfo += TCollection_AsciiString(myCentroid.X());
-    anInfo += TCollection_AsciiString(" , ");
-    anInfo += TCollection_AsciiString(TCollection_AsciiString(myCentroid.Y()));
-    anInfo += TCollection_AsciiString(" , ");
-    anInfo += TCollection_AsciiString(myCentroid.Z());
-    anInfo += TCollection_AsciiString(")");
+    anInfo += AsciiString1(myCentroid.X());
+    anInfo += AsciiString1(" , ");
+    anInfo += AsciiString1(AsciiString1(myCentroid.Y()));
+    anInfo += AsciiString1(" , ");
+    anInfo += AsciiString1(myCentroid.Z());
+    anInfo += AsciiString1(")");
   }
   else if (theAtt->IsKind(STANDARD_TYPE(TDataStd_UAttribute)))
   {
     if (theAtt->ID() == XCAFDoc::AssemblyGUID())
-      anInfo += TCollection_AsciiString("is assembly");
+      anInfo += AsciiString1("is assembly");
     if (theAtt->ID() == XCAFDoc::InvisibleGUID())
-      anInfo += TCollection_AsciiString("invisible");
+      anInfo += AsciiString1("invisible");
   }
   else if (theAtt->IsKind(STANDARD_TYPE(XCAFDoc_Color)))
   {
@@ -435,10 +435,10 @@ TCollection_AsciiString XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theA
     if (kind < 20)
     { // dimension
       anInfo = "Diameter (ValueRange[";
-      anInfo += TCollection_AsciiString(HAR->Value(1));
-      anInfo += TCollection_AsciiString(",");
-      anInfo += TCollection_AsciiString(HAR->Value(2));
-      anInfo += TCollection_AsciiString("])");
+      anInfo += AsciiString1(HAR->Value(1));
+      anInfo += AsciiString1(",");
+      anInfo += AsciiString1(HAR->Value(2));
+      anInfo += AsciiString1("])");
     }
     else
     {
@@ -511,7 +511,7 @@ TCollection_AsciiString XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theA
       if (anInfo.Length() > 0)
       {
         anInfo += " (Value=";
-        anInfo += TCollection_AsciiString(HAR->Value(1));
+        anInfo += AsciiString1(HAR->Value(1));
         anInfo += ")";
       }
     }
@@ -527,7 +527,7 @@ TCollection_AsciiString XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theA
     {
       anInfo = val->GetName()->ToCString();
       anInfo += "(density=";
-      anInfo += TCollection_AsciiString(dens);
+      anInfo += AsciiString1(dens);
       anInfo += dimdens;
       anInfo += ")";
     }
@@ -576,10 +576,10 @@ TCollection_AsciiString XCAFDoc::AttributeInfo(const Handle(TDF_Attribute)& theA
       type = "View Clipping Plane Link";
     }
     else
-      return TCollection_AsciiString();
+      return AsciiString1();
 
     Handle(XCAFDoc_GraphNode) DETGN = Handle(XCAFDoc_GraphNode)::DownCast(theAtt);
-    TCollection_AsciiString   ref;
+    AsciiString1   ref;
     Standard_Integer          ii = 1;
     if (DETGN->NbFathers() != 0)
     {

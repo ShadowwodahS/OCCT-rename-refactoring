@@ -51,7 +51,7 @@
 //=======================================================================
 class ShapeSelector : public BVH_Traverse<Standard_Real,
                                           3,
-                                          BVH_BoxSet<Standard_Real, 3, TopoDS_Shape>,
+                                          BVH_BoxSet<Standard_Real, 3, TopoShape>,
                                           Standard_Boolean>
 {
 public:
@@ -62,7 +62,7 @@ public:
   void SetBox(const Bnd_Box& theBox) { myBox = Bnd_Tools::Bnd2BVH(theBox); }
 
   //! Returns the selected shapes
-  const NCollection_List<TopoDS_Shape>& Shapes() const { return myShapes; }
+  const NCollection_List<TopoShape>& Shapes() const { return myShapes; }
 
 public:
   //! Defines the rules for node rejection by bounding box
@@ -95,7 +95,7 @@ public:
 
 protected:
   BVH_Box<Standard_Real, 3>      myBox;    //!< Selection box
-  NCollection_List<TopoDS_Shape> myShapes; //!< Selected shapes
+  NCollection_List<TopoShape> myShapes; //!< Selected shapes
 };
 
 //=======================================================================
@@ -112,12 +112,12 @@ public:
   void SetBox(const Bnd_Box& theBox) { myBox = Bnd_Tools::Bnd2BVH(theBox); }
 
   //! Returns the selected shapes
-  const NCollection_List<TopoDS_Shape>& Shapes() const { return myShapes; }
+  const NCollection_List<TopoShape>& Shapes() const { return myShapes; }
 
 public:
   //! Sets the Box Set
   void SetShapeBoxSet(
-    const opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoDS_Shape>>& theBoxSet)
+    const opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoShape>>& theBoxSet)
   {
     myBoxSet = theBoxSet;
   }
@@ -152,16 +152,16 @@ public:
   }
 
 protected:
-  opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoDS_Shape>> myBoxSet; //!< ShapeBoxSet
+  opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoShape>> myBoxSet; //!< ShapeBoxSet
   BVH_Box<Standard_Real, 3>                                       myBox;    //!< Selection box
-  NCollection_List<TopoDS_Shape>                                  myShapes; //!< Selected shapes
+  NCollection_List<TopoShape>                                  myShapes; //!< Selected shapes
 };
 
 //=======================================================================
 // function : QABVH_ShapeSelect
 // purpose : Test the work of BVH on the simple example of shapes selection
 //=======================================================================
-static Standard_Integer QABVH_ShapeSelect(Draw_Interpretor& theDI,
+static Standard_Integer QABVH_ShapeSelect(DrawInterpreter& theDI,
                                           Standard_Integer  theArgc,
                                           const char**      theArgv)
 {
@@ -172,7 +172,7 @@ static Standard_Integer QABVH_ShapeSelect(Draw_Interpretor& theDI,
   }
 
   // Get the shape to add its sub-shapes into BVH
-  TopoDS_Shape aShape = DBRep::Get(theArgv[2]);
+  TopoShape aShape = DBRep1::Get(theArgv[2]);
   if (aShape.IsNull())
   {
     std::cout << theArgv[2] << " does not exist" << std::endl;
@@ -180,7 +180,7 @@ static Standard_Integer QABVH_ShapeSelect(Draw_Interpretor& theDI,
   }
 
   // Get the shape to get the Box for selection
-  TopoDS_Shape aBShape = DBRep::Get(theArgv[3]);
+  TopoShape aBShape = DBRep1::Get(theArgv[3]);
   if (aBShape.IsNull())
   {
     std::cout << theArgv[3] << " does not exist" << std::endl;
@@ -197,21 +197,21 @@ static Standard_Integer QABVH_ShapeSelect(Draw_Interpretor& theDI,
     new BVH_LinearBuilder<Standard_Real, 3>();
 
   // Create the ShapeSet
-  opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoDS_Shape>> aShapeBoxSet =
-    !useVoidSelector ? new BVH_BoxSet<Standard_Real, 3, TopoDS_Shape>(aLBuilder)
-                     : new BVH_IndexedBoxSet<Standard_Real, 3, TopoDS_Shape>(aLBuilder);
+  opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoShape>> aShapeBoxSet =
+    !useVoidSelector ? new BVH_BoxSet<Standard_Real, 3, TopoShape>(aLBuilder)
+                     : new BVH_IndexedBoxSet<Standard_Real, 3, TopoShape>(aLBuilder);
 
   // Add elements into BVH
 
   // Map the shape
   TopTools_IndexedMapOfShape aMapShapes;
-  TopExp::MapShapes(aShape, TopAbs_VERTEX, aMapShapes);
-  TopExp::MapShapes(aShape, TopAbs_EDGE, aMapShapes);
-  TopExp::MapShapes(aShape, TopAbs_FACE, aMapShapes);
+  TopExp1::MapShapes(aShape, TopAbs_VERTEX, aMapShapes);
+  TopExp1::MapShapes(aShape, TopAbs_EDGE, aMapShapes);
+  TopExp1::MapShapes(aShape, TopAbs_FACE, aMapShapes);
 
   for (Standard_Integer iS = 1; iS <= aMapShapes.Extent(); ++iS)
   {
-    const TopoDS_Shape& aS = aMapShapes(iS);
+    const TopoShape& aS = aMapShapes(iS);
 
     Bnd_Box aSBox;
     BRepBndLib::Add(aS, aSBox);
@@ -222,7 +222,7 @@ static Standard_Integer QABVH_ShapeSelect(Draw_Interpretor& theDI,
   // Build BVH
   aShapeBoxSet->Build();
 
-  TopTools_ListOfShape aSelectedShapes;
+  ShapeList aSelectedShapes;
 
   // Prepare a Box for selection
   Bnd_Box aSelectionBox;
@@ -246,14 +246,14 @@ static Standard_Integer QABVH_ShapeSelect(Draw_Interpretor& theDI,
     aSelectedShapes = aSelector.Shapes();
   }
 
-  // Draw the selected shapes
-  TopoDS_Compound aResult;
-  BRep_Builder().MakeCompound(aResult);
+  // Draw1 the selected shapes
+  TopoCompound aResult;
+  ShapeBuilder().MakeCompound(aResult);
 
-  for (TopTools_ListOfShape::Iterator it(aSelectedShapes); it.More(); it.Next())
-    BRep_Builder().Add(aResult, it.Value());
+  for (ShapeList::Iterator it(aSelectedShapes); it.More(); it.Next())
+    ShapeBuilder().Add(aResult, it.Value());
 
-  DBRep::Set(theArgv[1], aResult);
+  DBRep1::Set(theArgv[1], aResult);
   return 0;
 }
 
@@ -262,14 +262,14 @@ static Standard_Integer QABVH_ShapeSelect(Draw_Interpretor& theDI,
 // purpose : Implement the simplest shape's selector
 //=======================================================================
 class PairShapesSelector
-    : public BVH_PairTraverse<Standard_Real, 3, BVH_BoxSet<Standard_Real, 3, TopoDS_Shape>>
+    : public BVH_PairTraverse<Standard_Real, 3, BVH_BoxSet<Standard_Real, 3, TopoShape>>
 {
 public:
   //! Constructor
   PairShapesSelector() {}
 
   //! Returns the selected pairs of shapes
-  const NCollection_List<std::pair<TopoDS_Shape, TopoDS_Shape>>& Pairs() const { return myPairs; }
+  const NCollection_List<std::pair<TopoShape, TopoShape>>& Pairs() const { return myPairs; }
 
 public:
   //! Defines the rules for node rejection
@@ -291,7 +291,7 @@ public:
     BVH_Box<Standard_Real, 3> aBox2 = myBVHSet2->Box(theIndex2);
     if (!aBox1.IsOut(aBox2))
     {
-      myPairs.Append(std::pair<TopoDS_Shape, TopoDS_Shape>(myBVHSet1->Element(theIndex1),
+      myPairs.Append(std::pair<TopoShape, TopoShape>(myBVHSet1->Element(theIndex1),
                                                            myBVHSet2->Element(theIndex2)));
       return Standard_True;
     }
@@ -299,7 +299,7 @@ public:
   }
 
 protected:
-  NCollection_List<std::pair<TopoDS_Shape, TopoDS_Shape>> myPairs; //!< Selected pairs
+  NCollection_List<std::pair<TopoShape, TopoShape>> myPairs; //!< Selected pairs
 };
 
 //=======================================================================
@@ -313,13 +313,13 @@ public:
   PairShapesSelectorVoid() {}
 
   //! Returns the selected pairs of shapes
-  const NCollection_List<std::pair<TopoDS_Shape, TopoDS_Shape>>& Pairs() const { return myPairs; }
+  const NCollection_List<std::pair<TopoShape, TopoShape>>& Pairs() const { return myPairs; }
 
 public:
   //! Sets the sets to access the elements
   void SetShapeBoxSets(
-    const opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoDS_Shape>>& theSBSet1,
-    const opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoDS_Shape>>& theSBSet2)
+    const opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoShape>>& theSBSet1,
+    const opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoShape>>& theSBSet2)
   {
     mySBSet1 = theSBSet1;
     mySBSet2 = theSBSet2;
@@ -345,7 +345,7 @@ public:
     BVH_Box<Standard_Real, 3> aBox2 = mySBSet2->Box(theIndex2);
     if (!aBox1.IsOut(aBox2))
     {
-      myPairs.Append(std::pair<TopoDS_Shape, TopoDS_Shape>(mySBSet1->Element(theIndex1),
+      myPairs.Append(std::pair<TopoShape, TopoShape>(mySBSet1->Element(theIndex1),
                                                            mySBSet2->Element(theIndex2)));
       return Standard_True;
     }
@@ -353,18 +353,18 @@ public:
   }
 
 protected:
-  opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoDS_Shape>> mySBSet1; //!< First ShapeBoxSet
+  opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoShape>> mySBSet1; //!< First ShapeBoxSet
   // clang-format off
-  opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoDS_Shape>> mySBSet2; //!< Second ShapeBoxSet
+  opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoShape>> mySBSet2; //!< Second ShapeBoxSet
   // clang-format on
-  NCollection_List<std::pair<TopoDS_Shape, TopoDS_Shape>> myPairs; //!< Selected pairs
+  NCollection_List<std::pair<TopoShape, TopoShape>> myPairs; //!< Selected pairs
 };
 
 //=======================================================================
 // function : QABVH_PairSelect
 // purpose : Test the work of BVH on the simple example of pairs of shapes selection
 //=======================================================================
-static Standard_Integer QABVH_PairSelect(Draw_Interpretor& theDI,
+static Standard_Integer QABVH_PairSelect(DrawInterpreter& theDI,
                                          Standard_Integer  theArgc,
                                          const char**      theArgv)
 {
@@ -374,9 +374,9 @@ static Standard_Integer QABVH_PairSelect(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape aShape[2];
+  TopoShape aShape[2];
   // Get the first shape
-  aShape[0] = DBRep::Get(theArgv[2]);
+  aShape[0] = DBRep1::Get(theArgv[2]);
   if (aShape[0].IsNull())
   {
     std::cout << theArgv[2] << " does not exist" << std::endl;
@@ -384,7 +384,7 @@ static Standard_Integer QABVH_PairSelect(Draw_Interpretor& theDI,
   }
 
   // Get the second shape
-  aShape[1] = DBRep::Get(theArgv[3]);
+  aShape[1] = DBRep1::Get(theArgv[3]);
   if (aShape[1].IsNull())
   {
     std::cout << theArgv[3] << " does not exist" << std::endl;
@@ -401,20 +401,20 @@ static Standard_Integer QABVH_PairSelect(Draw_Interpretor& theDI,
     new BVH_LinearBuilder<Standard_Real, 3>();
 
   // Create the ShapeSet
-  opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoDS_Shape>> aShapeBoxSet[2];
+  opencascade::handle<BVH_BoxSet<Standard_Real, 3, TopoShape>> aShapeBoxSet[2];
 
   for (Standard_Integer i = 0; i < 2; ++i)
   {
-    aShapeBoxSet[i] = new BVH_BoxSet<Standard_Real, 3, TopoDS_Shape>(aLBuilder);
+    aShapeBoxSet[i] = new BVH_BoxSet<Standard_Real, 3, TopoShape>(aLBuilder);
     // Add elements into set
     TopTools_IndexedMapOfShape aMapShapes;
-    TopExp::MapShapes(aShape[i], TopAbs_VERTEX, aMapShapes);
-    TopExp::MapShapes(aShape[i], TopAbs_EDGE, aMapShapes);
-    TopExp::MapShapes(aShape[i], TopAbs_FACE, aMapShapes);
+    TopExp1::MapShapes(aShape[i], TopAbs_VERTEX, aMapShapes);
+    TopExp1::MapShapes(aShape[i], TopAbs_EDGE, aMapShapes);
+    TopExp1::MapShapes(aShape[i], TopAbs_FACE, aMapShapes);
 
     for (Standard_Integer iS = 1; iS <= aMapShapes.Extent(); ++iS)
     {
-      const TopoDS_Shape& aS = aMapShapes(iS);
+      const TopoShape& aS = aMapShapes(iS);
 
       Bnd_Box aSBox;
       BRepBndLib::Add(aS, aSBox);
@@ -425,7 +425,7 @@ static Standard_Integer QABVH_PairSelect(Draw_Interpretor& theDI,
     aShapeBoxSet[i]->Build();
   }
 
-  NCollection_List<std::pair<TopoDS_Shape, TopoDS_Shape>> aPairs;
+  NCollection_List<std::pair<TopoShape, TopoShape>> aPairs;
   if (!useVoidSelector)
   {
     // Initialize selector
@@ -445,23 +445,23 @@ static Standard_Integer QABVH_PairSelect(Draw_Interpretor& theDI,
     aPairs = aSelector.Pairs();
   }
 
-  // Draw the selected shapes
-  TopoDS_Compound aResult;
-  BRep_Builder().MakeCompound(aResult);
+  // Draw1 the selected shapes
+  TopoCompound aResult;
+  ShapeBuilder().MakeCompound(aResult);
 
-  for (NCollection_List<std::pair<TopoDS_Shape, TopoDS_Shape>>::Iterator it(aPairs); it.More();
+  for (NCollection_List<std::pair<TopoShape, TopoShape>>::Iterator it(aPairs); it.More();
        it.Next())
   {
-    TopoDS_Compound aPair;
-    BRep_Builder().MakeCompound(aPair);
+    TopoCompound aPair;
+    ShapeBuilder().MakeCompound(aPair);
 
-    BRep_Builder().Add(aPair, it.Value().first);
-    BRep_Builder().Add(aPair, it.Value().second);
+    ShapeBuilder().Add(aPair, it.Value().first);
+    ShapeBuilder().Add(aPair, it.Value().second);
 
-    BRep_Builder().Add(aResult, aPair);
+    ShapeBuilder().Add(aResult, aPair);
   }
 
-  DBRep::Set(theArgv[1], aResult);
+  DBRep1::Set(theArgv[1], aResult);
   return 0;
 }
 
@@ -592,7 +592,7 @@ public:
 // function : QABVH_PairDistance
 // purpose : Computes the distance between two meshes of the given shapes
 //=======================================================================
-static Standard_Integer QABVH_PairDistance(Draw_Interpretor& theDI,
+static Standard_Integer QABVH_PairDistance(DrawInterpreter& theDI,
                                            Standard_Integer  theArgc,
                                            const char**      theArgv)
 {
@@ -602,9 +602,9 @@ static Standard_Integer QABVH_PairDistance(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape aShape[2];
+  TopoShape aShape[2];
   // Get the first shape
-  aShape[0] = DBRep::Get(theArgv[1]);
+  aShape[0] = DBRep1::Get(theArgv[1]);
   if (aShape[0].IsNull())
   {
     std::cout << theArgv[1] << " does not exist" << std::endl;
@@ -612,7 +612,7 @@ static Standard_Integer QABVH_PairDistance(Draw_Interpretor& theDI,
   }
 
   // Get the second shape
-  aShape[1] = DBRep::Get(theArgv[2]);
+  aShape[1] = DBRep1::Get(theArgv[2]);
   if (aShape[1].IsNull())
   {
     std::cout << theArgv[2] << " does not exist" << std::endl;
@@ -631,13 +631,13 @@ static Standard_Integer QABVH_PairDistance(Draw_Interpretor& theDI,
     aTriangleBoxSet[i] = new BVH_BoxSet<Standard_Real, 3, Triangle>(aLBuilder);
 
     TopTools_IndexedMapOfShape aMapShapes;
-    TopExp::MapShapes(aShape[i], TopAbs_FACE, aMapShapes);
+    TopExp1::MapShapes(aShape[i], TopAbs_FACE, aMapShapes);
 
     for (Standard_Integer iS = 1; iS <= aMapShapes.Extent(); ++iS)
     {
-      const TopoDS_Face&                aF = TopoDS::Face(aMapShapes(iS));
+      const TopoFace&                aF = TopoDS::Face(aMapShapes(iS));
       TopLoc_Location                   aLoc;
-      const Handle(Poly_Triangulation)& aTriangulation = BRep_Tool::Triangulation(aF, aLoc);
+      const Handle(MeshTriangulation)& aTriangulation = BRepInspector::Triangulation(aF, aLoc);
 
       const int aNbTriangles = aTriangulation->NbTriangles();
       for (int iT = 1; iT <= aNbTriangles; ++iT)
@@ -694,10 +694,10 @@ public:
 
 public:
   //! Creates the triangulation from a face
-  void Build(const TopoDS_Face& theFace)
+  void Build(const TopoFace& theFace)
   {
     TopLoc_Location                   aLoc;
-    const Handle(Poly_Triangulation)& aTriangulation = BRep_Tool::Triangulation(theFace, aLoc);
+    const Handle(MeshTriangulation)& aTriangulation = BRepInspector::Triangulation(theFace, aLoc);
 
     const int aNbTriangles = aTriangulation->NbTriangles();
     for (int iT = 1; iT <= aNbTriangles; ++iT)
@@ -742,12 +742,12 @@ public:
 
 public:
   //! Creates the triangulation from a face
-  void Build(const TopoDS_Shape& theShape)
+  void Build(const TopoShape& theShape)
   {
-    TopExp_Explorer anExp(theShape, TopAbs_FACE);
+    ShapeExplorer anExp(theShape, TopAbs_FACE);
     for (; anExp.More(); anExp.Next())
     {
-      const TopoDS_Face&        aF      = TopoDS::Face(anExp.Current());
+      const TopoFace&        aF      = TopoDS::Face(anExp.Current());
       Handle(QABVH_TriangleSet) aTriSet = new QABVH_TriangleSet();
       aTriSet->Build(aF);
       myObjects.Append(aTriSet);
@@ -762,7 +762,7 @@ public:
 // function : QABVH_DistanceField
 // purpose : Computes the distance field on a given shape
 //=======================================================================
-static Standard_Integer QABVH_DistanceField(Draw_Interpretor& theDI,
+static Standard_Integer QABVH_DistanceField(DrawInterpreter& theDI,
                                             Standard_Integer  theArgc,
                                             const char**      theArgv)
 {
@@ -772,9 +772,9 @@ static Standard_Integer QABVH_DistanceField(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape aShape;
+  TopoShape aShape;
   // Get the first shape
-  aShape = DBRep::Get(theArgv[1]);
+  aShape = DBRep1::Get(theArgv[1]);
   if (aShape.IsNull())
   {
     std::cout << theArgv[1] << " does not exist" << std::endl;
@@ -784,7 +784,7 @@ static Standard_Integer QABVH_DistanceField(Draw_Interpretor& theDI,
   Standard_Integer aNbDim = 10;
   if (theArgc > 2)
   {
-    aNbDim = Draw::Atoi(theArgv[2]);
+    aNbDim = Draw1::Atoi(theArgv[2]);
   }
 
   QABVH_Geometry aGeometry;
@@ -809,7 +809,7 @@ static Standard_Integer QABVH_DistanceField(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-void QABugs::Commands_BVH(Draw_Interpretor& theCommands)
+void QABugs::Commands_BVH(DrawInterpreter& theCommands)
 {
   const char* group = "QABugs";
 

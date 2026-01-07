@@ -22,7 +22,7 @@
 #include <TFunction_Driver.hxx>
 #include <Standard_Integer.hxx>
 class TFunction_Logbook;
-class TDF_Label;
+class DataLabel;
 class BRepPrimAPI_MakeSphere;
 
 class DNaming_SphereDriver;
@@ -61,7 +61,7 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void LoadNamingDS(const TDF_Label&        theResultLabel,
+  Standard_EXPORT void LoadNamingDS(const DataLabel&        theResultLabel,
                                     BRepPrimAPI_MakeSphere& mkSphere) const;
 };
 

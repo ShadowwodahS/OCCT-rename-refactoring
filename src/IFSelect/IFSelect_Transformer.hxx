@@ -25,7 +25,7 @@ class Interface_Graph;
 class Interface_Protocol;
 class Interface_CheckIterator;
 class Interface_InterfaceModel;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_Transformer;
 DEFINE_STANDARD_HANDLE(IFSelect_Transformer, RefObject)
@@ -94,7 +94,7 @@ public:
 
   //! Returns a text which defines the way a Transformer works
   //! (to identify the transformation it performs)
-  Standard_EXPORT virtual TCollection_AsciiString Label() const = 0;
+  Standard_EXPORT virtual AsciiString1 Label() const = 0;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_Transformer, RefObject)
 };

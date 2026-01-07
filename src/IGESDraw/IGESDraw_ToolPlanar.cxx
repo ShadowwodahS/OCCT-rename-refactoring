@@ -32,9 +32,9 @@
 #include <Interface_ShareTool.hxx>
 #include <Message_Messenger.hxx>
 
-IGESDraw_ToolPlanar::IGESDraw_ToolPlanar() {}
+PlanarTool::PlanarTool() {}
 
-void IGESDraw_ToolPlanar::ReadOwnParams(const Handle(IGESDraw_Planar)&         ent,
+void PlanarTool::ReadOwnParams(const Handle(IGESDraw_Planar)&         ent,
                                         const Handle(IGESData_IGESReaderData)& IR,
                                         IGESData_ParamReader&                  PR) const
 {
@@ -84,7 +84,7 @@ void IGESDraw_ToolPlanar::ReadOwnParams(const Handle(IGESDraw_Planar)&         e
   ent->Init(nbMatrices, transformationMatrix, entities);
 }
 
-void IGESDraw_ToolPlanar::WriteOwnParams(const Handle(IGESDraw_Planar)& ent,
+void PlanarTool::WriteOwnParams(const Handle(IGESDraw_Planar)& ent,
                                          IGESData_IGESWriter&           IW) const
 {
   Standard_Integer Up = ent->NbEntities();
@@ -97,7 +97,7 @@ void IGESDraw_ToolPlanar::WriteOwnParams(const Handle(IGESDraw_Planar)& ent,
     IW.Send(ent->Entity(i));
 }
 
-void IGESDraw_ToolPlanar::OwnShared(const Handle(IGESDraw_Planar)& ent,
+void PlanarTool::OwnShared(const Handle(IGESDraw_Planar)& ent,
                                     Interface_EntityIterator&      iter) const
 {
   Standard_Integer Up = ent->NbEntities();
@@ -106,7 +106,7 @@ void IGESDraw_ToolPlanar::OwnShared(const Handle(IGESDraw_Planar)& ent,
     iter.GetOneItem(ent->Entity(i));
 }
 
-void IGESDraw_ToolPlanar::OwnCopy(const Handle(IGESDraw_Planar)& another,
+void PlanarTool::OwnCopy(const Handle(IGESDraw_Planar)& another,
                                   const Handle(IGESDraw_Planar)& ent,
                                   Interface_CopyTool&            TC) const
 {
@@ -130,7 +130,7 @@ void IGESDraw_ToolPlanar::OwnCopy(const Handle(IGESDraw_Planar)& another,
   ent->Init(nbMatrices, transformationMatrix, entities);
 }
 
-Standard_Boolean IGESDraw_ToolPlanar::OwnCorrect(const Handle(IGESDraw_Planar)& ent) const
+Standard_Boolean PlanarTool::OwnCorrect(const Handle(IGESDraw_Planar)& ent) const
 {
   if (ent->NbMatrices() == 1)
     return Standard_False;
@@ -143,9 +143,9 @@ Standard_Boolean IGESDraw_ToolPlanar::OwnCorrect(const Handle(IGESDraw_Planar)& 
   return Standard_True;
 }
 
-IGESData_DirChecker IGESDraw_ToolPlanar::DirChecker(const Handle(IGESDraw_Planar)& /*ent*/) const
+DirectoryChecker PlanarTool::DirChecker(const Handle(IGESDraw_Planar)& /*ent*/) const
 {
-  IGESData_DirChecker DC(402, 16);
+  DirectoryChecker DC(402, 16);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -156,7 +156,7 @@ IGESData_DirChecker IGESDraw_ToolPlanar::DirChecker(const Handle(IGESDraw_Planar
   return DC;
 }
 
-void IGESDraw_ToolPlanar::OwnCheck(const Handle(IGESDraw_Planar)& ent,
+void PlanarTool::OwnCheck(const Handle(IGESDraw_Planar)& ent,
                                    const Interface_ShareTool&,
                                    Handle(Interface_Check)& ach) const
 {
@@ -164,7 +164,7 @@ void IGESDraw_ToolPlanar::OwnCheck(const Handle(IGESDraw_Planar)& ent,
     ach->AddFail("No. of Transformation matrices : Value != 1");
 }
 
-void IGESDraw_ToolPlanar::OwnDump(const Handle(IGESDraw_Planar)& ent,
+void PlanarTool::OwnDump(const Handle(IGESDraw_Planar)& ent,
                                   const IGESData_IGESDumper&     dumper,
                                   Standard_OStream&              S,
                                   const Standard_Integer         level) const

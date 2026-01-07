@@ -33,7 +33,7 @@ public:
   Standard_EXPORT OSD_Directory();
 
   //! Creates Directory object initialized with theName.
-  Standard_EXPORT OSD_Directory(const OSD_Path& theName);
+  Standard_EXPORT OSD_Directory(const SystemPath& theName);
 
   //! Creates (physically) a directory.
   //! When a directory of the same name already exists, no error is

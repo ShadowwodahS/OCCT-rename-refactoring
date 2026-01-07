@@ -27,14 +27,14 @@
 #include <Standard_Integer.hxx>
 class IGESData_ViewKindEntity;
 class gp_Pnt2d;
-class gp_XY;
+class Coords2d;
 class gp_XYZ;
 
 class IGESDraw_Drawing;
 DEFINE_STANDARD_HANDLE(IGESDraw_Drawing, IGESData_IGESEntity)
 
 //! defines IGESDrawing, Type <404> Form <0>
-//! in package IGESDraw
+//! in package IGESDraw1
 //!
 //! Specifies a drawing as a collection of annotation entities
 //! defined in drawing space, and views which together
@@ -78,7 +78,7 @@ public:
   Standard_EXPORT Handle(IGESData_IGESEntity) Annotation(
     const Standard_Integer AnnotationIndex) const;
 
-  Standard_EXPORT gp_XY ViewToDrawing(const Standard_Integer NumView,
+  Standard_EXPORT Coords2d ViewToDrawing(const Standard_Integer NumView,
                                       const gp_XYZ&          ViewCoords) const;
 
   //! Returns the Drawing Unit Value if it is specified (by a

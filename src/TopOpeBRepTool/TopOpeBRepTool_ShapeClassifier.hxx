@@ -40,7 +40,7 @@ public:
 
   //! SRef is the reference shape.
   //! StateShapeShape(S) calls will classify S with SRef.
-  Standard_EXPORT TopOpeBRepTool_ShapeClassifier(const TopoDS_Shape& SRef);
+  Standard_EXPORT TopOpeBRepTool_ShapeClassifier(const TopoShape& SRef);
 
   //! reset all internal data (SolidClassifier included)
   Standard_EXPORT void ClearAll();
@@ -50,13 +50,13 @@ public:
 
   //! Set SRef as reference shape
   //! the next StateShapeReference(S,AvoidS) calls will classify S with SRef.
-  Standard_EXPORT void SetReference(const TopoDS_Shape& SRef);
+  Standard_EXPORT void SetReference(const TopoShape& SRef);
 
   //! classify shape S compared with shape SRef.
   //! samedomain = 0 : S1,S2 are not same domain
   //! samedomain = 1 : S1,S2 are same domain
-  Standard_EXPORT TopAbs_State StateShapeShape(const TopoDS_Shape&    S,
-                                               const TopoDS_Shape&    SRef,
+  Standard_EXPORT TopAbs_State StateShapeShape(const TopoShape&    S,
+                                               const TopoShape&    SRef,
                                                const Standard_Integer samedomain = 0);
 
   Standard_EXPORT Standard_Integer SameDomain() const;
@@ -72,29 +72,29 @@ public:
   //! classify shape S compared with shape SRef.
   //! AvoidS is not used in classification; AvoidS may be IsNull().
   //! (useful to avoid ON or UNKNOWN state in special cases)
-  Standard_EXPORT TopAbs_State StateShapeShape(const TopoDS_Shape& S,
-                                               const TopoDS_Shape& AvoidS,
-                                               const TopoDS_Shape& SRef);
+  Standard_EXPORT TopAbs_State StateShapeShape(const TopoShape& S,
+                                               const TopoShape& AvoidS,
+                                               const TopoShape& SRef);
 
   //! classify shape S compared with shape SRef.
   //! LAvoidS is list of S subshapes to avoid in classification
   //! AvoidS is not used in classification; AvoidS may be IsNull().
   //! (useful to avoid ON or UNKNOWN state in special cases)
-  Standard_EXPORT TopAbs_State StateShapeShape(const TopoDS_Shape&         S,
-                                               const TopTools_ListOfShape& LAvoidS,
-                                               const TopoDS_Shape&         SRef);
+  Standard_EXPORT TopAbs_State StateShapeShape(const TopoShape&         S,
+                                               const ShapeList& LAvoidS,
+                                               const TopoShape&         SRef);
 
   //! classify shape S compared with reference shape.
   //! AvoidS is not used in classification; AvoidS may be IsNull().
   //! (useful to avoid ON or UNKNOWN state in special cases)
-  Standard_EXPORT TopAbs_State StateShapeReference(const TopoDS_Shape& S,
-                                                   const TopoDS_Shape& AvoidS);
+  Standard_EXPORT TopAbs_State StateShapeReference(const TopoShape& S,
+                                                   const TopoShape& AvoidS);
 
   //! classify shape S compared with reference shape.
   //! LAvoidS is list of S subshapes to avoid in classification
   //! (useful to avoid ON or UNKNOWN state in special cases)
-  Standard_EXPORT TopAbs_State StateShapeReference(const TopoDS_Shape&         S,
-                                                   const TopTools_ListOfShape& LAvoidS);
+  Standard_EXPORT TopAbs_State StateShapeReference(const TopoShape&         S,
+                                                   const ShapeList& LAvoidS);
 
   Standard_EXPORT TopOpeBRepTool_SolidClassifier& ChangeSolidClassifier();
 
@@ -117,9 +117,9 @@ private:
 
   Standard_EXPORT void FindEdge();
 
-  Standard_EXPORT void FindEdge(const TopoDS_Shape& S);
+  Standard_EXPORT void FindEdge(const TopoShape& S);
 
-  Standard_EXPORT void FindFace(const TopoDS_Shape& S);
+  Standard_EXPORT void FindFace(const TopoShape& S);
 
   Standard_EXPORT void Perform();
 
@@ -128,17 +128,17 @@ private:
 
   Standard_EXPORT Standard_Boolean HasAvLS() const;
 
-  TopoDS_Shape                   myS;
-  TopoDS_Shape                   myRef;
-  TopoDS_Shape                   myAvS;
+  TopoShape                   myS;
+  TopoShape                   myRef;
+  TopoShape                   myAvS;
   TopOpeBRepTool_Plos            myPAvLS;
   TopTools_IndexedMapOfShape     myMapAvS;
   TopTools_IndexedMapOfShape     mymre;
   Standard_Integer               mymren;
   Standard_Boolean               mymredone;
   TopAbs_State                   myState;
-  TopoDS_Edge                    myEdge;
-  TopoDS_Face                    myFace;
+  TopoEdge                    myEdge;
+  TopoFace                    myFace;
   Standard_Boolean               myP3Ddef;
   Point3d                         myP3D;
   Standard_Boolean               myP2Ddef;

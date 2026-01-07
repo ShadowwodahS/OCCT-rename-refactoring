@@ -58,9 +58,9 @@
 IMPLEMENT_STANDARD_RTTIEXT(TNaming_Naming, TDF_Attribute)
 
 // #include <TNaming_NCollections.hxx>
-typedef NCollection_Map<TopoDS_Shape>                         TNaming_MapOfShape;
+typedef NCollection_Map<TopoShape>                         TNaming_MapOfShape;
 typedef TNaming_MapOfShape::Iterator                          TNaming_MapIteratorOfMapOfShape;
-typedef NCollection_DataMap<TopoDS_Shape, TNaming_MapOfShape> TNaming_DataMapOfShapeMapOfShape;
+typedef NCollection_DataMap<TopoShape, TNaming_MapOfShape> TNaming_DataMapOfShapeMapOfShape;
 typedef TNaming_DataMapOfShapeMapOfShape::Iterator
   TNaming_DataMapIteratorOfDataMapOfShapeMapOfShape;
 // The bug concerns access to a null object in the method Filter():
@@ -86,14 +86,14 @@ typedef TNaming_DataMapOfShapeMapOfShape::Iterator
   #include <TCollection_AsciiString.hxx>
   #include <BRepTools.hxx>
 
-void Print_Entry(const TDF_Label& label)
+void Print_Entry(const DataLabel& label)
 {
-  TCollection_AsciiString entry;
+  AsciiString1 entry;
   TDF_Tool::Entry(label, entry);
   std::cout << "LabelEntry = " << entry << std::endl;
 }
 
-static void Write(const TopoDS_Shape& shape, const Standard_CString filename)
+static void Write(const TopoShape& shape, const Standard_CString filename)
 {
   char buf[256];
   if (strlen(filename) > 256)
@@ -111,24 +111,24 @@ static void Write(const TopoDS_Shape& shape, const Standard_CString filename)
     std::cout << "File " << buf << " was not created: rdstate = " << save.rdstate() << std::endl;
   save << "DBRep_DrawableShape" << std::endl << std::endl;
   if (!shape.IsNull())
-    BRepTools::Write(shape, save);
+    BRepTools1::Write(shape, save);
   save.close();
 }
 
-void WriteNSOnLabel(const Handle(TNaming_NamedShape)& NS, const TCollection_AsciiString& Nam)
+void WriteNSOnLabel(const Handle(ShapeAttribute)& NS, const AsciiString1& Nam)
 {
   if (!NS.IsNull())
   {
-    TCollection_AsciiString entry;
+    AsciiString1 entry;
     TDF_Tool::Entry(NS->Label(), entry);
-    TopoDS_Shape Sh = TNaming_Tool::GetShape(NS);
+    TopoShape Sh = Tool11::GetShape(NS);
     if (!Sh.IsNull())
     {
-      TCollection_AsciiString Entry = Nam + entry + ".brep";
+      AsciiString1 Entry = Nam + entry + ".brep";
       Write(Sh, Entry.ToCString());
     }
     else
-      std::cout << "WriteNSOnLabel>>> TopoDS_Shape IS NULL on Entry = " << entry << std::endl;
+      std::cout << "WriteNSOnLabel>>> TopoShape IS NULL on Entry = " << entry << std::endl;
   }
   else
     std::cout << "WriteNSOnLabel >>>  NamedShape IS NULL" << std::endl;
@@ -136,16 +136,16 @@ void WriteNSOnLabel(const Handle(TNaming_NamedShape)& NS, const TCollection_Asci
 #endif
 
 //==========================================================================================
-static Handle(TNaming_NamedShape) BuildName(const TDF_Label&                  F,
-                                            TNaming_Scope&                    MDF,
-                                            const TopoDS_Shape&               S,
-                                            const TopoDS_Shape&               Context,
-                                            const Handle(TNaming_NamedShape)& Stop,
+static Handle(ShapeAttribute) BuildName(const DataLabel&                  F,
+                                            NamingScope&                    MDF,
+                                            const TopoShape&               S,
+                                            const TopoShape&               Context,
+                                            const Handle(ShapeAttribute)& Stop,
                                             const Standard_Boolean            Geometry);
 
 //=======================================================================
-static Standard_Integer RepeatabilityInContext(const TopoDS_Shape& Selection,
-                                               const TopoDS_Shape& Context);
+static Standard_Integer RepeatabilityInContext(const TopoShape& Selection,
+                                               const TopoShape& Context);
 
 //=======================================================================
 // function : Solve
@@ -158,7 +158,7 @@ Standard_Boolean TNaming_Naming::Solve(TDF_LabelMap& Valid)
   for (TDF_ChildIterator it(Label(), Standard_False); it.More(); it.Next())
   {
 #ifdef OCCT_DEBUG_NBS
-    TCollection_AsciiString anEntry;
+    AsciiString1 anEntry;
     TDF_Tool::Entry(it.Value(), anEntry);
     std::cout << "TNaming_Naming::Solve: Label to be solved = " << anEntry << std::endl;
 #endif
@@ -175,8 +175,8 @@ Standard_Boolean TNaming_Naming::Solve(TDF_LabelMap& Valid)
   std::cout << "TNaming_Naming::Solve:: Valid label Map" << std::endl;
   for (; anItr.More(); anItr.Next())
   {
-    const TDF_Label&        aLabel = anItr.Key();
-    TCollection_AsciiString anEntry;
+    const DataLabel&        aLabel = anItr.Key();
+    AsciiString1 anEntry;
     TDF_Tool::Entry(aLabel, anEntry);
     std::cout << "Label = " << anEntry << std::endl;
   }
@@ -200,10 +200,10 @@ const Standard_GUID& TNaming_Naming::GetID()
 
 //=================================================================================================
 
-Handle(TNaming_Naming) TNaming_Naming::Insert(const TDF_Label& under)
+Handle(TNaming_Naming) TNaming_Naming::Insert(const DataLabel& under)
 {
   Handle(TNaming_Naming) N;
-  TDF_Label              child = TDF_TagSource::NewChild(under);
+  DataLabel              child = TDF_TagSource::NewChild(under);
   N                            = new TNaming_Naming();
   child.AddAttribute(N);
   return N;
@@ -215,8 +215,8 @@ Handle(TNaming_Naming) TNaming_Naming::Insert(const TDF_Label& under)
 //         : TNaming_Builder::Select("S","S") at the new child label of the label <F>.
 //=======================================================================
 
-static Handle(TNaming_NamedShape) BuildNS(const TDF_Label&        F,
-                                          const TopoDS_Shape&     S,
+static Handle(ShapeAttribute) BuildNS(const DataLabel&        F,
+                                          const TopoShape&     S,
                                           const TNaming_NameType& Name)
 {
   Handle(TNaming_Naming) Naming = TNaming_Naming::Insert(F);
@@ -233,12 +233,12 @@ static Handle(TNaming_NamedShape) BuildNS(const TDF_Label&        F,
 
 //=================================================================================================
 
-static Standard_Integer FindIndex(const Handle(TNaming_NamedShape)& NS, const TopoDS_Shape& S)
+static Standard_Integer FindIndex(const Handle(ShapeAttribute)& NS, const TopoShape& S)
 {
   TDF_LabelList    Labels;
-  TopoDS_Shape     IS    = TNaming_Tool::InitialShape(S, NS->Label(), Labels);
+  TopoShape     IS    = Tool11::InitialShape(S, NS->Label(), Labels);
   Standard_Integer Index = 1;
-  for (TNaming_Iterator itNS(NS); itNS.More(); itNS.Next(), Index++)
+  for (Iterator1 itNS(NS); itNS.More(); itNS.Next(), Index++)
   {
     if (IS.IsSame(itNS.NewShape()))
       break;
@@ -252,10 +252,10 @@ static Standard_Integer FindIndex(const Handle(TNaming_NamedShape)& NS, const To
 //         : the "new shapes" set.
 //=======================================================================
 
-static Standard_Boolean CompareInGeneration(const Handle(TNaming_NamedShape)& NS,
-                                            const TopoDS_Shape&               S)
+static Standard_Boolean CompareInGeneration(const Handle(ShapeAttribute)& NS,
+                                            const TopoShape&               S)
 {
-  for (TNaming_Iterator it(NS); it.More(); it.Next())
+  for (Iterator1 it(NS); it.More(); it.Next())
   {
     if (!it.NewShape().IsSame(S))
       return 0;
@@ -268,11 +268,11 @@ static Standard_Boolean CompareInGeneration(const Handle(TNaming_NamedShape)& NS
 // purpose  : returns Standard_True, if target has parent in source; list contains inheritance chain
 //=======================================================================
 static Standard_Boolean GetShapeEvolutions(
-  const TopoDS_Shape&               theTarget, // this is changed in recursion
-  const Handle(TNaming_NamedShape)& theSource,
-  TopTools_ListOfShape&             aList) // returns list in the backward order
+  const TopoShape&               theTarget, // this is changed in recursion
+  const Handle(ShapeAttribute)& theSource,
+  ShapeList&             aList) // returns list in the backward order
 {
-  Handle(TNaming_NamedShape) aTarget = TNaming_Tool::NamedShape(theTarget, theSource->Label());
+  Handle(ShapeAttribute) aTarget = Tool11::NamedShape(theTarget, theSource->Label());
   if (!aTarget.IsNull())
   {
 #ifdef OCCT_DEBUG_71
@@ -280,7 +280,7 @@ static Standard_Boolean GetShapeEvolutions(
     Print_Entry(aTarget->Label());
     std::cout << "GetShapeEvolutions: Source NS = ";
     Print_Entry(theSource->Label());
-    TCollection_AsciiString aNam("GetShapeEvolutions");
+    AsciiString1 aNam("GetShapeEvolutions");
     WriteNSOnLabel(aTarget, aNam);
 #endif
     // clang-format off
@@ -290,7 +290,7 @@ static Standard_Boolean GetShapeEvolutions(
   else
     return Standard_False;
 
-  TNaming_Iterator anIter(aTarget);
+  Iterator1 anIter(aTarget);
   for (; anIter.More(); anIter.Next())
   { // check all appropriate old shapes of target
 #ifdef OCCT_DEBUG_71
@@ -325,48 +325,48 @@ static Standard_Boolean GetShapeEvolutions(
 // purpose  : returns empty named shape if naming is already done
 //=======================================================================
 
-static Handle(TNaming_NamedShape) CompareInModification(
-  const Handle(TNaming_NamedShape)& NS, // parent
-  const TopoDS_Shape&               S)                // target
+static Handle(ShapeAttribute) CompareInModification(
+  const Handle(ShapeAttribute)& NS, // parent
+  const TopoShape&               S)                // target
 {
-  Handle(TNaming_NamedShape) aResult;
+  Handle(ShapeAttribute) aResult;
   if (S.IsNull() || NS.IsNull())
     return aResult;
 #ifdef OCCT_DEBUG_71
   std::cout << "CompareInModification: parent NS = ";
   Print_Entry(NS->Label());
   Write(S, "CompareInM_S.brep");
-  TCollection_AsciiString aNam("CompareInM");
+  AsciiString1 aNam("CompareInM");
   WriteNSOnLabel(NS, aNam);
 #endif
-  Handle(TNaming_NamedShape) aSource; // parent NamedShape, which can be found by TopoDS shape
-  TNaming_Iterator           anIt(NS);
+  Handle(ShapeAttribute) aSource; // parent NamedShape, which can be found by TopoDS shape
+  Iterator1           anIt(NS);
   for (; anIt.More() && aSource.IsNull(); anIt.Next())
   {
     if (!anIt.NewShape().IsNull())
     {
-      aSource = TNaming_Tool::NamedShape(anIt.NewShape(), NS->Label());
+      aSource = Tool11::NamedShape(anIt.NewShape(), NS->Label());
 #ifdef OCCT_DEBUG_71
-      TCollection_AsciiString aNam("CompareInM_Source");
+      AsciiString1 aNam("CompareInM_Source");
       WriteNSOnLabel(aSource, aNam);
 #endif
     }
   }
   // searching for 1:n to the same label modifications (in this case current naming is insufficient)
-  TopTools_ListOfShape aList;
+  ShapeList aList;
   if (GetShapeEvolutions(S, aSource, aList) && aList.Extent() > 0)
   {
     TopTools_ListIteratorOfListOfShape anIter(aList);
     for (; anIter.More(); anIter.Next())
     {
-      aResult = TNaming_Tool::NamedShape(anIter.Value(), NS->Label());
+      aResult = Tool11::NamedShape(anIter.Value(), NS->Label());
       if (aResult->Evolution() != TNaming_MODIFY)
       { // evolution must be modify, otherwise everything is OK
         aResult.Nullify();
         return aResult;
       }
       TopTools_MapOfShape aMap; // collection of the old shapes of the shape from list
-      TNaming_Iterator    aNIter1(aResult);
+      Iterator1    aNIter1(aResult);
 
       for (; aNIter1.More(); aNIter1.Next())
       {
@@ -376,7 +376,7 @@ static Handle(TNaming_NamedShape) CompareInModification(
         }
       }
       // clang-format off
-      TNaming_Iterator aNIter2(aResult); // if some another shapes has oldshape from map, return namedshape with this oldshape
+      Iterator1 aNIter2(aResult); // if some another shapes has oldshape from map, return namedshape with this oldshape
       // clang-format on
 
       for (; aNIter2.More(); aNIter2.Next())
@@ -385,7 +385,7 @@ static Handle(TNaming_NamedShape) CompareInModification(
           continue;
         if (aMap.Contains(aNIter2.OldShape()))
         { // if one shape was modified to the two at the shared label, return this one
-          aResult = TNaming_Tool::NamedShape(aNIter2.OldShape(), NS->Label());
+          aResult = Tool11::NamedShape(aNIter2.OldShape(), NS->Label());
           if (!aResult.IsNull())
             return aResult;
         }
@@ -397,7 +397,7 @@ static Handle(TNaming_NamedShape) CompareInModification(
 }
 
 //=======================================================================
-static Standard_Boolean FillSMap(const TopoDS_Shape& S, TopTools_MapOfShape& MS)
+static Standard_Boolean FillSMap(const TopoShape& S, TopTools_MapOfShape& MS)
 {
   if (S.IsNull())
     return Standard_False;
@@ -435,24 +435,24 @@ static Standard_Boolean FillSMap(const TopoDS_Shape& S, TopTools_MapOfShape& MS)
 //         : returns true, otherwise it returns false.
 //=======================================================================
 
-static Standard_Boolean Compare(const Handle(TNaming_NamedShape)& NS,
-                                const TNaming_Scope&              MDF,
-                                const Handle(TNaming_NamedShape)& Stop,
-                                const TopoDS_Shape&               S)
+static Standard_Boolean Compare(const Handle(ShapeAttribute)& NS,
+                                const NamingScope&              MDF,
+                                const Handle(ShapeAttribute)& Stop,
+                                const TopoShape&               S)
 {
   TDF_LabelMap               Forbiden;
   TopTools_IndexedMapOfShape MS;
   if (!Stop.IsNull())
-    TNaming_NamingTool::BuildDescendants(Stop, Forbiden);
-  TNaming_NamingTool::CurrentShape(MDF.GetValid(), Forbiden, NS, MS);
+    NamingTool1::BuildDescendants(Stop, Forbiden);
+  NamingTool1::CurrentShape(MDF.GetValid(), Forbiden, NS, MS);
 #ifdef OCCT_DEBUG_NBS
   Write(S, "Compare_S.brep");
   std::cout << "S: TShape = " << S.TShape()->This() << std::endl;
-  TCollection_AsciiString aNam("Compare_MS_");
-  TCollection_AsciiString ext(".brep");
+  AsciiString1 aNam("Compare_MS_");
+  AsciiString1 ext(".brep");
   for (Standard_Integer anItMS = 1; anItMS <= MS.Extent(); ++anItMS)
   {
-    TCollection_AsciiString aName = aNam + anItMS + ext;
+    AsciiString1 aName = aNam + anItMS + ext;
     Write(MS(anItMS), aName.ToCString());
     std::cout << aName.ToCString() << ": TShape = " << MS(anItMS).TShape()->This() << std::endl;
   }
@@ -468,14 +468,14 @@ static Standard_Boolean Compare(const Handle(TNaming_NamedShape)& NS,
 //         : Otherwise the result of exploration of these shapes must be same.
 //=======================================================================
 
-static Standard_Boolean TestSolution(const TNaming_Scope&              MDF,
-                                     const Handle(TNaming_NamedShape)& NS,
-                                     const TopoDS_Shape&               S)
+static Standard_Boolean TestSolution(const NamingScope&              MDF,
+                                     const Handle(ShapeAttribute)& NS,
+                                     const TopoShape&               S)
 {
 
   if (NS.IsNull())
     return Standard_False;
-  TopoDS_Shape Res = MDF.CurrentShape(NS); // last modification of NS taken into account Valid map
+  TopoShape Res = MDF.CurrentShape(NS); // last modification of NS taken into account Valid map
   if (S.IsNull() || Res.IsNull())
     return Standard_False;
 #ifdef OCCT_DEBUG_CC
@@ -492,7 +492,7 @@ static Standard_Boolean TestSolution(const TNaming_Scope&              MDF,
   else if (S.ShapeType() == TopAbs_SOLID || S.ShapeType() == TopAbs_COMPSOLID)
   {
     TopTools_MapOfShape aMS;
-    TopExp_Explorer     exp;
+    ShapeExplorer     exp;
     for (exp.Init(S, TopAbs_FACE); exp.More(); exp.Next())
     {
       aMS.Add(exp.Current());
@@ -535,7 +535,7 @@ static Standard_Boolean TestSolution(const TNaming_Scope&              MDF,
     if (Res.ShapeType() == TopAbs_SOLID || Res.ShapeType() == TopAbs_COMPSOLID
         || Res.ShapeType() == TopAbs_COMPOUND)
     {
-      TopExp_Explorer exp;
+      ShapeExplorer exp;
       if (isHom)
         for (exp.Init(Res, aType); exp.More(); exp.Next())
         {
@@ -581,22 +581,22 @@ static Standard_Boolean TestSolution(const TNaming_Scope&              MDF,
 
 //=================================================================================================
 
-static void FindNewShapeInFather(const Handle(TNaming_NamedShape)& NS, TopoDS_Shape& SC)
+static void FindNewShapeInFather(const Handle(ShapeAttribute)& NS, TopoShape& SC)
 {
-  const TDF_Label& Father = NS->Label().Father();
-  TNaming_Iterator itLab(Father);
+  const DataLabel& Father = NS->Label().Father();
+  Iterator1 itLab(Father);
   if (itLab.More())
     SC = itLab.NewShape();
 }
 
 //=================================================================================================
 
-static Handle(TNaming_NamedShape) NextModif(const Handle(TNaming_NamedShape)& NS)
+static Handle(ShapeAttribute) NextModif(const Handle(ShapeAttribute)& NS)
 {
-  Handle(TNaming_NamedShape) Next;
+  Handle(ShapeAttribute) Next;
   if (!NS.IsNull())
   {
-    TNaming_NewShapeIterator it(NS);
+    NewShapeIterator it(NS);
     if (it.More() && it.IsModification())
       Next = it.NamedShape();
   }
@@ -607,7 +607,7 @@ static Handle(TNaming_NamedShape) NextModif(const Handle(TNaming_NamedShape)& NS
 // C1 - cand shape of the father, C2 - shape of rebuild child Naming attr.
 //      (to be Compound of elementary shapes)
 //=======================================================================
-static Standard_Boolean IsContSame(const TopoDS_Shape& C1, const TopoDS_Shape& C2)
+static Standard_Boolean IsContSame(const TopoShape& C1, const TopoShape& C2)
 {
   Standard_Boolean aRes(Standard_False);
   if (!C1.IsNull() && !C2.IsNull())
@@ -633,8 +633,8 @@ static Standard_Boolean IsContSame(const TopoDS_Shape& C1, const TopoDS_Shape& C
 //=======================================================================
 // Identifies the case when Filter haven't sense because of multiplicity
 //=======================================================================
-static Standard_Boolean IsMultipleCase(const TopoDS_Shape&        S,
-                                       const TopoDS_Shape&        Context,
+static Standard_Boolean IsMultipleCase(const TopoShape&        S,
+                                       const TopoShape&        Context,
                                        const TopTools_MapOfShape& Neighbourgs)
 {
 
@@ -644,14 +644,14 @@ static Standard_Boolean IsMultipleCase(const TopoDS_Shape&        S,
   aNbs.Assign(Neighbourgs);
   aNbs.Add(S);
   TNaming_DataMapOfShapeMapOfShape aDMM;
-  TopExp::MapShapesAndAncestors(Context, TopAbs_EDGE, TopAbs_FACE, aDM);
+  TopExp1::MapShapesAndAncestors(Context, TopAbs_EDGE, TopAbs_FACE, aDM);
   TopTools_MapIteratorOfMapOfShape it(aNbs);
   for (; it.More(); it.Next())
   {
     if (aDM.Contains(it.Key()))
     {
       TNaming_MapOfShape                 aMS;
-      const TopTools_ListOfShape&        aL = aDM.FindFromKey(it.Key());
+      const ShapeList&        aL = aDM.FindFromKey(it.Key());
       TopTools_ListIteratorOfListOfShape lit(aL);
       for (; lit.More(); lit.Next())
       {
@@ -704,12 +704,12 @@ static Standard_Boolean IsMultipleCase(const TopoDS_Shape&        S,
 //         :
 //=======================================================================
 
-static Standard_Boolean Filter(const TDF_Label&            F,
-                               TNaming_Scope&              MDF,
-                               const TopoDS_Shape&         S,
-                               const TopoDS_Shape&         Context,
+static Standard_Boolean Filter(const DataLabel&            F,
+                               NamingScope&              MDF,
+                               const TopoShape&         S,
+                               const TopoShape&         Context,
                                TNaming_Localizer&          Localizer,
-                               Handle(TNaming_NamedShape)& NS,
+                               Handle(ShapeAttribute)& NS,
                                const Standard_Integer      Lev)
 {
   // 1. Localizer.FindNeighbourg("Context", "S", "Neighbourg") - looks for neighbourgs of  "S" with
@@ -745,7 +745,7 @@ static Standard_Boolean Filter(const TDF_Label&            F,
 #endif
   // mpv : NS and shape must be the same
   Standard_Boolean isIn = Standard_False;
-  TNaming_Iterator anIter(NS);
+  Iterator1 anIter(NS);
   for (; anIter.More(); anIter.Next())
   {
 #ifdef OCCT_DEBUG
@@ -758,19 +758,19 @@ static Standard_Boolean Filter(const TDF_Label&            F,
     }
   }
   if (!isIn)
-    if (!TNaming_Tool::NamedShape(S, F).IsNull())
-      NS = TNaming_Tool::NamedShape(S, F);
-  //  if (!TNaming_Tool::NamedShape(S,F).IsNull()) NS = TNaming_Tool::NamedShape(S,F);
+    if (!Tool11::NamedShape(S, F).IsNull())
+      NS = Tool11::NamedShape(S, F);
+  //  if (!Tool11::NamedShape(S,F).IsNull()) NS = Tool11::NamedShape(S,F);
 
   if (Neighbourg.IsEmpty())
   {
     // Recherche du vrai context. (Research of context truth)
-    Handle(TNaming_NamedShape) GenS = TNaming_Tool::NamedShape(S, NS->Label());
+    Handle(ShapeAttribute) GenS = Tool11::NamedShape(S, NS->Label());
     if (GenS.IsNull())
       return Standard_False;
-    TDF_Label Father = (GenS->Label()).Father();
-    Father.FindAttribute(TNaming_NamedShape::GetID(), GenS);
-    TopoDS_Shape GoodContext = TNaming_Tool::GetShape(GenS);
+    DataLabel Father = (GenS->Label()).Father();
+    Father.FindAttribute(ShapeAttribute::GetID(), GenS);
+    TopoShape GoodContext = Tool11::GetShape(GenS);
     Localizer.FindNeighbourg(GoodContext, S, Neighbourg);
   }
 
@@ -793,7 +793,7 @@ static Standard_Boolean Filter(const TDF_Label&            F,
     return 0;
 #ifdef ALLOW_CHILD_NBS
   Handle(TNaming_Naming) aFNaming;
-  TopoDS_Shape           aFatherCandSh;
+  TopoShape           aFatherCandSh;
   F.FindAttribute(TNaming_Naming::GetID(), aFNaming);
   if (!aFNaming.IsNull())
   {
@@ -820,7 +820,7 @@ static Standard_Boolean Filter(const TDF_Label&            F,
             TNaming_ListIteratorOfListOfNamedShape itA(aName.Arguments());
             for (; itA.More(); itA.Next(), ij++)
             {
-              const TopoDS_Shape& aFace = TNaming_Tool::CurrentShape(itA.Value());
+              const TopoShape& aFace = Tool11::CurrentShape(itA.Value());
   #ifdef OCCT_DEBUG_MOD
               Write(aFace, "First_Face.brep");
               std::cout << "Selection TS = " << S.TShape()->This() << std::endl;
@@ -864,12 +864,12 @@ static Standard_Boolean Filter(const TDF_Label&            F,
                 Index                  = Index | (indxF << 24);
                 aName.Index(Index);
                 //------------------------------
-                // Compute the TNaming_NamedShape
+                // Compute the ShapeAttribute
                 //------------------------------
                 aFNaming->Regenerate(MDF.ChangeValid());
-                aFNaming->Label().FindAttribute(TNaming_NamedShape::GetID(), NS);
-                Handle(TNaming_NamedShape) Until = TNaming_Tool::NamedShape(Context, NS->Label());
-                Handle(TNaming_NamedShape) Stop  = NextModif(Until);
+                aFNaming->Label().FindAttribute(ShapeAttribute::GetID(), NS);
+                Handle(ShapeAttribute) Until = Tool11::NamedShape(Context, NS->Label());
+                Handle(ShapeAttribute) Stop  = NextModif(Until);
                 if (Compare(NS, MDF, Stop, S))
                   return 1;
                 break;
@@ -887,8 +887,8 @@ static Standard_Boolean Filter(const TDF_Label&            F,
   //-----------------------------------------------------
   Handle(TNaming_Naming) NF = TNaming_Naming::Insert(F);
 
-  Handle(TNaming_NamedShape) Until   = TNaming_Tool::NamedShape(Context, NS->Label());
-  Handle(TNaming_NamedShape) Stop    = NextModif(Until);
+  Handle(ShapeAttribute) Until   = Tool11::NamedShape(Context, NS->Label());
+  Handle(ShapeAttribute) Stop    = NextModif(Until);
   TNaming_Name&              theName = NF->ChangeName();
   theName.ShapeType(S.ShapeType());
   theName.Shape(S);
@@ -910,10 +910,10 @@ static Standard_Boolean Filter(const TDF_Label&            F,
   for (; itN.More(); itN.Next())
   {
 #ifdef ALLOW_CHILD_NBS
-    const TopoDS_Shape&        aS  = itN.Key();
-    Handle(TNaming_NamedShape) aNS = BuildName(NF->Label(), MDF, aS, Context, Stop, 1);
+    const TopoShape&        aS  = itN.Key();
+    Handle(ShapeAttribute) aNS = BuildName(NF->Label(), MDF, aS, Context, Stop, 1);
   #ifdef OCCT_DEBUG_NBS
-    const TopoDS_Shape& aS2 = aNS->Get();
+    const TopoShape& aS2 = aNS->Get();
     if (!aS.IsNull())
       std::cout << "Shape arg type = " << aS.ShapeType() << " TSH = " << aS.TShape()->This()
                 << std::endl;
@@ -930,7 +930,7 @@ static Standard_Boolean Filter(const TDF_Label&            F,
     }
   #endif
 
-    const TopoDS_Shape aSNS = aNS->Get(); // allow child level
+    const TopoShape aSNS = aNS->Get(); // allow child level
     Standard_Boolean   allowChild(Standard_True);
     if (!aSNS.IsNull() && aSNS.ShapeType() == TopAbs_COMPOUND && !aFatherCandSh.IsNull())
       allowChild = !IsContSame(aFatherCandSh, aSNS);
@@ -965,10 +965,10 @@ static Standard_Boolean Filter(const TDF_Label&            F,
 #endif
   }
   //------------------------------
-  // Compute the TNaming_NamedShape
+  // Compute the ShapeAttribute
   //------------------------------
   NF->Regenerate(MDF.ChangeValid());
-  NF->Label().FindAttribute(TNaming_NamedShape::GetID(), NS);
+  NF->Label().FindAttribute(ShapeAttribute::GetID(), NS);
 
   //-----------------
   // Check du filtre.
@@ -994,26 +994,26 @@ static Standard_Boolean Filter(const TDF_Label&            F,
 //         : Naming of E is done with help BuildNameInNS function:
 //         : with context B and stop shape P.
 //=======================================================================
-static Handle(TNaming_NamedShape) BuildNameInNS(const TDF_Label&                  F,
-                                                TNaming_Scope&                    MDF,
-                                                const TopoDS_Shape&               S,
-                                                const Handle(TNaming_NamedShape)& Context,
-                                                const Handle(TNaming_NamedShape)& Stop,
+static Handle(ShapeAttribute) BuildNameInNS(const DataLabel&                  F,
+                                                NamingScope&                    MDF,
+                                                const TopoShape&               S,
+                                                const Handle(ShapeAttribute)& Context,
+                                                const Handle(ShapeAttribute)& Stop,
                                                 const Standard_Boolean            Geometry)
 
 {
   // il faut determiner un nouveau context et un nouveau Stop.
   // it is necessary to determine a new context and a new Stop
-  TopoDS_Shape               SC;
-  Handle(TNaming_NamedShape) NewStop = Stop;
+  TopoShape               SC;
+  Handle(ShapeAttribute) NewStop = Stop;
 
   TNaming_Localizer::FindShapeContext(Context, S, SC);
 
   if (!SC.IsNull())
   {
     // <Context> is Ident.NamedShapeOfGeneration() ==
-    TDF_Label Father = Context->Label().Father();
-    Father.FindAttribute(TNaming_NamedShape::GetID(), NewStop);
+    DataLabel Father = Context->Label().Father();
+    Father.FindAttribute(ShapeAttribute::GetID(), NewStop);
 #ifdef OCCT_DEBUG_INNS
     if (!Stop.IsNull())
     {
@@ -1040,11 +1040,11 @@ static Handle(TNaming_NamedShape) BuildNameInNS(const TDF_Label&                
 
 //=================================================================================================
 
-static Handle(TNaming_NamedShape) BuildName(const TDF_Label&                  F,
-                                            TNaming_Scope&                    MDF,
-                                            const TopoDS_Shape&               Selection,
-                                            const TopoDS_Shape&               Context,
-                                            const Handle(TNaming_NamedShape)& Stop,
+static Handle(ShapeAttribute) BuildName(const DataLabel&                  F,
+                                            NamingScope&                    MDF,
+                                            const TopoShape&               Selection,
+                                            const TopoShape&               Context,
+                                            const Handle(ShapeAttribute)& Stop,
                                             const Standard_Boolean            Geom)
 {
 
@@ -1062,7 +1062,7 @@ static Handle(TNaming_NamedShape) BuildName(const TDF_Label&                  F,
   TNaming_Identifier Ident(F, Selection, Context, OnlyOne);
 
   Handle(TNaming_Naming)     Naming;
-  Handle(TNaming_NamedShape) NS;
+  Handle(ShapeAttribute) NS;
 
   if (!Ident.IsDone())
   {
@@ -1117,7 +1117,7 @@ static Handle(TNaming_NamedShape) BuildName(const TDF_Label&                  F,
 #ifdef OCCT_DEBUG_MOD
     if (!Stop.IsNull())
     {
-      TCollection_AsciiString Es;
+      AsciiString1 Es;
       TDF_Tool::Entry(Stop->Label(), Es);
       std::cout << "StopNS at Label = " << Es << std::endl;
     }
@@ -1134,7 +1134,7 @@ static Handle(TNaming_NamedShape) BuildName(const TDF_Label&                  F,
 #ifdef OCCT_DEBUG_MOD
         if (!Ident.FeatureArg().IsNull())
         {
-          TCollection_AsciiString E;
+          AsciiString1 E;
           TDF_Tool::Entry(Ident.FeatureArg()->Label(), E);
           std::cout << "Added argument NS from Label = " << E << std::endl;
         }
@@ -1166,11 +1166,11 @@ static Handle(TNaming_NamedShape) BuildName(const TDF_Label&                  F,
     //------------------------
     Naming->Regenerate(MDF.ChangeValid());
 #ifdef OCCT_DEBUG_MOD
-    TCollection_AsciiString E2;
+    AsciiString1 E2;
     TDF_Tool::Entry(Naming->Label(), E2);
     std::cout << "Regenerated Naming Att at Label = " << E2 << std::endl;
 #endif
-    Naming->Label().FindAttribute(TNaming_NamedShape::GetID(), NS);
+    Naming->Label().FindAttribute(ShapeAttribute::GetID(), NS);
     if (NS.IsNull())
       return NS;
     if (MDF.WithValid())
@@ -1178,7 +1178,7 @@ static Handle(TNaming_NamedShape) BuildName(const TDF_Label&                  F,
 #ifdef OCCT_DEBUG_MOD
     if (!NS.IsNull())
     {
-      TCollection_AsciiString E;
+      AsciiString1 E;
       TDF_Tool::Entry(NS->Label(), E);
       std::cout << "Regenerated NS at Label = " << E << std::endl;
     }
@@ -1196,7 +1196,7 @@ static Handle(TNaming_NamedShape) BuildName(const TDF_Label&                  F,
       return NS;
 
     TNaming_Localizer Localizer;
-    TNaming_Iterator  itNS(NS);
+    Iterator1  itNS(NS);
     if (itNS.More())
     {
       //----------------
@@ -1209,8 +1209,8 @@ static Handle(TNaming_NamedShape) BuildName(const TDF_Label&                  F,
         if (!CompareInGeneration(NS, Selection))
         {
 
-          TopoDS_Shape               NewContext;
-          Handle(TNaming_NamedShape) NewStop;
+          TopoShape               NewContext;
+          Handle(ShapeAttribute) NewStop;
           FindNewShapeInFather(Ident.NamedShapeOfGeneration(), NewContext);
           Filter(F, MDF, Selection, NewContext, Localizer, NS, 0);
         }
@@ -1227,7 +1227,7 @@ static Handle(TNaming_NamedShape) BuildName(const TDF_Label&                  F,
         std::cout << "Selection type = " << Selection.ShapeType()
                   << " TS = " << Selection.TShape()->This() << std::endl;
 #endif
-        Handle(TNaming_NamedShape) NewNS = CompareInModification(
+        Handle(ShapeAttribute) NewNS = CompareInModification(
           Ident.Type() == TNaming_MODIFUNTIL ? NS : Naming->ChangeName().Arguments().First(),
           Selection);
         if (!NewNS.IsNull())
@@ -1241,10 +1241,10 @@ static Handle(TNaming_NamedShape) BuildName(const TDF_Label&                  F,
             theName.Shape(Selection);
             theName.Orientation(Selection.Orientation());
             theName.Type(TNaming_GENERATION);
-            theName.Append(TNaming_Tool::NamedShape(Selection, F));
+            theName.Append(Tool11::NamedShape(Selection, F));
             theName.Append(NewNS);
             Naming->Regenerate(MDF.ChangeValid());
-            Naming->Label().FindAttribute(TNaming_NamedShape::GetID(), NS);
+            Naming->Label().FindAttribute(ShapeAttribute::GetID(), NS);
           }
           Filter(F, MDF, Selection, Context, Localizer, NS, 0);
         }
@@ -1261,7 +1261,7 @@ static Handle(TNaming_NamedShape) BuildName(const TDF_Label&                  F,
 #ifdef OCCT_DEBUG_MOD
   if (!NS.IsNull())
   {
-    TCollection_AsciiString E;
+    AsciiString1 E;
     TDF_Tool::Entry(NS->Label(), E);
     std::cout << "Returned NS from Label = " << E << std::endl;
   }
@@ -1271,12 +1271,12 @@ static Handle(TNaming_NamedShape) BuildName(const TDF_Label&                  F,
 
 //=================================================================================================
 
-static void Validate(TNaming_Scope& MDF, TNaming_OldShapeIterator& it)
+static void Validate(NamingScope& MDF, OldShapeIterator& it)
 {
   MDF.Valid(it.Label());
   MDF.ValidChildren(it.Label());
 
-  TNaming_OldShapeIterator it2(it);
+  OldShapeIterator it2(it);
   for (; it2.More(); it2.Next())
   {
     Validate(MDF, it2);
@@ -1285,12 +1285,12 @@ static void Validate(TNaming_Scope& MDF, TNaming_OldShapeIterator& it)
 
 //=================================================================================================
 
-static void UnValidate(TNaming_Scope& MDF, TNaming_NewShapeIterator& it)
+static void UnValidate(NamingScope& MDF, NewShapeIterator& it)
 {
   MDF.Unvalid(it.Label());
   MDF.UnvalidChildren(it.Label());
 
-  TNaming_NewShapeIterator it2(it);
+  NewShapeIterator it2(it);
   for (; it2.More(); it2.Next())
   {
     UnValidate(MDF, it2);
@@ -1307,7 +1307,7 @@ static void UnValidate(TNaming_Scope& MDF, TNaming_NewShapeIterator& it)
 //         : and nothing is added to the scope.
 //=======================================================================
 
-static void BuildScope(TNaming_Scope& MDF, const TopoDS_Shape& Context, const TDF_Label& Acces)
+static void BuildScope(NamingScope& MDF, const TopoShape& Context, const DataLabel& Acces)
 {
   if (Context.IsNull())
   {
@@ -1318,9 +1318,9 @@ static void BuildScope(TNaming_Scope& MDF, const TopoDS_Shape& Context, const TD
   //----------------------------------------------------
   // Is context the current state
   //----------------------------------------------------
-  Handle(TNaming_NamedShape) NS = TNaming_Tool::NamedShape(Context, Acces);
+  Handle(ShapeAttribute) NS = Tool11::NamedShape(Context, Acces);
   // clang-format off
-  Handle(TNaming_NamedShape) Next = NextModif(NS); // if NS has subsequent evolution = MODIFY, return it
+  Handle(ShapeAttribute) Next = NextModif(NS); // if NS has subsequent evolution = MODIFY, return it
   // clang-format on
   if (Next.IsNull())
   {
@@ -1333,14 +1333,14 @@ static void BuildScope(TNaming_Scope& MDF, const TopoDS_Shape& Context, const TD
   MDF.WithValid(Standard_True);
   MDF.Valid(NS->Label());
   MDF.ValidChildren(NS->Label());
-  TNaming_OldShapeIterator it(Context, Acces);
+  OldShapeIterator it(Context, Acces);
 
   for (; it.More(); it.Next())
   {
     Validate(MDF, it);
   }
 
-  TNaming_NewShapeIterator it2(Context, Acces);
+  NewShapeIterator it2(Context, Acces);
   for (; it2.More(); it2.Next())
   {
     UnValidate(MDF, it2);
@@ -1351,15 +1351,15 @@ static void BuildScope(TNaming_Scope& MDF, const TopoDS_Shape& Context, const TD
 // function : HasAncFace
 // purpose  : Returns True & <Face> if ancestor face is found
 //=======================================================================
-static Standard_Boolean HasAncFace(const TopoDS_Shape& Context,
-                                   const TopoDS_Shape& W,
-                                   TopoDS_Shape&       Face,
+static Standard_Boolean HasAncFace(const TopoShape& Context,
+                                   const TopoShape& W,
+                                   TopoShape&       Face,
                                    Standard_Boolean&   isOuter)
 {
   Standard_Boolean hasFace(Standard_False);
   if (W.ShapeType() != TopAbs_WIRE)
     return hasFace;
-  TopExp_Explorer exp(Context, TopAbs_FACE);
+  ShapeExplorer exp(Context, TopAbs_FACE);
   for (; exp.More(); exp.Next())
   {
     for (TopoDS_Iterator it(exp.Current()); it.More(); it.Next())
@@ -1371,9 +1371,9 @@ static Standard_Boolean HasAncFace(const TopoDS_Shape& Context,
         {
           hasFace = Standard_True;
           //	  std::cout << "HasAncFace: TS = " <<theFace.TShape()->This() <<std::endl;
-          const TopoDS_Face aFace(TopoDS::Face(Face));
-          TopoDS_Wire       anOuterW;
-          if (TNaming::OuterWire(aFace, anOuterW))
+          const TopoFace aFace(TopoDS::Face(Face));
+          TopoWire       anOuterW;
+          if (TNaming1::OuterWire(aFace, anOuterW))
           {
             if (!anOuterW.IsNull() && anOuterW.IsEqual(W))
               isOuter = Standard_True;
@@ -1392,14 +1392,14 @@ static Standard_Boolean HasAncFace(const TopoDS_Shape& Context,
 
 //=================================================================================================
 
-static Handle(TNaming_NamedShape) BuildNameWire(const TDF_Label&                  F,
-                                                TNaming_Scope&                    MDF,
-                                                const TopoDS_Shape&               Selection,
-                                                const TopoDS_Shape&               Context,
-                                                const Handle(TNaming_NamedShape)& Stop,
+static Handle(ShapeAttribute) BuildNameWire(const DataLabel&                  F,
+                                                NamingScope&                    MDF,
+                                                const TopoShape&               Selection,
+                                                const TopoShape&               Context,
+                                                const Handle(ShapeAttribute)& Stop,
                                                 const Standard_Boolean            Geom)
 {
-  Handle(TNaming_NamedShape) NS;
+  Handle(ShapeAttribute) NS;
   Standard_Boolean           found(Standard_False);
   Handle(TNaming_Naming)     Naming;
   if (!F.FindAttribute(TNaming_Naming::GetID(), Naming))
@@ -1413,7 +1413,7 @@ static Handle(TNaming_NamedShape) BuildNameWire(const TDF_Label&                
   }
 
   TNaming_Name&    theName = Naming->ChangeName();
-  TopoDS_Shape     aFace;
+  TopoShape     aFace;
   Standard_Boolean isOuter(Standard_False);
   Standard_Boolean hasFace = HasAncFace(Context, Selection, aFace, isOuter);
   if (hasFace && Selection.ShapeType() > Context.ShapeType())
@@ -1443,11 +1443,11 @@ static Handle(TNaming_NamedShape) BuildNameWire(const TDF_Label&                
         else
         {
           theName.Index(-1);
-          for (TopExp_Explorer exp(Selection, TopAbs_EDGE); exp.More(); exp.Next())
+          for (ShapeExplorer exp(Selection, TopAbs_EDGE); exp.More(); exp.Next())
           {
             if (exp.Current().IsNull())
               continue;
-            if (BRep_Tool::Degenerated(TopoDS::Edge(exp.Current())))
+            if (BRepInspector::Degenerated(TopoDS::Edge(exp.Current())))
               continue;
             theName.Append(
               TNaming_Naming::Name(Naming->Label(), exp.Current(), Context, Geom, 1, 0));
@@ -1466,11 +1466,11 @@ static Handle(TNaming_NamedShape) BuildNameWire(const TDF_Label&                
       }
       else
       {
-        for (TopExp_Explorer exp(Selection, TopAbs_EDGE); exp.More(); exp.Next())
+        for (ShapeExplorer exp(Selection, TopAbs_EDGE); exp.More(); exp.Next())
         {
           if (exp.Current().IsNull())
             continue;
-          if (BRep_Tool::Degenerated(TopoDS::Edge(exp.Current())))
+          if (BRepInspector::Degenerated(TopoDS::Edge(exp.Current())))
             continue;
           theName.Append(TNaming_Naming::Name(Naming->Label(), exp.Current(), Context, Geom, 1, 0));
         }
@@ -1480,27 +1480,27 @@ static Handle(TNaming_NamedShape) BuildNameWire(const TDF_Label&                
   else
   { // => no Face
     theName.Type(TNaming_UNION);
-    for (TopExp_Explorer exp(Selection, TopAbs_EDGE); exp.More(); exp.Next())
+    for (ShapeExplorer exp(Selection, TopAbs_EDGE); exp.More(); exp.Next())
     {
       if (exp.Current().IsNull())
         continue;
-      if (BRep_Tool::Degenerated(TopoDS::Edge(exp.Current())))
+      if (BRepInspector::Degenerated(TopoDS::Edge(exp.Current())))
         continue;
       theName.Append(BuildName(Naming->Label(), MDF, exp.Current(), Context, Stop, Geom));
     }
   }
   // Naming->GetName().Solve(Naming->Label(),MDF.GetValid());
-  Naming->Label().FindAttribute(TNaming_NamedShape::GetID(), NS);
+  Naming->Label().FindAttribute(ShapeAttribute::GetID(), NS);
   return NS;
 }
 
 //=======================================================================
-static Standard_Boolean IsOneIn(const TopoDS_Shape& S, const TopoDS_Shape& Context)
+static Standard_Boolean IsOneIn(const TopoShape& S, const TopoShape& Context)
 {
   Standard_Boolean found(Standard_False);
   if (S.IsNull() || Context.IsNull())
     return found;
-  for (TopExp_Explorer exp(Context, S.ShapeType()); exp.More(); exp.Next())
+  for (ShapeExplorer exp(Context, S.ShapeType()); exp.More(); exp.Next())
   {
     if (exp.Current().IsEqual(S))
     {
@@ -1512,7 +1512,7 @@ static Standard_Boolean IsOneIn(const TopoDS_Shape& S, const TopoDS_Shape& Conte
 }
 
 //=======================================================================
-static Standard_Boolean IsAllIn(const TopoDS_Shape& S, const TopoDS_Shape& Context)
+static Standard_Boolean IsAllIn(const TopoShape& S, const TopoShape& Context)
 {
 #ifdef OCCT_DEBUG_CC
   Write(S, "IsAllIn_Sel.brep");
@@ -1528,7 +1528,7 @@ static Standard_Boolean IsAllIn(const TopoDS_Shape& S, const TopoDS_Shape& Conte
     Write(it.Value(), "Sel_ItValue.brep");
 #endif
     if (it.Value().ShapeType() != TopAbs_COMPOUND)
-      for (TopExp_Explorer exp(Context, it.Value().ShapeType()); exp.More(); exp.Next())
+      for (ShapeExplorer exp(Context, it.Value().ShapeType()); exp.More(); exp.Next())
       {
 #ifdef OCCT_DEBUG_CC
         std::cout << "Context sub-shape type = " << exp.Current().ShapeType() << std::endl;
@@ -1559,8 +1559,8 @@ static Standard_Boolean IsAllIn(const TopoDS_Shape& S, const TopoDS_Shape& Conte
 
 //=================================================================================================
 
-static Standard_Integer RepeatabilityInContext(const TopoDS_Shape& Selection,
-                                               const TopoDS_Shape& Context)
+static Standard_Integer RepeatabilityInContext(const TopoShape& Selection,
+                                               const TopoShape& Context)
 {
   Standard_Integer aNum(0);
   if (!Context.IsNull() && !Selection.IsNull())
@@ -1571,7 +1571,7 @@ static Standard_Integer RepeatabilityInContext(const TopoDS_Shape& Selection,
     {
       if (Selection.ShapeType() != TopAbs_SHELL)
       {
-        for (TopExp_Explorer exp(Context, Selection.ShapeType()); exp.More(); exp.Next())
+        for (ShapeExplorer exp(Context, Selection.ShapeType()); exp.More(); exp.Next())
         {
           if (exp.Current().IsSame(Selection))
             aNum++;
@@ -1584,7 +1584,7 @@ static Standard_Integer RepeatabilityInContext(const TopoDS_Shape& Selection,
       for (; it.More(); it.Next())
       {
         Standard_Integer n(0);
-        for (TopExp_Explorer exp(Context, it.Value().ShapeType()); exp.More(); exp.Next())
+        for (ShapeExplorer exp(Context, it.Value().ShapeType()); exp.More(); exp.Next())
         {
           if (exp.Current().IsSame(it.Value()))
           {
@@ -1606,15 +1606,15 @@ static Standard_Integer RepeatabilityInContext(const TopoDS_Shape& Selection,
 // function : HasAncSolid
 // purpose  : Returns true if Sh has ancestor solid in this context
 //=======================================================================
-static Standard_Boolean HasAncSolid(const TopoDS_Shape& Context,
-                                    const TopoDS_Shape& Sh,
-                                    TopoDS_Shape&       Solid,
+static Standard_Boolean HasAncSolid(const TopoShape& Context,
+                                    const TopoShape& Sh,
+                                    TopoShape&       Solid,
                                     Standard_Boolean&   isOuter)
 {
   Standard_Boolean hasSolid(Standard_False);
   if (Sh.ShapeType() != TopAbs_SHELL)
     return hasSolid;
-  TopExp_Explorer exp(Context, TopAbs_SOLID);
+  ShapeExplorer exp(Context, TopAbs_SOLID);
   for (; exp.More(); exp.Next())
   {
     for (TopoDS_Iterator it(exp.Current()); it.More(); it.Next())
@@ -1625,8 +1625,8 @@ static Standard_Boolean HasAncSolid(const TopoDS_Shape& Context,
         if (!Solid.IsNull())
         {
           hasSolid = Standard_True;
-          TopoDS_Shell anOuterShell;
-          if (TNaming::OuterShell(TopoDS::Solid(Solid), anOuterShell))
+          TopoShell anOuterShell;
+          if (TNaming1::OuterShell(TopoDS::Solid(Solid), anOuterShell))
           {
 #ifdef OCCT_DEBUG_TSOL
             Write(anOuterShell, "OuterShell.brep");
@@ -1648,14 +1648,14 @@ static Standard_Boolean HasAncSolid(const TopoDS_Shape& Context,
 
 //=================================================================================================
 
-static Handle(TNaming_NamedShape) BuildNameShell(const TDF_Label&                  F,
-                                                 TNaming_Scope&                    MDF,
-                                                 const TopoDS_Shape&               Selection,
-                                                 const TopoDS_Shape&               Context,
-                                                 const Handle(TNaming_NamedShape)& Stop,
+static Handle(ShapeAttribute) BuildNameShell(const DataLabel&                  F,
+                                                 NamingScope&                    MDF,
+                                                 const TopoShape&               Selection,
+                                                 const TopoShape&               Context,
+                                                 const Handle(ShapeAttribute)& Stop,
                                                  const Standard_Boolean            Geom)
 {
-  Handle(TNaming_NamedShape) NS;
+  Handle(ShapeAttribute) NS;
   Standard_Boolean           found(Standard_False);
   Handle(TNaming_Naming)     Naming;
   if (!F.FindAttribute(TNaming_Naming::GetID(), Naming))
@@ -1669,7 +1669,7 @@ static Handle(TNaming_NamedShape) BuildNameShell(const TDF_Label&               
   }
 
   TNaming_Name&    theName = Naming->ChangeName();
-  TopoDS_Shape     aSolid;
+  TopoShape     aSolid;
   Standard_Boolean isOuter(Standard_False);
   Standard_Boolean hasSolid = HasAncSolid(Context, Selection, aSolid, isOuter);
   if (hasSolid && Selection.ShapeType() > Context.ShapeType())
@@ -1692,7 +1692,7 @@ static Handle(TNaming_NamedShape) BuildNameShell(const TDF_Label&               
       if (found)
       {
         // solid => aSolid which is also a context
-        Handle(TNaming_NamedShape) aNS = TNaming_Tool::NamedShape(Context, F);
+        Handle(ShapeAttribute) aNS = Tool11::NamedShape(Context, F);
         if (!aNS.IsNull())
           theName.ContextLabel(aNS->Label());
         theName.Append(aNS);
@@ -1703,7 +1703,7 @@ static Handle(TNaming_NamedShape) BuildNameShell(const TDF_Label&               
         else
         { // not OuterShell
           theName.Index(-1);
-          for (TopExp_Explorer exp(Selection, TopAbs_FACE); exp.More(); exp.Next())
+          for (ShapeExplorer exp(Selection, TopAbs_FACE); exp.More(); exp.Next())
           {
             if (exp.Current().IsNull())
               continue;
@@ -1729,14 +1729,14 @@ static Handle(TNaming_NamedShape) BuildNameShell(const TDF_Label&               
         theNameSo.ShapeType(aSolid.ShapeType());
         theNameSo.Shape(aSolid);
         theNameSo.Type(TNaming_UNION);
-        Handle(TNaming_NamedShape) aNS = TNaming_Tool::NamedShape(Context, F);
+        Handle(ShapeAttribute) aNS = Tool11::NamedShape(Context, F);
         if (!aNS.IsNull())
           theNameSo.ContextLabel(aNS->Label());
-        for (TopExp_Explorer exp(aSolid, TopAbs_FACE); exp.More(); exp.Next())
+        for (ShapeExplorer exp(aSolid, TopAbs_FACE); exp.More(); exp.Next())
           theNameSo.Append(BuildName(NamingSo->Label(), MDF, exp.Current(), Context, Stop, Geom));
         NamingSo->GetName().Solve(NamingSo->Label(), MDF.GetValid());
         aNS.Nullify();
-        NamingSo->Label().FindAttribute(TNaming_NamedShape::GetID(), aNS);
+        NamingSo->Label().FindAttribute(ShapeAttribute::GetID(), aNS);
         theName.Append(aNS);
       }
       else
@@ -1748,17 +1748,17 @@ static Handle(TNaming_NamedShape) BuildNameShell(const TDF_Label&               
         theNameSo.ShapeType(aSolid.ShapeType());
         theNameSo.Shape(aSolid);
         theNameSo.Type(TNaming_UNION);
-        Handle(TNaming_NamedShape) aNS = TNaming_Tool::NamedShape(Context, F);
+        Handle(ShapeAttribute) aNS = Tool11::NamedShape(Context, F);
         if (!aNS.IsNull())
           theNameSo.ContextLabel(aNS->Label());
-        for (TopExp_Explorer exp(aSolid, TopAbs_FACE); exp.More(); exp.Next())
+        for (ShapeExplorer exp(aSolid, TopAbs_FACE); exp.More(); exp.Next())
           theNameSo.Append(BuildName(NamingSo->Label(), MDF, exp.Current(), Context, Stop, Geom));
         NamingSo->GetName().Solve(NamingSo->Label(), MDF.GetValid());
         aNS.Nullify();
-        NamingSo->Label().FindAttribute(TNaming_NamedShape::GetID(), aNS);
+        NamingSo->Label().FindAttribute(ShapeAttribute::GetID(), aNS);
         theName.Append(aNS);
 
-        for (TopExp_Explorer exp(Selection, TopAbs_FACE); exp.More(); exp.Next())
+        for (ShapeExplorer exp(Selection, TopAbs_FACE); exp.More(); exp.Next())
         {
           if (exp.Current().IsNull())
             continue;
@@ -1770,10 +1770,10 @@ static Handle(TNaming_NamedShape) BuildNameShell(const TDF_Label&               
   else
   { // => no Solid
     theName.Type(TNaming_UNION);
-    Handle(TNaming_NamedShape) aNS = TNaming_Tool::NamedShape(Context, F);
+    Handle(ShapeAttribute) aNS = Tool11::NamedShape(Context, F);
     if (!aNS.IsNull())
       theName.ContextLabel(aNS->Label());
-    for (TopExp_Explorer exp(Selection, TopAbs_FACE); exp.More(); exp.Next())
+    for (ShapeExplorer exp(Selection, TopAbs_FACE); exp.More(); exp.Next())
     {
       if (exp.Current().IsNull())
         continue;
@@ -1781,17 +1781,17 @@ static Handle(TNaming_NamedShape) BuildNameShell(const TDF_Label&               
     }
   }
   // Naming->GetName().Solve(Naming->Label(),MDF.GetValid());
-  Naming->Label().FindAttribute(TNaming_NamedShape::GetID(), NS);
+  Naming->Label().FindAttribute(ShapeAttribute::GetID(), NS);
   return NS;
 }
 
 //=================================================================================================
 
-static void BuildAggregationName(const TDF_Label&                  F,
-                                 TNaming_Scope&                    MDF,
-                                 const TopoDS_Shape&               S,
-                                 const TopoDS_Shape&               Context,
-                                 const Handle(TNaming_NamedShape)& Stop,
+static void BuildAggregationName(const DataLabel&                  F,
+                                 NamingScope&                    MDF,
+                                 const TopoShape&               S,
+                                 const TopoShape&               Context,
+                                 const Handle(ShapeAttribute)& Stop,
                                  const Standard_Boolean            Geom)
 {
   const Standard_Boolean found2 = IsAllIn(S, Context);
@@ -1812,8 +1812,8 @@ static void BuildAggregationName(const TDF_Label&                  F,
   TNaming_Name& theName = Naming->ChangeName();
   for (TopoDS_Iterator itc(S); itc.More(); itc.Next())
   {
-    const TopoDS_Shape& aS = itc.Value();
-    if ((aS.ShapeType() == TopAbs_SOLID && !TNaming_Tool::NamedShape(aS, Naming->Label()).IsNull())
+    const TopoShape& aS = itc.Value();
+    if ((aS.ShapeType() == TopAbs_SOLID && !Tool11::NamedShape(aS, Naming->Label()).IsNull())
         || aS.ShapeType() == TopAbs_FACE || aS.ShapeType() == TopAbs_EDGE
         || aS.ShapeType() == TopAbs_VERTEX)
     {
@@ -1835,7 +1835,7 @@ static void BuildAggregationName(const TDF_Label&                  F,
           atomTyp = TopAbs_SHAPE;
       }
 
-      Handle(TNaming_NamedShape) aNS;
+      Handle(ShapeAttribute) aNS;
       Handle(TNaming_Naming)     aNaming = TNaming_Naming::Insert(F);
       TNaming_Name&              aName   = aNaming->ChangeName();
       aName.ShapeType(aS.ShapeType());
@@ -1853,7 +1853,7 @@ static void BuildAggregationName(const TDF_Label&                  F,
           aNS = BuildNameShell(aNaming->Label(), MDF, aS, Context, Stop, Geom);
         else
         {
-          for (TopExp_Explorer exp(aS, atomTyp); exp.More(); exp.Next())
+          for (ShapeExplorer exp(aS, atomTyp); exp.More(); exp.Next())
           {
             aName.Append(BuildName(aNaming->Label(), MDF, exp.Current(), Context, Stop, Geom));
           }
@@ -1868,13 +1868,13 @@ static void BuildAggregationName(const TDF_Label&                  F,
       }
       if (found2)
       {
-        aNS = TNaming_Tool::NamedShape(Context, F);
+        aNS = Tool11::NamedShape(Context, F);
         if (!aNS.IsNull())
           aNaming->ChangeName().ContextLabel(aNS->Label());
       }
 
       aNaming->GetName().Solve(aNaming->Label(), MDF.GetValid());
-      if (aNaming->Label().FindAttribute(TNaming_NamedShape::GetID(), aNS))
+      if (aNaming->Label().FindAttribute(ShapeAttribute::GetID(), aNS))
         if (!Geom && TestSolution(MDF, aNS, aS))
         {
           theName.Append(aNS);
@@ -1885,15 +1885,15 @@ static void BuildAggregationName(const TDF_Label&                  F,
 
 //=================================================================================================
 
-Handle(TNaming_NamedShape) TNaming_Naming::Name(const TDF_Label&       F,
-                                                const TopoDS_Shape&    S,
-                                                const TopoDS_Shape&    Context,
+Handle(ShapeAttribute) TNaming_Naming::Name(const DataLabel&       F,
+                                                const TopoShape&    S,
+                                                const TopoShape&    Context,
                                                 const Standard_Boolean Geom,
                                                 const Standard_Boolean KeepOrientation,
                                                 const Standard_Boolean BNProblem)
 
 {
-  Handle(TNaming_NamedShape) aNamedShape;
+  Handle(ShapeAttribute) aNamedShape;
   if (KeepOrientation)
   {
 #ifdef OCCT_DEBUG_INNS
@@ -1906,21 +1906,21 @@ Handle(TNaming_NamedShape) TNaming_Naming::Name(const TDF_Label&       F,
 
     if (aNum > 1 || aBNproblem)
     {
-      TopoDS_Shape                    UC = TNaming::FindUniqueContext(S, Context);
+      TopoShape                    UC = TNaming1::FindUniqueContext(S, Context);
       Handle(TopTools_HArray1OfShape) Arr;
       if (UC.IsNull() && S.ShapeType() == TopAbs_COMPOUND)
       {
-        UC = TNaming::FindUniqueContextSet(S, Context, Arr);
+        UC = TNaming1::FindUniqueContextSet(S, Context, Arr);
 #ifdef OCCT_DEBUG_CC
         Write(UC, "UniqueContextSet.brep");
         Write(S, "InitialSelection.brep");
         if (S.ShapeType() == TopAbs_COMPOUND)
         {
-          TCollection_AsciiString aNam("S_");
+          AsciiString1 aNam("S_");
           TopoDS_Iterator         it(S);
           for (int i = 1; it.More(); it.Next(), i++)
           {
-            TCollection_AsciiString aName = aNam + i + ".brep";
+            AsciiString1 aName = aNam + i + ".brep";
             Write(it.Value(), aName.ToCString());
           }
         }
@@ -1992,10 +1992,10 @@ Handle(TNaming_NamedShape) TNaming_Naming::Name(const TDF_Label&       F,
 #endif
         }
         // Naming->Update();
-        TNaming_Scope MDF;
+        NamingScope MDF;
         BuildScope(MDF, Context, F);
         Naming->GetName().Solve(Naming->Label(), MDF.GetValid());
-        Naming->Label().FindAttribute(TNaming_NamedShape::GetID(), aNamedShape);
+        Naming->Label().FindAttribute(ShapeAttribute::GetID(), aNamedShape);
         theName.ContextLabel(aNamedShape->Label());
         if (Geom)
           return aNamedShape;
@@ -2023,11 +2023,11 @@ Handle(TNaming_NamedShape) TNaming_Naming::Name(const TDF_Label&       F,
   // Ceci pour les localisation a posteriori par exemple.
   //------------------------------------------------------------
 
-  TNaming_Scope MDF;
+  NamingScope MDF;
   BuildScope(MDF, Context, F);
-  Handle(TNaming_NamedShape) Stop;
+  Handle(ShapeAttribute) Stop;
 
-  if ((S.ShapeType() == TopAbs_SOLID && !TNaming_Tool::NamedShape(S, F).IsNull()) ||
+  if ((S.ShapeType() == TopAbs_SOLID && !Tool11::NamedShape(S, F).IsNull()) ||
 
       S.ShapeType() == TopAbs_FACE || S.ShapeType() == TopAbs_EDGE
       || S.ShapeType() == TopAbs_VERTEX)
@@ -2035,7 +2035,7 @@ Handle(TNaming_NamedShape) TNaming_Naming::Name(const TDF_Label&       F,
     //---------------------------------------
     // Localisation de S comme element simple.
     //---------------------------------------
-    Handle(TNaming_NamedShape) NS = BuildName(F, MDF, S, Context, Stop, Geom);
+    Handle(ShapeAttribute) NS = BuildName(F, MDF, S, Context, Stop, Geom);
     if (Geom)
       return NS;
     if (!Geom && TestSolution(MDF, NS, S))
@@ -2046,7 +2046,7 @@ Handle(TNaming_NamedShape) TNaming_Naming::Name(const TDF_Label&       F,
     //----------------------------------------------------
     // Localisation de S comme ensemble d elements simples.
     //-----------------------------------------------------
-    Handle(TNaming_NamedShape) NS;
+    Handle(ShapeAttribute) NS;
     Handle(TNaming_Naming)     Naming  = TNaming_Naming::Insert(F);
     TNaming_Name&              theName = Naming->ChangeName();
 
@@ -2077,7 +2077,7 @@ Handle(TNaming_NamedShape) TNaming_Naming::Name(const TDF_Label&       F,
         found = IsOneIn(S, Context);
       if (found)
       {
-        NS = TNaming_Tool::NamedShape(Context, F);
+        NS = Tool11::NamedShape(Context, F);
         if (!NS.IsNull())
           theName.ContextLabel(NS->Label());
       }
@@ -2107,7 +2107,7 @@ Handle(TNaming_NamedShape) TNaming_Naming::Name(const TDF_Label&       F,
       else
       {
         theName.Type(TNaming_UNION);
-        for (TopExp_Explorer exp(S, atomType); exp.More(); exp.Next())
+        for (ShapeExplorer exp(S, atomType); exp.More(); exp.Next())
         {
           theName.Append(BuildName(Naming->Label(), MDF, exp.Current(), Context, Stop, Geom));
         }
@@ -2116,7 +2116,7 @@ Handle(TNaming_NamedShape) TNaming_Naming::Name(const TDF_Label&       F,
 
     // Naming->Update();
     Naming->GetName().Solve(Naming->Label(), MDF.GetValid());
-    Naming->Label().FindAttribute(TNaming_NamedShape::GetID(), NS);
+    Naming->Label().FindAttribute(ShapeAttribute::GetID(), NS);
     if (Geom)
       return NS;
 

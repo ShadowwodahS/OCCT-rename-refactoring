@@ -595,7 +595,7 @@ void OpenGl_LayerList::renderLayer(const Handle(OpenGl_Workspace)&   theWorkspac
                                        Handle(OpenGl_ShadowMapArray)());
   }
 
-  const Handle(Graphic3d_Camera)& aWorldCamera = aCtx->Camera();
+  const Handle(CameraOn3d)& aWorldCamera = aCtx->Camera();
   if (hasLocalCS)
   {
     // Apply local camera transformation.

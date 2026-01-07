@@ -44,9 +44,9 @@
 namespace
 {
 //! Format Frame Buffer format for logging messages.
-static TCollection_AsciiString printFboFormat(const Handle(OpenGl_FrameBuffer)& theFbo)
+static AsciiString1 printFboFormat(const Handle(OpenGl_FrameBuffer)& theFbo)
 {
-  return TCollection_AsciiString() + theFbo->GetInitVPSizeX() + "x" + theFbo->GetInitVPSizeY() + "@"
+  return AsciiString1() + theFbo->GetInitVPSizeX() + "x" + theFbo->GetInitVPSizeY() + "@"
          + theFbo->NbSamples();
 }
 
@@ -562,7 +562,7 @@ Standard_Boolean OpenGl_View::BufferDump(Image_PixMap&               theImage,
 //=================================================================================================
 
 Standard_Boolean OpenGl_View::ShadowMapDump(Image_PixMap&                  theImage,
-                                            const TCollection_AsciiString& theLightName)
+                                            const AsciiString1& theLightName)
 {
   if (!myShadowMaps->IsValid())
   {
@@ -693,10 +693,10 @@ void OpenGl_View::SetBackgroundImage(const Handle(Graphic3d_TextureMap)& theText
   if (theToUpdatePBREnv)
   {
     // update PBR environment
-    const TCollection_AsciiString anIdOld =
-      !myCubeMapIBL.IsNull() ? myCubeMapIBL->GetId() : TCollection_AsciiString();
-    const TCollection_AsciiString anIdNew =
-      !aCubeMap.IsNull() ? aCubeMap->GetId() : TCollection_AsciiString();
+    const AsciiString1 anIdOld =
+      !myCubeMapIBL.IsNull() ? myCubeMapIBL->GetId() : AsciiString1();
+    const AsciiString1 anIdNew =
+      !aCubeMap.IsNull() ? aCubeMap->GetId() : AsciiString1();
     if (anIdNew != anIdOld)
     {
       myPBREnvRequest = true;
@@ -767,10 +767,10 @@ void OpenGl_View::SetImageBasedLighting(Standard_Boolean theToEnableIBL)
     return;
   }
 
-  const TCollection_AsciiString anIdOld =
-    !myCubeMapIBL.IsNull() ? myCubeMapIBL->GetId() : TCollection_AsciiString();
-  const TCollection_AsciiString anIdNew =
-    !myCubeMapBackground.IsNull() ? myCubeMapBackground->GetId() : TCollection_AsciiString();
+  const AsciiString1 anIdOld =
+    !myCubeMapIBL.IsNull() ? myCubeMapIBL->GetId() : AsciiString1();
+  const AsciiString1 anIdNew =
+    !myCubeMapBackground.IsNull() ? myCubeMapBackground->GetId() : AsciiString1();
   if (anIdNew != anIdOld)
   {
     myPBREnvRequest = true;
@@ -1019,11 +1019,11 @@ void OpenGl_View::DiagnosticInformation(TColStd_IndexedDataMapOfStringString& th
   aCtx->DiagnosticInformation(theDict, theFlags);
   if ((theFlags & Graphic3d_DiagnosticInfo_FrameBuffer) != 0)
   {
-    TCollection_AsciiString aResRatio(myRenderParams.ResolutionRatio());
+    AsciiString1 aResRatio(myRenderParams.ResolutionRatio());
     theDict.ChangeFromIndex(theDict.Add("ResolutionRatio", aResRatio)) = aResRatio;
     if (myMainSceneFbos[0]->IsValid())
     {
-      TCollection_AsciiString anFboInfo;
+      AsciiString1 anFboInfo;
       if (const Handle(OpenGl_Texture)& aColorTex = myMainSceneFbos[0]->ColorTexture())
       {
         anFboInfo += OpenGl_TextureFormat::FormatFormat(aColorTex->SizedFormat());
@@ -1051,7 +1051,7 @@ void OpenGl_View::StatisticInformation(TColStd_IndexedDataMapOfStringString& the
 
 //=================================================================================================
 
-TCollection_AsciiString OpenGl_View::StatisticInformation() const
+AsciiString1 OpenGl_View::StatisticInformation() const
 {
   if (const Handle(OpenGl_Context)& aCtx = myWorkspace->GetGlContext())
   {
@@ -1059,13 +1059,13 @@ TCollection_AsciiString OpenGl_View::StatisticInformation() const
     const Graphic3d_RenderingParams& aRendParams = myWorkspace->View()->RenderingParams();
     return aStats->FormatStats(aRendParams.CollectedStats);
   }
-  return TCollection_AsciiString();
+  return AsciiString1();
 }
 
 //=================================================================================================
 
 void OpenGl_View::drawBackground(const Handle(OpenGl_Workspace)& theWorkspace,
-                                 Graphic3d_Camera::Projection    theProjection)
+                                 CameraOn3d::Projection    theProjection)
 {
   const Handle(OpenGl_Context)& aCtx           = theWorkspace->GetGlContext();
   const bool                    wasUsedZBuffer = theWorkspace->SetUseZBuffer(false);
@@ -1156,7 +1156,7 @@ void OpenGl_View::drawBackground(const Handle(OpenGl_Workspace)& theWorkspace,
 
 //=================================================================================================
 
-bool OpenGl_View::prepareFrameBuffers(Graphic3d_Camera::Projection& theProj)
+bool OpenGl_View::prepareFrameBuffers(CameraOn3d::Projection& theProj)
 {
   theProj                            = myCamera->ProjectionType();
   const Handle(OpenGl_Context)& aCtx = myWorkspace->GetGlContext();
@@ -1218,7 +1218,7 @@ bool OpenGl_View::prepareFrameBuffers(Graphic3d_Camera::Projection& theProj)
   }
 
   if (myHasFboBlit
-      && (myTransientDrawToFront || theProj == Graphic3d_Camera::Projection_Stereo
+      && (myTransientDrawToFront || theProj == CameraOn3d::Projection_Stereo
           || aNbSamples != 0 || toUseOit || aSizeX != aRendSize.x()))
   {
     if (myMainSceneFbos[0]->GetVPSize() != aRendSize
@@ -1242,7 +1242,7 @@ bool OpenGl_View::prepareFrameBuffers(Graphic3d_Camera::Projection& theProj)
                ->Init(aCtx, aRendSize, myFboColorFormat, myFboDepthFormat, aNbSamples)
             && !wasFailedMain0)
         {
-          TCollection_ExtendedString aMsg = TCollection_ExtendedString() + "Error! Main FBO "
+          UtfString aMsg = UtfString() + "Error! Main FBO "
                                             + printFboFormat(myMainSceneFbos[0])
                                             + " initialization has failed";
           aCtx->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
@@ -1260,7 +1260,7 @@ bool OpenGl_View::prepareFrameBuffers(Graphic3d_Camera::Projection& theProj)
       if (!myImmediateSceneFbos[0]->InitLazy(aCtx, *myMainSceneFbos[0], hasTextureMsaa)
           && !wasFailedImm0)
       {
-        TCollection_ExtendedString aMsg = TCollection_ExtendedString() + "Error! Immediate FBO "
+        UtfString aMsg = UtfString() + "Error! Immediate FBO "
                                           + printFboFormat(myImmediateSceneFbos[0])
                                           + " initialization has failed";
         aCtx->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
@@ -1286,7 +1286,7 @@ bool OpenGl_View::prepareFrameBuffers(Graphic3d_Camera::Projection& theProj)
   }
 
   bool hasXRBlitFbo = false;
-  if (theProj == Graphic3d_Camera::Projection_Stereo && IsActiveXR()
+  if (theProj == CameraOn3d::Projection_Stereo && IsActiveXR()
       && myMainSceneFbos[0]->IsValid())
   {
     if (aNbSamples != 0 || aSizeX != aRendSize.x())
@@ -1298,7 +1298,7 @@ bool OpenGl_View::prepareFrameBuffers(Graphic3d_Camera::Projection& theProj)
                                             0);
       if (!hasXRBlitFbo)
       {
-        TCollection_ExtendedString aMsg = TCollection_ExtendedString() + "Error! VR FBO "
+        UtfString aMsg = UtfString() + "Error! VR FBO "
                                           + printFboFormat(myXrSceneFbo)
                                           + " initialization has failed";
         aCtx->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
@@ -1309,12 +1309,12 @@ bool OpenGl_View::prepareFrameBuffers(Graphic3d_Camera::Projection& theProj)
       }
     }
   }
-  else if (theProj == Graphic3d_Camera::Projection_Stereo && myMainSceneFbos[0]->IsValid())
+  else if (theProj == CameraOn3d::Projection_Stereo && myMainSceneFbos[0]->IsValid())
   {
     const bool wasFailedMain1 = checkWasFailedFbo(myMainSceneFbos[1], myMainSceneFbos[0]);
     if (!myMainSceneFbos[1]->InitLazy(aCtx, *myMainSceneFbos[0], true) && !wasFailedMain1)
     {
-      TCollection_ExtendedString aMsg = TCollection_ExtendedString() + "Error! Main FBO (second) "
+      UtfString aMsg = UtfString() + "Error! Main FBO (second) "
                                         + printFboFormat(myMainSceneFbos[1])
                                         + " initialization has failed";
       aCtx->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
@@ -1326,7 +1326,7 @@ bool OpenGl_View::prepareFrameBuffers(Graphic3d_Camera::Projection& theProj)
     if (!myMainSceneFbos[1]->IsValid())
     {
       // no enough memory?
-      theProj = Graphic3d_Camera::Projection_Perspective;
+      theProj = CameraOn3d::Projection_Perspective;
     }
     else if (!myTransientDrawToFront)
     {
@@ -1340,8 +1340,8 @@ bool OpenGl_View::prepareFrameBuffers(Graphic3d_Camera::Projection& theProj)
       if (!myImmediateSceneFbos[0]->InitLazy(aCtx, *myMainSceneFbos[0], hasTextureMsaa)
           && !wasFailedImm0)
       {
-        TCollection_ExtendedString aMsg =
-          TCollection_ExtendedString() + "Error! Immediate FBO (first) "
+        UtfString aMsg =
+          UtfString() + "Error! Immediate FBO (first) "
           + printFboFormat(myImmediateSceneFbos[0]) + " initialization has failed";
         aCtx->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
                           GL_DEBUG_TYPE_ERROR,
@@ -1352,8 +1352,8 @@ bool OpenGl_View::prepareFrameBuffers(Graphic3d_Camera::Projection& theProj)
       if (!myImmediateSceneFbos[1]->InitLazy(aCtx, *myMainSceneFbos[0], hasTextureMsaa)
           && !wasFailedImm1)
       {
-        TCollection_ExtendedString aMsg =
-          TCollection_ExtendedString() + "Error! Immediate FBO (first) "
+        UtfString aMsg =
+          UtfString() + "Error! Immediate FBO (first) "
           + printFboFormat(myImmediateSceneFbos[1]) + " initialization has failed";
         aCtx->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
                           GL_DEBUG_TYPE_ERROR,
@@ -1363,7 +1363,7 @@ bool OpenGl_View::prepareFrameBuffers(Graphic3d_Camera::Projection& theProj)
       }
       if (!myImmediateSceneFbos[0]->IsValid() || !myImmediateSceneFbos[1]->IsValid())
       {
-        theProj = Graphic3d_Camera::Projection_Perspective;
+        theProj = CameraOn3d::Projection_Perspective;
       }
     }
   }
@@ -1398,7 +1398,7 @@ bool OpenGl_View::prepareFrameBuffers(Graphic3d_Camera::Projection& theProj)
       if (myPBREnvState == OpenGl_PBREnvState_CREATED)
       {
         Handle(OpenGl_Texture)               anEnvLUT;
-        static const TCollection_AsciiString THE_SHARED_ENV_LUT_KEY("EnvLUT");
+        static const AsciiString1 THE_SHARED_ENV_LUT_KEY("EnvLUT");
         if (!aCtx->GetResource(THE_SHARED_ENV_LUT_KEY, anEnvLUT))
         {
           bool toConvertHalfFloat = false;
@@ -1742,7 +1742,7 @@ void OpenGl_View::Redraw()
   aCtx->FetchState();
 
   const Graphic3d_StereoMode   aStereoMode  = myRenderParams.StereoMode;
-  Graphic3d_Camera::Projection aProjectType = myCamera->ProjectionType();
+  CameraOn3d::Projection aProjectType = myCamera->ProjectionType();
   if (!prepareFrameBuffers(aProjectType))
   {
     myBackBufferRestored = Standard_False;
@@ -1784,7 +1784,7 @@ void OpenGl_View::Redraw()
     aFrameBuffer = aCtx->DefaultFrameBuffer().operator->();
   }
 
-  if (aProjectType == Graphic3d_Camera::Projection_Stereo)
+  if (aProjectType == CameraOn3d::Projection_Stereo)
   {
     OpenGl_FrameBuffer* aMainFbos[2] = {
       myMainSceneFbos[0]->IsValid() ? myMainSceneFbos[0].operator->() : NULL,
@@ -1837,7 +1837,7 @@ void OpenGl_View::Redraw()
                         myRenderParams.ResolutionRatio(),
                         aMainFbos[0] != NULL ? myRenderParams.RenderResolutionScale : 1.0f);
 
-    redraw(Graphic3d_Camera::Projection_MonoLeftEye, aMainFbos[0], aMainFbosOit[0]);
+    redraw(CameraOn3d::Projection_MonoLeftEye, aMainFbos[0], aMainFbosOit[0]);
     myBackBufferRestored = Standard_True;
     myIsImmediateDrawn   = Standard_False;
     aCtx->SetReadDrawBuffer(aStereoMode == Graphic3d_StereoMode_QuadBuffer ? GL_BACK_LEFT
@@ -1845,7 +1845,7 @@ void OpenGl_View::Redraw()
     aCtx->SetResolution(myRenderParams.Resolution,
                         myRenderParams.ResolutionRatio(),
                         anImmFbos[0] != NULL ? myRenderParams.RenderResolutionScale : 1.0f);
-    if (!redrawImmediate(Graphic3d_Camera::Projection_MonoLeftEye,
+    if (!redrawImmediate(CameraOn3d::Projection_MonoLeftEye,
                          aMainFbos[0],
                          anImmFbos[0],
                          anImmFbosOit[0]))
@@ -1881,13 +1881,13 @@ void OpenGl_View::Redraw()
                         myRenderParams.ResolutionRatio(),
                         aMainFbos[1] != NULL ? myRenderParams.RenderResolutionScale : 1.0f);
 
-    redraw(Graphic3d_Camera::Projection_MonoRightEye, aMainFbos[1], aMainFbosOit[1]);
+    redraw(CameraOn3d::Projection_MonoRightEye, aMainFbos[1], aMainFbosOit[1]);
     myBackBufferRestored = Standard_True;
     myIsImmediateDrawn   = Standard_False;
     aCtx->SetResolution(myRenderParams.Resolution,
                         myRenderParams.ResolutionRatio(),
                         anImmFbos[1] != NULL ? myRenderParams.RenderResolutionScale : 1.0f);
-    if (!redrawImmediate(Graphic3d_Camera::Projection_MonoRightEye,
+    if (!redrawImmediate(CameraOn3d::Projection_MonoRightEye,
                          aMainFbos[1],
                          anImmFbos[1],
                          anImmFbosOit[1]))
@@ -2028,7 +2028,7 @@ void OpenGl_View::RedrawImmediate()
   }
 
   const Graphic3d_StereoMode   aStereoMode  = myRenderParams.StereoMode;
-  Graphic3d_Camera::Projection aProjectType = myCamera->ProjectionType();
+  CameraOn3d::Projection aProjectType = myCamera->ProjectionType();
   OpenGl_FrameBuffer*          aFrameBuffer = myFBO.get();
   aCtx->FrameStats()->FrameStart(myWorkspace->View(), true);
 
@@ -2038,16 +2038,16 @@ void OpenGl_View::RedrawImmediate()
     aFrameBuffer = aCtx->DefaultFrameBuffer().operator->();
   }
 
-  if (aProjectType == Graphic3d_Camera::Projection_Stereo)
+  if (aProjectType == CameraOn3d::Projection_Stereo)
   {
     if (myMainSceneFbos[0]->IsValid() && !myMainSceneFbos[1]->IsValid())
     {
-      aProjectType = Graphic3d_Camera::Projection_Perspective;
+      aProjectType = CameraOn3d::Projection_Perspective;
     }
   }
 
   bool toSwap = false;
-  if (aProjectType == Graphic3d_Camera::Projection_Stereo)
+  if (aProjectType == CameraOn3d::Projection_Stereo)
   {
     OpenGl_FrameBuffer* aMainFbos[2] = {
       myMainSceneFbos[0]->IsValid() ? myMainSceneFbos[0].operator->() : NULL,
@@ -2082,7 +2082,7 @@ void OpenGl_View::RedrawImmediate()
     aCtx->SetResolution(myRenderParams.Resolution,
                         myRenderParams.ResolutionRatio(),
                         anImmFbos[0] != NULL ? myRenderParams.RenderResolutionScale : 1.0f);
-    toSwap = redrawImmediate(Graphic3d_Camera::Projection_MonoLeftEye,
+    toSwap = redrawImmediate(CameraOn3d::Projection_MonoLeftEye,
                              aMainFbos[0],
                              anImmFbos[0],
                              anImmFbosOit[0],
@@ -2106,7 +2106,7 @@ void OpenGl_View::RedrawImmediate()
     aCtx->SetResolution(myRenderParams.Resolution,
                         myRenderParams.ResolutionRatio(),
                         anImmFbos[1] != NULL ? myRenderParams.RenderResolutionScale : 1.0f);
-    toSwap = redrawImmediate(Graphic3d_Camera::Projection_MonoRightEye,
+    toSwap = redrawImmediate(CameraOn3d::Projection_MonoRightEye,
                              aMainFbos[1],
                              anImmFbos[1],
                              anImmFbosOit[1],
@@ -2169,7 +2169,7 @@ void OpenGl_View::RedrawImmediate()
 
 //=================================================================================================
 
-void OpenGl_View::redraw(const Graphic3d_Camera::Projection theProjection,
+void OpenGl_View::redraw(const CameraOn3d::Projection theProjection,
                          OpenGl_FrameBuffer*                theReadDrawFbo,
                          OpenGl_FrameBuffer*                theOitAccumFbo)
 {
@@ -2213,7 +2213,7 @@ void OpenGl_View::redraw(const Graphic3d_Camera::Projection theProjection,
 
 //=================================================================================================
 
-bool OpenGl_View::redrawImmediate(const Graphic3d_Camera::Projection theProjection,
+bool OpenGl_View::redrawImmediate(const CameraOn3d::Projection theProjection,
                                   OpenGl_FrameBuffer*                theReadFbo,
                                   OpenGl_FrameBuffer*                theDrawFbo,
                                   OpenGl_FrameBuffer*                theOitAccumFbo,
@@ -2280,7 +2280,7 @@ bool OpenGl_View::redrawImmediate(const Graphic3d_Camera::Projection theProjecti
 
 //=================================================================================================
 
-bool OpenGl_View::blitSubviews(const Graphic3d_Camera::Projection, OpenGl_FrameBuffer* theDrawFbo)
+bool OpenGl_View::blitSubviews(const CameraOn3d::Projection, OpenGl_FrameBuffer* theDrawFbo)
 {
   const Handle(OpenGl_Context)& aCtx = myWorkspace->GetGlContext();
   if (aCtx->arbFBOBlit == nullptr)
@@ -2344,8 +2344,8 @@ bool OpenGl_View::blitSubviews(const Graphic3d_Camera::Projection, OpenGl_FrameB
     const int anErr = aCtx->core11fwd->glGetError();
     if (anErr != GL_NO_ERROR)
     {
-      TCollection_ExtendedString aMsg =
-        TCollection_ExtendedString() + "FBO blitting has failed [Error "
+      UtfString aMsg =
+        UtfString() + "FBO blitting has failed [Error "
         + OpenGl_Context::FormatGlError(anErr) + "]\n"
         + "  Please check your graphics driver settings or try updating driver.";
       if (aChildFbo->NbSamples() != 0)
@@ -2416,10 +2416,10 @@ void OpenGl_View::renderShadowMap(const Handle(OpenGl_ShadowMap)& theShadowMap)
   aCtx->core11fwd->glClearDepth(1.0);
   aCtx->core11fwd->glClear(GL_DEPTH_BUFFER_BIT);
 
-  Graphic3d_Camera::Projection aProjection =
+  CameraOn3d::Projection aProjection =
     theShadowMap->LightSource()->Type() == Graphic3d_TypeOfLightSource_Directional
-      ? Graphic3d_Camera::Projection_Orthographic
-      : Graphic3d_Camera::Projection_Perspective;
+      ? CameraOn3d::Projection_Orthographic
+      : CameraOn3d::Projection_Perspective;
   myWorkspace->SetRenderFilter(myWorkspace->RenderFilter()
                                | OpenGl_RenderFilter_SkipTrsfPersistence);
   renderScene(aProjection, aShadowBuffer.get(), NULL, false);
@@ -2432,7 +2432,7 @@ void OpenGl_View::renderShadowMap(const Handle(OpenGl_ShadowMap)& theShadowMap)
 
   // Image_AlienPixMap anImage; anImage.InitZero (Image_Format_Gray, aShadowBuffer->GetVPSizeX(),
   // aShadowBuffer->GetVPSizeY()); OpenGl_FrameBuffer::BufferDump (aCtx, aShadowBuffer, anImage,
-  // Graphic3d_BT_Depth); anImage.Save (TCollection_AsciiString ("shadow") +
+  // Graphic3d_BT_Depth); anImage.Save (AsciiString1 ("shadow") +
   // theShadowMap->Texture()->Sampler()->Parameters()->TextureUnit() + ".png");
 
   bindDefaultFbo();
@@ -2440,7 +2440,7 @@ void OpenGl_View::renderShadowMap(const Handle(OpenGl_ShadowMap)& theShadowMap)
 
 //=================================================================================================
 
-void OpenGl_View::render(Graphic3d_Camera::Projection theProjection,
+void OpenGl_View::render(CameraOn3d::Projection theProjection,
                          OpenGl_FrameBuffer*          theOutputFBO,
                          OpenGl_FrameBuffer*          theOitAccumFbo,
                          const Standard_Boolean       theToDrawImmediate)
@@ -2547,12 +2547,12 @@ void OpenGl_View::render(Graphic3d_Camera::Projection theProjection,
                                                   checkPBRAvailability()));
 
   // Redraw 3d scene
-  if (theProjection == Graphic3d_Camera::Projection_MonoLeftEye)
+  if (theProjection == CameraOn3d::Projection_MonoLeftEye)
   {
     aContext->ProjectionState.SetCurrent(aContext->Camera()->ProjectionStereoLeftF());
     aContext->ApplyProjectionMatrix();
   }
-  else if (theProjection == Graphic3d_Camera::Projection_MonoRightEye)
+  else if (theProjection == CameraOn3d::Projection_MonoRightEye)
   {
     aContext->ProjectionState.SetCurrent(aContext->Camera()->ProjectionStereoRightF());
     aContext->ApplyProjectionMatrix();
@@ -2629,7 +2629,7 @@ void OpenGl_View::InvalidateBVHData(const Graphic3d_ZLayerId theLayerId)
 
 //=================================================================================================
 
-void OpenGl_View::renderStructs(Graphic3d_Camera::Projection theProjection,
+void OpenGl_View::renderStructs(CameraOn3d::Projection theProjection,
                                 OpenGl_FrameBuffer*          theReadDrawFbo,
                                 OpenGl_FrameBuffer*          theOitAccumFbo,
                                 const Standard_Boolean       theToDrawImmediate)
@@ -2782,7 +2782,7 @@ void OpenGl_View::Invalidate()
 
 //=================================================================================================
 
-void OpenGl_View::renderScene(Graphic3d_Camera::Projection theProjection,
+void OpenGl_View::renderScene(CameraOn3d::Projection theProjection,
                               OpenGl_FrameBuffer*          theReadDrawFbo,
                               OpenGl_FrameBuffer*          theOitAccumFbo,
                               const Standard_Boolean       theToDrawImmediate)
@@ -2986,8 +2986,8 @@ bool OpenGl_View::blitBuffers(OpenGl_FrameBuffer*    theReadFbo,
       // - Pixel formats of FBOs do not match.
       //   This also might happen with window has pixel format,
       //   e.g. Mesa fails blitting RGBA8 -> RGB8 while other drivers support this conversion.
-      TCollection_ExtendedString aMsg =
-        TCollection_ExtendedString() + "FBO blitting has failed [Error "
+      UtfString aMsg =
+        UtfString() + "FBO blitting has failed [Error "
         + OpenGl_Context::FormatGlError(anErr) + "]\n"
         + "  Please check your graphics driver settings or try updating driver.";
       if (theReadFbo->NbSamples() != 0)
@@ -3064,8 +3064,8 @@ bool OpenGl_View::blitBuffers(OpenGl_FrameBuffer*    theReadFbo,
     }
     else
     {
-      TCollection_ExtendedString aMsg =
-        TCollection_ExtendedString() + "Error! FBO blitting has failed";
+      UtfString aMsg =
+        UtfString() + "Error! FBO blitting has failed";
       aCtx->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
                         GL_DEBUG_TYPE_ERROR,
                         0,
@@ -3363,7 +3363,7 @@ Standard_Boolean OpenGl_View::checkOitCompatibility(const Handle(OpenGl_Context)
     return Standard_False;
   }
 
-  TCollection_ExtendedString aCompatibilityMsg;
+  UtfString aCompatibilityMsg;
   if (theGlContext->hasFloatBuffer == OpenGl_FeatureNotAvailable
       && theGlContext->hasHalfFloatBuffer == OpenGl_FeatureNotAvailable)
   {
@@ -3408,7 +3408,7 @@ void OpenGl_View::updateSkydomeBg(const Handle(OpenGl_Context)& theCtx)
   // Set custom shader
   Handle(OpenGl_ShaderProgram)    aProg;
   Handle(Graphic3d_ShaderProgram) aProxy = theCtx->ShaderManager()->GetBgSkydomeProgram();
-  TCollection_AsciiString         anUnused;
+  AsciiString1         anUnused;
   theCtx->ShaderManager()->Create(aProxy, anUnused, aProg);
   Handle(OpenGl_ShaderProgram) aPrevProgram = theCtx->ActiveProgram();
   theCtx->BindProgram(aProg);

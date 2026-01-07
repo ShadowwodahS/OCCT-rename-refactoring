@@ -51,21 +51,21 @@ static const char* EvolutionString(TNaming_Evolution theEvolution)
   return "UNKNOWN_Evolution";
 }
 
-static Standard_Integer GetNewShapes(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer GetNewShapes(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
   if (nb == 3 || nb == 4)
   {
-    TDF_Label aLabel;
+    DataLabel aLabel;
     if (!QADNaming::Entry(arg, aLabel))
       return 1;
-    Handle(TNaming_NamedShape) aNS;
-    if (!aLabel.FindAttribute(TNaming_NamedShape::GetID(), aNS))
+    Handle(ShapeAttribute) aNS;
+    if (!aLabel.FindAttribute(ShapeAttribute::GetID(), aNS))
     {
       di << "Label has no NamedShape\n";
       return 1;
     }
     di << EvolutionString(aNS->Evolution());
-    TNaming_Iterator anIter(aNS);
+    Iterator1 anIter(aNS);
     Standard_Integer a;
     char             aName[200];
     for (a = 1; anIter.More(); anIter.Next(), a++)
@@ -75,7 +75,7 @@ static Standard_Integer GetNewShapes(Draw_Interpretor& di, Standard_Integer nb, 
       else if (nb == 4)
       {
         Sprintf(aName, "%s_%d", arg[3], a);
-        DBRep::Set(aName, anIter.NewShape());
+        DBRep1::Set(aName, anIter.NewShape());
       }
     }
     di << " " << a - 1;
@@ -88,21 +88,21 @@ static Standard_Integer GetNewShapes(Draw_Interpretor& di, Standard_Integer nb, 
   return 0;
 }
 
-static Standard_Integer GetOldShapes(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer GetOldShapes(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
   if (nb == 3 || nb == 4)
   {
-    TDF_Label aLabel;
+    DataLabel aLabel;
     if (!QADNaming::Entry(arg, aLabel))
       return 1;
-    Handle(TNaming_NamedShape) aNS;
-    if (!aLabel.FindAttribute(TNaming_NamedShape::GetID(), aNS))
+    Handle(ShapeAttribute) aNS;
+    if (!aLabel.FindAttribute(ShapeAttribute::GetID(), aNS))
     {
       di << "Label has no NamedShape\n";
       return 1;
     }
     di << EvolutionString(aNS->Evolution());
-    TNaming_Iterator anIter(aNS);
+    Iterator1 anIter(aNS);
     Standard_Integer a;
     char             aName[200];
     for (a = 1; anIter.More(); anIter.Next(), a++)
@@ -112,7 +112,7 @@ static Standard_Integer GetOldShapes(Draw_Interpretor& di, Standard_Integer nb, 
       else if (nb == 4)
       {
         Sprintf(aName, "%s_%d", arg[3], a);
-        DBRep::Set(aName, anIter.OldShape());
+        DBRep1::Set(aName, anIter.OldShape());
       }
     }
     di << " " << a - 1;
@@ -125,13 +125,13 @@ static Standard_Integer GetOldShapes(Draw_Interpretor& di, Standard_Integer nb, 
   return 0;
 }
 
-static int GetAllNew(const TopoDS_Shape&            theShape,
-                     const TDF_Label&               theAccess,
-                     const TCollection_AsciiString& theName,
+static int GetAllNew(const TopoShape&            theShape,
+                     const DataLabel&               theAccess,
+                     const AsciiString1& theName,
                      Standard_Integer               theIndex)
 {
-  TNaming_NewShapeIterator anIter(theShape, theAccess);
-  TCollection_AsciiString  aName;
+  NewShapeIterator anIter(theShape, theAccess);
+  AsciiString1  aName;
   for (; anIter.More(); anIter.Next())
   {
     if (!anIter.Shape().IsNull())
@@ -140,7 +140,7 @@ static int GetAllNew(const TopoDS_Shape&            theShape,
       if (!theName.IsEmpty())
       {
         aName = theName + "_" + theIndex;
-        DBRep::Set(aName.ToCString(), anIter.Shape());
+        DBRep1::Set(aName.ToCString(), anIter.Shape());
       }
       theIndex = GetAllNew(anIter.Shape(), theAccess, theName, theIndex);
     }
@@ -148,31 +148,31 @@ static int GetAllNew(const TopoDS_Shape&            theShape,
   return theIndex;
 }
 
-static Standard_Integer GetAllNewShapes(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer GetAllNewShapes(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
   Standard_Integer aResult = 0;
   if (nb == 3 || nb == 4)
   {
-    TCollection_AsciiString aName((nb == 4) ? arg[3] : "");
+    AsciiString1 aName((nb == 4) ? arg[3] : "");
 
     if (arg[2][0] == '0')
     { // label
-      TDF_Label aLabel;
+      DataLabel aLabel;
       if (!QADNaming::Entry(arg, aLabel))
         return 1;
-      Handle(TNaming_NamedShape) aNS;
-      if (!aLabel.FindAttribute(TNaming_NamedShape::GetID(), aNS))
+      Handle(ShapeAttribute) aNS;
+      if (!aLabel.FindAttribute(ShapeAttribute::GetID(), aNS))
       {
         di << "Label has no NamedShape\n";
         return 1;
       }
       Standard_Integer a;
-      TNaming_Iterator anIter(aNS);
+      Iterator1 anIter(aNS);
       for (a = 1; anIter.More(); anIter.Next(), a++)
       {
         if (!anIter.NewShape().IsNull())
         {
-          TCollection_AsciiString aSubName;
+          AsciiString1 aSubName;
           if (!aName.IsEmpty())
           {
             aSubName += aName + "_";
@@ -185,12 +185,12 @@ static Standard_Integer GetAllNewShapes(Draw_Interpretor& di, Standard_Integer n
     else
     { // shape
       Handle(TDF_Data) DF;
-      if (!DDF::GetDF(arg[1], DF))
+      if (!DDF1::GetDF(arg[1], DF))
       {
         di << "Wrong df\n";
         return 1;
       }
-      TopoDS_Shape aShape = DBRep::Get(arg[2]);
+      TopoShape aShape = DBRep1::Get(arg[2]);
       aResult             = GetAllNew(aShape, DF->Root(), aName, 0);
     }
   }
@@ -203,16 +203,16 @@ static Standard_Integer GetAllNewShapes(Draw_Interpretor& di, Standard_Integer n
   return 0;
 }
 
-static int GetAllOld(const TopoDS_Shape&            theShape,
-                     const TDF_Label&               theAccess,
-                     const TCollection_AsciiString& theName,
+static int GetAllOld(const TopoShape&            theShape,
+                     const DataLabel&               theAccess,
+                     const AsciiString1& theName,
                      Standard_Integer               theIndex)
 {
-  TCollection_AsciiString    aName;
-  Handle(TNaming_NamedShape) aNS = TNaming_Tool::NamedShape(theShape, theAccess);
+  AsciiString1    aName;
+  Handle(ShapeAttribute) aNS = Tool11::NamedShape(theShape, theAccess);
   if (aNS.IsNull())
     return theIndex;
-  TNaming_Iterator anIter(aNS);
+  Iterator1 anIter(aNS);
   for (; anIter.More(); anIter.Next())
   {
     if (!anIter.OldShape().IsNull() && !anIter.NewShape().IsNull())
@@ -222,7 +222,7 @@ static int GetAllOld(const TopoDS_Shape&            theShape,
         if (!theName.IsEmpty())
         {
           aName = theName + "_" + theIndex;
-          DBRep::Set(aName.ToCString(), anIter.OldShape());
+          DBRep1::Set(aName.ToCString(), anIter.OldShape());
         }
         theIndex = GetAllOld(anIter.OldShape(), theAccess, theName, theIndex);
       }
@@ -230,31 +230,31 @@ static int GetAllOld(const TopoDS_Shape&            theShape,
   return theIndex;
 }
 
-static Standard_Integer GetAllOldShapes(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer GetAllOldShapes(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
   Standard_Integer aResult = 0;
   if (nb == 3 || nb == 4)
   {
-    TCollection_AsciiString aName((nb == 4) ? arg[3] : "");
+    AsciiString1 aName((nb == 4) ? arg[3] : "");
 
     if (arg[2][0] == '0')
     { // label
-      TDF_Label aLabel;
+      DataLabel aLabel;
       if (!QADNaming::Entry(arg, aLabel))
         return 1;
-      Handle(TNaming_NamedShape) aNS;
-      if (!aLabel.FindAttribute(TNaming_NamedShape::GetID(), aNS))
+      Handle(ShapeAttribute) aNS;
+      if (!aLabel.FindAttribute(ShapeAttribute::GetID(), aNS))
       {
         di << "Label has no NamedShape\n";
         return 1;
       }
       Standard_Integer a;
-      TNaming_Iterator anIter(aNS);
+      Iterator1 anIter(aNS);
       for (a = 1; anIter.More(); anIter.Next(), a++)
       {
         if (!anIter.NewShape().IsNull())
         {
-          TCollection_AsciiString aSubName;
+          AsciiString1 aSubName;
           if (!aName.IsEmpty())
           {
             aSubName += aName + "_";
@@ -267,12 +267,12 @@ static Standard_Integer GetAllOldShapes(Draw_Interpretor& di, Standard_Integer n
     else
     { // shape
       Handle(TDF_Data) DF;
-      if (!DDF::GetDF(arg[1], DF))
+      if (!DDF1::GetDF(arg[1], DF))
       {
         di << "Wrong df\n";
         return 1;
       }
-      TopoDS_Shape aShape = DBRep::Get(arg[2]);
+      TopoShape aShape = DBRep1::Get(arg[2]);
       aResult             = GetAllOld(aShape, DF->Root(), aName, 0);
     }
   }
@@ -285,25 +285,25 @@ static Standard_Integer GetAllOldShapes(Draw_Interpretor& di, Standard_Integer n
   return 0;
 }
 
-static Standard_Integer GetSameShapes(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer GetSameShapes(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
-  TCollection_AsciiString aRes;
+  AsciiString1 aRes;
   if (nb == 3)
   {
     Standard_Integer aResult = 0;
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(arg[1], DF))
+    if (!DDF1::GetDF(arg[1], DF))
     {
       di << "Wrong df\n";
       return 1;
     }
-    TopoDS_Shape              aShape = DBRep::Get(arg[2]);
-    TNaming_SameShapeIterator anIter(aShape, DF->Root());
+    TopoShape              aShape = DBRep1::Get(arg[2]);
+    SameShapeIterator anIter(aShape, DF->Root());
     for (; anIter.More(); anIter.Next())
     {
       if (!anIter.Label().IsNull())
       {
-        TCollection_AsciiString Name;
+        AsciiString1 Name;
         TDF_Tool::Entry(anIter.Label(), Name);
         if (aResult != 0)
           aRes = aRes + Name + " ";
@@ -322,7 +322,7 @@ static Standard_Integer GetSameShapes(Draw_Interpretor& di, Standard_Integer nb,
   return 0;
 }
 
-void QADNaming::IteratorsCommands(Draw_Interpretor& theCommands)
+void QADNaming::IteratorsCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

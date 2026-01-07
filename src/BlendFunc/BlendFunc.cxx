@@ -37,7 +37,7 @@
 
 //=================================================================================================
 
-void BlendFunc::GetShape(const BlendFunc_SectionShape  SShape,
+void BlendFunc1::GetShape(const BlendFunc_SectionShape  SShape,
                          const Standard_Real           MaxAng,
                          Standard_Integer&             NbPoles,
                          Standard_Integer&             NbKnots,
@@ -93,7 +93,7 @@ void BlendFunc::GetShape(const BlendFunc_SectionShape  SShape,
 //           extremums d'angles (A verifier eventuelement pour Quasi-Angular)
 //=======================================================================
 
-void BlendFunc::GetMinimalWeights(const BlendFunc_SectionShape       SShape,
+void BlendFunc1::GetMinimalWeights(const BlendFunc_SectionShape       SShape,
                                   const Convert_ParameterisationType TConv,
                                   const Standard_Real                MinAng,
                                   const Standard_Real                MaxAng,
@@ -111,14 +111,14 @@ void BlendFunc::GetMinimalWeights(const BlendFunc_SectionShape       SShape,
     case BlendFunc_QuasiAngular: {
       Frame3d                    popAx2(Point3d(0, 0, 0), Dir3d(0, 0, 1));
       gp_Circ                   C(popAx2, 1);
-      Handle(Geom_TrimmedCurve) Sect1   = new Geom_TrimmedCurve(new Geom_Circle(C), 0., MaxAng);
-      Handle(Geom_BSplineCurve) CtoBspl = GeomConvert::CurveToBSplineCurve(Sect1, TConv);
+      Handle(Geom_TrimmedCurve) Sect1   = new Geom_TrimmedCurve(new GeomCircle(C), 0., MaxAng);
+      Handle(BSplineCurve3d) CtoBspl = GeomConvert::CurveToBSplineCurve(Sect1, TConv);
       CtoBspl->Weights(Weights);
 
       TColStd_Array1OfReal poids(Weights.Lower(), Weights.Upper());
       Standard_Real        angle_min = Max(Precision::PConfusion(), MinAng);
 
-      Handle(Geom_TrimmedCurve) Sect2 = new Geom_TrimmedCurve(new Geom_Circle(C), 0., angle_min);
+      Handle(Geom_TrimmedCurve) Sect2 = new Geom_TrimmedCurve(new GeomCircle(C), 0., angle_min);
       CtoBspl                         = GeomConvert::CurveToBSplineCurve(Sect2, TConv);
       CtoBspl->Weights(poids);
 
@@ -136,7 +136,7 @@ void BlendFunc::GetMinimalWeights(const BlendFunc_SectionShape       SShape,
 
 //=================================================================================================
 
-GeomAbs_Shape BlendFunc::NextShape(const GeomAbs_Shape S)
+GeomAbs_Shape BlendFunc1::NextShape(const GeomAbs_Shape S)
 {
   switch (S)
   {
@@ -154,7 +154,7 @@ GeomAbs_Shape BlendFunc::NextShape(const GeomAbs_Shape S)
 
 //=================================================================================================
 
-Standard_Boolean BlendFunc::ComputeNormal(const Handle(Adaptor3d_Surface)& Surf,
+Standard_Boolean BlendFunc1::ComputeNormal(const Handle(Adaptor3d_Surface)& Surf,
                                           const gp_Pnt2d&                  p2d,
                                           Vector3d&                          Normal)
 {
@@ -206,7 +206,7 @@ Standard_Boolean BlendFunc::ComputeNormal(const Handle(Adaptor3d_Surface)& Surf,
 
 //=================================================================================================
 
-Standard_Boolean BlendFunc::ComputeDNormal(const Handle(Adaptor3d_Surface)& Surf,
+Standard_Boolean BlendFunc1::ComputeDNormal(const Handle(Adaptor3d_Surface)& Surf,
                                            const gp_Pnt2d&                  p2d,
                                            Vector3d&                          Normal,
                                            Vector3d&                          DNu,

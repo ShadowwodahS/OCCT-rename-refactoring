@@ -121,7 +121,7 @@ Standard_Boolean IFSelect_BasicDumper::WriteOwn(IFSelect_SessionFile&           
 }
 
 Standard_Boolean IFSelect_BasicDumper::ReadOwn(IFSelect_SessionFile&          file,
-                                               const TCollection_AsciiString& type,
+                                               const AsciiString1& type,
                                                Handle(RefObject)&    item) const
 {
   if (type.IsEqual("IFSelect_SelectModelRoots"))
@@ -196,7 +196,7 @@ Standard_Boolean IFSelect_BasicDumper::ReadOwn(IFSelect_SessionFile&          fi
   }
   if (type.IsEqual("IFSelect_SelectTextType"))
   {
-    const TCollection_AsciiString& exname = file.ParamValue(1);
+    const AsciiString1& exname = file.ParamValue(1);
     if (exname.Length() < FIRSTCHAR)
       return Standard_False;
     if (exname.Value(FIRSTCHAR) == 'e')
@@ -242,7 +242,7 @@ Standard_Boolean IFSelect_BasicDumper::ReadOwn(IFSelect_SessionFile&          fi
   if (type.IsEqual("IFSelect_TransformStandard"))
   {
     Standard_Boolean               copyoption;
-    const TCollection_AsciiString& copyname = file.ParamValue(1);
+    const AsciiString1& copyname = file.ParamValue(1);
     if (copyname.Length() < FIRSTCHAR)
       return Standard_False;
     if (copyname.Value(FIRSTCHAR) == 'c')

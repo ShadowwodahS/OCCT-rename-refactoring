@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Real.hxx>
-class TopoDS_Edge;
+class TopoEdge;
 class HLRBRep_Curve;
 
 //! Hidden Lines Removal
@@ -35,11 +35,11 @@ class HLRBRep
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static TopoDS_Edge MakeEdge(const HLRBRep_Curve& ec,
+  Standard_EXPORT static TopoEdge MakeEdge(const HLRBRep_Curve& ec,
                                               const Standard_Real  U1,
                                               const Standard_Real  U2);
 
-  Standard_EXPORT static TopoDS_Edge MakeEdge3d(const HLRBRep_Curve& ec,
+  Standard_EXPORT static TopoEdge MakeEdge3d(const HLRBRep_Curve& ec,
                                                 const Standard_Real  U1,
                                                 const Standard_Real  U2);
 

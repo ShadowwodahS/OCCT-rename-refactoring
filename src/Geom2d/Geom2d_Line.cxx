@@ -27,7 +27,7 @@
 #include <Standard_RangeError.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom2d_Line, Geom2d_Curve)
+IMPLEMENT_STANDARD_RTTIEXT(Geom2d_Line, GeomCurve2d)
 
 typedef Geom2d_Line Line;
 typedef gp_Ax2d     Ax2d;
@@ -35,7 +35,7 @@ typedef gp_Dir2d    Dir2d;
 typedef gp_Pnt2d    Pnt2d;
 typedef gp_Vec2d    Vec2d;
 typedef gp_Trsf2d   Trsf2d;
-typedef gp_XY       XY;
+typedef Coords2d       XY;
 
 //=================================================================================================
 
@@ -258,7 +258,7 @@ Standard_Real Geom2d_Line::Distance(const gp_Pnt2d& P) const
 void Geom2d_Line::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Geom2d_Curve)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, GeomCurve2d)
 
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &pos)
 }

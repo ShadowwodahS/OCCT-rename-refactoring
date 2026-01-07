@@ -19,7 +19,7 @@
 #include <Standard_Boolean.hxx>
 #include <Draw_Interpretor.hxx>
 
-void GeometryTest::AllCommands(Draw_Interpretor& theCommands)
+void GeometryTest::AllCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

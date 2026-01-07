@@ -54,42 +54,42 @@
 
 //=================================================================================================
 
-BinTools_SurfaceSet::BinTools_SurfaceSet() {}
+SurfaceBinarySet::SurfaceBinarySet() {}
 
 //=================================================================================================
 
-void BinTools_SurfaceSet::Clear()
+void SurfaceBinarySet::Clear()
 {
   myMap.Clear();
 }
 
 //=================================================================================================
 
-Standard_Integer BinTools_SurfaceSet::Add(const Handle(Geom_Surface)& S)
+Standard_Integer SurfaceBinarySet::Add(const Handle(GeomSurface)& S)
 {
   return myMap.Add(S);
 }
 
 //=================================================================================================
 
-Handle(Geom_Surface) BinTools_SurfaceSet::Surface(const Standard_Integer I) const
+Handle(GeomSurface) SurfaceBinarySet::Surface(const Standard_Integer I) const
 {
-  return Handle(Geom_Surface)::DownCast(myMap(I));
+  return Handle(GeomSurface)::DownCast(myMap(I));
 }
 
 //=================================================================================================
 
-Standard_Integer BinTools_SurfaceSet::Index(const Handle(Geom_Surface)& S) const
+Standard_Integer SurfaceBinarySet::Index(const Handle(GeomSurface)& S) const
 {
   return myMap.FindIndex(S);
 }
 
 //=======================================================================
-// function : operator <<(Geom_Plane)
+// function : operator <<(GeomPlane)
 // purpose  :
 //=======================================================================
 
-static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_Plane)& S)
+static BinaryOutputStream& operator<<(BinaryOutputStream& OS, const Handle(GeomPlane)& S)
 {
   OS << (Standard_Byte)PLANE;
   gp_Pln P = S->Pln();
@@ -105,7 +105,7 @@ static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_Plan
 // purpose  :
 //=======================================================================
 
-static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_CylindricalSurface)& S)
+static BinaryOutputStream& operator<<(BinaryOutputStream& OS, const Handle(Geom_CylindricalSurface)& S)
 {
   OS << (Standard_Byte)CYLINDER;
   gp_Cylinder P = S->Cylinder();
@@ -122,7 +122,7 @@ static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_Cyli
 // purpose  :
 //=======================================================================
 
-static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_ConicalSurface)& S)
+static BinaryOutputStream& operator<<(BinaryOutputStream& OS, const Handle(Geom_ConicalSurface)& S)
 {
   OS << (Standard_Byte)CONE;
   gp_Cone P = S->Cone();
@@ -140,7 +140,7 @@ static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_Coni
 // purpose  :
 //=======================================================================
 
-static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_SphericalSurface)& S)
+static BinaryOutputStream& operator<<(BinaryOutputStream& OS, const Handle(Geom_SphericalSurface)& S)
 {
   OS << (Standard_Byte)SPHERE;
   gp_Sphere P = S->Sphere();
@@ -157,7 +157,7 @@ static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_Sphe
 // purpose  :
 //=======================================================================
 
-static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_ToroidalSurface)& S)
+static BinaryOutputStream& operator<<(BinaryOutputStream& OS, const Handle(Geom_ToroidalSurface)& S)
 {
   OS << (Standard_Byte)TORUS;
   gp_Torus P = S->Torus();
@@ -175,12 +175,12 @@ static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_Toro
 // purpose  :
 //=======================================================================
 
-static BinTools_OStream& operator<<(BinTools_OStream&                            OS,
+static BinaryOutputStream& operator<<(BinaryOutputStream&                            OS,
                                     const Handle(Geom_SurfaceOfLinearExtrusion)& S)
 {
   OS << (Standard_Byte)LINEAREXTRUSION;
   OS << S->Direction();
-  BinTools_CurveSet::WriteCurve(S->BasisCurve(), OS);
+  CurveBinarySet::WriteCurve(S->BasisCurve(), OS);
   return OS;
 }
 
@@ -189,12 +189,12 @@ static BinTools_OStream& operator<<(BinTools_OStream&                           
 // purpose  :
 //=======================================================================
 
-static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_SurfaceOfRevolution)& S)
+static BinaryOutputStream& operator<<(BinaryOutputStream& OS, const Handle(Geom_SurfaceOfRevolution)& S)
 {
   OS << (Standard_Byte)REVOLUTION;
   OS << S->Location();
   OS << S->Direction();
-  BinTools_CurveSet::WriteCurve(S->BasisCurve(), OS);
+  CurveBinarySet::WriteCurve(S->BasisCurve(), OS);
   return OS;
 }
 
@@ -203,7 +203,7 @@ static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_Surf
 // purpose  :
 //=======================================================================
 
-static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_BezierSurface)& S)
+static BinaryOutputStream& operator<<(BinaryOutputStream& OS, const Handle(Geom_BezierSurface)& S)
 {
   OS << (Standard_Byte)BEZIER;
   Standard_Boolean urational = S->IsURational() ? 1 : 0;
@@ -236,7 +236,7 @@ static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_Bezi
 // purpose  :
 //=======================================================================
 
-static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_BSplineSurface)& S)
+static BinaryOutputStream& operator<<(BinaryOutputStream& OS, const Handle(Geom_BSplineSurface)& S)
 {
   OS << (Standard_Byte)BSPLINE;
   Standard_Boolean urational = S->IsURational() ? 1 : 0;
@@ -291,14 +291,14 @@ static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_BSpl
 // purpose  :
 //=======================================================================
 
-static BinTools_OStream& operator<<(BinTools_OStream&                             OS,
+static BinaryOutputStream& operator<<(BinaryOutputStream&                             OS,
                                     const Handle(Geom_RectangularTrimmedSurface)& S)
 {
   OS << (Standard_Byte)RECTANGULAR;
   Standard_Real U1, U2, V1, V2;
   S->Bounds(U1, U2, V1, V2);
   OS << U1 << U2 << V1 << V2;
-  BinTools_SurfaceSet::WriteSurface(S->BasisSurface(), OS);
+  SurfaceBinarySet::WriteSurface(S->BasisSurface(), OS);
   return OS;
 }
 
@@ -307,25 +307,25 @@ static BinTools_OStream& operator<<(BinTools_OStream&                           
 // purpose  :
 //=======================================================================
 
-static BinTools_OStream& operator<<(BinTools_OStream& OS, const Handle(Geom_OffsetSurface)& S)
+static BinaryOutputStream& operator<<(BinaryOutputStream& OS, const Handle(Geom_OffsetSurface)& S)
 {
   OS << (Standard_Byte)OFFSET;
   OS << S->Offset();
-  BinTools_SurfaceSet::WriteSurface(S->BasisSurface(), OS);
+  SurfaceBinarySet::WriteSurface(S->BasisSurface(), OS);
   return OS;
 }
 
 //=================================================================================================
 
-void BinTools_SurfaceSet::WriteSurface(const Handle(Geom_Surface)& S, BinTools_OStream& OS)
+void SurfaceBinarySet::WriteSurface(const Handle(GeomSurface)& S, BinaryOutputStream& OS)
 {
   Handle(TypeInfo) TheType = S->DynamicType();
   try
   {
     OCC_CATCH_SIGNALS
-    if (TheType == STANDARD_TYPE(Geom_Plane))
+    if (TheType == STANDARD_TYPE(GeomPlane))
     {
-      OS << Handle(Geom_Plane)::DownCast(S);
+      OS << Handle(GeomPlane)::DownCast(S);
     }
     else if (TheType == STANDARD_TYPE(Geom_CylindricalSurface))
     {
@@ -375,7 +375,7 @@ void BinTools_SurfaceSet::WriteSurface(const Handle(Geom_Surface)& S, BinTools_O
   catch (ExceptionBase const& anException)
   {
     Standard_SStream aMsg;
-    aMsg << "EXCEPTION in BinTools_SurfaceSet::WriteSurface(..)" << std::endl;
+    aMsg << "EXCEPTION in SurfaceBinarySet::WriteSurface(..)" << std::endl;
     aMsg << anException << std::endl;
     throw ExceptionBase(aMsg.str().c_str());
   }
@@ -383,16 +383,16 @@ void BinTools_SurfaceSet::WriteSurface(const Handle(Geom_Surface)& S, BinTools_O
 
 //=================================================================================================
 
-void BinTools_SurfaceSet::Write(Standard_OStream& OS, const Message_ProgressRange& theRange) const
+void SurfaceBinarySet::Write(Standard_OStream& OS, const Message_ProgressRange& theRange) const
 {
 
   Standard_Integer      i, nbsurf = myMap.Extent();
   Message_ProgressScope aPS(theRange, "Writing surfaces", nbsurf);
   OS << "Surfaces " << nbsurf << "\n";
-  BinTools_OStream aStream(OS);
+  BinaryOutputStream aStream(OS);
   for (i = 1; i <= nbsurf && aPS.More(); i++, aPS.Next())
   {
-    WriteSurface(Handle(Geom_Surface)::DownCast(myMap(i)), aStream);
+    WriteSurface(Handle(GeomSurface)::DownCast(myMap(i)), aStream);
   }
 }
 
@@ -401,9 +401,9 @@ void BinTools_SurfaceSet::Write(Standard_OStream& OS, const Message_ProgressRang
 static Standard_IStream& operator>>(Standard_IStream& IS, Point3d& P)
 {
   Standard_Real X = 0., Y = 0., Z = 0.;
-  BinTools::GetReal(IS, X);
-  BinTools::GetReal(IS, Y);
-  BinTools::GetReal(IS, Z);
+  BinTools1::GetReal(IS, X);
+  BinTools1::GetReal(IS, Y);
+  BinTools1::GetReal(IS, Z);
   P.SetCoord(X, Y, Z);
   return IS;
 }
@@ -413,9 +413,9 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Point3d& P)
 static Standard_IStream& operator>>(Standard_IStream& IS, Dir3d& D)
 {
   Standard_Real X = 0., Y = 0., Z = 0.;
-  BinTools::GetReal(IS, X);
-  BinTools::GetReal(IS, Y);
-  BinTools::GetReal(IS, Z);
+  BinTools1::GetReal(IS, X);
+  BinTools1::GetReal(IS, Y);
+  BinTools1::GetReal(IS, Z);
   D.SetCoord(X, Y, Z);
   return IS;
 }
@@ -439,11 +439,11 @@ static Standard_IStream& operator>>(Standard_IStream& IS, gp_Ax3& A3)
 // purpose  :
 //=======================================================================
 
-static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Plane)& S)
+static Standard_IStream& operator>>(Standard_IStream& IS, Handle(GeomPlane)& S)
 {
   gp_Ax3 A;
   IS >> A;
-  S = new Geom_Plane(A);
+  S = new GeomPlane(A);
   return IS;
 }
 
@@ -457,7 +457,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Cylindrica
   gp_Ax3        A;
   Standard_Real R = 0.;
   IS >> A;
-  BinTools::GetReal(IS, R);
+  BinTools1::GetReal(IS, R);
   S = new Geom_CylindricalSurface(A, R);
   return IS;
 }
@@ -472,8 +472,8 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_ConicalSur
   gp_Ax3        A;
   Standard_Real R = 0., Ang = 0.;
   IS >> A;
-  BinTools::GetReal(IS, R);
-  BinTools::GetReal(IS, Ang);
+  BinTools1::GetReal(IS, R);
+  BinTools1::GetReal(IS, Ang);
   S = new Geom_ConicalSurface(A, Ang, R);
   return IS;
 }
@@ -488,7 +488,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_SphericalS
   gp_Ax3        A;
   Standard_Real R = 0.;
   IS >> A;
-  BinTools::GetReal(IS, R);
+  BinTools1::GetReal(IS, R);
   S = new Geom_SphericalSurface(A, R);
   return IS;
 }
@@ -503,8 +503,8 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_ToroidalSu
   gp_Ax3        A;
   Standard_Real R1 = 0., R2 = 0.;
   IS >> A;
-  BinTools::GetReal(IS, R1);
-  BinTools::GetReal(IS, R2);
+  BinTools1::GetReal(IS, R1);
+  BinTools1::GetReal(IS, R2);
   S = new Geom_ToroidalSurface(A, R1, R2);
   return IS;
 }
@@ -517,9 +517,9 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_ToroidalSu
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_SurfaceOfLinearExtrusion)& S)
 {
   Dir3d             D(1., 0., 0.);
-  Handle(Geom_Curve) C;
+  Handle(GeomCurve3d) C;
   IS >> D;
-  BinTools_CurveSet::ReadCurve(IS, C);
+  CurveBinarySet::ReadCurve(IS, C);
   S = new Geom_SurfaceOfLinearExtrusion(C, D);
   return IS;
 }
@@ -533,9 +533,9 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_SurfaceOfR
 {
   Point3d             P(0., 0., 0.);
   Dir3d             D(1., 0., 0.);
-  Handle(Geom_Curve) C;
+  Handle(GeomCurve3d) C;
   IS >> P >> D;
-  BinTools_CurveSet::ReadCurve(IS, C);
+  CurveBinarySet::ReadCurve(IS, C);
   S = new Geom_SurfaceOfRevolution(C, Axis3d(P, D));
   return IS;
 }
@@ -549,16 +549,16 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_BezierSurf
 {
   //  std::cout << "BezierSurface:" <<std::endl;
   Standard_Boolean urational = Standard_False, vrational = Standard_False;
-  BinTools::GetBool(IS, urational);
-  BinTools::GetBool(IS, vrational);
+  BinTools1::GetBool(IS, urational);
+  BinTools1::GetBool(IS, vrational);
 
   //  std::cout << "\turational = " << urational << " vrational = " << vrational<<std::endl;
   Standard_Integer      udegree = 0, vdegree = 0;
   Standard_ExtCharacter aVal = '\0';
-  BinTools::GetExtChar(IS, aVal);
+  BinTools1::GetExtChar(IS, aVal);
 
   udegree = (Standard_Integer)aVal;
-  BinTools::GetExtChar(IS, aVal);
+  BinTools1::GetExtChar(IS, aVal);
   vdegree = (Standard_Integer)aVal;
   //  std::cout << "\ttudegree  = " << udegree << ", vdegree = " << vdegree << std::endl;
 
@@ -574,7 +574,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_BezierSurf
       //      std::cout <<"Pole X = " <<poles(i,j).X()<< " Y = " <<poles(i,j).Y()<< " Z = " <<
       //      poles(i,j).Z()<<std::endl;
       if (urational || vrational)
-        BinTools::GetReal(IS, weights(i, j));
+        BinTools1::GetReal(IS, weights(i, j));
     }
   }
 
@@ -594,21 +594,21 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_BSplineSur
 {
   Standard_Boolean urational = Standard_False, vrational = Standard_False,
                    uperiodic = Standard_False, vperiodic = Standard_False;
-  BinTools::GetBool(IS, urational);
-  BinTools::GetBool(IS, vrational);
-  BinTools::GetBool(IS, uperiodic);
-  BinTools::GetBool(IS, vperiodic);
+  BinTools1::GetBool(IS, urational);
+  BinTools1::GetBool(IS, vrational);
+  BinTools1::GetBool(IS, uperiodic);
+  BinTools1::GetBool(IS, vperiodic);
 
   Standard_Integer udegree = 0, vdegree = 0, nbupoles = 0, nbvpoles = 0, nbuknots = 0, nbvknots = 0;
   Standard_ExtCharacter aVal = '\0';
-  BinTools::GetExtChar(IS, aVal);
+  BinTools1::GetExtChar(IS, aVal);
   udegree = (Standard_Integer)aVal;
-  BinTools::GetExtChar(IS, aVal);
+  BinTools1::GetExtChar(IS, aVal);
   vdegree = (Standard_Integer)aVal;
-  BinTools::GetInteger(IS, nbupoles);
-  BinTools::GetInteger(IS, nbvpoles);
-  BinTools::GetInteger(IS, nbuknots);
-  BinTools::GetInteger(IS, nbvknots);
+  BinTools1::GetInteger(IS, nbupoles);
+  BinTools1::GetInteger(IS, nbvpoles);
+  BinTools1::GetInteger(IS, nbuknots);
+  BinTools1::GetInteger(IS, nbvknots);
 
   TColgp_Array2OfPnt   poles(1, nbupoles, 1, nbvpoles);
   TColStd_Array2OfReal weights(1, nbupoles, 1, nbvpoles);
@@ -620,7 +620,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_BSplineSur
     {
       IS >> poles(i, j); // Pnt
       if (urational || vrational)
-        BinTools::GetReal(IS, weights(i, j));
+        BinTools1::GetReal(IS, weights(i, j));
     }
   }
 
@@ -628,16 +628,16 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_BSplineSur
   TColStd_Array1OfInteger umults(1, nbuknots);
   for (i = 1; i <= nbuknots; i++)
   {
-    BinTools::GetReal(IS, uknots(i));
-    BinTools::GetInteger(IS, umults(i));
+    BinTools1::GetReal(IS, uknots(i));
+    BinTools1::GetInteger(IS, umults(i));
   }
 
   TColStd_Array1OfReal    vknots(1, nbvknots);
   TColStd_Array1OfInteger vmults(1, nbvknots);
   for (i = 1; i <= nbvknots; i++)
   {
-    BinTools::GetReal(IS, vknots(i));
-    BinTools::GetInteger(IS, vmults(i));
+    BinTools1::GetReal(IS, vknots(i));
+    BinTools1::GetInteger(IS, vmults(i));
   }
 
   if (urational || vrational)
@@ -672,12 +672,12 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_BSplineSur
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_RectangularTrimmedSurface)& S)
 {
   Standard_Real U1 = 0., U2 = 0., V1 = 0., V2 = 0.;
-  BinTools::GetReal(IS, U1);
-  BinTools::GetReal(IS, U2);
-  BinTools::GetReal(IS, V1);
-  BinTools::GetReal(IS, V2);
-  Handle(Geom_Surface) BS;
-  BinTools_SurfaceSet::ReadSurface(IS, BS);
+  BinTools1::GetReal(IS, U1);
+  BinTools1::GetReal(IS, U2);
+  BinTools1::GetReal(IS, V1);
+  BinTools1::GetReal(IS, V2);
+  Handle(GeomSurface) BS;
+  SurfaceBinarySet::ReadSurface(IS, BS);
   S = new Geom_RectangularTrimmedSurface(BS, U1, U2, V1, V2);
   return IS;
 }
@@ -690,16 +690,16 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Rectangula
 static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_OffsetSurface)& S)
 {
   Standard_Real O = 0.;
-  BinTools::GetReal(IS, O);
-  Handle(Geom_Surface) BS;
-  BinTools_SurfaceSet::ReadSurface(IS, BS);
+  BinTools1::GetReal(IS, O);
+  Handle(GeomSurface) BS;
+  SurfaceBinarySet::ReadSurface(IS, BS);
   S = new Geom_OffsetSurface(BS, O);
   return IS;
 }
 
 //=================================================================================================
 
-Standard_IStream& BinTools_SurfaceSet::ReadSurface(Standard_IStream& IS, Handle(Geom_Surface)& S)
+Standard_IStream& SurfaceBinarySet::ReadSurface(Standard_IStream& IS, Handle(GeomSurface)& S)
 {
   try
   {
@@ -709,7 +709,7 @@ Standard_IStream& BinTools_SurfaceSet::ReadSurface(Standard_IStream& IS, Handle(
     {
 
       case PLANE: {
-        Handle(Geom_Plane) SS;
+        Handle(GeomPlane) SS;
         IS >> SS;
         S = SS;
       }
@@ -796,7 +796,7 @@ Standard_IStream& BinTools_SurfaceSet::ReadSurface(Standard_IStream& IS, Handle(
   {
     S = NULL;
     Standard_SStream aMsg;
-    aMsg << "EXCEPTION in BinTools_SurfaceSet::ReadSurface(..)" << std::endl;
+    aMsg << "EXCEPTION in SurfaceBinarySet::ReadSurface(..)" << std::endl;
     aMsg << anException << std::endl;
     throw ExceptionBase(aMsg.str().c_str());
   }
@@ -805,14 +805,14 @@ Standard_IStream& BinTools_SurfaceSet::ReadSurface(Standard_IStream& IS, Handle(
 
 //=================================================================================================
 
-void BinTools_SurfaceSet::Read(Standard_IStream& IS, const Message_ProgressRange& theRange)
+void SurfaceBinarySet::Read(Standard_IStream& IS, const Message_ProgressRange& theRange)
 {
   char buffer[255];
   IS >> buffer;
   if (IS.fail() || strcmp(buffer, "Surfaces"))
   {
     Standard_SStream aMsg;
-    aMsg << "BinTools_SurfaceSet::Read:  Not a surface table" << std::endl;
+    aMsg << "SurfaceBinarySet::Read:  Not a surface table" << std::endl;
 #ifdef OCCT_DEBUG
     std::cout << "SurfaceSet buffer: " << buffer << std::endl;
 #endif
@@ -820,14 +820,14 @@ void BinTools_SurfaceSet::Read(Standard_IStream& IS, const Message_ProgressRange
     return;
   }
 
-  Handle(Geom_Surface) S;
+  Handle(GeomSurface) S;
   Standard_Integer     i, nbsurf;
   IS >> nbsurf;
   Message_ProgressScope aPS(theRange, "Reading surfaces", nbsurf);
   IS.get(); // remove <lf>
   for (i = 1; i <= nbsurf && aPS.More(); i++, aPS.Next())
   {
-    BinTools_SurfaceSet::ReadSurface(IS, S);
+    SurfaceBinarySet::ReadSurface(IS, S);
     myMap.Add(S);
   }
 }

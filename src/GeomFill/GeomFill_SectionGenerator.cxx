@@ -51,7 +51,7 @@ void GeomFill_SectionGenerator::GetShape(Standard_Integer& NbPoles,
                                          Standard_Integer& Degree,
                                          Standard_Integer& NbPoles2d) const
 {
-  Handle(Geom_BSplineCurve) C = Handle(Geom_BSplineCurve)::DownCast(mySequence(1));
+  Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(mySequence(1));
   NbPoles                     = C->NbPoles();
   NbKnots                     = C->NbKnots();
   Degree                      = C->Degree();
@@ -62,14 +62,14 @@ void GeomFill_SectionGenerator::GetShape(Standard_Integer& NbPoles,
 
 void GeomFill_SectionGenerator::Knots(TColStd_Array1OfReal& TKnots) const
 {
-  (Handle(Geom_BSplineCurve)::DownCast(mySequence(1)))->Knots(TKnots);
+  (Handle(BSplineCurve3d)::DownCast(mySequence(1)))->Knots(TKnots);
 }
 
 //=================================================================================================
 
 void GeomFill_SectionGenerator::Mults(TColStd_Array1OfInteger& TMults) const
 {
-  (Handle(Geom_BSplineCurve)::DownCast(mySequence(1)))->Multiplicities(TMults);
+  (Handle(BSplineCurve3d)::DownCast(mySequence(1)))->Multiplicities(TMults);
 }
 
 //=================================================================================================
@@ -94,7 +94,7 @@ void GeomFill_SectionGenerator::Section(const Standard_Integer P,
                                         TColgp_Array1OfPnt2d&, // Poles2d,
                                         TColStd_Array1OfReal& Weigths) const
 {
-  Handle(Geom_BSplineCurve) C = Handle(Geom_BSplineCurve)::DownCast(mySequence(P));
+  Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(mySequence(P));
 
   C->Poles(Poles);
   C->Weights(Weigths);

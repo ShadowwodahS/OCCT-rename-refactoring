@@ -25,8 +25,8 @@
 #include <Draft_ErrorStatus.hxx>
 #include <BRepTools_ReShape.hxx>
 
-class TopoDS_Shape;
-class TopoDS_Face;
+class TopoShape;
+class TopoFace;
 class Dir3d;
 class gp_Pln;
 
@@ -71,7 +71,7 @@ public:
   //! Initializes an algorithm to perform taper-adding
   //! transformations on faces of the shape S.
   //! S will be referred to as the initial shape of the algorithm.
-  Standard_EXPORT BRepOffsetAPI_DraftAngle(const TopoDS_Shape& S);
+  Standard_EXPORT BRepOffsetAPI_DraftAngle(const TopoShape& S);
 
   //! Cancels the results of all taper-adding transformations
   //! performed by this algorithm on the initial shape. These
@@ -80,7 +80,7 @@ public:
 
   //! Initializes, or reinitializes this taper-adding algorithm with the shape S.
   //! S will be referred to as the initial shape of this algorithm.
-  Standard_EXPORT void Init(const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const TopoShape& S);
 
   //! Adds the face F, the direction
   //! Direction, the angle Angle, the plane NeutralPlane, and the flag
@@ -114,7 +114,7 @@ public:
   //! been used to check for this, and the function Remove
   //! to cancel the results of the unsuccessful taper-adding
   //! transformation and to retrieve the previous shape.
-  Standard_EXPORT void Add(const TopoDS_Face&     F,
+  Standard_EXPORT void Add(const TopoFace&     F,
                            const Dir3d&          Direction,
                            const Standard_Real    Angle,
                            const gp_Pln&          NeutralPlane,
@@ -148,7 +148,7 @@ public:
   //! initialized with the non-empty constructor or the Init function.
   //! - Standard_NoSuchObject if F has not been added
   //! or has already been removed.
-  Standard_EXPORT void Remove(const TopoDS_Face& F);
+  Standard_EXPORT void Remove(const TopoFace& F);
 
   //! Returns the shape on which an error occurred after an
   //! unsuccessful call to Add or when IsDone returns false.
@@ -156,7 +156,7 @@ public:
   //! Standard_NullObject if the initial shape has not been
   //! defined, i.e. if this algorithm has not been initialized with
   //! the non-empty constructor or the Init function.
-  Standard_EXPORT const TopoDS_Shape& ProblematicShape() const;
+  Standard_EXPORT const TopoShape& ProblematicShape() const;
 
   //! Returns an error  status when an error has occurred
   //! (Face,   Edge    or Vertex  recomputation problem).
@@ -167,11 +167,11 @@ public:
 
   //! Returns all  the  faces   which  have been   added
   //! together with the face <F>.
-  Standard_EXPORT const TopTools_ListOfShape& ConnectedFaces(const TopoDS_Face& F) const;
+  Standard_EXPORT const ShapeList& ConnectedFaces(const TopoFace& F) const;
 
   //! Returns all the faces  on which a modification has
   //! been given.
-  Standard_EXPORT const TopTools_ListOfShape& ModifiedFaces() const;
+  Standard_EXPORT const ShapeList& ModifiedFaces() const;
 
   //! Builds the resulting shape (redefined from MakeShape).
   Standard_EXPORT virtual void Build(
@@ -181,12 +181,12 @@ public:
 
   //! Returns the  list   of shapes generated   from the
   //! shape <S>.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Generated(const TopoDS_Shape& S)
+  Standard_EXPORT virtual const ShapeList& Generated(const TopoShape& S)
     Standard_OVERRIDE;
 
   //! Returns the list  of shapes modified from the shape
   //! <S>.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Modified(const TopoDS_Shape& S)
+  Standard_EXPORT virtual const ShapeList& Modified(const TopoShape& S)
     Standard_OVERRIDE;
 
   //! Returns the modified shape corresponding to <S>.
@@ -195,7 +195,7 @@ public:
   //! Standard_NoSuchObject if S is not the initial shape or
   //! a subshape of the initial shape to which the
   //! transformation has been applied.
-  Standard_EXPORT virtual TopoDS_Shape ModifiedShape(const TopoDS_Shape& S) const Standard_OVERRIDE;
+  Standard_EXPORT virtual TopoShape ModifiedShape(const TopoShape& S) const Standard_OVERRIDE;
 
 protected:
 private:

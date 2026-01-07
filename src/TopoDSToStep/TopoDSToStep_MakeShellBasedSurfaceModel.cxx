@@ -49,9 +49,9 @@
 // Create a ShellBasedSurfaceModel of StepShape from a Face of TopoDS
 //=============================================================================
 TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel(
-  const TopoDS_Face&                    aFace,
+  const TopoFace&                    aFace,
   const Handle(Transfer_FinderProcess)& FP,
-  const StepData_Factors&               theLocalFactors,
+  const ConversionFactors&               theLocalFactors,
   const Message_ProgressRange&          theProgress)
 {
   done = Standard_False;
@@ -72,7 +72,7 @@ TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel
   if (theProgress.UserBreak())
     return;
 
-  TopoDSToStep::AddResult(FP, aTool);
+  TopoDSToStep1::AddResult(FP, aTool);
 
   if (StepB.IsDone())
   {
@@ -106,9 +106,9 @@ TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel
 // Create a ShellBasedSurfaceModel of StepShape from a Shell of TopoDS
 //=============================================================================
 TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel(
-  const TopoDS_Shell&                   aShell,
+  const TopoShell&                   aShell,
   const Handle(Transfer_FinderProcess)& FP,
-  const StepData_Factors&               theLocalFactors,
+  const ConversionFactors&               theLocalFactors,
   const Message_ProgressRange&          theProgress)
 {
   done = Standard_False;
@@ -132,7 +132,7 @@ TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel
   TopoDSToStep_Builder StepB(aShell, aTool, FP, aWriteTessGeom, theLocalFactors, theProgress);
   if (theProgress.UserBreak())
     return;
-  // TopoDSToStep::AddResult ( FP, aTool );
+  // TopoDSToStep1::AddResult ( FP, aTool );
 
   if (StepB.IsDone())
   {
@@ -153,7 +153,7 @@ TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel
       theShellBasedSurfaceModel              = new StepShape_ShellBasedSurfaceModel();
       Handle(TCollection_HAsciiString) aName = new TCollection_HAsciiString("");
       theShellBasedSurfaceModel->Init(aName, aSbsmBoundary);
-      TopoDSToStep::AddResult(FP, aShell, theShellBasedSurfaceModel);
+      TopoDSToStep1::AddResult(FP, aShell, theShellBasedSurfaceModel);
     }
     theTessellatedItem = StepB.TessellatedValue();
     done               = Standard_True;
@@ -165,7 +165,7 @@ TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel
     FP->AddWarning(errShape, " Shell not mapped to ShellBasedSurfaceModel");
   }
 
-  TopoDSToStep::AddResult(FP, aTool);
+  TopoDSToStep1::AddResult(FP, aTool);
 }
 
 //=============================================================================
@@ -173,9 +173,9 @@ TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel
 //=============================================================================
 
 TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel(
-  const TopoDS_Solid&                   aSolid,
+  const TopoSolid&                   aSolid,
   const Handle(Transfer_FinderProcess)& FP,
-  const StepData_Factors&               theLocalFactors,
+  const ConversionFactors&               theLocalFactors,
   const Message_ProgressRange&          theProgress)
 {
   done = Standard_False;
@@ -184,7 +184,7 @@ TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel
   Handle(StepShape_OpenShell)      aOpenShell;
   Handle(StepShape_ClosedShell)    aClosedShell;
   TopoDS_Iterator                  It;
-  TopoDS_Shell                     aShell;
+  TopoShell                     aShell;
   MoniTool_DataMapOfShapeTransient aMap;
   TColStd_SequenceOfTransient      S;
   TColStd_SequenceOfTransient      aTessShells;
@@ -214,7 +214,7 @@ TopoDSToStep_MakeShellBasedSurfaceModel::TopoDSToStep_MakeShellBasedSurfaceModel
                               Standard_False,
                               aStepModel->InternalParameters.WriteSurfaceCurMode);
       TopoDSToStep_Builder StepB(aShell, aTool, FP, aWriteTessGeom, theLocalFactors, aPS.Next());
-      TopoDSToStep::AddResult(FP, aTool);
+      TopoDSToStep1::AddResult(FP, aTool);
 
       if (StepB.IsDone())
       {

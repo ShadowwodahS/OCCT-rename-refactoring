@@ -121,7 +121,7 @@ public:
   //! trihedron transformation persistence)
   //! @return computed bounding box
   Standard_EXPORT Bnd_Box BoundingBox(Standard_Integer                theViewId,
-                                      const Handle(Graphic3d_Camera)& theCamera,
+                                      const Handle(CameraOn3d)& theCamera,
                                       Standard_Integer                theWindowWidth,
                                       Standard_Integer                theWindowHeight,
                                       Standard_Boolean                theToIncludeAuxiliary) const;
@@ -129,7 +129,7 @@ public:
   //! Returns zoom-scale factor.
   Standard_EXPORT Standard_Real
     considerZoomPersistenceObjects(Standard_Integer                theViewId,
-                                   const Handle(Graphic3d_Camera)& theCamera,
+                                   const Handle(CameraOn3d)& theCamera,
                                    Standard_Integer                theWindowWidth,
                                    Standard_Integer                theWindowHeight) const;
 

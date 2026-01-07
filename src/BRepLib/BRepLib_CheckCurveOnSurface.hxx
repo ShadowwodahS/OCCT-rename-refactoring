@@ -32,11 +32,11 @@ public:
   }
 
   //! Constructor
-  Standard_EXPORT BRepLib_CheckCurveOnSurface(const TopoDS_Edge& theEdge,
-                                              const TopoDS_Face& theFace);
+  Standard_EXPORT BRepLib_CheckCurveOnSurface(const TopoEdge& theEdge,
+                                              const TopoFace& theFace);
 
   //! Sets the data for the algorithm
-  Standard_EXPORT void Init(const TopoDS_Edge& theEdge, const TopoDS_Face& theFace);
+  Standard_EXPORT void Init(const TopoEdge& theEdge, const TopoFace& theFace);
 
   //! Performs the calculation
   //! If myIsParallel == Standard_True then computation will be performed in parallel.

@@ -33,7 +33,7 @@ class gp_Pnt2d;
 //! - tore/sphere entre un plan et un cone othogonal,
 //!
 //! - tore entre un plan et une droite orthogonale (rotule).
-class ChFiKPart_ComputeData
+class ComputeData
 {
 public:
   DEFINE_STANDARD_ALLOC

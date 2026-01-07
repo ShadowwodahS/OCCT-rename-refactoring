@@ -31,7 +31,7 @@ Standard_EXPORT Standard_Boolean FUN_ds_redu2d1d(const TopOpeBRepDS_DataStructur
                                                  const Standard_Integer                   ISE,
                                                  const Handle(TopOpeBRepDS_Interference)& I2d,
                                                  const TopOpeBRepDS_ListOfInterference&   l1d,
-                                                 TopOpeBRepDS_Transition&                 newT2d);
+                                                 StateTransition&                 newT2d);
 Standard_EXPORT Standard_Boolean FUN_ds_GetTr(const TopOpeBRepDS_DataStructure&      BDS,
                                               const Standard_Integer                 ISE,
                                               const Standard_Integer                 G,
@@ -43,18 +43,18 @@ Standard_EXPORT Standard_Boolean FUN_ds_GetTr(const TopOpeBRepDS_DataStructure& 
                                               Standard_Integer&                      isa,
                                               Standard_Integer&                      adim);
 // TopOpeBRepDS_EXPORT.cxx
-Standard_EXPORT void FDS_SetT(TopOpeBRepDS_Transition& T, const TopOpeBRepDS_Transition& T0);
-Standard_EXPORT Standard_Boolean FDS_hasUNK(const TopOpeBRepDS_Transition& T);
+Standard_EXPORT void FDS_SetT(StateTransition& T, const StateTransition& T0);
+Standard_EXPORT Standard_Boolean FDS_hasUNK(const StateTransition& T);
 Standard_EXPORT void             FDS_copy(const TopOpeBRepDS_ListOfInterference& LI,
                                           TopOpeBRepDS_ListOfInterference&       LII);
-Standard_EXPORT void FDS_copy(const TopTools_ListOfShape& LI, TopTools_ListOfShape& LII);
+Standard_EXPORT void FDS_copy(const ShapeList& LI, ShapeList& LII);
 Standard_EXPORT void FDS_assign(const TopOpeBRepDS_ListOfInterference& LI,
                                 TopOpeBRepDS_ListOfInterference&       LII);
-Standard_EXPORT void FDS_assign(const TopTools_ListOfShape& LI, TopTools_ListOfShape& LII);
+Standard_EXPORT void FDS_assign(const ShapeList& LI, ShapeList& LII);
 Standard_EXPORT void FUN_ds_samRk(const TopOpeBRepDS_DataStructure& BDS,
                                   const Standard_Integer            Rk,
-                                  TopTools_ListOfShape&             LI,
-                                  TopTools_ListOfShape&             LIsrk);
+                                  ShapeList&             LI,
+                                  ShapeList&             LIsrk);
 Standard_EXPORT void FDS_data(const Handle(TopOpeBRepDS_Interference)& I,
                               TopOpeBRepDS_Kind&                       GT1,
                               Standard_Integer&                        G1,
@@ -84,19 +84,19 @@ Standard_EXPORT Standard_Boolean FUN_ds_getVsdm(const TopOpeBRepDS_DataStructure
                                                 const Standard_Integer            iV,
                                                 Standard_Integer&                 iVsdm);
 Standard_EXPORT Standard_Boolean FUN_ds_sdm(const TopOpeBRepDS_DataStructure& BDS,
-                                            const TopoDS_Shape&               s1,
-                                            const TopoDS_Shape&               s2);
+                                            const TopoShape&               s1,
+                                            const TopoShape&               s2);
 
 Standard_EXPORT Standard_Boolean FDS_aresamdom(const TopOpeBRepDS_DataStructure& BDS,
-                                               const TopoDS_Shape&               ES,
-                                               const TopoDS_Shape&               F1,
-                                               const TopoDS_Shape&               F2);
+                                               const TopoShape&               ES,
+                                               const TopoShape&               F1,
+                                               const TopoShape&               F2);
 Standard_EXPORT Standard_Boolean FDS_aresamdom(const TopOpeBRepDS_DataStructure& BDS,
                                                const Standard_Integer            SI,
                                                const Standard_Integer            isb1,
                                                const Standard_Integer            isb2);
 // clang-format off
-Standard_EXPORT Standard_Boolean FDS_EdgeIsConnexToSameDomainFaces(const TopoDS_Shape& E,const Handle(TopOpeBRepDS_HDataStructure)& HDS);  // not used
+Standard_EXPORT Standard_Boolean FDS_EdgeIsConnexToSameDomainFaces(const TopoShape& E,const Handle(TopOpeBRepDS_HDataStructure)& HDS);  // not used
 // clang-format on
 Standard_EXPORT Standard_Boolean
                                  FDS_SIisGIofIofSBAofTofI(const TopOpeBRepDS_DataStructure&        BDS,
@@ -106,25 +106,25 @@ Standard_EXPORT Standard_Real    FDS_Parameter(const Handle(TopOpeBRepDS_Interfe
 Standard_EXPORT Standard_Boolean FDS_Parameter(const Handle(TopOpeBRepDS_Interference)& I,
                                                Standard_Real&                           par);
 Standard_EXPORT Standard_Boolean FDS_HasSameDomain3d(const TopOpeBRepDS_DataStructure& BDS,
-                                                     const TopoDS_Shape&               E,
-                                                     TopTools_ListOfShape*             PLSD = NULL);
-Standard_EXPORT Standard_Boolean FDS_Config3d(const TopoDS_Shape&  E1,
-                                              const TopoDS_Shape&  E2,
+                                                     const TopoShape&               E,
+                                                     ShapeList*             PLSD = NULL);
+Standard_EXPORT Standard_Boolean FDS_Config3d(const TopoShape&  E1,
+                                              const TopoShape&  E2,
                                               TopOpeBRepDS_Config& c);
 Standard_EXPORT Standard_Boolean FDS_HasSameDomain2d(const TopOpeBRepDS_DataStructure& BDS,
-                                                     const TopoDS_Shape&               E,
-                                                     TopTools_ListOfShape*             PLSD = NULL);
+                                                     const TopoShape&               E,
+                                                     ShapeList*             PLSD = NULL);
 Standard_EXPORT void             FDS_getupperlower(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
                                                    const Standard_Integer                     edgeIndex,
                                                    const Standard_Real                        paredge,
                                                    Standard_Real&                             p1,
                                                    Standard_Real&                             p2);
-Standard_EXPORT Standard_Boolean FUN_ds_getoov(const TopoDS_Shape&               v,
+Standard_EXPORT Standard_Boolean FUN_ds_getoov(const TopoShape&               v,
                                                const TopOpeBRepDS_DataStructure& BDS,
-                                               TopoDS_Shape&                     oov);
-Standard_EXPORT Standard_Boolean FUN_ds_getoov(const TopoDS_Shape&                        v,
+                                               TopoShape&                     oov);
+Standard_EXPORT Standard_Boolean FUN_ds_getoov(const TopoShape&                        v,
                                                const Handle(TopOpeBRepDS_HDataStructure)& HDS,
-                                               TopoDS_Shape&                              oov);
+                                               TopoShape&                              oov);
 Standard_EXPORT Standard_Boolean
                      FUN_selectTRAINTinterference(const TopOpeBRepDS_ListOfInterference& li,
                                                   TopOpeBRepDS_ListOfInterference&       liINTERNAL);
@@ -146,7 +146,7 @@ Standard_EXPORT Standard_Boolean FUN_ds_shareG(const Handle(TopOpeBRepDS_HDataSt
                                                const Standard_Integer                     iF1,
                                                const Standard_Integer                     iF2,
                                                const Standard_Integer                     iE2,
-                                               const TopoDS_Edge&                         Esp,
+                                               const TopoEdge&                         Esp,
                                                Standard_Boolean&                          shareG);
 Standard_EXPORT Standard_Boolean FUN_ds_mkTonFsdm(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
                                                   const Standard_Integer                     iF1,
@@ -154,12 +154,12 @@ Standard_EXPORT Standard_Boolean FUN_ds_mkTonFsdm(const Handle(TopOpeBRepDS_HDat
                                                   const Standard_Integer                     iE2,
                                                   const Standard_Integer                     iEG,
                                                   const Standard_Real      paronEG,
-                                                  const TopoDS_Edge&       Esp,
+                                                  const TopoEdge&       Esp,
                                                   const Standard_Boolean   pardef,
-                                                  TopOpeBRepDS_Transition& T);
+                                                  StateTransition& T);
 Standard_EXPORT Standard_Integer FUN_ds_oriEinF(const TopOpeBRepDS_DataStructure& BDS,
-                                                const TopoDS_Edge&                E,
-                                                const TopoDS_Shape&               F,
+                                                const TopoEdge&                E,
+                                                const TopoShape&               F,
                                                 TopAbs_Orientation&               O);
 Standard_EXPORT void FUN_ds_FillSDMFaces(const Handle(TopOpeBRepDS_HDataStructure)& HDS);
 Standard_EXPORT void FUN_ds_addSEsdm1d(const Handle(TopOpeBRepDS_HDataStructure)& HDS);
@@ -168,23 +168,23 @@ Standard_EXPORT Standard_Integer FUN_ds_hasI2d(const Standard_Integer           
                                                TopOpeBRepDS_ListOfInterference&       LI2d);
 Standard_EXPORT void FUN_ds_PointToVertex(const Handle(TopOpeBRepDS_HDataStructure)& HDS);
 Standard_EXPORT Standard_Boolean FUN_ds_hasFEI(const TopOpeBRepDS_PDataStructure& pDS2d,
-                                               const TopoDS_Shape&                F,
+                                               const TopoShape&                F,
                                                const Standard_Integer             GI,
                                                const Standard_Integer             ITRA);
 Standard_EXPORT Standard_Boolean FUN_ds_ONesd(const TopOpeBRepDS_DataStructure& BDS,
                                               const Standard_Integer            IE,
-                                              const TopoDS_Shape&               EspON,
+                                              const TopoShape&               EspON,
                                               Standard_Integer&                 IEsd);
 
 Standard_EXPORT Standard_Boolean FDS_stateEwithF2d(const TopOpeBRepDS_DataStructure& BDS,
-                                                   const TopoDS_Edge&                E,
+                                                   const TopoEdge&                E,
                                                    const Standard_Real               pE,
                                                    const TopOpeBRepDS_Kind           KDS,
                                                    const Standard_Integer            GDS,
-                                                   const TopoDS_Face&                F1,
-                                                   TopOpeBRepDS_Transition&          TrmemeS);
+                                                   const TopoFace&                F1,
+                                                   StateTransition&          TrmemeS);
 Standard_EXPORT Standard_Boolean FDS_parbefaft(const TopOpeBRepDS_DataStructure& BDS,
-                                               const TopoDS_Edge&                E,
+                                               const TopoEdge&                E,
                                                const Standard_Real               pE,
                                                const Standard_Real&              pbef,
                                                const Standard_Real&              paft,
@@ -192,7 +192,7 @@ Standard_EXPORT Standard_Boolean FDS_parbefaft(const TopOpeBRepDS_DataStructure&
                                                Standard_Real&                    p1,
                                                Standard_Real&                    p2);
 Standard_EXPORT Standard_Boolean FDS_LOIinfsup(const TopOpeBRepDS_DataStructure&      BDS,
-                                               const TopoDS_Edge&                     E,
+                                               const TopoEdge&                     E,
                                                const Standard_Real                    pE,
                                                const TopOpeBRepDS_Kind                KDS,
                                                const Standard_Integer                 GDS,

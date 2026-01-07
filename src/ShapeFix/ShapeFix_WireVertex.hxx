@@ -23,7 +23,7 @@
 
 #include <ShapeAnalysis_WireVertex.hxx>
 #include <Standard_Integer.hxx>
-class TopoDS_Wire;
+class TopoWire;
 class ShapeExtend_WireData;
 
 //! Fixing disconnected edges in the wire
@@ -40,7 +40,7 @@ public:
   //! Loads the wire, ininializes internal analyzer
   //! (ShapeAnalysis_WireVertex) with the given precision,
   //! and performs analysis
-  Standard_EXPORT void Init(const TopoDS_Wire& wire, const Standard_Real preci);
+  Standard_EXPORT void Init(const TopoWire& wire, const Standard_Real preci);
 
   //! Loads the wire, ininializes internal analyzer
   //! (ShapeAnalysis_WireVertex) with the given precision,
@@ -58,7 +58,7 @@ public:
   Standard_EXPORT const Handle(ShapeExtend_WireData)& WireData() const;
 
   //! returns resulting wire (fixed)
-  Standard_EXPORT TopoDS_Wire Wire() const;
+  Standard_EXPORT TopoWire Wire() const;
 
   //! Fixes "Same" or "Close" status (same vertex may be set,
   //! without changing parameters)

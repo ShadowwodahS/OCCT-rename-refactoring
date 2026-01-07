@@ -176,7 +176,7 @@ void GeomAdaptor_Curve::Reset()
 
 //=================================================================================================
 
-void GeomAdaptor_Curve::load(const Handle(Geom_Curve)& C,
+void GeomAdaptor_Curve::load(const Handle(GeomCurve3d)& C,
                              const Standard_Real       UFirst,
                              const Standard_Real       ULast)
 {
@@ -195,11 +195,11 @@ void GeomAdaptor_Curve::load(const Handle(Geom_Curve)& C,
     {
       Load(Handle(Geom_TrimmedCurve)::DownCast(C)->BasisCurve(), UFirst, ULast);
     }
-    else if (TheType == STANDARD_TYPE(Geom_Circle))
+    else if (TheType == STANDARD_TYPE(GeomCircle))
     {
       myTypeCurve = GeomAbs_Circle;
     }
-    else if (TheType == STANDARD_TYPE(Geom_Line))
+    else if (TheType == STANDARD_TYPE(GeomLine))
     {
       myTypeCurve = GeomAbs_Line;
     }
@@ -215,21 +215,21 @@ void GeomAdaptor_Curve::load(const Handle(Geom_Curve)& C,
     {
       myTypeCurve = GeomAbs_Hyperbola;
     }
-    else if (TheType == STANDARD_TYPE(Geom_BezierCurve))
+    else if (TheType == STANDARD_TYPE(BezierCurve3d))
     {
       myTypeCurve = GeomAbs_BezierCurve;
     }
-    else if (TheType == STANDARD_TYPE(Geom_BSplineCurve))
+    else if (TheType == STANDARD_TYPE(BSplineCurve3d))
     {
       myTypeCurve    = GeomAbs_BSplineCurve;
-      myBSplineCurve = Handle(Geom_BSplineCurve)::DownCast(myCurve);
+      myBSplineCurve = Handle(BSplineCurve3d)::DownCast(myCurve);
     }
     else if (TheType == STANDARD_TYPE(Geom_OffsetCurve))
     {
       myTypeCurve                            = GeomAbs_OffsetCurve;
       Handle(Geom_OffsetCurve) anOffsetCurve = Handle(Geom_OffsetCurve)::DownCast(myCurve);
       // Create nested adaptor for base curve
-      Handle(Geom_Curve)        aBaseCurve   = anOffsetCurve->BasisCurve();
+      Handle(GeomCurve3d)        aBaseCurve   = anOffsetCurve->BasisCurve();
       Handle(GeomAdaptor_Curve) aBaseAdaptor = new GeomAdaptor_Curve(aBaseCurve);
       myNestedEvaluator                      = new GeomEvaluator_OffsetCurve(aBaseAdaptor,
                                                         anOffsetCurve->Offset(),
@@ -511,7 +511,7 @@ void GeomAdaptor_Curve::RebuildCache(const Standard_Real theParameter) const
   if (myTypeCurve == GeomAbs_BezierCurve)
   {
     // Create cache for Bezier
-    Handle(Geom_BezierCurve) aBezier = Handle(Geom_BezierCurve)::DownCast(myCurve);
+    Handle(BezierCurve3d) aBezier = Handle(BezierCurve3d)::DownCast(myCurve);
     Standard_Integer         aDeg    = aBezier->Degree();
     TColStd_Array1OfReal     aFlatKnots(BSplCLib::FlatBezierKnots(aDeg), 1, 2 * (aDeg + 1));
     if (myCurveCache.IsNull())
@@ -744,7 +744,7 @@ Standard_Real GeomAdaptor_Curve::Resolution(const Standard_Real R3D) const
     case GeomAbs_Line:
       return R3D;
     case GeomAbs_Circle: {
-      Standard_Real R = Handle(Geom_Circle)::DownCast(myCurve)->Circ().Radius();
+      Standard_Real R = Handle(GeomCircle)::DownCast(myCurve)->Circ().Radius();
       if (R > R3D / 2.)
         return 2 * ASin(R3D / (2 * R));
       else
@@ -755,7 +755,7 @@ Standard_Real GeomAdaptor_Curve::Resolution(const Standard_Real R3D) const
     }
     case GeomAbs_BezierCurve: {
       Standard_Real res;
-      Handle(Geom_BezierCurve)::DownCast(myCurve)->Resolution(R3D, res);
+      Handle(BezierCurve3d)::DownCast(myCurve)->Resolution(R3D, res);
       return res;
     }
     case GeomAbs_BSplineCurve: {
@@ -779,7 +779,7 @@ gp_Lin GeomAdaptor_Curve::Line() const
 {
   Standard_NoSuchObject_Raise_if(myTypeCurve != GeomAbs_Line,
                                  "GeomAdaptor_Curve::Line() - curve is not a Line");
-  return Handle(Geom_Line)::DownCast(myCurve)->Lin();
+  return Handle(GeomLine)::DownCast(myCurve)->Lin();
 }
 
 //=================================================================================================
@@ -788,7 +788,7 @@ gp_Circ GeomAdaptor_Curve::Circle() const
 {
   Standard_NoSuchObject_Raise_if(myTypeCurve != GeomAbs_Circle,
                                  "GeomAdaptor_Curve::Circle() - curve is not a Circle");
-  return Handle(Geom_Circle)::DownCast(myCurve)->Circ();
+  return Handle(GeomCircle)::DownCast(myCurve)->Circ();
 }
 
 //=================================================================================================
@@ -823,7 +823,7 @@ gp_Parab GeomAdaptor_Curve::Parabola() const
 Standard_Integer GeomAdaptor_Curve::Degree() const
 {
   if (myTypeCurve == GeomAbs_BezierCurve)
-    return Handle(Geom_BezierCurve)::DownCast(myCurve)->Degree();
+    return Handle(BezierCurve3d)::DownCast(myCurve)->Degree();
   else if (myTypeCurve == GeomAbs_BSplineCurve)
     return myBSplineCurve->Degree();
   else
@@ -839,7 +839,7 @@ Standard_Boolean GeomAdaptor_Curve::IsRational() const
     case GeomAbs_BSplineCurve:
       return myBSplineCurve->IsRational();
     case GeomAbs_BezierCurve:
-      return Handle(Geom_BezierCurve)::DownCast(myCurve)->IsRational();
+      return Handle(BezierCurve3d)::DownCast(myCurve)->IsRational();
     default:
       return Standard_False;
   }
@@ -850,7 +850,7 @@ Standard_Boolean GeomAdaptor_Curve::IsRational() const
 Standard_Integer GeomAdaptor_Curve::NbPoles() const
 {
   if (myTypeCurve == GeomAbs_BezierCurve)
-    return Handle(Geom_BezierCurve)::DownCast(myCurve)->NbPoles();
+    return Handle(BezierCurve3d)::DownCast(myCurve)->NbPoles();
   else if (myTypeCurve == GeomAbs_BSplineCurve)
     return myBSplineCurve->NbPoles();
   else
@@ -868,16 +868,16 @@ Standard_Integer GeomAdaptor_Curve::NbKnots() const
 
 //=================================================================================================
 
-Handle(Geom_BezierCurve) GeomAdaptor_Curve::Bezier() const
+Handle(BezierCurve3d) GeomAdaptor_Curve::Bezier() const
 {
   if (myTypeCurve != GeomAbs_BezierCurve)
     throw Standard_NoSuchObject("GeomAdaptor_Curve::Bezier");
-  return Handle(Geom_BezierCurve)::DownCast(myCurve);
+  return Handle(BezierCurve3d)::DownCast(myCurve);
 }
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) GeomAdaptor_Curve::BSpline() const
+Handle(BSplineCurve3d) GeomAdaptor_Curve::BSpline() const
 {
   if (myTypeCurve != GeomAbs_BSplineCurve)
     throw Standard_NoSuchObject("GeomAdaptor_Curve::BSpline");

@@ -36,12 +36,12 @@ public:
                                   const Standard_Boolean             theDrawVIso,
                                   const Standard_Integer             theNbUIso,
                                   const Standard_Integer             theNbVIso,
-                                  const Handle(Prs3d_Drawer)&        theDrawer,
+                                  const Handle(StyleDrawer)&        theDrawer,
                                   Prs3d_NListOfSequenceOfPnt&        theCurves);
 
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)&  thePresentation,
                                   const Handle(BRepAdaptor_Surface)& theFace,
-                                  const Handle(Prs3d_Drawer)&        theDrawer);
+                                  const Handle(StyleDrawer)&        theDrawer);
 
   Standard_EXPORT static Standard_Boolean Match(const Standard_Real                theX,
                                                 const Standard_Real                theY,
@@ -53,36 +53,36 @@ public:
                                                 const Standard_Real                theDeflection,
                                                 const Standard_Integer             theNbUIso,
                                                 const Standard_Integer             theNbVIso,
-                                                const Handle(Prs3d_Drawer)&        theDrawer);
+                                                const Handle(StyleDrawer)&        theDrawer);
 
   Standard_EXPORT static Standard_Boolean Match(const Standard_Real                theX,
                                                 const Standard_Real                theY,
                                                 const Standard_Real                theZ,
                                                 const Standard_Real                theDistance,
                                                 const Handle(BRepAdaptor_Surface)& theFace,
-                                                const Handle(Prs3d_Drawer)&        theDrawer);
+                                                const Handle(StyleDrawer)&        theDrawer);
 
   Standard_EXPORT static Standard_Boolean MatchUIso(const Standard_Real                theX,
                                                     const Standard_Real                theY,
                                                     const Standard_Real                theZ,
                                                     const Standard_Real                theDistance,
                                                     const Handle(BRepAdaptor_Surface)& theFace,
-                                                    const Handle(Prs3d_Drawer)&        theDrawer);
+                                                    const Handle(StyleDrawer)&        theDrawer);
 
   Standard_EXPORT static Standard_Boolean MatchVIso(const Standard_Real                theX,
                                                     const Standard_Real                theY,
                                                     const Standard_Real                theZ,
                                                     const Standard_Real                theDistance,
                                                     const Handle(BRepAdaptor_Surface)& theFace,
-                                                    const Handle(Prs3d_Drawer)&        theDrawer);
+                                                    const Handle(StyleDrawer)&        theDrawer);
 
   Standard_EXPORT static void AddUIso(const Handle(Prs3d_Presentation)&  thePresentation,
                                       const Handle(BRepAdaptor_Surface)& theFace,
-                                      const Handle(Prs3d_Drawer)&        theDrawer);
+                                      const Handle(StyleDrawer)&        theDrawer);
 
   Standard_EXPORT static void AddVIso(const Handle(Prs3d_Presentation)&  thePresentation,
                                       const Handle(BRepAdaptor_Surface)& theFace,
-                                      const Handle(Prs3d_Drawer)&        theDrawer);
+                                      const Handle(StyleDrawer)&        theDrawer);
 };
 
 #endif

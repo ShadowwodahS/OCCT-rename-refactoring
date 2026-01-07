@@ -22,7 +22,7 @@
 #include <gp_XYZ.hxx>
 #include <NLPlate_HGPPConstraint.hxx>
 #include <Standard_Integer.hxx>
-class gp_XY;
+class Coords2d;
 
 class NLPlate_HPG0Constraint;
 DEFINE_STANDARD_HANDLE(NLPlate_HPG0Constraint, NLPlate_HGPPConstraint)
@@ -33,7 +33,7 @@ class NLPlate_HPG0Constraint : public NLPlate_HGPPConstraint
 {
 
 public:
-  Standard_EXPORT NLPlate_HPG0Constraint(const gp_XY& UV, const gp_XYZ& Value);
+  Standard_EXPORT NLPlate_HPG0Constraint(const Coords2d& UV, const gp_XYZ& Value);
 
   Standard_EXPORT virtual void SetUVFreeSliding(const Standard_Boolean UVFree) Standard_OVERRIDE;
 

@@ -39,7 +39,7 @@ const Standard_GUID& XCAFDoc_DimTol::GetID()
 
 //=================================================================================================
 
-Handle(XCAFDoc_DimTol) XCAFDoc_DimTol::Set(const TDF_Label&                        label,
+Handle(XCAFDoc_DimTol) XCAFDoc_DimTol::Set(const DataLabel&                        label,
                                            const Standard_Integer                  kind,
                                            const Handle(TColStd_HArray1OfReal)&    aVal,
                                            const Handle(TCollection_HAsciiString)& aName,

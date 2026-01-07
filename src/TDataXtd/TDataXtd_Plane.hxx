@@ -17,7 +17,7 @@
 #define _TDataXtd_Plane_HeaderFile
 
 #include <TDataStd_GenericEmpty.hxx>
-class TDF_Label;
+class DataLabel;
 class gp_Pln;
 
 class TDataXtd_Plane;
@@ -41,13 +41,13 @@ public:
   //! Warning
   //! If you are creating the attribute with this syntax, a
   //! planar face should already be associated with label.
-  Standard_EXPORT static Handle(TDataXtd_Plane) Set(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataXtd_Plane) Set(const DataLabel& label);
 
   //! Finds,  or creates,  a Plane  attribute  and sets <P>  as
   //! generated the associated NamedShape.
   //! Plane methods
   //! =============
-  Standard_EXPORT static Handle(TDataXtd_Plane) Set(const TDF_Label& label, const gp_Pln& P);
+  Standard_EXPORT static Handle(TDataXtd_Plane) Set(const DataLabel& label, const gp_Pln& P);
 
   Standard_EXPORT TDataXtd_Plane();
 

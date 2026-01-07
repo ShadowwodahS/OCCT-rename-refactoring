@@ -24,7 +24,7 @@
 
 class TObj_TNameContainer;
 class TCollection_HExtendedString;
-class TDocStd_Document;
+class AppDocument;
 class TObj_CheckModel;
 class TObj_Application;
 
@@ -63,7 +63,7 @@ protected:
 
   //! Check whether the document contains the OCAF data.
   Standard_EXPORT virtual Standard_Boolean checkDocumentEmpty(
-    const TCollection_ExtendedString& theFile);
+    const UtfString& theFile);
 
 public:
   /**
@@ -84,14 +84,14 @@ public:
 
   //! Load the OCAF model from a file. If the filename is empty or file does
   //! not exists, it just initializes model by empty data.
-  Standard_EXPORT virtual Standard_Boolean Load(const TCollection_ExtendedString& theFile);
+  Standard_EXPORT virtual Standard_Boolean Load(const UtfString& theFile);
 
   //! Load the OCAF model from a stream. If case of failure,
   //! it initializes the model by empty data.
   Standard_EXPORT virtual Standard_Boolean Load(Standard_IStream& theIStream);
 
   //! Save the model to a file
-  Standard_EXPORT virtual Standard_Boolean SaveAs(const TCollection_ExtendedString& theFile);
+  Standard_EXPORT virtual Standard_Boolean SaveAs(const UtfString& theFile);
 
   //! Save the model to a stream
   Standard_EXPORT virtual Standard_Boolean SaveAs(Standard_OStream& theOStream);
@@ -108,11 +108,11 @@ public:
   virtual Standard_EXPORT Standard_Boolean Close();
 
   //! Close Free OCAF document
-  Standard_EXPORT void CloseDocument(const Handle(TDocStd_Document)& theDoc);
+  Standard_EXPORT void CloseDocument(const Handle(AppDocument)& theDoc);
 
   //! Returns model which contains a document with the label,
   //! or NULL handle if label is NULL
-  static Standard_EXPORT Handle(TObj_Model) GetDocumentModel(const TDF_Label& theLabel);
+  static Standard_EXPORT Handle(TObj_Model) GetDocumentModel(const DataLabel& theLabel);
 
   //! Returns the full file name this model is to be saved to,
   //! or null if the model was not saved yet
@@ -155,7 +155,7 @@ public:
    */
 
   //! Returns OCAF label on which model data are stored.
-  TDF_Label GetLabel() const { return myLabel; }
+  DataLabel GetLabel() const { return myLabel; }
 
 public:
   /**
@@ -177,7 +177,7 @@ public:
   //! Register name in the map
   //! The input argument may be NULL handle, then model check in own global container
   Standard_EXPORT void RegisterName(const Handle(TCollection_HExtendedString)& theName,
-                                    const TDF_Label&                           theLabel,
+                                    const DataLabel&                           theLabel,
                                     const Handle(TObj_TNameContainer)&         theDictionary) const;
 
   //! Unregisters name from the map
@@ -227,7 +227,7 @@ public:
   //! Returns the format for save/restore.
   //! This implementation returns "BinOcaf". The method should be redefined
   //! for those models that should use another format.
-  virtual Standard_EXPORT TCollection_ExtendedString GetFormat() const;
+  virtual Standard_EXPORT UtfString GetFormat() const;
 
   //! Returns the version of format stored in TObj file
   Standard_EXPORT Standard_Integer GetFormatVersion() const;
@@ -271,39 +271,39 @@ protected:
 
   //! Returns (or creates a new) partition on a given label
   Standard_EXPORT Handle(TObj_Partition) getPartition(
-    const TDF_Label&       theLabel,
+    const DataLabel&       theLabel,
     const Standard_Boolean theHidden = Standard_False) const;
 
   //! Returns Partition specified by its index number on a given label
   //! If not exists, creates anew with specified name
   Standard_EXPORT Handle(TObj_Partition) getPartition(
-    const TDF_Label&                  theLabel,
+    const DataLabel&                  theLabel,
     const Standard_Integer            theIndex,
-    const TCollection_ExtendedString& theName,
+    const UtfString& theName,
     const Standard_Boolean            theHidden = Standard_False) const;
 
   //! Returns Partition specified by its index number
   //! If not exists, creates anew with specified name
   Standard_EXPORT Handle(TObj_Partition) getPartition(
     const Standard_Integer            theIndex,
-    const TCollection_ExtendedString& theName,
+    const UtfString& theName,
     const Standard_Boolean            theHidden = Standard_False) const;
 
 public:
   //! Returns OCAF document of Model
-  Standard_EXPORT Handle(TDocStd_Document) GetDocument() const;
+  Standard_EXPORT Handle(AppDocument) GetDocument() const;
 
 protected:
   // all that labels is sublabels of main partition
 
   //! Returns the labels under which the data is stored.
   //! the data stored from the third sublabel of this one.
-  Standard_EXPORT TDF_Label GetDataLabel() const;
+  Standard_EXPORT DataLabel GetDataLabel() const;
 
 public:
   //! Sets OCAF label on which model data are stored.
   //! Used by persistence mechanism.
-  void SetLabel(const TDF_Label& theLabel) { myLabel = theLabel; }
+  void SetLabel(const DataLabel& theLabel) { myLabel = theLabel; }
 
 protected:
   //! Do the necessary initialisations after creation of a new model.
@@ -345,7 +345,7 @@ private:
    * Fields
    */
 
-  TDF_Label                 myLabel;     //!< Root label of the model in OCAF document
+  DataLabel                 myLabel;     //!< Root label of the model in OCAF document
   Handle(Message_Messenger) myMessenger; //!< Messenger object
 
 public:

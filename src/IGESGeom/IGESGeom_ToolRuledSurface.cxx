@@ -32,9 +32,9 @@
 #include <Message_Msg.hxx>
 
 // MGE 31/07/98
-IGESGeom_ToolRuledSurface::IGESGeom_ToolRuledSurface() {}
+RuledSurfaceTool::RuledSurfaceTool() {}
 
-void IGESGeom_ToolRuledSurface::ReadOwnParams(const Handle(IGESGeom_RuledSurface)&   ent,
+void RuledSurfaceTool::ReadOwnParams(const Handle(IGESGeom_RuledSurface)&   ent,
                                               const Handle(IGESData_IGESReaderData)& IR,
                                               IGESData_ParamReader&                  PR) const
 {
@@ -107,7 +107,7 @@ void IGESGeom_ToolRuledSurface::ReadOwnParams(const Handle(IGESGeom_RuledSurface
   ent->Init(aCurve, anotherCurve, aDirFlag, aDevFlag);
 }
 
-void IGESGeom_ToolRuledSurface::WriteOwnParams(const Handle(IGESGeom_RuledSurface)& ent,
+void RuledSurfaceTool::WriteOwnParams(const Handle(IGESGeom_RuledSurface)& ent,
                                                IGESData_IGESWriter&                 IW) const
 {
   IW.Send(ent->FirstCurve());
@@ -116,14 +116,14 @@ void IGESGeom_ToolRuledSurface::WriteOwnParams(const Handle(IGESGeom_RuledSurfac
   IW.SendBoolean(ent->IsDevelopable());
 }
 
-void IGESGeom_ToolRuledSurface::OwnShared(const Handle(IGESGeom_RuledSurface)& ent,
+void RuledSurfaceTool::OwnShared(const Handle(IGESGeom_RuledSurface)& ent,
                                           Interface_EntityIterator&            iter) const
 {
   iter.GetOneItem(ent->FirstCurve());
   iter.GetOneItem(ent->SecondCurve());
 }
 
-void IGESGeom_ToolRuledSurface::OwnCopy(const Handle(IGESGeom_RuledSurface)& another,
+void RuledSurfaceTool::OwnCopy(const Handle(IGESGeom_RuledSurface)& another,
                                         const Handle(IGESGeom_RuledSurface)& ent,
                                         Interface_CopyTool&                  TC) const
 {
@@ -135,10 +135,10 @@ void IGESGeom_ToolRuledSurface::OwnCopy(const Handle(IGESGeom_RuledSurface)& ano
   ent->Init(aCurve, anotherCurve, aDirFlag, aDevFlag);
 }
 
-IGESData_DirChecker IGESGeom_ToolRuledSurface::DirChecker(
+DirectoryChecker RuledSurfaceTool::DirChecker(
   const Handle(IGESGeom_RuledSurface)& /*ent*/) const
 {
-  IGESData_DirChecker DC(118, 0, 1);
+  DirectoryChecker DC(118, 0, 1);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   //  DC.LineWeight(IGESData_DefValue);
@@ -148,13 +148,13 @@ IGESData_DirChecker IGESGeom_ToolRuledSurface::DirChecker(
   return DC;
 }
 
-void IGESGeom_ToolRuledSurface::OwnCheck(const Handle(IGESGeom_RuledSurface)& /*ent*/,
+void RuledSurfaceTool::OwnCheck(const Handle(IGESGeom_RuledSurface)& /*ent*/,
                                          const Interface_ShareTool&,
                                          Handle(Interface_Check)& /*ach*/) const
 {
 }
 
-void IGESGeom_ToolRuledSurface::OwnDump(const Handle(IGESGeom_RuledSurface)& ent,
+void RuledSurfaceTool::OwnDump(const Handle(IGESGeom_RuledSurface)& ent,
                                         const IGESData_IGESDumper&           dumper,
                                         Standard_OStream&                    S,
                                         const Standard_Integer               level) const

@@ -19,7 +19,7 @@
 #include <Standard_ConstructionError.hxx>
 #include <Standard_OutOfRange.hxx>
 
-class gp_XY;
+class Coords2d;
 
 //! Describes a two column, two row matrix.
 //! This sort of object is used in various vectorial or matrix computations.
@@ -32,15 +32,15 @@ public:
   gp_Mat2d() { myMat[0][0] = myMat[0][1] = myMat[1][0] = myMat[1][1] = 0.0; }
 
   //! theCol1, theCol2 are the 2 columns of the matrix.
-  Standard_EXPORT gp_Mat2d(const gp_XY& theCol1, const gp_XY& theCol2);
+  Standard_EXPORT gp_Mat2d(const Coords2d& theCol1, const Coords2d& theCol2);
 
   //! Assigns the two coordinates of theValue to the column of range
   //! theCol of this matrix
   //! Raises OutOfRange if theCol < 1 or theCol > 2.
-  Standard_EXPORT void SetCol(const Standard_Integer theCol, const gp_XY& theValue);
+  Standard_EXPORT void SetCol(const Standard_Integer theCol, const Coords2d& theValue);
 
   //! Assigns the number pairs theCol1, theCol2 to the two columns of   this matrix
-  Standard_EXPORT void SetCols(const gp_XY& theCol1, const gp_XY& theCol2);
+  Standard_EXPORT void SetCols(const Coords2d& theCol1, const Coords2d& theCol2);
 
   //! Modifies the main diagonal of the matrix.
   //! @code
@@ -67,10 +67,10 @@ public:
 
   //! Assigns the two coordinates of theValue to the row of index theRow of this matrix.
   //! Raises OutOfRange if theRow < 1 or theRow > 2.
-  Standard_EXPORT void SetRow(const Standard_Integer theRow, const gp_XY& theValue);
+  Standard_EXPORT void SetRow(const Standard_Integer theRow, const Coords2d& theValue);
 
   //! Assigns the number pairs theRow1, theRow2 to the two rows of this matrix.
-  Standard_EXPORT void SetRows(const gp_XY& theRow1, const gp_XY& theRow2);
+  Standard_EXPORT void SetRows(const Coords2d& theRow1, const Coords2d& theRow2);
 
   //! Modifies the matrix such that it
   //! represents a scaling transformation, where theS is the scale   factor :
@@ -96,7 +96,7 @@ public:
 
   //! Returns the column of theCol index.
   //! Raises OutOfRange if theCol < 1 or theCol > 2
-  Standard_EXPORT gp_XY Column(const Standard_Integer theCol) const;
+  Standard_EXPORT Coords2d Column(const Standard_Integer theCol) const;
 
   //! Computes the determinant of the matrix.
   Standard_Real Determinant() const
@@ -105,11 +105,11 @@ public:
   }
 
   //! Returns the main diagonal of the matrix.
-  Standard_EXPORT gp_XY Diagonal() const;
+  Standard_EXPORT Coords2d Diagonal() const;
 
   //! Returns the row of index theRow.
   //! Raised if theRow < 1 or theRow > 2
-  Standard_EXPORT gp_XY Row(const Standard_Integer theRow) const;
+  Standard_EXPORT Coords2d Row(const Standard_Integer theRow) const;
 
   //! Returns the coefficient of range (ttheheRow, theCol)
   //! Raises OutOfRange
@@ -260,7 +260,7 @@ public:
 
   friend class gp_Trsf2d;
   friend class gp_GTrsf2d;
-  friend class gp_XY;
+  friend class Coords2d;
 
 private:
   Standard_Real myMat[2][2];

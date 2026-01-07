@@ -43,17 +43,17 @@ StepToTopoDS_MakeTransformed::StepToTopoDS_MakeTransformed() {}
 Standard_Boolean StepToTopoDS_MakeTransformed::Compute(
   const Handle(StepGeom_Axis2Placement3d)& Origin,
   const Handle(StepGeom_Axis2Placement3d)& Target,
-  const StepData_Factors&                  theLocalFactors)
+  const ConversionFactors&                  theLocalFactors)
 {
   theTrsf = Transform3d(); // reinit
   if (Origin.IsNull() || Target.IsNull())
     return Standard_False;
 
   // sln 23.10.2001 : If the directions have not been created do nothing.
-  Handle(Geom_Axis2Placement) theOrig = StepToGeom::MakeAxis2Placement(Origin, theLocalFactors);
+  Handle(Geom_Axis2Placement) theOrig = StepToGeom1::MakeAxis2Placement(Origin, theLocalFactors);
   if (theOrig.IsNull())
     return Standard_False;
-  Handle(Geom_Axis2Placement) theTarg = StepToGeom::MakeAxis2Placement(Target, theLocalFactors);
+  Handle(Geom_Axis2Placement) theTarg = StepToGeom1::MakeAxis2Placement(Target, theLocalFactors);
   if (theTarg.IsNull())
     return Standard_False;
 
@@ -69,9 +69,9 @@ Standard_Boolean StepToTopoDS_MakeTransformed::Compute(
 
 Standard_Boolean StepToTopoDS_MakeTransformed::Compute(
   const Handle(StepGeom_CartesianTransformationOperator3d)& Operator,
-  const StepData_Factors&                                   theLocalFactors)
+  const ConversionFactors&                                   theLocalFactors)
 {
-  return StepToGeom::MakeTransformation3d(Operator, theTrsf, theLocalFactors);
+  return StepToGeom1::MakeTransformation3d(Operator, theTrsf, theLocalFactors);
 }
 
 //=================================================================================================
@@ -83,7 +83,7 @@ const Transform3d& StepToTopoDS_MakeTransformed::Transformation() const
 
 //=================================================================================================
 
-Standard_Boolean StepToTopoDS_MakeTransformed::Transform(TopoDS_Shape& shape) const
+Standard_Boolean StepToTopoDS_MakeTransformed::Transform(TopoShape& shape) const
 {
   if (theTrsf.Form() == gp_Identity)
     return Standard_False;
@@ -94,13 +94,13 @@ Standard_Boolean StepToTopoDS_MakeTransformed::Transform(TopoDS_Shape& shape) co
 
 //=================================================================================================
 
-TopoDS_Shape StepToTopoDS_MakeTransformed::TranslateMappedItem(
+TopoShape StepToTopoDS_MakeTransformed::TranslateMappedItem(
   const Handle(StepRepr_MappedItem)&       mapit,
   const Handle(Transfer_TransientProcess)& TP,
-  const StepData_Factors&                  theLocalFactors,
+  const ConversionFactors&                  theLocalFactors,
   const Message_ProgressRange&             theProgress)
 {
-  TopoDS_Shape theResult;
+  TopoShape theResult;
 
   //  Positionnement : 2 formules
   //  1/ Ax2 dans Source et comme Target  : passage de Source a Target

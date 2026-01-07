@@ -46,7 +46,7 @@ AdvApp2Var_Node::AdvApp2Var_Node(const Standard_Integer iu, const Standard_Integ
 
 //=================================================================================================
 
-AdvApp2Var_Node::AdvApp2Var_Node(const gp_XY&           UV,
+AdvApp2Var_Node::AdvApp2Var_Node(const Coords2d&           UV,
                                  const Standard_Integer iu,
                                  const Standard_Integer iv)
     : myTruePoints(0, iu, 0, iv),

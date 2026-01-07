@@ -170,7 +170,7 @@ void BRepFill_ApproxSeewing::Perform(const BRepFill_MultiLine& ML)
     P2(NbPoints)    = MPC.Point2d(3);
     Knots(NbPoints) = Ul;
 
-    myCurve   = new Geom_BSplineCurve(P, Knots, Mults, 1);
+    myCurve   = new BSplineCurve3d(P, Knots, Mults, 1);
     myPCurve1 = new Geom2d_BSplineCurve(P1, Knots, Mults, 1);
     myPCurve2 = new Geom2d_BSplineCurve(P2, Knots, Mults, 1);
 
@@ -195,7 +195,7 @@ void BRepFill_ApproxSeewing::Perform(const BRepFill_MultiLine& ML)
   const TColStd_Array1OfInteger& Mults  = MBSp.Multiplicities();
   Standard_Integer               Degree = MBSp.Degree();
 
-  myCurve   = new Geom_BSplineCurve(Poles, Knots, Mults, Degree);
+  myCurve   = new BSplineCurve3d(Poles, Knots, Mults, Degree);
   myPCurve1 = new Geom2d_BSplineCurve(Poles2d1, Knots, Mults, Degree);
   myPCurve2 = new Geom2d_BSplineCurve(Poles2d2, Knots, Mults, Degree);
 
@@ -210,33 +210,33 @@ Standard_Boolean BRepFill_ApproxSeewing::IsDone() const
 }
 
 //=======================================================================
-// function : Handle(Geom_Curve)&
+// function : Handle(GeomCurve3d)&
 // purpose  :
 //=======================================================================
 
-const Handle(Geom_Curve)& BRepFill_ApproxSeewing::Curve() const
+const Handle(GeomCurve3d)& BRepFill_ApproxSeewing::Curve() const
 {
   StdFail_NotDone_Raise_if(!myIsDone, "BRepFill_ApproxSeewing::Curve");
   return myCurve;
 }
 
 //=======================================================================
-// function : Handle(Geom2d_Curve)&
+// function : Handle(GeomCurve2d)&
 // purpose  :
 //=======================================================================
 
-const Handle(Geom2d_Curve)& BRepFill_ApproxSeewing::CurveOnF1() const
+const Handle(GeomCurve2d)& BRepFill_ApproxSeewing::CurveOnF1() const
 {
   StdFail_NotDone_Raise_if(!myIsDone, "BRepFill_ApproxSeewing::CurveOnF1");
   return myPCurve1;
 }
 
 //=======================================================================
-// function : Handle(Geom2d_Curve)&
+// function : Handle(GeomCurve2d)&
 // purpose  :
 //=======================================================================
 
-const Handle(Geom2d_Curve)& BRepFill_ApproxSeewing::CurveOnF2() const
+const Handle(GeomCurve2d)& BRepFill_ApproxSeewing::CurveOnF2() const
 {
   StdFail_NotDone_Raise_if(!myIsDone, "BRepFill_ApproxSeewing::CurveOnF2");
   return myPCurve2;

@@ -119,62 +119,62 @@ Standard_Boolean Storage_HeaderData::Read(const Handle(Storage_BaseDriver)& theD
   return Standard_True;
 }
 
-TCollection_AsciiString Storage_HeaderData::CreationDate() const
+AsciiString1 Storage_HeaderData::CreationDate() const
 {
   return myDate;
 }
 
-void Storage_HeaderData::SetSchemaVersion(const TCollection_AsciiString& aVersion)
+void Storage_HeaderData::SetSchemaVersion(const AsciiString1& aVersion)
 {
   mySchemaVersion = aVersion;
 }
 
-TCollection_AsciiString Storage_HeaderData::SchemaVersion() const
+AsciiString1 Storage_HeaderData::SchemaVersion() const
 {
   return mySchemaVersion;
 }
 
-void Storage_HeaderData::SetSchemaName(const TCollection_AsciiString& aSchemaName)
+void Storage_HeaderData::SetSchemaName(const AsciiString1& aSchemaName)
 {
   mySchemaName = aSchemaName;
 }
 
-TCollection_AsciiString Storage_HeaderData::SchemaName() const
+AsciiString1 Storage_HeaderData::SchemaName() const
 {
   return mySchemaName;
 }
 
-void Storage_HeaderData::SetApplicationVersion(const TCollection_AsciiString& aVersion)
+void Storage_HeaderData::SetApplicationVersion(const AsciiString1& aVersion)
 {
   myApplicationVersion = aVersion;
 }
 
-TCollection_AsciiString Storage_HeaderData::ApplicationVersion() const
+AsciiString1 Storage_HeaderData::ApplicationVersion() const
 {
   return myApplicationVersion;
 }
 
-void Storage_HeaderData::SetApplicationName(const TCollection_ExtendedString& aName)
+void Storage_HeaderData::SetApplicationName(const UtfString& aName)
 {
   myApplicationName = aName;
 }
 
-TCollection_ExtendedString Storage_HeaderData::ApplicationName() const
+UtfString Storage_HeaderData::ApplicationName() const
 {
   return myApplicationName;
 }
 
-void Storage_HeaderData::SetDataType(const TCollection_ExtendedString& aName)
+void Storage_HeaderData::SetDataType(const UtfString& aName)
 {
   myDataType = aName;
 }
 
-TCollection_ExtendedString Storage_HeaderData::DataType() const
+UtfString Storage_HeaderData::DataType() const
 {
   return myDataType;
 }
 
-void Storage_HeaderData::AddToUserInfo(const TCollection_AsciiString& theUserInfo)
+void Storage_HeaderData::AddToUserInfo(const AsciiString1& theUserInfo)
 {
   myUserInfo.Append(theUserInfo);
 }
@@ -184,7 +184,7 @@ const TColStd_SequenceOfAsciiString& Storage_HeaderData::UserInfo() const
   return myUserInfo;
 }
 
-void Storage_HeaderData::AddToComments(const TCollection_ExtendedString& aComments)
+void Storage_HeaderData::AddToComments(const UtfString& aComments)
 {
   myComments.Append(aComments);
 }
@@ -204,17 +204,17 @@ void Storage_HeaderData::SetNumberOfObjects(const Standard_Integer anObjectNumbe
   myNBObj = anObjectNumber;
 }
 
-void Storage_HeaderData::SetStorageVersion(const TCollection_AsciiString& v)
+void Storage_HeaderData::SetStorageVersion(const AsciiString1& v)
 {
   myStorageVersion = v;
 }
 
-void Storage_HeaderData::SetCreationDate(const TCollection_AsciiString& d)
+void Storage_HeaderData::SetCreationDate(const AsciiString1& d)
 {
   myDate = d;
 }
 
-TCollection_AsciiString Storage_HeaderData::StorageVersion() const
+AsciiString1 Storage_HeaderData::StorageVersion() const
 {
   return myStorageVersion;
 }
@@ -229,12 +229,12 @@ void Storage_HeaderData::SetErrorStatus(const Storage_Error anError)
   myErrorStatus = anError;
 }
 
-TCollection_AsciiString Storage_HeaderData::ErrorStatusExtension() const
+AsciiString1 Storage_HeaderData::ErrorStatusExtension() const
 {
   return myErrorStatusExt;
 }
 
-void Storage_HeaderData::SetErrorStatusExtension(const TCollection_AsciiString& anErrorExt)
+void Storage_HeaderData::SetErrorStatusExtension(const AsciiString1& anErrorExt)
 {
   myErrorStatusExt = anErrorExt;
 }

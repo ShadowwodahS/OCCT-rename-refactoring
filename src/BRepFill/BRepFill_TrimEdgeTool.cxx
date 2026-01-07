@@ -50,7 +50,7 @@ static Standard_Integer intind    = 0;
 
 //=================================================================================================
 
-static void SimpleExpression(const Bisector_Bisec& B, Handle(Geom2d_Curve)& Bis)
+static void SimpleExpression(const Bisector_Bisec& B, Handle(GeomCurve2d)& Bis)
 {
   Bis = B.Value();
 
@@ -58,7 +58,7 @@ static void SimpleExpression(const Bisector_Bisec& B, Handle(Geom2d_Curve)& Bis)
   if (BT == STANDARD_TYPE(Geom2d_TrimmedCurve))
   {
     Handle(Geom2d_TrimmedCurve) TrBis  = Handle(Geom2d_TrimmedCurve)::DownCast(Bis);
-    Handle(Geom2d_Curve)        BasBis = TrBis->BasisCurve();
+    Handle(GeomCurve2d)        BasBis = TrBis->BasisCurve();
     BT                                 = BasBis->DynamicType();
     if (BT == STANDARD_TYPE(Bisector_BisecAna))
     {
@@ -92,14 +92,14 @@ BRepFill_TrimEdgeTool::BRepFill_TrimEdgeTool(const Bisector_Bisec&          Bise
   }
   else
   {
-    myC1 = Handle(Geom2d_Curve)::DownCast(S1);
+    myC1 = Handle(GeomCurve2d)::DownCast(S1);
 #ifdef DRAW
     if (Affich)
     {
       // POP pour NT
       char* myC1name = "myC1";
-      DrawTrSurf::Set(myC1name, myC1);
-      //      DrawTrSurf::Set("myC1",myC1);
+      DrawTrSurf1::Set(myC1name, myC1);
+      //      DrawTrSurf1::Set("myC1",myC1);
     }
 #endif
   }
@@ -109,25 +109,25 @@ BRepFill_TrimEdgeTool::BRepFill_TrimEdgeTool(const Bisector_Bisec&          Bise
   }
   else
   {
-    myC2 = Handle(Geom2d_Curve)::DownCast(S2);
+    myC2 = Handle(GeomCurve2d)::DownCast(S2);
 #ifdef DRAW
     if (Affich)
     {
       char* myC2name = "myC2";
-      DrawTrSurf::Set(myC2name, myC2);
-      //      DrawTrSurf::Set("myC2",myC2);
+      DrawTrSurf1::Set(myC2name, myC2);
+      //      DrawTrSurf1::Set("myC2",myC2);
     }
 #endif
   }
   // return the simple expression of the bissectrice
-  Handle(Geom2d_Curve) Bis;
+  Handle(GeomCurve2d) Bis;
   SimpleExpression(myBisec, Bis);
   myBis = Geom2dAdaptor_Curve(Bis);
 #ifdef DRAW
   if (Affich)
   {
     char* myBisname = "myBis";
-    DrawTrSurf::Set(myBisname, Bis);
+    DrawTrSurf1::Set(myBisname, Bis);
   }
 #endif
 }
@@ -300,12 +300,12 @@ static void EvalParametersBis(const Geom2dAdaptor_Curve& Bis,
 
 //=================================================================================================
 
-void BRepFill_TrimEdgeTool::IntersectWith(const TopoDS_Edge&     Edge1,
-                                          const TopoDS_Edge&     Edge2,
-                                          const TopoDS_Shape&    InitShape1,
-                                          const TopoDS_Shape&    InitShape2,
-                                          const TopoDS_Vertex&   End1,
-                                          const TopoDS_Vertex&   End2,
+void BRepFill_TrimEdgeTool::IntersectWith(const TopoEdge&     Edge1,
+                                          const TopoEdge&     Edge2,
+                                          const TopoShape&    InitShape1,
+                                          const TopoShape&    InitShape2,
+                                          const TopoVertex&   End1,
+                                          const TopoVertex&   End2,
                                           const GeomAbs_JoinType theJoinType,
                                           const Standard_Boolean IsOpenResult,
                                           TColgp_SequenceOfPnt&  Params)
@@ -315,14 +315,14 @@ void BRepFill_TrimEdgeTool::IntersectWith(const TopoDS_Edge&     Edge1,
   // return curves associated to edges.
   TopLoc_Location      L;
   Standard_Real        f, l;
-  Handle(Geom_Surface) Surf;
+  Handle(GeomSurface) Surf;
 
-  Handle(Geom2d_Curve) C1;
-  BRep_Tool::CurveOnSurface(Edge1, C1, Surf, L, f, l);
+  Handle(GeomCurve2d) C1;
+  BRepInspector::CurveOnSurface(Edge1, C1, Surf, L, f, l);
   Geom2dAdaptor_Curve AC1(C1, f, l);
 
-  Handle(Geom2d_Curve) C2;
-  BRep_Tool::CurveOnSurface(Edge2, C2, Surf, L, f, l);
+  Handle(GeomCurve2d) C2;
+  BRepInspector::CurveOnSurface(Edge2, C2, Surf, L, f, l);
   Geom2dAdaptor_Curve AC2(C2, f, l);
 
 #ifdef DRAW
@@ -332,19 +332,19 @@ void BRepFill_TrimEdgeTool::IntersectWith(const TopoDS_Edge&     Edge1,
     l = AC1.LastParameter();
     char name[32];
     sprintf(name, "C1_%d", ++intind);
-    DrawTrSurf::Set(name, new Geom2d_TrimmedCurve(C1, f, l));
+    DrawTrSurf1::Set(name, new Geom2d_TrimmedCurve(C1, f, l));
     f = AC2.FirstParameter();
     l = AC2.LastParameter();
     sprintf(name, "C2_%d", intind);
-    DrawTrSurf::Set(name, new Geom2d_TrimmedCurve(C2, f, l));
+    DrawTrSurf1::Set(name, new Geom2d_TrimmedCurve(C2, f, l));
     f = myBis.FirstParameter();
     l = myBis.LastParameter();
     sprintf(name, "BIS%d", intind);
-    DrawTrSurf::Set(name, new Geom2d_TrimmedCurve(myBis.Curve(), f, l));
+    DrawTrSurf1::Set(name, new Geom2d_TrimmedCurve(myBis.Curve(), f, l));
     sprintf(name, "E1_%d", intind);
-    DBRep::Set(name, Edge1);
+    DBRep1::Set(name, Edge1);
     sprintf(name, "E2_%d", intind);
-    DBRep::Set(name, Edge2);
+    DBRep1::Set(name, Edge2);
   }
 #endif
 
@@ -585,13 +585,13 @@ void BRepFill_TrimEdgeTool::IntersectWith(const TopoDS_Edge&     Edge1,
     // definition of initial first and last parameters:
     // this is inverse procedure to extension of parameters
     //(see BRepFill_OffsetWire, function MakeOffset, case of Circle)
-    const TopoDS_Edge& InitEdge1        = TopoDS::Edge(InitShape1);
+    const TopoEdge& InitEdge1        = TopoDS::Edge(InitShape1);
     Standard_Boolean   ToExtendFirstPar = Standard_True;
     Standard_Boolean   ToExtendLastPar  = Standard_True;
     if (IsOpenResult)
     {
-      TopoDS_Vertex V1, V2;
-      TopExp::Vertices(InitEdge1, V1, V2);
+      TopoVertex V1, V2;
+      TopExp1::Vertices(InitEdge1, V1, V2);
       if (V1.IsSame(End1) || V1.IsSame(End2))
         ToExtendFirstPar = Standard_False;
       if (V2.IsSame(End1) || V2.IsSame(End2))
@@ -658,8 +658,8 @@ void BRepFill_TrimEdgeTool::IntersectWith(const TopoDS_Edge&     Edge1,
 //=======================================================================
 
 void BRepFill_TrimEdgeTool::AddOrConfuse(const Standard_Boolean Start,
-                                         const TopoDS_Edge&     Edge1,
-                                         const TopoDS_Edge&     Edge2,
+                                         const TopoEdge&     Edge1,
+                                         const TopoEdge&     Edge2,
                                          TColgp_SequenceOfPnt&  Params) const
 {
   Standard_Boolean        ToProj = Standard_True;
@@ -669,10 +669,10 @@ void BRepFill_TrimEdgeTool::AddOrConfuse(const Standard_Boolean Start,
   // return curves associated to edges.
   TopLoc_Location      L;
   Standard_Real        f, l;
-  Handle(Geom_Surface) Surf;
+  Handle(GeomSurface) Surf;
 
-  Handle(Geom2d_Curve) C1;
-  BRep_Tool::CurveOnSurface(Edge1, C1, Surf, L, f, l);
+  Handle(GeomCurve2d) C1;
+  BRepInspector::CurveOnSurface(Edge1, C1, Surf, L, f, l);
   Geom2dAdaptor_Curve AC1(C1, f, l);
 
   if (Start)
@@ -700,8 +700,8 @@ void BRepFill_TrimEdgeTool::AddOrConfuse(const Standard_Boolean Start,
     // Project point on parallels and add in Params
 
     Standard_Real        f2, l2;
-    Handle(Geom2d_Curve) C2;
-    BRep_Tool::CurveOnSurface(Edge2, C2, Surf, L, f2, l2);
+    Handle(GeomCurve2d) C2;
+    BRepInspector::CurveOnSurface(Edge2, C2, Surf, L, f2, l2);
 
     Geom2dAPI_ProjectPointOnCurve Projector1(PBis, C1, f, l);
     Geom2dAPI_ProjectPointOnCurve Projector2(PBis, C2, f2, l2);

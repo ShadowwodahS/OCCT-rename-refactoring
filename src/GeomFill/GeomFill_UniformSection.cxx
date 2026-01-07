@@ -40,14 +40,14 @@ static Standard_Integer NumSec = 0;
 static Standard_Boolean Affich = 0;
 #endif
 
-GeomFill_UniformSection::GeomFill_UniformSection(const Handle(Geom_Curve)& C,
+GeomFill_UniformSection::GeomFill_UniformSection(const Handle(GeomCurve3d)& C,
                                                  const Standard_Real       FirstParameter,
                                                  const Standard_Real       LastParameter)
     : First(FirstParameter),
       Last(LastParameter)
 {
-  mySection = Handle(Geom_Curve)::DownCast(C->Copy());
-  myCurve   = Handle(Geom_BSplineCurve)::DownCast(C);
+  mySection = Handle(GeomCurve3d)::DownCast(C->Copy());
+  myCurve   = Handle(BSplineCurve3d)::DownCast(C);
   if (myCurve.IsNull())
   {
     myCurve = GeomConvert::CurveToBSplineCurve(C, Convert_QuasiAngular);
@@ -63,7 +63,7 @@ GeomFill_UniformSection::GeomFill_UniformSection(const Handle(Geom_Curve)& C,
   {
     char name[256];
     sprintf(name, "UnifSect_%d", ++NumSec);
-    DrawTrSurf::Set(name, myCurve);
+    DrawTrSurf1::Set(name, myCurve);
   }
 #endif
 }
@@ -311,9 +311,9 @@ Standard_Boolean GeomFill_UniformSection::IsConstant(Standard_Real& Error) const
   return Standard_True;
 }
 
-Handle(Geom_Curve) GeomFill_UniformSection::ConstantSection() const
+Handle(GeomCurve3d) GeomFill_UniformSection::ConstantSection() const
 {
-  Handle(Geom_Curve) C;
-  C = Handle(Geom_Curve)::DownCast(mySection->Copy());
+  Handle(GeomCurve3d) C;
+  C = Handle(GeomCurve3d)::DownCast(mySection->Copy());
   return C;
 }

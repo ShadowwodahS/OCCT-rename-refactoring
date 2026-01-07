@@ -110,16 +110,16 @@ static void PrsDim_Sort(Standard_Real tab1[4], Point3d tab2[4], Standard_Integer
 
 //=================================================================================================
 
-static Standard_Boolean ConnectedEdges(const TopoDS_Wire&   WIRE,
-                                       const TopoDS_Vertex& V,
-                                       TopoDS_Edge&         E1,
-                                       TopoDS_Edge&         E2)
+static Standard_Boolean ConnectedEdges(const TopoWire&   WIRE,
+                                       const TopoVertex& V,
+                                       TopoEdge&         E1,
+                                       TopoEdge&         E2)
 {
   TopTools_IndexedDataMapOfShapeListOfShape vertexMap;
-  TopExp::MapShapesAndAncestors(WIRE, TopAbs_VERTEX, TopAbs_EDGE, vertexMap);
+  TopExp1::MapShapesAndAncestors(WIRE, TopAbs_VERTEX, TopAbs_EDGE, vertexMap);
 
   Standard_Boolean found(Standard_False);
-  TopoDS_Vertex    theVertex;
+  TopoVertex    theVertex;
   for (Standard_Integer i = 1; i <= vertexMap.Extent() && !found; i++)
   {
     if (vertexMap.FindKey(i).IsSame(V))
@@ -312,9 +312,9 @@ static Standard_Boolean ComputeAttach(const gp_Elips& theEll,
 
 //=================================================================================================
 
-PrsDim_IdenticRelation::PrsDim_IdenticRelation(const TopoDS_Shape&       FirstShape,
-                                               const TopoDS_Shape&       SecondShape,
-                                               const Handle(Geom_Plane)& aPlane)
+PrsDim_IdenticRelation::PrsDim_IdenticRelation(const TopoShape&       FirstShape,
+                                               const TopoShape&       SecondShape,
+                                               const Handle(GeomPlane)& aPlane)
     : isCircle(Standard_False)
 {
   myFShape = FirstShape;
@@ -380,7 +380,7 @@ void PrsDim_IdenticRelation::Compute(const Handle(PrsMgr_PresentationManager)&,
 //           before.
 //=======================================================================
 
-void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                               const Standard_Integer)
 {
   Handle(SelectMgr_EntityOwner) own = new SelectMgr_EntityOwner(this, 7);
@@ -399,10 +399,10 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectMgr_Selection)&
     // jfa 24/10/2000
     if (myFShape.ShapeType() == TopAbs_EDGE)
     {
-      Handle(Geom_Curve) curv1, curv2;
+      Handle(GeomCurve3d) curv1, curv2;
       Point3d             firstp1, lastp1, firstp2, lastp2;
       Standard_Boolean   isInfinite1, isInfinite2;
-      Handle(Geom_Curve) extCurv;
+      Handle(GeomCurve3d) extCurv;
       if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape),
                                    TopoDS::Edge(mySShape),
                                    myExtShape,
@@ -420,10 +420,10 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectMgr_Selection)&
 
       if (isCircle) // case of Circles
       {
-        Handle(Geom_Circle) thecirc = Handle(Geom_Circle)::DownCast(curv1);
+        Handle(GeomCircle) thecirc = Handle(GeomCircle)::DownCast(curv1);
         Standard_Real       udeb    = ElCLib::Parameter(thecirc->Circ(), myFAttach);
         Standard_Real       ufin    = ElCLib::Parameter(thecirc->Circ(), mySAttach);
-        Handle(Geom_Curve)  thecu   = new Geom_TrimmedCurve(thecirc, udeb, ufin);
+        Handle(GeomCurve3d)  thecu   = new Geom_TrimmedCurve(thecirc, udeb, ufin);
 
         Handle(Select3D_SensitiveCurve) scurv = new Select3D_SensitiveCurve(own, thecu);
         aSelection->Add(scurv);
@@ -437,7 +437,7 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectMgr_Selection)&
 
         Standard_Real      udeb  = ElCLib::Parameter(theEll->Elips(), myFAttach);
         Standard_Real      ufin  = ElCLib::Parameter(theEll->Elips(), mySAttach);
-        Handle(Geom_Curve) thecu = new Geom_TrimmedCurve(theEll, udeb, ufin);
+        Handle(GeomCurve3d) thecu = new Geom_TrimmedCurve(theEll, udeb, ufin);
 
         Handle(Select3D_SensitiveCurve) scurv = new Select3D_SensitiveCurve(own, thecu);
         aSelection->Add(scurv);
@@ -445,7 +445,7 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectMgr_Selection)&
         attach = myPosition;
         ComputeAttach(theEll->Elips(), myFAttach, mySAttach, attach);
       }
-      else if (curv1->IsInstance(STANDARD_TYPE(Geom_Line))) // case of Lines
+      else if (curv1->IsInstance(STANDARD_TYPE(GeomLine))) // case of Lines
       {
         seg = new Select3D_SensitiveSegment(own, myFAttach, mySAttach);
         aSelection->Add(seg);
@@ -485,11 +485,11 @@ void PrsDim_IdenticRelation::ComputeSelection(const Handle(SelectMgr_Selection)&
 
 void PrsDim_IdenticRelation::ComputeTwoEdgesPresentation(const Handle(Prs3d_Presentation)& aPrs)
 {
-  Handle(Geom_Curve) curv1, curv2;
+  Handle(GeomCurve3d) curv1, curv2;
   Point3d             firstp1, lastp1, firstp2, lastp2;
   Standard_Boolean   isInfinite1, isInfinite2;
 
-  Handle(Geom_Curve) extCurv;
+  Handle(GeomCurve3d) extCurv;
   if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape),
                                TopoDS::Edge(mySShape),
                                myExtShape,
@@ -507,16 +507,16 @@ void PrsDim_IdenticRelation::ComputeTwoEdgesPresentation(const Handle(Prs3d_Pres
   aPrs->SetInfiniteState((isInfinite1 || isInfinite2) && myExtShape != 0);
 
   // Treatment of the case of lines
-  if (curv1->IsInstance(STANDARD_TYPE(Geom_Line)) && curv2->IsInstance(STANDARD_TYPE(Geom_Line)))
+  if (curv1->IsInstance(STANDARD_TYPE(GeomLine)) && curv2->IsInstance(STANDARD_TYPE(GeomLine)))
   {
     // we take the line curv1 like support
-    Handle(Geom_Line) thelin;
+    Handle(GeomLine) thelin;
     if (isInfinite1 && !isInfinite2)
-      thelin = Handle(Geom_Line)::DownCast(curv2);
+      thelin = Handle(GeomLine)::DownCast(curv2);
     else if (!isInfinite1 && isInfinite2)
-      thelin = Handle(Geom_Line)::DownCast(curv1);
+      thelin = Handle(GeomLine)::DownCast(curv1);
     else
-      thelin = Handle(Geom_Line)::DownCast(curv1);
+      thelin = Handle(GeomLine)::DownCast(curv1);
     ComputeTwoLinesPresentation(aPrs,
                                 thelin,
                                 firstp1,
@@ -528,12 +528,12 @@ void PrsDim_IdenticRelation::ComputeTwoEdgesPresentation(const Handle(Prs3d_Pres
   }
 
   //  Treatment of the case of circles
-  else if (curv1->IsInstance(STANDARD_TYPE(Geom_Circle))
-           && curv2->IsInstance(STANDARD_TYPE(Geom_Circle)))
+  else if (curv1->IsInstance(STANDARD_TYPE(GeomCircle))
+           && curv2->IsInstance(STANDARD_TYPE(GeomCircle)))
   {
     // Point3d curpos;
     isCircle = Standard_True; // useful for ComputeSelection
-    Handle(Geom_Circle) thecirc(Handle(Geom_Circle)::DownCast(curv1));
+    Handle(GeomCircle) thecirc(Handle(GeomCircle)::DownCast(curv1));
     ComputeTwoCirclesPresentation(aPrs, thecirc, firstp1, lastp1, firstp2, lastp2);
   }
 
@@ -570,7 +570,7 @@ void PrsDim_IdenticRelation::ComputeTwoEdgesPresentation(const Handle(Prs3d_Pres
 //           <lastp2> :last extremity of the 2nd curve of the constraint
 //=======================================================================
 void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Presentation)& aPrs,
-                                                         const Handle(Geom_Line)&          thelin,
+                                                         const Handle(GeomLine)&          thelin,
                                                          Point3d&                           firstp1,
                                                          Point3d&                           lastp1,
                                                          Point3d&                           firstp2,
@@ -596,7 +596,7 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
       myFAttach = mySAttach =
         ElCLib::Value(ElCLib::Parameter(thelin->Lin(), myPosition), thelin->Lin());
     }
-    TCollection_ExtendedString vals(" ==");
+    UtfString vals(" ==");
     DsgPrs_IdenticPresentation::Add(aPrs, myDrawer, vals, myFAttach, myPosition);
   }
   else
@@ -745,7 +745,7 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
     }
 
     // Display of the presentation
-    TCollection_ExtendedString vals(" ==");
+    UtfString vals(" ==");
     DsgPrs_IdenticPresentation::Add(aPrs, myDrawer, vals, myFAttach, mySAttach, curpos);
   }
 }
@@ -762,7 +762,7 @@ void PrsDim_IdenticRelation::ComputeTwoLinesPresentation(const Handle(Prs3d_Pres
 //           <lastp2> :last extremity of the 2nd curve of the constraint
 //=======================================================================
 void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Presentation)& aPrs,
-                                                           const Handle(Geom_Circle)& thecirc,
+                                                           const Handle(GeomCircle)& thecirc,
                                                            const Point3d&              firstp1,
                                                            const Point3d&              lastp1,
                                                            const Point3d&              firstp2,
@@ -992,7 +992,7 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
   }
 
   // Display of the presentation
-  TCollection_ExtendedString vals(" ==");
+  UtfString vals(" ==");
   Point3d                     attach = myPosition;
   ComputeAttach(thecirc->Circ(), myFAttach, mySAttach, attach);
   DsgPrs_IdenticPresentation::Add(aPrs,
@@ -1011,7 +1011,7 @@ void PrsDim_IdenticRelation::ComputeTwoCirclesPresentation(const Handle(Prs3d_Pr
 // purpose  : Compute the presentation of the constraint where we are
 //           not in the case of dragging.
 //=======================================================================
-void PrsDim_IdenticRelation::ComputeAutoArcPresentation(const Handle(Geom_Circle)& thecirc,
+void PrsDim_IdenticRelation::ComputeAutoArcPresentation(const Handle(GeomCircle)& thecirc,
                                                         const Point3d&              firstp,
                                                         const Point3d&              lastp,
                                                         const Standard_Boolean     isstatic)
@@ -1045,11 +1045,11 @@ void PrsDim_IdenticRelation::ComputeAutoArcPresentation(const Handle(Geom_Circle
 //           The symbol of the constraint moves together with arc
 //           representing the constraint around all the circle.
 //=======================================================================
-void PrsDim_IdenticRelation::ComputeNotAutoCircPresentation(const Handle(Geom_Circle)& thecirc)
+void PrsDim_IdenticRelation::ComputeNotAutoCircPresentation(const Handle(GeomCircle)& thecirc)
 {
   Point3d curpos = myPosition;
 
-  Handle(Geom_Circle) cirNotAuto = new Geom_Circle(thecirc->Circ());
+  Handle(GeomCircle) cirNotAuto = new GeomCircle(thecirc->Circ());
 
   // Case of confusion between the current position and the center
   // of the circle -> we move the current position
@@ -1077,7 +1077,7 @@ void PrsDim_IdenticRelation::ComputeNotAutoCircPresentation(const Handle(Geom_Ci
 //           The symbol of the constraint moves only between myFAttach
 //           and mySAttach.
 //=======================================================================
-void PrsDim_IdenticRelation::ComputeNotAutoArcPresentation(const Handle(Geom_Circle)& thecirc,
+void PrsDim_IdenticRelation::ComputeNotAutoArcPresentation(const Handle(GeomCircle)& thecirc,
                                                            const Point3d&              pntfirst,
                                                            const Point3d&              pntlast)
 {
@@ -1352,7 +1352,7 @@ void PrsDim_IdenticRelation::ComputeTwoEllipsesPresentation(const Handle(Prs3d_P
   }
 
   // Display of the presentation
-  TCollection_ExtendedString vals(" ==");
+  UtfString vals(" ==");
   Point3d                     attach = myPosition;
   ComputeAttach(theEll->Elips(), myFAttach, mySAttach, attach);
   DsgPrs_IdenticPresentation::Add(aPrs,
@@ -1482,8 +1482,8 @@ void PrsDim_IdenticRelation::ComputeNotAutoArcPresentation(const Handle(Geom_Ell
 void PrsDim_IdenticRelation::ComputeTwoVerticesPresentation(const Handle(Prs3d_Presentation)& aPrs)
 {
   Standard_Boolean     isOnPlane1, isOnPlane2;
-  const TopoDS_Vertex& FVertex = TopoDS::Vertex(myFShape);
-  const TopoDS_Vertex& SVertex = TopoDS::Vertex(mySShape);
+  const TopoVertex& FVertex = TopoDS::Vertex(myFShape);
+  const TopoVertex& SVertex = TopoDS::Vertex(mySShape);
 
   PrsDim::ComputeGeometry(FVertex, myFAttach, myPlane, isOnPlane1);
   PrsDim::ComputeGeometry(SVertex, mySAttach, myPlane, isOnPlane2);
@@ -1499,7 +1499,7 @@ void PrsDim_IdenticRelation::ComputeTwoVerticesPresentation(const Handle(Prs3d_P
 
   // The attachment points are the points themselves that must be
   // identical
-  myFAttach = BRep_Tool::Pnt(FVertex);
+  myFAttach = BRepInspector::Pnt(FVertex);
   mySAttach = myFAttach;
 
   Point3d curpos;
@@ -1517,13 +1517,13 @@ void PrsDim_IdenticRelation::ComputeTwoVerticesPresentation(const Handle(Prs3d_P
     TColStd_ListIteratorOfListOfTransient it(Users());
     if (it.More())
     {
-      Handle(AIS_Shape) USER(Handle(AIS_Shape)::DownCast(it.Value()));
+      Handle(VisualShape) USER(Handle(VisualShape)::DownCast(it.Value()));
       if (!USER.IsNull())
       {
-        const TopoDS_Shape& SH = USER->Shape();
+        const TopoShape& SH = USER->Shape();
         if ((!SH.IsNull()) && (SH.ShapeType() == TopAbs_WIRE))
         {
-          const TopoDS_Wire& WIRE = TopoDS::Wire(USER->Shape());
+          const TopoWire& WIRE = TopoDS::Wire(USER->Shape());
           Standard_Boolean   done = ComputeDirection(WIRE, FVertex, dF);
           if (!done)
             return;
@@ -1565,7 +1565,7 @@ void PrsDim_IdenticRelation::ComputeTwoVerticesPresentation(const Handle(Prs3d_P
   }
 
   // Presentation computation
-  TCollection_ExtendedString vals(" ++");
+  UtfString vals(" ++");
   DsgPrs_IdenticPresentation::Add(aPrs, myDrawer, vals, myFAttach, curpos);
   // Calculate the projection of vertex
   if (myExtShape == 1)
@@ -1587,12 +1587,12 @@ Standard_Real PrsDim_IdenticRelation::ComputeSegSize() const
 //           elements connected to the vertex <VERT>, in way to not have
 //           overlap between the symbol and them.
 //=======================================================================
-Standard_Boolean PrsDim_IdenticRelation::ComputeDirection(const TopoDS_Wire&   aWire,
-                                                          const TopoDS_Vertex& VERT,
+Standard_Boolean PrsDim_IdenticRelation::ComputeDirection(const TopoWire&   aWire,
+                                                          const TopoVertex& VERT,
                                                           Dir3d&              dF) const
 {
   // we take the median of the edges connected to vertices
-  TopoDS_Edge edg1, edg2;
+  TopoEdge edg1, edg2;
   ConnectedEdges(aWire, VERT, edg1, edg2);
 
   if (edg1.IsNull() && edg2.IsNull())
@@ -1600,7 +1600,7 @@ Standard_Boolean PrsDim_IdenticRelation::ComputeDirection(const TopoDS_Wire&   a
     return Standard_False;
   }
 
-  Handle(Geom_Curve) curv1, curv2;
+  Handle(GeomCurve3d) curv1, curv2;
   Point3d             firstp1, lastp1, firstp2, lastp2;
 
   // Case with 2 edges connected to the vertex <VERT>
@@ -1618,24 +1618,24 @@ Standard_Boolean PrsDim_IdenticRelation::ComputeDirection(const TopoDS_Wire&   a
       return Standard_False;
 
     Dir3d d1, d2;
-    if (curv1->IsInstance(STANDARD_TYPE(Geom_Circle)))
+    if (curv1->IsInstance(STANDARD_TYPE(GeomCircle)))
     {
-      d1 = ComputeCircleDirection(Handle(Geom_Circle)::DownCast(curv1), VERT);
+      d1 = ComputeCircleDirection(Handle(GeomCircle)::DownCast(curv1), VERT);
     }
-    else if (curv1->IsInstance(STANDARD_TYPE(Geom_Line)))
+    else if (curv1->IsInstance(STANDARD_TYPE(GeomLine)))
     {
-      d1 = ComputeLineDirection(Handle(Geom_Line)::DownCast(curv1), firstp1);
+      d1 = ComputeLineDirection(Handle(GeomLine)::DownCast(curv1), firstp1);
     }
     else
       return Standard_False;
 
-    if (curv2->IsInstance(STANDARD_TYPE(Geom_Circle)))
+    if (curv2->IsInstance(STANDARD_TYPE(GeomCircle)))
     {
-      d2 = ComputeCircleDirection(Handle(Geom_Circle)::DownCast(curv2), VERT);
+      d2 = ComputeCircleDirection(Handle(GeomCircle)::DownCast(curv2), VERT);
     }
-    else if (curv2->IsInstance(STANDARD_TYPE(Geom_Line)))
+    else if (curv2->IsInstance(STANDARD_TYPE(GeomLine)))
     {
-      d2 = ComputeLineDirection(Handle(Geom_Line)::DownCast(curv2), firstp2);
+      d2 = ComputeLineDirection(Handle(GeomLine)::DownCast(curv2), firstp2);
     }
     else
       return Standard_False;
@@ -1651,7 +1651,7 @@ Standard_Boolean PrsDim_IdenticRelation::ComputeDirection(const TopoDS_Wire&   a
   // Case where <VERT> is at an extremity of a wire.
   else
   {
-    TopoDS_Edge VEdge;
+    TopoEdge VEdge;
     if (!edg1.IsNull())
       VEdge = edg1;
     else if (!edg2.IsNull())
@@ -1661,13 +1661,13 @@ Standard_Boolean PrsDim_IdenticRelation::ComputeDirection(const TopoDS_Wire&   a
 
     if (!PrsDim::ComputeGeometry(VEdge, curv1, firstp1, lastp1))
       return Standard_False;
-    if (curv1->IsInstance(STANDARD_TYPE(Geom_Circle)))
+    if (curv1->IsInstance(STANDARD_TYPE(GeomCircle)))
     {
-      dF = ComputeCircleDirection(Handle(Geom_Circle)::DownCast(curv1), VERT);
+      dF = ComputeCircleDirection(Handle(GeomCircle)::DownCast(curv1), VERT);
     }
-    else if (curv1->IsInstance(STANDARD_TYPE(Geom_Line)))
+    else if (curv1->IsInstance(STANDARD_TYPE(GeomLine)))
     {
-      dF = ComputeLineDirection(Handle(Geom_Line)::DownCast(curv1), firstp1);
+      dF = ComputeLineDirection(Handle(GeomLine)::DownCast(curv1), firstp1);
     }
     else
       return Standard_False;
@@ -1678,7 +1678,7 @@ Standard_Boolean PrsDim_IdenticRelation::ComputeDirection(const TopoDS_Wire&   a
 
 //=================================================================================================
 
-Dir3d PrsDim_IdenticRelation::ComputeLineDirection(const Handle(Geom_Line)& lin,
+Dir3d PrsDim_IdenticRelation::ComputeLineDirection(const Handle(GeomLine)& lin,
                                                     const Point3d&            firstP) const
 {
   Dir3d dir;
@@ -1690,10 +1690,10 @@ Dir3d PrsDim_IdenticRelation::ComputeLineDirection(const Handle(Geom_Line)& lin,
 
 //=================================================================================================
 
-Dir3d PrsDim_IdenticRelation::ComputeCircleDirection(const Handle(Geom_Circle)& circ,
-                                                      const TopoDS_Vertex&       VERT) const
+Dir3d PrsDim_IdenticRelation::ComputeCircleDirection(const Handle(GeomCircle)& circ,
+                                                      const TopoVertex&       VERT) const
 {
-  Vector3d V(circ->Location(), BRep_Tool::Pnt(VERT));
+  Vector3d V(circ->Location(), BRepInspector::Pnt(VERT));
   return Dir3d(V);
 }
 
@@ -1702,8 +1702,8 @@ Dir3d PrsDim_IdenticRelation::ComputeCircleDirection(const Handle(Geom_Circle)& 
 void PrsDim_IdenticRelation::ComputeOneEdgeOVertexPresentation(
   const Handle(Prs3d_Presentation)& aPrs)
 {
-  TopoDS_Vertex    V;
-  TopoDS_Edge      E;
+  TopoVertex    V;
+  TopoEdge      E;
   Standard_Integer numedge;
 
   if (myFShape.ShapeType() == TopAbs_VERTEX)
@@ -1719,8 +1719,8 @@ void PrsDim_IdenticRelation::ComputeOneEdgeOVertexPresentation(
     numedge = 1; // edge = 1st shape
   }
   Point3d             ptonedge1, ptonedge2;
-  Handle(Geom_Curve) aCurve;
-  Handle(Geom_Curve) extCurv;
+  Handle(GeomCurve3d) aCurve;
+  Handle(GeomCurve3d) extCurv;
   Standard_Boolean   isInfinite;
   Standard_Boolean   isOnPlanEdge, isOnPlanVertex;
   if (!PrsDim::ComputeGeometry(E,
@@ -1754,7 +1754,7 @@ void PrsDim_IdenticRelation::ComputeOneEdgeOVertexPresentation(
       myExtShape = 1;
   }
   // The attachment points are the point
-  myFAttach = BRep_Tool::Pnt(V);
+  myFAttach = BRepInspector::Pnt(V);
   mySAttach = myFAttach;
 
   Point3d curpos;
@@ -1766,14 +1766,14 @@ void PrsDim_IdenticRelation::ComputeOneEdgeOVertexPresentation(
     // Computation of the direction of the segment of the presentation
     // we take the median of the edges connected to vertices
     Dir3d myDir;
-    if (aCurve->IsKind(STANDARD_TYPE(Geom_Line)))
+    if (aCurve->IsKind(STANDARD_TYPE(GeomLine)))
     {
-      myDir = Handle(Geom_Line)::DownCast(aCurve)->Lin().Direction();
+      myDir = Handle(GeomLine)::DownCast(aCurve)->Lin().Direction();
       myDir.Cross(myPlane->Pln().Axis().Direction());
     }
-    else if (aCurve->IsKind(STANDARD_TYPE(Geom_Circle)))
+    else if (aCurve->IsKind(STANDARD_TYPE(GeomCircle)))
     {
-      Handle(Geom_Circle) CIR = Handle(Geom_Circle)::DownCast(aCurve);
+      Handle(GeomCircle) CIR = Handle(GeomCircle)::DownCast(aCurve);
       myDir.SetXYZ(myFAttach.XYZ() - CIR->Location().XYZ());
     }
     // jfa 10/10/2000
@@ -1794,7 +1794,7 @@ void PrsDim_IdenticRelation::ComputeOneEdgeOVertexPresentation(
   }
 
   // Presentation computation
-  TCollection_ExtendedString vals(" -+-");
+  UtfString vals(" -+-");
   DsgPrs_IdenticPresentation::Add(aPrs, myDrawer, vals, myFAttach, curpos);
   if (myExtShape != 0)
   {
@@ -1802,7 +1802,7 @@ void PrsDim_IdenticRelation::ComputeOneEdgeOVertexPresentation(
     { // the edge is not in the WP
       ComputeProjEdgePresentation(aPrs,
                                   E,
-                                  Handle(Geom_Line)::DownCast(aCurve),
+                                  Handle(GeomLine)::DownCast(aCurve),
                                   ptonedge1,
                                   ptonedge2);
     }

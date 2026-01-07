@@ -34,14 +34,14 @@ DrawTrSurf_Polygon2D::DrawTrSurf_Polygon2D(const Handle(Poly_Polygon2D)& P)
 
 //=================================================================================================
 
-void DrawTrSurf_Polygon2D::DrawOn(Draw_Display& dis) const
+void DrawTrSurf_Polygon2D::DrawOn(DrawDisplay& dis) const
 {
   dis.SetColor(Draw_jaune);
 
   const TColgp_Array1OfPnt2d& Points = myPolygon2D->Nodes();
   for (Standard_Integer i = Points.Lower(); i <= Points.Upper() - 1; i++)
   {
-    dis.Draw(Points(i), Points(i + 1));
+    dis.Draw1(Points(i), Points(i + 1));
   }
 
   if (myNodes)
@@ -97,7 +97,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_Polygon2D::Restore(Standard_IStream& theStrea
 
 //=================================================================================================
 
-void DrawTrSurf_Polygon2D::Whatis(Draw_Interpretor& I) const
+void DrawTrSurf_Polygon2D::Whatis(DrawInterpreter& I) const
 {
   I << "polygon2D";
 }

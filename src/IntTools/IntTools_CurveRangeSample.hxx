@@ -25,10 +25,10 @@
 #include <Standard_Boolean.hxx>
 #include <Standard_Real.hxx>
 
-class IntTools_Range;
+class IntToolsRange;
 
 //! class for range index management of curve
-class IntTools_CurveRangeSample : public IntTools_BaseRangeSample
+class IntTools_CurveRangeSample : public BaseRangeSample
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -48,7 +48,7 @@ public:
 
   bool operator==(const IntTools_CurveRangeSample& Other) const { return IsEqual(Other); }
 
-  Standard_EXPORT IntTools_Range GetRange(const Standard_Real    theFirst,
+  Standard_EXPORT IntToolsRange GetRange(const Standard_Real    theFirst,
                                           const Standard_Real    theLast,
                                           const Standard_Integer theNbSample) const;
 

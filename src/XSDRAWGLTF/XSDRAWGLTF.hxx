@@ -23,8 +23,8 @@ class XSDRAWGLTF
 {
   DEFINE_STANDARD_ALLOC
 public:
-  //! Loads all Draw commands of XSDRAWGLTF. Used for plugin.
-  Standard_EXPORT static void Factory(Draw_Interpretor& theDI);
+  //! Loads all Draw1 commands of XSDRAWGLTF. Used for plugin.
+  Standard_EXPORT static void Factory(DrawInterpreter& theDI);
 };
 
 #endif // _XSDRAWGLTF_HeaderFile

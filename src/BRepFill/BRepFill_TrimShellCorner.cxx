@@ -57,27 +57,27 @@
 #include <BRepExtrema_ExtCC.hxx>
 #include <ShapeFix_Edge.hxx>
 
-static TopoDS_Edge FindEdgeCloseToBisectorPlane(const TopoDS_Vertex& theVertex,
-                                                TopoDS_Compound&     theComp,
+static TopoEdge FindEdgeCloseToBisectorPlane(const TopoVertex& theVertex,
+                                                TopoCompound&     theComp,
                                                 const Axis3d&        theAxis);
 
-static Standard_Boolean FindMiddleEdges(const TopoDS_Vertex&  theVertex1,
-                                        const TopoDS_Vertex&  theVertex2,
+static Standard_Boolean FindMiddleEdges(const TopoVertex&  theVertex1,
+                                        const TopoVertex&  theVertex2,
                                         const Axis3d&         theAxis,
-                                        TopoDS_Compound&      theComp,
-                                        TopTools_ListOfShape& theElist);
+                                        TopoCompound&      theComp,
+                                        ShapeList& theElist);
 
-static Standard_Boolean FindCommonVertex(const TopoDS_Edge&   theFirstEdge,
-                                         const TopoDS_Edge&   theLastEdge,
-                                         const TopoDS_Vertex& theFirstVertex,
-                                         const TopoDS_Vertex& theLastVertex,
-                                         TopoDS_Vertex&       theCommonVertex);
+static Standard_Boolean FindCommonVertex(const TopoEdge&   theFirstEdge,
+                                         const TopoEdge&   theLastEdge,
+                                         const TopoVertex& theFirstVertex,
+                                         const TopoVertex& theLastVertex,
+                                         TopoVertex&       theCommonVertex);
 
 static Standard_Boolean FindCommonVertex(const BOPDS_PDS&       theDS,
                                          const Standard_Integer theEIndex1,
                                          const Standard_Integer theEIndex2,
                                          const Vector3d&          theCrossDirection,
-                                         TopoDS_Vertex&         theCommonVertex,
+                                         TopoVertex&         theCommonVertex,
                                          Standard_Real&         theParamOnE1,
                                          Standard_Real&         theParamOnE2);
 
@@ -88,44 +88,44 @@ static Standard_Boolean SplitUEdges(const Handle(TopTools_HArray2OfShape)& theUE
 
 static void StoreVedgeInHistMap(const Handle(TopTools_HArray1OfShape)& theVEdges,
                                 const Standard_Integer                 theIndex,
-                                const TopoDS_Shape&                    theNewVedge,
+                                const TopoShape&                    theNewVedge,
                                 TopTools_DataMapOfShapeListOfShape&    theHistMap);
 
-static void FindFreeVertices(const TopoDS_Shape&        theShape,
+static void FindFreeVertices(const TopoShape&        theShape,
                              const TopTools_MapOfShape& theVerticesToAvoid,
-                             TopTools_ListOfShape&      theListOfVertex);
+                             ShapeList&      theListOfVertex);
 
-static Standard_Boolean CheckAndOrientEdges(const TopTools_ListOfShape& theOrderedList,
+static Standard_Boolean CheckAndOrientEdges(const ShapeList& theOrderedList,
                                             const gp_Pnt2d&             theFirstPoint,
                                             const gp_Pnt2d&             theLastPoint,
-                                            const TopoDS_Face&          theFace,
-                                            TopTools_ListOfShape&       theOrientedList);
+                                            const TopoFace&          theFace,
+                                            ShapeList&       theOrientedList);
 
-static Standard_Boolean FillGap(const TopoDS_Vertex&   theFirstVertex,
-                                const TopoDS_Vertex&   theLastVertex,
+static Standard_Boolean FillGap(const TopoVertex&   theFirstVertex,
+                                const TopoVertex&   theLastVertex,
                                 const gp_Pnt2d&        theFirstPoint,
                                 const gp_Pnt2d&        theLastPoint,
-                                const TopoDS_Face&     theFace,
-                                const TopoDS_Compound& theSectionEdges,
-                                TopTools_ListOfShape&  theOrderedList);
+                                const TopoFace&     theFace,
+                                const TopoCompound& theSectionEdges,
+                                ShapeList&  theOrderedList);
 
-static Standard_Boolean FindNextEdge(const TopoDS_Vertex& theFirstVertex,
-                                     const TopoDS_Vertex& theLastVertex,
+static Standard_Boolean FindNextEdge(const TopoVertex& theFirstVertex,
+                                     const TopoVertex& theLastVertex,
                                      const TopTools_IndexedDataMapOfShapeListOfShape& theMapVE,
                                      const TopTools_MapOfShape&                       theMapToAvoid,
-                                     TopTools_ListOfShape& theOrderedList);
+                                     ShapeList& theOrderedList);
 
-static Standard_Boolean FindVertex(const TopoDS_Edge&                        theEdge,
+static Standard_Boolean FindVertex(const TopoEdge&                        theEdge,
                                    const Standard_Integer                    theRank,
                                    const BOPDS_PDS&                          theDS,
                                    const TopTools_DataMapOfShapeListOfShape& theHistMap,
-                                   TopoDS_Vertex&                            theVertex,
+                                   TopoVertex&                            theVertex,
                                    BOPDS_Pave&                               thePave);
 
 static Standard_Boolean FindNextVertex(const Standard_Integer theEdgeIndex,
                                        const BOPDS_Pave&      thePrevPave,
                                        const BOPDS_PDS&       theDS,
-                                       TopoDS_Vertex&         theNextVertex,
+                                       TopoVertex&         theNextVertex,
                                        BOPDS_Pave&            thePave);
 
 static Standard_Boolean GetPave(const Standard_Integer theEdgeIndex,
@@ -133,60 +133,60 @@ static Standard_Boolean GetPave(const Standard_Integer theEdgeIndex,
                                 const BOPDS_PDS&       theDS,
                                 BOPDS_Pave&            thePave);
 
-static Standard_Boolean FindFromUEdge(const TopoDS_Edge&                        theUE1Old,
-                                      const TopoDS_Edge&                        theUE2Old,
-                                      const TopoDS_Edge&                        theUE1New,
-                                      const TopoDS_Edge&                        theUE2New,
-                                      const TopoDS_Face&                        theFace,
-                                      const TopoDS_Compound&                    theSecEdges,
+static Standard_Boolean FindFromUEdge(const TopoEdge&                        theUE1Old,
+                                      const TopoEdge&                        theUE2Old,
+                                      const TopoEdge&                        theUE1New,
+                                      const TopoEdge&                        theUE2New,
+                                      const TopoFace&                        theFace,
+                                      const TopoCompound&                    theSecEdges,
                                       const Standard_Integer                    theRank,
-                                      const TopoDS_Edge&                        theBoundEdge,
+                                      const TopoEdge&                        theBoundEdge,
                                       const Standard_Integer                    theBoundEdgeIndex,
                                       const BOPDS_PDS&                          theDS,
                                       const TopTools_DataMapOfShapeListOfShape& theHistMap,
-                                      TopoDS_Compound&                          theSecEdgesNew,
-                                      TopTools_ListOfShape&                     theListOfWireEdges,
+                                      TopoCompound&                          theSecEdgesNew,
+                                      ShapeList&                     theListOfWireEdges,
                                       BOPDS_Pave&                               theFoundPave,
                                       Standard_Boolean&                         isOnUEdge);
 
 static Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrevPave,
                                       const Standard_Boolean&                   isOnUEdge,
-                                      const TopoDS_Edge&                        theUE1Old,
-                                      const TopoDS_Edge&                        theUE2Old,
-                                      const TopoDS_Face&                        theFace,
-                                      const TopoDS_Compound&                    theSecEdges,
+                                      const TopoEdge&                        theUE1Old,
+                                      const TopoEdge&                        theUE2Old,
+                                      const TopoFace&                        theFace,
+                                      const TopoCompound&                    theSecEdges,
                                       const Standard_Integer                    theRank,
-                                      const TopoDS_Edge&                        theBoundEdge,
+                                      const TopoEdge&                        theBoundEdge,
                                       const Standard_Integer                    theBoundEdgeIndex,
                                       const BOPDS_PDS&                          theDS,
                                       const TopTools_DataMapOfShapeListOfShape& theHistMap,
-                                      TopTools_ListOfShape&                     theListOfWireEdges,
+                                      ShapeList&                     theListOfWireEdges,
                                       Standard_Boolean&                         isSectionFound);
 
-static void RemoveEdges(const TopoDS_Compound&      theSourceComp,
-                        const TopTools_ListOfShape& theListToRemove,
-                        TopoDS_Compound&            theResultComp);
+static void RemoveEdges(const TopoCompound&      theSourceComp,
+                        const ShapeList& theListToRemove,
+                        TopoCompound&            theResultComp);
 
 static Standard_Boolean FilterSectionEdges(const BOPDS_VectorOfCurve& theBCurves,
-                                           const TopoDS_Face&         theSecPlane,
+                                           const TopoFace&         theSecPlane,
                                            const BOPDS_PDS&           theDS,
-                                           TopoDS_Compound&           theResult);
+                                           TopoCompound&           theResult);
 
 static Standard_Boolean GetUEdges(const Standard_Integer                 theIndex,
                                   const Standard_Integer                 theRank,
                                   const Handle(TopTools_HArray2OfShape)& theUEdges,
-                                  const TopoDS_Edge&                     theBoundEdge,
-                                  const TopoDS_Face&                     theFace,
-                                  TopoDS_Edge&                           theFirstUEdge,
-                                  TopoDS_Edge&                           theSecondUEdge);
+                                  const TopoEdge&                     theBoundEdge,
+                                  const TopoFace&                     theFace,
+                                  TopoEdge&                           theFirstUEdge,
+                                  TopoEdge&                           theSecondUEdge);
 
-static Standard_Real ComputeAveragePlaneAndMaxDeviation(const TopoDS_Shape& aWire,
+static Standard_Real ComputeAveragePlaneAndMaxDeviation(const TopoShape& aWire,
                                                         gp_Pln&             thePlane,
                                                         Standard_Boolean&   IsSingular);
 
-static void UpdateSectionEdge(TopoDS_Edge&         theEdge,
-                              const TopoDS_Vertex& theConstVertex,
-                              TopoDS_Vertex&       theVertex,
+static void UpdateSectionEdge(TopoEdge&         theEdge,
+                              const TopoVertex& theConstVertex,
+                              TopoVertex&       theVertex,
                               const Standard_Real  theParam);
 
 //=================================================================================================
@@ -254,18 +254,18 @@ void BRepFill_TrimShellCorner::Perform()
   if (myFaces->RowLength() != 2)
     return;
   Standard_Integer ii = 0, jj = 0;
-  BRep_Builder     aBB;
+  ShapeBuilder     aBB;
 
   for (jj = myFaces->LowerCol(); jj <= myFaces->UpperCol(); jj++)
   {
-    TopoDS_Shell aShell;
+    TopoShell aShell;
     aBB.MakeShell(aShell);
 
     for (ii = myFaces->LowerRow(); ii <= myFaces->UpperRow(); ii++)
     {
       aBB.Add(aShell, myFaces->Value(ii, jj));
     }
-    aShell.Closed(BRep_Tool::IsClosed(aShell));
+    aShell.Closed(BRepInspector::IsClosed(aShell));
 
     if (jj == myFaces->LowerCol())
     {
@@ -278,21 +278,21 @@ void BRepFill_TrimShellCorner::Perform()
   }
 
   Standard_Real   aMaxTol = 0.;
-  TopExp_Explorer anExp(myShape1, TopAbs_VERTEX);
+  ShapeExplorer anExp(myShape1, TopAbs_VERTEX);
   for (; anExp.More(); anExp.Next())
   {
-    aMaxTol = Max(aMaxTol, BRep_Tool::Tolerance(TopoDS::Vertex(anExp.Current())));
+    aMaxTol = Max(aMaxTol, BRepInspector::Tolerance(TopoDS::Vertex(anExp.Current())));
   }
 
   anExp.Init(myShape2, TopAbs_VERTEX);
   for (; anExp.More(); anExp.Next())
   {
-    aMaxTol = Max(aMaxTol, BRep_Tool::Tolerance(TopoDS::Vertex(anExp.Current())));
+    aMaxTol = Max(aMaxTol, BRepInspector::Tolerance(TopoDS::Vertex(anExp.Current())));
   }
 
   Standard_Real        aFuzzy = 4. * Precision::Confusion();
-  BOPAlgo_PaveFiller   aPF;
-  TopTools_ListOfShape aLS;
+  BooleanPaveFiller   aPF;
+  ShapeList aLS;
   aLS.Append(myShape1);
   aLS.Append(myShape2);
   aPF.SetArguments(aLS);
@@ -320,8 +320,8 @@ void BRepFill_TrimShellCorner::Perform()
 
   for (ii = myFaces->LowerRow(); ii <= myFaces->UpperRow(); ii++)
   {
-    TopoDS_Shape aF1 = myFaces->Value(ii, myFaces->LowerCol());
-    TopoDS_Shape aF2 = myFaces->Value(ii, myFaces->UpperCol());
+    TopoShape aF1 = myFaces->Value(ii, myFaces->LowerCol());
+    TopoShape aF2 = myFaces->Value(ii, myFaces->UpperCol());
     //
     anIndex1 = theDS->Index(aF1);
     anIndex2 = theDS->Index(aF2);
@@ -401,8 +401,8 @@ Standard_Boolean BRepFill_TrimShellCorner::HasSection() const
 
 //=================================================================================================
 
-void BRepFill_TrimShellCorner::Modified(const TopoDS_Shape&   theShape,
-                                        TopTools_ListOfShape& theModified)
+void BRepFill_TrimShellCorner::Modified(const TopoShape&   theShape,
+                                        ShapeList& theModified)
 {
   theModified.Clear();
 
@@ -422,14 +422,14 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
                                                            const Standard_Integer theFaceIndex2)
 {
   Standard_Boolean bHasNewEdge = Standard_False;
-  TopoDS_Edge      aNewEdge;
+  TopoEdge      aNewEdge;
 
-  BRep_Builder        aBB;
-  const TopoDS_Shape& aE1 = myBounds->Value(theIndex, 1);
-  const TopoDS_Shape& aE2 = myBounds->Value(theIndex, 2);
+  ShapeBuilder        aBB;
+  const TopoShape& aE1 = myBounds->Value(theIndex, 1);
+  const TopoShape& aE2 = myBounds->Value(theIndex, 2);
 
   // search common vertex between bounds. begin
-  TopoDS_Vertex    aCommonVertex;
+  TopoVertex    aCommonVertex;
   Standard_Integer anIndex1 = theDS->Index(aE1);
   Standard_Integer anIndex2 = theDS->Index(aE2);
   Standard_Real    apar1 = 0., apar2 = 0.;
@@ -441,20 +441,20 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
   Handle(BRepTools_ReShape) aSubstitutor = new BRepTools_ReShape();
 
   // search common vertices between uedges. begin
-  TopTools_ListOfShape aCommonVertices;
+  ShapeList aCommonVertices;
   Standard_Integer     acommonflag = 0; // 0 - no, 1 - first pair, 2 - second pair, 3 - both
   Standard_Integer     ueit = 0, eindex = 0;
 
   for (ueit = 1, eindex = theIndex; ueit <= 2; ueit++, eindex++)
   {
-    const TopoDS_Shape& aShape1 = myUEdges->Value(eindex, myUEdges->LowerCol());
-    const TopoDS_Shape& aShape2 = myUEdges->Value(eindex, myUEdges->UpperCol());
-    TopoDS_Edge         aUE1    = TopoDS::Edge(aShape1);
-    TopoDS_Edge         aUE2    = TopoDS::Edge(aShape2);
+    const TopoShape& aShape1 = myUEdges->Value(eindex, myUEdges->LowerCol());
+    const TopoShape& aShape2 = myUEdges->Value(eindex, myUEdges->UpperCol());
+    TopoEdge         aUE1    = TopoDS::Edge(aShape1);
+    TopoEdge         aUE2    = TopoDS::Edge(aShape2);
 
     if (myHistMap.IsBound(aShape1))
     {
-      const TopTools_ListOfShape& lst = myHistMap.Find(aShape1);
+      const ShapeList& lst = myHistMap.Find(aShape1);
 
       if (!lst.IsEmpty())
         aUE1 = TopoDS::Edge(lst.First());
@@ -462,7 +462,7 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
 
     if (myHistMap.IsBound(aShape2))
     {
-      const TopTools_ListOfShape& lst = myHistMap.Find(aShape2);
+      const ShapeList& lst = myHistMap.Find(aShape2);
 
       if (!lst.IsEmpty())
         aUE2 = TopoDS::Edge(lst.First());
@@ -474,8 +474,8 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
     if (!aShape2.IsSame(aUE2))
       aSubstitutor->Replace(aShape2.Oriented(TopAbs_FORWARD), aUE2.Oriented(TopAbs_FORWARD));
 
-    TopoDS_Vertex V1 = TopExp::LastVertex(aUE1);
-    TopoDS_Vertex V2 = TopExp::FirstVertex(aUE2);
+    TopoVertex V1 = TopExp1::LastVertex(aUE1);
+    TopoVertex V2 = TopExp1::FirstVertex(aUE2);
 
     if (V1.IsSame(V2))
     {
@@ -508,24 +508,24 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
 
   for (fit = 1; fit <= 2; fit++)
   {
-    TopoDS_Compound     aComp;
+    TopoCompound     aComp;
     TopTools_MapOfShape aMapV;
     aBB.MakeCompound(aComp);
 
     for (ueit = 1, eindex = theIndex; ueit <= 2; ueit++, eindex++)
     {
-      const TopoDS_Shape& aShape = myUEdges->Value(eindex, myUEdges->LowerCol() + fit - 1);
-      TopoDS_Shape        aUE    = aShape;
+      const TopoShape& aShape = myUEdges->Value(eindex, myUEdges->LowerCol() + fit - 1);
+      TopoShape        aUE    = aShape;
 
       if (myHistMap.IsBound(aShape))
       {
-        const TopTools_ListOfShape& lst = myHistMap.Find(aShape);
+        const ShapeList& lst = myHistMap.Find(aShape);
 
         if (!lst.IsEmpty())
           aUE = TopoDS::Edge(lst.First());
       }
-      const TopoDS_Shape& aV =
-        (fit == 1) ? TopExp::FirstVertex(TopoDS::Edge(aUE)) : TopExp::LastVertex(TopoDS::Edge(aUE));
+      const TopoShape& aV =
+        (fit == 1) ? TopExp1::FirstVertex(TopoDS::Edge(aUE)) : TopExp1::LastVertex(TopoDS::Edge(aUE));
       aMapV.Add(aV);
       aBB.Add(aComp, aUE);
     }
@@ -536,18 +536,18 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
       StoreVedgeInHistMap(myVEdges, theIndex, aNewEdge, myHistMap);
     }
 
-    TopTools_ListOfShape alonevertices;
+    ShapeList alonevertices;
     FindFreeVertices(aComp, aMapV, alonevertices);
 
     if (!alonevertices.IsEmpty() && (alonevertices.Extent() != 2))
       return Standard_False;
 
     Standard_Integer   aFaceIndex = (fit == 1) ? theFaceIndex1 : theFaceIndex2;
-    TopoDS_Shape       aFace      = theDS->Shape(aFaceIndex);
+    TopoShape       aFace      = theDS->Shape(aFaceIndex);
     TopAbs_Orientation aFaceOri   = aFace.Orientation();
     aFace.Orientation(TopAbs_FORWARD);
 
-    TopExp_Explorer anExpE(aFace, TopAbs_EDGE);
+    ShapeExplorer anExpE(aFace, TopAbs_EDGE);
 
     if (bHasNewEdge)
     {
@@ -556,14 +556,14 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
       // Refer to BrepFill_Sweep.cxx BuildEdge Construct an edge via an iso
       Point3d        P1, P2;
       Standard_Real p11, p12, p21, p22;
-      P1 = BRep_Tool::Pnt(TopExp::FirstVertex(TopoDS::Edge(aNewEdge)));
-      P2 = BRep_Tool::Pnt(TopExp::LastVertex(TopoDS::Edge(aNewEdge)));
+      P1 = BRepInspector::Pnt(TopExp1::FirstVertex(TopoDS::Edge(aNewEdge)));
+      P2 = BRepInspector::Pnt(TopExp1::LastVertex(TopoDS::Edge(aNewEdge)));
 
-      TopoDS_Edge aERef = TopoDS::Edge(fit == 1 ? aE1 : aE2);
-      p11               = P1.Distance(BRep_Tool::Pnt(TopExp::FirstVertex(aERef)));
-      p22               = P2.Distance(BRep_Tool::Pnt(TopExp::LastVertex(aERef)));
-      p12               = P1.Distance(BRep_Tool::Pnt(TopExp::LastVertex(aERef)));
-      p21               = P2.Distance(BRep_Tool::Pnt(TopExp::FirstVertex(aERef)));
+      TopoEdge aERef = TopoDS::Edge(fit == 1 ? aE1 : aE2);
+      p11               = P1.Distance(BRepInspector::Pnt(TopExp1::FirstVertex(aERef)));
+      p22               = P2.Distance(BRepInspector::Pnt(TopExp1::LastVertex(aERef)));
+      p12               = P1.Distance(BRepInspector::Pnt(TopExp1::LastVertex(aERef)));
+      p21               = P2.Distance(BRepInspector::Pnt(TopExp1::FirstVertex(aERef)));
 
       if (p11 > p12 && p22 > p21)
       {
@@ -575,7 +575,7 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
       sfe->FixAddPCurve(aNewEdge, TopoDS::Face(aFace), Standard_False);
     }
 
-    TopTools_ListOfShape aOrderedList;
+    ShapeList aOrderedList;
 
     if (!alonevertices.IsEmpty())
     {
@@ -591,7 +591,7 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
       for (; aIt.More(); aIt.Next())
       {
         const BOPDS_Pave&   aPave = aIt.Value();
-        const TopoDS_Shape& aV    = theDS->Shape(aPave.Index());
+        const TopoShape& aV    = theDS->Shape(aPave.Index());
 
         if (aV.IsSame(alonevertices.First()))
         {
@@ -614,7 +614,7 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
 
       if (bfound1 && bfound2)
       {
-        TopoDS_Edge aNewBoundE;
+        TopoEdge aNewBoundE;
 
         if (fit == 1)
         {
@@ -624,7 +624,7 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
         {
           aNewBoundE = TopoDS::Edge(aE2.EmptyCopied());
         }
-        TopoDS_Vertex aV1, aV2;
+        TopoVertex aV1, aV2;
 
         if (aparam1 < aparam2)
         {
@@ -650,7 +650,7 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
 
         if (bHasNewEdge)
         {
-          TopExp_Explorer  anExpV(aNewEdge, TopAbs_VERTEX);
+          ShapeExplorer  anExpV(aNewEdge, TopAbs_VERTEX);
           Standard_Boolean bfoundv = Standard_False;
 
           for (; !bfoundv && anExpV.More(); anExpV.Next())
@@ -680,7 +680,7 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
 
     if (!aOrderedList.IsEmpty())
     {
-      TopoDS_Wire aW;
+      TopoWire aW;
       aBB.MakeWire(aW);
       TopTools_ListIteratorOfListOfShape anItE(aOrderedList);
 
@@ -695,9 +695,9 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
     }
 
     aSubstitutor->Apply(aFace);
-    TopoDS_Shape aNewFace = aSubstitutor->Value(aFace);
+    TopoShape aNewFace = aSubstitutor->Value(aFace);
     aNewFace.Orientation(aFaceOri);
-    TopTools_ListOfShape atmpList;
+    ShapeList atmpList;
     atmpList.Append(aNewFace);
     myHistMap.Bind(aFace, atmpList);
 
@@ -705,15 +705,15 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesNonSec(const Standard_Intege
 
     for (; anExpE.More(); anExpE.Next())
     {
-      TopoDS_Shape aNewValue = aSubstitutor->Value(anExpE.Current());
+      TopoShape aNewValue = aSubstitutor->Value(anExpE.Current());
 
       if (aNewValue.IsNull() || aNewValue.IsSame(anExpE.Current()))
         continue;
 
       if (myHistMap.IsBound(anExpE.Current()))
         continue;
-      TopTools_ListOfShape aListOfNewEdge;
-      TopExp_Explorer      anExpE2(aNewValue, TopAbs_EDGE);
+      ShapeList aListOfNewEdge;
+      ShapeExplorer      anExpE2(aNewValue, TopAbs_EDGE);
 
       for (; anExpE2.More(); anExpE2.Next())
       {
@@ -740,24 +740,24 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesSec(const Standard_Integer t
   const BOPDS_InterfFF&         aFFi     = aFFs(theSSInterfIndex);
   const BOPDS_VectorOfCurve&    aBCurves = aFFi.Curves();
 
-  TopoDS_Compound aSecEdges;
-  TopoDS_Face     aSecPlane;
+  TopoCompound aSecEdges;
+  TopoFace     aSecPlane;
 
   if (!FilterSectionEdges(aBCurves, aSecPlane, theDS, aSecEdges))
     return Standard_False;
 
   // Extract vertices on the intersection of correspondent U-edges
-  const TopoDS_Shape& LeftE1  = myUEdges->Value(theIndex, 1);
-  const TopoDS_Shape& LeftE2  = myUEdges->Value(theIndex, 2);
-  const TopoDS_Shape& RightE1 = myUEdges->Value(theIndex + 1, 1);
-  const TopoDS_Shape& RightE2 = myUEdges->Value(theIndex + 1, 2);
+  const TopoShape& LeftE1  = myUEdges->Value(theIndex, 1);
+  const TopoShape& LeftE2  = myUEdges->Value(theIndex, 2);
+  const TopoShape& RightE1 = myUEdges->Value(theIndex + 1, 1);
+  const TopoShape& RightE2 = myUEdges->Value(theIndex + 1, 2);
 
   Standard_Integer IndexOfLeftE1  = theDS->Index(LeftE1);
   Standard_Integer IndexOfLeftE2  = theDS->Index(LeftE2);
   Standard_Integer IndexOfRightE1 = theDS->Index(RightE1);
   Standard_Integer IndexOfRightE2 = theDS->Index(RightE2);
 
-  TopoDS_Vertex FirstVertex, LastVertex;
+  TopoVertex FirstVertex, LastVertex;
   Standard_Real ParamOnLeftE1, ParamOnLeftE2, ParamOnRightE1, ParamOnRightE2;
   FindCommonVertex(theDS,
                    IndexOfLeftE1,
@@ -774,7 +774,7 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesSec(const Standard_Integer t
                    ParamOnRightE1,
                    ParamOnRightE2);
 
-  TopoDS_Shape     SecWire;
+  TopoShape     SecWire;
   gp_Pln           SecPlane;
   Standard_Boolean IsSingular;
   Standard_Boolean WireFound =
@@ -783,10 +783,10 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesSec(const Standard_Integer t
   if (WireFound)
   {
     // aSecEdges = SecWire;
-    TopoDS_Compound aComp;
-    BRep_Builder    BB;
+    TopoCompound aComp;
+    ShapeBuilder    BB;
     BB.MakeCompound(aComp);
-    TopExp_Explorer explo(SecWire, TopAbs_EDGE);
+    ShapeExplorer explo(SecWire, TopAbs_EDGE);
 
     for (; explo.More(); explo.Next())
       BB.Add(aComp, explo.Current());
@@ -795,7 +795,7 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesSec(const Standard_Integer t
     StoreVedgeInHistMap(myVEdges, theIndex, SecWire, myHistMap);
   }
 
-  TopTools_ListOfShape aCommonVertices;
+  ShapeList aCommonVertices;
   //  Standard_Integer acommonflag = 0; // 0 - no, 1 - first pair, 2 - second pair, 3 - both
   Standard_Integer          fit          = 0; //, ueit = 0, eindex = 0, i = 0;
   Handle(BRepTools_ReShape) aSubstitutor = new BRepTools_ReShape();
@@ -803,28 +803,28 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesSec(const Standard_Integer t
   for (fit = 0; fit < 2; fit++)
   {
     Standard_Integer   aFaceIndex = (fit == 0) ? theFaceIndex1 : theFaceIndex2;
-    TopoDS_Face        aFace      = TopoDS::Face(theDS->Shape(aFaceIndex));
+    TopoFace        aFace      = TopoDS::Face(theDS->Shape(aFaceIndex));
     TopAbs_Orientation aFaceOri   = aFace.Orientation();
-    TopoDS_Face        aFaceF     = aFace;
+    TopoFace        aFaceF     = aFace;
     aFaceF.Orientation(TopAbs_FORWARD);
-    TopoDS_Edge aBoundEdge = TopoDS::Edge(myBounds->Value(theIndex, myBounds->LowerCol() + fit));
+    TopoEdge aBoundEdge = TopoDS::Edge(myBounds->Value(theIndex, myBounds->LowerCol() + fit));
     Standard_Integer aBoundEdgeIndex = theDS->Index(aBoundEdge);
-    TopoDS_Edge      aUE1;
-    TopoDS_Edge      aUE2;
+    TopoEdge      aUE1;
+    TopoEdge      aUE2;
 
     if (!GetUEdges(theIndex, fit, myUEdges, aBoundEdge, aFaceF, aUE1, aUE2))
       return Standard_False;
 
-    TopoDS_Edge aUE1old = aUE1;
-    TopoDS_Edge aUE2old = aUE2;
+    TopoEdge aUE1old = aUE1;
+    TopoEdge aUE2old = aUE2;
 
     if (myHistMap.IsBound(aUE1))
     {
-      const TopTools_ListOfShape& lst = myHistMap.Find(aUE1);
+      const ShapeList& lst = myHistMap.Find(aUE1);
 
       if (!lst.IsEmpty())
       {
-        const TopoDS_Shape& anEdge = lst.First().Oriented(aUE1.Orientation());
+        const TopoShape& anEdge = lst.First().Oriented(aUE1.Orientation());
 
         if (!aUE1.IsSame(anEdge))
           aSubstitutor->Replace(aUE1.Oriented(TopAbs_FORWARD), anEdge.Oriented(TopAbs_FORWARD));
@@ -834,21 +834,21 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesSec(const Standard_Integer t
 
     if (myHistMap.IsBound(aUE2))
     {
-      const TopTools_ListOfShape& lst = myHistMap.Find(aUE2);
+      const ShapeList& lst = myHistMap.Find(aUE2);
 
       if (!lst.IsEmpty())
       {
-        const TopoDS_Shape& anEdge = lst.First().Oriented(aUE2.Orientation());
+        const TopoShape& anEdge = lst.First().Oriented(aUE2.Orientation());
 
         if (!aUE2.IsSame(anEdge))
           aSubstitutor->Replace(aUE2.Oriented(TopAbs_FORWARD), anEdge.Oriented(TopAbs_FORWARD));
         aUE2 = TopoDS::Edge(anEdge);
       }
     }
-    TopoDS_Vertex        aPrevVertex, aNextVertex;
-    TopoDS_Compound      aCompOfSecEdges = aSecEdges;
-    TopTools_ListOfShape aListOfWireEdges;
-    BRep_Builder         aBB;
+    TopoVertex        aPrevVertex, aNextVertex;
+    TopoCompound      aCompOfSecEdges = aSecEdges;
+    ShapeList aListOfWireEdges;
+    ShapeBuilder         aBB;
     BOPDS_Pave           aPave1;
     Standard_Boolean     isPave1OnUEdge = Standard_True;
 
@@ -868,7 +868,7 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesSec(const Standard_Integer t
                       aPave1,
                       isPave1OnUEdge))
     {
-      TopTools_ListOfShape aSecondListOfEdges;
+      ShapeList aSecondListOfEdges;
       Standard_Boolean     bisSectionFound = Standard_False;
 
       if (!FindFromVEdge(aPave1,
@@ -901,7 +901,7 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesSec(const Standard_Integer t
 
     if (!aListOfWireEdges.IsEmpty())
     {
-      TopoDS_Wire aW;
+      TopoWire aW;
       aBB.MakeWire(aW);
       TopTools_ListIteratorOfListOfShape aEIt(aListOfWireEdges);
 
@@ -914,25 +914,25 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesSec(const Standard_Integer t
     }
 
     aSubstitutor->Apply(aFace);
-    TopoDS_Shape aNewFace = aSubstitutor->Value(aFace);
+    TopoShape aNewFace = aSubstitutor->Value(aFace);
     aNewFace.Orientation(aFaceOri);
-    TopTools_ListOfShape atmpList;
+    ShapeList atmpList;
     atmpList.Append(aNewFace);
     myHistMap.Bind(aFace, atmpList);
 
-    TopExp_Explorer anExpE(aFace, TopAbs_EDGE);
+    ShapeExplorer anExpE(aFace, TopAbs_EDGE);
 
     for (; anExpE.More(); anExpE.Next())
     {
-      TopoDS_Shape aNewValue = aSubstitutor->Value(anExpE.Current());
+      TopoShape aNewValue = aSubstitutor->Value(anExpE.Current());
 
       if (aNewValue.IsNull() || aNewValue.IsSame(anExpE.Current()))
         continue;
 
       if (myHistMap.IsBound(anExpE.Current()))
         continue;
-      TopTools_ListOfShape aListOfNewEdge;
-      TopExp_Explorer      anExpE2(aNewValue, TopAbs_EDGE);
+      ShapeList aListOfNewEdge;
+      ShapeExplorer      anExpE2(aNewValue, TopAbs_EDGE);
 
       for (; anExpE2.More(); anExpE2.Next())
       {
@@ -946,32 +946,32 @@ Standard_Boolean BRepFill_TrimShellCorner::MakeFacesSec(const Standard_Integer t
 
 //=================================================================================================
 
-Standard_Boolean BRepFill_TrimShellCorner::ChooseSection(const TopoDS_Shape&  Comp,
-                                                         const TopoDS_Vertex& theFirstVertex,
-                                                         const TopoDS_Vertex& theLastVertex,
-                                                         TopoDS_Shape&        resWire,
+Standard_Boolean BRepFill_TrimShellCorner::ChooseSection(const TopoShape&  Comp,
+                                                         const TopoVertex& theFirstVertex,
+                                                         const TopoVertex& theLastVertex,
+                                                         TopoShape&        resWire,
                                                          gp_Pln&              resPlane,
                                                          Standard_Boolean&    IsSingular)
 {
   IsSingular = Standard_False;
 
   Standard_Integer ind, i, j;
-  BRep_Builder     BB;
+  ShapeBuilder     BB;
 
   if (myTransition == BRepFill_Right && !theFirstVertex.IsNull()
       && !theLastVertex.IsNull()) // the case where section wire goes from
   // its known first vertex to its known last vertex
   {
-    TopoDS_Wire NewWire;
+    TopoWire NewWire;
     BB.MakeWire(NewWire);
 
-    TopoDS_Compound OldComp;
+    TopoCompound OldComp;
     BB.MakeCompound(OldComp);
     TopoDS_Iterator iter(Comp);
     for (; iter.More(); iter.Next())
       BB.Add(OldComp, iter.Value());
 
-    TopoDS_Edge FirstEdge =
+    TopoEdge FirstEdge =
       FindEdgeCloseToBisectorPlane(theFirstVertex, OldComp, myAxeOfBisPlane.Axis());
     if (FirstEdge.IsNull())
       return Standard_False;
@@ -982,7 +982,7 @@ Standard_Boolean BRepFill_TrimShellCorner::ChooseSection(const TopoDS_Shape&  Co
       iter.Initialize(Comp);
       BB.Add(OldComp, iter.Value());
     }
-    TopoDS_Edge LastEdge =
+    TopoEdge LastEdge =
       FindEdgeCloseToBisectorPlane(theLastVertex, OldComp, myAxeOfBisPlane.Axis());
     if (LastEdge.IsNull())
       return Standard_False;
@@ -996,20 +996,20 @@ Standard_Boolean BRepFill_TrimShellCorner::ChooseSection(const TopoDS_Shape&  Co
 
     if (!FirstEdge.IsSame(LastEdge))
     {
-      TopoDS_Vertex    aCommonVertex;
+      TopoVertex    aCommonVertex;
       Standard_Boolean CommonVertexExists =
         FindCommonVertex(FirstEdge, LastEdge, theFirstVertex, theLastVertex, aCommonVertex);
       if (CommonVertexExists)
         BB.Add(NewWire, LastEdge);
       else
       {
-        TopoDS_Vertex Vertex1, Vertex2, V1, V2;
-        TopExp::Vertices(FirstEdge, V1, V2);
+        TopoVertex Vertex1, Vertex2, V1, V2;
+        TopExp1::Vertices(FirstEdge, V1, V2);
         Vertex1 = (theFirstVertex.IsSame(V1)) ? V2 : V1;
-        TopExp::Vertices(LastEdge, V1, V2);
+        TopExp1::Vertices(LastEdge, V1, V2);
         Vertex2 = (theLastVertex.IsSame(V1)) ? V2 : V1;
 
-        TopTools_ListOfShape MiddleEdges;
+        ShapeList MiddleEdges;
         if (FindMiddleEdges(Vertex1, Vertex2, myAxeOfBisPlane.Axis(), OldComp, MiddleEdges))
         {
           TopTools_ListIteratorOfListOfShape itl(MiddleEdges);
@@ -1053,23 +1053,23 @@ Standard_Boolean BRepFill_TrimShellCorner::ChooseSection(const TopoDS_Shape&  Co
   }
 
   // General case: try to find continuous section closest to bisector plane
-  TopoDS_Compound OldComp;
-  BRep_Builder    B;
+  TopoCompound OldComp;
+  ShapeBuilder    B;
   B.MakeCompound(OldComp);
   TopoDS_Iterator iter(Comp);
   for (; iter.More(); iter.Next())
     B.Add(OldComp, iter.Value());
 
   Standard_Boolean anError = Standard_False;
-  // TopoDS_Wire NewWire [2];
+  // TopoWire NewWire [2];
   TopTools_SequenceOfShape Wseq;
   for (;;)
   {
-    TopExp_Explorer explo(OldComp, TopAbs_EDGE);
+    ShapeExplorer explo(OldComp, TopAbs_EDGE);
     if (!explo.More())
       break;
-    TopoDS_Edge FirstEdge = TopoDS::Edge(explo.Current());
-    TopoDS_Wire NewWire   = BRepLib_MakeWire(FirstEdge);
+    TopoEdge FirstEdge = TopoDS::Edge(explo.Current());
+    TopoWire NewWire   = BRepLib_MakeWire(FirstEdge);
     B.Remove(OldComp, FirstEdge);
     if (NewWire.Closed())
     {
@@ -1079,16 +1079,16 @@ Standard_Boolean BRepFill_TrimShellCorner::ChooseSection(const TopoDS_Shape&  Co
 
     for (;;)
     {
-      TopoDS_Vertex Extremity[2];
-      TopExp::Vertices(NewWire, Extremity[0], Extremity[1]);
+      TopoVertex Extremity[2];
+      TopExp1::Vertices(NewWire, Extremity[0], Extremity[1]);
       if (Extremity[0].IsNull() || Extremity[1].IsNull())
       {
         anError = Standard_True;
         break;
       }
       TopTools_IndexedDataMapOfShapeListOfShape VEmap;
-      TopExp::MapShapesAndAncestors(OldComp, TopAbs_VERTEX, TopAbs_EDGE, VEmap);
-      TopTools_ListOfShape Vedges[2];
+      TopExp1::MapShapesAndAncestors(OldComp, TopAbs_VERTEX, TopAbs_EDGE, VEmap);
+      ShapeList Vedges[2];
       for (j = 0; j < 2; j++)
         if (VEmap.Contains(Extremity[j]))
           Vedges[j] = VEmap.FindFromKey(Extremity[j]);
@@ -1100,7 +1100,7 @@ Standard_Boolean BRepFill_TrimShellCorner::ChooseSection(const TopoDS_Shape&  Co
       {
         if (Vedges[j].Extent() == 1)
         {
-          const TopoDS_Edge& anEdge = TopoDS::Edge(Vedges[j].First());
+          const TopoEdge& anEdge = TopoDS::Edge(Vedges[j].First());
           NewWire                   = BRepLib_MakeWire(NewWire, anEdge);
           B.Remove(OldComp, anEdge);
           Modified = Standard_True;
@@ -1117,7 +1117,7 @@ Standard_Boolean BRepFill_TrimShellCorner::ChooseSection(const TopoDS_Shape&  Co
         Standard_Real    MinDeviation = RealLast();
         for (j = 1; j <= Edges.Length(); j++)
         {
-          TopoDS_Wire      aWire = BRepLib_MakeWire(NewWire, TopoDS::Edge(Edges(j)));
+          TopoWire      aWire = BRepLib_MakeWire(NewWire, TopoDS::Edge(Edges(j)));
           gp_Pln           aPlane;
           Standard_Boolean issing;
           Standard_Real    Deviation = ComputeAveragePlaneAndMaxDeviation(aWire, aPlane, issing);
@@ -1139,7 +1139,7 @@ Standard_Boolean BRepFill_TrimShellCorner::ChooseSection(const TopoDS_Shape&  Co
   }
 
   Standard_Real   MinAngle = RealLast();
-  TopExp_Explorer Explo(OldComp, TopAbs_EDGE);
+  ShapeExplorer Explo(OldComp, TopAbs_EDGE);
   if (!anError && !Explo.More()) // wires are built successfully and compound <OldComp> is empty
   {
     if (Wseq.Length() == 1) // only one wire => it becomes result
@@ -1152,7 +1152,7 @@ Standard_Boolean BRepFill_TrimShellCorner::ChooseSection(const TopoDS_Shape&  Co
     {    //(check angle between axes)
       for (i = 1; i <= Wseq.Length(); i++)
       {
-        TopoDS_Wire      aWire = TopoDS::Wire(Wseq(i));
+        TopoWire      aWire = TopoDS::Wire(Wseq(i));
         gp_Pln           aPln;
         Standard_Boolean issing;
         ComputeAveragePlaneAndMaxDeviation(aWire, aPln, issing);
@@ -1188,7 +1188,7 @@ Standard_Boolean SplitUEdges(const Handle(TopTools_HArray2OfShape)& theUEdges,
 
   const BOPDS_VectorOfInterfVV& aVVs = theDS->InterfVV();
 
-  BRep_Builder           aBB;
+  ShapeBuilder           aBB;
   Standard_Integer       ueit = 0, upRow, lowCol, upCol;
   TopTools_Array2OfShape aNewVertices(1, 2, 1, 2);
   //
@@ -1198,8 +1198,8 @@ Standard_Boolean SplitUEdges(const Handle(TopTools_HArray2OfShape)& theUEdges,
   //
   for (ueit = theUEdges->LowerRow(); ueit <= upRow; ueit++)
   {
-    const TopoDS_Shape& aE1 = theUEdges->Value(ueit, lowCol);
-    const TopoDS_Shape& aE2 = theUEdges->Value(ueit, upCol);
+    const TopoShape& aE1 = theUEdges->Value(ueit, lowCol);
+    const TopoShape& aE2 = theUEdges->Value(ueit, upCol);
 
     if (theHistMap.IsBound(aE1) || theHistMap.IsBound(aE2))
       continue;
@@ -1207,15 +1207,15 @@ Standard_Boolean SplitUEdges(const Handle(TopTools_HArray2OfShape)& theUEdges,
     Standard_Integer anEIndex1 = theDS->Index(aE1);
     Standard_Integer anEIndex2 = theDS->Index(aE2);
 
-    TopoDS_Vertex    aCommonVertex;
+    TopoVertex    aCommonVertex;
     Standard_Real    apar1 = 0., apar2 = 0.;
     Standard_Boolean bvertexfound =
       FindCommonVertex(theDS, anEIndex1, anEIndex2, theCrossDirection, aCommonVertex, apar1, apar2);
     //
     if (!bvertexfound)
     {
-      TopoDS_Vertex    V1      = TopExp::LastVertex(TopoDS::Edge(aE1));
-      TopoDS_Vertex    V2      = TopExp::FirstVertex(TopoDS::Edge(aE2));
+      TopoVertex    V1      = TopExp1::LastVertex(TopoDS::Edge(aE1));
+      TopoVertex    V2      = TopExp1::FirstVertex(TopoDS::Edge(aE2));
       Standard_Integer vindex1 = theDS->Index(V1);
       Standard_Integer vindex2 = theDS->Index(V2);
       Standard_Integer vvit    = 0;
@@ -1236,38 +1236,38 @@ Standard_Boolean SplitUEdges(const Handle(TopTools_HArray2OfShape)& theUEdges,
           }
           aCommonVertex = TopoDS::Vertex(theDS->Shape(aVV.IndexNew()));
           bvertexfound  = Standard_True;
-          apar1         = BRep_Tool::Parameter(V1, TopoDS::Edge(aE1));
-          apar2         = BRep_Tool::Parameter(V2, TopoDS::Edge(aE2));
+          apar1         = BRepInspector::Parameter(V1, TopoDS::Edge(aE1));
+          apar2         = BRepInspector::Parameter(V2, TopoDS::Edge(aE2));
         }
       }
     }
 
     if (bvertexfound)
     {
-      TopoDS_Vertex aV1, aV2;
+      TopoVertex aV1, aV2;
       Standard_Real f = 0., l = 0.;
       //
-      TopoDS_Edge aNewE1 = TopoDS::Edge(aE1.EmptyCopied());
-      TopExp::Vertices(TopoDS::Edge(aE1), aV1, aV2);
+      TopoEdge aNewE1 = TopoDS::Edge(aE1.EmptyCopied());
+      TopExp1::Vertices(TopoDS::Edge(aE1), aV1, aV2);
       aNewE1.Orientation(TopAbs_FORWARD);
       aV1.Orientation(TopAbs_FORWARD);
       aBB.Add(aNewE1, aV1);
       aCommonVertex.Orientation(TopAbs_REVERSED);
       aBB.Add(aNewE1, aCommonVertex);
-      BRep_Tool::Range(TopoDS::Edge(aE1), f, l);
+      BRepInspector::Range(TopoDS::Edge(aE1), f, l);
       aBB.Range(aNewE1, f, apar1);
 
       //
-      TopoDS_Edge aNewE2 = TopoDS::Edge(aE2.EmptyCopied());
-      TopExp::Vertices(TopoDS::Edge(aE2), aV1, aV2);
+      TopoEdge aNewE2 = TopoDS::Edge(aE2.EmptyCopied());
+      TopExp1::Vertices(TopoDS::Edge(aE2), aV1, aV2);
       aNewE2.Orientation(TopAbs_FORWARD);
       aCommonVertex.Orientation(TopAbs_FORWARD);
       aBB.Add(aNewE2, aCommonVertex);
       aBB.Add(aNewE2, aV2);
-      BRep_Tool::Range(TopoDS::Edge(aE2), f, l);
+      BRepInspector::Range(TopoDS::Edge(aE2), f, l);
       aBB.Range(aNewE2, apar2, l);
 
-      TopTools_ListOfShape lst;
+      ShapeList lst;
       lst.Append(aNewE1);
       theHistMap.Bind(aE1, lst);
       lst.Clear();
@@ -1284,37 +1284,37 @@ Standard_Boolean SplitUEdges(const Handle(TopTools_HArray2OfShape)& theUEdges,
 // ------------------------------------------------------------------------------------------
 void StoreVedgeInHistMap(const Handle(TopTools_HArray1OfShape)& theVEdges,
                          const Standard_Integer                 theIndex,
-                         const TopoDS_Shape&                    theNewVshape,
+                         const TopoShape&                    theNewVshape,
                          TopTools_DataMapOfShapeListOfShape&    theHistMap)
 {
   // Replace default value in the map (v-iso edge of face)
   // by intersection of two consecutive faces
-  const TopoDS_Shape& aVEdge = theVEdges->Value(theIndex);
+  const TopoShape& aVEdge = theVEdges->Value(theIndex);
 
-  theHistMap.Bound(aVEdge, TopTools_ListOfShape())->Append(theNewVshape);
+  theHistMap.Bound(aVEdge, ShapeList())->Append(theNewVshape);
 }
 
 // ------------------------------------------------------------------------------------------
 // static function: FindFreeVertices
 // purpose:
 // ------------------------------------------------------------------------------------------
-void FindFreeVertices(const TopoDS_Shape&        theShape,
+void FindFreeVertices(const TopoShape&        theShape,
                       const TopTools_MapOfShape& theVerticesToAvoid,
-                      TopTools_ListOfShape&      theListOfVertex)
+                      ShapeList&      theListOfVertex)
 {
 
   theListOfVertex.Clear();
   TopTools_IndexedDataMapOfShapeListOfShape aMap;
-  TopExp::MapShapesAndAncestors(theShape, TopAbs_VERTEX, TopAbs_EDGE, aMap);
+  TopExp1::MapShapesAndAncestors(theShape, TopAbs_VERTEX, TopAbs_EDGE, aMap);
   Standard_Integer i = 0;
 
   for (i = 1; i <= aMap.Extent(); i++)
   {
-    const TopoDS_Shape& aKey = aMap.FindKey(i);
+    const TopoShape& aKey = aMap.FindKey(i);
 
     if (theVerticesToAvoid.Contains(aKey))
       continue;
-    const TopTools_ListOfShape& aList = aMap.FindFromIndex(i);
+    const ShapeList& aList = aMap.FindFromIndex(i);
 
     if (aList.Extent() < 2)
     {
@@ -1331,7 +1331,7 @@ Standard_Boolean FindCommonVertex(const BOPDS_PDS&       theDS,
                                   const Standard_Integer theEIndex1,
                                   const Standard_Integer theEIndex2,
                                   const Vector3d&          theCrossDirection,
-                                  TopoDS_Vertex&         theCommonVertex,
+                                  TopoVertex&         theCommonVertex,
                                   Standard_Real&         theParamOnE1,
                                   Standard_Real&         theParamOnE2)
 {
@@ -1339,11 +1339,11 @@ Standard_Boolean FindCommonVertex(const BOPDS_PDS&       theDS,
   const BOPDS_VectorOfInterfEE& aEEs = theDS->InterfEE();
 
   Standard_Boolean bvertexfound = Standard_False;
-  TopoDS_Vertex    aCommonVertex;
+  TopoVertex    aCommonVertex;
   Standard_Integer eeit = 0;
 
-  TopoDS_Edge       theE1 = TopoDS::Edge(theDS->Shape(theEIndex1));
-  TopoDS_Edge       theE2 = TopoDS::Edge(theDS->Shape(theEIndex2));
+  TopoEdge       theE1 = TopoDS::Edge(theDS->Shape(theEIndex1));
+  TopoEdge       theE2 = TopoDS::Edge(theDS->Shape(theEIndex2));
   BRepAdaptor_Curve aBC1(theE1), aBC2(theE2);
 
   Standard_Integer aNbEEs;
@@ -1362,12 +1362,12 @@ Standard_Boolean FindCommonVertex(const BOPDS_PDS&       theDS,
       IntTools_CommonPrt aCP = aEE.CommonPart();
       if (aCP.Type() == TopAbs_VERTEX)
       {
-        theCommonVertex = *(TopoDS_Vertex*)&theDS->Shape(aEE.IndexNew());
+        theCommonVertex = *(TopoVertex*)&theDS->Shape(aEE.IndexNew());
 
         if (theEIndex1 == aEE.Index1())
-          IntTools_Tools::VertexParameters(aCP, theParamOnE1, theParamOnE2);
+          Tools2::VertexParameters(aCP, theParamOnE1, theParamOnE2);
         else
-          IntTools_Tools::VertexParameters(aCP, theParamOnE2, theParamOnE1);
+          Tools2::VertexParameters(aCP, theParamOnE2, theParamOnE1);
 
         Point3d aPt;
         Vector3d aDirOnE1, aDirOnE2;
@@ -1397,18 +1397,18 @@ Standard_Boolean FindCommonVertex(const BOPDS_PDS&       theDS,
 Standard_Boolean GetUEdges(const Standard_Integer                 theIndex,
                            const Standard_Integer                 theRank,
                            const Handle(TopTools_HArray2OfShape)& theUEdges,
-                           const TopoDS_Edge&                     theBoundEdge,
-                           const TopoDS_Face&                     theFace,
-                           TopoDS_Edge&                           theFirstUEdge,
-                           TopoDS_Edge&                           theSecondUEdge)
+                           const TopoEdge&                     theBoundEdge,
+                           const TopoFace&                     theFace,
+                           TopoEdge&                           theFirstUEdge,
+                           TopoEdge&                           theSecondUEdge)
 {
-  const TopoDS_Shape& aUE1 = theUEdges->Value(theIndex, theUEdges->LowerCol() + theRank);
-  const TopoDS_Shape& aUE2 = theUEdges->Value(theIndex + 1, theUEdges->LowerCol() + theRank);
+  const TopoShape& aUE1 = theUEdges->Value(theIndex, theUEdges->LowerCol() + theRank);
+  const TopoShape& aUE2 = theUEdges->Value(theIndex + 1, theUEdges->LowerCol() + theRank);
 
-  TopoDS_Face aFace = theFace;
+  TopoFace aFace = theFace;
   aFace.Orientation(TopAbs_FORWARD);
-  TopoDS_Edge     E1, E2;
-  TopExp_Explorer anExp(aFace, TopAbs_EDGE);
+  TopoEdge     E1, E2;
+  ShapeExplorer anExp(aFace, TopAbs_EDGE);
 
   for (; anExp.More(); anExp.Next())
   {
@@ -1426,24 +1426,24 @@ Standard_Boolean GetUEdges(const Standard_Integer                 theIndex,
     return Standard_False;
 
   Standard_Real        f, l;
-  Handle(Geom2d_Curve) C1 = BRep_Tool::CurveOnSurface(E1, aFace, f, l);
+  Handle(GeomCurve2d) C1 = BRepInspector::CurveOnSurface(E1, aFace, f, l);
 
   if (C1.IsNull())
     return Standard_False;
   gp_Pnt2d             PU1 = (theRank == 0) ? C1->Value(l) : C1->Value(f);
-  Handle(Geom2d_Curve) C2  = BRep_Tool::CurveOnSurface(theBoundEdge, aFace, f, l);
+  Handle(GeomCurve2d) C2  = BRepInspector::CurveOnSurface(theBoundEdge, aFace, f, l);
 
   if (C2.IsNull())
     return Standard_False;
-  BRep_Tool::Range(theBoundEdge, f, l);
+  BRepInspector::Range(theBoundEdge, f, l);
   gp_Pnt2d            pf = C2->Value(f);
-  TopoDS_Vertex       aV = (theRank == 0) ? TopExp::LastVertex(E1) : TopExp::FirstVertex(E1);
-  Standard_Real       aTolerance = BRep_Tool::Tolerance(aV);
+  TopoVertex       aV = (theRank == 0) ? TopExp1::LastVertex(E1) : TopExp1::FirstVertex(E1);
+  Standard_Real       aTolerance = BRepInspector::Tolerance(aV);
   BRepAdaptor_Surface aBAS(aFace, Standard_False);
 
   if (pf.Distance(PU1) > aBAS.UResolution(aTolerance))
   {
-    TopoDS_Edge atmpE = E1;
+    TopoEdge atmpE = E1;
     E1                = E2;
     E2                = atmpE;
   }
@@ -1456,17 +1456,17 @@ Standard_Boolean GetUEdges(const Standard_Integer                 theIndex,
 // static function: FillGap
 // purpose:
 // ----------------------------------------------------------------------------------------------------
-Standard_Boolean FillGap(const TopoDS_Vertex&   theFirstVertex,
-                         const TopoDS_Vertex&   theLastVertex,
+Standard_Boolean FillGap(const TopoVertex&   theFirstVertex,
+                         const TopoVertex&   theLastVertex,
                          const gp_Pnt2d&        theFirstPoint,
                          const gp_Pnt2d&        theLastPoint,
-                         const TopoDS_Face&     theFace,
-                         const TopoDS_Compound& theSectionEdges,
-                         TopTools_ListOfShape&  theOrderedList)
+                         const TopoFace&     theFace,
+                         const TopoCompound& theSectionEdges,
+                         ShapeList&  theOrderedList)
 {
 
   TopTools_IndexedDataMapOfShapeListOfShape aMap;
-  TopExp::MapShapesAndAncestors(theSectionEdges, TopAbs_VERTEX, TopAbs_EDGE, aMap);
+  TopExp1::MapShapesAndAncestors(theSectionEdges, TopAbs_VERTEX, TopAbs_EDGE, aMap);
 
   if (aMap.IsEmpty())
   {
@@ -1477,9 +1477,9 @@ Standard_Boolean FillGap(const TopoDS_Vertex&   theFirstVertex,
   {
     return Standard_False;
   }
-  TopTools_ListOfShape aListOfEdge;
+  ShapeList aListOfEdge;
   //  Standard_Integer i = 0;
-  //  TopoDS_Vertex aCurVertex = theFirstVertex;
+  //  TopoVertex aCurVertex = theFirstVertex;
   TopTools_MapOfShape aMapToAvoid;
 
   if (FindNextEdge(theFirstVertex, theLastVertex, aMap, aMapToAvoid, aListOfEdge))
@@ -1496,36 +1496,36 @@ Standard_Boolean FillGap(const TopoDS_Vertex&   theFirstVertex,
 // static function: FindNextEdge
 // purpose:
 // ----------------------------------------------------------------------------------------------------
-Standard_Boolean FindNextEdge(const TopoDS_Vertex&                             theFirstVertex,
-                              const TopoDS_Vertex&                             theLastVertex,
+Standard_Boolean FindNextEdge(const TopoVertex&                             theFirstVertex,
+                              const TopoVertex&                             theLastVertex,
                               const TopTools_IndexedDataMapOfShapeListOfShape& theMapVE,
                               const TopTools_MapOfShape&                       theMapToAvoid,
-                              TopTools_ListOfShape&                            theOrderedList)
+                              ShapeList&                            theOrderedList)
 {
-  TopoDS_Vertex       aCurVertex = theFirstVertex;
+  TopoVertex       aCurVertex = theFirstVertex;
   TopTools_MapOfShape aMapToAvoid;
   aMapToAvoid = theMapToAvoid;
-  TopTools_ListOfShape aListOfEdge;
+  ShapeList aListOfEdge;
   Standard_Integer     i = 0;
 
   for (i = 1; i <= theMapVE.Extent(); i++)
   {
     if (!theMapVE.Contains(aCurVertex))
       break;
-    const TopTools_ListOfShape& lste    = theMapVE.FindFromKey(aCurVertex);
+    const ShapeList& lste    = theMapVE.FindFromKey(aCurVertex);
     Standard_Boolean            befound = Standard_False;
 
     TopTools_ListIteratorOfListOfShape anIt(lste);
 
     for (; anIt.More(); anIt.Next())
     {
-      TopoDS_Shape  anEdge         = anIt.Value();
-      TopoDS_Vertex aSaveCurVertex = aCurVertex;
+      TopoShape  anEdge         = anIt.Value();
+      TopoVertex aSaveCurVertex = aCurVertex;
 
       if (!aMapToAvoid.Contains(anEdge))
       {
-        TopoDS_Vertex V1, V2;
-        TopExp::Vertices(TopoDS::Edge(anEdge), V1, V2);
+        TopoVertex V1, V2;
+        TopExp1::Vertices(TopoDS::Edge(anEdge), V1, V2);
 
         if (!aCurVertex.IsSame(V1))
         {
@@ -1541,7 +1541,7 @@ Standard_Boolean FindNextEdge(const TopoDS_Vertex&                             t
 
         if (!aCurVertex.IsSame(theLastVertex))
         {
-          TopTools_ListOfShape aListtmp;
+          ShapeList aListtmp;
 
           if (!FindNextEdge(aCurVertex, theLastVertex, theMapVE, aMapToAvoid, aListtmp))
           {
@@ -1581,11 +1581,11 @@ Standard_Boolean FindNextEdge(const TopoDS_Vertex&                             t
 // static function: CheckAndOrientEdges
 // purpose:
 // ----------------------------------------------------------------------------------------------------
-Standard_Boolean CheckAndOrientEdges(const TopTools_ListOfShape& theOrderedList,
+Standard_Boolean CheckAndOrientEdges(const ShapeList& theOrderedList,
                                      const gp_Pnt2d&             theFirstPoint,
                                      const gp_Pnt2d&             theLastPoint,
-                                     const TopoDS_Face&          theFace,
-                                     TopTools_ListOfShape&       theOrientedList)
+                                     const TopoFace&          theFace,
+                                     ShapeList&       theOrientedList)
 {
   TopTools_ListIteratorOfListOfShape anIt(theOrderedList);
 
@@ -1593,16 +1593,16 @@ Standard_Boolean CheckAndOrientEdges(const TopTools_ListOfShape& theOrderedList,
     return Standard_True;
 
   Standard_Real f, l;
-  TopoDS_Edge   aEPrev = TopoDS::Edge(anIt.Value());
+  TopoEdge   aEPrev = TopoDS::Edge(anIt.Value());
   anIt.Next();
 
-  Handle(Geom2d_Curve) aCurve = BRep_Tool::CurveOnSurface(aEPrev, theFace, f, l);
-  TopoDS_Vertex        Vf, Vl;
-  TopExp::Vertices(aEPrev, Vf, Vl);
+  Handle(GeomCurve2d) aCurve = BRepInspector::CurveOnSurface(aEPrev, theFace, f, l);
+  TopoVertex        Vf, Vl;
+  TopExp1::Vertices(aEPrev, Vf, Vl);
   BRepAdaptor_Surface aBAS(theFace, Standard_False);
 
-  Standard_Real aTolerance1 = (Vf.IsNull()) ? Precision::Confusion() : BRep_Tool::Tolerance(Vf);
-  Standard_Real aTolerance2 = (Vl.IsNull()) ? Precision::Confusion() : BRep_Tool::Tolerance(Vl);
+  Standard_Real aTolerance1 = (Vf.IsNull()) ? Precision::Confusion() : BRepInspector::Tolerance(Vf);
+  Standard_Real aTolerance2 = (Vl.IsNull()) ? Precision::Confusion() : BRepInspector::Tolerance(Vl);
   Standard_Real utol        = aBAS.UResolution(aTolerance1);
   Standard_Real vtol        = aBAS.VResolution(aTolerance1);
   aTolerance1               = (utol > vtol) ? utol : vtol;
@@ -1646,26 +1646,26 @@ Standard_Boolean CheckAndOrientEdges(const TopTools_ListOfShape& theOrderedList,
 
   for (; anIt.More(); anIt.Next())
   {
-    const TopoDS_Edge& aE = TopoDS::Edge(anIt.Value());
-    TopoDS_Vertex      aV11, aV12;
-    TopExp::Vertices(aEPrev, aV11, aV12, Standard_True);
-    TopoDS_Vertex aV21, aV22;
-    TopExp::Vertices(aE, aV21, aV22, Standard_False);
+    const TopoEdge& aE = TopoDS::Edge(anIt.Value());
+    TopoVertex      aV11, aV12;
+    TopExp1::Vertices(aEPrev, aV11, aV12, Standard_True);
+    TopoVertex aV21, aV22;
+    TopExp1::Vertices(aE, aV21, aV22, Standard_False);
 
     TopAbs_Orientation anOri =
       (aV12.IsSame(aV21) || aV11.IsSame(aV22)) ? TopAbs_FORWARD : TopAbs_REVERSED;
     theOrientedList.Append(aE.Oriented(anOri));
     aEPrev = TopoDS::Edge(theOrientedList.Last());
 
-    aTolerance1 = (aV21.IsNull()) ? Precision::Confusion() : BRep_Tool::Tolerance(aV21);
-    aTolerance2 = (aV22.IsNull()) ? Precision::Confusion() : BRep_Tool::Tolerance(aV22);
+    aTolerance1 = (aV21.IsNull()) ? Precision::Confusion() : BRepInspector::Tolerance(aV21);
+    aTolerance2 = (aV22.IsNull()) ? Precision::Confusion() : BRepInspector::Tolerance(aV22);
     utol        = aBAS.UResolution(aTolerance1);
     vtol        = aBAS.VResolution(aTolerance1);
     aTolerance1 = (utol > vtol) ? utol : vtol;
     utol        = aBAS.UResolution(aTolerance2);
     vtol        = aBAS.VResolution(aTolerance2);
     aTolerance2 = (utol > vtol) ? utol : vtol;
-    aCurve      = BRep_Tool::CurveOnSurface(aE, theFace, f, l);
+    aCurve      = BRepInspector::CurveOnSurface(aE, theFace, f, l);
     ap          = aCurve->Value(f);
 
     if (ap.Distance(theFirstPoint) < aTolerance1)
@@ -1695,45 +1695,45 @@ Standard_Boolean CheckAndOrientEdges(const TopTools_ListOfShape& theOrderedList,
 // static function: FindVertex
 // purpose:
 // ----------------------------------------------------------------------------------------------------
-Standard_Boolean FindVertex(const TopoDS_Edge&                        theEdge,
+Standard_Boolean FindVertex(const TopoEdge&                        theEdge,
                             const Standard_Integer                    theRank,
                             const BOPDS_PDS&                          theDS,
                             const TopTools_DataMapOfShapeListOfShape& theHistMap,
-                            TopoDS_Vertex&                            theVertex,
+                            TopoVertex&                            theVertex,
                             BOPDS_Pave&                               thePave)
 {
 
   if (!theHistMap.IsBound(theEdge))
     return Standard_False;
 
-  const TopTools_ListOfShape& lst = theHistMap.Find(theEdge);
+  const ShapeList& lst = theHistMap.Find(theEdge);
 
   if (lst.IsEmpty())
     return Standard_False;
 
-  TopoDS_Edge   aNewEdge = TopoDS::Edge(lst.First());
+  TopoEdge   aNewEdge = TopoDS::Edge(lst.First());
   Standard_Real f, l;
-  BRep_Tool::Range(aNewEdge, f, l);
+  BRepInspector::Range(aNewEdge, f, l);
 
   if (theRank == 0)
   {
     thePave.SetParameter(l);
-    theVertex = TopExp::LastVertex(aNewEdge);
+    theVertex = TopExp1::LastVertex(aNewEdge);
   }
   else
   {
     thePave.SetParameter(f);
-    theVertex = TopExp::FirstVertex(aNewEdge);
+    theVertex = TopExp1::FirstVertex(aNewEdge);
   }
   Standard_Integer anIndex = theDS->Index(theVertex);
   if (anIndex == -1)
   {
     Standard_Integer i, i1, i2;
     i1 = theDS->NbSourceShapes();
-    i2 = theDS->NbShapes();
+    i2 = theDS->NbShapes1();
     for (i = i1; i < i2; ++i)
     {
-      const TopoDS_Shape& aSx = theDS->Shape(i);
+      const TopoShape& aSx = theDS->Shape(i);
       if (aSx.IsSame(theVertex))
       {
         anIndex = i;
@@ -1754,7 +1754,7 @@ Standard_Boolean FindVertex(const TopoDS_Edge&                        theEdge,
 Standard_Boolean FindNextVertex(const Standard_Integer theEdgeIndex,
                                 const BOPDS_Pave&      thePrevPave,
                                 const BOPDS_PDS&       theDS,
-                                TopoDS_Vertex&         theNextVertex,
+                                TopoVertex&         theNextVertex,
                                 BOPDS_Pave&            thePave)
 {
 
@@ -1777,7 +1777,7 @@ Standard_Boolean FindNextVertex(const Standard_Integer theEdgeIndex,
     {
       if (theDS->IsNewShape(aTmpPave.Index()))
       {
-        theNextVertex = *(TopoDS_Vertex*)&theDS->Shape(aTmpPave.Index());
+        theNextVertex = *(TopoVertex*)&theDS->Shape(aTmpPave.Index());
         thePave       = aTmpPave;
         bFound        = Standard_True;
         break;
@@ -1828,19 +1828,19 @@ Standard_Boolean GetPave(const Standard_Integer theEdgeIndex,
 // static function: FindFromUEdge
 // purpose:
 // ----------------------------------------------------------------------------------------------------
-Standard_Boolean FindFromUEdge(const TopoDS_Edge&                        theUE1Old,
-                               const TopoDS_Edge&                        theUE2Old,
-                               const TopoDS_Edge&                        theUE1New,
-                               const TopoDS_Edge&                        theUE2New,
-                               const TopoDS_Face&                        theFace,
-                               const TopoDS_Compound&                    theSecEdges,
+Standard_Boolean FindFromUEdge(const TopoEdge&                        theUE1Old,
+                               const TopoEdge&                        theUE2Old,
+                               const TopoEdge&                        theUE1New,
+                               const TopoEdge&                        theUE2New,
+                               const TopoFace&                        theFace,
+                               const TopoCompound&                    theSecEdges,
                                const Standard_Integer                    theRank,
-                               const TopoDS_Edge&                        theBoundEdge,
+                               const TopoEdge&                        theBoundEdge,
                                const Standard_Integer                    theBoundEdgeIndex,
                                const BOPDS_PDS&                          theDS,
                                const TopTools_DataMapOfShapeListOfShape& theHistMap,
-                               TopoDS_Compound&                          theSecEdgesNew,
-                               TopTools_ListOfShape&                     theListOfWireEdges,
+                               TopoCompound&                          theSecEdgesNew,
+                               ShapeList&                     theListOfWireEdges,
                                BOPDS_Pave&                               theFoundPave,
                                Standard_Boolean&                         isOnUEdge)
 {
@@ -1848,17 +1848,17 @@ Standard_Boolean FindFromUEdge(const TopoDS_Edge&                        theUE1O
   theFoundPave.SetParameter(0.);
   isOnUEdge = Standard_True;
 
-  TopoDS_Face aFaceF = theFace;
+  TopoFace aFaceF = theFace;
   aFaceF.Orientation(TopAbs_FORWARD);
-  TopoDS_Vertex        aPrevVertex, aNextVertex;
-  TopoDS_Compound      aCompOfSecEdges = theSecEdges;
-  TopTools_ListOfShape aListOfWireEdges;
-  //  BRep_Builder aBB;
+  TopoVertex        aPrevVertex, aNextVertex;
+  TopoCompound      aCompOfSecEdges = theSecEdges;
+  ShapeList aListOfWireEdges;
+  //  ShapeBuilder aBB;
 
   BOPDS_Pave    aPave1, aPave2;
   Standard_Real f = 0., l = 0.;
   gp_Pnt2d      p1, p2;
-  TopoDS_Vertex aFirstV, aLastV;
+  TopoVertex aFirstV, aLastV;
   BOPDS_Pave    atmpPave;
 
   if (!FindVertex(theUE1Old, theRank, theDS, theHistMap, aPrevVertex, atmpPave))
@@ -1873,7 +1873,7 @@ Standard_Boolean FindFromUEdge(const TopoDS_Edge&                        theUE1O
 
   aFirstV                        = aPrevVertex;
   Standard_Boolean     bSecFound = Standard_False;
-  Handle(Geom2d_Curve) aC1       = BRep_Tool::CurveOnSurface(theUE1New, aFaceF, f, l);
+  Handle(GeomCurve2d) aC1       = BRepInspector::CurveOnSurface(theUE1New, aFaceF, f, l);
   p1                             = (theRank == 0) ? aC1->Value(l) : aC1->Value(f);
   BOPDS_Pave       afoundpave;
   BOPDS_ListOfPave aLP;
@@ -1884,14 +1884,14 @@ Standard_Boolean FindFromUEdge(const TopoDS_Edge&                        theUE1O
   while (FindNextVertex(theBoundEdgeIndex, aPave1, theDS, aNextVertex, aPave2) && (pit < nbpave))
   {
     aLastV                   = aNextVertex;
-    Handle(Geom2d_Curve) aC2 = BRep_Tool::CurveOnSurface(theBoundEdge, aFaceF, f, l);
+    Handle(GeomCurve2d) aC2 = BRepInspector::CurveOnSurface(theBoundEdge, aFaceF, f, l);
     p2                       = aC2->Value(aPave2.Parameter());
-    TopTools_ListOfShape aOrderedList;
+    ShapeList aOrderedList;
 
     if (FillGap(aFirstV, aLastV, p1, p2, aFaceF, aCompOfSecEdges, aOrderedList))
     {
       // remove found edges...
-      TopoDS_Compound aComp;
+      TopoCompound aComp;
       RemoveEdges(aCompOfSecEdges, aOrderedList, aComp);
       aCompOfSecEdges = aComp;
       aListOfWireEdges.Append(aOrderedList);
@@ -1908,14 +1908,14 @@ Standard_Boolean FindFromUEdge(const TopoDS_Edge&                        theUE1O
   if (!bSecFound && FindVertex(theUE2Old, theRank, theDS, theHistMap, aNextVertex, aPave2))
   {
     aLastV                   = aNextVertex;
-    Handle(Geom2d_Curve) aC2 = BRep_Tool::CurveOnSurface(theUE2New, aFaceF, f, l);
+    Handle(GeomCurve2d) aC2 = BRepInspector::CurveOnSurface(theUE2New, aFaceF, f, l);
     p2                       = aC2->Value(aPave2.Parameter());
-    TopTools_ListOfShape aOrderedList;
+    ShapeList aOrderedList;
 
     if (FillGap(aFirstV, aLastV, p1, p2, aFaceF, aCompOfSecEdges, aOrderedList))
     {
       // remove found edges...
-      TopoDS_Compound aComp;
+      TopoCompound aComp;
 
       RemoveEdges(aCompOfSecEdges, aOrderedList, aComp);
       aCompOfSecEdges = aComp;
@@ -1941,34 +1941,34 @@ Standard_Boolean FindFromUEdge(const TopoDS_Edge&                        theUE1O
 // ----------------------------------------------------------------------------------------------------
 Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrevPave,
                                const Standard_Boolean&                   isOnUEdge,
-                               const TopoDS_Edge&                        theUE1Old,
-                               const TopoDS_Edge&                        theUE2Old,
-                               const TopoDS_Face&                        theFace,
-                               const TopoDS_Compound&                    theSecEdges,
+                               const TopoEdge&                        theUE1Old,
+                               const TopoEdge&                        theUE2Old,
+                               const TopoFace&                        theFace,
+                               const TopoCompound&                    theSecEdges,
                                const Standard_Integer                    theRank,
-                               const TopoDS_Edge&                        theBoundEdge,
+                               const TopoEdge&                        theBoundEdge,
                                const Standard_Integer                    theBoundEdgeIndex,
                                const BOPDS_PDS&                          theDS,
                                const TopTools_DataMapOfShapeListOfShape& theHistMap,
-                               TopTools_ListOfShape&                     theListOfWireEdges,
+                               ShapeList&                     theListOfWireEdges,
                                Standard_Boolean&                         isSectionFound)
 {
 
   theListOfWireEdges.Clear();
   isSectionFound = Standard_False;
   //
-  TopoDS_Face aFaceF = theFace;
+  TopoFace aFaceF = theFace;
   aFaceF.Orientation(TopAbs_FORWARD);
-  TopoDS_Vertex        aPrevVertex, aNextVertex;
-  TopoDS_Compound      aCompOfSecEdges = theSecEdges;
-  TopTools_ListOfShape aListOfWireEdges;
-  //  BRep_Builder aBB;
+  TopoVertex        aPrevVertex, aNextVertex;
+  TopoCompound      aCompOfSecEdges = theSecEdges;
+  ShapeList aListOfWireEdges;
+  //  ShapeBuilder aBB;
 
   BOPDS_Pave aPave1, aPave2;
 
   if (isOnUEdge)
   {
-    TopoDS_Vertex atmpVertex;
+    TopoVertex atmpVertex;
     BOPDS_Pave    aPaveOfE2;
 
     if (FindVertex(theUE2Old, theRank, theDS, theHistMap, atmpVertex, aPaveOfE2))
@@ -1980,9 +1980,9 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
 
   Standard_Real        f = 0., l = 0.;
   gp_Pnt2d             p1(0., 0.), p2(0., 0.);
-  TopoDS_Vertex        aFirstV, aLastV;
-  Handle(Geom2d_Curve) aC1       = BRep_Tool::CurveOnSurface(theUE1Old, aFaceF, f, l);
-  Handle(Geom2d_Curve) aC2       = BRep_Tool::CurveOnSurface(theBoundEdge, aFaceF, f, l);
+  TopoVertex        aFirstV, aLastV;
+  Handle(GeomCurve2d) aC1       = BRepInspector::CurveOnSurface(theUE1Old, aFaceF, f, l);
+  Handle(GeomCurve2d) aC2       = BRepInspector::CurveOnSurface(theBoundEdge, aFaceF, f, l);
   Standard_Boolean     bSecFound = Standard_False;
 
   aPave1 = thePrevPave;
@@ -2009,7 +2009,7 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
   // by pairs non continuously. begin
   Standard_Integer      k            = 0;
   BOPDS_Pave            aFirstPave   = aPave1;
-  TopoDS_Vertex         aFirstVertex = aPrevVertex;
+  TopoVertex         aFirstVertex = aPrevVertex;
   gp_Pnt2d              apfirst      = p1;
   BOPDS_ListOfPave      aFirstPaves, aLastPaves;
   TColStd_ListOfInteger aListOfFlags;
@@ -2029,11 +2029,11 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
       aLastV  = aNextVertex;
       p2      = aC2->Value(aPave2.Parameter());
 
-      TopTools_ListOfShape aOrderedList;
+      ShapeList aOrderedList;
 
       if (FillGap(aFirstV, aLastV, p1, p2, aFaceF, aCompOfSecEdges, aOrderedList))
       {
-        TopoDS_Compound aComp;
+        TopoCompound aComp;
         RemoveEdges(aCompOfSecEdges, aOrderedList, aComp);
         aCompOfSecEdges = aComp;
 
@@ -2056,14 +2056,14 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
     {
       aFirstV                  = aPrevVertex;
       aLastV                   = aNextVertex;
-      Handle(Geom2d_Curve) aC3 = BRep_Tool::CurveOnSurface(theUE2Old, aFaceF, f, l);
+      Handle(GeomCurve2d) aC3 = BRepInspector::CurveOnSurface(theUE2Old, aFaceF, f, l);
       p2                       = aC3->Value(aPave2.Parameter());
 
-      TopTools_ListOfShape aOrderedList;
+      ShapeList aOrderedList;
 
       if (FillGap(aFirstV, aLastV, p1, p2, aFaceF, aCompOfSecEdges, aOrderedList))
       {
-        TopoDS_Compound aComp;
+        TopoCompound aComp;
         RemoveEdges(aCompOfSecEdges, aOrderedList, aComp);
         aCompOfSecEdges = aComp;
         anArrayOfListOfSec(apaircounter++).Append(aOrderedList);
@@ -2153,11 +2153,11 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
       {
         if ((aPave2.Index() == aPIt2.Value().Index()) && (aPave2.Index() > 0))
         {
-          Handle(Geom2d_Curve) pc = BRep_Tool::CurveOnSurface(theUE2Old, aFaceF, f, l);
+          Handle(GeomCurve2d) pc = BRepInspector::CurveOnSurface(theUE2Old, aFaceF, f, l);
           gp_Pnt2d             p3 = pc->Value(aPIt2.Value().Parameter());
-          TopoDS_Vertex        aV = TopoDS::Vertex(theDS->Shape(aPave2.Index()));
+          TopoVertex        aV = TopoDS::Vertex(theDS->Shape(aPave2.Index()));
           BRepAdaptor_Surface  aBAS(aFaceF, Standard_False);
-          Standard_Real        aTolerance = BRep_Tool::Tolerance(aV);
+          Standard_Real        aTolerance = BRepInspector::Tolerance(aV);
           Standard_Real        utol       = aBAS.UResolution(aTolerance);
           Standard_Real        vtol       = aBAS.VResolution(aTolerance);
           aTolerance                      = (utol > vtol) ? utol : vtol;
@@ -2178,11 +2178,11 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
     if (!bisinside)
     {
 
-      TopTools_ListOfShape aOrderedList;
+      ShapeList aOrderedList;
 
       if (FillGap(aFirstV, aLastV, p1, p2, aFaceF, aCompOfSecEdges, aOrderedList))
       {
-        TopoDS_Compound aComp;
+        TopoCompound aComp;
         RemoveEdges(aCompOfSecEdges, aOrderedList, aComp);
         aCompOfSecEdges = aComp;
         aListOfWireEdges.Append(aOrderedList);
@@ -2191,7 +2191,7 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
       }
       else
       {
-        TopoDS_Edge aESplit;
+        TopoEdge aESplit;
         // get split
         aPBIt.Initialize(theDS->PaveBlocks(theBoundEdgeIndex));
 
@@ -2203,7 +2203,7 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
           {
             if (aPB1->Edge() > 0)
             {
-              aESplit = *(TopoDS_Edge*)&theDS->Shape(aPB1->Edge());
+              aESplit = *(TopoEdge*)&theDS->Shape(aPB1->Edge());
               break;
             }
           }
@@ -2219,7 +2219,7 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
     {
       if (apbindex > 0)
       {
-        TopTools_ListOfShape& aListOfSec = anArrayOfListOfSec(apbindex);
+        ShapeList& aListOfSec = anArrayOfListOfSec(apbindex);
         aListOfWireEdges.Append(aListOfSec);
       }
     }
@@ -2233,7 +2233,7 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
   {
     aFirstV                  = aPrevVertex;
     aLastV                   = aNextVertex;
-    Handle(Geom2d_Curve) aC3 = BRep_Tool::CurveOnSurface(theUE2Old, aFaceF, f, l);
+    Handle(GeomCurve2d) aC3 = BRepInspector::CurveOnSurface(theUE2Old, aFaceF, f, l);
     p2                       = aC3->Value(aPave2.Parameter());
 
     Standard_Boolean                    bisinside  = Standard_False;
@@ -2289,11 +2289,11 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
     if (!bisinside)
     {
 
-      TopTools_ListOfShape aOrderedList;
+      ShapeList aOrderedList;
 
       if (FillGap(aFirstV, aLastV, p1, p2, aFaceF, aCompOfSecEdges, aOrderedList))
       {
-        TopoDS_Compound aComp;
+        TopoCompound aComp;
         RemoveEdges(aCompOfSecEdges, aOrderedList, aComp);
         aCompOfSecEdges = aComp;
         aListOfWireEdges.Append(aOrderedList);
@@ -2303,7 +2303,7 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
       else
       {
         // add split
-        TopoDS_Edge aESplit;
+        TopoEdge aESplit;
         // get split
         if (!GetPave(theBoundEdgeIndex, Standard_False, theDS, aPave2))
           return Standard_False;
@@ -2317,7 +2317,7 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
           {
             if (aPB1->Edge() > 0)
             {
-              aESplit = *(TopoDS_Edge*)&theDS->Shape(aPB1->Edge());
+              aESplit = *(TopoEdge*)&theDS->Shape(aPB1->Edge());
               break;
             }
           }
@@ -2333,7 +2333,7 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
     {
       if (apbindex > 0)
       {
-        TopTools_ListOfShape& aListOfSec = anArrayOfListOfSec(apbindex);
+        ShapeList& aListOfSec = anArrayOfListOfSec(apbindex);
         aListOfWireEdges.Append(aListOfSec);
       }
     }
@@ -2341,7 +2341,7 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
   else
   {
     // add split
-    TopoDS_Edge aESplit;
+    TopoEdge aESplit;
     // get split
     if (!GetPave(theBoundEdgeIndex, Standard_False, theDS, aPave2))
       return Standard_False;
@@ -2356,7 +2356,7 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
       {
         if (aPB1->Edge() > 0)
         {
-          aESplit = *(TopoDS_Edge*)&theDS->Shape(aPB1->Edge());
+          aESplit = *(TopoEdge*)&theDS->Shape(aPB1->Edge());
           break;
         }
       }
@@ -2378,14 +2378,14 @@ Standard_Boolean FindFromVEdge(const BOPDS_Pave&                         thePrev
 // static function: RemoveEdges
 // purpose:
 // ----------------------------------------------------------------------------------------------------
-void RemoveEdges(const TopoDS_Compound&      theSourceComp,
-                 const TopTools_ListOfShape& theListToRemove,
-                 TopoDS_Compound&            theResultComp)
+void RemoveEdges(const TopoCompound&      theSourceComp,
+                 const ShapeList& theListToRemove,
+                 TopoCompound&            theResultComp)
 {
-  BRep_Builder    aBB;
-  TopoDS_Compound aComp;
+  ShapeBuilder    aBB;
+  TopoCompound aComp;
   aBB.MakeCompound(aComp);
-  TopExp_Explorer anExp(theSourceComp, TopAbs_EDGE);
+  ShapeExplorer anExp(theSourceComp, TopAbs_EDGE);
 
   for (; anExp.More(); anExp.Next())
   {
@@ -2410,14 +2410,14 @@ void RemoveEdges(const TopoDS_Compound&      theSourceComp,
 // purpose:
 // ----------------------------------------------------------------------------------------------------
 Standard_Boolean FilterSectionEdges(const BOPDS_VectorOfCurve& theBCurves,
-                                    const TopoDS_Face&         theSecPlane,
+                                    const TopoFace&         theSecPlane,
                                     const BOPDS_PDS&           theDS,
-                                    TopoDS_Compound&           theResult)
+                                    TopoCompound&           theResult)
 {
 
   theResult.Nullify();
 
-  BRep_Builder aBB;
+  ShapeBuilder aBB;
   aBB.MakeCompound(theResult);
   Standard_Integer                    aNbCurves = theBCurves.Length();
   Standard_Integer                    cit       = 0;
@@ -2433,15 +2433,15 @@ Standard_Boolean FilterSectionEdges(const BOPDS_VectorOfCurve& theBCurves,
     {
       const Handle(BOPDS_PaveBlock)& aPB      = aPBIt.Value();
       Standard_Integer               nSect    = aPB->Edge();
-      const TopoDS_Shape&            aS       = theDS->Shape(nSect);
-      TopoDS_Edge                    anEdge   = TopoDS::Edge(aS);
+      const TopoShape&            aS       = theDS->Shape(nSect);
+      TopoEdge                    anEdge   = TopoDS::Edge(aS);
       Standard_Boolean               bAddEdge = Standard_True;
 
       if (!theSecPlane.IsNull())
       {
         IntTools_BeanFaceIntersector anIntersector(anEdge, theSecPlane);
         Standard_Real                f = 0., l = 0.;
-        BRep_Tool::Range(anEdge, f, l);
+        BRepInspector::Range(anEdge, f, l);
         anIntersector.SetBeanParameters(f, l);
         //
         Handle(IntTools_Context) aContext = new IntTools_Context;
@@ -2456,7 +2456,7 @@ Standard_Boolean FilterSectionEdges(const BOPDS_VectorOfCurve& theBCurves,
 
           for (r = 1; r <= anIntersector.Result().Length(); r++)
           {
-            const IntTools_Range& aRange = anIntersector.Result().Value(r);
+            const IntToolsRange& aRange = anIntersector.Result().Value(r);
 
             if (((aRange.First() - f) < Precision::PConfusion())
                 && ((l - aRange.Last()) < Precision::PConfusion()))
@@ -2480,7 +2480,7 @@ Standard_Boolean FilterSectionEdges(const BOPDS_VectorOfCurve& theBCurves,
 
 //=================================================================================================
 
-static Standard_Real ComputeAveragePlaneAndMaxDeviation(const TopoDS_Shape& aWire,
+static Standard_Real ComputeAveragePlaneAndMaxDeviation(const TopoShape& aWire,
                                                         gp_Pln&             thePlane,
                                                         Standard_Boolean&   IsSingular)
 {
@@ -2491,7 +2491,7 @@ static Standard_Real ComputeAveragePlaneAndMaxDeviation(const TopoDS_Shape& aWir
   Standard_Integer   ind = 1, i;
   for (TopoDS_Iterator iter(aWire); iter.More(); iter.Next())
   {
-    const TopoDS_Edge&     anEdge = TopoDS::Edge(iter.Value());
+    const TopoEdge&     anEdge = TopoDS::Edge(iter.Value());
     BRepAdaptor_Curve      aCurve(anEdge);
     GCPnts_UniformAbscissa Distribution(aCurve, N + 1);
     for (i = 1; i <= N; i++)
@@ -2517,17 +2517,17 @@ static Standard_Real ComputeAveragePlaneAndMaxDeviation(const TopoDS_Shape& aWir
   return MaxDeviation;
 }
 
-static void UpdateSectionEdge(TopoDS_Edge&         theEdge,
-                              const TopoDS_Vertex& theConstVertex,
-                              TopoDS_Vertex&       theVertex,
+static void UpdateSectionEdge(TopoEdge&         theEdge,
+                              const TopoVertex& theConstVertex,
+                              TopoVertex&       theVertex,
                               const Standard_Real  theParam)
 {
-  TopoDS_Edge F_Edge = theEdge;
+  TopoEdge F_Edge = theEdge;
   F_Edge.Orientation(TopAbs_FORWARD);
 
   TopAbs_Orientation OrOfVertex;
-  TopoDS_Vertex      V1, V2, AnotherVertex;
-  TopExp::Vertices(F_Edge, V1, V2);
+  TopoVertex      V1, V2, AnotherVertex;
+  TopExp1::Vertices(F_Edge, V1, V2);
   if (theConstVertex.IsSame(V1))
   {
     // OrOfConst = TopAbs_FORWARD;
@@ -2541,9 +2541,9 @@ static void UpdateSectionEdge(TopoDS_Edge&         theEdge,
     AnotherVertex = V1;
   }
 
-  BRep_Builder  BB;
+  ShapeBuilder  BB;
   Standard_Real fpar, lpar;
-  BRep_Tool::Range(F_Edge, fpar, lpar);
+  BRepInspector::Range(F_Edge, fpar, lpar);
   if (OrOfVertex == TopAbs_FORWARD)
     fpar = theParam;
   else
@@ -2560,20 +2560,20 @@ static void UpdateSectionEdge(TopoDS_Edge&         theEdge,
 // that is closest to bisector plane angularly.
 // Removes found edge from <theComp>
 //<theAxis> is the axis of bisector plane
-static TopoDS_Edge FindEdgeCloseToBisectorPlane(const TopoDS_Vertex& theVertex,
-                                                TopoDS_Compound&     theComp,
+static TopoEdge FindEdgeCloseToBisectorPlane(const TopoVertex& theVertex,
+                                                TopoCompound&     theComp,
                                                 const Axis3d&        theAxis)
 {
   TopTools_IndexedDataMapOfShapeListOfShape VEmap;
-  TopExp::MapShapesAndAncestors(theComp, TopAbs_VERTEX, TopAbs_EDGE, VEmap);
+  TopExp1::MapShapesAndAncestors(theComp, TopAbs_VERTEX, TopAbs_EDGE, VEmap);
 
-  TopoDS_Edge MinEdge;
+  TopoEdge MinEdge;
   if (!VEmap.Contains(theVertex))
     return MinEdge;
 
-  BRep_Builder BB;
+  ShapeBuilder BB;
 
-  const TopTools_ListOfShape& Edges = VEmap.FindFromKey(theVertex);
+  const ShapeList& Edges = VEmap.FindFromKey(theVertex);
   if (Edges.Extent() == 1)
     MinEdge = TopoDS::Edge(Edges.First());
   else
@@ -2582,8 +2582,8 @@ static TopoDS_Edge FindEdgeCloseToBisectorPlane(const TopoDS_Vertex& theVertex,
     Standard_Real                      MinAngle = RealLast();
     for (; itl.More(); itl.Next())
     {
-      const TopoDS_Edge& anEdge = TopoDS::Edge(itl.Value());
-      TopoDS_Wire        aWire;
+      const TopoEdge& anEdge = TopoDS::Edge(itl.Value());
+      TopoWire        aWire;
       BB.MakeWire(aWire);
       BB.Add(aWire, anEdge);
       gp_Pln           aPln;
@@ -2622,31 +2622,31 @@ static TopoDS_Edge FindEdgeCloseToBisectorPlane(const TopoDS_Vertex& theVertex,
   return MinEdge;
 }
 
-static Standard_Boolean FindMiddleEdges(const TopoDS_Vertex&  theVertex1,
-                                        const TopoDS_Vertex&  theVertex2,
+static Standard_Boolean FindMiddleEdges(const TopoVertex&  theVertex1,
+                                        const TopoVertex&  theVertex2,
                                         const Axis3d&         theAxis,
-                                        TopoDS_Compound&      theComp,
-                                        TopTools_ListOfShape& theElist)
+                                        TopoCompound&      theComp,
+                                        ShapeList& theElist)
 {
   TopTools_IndexedDataMapOfShapeListOfShape VEmap;
-  TopExp::MapShapesAndAncestors(theComp, TopAbs_VERTEX, TopAbs_EDGE, VEmap);
+  TopExp1::MapShapesAndAncestors(theComp, TopAbs_VERTEX, TopAbs_EDGE, VEmap);
   if (VEmap.IsEmpty())
     return Standard_False;
 
   if (!VEmap.Contains(theVertex1) || !VEmap.Contains(theVertex2))
     return Standard_False;
 
-  TopoDS_Vertex CurVertex = theVertex1;
+  TopoVertex CurVertex = theVertex1;
   for (;;)
   {
-    TopoDS_Edge CurEdge;
+    TopoEdge CurEdge;
 
     CurEdge = FindEdgeCloseToBisectorPlane(CurVertex, theComp, theAxis);
     if (CurEdge.IsNull())
       return Standard_False;
 
-    TopoDS_Vertex V1, V2;
-    TopExp::Vertices(CurEdge, V1, V2);
+    TopoVertex V1, V2;
+    TopExp1::Vertices(CurEdge, V1, V2);
     CurVertex = (V1.IsSame(CurVertex)) ? V2 : V1;
 
     theElist.Append(CurEdge);
@@ -2655,22 +2655,22 @@ static Standard_Boolean FindMiddleEdges(const TopoDS_Vertex&  theVertex1,
   }
 }
 
-static Standard_Boolean FindCommonVertex(const TopoDS_Edge&   theFirstEdge,
-                                         const TopoDS_Edge&   theLastEdge,
-                                         const TopoDS_Vertex& theFirstVertex,
-                                         const TopoDS_Vertex& theLastVertex,
-                                         TopoDS_Vertex&       theCommonVertex)
+static Standard_Boolean FindCommonVertex(const TopoEdge&   theFirstEdge,
+                                         const TopoEdge&   theLastEdge,
+                                         const TopoVertex& theFirstVertex,
+                                         const TopoVertex& theLastVertex,
+                                         TopoVertex&       theCommonVertex)
 {
   if (!theFirstVertex.IsSame(theLastVertex))
   {
     Standard_Boolean CommonVertexExists =
-      TopExp::CommonVertex(theFirstEdge, theLastEdge, theCommonVertex);
+      TopExp1::CommonVertex(theFirstEdge, theLastEdge, theCommonVertex);
     return CommonVertexExists;
   }
 
-  TopoDS_Vertex V1, V2, V3, V4;
-  TopExp::Vertices(theFirstEdge, V1, V2);
-  TopExp::Vertices(theLastEdge, V3, V4);
+  TopoVertex V1, V2, V3, V4;
+  TopExp1::Vertices(theFirstEdge, V1, V2);
+  TopExp1::Vertices(theLastEdge, V3, V4);
 
   if (V1.IsSame(theFirstVertex))
   {

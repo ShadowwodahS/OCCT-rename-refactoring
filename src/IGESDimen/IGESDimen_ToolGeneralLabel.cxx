@@ -34,9 +34,9 @@
 #include <Interface_ShareTool.hxx>
 #include <Message_Messenger.hxx>
 
-IGESDimen_ToolGeneralLabel::IGESDimen_ToolGeneralLabel() {}
+GeneralLabelTool::GeneralLabelTool() {}
 
-void IGESDimen_ToolGeneralLabel::ReadOwnParams(const Handle(IGESDimen_GeneralLabel)&  ent,
+void GeneralLabelTool::ReadOwnParams(const Handle(IGESDimen_GeneralLabel)&  ent,
                                                const Handle(IGESData_IGESReaderData)& IR,
                                                IGESData_ParamReader&                  PR) const
 {
@@ -76,7 +76,7 @@ void IGESDimen_ToolGeneralLabel::ReadOwnParams(const Handle(IGESDimen_GeneralLab
   ent->Init(note, leaders);
 }
 
-void IGESDimen_ToolGeneralLabel::WriteOwnParams(const Handle(IGESDimen_GeneralLabel)& ent,
+void GeneralLabelTool::WriteOwnParams(const Handle(IGESDimen_GeneralLabel)& ent,
                                                 IGESData_IGESWriter&                  IW) const
 {
   Standard_Integer upper = ent->NbLeaders();
@@ -86,7 +86,7 @@ void IGESDimen_ToolGeneralLabel::WriteOwnParams(const Handle(IGESDimen_GeneralLa
     IW.Send(ent->Leader(i));
 }
 
-void IGESDimen_ToolGeneralLabel::OwnShared(const Handle(IGESDimen_GeneralLabel)& ent,
+void GeneralLabelTool::OwnShared(const Handle(IGESDimen_GeneralLabel)& ent,
                                            Interface_EntityIterator&             iter) const
 {
   Standard_Integer upper = ent->NbLeaders();
@@ -95,7 +95,7 @@ void IGESDimen_ToolGeneralLabel::OwnShared(const Handle(IGESDimen_GeneralLabel)&
     iter.GetOneItem(ent->Leader(i));
 }
 
-void IGESDimen_ToolGeneralLabel::OwnCopy(const Handle(IGESDimen_GeneralLabel)& another,
+void GeneralLabelTool::OwnCopy(const Handle(IGESDimen_GeneralLabel)& another,
                                          const Handle(IGESDimen_GeneralLabel)& ent,
                                          Interface_CopyTool&                   TC) const
 {
@@ -111,10 +111,10 @@ void IGESDimen_ToolGeneralLabel::OwnCopy(const Handle(IGESDimen_GeneralLabel)& a
   ent->Init(note, leaders);
 }
 
-IGESData_DirChecker IGESDimen_ToolGeneralLabel::DirChecker(
+DirectoryChecker GeneralLabelTool::DirChecker(
   const Handle(IGESDimen_GeneralLabel)& /* ent */) const
 {
-  IGESData_DirChecker DC(210, 0);
+  DirectoryChecker DC(210, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.LineWeight(IGESData_DefValue);
@@ -123,13 +123,13 @@ IGESData_DirChecker IGESDimen_ToolGeneralLabel::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolGeneralLabel::OwnCheck(const Handle(IGESDimen_GeneralLabel)& /* ent */,
+void GeneralLabelTool::OwnCheck(const Handle(IGESDimen_GeneralLabel)& /* ent */,
                                           const Interface_ShareTool&,
                                           Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESDimen_ToolGeneralLabel::OwnDump(const Handle(IGESDimen_GeneralLabel)& ent,
+void GeneralLabelTool::OwnDump(const Handle(IGESDimen_GeneralLabel)& ent,
                                          const IGESData_IGESDumper&            dumper,
                                          Standard_OStream&                     S,
                                          const Standard_Integer                level) const

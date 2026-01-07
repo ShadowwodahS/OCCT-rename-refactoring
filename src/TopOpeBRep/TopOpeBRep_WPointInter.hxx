@@ -24,12 +24,12 @@
 class gp_Pnt2d;
 class Point3d;
 
-class TopOpeBRep_WPointInter
+class WPointIntersection
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRep_WPointInter();
+  Standard_EXPORT WPointIntersection();
 
   Standard_EXPORT void Set(const IntSurf_PntOn2S& P);
 

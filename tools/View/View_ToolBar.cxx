@@ -59,9 +59,9 @@ View_ToolBar::View_ToolBar(QWidget* theParent, const bool isUseKeepView)
   myViewSelector->insertItem(View_ContextType_Own, myViewContextNames[View_ContextType_Own]);
 
   myViewSelector->setCurrentIndex(View_ContextType_Own);
-  myViewContexts[View_ContextType_None]     = Handle(AIS_InteractiveContext)();
-  myViewContexts[View_ContextType_Own]      = Handle(AIS_InteractiveContext)();
-  myViewContexts[View_ContextType_External] = Handle(AIS_InteractiveContext)();
+  myViewContexts[View_ContextType_None]     = Handle(VisualContext)();
+  myViewContexts[View_ContextType_Own]      = Handle(VisualContext)();
+  myViewContexts[View_ContextType_External] = Handle(VisualContext)();
 
   myActionsMap[View_ToolActionType_Trihedron] = new QToolButton(theParent);
   myActionsMap[View_ToolActionType_Trihedron]->setIcon(QIcon(":/icons/trihedron.png"));
@@ -120,7 +120,7 @@ View_ToolBar::View_ToolBar(QWidget* theParent, const bool isUseKeepView)
 // purpose :
 // =======================================================================
 void View_ToolBar::SetContext(View_ContextType                      theType,
-                              const Handle(AIS_InteractiveContext)& theContext)
+                              const Handle(VisualContext)& theContext)
 {
   myViewContexts[theType] = theContext;
 
@@ -166,7 +166,7 @@ void View_ToolBar::SetCurrentContextType(View_ContextType theType)
 // function : CurrentContext
 // purpose :
 // =======================================================================
-Handle(AIS_InteractiveContext) View_ToolBar::CurrentContext() const
+Handle(VisualContext) View_ToolBar::CurrentContext() const
 {
   View_ContextType aCurrentType = (View_ContextType)myViewSelector->currentIndex();
   return myViewContexts[aCurrentType];

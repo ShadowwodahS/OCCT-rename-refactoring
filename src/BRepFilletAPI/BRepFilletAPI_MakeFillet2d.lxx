@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean BRepFilletAPI_MakeFillet2d::IsModified(const TopoDS_Edge& E) const
+inline Standard_Boolean BRepFilletAPI_MakeFillet2d::IsModified(const TopoEdge& E) const
 {
   return myMakeChFi2d.IsModified(E);
 }
@@ -69,7 +69,7 @@ inline Standard_Integer BRepFilletAPI_MakeFillet2d::NbChamfer() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean BRepFilletAPI_MakeFillet2d::HasDescendant(const TopoDS_Edge& E) const
+inline Standard_Boolean BRepFilletAPI_MakeFillet2d::HasDescendant(const TopoEdge& E) const
 {
   return myMakeChFi2d.HasDescendant(E);
 }
@@ -79,7 +79,7 @@ inline Standard_Boolean BRepFilletAPI_MakeFillet2d::HasDescendant(const TopoDS_E
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Edge& BRepFilletAPI_MakeFillet2d::DescendantEdge(const TopoDS_Edge& E) const
+inline const TopoEdge& BRepFilletAPI_MakeFillet2d::DescendantEdge(const TopoEdge& E) const
 {
   return myMakeChFi2d.DescendantEdge(E);
 }

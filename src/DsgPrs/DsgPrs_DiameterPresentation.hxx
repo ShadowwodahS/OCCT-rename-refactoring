@@ -24,7 +24,7 @@
 #include <DsgPrs_ArrowSide.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class TCollection_ExtendedString;
+class UtfString;
 class Point3d;
 class gp_Circ;
 
@@ -43,8 +43,8 @@ public:
   //! whether arrows will be displayed at either or both
   //! ends of the length. The text aText labels the diameter.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
                                   const Point3d&                     AttachmentPoint,
                                   const gp_Circ&                    aCircle,
                                   const DsgPrs_ArrowSide            ArrowSide,
@@ -60,8 +60,8 @@ public:
   //! length. The parameters uFirst and uLast define the
   //! first and last points of the arc. The text aText labels the diameter.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
                                   const Point3d&                     AttachmentPoint,
                                   const gp_Circ&                    aCircle,
                                   const Standard_Real               uFirst,

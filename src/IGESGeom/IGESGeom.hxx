@@ -24,7 +24,7 @@
 class IGESGeom_Protocol;
 
 //! This package consists of B-Rep and CSG Solid entities
-class IGESGeom
+class IGESGeom1
 {
 public:
   DEFINE_STANDARD_ALLOC

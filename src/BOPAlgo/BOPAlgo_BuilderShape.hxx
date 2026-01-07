@@ -29,7 +29,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopTools_ListOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! Root class for algorithms that has shape as result.
 //!
@@ -44,11 +44,11 @@ public:
 
 public: //! @name Getting the result
   //! Returns the result of algorithm
-  const TopoDS_Shape& Shape() const { return myShape; }
+  const TopoShape& Shape() const { return myShape; }
 
 public: //! @name History methods
   //! Returns the list of shapes Modified from the shape theS.
-  const TopTools_ListOfShape& Modified(const TopoDS_Shape& theS)
+  const ShapeList& Modified(const TopoShape& theS)
   {
     if (myFillHistory && myHistory)
       return myHistory->Modified(theS);
@@ -57,7 +57,7 @@ public: //! @name History methods
   }
 
   //! Returns the list of shapes Generated from the shape theS.
-  const TopTools_ListOfShape& Generated(const TopoDS_Shape& theS)
+  const ShapeList& Generated(const TopoShape& theS)
   {
     if (myFillHistory && myHistory)
       return myHistory->Generated(theS);
@@ -68,7 +68,7 @@ public: //! @name History methods
   //! Returns true if the shape theS has been deleted.
   //! In this case the shape will have no Modified elements,
   //! but can have Generated elements.
-  Standard_Boolean IsDeleted(const TopoDS_Shape& theS)
+  Standard_Boolean IsDeleted(const TopoShape& theS)
   {
     return (myFillHistory && myHistory ? myHistory->IsRemoved(theS) : Standard_False);
   }
@@ -143,9 +143,9 @@ protected: //! @name Clearing
   }
 
 protected:              //! @name Fields
-  TopoDS_Shape myShape; //!< Result of the operation
+  TopoShape myShape; //!< Result of the operation
 
-  TopTools_ListOfShape myHistShapes; //!< Storer for the history shapes
+  ShapeList myHistShapes; //!< Storer for the history shapes
   TopTools_MapOfShape  myMapShape;   //!< cached map of all arguments shapes
 
   Standard_Boolean          myFillHistory; //!< Controls the history filling

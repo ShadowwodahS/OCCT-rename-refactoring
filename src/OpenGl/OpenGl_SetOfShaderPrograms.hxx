@@ -75,7 +75,7 @@ protected:
   // clang-format on
 };
 
-typedef NCollection_DataMap<TCollection_AsciiString, Handle(OpenGl_SetOfShaderPrograms)>
+typedef NCollection_DataMap<AsciiString1, Handle(OpenGl_SetOfShaderPrograms)>
   OpenGl_MapOfShaderPrograms;
 
 #endif // _OpenGl_SetOfShaderPrograms_HeaderFile

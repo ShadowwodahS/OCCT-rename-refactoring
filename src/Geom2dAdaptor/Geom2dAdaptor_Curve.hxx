@@ -49,10 +49,10 @@ class Geom2dAdaptor_Curve : public Adaptor2d_Curve2d
 public:
   Standard_EXPORT Geom2dAdaptor_Curve();
 
-  Standard_EXPORT Geom2dAdaptor_Curve(const Handle(Geom2d_Curve)& C);
+  Standard_EXPORT Geom2dAdaptor_Curve(const Handle(GeomCurve2d)& C);
 
   //! Standard_ConstructionError is raised if Ufirst>Ulast
-  Standard_EXPORT Geom2dAdaptor_Curve(const Handle(Geom2d_Curve)& C,
+  Standard_EXPORT Geom2dAdaptor_Curve(const Handle(GeomCurve2d)& C,
                                       const Standard_Real         UFirst,
                                       const Standard_Real         ULast);
 
@@ -62,7 +62,7 @@ public:
   //! Reset currently loaded curve (undone Load()).
   Standard_EXPORT void Reset();
 
-  void Load(const Handle(Geom2d_Curve)& theCurve)
+  void Load(const Handle(GeomCurve2d)& theCurve)
   {
     if (theCurve.IsNull())
     {
@@ -72,7 +72,7 @@ public:
   }
 
   //! Standard_ConstructionError is raised if theUFirst>theULast
-  void Load(const Handle(Geom2d_Curve)& theCurve,
+  void Load(const Handle(GeomCurve2d)& theCurve,
             const Standard_Real         theUFirst,
             const Standard_Real         theULast)
   {
@@ -87,7 +87,7 @@ public:
     load(theCurve, theUFirst, theULast);
   }
 
-  const Handle(Geom2d_Curve)& Curve() const { return myCurve; }
+  const Handle(GeomCurve2d)& Curve() const { return myCurve; }
 
   virtual Standard_Real FirstParameter() const Standard_OVERRIDE { return myFirst; }
 
@@ -194,7 +194,7 @@ private:
   Standard_EXPORT GeomAbs_Shape LocalContinuity(const Standard_Real U1,
                                                 const Standard_Real U2) const;
 
-  Standard_EXPORT void load(const Handle(Geom2d_Curve)& C,
+  Standard_EXPORT void load(const Handle(GeomCurve2d)& C,
                             const Standard_Real         UFirst,
                             const Standard_Real         ULast);
 
@@ -209,7 +209,7 @@ private:
   void RebuildCache(const Standard_Real theParameter) const;
 
 protected:
-  Handle(Geom2d_Curve) myCurve;
+  Handle(GeomCurve2d) myCurve;
   GeomAbs_CurveType    myTypeCurve;
   Standard_Real        myFirst;
   Standard_Real        myLast;

@@ -20,6 +20,6 @@
 #include <gp_XY.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<gp_XY> TColgp_Array1OfXY;
+typedef NCollection_Array1<Coords2d> TColgp_Array1OfXY;
 
 #endif

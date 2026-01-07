@@ -189,11 +189,11 @@ Standard_Boolean BlendFunc_EvolRadInv::Value(const math_Vector& X, math_Vector& 
   if (ns1.Magnitude() < Eps)
   {
     if (first)
-      BlendFunc::ComputeNormal(surf1, pt2d, ns1);
+      BlendFunc1::ComputeNormal(surf1, pt2d, ns1);
     else
     {
       gp_Pnt2d P(X(3), X(4));
-      BlendFunc::ComputeNormal(surf1, P, ns1);
+      BlendFunc1::ComputeNormal(surf1, P, ns1);
     }
   }
 
@@ -201,11 +201,11 @@ Standard_Boolean BlendFunc_EvolRadInv::Value(const math_Vector& X, math_Vector& 
   if (ns2.Magnitude() < Eps)
   {
     if (!first)
-      BlendFunc::ComputeNormal(surf2, pt2d, ns2);
+      BlendFunc1::ComputeNormal(surf2, pt2d, ns2);
     else
     {
       gp_Pnt2d P(X(3), X(4));
-      BlendFunc::ComputeNormal(surf2, P, ns2);
+      BlendFunc1::ComputeNormal(surf2, P, ns2);
     }
   }
 
@@ -301,11 +301,11 @@ Standard_Boolean BlendFunc_EvolRadInv::Values(const math_Vector& X, math_Vector&
   if (ns1.Magnitude() < Eps)
   {
     if (first)
-      BlendFunc::ComputeNormal(surf1, p2d, ns1);
+      BlendFunc1::ComputeNormal(surf1, p2d, ns1);
     else
     {
       gp_Pnt2d P(X(3), X(4));
-      BlendFunc::ComputeNormal(surf1, P, ns1);
+      BlendFunc1::ComputeNormal(surf1, P, ns1);
     }
   }
 
@@ -313,11 +313,11 @@ Standard_Boolean BlendFunc_EvolRadInv::Values(const math_Vector& X, math_Vector&
   if (ns2.Magnitude() < Eps)
   {
     if (!first)
-      BlendFunc::ComputeNormal(surf2, p2d, ns2);
+      BlendFunc1::ComputeNormal(surf2, p2d, ns2);
     else
     {
       gp_Pnt2d P(X(3), X(4));
-      BlendFunc::ComputeNormal(surf2, P, ns2);
+      BlendFunc1::ComputeNormal(surf2, P, ns2);
     }
   }
 

@@ -54,10 +54,10 @@ Standard_Boolean XmlMDataStd_ExpressionDriver::Paste(
   const XmlObjMgt_Element&    anElem = theSource;
 
   Standard_Integer           aNb;
-  TCollection_ExtendedString aMsgString;
+  UtfString aMsgString;
 
   // expression
-  TCollection_ExtendedString aString;
+  UtfString aString;
   if (!XmlObjMgt::GetExtendedString(theSource, aString))
   {
     myMessageDriver->Send("error retrieving ExtendedString for type TDataStd_Expression",
@@ -76,7 +76,7 @@ Standard_Boolean XmlMDataStd_ExpressionDriver::Paste(
     if (!XmlObjMgt::GetInteger(aVs, aNb))
     {
       aMsgString =
-        TCollection_ExtendedString(
+        UtfString(
           "XmlMDataStd_ExpressionDriver: Cannot retrieve reference on first variable from \"")
         + aDOMStr + "\"";
       myMessageDriver->Send(aMsgString, Message_Fail);
@@ -124,7 +124,7 @@ void XmlMDataStd_ExpressionDriver::Paste(const Handle(TDF_Attribute)& theSource,
   Standard_Integer nbvar = aC->GetVariables().Extent();
   if (nbvar >= 1)
   {
-    TCollection_AsciiString         aGsStr;
+    AsciiString1         aGsStr;
     TDF_ListIteratorOfAttributeList it;
     for (it.Initialize(aC->GetVariables()); it.More(); it.Next())
     {
@@ -136,7 +136,7 @@ void XmlMDataStd_ExpressionDriver::Paste(const Handle(TDF_Attribute)& theSource,
         {
           aNb = theRelocTable.Add(TV);
         }
-        aGsStr += TCollection_AsciiString(aNb) + " ";
+        aGsStr += AsciiString1(aNb) + " ";
       }
       else
         aGsStr += "0 ";

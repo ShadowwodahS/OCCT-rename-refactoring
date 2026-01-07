@@ -19,10 +19,10 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Interface_SignType, MoniTool_SignText)
 
-TCollection_AsciiString Interface_SignType::Text(const Handle(RefObject)& ent,
+AsciiString1 Interface_SignType::Text(const Handle(RefObject)& ent,
                                                  const Handle(RefObject)& context) const
 {
-  TCollection_AsciiString          atext;
+  AsciiString1          atext;
   Handle(Interface_InterfaceModel) model = Handle(Interface_InterfaceModel)::DownCast(context);
   if (ent.IsNull() || model.IsNull())
     return atext;

@@ -24,7 +24,7 @@
 #include <BOPAlgo_ToolsProvider.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <TopAbs_ShapeEnum.hxx>
-class BOPAlgo_PaveFiller;
+class BooleanPaveFiller;
 
 //!
 //! The class represents the Building part of the Boolean Operations
@@ -86,7 +86,7 @@ protected:
 
   //! Performs calculations using prepared Filler
   //! object <thePF>
-  Standard_EXPORT virtual void PerformInternal1(const BOPAlgo_PaveFiller&    thePF,
+  Standard_EXPORT virtual void PerformInternal1(const BooleanPaveFiller&    thePF,
                                                 const Message_ProgressRange& theRange)
     Standard_OVERRIDE;
 
@@ -119,12 +119,12 @@ protected:
 
   //! Fill PI steps
   Standard_EXPORT virtual void fillPIConstants(const Standard_Real theWhole,
-                                               BOPAlgo_PISteps& theSteps) const Standard_OVERRIDE;
+                                               PISteps& theSteps) const Standard_OVERRIDE;
 
 protected:
   BOPAlgo_Operation myOperation;
   Standard_Integer  myDims[2];
-  TopoDS_Shape      myRC;
+  TopoShape      myRC;
 };
 
 #endif // _BOPAlgo_BOP_HeaderFile

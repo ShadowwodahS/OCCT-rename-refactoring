@@ -41,7 +41,7 @@ public:
   //! the attribute manager aDrawer.
   //! This syntax is used for display of symmetries between two segments.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
                                   const Dir3d&                     aDirection1,
@@ -56,7 +56,7 @@ public:
   //! the attribute manager aDrawer.
   //! This syntax is used for display of symmetries between two arcs.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
                                   const gp_Circ&                    aCircle1,
@@ -70,7 +70,7 @@ public:
   //! the attribute manager aDrawer.
   //! This syntax is used for display of symmetries between two vertices.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
                                   const gp_Lin&                     aAxis,

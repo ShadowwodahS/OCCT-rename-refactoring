@@ -65,14 +65,14 @@ STEPConstruct_ExternRefs::STEPConstruct_ExternRefs() {}
 
 //=================================================================================================
 
-STEPConstruct_ExternRefs::STEPConstruct_ExternRefs(const Handle(XSControl_WorkSession)& WS)
+STEPConstruct_ExternRefs::STEPConstruct_ExternRefs(const Handle(ExchangeSession)& WS)
     : STEPConstruct_Tool(WS)
 {
 }
 
 //=================================================================================================
 
-Standard_Boolean STEPConstruct_ExternRefs::Init(const Handle(XSControl_WorkSession)& WS)
+Standard_Boolean STEPConstruct_ExternRefs::Init(const Handle(ExchangeSession)& WS)
 {
   Clear();
   return SetWS(WS);
@@ -406,17 +406,17 @@ Standard_CString STEPConstruct_ExternRefs::FileName(const Standard_Integer num) 
   }
   Standard_CString oldFileName = 0;
   // compute true path to the extern file
-  OSD_Path mainfile(WS()->LoadedFile());
+  SystemPath mainfile(WS()->LoadedFile());
   mainfile.SetName("");
   mainfile.SetExtension("");
-  TCollection_AsciiString dpath;
+  AsciiString1 dpath;
   mainfile.SystemName(dpath);
   if (aCStringFileName && aCStringFileName[0])
   {
-    TCollection_AsciiString fullname = OSD_Path::AbsolutePath(dpath, aCStringFileName);
+    AsciiString1 fullname = SystemPath::AbsolutePath(dpath, aCStringFileName);
     if (fullname.Length() <= 0)
       fullname = aCStringFileName;
-    if (!OSD_File(fullname).Exists())
+    if (!SystemFile(fullname).Exists())
     {
       oldFileName      = aCStringFileName;
       aCStringFileName = 0;
@@ -449,17 +449,17 @@ Standard_CString STEPConstruct_ExternRefs::FileName(const Standard_Integer num) 
       }
     }
   }
-  TCollection_AsciiString fullname = OSD_Path::AbsolutePath(dpath, aCStringFileName);
+  AsciiString1 fullname = SystemPath::AbsolutePath(dpath, aCStringFileName);
   if (fullname.Length() <= 0)
     fullname = aCStringFileName;
-  if (!OSD_File(fullname).Exists())
+  if (!SystemFile(fullname).Exists())
   {
     if (oldFileName)
     {
       aCStringFileName = oldFileName;
     }
     Handle(Transfer_TransientProcess) aTP = WS()->TransferReader()->TransientProcess();
-    TCollection_AsciiString           aMess("Can not read external file ");
+    AsciiString1           aMess("Can not read external file ");
     aMess.AssignCat(aCStringFileName);
     aTP->AddFail(DocFile, aMess.ToCString());
   }
@@ -468,7 +468,7 @@ Standard_CString STEPConstruct_ExternRefs::FileName(const Standard_Integer num) 
     if (oldFileName && strcmp(oldFileName, aCStringFileName) != 0)
     {
       Handle(Transfer_TransientProcess) aTP = WS()->TransferReader()->TransientProcess();
-      TCollection_AsciiString           aMess("External file with name from entity AEIA (");
+      AsciiString1           aMess("External file with name from entity AEIA (");
       aMess.AssignCat(oldFileName);
       aMess.AssignCat(") not existed => use file name from DocumentFile entity - ");
       aMess.AssignCat(aCStringFileName);

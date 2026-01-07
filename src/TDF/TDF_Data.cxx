@@ -46,7 +46,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TDF_Data, RefObject)
               << myNbTouchedAtt << " attribute(s) touched. Time = " << myTime << std::endl;        \
     if (!myTransaction)                                                                            \
     {                                                                                              \
-      TCollection_AsciiString entry;                                                               \
+      AsciiString1 entry;                                                               \
       for (TDF_ChildIterator itr(Root(), Standard_True); itr.More(); itr.Next())                   \
       {                                                                                            \
         const TDF_LabelNode* lnp = itr.Value().myLabelNode;                                        \
@@ -72,7 +72,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TDF_Data, RefObject)
 #ifdef OCCT_DEBUG_DELTA_CREATION
   #define TDF_DataDebugDeltaCreation(DELTATYPE)                                                    \
     {                                                                                              \
-      TCollection_AsciiString entry;                                                               \
+      AsciiString1 entry;                                                               \
       TDF_Tool::Entry(currentAtt->Label(), entry);                                                 \
       std::cout << "Creation of a DeltaOn" << DELTATYPE << " \tat " << entry << " \ton "           \
                 << currentAtt->DynamicType() << std::endl;                                         \
@@ -213,7 +213,7 @@ Handle(TDF_Delta) TDF_Data::CommitUntilTransaction(const Standard_Integer untilT
 // purpose  : Recursive method used to implement the commit action.
 //=======================================================================
 
-Standard_Integer TDF_Data::CommitTransaction(const TDF_Label&         aLabel,
+Standard_Integer TDF_Data::CommitTransaction(const DataLabel&         aLabel,
                                              const Handle(TDF_Delta)& aDelta,
                                              const Standard_Boolean   withDelta)
 {
@@ -455,7 +455,7 @@ void TDF_Data::SetAccessByEntries(const Standard_Boolean aSet)
   if (myAccessByEntries)
   {
     // Add root label.
-    TCollection_AsciiString anEntry;
+    AsciiString1 anEntry;
     TDF_Tool::Entry(myRoot, anEntry);
     myAccessByEntriesTable.Bind(anEntry, myRoot);
 
@@ -463,7 +463,7 @@ void TDF_Data::SetAccessByEntries(const Standard_Boolean aSet)
     TDF_ChildIterator itr(myRoot, Standard_True);
     for (; itr.More(); itr.Next())
     {
-      const TDF_Label aLabel = itr.Value();
+      const DataLabel aLabel = itr.Value();
       TDF_Tool::Entry(aLabel, anEntry);
       myAccessByEntriesTable.Bind(anEntry, aLabel);
     }
@@ -472,9 +472,9 @@ void TDF_Data::SetAccessByEntries(const Standard_Boolean aSet)
 
 //=================================================================================================
 
-void TDF_Data::RegisterLabel(const TDF_Label& aLabel)
+void TDF_Data::RegisterLabel(const DataLabel& aLabel)
 {
-  TCollection_AsciiString anEntry;
+  AsciiString1 anEntry;
   TDF_Tool::Entry(aLabel, anEntry);
   myAccessByEntriesTable.Bind(anEntry, aLabel);
 }
@@ -495,7 +495,7 @@ void TDF_Data::DumpJson(Standard_OStream& theOStream, Standard_Integer /*theDept
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
-  TCollection_AsciiString aStrForTDF_Label;
+  AsciiString1 aStrForTDF_Label;
   TDF_Tool::Entry(myRoot, aStrForTDF_Label);
   OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aStrForTDF_Label)
 

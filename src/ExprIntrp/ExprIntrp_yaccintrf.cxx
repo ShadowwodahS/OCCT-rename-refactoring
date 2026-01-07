@@ -51,21 +51,21 @@
 #include <Expr_Array1OfNamedUnknown.hxx>
 #include <Expr_Array1OfGeneralExpression.hxx>
 
-static TCollection_AsciiString ExprIntrp_assname;
-static TCollection_AsciiString ExprIntrp_funcdefname;
+static AsciiString1 ExprIntrp_assname;
+static AsciiString1 ExprIntrp_funcdefname;
 static Standard_Integer        ExprIntrp_nbargs;
 static Standard_Integer        ExprIntrp_nbdiff;
 
 extern "C" void ExprIntrp_StartFunction()
 {
-  const TCollection_AsciiString& name = ExprIntrp_GetResult();
+  const AsciiString1& name = ExprIntrp_GetResult();
   ExprIntrp_Recept.PushName(name);
   ExprIntrp_nbargs = 0;
 }
 
 extern "C" void ExprIntrp_StartDerivate()
 {
-  const TCollection_AsciiString& name = ExprIntrp_GetResult();
+  const AsciiString1& name = ExprIntrp_GetResult();
   ExprIntrp_Recept.PushName(name);
 }
 
@@ -79,7 +79,7 @@ extern "C" void ExprIntrp_EndDerivate()
 extern "C" void ExprIntrp_Derivation()
 {
   ExprIntrp_Recept.PushValue(1);
-  const TCollection_AsciiString& thename = ExprIntrp_GetResult();
+  const AsciiString1& thename = ExprIntrp_GetResult();
   Handle(Expr_NamedExpression)   namexp  = ExprIntrp_Recept.GetNamed(thename);
   if (namexp.IsNull())
   {
@@ -94,7 +94,7 @@ extern "C" void ExprIntrp_Derivation()
 
 extern "C" void ExprIntrp_DerivationValue()
 {
-  const TCollection_AsciiString& aStr = ExprIntrp_GetResult();
+  const AsciiString1& aStr = ExprIntrp_GetResult();
   ExprIntrp_Recept.PopValue();
   ExprIntrp_Recept.PushValue(aStr.IntegerValue());
 }
@@ -116,7 +116,7 @@ extern "C" void ExprIntrp_StartDifferential()
 
 extern "C" void ExprIntrp_DiffDegreeVar()
 {
-  const TCollection_AsciiString& aStr = ExprIntrp_GetResult();
+  const AsciiString1& aStr = ExprIntrp_GetResult();
   const char*                    s    = aStr.ToCString();
   if (*s != 'X' && *s != 'x')
   {
@@ -136,14 +136,14 @@ extern "C" void ExprIntrp_DiffVar()
 
 extern "C" void ExprIntrp_DiffDegree()
 {
-  const TCollection_AsciiString& aStr = ExprIntrp_GetResult();
+  const AsciiString1& aStr = ExprIntrp_GetResult();
   Standard_Integer               deg  = aStr.IntegerValue();
   ExprIntrp_Recept.PushValue(deg);
 }
 
 extern "C" void ExprIntrp_VerDiffDegree()
 {
-  const TCollection_AsciiString& aStr   = ExprIntrp_GetResult();
+  const AsciiString1& aStr   = ExprIntrp_GetResult();
   Standard_Integer               deg    = aStr.IntegerValue();
   Standard_Integer               thedeg = ExprIntrp_Recept.PopValue();
   if (deg != thedeg)
@@ -155,7 +155,7 @@ extern "C" void ExprIntrp_VerDiffDegree()
 
 extern "C" void ExprIntrp_EndDifferential()
 {
-  TCollection_AsciiString      name    = ExprIntrp_Recept.PopName();
+  AsciiString1      name    = ExprIntrp_Recept.PopName();
   Handle(Expr_GeneralFunction) thefunc = ExprIntrp_Recept.GetFunction(name);
   if (thefunc.IsNull())
   {
@@ -223,7 +223,7 @@ extern "C" void ExprIntrp_EndDiffFunction()
 }
 
 static Handle(Expr_GeneralExpression) ExprIntrp_StandardFunction(
-  const TCollection_AsciiString&        name,
+  const AsciiString1&        name,
   const Handle(Expr_GeneralExpression)& op)
 {
   // return standard functions equivalent corresponding to <name>
@@ -308,14 +308,14 @@ static Handle(Expr_GeneralExpression) ExprIntrp_StandardFunction(
 
 extern "C" void ExprIntrp_EndDerFunction()
 {
-  TCollection_AsciiString        name     = ExprIntrp_Recept.PopName();
+  AsciiString1        name     = ExprIntrp_Recept.PopName();
   Handle(Expr_GeneralExpression) op       = ExprIntrp_Recept.Pop();
   Handle(Expr_GeneralExpression) resstand = ExprIntrp_StandardFunction(name, op);
 
   if (!resstand.IsNull())
   {
     Handle(Expr_NamedUnknown) var;
-    Expr_UnknownIterator      rit(resstand);
+    UnknownIterator      rit(resstand);
     while (rit.More())
     {
       if (!var.IsNull())
@@ -364,7 +364,7 @@ extern "C" void ExprIntrp_EndDerFunction()
 
 extern "C" void ExprIntrp_EndFunction()
 {
-  TCollection_AsciiString        name = ExprIntrp_Recept.PopName();
+  AsciiString1        name = ExprIntrp_Recept.PopName();
   Handle(Expr_GeneralExpression) op   = ExprIntrp_Recept.Pop();
 
   Handle(Expr_GeneralExpression) resstand = ExprIntrp_StandardFunction(name, op);
@@ -481,7 +481,7 @@ extern "C" void ExprIntrp_UnaryPlusOperator()
 
 extern "C" void ExprIntrp_VariableIdentifier()
 {
-  const TCollection_AsciiString& thename = ExprIntrp_GetResult();
+  const AsciiString1& thename = ExprIntrp_GetResult();
   Handle(Expr_NamedExpression)   nameexp = ExprIntrp_Recept.GetNamed(thename);
   if (nameexp.IsNull())
   {
@@ -493,7 +493,7 @@ extern "C" void ExprIntrp_VariableIdentifier()
 
 extern "C" void ExprIntrp_NumValue()
 {
-  const TCollection_AsciiString& aStr  = ExprIntrp_GetResult();
+  const AsciiString1& aStr  = ExprIntrp_GetResult();
   Standard_Real                  value = aStr.RealValue();
   Handle(Expr_NumericValue)      nval  = new Expr_NumericValue(value);
   ExprIntrp_Recept.Push(nval);
@@ -506,7 +506,7 @@ extern "C" void ExprIntrp_AssignVariable()
 
 extern "C" void ExprIntrp_Deassign()
 {
-  const TCollection_AsciiString& thename = ExprIntrp_GetResult();
+  const AsciiString1& thename = ExprIntrp_GetResult();
   Handle(Expr_NamedExpression)   nameexp = ExprIntrp_Recept.GetNamed(thename);
   if (nameexp.IsNull())
   {
@@ -610,7 +610,7 @@ extern "C" void ExprIntrp_EndOfFuncDef()
     vars(i)       = Handle(Expr_NamedUnknown)::DownCast(ExprIntrp_Recept.Pop());
     internvars(i) = Handle(Expr_NamedUnknown)::DownCast(vars(i)->Copy());
   }
-  theexp = Expr::CopyShare(theexp); // ATTENTION, PROTECTION BUG STACK
+  theexp = Expr1::CopyShare(theexp); // ATTENTION, PROTECTION BUG STACK
   for (i = 1; i <= nbargs; i++)
   {
     if (theexp->Contains(vars(i)))
@@ -632,14 +632,14 @@ extern "C" void ExprIntrp_EndOfFuncDef()
 
 extern "C" void ExprIntrp_ConstantIdentifier()
 {
-  const TCollection_AsciiString& thename = ExprIntrp_GetResult();
+  const AsciiString1& thename = ExprIntrp_GetResult();
   ExprIntrp_Recept.PushName(thename);
 }
 
 extern "C" void ExprIntrp_ConstantDefinition()
 {
-  TCollection_AsciiString            name     = ExprIntrp_Recept.PopName();
-  const TCollection_AsciiString&     aStr     = ExprIntrp_GetResult();
+  AsciiString1            name     = ExprIntrp_Recept.PopName();
+  const AsciiString1&     aStr     = ExprIntrp_GetResult();
   Standard_Real                      val      = aStr.RealValue();
   Handle(Expr_NamedConstant)         theconst = new Expr_NamedConstant(name, val);
   const Handle(Expr_NamedExpression) theexpr  = theconst; // to resolve ambiguity
@@ -656,7 +656,7 @@ extern "C" void ExprIntrp_Sumator()
   Handle(Expr_NamedUnknown)      var = Handle(Expr_NamedUnknown)::DownCast(ExprIntrp_Recept.Pop());
   Handle(Expr_GeneralExpression) theexp  = ExprIntrp_Recept.Pop();
   Standard_Boolean               thesame = (theexp == var);
-  Handle(Expr_GeneralExpression) cur     = Expr::CopyShare(first);
+  Handle(Expr_GeneralExpression) cur     = Expr1::CopyShare(first);
   Handle(Expr_GeneralExpression) res;
   Handle(Expr_GeneralExpression) member;
   Expr_SequenceOfGeneralExpression seq;
@@ -668,7 +668,7 @@ extern "C" void ExprIntrp_Sumator()
     }
     else
     {
-      member = Expr::CopyShare(theexp);
+      member = Expr1::CopyShare(theexp);
       member->Replace(var, cur);
     }
     seq.Append(member);
@@ -687,7 +687,7 @@ extern "C" void ExprIntrp_Productor()
   Handle(Expr_NamedUnknown)      var = Handle(Expr_NamedUnknown)::DownCast(ExprIntrp_Recept.Pop());
   Handle(Expr_GeneralExpression) theexp  = ExprIntrp_Recept.Pop();
   Standard_Boolean               thesame = (theexp == var);
-  Handle(Expr_GeneralExpression) cur     = Expr::CopyShare(first);
+  Handle(Expr_GeneralExpression) cur     = Expr1::CopyShare(first);
   Handle(Expr_GeneralExpression) res;
   Handle(Expr_GeneralExpression) member;
   Expr_SequenceOfGeneralExpression seq;
@@ -699,7 +699,7 @@ extern "C" void ExprIntrp_Productor()
     }
     else
     {
-      member = Expr::CopyShare(theexp);
+      member = Expr1::CopyShare(theexp);
       member->Replace(var, cur);
     }
     seq.Append(member);

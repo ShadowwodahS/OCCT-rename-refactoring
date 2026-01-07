@@ -38,7 +38,7 @@ typedef gp_Dir2d         Dir2d;
 typedef gp_Pnt2d         Pnt2d;
 typedef gp_Vec2d         Vec2d;
 typedef gp_Trsf2d        Trsf2d;
-typedef gp_XY            XY;
+typedef Coords2d            XY;
 
 //=================================================================================================
 

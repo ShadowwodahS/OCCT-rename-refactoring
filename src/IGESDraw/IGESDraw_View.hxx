@@ -30,7 +30,7 @@ class IGESDraw_View;
 DEFINE_STANDARD_HANDLE(IGESDraw_View, IGESData_ViewKindEntity)
 
 //! defines IGES View Entity, Type <410> Form <0>
-//! in package IGESDraw
+//! in package IGESDraw1
 //!
 //! Used to define a framework for specifying a viewing
 //! orientation of an object in three dimensional model

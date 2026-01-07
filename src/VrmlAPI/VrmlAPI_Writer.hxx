@@ -27,8 +27,8 @@
 class VrmlConverter_Drawer;
 class VrmlConverter_Projector;
 class Vrml_Material;
-class TopoDS_Shape;
-class TDocStd_Document;
+class TopoShape;
+class AppDocument;
 
 //! Creates and writes VRML files from Open
 //! CASCADE shapes. A VRML file can be written to
@@ -106,25 +106,25 @@ public:
 
   //! Converts the shape aShape to
   //! VRML format of the passed version and writes it to the file identified by aFile.
-  Standard_EXPORT Standard_Boolean Write(const TopoDS_Shape&    aShape,
+  Standard_EXPORT Standard_Boolean Write(const TopoShape&    aShape,
                                          const Standard_CString aFile,
                                          const Standard_Integer aVersion = 2) const;
 
   //! Converts the document to VRML format of the passed version
   //! and writes it to the file identified by aFile.
-  Standard_EXPORT Standard_Boolean WriteDoc(const Handle(TDocStd_Document)& theDoc,
+  Standard_EXPORT Standard_Boolean WriteDoc(const Handle(AppDocument)& theDoc,
                                             const Standard_CString          theFile,
                                             const Standard_Real             theScale) const;
 
 protected:
   //! Converts the shape aShape to VRML format of version 1.0 and writes it
   //! to the file identified by aFileName using default parameters.
-  Standard_EXPORT Standard_Boolean write_v1(const TopoDS_Shape&    aShape,
+  Standard_EXPORT Standard_Boolean write_v1(const TopoShape&    aShape,
                                             const Standard_CString aFileName) const;
 
   //! Converts the shape aShape to VRML format of version 2.0 and writes it
   //! to the file identified by aFileName using default parameters.
-  Standard_EXPORT Standard_Boolean write_v2(const TopoDS_Shape&    aShape,
+  Standard_EXPORT Standard_Boolean write_v2(const TopoShape&    aShape,
                                             const Standard_CString aFileName) const;
 
 private:

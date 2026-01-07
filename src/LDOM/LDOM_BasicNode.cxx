@@ -24,7 +24,7 @@
 // purpose  : Assignment
 //=======================================================================
 
-LDOM_BasicNode& LDOM_BasicNode::operator=(const LDOM_BasicNode& anOther)
+BasicNode& BasicNode::operator=(const BasicNode& anOther)
 {
   myNodeType = anOther.getNodeType();
   mySibling  = anOther.GetSibling();
@@ -36,11 +36,11 @@ LDOM_BasicNode& LDOM_BasicNode::operator=(const LDOM_BasicNode& anOther)
 // purpose  : also detaches NULL siblings
 //=======================================================================
 
-const LDOM_BasicNode* LDOM_BasicNode::GetSibling() const
+const BasicNode* BasicNode::GetSibling() const
 {
   while (mySibling)
     if (mySibling->isNull())
-      (const LDOM_BasicNode*&)mySibling = mySibling->mySibling;
+      (const BasicNode*&)mySibling = mySibling->mySibling;
     else
       break;
   return mySibling;
@@ -55,7 +55,7 @@ const LDOM_BasicNode* LDOM_BasicNode::GetSibling() const
     #define FLITERAL 0x10
     #define MAX_SIBLINGS 8
 
-char* db_pretty_print(const LDOM_BasicNode* aBNode, int fl, char*)
+char* db_pretty_print(const BasicNode* aBNode, int fl, char*)
 {
   LDOM_OSStream out(128);
   switch (aBNode->getNodeType())
@@ -84,7 +84,7 @@ char* db_pretty_print(const LDOM_BasicNode* aBNode, int fl, char*)
           {
             if (aBNode->getNodeType() == LDOM_Node::ATTRIBUTE_NODE)
               break;
-            out << "  *(LDOM_BasicNode*)" << aBNode << " : " << db_pretty_print(aBNode, FLITERAL, 0)
+            out << "  *(BasicNode*)" << aBNode << " : " << db_pretty_print(aBNode, FLITERAL, 0)
                 << std::endl;
             aBNode = aBNode->GetSibling();
           }
@@ -98,7 +98,7 @@ char* db_pretty_print(const LDOM_BasicNode* aBNode, int fl, char*)
           {
             if (aBNode->getNodeType() == LDOM_Node::ATTRIBUTE_NODE)
               break;
-            out << "  *(LDOM_BasicNode*)" << aBNode << " : " << db_pretty_print(aBNode, FLITERAL, 0)
+            out << "  *(BasicNode*)" << aBNode << " : " << db_pretty_print(aBNode, FLITERAL, 0)
                 << std::endl;
             aBNode = aBNode->GetSibling();
           }

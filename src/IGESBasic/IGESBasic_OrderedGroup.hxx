@@ -25,7 +25,7 @@ class IGESBasic_OrderedGroup;
 DEFINE_STANDARD_HANDLE(IGESBasic_OrderedGroup, IGESBasic_Group)
 
 //! defines OrderedGroup, Type <402> Form <14>
-//! in package IGESBasic
+//! in package IGESBasic1
 //! this class defines an Ordered Group with back pointers
 //! Allows a collection of a set of entities to be
 //! maintained as a single entity, but the group is

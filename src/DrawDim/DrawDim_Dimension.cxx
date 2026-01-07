@@ -58,23 +58,23 @@ Standard_Boolean DrawDim_Dimension::IsValued() const
 
 //=================================================================================================
 
-Draw_Color DrawDim_Dimension::TextColor() const
+DrawColor DrawDim_Dimension::TextColor() const
 {
   return myTextColor;
 }
 
 //=================================================================================================
 
-void DrawDim_Dimension::TextColor(const Draw_Color& C)
+void DrawDim_Dimension::TextColor(const DrawColor& C)
 {
   myTextColor = C;
 }
 
 //=================================================================================================
 
-void DrawDim_Dimension::DrawText(const Point3d& P, Draw_Display& D) const
+void DrawDim_Dimension::DrawText(const Point3d& P, DrawDisplay& D) const
 {
-  TCollection_AsciiString t = Name();
+  AsciiString1 t = Name();
   if (is_valued)
   {
     t += "=";

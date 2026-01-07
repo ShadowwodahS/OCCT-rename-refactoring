@@ -33,7 +33,7 @@ class IGESDraw_PerspectiveView;
 DEFINE_STANDARD_HANDLE(IGESDraw_PerspectiveView, IGESData_ViewKindEntity)
 
 //! defines IGESPerspectiveView, Type <410> Form <1>
-//! in package IGESDraw
+//! in package IGESDraw1
 //!
 //! Supports a perspective view.
 //! Any geometric projection is defined by a view plane
@@ -73,8 +73,8 @@ public:
                             const gp_XYZ&          aCenterOfProjection,
                             const gp_XYZ&          aViewUpVector,
                             const Standard_Real    aViewPlaneDistance,
-                            const gp_XY&           aTopLeft,
-                            const gp_XY&           aBottomRight,
+                            const Coords2d&           aTopLeft,
+                            const Coords2d&           aBottomRight,
                             const Standard_Integer aDepthClip,
                             const Standard_Real    aBackPlaneDistance,
                             const Standard_Real    aFrontPlaneDistance);
@@ -149,8 +149,8 @@ private:
   gp_XYZ           theCenterOfProjection;
   gp_XYZ           theViewUpVector;
   Standard_Real    theViewPlaneDistance;
-  gp_XY            theTopLeft;
-  gp_XY            theBottomRight;
+  Coords2d            theTopLeft;
+  Coords2d            theBottomRight;
   Standard_Integer theDepthClip;
   Standard_Real    theBackPlaneDistance;
   Standard_Real    theFrontPlaneDistance;

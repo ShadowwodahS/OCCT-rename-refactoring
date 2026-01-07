@@ -27,9 +27,9 @@
 #include <TopTools_IndexedMapOfShape.hxx>
 
 class Point3d;
-class TopoDS_Face;
+class TopoFace;
 class Vector3d;
-class TopoDS_Shell;
+class TopoShell;
 class gp_Lin;
 class IntCurvesFace_Intersector;
 
@@ -42,11 +42,11 @@ public:
 
   Standard_EXPORT BRepClass3d_SolidExplorer();
 
-  Standard_EXPORT BRepClass3d_SolidExplorer(const TopoDS_Shape& S);
+  Standard_EXPORT BRepClass3d_SolidExplorer(const TopoShape& S);
 
   Standard_EXPORT virtual ~BRepClass3d_SolidExplorer();
 
-  Standard_EXPORT void InitShape(const TopoDS_Shape& S);
+  Standard_EXPORT void InitShape(const TopoShape& S);
 
   //! Should return True if P outside of bounding vol. of the shape
   Standard_EXPORT virtual Standard_Boolean Reject(const Point3d& P) const;
@@ -54,17 +54,17 @@ public:
   //! compute a point P in the face  F. Param is a Real in
   //! ]0,1[ and   is  used to  initialise  the algorithm. For
   //! different values , different points are returned.
-  Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoDS_Face& F,
+  Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoFace& F,
                                                               Point3d&            P,
                                                               Standard_Real&     Param);
 
-  Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoDS_Face& F,
+  Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoFace& F,
                                                               Point3d&            P,
                                                               Standard_Real&     u,
                                                               Standard_Real&     v,
                                                               Standard_Real&     Param);
 
-  Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoDS_Face& F,
+  Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoFace& F,
                                                               Point3d&            P,
                                                               Standard_Real&     u,
                                                               Standard_Real&     v,
@@ -72,25 +72,25 @@ public:
                                                               Vector3d&            theVecD1U,
                                                               Vector3d&            theVecD1V);
 
-  Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoDS_Face& F,
+  Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoFace& F,
                                                               Point3d&            P,
                                                               Standard_Real&     u,
                                                               Standard_Real&     v);
 
-  Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoDS_Face& F, Point3d& P);
+  Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoFace& F, Point3d& P);
 
-  Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoDS_Face& F,
+  Standard_EXPORT static Standard_Boolean FindAPointInTheFace(const TopoFace& F,
                                                               Standard_Real&     u,
                                                               Standard_Real&     v);
 
-  Standard_EXPORT Standard_Boolean PointInTheFace(const TopoDS_Face& F,
+  Standard_EXPORT Standard_Boolean PointInTheFace(const TopoFace& F,
                                                   Point3d&            P,
                                                   Standard_Real&     u,
                                                   Standard_Real&     v,
                                                   Standard_Real&     Param,
                                                   Standard_Integer&  Index) const;
 
-  Standard_EXPORT Standard_Boolean PointInTheFace(const TopoDS_Face&                 F,
+  Standard_EXPORT Standard_Boolean PointInTheFace(const TopoFace&                 F,
                                                   Point3d&                            P,
                                                   Standard_Real&                     u,
                                                   Standard_Real&                     v,
@@ -104,7 +104,7 @@ public:
 
   //! <Index> gives point index  to  search from and returns
   //! point index of succeseful search
-  Standard_EXPORT Standard_Boolean PointInTheFace(const TopoDS_Face&                 F,
+  Standard_EXPORT Standard_Boolean PointInTheFace(const TopoFace&                 F,
                                                   Point3d&                            P,
                                                   Standard_Real&                     u,
                                                   Standard_Real&                     v,
@@ -128,7 +128,7 @@ public:
   Standard_EXPORT void NextShell();
 
   //! Returns the current shell.
-  Standard_EXPORT TopoDS_Shell CurrentShell() const;
+  Standard_EXPORT TopoShell CurrentShell() const;
 
   //! Returns True if the Shell is rejected.
   Standard_EXPORT virtual Standard_Boolean RejectShell(const gp_Lin& L) const;
@@ -143,7 +143,7 @@ public:
   Standard_EXPORT void NextFace();
 
   //! Returns the current face.
-  Standard_EXPORT TopoDS_Face CurrentFace() const;
+  Standard_EXPORT TopoFace CurrentFace() const;
 
   //! returns True if the face is rejected.
   Standard_EXPORT virtual Standard_Boolean RejectFace(const gp_Lin& L) const;
@@ -174,9 +174,9 @@ public:
 
   Standard_EXPORT const Bnd_Box& Box() const;
 
-  Standard_EXPORT const TopoDS_Shape& GetShape() const;
+  Standard_EXPORT const TopoShape& GetShape() const;
 
-  Standard_EXPORT IntCurvesFace_Intersector& Intersector(const TopoDS_Face& F) const;
+  Standard_EXPORT IntCurvesFace_Intersector& Intersector(const TopoFace& F) const;
 
   //! Return UB-tree instance which is used for edge / vertex checks.
   const BRepClass3d_BndBoxTree& GetTree() { return myTree; }
@@ -196,12 +196,12 @@ protected:
 
 private:
   Bnd_Box                    myBox;
-  TopoDS_Shape               myShape;
+  TopoShape               myShape;
   Standard_Boolean           myReject;
   Standard_Integer           myFirstFace;
   Standard_Real              myParamOnEdge;
-  TopExp_Explorer            myShellExplorer;
-  TopExp_Explorer            myFaceExplorer;
+  ShapeExplorer            myShellExplorer;
+  ShapeExplorer            myFaceExplorer;
   BRepClass3d_MapOfInter     myMapOfInter;
   BRepClass3d_BndBoxTree     myTree;
   TopTools_IndexedMapOfShape myMapEV;

@@ -27,8 +27,8 @@ static DDF_AttributeBrowser* DDF_FirstBrowser = NULL;
 
 DDF_AttributeBrowser::DDF_AttributeBrowser(
   Standard_Boolean (*test)(const Handle(TDF_Attribute)&),
-  TCollection_AsciiString (*open)(const Handle(TDF_Attribute)&),
-  TCollection_AsciiString (*text)(const Handle(TDF_Attribute)&))
+  AsciiString1 (*open)(const Handle(TDF_Attribute)&),
+  AsciiString1 (*text)(const Handle(TDF_Attribute)&))
     : myTest(test),
       myOpen(open),
       myText(text),
@@ -46,14 +46,14 @@ Standard_Boolean DDF_AttributeBrowser::Test(const Handle(TDF_Attribute)& anAtt) 
 
 //=================================================================================================
 
-TCollection_AsciiString DDF_AttributeBrowser::Open(const Handle(TDF_Attribute)& anAtt) const
+AsciiString1 DDF_AttributeBrowser::Open(const Handle(TDF_Attribute)& anAtt) const
 {
   return (*myOpen)(anAtt);
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DDF_AttributeBrowser::Text(const Handle(TDF_Attribute)& anAtt) const
+AsciiString1 DDF_AttributeBrowser::Text(const Handle(TDF_Attribute)& anAtt) const
 {
   return (*myText)(anAtt);
 }

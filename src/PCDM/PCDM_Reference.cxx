@@ -24,7 +24,7 @@ PCDM_Reference::PCDM_Reference()
 }
 
 PCDM_Reference::PCDM_Reference(const Standard_Integer            aReferenceIdentifier,
-                               const TCollection_ExtendedString& aFileName,
+                               const UtfString& aFileName,
                                const Standard_Integer            aDocumentVersion)
     : myReferenceIdentifier(aReferenceIdentifier),
       myFileName(aFileName),
@@ -37,7 +37,7 @@ Standard_Integer PCDM_Reference::ReferenceIdentifier() const
   return myReferenceIdentifier;
 }
 
-TCollection_ExtendedString PCDM_Reference::FileName() const
+UtfString PCDM_Reference::FileName() const
 {
   return myFileName;
 }

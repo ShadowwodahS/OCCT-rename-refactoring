@@ -666,7 +666,7 @@ Standard_Real BRepBlend_RstRstEvolRad::GetSectionSize() const
 
 void BRepBlend_RstRstEvolRad::GetMinimalWeight(TColStd_Array1OfReal& Weights) const
 {
-  BlendFunc::GetMinimalWeights(mySShape, myTConv, minang, maxang, Weights);
+  BlendFunc1::GetMinimalWeights(mySShape, myTConv, minang, maxang, Weights);
   // It is supposed that it does not depend on the Radius!
 }
 
@@ -675,7 +675,7 @@ void BRepBlend_RstRstEvolRad::GetMinimalWeight(TColStd_Array1OfReal& Weights) co
 Standard_Integer BRepBlend_RstRstEvolRad::NbIntervals(const GeomAbs_Shape S) const
 {
   Standard_Integer Nb_Int_Courbe, Nb_Int_Loi;
-  Nb_Int_Courbe = guide->NbIntervals(BlendFunc::NextShape(S));
+  Nb_Int_Courbe = guide->NbIntervals(BlendFunc1::NextShape(S));
   Nb_Int_Loi    = fevol->NbIntervals(S);
 
   if (Nb_Int_Loi == 1)
@@ -686,7 +686,7 @@ Standard_Integer BRepBlend_RstRstEvolRad::NbIntervals(const GeomAbs_Shape S) con
   TColStd_Array1OfReal   IntC(1, Nb_Int_Courbe + 1);
   TColStd_Array1OfReal   IntL(1, Nb_Int_Loi + 1);
   TColStd_SequenceOfReal Inter;
-  guide->Intervals(IntC, BlendFunc::NextShape(S));
+  guide->Intervals(IntC, BlendFunc1::NextShape(S));
   fevol->Intervals(IntL, S);
 
   FusionneIntervalles(IntC, IntL, Inter);
@@ -698,19 +698,19 @@ Standard_Integer BRepBlend_RstRstEvolRad::NbIntervals(const GeomAbs_Shape S) con
 void BRepBlend_RstRstEvolRad::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) const
 {
   Standard_Integer Nb_Int_Courbe, Nb_Int_Loi;
-  Nb_Int_Courbe = guide->NbIntervals(BlendFunc::NextShape(S));
+  Nb_Int_Courbe = guide->NbIntervals(BlendFunc1::NextShape(S));
   Nb_Int_Loi    = fevol->NbIntervals(S);
 
   if (Nb_Int_Loi == 1)
   {
-    guide->Intervals(T, BlendFunc::NextShape(S));
+    guide->Intervals(T, BlendFunc1::NextShape(S));
   }
   else
   {
     TColStd_Array1OfReal   IntC(1, Nb_Int_Courbe + 1);
     TColStd_Array1OfReal   IntL(1, Nb_Int_Loi + 1);
     TColStd_SequenceOfReal Inter;
-    guide->Intervals(IntC, BlendFunc::NextShape(S));
+    guide->Intervals(IntC, BlendFunc1::NextShape(S));
     fevol->Intervals(IntL, S);
 
     FusionneIntervalles(IntC, IntL, Inter);
@@ -729,7 +729,7 @@ void BRepBlend_RstRstEvolRad::GetShape(Standard_Integer& NbPoles,
                                        Standard_Integer& NbPoles2d)
 {
   NbPoles2d = 2;
-  BlendFunc::GetShape(mySShape, maxang, NbPoles, NbKnots, Degree, myTConv);
+  BlendFunc1::GetShape(mySShape, maxang, NbPoles, NbKnots, Degree, myTConv);
 }
 
 //=======================================================================
@@ -768,7 +768,7 @@ void BRepBlend_RstRstEvolRad::Mults(TColStd_Array1OfInteger& TMults)
 
 //=================================================================================================
 
-void BRepBlend_RstRstEvolRad::Section(const Blend_Point&    P,
+void BRepBlend_RstRstEvolRad::Section(const Point2&    P,
                                       TColgp_Array1OfPnt&   Poles,
                                       TColgp_Array1OfPnt2d& Poles2d,
                                       TColStd_Array1OfReal& Weights)
@@ -825,7 +825,7 @@ void BRepBlend_RstRstEvolRad::Section(const Blend_Point&    P,
 
 //=================================================================================================
 
-Standard_Boolean BRepBlend_RstRstEvolRad::Section(const Blend_Point&    P,
+Standard_Boolean BRepBlend_RstRstEvolRad::Section(const Point2&    P,
                                                   TColgp_Array1OfPnt&   Poles,
                                                   TColgp_Array1OfVec&   DPoles,
                                                   TColgp_Array1OfPnt2d& Poles2d,
@@ -1036,7 +1036,7 @@ Standard_Boolean BRepBlend_RstRstEvolRad::Section(const Blend_Point&    P,
 
 //=================================================================================================
 
-Standard_Boolean BRepBlend_RstRstEvolRad::Section(const Blend_Point&,
+Standard_Boolean BRepBlend_RstRstEvolRad::Section(const Point2&,
                                                   TColgp_Array1OfPnt&,
                                                   TColgp_Array1OfVec&,
                                                   TColgp_Array1OfVec&,

@@ -18,28 +18,28 @@
 
 //=================================================================================================
 
-TopOpeBRepDS_ListOfShapeOn1State::TopOpeBRepDS_ListOfShapeOn1State()
+ShapeListOnState::ShapeListOnState()
     : mySplits(0)
 {
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& TopOpeBRepDS_ListOfShapeOn1State::ListOnState() const
+const ShapeList& ShapeListOnState::ListOnState() const
 {
   return myList;
 }
 
 //=================================================================================================
 
-TopTools_ListOfShape& TopOpeBRepDS_ListOfShapeOn1State::ChangeListOnState()
+ShapeList& ShapeListOnState::ChangeListOnState()
 {
   return myList;
 }
 
 //=================================================================================================
 
-void TopOpeBRepDS_ListOfShapeOn1State::Clear()
+void ShapeListOnState::Clear()
 {
   myList.Clear();
   mySplits = 0;
@@ -47,7 +47,7 @@ void TopOpeBRepDS_ListOfShapeOn1State::Clear()
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_ListOfShapeOn1State::IsSplit() const
+Standard_Boolean ShapeListOnState::IsSplit() const
 {
   Standard_Boolean res = Standard_False;
   if (mySplits & 1)
@@ -57,7 +57,7 @@ Standard_Boolean TopOpeBRepDS_ListOfShapeOn1State::IsSplit() const
 
 //=================================================================================================
 
-void TopOpeBRepDS_ListOfShapeOn1State::Split(const Standard_Boolean B)
+void ShapeListOnState::Split(const Standard_Boolean B)
 {
   Standard_Integer mask = 1;
   if (B)

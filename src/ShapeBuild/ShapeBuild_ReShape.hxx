@@ -24,7 +24,7 @@
 #include <TopAbs_ShapeEnum.hxx>
 #include <Standard_Integer.hxx>
 #include <ShapeExtend_Status.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -67,7 +67,7 @@ public:
   //! 2: Replace and Remove are both ignored
   //! If Replace/Remove are ignored or absent, the result as same
   //! type as the starting shape
-  Standard_EXPORT virtual TopoDS_Shape Apply(const TopoDS_Shape&    shape,
+  Standard_EXPORT virtual TopoShape Apply(const TopoShape&    shape,
                                              const TopAbs_ShapeEnum until,
                                              const Standard_Integer buildmode);
 
@@ -79,11 +79,11 @@ public:
   //!
   //! NOTE: each subshape can be replaced by shape of the same type
   //! or by shape containing only shapes of that type (for
-  //! example, TopoDS_Edge can be replaced by TopoDS_Edge,
-  //! TopoDS_Wire or TopoDS_Compound containing TopoDS_Edges).
+  //! example, TopoEdge can be replaced by TopoEdge,
+  //! TopoWire or TopoCompound containing TopoDS_Edges).
   //! If incompatible shape type is encountered, it is ignored
   //! and flag FAIL1 is set in Status.
-  Standard_EXPORT virtual TopoDS_Shape Apply(const TopoDS_Shape&    shape,
+  Standard_EXPORT virtual TopoShape Apply(const TopoShape&    shape,
                                              const TopAbs_ShapeEnum until = TopAbs_SHAPE)
     Standard_OVERRIDE;
 
@@ -94,8 +94,8 @@ public:
   //! If <last> is False, returns status and new shape recorded in
   //! the map directly for the shape, if True and status > 0 then
   //! recursively searches for the last status and new shape.
-  Standard_EXPORT virtual Standard_Integer Status(const TopoDS_Shape&    shape,
-                                                  TopoDS_Shape&          newsh,
+  Standard_EXPORT virtual Standard_Integer Status(const TopoShape&    shape,
+                                                  TopoShape&          newsh,
                                                   const Standard_Boolean last = Standard_False)
     Standard_OVERRIDE;
 

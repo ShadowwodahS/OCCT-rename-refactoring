@@ -30,9 +30,9 @@ inline BRepFeat_MakeLinearForm::BRepFeat_MakeLinearForm()
 // purpose  :
 //=======================================================================
 
-inline BRepFeat_MakeLinearForm::BRepFeat_MakeLinearForm(const TopoDS_Shape&       Sbase,
-                                                        const TopoDS_Wire&        W,
-                                                        const Handle(Geom_Plane)& P,
+inline BRepFeat_MakeLinearForm::BRepFeat_MakeLinearForm(const TopoShape&       Sbase,
+                                                        const TopoWire&        W,
+                                                        const Handle(GeomPlane)& P,
                                                         const Vector3d&             Direc,
                                                         const Vector3d&             Direc1,
                                                         const Standard_Integer    Fuse,

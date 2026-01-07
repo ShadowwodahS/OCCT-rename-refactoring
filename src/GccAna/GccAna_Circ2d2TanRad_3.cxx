@@ -43,7 +43,7 @@
 // Create the solution to be added to already found solutions.           +
 // Fill the fields.                                                      +
 //========================================================================
-GccAna_Circ2d2TanRad::GccAna_Circ2d2TanRad(const GccEnt_QualifiedLin& Qualified1,
+Circle2dTwoTangentRadius::Circle2dTwoTangentRadius(const GccEnt_QualifiedLin& Qualified1,
                                            const gp_Pnt2d&            Point2,
                                            const Standard_Real        Radius,
                                            const Standard_Real        Tolerance)
@@ -236,7 +236,7 @@ GccAna_Circ2d2TanRad::GccAna_Circ2d2TanRad(const GccEnt_QualifiedLin& Qualified1
                 TheSame1(NbrSol) = 0;
                 TheSame2(NbrSol) = 0;
                 pnttg1sol(NbrSol) =
-                  gp_Pnt2d(Center.XY() + cote(jcote) * Radius * gp_XY(ydir, -xdir));
+                  gp_Pnt2d(Center.XY() + cote(jcote) * Radius * Coords2d(ydir, -xdir));
                 pnttg2sol(NbrSol) = Point2;
               }
             }
@@ -248,7 +248,7 @@ GccAna_Circ2d2TanRad::GccAna_Circ2d2TanRad(const GccEnt_QualifiedLin& Qualified1
 
     else if (nbsol == 2)
     {
-      gp_Pnt2d Center(Point2.XY() + cote(1) * Radius * gp_XY(-ydir, xdir));
+      gp_Pnt2d Center(Point2.XY() + cote(1) * Radius * Coords2d(-ydir, xdir));
       WellDone  = Standard_True;
       NbrSol    = 1;
       cirsol(1) = gp_Circ2d(gp_Ax2d(Center, dirx), Radius);
@@ -256,7 +256,7 @@ GccAna_Circ2d2TanRad::GccAna_Circ2d2TanRad(const GccEnt_QualifiedLin& Qualified1
       qualifier2(1) = GccEnt_noqualifier;
       TheSame1(1)   = 0;
       TheSame2(1)   = 0;
-      pnttg1sol(1)  = gp_Pnt2d(Center.XY() + cote(1) * Radius * gp_XY(ydir, -xdir));
+      pnttg1sol(1)  = gp_Pnt2d(Center.XY() + cote(1) * Radius * Coords2d(ydir, -xdir));
       pnttg2sol(1)  = Point2;
     }
   }

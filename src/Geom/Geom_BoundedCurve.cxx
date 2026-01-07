@@ -18,7 +18,7 @@
 #include <gp_Pnt.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_BoundedCurve, Geom_Curve)
+IMPLEMENT_STANDARD_RTTIEXT(Geom_BoundedCurve, GeomCurve3d)
 
 //=================================================================================================
 
@@ -26,5 +26,5 @@ void Geom_BoundedCurve::DumpJson(Standard_OStream& theOStream, Standard_Integer 
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Geom_Curve)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, GeomCurve3d)
 }

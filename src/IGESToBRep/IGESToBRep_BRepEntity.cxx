@@ -12,7 +12,7 @@
 // commercial license or contractual agreement.
 
 //=======================================================================
-// purpose  : Members to transfert any BRepEntity into TopoDS_Shape
+// purpose  : Members to transfert any BRepEntity into TopoShape
 //=======================================================================
 // 21.12.98 rln, gka S4054
 // #62 rln 10.01.99 PRO17015
@@ -106,10 +106,10 @@ IGESToBRep_BRepEntity::IGESToBRep_BRepEntity(const Standard_Real    eps,
 
 //=================================================================================================
 
-TopoDS_Shape IGESToBRep_BRepEntity::TransferBRepEntity(const Handle(IGESData_IGESEntity)& start,
+TopoShape IGESToBRep_BRepEntity::TransferBRepEntity(const Handle(IGESData_IGESEntity)& start,
                                                        const Message_ProgressRange& theProgress)
 {
-  TopoDS_Shape res;
+  TopoShape res;
 
   if (start->IsKind(STANDARD_TYPE(IGESSolid_Face)))
   {
@@ -136,27 +136,27 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferBRepEntity(const Handle(IGESData_IGE
 
 //=================================================================================================
 
-TopoDS_Vertex IGESToBRep_BRepEntity::TransferVertex(const Handle(IGESSolid_VertexList)& start,
+TopoVertex IGESToBRep_BRepEntity::TransferVertex(const Handle(IGESSolid_VertexList)& start,
                                                     const Standard_Integer              index)
 {
-  TopoDS_Vertex res;
+  TopoVertex res;
 
   Standard_Integer nbshapes = NbShapeResult(start);
   if (nbshapes == 0)
   {
-    BRep_Builder B;
+    ShapeBuilder B;
     for (Standard_Integer inum = 1; inum <= start->NbVertices(); inum++)
     {
       Point3d point = start->Vertex(inum);
       point.Scale(Point3d(0, 0, 0), GetUnitFactor());
-      TopoDS_Vertex V;
+      TopoVertex V;
       // pdn 12.03.99 S4135 Constructing vertex with minimal tolerance
       B.MakeVertex(V, point, Precision::Confusion());
       AddShapeResult(start, V);
     }
   }
 
-  TopoDS_Shape Sh = GetShapeResult(start, index);
+  TopoShape Sh = GetShapeResult(start, index);
   if (Sh.IsNull())
   {
     Message_Msg Msg1156("IGES_1156"); //"the Vertex number %d is a null object." FAIL!!!
@@ -171,11 +171,11 @@ TopoDS_Vertex IGESToBRep_BRepEntity::TransferVertex(const Handle(IGESSolid_Verte
 
 //=================================================================================================
 
-TopoDS_Shape IGESToBRep_BRepEntity::TransferEdge(const Handle(IGESSolid_EdgeList)& start,
+TopoShape IGESToBRep_BRepEntity::TransferEdge(const Handle(IGESSolid_EdgeList)& start,
                                                  const Standard_Integer            index)
 {
-  TopoDS_Shape res;
-  BRep_Builder B;
+  TopoShape res;
+  ShapeBuilder B;
 
   Standard_Integer nbshapes = NbShapeResult(start);
   if (nbshapes == 0)
@@ -188,42 +188,42 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferEdge(const Handle(IGESSolid_EdgeList
       // --------
       Handle(IGESSolid_VertexList) thestartlist  = start->StartVertexList(inum);
       Standard_Integer             thestartindex = start->StartVertexIndex(inum);
-      TopoDS_Vertex                V1            = TransferVertex(thestartlist, thestartindex);
+      TopoVertex                V1            = TransferVertex(thestartlist, thestartindex);
 
       Handle(IGESSolid_VertexList) theendlist  = start->EndVertexList(inum);
       Standard_Integer             theendindex = start->EndVertexIndex(inum);
-      TopoDS_Vertex                V2          = TransferVertex(theendlist, theendindex);
+      TopoVertex                V2          = TransferVertex(theendlist, theendindex);
 
       // Curve
       // -----
 
       Handle(IGESData_IGESEntity) thecurve = start->Curve(inum);
-      if (thecurve.IsNull() || !IGESToBRep::IsTopoCurve(thecurve)
+      if (thecurve.IsNull() || !IGESToBRep1::IsTopoCurve(thecurve)
           || thecurve->IsKind(STANDARD_TYPE(IGESGeom_CurveOnSurface))
           || thecurve->IsKind(STANDARD_TYPE(IGESGeom_Boundary)))
       {
         Message_Msg Msg1306("IGES_1306"); // one underlying curve is a Null object.
         Msg1306.Arg(inum);
         SendWarning(start, Msg1306);
-        TopoDS_Edge Sh;
+        TopoEdge Sh;
         AddShapeResult(start, Sh); // add null shape to avoid shift of indexing
       }
       else
       {
-        TopoDS_Shape Sh = TC.TransferTopoCurve(thecurve);
+        TopoShape Sh = TC.TransferTopoCurve(thecurve);
         if (!Sh.IsNull())
         {
           if (Sh.ShapeType() == TopAbs_EDGE)
           {
-            TopoDS_Edge   edge = TopoDS::Edge(Sh);
-            TopoDS_Vertex Vf, Vl;
-            TopExp::Vertices(edge, Vf, Vl);
-            TopoDS_Edge E;
+            TopoEdge   edge = TopoDS::Edge(Sh);
+            TopoVertex Vf, Vl;
+            TopExp1::Vertices(edge, Vf, Vl);
+            TopoEdge E;
             B.MakeEdge(E);
             TopLoc_Location    loc;
             Standard_Real      first, last;
-            Handle(Geom_Curve) Crv = BRep_Tool::Curve(edge, loc, first, last);
-            Handle(Geom_Curve) newC3d;
+            Handle(GeomCurve3d) Crv = BRepInspector::Curve(edge, loc, first, last);
+            Handle(GeomCurve3d) newC3d;
             // dams le cas d`une conique, il faut reverser
             // sens de parcours IGES inverse sens de parcours CASCADE.
             if (Crv->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
@@ -236,17 +236,17 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferEdge(const Handle(IGESSolid_EdgeList
               newC3d = Crv;
             }
             B.UpdateEdge(E, newC3d, loc, 0.); // S4054:GetEpsGeom()*GetUnitFactor()
-            Point3d        p1     = BRep_Tool::Pnt(V1);
-            Point3d        p2     = BRep_Tool::Pnt(V2);
-            Point3d        pf     = BRep_Tool::Pnt(Vf);
-            Point3d        pl     = BRep_Tool::Pnt(Vl);
+            Point3d        p1     = BRepInspector::Pnt(V1);
+            Point3d        p2     = BRepInspector::Pnt(V2);
+            Point3d        pf     = BRepInspector::Pnt(Vf);
+            Point3d        pl     = BRepInspector::Pnt(Vl);
             Standard_Real dist1f = p1.Distance(pf);
             Standard_Real dist2f = p2.Distance(pf);
             Standard_Real dist1l = p1.Distance(pl);
             Standard_Real dist2l = p2.Distance(pl);
             if (V1.IsSame(V2) || dist1f + dist2l <= dist1l + dist2f + Precision::Confusion())
             {
-              //: 77 if (BRepTools::Compare(V1, Vf)) //the part 'else' only if, in fact, edge should
+              //: 77 if (BRepTools1::Compare(V1, Vf)) //the part 'else' only if, in fact, edge should
               //: be reversed
               V1.Orientation(TopAbs_FORWARD);
               B.Add(E, V1);
@@ -295,7 +295,7 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferEdge(const Handle(IGESSolid_EdgeList
     }
   }
 
-  TopoDS_Shape Sh = GetShapeResult(start, index);
+  TopoShape Sh = GetShapeResult(start, index);
   if (Sh.IsNull())
   {
     Message_Msg                      Msg1156("IGES_1156");
@@ -309,25 +309,25 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferEdge(const Handle(IGESSolid_EdgeList
 
 //=================================================================================================
 
-TopoDS_Shape IGESToBRep_BRepEntity::TransferLoop(const Handle(IGESSolid_Loop)& start,
-                                                 const TopoDS_Face&            face,
+TopoShape IGESToBRep_BRepEntity::TransferLoop(const Handle(IGESSolid_Loop)& start,
+                                                 const TopoFace&            face,
                                                  const gp_Trsf2d&              trans,
                                                  const Standard_Real           uFact)
 {
-  TopoDS_Shape res;
+  TopoShape res;
 
   if (!HasShapeResult(start))
   {
-    TopoDS_Wire      mywire;
+    TopoWire      mywire;
     Standard_Boolean okCurve = Standard_True, okCurve3d = Standard_True, okCurve2d = Standard_True;
     Handle(ShapeExtend_WireData) sewd;
     Standard_Integer             filepreference = 3; // 3D is preferred by default
     Standard_Boolean             Result         = Standard_True;
 
     Handle(IGESToBRep_IGESBoundary) IB =
-      IGESToBRep::AlgoContainer()->ToolContainer()->IGESBoundary();
+      IGESToBRep1::AlgoContainer()->ToolContainer()->IGESBoundary();
     IB->Init(*this, start, face, trans, uFact, filepreference);
-    BRep_Builder    B;
+    ShapeBuilder    B;
     ShapeBuild_Edge sbe;
 
     for (Standard_Integer iedge = 1; iedge <= start->NbEdges(); iedge++)
@@ -353,11 +353,11 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferLoop(const Handle(IGESSolid_Loop)& s
         if ((itype == 1) && (theedge->IsKind(STANDARD_TYPE(IGESSolid_VertexList))))
         {
           DeclareAndCast(IGESSolid_VertexList, thelist, theedge);
-          TopoDS_Vertex V1 = TransferVertex(thelist, indexlist);
-          TopoDS_Edge   E;
+          TopoVertex V1 = TransferVertex(thelist, indexlist);
+          TopoEdge   E;
           B.MakeEdge(E);
           // szv#4:S4163:12Mar99 SGI warns
-          TopoDS_Shape sh = V1.Oriented(TopAbs_FORWARD);
+          TopoShape sh = V1.Oriented(TopAbs_FORWARD);
           B.Add(E, TopoDS::Vertex(sh));
           sh = V1.Oriented(TopAbs_REVERSED);
           B.Add(E, TopoDS::Vertex(sh));
@@ -367,7 +367,7 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferLoop(const Handle(IGESSolid_Loop)& s
         else if ((itype == 0) && (theedge->IsKind(STANDARD_TYPE(IGESSolid_EdgeList))))
         {
           DeclareAndCast(IGESSolid_EdgeList, thelist, theedge);
-          TopoDS_Shape Sh = TransferEdge(thelist, indexlist);
+          TopoShape Sh = TransferEdge(thelist, indexlist);
           if (Sh.IsNull())
           {
             // clang-format off
@@ -398,7 +398,7 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferLoop(const Handle(IGESSolid_Loop)& s
         //- 2D curve is 102
         Handle(TColStd_HSequenceOfTransient) seq2d;
         if (curve3d->NbEdges() == 1 && nbparam == 1
-            && IGESToBRep::IGESCurveToSequenceOfIGESCurve(start->ParametricCurve(iedge, 1), seq2d)
+            && IGESToBRep1::IGESCurveToSequenceOfIGESCurve(start->ParametricCurve(iedge, 1), seq2d)
                  == 1)
         {
           Curves2d = new IGESData_HArray1OfIGESEntity(1, nbparam);
@@ -421,11 +421,11 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferLoop(const Handle(IGESSolid_Loop)& s
         { // the condition corresponds to limitation above
           // to keep sharing of edges all geometric representations should be put
           // into the edge from EdgeList
-          TopoDS_Edge fromedge = lsewd->Edge(1), toedge = curve3d->Edge(1);
+          TopoEdge fromedge = lsewd->Edge(1), toedge = curve3d->Edge(1);
           if (!fromedge.IsSame(toedge))
           {
             sbe.RemoveCurve3d(toedge);
-            IGESToBRep::TransferPCurve(fromedge, toedge, face);
+            IGESToBRep1::TransferPCurve(fromedge, toedge, face);
             sewd->Set(toedge, sewd->Index(fromedge));
           }
         }
@@ -441,7 +441,7 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferLoop(const Handle(IGESSolid_Loop)& s
     SetShapeResult(start, mywire);
   }
 
-  TopoDS_Shape Sh = GetShapeResult(start);
+  TopoShape Sh = GetShapeResult(start);
   if (Sh.IsNull())
   {
     Message_Msg                      Msg1156("IGES_1156"); // The Loop is null
@@ -455,21 +455,21 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferLoop(const Handle(IGESSolid_Loop)& s
 
 //=================================================================================================
 
-TopoDS_Shape IGESToBRep_BRepEntity::TransferFace(const Handle(IGESSolid_Face)& start)
+TopoShape IGESToBRep_BRepEntity::TransferFace(const Handle(IGESSolid_Face)& start)
 {
-  TopoDS_Shape res;
+  TopoShape res;
 
   if (!HasShapeResult(start))
   {
-    BRep_Builder                B;
-    TopoDS_Face                 F;
+    ShapeBuilder                B;
+    TopoFace                 F;
     Handle(IGESData_IGESEntity) surf    = start->Surface();
     Standard_Integer            nbloops = start->NbLoops();
     IGESToBRep_TopoSurface      TS(*this);
 
     // surface
     // -------
-    if (surf.IsNull() || !IGESToBRep::IsTopoSurface(surf)
+    if (surf.IsNull() || !IGESToBRep1::IsTopoSurface(surf)
         || surf->IsKind(STANDARD_TYPE(IGESGeom_Plane))
         || surf->IsKind(STANDARD_TYPE(IGESGeom_BoundedSurface))
         || surf->IsKind(STANDARD_TYPE(IGESGeom_TrimmedSurface))
@@ -478,7 +478,7 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferFace(const Handle(IGESSolid_Face)& s
       Message_Msg Msg196("XSTEP_196"); //"pas de surface de base pour creer la face"
       SendWarning(start, Msg196);
       // AddWarning(start, "pas de surface de base pour creer la face");
-      TopoDS_Shape Sh;
+      TopoShape Sh;
       SetShapeResult(start, Sh);
     }
     else
@@ -488,7 +488,7 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferFace(const Handle(IGESSolid_Face)& s
       // BRep.
       gp_Trsf2d     trans;
       Standard_Real uFact;
-      TopoDS_Shape  myshape = TS.ParamSurface(surf, trans, uFact);
+      TopoShape  myshape = TS.ParamSurface(surf, trans, uFact);
 
       if (!myshape.IsNull())
       {
@@ -505,14 +505,14 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferFace(const Handle(IGESSolid_Face)& s
           for (Standard_Integer iloop = 1; iloop <= nbloops; iloop++)
           {
             Handle(IGESSolid_Loop) loop  = start->Loop(iloop);
-            TopoDS_Shape           Shape = TransferLoop(loop, F, trans, uFact);
+            TopoShape           Shape = TransferLoop(loop, F, trans, uFact);
             // pdn 20.04.99 CTS22655 avoid of exceptions in case of empty loops
             if (!Shape.IsNull())
               B.Add(F, Shape);
           }
 
           // update the face
-          BRepTools::Update(F);
+          BRepTools1::Update(F);
           F.Orientable(Standard_True);
           SetShapeResult(start, F);
         }
@@ -525,13 +525,13 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferFace(const Handle(IGESSolid_Face)& s
         Msg1156.Arg(label);
         SendFail(start, Msg1156);
         //  AddWarning(start,"Face : result of TransferTopoSurface is Null");
-        TopoDS_Shape Sh;
+        TopoShape Sh;
         SetShapeResult(start, Sh);
       }
     }
   }
 
-  TopoDS_Shape Sh = GetShapeResult(start);
+  TopoShape Sh = GetShapeResult(start);
   if (Sh.IsNull())
   {
     Message_Msg                      Msg1156("IGES_1156"); // the Face is a Null object.
@@ -546,15 +546,15 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferFace(const Handle(IGESSolid_Face)& s
 
 //=================================================================================================
 
-TopoDS_Shape IGESToBRep_BRepEntity::TransferShell(const Handle(IGESSolid_Shell)& start,
+TopoShape IGESToBRep_BRepEntity::TransferShell(const Handle(IGESSolid_Shell)& start,
                                                   const Message_ProgressRange&   theProgress)
 {
-  TopoDS_Shape res;
+  TopoShape res;
 
   if (!HasShapeResult(start))
   {
-    TopoDS_Shell S;
-    BRep_Builder B;
+    TopoShell S;
+    ShapeBuilder B;
     B.MakeShell(S);
     Standard_Integer nbfaces = start->NbFaces();
     if (nbfaces != 0)
@@ -565,7 +565,7 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferShell(const Handle(IGESSolid_Shell)&
       {
         Handle(IGESSolid_Face) face        = start->Face(iface);
         Standard_Boolean       orientation = start->Orientation(iface);
-        TopoDS_Shape           Sh          = TransferFace(face);
+        TopoShape           Sh          = TransferFace(face);
         if (Sh.IsNull())
         { //: 39 by abv 15.12.97
 
@@ -593,7 +593,7 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferShell(const Handle(IGESSolid_Shell)&
     }
   }
 
-  TopoDS_Shape Sh = GetShapeResult(start);
+  TopoShape Sh = GetShapeResult(start);
   if (Sh.IsNull())
   {
     Message_Msg                      Msg1156("IGES_1156"); // the Shell is a null object
@@ -609,26 +609,26 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferShell(const Handle(IGESSolid_Shell)&
 
 //=================================================================================================
 
-TopoDS_Shape IGESToBRep_BRepEntity::TransferManifoldSolid(
+TopoShape IGESToBRep_BRepEntity::TransferManifoldSolid(
   const Handle(IGESSolid_ManifoldSolid)& start,
   const Message_ProgressRange&           theProgress)
 {
-  TopoDS_Shape res;
+  TopoShape res;
 
   if (!HasShapeResult(start))
   {
-    TopoDS_Solid S;
-    BRep_Builder B;
+    TopoSolid S;
+    ShapeBuilder B;
     B.MakeSolid(S);
     Handle(IGESSolid_Shell) shell      = start->Shell();
     Standard_Boolean        isoriented = start->OrientationFlag();
     Standard_Integer        nbshell    = start->NbVoidShells();
-    TopoDS_Shape            Sh         = TransferShell(shell, theProgress);
+    TopoShape            Sh         = TransferShell(shell, theProgress);
     if (!Sh.IsNull())
     {
       if (Sh.ShapeType() == TopAbs_SHELL)
       {
-        TopoDS_Shell Shell = TopoDS::Shell(Sh);
+        TopoShell Shell = TopoDS::Shell(Sh);
         if (!isoriented)
           Shell.Reverse();
         B.Add(S, Shell);
@@ -642,12 +642,12 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferManifoldSolid(
         {
           Handle(IGESSolid_Shell) voidshell = start->VoidShell(ishell);
           //	  Standard_Boolean orientation = start->VoidOrientationFlag(ishell);
-          TopoDS_Shape aSh = TransferShell(voidshell, aPS.Next());
+          TopoShape aSh = TransferShell(voidshell, aPS.Next());
           if (!aSh.IsNull())
           {
             if (aSh.ShapeType() == TopAbs_SHELL)
             {
-              TopoDS_Shell Shell = TopoDS::Shell(aSh);
+              TopoShell Shell = TopoDS::Shell(aSh);
               if (!isoriented)
                 Shell.Reverse();
               B.Add(S, Shell);
@@ -656,7 +656,7 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferManifoldSolid(
           else
           {
             //  AddWarning(start,"ManifoldSolid : one VoidShell is Null");
-            TopoDS_Shell Shell;
+            TopoShell Shell;
             B.Add(S, Shell);
           }
         }
@@ -665,7 +665,7 @@ TopoDS_Shape IGESToBRep_BRepEntity::TransferManifoldSolid(
     SetShapeResult(start, S);
   }
 
-  TopoDS_Shape Sh = GetShapeResult(start);
+  TopoShape Sh = GetShapeResult(start);
   if (Sh.IsNull())
   {
     Message_Msg                      Msg1156("IGES_1156"); // the ManifoldSolid is a null object.

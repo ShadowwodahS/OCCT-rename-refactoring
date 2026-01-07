@@ -24,7 +24,7 @@
 #include <TDF_LabelSequence.hxx>
 #include <Standard_Real.hxx>
 class XCAFDoc_ShapeTool;
-class TDF_Label;
+class DataLabel;
 class Standard_GUID;
 class TCollection_HAsciiString;
 
@@ -32,7 +32,7 @@ class XCAFDoc_MaterialTool;
 DEFINE_STANDARD_HANDLE(XCAFDoc_MaterialTool, TDataStd_GenericEmpty)
 
 //! Provides tools to store and retrieve attributes (materials)
-//! of TopoDS_Shape in and from TDocStd_Document
+//! of TopoShape in and from AppDocument
 //! A Document is intended to hold different
 //! attributes of ONE shape and it's sub-shapes
 //! Provide tools for management of Materialss section of document.
@@ -43,37 +43,37 @@ public:
   Standard_EXPORT XCAFDoc_MaterialTool();
 
   //! Creates (if not exist) MaterialTool.
-  Standard_EXPORT static Handle(XCAFDoc_MaterialTool) Set(const TDF_Label& L);
+  Standard_EXPORT static Handle(XCAFDoc_MaterialTool) Set(const DataLabel& L);
 
   Standard_EXPORT static const Standard_GUID& GetID();
 
   //! returns the label under which colors are stored
-  Standard_EXPORT TDF_Label BaseLabel() const;
+  Standard_EXPORT DataLabel BaseLabel() const;
 
   //! Returns internal XCAFDoc_ShapeTool tool
   Standard_EXPORT const Handle(XCAFDoc_ShapeTool)& ShapeTool();
 
   //! Returns True if label belongs to a material table and
   //! is a Material definition
-  Standard_EXPORT Standard_Boolean IsMaterial(const TDF_Label& lab) const;
+  Standard_EXPORT Standard_Boolean IsMaterial(const DataLabel& lab) const;
 
   //! Returns a sequence of materials currently stored
   //! in the material table
   Standard_EXPORT void GetMaterialLabels(TDF_LabelSequence& Labels) const;
 
   //! Adds a Material definition to a table and returns its label
-  Standard_EXPORT TDF_Label AddMaterial(const Handle(TCollection_HAsciiString)& aName,
+  Standard_EXPORT DataLabel AddMaterial(const Handle(TCollection_HAsciiString)& aName,
                                         const Handle(TCollection_HAsciiString)& aDescription,
                                         const Standard_Real                     aDensity,
                                         const Handle(TCollection_HAsciiString)& aDensName,
                                         const Handle(TCollection_HAsciiString)& aDensValType) const;
 
   //! Sets a link with GUID
-  Standard_EXPORT void SetMaterial(const TDF_Label& L, const TDF_Label& MatL) const;
+  Standard_EXPORT void SetMaterial(const DataLabel& L, const DataLabel& MatL) const;
 
   //! Sets a link with GUID
   //! Adds a Material as necessary
-  Standard_EXPORT void SetMaterial(const TDF_Label&                        L,
+  Standard_EXPORT void SetMaterial(const DataLabel&                        L,
                                    const Handle(TCollection_HAsciiString)& aName,
                                    const Handle(TCollection_HAsciiString)& aDescription,
                                    const Standard_Real                     aDensity,
@@ -83,7 +83,7 @@ public:
   //! Returns Material assigned to <MatL>
   //! Returns False if no such Material is assigned
   Standard_EXPORT static Standard_Boolean GetMaterial(
-    const TDF_Label&                  MatL,
+    const DataLabel&                  MatL,
     Handle(TCollection_HAsciiString)& aName,
     Handle(TCollection_HAsciiString)& aDescription,
     Standard_Real&                    aDensity,
@@ -92,7 +92,7 @@ public:
 
   //! Find referred material and return density from it
   //! if no material --> return 0
-  Standard_EXPORT static Standard_Real GetDensityForShape(const TDF_Label& ShapeL);
+  Standard_EXPORT static Standard_Real GetDensityForShape(const DataLabel& ShapeL);
 
   Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
 

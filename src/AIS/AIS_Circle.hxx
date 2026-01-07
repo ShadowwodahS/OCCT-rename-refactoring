@@ -19,23 +19,23 @@
 
 #include <AIS_InteractiveObject.hxx>
 
-class Geom_Circle;
+class GeomCircle;
 
 //! Constructs circle datums to be used in construction of
 //! composite shapes.
-class AIS_Circle : public AIS_InteractiveObject
+class AIS_Circle : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_Circle, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_Circle, VisualEntity)
 public:
   //! Initializes this algorithm for constructing AIS circle
   //! datums initializes the circle aCircle
-  Standard_EXPORT AIS_Circle(const Handle(Geom_Circle)& aCircle);
+  Standard_EXPORT AIS_Circle(const Handle(GeomCircle)& aCircle);
 
   //! Initializes this algorithm for constructing AIS circle datums.
   //! Initializes the circle theCircle, the arc
   //! starting point theUStart, the arc ending point theUEnd,
   //! and the type of sensitivity theIsFilledCircleSens.
-  Standard_EXPORT AIS_Circle(const Handle(Geom_Circle)& theCircle,
+  Standard_EXPORT AIS_Circle(const Handle(GeomCircle)& theCircle,
                              const Standard_Real        theUStart,
                              const Standard_Real        theUEnd,
                              const Standard_Boolean     theIsFilledCircleSens = Standard_False);
@@ -50,7 +50,7 @@ public:
   }
 
   //! Returns the circle component defined in SetCircle.
-  const Handle(Geom_Circle)& Circle() const { return myComponent; }
+  const Handle(GeomCircle)& Circle() const { return myComponent; }
 
   //! Constructs instances of the starting point and the end
   //! point parameters, theU1 and theU2.
@@ -61,7 +61,7 @@ public:
   }
 
   //! Allows you to provide settings for the circle datum aCircle.
-  void SetCircle(const Handle(Geom_Circle)& theCircle) { myComponent = theCircle; }
+  void SetCircle(const Handle(GeomCircle)& theCircle) { myComponent = theCircle; }
 
   //! Allows you to set the parameter theU for the starting point of an arc.
   void SetFirstParam(const Standard_Real theU)
@@ -103,28 +103,28 @@ private:
                                        const Handle(Prs3d_Presentation)&         theprs,
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT void ComputeCircle(const Handle(Prs3d_Presentation)& aPresentation);
 
   Standard_EXPORT void ComputeArc(const Handle(Prs3d_Presentation)& aPresentation);
 
-  Standard_EXPORT void ComputeCircleSelection(const Handle(SelectMgr_Selection)& aSelection);
+  Standard_EXPORT void ComputeCircleSelection(const Handle(SelectionContainer)& aSelection);
 
-  Standard_EXPORT void ComputeArcSelection(const Handle(SelectMgr_Selection)& aSelection);
+  Standard_EXPORT void ComputeArcSelection(const Handle(SelectionContainer)& aSelection);
 
   //! Replace aspects of already computed groups with the new value.
   void replaceWithNewLineAspect(const Handle(Prs3d_LineAspect)& theAspect);
 
 private:
-  Handle(Geom_Circle) myComponent;
+  Handle(GeomCircle) myComponent;
   Standard_Real       myUStart;
   Standard_Real       myUEnd;
   Standard_Boolean    myCircleIsArc;
   Standard_Boolean    myIsFilledCircleSens;
 };
 
-DEFINE_STANDARD_HANDLE(AIS_Circle, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(AIS_Circle, VisualEntity)
 
 #endif // _AIS_Circle_HeaderFile

@@ -306,9 +306,9 @@ static GUID getNullGuid()
 }
 
 //! Returns GUID of image format from file name
-static GUID getFileFormatFromName(const TCollection_AsciiString& theFileName)
+static GUID getFileFormatFromName(const AsciiString1& theFileName)
 {
-  TCollection_AsciiString aFileNameLower = theFileName;
+  AsciiString1 aFileNameLower = theFileName;
   aFileNameLower.LowerCase();
   GUID aFileFormat = getNullGuid();
   if (aFileNameLower.EndsWith(".bmp"))
@@ -635,12 +635,12 @@ bool Image_AlienPixMap::IsTopDownDefault()
 #ifdef HAVE_FREEIMAGE
 bool Image_AlienPixMap::Load(const Standard_Byte*           theData,
                              const Standard_Size            theLength,
-                             const TCollection_AsciiString& theImagePath)
+                             const AsciiString1& theImagePath)
 {
   Clear();
 
   #ifdef _WIN32
-  const TCollection_ExtendedString aFileNameW(theImagePath);
+  const UtfString aFileNameW(theImagePath);
   #endif
   FREE_IMAGE_FORMAT aFIF   = FIF_UNKNOWN;
   FIMEMORY*         aFiMem = NULL;
@@ -664,7 +664,7 @@ bool Image_AlienPixMap::Load(const Standard_Byte*           theData,
   }
   if ((aFIF == FIF_UNKNOWN) || !FreeImage_FIFSupportsReading(aFIF))
   {
-    ::Message::SendFail(TCollection_AsciiString("Error: image '") + theImagePath
+    ::Message::SendFail(AsciiString1("Error: image '") + theImagePath
                         + "' has unsupported file format");
     if (aFiMem != NULL)
     {
@@ -703,7 +703,7 @@ bool Image_AlienPixMap::Load(const Standard_Byte*           theData,
   }
   if (anImage == NULL)
   {
-    ::Message::SendFail(TCollection_AsciiString("Error: image file '") + theImagePath
+    ::Message::SendFail(AsciiString1("Error: image file '") + theImagePath
                         + "' is missing or invalid");
     return false;
   }
@@ -735,7 +735,7 @@ bool Image_AlienPixMap::Load(const Standard_Byte*           theData,
   }
   if (aFormat == Image_Format_UNKNOWN)
   {
-    ::Message::SendFail(TCollection_AsciiString("Error: image '") + theImagePath
+    ::Message::SendFail(AsciiString1("Error: image '") + theImagePath
                         + "' has unsupported pixel format");
     return false;
   }
@@ -752,7 +752,7 @@ bool Image_AlienPixMap::Load(const Standard_Byte*           theData,
   return true;
 }
 
-bool Image_AlienPixMap::Load(std::istream& theStream, const TCollection_AsciiString& theFileName)
+bool Image_AlienPixMap::Load(std::istream& theStream, const AsciiString1& theFileName)
 {
   Clear();
 
@@ -767,7 +767,7 @@ bool Image_AlienPixMap::Load(std::istream& theStream, const TCollection_AsciiStr
   }
   if ((aFIF == FIF_UNKNOWN) || !FreeImage_FIFSupportsReading(aFIF))
   {
-    ::Message::SendFail(TCollection_AsciiString("Error: image stream '") + theFileName
+    ::Message::SendFail(AsciiString1("Error: image stream '") + theFileName
                         + "' has unsupported file format");
     return false;
   }
@@ -788,7 +788,7 @@ bool Image_AlienPixMap::Load(std::istream& theStream, const TCollection_AsciiStr
   FIBITMAP* anImage = FreeImage_LoadFromHandle(aFIF, &aFiIO, &aStream, aLoadFlags);
   if (anImage == NULL)
   {
-    ::Message::SendFail(TCollection_AsciiString("Error: image stream '") + theFileName
+    ::Message::SendFail(AsciiString1("Error: image stream '") + theFileName
                         + "' is missing or invalid");
     return false;
   }
@@ -798,7 +798,7 @@ bool Image_AlienPixMap::Load(std::istream& theStream, const TCollection_AsciiStr
                                                FreeImage_GetBPP(anImage));
   if (aFormat == Image_Format_UNKNOWN)
   {
-    ::Message::SendFail(TCollection_AsciiString("Error: image stream '") + theFileName
+    ::Message::SendFail(AsciiString1("Error: image stream '") + theFileName
                         + "' has unsupported pixel format");
     return false;
   }
@@ -818,7 +818,7 @@ bool Image_AlienPixMap::Load(std::istream& theStream, const TCollection_AsciiStr
 #elif defined(HAVE_WINCODEC)
 bool Image_AlienPixMap::Load(const Standard_Byte*           theData,
                              const Standard_Size            theLength,
-                             const TCollection_AsciiString& theFileName)
+                             const AsciiString1& theFileName)
 {
   Clear();
 
@@ -856,7 +856,7 @@ bool Image_AlienPixMap::Load(const Standard_Byte*           theData,
   }
   else
   {
-    const TCollection_ExtendedString aFileNameW(theFileName);
+    const UtfString aFileNameW(theFileName);
     if (aWicImgFactory->CreateDecoderFromFilename(aFileNameW.ToWideString(),
                                                   NULL,
                                                   GENERIC_READ,
@@ -906,7 +906,7 @@ bool Image_AlienPixMap::Load(const Standard_Byte*           theData,
     return false;
   }
 
-  TCollection_AsciiString aFileNameLower = theFileName;
+  AsciiString1 aFileNameLower = theFileName;
   aFileNameLower.LowerCase();
   if (aFileNameLower.EndsWith(".gif")
       && (aWicImgFactory->CreatePalette(&myPalette) != S_OK
@@ -940,7 +940,7 @@ bool Image_AlienPixMap::Load(const Standard_Byte*           theData,
   return true;
 }
 
-bool Image_AlienPixMap::Load(std::istream& theStream, const TCollection_AsciiString& theFilePath)
+bool Image_AlienPixMap::Load(std::istream& theStream, const AsciiString1& theFilePath)
 {
   Clear();
 
@@ -965,7 +965,7 @@ bool Image_AlienPixMap::Load(std::istream& theStream, const TCollection_AsciiStr
   return Load(&aBuff.ChangeFirst(), aBuff.Size(), theFilePath);
 }
 #elif defined(__EMSCRIPTEN__)
-bool Image_AlienPixMap::Load(std::istream&, const TCollection_AsciiString&)
+bool Image_AlienPixMap::Load(std::istream&, const AsciiString1&)
 {
   Clear();
   Message::SendFail("Error: no image library available for decoding stream");
@@ -974,7 +974,7 @@ bool Image_AlienPixMap::Load(std::istream&, const TCollection_AsciiString&)
 
 bool Image_AlienPixMap::Load(const Standard_Byte*           theData,
                              const Standard_Size            theLength,
-                             const TCollection_AsciiString& theImagePath)
+                             const AsciiString1& theImagePath)
 {
   Clear();
   if (theData != NULL)
@@ -998,7 +998,7 @@ bool Image_AlienPixMap::Load(const Standard_Byte*           theData,
   return true;
 }
 #else
-bool Image_AlienPixMap::Load(std::istream&, const TCollection_AsciiString&)
+bool Image_AlienPixMap::Load(std::istream&, const AsciiString1&)
 {
   Clear();
   Message::SendFail("Error: no image library available");
@@ -1007,7 +1007,7 @@ bool Image_AlienPixMap::Load(std::istream&, const TCollection_AsciiString&)
 
 bool Image_AlienPixMap::Load(const Standard_Byte*,
                              const Standard_Size,
-                             const TCollection_AsciiString&)
+                             const AsciiString1&)
 {
   Clear();
   Message::SendFail("Error: no image library available");
@@ -1017,7 +1017,7 @@ bool Image_AlienPixMap::Load(const Standard_Byte*,
 
 //=================================================================================================
 
-bool Image_AlienPixMap::savePPM(const TCollection_AsciiString& theFileName) const
+bool Image_AlienPixMap::savePPM(const AsciiString1& theFileName) const
 {
   if (IsEmpty())
   {
@@ -1116,7 +1116,7 @@ static bool convertData(const Image_AlienPixMap&  theSrcPixMapData,
 
 bool Image_AlienPixMap::Save(Standard_Byte*                 theBuffer,
                              const Standard_Size            theLength,
-                             const TCollection_AsciiString& theFileName)
+                             const AsciiString1& theFileName)
 {
 #ifdef HAVE_FREEIMAGE
   if (myLibImage == NULL)
@@ -1125,7 +1125,7 @@ bool Image_AlienPixMap::Save(Standard_Byte*                 theBuffer,
   }
 
   #ifdef _WIN32
-  const TCollection_ExtendedString aFileNameW(theFileName.ToCString(), Standard_True);
+  const UtfString aFileNameW(theFileName.ToCString(), Standard_True);
   FREE_IMAGE_FORMAT anImageFormat = FreeImage_GetFIFFromFilenameU(aFileNameW.ToWideString());
   #else
   FREE_IMAGE_FORMAT anImageFormat = FreeImage_GetFIFFromFilename(theFileName.ToCString());
@@ -1185,7 +1185,7 @@ bool Image_AlienPixMap::Save(Standard_Byte*                 theBuffer,
 
 #elif defined(HAVE_WINCODEC)
 
-  TCollection_AsciiString aFileNameLower = theFileName;
+  AsciiString1 aFileNameLower = theFileName;
   aFileNameLower.LowerCase();
   if (aFileNameLower.EndsWith(".ppm"))
   {
@@ -1229,7 +1229,7 @@ bool Image_AlienPixMap::Save(Standard_Byte*                 theBuffer,
 
   Image_ComPtr<IWICStream>         aWicStream;
   Image_ComPtr<IWICBitmapEncoder>  aWicEncoder;
-  const TCollection_ExtendedString aFileNameW(theFileName);
+  const UtfString aFileNameW(theFileName);
   if (theBuffer != NULL)
   {
     if (aWicImgFactory->CreateStream(&aWicStream.ChangePtr()) != S_OK
@@ -1335,7 +1335,7 @@ bool Image_AlienPixMap::Save(Standard_Byte*                 theBuffer,
 #endif
 }
 
-bool Image_AlienPixMap::Save(std::ostream& theStream, const TCollection_AsciiString& theExtension)
+bool Image_AlienPixMap::Save(std::ostream& theStream, const AsciiString1& theExtension)
 {
 #ifdef HAVE_FREEIMAGE
   if (myLibImage == NULL)
@@ -1344,7 +1344,7 @@ bool Image_AlienPixMap::Save(std::ostream& theStream, const TCollection_AsciiStr
   }
 
   #ifdef _WIN32
-  const TCollection_ExtendedString anExtW(theExtension.ToCString(), Standard_True);
+  const UtfString anExtW(theExtension.ToCString(), Standard_True);
   FREE_IMAGE_FORMAT anImageFormat = FreeImage_GetFIFFromFilenameU(anExtW.ToWideString());
   #else
   FREE_IMAGE_FORMAT anImageFormat = FreeImage_GetFIFFromFilename(theExtension.ToCString());

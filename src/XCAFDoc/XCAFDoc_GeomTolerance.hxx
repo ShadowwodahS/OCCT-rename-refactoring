@@ -21,7 +21,7 @@
 
 #include <TDataStd_GenericEmpty.hxx>
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 class XCAFDimTolObjects_GeomToleranceObject;
 
 // resolve name collisions with WinAPI headers
@@ -43,7 +43,7 @@ public:
 
   Standard_EXPORT static const Standard_GUID& GetID();
 
-  Standard_EXPORT static Handle(XCAFDoc_GeomTolerance) Set(const TDF_Label& theLabel);
+  Standard_EXPORT static Handle(XCAFDoc_GeomTolerance) Set(const DataLabel& theLabel);
 
   //! Updates parent's label and its sub-labels with data taken from theGeomToleranceObject.
   //! Old data associated with the label will be lost.

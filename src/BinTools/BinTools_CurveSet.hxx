@@ -28,29 +28,29 @@
 #include <Message_ProgressRange.hxx>
 #include <BinTools_OStream.hxx>
 
-class Geom_Curve;
+class GeomCurve3d;
 
 //! Stores a set of Curves from Geom in binary format.
-class BinTools_CurveSet
+class CurveBinarySet
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns an empty set of Curves.
-  Standard_EXPORT BinTools_CurveSet();
+  Standard_EXPORT CurveBinarySet();
 
   //! Clears the content of the set.
   Standard_EXPORT void Clear();
 
   //! Incorporate a new Curve in the  set and returns
   //! its index.
-  Standard_EXPORT Standard_Integer Add(const Handle(Geom_Curve)& C);
+  Standard_EXPORT Standard_Integer Add(const Handle(GeomCurve3d)& C);
 
   //! Returns the Curve of index <I>.
-  Standard_EXPORT Handle(Geom_Curve) Curve(const Standard_Integer I) const;
+  Standard_EXPORT Handle(GeomCurve3d) Curve(const Standard_Integer I) const;
 
   //! Returns the index of <L>.
-  Standard_EXPORT Standard_Integer Index(const Handle(Geom_Curve)& C) const;
+  Standard_EXPORT Standard_Integer Index(const Handle(GeomCurve3d)& C) const;
 
   //! Writes the content of  me  on the stream <OS> in a
   //! format that can be read back by Read.
@@ -64,12 +64,12 @@ public:
 
   //! Dumps the curve on the stream in binary format
   //! that can be read back.
-  Standard_EXPORT static void WriteCurve(const Handle(Geom_Curve)& C, BinTools_OStream& OS);
+  Standard_EXPORT static void WriteCurve(const Handle(GeomCurve3d)& C, BinaryOutputStream& OS);
 
   //! Reads the curve  from  the stream.  The  curve  is
   //! assumed  to have  been  written  with  the Write
   //! method
-  Standard_EXPORT static Standard_IStream& ReadCurve(Standard_IStream& IS, Handle(Geom_Curve)& C);
+  Standard_EXPORT static Standard_IStream& ReadCurve(Standard_IStream& IS, Handle(GeomCurve3d)& C);
 
 private:
   TColStd_IndexedMapOfTransient myMap;

@@ -23,9 +23,9 @@
 
 #include <Standard_Boolean.hxx>
 #include <ChFi2d_ConstructionError.hxx>
-class TopoDS_Edge;
-class TopoDS_Vertex;
-class TopoDS_Face;
+class TopoEdge;
+class TopoVertex;
+class TopoFace;
 
 //! This package contains the algorithms used to build
 //! fillets or chamfers on planar wire.
@@ -46,19 +46,19 @@ class TopoDS_Face;
 //!
 //! The algorithms ChFi2d_AnaFilletAlgo and ChFi2d_FilletAlgo may be used directly
 //! or via the interface class ChFi2d_FilletAPI.
-class ChFi2d
+class ChFi2d1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static Standard_Boolean CommonVertex(const TopoDS_Edge& E1,
-                                                       const TopoDS_Edge& E2,
-                                                       TopoDS_Vertex&     V);
+  Standard_EXPORT static Standard_Boolean CommonVertex(const TopoEdge& E1,
+                                                       const TopoEdge& E2,
+                                                       TopoVertex&     V);
 
-  Standard_EXPORT static ChFi2d_ConstructionError FindConnectedEdges(const TopoDS_Face&   F,
-                                                                     const TopoDS_Vertex& V,
-                                                                     TopoDS_Edge&         E1,
-                                                                     TopoDS_Edge&         E2);
+  Standard_EXPORT static ChFi2d_ConstructionError FindConnectedEdges(const TopoFace&   F,
+                                                                     const TopoVertex& V,
+                                                                     TopoEdge&         E1,
+                                                                     TopoEdge&         E2);
 };
 
 #endif // _ChFi2d_HeaderFile

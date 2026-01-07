@@ -32,7 +32,7 @@ class Interface_CheckIterator;
 class Interface_InterfaceModel;
 class Interface_CopyTool;
 class RefObject;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_TransformStandard;
 DEFINE_STANDARD_HANDLE(IFSelect_TransformStandard, IFSelect_Transformer)
@@ -160,7 +160,7 @@ public:
   //! Returns a text which defines the way a Transformer works :
   //! "On the spot edition" or "Standard Copy" followed by
   //! "<nn> Modifiers"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_TransformStandard, IFSelect_Transformer)
 

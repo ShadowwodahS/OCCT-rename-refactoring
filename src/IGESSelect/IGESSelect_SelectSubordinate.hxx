@@ -24,7 +24,7 @@
 #include <IFSelect_SelectExtract.hxx>
 class RefObject;
 class Interface_InterfaceModel;
-class TCollection_AsciiString;
+class AsciiString1;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -64,7 +64,7 @@ public:
 
   //! Returns the Selection criterium : "IGES Entity, Independent"
   //! etc...
-  Standard_EXPORT TCollection_AsciiString ExtractLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExtractLabel() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_SelectSubordinate, IFSelect_SelectExtract)
 

@@ -23,9 +23,9 @@
 
 #include <TopoDS_Shape.hxx>
 #include <Standard_Integer.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 class TopOpeBRepDS_Interference;
-class Geom2d_Curve;
+class GeomCurve2d;
 
 //! A Geom curve and a tolerance.
 class TopOpeBRepDS_Curve
@@ -35,11 +35,11 @@ public:
 
   Standard_EXPORT TopOpeBRepDS_Curve();
 
-  Standard_EXPORT TopOpeBRepDS_Curve(const Handle(Geom_Curve)& P,
+  Standard_EXPORT TopOpeBRepDS_Curve(const Handle(GeomCurve3d)& P,
                                      const Standard_Real       T,
                                      const Standard_Boolean    IsWalk = Standard_False);
 
-  Standard_EXPORT void DefineCurve(const Handle(Geom_Curve)& P,
+  Standard_EXPORT void DefineCurve(const Handle(GeomCurve3d)& P,
                                    const Standard_Real       T,
                                    const Standard_Boolean    IsWalk);
 
@@ -57,19 +57,19 @@ public:
   Standard_EXPORT void GetSCI(Handle(TopOpeBRepDS_Interference)& I1,
                               Handle(TopOpeBRepDS_Interference)& I2) const;
 
-  Standard_EXPORT void SetShapes(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
+  Standard_EXPORT void SetShapes(const TopoShape& S1, const TopoShape& S2);
 
-  Standard_EXPORT void GetShapes(TopoDS_Shape& S1, TopoDS_Shape& S2) const;
+  Standard_EXPORT void GetShapes(TopoShape& S1, TopoShape& S2) const;
 
-  Standard_EXPORT const TopoDS_Shape& Shape1() const;
+  Standard_EXPORT const TopoShape& Shape1() const;
 
-  Standard_EXPORT TopoDS_Shape& ChangeShape1();
+  Standard_EXPORT TopoShape& ChangeShape1();
 
-  Standard_EXPORT const TopoDS_Shape& Shape2() const;
+  Standard_EXPORT const TopoShape& Shape2() const;
 
-  Standard_EXPORT TopoDS_Shape& ChangeShape2();
+  Standard_EXPORT TopoShape& ChangeShape2();
 
-  Standard_EXPORT const Handle(Geom_Curve)& Curve() const;
+  Standard_EXPORT const Handle(GeomCurve3d)& Curve() const;
 
   Standard_EXPORT void SetRange(const Standard_Real First, const Standard_Real Last);
 
@@ -77,17 +77,17 @@ public:
 
   Standard_EXPORT Standard_Real Tolerance() const;
 
-  Standard_EXPORT Handle(Geom_Curve)& ChangeCurve();
+  Standard_EXPORT Handle(GeomCurve3d)& ChangeCurve();
 
-  Standard_EXPORT void Curve(const Handle(Geom_Curve)& C3D, const Standard_Real Tol);
+  Standard_EXPORT void Curve(const Handle(GeomCurve3d)& C3D, const Standard_Real Tol);
 
-  Standard_EXPORT const Handle(Geom2d_Curve)& Curve1() const;
+  Standard_EXPORT const Handle(GeomCurve2d)& Curve1() const;
 
-  Standard_EXPORT void Curve1(const Handle(Geom2d_Curve)& PC1);
+  Standard_EXPORT void Curve1(const Handle(GeomCurve2d)& PC1);
 
-  Standard_EXPORT const Handle(Geom2d_Curve)& Curve2() const;
+  Standard_EXPORT const Handle(GeomCurve2d)& Curve2() const;
 
-  Standard_EXPORT void Curve2(const Handle(Geom2d_Curve)& PC2);
+  Standard_EXPORT void Curve2(const Handle(GeomCurve2d)& PC2);
 
   Standard_EXPORT Standard_Boolean IsWalk() const;
 
@@ -107,14 +107,14 @@ public:
 
 protected:
 private:
-  Handle(Geom_Curve)                myCurve;
+  Handle(GeomCurve3d)                myCurve;
   Standard_Real                     myFirst;
   Standard_Real                     myLast;
   Standard_Boolean                  myRangeDefined;
   Standard_Real                     myTolerance;
   Standard_Boolean                  myIsWalk;
-  TopoDS_Shape                      myS1;
-  TopoDS_Shape                      myS2;
+  TopoShape                      myS1;
+  TopoShape                      myS2;
   Handle(TopOpeBRepDS_Interference) mySCI1;
   Handle(TopOpeBRepDS_Interference) mySCI2;
   Standard_Boolean                  myKeep;

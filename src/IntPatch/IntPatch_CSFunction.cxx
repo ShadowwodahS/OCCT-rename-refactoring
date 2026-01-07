@@ -53,9 +53,9 @@ Standard_Integer IntPatch_CSFunction::NbEquations() const
 Standard_Boolean IntPatch_CSFunction::Value(const math_Vector& X, math_Vector& F)
 {
 
-  Point3d   Psurf(Adaptor3d_HSurfaceTool::Value(SURFACE1, X(1), X(2)));
+  Point3d   Psurf(HSurfaceTool::Value(SURFACE1, X(1), X(2)));
   gp_Pnt2d p2d(IntPatch_HCurve2dTool::Value(CURVE, X(3)));
-  Point3d   Pcurv(Adaptor3d_HSurfaceTool::Value(SURFACE2, p2d.X(), p2d.Y()));
+  Point3d   Pcurv(HSurfaceTool::Value(SURFACE2, p2d.X(), p2d.Y()));
 
   F(1) = Psurf.X() - Pcurv.X();
   F(2) = Psurf.Y() - Pcurv.Y();
@@ -73,9 +73,9 @@ Standard_Boolean IntPatch_CSFunction::Derivatives(const math_Vector& X, math_Mat
   gp_Vec2d d2d;
   Vector3d   d1u, d1v;
 
-  Adaptor3d_HSurfaceTool::D1(SURFACE1, X(1), X(2), Psurf, D1u, D1v);
+  HSurfaceTool::D1(SURFACE1, X(1), X(2), Psurf, D1u, D1v);
   IntPatch_HCurve2dTool::D1(CURVE, X(3), p2d, d2d);
-  Adaptor3d_HSurfaceTool::D1(SURFACE2, p2d.X(), p2d.Y(), Pcurv, d1u, d1v);
+  HSurfaceTool::D1(SURFACE2, p2d.X(), p2d.Y(), Pcurv, d1u, d1v);
   D1w.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
 
   D(1, 1) = D1u.X();
@@ -99,9 +99,9 @@ Standard_Boolean IntPatch_CSFunction::Values(const math_Vector& X, math_Vector& 
   gp_Vec2d d2d;
   Vector3d   d1u, d1v;
 
-  Adaptor3d_HSurfaceTool::D1(SURFACE1, X(1), X(2), Psurf, D1u, D1v);
+  HSurfaceTool::D1(SURFACE1, X(1), X(2), Psurf, D1u, D1v);
   IntPatch_HCurve2dTool::D1(CURVE, X(3), p2d, d2d);
-  Adaptor3d_HSurfaceTool::D1(SURFACE2, p2d.X(), p2d.Y(), Pcurv, d1u, d1v);
+  HSurfaceTool::D1(SURFACE2, p2d.X(), p2d.Y(), Pcurv, d1u, d1v);
   D1w.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
 
   D(1, 1) = D1u.X();

@@ -36,16 +36,16 @@ public:
   Standard_EXPORT virtual void Clear() Standard_OVERRIDE;
 
   //! Adds Tool argument of the operation
-  Standard_EXPORT virtual void AddTool(const TopoDS_Shape& theShape);
+  Standard_EXPORT virtual void AddTool(const TopoShape& theShape);
 
   //! Adds the Tool arguments of the operation
-  Standard_EXPORT virtual void SetTools(const TopTools_ListOfShape& theShapes);
+  Standard_EXPORT virtual void SetTools(const ShapeList& theShapes);
 
   //! Returns the Tool arguments of the operation
-  const TopTools_ListOfShape& Tools() const { return myTools; }
+  const ShapeList& Tools() const { return myTools; }
 
 protected:
-  TopTools_ListOfShape myTools;
+  ShapeList myTools;
   TopTools_MapOfShape  myMapTools;
 };
 

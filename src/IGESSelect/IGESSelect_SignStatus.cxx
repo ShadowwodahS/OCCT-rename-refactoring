@@ -46,7 +46,7 @@ Standard_CString IGESSelect_SignStatus::Value(
 
 Standard_Boolean IGESSelect_SignStatus::Matches(const Handle(RefObject)& ent,
                                                 const Handle(Interface_InterfaceModel)& /*model*/,
-                                                const TCollection_AsciiString& text,
+                                                const AsciiString1& text,
                                                 const Standard_Boolean         exact) const
 {
   Handle(IGESData_IGESEntity) igesent = Handle(IGESData_IGESEntity)::DownCast(ent);

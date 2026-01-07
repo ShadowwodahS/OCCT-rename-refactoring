@@ -29,7 +29,7 @@ namespace
 {
 //=================================================================================================
 
-static TCollection_AsciiString getVrmlErrorName(VrmlData_ErrorStatus theStatus)
+static AsciiString1 getVrmlErrorName(VrmlData_ErrorStatus theStatus)
 {
   switch (theStatus)
   {
@@ -77,7 +77,7 @@ static TCollection_AsciiString getVrmlErrorName(VrmlData_ErrorStatus theStatus)
 
 static void performMeshSubshape(RWMesh_NodeAttributeMap&                 theAttribMap,
                                 const VrmlData_DataMapOfShapeAppearance& theShapeAppMap,
-                                const TopoDS_Shape&                      theShape)
+                                const TopoShape&                      theShape)
 {
   Handle(VrmlData_Appearance) anAppearance;
   if (theShapeAppMap.Find(theShape.TShape(), anAppearance))
@@ -102,7 +102,7 @@ static void performMeshSubshape(RWMesh_NodeAttributeMap&                 theAttr
 //=================================================================================================
 
 bool VrmlAPI_CafReader::performMesh(std::istream&                  theStream,
-                                    const TCollection_AsciiString& theFile,
+                                    const AsciiString1& theFile,
                                     const Message_ProgressRange&   theProgress,
                                     const Standard_Boolean         theToProbe)
 {
@@ -119,9 +119,9 @@ bool VrmlAPI_CafReader::performMesh(std::istream&                  theStream,
   }
 
   // determine file location to load associated files
-  TCollection_AsciiString aFolder;
-  TCollection_AsciiString aFileName;
-  OSD_Path::FolderAndFileFromPath(theFile, aFolder, aFileName);
+  AsciiString1 aFolder;
+  AsciiString1 aFileName;
+  SystemPath::FolderAndFileFromPath(theFile, aFolder, aFileName);
 
   VrmlData_Scene aScene;
   aScene.SetLinearScale(FileLengthUnit());
@@ -129,7 +129,7 @@ bool VrmlAPI_CafReader::performMesh(std::istream&                  theStream,
   aScene << theStream;
 
   VrmlData_DataMapOfShapeAppearance aShapeAppMap;
-  TopoDS_Shape                      aShape = aScene.GetShape(aShapeAppMap);
+  TopoShape                      aShape = aScene.GetShape(aShapeAppMap);
   if (!aShape.IsNull())
   {
     performMeshSubshape(myAttribMap, aShapeAppMap, aShape);

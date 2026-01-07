@@ -33,9 +33,9 @@
 #include <Interface_Macros.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESDimen_ToolCurveDimension::IGESDimen_ToolCurveDimension() {}
+CurveDimensionTool::CurveDimensionTool() {}
 
-void IGESDimen_ToolCurveDimension::ReadOwnParams(const Handle(IGESDimen_CurveDimension)& ent,
+void CurveDimensionTool::ReadOwnParams(const Handle(IGESDimen_CurveDimension)& ent,
                                                  const Handle(IGESData_IGESReaderData)&  IR,
                                                  IGESData_ParamReader&                   PR) const
 {
@@ -91,7 +91,7 @@ void IGESDimen_ToolCurveDimension::ReadOwnParams(const Handle(IGESDimen_CurveDim
   ent->Init(note, firstCurve, secondCurve, firstLeader, secondLeader, firstWitness, secondWitness);
 }
 
-void IGESDimen_ToolCurveDimension::WriteOwnParams(const Handle(IGESDimen_CurveDimension)& ent,
+void CurveDimensionTool::WriteOwnParams(const Handle(IGESDimen_CurveDimension)& ent,
                                                   IGESData_IGESWriter&                    IW) const
 {
   IW.Send(ent->Note());
@@ -103,7 +103,7 @@ void IGESDimen_ToolCurveDimension::WriteOwnParams(const Handle(IGESDimen_CurveDi
   IW.Send(ent->SecondWitnessLine());
 }
 
-void IGESDimen_ToolCurveDimension::OwnShared(const Handle(IGESDimen_CurveDimension)& ent,
+void CurveDimensionTool::OwnShared(const Handle(IGESDimen_CurveDimension)& ent,
                                              Interface_EntityIterator&               iter) const
 {
   iter.GetOneItem(ent->Note());
@@ -115,7 +115,7 @@ void IGESDimen_ToolCurveDimension::OwnShared(const Handle(IGESDimen_CurveDimensi
   iter.GetOneItem(ent->SecondWitnessLine());
 }
 
-void IGESDimen_ToolCurveDimension::OwnCopy(const Handle(IGESDimen_CurveDimension)& another,
+void CurveDimensionTool::OwnCopy(const Handle(IGESDimen_CurveDimension)& another,
                                            const Handle(IGESDimen_CurveDimension)& ent,
                                            Interface_CopyTool&                     TC) const
 {
@@ -132,10 +132,10 @@ void IGESDimen_ToolCurveDimension::OwnCopy(const Handle(IGESDimen_CurveDimension
   ent->Init(note, firstCurve, secondCurve, firstLeader, secondLeader, firstWitness, secondWitness);
 }
 
-IGESData_DirChecker IGESDimen_ToolCurveDimension::DirChecker(
+DirectoryChecker CurveDimensionTool::DirChecker(
   const Handle(IGESDimen_CurveDimension)& /*ent*/) const
 {
-  IGESData_DirChecker DC(204, 0);
+  DirectoryChecker DC(204, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.LineWeight(IGESData_DefValue);
@@ -144,7 +144,7 @@ IGESData_DirChecker IGESDimen_ToolCurveDimension::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolCurveDimension::OwnCheck(const Handle(IGESDimen_CurveDimension)& ent,
+void CurveDimensionTool::OwnCheck(const Handle(IGESDimen_CurveDimension)& ent,
                                             const Interface_ShareTool&,
                                             Handle(Interface_Check)& ach) const
 {
@@ -156,7 +156,7 @@ void IGESDimen_ToolCurveDimension::OwnCheck(const Handle(IGESDimen_CurveDimensio
   }
 }
 
-void IGESDimen_ToolCurveDimension::OwnDump(const Handle(IGESDimen_CurveDimension)& ent,
+void CurveDimensionTool::OwnDump(const Handle(IGESDimen_CurveDimension)& ent,
                                            const IGESData_IGESDumper&              dumper,
                                            Standard_OStream&                       S,
                                            const Standard_Integer                  level) const

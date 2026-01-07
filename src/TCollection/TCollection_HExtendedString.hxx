@@ -63,10 +63,10 @@ public:
                                               const Standard_ExtCharacter filler);
 
   //! Initializes a HExtendedString with a ExtendedString.
-  Standard_EXPORT TCollection_HExtendedString(const TCollection_ExtendedString& aString);
+  Standard_EXPORT TCollection_HExtendedString(const UtfString& aString);
 
   //! Initializes a HExtendedString with a ExtendedString.
-  TCollection_HExtendedString(TCollection_ExtendedString&& theString) noexcept
+  TCollection_HExtendedString(UtfString&& theString) noexcept
       : myString(std::move(theString))
   {
   }
@@ -199,7 +199,7 @@ public:
   Standard_EXPORT Standard_ExtCharacter Value(const Standard_Integer where) const;
 
   //! Returns the field myString
-  Standard_EXPORT const TCollection_ExtendedString& String() const;
+  Standard_EXPORT const UtfString& String() const;
 
   //! Displays <me> .
   Standard_EXPORT void Print(Standard_OStream& astream) const;
@@ -212,9 +212,9 @@ public:
 protected:
 private:
   //! Returns the field myString
-  Standard_EXPORT TCollection_ExtendedString& ChangeString() const;
+  Standard_EXPORT UtfString& ChangeString() const;
 
-  TCollection_ExtendedString myString;
+  UtfString myString;
 };
 
 namespace std
@@ -226,7 +226,7 @@ struct hash<Handle(TCollection_HExtendedString)>
   {
     if (theString.IsNull())
       return 0;
-    return std::hash<TCollection_ExtendedString>{}(theString->String());
+    return std::hash<UtfString>{}(theString->String());
   }
 };
 

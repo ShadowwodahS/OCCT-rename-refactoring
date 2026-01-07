@@ -27,7 +27,7 @@ public:
   //! Initializes cubemap to be loaded from file.
   //! @thePaths - array of paths to separate image files (has to have size equal 6).
   Standard_EXPORT Graphic3d_CubeMapSeparate(
-    const NCollection_Array1<TCollection_AsciiString>& thePaths);
+    const NCollection_Array1<AsciiString1>& thePaths);
 
   //! Initializes cubemap to be set directly from PixMaps.
   //! @theImages - array if PixMaps (has to have size equal 6).
@@ -58,7 +58,7 @@ public:
   ~Graphic3d_CubeMapSeparate() {}
 
 protected:
-  OSD_Path             myPaths[6];  //!< array of paths to cubemap images
+  SystemPath             myPaths[6];  //!< array of paths to cubemap images
   Handle(Image_PixMap) myImages[6]; //!< array of cubemap images
 
   Standard_Size mySize;   //!< size of each side of cubemap

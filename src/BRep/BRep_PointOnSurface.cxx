@@ -25,7 +25,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRep_PointOnSurface, BRep_PointsOnSurface)
 
 BRep_PointOnSurface::BRep_PointOnSurface(const Standard_Real         P1,
                                          const Standard_Real         P2,
-                                         const Handle(Geom_Surface)& S,
+                                         const Handle(GeomSurface)& S,
                                          const TopLoc_Location&      L)
     : BRep_PointsOnSurface(P1, S, L),
       myParameter2(P2)
@@ -41,7 +41,7 @@ Standard_Boolean BRep_PointOnSurface::IsPointOnSurface() const
 
 //=================================================================================================
 
-Standard_Boolean BRep_PointOnSurface::IsPointOnSurface(const Handle(Geom_Surface)& S,
+Standard_Boolean BRep_PointOnSurface::IsPointOnSurface(const Handle(GeomSurface)& S,
                                                        const TopLoc_Location&      L) const
 {
   return (Surface() == S) && (Location() == L);

@@ -27,39 +27,39 @@
 #include <TDocStd_FormatVersion.hxx>
 class TDF_Data;
 class TDF_Delta;
-class TDF_Label;
-class TCollection_AsciiString;
+class DataLabel;
+class AsciiString1;
 class TDocStd_CompoundDelta;
 
-class TDocStd_Document;
-DEFINE_STANDARD_HANDLE(TDocStd_Document, CDM_Document)
+class AppDocument;
+DEFINE_STANDARD_HANDLE(AppDocument, CDM_Document)
 
-//! The contents of a TDocStd_Application, a
+//! The contents of a AppManager, a
 //! document is a container for a data framework
 //! composed of labels and attributes. As such,
-//! TDocStd_Document is the entry point into the data framework.
+//! AppDocument is the entry point into the data framework.
 //! To gain access to the data, you create a document as follows:
-//! Handle(TDocStd_Document) MyDF = new TDocStd_Document
+//! Handle(AppDocument) MyDF = new AppDocument
 //! The document also allows you to manage:
 //! -   modifications, providing Undo and Redo functions.
 //! -   command transactions.
 //! Warning: The only data saved is the framework (TDF_Data)
-class TDocStd_Document : public CDM_Document
+class AppDocument : public CDM_Document
 {
 
 public:
   //! Will Abort any execution, clear fields
   //! returns the    document which contains <L>.  raises  an
   //! exception if the document is not found.
-  Standard_EXPORT static Handle(TDocStd_Document) Get(const TDF_Label& L);
+  Standard_EXPORT static Handle(AppDocument) Get(const DataLabel& L);
 
   //! Constructs a document object defined by the
   //! string astorageformat.
   //! If a document is created outside of an application using this constructor, it must be
   //! managed by a Handle. Otherwise memory problems could appear: call of
-  //! TDocStd_Owner::GetDocument creates a Handle(TDocStd_Document), so, releasing it will produce a
+  //! TDocStd_Owner::GetDocument creates a Handle(AppDocument), so, releasing it will produce a
   //! crash.
-  Standard_EXPORT TDocStd_Document(const TCollection_ExtendedString& astorageformat);
+  Standard_EXPORT AppDocument(const UtfString& astorageformat);
 
   //! the document is saved in a file.
   Standard_EXPORT Standard_Boolean IsSaved() const;
@@ -79,11 +79,11 @@ public:
   Standard_Integer GetSavedTime() const;
 
   //! raise if <me> is not saved.
-  Standard_EXPORT TCollection_ExtendedString GetName() const;
+  Standard_EXPORT UtfString GetName() const;
 
   //! returns the OS  path of the  file, in which one <me> is
   //! saved. Raise an exception if <me> is not saved.
-  Standard_EXPORT TCollection_ExtendedString GetPath() const;
+  Standard_EXPORT UtfString GetPath() const;
 
   Standard_EXPORT void SetData(const Handle(TDF_Data)& data);
 
@@ -91,7 +91,7 @@ public:
 
   //! Returns the main label in this data framework.
   //! By definition, this is the label with the entry 0:1.
-  Standard_EXPORT TDF_Label Main() const;
+  Standard_EXPORT DataLabel Main() const;
 
   //! Returns True if the main label has no attributes
   Standard_EXPORT Standard_Boolean IsEmpty() const;
@@ -102,7 +102,7 @@ public:
 
   //! Notify the label as modified, the Document becomes UnValid.
   //! returns True if <L> has been notified as modified.
-  Standard_EXPORT void SetModified(const TDF_Label& L);
+  Standard_EXPORT void SetModified(const DataLabel& L);
 
   //! Remove all modifications. After this call The document
   //! becomesagain Valid.
@@ -193,7 +193,7 @@ public:
   //! Set   modifications on  labels  impacted  by  external
   //! references to the entry.  The document becomes invalid
   //! and must be recomputed.
-  Standard_EXPORT void UpdateReferences(const TCollection_AsciiString& aDocEntry);
+  Standard_EXPORT void UpdateReferences(const AsciiString1& aDocEntry);
 
   //! Recompute if the document was  not valid and propagate
   //! the recorded modification.
@@ -217,7 +217,7 @@ public:
                                       const Standard_Integer      aReferenceIdentifier,
                                       const Standard_Address      aModifContext) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual TCollection_ExtendedString StorageFormat() const Standard_OVERRIDE;
+  Standard_EXPORT virtual UtfString StorageFormat() const Standard_OVERRIDE;
 
   //! Sets saving mode for empty labels. If Standard_True, empty labels will be saved.
   void SetEmptyLabelsSavingMode(const Standard_Boolean isAllowed);
@@ -227,7 +227,7 @@ public:
 
   //! methods for the nested transaction mode
   Standard_EXPORT virtual void ChangeStorageFormat(
-    const TCollection_ExtendedString& newStorageFormat);
+    const UtfString& newStorageFormat);
 
   //! Sets nested transaction mode if isAllowed == Standard_True
   void SetNestedTransactionMode(const Standard_Boolean isAllowed = Standard_True);
@@ -256,7 +256,7 @@ public:
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(TDocStd_Document, CDM_Document)
+  DEFINE_STANDARD_RTTIEXT(AppDocument, CDM_Document)
 
 protected:
   //! Returns Standard_True done
@@ -267,7 +267,7 @@ protected:
   //! methods for protection of changes outside transactions
   Standard_EXPORT virtual void OpenTransaction();
 
-  TCollection_ExtendedString myStorageFormat;
+  UtfString myStorageFormat;
   TDF_DeltaList              myUndos;
   TDF_DeltaList              myRedos;
 

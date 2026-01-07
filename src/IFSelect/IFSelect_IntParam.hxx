@@ -75,7 +75,7 @@ public:
 
 private:
   Standard_Integer        theval;
-  TCollection_AsciiString thestn;
+  AsciiString1 thestn;
 };
 
 #endif // _IFSelect_IntParam_HeaderFile

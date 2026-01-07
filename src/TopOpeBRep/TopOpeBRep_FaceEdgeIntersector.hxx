@@ -34,7 +34,7 @@
 #include <TopAbs_ShapeEnum.hxx>
 class Point3d;
 class gp_Pnt2d;
-class TopOpeBRepDS_Transition;
+class StateTransition;
 
 //! Describes the intersection of a face and an edge.
 class TopOpeBRep_FaceEdgeIntersector
@@ -44,13 +44,13 @@ public:
 
   Standard_EXPORT TopOpeBRep_FaceEdgeIntersector();
 
-  Standard_EXPORT void Perform(const TopoDS_Shape& F, const TopoDS_Shape& E);
+  Standard_EXPORT void Perform(const TopoShape& F, const TopoShape& E);
 
   Standard_EXPORT Standard_Boolean IsEmpty();
 
   //! returns intersected face or edge according to
   //! value of <Index> = 1 or 2
-  Standard_EXPORT const TopoDS_Shape& Shape(const Standard_Integer Index) const;
+  Standard_EXPORT const TopoShape& Shape(const Standard_Integer Index) const;
 
   //! Force the tolerance values used by the next Perform(S1,S2) call.
   Standard_EXPORT void ForceTolerance(const Standard_Real tol);
@@ -81,15 +81,15 @@ public:
   Standard_EXPORT TopAbs_State State() const;
 
   //! Index = 1 transition par rapport a la face, en cheminant sur l'arete
-  Standard_EXPORT TopOpeBRepDS_Transition
+  Standard_EXPORT StateTransition
     Transition(const Standard_Integer Index, const TopAbs_Orientation FaceOrientation) const;
 
-  Standard_EXPORT Standard_Boolean IsVertex(const TopoDS_Shape& S,
+  Standard_EXPORT Standard_Boolean IsVertex(const TopoShape& S,
                                             const Point3d&       P,
                                             const Standard_Real Tol,
-                                            TopoDS_Vertex&      V);
+                                            TopoVertex&      V);
 
-  Standard_EXPORT Standard_Boolean IsVertex(const Standard_Integer I, TopoDS_Vertex& V);
+  Standard_EXPORT Standard_Boolean IsVertex(const Standard_Integer I, TopoVertex& V);
 
   //! trace only
   Standard_EXPORT Standard_Integer Index() const;
@@ -103,16 +103,16 @@ private:
   //! with tolerance values "fitting" the shape tolerances.
   //! (called by Perform() by default, when ForceTolerances() has not
   //! been called)
-  Standard_EXPORT void ShapeTolerances(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
+  Standard_EXPORT void ShapeTolerances(const TopoShape& S1, const TopoShape& S2);
 
   //! returns the max tolerance of sub-shapes of type <T>
   //! found in shape <S>. If no such sub-shape found, return
   //! Precision::Intersection()
   //! (called by ShapeTolerances())
-  Standard_EXPORT Standard_Real ToleranceMax(const TopoDS_Shape& S, const TopAbs_ShapeEnum T) const;
+  Standard_EXPORT Standard_Real ToleranceMax(const TopoShape& S, const TopAbs_ShapeEnum T) const;
 
-  TopoDS_Face                   myFace;
-  TopoDS_Edge                   myEdge;
+  TopoFace                   myFace;
+  TopoEdge                   myEdge;
   Standard_Real                 myTol;
   Standard_Boolean              myForceTolerance;
   GeomAdaptor_Curve             myCurve;
@@ -121,9 +121,9 @@ private:
   TColStd_SequenceOfInteger     mySequenceOfState;
   Standard_Integer              myPointIndex;
   Standard_Integer              myNbPoints;
-  TopExp_Explorer               myVertexExplorer;
-  TopoDS_Shape                  myNullShape;
-  TopoDS_Vertex                 myNullVertex;
+  ShapeExplorer               myVertexExplorer;
+  TopoShape                  myNullShape;
+  TopoVertex                 myNullVertex;
 };
 
 #endif // _TopOpeBRep_FaceEdgeIntersector_HeaderFile

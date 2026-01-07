@@ -53,7 +53,7 @@ public:
   PrsDim_DimensionSelectionMode SelectionMode() const { return mySelectionMode; }
 
   Standard_EXPORT virtual void HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                                const Handle(Prs3d_Drawer)&               theStyle,
+                                                const Handle(StyleDrawer)&               theStyle,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Returns true if an object with the selection mode

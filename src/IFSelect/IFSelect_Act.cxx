@@ -18,7 +18,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(IFSelect_Act, IFSelect_Activator)
 
-static TCollection_AsciiString thedefgr, thedefil;
+static AsciiString1 thedefgr, thedefil;
 
 IFSelect_Act::IFSelect_Act(const Standard_CString name,
                            const Standard_CString help,

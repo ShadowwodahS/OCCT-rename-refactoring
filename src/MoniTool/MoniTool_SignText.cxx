@@ -18,10 +18,10 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(MoniTool_SignText, RefObject)
 
-TCollection_AsciiString MoniTool_SignText::TextAlone(const Handle(RefObject)& ent) const
+AsciiString1 MoniTool_SignText::TextAlone(const Handle(RefObject)& ent) const
 {
   Handle(RefObject) nulctx; // no context
-  TCollection_AsciiString    atext = Text(ent, nulctx);
+  AsciiString1    atext = Text(ent, nulctx);
   if (atext.Length() == 0)
   {
     if (ent.IsNull())

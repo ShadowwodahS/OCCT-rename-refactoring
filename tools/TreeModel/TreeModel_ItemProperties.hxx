@@ -135,19 +135,19 @@ public:
   //! Returns stream value of the item to fulfill property panel.
   //! \return stream value or dummy
   Standard_EXPORT void ChildStream(const int                theRowId,
-                                   TCollection_AsciiString& theKey,
+                                   AsciiString1& theKey,
                                    Standard_DumpValue&      theValue) const;
 
   //! Returns data object of the item.
   //! \return object key
-  const TCollection_AsciiString& Key() const { return myKey; }
+  const AsciiString1& Key() const { return myKey; }
 
   //! Returns stream value of the item.
   //! \return value
-  const TCollection_AsciiString& StreamValue() const { return myStreamValue.myValue; }
+  const AsciiString1& StreamValue() const { return myStreamValue.myValue; }
 
   //! Returns children stream values
-  // const NCollection_IndexedDataMap<TCollection_AsciiString, Standard_DumpValue>& Values() const {
+  // const NCollection_IndexedDataMap<AsciiString1, Standard_DumpValue>& Values() const {
   // initItem(); return myValues; }
 
   //! Returns children stream values
@@ -158,7 +158,7 @@ public:
   }
 
   //! Returns children stream values
-  const NCollection_IndexedDataMap<TCollection_AsciiString, Standard_DumpValue>& Children() const
+  const NCollection_IndexedDataMap<AsciiString1, Standard_DumpValue>& Children() const
   {
     initItem();
     return myChildren;
@@ -173,9 +173,9 @@ protected:
 private:
   TreeModel_ItemBasePtr myItem; //!< current item
 
-  TCollection_AsciiString myKey;         //!< the item key
+  AsciiString1 myKey;         //!< the item key
   Standard_DumpValue      myStreamValue; //!< the stream value
-  NCollection_IndexedDataMap<TCollection_AsciiString, Standard_DumpValue>
+  NCollection_IndexedDataMap<AsciiString1, Standard_DumpValue>
                                                                    myChildren;  //!< the children
   NCollection_IndexedDataMap<Standard_Integer, TreeModel_RowValue> myRowValues; //!< the values
 };

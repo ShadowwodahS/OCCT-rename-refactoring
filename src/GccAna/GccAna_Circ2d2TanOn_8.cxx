@@ -39,7 +39,7 @@
 #include <Precision.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
                                          const gp_Pnt2d&             Point2,
                                          const gp_Circ2d&            OnCirc,
                                          const Standard_Real         Tolerance)
@@ -176,7 +176,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
   //   General case.                                                         +
   //=========================================================================
 
-  GccAna_CircPnt2dBisec Bis(C1, Point2);
+  CirclePoint2dBisector Bis(C1, Point2);
   if (Bis.IsDone())
   {
     Standard_Integer nbsolution = Bis.NbSolutions();

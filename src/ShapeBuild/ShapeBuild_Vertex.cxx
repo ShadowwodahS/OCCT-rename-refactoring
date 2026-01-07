@@ -22,20 +22,20 @@
 
 //=================================================================================================
 
-TopoDS_Vertex ShapeBuild_Vertex::CombineVertex(const TopoDS_Vertex& V1,
-                                               const TopoDS_Vertex& V2,
+TopoVertex ShapeBuild_Vertex::CombineVertex(const TopoVertex& V1,
+                                               const TopoVertex& V2,
                                                const Standard_Real  tolFactor) const
 {
-  return CombineVertex(BRep_Tool::Pnt(V1),
-                       BRep_Tool::Pnt(V2),
-                       BRep_Tool::Tolerance(V1),
-                       BRep_Tool::Tolerance(V2),
+  return CombineVertex(BRepInspector::Pnt(V1),
+                       BRepInspector::Pnt(V2),
+                       BRepInspector::Tolerance(V1),
+                       BRepInspector::Tolerance(V2),
                        tolFactor);
 }
 
 //=================================================================================================
 
-TopoDS_Vertex ShapeBuild_Vertex::CombineVertex(const Point3d&       pnt1,
+TopoVertex ShapeBuild_Vertex::CombineVertex(const Point3d&       pnt1,
                                                const Point3d&       pnt2,
                                                const Standard_Real tol1,
                                                const Standard_Real tol2,
@@ -65,8 +65,8 @@ TopoDS_Vertex ShapeBuild_Vertex::CombineVertex(const Point3d&       pnt1,
     pos             = 0.5 * ((1 - s) * pnt1.XYZ() + (1 + s) * pnt2.XYZ());
   }
 
-  TopoDS_Vertex V;
-  BRep_Builder  B;
+  TopoVertex V;
+  ShapeBuilder  B;
   B.MakeVertex(V, pos, tolFactor * tol);
   return V;
 }

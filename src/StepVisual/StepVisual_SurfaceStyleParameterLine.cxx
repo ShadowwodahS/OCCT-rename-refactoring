@@ -50,7 +50,7 @@ Handle(StepVisual_HArray1OfDirectionCountSelect) StepVisual_SurfaceStyleParamete
   return directionCounts;
 }
 
-StepVisual_DirectionCountSelect StepVisual_SurfaceStyleParameterLine::DirectionCountsValue(
+DirectionCountSelect StepVisual_SurfaceStyleParameterLine::DirectionCountsValue(
   const Standard_Integer num) const
 {
   return directionCounts->Value(num);

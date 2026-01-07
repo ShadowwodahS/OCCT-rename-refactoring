@@ -23,7 +23,7 @@
 
 #include <BRepSweep_Translation.hxx>
 #include <Standard_Boolean.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class Vector3d;
 class Dir3d;
 class Sweep_NumShape;
@@ -39,7 +39,7 @@ public:
   //! Builds the prism of base S and vector V. If C is true,
   //! S is copied. If Canonize is true then generated surfaces
   //! are attempted to be canonized in simple types
-  Standard_EXPORT BRepSweep_Prism(const TopoDS_Shape&    S,
+  Standard_EXPORT BRepSweep_Prism(const TopoShape&    S,
                                   const Vector3d&          V,
                                   const Standard_Boolean Copy     = Standard_False,
                                   const Standard_Boolean Canonize = Standard_True);
@@ -49,34 +49,34 @@ public:
   //! is infinite, if Inf is false the  prism is infinite in
   //! the direction D. If Canonize is true then generated surfaces
   //! are attempted to be canonized in simple types
-  Standard_EXPORT BRepSweep_Prism(const TopoDS_Shape&    S,
+  Standard_EXPORT BRepSweep_Prism(const TopoShape&    S,
                                   const Dir3d&          D,
                                   const Standard_Boolean Inf      = Standard_True,
                                   const Standard_Boolean Copy     = Standard_False,
                                   const Standard_Boolean Canonize = Standard_True);
 
   //! Returns the TopoDS Shape attached to the prism.
-  Standard_EXPORT TopoDS_Shape Shape();
+  Standard_EXPORT TopoShape Shape();
 
   //! Returns    the  TopoDS  Shape   generated  with  aGenS
   //! (subShape  of the generating shape).
-  Standard_EXPORT TopoDS_Shape Shape(const TopoDS_Shape& aGenS);
+  Standard_EXPORT TopoShape Shape(const TopoShape& aGenS);
 
   //! Returns the  TopoDS  Shape of the bottom of the prism.
-  Standard_EXPORT TopoDS_Shape FirstShape();
+  Standard_EXPORT TopoShape FirstShape();
 
   //! Returns the TopoDS Shape of the bottom  of the  prism.
   //! generated  with  aGenS  (subShape  of  the  generating
   //! shape).
-  Standard_EXPORT TopoDS_Shape FirstShape(const TopoDS_Shape& aGenS);
+  Standard_EXPORT TopoShape FirstShape(const TopoShape& aGenS);
 
   //! Returns the TopoDS Shape of the top of the prism.
-  Standard_EXPORT TopoDS_Shape LastShape();
+  Standard_EXPORT TopoShape LastShape();
 
   //! Returns the  TopoDS  Shape of the top  of  the  prism.
   //! generated  with  aGenS  (subShape  of  the  generating
   //! shape).
-  Standard_EXPORT TopoDS_Shape LastShape(const TopoDS_Shape& aGenS);
+  Standard_EXPORT TopoShape LastShape(const TopoShape& aGenS);
 
   //! Returns the Vector of the Prism,  if it is an infinite
   //! prism the Vec is unitar.
@@ -84,11 +84,11 @@ public:
 
   //! Returns true if the
   //! aGenS is used in resulting shape
-  Standard_EXPORT Standard_Boolean IsUsed(const TopoDS_Shape& aGenS) const;
+  Standard_EXPORT Standard_Boolean IsUsed(const TopoShape& aGenS) const;
 
   //! Returns true if the shape, generated from theS
   //! is used in result shape
-  Standard_EXPORT Standard_Boolean GenIsUsed(const TopoDS_Shape& theS) const;
+  Standard_EXPORT Standard_Boolean GenIsUsed(const TopoShape& theS) const;
 
 protected:
 private:

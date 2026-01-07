@@ -18,7 +18,7 @@
 
 #include <TCollection_ExtendedString.hxx>
 
-TDocStd_PathParser::TDocStd_PathParser(const TCollection_ExtendedString& path)
+TDocStd_PathParser::TDocStd_PathParser(const UtfString& path)
 {
   myPath = path;
   Parse();
@@ -26,8 +26,8 @@ TDocStd_PathParser::TDocStd_PathParser(const TCollection_ExtendedString& path)
 
 void TDocStd_PathParser::Parse()
 {
-  TCollection_ExtendedString temp          = myPath;
-  Standard_Integer           PointPosition = myPath.SearchFromEnd(TCollection_ExtendedString("."));
+  UtfString temp          = myPath;
+  Standard_Integer           PointPosition = myPath.SearchFromEnd(UtfString("."));
   if (PointPosition > 0)
     myExtension = temp.Split(PointPosition);
   else
@@ -36,9 +36,9 @@ void TDocStd_PathParser::Parse()
   Standard_Boolean isFileName = (temp.Length()) ? Standard_True : Standard_False;
   Standard_Boolean isTrek     = Standard_True;
 #ifdef _WIN32
-  PointPosition = temp.SearchFromEnd(TCollection_ExtendedString("\\"));
+  PointPosition = temp.SearchFromEnd(UtfString("\\"));
   if (!(PointPosition > 0))
-    PointPosition = temp.SearchFromEnd(TCollection_ExtendedString("/"));
+    PointPosition = temp.SearchFromEnd(UtfString("/"));
   if (PointPosition > 0)
     myName = temp.Split(PointPosition);
   else
@@ -52,7 +52,7 @@ void TDocStd_PathParser::Parse()
       return;
   }
 #else
-  PointPosition = temp.SearchFromEnd(TCollection_ExtendedString("/"));
+  PointPosition = temp.SearchFromEnd(UtfString("/"));
   if (PointPosition > 0)
     myName = temp.Split(PointPosition);
   else
@@ -79,22 +79,22 @@ void TDocStd_PathParser::Parse()
 #endif
 }
 
-TCollection_ExtendedString TDocStd_PathParser::Extension() const
+UtfString TDocStd_PathParser::Extension() const
 {
   return myExtension;
 }
 
-TCollection_ExtendedString TDocStd_PathParser::Name() const
+UtfString TDocStd_PathParser::Name() const
 {
   return myName;
 }
 
-TCollection_ExtendedString TDocStd_PathParser::Trek() const
+UtfString TDocStd_PathParser::Trek() const
 {
   return myTrek;
 }
 
-TCollection_ExtendedString TDocStd_PathParser::Path() const
+UtfString TDocStd_PathParser::Path() const
 {
   return myPath;
 }

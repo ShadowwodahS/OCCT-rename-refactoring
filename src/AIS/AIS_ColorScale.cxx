@@ -31,7 +31,7 @@
 #include <StdPrs_Curve.hxx>
 #include <V3d_View.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_ColorScale, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_ColorScale, VisualEntity)
 
 namespace
 {
@@ -141,7 +141,7 @@ AIS_ColorScale::AIS_ColorScale()
 
 //=================================================================================================
 
-TCollection_ExtendedString AIS_ColorScale::GetLabel(const Standard_Integer theIndex) const
+UtfString AIS_ColorScale::GetLabel(const Standard_Integer theIndex) const
 {
   if (myLabelType == Aspect_TOCSD_USER)
   {
@@ -149,7 +149,7 @@ TCollection_ExtendedString AIS_ColorScale::GetLabel(const Standard_Integer theIn
     {
       return myLabels.Value(theIndex);
     }
-    return TCollection_ExtendedString();
+    return UtfString();
   }
 
   // value to be shown depends on label position
@@ -159,7 +159,7 @@ TCollection_ExtendedString AIS_ColorScale::GetLabel(const Standard_Integer theIn
 
   char aBuf[1024];
   sprintf(aBuf, myFormat.ToCString(), aVal);
-  return TCollection_ExtendedString(aBuf);
+  return UtfString(aBuf);
 }
 
 //=================================================================================================
@@ -223,13 +223,13 @@ void AIS_ColorScale::SetNumberOfIntervals(const Standard_Integer theNum)
 
 //=================================================================================================
 
-void AIS_ColorScale::SetLabel(const TCollection_ExtendedString& theLabel,
+void AIS_ColorScale::SetLabel(const UtfString& theLabel,
                               const Standard_Integer            theIndex)
 {
   const Standard_Integer aLabIndex = (theIndex <= 0 ? myLabels.Length() + 1 : theIndex);
   while (myLabels.Length() < aLabIndex)
   {
-    myLabels.Append(TCollection_ExtendedString());
+    myLabels.Append(UtfString());
   }
   myLabels.SetValue(aLabIndex, theLabel);
 }
@@ -602,7 +602,7 @@ void AIS_ColorScale::drawColorBar(const Handle(Prs3d_Presentation)& thePrs,
     return;
   }
 
-  // Draw colors
+  // Draw1 colors
   const Standard_Integer anXLeft =
     myLabelPos == Aspect_TOCSP_LEFT
       ? myXPos + mySpacing + theMaxLabelWidth + (theMaxLabelWidth != 0 ? 1 : 0) * mySpacing
@@ -863,7 +863,7 @@ void AIS_ColorScale::drawFrame(const Handle(Prs3d_Presentation)& thePrs,
 //=================================================================================================
 
 void AIS_ColorScale::drawText(const Handle(Graphic3d_Group)&        theGroup,
-                              const TCollection_ExtendedString&     theText,
+                              const UtfString&     theText,
                               const Standard_Integer                theX,
                               const Standard_Integer                theY,
                               const Graphic3d_VerticalTextAlignment theVertAlignment)
@@ -881,7 +881,7 @@ void AIS_ColorScale::drawText(const Handle(Graphic3d_Group)&        theGroup,
 
 //=================================================================================================
 
-Standard_Integer AIS_ColorScale::TextWidth(const TCollection_ExtendedString& theText) const
+Standard_Integer AIS_ColorScale::TextWidth(const UtfString& theText) const
 {
   Standard_Integer aWidth = 0, anAscent = 0, aDescent = 0;
   TextSize(theText, myTextHeight, aWidth, anAscent, aDescent);
@@ -890,7 +890,7 @@ Standard_Integer AIS_ColorScale::TextWidth(const TCollection_ExtendedString& the
 
 //=================================================================================================
 
-Standard_Integer AIS_ColorScale::TextHeight(const TCollection_ExtendedString& theText) const
+Standard_Integer AIS_ColorScale::TextHeight(const UtfString& theText) const
 {
   Standard_Integer aWidth = 0, anAscent = 0, aDescent = 0;
   TextSize(theText, myTextHeight, aWidth, anAscent, aDescent);
@@ -899,7 +899,7 @@ Standard_Integer AIS_ColorScale::TextHeight(const TCollection_ExtendedString& th
 
 //=================================================================================================
 
-void AIS_ColorScale::TextSize(const TCollection_ExtendedString& theText,
+void AIS_ColorScale::TextSize(const UtfString& theText,
                               const Standard_Integer            theHeight,
                               Standard_Integer&                 theWidth,
                               Standard_Integer&                 theAscent,
@@ -908,8 +908,8 @@ void AIS_ColorScale::TextSize(const TCollection_ExtendedString& theText,
   Standard_ShortReal aWidth = 10.0f, anAscent = 1.0f, aDescent = 1.0f;
   if (HasInteractiveContext())
   {
-    const TCollection_AsciiString  aText(theText);
-    const Handle(V3d_Viewer)&      aViewer = GetContext()->CurrentViewer();
+    const AsciiString1  aText(theText);
+    const Handle(ViewManager)&      aViewer = GetContext()->CurrentViewer();
     const Handle(Graphic3d_CView)& aView   = aViewer->ActiveViewIterator().Value()->View();
     aViewer->Driver()->TextSize(aView,
                                 aText.ToCString(),

@@ -70,7 +70,7 @@ Handle(Expr_GeneralExpression) Expr_UnaryFunction::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_UnaryFunction::Copy() const
 {
-  return new Expr_UnaryFunction(myFunction, Expr::CopyShare(Operand()));
+  return new Expr_UnaryFunction(myFunction, Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_UnaryFunction::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -111,7 +111,7 @@ Handle(Expr_GeneralExpression) Expr_UnaryFunction::Derivative(
   Handle(Expr_GeneralExpression) myop      = Operand();
   Handle(Expr_GeneralExpression) myexpder  = myop->Derivative(X);
   Handle(Expr_GeneralFunction)   myfuncder = myFunction->Derivative(myvar);
-  Handle(Expr_UnaryFunction) firstpart = new Expr_UnaryFunction(myfuncder, Expr::CopyShare(myop));
+  Handle(Expr_UnaryFunction) firstpart = new Expr_UnaryFunction(myfuncder, Expr1::CopyShare(myop));
   Handle(Expr_Product)       resu      = firstpart->ShallowSimplified() * myexpder;
   return resu->ShallowSimplified();
 }
@@ -126,9 +126,9 @@ Standard_Real Expr_UnaryFunction::Evaluate(const Expr_Array1OfNamedUnknown& vars
   return myFunction->Evaluate(varsfunc, valsfunc);
 }
 
-TCollection_AsciiString Expr_UnaryFunction::String() const
+AsciiString1 Expr_UnaryFunction::String() const
 {
-  TCollection_AsciiString res = myFunction->GetStringName();
+  AsciiString1 res = myFunction->GetStringName();
   res += "(";
   res += Operand()->String();
   res += ")";

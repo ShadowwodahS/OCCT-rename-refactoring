@@ -89,7 +89,7 @@ inline void ShapeFix_Root::SendMsg(const Message_Msg& message, const Message_Gra
 // purpose  :
 //=======================================================================
 
-inline void ShapeFix_Root::SendWarning(const TopoDS_Shape& shape, const Message_Msg& message) const
+inline void ShapeFix_Root::SendWarning(const TopoShape& shape, const Message_Msg& message) const
 {
   SendMsg(shape, message, Message_Warning);
 }
@@ -109,7 +109,7 @@ inline void ShapeFix_Root::SendWarning(const Message_Msg& message) const
 // purpose  :
 //=======================================================================
 
-inline void ShapeFix_Root::SendFail(const TopoDS_Shape& shape, const Message_Msg& message) const
+inline void ShapeFix_Root::SendFail(const TopoShape& shape, const Message_Msg& message) const
 {
   SendMsg(shape, message, Message_Fail);
 }

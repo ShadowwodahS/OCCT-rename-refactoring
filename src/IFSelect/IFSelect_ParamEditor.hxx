@@ -62,7 +62,7 @@ public:
                                        const Standard_CString shortname,
                                        const Standard_CString completename = "");
 
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Boolean
     Recognize(const Handle(IFSelect_EditForm)& form) const Standard_OVERRIDE;
@@ -91,7 +91,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(IFSelect_ParamEditor, IFSelect_Editor)
 
 private:
-  TCollection_AsciiString thelabel;
+  AsciiString1 thelabel;
 };
 
 #endif // _IFSelect_ParamEditor_HeaderFile

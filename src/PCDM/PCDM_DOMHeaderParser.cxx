@@ -20,7 +20,7 @@
 // purpose  : set the name of the element which would stop parsing when detected
 //=======================================================================
 
-void PCDM_DOMHeaderParser::SetStartElementName(const TCollection_AsciiString& aStartElementName)
+void PCDM_DOMHeaderParser::SetStartElementName(const AsciiString1& aStartElementName)
 {
   myStartElementName = LDOMString(aStartElementName.ToCString());
 }
@@ -30,7 +30,7 @@ void PCDM_DOMHeaderParser::SetStartElementName(const TCollection_AsciiString& aS
 // purpose  : set the name of the element which would stop parsing when parsed
 //=======================================================================
 
-void PCDM_DOMHeaderParser::SetEndElementName(const TCollection_AsciiString& anEndElementName)
+void PCDM_DOMHeaderParser::SetEndElementName(const AsciiString1& anEndElementName)
 {
   myEndElementName = LDOMString(anEndElementName.ToCString());
 }

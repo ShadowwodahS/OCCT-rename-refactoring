@@ -39,7 +39,7 @@ const Standard_GUID& TDataStd_IntPackedMap::GetID()
 
 //=================================================================================================
 
-Handle(TDataStd_IntPackedMap) TDataStd_IntPackedMap::Set(const TDF_Label&       theLabel,
+Handle(TDataStd_IntPackedMap) TDataStd_IntPackedMap::Set(const DataLabel&       theLabel,
                                                          const Standard_Boolean isDelta)
 {
   Handle(TDataStd_IntPackedMap) anAtt;

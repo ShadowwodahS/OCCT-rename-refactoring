@@ -53,10 +53,10 @@ OSD_Host::OSD_Host() {}
 
 // =========================================================================
 
-TCollection_AsciiString OSD_Host::SystemVersion()
+AsciiString1 OSD_Host::SystemVersion()
 {
   struct utsname          info;
-  TCollection_AsciiString result;
+  AsciiString1 result;
 
   uname(&info);
   result = info.sysname;
@@ -98,9 +98,9 @@ OSD_SysType OSD_Host::SystemId() const
 
 // =========================================================================
 
-TCollection_AsciiString OSD_Host::HostName()
+AsciiString1 OSD_Host::HostName()
 {
-  TCollection_AsciiString result;
+  AsciiString1 result;
   char                    value[65];
   int                     status;
 
@@ -132,12 +132,12 @@ Standard_Integer OSD_Host::AvailableMemory()
 
 // =========================================================================
 
-TCollection_AsciiString OSD_Host::InternetAddress()
+AsciiString1 OSD_Host::InternetAddress()
 {
   struct hostent          internet_address;
   int                     a, b, c, d;
   char                    buffer[16];
-  TCollection_AsciiString result, host;
+  AsciiString1 result, host;
 
   host = HostName();
   memcpy(&internet_address, gethostbyname(host.ToCString()), sizeof(struct hostent));
@@ -221,9 +221,9 @@ Standard_Integer OSD_Host::Error() const
 void _osd_wnt_set_error(OSD_Error&, Standard_Integer, ...);
 
 static BOOL                    fInit = FALSE;
-static TCollection_AsciiString hostName;
-static TCollection_AsciiString version;
-static TCollection_AsciiString interAddr;
+static AsciiString1 hostName;
+static AsciiString1 version;
+static AsciiString1 interAddr;
 static Standard_Integer        memSize;
 
 OSD_Host ::OSD_Host()
@@ -294,12 +294,12 @@ OSD_Host ::OSD_Host()
 
       hostName                         = szHostName;
       interAddr                        = Standard_CString(hostAddr);
-      TCollection_AsciiString aVersion = TCollection_AsciiString("Windows NT Version ")
+      AsciiString1 aVersion = AsciiString1("Windows NT Version ")
                                          + (int)osVerInfo.dwMajorVersion + "."
                                          + (int)osVerInfo.dwMinorVersion;
       if (*osVerInfo.szCSDVersion != L'\0')
       {
-        aVersion += TCollection_AsciiString(" ") + TCollection_AsciiString(osVerInfo.szCSDVersion);
+        aVersion += AsciiString1(" ") + AsciiString1(osVerInfo.szCSDVersion);
       }
       version = aVersion;
 
@@ -315,7 +315,7 @@ OSD_Host ::OSD_Host()
   #endif
 } // end constructor
 
-TCollection_AsciiString OSD_Host ::SystemVersion()
+AsciiString1 OSD_Host ::SystemVersion()
 {
 
   return version;
@@ -329,7 +329,7 @@ OSD_SysType OSD_Host ::SystemId() const
 
 } // end OSD_Host :: SystemId
 
-TCollection_AsciiString OSD_Host ::HostName()
+AsciiString1 OSD_Host ::HostName()
 {
 
   return hostName;
@@ -343,7 +343,7 @@ Standard_Integer OSD_Host ::AvailableMemory()
 
 } // end OSD_Host :: AvailableMemory
 
-TCollection_AsciiString OSD_Host ::InternetAddress()
+AsciiString1 OSD_Host ::InternetAddress()
 {
 
   return interAddr;

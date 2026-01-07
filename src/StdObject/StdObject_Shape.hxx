@@ -31,7 +31,7 @@ public:
   }
 
   //! Import transient object from the persistent data.
-  Standard_EXPORT TopoDS_Shape Import() const;
+  Standard_EXPORT TopoShape Import() const;
 
   Standard_EXPORT void PChildren(StdObjMgt_Persistent::SequenceOfPersistent& theChildren) const;
 

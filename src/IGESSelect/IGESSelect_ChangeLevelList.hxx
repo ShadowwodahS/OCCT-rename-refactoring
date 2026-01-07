@@ -25,7 +25,7 @@ class IFSelect_IntParam;
 class IFSelect_ContextModif;
 class IGESData_IGESModel;
 class Interface_CopyTool;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IGESSelect_ChangeLevelList;
 DEFINE_STANDARD_HANDLE(IGESSelect_ChangeLevelList, IGESSelect_ModelModifier)
@@ -88,7 +88,7 @@ public:
   //! "Changes Level Lists containing <old>", or
   //! "Changes all Level Lists in D.E.", and ends by
   //! " to Number <new>"  or  " to Number = first value in List"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_ChangeLevelList, IGESSelect_ModelModifier)
 

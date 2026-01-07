@@ -31,7 +31,7 @@ IGESDimen_RadiusDimension::IGESDimen_RadiusDimension() {}
 
 void IGESDimen_RadiusDimension::Init(const Handle(IGESDimen_GeneralNote)& aNote,
                                      const Handle(IGESDimen_LeaderArrow)& anArrow,
-                                     const gp_XY&                         arcCenter,
+                                     const Coords2d&                         arcCenter,
                                      const Handle(IGESDimen_LeaderArrow)& anotherArrow)
 {
   theNote        = aNote;

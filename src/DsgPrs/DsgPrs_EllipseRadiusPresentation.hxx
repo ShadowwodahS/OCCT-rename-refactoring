@@ -24,7 +24,7 @@
 #include <DsgPrs_ArrowSide.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class TCollection_ExtendedString;
+class UtfString;
 class Point3d;
 class gp_Elips;
 class Geom_OffsetCurve;
@@ -37,9 +37,9 @@ public:
   //! draws a  Radius  (Major  or  Minor)
   //! representation for whole ellipse  case
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Standard_Real               theval,
-                                  const TCollection_ExtendedString& aText,
+                                  const UtfString& aText,
                                   const Point3d&                     AttachmentPoint,
                                   const Point3d&                     anEndOfArrow,
                                   const Point3d&                     aCenter,
@@ -49,9 +49,9 @@ public:
   //! draws a  Radius  (Major  or  Minor) representation
   //! for arc of an ellipse  case
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Standard_Real               theval,
-                                  const TCollection_ExtendedString& aText,
+                                  const UtfString& aText,
                                   const gp_Elips&                   anEllipse,
                                   const Point3d&                     AttachmentPoint,
                                   const Point3d&                     anEndOfArrow,
@@ -64,9 +64,9 @@ public:
   //! draws a  Radius  (Major  or  Minor) representation
   //! for arc of an offset  curve  from  ellipse
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Standard_Real               theval,
-                                  const TCollection_ExtendedString& aText,
+                                  const UtfString& aText,
                                   const Handle(Geom_OffsetCurve)&   aCurve,
                                   const Point3d&                     AttachmentPoint,
                                   const Point3d&                     anEndOfArrow,

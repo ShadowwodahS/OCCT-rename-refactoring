@@ -24,7 +24,7 @@
 #include <Standard_Transient.hxx>
 #include <TopAbs_ShapeEnum.hxx>
 #include <Standard_Integer.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class Bnd_Box;
 
 class TopOpeBRepTool_HBoxTool;
@@ -38,27 +38,27 @@ public:
 
   Standard_EXPORT void Clear();
 
-  Standard_EXPORT void AddBoxes(const TopoDS_Shape&    S,
+  Standard_EXPORT void AddBoxes(const TopoShape&    S,
                                 const TopAbs_ShapeEnum TS,
                                 const TopAbs_ShapeEnum TA = TopAbs_SHAPE);
 
-  Standard_EXPORT void AddBox(const TopoDS_Shape& S);
+  Standard_EXPORT void AddBox(const TopoShape& S);
 
-  Standard_EXPORT static void ComputeBox(const TopoDS_Shape& S, Bnd_Box& B);
+  Standard_EXPORT static void ComputeBox(const TopoShape& S, Bnd_Box& B);
 
-  Standard_EXPORT static void ComputeBoxOnVertices(const TopoDS_Shape& S, Bnd_Box& B);
+  Standard_EXPORT static void ComputeBoxOnVertices(const TopoShape& S, Bnd_Box& B);
 
   Standard_EXPORT static void DumpB(const Bnd_Box& B);
 
-  Standard_EXPORT const Bnd_Box& Box(const TopoDS_Shape& S);
+  Standard_EXPORT const Bnd_Box& Box(const TopoShape& S);
 
   Standard_EXPORT const Bnd_Box& Box(const Standard_Integer I) const;
 
-  Standard_EXPORT Standard_Boolean HasBox(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Boolean HasBox(const TopoShape& S) const;
 
-  Standard_EXPORT const TopoDS_Shape& Shape(const Standard_Integer I) const;
+  Standard_EXPORT const TopoShape& Shape(const Standard_Integer I) const;
 
-  Standard_EXPORT Standard_Integer Index(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Integer Index(const TopoShape& S) const;
 
   Standard_EXPORT Standard_Integer Extent() const;
 

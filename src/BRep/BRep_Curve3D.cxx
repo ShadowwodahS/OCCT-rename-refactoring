@@ -25,7 +25,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRep_Curve3D, BRep_GCurve)
 
 //=================================================================================================
 
-BRep_Curve3D::BRep_Curve3D(const Handle(Geom_Curve)& C, const TopLoc_Location& L)
+BRep_Curve3D::BRep_Curve3D(const Handle(GeomCurve3d)& C, const TopLoc_Location& L)
     : BRep_GCurve(L,
                   C.IsNull() ? RealFirst() : C->FirstParameter(),
                   C.IsNull() ? RealLast() : C->LastParameter()),
@@ -50,14 +50,14 @@ Standard_Boolean BRep_Curve3D::IsCurve3D() const
 
 //=================================================================================================
 
-const Handle(Geom_Curve)& BRep_Curve3D::Curve3D() const
+const Handle(GeomCurve3d)& BRep_Curve3D::Curve3D() const
 {
   return myCurve;
 }
 
 //=================================================================================================
 
-void BRep_Curve3D::Curve3D(const Handle(Geom_Curve)& C)
+void BRep_Curve3D::Curve3D(const Handle(GeomCurve3d)& C)
 {
   myCurve = C;
 }

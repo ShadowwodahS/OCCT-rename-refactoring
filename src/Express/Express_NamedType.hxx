@@ -18,7 +18,7 @@
 #include <Standard_Type.hxx>
 
 class Express_Item;
-class TCollection_AsciiString;
+class AsciiString1;
 class TCollection_HAsciiString;
 
 //! Base class for complex types (ARRAY, LIST, BAG, SET)
@@ -35,7 +35,7 @@ public:
   Standard_EXPORT Express_NamedType(const Handle(TCollection_HAsciiString)& theName);
 
   //! Returns name of type (item in schema)
-  Standard_EXPORT const TCollection_AsciiString& Name() const;
+  Standard_EXPORT const AsciiString1& Name() const;
 
   //! Returns a pointer to the type name to modify it
   Standard_EXPORT Handle(TCollection_HAsciiString) HName() const;
@@ -47,7 +47,7 @@ public:
   Standard_EXPORT void SetItem(const Handle(Express_Item)& theItem);
 
   //! Returns CPP-style name of the type
-  Standard_EXPORT virtual const TCollection_AsciiString CPPName() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const AsciiString1 CPPName() const Standard_OVERRIDE;
 
   //! Return True if type is defined in package Standard
   Standard_EXPORT virtual Standard_Boolean IsStandard() const Standard_OVERRIDE;
@@ -64,8 +64,8 @@ public:
 
   //! Declares type as used by some item being generated.
   //! Calls Use() for referred item (found by name).
-  Standard_EXPORT virtual void Use2(const TCollection_AsciiString& theRefName,
-                                    const TCollection_AsciiString& theRefPack) const
+  Standard_EXPORT virtual void Use2(const AsciiString1& theRefName,
+                                    const AsciiString1& theRefPack) const
     Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Express_NamedType, Express_Type)

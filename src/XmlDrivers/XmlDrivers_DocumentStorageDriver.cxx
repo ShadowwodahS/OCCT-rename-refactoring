@@ -28,7 +28,7 @@ IMPLEMENT_STANDARD_RTTIEXT(XmlDrivers_DocumentStorageDriver, XmlLDrivers_Documen
 //=================================================================================================
 
 XmlDrivers_DocumentStorageDriver::XmlDrivers_DocumentStorageDriver(
-  const TCollection_ExtendedString& theCopyright)
+  const UtfString& theCopyright)
     : XmlLDrivers_DocumentStorageDriver(theCopyright)
 {
 }
@@ -52,7 +52,7 @@ Standard_Boolean XmlDrivers_DocumentStorageDriver::WriteShapeSection(
 {
   Standard_Boolean       isShape(Standard_False);
   Handle(XmlMDF_ADriver) aDriver;
-  if (myDrivers->GetDriver(STANDARD_TYPE(TNaming_NamedShape), aDriver))
+  if (myDrivers->GetDriver(STANDARD_TYPE(ShapeAttribute), aDriver))
   {
     Handle(XmlMNaming_NamedShapeDriver) aNamedShapeDriver =
       Handle(XmlMNaming_NamedShapeDriver)::DownCast(aDriver);

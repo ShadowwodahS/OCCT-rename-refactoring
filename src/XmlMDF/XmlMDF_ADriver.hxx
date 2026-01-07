@@ -49,10 +49,10 @@ public:
   Standard_EXPORT virtual Handle(TypeInfo) SourceType() const;
 
   //! Returns the full XML tag name (including NS prefix)
-  Standard_EXPORT const TCollection_AsciiString& TypeName() const;
+  Standard_EXPORT const AsciiString1& TypeName() const;
 
   //! Returns the namespace string
-  const TCollection_AsciiString& Namespace() const { return myNamespace; }
+  const AsciiString1& Namespace() const { return myNamespace; }
 
   //! Translate the contents of <aSource> and put it
   //! into <aTarget>, using the relocation table
@@ -78,8 +78,8 @@ protected:
                                  const Standard_CString           theNamespace,
                                  const Standard_CString           theName = NULL);
 
-  TCollection_AsciiString   myTypeName;
-  TCollection_AsciiString   myNamespace;
+  AsciiString1   myTypeName;
+  AsciiString1   myNamespace;
   Handle(Message_Messenger) myMessageDriver;
 
 private:

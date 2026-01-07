@@ -25,7 +25,7 @@ TObj_LabelIterator::TObj_LabelIterator() {}
 
 //=================================================================================================
 
-TObj_LabelIterator::TObj_LabelIterator(const TDF_Label&       theLabel,
+TObj_LabelIterator::TObj_LabelIterator(const DataLabel&       theLabel,
                                        const Standard_Boolean isRecursive)
 {
   Init(theLabel, isRecursive);

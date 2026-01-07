@@ -21,7 +21,7 @@
 
 #include <BRep_CurveRepresentation.hxx>
 #include <Standard_Real.hxx>
-class Geom_Surface;
+class GeomSurface;
 class Point3d;
 
 class BRep_CurveOn2Surfaces;
@@ -32,8 +32,8 @@ class BRep_CurveOn2Surfaces : public BRep_CurveRepresentation
 {
 
 public:
-  Standard_EXPORT BRep_CurveOn2Surfaces(const Handle(Geom_Surface)& S1,
-                                        const Handle(Geom_Surface)& S2,
+  Standard_EXPORT BRep_CurveOn2Surfaces(const Handle(GeomSurface)& S1,
+                                        const Handle(GeomSurface)& S2,
                                         const TopLoc_Location&      L1,
                                         const TopLoc_Location&      L2,
                                         const GeomAbs_Shape         C);
@@ -42,8 +42,8 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsRegularity() const Standard_OVERRIDE;
 
   //! A curve on two surfaces (continuity).
-  Standard_EXPORT virtual Standard_Boolean IsRegularity(const Handle(Geom_Surface)& S1,
-                                                        const Handle(Geom_Surface)& S2,
+  Standard_EXPORT virtual Standard_Boolean IsRegularity(const Handle(GeomSurface)& S1,
+                                                        const Handle(GeomSurface)& S2,
                                                         const TopLoc_Location&      L1,
                                                         const TopLoc_Location&      L2) const
     Standard_OVERRIDE;
@@ -51,9 +51,9 @@ public:
   //! Raises an error.
   Standard_EXPORT void D0(const Standard_Real U, Point3d& P) const;
 
-  Standard_EXPORT virtual const Handle(Geom_Surface)& Surface() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(GeomSurface)& Surface() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const Handle(Geom_Surface)& Surface2() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(GeomSurface)& Surface2() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual const TopLoc_Location& Location2() const Standard_OVERRIDE;
 
@@ -72,8 +72,8 @@ public:
 
 protected:
 private:
-  Handle(Geom_Surface) mySurface;
-  Handle(Geom_Surface) mySurface2;
+  Handle(GeomSurface) mySurface;
+  Handle(GeomSurface) mySurface2;
   TopLoc_Location      myLocation2;
   GeomAbs_Shape        myContinuity;
 };

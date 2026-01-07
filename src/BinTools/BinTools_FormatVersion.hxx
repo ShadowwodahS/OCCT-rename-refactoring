@@ -14,7 +14,7 @@
 #ifndef _BinToolsFormatVersion_HeaderFile
 #define _BinToolsFormatVersion_HeaderFile
 
-//! Defined BinTools format version
+//! Defined BinTools1 format version
 enum BinTools_FormatVersion
 {
   BinTools_FormatVersion_VERSION_1 = 1, //!< Does not write CurveOnSurface UV Points into the file.

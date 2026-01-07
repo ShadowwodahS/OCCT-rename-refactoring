@@ -65,7 +65,7 @@ public:
   //! Sets limits of inspection area.
   //! @param theMin bottom left corner of inspection area.
   //! @param theMax top right corner of inspection area.
-  void SetMinMaxSize(const gp_XY& theMin, const gp_XY& theMax)
+  void SetMinMaxSize(const Coords2d& theMin, const Coords2d& theMax)
   {
     myFaceMin = theMin;
     myFaceMax = theMax;
@@ -87,10 +87,10 @@ public:
   //! @param[out] theRadius radius of computed circle.
   //! @return FALSE in case of impossibility to build a circle
   //! on the given points, TRUE elsewhere.
-  Standard_EXPORT static Standard_Boolean MakeCircle(const gp_XY&   thePoint1,
-                                                     const gp_XY&   thePoint2,
-                                                     const gp_XY&   thePoint3,
-                                                     gp_XY&         theLocation,
+  Standard_EXPORT static Standard_Boolean MakeCircle(const Coords2d&   thePoint1,
+                                                     const Coords2d&   thePoint2,
+                                                     const Coords2d&   thePoint3,
+                                                     Coords2d&         theLocation,
                                                      Standard_Real& theRadius);
 
   //! Computes circle on three points and bind it to the tool.
@@ -101,9 +101,9 @@ public:
   //! @return FALSE in case of impossibility to build a circle
   //! on the given points, TRUE elsewhere.
   Standard_EXPORT Standard_Boolean Bind(const Standard_Integer theIndex,
-                                        const gp_XY&           thePoint1,
-                                        const gp_XY&           thePoint2,
-                                        const gp_XY&           thePoint3);
+                                        const Coords2d&           thePoint1,
+                                        const Coords2d&           thePoint2,
+                                        const Coords2d&           thePoint3);
 
   //! Binds implicit zero circle.
   //! @param theIndex index a zero circle should be bound with.
@@ -115,7 +115,7 @@ public:
 
   //! Select the circles shot by the given point.
   //! @param thePoint bullet point.
-  Standard_EXPORT IMeshData::ListOfInteger& Select(const gp_XY& thePoint);
+  Standard_EXPORT IMeshData::ListOfInteger& Select(const Coords2d& thePoint);
 
 private:
   //! Creates circle with the given parameters and binds it to the tool.
@@ -123,7 +123,7 @@ private:
   //! @param theLocation location of a circle.
   //! @param theRadius radius of a circle.
   void bind(const Standard_Integer theIndex,
-            const gp_XY&           theLocation,
+            const Coords2d&           theLocation,
             const Standard_Real    theRadius);
 
 private:
@@ -131,8 +131,8 @@ private:
   Handle(NCollection_IncAllocator) myAllocator;
   IMeshData::CircleCellFilter      myCellFilter;
   BRepMesh_CircleInspector         mySelector;
-  gp_XY                            myFaceMax;
-  gp_XY                            myFaceMin;
+  Coords2d                            myFaceMax;
+  Coords2d                            myFaceMin;
 };
 
 #endif

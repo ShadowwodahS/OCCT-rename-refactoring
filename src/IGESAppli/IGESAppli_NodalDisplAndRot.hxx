@@ -33,7 +33,7 @@ class IGESAppli_NodalDisplAndRot;
 DEFINE_STANDARD_HANDLE(IGESAppli_NodalDisplAndRot, IGESData_IGESEntity)
 
 //! defines NodalDisplAndRot, Type <138> Form <0>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Used to communicate finite element post processing
 //! data.
 class IGESAppli_NodalDisplAndRot : public IGESData_IGESEntity

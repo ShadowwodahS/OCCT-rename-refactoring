@@ -23,17 +23,17 @@
 #include <XSControl_Vars.hxx>
 class RefObject;
 class Geom_Geometry;
-class Geom2d_Curve;
-class Geom_Curve;
-class Geom_Surface;
+class GeomCurve2d;
+class GeomCurve3d;
+class GeomSurface;
 class Point3d;
 class gp_Pnt2d;
-class TopoDS_Shape;
+class TopoShape;
 
 class XSDRAW_Vars;
 DEFINE_STANDARD_HANDLE(XSDRAW_Vars, XSControl_Vars)
 
-//! Vars for DRAW session (i.e. DBRep and DrawTrSurf)
+//! Vars for DRAW session (i.e. DBRep1 and DrawTrSurf1)
 class XSDRAW_Vars : public XSControl_Vars
 {
 
@@ -46,13 +46,13 @@ public:
   Standard_EXPORT virtual Handle(Geom_Geometry) GetGeom(Standard_CString& name) const
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(Geom2d_Curve) GetCurve2d(Standard_CString& name) const
+  Standard_EXPORT virtual Handle(GeomCurve2d) GetCurve2d(Standard_CString& name) const
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(Geom_Curve) GetCurve(Standard_CString& name) const
+  Standard_EXPORT virtual Handle(GeomCurve3d) GetCurve(Standard_CString& name) const
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Handle(Geom_Surface) GetSurface(Standard_CString& name) const
+  Standard_EXPORT virtual Handle(GeomSurface) GetSurface(Standard_CString& name) const
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual void SetPoint(const Standard_CString name,
@@ -68,9 +68,9 @@ public:
                                                       gp_Pnt2d& pnt) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void SetShape(const Standard_CString name,
-                                        const TopoDS_Shape&    val) Standard_OVERRIDE;
+                                        const TopoShape&    val) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual TopoDS_Shape GetShape(Standard_CString& name) const Standard_OVERRIDE;
+  Standard_EXPORT virtual TopoShape GetShape(Standard_CString& name) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(XSDRAW_Vars, XSControl_Vars)
 

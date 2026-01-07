@@ -31,27 +31,27 @@ class TopoDS_AlertAttribute : public Message_AttributeStream
 public:
   //! Constructor with shape argument
   Standard_EXPORT TopoDS_AlertAttribute(
-    const TopoDS_Shape&            theShape,
-    const TCollection_AsciiString& theName = TCollection_AsciiString());
+    const TopoShape&            theShape,
+    const AsciiString1& theName = AsciiString1());
 
   //! Returns contained shape
-  const TopoDS_Shape& GetShape() const { return myShape; }
+  const TopoShape& GetShape() const { return myShape; }
 
 public:
   //! Push shape information into messenger
   Standard_EXPORT static void Send(const Handle(Message_Messenger)& theMessenger,
-                                   const TopoDS_Shape&              theShape);
+                                   const TopoShape&              theShape);
 
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream,
                                 Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
 private:
-  TopoDS_Shape myShape;
+  TopoShape myShape;
 };
 
 inline const Handle(Message_Messenger)& operator<<(const Handle(Message_Messenger)& theMessenger,
-                                                   const TopoDS_Shape&              theShape)
+                                                   const TopoShape&              theShape)
 {
   TopoDS_AlertAttribute::Send(theMessenger, theShape);
   return theMessenger;

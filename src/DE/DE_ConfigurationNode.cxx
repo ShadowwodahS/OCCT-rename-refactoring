@@ -40,7 +40,7 @@ DE_ConfigurationNode::DE_ConfigurationNode(const Handle(DE_ConfigurationNode)& t
 
 //=================================================================================================
 
-bool DE_ConfigurationNode::Load(const TCollection_AsciiString& theResourcePath)
+bool DE_ConfigurationNode::Load(const AsciiString1& theResourcePath)
 {
   Handle(DE_ConfigurationContext) aResource = new DE_ConfigurationContext();
   aResource->LoadFile(theResourcePath);
@@ -49,10 +49,10 @@ bool DE_ConfigurationNode::Load(const TCollection_AsciiString& theResourcePath)
 
 //=================================================================================================
 
-bool DE_ConfigurationNode::Save(const TCollection_AsciiString& theResourcePath) const
+bool DE_ConfigurationNode::Save(const AsciiString1& theResourcePath) const
 {
-  OSD_Path       aPath = theResourcePath;
-  OSD_File       aFile(aPath);
+  SystemPath       aPath = theResourcePath;
+  SystemFile       aFile(aPath);
   OSD_Protection aProt;
   {
     try
@@ -71,7 +71,7 @@ bool DE_ConfigurationNode::Save(const TCollection_AsciiString& theResourcePath) 
     Message::SendFail() << "Error: Configuration writing process was stopped. Can't build file.";
     return false;
   }
-  TCollection_AsciiString aResConfiguration = Save();
+  AsciiString1 aResConfiguration = Save();
   aFile.Write(aResConfiguration, aResConfiguration.Length());
   aFile.Close();
   return true;
@@ -103,9 +103,9 @@ bool DE_ConfigurationNode::IsExportSupported() const
 
 //=================================================================================================
 
-bool DE_ConfigurationNode::CheckExtension(const TCollection_AsciiString& theExtension) const
+bool DE_ConfigurationNode::CheckExtension(const AsciiString1& theExtension) const
 {
-  TCollection_AsciiString anExtension(theExtension);
+  AsciiString1 anExtension(theExtension);
   if (anExtension.IsEmpty())
   {
     return false;
@@ -117,7 +117,7 @@ bool DE_ConfigurationNode::CheckExtension(const TCollection_AsciiString& theExte
   const TColStd_ListOfAsciiString& anExtensions = GetExtensions();
   for (TColStd_ListOfAsciiString::Iterator anIter(anExtensions); anIter.More(); anIter.Next())
   {
-    if (TCollection_AsciiString::IsSameString(anIter.Value(), anExtension, Standard_False))
+    if (AsciiString1::IsSameString(anIter.Value(), anExtension, Standard_False))
     {
       return true;
     }

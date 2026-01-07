@@ -23,7 +23,7 @@
 #include <Geom_SweptSurface.hxx>
 #include <GeomEvaluator_SurfaceOfExtrusion.hxx>
 #include <Standard_Integer.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 class Dir3d;
 class Point3d;
 class Vector3d;
@@ -77,7 +77,7 @@ public:
   //! Degenerated surface cases are not detected. For example if the
   //! curve C is a line and V is parallel to the direction of this
   //! line.
-  Standard_EXPORT Geom_SurfaceOfLinearExtrusion(const Handle(Geom_Curve)& C, const Dir3d& V);
+  Standard_EXPORT Geom_SurfaceOfLinearExtrusion(const Handle(GeomCurve3d)& C, const Dir3d& V);
 
   //! Assigns V as the "direction of extrusion" for this
   //! surface of linear extrusion.
@@ -85,7 +85,7 @@ public:
 
   //! Modifies this surface of linear extrusion by redefining
   //! its "basis curve" (the "extruded curve").
-  Standard_EXPORT void SetBasisCurve(const Handle(Geom_Curve)& C);
+  Standard_EXPORT void SetBasisCurve(const Handle(GeomCurve3d)& C);
 
   //! Changes the orientation of this surface of linear
   //! extrusion in the u  parametric direction. The
@@ -159,13 +159,13 @@ public:
   //! of linear extrusion. This is the line parallel to the
   //! direction of extrusion, passing through the point of
   //! parameter U of the basis curve.
-  Standard_EXPORT Handle(Geom_Curve) UIso(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) UIso(const Standard_Real U) const Standard_OVERRIDE;
 
   //! Computes the V isoparametric curve of this surface
   //! of linear extrusion. This curve is obtained by
   //! translating the extruded curve in the direction of
   //! extrusion, with the magnitude V.
-  Standard_EXPORT Handle(Geom_Curve) VIso(const Standard_Real V) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) VIso(const Standard_Real V) const Standard_OVERRIDE;
 
   //! Computes the  point P (U, V) on the surface.
   //! The parameter U is the parameter on the extruded curve.

@@ -20,10 +20,10 @@
 #include <TCollection_AsciiString.hxx>
 
 // --- Enum : TextPath ---
-static TCollection_AsciiString tpUp(".UP.");
-static TCollection_AsciiString tpRight(".RIGHT.");
-static TCollection_AsciiString tpDown(".DOWN.");
-static TCollection_AsciiString tpLeft(".LEFT.");
+static AsciiString1 tpUp(".UP.");
+static AsciiString1 tpRight(".RIGHT.");
+static AsciiString1 tpDown(".DOWN.");
+static AsciiString1 tpLeft(".LEFT.");
 
 RWStepVisual_RWTextLiteral::RWStepVisual_RWTextLiteral() {}
 

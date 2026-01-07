@@ -34,7 +34,7 @@
 
 //=================================================================================================
 
-void BinMXCAFDoc::AddDrivers(const Handle(BinMDF_ADriverTable)& theDriverTable,
+void BinMXCAFDoc1::AddDrivers(const Handle(BinMDF_ADriverTable)& theDriverTable,
                              const Handle(Message_Messenger)&   theMsgDrv)
 {
   theDriverTable->AddDriver(new BinMXCAFDoc_CentroidDriver(theMsgDrv));
@@ -43,7 +43,7 @@ void BinMXCAFDoc::AddDrivers(const Handle(BinMDF_ADriverTable)& theDriverTable,
 
   // oan: changes for sharing locations map
   Handle(BinMDF_ADriver) aNSDriver;
-  theDriverTable->GetDriver(STANDARD_TYPE(TNaming_NamedShape), aNSDriver);
+  theDriverTable->GetDriver(STANDARD_TYPE(ShapeAttribute), aNSDriver);
   Handle(BinMNaming_NamedShapeDriver) aNamedShapeDriver =
     Handle(BinMNaming_NamedShapeDriver)::DownCast(aNSDriver);
 

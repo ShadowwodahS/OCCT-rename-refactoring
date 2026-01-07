@@ -135,7 +135,7 @@ Standard_Boolean RWStl_Reader::Read(const char* theFile, const Message_ProgressR
     aFileSystem->OpenIStream(theFile, std::ios::in | std::ios::binary);
   if (aStream.get() == NULL)
   {
-    Message::SendFail(TCollection_AsciiString("Error: file '") + theFile + "' is not found");
+    Message::SendFail(AsciiString1("Error: file '") + theFile + "' is not found");
     return Standard_False;
   }
   // get length of file to feed progress indicator in Ascii mode
@@ -339,7 +339,7 @@ Standard_Boolean RWStl_Reader::ReadAscii(Standard_IStream&            theStream,
     }
     if (!str_starts_with(aLine, "facet", 5))
     {
-      Message::SendFail(TCollection_AsciiString("Error: unexpected format of facet at line ")
+      Message::SendFail(AsciiString1("Error: unexpected format of facet at line ")
                         + (aNbLine + 1));
       return false;
     }
@@ -347,7 +347,7 @@ Standard_Boolean RWStl_Reader::ReadAscii(Standard_IStream&            theStream,
     aLine = theBuffer.ReadLine(theStream, aLineLen); // "outer loop"
     if (aLine == NULL || !str_starts_with(aLine, "outer", 5))
     {
-      Message::SendFail(TCollection_AsciiString("Error: unexpected format of facet at line ")
+      Message::SendFail(AsciiString1("Error: unexpected format of facet at line ")
                         + (aNbLine + 1));
       return false;
     }
@@ -368,7 +368,7 @@ Standard_Boolean RWStl_Reader::ReadAscii(Standard_IStream&            theStream,
                       aReadVertex.ChangeCoord(2),
                       aReadVertex.ChangeCoord(3)))
       {
-        Message::SendFail(TCollection_AsciiString("Error: cannot read vertex coordinates at line ")
+        Message::SendFail(AsciiString1("Error: cannot read vertex coordinates at line ")
                           + aNbLine);
         return false;
       }

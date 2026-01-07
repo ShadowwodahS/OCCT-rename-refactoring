@@ -37,7 +37,7 @@ public:
   class AxisAspect
   {
   public:
-    AxisAspect(const TCollection_ExtendedString theName            = "",
+    AxisAspect(const UtfString theName            = "",
                const Quantity_Color             theNameColor       = Quantity_NOC_BLACK,
                const Quantity_Color             theColor           = Quantity_NOC_BLACK,
                const Standard_Integer           theValuesOffset    = 10,
@@ -61,9 +61,9 @@ public:
     }
 
   public:
-    void SetName(const TCollection_ExtendedString& theName) { myName = theName; }
+    void SetName(const UtfString& theName) { myName = theName; }
 
-    const TCollection_ExtendedString& Name() const { return myName; }
+    const UtfString& Name() const { return myName; }
 
     Standard_Boolean ToDrawName() const { return myToDrawName; }
 
@@ -104,7 +104,7 @@ public:
     void SetNameOffset(const Standard_Integer theValue) { myNameOffset = theValue; }
 
   protected:
-    TCollection_ExtendedString myName;
+    UtfString myName;
 
     Standard_Boolean myToDrawName;
     Standard_Boolean myToDrawTickmarks;
@@ -126,10 +126,10 @@ public:
 public:
   //! Default constructor
   //! Constructs the default graduated trihedron with grid, X, Y, Z axes, and tickmarks
-  Graphic3d_GraduatedTrihedron(const TCollection_AsciiString& theNamesFont    = "Arial",
+  Graphic3d_GraduatedTrihedron(const AsciiString1& theNamesFont    = "Arial",
                                const Font_FontAspect&         theNamesStyle   = Font_FA_Bold,
                                const Standard_Integer         theNamesSize    = 12,
-                               const TCollection_AsciiString& theValuesFont   = "Arial",
+                               const AsciiString1& theValuesFont   = "Arial",
                                const Font_FontAspect&         theValuesStyle  = Font_FA_Regular,
                                const Standard_Integer         theValuesSize   = 12,
                                const Standard_ShortReal       theArrowsLength = 30.0f,
@@ -199,9 +199,9 @@ public:
 
   void SetDrawAxes(const Standard_Boolean theToDraw) { myToDrawAxes = theToDraw; }
 
-  const TCollection_AsciiString& NamesFont() const { return myNamesFont; }
+  const AsciiString1& NamesFont() const { return myNamesFont; }
 
-  void SetNamesFont(const TCollection_AsciiString& theFont) { myNamesFont = theFont; }
+  void SetNamesFont(const AsciiString1& theFont) { myNamesFont = theFont; }
 
   Font_FontAspect NamesFontAspect() const { return myNamesStyle; }
 
@@ -211,9 +211,9 @@ public:
 
   void SetNamesSize(const Standard_Integer theValue) { myNamesSize = theValue; }
 
-  const TCollection_AsciiString& ValuesFont() const { return myValuesFont; }
+  const AsciiString1& ValuesFont() const { return myValuesFont; }
 
-  void SetValuesFont(const TCollection_AsciiString& theFont) { myValuesFont = theFont; }
+  void SetValuesFont(const AsciiString1& theFont) { myValuesFont = theFont; }
 
   Font_FontAspect ValuesFontAspect() const { return myValuesStyle; }
 
@@ -242,13 +242,13 @@ protected:
   // clang-format off
   MinMaxValuesCallback myCubicAxesCallback; //!< Callback function to define boundary box of displayed objects
 
-  TCollection_AsciiString myNamesFont;  //!< Font name of names of axes: Courier, Arial, ...
+  AsciiString1 myNamesFont;  //!< Font name of names of axes: Courier, Arial, ...
   Font_FontAspect         myNamesStyle; //!< Style of names of axes: OSD_FA_Regular, OSD_FA_Bold,..
   // clang-format on
   Standard_Integer myNamesSize; //!< Size of names of axes: 8, 10,..
 
 protected:
-  TCollection_AsciiString myValuesFont;  //!< Font name of values: Courier, Arial, ...
+  AsciiString1 myValuesFont;  //!< Font name of values: Courier, Arial, ...
   Font_FontAspect         myValuesStyle; //!< Style of values: OSD_FA_Regular, OSD_FA_Bold, ...
   Standard_Integer        myValuesSize;  //!< Size of values: 8, 10, 12, 14, ...
 

@@ -21,7 +21,7 @@
 
 XSControl_Writer::XSControl_Writer()
 {
-  SetWS(new XSControl_WorkSession);
+  SetWS(new ExchangeSession);
 }
 
 XSControl_Writer::XSControl_Writer(const Standard_CString norm)
@@ -29,7 +29,7 @@ XSControl_Writer::XSControl_Writer(const Standard_CString norm)
   SetNorm(norm);
 }
 
-XSControl_Writer::XSControl_Writer(const Handle(XSControl_WorkSession)& WS,
+XSControl_Writer::XSControl_Writer(const Handle(ExchangeSession)& WS,
                                    const Standard_Boolean               scratch)
 {
   SetWS(WS, scratch);
@@ -38,13 +38,13 @@ XSControl_Writer::XSControl_Writer(const Handle(XSControl_WorkSession)& WS,
 Standard_Boolean XSControl_Writer::SetNorm(const Standard_CString norm)
 {
   if (thesession.IsNull())
-    SetWS(new XSControl_WorkSession);
+    SetWS(new ExchangeSession);
   Standard_Boolean                 sess  = thesession->SelectNorm(norm);
   Handle(Interface_InterfaceModel) model = Model(); //: i1 gka 03.04.99 BUC60301
   return sess;
 }
 
-void XSControl_Writer::SetWS(const Handle(XSControl_WorkSession)& WS,
+void XSControl_Writer::SetWS(const Handle(ExchangeSession)& WS,
                              const Standard_Boolean               scratch)
 {
   thesession = WS;
@@ -53,7 +53,7 @@ void XSControl_Writer::SetWS(const Handle(XSControl_WorkSession)& WS,
   Handle(Interface_InterfaceModel) model = Model(scratch);
 }
 
-Handle(XSControl_WorkSession) XSControl_Writer::WS() const
+Handle(ExchangeSession) XSControl_Writer::WS() const
 {
   return thesession;
 }
@@ -66,7 +66,7 @@ Handle(Interface_InterfaceModel) XSControl_Writer::Model(const Standard_Boolean 
   return model;
 }
 
-IFSelect_ReturnStatus XSControl_Writer::TransferShape(const TopoDS_Shape&          sh,
+IFSelect_ReturnStatus XSControl_Writer::TransferShape(const TopoShape&          sh,
                                                       const Standard_Integer       mode,
                                                       const Message_ProgressRange& theProgress)
 {

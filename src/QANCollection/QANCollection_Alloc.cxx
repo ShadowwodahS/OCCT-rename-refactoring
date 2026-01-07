@@ -25,7 +25,7 @@
 
 //=================================================================================================
 
-static Standard_Integer QANColStdAllocator1(Draw_Interpretor& di,
+static Standard_Integer QANColStdAllocator1(DrawInterpreter& di,
                                             Standard_Integer  argc,
                                             const char**      argv)
 {
@@ -59,7 +59,7 @@ static Standard_Integer QANColStdAllocator1(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColStdAllocator2(Draw_Interpretor& di,
+static Standard_Integer QANColStdAllocator2(DrawInterpreter& di,
                                             Standard_Integer  argc,
                                             const char**      argv)
 {
@@ -137,7 +137,7 @@ static Standard_Integer QANColStdAllocator2(Draw_Interpretor& di,
   return 0;
 }
 
-void QANCollection::CommandsAlloc(Draw_Interpretor& theCommands)
+void QANCollection::CommandsAlloc(DrawInterpreter& theCommands)
 {
   const char* group = "QANCollection";
 

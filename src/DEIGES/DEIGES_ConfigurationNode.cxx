@@ -22,9 +22,9 @@ IMPLEMENT_STANDARD_RTTIEXT(DEIGES_ConfigurationNode, DE_ShapeFixConfigurationNod
 
 namespace
 {
-static const TCollection_AsciiString& THE_CONFIGURATION_SCOPE()
+static const AsciiString1& THE_CONFIGURATION_SCOPE()
 {
-  static const TCollection_AsciiString aScope = "provider";
+  static const AsciiString1 aScope = "provider";
   return aScope;
 }
 
@@ -53,7 +53,7 @@ DEIGES_ConfigurationNode::DEIGES_ConfigurationNode(const Handle(DEIGES_Configura
 
 bool DEIGES_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
 {
-  TCollection_AsciiString aScope =
+  AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor();
 
   InternalParameters.ReadBSplineContinuity =
@@ -138,13 +138,13 @@ bool DEIGES_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theRe
 
 //=================================================================================================
 
-TCollection_AsciiString DEIGES_ConfigurationNode::Save() const
+AsciiString1 DEIGES_ConfigurationNode::Save() const
 {
-  TCollection_AsciiString aResult;
+  AsciiString1 aResult;
   aResult += "!*****************************************************************************\n";
   aResult =
     aResult + "!Configuration Node " + " Vendor: " + GetVendor() + " Format: " + GetFormat() + "\n";
-  TCollection_AsciiString aScope =
+  AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor() + ".";
 
   aResult += "!\n";
@@ -392,16 +392,16 @@ bool DEIGES_ConfigurationNode::IsExportSupported() const
 
 //=================================================================================================
 
-TCollection_AsciiString DEIGES_ConfigurationNode::GetFormat() const
+AsciiString1 DEIGES_ConfigurationNode::GetFormat() const
 {
-  return TCollection_AsciiString("IGES");
+  return AsciiString1("IGES");
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DEIGES_ConfigurationNode::GetVendor() const
+AsciiString1 DEIGES_ConfigurationNode::GetVendor() const
 {
-  return TCollection_AsciiString("OCC");
+  return AsciiString1("OCC");
 }
 
 //=================================================================================================

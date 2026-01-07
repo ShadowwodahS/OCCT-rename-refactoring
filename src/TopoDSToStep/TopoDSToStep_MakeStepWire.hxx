@@ -24,14 +24,14 @@
 #include <TopoDSToStep_MakeWireError.hxx>
 #include <TopoDSToStep_Root.hxx>
 class StepShape_TopologicalRepresentationItem;
-class TopoDS_Wire;
+class TopoWire;
 class TopoDSToStep_Tool;
 class Transfer_FinderProcess;
 
 //! This class implements the mapping between classes
 //! Wire from TopoDS and TopologicalRepresentationItem from
 //! StepShape.
-class TopoDSToStep_MakeStepWire : public TopoDSToStep_Root
+class TopoDSToStep_MakeStepWire : public Root3
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -39,15 +39,15 @@ public:
   Standard_EXPORT TopoDSToStep_MakeStepWire();
 
   Standard_EXPORT TopoDSToStep_MakeStepWire(
-    const TopoDS_Wire&                    W,
+    const TopoWire&                    W,
     TopoDSToStep_Tool&                    T,
     const Handle(Transfer_FinderProcess)& FP,
-    const StepData_Factors&               theLocalFactors = StepData_Factors());
+    const ConversionFactors&               theLocalFactors = ConversionFactors());
 
-  Standard_EXPORT void Init(const TopoDS_Wire&                    W,
+  Standard_EXPORT void Init(const TopoWire&                    W,
                             TopoDSToStep_Tool&                    T,
                             const Handle(Transfer_FinderProcess)& FP,
-                            const StepData_Factors& theLocalFactors = StepData_Factors());
+                            const ConversionFactors& theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepShape_TopologicalRepresentationItem)& Value() const;
 

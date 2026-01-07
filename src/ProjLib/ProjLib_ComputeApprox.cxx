@@ -1117,7 +1117,7 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
   {
 
     // get the poles and eventually the weights
-    Handle(Geom_BSplineCurve) BS = C->BSpline();
+    Handle(BSplineCurve3d) BS = C->BSpline();
     NbPoles                      = BS->NbPoles();
     TColgp_Array1OfPnt   P3d(1, NbPoles);
     TColgp_Array1OfPnt2d Poles(1, NbPoles);
@@ -1152,7 +1152,7 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
   {
 
     // get the poles and eventually the weights
-    Handle(Geom_BezierCurve) BezierCurvePtr = C->Bezier();
+    Handle(BezierCurve3d) BezierCurvePtr = C->Bezier();
     NbPoles                                 = BezierCurvePtr->NbPoles();
     TColgp_Array1OfPnt   P3d(1, NbPoles);
     TColgp_Array1OfPnt2d Poles(1, NbPoles);
@@ -1207,7 +1207,7 @@ void ProjLib_ComputeApprox::Perform(const Handle(Adaptor3d_Curve)&   C,
     //   Mults(Nb+1) = 2;
 
     // 2D-curve for showing in DRAW
-    //   Handle(Geom2d_Curve) aCC = new Geom2d_BSplineCurve(Poles,Knots,Mults,1);
+    //   Handle(GeomCurve2d) aCC = new Geom2d_BSplineCurve(Poles,Knots,Mults,1);
     //   AffichValue = Standard_False;
     // }
 #endif

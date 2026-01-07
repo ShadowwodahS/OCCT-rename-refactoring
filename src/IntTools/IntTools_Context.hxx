@@ -27,17 +27,17 @@
 #include <TopAbs_State.hxx>
 #include <BRepAdaptor_Surface.hxx>
 class IntTools_FClass2d;
-class TopoDS_Face;
-class GeomAPI_ProjectPointOnSurf;
+class TopoFace;
+class PointOnSurfProjector;
 class GeomAPI_ProjectPointOnCurve;
-class TopoDS_Edge;
-class Geom_Curve;
+class TopoEdge;
+class GeomCurve3d;
 class IntTools_SurfaceRangeLocalizeData;
 class BRepClass3d_SolidClassifier;
-class TopoDS_Solid;
+class TopoSolid;
 class Geom2dHatch_Hatcher;
 class Point3d;
-class TopoDS_Vertex;
+class TopoVertex;
 class gp_Pnt2d;
 class IntTools_Curve;
 class Bnd_Box;
@@ -57,42 +57,42 @@ public:
 
   //! Returns a reference to point classifier
   //! for given face
-  Standard_EXPORT IntTools_FClass2d& FClass2d(const TopoDS_Face& aF);
+  Standard_EXPORT IntTools_FClass2d& FClass2d(const TopoFace& aF);
 
   //! Returns a reference to point projector
   //! for given face
-  Standard_EXPORT GeomAPI_ProjectPointOnSurf& ProjPS(const TopoDS_Face& aF);
+  Standard_EXPORT PointOnSurfProjector& ProjPS(const TopoFace& aF);
 
   //! Returns a reference to point projector
   //! for given edge
-  Standard_EXPORT GeomAPI_ProjectPointOnCurve& ProjPC(const TopoDS_Edge& aE);
+  Standard_EXPORT GeomAPI_ProjectPointOnCurve& ProjPC(const TopoEdge& aE);
 
   //! Returns a reference to point projector
   //! for given curve
-  Standard_EXPORT GeomAPI_ProjectPointOnCurve& ProjPT(const Handle(Geom_Curve)& aC);
+  Standard_EXPORT GeomAPI_ProjectPointOnCurve& ProjPT(const Handle(GeomCurve3d)& aC);
 
   //! Returns a reference to surface localization data
   //! for given face
-  Standard_EXPORT IntTools_SurfaceRangeLocalizeData& SurfaceData(const TopoDS_Face& aF);
+  Standard_EXPORT IntTools_SurfaceRangeLocalizeData& SurfaceData(const TopoFace& aF);
 
   //! Returns a reference to solid classifier
   //! for given solid
-  Standard_EXPORT BRepClass3d_SolidClassifier& SolidClassifier(const TopoDS_Solid& aSolid);
+  Standard_EXPORT BRepClass3d_SolidClassifier& SolidClassifier(const TopoSolid& aSolid);
 
   //! Returns a reference to 2D hatcher
   //! for given face
-  Standard_EXPORT Geom2dHatch_Hatcher& Hatcher(const TopoDS_Face& aF);
+  Standard_EXPORT Geom2dHatch_Hatcher& Hatcher(const TopoFace& aF);
 
   //! Returns a reference to surface adaptor for given face
-  Standard_EXPORT BRepAdaptor_Surface& SurfaceAdaptor(const TopoDS_Face& theFace);
+  Standard_EXPORT BRepAdaptor_Surface& SurfaceAdaptor(const TopoFace& theFace);
 
   //! Builds and stores an Oriented Bounding Box for the shape.
   //! Returns a reference to OBB.
-  Standard_EXPORT Bnd_OBB& OBB(const TopoDS_Shape& theShape,
+  Standard_EXPORT Bnd_OBB& OBB(const TopoShape& theShape,
                                const Standard_Real theFuzzyValue = Precision::Confusion());
 
   //! Computes the boundaries of the face using surface adaptor
-  Standard_EXPORT void UVBounds(const TopoDS_Face& theFace,
+  Standard_EXPORT void UVBounds(const TopoFace& theFace,
                                 Standard_Real&     UMin,
                                 Standard_Real&     UMax,
                                 Standard_Real&     VMin,
@@ -109,7 +109,7 @@ public:
   //! 3. projection algorithm failed (-3)
   Standard_EXPORT Standard_Integer ComputePE(const Point3d&       theP,
                                              const Standard_Real theTolP,
-                                             const TopoDS_Edge&  theE,
+                                             const TopoEdge&  theE,
                                              Standard_Real&      theT,
                                              Standard_Real&      theDist);
 
@@ -123,8 +123,8 @@ public:
   //! 1. the edge is degenerated (-1) <br>
   //! 2. the edge does not contain 3d curve and pcurves (-2) <br>
   //! 3. projection algorithm failed (-3)
-  Standard_EXPORT Standard_Integer ComputeVE(const TopoDS_Vertex& theV,
-                                             const TopoDS_Edge&   theE,
+  Standard_EXPORT Standard_Integer ComputeVE(const TopoVertex& theV,
+                                             const TopoEdge&   theE,
                                              Standard_Real&       theT,
                                              Standard_Real&       theTol,
                                              const Standard_Real  theFuzz = Precision::Confusion());
@@ -138,8 +138,8 @@ public:
   //! 1. projection algorithm failed (-1) <br>
   //! 2. distance is more than sum of tolerances (-2) <br>
   //! 3. projection point out or on the boundaries of face (-3)
-  Standard_EXPORT Standard_Integer ComputeVF(const TopoDS_Vertex& theVertex,
-                                             const TopoDS_Face&   theFace,
+  Standard_EXPORT Standard_Integer ComputeVF(const TopoVertex& theVertex,
+                                             const TopoFace&   theFace,
                                              Standard_Real&       theU,
                                              Standard_Real&       theV,
                                              Standard_Real&       theTol,
@@ -147,37 +147,37 @@ public:
 
   //! Returns the state of the point aP2D
   //! relative to face aF
-  Standard_EXPORT TopAbs_State StatePointFace(const TopoDS_Face& aF, const gp_Pnt2d& aP2D);
+  Standard_EXPORT TopAbs_State StatePointFace(const TopoFace& aF, const gp_Pnt2d& aP2D);
 
   //! Returns true if the point aP2D is
   //! inside the boundaries of the face aF,
   //! otherwise returns false
-  Standard_EXPORT Standard_Boolean IsPointInFace(const TopoDS_Face& aF, const gp_Pnt2d& aP2D);
+  Standard_EXPORT Standard_Boolean IsPointInFace(const TopoFace& aF, const gp_Pnt2d& aP2D);
 
   //! Returns true if the point aP2D is
   //! inside the boundaries of the face aF,
   //! otherwise returns false
   Standard_EXPORT Standard_Boolean IsPointInFace(const Point3d&       aP3D,
-                                                 const TopoDS_Face&  aF,
+                                                 const TopoFace&  aF,
                                                  const Standard_Real aTol);
 
   //! Returns true if the point aP2D is
   //! inside or on the boundaries of aF
-  Standard_EXPORT Standard_Boolean IsPointInOnFace(const TopoDS_Face& aF, const gp_Pnt2d& aP2D);
+  Standard_EXPORT Standard_Boolean IsPointInOnFace(const TopoFace& aF, const gp_Pnt2d& aP2D);
 
   //! Returns true if the distance between point aP3D
   //! and face aF is less or equal to tolerance aTol
   //! and projection point is inside or on the boundaries
   //! of the face aF
   Standard_EXPORT Standard_Boolean IsValidPointForFace(const Point3d&       aP3D,
-                                                       const TopoDS_Face&  aF,
+                                                       const TopoFace&  aF,
                                                        const Standard_Real aTol);
 
   //! Returns true if IsValidPointForFace returns true
   //! for both face aF1 and aF2
   Standard_EXPORT Standard_Boolean IsValidPointForFaces(const Point3d&       aP3D,
-                                                        const TopoDS_Face&  aF1,
-                                                        const TopoDS_Face&  aF2,
+                                                        const TopoFace&  aF1,
+                                                        const TopoFace&  aF2,
                                                         const Standard_Real aTol);
 
   //! Returns true if IsValidPointForFace returns true
@@ -186,7 +186,7 @@ public:
   Standard_EXPORT Standard_Boolean IsValidBlockForFace(const Standard_Real   aT1,
                                                        const Standard_Real   aT2,
                                                        const IntTools_Curve& aIC,
-                                                       const TopoDS_Face&    aF,
+                                                       const TopoFace&    aF,
                                                        const Standard_Real   aTol);
 
   //! Returns true if IsValidBlockForFace returns true
@@ -194,8 +194,8 @@ public:
   Standard_EXPORT Standard_Boolean IsValidBlockForFaces(const Standard_Real   aT1,
                                                         const Standard_Real   aT2,
                                                         const IntTools_Curve& aIC,
-                                                        const TopoDS_Face&    aF1,
-                                                        const TopoDS_Face&    aF2,
+                                                        const TopoFace&    aF1,
+                                                        const TopoFace&    aF2,
                                                         const Standard_Real   aTol);
 
   //! Computes parameter of the vertex aV on
@@ -204,7 +204,7 @@ public:
   //! curve is less than sum of tolerance of aV and aTolC,
   //! otherwise or if projection algorithm failed
   //! returns false (in this case aT isn't significant)
-  Standard_EXPORT Standard_Boolean IsVertexOnLine(const TopoDS_Vertex&  aV,
+  Standard_EXPORT Standard_Boolean IsVertexOnLine(const TopoVertex&  aV,
                                                   const IntTools_Curve& aIC,
                                                   const Standard_Real   aTolC,
                                                   Standard_Real&        aT);
@@ -215,7 +215,7 @@ public:
   //! curve is less than sum of tolerance of aV and aTolC,
   //! otherwise or if projection algorithm failed
   //! returns false (in this case aT isn't significant)
-  Standard_EXPORT Standard_Boolean IsVertexOnLine(const TopoDS_Vertex&  aV,
+  Standard_EXPORT Standard_Boolean IsVertexOnLine(const TopoVertex&  aV,
                                                   const Standard_Real   aTolV,
                                                   const IntTools_Curve& aIC,
                                                   const Standard_Real   aTolC,
@@ -226,14 +226,14 @@ public:
   //! Returns false if projection algorithm failed
   //! other wiese returns true.
   Standard_EXPORT Standard_Boolean ProjectPointOnEdge(const Point3d&      aP,
-                                                      const TopoDS_Edge& aE,
+                                                      const TopoEdge& aE,
                                                       Standard_Real&     aT);
 
-  Standard_EXPORT Bnd_Box& BndBox(const TopoDS_Shape& theS);
+  Standard_EXPORT Bnd_Box& BndBox(const TopoShape& theS);
 
   //! Returns true if the solid <theFace> has
   //! infinite bounds
-  Standard_EXPORT Standard_Boolean IsInfiniteFace(const TopoDS_Face& theFace);
+  Standard_EXPORT Standard_Boolean IsInfiniteFace(const TopoFace& theFace);
 
   //! Sets tolerance to be used for projection of point on surface.
   //! Clears map of already cached projectors in order to maintain
@@ -244,21 +244,21 @@ public:
 
 protected:
   Handle(NCollection_BaseAllocator)                                              myAllocator;
-  NCollection_DataMap<TopoDS_Shape, IntTools_FClass2d*, TopTools_ShapeMapHasher> myFClass2dMap;
-  NCollection_DataMap<TopoDS_Shape, GeomAPI_ProjectPointOnSurf*, TopTools_ShapeMapHasher>
+  NCollection_DataMap<TopoShape, IntTools_FClass2d*, ShapeHasher> myFClass2dMap;
+  NCollection_DataMap<TopoShape, PointOnSurfProjector*, ShapeHasher>
     myProjPSMap;
-  NCollection_DataMap<TopoDS_Shape, GeomAPI_ProjectPointOnCurve*, TopTools_ShapeMapHasher>
+  NCollection_DataMap<TopoShape, GeomAPI_ProjectPointOnCurve*, ShapeHasher>
     myProjPCMap;
-  NCollection_DataMap<TopoDS_Shape, BRepClass3d_SolidClassifier*, TopTools_ShapeMapHasher>
+  NCollection_DataMap<TopoShape, BRepClass3d_SolidClassifier*, ShapeHasher>
                                                                                    mySClassMap;
-  NCollection_DataMap<Handle(Geom_Curve), GeomAPI_ProjectPointOnCurve*>            myProjPTMap;
-  NCollection_DataMap<TopoDS_Shape, Geom2dHatch_Hatcher*, TopTools_ShapeMapHasher> myHatcherMap;
-  NCollection_DataMap<TopoDS_Shape, IntTools_SurfaceRangeLocalizeData*, TopTools_ShapeMapHasher>
+  NCollection_DataMap<Handle(GeomCurve3d), GeomAPI_ProjectPointOnCurve*>            myProjPTMap;
+  NCollection_DataMap<TopoShape, Geom2dHatch_Hatcher*, ShapeHasher> myHatcherMap;
+  NCollection_DataMap<TopoShape, IntTools_SurfaceRangeLocalizeData*, ShapeHasher>
                                                                                    myProjSDataMap;
-  NCollection_DataMap<TopoDS_Shape, Bnd_Box*, TopTools_ShapeMapHasher>             myBndBoxDataMap;
-  NCollection_DataMap<TopoDS_Shape, BRepAdaptor_Surface*, TopTools_ShapeMapHasher> mySurfAdaptorMap;
+  NCollection_DataMap<TopoShape, Bnd_Box*, ShapeHasher>             myBndBoxDataMap;
+  NCollection_DataMap<TopoShape, BRepAdaptor_Surface*, ShapeHasher> mySurfAdaptorMap;
   // clang-format off
-  NCollection_DataMap<TopoDS_Shape, Bnd_OBB*, TopTools_ShapeMapHasher> myOBBMap; // Map of oriented bounding boxes
+  NCollection_DataMap<TopoShape, Bnd_OBB*, ShapeHasher> myOBBMap; // Map of oriented bounding boxes
   // clang-format on
   Standard_Integer myCreateFlag;
   Standard_Real    myPOnSTolerance;

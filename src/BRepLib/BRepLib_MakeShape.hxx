@@ -25,8 +25,8 @@
 #include <TopTools_ListOfShape.hxx>
 #include <BRepLib_Command.hxx>
 #include <BRepLib_ShapeModification.hxx>
-class TopoDS_Face;
-class TopoDS_Edge;
+class TopoFace;
+class TopoEdge;
 
 //! This    is  the  root     class for     all  shape
 //! constructions.  It stores the result.
@@ -42,37 +42,37 @@ public:
   //! may be redefined.
   Standard_EXPORT void Build();
 
-  Standard_EXPORT const TopoDS_Shape& Shape();
-  Standard_EXPORT                     operator TopoDS_Shape();
+  Standard_EXPORT const TopoShape& Shape();
+  Standard_EXPORT                     operator TopoShape();
 
   //! returns the status of the Face after
   //! the shape creation.
-  Standard_EXPORT virtual BRepLib_ShapeModification FaceStatus(const TopoDS_Face& F) const;
+  Standard_EXPORT virtual BRepLib_ShapeModification FaceStatus(const TopoFace& F) const;
 
   //! Returns True if the Face generates new topology.
-  Standard_EXPORT virtual Standard_Boolean HasDescendants(const TopoDS_Face& F) const;
+  Standard_EXPORT virtual Standard_Boolean HasDescendants(const TopoFace& F) const;
 
   //! returns the list of generated Faces.
-  Standard_EXPORT virtual const TopTools_ListOfShape& DescendantFaces(const TopoDS_Face& F);
+  Standard_EXPORT virtual const ShapeList& DescendantFaces(const TopoFace& F);
 
   //! returns the number of surfaces
   //! after the shape creation.
   Standard_EXPORT virtual Standard_Integer NbSurfaces() const;
 
   //! Return the faces created for surface I.
-  Standard_EXPORT virtual const TopTools_ListOfShape& NewFaces(const Standard_Integer I);
+  Standard_EXPORT virtual const ShapeList& NewFaces(const Standard_Integer I);
 
   //! returns a list of the created faces
   //! from the edge <E>.
-  Standard_EXPORT virtual const TopTools_ListOfShape& FacesFromEdges(const TopoDS_Edge& E);
+  Standard_EXPORT virtual const ShapeList& FacesFromEdges(const TopoEdge& E);
 
 protected:
   Standard_EXPORT BRepLib_MakeShape();
 
-  TopoDS_Shape         myShape;
-  TopTools_ListOfShape myGenFaces;
-  TopTools_ListOfShape myNewFaces;
-  TopTools_ListOfShape myEdgFaces;
+  TopoShape         myShape;
+  ShapeList myGenFaces;
+  ShapeList myNewFaces;
+  ShapeList myEdgFaces;
 
 private:
 };

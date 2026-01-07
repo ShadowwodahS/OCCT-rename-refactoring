@@ -35,7 +35,7 @@ Handle(Expr_GeneralExpression) Expr_Sign::ShallowSimplified() const
   if (op->IsKind(STANDARD_TYPE(Expr_NumericValue)))
   {
     Handle(Expr_NumericValue) valop = Handle(Expr_NumericValue)::DownCast(op);
-    return new Expr_NumericValue(Expr::Sign(valop->GetValue()));
+    return new Expr_NumericValue(Expr1::Sign(valop->GetValue()));
   }
   Handle(Expr_Sign) me = this;
   return me;
@@ -43,7 +43,7 @@ Handle(Expr_GeneralExpression) Expr_Sign::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_Sign::Copy() const
 {
-  return new Expr_Sign(Expr::CopyShare(Operand()));
+  return new Expr_Sign(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_Sign::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -70,12 +70,12 @@ Standard_Real Expr_Sign::Evaluate(const Expr_Array1OfNamedUnknown& vars,
                                   const TColStd_Array1OfReal&      vals) const
 {
   Standard_Real res = Operand()->Evaluate(vars, vals);
-  return Expr::Sign(res);
+  return Expr1::Sign(res);
 }
 
-TCollection_AsciiString Expr_Sign::String() const
+AsciiString1 Expr_Sign::String() const
 {
-  TCollection_AsciiString str("Sign(");
+  AsciiString1 str("Sign(");
   str += Operand()->String();
   str += ")";
   return str;

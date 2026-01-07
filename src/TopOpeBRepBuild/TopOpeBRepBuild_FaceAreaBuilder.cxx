@@ -24,8 +24,8 @@ TopOpeBRepBuild_FaceAreaBuilder::TopOpeBRepBuild_FaceAreaBuilder() {}
 
 //=================================================================================================
 
-TopOpeBRepBuild_FaceAreaBuilder::TopOpeBRepBuild_FaceAreaBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                                                 TopOpeBRepBuild_LoopClassifier& LC,
+TopOpeBRepBuild_FaceAreaBuilder::TopOpeBRepBuild_FaceAreaBuilder(LoopSet&        LS,
+                                                                 LoopClassifier& LC,
                                                                  const Standard_Boolean ForceClass)
 {
   InitFaceAreaBuilder(LS, LC, ForceClass);
@@ -33,8 +33,8 @@ TopOpeBRepBuild_FaceAreaBuilder::TopOpeBRepBuild_FaceAreaBuilder(TopOpeBRepBuild
 
 //=================================================================================================
 
-void TopOpeBRepBuild_FaceAreaBuilder::InitFaceAreaBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                                          TopOpeBRepBuild_LoopClassifier& LC,
+void TopOpeBRepBuild_FaceAreaBuilder::InitFaceAreaBuilder(LoopSet&        LS,
+                                                          LoopClassifier& LC,
                                                           const Standard_Boolean ForceClass)
 {
   InitAreaBuilder(LS, LC, ForceClass);

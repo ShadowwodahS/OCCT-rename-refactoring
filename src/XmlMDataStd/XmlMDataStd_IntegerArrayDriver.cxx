@@ -65,8 +65,8 @@ Standard_Boolean XmlMDataStd_IntegerArrayDriver::Paste(
     aFirstInd = 1;
   else if (!aFirstIndex.GetInteger(aFirstInd))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the first index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the first index"
                                  " for IntegerArray attribute as \"")
       + aFirstIndex + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -76,8 +76,8 @@ Standard_Boolean XmlMDataStd_IntegerArrayDriver::Paste(
   // Read the LastIndex; the attribute should be present
   if (!anElement.getAttribute(::LastIndexString()).GetInteger(aLastInd))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the last index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the last index"
                                  " for IntegerArray attribute as \"")
       + aFirstIndex + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -100,8 +100,8 @@ Standard_Boolean XmlMDataStd_IntegerArrayDriver::Paste(
   {
     if (!XmlObjMgt::GetStringValue(anElement).GetInteger(aValue))
     {
-      TCollection_ExtendedString aMessageString =
-        TCollection_ExtendedString("Cannot retrieve integer member"
+      UtfString aMessageString =
+        UtfString("Cannot retrieve integer member"
                                    " for IntegerArray attribute as \"");
       myMessageDriver->Send(aMessageString, Message_Warning);
       aValue = 0;
@@ -117,8 +117,8 @@ Standard_Boolean XmlMDataStd_IntegerArrayDriver::Paste(
     {
       if (!XmlObjMgt::GetInteger(aValueStr, aValue))
       {
-        TCollection_ExtendedString aMessageString =
-          TCollection_ExtendedString("Cannot retrieve integer member"
+        UtfString aMessageString =
+          UtfString("Cannot retrieve integer member"
                                      " for IntegerArray attribute as \"")
           + aValueStr + "\"";
         myMessageDriver->Send(aMessageString, Message_Warning);
@@ -135,8 +135,8 @@ Standard_Boolean XmlMDataStd_IntegerArrayDriver::Paste(
     Standard_Integer aDeltaValue;
     if (!anElement.getAttribute(::IsDeltaOn()).GetInteger(aDeltaValue))
     {
-      TCollection_ExtendedString aMessageString =
-        TCollection_ExtendedString("Cannot retrieve the isDelta value"
+      UtfString aMessageString =
+        UtfString("Cannot retrieve the isDelta value"
                                    " for IntegerArray attribute as \"")
         + aDeltaValue + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);

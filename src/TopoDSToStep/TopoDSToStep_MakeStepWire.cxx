@@ -52,10 +52,10 @@ TopoDSToStep_MakeStepWire::TopoDSToStep_MakeStepWire()
   done = Standard_False;
 }
 
-TopoDSToStep_MakeStepWire::TopoDSToStep_MakeStepWire(const TopoDS_Wire&                    W,
+TopoDSToStep_MakeStepWire::TopoDSToStep_MakeStepWire(const TopoWire&                    W,
                                                      TopoDSToStep_Tool&                    T,
                                                      const Handle(Transfer_FinderProcess)& FP,
-                                                     const StepData_Factors& theLocalFactors)
+                                                     const ConversionFactors& theLocalFactors)
 {
   done = Standard_False;
   Init(W, T, FP, theLocalFactors);
@@ -66,10 +66,10 @@ TopoDSToStep_MakeStepWire::TopoDSToStep_MakeStepWire(const TopoDS_Wire&         
 // Purpose :
 // ----------------------------------------------------------------------------
 
-void TopoDSToStep_MakeStepWire::Init(const TopoDS_Wire&                    aWire,
+void TopoDSToStep_MakeStepWire::Init(const TopoWire&                    aWire,
                                      TopoDSToStep_Tool&                    aTool,
                                      const Handle(Transfer_FinderProcess)& FP,
-                                     const StepData_Factors&               theLocalFactors)
+                                     const ConversionFactors&               theLocalFactors)
 {
   // ----------------------------------------------------------------
   // The Wire is given in its relative orientation (i.e. in the face)
@@ -103,20 +103,20 @@ void TopoDSToStep_MakeStepWire::Init(const TopoDS_Wire&                    aWire
     Handle(StepShape_VertexPoint)                   VertexPoint;
     Handle(StepGeom_Point)                          Point;
     Handle(StepShape_TopologicalRepresentationItem) Gpms;
-    TopoDS_Vertex                                   TopoDSVertex1, TopoDSVertex2;
+    TopoVertex                                   TopoDSVertex1, TopoDSVertex2;
 
     TopoDSToStep_MakeStepVertex MkVertex;
 
     for (BRepTools_WireExplorer ItW(aWire, aTool.CurrentFace()); ItW.More(); ItW.Next())
     {
-      const TopoDS_Edge& CurrentEdge = ItW.Current();
+      const TopoEdge& CurrentEdge = ItW.Current();
       if (CurrentEdge.Orientation() == TopAbs_FORWARD)
       {
-        TopExp::Vertices(CurrentEdge, TopoDSVertex1, TopoDSVertex2);
+        TopExp1::Vertices(CurrentEdge, TopoDSVertex1, TopoDSVertex2);
       }
       else
       {
-        TopExp::Vertices(CurrentEdge, TopoDSVertex2, TopoDSVertex1);
+        TopExp1::Vertices(CurrentEdge, TopoDSVertex2, TopoDSVertex1);
       }
 
       MkVertex.Init(TopoDSVertex1, aTool, FP, theLocalFactors);
@@ -173,9 +173,9 @@ void TopoDSToStep_MakeStepWire::Init(const TopoDS_Wire&                    aWire
     Handle(StepShape_OrientedEdge)                  OrientedEdge;
     TopoDSToStep_MakeStepEdge                       MkEdge;
 
-    const TopoDS_Wire     ForwardWire = TopoDS::Wire(aWire.Oriented(TopAbs_FORWARD));
-    Handle(ShapeFix_Wire) STW =
-      new ShapeFix_Wire(ForwardWire, aTool.CurrentFace(), Precision::Confusion());
+    const TopoWire     ForwardWire = TopoDS::Wire(aWire.Oriented(TopAbs_FORWARD));
+    Handle(WireHealer) STW =
+      new WireHealer(ForwardWire, aTool.CurrentFace(), Precision::Confusion());
     // for toroidal like surfaces we need to use both (3d and 2d) mode to correctly reorder the
     // edges
     STW->FixReorder(Standard_True);
@@ -189,8 +189,8 @@ void TopoDSToStep_MakeStepWire::Init(const TopoDS_Wire&                    aWire
     Handle(ShapeExtend_WireData) anExtWire2 = new ShapeExtend_WireData;
     for (Standard_Integer ie = 1; ie <= anExtWire->NbEdges(); ie++)
     {
-      TopoDS_Edge anEdge = anExtWire->Edge(ie);
-      if (!BRep_Tool::Degenerated(anEdge))
+      TopoEdge anEdge = anExtWire->Edge(ie);
+      if (!BRepInspector::Degenerated(anEdge))
       {
         anExtWire2->Add(anEdge);
       }
@@ -224,7 +224,7 @@ void TopoDSToStep_MakeStepWire::Init(const TopoDS_Wire&                    aWire
         {
           // make vertex_loop
           ShapeAnalysis_Edge               sae;
-          TopoDS_Vertex                    V = sae.FirstVertex(anExtWire2->Edge(1));
+          TopoVertex                    V = sae.FirstVertex(anExtWire2->Edge(1));
           TopoDSToStep_MakeStepVertex      mkV(V, aTool, FP, theLocalFactors);
           Handle(StepShape_VertexLoop)     vloop = new StepShape_VertexLoop;
           Handle(TCollection_HAsciiString) name  = new TCollection_HAsciiString("");
@@ -240,13 +240,13 @@ void TopoDSToStep_MakeStepWire::Init(const TopoDS_Wire&                    aWire
 
     for (Standard_Integer nEdge = 1; nEdge <= anExtWire->NbEdges(); nEdge++)
     {
-      const TopoDS_Edge anEdge = anExtWire->Edge(nEdge);
+      const TopoEdge anEdge = anExtWire->Edge(nEdge);
       // ---------------------------------
       // --- Is the edge Degenerated ? ---
       // ---------------------------------
       Standard_Real        cf, cl;
-      Handle(Geom2d_Curve) theC2d = BRep_Tool::CurveOnSurface(anEdge, aTool.CurrentFace(), cf, cl);
-      if (BRep_Tool::Degenerated(anEdge))
+      Handle(GeomCurve2d) theC2d = BRepInspector::CurveOnSurface(anEdge, aTool.CurrentFace(), cf, cl);
+      if (BRepInspector::Degenerated(anEdge))
       {
         Handle(TransferBRep_ShapeMapper) errShape = new TransferBRep_ShapeMapper(aWire);
         FP->AddWarning(errShape, " EdgeLoop: Degenerated Pcurve not mapped");

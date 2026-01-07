@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <gp_Pln.hxx>
-class Geom_Surface;
+class GeomSurface;
 
 //! Find if a surface is a planar  surface.
 class GeomLib_IsPlanarSurface
@@ -30,7 +30,7 @@ class GeomLib_IsPlanarSurface
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomLib_IsPlanarSurface(const Handle(Geom_Surface)& S,
+  Standard_EXPORT GeomLib_IsPlanarSurface(const Handle(GeomSurface)& S,
                                           const Standard_Real         Tol = 1.0e-7);
 
   //! Return if the Surface is a plan

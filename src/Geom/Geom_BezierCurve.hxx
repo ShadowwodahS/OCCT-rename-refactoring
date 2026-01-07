@@ -32,8 +32,8 @@ class Vector3d;
 class Transform3d;
 class Geom_Geometry;
 
-class Geom_BezierCurve;
-DEFINE_STANDARD_HANDLE(Geom_BezierCurve, Geom_BoundedCurve)
+class BezierCurve3d;
+DEFINE_STANDARD_HANDLE(BezierCurve3d, Geom_BoundedCurve)
 
 //! Describes a rational or non-rational Bezier curve
 //! - a non-rational Bezier curve is defined by a table of
@@ -61,7 +61,7 @@ DEFINE_STANDARD_HANDLE(Geom_BezierCurve, Geom_BoundedCurve)
 //! used only in the case of a rational curve.
 //! The degree of a Bezier curve is equal to the number
 //! of poles, minus 1. It must be greater than or equal to
-//! 1. However, the degree of a Geom_BezierCurve
+//! 1. However, the degree of a BezierCurve3d
 //! curve is limited to a value (25) which is defined and
 //! controlled by the system. This value is returned by the function MaxDegree.
 //! The parameter range for a Bezier curve is [ 0, 1 ].
@@ -84,7 +84,7 @@ DEFINE_STANDARD_HANDLE(Geom_BezierCurve, Geom_BoundedCurve)
 //! reason to be the same as the derivatives for the
 //! parameter u = 1 even if the curve is closed.
 //! - The length of a Bezier curve can be null.
-class Geom_BezierCurve : public Geom_BoundedCurve
+class BezierCurve3d : public Geom_BoundedCurve
 {
 
 public:
@@ -92,7 +92,7 @@ public:
   //! CurvePoles.  The weights are defaulted to all being 1.
   //! Raises ConstructionError if the number of poles is greater than MaxDegree + 1
   //! or lower than 2.
-  Standard_EXPORT Geom_BezierCurve(const TColgp_Array1OfPnt& CurvePoles);
+  Standard_EXPORT BezierCurve3d(const TColgp_Array1OfPnt& CurvePoles);
 
   //! Creates a rational Bezier curve with the set of poles
   //! CurvePoles and the set of weights  PoleWeights .
@@ -101,7 +101,7 @@ public:
   //! the number of poles is greater than  MaxDegree + 1 or lower
   //! than 2 or CurvePoles and CurveWeights have not the same length
   //! or one weight value is lower or equal to Resolution from package gp.
-  Standard_EXPORT Geom_BezierCurve(const TColgp_Array1OfPnt&   CurvePoles,
+  Standard_EXPORT BezierCurve3d(const TColgp_Array1OfPnt&   CurvePoles,
                                    const TColStd_Array1OfReal& PoleWeights);
 
   //! Increases the degree of a bezier curve. Degree is the new
@@ -313,7 +313,7 @@ public:
   Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
   //! Returns the value of the maximum polynomial degree
-  //! of any Geom_BezierCurve curve. This value is 25.
+  //! of any BezierCurve3d curve. This value is 25.
   Standard_EXPORT static Standard_Integer MaxDegree();
 
   //! Computes for this Bezier curve the parametric
@@ -330,7 +330,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_BezierCurve, Geom_BoundedCurve)
+  DEFINE_STANDARD_RTTIEXT(BezierCurve3d, Geom_BoundedCurve)
 
 protected:
 private:

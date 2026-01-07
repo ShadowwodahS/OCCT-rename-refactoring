@@ -26,9 +26,9 @@
 
   Example of use:
   \code
-  NCollection_OccAllocator<TopoDS_Shape> anSAllocator();
-  std::list<TopoDS_Shape, NCollection_OccAllocator<TopoDS_Shape>> aList(anSAllocator);
-  TopoDS_Solid aSolid = BRepPrimAPI_MakeBox(10., 20., 30.);
+  NCollection_OccAllocator<TopoShape> anSAllocator();
+  std::list<TopoShape, NCollection_OccAllocator<TopoShape>> aList(anSAllocator);
+  TopoSolid aSolid = BoxMaker(10., 20., 30.);
   aList.push_back(aSolid);
   \endcode
 */

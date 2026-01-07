@@ -107,21 +107,21 @@ void ShapeAnalysis_ShapeContents::ClearFlags()
   myTrimmed2dMode     = Standard_False;
 }
 
-void ShapeAnalysis_ShapeContents::Perform(const TopoDS_Shape& Shape)
+void ShapeAnalysis_ShapeContents::Perform(const TopoShape& Shape)
 {
   Clear();
   //  On y va
-  TopExp_Explorer     exp;
+  ShapeExplorer     exp;
   TopTools_MapOfShape mapsh;
   //  On note pour les SOLIDES : ceux qui ont des trous (plus d un SHELL)
 
   for (exp.Init(Shape, TopAbs_SOLID); exp.More(); exp.Next())
   {
-    TopoDS_Solid sol = TopoDS::Solid(exp.Current());
+    TopoSolid sol = TopoDS::Solid(exp.Current());
     sol.Location(TopLoc_Location());
     mapsh.Add(sol);
     Standard_Integer nbs = 0;
-    for (TopExp_Explorer shel(sol, TopAbs_SHELL); shel.More(); shel.Next())
+    for (ShapeExplorer shel(sol, TopAbs_SHELL); shel.More(); shel.Next())
       nbs++;
     if (nbs > 1)
       myNbSolidsWithVoids++;
@@ -136,10 +136,10 @@ void ShapeAnalysis_ShapeContents::Perform(const TopoDS_Shape& Shape)
   for (exp.Init(Shape, TopAbs_SHELL); exp.More(); exp.Next())
   {
     myNbShells++;
-    TopoDS_Shell she = TopoDS::Shell(exp.Current());
+    TopoShell she = TopoDS::Shell(exp.Current());
     she.Location(TopLoc_Location());
     mapsh.Add(she);
-    for (TopExp_Explorer shel(she, TopAbs_FACE); shel.More(); shel.Next())
+    for (ShapeExplorer shel(she, TopAbs_FACE); shel.More(); shel.Next())
       nbfaceshell++;
   }
   myNbSharedShells = mapsh.Extent();
@@ -154,10 +154,10 @@ void ShapeAnalysis_ShapeContents::Perform(const TopoDS_Shape& Shape)
   mapsh.Clear();
   for (exp.Init(Shape, TopAbs_FACE); exp.More(); exp.Next())
   {
-    TopoDS_Face face = TopoDS::Face(exp.Current());
+    TopoFace face = TopoDS::Face(exp.Current());
     myNbFaces++;
     TopLoc_Location      loc;
-    Handle(Geom_Surface) surf = BRep_Tool::Surface(face, loc);
+    Handle(GeomSurface) surf = BRepInspector::Surface(face, loc);
     face.Location(TopLoc_Location());
     mapsh.Add(face);
     Handle(Geom_RectangularTrimmedSurface) trsu =
@@ -207,18 +207,18 @@ void ShapeAnalysis_ShapeContents::Perform(const TopoDS_Shape& Shape)
     }
 
     Standard_Integer maxseam = 0, nbwires = 0;
-    for (TopExp_Explorer wires(face, TopAbs_WIRE); wires.More(); wires.Next())
+    for (ShapeExplorer wires(face, TopAbs_WIRE); wires.More(); wires.Next())
     {
-      TopoDS_Wire      wire   = TopoDS::Wire(wires.Current());
+      TopoWire      wire   = TopoDS::Wire(wires.Current());
       Standard_Integer nbseam = 0;
       nbwires++;
-      for (TopExp_Explorer edg(wire, TopAbs_EDGE); edg.More(); edg.Next())
+      for (ShapeExplorer edg(wire, TopAbs_EDGE); edg.More(); edg.Next())
       {
-        TopoDS_Edge   edge = TopoDS::Edge(edg.Current());
+        TopoEdge   edge = TopoDS::Edge(edg.Current());
         Standard_Real first, last;
-        if (BRep_Tool::IsClosed(edge, face))
+        if (BRepInspector::IsClosed(edge, face))
           nbseam++;
-        Handle(Geom_Curve) c3d = BRep_Tool::Curve(edge, first, last);
+        Handle(GeomCurve3d) c3d = BRepInspector::Curve(edge, first, last);
         if (!c3d.IsNull())
         {
           if (c3d->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
@@ -228,7 +228,7 @@ void ShapeAnalysis_ShapeContents::Perform(const TopoDS_Shape& Shape)
               myTrimmed3dSec->Append(face);
           }
         }
-        Handle(Geom2d_Curve) c2d = BRep_Tool::CurveOnSurface(edge, face, first, last);
+        Handle(GeomCurve2d) c2d = BRepInspector::CurveOnSurface(edge, face, first, last);
         if (c2d.IsNull())
           myNbNoPCurve++;
         else if (c2d->IsKind(STANDARD_TYPE(Geom2d_OffsetCurve)))
@@ -259,7 +259,7 @@ void ShapeAnalysis_ShapeContents::Perform(const TopoDS_Shape& Shape)
   mapsh.Clear();
   for (exp.Init(Shape, TopAbs_WIRE); exp.More(); exp.Next())
   {
-    TopoDS_Wire wire = TopoDS::Wire(exp.Current());
+    TopoWire wire = TopoDS::Wire(exp.Current());
     wire.Location(TopLoc_Location());
     mapsh.Add(wire);
     myNbWires++;
@@ -272,13 +272,13 @@ void ShapeAnalysis_ShapeContents::Perform(const TopoDS_Shape& Shape)
   mapsh.Clear();
   for (exp.Init(Shape, TopAbs_EDGE); exp.More(); exp.Next())
   {
-    TopoDS_Edge edge = TopoDS::Edge(exp.Current());
+    TopoEdge edge = TopoDS::Edge(exp.Current());
     edge.Location(TopLoc_Location());
     mapsh.Add(edge);
     TopLoc_Location loc;
     Standard_Real   first, last;
     myNbEdges++;
-    Handle(Geom_Curve) c3d = BRep_Tool::Curve(edge, loc, first, last);
+    Handle(GeomCurve3d) c3d = BRepInspector::Curve(edge, loc, first, last);
     if (!c3d.IsNull() && c3d->IsKind(STANDARD_TYPE(Geom_OffsetCurve)))
     {
       myNbOffsetCurves++;
@@ -293,7 +293,7 @@ void ShapeAnalysis_ShapeContents::Perform(const TopoDS_Shape& Shape)
   mapsh.Clear();
   for (exp.Init(Shape, TopAbs_VERTEX); exp.More(); exp.Next())
   {
-    TopoDS_Vertex vert = TopoDS::Vertex(exp.Current());
+    TopoVertex vert = TopoDS::Vertex(exp.Current());
     vert.Location(TopLoc_Location());
     myNbVertices++;
     mapsh.Add(vert);
@@ -303,7 +303,7 @@ void ShapeAnalysis_ShapeContents::Perform(const TopoDS_Shape& Shape)
   mapsh.Clear();
   for (exp.Init(Shape, TopAbs_EDGE, TopAbs_FACE); exp.More(); exp.Next())
   {
-    TopoDS_Edge edge = TopoDS::Edge(exp.Current());
+    TopoEdge edge = TopoDS::Edge(exp.Current());
     edge.Location(TopLoc_Location());
     myNbFreeEdges++;
     mapsh.Add(edge);
@@ -313,7 +313,7 @@ void ShapeAnalysis_ShapeContents::Perform(const TopoDS_Shape& Shape)
   mapsh.Clear();
   for (exp.Init(Shape, TopAbs_WIRE, TopAbs_FACE); exp.More(); exp.Next())
   {
-    TopoDS_Wire wire = TopoDS::Wire(exp.Current());
+    TopoWire wire = TopoDS::Wire(exp.Current());
     wire.Location(TopLoc_Location());
     myNbFreeWires++;
     mapsh.Add(wire);

@@ -150,7 +150,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_Surface)&   Surf,
   mySFunc.Set(Surf);
   myAFunc.Set(Surf);
 
-  GeomAbs_SurfaceType typS = Adaptor3d_HSurfaceTool::GetType(Surf);
+  GeomAbs_SurfaceType typS = HSurfaceTool::GetType(Surf);
   switch (typS)
   {
     case GeomAbs_Plane:
@@ -350,13 +350,13 @@ static void LineConstructor(Contap_TheSequenceOfLine&          slin,
       {
         Standard_Real pmid = (firstp + lastp) * 0.5;
         Point3d        Pmid = ElCLib::Value(pmid, L.Line());
-        if (Adaptor3d_HSurfaceTool::GetType(Surf) == GeomAbs_Cylinder)
+        if (HSurfaceTool::GetType(Surf) == GeomAbs_Cylinder)
         {
-          ElSLib::Parameters(Adaptor3d_HSurfaceTool::Cylinder(Surf), Pmid, u2, v2);
+          ElSLib::Parameters(HSurfaceTool::Cylinder(Surf), Pmid, u2, v2);
         }
-        else if (Adaptor3d_HSurfaceTool::GetType(Surf) == GeomAbs_Cone)
+        else if (HSurfaceTool::GetType(Surf) == GeomAbs_Cone)
         {
-          ElSLib::Parameters(Adaptor3d_HSurfaceTool::Cone(Surf), Pmid, u2, v2);
+          ElSLib::Parameters(HSurfaceTool::Cone(Surf), Pmid, u2, v2);
         }
         else
         {
@@ -405,17 +405,17 @@ static void LineConstructor(Contap_TheSequenceOfLine&          slin,
       {
         Standard_Real pmid = (firstp + lastp) * 0.5;
         Point3d        Pmid = ElCLib::Value(pmid, L.Circle());
-        if (Adaptor3d_HSurfaceTool::GetType(Surf) == GeomAbs_Cylinder)
+        if (HSurfaceTool::GetType(Surf) == GeomAbs_Cylinder)
         {
-          ElSLib::Parameters(Adaptor3d_HSurfaceTool::Cylinder(Surf), Pmid, u2, v2);
+          ElSLib::Parameters(HSurfaceTool::Cylinder(Surf), Pmid, u2, v2);
         }
-        else if (Adaptor3d_HSurfaceTool::GetType(Surf) == GeomAbs_Cone)
+        else if (HSurfaceTool::GetType(Surf) == GeomAbs_Cone)
         {
-          ElSLib::Parameters(Adaptor3d_HSurfaceTool::Cone(Surf), Pmid, u2, v2);
+          ElSLib::Parameters(HSurfaceTool::Cone(Surf), Pmid, u2, v2);
         }
-        else if (Adaptor3d_HSurfaceTool::GetType(Surf) == GeomAbs_Sphere)
+        else if (HSurfaceTool::GetType(Surf) == GeomAbs_Sphere)
         {
-          ElSLib::Parameters(Adaptor3d_HSurfaceTool::Sphere(Surf), Pmid, u2, v2);
+          ElSLib::Parameters(HSurfaceTool::Sphere(Surf), Pmid, u2, v2);
         }
         else
         {
@@ -454,17 +454,17 @@ static void LineConstructor(Contap_TheSequenceOfLine&          slin,
       {
         Standard_Real pmid = (firstp + lastp) * 0.5;
         Point3d        Pmid = ElCLib::Value(pmid, L.Circle());
-        if (Adaptor3d_HSurfaceTool::GetType(Surf) == GeomAbs_Cylinder)
+        if (HSurfaceTool::GetType(Surf) == GeomAbs_Cylinder)
         {
-          ElSLib::Parameters(Adaptor3d_HSurfaceTool::Cylinder(Surf), Pmid, u2, v2);
+          ElSLib::Parameters(HSurfaceTool::Cylinder(Surf), Pmid, u2, v2);
         }
-        else if (Adaptor3d_HSurfaceTool::GetType(Surf) == GeomAbs_Cone)
+        else if (HSurfaceTool::GetType(Surf) == GeomAbs_Cone)
         {
-          ElSLib::Parameters(Adaptor3d_HSurfaceTool::Cone(Surf), Pmid, u2, v2);
+          ElSLib::Parameters(HSurfaceTool::Cone(Surf), Pmid, u2, v2);
         }
-        else if (Adaptor3d_HSurfaceTool::GetType(Surf) == GeomAbs_Sphere)
+        else if (HSurfaceTool::GetType(Surf) == GeomAbs_Sphere)
         {
-          ElSLib::Parameters(Adaptor3d_HSurfaceTool::Sphere(Surf), Pmid, u2, v2);
+          ElSLib::Parameters(HSurfaceTool::Sphere(Surf), Pmid, u2, v2);
         }
         else
         {
@@ -530,7 +530,7 @@ static void KeepInsidePoints(const Contap_TheSearchInside&    solins,
       projok = Contap_HContTool::Project(thearc, toproj, paramproj, Ptproj);
       if (projok)
       {
-        Point3d pprojete = Adaptor3d_HSurfaceTool::Value(Surf, Ptproj.X(), Ptproj.Y());
+        Point3d pprojete = HSurfaceTool::Value(Surf, Ptproj.X(), Ptproj.Y());
         if (pti.Value().Distance(pprojete) <= Precision::Confusion())
         {
           tokeep = Standard_False;
@@ -596,9 +596,9 @@ static void ComputeTangency(const Contap_TheSearch&            solrst,
         Standard_Boolean projok = Contap_HContTool::Project(thearcsol, Ptoproj, paramproj, pproj);
         if (projok)
         {
-          // Point3d pprojete = Adaptor3d_HSurfaceTool::Value(Surf,Ptoproj.X(),Ptoproj.Y());
+          // Point3d pprojete = HSurfaceTool::Value(Surf,Ptoproj.X(),Ptoproj.Y());
           // IFV - begin
-          Point3d pprojete = Adaptor3d_HSurfaceTool::Value(Surf, pproj.X(), pproj.Y());
+          Point3d pprojete = HSurfaceTool::Value(Surf, pproj.X(), pproj.Y());
           // IFV - end
           if ((PStart.Value()).Distance(pprojete) <= Precision::Confusion())
           {
@@ -661,7 +661,7 @@ static void ComputeTangency(const Contap_TheSearch&            solrst,
           dirtg = Func.Direction2d();
 
           Point3d ptbid;
-          //	Adaptor3d_HSurfaceTool::D1(Surf,X(1),X(2),ptbid,v1,v2);
+          //	HSurfaceTool::D1(Surf,X(1),X(2),ptbid,v1,v2);
           Contap_SurfProps::DerivAndNorm(Surf, X(1), X(2), ptbid, v1, v2, normale);
           tg3drst = tg2drst.X() * v1 + tg2drst.Y() * v2;
           //	normale = v1.Crossed(v2);
@@ -892,7 +892,7 @@ IntSurf_TypeTrans ComputeTransitionOnLine(Contap_SurfFunction& SFunc,
   Point3d pntbid;
   // Vector3d tglineuv;
 
-  Adaptor3d_HSurfaceTool::D1(SFunc.Surface(), u, v, pntbid, d1u, d1v);
+  HSurfaceTool::D1(SFunc.Surface(), u, v, pntbid, d1u, d1v);
 
   //------------------------------------------------------
   //--   Calcul de la tangente dans l espace uv        ---
@@ -1020,7 +1020,7 @@ void ProcessSegments(const Contap_TheSearch&            solrst,
     }
 
     Contap_HCurve2dTool::D1(thesegsol.Curve(), U, p2d, d2d);
-    Adaptor3d_HSurfaceTool::D1(SFunc.Surface(), p2d.X(), p2d.Y(), valpt, d1u, d1v);
+    HSurfaceTool::D1(SFunc.Surface(), p2d.X(), p2d.Y(), valpt, d1u, d1v);
     tgline.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
     IntSurf_TypeTrans tral = ComputeTransitionOnLine(SFunc, p2d.X(), p2d.Y(), tgline);
 
@@ -1148,7 +1148,7 @@ void ComputeInternalPointsOnRstr(Contap_Line&         Line,
   {
     paraminf = ((Nbpnts - indexinf) * Paramf + (indexinf - 1) * Paraml) / (Nbpnts - 1);
     Contap_HCurve2dTool::D1(thearc, paraminf, p2d, d2d);
-    Adaptor3d_HSurfaceTool::D1(Surf, p2d.X(), p2d.Y(), pcour, d1u, d1v);
+    HSurfaceTool::D1(Surf, p2d.X(), p2d.Y(), pcour, d1u, d1v);
     tgt.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
 
     if (tgt.Magnitude() > gp::Resolution())
@@ -1180,7 +1180,7 @@ void ComputeInternalPointsOnRstr(Contap_Line&         Line,
   {
     paramsup = ((Nbpnts - indexsup) * Paramf + (indexsup - 1) * Paraml) / (Nbpnts - 1);
     Contap_HCurve2dTool::D1(thearc, paramsup, p2d, d2d);
-    Adaptor3d_HSurfaceTool::D1(Surf, p2d.X(), p2d.Y(), pcour, d1u, d1v);
+    HSurfaceTool::D1(Surf, p2d.X(), p2d.Y(), pcour, d1u, d1v);
     tgt.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
 
     if (tgt.Magnitude() > gp::Resolution())
@@ -1211,7 +1211,7 @@ void ComputeInternalPointsOnRstr(Contap_Line&         Line,
         {
           paramp = (paraminf + paramsup) / 2.;
           Contap_HCurve2dTool::D1(thearc, paramp, p2d, d2d);
-          Adaptor3d_HSurfaceTool::D1(Surf, p2d.X(), p2d.Y(), pcour, d1u, d1v);
+          HSurfaceTool::D1(Surf, p2d.X(), p2d.Y(), pcour, d1u, d1v);
           tgt.SetLinearForm(d2d.X(), d1u, d2d.Y(), d1v);
 
           if (tgt.Magnitude() > gp::Resolution())
@@ -1307,13 +1307,13 @@ void ComputeInternalPoints(Contap_Line&         Line,
   Contap_TFunction                 TypeFunc(SFunc.FunctionType());
 
   // clang-format off
-  toler(1) = ureso; //-- Trop long !!! Adaptor3d_HSurfaceTool::UResolution(Surf,SFunc.Tolerance());
-  toler(2) = vreso; //---Beaucoup trop long !!! Adaptor3d_HSurfaceTool::VResolution(Surf,SFunc.Tolerance());
+  toler(1) = ureso; //-- Trop long !!! HSurfaceTool::UResolution(Surf,SFunc.Tolerance());
+  toler(2) = vreso; //---Beaucoup trop long !!! HSurfaceTool::VResolution(Surf,SFunc.Tolerance());
   // clang-format on
-  infb(1) = Adaptor3d_HSurfaceTool::FirstUParameter(Surf);
-  infb(2) = Adaptor3d_HSurfaceTool::FirstVParameter(Surf);
-  supb(1) = Adaptor3d_HSurfaceTool::LastUParameter(Surf);
-  supb(2) = Adaptor3d_HSurfaceTool::LastVParameter(Surf);
+  infb(1) = HSurfaceTool::FirstUParameter(Surf);
+  infb(2) = HSurfaceTool::FirstVParameter(Surf);
+  supb(1) = HSurfaceTool::LastUParameter(Surf);
+  supb(2) = HSurfaceTool::LastVParameter(Surf);
 
   math_FunctionSetRoot rsnld(SFunc, toler, 30);
 
@@ -1557,8 +1557,8 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
 
   const Handle(Adaptor3d_Surface)& Surf = mySFunc.Surface();
 
-  Standard_Real EpsU  = Adaptor3d_HSurfaceTool::UResolution(Surf, Precision::Confusion());
-  Standard_Real EpsV  = Adaptor3d_HSurfaceTool::VResolution(Surf, Precision::Confusion());
+  Standard_Real EpsU  = HSurfaceTool::UResolution(Surf, Precision::Confusion());
+  Standard_Real EpsV  = HSurfaceTool::VResolution(Surf, Precision::Confusion());
   Standard_Real Preci = Min(EpsU, EpsV);
   //  Standard_Real Fleche = 5.e-1;
   //  Standard_Real Pas    = 5.e-2;
@@ -1649,9 +1649,9 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
       if (mySFunc.FunctionType() == Contap_ContourStd)
       {
         const Handle(Adaptor3d_Surface)& SurfToCheck = mySFunc.Surface();
-        if (Adaptor3d_HSurfaceTool::GetType(SurfToCheck) == GeomAbs_Torus)
+        if (HSurfaceTool::GetType(SurfToCheck) == GeomAbs_Torus)
         {
-          gp_Torus aTor     = Adaptor3d_HSurfaceTool::Torus(SurfToCheck);
+          gp_Torus aTor     = HSurfaceTool::Torus(SurfToCheck);
           Dir3d   aTorDir  = aTor.Axis().Direction();
           Dir3d   aProjDir = mySFunc.Direction();
 
@@ -1901,7 +1901,7 @@ void Contap_Contour::Perform(const Handle(Adaptor3d_TopolTool)& Domain)
                     // Calcul de la transition
 
                     Contap_HCurve2dTool::D1(thearc, paramproj, Ptproj, d2d);
-                    //		    Adaptor3d_HSurfaceTool::D1(Surf,Ptproj.X(),Ptproj.Y(),
+                    //		    HSurfaceTool::D1(Surf,Ptproj.X(),Ptproj.Y(),
                     //				       ptonsurf,d1u,d1v);
                     //		    normale = d1u.Crossed(d1v);
 
@@ -2044,7 +2044,7 @@ static void PutPointsOnLine(const Contap_TheSearch&          solrst,
       {
         Vector3d d1u, d1v;
         Point3d bidpt;
-        Adaptor3d_HSurfaceTool::D1(Surf, pt2d.X(), pt2d.Y(), bidpt, d1u, d1v);
+        HSurfaceTool::D1(Surf, pt2d.X(), pt2d.Y(), bidpt, d1u, d1v);
         PPoint.SetValue(ptonsurf, pt2d.X(), pt2d.Y());
         if (normale.Magnitude() < RealEpsilon())
         {
@@ -2092,7 +2092,7 @@ static void PutPointsOnLine(const Contap_TheSearch&          solrst,
 IntSurf_TypeTrans ComputeTransitionOngpLine(Contap_SurfFunction& SFunc, const gp_Lin& L)
 {
   const Handle(Adaptor3d_Surface)& Surf = SFunc.Surface();
-  GeomAbs_SurfaceType              typS = Adaptor3d_HSurfaceTool::GetType(Surf);
+  GeomAbs_SurfaceType              typS = HSurfaceTool::GetType(Surf);
   Point3d                           P;
   Vector3d                           T;
   ElCLib::D1(0.0, L, P, T);
@@ -2100,15 +2100,15 @@ IntSurf_TypeTrans ComputeTransitionOngpLine(Contap_SurfFunction& SFunc, const gp
   switch (typS)
   {
     case GeomAbs_Cylinder: {
-      ElSLib::Parameters(Adaptor3d_HSurfaceTool::Cylinder(Surf), P, u, v);
+      ElSLib::Parameters(HSurfaceTool::Cylinder(Surf), P, u, v);
       break;
     }
     case GeomAbs_Cone: {
-      ElSLib::Parameters(Adaptor3d_HSurfaceTool::Cone(Surf), P, u, v);
+      ElSLib::Parameters(HSurfaceTool::Cone(Surf), P, u, v);
       break;
     }
     case GeomAbs_Sphere: {
-      ElSLib::Parameters(Adaptor3d_HSurfaceTool::Sphere(Surf), P, u, v);
+      ElSLib::Parameters(HSurfaceTool::Sphere(Surf), P, u, v);
       break;
     }
     default:
@@ -2120,7 +2120,7 @@ IntSurf_TypeTrans ComputeTransitionOngpLine(Contap_SurfFunction& SFunc, const gp
 IntSurf_TypeTrans ComputeTransitionOngpCircle(Contap_SurfFunction& SFunc, const gp_Circ& C)
 {
   const Handle(Adaptor3d_Surface)& Surf = SFunc.Surface();
-  GeomAbs_SurfaceType              typS = Adaptor3d_HSurfaceTool::GetType(Surf);
+  GeomAbs_SurfaceType              typS = HSurfaceTool::GetType(Surf);
   Point3d                           P;
   Vector3d                           T;
   ElCLib::D1(0.0, C, P, T);
@@ -2128,15 +2128,15 @@ IntSurf_TypeTrans ComputeTransitionOngpCircle(Contap_SurfFunction& SFunc, const 
   switch (typS)
   {
     case GeomAbs_Cylinder: {
-      ElSLib::Parameters(Adaptor3d_HSurfaceTool::Cylinder(Surf), P, u, v);
+      ElSLib::Parameters(HSurfaceTool::Cylinder(Surf), P, u, v);
       break;
     }
     case GeomAbs_Cone: {
-      ElSLib::Parameters(Adaptor3d_HSurfaceTool::Cone(Surf), P, u, v);
+      ElSLib::Parameters(HSurfaceTool::Cone(Surf), P, u, v);
       break;
     }
     case GeomAbs_Sphere: {
-      ElSLib::Parameters(Adaptor3d_HSurfaceTool::Sphere(Surf), P, u, v);
+      ElSLib::Parameters(HSurfaceTool::Sphere(Surf), P, u, v);
       break;
     }
     default:
@@ -2162,12 +2162,12 @@ void Contap_Contour::PerformAna(const Handle(Adaptor3d_TopolTool)& Domain)
   Contap_TFunction                 TypeFunc(mySFunc.FunctionType());
   Standard_Boolean                 PerformSolRst = Standard_True;
 
-  GeomAbs_SurfaceType typS = Adaptor3d_HSurfaceTool::GetType(Surf);
+  GeomAbs_SurfaceType typS = HSurfaceTool::GetType(Surf);
 
   switch (typS)
   {
     case GeomAbs_Plane: {
-      gp_Pln pl(Adaptor3d_HSurfaceTool::Plane(Surf));
+      gp_Pln pl(HSurfaceTool::Plane(Surf));
       switch (TypeFunc)
       {
         case Contap_ContourStd: {
@@ -2212,15 +2212,15 @@ void Contap_Contour::PerformAna(const Handle(Adaptor3d_TopolTool)& Domain)
       switch (TypeFunc)
       {
         case Contap_ContourStd: {
-          contana.Perform(Adaptor3d_HSurfaceTool::Sphere(Surf), mySFunc.Direction());
+          contana.Perform(HSurfaceTool::Sphere(Surf), mySFunc.Direction());
         }
         break;
         case Contap_ContourPrs: {
-          contana.Perform(Adaptor3d_HSurfaceTool::Sphere(Surf), mySFunc.Eye());
+          contana.Perform(HSurfaceTool::Sphere(Surf), mySFunc.Eye());
         }
         break;
         case Contap_DraftStd: {
-          contana.Perform(Adaptor3d_HSurfaceTool::Sphere(Surf),
+          contana.Perform(HSurfaceTool::Sphere(Surf),
                           mySFunc.Direction(),
                           mySFunc.Angle());
         }
@@ -2236,15 +2236,15 @@ void Contap_Contour::PerformAna(const Handle(Adaptor3d_TopolTool)& Domain)
       switch (TypeFunc)
       {
         case Contap_ContourStd: {
-          contana.Perform(Adaptor3d_HSurfaceTool::Cylinder(Surf), mySFunc.Direction());
+          contana.Perform(HSurfaceTool::Cylinder(Surf), mySFunc.Direction());
         }
         break;
         case Contap_ContourPrs: {
-          contana.Perform(Adaptor3d_HSurfaceTool::Cylinder(Surf), mySFunc.Eye());
+          contana.Perform(HSurfaceTool::Cylinder(Surf), mySFunc.Eye());
         }
         break;
         case Contap_DraftStd: {
-          contana.Perform(Adaptor3d_HSurfaceTool::Cylinder(Surf),
+          contana.Perform(HSurfaceTool::Cylinder(Surf),
                           mySFunc.Direction(),
                           mySFunc.Angle());
         }
@@ -2260,15 +2260,15 @@ void Contap_Contour::PerformAna(const Handle(Adaptor3d_TopolTool)& Domain)
       switch (TypeFunc)
       {
         case Contap_ContourStd: {
-          contana.Perform(Adaptor3d_HSurfaceTool::Cone(Surf), mySFunc.Direction());
+          contana.Perform(HSurfaceTool::Cone(Surf), mySFunc.Direction());
         }
         break;
         case Contap_ContourPrs: {
-          contana.Perform(Adaptor3d_HSurfaceTool::Cone(Surf), mySFunc.Eye());
+          contana.Perform(HSurfaceTool::Cone(Surf), mySFunc.Eye());
         }
         break;
         case Contap_DraftStd: {
-          contana.Perform(Adaptor3d_HSurfaceTool::Cone(Surf), mySFunc.Direction(), mySFunc.Angle());
+          contana.Perform(HSurfaceTool::Cone(Surf), mySFunc.Direction(), mySFunc.Angle());
         }
         break;
         case Contap_DraftPrs:
@@ -2321,7 +2321,7 @@ void Contap_Contour::PerformAna(const Handle(Adaptor3d_TopolTool)& Domain)
       /*
       if (typS == GeomAbs_Cone) {
       Standard_Real u,v;
-      gp_Cone thecone(Adaptor3d_HSurfaceTool::Cone(Surf));
+      gp_Cone thecone(HSurfaceTool::Cone(Surf));
       ElSLib::Parameters(thecone,thecone.Apex(),u,v);
       Contap_Point vtxapex(thecone.Apex(),u,v);
       vtxapex.SetInternal();

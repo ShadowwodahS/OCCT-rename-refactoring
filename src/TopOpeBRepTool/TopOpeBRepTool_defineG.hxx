@@ -22,14 +22,14 @@
 #include <Geom2d_Curve.hxx>
 #include <Geom2d_TrimmedCurve.hxx>
 
-#define Mhgc Handle(Geom_Curve)
+#define Mhgc Handle(GeomCurve3d)
 #define Mhgtc Handle(Geom_TrimmedCurve)
-#define Mhg2c Handle(Geom2d_Curve)
+#define Mhg2c Handle(GeomCurve2d)
 #define Mhg2tc Handle(Geom2d_TrimmedCurve)
 
-#define Mgc Geom_Curve
+#define Mgc GeomCurve3d
 #define Mgtc Geom_TrimmedCurve
-#define Mg2c Geom2d_Curve
+#define Mg2c GeomCurve2d
 #define Mg2tc Geom_TrimmedCurve
 
 #endif

@@ -52,13 +52,13 @@ public:
     }
 
     TopLoc_Location                   aLoc;
-    const Handle(Poly_Triangulation)& aTriangulation =
-      BRep_Tool::Triangulation(aDFace->GetFace(), aLoc);
+    const Handle(MeshTriangulation)& aTriangulation =
+      BRepInspector::Triangulation(aDFace->GetFace(), aLoc);
 
     if (!aTriangulation.IsNull())
     {
       // If there is an info about initial parameters, use it due to deflection kept
-      // by Poly_Triangulation is generally an estimation upon generated mesh and can
+      // by MeshTriangulation is generally an estimation upon generated mesh and can
       // be either less or even greater than specified value.
       const Handle(Poly_TriangulationParameters)& aSourceParams = aTriangulation->Parameters();
       const Standard_Real aDeflection = (!aSourceParams.IsNull() && aSourceParams->HasDeflection())
@@ -139,8 +139,8 @@ public:
           if (splitEdge(aDEdge, aDFace, Abs(getConeStep(aDFace))))
           {
             TopLoc_Location                   aLoc;
-            const Handle(Poly_Triangulation)& aTriangulation =
-              BRep_Tool::Triangulation(aDFace->GetFace(), aLoc);
+            const Handle(MeshTriangulation)& aTriangulation =
+              BRepInspector::Triangulation(aDFace->GetFace(), aLoc);
 
             if (!aTriangulation.IsNull())
             {
@@ -185,12 +185,12 @@ private:
                              const IMeshData::IFaceHandle& theDFace,
                              const Standard_Real           theDU) const
   {
-    TopoDS_Edge        aE = theDEdge->GetEdge();
-    const TopoDS_Face& aF = theDFace->GetFace();
+    TopoEdge        aE = theDEdge->GetEdge();
+    const TopoFace& aF = theDFace->GetFace();
 
     Standard_Real aFParam, aLParam;
 
-    Handle(Geom_Curve) aHC = BRep_Tool::Curve(aE, aFParam, aLParam);
+    Handle(GeomCurve3d) aHC = BRepInspector::Curve(aE, aFParam, aLParam);
 
     const IMeshData::IPCurveHandle& aIPC1 = theDEdge->GetPCurve(0);
     const IMeshData::IPCurveHandle& aIPC2 = theDEdge->GetPCurve(1);
@@ -213,14 +213,14 @@ private:
     }
 
     // Define two pcurves of the seam-edge.
-    Handle(Geom2d_Curve) aPC1, aPC2;
+    Handle(GeomCurve2d) aPC1, aPC2;
     Standard_Real        af, al;
 
     aE.Orientation(TopAbs_FORWARD);
-    aPC1 = BRep_Tool::CurveOnSurface(aE, aF, af, al);
+    aPC1 = BRepInspector::CurveOnSurface(aE, aF, af, al);
 
     aE.Orientation(TopAbs_REVERSED);
-    aPC2 = BRep_Tool::CurveOnSurface(aE, aF, af, al);
+    aPC2 = BRepInspector::CurveOnSurface(aE, aF, af, al);
 
     if (aPC1.IsNull() || aPC2.IsNull())
     {
@@ -319,7 +319,7 @@ Standard_Boolean BRepMesh_ModelPreProcessor::performInternal(
       if (aDEdge->IsSet(IMeshData_Outdated))
       {
         TopLoc_Location aLoc;
-        BRep_Tool::Polygon3D(aDEdge->GetEdge(), aLoc);
+        BRepInspector::Polygon3D(aDEdge->GetEdge(), aLoc);
         BRepMesh_ShapeTool::NullifyEdge(aDEdge->GetEdge(), aLoc);
       }
 
@@ -336,8 +336,8 @@ Standard_Boolean BRepMesh_ModelPreProcessor::performInternal(
         if (aDFace->IsSet(IMeshData_Outdated))
         {
           TopLoc_Location                   aLoc;
-          const Handle(Poly_Triangulation)& aTriangulation =
-            BRep_Tool::Triangulation(aDFace->GetFace(), aLoc);
+          const Handle(MeshTriangulation)& aTriangulation =
+            BRepInspector::Triangulation(aDFace->GetFace(), aLoc);
 
           // Clean all edges of oudated face.
           for (Standard_Integer aWireIt = 0; aWireIt < aDFace->WiresNb(); ++aWireIt)

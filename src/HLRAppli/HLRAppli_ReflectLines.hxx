@@ -36,7 +36,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructor
-  Standard_EXPORT HLRAppli_ReflectLines(const TopoDS_Shape& aShape);
+  Standard_EXPORT HLRAppli_ReflectLines(const TopoShape& aShape);
 
   //! Sets the normal to the plane of visualisation,
   //! the coordinates of the view point and
@@ -55,12 +55,12 @@ public:
 
   //! returns resulting compound of reflect lines
   //! represented by edges in 3d
-  Standard_EXPORT TopoDS_Shape GetResult() const;
+  Standard_EXPORT TopoShape GetResult() const;
 
   //! returns resulting compound of lines
   //! of specified type and visibility
   //! represented by edges in 3d or 2d
-  Standard_EXPORT TopoDS_Shape GetCompoundOf3dEdges(const HLRBRep_TypeOfResultingEdge type,
+  Standard_EXPORT TopoShape GetCompoundOf3dEdges(const HLRBRep_TypeOfResultingEdge type,
                                                     const Standard_Boolean            visible,
                                                     const Standard_Boolean            In3d) const;
 
@@ -68,8 +68,8 @@ protected:
 private:
   HLRAlgo_Projector    myProjector;
   Handle(HLRBRep_Algo) myHLRAlgo;
-  TopoDS_Shape         myShape;
-  // TopoDS_Shape myCompound;
+  TopoShape         myShape;
+  // TopoShape myCompound;
 };
 
 #endif // _HLRAppli_ReflectLines_HeaderFile

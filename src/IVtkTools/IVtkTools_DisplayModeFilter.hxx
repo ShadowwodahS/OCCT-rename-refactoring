@@ -52,7 +52,7 @@ public:
   //! Set a list of displaying mesh element types for the given display mode
   void SetMeshTypesForMode(IVtk_DisplayMode theMode, const IVtk_IdTypeMap& theMeshTypes);
 
-  //! Draw Boundary of faces for shading mode
+  //! Draw1 Boundary of faces for shading mode
   void SetFaceBoundaryDraw(bool theToDraw);
 
   //! Returns True if drawing Boundary of faces for shading mode is defined.
@@ -80,7 +80,7 @@ protected:
   IVtk_IdTypeMap        myModesDefinition[2];
   bool                  myDoDisplaySharedVertices;
 
-  bool                  myDrawFaceBoundaries;      //!< Draw Face boundaries within shading display mode
+  bool                  myDrawFaceBoundaries;      //!< Draw1 Face boundaries within shading display mode
   bool                  myIsSmoothShading;         //!< include vertex normals for smooth shading or not
   // clang-format on
 };

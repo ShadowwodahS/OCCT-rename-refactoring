@@ -67,13 +67,13 @@ void BOPAlgo_MakeConnected::CheckData()
   // Check that all shapes in arguments are of the same type
 
   // Extract the shapes from the compound arguments
-  TopTools_ListOfShape aLA;
+  ShapeList aLA;
   // Fence map
   TopTools_MapOfShape aMFence;
 
   TopTools_ListIteratorOfListOfShape itLA(myArguments);
   for (; itLA.More(); itLA.Next())
-    BOPTools_AlgoTools::TreatCompound(itLA.Value(), aLA, &aMFence);
+    AlgoTools::TreatCompound(itLA.Value(), aLA, &aMFence);
 
   if (aLA.IsEmpty())
   {
@@ -84,10 +84,10 @@ void BOPAlgo_MakeConnected::CheckData()
 
   // Check dimensions of the extracted non-compound shapes
   itLA.Initialize(aLA);
-  Standard_Integer iDim = BOPTools_AlgoTools::Dimension(itLA.Value());
+  Standard_Integer iDim = AlgoTools::Dimension(itLA.Value());
   for (itLA.Next(); itLA.More(); itLA.Next())
   {
-    if (iDim != BOPTools_AlgoTools::Dimension(itLA.Value()))
+    if (iDim != AlgoTools::Dimension(itLA.Value()))
     {
       // The arguments are of different type
       AddError(new BOPAlgo_AlertMultiDimensionalArguments());
@@ -123,10 +123,10 @@ void BOPAlgo_MakeConnected::MakeConnected()
     if (aGluer.HasErrors())
     {
       // Unable to glue the shapes
-      TopoDS_Compound aCW;
-      BRep_Builder().MakeCompound(aCW);
+      TopoCompound aCW;
+      ShapeBuilder().MakeCompound(aCW);
       for (TopTools_ListIteratorOfListOfShape it(myArguments); it.More(); it.Next())
-        BRep_Builder().Add(aCW, it.Value());
+        ShapeBuilder().Add(aCW, it.Value());
       AddError(new BOPAlgo_AlertUnableToGlue(aCW));
       return;
     }
@@ -156,27 +156,27 @@ void BOPAlgo_MakeConnected::FillOrigins()
   {
     TopTools_ListIteratorOfListOfShape itLA(myArguments);
     for (; itLA.More(); itLA.Next())
-      TopExp::MapShapes(itLA.Value(), myAllInputsMap);
+      TopExp1::MapShapes(itLA.Value(), myAllInputsMap);
   }
 
   const Standard_Integer aNbS = myAllInputsMap.Extent();
   for (Standard_Integer i = 1; i <= aNbS; ++i)
   {
-    const TopoDS_Shape& aS = myAllInputsMap(i);
+    const TopoShape& aS = myAllInputsMap(i);
     if (!BRepTools_History::IsSupportedType(aS))
       continue;
 
     // Get Modified & Generated shapes
     for (Standard_Integer j = 0; j < 2; ++j)
     {
-      const TopTools_ListOfShape& aLH = !j ? myHistory->Modified(aS) : myHistory->Generated(aS);
+      const ShapeList& aLH = !j ? myHistory->Modified(aS) : myHistory->Generated(aS);
       TopTools_ListIteratorOfListOfShape itLH(aLH);
       for (; itLH.More(); itLH.Next())
       {
-        const TopoDS_Shape&   aHS  = itLH.Value();
-        TopTools_ListOfShape* pLOr = myOrigins.ChangeSeek(aHS);
+        const TopoShape&   aHS  = itLH.Value();
+        ShapeList* pLOr = myOrigins.ChangeSeek(aHS);
         if (!pLOr)
-          pLOr = myOrigins.Bound(aHS, TopTools_ListOfShape());
+          pLOr = myOrigins.Bound(aHS, ShapeList());
         if (!pLOr->Contains(aS))
           pLOr->Append(aS);
       }
@@ -193,9 +193,9 @@ void BOPAlgo_MakeConnected::AssociateMaterials()
   myMaterials.Clear();
 
   // Extract all non-compound shapes from the result
-  TopTools_ListOfShape aLShapes;
+  ShapeList aLShapes;
   TopTools_MapOfShape  aMFence;
-  BOPTools_AlgoTools::TreatCompound(myShape, aLShapes, &aMFence);
+  AlgoTools::TreatCompound(myShape, aLShapes, &aMFence);
 
   if (aLShapes.IsEmpty())
     return;
@@ -215,17 +215,17 @@ void BOPAlgo_MakeConnected::AssociateMaterials()
   TopTools_ListIteratorOfListOfShape itLS(aLShapes);
   for (; itLS.More(); itLS.Next())
   {
-    const TopoDS_Shape&         aS   = itLS.Value();
-    const TopTools_ListOfShape& aLOr = GetOrigins(aS);
-    const TopoDS_Shape&         aSOr = aLOr.IsEmpty() ? aS : aLOr.First();
+    const TopoShape&         aS   = itLS.Value();
+    const ShapeList& aLOr = GetOrigins(aS);
+    const TopoShape&         aSOr = aLOr.IsEmpty() ? aS : aLOr.First();
 
-    TopExp_Explorer anExp(aS, anElemType);
+    ShapeExplorer anExp(aS, anElemType);
     for (; anExp.More(); anExp.Next())
     {
-      const TopoDS_Shape&   anElement = anExp.Current();
-      TopTools_ListOfShape* pLM       = myMaterials.ChangeSeek(anElement);
+      const TopoShape&   anElement = anExp.Current();
+      ShapeList* pLM       = myMaterials.ChangeSeek(anElement);
       if (!pLM)
-        pLM = myMaterials.Bound(anElement, TopTools_ListOfShape());
+        pLM = myMaterials.Bound(anElement, ShapeList());
       pLM->Append(aSOr);
     }
   }
@@ -256,7 +256,7 @@ void BOPAlgo_MakeConnected::Update()
 // function : MakePeriodic
 // purpose  : Makes the shape periodic according to the given parameters
 //=======================================================================
-void BOPAlgo_MakeConnected::MakePeriodic(const BOPAlgo_MakePeriodic::PeriodicityParams& theParams)
+void BOPAlgo_MakeConnected::MakePeriodic(const BOPAlgo_MakePeriodic::PeriodicityParams1& theParams)
 {
   if (HasErrors())
     return;

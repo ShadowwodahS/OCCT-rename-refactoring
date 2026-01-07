@@ -21,7 +21,7 @@ PCDM_ReaderFilter::PCDM_ReaderFilter(const Handle(TypeInfo)& theSkipped)
   mySkip.Add(theSkipped->Name());
 }
 
-PCDM_ReaderFilter::PCDM_ReaderFilter(const TCollection_AsciiString& theEntryToRead)
+PCDM_ReaderFilter::PCDM_ReaderFilter(const AsciiString1& theEntryToRead)
     : myAppend(AppendMode_Forbid)
 {
   mySubTrees.Append(theEntryToRead);
@@ -50,16 +50,16 @@ Standard_Boolean PCDM_ReaderFilter::IsPassed(const Handle(TypeInfo)& theAttribut
 }
 
 Standard_Boolean PCDM_ReaderFilter::IsPassedAttr(
-  const TCollection_AsciiString& theAttributeType) const
+  const AsciiString1& theAttributeType) const
 {
   return myRead.IsEmpty() ? !mySkip.Contains(theAttributeType) : myRead.Contains(theAttributeType);
 }
 
-Standard_Boolean PCDM_ReaderFilter::IsPassed(const TCollection_AsciiString& theEntry) const
+Standard_Boolean PCDM_ReaderFilter::IsPassed(const AsciiString1& theEntry) const
 {
   if (mySubTrees.IsEmpty())
     return true;
-  for (NCollection_List<TCollection_AsciiString>::Iterator anEntry(mySubTrees); anEntry.More();
+  for (NCollection_List<AsciiString1>::Iterator anEntry(mySubTrees); anEntry.More();
        anEntry.Next())
   {
     if (theEntry.StartsWith(anEntry.Value()))
@@ -74,11 +74,11 @@ Standard_Boolean PCDM_ReaderFilter::IsPassed(const TCollection_AsciiString& theE
   return false;
 }
 
-Standard_Boolean PCDM_ReaderFilter::IsSubPassed(const TCollection_AsciiString& theEntry) const
+Standard_Boolean PCDM_ReaderFilter::IsSubPassed(const AsciiString1& theEntry) const
 {
   if (mySubTrees.IsEmpty() || theEntry.Length() == 2) // root is always passed if any sub is defined
     return true;
-  for (NCollection_List<TCollection_AsciiString>::Iterator anEntry(mySubTrees); anEntry.More();
+  for (NCollection_List<AsciiString1>::Iterator anEntry(mySubTrees); anEntry.More();
        anEntry.Next())
   {
     if (theEntry.Length() < anEntry.Value().Length()
@@ -104,11 +104,11 @@ void PCDM_ReaderFilter::StartIteration()
   if (mySubTrees.IsEmpty())
     return;
   // create an iteration-tree by the mySubTrees entries
-  for (NCollection_List<TCollection_AsciiString>::Iterator aTreeIter(mySubTrees); aTreeIter.More();
+  for (NCollection_List<AsciiString1>::Iterator aTreeIter(mySubTrees); aTreeIter.More();
        aTreeIter.Next())
   {
     TagTree*                aMap = &myTree;
-    TCollection_AsciiString aTagStr, anEntry = aTreeIter.Value();
+    AsciiString1 aTagStr, anEntry = aTreeIter.Value();
     for (Standard_Integer aTagIndex = 2; !anEntry.IsEmpty(); ++aTagIndex) // skip the root tag
     {
       aTagStr = anEntry.Token(":", aTagIndex);

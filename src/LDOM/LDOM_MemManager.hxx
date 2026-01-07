@@ -58,7 +58,7 @@ public:
 
   static Standard_Integer Hash(const char* theString, const Standard_Integer theLen)
   {
-    return HashTable::Hash(theString, theLen);
+    return HashTable1::Hash(theString, theLen);
   }
 
   static Standard_Boolean CompareStrings(const char*            theString,
@@ -76,43 +76,43 @@ private:
   friend class LDOM_Document;
   friend class LDOMParser;
 
-  // ---- CLASS MemBlock ----
-  class MemBlock
+  // ---- CLASS MemBlock1 ----
+  class MemBlock1
   {
     friend class LDOM_MemManager;
-    inline MemBlock(const Standard_Integer aSize, MemBlock* aFirst);
+    inline MemBlock1(const Standard_Integer aSize, MemBlock1* aFirst);
     inline void* Allocate(const Standard_Integer aSize);
-    void*        AllocateAndCheck(const Standard_Integer aSize, const MemBlock*&);
-    ~MemBlock();
+    void*        AllocateAndCheck(const Standard_Integer aSize, const MemBlock1*&);
+    ~MemBlock1();
 
-    MemBlock* Next() { return myNext; }
+    MemBlock1* Next() { return myNext; }
 
     Standard_Integer  mySize;
     Standard_Integer* myBlock;
     Standard_Integer* myEndBlock;
     Standard_Integer* myFreeSpace;
-    MemBlock*         myNext;
+    MemBlock1*         myNext;
   };
 
-  // ---- CLASS HashTable ----
-  class HashTable
+  // ---- CLASS HashTable1 ----
+  class HashTable1
   {
     friend class LDOM_MemManager;
-    HashTable(/* const Standard_Integer theMask, */
+    HashTable1(/* const Standard_Integer theMask, */
               LDOM_MemManager& theMemManager);
     const char*             AddString(const char*            theString,
                                       const Standard_Integer theLen,
                                       Standard_Integer&      theHashIndex);
     static Standard_Integer Hash(const char* theString, const Standard_Integer theLen);
 
-    struct TableItem
+    struct TableItem1
     {
       char*             str;
-      struct TableItem* next;
+      struct TableItem1* next;
     }* myTable;
 
     LDOM_MemManager& myManager;
-    void             operator=(const HashTable&);
+    void             operator=(const HashTable1&);
   };
 
   // ---- PROHIBITED (PRIVATE) METHODS ----
@@ -125,10 +125,10 @@ private:
   // ---------- PRIVATE FIELDS ----------
 
   const LDOM_BasicElement* myRootElement;
-  MemBlock*                myFirstBlock;
-  MemBlock*                myFirstWithoutRoom;
+  MemBlock1*                myFirstBlock;
+  MemBlock1*                myFirstWithoutRoom;
   Standard_Integer         myBlockSize;
-  HashTable*               myHashTable;
+  HashTable1*               myHashTable;
 
 public:
   // CASCADE RTTI

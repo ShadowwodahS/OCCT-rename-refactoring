@@ -27,17 +27,17 @@
 //! The class is to describe the root of
 //! function of one variable  for  Edge/Edge
 //! and  Edge/Surface  algorithms.
-class IntTools_Root
+class IntersectionRoot
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor
-  Standard_EXPORT IntTools_Root();
+  Standard_EXPORT IntersectionRoot();
 
   //! Initializes my by range of parameters
   //! and type of root
-  Standard_EXPORT IntTools_Root(const Standard_Real aRoot, const Standard_Integer aType);
+  Standard_EXPORT IntersectionRoot(const Standard_Real aRoot, const Standard_Integer aType);
 
   //! Sets the Root's value
   Standard_EXPORT void SetRoot(const Standard_Real aRoot);

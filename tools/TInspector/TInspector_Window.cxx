@@ -114,7 +114,7 @@ TInspector_Window::TInspector_Window()
 // function : RegisterPlugin
 // purpose :
 // =======================================================================
-void TInspector_Window::RegisterPlugin(const TCollection_AsciiString& thePluginName)
+void TInspector_Window::RegisterPlugin(const AsciiString1& thePluginName)
 {
   TInspector_ToolInfo anInfo;
   int                 aToolId;
@@ -128,9 +128,9 @@ void TInspector_Window::RegisterPlugin(const TCollection_AsciiString& thePluginN
 // function : RegisteredPlugins
 // purpose :
 // =======================================================================
-NCollection_List<TCollection_AsciiString> TInspector_Window::RegisteredPlugins() const
+NCollection_List<AsciiString1> TInspector_Window::RegisteredPlugins() const
 {
-  NCollection_List<TCollection_AsciiString> aPlugins;
+  NCollection_List<AsciiString1> aPlugins;
 
   for (int aToolId = 0, aSize = myToolNames.size(); aToolId < aSize; aToolId++)
     aPlugins.Append(myToolNames[aToolId].myName);
@@ -142,7 +142,7 @@ NCollection_List<TCollection_AsciiString> TInspector_Window::RegisteredPlugins()
 // function : Init
 // purpose :
 // =======================================================================
-void TInspector_Window::Init(const TCollection_AsciiString&                      thePluginName,
+void TInspector_Window::Init(const AsciiString1&                      thePluginName,
                              const NCollection_List<Handle(RefObject)>& theParameters,
                              const Standard_Boolean                              theAppend)
 {
@@ -199,7 +199,7 @@ void TInspector_Window::Init(const TCollection_AsciiString&                     
 // function : ActivateTool
 // purpose :
 // =======================================================================
-void TInspector_Window::ActivateTool(const TCollection_AsciiString& thePluginName)
+void TInspector_Window::ActivateTool(const AsciiString1& thePluginName)
 {
   int aToolIndex = -1;
   for (int aToolId = 0, aSize = myToolNames.size(); aToolId < aSize; aToolId++)
@@ -247,7 +247,7 @@ void TInspector_Window::ActivateTool(const TCollection_AsciiString& thePluginNam
 // function : SetSelected
 // purpose :
 // =======================================================================
-void TInspector_Window::SetSelected(const NCollection_List<TCollection_AsciiString>& theItemNames)
+void TInspector_Window::SetSelected(const NCollection_List<AsciiString1>& theItemNames)
 {
   TInspector_ToolInfo anInfo;
   if (!activeToolInfo(anInfo))
@@ -298,8 +298,8 @@ void TInspector_Window::SetOpenButton(QPushButton* theButton)
 // function : OpenFile
 // purpose :
 // =======================================================================
-void TInspector_Window::OpenFile(const TCollection_AsciiString& thePluginName,
-                                 const TCollection_AsciiString& theFileName)
+void TInspector_Window::OpenFile(const AsciiString1& thePluginName,
+                                 const AsciiString1& theFileName)
 {
   if (thePluginName.IsEmpty())
   {
@@ -335,7 +335,7 @@ void TInspector_Window::UpdateContent()
 // function : LoadPlugin
 // purpose :
 // =======================================================================
-bool TInspector_Window::LoadPlugin(const TCollection_AsciiString& thePluginName,
+bool TInspector_Window::LoadPlugin(const AsciiString1& thePluginName,
                                    TInspector_ToolInfo&           theInfo)
 {
   bool aLoaded = false;
@@ -463,12 +463,12 @@ void TInspector_Window::onButtonClicked()
 {
   QPushButton* aButton = (QPushButton*)sender();
 
-  TCollection_AsciiString aPluginName = aButton->text().toStdString().c_str();
+  AsciiString1 aPluginName = aButton->text().toStdString().c_str();
 
   TInspector_ToolInfo anInfo;
   int                 aToolId;
   if (!findPlugin(aPluginName, anInfo, aToolId))
-    aPluginName = TCollection_AsciiString("TK") + aPluginName;
+    aPluginName = AsciiString1("TK") + aPluginName;
 
   ActivateTool(aPluginName);
 }
@@ -539,7 +539,7 @@ bool TInspector_Window::activeToolInfo(TInspector_Window::TInspector_ToolInfo& t
 // function : findPlugin
 // purpose :
 // =======================================================================
-bool TInspector_Window::findPlugin(const TCollection_AsciiString& thePluginName,
+bool TInspector_Window::findPlugin(const AsciiString1& thePluginName,
                                    TInspector_ToolInfo&           theToolInfo,
                                    int&                           theToolId)
 {
@@ -571,10 +571,10 @@ void TInspector_Window::applyPreferences()
 // function : defaultTemporaryDirectory
 // purpose :
 // =======================================================================
-TCollection_AsciiString TInspector_Window::defaultTemporaryDirectory() const
+AsciiString1 TInspector_Window::defaultTemporaryDirectory() const
 {
   // main window creation
-  TCollection_AsciiString aTmpDir;
+  AsciiString1 aTmpDir;
 #ifdef _WIN32
   OSD_Environment anEnvironment("TEMP");
   aTmpDir = anEnvironment.Value();
@@ -587,11 +587,11 @@ TCollection_AsciiString TInspector_Window::defaultTemporaryDirectory() const
   }
   if (!aTmpDir.EndsWith("\\"))
     aTmpDir += "\\";
-  OSD_Path      aTmpPath(aTmpDir);
+  SystemPath      aTmpPath(aTmpDir);
   OSD_Directory aTmpDirectory;
 #else
   OSD_Directory aTmpDirectory = OSD_Directory::BuildTemporary();
-  OSD_Path      aTmpPath;
+  SystemPath      aTmpPath;
   aTmpDirectory.Path(aTmpPath);
 #endif
   aTmpPath.DownTrek("TInspector");
@@ -600,7 +600,7 @@ TCollection_AsciiString TInspector_Window::defaultTemporaryDirectory() const
     aTmpDirectory.Build(OSD_Protection());
 
   aTmpDirectory.Path(aTmpPath);
-  TCollection_AsciiString aTmpDirectoryName;
+  AsciiString1 aTmpDirectoryName;
   aTmpPath.SystemName(aTmpDirectoryName);
 
   return aTmpDir;

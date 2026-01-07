@@ -32,7 +32,7 @@ ShapeFix_ShapeTolerance::ShapeFix_ShapeTolerance() {}
 
 //=================================================================================================
 
-Standard_Boolean ShapeFix_ShapeTolerance::LimitTolerance(const TopoDS_Shape&    shape,
+Standard_Boolean ShapeFix_ShapeTolerance::LimitTolerance(const TopoShape&    shape,
                                                          const Standard_Real    tmin,
                                                          const Standard_Real    tmax,
                                                          const TopAbs_ShapeEnum styp) const
@@ -44,14 +44,14 @@ Standard_Boolean ShapeFix_ShapeTolerance::LimitTolerance(const TopoDS_Shape&    
   Standard_Boolean fait = Standard_False;
   if (styp == TopAbs_VERTEX || styp == TopAbs_EDGE || styp == TopAbs_FACE)
   {
-    for (TopExp_Explorer ex(shape, styp); ex.More(); ex.Next())
+    for (ShapeExplorer ex(shape, styp); ex.More(); ex.Next())
     {
-      TopoDS_Shape sh     = ex.Current();
+      TopoShape sh     = ex.Current();
       int          newtol = 0;
       if (styp == TopAbs_VERTEX)
       {
-        TopoDS_Vertex V = TopoDS::Vertex(sh);
-        prec            = BRep_Tool::Tolerance(V);
+        TopoVertex V = TopoDS::Vertex(sh);
+        prec            = BRepInspector::Tolerance(V);
         if (iamax && prec > tmax)
           newtol = 1;
         else if (prec < tmin)
@@ -65,8 +65,8 @@ Standard_Boolean ShapeFix_ShapeTolerance::LimitTolerance(const TopoDS_Shape&    
       }
       else if (styp == TopAbs_EDGE)
       {
-        TopoDS_Edge E = TopoDS::Edge(sh);
-        prec          = BRep_Tool::Tolerance(E);
+        TopoEdge E = TopoDS::Edge(sh);
+        prec          = BRepInspector::Tolerance(E);
         if (iamax && prec > tmax)
           newtol = 1;
         else if (prec < tmin)
@@ -80,8 +80,8 @@ Standard_Boolean ShapeFix_ShapeTolerance::LimitTolerance(const TopoDS_Shape&    
       }
       else if (styp == TopAbs_FACE)
       {
-        TopoDS_Face F = TopoDS::Face(sh);
-        prec          = BRep_Tool::Tolerance(F);
+        TopoFace F = TopoDS::Face(sh);
+        prec          = BRepInspector::Tolerance(F);
         if (iamax && prec > tmax)
           newtol = 1;
         else if (prec < tmin)
@@ -97,13 +97,13 @@ Standard_Boolean ShapeFix_ShapeTolerance::LimitTolerance(const TopoDS_Shape&    
   }
   else if (styp == TopAbs_WIRE)
   {
-    for (TopExp_Explorer ex(shape, TopAbs_EDGE); ex.More(); ex.Next())
+    for (ShapeExplorer ex(shape, TopAbs_EDGE); ex.More(); ex.Next())
     {
-      TopoDS_Shape sh = ex.Current();
-      TopoDS_Edge  E  = TopoDS::Edge(sh);
+      TopoShape sh = ex.Current();
+      TopoEdge  E  = TopoDS::Edge(sh);
       LimitTolerance(E, tmin, tmax, TopAbs_EDGE);
-      TopoDS_Vertex V1, V2;
-      TopExp::Vertices(E, V1, V2);
+      TopoVertex V1, V2;
+      TopExp1::Vertices(E, V1, V2);
       if (!V1.IsNull())
         fait |= LimitTolerance(V1, tmin, tmax, TopAbs_VERTEX);
       if (!V2.IsNull())
@@ -121,7 +121,7 @@ Standard_Boolean ShapeFix_ShapeTolerance::LimitTolerance(const TopoDS_Shape&    
 
 //=================================================================================================
 
-void ShapeFix_ShapeTolerance::SetTolerance(const TopoDS_Shape&    shape,
+void ShapeFix_ShapeTolerance::SetTolerance(const TopoShape&    shape,
                                            const Standard_Real    preci,
                                            const TopAbs_ShapeEnum styp) const
 {
@@ -132,26 +132,26 @@ void ShapeFix_ShapeTolerance::SetTolerance(const TopoDS_Shape&    shape,
     return;
   if (styp == TopAbs_VERTEX || styp == TopAbs_EDGE || styp == TopAbs_FACE)
   {
-    for (TopExp_Explorer ex(shape, styp); ex.More(); ex.Next())
+    for (ShapeExplorer ex(shape, styp); ex.More(); ex.Next())
     {
-      TopoDS_Shape sh = ex.Current();
+      TopoShape sh = ex.Current();
       if (styp == TopAbs_VERTEX)
       {
-        TopoDS_Vertex V = TopoDS::Vertex(sh);
+        TopoVertex V = TopoDS::Vertex(sh);
         //	B.UpdateVertex (V,preci);
         const Handle(BRep_TVertex)& TV = *((Handle(BRep_TVertex)*)&V.TShape());
         TV->Tolerance(preci);
       }
       else if (styp == TopAbs_EDGE)
       {
-        TopoDS_Edge E = TopoDS::Edge(sh);
+        TopoEdge E = TopoDS::Edge(sh);
         //	B.UpdateEdge   (E,preci);
         const Handle(BRep_TEdge)& TE = *((Handle(BRep_TEdge)*)&E.TShape());
         TE->Tolerance(preci);
       }
       else if (styp == TopAbs_FACE)
       {
-        TopoDS_Face F = TopoDS::Face(sh);
+        TopoFace F = TopoDS::Face(sh);
         //	B.UpdateFace   (F,preci);
         const Handle(BRep_TFace)& TF = *((Handle(BRep_TFace)*)&F.TShape());
         TF->Tolerance(preci);
@@ -160,15 +160,15 @@ void ShapeFix_ShapeTolerance::SetTolerance(const TopoDS_Shape&    shape,
   }
   else if (styp == TopAbs_WIRE)
   {
-    for (TopExp_Explorer ex(shape, TopAbs_EDGE); ex.More(); ex.Next())
+    for (ShapeExplorer ex(shape, TopAbs_EDGE); ex.More(); ex.Next())
     {
-      TopoDS_Shape sh = ex.Current();
-      TopoDS_Edge  E  = TopoDS::Edge(sh);
+      TopoShape sh = ex.Current();
+      TopoEdge  E  = TopoDS::Edge(sh);
       //      B.UpdateEdge   (E,preci);
       const Handle(BRep_TEdge)& TE = *((Handle(BRep_TEdge)*)&E.TShape());
       TE->Tolerance(preci);
-      TopoDS_Vertex V1, V2;
-      TopExp::Vertices(E, V1, V2);
+      TopoVertex V1, V2;
+      TopExp1::Vertices(E, V1, V2);
       if (!V1.IsNull())
       {
         //	B.UpdateVertex (V1,preci);

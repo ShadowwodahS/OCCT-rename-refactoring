@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class RWHeaderSection
+class RWHeaderSection1
 {
 public:
   DEFINE_STANDARD_ALLOC

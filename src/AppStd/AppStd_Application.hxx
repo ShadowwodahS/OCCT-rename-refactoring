@@ -21,10 +21,10 @@
 #include <TDocStd_Application.hxx>
 
 class AppStd_Application;
-DEFINE_STANDARD_HANDLE(AppStd_Application, TDocStd_Application)
+DEFINE_STANDARD_HANDLE(AppStd_Application, AppManager)
 
 //! Legacy class defining resources name for standard OCAF documents
-class AppStd_Application : public TDocStd_Application
+class AppStd_Application : public AppManager
 {
 public:
   //! returns   the file  name  which  contains  application
@@ -34,7 +34,7 @@ public:
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(AppStd_Application, TDocStd_Application)
+  DEFINE_STANDARD_RTTIEXT(AppStd_Application, AppManager)
 };
 
 #endif // _AppStd_Application_HeaderFile

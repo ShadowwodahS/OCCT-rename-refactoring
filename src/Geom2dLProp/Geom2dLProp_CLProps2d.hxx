@@ -28,7 +28,7 @@
 #include <gp_Dir2d.hxx>
 #include <LProp_Status.hxx>
 #include <Standard_Boolean.hxx>
-class Geom2d_Curve;
+class GeomCurve2d;
 class LProp_BadContinuity;
 class Standard_DomainError;
 class Standard_OutOfRange;
@@ -36,7 +36,7 @@ class LProp_NotDefined;
 class gp_Vec2d;
 class gp_Pnt2d;
 class gp_Dir2d;
-class Geom2dLProp_Curve2dTool;
+class Curve2dTool;
 
 class Geom2dLProp_CLProps2d
 {
@@ -52,14 +52,14 @@ public:
   //! only the tangent, N should be equal to 1.
   //! <Resolution> is the linear tolerance (it is used to test
   //! if a vector is null).
-  Standard_EXPORT Geom2dLProp_CLProps2d(const Handle(Geom2d_Curve)& C,
+  Standard_EXPORT Geom2dLProp_CLProps2d(const Handle(GeomCurve2d)& C,
                                         const Standard_Integer      N,
                                         const Standard_Real         Resolution);
 
   //! Same as previous constructor but here the parameter is
   //! set to the value <U>.
   //! All the computations done will be related to <C> and <U>.
-  Standard_EXPORT Geom2dLProp_CLProps2d(const Handle(Geom2d_Curve)& C,
+  Standard_EXPORT Geom2dLProp_CLProps2d(const Handle(GeomCurve2d)& C,
                                         const Standard_Real         U,
                                         const Standard_Integer      N,
                                         const Standard_Real         Resolution);
@@ -78,7 +78,7 @@ public:
 
   //! Initializes the local properties of the curve
   //! for the new curve.
-  Standard_EXPORT void SetCurve(const Handle(Geom2d_Curve)& C);
+  Standard_EXPORT void SetCurve(const Handle(GeomCurve2d)& C);
 
   //! Returns the Point.
   Standard_EXPORT const gp_Pnt2d& Value() const;
@@ -114,7 +114,7 @@ public:
 
 protected:
 private:
-  Handle(Geom2d_Curve) myCurve;
+  Handle(GeomCurve2d) myCurve;
   Standard_Real        myU;
   Standard_Integer     myDerOrder;
   Standard_Real        myCN;

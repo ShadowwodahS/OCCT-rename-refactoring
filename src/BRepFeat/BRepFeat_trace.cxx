@@ -89,7 +89,7 @@ Standard_EXPORT Standard_Boolean BRepFeat_GetcontextCHRONO()
 {
   Standard_Boolean b = BRepFeat_contextCHRONO;
   if (b)
-    std::cout << "context (BRepFeat) CHRONO actif" << std::endl;
+    std::cout << "context (BRepFeat1) CHRONO actif" << std::endl;
   return b;
 }
 

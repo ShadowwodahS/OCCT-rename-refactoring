@@ -122,7 +122,7 @@ Handle(TColStd_HSequenceOfAsciiString) StepData_Plex::TypeList() const
   Standard_Integer                       i, nb = NbMembers();
   for (i = 1; i <= nb; i++)
   {
-    TCollection_AsciiString nam(Member(i)->StepType());
+    AsciiString1 nam(Member(i)->StepType());
     tl->Append(nam);
   }
   return tl;

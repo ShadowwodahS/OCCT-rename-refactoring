@@ -74,10 +74,10 @@ static void BREP_sortonparameter2(TopOpeBRepDS_ListOfInterference& LOI)
 Standard_EXPORT void BREP_sortonparameter(const Handle(TopOpeBRepDS_HDataStructure)& HDS)
 {
   TopOpeBRepDS_DataStructure& BDS = HDS->ChangeDS();
-  Standard_Integer            i = 1, n = HDS->NbShapes();
+  Standard_Integer            i = 1, n = HDS->NbShapes1();
   for (; i <= n; i++)
   {
-    const TopoDS_Shape& s = HDS->Shape(i);
+    const TopoShape& s = HDS->Shape(i);
     if (s.ShapeType() != TopAbs_EDGE)
       continue;
     TopOpeBRepDS_ListOfInterference& LOI = BDS.ChangeShapeInterferences(s);

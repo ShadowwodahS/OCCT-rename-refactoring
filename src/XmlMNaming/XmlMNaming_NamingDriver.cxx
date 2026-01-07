@@ -95,8 +95,8 @@ Standard_Boolean XmlMNaming_NamingDriver::Paste(const XmlObjMgt_Persistent&  the
   aNgName.ShapeType(ShapeEnumFromString(anElem.getAttribute(::ShapeTypeString())));
 
   Standard_Integer           aNb;
-  Handle(TNaming_NamedShape) NS;
-  TCollection_ExtendedString aMsgString;
+  Handle(ShapeAttribute) NS;
+  UtfString aMsgString;
 
   XmlObjMgt_DOMString aDOMStr = anElem.getAttribute(::ArgumentsString());
   if (aDOMStr != NULL)
@@ -106,7 +106,7 @@ Standard_Boolean XmlMNaming_NamingDriver::Paste(const XmlObjMgt_Persistent&  the
     // first argument
     if (!XmlObjMgt::GetInteger(aGs, aNb))
     {
-      aMsgString = TCollection_ExtendedString("XmlMNaming_NamingDriver: Cannot retrieve reference "
+      aMsgString = UtfString("XmlMNaming_NamingDriver: Cannot retrieve reference "
                                               "on first Argument from \"")
                    + aDOMStr + "\"";
       myMessageDriver->Send(aMsgString, Message_Fail);
@@ -115,10 +115,10 @@ Standard_Boolean XmlMNaming_NamingDriver::Paste(const XmlObjMgt_Persistent&  the
     while (aNb > 0)
     {
       if (theRelocTable.IsBound(aNb))
-        NS = Handle(TNaming_NamedShape)::DownCast(theRelocTable.Find(aNb));
+        NS = Handle(ShapeAttribute)::DownCast(theRelocTable.Find(aNb));
       else
       {
-        NS = new TNaming_NamedShape;
+        NS = new ShapeAttribute;
         theRelocTable.Bind(aNb, NS);
       }
       aNgName.Append(NS);
@@ -135,7 +135,7 @@ Standard_Boolean XmlMNaming_NamingDriver::Paste(const XmlObjMgt_Persistent&  the
   {
     if (!aDOMStr.GetInteger(aNb))
     {
-      aMsgString = TCollection_ExtendedString("XmlMNaming_NamingDriver: Cannot retrieve reference "
+      aMsgString = UtfString("XmlMNaming_NamingDriver: Cannot retrieve reference "
                                               "on StopNamedShape from \"")
                    + aDOMStr + "\"";
       myMessageDriver->Send(aMsgString, Message_Fail);
@@ -144,10 +144,10 @@ Standard_Boolean XmlMNaming_NamingDriver::Paste(const XmlObjMgt_Persistent&  the
     if (aNb > 0)
     {
       if (theRelocTable.IsBound(aNb))
-        NS = Handle(TNaming_NamedShape)::DownCast(theRelocTable.Find(aNb));
+        NS = Handle(ShapeAttribute)::DownCast(theRelocTable.Find(aNb));
       else
       {
-        NS = new TNaming_NamedShape;
+        NS = new ShapeAttribute;
         theRelocTable.Bind(aNb, NS);
       }
       aNgName.StopNamedShape(NS);
@@ -158,7 +158,7 @@ Standard_Boolean XmlMNaming_NamingDriver::Paste(const XmlObjMgt_Persistent&  the
   aDOMStr = anElem.getAttribute(::IndexString());
   if (!aDOMStr.GetInteger(aNb))
   {
-    aMsgString = TCollection_ExtendedString("XmlMNaming_NamingDriver: Cannot retrieve "
+    aMsgString = UtfString("XmlMNaming_NamingDriver: Cannot retrieve "
                                             "integer value of Index from \"")
                  + aDOMStr + "\"";
     myMessageDriver->Send(aMsgString, Message_Fail);
@@ -172,17 +172,17 @@ Standard_Boolean XmlMNaming_NamingDriver::Paste(const XmlObjMgt_Persistent&  the
     XmlObjMgt_DOMString aDomEntry = anElem.getAttribute(::ContextLabelString());
     if (aDomEntry != NULL)
     {
-      TCollection_AsciiString anEntry;
+      AsciiString1 anEntry;
       if (XmlObjMgt::GetTagEntryString(aDomEntry, anEntry) == Standard_False)
       {
-        TCollection_ExtendedString aMessage =
-          TCollection_ExtendedString("Cannot retrieve Entry from \"") + aDomEntry + '\"';
+        UtfString aMessage =
+          UtfString("Cannot retrieve Entry from \"") + aDomEntry + '\"';
         myMessageDriver->Send(aMessage, Message_Fail);
         return Standard_False;
       }
 
       // find label by entry
-      TDF_Label tLab; // Null label.
+      DataLabel tLab; // Null label.
       if (anEntry.Length() > 0)
       {
         TDF_Tool::Label(aNg->Label().Data(), anEntry, tLab, Standard_True);
@@ -203,14 +203,14 @@ Standard_Boolean XmlMNaming_NamingDriver::Paste(const XmlObjMgt_Persistent&  the
              < TDocStd_FormatVersion_VERSION_7)
     {
       // Orientation processing - converting from old format
-      Handle(TNaming_NamedShape) aNS;
-      if (aNg->Label().FindAttribute(TNaming_NamedShape::GetID(), aNS))
+      Handle(ShapeAttribute) aNS;
+      if (aNg->Label().FindAttribute(ShapeAttribute::GetID(), aNS))
       {
-        // const TDF_Label& aLab = aNS->Label();
-        TNaming_Iterator itL(aNS);
+        // const DataLabel& aLab = aNS->Label();
+        Iterator1 itL(aNS);
         for (; itL.More(); itL.Next())
         {
-          const TopoDS_Shape& S = itL.NewShape();
+          const TopoShape& S = itL.NewShape();
           if (S.IsNull())
             continue;
           if (aNS->Evolution() == TNaming_SELECTED)
@@ -231,7 +231,7 @@ Standard_Boolean XmlMNaming_NamingDriver::Paste(const XmlObjMgt_Persistent&  the
       aDOMStr = anElem.getAttribute(::OrientString());
       if (!aDOMStr.GetInteger(aNb))
       {
-        aMsgString = TCollection_ExtendedString("XmlMNaming_NamingDriver: Cannot retrieve "
+        aMsgString = UtfString("XmlMNaming_NamingDriver: Cannot retrieve "
                                                 "integer value of orientation from \"")
                      + aDOMStr + "\"";
         myMessageDriver->Send(aMsgString, Message_Fail);
@@ -271,10 +271,10 @@ void XmlMNaming_NamingDriver::Paste(const Handle(TDF_Attribute)& theSource,
   Standard_Integer NbArgs = aNgName.Arguments().Extent();
   if (NbArgs > 0)
   {
-    TCollection_AsciiString anArgsStr;
+    AsciiString1 anArgsStr;
     for (TNaming_ListIteratorOfListOfNamedShape it(aNgName.Arguments()); it.More(); it.Next())
     {
-      Handle(TNaming_NamedShape) anArg = it.Value();
+      Handle(ShapeAttribute) anArg = it.Value();
       aNb                              = 0;
       if (!anArg.IsNull())
       {
@@ -283,7 +283,7 @@ void XmlMNaming_NamingDriver::Paste(const Handle(TDF_Attribute)& theSource,
         {
           aNb = theRelocTable.Add(anArg);
         }
-        anArgsStr += TCollection_AsciiString(aNb) + " ";
+        anArgsStr += AsciiString1(aNb) + " ";
       }
       else
         anArgsStr += "0 ";
@@ -292,7 +292,7 @@ void XmlMNaming_NamingDriver::Paste(const Handle(TDF_Attribute)& theSource,
   }
 
   // stop named shape
-  Handle(TNaming_NamedShape) aSNS = aNgName.StopNamedShape();
+  Handle(ShapeAttribute) aSNS = aNgName.StopNamedShape();
   if (!aSNS.IsNull())
   {
     aNb = theRelocTable.FindIndex(aSNS);
@@ -307,7 +307,7 @@ void XmlMNaming_NamingDriver::Paste(const Handle(TDF_Attribute)& theSource,
   anElem.setAttribute(::IndexString(), aNgName.Index());
 
   // context label
-  TCollection_AsciiString anEntry;
+  AsciiString1 anEntry;
   if (!aNgName.ContextLabel().IsNull())
     TDF_Tool::Entry(aNgName.ContextLabel(), anEntry);
   XmlObjMgt_DOMString aDOMString;

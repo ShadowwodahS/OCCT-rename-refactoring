@@ -20,7 +20,7 @@
 #include <TColgp_HArray1OfPnt.hxx>
 #include <GProp_GProps.hxx>
 class Point3d;
-class TopoDS_Edge;
+class TopoEdge;
 
 //! Computes the  global properties of
 //! of polylines  represented by set of points.
@@ -29,7 +29,7 @@ class TopoDS_Edge;
 //! (3d or 2d curve), but has any of allowed
 //! polygons.
 //!
-class BRepGProp_MeshCinert : public GProp_GProps
+class BRepGProp_MeshCinert : public GeometricProperties
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -45,7 +45,7 @@ public:
   //! Prepare set of 3d points on base of any available edge polygons:
   //! 3D polygon, polygon on triangulation, 2d polygon on surface
   //! If edge has no polygons, array thePolyg is left unchanged
-  Standard_EXPORT static void PreparePolygon(const TopoDS_Edge&           theE,
+  Standard_EXPORT static void PreparePolygon(const TopoEdge&           theE,
                                              Handle(TColgp_HArray1OfPnt)& thePolyg);
 
 protected:

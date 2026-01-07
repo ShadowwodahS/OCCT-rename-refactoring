@@ -23,7 +23,7 @@
 #include <TDF_Attribute.hxx>
 #include <Standard_Integer.hxx>
 #include <Standard_OStream.hxx>
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 class TDF_DataSet;
 
@@ -42,19 +42,19 @@ public:
   //! ===================================
   //! Shortcut to search  a Graph node attribute with default
   //! GraphID.  Returns true if found.
-  Standard_EXPORT static Standard_Boolean Find(const TDF_Label& L, Handle(XCAFDoc_GraphNode)& G);
+  Standard_EXPORT static Standard_Boolean Find(const DataLabel& L, Handle(XCAFDoc_GraphNode)& G);
 
   //! Finds or Creates a GraphNode attribute on the label <L>
   //! with  the  default Graph  ID,   returned by the method
   //! <GetDefaultGraphID>.  Returns the created/found     GraphNode
   //! attribute.
-  Standard_EXPORT static Handle(XCAFDoc_GraphNode) Set(const TDF_Label& L);
+  Standard_EXPORT static Handle(XCAFDoc_GraphNode) Set(const DataLabel& L);
 
   //! Finds  or Creates a   GraphNode attribute on  the label
   //! <L>, with an   explicit tree ID.  <ExplicitGraphID>  is
   //! the  ID   returned by    <TDF_Attribute::ID>   method.
   //! Returns the found/created GraphNode attribute.
-  Standard_EXPORT static Handle(XCAFDoc_GraphNode) Set(const TDF_Label&     L,
+  Standard_EXPORT static Handle(XCAFDoc_GraphNode) Set(const DataLabel&     L,
                                                        const Standard_GUID& ExplicitGraphID);
 
   //! returns a default  Graph ID.  this  ID is  used by the

@@ -21,13 +21,13 @@
 #include <Standard_Boolean.hxx>
 
 //! Class for using units variables
-class StepData_Factors
+class ConversionFactors
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructor
-  Standard_EXPORT StepData_Factors();
+  Standard_EXPORT ConversionFactors();
 
   //! Initializes the 3 factors for the conversion of units
   Standard_EXPORT void InitializeFactors(const Standard_Real theLengthFactor,

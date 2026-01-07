@@ -32,7 +32,7 @@ ShapeProcessAPI_ApplySequence::ShapeProcessAPI_ApplySequence(const Standard_CStr
 
   myContext = new ShapeProcess_ShapeContext(rscName);
   myContext->SetDetalisation(TopAbs_FACE);
-  TCollection_AsciiString str(seqName);
+  AsciiString1 str(seqName);
 
   // initialize operators
   ShapeProcess_OperLibrary::Init();
@@ -49,7 +49,7 @@ Handle(ShapeProcess_ShapeContext)& ShapeProcessAPI_ApplySequence::Context()
 
 //=================================================================================================
 
-TopoDS_Shape ShapeProcessAPI_ApplySequence::PrepareShape(const TopoDS_Shape& shape,
+TopoShape ShapeProcessAPI_ApplySequence::PrepareShape(const TopoShape& shape,
                                                          const Standard_Boolean /*fillmap*/,
                                                          const TopAbs_ShapeEnum /*until*/,
                                                          const Message_ProgressRange& theProgress)
@@ -59,7 +59,7 @@ TopoDS_Shape ShapeProcessAPI_ApplySequence::PrepareShape(const TopoDS_Shape& sha
   Handle(Resource_Manager) rsc = myContext->ResourceManager();
   myContext->Init(shape);
 
-  TCollection_AsciiString str(mySeq);
+  AsciiString1 str(mySeq);
   str += ".exec.op";
   if (rsc->Find(str.ToCString()))
   {
@@ -90,7 +90,7 @@ void ShapeProcessAPI_ApplySequence::PrintPreparationResult() const
   Standard_Integer SS = 0, SN = 0, FF = 0, FS = 0, FN = 0;
   for (TopTools_DataMapIteratorOfDataMapOfShapeShape It(myContext->Map()); It.More(); It.Next())
   {
-    TopoDS_Shape keyshape = It.Key(), valueshape = It.Value();
+    TopoShape keyshape = It.Key(), valueshape = It.Value();
     if (keyshape.ShapeType() == TopAbs_SHELL)
     {
       if (valueshape.IsNull())
@@ -123,7 +123,7 @@ void ShapeProcessAPI_ApplySequence::PrintPreparationResult() const
   EPMSG150.Arg(SN);
   aMessenger->Send(EPMSG150, Message_Info);
 
-  TCollection_AsciiString tmp110(EPMSG110.Original()), tmp150(EPMSG150.Original());
+  AsciiString1 tmp110(EPMSG110.Original()), tmp150(EPMSG150.Original());
   EPMSG110.Set(tmp110.ToCString());
   EPMSG150.Set(tmp150.ToCString());
 

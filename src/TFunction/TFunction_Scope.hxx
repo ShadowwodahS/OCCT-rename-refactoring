@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <TDF_Attribute.hxx>
 #include <Standard_OStream.hxx>
-class TDF_Label;
+class DataLabel;
 class Standard_GUID;
 class TFunction_Logbook;
 class TDF_RelocationTable;
@@ -41,7 +41,7 @@ public:
   //! ==============
   //! Finds or Creates a TFunction_Scope attribute at the root label accessed by <Access>.
   //! Returns the attribute.
-  Standard_EXPORT static Handle(TFunction_Scope) Set(const TDF_Label& Access);
+  Standard_EXPORT static Handle(TFunction_Scope) Set(const DataLabel& Access);
 
   //! Returns the GUID for Scope attribute.
   //! Instant methods
@@ -52,10 +52,10 @@ public:
   Standard_EXPORT TFunction_Scope();
 
   //! Adds a function to the scope of functions.
-  Standard_EXPORT Standard_Boolean AddFunction(const TDF_Label& L);
+  Standard_EXPORT Standard_Boolean AddFunction(const DataLabel& L);
 
   //! Removes a function from the scope of functions.
-  Standard_EXPORT Standard_Boolean RemoveFunction(const TDF_Label& L);
+  Standard_EXPORT Standard_Boolean RemoveFunction(const DataLabel& L);
 
   //! Removes a function from the scope of functions.
   Standard_EXPORT Standard_Boolean RemoveFunction(const Standard_Integer ID);
@@ -67,13 +67,13 @@ public:
   Standard_EXPORT Standard_Boolean HasFunction(const Standard_Integer ID) const;
 
   //! Returns true if the label contains a function of this scope.
-  Standard_EXPORT Standard_Boolean HasFunction(const TDF_Label& L) const;
+  Standard_EXPORT Standard_Boolean HasFunction(const DataLabel& L) const;
 
   //! Returns an ID of the function.
-  Standard_EXPORT Standard_Integer GetFunction(const TDF_Label& L) const;
+  Standard_EXPORT Standard_Integer GetFunction(const DataLabel& L) const;
 
   //! Returns the label of the function with this ID.
-  Standard_EXPORT const TDF_Label& GetFunction(const Standard_Integer ID) const;
+  Standard_EXPORT const DataLabel& GetFunction(const Standard_Integer ID) const;
 
   //! Returns the Logbook used in TFunction_Driver methods.
   //! Implementation of Attribute methods

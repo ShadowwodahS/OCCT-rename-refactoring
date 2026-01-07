@@ -43,7 +43,7 @@ class Standard_OutOfRange;
 class Blend_AppFunction;
 class BRepBlend_Line;
 
-class BRepBlend_AppSurf : public AppBlend_Approx
+class BRepBlend_AppSurf : public BlendApproximation
 {
 public:
   DEFINE_STANDARD_ALLOC

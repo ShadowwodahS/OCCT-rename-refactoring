@@ -78,7 +78,7 @@ public:
 
   //! The label of a Signature uses its name as follow :
   //! "Signature : <name>"
-  Standard_EXPORT TCollection_AsciiString Label() const;
+  Standard_EXPORT AsciiString1 Label() const;
 
   //! Tells if the value for <ent> in <model> matches a text, with
   //! a criterium <exact>.
@@ -86,14 +86,14 @@ public:
   //! Can be redefined
   Standard_EXPORT virtual Standard_Boolean Matches(const Handle(RefObject)&       ent,
                                                    const Handle(Interface_InterfaceModel)& model,
-                                                   const TCollection_AsciiString&          text,
+                                                   const AsciiString1&          text,
                                                    const Standard_Boolean exact) const;
 
   //! Default procedure to tell if a value <val> matches a text
   //! with a criterium <exact>. <exact> = True requires equality,
   //! else only contained (no reg-exp)
   Standard_EXPORT static Standard_Boolean MatchValue(const Standard_CString         val,
-                                                     const TCollection_AsciiString& text,
+                                                     const AsciiString1& text,
                                                      const Standard_Boolean         exact);
 
   //! This procedure converts an Integer to a CString
@@ -108,7 +108,7 @@ protected:
   //! Initializes a Signature with its name
   Standard_EXPORT IFSelect_Signature(const Standard_CString name);
 
-  TCollection_AsciiString thename;
+  AsciiString1 thename;
 
 private:
   Standard_Integer                       thecasi[3];

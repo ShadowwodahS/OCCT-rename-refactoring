@@ -39,11 +39,11 @@ void TopOpeBRepDS_Filter::ProcessInterferences()
 void TopOpeBRepDS_Filter::ProcessEdgeInterferences()
 {
   TopOpeBRepDS_DataStructure& BDS = myHDS->ChangeDS();
-  Standard_Integer            i, nshape = BDS.NbShapes();
+  Standard_Integer            i, nshape = BDS.NbShapes1();
 
   for (i = 1; i <= nshape; i++)
   {
-    const TopoDS_Shape& S = BDS.Shape(i);
+    const TopoShape& S = BDS.Shape(i);
     if (S.IsNull())
       continue;
     if (S.ShapeType() == TopAbs_EDGE)
@@ -59,11 +59,11 @@ void TopOpeBRepDS_Filter::ProcessFaceInterferences(
   const TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State& MEsp)
 {
   TopOpeBRepDS_DataStructure& BDS = myHDS->ChangeDS();
-  Standard_Integer            i, nshape = BDS.NbShapes();
+  Standard_Integer            i, nshape = BDS.NbShapes1();
 
   for (i = 1; i <= nshape; i++)
   {
-    const TopoDS_Shape& S = BDS.Shape(i);
+    const TopoShape& S = BDS.Shape(i);
     if (S.IsNull())
       continue;
     if (S.ShapeType() == TopAbs_FACE)

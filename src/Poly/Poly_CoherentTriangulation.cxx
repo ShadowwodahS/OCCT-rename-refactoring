@@ -38,7 +38,7 @@ Poly_CoherentTriangulation::Poly_CoherentTriangulation(
 //=================================================================================================
 
 Poly_CoherentTriangulation::Poly_CoherentTriangulation(
-  const Handle(Poly_Triangulation)&        theTriangulation,
+  const Handle(MeshTriangulation)&        theTriangulation,
   const Handle(NCollection_BaseAllocator)& theAlloc)
     : myAlloc(theAlloc.IsNull() ? NCollection_BaseAllocator::CommonBaseAllocator() : theAlloc)
 {
@@ -102,16 +102,16 @@ Poly_CoherentTriangulation::~Poly_CoherentTriangulation()
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) Poly_CoherentTriangulation::GetTriangulation() const
+Handle(MeshTriangulation) Poly_CoherentTriangulation::GetTriangulation() const
 {
   const Standard_Integer nNodes     = NNodes();
   const Standard_Integer nTriangles = NTriangles();
   if (nNodes == 0 || nTriangles == 0)
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
 
-  Handle(Poly_Triangulation) aResult = new Poly_Triangulation(nNodes, nTriangles, false);
+  Handle(MeshTriangulation) aResult = new MeshTriangulation(nNodes, nTriangles, false);
 
   NCollection_Vector<Standard_Integer> vecNodeId;
   Standard_Integer                     aCount = 0;
@@ -716,7 +716,7 @@ Handle(Poly_CoherentTriangulation) Poly_CoherentTriangulation::Clone(
 
   if (NTriangles() != 0 && NNodes() != 0)
   {
-    Handle(Poly_Triangulation) theTriangulation = GetTriangulation();
+    Handle(MeshTriangulation) theTriangulation = GetTriangulation();
     newTri = new Poly_CoherentTriangulation(theTriangulation, theAlloc);
     newTri->SetDeflection(theTriangulation->Deflection());
   }

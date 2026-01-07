@@ -15,9 +15,9 @@
 #include <IGESData_IGESType.hxx>
 #include <Standard_PCharacter.hxx>
 
-IGESData_DirPart::IGESData_DirPart() {}
+DirectoryPart::DirectoryPart() {}
 
-void IGESData_DirPart::Init(const Standard_Integer i1,
+void DirectoryPart::Init(const Standard_Integer i1,
                             const Standard_Integer i2,
                             const Standard_Integer i3,
                             const Standard_Integer i4,
@@ -73,7 +73,7 @@ void IGESData_DirPart::Init(const Standard_Integer i1,
 
 //=================================================================================================
 
-void IGESData_DirPart::Values(Standard_Integer&      i1,
+void DirectoryPart::Values(Standard_Integer&      i1,
                               Standard_Integer&      i2,
                               Standard_Integer&      i3,
                               Standard_Integer&      i4,
@@ -133,7 +133,7 @@ void IGESData_DirPart::Values(Standard_Integer&      i1,
   psubscript[8] = '\0';
 }
 
-IGESData_IGESType IGESData_DirPart::Type() const
+IGESType DirectoryPart::Type() const
 {
-  return IGESData_IGESType(thevals[0], thevals[16]);
+  return IGESType(thevals[0], thevals[16]);
 } // type & forme

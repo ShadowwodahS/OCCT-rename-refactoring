@@ -71,14 +71,14 @@ public:
                                      const Standard_Real Fleche);
 
   //! Flag theIsReqToKeepRLine has been entered only for
-  //! compatibility with TopOpeBRep package. It shall be deleted
-  //! after deleting TopOpeBRep.
+  //! compatibility with TopOpeBRep1 package. It shall be deleted
+  //! after deleting TopOpeBRep1.
   //! When intersection result returns IntPatch_RLine and another
   //! IntPatch_Line (not restriction) we (in case of theIsReqToKeepRLine==TRUE)
   //! will always keep both lines even if they are coincided.
   //! Flag theIsReqToPostWLProc has been entered only for
-  //! compatibility with TopOpeBRep package. It shall be deleted
-  //! after deleting TopOpeBRep.
+  //! compatibility with TopOpeBRep1 package. It shall be deleted
+  //! after deleting TopOpeBRep1.
   //! If theIsReqToPostWLProc == FALSE, then we will work with Walking-line
   //! obtained after intersection algorithm directly (without any post-processing).
   Standard_EXPORT void Perform(const Handle(Adaptor3d_Surface)&   S1,
@@ -94,14 +94,14 @@ public:
   //! If isGeomInt == Standard_False, then method
   //! Param-Param intersection will be used.
   //! Flag theIsReqToKeepRLine has been entered only for
-  //! compatibility with TopOpeBRep package. It shall be deleted
-  //! after deleting TopOpeBRep.
+  //! compatibility with TopOpeBRep1 package. It shall be deleted
+  //! after deleting TopOpeBRep1.
   //! When intersection result returns IntPatch_RLine and another
   //! IntPatch_Line (not restriction) we (in case of theIsReqToKeepRLine==TRUE)
   //! will always keep both lines even if they are coincided.
   //! Flag theIsReqToPostWLProc has been entered only for
-  //! compatibility with TopOpeBRep package. It shall be deleted
-  //! after deleting TopOpeBRep.
+  //! compatibility with TopOpeBRep1 package. It shall be deleted
+  //! after deleting TopOpeBRep1.
   //! If theIsReqToPostWLProc == FALSE, then we will work with Walking-line
   //! obtained after intersection algorithm directly (without any post-processing).
   Standard_EXPORT void Perform(const Handle(Adaptor3d_Surface)&   S1,
@@ -213,8 +213,8 @@ private:
                                         const GeomAbs_SurfaceType          typs2);
 
   //! Flag theIsReqToKeepRLine has been entered only for
-  //! compatibility with TopOpeBRep package. It shall be deleted
-  //! after deleting TopOpeBRep.
+  //! compatibility with TopOpeBRep1 package. It shall be deleted
+  //! after deleting TopOpeBRep1.
   //! When intersection result returns IntPatch_RLine and another
   //! IntPatch_Line (not restriction) we (in case of theIsReqToKeepRLine==TRUE)
   //! will always keep both lines even if they are coincided.

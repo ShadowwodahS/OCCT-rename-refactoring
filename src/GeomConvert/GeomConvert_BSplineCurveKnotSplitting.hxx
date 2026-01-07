@@ -23,7 +23,7 @@
 #include <TColStd_HArray1OfInteger.hxx>
 #include <Standard_Integer.hxx>
 #include <TColStd_Array1OfInteger.hxx>
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 
 //! An algorithm to determine points at which a BSpline
 //! curve should be split in order to obtain arcs of the same continuity.
@@ -60,7 +60,7 @@ public:
   //! SplitBSplineCurve (provided by the package GeomConvert) to split the curve.
   //! Exceptions
   //! Standard_RangeError if ContinuityRange is less than zero.
-  Standard_EXPORT GeomConvert_BSplineCurveKnotSplitting(const Handle(Geom_BSplineCurve)& BasisCurve,
+  Standard_EXPORT GeomConvert_BSplineCurveKnotSplitting(const Handle(BSplineCurve3d)& BasisCurve,
                                                         const Standard_Integer ContinuityRange);
 
   //! Returns the number of points at which the analyzed

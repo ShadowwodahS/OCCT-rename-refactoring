@@ -26,8 +26,8 @@
 #include <IntTools_Context.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Wire;
-class TopoDS_Face;
+class TopoWire;
+class TopoFace;
 
 //! The class is to build loops from the given set of edges.
 //!
@@ -57,9 +57,9 @@ public:
   Standard_EXPORT virtual void Perform(
     const Message_ProgressRange& theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
-  static void MakeWire(TopTools_ListOfShape& theLE, TopoDS_Wire& theW);
+  static void MakeWire(ShapeList& theLE, TopoWire& theW);
 
-  Standard_EXPORT static void SplitBlock(const TopoDS_Face&              theF,
+  Standard_EXPORT static void SplitBlock(const TopoFace&              theF,
                                          BOPTools_ConnexityBlock&        theCB,
                                          const Handle(IntTools_Context)& theContext);
 

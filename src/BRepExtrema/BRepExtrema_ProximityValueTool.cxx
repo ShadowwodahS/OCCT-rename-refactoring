@@ -79,7 +79,7 @@ void BRepExtrema_ProximityValueTool::LoadTriangleSets(
 // function : calcEdgeRefinementStep
 // purpose  : Calculates the edge refinement step
 //=======================================================================
-static Standard_Real calcEdgeRefinementStep(const TopoDS_Edge&     theEdge,
+static Standard_Real calcEdgeRefinementStep(const TopoEdge&     theEdge,
                                             const Standard_Integer theNbNodes)
 {
   if (theNbNodes < 2)
@@ -95,13 +95,13 @@ static Standard_Real calcEdgeRefinementStep(const TopoDS_Edge&     theEdge,
 // purpose  : Calculates the face refinement step as an approximate square
 // (Shape area / number triangles) * 2
 //=======================================================================
-static Standard_Real calcFaceRefinementStep(const TopoDS_Face&     theFace,
+static Standard_Real calcFaceRefinementStep(const TopoFace&     theFace,
                                             const Standard_Integer theNbTrg)
 {
   if (theNbTrg < 1)
     return 0;
 
-  GProp_GProps props;
+  GeometricProperties props;
   BRepGProp::SurfaceProperties(theFace, props);
   Standard_Real aArea = props.Mass();
   return 2 * (aArea / (Standard_Real)theNbTrg);
@@ -112,7 +112,7 @@ static Standard_Real calcFaceRefinementStep(const TopoDS_Face&     theFace,
 // purpose  : Gets shape data for further refinement
 //=======================================================================
 Standard_Boolean BRepExtrema_ProximityValueTool::getInfoForRefinement(
-  const TopoDS_Shape& theShape,
+  const TopoShape& theShape,
   TopAbs_ShapeEnum&   theShapeType,
   Standard_Integer&   theNbNodes,
   Standard_Real&      theStep)
@@ -120,10 +120,10 @@ Standard_Boolean BRepExtrema_ProximityValueTool::getInfoForRefinement(
   if (theShape.ShapeType() == TopAbs_FACE)
   {
     theShapeType   = TopAbs_FACE;
-    TopoDS_Face aF = TopoDS::Face(theShape);
+    TopoFace aF = TopoDS::Face(theShape);
 
     TopLoc_Location            aLocation;
-    Handle(Poly_Triangulation) aTriangulation = BRep_Tool::Triangulation(aF, aLocation);
+    Handle(MeshTriangulation) aTriangulation = BRepInspector::Triangulation(aF, aLocation);
 
     if (aTriangulation.IsNull())
     {
@@ -137,10 +137,10 @@ Standard_Boolean BRepExtrema_ProximityValueTool::getInfoForRefinement(
   else if (theShape.ShapeType() == TopAbs_EDGE)
   {
     theShapeType   = TopAbs_EDGE;
-    TopoDS_Edge aE = TopoDS::Edge(theShape);
+    TopoEdge aE = TopoDS::Edge(theShape);
 
     TopLoc_Location        aLocation;
-    Handle(Poly_Polygon3D) aPolygon = BRep_Tool::Polygon3D(aE, aLocation);
+    Handle(Poly_Polygon3D) aPolygon = BRepInspector::Polygon3D(aE, aLocation);
 
     if (aPolygon.IsNull())
     {
@@ -235,7 +235,7 @@ Standard_Real BRepExtrema_ProximityValueTool::computeProximityDist(
 // purpose  : Gets additional vertices and their statuses on the edge with the input step
 //=======================================================================
 Standard_Boolean BRepExtrema_ProximityValueTool::getEdgeAdditionalVertices(
-  const TopoDS_Edge&                  theEdge,
+  const TopoEdge&                  theEdge,
   const Standard_Real                 theStep,
   BVH_Array3d&                        theAddVertices,
   NCollection_Vector<ProxPnt_Status>& theAddStatuses)
@@ -345,7 +345,7 @@ void BRepExtrema_ProximityValueTool::doRecurTrgSplit(
 }
 
 static Standard_Real getModelRange(const TopLoc_Location&            theLocation,
-                                   const Handle(Poly_Triangulation)& theTr)
+                                   const Handle(MeshTriangulation)& theTr)
 {
   Bnd_Box aBox;
   theTr->MinMax(aBox, theLocation.Transformation());
@@ -360,7 +360,7 @@ static Standard_Real getModelRange(const TopLoc_Location&            theLocation
 
 static void getNodesOfTrg(const Standard_Integer            theTriIdx,
                           const TopLoc_Location&            theLocation,
-                          const Handle(Poly_Triangulation)& theTr,
+                          const Handle(MeshTriangulation)& theTr,
                           Point3d (&theTrg)[3])
 {
   Standard_Integer aVtxIdx1;
@@ -384,7 +384,7 @@ static void getNodesOfTrg(const Standard_Integer            theTriIdx,
 
 // Gets status of triangle edges - on the border or middle of the face
 static void getEdgesStatus(const Standard_Integer            theTriIdx,
-                           const Handle(Poly_Triangulation)& theTr,
+                           const Handle(MeshTriangulation)& theTr,
                            ProxPnt_Status (&theEdgesStatus1)[3])
 {
   for (Standard_Integer j = 0; j < 3; j++)
@@ -408,7 +408,7 @@ static void getEdgesStatus(const Standard_Integer            theTriIdx,
 // square)
 //=======================================================================
 Standard_Boolean BRepExtrema_ProximityValueTool::getFaceAdditionalVertices(
-  const TopoDS_Face&                  theFace,
+  const TopoFace&                  theFace,
   const Standard_Real                 theStep,
   BVH_Array3d&                        theAddVertices,
   NCollection_Vector<ProxPnt_Status>& theAddStatuses)
@@ -416,7 +416,7 @@ Standard_Boolean BRepExtrema_ProximityValueTool::getFaceAdditionalVertices(
   constexpr Standard_Real aTol = Precision::Confusion();
 
   TopLoc_Location            aLocation;
-  Handle(Poly_Triangulation) aTr = BRep_Tool::Triangulation(theFace, aLocation);
+  Handle(MeshTriangulation) aTr = BRepInspector::Triangulation(theFace, aLocation);
 
   if (aTr.IsNull())
   {

@@ -281,17 +281,17 @@ Vec Geom_CylindricalSurface::DN(const Standard_Real    U,
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_CylindricalSurface::UIso(const Standard_Real U) const
+Handle(GeomCurve3d) Geom_CylindricalSurface::UIso(const Standard_Real U) const
 {
-  Handle(Geom_Line) GL = new Geom_Line(ElSLib::CylinderUIso(pos, radius, U));
+  Handle(GeomLine) GL = new GeomLine(ElSLib::CylinderUIso(pos, radius, U));
   return GL;
 }
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_CylindricalSurface::VIso(const Standard_Real V) const
+Handle(GeomCurve3d) Geom_CylindricalSurface::VIso(const Standard_Real V) const
 {
-  Handle(Geom_Circle) GC = new Geom_Circle(ElSLib::CylinderVIso(pos, radius, V));
+  Handle(GeomCircle) GC = new GeomCircle(ElSLib::CylinderVIso(pos, radius, V));
   return GC;
 }
 

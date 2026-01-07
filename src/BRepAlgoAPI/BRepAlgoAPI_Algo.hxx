@@ -23,7 +23,7 @@
 #include <BRepBuilderAPI_MakeShape.hxx>
 #include <BOPAlgo_Options.hxx>
 
-class TopoDS_Shape;
+class TopoShape;
 
 //! Provides the root interface for the API algorithms
 
@@ -34,7 +34,7 @@ public:
 
   //! Returns a shape built by the shape construction algorithm.
   //! Does not check if the shape is built.
-  Standard_EXPORT virtual const TopoDS_Shape& Shape() Standard_OVERRIDE;
+  Standard_EXPORT virtual const TopoShape& Shape() Standard_OVERRIDE;
 
   // Provide access to methods of protected base class BOPAlgo_Options
   // (inherited as protected to avoid problems with SWIG wrapper)

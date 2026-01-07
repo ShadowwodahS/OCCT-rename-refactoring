@@ -42,7 +42,7 @@
 //  bissectrices with straight line which gives us  + points among which we are going to find
 //  solutions.   + The choices are made basing on Qualifiers of C1 and C2.  +
 //=========================================================================
-GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
                                          const GccEnt_QualifiedCirc& Qualified2,
                                          const gp_Lin2d&             OnLine,
                                          const Standard_Real         Tolerance)
@@ -194,7 +194,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
 
   if (!WellDone)
   {
-    GccAna_Circ2dBisec Bis(C1, C2);
+    Circle2dBisector Bis(C1, C2);
     if (Bis.IsDone())
     {
       TColStd_Array1OfReal Rbid(1, 2);
@@ -380,22 +380,22 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
 
 //========================================================================
 
-Standard_Boolean GccAna_Circ2d2TanOn::IsDone() const
+Standard_Boolean Circle2dTwoTangentOn::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer GccAna_Circ2d2TanOn::NbSolutions() const
+Standard_Integer Circle2dTwoTangentOn::NbSolutions() const
 {
   return NbrSol;
 }
 
-gp_Circ2d GccAna_Circ2d2TanOn::ThisSolution(const Standard_Integer Index) const
+gp_Circ2d Circle2dTwoTangentOn::ThisSolution(const Standard_Integer Index) const
 {
   return cirsol(Index);
 }
 
-void GccAna_Circ2d2TanOn::WhichQualifier(const Standard_Integer Index,
+void Circle2dTwoTangentOn::WhichQualifier(const Standard_Integer Index,
                                          GccEnt_Position&       Qualif1,
                                          GccEnt_Position&       Qualif2) const
 {
@@ -414,7 +414,7 @@ void GccAna_Circ2d2TanOn::WhichQualifier(const Standard_Integer Index,
   }
 }
 
-void GccAna_Circ2d2TanOn::Tangency1(const Standard_Integer Index,
+void Circle2dTwoTangentOn::Tangency1(const Standard_Integer Index,
                                     Standard_Real&         ParSol,
                                     Standard_Real&         ParArg,
                                     gp_Pnt2d&              PntSol) const
@@ -442,7 +442,7 @@ void GccAna_Circ2d2TanOn::Tangency1(const Standard_Integer Index,
   }
 }
 
-void GccAna_Circ2d2TanOn::Tangency2(const Standard_Integer Index,
+void Circle2dTwoTangentOn::Tangency2(const Standard_Integer Index,
                                     Standard_Real&         ParSol,
                                     Standard_Real&         ParArg,
                                     gp_Pnt2d&              PntSol) const
@@ -470,7 +470,7 @@ void GccAna_Circ2d2TanOn::Tangency2(const Standard_Integer Index,
   }
 }
 
-void GccAna_Circ2d2TanOn::CenterOn3(const Standard_Integer Index,
+void Circle2dTwoTangentOn::CenterOn3(const Standard_Integer Index,
                                     Standard_Real&         ParArg,
                                     gp_Pnt2d&              PntSol) const
 {
@@ -489,7 +489,7 @@ void GccAna_Circ2d2TanOn::CenterOn3(const Standard_Integer Index,
   }
 }
 
-Standard_Boolean GccAna_Circ2d2TanOn::IsTheSame1(const Standard_Integer Index) const
+Standard_Boolean Circle2dTwoTangentOn::IsTheSame1(const Standard_Integer Index) const
 {
   if (!WellDone)
   {
@@ -507,7 +507,7 @@ Standard_Boolean GccAna_Circ2d2TanOn::IsTheSame1(const Standard_Integer Index) c
   return Standard_True;
 }
 
-Standard_Boolean GccAna_Circ2d2TanOn::IsTheSame2(const Standard_Integer Index) const
+Standard_Boolean Circle2dTwoTangentOn::IsTheSame2(const Standard_Integer Index) const
 {
   if (!WellDone)
   {

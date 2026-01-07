@@ -45,7 +45,7 @@
 extern Standard_Boolean TopOpeBRep_GettraceBIPS();
 extern Standard_Boolean TopOpeBRep_GettraceDEGEN();
 
-extern Standard_Boolean FUN_debnull(const TopoDS_Shape& s)
+extern Standard_Boolean FUN_debnull(const TopoShape& s)
 {
   Standard_Boolean isnull = s.IsNull();
   if (isnull)
@@ -81,7 +81,7 @@ TopAbs_State TopOpeBRep_FacesFiller::StBipVPonF(const TopOpeBRep_VPointInter& vp
     return TopAbs_IN;
 
   Standard_Boolean   isperiodic;
-  const TopoDS_Edge& EArc = TopoDS::Edge(Lrest.Arc());
+  const TopoEdge& EArc = TopoDS::Edge(Lrest.Arc());
   BRepAdaptor_Curve  BAC(EArc);
   GeomAbs_CurveType  CT = BAC.GetType();
   isperiodic            = (CT == GeomAbs_Circle);
@@ -121,10 +121,10 @@ TopAbs_State TopOpeBRep_FacesFiller::StBipVPonF(const TopOpeBRep_VPointInter& vp
     Standard_Boolean act = ((sif == 3) || (sif == ISI)) && ((sil == 3) || (sil == ISI));
     if (act)
     {
-      TopOpeBRepDS_Transition Tf =
-        TopOpeBRep_FFTransitionTool::ProcessLineTransition(vpf, ISI, vpf.Edge(ISI).Orientation());
-      TopOpeBRepDS_Transition Tl =
-        TopOpeBRep_FFTransitionTool::ProcessLineTransition(vpl, ISI, vpl.Edge(ISI).Orientation());
+      StateTransition Tf =
+        FaceFaceTransitionTool::ProcessLineTransition(vpf, ISI, vpf.Edge(ISI).Orientation());
+      StateTransition Tl =
+        FaceFaceTransitionTool::ProcessLineTransition(vpl, ISI, vpl.Edge(ISI).Orientation());
       Standard_Boolean toreverse = (Tf.Orientation(TopAbs_IN) == TopAbs_REVERSED);
       toreverse                  = toreverse && (Tl.Orientation(TopAbs_IN) == TopAbs_FORWARD);
       if (toreverse)
@@ -135,7 +135,7 @@ TopAbs_State TopOpeBRep_FacesFiller::StBipVPonF(const TopOpeBRep_VPointInter& vp
     } // act
   } // isperiodic
 
-  TopoDS_Shape F;
+  TopoShape F;
   if (isonedge1)
     F = myF2;
   else
@@ -161,7 +161,7 @@ TopAbs_State TopOpeBRep_FacesFiller::StBipVPonF(const TopOpeBRep_VPointInter& vp
     }
   }
 
-  const TopoDS_Edge& arc = TopoDS::Edge(Lrest.Arc());
+  const TopoEdge& arc = TopoDS::Edge(Lrest.Arc());
   BRepAdaptor_Curve  BC(arc);
   Standard_Real      x      = 0.789;
   Standard_Real      parmil = (1 - x) * uf + x * ul; // xpu170898
@@ -172,7 +172,7 @@ TopAbs_State TopOpeBRep_FacesFiller::StBipVPonF(const TopOpeBRep_VPointInter& vp
   Standard_Boolean trc = TopOpeBRep_GettraceBIPS();
   if (trc)
   {
-    TCollection_AsciiString aa("pmil");
+    AsciiString1 aa("pmil");
     FUN_brep_draw(aa, pmil);
   }
   #endif
@@ -190,7 +190,7 @@ TopAbs_State TopOpeBRep_FacesFiller::StateVPonFace(const TopOpeBRep_VPointInter&
     return TopAbs_ON;
 
   Standard_Integer iother = (iVP == 1) ? 2 : 1;
-  TopoDS_Shape     F;
+  TopoShape     F;
   if (iother == 1)
     F = myF1;
   else
@@ -223,7 +223,7 @@ void TopOpeBRep_FacesFiller::Lminmax(const TopOpeBRep_LineInter& L,
 {
   pmin = RealLast();
   pmax = RealFirst();
-  TopOpeBRep_VPointInterIterator VPI;
+  VPointIntersectionIterator VPI;
   VPI.Init(L, Standard_False);
   for (; VPI.More(); VPI.Next())
   {
@@ -249,7 +249,7 @@ void TopOpeBRep_FacesFiller::Lminmax(const TopOpeBRep_LineInter& L,
 //           at least one of the restriction edges of <ERL>.
 //=======================================================================
 Standard_Boolean TopOpeBRep_FacesFiller::LSameDomainERL(const TopOpeBRep_LineInter& L,
-                                                        const TopTools_ListOfShape& ERL)
+                                                        const ShapeList& ERL)
 {
   Standard_Boolean isone = Standard_False;
   if (L.TypeLineCurve() == TopOpeBRep_WALKING)
@@ -259,8 +259,8 @@ Standard_Boolean TopOpeBRep_FacesFiller::LSameDomainERL(const TopOpeBRep_LineInt
   Standard_Boolean trc = Standard_False;
   if (trc)
   {
-    Handle(Geom_Curve)      C = L.Curve();
-    TCollection_AsciiString aa("line");
+    Handle(GeomCurve3d)      C = L.Curve();
+    AsciiString1 aa("line");
     FUN_brep_draw(aa, C);
   }
 #endif
@@ -279,8 +279,8 @@ Standard_Boolean TopOpeBRep_FacesFiller::LSameDomainERL(const TopOpeBRep_LineInt
   if (id)
     return Standard_False;
 
-  Handle(Geom_Curve) CL;
-  TopOpeBRep_GeomTool::MakeCurve(f, l, L, CL);
+  Handle(GeomCurve3d) CL;
+  GeometryTool::MakeCurve(f, l, L, CL);
   Standard_Real t  = 0.417789;
   Standard_Real p  = (1 - t) * f + t * l;
   Point3d        Pm = CL->Value(p);
@@ -289,8 +289,8 @@ Standard_Boolean TopOpeBRep_FacesFiller::LSameDomainERL(const TopOpeBRep_LineInt
   it.Initialize(ERL);
   for (; it.More(); it.Next())
   {
-    const TopoDS_Edge& E      = TopoDS::Edge(it.Value());
-    Standard_Real      tolE   = BRep_Tool::Tolerance(E);
+    const TopoEdge& E      = TopoDS::Edge(it.Value());
+    Standard_Real      tolE   = BRepInspector::Tolerance(E);
     Standard_Real      maxtol = Max(tolE, GLOBAL_tolFF);
     BRepAdaptor_Curve  BAC(E);
     f                     = BAC.FirstParameter();
@@ -313,7 +313,7 @@ Standard_Boolean TopOpeBRep_FacesFiller::LSameDomainERL(const TopOpeBRep_LineInt
 Standard_Boolean TopOpeBRep_FacesFiller::IsVPtransLok(const TopOpeBRep_LineInter& L,
                                                       const Standard_Integer      iVP,
                                                       const Standard_Integer      SI12,
-                                                      TopOpeBRepDS_Transition&    T)
+                                                      StateTransition&    T)
 {
   const TopOpeBRep_VPointInter& VP     = L.VPoint(iVP);
   Standard_Boolean              is1    = (SI12 == 1);
@@ -322,9 +322,9 @@ Standard_Boolean TopOpeBRep_FacesFiller::IsVPtransLok(const TopOpeBRep_LineInter
   if (!VPonEd)
     return Standard_False;
 
-  const TopoDS_Edge& E = TopoDS::Edge(VP.Edge(SI12));
+  const TopoEdge& E = TopoDS::Edge(VP.Edge(SI12));
   TopAbs_Orientation O = E.Orientation();
-  T                    = TopOpeBRep_FFTransitionTool::ProcessLineTransition(VP, SI12, O);
+  T                    = FaceFaceTransitionTool::ProcessLineTransition(VP, SI12, O);
   Standard_Boolean u   = T.IsUnknown();
   return (!u);
 }
@@ -337,7 +337,7 @@ Standard_Boolean TopOpeBRep_FacesFiller::TransvpOK(const TopOpeBRep_LineInter& L
 #define M_INOUT(stf, stl) ((stf == TopAbs_IN) && (stl == TopAbs_OUT))
 #define M_OUTIN(stf, stl) ((stf == TopAbs_OUT) && (stl == TopAbs_IN))
 
-  TopOpeBRepDS_Transition T;
+  StateTransition T;
   Standard_Boolean        ok = TopOpeBRep_FacesFiller::IsVPtransLok(L, ivp, SI, T);
   if (ok)
   {
@@ -358,19 +358,19 @@ Standard_Real TopOpeBRep_FacesFiller::VPParamOnER(const TopOpeBRep_VPointInter& 
 {
   // If vp(index) is an edge boundary returns the point's parameter.
 
-  const TopoDS_Edge& E       = TopoDS::Edge(Lrest.Arc());
+  const TopoEdge& E       = TopoDS::Edge(Lrest.Arc());
   Standard_Boolean   isedge1 = Lrest.ArcIsEdge(1);
   Standard_Boolean   isedge2 = Lrest.ArcIsEdge(2);
   if (isedge1 && vp.IsVertexOnS1())
   {
-    const TopoDS_Vertex& v1 = TopoDS::Vertex(vp.VertexOnS1());
-    Standard_Real        rr = BRep_Tool::Parameter(v1, E);
+    const TopoVertex& v1 = TopoDS::Vertex(vp.VertexOnS1());
+    Standard_Real        rr = BRepInspector::Parameter(v1, E);
     return rr;
   }
   if (isedge2 && vp.IsVertexOnS2())
   {
-    const TopoDS_Vertex& v2 = TopoDS::Vertex(vp.VertexOnS2());
-    Standard_Real        rr = BRep_Tool::Parameter(v2, E);
+    const TopoVertex& v2 = TopoDS::Vertex(vp.VertexOnS2());
+    Standard_Real        rr = BRepInspector::Parameter(v2, E);
     return rr;
   }
   // vp is an intersection point,and we get it's parameter.
@@ -380,7 +380,7 @@ Standard_Real TopOpeBRep_FacesFiller::VPParamOnER(const TopOpeBRep_VPointInter& 
     return vp.ParameterOnArc2();
 
   // Else,we have to project the point on the edge restriction
-  Standard_Real tolee = BRep_Tool::Tolerance(E);
+  Standard_Real tolee = BRepInspector::Tolerance(E);
   tolee               = tolee * 1.e2; // xpu290998 : PRO15369
   Standard_Real    param, dist;
   Standard_Boolean projok = FUN_tool_projPonE(vp.Value(), tolee, E, param, dist);

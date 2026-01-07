@@ -22,10 +22,10 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Integer.hxx>
-class TopoDS_Face;
+class TopoFace;
 class HLRTopoBRep_Data;
-class TopoDS_Vertex;
-class TopoDS_Edge;
+class TopoVertex;
+class TopoEdge;
 class Point3d;
 class Geom2d_Line;
 
@@ -35,20 +35,20 @@ public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT static void Perform(const Standard_Integer FI,
-                                      const TopoDS_Face&     F,
+                                      const TopoFace&     F,
                                       HLRTopoBRep_Data&      DS,
                                       const Standard_Integer nbIsos);
 
-  Standard_EXPORT static TopoDS_Vertex MakeVertex(const TopoDS_Edge&  E,
+  Standard_EXPORT static TopoVertex MakeVertex(const TopoEdge&  E,
                                                   const Point3d&       P,
                                                   const Standard_Real Par,
                                                   const Standard_Real Tol,
                                                   HLRTopoBRep_Data&   DS);
 
-  Standard_EXPORT static void MakeIsoLine(const TopoDS_Face&         F,
+  Standard_EXPORT static void MakeIsoLine(const TopoFace&         F,
                                           const Handle(Geom2d_Line)& Iso,
-                                          TopoDS_Vertex&             V1,
-                                          TopoDS_Vertex&             V2,
+                                          TopoVertex&             V1,
+                                          TopoVertex&             V2,
                                           const Standard_Real        U1,
                                           const Standard_Real        U2,
                                           const Standard_Real        Tol,

@@ -37,9 +37,9 @@
 #include <Standard_DomainError.hxx>
 
 // MGE 03/08/98
-IGESBasic_ToolSingleParent::IGESBasic_ToolSingleParent() {}
+SingleParentTool::SingleParentTool() {}
 
-void IGESBasic_ToolSingleParent::ReadOwnParams(const Handle(IGESBasic_SingleParent)&  ent,
+void SingleParentTool::ReadOwnParams(const Handle(IGESBasic_SingleParent)&  ent,
                                                const Handle(IGESData_IGESReaderData)& IR,
                                                IGESData_ParamReader&                  PR) const
 {
@@ -102,7 +102,7 @@ void IGESBasic_ToolSingleParent::ReadOwnParams(const Handle(IGESBasic_SinglePare
   ent->Init(tempNbParentEntities, tempParent, tempChildren);
 }
 
-void IGESBasic_ToolSingleParent::WriteOwnParams(const Handle(IGESBasic_SingleParent)& ent,
+void SingleParentTool::WriteOwnParams(const Handle(IGESBasic_SingleParent)& ent,
                                                 IGESData_IGESWriter&                  IW) const
 {
   Standard_Integer upper = ent->NbChildren();
@@ -113,7 +113,7 @@ void IGESBasic_ToolSingleParent::WriteOwnParams(const Handle(IGESBasic_SinglePar
     IW.Send(ent->Child(i));
 }
 
-void IGESBasic_ToolSingleParent::OwnShared(const Handle(IGESBasic_SingleParent)& ent,
+void SingleParentTool::OwnShared(const Handle(IGESBasic_SingleParent)& ent,
                                            Interface_EntityIterator&             iter) const
 {
   iter.GetOneItem(ent->SingleParent());
@@ -122,7 +122,7 @@ void IGESBasic_ToolSingleParent::OwnShared(const Handle(IGESBasic_SingleParent)&
     iter.GetOneItem(ent->Child(i));
 }
 
-void IGESBasic_ToolSingleParent::OwnCopy(const Handle(IGESBasic_SingleParent)& another,
+void SingleParentTool::OwnCopy(const Handle(IGESBasic_SingleParent)& another,
                                          const Handle(IGESBasic_SingleParent)& ent,
                                          Interface_CopyTool&                   TC) const
 {
@@ -138,7 +138,7 @@ void IGESBasic_ToolSingleParent::OwnCopy(const Handle(IGESBasic_SingleParent)& a
   ent->Init(aNbParentEntities, aparent, EntArray);
 }
 
-Standard_Boolean IGESBasic_ToolSingleParent::OwnCorrect(
+Standard_Boolean SingleParentTool::OwnCorrect(
   const Handle(IGESBasic_SingleParent)& ent) const
 {
   if (ent->NbParentEntities() == 1)
@@ -151,10 +151,10 @@ Standard_Boolean IGESBasic_ToolSingleParent::OwnCorrect(
   return Standard_True; // nbparents = 1
 }
 
-IGESData_DirChecker IGESBasic_ToolSingleParent::DirChecker(
+DirectoryChecker SingleParentTool::DirChecker(
   const Handle(IGESBasic_SingleParent)& /* ent */) const
 {
-  IGESData_DirChecker DC(402, 9); // Form no = 9 & Type = 402
+  DirectoryChecker DC(402, 9); // Form no = 9 & Type = 402
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.BlankStatusIgnored();
@@ -162,7 +162,7 @@ IGESData_DirChecker IGESBasic_ToolSingleParent::DirChecker(
   return DC;
 }
 
-void IGESBasic_ToolSingleParent::OwnCheck(const Handle(IGESBasic_SingleParent)& ent,
+void SingleParentTool::OwnCheck(const Handle(IGESBasic_SingleParent)& ent,
                                           const Interface_ShareTool&,
                                           Handle(Interface_Check)& ach) const
 {
@@ -178,7 +178,7 @@ void IGESBasic_ToolSingleParent::OwnCheck(const Handle(IGESBasic_SingleParent)& 
   }
 }
 
-void IGESBasic_ToolSingleParent::OwnDump(const Handle(IGESBasic_SingleParent)& ent,
+void SingleParentTool::OwnDump(const Handle(IGESBasic_SingleParent)& ent,
                                          const IGESData_IGESDumper&            dumper,
                                          Standard_OStream&                     S,
                                          const Standard_Integer                level) const

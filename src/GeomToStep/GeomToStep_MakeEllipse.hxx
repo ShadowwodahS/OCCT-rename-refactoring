@@ -32,22 +32,22 @@ class Geom2d_Ellipse;
 //! Ellipse from Geom, and Circ from gp, and the class
 //! Ellipse from StepGeom which describes a Ellipse from
 //! Prostep.
-class GeomToStep_MakeEllipse : public GeomToStep_Root
+class GeomToStep_MakeEllipse : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeEllipse(
     const gp_Elips&         C,
-    const StepData_Factors& theLocalFactors = StepData_Factors());
+    const ConversionFactors& theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeEllipse(
     const Handle(Geom_Ellipse)& C,
-    const StepData_Factors&     theLocalFactors = StepData_Factors());
+    const ConversionFactors&     theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeEllipse(
     const Handle(Geom2d_Ellipse)& C,
-    const StepData_Factors&       theLocalFactors = StepData_Factors());
+    const ConversionFactors&       theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_Ellipse)& Value() const;
 

@@ -27,10 +27,10 @@
 #include <Precision.hxx>
 
 #ifdef _WIN32
-Standard_IMPORT Draw_Viewer dout;
+Standard_IMPORT DrawViewer dout;
 #endif
 
-Standard_Integer props(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer props(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
   {
@@ -68,11 +68,11 @@ Standard_Integer props(Draw_Interpretor& di, Standard_Integer n, const char** a)
     --n;
   }
 
-  TopoDS_Shape S = DBRep::Get(a[1]);
+  TopoShape S = DBRep1::Get(a[1]);
   if (S.IsNull())
     return 0;
 
-  GProp_GProps G;
+  GeometricProperties G;
 
   Standard_Boolean onlyClosed = Standard_False;
   Standard_Real    eps        = 1.0;
@@ -81,7 +81,7 @@ Standard_Integer props(Draw_Interpretor& di, Standard_Integer n, const char** a)
     onlyClosed = Standard_True;
   if (n > 2 && *a[2] != 'c' && n != 5)
   {
-    eps     = Draw::Atof(a[2]);
+    eps     = Draw1::Atof(a[2]);
     witheps = Standard_True;
   }
 
@@ -112,9 +112,9 @@ Standard_Integer props(Draw_Interpretor& di, Standard_Integer n, const char** a)
   if (n >= 5)
   {
     Standard_Integer shift = n - 5;
-    Draw::Set(a[shift + 2], P.X());
-    Draw::Set(a[shift + 3], P.Y());
-    Draw::Set(a[shift + 4], P.Z());
+    Draw1::Set(a[shift + 2], P.X());
+    Draw1::Set(a[shift + 3], P.Y());
+    Draw1::Set(a[shift + 4], P.Z());
   }
 
   GProp_PrincipalProps Pr = G.PrincipalProperties();
@@ -192,7 +192,7 @@ Standard_Integer props(Draw_Interpretor& di, Standard_Integer n, const char** a)
   return 0;
 }
 
-Standard_Integer vpropsgk(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer vpropsgk(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
   {
@@ -215,11 +215,11 @@ Standard_Integer vpropsgk(Draw_Interpretor& di, Standard_Integer n, const char**
     return 1;
   }
 
-  TopoDS_Shape S = DBRep::Get(a[1]);
+  TopoShape S = DBRep1::Get(a[1]);
   if (S.IsNull())
     return 0;
 
-  GProp_GProps     G;
+  GeometricProperties     G;
   Standard_Boolean SkipShared = Standard_False;
   if (n >= 2 && strcmp(a[n - 1], "-skip") == 0)
   {
@@ -235,15 +235,15 @@ Standard_Integer vpropsgk(Draw_Interpretor& di, Standard_Integer n, const char**
   // Standard_Real    aDefaultTol = 1.e-3;
   Standard_Integer mode = 0;
 
-  eps  = Draw::Atof(a[2]);
-  mode = Draw::Atoi(a[3]);
+  eps  = Draw1::Atof(a[2]);
+  mode = Draw1::Atoi(a[3]);
   if (mode > 0)
     onlyClosed = Standard_True;
-  mode = Draw::Atoi(a[4]);
+  mode = Draw1::Atoi(a[4]);
   if (mode > 0)
     isUseSpan = Standard_True;
 
-  mode = Draw::Atoi(a[5]);
+  mode = Draw1::Atoi(a[5]);
   if (mode == 1 || mode == 3)
     CGFlag = Standard_True;
   if (mode == 2 || mode == 3)
@@ -272,15 +272,15 @@ Standard_Integer vpropsgk(Draw_Interpretor& di, Standard_Integer n, const char**
     Point3d           P = G.CentreOfMass();
     if (n > 6)
     {
-      Draw::Set(a[6], P.X());
+      Draw1::Set(a[6], P.X());
     }
     if (n > 7)
     {
-      Draw::Set(a[7], P.Y());
+      Draw1::Set(a[7], P.Y());
     }
     if (n > 8)
     {
-      Draw::Set(a[8], P.Z());
+      Draw1::Set(a[8], P.Z());
     }
 
     aSStream1.precision(15);
@@ -341,14 +341,14 @@ Standard_Integer vpropsgk(Draw_Interpretor& di, Standard_Integer n, const char**
 
 //=================================================================================================
 
-void BRepTest::GPropCommands(Draw_Interpretor& theCommands)
+void BRepTest::GPropCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
 
-  DBRep::BasicCommands(theCommands);
+  DBRep1::BasicCommands(theCommands);
 
   const char* g = "Global properties";
   theCommands.Add("lprops",

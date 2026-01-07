@@ -32,7 +32,7 @@ class StepData_DefaultGeneral;
 DEFINE_STANDARD_HANDLE(StepData_DefaultGeneral, StepData_GeneralModule)
 
 //! DefaultGeneral defines a GeneralModule which processes
-//! Unknown Entity from StepData  only
+//! Unknown Entity from StepData1  only
 class StepData_DefaultGeneral : public StepData_GeneralModule
 {
 
@@ -41,7 +41,7 @@ public:
   Standard_EXPORT StepData_DefaultGeneral();
 
   //! Specific filling of the list of Entities shared by an Entity
-  //! <ent>, which is an UnknownEntity from StepData.
+  //! <ent>, which is an UnknownEntity from StepData1.
   Standard_EXPORT void FillSharedCase(const Standard_Integer            casenum,
                                       const Handle(RefObject)& ent,
                                       Interface_EntityIterator& iter) const Standard_OVERRIDE;

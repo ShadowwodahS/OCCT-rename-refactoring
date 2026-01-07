@@ -75,7 +75,7 @@ static Standard_Integer ContToInteger(const GeomAbs_Shape Cont)
   return result;
 }
 
-static Standard_Integer directfaces(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer directfaces(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
@@ -84,14 +84,14 @@ static Standard_Integer directfaces(Draw_Interpretor& di, Standard_Integer argc,
   }
   Standard_CString arg1  = argv[1];
   Standard_CString arg2  = argv[2];
-  TopoDS_Shape     Shape = DBRep::Get(arg2);
+  TopoShape     Shape = DBRep1::Get(arg2);
   if (Shape.IsNull())
   {
     di << "Shape unknown : " << arg2 << "\n";
     return 1 /* Error */;
   }
 
-  TopoDS_Shape result = ShapeCustom::DirectFaces(Shape);
+  TopoShape result = ShapeCustom::DirectFaces(Shape);
   if (result.IsNull())
   {
     di << "NO RESULT\n";
@@ -103,7 +103,7 @@ static Standard_Integer directfaces(Draw_Interpretor& di, Standard_Integer argc,
     return 0;
   }
   di << "DirectFaces -> Result : " << arg1 << "\n";
-  DBRep::Set(arg1, result);
+  DBRep1::Set(arg1, result);
   return 0; // Done
 }
 
@@ -135,7 +135,7 @@ static Standard_Integer ckeckKnots(const TColStd_Array1OfReal& theKnots,
   return aNum;
 }
 
-static void expcurv2d(const Handle(Geom2d_Curve)& aCurve,
+static void expcurv2d(const Handle(GeomCurve2d)& aCurve,
                       TColStd_Array2OfInteger&    Nb,
                       const Standard_Integer      Degree,
                       const Standard_Integer      MaxSeg,
@@ -149,14 +149,14 @@ static void expcurv2d(const Handle(Geom2d_Curve)& aCurve,
   if (aCurve->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve)))
   {
     Handle(Geom2d_TrimmedCurve) tmp      = Handle(Geom2d_TrimmedCurve)::DownCast(aCurve);
-    Handle(Geom2d_Curve)        BasCurve = tmp->BasisCurve();
+    Handle(GeomCurve2d)        BasCurve = tmp->BasisCurve();
     expcurv2d(BasCurve, Nb, Degree, MaxSeg, theCont, theFirst, theLast);
     return;
   }
   if (aCurve->IsKind(STANDARD_TYPE(Geom2d_OffsetCurve)))
   {
     Handle(Geom2d_OffsetCurve) tmp      = Handle(Geom2d_OffsetCurve)::DownCast(aCurve);
-    Handle(Geom2d_Curve)       BasCurve = tmp->BasisCurve();
+    Handle(GeomCurve2d)       BasCurve = tmp->BasisCurve();
     expcurv2d(BasCurve, Nb, Degree, MaxSeg, theCont, theFirst, theLast);
     return;
   }
@@ -199,7 +199,7 @@ static void expcurv2d(const Handle(Geom2d_Curve)& aCurve,
   return;
 }
 
-static void expcurv(const Handle(Geom_Curve)& aCurve,
+static void expcurv(const Handle(GeomCurve3d)& aCurve,
                     TColStd_Array2OfInteger&  Nb,
                     const Standard_Integer    Degree,
                     const Standard_Integer    MaxSeg,
@@ -212,22 +212,22 @@ static void expcurv(const Handle(Geom_Curve)& aCurve,
   if (aCurve->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
   {
     Handle(Geom_TrimmedCurve) tmp      = Handle(Geom_TrimmedCurve)::DownCast(aCurve);
-    Handle(Geom_Curve)        BasCurve = tmp->BasisCurve();
+    Handle(GeomCurve3d)        BasCurve = tmp->BasisCurve();
     expcurv(BasCurve, Nb, Degree, MaxSeg, theCont, theFirst, theLast);
     return;
   }
   if (aCurve->IsKind(STANDARD_TYPE(Geom_OffsetCurve)))
   {
     Handle(Geom_OffsetCurve) tmp      = Handle(Geom_OffsetCurve)::DownCast(aCurve);
-    Handle(Geom_Curve)       BasCurve = tmp->BasisCurve();
+    Handle(GeomCurve3d)       BasCurve = tmp->BasisCurve();
     expcurv(BasCurve, Nb, Degree, MaxSeg, theCont, theFirst, theLast);
     return;
   }
 
   Standard_Integer aCont = ContToInteger(aCurve->Continuity());
-  if (aCurve->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (aCurve->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    Handle(Geom_BSplineCurve) Bs = Handle(Geom_BSplineCurve)::DownCast(aCurve);
+    Handle(BSplineCurve3d) Bs = Handle(BSplineCurve3d)::DownCast(aCurve);
     if (Bs->Degree() > Degree)
       Nb.ChangeValue(1, 1)++;
     if (Bs->NbKnots() - 1 > MaxSeg)
@@ -244,9 +244,9 @@ static void expcurv(const Handle(Geom_Curve)& aCurve,
     }
     return;
   }
-  if (aCurve->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+  if (aCurve->IsKind(STANDARD_TYPE(BezierCurve3d)))
   {
-    Handle(Geom_BezierCurve) Bs = Handle(Geom_BezierCurve)::DownCast(aCurve);
+    Handle(BezierCurve3d) Bs = Handle(BezierCurve3d)::DownCast(aCurve);
     if (Bs->Degree() > Degree)
       Nb.ChangeValue(2, 1)++;
     if (Bs->IsRational())
@@ -260,7 +260,7 @@ static void expcurv(const Handle(Geom_Curve)& aCurve,
   return;
 }
 
-static void expsurf(const Handle(Geom_Surface)& aSurface,
+static void expsurf(const Handle(GeomSurface)& aSurface,
                     TColStd_Array2OfInteger&    NbSurf,
                     const Standard_Integer      Degree,
                     const Standard_Integer      MaxSeg,
@@ -271,7 +271,7 @@ static void expsurf(const Handle(Geom_Surface)& aSurface,
   if (aSurface->IsKind(STANDARD_TYPE(Geom_SweptSurface)))
   {
     Handle(Geom_SweptSurface) aSurf    = Handle(Geom_SweptSurface)::DownCast(aSurface);
-    Handle(Geom_Curve)        BasCurve = aSurf->BasisCurve();
+    Handle(GeomCurve3d)        BasCurve = aSurf->BasisCurve();
     expcurv(BasCurve,
             NbSurf,
             Degree,
@@ -285,14 +285,14 @@ static void expsurf(const Handle(Geom_Surface)& aSurface,
   {
     Handle(Geom_RectangularTrimmedSurface) aSurf =
       Handle(Geom_RectangularTrimmedSurface)::DownCast(aSurface);
-    Handle(Geom_Surface) theSurf = aSurf->BasisSurface();
+    Handle(GeomSurface) theSurf = aSurf->BasisSurface();
     expsurf(theSurf, NbSurf, Degree, MaxSeg, theCont);
     return;
   }
   if (aSurface->IsKind(STANDARD_TYPE(Geom_OffsetSurface)))
   {
     Handle(Geom_OffsetSurface) aSurf   = Handle(Geom_OffsetSurface)::DownCast(aSurface);
-    Handle(Geom_Surface)       theSurf = aSurf->BasisSurface();
+    Handle(GeomSurface)       theSurf = aSurf->BasisSurface();
     expsurf(theSurf, NbSurf, Degree, MaxSeg, theCont);
     return;
   }
@@ -322,7 +322,7 @@ static void expsurf(const Handle(Geom_Surface)& aSurface,
       NbSurf.ChangeValue(2, 4)++;
     return;
   }
-  if (aSurface->IsKind(STANDARD_TYPE(Geom_Plane)))
+  if (aSurface->IsKind(STANDARD_TYPE(GeomPlane)))
   {
     NbSurf.ChangeValue(1, 5)++;
   }
@@ -330,7 +330,7 @@ static void expsurf(const Handle(Geom_Surface)& aSurface,
     NbSurf.ChangeValue(2, 5)++;
 }
 
-static Standard_Integer expshape(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer expshape(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
@@ -338,9 +338,9 @@ static Standard_Integer expshape(Draw_Interpretor& di, Standard_Integer argc, co
     return 1 /* Error */;
   }
   Standard_CString arg2   = argv[1];
-  TopoDS_Shape     Shape  = DBRep::Get(arg2);
-  Standard_Integer Degree = Draw::Atoi(argv[2]);
-  Standard_Integer MaxSeg = Draw::Atoi(argv[3]);
+  TopoShape     Shape  = DBRep1::Get(arg2);
+  Standard_Integer Degree = Draw1::Atoi(argv[2]);
+  Standard_Integer MaxSeg = Draw1::Atoi(argv[3]);
   GeomAbs_Shape    aCont3 = GeomAbs_C0;
   Standard_Integer k      = 4;
   if (argc > k)
@@ -379,28 +379,28 @@ static Standard_Integer expshape(Draw_Interpretor& di, Standard_Integer argc, co
     di << "Shape unknown: " << arg2 << "\n";
     return 1 /* Error */;
   }
-  TopExp_Explorer Ex;
+  ShapeExplorer Ex;
 
   Standard_Integer nbF = 1;
   for (Ex.Init(Shape, TopAbs_FACE); Ex.More(); Ex.Next(), nbF++)
   {
-    TopoDS_Face          F = TopoDS::Face(Ex.Current());
+    TopoFace          F = TopoDS::Face(Ex.Current());
     TopLoc_Location      L;
-    Handle(Geom_Surface) aSurface = BRep_Tool::Surface(F, L);
+    Handle(GeomSurface) aSurface = BRepInspector::Surface(F, L);
     expsurf(aSurface, NbSurf, Degree, MaxSeg, aCont);
-    TopExp_Explorer exp;
+    ShapeExplorer exp;
 
     Standard_Integer nbE = 1;
     for (exp.Init(F, TopAbs_EDGE); exp.More(); exp.Next(), nbE++)
     {
-      TopoDS_Edge E = TopoDS::Edge(exp.Current());
-      if (BRep_Tool::IsClosed(E, F))
+      TopoEdge E = TopoDS::Edge(exp.Current());
+      if (BRepInspector::IsClosed(E, F))
         nbSeam++;
       Standard_Real      First, Last;
-      Handle(Geom_Curve) aCurve = BRep_Tool::Curve(E, L, First, Last);
+      Handle(GeomCurve3d) aCurve = BRepInspector::Curve(E, L, First, Last);
       expcurv(aCurve, NbCurv, Degree, MaxSeg, aCont, First, Last);
       Standard_Real        First2d, Last2d;
-      Handle(Geom2d_Curve) aCurve2d = BRep_Tool::CurveOnSurface(E, F, First2d, Last2d);
+      Handle(GeomCurve2d) aCurve2d = BRepInspector::CurveOnSurface(E, F, First2d, Last2d);
       expcurv2d(aCurve2d, NbCurv2d, Degree, MaxSeg, aCont, First2d, Last2d);
     }
   }
@@ -474,7 +474,7 @@ static Standard_Integer expshape(Draw_Interpretor& di, Standard_Integer argc, co
   return 0;
 }
 
-static Standard_Integer scaleshape(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer scaleshape(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 4)
   {
@@ -482,14 +482,14 @@ static Standard_Integer scaleshape(Draw_Interpretor& di, Standard_Integer argc, 
     return 1 /* Error */;
   }
   Standard_CString arg2  = argv[2];
-  TopoDS_Shape     Shape = DBRep::Get(arg2);
+  TopoShape     Shape = DBRep1::Get(arg2);
   if (Shape.IsNull())
   {
     di << "Shape unknown: " << arg2 << "\n";
     return 1 /* Error */;
   }
 
-  TopoDS_Shape result = ShapeCustom::ScaleShape(Shape, Draw::Atof(argv[3]));
+  TopoShape result = ShapeCustom::ScaleShape(Shape, Draw1::Atof(argv[3]));
   if (result.IsNull())
   {
     di << "NO RESULT\n";
@@ -500,11 +500,11 @@ static Standard_Integer scaleshape(Draw_Interpretor& di, Standard_Integer argc, 
     di << "NO MODIFICATIONS\n";
     return 0;
   }
-  DBRep::Set(argv[1], result);
+  DBRep1::Set(argv[1], result);
   return 0;
 }
 
-static Standard_Integer BSplRes(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer BSplRes(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 11)
   {
@@ -512,7 +512,7 @@ static Standard_Integer BSplRes(Draw_Interpretor& di, Standard_Integer argc, con
     return 1 /* Error */;
   }
   Standard_CString arg2  = argv[2];
-  TopoDS_Shape     Shape = DBRep::Get(arg2);
+  TopoShape     Shape = DBRep1::Get(arg2);
   if (Shape.IsNull())
   {
     di << "Shape unknown: " << arg2 << "\n";
@@ -560,15 +560,15 @@ static Standard_Integer BSplRes(Draw_Interpretor& di, Standard_Integer argc, con
   }
 
   Handle(ShapeCustom_RestrictionParameters) aParameters = new ShapeCustom_RestrictionParameters;
-  TopoDS_Shape                              result      = ShapeCustom::BSplineRestriction(Shape,
-                                                        Draw::Atof(argv[3]),
-                                                        Draw::Atof(argv[4]),
-                                                        Draw::Atoi(argv[5]),
-                                                        Draw::Atoi(argv[6]),
+  TopoShape                              result      = ShapeCustom::BSplineRestriction(Shape,
+                                                        Draw1::Atof(argv[3]),
+                                                        Draw1::Atof(argv[4]),
+                                                        Draw1::Atoi(argv[5]),
+                                                        Draw1::Atoi(argv[6]),
                                                         aCont3,
                                                         aCont2,
-                                                        Draw::Atoi(argv[9]) != 0,
-                                                        Draw::Atoi(argv[10]) != 0,
+                                                        Draw1::Atoi(argv[9]) != 0,
+                                                        Draw1::Atoi(argv[10]) != 0,
                                                         aParameters);
   if (result.IsNull())
   {
@@ -578,16 +578,16 @@ static Standard_Integer BSplRes(Draw_Interpretor& di, Standard_Integer argc, con
   else if (result == Shape)
   {
     di << "NO MODIFICATIONS\n";
-    DBRep::Set(argv[1], result);
+    DBRep1::Set(argv[1], result);
     return 0;
   }
   ShapeFix::SameParameter(result, Standard_False);
 
-  DBRep::Set(argv[1], result);
+  DBRep1::Set(argv[1], result);
   return 0;
 }
 
-static Standard_Integer convtorevol(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer convtorevol(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
@@ -597,14 +597,14 @@ static Standard_Integer convtorevol(Draw_Interpretor& di, Standard_Integer argc,
 
   Standard_CString arg1  = argv[1];
   Standard_CString arg2  = argv[2];
-  TopoDS_Shape     Shape = DBRep::Get(arg2);
+  TopoShape     Shape = DBRep1::Get(arg2);
   if (Shape.IsNull())
   {
     di << "Shape unknown : " << arg2 << "\n";
     return 1;
   }
 
-  TopoDS_Shape result = ShapeCustom::ConvertToRevolution(Shape);
+  TopoShape result = ShapeCustom::ConvertToRevolution(Shape);
   if (result.IsNull())
   {
     di << "NO RESULT\n";
@@ -616,13 +616,13 @@ static Standard_Integer convtorevol(Draw_Interpretor& di, Standard_Integer argc,
     return 0;
   }
   di << "ConvertToRevolution -> Result : " << arg1 << "\n";
-  DBRep::Set(arg1, result);
+  DBRep1::Set(arg1, result);
   return 0; // Done
 }
 
 //=================================================================================================
 
-void SWDRAW_ShapeCustom::InitCommands(Draw_Interpretor& theCommands)
+void SWDRAW_ShapeCustom::InitCommands(DrawInterpreter& theCommands)
 {
   static Standard_Integer initactor = 0;
   if (initactor)

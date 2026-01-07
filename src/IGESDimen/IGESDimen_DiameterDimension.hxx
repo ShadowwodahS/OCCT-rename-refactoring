@@ -30,7 +30,7 @@ class IGESDimen_DiameterDimension;
 DEFINE_STANDARD_HANDLE(IGESDimen_DiameterDimension, IGESData_IGESEntity)
 
 //! defines DiameterDimension, Type <206> Form <0>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Used for dimensioning diameters
 class IGESDimen_DiameterDimension : public IGESData_IGESEntity
 {
@@ -47,7 +47,7 @@ public:
   Standard_EXPORT void Init(const Handle(IGESDimen_GeneralNote)& aNote,
                             const Handle(IGESDimen_LeaderArrow)& aLeader,
                             const Handle(IGESDimen_LeaderArrow)& anotherLeader,
-                            const gp_XY&                         aCenter);
+                            const Coords2d&                         aCenter);
 
   //! returns the General Note Entity
   Standard_EXPORT Handle(IGESDimen_GeneralNote) Note() const;
@@ -75,7 +75,7 @@ private:
   Handle(IGESDimen_GeneralNote) theNote;
   Handle(IGESDimen_LeaderArrow) theFirstLeader;
   Handle(IGESDimen_LeaderArrow) theSecondLeader;
-  gp_XY                         theCenter;
+  Coords2d                         theCenter;
 };
 
 #endif // _IGESDimen_DiameterDimension_HeaderFile

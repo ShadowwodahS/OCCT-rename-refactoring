@@ -18,9 +18,9 @@
 #include <TCollection_AsciiString.hxx>
 
 // --- Enum : AheadOrBehind ---
-static TCollection_AsciiString aobAhead(".AHEAD.");
-static TCollection_AsciiString aobExact(".EXACT.");
-static TCollection_AsciiString aobBehind(".BEHIND.");
+static AsciiString1 aobAhead(".AHEAD.");
+static AsciiString1 aobExact(".EXACT.");
+static AsciiString1 aobBehind(".BEHIND.");
 
 RWStepBasic_RWCoordinatedUniversalTimeOffset::RWStepBasic_RWCoordinatedUniversalTimeOffset() {}
 

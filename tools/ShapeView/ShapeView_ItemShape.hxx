@@ -34,7 +34,7 @@ class ShapeView_ItemShape;
 typedef QExplicitlySharedDataPointer<ShapeView_ItemShape> ShapeView_ItemShapePtr;
 
 //! \class ShapeView_ItemShape
-//! This item is connected to TopoDS_Shape.
+//! This item is connected to TopoShape.
 //! Parent is either ShapeView_ItemRoot or ShapeView_ItemShape, children are ShapeView_ItemShape or
 //! no children
 class ShapeView_ItemShape : public TreeModel_ItemBase
@@ -62,7 +62,7 @@ public:
   void SetExplodeType(const TopAbs_ShapeEnum theType) { myExplodeType = theType; }
 
   //! Returns the current shape
-  const TopoDS_Shape& GetItemShape() const
+  const TopoShape& GetItemShape() const
   {
     initItem();
     return myShape;
@@ -71,7 +71,7 @@ public:
   //! Returns child(extracted) shape for the current shape by the index
   //! \param theRowId an index of child shape
   //! \returns shape instance or NULL
-  Standard_EXPORT TopoDS_Shape Shape(const int theRowId) const;
+  Standard_EXPORT TopoShape Shape(const int theRowId) const;
 
   //! Returns name of BREP file for the shape if exists
   //! \return string value
@@ -115,7 +115,7 @@ protected:
 
   //! Returns current shape, initialized item if it has not been initialized yet
   //! \return shape value
-  TopoDS_Shape getShape() const;
+  TopoShape getShape() const;
 
 private:
   //! Constructor
@@ -128,7 +128,7 @@ private:
 private:
   TopAbs_ShapeEnum myExplodeType; //!< type of explore own shape and get children
 
-  TopoDS_Shape myShape;    //!< current shape
+  TopoShape myShape;    //!< current shape
   QString      myFileName; //!< BREP file name
 
   TopTools_IndexedMapOfShape myChildShapes; //!< cached container of child shapes

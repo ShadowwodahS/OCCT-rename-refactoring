@@ -45,7 +45,7 @@ HLRTest_DrawableEdgeTool::HLRTest_DrawableEdgeTool(const Handle(HLRBRep_Algo)& A
 
 //=================================================================================================
 
-void HLRTest_DrawableEdgeTool::DrawOn(Draw_Display& D) const
+void HLRTest_DrawableEdgeTool::DrawOn(DrawDisplay& D) const
 {
   if (myViewId == D.ViewId())
   {
@@ -58,7 +58,7 @@ void HLRTest_DrawableEdgeTool::DrawOn(Draw_Display& D) const
 
 //=================================================================================================
 
-void HLRTest_DrawableEdgeTool::InternalDraw(Draw_Display& D, const Standard_Integer typ) const
+void HLRTest_DrawableEdgeTool::InternalDraw(DrawDisplay& D, const Standard_Integer typ) const
 {
   Handle(HLRBRep_Data) DS = myAlgo->DataStructure();
 
@@ -69,7 +69,7 @@ void HLRTest_DrawableEdgeTool::InternalDraw(Draw_Display& D, const Standard_Inte
     //    Standard_Integer ie,v1,v2,e1,e2,f1,f2;
     Standard_Integer  ie, e2;
     Standard_Integer  iCB = 1;
-    Standard_Integer  nCB = myAlgo->NbShapes();
+    Standard_Integer  nCB = myAlgo->NbShapes1();
     Standard_Integer  ne  = DS->NbEdges();
     Standard_Integer  nf  = DS->NbFaces();
     HLRBRep_EdgeData* ed  = &(DS->EDataArray().ChangeValue(0));
@@ -110,7 +110,7 @@ void HLRTest_DrawableEdgeTool::InternalDraw(Draw_Display& D, const Standard_Inte
 
 //=================================================================================================
 
-void HLRTest_DrawableEdgeTool::DrawFace(Draw_Display&          D,
+void HLRTest_DrawableEdgeTool::DrawFace(DrawDisplay&          D,
                                         const Standard_Integer typ,
                                         const Standard_Integer nCB,
                                         const Standard_Integer iface,
@@ -145,7 +145,7 @@ void HLRTest_DrawableEdgeTool::DrawFace(Draw_Display&          D,
 
 //=================================================================================================
 
-void HLRTest_DrawableEdgeTool::DrawEdge(Draw_Display&          D,
+void HLRTest_DrawableEdgeTool::DrawEdge(DrawDisplay&          D,
                                         const Standard_Boolean inFace,
                                         const Standard_Integer typ,
                                         const Standard_Integer nCB,

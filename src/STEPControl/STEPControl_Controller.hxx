@@ -24,8 +24,8 @@
 #include <IFSelect_ReturnStatus.hxx>
 #include <Standard_Integer.hxx>
 class Interface_InterfaceModel;
-class XSControl_WorkSession;
-class TopoDS_Shape;
+class ExchangeSession;
+class TopoShape;
 class Transfer_FinderProcess;
 
 class STEPControl_Controller;
@@ -48,7 +48,7 @@ public:
   Standard_EXPORT Handle(Transfer_ActorOfTransientProcess) ActorRead(
     const Handle(Interface_InterfaceModel)& theModel) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void Customise(Handle(XSControl_WorkSession)& WS) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Customise(Handle(ExchangeSession)& WS) Standard_OVERRIDE;
 
   //! Takes one Shape and transfers it to the InterfaceModel
   //! (already created by NewModel for instance)
@@ -57,7 +57,7 @@ public:
   //! -2 bad model (requires a StepModel)
   //! modeshape : 1 Facetted BRep, 2 Shell, 3 Manifold Solid
   Standard_EXPORT virtual IFSelect_ReturnStatus TransferWriteShape(
-    const TopoDS_Shape&                     shape,
+    const TopoShape&                     shape,
     const Handle(Transfer_FinderProcess)&   FP,
     const Handle(Interface_InterfaceModel)& model,
     const Standard_Integer                  modetrans = 0,

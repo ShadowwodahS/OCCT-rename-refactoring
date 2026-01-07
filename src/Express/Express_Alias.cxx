@@ -37,7 +37,7 @@ const Handle(Express_Type)& Express_Alias::Type() const
 
 //=================================================================================================
 
-const TCollection_AsciiString Express_Alias::CPPName() const
+const AsciiString1 Express_Alias::CPPName() const
 {
   return myType->CPPName();
 }

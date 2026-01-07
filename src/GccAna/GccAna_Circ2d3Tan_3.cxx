@@ -34,7 +34,7 @@
 //   construct the solution of radius equal to the distance between the   +
 //   chosen center point and straight line Qualified1.                               +
 //=========================================================================
-GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedLin& Qualified1,
+Circle2dThreeTangent::Circle2dThreeTangent(const GccEnt_QualifiedLin& Qualified1,
                                      const GccEnt_QualifiedLin& Qualified2,
                                      const GccEnt_QualifiedLin& Qualified3,
                                      const Standard_Real)
@@ -104,8 +104,8 @@ GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedLin& Qualified1,
   Standard_Real        ydir1 = dir1.Y();
   Standard_Real        ydir2 = dir2.Y();
   Standard_Real        ydir3 = dir3.Y();
-  GccAna_Lin2dBisec    Bisec1(L1, L2);
-  GccAna_Lin2dBisec    Bisec2(L1, L3);
+  Line2dBisector    Bisec1(L1, L2);
+  Line2dBisector    Bisec2(L1, L3);
   Standard_Integer     ncote1 = 0;
   Standard_Integer     ncote2 = 0;
   Standard_Integer     ncote3 = 0;
@@ -183,17 +183,17 @@ GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedLin& Qualified1,
               {
                 cross1 = cross1 / Abs(cross1);
               }
-              pnttg1sol(nbsol) = gp_Pnt2d(gp_XY(cx, cy) + cross1 * Radius * gp_XY(-ydir1, xdir1));
+              pnttg1sol(nbsol) = gp_Pnt2d(Coords2d(cx, cy) + cross1 * Radius * Coords2d(-ydir1, xdir1));
               if (cross2 != 0.0)
               {
                 cross2 = cross2 / Abs(cross2);
               }
-              pnttg2sol(nbsol) = gp_Pnt2d(gp_XY(cx, cy) + cross2 * Radius * gp_XY(-ydir2, xdir2));
+              pnttg2sol(nbsol) = gp_Pnt2d(Coords2d(cx, cy) + cross2 * Radius * Coords2d(-ydir2, xdir2));
               if (cross3 != 0.0)
               {
                 cross3 = cross3 / Abs(cross3);
               }
-              pnttg3sol(nbsol) = gp_Pnt2d(gp_XY(cx, cy) + cross3 * Radius * gp_XY(-ydir3, xdir3));
+              pnttg3sol(nbsol) = gp_Pnt2d(Coords2d(cx, cy) + cross3 * Radius * Coords2d(-ydir3, xdir3));
               par1sol(nbsol)   = ElCLib::Parameter(cirsol(nbsol), pnttg1sol(nbsol));
               pararg1(nbsol)   = ElCLib::Parameter(L1, pnttg1sol(nbsol));
               par2sol(nbsol)   = ElCLib::Parameter(cirsol(nbsol), pnttg2sol(nbsol));
@@ -523,15 +523,15 @@ GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedLin& Qualified1,
             gp_Pnt2d      Center(cirsol(NbrSol).Location());
             gp_Dir2d      dc(origin1.XY() - Center.XY());
             Standard_Real sign = dc.Dot(gp_Dir2d(-dir1.Y(), dir1.X()));
-            dc                 = gp_Dir2d(sign * gp_XY(-dir1.Y(), dir1.X()));
+            dc                 = gp_Dir2d(sign * Coords2d(-dir1.Y(), dir1.X()));
             pnttg1sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc.XY());
             dc                 = gp_Dir2d(origin2.XY() - Center.XY());
             sign               = dc.Dot(gp_Dir2d(-dir2.Y(), dir2.X()));
-            dc                 = gp_Dir2d(sign * gp_XY(-dir2.Y(), dir2.X()));
+            dc                 = gp_Dir2d(sign * Coords2d(-dir2.Y(), dir2.X()));
             pnttg2sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc.XY());
             dc                 = gp_Dir2d(origin3.XY() - Center.XY());
             sign               = dc.Dot(gp_Dir2d(-dir3.Y(), dir3.X()));
-            dc                 = gp_Dir2d(sign * gp_XY(-dir3.Y(), dir3.X()));
+            dc                 = gp_Dir2d(sign * Coords2d(-dir3.Y(), dir3.X()));
             pnttg3sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc.XY());
             par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
             pararg1(NbrSol)    = ElCLib::Parameter(L1, pnttg1sol(NbrSol));

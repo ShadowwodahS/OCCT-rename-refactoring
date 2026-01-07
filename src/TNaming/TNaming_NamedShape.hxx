@@ -26,15 +26,15 @@
 #include <TDF_Attribute.hxx>
 #include <Standard_OStream.hxx>
 class Standard_GUID;
-class TopoDS_Shape;
+class TopoShape;
 class TDF_DeltaOnModification;
 class TDF_DeltaOnRemoval;
 class TDF_RelocationTable;
 class TDF_DataSet;
 class TDF_AttributeDelta;
 
-class TNaming_NamedShape;
-DEFINE_STANDARD_HANDLE(TNaming_NamedShape, TDF_Attribute)
+class ShapeAttribute;
+DEFINE_STANDARD_HANDLE(ShapeAttribute, TDF_Attribute)
 
 //! The basis to define an attribute for the storage of
 //! topology and naming data.
@@ -44,7 +44,7 @@ DEFINE_STANDARD_HANDLE(TNaming_NamedShape, TDF_Attribute)
 //! -   A list of pairs of shapes called the "old"
 //! shape and the "new" shape. The meaning
 //! depends on the type of evolution.
-class TNaming_NamedShape : public TDF_Attribute
+class ShapeAttribute : public TDF_Attribute
 {
 
 public:
@@ -53,13 +53,13 @@ public:
   //! Returns the GUID for named shapes.
   Standard_EXPORT static const Standard_GUID& GetID();
 
-  Standard_EXPORT TNaming_NamedShape();
+  Standard_EXPORT ShapeAttribute();
 
   Standard_EXPORT Standard_Boolean IsEmpty() const;
 
   //! Returns the shapes contained in <NS>. Returns a null
   //! shape if IsEmpty.
-  Standard_EXPORT TopoDS_Shape Get() const;
+  Standard_EXPORT TopoShape Get() const;
 
   //! Returns the Evolution of the attribute.
   TNaming_Evolution Evolution() const;
@@ -72,7 +72,7 @@ public:
 
   Standard_EXPORT void Clear();
 
-  ~TNaming_NamedShape() { Clear(); }
+  ~ShapeAttribute() { Clear(); }
 
   //! Returns the ID of the attribute.
   const Standard_GUID& ID() const Standard_OVERRIDE;
@@ -139,11 +139,11 @@ public:
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
   friend class TNaming_Builder;
-  friend class TNaming_Iterator;
-  friend class TNaming_NewShapeIterator;
-  friend class TNaming_OldShapeIterator;
+  friend class Iterator1;
+  friend class NewShapeIterator;
+  friend class OldShapeIterator;
 
-  DEFINE_STANDARD_RTTIEXT(TNaming_NamedShape, TDF_Attribute)
+  DEFINE_STANDARD_RTTIEXT(ShapeAttribute, TDF_Attribute)
 
 protected:
 private:

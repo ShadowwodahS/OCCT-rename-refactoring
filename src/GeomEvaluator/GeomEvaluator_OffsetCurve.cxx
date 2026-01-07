@@ -19,7 +19,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(GeomEvaluator_OffsetCurve, GeomEvaluator_Curve)
 
-GeomEvaluator_OffsetCurve::GeomEvaluator_OffsetCurve(const Handle(Geom_Curve)& theBase,
+GeomEvaluator_OffsetCurve::GeomEvaluator_OffsetCurve(const Handle(GeomCurve3d)& theBase,
                                                      const Standard_Real       theOffset,
                                                      const Dir3d&             theDirection)
     : GeomEvaluator_Curve(),

@@ -15,7 +15,7 @@
 #ifndef _OSD_FromWhere_HeaderFile
 #define _OSD_FromWhere_HeaderFile
 
-//! Used by OSD_File in the method Seek.
+//! Used by SystemFile in the method Seek.
 enum OSD_FromWhere
 {
   OSD_FromBeginning,

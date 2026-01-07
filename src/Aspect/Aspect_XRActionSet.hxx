@@ -22,7 +22,7 @@ class Aspect_XRActionSet : public RefObject
   DEFINE_STANDARD_RTTIEXT(Aspect_XRActionSet, RefObject)
 public:
   //! Return action id.
-  const TCollection_AsciiString& Id() const { return myId; }
+  const AsciiString1& Id() const { return myId; }
 
   //! Return action handle.
   uint64_t RawHandle() const { return myRawHandle; }
@@ -40,19 +40,19 @@ public:
   const Aspect_XRActionMap& Actions() const { return myActions; }
 
   //! Main constructor.
-  Aspect_XRActionSet(const TCollection_AsciiString& theId)
+  Aspect_XRActionSet(const AsciiString1& theId)
       : myId(theId),
         myRawHandle(0)
   {
   }
 
 protected:
-  TCollection_AsciiString myId;        //!< action set id
+  AsciiString1 myId;        //!< action set id
   uint64_t                myRawHandle; //!< action set handle
   Aspect_XRActionMap      myActions;   //!< map of actions
 };
 
-typedef NCollection_IndexedDataMap<TCollection_AsciiString, Handle(Aspect_XRActionSet)>
+typedef NCollection_IndexedDataMap<AsciiString1, Handle(Aspect_XRActionSet)>
   Aspect_XRActionSetMap;
 
 #endif // _Aspect_XRActionSet_HeaderFile

@@ -24,7 +24,7 @@
 #include <TDF_DerivedAttribute.hxx>
 #include <Standard_OStream.hxx>
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 
 class TDataStd_Expression;
@@ -49,16 +49,16 @@ public:
   //! Find, or create, an Expression attribute.
   //! Expressionmethods
   //! ============
-  Standard_EXPORT static Handle(TDataStd_Expression) Set(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataStd_Expression) Set(const DataLabel& label);
 
   Standard_EXPORT TDataStd_Expression();
 
   //! build and return the expression name
-  Standard_EXPORT TCollection_ExtendedString Name() const;
+  Standard_EXPORT UtfString Name() const;
 
-  Standard_EXPORT void SetExpression(const TCollection_ExtendedString& E);
+  Standard_EXPORT void SetExpression(const UtfString& E);
 
-  Standard_EXPORT const TCollection_ExtendedString& GetExpression() const;
+  Standard_EXPORT const UtfString& GetExpression() const;
 
   Standard_EXPORT TDF_AttributeList& GetVariables();
 
@@ -80,7 +80,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(TDataStd_Expression, TDF_Attribute)
 
 protected:
-  TCollection_ExtendedString myExpression;
+  UtfString myExpression;
   TDF_AttributeList          myVariables;
 };
 

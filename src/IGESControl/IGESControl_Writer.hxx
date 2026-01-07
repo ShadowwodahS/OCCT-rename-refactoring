@@ -28,10 +28,10 @@
 #include <Message_ProgressRange.hxx>
 #include <XSAlgo_ShapeProcessor.hxx>
 
-struct DE_ShapeFixParameters;
+struct ShapeFixParameters;
 class Transfer_FinderProcess;
 class IGESData_IGESModel;
-class TopoDS_Shape;
+class TopoShape;
 class RefObject;
 class IGESData_IGESEntity;
 
@@ -43,9 +43,9 @@ class IGESData_IGESEntity;
 //! outputs a distinct root entity in the IGES file.
 //! To write an IGES file it is possible to use the following sequence:
 //! To modify the IGES file header or to change translation
-//! parameters it is necessary to use class Interface_Static (see
+//! parameters it is necessary to use class ExchangeConfig (see
 //! IGESParameters and GeneralParameters).
-class IGESControl_Writer
+class IgesFileWriter
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -53,9 +53,9 @@ public:
 public:
   //! Creates a writer object with the
   //! default unit (millimeters) and write mode (Face).
-  //! IGESControl_Writer (const Standard_CString unit,
+  //! IgesFileWriter (const Standard_CString unit,
   //! const Standard_Integer modecr = 0);
-  Standard_EXPORT IGESControl_Writer();
+  Standard_EXPORT IgesFileWriter();
 
   //! Creates a writer with given
   //! values for units and for write mode.
@@ -64,7 +64,7 @@ public:
   //! theModecr defines the write mode and may be:
   //! - 0: Faces (default)
   //! - 1: BRep.
-  Standard_EXPORT IGESControl_Writer(const Standard_CString theUnit,
+  Standard_EXPORT IgesFileWriter(const Standard_CString theUnit,
                                      const Standard_Integer theModecr = 0);
 
   //! Creates a writer object with the
@@ -72,7 +72,7 @@ public:
   //! theModecr defines the write mode and may be:
   //! - 0: Faces (default)
   //! - 1: BRep.
-  Standard_EXPORT IGESControl_Writer(const Handle(IGESData_IGESModel)& theModel,
+  Standard_EXPORT IgesFileWriter(const Handle(IGESData_IGESModel)& theModel,
                                      const Standard_Integer            theModecr = 0);
 
   //! Returns the IGES model to be written in output.
@@ -87,7 +87,7 @@ public:
   //! Translates a Shape to IGES Entities and adds them to the model
   //! Returns True if done, False if Shape not suitable for IGES or null
   Standard_EXPORT Standard_Boolean
-    AddShape(const TopoDS_Shape&          sh,
+    AddShape(const TopoShape&          sh,
              const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Translates a Geometry (Surface or Curve) to IGES Entities and
@@ -134,7 +134,7 @@ public:
   //! @param theParameters the parameters for shape processing.
   //! @param theAdditionalParameters the additional parameters for shape processing.
   Standard_EXPORT void SetShapeFixParameters(
-    const DE_ShapeFixParameters&               theParameters,
+    const ShapeFixParameters&               theParameters,
     const XSAlgo_ShapeProcessor::ParameterMap& theAdditionalParameters = {});
 
   //! Returns parameters for shape processing that was set by SetParameters() method.

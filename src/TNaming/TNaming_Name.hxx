@@ -29,7 +29,7 @@
 #include <TDF_Label.hxx>
 #include <TopAbs_Orientation.hxx>
 #include <TDF_LabelMap.hxx>
-class TNaming_NamedShape;
+class ShapeAttribute;
 class TDF_RelocationTable;
 
 //! store the arguments of Naming.
@@ -44,15 +44,15 @@ public:
 
   Standard_EXPORT void ShapeType(const TopAbs_ShapeEnum aType);
 
-  Standard_EXPORT void Shape(const TopoDS_Shape& theShape);
+  Standard_EXPORT void Shape(const TopoShape& theShape);
 
-  Standard_EXPORT void Append(const Handle(TNaming_NamedShape)& arg);
+  Standard_EXPORT void Append(const Handle(ShapeAttribute)& arg);
 
-  Standard_EXPORT void StopNamedShape(const Handle(TNaming_NamedShape)& arg);
+  Standard_EXPORT void StopNamedShape(const Handle(ShapeAttribute)& arg);
 
   Standard_EXPORT void Index(const Standard_Integer I);
 
-  Standard_EXPORT void ContextLabel(const TDF_Label& theLab);
+  Standard_EXPORT void ContextLabel(const DataLabel& theLab);
 
   Standard_EXPORT void Orientation(const TopAbs_Orientation theOrientation);
 
@@ -60,19 +60,19 @@ public:
 
   Standard_EXPORT TopAbs_ShapeEnum ShapeType() const;
 
-  Standard_EXPORT TopoDS_Shape Shape() const;
+  Standard_EXPORT TopoShape Shape() const;
 
   Standard_EXPORT const TNaming_ListOfNamedShape& Arguments() const;
 
-  Standard_EXPORT Handle(TNaming_NamedShape) StopNamedShape() const;
+  Standard_EXPORT Handle(ShapeAttribute) StopNamedShape() const;
 
   Standard_EXPORT Standard_Integer Index() const;
 
-  Standard_EXPORT const TDF_Label& ContextLabel() const;
+  Standard_EXPORT const DataLabel& ContextLabel() const;
 
   TopAbs_Orientation Orientation() const { return myOrientation; }
 
-  Standard_EXPORT Standard_Boolean Solve(const TDF_Label& aLab, const TDF_LabelMap& Valid) const;
+  Standard_EXPORT Standard_Boolean Solve(const DataLabel& aLab, const TDF_LabelMap& Valid) const;
 
   Standard_EXPORT void Paste(TNaming_Name& into, const Handle(TDF_RelocationTable)& RT) const;
 
@@ -83,10 +83,10 @@ private:
   TNaming_NameType           myType;
   TopAbs_ShapeEnum           myShapeType;
   TNaming_ListOfNamedShape   myArgs;
-  Handle(TNaming_NamedShape) myStop;
+  Handle(ShapeAttribute) myStop;
   Standard_Integer           myIndex;
-  TopoDS_Shape               myShape;
-  TDF_Label                  myContextLabel;
+  TopoShape               myShape;
+  DataLabel                  myContextLabel;
   TopAbs_Orientation         myOrientation;
 };
 

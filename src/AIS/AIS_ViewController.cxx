@@ -58,7 +58,7 @@ AIS_ViewController::AIS_ViewController()
       myHasThrust(false),
       //
       myViewAnimation(
-        new AIS_AnimationCamera("AIS_ViewController_ViewAnimation", Handle(V3d_View)())),
+        new AIS_AnimationCamera("AIS_ViewController_ViewAnimation", Handle(ViewWindow)())),
       myObjAnimation(new AIS_Animation("AIS_ViewController_ObjectsAnimation")),
       myToPauseObjAnimation(false),
       myPrevMoveTo(-1, -1),
@@ -102,11 +102,11 @@ AIS_ViewController::AIS_ViewController()
 {
   myViewAnimation->SetOwnDuration(0.5);
 
-  myAnchorPointPrs1 = new AIS_Point(new Geom_CartesianPoint(0.0, 0.0, 0.0));
+  myAnchorPointPrs1 = new VisualPoint(new Geom_CartesianPoint(0.0, 0.0, 0.0));
   myAnchorPointPrs1->SetZLayer(Graphic3d_ZLayerId_Top);
   myAnchorPointPrs1->SetMutable(true);
 
-  myAnchorPointPrs2 = new AIS_Point(new Geom_CartesianPoint(0.0, 0.0, 0.0));
+  myAnchorPointPrs2 = new VisualPoint(new Geom_CartesianPoint(0.0, 0.0, 0.0));
   myAnchorPointPrs2->SetZLayer(Graphic3d_ZLayerId_Topmost);
   myAnchorPointPrs2->SetMutable(true);
 
@@ -195,8 +195,8 @@ void AIS_ViewController::ResetViewInput()
 
 //=================================================================================================
 
-void AIS_ViewController::FlushViewEvents(const Handle(AIS_InteractiveContext)& theCtx,
-                                         const Handle(V3d_View)&               theView,
+void AIS_ViewController::FlushViewEvents(const Handle(VisualContext)& theCtx,
+                                         const Handle(ViewWindow)&               theView,
                                          Standard_Boolean                      theToHandle)
 {
   flushBuffers(theCtx, theView);
@@ -256,8 +256,8 @@ void AIS_ViewController::FlushViewEvents(const Handle(AIS_InteractiveContext)& t
 
 //=================================================================================================
 
-void AIS_ViewController::flushBuffers(const Handle(AIS_InteractiveContext)&,
-                                      const Handle(V3d_View)&)
+void AIS_ViewController::flushBuffers(const Handle(VisualContext)&,
+                                      const Handle(ViewWindow)&)
 {
   myToAskNextFrame = false;
 
@@ -385,8 +385,8 @@ void AIS_ViewController::flushBuffers(const Handle(AIS_InteractiveContext)&,
 
 //=================================================================================================
 
-void AIS_ViewController::flushGestures(const Handle(AIS_InteractiveContext)&,
-                                       const Handle(V3d_View)& theView)
+void AIS_ViewController::flushGestures(const Handle(VisualContext)&,
+                                       const Handle(ViewWindow)& theView)
 {
   const Standard_Real    aTolScale = myTouchToleranceScale;
   const Standard_Integer aTouchNb  = myTouchPoints.Extent();
@@ -1411,13 +1411,13 @@ void AIS_ViewController::AbortViewAnimation()
   if (!myViewAnimation.IsNull() && !myViewAnimation->IsStopped())
   {
     myViewAnimation->Stop();
-    myViewAnimation->SetView(Handle(V3d_View)());
+    myViewAnimation->SetView(Handle(ViewWindow)());
   }
 }
 
 //=================================================================================================
 
-void AIS_ViewController::handlePanning(const Handle(V3d_View)& theView)
+void AIS_ViewController::handlePanning(const Handle(ViewWindow)& theView)
 {
   if (!myGL.Panning.ToPan || !myToAllowPanning)
   {
@@ -1426,7 +1426,7 @@ void AIS_ViewController::handlePanning(const Handle(V3d_View)& theView)
 
   AbortViewAnimation();
 
-  const Handle(Graphic3d_Camera)& aCam = theView->Camera();
+  const Handle(CameraOn3d)& aCam = theView->Camera();
   if (aCam->IsOrthographic() || !hasPanningAnchorPoint())
   {
     theView->Pan(myGL.Panning.Delta.x(), myGL.Panning.Delta.y());
@@ -1459,7 +1459,7 @@ void AIS_ViewController::handlePanning(const Handle(V3d_View)& theView)
 
 //=================================================================================================
 
-void AIS_ViewController::handleZRotate(const Handle(V3d_View)& theView)
+void AIS_ViewController::handleZRotate(const Handle(ViewWindow)& theView)
 {
   if (!myGL.ZRotate.ToRotate || !myToAllowRotation)
   {
@@ -1480,7 +1480,7 @@ void AIS_ViewController::handleZRotate(const Handle(V3d_View)& theView)
 
 //=================================================================================================
 
-void AIS_ViewController::handleZoom(const Handle(V3d_View)&   theView,
+void AIS_ViewController::handleZoom(const Handle(ViewWindow)&   theView,
                                     const Aspect_ScrollDelta& theParams,
                                     const Point3d*             thePnt)
 {
@@ -1491,7 +1491,7 @@ void AIS_ViewController::handleZoom(const Handle(V3d_View)&   theView,
 
   AbortViewAnimation();
 
-  const Handle(Graphic3d_Camera)& aCam = theView->Camera();
+  const Handle(CameraOn3d)& aCam = theView->Camera();
   if (thePnt != NULL)
   {
     const double aViewDist = Max(myMinCamDistance, (thePnt->XYZ() - aCam->Eye().XYZ()).Modulus());
@@ -1585,7 +1585,7 @@ void AIS_ViewController::handleZoom(const Handle(V3d_View)&   theView,
 
 //=================================================================================================
 
-void AIS_ViewController::handleZFocusScroll(const Handle(V3d_View)&   theView,
+void AIS_ViewController::handleZFocusScroll(const Handle(ViewWindow)&   theView,
                                             const Aspect_ScrollDelta& theParams)
 {
   if (!myToAllowZFocus || !theView->Camera()->IsStereo())
@@ -1603,7 +1603,7 @@ void AIS_ViewController::handleZFocusScroll(const Handle(V3d_View)&   theView,
 
 //=================================================================================================
 
-void AIS_ViewController::handleOrbitRotation(const Handle(V3d_View)& theView,
+void AIS_ViewController::handleOrbitRotation(const Handle(ViewWindow)& theView,
                                              const Point3d&           thePnt,
                                              bool                    theToLockZUp)
 {
@@ -1612,7 +1612,7 @@ void AIS_ViewController::handleOrbitRotation(const Handle(V3d_View)& theView,
     return;
   }
 
-  const Handle(Graphic3d_Camera)& aCam =
+  const Handle(CameraOn3d)& aCam =
     theView->View()->IsActiveXR() ? theView->View()->BaseXRCamera() : theView->Camera();
   if (myGL.OrbitRotation.ToStart)
   {
@@ -1753,7 +1753,7 @@ void AIS_ViewController::handleOrbitRotation(const Handle(V3d_View)& theView,
 
 //=================================================================================================
 
-void AIS_ViewController::handleViewRotation(const Handle(V3d_View)& theView,
+void AIS_ViewController::handleViewRotation(const Handle(ViewWindow)& theView,
                                             double                  theYawExtra,
                                             double                  thePitchExtra,
                                             double                  theRoll,
@@ -1764,7 +1764,7 @@ void AIS_ViewController::handleViewRotation(const Handle(V3d_View)& theView,
     return;
   }
 
-  const Handle(Graphic3d_Camera)& aCam           = theView->Camera();
+  const Handle(CameraOn3d)& aCam           = theView->Camera();
   const bool                      toRotateAnyway = Abs(theYawExtra) > gp::Resolution()
                               || Abs(thePitchExtra) > gp::Resolution()
                               || Abs(theRoll - myRotateStartYawPitchRoll[2]) > gp::Resolution();
@@ -1828,8 +1828,8 @@ void AIS_ViewController::handleViewRotation(const Handle(V3d_View)& theView,
 //=================================================================================================
 
 bool AIS_ViewController::PickPoint(Point3d&                               thePnt,
-                                   const Handle(AIS_InteractiveContext)& theCtx,
-                                   const Handle(V3d_View)&               theView,
+                                   const Handle(VisualContext)& theCtx,
+                                   const Handle(ViewWindow)&               theView,
                                    const Graphic3d_Vec2i&                theCursor,
                                    bool                                  theToStickToPickRay)
 {
@@ -1858,8 +1858,8 @@ bool AIS_ViewController::PickPoint(Point3d&                               thePnt
 //=================================================================================================
 
 bool AIS_ViewController::PickAxis(Point3d&                               theTopPnt,
-                                  const Handle(AIS_InteractiveContext)& theCtx,
-                                  const Handle(V3d_View)&               theView,
+                                  const Handle(VisualContext)& theCtx,
+                                  const Handle(ViewWindow)&               theView,
                                   const Axis3d&                         theAxis)
 {
   ResetPreviousMoveTo();
@@ -1879,8 +1879,8 @@ bool AIS_ViewController::PickAxis(Point3d&                               theTopP
 
 //=================================================================================================
 
-Point3d AIS_ViewController::GravityPoint(const Handle(AIS_InteractiveContext)& theCtx,
-                                        const Handle(V3d_View)&               theView)
+Point3d AIS_ViewController::GravityPoint(const Handle(VisualContext)& theCtx,
+                                        const Handle(ViewWindow)&               theView)
 {
   switch (myRotationMode)
   {
@@ -1903,7 +1903,7 @@ Point3d AIS_ViewController::GravityPoint(const Handle(AIS_InteractiveContext)& t
       break;
     }
     case AIS_RotationMode_CameraAt: {
-      const Handle(Graphic3d_Camera)& aCam = theView->Camera();
+      const Handle(CameraOn3d)& aCam = theView->Camera();
       return aCam->Center();
     }
     case AIS_RotationMode_BndBoxScene: {
@@ -1923,8 +1923,8 @@ Point3d AIS_ViewController::GravityPoint(const Handle(AIS_InteractiveContext)& t
 
 //=================================================================================================
 
-void AIS_ViewController::FitAllAuto(const Handle(AIS_InteractiveContext)& theCtx,
-                                    const Handle(V3d_View)&               theView)
+void AIS_ViewController::FitAllAuto(const Handle(VisualContext)& theCtx,
+                                    const Handle(ViewWindow)&               theView)
 {
   const Bnd_Box aBoxSel    = theCtx->BoundingBoxOfSelection(theView);
   const double  aFitMargin = 0.01;
@@ -1939,9 +1939,9 @@ void AIS_ViewController::FitAllAuto(const Handle(AIS_InteractiveContext)& theCtx
     (aBoxSel.CornerMax().XYZ() - aBoxSel.CornerMin().XYZ()).Modulus() * 0.000001;
   const Bnd_Box aBoxAll = theView->View()->MinMaxValues();
 
-  const Handle(Graphic3d_Camera)& aCam       = theView->Camera();
-  Handle(Graphic3d_Camera)        aCameraSel = new Graphic3d_Camera(aCam);
-  Handle(Graphic3d_Camera)        aCameraAll = new Graphic3d_Camera(aCam);
+  const Handle(CameraOn3d)& aCam       = theView->Camera();
+  Handle(CameraOn3d)        aCameraSel = new CameraOn3d(aCam);
+  Handle(CameraOn3d)        aCameraAll = new CameraOn3d(aCam);
   theView->FitMinMax(aCameraSel, aBoxSel, aFitMargin);
   theView->FitMinMax(aCameraAll, aBoxAll, aFitMargin);
   if (aCameraSel->Center().IsEqual(aCam->Center(), aFitTol)
@@ -1959,15 +1959,15 @@ void AIS_ViewController::FitAllAuto(const Handle(AIS_InteractiveContext)& theCtx
 
 //=================================================================================================
 
-void AIS_ViewController::handleViewOrientationKeys(const Handle(AIS_InteractiveContext)& theCtx,
-                                                   const Handle(V3d_View)&               theView)
+void AIS_ViewController::handleViewOrientationKeys(const Handle(VisualContext)& theCtx,
+                                                   const Handle(ViewWindow)&               theView)
 {
   if (myNavigationMode == AIS_NavigationMode_FirstPersonWalk)
   {
     return;
   }
 
-  Handle(Graphic3d_Camera) aCameraBack;
+  Handle(CameraOn3d) aCameraBack;
 
   struct ViewKeyAction
   {
@@ -2003,7 +2003,7 @@ void AIS_ViewController::handleViewOrientationKeys(const Handle(AIS_InteractiveC
       if (aCameraBack.IsNull())
       {
         aCameraBack = theView->Camera();
-        theView->SetCamera(new Graphic3d_Camera(aCameraBack));
+        theView->SetCamera(new CameraOn3d(aCameraBack));
       }
       if (aKeyAction.Orientation != (V3d_TypeOfOrientation)-1)
       {
@@ -2032,7 +2032,7 @@ void AIS_ViewController::handleViewOrientationKeys(const Handle(AIS_InteractiveC
     return;
   }
 
-  Handle(Graphic3d_Camera) aCameraNew = theView->Camera();
+  Handle(CameraOn3d) aCameraNew = theView->Camera();
   theView->SetCamera(aCameraBack);
   const Graphic3d_Mat4d anOrientMat1 = aCameraBack->OrientationMatrix();
   const Graphic3d_Mat4d anOrientMat2 = aCameraNew->OrientationMatrix();
@@ -2041,16 +2041,16 @@ void AIS_ViewController::handleViewOrientationKeys(const Handle(AIS_InteractiveC
     const Handle(AIS_AnimationCamera)& aCamAnim = myViewAnimation;
     aCamAnim->SetView(theView);
     aCamAnim->SetStartPts(0.0);
-    aCamAnim->SetCameraStart(new Graphic3d_Camera(aCameraBack));
-    aCamAnim->SetCameraEnd(new Graphic3d_Camera(aCameraNew));
+    aCamAnim->SetCameraStart(new CameraOn3d(aCameraBack));
+    aCamAnim->SetCameraEnd(new CameraOn3d(aCameraNew));
     aCamAnim->StartTimer(0.0, 1.0, true, false);
   }
 }
 
 //=================================================================================================
 
-AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(AIS_InteractiveContext)&,
-                                                       const Handle(V3d_View)& theView)
+AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(VisualContext)&,
+                                                       const Handle(ViewWindow)& theView)
 {
   // navigation keys
   double aCrouchRatio = 1.0, aRunRatio = 1.0;
@@ -2098,7 +2098,7 @@ AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(AIS_Interact
                                 && myNavigationMode != AIS_NavigationMode_FirstPersonFlight
                                                  ? theView->View()->UnitFactor() * WalkSpeedAbsolute()
                                                  : aWalkSpeedCoef * aBndDiam;
-  const Handle(Graphic3d_Camera)& aCam =
+  const Handle(CameraOn3d)& aCam =
     theView->View()->IsActiveXR() ? theView->View()->BaseXRCamera() : theView->Camera();
 
   // move forward in plane XY and up along Z
@@ -2180,8 +2180,8 @@ AIS_WalkDelta AIS_ViewController::handleNavigationKeys(const Handle(AIS_Interact
 
 //=================================================================================================
 
-void AIS_ViewController::handleCameraActions(const Handle(AIS_InteractiveContext)& theCtx,
-                                             const Handle(V3d_View)&               theView,
+void AIS_ViewController::handleCameraActions(const Handle(VisualContext)& theCtx,
+                                             const Handle(ViewWindow)&               theView,
                                              const AIS_WalkDelta&                  theWalk)
 {
   // apply view actions
@@ -2394,8 +2394,8 @@ void AIS_ViewController::handleCameraActions(const Handle(AIS_InteractiveContext
 
 //=================================================================================================
 
-void AIS_ViewController::handleXRInput(const Handle(AIS_InteractiveContext)& theCtx,
-                                       const Handle(V3d_View)&               theView,
+void AIS_ViewController::handleXRInput(const Handle(VisualContext)& theCtx,
+                                       const Handle(ViewWindow)&               theView,
                                        const AIS_WalkDelta&)
 {
   theView->View()->ProcessXRInput();
@@ -2410,8 +2410,8 @@ void AIS_ViewController::handleXRInput(const Handle(AIS_InteractiveContext)& the
 
 //=================================================================================================
 
-void AIS_ViewController::handleXRTurnPad(const Handle(AIS_InteractiveContext)&,
-                                         const Handle(V3d_View)& theView)
+void AIS_ViewController::handleXRTurnPad(const Handle(VisualContext)&,
+                                         const Handle(ViewWindow)& theView)
 {
   if (myXRTurnAngle <= 0.0 || !theView->View()->IsActiveXR())
   {
@@ -2451,8 +2451,8 @@ void AIS_ViewController::handleXRTurnPad(const Handle(AIS_InteractiveContext)&,
 
 //=================================================================================================
 
-void AIS_ViewController::handleXRTeleport(const Handle(AIS_InteractiveContext)& theCtx,
-                                          const Handle(V3d_View)&               theView)
+void AIS_ViewController::handleXRTeleport(const Handle(VisualContext)& theCtx,
+                                          const Handle(ViewWindow)&               theView)
 {
   if (!theView->View()->IsActiveXR())
   {
@@ -2586,8 +2586,8 @@ void AIS_ViewController::handleXRTeleport(const Handle(AIS_InteractiveContext)& 
 
 //=================================================================================================
 
-void AIS_ViewController::handleXRPicking(const Handle(AIS_InteractiveContext)& theCtx,
-                                         const Handle(V3d_View)&               theView)
+void AIS_ViewController::handleXRPicking(const Handle(VisualContext)& theCtx,
+                                         const Handle(ViewWindow)&               theView)
 {
   if (!theView->View()->IsActiveXR())
   {
@@ -2640,25 +2640,25 @@ void AIS_ViewController::handleXRPicking(const Handle(AIS_InteractiveContext)& t
 
 //=================================================================================================
 
-void AIS_ViewController::OnSelectionChanged(const Handle(AIS_InteractiveContext)&,
-                                            const Handle(V3d_View)&)
+void AIS_ViewController::OnSelectionChanged(const Handle(VisualContext)&,
+                                            const Handle(ViewWindow)&)
 {
   //
 }
 
 //=================================================================================================
 
-void AIS_ViewController::OnSubviewChanged(const Handle(AIS_InteractiveContext)&,
-                                          const Handle(V3d_View)&,
-                                          const Handle(V3d_View)&)
+void AIS_ViewController::OnSubviewChanged(const Handle(VisualContext)&,
+                                          const Handle(ViewWindow)&,
+                                          const Handle(ViewWindow)&)
 {
   //
 }
 
 //=================================================================================================
 
-void AIS_ViewController::OnObjectDragged(const Handle(AIS_InteractiveContext)& theCtx,
-                                         const Handle(V3d_View)&               theView,
+void AIS_ViewController::OnObjectDragged(const Handle(VisualContext)& theCtx,
+                                         const Handle(ViewWindow)&               theView,
                                          AIS_DragAction                        theAction)
 {
   switch (theAction)
@@ -2672,8 +2672,8 @@ void AIS_ViewController::OnObjectDragged(const Handle(AIS_InteractiveContext)& t
       }
 
       const Handle(SelectMgr_EntityOwner)& aDetectedOwner = theCtx->DetectedOwner();
-      Handle(AIS_InteractiveObject)        aDetectedPrs =
-        Handle(AIS_InteractiveObject)::DownCast(aDetectedOwner->Selectable());
+      Handle(VisualEntity)        aDetectedPrs =
+        Handle(VisualEntity)::DownCast(aDetectedOwner->Selectable());
 
       if (aDetectedPrs->ProcessDragging(theCtx,
                                         theView,
@@ -2765,8 +2765,8 @@ void AIS_ViewController::OnObjectDragged(const Handle(AIS_InteractiveContext)& t
 
 //=================================================================================================
 
-void AIS_ViewController::contextLazyMoveTo(const Handle(AIS_InteractiveContext)& theCtx,
-                                           const Handle(V3d_View)&               theView,
+void AIS_ViewController::contextLazyMoveTo(const Handle(VisualContext)& theCtx,
+                                           const Handle(ViewWindow)&               theView,
                                            const Graphic3d_Vec2i&                thePnt)
 {
   if (myPrevMoveTo == thePnt
@@ -2812,7 +2812,7 @@ void AIS_ViewController::contextLazyMoveTo(const Handle(AIS_InteractiveContext)&
          aViewIter.More();
          aViewIter.Next())
     {
-      const Handle(V3d_View)& aView = aViewIter.Value();
+      const Handle(ViewWindow)& aView = aViewIter.Value();
       aView->InvalidateImmediate();
     }
   }
@@ -2820,8 +2820,8 @@ void AIS_ViewController::contextLazyMoveTo(const Handle(AIS_InteractiveContext)&
 
 //=================================================================================================
 
-void AIS_ViewController::handleSelectionPick(const Handle(AIS_InteractiveContext)& theCtx,
-                                             const Handle(V3d_View)&               theView)
+void AIS_ViewController::handleSelectionPick(const Handle(VisualContext)& theCtx,
+                                             const Handle(ViewWindow)&               theView)
 {
   if (myGL.Selection.Tool == AIS_ViewSelectionTool_Picking && !myGL.Selection.Points.IsEmpty())
   {
@@ -2850,8 +2850,8 @@ void AIS_ViewController::handleSelectionPick(const Handle(AIS_InteractiveContext
 
 //=================================================================================================
 
-void AIS_ViewController::handleSelectionPoly(const Handle(AIS_InteractiveContext)& theCtx,
-                                             const Handle(V3d_View)&               theView)
+void AIS_ViewController::handleSelectionPoly(const Handle(VisualContext)& theCtx,
+                                             const Handle(ViewWindow)&               theView)
 {
   // rubber-band & window polygon selection
   if (myGL.Selection.Tool == AIS_ViewSelectionTool_RubberBand
@@ -2896,7 +2896,7 @@ void AIS_ViewController::handleSelectionPoly(const Handle(AIS_InteractiveContext
       catch (const ExceptionBase& theEx)
       {
         Message::SendWarning(
-          TCollection_AsciiString("Internal error while displaying rubber-band: ")
+          AsciiString1("Internal error while displaying rubber-band: ")
           + theEx.DynamicType()->Name() + ", " + theEx.GetMessageString());
         myRubberBand->ClearPoints();
       }
@@ -2976,8 +2976,8 @@ void AIS_ViewController::handleSelectionPoly(const Handle(AIS_InteractiveContext
 
 //=================================================================================================
 
-void AIS_ViewController::handleDynamicHighlight(const Handle(AIS_InteractiveContext)& theCtx,
-                                                const Handle(V3d_View)&               theView)
+void AIS_ViewController::handleDynamicHighlight(const Handle(VisualContext)& theCtx,
+                                                const Handle(ViewWindow)&               theView)
 {
   if ((myGL.MoveTo.ToHilight || myGL.Dragging.ToStart)
       && myNavigationMode != AIS_NavigationMode_FirstPersonWalk)
@@ -3042,8 +3042,8 @@ void AIS_ViewController::handleDynamicHighlight(const Handle(AIS_InteractiveCont
 
 //=================================================================================================
 
-void AIS_ViewController::handleMoveTo(const Handle(AIS_InteractiveContext)& theCtx,
-                                      const Handle(V3d_View)&               theView)
+void AIS_ViewController::handleMoveTo(const Handle(VisualContext)& theCtx,
+                                      const Handle(ViewWindow)&               theView)
 {
   handleSelectionPick(theCtx, theView);
   handleDynamicHighlight(theCtx, theView);
@@ -3052,10 +3052,10 @@ void AIS_ViewController::handleMoveTo(const Handle(AIS_InteractiveContext)& theC
 
 //=================================================================================================
 
-void AIS_ViewController::handleViewRedraw(const Handle(AIS_InteractiveContext)&,
-                                          const Handle(V3d_View)& theView)
+void AIS_ViewController::handleViewRedraw(const Handle(VisualContext)&,
+                                          const Handle(ViewWindow)& theView)
 {
-  Handle(V3d_View) aParentView = theView->IsSubview() ? theView->ParentView() : theView;
+  Handle(ViewWindow) aParentView = theView->IsSubview() ? theView->ParentView() : theView;
 
   // manage animation state
   if (!myViewAnimation.IsNull() && !myViewAnimation->IsStopped())
@@ -3089,10 +3089,10 @@ void AIS_ViewController::handleViewRedraw(const Handle(AIS_InteractiveContext)&,
          aViewIter.More();
          aViewIter.Next())
     {
-      const Handle(V3d_View)& aView = aViewIter.Value();
+      const Handle(ViewWindow)& aView = aViewIter.Value();
       if (isSubViewPass && !aView->IsSubview())
       {
-        for (const Handle(V3d_View)& aSubviewIter : aView->Subviews())
+        for (const Handle(ViewWindow)& aSubviewIter : aView->Subviews())
         {
           if (aSubviewIter->Viewer() != theView->Viewer())
           {
@@ -3161,8 +3161,8 @@ void AIS_ViewController::handleViewRedraw(const Handle(AIS_InteractiveContext)&,
 
 //=================================================================================================
 
-Standard_Integer AIS_ViewController::handleXRMoveTo(const Handle(AIS_InteractiveContext)& theCtx,
-                                                    const Handle(V3d_View)&               theView,
+Standard_Integer AIS_ViewController::handleXRMoveTo(const Handle(VisualContext)& theCtx,
+                                                    const Handle(ViewWindow)&               theView,
                                                     const Transform3d&                        thePose,
                                                     const Standard_Boolean theToHighlight)
 {
@@ -3191,8 +3191,8 @@ Standard_Integer AIS_ViewController::handleXRMoveTo(const Handle(AIS_Interactive
 
 //=================================================================================================
 
-void AIS_ViewController::handleXRHighlight(const Handle(AIS_InteractiveContext)& theCtx,
-                                           const Handle(V3d_View)&               theView)
+void AIS_ViewController::handleXRHighlight(const Handle(VisualContext)& theCtx,
+                                           const Handle(ViewWindow)&               theView)
 {
   if (myXRLastPickingHand != Aspect_XRTrackedDeviceRole_LeftHand
       && myXRLastPickingHand != Aspect_XRTrackedDeviceRole_RightHand)
@@ -3239,8 +3239,8 @@ void AIS_ViewController::handleXRHighlight(const Handle(AIS_InteractiveContext)&
 
 //=================================================================================================
 
-void AIS_ViewController::handleXRPresentations(const Handle(AIS_InteractiveContext)& theCtx,
-                                               const Handle(V3d_View)&               theView)
+void AIS_ViewController::handleXRPresentations(const Handle(VisualContext)& theCtx,
+                                               const Handle(ViewWindow)&               theView)
 {
   if (!theView->View()->IsActiveXR() || (!myToDisplayXRAuxDevices && !myToDisplayXRHands))
   {
@@ -3399,12 +3399,12 @@ void AIS_ViewController::handleXRPresentations(const Handle(AIS_InteractiveConte
 
 //=================================================================================================
 
-void AIS_ViewController::HandleViewEvents(const Handle(AIS_InteractiveContext)& theCtx,
-                                          const Handle(V3d_View)&               theView)
+void AIS_ViewController::HandleViewEvents(const Handle(VisualContext)& theCtx,
+                                          const Handle(ViewWindow)&               theView)
 {
   const bool wasImmediateUpdate = theView->SetImmediateUpdate(false);
 
-  Handle(V3d_View) aPickedView;
+  Handle(ViewWindow) aPickedView;
   if (theView->IsSubview() || !theView->Subviews().IsEmpty())
   {
     // activate another subview on mouse click
@@ -3427,7 +3427,7 @@ void AIS_ViewController::HandleViewEvents(const Handle(AIS_InteractiveContext)& 
       {
         aClickPoint += theView->View()->SubviewTopLeft();
       }
-      Handle(V3d_View) aParent = !theView->IsSubview() ? theView : theView->ParentView();
+      Handle(ViewWindow) aParent = !theView->IsSubview() ? theView : theView->ParentView();
       aPickedView              = aParent->PickSubview(aClickPoint);
     }
   }

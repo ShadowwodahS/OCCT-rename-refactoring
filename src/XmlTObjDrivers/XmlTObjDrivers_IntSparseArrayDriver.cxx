@@ -60,14 +60,14 @@ Standard_Boolean XmlTObjDrivers_IntSparseArrayDriver::Paste(const XmlObjMgt_Pers
 
   // get pairs (ID, value) while ID != 0
   Standard_Integer        i = 1;
-  TCollection_AsciiString anItemID;
-  TCollection_AsciiString anIdStr = TCollection_AsciiString(ITEM_ID) + TCollection_AsciiString(i);
+  AsciiString1 anItemID;
+  AsciiString1 anIdStr = AsciiString1(ITEM_ID) + AsciiString1(i);
   anItemID                        = anElement.getAttribute(anIdStr.ToCString());
   while (anItemID.IsIntegerValue() && anItemID.IntegerValue() != 0)
   {
-    TCollection_AsciiString aStrIndex =
-      TCollection_AsciiString(ITEM_VALUE) + TCollection_AsciiString(i);
-    TCollection_AsciiString anItemValue = anElement.getAttribute(aStrIndex.ToCString());
+    AsciiString1 aStrIndex =
+      AsciiString1(ITEM_VALUE) + AsciiString1(i);
+    AsciiString1 anItemValue = anElement.getAttribute(aStrIndex.ToCString());
     if (anItemValue.IsIntegerValue())
     {
       // store the value in the target array
@@ -101,17 +101,17 @@ void XmlTObjDrivers_IntSparseArrayDriver::Paste(const Handle(TDF_Attribute)& the
     Standard_Integer aValue = anIt.Value();
     if (aValue == 0)
       continue;
-    TCollection_AsciiString anIdStr = TCollection_AsciiString(ITEM_ID) + TCollection_AsciiString(i);
-    TCollection_AsciiString aStrIndex =
-      TCollection_AsciiString(ITEM_VALUE) + TCollection_AsciiString(i);
+    AsciiString1 anIdStr = AsciiString1(ITEM_ID) + AsciiString1(i);
+    AsciiString1 aStrIndex =
+      AsciiString1(ITEM_VALUE) + AsciiString1(i);
     theTarget.Element().setAttribute(anIdStr.ToCString(), (Standard_Integer)anIt.Index());
     theTarget.Element().setAttribute(aStrIndex.ToCString(), anIt.Value());
     i++;
   }
   // write last item
-  TCollection_AsciiString anIdStr = TCollection_AsciiString(ITEM_ID) + TCollection_AsciiString(i);
-  TCollection_AsciiString aStrIndex =
-    TCollection_AsciiString(ITEM_VALUE) + TCollection_AsciiString(i);
+  AsciiString1 anIdStr = AsciiString1(ITEM_ID) + AsciiString1(i);
+  AsciiString1 aStrIndex =
+    AsciiString1(ITEM_VALUE) + AsciiString1(i);
   theTarget.Element().setAttribute(anIdStr.ToCString(), 0);
   theTarget.Element().setAttribute(aStrIndex.ToCString(), 0);
 }

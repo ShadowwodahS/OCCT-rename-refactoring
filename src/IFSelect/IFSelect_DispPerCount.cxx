@@ -46,9 +46,9 @@ Standard_Integer IFSelect_DispPerCount::CountValue() const
   return pcount;
 }
 
-TCollection_AsciiString IFSelect_DispPerCount::Label() const
+AsciiString1 IFSelect_DispPerCount::Label() const
 {
-  TCollection_AsciiString lab(CountValue());
+  AsciiString1 lab(CountValue());
   lab.Insert(1, "One File per ");
   lab.AssignCat(" Entities");
   return lab;

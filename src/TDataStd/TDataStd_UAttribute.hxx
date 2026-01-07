@@ -22,7 +22,7 @@
 #include <Standard_GUID.hxx>
 #include <TDF_Attribute.hxx>
 #include <Standard_OStream.hxx>
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 class TDF_DataSet;
 
@@ -39,7 +39,7 @@ public:
   //! The UAttribute attribute is returned.
   //! UAttribute methods
   //! ============
-  Standard_EXPORT static Handle(TDataStd_UAttribute) Set(const TDF_Label&     label,
+  Standard_EXPORT static Handle(TDataStd_UAttribute) Set(const DataLabel&     label,
                                                          const Standard_GUID& LocalID);
 
   Standard_EXPORT TDataStd_UAttribute();

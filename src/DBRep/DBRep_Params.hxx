@@ -16,8 +16,8 @@
 
 #include <Standard_Real.hxx>
 
-//! DBRep parameters.
-struct DBRep_Params
+//! DBRep1 parameters.
+struct DrawParams
 {
 public:
   Standard_Integer NbIsos; //!< number of iso in U and V
@@ -33,7 +33,7 @@ public:
   Standard_Boolean WithRgN; //!< True if display RgNLines
   Standard_Boolean WithHid; //!< True if display HiddenLines
 
-  DBRep_Params()
+  DrawParams()
       : NbIsos(2),
         Size(100.0),
         Discretization(30),

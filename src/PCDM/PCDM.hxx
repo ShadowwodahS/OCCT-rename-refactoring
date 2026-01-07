@@ -20,13 +20,13 @@
 #include <Storage_BaseDriver.hxx>
 #include <PCDM_TypeOfFileDriver.hxx>
 
-class TCollection_AsciiString;
+class AsciiString1;
 
-class PCDM
+class PCDM1
 {
 public:
   Standard_EXPORT static PCDM_TypeOfFileDriver FileDriverType(
-    const TCollection_AsciiString& aFileName,
+    const AsciiString1& aFileName,
     Handle(Storage_BaseDriver)&    aBaseDriver);
 
   Standard_EXPORT static PCDM_TypeOfFileDriver FileDriverType(

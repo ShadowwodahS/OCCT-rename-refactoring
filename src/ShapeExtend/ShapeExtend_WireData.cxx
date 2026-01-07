@@ -43,7 +43,7 @@ ShapeExtend_WireData::ShapeExtend_WireData()
 
 //=================================================================================================
 
-ShapeExtend_WireData::ShapeExtend_WireData(const TopoDS_Wire&     wire,
+ShapeExtend_WireData::ShapeExtend_WireData(const TopoWire&     wire,
                                            const Standard_Boolean chained,
                                            const Standard_Boolean theManifold)
 {
@@ -66,17 +66,17 @@ void ShapeExtend_WireData::Init(const Handle(ShapeExtend_WireData)& other)
 
 //=================================================================================================
 
-Standard_Boolean ShapeExtend_WireData::Init(const TopoDS_Wire&     wire,
+Standard_Boolean ShapeExtend_WireData::Init(const TopoWire&     wire,
                                             const Standard_Boolean chained,
                                             const Standard_Boolean theManifold)
 {
   Clear();
   myManifoldMode      = theManifold;
   Standard_Boolean OK = Standard_True;
-  TopoDS_Vertex    Vlast;
+  TopoVertex    Vlast;
   for (TopoDS_Iterator it(wire); it.More(); it.Next())
   {
-    TopoDS_Edge E = TopoDS::Edge(it.Value());
+    TopoEdge E = TopoDS::Edge(it.Value());
 
     // protect against INTERNAL/EXTERNAL edges
     if ((E.Orientation() != TopAbs_REVERSED && E.Orientation() != TopAbs_FORWARD))
@@ -85,10 +85,10 @@ Standard_Boolean ShapeExtend_WireData::Init(const TopoDS_Wire&     wire,
       continue;
     }
 
-    TopoDS_Vertex V1, V2;
+    TopoVertex V1, V2;
     for (TopoDS_Iterator itv(E); itv.More(); itv.Next())
     {
-      TopoDS_Vertex V = TopoDS::Vertex(itv.Value());
+      TopoVertex V = TopoDS::Vertex(itv.Value());
       if (V.Orientation() == TopAbs_FORWARD)
         V1 = V;
       else if (V.Orientation() == TopAbs_REVERSED)
@@ -148,7 +148,7 @@ void ShapeExtend_WireData::ComputeSeams(const Standard_Boolean enforce)
 
   mySeams = new TColStd_HSequenceOfInteger();
   mySeamF = mySeamR = 0;
-  TopoDS_Shape               S;
+  TopoShape               S;
   Standard_Integer           i, nb = NbEdges();
   TopTools_IndexedMapOfShape ME;
   Standard_Integer*          SE = new Standard_Integer[nb + 1];
@@ -199,7 +199,7 @@ void ShapeExtend_WireData::SetLast(const Standard_Integer num)
   Standard_Integer i, nb = NbEdges();
   for (i = nb; i > num; i--)
   {
-    TopoDS_Edge edge = TopoDS::Edge(myEdges->Value(nb));
+    TopoEdge edge = TopoDS::Edge(myEdges->Value(nb));
     myEdges->Remove(nb);
     myEdges->InsertBefore(1, edge);
   }
@@ -213,7 +213,7 @@ void ShapeExtend_WireData::SetDegeneratedLast()
   Standard_Integer i, nb = NbEdges();
   for (i = 1; i <= nb; i++)
   {
-    if (BRep_Tool::Degenerated(Edge(i)))
+    if (BRepInspector::Degenerated(Edge(i)))
     {
       SetLast(i);
       return;
@@ -223,7 +223,7 @@ void ShapeExtend_WireData::SetDegeneratedLast()
 
 //=================================================================================================
 
-void ShapeExtend_WireData::Add(const TopoDS_Edge& edge, const Standard_Integer atnum)
+void ShapeExtend_WireData::Add(const TopoEdge& edge, const Standard_Integer atnum)
 {
   if (edge.Orientation() != TopAbs_REVERSED && edge.Orientation() != TopAbs_FORWARD
       && myManifoldMode)
@@ -247,7 +247,7 @@ void ShapeExtend_WireData::Add(const TopoDS_Edge& edge, const Standard_Integer a
 
 //=================================================================================================
 
-void ShapeExtend_WireData::Add(const TopoDS_Wire& wire, const Standard_Integer atnum)
+void ShapeExtend_WireData::Add(const TopoWire& wire, const Standard_Integer atnum)
 {
   if (wire.IsNull())
     return;
@@ -255,7 +255,7 @@ void ShapeExtend_WireData::Add(const TopoDS_Wire& wire, const Standard_Integer a
   TopTools_SequenceOfShape aNMEdges;
   for (TopoDS_Iterator it(wire); it.More(); it.Next())
   {
-    TopoDS_Edge edge = TopoDS::Edge(it.Value());
+    TopoEdge edge = TopoDS::Edge(it.Value());
     if (edge.Orientation() != TopAbs_REVERSED && edge.Orientation() != TopAbs_FORWARD)
     {
       if (myManifoldMode)
@@ -292,7 +292,7 @@ void ShapeExtend_WireData::Add(const Handle(ShapeExtend_WireData)& wire,
   Standard_Integer         i = 1;
   for (; i <= wire->NbEdges(); i++)
   {
-    TopoDS_Edge aE = wire->Edge(i);
+    TopoEdge aE = wire->Edge(i);
     if (aE.Orientation() == TopAbs_INTERNAL || aE.Orientation() == TopAbs_EXTERNAL)
     {
       aNMEdges.Append(aE);
@@ -336,7 +336,7 @@ void ShapeExtend_WireData::Add(const Handle(ShapeExtend_WireData)& wire,
 
 //=================================================================================================
 
-void ShapeExtend_WireData::Add(const TopoDS_Shape& shape, const Standard_Integer atnum)
+void ShapeExtend_WireData::Add(const TopoShape& shape, const Standard_Integer atnum)
 {
   if (shape.ShapeType() == TopAbs_EDGE)
     Add(TopoDS::Edge(shape), atnum);
@@ -346,11 +346,11 @@ void ShapeExtend_WireData::Add(const TopoDS_Shape& shape, const Standard_Integer
 
 //=================================================================================================
 
-void ShapeExtend_WireData::AddOriented(const TopoDS_Edge& edge, const Standard_Integer mode)
+void ShapeExtend_WireData::AddOriented(const TopoEdge& edge, const Standard_Integer mode)
 {
   if (edge.IsNull() || mode < 0)
     return;
-  TopoDS_Edge E = edge;
+  TopoEdge E = edge;
   if (mode == 1 || mode == 3)
     E.Reverse();
   Add(E, mode / 2); // mode = 0,1 -> 0  mode = 2,3 -> 1
@@ -358,17 +358,17 @@ void ShapeExtend_WireData::AddOriented(const TopoDS_Edge& edge, const Standard_I
 
 //=================================================================================================
 
-void ShapeExtend_WireData::AddOriented(const TopoDS_Wire& wire, const Standard_Integer mode)
+void ShapeExtend_WireData::AddOriented(const TopoWire& wire, const Standard_Integer mode)
 {
   if (wire.IsNull() || mode < 0)
     return;
-  TopoDS_Wire W = wire;
+  TopoWire W = wire;
   if (mode == 1 || mode == 3)
     W.Reverse();
   Add(W, mode / 2); // mode = 0,1 -> 0  mode = 2,3 -> 1
 }
 
-void ShapeExtend_WireData::AddOriented(const TopoDS_Shape& shape, const Standard_Integer mode)
+void ShapeExtend_WireData::AddOriented(const TopoShape& shape, const Standard_Integer mode)
 {
   if (shape.ShapeType() == TopAbs_EDGE)
     AddOriented(TopoDS::Edge(shape), mode);
@@ -388,7 +388,7 @@ void ShapeExtend_WireData::Remove(const Standard_Integer num)
 
 //=================================================================================================
 
-void ShapeExtend_WireData::Set(const TopoDS_Edge& edge, const Standard_Integer num)
+void ShapeExtend_WireData::Set(const TopoEdge& edge, const Standard_Integer num)
 {
   if (edge.Orientation() != TopAbs_REVERSED && edge.Orientation() != TopAbs_FORWARD
       && myManifoldMode)
@@ -416,9 +416,9 @@ void ShapeExtend_WireData::Reverse()
   // inverser les edges + les permuter pour inverser le wire
   for (i = 1; i <= nb / 2; i++)
   {
-    TopoDS_Shape S1 = myEdges->Value(i);
+    TopoShape S1 = myEdges->Value(i);
     S1.Reverse();
-    TopoDS_Shape S2 = myEdges->Value(nb + 1 - i);
+    TopoShape S2 = myEdges->Value(nb + 1 - i);
     S2.Reverse();
     myEdges->SetValue(i, S2);
     myEdges->SetValue(nb + 1 - i, S1);
@@ -427,7 +427,7 @@ void ShapeExtend_WireData::Reverse()
   if (nb % 2)
   { //  test impair
     i               = (nb + 1) / 2;
-    TopoDS_Shape SI = myEdges->Value(i);
+    TopoShape SI = myEdges->Value(i);
     SI.Reverse();
     myEdges->SetValue(i, SI);
   }
@@ -437,35 +437,35 @@ void ShapeExtend_WireData::Reverse()
 //=================================================================================================
 
 //  Fonction auxiliaire SwapSeam pour inverser
-static void SwapSeam(const TopoDS_Shape& S, const TopoDS_Face& F)
+static void SwapSeam(const TopoShape& S, const TopoFace& F)
 {
-  TopoDS_Edge E = TopoDS::Edge(S);
+  TopoEdge E = TopoDS::Edge(S);
   if (E.IsNull() || F.IsNull())
     return;
   if (E.Orientation() == TopAbs_REVERSED)
     return; // ne le faire qu une fois !
 
-  TopoDS_Face theface = F;
+  TopoFace theface = F;
   theface.Orientation(TopAbs_FORWARD);
 
-  //: S4136  Standard_Real Tol = BRep_Tool::Tolerance(theface);
-  Handle(Geom2d_Curve) c2df, c2dr;
+  //: S4136  Standard_Real Tol = BRepInspector::Tolerance(theface);
+  Handle(GeomCurve2d) c2df, c2dr;
   Standard_Real        uff, ulf, ufr, ulr;
 
   // d abord FWD puis REV
-  c2df = BRep_Tool::CurveOnSurface(E, theface, uff, ulf);
+  c2df = BRepInspector::CurveOnSurface(E, theface, uff, ulf);
   E.Orientation(TopAbs_REVERSED);
-  c2dr = BRep_Tool::CurveOnSurface(E, theface, ufr, ulr);
+  c2dr = BRepInspector::CurveOnSurface(E, theface, ufr, ulr);
   if (c2df.IsNull() || c2dr.IsNull())
     return; //: q0
   // On permute
   E.Orientation(TopAbs_FORWARD);
-  BRep_Builder B;
+  ShapeBuilder B;
   B.UpdateEdge(E, c2dr, c2df, theface, 0.); //: S4136: Tol
   B.Range(E, theface, uff, ulf);
 }
 
-void ShapeExtend_WireData::Reverse(const TopoDS_Face& face)
+void ShapeExtend_WireData::Reverse(const TopoFace& face)
 {
   Reverse();
   if (face.IsNull())
@@ -497,11 +497,11 @@ Standard_Integer ShapeExtend_WireData::NbEdges() const
 
 //=================================================================================================
 
-TopoDS_Edge ShapeExtend_WireData::Edge(const Standard_Integer num) const
+TopoEdge ShapeExtend_WireData::Edge(const Standard_Integer num) const
 {
   if (num < 0)
   {
-    TopoDS_Edge E = Edge(-num);
+    TopoEdge E = Edge(-num);
     E.Reverse();
     return E;
   }
@@ -517,9 +517,9 @@ Standard_Integer ShapeExtend_WireData::NbNonManifoldEdges() const
 
 //=================================================================================================
 
-TopoDS_Edge ShapeExtend_WireData::NonmanifoldEdge(const Standard_Integer num) const
+TopoEdge ShapeExtend_WireData::NonmanifoldEdge(const Standard_Integer num) const
 {
-  TopoDS_Edge E;
+  TopoEdge E;
   if (num < 0)
     return E;
 
@@ -528,7 +528,7 @@ TopoDS_Edge ShapeExtend_WireData::NonmanifoldEdge(const Standard_Integer num) co
 
 //=================================================================================================
 
-Standard_Integer ShapeExtend_WireData::Index(const TopoDS_Edge& edge)
+Standard_Integer ShapeExtend_WireData::Index(const TopoEdge& edge)
 {
   for (Standard_Integer i = 1; i <= NbEdges(); i++)
     if (Edge(i).IsSame(edge) && (Edge(i).Orientation() == edge.Orientation() || !IsSeam(i)))
@@ -559,24 +559,24 @@ Standard_Boolean ShapeExtend_WireData::IsSeam(const Standard_Integer num)
 
 //=================================================================================================
 
-TopoDS_Wire ShapeExtend_WireData::Wire() const
+TopoWire ShapeExtend_WireData::Wire() const
 {
-  TopoDS_Wire  W;
-  BRep_Builder B;
+  TopoWire  W;
+  ShapeBuilder B;
   B.MakeWire(W);
   Standard_Integer i, nb = NbEdges();
   Standard_Boolean ismanifold = Standard_True;
   for (i = 1; i <= nb; i++)
   {
-    TopoDS_Edge aE = Edge(i);
+    TopoEdge aE = Edge(i);
     if (aE.Orientation() != TopAbs_FORWARD && aE.Orientation() != TopAbs_REVERSED)
       ismanifold = Standard_False;
     B.Add(W, aE);
   }
   if (ismanifold)
   {
-    TopoDS_Vertex vf, vl;
-    TopExp::Vertices(W, vf, vl);
+    TopoVertex vf, vl;
+    TopExp1::Vertices(W, vf, vl);
     if (!vf.IsNull() && !vl.IsNull() && vf.IsSame(vl))
       W.Closed(Standard_True);
   }
@@ -591,9 +591,9 @@ TopoDS_Wire ShapeExtend_WireData::Wire() const
 
 //=================================================================================================
 
-TopoDS_Wire ShapeExtend_WireData::WireAPIMake() const
+TopoWire ShapeExtend_WireData::WireAPIMake() const
 {
-  TopoDS_Wire             W;
+  TopoWire             W;
   BRepBuilderAPI_MakeWire MW;
   Standard_Integer        i, nb = NbEdges();
   for (i = 1; i <= nb; i++)

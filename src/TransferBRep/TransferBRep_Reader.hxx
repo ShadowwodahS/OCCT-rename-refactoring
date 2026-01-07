@@ -31,7 +31,7 @@ class Transfer_ActorOfTransientProcess;
 class Interface_InterfaceModel;
 class Transfer_TransientProcess;
 class Interface_CheckIterator;
-class TopoDS_Shape;
+class TopoShape;
 class RefObject;
 
 //! This class offers a simple, easy to call, way of transferring
@@ -140,25 +140,25 @@ public:
   Standard_EXPORT Standard_Boolean IsDone() const;
 
   //! Returns the count of produced Shapes (roots)
-  Standard_EXPORT Standard_Integer NbShapes() const;
+  Standard_EXPORT Standard_Integer NbShapes1() const;
 
   //! Returns the complete list of produced Shapes
   Standard_EXPORT Handle(TopTools_HSequenceOfShape) Shapes() const;
 
   //! Returns a Shape given its rank, by default the first one
-  Standard_EXPORT const TopoDS_Shape& Shape(const Standard_Integer num = 1) const;
+  Standard_EXPORT const TopoShape& Shape(const Standard_Integer num = 1) const;
 
   //! Returns a Shape produced from a given entity (if it was
   //! individually transferred or if an intermediate result is
   //! known). If no Shape is bound with <ent>, returns a Null Shape
   //! Warning : Runs on the last call to Transfer,TransferRoots,TransferList
-  Standard_EXPORT TopoDS_Shape ShapeResult(const Handle(RefObject)& ent) const;
+  Standard_EXPORT TopoShape ShapeResult(const Handle(RefObject)& ent) const;
 
   //! Returns a unique Shape for the result :
   //! - a void Shape (type = SHAPE) if result is empty
   //! - a simple Shape if result has only one : returns this one
   //! - a Compound if result has more than one Shape
-  Standard_EXPORT TopoDS_Shape OneShape() const;
+  Standard_EXPORT TopoShape OneShape() const;
 
   //! Returns the count of produced Transient Results (roots)
   Standard_EXPORT Standard_Integer NbTransients() const;

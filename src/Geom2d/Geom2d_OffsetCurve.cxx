@@ -34,7 +34,7 @@
 #include <Standard_RangeError.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom2d_OffsetCurve, Geom2d_Curve)
+IMPLEMENT_STANDARD_RTTIEXT(Geom2d_OffsetCurve, GeomCurve2d)
 
 static const Standard_Real MyAngularToleranceForG1 = Precision::Angular();
 
@@ -53,7 +53,7 @@ Handle(Geom2d_Geometry) Geom2d_OffsetCurve::Copy() const
 //            offset curve.
 //=======================================================================
 
-Geom2d_OffsetCurve::Geom2d_OffsetCurve(const Handle(Geom2d_Curve)& theCurve,
+Geom2d_OffsetCurve::Geom2d_OffsetCurve(const Handle(GeomCurve2d)& theCurve,
                                        const Standard_Real         theOffset,
                                        const Standard_Boolean      isTheNotCheckC0)
     : offsetValue(theOffset)
@@ -78,11 +78,11 @@ Standard_Real Geom2d_OffsetCurve::ReversedParameter(const Standard_Real U) const
 
 //=================================================================================================
 
-void Geom2d_OffsetCurve::SetBasisCurve(const Handle(Geom2d_Curve)& C,
+void Geom2d_OffsetCurve::SetBasisCurve(const Handle(GeomCurve2d)& C,
                                        const Standard_Boolean      isNotCheckC0)
 {
   const Standard_Real  aUf = C->FirstParameter(), aUl = C->LastParameter();
-  Handle(Geom2d_Curve) aCheckingCurve = C;
+  Handle(GeomCurve2d) aCheckingCurve = C;
   Standard_Boolean     isTrimmed      = Standard_False;
 
   while (aCheckingCurve->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve))
@@ -146,7 +146,7 @@ void Geom2d_OffsetCurve::SetOffsetValue(const Standard_Real D)
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) Geom2d_OffsetCurve::BasisCurve() const
+Handle(GeomCurve2d) Geom2d_OffsetCurve::BasisCurve() const
 {
   return basisCurve;
 }
@@ -337,7 +337,7 @@ void Geom2d_OffsetCurve::DumpJson(Standard_OStream& theOStream, Standard_Integer
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Geom2d_Curve)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, GeomCurve2d)
 
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, basisCurve.get())
 

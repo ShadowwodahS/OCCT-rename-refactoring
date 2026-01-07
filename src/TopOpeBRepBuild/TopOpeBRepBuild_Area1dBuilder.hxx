@@ -26,11 +26,11 @@
 #include <TopOpeBRepBuild_ListOfLoop.hxx>
 class TopOpeBRepBuild_PaveSet;
 class TopOpeBRepBuild_PaveClassifier;
-class TopOpeBRepBuild_LoopSet;
-class TopOpeBRepBuild_LoopClassifier;
+class LoopSet;
+class LoopClassifier;
 class TopOpeBRepBuild_Loop;
 
-class TopOpeBRepBuild_Area1dBuilder : public TopOpeBRepBuild_AreaBuilder
+class TopOpeBRepBuild_Area1dBuilder : public AreaBuilder
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -45,8 +45,8 @@ public:
 
   //! Sets a Area1dBuilder to find the areas of
   //! the shapes described by <LS> using the classifier <LC>.
-  Standard_EXPORT virtual void InitAreaBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                               TopOpeBRepBuild_LoopClassifier& LC,
+  Standard_EXPORT virtual void InitAreaBuilder(LoopSet&        LS,
+                                               LoopClassifier& LC,
                                                const Standard_Boolean ForceClass = Standard_False)
     Standard_OVERRIDE;
 

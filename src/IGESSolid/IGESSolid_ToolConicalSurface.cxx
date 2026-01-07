@@ -31,9 +31,9 @@
 #include <Interface_Macros.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESSolid_ToolConicalSurface::IGESSolid_ToolConicalSurface() {}
+ConicalSurfaceTool::ConicalSurfaceTool() {}
 
-void IGESSolid_ToolConicalSurface::ReadOwnParams(const Handle(IGESSolid_ConicalSurface)& ent,
+void ConicalSurfaceTool::ReadOwnParams(const Handle(IGESSolid_ConicalSurface)& ent,
                                                  const Handle(IGESData_IGESReaderData)&  IR,
                                                  IGESData_ParamReader&                   PR) const
 {
@@ -70,7 +70,7 @@ void IGESSolid_ToolConicalSurface::ReadOwnParams(const Handle(IGESSolid_ConicalS
   ent->Init(tempLocation, tempAxis, tempRadius, tempAngle, tempRefdir);
 }
 
-void IGESSolid_ToolConicalSurface::WriteOwnParams(const Handle(IGESSolid_ConicalSurface)& ent,
+void ConicalSurfaceTool::WriteOwnParams(const Handle(IGESSolid_ConicalSurface)& ent,
                                                   IGESData_IGESWriter&                    IW) const
 {
   IW.Send(ent->LocationPoint());
@@ -81,7 +81,7 @@ void IGESSolid_ToolConicalSurface::WriteOwnParams(const Handle(IGESSolid_Conical
     IW.Send(ent->ReferenceDir()); // cf FormNumber
 }
 
-void IGESSolid_ToolConicalSurface::OwnShared(const Handle(IGESSolid_ConicalSurface)& ent,
+void ConicalSurfaceTool::OwnShared(const Handle(IGESSolid_ConicalSurface)& ent,
                                              Interface_EntityIterator&               iter) const
 {
   iter.GetOneItem(ent->LocationPoint());
@@ -89,7 +89,7 @@ void IGESSolid_ToolConicalSurface::OwnShared(const Handle(IGESSolid_ConicalSurfa
   iter.GetOneItem(ent->ReferenceDir());
 }
 
-void IGESSolid_ToolConicalSurface::OwnCopy(const Handle(IGESSolid_ConicalSurface)& another,
+void ConicalSurfaceTool::OwnCopy(const Handle(IGESSolid_ConicalSurface)& another,
                                            const Handle(IGESSolid_ConicalSurface)& ent,
                                            Interface_CopyTool&                     TC) const
 {
@@ -112,10 +112,10 @@ void IGESSolid_ToolConicalSurface::OwnCopy(const Handle(IGESSolid_ConicalSurface
   }
 }
 
-IGESData_DirChecker IGESSolid_ToolConicalSurface::DirChecker(
+DirectoryChecker ConicalSurfaceTool::DirChecker(
   const Handle(IGESSolid_ConicalSurface)& /*ent*/) const
 {
-  IGESData_DirChecker DC(194, 0, 1);
+  DirectoryChecker DC(194, 0, 1);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
@@ -127,7 +127,7 @@ IGESData_DirChecker IGESSolid_ToolConicalSurface::DirChecker(
   return DC;
 }
 
-void IGESSolid_ToolConicalSurface::OwnCheck(const Handle(IGESSolid_ConicalSurface)& ent,
+void ConicalSurfaceTool::OwnCheck(const Handle(IGESSolid_ConicalSurface)& ent,
                                             const Interface_ShareTool&,
                                             Handle(Interface_Check)& ach) const
 {
@@ -142,7 +142,7 @@ void IGESSolid_ToolConicalSurface::OwnCheck(const Handle(IGESSolid_ConicalSurfac
     ach->AddFail("Parametrised Status Mismatches with Form Number");
 }
 
-void IGESSolid_ToolConicalSurface::OwnDump(const Handle(IGESSolid_ConicalSurface)& ent,
+void ConicalSurfaceTool::OwnDump(const Handle(IGESSolid_ConicalSurface)& ent,
                                            const IGESData_IGESDumper&              dumper,
                                            Standard_OStream&                       S,
                                            const Standard_Integer                  level) const

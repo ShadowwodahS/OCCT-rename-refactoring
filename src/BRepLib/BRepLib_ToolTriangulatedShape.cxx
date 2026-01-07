@@ -24,8 +24,8 @@
 
 //=================================================================================================
 
-void BRepLib_ToolTriangulatedShape::ComputeNormals(const TopoDS_Face&                theFace,
-                                                   const Handle(Poly_Triangulation)& theTris,
+void BRepLib_ToolTriangulatedShape::ComputeNormals(const TopoFace&                theFace,
+                                                   const Handle(MeshTriangulation)& theTris,
                                                    Poly_Connect&                     thePolyConnect)
 {
   if (theTris.IsNull() || theTris->HasNormals())
@@ -34,8 +34,8 @@ void BRepLib_ToolTriangulatedShape::ComputeNormals(const TopoDS_Face&           
   }
 
   // take in face the surface location
-  const TopoDS_Face    aZeroFace = TopoDS::Face(theFace.Located(TopLoc_Location()));
-  Handle(Geom_Surface) aSurf     = BRep_Tool::Surface(aZeroFace);
+  const TopoFace    aZeroFace = TopoDS::Face(theFace.Located(TopLoc_Location()));
+  Handle(GeomSurface) aSurf     = BRepInspector::Surface(aZeroFace);
   if (!theTris->HasUVNodes() || aSurf.IsNull())
   {
     // compute normals by averaging triangulation normals sharing the same vertex

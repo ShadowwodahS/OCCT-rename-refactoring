@@ -31,7 +31,7 @@ class IGESGeom_BSplineCurve;
 DEFINE_STANDARD_HANDLE(IGESGeom_BSplineCurve, IGESData_IGESEntity)
 
 //! defines IGESBSplineCurve, Type <126> Form <0-5>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A parametric equation obtained by dividing two summations
 //! involving weights (which are real numbers), the control
 //! points, and B-Spline basis functions

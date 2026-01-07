@@ -19,11 +19,11 @@
 
 //=================================================================================================
 
-const LDOM_BasicNode& LDOM_Node::Origin() const
+const BasicNode& LDOM_Node::Origin() const
 {
   if (myOrigin == NULL)
   {
-    static LDOM_BasicNode aNullNode;
+    static BasicNode aNullNode;
     return aNullNode;
   }
   return *myOrigin;
@@ -148,7 +148,7 @@ LDOM_Node LDOM_Node::getFirstChild() const
   if (aType == ELEMENT_NODE)
   {
     const LDOM_BasicElement& anElement = *(const LDOM_BasicElement*)myOrigin;
-    const LDOM_BasicNode*    aChild    = anElement.GetFirstChild();
+    const BasicNode*    aChild    = anElement.GetFirstChild();
     if (aChild)
       if (aChild->getNodeType() != LDOM_Node::ATTRIBUTE_NODE)
         return LDOM_Node(*aChild, myDocument);
@@ -166,7 +166,7 @@ LDOM_Node LDOM_Node::getLastChild() const
     if (myLastChild == NULL)
     {
       const LDOM_BasicElement& anElement  = *(const LDOM_BasicElement*)myOrigin;
-      (const LDOM_BasicNode*&)myLastChild = anElement.GetLastChild();
+      (const BasicNode*&)myLastChild = anElement.GetLastChild();
     }
     return LDOM_Node(*myLastChild, myDocument);
   }
@@ -177,7 +177,7 @@ LDOM_Node LDOM_Node::getLastChild() const
 
 LDOM_Node LDOM_Node::getNextSibling() const
 {
-  const LDOM_BasicNode* aSibling = myOrigin->mySibling;
+  const BasicNode* aSibling = myOrigin->mySibling;
   if (aSibling)
     if (aSibling->getNodeType() != ATTRIBUTE_NODE)
       return LDOM_Node(*aSibling, myDocument);
@@ -210,7 +210,7 @@ void LDOM_Node::appendChild(const LDOM_Node& aChild)
     if (myLastChild)
     {
       aChild.myOrigin->SetSibling(myLastChild->mySibling);
-      (const LDOM_BasicNode*&)myLastChild->mySibling = aChild.myOrigin;
+      (const BasicNode*&)myLastChild->mySibling = aChild.myOrigin;
     }
     else
     {
@@ -229,7 +229,7 @@ Standard_Boolean LDOM_Node::hasChildNodes() const
   if (aType == ELEMENT_NODE)
   {
     const LDOM_BasicElement& anElement = *(const LDOM_BasicElement*)myOrigin;
-    const LDOM_BasicNode*    aChild    = anElement.GetFirstChild();
+    const BasicNode*    aChild    = anElement.GetFirstChild();
     if (aChild)
       return !aChild->isNull();
   }

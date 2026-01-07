@@ -20,8 +20,8 @@
 #include <TNaming_NamedShape.hxx>
 #include <NCollection_List.hxx>
 
-typedef NCollection_List<Handle(TNaming_NamedShape)> TNaming_ListOfNamedShape;
-typedef NCollection_List<Handle(TNaming_NamedShape)>::Iterator
+typedef NCollection_List<Handle(ShapeAttribute)> TNaming_ListOfNamedShape;
+typedef NCollection_List<Handle(ShapeAttribute)>::Iterator
   TNaming_ListIteratorOfListOfNamedShape;
 
 #endif

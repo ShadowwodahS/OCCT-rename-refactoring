@@ -19,7 +19,7 @@
 
 //=================================================================================================
 
-TopOpeBRepDS_ShapeWithState::TopOpeBRepDS_ShapeWithState()
+ShapeWithState::ShapeWithState()
     : myState(TopAbs_UNKNOWN),
       myIsSplitted(Standard_False)
 {
@@ -27,9 +27,9 @@ TopOpeBRepDS_ShapeWithState::TopOpeBRepDS_ShapeWithState()
 
 //=================================================================================================
 
-const TopTools_ListOfShape& TopOpeBRepDS_ShapeWithState::Part(const TopAbs_State aState) const
+const ShapeList& ShapeWithState::Part(const TopAbs_State aState) const
 {
-  static TopTools_ListOfShape myEmptyListOfShape;
+  static ShapeList myEmptyListOfShape;
   switch (aState)
   {
     case TopAbs_IN:
@@ -45,7 +45,7 @@ const TopTools_ListOfShape& TopOpeBRepDS_ShapeWithState::Part(const TopAbs_State
 
 //=================================================================================================
 
-void TopOpeBRepDS_ShapeWithState::AddPart(const TopoDS_Shape& aShape, const TopAbs_State aState)
+void ShapeWithState::AddPart(const TopoShape& aShape, const TopAbs_State aState)
 {
   switch (aState)
   {
@@ -65,7 +65,7 @@ void TopOpeBRepDS_ShapeWithState::AddPart(const TopoDS_Shape& aShape, const TopA
 
 //=================================================================================================
 
-void TopOpeBRepDS_ShapeWithState::AddParts(const TopTools_ListOfShape& aListOfShape,
+void ShapeWithState::AddParts(const ShapeList& aListOfShape,
                                            const TopAbs_State          aState)
 {
   TopTools_ListIteratorOfListOfShape anIt(aListOfShape);
@@ -98,28 +98,28 @@ void TopOpeBRepDS_ShapeWithState::AddParts(const TopTools_ListOfShape& aListOfSh
 
 //=================================================================================================
 
-void TopOpeBRepDS_ShapeWithState::SetState(const TopAbs_State aState)
+void ShapeWithState::SetState(const TopAbs_State aState)
 {
   myState = aState;
 }
 
 //=================================================================================================
 
-TopAbs_State TopOpeBRepDS_ShapeWithState::State() const
+TopAbs_State ShapeWithState::State() const
 {
   return myState;
 }
 
 //=================================================================================================
 
-void TopOpeBRepDS_ShapeWithState::SetIsSplitted(const Standard_Boolean aFlag)
+void ShapeWithState::SetIsSplitted(const Standard_Boolean aFlag)
 {
   myIsSplitted = aFlag;
 }
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_ShapeWithState::IsSplitted() const
+Standard_Boolean ShapeWithState::IsSplitted() const
 {
   return myIsSplitted;
 }

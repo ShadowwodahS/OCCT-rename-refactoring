@@ -56,10 +56,10 @@ void Expr_Different::Simplify()
 
 Handle(Expr_GeneralRelation) Expr_Different::Copy() const
 {
-  return new Expr_Different(Expr::CopyShare(FirstMember()), Expr::CopyShare(SecondMember()));
+  return new Expr_Different(Expr1::CopyShare(FirstMember()), Expr1::CopyShare(SecondMember()));
 }
 
-TCollection_AsciiString Expr_Different::String() const
+AsciiString1 Expr_Different::String() const
 {
   return FirstMember()->String() + " <> " + SecondMember()->String();
 }

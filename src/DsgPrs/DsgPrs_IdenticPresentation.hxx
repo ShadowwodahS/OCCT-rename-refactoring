@@ -23,7 +23,7 @@
 #include <Prs3d_Drawer.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class TCollection_ExtendedString;
+class UtfString;
 class Point3d;
 class Frame3d;
 class gp_Elips;
@@ -36,8 +36,8 @@ public:
   //! draws a line between <aPntAttach> and
   //! <aPntOffset>.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
                                   const Point3d&                     aPntAttach,
                                   const Point3d&                     aPntOffset);
 
@@ -47,8 +47,8 @@ public:
   //! between <aPntOffset> and its projection
   //! on the precedent line.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
                                   const Point3d&                     aFAttach,
                                   const Point3d&                     aSAttach,
                                   const Point3d&                     aPntOffset);
@@ -60,8 +60,8 @@ public:
   //! draws a segment between <aPntOffset> and
   //! its projection on the arc.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
                                   const Frame3d&                     aAx2,
                                   const Point3d&                     aCenter,
                                   const Point3d&                     aFAttach,
@@ -74,8 +74,8 @@ public:
   //! and of radius dist(aCenter, aFAttach), and
   //! draws a segment between <aPntOffset> and <aPntOnCirc>
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
                                   const Frame3d&                     aAx2,
                                   const Point3d&                     aCenter,
                                   const Point3d&                     aFAttach,
@@ -88,8 +88,8 @@ public:
   //! between <aFAttach> and <aSAttach> and
   //! draws a segment between <aPntOffset> and <aPntOnElli>
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
                                   const gp_Elips&                   anEllipse,
                                   const Point3d&                     aFAttach,
                                   const Point3d&                     aSAttach,

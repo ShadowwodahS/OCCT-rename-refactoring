@@ -71,13 +71,13 @@ Standard_Boolean DNaming_PrismDriver::MustExecute(const Handle(TFunction_Logbook
 #ifdef OCCT_DEBUG
   #include <BRepTools.hxx>
 
-static void Write(const TopoDS_Shape& shape, const Standard_CString filename)
+static void Write(const TopoShape& shape, const Standard_CString filename)
 {
   std::ofstream save;
   save.open(filename);
   save << "DBRep_DrawableShape" << std::endl << std::endl;
   if (!shape.IsNull())
-    BRepTools::Write(shape, save);
+    BRepTools1::Write(shape, save);
   save.close();
 }
 #endif
@@ -93,7 +93,7 @@ Standard_Integer DNaming_PrismDriver::Execute(Handle(TFunction_Logbook)& theLog)
     return -1;
 
   // Save location
-  Handle(TNaming_NamedShape) aPrevPrism = DNaming::GetFunctionResult(aFunction);
+  Handle(ShapeAttribute) aPrevPrism = DNaming1::GetFunctionResult(aFunction);
   TopLoc_Location            aLocation;
   if (!aPrevPrism.IsNull() && !aPrevPrism->IsEmpty())
   {
@@ -101,22 +101,22 @@ Standard_Integer DNaming_PrismDriver::Execute(Handle(TFunction_Logbook)& theLog)
   }
 
   // Basis for IPrism
-  Handle(TDataStd_UAttribute) aBasObject = DNaming::GetObjectArg(aFunction, PRISM_BASIS);
-  Handle(TNaming_NamedShape)  aBasisNS   = DNaming::GetObjectValue(aBasObject);
+  Handle(TDataStd_UAttribute) aBasObject = DNaming1::GetObjectArg(aFunction, PRISM_BASIS);
+  Handle(ShapeAttribute)  aBasisNS   = DNaming1::GetObjectValue(aBasObject);
   if (aBasisNS.IsNull() || aBasisNS->IsEmpty())
   {
     aFunction->SetFailure(WRONG_ARGUMENT);
     return -1;
   }
 
-  const TopoDS_Shape& aBasis = aBasisNS->Get();
-  TopoDS_Shape        aBASIS;
+  const TopoShape& aBasis = aBasisNS->Get();
+  TopoShape        aBASIS;
   if (aBasis.ShapeType() == TopAbs_WIRE)
   {
     Handle(BRepCheck_Wire) aCheck = new BRepCheck_Wire(TopoDS::Wire(aBasis));
     if (aCheck->Closed(Standard_True) == BRepCheck_NoError)
     {
-      BRepBuilderAPI_MakeFace aMaker(TopoDS::Wire(aBasis), Standard_True); // Makes planar face
+      FaceMaker aMaker(TopoDS::Wire(aBasis), Standard_True); // Makes planar face
       if (aMaker.IsDone())
         aBASIS = aMaker.Face(); // aMaker.Face();
     }
@@ -129,11 +129,11 @@ Standard_Integer DNaming_PrismDriver::Execute(Handle(TFunction_Logbook)& theLog)
     return -1;
   }
 
-  Handle(TNaming_NamedShape) aContextOfBasis;
+  Handle(ShapeAttribute) aContextOfBasis;
   Standard_Boolean           anIsAttachment = Standard_False;
-  if (DNaming::IsAttachment(aBasObject))
+  if (DNaming1::IsAttachment(aBasObject))
   {
-    aContextOfBasis = DNaming::GetAttachmentsContext(aBasObject); // a Context of Prism basis
+    aContextOfBasis = DNaming1::GetAttachmentsContext(aBasObject); // a Context of Prism basis
     if (aContextOfBasis.IsNull() || aContextOfBasis->IsEmpty())
     {
       aFunction->SetFailure(WRONG_ARGUMENT);
@@ -143,7 +143,7 @@ Standard_Integer DNaming_PrismDriver::Execute(Handle(TFunction_Logbook)& theLog)
   }
 
   // Height
-  Standard_Real aHeight = DNaming::GetReal(aFunction, PRISM_HEIGHT)->Get();
+  Standard_Real aHeight = DNaming1::GetReal(aFunction, PRISM_HEIGHT)->Get();
   if (aHeight <= Precision::Confusion())
   {
     aFunction->SetFailure(WRONG_ARGUMENT);
@@ -152,10 +152,10 @@ Standard_Integer DNaming_PrismDriver::Execute(Handle(TFunction_Logbook)& theLog)
 
   // Direction
   Axis3d anAxis;
-  DNaming::ComputeSweepDir(aBasis, anAxis);
+  DNaming1::ComputeSweepDir(aBasis, anAxis);
 
   // Reverse
-  Standard_Integer aRev = DNaming::GetInteger(aFunction, PRISM_DIR)->Get();
+  Standard_Integer aRev = DNaming1::GetInteger(aFunction, PRISM_DIR)->Get();
   if (aRev)
     anAxis.Reverse();
 
@@ -171,7 +171,7 @@ Standard_Integer DNaming_PrismDriver::Execute(Handle(TFunction_Logbook)& theLog)
     return -1;
   }
 
-  const TopoDS_Shape& aResult = aMakePrism.Shape();
+  const TopoShape& aResult = aMakePrism.Shape();
   BRepCheck_Analyzer  aCheckAnalyzer(aResult);
   if (!aCheckAnalyzer.IsValid(aResult))
   {
@@ -195,7 +195,7 @@ Standard_Integer DNaming_PrismDriver::Execute(Handle(TFunction_Logbook)& theLog)
 
   if (aVol)
   {
-    GProp_GProps aGProp;
+    GeometricProperties aGProp;
     BRepGProp::VolumeProperties(aResult, aGProp);
     if (aGProp.Mass() <= Precision::Confusion())
     {
@@ -212,7 +212,7 @@ Standard_Integer DNaming_PrismDriver::Execute(Handle(TFunction_Logbook)& theLog)
 
   // restore location
   if (!aLocation.IsIdentity())
-    TNaming::Displace(RESPOSITION(aFunction), aLocation, Standard_True);
+    TNaming1::Displace(RESPOSITION(aFunction), aLocation, Standard_True);
 
   theLog->SetValid(RESPOSITION(aFunction), Standard_True);
   aFunction->SetFailure(DONE);
@@ -221,14 +221,14 @@ Standard_Integer DNaming_PrismDriver::Execute(Handle(TFunction_Logbook)& theLog)
 
 //=================================================================================================
 
-void DNaming_PrismDriver::LoadNamingDS(const TDF_Label&       theResultLabel,
+void DNaming_PrismDriver::LoadNamingDS(const DataLabel&       theResultLabel,
                                        BRepPrimAPI_MakePrism& MS,
-                                       const TopoDS_Shape&    Basis,
-                                       const TopoDS_Shape&    Context) const
+                                       const TopoShape&    Basis,
+                                       const TopoShape&    Context) const
 {
 
   TopTools_DataMapOfShapeShape SubShapes;
-  for (TopExp_Explorer Exp(MS.Shape(), TopAbs_FACE); Exp.More(); Exp.Next())
+  for (ShapeExplorer Exp(MS.Shape(), TopAbs_FACE); Exp.More(); Exp.Next())
   {
     SubShapes.Bind(Exp.Current(), Exp.Current());
   }
@@ -246,7 +246,7 @@ void DNaming_PrismDriver::LoadNamingDS(const TDF_Label&       theResultLabel,
 
   // Insert lateral face : Face from Edge
   TNaming_Builder LateralFaceBuilder(theResultLabel.NewChild());
-  DNaming::LoadAndOrientGeneratedShapes(MS, Basis, TopAbs_EDGE, LateralFaceBuilder, SubShapes);
+  DNaming1::LoadAndOrientGeneratedShapes(MS, Basis, TopAbs_EDGE, LateralFaceBuilder, SubShapes);
 
   Standard_Boolean makeTopBottom = Standard_True;
   if (Basis.ShapeType() == TopAbs_COMPOUND)
@@ -262,7 +262,7 @@ void DNaming_PrismDriver::LoadNamingDS(const TDF_Label&       theResultLabel,
   if (makeTopBottom)
   {
     // Insert bottom face
-    TopoDS_Shape BottomFace = MS.FirstShape();
+    TopoShape BottomFace = MS.FirstShape();
     if (!BottomFace.IsNull())
     {
       if (BottomFace.ShapeType() != TopAbs_COMPOUND)
@@ -286,7 +286,7 @@ void DNaming_PrismDriver::LoadNamingDS(const TDF_Label&       theResultLabel,
     }
 
     // Insert top face
-    TopoDS_Shape TopFace = MS.LastShape();
+    TopoShape TopFace = MS.LastShape();
     if (!TopFace.IsNull())
     {
       if (TopFace.ShapeType() != TopAbs_COMPOUND)

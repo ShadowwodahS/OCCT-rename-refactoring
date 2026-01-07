@@ -55,11 +55,11 @@ Standard_Boolean XmlMDocStd_XLinkDriver::Paste(const XmlObjMgt_Persistent&  theS
     return Standard_False;
   }
 
-  TCollection_AsciiString anEntry;
+  AsciiString1 anEntry;
   if (XmlObjMgt::GetTagEntryString(anXPath, anEntry) == Standard_False)
   {
-    TCollection_ExtendedString aMessage =
-      TCollection_ExtendedString("Cannot retrieve XLink reference from \"") + anXPath + '\"';
+    UtfString aMessage =
+      UtfString("Cannot retrieve XLink reference from \"") + anXPath + '\"';
     myMessageDriver->Send(aMessage, Message_Fail);
     return Standard_False;
   }
@@ -93,7 +93,7 @@ void XmlMDocStd_XLinkDriver::Paste(const Handle(TDF_Attribute)& theSource,
   if (!aRef.IsNull())
   {
     // reference
-    TCollection_AsciiString anEntry = aRef->LabelEntry();
+    AsciiString1 anEntry = aRef->LabelEntry();
     XmlObjMgt_DOMString     aDOMString;
     XmlObjMgt::SetTagEntryString(aDOMString, anEntry);
     XmlObjMgt::SetStringValue(theTarget, aDOMString);

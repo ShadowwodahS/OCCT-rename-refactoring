@@ -36,9 +36,9 @@
 #include <TColgp_HArray1OfXYZ.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 
-IGESDraw_ToolLabelDisplay::IGESDraw_ToolLabelDisplay() {}
+LabelDisplayTool::LabelDisplayTool() {}
 
-void IGESDraw_ToolLabelDisplay::ReadOwnParams(const Handle(IGESDraw_LabelDisplay)&   ent,
+void LabelDisplayTool::ReadOwnParams(const Handle(IGESDraw_LabelDisplay)&   ent,
                                               const Handle(IGESData_IGESReaderData)& IR,
                                               IGESData_ParamReader&                  PR) const
 {
@@ -115,7 +115,7 @@ void IGESDraw_ToolLabelDisplay::ReadOwnParams(const Handle(IGESDraw_LabelDisplay
   ent->Init(views, textLocations, leaderEntities, labelLevels, displayedEntities);
 }
 
-void IGESDraw_ToolLabelDisplay::WriteOwnParams(const Handle(IGESDraw_LabelDisplay)& ent,
+void LabelDisplayTool::WriteOwnParams(const Handle(IGESDraw_LabelDisplay)& ent,
                                                IGESData_IGESWriter&                 IW) const
 {
   Standard_Integer Up = ent->NbLabels();
@@ -132,7 +132,7 @@ void IGESDraw_ToolLabelDisplay::WriteOwnParams(const Handle(IGESDraw_LabelDispla
   }
 }
 
-void IGESDraw_ToolLabelDisplay::OwnShared(const Handle(IGESDraw_LabelDisplay)& ent,
+void LabelDisplayTool::OwnShared(const Handle(IGESDraw_LabelDisplay)& ent,
                                           Interface_EntityIterator&            iter) const
 {
   Standard_Integer Up = ent->NbLabels();
@@ -144,7 +144,7 @@ void IGESDraw_ToolLabelDisplay::OwnShared(const Handle(IGESDraw_LabelDisplay)& e
   }
 }
 
-void IGESDraw_ToolLabelDisplay::OwnCopy(const Handle(IGESDraw_LabelDisplay)& another,
+void LabelDisplayTool::OwnCopy(const Handle(IGESDraw_LabelDisplay)& another,
                                         const Handle(IGESDraw_LabelDisplay)& ent,
                                         Interface_CopyTool&                  TC) const
 {
@@ -181,23 +181,23 @@ void IGESDraw_ToolLabelDisplay::OwnCopy(const Handle(IGESDraw_LabelDisplay)& ano
   ent->Init(views, textLocations, leaderEntities, labelLevels, displayedEntities);
 }
 
-IGESData_DirChecker IGESDraw_ToolLabelDisplay::DirChecker(
+DirectoryChecker LabelDisplayTool::DirChecker(
   const Handle(IGESDraw_LabelDisplay)& /*ent*/) const
 {
-  IGESData_DirChecker DC(402, 5);
+  DirectoryChecker DC(402, 5);
   DC.Structure(IGESData_DefVoid);
   DC.HierarchyStatusIgnored();
   DC.BlankStatusIgnored();
   return DC;
 }
 
-void IGESDraw_ToolLabelDisplay::OwnCheck(const Handle(IGESDraw_LabelDisplay)& /*ent*/,
+void LabelDisplayTool::OwnCheck(const Handle(IGESDraw_LabelDisplay)& /*ent*/,
                                          const Interface_ShareTool&,
                                          Handle(Interface_Check)& /*ach*/) const
 {
 }
 
-void IGESDraw_ToolLabelDisplay::OwnDump(const Handle(IGESDraw_LabelDisplay)& ent,
+void LabelDisplayTool::OwnDump(const Handle(IGESDraw_LabelDisplay)& ent,
                                         const IGESData_IGESDumper&           dumper,
                                         Standard_OStream&                    S,
                                         const Standard_Integer               level) const

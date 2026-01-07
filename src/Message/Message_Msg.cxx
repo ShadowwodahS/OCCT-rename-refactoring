@@ -43,13 +43,13 @@ Message_Msg::Message_Msg(const Message_Msg& theMsg)
 
 Message_Msg::Message_Msg(const Standard_CString theMsgCode)
 {
-  TCollection_AsciiString aKey((char*)theMsgCode);
+  AsciiString1 aKey((char*)theMsgCode);
   Set(Message_MsgFile::Msg(aKey));
 }
 
 //=================================================================================================
 
-Message_Msg::Message_Msg(const TCollection_ExtendedString& theMsgCode)
+Message_Msg::Message_Msg(const UtfString& theMsgCode)
 {
   Set(Message_MsgFile::Msg(theMsgCode));
 }
@@ -58,13 +58,13 @@ Message_Msg::Message_Msg(const TCollection_ExtendedString& theMsgCode)
 
 void Message_Msg::Set(const Standard_CString theMsg)
 {
-  TCollection_AsciiString aMsg((char*)theMsg);
+  AsciiString1 aMsg((char*)theMsg);
   Set(aMsg);
 }
 
 //=================================================================================================
 
-void Message_Msg::Set(const TCollection_ExtendedString& theMsg)
+void Message_Msg::Set(const UtfString& theMsg)
 {
   myMessageBody = theMsg;
 
@@ -137,7 +137,7 @@ void Message_Msg::Set(const TCollection_ExtendedString& theMsg)
 Message_Msg& Message_Msg::Arg(const Standard_CString theString)
 {
   // get location and format
-  TCollection_AsciiString aFormat;
+  AsciiString1 aFormat;
   Standard_Integer        aFirst = getFormat(Msg_StringType, aFormat);
   if (!aFirst)
     return *this;
@@ -145,7 +145,7 @@ Message_Msg& Message_Msg::Arg(const Standard_CString theString)
   // print string according to format
   char* sStringBuffer = new char[Max((Standard_Integer)strlen(theString) + 1, 1024)];
   Sprintf(sStringBuffer, aFormat.ToCString(), theString);
-  TCollection_ExtendedString aStr(sStringBuffer, Standard_True);
+  UtfString aStr(sStringBuffer, Standard_True);
   delete[] sStringBuffer;
   sStringBuffer = 0;
 
@@ -156,15 +156,15 @@ Message_Msg& Message_Msg::Arg(const Standard_CString theString)
 }
 
 //=======================================================================
-// function : Arg (TCollection_ExtendedString)
+// function : Arg (UtfString)
 // purpose  :
 // remark   : This type of string is inserted without conversion (i.e. like %s)
 //=======================================================================
 
-Message_Msg& Message_Msg::Arg(const TCollection_ExtendedString& theString)
+Message_Msg& Message_Msg::Arg(const UtfString& theString)
 {
   // get location and format
-  TCollection_AsciiString aFormat;
+  AsciiString1 aFormat;
   Standard_Integer        aFirst = getFormat(Msg_StringType, aFormat);
   if (!aFirst)
     return *this;
@@ -180,7 +180,7 @@ Message_Msg& Message_Msg::Arg(const TCollection_ExtendedString& theString)
 Message_Msg& Message_Msg::Arg(const Standard_Integer theValue)
 {
   // get location and format
-  TCollection_AsciiString aFormat;
+  AsciiString1 aFormat;
   Standard_Integer        aFirst = getFormat(Msg_IntegerType, aFormat);
   if (!aFirst)
     return *this;
@@ -188,7 +188,7 @@ Message_Msg& Message_Msg::Arg(const Standard_Integer theValue)
   // print string according to format
   char sStringBuffer[64];
   Sprintf(sStringBuffer, aFormat.ToCString(), theValue);
-  TCollection_ExtendedString aStr(sStringBuffer);
+  UtfString aStr(sStringBuffer);
 
   // replace the format placeholder by the actual string
   replaceText(aFirst, aFormat.Length(), aStr);
@@ -201,7 +201,7 @@ Message_Msg& Message_Msg::Arg(const Standard_Integer theValue)
 Message_Msg& Message_Msg::Arg(const Standard_Real theValue)
 {
   // get location and format
-  TCollection_AsciiString aFormat;
+  AsciiString1 aFormat;
   Standard_Integer        aFirst = getFormat(Msg_RealType, aFormat);
   if (!aFirst)
     return *this;
@@ -209,7 +209,7 @@ Message_Msg& Message_Msg::Arg(const Standard_Real theValue)
   // print string according to format
   char sStringBuffer[64];
   Sprintf(sStringBuffer, aFormat.ToCString(), theValue);
-  TCollection_ExtendedString aStr(sStringBuffer);
+  UtfString aStr(sStringBuffer);
 
   // replace the format placeholder by the actual string
   replaceText(aFirst, aFormat.Length(), aStr);
@@ -222,14 +222,14 @@ Message_Msg& Message_Msg::Arg(const Standard_Real theValue)
 // purpose  : used when the message is dispatched in Message_Messenger
 //=======================================================================
 
-const TCollection_ExtendedString& Message_Msg::Get()
+const UtfString& Message_Msg::Get()
 {
   // remove all non-initialised format specifications
   Standard_Integer                        i, anIncrement = 0;
-  static const TCollection_ExtendedString anUnknown("UNKNOWN");
+  static const UtfString anUnknown("UNKNOWN");
   for (i = 1; i < mySeqOfFormats.Length(); i += 3)
   {
-    TCollection_ExtendedString aRightPart =
+    UtfString aRightPart =
       myMessageBody.Split(mySeqOfFormats(i + 1) + anIncrement);
     aRightPart.Remove(1, mySeqOfFormats(i + 2));
     myMessageBody += anUnknown;
@@ -250,7 +250,7 @@ const TCollection_ExtendedString& Message_Msg::Get()
 //=======================================================================
 
 Standard_Integer Message_Msg::getFormat(const Standard_Integer   theType,
-                                        TCollection_AsciiString& theFormat)
+                                        AsciiString1& theFormat)
 {
   for (Standard_Integer i = 1; i <= mySeqOfFormats.Length(); i += 3)
     if (mySeqOfFormats(i) == theType)
@@ -258,7 +258,7 @@ Standard_Integer Message_Msg::getFormat(const Standard_Integer   theType,
       // Extract format
       Standard_Integer aFirst = mySeqOfFormats(i + 1);
       Standard_Integer aLen   = mySeqOfFormats(i + 2);
-      theFormat               = TCollection_AsciiString(aLen, ' ');
+      theFormat               = AsciiString1(aLen, ' ');
       for (Standard_Integer j = 1; j <= aLen; j++)
         if (IsAnAscii(myMessageBody.Value(aFirst + j)))
           theFormat.SetValue(j, (Standard_Character)myMessageBody.Value(aFirst + j));
@@ -278,7 +278,7 @@ Standard_Integer Message_Msg::getFormat(const Standard_Integer   theType,
 
 void Message_Msg::replaceText(const Standard_Integer            theFirst,
                               const Standard_Integer            theNb,
-                              const TCollection_ExtendedString& theStr)
+                              const UtfString& theStr)
 {
   myMessageBody.Remove(theFirst, theNb);
   myMessageBody.Insert(theFirst, theStr);

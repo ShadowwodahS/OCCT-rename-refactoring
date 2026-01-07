@@ -44,19 +44,19 @@ public:
   Standard_EXPORT ChFi2d_FilletAPI();
 
   //! A constructor of a fillet algorithm: accepts a wire consisting of two edges in a plane.
-  Standard_EXPORT ChFi2d_FilletAPI(const TopoDS_Wire& theWire, const gp_Pln& thePlane);
+  Standard_EXPORT ChFi2d_FilletAPI(const TopoWire& theWire, const gp_Pln& thePlane);
 
   //! A constructor of a fillet algorithm: accepts two edges in a plane.
-  Standard_EXPORT ChFi2d_FilletAPI(const TopoDS_Edge& theEdge1,
-                                   const TopoDS_Edge& theEdge2,
+  Standard_EXPORT ChFi2d_FilletAPI(const TopoEdge& theEdge1,
+                                   const TopoEdge& theEdge2,
                                    const gp_Pln&      thePlane);
 
   //! Initializes a fillet algorithm: accepts a wire consisting of two edges in a plane.
-  Standard_EXPORT void Init(const TopoDS_Wire& theWire, const gp_Pln& thePlane);
+  Standard_EXPORT void Init(const TopoWire& theWire, const gp_Pln& thePlane);
 
   //! Initializes a fillet algorithm: accepts two edges in a plane.
-  Standard_EXPORT void Init(const TopoDS_Edge& theEdge1,
-                            const TopoDS_Edge& theEdge2,
+  Standard_EXPORT void Init(const TopoEdge& theEdge1,
+                            const TopoEdge& theEdge2,
                             const gp_Pln&      thePlane);
 
   //! Constructs a fillet edge.
@@ -74,9 +74,9 @@ public:
   //! <thePoint> chooses a particular fillet in case of several fillets
   //! may be constructed (for example, a circle intersecting a segment in 2 points).
   //! Put the intersecting (or common) point of the edges.
-  Standard_EXPORT TopoDS_Edge Result(const Point3d&          thePoint,
-                                     TopoDS_Edge&           theEdge1,
-                                     TopoDS_Edge&           theEdge2,
+  Standard_EXPORT TopoEdge Result(const Point3d&          thePoint,
+                                     TopoEdge&           theEdge1,
+                                     TopoEdge&           theEdge2,
                                      const Standard_Integer iSolution = -1);
 
 private:
@@ -84,7 +84,7 @@ private:
   // for calculation of the fillets, or an iteration-recursive method is needed.
   // The analytical solution is applicable for linear and circular edges
   // having a common point.
-  Standard_Boolean IsAnalytical(const TopoDS_Edge& theEdge1, const TopoDS_Edge& theEdge2);
+  Standard_Boolean IsAnalytical(const TopoEdge& theEdge1, const TopoEdge& theEdge2);
 
   // Implementation of the fillet algorithm.
   ChFi2d_FilletAlgo    myFilletAlgo;

@@ -23,9 +23,9 @@
 IMPLEMENT_STANDARD_RTTIEXT(XSControl_SignTransferStatus, IFSelect_Signature)
 
 // #include <stdio.h>
-static TCollection_AsciiString& themes()
+static AsciiString1& themes()
 {
-  static TCollection_AsciiString tm;
+  static AsciiString1 tm;
   return tm;
 }
 

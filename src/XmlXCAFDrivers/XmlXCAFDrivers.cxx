@@ -50,7 +50,7 @@ const Handle(RefObject)& XmlXCAFDrivers::Factory(const Standard_GUID& aGUID)
 
 //=================================================================================================
 
-void XmlXCAFDrivers::DefineFormat(const Handle(TDocStd_Application)& theApp)
+void XmlXCAFDrivers::DefineFormat(const Handle(AppManager)& theApp)
 {
   theApp->DefineFormat(
     "XmlXCAF",

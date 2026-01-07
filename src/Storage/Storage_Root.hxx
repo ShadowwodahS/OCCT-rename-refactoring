@@ -47,14 +47,14 @@ class Storage_Root : public RefObject
 public:
   Standard_EXPORT Storage_Root();
 
-  Standard_EXPORT Storage_Root(const TCollection_AsciiString&     theName,
+  Standard_EXPORT Storage_Root(const AsciiString1&     theName,
                                const Handle(DbObject)& theObject);
 
-  Standard_EXPORT Storage_Root(const TCollection_AsciiString& theName,
+  Standard_EXPORT Storage_Root(const AsciiString1& theName,
                                const Standard_Integer         theRef,
-                               const TCollection_AsciiString& theType);
+                               const AsciiString1& theType);
 
-  Standard_EXPORT void SetName(const TCollection_AsciiString& theName);
+  Standard_EXPORT void SetName(const AsciiString1& theName);
 
   //! Returns the name of this root object.
   //! The name may have been given explicitly when
@@ -70,7 +70,7 @@ public:
   //! function before having named this root object,
   //! either explicitly, or when writing the set of data
   //! into the container.
-  Standard_EXPORT TCollection_AsciiString Name() const;
+  Standard_EXPORT AsciiString1 Name() const;
 
   Standard_EXPORT void SetObject(const Handle(DbObject)& anObject);
 
@@ -78,13 +78,13 @@ public:
   Standard_EXPORT Handle(DbObject) Object() const;
 
   //! Returns the name of this root type.
-  Standard_EXPORT TCollection_AsciiString Type() const;
+  Standard_EXPORT AsciiString1 Type() const;
 
   Standard_EXPORT void SetReference(const Standard_Integer aRef);
 
   Standard_EXPORT Standard_Integer Reference() const;
 
-  Standard_EXPORT void SetType(const TCollection_AsciiString& aType);
+  Standard_EXPORT void SetType(const AsciiString1& aType);
 
   friend class Storage_Schema;
 
@@ -92,8 +92,8 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString     myName;
-  TCollection_AsciiString     myType;
+  AsciiString1     myName;
+  AsciiString1     myType;
   Handle(DbObject) myObject;
   Standard_Integer            myRef;
 };

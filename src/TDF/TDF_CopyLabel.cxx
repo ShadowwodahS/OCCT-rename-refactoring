@@ -44,7 +44,7 @@ TDF_CopyLabel::TDF_CopyLabel()
 
 //=================================================================================================
 
-TDF_CopyLabel::TDF_CopyLabel(const TDF_Label& aSource, const TDF_Label& aTarget)
+TDF_CopyLabel::TDF_CopyLabel(const DataLabel& aSource, const DataLabel& aTarget)
     : myFilter(Standard_False),
       myIsDone(Standard_False)
 {
@@ -54,7 +54,7 @@ TDF_CopyLabel::TDF_CopyLabel(const TDF_Label& aSource, const TDF_Label& aTarget)
 
 //=================================================================================================
 
-void TDF_CopyLabel::Load(const TDF_Label& aSource, const TDF_Label& aTarget)
+void TDF_CopyLabel::Load(const DataLabel& aSource, const DataLabel& aTarget)
 {
   mySL = aSource;
   myTL = aTarget;
@@ -62,13 +62,13 @@ void TDF_CopyLabel::Load(const TDF_Label& aSource, const TDF_Label& aTarget)
 
 //=================================================================================================
 
-void TDF_CopyLabel::ExternalReferences(const TDF_Label&     aRefLabel,
-                                       const TDF_Label&     aLabel,
+void TDF_CopyLabel::ExternalReferences(const DataLabel&     aRefLabel,
+                                       const DataLabel&     aLabel,
                                        TDF_AttributeMap&    aExternals,
                                        const TDF_IDFilter&  aFilter,
                                        Handle(TDF_DataSet)& ds)
 {
-  //  TCollection_AsciiString entr1,entr2; //d
+  //  AsciiString1 entr1,entr2; //d
   for (TDF_AttributeIterator itr(aLabel); itr.More(); itr.Next())
   {
     itr.Value()->References(ds);
@@ -102,7 +102,7 @@ void TDF_CopyLabel::ExternalReferences(const TDF_Label&     aRefLabel,
     // 	// belongs to source hierarchy. So, what we should do ?
     // 	// Add this Attribute to the aExternals or add all attributes
     // 	// from this label ?
-    // 	TCollection_AsciiString entr1, entr2;
+    // 	AsciiString1 entr1, entr2;
     // 	TDF_Tool::Entry(labMItr.Key(), entr1);
     // 	TDF_Tool::Entry(aRefLabel, entr2);
     // 	std::cout<<"\t\t\tNot descendant label:: Lab1 = "<<entr1<<" and RefLab =
@@ -116,7 +116,7 @@ void TDF_CopyLabel::ExternalReferences(const TDF_Label&     aRefLabel,
 
 //=================================================================================================
 
-Standard_Boolean TDF_CopyLabel::ExternalReferences(const TDF_Label&    L,
+Standard_Boolean TDF_CopyLabel::ExternalReferences(const DataLabel&    L,
                                                    TDF_AttributeMap&   aExternals,
                                                    const TDF_IDFilter& aFilter)
 {
@@ -134,9 +134,9 @@ Standard_Boolean TDF_CopyLabel::ExternalReferences(const TDF_Label&    L,
 
 //=======================================================================
 #ifdef OCCT_DEBUG
-static void PrintEntry(const TDF_Label& label, const Standard_Boolean allLevels)
+static void PrintEntry(const DataLabel& label, const Standard_Boolean allLevels)
 {
-  TCollection_AsciiString entry;
+  AsciiString1 entry;
   TDF_Tool::Entry(label, entry);
   std::cout << "\tShareable attribute on the label = " << entry << std::endl;
   TDF_ChildIterator it(label, allLevels);

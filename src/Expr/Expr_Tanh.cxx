@@ -50,7 +50,7 @@ Handle(Expr_GeneralExpression) Expr_Tanh::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_Tanh::Copy() const
 {
-  return new Expr_Tanh(Expr::CopyShare(Operand()));
+  return new Expr_Tanh(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_Tanh::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -76,7 +76,7 @@ Handle(Expr_GeneralExpression) Expr_Tanh::Derivative(const Handle(Expr_NamedUnkn
   }
   Handle(Expr_GeneralExpression) myexp    = Operand();
   Handle(Expr_GeneralExpression) myder    = myexp->Derivative(X);
-  Handle(Expr_Cosh)              firstder = new Expr_Cosh(Expr::CopyShare(myexp));
+  Handle(Expr_Cosh)              firstder = new Expr_Cosh(Expr1::CopyShare(myexp));
   Handle(Expr_Square)            sq       = new Expr_Square(firstder->ShallowSimplified());
   Handle(Expr_Division)          resu     = myder / sq->ShallowSimplified();
   return resu->ShallowSimplified();
@@ -89,9 +89,9 @@ Standard_Real Expr_Tanh::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return (::Exp(val) - ::Exp(-val)) / (::Exp(val) + ::Exp(-val));
 }
 
-TCollection_AsciiString Expr_Tanh::String() const
+AsciiString1 Expr_Tanh::String() const
 {
-  TCollection_AsciiString str("Tanh(");
+  AsciiString1 str("Tanh(");
   str += Operand()->String();
   str += ")";
   return str;

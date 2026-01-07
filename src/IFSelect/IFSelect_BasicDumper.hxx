@@ -23,7 +23,7 @@
 #include <IFSelect_SessionDumper.hxx>
 class IFSelect_SessionFile;
 class RefObject;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_BasicDumper;
 DEFINE_STANDARD_HANDLE(IFSelect_BasicDumper, IFSelect_SessionDumper)
@@ -48,7 +48,7 @@ public:
   //! IFSelect. Returns True if done and <item> created, False else
   Standard_EXPORT Standard_Boolean
     ReadOwn(IFSelect_SessionFile&          file,
-            const TCollection_AsciiString& type,
+            const AsciiString1& type,
             Handle(RefObject)&    item) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_BasicDumper, IFSelect_SessionDumper)

@@ -29,9 +29,9 @@
 #include <Interface_EntityIterator.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESAppli_ToolRegionRestriction::IGESAppli_ToolRegionRestriction() {}
+RegionRestrictionTool::RegionRestrictionTool() {}
 
-void IGESAppli_ToolRegionRestriction::ReadOwnParams(const Handle(IGESAppli_RegionRestriction)& ent,
+void RegionRestrictionTool::ReadOwnParams(const Handle(IGESAppli_RegionRestriction)& ent,
                                                     const Handle(IGESData_IGESReaderData)& /*IR*/,
                                                     IGESData_ParamReader& PR) const
 {
@@ -52,7 +52,7 @@ void IGESAppli_ToolRegionRestriction::ReadOwnParams(const Handle(IGESAppli_Regio
             tempElectCktRestrict);
 }
 
-void IGESAppli_ToolRegionRestriction::WriteOwnParams(const Handle(IGESAppli_RegionRestriction)& ent,
+void RegionRestrictionTool::WriteOwnParams(const Handle(IGESAppli_RegionRestriction)& ent,
                                                      IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->NbPropertyValues());
@@ -61,12 +61,12 @@ void IGESAppli_ToolRegionRestriction::WriteOwnParams(const Handle(IGESAppli_Regi
   IW.Send(ent->ElectricalCktRestriction());
 }
 
-void IGESAppli_ToolRegionRestriction::OwnShared(const Handle(IGESAppli_RegionRestriction)& /*ent*/,
+void RegionRestrictionTool::OwnShared(const Handle(IGESAppli_RegionRestriction)& /*ent*/,
                                                 Interface_EntityIterator& /*iter*/) const
 {
 }
 
-void IGESAppli_ToolRegionRestriction::OwnCopy(const Handle(IGESAppli_RegionRestriction)& another,
+void RegionRestrictionTool::OwnCopy(const Handle(IGESAppli_RegionRestriction)& another,
                                               const Handle(IGESAppli_RegionRestriction)& ent,
                                               Interface_CopyTool& /*TC*/) const
 {
@@ -76,7 +76,7 @@ void IGESAppli_ToolRegionRestriction::OwnCopy(const Handle(IGESAppli_RegionRestr
             another->ElectricalCktRestriction()); // nbprops = 3
 }
 
-Standard_Boolean IGESAppli_ToolRegionRestriction::OwnCorrect(
+Standard_Boolean RegionRestrictionTool::OwnCorrect(
   const Handle(IGESAppli_RegionRestriction)& ent) const
 {
   Standard_Boolean res = (ent->NbPropertyValues() != 3);
@@ -94,10 +94,10 @@ Standard_Boolean IGESAppli_ToolRegionRestriction::OwnCorrect(
   return res; // + RAZ level selon subordibate
 }
 
-IGESData_DirChecker IGESAppli_ToolRegionRestriction::DirChecker(
+DirectoryChecker RegionRestrictionTool::DirChecker(
   const Handle(IGESAppli_RegionRestriction)& /*ent*/) const
 {
-  IGESData_DirChecker DC(406, 2); // Form no = 2 & Type = 406
+  DirectoryChecker DC(406, 2); // Form no = 2 & Type = 406
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.BlankStatusIgnored();
@@ -106,7 +106,7 @@ IGESData_DirChecker IGESAppli_ToolRegionRestriction::DirChecker(
   return DC;
 }
 
-void IGESAppli_ToolRegionRestriction::OwnCheck(const Handle(IGESAppli_RegionRestriction)& ent,
+void RegionRestrictionTool::OwnCheck(const Handle(IGESAppli_RegionRestriction)& ent,
                                                const Interface_ShareTool&,
                                                Handle(Interface_Check)& ach) const
 {
@@ -125,7 +125,7 @@ void IGESAppli_ToolRegionRestriction::OwnCheck(const Handle(IGESAppli_RegionRest
   // level ignored if this property is subordinate -- queried
 }
 
-void IGESAppli_ToolRegionRestriction::OwnDump(const Handle(IGESAppli_RegionRestriction)& ent,
+void RegionRestrictionTool::OwnDump(const Handle(IGESAppli_RegionRestriction)& ent,
                                               const IGESData_IGESDumper& /*dumper*/,
                                               Standard_OStream& S,
                                               const Standard_Integer /*level*/) const

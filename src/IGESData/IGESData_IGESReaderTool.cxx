@@ -124,7 +124,7 @@ Standard_Boolean IGESData_IGESReaderTool::AnalyseRecord(const Standard_Integer  
   DeclareAndCast(IGESData_UndefinedEntity, undent, ent);
   if (!undent.IsNull())
   {
-    IGESData_DirPart DP = igesdat->DirPart(num); // qui le copie ...
+    DirectoryPart DP = igesdat->DirPart(num); // qui le copie ...
     undent->ReadDir(igesdat, DP, ach);           // DP a pu etre modifie
     ReadDir(ent, igesdat, DP, ach);              // Lecture avec ce DP
   }
@@ -202,7 +202,7 @@ void IGESData_IGESReaderTool::EndRead(const Handle(Interface_InterfaceModel)& /*
 
 void IGESData_IGESReaderTool::ReadDir(const Handle(IGESData_IGESEntity)&     ent,
                                       const Handle(IGESData_IGESReaderData)& IR,
-                                      const IGESData_DirPart&                DP,
+                                      const DirectoryPart&                DP,
                                       Handle(Interface_Check)&               ach) const
 {
 
@@ -418,7 +418,7 @@ void IGESData_IGESReaderTool::ReadOwnParams(const Handle(IGESData_IGESEntity)&  
   }
   else
   {
-    //    IGESData_IGESType DT = ent->IGESType();
+    //    IGESType DT = ent->IGESType();
     // Sending of message : Unknown Entity
     Message_Msg Msg36("XSTEP_36");
     Msg36.Arg(thecnum);

@@ -80,7 +80,7 @@ void ShapeFix_Root::SetMaxTolerance(const Standard_Real maxtol)
 
 //=================================================================================================
 
-void ShapeFix_Root::SendMsg(const TopoDS_Shape&   shape,
+void ShapeFix_Root::SendMsg(const TopoShape&   shape,
                             const Message_Msg&    message,
                             const Message_Gravity gravity) const
 {

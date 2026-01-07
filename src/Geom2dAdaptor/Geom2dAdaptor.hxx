@@ -21,13 +21,13 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class Geom2d_Curve;
+class GeomCurve2d;
 class Adaptor2d_Curve2d;
 
 //! this package  contains the geometric definition of
 //! 2d  curves compatible  with  the  Adaptor  package
 //! templates.
-class Geom2dAdaptor
+class Geom2dAdaptor1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -36,7 +36,7 @@ public:
   //! handled by reference.
   //! Creates  a 2d  curve  from  a  HCurve2d.  This
   //! cannot process the OtherCurves.
-  Standard_EXPORT static Handle(Geom2d_Curve) MakeCurve(const Adaptor2d_Curve2d& HC);
+  Standard_EXPORT static Handle(GeomCurve2d) MakeCurve(const Adaptor2d_Curve2d& HC);
 };
 
 #endif // _Geom2dAdaptor_HeaderFile

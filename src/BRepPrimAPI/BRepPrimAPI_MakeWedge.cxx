@@ -87,7 +87,7 @@ BRepPrim_Wedge& BRepPrimAPI_MakeWedge::Wedge()
 
 //=================================================================================================
 
-const TopoDS_Shell& BRepPrimAPI_MakeWedge::Shell()
+const TopoShell& BRepPrimAPI_MakeWedge::Shell()
 {
   Build();
   return myWedge.Shell();
@@ -97,7 +97,7 @@ const TopoDS_Shell& BRepPrimAPI_MakeWedge::Shell()
 
 void BRepPrimAPI_MakeWedge::Build(const Message_ProgressRange& /*theRange*/)
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeSolid(TopoDS::Solid(myShape));
   B.Add(myShape, myWedge.Shell());
   Done();
@@ -105,7 +105,7 @@ void BRepPrimAPI_MakeWedge::Build(const Message_ProgressRange& /*theRange*/)
 
 //=================================================================================================
 
-const TopoDS_Solid& BRepPrimAPI_MakeWedge::Solid()
+const TopoSolid& BRepPrimAPI_MakeWedge::Solid()
 {
   Build();
   return TopoDS::Solid(myShape);
@@ -113,14 +113,14 @@ const TopoDS_Solid& BRepPrimAPI_MakeWedge::Solid()
 
 //=================================================================================================
 
-BRepPrimAPI_MakeWedge::operator TopoDS_Shell()
+BRepPrimAPI_MakeWedge::operator TopoShell()
 {
   return Shell();
 }
 
 //=================================================================================================
 
-BRepPrimAPI_MakeWedge::operator TopoDS_Solid()
+BRepPrimAPI_MakeWedge::operator TopoSolid()
 {
   return Solid();
 }

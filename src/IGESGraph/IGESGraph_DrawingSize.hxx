@@ -27,7 +27,7 @@ class IGESGraph_DrawingSize;
 DEFINE_STANDARD_HANDLE(IGESGraph_DrawingSize, IGESData_IGESEntity)
 
 //! defines IGESDrawingSize, Type <406> Form <16>
-//! in package IGESGraph
+//! in package IGESGraph1
 //!
 //! Specifies the drawing size in drawing units. The
 //! origin of the drawing is defined to be (0,0) in

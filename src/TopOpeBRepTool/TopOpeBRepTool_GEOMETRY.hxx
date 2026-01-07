@@ -26,24 +26,24 @@
 #include <gp_Dir2d.hxx>
 #include <Bnd_Box2d.hxx>
 
-Standard_EXPORT Handle(Geom2d_Curve) BASISCURVE2D(const Handle(Geom2d_Curve)& C);
-// Standard_EXPORT Standard_Boolean FUN_tool_IsUViso(const Handle(Geom2d_Curve)&
+Standard_EXPORT Handle(GeomCurve2d) BASISCURVE2D(const Handle(GeomCurve2d)& C);
+// Standard_EXPORT Standard_Boolean FUN_tool_IsUViso(const Handle(GeomCurve2d)&
 // PC,Standard_Boolean& isoU,Standard_Boolean& isoV,gp_Dir2d& d2d,gp_Pnt2d& O2d);
-Standard_EXPORT Dir3d FUN_tool_dirC(const Standard_Real par, const Handle(Geom_Curve)& C);
+Standard_EXPORT Dir3d FUN_tool_dirC(const Standard_Real par, const Handle(GeomCurve3d)& C);
 Standard_EXPORT Standard_Boolean FUN_tool_onapex(const gp_Pnt2d&             p2d,
-                                                 const Handle(Geom_Surface)& S);
-Standard_EXPORT Dir3d           FUN_tool_ngS(const gp_Pnt2d& p2d, const Handle(Geom_Surface)& S);
+                                                 const Handle(GeomSurface)& S);
+Standard_EXPORT Dir3d           FUN_tool_ngS(const gp_Pnt2d& p2d, const Handle(GeomSurface)& S);
 
 // ----------------------------------------------------------------------
 // curve type,surface type :
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_line(const Handle(Geom_Curve)& C3d);
-Standard_EXPORT Standard_Boolean FUN_tool_line(const Handle(Geom2d_Curve)& C2d);
+Standard_EXPORT Standard_Boolean FUN_tool_line(const Handle(GeomCurve3d)& C3d);
+Standard_EXPORT Standard_Boolean FUN_tool_line(const Handle(GeomCurve2d)& C2d);
 Standard_EXPORT Standard_Boolean FUN_quadCT(const GeomAbs_CurveType& CT);
-Standard_EXPORT Standard_Boolean FUN_tool_quad(const Handle(Geom_Curve)& C3d);
-Standard_EXPORT Standard_Boolean FUN_tool_quad(const Handle(Geom2d_Curve)& pc);
-Standard_EXPORT Standard_Boolean FUN_tool_quad(const Handle(Geom_Surface)& S);
-Standard_EXPORT Standard_Boolean FUN_tool_closed(const Handle(Geom_Surface)& S,
+Standard_EXPORT Standard_Boolean FUN_tool_quad(const Handle(GeomCurve3d)& C3d);
+Standard_EXPORT Standard_Boolean FUN_tool_quad(const Handle(GeomCurve2d)& pc);
+Standard_EXPORT Standard_Boolean FUN_tool_quad(const Handle(GeomSurface)& S);
+Standard_EXPORT Standard_Boolean FUN_tool_closed(const Handle(GeomSurface)& S,
                                                  Standard_Boolean&           uclosed,
                                                  Standard_Real&              uperiod,
                                                  Standard_Boolean&           vclosed,

@@ -23,11 +23,11 @@
 static Handle(RWHeaderSection_ReadWriteModule) rwm;
 static Handle(RWHeaderSection_GeneralModule)   rwg;
 
-void RWHeaderSection::Init()
+void RWHeaderSection1::Init()
 {
   ///   EuclidStandard::Init();
-  Handle(HeaderSection_Protocol) proto = HeaderSection::Protocol();
-  StepData::AddHeaderProtocol(proto);
+  Handle(HeaderSection_Protocol) proto = HeaderSection1::Protocol();
+  StepData1::AddHeaderProtocol(proto);
   if (rwm.IsNull())
     rwm = new RWHeaderSection_ReadWriteModule;
   if (rwg.IsNull())

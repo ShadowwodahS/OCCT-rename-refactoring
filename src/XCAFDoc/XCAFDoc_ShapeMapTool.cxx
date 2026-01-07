@@ -37,7 +37,7 @@ const Standard_GUID& XCAFDoc_ShapeMapTool::GetID()
 
 //=================================================================================================
 
-Handle(XCAFDoc_ShapeMapTool) XCAFDoc_ShapeMapTool::Set(const TDF_Label& L)
+Handle(XCAFDoc_ShapeMapTool) XCAFDoc_ShapeMapTool::Set(const DataLabel& L)
 {
   Handle(XCAFDoc_ShapeMapTool) A;
   if (!L.FindAttribute(XCAFDoc_ShapeMapTool::GetID(), A))
@@ -79,14 +79,14 @@ XCAFDoc_ShapeMapTool::XCAFDoc_ShapeMapTool() {}
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ShapeMapTool::IsSubShape(const TopoDS_Shape& sub) const
+Standard_Boolean XCAFDoc_ShapeMapTool::IsSubShape(const TopoShape& sub) const
 {
   return myMap.Contains(sub);
 }
 
 //=================================================================================================
 
-static void AddSubShape(const TopoDS_Shape& S, TopTools_IndexedMapOfShape& myMap)
+static void AddSubShape(const TopoShape& S, TopTools_IndexedMapOfShape& myMap)
 {
   myMap.Add(S);
   for (TopoDS_Iterator it(S); it.More(); it.Next())
@@ -95,7 +95,7 @@ static void AddSubShape(const TopoDS_Shape& S, TopTools_IndexedMapOfShape& myMap
 
 //=================================================================================================
 
-void XCAFDoc_ShapeMapTool::SetShape(const TopoDS_Shape& S)
+void XCAFDoc_ShapeMapTool::SetShape(const TopoShape& S)
 {
   myMap.Clear();
   for (TopoDS_Iterator it(S); it.More(); it.Next())

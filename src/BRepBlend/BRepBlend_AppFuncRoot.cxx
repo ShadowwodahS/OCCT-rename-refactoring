@@ -57,7 +57,7 @@ BRepBlend_AppFuncRoot::BRepBlend_AppFuncRoot(Handle(BRepBlend_Line)& Line,
   {
     Standard_Real Xmax = -1.e100, Xmin = 1.e100, Ymax = -1.e100, Ymin = 1.e100, Zmax = -1.e100,
                   Zmin = 1.e100;
-    Blend_Point P;
+    Point2 P;
     for (ii = 1; ii <= myLine->NbPoints(); ii++)
     {
       P    = myLine->Point(ii);
@@ -290,7 +290,7 @@ void BRepBlend_AppFuncRoot::GetMinimalWeight(TColStd_Array1OfReal& Weigths) cons
 
 Standard_Boolean BRepBlend_AppFuncRoot::SearchPoint(Blend_AppFunction&  Func,
                                                     const Standard_Real Param,
-                                                    Blend_Point&        Pnt)
+                                                    Point2&        Pnt)
 {
   Standard_Boolean Trouve;
   Standard_Integer dim = Func.NbVariables();

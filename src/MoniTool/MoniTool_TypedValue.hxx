@@ -71,7 +71,7 @@ public:
     MoniTool_ValueInterpret&                                        interp,
     MoniTool_ValueSatisfies&                                        satisf,
     Standard_CString&                                               satisname,
-    NCollection_DataMap<TCollection_AsciiString, Standard_Integer>& enums) const;
+    NCollection_DataMap<AsciiString1, Standard_Integer>& enums) const;
 
   //! Returns the name
   Standard_EXPORT Standard_CString Name() const;
@@ -82,7 +82,7 @@ public:
   //! Returns the Definition
   //! By priority, the enforced one, else an automatic one, computed
   //! from the specification
-  Standard_EXPORT TCollection_AsciiString Definition() const;
+  Standard_EXPORT AsciiString1 Definition() const;
 
   //! Enforces a Definition
   Standard_EXPORT void SetDefinition(const Standard_CString deftext);
@@ -334,13 +334,13 @@ public:
 
 protected:
   //! Gives the internal library of static values
-  Standard_EXPORT static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>&
+  Standard_EXPORT static NCollection_DataMap<AsciiString1, Handle(RefObject)>&
     Stats();
 
 private:
-  TCollection_AsciiString                                        thename;
-  TCollection_AsciiString                                        thedef;
-  TCollection_AsciiString                                        thelabel;
+  AsciiString1                                        thename;
+  AsciiString1                                        thedef;
+  AsciiString1                                        thelabel;
   MoniTool_ValueType                                             thetype;
   Handle(TypeInfo)                                          theotyp;
   Standard_Integer                                               thelims;
@@ -349,12 +349,12 @@ private:
   Standard_Integer                                               theintup;
   Standard_Real                                                  therealow;
   Standard_Real                                                  therealup;
-  TCollection_AsciiString                                        theunidef;
+  AsciiString1                                        theunidef;
   Handle(TColStd_HArray1OfAsciiString)                           theenums;
-  NCollection_DataMap<TCollection_AsciiString, Standard_Integer> theeadds;
+  NCollection_DataMap<AsciiString1, Standard_Integer> theeadds;
   MoniTool_ValueInterpret                                        theinterp;
   MoniTool_ValueSatisfies                                        thesatisf;
-  TCollection_AsciiString                                        thesatisn;
+  AsciiString1                                        thesatisn;
   Standard_Integer                                               theival;
   Handle(TCollection_HAsciiString)                               thehval;
   Handle(RefObject)                                     theoval;

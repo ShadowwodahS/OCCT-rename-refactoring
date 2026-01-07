@@ -31,10 +31,10 @@
 
 #include <unordered_map>
 
-struct DE_ShapeFixParameters;
-class XSControl_WorkSession;
+struct ShapeFixParameters;
+class ExchangeSession;
 class StepData_StepModel;
-class TopoDS_Shape;
+class TopoShape;
 class Transfer_ActorOfFinderProcess;
 
 //! This class creates and writes
@@ -42,17 +42,17 @@ class Transfer_ActorOfFinderProcess;
 //! written to an existing STEP file or to a new one.
 //! Translation can be performed in one or several operations. Each
 //! translation operation outputs a distinct root entity in the STEP file.
-class STEPControl_Writer
+class StepFileWriter
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates a Writer from scratch
-  Standard_EXPORT STEPControl_Writer();
+  Standard_EXPORT StepFileWriter();
 
   //! Creates a Writer from an already existing Session
   //! If <scratch> is True (D), clears already recorded data
-  Standard_EXPORT STEPControl_Writer(const Handle(XSControl_WorkSession)& WS,
+  Standard_EXPORT StepFileWriter(const Handle(ExchangeSession)& WS,
                                      const Standard_Boolean               scratch = Standard_True);
 
   //! Sets a length-measure value that
@@ -64,11 +64,11 @@ public:
   Standard_EXPORT void UnsetTolerance();
 
   //! Sets a specific session to <me>
-  Standard_EXPORT void SetWS(const Handle(XSControl_WorkSession)& WS,
+  Standard_EXPORT void SetWS(const Handle(ExchangeSession)& WS,
                              const Standard_Boolean               scratch = Standard_True);
 
   //! Returns the session used in <me>
-  Standard_EXPORT Handle(XSControl_WorkSession) WS() const;
+  Standard_EXPORT Handle(ExchangeSession) WS() const;
 
   //! Returns the produced model. Produces a new one if not yet done
   //! or if <newone> is True
@@ -89,14 +89,14 @@ public:
   //! - STEPControlStd_GeometricCurveSet translates a shape into a STEP
   //! geometric_curve_set entity.
   Standard_EXPORT IFSelect_ReturnStatus
-    Transfer(const TopoDS_Shape&             sh,
+    Transfer(const TopoShape&             sh,
              const STEPControl_StepModelType mode,
              const Standard_Boolean          compgraph   = Standard_True,
              const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Translates shape sh to a STEP entity
   Standard_EXPORT IFSelect_ReturnStatus
-    Transfer(const TopoDS_Shape&             sh,
+    Transfer(const TopoShape&             sh,
              const STEPControl_StepModelType mode,
              const DESTEP_Parameters&        theParams,
              const Standard_Boolean          compgraph   = Standard_True,
@@ -148,7 +148,7 @@ public:
   //! @param theParameters the parameters for shape processing.
   //! @param theAdditionalParameters the additional parameters for shape processing.
   Standard_EXPORT void SetShapeFixParameters(
-    const DE_ShapeFixParameters&               theParameters,
+    const ShapeFixParameters&               theParameters,
     const XSAlgo_ShapeProcessor::ParameterMap& theAdditionalParameters = {});
 
   //! Returns parameters for shape processing that was set by SetParameters() method.
@@ -175,7 +175,7 @@ private:
   void InitializeMissingParameters();
 
 private:
-  Handle(XSControl_WorkSession) thesession;
+  Handle(ExchangeSession) thesession;
 };
 
 #endif // _STEPControl_Writer_HeaderFile

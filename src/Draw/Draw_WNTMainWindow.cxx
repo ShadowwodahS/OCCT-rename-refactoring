@@ -40,7 +40,7 @@ LRESULT APIENTRY WndProc(HWND hWndFrame, UINT wMsg, WPARAM wParam, LPARAM lParam
     case WM_CREATE: {
       CreateProc(hWndFrame);
       HWND hWndClient            = (HWND)GetWindowLongPtrW(hWndFrame, CLIENTWND);
-      Draw_Window::hWndClientMDI = hWndClient;
+      DrawWindow::hWndClientMDI = hWndClient;
       if (!Draw_IsConsoleSubsystem)
       {
         CreateCommandWindow(hWndFrame, 0);

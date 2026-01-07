@@ -32,8 +32,8 @@
 //! - if the file exists but corresponding variable (CSF_...) has not been
 //!   explicitly set, it is forced to (for further reuse by Resource_Manager)
 //! @return TRUE if the file exists, otherwise - False
-static Standard_Boolean findPluginFile(TCollection_AsciiString& thePluginName,
-                                       TCollection_AsciiString& thePluginDir)
+static Standard_Boolean findPluginFile(AsciiString1& thePluginName,
+                                       AsciiString1& thePluginDir)
 {
   // check if the file name has been specified and use default value if not
   if (thePluginName.IsEmpty())
@@ -48,8 +48,8 @@ static Standard_Boolean findPluginFile(TCollection_AsciiString& thePluginName,
   Standard_Boolean aToSetCSFVariable = Standard_False;
 
   // the order of search : by CSF_<PluginFileName>Defaults and then by CASROOT
-  const TCollection_AsciiString aCSFVariable =
-    TCollection_AsciiString("CSF_") + thePluginName + "Defaults";
+  const AsciiString1 aCSFVariable =
+    AsciiString1("CSF_") + thePluginName + "Defaults";
   thePluginDir = OSD_Environment(aCSFVariable).Value();
   if (thePluginDir.IsEmpty())
   {
@@ -77,8 +77,8 @@ static Standard_Boolean findPluginFile(TCollection_AsciiString& thePluginName,
   }
 
   // search directory name has been constructed, now check whether it and the file exist
-  const TCollection_AsciiString aPluginFileName = thePluginDir + "/" + thePluginName;
-  OSD_File                      aPluginFile(aPluginFileName);
+  const AsciiString1 aPluginFileName = thePluginDir + "/" + thePluginName;
+  SystemFile                      aPluginFile(aPluginFileName);
   if (!aPluginFile.Exists())
   {
     Message::SendFail() << "Failed to load plugin: File " << aPluginFileName << " not found";
@@ -119,8 +119,8 @@ static void resolveKeys(Draw_MapOfAsciiString& theMap, const Handle(Resource_Man
   const Standard_Integer aMapExtent = theMap.Extent();
   for (Standard_Integer j = 1; j <= aMapExtent; ++j)
   {
-    TCollection_AsciiString        aValue;
-    const TCollection_AsciiString& aResource = theMap.FindKey(j);
+    AsciiString1        aValue;
+    const AsciiString1& aResource = theMap.FindKey(j);
     if (theResMgr->Find(aResource, aValue))
     {
 #ifdef OCCT_DEBUG
@@ -128,7 +128,7 @@ static void resolveKeys(Draw_MapOfAsciiString& theMap, const Handle(Resource_Man
 #endif
       for (Standard_Integer aKeyIter = 1;; ++aKeyIter)
       {
-        const TCollection_AsciiString aCurKey = aValue.Token(" \t,", aKeyIter);
+        const AsciiString1 aCurKey = aValue.Token(" \t,", aKeyIter);
 #ifdef OCCT_DEBUG
         std::cout << "Parse aCurKey = " << aCurKey << std::endl;
 #endif
@@ -170,15 +170,15 @@ static void resolveKeys(Draw_MapOfAsciiString& theMap, const Handle(Resource_Man
 
 //=================================================================================================
 
-static Standard_Integer Pload(Draw_Interpretor& theDI,
+static Standard_Integer Pload(DrawInterpreter& theDI,
                               Standard_Integer  theNbArgs,
                               const char**      theArgVec)
 {
   Draw_MapOfAsciiString   aMap;
-  TCollection_AsciiString aPluginFileName;
+  AsciiString1 aPluginFileName;
   for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   {
-    const TCollection_AsciiString aTK(theArgVec[anArgIter]);
+    const AsciiString1 aTK(theArgVec[anArgIter]);
     if (anArgIter == 1 && aTK.Value(1) == '-')
     {
       aPluginFileName = aTK.SubString(2, aTK.Length());
@@ -193,7 +193,7 @@ static Standard_Integer Pload(Draw_Interpretor& theDI,
     aMap.Add("DEFAULT"); // Load DEFAULT key
   }
 
-  TCollection_AsciiString aPluginDir, aPluginDir2;
+  AsciiString1 aPluginDir, aPluginDir2;
   if (!findPluginFile(aPluginFileName, aPluginDir))
   {
     return 1;
@@ -206,11 +206,11 @@ static Standard_Integer Pload(Draw_Interpretor& theDI,
   const Standard_Integer aMapExtent = aMap.Extent();
   for (Standard_Integer aResIter = 1; aResIter <= aMapExtent; ++aResIter)
   {
-    const TCollection_AsciiString& aResource = aMap.FindKey(aResIter);
+    const AsciiString1& aResource = aMap.FindKey(aResIter);
 #ifdef OCCT_DEBUG
     std::cout << "aResource = " << aResource << std::endl;
 #endif
-    TCollection_AsciiString aValue;
+    AsciiString1 aValue;
     if (!aResMgr->Find(aResource, aValue))
     {
       Message::SendWarning() << "Pload : Resource = " << aResource << " is not found";
@@ -221,14 +221,14 @@ static Standard_Integer Pload(Draw_Interpretor& theDI,
     std::cout << "Value ==> " << aValue << std::endl;
 #endif
 
-    Draw::Load(theDI, aResource, aPluginFileName, aPluginDir, aPluginDir2, Standard_False);
+    Draw1::Load(theDI, aResource, aPluginFileName, aPluginDir, aPluginDir2, Standard_False);
 
     // Load TclScript
-    const TCollection_AsciiString aTclScriptDir = OSD_Environment("CSF_DrawPluginTclDir").Value();
-    const TCollection_AsciiString aTclScriptFileName = aTclScriptDir + "/" + aValue + ".tcl";
-    const TCollection_AsciiString aTclScriptFileNameDefaults = aPluginDir + "/" + aValue + ".tcl";
-    OSD_File                      aTclScriptFile(aTclScriptFileName);
-    OSD_File                      aTclScriptFileDefaults(aTclScriptFileNameDefaults);
+    const AsciiString1 aTclScriptDir = OSD_Environment("CSF_DrawPluginTclDir").Value();
+    const AsciiString1 aTclScriptFileName = aTclScriptDir + "/" + aValue + ".tcl";
+    const AsciiString1 aTclScriptFileNameDefaults = aPluginDir + "/" + aValue + ".tcl";
+    SystemFile                      aTclScriptFile(aTclScriptFileName);
+    SystemFile                      aTclScriptFileDefaults(aTclScriptFileNameDefaults);
     if (!aTclScriptDir.IsEmpty() && aTclScriptFile.Exists())
     {
 #ifdef OCCT_DEBUG
@@ -249,7 +249,7 @@ static Standard_Integer Pload(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer dtryload(Draw_Interpretor& di, Standard_Integer n, const char** argv)
+static Standard_Integer dtryload(DrawInterpreter& di, Standard_Integer n, const char** argv)
 {
   if (n != 2)
   {
@@ -272,17 +272,17 @@ static Standard_Integer dtryload(Draw_Interpretor& di, Standard_Integer n, const
 
 //=================================================================================================
 
-void Draw::PloadCommands(Draw_Interpretor& theCommands)
+void Draw1::PloadCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean Done = Standard_False;
   if (Done)
     return;
   Done = Standard_True;
 
-  const char* g = "Draw Plugin";
+  const char* g = "Draw1 Plugin";
 
   theCommands.Add("pload",
-                  "pload [-PluginFilename] [[Key1] [Key2] ...]: Loads Draw plugins ",
+                  "pload [-PluginFilename] [[Key1] [Key2] ...]: Loads Draw1 plugins ",
                   __FILE__,
                   Pload,
                   g);

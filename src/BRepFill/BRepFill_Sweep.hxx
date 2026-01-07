@@ -33,7 +33,7 @@
 #include <BRepFill_TransitionStyle.hxx>
 class BRepFill_LocationLaw;
 class BRepFill_SectionLaw;
-class TopoDS_Edge;
+class TopoEdge;
 
 //! Topological Sweep Algorithm
 //! Computes an  Sweep  shell using a  generating
@@ -47,7 +47,7 @@ public:
                                  const Handle(BRepFill_LocationLaw)& Location,
                                  const Standard_Boolean              WithKPart);
 
-  Standard_EXPORT void SetBounds(const TopoDS_Wire& FirstShape, const TopoDS_Wire& LastShape);
+  Standard_EXPORT void SetBounds(const TopoWire& FirstShape, const TopoWire& LastShape);
 
   //! Set Approximation Tolerance
   //! Tol3d : Tolerance to surface approximation
@@ -102,7 +102,7 @@ public:
   Standard_EXPORT Standard_Boolean IsDone() const;
 
   //! returns the Sweeping Shape
-  Standard_EXPORT TopoDS_Shape Shape() const;
+  Standard_EXPORT TopoShape Shape() const;
 
   //! Get the Approximation  error.
   Standard_EXPORT Standard_Real ErrorOnSurface() const;
@@ -114,7 +114,7 @@ public:
   Standard_EXPORT Handle(TopTools_HArray2OfShape) Sections() const;
 
   //! returns the Tape corresponding to Index-th edge of section
-  Standard_EXPORT TopoDS_Shape Tape(const Standard_Integer Index) const;
+  Standard_EXPORT TopoShape Tape(const Standard_Integer Index) const;
 
 protected:
   Standard_EXPORT Standard_Boolean CorrectApproxParameters();
@@ -137,16 +137,16 @@ protected:
   Standard_EXPORT Standard_Real EvalExtrapol(const Standard_Integer         Index,
                                              const BRepFill_TransitionStyle Transition) const;
 
-  Standard_EXPORT Standard_Boolean MergeVertex(const TopoDS_Shape& V1, TopoDS_Shape& V2) const;
+  Standard_EXPORT Standard_Boolean MergeVertex(const TopoShape& V1, TopoShape& V2) const;
 
   Standard_EXPORT void UpdateVertex(const Standard_Integer Ipath,
                                     const Standard_Integer Isec,
                                     const Standard_Real    Error,
                                     const Standard_Real    Param,
-                                    TopoDS_Shape&          V) const;
+                                    TopoShape&          V) const;
 
-  Standard_EXPORT void RebuildTopOrBottomEdge(const TopoDS_Edge&   aNewEdge,
-                                              TopoDS_Edge&         anEdge,
+  Standard_EXPORT void RebuildTopOrBottomEdge(const TopoEdge&   aNewEdge,
+                                              TopoEdge&         anEdge,
                                               TopTools_MapOfShape& ReversedEdges) const;
 
 private:
@@ -163,18 +163,18 @@ private:
   Standard_Integer                myDegmax;
   Standard_Integer                mySegmax;
   Standard_Boolean                myForceApproxC1;
-  TopoDS_Shape                    myShape;
+  TopoShape                    myShape;
   Handle(BRepFill_LocationLaw)    myLoc;
   Handle(BRepFill_SectionLaw)     mySec;
   Handle(TopTools_HArray2OfShape) myUEdges;
   Handle(TopTools_HArray2OfShape) myVEdges;
   TopTools_DataMapOfShapeShape    myVEdgesModified;
   Handle(TopTools_HArray2OfShape) myFaces;
-  TopTools_ListOfShape            myAuxShape;
+  ShapeList            myAuxShape;
   Handle(TopTools_HArray1OfShape) myTapes;
   Standard_Real                   Error;
-  TopoDS_Wire                     FirstShape;
-  TopoDS_Wire                     LastShape;
+  TopoWire                     FirstShape;
+  TopoWire                     LastShape;
 };
 
 #endif // _BRepFill_Sweep_HeaderFile

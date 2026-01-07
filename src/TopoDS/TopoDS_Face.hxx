@@ -26,23 +26,23 @@
 //! placement in the local coordinate system
 //! - has an orientation for the underlying face, in terms
 //! of its geometry (as opposed to orientation in relation to other shapes).
-class TopoDS_Face : public TopoDS_Shape
+class TopoFace : public TopoShape
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Undefined Face.
-  TopoDS_Face() {}
+  TopoFace() {}
 };
 
 namespace std
 {
 template <>
-struct hash<TopoDS_Face>
+struct hash<TopoFace>
 {
-  size_t operator()(const TopoDS_Face& theShape) const
+  size_t operator()(const TopoFace& theShape) const
   {
-    return std::hash<TopoDS_Shape>{}(theShape);
+    return std::hash<TopoShape>{}(theShape);
   }
 };
 } // namespace std

@@ -20,8 +20,8 @@
 #include <TColStd_HSequenceOfHAsciiString.hxx>
 
 #include <stdio.h>
-static NCollection_DataMap<TCollection_AsciiString, Handle(TCollection_HAsciiString)> thedic;
-static NCollection_DataMap<TCollection_AsciiString, Standard_Integer>                 thelist;
+static NCollection_DataMap<AsciiString1, Handle(TCollection_HAsciiString)> thedic;
+static NCollection_DataMap<AsciiString1, Standard_Integer>                 thelist;
 static Handle(TColStd_HSequenceOfHAsciiString)                                        thedup;
 static Standard_Boolean theprint = Standard_True;
 static Standard_Boolean therec   = Standard_False;
@@ -160,7 +160,7 @@ Standard_Integer Interface_MSG::Write(Standard_OStream& S, const Standard_CStrin
     return nb;
   if (rootkey[0] != '\0')
     S << "@@ ROOT:" << rootkey << std::endl;
-  NCollection_DataMap<TCollection_AsciiString, Handle(TCollection_HAsciiString)>::Iterator iter(
+  NCollection_DataMap<AsciiString1, Handle(TCollection_HAsciiString)>::Iterator iter(
     thedic);
   for (; iter.More(); iter.Next())
   {
@@ -266,7 +266,7 @@ void Interface_MSG::PrintTrace(Standard_OStream& S)
 
   if (thelist.IsEmpty())
     return;
-  NCollection_DataMap<TCollection_AsciiString, Standard_Integer>::Iterator iter(thelist);
+  NCollection_DataMap<AsciiString1, Standard_Integer>::Iterator iter(thelist);
   for (; iter.More(); iter.Next())
   {
     S << "** MSG(NB=" << iter.Value() << "): " << iter.Key() << std::endl;

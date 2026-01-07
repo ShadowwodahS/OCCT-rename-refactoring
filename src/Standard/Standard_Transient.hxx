@@ -116,10 +116,10 @@ private:
   std::atomic_int myRefCount_;
 };
 
-//! Definition of Handle_Standard_Transient as typedef for compatibility
+//! Definition of Handle_RefObject as typedef for compatibility
 
 Standard_DEPRECATED("This typedef will be removed right after 7.9 release. Use Handle(T) directly "
                     "instead.")
-typedef opencascade::handle<RefObject> Handle_Standard_Transient;
+typedef opencascade::handle<RefObject> Handle_RefObject;
 
 #endif

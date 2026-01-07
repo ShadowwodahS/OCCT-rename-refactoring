@@ -39,8 +39,8 @@ ShapeCustom_TrsfModification::ShapeCustom_TrsfModification(const Transform3d& T)
 
 //=================================================================================================
 
-Standard_Boolean ShapeCustom_TrsfModification::NewSurface(const TopoDS_Face&    F,
-                                                          Handle(Geom_Surface)& S,
+Standard_Boolean ShapeCustom_TrsfModification::NewSurface(const TopoFace&    F,
+                                                          Handle(GeomSurface)& S,
                                                           TopLoc_Location&      L,
                                                           Standard_Real&        Tol,
                                                           Standard_Boolean&     RevWires,
@@ -53,8 +53,8 @@ Standard_Boolean ShapeCustom_TrsfModification::NewSurface(const TopoDS_Face&    
 
 //=================================================================================================
 
-Standard_Boolean ShapeCustom_TrsfModification::NewCurve(const TopoDS_Edge&  E,
-                                                        Handle(Geom_Curve)& C,
+Standard_Boolean ShapeCustom_TrsfModification::NewCurve(const TopoEdge&  E,
+                                                        Handle(GeomCurve3d)& C,
                                                         TopLoc_Location&    L,
                                                         Standard_Real&      Tol)
 {
@@ -65,7 +65,7 @@ Standard_Boolean ShapeCustom_TrsfModification::NewCurve(const TopoDS_Edge&  E,
 
 //=================================================================================================
 
-Standard_Boolean ShapeCustom_TrsfModification::NewPoint(const TopoDS_Vertex& V,
+Standard_Boolean ShapeCustom_TrsfModification::NewPoint(const TopoVertex& V,
                                                         Point3d&              P,
                                                         Standard_Real&       Tol)
 {
@@ -76,11 +76,11 @@ Standard_Boolean ShapeCustom_TrsfModification::NewPoint(const TopoDS_Vertex& V,
 
 //=================================================================================================
 
-Standard_Boolean ShapeCustom_TrsfModification::NewCurve2d(const TopoDS_Edge&    E,
-                                                          const TopoDS_Face&    F,
-                                                          const TopoDS_Edge&    NewE,
-                                                          const TopoDS_Face&    NewF,
-                                                          Handle(Geom2d_Curve)& C,
+Standard_Boolean ShapeCustom_TrsfModification::NewCurve2d(const TopoEdge&    E,
+                                                          const TopoFace&    F,
+                                                          const TopoEdge&    NewE,
+                                                          const TopoFace&    NewF,
+                                                          Handle(GeomCurve2d)& C,
                                                           Standard_Real&        Tol)
 {
   Standard_Boolean result = BRepTools_TrsfModification::NewCurve2d(E, F, NewE, NewF, C, Tol);
@@ -90,8 +90,8 @@ Standard_Boolean ShapeCustom_TrsfModification::NewCurve2d(const TopoDS_Edge&    
 
 //=================================================================================================
 
-Standard_Boolean ShapeCustom_TrsfModification::NewParameter(const TopoDS_Vertex& V,
-                                                            const TopoDS_Edge&   E,
+Standard_Boolean ShapeCustom_TrsfModification::NewParameter(const TopoVertex& V,
+                                                            const TopoEdge&   E,
                                                             Standard_Real&       P,
                                                             Standard_Real&       Tol)
 {

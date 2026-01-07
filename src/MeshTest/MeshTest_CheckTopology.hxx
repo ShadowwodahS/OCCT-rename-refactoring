@@ -41,13 +41,13 @@ class MeshTest_CheckTopology
 {
 public:
   //! constructor
-  MeshTest_CheckTopology(const TopoDS_Shape& theShape)
+  MeshTest_CheckTopology(const TopoShape& theShape)
       : myShape(theShape)
   {
   }
 
   //! performs checking
-  Standard_EXPORT void Perform(Draw_Interpretor& di);
+  Standard_EXPORT void Perform(DrawInterpreter& di);
 
   //! returns the number of faces with free links
   Standard_Integer NbFacesWithFL() const { return myMapFaceLinks.Extent(); }
@@ -120,7 +120,7 @@ public:
   }
 
 private:
-  TopoDS_Shape                                                                     myShape;
+  TopoShape                                                                     myShape;
   NCollection_IndexedDataMap<Standard_Integer, Handle(TColStd_HSequenceOfInteger)> myMapFaceLinks;
 
   TColStd_SequenceOfInteger myErrors;

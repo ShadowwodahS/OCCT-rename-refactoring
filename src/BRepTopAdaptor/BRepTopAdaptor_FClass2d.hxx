@@ -31,7 +31,7 @@ class BRepTopAdaptor_FClass2d
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepTopAdaptor_FClass2d(const TopoDS_Face& F, const Standard_Real Tol);
+  Standard_EXPORT BRepTopAdaptor_FClass2d(const TopoFace& F, const Standard_Real Tol);
 
   Standard_EXPORT TopAbs_State PerformInfinitePoint() const;
 
@@ -62,7 +62,7 @@ private:
   BRepTopAdaptor_SeqOfPtr   TabClass;
   TColStd_SequenceOfInteger TabOrien;
   Standard_Real             Toluv;
-  TopoDS_Face               Face;
+  TopoFace               Face;
   Standard_Real             U1;
   Standard_Real             V1;
   Standard_Real             U2;

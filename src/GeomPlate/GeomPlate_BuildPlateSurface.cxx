@@ -154,7 +154,7 @@ GeomPlate_BuildPlateSurface::GeomPlate_BuildPlateSurface(
 //------------------------------------------------------------------
 // Constructor with initial surface and degree
 //------------------------------------------------------------------
-GeomPlate_BuildPlateSurface::GeomPlate_BuildPlateSurface(const Handle(Geom_Surface)& Surf,
+GeomPlate_BuildPlateSurface::GeomPlate_BuildPlateSurface(const Handle(GeomSurface)& Surf,
                                                          const Standard_Integer      Degree,
                                                          const Standard_Integer      NbPtsOnCur,
                                                          const Standard_Integer      NbIter,
@@ -251,10 +251,10 @@ static void TrierTab(Handle(TColStd_HArray1OfInteger)& Tab)
 //---------------------------------------------------------
 // Function : ProjectCurve
 //---------------------------------------------------------
-Handle(Geom2d_Curve) GeomPlate_BuildPlateSurface::ProjectCurve(const Handle(Adaptor3d_Curve)& Curv)
+Handle(GeomCurve2d) GeomPlate_BuildPlateSurface::ProjectCurve(const Handle(Adaptor3d_Curve)& Curv)
 {
   // Project a curve on a plane
-  Handle(Geom2d_Curve)        Curve2d;
+  Handle(GeomCurve2d)        Curve2d;
   Handle(GeomAdaptor_Surface) hsur = new GeomAdaptor_Surface(mySurfInit);
   gp_Pnt2d                    P2d;
 
@@ -302,7 +302,7 @@ Handle(Geom2d_Curve) GeomPlate_BuildPlateSurface::ProjectCurve(const Handle(Adap
   {
     char name[256];
     sprintf(name, "proj_%d", ++NbProj);
-    DrawTrSurf::Set(name, Curve2d);
+    DrawTrSurf1::Set(name, Curve2d);
   }
 #endif
   return Curve2d;
@@ -403,7 +403,7 @@ void GeomPlate_BuildPlateSurface::Init()
 //---------------------------------------------------------
 // Loads the initial surface
 //---------------------------------------------------------
-void GeomPlate_BuildPlateSurface::LoadInitSurface(const Handle(Geom_Surface)& Surf)
+void GeomPlate_BuildPlateSurface::LoadInitSurface(const Handle(GeomSurface)& Surf)
 {
   mySurfInit       = Surf;
   mySurfInitIsGive = Standard_True;
@@ -519,7 +519,7 @@ void GeomPlate_BuildPlateSurface::Perform(const Message_ProgressRange& theProgre
   for (Standard_Integer i = 1; i <= NTLinCont; i++)
     if (myLinCont->Value(i)->Curve2dOnSurf().IsNull())
     {
-      Handle(Geom2d_Curve) Curve2d = ProjectCurve(myLinCont->Value(i)->Curve3d());
+      Handle(GeomCurve2d) Curve2d = ProjectCurve(myLinCont->Value(i)->Curve3d());
       if (Curve2d.IsNull())
       {
         Ok = Standard_False;
@@ -541,7 +541,7 @@ void GeomPlate_BuildPlateSurface::Perform(const Message_ProgressRange& theProgre
     Ok = Standard_True;
     for (Standard_Integer i = 1; i <= NTLinCont; i++)
     {
-      Handle(Geom2d_Curve) Curve2d = ProjectCurve(myLinCont->Value(i)->Curve3d());
+      Handle(GeomCurve2d) Curve2d = ProjectCurve(myLinCont->Value(i)->Curve3d());
       if (Curve2d.IsNull())
       {
         Ok = Standard_False;
@@ -798,7 +798,7 @@ void GeomPlate_BuildPlateSurface::EcartContraintesMil(const Standard_Integer    
       }
       break;
     case 2:
-      Handle(Geom_Surface)            Splate(myGeomPlateSurface);
+      Handle(GeomSurface)            Splate(myGeomPlateSurface);
       LocalAnalysis_SurfaceContinuity CG2;
       for (i = 1; i < NbPt; i++)
       {
@@ -840,7 +840,7 @@ void GeomPlate_BuildPlateSurface::Disc2dContour(const Standard_Integer /*nbp*/,
   Standard_Integer NTCurve   = myLinCont->Length();
   Standard_Integer NTPntCont = myPntCont->Length();
   gp_Pnt2d         P2d;
-  gp_XY            UV;
+  Coords2d            UV;
   Point3d           PP;
   Standard_Real    u1, v1, u2, v2;
   Standard_Integer i;
@@ -1123,7 +1123,7 @@ Handle(GeomPlate_Surface) GeomPlate_BuildPlateSurface::Surface() const
 //---------------------------------------------------------
 // Function : SurfInit
 //---------------------------------------------------------
-Handle(Geom_Surface) GeomPlate_BuildPlateSurface::SurfInit() const
+Handle(GeomSurface) GeomPlate_BuildPlateSurface::SurfInit() const
 {
   return mySurfInit;
 }
@@ -1618,7 +1618,7 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
   // Comparing metrics of curves and projected curves
   if (NTLinCont != 0 && myIsLinear)
   {
-    Handle(Geom_Surface) InitPlane =
+    Handle(GeomSurface) InitPlane =
       (Handle(Geom_RectangularTrimmedSurface)::DownCast(mySurfInit))->BasisSurface();
 
     // clang-format off
@@ -1682,7 +1682,7 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
     {
       char name[256];
       sprintf(name, "planinit_%d", NbPlan + 1);
-      DrawTrSurf::Set(name, mySurfInit);
+      DrawTrSurf1::Set(name, mySurfInit);
     }
 #endif
     Standard_Real u1, v1, u2, v2;
@@ -1767,7 +1767,7 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
 
     for (i = 1; i <= NTLinCont; i++)
     {
-      Handle(Geom2d_Curve) NullCurve;
+      Handle(GeomCurve2d) NullCurve;
       NullCurve.Nullify();
       myLinCont->ChangeValue(i)->SetCurve2dOnSurf(NullCurve);
     }
@@ -1778,7 +1778,7 @@ void GeomPlate_BuildPlateSurface::ComputeSurfInit(const Message_ProgressRange& t
   {
     char name[256];
     sprintf(name, "surfinit_%d", ++NbPlan);
-    DrawTrSurf::Set(name, mySurfInit);
+    DrawTrSurf1::Set(name, mySurfInit);
   }
 #endif
 }
@@ -2002,7 +2002,7 @@ void GeomPlate_BuildPlateSurface::Intersect(Handle(GeomPlate_HArray1OfSequenceOf
               Handle(Draw_Marker3D) mark = new (Draw_Marker3D)(P1, Draw_X, Draw_vert);
               char                  name[256];
               sprintf(name, "mark_%d", ++NbMark);
-              Draw::Set(name, mark);
+              Draw1::Set(name, mark);
             }
 #endif
           }
@@ -2029,7 +2029,7 @@ void GeomPlate_BuildPlateSurface::Discretise(
 {
   Standard_Integer     NTLinCont = myLinCont->Length();
   Standard_Boolean     ACR;
-  Handle(Geom2d_Curve) C2d;
+  Handle(GeomCurve2d) C2d;
   Geom2dAdaptor_Curve  AC2d;
   //  Handle(Adaptor_HCurve2d) HC2d;
   Handle(Law_Interpol) acrlaw = new (Law_Interpol)();
@@ -2501,7 +2501,7 @@ Standard_Boolean GeomPlate_BuildPlateSurface::VerifSurface(const Standard_Intege
             Handle(Draw_Marker3D) mark = new (Draw_Marker3D)(P, Draw_X, Draw_orange);
             char                  name[256];
             sprintf(name, "mark_%d", ++NbMark);
-            Draw::Set(name, mark);
+            Draw1::Set(name, mark);
             if (!LinCont->ProjectedCurve().IsNull())
               P2d = LinCont->ProjectedCurve()->Value(U);
             else
@@ -2513,7 +2513,7 @@ Standard_Boolean GeomPlate_BuildPlateSurface::VerifSurface(const Standard_Intege
             }
             sprintf(name, "mark2d_%d", ++NbMark);
             Handle(Draw_Marker2D) mark2d = new (Draw_Marker2D)(P2d, Draw_X, Draw_orange);
-            Draw::Set(name, mark2d);
+            Draw1::Set(name, mark2d);
           }
 #endif
         }
@@ -2532,7 +2532,7 @@ Standard_Boolean GeomPlate_BuildPlateSurface::VerifSurface(const Standard_Intege
             Handle(Draw_Marker3D) mark = new Draw_Marker3D(P, Draw_X, Draw_or);
             char                  name[256];
             sprintf(name, "mark_%d", ++NbMark);
-            Draw::Set(name, mark);
+            Draw1::Set(name, mark);
           }
 #endif
         }
@@ -2618,7 +2618,7 @@ void GeomPlate_BuildPlateSurface::VerifPoints(Standard_Real& Dist,
           Ang = M_PI - Ang;
         break;
       case 2:
-        Handle(Geom_Surface)            Splate(myGeomPlateSurface);
+        Handle(GeomSurface)            Splate(myGeomPlateSurface);
         LocalAnalysis_SurfaceContinuity CG2;
         P2d = PntCont->Pnt2dOnSurf();
         GeomLProp_SLProps Prop(Splate, P2d.Coord(1), P2d.Coord(2), 2, 0.001);

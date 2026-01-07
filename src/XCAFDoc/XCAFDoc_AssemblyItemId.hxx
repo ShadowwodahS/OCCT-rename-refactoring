@@ -37,7 +37,7 @@ public:
   //! Constructs an item ID from a formatted path, where label entries
   //! are separated by '/' symbol.
   //! \param[in]  theString - formatted full path.
-  Standard_EXPORT XCAFDoc_AssemblyItemId(const TCollection_AsciiString& theString);
+  Standard_EXPORT XCAFDoc_AssemblyItemId(const AsciiString1& theString);
 
   //! Initializes the item ID from a list of strings, where every
   //! string is a label entry.
@@ -47,7 +47,7 @@ public:
   //! Initializes the item ID from a formatted path, where label entries
   //! are separated by '/' symbol.
   //! \param[in]  theString - formatted full path.
-  Standard_EXPORT void Init(const TCollection_AsciiString& theString);
+  Standard_EXPORT void Init(const AsciiString1& theString);
 
   //! Returns true if the full path is empty, otherwise - false.
   Standard_EXPORT Standard_Boolean IsNull() const;
@@ -74,7 +74,7 @@ public:
   Standard_EXPORT const TColStd_ListOfAsciiString& GetPath() const;
 
   //! Returns the full pass as a formatted string.
-  Standard_EXPORT TCollection_AsciiString ToString() const;
+  Standard_EXPORT AsciiString1 ToString() const;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
@@ -94,7 +94,7 @@ struct hash<XCAFDoc_AssemblyItemId>
 {
   size_t operator()(const XCAFDoc_AssemblyItemId& theAssemblyItemId) const
   {
-    return std::hash<TCollection_AsciiString>{}(theAssemblyItemId.ToString());
+    return std::hash<AsciiString1>{}(theAssemblyItemId.ToString());
   }
 };
 

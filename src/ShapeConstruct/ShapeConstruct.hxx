@@ -25,14 +25,14 @@
 #include <Standard_Integer.hxx>
 #include <TopTools_HSequenceOfShape.hxx>
 #include <TopAbs_Orientation.hxx>
-class Geom_BSplineCurve;
-class Geom_Curve;
+class BSplineCurve3d;
+class GeomCurve3d;
 class Geom2d_BSplineCurve;
-class Geom2d_Curve;
+class GeomCurve2d;
 class Geom_BSplineSurface;
-class Geom_Surface;
-class TopoDS_Face;
-class TopoDS_Edge;
+class GeomSurface;
+class TopoFace;
+class TopoEdge;
 
 //! This package provides new algorithms for constructing
 //! new geometrical objects and topological shapes. It
@@ -48,8 +48,8 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Tool for wire triangulation
-  Standard_EXPORT static Handle(Geom_BSplineCurve) ConvertCurveToBSpline(
-    const Handle(Geom_Curve)& C3D,
+  Standard_EXPORT static Handle(BSplineCurve3d) ConvertCurveToBSpline(
+    const Handle(GeomCurve3d)& C3D,
     const Standard_Real       First,
     const Standard_Real       Last,
     const Standard_Real       Tol3d,
@@ -58,7 +58,7 @@ public:
     const Standard_Integer    MaxDegree);
 
   Standard_EXPORT static Handle(Geom2d_BSplineCurve) ConvertCurveToBSpline(
-    const Handle(Geom2d_Curve)& C2D,
+    const Handle(GeomCurve2d)& C2D,
     const Standard_Real         First,
     const Standard_Real         Last,
     const Standard_Real         Tol2d,
@@ -67,7 +67,7 @@ public:
     const Standard_Integer      MaxDegree);
 
   Standard_EXPORT static Handle(Geom_BSplineSurface) ConvertSurfaceToBSpline(
-    const Handle(Geom_Surface)& surf,
+    const Handle(GeomSurface)& surf,
     const Standard_Real         UF,
     const Standard_Real         UL,
     const Standard_Real         VF,
@@ -82,8 +82,8 @@ public:
   //! Returns false if cannot join pcurves
   Standard_EXPORT static Standard_Boolean JoinPCurves(
     const Handle(TopTools_HSequenceOfShape)& theEdges,
-    const TopoDS_Face&                       theFace,
-    TopoDS_Edge&                             theEdge);
+    const TopoFace&                       theFace,
+    TopoEdge&                             theEdge);
 
   //! Method for joininig curves 3D.
   //! Parameters : c3d1,ac3d2 - initial curves
@@ -94,15 +94,15 @@ public:
   //! isRev1,isRev2 - out parameters indicative on possible errors.
   //! Return value : True - if curves were joined successfully,
   //! else - False.
-  Standard_EXPORT static Standard_Boolean JoinCurves(const Handle(Geom_Curve)& c3d1,
-                                                     const Handle(Geom_Curve)& ac3d2,
+  Standard_EXPORT static Standard_Boolean JoinCurves(const Handle(GeomCurve3d)& c3d1,
+                                                     const Handle(GeomCurve3d)& ac3d2,
                                                      const TopAbs_Orientation  Orient1,
                                                      const TopAbs_Orientation  Orient2,
                                                      Standard_Real&            first1,
                                                      Standard_Real&            last1,
                                                      Standard_Real&            first2,
                                                      Standard_Real&            last2,
-                                                     Handle(Geom_Curve)&       c3dOut,
+                                                     Handle(GeomCurve3d)&       c3dOut,
                                                      Standard_Boolean&         isRev1,
                                                      Standard_Boolean&         isRev2);
 
@@ -116,15 +116,15 @@ public:
   //! isError - input parameter indicative possible errors due to that one from edges have one
   //! vertex Return value : True - if curves were joined successfully, else - False.
   Standard_EXPORT static Standard_Boolean JoinCurves(
-    const Handle(Geom2d_Curve)& c2d1,
-    const Handle(Geom2d_Curve)& ac2d2,
+    const Handle(GeomCurve2d)& c2d1,
+    const Handle(GeomCurve2d)& ac2d2,
     const TopAbs_Orientation    Orient1,
     const TopAbs_Orientation    Orient2,
     Standard_Real&              first1,
     Standard_Real&              last1,
     Standard_Real&              first2,
     Standard_Real&              last2,
-    Handle(Geom2d_Curve)&       c2dOut,
+    Handle(GeomCurve2d)&       c2dOut,
     Standard_Boolean&           isRev1,
     Standard_Boolean&           isRev2,
     const Standard_Boolean      isError = Standard_False);

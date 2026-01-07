@@ -61,7 +61,7 @@ static Standard_Boolean isName(const char* aString, const char* aStringEnd, cons
 //=======================================================================
 
 LDOM_XmlReader::LDOM_XmlReader(const Handle(LDOM_MemManager)& theDocument,
-                               TCollection_AsciiString&       theErrorString,
+                               AsciiString1&       theErrorString,
                                const Standard_Boolean         theTagPerStep)
     : myEOF(Standard_False),
       myError(theErrorString),
@@ -322,7 +322,7 @@ LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord(Standard_IStream& theIStre
                 } // otherwise ERROR
             } // end of switch
             myError = "Unknown XML object: ";
-            myError += TCollection_AsciiString(myPtr, XML_MIN_BUFFER);
+            myError += AsciiString1(myPtr, XML_MIN_BUFFER);
             return XML_UNKNOWN;
           case '\0':
             if (myEOF == Standard_True)
@@ -625,7 +625,7 @@ LDOM_XmlReader::RecordType LDOM_XmlReader::ReadRecord(Standard_IStream& theIStre
               }
 
               Standard_Integer aDataLen;
-              aDataString = LDOM_CharReference::Decode(aDataString, aDataLen);
+              aDataString = CharReference::Decode(aDataString, aDataLen);
               if (IsDigit(aDataString[0]))
               {
                 if (getInteger(anAttrValue, aDataString, ePtr))

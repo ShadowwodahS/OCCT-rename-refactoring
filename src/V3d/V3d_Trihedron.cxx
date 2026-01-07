@@ -142,9 +142,9 @@ void V3d_Trihedron::SetLabelsColor(const Quantity_Color& theColor)
 
 //=================================================================================================
 
-void V3d_Trihedron::SetLabels(const TCollection_AsciiString& theX,
-                              const TCollection_AsciiString& theY,
-                              const TCollection_AsciiString& theZ)
+void V3d_Trihedron::SetLabels(const AsciiString1& theX,
+                              const AsciiString1& theY,
+                              const AsciiString1& theZ)
 {
   if (!myLabels[V3d_X].IsEqual(theX) || !myLabels[V3d_Y].IsEqual(theY)
       || !myLabels[V3d_Z].IsEqual(theZ))
@@ -226,7 +226,7 @@ void V3d_Trihedron::SetNbFacets(const Standard_Integer theNbFacets)
 
 //=================================================================================================
 
-void V3d_Trihedron::Display(const V3d_View& theView)
+void V3d_Trihedron::Display(const ViewWindow& theView)
 {
   if (myStructure.IsNull())
   {
@@ -362,7 +362,7 @@ void V3d_Trihedron::compute()
                                            Point3d(-2.0 * aRayon, 0.5 * aRayon, aScale + 3.0 * aRayon)};
     for (Standard_Integer anAxisIter = 0; anAxisIter < 3; ++anAxisIter)
     {
-      Prs3d_Text::Draw(aLabelGroup,
+      Prs3d_Text::Draw1(aLabelGroup,
                        myTextAspects[anAxisIter],
                        myLabels[anAxisIter],
                        aPoints[anAxisIter]);

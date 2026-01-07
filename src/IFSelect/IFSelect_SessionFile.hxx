@@ -87,7 +87,7 @@ public:
   Standard_EXPORT Standard_Integer NbLines() const;
 
   //! Returns a line given its rank in the list of recorded lines
-  Standard_EXPORT const TCollection_AsciiString& Line(const Standard_Integer num) const;
+  Standard_EXPORT const AsciiString1& Line(const Standard_Integer num) const;
 
   //! Adds a line to the list of recorded lines
   Standard_EXPORT void AddLine(const Standard_CString line);
@@ -249,11 +249,11 @@ public:
 
   //! Returns a Parameter (alphanumeric item of a line) as it
   //! has been read
-  Standard_EXPORT const TCollection_AsciiString& ParamValue(const Standard_Integer num) const;
+  Standard_EXPORT const AsciiString1& ParamValue(const Standard_Integer num) const;
 
   //! Returns the content of a Text Parameter (without the quotes).
   //! Returns an empty string if the Parameter is not a Text.
-  Standard_EXPORT TCollection_AsciiString TextValue(const Standard_Integer num) const;
+  Standard_EXPORT AsciiString1 TextValue(const Standard_Integer num) const;
 
   //! Returns a Parameter as an Item. Returns a Null Handle if the
   //! Parameter is a Text, or if it is defined as Void
@@ -267,14 +267,14 @@ public:
 protected:
   Handle(IFSelect_WorkSession)                                   thesess;
   Handle(TColStd_HArray1OfInteger)                               thenums;
-  NCollection_DataMap<TCollection_AsciiString, Standard_Integer> thenames;
+  NCollection_DataMap<AsciiString1, Standard_Integer> thenames;
   Standard_Integer                                               thenl;
   TColStd_SequenceOfAsciiString                                  theline;
 
 private:
   Standard_Boolean              themode;
   TColStd_SequenceOfAsciiString thelist;
-  TCollection_AsciiString       thebuff;
+  AsciiString1       thebuff;
   Standard_Integer              thelastgen;
   Standard_Boolean              thedone;
   Standard_Boolean              theownflag;

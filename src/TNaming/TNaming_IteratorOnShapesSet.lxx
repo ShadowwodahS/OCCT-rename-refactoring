@@ -21,14 +21,14 @@
 // purpose  :
 //=======================================================================
 
-inline TNaming_IteratorOnShapesSet::TNaming_IteratorOnShapesSet() {}
+inline ShapesSetIterator::ShapesSetIterator() {}
 
 //=======================================================================
 // function :
 // purpose  :
 //=======================================================================
 
-inline TNaming_IteratorOnShapesSet::TNaming_IteratorOnShapesSet(const TNaming_ShapesSet& S)
+inline ShapesSetIterator::ShapesSetIterator(const ShapesSet& S)
 {
   Init(S);
 }
@@ -38,7 +38,7 @@ inline TNaming_IteratorOnShapesSet::TNaming_IteratorOnShapesSet(const TNaming_Sh
 // purpose  :
 //=======================================================================
 
-inline void TNaming_IteratorOnShapesSet::Init(const TNaming_ShapesSet& S)
+inline void ShapesSetIterator::Init(const ShapesSet& S)
 {
   myIt.Initialize(S.Map());
 }
@@ -48,7 +48,7 @@ inline void TNaming_IteratorOnShapesSet::Init(const TNaming_ShapesSet& S)
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean TNaming_IteratorOnShapesSet::More() const
+inline Standard_Boolean ShapesSetIterator::More() const
 {
   return (myIt.More());
 }
@@ -58,7 +58,7 @@ inline Standard_Boolean TNaming_IteratorOnShapesSet::More() const
 // purpose  :
 //=======================================================================
 
-inline void TNaming_IteratorOnShapesSet::Next()
+inline void ShapesSetIterator::Next()
 {
   myIt.Next();
 }
@@ -68,7 +68,7 @@ inline void TNaming_IteratorOnShapesSet::Next()
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& TNaming_IteratorOnShapesSet::Value() const
+inline const TopoShape& ShapesSetIterator::Value() const
 {
   return myIt.Key();
 }

@@ -220,20 +220,20 @@
 // function : GetLabelName
 // purpose  : auxiliary function: take name of label and append it to str
 //=======================================================================
-static Standard_Boolean GetLabelName(const TDF_Label&                  theL,
+static Standard_Boolean GetLabelName(const DataLabel&                  theL,
                                      Handle(TCollection_HAsciiString)& theStr)
 {
-  Handle(TDataStd_Name) anAttrName;
-  if (!theL.FindAttribute(TDataStd_Name::GetID(), anAttrName))
+  Handle(NameAttribute) anAttrName;
+  if (!theL.FindAttribute(NameAttribute::GetID(), anAttrName))
   {
     return Standard_False;
   }
-  TCollection_ExtendedString aName = anAttrName->Get();
+  UtfString aName = anAttrName->Get();
   if (aName.IsEmpty())
     return Standard_False;
 
   // set name, removing spaces around it
-  TCollection_AsciiString aBuffer(aName);
+  AsciiString1 aBuffer(aName);
   aBuffer.LeftAdjust();
   aBuffer.RightAdjust();
   theStr->AssignCat(aBuffer.ToCString());
@@ -252,13 +252,13 @@ STEPCAFControl_Writer::STEPCAFControl_Writer()
       myMatMode(Standard_True)
 {
   STEPCAFControl_Controller::Init();
-  Handle(XSControl_WorkSession) aWS = new XSControl_WorkSession;
+  Handle(ExchangeSession) aWS = new ExchangeSession;
   Init(aWS);
 }
 
 //=================================================================================================
 
-STEPCAFControl_Writer::STEPCAFControl_Writer(const Handle(XSControl_WorkSession)& theWS,
+STEPCAFControl_Writer::STEPCAFControl_Writer(const Handle(ExchangeSession)& theWS,
                                              const Standard_Boolean               theScratch)
     : myColorMode(Standard_True),
       myNameMode(Standard_True),
@@ -274,7 +274,7 @@ STEPCAFControl_Writer::STEPCAFControl_Writer(const Handle(XSControl_WorkSession)
 
 //=================================================================================================
 
-void STEPCAFControl_Writer::Init(const Handle(XSControl_WorkSession)& theWS,
+void STEPCAFControl_Writer::Init(const Handle(ExchangeSession)& theWS,
                                  const Standard_Boolean               theScratch)
 {
   theWS->SelectNorm("STEP");
@@ -299,15 +299,15 @@ IFSelect_ReturnStatus STEPCAFControl_Writer::Write(const Standard_CString theFil
   }
 
   // get directory name of the main file
-  TCollection_AsciiString aDirPath;
+  AsciiString1 aDirPath;
   {
-    OSD_Path aMainFile(theFileName);
+    SystemPath aMainFile(theFileName);
     aMainFile.SetName("");
     aMainFile.SetExtension("");
     aMainFile.SystemName(aDirPath);
   }
 
-  for (NCollection_DataMap<TCollection_AsciiString, Handle(STEPCAFControl_ExternFile)>::Iterator
+  for (NCollection_DataMap<AsciiString1, Handle(STEPCAFControl_ExternFile)>::Iterator
          anExtFileIter(myFiles);
        anExtFileIter.More();
        anExtFileIter.Next())
@@ -319,8 +319,8 @@ IFSelect_ReturnStatus STEPCAFControl_Writer::Write(const Standard_CString theFil
     }
 
     // construct extern file name
-    TCollection_AsciiString aFileName =
-      OSD_Path::AbsolutePath(aDirPath, anExtFile->GetName()->String());
+    AsciiString1 aFileName =
+      SystemPath::AbsolutePath(aDirPath, anExtFile->GetName()->String());
     if (aFileName.Length() <= 0)
     {
       aFileName = anExtFile->GetName()->String();
@@ -340,9 +340,9 @@ IFSelect_ReturnStatus STEPCAFControl_Writer::Write(const Standard_CString theFil
 
 //=================================================================================================
 
-void STEPCAFControl_Writer::prepareUnit(const TDF_Label&                  theLabel,
+void STEPCAFControl_Writer::prepareUnit(const DataLabel&                  theLabel,
                                         const Handle(StepData_StepModel)& theModel,
-                                        StepData_Factors&                 theLocalFactors)
+                                        ConversionFactors&                 theLocalFactors)
 {
   Handle(XCAFDoc_LengthUnit) aLengthAttr;
   if (!theLabel.IsNull() && theLabel.Root().FindAttribute(XCAFDoc_LengthUnit::GetID(), aLengthAttr))
@@ -373,7 +373,7 @@ IFSelect_ReturnStatus STEPCAFControl_Writer::WriteStream(std::ostream& theStream
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::Transfer(const Handle(TDocStd_Document)& theDoc,
+Standard_Boolean STEPCAFControl_Writer::Transfer(const Handle(AppDocument)& theDoc,
                                                  const STEPControl_StepModelType theMode,
                                                  const Standard_CString          theMulti,
                                                  const Message_ProgressRange&    theProgress)
@@ -386,7 +386,7 @@ Standard_Boolean STEPCAFControl_Writer::Transfer(const Handle(TDocStd_Document)&
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::Transfer(const Handle(TDocStd_Document)& theDoc,
+Standard_Boolean STEPCAFControl_Writer::Transfer(const Handle(AppDocument)& theDoc,
                                                  const DESTEP_Parameters&        theParams,
                                                  const STEPControl_StepModelType theMode,
                                                  const Standard_CString          theMulti,
@@ -408,7 +408,7 @@ Standard_Boolean STEPCAFControl_Writer::Transfer(const Handle(TDocStd_Document)&
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::Transfer(const TDF_Label&                theLabel,
+Standard_Boolean STEPCAFControl_Writer::Transfer(const DataLabel&                theLabel,
                                                  const STEPControl_StepModelType theMode,
                                                  const Standard_CString          theIsMulti,
                                                  const Message_ProgressRange&    theProgress)
@@ -421,7 +421,7 @@ Standard_Boolean STEPCAFControl_Writer::Transfer(const TDF_Label&               
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::Transfer(const TDF_Label&                theLabel,
+Standard_Boolean STEPCAFControl_Writer::Transfer(const DataLabel&                theLabel,
                                                  const DESTEP_Parameters&        theParams,
                                                  const STEPControl_StepModelType theMode,
                                                  const Standard_CString          theIsMulti,
@@ -465,7 +465,7 @@ Standard_Boolean STEPCAFControl_Writer::Transfer(const TDF_LabelSequence&       
   myRootLabels.Clear();
   for (TDF_LabelSequence::Iterator aLabelIter(theLabels); aLabelIter.More(); aLabelIter.Next())
   {
-    const TDF_Label& aLabel = aLabelIter.Value();
+    const DataLabel& aLabel = aLabelIter.Value();
     if (!aLabel.IsNull())
     {
       myRootLabels.Add(aLabel.Root());
@@ -479,7 +479,7 @@ Standard_Boolean STEPCAFControl_Writer::Transfer(const TDF_LabelSequence&       
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::Perform(const Handle(TDocStd_Document)& theDoc,
+Standard_Boolean STEPCAFControl_Writer::Perform(const Handle(AppDocument)& theDoc,
                                                 const Standard_CString          theFileName,
                                                 const Message_ProgressRange&    theProgress)
 {
@@ -490,7 +490,7 @@ Standard_Boolean STEPCAFControl_Writer::Perform(const Handle(TDocStd_Document)& 
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::Perform(const Handle(TDocStd_Document)& theDoc,
+Standard_Boolean STEPCAFControl_Writer::Perform(const Handle(AppDocument)& theDoc,
                                                 const Standard_CString          theFileName,
                                                 const DESTEP_Parameters&        theParams,
                                                 const Message_ProgressRange&    theProgress)
@@ -502,8 +502,8 @@ Standard_Boolean STEPCAFControl_Writer::Perform(const Handle(TDocStd_Document)& 
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::Perform(const Handle(TDocStd_Document)& theDoc,
-                                                const TCollection_AsciiString&  theFileName,
+Standard_Boolean STEPCAFControl_Writer::Perform(const Handle(AppDocument)& theDoc,
+                                                const AsciiString1&  theFileName,
                                                 const Message_ProgressRange&    theProgress)
 {
   if (!Transfer(theDoc, STEPControl_AsIs, 0L, theProgress))
@@ -514,7 +514,7 @@ Standard_Boolean STEPCAFControl_Writer::Perform(const Handle(TDocStd_Document)& 
 //=================================================================================================
 
 Standard_Boolean STEPCAFControl_Writer::ExternFile(
-  const TDF_Label&                   theLabel,
+  const DataLabel&                   theLabel,
   Handle(STEPCAFControl_ExternFile)& theExtFile) const
 {
   theExtFile.Nullify();
@@ -556,7 +556,7 @@ void STEPCAFControl_Writer::SetShapeFixParameters(
 //=============================================================================
 
 void STEPCAFControl_Writer::SetShapeFixParameters(
-  const DE_ShapeFixParameters&               theParameters,
+  const ShapeFixParameters&               theParameters,
   const XSAlgo_ShapeProcessor::ParameterMap& theAdditionalParameters)
 {
   myWriter.SetShapeFixParameters(theParameters, theAdditionalParameters);
@@ -585,7 +585,7 @@ const XSAlgo_ShapeProcessor::ProcessingFlags& STEPCAFControl_Writer::GetShapePro
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::transfer(STEPControl_Writer&             theWriter,
+Standard_Boolean STEPCAFControl_Writer::transfer(StepFileWriter&             theWriter,
                                                  const TDF_LabelSequence&        theLabels,
                                                  const STEPControl_StepModelType theMode,
                                                  const Standard_CString          theIsMulti,
@@ -598,7 +598,7 @@ Standard_Boolean STEPCAFControl_Writer::transfer(STEPControl_Writer&            
   Handle(STEPCAFControl_ActorWrite) anActor =
     Handle(STEPCAFControl_ActorWrite)::DownCast(theWriter.WS()->NormAdaptor()->ActorWrite());
 
-  StepData_Factors                 aLocalFactors;
+  ConversionFactors                 aLocalFactors;
   const Handle(StepData_StepModel) aModel =
     Handle(StepData_StepModel)::DownCast(theWriter.WS()->Model());
   prepareUnit(theLabels.First(), aModel, aLocalFactors); // set local length unit to the model
@@ -610,14 +610,14 @@ Standard_Boolean STEPCAFControl_Writer::transfer(STEPControl_Writer&            
        aLabelIter.Next())
   {
     Message_ProgressRange aRange = aPS.Next();
-    TDF_Label             aCurL  = aLabelIter.Value();
+    DataLabel             aCurL  = aLabelIter.Value();
     if (myLabels.IsBound(aCurL))
       continue; // already processed
 
-    TopoDS_Shape aCurShape = XCAFDoc_ShapeTool::GetShape(aCurL);
+    TopoShape aCurShape = XCAFDoc_ShapeTool::GetShape(aCurL);
     if (aCurShape.IsNull())
       continue;
-    TopoDS_Shape aShapeForBind = aCurShape;
+    TopoShape aShapeForBind = aCurShape;
     // write shape either as a whole, or as multifile (with extern refs)
     if (!theIsMulti)
     {
@@ -636,14 +636,14 @@ Standard_Boolean STEPCAFControl_Writer::transfer(STEPControl_Writer&            
       // assembly.
       if (XCAFDoc_ShapeTool::IsReference(aCurL))
       {
-        TopoDS_Compound aComp;
-        BRep_Builder    aB;
+        TopoCompound aComp;
+        ShapeBuilder    aB;
         aB.MakeCompound(aComp);
         aB.Add(aComp, aCurShape);
         aCurShape = aComp;
         myPureRefLabels.Bind(aCurL, aComp);
         aCompLabels.Append(aCurL);
-        TDF_Label aRefL;
+        DataLabel aRefL;
         if (XCAFDoc_ShapeTool::GetReferredShape(aCurL, aRefL))
         {
           if (XCAFDoc_ShapeTool::IsAssembly(aRefL))
@@ -662,26 +662,26 @@ Standard_Boolean STEPCAFControl_Writer::transfer(STEPControl_Writer&            
 
       for (TDF_LabelSequence::Iterator aCompIter(aCompLabels); aCompIter.More(); aCompIter.Next())
       {
-        const TDF_Label aCurSubShL = aCompIter.Value();
+        const DataLabel aCurSubShL = aCompIter.Value();
         if (myLabels.IsBound(aCurSubShL))
         {
           continue;
         }
-        const TopoDS_Shape aCurSh = XCAFDoc_ShapeTool::GetShape(aCurSubShL);
+        const TopoShape aCurSh = XCAFDoc_ShapeTool::GetShape(aCurSubShL);
         if (aCurSh.IsNull())
         {
           continue;
         }
         myLabels.Bind(aCurSubShL, aCurSh);
         aSubLabels.Append(aCurSubShL);
-        TDF_Label aRefL;
+        DataLabel aRefL;
         if (!XCAFDoc_ShapeTool::GetReferredShape(aCurSubShL, aRefL))
         {
           continue;
         }
         if (!myLabels.IsBound(aRefL))
         {
-          TopoDS_Shape aRefSh = XCAFDoc_ShapeTool::GetShape(aRefL);
+          TopoShape aRefSh = XCAFDoc_ShapeTool::GetShape(aRefL);
           myLabels.Bind(aRefL, aRefSh);
           aSubLabels.Append(aRefL);
           if (XCAFDoc_ShapeTool::IsAssembly(aRefL))
@@ -703,7 +703,7 @@ Standard_Boolean STEPCAFControl_Writer::transfer(STEPControl_Writer&            
     {
       // translate final solids
       Message_ProgressScope aPS1(aRange, NULL, 2);
-      TopoDS_Shape          aSass =
+      TopoShape          aSass =
         transferExternFiles(aCurL, theMode, aSubLabels, aLocalFactors, theIsMulti, aPS1.Next());
       if (aPS1.UserBreak())
         return Standard_False;
@@ -788,19 +788,19 @@ Standard_Boolean STEPCAFControl_Writer::transfer(STEPControl_Writer&            
     // Iterate on requested sub shapes
     for (TDF_LabelSequence::Iterator aLabelIter(aSubLabels); aLabelIter.More(); aLabelIter.Next())
     {
-      const TDF_Label& aCurL = aLabelIter.Value();
+      const DataLabel& aCurL = aLabelIter.Value();
 
       for (TDF_ChildIterator aChildIter(aCurL, Standard_True); aChildIter.More(); aChildIter.Next())
       {
-        const TDF_Label& aSubL = aChildIter.Value();
+        const DataLabel& aSubL = aChildIter.Value();
 
-        // Access name recorded in OCAF TDataStd_Name attribute
+        // Access name recorded in OCAF NameAttribute attribute
         Handle(TCollection_HAsciiString) aHSubName = new TCollection_HAsciiString;
         if (!GetLabelName(aSubL, aHSubName))
           continue;
 
         // Access topological data
-        TopoDS_Shape aSubS = XCAFDoc_ShapeTool::GetShape(aSubL);
+        TopoShape aSubS = XCAFDoc_ShapeTool::GetShape(aSubL);
         if (aSubS.IsNull())
           continue;
 
@@ -821,10 +821,10 @@ Standard_Boolean STEPCAFControl_Writer::transfer(STEPControl_Writer&            
 
 //=================================================================================================
 
-TopoDS_Shape STEPCAFControl_Writer::transferExternFiles(const TDF_Label&                theLabel,
+TopoShape STEPCAFControl_Writer::transferExternFiles(const DataLabel&                theLabel,
                                                         const STEPControl_StepModelType theMode,
                                                         TDF_LabelSequence&              theLabels,
-                                                        const StepData_Factors& theLocalFactors,
+                                                        const ConversionFactors& theLocalFactors,
                                                         const Standard_CString  thePrefix,
                                                         const Message_ProgressRange& theProgress)
 {
@@ -834,17 +834,17 @@ TopoDS_Shape STEPCAFControl_Writer::transferExternFiles(const TDF_Label&        
     return myLabels.Find(theLabel);
   }
 
-  TopoDS_Compound aComp;
-  BRep_Builder    aBuilder;
+  TopoCompound aComp;
+  ShapeBuilder    aBuilder;
   aBuilder.MakeCompound(aComp);
   // if not assembly, write to separate file
   if (!XCAFDoc_ShapeTool::IsAssembly(theLabel) && !XCAFDoc_ShapeTool::IsComponent(theLabel))
   {
     theLabels.Append(theLabel);
     // prepare for transfer
-    Handle(XSControl_WorkSession) aNewWS = new XSControl_WorkSession;
+    Handle(ExchangeSession) aNewWS = new ExchangeSession;
     aNewWS->SelectNorm("STEP");
-    STEPControl_Writer aStepWriter(aNewWS, Standard_True);
+    StepFileWriter aStepWriter(aNewWS, Standard_True);
     TDF_LabelSequence  aLabelSeq;
     aLabelSeq.Append(theLabel);
 
@@ -861,7 +861,7 @@ TopoDS_Shape STEPCAFControl_Writer::transferExternFiles(const TDF_Label&        
       {
         aNewName = new TCollection_HAsciiString(aBaseName);
         aNewName->AssignCat("_");
-        aNewName->AssignCat(TCollection_AsciiString(k).ToCString());
+        aNewName->AssignCat(AsciiString1(k).ToCString());
         aNewName->AssignCat(".stp");
         if (!myFiles.IsBound(aNewName->ToCString()))
           break;
@@ -889,7 +889,7 @@ TopoDS_Shape STEPCAFControl_Writer::transferExternFiles(const TDF_Label&        
     return aComp;
   }
   TDF_LabelSequence aCompLabels;
-  TDF_Label         aLabel = theLabel;
+  DataLabel         aLabel = theLabel;
   // if specified shape is component then high-level assembly is considered
   // to get valid structure with location
   if (XCAFDoc_ShapeTool::IsComponent(theLabel))
@@ -908,11 +908,11 @@ TopoDS_Shape STEPCAFControl_Writer::transferExternFiles(const TDF_Label&        
   for (TDF_LabelSequence::Iterator aLabelIter(aCompLabels); aLabelIter.More() && aPS.More();
        aLabelIter.Next())
   {
-    const TDF_Label& aCurL = aLabelIter.Value();
-    TDF_Label        aRefL;
+    const DataLabel& aCurL = aLabelIter.Value();
+    DataLabel        aRefL;
     if (!XCAFDoc_ShapeTool::GetReferredShape(aCurL, aRefL))
       continue;
-    TopoDS_Shape aShComp =
+    TopoShape aShComp =
       transferExternFiles(aRefL, theMode, theLabels, theLocalFactors, thePrefix, aPS.Next());
     aShComp.Location(XCAFDoc_ShapeTool::GetLocation(aCurL));
     aBuilder.Add(aComp, aShComp);
@@ -923,7 +923,7 @@ TopoDS_Shape STEPCAFControl_Writer::transferExternFiles(const TDF_Label&        
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::writeExternRefs(const Handle(XSControl_WorkSession)& theWS,
+Standard_Boolean STEPCAFControl_Writer::writeExternRefs(const Handle(ExchangeSession)& theWS,
                                                         const TDF_LabelSequence& theLabels) const
 {
   if (theLabels.IsEmpty())
@@ -937,7 +937,7 @@ Standard_Boolean STEPCAFControl_Writer::writeExternRefs(const Handle(XSControl_W
   // Iterate on requested shapes
   for (TDF_LabelSequence::Iterator aLabelIter(theLabels); aLabelIter.More(); aLabelIter.Next())
   {
-    const TDF_Label& aLab = aLabelIter.Value();
+    const DataLabel& aLab = aLabelIter.Value();
     if (XCAFDoc_ShapeTool::IsAssembly(aLab))
       continue; // skip assemblies
 
@@ -949,7 +949,7 @@ Standard_Boolean STEPCAFControl_Writer::writeExternRefs(const Handle(XSControl_W
     // find SDR
     if (!myLabels.IsBound(aLab))
       continue; // not recorded as translated, skip
-    TopoDS_Shape aShape = myLabels.Find(aLab);
+    TopoShape aShape = myLabels.Find(aLab);
 
     Handle(StepShape_ShapeDefinitionRepresentation) aSDR;
     Handle(TransferBRep_ShapeMapper)                mapper = TransferBRep::ShapeMapper(aFP, aShape);
@@ -992,12 +992,12 @@ Standard_Boolean STEPCAFControl_Writer::writeExternRefs(const Handle(XSControl_W
 //=================================================================================================
 
 static Standard_Integer FindEntities(const Handle(Transfer_FinderProcess)& theFP,
-                                     const TopoDS_Shape&                   theShape,
+                                     const TopoShape&                   theShape,
                                      TopLoc_Location&                      theLocation,
                                      TColStd_SequenceOfTransient&          theSeqRI)
 {
   Handle(StepRepr_RepresentationItem) anItem =
-    STEPConstruct::FindEntity(theFP, theShape, theLocation);
+    STEPConstruct1::FindEntity(theFP, theShape, theLocation);
 
   if (!anItem.IsNull())
   {
@@ -1020,7 +1020,7 @@ static Standard_Integer FindEntities(const Handle(Transfer_FinderProcess)& theFP
     for (TopoDS_Iterator anIter(theShape); anIter.More(); anIter.Next())
     {
       Handle(StepRepr_RepresentationItem) aLocalItem =
-        STEPConstruct::FindEntity(theFP, anIter.Value(), theLocation);
+        STEPConstruct1::FindEntity(theFP, anIter.Value(), theLocation);
       if (aLocalItem.IsNull())
         continue;
       aResCount++;
@@ -1045,14 +1045,14 @@ static Standard_Integer FindEntities(const Handle(Transfer_FinderProcess)& theFP
 
 //=================================================================================================
 
-static Standard_Boolean getStyledItem(const TopoDS_Shape&                     theShape,
+static Standard_Boolean getStyledItem(const TopoShape&                     theShape,
                                       const Handle(XCAFDoc_ShapeTool)&        theShapeTool,
                                       const STEPConstruct_Styles&             theStyles,
                                       Handle(StepVisual_StyledItem)&          theResSelItem,
                                       const MoniTool_DataMapOfShapeTransient& theMapCompMDGPR)
 {
-  const TDF_Label  aTopShL   = theShapeTool->FindShape(theShape, Standard_False);
-  TopoDS_Shape     aTopLevSh = theShapeTool->GetShape(aTopShL);
+  const DataLabel  aTopShL   = theShapeTool->FindShape(theShape, Standard_False);
+  TopoShape     aTopLevSh = theShapeTool->GetShape(aTopShL);
   Standard_Boolean anIsFound = Standard_False;
   if (aTopLevSh.IsNull() || !theMapCompMDGPR.IsBound(aTopLevSh))
   {
@@ -1176,7 +1176,7 @@ static Standard_Boolean setDefaultInstanceColor(
 //=================================================================================================
 
 static void MakeSTEPStyles(STEPConstruct_Styles&                        theStyles,
-                           const TopoDS_Shape&                          theShape,
+                           const TopoShape&                          theShape,
                            const XCAFPrs_IndexedDataMapOfShapeStyle&    theSettings,
                            Handle(StepVisual_StyledItem)&               theOverride,
                            TopTools_MapOfShape&                         theMap,
@@ -1294,7 +1294,7 @@ static void MakeSTEPStyles(STEPConstruct_Styles&                        theStyle
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::writeColors(const Handle(XSControl_WorkSession)& theWS,
+Standard_Boolean STEPCAFControl_Writer::writeColors(const Handle(ExchangeSession)& theWS,
                                                     const TDF_LabelSequence&             theLabels)
 {
   if (theLabels.IsEmpty())
@@ -1306,7 +1306,7 @@ Standard_Boolean STEPCAFControl_Writer::writeColors(const Handle(XSControl_WorkS
   // Iterate on requested shapes
   for (TDF_LabelSequence::Iterator aLabelIter(theLabels); aLabelIter.More(); aLabelIter.Next())
   {
-    const TDF_Label aLabel = aLabelIter.Value();
+    const DataLabel aLabel = aLabelIter.Value();
     // Iterate on shapes in the document
     Handle(XCAFDoc_ShapeTool) aSTool = XCAFDoc_DocumentTool::ShapeTool(aLabel);
     // Skip assemblies: colors assigned to assemblies and their instances
@@ -1326,15 +1326,15 @@ Standard_Boolean STEPCAFControl_Writer::writeColors(const Handle(XSControl_WorkS
 
     // get a target shape and try to find corresponding context
     // (all the colors set under that label will be put into that context)
-    TopoDS_Shape aShape;
+    TopoShape aShape;
     if (!XCAFDoc_ShapeTool::GetShape(aLabel, aShape))
       continue;
     Standard_Boolean anIsComponent = aSTool->IsComponent(aLabel) || myPureRefLabels.IsBound(aLabel);
-    TopoDS_Shape     aTopSh        = aShape;
+    TopoShape     aTopSh        = aShape;
     Handle(StepRepr_RepresentationContext) aContext = Styles.FindContext(aShape);
     if (anIsComponent)
     {
-      TDF_Label aTopShL = aSTool->FindShape(aShape, Standard_False);
+      DataLabel aTopShL = aSTool->FindShape(aShape, Standard_False);
       if (aTopShL.IsNull())
         continue;
       aTopSh   = aSTool->GetShape(aTopShL);
@@ -1351,7 +1351,7 @@ Standard_Boolean STEPCAFControl_Writer::writeColors(const Handle(XSControl_WorkS
     Standard_Boolean anIsVisible = Standard_True;
     for (TDF_LabelSequence::Iterator aSeqIter(aSeq); aSeqIter.More(); aSeqIter.Next())
     {
-      const TDF_Label&   aSeqValue = aSeqIter.Value();
+      const DataLabel&   aSeqValue = aSeqIter.Value();
       XCAFPrs_Style      aStyle;
       Quantity_ColorRGBA aColor;
       if (aSeqValue == aLabel)
@@ -1384,7 +1384,7 @@ Standard_Boolean STEPCAFControl_Writer::writeColors(const Handle(XSControl_WorkS
       if (!aStyle.IsSetColorCurv() && !aStyle.IsSetColorSurf() && anIsVisible)
         continue;
 
-      TopoDS_Shape   aSub      = XCAFDoc_ShapeTool::GetShape(aSeqValue);
+      TopoShape   aSub      = XCAFDoc_ShapeTool::GetShape(aSeqValue);
       XCAFPrs_Style* aMapStyle = aSettings.ChangeSeek(aSub);
       if (aMapStyle == NULL)
         aSettings.Add(aSub, aStyle);
@@ -1502,7 +1502,7 @@ Standard_Boolean STEPCAFControl_Writer::writeColors(const Handle(XSControl_WorkS
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::writeNames(const Handle(XSControl_WorkSession)& theWS,
+Standard_Boolean STEPCAFControl_Writer::writeNames(const Handle(ExchangeSession)& theWS,
                                                    const TDF_LabelSequence& theLabels) const
 {
   if (theLabels.IsEmpty())
@@ -1515,7 +1515,7 @@ Standard_Boolean STEPCAFControl_Writer::writeNames(const Handle(XSControl_WorkSe
   // Iterate on requested shapes
   for (TDF_LabelSequence::Iterator aLabelIter(theLabels); aLabelIter.More(); aLabelIter.Next())
   {
-    const TDF_Label& aLabel = aLabelIter.Value();
+    const DataLabel& aLabel = aLabelIter.Value();
     // find target STEP entity for the current shape
     if (!myLabels.IsBound(aLabel))
       continue; // not recorded as translated, skip
@@ -1525,7 +1525,7 @@ Standard_Boolean STEPCAFControl_Writer::writeNames(const Handle(XSControl_WorkSe
     {
       continue;
     }
-    const TopoDS_Shape&                                   aShape = myLabels.Find(aLabel);
+    const TopoShape&                                   aShape = myLabels.Find(aLabel);
     Handle(StepShape_ShapeDefinitionRepresentation)       aSDR;
     Handle(StepShape_ContextDependentShapeRepresentation) aCDSR;
     Standard_Boolean                                      isComponent =
@@ -1541,7 +1541,7 @@ Standard_Boolean STEPCAFControl_Writer::writeNames(const Handle(XSControl_WorkSe
         aPDS->Definition().ProductDefinitionRelationship();
       if (!aNAUO.IsNull())
         aNAUO->SetName(aHName);
-      TopoDS_Shape anInternalAssembly;
+      TopoShape anInternalAssembly;
       if (myPureRefLabels.Find(aLabel, anInternalAssembly))
       {
         Handle(TransferBRep_ShapeMapper) aMapperOfInternalShape =
@@ -1581,9 +1581,9 @@ Standard_Boolean STEPCAFControl_Writer::writeNames(const Handle(XSControl_WorkSe
 
 //=================================================================================================
 
-static Standard_Boolean WritePropsForLabel(const Handle(XSControl_WorkSession)&      theWS,
+static Standard_Boolean WritePropsForLabel(const Handle(ExchangeSession)&      theWS,
                                            const STEPCAFControl_DataMapOfLabelShape& theLabels,
-                                           const TDF_Label&                          theLabel,
+                                           const DataLabel&                          theLabel,
                                            const Standard_CString                    theIsMulti)
 {
   if (theLabel.IsNull())
@@ -1591,7 +1591,7 @@ static Standard_Boolean WritePropsForLabel(const Handle(XSControl_WorkSession)& 
 
   STEPConstruct_ValidationProps aProps(theWS);
 
-  TopoDS_Shape aShape = XCAFDoc_ShapeTool::GetShape(theLabel);
+  TopoShape aShape = XCAFDoc_ShapeTool::GetShape(theLabel);
   if (aShape.IsNull())
     return Standard_False;
 
@@ -1636,7 +1636,7 @@ static Standard_Boolean WritePropsForLabel(const Handle(XSControl_WorkSession)& 
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::writeValProps(const Handle(XSControl_WorkSession)& theWS,
+Standard_Boolean STEPCAFControl_Writer::writeValProps(const Handle(ExchangeSession)& theWS,
                                                       const TDF_LabelSequence& theLabels,
                                                       const Standard_CString   theIsMulti) const
 {
@@ -1646,7 +1646,7 @@ Standard_Boolean STEPCAFControl_Writer::writeValProps(const Handle(XSControl_Wor
   // Iterate on requested shapes
   for (TDF_LabelSequence::Iterator aLabelIter(theLabels); aLabelIter.More(); aLabelIter.Next())
   {
-    const TDF_Label& aLabel = aLabelIter.Value();
+    const DataLabel& aLabel = aLabelIter.Value();
 
     WritePropsForLabel(theWS, myLabels, aLabel, theIsMulti);
   }
@@ -1656,7 +1656,7 @@ Standard_Boolean STEPCAFControl_Writer::writeValProps(const Handle(XSControl_Wor
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::writeLayers(const Handle(XSControl_WorkSession)& theWS,
+Standard_Boolean STEPCAFControl_Writer::writeLayers(const Handle(ExchangeSession)& theWS,
                                                     const TDF_LabelSequence& theLabels) const
 {
 
@@ -1671,7 +1671,7 @@ Standard_Boolean STEPCAFControl_Writer::writeLayers(const Handle(XSControl_WorkS
   // Iterate on requested shapes collect Tools
   for (TDF_LabelMap::Iterator aLabelIter(myRootLabels); aLabelIter.More(); aLabelIter.Next())
   {
-    const TDF_Label&          aLabel = aLabelIter.Value();
+    const DataLabel&          aLabel = aLabelIter.Value();
     Handle(XCAFDoc_LayerTool) aLTool = XCAFDoc_DocumentTool::LayerTool(aLabel);
     TDF_LabelSequence         aLayerLS;
     aLTool->GetLayerLabels(aLayerLS);
@@ -1679,7 +1679,7 @@ Standard_Boolean STEPCAFControl_Writer::writeLayers(const Handle(XSControl_WorkS
   }
   for (TDF_LabelSequence::Iterator aLayerIter(aGlobalLayerLS); aLayerIter.More(); aLayerIter.Next())
   {
-    const TDF_Label& aLayerL = aLayerIter.Value();
+    const DataLabel& aLayerL = aLayerIter.Value();
     // get labels of shapes in that layer
     TDF_LabelSequence aShapeLabels;
     XCAFDoc_LayerTool::GetShapesOfLayer(aLayerL, aShapeLabels);
@@ -1695,7 +1695,7 @@ Standard_Boolean STEPCAFControl_Writer::writeLayers(const Handle(XSControl_WorkS
     TColStd_SequenceOfTransient aSeqRI;
     for (TDF_LabelSequence::Iterator aShapeIter(aShapeLabels); aShapeIter.More(); aShapeIter.Next())
     {
-      const TDF_Label& aShLabel = aShapeIter.Value();
+      const DataLabel& aShLabel = aShapeIter.Value();
       if (aShLabel.IsNull())
         continue;
 
@@ -1720,7 +1720,7 @@ Standard_Boolean STEPCAFControl_Writer::writeLayers(const Handle(XSControl_WorkS
       }
 
       // get target STEP entity
-      TopoDS_Shape anOneShape = XCAFDoc_ShapeTool::GetShape(aShLabel);
+      TopoShape anOneShape = XCAFDoc_ShapeTool::GetShape(aShLabel);
 
       TopLoc_Location  aLoc;
       Standard_Integer aNb = FindEntities(aFP, anOneShape, aLoc, aSeqRI);
@@ -1784,7 +1784,7 @@ Standard_Boolean STEPCAFControl_Writer::writeLayers(const Handle(XSControl_WorkS
 
 //=================================================================================================
 
-static Standard_Boolean getSHUOstyle(const TDF_Label& theSHUOlab, XCAFPrs_Style& theSHUOstyle)
+static Standard_Boolean getSHUOstyle(const DataLabel& theSHUOlab, XCAFPrs_Style& theSHUOstyle)
 {
   Quantity_Color aColor;
   if (!XCAFDoc_ColorTool::IsVisible(theSHUOlab))
@@ -1822,8 +1822,8 @@ static Standard_Boolean getSHUOstyle(const TDF_Label& theSHUOlab, XCAFPrs_Style&
 //=================================================================================================
 
 static Standard_Boolean getProDefinitionOfNAUO(
-  const Handle(XSControl_WorkSession)&          theWS,
-  const TopoDS_Shape&                           theShape,
+  const Handle(ExchangeSession)&          theWS,
+  const TopoShape&                           theShape,
   Handle(StepBasic_ProductDefinition)&          thePD,
   Handle(StepRepr_NextAssemblyUsageOccurrence)& theNAUO,
   Standard_Boolean                              theIsRelating)
@@ -1870,9 +1870,9 @@ static Standard_Boolean getProDefinitionOfNAUO(
 //=================================================================================================
 
 static Standard_Boolean writeSHUO(const Handle(XCAFDoc_GraphNode)&                 theSHUO,
-                                  const Handle(XSControl_WorkSession)&             theWS,
+                                  const Handle(ExchangeSession)&             theWS,
                                   Handle(StepRepr_SpecifiedHigherUsageOccurrence)& theTopSHUO,
-                                  TopoDS_Shape&                                    theNAUOShape,
+                                  TopoShape&                                    theNAUOShape,
                                   Handle(StepBasic_ProductDefinition)&             theRelatingPD,
                                   Standard_Boolean&                                theIsDeepest)
 {
@@ -1891,14 +1891,14 @@ static Standard_Boolean writeSHUO(const Handle(XCAFDoc_GraphNode)&              
     if (aNuSHUO.IsNull())
       return Standard_False;
     // get relating product definition
-    TopoDS_Shape aTopCompShape = XCAFDoc_ShapeTool::GetShape(theSHUO->Label().Father());
+    TopoShape aTopCompShape = XCAFDoc_ShapeTool::GetShape(theSHUO->Label().Father());
     Handle(StepRepr_NextAssemblyUsageOccurrence) aRelatingNAUO;
     if (!getProDefinitionOfNAUO(theWS, aTopCompShape, theRelatingPD, aRelatingNAUO, Standard_True))
     {
       return Standard_False;
     }
     // get related product definition
-    TopoDS_Shape aNUShape = XCAFDoc_ShapeTool::GetShape(aNuSHUO->Label().Father());
+    TopoShape aNUShape = XCAFDoc_ShapeTool::GetShape(aNuSHUO->Label().Father());
     Handle(StepBasic_ProductDefinition)          aRelatedPD;
     Handle(StepRepr_NextAssemblyUsageOccurrence) aRelatedNAUO;
     if (!getProDefinitionOfNAUO(theWS, aNUShape, aRelatedPD, aRelatedNAUO, Standard_False))
@@ -1940,7 +1940,7 @@ static Standard_Boolean writeSHUO(const Handle(XCAFDoc_GraphNode)&              
       return Standard_False;
 
     // store the deepest SHUO to the dociment
-    TopoDS_Shape aNUSh, aUUSh;
+    TopoShape aNUSh, aUUSh;
     aNUSh = XCAFDoc_ShapeTool::GetShape(aNuSHUO->Label().Father());
     aUUSh = XCAFDoc_ShapeTool::GetShape(theSHUO->Label().Father());
     // get relating PD with upper_usage and related PD with next_usage
@@ -1972,7 +1972,7 @@ static Standard_Boolean writeSHUO(const Handle(XCAFDoc_GraphNode)&              
   } // end of recurse storing
 
   // get shape
-  TDF_Label aShapeL = theSHUO->Label().Father();
+  DataLabel aShapeL = theSHUO->Label().Father();
   theNAUOShape      = XCAFDoc_ShapeTool::GetShape(aShapeL);
   // return to the deepest level from SHUO shape level
   // it is because SHUO is attribute on deep level and shape level.
@@ -1984,8 +1984,8 @@ static Standard_Boolean writeSHUO(const Handle(XCAFDoc_GraphNode)&              
 
 static Standard_Boolean createSHUOStyledItem(const XCAFPrs_Style& theStyle,
                                              const Handle(StepRepr_ProductDefinitionShape)& thePDS,
-                                             const Handle(XSControl_WorkSession)&           theWS,
-                                             const TopoDS_Shape&               theShape,
+                                             const Handle(ExchangeSession)&           theWS,
+                                             const TopoShape&               theShape,
                                              const Handle(XCAFDoc_ShapeTool)&  theSTool,
                                              MoniTool_DataMapOfShapeTransient& theMapCompMDGPR)
 {
@@ -2028,10 +2028,10 @@ static Standard_Boolean createSHUOStyledItem(const XCAFPrs_Style& theStyle,
     return Standard_False;
   // find context
   Handle(StepRepr_RepresentationContext) aContext = aStyles.FindContext(theShape);
-  TopoDS_Shape                           aTopSh   = theShape;
+  TopoShape                           aTopSh   = theShape;
   if (aContext.IsNull())
   {
-    TDF_Label aTopShL = theSTool->FindShape(theShape, Standard_False);
+    DataLabel aTopShL = theSTool->FindShape(theShape, Standard_False);
     if (aTopShL.IsNull())
       return Standard_False;
     aTopSh   = XCAFDoc_ShapeTool::GetShape(aTopShL);
@@ -2124,7 +2124,7 @@ static Standard_Boolean createSHUOStyledItem(const XCAFPrs_Style& theStyle,
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::writeSHUOs(const Handle(XSControl_WorkSession)& theWS,
+Standard_Boolean STEPCAFControl_Writer::writeSHUOs(const Handle(ExchangeSession)& theWS,
                                                    const TDF_LabelSequence&             theLabels)
 {
   if (theLabels.IsEmpty())
@@ -2135,7 +2135,7 @@ Standard_Boolean STEPCAFControl_Writer::writeSHUOs(const Handle(XSControl_WorkSe
   // Iterate on requested shapes
   for (TDF_LabelSequence::Iterator aLabelIter(theLabels); aLabelIter.More(); aLabelIter.Next())
   {
-    const TDF_Label& aLabel = aLabelIter.Value();
+    const DataLabel& aLabel = aLabelIter.Value();
     if (!myLabels.IsBound(aLabel))
       continue; // not recorded as translated, skip
     if (!XCAFDoc_ShapeTool::IsAssembly(aLabel))
@@ -2147,7 +2147,7 @@ Standard_Boolean STEPCAFControl_Writer::writeSHUOs(const Handle(XSControl_WorkSe
     // iterates on components of assembly
     for (TDF_LabelSequence::Iterator aCompIter(aLabelSeq); aCompIter.More(); aCompIter.Next())
     {
-      const TDF_Label&      aCompL = aCompIter.Value();
+      const DataLabel&      aCompL = aCompIter.Value();
       TDF_AttributeSequence anAttrSeq;
       XCAFDoc_ShapeTool::GetAllComponentSHUO(aCompL, anAttrSeq);
       // work with SHUO
@@ -2156,7 +2156,7 @@ Standard_Boolean STEPCAFControl_Writer::writeSHUOs(const Handle(XSControl_WorkSe
       {
         Handle(XCAFDoc_GraphNode) aSHUO = Handle(XCAFDoc_GraphNode)::DownCast(anAttrIter.Value());
         // take label of SHUO
-        TDF_Label         aSHUOlab = aSHUO->Label();
+        DataLabel         aSHUOlab = aSHUO->Label();
         TDF_LabelSequence aUpLabels;
         // check is it SHUO of upper_usage
         XCAFDoc_ShapeTool::GetSHUOUpperUsage(aSHUOlab, aUpLabels);
@@ -2174,7 +2174,7 @@ Standard_Boolean STEPCAFControl_Writer::writeSHUOs(const Handle(XSControl_WorkSe
           continue;
         }
         // write SHUO to the model amd then add structure type.
-        TopoDS_Shape     aNAUOShape; // shape of the deepest NAUO in the SHUO structure
+        TopoShape     aNAUOShape; // shape of the deepest NAUO in the SHUO structure
         Standard_Boolean isDeepest = Standard_False;
         Handle(StepRepr_SpecifiedHigherUsageOccurrence) anEntOfSHUO;
         Handle(StepBasic_ProductDefinition)             aRelatingPD;
@@ -2523,9 +2523,9 @@ static Handle(StepRepr_ReprItemAndMeasureWithUnit) CreateDimValue(
 // purpose  : auxiliary (write Shape_Aspect entity for given shape)
 //=======================================================================
 Handle(StepRepr_ShapeAspect) STEPCAFControl_Writer::writeShapeAspect(
-  const Handle(XSControl_WorkSession)&          theWS,
-  const TDF_Label                               theLabel,
-  const TopoDS_Shape&                           theShape,
+  const Handle(ExchangeSession)&          theWS,
+  const DataLabel                               theLabel,
+  const TopoShape&                           theShape,
   Handle(StepRepr_RepresentationContext)&       theRC,
   Handle(StepAP242_GeometricItemSpecificUsage)& theGISU)
 {
@@ -2558,10 +2558,10 @@ Handle(StepRepr_ShapeAspect) STEPCAFControl_Writer::writeShapeAspect(
   theRC = aRC;
   // Shape_Aspect
   Handle(TCollection_HAsciiString) aName = new TCollection_HAsciiString();
-  Handle(TDataStd_Name)            aNameAttr;
-  if (theLabel.FindAttribute(TDataStd_Name::GetID(), aNameAttr))
+  Handle(NameAttribute)            aNameAttr;
+  if (theLabel.FindAttribute(NameAttribute::GetID(), aNameAttr))
   {
-    aName = new TCollection_HAsciiString(TCollection_AsciiString(aNameAttr->Get()));
+    aName = new TCollection_HAsciiString(AsciiString1(aNameAttr->Get()));
     Standard_Integer aFirstSpace = aName->Search(" ");
     if (aFirstSpace != -1)
       aName = aName->SubString(aFirstSpace + 1, aName->Length());
@@ -2604,15 +2604,15 @@ Handle(StepRepr_ShapeAspect) STEPCAFControl_Writer::writeShapeAspect(
 // function : writePresentation
 // purpose  : auxiliary (write annotation plane and presentation)
 //======================================================================
-void STEPCAFControl_Writer::writePresentation(const Handle(XSControl_WorkSession)& theWS,
-                                              const TopoDS_Shape&                  thePresentation,
+void STEPCAFControl_Writer::writePresentation(const Handle(ExchangeSession)& theWS,
+                                              const TopoShape&                  thePresentation,
                                               const Handle(TCollection_HAsciiString)& thePrsName,
                                               const Standard_Boolean            theHasSemantic,
                                               const Standard_Boolean            theHasPlane,
                                               const Frame3d&                     theAnnotationPlane,
                                               const Point3d&                     theTextPosition,
                                               const Handle(RefObject)& theDimension,
-                                              const StepData_Factors&           theLocalFactors)
+                                              const ConversionFactors&           theLocalFactors)
 {
   if (thePresentation.IsNull())
     return;
@@ -2621,7 +2621,7 @@ void STEPCAFControl_Writer::writePresentation(const Handle(XSControl_WorkSession
 
   // Presentation
   Handle(StepVisual_TessellatedGeometricSet) aGeomSet =
-    STEPCAFControl_GDTProperty::GetTessellation(thePresentation);
+    GeometricToleranceProperty::GetTessellation(thePresentation);
   if (aGeomSet.IsNull())
   {
     return;
@@ -2708,12 +2708,12 @@ void STEPCAFControl_Writer::writePresentation(const Handle(XSControl_WorkSession
 //           in case of multiple features association)
 //=======================================================================
 Handle(StepDimTol_Datum) STEPCAFControl_Writer::writeDatumAP242(
-  const Handle(XSControl_WorkSession)& theWS,
+  const Handle(ExchangeSession)& theWS,
   const TDF_LabelSequence&             theShapeL,
-  const TDF_Label&                     theDatumL,
+  const DataLabel&                     theDatumL,
   const Standard_Boolean               theIsFirstDTarget,
   const Handle(StepDimTol_Datum)&      theWrittenDatum,
-  const StepData_Factors&              theLocalFactors)
+  const ConversionFactors&              theLocalFactors)
 {
   // Get working data
   const Handle(Interface_InterfaceModel)& aModel  = theWS->Model();
@@ -2737,7 +2737,7 @@ Handle(StepDimTol_Datum) STEPCAFControl_Writer::writeDatumAP242(
     TopLoc_Location             aLoc;
     TColStd_SequenceOfTransient aSeqRI;
 
-    TopoDS_Shape aShape = XCAFDoc_ShapeTool::GetShape(aLabelIter.Value());
+    TopoShape aShape = XCAFDoc_ShapeTool::GetShape(aLabelIter.Value());
     FindEntities(aFP, aShape, aLoc, aSeqRI);
     if (aSeqRI.Length() <= 0)
     {
@@ -2851,7 +2851,7 @@ Handle(StepDimTol_Datum) STEPCAFControl_Writer::writeDatumAP242(
     // Note: the given way to write such datum type may be incorrect (too little information)
     if (aDatumType == XCAFDimTolObjects_DatumTargetType_Area)
     {
-      TopoDS_Shape                                 aDTShape = anObject->GetDatumTarget();
+      TopoShape                                 aDTShape = anObject->GetDatumTarget();
       Handle(StepAP242_GeometricItemSpecificUsage) anAreaGISU;
       Handle(StepRepr_ShapeAspect)                 anAreaSA =
         writeShapeAspect(theWS, theDatumL, aDTShape, aRC, anAreaGISU);
@@ -2873,7 +2873,7 @@ Handle(StepDimTol_Datum) STEPCAFControl_Writer::writeDatumAP242(
     {
       Handle(StepDimTol_PlacedDatumTargetFeature) aPDTF = new StepDimTol_PlacedDatumTargetFeature();
       aPDTF->Init(new TCollection_HAsciiString(),
-                  STEPCAFControl_GDTProperty::GetDatumTargetName(aDatumType),
+                  GeometricToleranceProperty::GetDatumTargetName(aDatumType),
                   aPDS,
                   StepData_LTrue,
                   aTargetId);
@@ -3029,11 +3029,11 @@ Handle(StepDimTol_Datum) STEPCAFControl_Writer::writeDatumAP242(
 // purpose  : auxiliary (write all data for given dimension: values,
 //           qualifiers, modifiers, orientation and tolerance class)
 //======================================================================
-static void WriteDimValues(const Handle(XSControl_WorkSession)&             theWS,
+static void WriteDimValues(const Handle(ExchangeSession)&             theWS,
                            const Handle(XCAFDimTolObjects_DimensionObject)& theObject,
                            const Handle(StepRepr_RepresentationContext)&    theRC,
                            const StepShape_DimensionalCharacteristic&       theDimension,
-                           const StepData_Factors&                          theLocalFactors)
+                           const ConversionFactors&                          theLocalFactors)
 {
   // Get working data
   const Handle(Interface_InterfaceModel)&      aModel     = theWS->Model();
@@ -3084,7 +3084,7 @@ static void WriteDimValues(const Handle(XSControl_WorkSession)&             theW
       StepShape_ValueQualifier             anItem;
       Handle(StepShape_TypeQualifier)      aType      = new StepShape_TypeQualifier();
       XCAFDimTolObjects_DimensionQualifier aQualifier = theObject->GetQualifier();
-      aType->Init(STEPCAFControl_GDTProperty::GetDimQualifierName(aQualifier));
+      aType->Init(GeometricToleranceProperty::GetDimQualifierName(aQualifier));
       aModel->AddWithRefs(aType);
       anItem.SetValue(aType);
       aQualifiers->SetValue(1, anItem);
@@ -3163,7 +3163,7 @@ static void WriteDimValues(const Handle(XSControl_WorkSession)&             theW
       Handle(StepRepr_DescriptiveRepresentationItem) aModifItem =
         new StepRepr_DescriptiveRepresentationItem();
       aModifItem->Init(new TCollection_HAsciiString(),
-                       STEPCAFControl_GDTProperty::GetDimModifierName(aModif));
+                       GeometricToleranceProperty::GetDimModifierName(aModif));
       aModel->AddWithRefs(aModifItem);
       aModifItems->SetValue(i, aModifItem);
     }
@@ -3265,7 +3265,7 @@ static void WriteDimValues(const Handle(XSControl_WorkSession)&             theW
     if (!theObject->GetClassOfTolerance(isHole, aFormVariance, aGrade))
       return;
     Handle(StepShape_LimitsAndFits) aLAF =
-      STEPCAFControl_GDTProperty::GetLimitsAndFits(isHole, aFormVariance, aGrade);
+      GeometricToleranceProperty::GetLimitsAndFits(isHole, aFormVariance, aGrade);
     aModel->AddWithRefs(aLAF);
     StepShape_ToleranceMethodDefinition aMethod;
     aMethod.SetValue(aLAF);
@@ -3279,13 +3279,13 @@ static void WriteDimValues(const Handle(XSControl_WorkSession)&             theW
 // function : WriteDerivedGeometry
 // purpose  : auxiliary (write connection point for dimensions)
 //======================================================================
-static void WriteDerivedGeometry(const Handle(XSControl_WorkSession)&             theWS,
+static void WriteDerivedGeometry(const Handle(ExchangeSession)&             theWS,
                                  const Handle(XCAFDimTolObjects_DimensionObject)& theObject,
                                  const Handle(StepRepr_ConstructiveGeometryRepresentation)& theRepr,
                                  Handle(StepRepr_ShapeAspect)&                        theFirstSA,
                                  Handle(StepRepr_ShapeAspect)&                        theSecondSA,
                                  NCollection_Vector<Handle(StepGeom_CartesianPoint)>& thePnts,
-                                 const StepData_Factors& theLocalFactors)
+                                 const ConversionFactors& theLocalFactors)
 {
   const Handle(Interface_InterfaceModel)& aModel = theWS->Model();
   // First point
@@ -3365,12 +3365,12 @@ static void WriteDerivedGeometry(const Handle(XSControl_WorkSession)&           
 //           geometric_tolerance)
 //======================================================================
 static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
-  const Handle(XSControl_WorkSession)&               theWS,
-  const TDF_Label                                    theGeomTolL,
+  const Handle(ExchangeSession)&               theWS,
+  const DataLabel                                    theGeomTolL,
   const TDF_LabelSequence&                           theDatumSeq,
   const STEPConstruct_DataMapOfAsciiStringTransient& theDatumMap,
   const Handle(StepRepr_RepresentationContext)&      theRC,
-  const StepData_Factors&                            theLocalFactors)
+  const ConversionFactors&                            theLocalFactors)
 {
   // Get working data
   const Handle(Interface_InterfaceModel)& aModel  = theWS->Model();
@@ -3442,7 +3442,7 @@ static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
       XCAFDimTolObjects_DatumModifWithValue aModifWithVal;
       Standard_Real                         aValue = 0;
       aDatumSeqPos.Value(1)->GetModifierWithValue(aModifWithVal, aValue);
-      aModifiers = STEPCAFControl_GDTProperty::GetDatumRefModifiers(aSimpleModifiers,
+      aModifiers = GeometricToleranceProperty::GetDatumRefModifiers(aSimpleModifiers,
                                                                     aModifWithVal,
                                                                     aValue,
                                                                     aUnit);
@@ -3482,7 +3482,7 @@ static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
         Standard_Real                            aValue = 0;
         aDatumObj->GetModifierWithValue(aModifWithVal, aValue);
         Handle(StepDimTol_HArray1OfDatumReferenceModifier) anElemModifiers =
-          STEPCAFControl_GDTProperty::GetDatumRefModifiers(aSimpleModifiers,
+          GeometricToleranceProperty::GetDatumRefModifiers(aSimpleModifiers,
                                                            aModifWithVal,
                                                            aValue,
                                                            aUnit);
@@ -3600,7 +3600,7 @@ static Handle(StepDimTol_HArray1OfDatumSystemOrReference) WriteDatumSystem(
 // purpose  : auxiliary (write tolerace zones)
 //=======================================================================
 void STEPCAFControl_Writer::writeToleranceZone(
-  const Handle(XSControl_WorkSession)&                 theWS,
+  const Handle(ExchangeSession)&                 theWS,
   const Handle(XCAFDimTolObjects_GeomToleranceObject)& theObject,
   const Handle(StepDimTol_GeometricTolerance)&         theEntity,
   const Handle(StepRepr_RepresentationContext)&        theRC)
@@ -3620,7 +3620,7 @@ void STEPCAFControl_Writer::writeToleranceZone(
   // Create Tolerance_Zone
   Handle(StepDimTol_ToleranceZoneForm) aForm = new StepDimTol_ToleranceZoneForm();
   aModel->AddWithRefs(aForm);
-  aForm->Init(STEPCAFControl_GDTProperty::GetTolValueType(theObject->GetTypeOfValue()));
+  aForm->Init(GeometricToleranceProperty::GetTolValueType(theObject->GetTypeOfValue()));
   Handle(StepDimTol_HArray1OfToleranceZoneTarget) aZoneTargetArray =
     new StepDimTol_HArray1OfToleranceZoneTarget(1, 1);
   StepDimTol_ToleranceZoneTarget aTarget;
@@ -3656,12 +3656,12 @@ void STEPCAFControl_Writer::writeToleranceZone(
 //           label and datum system)
 //======================================================================
 void STEPCAFControl_Writer::writeGeomTolerance(
-  const Handle(XSControl_WorkSession)&                      theWS,
+  const Handle(ExchangeSession)&                      theWS,
   const TDF_LabelSequence&                                  theShapeSeqL,
-  const TDF_Label&                                          theGeomTolL,
+  const DataLabel&                                          theGeomTolL,
   const Handle(StepDimTol_HArray1OfDatumSystemOrReference)& theDatumSystem,
   const Handle(StepRepr_RepresentationContext)&             theRC,
-  const StepData_Factors&                                   theLocalFactors)
+  const ConversionFactors&                                   theLocalFactors)
 {
   // Get working data
   const Handle(Interface_InterfaceModel)& aModel = theWS->Model();
@@ -3687,7 +3687,7 @@ void STEPCAFControl_Writer::writeGeomTolerance(
   Handle(StepAP242_GeometricItemSpecificUsage) dummyGISU;
   if (theShapeSeqL.Length() == 1)
   {
-    TopoDS_Shape aShape = XCAFDoc_ShapeTool::GetShape(theShapeSeqL.Value(1));
+    TopoShape aShape = XCAFDoc_ShapeTool::GetShape(theShapeSeqL.Value(1));
     aMainSA             = writeShapeAspect(theWS, theGeomTolL, aShape, dummyRC, dummyGISU);
     aModel->AddWithRefs(aMainSA);
   }
@@ -3696,7 +3696,7 @@ void STEPCAFControl_Writer::writeGeomTolerance(
     Handle(StepRepr_CompositeShapeAspect) aCSA;
     for (TDF_LabelSequence::Iterator aShIter(theShapeSeqL); aShIter.More(); aShIter.Next())
     {
-      TopoDS_Shape                 aShape = XCAFDoc_ShapeTool::GetShape(aShIter.Value());
+      TopoShape                 aShape = XCAFDoc_ShapeTool::GetShape(aShIter.Value());
       Handle(StepRepr_ShapeAspect) aSA =
         writeShapeAspect(theWS, theGeomTolL, aShape, dummyRC, dummyGISU);
       if (aSA.IsNull())
@@ -3747,7 +3747,7 @@ void STEPCAFControl_Writer::writeGeomTolerance(
         continue;
       }
       StepDimTol_GeometricToleranceModifier aModif =
-        STEPCAFControl_GDTProperty::GetGeomToleranceModifier(aModifiers.Value(i));
+        GeometricToleranceProperty::GetGeomToleranceModifier(aModifiers.Value(i));
       aModifArray->SetValue(k, aModif);
       k++;
     }
@@ -3787,7 +3787,7 @@ void STEPCAFControl_Writer::writeGeomTolerance(
     new StepDimTol_GeometricToleranceWithModifiers();
   aGTWM->SetModifiers(aModifArray);
   StepDimTol_GeometricToleranceType aType =
-    STEPCAFControl_GDTProperty::GetGeomToleranceType(anObject->GetType());
+    GeometricToleranceProperty::GetGeomToleranceType(anObject->GetType());
 
   // Init and write necessary subtype of Geometric_Tolerance entity
   Handle(StepDimTol_GeometricTolerance) aGeomTol;
@@ -3848,7 +3848,7 @@ void STEPCAFControl_Writer::writeGeomTolerance(
     {
       // Geometric_Tolerance
       Handle(StepDimTol_GeometricTolerance) aResult =
-        STEPCAFControl_GDTProperty::GetGeomTolerance(anObject->GetType());
+        GeometricToleranceProperty::GetGeomTolerance(anObject->GetType());
       if (!aResult.IsNull())
       {
         aResult->Init(aName, aDescription, aLMWU, aGTTarget);
@@ -3872,7 +3872,7 @@ void STEPCAFControl_Writer::writeGeomTolerance(
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(XSControl_WorkSession)& theWS,
+Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(ExchangeSession)& theWS,
                                                   const TDF_LabelSequence& theLabels) const
 {
 
@@ -3895,7 +3895,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(XSControl_WorkSes
   // Iterate on requested shapes collect Tools
   for (TDF_LabelMap::Iterator aLabelIter(myRootLabels); aLabelIter.More(); aLabelIter.Next())
   {
-    const TDF_Label&           aLabel   = aLabelIter.Value();
+    const DataLabel&           aLabel   = aLabelIter.Value();
     Handle(XCAFDoc_DimTolTool) aDGTTool = XCAFDoc_DocumentTool::DimTolTool(aLabel);
     TDF_LabelSequence          aDGTLS;
     aDGTTool->GetDatumLabels(aDGTLS);
@@ -3907,13 +3907,13 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(XSControl_WorkSes
 
   for (TDF_LabelSequence::Iterator aDGTIter(aDGTLabels); aDGTIter.More(); aDGTIter.Next())
   {
-    const TDF_Label&  aDatumL = aDGTIter.Value();
+    const DataLabel&  aDatumL = aDGTIter.Value();
     TDF_LabelSequence aShapeL;
     TDF_LabelSequence aNullSeq;
     if (!XCAFDoc_DimTolTool::GetRefShapeLabel(aDatumL, aShapeL, aNullSeq))
       continue;
     // find target shape
-    TopoDS_Shape                aShape = XCAFDoc_ShapeTool::GetShape(aShapeL.Value(1));
+    TopoShape                aShape = XCAFDoc_ShapeTool::GetShape(aShapeL.Value(1));
     TopLoc_Location             aLoc;
     TColStd_SequenceOfTransient aSeqRI;
     FindEntities(aFP, aShape, aLoc, aSeqRI);
@@ -3988,7 +3988,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(XSControl_WorkSes
     aSDR1->Init(aRD1, aSR1);
     aModel->AddWithRefs(aSDR1);
     // add created Datum into Map
-    TCollection_AsciiString aStmp(aName->ToCString());
+    AsciiString1 aStmp(aName->ToCString());
     aStmp.AssignCat(aDescription->ToCString());
     aStmp.AssignCat(anIdentification->ToCString());
     aDatumMap.Bind(aStmp, aDatum);
@@ -3999,7 +3999,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(XSControl_WorkSes
   // Iterate on requested shapes collect Tools
   for (TDF_LabelMap::Iterator aLabelIter(myRootLabels); aLabelIter.More(); aLabelIter.Next())
   {
-    const TDF_Label&           aLabel   = aLabelIter.Value();
+    const DataLabel&           aLabel   = aLabelIter.Value();
     Handle(XCAFDoc_DimTolTool) aDGTTool = XCAFDoc_DocumentTool::DimTolTool(aLabel);
     TDF_LabelSequence          aaDGTLS;
     aDGTTool->GetDimTolLabels(aDGTLabels);
@@ -4010,13 +4010,13 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(XSControl_WorkSes
     return Standard_False;
   for (TDF_LabelSequence::Iterator aDGTIter(aDGTLabels); aDGTIter.More(); aDGTIter.Next())
   {
-    const TDF_Label&  aDimTolL = aDGTIter.Value();
+    const DataLabel&  aDimTolL = aDGTIter.Value();
     TDF_LabelSequence aShapeL;
     TDF_LabelSequence aNullSeq;
     if (!XCAFDoc_DimTolTool::GetRefShapeLabel(aDimTolL, aShapeL, aNullSeq))
       continue;
     // find target shape
-    TopoDS_Shape                aShape = XCAFDoc_ShapeTool::GetShape(aShapeL.Value(1));
+    TopoShape                aShape = XCAFDoc_ShapeTool::GetShape(aShapeL.Value(1));
     TopLoc_Location             aLoc;
     TColStd_SequenceOfTransient seqRI;
     FindEntities(aFP, aShape, aLoc, seqRI);
@@ -4137,13 +4137,13 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(XSControl_WorkSes
              aDatumIter.Next(), aSetDatumInd++)
         {
           Handle(XCAFDoc_Datum) aDatumAttr;
-          const TDF_Label&      aDatumL = aDatumIter.Value();
+          const DataLabel&      aDatumL = aDatumIter.Value();
           if (!aDatumL.FindAttribute(XCAFDoc_Datum::GetID(), aDatumAttr))
             continue;
           Handle(TCollection_HAsciiString) aNameD            = aDatumAttr->GetName();
           Handle(TCollection_HAsciiString) aDescriptionD     = aDatumAttr->GetDescription();
           Handle(TCollection_HAsciiString) anIdentificationD = aDatumAttr->GetIdentification();
-          TCollection_AsciiString          aStmp(aNameD->ToCString());
+          AsciiString1          aStmp(aNameD->ToCString());
           aStmp.AssignCat(aDescriptionD->ToCString());
           aStmp.AssignCat(anIdentificationD->ToCString());
           if (aDatumMap.IsBound(aStmp))
@@ -4240,9 +4240,9 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTs(const Handle(XSControl_WorkSes
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(XSControl_WorkSession)& theWS,
+Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(ExchangeSession)& theWS,
                                                        const TDF_LabelSequence& theLabels,
-                                                       const StepData_Factors&  theLocalFactors)
+                                                       const ConversionFactors&  theLocalFactors)
 {
   (void)theLabels;
   // Get working data
@@ -4275,7 +4275,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(XSControl_Wo
   // Iterate on requested shapes collect Tools
   for (TDF_LabelMap::Iterator aLabelIter(myRootLabels); aLabelIter.More(); aLabelIter.Next())
   {
-    const TDF_Label&           aLabel   = aLabelIter.Value();
+    const DataLabel&           aLabel   = aLabelIter.Value();
     Handle(XCAFDoc_DimTolTool) aDGTTool = XCAFDoc_DocumentTool::DimTolTool(aLabel);
     TDF_LabelSequence          aaDGTLS;
     aDGTTool->GetDatumLabels(aDGTLabels);
@@ -4286,15 +4286,15 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(XSControl_Wo
   TColStd_MapOfAsciiString aNameIdMap;
   for (TDF_LabelSequence::Iterator aDGTIter(aDGTLabels); aDGTIter.More(); aDGTIter.Next())
   {
-    const TDF_Label&  aDatumL = aDGTIter.Value();
+    const DataLabel&  aDatumL = aDGTIter.Value();
     TDF_LabelSequence aShapeL, aNullSeq;
     XCAFDoc_DimTolTool::GetRefShapeLabel(aDatumL, aShapeL, aNullSeq);
     Handle(XCAFDoc_Datum) aDatumAttr;
     aDatumL.FindAttribute(XCAFDoc_Datum::GetID(), aDatumAttr);
     Handle(XCAFDimTolObjects_DatumObject) anObject   = aDatumAttr->GetObject();
-    TCollection_AsciiString               aDatumName = anObject->GetName()->String();
-    TCollection_AsciiString               aDatumTargetId =
-      TCollection_AsciiString(anObject->GetDatumTargetNumber());
+    AsciiString1               aDatumName = anObject->GetName()->String();
+    AsciiString1               aDatumTargetId =
+      AsciiString1(anObject->GetDatumTargetNumber());
     if (!aNameIdMap.Add(aDatumName.Cat(aDatumTargetId)))
       continue;
     Handle(RefObject) aWrittenDatum;
@@ -4314,7 +4314,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(XSControl_Wo
   aDGTLabels.Clear();
   for (TDF_LabelMap::Iterator aLabelIter(myRootLabels); aLabelIter.More(); aLabelIter.Next())
   {
-    const TDF_Label&           aLabel   = aLabelIter.Value();
+    const DataLabel&           aLabel   = aLabelIter.Value();
     Handle(XCAFDoc_DimTolTool) aDGTTool = XCAFDoc_DocumentTool::DimTolTool(aLabel);
     TDF_LabelSequence          aaDGTLS;
     aDGTTool->GetDimensionLabels(aDGTLabels);
@@ -4331,7 +4331,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(XSControl_Wo
   Handle(StepAP242_GeometricItemSpecificUsage)        dummyGISU;
   for (TDF_LabelSequence::Iterator aDGTIter(aDGTLabels); aDGTIter.More(); aDGTIter.Next())
   {
-    const TDF_Label&          aDimensionL = aDGTIter.Value();
+    const DataLabel&          aDimensionL = aDGTIter.Value();
     TDF_LabelSequence         aFirstShapeL, aSecondShapeL;
     Handle(XCAFDoc_Dimension) aDimAttr;
     if (!aDimensionL.FindAttribute(XCAFDoc_Dimension::GetID(), aDimAttr))
@@ -4365,7 +4365,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(XSControl_Wo
     Handle(StepRepr_ShapeAspect) aFirstSA, aSecondSA;
     if (aFirstShapeL.Length() == 1)
     {
-      TopoDS_Shape aShape = XCAFDoc_ShapeTool::GetShape(aFirstShapeL.Value(1));
+      TopoShape aShape = XCAFDoc_ShapeTool::GetShape(aFirstShapeL.Value(1));
       aFirstSA            = writeShapeAspect(theWS, aDimensionL, aShape, dummyRC, dummyGISU);
       if (aRC.IsNull() && !dummyRC.IsNull())
         aRC = dummyRC;
@@ -4375,7 +4375,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(XSControl_Wo
       Handle(StepRepr_CompositeShapeAspect) aCSA;
       for (Standard_Integer shIt = 1; shIt <= aFirstShapeL.Length(); shIt++)
       {
-        TopoDS_Shape                 aShape = XCAFDoc_ShapeTool::GetShape(aFirstShapeL.Value(shIt));
+        TopoShape                 aShape = XCAFDoc_ShapeTool::GetShape(aFirstShapeL.Value(shIt));
         Handle(StepRepr_ShapeAspect) aSA =
           writeShapeAspect(theWS, aDimensionL, aShape, dummyRC, dummyGISU);
         if (aSA.IsNull())
@@ -4400,7 +4400,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(XSControl_Wo
     }
     if (aSecondShapeL.Length() == 1)
     {
-      TopoDS_Shape aShape = XCAFDoc_ShapeTool::GetShape(aSecondShapeL.Value(1));
+      TopoShape aShape = XCAFDoc_ShapeTool::GetShape(aSecondShapeL.Value(1));
       aSecondSA           = writeShapeAspect(theWS, aDimensionL, aShape, dummyRC, dummyGISU);
       if (aRC.IsNull() && !dummyRC.IsNull())
         aRC = dummyRC;
@@ -4410,7 +4410,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(XSControl_Wo
       Handle(StepRepr_CompositeShapeAspect) aCSA;
       for (Standard_Integer shIt = 1; shIt <= aSecondShapeL.Length(); shIt++)
       {
-        TopoDS_Shape aShape = XCAFDoc_ShapeTool::GetShape(aSecondShapeL.Value(shIt));
+        TopoShape aShape = XCAFDoc_ShapeTool::GetShape(aSecondShapeL.Value(shIt));
         Handle(StepRepr_ShapeAspect) aSA =
           writeShapeAspect(theWS, aDimensionL, aShape, dummyRC, dummyGISU);
         if (aCSA.IsNull() && !aSA.IsNull())
@@ -4459,11 +4459,11 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(XSControl_Wo
                            aConnectionPnts,
                            theLocalFactors);
     XCAFDimTolObjects_DimensionType aDimType = anObject->GetType();
-    if (STEPCAFControl_GDTProperty::IsDimensionalLocation(aDimType))
+    if (GeometricToleranceProperty::IsDimensionalLocation(aDimType))
     {
       // Dimensional_Location
       Handle(StepShape_DimensionalLocation) aDim = new StepShape_DimensionalLocation();
-      aDim->Init(STEPCAFControl_GDTProperty::GetDimTypeName(aDimType),
+      aDim->Init(GeometricToleranceProperty::GetDimTypeName(aDimType),
                  Standard_False,
                  NULL,
                  aFirstSA,
@@ -4505,11 +4505,11 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(XSControl_Wo
         ->Init(new TCollection_HAsciiString(), Standard_False, NULL, aFirstSA, aSecondSA, aPathSA);
       aDimension.SetValue(aDim);
     }
-    else if (STEPCAFControl_GDTProperty::IsDimensionalSize(aDimType))
+    else if (GeometricToleranceProperty::IsDimensionalSize(aDimType))
     {
       // Dimensional_Size
       Handle(StepShape_DimensionalSize) aDim = new StepShape_DimensionalSize();
-      aDim->Init(aFirstSA, STEPCAFControl_GDTProperty::GetDimTypeName(aDimType));
+      aDim->Init(aFirstSA, GeometricToleranceProperty::GetDimTypeName(aDimType));
       aDimension.SetValue(aDim);
     }
     else if (aDimType == XCAFDimTolObjects_DimensionType_Size_Angular)
@@ -4577,7 +4577,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(XSControl_Wo
   aDGTLabels.Clear();
   for (TDF_LabelMap::Iterator aLabelIter(myRootLabels); aLabelIter.More(); aLabelIter.Next())
   {
-    const TDF_Label&           aLabel   = aLabelIter.Value();
+    const DataLabel&           aLabel   = aLabelIter.Value();
     Handle(XCAFDoc_DimTolTool) aDGTTool = XCAFDoc_DocumentTool::DimTolTool(aLabel);
     TDF_LabelSequence          aaDGTLS;
     aDGTTool->GetGeomToleranceLabels(aDGTLabels);
@@ -4585,7 +4585,7 @@ Standard_Boolean STEPCAFControl_Writer::writeDGTsAP242(const Handle(XSControl_Wo
   }
   for (TDF_LabelSequence::Iterator aDGTIter(aDGTLabels); aDGTIter.More(); aDGTIter.Next())
   {
-    const TDF_Label   aGeomTolL = aDGTIter.Value();
+    const DataLabel   aGeomTolL = aDGTIter.Value();
     TDF_LabelSequence aFirstShapeL, aNullSeqL;
     if (!XCAFDoc_DimTolTool::GetRefShapeLabel(aGeomTolL, aFirstShapeL, aNullSeqL))
       continue;
@@ -4649,7 +4649,7 @@ static Standard_Boolean FindPDSforRI(const Interface_Graph&                   th
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_Writer::writeMaterials(const Handle(XSControl_WorkSession)& theWS,
+Standard_Boolean STEPCAFControl_Writer::writeMaterials(const Handle(ExchangeSession)& theWS,
                                                        const TDF_LabelSequence& theLabels) const
 {
 
@@ -4672,7 +4672,7 @@ Standard_Boolean STEPCAFControl_Writer::writeMaterials(const Handle(XSControl_Wo
   // Iterate on requested shapes collect Tools
   for (TDF_LabelMap::Iterator aLabelIter(myRootLabels); aLabelIter.More(); aLabelIter.Next())
   {
-    const TDF_Label&          aLabel  = aLabelIter.Value();
+    const DataLabel&          aLabel  = aLabelIter.Value();
     Handle(XCAFDoc_ShapeTool) aShTool = XCAFDoc_DocumentTool::ShapeTool(aLabel);
     TDF_LabelSequence         aTopInterLabels;
     aShTool->GetShapes(aTopInterLabels);
@@ -4680,14 +4680,14 @@ Standard_Boolean STEPCAFControl_Writer::writeMaterials(const Handle(XSControl_Wo
   }
   for (TDF_LabelSequence::Iterator aTopLIter(aTopLabels); aTopLIter.More(); aTopLIter.Next())
   {
-    const TDF_Label&          aShL = aTopLIter.Value();
+    const DataLabel&          aShL = aTopLIter.Value();
     Handle(TDataStd_TreeNode) aNode;
     if (!aShL.FindAttribute(XCAFDoc::MaterialRefGUID(), aNode) || !aNode->HasFather())
     {
       continue;
     }
     // find PDS for current shape
-    TopoDS_Shape                aShape = XCAFDoc_ShapeTool::GetShape(aShL);
+    TopoShape                aShape = XCAFDoc_ShapeTool::GetShape(aShL);
     TopLoc_Location             aLocation;
     TColStd_SequenceOfTransient aSeqRI;
     FindEntities(aFP, aShape, aLocation, aSeqRI);
@@ -4703,7 +4703,7 @@ Standard_Boolean STEPCAFControl_Writer::writeMaterials(const Handle(XSControl_Wo
     if (aProdDef.IsNull())
       continue;
     // write material entities
-    TDF_Label                        aMatL = aNode->Father()->Label();
+    DataLabel                        aMatL = aNode->Father()->Label();
     Handle(TCollection_HAsciiString) aName;
     Handle(TCollection_HAsciiString) aDescription;
     Standard_Real                    aDensity;
@@ -4720,7 +4720,7 @@ Standard_Boolean STEPCAFControl_Writer::writeMaterials(const Handle(XSControl_Wo
     {
       if (aName->Length() == 0)
         continue;
-      TCollection_AsciiString aKey(aName->ToCString());
+      AsciiString1 aKey(aName->ToCString());
       if (aMapDRI.IsBound(aKey))
       {
         aRepDRI = Handle(StepRepr_Representation)::DownCast(aMapDRI.Find(aKey));

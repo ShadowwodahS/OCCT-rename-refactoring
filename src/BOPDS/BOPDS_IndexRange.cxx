@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-void BOPDS_IndexRange::Dump() const
+void IndexRange::Dump() const
 {
   printf(" range: %d %d", myFirst, myLast);
 }

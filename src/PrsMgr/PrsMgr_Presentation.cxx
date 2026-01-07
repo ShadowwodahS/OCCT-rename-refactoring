@@ -102,7 +102,7 @@ void PrsMgr_Presentation::Erase()
 
 //=================================================================================================
 
-void PrsMgr_Presentation::Highlight(const Handle(Prs3d_Drawer)& theStyle)
+void PrsMgr_Presentation::Highlight(const Handle(StyleDrawer)& theStyle)
 {
   if (!IsHighlighted())
   {
@@ -172,7 +172,7 @@ void PrsMgr_Presentation::Compute()
 
 //=================================================================================================
 
-void PrsMgr_Presentation::computeHLR(const Handle(Graphic3d_Camera)& theProjector,
+void PrsMgr_Presentation::computeHLR(const Handle(CameraOn3d)& theProjector,
                                      Handle(Graphic3d_Structure)&    theStructToFill)
 {
   if (theStructToFill.IsNull())
@@ -186,7 +186,7 @@ void PrsMgr_Presentation::computeHLR(const Handle(Graphic3d_Camera)& theProjecto
 
 //=================================================================================================
 
-void PrsMgr_Presentation::RecomputeTransformation(const Handle(Graphic3d_Camera)& theProjector)
+void PrsMgr_Presentation::RecomputeTransformation(const Handle(CameraOn3d)& theProjector)
 {
   myPresentableObject->RecomputeTransformation(theProjector);
 }

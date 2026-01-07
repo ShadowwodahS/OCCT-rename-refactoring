@@ -21,25 +21,25 @@
 
 //! The class is to provide the pair of indices of interfering shapes.
 
-class BOPDS_Pair
+class IndexPair
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  BOPDS_Pair()
+  IndexPair()
       : myIndex1(-1),
         myIndex2(-1)
   {
   }
 
   //
-  BOPDS_Pair(const Standard_Integer theIndex1, const Standard_Integer theIndex2)
+  IndexPair(const Standard_Integer theIndex1, const Standard_Integer theIndex2)
       : myIndex1(theIndex1),
         myIndex2(theIndex2)
   {
   }
 
-  ~BOPDS_Pair() {}
+  ~IndexPair() {}
 
   //
   //! Sets the indices
@@ -59,7 +59,7 @@ public:
 
   //
   //! Operator less
-  Standard_Boolean operator<(const BOPDS_Pair& theOther) const
+  Standard_Boolean operator<(const IndexPair& theOther) const
   {
     return ((myIndex1 != theOther.myIndex1) ? (myIndex1 < theOther.myIndex1)
                                             : (myIndex2 < theOther.myIndex2));
@@ -67,13 +67,13 @@ public:
 
   //
   //! Returns true if the Pair is equal to <the theOther>
-  Standard_Boolean IsEqual(const BOPDS_Pair& theOther) const
+  Standard_Boolean IsEqual(const IndexPair& theOther) const
   {
     return (myIndex1 == theOther.myIndex1 && myIndex2 == theOther.myIndex2)
            || (myIndex1 == theOther.myIndex2 && myIndex2 == theOther.myIndex1);
   }
 
-  bool operator==(const BOPDS_Pair& theOther) const { return IsEqual(theOther); }
+  bool operator==(const IndexPair& theOther) const { return IsEqual(theOther); }
 
 protected:
   Standard_Integer myIndex1;
@@ -83,9 +83,9 @@ protected:
 namespace std
 {
 template <>
-struct hash<BOPDS_Pair>
+struct hash<IndexPair>
 {
-  size_t operator()(const BOPDS_Pair& thePair) const noexcept
+  size_t operator()(const IndexPair& thePair) const noexcept
   {
     // Combine two int values into a single hash value.
     int aCombination[2];

@@ -97,7 +97,7 @@ public: //! @name Constructors for History creation
   //! @param[in] theArguments  Arguments of the algorithm;
   //! @param[in] theAlgo  The algorithm.
   template <class TheAlgo>
-  BRepTools_History(const TopTools_ListOfShape& theArguments, TheAlgo& theAlgo)
+  BRepTools_History(const ShapeList& theArguments, TheAlgo& theAlgo)
   {
     // Map all argument shapes to save them in history
     TopTools_IndexedMapOfShape         anArgsMap;
@@ -105,14 +105,14 @@ public: //! @name Constructors for History creation
     for (; aIt.More(); aIt.Next())
     {
       if (!aIt.Value().IsNull())
-        TopExp::MapShapes(aIt.Value(), anArgsMap);
+        TopExp1::MapShapes(aIt.Value(), anArgsMap);
     }
 
     // Copy the history for all supported shapes from the algorithm
     Standard_Integer i, aNb = anArgsMap.Extent();
     for (i = 1; i <= aNb; ++i)
     {
-      const TopoDS_Shape& aS = anArgsMap(i);
+      const TopoShape& aS = anArgsMap(i);
       if (!IsSupportedType(aS))
         continue;
 
@@ -120,12 +120,12 @@ public: //! @name Constructors for History creation
         Remove(aS);
 
       // Check Modified
-      const TopTools_ListOfShape& aModified = theAlgo.Modified(aS);
+      const ShapeList& aModified = theAlgo.Modified(aS);
       for (aIt.Initialize(aModified); aIt.More(); aIt.Next())
         AddModified(aS, aIt.Value());
 
       // Check Generated
-      const TopTools_ListOfShape& aGenerated = theAlgo.Generated(aS);
+      const ShapeList& aGenerated = theAlgo.Generated(aS);
       for (aIt.Initialize(aGenerated); aIt.More(); aIt.Next())
         AddGenerated(aS, aIt.Value());
     }
@@ -142,7 +142,7 @@ public:
 
 public:
   //! Returns 'true' if the type of the shape is supported by the history.
-  static Standard_Boolean IsSupportedType(const TopoDS_Shape& theShape)
+  static Standard_Boolean IsSupportedType(const TopoShape& theShape)
   {
     const TopAbs_ShapeEnum aType = theShape.ShapeType();
     return aType == TopAbs_VERTEX || aType == TopAbs_EDGE || aType == TopAbs_FACE
@@ -151,22 +151,22 @@ public:
 
 public: //! Methods to set the history.
   //! Set the second shape as generated one from the first shape.
-  Standard_EXPORT void AddGenerated(const TopoDS_Shape& theInitial,
-                                    const TopoDS_Shape& theGenerated);
+  Standard_EXPORT void AddGenerated(const TopoShape& theInitial,
+                                    const TopoShape& theGenerated);
 
   //! Set the second shape as modified one from the first shape.
-  Standard_EXPORT void AddModified(const TopoDS_Shape& theInitial, const TopoDS_Shape& theModified);
+  Standard_EXPORT void AddModified(const TopoShape& theInitial, const TopoShape& theModified);
 
   //! Set the shape as removed one.
-  Standard_EXPORT void Remove(const TopoDS_Shape& theRemoved);
+  Standard_EXPORT void Remove(const TopoShape& theRemoved);
 
   //! Set the second shape as the only generated one from the first one.
-  Standard_EXPORT void ReplaceGenerated(const TopoDS_Shape& theInitial,
-                                        const TopoDS_Shape& theGenerated);
+  Standard_EXPORT void ReplaceGenerated(const TopoShape& theInitial,
+                                        const TopoShape& theGenerated);
 
   //! Set the second shape as the only modified one from the first one.
-  Standard_EXPORT void ReplaceModified(const TopoDS_Shape& theInitial,
-                                       const TopoDS_Shape& theModified);
+  Standard_EXPORT void ReplaceModified(const TopoShape& theInitial,
+                                       const TopoShape& theModified);
 
   //! Clears the history.
   void Clear()
@@ -178,13 +178,13 @@ public: //! Methods to set the history.
 
 public: //! Methods to read the history.
   //! Returns all shapes generated from the shape.
-  Standard_EXPORT const TopTools_ListOfShape& Generated(const TopoDS_Shape& theInitial) const;
+  Standard_EXPORT const ShapeList& Generated(const TopoShape& theInitial) const;
 
   //! Returns all shapes modified from the shape.
-  Standard_EXPORT const TopTools_ListOfShape& Modified(const TopoDS_Shape& theInitial) const;
+  Standard_EXPORT const ShapeList& Modified(const TopoShape& theInitial) const;
 
   //! Returns 'true' if the shape is removed.
-  Standard_EXPORT Standard_Boolean IsRemoved(const TopoDS_Shape& theInitial) const;
+  Standard_EXPORT Standard_Boolean IsRemoved(const TopoShape& theInitial) const;
 
   //! Returns 'true' if there any shapes with Generated elements present
   Standard_Boolean HasGenerated() const { return !myShapeToGenerated.IsEmpty(); }
@@ -208,7 +208,7 @@ public: //! A method to merge a next history to this history.
   //! @param[in] theArguments  Arguments of the algorithm;
   //! @param[in] theAlgo  The algorithm.
   template <class TheAlgo>
-  void Merge(const TopTools_ListOfShape& theArguments, TheAlgo& theAlgo)
+  void Merge(const ShapeList& theArguments, TheAlgo& theAlgo)
   {
     // Create new history object from the given algorithm and merge it into this.
     Merge(BRepTools_History(theArguments, theAlgo));
@@ -232,13 +232,13 @@ private:
   //! Prepares the shapes generated from the first shape to set the second one
   //! as generated one from the first one by the addition or the replacement.
   //! Returns 'true' on success.
-  Standard_Boolean prepareGenerated(const TopoDS_Shape& theInitial,
-                                    const TopoDS_Shape& theGenerated);
+  Standard_Boolean prepareGenerated(const TopoShape& theInitial,
+                                    const TopoShape& theGenerated);
 
   //! Prepares the shapes modified from the first shape to set the second one
   //! as modified one from the first one by the addition or the replacement.
   //! Returns 'true' on success.
-  Standard_Boolean prepareModified(const TopoDS_Shape& theInitial, const TopoDS_Shape& theModified);
+  Standard_Boolean prepareModified(const TopoShape& theInitial, const TopoShape& theModified);
 
 private: //! Data to keep the history.
   //! Maps each input shape to all shapes modified from it.
@@ -257,10 +257,10 @@ private: //! Data to keep the history.
 
 private: //! Auxiliary members to read the history.
   //! An auxiliary empty list.
-  static const TopTools_ListOfShape myEmptyList;
+  static const ShapeList myEmptyList;
 
   //! A method to export the auxiliary list.
-  Standard_EXPORT static const TopTools_ListOfShape& emptyList();
+  Standard_EXPORT static const ShapeList& emptyList();
 
 private:
   //! Auxiliary messages.

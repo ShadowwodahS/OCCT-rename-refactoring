@@ -36,7 +36,7 @@ const Standard_GUID& XCAFDoc_VisMaterialTool::GetID()
 
 //=================================================================================================
 
-Handle(XCAFDoc_VisMaterialTool) XCAFDoc_VisMaterialTool::Set(const TDF_Label& theLabel)
+Handle(XCAFDoc_VisMaterialTool) XCAFDoc_VisMaterialTool::Set(const DataLabel& theLabel)
 {
   Handle(XCAFDoc_VisMaterialTool) aTool;
   if (!theLabel.FindAttribute(XCAFDoc_VisMaterialTool::GetID(), aTool))
@@ -68,7 +68,7 @@ const Handle(XCAFDoc_ShapeTool)& XCAFDoc_VisMaterialTool::ShapeTool()
 
 //=================================================================================================
 
-Handle(XCAFDoc_VisMaterial) XCAFDoc_VisMaterialTool::GetMaterial(const TDF_Label& theMatLabel)
+Handle(XCAFDoc_VisMaterial) XCAFDoc_VisMaterialTool::GetMaterial(const DataLabel& theMatLabel)
 {
   Handle(XCAFDoc_VisMaterial) aMatAttrib;
   theMatLabel.FindAttribute(XCAFDoc_VisMaterial::GetID(), aMatAttrib);
@@ -77,37 +77,37 @@ Handle(XCAFDoc_VisMaterial) XCAFDoc_VisMaterialTool::GetMaterial(const TDF_Label
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_VisMaterialTool::AddMaterial(const Handle(XCAFDoc_VisMaterial)& theMat,
-                                               const TCollection_AsciiString&     theName) const
+DataLabel XCAFDoc_VisMaterialTool::AddMaterial(const Handle(XCAFDoc_VisMaterial)& theMat,
+                                               const AsciiString1&     theName) const
 {
   TDF_TagSource aTag;
-  TDF_Label     aLab = aTag.NewChild(Label());
+  DataLabel     aLab = aTag.NewChild(Label());
   aLab.AddAttribute(theMat);
   if (!theName.IsEmpty())
   {
-    TDataStd_Name::Set(aLab, theName);
+    NameAttribute::Set(aLab, theName);
   }
   return aLab;
 }
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_VisMaterialTool::AddMaterial(const TCollection_AsciiString& theName) const
+DataLabel XCAFDoc_VisMaterialTool::AddMaterial(const AsciiString1& theName) const
 {
   Handle(XCAFDoc_VisMaterial) aNewMat = new XCAFDoc_VisMaterial();
   TDF_TagSource               aTag;
-  TDF_Label                   aLab = aTag.NewChild(Label());
+  DataLabel                   aLab = aTag.NewChild(Label());
   aLab.AddAttribute(aNewMat);
   if (!theName.IsEmpty())
   {
-    TDataStd_Name::Set(aLab, theName);
+    NameAttribute::Set(aLab, theName);
   }
   return aLab;
 }
 
 //=================================================================================================
 
-void XCAFDoc_VisMaterialTool::RemoveMaterial(const TDF_Label& theLabel) const
+void XCAFDoc_VisMaterialTool::RemoveMaterial(const DataLabel& theLabel) const
 {
   theLabel.ForgetAllAttributes(true);
 }
@@ -121,7 +121,7 @@ void XCAFDoc_VisMaterialTool::GetMaterials(TDF_LabelSequence& theLabels) const
        aChildIDIterator.More();
        aChildIDIterator.Next())
   {
-    const TDF_Label aLabel = aChildIDIterator.Value()->Label();
+    const DataLabel aLabel = aChildIDIterator.Value()->Label();
     if (IsMaterial(aLabel))
     {
       theLabels.Append(aLabel);
@@ -131,8 +131,8 @@ void XCAFDoc_VisMaterialTool::GetMaterials(TDF_LabelSequence& theLabels) const
 
 //=================================================================================================
 
-void XCAFDoc_VisMaterialTool::SetShapeMaterial(const TDF_Label& theShapeLabel,
-                                               const TDF_Label& theMaterialLabel) const
+void XCAFDoc_VisMaterialTool::SetShapeMaterial(const DataLabel& theShapeLabel,
+                                               const DataLabel& theMaterialLabel) const
 {
   if (theMaterialLabel.IsNull())
   {
@@ -151,14 +151,14 @@ void XCAFDoc_VisMaterialTool::SetShapeMaterial(const TDF_Label& theShapeLabel,
 
 //=================================================================================================
 
-void XCAFDoc_VisMaterialTool::UnSetShapeMaterial(const TDF_Label& theShapeLabel) const
+void XCAFDoc_VisMaterialTool::UnSetShapeMaterial(const DataLabel& theShapeLabel) const
 {
   theShapeLabel.ForgetAttribute(XCAFDoc::VisMaterialRefGUID());
 }
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_VisMaterialTool::IsSetShapeMaterial(const TDF_Label& theLabel) const
+Standard_Boolean XCAFDoc_VisMaterialTool::IsSetShapeMaterial(const DataLabel& theLabel) const
 {
   Handle(TDataStd_TreeNode) aNode;
   return theLabel.FindAttribute(XCAFDoc::VisMaterialRefGUID(), aNode) && aNode->HasFather();
@@ -166,8 +166,8 @@ Standard_Boolean XCAFDoc_VisMaterialTool::IsSetShapeMaterial(const TDF_Label& th
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_VisMaterialTool::GetShapeMaterial(const TDF_Label& theShapeLabel,
-                                                           TDF_Label&       theMaterialLabel)
+Standard_Boolean XCAFDoc_VisMaterialTool::GetShapeMaterial(const DataLabel& theShapeLabel,
+                                                           DataLabel&       theMaterialLabel)
 {
   Handle(TDataStd_TreeNode) aNode;
   if (!theShapeLabel.FindAttribute(XCAFDoc::VisMaterialRefGUID(), aNode) || !aNode->HasFather())
@@ -182,19 +182,19 @@ Standard_Boolean XCAFDoc_VisMaterialTool::GetShapeMaterial(const TDF_Label& theS
 //=================================================================================================
 
 Handle(XCAFDoc_VisMaterial) XCAFDoc_VisMaterialTool::GetShapeMaterial(
-  const TDF_Label& theShapeLabel)
+  const DataLabel& theShapeLabel)
 {
-  TDF_Label aMatLabel;
+  DataLabel aMatLabel;
   return GetShapeMaterial(theShapeLabel, aMatLabel) ? GetMaterial(aMatLabel)
                                                     : Handle(XCAFDoc_VisMaterial)();
 }
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_VisMaterialTool::SetShapeMaterial(const TopoDS_Shape& theShape,
-                                                           const TDF_Label&    theMaterialLabel)
+Standard_Boolean XCAFDoc_VisMaterialTool::SetShapeMaterial(const TopoShape& theShape,
+                                                           const DataLabel&    theMaterialLabel)
 {
-  TDF_Label aShapeLabel;
+  DataLabel aShapeLabel;
   if (!ShapeTool()->Search(theShape, aShapeLabel))
   {
     return Standard_False;
@@ -206,9 +206,9 @@ Standard_Boolean XCAFDoc_VisMaterialTool::SetShapeMaterial(const TopoDS_Shape& t
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_VisMaterialTool::UnSetShapeMaterial(const TopoDS_Shape& theShape)
+Standard_Boolean XCAFDoc_VisMaterialTool::UnSetShapeMaterial(const TopoShape& theShape)
 {
-  TDF_Label aShapeLabel;
+  DataLabel aShapeLabel;
   if (!ShapeTool()->Search(theShape, aShapeLabel))
   {
     return Standard_False;
@@ -220,27 +220,27 @@ Standard_Boolean XCAFDoc_VisMaterialTool::UnSetShapeMaterial(const TopoDS_Shape&
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_VisMaterialTool::IsSetShapeMaterial(const TopoDS_Shape& theShape)
+Standard_Boolean XCAFDoc_VisMaterialTool::IsSetShapeMaterial(const TopoShape& theShape)
 {
-  TDF_Label aShapeLabel;
+  DataLabel aShapeLabel;
   return ShapeTool()->Search(theShape, aShapeLabel) && IsSetShapeMaterial(aShapeLabel);
 }
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_VisMaterialTool::GetShapeMaterial(const TopoDS_Shape& theShape,
-                                                           TDF_Label&          theMaterialLabel)
+Standard_Boolean XCAFDoc_VisMaterialTool::GetShapeMaterial(const TopoShape& theShape,
+                                                           DataLabel&          theMaterialLabel)
 {
-  TDF_Label aShapeLabel;
+  DataLabel aShapeLabel;
   return ShapeTool()->Search(theShape, aShapeLabel)
          && GetShapeMaterial(aShapeLabel, theMaterialLabel);
 }
 
 //=================================================================================================
 
-Handle(XCAFDoc_VisMaterial) XCAFDoc_VisMaterialTool::GetShapeMaterial(const TopoDS_Shape& theShape)
+Handle(XCAFDoc_VisMaterial) XCAFDoc_VisMaterialTool::GetShapeMaterial(const TopoShape& theShape)
 {
-  TDF_Label aMatLabel;
+  DataLabel aMatLabel;
   return GetShapeMaterial(theShape, aMatLabel) ? GetMaterial(aMatLabel)
                                                : Handle(XCAFDoc_VisMaterial)();
 }

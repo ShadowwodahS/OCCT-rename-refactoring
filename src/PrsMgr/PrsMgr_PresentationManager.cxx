@@ -340,7 +340,7 @@ void PrsMgr_PresentationManager::ClearImmediateDraw()
 // purpose  : Handles the structures from myImmediateList and its visibility
 //            in all views of the viewer given by setting proper affinity
 // =======================================================================
-void PrsMgr_PresentationManager::displayImmediate(const Handle(V3d_Viewer)& theViewer)
+void PrsMgr_PresentationManager::displayImmediate(const Handle(ViewManager)& theViewer)
 {
   for (V3d_ListOfViewIterator anActiveViewIter(theViewer->ActiveViewIterator());
        anActiveViewIter.More();
@@ -395,7 +395,7 @@ void PrsMgr_PresentationManager::displayImmediate(const Handle(V3d_Viewer)& theV
 
 //=================================================================================================
 
-void PrsMgr_PresentationManager::EndImmediateDraw(const Handle(V3d_Viewer)& theViewer)
+void PrsMgr_PresentationManager::EndImmediateDraw(const Handle(ViewManager)& theViewer)
 {
   if (--myImmediateModeOn > 0)
   {
@@ -410,7 +410,7 @@ void PrsMgr_PresentationManager::EndImmediateDraw(const Handle(V3d_Viewer)& theV
 // purpose  : Clears all immediate structures and redisplays with proper
 //            affinity
 //=======================================================================
-void PrsMgr_PresentationManager::RedrawImmediate(const Handle(V3d_Viewer)& theViewer)
+void PrsMgr_PresentationManager::RedrawImmediate(const Handle(ViewManager)& theViewer)
 {
   if (myImmediateList.IsEmpty())
     return;
@@ -582,7 +582,7 @@ void PrsMgr_PresentationManager::Transform(const Handle(PrsMgr_PresentableObject
 //=================================================================================================
 
 void PrsMgr_PresentationManager::Color(const Handle(PrsMgr_PresentableObject)& thePrsObj,
-                                       const Handle(Prs3d_Drawer)&             theStyle,
+                                       const Handle(StyleDrawer)&             theStyle,
                                        const Standard_Integer                  theMode,
                                        const Handle(PrsMgr_PresentableObject)& theSelObj,
                                        const Standard_Integer theImmediateStructLayerId)
@@ -653,7 +653,7 @@ static void updatePrsTransformation(const PrsMgr_ListOfPresentations& thePrsList
 //=================================================================================================
 
 void PrsMgr_PresentationManager::UpdateHighlightTrsf(
-  const Handle(V3d_Viewer)&               theViewer,
+  const Handle(ViewManager)&               theViewer,
   const Handle(PrsMgr_PresentableObject)& theObj,
   const Standard_Integer                  theMode,
   const Handle(PrsMgr_PresentableObject)& theSelObj)

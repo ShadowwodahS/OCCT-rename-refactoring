@@ -25,10 +25,10 @@
 #include <PCDM_SequenceOfReference.hxx>
 #include <TColStd_SequenceOfExtendedString.hxx>
 #include <Storage_OpenMode.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 class Storage_Data;
 class CDM_Document;
-class TCollection_ExtendedString;
+class UtfString;
 class Message_Messenger;
 class Storage_BaseDriver;
 
@@ -40,7 +40,7 @@ class PCDM_ReadWriter : public RefObject
 
 public:
   //! returns PCDM_ReadWriter_1.
-  Standard_EXPORT virtual TCollection_AsciiString Version() const = 0;
+  Standard_EXPORT virtual AsciiString1 Version() const = 0;
 
   Standard_EXPORT virtual void WriteReferenceCounter(
     const Handle(Storage_Data)& aData,
@@ -49,7 +49,7 @@ public:
   Standard_EXPORT virtual void WriteReferences(
     const Handle(Storage_Data)&       aData,
     const Handle(CDM_Document)&       aDocument,
-    const TCollection_ExtendedString& theReferencerFileName) const = 0;
+    const UtfString& theReferencerFileName) const = 0;
 
   Standard_EXPORT virtual void WriteExtensions(const Handle(Storage_Data)& aData,
                                                const Handle(CDM_Document)& aDocument) const = 0;
@@ -58,30 +58,30 @@ public:
                                             const Handle(CDM_Document)& aDocument) const = 0;
 
   Standard_EXPORT virtual Standard_Integer ReadReferenceCounter(
-    const TCollection_ExtendedString& theFileName,
+    const UtfString& theFileName,
     const Handle(Message_Messenger)&  theMsgDriver) const = 0;
 
   Standard_EXPORT virtual void ReadReferences(
-    const TCollection_ExtendedString& aFileName,
+    const UtfString& aFileName,
     PCDM_SequenceOfReference&         theReferences,
     const Handle(Message_Messenger)&  theMsgDriver) const = 0;
 
   Standard_EXPORT virtual void ReadExtensions(
-    const TCollection_ExtendedString& aFileName,
+    const UtfString& aFileName,
     TColStd_SequenceOfExtendedString& theExtensions,
     const Handle(Message_Messenger)&  theMsgDriver) const = 0;
 
   Standard_EXPORT virtual Standard_Integer ReadDocumentVersion(
-    const TCollection_ExtendedString& aFileName,
+    const UtfString& aFileName,
     const Handle(Message_Messenger)&  theMsgDriver) const = 0;
 
   Standard_EXPORT static void Open(const Handle(Storage_BaseDriver)& aDriver,
-                                   const TCollection_ExtendedString& aFileName,
+                                   const UtfString& aFileName,
                                    const Storage_OpenMode            anOpenMode);
 
   //! returns the convenient Reader for a File.
   Standard_EXPORT static Handle(PCDM_ReadWriter) Reader(
-    const TCollection_ExtendedString& aFileName);
+    const UtfString& aFileName);
 
   Standard_EXPORT static Handle(PCDM_ReadWriter) Writer();
 
@@ -91,13 +91,13 @@ public:
   //! tries  to get a format  in the  file.  returns an empty
   //! string if the file could not be read or does not have
   //! a FileFormat information.
-  Standard_EXPORT static TCollection_ExtendedString FileFormat(
-    const TCollection_ExtendedString& aFileName);
+  Standard_EXPORT static UtfString FileFormat(
+    const UtfString& aFileName);
 
   //! tries  to get a format  from the stream.  returns an empty
   //! string if the file could not be read or does not have
   //! a FileFormat information.
-  Standard_EXPORT static TCollection_ExtendedString FileFormat(Standard_IStream&     theIStream,
+  Standard_EXPORT static UtfString FileFormat(Standard_IStream&     theIStream,
                                                                Handle(Storage_Data)& theData);
 
   DEFINE_STANDARD_RTTIEXT(PCDM_ReadWriter, RefObject)

@@ -28,7 +28,7 @@
 
 class math_Matrix;
 class gp_Lin;
-class Blend_Point;
+class Point2;
 
 //! Deferred class for a function used to compute a general chamfer
 class BlendFunc_GenChamfer : public Blend_Function
@@ -129,7 +129,7 @@ public:
                                gp_Lin&             C);
 
   //! Used for the first and last section
-  Standard_EXPORT Standard_Boolean Section(const Blend_Point&    P,
+  Standard_EXPORT Standard_Boolean Section(const Point2&    P,
                                            TColgp_Array1OfPnt&   Poles,
                                            TColgp_Array1OfVec&   DPoles,
                                            TColgp_Array1OfVec&   D2Poles,
@@ -141,7 +141,7 @@ public:
                                            TColStd_Array1OfReal& D2Weigths) Standard_OVERRIDE;
 
   //! Used for the first and last section
-  Standard_EXPORT Standard_Boolean Section(const Blend_Point&    P,
+  Standard_EXPORT Standard_Boolean Section(const Point2&    P,
                                            TColgp_Array1OfPnt&   Poles,
                                            TColgp_Array1OfVec&   DPoles,
                                            TColgp_Array1OfPnt2d& Poles2d,
@@ -149,7 +149,7 @@ public:
                                            TColStd_Array1OfReal& Weigths,
                                            TColStd_Array1OfReal& DWeigths) Standard_OVERRIDE;
 
-  Standard_EXPORT void Section(const Blend_Point&    P,
+  Standard_EXPORT void Section(const Point2&    P,
                                TColgp_Array1OfPnt&   Poles,
                                TColgp_Array1OfPnt2d& Poles2d,
                                TColStd_Array1OfReal& Weigths) Standard_OVERRIDE;

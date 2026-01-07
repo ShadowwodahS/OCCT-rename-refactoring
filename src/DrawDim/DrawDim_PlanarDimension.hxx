@@ -30,14 +30,14 @@ class DrawDim_PlanarDimension : public DrawDim_Dimension
 {
 
 public:
-  Standard_EXPORT void SetPlane(const TopoDS_Face& plane);
+  Standard_EXPORT void SetPlane(const TopoFace& plane);
 
-  Standard_EXPORT TopoDS_Face GetPlane() const;
+  Standard_EXPORT TopoFace GetPlane() const;
 
   DEFINE_STANDARD_RTTIEXT(DrawDim_PlanarDimension, DrawDim_Dimension)
 
 protected:
-  TopoDS_Face myPlane;
+  TopoFace myPlane;
 
 private:
 };

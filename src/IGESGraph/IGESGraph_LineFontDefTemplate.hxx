@@ -28,7 +28,7 @@ class IGESGraph_LineFontDefTemplate;
 DEFINE_STANDARD_HANDLE(IGESGraph_LineFontDefTemplate, IGESData_LineFontEntity)
 
 //! defines IGESLineFontDefTemplate, Type <304> Form <1>
-//! in package IGESGraph
+//! in package IGESGraph1
 //!
 //! Line Font can be defined as a repetition od Template figure
 //! that is displayed at regularly spaced locations along a

@@ -29,9 +29,9 @@ inline BRepFeat_MakeRevol::BRepFeat_MakeRevol()
 // purpose  :
 //=======================================================================
 
-inline BRepFeat_MakeRevol::BRepFeat_MakeRevol(const TopoDS_Shape&    Sbase,
-                                              const TopoDS_Shape&    Pbase,
-                                              const TopoDS_Face&     Skface,
+inline BRepFeat_MakeRevol::BRepFeat_MakeRevol(const TopoShape&    Sbase,
+                                              const TopoShape&    Pbase,
+                                              const TopoFace&     Skface,
                                               const Axis3d&          Axis,
                                               const Standard_Integer Fuse,
                                               const Standard_Boolean Modify)

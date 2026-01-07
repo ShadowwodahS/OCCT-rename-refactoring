@@ -24,8 +24,8 @@
 #include <Standard_OStream.hxx>
 #include <Draw_Interpretor.hxx>
 class HLRTopoBRep_OutLiner;
-class TopoDS_Shape;
-class Draw_Display;
+class TopoShape;
+class DrawDisplay;
 
 class HLRTest_OutLiner;
 DEFINE_STANDARD_HANDLE(HLRTest_OutLiner, Draw_Drawable3D)
@@ -34,12 +34,12 @@ class HLRTest_OutLiner : public Draw_Drawable3D
 {
 
 public:
-  Standard_EXPORT HLRTest_OutLiner(const TopoDS_Shape& S);
+  Standard_EXPORT HLRTest_OutLiner(const TopoShape& S);
 
   Handle(HLRTopoBRep_OutLiner) OutLiner() const;
 
   //! Does nothhing,
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   //! For variable copy.
   Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
@@ -49,7 +49,7 @@ public:
 
   //! For variable whatis command. Set  as a result  the
   //! type of the variable.
-  Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(HLRTest_OutLiner, Draw_Drawable3D)
 

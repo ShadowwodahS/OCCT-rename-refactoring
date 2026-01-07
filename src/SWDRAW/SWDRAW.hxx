@@ -35,7 +35,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Loads commands defined in SWDRAW
-  Standard_EXPORT static void Init(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void Init(DrawInterpreter& theCommands);
 
   //! Returns the name of the DRAW group accumulating the
   //! commands from the classes prefixed with Shape*.

@@ -46,7 +46,7 @@ public:
 
   //! Writes configuration to the string
   //! @return result resource string
-  Standard_EXPORT virtual TCollection_AsciiString Save() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 Save() const Standard_OVERRIDE;
 
   //! Copies values of all fields
   //! @return new object with the same field values
@@ -67,11 +67,11 @@ public:
 
   //! Gets CAD format name of associated provider
   //! @return provider CAD format
-  Standard_EXPORT virtual TCollection_AsciiString GetFormat() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 GetFormat() const Standard_OVERRIDE;
 
   //! Gets provider's vendor name of associated provider
   //! @return provider's vendor name
-  Standard_EXPORT virtual TCollection_AsciiString GetVendor() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 GetVendor() const Standard_OVERRIDE;
 
   //! Gets list of supported file extensions
   //! @return list of extensions
@@ -88,14 +88,14 @@ public:
     // Reading
     bool ReadSinglePrecision = false; //!< Flag for reading vertex data with single or double floating point precision
     bool ReadCreateShapes = false;  //!< Flag for create a single triangulation
-    TCollection_AsciiString ReadRootPrefix; //!< Root folder for generating root labels names
+    AsciiString1 ReadRootPrefix; //!< Root folder for generating root labels names
     bool ReadFillDoc = true; //!< Flag for fill document from shape sequence
     bool ReadFillIncomplete = true; //!< Flag for fill the document with partially retrieved data even if reader has failed with error
     // clang-format on
     int ReadMemoryLimitMiB = -1; //!< Memory usage limit
     // Writing
-    TCollection_AsciiString WriteComment; //!< Export special comment
-    TCollection_AsciiString WriteAuthor;  //!< Author of exported file name
+    AsciiString1 WriteComment; //!< Export special comment
+    AsciiString1 WriteAuthor;  //!< Author of exported file name
   } InternalParameters;
 };
 

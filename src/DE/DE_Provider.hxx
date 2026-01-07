@@ -17,9 +17,9 @@
 #include <Message_ProgressRange.hxx>
 
 class DE_ConfigurationNode;
-class TopoDS_Shape;
-class XSControl_WorkSession;
-class TDocStd_Document;
+class TopoShape;
+class ExchangeSession;
+class AppDocument;
 
 //! Base class to make transfer process.
 //! Reads or Writes specialized CAD files into/from OCCT.
@@ -60,9 +60,9 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return True if Read was successful
   Standard_EXPORT virtual Standard_Boolean Read(
-    const TCollection_AsciiString&  thePath,
-    const Handle(TDocStd_Document)& theDocument,
-    Handle(XSControl_WorkSession)&  theWS,
+    const AsciiString1&  thePath,
+    const Handle(AppDocument)& theDocument,
+    Handle(ExchangeSession)&  theWS,
     const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Writes a CAD file, according internal configuration
@@ -72,9 +72,9 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return True if Write was successful
   Standard_EXPORT virtual Standard_Boolean Write(
-    const TCollection_AsciiString&  thePath,
-    const Handle(TDocStd_Document)& theDocument,
-    Handle(XSControl_WorkSession)&  theWS,
+    const AsciiString1&  thePath,
+    const Handle(AppDocument)& theDocument,
+    Handle(ExchangeSession)&  theWS,
     const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Reads a CAD file, according internal configuration
@@ -83,8 +83,8 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return True if Read was successful
   Standard_EXPORT virtual Standard_Boolean Read(
-    const TCollection_AsciiString&  thePath,
-    const Handle(TDocStd_Document)& theDocument,
+    const AsciiString1&  thePath,
+    const Handle(AppDocument)& theDocument,
     const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Writes a CAD file, according internal configuration
@@ -93,8 +93,8 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return True if Write was successful
   Standard_EXPORT virtual Standard_Boolean Write(
-    const TCollection_AsciiString&  thePath,
-    const Handle(TDocStd_Document)& theDocument,
+    const AsciiString1&  thePath,
+    const Handle(AppDocument)& theDocument,
     const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Reads a CAD file, according internal configuration
@@ -104,9 +104,9 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return True if Read was successful
   Standard_EXPORT virtual Standard_Boolean Read(
-    const TCollection_AsciiString& thePath,
-    TopoDS_Shape&                  theShape,
-    Handle(XSControl_WorkSession)& theWS,
+    const AsciiString1& thePath,
+    TopoShape&                  theShape,
+    Handle(ExchangeSession)& theWS,
     const Message_ProgressRange&   theProgress = Message_ProgressRange());
 
   //! Writes a CAD file, according internal configuration
@@ -116,9 +116,9 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return True if Write was successful
   Standard_EXPORT virtual Standard_Boolean Write(
-    const TCollection_AsciiString& thePath,
-    const TopoDS_Shape&            theShape,
-    Handle(XSControl_WorkSession)& theWS,
+    const AsciiString1& thePath,
+    const TopoShape&            theShape,
+    Handle(ExchangeSession)& theWS,
     const Message_ProgressRange&   theProgress = Message_ProgressRange());
 
   //! Reads a CAD file, according internal configuration
@@ -127,8 +127,8 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return True if Read was successful
   Standard_EXPORT virtual Standard_Boolean Read(
-    const TCollection_AsciiString& thePath,
-    TopoDS_Shape&                  theShape,
+    const AsciiString1& thePath,
+    TopoShape&                  theShape,
     const Message_ProgressRange&   theProgress = Message_ProgressRange());
 
   //! Writes a CAD file, according internal configuration
@@ -137,18 +137,18 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return True if Write was successful
   Standard_EXPORT virtual Standard_Boolean Write(
-    const TCollection_AsciiString& thePath,
-    const TopoDS_Shape&            theShape,
+    const AsciiString1& thePath,
+    const TopoShape&            theShape,
     const Message_ProgressRange&   theProgress = Message_ProgressRange());
 
 public:
   //! Gets CAD format name of associated provider
   //! @return provider CAD format
-  Standard_EXPORT virtual TCollection_AsciiString GetFormat() const = 0;
+  Standard_EXPORT virtual AsciiString1 GetFormat() const = 0;
 
   //! Gets provider's vendor name of associated provider
   //! @return provider's vendor name
-  Standard_EXPORT virtual TCollection_AsciiString GetVendor() const = 0;
+  Standard_EXPORT virtual AsciiString1 GetVendor() const = 0;
 
   //! Gets internal configuration node
   //! @return configuration node object

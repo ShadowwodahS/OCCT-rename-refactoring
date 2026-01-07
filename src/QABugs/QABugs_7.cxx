@@ -248,7 +248,7 @@ const Standard_Integer Glob_Mults[Glob_NbKnots] =
 
 //=================================================================================================
 
-static Standard_Integer OCC862(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC862(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 3)
   {
@@ -271,16 +271,16 @@ static Standard_Integer OCC862(Draw_Interpretor& di, Standard_Integer argc, cons
     aMults.SetValue(i + 1, Glob_Mults[i]);
   // Create B-Spline curve
   const Standard_Integer    aDegree = 14;
-  Handle(Geom_BSplineCurve) C1      = new Geom_BSplineCurve(aPoles, aKnots, aMults, aDegree);
+  Handle(BSplineCurve3d) C1      = new BSplineCurve3d(aPoles, aKnots, aMults, aDegree);
 
   // Create trimmed line
   gp_XYZ                    p1(60000, -7504.83, 6000);
   gp_XYZ                    p2(60000, 7504.83, 6000);
-  Handle(Geom_Line)         L  = new Geom_Line(Point3d(p1), Dir3d(p2 - p1));
+  Handle(GeomLine)         L  = new GeomLine(Point3d(p1), Dir3d(p2 - p1));
   Handle(Geom_TrimmedCurve) C2 = new Geom_TrimmedCurve(L, 0.0, (p2 - p1).Modulus());
 
-  DrawTrSurf::Set(argv[1], C1);
-  DrawTrSurf::Set(argv[2], C2);
+  DrawTrSurf1::Set(argv[1], C1);
+  DrawTrSurf1::Set(argv[2], C2);
 
   // Try to find extrema
   // IMPORTANT: it is not allowed to input infinite curves !
@@ -316,7 +316,7 @@ static Standard_Integer OCC862(Draw_Interpretor& di, Standard_Integer argc, cons
   return 0;
 }
 
-void QABugs::Commands_7(Draw_Interpretor& theCommands)
+void QABugs::Commands_7(DrawInterpreter& theCommands)
 {
   const char* group = "QABugs";
 

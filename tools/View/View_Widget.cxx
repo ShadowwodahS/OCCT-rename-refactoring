@@ -59,7 +59,7 @@
 // purpose :
 // =======================================================================
 View_Widget::View_Widget(QWidget*                              theParent,
-                         const Handle(AIS_InteractiveContext)& theContext,
+                         const Handle(VisualContext)& theContext,
                          const bool                            isFitAllActive)
     : QWidget(theParent),
       myFirst(true),

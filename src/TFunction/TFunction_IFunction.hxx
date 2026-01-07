@@ -41,29 +41,29 @@ public:
   //! a new TFunction_GraphNode with an empty list of dependencies and
   //! the status equal to TFunction_ES_WrongDefinition.
   //! It registers the function in the scope of functions for this document.
-  Standard_EXPORT static Standard_Boolean NewFunction(const TDF_Label& L, const Standard_GUID& ID);
+  Standard_EXPORT static Standard_Boolean NewFunction(const DataLabel& L, const Standard_GUID& ID);
 
   //! Deletes a function attached to a label <L>.
   //! It deletes a TFunction_Function attribute and a TFunction_GraphNode.
   //! It deletes the functions from the scope of function of this document.
-  Standard_EXPORT static Standard_Boolean DeleteFunction(const TDF_Label& L);
+  Standard_EXPORT static Standard_Boolean DeleteFunction(const DataLabel& L);
 
   //! Updates dependencies for all functions of the scope.
   //! It returns false in case of an error.
   //! An empty constructor.
-  Standard_EXPORT static Standard_Boolean UpdateDependencies(const TDF_Label& Access);
+  Standard_EXPORT static Standard_Boolean UpdateDependencies(const DataLabel& Access);
 
   Standard_EXPORT TFunction_IFunction();
 
   //! A constructor.
   //! Initializes the interface by the label of function.
-  Standard_EXPORT TFunction_IFunction(const TDF_Label& L);
+  Standard_EXPORT TFunction_IFunction(const DataLabel& L);
 
   //! Initializes the interface by the label of function.
-  Standard_EXPORT void Init(const TDF_Label& L);
+  Standard_EXPORT void Init(const DataLabel& L);
 
   //! Returns a label of the function.
-  Standard_EXPORT const TDF_Label& Label() const;
+  Standard_EXPORT const DataLabel& Label() const;
 
   //! Updates the dependencies of this function only.
   Standard_EXPORT Standard_Boolean UpdateDependencies() const;
@@ -102,7 +102,7 @@ public:
 
 protected:
 private:
-  TDF_Label myLabel;
+  DataLabel myLabel;
 };
 
 #endif // _TFunction_IFunction_HeaderFile

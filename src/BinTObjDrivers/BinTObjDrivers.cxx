@@ -30,12 +30,12 @@
 static Standard_GUID BinStorageDriver("f78ff4a2-a779-11d5-aab4-0050044b1af1");
 static Standard_GUID BinRetrievalDriver("f78ff4a3-a779-11d5-aab4-0050044b1af1");
 
-const Handle(RefObject)& BinTObjDrivers::Factory(const Standard_GUID& aGUID)
+const Handle(RefObject)& BinTObjDrivers1::Factory(const Standard_GUID& aGUID)
 {
   if (aGUID == BinStorageDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "BinTObjDrivers : Storage Plugin" << std::endl;
+    std::cout << "BinTObjDrivers1 : Storage Plugin" << std::endl;
 #endif
     static Handle(RefObject) model_sd = new BinTObjDrivers_DocumentStorageDriver;
     return model_sd;
@@ -44,18 +44,18 @@ const Handle(RefObject)& BinTObjDrivers::Factory(const Standard_GUID& aGUID)
   if (aGUID == BinRetrievalDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "BinTObjDrivers : Retrieval Plugin" << std::endl;
+    std::cout << "BinTObjDrivers1 : Retrieval Plugin" << std::endl;
 #endif
     static Handle(RefObject) model_rd = new BinTObjDrivers_DocumentRetrievalDriver;
     return model_rd;
   }
 
-  return BinLDrivers::Factory(aGUID);
+  return BinLDrivers1::Factory(aGUID);
 }
 
 //=================================================================================================
 
-void BinTObjDrivers::DefineFormat(const Handle(TDocStd_Application)& theApp)
+void BinTObjDrivers1::DefineFormat(const Handle(AppManager)& theApp)
 {
   theApp->DefineFormat("TObjBin",
                        "Binary TObj OCAF Document",
@@ -66,7 +66,7 @@ void BinTObjDrivers::DefineFormat(const Handle(TDocStd_Application)& theApp)
 
 //=================================================================================================
 
-void BinTObjDrivers::AddDrivers(const Handle(BinMDF_ADriverTable)& aDriverTable,
+void BinTObjDrivers1::AddDrivers(const Handle(BinMDF_ADriverTable)& aDriverTable,
                                 const Handle(Message_Messenger)&   aMsgDrv)
 {
   aDriverTable->AddDriver(new BinTObjDrivers_ModelDriver(aMsgDrv));
@@ -76,4 +76,4 @@ void BinTObjDrivers::AddDrivers(const Handle(BinMDF_ADriverTable)& aDriverTable,
   aDriverTable->AddDriver(new BinTObjDrivers_IntSparseArrayDriver(aMsgDrv));
 }
 
-PLUGIN(BinTObjDrivers)
+PLUGIN(BinTObjDrivers1)

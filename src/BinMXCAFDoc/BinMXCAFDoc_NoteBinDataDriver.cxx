@@ -52,8 +52,8 @@ Standard_Boolean BinMXCAFDoc_NoteBinDataDriver::Paste(
   if (aNote.IsNull())
     return Standard_False;
 
-  TCollection_ExtendedString aTitle;
-  TCollection_AsciiString    aMIMEtype;
+  UtfString aTitle;
+  AsciiString1    aMIMEtype;
   Standard_Integer           nbSize;
   if (!(theSource >> aTitle >> aMIMEtype >> nbSize))
     return Standard_False;

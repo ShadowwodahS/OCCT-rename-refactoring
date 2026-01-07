@@ -27,15 +27,15 @@
 #include <TopAbs_Orientation.hxx>
 #include <Standard_OStream.hxx>
 #include <BRepFeat_StatusError.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class Point3d;
-class Geom_Curve;
-class TopoDS_Face;
+class GeomCurve3d;
+class TopoFace;
 class BRepTopAdaptor_FClass2d;
 class Geom2dAdaptor_Curve;
-class TopoDS_Solid;
+class TopoSolid;
 
-//! BRepFeat is necessary for the
+//! BRepFeat1 is necessary for the
 //! creation and manipulation of both form and mechanical features in a
 //! Boundary Representation framework. Form features can be depressions or
 //! protrusions and include the following types:
@@ -78,21 +78,21 @@ class TopoDS_Solid;
 //! -          to a limiting face of the basis shape
 //! -          to or from a limiting plane
 //! -          to a height.
-class BRepFeat
+class BRepFeat1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static void SampleEdges(const TopoDS_Shape& S, TColgp_SequenceOfPnt& Pt);
+  Standard_EXPORT static void SampleEdges(const TopoShape& S, TColgp_SequenceOfPnt& Pt);
 
-  Standard_EXPORT static void Barycenter(const TopoDS_Shape& S, Point3d& Pt);
+  Standard_EXPORT static void Barycenter(const TopoShape& S, Point3d& Pt);
 
-  Standard_EXPORT static Standard_Real ParametricBarycenter(const TopoDS_Shape&       S,
-                                                            const Handle(Geom_Curve)& C);
+  Standard_EXPORT static Standard_Real ParametricBarycenter(const TopoShape&       S,
+                                                            const Handle(GeomCurve3d)& C);
 
   //! Ori = True taking account the orientation
-  Standard_EXPORT static void ParametricMinMax(const TopoDS_Shape&       S,
-                                               const Handle(Geom_Curve)& C,
+  Standard_EXPORT static void ParametricMinMax(const TopoShape&       S,
+                                               const Handle(GeomCurve3d)& C,
                                                Standard_Real&            prmin,
                                                Standard_Real&            prmax,
                                                Standard_Real&            prbmin,
@@ -100,15 +100,15 @@ public:
                                                Standard_Boolean&         flag,
                                                const Standard_Boolean    Ori = Standard_False);
 
-  Standard_EXPORT static Standard_Boolean IsInside(const TopoDS_Face& F1, const TopoDS_Face& F2);
+  Standard_EXPORT static Standard_Boolean IsInside(const TopoFace& F1, const TopoFace& F2);
 
   Standard_EXPORT static Standard_Boolean IsInOut(const BRepTopAdaptor_FClass2d& FC,
                                                   const Geom2dAdaptor_Curve&     AC);
 
-  Standard_EXPORT static void FaceUntil(const TopoDS_Shape& S, TopoDS_Face& F);
+  Standard_EXPORT static void FaceUntil(const TopoShape& S, TopoFace& F);
 
-  Standard_EXPORT static TopoDS_Solid Tool(const TopoDS_Shape&      SRef,
-                                           const TopoDS_Face&       Fac,
+  Standard_EXPORT static TopoSolid Tool(const TopoShape&      SRef,
+                                           const TopoFace&       Fac,
                                            const TopAbs_Orientation Orf);
 
   //! Prints the Error description of the State <St> as a String on

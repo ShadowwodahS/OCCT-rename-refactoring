@@ -32,27 +32,27 @@ namespace
 //! Auxiliary struct to take a tolerance of edge.
 struct EdgeTolerance
 {
-  static Standard_Real Get(const TopoDS_Shape& theEdge)
+  static Standard_Real Get(const TopoShape& theEdge)
   {
-    return BRep_Tool::Tolerance(TopoDS::Edge(theEdge));
+    return BRepInspector::Tolerance(TopoDS::Edge(theEdge));
   }
 };
 
 //! Auxiliary struct to take a tolerance of vertex.
 struct VertexTolerance
 {
-  static Standard_Real Get(const TopoDS_Shape& theVertex)
+  static Standard_Real Get(const TopoShape& theVertex)
   {
-    return BRep_Tool::Tolerance(TopoDS::Vertex(theVertex));
+    return BRepInspector::Tolerance(TopoDS::Vertex(theVertex));
   }
 };
 
 //! Returns maximum tolerance of face element of the specified type.
 template <TopAbs_ShapeEnum ShapeType, class ToleranceExtractor>
-Standard_Real MaxTolerance(const TopoDS_Face& theFace)
+Standard_Real MaxTolerance(const TopoFace& theFace)
 {
   Standard_Real   aMaxTolerance = RealFirst();
-  TopExp_Explorer aExplorer(theFace, ShapeType);
+  ShapeExplorer aExplorer(theFace, ShapeType);
   for (; aExplorer.More(); aExplorer.Next())
   {
     Standard_Real aTolerance = ToleranceExtractor::Get(aExplorer.Current());
@@ -66,9 +66,9 @@ Standard_Real MaxTolerance(const TopoDS_Face& theFace)
 
 //=================================================================================================
 
-Standard_Real BRepMesh_ShapeTool::MaxFaceTolerance(const TopoDS_Face& theFace)
+Standard_Real BRepMesh_ShapeTool::MaxFaceTolerance(const TopoFace& theFace)
 {
-  Standard_Real aMaxTolerance = BRep_Tool::Tolerance(theFace);
+  Standard_Real aMaxTolerance = BRepInspector::Tolerance(theFace);
 
   Standard_Real aTolerance = Max(MaxTolerance<TopAbs_EDGE, EdgeTolerance>(theFace),
                                  MaxTolerance<TopAbs_VERTEX, VertexTolerance>(theFace));
@@ -100,10 +100,10 @@ void BRepMesh_ShapeTool::CheckAndUpdateFlags(const IMeshData::IEdgeHandle&   the
     return;
   }
 
-  const TopoDS_Edge& aEdge = theEdge->GetEdge();
-  const TopoDS_Face& aFace = thePCurve->GetFace()->GetFace();
+  const TopoEdge& aEdge = theEdge->GetEdge();
+  const TopoFace& aFace = thePCurve->GetFace()->GetFace();
 
-  Handle(Geom_Curve) aCurve;
+  Handle(GeomCurve3d) aCurve;
   Standard_Real      aFirstParam, aLastParam;
   Range(aEdge, aCurve, aFirstParam, aLastParam);
   if (aCurve.IsNull())
@@ -131,8 +131,8 @@ void BRepMesh_ShapeTool::CheckAndUpdateFlags(const IMeshData::IEdgeHandle&   the
 
   if (!theEdge->GetDegenerated() /* || theEdge->GetSameParam ()*/)
   {
-    TopoDS_Vertex aStartVertex, aEndVertex;
-    TopExp::Vertices(aEdge, aStartVertex, aEndVertex);
+    TopoVertex aStartVertex, aEndVertex;
+    TopExp1::Vertices(aEdge, aStartVertex, aEndVertex);
     if (aStartVertex.IsNull() || aEndVertex.IsNull())
     {
       theEdge->SetDegenerated(Standard_True);
@@ -142,9 +142,9 @@ void BRepMesh_ShapeTool::CheckAndUpdateFlags(const IMeshData::IEdgeHandle&   the
     if (aStartVertex.IsSame(aEndVertex))
     {
       const Standard_Integer aPointsNb        = 20;
-      const Standard_Real    aVertexTolerance = BRep_Tool::Tolerance(aStartVertex);
+      const Standard_Real    aVertexTolerance = BRepInspector::Tolerance(aStartVertex);
       const Standard_Real    aDu              = (aLastParam - aFirstParam) / aPointsNb;
-      // const Standard_Real    aEdgeTolerance     = BRep_Tool::Tolerance (aEdge);
+      // const Standard_Real    aEdgeTolerance     = BRepInspector::Tolerance (aEdge);
       // const Standard_Real    aSqEdgeTolerance   = aEdgeTolerance * aEdgeTolerance;
 
       Point3d aPrevPnt;
@@ -184,8 +184,8 @@ void BRepMesh_ShapeTool::CheckAndUpdateFlags(const IMeshData::IEdgeHandle&   the
 
 //=================================================================================================
 
-void BRepMesh_ShapeTool::AddInFace(const TopoDS_Face&          theFace,
-                                   Handle(Poly_Triangulation)& theTriangulation)
+void BRepMesh_ShapeTool::AddInFace(const TopoFace&          theFace,
+                                   Handle(MeshTriangulation)& theTriangulation)
 {
   const TopLoc_Location& aLoc = theFace.Location();
   if (!aLoc.IsIdentity())
@@ -200,22 +200,22 @@ void BRepMesh_ShapeTool::AddInFace(const TopoDS_Face&          theFace,
     }
   }
 
-  BRep_Builder aBuilder;
+  ShapeBuilder aBuilder;
   aBuilder.UpdateFace(theFace, theTriangulation);
 }
 
 //=================================================================================================
 
-void BRepMesh_ShapeTool::NullifyFace(const TopoDS_Face& theFace)
+void BRepMesh_ShapeTool::NullifyFace(const TopoFace& theFace)
 {
-  BRep_Builder aBuilder;
-  aBuilder.UpdateFace(theFace, Handle(Poly_Triangulation)());
+  ShapeBuilder aBuilder;
+  aBuilder.UpdateFace(theFace, Handle(MeshTriangulation)());
 }
 
 //=================================================================================================
 
-void BRepMesh_ShapeTool::NullifyEdge(const TopoDS_Edge&                theEdge,
-                                     const Handle(Poly_Triangulation)& theTriangulation,
+void BRepMesh_ShapeTool::NullifyEdge(const TopoEdge&                theEdge,
+                                     const Handle(MeshTriangulation)& theTriangulation,
                                      const TopLoc_Location&            theLocation)
 {
   UpdateEdge(theEdge, Handle(Poly_PolygonOnTriangulation)(), theTriangulation, theLocation);
@@ -223,41 +223,41 @@ void BRepMesh_ShapeTool::NullifyEdge(const TopoDS_Edge&                theEdge,
 
 //=================================================================================================
 
-void BRepMesh_ShapeTool::NullifyEdge(const TopoDS_Edge& theEdge, const TopLoc_Location& theLocation)
+void BRepMesh_ShapeTool::NullifyEdge(const TopoEdge& theEdge, const TopLoc_Location& theLocation)
 {
-  BRep_Builder aBuilder;
+  ShapeBuilder aBuilder;
   aBuilder.UpdateEdge(theEdge, Handle(Poly_Polygon3D)(), theLocation);
 }
 
 //=================================================================================================
 
-void BRepMesh_ShapeTool::UpdateEdge(const TopoDS_Edge&                         theEdge,
+void BRepMesh_ShapeTool::UpdateEdge(const TopoEdge&                         theEdge,
                                     const Handle(Poly_PolygonOnTriangulation)& thePolygon,
-                                    const Handle(Poly_Triangulation)&          theTriangulation,
+                                    const Handle(MeshTriangulation)&          theTriangulation,
                                     const TopLoc_Location&                     theLocation)
 {
-  BRep_Builder aBuilder;
+  ShapeBuilder aBuilder;
   aBuilder.UpdateEdge(theEdge, thePolygon, theTriangulation, theLocation);
 }
 
 //=================================================================================================
 
-void BRepMesh_ShapeTool::UpdateEdge(const TopoDS_Edge&                         theEdge,
+void BRepMesh_ShapeTool::UpdateEdge(const TopoEdge&                         theEdge,
                                     const Handle(Poly_PolygonOnTriangulation)& thePolygon1,
                                     const Handle(Poly_PolygonOnTriangulation)& thePolygon2,
-                                    const Handle(Poly_Triangulation)&          theTriangulation,
+                                    const Handle(MeshTriangulation)&          theTriangulation,
                                     const TopLoc_Location&                     theLocation)
 {
-  BRep_Builder aBuilder;
+  ShapeBuilder aBuilder;
   aBuilder.UpdateEdge(theEdge, thePolygon1, thePolygon2, theTriangulation, theLocation);
 }
 
 //=================================================================================================
 
-void BRepMesh_ShapeTool::UpdateEdge(const TopoDS_Edge&            theEdge,
+void BRepMesh_ShapeTool::UpdateEdge(const TopoEdge&            theEdge,
                                     const Handle(Poly_Polygon3D)& thePolygon)
 {
-  BRep_Builder aBuilder;
+  ShapeBuilder aBuilder;
   aBuilder.UpdateEdge(theEdge, thePolygon);
 }
 
@@ -275,14 +275,14 @@ Point3d BRepMesh_ShapeTool::UseLocation(const Point3d& thePnt, const TopLoc_Loca
 
 //=================================================================================================
 
-Standard_Boolean BRepMesh_ShapeTool::UVPoints(const TopoDS_Edge&     theEdge,
-                                              const TopoDS_Face&     theFace,
+Standard_Boolean BRepMesh_ShapeTool::UVPoints(const TopoEdge&     theEdge,
+                                              const TopoFace&     theFace,
                                               gp_Pnt2d&              theFirstPoint2d,
                                               gp_Pnt2d&              theLastPoint2d,
                                               const Standard_Boolean isConsiderOrientation)
 {
 
-  Handle(Geom2d_Curve) aCurve2d;
+  Handle(GeomCurve2d) aCurve2d;
   Standard_Real        aFirstParam, aLastParam;
   if (!Range(theEdge, theFace, aCurve2d, aFirstParam, aLastParam, isConsiderOrientation))
   {
@@ -296,9 +296,9 @@ Standard_Boolean BRepMesh_ShapeTool::UVPoints(const TopoDS_Edge&     theEdge,
 
 //=================================================================================================
 
-Standard_Boolean BRepMesh_ShapeTool::Range(const TopoDS_Edge&     theEdge,
-                                           const TopoDS_Face&     theFace,
-                                           Handle(Geom2d_Curve)&  thePCurve,
+Standard_Boolean BRepMesh_ShapeTool::Range(const TopoEdge&     theEdge,
+                                           const TopoFace&     theFace,
+                                           Handle(GeomCurve2d)&  thePCurve,
                                            Standard_Real&         theFirstParam,
                                            Standard_Real&         theLastParam,
                                            const Standard_Boolean isConsiderOrientation)
@@ -311,8 +311,8 @@ Standard_Boolean BRepMesh_ShapeTool::Range(const TopoDS_Edge&     theEdge,
 
 //=================================================================================================
 
-Standard_Boolean BRepMesh_ShapeTool::Range(const TopoDS_Edge&     theEdge,
-                                           Handle(Geom_Curve)&    theCurve,
+Standard_Boolean BRepMesh_ShapeTool::Range(const TopoEdge&     theEdge,
+                                           Handle(GeomCurve3d)&    theCurve,
                                            Standard_Real&         theFirstParam,
                                            Standard_Real&         theLastParam,
                                            const Standard_Boolean isConsiderOrientation)

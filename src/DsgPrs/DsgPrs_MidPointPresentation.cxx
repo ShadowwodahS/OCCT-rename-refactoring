@@ -34,7 +34,7 @@
 // Purpose: draws the representation of a radial symmetry between two vertices.
 //===================================================================
 void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                      const Handle(Prs3d_Drawer)&       aDrawer,
+                                      const Handle(StyleDrawer)&       aDrawer,
                                       const Frame3d&                     theAxe,
                                       const Point3d&                     MidPoint,
                                       const Point3d&                     Position,
@@ -74,8 +74,8 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
     aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
     // texte
-    TCollection_ExtendedString aText(" (+)");
-    Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), aText, Position);
+    UtfString aText(" (+)");
+    Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, Position);
   }
 
   if (!AttachPoint.IsEqual(MidPoint, Precision::Confusion()))
@@ -101,7 +101,7 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 // Purpose: draws the representation of a radial symmetry between two linear segments.
 //===================================================================
 void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                      const Handle(Prs3d_Drawer)&       aDrawer,
+                                      const Handle(StyleDrawer)&       aDrawer,
                                       const Frame3d&                     theAxe,
                                       const Point3d&                     MidPoint,
                                       const Point3d&                     Position,
@@ -151,8 +151,8 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
     aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
     // texte
-    TCollection_ExtendedString aText(" (+)");
-    Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), aText, Position);
+    UtfString aText(" (+)");
+    Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, Position);
   }
 
   if (!AttachPoint.IsEqual(MidPoint, Precision::Confusion()))
@@ -170,7 +170,7 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 // Purpose: draws the representation of a radial symmetry between two circular arcs.
 //===================================================================
 void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                      const Handle(Prs3d_Drawer)&       aDrawer,
+                                      const Handle(StyleDrawer)&       aDrawer,
                                       const gp_Circ&                    aCircle,
                                       const Point3d&                     MidPoint,
                                       const Point3d&                     Position,
@@ -229,8 +229,8 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
     aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
     // texte
-    TCollection_ExtendedString aText(" (+)");
-    Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), aText, Position);
+    UtfString aText(" (+)");
+    Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, Position);
   }
 
   if (!AttachPoint.IsEqual(MidPoint, Precision::Confusion()))
@@ -250,7 +250,7 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
 // Purpose: draws the representation of a radial symmetry between two elliptic arcs.
 //===================================================================
 void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                      const Handle(Prs3d_Drawer)&       aDrawer,
+                                      const Handle(StyleDrawer)&       aDrawer,
                                       const gp_Elips&                   aCircle,
                                       const Point3d&                     MidPoint,
                                       const Point3d&                     Position,
@@ -311,8 +311,8 @@ void DsgPrs_MidPointPresentation::Add(const Handle(Prs3d_Presentation)& aPresent
     aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
     // texte
-    TCollection_ExtendedString aText(" (+)");
-    Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), aText, Position);
+    UtfString aText(" (+)");
+    Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, Position);
   }
 
   if (!AttachPoint.IsEqual(MidPoint, Precision::Confusion()))

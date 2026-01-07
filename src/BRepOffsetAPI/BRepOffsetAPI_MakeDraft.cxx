@@ -18,7 +18,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopoDS_Shell.hxx>
 
-BRepOffsetAPI_MakeDraft::BRepOffsetAPI_MakeDraft(const TopoDS_Shape& Shape,
+BRepOffsetAPI_MakeDraft::BRepOffsetAPI_MakeDraft(const TopoShape& Shape,
                                                  const Dir3d&       Dir,
                                                  const Standard_Real Angle)
     : myDraft(Shape, Dir, Angle)
@@ -51,7 +51,7 @@ void BRepOffsetAPI_MakeDraft::Perform(const Standard_Real LengthMax)
   }
 }
 
-void BRepOffsetAPI_MakeDraft::Perform(const Handle(Geom_Surface)& Surface,
+void BRepOffsetAPI_MakeDraft::Perform(const Handle(GeomSurface)& Surface,
                                       const Standard_Boolean      KeepInsideSurface)
 {
   myDraft.Perform(Surface, KeepInsideSurface);
@@ -62,7 +62,7 @@ void BRepOffsetAPI_MakeDraft::Perform(const Handle(Geom_Surface)& Surface,
   }
 }
 
-void BRepOffsetAPI_MakeDraft::Perform(const TopoDS_Shape&    StopShape,
+void BRepOffsetAPI_MakeDraft::Perform(const TopoShape&    StopShape,
                                       const Standard_Boolean KeepOutSide)
 {
   myDraft.Perform(StopShape, KeepOutSide);
@@ -73,12 +73,12 @@ void BRepOffsetAPI_MakeDraft::Perform(const TopoDS_Shape&    StopShape,
   }
 }
 
-TopoDS_Shell BRepOffsetAPI_MakeDraft::Shell() const
+TopoShell BRepOffsetAPI_MakeDraft::Shell() const
 {
   return myDraft.Shell();
 }
 
-const TopTools_ListOfShape& BRepOffsetAPI_MakeDraft::Generated(const TopoDS_Shape& S)
+const ShapeList& BRepOffsetAPI_MakeDraft::Generated(const TopoShape& S)
 {
   return myDraft.Generated(S);
 }

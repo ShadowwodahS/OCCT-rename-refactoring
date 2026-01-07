@@ -26,7 +26,7 @@
 //=============================================================================
 // Creation d' un plane de prostep a partir d' un Pln de gp
 //=============================================================================
-GeomToStep_MakePlane::GeomToStep_MakePlane(const gp_Pln& P, const StepData_Factors& theLocalFactors)
+GeomToStep_MakePlane::GeomToStep_MakePlane(const gp_Pln& P, const ConversionFactors& theLocalFactors)
 {
   Handle(StepGeom_Plane)            Plan = new StepGeom_Plane;
   Handle(StepGeom_Axis2Placement3d) aPosition;
@@ -44,8 +44,8 @@ GeomToStep_MakePlane::GeomToStep_MakePlane(const gp_Pln& P, const StepData_Facto
 // Creation d' un plane de prostep a partir d' un Plane de Geom
 //=============================================================================
 
-GeomToStep_MakePlane::GeomToStep_MakePlane(const Handle(Geom_Plane)& Gpln,
-                                           const StepData_Factors&   theLocalFactors)
+GeomToStep_MakePlane::GeomToStep_MakePlane(const Handle(GeomPlane)& Gpln,
+                                           const ConversionFactors&   theLocalFactors)
 {
   gp_Pln                            P;
   Handle(StepGeom_Plane)            Plan = new StepGeom_Plane;

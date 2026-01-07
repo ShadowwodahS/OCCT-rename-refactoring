@@ -31,7 +31,7 @@
 #include <Interface_ParamType.hxx>
 class Interface_ParamSet;
 class Interface_Check;
-class IGESData_DirPart;
+class DirectoryPart;
 
 class IGESData_IGESReaderData;
 DEFINE_STANDARD_HANDLE(IGESData_IGESReaderData, Interface_FileReaderData)
@@ -93,7 +93,7 @@ public:
                                   const Standard_CString subs);
 
   //! returns DirPart identified by record no (half Dsect number)
-  Standard_EXPORT const IGESData_DirPart& DirPart(const Standard_Integer num) const;
+  Standard_EXPORT const DirectoryPart& DirPart(const Standard_Integer num) const;
 
   //! returns values recorded in directory part n0 <num>
   Standard_EXPORT void DirValues(const Standard_Integer num,
@@ -120,7 +120,7 @@ public:
                                  Standard_CString&      subs) const;
 
   //! returns "type" and "form" info from a directory part
-  Standard_EXPORT IGESData_IGESType DirType(const Standard_Integer num) const;
+  Standard_EXPORT IGESType DirType(const Standard_Integer num) const;
 
   //! Returns count of recorded Entities (i.e. size of Directory)
   Standard_EXPORT virtual Standard_Integer NbEntities() const Standard_OVERRIDE;
@@ -153,7 +153,7 @@ public:
 
 protected:
 private:
-  IGESData_IGESType                       thectyp;
+  IGESType                       thectyp;
   Handle(TColStd_HSequenceOfHAsciiString) thestar;
   Handle(Interface_ParamSet)              theparh;
   IGESData_GlobalSection                  thehead;

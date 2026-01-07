@@ -45,7 +45,7 @@ const Handle(GeomFill_SectionLaw)& BRepFill_SectionLaw::Law(const Standard_Integ
 
 //=================================================================================================
 
-Standard_Integer BRepFill_SectionLaw::IndexOfEdge(const TopoDS_Shape& anEdge) const
+Standard_Integer BRepFill_SectionLaw::IndexOfEdge(const TopoShape& anEdge) const
 {
   return myIndices(anEdge);
 }
@@ -75,7 +75,7 @@ Standard_Boolean BRepFill_SectionLaw::IsDone() const
 // function : Init
 // purpose  : Prepare the parsing of a wire
 //=======================================================================
-void BRepFill_SectionLaw::Init(const TopoDS_Wire& W)
+void BRepFill_SectionLaw::Init(const TopoWire& W)
 {
   myIterator.Init(W);
 }
@@ -84,17 +84,17 @@ void BRepFill_SectionLaw::Init(const TopoDS_Wire& W)
 // function :
 // purpose  : Parses the wire omitting the degenerated Edges
 //=======================================================================
-TopoDS_Edge BRepFill_SectionLaw::CurrentEdge()
+TopoEdge BRepFill_SectionLaw::CurrentEdge()
 {
-  TopoDS_Edge E;
-  // Class BRep_Tool without fields and without Constructor :
-  //  BRep_Tool B;
+  TopoEdge E;
+  // Class BRepInspector without fields and without Constructor :
+  //  BRepInspector B;
   Standard_Boolean Suivant = Standard_False;
   if (myIterator.More())
   {
     E = myIterator.Current();
     //    Next = (B.Degenerated(E));
-    Suivant = (BRep_Tool::Degenerated(E));
+    Suivant = (BRepInspector::Degenerated(E));
   }
 
   while (Suivant)
@@ -102,7 +102,7 @@ TopoDS_Edge BRepFill_SectionLaw::CurrentEdge()
     myIterator.Next();
     E = myIterator.Current();
     //    Next = (B.Degenerated(E) && myIterator.More());
-    Suivant = (BRep_Tool::Degenerated(E) && myIterator.More());
+    Suivant = (BRepInspector::Degenerated(E) && myIterator.More());
   }
 
   if (myIterator.More())

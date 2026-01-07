@@ -51,7 +51,7 @@ DFBrowser_ItemBase::DFBrowser_ItemBase(TreeModel_ItemBasePtr theParent,
 // =======================================================================
 void DFBrowser_ItemBase::Reset()
 {
-  setLabel(TDF_Label());
+  setLabel(DataLabel());
   TreeModel_ItemBase::Reset();
 }
 
@@ -59,7 +59,7 @@ void DFBrowser_ItemBase::Reset()
 // function : GetLabel
 // purpose :
 // =======================================================================
-TDF_Label DFBrowser_ItemBase::GetLabel() const
+DataLabel DFBrowser_ItemBase::GetLabel() const
 {
   initItem();
   return myLabel;
@@ -95,7 +95,7 @@ QVariant DFBrowser_ItemBase::data(const QModelIndex& theIndex, int theRole) cons
 // =======================================================================
 int DFBrowser_ItemBase::initRowCount() const
 {
-  TDF_Label aLabel = GetLabel();
+  DataLabel aLabel = GetLabel();
   if (aLabel.IsNull())
     return 0;
 
@@ -122,9 +122,9 @@ QVariant DFBrowser_ItemBase::initValue(const int theItemRole) const
       if (DFBrowser_Tools::IsEmptyLabel(GetLabel()))
         aValue = QColor(Qt::lightGray);
       else
-      { // TEMPORARY HERE : should be moved in the pane of TDataStd_Name kind of attribute
-        Handle(TDataStd_Name) aName;
-        if (useAdditionalInfo() && myLabel.FindAttribute(TDataStd_Name::GetID(), aName))
+      { // TEMPORARY HERE : should be moved in the pane of NameAttribute kind of attribute
+        Handle(NameAttribute) aName;
+        if (useAdditionalInfo() && myLabel.FindAttribute(NameAttribute::GetID(), aName))
           aValue = QColor(Qt::darkGreen);
       }
       return aValue;

@@ -30,7 +30,7 @@ class IGESDefs_UnitsData;
 DEFINE_STANDARD_HANDLE(IGESDefs_UnitsData, IGESData_IGESEntity)
 
 //! defines IGES UnitsData Entity, Type <316> Form <0>
-//! in package IGESDefs
+//! in package IGESDefs1
 //! This class stores data about a model's fundamental units.
 class IGESDefs_UnitsData : public IGESData_IGESEntity
 {

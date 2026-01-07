@@ -17,8 +17,8 @@
 
 //=================================================================================================
 
-ViewerTest_AutoUpdater::ViewerTest_AutoUpdater(const Handle(AIS_InteractiveContext)& theContext,
-                                               const Handle(V3d_View)&               theView)
+ViewerTest_AutoUpdater::ViewerTest_AutoUpdater(const Handle(VisualContext)& theContext,
+                                               const Handle(ViewWindow)&               theView)
     : myContext(theContext),
       myView(theView),
       myToUpdate(RedrawMode_Auto),
@@ -39,9 +39,9 @@ ViewerTest_AutoUpdater::~ViewerTest_AutoUpdater()
 
 //=================================================================================================
 
-Standard_Boolean ViewerTest_AutoUpdater::parseRedrawMode(const TCollection_AsciiString& theArg)
+Standard_Boolean ViewerTest_AutoUpdater::parseRedrawMode(const AsciiString1& theArg)
 {
-  TCollection_AsciiString anArgCase(theArg);
+  AsciiString1 anArgCase(theArg);
   anArgCase.LowerCase();
   if (anArgCase == "-update" || anArgCase == "-redraw")
   {

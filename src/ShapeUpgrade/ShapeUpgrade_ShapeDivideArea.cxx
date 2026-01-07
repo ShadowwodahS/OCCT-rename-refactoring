@@ -30,7 +30,7 @@ ShapeUpgrade_ShapeDivideArea::ShapeUpgrade_ShapeDivideArea()
 
 //=================================================================================================
 
-ShapeUpgrade_ShapeDivideArea::ShapeUpgrade_ShapeDivideArea(const TopoDS_Shape& S)
+ShapeUpgrade_ShapeDivideArea::ShapeUpgrade_ShapeDivideArea(const TopoShape& S)
     : ShapeUpgrade_ShapeDivide(S)
 
 {

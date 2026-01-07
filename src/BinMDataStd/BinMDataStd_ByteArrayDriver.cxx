@@ -76,7 +76,7 @@ Standard_Boolean BinMDataStd_ByteArrayDriver::Paste(const BinObjMgt_Persistent& 
   }
   anAtt->SetDelta(aDelta);
 
-  BinMDataStd::SetAttributeID(theSource,
+  BinMDataStd1::SetAttributeID(theSource,
                               anAtt,
                               theRelocTable.GetHeaderData()->StorageVersion().IntegerValue());
   return Standard_True;

@@ -35,7 +35,7 @@
 
 //=================================================================================================
 
-static Standard_Integer distance(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer distance(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
@@ -43,8 +43,8 @@ static Standard_Integer distance(Draw_Interpretor& di, Standard_Integer n, const
   const char* name1 = a[1];
   const char* name2 = a[2];
 
-  TopoDS_Shape S1 = DBRep::Get(name1);
-  TopoDS_Shape S2 = DBRep::Get(name2);
+  TopoShape S1 = DBRep1::Get(name1);
+  TopoShape S2 = DBRep1::Get(name2);
   if (S1.IsNull() || S2.IsNull())
     return 1;
   Point3d        P1, P2;
@@ -53,12 +53,12 @@ static Standard_Integer distance(Draw_Interpretor& di, Standard_Integer n, const
     return 1;
   // std::cout << " distance : " << D << std::endl;
   di << " distance : " << D << "\n";
-  TopoDS_Edge E = BRepLib_MakeEdge(P1, P2);
-  DBRep::Set("distance", E);
+  TopoEdge E = BRepLib_MakeEdge(P1, P2);
+  DBRep1::Set("distance", E);
   return 0;
 }
 
-static Standard_Integer distmini(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer distmini(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 4 || n > 6)
   {
@@ -66,20 +66,20 @@ static Standard_Integer distmini(Draw_Interpretor& di, Standard_Integer n, const
   }
 
   const char * ns1 = (a[2]), *ns2 = (a[3]), *ns0 = (a[1]);
-  TopoDS_Shape S1(DBRep::Get(ns1)), S2(DBRep::Get(ns2));
+  TopoShape S1(DBRep1::Get(ns1)), S2(DBRep1::Get(ns2));
 
   Standard_Real    aDeflection = Precision::Confusion();
   Standard_Integer anIndex     = 4;
   if (n >= 5 && a[4][0] != '-')
   {
-    aDeflection = Draw::Atof(a[4]);
+    aDeflection = Draw1::Atof(a[4]);
     anIndex++;
   }
 
   Standard_Boolean isMultiThread = Standard_False;
   for (Standard_Integer anI = anIndex; anI < n; anI++)
   {
-    TCollection_AsciiString anArg(a[anI]);
+    AsciiString1 anArg(a[anI]);
     anArg.LowerCase();
     if (anArg == "-parallel")
     {
@@ -116,7 +116,7 @@ static Standard_Integer distmini(Draw_Interpretor& di, Standard_Integer n, const
     char named[100];
     Sprintf(named, "%s%s", ns0, "_val");
     char* tempd = named;
-    Draw::Set(tempd, dst.Value());
+    Draw1::Set(tempd, dst.Value());
     di << named << " ";
 
     for (Standard_Integer i1 = 1; i1 <= dst.NbSolution(); i1++)
@@ -126,20 +126,20 @@ static Standard_Integer distmini(Draw_Interpretor& di, Standard_Integer n, const
       P2 = (dst.PointOnShape2(i1));
       if (dst.Value() <= 1.e-9)
       {
-        TopoDS_Vertex V = BRepLib_MakeVertex(P1);
+        TopoVertex V = BRepLib_MakeVertex(P1);
         char          namev[100];
         if (i1 == 1)
           Sprintf(namev, "%s", ns0);
         else
           Sprintf(namev, "%s%d", ns0, i1);
         char* tempv = namev;
-        DBRep::Set(tempv, V);
+        DBRep1::Set(tempv, V);
         di << namev << " ";
       }
       else
       {
         char        name[100];
-        TopoDS_Edge E = BRepLib_MakeEdge(P1, P2);
+        TopoEdge E = BRepLib_MakeEdge(P1, P2);
         if (i1 == 1)
         {
           Sprintf(name, "%s", ns0);
@@ -150,7 +150,7 @@ static Standard_Integer distmini(Draw_Interpretor& di, Standard_Integer n, const
         }
 
         char* temp = name;
-        DBRep::Set(temp, E);
+        DBRep1::Set(temp, E);
         di << name << " ";
       }
     }
@@ -165,7 +165,7 @@ static Standard_Integer distmini(Draw_Interpretor& di, Standard_Integer n, const
 
 //=================================================================================================
 
-static int ShapeProximity(Draw_Interpretor& theDI, Standard_Integer theNbArgs, const char** theArgs)
+static int ShapeProximity(DrawInterpreter& theDI, Standard_Integer theNbArgs, const char** theArgs)
 {
   if (theNbArgs < 3 || theNbArgs > 6)
   {
@@ -174,8 +174,8 @@ static int ShapeProximity(Draw_Interpretor& theDI, Standard_Integer theNbArgs, c
     return 1;
   }
 
-  TopoDS_Shape aShape1 = DBRep::Get(theArgs[1]);
-  TopoDS_Shape aShape2 = DBRep::Get(theArgs[2]);
+  TopoShape aShape1 = DBRep1::Get(theArgs[1]);
+  TopoShape aShape2 = DBRep1::Get(theArgs[2]);
 
   if (aShape1.IsNull() || aShape2.IsNull())
   {
@@ -191,7 +191,7 @@ static int ShapeProximity(Draw_Interpretor& theDI, Standard_Integer theNbArgs, c
 
   for (Standard_Integer anArgIdx = 3; anArgIdx < theNbArgs; ++anArgIdx)
   {
-    TCollection_AsciiString aFlag(theArgs[anArgIdx]);
+    AsciiString1 aFlag(theArgs[anArgIdx]);
     aFlag.LowerCase();
 
     if (aFlag == "-tol")
@@ -203,7 +203,7 @@ static int ShapeProximity(Draw_Interpretor& theDI, Standard_Integer theNbArgs, c
         return 1;
       }
 
-      const Standard_Real aTolerance = Draw::Atof(theArgs[anArgIdx]);
+      const Standard_Real aTolerance = Draw1::Atof(theArgs[anArgIdx]);
       if (aTolerance < 0.0)
       {
         Message::SendFail() << "Error: Tolerance value should be non-negative";
@@ -279,15 +279,15 @@ static int ShapeProximity(Draw_Interpretor& theDI, Standard_Integer theNbArgs, c
     theDI << "Proximity value: " << aTool.Proximity() << "\n";
 
     // proximity points
-    TopoDS_Vertex aProxVtx1 = BRepLib_MakeVertex(aTool.ProximityPoint1());
-    TopoDS_Vertex aProxVtx2 = BRepLib_MakeVertex(aTool.ProximityPoint2());
+    TopoVertex aProxVtx1 = BRepLib_MakeVertex(aTool.ProximityPoint1());
+    TopoVertex aProxVtx2 = BRepLib_MakeVertex(aTool.ProximityPoint2());
 
-    DBRep::Set("ProxPnt1", aProxVtx1);
-    DBRep::Set("ProxPnt2", aProxVtx2);
+    DBRep1::Set("ProxPnt1", aProxVtx1);
+    DBRep1::Set("ProxPnt2", aProxVtx2);
 
     // proximity points' status
-    TCollection_AsciiString ProxPntStatus1;
-    TCollection_AsciiString ProxPntStatus2;
+    AsciiString1 ProxPntStatus1;
+    AsciiString1 ProxPntStatus2;
 
     switch (aTool.ProxPntStatus1())
     {
@@ -318,43 +318,43 @@ static int ShapeProximity(Draw_Interpretor& theDI, Standard_Integer theNbArgs, c
   }
   else
   {
-    TopoDS_Builder aCompBuilder;
+    TopoBuilder aCompBuilder;
 
-    TopoDS_Compound aFaceCompound1;
+    TopoCompound aFaceCompound1;
     aCompBuilder.MakeCompound(aFaceCompound1);
 
     for (BRepExtrema_MapOfIntegerPackedMapOfInteger::Iterator anIt1(aTool.OverlapSubShapes1());
          anIt1.More();
          anIt1.Next())
     {
-      TCollection_AsciiString aStr = TCollection_AsciiString(theArgs[1]) + "_" + (anIt1.Key() + 1);
+      AsciiString1 aStr = AsciiString1(theArgs[1]) + "_" + (anIt1.Key() + 1);
 
-      const TopoDS_Shape& aShape = aTool.GetSubShape1(anIt1.Key());
+      const TopoShape& aShape = aTool.GetSubShape1(anIt1.Key());
       aCompBuilder.Add(aFaceCompound1, aShape);
-      DBRep::Set(aStr.ToCString(), aShape);
+      DBRep1::Set(aStr.ToCString(), aShape);
 
       theDI << aStr << " \n";
     }
 
-    TopoDS_Compound aFaceCompound2;
+    TopoCompound aFaceCompound2;
     aCompBuilder.MakeCompound(aFaceCompound2);
 
     for (BRepExtrema_MapOfIntegerPackedMapOfInteger::Iterator anIt2(aTool.OverlapSubShapes2());
          anIt2.More();
          anIt2.Next())
     {
-      TCollection_AsciiString aStr = TCollection_AsciiString(theArgs[2]) + "_" + (anIt2.Key() + 1);
+      AsciiString1 aStr = AsciiString1(theArgs[2]) + "_" + (anIt2.Key() + 1);
 
-      const TopoDS_Shape& aShape = aTool.GetSubShape2(anIt2.Key());
+      const TopoShape& aShape = aTool.GetSubShape2(anIt2.Key());
       aCompBuilder.Add(aFaceCompound2, aShape);
-      DBRep::Set(aStr.ToCString(), aShape);
+      DBRep1::Set(aStr.ToCString(), aShape);
 
       theDI << aStr << " \n";
     }
 
-    DBRep::Set((TCollection_AsciiString(theArgs[1]) + "_" + "overlapped").ToCString(),
+    DBRep1::Set((AsciiString1(theArgs[1]) + "_" + "overlapped").ToCString(),
                aFaceCompound1);
-    DBRep::Set((TCollection_AsciiString(theArgs[2]) + "_" + "overlapped").ToCString(),
+    DBRep1::Set((AsciiString1(theArgs[2]) + "_" + "overlapped").ToCString(),
                aFaceCompound2);
   }
 
@@ -363,7 +363,7 @@ static int ShapeProximity(Draw_Interpretor& theDI, Standard_Integer theNbArgs, c
 
 //=================================================================================================
 
-static int ShapeSelfIntersection(Draw_Interpretor& theDI,
+static int ShapeSelfIntersection(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgs)
 {
@@ -373,7 +373,7 @@ static int ShapeSelfIntersection(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape aShape = DBRep::Get(theArgs[1]);
+  TopoShape aShape = DBRep1::Get(theArgs[1]);
   if (aShape.IsNull())
   {
     Message::SendFail() << "Error: Failed to find specified shape";
@@ -385,7 +385,7 @@ static int ShapeSelfIntersection(Draw_Interpretor& theDI,
 
   for (Standard_Integer anArgIdx = 2; anArgIdx < theNbArgs; ++anArgIdx)
   {
-    TCollection_AsciiString aFlag(theArgs[anArgIdx]);
+    AsciiString1 aFlag(theArgs[anArgIdx]);
     aFlag.LowerCase();
 
     if (aFlag == "-tol")
@@ -396,7 +396,7 @@ static int ShapeSelfIntersection(Draw_Interpretor& theDI,
         return 1;
       }
 
-      const Standard_Real aValue = Draw::Atof(theArgs[anArgIdx]);
+      const Standard_Real aValue = Draw1::Atof(theArgs[anArgIdx]);
       if (aValue < 0.0)
       {
         Message::SendFail() << "Error: Tolerance value should be non-negative";
@@ -453,8 +453,8 @@ static int ShapeSelfIntersection(Draw_Interpretor& theDI,
   }
 
   // Extract output faces
-  TopoDS_Builder  aCompBuilder;
-  TopoDS_Compound aFaceCompound;
+  TopoBuilder  aCompBuilder;
+  TopoCompound aFaceCompound;
 
   aCompBuilder.MakeCompound(aFaceCompound);
 
@@ -462,24 +462,24 @@ static int ShapeSelfIntersection(Draw_Interpretor& theDI,
        anIt.More();
        anIt.Next())
   {
-    TCollection_AsciiString aStr = TCollection_AsciiString(theArgs[1]) + "_" + (anIt.Key() + 1);
+    AsciiString1 aStr = AsciiString1(theArgs[1]) + "_" + (anIt.Key() + 1);
 
-    const TopoDS_Face& aFace = aTool.GetSubShape(anIt.Key());
+    const TopoFace& aFace = aTool.GetSubShape(anIt.Key());
     aCompBuilder.Add(aFaceCompound, aFace);
-    DBRep::Set(aStr.ToCString(), aFace);
+    DBRep1::Set(aStr.ToCString(), aFace);
 
     theDI << aStr << " \n";
   }
 
   theDI << "Compound of overlapped sub-faces: " << theArgs[1] << "_overlapped\n";
-  DBRep::Set((TCollection_AsciiString(theArgs[1]) + "_" + "overlapped").ToCString(), aFaceCompound);
+  DBRep1::Set((AsciiString1(theArgs[1]) + "_" + "overlapped").ToCString(), aFaceCompound);
 
   return 0;
 }
 
 //=================================================================================================
 
-void BRepTest::ExtremaCommands(Draw_Interpretor& theCommands)
+void BRepTest::ExtremaCommands(DrawInterpreter& theCommands)
 {
   static const char*      aGroup = "TOPOLOGY Extrema commands";
   static Standard_Boolean isDone = Standard_False;

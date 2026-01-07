@@ -45,7 +45,7 @@ static Standard_Boolean shiftPoint(const Standard_Real                theUStart,
                                    const Standard_Real                theVStart,
                                    Standard_Real&                     theU,
                                    Standard_Real&                     theV,
-                                   const Handle(Geom_Surface)&        theSurf,
+                                   const Handle(GeomSurface)&        theSurf,
                                    const Handle(GeomAdaptor_Surface)& theAdaptor,
                                    const Vector3d&                      theD1U,
                                    const Vector3d&                      theD1V)
@@ -234,7 +234,7 @@ inline void CheckInfinite(const Vector3d& theVecU, const Vector3d& theVecV)
 } // end of anonymous namespace
 
 GeomEvaluator_OffsetSurface::GeomEvaluator_OffsetSurface(
-  const Handle(Geom_Surface)&           theBase,
+  const Handle(GeomSurface)&           theBase,
   const Standard_Real                   theOffset,
   const Handle(Geom_OsculatingSurface)& theOscSurf)
     : GeomEvaluator_Surface(),

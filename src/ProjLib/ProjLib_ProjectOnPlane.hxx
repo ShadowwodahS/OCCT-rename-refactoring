@@ -33,8 +33,8 @@ class gp_Circ;
 class gp_Elips;
 class gp_Hypr;
 class gp_Parab;
-class Geom_BezierCurve;
-class Geom_BSplineCurve;
+class BezierCurve3d;
+class BSplineCurve3d;
 
 //! Class  used  to project  a 3d curve   on a plane.  The
 //! result will be a 3d curve.
@@ -186,20 +186,20 @@ public:
   //! the Curve please make a copy yourself
   //! Also it will NOT trim the surface to
   //! myFirst/Last.
-  Standard_EXPORT Handle(Geom_BezierCurve) Bezier() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BezierCurve3d) Bezier() const Standard_OVERRIDE;
 
   //! Warning ! this will NOT make a copy of the
   //! BSpline Curve : If you want to modify
   //! the Curve please make a copy yourself
   //! Also it will NOT trim the surface to
   //! myFirst/Last.
-  Standard_EXPORT Handle(Geom_BSplineCurve) BSpline() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BSplineCurve3d) BSpline() const Standard_OVERRIDE;
 
 protected:
-  void GetTrimmedResult(const Handle(Geom_Curve)& theProjCurve);
+  void GetTrimmedResult(const Handle(GeomCurve3d)& theProjCurve);
 
-  Standard_Boolean BuildParabolaByApex(Handle(Geom_Curve)& theGeomParabolaPtr);
-  Standard_Boolean BuildHyperbolaByApex(Handle(Geom_Curve)& theGeomParabolaPtr);
+  Standard_Boolean BuildParabolaByApex(Handle(GeomCurve3d)& theGeomParabolaPtr);
+  Standard_Boolean BuildHyperbolaByApex(Handle(GeomCurve3d)& theGeomParabolaPtr);
 
   void BuildByApprox(const Standard_Real theLimitParameter);
 

@@ -20,7 +20,7 @@
 #include <TopOpeBRepBuild_CompositeClassifier.hxx>
 #include <TopOpeBRepBuild_Loop.hxx>
 
-#define MYBB ((TopOpeBRepBuild_BlockBuilder*)myBlockBuilder)
+#define MYBB ((BlockBuilder*)myBlockBuilder)
 
 // sourvenir d'un raise sur FrozenShape lors du Add(myShell,aFace)
 // avec un shell qui a ete deja ete place dans le solide interne du
@@ -30,19 +30,19 @@
 // static Standard_Integer dddjyl = 0;
 // static Standard_Integer dddebi = 0;
 // static Standard_Integer dddebi2 = 0;
-// static void SAVSS(const TopoDS_Shape& S1,const TopoDS_Shape& S2)
+// static void SAVSS(const TopoShape& S1,const TopoShape& S2)
 //{
-//   TCollection_AsciiString aname_1("cc_1"), aname_2("cc_2");
+//   AsciiString1 aname_1("cc_1"), aname_2("cc_2");
 //   Standard_CString name_1 = aname_1.ToCString(), name_2 = aname_2.ToCString();
 //   std::cout<<"compositeclassifier : "<<name_1<<","<<name_2<<std::endl;
-//   BRepTools::Write(S1,name_1); BRepTools::Write(S2,name_2);
+//   BRepTools1::Write(S1,name_1); BRepTools1::Write(S2,name_2);
 // }
 #endif
 
 //=================================================================================================
 
 TopOpeBRepBuild_CompositeClassifier::TopOpeBRepBuild_CompositeClassifier(
-  const TopOpeBRepBuild_BlockBuilder& BB)
+  const BlockBuilder& BB)
     : myBlockBuilder((void*)&BB)
 {
 }
@@ -59,19 +59,19 @@ TopAbs_State TopOpeBRepBuild_CompositeClassifier::Compare(const Handle(TopOpeBRe
 
   if (isshape2 && isshape1)
   { // L1 is Shape , L2 is Shape
-    const TopoDS_Shape& s1 = L1->Shape();
-    const TopoDS_Shape& s2 = L2->Shape();
+    const TopoShape& s1 = L1->Shape();
+    const TopoShape& s2 = L2->Shape();
     state                  = CompareShapes(s1, s2);
   }
   else if (isshape2 && !isshape1)
   { // L1 is Block , L2 is Shape
-    TopOpeBRepBuild_BlockIterator Bit1 = L1->BlockIterator();
+    TopOpeBRepBuildBlockIterator Bit1 = L1->BlockIterator();
     Bit1.Initialize();
     Standard_Boolean yena1 = Bit1.More();
     while (yena1)
     {
-      const TopoDS_Shape& s1 = MYBB->Element(Bit1);
-      const TopoDS_Shape& s2 = L2->Shape();
+      const TopoShape& s1 = MYBB->Element(Bit1);
+      const TopoShape& s2 = L2->Shape();
       state                  = CompareElementToShape(s1, s2);
       yena1                  = Standard_False;
       if (state == TopAbs_UNKNOWN)
@@ -84,12 +84,12 @@ TopAbs_State TopOpeBRepBuild_CompositeClassifier::Compare(const Handle(TopOpeBRe
   }
   else if (!isshape2 && isshape1)
   { // L1 is Shape , L2 is Block
-    const TopoDS_Shape& s1 = L1->Shape();
+    const TopoShape& s1 = L1->Shape();
     ResetShape(s1);
-    TopOpeBRepBuild_BlockIterator Bit2 = L2->BlockIterator();
+    TopOpeBRepBuildBlockIterator Bit2 = L2->BlockIterator();
     for (Bit2.Initialize(); Bit2.More(); Bit2.Next())
     {
-      const TopoDS_Shape& s2 = MYBB->Element(Bit2);
+      const TopoShape& s2 = MYBB->Element(Bit2);
       if (!CompareElement(s2))
         break;
     }
@@ -97,17 +97,17 @@ TopAbs_State TopOpeBRepBuild_CompositeClassifier::Compare(const Handle(TopOpeBRe
   }
   else if (!isshape2 && !isshape1)
   { // L1 is Block , L2 is Block
-    TopOpeBRepBuild_BlockIterator Bit1 = L1->BlockIterator();
+    TopOpeBRepBuildBlockIterator Bit1 = L1->BlockIterator();
     Bit1.Initialize();
     Standard_Boolean yena1 = Bit1.More();
     while (yena1)
     {
-      const TopoDS_Shape& s1 = MYBB->Element(Bit1);
+      const TopoShape& s1 = MYBB->Element(Bit1);
       ResetElement(s1);
-      TopOpeBRepBuild_BlockIterator Bit2 = L2->BlockIterator();
+      TopOpeBRepBuildBlockIterator Bit2 = L2->BlockIterator();
       for (Bit2.Initialize(); Bit2.More(); Bit2.Next())
       {
-        const TopoDS_Shape& s2 = MYBB->Element(Bit2);
+        const TopoShape& s2 = MYBB->Element(Bit2);
         CompareElement(s2);
       }
       state = State();

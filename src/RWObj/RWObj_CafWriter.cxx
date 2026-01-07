@@ -38,26 +38,26 @@ inline Graphic3d_Vec3 objXyzToVec(const gp_XYZ& thePnt)
 }
 
 //! Trivial cast.
-inline Graphic3d_Vec2 objXyToVec(const gp_XY& thePnt)
+inline Graphic3d_Vec2 objXyToVec(const Coords2d& thePnt)
 {
   return Graphic3d_Vec2((float)thePnt.X(), (float)thePnt.Y());
 }
 
 //! Read name attribute.
-static TCollection_AsciiString readNameAttribute(const TDF_Label& theRefLabel)
+static AsciiString1 readNameAttribute(const DataLabel& theRefLabel)
 {
-  Handle(TDataStd_Name) aNodeName;
-  if (!theRefLabel.FindAttribute(TDataStd_Name::GetID(), aNodeName))
+  Handle(NameAttribute) aNodeName;
+  if (!theRefLabel.FindAttribute(NameAttribute::GetID(), aNodeName))
   {
-    return TCollection_AsciiString();
+    return AsciiString1();
   }
-  return TCollection_AsciiString(aNodeName->Get());
+  return AsciiString1(aNodeName->Get());
 }
 } // namespace
 
 //=================================================================================================
 
-RWObj_CafWriter::RWObj_CafWriter(const TCollection_AsciiString& theFile)
+RWObj_CafWriter::RWObj_CafWriter(const AsciiString1& theFile)
     : myFile(theFile)
 {
   // OBJ file format doesn't define length units;
@@ -81,7 +81,7 @@ Standard_Boolean RWObj_CafWriter::toSkipFaceMesh(const RWMesh_FaceIterator& theF
 
 //=================================================================================================
 
-bool RWObj_CafWriter::Perform(const Handle(TDocStd_Document)&             theDocument,
+bool RWObj_CafWriter::Perform(const Handle(AppDocument)&             theDocument,
                               const TColStd_IndexedDataMapOfStringString& theFileInfo,
                               const Message_ProgressRange&                theProgress)
 {
@@ -93,15 +93,15 @@ bool RWObj_CafWriter::Perform(const Handle(TDocStd_Document)&             theDoc
 
 //=================================================================================================
 
-bool RWObj_CafWriter::Perform(const Handle(TDocStd_Document)&             theDocument,
+bool RWObj_CafWriter::Perform(const Handle(AppDocument)&             theDocument,
                               const TDF_LabelSequence&                    theRootLabels,
                               const TColStd_MapOfAsciiString*             theLabelFilter,
                               const TColStd_IndexedDataMapOfStringString& theFileInfo,
                               const Message_ProgressRange&                theProgress)
 {
-  TCollection_AsciiString aFolder, aFileName, aFullFileNameBase, aShortFileNameBase, aFileExt;
-  OSD_Path::FolderAndFileFromPath(myFile, aFolder, aFileName);
-  OSD_Path::FileNameAndExtension(aFileName, aShortFileNameBase, aFileExt);
+  AsciiString1 aFolder, aFileName, aFullFileNameBase, aShortFileNameBase, aFileExt;
+  SystemPath::FolderAndFileFromPath(myFile, aFolder, aFileName);
+  SystemPath::FileNameAndExtension(aFileName, aShortFileNameBase, aFileExt);
 
   Standard_Real aLengthUnit = 1.;
   if (XCAFDoc_DocumentTool::GetLengthUnit(theDocument, aLengthUnit))
@@ -148,8 +148,8 @@ bool RWObj_CafWriter::Perform(const Handle(TDocStd_Document)&             theDoc
     return false;
   }
 
-  TCollection_AsciiString       aMatFileNameShort = aShortFileNameBase + ".mtl";
-  const TCollection_AsciiString aMatFileNameFull =
+  AsciiString1       aMatFileNameShort = aShortFileNameBase + ".mtl";
+  const AsciiString1 aMatFileNameFull =
     !aFolder.IsEmpty() ? aFolder + aMatFileNameShort : aMatFileNameShort;
   if (!toCreateMatFile)
   {
@@ -169,9 +169,9 @@ bool RWObj_CafWriter::Perform(const Handle(TDocStd_Document)&             theDoc
   int aRootDepth = 0;
   if (theRootLabels.Size() == 1)
   {
-    TDF_Label aRefLabel = theRootLabels.First();
+    DataLabel aRefLabel = theRootLabels.First();
     XCAFDoc_ShapeTool::GetReferredShape(theRootLabels.First(), aRefLabel);
-    TCollection_AsciiString aRootName = readNameAttribute(aRefLabel);
+    AsciiString1 aRootName = readNameAttribute(aRefLabel);
     if (aRootName.EndsWith(".obj"))
     {
       // workaround import/export of .obj file
@@ -196,11 +196,11 @@ bool RWObj_CafWriter::Perform(const Handle(TDocStd_Document)&             theDoc
       continue;
     }
 
-    TCollection_AsciiString aName = readNameAttribute(aDocNode.RefLabel);
+    AsciiString1 aName = readNameAttribute(aDocNode.RefLabel);
     for (int aParentIter = aDocExplorer.CurrentDepth() - 1; aParentIter >= aRootDepth;
          --aParentIter)
     {
-      const TCollection_AsciiString aParentName =
+      const AsciiString1 aParentName =
         readNameAttribute(aDocExplorer.Current(aParentIter).RefLabel);
       if (!aParentName.IsEmpty())
       {
@@ -224,7 +224,7 @@ bool RWObj_CafWriter::Perform(const Handle(TDocStd_Document)&             theDoc
   const bool isClosed = anObjFile.Close();
   if (isDone && !isClosed)
   {
-    Message::SendFail(TCollection_AsciiString("Failed to write OBJ file\n") + myFile);
+    Message::SendFail(AsciiString1("Failed to write OBJ file\n") + myFile);
     return false;
   }
   return isDone && !aPSentry.IsAborted();
@@ -262,10 +262,10 @@ void RWObj_CafWriter::addFaceInfo(const RWMesh_FaceIterator& theFace,
 bool RWObj_CafWriter::writeShape(RWObj_ObjWriterContext&        theWriter,
                                  RWObj_ObjMaterialMap&          theMatMgr,
                                  Message_LazyProgressScope&     thePSentry,
-                                 const TDF_Label&               theLabel,
+                                 const DataLabel&               theLabel,
                                  const TopLoc_Location&         theParentTrsf,
                                  const XCAFPrs_Style&           theParentStyle,
-                                 const TCollection_AsciiString& theName)
+                                 const AsciiString1& theName)
 {
   bool toCreateGroup = true;
   for (RWMesh_FaceIterator aFaceIter(theLabel, theParentTrsf, true, theParentStyle);
@@ -298,7 +298,7 @@ bool RWObj_CafWriter::writeShape(RWObj_ObjWriterContext&        theWriter,
     }
     toCreateGroup = false;
 
-    TCollection_AsciiString aMatName;
+    AsciiString1 aMatName;
     if (aFaceIter.HasFaceColor() || !aFaceIter.FaceStyle().BaseColorTexture().IsNull())
     {
       aMatName = theMatMgr.AddMaterial(aFaceIter.FaceStyle());

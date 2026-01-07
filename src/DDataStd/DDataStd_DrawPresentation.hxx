@@ -22,7 +22,7 @@
 
 #include <TDF_Attribute.hxx>
 class Draw_Drawable3D;
-class TDF_Label;
+class DataLabel;
 class Standard_GUID;
 class TDF_RelocationTable;
 class TDF_AttributeDelta;
@@ -37,17 +37,17 @@ class DDataStd_DrawPresentation : public TDF_Attribute
 public:
   //! api methods on draw presentation
   //! ================================
-  Standard_EXPORT static Standard_Boolean HasPresentation(const TDF_Label& L);
+  Standard_EXPORT static Standard_Boolean HasPresentation(const DataLabel& L);
 
-  Standard_EXPORT static Standard_Boolean IsDisplayed(const TDF_Label& L);
+  Standard_EXPORT static Standard_Boolean IsDisplayed(const DataLabel& L);
 
-  Standard_EXPORT static void Display(const TDF_Label& L);
+  Standard_EXPORT static void Display(const DataLabel& L);
 
-  Standard_EXPORT static void Erase(const TDF_Label& L);
+  Standard_EXPORT static void Erase(const DataLabel& L);
 
   //! attribute implementation
   //! ========================
-  Standard_EXPORT static void Update(const TDF_Label& L);
+  Standard_EXPORT static void Update(const DataLabel& L);
 
   Standard_EXPORT static const Standard_GUID& GetID();
 
@@ -97,10 +97,10 @@ protected:
 private:
   Standard_EXPORT void DrawBuild();
 
-  Standard_EXPORT static void DrawDisplay(const TDF_Label&                         L,
+  Standard_EXPORT static void DrawDisplay(const DataLabel&                         L,
                                           const Handle(DDataStd_DrawPresentation)& P);
 
-  Standard_EXPORT static void DrawErase(const TDF_Label&                         L,
+  Standard_EXPORT static void DrawErase(const DataLabel&                         L,
                                         const Handle(DDataStd_DrawPresentation)& P);
 
   Standard_Boolean        isDisplayed;

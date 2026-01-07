@@ -49,7 +49,7 @@
 // + edge, face
 // + edgeregul/updtol
 // + fillface
-static Standard_Integer XSHAPE_edge(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer XSHAPE_edge(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 2)
   {
@@ -57,7 +57,7 @@ static Standard_Integer XSHAPE_edge(Draw_Interpretor& di, Standard_Integer argc,
     return 1 /* Error */;
   }
   Standard_CString arg1  = argv[1];
-  TopoDS_Shape     Shape = DBRep::Get(arg1);
+  TopoShape     Shape = DBRep1::Get(arg1);
   if (Shape.IsNull())
   {
     di << arg1 << " inconnu\n";
@@ -66,26 +66,26 @@ static Standard_Integer XSHAPE_edge(Draw_Interpretor& di, Standard_Integer argc,
   Standard_Integer nbe = 0, nbf = 0;
   Standard_Real    f3d, l3d;
 
-  for (TopExp_Explorer exp(Shape, TopAbs_EDGE); exp.More(); exp.Next())
+  for (ShapeExplorer exp(Shape, TopAbs_EDGE); exp.More(); exp.Next())
   {
-    TopoDS_Edge Edge = TopoDS::Edge(exp.Current());
+    TopoEdge Edge = TopoDS::Edge(exp.Current());
     nbe++;
-    if (BRep_Tool::Degenerated(Edge))
+    if (BRepInspector::Degenerated(Edge))
       continue;
-    Handle(Geom_Curve) curve3d = BRep_Tool::Curve(Edge, f3d, l3d);
+    Handle(GeomCurve3d) curve3d = BRepInspector::Curve(Edge, f3d, l3d);
     if (curve3d.IsNull())
     {
       char nomsh[30];
       nbf++;
       Sprintf(nomsh, "faultedge_%d", nbf);
       di << "Edge sans Curve3d, n0 " << nbe << "\n";
-      DBRep::Set(nomsh, Edge);
+      DBRep1::Set(nomsh, Edge);
     }
   }
   return 0;
 }
 
-static Standard_Integer XSHAPE_explorewire(Draw_Interpretor& di,
+static Standard_Integer XSHAPE_explorewire(DrawInterpreter& di,
                                            Standard_Integer  argc,
                                            const char**      argv)
 {
@@ -96,7 +96,7 @@ static Standard_Integer XSHAPE_explorewire(Draw_Interpretor& di,
     return 1 /* Error */;
   }
   Standard_CString arg1  = argv[1];
-  TopoDS_Shape     Shape = DBRep::Get(arg1);
+  TopoShape     Shape = DBRep1::Get(arg1);
   if (Shape.IsNull())
   {
     di << arg1 << " inconnu\n";
@@ -107,12 +107,12 @@ static Standard_Integer XSHAPE_explorewire(Draw_Interpretor& di,
     di << "Pas un WIRE\n";
     return 1 /* Error */;
   }
-  TopoDS_Wire W = TopoDS::Wire(Shape);
-  TopoDS_Face F;
+  TopoWire W = TopoDS::Wire(Shape);
+  TopoFace F;
   if (argc > 2)
   {
     Standard_CString arg2        = argv[2];
-    TopoDS_Shape     aLocalShape = DBRep::Get(arg2);
+    TopoShape     aLocalShape = DBRep1::Get(arg2);
     F                            = TopoDS::Face(aLocalShape);
   }
 
@@ -122,7 +122,7 @@ static Standard_Integer XSHAPE_explorewire(Draw_Interpretor& di,
   {
     if (ext.Value().ShapeType() != TopAbs_EDGE)
       continue;
-    TopoDS_Edge E = TopoDS::Edge(ext.Value());
+    TopoEdge E = TopoDS::Edge(ext.Value());
     nbe++;
     num = map.Add(E);
   }
@@ -133,9 +133,9 @@ static Standard_Integer XSHAPE_explorewire(Draw_Interpretor& di,
   di << "TopoDS_Iterator(EDGE)  donne " << nbe << " Edges dont " << num << " distinctes\n";
   nbe = num;
   nbw = 0;
-  for (TopExp_Explorer exe(W.Oriented(TopAbs_FORWARD), TopAbs_EDGE); exe.More(); exe.Next())
+  for (ShapeExplorer exe(W.Oriented(TopAbs_FORWARD), TopAbs_EDGE); exe.More(); exe.Next())
     nbw++;
-  di << "TopExp_Explorer(EDGE)  donne " << nbw << " Edges\n";
+  di << "ShapeExplorer(EDGE)  donne " << nbw << " Edges\n";
   nbw = 0;
   BRepTools_WireExplorer bwe;
   if (F.IsNull())
@@ -144,7 +144,7 @@ static Standard_Integer XSHAPE_explorewire(Draw_Interpretor& di,
     bwe.Init(W, F);
   for (; bwe.More(); bwe.Next())
   {
-    TopoDS_Edge E = TopoDS::Edge(bwe.Current());
+    TopoEdge E = TopoDS::Edge(bwe.Current());
     nbw++;
     num = map.FindIndex(E);
     nbs[num]++;
@@ -159,20 +159,20 @@ static Standard_Integer XSHAPE_explorewire(Draw_Interpretor& di,
     {
       di << "Edge n0 " << i << " pas vue par WE\n";
       Sprintf(nomsh, "NOWE_%d", i);
-      DBRep::Set(nomsh, map.FindKey(i));
+      DBRep1::Set(nomsh, map.FindKey(i));
     }
     else if (nbs[i] > 1)
     {
       di << "Edge n0 " << i << " vue par WE : " << nbs[i] << " fois\n";
       Sprintf(nomsh, "MULT_%d", i);
-      DBRep::Set(nomsh, map.FindKey(i));
+      DBRep1::Set(nomsh, map.FindKey(i));
     }
   }
   delete[] nbs;
   return 0;
 }
 
-static Standard_Integer XSHAPE_ssolid(Draw_Interpretor& di,
+static Standard_Integer XSHAPE_ssolid(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -182,7 +182,7 @@ static Standard_Integer XSHAPE_ssolid(Draw_Interpretor& di,
     return 1 /* Error */;
   }
   Standard_CString arg1  = argv[1];
-  TopoDS_Shape     Shape = DBRep::Get(arg1);
+  TopoShape     Shape = DBRep1::Get(arg1);
   if (Shape.IsNull())
   {
     di << "Shape unknown : " << arg1 << "\n";
@@ -204,9 +204,9 @@ static Standard_Integer XSHAPE_ssolid(Draw_Interpretor& di,
     di << "Shape non Free -> Freeing\n";
     Shape.Free(Standard_True);
   }
-  TopoDS_Shell sh = TopoDS::Shell(Shape);
-  TopoDS_Solid solid;
-  BRep_Builder B;
+  TopoShell sh = TopoDS::Shell(Shape);
+  TopoSolid solid;
+  ShapeBuilder B;
   B.MakeSolid(solid);
   B.Add(solid, sh);
   //   Pas encore fini : il faut une bonne orientation
@@ -217,50 +217,50 @@ static Standard_Integer XSHAPE_ssolid(Draw_Interpretor& di,
     //         Ensuite, inverser C-A-D REPRENDRE LES SHELLS
     //         (l inversion du solide n est pas bien prise en compte)
     di << "NB : Shell to be reversed\n";
-    TopoDS_Solid soli2;
+    TopoSolid soli2;
     B.MakeSolid(soli2); // on recommence
     sh.Reverse();
     B.Add(soli2, sh);
     solid = soli2;
   }
-  DBRep::Set(argv[2], solid);
+  DBRep1::Set(argv[2], solid);
   return 0; // Done
 }
 
-static Standard_Integer samerange(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer samerange(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc == 2)
   {
-    TopoDS_Shape Shape = DBRep::Get(argv[1]);
+    TopoShape Shape = DBRep1::Get(argv[1]);
     if (Shape.IsNull())
     {
       di << "Shape unknown: " << argv[2] << "\n";
       return 1;
     }
 
-    for (TopExp_Explorer exp(Shape, TopAbs_EDGE); exp.More(); exp.Next())
+    for (ShapeExplorer exp(Shape, TopAbs_EDGE); exp.More(); exp.Next())
     {
-      TopoDS_Edge edge = TopoDS::Edge(exp.Current());
+      TopoEdge edge = TopoDS::Edge(exp.Current());
       BRepLib::SameRange(edge, Precision::PConfusion());
     }
   }
   else if (argc == 7)
   {
-    Handle(Geom2d_Curve) C = DrawTrSurf::GetCurve2d(argv[2]);
+    Handle(GeomCurve2d) C = DrawTrSurf1::GetCurve2d(argv[2]);
     if (C.IsNull())
     {
       di << "Curve unknown: " << argv[2] << "\n";
       return 1;
     }
 
-    Standard_Real           oldFirst      = Draw::Atof(argv[3]);
-    Standard_Real           oldLast       = Draw::Atof(argv[4]);
-    Standard_Real           current_first = Draw::Atof(argv[5]);
-    Standard_Real           current_last  = Draw::Atof(argv[6]);
+    Standard_Real           oldFirst      = Draw1::Atof(argv[3]);
+    Standard_Real           oldLast       = Draw1::Atof(argv[4]);
+    Standard_Real           current_first = Draw1::Atof(argv[5]);
+    Standard_Real           current_last  = Draw1::Atof(argv[6]);
     constexpr Standard_Real Tol           = Precision::PConfusion();
-    Handle(Geom2d_Curve)    NewC2d;
+    Handle(GeomCurve2d)    NewC2d;
     GeomLib::SameRange(Tol, C, oldFirst, oldLast, current_first, current_last, NewC2d);
-    DrawTrSurf::Set(argv[1], NewC2d);
+    DrawTrSurf1::Set(argv[1], NewC2d);
   }
   else
   {
@@ -277,7 +277,7 @@ static Standard_Integer samerange(Draw_Interpretor& di, Standard_Integer argc, c
 //  ##            DECLARATIONS            ##
 //  ########################################
 
-void SWDRAW_ShapeTool::InitCommands(Draw_Interpretor& theCommands)
+void SWDRAW_ShapeTool::InitCommands(DrawInterpreter& theCommands)
 {
   static int initactor = 0;
   if (initactor)

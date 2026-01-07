@@ -55,13 +55,13 @@ Standard_Boolean DNaming_SelectionDriver::MustExecute(const Handle(TFunction_Log
 #ifdef OCCT_DEBUG
   #include <BRepTools.hxx>
 
-static void Write(const TopoDS_Shape& shape, const Standard_CString filename)
+static void Write(const TopoShape& shape, const Standard_CString filename)
 {
   std::ofstream save;
   save.open(filename);
   save << "DBRep_DrawableShape" << std::endl << std::endl;
   if (!shape.IsNull())
-    BRepTools::Write(shape, save);
+    BRepTools1::Write(shape, save);
   save.close();
 }
 #endif
@@ -81,14 +81,14 @@ Standard_Integer DNaming_SelectionDriver::Execute(Handle(TFunction_Logbook)& the
   if (aFunction.IsNull())
     return -1;
 
-  TDF_Label aRLabel = RESPOSITION(aFunction);
+  DataLabel aRLabel = RESPOSITION(aFunction);
   if (aRLabel.IsNull())
     return -1;
 
   Standard_Boolean           aIsWire        = Standard_False;
   TopAbs_ShapeEnum           aPrevShapeType = TopAbs_SHAPE;
-  Handle(TNaming_NamedShape) aNShape;
-  if (aRLabel.FindAttribute(TNaming_NamedShape::GetID(), aNShape))
+  Handle(ShapeAttribute) aNShape;
+  if (aRLabel.FindAttribute(ShapeAttribute::GetID(), aNShape))
   {
     if (!aNShape.IsNull() && !aNShape->IsEmpty())
     {
@@ -107,17 +107,17 @@ Standard_Integer DNaming_SelectionDriver::Execute(Handle(TFunction_Logbook)& the
   TDF_MapIteratorOfLabelMap anItr(aMap);
   for (; anItr.More(); anItr.Next())
   {
-    const TDF_Label&        aLabel = anItr.Key();
-    TCollection_AsciiString anEntry;
+    const DataLabel&        aLabel = anItr.Key();
+    AsciiString1 anEntry;
     TDF_Tool::Entry(aLabel, anEntry);
     std::cout << "\tLabel = " << anEntry << std::endl;
   }
 #endif
   //***
   //  TDF_IDFilter aFilterForReferers;
-  //  aFilterForReferers.Keep(TNaming_NamedShape::GetID());
+  //  aFilterForReferers.Keep(ShapeAttribute::GetID());
   //  TDF_IDFilter aFilterForReferences;
-  //  aFilterForReferences.Keep(TNaming_NamedShape::GetID());
+  //  aFilterForReferences.Keep(ShapeAttribute::GetID());
   //   TDF_LabelMap aMap1;
   //  TDF_Tool::OutReferences(aLabel, /*aFilterForReferers, aFilterForReferences, */outRefs);
   //***
@@ -125,8 +125,8 @@ Standard_Integer DNaming_SelectionDriver::Execute(Handle(TFunction_Logbook)& the
   if (aSelector.Solve(aMap))
   {
     theLog->SetValid(aRLabel);
-    Handle(TNaming_NamedShape) aNS;
-    if (!aRLabel.FindAttribute(TNaming_NamedShape::GetID(), aNS))
+    Handle(ShapeAttribute) aNS;
+    if (!aRLabel.FindAttribute(ShapeAttribute::GetID(), aNS))
     {
       std::cout << "%%%WARNING: DNaming_SelectionDriver::NamedShape is not found" << std::endl;
     }
@@ -150,8 +150,8 @@ Standard_Integer DNaming_SelectionDriver::Execute(Handle(TFunction_Logbook)& the
 #endif
         if (aIsWire && aNS->Get().ShapeType() == TopAbs_COMPOUND)
         {
-          TopoDS_Shape aWireShape;
-          TNaming_Tool::FindShape(aMap, aMap, aNS, aWireShape);
+          TopoShape aWireShape;
+          Tool11::FindShape(aMap, aMap, aNS, aWireShape);
           TNaming_Builder aBuilder(aRLabel);
           aBuilder.Select(aWireShape, aWireShape);
           aFunction->SetFailure(DONE);

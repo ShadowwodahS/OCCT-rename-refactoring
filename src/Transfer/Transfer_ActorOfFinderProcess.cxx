@@ -93,7 +93,7 @@ void Transfer_ActorOfFinderProcess::SetShapeFixParameters(
 //=============================================================================
 
 void Transfer_ActorOfFinderProcess::SetShapeFixParameters(
-  const DE_ShapeFixParameters&               theParameters,
+  const ShapeFixParameters&               theParameters,
   const XSAlgo_ShapeProcessor::ParameterMap& theAdditionalParameters)
 {
   XSAlgo_ShapeProcessor::SetShapeFixParameters(theParameters,

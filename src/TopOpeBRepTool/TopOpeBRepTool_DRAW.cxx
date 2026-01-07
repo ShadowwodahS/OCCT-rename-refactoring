@@ -37,9 +37,9 @@
   #include <TopExp_Explorer.hxx>
   #include <TopOpeBRepTool_DRAW.hxx>
 
-Standard_IMPORT Draw_Color DrawTrSurf_CurveColor(const Draw_Color col);
+Standard_IMPORT DrawColor DrawTrSurf_CurveColor(const DrawColor col);
 Standard_IMPORT void       DBRep_WriteColorOrientation();
-Standard_IMPORT Draw_Color DBRep_ColorOrientation(const TopAbs_Orientation Or);
+Standard_IMPORT DrawColor DBRep_ColorOrientation(const TopAbs_Orientation Or);
 
 static Draw_MarkerShape MARKER3DSHAPE = Draw_Square;
 static Draw_ColorKind   MARKER3DCOLOR = Draw_magenta;
@@ -126,130 +126,130 @@ void TopOpeBRepTool_DrawSegment(const Point3d& P, const gp_Lin& L, const Standar
   TopOpeBRepTool_DrawSegment(P, L, Par, SEGMENTCOLOR);
 }
 
-Standard_EXPORT void FDRAW_DINS(const TCollection_AsciiString pref,
-                                const TopoDS_Shape&           SS,
-                                const TCollection_AsciiString Snam,
-                                const TCollection_AsciiString suff)
+Standard_EXPORT void FDRAW_DINS(const AsciiString1 pref,
+                                const TopoShape&           SS,
+                                const AsciiString1 Snam,
+                                const AsciiString1 suff)
 {
-  DBRep::Set(Snam.ToCString(), SS);
+  DBRep1::Set(Snam.ToCString(), SS);
   std::cout << pref << FUN_tool_PRODINS() << " " << Snam << ";" << suff;
 }
 
-Standard_EXPORT void FDRAW_DINE(const TCollection_AsciiString pref,
-                                const TopoDS_Edge&            EE,
-                                const TCollection_AsciiString Enam,
-                                const TCollection_AsciiString suff)
+Standard_EXPORT void FDRAW_DINE(const AsciiString1 pref,
+                                const TopoEdge&            EE,
+                                const AsciiString1 Enam,
+                                const AsciiString1 suff)
 {
-  TCollection_AsciiString VFnam, VRnam, VInam, VEnam;
-  TCollection_AsciiString blancV("      ");
-  TopoDS_Vertex           VF, VR;
-  TopExp::Vertices(EE, VF, VR);
+  AsciiString1 VFnam, VRnam, VInam, VEnam;
+  AsciiString1 blancV("      ");
+  TopoVertex           VF, VR;
+  TopExp1::Vertices(EE, VF, VR);
   if (!VF.IsNull() && !VR.IsNull() && !EE.IsNull())
   {
-    DBRep::Set(Enam.ToCString(), EE);
+    DBRep1::Set(Enam.ToCString(), EE);
     Standard_Real f, l;
-    BRep_Tool::Range(EE, f, l);
+    BRepInspector::Range(EE, f, l);
     std::cout << pref << FUN_tool_PRODINS() << "-gO " << Enam << "; # f,l : " << f << "," << l
               << suff;
 
   #if 0
     Standard_Integer nfo=0,nre=0,nin=0,nex=0;
-    TopExp_Explorer exx;
+    ShapeExplorer exx;
     for (exx.Init(EE,TopAbs_VERTEX);exx.More();exx.Next()) {
-//    for (TopExp_Explorer exx(EE,TopAbs_VERTEX);exx.More();exx.Next()) {
-      const TopoDS_Vertex& vv = TopoDS::Vertex(exx.Current());
+//    for (ShapeExplorer exx(EE,TopAbs_VERTEX);exx.More();exx.Next()) {
+      const TopoVertex& vv = TopoDS::Vertex(exx.Current());
       TopAbs_Orientation vvo = vv.Orientation();
       if      ( vvo == TopAbs_FORWARD ) {
 	nfo++; VFnam = Enam + ".vf" + nfo;
-	DBRep::Set(VFnam.ToCString(),vv);
+	DBRep1::Set(VFnam.ToCString(),vv);
 	std::cout<<blancV<<FUN_tool_PRODINS()<<VFnam;
       }
       else if ( vvo == TopAbs_REVERSED ) {
 	nre++; VRnam = Enam + ".vr" + nre;
-	DBRep::Set(VRnam.ToCString(),vv);
+	DBRep1::Set(VRnam.ToCString(),vv);
 	std::cout<<blancV<<FUN_tool_PRODINS()<<VRnam;
       }
       else if ( vvo == TopAbs_INTERNAL ) {
 	nin++; VInam = Enam + ".vi" + nin;
-	DBRep::Set(VInam.ToCString(),vv);
+	DBRep1::Set(VInam.ToCString(),vv);
 	std::cout<<blancV<<FUN_tool_PRODINS()<<VInam;
       }
       else if ( vvo == TopAbs_EXTERNAL ) {
 	nex++; VEnam = Enam + ".ve" + nex;
-	DBRep::Set(VEnam.ToCString(),vv);
+	DBRep1::Set(VEnam.ToCString(),vv);
 	std::cout<<blancV<<FUN_tool_PRODINS()<<VEnam;
       }
       
-      Standard_Real p = BRep_Tool::Parameter(vv,EE);
+      Standard_Real p = BRepInspector::Parameter(vv,EE);
       std::cout<<"; #draw ; par/"<<Enam<<" : "<<p<<std::endl;	
     }
   #endif
   }
 }
 
-Standard_EXPORT void FDRAW_DINLOE(const TCollection_AsciiString pref,
-                                  const TopTools_ListOfShape&   LOE,
-                                  const TCollection_AsciiString str1,
-                                  const TCollection_AsciiString str2)
+Standard_EXPORT void FDRAW_DINLOE(const AsciiString1 pref,
+                                  const ShapeList&   LOE,
+                                  const AsciiString1 str1,
+                                  const AsciiString1 str2)
 {
   TopTools_ListIteratorOfListOfShape it(LOE);
   for (Standard_Integer ned = 1; it.More(); it.Next(), ned++)
   {
-    TCollection_AsciiString Enam = str1 + str2 + "." + ned;
+    AsciiString1 Enam = str1 + str2 + "." + ned;
     FDRAW_DINE(pref, TopoDS::Edge(it.Value()), Enam, "\n");
   }
 }
 
-Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString& aa,
+Standard_EXPORT void FUN_tool_draw(const AsciiString1& aa,
                                    const Point3d&                  p,
                                    const Dir3d&                  d)
 {
   char*                     aaa = aa.ToCString();
-  Handle(Geom_Line)         L   = new Geom_Line(p, d);
+  Handle(GeomLine)         L   = new GeomLine(p, d);
   Handle(Geom_TrimmedCurve) tL  = new Geom_TrimmedCurve(L, 0., 1.);
-  DrawTrSurf::Set(aaa, tL);
+  DrawTrSurf1::Set(aaa, tL);
 }
 
-Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString& aa,
+Standard_EXPORT void FUN_tool_draw(const AsciiString1& aa,
                                    const gp_Pnt2d&                p,
                                    const gp_Dir2d&                d,
                                    const Standard_Integer&        i)
 {
-  TCollection_AsciiString bb(aa);
-  bb += TCollection_AsciiString(i);
+  AsciiString1 bb(aa);
+  bb += AsciiString1(i);
   char*                       aaa = bb.ToCString();
   Handle(Geom2d_Line)         L   = new Geom2d_Line(p, d);
   Handle(Geom2d_TrimmedCurve) tL  = new Geom2d_TrimmedCurve(L, 0., .5);
-  DrawTrSurf::Set(aaa, tL);
+  DrawTrSurf1::Set(aaa, tL);
 }
 
-Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString aa, const gp_Pnt2d& p2d)
+Standard_EXPORT void FUN_tool_draw(const AsciiString1 aa, const gp_Pnt2d& p2d)
 {
   char* aaa = aa.ToCString();
-  DrawTrSurf::Set(aaa, p2d);
+  DrawTrSurf1::Set(aaa, p2d);
 }
 
-Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString aa, const Point3d& p)
+Standard_EXPORT void FUN_tool_draw(const AsciiString1 aa, const Point3d& p)
 {
   char* aaa = aa.ToCString();
-  DrawTrSurf::Set(aaa, p);
+  DrawTrSurf1::Set(aaa, p);
 }
 
-Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString aa, const Handle(Geom2d_Curve) c2d)
+Standard_EXPORT void FUN_tool_draw(const AsciiString1 aa, const Handle(GeomCurve2d) c2d)
 {
-  Draw_Color col(Draw_blanc);
+  DrawColor col(Draw_blanc);
   DrawTrSurf_CurveColor(col);
   char* aaa = aa.ToCString();
-  DrawTrSurf::Set(aaa, c2d);
+  DrawTrSurf1::Set(aaa, c2d);
 }
 
-Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString aa,
-                                   const Handle(Geom2d_Curve)    c2d,
+Standard_EXPORT void FUN_tool_draw(const AsciiString1 aa,
+                                   const Handle(GeomCurve2d)    c2d,
                                    const Standard_Real           f,
                                    const Standard_Real           l)
 {
   Standard_Real        tol = 1.e-7;
-  Handle(Geom2d_Curve) cc2d;
+  Handle(GeomCurve2d) cc2d;
   if (Abs(f) <= tol && Abs(l) <= tol)
     cc2d = c2d;
   else
@@ -257,19 +257,19 @@ Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString aa,
   FUN_tool_draw(aa, cc2d);
 }
 
-Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString& aa, const Handle(Geom_Curve)& C)
+Standard_EXPORT void FUN_tool_draw(const AsciiString1& aa, const Handle(GeomCurve3d)& C)
 {
   char* aaa = aa.ToCString();
-  DrawTrSurf::Set(aaa, C);
+  DrawTrSurf1::Set(aaa, C);
 }
 
-Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString aa,
-                                   const Handle(Geom_Curve)      c,
+Standard_EXPORT void FUN_tool_draw(const AsciiString1 aa,
+                                   const Handle(GeomCurve3d)      c,
                                    const Standard_Real           f,
                                    const Standard_Real           l)
 {
   Standard_Real      tol = 1.e-7;
-  Handle(Geom_Curve) cc;
+  Handle(GeomCurve3d) cc;
   if (Abs(f) <= tol && Abs(l) <= tol)
     cc = c;
   else
@@ -277,24 +277,24 @@ Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString aa,
   FUN_tool_draw(aa, cc);
 }
 
-Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString aa, const TopoDS_Shape& s)
+Standard_EXPORT void FUN_tool_draw(const AsciiString1 aa, const TopoShape& s)
 {
   char* aaa = aa.ToCString();
-  DBRep::Set(aaa, s);
+  DBRep1::Set(aaa, s);
 }
 
-Standard_EXPORT void FUN_tool_draw(const TCollection_AsciiString aa,
-                                   const TopoDS_Shape&           S,
+Standard_EXPORT void FUN_tool_draw(const AsciiString1 aa,
+                                   const TopoShape&           S,
                                    const Standard_Integer        is)
 {
-  TCollection_AsciiString bb(aa);
-  bb += TCollection_AsciiString(is);
+  AsciiString1 bb(aa);
+  bb += AsciiString1(is);
   FUN_tool_draw(bb, S);
 }
 
-Standard_EXPORT void FUN_tool_draw(TCollection_AsciiString aa,
-                                   const TopoDS_Edge&      E,
-                                   const TopoDS_Face&      F,
+Standard_EXPORT void FUN_tool_draw(AsciiString1 aa,
+                                   const TopoEdge&      E,
+                                   const TopoFace&      F,
                                    const Standard_Integer  ie)
 {
   if (E.IsNull())
@@ -303,19 +303,19 @@ Standard_EXPORT void FUN_tool_draw(TCollection_AsciiString aa,
     return;
   }
   Standard_Real               f, l;
-  const Handle(Geom2d_Curve)& PC = BRep_Tool::CurveOnSurface(E, F, f, l);
+  const Handle(GeomCurve2d)& PC = BRepInspector::CurveOnSurface(E, F, f, l);
   if (PC.IsNull())
   {
     std::cout << "************* no curv on surf\n";
     return;
   }
-  TCollection_AsciiString bb(aa);
-  bb += TCollection_AsciiString(ie);
+  AsciiString1 bb(aa);
+  bb += AsciiString1(ie);
   char* aaa = bb.ToCString();
 
   Standard_Boolean coldef = Standard_False;
-  TopExp_Explorer  ex(F, TopAbs_EDGE);
-  Draw_Color       col, savecol = DrawTrSurf_CurveColor(Draw_rouge);
+  ShapeExplorer  ex(F, TopAbs_EDGE);
+  DrawColor       col, savecol = DrawTrSurf_CurveColor(Draw_rouge);
   for (; ex.More(); ex.Next())
     if (E.IsEqual(ex.Current()))
     {
@@ -327,18 +327,18 @@ Standard_EXPORT void FUN_tool_draw(TCollection_AsciiString aa,
     col = DBRep_ColorOrientation(E.Orientation());
 
   DrawTrSurf_CurveColor(col);
-  DrawTrSurf::Set(aaa, new Geom2d_TrimmedCurve(PC, f, l));
+  DrawTrSurf1::Set(aaa, new Geom2d_TrimmedCurve(PC, f, l));
 }
 
-Standard_EXPORT const TCollection_AsciiString& FUN_tool_PRODINS()
+Standard_EXPORT const AsciiString1& FUN_tool_PRODINS()
 {
-  static TCollection_AsciiString PRODINS("dins ");
+  static AsciiString1 PRODINS("dins ");
   return PRODINS;
 }
 
-Standard_EXPORT const TCollection_AsciiString& FUN_tool_PRODINP()
+Standard_EXPORT const AsciiString1& FUN_tool_PRODINP()
 {
-  static TCollection_AsciiString PRODINP("dinp ");
+  static AsciiString1 PRODINP("dinp ");
   return PRODINP;
 }
 

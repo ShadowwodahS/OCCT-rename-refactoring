@@ -63,7 +63,7 @@ inline TopAbs_State BRepClass3d_Intersector3d::State() const
 }
 
 //============================================================================
-inline const TopoDS_Face& BRepClass3d_Intersector3d::Face() const
+inline const TopoFace& BRepClass3d_Intersector3d::Face() const
 {
   return (face);
 }

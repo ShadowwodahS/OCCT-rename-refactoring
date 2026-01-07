@@ -37,7 +37,7 @@ BRepClass_FaceClassifier::BRepClass_FaceClassifier(BRepClass_FaceExplorer& F,
 
 //=================================================================================================
 
-BRepClass_FaceClassifier::BRepClass_FaceClassifier(const TopoDS_Face&     theF,
+BRepClass_FaceClassifier::BRepClass_FaceClassifier(const TopoFace&     theF,
                                                    const Point3d&          theP,
                                                    const Standard_Real    theTol,
                                                    const Standard_Boolean theUseBndBox,
@@ -48,7 +48,7 @@ BRepClass_FaceClassifier::BRepClass_FaceClassifier(const TopoDS_Face&     theF,
 
 //=================================================================================================
 
-BRepClass_FaceClassifier::BRepClass_FaceClassifier(const TopoDS_Face&     theF,
+BRepClass_FaceClassifier::BRepClass_FaceClassifier(const TopoFace&     theF,
                                                    const gp_Pnt2d&        theP,
                                                    const Standard_Real    theTol,
                                                    const Standard_Boolean theUseBndBox,
@@ -59,7 +59,7 @@ BRepClass_FaceClassifier::BRepClass_FaceClassifier(const TopoDS_Face&     theF,
 
 //=================================================================================================
 
-void BRepClass_FaceClassifier::Perform(const TopoDS_Face&     theF,
+void BRepClass_FaceClassifier::Perform(const TopoFace&     theF,
                                        const gp_Pnt2d&        theP,
                                        const Standard_Real    theTol,
                                        const Standard_Boolean theUseBndBox,
@@ -73,7 +73,7 @@ void BRepClass_FaceClassifier::Perform(const TopoDS_Face&     theF,
 
 //=================================================================================================
 
-void BRepClass_FaceClassifier::Perform(const TopoDS_Face&     theF,
+void BRepClass_FaceClassifier::Perform(const TopoFace&     theF,
                                        const Point3d&          theP,
                                        const Standard_Real    theTol,
                                        const Standard_Boolean theUseBndBox,
@@ -88,7 +88,7 @@ void BRepClass_FaceClassifier::Perform(const TopoDS_Face&     theF,
   aIndice  = 0;
   //
   BRepAdaptor_Surface aSurf(theF, Standard_False);
-  BRepTools::UVBounds(theF, aU1, aU2, aV1, aV2);
+  BRepTools1::UVBounds(theF, aU1, aU2, aV1, aV2);
   aExtrema.Initialize(aSurf, aU1, aU2, aV1, aV2, theTol, theTol);
   //
   // modified by NIZNHY-PKV Wed Aug 13 11:28:47 2008f

@@ -49,12 +49,12 @@
 #endif
 
 #ifdef _WIN32
-Standard_IMPORT Draw_Viewer dout;
+Standard_IMPORT DrawViewer dout;
 #endif
 
 //=================================================================================================
 
-static Standard_Integer sweep(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer sweep(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   GeomFill_Trihedron Option = GeomFill_IsCorrectedFrenet;
   Standard_Integer   ipath = 2, isection = 4, NbSeg = 30, MaxDegree = 10;
@@ -96,15 +96,15 @@ static Standard_Integer sweep(Draw_Interpretor& di, Standard_Integer n, const ch
 
   if (Option == GeomFill_IsDarboux)
   {
-    Handle(Geom2d_Curve) path = DrawTrSurf::GetCurve2d(a[ipath]);
+    Handle(GeomCurve2d) path = DrawTrSurf1::GetCurve2d(a[ipath]);
     if (path.IsNull())
       return 1;
 
-    Handle(Geom_Surface) Support = DrawTrSurf::GetSurface(a[ipath + 1]);
+    Handle(GeomSurface) Support = DrawTrSurf1::GetSurface(a[ipath + 1]);
     if (Support.IsNull())
       return 1;
 
-    Handle(Geom_Curve) firstS = DrawTrSurf::GetCurve(a[ipath + 2]);
+    Handle(GeomCurve3d) firstS = DrawTrSurf1::GetCurve(a[ipath + 2]);
     if (firstS.IsNull())
       return 1;
 
@@ -112,18 +112,18 @@ static Standard_Integer sweep(Draw_Interpretor& di, Standard_Integer n, const ch
   }
   else if (Option == GeomFill_IsConstantNormal)
   {
-    Dir3d             D(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
-    Handle(Geom_Curve) path   = DrawTrSurf::GetCurve(a[6]);
-    Handle(Geom_Curve) firstS = DrawTrSurf::GetCurve(a[7]);
+    Dir3d             D(Draw1::Atof(a[3]), Draw1::Atof(a[4]), Draw1::Atof(a[5]));
+    Handle(GeomCurve3d) path   = DrawTrSurf1::GetCurve(a[6]);
+    Handle(GeomCurve3d) firstS = DrawTrSurf1::GetCurve(a[7]);
     Pipe.Init(path, firstS, D);
   }
   else
   {
-    Handle(Geom_Curve) path = DrawTrSurf::GetCurve(a[ipath]);
+    Handle(GeomCurve3d) path = DrawTrSurf1::GetCurve(a[ipath]);
     if (path.IsNull())
       return 1;
 
-    Handle(Geom_Curve) firstS = DrawTrSurf::GetCurve(a[ipath + 1]);
+    Handle(GeomCurve3d) firstS = DrawTrSurf1::GetCurve(a[ipath + 1]);
     if (firstS.IsNull())
       return 1;
 
@@ -132,9 +132,9 @@ static Standard_Integer sweep(Draw_Interpretor& di, Standard_Integer n, const ch
 
   if (n >= isection + 2)
   {
-    MaxDegree = Draw::Atoi(a[isection + 1]);
+    MaxDegree = Draw1::Atoi(a[isection + 1]);
     if (n > isection + 2)
-      NbSeg = Draw::Atoi(a[isection + 2]);
+      NbSeg = Draw1::Atoi(a[isection + 2]);
   }
 
   Pipe.Perform(Tol, Standard_False, GeomAbs_C2, MaxDegree, NbSeg);
@@ -148,13 +148,13 @@ static Standard_Integer sweep(Draw_Interpretor& di, Standard_Integer n, const ch
   Standard_Real Accuracy = Pipe.ErrorOnSurf();
   di << "Accuracy of approximation = " << Accuracy << "\n";
 
-  DrawTrSurf::Set(a[1], Pipe.Surface());
+  DrawTrSurf1::Set(a[1], Pipe.Surface());
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer tuyau(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer tuyau(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
@@ -171,18 +171,18 @@ static Standard_Integer tuyau(Draw_Interpretor& di, Standard_Integer n, const ch
     indice_path++;
     narg--;
   }
-  Handle(Geom_Curve) path = DrawTrSurf::GetCurve(a[indice_path]);
+  Handle(GeomCurve3d) path = DrawTrSurf1::GetCurve(a[indice_path]);
   if (path.IsNull())
     return 1;
 
   Standard_Integer   isect  = indice_path + 1;
-  Handle(Geom_Curve) firstS = DrawTrSurf::GetCurve(a[isect]);
+  Handle(GeomCurve3d) firstS = DrawTrSurf1::GetCurve(a[isect]);
   if (firstS.IsNull())
   {
     if (narg == 4)
     {
       // tuyau a rayon constant.
-      Pipe.Init(path, Draw::Atof(a[isect]));
+      Pipe.Init(path, Draw1::Atof(a[isect]));
     }
     else
       return 1;
@@ -199,24 +199,24 @@ static Standard_Integer tuyau(Draw_Interpretor& di, Standard_Integer n, const ch
       if (narg == 5 && !Option_NS)
       {
         // tuyau a section evolutive
-        Handle(Geom_Curve) lastS = DrawTrSurf::GetCurve(a[isect + 1]);
+        Handle(GeomCurve3d) lastS = DrawTrSurf1::GetCurve(a[isect + 1]);
         Cont                     = GeomAbs_C2;
         Pipe.Init(path, firstS, lastS);
       }
       else
       {
-        if (narg == 6 && !Option_NS && Draw::Atof(a[5]) != 0)
+        if (narg == 6 && !Option_NS && Draw1::Atof(a[5]) != 0)
         {
-          Handle(Geom_Curve) lastS = DrawTrSurf::GetCurve(a[isect + 1]);
+          Handle(GeomCurve3d) lastS = DrawTrSurf1::GetCurve(a[isect + 1]);
           Cont                     = GeomAbs_C2;
-          Pipe                     = GeomFill_Pipe(path, firstS, lastS, Draw::Atof(a[5]));
+          Pipe                     = GeomFill_Pipe(path, firstS, lastS, Draw1::Atof(a[5]));
           Pipe.Perform(Standard_True);
-          Handle(Geom_Surface) aSurface;
+          Handle(GeomSurface) aSurface;
           if (Pipe.IsDone())
           {
             aSurface = Pipe.Surface();
           }
-          DrawTrSurf::Set(a[1], aSurface);
+          DrawTrSurf1::Set(a[1], aSurface);
           return 0;
         }
         // tuyau a N sections, N>=2
@@ -225,7 +225,7 @@ static Standard_Integer tuyau(Draw_Interpretor& di, Standard_Integer n, const ch
         Seq.Append(firstS);
         for (Standard_Integer i = isect + 1; i < n; i++)
         {
-          Handle(Geom_Curve) nextS = DrawTrSurf::GetCurve(a[i]);
+          Handle(GeomCurve3d) nextS = DrawTrSurf1::GetCurve(a[i]);
           Seq.Append(nextS);
         }
         Cont = GeomAbs_C2;
@@ -244,52 +244,52 @@ static Standard_Integer tuyau(Draw_Interpretor& di, Standard_Integer n, const ch
   Standard_Real Accuracy = Pipe.ErrorOnSurf();
   di << "Accuracy of approximation = " << Accuracy << "\n";
 
-  DrawTrSurf::Set(a[indice_path - 1], Pipe.Surface());
+  DrawTrSurf1::Set(a[indice_path - 1], Pipe.Surface());
 
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer ruled(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer ruled(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
 
-  Handle(Geom_Curve) C1 = DrawTrSurf::GetCurve(a[2]);
+  Handle(GeomCurve3d) C1 = DrawTrSurf1::GetCurve(a[2]);
   if (C1.IsNull())
   {
     di << " C1 is not a Curve ==> Command failed\n";
     return 1;
   }
-  Handle(Geom_Curve) C2 = DrawTrSurf::GetCurve(a[3]);
+  Handle(GeomCurve3d) C2 = DrawTrSurf1::GetCurve(a[3]);
   if (C2.IsNull())
   {
     di << " C2 is not a Curve ==> Command failed\n";
     return 1;
   }
 
-  Handle(Geom_Surface) S = GeomFill::Surface(C1, C2);
+  Handle(GeomSurface) S = GeomFill::Surface(C1, C2);
   if (S.IsNull())
     return 1;
 
-  DrawTrSurf::Set(a[1], S);
+  DrawTrSurf1::Set(a[1], S);
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer appsurf(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer appsurf(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
 
   GeomFill_SectionGenerator Section;
   Standard_Integer          i;
-  Handle(Geom_Curve)        C;
+  Handle(GeomCurve3d)        C;
   for (i = 2; i < n; i++)
   {
-    C = DrawTrSurf::GetCurve(a[i]);
+    C = DrawTrSurf1::GetCurve(a[i]);
     if (C.IsNull())
       return 1;
     Section.AddCurve(C);
@@ -320,21 +320,21 @@ static Standard_Integer appsurf(Draw_Interpretor& di, Standard_Integer n, const 
                                                             App.UDegree(),
                                                             App.VDegree());
 
-  DrawTrSurf::Set(a[1], GBS);
+  DrawTrSurf1::Set(a[1], GBS);
   return 0;
 }
 
-static Standard_Integer fillcurves(Draw_Interpretor& /*di*/, Standard_Integer n, const char** a)
+static Standard_Integer fillcurves(DrawInterpreter& /*di*/, Standard_Integer n, const char** a)
 {
   if (n < 6)
     return 1;
 
   Standard_Integer          i;
-  Handle(Geom_Curve)        aC;
-  Handle(Geom_BSplineCurve) C[4];
+  Handle(GeomCurve3d)        aC;
+  Handle(BSplineCurve3d) C[4];
   for (i = 2; i < 6; i++)
   {
-    aC = DrawTrSurf::GetCurve(a[i]);
+    aC = DrawTrSurf1::GetCurve(a[i]);
     if (aC.IsNull())
       return 1;
     C[i - 2] = GeomConvert::CurveToBSplineCurve(aC, Convert_RationalC1);
@@ -343,7 +343,7 @@ static Standard_Integer fillcurves(Draw_Interpretor& /*di*/, Standard_Integer n,
   Standard_Integer      ist   = 2;
   GeomFill_FillingStyle Style = GeomFill_CoonsStyle;
   if (n > 6)
-    ist = Draw::Atoi(a[6]);
+    ist = Draw1::Atoi(a[6]);
 
   if (ist == 1)
     Style = GeomFill_StretchStyle;
@@ -355,7 +355,7 @@ static Standard_Integer fillcurves(Draw_Interpretor& /*di*/, Standard_Integer n,
   GeomFill_BSplineCurves aFilling(C[0], C[1], C[2], C[3], Style);
 
   const Handle(Geom_BSplineSurface)& GBS = aFilling.Surface();
-  DrawTrSurf::Set(a[1], GBS);
+  DrawTrSurf1::Set(a[1], GBS);
   return 0;
 }
 
@@ -363,7 +363,7 @@ static Standard_Integer fillcurves(Draw_Interpretor& /*di*/, Standard_Integer n,
 // function : GetSurfaceContinuity
 // purpose  : Returns the continuity of the given surface
 //=======================================================================
-static Standard_Integer GetSurfaceContinuity(Draw_Interpretor& theDI,
+static Standard_Integer GetSurfaceContinuity(DrawInterpreter& theDI,
                                              Standard_Integer  theNArg,
                                              const char**      theArgv)
 {
@@ -373,7 +373,7 @@ static Standard_Integer GetSurfaceContinuity(Draw_Interpretor& theDI,
     return 1;
   }
 
-  Handle(Geom_Surface) GS1 = DrawTrSurf::GetSurface(theArgv[1]);
+  Handle(GeomSurface) GS1 = DrawTrSurf1::GetSurface(theArgv[1]);
   if (GS1.IsNull())
   {
     theDI << "Argument is not a surface!\n";
@@ -395,14 +395,14 @@ static Standard_Integer GetSurfaceContinuity(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-void GeometryTest::SurfaceCommands(Draw_Interpretor& theCommands)
+void GeometryTest::SurfaceCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean loaded = Standard_False;
   if (loaded)
     return;
   loaded = Standard_True;
 
-  DrawTrSurf::BasicCommands(theCommands);
+  DrawTrSurf1::BasicCommands(theCommands);
 
   const char* g;
 

@@ -29,9 +29,9 @@
 
 //=================================================================================================
 
-Standard_Boolean DDF::AddLabel
+Standard_Boolean DDF1::AddLabel
 
-  (const Handle(TDF_Data)& DF, const Standard_CString Entry, TDF_Label& Label)
+  (const Handle(TDF_Data)& DF, const Standard_CString Entry, DataLabel& Label)
 {
   TDF_Tool::Label(DF, Entry, Label, Standard_True);
   return Standard_True;
@@ -39,9 +39,9 @@ Standard_Boolean DDF::AddLabel
 
 //=================================================================================================
 
-Standard_Boolean DDF::FindLabel(const Handle(TDF_Data)& DF,
+Standard_Boolean DDF1::FindLabel(const Handle(TDF_Data)& DF,
                                 const Standard_CString  Entry,
-                                TDF_Label&              Label,
+                                DataLabel&              Label,
                                 const Standard_Boolean  Complain)
 {
   Label.Nullify();
@@ -53,16 +53,16 @@ Standard_Boolean DDF::FindLabel(const Handle(TDF_Data)& DF,
 
 //=================================================================================================
 
-Standard_Boolean DDF::GetDF(Standard_CString&      Name,
+Standard_Boolean DDF1::GetDF(Standard_CString&      Name,
                             Handle(TDF_Data)&      DF,
                             const Standard_Boolean Complain)
 {
-  Handle(RefObject) t   = Draw::Get(Name);
-  Handle(DDF_Data)           DDF = Handle(DDF_Data)::DownCast(t);
-  // Handle(DDF_Data) DDF = Handle(DDF_Data)::DownCast (Draw::Get(Name, Complain));
-  if (!DDF.IsNull())
+  Handle(RefObject) t   = Draw1::Get(Name);
+  Handle(DDF_Data)           DDF1 = Handle(DDF_Data)::DownCast(t);
+  // Handle(DDF_Data) DDF1 = Handle(DDF_Data)::DownCast (Draw1::Get(Name, Complain));
+  if (!DDF1.IsNull())
   {
-    DF = DDF->DataFramework();
+    DF = DDF1->DataFramework();
     return Standard_True;
   }
   if (Complain)
@@ -75,13 +75,13 @@ Standard_Boolean DDF::GetDF(Standard_CString&      Name,
 // purpose  : Finds an attribute.
 //=======================================================================
 
-Standard_Boolean DDF::Find(const Handle(TDF_Data)& DF,
+Standard_Boolean DDF1::Find(const Handle(TDF_Data)& DF,
                            const Standard_CString  Entry,
                            const Standard_GUID&    ID,
                            Handle(TDF_Attribute)&  A,
                            const Standard_Boolean  Complain)
 {
-  TDF_Label L;
+  DataLabel L;
   if (FindLabel(DF, Entry, L, Complain))
   {
     if (L.FindAttribute(ID, A))
@@ -94,9 +94,9 @@ Standard_Boolean DDF::Find(const Handle(TDF_Data)& DF,
 
 //=================================================================================================
 
-Draw_Interpretor& DDF::ReturnLabel(Draw_Interpretor& di, const TDF_Label& L)
+DrawInterpreter& DDF1::ReturnLabel(DrawInterpreter& di, const DataLabel& L)
 {
-  TCollection_AsciiString S;
+  AsciiString1 S;
   TDF_Tool::Entry(L, S);
   di << S.ToCString();
   return di;
@@ -104,18 +104,18 @@ Draw_Interpretor& DDF::ReturnLabel(Draw_Interpretor& di, const TDF_Label& L)
 
 //=================================================================================================
 
-void DDF::AllCommands(Draw_Interpretor& theCommands)
+void DDF1::AllCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
 
-  DDF::BasicCommands(theCommands);
-  DDF::DataCommands(theCommands);
-  DDF::TransactionCommands(theCommands);
-  DDF::BrowserCommands(theCommands);
-  // define the TCL variable DDF
-  const char* com = "set DDF";
+  DDF1::BasicCommands(theCommands);
+  DDF1::DataCommands(theCommands);
+  DDF1::TransactionCommands(theCommands);
+  DDF1::BrowserCommands(theCommands);
+  // define the TCL variable DDF1
+  const char* com = "set DDF1";
   theCommands.Eval(com);
 }

@@ -133,8 +133,8 @@ public:
 
 protected:
 private:
-  TopExp_Explorer                       myVIterator;
-  TopoDS_Face                           myFace;
+  ShapeExplorer                       myVIterator;
+  TopoFace                           myFace;
   Standard_Address                      myFClass2d;
   Handle(BRepAdaptor_Curve2d)           myCurve;
   TColStd_ListOfTransient               myCurves;

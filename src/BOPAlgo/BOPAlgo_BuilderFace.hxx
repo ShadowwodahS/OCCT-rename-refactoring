@@ -44,10 +44,10 @@ public:
   Standard_EXPORT BOPAlgo_BuilderFace(const Handle(NCollection_BaseAllocator)& theAllocator);
 
   //! Sets the face generatix
-  Standard_EXPORT void SetFace(const TopoDS_Face& theFace);
+  Standard_EXPORT void SetFace(const TopoFace& theFace);
 
   //! Returns the face generatix
-  Standard_EXPORT const TopoDS_Face& Face() const;
+  Standard_EXPORT const TopoFace& Face() const;
 
   //! Performs the algorithm
   Standard_EXPORT virtual void Perform(
@@ -81,7 +81,7 @@ protected:
   Standard_EXPORT virtual void CheckData() Standard_OVERRIDE;
 
 protected:
-  TopoDS_Face        myFace;
+  TopoFace        myFace;
   TopAbs_Orientation myOrientation;
 };
 

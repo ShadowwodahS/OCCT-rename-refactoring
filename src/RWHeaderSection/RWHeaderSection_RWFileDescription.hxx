@@ -28,12 +28,12 @@ class HeaderSection_FileDescription;
 class StepData_StepWriter;
 
 //! Read & Write Module for FileDescription
-class RWHeaderSection_RWFileDescription
+class FileDescriptionWriter
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT RWHeaderSection_RWFileDescription();
+  Standard_EXPORT FileDescriptionWriter();
 
   Standard_EXPORT void ReadStep(const Handle(StepData_StepReaderData)&       data,
                                 const Standard_Integer                       num,

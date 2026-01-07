@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& HLRTopoBRep_FaceData::FaceIntL() const
+inline const ShapeList& HLRTopoBRep_FaceData::FaceIntL() const
 {
   return myIntL;
 }
@@ -29,7 +29,7 @@ inline const TopTools_ListOfShape& HLRTopoBRep_FaceData::FaceIntL() const
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& HLRTopoBRep_FaceData::FaceOutL() const
+inline const ShapeList& HLRTopoBRep_FaceData::FaceOutL() const
 {
   return myOutL;
 }
@@ -39,7 +39,7 @@ inline const TopTools_ListOfShape& HLRTopoBRep_FaceData::FaceOutL() const
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& HLRTopoBRep_FaceData::FaceIsoL() const
+inline const ShapeList& HLRTopoBRep_FaceData::FaceIsoL() const
 {
   return myIsoL;
 }
@@ -49,7 +49,7 @@ inline const TopTools_ListOfShape& HLRTopoBRep_FaceData::FaceIsoL() const
 // purpose  :
 //=======================================================================
 
-inline TopTools_ListOfShape& HLRTopoBRep_FaceData::AddIntL()
+inline ShapeList& HLRTopoBRep_FaceData::AddIntL()
 {
   return myIntL;
 }
@@ -59,7 +59,7 @@ inline TopTools_ListOfShape& HLRTopoBRep_FaceData::AddIntL()
 // purpose  :
 //=======================================================================
 
-inline TopTools_ListOfShape& HLRTopoBRep_FaceData::AddOutL()
+inline ShapeList& HLRTopoBRep_FaceData::AddOutL()
 {
   return myOutL;
 }
@@ -69,7 +69,7 @@ inline TopTools_ListOfShape& HLRTopoBRep_FaceData::AddOutL()
 // purpose  :
 //=======================================================================
 
-inline TopTools_ListOfShape& HLRTopoBRep_FaceData::AddIsoL()
+inline ShapeList& HLRTopoBRep_FaceData::AddIsoL()
 {
   return myIsoL;
 }

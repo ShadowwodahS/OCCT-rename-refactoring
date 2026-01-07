@@ -20,7 +20,7 @@
 #include <gp_Pnt.hxx>
 #include <gp_Vec.hxx>
 
-void GeomLProp_SurfaceTool::Value(const Handle(Geom_Surface)& S,
+void SurfaceTool1::Value(const Handle(GeomSurface)& S,
                                   const Standard_Real         U,
                                   const Standard_Real         V,
                                   Point3d&                     P)
@@ -28,7 +28,7 @@ void GeomLProp_SurfaceTool::Value(const Handle(Geom_Surface)& S,
   P = S->Value(U, V);
 }
 
-void GeomLProp_SurfaceTool::D1(const Handle(Geom_Surface)& S,
+void SurfaceTool1::D1(const Handle(GeomSurface)& S,
                                const Standard_Real         U,
                                const Standard_Real         V,
                                Point3d&                     P,
@@ -38,7 +38,7 @@ void GeomLProp_SurfaceTool::D1(const Handle(Geom_Surface)& S,
   S->D1(U, V, P, D1U, D1V);
 }
 
-void GeomLProp_SurfaceTool::D2(const Handle(Geom_Surface)& S,
+void SurfaceTool1::D2(const Handle(GeomSurface)& S,
                                const Standard_Real         U,
                                const Standard_Real         V,
                                Point3d&                     P,
@@ -53,7 +53,7 @@ void GeomLProp_SurfaceTool::D2(const Handle(Geom_Surface)& S,
 
 //=================================================================================================
 
-Vector3d GeomLProp_SurfaceTool::DN(const Handle(Geom_Surface)& S,
+Vector3d SurfaceTool1::DN(const Handle(GeomSurface)& S,
                                  const Standard_Real         U,
                                  const Standard_Real         V,
                                  const Standard_Integer      IU,
@@ -62,7 +62,7 @@ Vector3d GeomLProp_SurfaceTool::DN(const Handle(Geom_Surface)& S,
   return S->DN(U, V, IU, IV);
 }
 
-Standard_Integer GeomLProp_SurfaceTool::Continuity(const Handle(Geom_Surface)& S)
+Standard_Integer SurfaceTool1::Continuity(const Handle(GeomSurface)& S)
 {
   GeomAbs_Shape s = S->Continuity();
   switch (s)
@@ -85,7 +85,7 @@ Standard_Integer GeomLProp_SurfaceTool::Continuity(const Handle(Geom_Surface)& S
   return 0;
 }
 
-void GeomLProp_SurfaceTool::Bounds(const Handle(Geom_Surface)& S,
+void SurfaceTool1::Bounds(const Handle(GeomSurface)& S,
                                    Standard_Real&              U1,
                                    Standard_Real&              V1,
                                    Standard_Real&              U2,

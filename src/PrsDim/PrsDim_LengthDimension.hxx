@@ -53,13 +53,13 @@ public:
   //! Here dimension can be built without user-defined plane.
   //! @param[in] theFace  the face (first shape).
   //! @param[in] theEdge  the edge (second shape).
-  Standard_EXPORT PrsDim_LengthDimension(const TopoDS_Face& theFace, const TopoDS_Edge& theEdge);
+  Standard_EXPORT PrsDim_LengthDimension(const TopoFace& theFace, const TopoEdge& theEdge);
 
   //! Construct length dimension between two faces.
   //! @param[in] theFirstFace  the first face (first shape).
   //! @param[in] theSecondFace  the second face (second shape).
-  Standard_EXPORT PrsDim_LengthDimension(const TopoDS_Face& theFirstFace,
-                                         const TopoDS_Face& theSecondFace);
+  Standard_EXPORT PrsDim_LengthDimension(const TopoFace& theFirstFace,
+                                         const TopoFace& theSecondFace);
 
   //! Construct length dimension between two points in
   //! the specified plane.
@@ -75,14 +75,14 @@ public:
   //! @param[in] theFirstShape  the first shape.
   //! @param[in] theSecondShape  the second shape.
   //! @param[in] thePlane  the plane to orient dimension.
-  Standard_EXPORT PrsDim_LengthDimension(const TopoDS_Shape& theFirstShape,
-                                         const TopoDS_Shape& theSecondShape,
+  Standard_EXPORT PrsDim_LengthDimension(const TopoShape& theFirstShape,
+                                         const TopoShape& theSecondShape,
                                          const gp_Pln&       thePlane);
 
   //! Construct length dimension of linear edge.
   //! @param[in] theEdge  the edge to measure.
   //! @param[in] thePlane  the plane to orient dimension.
-  Standard_EXPORT PrsDim_LengthDimension(const TopoDS_Edge& theEdge, const gp_Pln& thePlane);
+  Standard_EXPORT PrsDim_LengthDimension(const TopoEdge& theEdge, const gp_Pln& thePlane);
 
 public:
   //! @return first attachment point.
@@ -92,10 +92,10 @@ public:
   const Point3d& SecondPoint() const { return mySecondPoint; }
 
   //! @return first attachment shape.
-  const TopoDS_Shape& FirstShape() const { return myFirstShape; }
+  const TopoShape& FirstShape() const { return myFirstShape; }
 
   //! @return second attachment shape.
-  const TopoDS_Shape& SecondShape() const { return mySecondShape; }
+  const TopoShape& SecondShape() const { return mySecondShape; }
 
 public:
   //! Measure distance between two points.
@@ -113,40 +113,40 @@ public:
   //! is less than Precision::Confusion().
   //! @param[in] theEdge  the edge to measure.
   //! @param[in] thePlane  the user-defined plane
-  Standard_EXPORT void SetMeasuredGeometry(const TopoDS_Edge& theEdge, const gp_Pln& thePlane);
+  Standard_EXPORT void SetMeasuredGeometry(const TopoEdge& theEdge, const gp_Pln& thePlane);
 
   //! Measure distance between two faces.
   //! The dimension will become invalid if the distance can not
   //! be measured or it is less than Precision::Confusion().
   //! @param[in] theFirstFace  the first face (first shape).
   //! @param[in] theSecondFace  the second face (second shape).
-  Standard_EXPORT void SetMeasuredGeometry(const TopoDS_Face& theFirstFace,
-                                           const TopoDS_Face& theSecondFace);
+  Standard_EXPORT void SetMeasuredGeometry(const TopoFace& theFirstFace,
+                                           const TopoFace& theSecondFace);
 
   //! Measure distance between face and edge.
   //! The dimension will become invalid if the distance can not
   //! be measured or it is less than Precision::Confusion().
   //! @param[in] theFace  the face (first shape).
   //! @param[in] theEdge  the edge (second shape).
-  Standard_EXPORT void SetMeasuredGeometry(const TopoDS_Face& theFace, const TopoDS_Edge& theEdge);
+  Standard_EXPORT void SetMeasuredGeometry(const TopoFace& theFace, const TopoEdge& theEdge);
 
   //! Measure distance between generic pair of shapes (edges, vertices, length),
   //! where measuring is applicable.
   //! @param[in] theFirstShape  the first shape.
   //! @param[in] theSecondShape  the second shape.
-  Standard_EXPORT void SetMeasuredShapes(const TopoDS_Shape& theFirstShape,
-                                         const TopoDS_Shape& theSecondShape);
+  Standard_EXPORT void SetMeasuredShapes(const TopoShape& theFirstShape,
+                                         const TopoShape& theSecondShape);
 
   //! @return the display units string.
-  Standard_EXPORT virtual const TCollection_AsciiString& GetDisplayUnits() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const AsciiString1& GetDisplayUnits() const Standard_OVERRIDE;
 
   //! @return the model units string.
-  Standard_EXPORT virtual const TCollection_AsciiString& GetModelUnits() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const AsciiString1& GetModelUnits() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void SetDisplayUnits(const TCollection_AsciiString& theUnits)
+  Standard_EXPORT virtual void SetDisplayUnits(const AsciiString1& theUnits)
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void SetModelUnits(const TCollection_AsciiString& theUnits)
+  Standard_EXPORT virtual void SetModelUnits(const AsciiString1& theUnits)
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual void SetTextPosition(const Point3d& theTextPos) Standard_OVERRIDE;
@@ -191,7 +191,7 @@ protected:
                                                        Point3d& theLineEndPoint) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void ComputeFlyoutSelection(
-    const Handle(SelectMgr_Selection)&   theSelection,
+    const Handle(SelectionContainer)&   theSelection,
     const Handle(SelectMgr_EntityOwner)& theEntityOwner) Standard_OVERRIDE;
 
 protected:
@@ -201,16 +201,16 @@ protected:
   Standard_EXPORT Standard_Boolean IsValidPoints(const Point3d& theFirstPoint,
                                                  const Point3d& theSecondPoint) const;
 
-  Standard_EXPORT Standard_Boolean InitTwoEdgesLength(const TopoDS_Edge& theFirstEdge,
-                                                      const TopoDS_Edge& theSecondEdge,
+  Standard_EXPORT Standard_Boolean InitTwoEdgesLength(const TopoEdge& theFirstEdge,
+                                                      const TopoEdge& theSecondEdge,
                                                       Dir3d&            theEdgeDir);
 
   //! Auxiliary method for InitTwoShapesPoints()
   //! in case of the distance between edge and vertex.
   //! Finds the point on the edge that is the closest one to <theVertex>.
   //! @param[out] theEdgeDir  is the direction on the edge to build automatic plane.
-  Standard_EXPORT Standard_Boolean InitEdgeVertexLength(const TopoDS_Edge&   theEdge,
-                                                        const TopoDS_Vertex& theVertex,
+  Standard_EXPORT Standard_Boolean InitEdgeVertexLength(const TopoEdge&   theEdge,
+                                                        const TopoVertex& theVertex,
                                                         Dir3d&              theEdgeDir,
                                                         Standard_Boolean     isInfinite);
 
@@ -221,24 +221,24 @@ protected:
   //! Iterate over the edges of the face and find the closest point according
   //! to found point on edge.
   //! @param[out] theEdgeDir  is the direction on the edge to build automatic plane.
-  Standard_EXPORT Standard_Boolean InitEdgeFaceLength(const TopoDS_Edge& theEdge,
-                                                      const TopoDS_Face& theFace,
+  Standard_EXPORT Standard_Boolean InitEdgeFaceLength(const TopoEdge& theEdge,
+                                                      const TopoFace& theFace,
                                                       Dir3d&            theEdgeDir);
 
   //! Initialization of two attach points in case of two owner shapes.
-  Standard_EXPORT Standard_Boolean InitTwoShapesPoints(const TopoDS_Shape& theFirstShape,
-                                                       const TopoDS_Shape& theSecondShape,
+  Standard_EXPORT Standard_Boolean InitTwoShapesPoints(const TopoShape& theFirstShape,
+                                                       const TopoShape& theSecondShape,
                                                        gp_Pln&             theComputedPlane,
                                                        Standard_Boolean&   theIsPlaneComputed);
 
   //! Initialization of two attach points in case of one owner shape.
-  Standard_EXPORT Standard_Boolean InitOneShapePoints(const TopoDS_Shape& theShape);
+  Standard_EXPORT Standard_Boolean InitOneShapePoints(const TopoShape& theShape);
 
 protected:
   Point3d           myFirstPoint;
   Point3d           mySecondPoint;
-  TopoDS_Shape     myFirstShape;
-  TopoDS_Shape     mySecondShape;
+  TopoShape     myFirstShape;
+  TopoShape     mySecondShape;
   Dir3d           myDirection;
   Standard_Boolean myHasCustomDirection;
 };

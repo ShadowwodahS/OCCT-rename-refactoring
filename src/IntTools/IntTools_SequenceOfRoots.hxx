@@ -19,6 +19,6 @@
 #include <IntTools_Root.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<IntTools_Root> IntTools_SequenceOfRoots;
+typedef NCollection_Sequence<IntersectionRoot> IntTools_SequenceOfRoots;
 
 #endif

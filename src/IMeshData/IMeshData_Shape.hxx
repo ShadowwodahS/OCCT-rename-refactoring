@@ -18,9 +18,9 @@
 
 #include <TopoDS_Shape.hxx>
 
-//! Interface class representing model with associated TopoDS_Shape.
+//! Interface class representing model with associated TopoShape.
 //! Intended for inheritance by structures and algorithms keeping
-//! reference TopoDS_Shape.
+//! reference TopoShape.
 class IMeshData_Shape : public RefObject
 {
 public:
@@ -28,10 +28,10 @@ public:
   virtual ~IMeshData_Shape() {}
 
   //! Assigns shape to discrete shape.
-  void SetShape(const TopoDS_Shape& theShape) { myShape = theShape; }
+  void SetShape(const TopoShape& theShape) { myShape = theShape; }
 
   //! Returns shape assigned to discrete shape.
-  const TopoDS_Shape& GetShape() const { return myShape; }
+  const TopoShape& GetShape() const { return myShape; }
 
   DEFINE_STANDARD_RTTIEXT(IMeshData_Shape, RefObject)
 
@@ -40,13 +40,13 @@ protected:
   IMeshData_Shape() {}
 
   //! Constructor.
-  IMeshData_Shape(const TopoDS_Shape& theShape)
+  IMeshData_Shape(const TopoShape& theShape)
       : myShape(theShape)
   {
   }
 
 private:
-  TopoDS_Shape myShape;
+  TopoShape myShape;
 };
 
 #endif

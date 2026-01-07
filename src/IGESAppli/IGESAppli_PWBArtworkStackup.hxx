@@ -28,7 +28,7 @@ class IGESAppli_PWBArtworkStackup;
 DEFINE_STANDARD_HANDLE(IGESAppli_PWBArtworkStackup, IGESData_IGESEntity)
 
 //! defines PWBArtworkStackup, Type <406> Form <25>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Used to communicate which exchange file levels are to
 //! be combined in order to create the artwork for a
 //! printed wire board (PWB). This property should be

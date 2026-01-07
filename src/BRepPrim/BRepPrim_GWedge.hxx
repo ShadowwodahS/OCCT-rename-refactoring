@@ -161,13 +161,13 @@ public:
   Standard_EXPORT Standard_Boolean IsInfinite(const BRepPrim_Direction d1) const;
 
   //! Returns the Shell containing the Faces of <me>.
-  Standard_EXPORT const TopoDS_Shell& Shell();
+  Standard_EXPORT const TopoShell& Shell();
 
   //! Returns True if <me> has a Face in <d1> direction.
   Standard_EXPORT Standard_Boolean HasFace(const BRepPrim_Direction d1) const;
 
   //! Returns the Face of <me> located in <d1> direction.
-  Standard_EXPORT const TopoDS_Face& Face(const BRepPrim_Direction d1);
+  Standard_EXPORT const TopoFace& Face(const BRepPrim_Direction d1);
 
   //! Returns the plane of the Face of <me> located in
   //! <d1> direction.
@@ -177,14 +177,14 @@ public:
   Standard_EXPORT Standard_Boolean HasWire(const BRepPrim_Direction d1) const;
 
   //! Returns the Wire of <me> located in <d1> direction.
-  Standard_EXPORT const TopoDS_Wire& Wire(const BRepPrim_Direction d1);
+  Standard_EXPORT const TopoWire& Wire(const BRepPrim_Direction d1);
 
   //! Returns True if <me> has an Edge in <d1><d2> direction.
   Standard_EXPORT Standard_Boolean HasEdge(const BRepPrim_Direction d1,
                                            const BRepPrim_Direction d2) const;
 
   //! Returns the Edge of <me> located in <d1><d2> direction.
-  Standard_EXPORT const TopoDS_Edge& Edge(const BRepPrim_Direction d1, const BRepPrim_Direction d2);
+  Standard_EXPORT const TopoEdge& Edge(const BRepPrim_Direction d1, const BRepPrim_Direction d2);
 
   //! Returns the line of the Edge of <me> located in
   //! <d1><d2> direction.
@@ -198,7 +198,7 @@ public:
 
   //! Returns the Vertex of <me> located in <d1><d2><d3>
   //! direction.
-  Standard_EXPORT const TopoDS_Vertex& Vertex(const BRepPrim_Direction d1,
+  Standard_EXPORT const TopoVertex& Vertex(const BRepPrim_Direction d1,
                                               const BRepPrim_Direction d2,
                                               const BRepPrim_Direction d3);
 
@@ -226,15 +226,15 @@ private:
   Standard_Real    Z2Max;
   Standard_Real    X2Min;
   Standard_Real    X2Max;
-  TopoDS_Shell     myShell;
+  TopoShell     myShell;
   Standard_Boolean ShellBuilt;
-  TopoDS_Vertex    myVertices[8];
+  TopoVertex    myVertices[8];
   Standard_Boolean VerticesBuilt[8];
-  TopoDS_Edge      myEdges[12];
+  TopoEdge      myEdges[12];
   Standard_Boolean EdgesBuilt[12];
-  TopoDS_Wire      myWires[6];
+  TopoWire      myWires[6];
   Standard_Boolean WiresBuilt[6];
-  TopoDS_Face      myFaces[6];
+  TopoFace      myFaces[6];
   Standard_Boolean FacesBuilt[6];
   Standard_Boolean myInfinite[6];
 };

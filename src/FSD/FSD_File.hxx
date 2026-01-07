@@ -20,8 +20,8 @@
 #include <FSD_FStream.hxx>
 #include <Storage_BaseDriver.hxx>
 
-class TCollection_AsciiString;
-class TCollection_ExtendedString;
+class AsciiString1;
+class UtfString;
 
 DEFINE_STANDARD_HANDLE(FSD_File, Storage_BaseDriver)
 
@@ -44,7 +44,7 @@ public:
   //! The function returns Storage_VSOk if the file
   //! is opened correctly, or any other value of the
   //! Storage_Error enumeration which specifies the problem encountered.
-  Standard_EXPORT virtual Storage_Error Open(const TCollection_AsciiString& aName,
+  Standard_EXPORT virtual Storage_Error Open(const AsciiString1& aName,
                                              const Storage_OpenMode aMode) Standard_OVERRIDE;
 
   Standard_EXPORT virtual Standard_Boolean IsEnd() Standard_OVERRIDE;
@@ -52,18 +52,18 @@ public:
   //! return position in the file. Return -1 upon error.
   Standard_EXPORT virtual Storage_Position Tell() Standard_OVERRIDE;
 
-  Standard_EXPORT static Storage_Error IsGoodFileType(const TCollection_AsciiString& aName);
+  Standard_EXPORT static Storage_Error IsGoodFileType(const AsciiString1& aName);
 
   Standard_EXPORT virtual Storage_Error BeginWriteInfoSection() Standard_OVERRIDE;
 
   Standard_EXPORT virtual void WriteInfo(const Standard_Integer               nbObj,
-                                         const TCollection_AsciiString&       dbVersion,
-                                         const TCollection_AsciiString&       date,
-                                         const TCollection_AsciiString&       schemaName,
-                                         const TCollection_AsciiString&       schemaVersion,
-                                         const TCollection_ExtendedString&    appName,
-                                         const TCollection_AsciiString&       appVersion,
-                                         const TCollection_ExtendedString&    objectType,
+                                         const AsciiString1&       dbVersion,
+                                         const AsciiString1&       date,
+                                         const AsciiString1&       schemaName,
+                                         const AsciiString1&       schemaVersion,
+                                         const UtfString&    appName,
+                                         const AsciiString1&       appVersion,
+                                         const UtfString&    objectType,
                                          const TColStd_SequenceOfAsciiString& userInfo)
     Standard_OVERRIDE;
 
@@ -72,13 +72,13 @@ public:
   Standard_EXPORT virtual Storage_Error BeginReadInfoSection() Standard_OVERRIDE;
 
   Standard_EXPORT virtual void ReadInfo(Standard_Integer&              nbObj,
-                                        TCollection_AsciiString&       dbVersion,
-                                        TCollection_AsciiString&       date,
-                                        TCollection_AsciiString&       schemaName,
-                                        TCollection_AsciiString&       schemaVersion,
-                                        TCollection_ExtendedString&    appName,
-                                        TCollection_AsciiString&       appVersion,
-                                        TCollection_ExtendedString&    objectType,
+                                        AsciiString1&       dbVersion,
+                                        AsciiString1&       date,
+                                        AsciiString1&       schemaName,
+                                        AsciiString1&       schemaVersion,
+                                        UtfString&    appName,
+                                        AsciiString1&       appVersion,
+                                        UtfString&    objectType,
                                         TColStd_SequenceOfAsciiString& userInfo) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void ReadCompleteInfo(Standard_IStream&     theIStream,
@@ -105,7 +105,7 @@ public:
   Standard_EXPORT virtual void SetTypeSectionSize(const Standard_Integer aSize) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void WriteTypeInformations(const Standard_Integer         typeNum,
-                                                     const TCollection_AsciiString& typeName)
+                                                     const AsciiString1& typeName)
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual Storage_Error EndWriteTypeSection() Standard_OVERRIDE;
@@ -115,7 +115,7 @@ public:
   Standard_EXPORT virtual Standard_Integer TypeSectionSize() Standard_OVERRIDE;
 
   Standard_EXPORT virtual void ReadTypeInformations(Standard_Integer&        typeNum,
-                                                    TCollection_AsciiString& typeName)
+                                                    AsciiString1& typeName)
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual Storage_Error EndReadTypeSection() Standard_OVERRIDE;
@@ -124,9 +124,9 @@ public:
 
   Standard_EXPORT virtual void SetRootSectionSize(const Standard_Integer aSize) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void WriteRoot(const TCollection_AsciiString& rootName,
+  Standard_EXPORT virtual void WriteRoot(const AsciiString1& rootName,
                                          const Standard_Integer         aRef,
-                                         const TCollection_AsciiString& aType) Standard_OVERRIDE;
+                                         const AsciiString1& aType) Standard_OVERRIDE;
 
   Standard_EXPORT virtual Storage_Error EndWriteRootSection() Standard_OVERRIDE;
 
@@ -134,9 +134,9 @@ public:
 
   Standard_EXPORT virtual Standard_Integer RootSectionSize() Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ReadRoot(TCollection_AsciiString& rootName,
+  Standard_EXPORT virtual void ReadRoot(AsciiString1& rootName,
                                         Standard_Integer&        aRef,
-                                        TCollection_AsciiString& aType) Standard_OVERRIDE;
+                                        AsciiString1& aType) Standard_OVERRIDE;
 
   Standard_EXPORT virtual Storage_Error EndReadRootSection() Standard_OVERRIDE;
 
@@ -247,22 +247,22 @@ public:
 
 protected:
   //! read from the current position to the end of line.
-  Standard_EXPORT virtual void ReadLine(TCollection_AsciiString& buffer);
+  Standard_EXPORT virtual void ReadLine(AsciiString1& buffer);
 
   //! read from the current position to the next white space or end of line.
-  Standard_EXPORT virtual void ReadWord(TCollection_AsciiString& buffer);
+  Standard_EXPORT virtual void ReadWord(AsciiString1& buffer);
 
   //! read extended chars (unicode) from the current position to the end of line.
-  Standard_EXPORT virtual void ReadExtendedLine(TCollection_ExtendedString& buffer);
+  Standard_EXPORT virtual void ReadExtendedLine(UtfString& buffer);
 
   //! write from the current position to the end of line.
-  Standard_EXPORT virtual void WriteExtendedLine(const TCollection_ExtendedString& buffer);
+  Standard_EXPORT virtual void WriteExtendedLine(const UtfString& buffer);
 
   //! read <rsize> character from the current position.
-  Standard_EXPORT virtual void ReadChar(TCollection_AsciiString& buffer, const Standard_Size rsize);
+  Standard_EXPORT virtual void ReadChar(AsciiString1& buffer, const Standard_Size rsize);
 
   //! read from the first none space character position to the end of line.
-  Standard_EXPORT virtual void ReadString(TCollection_AsciiString& buffer);
+  Standard_EXPORT virtual void ReadString(AsciiString1& buffer);
 
   Standard_EXPORT virtual void FlushEndOfLine();
 

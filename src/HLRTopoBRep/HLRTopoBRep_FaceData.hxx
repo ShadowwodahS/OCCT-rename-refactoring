@@ -32,23 +32,23 @@ public:
 
   Standard_EXPORT HLRTopoBRep_FaceData();
 
-  const TopTools_ListOfShape& FaceIntL() const;
+  const ShapeList& FaceIntL() const;
 
-  const TopTools_ListOfShape& FaceOutL() const;
+  const ShapeList& FaceOutL() const;
 
-  const TopTools_ListOfShape& FaceIsoL() const;
+  const ShapeList& FaceIsoL() const;
 
-  TopTools_ListOfShape& AddIntL();
+  ShapeList& AddIntL();
 
-  TopTools_ListOfShape& AddOutL();
+  ShapeList& AddOutL();
 
-  TopTools_ListOfShape& AddIsoL();
+  ShapeList& AddIsoL();
 
 protected:
 private:
-  TopTools_ListOfShape myIntL;
-  TopTools_ListOfShape myOutL;
-  TopTools_ListOfShape myIsoL;
+  ShapeList myIntL;
+  ShapeList myOutL;
+  ShapeList myIsoL;
 };
 
 #include <HLRTopoBRep_FaceData.lxx>

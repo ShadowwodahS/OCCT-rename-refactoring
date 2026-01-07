@@ -84,10 +84,10 @@ public:
   Standard_Boolean IsRemoved() const { return myIsRemoved; }
 
   //! Returns camera object of the view.
-  virtual const Handle(Graphic3d_Camera)& Camera() const Standard_OVERRIDE { return myCamera; }
+  virtual const Handle(CameraOn3d)& Camera() const Standard_OVERRIDE { return myCamera; }
 
   //! Sets camera used by the view.
-  virtual void SetCamera(const Handle(Graphic3d_Camera)& theCamera) { myCamera = theCamera; }
+  virtual void SetCamera(const Handle(CameraOn3d)& theCamera) { myCamera = theCamera; }
 
   //! Returns necessity to flip OY in projection matrix
   virtual Standard_Boolean ToFlipOutput() const { return Standard_False; }
@@ -298,7 +298,7 @@ public:
   //! @param theImage the image to store the shadow map.
   //! @param[in] theLightName  name of the light used to generate the shadow map.
   virtual Standard_Boolean ShadowMapDump(Image_PixMap&                  theImage,
-                                         const TCollection_AsciiString& theLightName) = 0;
+                                         const AsciiString1& theLightName) = 0;
 
   //! Marks BVH tree and the set of BVH primitives of correspondent priority list with id theLayerId
   //! as outdated.
@@ -473,7 +473,7 @@ public:
                                                      Graphic3d_DiagnosticInfo theFlags) const = 0;
 
   //! Returns string with statistic performance info.
-  virtual TCollection_AsciiString StatisticInformation() const = 0;
+  virtual AsciiString1 StatisticInformation() const = 0;
 
   //! Fills in the dictionary with statistic performance info.
   virtual void StatisticInformation(TColStd_IndexedDataMapOfStringString& theDict) const = 0;
@@ -513,16 +513,16 @@ public:
   Standard_EXPORT void UnsetXRPosedCamera();
 
   //! Returns transient XR camera position with tracked head orientation applied.
-  const Handle(Graphic3d_Camera)& PosedXRCamera() const { return myPosedXRCamera; }
+  const Handle(CameraOn3d)& PosedXRCamera() const { return myPosedXRCamera; }
 
   //! Sets transient XR camera position with tracked head orientation applied.
-  void SetPosedXRCamera(const Handle(Graphic3d_Camera)& theCamera) { myPosedXRCamera = theCamera; }
+  void SetPosedXRCamera(const Handle(CameraOn3d)& theCamera) { myPosedXRCamera = theCamera; }
 
   //! Returns anchor camera definition (without tracked head orientation).
-  const Handle(Graphic3d_Camera)& BaseXRCamera() const { return myBaseXRCamera; }
+  const Handle(CameraOn3d)& BaseXRCamera() const { return myBaseXRCamera; }
 
   //! Sets anchor camera definition.
-  void SetBaseXRCamera(const Handle(Graphic3d_Camera)& theCamera) { myBaseXRCamera = theCamera; }
+  void SetBaseXRCamera(const Handle(CameraOn3d)& theCamera) { myBaseXRCamera = theCamera; }
 
   //! Convert XR pose to world space.
   //! @param[in] thePoseXR  transformation defined in VR local coordinate system,
@@ -530,7 +530,7 @@ public:
   //! @return transformation defining orientation of XR pose in world space
   Transform3d PoseXRToWorld(const Transform3d& thePoseXR) const
   {
-    const Handle(Graphic3d_Camera)& anOrigin = myBaseXRCamera;
+    const Handle(CameraOn3d)& anOrigin = myBaseXRCamera;
     const gp_Ax3                    anAxVr(gp::Origin(), gp::DZ(), gp::DX());
     const gp_Ax3 aCameraCS(anOrigin->Eye().XYZ(), -anOrigin->Direction(), -anOrigin->SideRight());
     Transform3d      aTrsfCS;
@@ -554,11 +554,11 @@ public:
   Standard_EXPORT void SynchronizeXRPosedToBaseCamera();
 
   //! Compute camera position based on XR pose.
-  Standard_EXPORT void ComputeXRPosedCameraFromBase(Graphic3d_Camera& theCam,
+  Standard_EXPORT void ComputeXRPosedCameraFromBase(CameraOn3d& theCam,
                                                     const Transform3d&    theXRTrsf) const;
 
   //! Update based camera from posed camera by applying reversed transformation.
-  Standard_EXPORT void ComputeXRBaseCameraFromPosed(const Graphic3d_Camera& theCamPosed,
+  Standard_EXPORT void ComputeXRBaseCameraFromPosed(const CameraOn3d& theCamPosed,
                                                     const Transform3d&          thePoseTrsf);
 
   //! Turn XR camera direction using current (head) eye position as anchor.
@@ -603,7 +603,7 @@ public: //! @name subview properties
   //! By default, view with subviews will render main scene and blit subviews on top of it.
   //! Rendering of main scene might become redundant in case if subviews cover entire window of
   //! parent view. This flag allows to disable rendering of the main scene in such scenarios without
-  //! creation of a dedicated V3d_Viewer instance just for composing subviews.
+  //! creation of a dedicated ViewManager instance just for composing subviews.
   bool IsSubviewComposer() const { return myIsSubviewComposer; }
 
   //! Set if this view should perform composing of subviews and nothing else.
@@ -690,7 +690,7 @@ protected:
                                                               // clang-format on
 
   Handle(Graphic3d_StructureManager) myStructureManager;
-  Handle(Graphic3d_Camera)           myCamera;
+  Handle(CameraOn3d)           myCamera;
   Graphic3d_SequenceOfStructure      myStructsToCompute;
   Graphic3d_SequenceOfStructure      myStructsComputed;
   Graphic3d_MapOfStructure           myStructsDisplayed;
@@ -717,10 +717,10 @@ protected:
 
   Handle(Aspect_XRSession) myXRSession;
   // clang-format off
-  Handle(Graphic3d_Camera) myBackXRCamera;       //!< camera projection parameters to restore after closing XR session (FOV, aspect and similar)
-  Handle(Graphic3d_Camera) myBaseXRCamera;       //!< neutral camera orientation defining coordinate system in which head tracking is defined
-  Handle(Graphic3d_Camera) myPosedXRCamera;      //!< transient XR camera orientation with tracked head orientation applied (based on myBaseXRCamera)
-  Handle(Graphic3d_Camera) myPosedXRCameraCopy;  //!< neutral camera orientation copy at the beginning of processing input
+  Handle(CameraOn3d) myBackXRCamera;       //!< camera projection parameters to restore after closing XR session (FOV, aspect and similar)
+  Handle(CameraOn3d) myBaseXRCamera;       //!< neutral camera orientation defining coordinate system in which head tracking is defined
+  Handle(CameraOn3d) myPosedXRCamera;      //!< transient XR camera orientation with tracked head orientation applied (based on myBaseXRCamera)
+  Handle(CameraOn3d) myPosedXRCameraCopy;  //!< neutral camera orientation copy at the beginning of processing input
   Standard_Real            myUnitFactor;         //!< unit scale factor defined as scale factor for m (meters)
   // clang-format on
 };

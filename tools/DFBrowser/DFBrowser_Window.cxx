@@ -333,7 +333,7 @@ void DFBrowser_Window::SetPreferences(const TInspectorAPI_PreferencesDataMap& th
 // =======================================================================
 void DFBrowser_Window::UpdateContent()
 {
-  TCollection_AsciiString aName = "TKDFBrowser";
+  AsciiString1 aName = "TKDFBrowser";
 
   if (myParameters->FindParameters(aName))
     Init(myParameters->Parameters(aName));
@@ -342,35 +342,35 @@ void DFBrowser_Window::UpdateContent()
 
   if (myParameters->FindFileNames(aName))
   {
-    NCollection_List<TCollection_AsciiString> aFileNames = myParameters->FileNames(aName);
+    NCollection_List<AsciiString1> aFileNames = myParameters->FileNames(aName);
     if (aFileNames.Extent() > 0) // only one document file might be opened
       OpenFile(aFileNames.First());
-    myParameters->SetFileNames(aName, NCollection_List<TCollection_AsciiString>());
+    myParameters->SetFileNames(aName, NCollection_List<AsciiString1>());
   }
   onUpdateClicked();
 
   // make parameter items selected if defined
   if (myParameters->FindSelectedNames(aName))
   {
-    const NCollection_List<TCollection_AsciiString>& aSelected =
+    const NCollection_List<AsciiString1>& aSelected =
       myParameters->GetSelectedNames(aName);
 
     DFBrowser_TreeModel* aTreeModel = dynamic_cast<DFBrowser_TreeModel*>(myTreeView->model());
-    Handle(TDocStd_Application) anApplication = aTreeModel->GetTDocStdApplication();
+    Handle(AppManager) anApplication = aTreeModel->GetTDocStdApplication();
 
     QItemSelectionModel* aSelectionModel = myTreeView->selectionModel();
     aSelectionModel->clear();
 
-    NCollection_List<TCollection_AsciiString>::Iterator aSelectedIt(aSelected);
+    NCollection_List<AsciiString1>::Iterator aSelectedIt(aSelected);
     if (aSelectedIt.More())
     {
-      TCollection_AsciiString aLabelEntry = aSelectedIt.Value();
+      AsciiString1 aLabelEntry = aSelectedIt.Value();
 
-      TDF_Label aLabel;
+      DataLabel aLabel;
       for (Standard_Integer aDocId = 1, aNbDoc = anApplication->NbDocuments(); aDocId <= aNbDoc;
            aDocId++)
       {
-        Handle(TDocStd_Document) aDocument;
+        Handle(AppDocument) aDocument;
         anApplication->GetDocument(aDocId, aDocument);
 
         TDF_Tool::Label(aDocument->GetData(), aLabelEntry.ToCString(), aLabel, Standard_False);
@@ -381,7 +381,7 @@ void DFBrowser_Window::UpdateContent()
       {
         QModelIndex anIndexToBeSelected = aTreeModel->FindIndex(aLabel);
 
-        TCollection_AsciiString anAttributeType;
+        AsciiString1 anAttributeType;
         aSelectedIt.Next();
         // find attribute by attribute type on the given label
         if (aSelectedIt.More())
@@ -421,7 +421,7 @@ void DFBrowser_Window::UpdateContent()
       }
     }
 
-    myParameters->SetSelectedNames(aName, NCollection_List<TCollection_AsciiString>());
+    myParameters->SetSelectedNames(aName, NCollection_List<AsciiString1>());
   }
 }
 
@@ -431,7 +431,7 @@ void DFBrowser_Window::UpdateContent()
 // =======================================================================
 void DFBrowser_Window::Init(const NCollection_List<Handle(RefObject)>& theParameters)
 {
-  Handle(TDocStd_Application) anApplication;
+  Handle(AppManager) anApplication;
   if (myModule)
   {
     DFBrowser_TreeModel* anOCAFViewModel =
@@ -439,7 +439,7 @@ void DFBrowser_Window::Init(const NCollection_List<Handle(RefObject)>& theParame
     if (anOCAFViewModel)
       anApplication = anOCAFViewModel->GetTDocStdApplication();
   }
-  Handle(AIS_InteractiveContext) aContext;
+  Handle(VisualContext) aContext;
   if (myModule)
     aContext = myModule->GetExternalContext();
 
@@ -450,7 +450,7 @@ void DFBrowser_Window::Init(const NCollection_List<Handle(RefObject)>& theParame
   {
     Handle(RefObject) anObject = aParametersIt.Value();
     // check if the object is an application
-    Handle(TDocStd_Application) anIApplication = Handle(TDocStd_Application)::DownCast(anObject);
+    Handle(AppManager) anIApplication = Handle(AppManager)::DownCast(anObject);
     if (!anIApplication.IsNull())
     {
       aSameApplication = anApplication == anIApplication;
@@ -458,7 +458,7 @@ void DFBrowser_Window::Init(const NCollection_List<Handle(RefObject)>& theParame
         anApplication = anIApplication;
     }
     // check if the object is an interactive context
-    Handle(AIS_InteractiveContext) anIContext = Handle(AIS_InteractiveContext)::DownCast(anObject);
+    Handle(VisualContext) anIContext = Handle(VisualContext)::DownCast(anObject);
     if (!anIContext.IsNull())
     {
       aSameContext = aContext == anIContext;
@@ -508,7 +508,7 @@ void DFBrowser_Window::Init(const NCollection_List<Handle(RefObject)>& theParame
 // function : OpenFile
 // purpose :
 // =======================================================================
-void DFBrowser_Window::OpenFile(const TCollection_AsciiString& theFileName)
+void DFBrowser_Window::OpenFile(const AsciiString1& theFileName)
 {
   QApplication::setOverrideCursor(Qt::WaitCursor);
 
@@ -528,13 +528,13 @@ void DFBrowser_Window::OpenFile(const TCollection_AsciiString& theFileName)
   anOCAFViewModel->Reset();
 
   //! close previous documents to open new document
-  Handle(TDocStd_Application) anApplication = myModule->GetTDocStdApplication();
+  Handle(AppManager) anApplication = myModule->GetTDocStdApplication();
   if (!anApplication.IsNull())
   {
     for (int aDocId = 1, aNbDocuments = anApplication->NbDocuments(); aDocId <= aNbDocuments;
          aDocId++)
     {
-      Handle(TDocStd_Document) aDocument;
+      Handle(AppDocument) aDocument;
       anApplication->GetDocument(aDocId, aDocument);
       if (!aDocument.IsNull())
         anApplication->Close(aDocument);
@@ -547,11 +547,11 @@ void DFBrowser_Window::OpenFile(const TCollection_AsciiString& theFileName)
 
   if (myParent)
     myParent->setObjectName(isSTEPFileName
-                              ? QString(TCollection_AsciiString(theFileName).ToCString())
+                              ? QString(AsciiString1(theFileName).ToCString())
                               : getWindowTitle());
   else
     myOpenedFileName =
-      isSTEPFileName ? QString(TCollection_AsciiString(theFileName).ToCString()) : getWindowTitle();
+      isSTEPFileName ? QString(AsciiString1(theFileName).ToCString()) : getWindowTitle();
 
   if (anApplication.IsNull())
   {
@@ -559,7 +559,7 @@ void DFBrowser_Window::OpenFile(const TCollection_AsciiString& theFileName)
     QMessageBox::information(0,
                              "Error",
                              QString("File %1 can't be opened by OCAF application")
-                               .arg(TCollection_AsciiString(theFileName).ToCString()));
+                               .arg(AsciiString1(theFileName).ToCString()));
   }
   else
   {
@@ -584,11 +584,11 @@ QString DFBrowser_Window::getWindowTitle() const
   if (!anOCAFViewModel)
     return "";
 
-  Handle(TDocStd_Application) anApplication = anOCAFViewModel->GetTDocStdApplication();
+  Handle(AppManager) anApplication = anOCAFViewModel->GetTDocStdApplication();
   if (anApplication.IsNull() || anApplication->NbDocuments() == 0)
     return "";
 
-  Handle(TDocStd_Document) aDocument;
+  Handle(AppDocument) aDocument;
   anApplication->GetDocument(1, aDocument);
   if (aDocument.IsNull() || !aDocument->IsSaved())
     return "";
@@ -654,9 +654,9 @@ void DFBrowser_Window::onBeforeUpdateTreeModel()
 // function : TmpDirectory
 // purpose :
 // =======================================================================
-TCollection_AsciiString DFBrowser_Window::TmpDirectory()
+AsciiString1 DFBrowser_Window::TmpDirectory()
 {
-  TCollection_AsciiString aTmpDir;
+  AsciiString1 aTmpDir;
 #ifdef _WIN32
   OSD_Environment anEnvironment("TEMP");
   aTmpDir = anEnvironment.Value();
@@ -667,13 +667,13 @@ TCollection_AsciiString DFBrowser_Window::TmpDirectory()
     if (aTmpDir.IsEmpty())
       aTmpDir = "C:\\";
   }
-  OSD_Path      aTmpPath(aTmpDir);
+  SystemPath      aTmpPath(aTmpDir);
   OSD_Directory aTmpDirectory(aTmpPath);
   if (!aTmpDirectory.Exists())
     aTmpDirectory.Build(OSD_Protection());
 #else
   OSD_Directory aTmpDirectory = OSD_Directory::BuildTemporary();
-  OSD_Path      aTmpPath;
+  SystemPath      aTmpPath;
   aTmpDirectory.Path(aTmpPath);
   aTmpPath.SystemName(aTmpDir);
 #endif
@@ -855,12 +855,12 @@ void DFBrowser_Window::onPaneSelectionChanged(const QItemSelection&,
       if (aSelectedIndices.size() != 1)
         return;
 
-      TCollection_AsciiString                      aPluginName("TKShapeView");
+      AsciiString1                      aPluginName("TKShapeView");
       NCollection_List<Handle(RefObject)> aParameters;
       if (myParameters->FindParameters(aPluginName))
         aParameters = myParameters->Parameters(aPluginName);
 
-      NCollection_List<TCollection_AsciiString> anItemNames;
+      NCollection_List<AsciiString1> anItemNames;
       if (myParameters->FindSelectedNames(aPluginName))
         anItemNames = myParameters->GetSelectedNames(aPluginName);
 
@@ -868,7 +868,7 @@ void DFBrowser_Window::onPaneSelectionChanged(const QItemSelection&,
       anAttributePane->GetSelectionParameters(aSelectionModel, aParameters, anItemNames);
       if (aParametersCount != aParameters.Extent()) // some TShapes are added
       {
-        TCollection_AsciiString aPluginShortName = aPluginName.SubString(3, aPluginName.Length());
+        AsciiString1 aPluginShortName = aPluginName.SubString(3, aPluginName.Length());
         QString                 aMessage         = QString("TShape %1 is sent to %2.")
                              .arg(Standard_Dump::GetPointerInfo(aParameters.Last()).ToCString())
                              .arg(aPluginShortName.ToCString());
@@ -908,7 +908,7 @@ void DFBrowser_Window::onPaneSelectionChanged(const QItemSelection&,
 
   // highlight and scroll to the referenced item if it exists
   Handle(TDF_Attribute)       anAttribute = myModule->FindAttribute(aSelectedIndex);
-  NCollection_List<TDF_Label> aReferences;
+  NCollection_List<DataLabel> aReferences;
   Handle(RefObject)  aPresentation;
   anAttributePane->GetReferences(anAttribute, aReferences, aPresentation);
   QModelIndexList      anIndices;
@@ -1068,9 +1068,9 @@ void DFBrowser_Window::highlightIndices(const QModelIndexList& theIndices)
 // function : findPresentation
 // purpose :
 // =======================================================================
-Handle(AIS_InteractiveObject) DFBrowser_Window::findPresentation(const QModelIndex& theIndex)
+Handle(VisualEntity) DFBrowser_Window::findPresentation(const QModelIndex& theIndex)
 {
-  Handle(AIS_InteractiveObject) aPresentation;
+  Handle(VisualEntity) aPresentation;
 
   QModelIndexList anIndices;
   anIndices.append(theIndex);
@@ -1091,7 +1091,7 @@ void DFBrowser_Window::findPresentations(const QModelIndexList& theIndices,
 {
   for (int anIndexId = 0, aCount = theIndices.size(); anIndexId < aCount; anIndexId++)
   {
-    Handle(AIS_InteractiveObject) aPresentation;
+    Handle(VisualEntity) aPresentation;
     Handle(TDF_Attribute)         anAttribute = myModule->FindAttribute(theIndices[anIndexId]);
     if (anAttribute.IsNull())
       continue;
@@ -1099,7 +1099,7 @@ void DFBrowser_Window::findPresentations(const QModelIndexList& theIndices,
     if (!anAttributePane)
       continue;
     aPresentation =
-      Handle(AIS_InteractiveObject)::DownCast(anAttributePane->GetPresentation(anAttribute));
+      Handle(VisualEntity)::DownCast(anAttributePane->GetPresentation(anAttribute));
     if (aPresentation.IsNull())
       continue;
 

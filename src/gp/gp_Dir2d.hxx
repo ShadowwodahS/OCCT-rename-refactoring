@@ -49,7 +49,7 @@ public:
 
   //! Creates a Direction from a doublet of coordinates. Raises ConstructionError if
   //! theCoord.Modulus() <= Resolution from gp.
-  gp_Dir2d(const gp_XY& theCoord);
+  gp_Dir2d(const Coords2d& theCoord);
 
   //! Creates a Direction with its 2 cartesian coordinates. Raises ConstructionError if
   //! Sqrt(theXv*theXv + theYv*theYv) <= Resolution from gp.
@@ -130,7 +130,7 @@ public:
   //! -   the modulus of the number pair formed from the new
   //! X or Y coordinate and the other coordinate of this
   //! vector that was not directly modified.
-  void SetXY(const gp_XY& theCoord);
+  void SetXY(const Coords2d& theCoord);
 
   //! For this unit vector returns the coordinate of range theIndex :
   //! theIndex = 1 => X is returned
@@ -151,7 +151,7 @@ public:
   //! For this unit vector, returns its two coordinates as a number pair.
   //! Comparison between Directions
   //! The precision value is an input data.
-  const gp_XY& XY() const { return coord; }
+  const Coords2d& XY() const { return coord; }
 
   //! Returns True if the two vectors have the same direction
   //! i.e. the angle between this unit vector and the
@@ -251,7 +251,7 @@ public:
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
 private:
-  gp_XY coord;
+  Coords2d coord;
 };
 
 #include <gp_Ax2d.hxx>
@@ -263,7 +263,7 @@ private:
 // =======================================================================
 inline gp_Dir2d::gp_Dir2d(const gp_Vec2d& theV)
 {
-  const gp_XY&  aXY = theV.XY();
+  const Coords2d&  aXY = theV.XY();
   Standard_Real aX  = aXY.X();
   Standard_Real anY = aXY.Y();
   Standard_Real aD  = sqrt(aX * aX + anY * anY);
@@ -277,7 +277,7 @@ inline gp_Dir2d::gp_Dir2d(const gp_Vec2d& theV)
 // function : gp_Dir2d
 // purpose  :
 // =======================================================================
-inline gp_Dir2d::gp_Dir2d(const gp_XY& theXY)
+inline gp_Dir2d::gp_Dir2d(const Coords2d& theXY)
 {
   Standard_Real aX  = theXY.X();
   Standard_Real anY = theXY.Y();
@@ -371,7 +371,7 @@ inline void gp_Dir2d::SetY(const Standard_Real theY)
 // function : SetXY
 // purpose  :
 // =======================================================================
-inline void gp_Dir2d::SetXY(const gp_XY& theXY)
+inline void gp_Dir2d::SetXY(const Coords2d& theXY)
 {
   Standard_Real aX  = theXY.X();
   Standard_Real anY = theXY.Y();

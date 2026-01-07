@@ -19,13 +19,13 @@
 #include <Standard_OStream.hxx>
 
 class Express_Schema;
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! Provides data structures for representation of EXPRESS schema
 //! (items, types, entities etc.)
 //! and tools for generating XSTEP classes (HXX and CXX) from
 //! items of the schema
-class Express
+class Express1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -38,15 +38,15 @@ public:
 
   //! Writes standard comment for method in CXX file
   Standard_EXPORT static void WriteMethodStamp(Standard_OStream&              theOS,
-                                               const TCollection_AsciiString& theName);
+                                               const AsciiString1& theName);
 
   //! Converts item name from CASCADE to STEP style
   //! e.g. BoundedCurve -> bounded_curve
-  Standard_EXPORT static TCollection_AsciiString ToStepName(const TCollection_AsciiString& theName);
+  Standard_EXPORT static AsciiString1 ToStepName(const AsciiString1& theName);
 
   //! Converts item name from CASCADE to STEP style
   //! e.g. BoundedCurve -> bounded_curve
-  Standard_EXPORT static TCollection_AsciiString EnumPrefix(const TCollection_AsciiString& theName);
+  Standard_EXPORT static AsciiString1 EnumPrefix(const AsciiString1& theName);
 };
 
 #endif // _Express_HeaderFile

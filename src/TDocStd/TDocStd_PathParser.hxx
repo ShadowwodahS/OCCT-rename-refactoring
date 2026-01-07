@@ -29,26 +29,26 @@ class TDocStd_PathParser
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TDocStd_PathParser(const TCollection_ExtendedString& path);
+  Standard_EXPORT TDocStd_PathParser(const UtfString& path);
 
   Standard_EXPORT void Parse();
 
-  Standard_EXPORT TCollection_ExtendedString Trek() const;
+  Standard_EXPORT UtfString Trek() const;
 
-  Standard_EXPORT TCollection_ExtendedString Name() const;
+  Standard_EXPORT UtfString Name() const;
 
-  Standard_EXPORT TCollection_ExtendedString Extension() const;
+  Standard_EXPORT UtfString Extension() const;
 
-  Standard_EXPORT TCollection_ExtendedString Path() const;
+  Standard_EXPORT UtfString Path() const;
 
   Standard_EXPORT Standard_Integer Length() const;
 
 protected:
 private:
-  TCollection_ExtendedString myPath;
-  TCollection_ExtendedString myExtension;
-  TCollection_ExtendedString myTrek;
-  TCollection_ExtendedString myName;
+  UtfString myPath;
+  UtfString myExtension;
+  UtfString myTrek;
+  UtfString myName;
 };
 
 #endif // _TDocStd_PathParser_HeaderFile

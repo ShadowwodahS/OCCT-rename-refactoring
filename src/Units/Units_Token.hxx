@@ -75,14 +75,14 @@ public:
   Standard_EXPORT Standard_Integer Length() const;
 
   //! Returns the string <theword>
-  TCollection_AsciiString Word() const;
+  AsciiString1 Word() const;
 
   //! Sets the field <theword> to <aword>.
   void Word(const Standard_CString aword);
 
   //! Returns the significance of the word  <theword>, which
   //! is in the field <themean>.
-  TCollection_AsciiString Mean() const;
+  AsciiString1 Mean() const;
 
   //! Sets the field <themean> to <amean>.
   void Mean(const Standard_CString amean);
@@ -192,8 +192,8 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString  theword;
-  TCollection_AsciiString  themean;
+  AsciiString1  theword;
+  AsciiString1  themean;
   Standard_Real            thevalue;
   Handle(Units_Dimensions) thedimensions;
 };

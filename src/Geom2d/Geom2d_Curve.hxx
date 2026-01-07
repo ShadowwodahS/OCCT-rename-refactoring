@@ -28,8 +28,8 @@ class gp_Trsf2d;
 class gp_Pnt2d;
 class gp_Vec2d;
 
-class Geom2d_Curve;
-DEFINE_STANDARD_HANDLE(Geom2d_Curve, Geom2d_Geometry)
+class GeomCurve2d;
+DEFINE_STANDARD_HANDLE(GeomCurve2d, Geom2d_Geometry)
 
 //! The abstract class Curve describes the common
 //! behavior of curves in 2D space. The Geom2d
@@ -37,7 +37,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Curve, Geom2d_Geometry)
 //! derived curves, including lines, circles, conics, Bezier
 //! or BSpline curves, etc.
 //! The main characteristic of these curves is that they
-//! are parameterized. The Geom2d_Curve class shows:
+//! are parameterized. The GeomCurve2d class shows:
 //! - how to work with the parametric equation of a
 //! curve in order to calculate the point of parameter
 //! u, together with the vector tangent and the
@@ -57,7 +57,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Curve, Geom2d_Geometry)
 //! The Geom2d package does not prevent the
 //! construction of curves with null length or curves which
 //! self-intersect.
-class Geom2d_Curve : public Geom2d_Geometry
+class GeomCurve2d : public Geom2d_Geometry
 {
 
 public:
@@ -102,7 +102,7 @@ public:
   //! - the end point of the initial curve becomes the start
   //! point of the reversed curve.
   //! - Reversed creates a new curve.
-  Standard_NODISCARD Standard_EXPORT Handle(Geom2d_Curve) Reversed() const;
+  Standard_NODISCARD Standard_EXPORT Handle(GeomCurve2d) Reversed() const;
 
   //! Returns the value of the first parameter.
   //! Warnings :
@@ -222,7 +222,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom2d_Curve, Geom2d_Geometry)
+  DEFINE_STANDARD_RTTIEXT(GeomCurve2d, Geom2d_Geometry)
 
 protected:
 private:

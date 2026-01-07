@@ -100,7 +100,7 @@ void ChFiDS_Spine::AppendOffsetElSpine(const Handle(ChFiDS_ElSpine)& Els)
 
 //=================================================================================================
 
-Handle(ChFiDS_ElSpine) ChFiDS_Spine::ElSpine(const TopoDS_Edge& E) const
+Handle(ChFiDS_ElSpine) ChFiDS_Spine::ElSpine(const TopoEdge& E) const
 {
   return ElSpine(Index(E));
 }
@@ -263,34 +263,34 @@ Standard_Boolean ChFiDS_Spine::IsClosed() const
 
 //=================================================================================================
 
-TopoDS_Vertex ChFiDS_Spine::FirstVertex() const
+TopoVertex ChFiDS_Spine::FirstVertex() const
 {
-  TopoDS_Edge E = TopoDS::Edge(spine.First());
+  TopoEdge E = TopoDS::Edge(spine.First());
   if (E.Orientation() == TopAbs_FORWARD)
-    return TopExp::FirstVertex(E);
-  return TopExp::LastVertex(E);
+    return TopExp1::FirstVertex(E);
+  return TopExp1::LastVertex(E);
 }
 
 //=================================================================================================
 
-TopoDS_Vertex ChFiDS_Spine::LastVertex() const
+TopoVertex ChFiDS_Spine::LastVertex() const
 {
-  TopoDS_Edge E = TopoDS::Edge(spine.Last());
+  TopoEdge E = TopoDS::Edge(spine.Last());
   if (E.Orientation() == TopAbs_FORWARD)
-    return TopExp::LastVertex(E);
-  return TopExp::FirstVertex(E);
+    return TopExp1::LastVertex(E);
+  return TopExp1::FirstVertex(E);
 }
 
 //=================================================================================================
 
-Standard_Real ChFiDS_Spine::Absc(const TopoDS_Vertex& V) const
+Standard_Real ChFiDS_Spine::Absc(const TopoVertex& V) const
 {
-  TopoDS_Vertex d, f;
-  TopoDS_Edge   E;
+  TopoVertex d, f;
+  TopoEdge   E;
   for (Standard_Integer i = 1; i <= spine.Length(); i++)
   {
     E = TopoDS::Edge(spine.Value(i));
-    TopExp::Vertices(E, d, f);
+    TopExp1::Vertices(E, d, f);
     if (d.IsSame(V) && E.Orientation() == TopAbs_FORWARD)
     {
       return FirstParameter(i);
@@ -435,7 +435,7 @@ Standard_Integer ChFiDS_Spine::Index(const Standard_Real W, const Standard_Boole
 
 //=================================================================================================
 
-Standard_Integer ChFiDS_Spine::Index(const TopoDS_Edge& E) const
+Standard_Integer ChFiDS_Spine::Index(const TopoEdge& E) const
 {
   for (Standard_Integer IE = 1; IE <= spine.Length(); IE++)
   {
@@ -562,7 +562,7 @@ void ChFiDS_Spine::Parameter(const Standard_Integer Index,
   Standard_Real t    = L / Length(Index);
   Standard_Real uapp = (1. - t) * myCurve.FirstParameter() + t * myCurve.LastParameter();
   //  GCPnts_AbscissaPoint GCP;
-  //  GCP.Perform(myCurve,L,myCurve.FirstParameter(),uapp,BRep_Tool::Tolerance(myCurve.Edge()));
+  //  GCP.Perform(myCurve,L,myCurve.FirstParameter(),uapp,BRepInspector::Tolerance(myCurve.Edge()));
   GCPnts_AbscissaPoint GCP(myCurve, L, myCurve.FirstParameter(), uapp);
   U = GCP.Parameter();
   if (Or == TopAbs_REVERSED && Oriented)
@@ -682,7 +682,7 @@ Point3d ChFiDS_Spine::Value(const Standard_Real AbsC)
   Standard_Real t    = L / Length(Index);
   Standard_Real uapp = (1. - t) * myCurve.FirstParameter() + t * myCurve.LastParameter();
   //  GCPnts_AbscissaPoint GCP;
-  //  GCP.Perform(myCurve,L,myCurve.FirstParameter(),uapp,BRep_Tool::Tolerance(myCurve.Edge()));
+  //  GCP.Perform(myCurve,L,myCurve.FirstParameter(),uapp,BRepInspector::Tolerance(myCurve.Edge()));
   GCPnts_AbscissaPoint GCP(myCurve, L, myCurve.FirstParameter(), uapp);
   return myCurve.Value(GCP.Parameter());
 }
@@ -730,7 +730,7 @@ void ChFiDS_Spine::D1(const Standard_Real AbsC, Point3d& P, Vector3d& V1)
     Standard_Real t    = L / Length(Index);
     Standard_Real uapp = (1. - t) * myCurve.FirstParameter() + t * myCurve.LastParameter();
     //    GCPnts_AbscissaPoint GCP;
-    //    GCP.Perform(myCurve,L,myCurve.FirstParameter(),uapp,BRep_Tool::Tolerance(myCurve.Edge()));
+    //    GCP.Perform(myCurve,L,myCurve.FirstParameter(),uapp,BRepInspector::Tolerance(myCurve.Edge()));
     GCPnts_AbscissaPoint GCP(myCurve, L, myCurve.FirstParameter(), uapp);
     myCurve.D1(GCP.Parameter(), P, V1);
     Standard_Real D1 = 1. / V1.Magnitude();
@@ -779,7 +779,7 @@ void ChFiDS_Spine::D2(const Standard_Real AbsC, Point3d& P, Vector3d& V1, Vector
     Standard_Real t    = L / Length(Index);
     Standard_Real uapp = (1. - t) * myCurve.FirstParameter() + t * myCurve.LastParameter();
     //    GCPnts_AbscissaPoint GCP;
-    //    GCP.Perform(myCurve,L,myCurve.FirstParameter(),uapp,BRep_Tool::Tolerance(myCurve.Edge()));
+    //    GCP.Perform(myCurve,L,myCurve.FirstParameter(),uapp,BRepInspector::Tolerance(myCurve.Edge()));
     GCPnts_AbscissaPoint GCP(myCurve, L, myCurve.FirstParameter(), uapp);
     myCurve.D2(GCP.Parameter(), P, V1, V2);
     Standard_Real N1 = V1.SquareMagnitude();

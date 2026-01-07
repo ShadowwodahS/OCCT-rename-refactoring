@@ -32,9 +32,9 @@
 #include <TCollection_HAsciiString.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 
-IGESDimen_ToolDimensionDisplayData::IGESDimen_ToolDimensionDisplayData() {}
+DimensionDisplayDataTool::DimensionDisplayDataTool() {}
 
-void IGESDimen_ToolDimensionDisplayData::ReadOwnParams(
+void DimensionDisplayDataTool::ReadOwnParams(
   const Handle(IGESDimen_DimensionDisplayData)& ent,
   const Handle(IGESData_IGESReaderData)& /* IR */,
   IGESData_ParamReader& PR) const
@@ -130,7 +130,7 @@ void IGESDimen_ToolDimensionDisplayData::ReadOwnParams(
             tempEndInd);
 }
 
-void IGESDimen_ToolDimensionDisplayData::WriteOwnParams(
+void DimensionDisplayDataTool::WriteOwnParams(
   const Handle(IGESDimen_DimensionDisplayData)& ent,
   IGESData_IGESWriter&                          IW) const
 {
@@ -157,13 +157,13 @@ void IGESDimen_ToolDimensionDisplayData::WriteOwnParams(
   }
 }
 
-void IGESDimen_ToolDimensionDisplayData::OwnShared(
+void DimensionDisplayDataTool::OwnShared(
   const Handle(IGESDimen_DimensionDisplayData)& /* ent */,
   Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESDimen_ToolDimensionDisplayData::OwnCopy(
+void DimensionDisplayDataTool::OwnCopy(
   const Handle(IGESDimen_DimensionDisplayData)& another,
   const Handle(IGESDimen_DimensionDisplayData)& ent,
   Interface_CopyTool& /* TC */) const
@@ -215,7 +215,7 @@ void IGESDimen_ToolDimensionDisplayData::OwnCopy(
             EndList);
 }
 
-Standard_Boolean IGESDimen_ToolDimensionDisplayData::OwnCorrect(
+Standard_Boolean DimensionDisplayDataTool::OwnCorrect(
   const Handle(IGESDimen_DimensionDisplayData)& ent) const
 {
   Standard_Boolean res = (ent->NbPropertyValues() != 14);
@@ -256,10 +256,10 @@ Standard_Boolean IGESDimen_ToolDimensionDisplayData::OwnCorrect(
   return res; // nbpropertyvalues=14
 }
 
-IGESData_DirChecker IGESDimen_ToolDimensionDisplayData::DirChecker(
+DirectoryChecker DimensionDisplayDataTool::DirChecker(
   const Handle(IGESDimen_DimensionDisplayData)& /* ent */) const
 {
-  IGESData_DirChecker DC(406, 30); // type=406, Form no. = 30
+  DirectoryChecker DC(406, 30); // type=406, Form no. = 30
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.BlankStatusIgnored();
@@ -269,7 +269,7 @@ IGESData_DirChecker IGESDimen_ToolDimensionDisplayData::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolDimensionDisplayData::OwnCheck(const Handle(IGESDimen_DimensionDisplayData)& ent,
+void DimensionDisplayDataTool::OwnCheck(const Handle(IGESDimen_DimensionDisplayData)& ent,
                                                   const Interface_ShareTool&,
                                                   Handle(Interface_Check)& ach) const
 {
@@ -299,7 +299,7 @@ void IGESDimen_ToolDimensionDisplayData::OwnCheck(const Handle(IGESDimen_Dimensi
   }
 }
 
-void IGESDimen_ToolDimensionDisplayData::OwnDump(const Handle(IGESDimen_DimensionDisplayData)& ent,
+void DimensionDisplayDataTool::OwnDump(const Handle(IGESDimen_DimensionDisplayData)& ent,
                                                  const IGESData_IGESDumper& /* dumper */,
                                                  Standard_OStream&      S,
                                                  const Standard_Integer level) const

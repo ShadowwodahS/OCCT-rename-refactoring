@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-Geom2dLProp_FuncCurNul::Geom2dLProp_FuncCurNul(const Handle(Geom2d_Curve)& C)
+Geom2dLProp_FuncCurNul::Geom2dLProp_FuncCurNul(const Handle(GeomCurve2d)& C)
     : theCurve(C)
 {
 }
@@ -54,7 +54,7 @@ Standard_Boolean Geom2dLProp_FuncCurNul::Values(const Standard_Real X,
 {
   gp_Pnt2d P1;
   gp_Vec2d V1, V2, V3;
-  Geom2dLProp_Curve2dTool::D3(theCurve, X, P1, V1, V2, V3);
+  Curve2dTool::D3(theCurve, X, P1, V1, V2, V3);
   Standard_Real CP1  = V1.Crossed(V2);
   Standard_Real CP2  = V1.Crossed(V3);
   Standard_Real V1V2 = V1.Dot(V2);

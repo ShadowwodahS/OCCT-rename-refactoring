@@ -40,11 +40,11 @@ TDocStd_XLinkTool::TDocStd_XLinkTool()
 
 //=================================================================================================
 
-void TDocStd_XLinkTool::Copy(const TDF_Label& target, const TDF_Label& source)
+void TDocStd_XLinkTool::Copy(const DataLabel& target, const DataLabel& source)
 {
-  Handle(TDocStd_Document) TARGET, SOURCE;
-  TARGET = TDocStd_Document::Get(target);
-  SOURCE = TDocStd_Document::Get(source);
+  Handle(AppDocument) TARGET, SOURCE;
+  TARGET = AppDocument::Get(target);
+  SOURCE = AppDocument::Get(source);
   if (TARGET != SOURCE)
   {
     if (!TDF_Tool::IsSelfContained(source))
@@ -81,8 +81,8 @@ void TDocStd_XLinkTool::Copy(const TDF_Label& target, const TDF_Label& source)
   TDF_IDFilter filter(Standard_False); // on prend tout
   TDF_ClosureTool::Closure(myDS, filter, mode);
   TDF_CopyTool::Copy(myDS, myRT);
-  // TopTools_DataMapOfShapeShape M; // removed to avoid dependence with TNaming
-  // TNaming::ChangeShapes(target,M);// should be used as postfix after Copy
+  // TopTools_DataMapOfShapeShape M; // removed to avoid dependence with TNaming1
+  // TNaming1::ChangeShapes(target,M);// should be used as postfix after Copy
 
   if (!aNode.IsNull())
   {
@@ -116,7 +116,7 @@ void TDocStd_XLinkTool::Copy(const TDF_Label& target, const TDF_Label& source)
 
 //=================================================================================================
 
-void TDocStd_XLinkTool::CopyWithLink(const TDF_Label& target, const TDF_Label& source)
+void TDocStd_XLinkTool::CopyWithLink(const DataLabel& target, const DataLabel& source)
 {
   Handle(TDF_Reference) REF;
   if (target.FindAttribute(TDF_Reference::GetID(), REF))
@@ -126,10 +126,10 @@ void TDocStd_XLinkTool::CopyWithLink(const TDF_Label& target, const TDF_Label& s
   Copy(target, source);
   if (isDone)
   {
-    TCollection_AsciiString xlabelentry, xdocentry;
+    AsciiString1 xlabelentry, xdocentry;
     TDF_Tool::Entry(source, xlabelentry);
-    Handle(TDocStd_Document) aSourceD  = TDocStd_Document::Get(source);
-    Handle(TDocStd_Document) aTargetD  = TDocStd_Document::Get(target);
+    Handle(AppDocument) aSourceD  = AppDocument::Get(source);
+    Handle(AppDocument) aTargetD  = AppDocument::Get(target);
     Standard_Integer         aDocEntry = 0;
     if (aSourceD != aTargetD)
       aDocEntry = aTargetD->CreateReference(aSourceD);
@@ -145,7 +145,7 @@ void TDocStd_XLinkTool::CopyWithLink(const TDF_Label& target, const TDF_Label& s
 
 //=================================================================================================
 
-void TDocStd_XLinkTool::UpdateLink(const TDF_Label& label)
+void TDocStd_XLinkTool::UpdateLink(const DataLabel& label)
 {
   Handle(TDF_Reference) REF;
   if (!label.FindAttribute(TDF_Reference::GetID(), REF))

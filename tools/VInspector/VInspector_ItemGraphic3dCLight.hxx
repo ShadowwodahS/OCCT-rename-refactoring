@@ -26,7 +26,7 @@ typedef QExplicitlySharedDataPointer<VInspector_ItemGraphic3dCLight>
   VInspector_ItemGraphic3dCLightPtr;
 
 //! \class VInspector_ItemGraphic3dCLight
-//! Parent item is context properties, that corresponds to AIS_InteractiveContext
+//! Parent item is context properties, that corresponds to VisualContext
 class VInspector_ItemGraphic3dCLight : public VInspector_ItemBase
 {
 public:

@@ -221,7 +221,7 @@ public: // @name user-defined graphical attributes
   //! The resources are stored in graphical driver for each of individual groups
   //! of shared context under the clip plane identifier.
   //! @return clip plane resource identifier string.
-  const TCollection_AsciiString& GetId() const { return myId; }
+  const AsciiString1& GetId() const { return myId; }
 
 public:
   //! Return capping aspect.
@@ -431,7 +431,7 @@ private:
                                                // clang-format off
   Handle(Graphic3d_ClipPlane)   myNextInChain;    //!< next     plane in a chain of planes defining logical AND operation
   Graphic3d_ClipPlane*          myPrevInChain;    //!< previous plane in a chain of planes defining logical AND operation
-  TCollection_AsciiString myId;                   //!< resource id
+  AsciiString1 myId;                   //!< resource id
   gp_Pln                  myPlane;                //!< plane definition
   Graphic3d_Vec4d         myEquation;             //!< plane equation vector
   Graphic3d_Vec4d         myEquationRev;          //!< reversed plane equation

@@ -138,14 +138,14 @@ void SelectMgr_BVHThreadPool::BVHThread::performThread()
       }
       catch (ExceptionBase const& aFailure)
       {
-        TCollection_AsciiString aMsg = TCollection_AsciiString(aFailure.DynamicType()->Name())
+        AsciiString1 aMsg = AsciiString1(aFailure.DynamicType()->Name())
                                        + ": " + aFailure.GetMessageString();
         Message::DefaultMessenger()->SendFail(aMsg);
       }
       catch (std::exception& anStdException)
       {
-        TCollection_AsciiString aMsg =
-          TCollection_AsciiString(typeid(anStdException).name()) + ": " + anStdException.what();
+        AsciiString1 aMsg =
+          AsciiString1(typeid(anStdException).name()) + ": " + anStdException.what();
         Message::DefaultMessenger()->SendFail(aMsg);
       }
       catch (...)

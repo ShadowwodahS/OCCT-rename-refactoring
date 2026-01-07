@@ -26,7 +26,7 @@ TopOpeBRepDS_Interference::TopOpeBRepDS_Interference() {}
 
 //=================================================================================================
 
-TopOpeBRepDS_Interference::TopOpeBRepDS_Interference(const TopOpeBRepDS_Transition& T,
+TopOpeBRepDS_Interference::TopOpeBRepDS_Interference(const StateTransition& T,
                                                      const TopOpeBRepDS_Kind        ST,
                                                      const Standard_Integer         S,
                                                      const TopOpeBRepDS_Kind        GT,
@@ -52,21 +52,21 @@ TopOpeBRepDS_Interference::TopOpeBRepDS_Interference(const Handle(TopOpeBRepDS_I
 
 //=================================================================================================
 
-const TopOpeBRepDS_Transition& TopOpeBRepDS_Interference::Transition() const
+const StateTransition& TopOpeBRepDS_Interference::Transition() const
 {
   return myTransition;
 }
 
 //=================================================================================================
 
-TopOpeBRepDS_Transition& TopOpeBRepDS_Interference::ChangeTransition()
+StateTransition& TopOpeBRepDS_Interference::ChangeTransition()
 {
   return myTransition;
 }
 
 //=================================================================================================
 
-void TopOpeBRepDS_Interference::Transition(const TopOpeBRepDS_Transition& T)
+void TopOpeBRepDS_Interference::Transition(const StateTransition& T)
 {
   myTransition = T;
 }

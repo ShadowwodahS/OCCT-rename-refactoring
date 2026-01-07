@@ -26,7 +26,7 @@
 #include <TColgp_Array1OfPnt.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <TColStd_Array1OfInteger.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 
 //! Evaluation of the common BSplineProfile of a group
 //! of curves  from Geom. All the curves will have the
@@ -40,7 +40,7 @@ public:
   Standard_EXPORT GeomFill_Profiler();
   Standard_EXPORT virtual ~GeomFill_Profiler();
 
-  Standard_EXPORT void AddCurve(const Handle(Geom_Curve)& Curve);
+  Standard_EXPORT void AddCurve(const Handle(GeomCurve3d)& Curve);
 
   //! Converts all curves to BSplineCurves.
   //! Set them to the common profile.
@@ -80,7 +80,7 @@ public:
   Standard_EXPORT void KnotsAndMults(TColStd_Array1OfReal&    Knots,
                                      TColStd_Array1OfInteger& Mults) const;
 
-  const Handle(Geom_Curve)& Curve(const Standard_Integer Index) const;
+  const Handle(GeomCurve3d)& Curve(const Standard_Integer Index) const;
 
 protected:
   TColGeom_SequenceOfCurve mySequence;

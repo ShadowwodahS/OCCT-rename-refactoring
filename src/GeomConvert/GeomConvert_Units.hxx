@@ -15,8 +15,8 @@
 #define _GeomConvert_Units_HeaderFile
 
 #include <Standard_Handle.hxx>
-class Geom2d_Curve;
-class Geom_Surface;
+class GeomCurve2d;
+class GeomSurface;
 
 //! Class contains conversion methods for 2d geom objects
 class GeomConvert_Units
@@ -25,21 +25,21 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Convert 2d curve for change angle unit from radian to degree
-  Standard_EXPORT static Handle(Geom2d_Curve) RadianToDegree(
-    const Handle(Geom2d_Curve)& theCurve,
-    const Handle(Geom_Surface)& theSurface,
+  Standard_EXPORT static Handle(GeomCurve2d) RadianToDegree(
+    const Handle(GeomCurve2d)& theCurve,
+    const Handle(GeomSurface)& theSurface,
     const Standard_Real         theLengthFactor,
     const Standard_Real         theFactorRadianDegree);
 
   //! Convert 2d curve for change angle unit from degree to radian
-  Standard_EXPORT static Handle(Geom2d_Curve) DegreeToRadian(
-    const Handle(Geom2d_Curve)& theCurve,
-    const Handle(Geom_Surface)& theSurface,
+  Standard_EXPORT static Handle(GeomCurve2d) DegreeToRadian(
+    const Handle(GeomCurve2d)& theCurve,
+    const Handle(GeomSurface)& theSurface,
     const Standard_Real         theLengthFactor,
     const Standard_Real         theFactorRadianDegree);
 
   //! return 2d curve as 'mirror' for given
-  Standard_EXPORT static Handle(Geom2d_Curve) MirrorPCurve(const Handle(Geom2d_Curve)& theCurve);
+  Standard_EXPORT static Handle(GeomCurve2d) MirrorPCurve(const Handle(GeomCurve2d)& theCurve);
 };
 
 #endif // _GeomConvert_Units_HeaderFile

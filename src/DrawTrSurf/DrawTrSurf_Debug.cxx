@@ -39,13 +39,13 @@ Standard_EXPORT const char* DrawTrSurf_Set(const char* theNameStr, void* theHand
     Handle(Geom_Geometry)             aGeom3d = Handle(Geom_Geometry)::DownCast(aHandle);
     if (!aGeom3d.IsNull())
     {
-      DrawTrSurf::Set(theNameStr, aGeom3d);
+      DrawTrSurf1::Set(theNameStr, aGeom3d);
       return theNameStr;
     }
-    Handle(Geom2d_Curve) aGeom2d = Handle(Geom2d_Curve)::DownCast(aHandle);
+    Handle(GeomCurve2d) aGeom2d = Handle(GeomCurve2d)::DownCast(aHandle);
     if (!aGeom2d.IsNull())
     {
-      DrawTrSurf::Set(theNameStr, aGeom2d);
+      DrawTrSurf1::Set(theNameStr, aGeom2d);
       return theNameStr;
     }
 
@@ -74,7 +74,7 @@ Standard_EXPORT const char* DrawTrSurf_SetPnt(const char* theNameStr, void* theP
             aP.Y(),
             aP.Z(),
             theNameStr);
-    DrawTrSurf::Set(theNameStr, aP);
+    DrawTrSurf1::Set(theNameStr, aP);
     return buff;
   }
   catch (ExceptionBase const& anException)
@@ -95,7 +95,7 @@ Standard_EXPORT const char* DrawTrSurf_SetPnt2d(const char* theNameStr, void* th
     const gp_Pnt2d& aP = *(gp_Pnt2d*)thePnt2dPtr;
     static char     buff[256];
     sprintf(buff, "Point (%.16g, %.16g) set to DRAW variable %.80s", aP.X(), aP.Y(), theNameStr);
-    DrawTrSurf::Set(theNameStr, aP);
+    DrawTrSurf1::Set(theNameStr, aP);
     return buff;
   }
   catch (ExceptionBase const& anException)
@@ -131,14 +131,14 @@ Standard_EXPORT const char* DrawTrSurf_Set(const char* theName, const gp_Pnt2d& 
 /*
 void DrawTrSurf_Get(const char* name, Handle(RefObject)& G)
 {
-  Handle(Geom_Geometry) GG = DrawTrSurf::Get(name);
+  Handle(Geom_Geometry) GG = DrawTrSurf1::Get(name);
   std::cout << "Nom : " << name << std::endl;
   if (!GG.IsNull()) {
     G = GG;
     return;
   }
 
-  Handle(Geom2d_Curve) GC = DrawTrSurf::GetCurve2d(name);
+  Handle(GeomCurve2d) GC = DrawTrSurf1::GetCurve2d(name);
   if (!GC.IsNull()) {
     G = GC;
     return;

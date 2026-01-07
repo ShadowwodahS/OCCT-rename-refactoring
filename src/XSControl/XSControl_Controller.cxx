@@ -55,7 +55,7 @@ IMPLEMENT_STANDARD_RTTIEXT(XSControl_Controller, RefObject)
 //  ParamEditor
 //  Transferts
 
-static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> listad;
+static NCollection_DataMap<AsciiString1, Handle(RefObject)> listad;
 
 //=================================================================================================
 
@@ -65,7 +65,7 @@ XSControl_Controller::XSControl_Controller(const Standard_CString theLongName,
       myLongName(theLongName)
 {
   // Standard parameters
-  Interface_Static::Standards();
+  ExchangeConfig::Standards();
   TraceStatic("read.precision.mode", 5);
   TraceStatic("read.precision.val", 5);
   TraceStatic("write.precision.mode", 6);
@@ -77,7 +77,7 @@ XSControl_Controller::XSControl_Controller(const Standard_CString theLongName,
 void XSControl_Controller::TraceStatic(const Standard_CString theName,
                                        const Standard_Integer theUse)
 {
-  Handle(Interface_Static) val = Interface_Static::Static(theName);
+  Handle(ExchangeConfig) val = ExchangeConfig::Static(theName);
   if (val.IsNull())
     return;
   myParams.Append(val);
@@ -297,7 +297,7 @@ IFSelect_ReturnStatus XSControl_Controller::TransferWriteTransient(
 
 //=================================================================================================
 
-Standard_Boolean XSControl_Controller::RecognizeWriteShape(const TopoDS_Shape&    shape,
+Standard_Boolean XSControl_Controller::RecognizeWriteShape(const TopoShape&    shape,
                                                            const Standard_Integer modetrans) const
 {
   if (myAdaptorWrite.IsNull())
@@ -309,7 +309,7 @@ Standard_Boolean XSControl_Controller::RecognizeWriteShape(const TopoDS_Shape&  
 //=================================================================================================
 
 IFSelect_ReturnStatus XSControl_Controller::TransferWriteShape(
-  const TopoDS_Shape&                     shape,
+  const TopoShape&                     shape,
   const Handle(Transfer_FinderProcess)&   FP,
   const Handle(Interface_InterfaceModel)& model,
   const Standard_Integer                  modetrans,
@@ -357,14 +357,14 @@ Handle(RefObject) XSControl_Controller::SessionItem(const Standard_CString theNa
 
 //=================================================================================================
 
-void XSControl_Controller::Customise(Handle(XSControl_WorkSession)& WS)
+void XSControl_Controller::Customise(Handle(ExchangeSession)& WS)
 {
   WS->SetParams(myParams, myParamUses);
 
   // General
   if (!myAdaptorSession.IsEmpty())
   {
-    NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(
+    NCollection_DataMap<AsciiString1, Handle(RefObject)>::Iterator iter(
       myAdaptorSession);
     for (; iter.More(); iter.Next())
       WS->AddNamedItem(iter.Key().ToCString(), iter.ChangeValue());
@@ -457,7 +457,7 @@ void XSControl_Controller::Customise(Handle(XSControl_WorkSession)& WS)
   // Here for the specific manufacturers of controllers could create the
   // Parameters: So wait here
 
-  Handle(TColStd_HSequenceOfHAsciiString) listat = Interface_Static::Items();
+  Handle(TColStd_HSequenceOfHAsciiString) listat = ExchangeConfig::Items();
   Handle(IFSelect_ParamEditor)            paramed =
     IFSelect_ParamEditor::StaticEditor(listat, "All Static Parameters");
   WS->AddNamedItem("xst-static-params-edit", paramed);

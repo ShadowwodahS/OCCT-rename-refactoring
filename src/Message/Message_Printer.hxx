@@ -23,19 +23,19 @@
 #include <Standard_Transient.hxx>
 #include <Standard_SStream.hxx>
 
-class TCollection_ExtendedString;
-class TCollection_AsciiString;
+class UtfString;
+class AsciiString1;
 
-class Message_Printer;
-DEFINE_STANDARD_HANDLE(Message_Printer, RefObject)
+class LogPrinter;
+DEFINE_STANDARD_HANDLE(LogPrinter, RefObject)
 
 //! Abstract interface class defining printer as output context for text messages
 //!
 //! The message, besides being text string, has associated gravity
 //! level, which can be used by printer to decide either to process a message or ignore it.
-class Message_Printer : public RefObject
+class LogPrinter : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Message_Printer, RefObject)
+  DEFINE_STANDARD_RTTIEXT(LogPrinter, RefObject)
 public:
   //! Return trace level used for filtering messages;
   //! messages with lover gravity will be ignored.
@@ -48,7 +48,7 @@ public:
   //! Send a string message with specified trace level.
   //! The last Boolean argument is deprecated and unused.
   //! Default implementation redirects to send().
-  Standard_EXPORT virtual void Send(const TCollection_ExtendedString& theString,
+  Standard_EXPORT virtual void Send(const UtfString& theString,
                                     const Message_Gravity             theGravity) const;
 
   //! Send a string message with specified trace level.
@@ -60,7 +60,7 @@ public:
   //! Send a string message with specified trace level.
   //! The last Boolean argument is deprecated and unused.
   //! Default implementation redirects to send().
-  Standard_EXPORT virtual void Send(const TCollection_AsciiString& theString,
+  Standard_EXPORT virtual void Send(const AsciiString1& theString,
                                     const Message_Gravity          theGravity) const;
 
   //! Send a string message with specified trace level.
@@ -77,11 +77,11 @@ public:
 
 protected:
   //! Empty constructor with Message_Info trace level
-  Standard_EXPORT Message_Printer();
+  Standard_EXPORT LogPrinter();
 
   //! Send a string message with specified trace level.
   //! This method must be redefined in descendant.
-  Standard_EXPORT virtual void send(const TCollection_AsciiString& theString,
+  Standard_EXPORT virtual void send(const AsciiString1& theString,
                                     const Message_Gravity          theGravity) const = 0;
 
 protected:

@@ -87,7 +87,7 @@ Standard_Real gp_Vec2d::Angle(const gp_Vec2d& Other) const
 
 void gp_Vec2d::Mirror(const gp_Ax2d& A1)
 {
-  const gp_XY&  XY = A1.Direction().XY();
+  const Coords2d&  XY = A1.Direction().XY();
   Standard_Real X  = coord.X();
   Standard_Real Y  = coord.Y();
   Standard_Real A  = XY.X();
@@ -122,7 +122,7 @@ void gp_Vec2d::Mirror(const gp_Vec2d& V)
   const Standard_Real D = V.coord.Modulus();
   if (D > gp::Resolution())
   {
-    const gp_XY&  XY = V.coord;
+    const Coords2d&  XY = V.coord;
     Standard_Real X  = XY.X();
     Standard_Real Y  = XY.Y();
     Standard_Real A  = X / D;

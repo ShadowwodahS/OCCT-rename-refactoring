@@ -42,11 +42,11 @@ public:
   typedef instance<SharedBase<Geom2d_Transformation>, Geom2d_Transformation, gp_Trsf2d>
     Transformation;
 
-  typedef geometryBase<Geom2d_Curve> Curve;
+  typedef geometryBase<GeomCurve2d> Curve;
 
 public:
   //! Create a persistent object for a curve
-  Standard_EXPORT static Handle(Curve) Translate(const Handle(Geom2d_Curve)&       theCurve,
+  Standard_EXPORT static Handle(Curve) Translate(const Handle(GeomCurve2d)&       theCurve,
                                                  StdObjMgt_TransientPersistentMap& theMap);
 };
 
@@ -145,7 +145,7 @@ void ShapePersistent_Geom::instance<ShapePersistent_Geom2d::Transformation,
 // Curve
 //=======================================================================
 template <>
-inline Standard_CString ShapePersistent_Geom::geometryBase<Geom2d_Curve>::PName() const
+inline Standard_CString ShapePersistent_Geom::geometryBase<GeomCurve2d>::PName() const
 {
   return "PGeom2d_Curve";
 }

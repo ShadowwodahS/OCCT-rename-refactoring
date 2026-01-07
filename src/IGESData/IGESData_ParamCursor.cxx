@@ -14,7 +14,7 @@
 #include <IGESData_ParamCursor.hxx>
 #include <Interface_InterfaceError.hxx>
 
-IGESData_ParamCursor::IGESData_ParamCursor(const Standard_Integer num)
+ParameterCursor::ParameterCursor(const Standard_Integer num)
 {
   thestart = num;
   thelimit = thestart + 1;
@@ -25,7 +25,7 @@ IGESData_ParamCursor::IGESData_ParamCursor(const Standard_Integer num)
   thetsize = 1;
 }
 
-IGESData_ParamCursor::IGESData_ParamCursor(const Standard_Integer num,
+ParameterCursor::ParameterCursor(const Standard_Integer num,
                                            const Standard_Integer nb,
                                            const Standard_Integer size)
 {
@@ -38,7 +38,7 @@ IGESData_ParamCursor::IGESData_ParamCursor(const Standard_Integer num,
   thetsize = size;
 }
 
-void IGESData_ParamCursor::SetTerm(const Standard_Integer size, const Standard_Boolean autoadv)
+void ParameterCursor::SetTerm(const Standard_Integer size, const Standard_Boolean autoadv)
 {
   theoffst += thetsize;
   thetsize = size;
@@ -49,22 +49,22 @@ void IGESData_ParamCursor::SetTerm(const Standard_Integer size, const Standard_B
       "IGESDAta ParamCursor : required Term size overpass whole Item size");
 }
 
-void IGESData_ParamCursor::SetOne(const Standard_Boolean autoadv)
+void ParameterCursor::SetOne(const Standard_Boolean autoadv)
 {
   SetTerm(1, autoadv);
 }
 
-void IGESData_ParamCursor::SetXY(const Standard_Boolean autoadv)
+void ParameterCursor::SetXY(const Standard_Boolean autoadv)
 {
   SetTerm(2, autoadv);
 }
 
-void IGESData_ParamCursor::SetXYZ(const Standard_Boolean autoadv)
+void ParameterCursor::SetXYZ(const Standard_Boolean autoadv)
 {
   SetTerm(3, autoadv);
 }
 
-void IGESData_ParamCursor::SetAdvance(const Standard_Boolean advance)
+void ParameterCursor::SetAdvance(const Standard_Boolean advance)
 {
   theadv = advance;
 }

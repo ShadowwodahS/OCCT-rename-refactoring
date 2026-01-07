@@ -53,8 +53,8 @@ Geom2dGcc_Circ2dTanOnRad::Geom2dGcc_Circ2dTanOnRad(const Geom2dGcc_QualifiedCurv
     Geom2dAdaptor_Curve         C1    = Qualified1.Qualified();
     GeomAbs_CurveType           Type1 = C1.GetType();
     GeomAbs_CurveType           Type2 = OnCurve.GetType();
-    const Handle(Geom2d_Curve)& CC1   = C1.Curve();
-    const Handle(Geom2d_Curve)& Con   = OnCurve.Curve();
+    const Handle(GeomCurve2d)& CC1   = C1.Curve();
+    const Handle(GeomCurve2d)& Con   = OnCurve.Curve();
 
     //=============================================================================
     //                            Appel a GccAna.                                 +
@@ -73,7 +73,7 @@ Geom2dGcc_Circ2dTanOnRad::Geom2dGcc_Circ2dTanOnRad(const Geom2dGcc_QualifiedCurv
         {
           Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
           gp_Circ2d             con(CCon->Circ2d());
-          GccAna_Circ2dTanOnRad Circ(Qc1, con, Radius, Tolerance);
+          Circle2dTangentOnRadius Circ(Qc1, con, Radius, Tolerance);
           WellDone = Circ.IsDone();
           NbrSol   = Circ.NbSolutions();
           Results(Circ);
@@ -82,7 +82,7 @@ Geom2dGcc_Circ2dTanOnRad::Geom2dGcc_Circ2dTanOnRad(const Geom2dGcc_QualifiedCurv
         {
           Handle(Geom2d_Line)   LLon = Handle(Geom2d_Line)::DownCast(Con);
           gp_Lin2d              lon(LLon->Lin2d());
-          GccAna_Circ2dTanOnRad Circ(Qc1, lon, Radius, Tolerance);
+          Circle2dTangentOnRadius Circ(Qc1, lon, Radius, Tolerance);
           WellDone = Circ.IsDone();
           NbrSol   = Circ.NbSolutions();
           Results(Circ);
@@ -97,7 +97,7 @@ Geom2dGcc_Circ2dTanOnRad::Geom2dGcc_Circ2dTanOnRad(const Geom2dGcc_QualifiedCurv
         {
           Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
           gp_Circ2d             con(CCon->Circ2d());
-          GccAna_Circ2dTanOnRad Circ(Ql1, con, Radius, Tolerance);
+          Circle2dTangentOnRadius Circ(Ql1, con, Radius, Tolerance);
           WellDone = Circ.IsDone();
           NbrSol   = Circ.NbSolutions();
           Results(Circ);
@@ -106,7 +106,7 @@ Geom2dGcc_Circ2dTanOnRad::Geom2dGcc_Circ2dTanOnRad(const Geom2dGcc_QualifiedCurv
         {
           Handle(Geom2d_Line)   LLon = Handle(Geom2d_Line)::DownCast(Con);
           gp_Lin2d              lon(LLon->Lin2d());
-          GccAna_Circ2dTanOnRad Circ(Ql1, lon, Radius, Tolerance);
+          Circle2dTangentOnRadius Circ(Ql1, lon, Radius, Tolerance);
           WellDone = Circ.IsDone();
           NbrSol   = Circ.NbSolutions();
           Results(Circ);
@@ -173,7 +173,7 @@ Geom2dGcc_Circ2dTanOnRad::Geom2dGcc_Circ2dTanOnRad(const Handle(Geom2d_Point)& P
   {
     gp_Pnt2d                    point1(Point1->Pnt2d());
     GeomAbs_CurveType           Type2 = OnCurve.GetType();
-    const Handle(Geom2d_Curve)& Con   = OnCurve.Curve();
+    const Handle(GeomCurve2d)& Con   = OnCurve.Curve();
 
     //=============================================================================
     //                            Appel a GccAna.                                 +
@@ -186,7 +186,7 @@ Geom2dGcc_Circ2dTanOnRad::Geom2dGcc_Circ2dTanOnRad(const Handle(Geom2d_Point)& P
       {
         Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
         gp_Circ2d             con(CCon->Circ2d());
-        GccAna_Circ2dTanOnRad Circ(point1, con, Radius, Tolerance);
+        Circle2dTangentOnRadius Circ(point1, con, Radius, Tolerance);
         WellDone = Circ.IsDone();
         NbrSol   = Circ.NbSolutions();
         Results(Circ);
@@ -195,7 +195,7 @@ Geom2dGcc_Circ2dTanOnRad::Geom2dGcc_Circ2dTanOnRad(const Handle(Geom2d_Point)& P
       {
         Handle(Geom2d_Line)   LLon = Handle(Geom2d_Line)::DownCast(Con);
         gp_Lin2d              lon(LLon->Lin2d());
-        GccAna_Circ2dTanOnRad Circ(point1, lon, Radius, Tolerance);
+        Circle2dTangentOnRadius Circ(point1, lon, Radius, Tolerance);
         WellDone = Circ.IsDone();
         NbrSol   = Circ.NbSolutions();
         Results(Circ);
@@ -216,7 +216,7 @@ Geom2dGcc_Circ2dTanOnRad::Geom2dGcc_Circ2dTanOnRad(const Handle(Geom2d_Point)& P
   }
 }
 
-void Geom2dGcc_Circ2dTanOnRad::Results(const GccAna_Circ2dTanOnRad& Circ)
+void Geom2dGcc_Circ2dTanOnRad::Results(const Circle2dTangentOnRadius& Circ)
 {
   for (Standard_Integer j = 1; j <= NbrSol; j++)
   {

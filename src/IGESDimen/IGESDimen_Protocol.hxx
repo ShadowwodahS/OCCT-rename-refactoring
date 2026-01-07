@@ -27,7 +27,7 @@ class Interface_Protocol;
 class IGESDimen_Protocol;
 DEFINE_STANDARD_HANDLE(IGESDimen_Protocol, IGESData_Protocol)
 
-//! Description of Protocol for IGESDimen
+//! Description of Protocol for IGESDimen1
 class IGESDimen_Protocol : public IGESData_Protocol
 {
 
@@ -35,7 +35,7 @@ public:
   Standard_EXPORT IGESDimen_Protocol();
 
   //! Gives the count of Resource Protocol. Here, two
-  //! (Protocols from IGESGraph and IGESGeom)
+  //! (Protocols from IGESGraph1 and IGESGeom1)
   Standard_EXPORT virtual Standard_Integer NbResources() const Standard_OVERRIDE;
 
   //! Returns a Resource, given a rank.

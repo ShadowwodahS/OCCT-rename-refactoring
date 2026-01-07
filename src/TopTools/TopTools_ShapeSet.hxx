@@ -28,8 +28,8 @@
 #include <TopAbs_ShapeEnum.hxx>
 #include <TopTools_FormatVersion.hxx>
 
-class TopoDS_Shape;
-class TCollection_AsciiString;
+class TopoShape;
+class AsciiString1;
 
 //! A ShapeSets    contains  a  Shape    and all   its
 //! sub-shapes and locations.  It  can be dump,  write
@@ -58,17 +58,17 @@ public:
 
   //! Stores <S> and its sub-shape. Returns the index of <S>.
   //! The method AddGeometry is called on each sub-shape.
-  Standard_EXPORT Standard_Integer Add(const TopoDS_Shape& S);
+  Standard_EXPORT Standard_Integer Add(const TopoShape& S);
 
   //! Returns the sub-shape of index <I>.
-  Standard_EXPORT const TopoDS_Shape& Shape(const Standard_Integer I) const;
+  Standard_EXPORT const TopoShape& Shape(const Standard_Integer I) const;
 
   //! Returns the index of <S>.
-  Standard_EXPORT Standard_Integer Index(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Integer Index(const TopoShape& S) const;
 
-  Standard_EXPORT const TopTools_LocationSet& Locations() const;
+  Standard_EXPORT const LocationSet1& Locations() const;
 
-  Standard_EXPORT TopTools_LocationSet& ChangeLocations();
+  Standard_EXPORT LocationSet1& ChangeLocations();
 
   //! Dumps the number of objects in me on the stream <OS>.
   //! (Number of shapes of each type)
@@ -76,7 +76,7 @@ public:
 
   //! Dumps the number of objects in me in the string S
   //! (Number of shapes of each type)
-  Standard_EXPORT void DumpExtent(TCollection_AsciiString& S) const;
+  Standard_EXPORT void DumpExtent(AsciiString1& S) const;
 
   //! Dumps the content of me on the stream <OS>.
   //!
@@ -125,18 +125,18 @@ public:
   //! Dumps   on  <OS>    the  shape  <S>.   Dumps   the
   //! orientation, the index of the TShape and the index
   //! of the Location.
-  Standard_EXPORT void Dump(const TopoDS_Shape& S, Standard_OStream& OS) const;
+  Standard_EXPORT void Dump(const TopoShape& S, Standard_OStream& OS) const;
 
   //! Writes   on  <OS>   the shape   <S>.    Writes the
   //! orientation, the index of the TShape and the index
   //! of the Location.
-  Standard_EXPORT void Write(const TopoDS_Shape& S, Standard_OStream& OS) const;
+  Standard_EXPORT void Write(const TopoShape& S, Standard_OStream& OS) const;
 
   //! Reads from <IS> a shape and returns it in S.
-  Standard_EXPORT void Read(TopoDS_Shape& S, Standard_IStream& IS) const;
+  Standard_EXPORT void Read(TopoShape& S, Standard_IStream& IS) const;
 
   //! Stores the geometry of <S>.
-  Standard_EXPORT virtual void AddGeometry(const TopoDS_Shape& S);
+  Standard_EXPORT virtual void AddGeometry(const TopoShape& S);
 
   //! Dumps the geometry of me on the stream <OS>.
   Standard_EXPORT virtual void DumpGeometry(Standard_OStream& OS) const;
@@ -153,45 +153,45 @@ public:
     const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Dumps the geometry of <S> on the stream <OS>.
-  Standard_EXPORT virtual void DumpGeometry(const TopoDS_Shape& S, Standard_OStream& OS) const;
+  Standard_EXPORT virtual void DumpGeometry(const TopoShape& S, Standard_OStream& OS) const;
 
   //! Writes the geometry of <S>  on the stream <OS> in a
   //! format that can be read back by Read.
-  Standard_EXPORT virtual void WriteGeometry(const TopoDS_Shape& S, Standard_OStream& OS) const;
+  Standard_EXPORT virtual void WriteGeometry(const TopoShape& S, Standard_OStream& OS) const;
 
   //! Reads the geometry of a shape of type <T> from the
   //! stream <IS> and returns it in <S>.
   Standard_EXPORT virtual void ReadGeometry(const TopAbs_ShapeEnum T,
                                             Standard_IStream&      IS,
-                                            TopoDS_Shape&          S);
+                                            TopoShape&          S);
 
   //! Inserts  the shape <S2> in  the  shape <S1>.  This
   //! method must be   redefined  to  use   the  correct
   //! builder.
-  Standard_EXPORT virtual void AddShapes(TopoDS_Shape& S1, const TopoDS_Shape& S2);
+  Standard_EXPORT virtual void AddShapes(TopoShape& S1, const TopoShape& S2);
 
   //! This method is   called after  each  new  completed
   //! shape. <T> is the  type. <S> is  the shape. In this
   //! class it does nothing, but it gives the opportunity
   //! in derived  classes to perform  extra  treatment on
   //! shapes.
-  Standard_EXPORT virtual void Check(const TopAbs_ShapeEnum T, TopoDS_Shape& S);
+  Standard_EXPORT virtual void Check(const TopAbs_ShapeEnum T, TopoShape& S);
 
   //! Returns number of shapes read from file.
-  Standard_EXPORT Standard_Integer NbShapes() const;
+  Standard_EXPORT Standard_Integer NbShapes1() const;
 
 public:
   static const Standard_CString THE_ASCII_VERSIONS[TopTools_FormatVersion_VERSION_3 + 1];
 
 private:
   //! Reads  from <IS>  a shape  and  returns  it in  S.
-  //! <NbShapes> is the number of tshapes in the set.
-  Standard_EXPORT void Read(TopoDS_Shape&          S,
+  //! <NbShapes1> is the number of tshapes in the set.
+  Standard_EXPORT void Read(TopoShape&          S,
                             Standard_IStream&      IS,
-                            const Standard_Integer NbShapes) const;
+                            const Standard_Integer NbShapes1) const;
 
   TopTools_IndexedMapOfShape myShapes;
-  TopTools_LocationSet       myLocations;
+  LocationSet1       myLocations;
   Standard_Integer           myFormatNb;
 };
 

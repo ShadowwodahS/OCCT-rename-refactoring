@@ -30,9 +30,9 @@ IGESSelect_DispPerDrawing::IGESSelect_DispPerDrawing()
   thesorter = new IGESSelect_ViewSorter;
 }
 
-TCollection_AsciiString IGESSelect_DispPerDrawing::Label() const
+AsciiString1 IGESSelect_DispPerDrawing::Label() const
 {
-  return TCollection_AsciiString("One File per Drawing");
+  return AsciiString1("One File per Drawing");
 }
 
 void IGESSelect_DispPerDrawing::Packets(const Interface_Graph&    G,

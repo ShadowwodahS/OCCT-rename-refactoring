@@ -34,7 +34,7 @@ class Interface_HGraph;
 class Transfer_ActorOfTransientProcess;
 class Transfer_TransientProcess;
 class Transfer_ResultFromModel;
-class TopoDS_Shape;
+class TopoShape;
 class Interface_CheckIterator;
 class Interface_Graph;
 
@@ -102,7 +102,7 @@ public:
 
   //! Returns (modifiable) the whole definition of Context
   //! Rather for internal use (ex.: preparing and setting in once)
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& Context()
+  NCollection_DataMap<AsciiString1, Handle(RefObject)>& Context()
   {
     return myContext;
   }
@@ -188,7 +188,7 @@ public:
 
   //! Returns the resulting object as a Shape
   //! Null Shape if no result or result not a shape
-  Standard_EXPORT TopoDS_Shape ShapeResult(const Handle(RefObject)& theEnt) const;
+  Standard_EXPORT TopoShape ShapeResult(const Handle(RefObject)& theEnt) const;
 
   //! Clears recorded result for an entity, according mode
   //! <mode> = -1 : true, complete, clearing (erasing result)
@@ -215,7 +215,7 @@ public:
   //! Returns an entity from which a given shape result was produced
   //! Returns a Null Handle if <res> not recorded or not a Shape
   Standard_EXPORT Handle(RefObject) EntityFromShapeResult(
-    const TopoDS_Shape&    theRes,
+    const TopoShape&    theRes,
     const Standard_Integer theMode = 0) const;
 
   //! Returns the list of entities from which some shapes were
@@ -376,10 +376,10 @@ public:
 
 private:
   Handle(XSControl_Controller)                                             myController;
-  TCollection_AsciiString                                                  myFileName;
+  AsciiString1                                                  myFileName;
   Handle(Interface_InterfaceModel)                                         myModel;
   Handle(Interface_HGraph)                                                 myGraph;
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> myContext;
+  NCollection_DataMap<AsciiString1, Handle(RefObject)> myContext;
   Handle(Transfer_ActorOfTransientProcess)                                 myActor;
   Handle(Transfer_TransientProcess)                                        myTP;
   TColStd_DataMapOfIntegerTransient                                        myResults;

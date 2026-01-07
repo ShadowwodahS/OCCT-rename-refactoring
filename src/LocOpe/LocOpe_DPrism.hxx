@@ -29,56 +29,56 @@
 #include <TColGeom_SequenceOfCurve.hxx>
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_ListOfShape.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 
-//! Defines a  pipe  (near from   Pipe from BRepFill),
+//! Defines a  pipe  (near from   Pipe from BRepFill1),
 //! with modifications provided for the Pipe feature.
 class LocOpe_DPrism
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT LocOpe_DPrism(const TopoDS_Face&  Spine,
+  Standard_EXPORT LocOpe_DPrism(const TopoFace&  Spine,
                                 const Standard_Real Height1,
                                 const Standard_Real Height2,
                                 const Standard_Real Angle);
 
-  Standard_EXPORT LocOpe_DPrism(const TopoDS_Face&  Spine,
+  Standard_EXPORT LocOpe_DPrism(const TopoFace&  Spine,
                                 const Standard_Real Height,
                                 const Standard_Real Angle);
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 
-  Standard_EXPORT const TopoDS_Shape& Spine() const;
+  Standard_EXPORT const TopoShape& Spine() const;
 
-  Standard_EXPORT const TopoDS_Shape& Profile() const;
+  Standard_EXPORT const TopoShape& Profile() const;
 
-  Standard_EXPORT const TopoDS_Shape& FirstShape() const;
+  Standard_EXPORT const TopoShape& FirstShape() const;
 
-  Standard_EXPORT const TopoDS_Shape& LastShape() const;
+  Standard_EXPORT const TopoShape& LastShape() const;
 
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
-  Standard_EXPORT const TopTools_ListOfShape& Shapes(const TopoDS_Shape& S) const;
+  Standard_EXPORT const ShapeList& Shapes(const TopoShape& S) const;
 
   Standard_EXPORT void Curves(TColGeom_SequenceOfCurve& SCurves) const;
 
-  Standard_EXPORT Handle(Geom_Curve) BarycCurve() const;
+  Standard_EXPORT Handle(GeomCurve3d) BarycCurve() const;
 
 protected:
 private:
   Standard_EXPORT void IntPerf();
 
   BRepFill_Evolved                   myDPrism;
-  TopoDS_Shape                       myRes;
-  TopoDS_Face                        mySpine;
-  TopoDS_Wire                        myProfile;
-  TopoDS_Edge                        myProfile1;
-  TopoDS_Edge                        myProfile2;
-  TopoDS_Edge                        myProfile3;
+  TopoShape                       myRes;
+  TopoFace                        mySpine;
+  TopoWire                        myProfile;
+  TopoEdge                        myProfile1;
+  TopoEdge                        myProfile2;
+  TopoEdge                        myProfile3;
   Standard_Real                      myHeight;
-  TopoDS_Shape                       myFirstShape;
-  TopoDS_Shape                       myLastShape;
+  TopoShape                       myFirstShape;
+  TopoShape                       myLastShape;
   TColGeom_SequenceOfCurve           myCurvs;
   TopTools_DataMapOfShapeListOfShape myMap;
 };

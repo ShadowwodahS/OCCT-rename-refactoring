@@ -179,7 +179,7 @@ Standard_CString UnitsMethods::DumpLengthUnit(const Standard_Real           theS
 UnitsMethods_LengthUnit UnitsMethods::LengthUnitFromString(Standard_CString       theStr,
                                                            const Standard_Boolean theCaseSensitive)
 {
-  TCollection_AsciiString aStr(theStr);
+  AsciiString1 aStr(theStr);
   if (!theCaseSensitive)
   {
     aStr.LowerCase();

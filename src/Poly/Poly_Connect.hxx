@@ -25,7 +25,7 @@
 #include <TColStd_PackedMapOfInteger.hxx>
 #include <Standard_Integer.hxx>
 #include <Standard_Boolean.hxx>
-class Poly_Triangulation;
+class MeshTriangulation;
 
 //! Provides an algorithm to explore, inside a triangulation, the
 //! adjacency data for a node or a triangle.
@@ -59,7 +59,7 @@ class Poly_Triangulation;
 //! triangulation and translates it into a series of triangles. By
 //! doing this, it provides an interface with other tools and
 //! applications working on basic triangles, and which do not
-//! work directly with a Poly_Triangulation.
+//! work directly with a MeshTriangulation.
 class Poly_Connect
 {
 public:
@@ -70,14 +70,14 @@ public:
 
   //! Constructs an algorithm to explore the adjacency data of
   //! nodes or triangles for the triangulation T.
-  Standard_EXPORT Poly_Connect(const Handle(Poly_Triangulation)& theTriangulation);
+  Standard_EXPORT Poly_Connect(const Handle(MeshTriangulation)& theTriangulation);
 
   //! Initialize the algorithm to explore the adjacency data of
   //! nodes or triangles for the triangulation theTriangulation.
-  Standard_EXPORT void Load(const Handle(Poly_Triangulation)& theTriangulation);
+  Standard_EXPORT void Load(const Handle(MeshTriangulation)& theTriangulation);
 
   //! Returns the triangulation analyzed by this tool.
-  const Handle(Poly_Triangulation)& Triangulation() const { return myTriangulation; }
+  const Handle(MeshTriangulation)& Triangulation() const { return myTriangulation; }
 
   //! Returns the index of a triangle containing the node at
   //! index N in the nodes table specific to the triangulation analyzed by this tool
@@ -154,7 +154,7 @@ public:
   Standard_Integer Value() const { return mytr; }
 
 private:
-  Handle(Poly_Triangulation) myTriangulation;
+  Handle(MeshTriangulation) myTriangulation;
   TColStd_Array1OfInteger    myTriangles;
   TColStd_Array1OfInteger    myAdjacents;
   Standard_Integer           mytr;

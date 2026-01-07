@@ -27,7 +27,7 @@
 
 //=================================================================================================
 
-BRepSweep_Prism::BRepSweep_Prism(const TopoDS_Shape&    S,
+BRepSweep_Prism::BRepSweep_Prism(const TopoShape&    S,
                                  const Vector3d&          V,
                                  const Standard_Boolean C,
                                  const Standard_Boolean Canonize)
@@ -39,7 +39,7 @@ BRepSweep_Prism::BRepSweep_Prism(const TopoDS_Shape&    S,
 
 //=================================================================================================
 
-BRepSweep_Prism::BRepSweep_Prism(const TopoDS_Shape&    S,
+BRepSweep_Prism::BRepSweep_Prism(const TopoShape&    S,
                                  const Dir3d&          D,
                                  const Standard_Boolean Inf,
                                  const Standard_Boolean C,
@@ -50,42 +50,42 @@ BRepSweep_Prism::BRepSweep_Prism(const TopoDS_Shape&    S,
 
 //=================================================================================================
 
-TopoDS_Shape BRepSweep_Prism::Shape()
+TopoShape BRepSweep_Prism::Shape()
 {
   return myTranslation.Shape();
 }
 
 //=================================================================================================
 
-TopoDS_Shape BRepSweep_Prism::Shape(const TopoDS_Shape& aGenS)
+TopoShape BRepSweep_Prism::Shape(const TopoShape& aGenS)
 {
   return myTranslation.Shape(aGenS);
 }
 
 //=================================================================================================
 
-TopoDS_Shape BRepSweep_Prism::FirstShape()
+TopoShape BRepSweep_Prism::FirstShape()
 {
   return myTranslation.FirstShape();
 }
 
 //=================================================================================================
 
-TopoDS_Shape BRepSweep_Prism::FirstShape(const TopoDS_Shape& aGenS)
+TopoShape BRepSweep_Prism::FirstShape(const TopoShape& aGenS)
 {
   return myTranslation.FirstShape(aGenS);
 }
 
 //=================================================================================================
 
-TopoDS_Shape BRepSweep_Prism::LastShape()
+TopoShape BRepSweep_Prism::LastShape()
 {
   return myTranslation.LastShape();
 }
 
 //=================================================================================================
 
-TopoDS_Shape BRepSweep_Prism::LastShape(const TopoDS_Shape& aGenS)
+TopoShape BRepSweep_Prism::LastShape(const TopoShape& aGenS)
 {
   return myTranslation.LastShape(aGenS);
 }
@@ -132,14 +132,14 @@ TopLoc_Location BRepSweep_Prism::Location(const Vector3d& V) const
 
 //=================================================================================================
 
-Standard_Boolean BRepSweep_Prism::IsUsed(const TopoDS_Shape& aGenS) const
+Standard_Boolean BRepSweep_Prism::IsUsed(const TopoShape& aGenS) const
 {
   return myTranslation.IsUsed(aGenS);
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepSweep_Prism::GenIsUsed(const TopoDS_Shape& aGenS) const
+Standard_Boolean BRepSweep_Prism::GenIsUsed(const TopoShape& aGenS) const
 {
   return myTranslation.GenIsUsed(aGenS);
 }

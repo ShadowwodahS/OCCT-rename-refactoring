@@ -27,9 +27,9 @@
 //  (Modules are created and loaded in appropriate libraries, once by Init)
 static Handle(IGESSolid_Protocol) protocol;
 
-void IGESSolid::Init()
+void IGESSolid1::Init()
 {
-  IGESGeom::Init();
+  IGESGeom1::Init();
   if (protocol.IsNull())
   {
     protocol = new IGESSolid_Protocol;
@@ -40,7 +40,7 @@ void IGESSolid::Init()
   }
 }
 
-Handle(IGESSolid_Protocol) IGESSolid::Protocol()
+Handle(IGESSolid_Protocol) IGESSolid1::Protocol()
 {
   return protocol;
 }

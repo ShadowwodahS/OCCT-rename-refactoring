@@ -223,7 +223,7 @@ public:             //! @name Preparation methods
   //! @param[in] theMax         number of steps in scope
   //! @param[in] isInfinite     infinite flag
   Message_ProgressScope(const Message_ProgressRange&   theRange,
-                        const TCollection_AsciiString& theName,
+                        const AsciiString1& theName,
                         Standard_Real                  theMax,
                         Standard_Boolean               isInfinite = false);
 
@@ -264,7 +264,7 @@ public:             //! @name Preparation methods
                         Standard_Boolean             isInfinite = false);
 
   //! Sets the name of the scope.
-  void SetName(const TCollection_AsciiString& theName)
+  void SetName(const AsciiString1& theName)
   {
     if (myIsOwnName)
     {
@@ -427,7 +427,7 @@ inline Message_ProgressScope::Message_ProgressScope(Message_ProgressIndicator* t
 // purpose  :
 //=======================================================================
 inline Message_ProgressScope::Message_ProgressScope(const Message_ProgressRange&   theRange,
-                                                    const TCollection_AsciiString& theName,
+                                                    const AsciiString1& theName,
                                                     Standard_Real                  theMax,
                                                     Standard_Boolean               isInfinite)
     : myProgress(theRange.myParentScope != NULL ? theRange.myParentScope->myProgress : NULL),

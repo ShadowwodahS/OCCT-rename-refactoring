@@ -30,9 +30,9 @@
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Real.hxx>
 
-class TopoDS_Edge;
-class Geom2d_Curve;
-class Geom_Curve;
+class TopoEdge;
+class GeomCurve2d;
+class GeomCurve3d;
 class Point3d;
 class gp_Pnt2d;
 
@@ -51,13 +51,13 @@ public:
 
   Standard_EXPORT BRepFill_MultiLine();
 
-  Standard_EXPORT BRepFill_MultiLine(const TopoDS_Face&          Face1,
-                                     const TopoDS_Face&          Face2,
-                                     const TopoDS_Edge&          Edge1,
-                                     const TopoDS_Edge&          Edge2,
+  Standard_EXPORT BRepFill_MultiLine(const TopoFace&          Face1,
+                                     const TopoFace&          Face2,
+                                     const TopoEdge&          Edge1,
+                                     const TopoEdge&          Edge2,
                                      const Standard_Boolean      Inv1,
                                      const Standard_Boolean      Inv2,
-                                     const Handle(Geom2d_Curve)& Bissec);
+                                     const Handle(GeomCurve2d)& Bissec);
 
   //! Search if the Projection of the Bissectrice on the
   //! faces needs an approximation or not.
@@ -69,9 +69,9 @@ public:
   Standard_EXPORT GeomAbs_Shape Continuity() const;
 
   //! raises if IsParticularCase is <False>.
-  Standard_EXPORT void Curves(Handle(Geom_Curve)&   Curve,
-                              Handle(Geom2d_Curve)& PCurve1,
-                              Handle(Geom2d_Curve)& PCurve2) const;
+  Standard_EXPORT void Curves(Handle(GeomCurve3d)&   Curve,
+                              Handle(GeomCurve2d)& PCurve1,
+                              Handle(GeomCurve2d)& PCurve2) const;
 
   //! returns the first parameter of the Bissectrice.
   Standard_EXPORT virtual Standard_Real FirstParameter() const;
@@ -106,8 +106,8 @@ public:
                                               NCollection_Array1<Vector3d>&   theVec) const;
 
 private:
-  TopoDS_Face         myFace1;
-  TopoDS_Face         myFace2;
+  TopoFace         myFace1;
+  TopoFace         myFace2;
   Geom2dAdaptor_Curve myU1;
   Geom2dAdaptor_Curve myV1;
   Geom2dAdaptor_Curve myU2;

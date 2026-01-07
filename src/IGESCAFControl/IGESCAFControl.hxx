@@ -24,7 +24,7 @@ class Quantity_Color;
 
 //! Provides high-level API to translate IGES file
 //! to and from DECAF document
-class IGESCAFControl
+class IGESCAFControl1
 {
 public:
   DEFINE_STANDARD_ALLOC

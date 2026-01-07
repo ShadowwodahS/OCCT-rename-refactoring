@@ -23,7 +23,7 @@
 #include <BRepSweep_Prism.hxx>
 #include <BRepPrimAPI_MakeSweep.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class Vector3d;
 class Dir3d;
 
@@ -52,7 +52,7 @@ public:
   //! Builds the prism of base S and vector V. If C is true,
   //! S is copied. If Canonize is true then generated surfaces
   //! are attempted to be canonized in simple types
-  Standard_EXPORT BRepPrimAPI_MakePrism(const TopoDS_Shape&    S,
+  Standard_EXPORT BRepPrimAPI_MakePrism(const TopoShape&    S,
                                         const Vector3d&          V,
                                         const Standard_Boolean Copy     = Standard_False,
                                         const Standard_Boolean Canonize = Standard_True);
@@ -63,7 +63,7 @@ public:
   //! is true S is copied (for semi-infinite prisms).
   //! If Canonize is true then generated surfaces
   //! are attempted to be canonized in simple types
-  Standard_EXPORT BRepPrimAPI_MakePrism(const TopoDS_Shape&    S,
+  Standard_EXPORT BRepPrimAPI_MakePrism(const TopoShape&    S,
                                         const Dir3d&          D,
                                         const Standard_Boolean Inf      = Standard_True,
                                         const Standard_Boolean Copy     = Standard_False,
@@ -77,7 +77,7 @@ public:
     const Message_ProgressRange& theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Returns the  TopoDS  Shape of the bottom of the prism.
-  Standard_EXPORT TopoDS_Shape FirstShape() Standard_OVERRIDE;
+  Standard_EXPORT TopoShape FirstShape() Standard_OVERRIDE;
 
   //! Returns the TopoDS Shape of the top of the prism.
   //! In the case of a finite prism, FirstShape returns the
@@ -85,22 +85,22 @@ public:
   //! otherwise, the copy of S belonging to the prism.
   //! LastShape returns the copy of S translated by V at the
   //! time of construction.
-  Standard_EXPORT TopoDS_Shape LastShape() Standard_OVERRIDE;
+  Standard_EXPORT TopoShape LastShape() Standard_OVERRIDE;
 
-  //! Returns ListOfShape from TopTools.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Generated(const TopoDS_Shape& S)
+  //! Returns ListOfShape from TopTools1.
+  Standard_EXPORT virtual const ShapeList& Generated(const TopoShape& S)
     Standard_OVERRIDE;
 
   //! Returns true if the shape S has been deleted.
-  Standard_EXPORT virtual Standard_Boolean IsDeleted(const TopoDS_Shape& S) Standard_OVERRIDE;
+  Standard_EXPORT virtual Standard_Boolean IsDeleted(const TopoShape& S) Standard_OVERRIDE;
 
   //! Returns the TopoDS Shape of the bottom  of the  prism.
   //! generated  with  theShape (subShape of the  generating shape).
-  Standard_EXPORT TopoDS_Shape FirstShape(const TopoDS_Shape& theShape);
+  Standard_EXPORT TopoShape FirstShape(const TopoShape& theShape);
 
   //! Returns the  TopoDS  Shape of the top  of  the  prism.
   //! generated  with  theShape (subShape of the  generating shape).
-  Standard_EXPORT TopoDS_Shape LastShape(const TopoDS_Shape& theShape);
+  Standard_EXPORT TopoShape LastShape(const TopoShape& theShape);
 
 protected:
 private:

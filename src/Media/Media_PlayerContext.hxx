@@ -38,17 +38,17 @@ public:
   //! @param[in] theSrcVideo  path to the video
   //! @param[out] theMediaInfo  video description
   Standard_EXPORT static Handle(Media_Frame) DumpFirstFrame(
-    const TCollection_AsciiString& theSrcVideo,
-    TCollection_AsciiString&       theMediaInfo);
+    const AsciiString1& theSrcVideo,
+    AsciiString1&       theMediaInfo);
 
   //! Dump first video frame.
   //! @param[in] theSrcVideo  path to the video
   //! @param[in] theOutImage  path to make a screenshot
   //! @param[out] theMediaInfo  video description
   //! @param[in] theMaxSize  when positive - downscales image to specified size
-  Standard_EXPORT static bool DumpFirstFrame(const TCollection_AsciiString& theSrcVideo,
-                                             const TCollection_AsciiString& theOutImage,
-                                             TCollection_AsciiString&       theMediaInfo,
+  Standard_EXPORT static bool DumpFirstFrame(const AsciiString1& theSrcVideo,
+                                             const AsciiString1& theOutImage,
+                                             AsciiString1&       theMediaInfo,
                                              int                            theMaxSize = 0);
 
 public:
@@ -62,7 +62,7 @@ public:
 
 public:
   //! Set new input for playback.
-  Standard_EXPORT void SetInput(const TCollection_AsciiString& theInputPath,
+  Standard_EXPORT void SetInput(const AsciiString1& theInputPath,
                                 Standard_Boolean               theToWait);
 
   //! Return playback state.
@@ -144,7 +144,7 @@ private:
                                    // clang-format on
 
   volatile bool              myToShutDown; //!< flag to terminate working thread
-  TCollection_AsciiString    myInputPath;  //!< new input to open
+  AsciiString1    myInputPath;  //!< new input to open
   volatile Standard_Real     mySeekTo;     //!< new seeking position
   volatile Media_PlayerEvent myPlayEvent;  //!< playback event
 };

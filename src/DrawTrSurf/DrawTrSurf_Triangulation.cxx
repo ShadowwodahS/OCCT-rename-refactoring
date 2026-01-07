@@ -30,7 +30,7 @@ IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Triangulation, Draw_Drawable3D)
 
 //=================================================================================================
 
-DrawTrSurf_Triangulation::DrawTrSurf_Triangulation(const Handle(Poly_Triangulation)& T)
+DrawTrSurf_Triangulation::DrawTrSurf_Triangulation(const Handle(MeshTriangulation)& T)
     : myTriangulation(T),
       myNodes(Standard_False),
       myTriangles(Standard_False)
@@ -87,7 +87,7 @@ DrawTrSurf_Triangulation::DrawTrSurf_Triangulation(const Handle(Poly_Triangulati
 
 //=================================================================================================
 
-void DrawTrSurf_Triangulation::DrawOn(Draw_Display& dis) const
+void DrawTrSurf_Triangulation::DrawOn(DrawDisplay& dis) const
 {
   // Display the edges
   Standard_Integer i, n;
@@ -99,7 +99,7 @@ void DrawTrSurf_Triangulation::DrawOn(Draw_Display& dis) const
   n                                   = Free.Length() / 2;
   for (i = 1; i <= n; i++)
   {
-    dis.Draw(myTriangulation->Node(Free[2 * i - 1]), myTriangulation->Node(Free[2 * i]));
+    dis.Draw1(myTriangulation->Node(Free[2 * i - 1]), myTriangulation->Node(Free[2 * i]));
   }
 
   // internal edges
@@ -109,7 +109,7 @@ void DrawTrSurf_Triangulation::DrawOn(Draw_Display& dis) const
   n                                       = Internal.Length() / 2;
   for (i = 1; i <= n; i++)
   {
-    dis.Draw(myTriangulation->Node(Internal[2 * i - 1]), myTriangulation->Node(Internal[2 * i]));
+    dis.Draw1(myTriangulation->Node(Internal[2 * i - 1]), myTriangulation->Node(Internal[2 * i]));
   }
 
   // texts
@@ -189,7 +189,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_Triangulation::Restore(Standard_IStream& theS
 
 //=================================================================================================
 
-void DrawTrSurf_Triangulation::Whatis(Draw_Interpretor& I) const
+void DrawTrSurf_Triangulation::Whatis(DrawInterpreter& I) const
 {
   I << "triangulation";
 }

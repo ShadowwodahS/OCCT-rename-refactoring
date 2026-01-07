@@ -23,13 +23,13 @@
 #include <Standard_Boolean.hxx>
 #include <Draw_Interpretor.hxx>
 class TDF_Data;
-class TDF_Label;
+class DataLabel;
 class Standard_GUID;
 class TDF_Attribute;
 
 //! Provides facilities to manipulate data framework
-//! in a Draw-Commands environment.
-class DDF
+//! in a Draw1-Commands environment.
+class DDF1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -47,7 +47,7 @@ public:
   Standard_EXPORT static Standard_Boolean FindLabel(
     const Handle(TDF_Data)& DF,
     const Standard_CString  Entry,
-    TDF_Label&              Label,
+    DataLabel&              Label,
     const Standard_Boolean  Complain = Standard_True);
 
   //! Search in <DF> the  label identified by its entry
@@ -55,7 +55,7 @@ public:
   //! the Label in <DF>. In that case return True.
   Standard_EXPORT static Standard_Boolean AddLabel(const Handle(TDF_Data)& DF,
                                                    const Standard_CString  Entry,
-                                                   TDF_Label&              Label);
+                                                   DataLabel&              Label);
 
   //! Search   in <DF> the  attribute  identified by its
   //! <ID> and its <entry>.  returns <True> if found. In
@@ -78,24 +78,24 @@ public:
     return Find(DF, Entry, ID, anAttr, Complain) && !(A = Handle(T)::DownCast(anAttr)).IsNull();
   }
 
-  Standard_EXPORT static Draw_Interpretor& ReturnLabel(Draw_Interpretor& theCommands,
-                                                       const TDF_Label&  L);
+  Standard_EXPORT static DrawInterpreter& ReturnLabel(DrawInterpreter& theCommands,
+                                                       const DataLabel&  L);
 
-  Standard_EXPORT static void AllCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void AllCommands(DrawInterpreter& theCommands);
 
   //! Basic commands.
-  Standard_EXPORT static void BasicCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void BasicCommands(DrawInterpreter& theCommands);
 
   //! Data framework commands
   //! create, clear & copy.
-  Standard_EXPORT static void DataCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void DataCommands(DrawInterpreter& theCommands);
 
   //! open commit abort a transaction
   //! undo facilities.
-  Standard_EXPORT static void TransactionCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void TransactionCommands(DrawInterpreter& theCommands);
 
   //! Browser commands .
-  Standard_EXPORT static void BrowserCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void BrowserCommands(DrawInterpreter& theCommands);
 };
 
 #endif // _DDF_HeaderFile

@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(DBRep_Face, RefObject)
 
 //=================================================================================================
 
-DBRep_Face::DBRep_Face(const TopoDS_Face& F, const Standard_Integer N, const Draw_Color& C)
+DBRep_Face::DBRep_Face(const TopoFace& F, const Standard_Integer N, const DrawColor& C)
     : myFace(F),
       myColor(C),
       myTypes(N ? 1 : 0, N),

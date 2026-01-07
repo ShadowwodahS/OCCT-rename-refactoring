@@ -545,7 +545,7 @@ Standard_Real BRepGProp_Gauss::Compute(BRepGProp_Face&        theSurface,
 
   //
   const Standard_Integer NumSubs = SUBS_POWER;
-  const TopoDS_Face&     aF      = theSurface.GetFace();
+  const TopoFace&     aF      = theSurface.GetFace();
   // clang-format off
   const Standard_Boolean isNaturalRestriction = (aF.NbChildren () == 0); //theSurface.NaturalRestriction();
   // clang-format on

@@ -26,7 +26,7 @@
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& HLRTopoBRep_Data::EdgeSplE(const TopoDS_Edge& E) const
+inline const ShapeList& HLRTopoBRep_Data::EdgeSplE(const TopoEdge& E) const
 {
   return mySplE(E);
 }
@@ -36,7 +36,7 @@ inline const TopTools_ListOfShape& HLRTopoBRep_Data::EdgeSplE(const TopoDS_Edge&
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& HLRTopoBRep_Data::FaceIntL(const TopoDS_Face& F) const
+inline const ShapeList& HLRTopoBRep_Data::FaceIntL(const TopoFace& F) const
 {
   return myData(F).FaceIntL();
 }
@@ -46,7 +46,7 @@ inline const TopTools_ListOfShape& HLRTopoBRep_Data::FaceIntL(const TopoDS_Face&
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& HLRTopoBRep_Data::FaceOutL(const TopoDS_Face& F) const
+inline const ShapeList& HLRTopoBRep_Data::FaceOutL(const TopoFace& F) const
 {
   return myData(F).FaceOutL();
 }
@@ -56,7 +56,7 @@ inline const TopTools_ListOfShape& HLRTopoBRep_Data::FaceOutL(const TopoDS_Face&
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& HLRTopoBRep_Data::FaceIsoL(const TopoDS_Face& F) const
+inline const ShapeList& HLRTopoBRep_Data::FaceIsoL(const TopoFace& F) const
 {
   return myData(F).FaceIsoL();
 }
@@ -66,7 +66,7 @@ inline const TopTools_ListOfShape& HLRTopoBRep_Data::FaceIsoL(const TopoDS_Face&
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean HLRTopoBRep_Data::IsOutV(const TopoDS_Vertex& V) const
+inline Standard_Boolean HLRTopoBRep_Data::IsOutV(const TopoVertex& V) const
 {
   return myOutV.Contains(V);
 }
@@ -76,7 +76,7 @@ inline Standard_Boolean HLRTopoBRep_Data::IsOutV(const TopoDS_Vertex& V) const
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean HLRTopoBRep_Data::IsIntV(const TopoDS_Vertex& V) const
+inline Standard_Boolean HLRTopoBRep_Data::IsIntV(const TopoVertex& V) const
 {
   return myIntV.Contains(V);
 }
@@ -86,7 +86,7 @@ inline Standard_Boolean HLRTopoBRep_Data::IsIntV(const TopoDS_Vertex& V) const
 // purpose  :
 //=======================================================================
 
-inline void HLRTopoBRep_Data::AddOutV(const TopoDS_Vertex& V)
+inline void HLRTopoBRep_Data::AddOutV(const TopoVertex& V)
 {
   myOutV.Add(V);
 }
@@ -96,7 +96,7 @@ inline void HLRTopoBRep_Data::AddOutV(const TopoDS_Vertex& V)
 // purpose  :
 //=======================================================================
 
-inline void HLRTopoBRep_Data::AddIntV(const TopoDS_Vertex& V)
+inline void HLRTopoBRep_Data::AddIntV(const TopoVertex& V)
 {
   myIntV.Add(V);
 }
@@ -116,7 +116,7 @@ inline Standard_Boolean HLRTopoBRep_Data::MoreEdge() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Edge& HLRTopoBRep_Data::Edge() const
+inline const TopoEdge& HLRTopoBRep_Data::Edge() const
 {
   return TopoDS::Edge(myEIterator.Key());
 }

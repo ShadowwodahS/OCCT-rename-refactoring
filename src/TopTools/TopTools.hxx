@@ -22,9 +22,9 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_OStream.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
-//! The  TopTools package provides   utilities for the
+//! The  TopTools1 package provides   utilities for the
 //! topological data structure.
 //!
 //! * ShapeMapHasher. Hash a  Shape base on the TShape
@@ -64,7 +64,7 @@ class TopoDS_Shape;
 //! Package Methods :
 //!
 //! Dump : To dump the topology of a Shape.
-class TopTools
+class TopTools1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -72,7 +72,7 @@ public:
   //! A set of Shapes. Can be dump, wrote or read.
   //! Dumps the topological structure  of <Sh>  on the
   //! stream <S>.
-  Standard_EXPORT static void Dump(const TopoDS_Shape& Sh, Standard_OStream& S);
+  Standard_EXPORT static void Dump(const TopoShape& Sh, Standard_OStream& S);
 
   //! This is to bypass an extraction bug. It will force
   //! the  inclusion    of  Standard_Integer.hxx  itself

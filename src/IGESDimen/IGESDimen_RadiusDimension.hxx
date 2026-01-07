@@ -32,7 +32,7 @@ class IGESDimen_RadiusDimension;
 DEFINE_STANDARD_HANDLE(IGESDimen_RadiusDimension, IGESData_IGESEntity)
 
 //! Defines IGES Radius Dimension, type <222> Form <0, 1>,
-//! in package IGESDimen.
+//! in package IGESDimen1.
 //! A Radius Dimension Entity consists of a General Note, a
 //! leader, and an arc center point. A second form of this
 //! entity accounts for the occasional need to have two
@@ -45,7 +45,7 @@ public:
 
   Standard_EXPORT void Init(const Handle(IGESDimen_GeneralNote)& aNote,
                             const Handle(IGESDimen_LeaderArrow)& anArrow,
-                            const gp_XY&                         arcCenter,
+                            const Coords2d&                         arcCenter,
                             const Handle(IGESDimen_LeaderArrow)& anotherArrow);
 
   //! Allows to change Form Number
@@ -77,7 +77,7 @@ protected:
 private:
   Handle(IGESDimen_GeneralNote) theNote;
   Handle(IGESDimen_LeaderArrow) theLeaderArrow;
-  gp_XY                         theCenter;
+  Coords2d                         theCenter;
   Handle(IGESDimen_LeaderArrow) theLeader2;
 };
 

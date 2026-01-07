@@ -30,7 +30,7 @@ class IGESGraph_TextFontDef;
 DEFINE_STANDARD_HANDLE(IGESGraph_TextFontDef, IGESData_IGESEntity)
 
 //! defines IGES Text Font Definition Entity, Type <310>
-//! in package IGESGraph
+//! in package IGESGraph1
 //!
 //! Used to define the appearance of characters in a text font.
 //! It may be used to describe a complete font or a

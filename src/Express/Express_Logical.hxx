@@ -17,7 +17,7 @@
 #include <Express_PredefinedType.hxx>
 #include <Standard_Type.hxx>
 
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! Implements EXPRESS type 'LOGICAL'
 class Express_Logical : public Express_PredefinedType
@@ -28,7 +28,7 @@ public:
   Standard_EXPORT Express_Logical();
 
   //! Returns "StepData_Logical"
-  Standard_EXPORT virtual const TCollection_AsciiString CPPName() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const AsciiString1 CPPName() const Standard_OVERRIDE;
 
   //! Return False
   Standard_EXPORT virtual Standard_Boolean IsStandard() const Standard_OVERRIDE;

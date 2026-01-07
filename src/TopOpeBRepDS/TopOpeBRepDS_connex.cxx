@@ -22,7 +22,7 @@
 static TopTools_DataMapOfShapeListOfShape* GLOBAL_elf1 = NULL; // NYI to CDLize as a tool of DS
 static TopTools_DataMapOfShapeListOfShape* GLOBAL_elf2 = NULL; // NYI to CDLize as a tool of DS
 static TopTools_DataMapOfShapeListOfShape* GLOBAL_fle  = NULL; // NYI to CDLize as a tool of DS
-static TopTools_ListOfShape*               GLOBAL_los  = NULL; // NYI to CDLize as a tool of DS
+static ShapeList*               GLOBAL_los  = NULL; // NYI to CDLize as a tool of DS
 static Standard_Boolean                    GLOBAL_FDSCNX_prepared = Standard_False;
 
 // modified by NIZNHY-PKV Sun Dec 15 17:41:43 2002 f
@@ -59,8 +59,8 @@ void FDSCNX_Close()
 
 // modified by NIZNHY-PKV Sun Dec 15 17:41:40 2002 t
 
-Standard_EXPORT const TopTools_ListOfShape& FDSCNX_EdgeConnexityShapeIndex(
-  const TopoDS_Shape&                        E,
+Standard_EXPORT const ShapeList& FDSCNX_EdgeConnexityShapeIndex(
+  const TopoShape&                        E,
   const Handle(TopOpeBRepDS_HDataStructure)& HDS,
   const Standard_Integer                     SI)
 {
@@ -82,21 +82,21 @@ Standard_EXPORT const TopTools_ListOfShape& FDSCNX_EdgeConnexityShapeIndex(
     return *GLOBAL_los;
   TopTools_DataMapOfShapeListOfShape* pelf = (SI == 1) ? GLOBAL_elf1 : GLOBAL_elf2;
   TopTools_DataMapOfShapeListOfShape& elf  = *pelf;
-  const TopTools_ListOfShape&         lof  = elf.Find(E);
+  const ShapeList&         lof  = elf.Find(E);
   return lof;
 }
 
 // S = edge --> liste de faces connexes par S
 // S = face --> liste d'edges E de S qui ont au moins une autre face connexe
-Standard_EXPORT const TopTools_ListOfShape& FDSCNX_EdgeConnexitySameShape(
-  const TopoDS_Shape&                        S,
+Standard_EXPORT const ShapeList& FDSCNX_EdgeConnexitySameShape(
+  const TopoShape&                        S,
   const Handle(TopOpeBRepDS_HDataStructure)& HDS)
 {
   TopAbs_ShapeEnum t = S.ShapeType();
   if (t == TopAbs_EDGE)
   {
     Standard_Integer            si = HDS->DS().AncestorRank(S);
-    const TopTools_ListOfShape& lf = FDSCNX_EdgeConnexityShapeIndex(S, HDS, si);
+    const ShapeList& lf = FDSCNX_EdgeConnexityShapeIndex(S, HDS, si);
     return lf;
   }
   else if (t == TopAbs_FACE)
@@ -104,15 +104,15 @@ Standard_EXPORT const TopTools_ListOfShape& FDSCNX_EdgeConnexitySameShape(
     TopTools_DataMapOfShapeListOfShape& fle = *GLOBAL_fle;
     if (fle.IsBound(S))
     {
-      const TopTools_ListOfShape& le = fle.Find(S);
+      const ShapeList& le = fle.Find(S);
       return le;
     }
   }
   return *GLOBAL_los;
 }
 
-Standard_EXPORT void FDSCNX_Prepare(const TopoDS_Shape& /*S1*/,
-                                    const TopoDS_Shape& /*S2*/,
+Standard_EXPORT void FDSCNX_Prepare(const TopoShape& /*S1*/,
+                                    const TopoShape& /*S2*/,
                                     const Handle(TopOpeBRepDS_HDataStructure)& HDS)
 {
   if (HDS.IsNull())
@@ -128,16 +128,16 @@ Standard_EXPORT void FDSCNX_Prepare(const TopoDS_Shape& /*S1*/,
   if (GLOBAL_fle == NULL)
     GLOBAL_fle = (TopTools_DataMapOfShapeListOfShape*)new TopTools_DataMapOfShapeListOfShape();
   if (GLOBAL_los == NULL)
-    GLOBAL_los = (TopTools_ListOfShape*)new TopTools_ListOfShape();
+    GLOBAL_los = (ShapeList*)new ShapeList();
   GLOBAL_elf1->Clear();
   GLOBAL_elf2->Clear();
   GLOBAL_fle->Clear();
   GLOBAL_los->Clear();
 
-  Standard_Integer i = 0, n = BDS.NbShapes();
+  Standard_Integer i = 0, n = BDS.NbShapes1();
   for (i = 1; i <= n; i++)
   {
-    const TopoDS_Shape& f = BDS.Shape(i);
+    const TopoShape& f = BDS.Shape(i);
     if (f.ShapeType() != TopAbs_FACE)
       continue;
     Standard_Integer rf = BDS.AncestorRank(f);
@@ -146,28 +146,28 @@ Standard_EXPORT void FDSCNX_Prepare(const TopoDS_Shape& /*S1*/,
     //    BDS.Shape(f);
     TopTools_DataMapOfShapeListOfShape& fle = *GLOBAL_fle;
     TopTools_DataMapOfShapeListOfShape& elf = (rf == 1) ? *GLOBAL_elf1 : *GLOBAL_elf2;
-    TopExp_Explorer                     exe;
+    ShapeExplorer                     exe;
     for (exe.Init(f, TopAbs_EDGE); exe.More(); exe.Next())
     {
-      //    for (TopExp_Explorer exe(f,TopAbs_EDGE);exe.More();exe.Next()) {
-      const TopoDS_Shape& e = exe.Current();
+      //    for (ShapeExplorer exe(f,TopAbs_EDGE);exe.More();exe.Next()) {
+      const TopoShape& e = exe.Current();
       //               BDS.Shape(e);
       //      Standard_Boolean se = BDS.IsSectionEdge(TopoDS::Edge(e)); if (!se) continue;
       Standard_Boolean hs = BDS.HasShape(TopoDS::Edge(e));
       if (!hs)
         continue;
 
-      TopTools_ListOfShape* aListFle = fle.ChangeSeek(f);
+      ShapeList* aListFle = fle.ChangeSeek(f);
       if (aListFle == NULL)
       {
-        aListFle = fle.Bound(f, TopTools_ListOfShape());
+        aListFle = fle.Bound(f, ShapeList());
       }
       aListFle->Append(e);
 
-      TopTools_ListOfShape* aListElf = elf.ChangeSeek(e);
+      ShapeList* aListElf = elf.ChangeSeek(e);
       if (aListElf == NULL)
       {
-        aListElf = elf.Bound(e, TopTools_ListOfShape());
+        aListElf = elf.Bound(e, ShapeList());
       }
       aListElf->Append(f);
     }
@@ -176,7 +176,7 @@ Standard_EXPORT void FDSCNX_Prepare(const TopoDS_Shape& /*S1*/,
 }
 
 Standard_EXPORT Standard_Boolean
-  FDSCNX_HasConnexFace(const TopoDS_Shape& S, const Handle(TopOpeBRepDS_HDataStructure)& HDS)
+  FDSCNX_HasConnexFace(const TopoShape& S, const Handle(TopOpeBRepDS_HDataStructure)& HDS)
 {
   if (HDS.IsNull())
   {
@@ -205,22 +205,22 @@ Standard_EXPORT Standard_Boolean
   return has;
 }
 
-Standard_EXPORT void FDSCNX_FaceEdgeConnexFaces(const TopoDS_Shape&                        F,
-                                                const TopoDS_Shape&                        E,
+Standard_EXPORT void FDSCNX_FaceEdgeConnexFaces(const TopoShape&                        F,
+                                                const TopoShape&                        E,
                                                 const Handle(TopOpeBRepDS_HDataStructure)& HDS,
-                                                TopTools_ListOfShape&                      LF)
+                                                ShapeList&                      LF)
 {
   LF.Clear();
   // verifier que E est une arete de connexite de F
   Standard_Boolean            EofF = Standard_False;
-  const TopTools_ListOfShape& loe  = FDSCNX_EdgeConnexitySameShape(F, HDS);
+  const ShapeList& loe  = FDSCNX_EdgeConnexitySameShape(F, HDS);
   if (loe.IsEmpty())
   {
     return;
   }
   for (TopTools_ListIteratorOfListOfShape i(loe); i.More(); i.Next())
   {
-    const TopoDS_Shape& e = i.Value();
+    const TopoShape& e = i.Value();
     //             HDS->Shape(e);
     Standard_Boolean b = e.IsSame(E);
     if (b)
@@ -234,14 +234,14 @@ Standard_EXPORT void FDSCNX_FaceEdgeConnexFaces(const TopoDS_Shape&             
     return;
   }
 
-  const TopTools_ListOfShape& lof = FDSCNX_EdgeConnexitySameShape(E, HDS);
+  const ShapeList& lof = FDSCNX_EdgeConnexitySameShape(E, HDS);
   if (lof.IsEmpty())
   {
     return;
   }
   for (TopTools_ListIteratorOfListOfShape it(lof); it.More(); it.Next())
   {
-    const TopoDS_Shape& f = it.Value();
+    const TopoShape& f = it.Value();
     Standard_Boolean    b = f.IsSame(F);
     if (!b)
     {
@@ -259,16 +259,16 @@ Standard_EXPORT void FDSCNX_DumpIndex(const Handle(TopOpeBRepDS_HDataStructure)&
   }
 
   const TopOpeBRepDS_DataStructure& BDS = HDS->DS();
-  Standard_Integer                  ns  = BDS.NbShapes();
+  Standard_Integer                  ns  = BDS.NbShapes1();
   if (I < 1 || I > ns)
   {
     return;
   }
 
   Standard_Integer            i  = I;
-  const TopoDS_Shape&         s  = BDS.Shape(i);
+  const TopoShape&         s  = BDS.Shape(i);
   TopAbs_ShapeEnum            ts = s.ShapeType();
-  const TopTools_ListOfShape& ls = FDSCNX_EdgeConnexitySameShape(s, HDS);
+  const ShapeList& ls = FDSCNX_EdgeConnexitySameShape(s, HDS);
   if (ts == TopAbs_EDGE)
   {
     TopTools_ListIteratorOfListOfShape ils(ls);
@@ -292,8 +292,8 @@ Standard_EXPORT void FDSCNX_DumpIndex(const Handle(TopOpeBRepDS_HDataStructure)&
 
     for (; ils.More(); ils.Next())
     {
-      const TopoDS_Shape&  e = ils.Value();
-      TopTools_ListOfShape lf;
+      const TopoShape&  e = ils.Value();
+      ShapeList lf;
       FDSCNX_FaceEdgeConnexFaces(s, e, HDS, lf);
       TopTools_ListIteratorOfListOfShape ilf(lf);
       if (!ilf.More())
@@ -317,17 +317,17 @@ Standard_EXPORT void FDSCNX_Dump(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
   }
 
   const TopOpeBRepDS_DataStructure& BDS = HDS->DS();
-  Standard_Integer                  ns  = BDS.NbShapes();
+  Standard_Integer                  ns  = BDS.NbShapes1();
   if (I < 1 || I > ns)
   {
     return;
   }
 
   Standard_Integer            i  = I;
-  const TopoDS_Shape&         s  = BDS.Shape(i);
+  const TopoShape&         s  = BDS.Shape(i);
   Standard_Integer            is = BDS.Shape(s);
   TopAbs_ShapeEnum            ts = s.ShapeType();
-  const TopTools_ListOfShape& ls = FDSCNX_EdgeConnexitySameShape(s, HDS);
+  const ShapeList& ls = FDSCNX_EdgeConnexitySameShape(s, HDS);
   if (ts == TopAbs_EDGE)
   {
     TopTools_ListIteratorOfListOfShape ils(ls);
@@ -352,9 +352,9 @@ Standard_EXPORT void FDSCNX_Dump(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
     }
     for (; ils.More(); ils.Next())
     {
-      const TopoDS_Shape&  e  = ils.Value();
+      const TopoShape&  e  = ils.Value();
       Standard_Integer     ie = BDS.Shape(e);
-      TopTools_ListOfShape lf;
+      ShapeList lf;
       FDSCNX_FaceEdgeConnexFaces(s, e, HDS, lf);
       TopTools_ListIteratorOfListOfShape ilf(lf);
       if (!ilf.More())
@@ -381,7 +381,7 @@ Standard_EXPORT void FDSCNX_Dump(const Handle(TopOpeBRepDS_HDataStructure)& HDS)
   }
 
   const TopOpeBRepDS_DataStructure& BDS = HDS->DS();
-  Standard_Integer                  ns  = BDS.NbShapes();
+  Standard_Integer                  ns  = BDS.NbShapes1();
   for (Standard_Integer i = 1; i <= ns; i++)
   {
     FDSCNX_Dump(HDS, i);

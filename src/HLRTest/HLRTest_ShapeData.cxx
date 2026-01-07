@@ -22,12 +22,12 @@ IMPLEMENT_STANDARD_RTTIEXT(HLRTest_ShapeData, RefObject)
 
 //=================================================================================================
 
-HLRTest_ShapeData::HLRTest_ShapeData(const Draw_Color& CVis,
-                                     const Draw_Color& COVis,
-                                     const Draw_Color& CIVis,
-                                     const Draw_Color& CHid,
-                                     const Draw_Color& COHid,
-                                     const Draw_Color& CIHid)
+HLRTest_ShapeData::HLRTest_ShapeData(const DrawColor& CVis,
+                                     const DrawColor& COVis,
+                                     const DrawColor& CIVis,
+                                     const DrawColor& CHid,
+                                     const DrawColor& COHid,
+                                     const DrawColor& CIHid)
     : myVColor(CVis),
       myVOColor(COVis),
       myVIColor(CIVis),

@@ -50,9 +50,9 @@ STEPEdit_EditContext::STEPEdit_EditContext()
   //  SetValue(8,prpc_descr,"PRPC_Descr");
 }
 
-TCollection_AsciiString STEPEdit_EditContext::Label() const
+AsciiString1 STEPEdit_EditContext::Label() const
 {
-  return TCollection_AsciiString("STEP : Product Definition Context");
+  return AsciiString1("STEP : Product Definition Context");
 }
 
 Standard_Boolean STEPEdit_EditContext::Recognize(const Handle(IFSelect_EditForm)& /*form*/) const
@@ -95,7 +95,7 @@ Standard_Boolean STEPEdit_EditContext::Load(const Handle(IFSelect_EditForm)& for
     return Standard_False;
 
   STEPConstruct_ContextTool ctx(modl);
-  StepData_Factors          aLocalFactors;
+  ConversionFactors          aLocalFactors;
   ctx.SetGlobalFactor(aLocalFactors);
 
   form->LoadValue(1, modl->StringLabel(ctx.GetAPD()));
@@ -122,7 +122,7 @@ Standard_Boolean STEPEdit_EditContext::Apply(const Handle(IFSelect_EditForm)& fo
     return Standard_False;
 
   STEPConstruct_ContextTool ctx(modl);
-  StepData_Factors          aLocalFactors;
+  ConversionFactors          aLocalFactors;
   ctx.SetGlobalFactor(aLocalFactors);
 
   ctx.AddAPD(); // on ne sait jamais

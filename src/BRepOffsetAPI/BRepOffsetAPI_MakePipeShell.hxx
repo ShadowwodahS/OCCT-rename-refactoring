@@ -28,11 +28,11 @@
 #include <Standard_Integer.hxx>
 #include <BRepBuilderAPI_TransitionMode.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Wire;
+class TopoWire;
 class Frame3d;
 class Dir3d;
-class TopoDS_Shape;
-class TopoDS_Vertex;
+class TopoShape;
+class TopoVertex;
 class Law_Function;
 
 //! This class provides for a framework to construct a shell
@@ -61,7 +61,7 @@ public:
   //! Constructs the shell-generating framework defined by the wire Spine.
   //! Sets an sweep's mode
   //! If no mode are set, the mode use in MakePipe is used
-  Standard_EXPORT BRepOffsetAPI_MakePipeShell(const TopoDS_Wire& Spine);
+  Standard_EXPORT BRepOffsetAPI_MakePipeShell(const TopoWire& Spine);
 
   //! Sets a Frenet or a CorrectedFrenet trihedron
   //! to  perform  the  sweeping
@@ -85,7 +85,7 @@ public:
   //! the trihedron, like the normal  to the surfaces.
   //! Warning:  To be effective, Each  edge of the <spine> must
   //! have a representation on one face of<SpineSupport>
-  Standard_EXPORT Standard_Boolean SetMode(const TopoDS_Shape& SpineSupport);
+  Standard_EXPORT Standard_Boolean SetMode(const TopoShape& SpineSupport);
 
   //! Sets  an  auxiliary  spine  to  define  the Normal
   //! For  each  Point  of  the  Spine  P,  an  Point  Q  is  evalued
@@ -115,7 +115,7 @@ public:
   //! on the sweeped shape
   //! - correspondence between spine, and section on the sweeped shape
   //! defined by a vertex of the spine
-  Standard_EXPORT void SetMode(const TopoDS_Wire&           AuxiliarySpine,
+  Standard_EXPORT void SetMode(const TopoWire&           AuxiliarySpine,
                                const Standard_Boolean       CurvilinearEquivalence,
                                const BRepFill_TypeOfContact KeepContact = BRepFill_NoContact);
 
@@ -128,8 +128,8 @@ public:
   //! If WithCorrection is true, the section is rotated to be
   //! orthogonal to the spine?s tangent in the correspondent
   //! point. This option has no sense if the section is punctual
-  //! (Profile is of type TopoDS_Vertex).
-  Standard_EXPORT void Add(const TopoDS_Shape&    Profile,
+  //! (Profile is of type TopoVertex).
+  Standard_EXPORT void Add(const TopoShape&    Profile,
                            const Standard_Boolean WithContact    = Standard_False,
                            const Standard_Boolean WithCorrection = Standard_False);
 
@@ -137,8 +137,8 @@ public:
   //! Correspondent point on the spine is given by Location.
   //! Warning:
   //! To be effective, it is not recommended to combine methods Add and SetLaw.
-  Standard_EXPORT void Add(const TopoDS_Shape&    Profile,
-                           const TopoDS_Vertex&   Location,
+  Standard_EXPORT void Add(const TopoShape&    Profile,
+                           const TopoVertex&   Location,
                            const Standard_Boolean WithContact    = Standard_False,
                            const Standard_Boolean WithCorrection = Standard_False);
 
@@ -148,7 +148,7 @@ public:
   //! homotetic law defined by the function L.
   //! Warning:
   //! To be effective, it is not recommended to combine methods Add and SetLaw.
-  Standard_EXPORT void SetLaw(const TopoDS_Shape&         Profile,
+  Standard_EXPORT void SetLaw(const TopoShape&         Profile,
                               const Handle(Law_Function)& L,
                               const Standard_Boolean      WithContact    = Standard_False,
                               const Standard_Boolean      WithCorrection = Standard_False);
@@ -159,14 +159,14 @@ public:
   //! homotetic law defined by the function L.
   //! Warning:
   //! To be effective, it is not recommended to combine methods Add and SetLaw.
-  Standard_EXPORT void SetLaw(const TopoDS_Shape&         Profile,
+  Standard_EXPORT void SetLaw(const TopoShape&         Profile,
                               const Handle(Law_Function)& L,
-                              const TopoDS_Vertex&        Location,
+                              const TopoVertex&        Location,
                               const Standard_Boolean      WithContact    = Standard_False,
                               const Standard_Boolean      WithCorrection = Standard_False);
 
   //! Removes the section Profile from this framework.
-  Standard_EXPORT void Delete(const TopoDS_Shape& Profile);
+  Standard_EXPORT void Delete(const TopoShape& Profile);
 
   //! Returns true if this tool object is ready to build the
   //! shape, i.e. has a definition for the wire section Profile.
@@ -249,7 +249,7 @@ public:
   //! which will be obtained using the settings you have provided.
   //! Raises  NotDone if  <me> it is not Ready
   Standard_EXPORT void Simulate(const Standard_Integer NumberOfSection,
-                                TopTools_ListOfShape&  Result);
+                                ShapeList&  Result);
 
   //! Builds the resulting shape (redefined from MakeShape).
   Standard_EXPORT virtual void Build(
@@ -260,25 +260,25 @@ public:
   Standard_EXPORT Standard_Boolean MakeSolid();
 
   //! Returns the  TopoDS  Shape of the bottom of the sweep.
-  Standard_EXPORT virtual TopoDS_Shape FirstShape() Standard_OVERRIDE;
+  Standard_EXPORT virtual TopoShape FirstShape() Standard_OVERRIDE;
 
   //! Returns the TopoDS Shape of the top of the sweep.
-  Standard_EXPORT virtual TopoDS_Shape LastShape() Standard_OVERRIDE;
+  Standard_EXPORT virtual TopoShape LastShape() Standard_OVERRIDE;
 
   //! Returns a list of new shapes generated from the shape
   //! S by the shell-generating algorithm.
   //! This function is redefined from BRepOffsetAPI_MakeShape::Generated.
   //! S can be an edge or a vertex of a given Profile (see methods Add).
-  Standard_EXPORT virtual const TopTools_ListOfShape& Generated(const TopoDS_Shape& S)
+  Standard_EXPORT virtual const ShapeList& Generated(const TopoShape& S)
     Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Real ErrorOnSurface() const;
 
   //! Returns the list of original profiles
-  void Profiles(TopTools_ListOfShape& theProfiles) { myPipe->Profiles(theProfiles); }
+  void Profiles(ShapeList& theProfiles) { myPipe->Profiles(theProfiles); }
 
   //! Returns the spine
-  const TopoDS_Wire& Spine() { return myPipe->Spine(); }
+  const TopoWire& Spine() { return myPipe->Spine(); }
 
 protected:
 private:

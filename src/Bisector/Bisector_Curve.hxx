@@ -26,9 +26,9 @@
 class gp_Pnt2d;
 
 class Bisector_Curve;
-DEFINE_STANDARD_HANDLE(Bisector_Curve, Geom2d_Curve)
+DEFINE_STANDARD_HANDLE(Bisector_Curve, GeomCurve2d)
 
-class Bisector_Curve : public Geom2d_Curve
+class Bisector_Curve : public GeomCurve2d
 {
 
 public:
@@ -51,7 +51,7 @@ public:
   //! interval.
   Standard_EXPORT virtual Standard_Real IntervalLast(const Standard_Integer Index) const = 0;
 
-  DEFINE_STANDARD_RTTIEXT(Bisector_Curve, Geom2d_Curve)
+  DEFINE_STANDARD_RTTIEXT(Bisector_Curve, GeomCurve2d)
 
 protected:
 private:

@@ -1254,8 +1254,8 @@ void GetIntersection(const TheCurve& theC1, const Standard_Real theT1f, const St
   {
     //Seems to be intersection
     //Simple treatment of segment intersection
-    gp_XY aPnts1[3] = {aP1f.XY(), (aP1f.XY() + aP1l.XY()) / 2., aP1l.XY()};
-    gp_XY aPnts2[3] = {aP2f.XY(), (aP2f.XY() + aP2l.XY()) / 2., aP2l.XY()};
+    Coords2d aPnts1[3] = {aP1f.XY(), (aP1f.XY() + aP1l.XY()) / 2., aP1l.XY()};
+    Coords2d aPnts2[3] = {aP2f.XY(), (aP2f.XY() + aP2l.XY()) / 2., aP2l.XY()};
     Standard_Integer i, j, imin = -1, jmin = -1;
     Standard_Real dmin = RealLast(), d;
     for(i = 0; i < 3; i++)

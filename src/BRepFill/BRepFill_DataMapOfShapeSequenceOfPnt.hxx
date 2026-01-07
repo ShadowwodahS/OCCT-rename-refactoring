@@ -22,9 +22,9 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TopoDS_Shape, TColgp_SequenceOfPnt, TopTools_ShapeMapHasher>
+typedef NCollection_DataMap<TopoShape, TColgp_SequenceOfPnt, ShapeHasher>
   BRepFill_DataMapOfShapeSequenceOfPnt;
-typedef NCollection_DataMap<TopoDS_Shape, TColgp_SequenceOfPnt, TopTools_ShapeMapHasher>::Iterator
+typedef NCollection_DataMap<TopoShape, TColgp_SequenceOfPnt, ShapeHasher>::Iterator
   BRepFill_DataMapIteratorOfDataMapOfShapeSequenceOfPnt;
 
 #endif

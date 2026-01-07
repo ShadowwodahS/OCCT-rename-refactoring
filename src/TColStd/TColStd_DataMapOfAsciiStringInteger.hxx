@@ -19,9 +19,9 @@
 #include <Standard_Integer.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TCollection_AsciiString, Standard_Integer>
+typedef NCollection_DataMap<AsciiString1, Standard_Integer>
   TColStd_DataMapOfAsciiStringInteger;
-typedef NCollection_DataMap<TCollection_AsciiString, Standard_Integer>::Iterator
+typedef NCollection_DataMap<AsciiString1, Standard_Integer>::Iterator
   TColStd_DataMapIteratorOfDataMapOfAsciiStringInteger;
 
 #endif

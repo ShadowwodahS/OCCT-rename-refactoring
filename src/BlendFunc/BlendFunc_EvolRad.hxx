@@ -36,7 +36,7 @@
 
 class Law_Function;
 class gp_Circ;
-class Blend_Point;
+class Point2;
 
 class BlendFunc_EvolRad : public Blend_Function
 {
@@ -179,7 +179,7 @@ public:
   Standard_EXPORT void Mults(TColStd_Array1OfInteger& TMults) Standard_OVERRIDE;
 
   //! Used for the first and last section
-  Standard_EXPORT virtual Standard_Boolean Section(const Blend_Point&    P,
+  Standard_EXPORT virtual Standard_Boolean Section(const Point2&    P,
                                                    TColgp_Array1OfPnt&   Poles,
                                                    TColgp_Array1OfVec&   DPoles,
                                                    TColgp_Array1OfVec&   D2Poles,
@@ -192,7 +192,7 @@ public:
     Standard_OVERRIDE;
 
   //! Used for the first and last section
-  Standard_EXPORT virtual Standard_Boolean Section(const Blend_Point&    P,
+  Standard_EXPORT virtual Standard_Boolean Section(const Point2&    P,
                                                    TColgp_Array1OfPnt&   Poles,
                                                    TColgp_Array1OfVec&   DPoles,
                                                    TColgp_Array1OfPnt2d& Poles2d,
@@ -201,7 +201,7 @@ public:
                                                    TColStd_Array1OfReal& DWeigths)
     Standard_OVERRIDE;
 
-  Standard_EXPORT void Section(const Blend_Point&    P,
+  Standard_EXPORT void Section(const Point2&    P,
                                TColgp_Array1OfPnt&   Poles,
                                TColgp_Array1OfPnt2d& Poles2d,
                                TColStd_Array1OfReal& Weigths) Standard_OVERRIDE;
@@ -284,7 +284,7 @@ private:
   math_Vector                  E;
   math_Matrix                  DEDX;
   math_Vector                  DEDT;
-  BlendFunc_Tensor             D2EDX2;
+  Tensor             D2EDX2;
   math_Matrix                  D2EDXDT;
   math_Vector                  D2EDT2;
   Standard_Real                minang;

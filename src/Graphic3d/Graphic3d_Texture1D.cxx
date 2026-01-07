@@ -25,7 +25,7 @@ static const char* NameOfTexture1d_to_FileName[] = {"1d_elevation.rgb"};
 
 //=================================================================================================
 
-Graphic3d_Texture1D::Graphic3d_Texture1D(const TCollection_AsciiString& theFileName,
+Graphic3d_Texture1D::Graphic3d_Texture1D(const AsciiString1& theFileName,
                                          const Graphic3d_TypeOfTexture  theType)
     : Graphic3d_TextureMap(theFileName, theType),
       myName(Graphic3d_NOT_1D_UNKNOWN)
@@ -40,7 +40,7 @@ Graphic3d_Texture1D::Graphic3d_Texture1D(const Graphic3d_NameOfTexture1D theNOT,
       myName(theNOT)
 {
   myPath.SetTrek(Graphic3d_TextureRoot::TexturesFolder());
-  myTexId = TCollection_AsciiString("Graphic3d_Texture1D_") + NameOfTexture1d_to_FileName[theNOT];
+  myTexId = AsciiString1("Graphic3d_Texture1D_") + NameOfTexture1d_to_FileName[theNOT];
 }
 
 //=================================================================================================
@@ -68,14 +68,14 @@ Standard_Integer Graphic3d_Texture1D::NumberOfTextures()
 
 //=================================================================================================
 
-TCollection_AsciiString Graphic3d_Texture1D::TextureName(const Standard_Integer theRank)
+AsciiString1 Graphic3d_Texture1D::TextureName(const Standard_Integer theRank)
 {
   if (theRank < 1 || theRank > NumberOfTextures())
   {
     throw Standard_OutOfRange("BAD index of texture");
   }
 
-  TCollection_AsciiString aFileName(NameOfTexture1d_to_FileName[theRank - 1]);
+  AsciiString1 aFileName(NameOfTexture1d_to_FileName[theRank - 1]);
   Standard_Integer        i = aFileName.SearchFromEnd(".");
   return aFileName.SubString(4, i - 1);
 }

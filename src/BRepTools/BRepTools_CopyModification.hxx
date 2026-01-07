@@ -36,8 +36,8 @@ public:
   //! - theLoc is its new location, and
   //! - theTol is the new tolerance.
   //! theRevWires, theRevFace are always set to false, because the orientation is not changed.
-  Standard_EXPORT Standard_Boolean NewSurface(const TopoDS_Face&    theFace,
-                                              Handle(Geom_Surface)& theSurf,
+  Standard_EXPORT Standard_Boolean NewSurface(const TopoFace&    theFace,
+                                              Handle(GeomSurface)& theSurf,
                                               TopLoc_Location&      theLoc,
                                               Standard_Real&        theTol,
                                               Standard_Boolean&     theRevWires,
@@ -50,8 +50,8 @@ public:
   //! - theTol is the new tolerance.
   //! If the edge has not been modified, this function
   //! returns false, and the values of theCurve, theLoc and theTol are not significant.
-  Standard_EXPORT Standard_Boolean NewCurve(const TopoDS_Edge&  theEdge,
-                                            Handle(Geom_Curve)& theCurve,
+  Standard_EXPORT Standard_Boolean NewCurve(const TopoEdge&  theEdge,
+                                            Handle(GeomCurve3d)& theCurve,
                                             TopLoc_Location&    theLoc,
                                             Standard_Real&      theTol) Standard_OVERRIDE;
 
@@ -61,7 +61,7 @@ public:
   //! - theTol is the new tolerance.
   //! If the vertex has not been modified this function
   //! returns false, and the values of thePnt and theTol are not significant.
-  Standard_EXPORT Standard_Boolean NewPoint(const TopoDS_Vertex& theVertex,
+  Standard_EXPORT Standard_Boolean NewPoint(const TopoVertex& theVertex,
                                             Point3d&              thePnt,
                                             Standard_Real&       theTol) Standard_OVERRIDE;
 
@@ -71,11 +71,11 @@ public:
   //! - theTol the new tolerance.
   //! If no new curve exists, this function returns false, and
   //! the values of theCurve and theTol are not significant.
-  Standard_EXPORT Standard_Boolean NewCurve2d(const TopoDS_Edge&    theEdge,
-                                              const TopoDS_Face&    theFace,
-                                              const TopoDS_Edge&    theNewEdge,
-                                              const TopoDS_Face&    theNewFace,
-                                              Handle(Geom2d_Curve)& theCurve,
+  Standard_EXPORT Standard_Boolean NewCurve2d(const TopoEdge&    theEdge,
+                                              const TopoFace&    theFace,
+                                              const TopoEdge&    theNewEdge,
+                                              const TopoFace&    theNewFace,
+                                              Handle(GeomCurve2d)& theCurve,
                                               Standard_Real&        theTol) Standard_OVERRIDE;
 
   //! Returns true if theVertex has a new parameter on theEdge.
@@ -84,8 +84,8 @@ public:
   //! - theTol is the new tolerance.
   //! If no new parameter exists, this function returns false,
   //! and the values of thePnt and theTol are not significant.
-  Standard_EXPORT Standard_Boolean NewParameter(const TopoDS_Vertex& theVertex,
-                                                const TopoDS_Edge&   theEdge,
+  Standard_EXPORT Standard_Boolean NewParameter(const TopoVertex& theVertex,
+                                                const TopoEdge&   theEdge,
                                                 Standard_Real&       thePnt,
                                                 Standard_Real&       theTol) Standard_OVERRIDE;
 
@@ -93,32 +93,32 @@ public:
   //!
   //! theNewEdge is the new edge created from theEdge.  theNewFace1
   //! (resp. theNewFace2) is the new face created from theFace1 (resp. theFace2).
-  Standard_EXPORT GeomAbs_Shape Continuity(const TopoDS_Edge& theEdge,
-                                           const TopoDS_Face& theFace1,
-                                           const TopoDS_Face& theFace2,
-                                           const TopoDS_Edge& theNewEdge,
-                                           const TopoDS_Face& theNewFace1,
-                                           const TopoDS_Face& theNewFace2) Standard_OVERRIDE;
+  Standard_EXPORT GeomAbs_Shape Continuity(const TopoEdge& theEdge,
+                                           const TopoFace& theFace1,
+                                           const TopoFace& theFace2,
+                                           const TopoEdge& theNewEdge,
+                                           const TopoFace& theNewFace1,
+                                           const TopoFace& theNewFace2) Standard_OVERRIDE;
 
   //! Returns true if the face has been modified according to changed triangulation.
   //! If the face has been modified:
   //! - theTri is a new triangulation on the face
-  Standard_EXPORT Standard_Boolean NewTriangulation(const TopoDS_Face&          theFace,
-                                                    Handle(Poly_Triangulation)& theTri)
+  Standard_EXPORT Standard_Boolean NewTriangulation(const TopoFace&          theFace,
+                                                    Handle(MeshTriangulation)& theTri)
     Standard_OVERRIDE;
 
   //! Returns true if the edge has been modified according to changed polygon.
   //! If the edge has been modified:
   //! - thePoly is a new polygon
-  Standard_EXPORT Standard_Boolean NewPolygon(const TopoDS_Edge&      theEdge,
+  Standard_EXPORT Standard_Boolean NewPolygon(const TopoEdge&      theEdge,
                                               Handle(Poly_Polygon3D)& thePoly) Standard_OVERRIDE;
 
   //! Returns true if the edge has been modified according to changed polygon on triangulation.
   //! If the edge has been modified:
   //! - thePoly is a new polygon on triangulation
   Standard_EXPORT Standard_Boolean
-    NewPolygonOnTriangulation(const TopoDS_Edge&                   theEdge,
-                              const TopoDS_Face&                   theFace,
+    NewPolygonOnTriangulation(const TopoEdge&                   theEdge,
+                              const TopoFace&                   theFace,
                               Handle(Poly_PolygonOnTriangulation)& thePoly) Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(BRepTools_CopyModification, BRepTools_Modification)

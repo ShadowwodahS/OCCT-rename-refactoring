@@ -20,7 +20,7 @@
 #include <Standard_Boolean.hxx>
 #include <Draw_Interpretor.hxx>
 
-void GeomliteTest::AllCommands(Draw_Interpretor& theCommands)
+void GeomliteTest::AllCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

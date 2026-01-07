@@ -21,10 +21,10 @@
 #include <TCollection_AsciiString.hxx>
 #include <NCollection_DoubleMap.hxx>
 
-class AIS_InteractiveObject;
-typedef NCollection_DoubleMap<Handle(AIS_InteractiveObject), TCollection_AsciiString>
+class VisualEntity;
+typedef NCollection_DoubleMap<Handle(VisualEntity), AsciiString1>
   ViewerTest_DoubleMapOfInteractiveAndName;
-typedef NCollection_DoubleMap<Handle(AIS_InteractiveObject), TCollection_AsciiString>::Iterator
+typedef NCollection_DoubleMap<Handle(VisualEntity), AsciiString1>::Iterator
   ViewerTest_DoubleMapIteratorOfDoubleMapOfInteractiveAndName;
 
 #endif

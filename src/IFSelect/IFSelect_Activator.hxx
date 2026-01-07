@@ -122,8 +122,8 @@ protected:
   Standard_EXPORT IFSelect_Activator();
 
 private:
-  TCollection_AsciiString thegroup;
-  TCollection_AsciiString thefile;
+  AsciiString1 thegroup;
+  AsciiString1 thefile;
 };
 
 #endif // _IFSelect_Activator_HeaderFile

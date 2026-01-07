@@ -35,14 +35,14 @@
 //! separated  by  whitespace.  For  example ,  matrix  expressing  a  translation
 //! of  7.3  units  along  the  X  axis  is  written  as:
 //! 1  0  0  0   0  1  0  0   0  0  1  0   7.3 0  0  1
-class Vrml_MatrixTransform
+class MatrixTransform
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_MatrixTransform();
+  Standard_EXPORT MatrixTransform();
 
-  Standard_EXPORT Vrml_MatrixTransform(const Transform3d& aMatrix);
+  Standard_EXPORT MatrixTransform(const Transform3d& aMatrix);
 
   Standard_EXPORT void SetMatrix(const Transform3d& aMatrix);
 

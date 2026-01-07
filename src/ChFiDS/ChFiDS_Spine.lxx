@@ -144,7 +144,7 @@ inline Standard_Integer ChFiDS_Spine::NbEdges() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Edge& ChFiDS_Spine::Edges(const Standard_Integer I) const
+inline const TopoEdge& ChFiDS_Spine::Edges(const Standard_Integer I) const
 {
   return TopoDS::Edge(spine.Value(I));
 }
@@ -154,7 +154,7 @@ inline const TopoDS_Edge& ChFiDS_Spine::Edges(const Standard_Integer I) const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Edge& ChFiDS_Spine::OffsetEdges(const Standard_Integer I) const
+inline const TopoEdge& ChFiDS_Spine::OffsetEdges(const Standard_Integer I) const
 {
   return TopoDS::Edge(offsetspine.Value(I));
 }
@@ -164,7 +164,7 @@ inline const TopoDS_Edge& ChFiDS_Spine::OffsetEdges(const Standard_Integer I) co
 // purpose  :
 //=======================================================================
 
-inline void ChFiDS_Spine::SetEdges(const TopoDS_Edge& E)
+inline void ChFiDS_Spine::SetEdges(const TopoEdge& E)
 {
   spine.Append(E);
 }
@@ -174,7 +174,7 @@ inline void ChFiDS_Spine::SetEdges(const TopoDS_Edge& E)
 // purpose  :
 //=======================================================================
 
-inline void ChFiDS_Spine::SetOffsetEdges(const TopoDS_Edge& E)
+inline void ChFiDS_Spine::SetOffsetEdges(const TopoEdge& E)
 {
   offsetspine.Append(E);
 }
@@ -184,7 +184,7 @@ inline void ChFiDS_Spine::SetOffsetEdges(const TopoDS_Edge& E)
 // purpose  :
 //=======================================================================
 
-inline void ChFiDS_Spine::PutInFirst(const TopoDS_Edge& E)
+inline void ChFiDS_Spine::PutInFirst(const TopoEdge& E)
 {
   spine.InsertBefore(1, E);
 }
@@ -194,7 +194,7 @@ inline void ChFiDS_Spine::PutInFirst(const TopoDS_Edge& E)
 // purpose  :
 //=======================================================================
 
-inline void ChFiDS_Spine::PutInFirstOffset(const TopoDS_Edge& E)
+inline void ChFiDS_Spine::PutInFirstOffset(const TopoEdge& E)
 {
   offsetspine.InsertBefore(1, E);
 }

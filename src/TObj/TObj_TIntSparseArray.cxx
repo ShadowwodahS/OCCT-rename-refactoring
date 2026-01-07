@@ -52,7 +52,7 @@ const Standard_GUID& TObj_TIntSparseArray::ID() const
 
 //=================================================================================================
 
-Handle(TObj_TIntSparseArray) TObj_TIntSparseArray::Set(const TDF_Label& theLabel)
+Handle(TObj_TIntSparseArray) TObj_TIntSparseArray::Set(const DataLabel& theLabel)
 {
   Handle(TObj_TIntSparseArray) aTData;
   if (!theLabel.FindAttribute(GetID(), aTData))
@@ -92,7 +92,7 @@ void TObj_TIntSparseArray::SetValue(const Standard_Size theId, const Standard_In
     myVector.SetValue(theId, theValue);
   }
 
-  TDF_Label aLabel = Label();
+  DataLabel aLabel = Label();
   if (!aLabel.IsNull())
   {
     Handle(TDF_Data) aData               = aLabel.Data();
@@ -127,7 +127,7 @@ void TObj_TIntSparseArray::UnsetValue(const Standard_Size theId)
     // no actual modification
     return;
 
-  TDF_Label aLabel = Label();
+  DataLabel aLabel = Label();
   if (!aLabel.IsNull())
   {
     Handle(TDF_Data) aData               = aLabel.Data();
@@ -144,7 +144,7 @@ void TObj_TIntSparseArray::UnsetValue(const Standard_Size theId)
 void TObj_TIntSparseArray::Clear()
 {
   // backup old values
-  TDF_Label aLabel = Label();
+  DataLabel aLabel = Label();
   if (!aLabel.IsNull())
   {
     Handle(TDF_Data) aData               = aLabel.Data();

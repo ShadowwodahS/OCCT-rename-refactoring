@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-ChFiDS_Regul::ChFiDS_Regul()
+Regularity::Regularity()
     : icurv(0),
       is1(0),
       is2(0)
@@ -27,14 +27,14 @@ ChFiDS_Regul::ChFiDS_Regul()
 
 //=================================================================================================
 
-void ChFiDS_Regul::SetCurve(const Standard_Integer IC)
+void Regularity::SetCurve(const Standard_Integer IC)
 {
   icurv = Abs(IC);
 }
 
 //=================================================================================================
 
-void ChFiDS_Regul::SetS1(const Standard_Integer IS1, const Standard_Boolean IsFace)
+void Regularity::SetS1(const Standard_Integer IS1, const Standard_Boolean IsFace)
 {
   if (IsFace)
     is1 = Abs(IS1);
@@ -44,7 +44,7 @@ void ChFiDS_Regul::SetS1(const Standard_Integer IS1, const Standard_Boolean IsFa
 
 //=================================================================================================
 
-void ChFiDS_Regul::SetS2(const Standard_Integer IS2, const Standard_Boolean IsFace)
+void Regularity::SetS2(const Standard_Integer IS2, const Standard_Boolean IsFace)
 {
   if (IsFace)
     is2 = Abs(IS2);
@@ -54,35 +54,35 @@ void ChFiDS_Regul::SetS2(const Standard_Integer IS2, const Standard_Boolean IsFa
 
 //=================================================================================================
 
-Standard_Boolean ChFiDS_Regul::IsSurface1() const
+Standard_Boolean Regularity::IsSurface1() const
 {
   return (is1 < 0);
 }
 
 //=================================================================================================
 
-Standard_Boolean ChFiDS_Regul::IsSurface2() const
+Standard_Boolean Regularity::IsSurface2() const
 {
   return (is2 < 0);
 }
 
 //=================================================================================================
 
-Standard_Integer ChFiDS_Regul::Curve() const
+Standard_Integer Regularity::Curve() const
 {
   return icurv;
 }
 
 //=================================================================================================
 
-Standard_Integer ChFiDS_Regul::S1() const
+Standard_Integer Regularity::S1() const
 {
   return Abs(is1);
 }
 
 //=================================================================================================
 
-Standard_Integer ChFiDS_Regul::S2() const
+Standard_Integer Regularity::S2() const
 {
   return Abs(is2);
 }

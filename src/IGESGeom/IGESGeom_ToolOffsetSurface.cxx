@@ -36,9 +36,9 @@
 #include <Standard_DomainError.hxx>
 
 // MGE 31/07/98
-IGESGeom_ToolOffsetSurface::IGESGeom_ToolOffsetSurface() {}
+OffsetSurfaceTool::OffsetSurfaceTool() {}
 
-void IGESGeom_ToolOffsetSurface::ReadOwnParams(const Handle(IGESGeom_OffsetSurface)&  ent,
+void OffsetSurfaceTool::ReadOwnParams(const Handle(IGESGeom_OffsetSurface)&  ent,
                                                const Handle(IGESData_IGESReaderData)& IR,
                                                IGESData_ParamReader&                  PR) const
 {
@@ -98,7 +98,7 @@ void IGESGeom_ToolOffsetSurface::ReadOwnParams(const Handle(IGESGeom_OffsetSurfa
   ent->Init(anIndicator, aDistance, aSurface);
 }
 
-void IGESGeom_ToolOffsetSurface::WriteOwnParams(const Handle(IGESGeom_OffsetSurface)& ent,
+void OffsetSurfaceTool::WriteOwnParams(const Handle(IGESGeom_OffsetSurface)& ent,
                                                 IGESData_IGESWriter&                  IW) const
 {
   IW.Send(ent->OffsetIndicator().X());
@@ -108,13 +108,13 @@ void IGESGeom_ToolOffsetSurface::WriteOwnParams(const Handle(IGESGeom_OffsetSurf
   IW.Send(ent->Surface());
 }
 
-void IGESGeom_ToolOffsetSurface::OwnShared(const Handle(IGESGeom_OffsetSurface)& ent,
+void OffsetSurfaceTool::OwnShared(const Handle(IGESGeom_OffsetSurface)& ent,
                                            Interface_EntityIterator&             iter) const
 {
   iter.GetOneItem(ent->Surface());
 }
 
-void IGESGeom_ToolOffsetSurface::OwnCopy(const Handle(IGESGeom_OffsetSurface)& another,
+void OffsetSurfaceTool::OwnCopy(const Handle(IGESGeom_OffsetSurface)& another,
                                          const Handle(IGESGeom_OffsetSurface)& ent,
                                          Interface_CopyTool&                   TC) const
 {
@@ -126,10 +126,10 @@ void IGESGeom_ToolOffsetSurface::OwnCopy(const Handle(IGESGeom_OffsetSurface)& a
   ent->Init(anIndicator, aDistance, aSurface);
 }
 
-IGESData_DirChecker IGESGeom_ToolOffsetSurface::DirChecker(
+DirectoryChecker OffsetSurfaceTool::DirChecker(
   const Handle(IGESGeom_OffsetSurface)& /* ent */) const
 {
-  IGESData_DirChecker DC(140, 0);
+  DirectoryChecker DC(140, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   //  DC.LineWeight(IGESData_DefValue);
@@ -138,13 +138,13 @@ IGESData_DirChecker IGESGeom_ToolOffsetSurface::DirChecker(
   return DC;
 }
 
-void IGESGeom_ToolOffsetSurface::OwnCheck(const Handle(IGESGeom_OffsetSurface)& /* ent */,
+void OffsetSurfaceTool::OwnCheck(const Handle(IGESGeom_OffsetSurface)& /* ent */,
                                           const Interface_ShareTool&,
                                           Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESGeom_ToolOffsetSurface::OwnDump(const Handle(IGESGeom_OffsetSurface)& ent,
+void OffsetSurfaceTool::OwnDump(const Handle(IGESGeom_OffsetSurface)& ent,
                                          const IGESData_IGESDumper&            dumper,
                                          Standard_OStream&                     S,
                                          const Standard_Integer                level) const

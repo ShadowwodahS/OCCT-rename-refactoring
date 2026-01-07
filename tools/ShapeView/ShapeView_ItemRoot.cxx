@@ -20,9 +20,9 @@
 // function : Shape
 // purpose :
 // =======================================================================
-const TopoDS_Shape& ShapeView_ItemRoot::Shape(const int theRowId)
+const TopoShape& ShapeView_ItemRoot::Shape(const int theRowId)
 {
-  NCollection_List<TopoDS_Shape>::Iterator aShapesIt(myShapes);
+  NCollection_List<TopoShape>::Iterator aShapesIt(myShapes);
   for (int aRowId = 0; aShapesIt.More(); aShapesIt.Next(), aRowId++)
   {
     if (aRowId == theRowId)

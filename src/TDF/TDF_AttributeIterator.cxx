@@ -31,7 +31,7 @@ TDF_AttributeIterator::TDF_AttributeIterator()
 
 //=================================================================================================
 
-TDF_AttributeIterator::TDF_AttributeIterator(const TDF_Label&       aLabel,
+TDF_AttributeIterator::TDF_AttributeIterator(const DataLabel&       aLabel,
                                              const Standard_Boolean withoutForgotten)
     : myValue(0L),
       myWithoutForgotten(withoutForgotten)
@@ -55,7 +55,7 @@ TDF_AttributeIterator::TDF_AttributeIterator(const TDF_LabelNodePtr aLabelNode,
 
 //=================================================================================================
 
-void TDF_AttributeIterator::Initialize(const TDF_Label&       aLabel,
+void TDF_AttributeIterator::Initialize(const DataLabel&       aLabel,
                                        const Standard_Boolean withoutForgotten)
 {
   myWithoutForgotten                           = withoutForgotten;

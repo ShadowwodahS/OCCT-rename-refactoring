@@ -41,7 +41,7 @@ namespace DFBrowser_Tools
 // function : IsEmptyLabel
 // purpose :
 // =======================================================================
-bool IsEmptyLabel(const TDF_Label& theLabel)
+bool IsEmptyLabel(const DataLabel& theLabel)
 {
   if (theLabel.IsNull())
     return true;
@@ -64,14 +64,14 @@ bool IsEmptyLabel(const TDF_Label& theLabel)
 // function : GetLabelInfo
 // purpose :
 // =======================================================================
-QString GetLabelInfo(const TDF_Label& theLabel, const bool isUseShortInfo)
+QString GetLabelInfo(const DataLabel& theLabel, const bool isUseShortInfo)
 {
   QString aValue = DFBrowserPane_Tools::GetEntry(theLabel).ToCString();
   if (!isUseShortInfo)
     return aValue;
 
-  Handle(TDataStd_Name) aName;
-  if (!theLabel.FindAttribute(TDataStd_Name::GetID(), aName))
+  Handle(NameAttribute) aName;
+  if (!theLabel.FindAttribute(NameAttribute::GetID(), aName))
     return aValue;
 
   aValue += " ";
@@ -92,7 +92,7 @@ static QMap<DFBrowser_IconType, QIcon> MyLabelIcons;
 // function : GetLabelIcon
 // purpose :
 // =======================================================================
-QIcon GetLabelIcon(const TDF_Label& theLabel, bool isStandard16x16)
+QIcon GetLabelIcon(const DataLabel& theLabel, bool isStandard16x16)
 {
   (void)theLabel;
   if (MyLabelIcons.empty())

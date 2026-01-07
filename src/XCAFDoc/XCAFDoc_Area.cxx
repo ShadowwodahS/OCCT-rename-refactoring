@@ -45,7 +45,7 @@ const Standard_GUID& XCAFDoc_Area::ID() const
 
 //=================================================================================================
 
-Handle(XCAFDoc_Area) XCAFDoc_Area::Set(const TDF_Label& L, const Standard_Real V)
+Handle(XCAFDoc_Area) XCAFDoc_Area::Set(const DataLabel& L, const Standard_Real V)
 {
   Handle(XCAFDoc_Area) A;
   if (!L.FindAttribute(XCAFDoc_Area::GetID(), A))
@@ -73,7 +73,7 @@ Standard_Real XCAFDoc_Area::Get() const
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_Area::Get(const TDF_Label& label, Standard_Real& area)
+Standard_Boolean XCAFDoc_Area::Get(const DataLabel& label, Standard_Real& area)
 {
   Handle(XCAFDoc_Area) anArea;
   if (!label.FindAttribute(XCAFDoc_Area::GetID(), anArea))

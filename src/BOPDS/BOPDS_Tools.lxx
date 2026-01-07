@@ -16,7 +16,7 @@
 // function: HasBRep
 // purpose:
 //=======================================================================
-inline Standard_Boolean BOPDS_Tools::HasBRep(const TopAbs_ShapeEnum aTi)
+inline Standard_Boolean Tools1::HasBRep(const TopAbs_ShapeEnum aTi)
 {
   return (aTi == TopAbs_VERTEX || aTi == TopAbs_EDGE || aTi == TopAbs_FACE);
 }
@@ -25,23 +25,23 @@ inline Standard_Boolean BOPDS_Tools::HasBRep(const TopAbs_ShapeEnum aTi)
 // function: IsInterfering
 // purpose:
 //=======================================================================
-inline Standard_Boolean BOPDS_Tools::IsInterfering(const TopAbs_ShapeEnum aTi)
+inline Standard_Boolean Tools1::IsInterfering(const TopAbs_ShapeEnum aTi)
 {
-  return (BOPDS_Tools::HasBRep(aTi) || aTi == TopAbs_SOLID);
+  return (Tools1::HasBRep(aTi) || aTi == TopAbs_SOLID);
 }
 
 //=======================================================================
 // function : TypeToInteger
 // purpose  :
 //=======================================================================
-inline Standard_Integer BOPDS_Tools::TypeToInteger(const TopAbs_ShapeEnum aType1,
+inline Standard_Integer Tools1::TypeToInteger(const TopAbs_ShapeEnum aType1,
                                                    const TopAbs_ShapeEnum aType2)
 {
   Standard_Integer iRet, iT1, iT2, iX;
   //
   iRet = -1;
-  iT1  = BOPDS_Tools::TypeToInteger(aType1);
-  iT2  = BOPDS_Tools::TypeToInteger(aType2);
+  iT1  = Tools1::TypeToInteger(aType1);
+  iT2  = Tools1::TypeToInteger(aType2);
   //
   iX = iT2 * 10 + iT1;
   switch (iX)
@@ -92,7 +92,7 @@ inline Standard_Integer BOPDS_Tools::TypeToInteger(const TopAbs_ShapeEnum aType1
 // function : TypeToInteger
 // purpose  :
 //=======================================================================
-inline Standard_Integer BOPDS_Tools::TypeToInteger(const TopAbs_ShapeEnum aType1)
+inline Standard_Integer Tools1::TypeToInteger(const TopAbs_ShapeEnum aType1)
 {
   Standard_Integer iRet = 9;
   //

@@ -44,95 +44,95 @@ public:
   //! \param theToActivatePlugin a state whether the plugin should be immediately activated, to be
   //! used in a heir
   Standard_EXPORT virtual void SetParameters(
-    const TCollection_AsciiString&                      thePluginName,
+    const AsciiString1&                      thePluginName,
     const NCollection_List<Handle(RefObject)>& theParameters,
     const Standard_Boolean&                             theToActivatePlugin = Standard_False);
 
   //! Adds a file name for the plugin
   //! \param thePluginName a plugin name
   //! \param theFileName a name
-  Standard_EXPORT void AddFileName(const TCollection_AsciiString& thePluginName,
-                                   const TCollection_AsciiString& theFileName);
+  Standard_EXPORT void AddFileName(const AsciiString1& thePluginName,
+                                   const AsciiString1& theFileName);
 
   //! Sets file names for the plugin
   //! \param thePluginName a plugin name
   //! \param theFileNames container of names
-  Standard_EXPORT void SetFileNames(const TCollection_AsciiString&                   thePluginName,
-                                    const NCollection_List<TCollection_AsciiString>& theFileNames);
+  Standard_EXPORT void SetFileNames(const AsciiString1&                   thePluginName,
+                                    const NCollection_List<AsciiString1>& theFileNames);
 
   //! Sets a name of item to be selected in the plugin
   //! \param thePluginName a plugin name
   //! \param theItemNames a container of names to be selected
   Standard_EXPORT void SetSelectedNames(
-    const TCollection_AsciiString&                   thePluginName,
-    const NCollection_List<TCollection_AsciiString>& theItemNames);
+    const AsciiString1&                   thePluginName,
+    const NCollection_List<AsciiString1>& theItemNames);
 
   //! Sets objects to be selected in the plugin
   //! \param thePluginName a plugin name
   //! \param theObjects an objects
-  Standard_EXPORT void SetSelected(const TCollection_AsciiString& thePluginName,
+  Standard_EXPORT void SetSelected(const AsciiString1& thePluginName,
                                    const NCollection_List<Handle(RefObject)>& theObjects);
 
   //! Returns true if there are parameters set for the given plugin
   //! \param thePluginName a plugin name
   //! \return boolean result
-  Standard_EXPORT bool FindParameters(const TCollection_AsciiString& thePluginName);
+  Standard_EXPORT bool FindParameters(const AsciiString1& thePluginName);
 
   //! Returns parameters set for the given plugin
   //! \param thePluginName a plugin name
   //! \return container of objects
   Standard_EXPORT const NCollection_List<Handle(RefObject)>& Parameters(
-    const TCollection_AsciiString& thePluginName);
+    const AsciiString1& thePluginName);
 
   //! Returns true if there are file names set for the given plugin
   //! \param thePluginName a plugin name
   //! \return boolean result
-  Standard_EXPORT bool FindFileNames(const TCollection_AsciiString& thePluginName);
+  Standard_EXPORT bool FindFileNames(const AsciiString1& thePluginName);
 
   //! Returns file names set for the given plugin
   //! \param thePluginName a plugin name
   //! \return container of names
-  Standard_EXPORT const NCollection_List<TCollection_AsciiString>& FileNames(
-    const TCollection_AsciiString& thePluginName);
+  Standard_EXPORT const NCollection_List<AsciiString1>& FileNames(
+    const AsciiString1& thePluginName);
 
   //! Returns true if there are file names set for the given plugin
   //! \param thePluginName a plugin name
   //! \return boolean result
-  Standard_EXPORT bool FindSelectedNames(const TCollection_AsciiString& thePluginName);
+  Standard_EXPORT bool FindSelectedNames(const AsciiString1& thePluginName);
 
   //! Returns name to be selected in the plugin
   //! \param thePluginName a plugin name
   //! \return container of names
-  Standard_EXPORT const NCollection_List<TCollection_AsciiString>& GetSelectedNames(
-    const TCollection_AsciiString& thePluginName);
+  Standard_EXPORT const NCollection_List<AsciiString1>& GetSelectedNames(
+    const AsciiString1& thePluginName);
 
   //! Returns objects set for the given plugin
   //! \param thePluginName a plugin name
   //! \return container of objects
   Standard_EXPORT Standard_Boolean
-    GetSelectedObjects(const TCollection_AsciiString&                thePluginName,
+    GetSelectedObjects(const AsciiString1&                thePluginName,
                        NCollection_List<Handle(RefObject)>& theObjects);
 
   //! Sets path to a directory for temporary plugin files
   //! \param thePath a path
-  virtual void SetTemporaryDirectory(const TCollection_AsciiString& thePath)
+  virtual void SetTemporaryDirectory(const AsciiString1& thePath)
   {
     myTemporaryDirectory = thePath;
   }
 
   //! Returns path to a directory for temporary plugin files
   //! \return path
-  TCollection_AsciiString GetTemporaryDirectory() const { return myTemporaryDirectory; }
+  AsciiString1 GetTemporaryDirectory() const { return myTemporaryDirectory; }
 
   //! Returns plugin preferences
   //! \param thePluginName a plugin name
-  Standard_EXPORT virtual void GetPreferences(const TCollection_AsciiString&    thePluginName,
+  Standard_EXPORT virtual void GetPreferences(const AsciiString1&    thePluginName,
                                               TInspectorAPI_PreferencesDataMap& theItem) = 0;
 
   //! Stores plugin preferences
   //! \param thePluginName a plugin name
   //! \theItem container of plugin preferences values in form: <name, value>
-  Standard_EXPORT virtual void SetPreferences(const TCollection_AsciiString&          thePluginName,
+  Standard_EXPORT virtual void SetPreferences(const AsciiString1&          thePluginName,
                                               const TInspectorAPI_PreferencesDataMap& theItem) = 0;
 
   //! Stores plugin preferences into a preferences file
@@ -141,30 +141,30 @@ public:
   //! Converts a Shape parameters excepting TShape into a string value
   //! \param theShape processed shape
   //! \return string instance
-  Standard_EXPORT static TCollection_AsciiString ParametersToString(const TopoDS_Shape& theShape);
+  Standard_EXPORT static AsciiString1 ParametersToString(const TopoShape& theShape);
 
   //! Converts a Shape parameters excepting TShape into a string value
   //! \param theValue parameters string value (without TShape information)
   //! \param theShape processed shape
-  Standard_EXPORT static void ParametersToShape(const TCollection_AsciiString& theValue,
-                                                TopoDS_Shape&                  theShape);
+  Standard_EXPORT static void ParametersToShape(const AsciiString1& theValue,
+                                                TopoShape&                  theShape);
 
   DEFINE_STANDARD_RTTIEXT(TInspectorAPI_PluginParameters, RefObject)
 private:
   //! container of parameters
-  NCollection_DataMap<TCollection_AsciiString, NCollection_List<Handle(RefObject)>>
+  NCollection_DataMap<AsciiString1, NCollection_List<Handle(RefObject)>>
     myParameters;
   //! container of names
-  NCollection_DataMap<TCollection_AsciiString, NCollection_List<TCollection_AsciiString>>
+  NCollection_DataMap<AsciiString1, NCollection_List<AsciiString1>>
     myFileNames;
   //! container of select item names
-  NCollection_DataMap<TCollection_AsciiString, NCollection_List<TCollection_AsciiString>>
+  NCollection_DataMap<AsciiString1, NCollection_List<AsciiString1>>
     mySelectedItemNames;
   //! container of select objects
-  NCollection_DataMap<TCollection_AsciiString, NCollection_List<Handle(RefObject)>>
+  NCollection_DataMap<AsciiString1, NCollection_List<Handle(RefObject)>>
     mySelectedObjects;
   //! temporary directory for saving plugin preferences
-  TCollection_AsciiString myTemporaryDirectory;
+  AsciiString1 myTemporaryDirectory;
 };
 
 #endif

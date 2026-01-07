@@ -29,7 +29,7 @@ AIS_TrihedronOwner::AIS_TrihedronOwner(const Handle(SelectMgr_SelectableObject)&
 //=================================================================================================
 
 void AIS_TrihedronOwner::HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                          const Handle(Prs3d_Drawer)&               theStyle,
+                                          const Handle(StyleDrawer)&               theStyle,
                                           const Standard_Integer /*theMode*/)
 {
   Selectable()->HilightOwnerWithColor(thePM, theStyle, this);

@@ -118,10 +118,10 @@ Standard_Real Draw_RGBColorsArray[MAXCOLOR][3] = {{1.0,  1.0,  1.0},
                                                   {1.0,  0.5,  0.31}};
 
 //=======================================================================
-//function : Draw_Window
+//function : DrawWindow
 //purpose  :
 //=======================================================================
-Draw_Window::Draw_Window (const char* theTitle,
+DrawWindow::DrawWindow (const char* theTitle,
                           const NCollection_Vec2<int>& theXY,
                           const NCollection_Vec2<int>& theSize,
                           Aspect_Drawable theParent,
@@ -142,10 +142,10 @@ Draw_Window::Draw_Window (const char* theTitle,
 }
 
 //=======================================================================
-//function : ~Draw_Window
+//function : ~DrawWindow
 //purpose  :
 //=======================================================================
-Draw_Window::~Draw_Window()
+DrawWindow::~DrawWindow()
 {
   if (myWindow != NULL)
   { 
@@ -170,7 +170,7 @@ Draw_Window::~Draw_Window()
 //function : init
 //purpose  :
 //=======================================================================
-void Draw_Window::init (const NCollection_Vec2<int>& theXY,
+void DrawWindow::init (const NCollection_Vec2<int>& theXY,
                         const NCollection_Vec2<int>& theSize)
 {
   Cocoa_LocalPool aLocalPool;
@@ -217,7 +217,7 @@ void Draw_Window::init (const NCollection_Vec2<int>& theXY,
 //function : InitBuffer
 //purpose  :
 //=======================================================================
-void Draw_Window::InitBuffer()
+void DrawWindow::InitBuffer()
 {
   //
 }
@@ -226,7 +226,7 @@ void Draw_Window::InitBuffer()
 //function : SetPosition
 //purpose  :
 //=======================================================================
-void Draw_Window::SetPosition (Standard_Integer theNewXpos,
+void DrawWindow::SetPosition (Standard_Integer theNewXpos,
                                Standard_Integer theNewYpos)
 {
   NSPoint aNewPosition = NSMakePoint (theNewXpos, theNewYpos);
@@ -237,7 +237,7 @@ void Draw_Window::SetPosition (Standard_Integer theNewXpos,
 //function : SetDimension
 //purpose  :
 //=======================================================================
-void Draw_Window::SetDimension (Standard_Integer theNewWidth,
+void DrawWindow::SetDimension (Standard_Integer theNewWidth,
                                 Standard_Integer theNewHeight)
 {
   NSRect aWindowRect = [myWindow frame];
@@ -251,7 +251,7 @@ void Draw_Window::SetDimension (Standard_Integer theNewWidth,
 //function : GetPosition
 //purpose  :
 //=======================================================================
-void Draw_Window::GetPosition (Standard_Integer &thePosX,
+void DrawWindow::GetPosition (Standard_Integer &thePosX,
                                Standard_Integer &thePosY)
 {
   NSRect aWindowRect = [myWindow frame];
@@ -263,7 +263,7 @@ void Draw_Window::GetPosition (Standard_Integer &thePosX,
 //function : HeightWin
 //purpose  :
 //=======================================================================
-Standard_Integer Draw_Window::HeightWin() const
+Standard_Integer DrawWindow::HeightWin() const
 {
   NSRect aViewBounds = [myView bounds];
   return aViewBounds.size.height;
@@ -273,7 +273,7 @@ Standard_Integer Draw_Window::HeightWin() const
 //function : WidthWin
 //purpose  :
 //=======================================================================
-Standard_Integer Draw_Window::WidthWin() const
+Standard_Integer DrawWindow::WidthWin() const
 {
   NSRect aViewBounds = [myView bounds];
   return aViewBounds.size.width;
@@ -283,7 +283,7 @@ Standard_Integer Draw_Window::WidthWin() const
 //function : SetTitle
 //purpose  :
 //=======================================================================
-void Draw_Window::SetTitle (const TCollection_AsciiString& theTitle)
+void DrawWindow::SetTitle (const AsciiString1& theTitle)
 {
   NSString* aTitleNs = [[NSString alloc] initWithUTF8String: theTitle.ToCString()];
   [myWindow setTitle: aTitleNs];
@@ -294,17 +294,17 @@ void Draw_Window::SetTitle (const TCollection_AsciiString& theTitle)
 //function : GetTitle
 //purpose  :
 //=======================================================================
-TCollection_AsciiString Draw_Window::GetTitle() const
+AsciiString1 DrawWindow::GetTitle() const
 {
   Standard_CString aTitle = [[myWindow title] UTF8String];
-  return TCollection_AsciiString (aTitle);
+  return AsciiString1 (aTitle);
 }
 
 //=======================================================================
 //function :DefineColor
 //purpose  :
 //=======================================================================
-Standard_Boolean Draw_Window::DefineColor (const Standard_Integer , Standard_CString )
+Standard_Boolean DrawWindow::DefineColor (const Standard_Integer , Standard_CString )
 {
   return Standard_True; // unused
 }
@@ -313,7 +313,7 @@ Standard_Boolean Draw_Window::DefineColor (const Standard_Integer , Standard_CSt
 //function : IsMapped
 //purpose  :
 //=======================================================================
-bool Draw_Window::IsMapped() const
+bool DrawWindow::IsMapped() const
 {
   if (Draw_VirtualWindows
    || myWindow == NULL)
@@ -328,7 +328,7 @@ bool Draw_Window::IsMapped() const
 //function : DisplayWindow
 //purpose  :
 //=======================================================================
-void Draw_Window::DisplayWindow()
+void DrawWindow::DisplayWindow()
 {
   if (Draw_VirtualWindows)
   {
@@ -345,7 +345,7 @@ void Draw_Window::DisplayWindow()
 //function : Hide
 //purpose  :
 //=======================================================================
-void Draw_Window::Hide()
+void DrawWindow::Hide()
 {
   if (myWindow != NULL)
   {
@@ -357,7 +357,7 @@ void Draw_Window::Hide()
 //function : Destroy
 //purpose  :
 //=======================================================================
-void Draw_Window::Destroy()
+void DrawWindow::Destroy()
 {  
   if (myWindow != NULL)
   { 
@@ -382,7 +382,7 @@ void Draw_Window::Destroy()
 //function : Clear
 //purpose  :
 //=======================================================================
-void Draw_Window::Clear()
+void DrawWindow::Clear()
 {
   [myImageBuffer lockFocus];
   [[NSColor blackColor] set];
@@ -400,7 +400,7 @@ void Draw_Window::Clear()
 //function : Flush
 //purpose  :
 //=======================================================================
-void Draw_Window::Flush()
+void DrawWindow::Flush()
 {
   //
 }
@@ -409,7 +409,7 @@ void Draw_Window::Flush()
 //function : DrawString
 //purpose  :
 //=======================================================================
-void Draw_Window::DrawString (Standard_Integer theXLeft, Standard_Integer theYTop,
+void DrawWindow::DrawString (Standard_Integer theXLeft, Standard_Integer theYTop,
                               const char* theText)
 {
   Cocoa_LocalPool aLocalPool;
@@ -435,7 +435,7 @@ void Draw_Window::DrawString (Standard_Integer theXLeft, Standard_Integer theYTo
 //function : DrawSegments
 //purpose  :
 //=======================================================================
-void Draw_Window::DrawSegments (const Draw_XSegment* theSegments,
+void DrawWindow::DrawSegments (const Draw_XSegment* theSegments,
                                 Standard_Integer theNumberOfElements)
 {
   Cocoa_LocalPool aLocalPool;
@@ -488,7 +488,7 @@ void Draw_Window::DrawSegments (const Draw_XSegment* theSegments,
 //function : Redraw
 //purpose  :
 //=======================================================================
-void Draw_Window::Redraw()
+void DrawWindow::Redraw()
 {
   if (myUseBuffer)
   {
@@ -500,7 +500,7 @@ void Draw_Window::Redraw()
 //function : SetColor
 //purpose  :
 //=======================================================================
-void Draw_Window::SetColor (Standard_Integer theColor)
+void DrawWindow::SetColor (Standard_Integer theColor)
 {
   myCurrentColor = theColor;
 }
@@ -509,7 +509,7 @@ void Draw_Window::SetColor (Standard_Integer theColor)
 //function : SetMode
 //purpose  :
 //=======================================================================
-void Draw_Window::SetMode (Standard_Integer theMode)
+void DrawWindow::SetMode (Standard_Integer theMode)
 {
   // unsupported
   (void )theMode;
@@ -519,7 +519,7 @@ void Draw_Window::SetMode (Standard_Integer theMode)
 //function : Save
 //purpose  :
 //=======================================================================
-Standard_Boolean Draw_Window::Save (Standard_CString theFileName) const
+Standard_Boolean DrawWindow::Save (Standard_CString theFileName) const
 {
   Cocoa_LocalPool aLocalPool;
 
@@ -552,12 +552,12 @@ Standard_Boolean Draw_Window::Save (Standard_CString theFileName) const
   return isSuccess;
 }
 
-Standard_Boolean Draw_Window::IsEqualWindows (const long theWindowNumber)
+Standard_Boolean DrawWindow::IsEqualWindows (const long theWindowNumber)
 {
   return ([myWindow windowNumber] == theWindowNumber);
 }
 
-void Draw_Window::GetNextEvent (Standard_Boolean  theWait,
+void DrawWindow::GetNextEvent (Standard_Boolean  theWait,
                                 long&             theWindowNumber,
                                 Standard_Integer& theX,
                                 Standard_Integer& theY,

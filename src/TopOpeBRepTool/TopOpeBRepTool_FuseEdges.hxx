@@ -29,8 +29,8 @@
 #include <TopTools_IndexedMapOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Vertex;
-class TopoDS_Edge;
+class TopoVertex;
+class TopoEdge;
 
 //! This class can detect  vertices in a face that can
 //! be considered useless and then perform the fuse of
@@ -48,7 +48,7 @@ public:
 
   //! Initialise members  and build  construction of map
   //! of ancestors.
-  Standard_EXPORT TopOpeBRepTool_FuseEdges(const TopoDS_Shape&    theShape,
+  Standard_EXPORT TopOpeBRepTool_FuseEdges(const TopoShape&    theShape,
                                            const Standard_Boolean PerformNow = Standard_False);
 
   //! set edges to avoid being fused
@@ -71,7 +71,7 @@ public:
 
   //! returns myShape modified with the list of internal
   //! edges removed from it.
-  Standard_EXPORT TopoDS_Shape& Shape();
+  Standard_EXPORT TopoShape& Shape();
 
   //! returns the number of vertices candidate to be removed
   Standard_EXPORT Standard_Integer NbVertices();
@@ -89,21 +89,21 @@ private:
   //! builtin BuildLisEdges
   Standard_EXPORT void BuildListResultEdges();
 
-  Standard_EXPORT void BuildListConnexEdge(const TopoDS_Shape&   theEdge,
+  Standard_EXPORT void BuildListConnexEdge(const TopoShape&   theEdge,
                                            TopTools_MapOfShape&  theMapUniq,
-                                           TopTools_ListOfShape& theLstEdg);
+                                           ShapeList& theLstEdg);
 
-  Standard_EXPORT Standard_Boolean NextConnexEdge(const TopoDS_Vertex& theVertex,
-                                                  const TopoDS_Shape&  theEdge,
-                                                  TopoDS_Shape&        theEdgeConnex) const;
+  Standard_EXPORT Standard_Boolean NextConnexEdge(const TopoVertex& theVertex,
+                                                  const TopoShape&  theEdge,
+                                                  TopoShape&        theEdgeConnex) const;
 
-  Standard_EXPORT Standard_Boolean SameSupport(const TopoDS_Edge& E1, const TopoDS_Edge& E2) const;
+  Standard_EXPORT Standard_Boolean SameSupport(const TopoEdge& E1, const TopoEdge& E2) const;
 
-  Standard_EXPORT Standard_Boolean UpdatePCurve(const TopoDS_Edge&          theOldEdge,
-                                                TopoDS_Edge&                theNewEdge,
-                                                const TopTools_ListOfShape& theLstEdg) const;
+  Standard_EXPORT Standard_Boolean UpdatePCurve(const TopoEdge&          theOldEdge,
+                                                TopoEdge&                theNewEdge,
+                                                const ShapeList& theLstEdg) const;
 
-  TopoDS_Shape                              myShape;
+  TopoShape                              myShape;
   Standard_Boolean                          myShapeDone;
   Standard_Boolean                          myEdgesDone;
   Standard_Boolean                          myResultEdgesDone;

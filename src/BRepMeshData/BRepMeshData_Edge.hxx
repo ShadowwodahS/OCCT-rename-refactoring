@@ -27,7 +27,7 @@ public:
   DEFINE_INC_ALLOC
 
   //! Constructor.
-  Standard_EXPORT BRepMeshData_Edge(const TopoDS_Edge&                      theEdge,
+  Standard_EXPORT BRepMeshData_Edge(const TopoEdge&                      theEdge,
                                     const Handle(NCollection_IncAllocator)& theAllocator);
 
   //! Destructor.

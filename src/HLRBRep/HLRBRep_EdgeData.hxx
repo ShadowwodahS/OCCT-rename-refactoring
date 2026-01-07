@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 #include <HLRAlgo_EdgeStatus.hxx>
 #include <HLRBRep_Curve.hxx>
-class TopoDS_Edge;
+class TopoEdge;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT void Set(const Standard_Boolean   Reg1,
                            const Standard_Boolean   RegN,
-                           const TopoDS_Edge&       EG,
+                           const TopoEdge&       EG,
                            const Standard_Integer   V1,
                            const Standard_Integer   V2,
                            const Standard_Boolean   Out1,

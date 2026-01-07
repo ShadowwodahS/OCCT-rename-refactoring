@@ -25,7 +25,7 @@
 #include <ShapeAnalysis_HSequenceOfFreeBounds.hxx>
 #include <Standard_Integer.hxx>
 class ShapeAnalysis_FreeBoundData;
-class TopoDS_Wire;
+class TopoWire;
 
 //! This class is intended to calculate shape free bounds
 //! properties.
@@ -57,7 +57,7 @@ public:
   //! Creates the object and calls corresponding Init.
   //! <shape> should be a compound of faces.
   Standard_EXPORT ShapeAnalysis_FreeBoundsProperties(
-    const TopoDS_Shape&    shape,
+    const TopoShape&    shape,
     const Standard_Real    tolerance,
     const Standard_Boolean splitclosed = Standard_False,
     const Standard_Boolean splitopen   = Standard_False);
@@ -65,20 +65,20 @@ public:
   //! Creates the object and calls corresponding Init.
   //! <shape> should be a compound of shells.
   Standard_EXPORT ShapeAnalysis_FreeBoundsProperties(
-    const TopoDS_Shape&    shape,
+    const TopoShape&    shape,
     const Standard_Boolean splitclosed = Standard_False,
     const Standard_Boolean splitopen   = Standard_False);
 
   //! Initializes the object with given parameters.
   //! <shape> should be a compound of faces.
-  Standard_EXPORT void Init(const TopoDS_Shape&    shape,
+  Standard_EXPORT void Init(const TopoShape&    shape,
                             const Standard_Real    tolerance,
                             const Standard_Boolean splitclosed = Standard_False,
                             const Standard_Boolean splitopen   = Standard_False);
 
   //! Initializes the object with given parameters.
   //! <shape> should be a compound of shells.
-  Standard_EXPORT void Init(const TopoDS_Shape&    shape,
+  Standard_EXPORT void Init(const TopoShape&    shape,
                             const Standard_Boolean splitclosed = Standard_False,
                             const Standard_Boolean splitopen   = Standard_False);
 
@@ -98,7 +98,7 @@ public:
   Standard_Boolean IsLoaded() const;
 
   //! Returns shape
-  TopoDS_Shape Shape() const;
+  TopoShape Shape() const;
 
   //! Returns tolerance
   Standard_Real Tolerance() const;
@@ -135,9 +135,9 @@ public:
   Standard_EXPORT Standard_Boolean CheckNotches(Handle(ShapeAnalysis_FreeBoundData)& fbData,
                                                 const Standard_Real                  prec = 0.0);
 
-  Standard_EXPORT Standard_Boolean CheckNotches(const TopoDS_Wire&     freebound,
+  Standard_EXPORT Standard_Boolean CheckNotches(const TopoWire&     freebound,
                                                 const Standard_Integer num,
-                                                TopoDS_Wire&           notch,
+                                                TopoWire&           notch,
                                                 Standard_Real&         distMax,
                                                 const Standard_Real    prec = 0.0);
 
@@ -146,7 +146,7 @@ public:
 
 protected:
 private:
-  TopoDS_Shape                                myShape;
+  TopoShape                                myShape;
   Standard_Real                               myTolerance;
   Standard_Boolean                            mySplitClosed;
   Standard_Boolean                            mySplitOpen;

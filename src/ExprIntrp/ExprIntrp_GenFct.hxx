@@ -20,7 +20,7 @@
 #include <Standard.hxx>
 
 #include <ExprIntrp_Generator.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 
 class ExprIntrp_GenFct;
 DEFINE_STANDARD_HANDLE(ExprIntrp_GenFct, ExprIntrp_Generator)
@@ -34,7 +34,7 @@ class ExprIntrp_GenFct : public ExprIntrp_Generator
 public:
   Standard_EXPORT static Handle(ExprIntrp_GenFct) Create();
 
-  Standard_EXPORT void Process(const TCollection_AsciiString& str);
+  Standard_EXPORT void Process(const AsciiString1& str);
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 

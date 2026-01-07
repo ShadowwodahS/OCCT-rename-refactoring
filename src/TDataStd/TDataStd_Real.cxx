@@ -39,7 +39,7 @@ const Standard_GUID& TDataStd_Real::GetID()
 // function : SetAttr
 // purpose  : Implements Set functionality
 //=======================================================================
-static Handle(TDataStd_Real) SetAttr(const TDF_Label&     label,
+static Handle(TDataStd_Real) SetAttr(const DataLabel&     label,
                                      const Standard_Real  V,
                                      const Standard_GUID& theGuid)
 {
@@ -56,7 +56,7 @@ static Handle(TDataStd_Real) SetAttr(const TDF_Label&     label,
 
 //=================================================================================================
 
-Handle(TDataStd_Real) TDataStd_Real::Set(const TDF_Label& L, const Standard_Real V)
+Handle(TDataStd_Real) TDataStd_Real::Set(const DataLabel& L, const Standard_Real V)
 {
   return SetAttr(L, V, GetID());
 }
@@ -66,7 +66,7 @@ Handle(TDataStd_Real) TDataStd_Real::Set(const TDF_Label& L, const Standard_Real
 // purpose  : User defined attribute
 //=======================================================================
 
-Handle(TDataStd_Real) TDataStd_Real::Set(const TDF_Label&     L,
+Handle(TDataStd_Real) TDataStd_Real::Set(const DataLabel&     L,
                                          const Standard_GUID& theGuid,
                                          const Standard_Real  V)
 {
@@ -94,7 +94,7 @@ Standard_Boolean TDataStd_Real::IsCaptured() const
 
   if (Label().FindAttribute(TDF_Reference::GetID(), reference))
   {
-    const TDF_Label& aLabel = reference->Get();
+    const DataLabel& aLabel = reference->Get();
     return aLabel.IsAttribute(myID);
   }
   return Standard_False;

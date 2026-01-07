@@ -19,7 +19,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(StepVisual_NullStyleMember, StepData_SelectInt)
 
-static StepData_EnumTool tool(".NULL.");
+static EnumTool tool(".NULL.");
 
 //=================================================================================================
 

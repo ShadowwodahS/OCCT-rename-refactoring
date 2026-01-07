@@ -21,21 +21,21 @@
 /**
  * Structure passed to the methods dealing with input stream.
  */
-struct VrmlData_InBuffer
+struct InputBuffer
 {
   Standard_IStream& Input;
   char              Line[8096];
   char*             LinePtr;
   Standard_Boolean  IsProcessed;
   Standard_Integer  LineCount;
-  VrmlData_InBuffer(Standard_IStream& theStream)
+  InputBuffer(Standard_IStream& theStream)
       : Input(theStream),
         LinePtr(&Line[0]),
         IsProcessed(Standard_False),
         LineCount(0) {};
 
 private:
-  void operator=(const VrmlData_InBuffer&);
+  void operator=(const InputBuffer&);
 };
 
 #endif

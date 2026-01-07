@@ -255,7 +255,7 @@ public:
   //! @param[in] theCamera  camera definition
   //! @param[in] theViewportWidth  the width of viewport.
   //! @param[in] theViewportHeight  the height of viewport.
-  virtual Standard_Real persistentScale(const Handle(Graphic3d_Camera)& theCamera,
+  virtual Standard_Real persistentScale(const Handle(CameraOn3d)& theCamera,
                                         const Standard_Integer          theViewportWidth,
                                         const Standard_Integer          theViewportHeight) const
   {
@@ -280,7 +280,7 @@ public:
   //! @param[in] theViewportWidth  the width of viewport
   //! @param[in] theViewportHeight  the height of viewport
   virtual NCollection_Mat3<Standard_Real> persistentRotationMatrix(
-    const Handle(Graphic3d_Camera)& theCamera,
+    const Handle(CameraOn3d)& theCamera,
     const Standard_Integer          theViewportWidth,
     const Standard_Integer          theViewportHeight) const
   {
@@ -300,7 +300,7 @@ public:
   //! @param[in] theViewportHeight  the height of viewport (for 2d persistence).
   //! @param theBoundingBox [in/out] the bounding box to transform.
   template <class T>
-  void Apply(const Handle(Graphic3d_Camera)& theCamera,
+  void Apply(const Handle(CameraOn3d)& theCamera,
              const NCollection_Mat4<T>&      theProjection,
              const NCollection_Mat4<T>&      theWorldView,
              const Standard_Integer          theViewportWidth,
@@ -315,7 +315,7 @@ public:
   //! @param[in] theViewportHeight  the height of viewport (for 2d persistence).
   //! @param theBoundingBox [in/out] the bounding box to transform.
   template <class T>
-  void Apply(const Handle(Graphic3d_Camera)& theCamera,
+  void Apply(const Handle(CameraOn3d)& theCamera,
              const NCollection_Mat4<T>&      theProjection,
              const NCollection_Mat4<T>&      theWorldView,
              const Standard_Integer          theViewportWidth,
@@ -334,7 +334,7 @@ public:
   //! orthographic persistence).
   //! @return transformation matrix to be applied to model world transformation of an object.
   template <class T>
-  NCollection_Mat4<T> Compute(const Handle(Graphic3d_Camera)& theCamera,
+  NCollection_Mat4<T> Compute(const Handle(CameraOn3d)& theCamera,
                               const NCollection_Mat4<T>&      theProjection,
                               const NCollection_Mat4<T>&      theWorldView,
                               const Standard_Integer          theViewportWidth,
@@ -351,7 +351,7 @@ public:
   //! @param[in] theToApplyProjPers  if should apply projection persistence to matrix (for
   //! orthographic persistence).
   template <class T>
-  void Apply(const Handle(Graphic3d_Camera)& theCamera,
+  void Apply(const Handle(CameraOn3d)& theCamera,
              const NCollection_Mat4<T>&      theProjection,
              NCollection_Mat4<T>&            theWorldView,
              const Standard_Integer          theViewportWidth,
@@ -364,19 +364,19 @@ public:
   //! @param[in] theViewportWidth   viewport width
   //! @param[in] theViewportHeight  viewport height
   //! @param[in] theAnchor  if not NULL, overrides anchor point
-  virtual NCollection_Mat4<Standard_Real> ComputeApply(Handle(Graphic3d_Camera)& theCamera,
+  virtual NCollection_Mat4<Standard_Real> ComputeApply(Handle(CameraOn3d)& theCamera,
                                                        const Standard_Integer    theViewportWidth,
                                                        const Standard_Integer    theViewportHeight,
                                                        const Point3d* theAnchor = NULL) const
   {
     (void)theViewportWidth;
-    Handle(Graphic3d_Camera) aProxyCamera = theCamera;
+    Handle(CameraOn3d) aProxyCamera = theCamera;
     if (IsOrthoPers() && !aProxyCamera->IsOrthographic())
     {
       // clang-format off
-      aProxyCamera = new Graphic3d_Camera(*theCamera); // If OrthoPers, copy camera and set to orthographic projection
+      aProxyCamera = new CameraOn3d(*theCamera); // If OrthoPers, copy camera and set to orthographic projection
       // clang-format on
-      aProxyCamera->SetProjectionType(Graphic3d_Camera::Projection_Orthographic);
+      aProxyCamera->SetProjectionType(CameraOn3d::Projection_Orthographic);
     }
 
     NCollection_Mat4<Standard_Real> aWorldView = aProxyCamera->OrientationMatrix();
@@ -394,7 +394,7 @@ public:
       const Standard_Real aFocus =
         aProxyCamera->IsOrthographic()
           ? aProxyCamera->Distance()
-          : (aProxyCamera->ZFocusType() == Graphic3d_Camera::FocusType_Relative
+          : (aProxyCamera->ZFocusType() == CameraOn3d::FocusType_Relative
                ? Standard_Real(aProxyCamera->ZFocus() * aProxyCamera->Distance())
                : Standard_Real(aProxyCamera->ZFocus()));
 
@@ -447,7 +447,7 @@ public:
       const Standard_Real aFocus =
         aProxyCamera->IsOrthographic()
           ? aProxyCamera->Distance()
-          : (aProxyCamera->ZFocusType() == Graphic3d_Camera::FocusType_Relative
+          : (aProxyCamera->ZFocusType() == CameraOn3d::FocusType_Relative
                ? Standard_Real(aProxyCamera->ZFocus() * aProxyCamera->Distance())
                : Standard_Real(aProxyCamera->ZFocus()));
 
@@ -578,7 +578,7 @@ private:
 // purpose  : Apply transformation to world view and projection matrices.
 // =======================================================================
 template <class T>
-void Graphic3d_TransformPers::Apply(const Handle(Graphic3d_Camera)& theCamera,
+void Graphic3d_TransformPers::Apply(const Handle(CameraOn3d)& theCamera,
                                     const NCollection_Mat4<T>&      theProjection,
                                     NCollection_Mat4<T>&            theWorldView,
                                     const Standard_Integer          theViewportWidth,
@@ -592,7 +592,7 @@ void Graphic3d_TransformPers::Apply(const Handle(Graphic3d_Camera)& theCamera,
     return;
   }
 
-  Handle(Graphic3d_Camera)        aCamera = new Graphic3d_Camera(*theCamera);
+  Handle(CameraOn3d)        aCamera = new CameraOn3d(*theCamera);
   NCollection_Mat4<Standard_Real> aWorldView =
     ComputeApply(aCamera, theViewportWidth, theViewportHeight, theAnchor);
 
@@ -611,7 +611,7 @@ void Graphic3d_TransformPers::Apply(const Handle(Graphic3d_Camera)& theCamera,
 // purpose  : Apply transformation to bounding box of presentation.
 // =======================================================================
 template <class T>
-void Graphic3d_TransformPers::Apply(const Handle(Graphic3d_Camera)& theCamera,
+void Graphic3d_TransformPers::Apply(const Handle(CameraOn3d)& theCamera,
                                     const NCollection_Mat4<T>&      theProjection,
                                     const NCollection_Mat4<T>&      theWorldView,
                                     const Standard_Integer          theViewportWidth,
@@ -647,7 +647,7 @@ void Graphic3d_TransformPers::Apply(const Handle(Graphic3d_Camera)& theCamera,
 // purpose  : Apply transformation to bounding box of presentation.
 // =======================================================================
 template <class T>
-void Graphic3d_TransformPers::Apply(const Handle(Graphic3d_Camera)& theCamera,
+void Graphic3d_TransformPers::Apply(const Handle(CameraOn3d)& theCamera,
                                     const NCollection_Mat4<T>&      theProjection,
                                     const NCollection_Mat4<T>&      theWorldView,
                                     const Standard_Integer          theViewportWidth,
@@ -698,7 +698,7 @@ void Graphic3d_TransformPers::Apply(const Handle(Graphic3d_Camera)& theCamera,
 // =======================================================================
 template <class T>
 NCollection_Mat4<T> Graphic3d_TransformPers::Compute(
-  const Handle(Graphic3d_Camera)& theCamera,
+  const Handle(CameraOn3d)& theCamera,
   const NCollection_Mat4<T>&      theProjection,
   const NCollection_Mat4<T>&      theWorldView,
   const Standard_Integer          theViewportWidth,

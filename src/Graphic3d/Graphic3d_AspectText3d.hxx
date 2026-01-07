@@ -58,18 +58,18 @@ public:
   void SetColor(const Quantity_ColorRGBA& theColor) { myInteriorColor = theColor; }
 
   //! Return the font.
-  const TCollection_AsciiString& Font() const
+  const AsciiString1& Font() const
   {
     if (myTextFont.IsNull())
     {
-      static const TCollection_AsciiString anEmpty;
+      static const AsciiString1 anEmpty;
       return anEmpty;
     }
     return myTextFont->String();
   }
 
   //! Modifies the font.
-  void SetFont(const TCollection_AsciiString& theFont)
+  void SetFont(const AsciiString1& theFont)
   {
     if (!theFont.IsEmpty())
     {
@@ -82,7 +82,7 @@ public:
   }
 
   //! Modifies the font.
-  void SetFont(const Standard_CString theFont) { SetFont(TCollection_AsciiString(theFont)); }
+  void SetFont(const Standard_CString theFont) { SetFont(AsciiString1(theFont)); }
 
   //! Return the text style.
   Aspect_TypeOfStyleText Style() const { return myTextStyle; }

@@ -242,7 +242,7 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
     }
   }
 
-  // Draw elements with one color
+  // Draw1 elements with one color
   Handle(Graphic3d_Group) aGGroup, aGroup2, aLGroup, aSGroup;
   if (!aTwoColorsOfElements.IsEmpty())
   {
@@ -539,7 +539,7 @@ void MeshVS_ElementalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Pr
     }
   }
 
-  // Draw faces with two color
+  // Draw1 faces with two color
   if (!aTwoColorsOfElements.IsEmpty())
   {
     Handle(Graphic3d_AspectFillArea3d) aGroupFillAspect2 =

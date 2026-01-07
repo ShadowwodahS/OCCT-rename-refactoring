@@ -226,7 +226,7 @@ public:
   };
 
   //! Query information.
-  virtual TCollection_AsciiString GetString(InfoString theInfo) const = 0;
+  virtual AsciiString1 GetString(InfoString theInfo) const = 0;
 
 protected:
   //! Empty constructor.

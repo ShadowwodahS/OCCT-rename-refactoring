@@ -96,7 +96,7 @@ static void TraceRevol(const Standard_Real                        t,
 
   // transformer la section
   Standard_Real      f, l, e = 1.e-7;
-  Handle(Geom_Curve) S, C;
+  Handle(GeomCurve3d) S, C;
 
   if (Section->IsConstant(e))
   {
@@ -114,9 +114,9 @@ static void TraceRevol(const Standard_Real                        t,
     TColStd_Array1OfReal Weights(1, NbPoles);
     Section->D0(s, Poles, Weights);
     if (Section->IsRational())
-      C = new (Geom_BSplineCurve)(Poles, Weights, Knots, Mult, Deg, Section->IsUPeriodic());
+      C = new (BSplineCurve3d)(Poles, Weights, Knots, Mult, Deg, Section->IsUPeriodic());
     else
-      C = new (Geom_BSplineCurve)(Poles, Knots, Mult, Deg, Section->IsUPeriodic());
+      C = new (BSplineCurve3d)(Poles, Knots, Mult, Deg, Section->IsUPeriodic());
   }
 
   f = C->FirstParameter();
@@ -125,12 +125,12 @@ static void TraceRevol(const Standard_Real                        t,
   S->Transform(Transfo);
 
   // Surface de revolution
-  Handle(Geom_Surface) Revol = new (Geom_SurfaceOfRevolution)(S, Ax);
+  Handle(GeomSurface) Revol = new (Geom_SurfaceOfRevolution)(S, Ax);
   std::cout << "Surf Revol at parameter t = " << t << std::endl;
 
   #if DRAW
   Standard_CString aName = "TheRevol";
-  DrawTrSurf::Set(aName, Revol);
+  DrawTrSurf1::Set(aName, Revol);
   #endif
 }
 #endif
@@ -196,7 +196,7 @@ GeomFill_LocationGuide::GeomFill_LocationGuide(const Handle(GeomFill_TrihedronWi
     if (approx.HasResult())
     {
       Standard_CString aName = "TheGuide";
-      DrawTrSurf::Set(aName, approx.Curve());
+      DrawTrSurf1::Set(aName, approx.Curve());
     }
   }
 #endif
@@ -235,7 +235,7 @@ void GeomFill_LocationGuide::SetRotation(const Standard_Real PrecAngle, Standard
   Standard_Boolean Ok, uperiodic = mySec->IsUPeriodic();
 
   DeltaG = (myGuide->LastParameter() - myGuide->FirstParameter()) / 5;
-  Handle(Geom_Curve) mySection;
+  Handle(GeomCurve3d) mySection;
   Standard_Real      Tol = 1.e-9;
 
   Standard_Integer NbPoles, NbKnots;
@@ -313,14 +313,14 @@ void GeomFill_LocationGuide::SetRotation(const Standard_Real PrecAngle, Standard
       U = myFirstS + (t - myCurve->FirstParameter()) * ratio;
       mySec->D0(U, Poles->ChangeArray1(), Weights->ChangeArray1());
       if (israt)
-        mySection = new (Geom_BSplineCurve)(Poles->Array1(),
+        mySection = new (BSplineCurve3d)(Poles->Array1(),
                                             Weights->Array1(),
                                             Knots->Array1(),
                                             Mult->Array1(),
                                             Deg,
                                             mySec->IsUPeriodic());
       else
-        mySection = new (Geom_BSplineCurve)(Poles->Array1(),
+        mySection = new (BSplineCurve3d)(Poles->Array1(),
                                             Knots->Array1(),
                                             Mult->Array1(),
                                             Deg,
@@ -329,7 +329,7 @@ void GeomFill_LocationGuide::SetRotation(const Standard_Real PrecAngle, Standard
     }
     else
     {
-      S = new (Geom_TrimmedCurve)(Handle(Geom_Curve)::DownCast(mySection->Copy()), Uf, Ul);
+      S = new (Geom_TrimmedCurve)(Handle(GeomCurve3d)::DownCast(mySection->Copy()), Uf, Ul);
     }
     S->Transform(Transfo);
 
@@ -1315,7 +1315,7 @@ void GeomFill_LocationGuide::GetAverageLaw(gp_Mat& AM, Vector3d& AV)
 
 //=================================================================================================
 
-Handle(Geom_Curve) GeomFill_LocationGuide::Section() const
+Handle(GeomCurve3d) GeomFill_LocationGuide::Section() const
 {
   return mySec->ConstantSection();
 }

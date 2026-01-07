@@ -24,26 +24,26 @@
 #include <TopAbs_State.hxx>
 #include <IntTools_SequenceOfCurves.hxx>
 #include <Precision.hxx>
-class TopoDS_Vertex;
-class TopoDS_Wire;
-class TopoDS_Face;
+class TopoVertex;
+class TopoWire;
+class TopoFace;
 class gp_Pnt2d;
-class TopoDS_Edge;
+class TopoEdge;
 class IntTools_CommonPrt;
 class Point3d;
 class IntTools_Curve;
 class Dir3d;
-class Geom_Curve;
+class GeomCurve3d;
 class Bnd_Box;
-class IntTools_Range;
+class IntToolsRange;
 class gp_Lin;
 class gp_Pln;
-class Geom2d_Curve;
-class Geom_Surface;
+class GeomCurve2d;
+class GeomSurface;
 
 //! The class contains handy static functions
 //! dealing with the geometry and topology.
-class IntTools_Tools
+class Tools2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -52,32 +52,32 @@ public:
   //! if the distance is less than sum of vertex tolerances
   //! returns zero,
   //! otherwise returns negative value
-  Standard_EXPORT static Standard_Integer ComputeVV(const TopoDS_Vertex& V1,
-                                                    const TopoDS_Vertex& V2);
+  Standard_EXPORT static Standard_Integer ComputeVV(const TopoVertex& V1,
+                                                    const TopoVertex& V2);
 
   //! Returns True if wire aW contains edges
   //! with INTERNAL orientation
-  Standard_EXPORT static Standard_Boolean HasInternalEdge(const TopoDS_Wire& aW);
+  Standard_EXPORT static Standard_Boolean HasInternalEdge(const TopoWire& aW);
 
   //! Build a face based on surface of given face aF
   //! and bounded by wire aW
-  Standard_EXPORT static void MakeFaceFromWireAndFace(const TopoDS_Wire& aW,
-                                                      const TopoDS_Face& aF,
-                                                      TopoDS_Face&       aFNew);
+  Standard_EXPORT static void MakeFaceFromWireAndFace(const TopoWire& aW,
+                                                      const TopoFace& aF,
+                                                      TopoFace&       aFNew);
 
-  Standard_EXPORT static TopAbs_State ClassifyPointByFace(const TopoDS_Face& aF, const gp_Pnt2d& P);
+  Standard_EXPORT static TopAbs_State ClassifyPointByFace(const TopoFace& aF, const gp_Pnt2d& P);
 
   //! Computes square distance between a point on the edge E
   //! corresponded to parameter t and vertices of edge E.
   //! Returns True if this distance is less than square
   //! tolerance of vertex, otherwise returns false.
-  Standard_EXPORT static Standard_Boolean IsVertex(const TopoDS_Edge& E, const Standard_Real t);
+  Standard_EXPORT static Standard_Boolean IsVertex(const TopoEdge& E, const Standard_Real t);
 
   //! Returns True if square distance between vertex V
   //! and a point on the edge E corresponded to parameter t
   //! is less than square tolerance of V
-  Standard_EXPORT static Standard_Boolean IsVertex(const TopoDS_Edge&   E,
-                                                   const TopoDS_Vertex& V,
+  Standard_EXPORT static Standard_Boolean IsVertex(const TopoEdge&   E,
+                                                   const TopoVertex& V,
                                                    const Standard_Real  t);
 
   //! Returns True if IsVertx for middle parameter of fist range
@@ -91,15 +91,15 @@ public:
   //! Computes 3d points on each corresponded to average parameters.
   //! Returns True if distance between computed points is less than
   //! sum of edge tolerance, otherwise returns False.
-  Standard_EXPORT static Standard_Boolean IsMiddlePointsEqual(const TopoDS_Edge& E1,
-                                                              const TopoDS_Edge& E2);
+  Standard_EXPORT static Standard_Boolean IsMiddlePointsEqual(const TopoEdge& E1,
+                                                              const TopoEdge& E2);
 
   //! Returns True if the distance between point aP and
   //! vertex aV is less or equal to sum of aTolPV and
   //! vertex tolerance, otherwise returns False
   Standard_EXPORT static Standard_Boolean IsVertex(const Point3d&        aP,
                                                    const Standard_Real  aTolPV,
-                                                   const TopoDS_Vertex& aV);
+                                                   const TopoVertex& aV);
 
   //! Returns some value between aFirst and aLast
   Standard_EXPORT static Standard_Real IntermediatePoint(const Standard_Real aFirst,
@@ -128,12 +128,12 @@ public:
   //! the distance between first point
   //! of the curve aC and last point
   //! is less than 1.e-12
-  Standard_EXPORT static Standard_Boolean IsClosed(const Handle(Geom_Curve)& aC);
+  Standard_EXPORT static Standard_Boolean IsClosed(const Handle(GeomCurve3d)& aC);
 
   //! Returns adaptive tolerance for given aTolBase
   //! if aC is trimmed curve and basis curve is parabola,
   //! otherwise returns value of aTolBase
-  Standard_EXPORT static Standard_Real CurveTolerance(const Handle(Geom_Curve)& aC,
+  Standard_EXPORT static Standard_Real CurveTolerance(const Handle(GeomCurve3d)& aC,
                                                       const Standard_Real       aTolBase);
 
   //! Checks if the curve is not covered by the default tolerance (confusion).<br>
@@ -142,7 +142,7 @@ public:
                                                      Bnd_Box&              theBox);
 
   Standard_EXPORT static Standard_Boolean IsOnPave(const Standard_Real   theT,
-                                                   const IntTools_Range& theRange,
+                                                   const IntToolsRange& theRange,
                                                    const Standard_Real   theTol);
 
   Standard_EXPORT static void VertexParameters(const IntTools_CommonPrt& theCP,
@@ -152,12 +152,12 @@ public:
   Standard_EXPORT static void VertexParameter(const IntTools_CommonPrt& theCP, Standard_Real& theT);
 
   Standard_EXPORT static Standard_Boolean IsOnPave1(const Standard_Real   theT,
-                                                    const IntTools_Range& theRange,
+                                                    const IntToolsRange& theRange,
                                                     const Standard_Real   theTol);
 
   //! Checks if the range <theR> interfere with the range <theRRef>
-  Standard_EXPORT static Standard_Boolean IsInRange(const IntTools_Range& theRRef,
-                                                    const IntTools_Range& theR,
+  Standard_EXPORT static Standard_Boolean IsInRange(const IntToolsRange& theRRef,
+                                                    const IntToolsRange& theR,
                                                     const Standard_Real   theTol);
 
   Standard_EXPORT static Standard_Integer SegPln(const gp_Lin&       theLin,
@@ -175,9 +175,9 @@ public:
   //! Computes the max distance between points
   //! taken from 3D and 2D curves by the same parameter
   Standard_EXPORT static Standard_Boolean ComputeTolerance(
-    const Handle(Geom_Curve)&   theCurve3D,
-    const Handle(Geom2d_Curve)& theCurve2D,
-    const Handle(Geom_Surface)& theSurf,
+    const Handle(GeomCurve3d)&   theCurve3D,
+    const Handle(GeomCurve2d)& theCurve2D,
+    const Handle(GeomSurface)& theSurf,
     const Standard_Real         theFirst,
     const Standard_Real         theLast,
     Standard_Real&              theMaxDist,

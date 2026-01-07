@@ -23,7 +23,7 @@
 
 //=================================================================================================
 
-Message_Level::Message_Level(const TCollection_AsciiString& theName)
+Message_Level::Message_Level(const AsciiString1& theName)
 {
   const Handle(Message_Report)& aDefaultReport = Message::DefaultReport();
   if (!aDefaultReport.IsNull() && aDefaultReport->IsActiveInMessenger())

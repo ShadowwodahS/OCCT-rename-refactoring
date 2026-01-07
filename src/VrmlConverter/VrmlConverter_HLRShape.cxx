@@ -27,8 +27,8 @@
 
 //=================================================================================================
 
-void VrmlConverter_HLRShape::Add(Standard_OStream&                      anOStream,
-                                 const TopoDS_Shape&                    aShape,
+void HLRShapeConverter::Add(Standard_OStream&                      anOStream,
+                                 const TopoShape&                    aShape,
                                  const Handle(VrmlConverter_Drawer)&    aDrawer,
                                  const Handle(VrmlConverter_Projector)& aProjector)
 {
@@ -77,11 +77,11 @@ void VrmlConverter_HLRShape::Add(Standard_OStream&                      anOStrea
   laHL = aDrawer->HiddenLineAspect();
   laSL = aDrawer->SeenLineAspect();
 
-  Vrml_Separator SE1;
-  Vrml_Separator SE2;
-  Vrml_Separator SE3;
+  Separator SE1;
+  Separator SE2;
+  Separator SE3;
 
-  Standard_Boolean flag = Standard_False; // to check a call of Vrml_Separator.Print(anOStream)
+  Standard_Boolean flag = Standard_False; // to check a call of Separator.Print(anOStream)
 
   SE1.Print(anOStream);
 
@@ -109,8 +109,8 @@ void VrmlConverter_HLRShape::Add(Standard_OStream&                      anOStrea
     for (Tool.InitVisible(i); Tool.MoreVisible(); Tool.NextVisible())
     {
       Tool.Visible(TheCurve, U1, U2);
-      VrmlConverter_DeflectionCurve::Add(anOStream, TheCurve, U1, U2, theRequestedDeflection);
-      //	VrmlConverter_DeflectionCurve::Add(anOStream, TheCurve, U1, U2, aDrawer);
+      DeflectionCurveConverter::Add(anOStream, TheCurve, U1, U2, theRequestedDeflection);
+      //	DeflectionCurveConverter::Add(anOStream, TheCurve, U1, U2, aDrawer);
     }
   }
 
@@ -145,8 +145,8 @@ void VrmlConverter_HLRShape::Add(Standard_OStream&                      anOStrea
       for (Tool.InitHidden(i); Tool.MoreHidden(); Tool.NextHidden())
       {
         Tool.Hidden(TheCurve, U1, U2);
-        VrmlConverter_DeflectionCurve::Add(anOStream, TheCurve, U1, U2, theRequestedDeflection);
-        //	VrmlConverter_DeflectionCurve::Add(anOStream, TheCurve, U1, U2, aDrawer);
+        DeflectionCurveConverter::Add(anOStream, TheCurve, U1, U2, theRequestedDeflection);
+        //	DeflectionCurveConverter::Add(anOStream, TheCurve, U1, U2, aDrawer);
       }
     }
     if (flag)

@@ -30,7 +30,7 @@ IMPLEMENT_STANDARD_RTTIEXT(RWPly_CafWriter, RefObject)
 
 //=================================================================================================
 
-RWPly_CafWriter::RWPly_CafWriter(const TCollection_AsciiString& theFile)
+RWPly_CafWriter::RWPly_CafWriter(const AsciiString1& theFile)
     : myFile(theFile),
       myIsDoublePrec(false),
       myHasNormals(true),
@@ -58,7 +58,7 @@ Standard_Boolean RWPly_CafWriter::toSkipFaceMesh(const RWMesh_FaceIterator& theF
 
 //=================================================================================================
 
-bool RWPly_CafWriter::Perform(const Handle(TDocStd_Document)&             theDocument,
+bool RWPly_CafWriter::Perform(const Handle(AppDocument)&             theDocument,
                               const TColStd_IndexedDataMapOfStringString& theFileInfo,
                               const Message_ProgressRange&                theProgress)
 {
@@ -70,15 +70,15 @@ bool RWPly_CafWriter::Perform(const Handle(TDocStd_Document)&             theDoc
 
 //=================================================================================================
 
-bool RWPly_CafWriter::Perform(const Handle(TDocStd_Document)&             theDocument,
+bool RWPly_CafWriter::Perform(const Handle(AppDocument)&             theDocument,
                               const TDF_LabelSequence&                    theRootLabels,
                               const TColStd_MapOfAsciiString*             theLabelFilter,
                               const TColStd_IndexedDataMapOfStringString& theFileInfo,
                               const Message_ProgressRange&                theProgress)
 {
-  TCollection_AsciiString aFolder, aFileName, aFullFileNameBase, aShortFileNameBase, aFileExt;
-  OSD_Path::FolderAndFileFromPath(myFile, aFolder, aFileName);
-  OSD_Path::FileNameAndExtension(aFileName, aShortFileNameBase, aFileExt);
+  AsciiString1 aFolder, aFileName, aFullFileNameBase, aShortFileNameBase, aFileExt;
+  SystemPath::FolderAndFileFromPath(myFile, aFolder, aFileName);
+  SystemPath::FileNameAndExtension(aFileName, aShortFileNameBase, aFileExt);
 
   Standard_Real aLengthUnit = 1.;
   if (XCAFDoc_DocumentTool::GetLengthUnit(theDocument, aLengthUnit))
@@ -177,7 +177,7 @@ bool RWPly_CafWriter::Perform(const Handle(TDocStd_Document)&             theDoc
   const bool isClosed = aPlyCtx.Close();
   if (isDone && !isClosed)
   {
-    Message::SendFail(TCollection_AsciiString("Failed to write PLY file\n") + myFile);
+    Message::SendFail(AsciiString1("Failed to write PLY file\n") + myFile);
     return false;
   }
   return isDone && !aPSentry.IsAborted();
@@ -198,7 +198,7 @@ void RWPly_CafWriter::addFaceInfo(const RWMesh_FaceIterator& theFace,
 bool RWPly_CafWriter::writeShape(RWPly_PlyWriterContext&    theWriter,
                                  Message_LazyProgressScope& thePSentry,
                                  const Standard_Integer     theWriteStep,
-                                 const TDF_Label&           theLabel,
+                                 const DataLabel&           theLabel,
                                  const TopLoc_Location&     theParentTrsf,
                                  const XCAFPrs_Style&       theParentStyle)
 {

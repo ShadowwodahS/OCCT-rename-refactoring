@@ -48,7 +48,7 @@ public:
 
   //! Writes configuration to the string
   //! @return result resource string
-  Standard_EXPORT virtual TCollection_AsciiString Save() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 Save() const Standard_OVERRIDE;
 
   //! Copies values of all fields
   //! @return new object with the same field values
@@ -69,11 +69,11 @@ public:
 
   //! Gets CAD format name of associated provider
   //! @return provider CAD format
-  Standard_EXPORT virtual TCollection_AsciiString GetFormat() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 GetFormat() const Standard_OVERRIDE;
 
   //! Gets provider's vendor name of associated provider
   //! @return provider's vendor name
-  Standard_EXPORT virtual TCollection_AsciiString GetVendor() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 GetVendor() const Standard_OVERRIDE;
 
   //! Gets list of supported file extensions
   //! @return list of extensions
@@ -86,7 +86,7 @@ public:
     Standard_OVERRIDE;
 
 public:
-  struct DEBRep_InternalSection
+  struct DEBRep_InternalSection1
   {
     // Write
     bool WriteBinary = true;          //!< Defines the binary file format

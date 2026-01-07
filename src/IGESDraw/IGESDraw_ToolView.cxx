@@ -31,9 +31,9 @@
 #include <Interface_Macros.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESDraw_ToolView::IGESDraw_ToolView() {}
+ViewTool1::ViewTool1() {}
 
-void IGESDraw_ToolView::ReadOwnParams(const Handle(IGESDraw_View)&           ent,
+void ViewTool1::ReadOwnParams(const Handle(IGESDraw_View)&           ent,
                                       const Handle(IGESData_IGESReaderData)& IR,
                                       IGESData_ParamReader&                  PR) const
 {
@@ -82,7 +82,7 @@ void IGESDraw_ToolView::ReadOwnParams(const Handle(IGESDraw_View)&           ent
             tempFrontPlane);
 }
 
-void IGESDraw_ToolView::WriteOwnParams(const Handle(IGESDraw_View)& ent,
+void ViewTool1::WriteOwnParams(const Handle(IGESDraw_View)& ent,
                                        IGESData_IGESWriter&         IW) const
 {
   IW.Send(ent->ViewNumber());
@@ -95,7 +95,7 @@ void IGESDraw_ToolView::WriteOwnParams(const Handle(IGESDraw_View)& ent,
   IW.Send(ent->FrontPlane());
 }
 
-void IGESDraw_ToolView::OwnShared(const Handle(IGESDraw_View)& ent,
+void ViewTool1::OwnShared(const Handle(IGESDraw_View)& ent,
                                   Interface_EntityIterator&    iter) const
 {
   iter.GetOneItem(ent->LeftPlane());
@@ -106,7 +106,7 @@ void IGESDraw_ToolView::OwnShared(const Handle(IGESDraw_View)& ent,
   iter.GetOneItem(ent->FrontPlane());
 }
 
-void IGESDraw_ToolView::OwnCopy(const Handle(IGESDraw_View)& another,
+void ViewTool1::OwnCopy(const Handle(IGESDraw_View)& another,
                                 const Handle(IGESDraw_View)& ent,
                                 Interface_CopyTool&          TC) const
 {
@@ -129,9 +129,9 @@ void IGESDraw_ToolView::OwnCopy(const Handle(IGESDraw_View)& another,
             tempFrontPlane);
 }
 
-IGESData_DirChecker IGESDraw_ToolView::DirChecker(const Handle(IGESDraw_View)& /*ent*/) const
+DirectoryChecker ViewTool1::DirChecker(const Handle(IGESDraw_View)& /*ent*/) const
 {
-  IGESData_DirChecker DC(410, 0);
+  DirectoryChecker DC(410, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -143,7 +143,7 @@ IGESData_DirChecker IGESDraw_ToolView::DirChecker(const Handle(IGESDraw_View)& /
   return DC;
 }
 
-void IGESDraw_ToolView::OwnCheck(const Handle(IGESDraw_View)& ent,
+void ViewTool1::OwnCheck(const Handle(IGESDraw_View)& ent,
                                  const Interface_ShareTool&,
                                  Handle(Interface_Check)& ach) const
 {
@@ -154,7 +154,7 @@ void IGESDraw_ToolView::OwnCheck(const Handle(IGESDraw_View)& ent,
   }
 }
 
-void IGESDraw_ToolView::OwnDump(const Handle(IGESDraw_View)& ent,
+void ViewTool1::OwnDump(const Handle(IGESDraw_View)& ent,
                                 const IGESData_IGESDumper&   dumper,
                                 Standard_OStream&            S,
                                 const Standard_Integer       level) const

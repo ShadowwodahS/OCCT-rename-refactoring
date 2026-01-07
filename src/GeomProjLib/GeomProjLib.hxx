@@ -23,10 +23,10 @@
 
 #include <Standard_Real.hxx>
 #include <Standard_Boolean.hxx>
-class Geom2d_Curve;
-class Geom_Curve;
-class Geom_Surface;
-class Geom_Plane;
+class GeomCurve2d;
+class GeomCurve3d;
+class GeomSurface;
+class GeomPlane;
 class Dir3d;
 
 //! Projection of a curve on a surface.
@@ -44,10 +44,10 @@ public:
   //! tolerance is set in <Tolerance> as output.
   //! WARNING :  if   the projection has  failed,   this
   //! method returns a null Handle.
-  Standard_EXPORT static Handle(Geom2d_Curve) Curve2d(const Handle(Geom_Curve)&   C,
+  Standard_EXPORT static Handle(GeomCurve2d) Curve2d(const Handle(GeomCurve3d)&   C,
                                                       const Standard_Real         First,
                                                       const Standard_Real         Last,
-                                                      const Handle(Geom_Surface)& S,
+                                                      const Handle(GeomSurface)& S,
                                                       const Standard_Real         UFirst,
                                                       const Standard_Real         ULast,
                                                       const Standard_Real         VFirst,
@@ -63,10 +63,10 @@ public:
   //! tolerance is set in <Tolerance> as output.
   //! WARNING :  if   the projection has  failed,   this
   //! method returns a null Handle.
-  Standard_EXPORT static Handle(Geom2d_Curve) Curve2d(const Handle(Geom_Curve)&   C,
+  Standard_EXPORT static Handle(GeomCurve2d) Curve2d(const Handle(GeomCurve3d)&   C,
                                                       const Standard_Real         First,
                                                       const Standard_Real         Last,
-                                                      const Handle(Geom_Surface)& S,
+                                                      const Handle(GeomSurface)& S,
                                                       Standard_Real&              Tolerance);
 
   //! gives  the 2d-curve   of  a 3d-curve  lying on   a
@@ -77,10 +77,10 @@ public:
   //! Precision::PApproximation() is used.
   //! WARNING :  if   the projection has  failed,   this
   //! method returns a null Handle.
-  Standard_EXPORT static Handle(Geom2d_Curve) Curve2d(const Handle(Geom_Curve)&   C,
+  Standard_EXPORT static Handle(GeomCurve2d) Curve2d(const Handle(GeomCurve3d)&   C,
                                                       const Standard_Real         First,
                                                       const Standard_Real         Last,
-                                                      const Handle(Geom_Surface)& S);
+                                                      const Handle(GeomSurface)& S);
 
   //! gives  the  2d-curve  of  a  3d-curve lying   on a
   //! surface   ( uses   GeomProjLib_ProjectedCurve ).
@@ -88,8 +88,8 @@ public:
   //! Precision::PApproximation() is used.
   //! WARNING  :  if the   projection has  failed,  this
   //! method returns a null Handle.
-  Standard_EXPORT static Handle(Geom2d_Curve) Curve2d(const Handle(Geom_Curve)&   C,
-                                                      const Handle(Geom_Surface)& S);
+  Standard_EXPORT static Handle(GeomCurve2d) Curve2d(const Handle(GeomCurve3d)&   C,
+                                                      const Handle(GeomSurface)& S);
 
   //! gives  the  2d-curve  of  a  3d-curve lying   on a
   //! surface   ( uses   GeomProjLib_ProjectedCurve ).
@@ -98,8 +98,8 @@ public:
   //! WARNING  :  if the   projection has  failed,  this
   //! method returns a null Handle.
   //! can expand a little the bounds of surface
-  Standard_EXPORT static Handle(Geom2d_Curve) Curve2d(const Handle(Geom_Curve)&   C,
-                                                      const Handle(Geom_Surface)& S,
+  Standard_EXPORT static Handle(GeomCurve2d) Curve2d(const Handle(GeomCurve3d)&   C,
+                                                      const Handle(GeomSurface)& S,
                                                       const Standard_Real         UDeb,
                                                       const Standard_Real         UFin,
                                                       const Standard_Real         VDeb,
@@ -112,8 +112,8 @@ public:
   //! WARNING  :  if the   projection has  failed,  this
   //! method returns a null Handle.
   //! can expand a little the bounds of surface
-  Standard_EXPORT static Handle(Geom2d_Curve) Curve2d(const Handle(Geom_Curve)&   C,
-                                                      const Handle(Geom_Surface)& S,
+  Standard_EXPORT static Handle(GeomCurve2d) Curve2d(const Handle(GeomCurve3d)&   C,
+                                                      const Handle(GeomSurface)& S,
                                                       const Standard_Real         UDeb,
                                                       const Standard_Real         UFin,
                                                       const Standard_Real         VDeb,
@@ -124,8 +124,8 @@ public:
   //! projection  of the  Curve <C> on  the surface <S>.
   //! WARNING : if the  projection has failed, returns  a
   //! null Handle.
-  Standard_EXPORT static Handle(Geom_Curve) Project(const Handle(Geom_Curve)&   C,
-                                                    const Handle(Geom_Surface)& S);
+  Standard_EXPORT static Handle(GeomCurve3d) Project(const Handle(GeomCurve3d)&   C,
+                                                    const Handle(GeomSurface)& S);
 
   //! Constructs  the 3d-curves from the projection
   //! of the  curve  <Curve> on the  plane <Plane> along
@@ -135,9 +135,9 @@ public:
   //! parametrization of the initial curve <C>.
   //! It means: proj(C(u)) = PC(u) for each u.
   //! Otherwise, the parametrization may change.
-  Standard_EXPORT static Handle(Geom_Curve) ProjectOnPlane(
-    const Handle(Geom_Curve)& Curve,
-    const Handle(Geom_Plane)& Plane,
+  Standard_EXPORT static Handle(GeomCurve3d) ProjectOnPlane(
+    const Handle(GeomCurve3d)& Curve,
+    const Handle(GeomPlane)& Plane,
     const Dir3d&             Dir,
     const Standard_Boolean    KeepParametrization);
 

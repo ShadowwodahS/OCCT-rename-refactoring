@@ -38,9 +38,9 @@ DEBREP_Provider::DEBREP_Provider(const Handle(DE_ConfigurationNode)& theNode)
 
 //=================================================================================================
 
-bool DEBREP_Provider::Read(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
-                           Handle(XSControl_WorkSession)&  theWS,
+bool DEBREP_Provider::Read(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
+                           Handle(ExchangeSession)&  theWS,
                            const Message_ProgressRange&    theProgress)
 {
   (void)theWS;
@@ -49,9 +49,9 @@ bool DEBREP_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEBREP_Provider::Write(const TCollection_AsciiString&  thePath,
-                            const Handle(TDocStd_Document)& theDocument,
-                            Handle(XSControl_WorkSession)&  theWS,
+bool DEBREP_Provider::Write(const AsciiString1&  thePath,
+                            const Handle(AppDocument)& theDocument,
+                            Handle(ExchangeSession)&  theWS,
                             const Message_ProgressRange&    theProgress)
 {
   (void)theWS;
@@ -60,8 +60,8 @@ bool DEBREP_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEBREP_Provider::Read(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
+bool DEBREP_Provider::Read(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
                            const Message_ProgressRange&    theProgress)
 {
   if (theDocument.IsNull())
@@ -70,7 +70,7 @@ bool DEBREP_Provider::Read(const TCollection_AsciiString&  thePath,
                         << "\t: theDocument shouldn't be null";
     return false;
   }
-  TopoDS_Shape aShape;
+  TopoShape aShape;
   if (!Read(thePath, aShape, theProgress))
   {
     return false;
@@ -82,11 +82,11 @@ bool DEBREP_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEBREP_Provider::Write(const TCollection_AsciiString&  thePath,
-                            const Handle(TDocStd_Document)& theDocument,
+bool DEBREP_Provider::Write(const AsciiString1&  thePath,
+                            const Handle(AppDocument)& theDocument,
                             const Message_ProgressRange&    theProgress)
 {
-  TopoDS_Shape              aShape;
+  TopoShape              aShape;
   TDF_LabelSequence         aLabels;
   Handle(XCAFDoc_ShapeTool) aSTool = XCAFDoc_DocumentTool::ShapeTool(theDocument->Main());
   aSTool->GetFreeShapes(aLabels);
@@ -111,12 +111,12 @@ bool DEBREP_Provider::Write(const TCollection_AsciiString&  thePath,
   }
   else
   {
-    TopoDS_Compound aComp;
-    BRep_Builder    aBuilder;
+    TopoCompound aComp;
+    ShapeBuilder    aBuilder;
     aBuilder.MakeCompound(aComp);
     for (Standard_Integer anIndex = 1; anIndex <= aLabels.Length(); anIndex++)
     {
-      TopoDS_Shape aS = aSTool->GetShape(aLabels.Value(anIndex));
+      TopoShape aS = aSTool->GetShape(aLabels.Value(anIndex));
       aBuilder.Add(aComp, aS);
     }
     aShape = aComp;
@@ -126,9 +126,9 @@ bool DEBREP_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEBREP_Provider::Read(const TCollection_AsciiString& thePath,
-                           TopoDS_Shape&                  theShape,
-                           Handle(XSControl_WorkSession)& theWS,
+bool DEBREP_Provider::Read(const AsciiString1& thePath,
+                           TopoShape&                  theShape,
+                           Handle(ExchangeSession)& theWS,
                            const Message_ProgressRange&   theProgress)
 {
   (void)theWS;
@@ -137,9 +137,9 @@ bool DEBREP_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEBREP_Provider::Write(const TCollection_AsciiString& thePath,
-                            const TopoDS_Shape&            theShape,
-                            Handle(XSControl_WorkSession)& theWS,
+bool DEBREP_Provider::Write(const AsciiString1& thePath,
+                            const TopoShape&            theShape,
+                            Handle(ExchangeSession)& theWS,
                             const Message_ProgressRange&   theProgress)
 {
   (void)theWS;
@@ -148,8 +148,8 @@ bool DEBREP_Provider::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEBREP_Provider::Read(const TCollection_AsciiString& thePath,
-                           TopoDS_Shape&                  theShape,
+bool DEBREP_Provider::Read(const AsciiString1& thePath,
+                           TopoShape&                  theShape,
                            const Message_ProgressRange&   theProgress)
 {
   bool isBinaryFormat = true;
@@ -178,7 +178,7 @@ bool DEBREP_Provider::Read(const TCollection_AsciiString& thePath,
 
   if (isBinaryFormat)
   {
-    if (!BinTools::Read(theShape, thePath.ToCString(), theProgress))
+    if (!BinTools1::Read(theShape, thePath.ToCString(), theProgress))
     {
       Message::SendFail() << "Error in the DEBREP_Provider during reading the file " << thePath
                           << "\t: Cannot read from the file";
@@ -187,7 +187,7 @@ bool DEBREP_Provider::Read(const TCollection_AsciiString& thePath,
   }
   else
   {
-    if (!BRepTools::Read(theShape, thePath.ToCString(), BRep_Builder(), theProgress))
+    if (!BRepTools1::Read(theShape, thePath.ToCString(), ShapeBuilder(), theProgress))
     {
       Message::SendFail() << "Error in the DEBREP_Provider during reading the file " << thePath
                           << "\t: Cannot read from the file";
@@ -200,8 +200,8 @@ bool DEBREP_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEBREP_Provider::Write(const TCollection_AsciiString& thePath,
-                            const TopoDS_Shape&            theShape,
+bool DEBREP_Provider::Write(const AsciiString1& thePath,
+                            const TopoShape&            theShape,
                             const Message_ProgressRange&   theProgress)
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEBREP_ConfigurationNode)))
@@ -236,7 +236,7 @@ bool DEBREP_Provider::Write(const TCollection_AsciiString& thePath,
       return false;
     }
 
-    if (!BinTools::Write(theShape,
+    if (!BinTools1::Write(theShape,
                          thePath.ToCString(),
                          aNode->InternalParameters.WriteTriangles,
                          aNode->InternalParameters.WriteNormals,
@@ -266,7 +266,7 @@ bool DEBREP_Provider::Write(const TCollection_AsciiString& thePath,
                           << "\t: Error: vertex normals require ascii format version 3 or later";
       return false;
     }
-    if (!BRepTools::Write(theShape,
+    if (!BRepTools1::Write(theShape,
                           thePath.ToCString(),
                           aNode->InternalParameters.WriteTriangles,
                           aNode->InternalParameters.WriteNormals,
@@ -284,14 +284,14 @@ bool DEBREP_Provider::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-TCollection_AsciiString DEBREP_Provider::GetFormat() const
+AsciiString1 DEBREP_Provider::GetFormat() const
 {
-  return TCollection_AsciiString("BREP");
+  return AsciiString1("BREP");
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DEBREP_Provider::GetVendor() const
+AsciiString1 DEBREP_Provider::GetVendor() const
 {
-  return TCollection_AsciiString("OCC");
+  return AsciiString1("OCC");
 }

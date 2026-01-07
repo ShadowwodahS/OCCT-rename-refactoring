@@ -65,7 +65,7 @@
 
 #ifdef OCCT_DEBUG
   #define DEBSHASET(sarg, meth, shaset, str)                                                       \
-    TCollection_AsciiString sarg((meth));                                                          \
+    AsciiString1 sarg((meth));                                                          \
     (sarg) = (sarg) + (shaset).DEBNumber() + (str);
 
 Standard_EXPORT void debsplitf(const Standard_Integer i)
@@ -81,14 +81,14 @@ Standard_EXPORT void debspanc(const Standard_Integer i)
 Standard_Integer GLOBAL_iexF = 0;
 #endif
 
-Standard_EXPORT Handle(Geom2d_Curve) BASISCURVE2D(const Handle(Geom2d_Curve)& C);
-Standard_EXPORT void                 TopOpeBRepDS_SetThePCurve(const BRep_Builder&         B,
-                                                               TopoDS_Edge&                E,
-                                                               const TopoDS_Face&          F,
+Standard_EXPORT Handle(GeomCurve2d) BASISCURVE2D(const Handle(GeomCurve2d)& C);
+Standard_EXPORT void                 TopOpeBRepDS_SetThePCurve(const ShapeBuilder&         B,
+                                                               TopoEdge&                E,
+                                                               const TopoFace&          F,
                                                                const TopAbs_Orientation    O,
-                                                               const Handle(Geom2d_Curve)& C);
+                                                               const Handle(GeomCurve2d)& C);
 // Standard_IMPORT Standard_Integer FUN_tool_outofUVbounds
-//(const TopoDS_Face& fF,const TopoDS_Edge& E,Standard_Real& splitpar);
+//(const TopoFace& fF,const TopoEdge& E,Standard_Real& splitpar);
 
 //---------------------------------------------
 static Standard_Integer FUN_getG(const Point3d&                              P,
@@ -107,7 +107,7 @@ static Standard_Integer FUN_getG(const Point3d&                              P,
       continue;
     Standard_Integer GI             = SSI->Geometry();
     iEinterf                        = SSI->Support();
-    const TopOpeBRepDS_Point& DSP   = HDS->Point(GI);
+    const Point1& DSP   = HDS->Point(GI);
     const Point3d&             P3d   = DSP.Point();
     Standard_Real             tolp  = DSP.Tolerance();
     Standard_Boolean          sameP = P3d.IsEqual(P, tolp);
@@ -136,8 +136,8 @@ static Standard_Integer FUN_getG(const Point3d&                              P,
 #define INCREASEPERIOD (1)
 #define DECREASEPERIOD (-1)
 
-static Standard_Boolean FUN_EPIforEvisoONperiodicF(const TopoDS_Edge&                     E,
-                                                   const TopoDS_Face&                     F,
+static Standard_Boolean FUN_EPIforEvisoONperiodicF(const TopoEdge&                     E,
+                                                   const TopoFace&                     F,
                                                    const TopOpeBRepDS_ListOfInterference& EPIlist,
                                                    const Handle(TopOpeBRepDS_HDataStructure)& HDS,
                                                    TopOpeBRepDS_ListOfInterference&           loCPI)
@@ -147,7 +147,7 @@ static Standard_Boolean FUN_EPIforEvisoONperiodicF(const TopoDS_Edge&           
   CORRISO.Init(F);
   Standard_Real    uper;
   Standard_Boolean onU     = CORRISO.Refclosed(1, uper);
-  Standard_Real    tolF    = BRep_Tool::Tolerance(F);
+  Standard_Real    tolF    = BRepInspector::Tolerance(F);
   Standard_Real    tolu    = CORRISO.Tol(1, tolF);
   Standard_Integer recadre = CORRISO.EdgeOUTofBoundsUV(E, onU, tolu, parone);
   // Standard_Integer recadre = FUN_tool_outofUVbounds(F,E,parone);
@@ -170,7 +170,7 @@ static Standard_Boolean FUN_EPIforEvisoONperiodicF(const TopoDS_Edge&           
 
   // <CPI> :
   Standard_Integer        iS = HDS->Shape(E);
-  TopOpeBRepDS_Transition T(TopAbs_IN, TopAbs_IN, TopAbs_EDGE, TopAbs_EDGE);
+  StateTransition T(TopAbs_IN, TopAbs_IN, TopAbs_EDGE, TopAbs_EDGE);
   T.Index(iS);
   Handle(TopOpeBRepDS_CurvePointInterference) CPI =
     new TopOpeBRepDS_CurvePointInterference(T,
@@ -191,27 +191,27 @@ static Standard_Boolean FUN_EPIforEvisoONperiodicF(const TopoDS_Edge&           
 // Recompute the pcurve for the split with (parameter on edge >= <paronE>)
 //----------------------------------------------------------------------
 /*static void FUN_GetSplitsON
-(const TopoDS_Edge& E, TopoDS_Vertex& V2pi, const Standard_Real& paronE,const TopoDS_Face& F,
-TopTools_ListOfShape& losplits)
+(const TopoEdge& E, TopoVertex& V2pi, const Standard_Real& paronE,const TopoFace& F,
+ShapeList& losplits)
 {
   Standard_Real pf,pl,tolpc;
-  TopoDS_Vertex Vf, Vl; TopExp::Vertices(E,Vf,Vl);
-  Handle(Geom2d_Curve) PC = FC2D_CurveOnSurface(E,F,pf,pl,tolpc);
-  const Handle(Geom_Surface)& S = BRep_Tool::Surface(F);
-  Standard_Real tole = BRep_Tool::Tolerance(E);
-  TopOpeBRepDS_BuildTool BT; BRep_Builder BB;
+  TopoVertex Vf, Vl; TopExp1::Vertices(E,Vf,Vl);
+  Handle(GeomCurve2d) PC = FC2D_CurveOnSurface(E,F,pf,pl,tolpc);
+  const Handle(GeomSurface)& S = BRepInspector::Surface(F);
+  Standard_Real tole = BRepInspector::Tolerance(E);
+  TopOpeBRepDS_BuildTool BT; ShapeBuilder BB;
 
   TopAbs_Orientation oriVinf, oriVsup, oriE = E.Orientation();
   oriVinf = (oriE == TopAbs_FORWARD)? TopAbs_FORWARD: TopAbs_REVERSED;
   oriVsup = (oriE == TopAbs_FORWARD)? TopAbs_REVERSED: TopAbs_FORWARD;
 
   // Einf2pi :
-  TopoDS_Edge Einf2pi; BT.CopyEdge(E,Einf2pi);
+  TopoEdge Einf2pi; BT.CopyEdge(E,Einf2pi);
   Vf.Orientation(oriVinf);   BB.Add(Einf2pi,Vf);   BT.Parameter(Einf2pi,Vf,pf);
   V2pi.Orientation(oriVsup); BB.Add(Einf2pi,V2pi); BT.Parameter(Einf2pi,V2pi,paronE);
 
   // Esup2pi :
-  TopoDS_Edge Esup2pi; BT.CopyEdge(E,Esup2pi);
+  TopoEdge Esup2pi; BT.CopyEdge(E,Esup2pi);
   V2pi.Orientation(oriVinf); BB.Add(Esup2pi,V2pi); BT.Parameter(Esup2pi,V2pi,paronE);
   Vl.Orientation(oriVsup);   BB.Add(Esup2pi,Vl);   BT.Parameter(Esup2pi,Vl,pl);
   gp_Pnt2d tmp = PC->Value(pf); Standard_Real v = tmp.Y();
@@ -223,8 +223,8 @@ TopTools_ListOfShape& losplits)
 #ifdef OCCT_DEBUG
   Standard_Boolean trc = Standard_False;
 #ifdef DRAW
-  if (trc) {TCollection_AsciiString aa("PCinf");FUN_tool_draw(aa,Einf2pi,F,0);}
-  if (trc) {TCollection_AsciiString aa("PCsup");FUN_tool_draw(aa,Esup2pi,F,0);}
+  if (trc) {AsciiString1 aa("PCinf");FUN_tool_draw(aa,Einf2pi,F,0);}
+  if (trc) {AsciiString1 aa("PCsup");FUN_tool_draw(aa,Esup2pi,F,0);}
 #endif
 #endif
   losplits.Append(Einf2pi); losplits.Append(Esup2pi);
@@ -253,15 +253,15 @@ static void FUN_getEPI(const TopOpeBRepDS_ListOfInterference& LI,
 }
 
 //---------------------------------------------
-static void FUN_getEPIonEds(const TopoDS_Shape&                        FOR,
+static void FUN_getEPIonEds(const TopoShape&                        FOR,
                             const Handle(TopOpeBRepDS_HDataStructure)& HDS,
                             TopOpeBRepDS_ListOfInterference&           EPI)
 //---------------------------------------------
 {
-  TopExp_Explorer ex(FOR, TopAbs_EDGE);
+  ShapeExplorer ex(FOR, TopAbs_EDGE);
   for (; ex.More(); ex.Next())
   {
-    const TopoDS_Shape& E = ex.Current();
+    const TopoShape& E = ex.Current();
     if (HDS->HasShape(E))
     {
       const TopOpeBRepDS_ListOfInterference& LII = HDS->DS().ShapeInterferences(E);
@@ -272,16 +272,16 @@ static void FUN_getEPIonEds(const TopoDS_Shape&                        FOR,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GMergeSolids(const TopTools_ListOfShape&  LSO1,
-                                           const TopTools_ListOfShape&  LSO2,
-                                           const TopOpeBRepBuild_GTopo& G1)
+void TopOpeBRepBuild_Builder::GMergeSolids(const ShapeList&  LSO1,
+                                           const ShapeList&  LSO2,
+                                           const GTopologyClassifier& G1)
 {
   if (LSO1.IsEmpty())
     return;
   TopAbs_State TB1, TB2;
   G1.StatesON(TB1, TB2);
 
-  const TopoDS_Shape& SO1 = LSO1.First();
+  const TopoShape& SO1 = LSO1.First();
 #ifdef OCCT_DEBUG
   Standard_Integer iSO;
   Standard_Boolean tSPS = GtraceSPS(SO1, iSO);
@@ -299,25 +299,25 @@ void TopOpeBRepBuild_Builder::GMergeSolids(const TopTools_ListOfShape&  LSO1,
   GFillSolidsSFS(LSO1, LSO2, G1, SFS);
 
   // Create a solid builder SOBU
-  TopoDS_Shape SO1F = LSO1.First();
+  TopoShape SO1F = LSO1.First();
   SO1F.Orientation(TopAbs_FORWARD);
   TopOpeBRepBuild_SolidBuilder SOBU;
   Standard_Boolean             ForceClassSOBU = Standard_True;
   SOBU.InitSolidBuilder(SFS, ForceClassSOBU);
 
   // Build new solids LSOM
-  TopTools_ListOfShape LSOM;
+  ShapeList LSOM;
   GSOBUMakeSolids(SO1F, SOBU, LSOM);
 
   // connect new solids as solids built TB1 on LSO1 solids
   TopTools_ListIteratorOfListOfShape it1;
   for (it1.Initialize(LSO1); it1.More(); it1.Next())
   {
-    const TopoDS_Shape& aSO1     = it1.Value();
+    const TopoShape& aSO1     = it1.Value();
     Standard_Boolean    ismerged = IsMerged(aSO1, TB1);
     if (ismerged)
       continue;
-    TopTools_ListOfShape& SOL = ChangeMerged(aSO1, TB1);
+    ShapeList& SOL = ChangeMerged(aSO1, TB1);
     SOL                       = LSOM;
   }
 
@@ -325,11 +325,11 @@ void TopOpeBRepBuild_Builder::GMergeSolids(const TopTools_ListOfShape&  LSO1,
   TopTools_ListIteratorOfListOfShape it2;
   for (it2.Initialize(LSO2); it2.More(); it2.Next())
   {
-    const TopoDS_Shape& SO2      = it2.Value();
+    const TopoShape& SO2      = it2.Value();
     Standard_Boolean    ismerged = IsMerged(SO2, TB2);
     if (ismerged)
       continue;
-    TopTools_ListOfShape& SOL = ChangeMerged(SO2, TB2);
+    ShapeList& SOL = ChangeMerged(SO2, TB2);
     SOL                       = LSOM;
   }
 
@@ -337,9 +337,9 @@ void TopOpeBRepBuild_Builder::GMergeSolids(const TopTools_ListOfShape&  LSO1,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GFillSolidsSFS(const TopTools_ListOfShape&   LS1,
-                                             const TopTools_ListOfShape&   LS2,
-                                             const TopOpeBRepBuild_GTopo&  G1,
+void TopOpeBRepBuild_Builder::GFillSolidsSFS(const ShapeList&   LS1,
+                                             const ShapeList&   LS2,
+                                             const GTopologyClassifier&  G1,
                                              TopOpeBRepBuild_ShellFaceSet& SFS)
 {
 
@@ -356,7 +356,7 @@ void TopOpeBRepBuild_Builder::GFillSolidsSFS(const TopTools_ListOfShape&   LS1,
   mySolidReference = TopoDS::Solid(LS1.First());
 
   TopAbs_State                       TB;
-  TopOpeBRepBuild_GTopo              G;
+  GTopologyClassifier              G;
   TopTools_ListIteratorOfListOfShape it;
 
   G  = G1;
@@ -364,7 +364,7 @@ void TopOpeBRepBuild_Builder::GFillSolidsSFS(const TopTools_ListOfShape&   LS1,
   it.Initialize(LS1);
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape& S       = it.Value();
+    const TopoShape& S       = it.Value();
     Standard_Boolean    tomerge = !IsMerged(S, TB);
 #ifdef OCCT_DEBUG
     Standard_Integer iS;
@@ -385,7 +385,7 @@ void TopOpeBRepBuild_Builder::GFillSolidsSFS(const TopTools_ListOfShape&   LS1,
   it.Initialize(LS2);
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape& S       = it.Value();
+    const TopoShape& S       = it.Value();
     Standard_Boolean    tomerge = !IsMerged(S, TB);
 #ifdef OCCT_DEBUG
     Standard_Integer iS;
@@ -411,9 +411,9 @@ void TopOpeBRepBuild_Builder::GFillSolidsSFS(const TopTools_ListOfShape&   LS1,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GFillSolidSFS(const TopoDS_Shape&           SO1,
-                                            const TopTools_ListOfShape&   LSO2,
-                                            const TopOpeBRepBuild_GTopo&  G1,
+void TopOpeBRepBuild_Builder::GFillSolidSFS(const TopoShape&           SO1,
+                                            const ShapeList&   LSO2,
+                                            const GTopologyClassifier&  G1,
                                             TopOpeBRepBuild_ShellFaceSet& SFS)
 {
   TopAbs_State TB1, TB2;
@@ -432,14 +432,14 @@ void TopOpeBRepBuild_Builder::GFillSolidSFS(const TopoDS_Shape&           SO1,
 #endif
 
   // work on a FORWARD solid SOF
-  TopoDS_Shape SOF = SO1;
+  TopoShape SOF = SO1;
   SOF.Orientation(TopAbs_FORWARD);
   mySolidToFill = TopoDS::Solid(SOF);
 
   TopOpeBRepTool_ShapeExplorer exShell(SOF, TopAbs_SHELL);
   for (; exShell.More(); exShell.Next())
   {
-    TopoDS_Shape     SH       = exShell.Current();
+    TopoShape     SH       = exShell.Current();
     Standard_Boolean hasshape = myDataStructure->HasShape(SH);
 
     if (!hasshape)
@@ -458,8 +458,8 @@ void TopOpeBRepBuild_Builder::GFillSolidSFS(const TopoDS_Shape&           SO1,
           DEBSHASET(ss, "--- GFillSolidSFS ", SFS, " AddShape SFS+ shell ");
           GdumpSHA(SH, (Standard_Address)ss.ToCString());
           std::cout << " ";
-          TopAbs::Print(TB1, std::cout) << " : 1 shell ";
-          TopAbs::Print(neworiSH, std::cout);
+          TopAbs1::Print(TB1, std::cout) << " : 1 shell ";
+          TopAbs1::Print(neworiSH, std::cout);
           std::cout << std::endl;
         }
 #endif
@@ -478,11 +478,11 @@ void TopOpeBRepBuild_Builder::GFillSolidSFS(const TopoDS_Shape&           SO1,
 //=================================================================================================
 
 #ifdef OCCT_DEBUG
-void TopOpeBRepBuild_Builder::GFillSurfaceTopologySFS(const TopoDS_Shape& SO1,
+void TopOpeBRepBuild_Builder::GFillSurfaceTopologySFS(const TopoShape& SO1,
 #else
-void TopOpeBRepBuild_Builder::GFillSurfaceTopologySFS(const TopoDS_Shape&,
+void TopOpeBRepBuild_Builder::GFillSurfaceTopologySFS(const TopoShape&,
 #endif
-                                                      const TopOpeBRepBuild_GTopo& G1,
+                                                      const GTopologyClassifier& G1,
                                                       TopOpeBRepBuild_ShellFaceSet& /*SFS*/)
 {
   TopAbs_State TB1, TB2;
@@ -500,7 +500,7 @@ void TopOpeBRepBuild_Builder::GFillSurfaceTopologySFS(const TopoDS_Shape&,
   {
     std::cout << std::endl;
     std::cout << "--- GFillSurfaceTopologySFS ShapeInterf ";
-    TopAbs::Print(ShapeInterf, std::cout);
+    TopAbs1::Print(ShapeInterf, std::cout);
     std::cout << std::endl;
   }
   std::cout << "GFillSurfaceTopologySFS : NYI" << std::endl;
@@ -511,7 +511,7 @@ void TopOpeBRepBuild_Builder::GFillSurfaceTopologySFS(const TopoDS_Shape&,
 //=================================================================================================
 
 void TopOpeBRepBuild_Builder::GFillSurfaceTopologySFS(const TopOpeBRepDS_SurfaceIterator& SSit,
-                                                      const TopOpeBRepBuild_GTopo&        G1,
+                                                      const GTopologyClassifier&        G1,
                                                       TopOpeBRepBuild_ShellFaceSet&       SFS) const
 {
   TopAbs_State TB1, TB2;
@@ -535,18 +535,18 @@ void TopOpeBRepBuild_Builder::GFillSurfaceTopologySFS(const TopOpeBRepDS_Surface
   {
     std::cout << "ifil : " << ifil << " iref : " << iref << std::endl;
     std::cout << "solid " << ifil << " is ";
-    TopOpeBRepDS::Print(Conf, std::cout);
+    TopOpeBRepDS1::Print(Conf, std::cout);
     std::cout << std::endl;
   }
 #endif
 
   // iG = index of new surface // NYI or existing face
   Standard_Integer                   iG    = SSit.Current();
-  const TopTools_ListOfShape&        LnewF = NewFaces(iG);
+  const ShapeList&        LnewF = NewFaces(iG);
   TopTools_ListIteratorOfListOfShape Iti(LnewF);
   for (; Iti.More(); Iti.Next())
   {
-    TopoDS_Shape       F   = Iti.Value();
+    TopoShape       F   = Iti.Value();
     TopAbs_Orientation ori = SSit.Orientation(TB);
     F.Orientation(ori);
 
@@ -556,8 +556,8 @@ void TopOpeBRepBuild_Builder::GFillSurfaceTopologySFS(const TopOpeBRepDS_Surface
       DEBSHASET(ss, "--- GFillSurfaceTopologySFS ", SFS, " AddElement SFS+ face ");
       GdumpSHA(F, (Standard_Address)ss.ToCString());
       std::cout << " ";
-      TopAbs::Print(TB, std::cout) << " : 1 face ";
-      TopAbs::Print(ori, std::cout);
+      TopAbs1::Print(TB, std::cout) << " : 1 face ";
+      TopAbs1::Print(ori, std::cout);
       std::cout << std::endl;
     }
 #endif
@@ -569,9 +569,9 @@ void TopOpeBRepBuild_Builder::GFillSurfaceTopologySFS(const TopOpeBRepDS_Surface
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GFillShellSFS(const TopoDS_Shape&           SH,
-                                            const TopTools_ListOfShape&   LSO2,
-                                            const TopOpeBRepBuild_GTopo&  G1,
+void TopOpeBRepBuild_Builder::GFillShellSFS(const TopoShape&           SH,
+                                            const ShapeList&   LSO2,
+                                            const GTopologyClassifier&  G1,
                                             TopOpeBRepBuild_ShellFaceSet& SFS)
 {
   TopAbs_State TB1, TB2;
@@ -593,7 +593,7 @@ void TopOpeBRepBuild_Builder::GFillShellSFS(const TopoDS_Shape&           SH,
   // 1/ : toutes les faces HasSameDomain
   for (exFace.Init(SH, TopAbs_FACE); exFace.More(); exFace.Next())
   {
-    const TopoDS_Shape& FOR = exFace.Current();
+    const TopoShape& FOR = exFace.Current();
     Standard_Boolean    hsd = myDataStructure->HasSameDomain(FOR);
     if (hsd)
     {
@@ -611,7 +611,7 @@ void TopOpeBRepBuild_Builder::GFillShellSFS(const TopoDS_Shape&           SH,
   // 2/ : toutes les faces non HasSameDomain
   for (exFace.Init(SH, TopAbs_FACE); exFace.More(); exFace.Next())
   {
-    const TopoDS_Shape& FOR = exFace.Current();
+    const TopoShape& FOR = exFace.Current();
     Standard_Boolean    hsd = myDataStructure->HasSameDomain(FOR);
     if (!hsd)
     {
@@ -622,15 +622,15 @@ void TopOpeBRepBuild_Builder::GFillShellSFS(const TopoDS_Shape&           SH,
 } // GFillShellSFS
 
 // ----------------------------------------------------------------------
-static void FUNBUILD_MAPSUBSHAPES(const TopoDS_Shape&         S,
+static void FUNBUILD_MAPSUBSHAPES(const TopoShape&         S,
                                   const TopAbs_ShapeEnum      T,
                                   TopTools_IndexedMapOfShape& _IM)
 {
-  TopExp::MapShapes(S, T, _IM);
+  TopExp1::MapShapes(S, T, _IM);
 }
 
 // ----------------------------------------------------------------------
-static void FUNBUILD_MAPSUBSHAPES(const TopTools_ListOfShape& LOFS,
+static void FUNBUILD_MAPSUBSHAPES(const ShapeList& LOFS,
                                   const TopAbs_ShapeEnum      T,
                                   TopTools_IndexedMapOfShape& _IM)
 {
@@ -640,18 +640,18 @@ static void FUNBUILD_MAPSUBSHAPES(const TopTools_ListOfShape& LOFS,
 
 // ----------------------------------------------------------------------
 static void FUNBUILD_MAPANCSPLSHAPES(TopOpeBRepBuild_Builder&                   B,
-                                     const TopoDS_Shape&                        S,
+                                     const TopoShape&                        S,
                                      const TopAbs_State                         STATE,
                                      TopTools_IndexedDataMapOfShapeListOfShape& _IDM)
 {
   Standard_Boolean issp = B.IsSplit(S, STATE);
   if (issp)
   {
-    const TopTools_ListOfShape& l = B.Splits(S, STATE);
+    const ShapeList& l = B.Splits(S, STATE);
     for (TopTools_ListIteratorOfListOfShape it(l); it.More(); it.Next())
     {
-      const TopoDS_Shape&  sps = it.Value(); // sps = split result of S on state STATE
-      TopTools_ListOfShape thelist;
+      const TopoShape&  sps = it.Value(); // sps = split result of S on state STATE
+      ShapeList thelist;
       if (!_IDM.Contains(sps))
         _IDM.Add(sps, thelist);
       _IDM.ChangeFromKey(sps).Append(S);
@@ -661,7 +661,7 @@ static void FUNBUILD_MAPANCSPLSHAPES(TopOpeBRepBuild_Builder&                   
 
 // ----------------------------------------------------------------------
 static void FUNBUILD_MAPANCSPLSHAPES(TopOpeBRepBuild_Builder&                   B,
-                                     const TopoDS_Shape&                        S,
+                                     const TopoShape&                        S,
                                      TopTools_IndexedDataMapOfShapeListOfShape& _IDM)
 {
   FUNBUILD_MAPANCSPLSHAPES(B, S, TopAbs_IN, _IDM);
@@ -687,8 +687,8 @@ static TopOpeBRepDS_Config                       static_CONF2;
 
 // ----------------------------------------------------------------------
 Standard_EXPORT void FUNBUILD_ANCESTORRANKPREPARE(TopOpeBRepBuild_Builder&    B,
-                                                  const TopTools_ListOfShape& LF1,
-                                                  const TopTools_ListOfShape& LF2,
+                                                  const ShapeList& LF1,
+                                                  const ShapeList& LF2,
                                                   const TopOpeBRepDS_Config   CONF1,
                                                   const TopOpeBRepDS_Config   CONF2)
 {
@@ -704,7 +704,7 @@ static TopTools_IndexedMapOfShape stabuild_IMEF;
 
 // ----------------------------------------------------------------------
 Standard_EXPORT void FUNBUILD_ANCESTORRANKGET(TopOpeBRepBuild_Builder& /*B*/,
-                                              const TopoDS_Shape& f,
+                                              const TopoShape& f,
                                               Standard_Boolean&   of1,
                                               Standard_Boolean&   of2)
 {
@@ -713,7 +713,7 @@ Standard_EXPORT void FUNBUILD_ANCESTORRANKGET(TopOpeBRepBuild_Builder& /*B*/,
   of1 = Standard_False;
   for (ief = 1; ief <= nef; ief++)
   {
-    const TopoDS_Shape& e = stabuild_IMEF(ief);
+    const TopoShape& e = stabuild_IMEF(ief);
     of1                   = stabuild_IDMEALF1.Contains(e);
     if (of1)
       break;
@@ -721,7 +721,7 @@ Standard_EXPORT void FUNBUILD_ANCESTORRANKGET(TopOpeBRepBuild_Builder& /*B*/,
   of2 = Standard_False;
   for (ief = 1; ief <= nef; ief++)
   {
-    const TopoDS_Shape& e = stabuild_IMEF(ief);
+    const TopoShape& e = stabuild_IMEF(ief);
     of2                   = stabuild_IDMEALF2.Contains(e);
     if (of2)
       break;
@@ -732,11 +732,11 @@ Standard_EXPORT void FUNBUILD_ANCESTORRANKGET(TopOpeBRepBuild_Builder& /*B*/,
 Standard_EXPORT void FUNBUILD_ORIENTLOFS(TopOpeBRepBuild_Builder& B,
                                          const TopAbs_State       TB1,
                                          const TopAbs_State       TB2,
-                                         TopTools_ListOfShape&    LOFS)
+                                         ShapeList&    LOFS)
 {
   for (TopTools_ListIteratorOfListOfShape it(LOFS); it.More(); it.Next())
   {
-    TopoDS_Shape&    f = it.ChangeValue();
+    TopoShape&    f = it.ChangeValue();
     Standard_Boolean of1, of2;
     FUNBUILD_ANCESTORRANKGET(B, f, of1, of2);
     TopAbs_Orientation orif = f.Orientation();
@@ -769,16 +769,16 @@ Standard_EXPORTEXTERN TopTools_DataMapOfShapeInteger* GLOBAL_SplitAnc; // xpu260
 //   return TopAbs_EXTERNAL;
 // }
 
-// Standard_IMPORT extern TopTools_ListOfShape* GLOBAL_lfr1;
-Standard_EXPORTEXTERN TopTools_ListOfShape* GLOBAL_lfr1;
+// Standard_IMPORT extern ShapeList* GLOBAL_lfr1;
+Standard_EXPORTEXTERN ShapeList* GLOBAL_lfr1;
 // Standard_IMPORT extern Standard_Boolean GLOBAL_lfrtoprocess;
 Standard_EXPORTEXTERN Standard_Boolean GLOBAL_lfrtoprocess;
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GSplitFaceSFS(const TopoDS_Shape&           FOR,
-                                            const TopTools_ListOfShape&   LSclass,
-                                            const TopOpeBRepBuild_GTopo&  G1,
+void TopOpeBRepBuild_Builder::GSplitFaceSFS(const TopoShape&           FOR,
+                                            const ShapeList&   LSclass,
+                                            const GTopologyClassifier&  G1,
                                             TopOpeBRepBuild_ShellFaceSet& SFS)
 {
   TopAbs_State TB1, TB2;
@@ -813,14 +813,14 @@ void TopOpeBRepBuild_Builder::GSplitFaceSFS(const TopoDS_Shape&           FOR,
     // NYI CDLize MapEdgeAncestors or modify WES in such a way
     // that it memorizes edge ancestors of added elements.
 
-    TopTools_ListOfShape& LSF = ChangeSplit(FOR, TB1);
+    ShapeList& LSF = ChangeSplit(FOR, TB1);
     if (GLOBAL_revownsplfacori)
     {
       FUNBUILD_ORIENTLOFS(*this, TB1, TB2, LSF);
     }
     for (TopTools_ListIteratorOfListOfShape it(LSF); it.More(); it.Next())
     {
-      TopoDS_Shape newF = it.Value();
+      TopoShape newF = it.Value();
 
       if (GLOBAL_SplitAnc != NULL)
       {
@@ -864,7 +864,7 @@ void TopOpeBRepBuild_Builder::GSplitFaceSFS(const TopoDS_Shape&           FOR,
             if (TBAnc == TopAbs_OUT)
               neworiF = oAnc;
             else
-              neworiF = TopAbs::Complement(oAnc);
+              neworiF = TopAbs1::Complement(oAnc);
           }
           else if (opeFus)
           {
@@ -887,7 +887,7 @@ void TopOpeBRepBuild_Builder::GSplitFaceSFS(const TopoDS_Shape&           FOR,
             reverse = !samegeom;
           }
           if (reverse)
-            neworiF = TopAbs::Complement(neworiF);
+            neworiF = TopAbs1::Complement(neworiF);
 
         } // hasoridef
       }
@@ -906,8 +906,8 @@ void TopOpeBRepBuild_Builder::GSplitFaceSFS(const TopoDS_Shape&           FOR,
           DEBSHASET(ss, "--- GSplitFaceSFS ", SFS, " AddStartElement SFS+ face ");
           GdumpSHA(newF, (Standard_Address)ss.ToCString());
           std::cout << " ";
-          TopAbs::Print(TB1, std::cout) << " : 1 face ";
-          TopAbs::Print(neworiF, std::cout);
+          TopAbs1::Print(TB1, std::cout) << " : 1 face ";
+          TopAbs1::Print(neworiF, std::cout);
           std::cout << std::endl;
         }
 #endif
@@ -934,7 +934,7 @@ void TopOpeBRepBuild_Builder::GSplitFaceSFS(const TopoDS_Shape&           FOR,
     }
     if (add)
     {
-      TopoDS_Shape F = FOR;
+      TopoShape F = FOR;
       F.Orientation(neworiF);
 
 #ifdef OCCT_DEBUG
@@ -943,8 +943,8 @@ void TopOpeBRepBuild_Builder::GSplitFaceSFS(const TopoDS_Shape&           FOR,
         DEBSHASET(ss, "--- GSplitFaceSFS ", SFS, " AddElement SFS+ face ");
         GdumpSHA(F, (Standard_Address)ss.ToCString());
         std::cout << " ";
-        TopAbs::Print(TB1, std::cout) << " : 1 face ";
-        TopAbs::Print(neworiF, std::cout);
+        TopAbs1::Print(TB1, std::cout) << " : 1 face ";
+        TopAbs1::Print(neworiF, std::cout);
         std::cout << std::endl;
       }
 #endif
@@ -959,8 +959,8 @@ void TopOpeBRepBuild_Builder::GSplitFaceSFS(const TopoDS_Shape&           FOR,
 // function : GMergeFaceSFS
 // purpose  : (methode non utilisee)
 //=======================================================================
-void TopOpeBRepBuild_Builder::GMergeFaceSFS(const TopoDS_Shape&           FOR,
-                                            const TopOpeBRepBuild_GTopo&  G1,
+void TopOpeBRepBuild_Builder::GMergeFaceSFS(const TopoShape&           FOR,
+                                            const GTopologyClassifier&  G1,
                                             TopOpeBRepBuild_ShellFaceSet& SFS)
 {
 #ifdef OCCT_DEBUG
@@ -985,7 +985,7 @@ void TopOpeBRepBuild_Builder::GMergeFaceSFS(const TopoDS_Shape&           FOR,
   TopAbs_Orientation oriF    = FOR.Orientation();
   TopAbs_Orientation neworiF = Orient(oriF, RevOri1);
 
-  TopoDS_Shape FF = FOR;
+  TopoShape FF = FOR;
   FF.Orientation(TopAbs_FORWARD);
 
   Standard_Boolean makecomsam = GTakeCommonOfSame(G1);
@@ -996,7 +996,7 @@ void TopOpeBRepBuild_Builder::GMergeFaceSFS(const TopoDS_Shape&           FOR,
   // LFSO,LFDO (samedom,sameori),(samedom,diffori) des 2 shapes peres
   // LFSO1,LFDO1 (samedom,sameori),(samedom,diffori) du shape pere de F
   // LFSO2,LFDO2 (samedom,sameori),(samedom,diffori) du shape != pere de F
-  TopTools_ListOfShape LFSO, LFDO, LFSO1, LFDO1, LFSO2, LFDO2;
+  ShapeList LFSO, LFDO, LFSO1, LFDO1, LFSO2, LFDO2;
   GFindSamDomSODO(FF, LFSO, LFDO);
   Standard_Integer rankF = GShapeRank(FF), rankX = (rankF) ? ((rankF == 1) ? 2 : 1) : 0;
   GFindSameRank(LFSO, rankF, LFSO1);
@@ -1016,7 +1016,7 @@ void TopOpeBRepBuild_Builder::GMergeFaceSFS(const TopoDS_Shape&           FOR,
 #endif
 
   Standard_Boolean      performcom = Standard_False;
-  TopTools_ListOfShape *PtrLF1 = NULL, *PtrLF2 = NULL;
+  ShapeList *PtrLF1 = NULL, *PtrLF2 = NULL;
   Standard_Integer      n1 = 0, n2 = 0;
   if (makecomsam)
   {
@@ -1053,15 +1053,15 @@ void TopOpeBRepBuild_Builder::GMergeFaceSFS(const TopoDS_Shape&           FOR,
 
   if (performcom)
   {
-    TopOpeBRepBuild_GTopo gF;
+    GTopologyClassifier gF;
     if (makecomsam)
     {
-      gF = TopOpeBRepBuild_GTool::GComUnsh(TopAbs_FACE, TopAbs_FACE);
+      gF = GTopologyTool::GComUnsh(TopAbs_FACE, TopAbs_FACE);
       gF.ChangeConfig(TopOpeBRepDS_SAMEORIENTED, TopOpeBRepDS_SAMEORIENTED);
     }
     else if (makecomdif)
     {
-      gF = TopOpeBRepBuild_GTool::GComUnsh(TopAbs_FACE, TopAbs_FACE);
+      gF = GTopologyTool::GComUnsh(TopAbs_FACE, TopAbs_FACE);
       gF.ChangeConfig(TopOpeBRepDS_SAMEORIENTED, TopOpeBRepDS_DIFFORIENTED);
     }
 
@@ -1071,16 +1071,16 @@ void TopOpeBRepBuild_Builder::GMergeFaceSFS(const TopoDS_Shape&           FOR,
     // qu'elle est la reference de ses faces SameDomain
     Standard_Boolean    addmerge = Standard_False;
     Standard_Integer    iFref    = myDataStructure->SameDomainReference(FOR);
-    const TopoDS_Shape& Fref     = myDataStructure->Shape(iFref);
+    const TopoShape& Fref     = myDataStructure->Shape(iFref);
     Standard_Boolean    Fisref   = FOR.IsSame(Fref);
     addmerge                     = Fisref;
 
     if (addmerge)
     {
-      const TopTools_ListOfShape& ME = Merged(FOR, TopAbs_IN);
+      const ShapeList& ME = Merged(FOR, TopAbs_IN);
       for (TopTools_ListIteratorOfListOfShape it(ME); it.More(); it.Next())
       {
-        TopoDS_Shape newF = it.Value();
+        TopoShape newF = it.Value();
         newF.Orientation(neworiF);
 
 #ifdef OCCT_DEBUG
@@ -1089,8 +1089,8 @@ void TopOpeBRepBuild_Builder::GMergeFaceSFS(const TopoDS_Shape&           FOR,
           DEBSHASET(ss, "--- GMergeFaceSFS ", SFS, " AddStartElement SFS+ face ");
           GdumpSHA(newF, (Standard_Address)ss.ToCString());
           std::cout << " ";
-          TopAbs::Print(TB1, std::cout) << " : 1 face ";
-          TopAbs::Print(neworiF, std::cout);
+          TopAbs1::Print(TB1, std::cout) << " : 1 face ";
+          TopAbs1::Print(neworiF, std::cout);
           std::cout << std::endl;
         }
 #endif
@@ -1109,7 +1109,7 @@ void TopOpeBRepBuild_Builder::GMergeFaceSFS(const TopoDS_Shape&           FOR,
 } // GMergeFaceSFS
 
 static Standard_Boolean FUN_SplitEvisoONperiodicF(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
-                                                  const TopoDS_Shape&                        FF)
+                                                  const TopoShape&                        FF)
 {
   const TopOpeBRepDS_ListOfInterference& LLI = HDS->DS().ShapeInterferences(FF);
   if (LLI.Extent() == 0)
@@ -1143,14 +1143,14 @@ static Standard_Boolean FUN_SplitEvisoONperiodicF(const Handle(TopOpeBRepDS_HDat
     Standard_Integer  GI, SI;
     FDS_data(SSI, GT, GI, ST, SI);
 
-    const TopoDS_Face& FS = TopoDS::Face(HDS->Shape(SI));
+    const TopoFace& FS = TopoDS::Face(HDS->Shape(SI));
     HDS->Shape(FS);
     //    Standard_Boolean FSper = FUN_periodicS(FS);
     Standard_Boolean FSper = FUN_tool_closedS(FS);
     if (!FSper)
       continue;
 
-    const TopoDS_Edge& EG = TopoDS::Edge(HDS->Shape(GI));
+    const TopoEdge& EG = TopoDS::Edge(HDS->Shape(GI));
     HDS->Shape(EG);
     Standard_Boolean isrest = HDS->DS().IsSectionEdge(EG);
     if (!isrest)
@@ -1161,10 +1161,10 @@ static Standard_Boolean FUN_SplitEvisoONperiodicF(const Handle(TopOpeBRepDS_HDat
     // set the pcurve on <FS>.
     // --------------------------------------------------
     Standard_Real        pf, pl, tol;
-    Handle(Geom2d_Curve) PC = FC2D_CurveOnSurface(EG, FS, pf, pl, tol);
+    Handle(GeomCurve2d) PC = FC2D_CurveOnSurface(EG, FS, pf, pl, tol);
     if (PC.IsNull())
     {
-      TopoDS_Edge      EEG = EG;
+      TopoEdge      EEG = EG;
       Standard_Boolean ok  = FUN_tool_pcurveonF(FS, EEG);
       if (!ok)
         throw Standard_ProgramError("_Builder::SplitONVisolineonCyl");
@@ -1175,7 +1175,7 @@ static Standard_Boolean FUN_SplitEvisoONperiodicF(const Handle(TopOpeBRepDS_HDat
     Standard_Boolean uiso, viso;
     gp_Dir2d         d2d;
     gp_Pnt2d         o2d;
-    TopOpeBRepTool_TOOL::UVISO(PC, uiso, viso, d2d, o2d);
+    TOOL1::UVISO(PC, uiso, viso, d2d, o2d);
     if (!viso)
       continue;
 
@@ -1221,21 +1221,21 @@ static Standard_Boolean FUN_SplitEvisoONperiodicF(const Handle(TopOpeBRepDS_HDat
 void TopOpeBRepBuild_Builder::SplitEvisoONperiodicF()
 {
   //  myEsplitsONcycy.Clear();
-  Standard_Integer nsha = myDataStructure->NbShapes();
+  Standard_Integer nsha = myDataStructure->NbShapes1();
   for (Standard_Integer i = 1; i <= nsha; i++)
   {
-    const TopoDS_Shape& FOR    = myDataStructure->Shape(i);
+    const TopoShape& FOR    = myDataStructure->Shape(i);
     Standard_Boolean    isface = (FOR.ShapeType() == TopAbs_FACE);
     if (!isface)
       continue;
 
     TopLoc_Location             loc;
-    const Handle(Geom_Surface)& S        = BRep_Tool::Surface(TopoDS::Face(FOR), loc);
+    const Handle(GeomSurface)& S        = BRepInspector::Surface(TopoDS::Face(FOR), loc);
     Standard_Boolean            periodic = S->IsUPeriodic() || S->IsVPeriodic();
     if (!periodic)
       continue;
 
-    TopoDS_Shape FF = FOR;
+    TopoShape FF = FOR;
     FF.Orientation(TopAbs_FORWARD);
 
     Standard_Boolean ok = FUN_SplitEvisoONperiodicF(myDataStructure, FF);
@@ -1246,11 +1246,11 @@ void TopOpeBRepBuild_Builder::SplitEvisoONperiodicF()
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GSplitFace(const TopoDS_Shape&          FOR,
-                                         const TopOpeBRepBuild_GTopo& GG1,
-                                         const TopTools_ListOfShape&  LSclass)
+void TopOpeBRepBuild_Builder::GSplitFace(const TopoShape&          FOR,
+                                         const GTopologyClassifier& GG1,
+                                         const ShapeList&  LSclass)
 {
-  TopOpeBRepBuild_GTopo G1     = GG1;
+  GTopologyClassifier G1     = GG1;
   Standard_Boolean      RevOri = Standard_False;
   G1.SetReverse(RevOri);
 
@@ -1260,7 +1260,7 @@ void TopOpeBRepBuild_Builder::GSplitFace(const TopoDS_Shape&          FOR,
   G1.Type(t1, t2);
 
   // work on a FORWARD face <FForward>
-  TopoDS_Shape FF = FOR;
+  TopoShape FF = FOR;
   FF.Orientation(TopAbs_FORWARD);
 
 #ifdef OCCT_DEBUG
@@ -1287,7 +1287,7 @@ void TopOpeBRepBuild_Builder::GSplitFace(const TopoDS_Shape&          FOR,
 #endif
 
   // save these edges
-  TopTools_ListOfShape               anEdgesON;
+  ShapeList               anEdgesON;
   TopTools_ListIteratorOfListOfShape it;
   if (myProcessON)
   {
@@ -1321,7 +1321,7 @@ void TopOpeBRepBuild_Builder::GSplitFace(const TopoDS_Shape&          FOR,
   MarkSplit(FF, TB1);
 
   // build the new faces LOF on FF from the Wire/Edge set WES
-  TopTools_ListOfShape LOF;
+  ShapeList LOF;
   GWESMakeFaces(FF, WES, LOF);
 
   if (myProcessON && (!anEdgesON.IsEmpty() || !myONElemMap.IsEmpty()))
@@ -1330,7 +1330,7 @@ void TopOpeBRepBuild_Builder::GSplitFace(const TopoDS_Shape&          FOR,
     // prepare the map of used edges to not take the same matter two times
     TopTools_IndexedMapOfOrientedShape aMapOE;
     for (it.Initialize(LOF); it.More(); it.Next())
-      for (TopExp_Explorer ex(it.Value(), TopAbs_EDGE); ex.More(); ex.Next())
+      for (ShapeExplorer ex(it.Value(), TopAbs_EDGE); ex.More(); ex.Next())
         aMapOE.Add(ex.Current());
 
     FillOnPatches(anEdgesON, FOR, aMapOE);
@@ -1338,7 +1338,7 @@ void TopOpeBRepBuild_Builder::GSplitFace(const TopoDS_Shape&          FOR,
   }
 
   // LOFS : LOF faces located TB1 / LSclass = split faces of state TB1 of FF
-  TopTools_ListOfShape& LOFS = ChangeSplit(FF, TB1);
+  ShapeList& LOFS = ChangeSplit(FF, TB1);
   LOFS.Clear();
   GKeepShapes(FF, myEmptyShapeList, TB1, LOF, LOFS);
 
@@ -1346,7 +1346,7 @@ void TopOpeBRepBuild_Builder::GSplitFace(const TopoDS_Shape&          FOR,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::AddONPatchesSFS(const TopOpeBRepBuild_GTopo&  G1,
+void TopOpeBRepBuild_Builder::AddONPatchesSFS(const GTopologyClassifier&  G1,
                                               TopOpeBRepBuild_ShellFaceSet& SFS)
 {
   // select ON faces not same domain to make patches
@@ -1356,20 +1356,20 @@ void TopOpeBRepBuild_Builder::AddONPatchesSFS(const TopOpeBRepBuild_GTopo&  G1,
   Standard_Integer i, j;
   for (i = 1; i <= myONFacesMap.Extent(); i++)
   {
-    const TopoDS_Shape& aFAnc1 = myONFacesMap(i);
+    const TopoShape& aFAnc1 = myONFacesMap(i);
     if (myDataStructure->DS().AncestorRank(aFAnc1) == 1)
     {
-      const TopoDS_Face& aFace1 = TopoDS::Face(myONFacesMap.FindKey(i));
+      const TopoFace& aFace1 = TopoDS::Face(myONFacesMap.FindKey(i));
       // map edges of the first face
       TopTools_IndexedMapOfShape aMapE1;
-      TopExp::MapShapes(aFace1, TopAbs_EDGE, aMapE1);
+      TopExp1::MapShapes(aFace1, TopAbs_EDGE, aMapE1);
       // find a non-degenerated edge
-      TopoDS_Edge      aChkEdge;
+      TopoEdge      aChkEdge;
       Standard_Integer k;
       for (k = 1; k <= aMapE1.Extent() && aChkEdge.IsNull(); k++)
       {
-        const TopoDS_Edge& aE = TopoDS::Edge(aMapE1(k));
-        if (!BRep_Tool::Degenerated(aE))
+        const TopoEdge& aE = TopoDS::Edge(aMapE1(k));
+        if (!BRepInspector::Degenerated(aE))
           aChkEdge = aE;
       }
       if (aChkEdge.IsNull())
@@ -1396,14 +1396,14 @@ void TopOpeBRepBuild_Builder::AddONPatchesSFS(const TopOpeBRepBuild_GTopo&  G1,
       Standard_Boolean ok = Standard_True;
       for (j = i + 1; j <= myONFacesMap.Extent() && ok; j++)
       {
-        const TopoDS_Shape& aFAnc2 = myONFacesMap(j);
+        const TopoShape& aFAnc2 = myONFacesMap(j);
         if (myDataStructure->DS().AncestorRank(aFAnc2) == 2)
         {
-          const TopoDS_Face& aFace2 = TopoDS::Face(myONFacesMap.FindKey(j));
+          const TopoFace& aFace2 = TopoDS::Face(myONFacesMap.FindKey(j));
 
           // check that the second face has the same boundaries
           TopTools_IndexedMapOfShape aMapE2;
-          TopExp::MapShapes(aFace2, TopAbs_EDGE, aMapE2);
+          TopExp1::MapShapes(aFace2, TopAbs_EDGE, aMapE2);
           if (aMapE1.Extent() != aMapE2.Extent())
             continue;
           Standard_Boolean sameBnd = Standard_True;
@@ -1439,7 +1439,7 @@ void TopOpeBRepBuild_Builder::AddONPatchesSFS(const TopOpeBRepBuild_GTopo&  G1,
 
           // select one of the two faces
           Standard_Boolean   takeFirst = Standard_True;
-          TopoDS_Face        aPatch;
+          TopoFace        aPatch;
           TopAbs_Orientation neworiF;
           if (takeFirst)
           {
@@ -1458,10 +1458,10 @@ void TopOpeBRepBuild_Builder::AddONPatchesSFS(const TopOpeBRepBuild_GTopo&  G1,
 
           // save ON splits
           MarkSplit(aFAnc1, TopAbs_ON);
-          TopTools_ListOfShape& aLOFS1 = ChangeSplit(aFAnc1, TopAbs_ON);
+          ShapeList& aLOFS1 = ChangeSplit(aFAnc1, TopAbs_ON);
           aLOFS1.Append(aFace1);
           MarkSplit(aFAnc2, TopAbs_ON);
-          TopTools_ListOfShape& aLOFS2 = ChangeSplit(aFAnc2, TopAbs_ON);
+          ShapeList& aLOFS2 = ChangeSplit(aFAnc2, TopAbs_ON);
           aLOFS2.Append(aFace2);
         }
       }
@@ -1471,10 +1471,10 @@ void TopOpeBRepBuild_Builder::AddONPatchesSFS(const TopOpeBRepBuild_GTopo&  G1,
 
 //=================================================================================================
 
-static Standard_Boolean AreFacesCoincideInArea(const TopoDS_Shape&         theBaseFace,
-                                               const TopoDS_Shape&         theFace,
-                                               const TopoDS_Shape&         theEdge,
-                                               const TopTools_ListOfShape& allEdges,
+static Standard_Boolean AreFacesCoincideInArea(const TopoShape&         theBaseFace,
+                                               const TopoShape&         theFace,
+                                               const TopoShape&         theEdge,
+                                               const ShapeList& allEdges,
                                                Standard_Boolean&           isSameOri)
 {
   // there are given:
@@ -1490,21 +1490,21 @@ static Standard_Boolean AreFacesCoincideInArea(const TopoDS_Shape&         theBa
     return Standard_False;
   Standard_Boolean reverse = (anEdgeOri == TopAbs_REVERSED);
 
-  TopoDS_Face  aBaseFace = TopoDS::Face(theBaseFace);
-  TopoDS_Face  aFace     = TopoDS::Face(theFace);
-  TopoDS_Edge  anEdge    = TopoDS::Edge(theEdge);
-  BRep_Builder BB;
+  TopoFace  aBaseFace = TopoDS::Face(theBaseFace);
+  TopoFace  aFace     = TopoDS::Face(theFace);
+  TopoEdge  anEdge    = TopoDS::Edge(theEdge);
+  ShapeBuilder BB;
 
   // create a ray from the inside of anEdge to the matter side
   Standard_Real        pf, pl, tol;
   Standard_Boolean     trim3d = Standard_True;
-  Handle(Geom2d_Curve) PCref  = BRep_Tool::CurveOnSurface(anEdge, aBaseFace, pf, pl);
+  Handle(GeomCurve2d) PCref  = BRepInspector::CurveOnSurface(anEdge, aBaseFace, pf, pl);
   if (PCref.IsNull())
   {
     PCref = FC2D_CurveOnSurface(anEdge, aBaseFace, pf, pl, tol, trim3d);
     if (PCref.IsNull())
       return Standard_False;
-    tol = BRep_Tool::Tolerance(anEdge);
+    tol = BRepInspector::Tolerance(anEdge);
     BB.UpdateEdge(anEdge, PCref, aBaseFace, tol);
   }
 
@@ -1527,21 +1527,21 @@ static Standard_Boolean AreFacesCoincideInArea(const TopoDS_Shape&         theBa
   BRepClass_Intersector anInter;
   BRepClass_Edge        aBCE;
   aBCE.Face()           = aBaseFace;
-  Standard_Real maxDist = Max(BRep_Tool::Tolerance(aBaseFace), BRep_Tool::Tolerance(aFace));
+  Standard_Real maxDist = Max(BRepInspector::Tolerance(aBaseFace), BRepInspector::Tolerance(aFace));
 
   Standard_Boolean                   isError = Standard_False;
   TopTools_ListIteratorOfListOfShape it(allEdges);
   for (; it.More() && !isError; it.Next())
   {
-    const TopoDS_Edge& aE   = TopoDS::Edge(it.Value());
-    Standard_Real      tolE = BRep_Tool::Tolerance(aE);
+    const TopoEdge& aE   = TopoDS::Edge(it.Value());
+    Standard_Real      tolE = BRepInspector::Tolerance(aE);
     if (tolE > maxDist)
       maxDist = tolE;
     if (aE.IsEqual(anEdge)
         || (aE.Orientation() != TopAbs_FORWARD && aE.Orientation() != TopAbs_REVERSED
             && aE.IsSame(anEdge)))
       continue; // the same pcurve
-    Handle(Geom2d_Curve) PC = BRep_Tool::CurveOnSurface(aE, aBaseFace, pf, pl);
+    Handle(GeomCurve2d) PC = BRepInspector::CurveOnSurface(aE, aBaseFace, pf, pl);
     if (PC.IsNull())
     {
       PC = FC2D_CurveOnSurface(aE, aBaseFace, pf, pl, tol, trim3d);
@@ -1602,10 +1602,10 @@ static Standard_Boolean AreFacesCoincideInArea(const TopoDS_Shape&         theBa
   aNormBase /= mag;
 
   // project the point aPnt to the second face aFace
-  Handle(Geom_Surface) aSurf = BRep_Tool::Surface(aFace);
+  Handle(GeomSurface) aSurf = BRepInspector::Surface(aFace);
   Standard_Real        umin, umax, vmin, vmax;
-  BRepTools::UVBounds(aFace, umin, umax, vmin, vmax);
-  GeomAPI_ProjectPointOnSurf aProj(aPnt, aSurf, umin, umax, vmin, vmax);
+  BRepTools1::UVBounds(aFace, umin, umax, vmin, vmax);
+  PointOnSurfProjector aProj(aPnt, aSurf, umin, umax, vmin, vmax);
   if (!aProj.NbPoints() || aProj.LowerDistance() > maxDist)
     return Standard_False;
   Standard_Real u, v;
@@ -1631,11 +1631,11 @@ static Standard_Boolean AreFacesCoincideInArea(const TopoDS_Shape&         theBa
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::FillOnPatches(const TopTools_ListOfShape&               anEdgesON,
-                                            const TopoDS_Shape&                       aBaseFace,
+void TopOpeBRepBuild_Builder::FillOnPatches(const ShapeList&               anEdgesON,
+                                            const TopoShape&                       aBaseFace,
                                             const TopTools_IndexedMapOfOrientedShape& avoidMap)
 {
-  TopoDS_Shape FF = aBaseFace;
+  TopoShape FF = aBaseFace;
   FF.Orientation(TopAbs_FORWARD);
   Standard_Integer rankBF = ShapeRank(aBaseFace);
   Standard_Integer rankOpp;
@@ -1650,12 +1650,12 @@ void TopOpeBRepBuild_Builder::FillOnPatches(const TopTools_ListOfShape&         
   TopTools_MapOfShape            aMapON, aMapON1;
   TopTools_DataMapOfShapeInteger aMapFState;
 
-  TopTools_ListOfShape               allEdges;
+  ShapeList               allEdges;
   TopTools_ListIteratorOfListOfShape it;
   TopoDS_Iterator                    itW;
   for (it.Initialize(anEdgesON); it.More(); it.Next())
   {
-    const TopoDS_Shape& aE = it.Value();
+    const TopoShape& aE = it.Value();
     // is it a part of the boundary of aBaseFace ?
     if (!myONElemMap.Contains(aE) && !myONElemMap.Contains(aE.Reversed()) && !avoidMap.Contains(aE))
     {
@@ -1667,7 +1667,7 @@ void TopOpeBRepBuild_Builder::FillOnPatches(const TopTools_ListOfShape&         
   Standard_Boolean hasWires = Standard_False;
   for (i = 1; i <= myONElemMap.Extent(); i++)
   {
-    const TopoDS_Shape& aE = myONElemMap(i);
+    const TopoShape& aE = myONElemMap(i);
     if (aE.ShapeType() == TopAbs_WIRE)
     {
       for (itW.Initialize(aE); itW.More(); itW.Next())
@@ -1693,20 +1693,20 @@ void TopOpeBRepBuild_Builder::FillOnPatches(const TopTools_ListOfShape&         
   {
     for (it.Initialize(anEdgesON); it.More(); it.Next())
     {
-      const TopoDS_Shape& aE = it.Value(); // an ON part
+      const TopoShape& aE = it.Value(); // an ON part
       if (anAncMap.IsBound(aE) && !avoidMap.Contains(aE))
       {
-        const TopoDS_Shape&         anAncE = anAncMap(aE); // its ancestor edge from opposite shape
-        const TopTools_ListOfShape& aFaces =               // connex faces of anAncE
+        const TopoShape&         anAncE = anAncMap(aE); // its ancestor edge from opposite shape
+        const ShapeList& aFaces =               // connex faces of anAncE
           FDSCNX_EdgeConnexityShapeIndex(anAncE, myDataStructure, rankOpp);
         // determine if aBaseFace has coinciding part on the left side of aE
         // with one of connex faces, and this pair of faces are same oriented
         Standard_Boolean                   isOnFace = Standard_False;
-        TopTools_ListOfShape               aFacesToCheck;
+        ShapeList               aFacesToCheck;
         TopTools_ListIteratorOfListOfShape itF;
         for (itF.Initialize(aFaces); itF.More() && !isOnFace; itF.Next())
         {
-          const TopoDS_Shape& aF = itF.Value();
+          const TopoShape& aF = itF.Value();
           if (aMapFState.IsBound(aF))
           {
             Standard_Integer state = aMapFState(aF);
@@ -1718,7 +1718,7 @@ void TopOpeBRepBuild_Builder::FillOnPatches(const TopTools_ListOfShape&         
         }
         for (itF.Initialize(aFacesToCheck); itF.More() && !isOnFace; itF.Next())
         {
-          const TopoDS_Shape& aF        = itF.Value();
+          const TopoShape& aF        = itF.Value();
           Standard_Boolean    isSameOri = Standard_False;
           Standard_Boolean    ok;
           if (aE.Orientation() != TopAbs_FORWARD && aE.Orientation() != TopAbs_REVERSED)
@@ -1760,17 +1760,17 @@ void TopOpeBRepBuild_Builder::FillOnPatches(const TopTools_ListOfShape&         
   {
     for (i = 1; i <= myONElemMap.Extent(); i++)
     {
-      const TopoDS_Shape& aE = myONElemMap(i);
-      TopoDS_Shape        anEdge, anAncE;
+      const TopoShape& aE = myONElemMap(i);
+      TopoShape        anEdge, anAncE;
       if (aE.ShapeType() == TopAbs_WIRE)
       {
         // for a wire get one non-degenerated edge for test
         for (itW.Initialize(aE); itW.More() && anEdge.IsNull(); itW.Next())
         {
-          const TopoDS_Edge& e = TopoDS::Edge(itW.Value());
+          const TopoEdge& e = TopoDS::Edge(itW.Value());
           if (avoidMap.Contains(e))
             break;
-          if (!BRep_Tool::Degenerated(e))
+          if (!BRepInspector::Degenerated(e))
             anEdge = anAncE = e;
         }
       }
@@ -1782,21 +1782,21 @@ void TopOpeBRepBuild_Builder::FillOnPatches(const TopTools_ListOfShape&         
       if (!anEdge.IsNull())
       {
         // find faces of the opposite shape touching anAncE
-        TopTools_ListOfShape aFaces;
+        ShapeList aFaces;
         FDSCNX_FaceEdgeConnexFaces(aBaseFace, anAncE, myDataStructure, aFaces);
         if (aFaces.IsEmpty())
           continue;
-        TopoDS_Shape aCnxF = aFaces.First();
+        TopoShape aCnxF = aFaces.First();
         aFaces.Clear();
         FindFacesTouchingEdge(aCnxF, anAncE, rankOpp, aFaces);
         // determine if aBaseFace has coinciding part on the left side of anEdge
         // with one of found faces, and this pair of faces are same oriented
         Standard_Boolean                   isOnFace = Standard_False;
-        TopTools_ListOfShape               aFacesToCheck;
+        ShapeList               aFacesToCheck;
         TopTools_ListIteratorOfListOfShape itF;
         for (itF.Initialize(aFaces); itF.More() && !isOnFace; itF.Next())
         {
-          const TopoDS_Shape& aF = itF.Value();
+          const TopoShape& aF = itF.Value();
           if (aMapFState.IsBound(aF))
           {
             Standard_Integer state = aMapFState(aF);
@@ -1808,7 +1808,7 @@ void TopOpeBRepBuild_Builder::FillOnPatches(const TopTools_ListOfShape&         
         }
         for (itF.Initialize(aFacesToCheck); itF.More() && !isOnFace; itF.Next())
         {
-          const TopoDS_Shape& aF        = itF.Value();
+          const TopoShape& aF        = itF.Value();
           Standard_Boolean    isSameOri = Standard_False;
           Standard_Boolean ok = AreFacesCoincideInArea(aBaseFace, aF, anEdge, allEdges, isSameOri);
           if (ok && isSameOri)
@@ -1834,12 +1834,12 @@ void TopOpeBRepBuild_Builder::FillOnPatches(const TopTools_ListOfShape&         
   WES.InitStartElements();
   if (WES.MoreShapes() || WES.MoreStartElements())
   {
-    TopTools_ListOfShape LOF;
+    ShapeList LOF;
     GWESMakeFaces(FF, WES, LOF);
     // save ON faces
     for (it.Initialize(LOF); it.More(); it.Next())
     {
-      const TopoDS_Face& aF = TopoDS::Face(it.Value());
+      const TopoFace& aF = TopoDS::Face(it.Value());
       myONFacesMap.Add(aF, aBaseFace);
     }
   }
@@ -1847,10 +1847,10 @@ void TopOpeBRepBuild_Builder::FillOnPatches(const TopTools_ListOfShape&         
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::FindFacesTouchingEdge(const TopoDS_Shape&    aFace,
-                                                    const TopoDS_Shape&    anEdge,
+void TopOpeBRepBuild_Builder::FindFacesTouchingEdge(const TopoShape&    aFace,
+                                                    const TopoShape&    anEdge,
                                                     const Standard_Integer aShRank,
-                                                    TopTools_ListOfShape&  aFaces) const
+                                                    ShapeList&  aFaces) const
 {
   const TopOpeBRepDS_DataStructure& BDS       = myDataStructure->DS();
   Standard_Integer                  anEdgeInd = BDS.Shape(anEdge);
@@ -1873,10 +1873,10 @@ void TopOpeBRepBuild_Builder::FindFacesTouchingEdge(const TopoDS_Shape&    aFace
       continue;
     if (GI != anEdgeInd)
       continue;
-    const TopOpeBRepDS_Transition& TFE = SSI->Transition();
+    const StateTransition& TFE = SSI->Transition();
     if (TFE.ShapeBefore() != TopAbs_FACE || TFE.ShapeAfter() != TopAbs_FACE)
       continue;
-    const TopoDS_Shape& FS = BDS.Shape(SI);
+    const TopoShape& FS = BDS.Shape(SI);
     if (ShapeRank(FS) != aShRank)
       continue;
     aFaces.Append(FS);

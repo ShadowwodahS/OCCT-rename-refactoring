@@ -71,9 +71,9 @@ static TopAbs_Orientation CompTra(const TopAbs_Orientation O1,
                                   const Standard_Boolean   isfirst)
 {
   if (isfirst)
-    return TopAbs::Reverse(TopAbs::Compose(O1, O2));
+    return TopAbs1::Reverse(TopAbs1::Compose(O1, O2));
   else
-    return TopAbs::Compose(O1, O2);
+    return TopAbs1::Compose(O1, O2);
 }
 
 //=======================================================================
@@ -82,25 +82,25 @@ static TopAbs_Orientation CompTra(const TopAbs_Orientation O1,
 //=======================================================================
 
 static void CompCommonPoint(ChFiDS_CommonPoint&            FilPoint,
-                            const TopoDS_Edge&             arc,
+                            const TopoEdge&             arc,
                             const HatchGen_PointOnElement& PE,
                             const TopAbs_Orientation       Or)
 {
   TopAbs_Orientation pos = PE.Position();
-  TopoDS_Vertex      V;
+  TopoVertex      V;
   if (pos == TopAbs_FORWARD)
   {
-    V = TopExp::FirstVertex(arc);
+    V = TopExp1::FirstVertex(arc);
   }
   else
   {
-    V = TopExp::LastVertex(arc);
+    V = TopExp1::LastVertex(arc);
   }
   FilPoint.SetVertex(V);
   FilPoint.SetArc(Precision::PIntersection(),
                   arc,
                   PE.Parameter(),
-                  TopAbs::Compose(arc.Orientation(), Or));
+                  TopAbs1::Compose(arc.Orientation(), Or));
 }
 
 //=======================================================================
@@ -113,15 +113,15 @@ static ChFiDS_FaceInterference CpInterf(TopOpeBRepDS_DataStructure&    DStr,
 {
   ChFiDS_FaceInterference   newF = FI;
   const TopOpeBRepDS_Curve& toc  = DStr.Curve(FI.LineIndex());
-  Handle(Geom_Curve)        newC;
+  Handle(GeomCurve3d)        newC;
   if (!toc.Curve().IsNull())
-    newC = Handle(Geom_Curve)::DownCast(toc.Curve()->Copy());
+    newC = Handle(GeomCurve3d)::DownCast(toc.Curve()->Copy());
   newF.SetLineIndex(DStr.AddCurve(TopOpeBRepDS_Curve(newC, toc.Tolerance())));
 
   if (!FI.PCurveOnFace().IsNull())
-    newF.ChangePCurveOnFace() = Handle(Geom2d_Curve)::DownCast(FI.PCurveOnFace()->Copy());
+    newF.ChangePCurveOnFace() = Handle(GeomCurve2d)::DownCast(FI.PCurveOnFace()->Copy());
   if (!FI.PCurveOnSurf().IsNull())
-    newF.ChangePCurveOnSurf() = Handle(Geom2d_Curve)::DownCast(FI.PCurveOnSurf()->Copy());
+    newF.ChangePCurveOnSurf() = Handle(GeomCurve2d)::DownCast(FI.PCurveOnSurf()->Copy());
   return newF;
 }
 
@@ -135,7 +135,7 @@ static Handle(ChFiDS_SurfData) CpSD(TopOpeBRepDS_DataStructure&    DStr,
 {
   Handle(ChFiDS_SurfData)     newData = new ChFiDS_SurfData();
   const TopOpeBRepDS_Surface& tos     = DStr.Surface(Data->Surf());
-  Handle(Geom_Surface)        newS    = Handle(Geom_Surface)::DownCast(tos.Surface()->Copy());
+  Handle(GeomSurface)        newS    = Handle(GeomSurface)::DownCast(tos.Surface()->Copy());
   Standard_Real               tol     = tos.Tolerance();
   newData->ChangeSurf(DStr.AddSurface(TopOpeBRepDS_Surface(newS, tol)));
   newData->ChangeIndexOfS1(Data->IndexOfS1());
@@ -218,7 +218,7 @@ static Standard_Real ParamOnSpine(const TopOpeBRepDS_DataStructure& DStr,
     // construction of the plane containing the section of CD with parameter ptg.
     Point3d             PP;
     Vector3d             VV;
-    Handle(Geom_Curve) c3d;
+    Handle(GeomCurve3d) c3d;
     if (CD->InterferenceOnS1().LineIndex() != 0)
     {
       c3d = DStr.Curve(CD->InterferenceOnS1().LineIndex()).Curve();
@@ -230,7 +230,7 @@ static Standard_Real ParamOnSpine(const TopOpeBRepDS_DataStructure& DStr,
     c3d->D1(ptg, PP, VV);
 
     gp_Pln                      nlp(PP, Dir3d(VV));
-    Handle(Geom_Plane)          pln  = new Geom_Plane(nlp);
+    Handle(GeomPlane)          pln  = new GeomPlane(nlp);
     Handle(GeomAdaptor_Surface) plan = new GeomAdaptor_Surface(GeomAdaptor_Surface(pln));
 
     // intersection plane spine.
@@ -341,12 +341,12 @@ void ChFi3d_Builder::Trunc(const Handle(ChFiDS_SurfData)&   SD,
   Standard_Real    wsp = ParamOnSpine(DStr, wtg, SD, Spine, iedge, 0, 0, tolesp, bid);
   Point3d           ped, psp;
   Vector3d           ded, dsp;
-  TopoDS_Vertex    bout1, bout2, boutemp;
+  TopoVertex    bout1, bout2, boutemp;
 
   const BRepAdaptor_Curve& bc = Spine->CurrentElementarySpine(iedge);
   // Modif against Vertex isolated on spine
-  TopoDS_Edge support = bc.Edge();
-  TopExp::Vertices(support, bout1, bout2);
+  TopoEdge support = bc.Edge();
+  TopExp1::Vertices(support, bout1, bout2);
   if (support.Orientation() == TopAbs_REVERSED)
   {
     boutemp = bout2;
@@ -371,7 +371,7 @@ void ChFi3d_Builder::Trunc(const Handle(ChFiDS_SurfData)&   SD,
   }
   Spine->D1(wsp, psp, dsp);
   Point3d                      p1, p2;
-  const Handle(Geom_Surface)& surf = DStr.Surface(SD->Surf()).Surface();
+  const Handle(GeomSurface)& surf = DStr.Surface(SD->Surf()).Surface();
   gp_Pnt2d                    pp1, pp2;
   pp1                   = SD->InterferenceOnS1().PCurveOnSurf()->Value(wtg);
   pp2                   = SD->InterferenceOnS2().PCurveOnSurf()->Value(wtg);
@@ -392,9 +392,9 @@ void ChFi3d_Builder::Trunc(const Handle(ChFiDS_SurfData)&   SD,
     Handle(BRepAdaptor_Surface) BS2 = Handle(BRepAdaptor_Surface)::DownCast(S2);
     if (!BS1.IsNull() && !BS2.IsNull())
     {
-      TopoDS_Face               FBID;
-      TopoDS_Face               F1  = BS1->Face();
-      TopoDS_Face               F2  = BS2->Face();
+      TopoFace               FBID;
+      TopoFace               F1  = BS1->Face();
+      TopoFace               F2  = BS2->Face();
       const ChFiDS_CommonPoint& cp1 = SD->Vertex(isfirst, 1);
       const ChFiDS_CommonPoint& cp2 = SD->Vertex(isfirst, 2);
       if (!((cp1.IsOnArc() && SearchFace(Spine, cp1, F1, FBID))
@@ -439,7 +439,7 @@ void ChFi3d_Builder::Trunc(const Handle(ChFiDS_SurfData)&   SD,
     for (Standard_Integer i = 1; i <= 2; i++)
     {
       SD->ChangeInterference(i).SetParameter(par, isfirst);
-      Handle(Geom2d_Curve) pc = SD->Interference(i).PCurveOnSurf();
+      Handle(GeomCurve2d) pc = SD->Interference(i).PCurveOnSurf();
       pc->Value(par).Coord(x, y);
       SD->ChangeVertex(isfirst, i).Reset();
       SD->ChangeVertex(isfirst, i).SetPoint(surf->Value(x, y));
@@ -461,7 +461,7 @@ static Standard_Real ResetProl(const TopOpeBRepDS_DataStructure& DStr,
 {
   const BRepAdaptor_Curve&    bc     = Spine->CurrentElementarySpine(iedge);
   Standard_Real               edglen = bc.LastParameter() - bc.FirstParameter();
-  const Handle(Geom_Surface)& surf   = DStr.Surface(CD->Surf()).Surface();
+  const Handle(GeomSurface)& surf   = DStr.Surface(CD->Surf()).Surface();
   Standard_Real               par    = 0., x, y;
   if (!isfirst)
     par = edglen;
@@ -469,7 +469,7 @@ static Standard_Real ResetProl(const TopOpeBRepDS_DataStructure& DStr,
   for (Standard_Integer i = 1; i <= 2; i++)
   {
     CD->ChangeInterference(i).SetParameter(par, isfirst);
-    Handle(Geom2d_Curve) pc = CD->Interference(i).PCurveOnSurf();
+    Handle(GeomCurve2d) pc = CD->Interference(i).PCurveOnSurf();
     pc->Value(par).Coord(x, y);
     CD->ChangeVertex(isfirst, i).Reset();
     CD->ChangeVertex(isfirst, i).SetPoint(surf->Value(x, y));
@@ -576,7 +576,7 @@ static void FillSD(TopOpeBRepDS_DataStructure& DStr,
                    const Standard_Boolean      isFirst,
                    const Standard_Integer      ons,
                    const Standard_Real         pitol,
-                   const TopoDS_Vertex&        bout)
+                   const TopoVertex&        bout)
 
 {
   Standard_Integer    opp  = 3 - ons;
@@ -595,11 +595,11 @@ static void FillSD(TopOpeBRepDS_DataStructure& DStr,
     pPH                                    = &PHtemp;
   }
   Standard_Real        x, y;
-  Handle(Geom_Surface) Surf = DStr.Surface(CD->Surf()).Surface();
+  Handle(GeomSurface) Surf = DStr.Surface(CD->Surf()).Surface();
   if (pPH == 0)
   {
     CD->ChangeInterference(ons).SetParameter(ponH, isFirst);
-    Handle(Geom2d_Curve) pcons = CD->Interference(ons).PCurveOnSurf();
+    Handle(GeomCurve2d) pcons = CD->Interference(ons).PCurveOnSurf();
     pcons->Value(ponH).Coord(x, y);
     CD->ChangeVertex(isFirst, ons).SetPoint(Surf->Value(x, y));
   }
@@ -612,7 +612,7 @@ static void FillSD(TopOpeBRepDS_DataStructure& DStr,
     {
       Standard_Boolean trouve = Standard_True;
       Standard_Integer IE;
-      TopoDS_Vertex    V1, V2;
+      TopoVertex    V1, V2;
       Standard_Boolean suite = Standard_True;
       for (; trouve;)
       {
@@ -621,8 +621,8 @@ static void FillSD(TopOpeBRepDS_DataStructure& DStr,
         Handle(BRepAdaptor_Curve2d) HE        = Handle(BRepAdaptor_Curve2d)::DownCast(M(IE));
         if (!HE.IsNull())
         {
-          const TopoDS_Edge& Etemp = HE->Edge();
-          TopExp::Vertices(Etemp, V1, V2);
+          const TopoEdge& Etemp = HE->Edge();
+          TopExp1::Vertices(Etemp, V1, V2);
         }
         else
         {
@@ -651,13 +651,13 @@ static void FillSD(TopOpeBRepDS_DataStructure& DStr,
     Handle(BRepAdaptor_Curve2d)    HE = Handle(BRepAdaptor_Curve2d)::DownCast(M(IE));
     if (HE.IsNull())
       return;
-    const TopoDS_Edge& E = HE->Edge();
+    const TopoEdge& E = HE->Edge();
 
     if (PE.Position() != TopAbs_INTERNAL)
     {
       TopAbs_Orientation O = CD->Interference(ons).Transition();
       if (isFirst)
-        O = TopAbs::Reverse(O);
+        O = TopAbs1::Reverse(O);
       CompCommonPoint(Pons, E, PE, O);
     }
     else
@@ -667,7 +667,7 @@ static void FillSD(TopOpeBRepDS_DataStructure& DStr,
                   PE.Parameter(),
                   CompTra(CD->Interference(ons).Transition(), E.Orientation(), isFirst));
     }
-    Handle(Geom2d_Curve) pcadj = CD->Interference(ons).PCurveOnSurf();
+    Handle(GeomCurve2d) pcadj = CD->Interference(ons).PCurveOnSurf();
     pcadj->Value(ponH).Coord(x, y);
     CD->ChangeInterference(ons).SetParameter(ponH, isFirst);
     CD->ChangeVertex(isFirst, ons).SetPoint(Surf->Value(x, y));
@@ -675,7 +675,7 @@ static void FillSD(TopOpeBRepDS_DataStructure& DStr,
   if (!Popp.IsOnArc())
   {
     CD->ChangeInterference(opp).SetParameter(ponH, isFirst);
-    Handle(Geom2d_Curve) pcopp = CD->Interference(opp).PCurveOnSurf();
+    Handle(GeomCurve2d) pcopp = CD->Interference(opp).PCurveOnSurf();
     pcopp->Value(ponH).Coord(x, y);
     CD->ChangeVertex(isFirst, opp).SetPoint(Surf->Value(x, y));
   }
@@ -709,7 +709,7 @@ Standard_Boolean ChFi3d_Builder::SplitKPart(const Handle(ChFiDS_SurfData)&     D
   Geom2dHatch_Intersector Inter(pitol, pitol);
   Geom2dHatch_Hatcher     H1(Inter, tol2d, tolapp3d), H2(Inter, tol2d, tolapp3d);
   Standard_Integer        ie;
-  Handle(Geom2d_Curve)    C1 = Data->InterferenceOnS1().PCurveOnFace();
+  Handle(GeomCurve2d)    C1 = Data->InterferenceOnS1().PCurveOnFace();
   Geom2dAdaptor_Curve     ll1;
   if (!C1.IsNull())
   {
@@ -738,7 +738,7 @@ Standard_Boolean ChFi3d_Builder::SplitKPart(const Handle(ChFiDS_SurfData)&     D
     }
   }
 
-  Handle(Geom2d_Curve) C2 = Data->InterferenceOnS2().PCurveOnFace();
+  Handle(GeomCurve2d) C2 = Data->InterferenceOnS2().PCurveOnFace();
   Geom2dAdaptor_Curve  ll2;
   if (!C2.IsNull())
   {
@@ -768,10 +768,10 @@ Standard_Boolean ChFi3d_Builder::SplitKPart(const Handle(ChFiDS_SurfData)&     D
   }
 
   // Return start and end vertexes of the Spine
-  TopoDS_Vertex            bout1, bout2, boutemp;
+  TopoVertex            bout1, bout2, boutemp;
   const BRepAdaptor_Curve& bc      = Spine->CurrentElementarySpine(Iedge);
-  TopoDS_Edge              support = bc.Edge();
-  TopExp::Vertices(support, bout1, bout2);
+  TopoEdge              support = bc.Edge();
+  TopExp1::Vertices(support, bout1, bout2);
   if (support.Orientation() == TopAbs_REVERSED)
   {
     boutemp = bout2;
@@ -780,14 +780,14 @@ Standard_Boolean ChFi3d_Builder::SplitKPart(const Handle(ChFiDS_SurfData)&     D
   }
 
   // Return faces.
-  TopoDS_Face                 F1, F2;
+  TopoFace                 F1, F2;
   Handle(BRepAdaptor_Surface) bhs = Handle(BRepAdaptor_Surface)::DownCast(S1);
   if (!bhs.IsNull())
     F1 = bhs->Face();
   bhs = Handle(BRepAdaptor_Surface)::DownCast(S2);
   if (!bhs.IsNull())
     F2 = bhs->Face();
-  TopoDS_Face FBID;
+  TopoFace FBID;
 
   // Restriction of SurfDatas by cut lines.
   TopOpeBRepDS_DataStructure& DStr = myDS->ChangeDS();
@@ -1088,7 +1088,7 @@ Standard_Boolean ChFi3d_Builder::SplitKPart(const Handle(ChFiDS_SurfData)&     D
       // eap occ293
       if (intf && Spine->FirstStatus() == ChFiDS_OnSame)
       {
-        TopoDS_Edge threeE[3];
+        TopoEdge threeE[3];
         ChFi3d_cherche_element(bout1, support, F1, threeE[0], boutemp);
         ChFi3d_cherche_element(bout1, support, F2, threeE[1], boutemp);
         threeE[2] = support;
@@ -1215,7 +1215,7 @@ Standard_Boolean ChFi3d_Builder::SplitKPart(const Handle(ChFiDS_SurfData)&     D
       // eap occ293
       if (intl && Spine->LastStatus() == ChFiDS_OnSame)
       {
-        TopoDS_Edge threeE[3];
+        TopoEdge threeE[3];
         ChFi3d_cherche_element(bout2, support, F1, threeE[0], boutemp);
         ChFi3d_cherche_element(bout2, support, F2, threeE[1], boutemp);
         threeE[2] = support;

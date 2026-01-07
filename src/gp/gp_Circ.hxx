@@ -34,7 +34,7 @@
 //! "main Axis" of the coordinate system is referred to as
 //! the "Axis" of the circle.
 //! Note: when a gp_Circ circle is converted into a
-//! Geom_Circle circle, some implicit properties of the
+//! GeomCircle circle, some implicit properties of the
 //! circle are used explicitly:
 //! -   the "main Direction" of the local coordinate system
 //! gives an implicit orientation to the circle (and defines
@@ -45,7 +45,7 @@
 //! "X Axis" of the local coordinate system (i.e. the "X Axis" of the circle).
 //! See Also
 //! gce_MakeCirc which provides functions for more complex circle constructions
-//! Geom_Circle which provides additional functions for
+//! GeomCircle which provides additional functions for
 //! constructing circles and works, in particular, with the
 //! parametric equations of circles
 class gp_Circ

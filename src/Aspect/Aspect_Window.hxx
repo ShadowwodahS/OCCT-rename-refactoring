@@ -128,7 +128,7 @@ public:
   Standard_EXPORT virtual Aspect_FBConfig NativeFBConfig() const = 0;
 
   //! Sets window title.
-  virtual void SetTitle(const TCollection_AsciiString& theTitle) { (void)theTitle; }
+  virtual void SetTitle(const AsciiString1& theTitle) { (void)theTitle; }
 
   //! Invalidate entire window content.
   //!

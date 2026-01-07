@@ -15,25 +15,25 @@
 
 #include <IntTools_Range.hxx>
 
-IntTools_MarkedRangeSet::IntTools_MarkedRangeSet()
+MarkedRangeSet::MarkedRangeSet()
     : myRangeNumber(0)
 {
 }
 
-IntTools_MarkedRangeSet::IntTools_MarkedRangeSet(const Standard_Real    theFirstBoundary,
+MarkedRangeSet::MarkedRangeSet(const Standard_Real    theFirstBoundary,
                                                  const Standard_Real    theLastBoundary,
                                                  const Standard_Integer theInitFlag)
 {
   SetBoundaries(theFirstBoundary, theLastBoundary, theInitFlag);
 }
 
-IntTools_MarkedRangeSet::IntTools_MarkedRangeSet(const TColStd_Array1OfReal& theSortedArray,
+MarkedRangeSet::MarkedRangeSet(const TColStd_Array1OfReal& theSortedArray,
                                                  const Standard_Integer      theInitFlag)
 {
   SetRanges(theSortedArray, theInitFlag);
 }
 
-void IntTools_MarkedRangeSet::SetBoundaries(const Standard_Real    theFirstBoundary,
+void MarkedRangeSet::SetBoundaries(const Standard_Real    theFirstBoundary,
                                             const Standard_Real    theLastBoundary,
                                             const Standard_Integer theInitFlag)
 {
@@ -45,7 +45,7 @@ void IntTools_MarkedRangeSet::SetBoundaries(const Standard_Real    theFirstBound
   myFlags.Append(theInitFlag);
 }
 
-void IntTools_MarkedRangeSet::SetRanges(const TColStd_Array1OfReal& theSortedArray,
+void MarkedRangeSet::SetRanges(const TColStd_Array1OfReal& theSortedArray,
                                         const Standard_Integer      theInitFlag)
 {
   myRangeSetStorer.Clear();
@@ -63,7 +63,7 @@ void IntTools_MarkedRangeSet::SetRanges(const TColStd_Array1OfReal& theSortedArr
   }
 }
 
-Standard_Boolean IntTools_MarkedRangeSet::InsertRange(const Standard_Real    theFirstBoundary,
+Standard_Boolean MarkedRangeSet::InsertRange(const Standard_Real    theFirstBoundary,
                                                       const Standard_Real    theLastBoundary,
                                                       const Standard_Integer theFlag)
 {
@@ -122,13 +122,13 @@ Standard_Boolean IntTools_MarkedRangeSet::InsertRange(const Standard_Real    the
   return Standard_True;
 }
 
-Standard_Boolean IntTools_MarkedRangeSet::InsertRange(const IntTools_Range&  theRange,
+Standard_Boolean MarkedRangeSet::InsertRange(const IntToolsRange&  theRange,
                                                       const Standard_Integer theFlag)
 {
   return InsertRange(theRange.First(), theRange.Last(), theFlag);
 }
 
-Standard_Boolean IntTools_MarkedRangeSet::InsertRange(const Standard_Real    theFirstBoundary,
+Standard_Boolean MarkedRangeSet::InsertRange(const Standard_Real    theFirstBoundary,
                                                       const Standard_Real    theLastBoundary,
                                                       const Standard_Integer theFlag,
                                                       const Standard_Integer theIndex)
@@ -174,25 +174,25 @@ Standard_Boolean IntTools_MarkedRangeSet::InsertRange(const Standard_Real    the
   return Standard_True;
 }
 
-Standard_Boolean IntTools_MarkedRangeSet::InsertRange(const IntTools_Range&  theRange,
+Standard_Boolean MarkedRangeSet::InsertRange(const IntToolsRange&  theRange,
                                                       const Standard_Integer theFlag,
                                                       const Standard_Integer theIndex)
 {
   return InsertRange(theRange.First(), theRange.Last(), theFlag, theIndex);
 }
 
-void IntTools_MarkedRangeSet::SetFlag(const Standard_Integer theIndex,
+void MarkedRangeSet::SetFlag(const Standard_Integer theIndex,
                                       const Standard_Integer theFlag)
 {
   myFlags.SetValue(theIndex, theFlag);
 }
 
-Standard_Integer IntTools_MarkedRangeSet::Flag(const Standard_Integer theIndex) const
+Standard_Integer MarkedRangeSet::Flag(const Standard_Integer theIndex) const
 {
   return myFlags(theIndex);
 }
 
-const TColStd_SequenceOfInteger& IntTools_MarkedRangeSet::GetIndices(const Standard_Real theValue)
+const TColStd_SequenceOfInteger& MarkedRangeSet::GetIndices(const Standard_Real theValue)
 {
   myFoundIndices.Clear();
 
@@ -235,7 +235,7 @@ const TColStd_SequenceOfInteger& IntTools_MarkedRangeSet::GetIndices(const Stand
   return myFoundIndices;
 }
 
-Standard_Integer IntTools_MarkedRangeSet::GetIndex(const Standard_Real theValue) const
+Standard_Integer MarkedRangeSet::GetIndex(const Standard_Real theValue) const
 {
   Standard_Integer anIndex = 0;
 
@@ -256,7 +256,7 @@ Standard_Integer IntTools_MarkedRangeSet::GetIndex(const Standard_Real theValue)
   return anIndex;
 }
 
-Standard_Integer IntTools_MarkedRangeSet::GetIndex(const Standard_Real    theValue,
+Standard_Integer MarkedRangeSet::GetIndex(const Standard_Real    theValue,
                                                    const Standard_Boolean UseLower) const
 {
   Standard_Integer anIndex = 0;
@@ -279,8 +279,8 @@ Standard_Integer IntTools_MarkedRangeSet::GetIndex(const Standard_Real    theVal
   return anIndex;
 }
 
-IntTools_Range IntTools_MarkedRangeSet::Range(const Standard_Integer theIndex) const
+IntToolsRange MarkedRangeSet::Range(const Standard_Integer theIndex) const
 {
-  IntTools_Range aRange(myRangeSetStorer(theIndex), myRangeSetStorer(theIndex + 1));
+  IntToolsRange aRange(myRangeSetStorer(theIndex), myRangeSetStorer(theIndex + 1));
   return aRange;
 }

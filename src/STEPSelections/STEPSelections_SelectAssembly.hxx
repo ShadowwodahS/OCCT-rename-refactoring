@@ -25,7 +25,7 @@
 class RefObject;
 class Interface_Graph;
 class Interface_EntityIterator;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class STEPSelections_SelectAssembly;
 DEFINE_STANDARD_HANDLE(STEPSelections_SelectAssembly, IFSelect_SelectExplore)
@@ -45,7 +45,7 @@ public:
             Interface_EntityIterator&         explored) const Standard_OVERRIDE;
 
   //! Returns a text defining the criterium : "Assembly structures"
-  Standard_EXPORT TCollection_AsciiString ExploreLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExploreLabel() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(STEPSelections_SelectAssembly, IFSelect_SelectExplore)
 

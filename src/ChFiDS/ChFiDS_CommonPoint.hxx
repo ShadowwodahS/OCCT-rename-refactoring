@@ -45,7 +45,7 @@ public:
   //! Sets the values of a point which is a vertex on
   //! the initial facet of restriction of one
   //! of the surface.
-  void SetVertex(const TopoDS_Vertex& theVertex)
+  void SetVertex(const TopoVertex& theVertex)
   {
     isvtx = Standard_True;
     vtx   = theVertex;
@@ -54,7 +54,7 @@ public:
   //! Sets the values of a point which is on the arc
   //! A, at parameter Param.
   Standard_EXPORT void SetArc(const Standard_Real      Tol,
-                              const TopoDS_Edge&       A,
+                              const TopoEdge&       A,
                               const Standard_Real      Param,
                               const TopAbs_Orientation TArc);
 
@@ -92,7 +92,7 @@ public:
   //! on the domain of the first patch, i-e when the function
   //! IsVertex returns True.
   //! Otherwise, an exception is raised.
-  const TopoDS_Vertex& Vertex() const
+  const TopoVertex& Vertex() const
   {
     if (!isvtx)
     {
@@ -107,7 +107,7 @@ public:
 
   //! Returns the arc of restriction containing the
   //! vertex.
-  Standard_EXPORT const TopoDS_Edge& Arc() const;
+  Standard_EXPORT const TopoEdge& Arc() const;
 
   //! Returns the transition of the point on the arc
   //! returned by Arc().
@@ -137,8 +137,8 @@ public:
   }
 
 private:
-  TopoDS_Edge        arc;
-  TopoDS_Vertex      vtx;
+  TopoEdge        arc;
+  TopoVertex      vtx;
   Point3d             point;
   Vector3d             vector;
   Standard_Real      tol;

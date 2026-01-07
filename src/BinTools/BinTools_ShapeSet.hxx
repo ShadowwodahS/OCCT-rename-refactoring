@@ -29,7 +29,7 @@
 #include <Standard_IStream.hxx>
 
 //! Writes topology in OStream in binary format
-class BinTools_ShapeSet : public BinTools_ShapeSetBase
+class BinTools_ShapeSet : public ShapeSetBase
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -45,20 +45,20 @@ public:
 
   //! Stores <S> and its sub-shape. Returns the index of <S>.
   //! The method AddGeometry is called on each sub-shape.
-  Standard_EXPORT Standard_Integer Add(const TopoDS_Shape& S);
+  Standard_EXPORT Standard_Integer Add(const TopoShape& S);
 
   //! Returns the sub-shape of index <I>.
-  Standard_EXPORT const TopoDS_Shape& Shape(const Standard_Integer I);
+  Standard_EXPORT const TopoShape& Shape(const Standard_Integer I);
 
   //! Returns the index of <S>.
-  Standard_EXPORT Standard_Integer Index(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Integer Index(const TopoShape& S) const;
 
-  Standard_EXPORT const BinTools_LocationSet& Locations() const;
+  Standard_EXPORT const LocationBinarySet& Locations() const;
 
-  Standard_EXPORT BinTools_LocationSet& ChangeLocations();
+  Standard_EXPORT LocationBinarySet& ChangeLocations();
 
   //! Returns number of shapes read from file.
-  Standard_EXPORT Standard_Integer NbShapes() const;
+  Standard_EXPORT Standard_Integer NbShapes1() const;
 
   //! Writes the content of  me  on the stream <OS> in binary
   //! format that can be read back by Read.
@@ -95,7 +95,7 @@ public:
   //! Writes   on  <OS>   the shape   <S>.    Writes the
   //! orientation, the index of the TShape and the index
   //! of the Location.
-  Standard_EXPORT virtual void Write(const TopoDS_Shape& S, Standard_OStream& OS);
+  Standard_EXPORT virtual void Write(const TopoShape& S, Standard_OStream& OS);
 
   //! Writes the geometry of  me  on the stream <OS> in a
   //! binary format that can be read back by Read.
@@ -109,34 +109,34 @@ public:
     const Message_ProgressRange& theRange = Message_ProgressRange());
 
   //! Reads from <IS> a shape flags and sub-shapes and modifies S.
-  Standard_EXPORT virtual void ReadFlagsAndSubs(TopoDS_Shape&          S,
+  Standard_EXPORT virtual void ReadFlagsAndSubs(TopoShape&          S,
                                                 const TopAbs_ShapeEnum T,
                                                 Standard_IStream&      IS,
-                                                const Standard_Integer NbShapes);
+                                                const Standard_Integer NbShapes1);
 
   //! Reads from <IS> a shape and returns it in S.
-  //! <NbShapes> is the number of tshapes in the set.
-  Standard_EXPORT virtual void ReadSubs(TopoDS_Shape&          S,
+  //! <NbShapes1> is the number of tshapes in the set.
+  Standard_EXPORT virtual void ReadSubs(TopoShape&          S,
                                         Standard_IStream&      IS,
-                                        const Standard_Integer NbShapes);
+                                        const Standard_Integer NbShapes1);
 
   //! An empty virtual method for redefinition in shape-reader.
-  Standard_EXPORT virtual void Read(Standard_IStream& /*theStream*/, TopoDS_Shape& /*theShape*/) {};
+  Standard_EXPORT virtual void Read(Standard_IStream& /*theStream*/, TopoShape& /*theShape*/) {};
 
   //! Writes the shape <S> on the stream <OS> in a
   //! binary format that can be read back by Read.
-  Standard_EXPORT virtual void WriteShape(const TopoDS_Shape& S, Standard_OStream& OS) const;
+  Standard_EXPORT virtual void WriteShape(const TopoShape& S, Standard_OStream& OS) const;
 
   //! Reads  a shape of type <T> from the stream <IS> and returns it in <S>.
   Standard_EXPORT virtual void ReadShape(const TopAbs_ShapeEnum T,
                                          Standard_IStream&      IS,
-                                         TopoDS_Shape&          S);
+                                         TopoShape&          S);
 
   //! Stores the shape <S>.
-  Standard_EXPORT virtual void AddShape(const TopoDS_Shape& S);
+  Standard_EXPORT virtual void AddShape(const TopoShape& S);
 
   //! Inserts  the shape <S2> in the shape <S1>.
-  Standard_EXPORT virtual void AddShapes(TopoDS_Shape& S1, const TopoDS_Shape& S2);
+  Standard_EXPORT virtual void AddShapes(TopoShape& S1, const TopoShape& S2);
 
   //! Reads the 3d polygons  of me
   //! from the  stream  <IS>.
@@ -179,14 +179,14 @@ public:
 
 private:
   TopTools_IndexedMapOfShape                     myShapes; ///< index and its shape (started from 1)
-  BinTools_LocationSet                           myLocations;
-  BRep_Builder                                   myBuilder;
-  BinTools_SurfaceSet                            mySurfaces;
-  BinTools_CurveSet                              myCurves;
-  BinTools_Curve2dSet                            myCurves2d;
+  LocationBinarySet                           myLocations;
+  ShapeBuilder                                   myBuilder;
+  SurfaceBinarySet                            mySurfaces;
+  CurveBinarySet                              myCurves;
+  Curve2dBinarySet                            myCurves2d;
   NCollection_IndexedMap<Handle(Poly_Polygon2D)> myPolygons2D;
   NCollection_IndexedMap<Handle(Poly_Polygon3D)> myPolygons3D;
-  NCollection_IndexedDataMap<Handle(Poly_Triangulation),
+  NCollection_IndexedDataMap<Handle(MeshTriangulation),
                              // clang-format off
                              Standard_Boolean> myTriangulations; //!< Contains a boolean flag with information
                                                                  //!  to save normals for triangulation

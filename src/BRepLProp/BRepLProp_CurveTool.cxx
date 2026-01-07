@@ -21,14 +21,14 @@
 
 //=================================================================================================
 
-void BRepLProp_CurveTool::Value(const BRepAdaptor_Curve& C, const Standard_Real U, Point3d& P)
+void CurveLocalPropsTool::Value(const BRepAdaptor_Curve& C, const Standard_Real U, Point3d& P)
 {
   P = C.Value(U);
 }
 
 //=================================================================================================
 
-void BRepLProp_CurveTool::D1(const BRepAdaptor_Curve& C,
+void CurveLocalPropsTool::D1(const BRepAdaptor_Curve& C,
                              const Standard_Real      U,
                              Point3d&                  P,
                              Vector3d&                  V1)
@@ -38,7 +38,7 @@ void BRepLProp_CurveTool::D1(const BRepAdaptor_Curve& C,
 
 //=================================================================================================
 
-void BRepLProp_CurveTool::D2(const BRepAdaptor_Curve& C,
+void CurveLocalPropsTool::D2(const BRepAdaptor_Curve& C,
                              const Standard_Real      U,
                              Point3d&                  P,
                              Vector3d&                  V1,
@@ -49,7 +49,7 @@ void BRepLProp_CurveTool::D2(const BRepAdaptor_Curve& C,
 
 //=================================================================================================
 
-void BRepLProp_CurveTool::D3(const BRepAdaptor_Curve& C,
+void CurveLocalPropsTool::D3(const BRepAdaptor_Curve& C,
                              const Standard_Real      U,
                              Point3d&                  P,
                              Vector3d&                  V1,
@@ -61,7 +61,7 @@ void BRepLProp_CurveTool::D3(const BRepAdaptor_Curve& C,
 
 //=================================================================================================
 
-Standard_Integer BRepLProp_CurveTool::Continuity(const BRepAdaptor_Curve& C)
+Standard_Integer CurveLocalPropsTool::Continuity(const BRepAdaptor_Curve& C)
 {
   GeomAbs_Shape s = C.Continuity();
   switch (s)
@@ -86,14 +86,14 @@ Standard_Integer BRepLProp_CurveTool::Continuity(const BRepAdaptor_Curve& C)
 
 //=================================================================================================
 
-Standard_Real BRepLProp_CurveTool::FirstParameter(const BRepAdaptor_Curve& C)
+Standard_Real CurveLocalPropsTool::FirstParameter(const BRepAdaptor_Curve& C)
 {
   return C.FirstParameter();
 }
 
 //=================================================================================================
 
-Standard_Real BRepLProp_CurveTool::LastParameter(const BRepAdaptor_Curve& C)
+Standard_Real CurveLocalPropsTool::LastParameter(const BRepAdaptor_Curve& C)
 {
   return C.LastParameter();
 }

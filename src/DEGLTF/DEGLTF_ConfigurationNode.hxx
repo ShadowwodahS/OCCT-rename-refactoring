@@ -48,7 +48,7 @@ public:
 
   //! Writes configuration to the string
   //! @return result resource string
-  Standard_EXPORT virtual TCollection_AsciiString Save() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 Save() const Standard_OVERRIDE;
 
   //! Copies values of all fields
   //! @return new object with the same field values
@@ -69,11 +69,11 @@ public:
 
   //! Gets CAD format name of associated provider
   //! @return provider CAD format
-  Standard_EXPORT virtual TCollection_AsciiString GetFormat() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 GetFormat() const Standard_OVERRIDE;
 
   //! Gets provider's vendor name of associated provider
   //! @return provider's vendor name
-  Standard_EXPORT virtual TCollection_AsciiString GetVendor() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 GetVendor() const Standard_OVERRIDE;
 
   //! Gets list of supported file extensions
   //! @return list of extensions
@@ -90,20 +90,20 @@ public:
     // Reading
     bool ReadSinglePrecision = true; //!< Flag for reading vertex data with single or double floating point precision
     bool ReadCreateShapes = false;  //!< Flag for create a single triangulation
-    TCollection_AsciiString ReadRootPrefix; //!< Root folder for generating root labels names
+    AsciiString1 ReadRootPrefix; //!< Root folder for generating root labels names
     bool ReadFillDoc = true; //!< Flag for fill document from shape sequence
     bool ReadFillIncomplete = true; //!< Flag for fill the document with partially retrieved data even if reader has failed with error
     int ReadMemoryLimitMiB = -1; //!< Memory usage limit
     bool ReadParallel = false; //!< Flag to use multithreading
     bool ReadSkipEmptyNodes = true; //!< Flag to ignore nodes without Geometry
     bool ReadLoadAllScenes = false; //!< Flag to load all scenes in the document
-    bool ReadUseMeshNameAsFallback = true; //!< Flag to use Mesh name in case if Node name is empty
+    bool ReadUseMeshNameAsFallback = true; //!< Flag to use Mesh1 name in case if Node name is empty
     bool ReadSkipLateDataLoading = false; //!< Flag to skip triangulation loading
     bool ReadKeepLateData = true;//!< Flag to keep information about deferred storage to load/unload triangulation later
     bool ReadPrintDebugMessages = false; //!< Flag to print additional debug information
     // Writing
-    TCollection_AsciiString WriteComment; //!< Export special comment
-    TCollection_AsciiString WriteAuthor; //!< Author of exported file name
+    AsciiString1 WriteComment; //!< Export special comment
+    AsciiString1 WriteAuthor; //!< Author of exported file name
     RWGltf_WriterTrsfFormat WriteTrsfFormat = RWGltf_WriterTrsfFormat_Compact; //!< Transformation format to write into glTF file
     RWMesh_NameFormat WriteNodeNameFormat = RWMesh_NameFormat_InstanceOrProduct; //!< Name format for exporting Nodes
     RWMesh_NameFormat WriteMeshNameFormat = RWMesh_NameFormat_Product; //!< Name format for exporting Meshes

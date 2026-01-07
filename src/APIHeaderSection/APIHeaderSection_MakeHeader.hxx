@@ -60,7 +60,7 @@ public:
   //! Builds a Header, creates a new StepModel, then applies the
   //! Header to the StepModel
   //! The Schema Name is taken from the Protocol (if it inherits
-  //! from StepData, else it is left in blanks)
+  //! from StepData1, else it is left in blanks)
   Standard_EXPORT Handle(StepData_StepModel) NewModel(
     const Handle(Interface_Protocol)& protocol) const;
 

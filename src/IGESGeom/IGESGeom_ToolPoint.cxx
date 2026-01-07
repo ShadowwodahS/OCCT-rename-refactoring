@@ -37,9 +37,9 @@
 #include <Standard_DomainError.hxx>
 
 // MGE 28/07/98
-IGESGeom_ToolPoint::IGESGeom_ToolPoint() {}
+PointTool::PointTool() {}
 
-void IGESGeom_ToolPoint::ReadOwnParams(const Handle(IGESGeom_Point)&          ent,
+void PointTool::ReadOwnParams(const Handle(IGESGeom_Point)&          ent,
                                        const Handle(IGESData_IGESReaderData)& IR,
                                        IGESData_ParamReader&                  PR) const
 {
@@ -100,7 +100,7 @@ void IGESGeom_ToolPoint::ReadOwnParams(const Handle(IGESGeom_Point)&          en
   ent->Init(aPoint, aSymbol);
 }
 
-void IGESGeom_ToolPoint::WriteOwnParams(const Handle(IGESGeom_Point)& ent,
+void PointTool::WriteOwnParams(const Handle(IGESGeom_Point)& ent,
                                         IGESData_IGESWriter&          IW) const
 {
   IW.Send(ent->Value().X());
@@ -109,13 +109,13 @@ void IGESGeom_ToolPoint::WriteOwnParams(const Handle(IGESGeom_Point)& ent,
   IW.Send(ent->DisplaySymbol());
 }
 
-void IGESGeom_ToolPoint::OwnShared(const Handle(IGESGeom_Point)& ent,
+void PointTool::OwnShared(const Handle(IGESGeom_Point)& ent,
                                    Interface_EntityIterator&     iter) const
 {
   iter.GetOneItem(ent->DisplaySymbol());
 }
 
-void IGESGeom_ToolPoint::OwnCopy(const Handle(IGESGeom_Point)& another,
+void PointTool::OwnCopy(const Handle(IGESGeom_Point)& another,
                                  const Handle(IGESGeom_Point)& ent,
                                  Interface_CopyTool&           TC) const
 {
@@ -125,9 +125,9 @@ void IGESGeom_ToolPoint::OwnCopy(const Handle(IGESGeom_Point)& another,
   ent->Init(aPoint, aSymbol);
 }
 
-IGESData_DirChecker IGESGeom_ToolPoint::DirChecker(const Handle(IGESGeom_Point)& ent) const
+DirectoryChecker PointTool::DirChecker(const Handle(IGESGeom_Point)& ent) const
 {
-  IGESData_DirChecker DC(116, 0);
+  DirectoryChecker DC(116, 0);
   DC.Structure(IGESData_DefVoid);
   if (ent->HasDisplaySymbol())
   {
@@ -138,13 +138,13 @@ IGESData_DirChecker IGESGeom_ToolPoint::DirChecker(const Handle(IGESGeom_Point)&
   return DC;
 }
 
-void IGESGeom_ToolPoint::OwnCheck(const Handle(IGESGeom_Point)& /* ent */,
+void PointTool::OwnCheck(const Handle(IGESGeom_Point)& /* ent */,
                                   const Interface_ShareTool&,
                                   Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESGeom_ToolPoint::OwnDump(const Handle(IGESGeom_Point)& ent,
+void PointTool::OwnDump(const Handle(IGESGeom_Point)& ent,
                                  const IGESData_IGESDumper&    dumper,
                                  Standard_OStream&             S,
                                  const Standard_Integer        level) const

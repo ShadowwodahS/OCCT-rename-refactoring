@@ -35,48 +35,48 @@ public:
 
   LocOpe_LinearForm();
 
-  LocOpe_LinearForm(const TopoDS_Shape& Base,
+  LocOpe_LinearForm(const TopoShape& Base,
                     const Vector3d&       V,
                     const Point3d&       Pnt1,
                     const Point3d&       Pnt2);
 
-  LocOpe_LinearForm(const TopoDS_Shape& Base,
+  LocOpe_LinearForm(const TopoShape& Base,
                     const Vector3d&       V,
                     const Vector3d&       Vectra,
                     const Point3d&       Pnt1,
                     const Point3d&       Pnt2);
 
-  Standard_EXPORT void Perform(const TopoDS_Shape& Base,
+  Standard_EXPORT void Perform(const TopoShape& Base,
                                const Vector3d&       V,
                                const Point3d&       Pnt1,
                                const Point3d&       Pnt2);
 
-  Standard_EXPORT void Perform(const TopoDS_Shape& Base,
+  Standard_EXPORT void Perform(const TopoShape& Base,
                                const Vector3d&       V,
                                const Vector3d&       Vectra,
                                const Point3d&       Pnt1,
                                const Point3d&       Pnt2);
 
-  Standard_EXPORT const TopoDS_Shape& FirstShape() const;
+  Standard_EXPORT const TopoShape& FirstShape() const;
 
-  Standard_EXPORT const TopoDS_Shape& LastShape() const;
+  Standard_EXPORT const TopoShape& LastShape() const;
 
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
-  Standard_EXPORT const TopTools_ListOfShape& Shapes(const TopoDS_Shape& S) const;
+  Standard_EXPORT const ShapeList& Shapes(const TopoShape& S) const;
 
 protected:
 private:
   Standard_EXPORT void IntPerf();
 
-  TopoDS_Shape                       myBase;
+  TopoShape                       myBase;
   Vector3d                             myVec;
   Vector3d                             myTra;
   Standard_Boolean                   myDone;
   Standard_Boolean                   myIsTrans;
-  TopoDS_Shape                       myRes;
-  TopoDS_Shape                       myFirstShape;
-  TopoDS_Shape                       myLastShape;
+  TopoShape                       myRes;
+  TopoShape                       myFirstShape;
+  TopoShape                       myLastShape;
   TopTools_DataMapOfShapeListOfShape myMap;
   Point3d                             myPnt1;
   Point3d                             myPnt2;

@@ -25,16 +25,16 @@
 #include <Standard_Integer.hxx>
 #include <TopOpeBRepDS_Config.hxx>
 class TopOpeBRepDS_Interference;
-class TopOpeBRepDS_Transition;
-class Geom2d_Curve;
+class StateTransition;
+class GeomCurve2d;
 
-class TopOpeBRepDS_InterferenceTool
+class InterferenceTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT static Handle(TopOpeBRepDS_Interference) MakeEdgeInterference(
-    const TopOpeBRepDS_Transition& T,
+    const StateTransition& T,
     const TopOpeBRepDS_Kind        SK,
     const Standard_Integer         SI,
     const TopOpeBRepDS_Kind        GK,
@@ -42,7 +42,7 @@ public:
     const Standard_Real            P);
 
   Standard_EXPORT static Handle(TopOpeBRepDS_Interference) MakeCurveInterference(
-    const TopOpeBRepDS_Transition& T,
+    const StateTransition& T,
     const TopOpeBRepDS_Kind        SK,
     const Standard_Integer         SI,
     const TopOpeBRepDS_Kind        GK,
@@ -54,18 +54,18 @@ public:
     const Handle(TopOpeBRepDS_Interference)& I);
 
   Standard_EXPORT static Handle(TopOpeBRepDS_Interference) MakeFaceCurveInterference(
-    const TopOpeBRepDS_Transition& Transition,
+    const StateTransition& Transition,
     const Standard_Integer         FaceI,
     const Standard_Integer         CurveI,
-    const Handle(Geom2d_Curve)&    PC);
+    const Handle(GeomCurve2d)&    PC);
 
   Standard_EXPORT static Handle(TopOpeBRepDS_Interference) MakeSolidSurfaceInterference(
-    const TopOpeBRepDS_Transition& Transition,
+    const StateTransition& Transition,
     const Standard_Integer         SolidI,
     const Standard_Integer         SurfaceI);
 
   Standard_EXPORT static Handle(TopOpeBRepDS_Interference) MakeEdgeVertexInterference(
-    const TopOpeBRepDS_Transition& Transition,
+    const StateTransition& Transition,
     const Standard_Integer         EdgeI,
     const Standard_Integer         VertexI,
     const Standard_Boolean         VertexIsBound,
@@ -73,7 +73,7 @@ public:
     const Standard_Real            param);
 
   Standard_EXPORT static Handle(TopOpeBRepDS_Interference) MakeFaceEdgeInterference(
-    const TopOpeBRepDS_Transition& Transition,
+    const StateTransition& Transition,
     const Standard_Integer         FaceI,
     const Standard_Integer         EdgeI,
     const Standard_Boolean         EdgeIsBound,

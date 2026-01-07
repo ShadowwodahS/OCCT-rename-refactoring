@@ -67,7 +67,7 @@ public:
   //! face containing the point.
   //!
   //! When Rejected() returns True, Face() has no signification.
-  Standard_EXPORT TopoDS_Face Face() const;
+  Standard_EXPORT TopoFace Face() const;
 
 protected:
   Standard_EXPORT void ForceIn();
@@ -75,7 +75,7 @@ protected:
   Standard_EXPORT void ForceOut();
 
 private:
-  TopoDS_Face myFace;
+  TopoFace myFace;
 
   //! This variable stores information about algorithm internal state.
   //! Type of this variable differs from TopAbs_State since it contains

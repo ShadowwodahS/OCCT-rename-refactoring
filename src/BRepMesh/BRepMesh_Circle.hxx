@@ -34,7 +34,7 @@ public:
   //! Constructor.
   //! @param theLocation location of a circle.
   //! @param theRadius radius of a circle.
-  BRepMesh_Circle(const gp_XY& theLocation, const Standard_Real theRadius)
+  BRepMesh_Circle(const Coords2d& theLocation, const Standard_Real theRadius)
       : myLocation(theLocation),
         myRadius(theRadius)
   {
@@ -42,20 +42,20 @@ public:
 
   //! Sets location of a circle.
   //! @param theLocation location of a circle.
-  void SetLocation(const gp_XY& theLocation) { myLocation = theLocation; }
+  void SetLocation(const Coords2d& theLocation) { myLocation = theLocation; }
 
   //! Sets radius of a circle.
   //! @param theRadius radius of a circle.
   void SetRadius(const Standard_Real theRadius) { myRadius = theRadius; }
 
   //! Returns location of a circle.
-  const gp_XY& Location() const { return myLocation; }
+  const Coords2d& Location() const { return myLocation; }
 
   //! Returns radius of a circle.
   const Standard_Real& Radius() const { return myRadius; }
 
 private:
-  gp_XY         myLocation;
+  Coords2d         myLocation;
   Standard_Real myRadius;
 };
 

@@ -39,7 +39,7 @@ void Graphic3d_GraphicDriverFactory::RegisterFactory(
   const Handle(Graphic3d_GraphicDriverFactory)& theFactory,
   bool                                          theIsPreferred)
 {
-  const TCollection_AsciiString       aName      = theFactory->Name();
+  const AsciiString1       aName      = theFactory->Name();
   Graphic3d_GraphicDriverFactoryList& aFactories = getDriverFactories();
   if (theIsPreferred)
   {
@@ -51,7 +51,7 @@ void Graphic3d_GraphicDriverFactory::RegisterFactory(
   for (Graphic3d_GraphicDriverFactoryList::Iterator anIter(aFactories); anIter.More();
        anIter.Next())
   {
-    if (TCollection_AsciiString::IsSameString(anIter.Value()->Name(), aName, false))
+    if (AsciiString1::IsSameString(anIter.Value()->Name(), aName, false))
     {
       return;
     }
@@ -61,12 +61,12 @@ void Graphic3d_GraphicDriverFactory::RegisterFactory(
 
 //=================================================================================================
 
-void Graphic3d_GraphicDriverFactory::UnregisterFactory(const TCollection_AsciiString& theName)
+void Graphic3d_GraphicDriverFactory::UnregisterFactory(const AsciiString1& theName)
 {
   Graphic3d_GraphicDriverFactoryList& aFactories = getDriverFactories();
   for (Graphic3d_GraphicDriverFactoryList::Iterator anIter(aFactories); anIter.More();)
   {
-    if (TCollection_AsciiString::IsSameString(anIter.Value()->Name(), theName, false))
+    if (AsciiString1::IsSameString(anIter.Value()->Name(), theName, false))
     {
       aFactories.Remove(anIter);
     }
@@ -88,7 +88,7 @@ Handle(Graphic3d_GraphicDriverFactory) Graphic3d_GraphicDriverFactory::DefaultDr
 //=================================================================================================
 
 Graphic3d_GraphicDriverFactory::Graphic3d_GraphicDriverFactory(
-  const TCollection_AsciiString& theName)
+  const AsciiString1& theName)
     : myName(theName)
 {
   //

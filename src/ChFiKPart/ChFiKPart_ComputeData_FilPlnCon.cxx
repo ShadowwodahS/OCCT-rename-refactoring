@@ -205,7 +205,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   // --------------
 
   Handle(Geom2d_Circle) GCirc2dPln;
-  Handle(Geom_Circle)   GCircPln;
+  Handle(GeomCircle)   GCircPln;
   Frame3d                circAx2 = FilAx3.Ax2();
   if (!c1sphere)
   {
@@ -217,7 +217,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
     GCirc2dPln = new Geom2d_Circle(circ2dPln);
     circAx2.SetLocation(cPln);
     gp_Circ circPln(circAx2, Rad);
-    GCircPln = new Geom_Circle(circPln);
+    GCircPln = new GeomCircle(circPln);
   }
   gp_Lin2d            lin2dFil(p2dFil, gp::DX2d());
   Handle(Geom2d_Line) GLin2dFil1 = new Geom2d_Line(lin2dFil);
@@ -295,7 +295,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   PP.SetCoord(cPln.X() + scal * Dp.X(), cPln.Y() + scal * Dp.Y(), cPln.Z() + scal * Dp.Z());
   circAx2.SetLocation(PP);
   gp_Circ             circCon(circAx2, P.Distance(PP));
-  Handle(Geom_Circle) GCircCon = new Geom_Circle(circCon);
+  Handle(GeomCircle) GCircCon = new GeomCircle(circCon);
   toreverse                    = (norFil.Dot(norCon) <= 0.);
   if ((toreverse && plandab) || (!toreverse && !plandab))
   {

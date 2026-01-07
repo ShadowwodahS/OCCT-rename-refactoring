@@ -33,9 +33,9 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESSolid_ToolSolidOfLinearExtrusion::IGESSolid_ToolSolidOfLinearExtrusion() {}
+SolidOfLinearExtrusionTool::SolidOfLinearExtrusionTool() {}
 
-void IGESSolid_ToolSolidOfLinearExtrusion::ReadOwnParams(
+void SolidOfLinearExtrusionTool::ReadOwnParams(
   const Handle(IGESSolid_SolidOfLinearExtrusion)& ent,
   const Handle(IGESData_IGESReaderData)&          IR,
   IGESData_ParamReader&                           PR) const
@@ -89,7 +89,7 @@ void IGESSolid_ToolSolidOfLinearExtrusion::ReadOwnParams(
     PR.AddWarning("Extrusion Direction poorly unitary, normalized");
 }
 
-void IGESSolid_ToolSolidOfLinearExtrusion::WriteOwnParams(
+void SolidOfLinearExtrusionTool::WriteOwnParams(
   const Handle(IGESSolid_SolidOfLinearExtrusion)& ent,
   IGESData_IGESWriter&                            IW) const
 {
@@ -100,14 +100,14 @@ void IGESSolid_ToolSolidOfLinearExtrusion::WriteOwnParams(
   IW.Send(ent->ExtrusionDirection().Z());
 }
 
-void IGESSolid_ToolSolidOfLinearExtrusion::OwnShared(
+void SolidOfLinearExtrusionTool::OwnShared(
   const Handle(IGESSolid_SolidOfLinearExtrusion)& ent,
   Interface_EntityIterator&                       iter) const
 {
   iter.GetOneItem(ent->Curve());
 }
 
-void IGESSolid_ToolSolidOfLinearExtrusion::OwnCopy(
+void SolidOfLinearExtrusionTool::OwnCopy(
   const Handle(IGESSolid_SolidOfLinearExtrusion)& another,
   const Handle(IGESSolid_SolidOfLinearExtrusion)& ent,
   Interface_CopyTool&                             TC) const
@@ -118,10 +118,10 @@ void IGESSolid_ToolSolidOfLinearExtrusion::OwnCopy(
   ent->Init(tempEntity, tempLength, tempDirection);
 }
 
-IGESData_DirChecker IGESSolid_ToolSolidOfLinearExtrusion::DirChecker(
+DirectoryChecker SolidOfLinearExtrusionTool::DirChecker(
   const Handle(IGESSolid_SolidOfLinearExtrusion)& /* ent */) const
 {
-  IGESData_DirChecker DC(164, 0);
+  DirectoryChecker DC(164, 0);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
@@ -132,7 +132,7 @@ IGESData_DirChecker IGESSolid_ToolSolidOfLinearExtrusion::DirChecker(
   return DC;
 }
 
-void IGESSolid_ToolSolidOfLinearExtrusion::OwnCheck(
+void SolidOfLinearExtrusionTool::OwnCheck(
   const Handle(IGESSolid_SolidOfLinearExtrusion)& ent,
   const Interface_ShareTool&,
   Handle(Interface_Check)& ach) const
@@ -141,7 +141,7 @@ void IGESSolid_ToolSolidOfLinearExtrusion::OwnCheck(
     ach->AddFail("Length of extrusion : Not Positive");
 }
 
-void IGESSolid_ToolSolidOfLinearExtrusion::OwnDump(
+void SolidOfLinearExtrusionTool::OwnDump(
   const Handle(IGESSolid_SolidOfLinearExtrusion)& ent,
   const IGESData_IGESDumper&                      dumper,
   Standard_OStream&                               S,

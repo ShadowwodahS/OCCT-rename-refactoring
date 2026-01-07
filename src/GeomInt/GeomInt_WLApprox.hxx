@@ -24,7 +24,7 @@
 #include <Approx_MCurvesToBSpCurve.hxx>
 #include <Approx_ParametrizationType.hxx>
 
-class Adaptor3d_HSurfaceTool;
+class HSurfaceTool;
 class IntSurf_Quadric;
 class IntSurf_QuadricTool;
 class IntPatch_WLine;

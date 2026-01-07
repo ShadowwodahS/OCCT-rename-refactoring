@@ -50,9 +50,9 @@ void V3d_Plane::SetPlane(const Standard_Real theA,
 
 //=================================================================================================
 
-void V3d_Plane::Display(const Handle(V3d_View)& theView, const Quantity_Color& theColor)
+void V3d_Plane::Display(const Handle(ViewWindow)& theView, const Quantity_Color& theColor)
 {
-  Handle(V3d_Viewer) aViewer = theView->Viewer();
+  Handle(ViewManager) aViewer = theView->Viewer();
   if (!myGraphicStructure.IsNull())
   {
     myGraphicStructure->Clear();

@@ -28,15 +28,15 @@ namespace DFBrowser_OpenApplication
 //! \param theFileName a name of the file initialized the application
 //! \param isSTEPFile an output parameter, true if the file name is a STEP file
 //! \return an opened application
-Standard_EXPORT Handle(TDocStd_Application) OpenApplication(
-  const TCollection_AsciiString& theFileName,
+Standard_EXPORT Handle(AppManager) OpenApplication(
+  const AsciiString1& theFileName,
   bool&                          isSTEPFile);
 
 //! Creates a new application if the name contains "stp" or "step" extension. The application is
 //! "BinOcaf", STEP reader transfers the file into the application \param theFileName a name of the
 //! file initialized the application \return a new application
-Standard_EXPORT Handle(TDocStd_Application) CreateApplicationBySTEPFile(
-  const TCollection_AsciiString& theFileName);
+Standard_EXPORT Handle(AppManager) CreateApplicationBySTEPFile(
+  const AsciiString1& theFileName);
 } // namespace DFBrowser_OpenApplication
 
 #endif

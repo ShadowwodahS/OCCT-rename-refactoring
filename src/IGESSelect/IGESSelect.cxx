@@ -24,7 +24,7 @@
 #include <Interface_Graph.hxx>
 #include <Interface_Macros.hxx>
 
-void IGESSelect::Run()
+void IGESSelect1::Run()
 {
   //  Handle(IFSelect_BasicActivator) Activator = new IFSelect_BasicActivator;
   IFSelect_Functions::Init();
@@ -36,7 +36,7 @@ void IGESSelect::Run()
   pilot->ReadScript();
 }
 
-Standard_Integer IGESSelect::WhatIges(const Handle(IGESData_IGESEntity)& ent,
+Standard_Integer IGESSelect1::WhatIges(const Handle(IGESData_IGESEntity)& ent,
                                       const Interface_Graph&             G,
                                       Handle(IGESData_IGESEntity)& /* sup */,
                                       Standard_Integer& /* index */)

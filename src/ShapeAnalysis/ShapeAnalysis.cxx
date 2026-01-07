@@ -70,21 +70,21 @@ Standard_Real ShapeAnalysis::AdjustToPeriod(const Standard_Real Val,
 
 //=================================================================================================
 
-void ShapeAnalysis::FindBounds(const TopoDS_Shape& shape, TopoDS_Vertex& V1, TopoDS_Vertex& V2)
+void ShapeAnalysis::FindBounds(const TopoShape& shape, TopoVertex& V1, TopoVertex& V2)
 {
   V1.Nullify();
   V2.Nullify();
   ShapeAnalysis_Edge EA;
   if (shape.ShapeType() == TopAbs_WIRE)
   {
-    TopoDS_Wire W = TopoDS::Wire(shape);
-    // invalid work with reversed wires replaced on TopExp
-    TopExp::Vertices(W, V1, V2);
+    TopoWire W = TopoDS::Wire(shape);
+    // invalid work with reversed wires replaced on TopExp1
+    TopExp1::Vertices(W, V1, V2);
     // invalid work with reversed wires
     /*TopoDS_Iterator iterWire(W);
     //szv#4:S4163:12Mar99 optimized
     if (iterWire.More()) {
-      TopoDS_Edge E = TopoDS::Edge (iterWire.Value());
+      TopoEdge E = TopoDS::Edge (iterWire.Value());
       V1 = EA.FirstVertex (E); iterWire.Next();
       for ( ; iterWire.More(); iterWire.Next() ) E = TopoDS::Edge (iterWire.Value());
       V2 = EA.LastVertex (E);
@@ -110,16 +110,16 @@ static inline void ReverseSeq(HSequence& Seq)
 //=================================================================================================
 
 Standard_Real ShapeAnalysis::TotCross2D(const Handle(ShapeExtend_WireData)& sewd,
-                                        const TopoDS_Face&                  aFace)
+                                        const TopoFace&                  aFace)
 {
   Standard_Integer i, nbc = 0;
   gp_Pnt2d         fuv, luv, uv0;
   Standard_Real    totcross = 0;
   for (i = 1; i <= sewd->NbEdges(); i++)
   {
-    TopoDS_Edge          edge = sewd->Edge(i);
+    TopoEdge          edge = sewd->Edge(i);
     Standard_Real        f2d, l2d;
-    Handle(Geom2d_Curve) c2d = BRep_Tool::CurveOnSurface(edge, aFace, f2d, l2d);
+    Handle(GeomCurve2d) c2d = BRepInspector::CurveOnSurface(edge, aFace, f2d, l2d);
     if (!c2d.IsNull())
     {
       nbc++;
@@ -147,7 +147,7 @@ Standard_Real ShapeAnalysis::TotCross2D(const Handle(ShapeExtend_WireData)& sewd
 
 //=================================================================================================
 
-Standard_Real ShapeAnalysis::ContourArea(const TopoDS_Wire& theWire)
+Standard_Real ShapeAnalysis::ContourArea(const TopoWire& theWire)
 // const Handle(ShapeExtend_WireData)& sewd)
 
 {
@@ -159,9 +159,9 @@ Standard_Real ShapeAnalysis::ContourArea(const TopoDS_Wire& theWire)
   // for(i=1; i<=sewd->NbEdges(); i++) {
   for (; aIte.More(); aIte.Next())
   {
-    TopoDS_Edge        edge = TopoDS::Edge(aIte.Value()); // sewd->Edge(i);
+    TopoEdge        edge = TopoDS::Edge(aIte.Value()); // sewd->Edge(i);
     Standard_Real      first, last;
-    Handle(Geom_Curve) c3d = BRep_Tool::Curve(edge, first, last);
+    Handle(GeomCurve3d) c3d = BRepInspector::Curve(edge, first, last);
     if (!c3d.IsNull())
     {
 
@@ -192,13 +192,13 @@ Standard_Real ShapeAnalysis::ContourArea(const TopoDS_Wire& theWire)
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis::IsOuterBound(const TopoDS_Face& face)
+Standard_Boolean ShapeAnalysis::IsOuterBound(const TopoFace& face)
 {
-  TopoDS_Face F = face;
-  TopoDS_Wire W;
+  TopoFace F = face;
+  TopoWire W;
   F.Orientation(TopAbs_FORWARD);
   Standard_Integer nbw = 0;
-  for (TopExp_Explorer exp(F, TopAbs_WIRE); exp.More(); exp.Next())
+  for (ShapeExplorer exp(F, TopAbs_WIRE); exp.More(); exp.Next())
   {
     W = TopoDS::Wire(exp.Current());
     nbw++;
@@ -213,7 +213,7 @@ Standard_Boolean ShapeAnalysis::IsOuterBound(const TopoDS_Face& face)
   else
   {
     BRepAdaptor_Surface     Ads(F, Standard_False);
-    Standard_Real           tol   = BRep_Tool::Tolerance(F);
+    Standard_Real           tol   = BRepInspector::Tolerance(F);
     Standard_Real           toluv = Min(Ads.UResolution(tol), Ads.VResolution(tol));
     BRepTopAdaptor_FClass2d fcl(F, toluv);
     Standard_Boolean        rescl = (fcl.PerformInfinitePoint() == TopAbs_OUT);
@@ -227,15 +227,15 @@ Standard_Boolean ShapeAnalysis::IsOuterBound(const TopoDS_Face& face)
 //           If there is no one - returns the last wire of the face.
 //=======================================================================
 
-TopoDS_Wire ShapeAnalysis::OuterWire(const TopoDS_Face& theFace)
+TopoWire ShapeAnalysis::OuterWire(const TopoFace& theFace)
 {
-  TopoDS_Face aF = theFace;
+  TopoFace aF = theFace;
   aF.Orientation(TopAbs_FORWARD);
 
-  TopExp_Explorer anIt(aF, TopAbs_WIRE);
+  ShapeExplorer anIt(aF, TopAbs_WIRE);
   while (anIt.More())
   {
-    TopoDS_Wire aWire = TopoDS::Wire(anIt.Value());
+    TopoWire aWire = TopoDS::Wire(anIt.Value());
     anIt.Next();
 
     // if current wire is the last one, return it without analysis
@@ -248,24 +248,24 @@ TopoDS_Wire ShapeAnalysis::OuterWire(const TopoDS_Face& theFace)
     if (anArea2d >= 0.)
       return aWire;
   }
-  return TopoDS_Wire();
+  return TopoWire();
 }
 
 //=================================================================================================
 
-void ShapeAnalysis::GetFaceUVBounds(const TopoDS_Face& F,
+void ShapeAnalysis::GetFaceUVBounds(const TopoFace& F,
                                     Standard_Real&     UMin,
                                     Standard_Real&     UMax,
                                     Standard_Real&     VMin,
                                     Standard_Real&     VMax)
 {
-  TopoDS_Face FF = F;
+  TopoFace FF = F;
   FF.Orientation(TopAbs_FORWARD);
-  TopExp_Explorer ex(FF, TopAbs_EDGE);
+  ShapeExplorer ex(FF, TopAbs_EDGE);
   if (!ex.More())
   {
     TopLoc_Location L;
-    BRep_Tool::Surface(F, L)->Bounds(UMin, UMax, VMin, VMax);
+    BRepInspector::Surface(F, L)->Bounds(UMin, UMax, VMin, VMax);
     return;
   }
 
@@ -274,8 +274,8 @@ void ShapeAnalysis::GetFaceUVBounds(const TopoDS_Face& F,
   ShapeAnalysis_Curve sac;
   for (; ex.More(); ex.Next())
   {
-    TopoDS_Edge          edge = TopoDS::Edge(ex.Current());
-    Handle(Geom2d_Curve) c2d;
+    TopoEdge          edge = TopoDS::Edge(ex.Current());
+    Handle(GeomCurve2d) c2d;
     Standard_Real        f, l;
     if (!sae.PCurve(edge, F, c2d, f, l, Standard_False))
       continue;

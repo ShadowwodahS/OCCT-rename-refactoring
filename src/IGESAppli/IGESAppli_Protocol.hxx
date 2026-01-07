@@ -27,7 +27,7 @@ class Interface_Protocol;
 class IGESAppli_Protocol;
 DEFINE_STANDARD_HANDLE(IGESAppli_Protocol, IGESData_Protocol)
 
-//! Description of Protocol for IGESAppli
+//! Description of Protocol for IGESAppli1
 class IGESAppli_Protocol : public IGESData_Protocol
 {
 
@@ -35,7 +35,7 @@ public:
   Standard_EXPORT IGESAppli_Protocol();
 
   //! Gives the count of direct Resource Protocol. Here, two
-  //! (Protocols from IGESDefs and IGESDraw)
+  //! (Protocols from IGESDefs1 and IGESDraw1)
   Standard_EXPORT virtual Standard_Integer NbResources() const Standard_OVERRIDE;
 
   //! Returns a Resource, given a rank.

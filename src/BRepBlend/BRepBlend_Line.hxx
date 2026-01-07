@@ -22,7 +22,7 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Integer.hxx>
 
-class Blend_Point;
+class Point2;
 
 class BRepBlend_Line;
 DEFINE_STANDARD_HANDLE(BRepBlend_Line, RefObject)
@@ -37,13 +37,13 @@ public:
   Standard_EXPORT void Clear();
 
   //! Adds a point in the line.
-  void Append(const Blend_Point& P);
+  void Append(const Point2& P);
 
   //! Adds a point in the line at the first place.
-  void Prepend(const Blend_Point& P);
+  void Prepend(const Point2& P);
 
   //! Adds a point in the line at the first place.
-  void InsertBefore(const Standard_Integer Index, const Blend_Point& P);
+  void InsertBefore(const Standard_Integer Index, const Point2& P);
 
   //! Removes  from  <me>    all  the  items  of
   //! positions between <FromIndex> and <ToIndex>.
@@ -67,7 +67,7 @@ public:
   Standard_Integer NbPoints() const;
 
   //! Returns the point of range Index.
-  const Blend_Point& Point(const Standard_Integer Index) const;
+  const Point2& Point(const Standard_Integer Index) const;
 
   //! Returns the type of the transition of the line defined
   //! on the first surface. The transition is "constant"

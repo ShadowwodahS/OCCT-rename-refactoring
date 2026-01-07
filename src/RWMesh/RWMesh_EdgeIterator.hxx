@@ -25,7 +25,7 @@
 
 #include <algorithm>
 
-class TDF_Label;
+class DataLabel;
 
 //! Auxiliary class to iterate through edges.
 //! Provides functionality to iterate through the edges of a shape.
@@ -39,7 +39,7 @@ public:
   //! @param[in] theLocation The location of the shape.
   //! @param[in] theToMapColors Flag to indicate if colors should be mapped.
   //! @param[in] theStyle The style of the shape.
-  Standard_EXPORT RWMesh_EdgeIterator(const TDF_Label&       theLabel,
+  Standard_EXPORT RWMesh_EdgeIterator(const DataLabel&       theLabel,
                                       const TopLoc_Location& theLocation,
                                       const Standard_Boolean theToMapColors = false,
                                       const XCAFPrs_Style&   theStyle       = XCAFPrs_Style());
@@ -47,7 +47,7 @@ public:
   //! Auxiliary constructor.
   //! @param[in] theShape The shape to iterate.
   //! @param[in] theStyle The style of the shape.
-  Standard_EXPORT RWMesh_EdgeIterator(const TopoDS_Shape&  theShape,
+  Standard_EXPORT RWMesh_EdgeIterator(const TopoShape&  theShape,
                                       const XCAFPrs_Style& theStyle = XCAFPrs_Style());
 
   //! Return true if iterator points to the valid triangulation.
@@ -57,10 +57,10 @@ public:
   Standard_EXPORT void Next() Standard_OVERRIDE;
 
   //! Return current edge.
-  const TopoDS_Edge& Edge() const { return myEdge; }
+  const TopoEdge& Edge() const { return myEdge; }
 
   //! Return current edge.
-  const TopoDS_Shape& Shape() const Standard_OVERRIDE { return myEdge; }
+  const TopoShape& Shape() const Standard_OVERRIDE { return myEdge; }
 
   //! Return current edge data.
   const Handle(Poly_Polygon3D)& Polygon3D() const { return myPolygon3D; }
@@ -111,7 +111,7 @@ private:
   void initEdge();
 
 private:
-  TopoDS_Edge            myEdge;      //!< current edge
+  TopoEdge            myEdge;      //!< current edge
   Handle(Poly_Polygon3D) myPolygon3D; //!< geometry of current edge
 };
 

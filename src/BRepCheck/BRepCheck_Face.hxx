@@ -23,8 +23,8 @@
 #include <BRepCheck_Status.hxx>
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <BRepCheck_Result.hxx>
-class TopoDS_Face;
-class TopoDS_Shape;
+class TopoFace;
+class TopoShape;
 
 class BRepCheck_Face;
 DEFINE_STANDARD_HANDLE(BRepCheck_Face, BRepCheck_Result)
@@ -33,9 +33,9 @@ class BRepCheck_Face : public BRepCheck_Result
 {
 
 public:
-  Standard_EXPORT BRepCheck_Face(const TopoDS_Face& F);
+  Standard_EXPORT BRepCheck_Face(const TopoFace& F);
 
-  Standard_EXPORT void InContext(const TopoDS_Shape& ContextShape) Standard_OVERRIDE;
+  Standard_EXPORT void InContext(const TopoShape& ContextShape) Standard_OVERRIDE;
 
   Standard_EXPORT void Minimum() Standard_OVERRIDE;
 

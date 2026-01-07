@@ -76,9 +76,9 @@ public:
   //! rangemin, rangemax : the range in which the secondary format
   //! applies
   Standard_EXPORT void Format(Standard_Boolean&        zerosup,
-                              TCollection_AsciiString& mainform,
+                              AsciiString1& mainform,
                               Standard_Boolean&        hasrange,
-                              TCollection_AsciiString& forminrange,
+                              AsciiString1& forminrange,
                               Standard_Real&           rangemin,
                               Standard_Real&           rangemax) const;
 
@@ -89,15 +89,15 @@ public:
 
   //! Returns specific Label : for instance,
   //! "Float Format [ZeroSuppress] %E [, in range R1-R2 %f]"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_FloatFormat, IGESSelect_FileModifier)
 
 protected:
 private:
   Standard_Boolean        thezerosup;
-  TCollection_AsciiString themainform;
-  TCollection_AsciiString theformrange;
+  AsciiString1 themainform;
+  AsciiString1 theformrange;
   Standard_Real           therangemin;
   Standard_Real           therangemax;
 };

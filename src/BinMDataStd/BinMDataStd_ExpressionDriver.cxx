@@ -75,7 +75,7 @@ Standard_Boolean BinMDataStd_ExpressionDriver::Paste(
   }
 
   // expression
-  TCollection_ExtendedString aString;
+  UtfString aString;
   if (!(theSource >> aString))
     return Standard_False;
   aC->SetExpression(aString);
@@ -110,6 +110,6 @@ void BinMDataStd_ExpressionDriver::Paste(const Handle(TDF_Attribute)& theSource,
   }
 
   // expression
-  TCollection_ExtendedString aName = aC->Name();
+  UtfString aName = aC->Name();
   theTarget << aName;
 }

@@ -28,7 +28,7 @@ class StepData_Field;
 //! Describes a list of fields, in a general way
 //! This basic class is for a null size list
 //! Subclasses are for 1, N (fixed) or Dynamic sizes
-class StepData_FieldListN : public StepData_FieldList
+class StepData_FieldListN : public FieldList
 {
 public:
   DEFINE_STANDARD_ALLOC

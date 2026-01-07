@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-void BinMNaming::AddDrivers(const Handle(BinMDF_ADriverTable)& aDriverTable,
+void BinMNaming1::AddDrivers(const Handle(BinMDF_ADriverTable)& aDriverTable,
                             const Handle(Message_Messenger)&   aMessageDriver)
 {
   aDriverTable->AddDriver(new BinMNaming_NamedShapeDriver(aMessageDriver));

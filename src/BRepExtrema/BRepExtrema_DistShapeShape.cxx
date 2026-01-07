@@ -42,7 +42,7 @@
 namespace
 {
 
-static void Decomposition(const TopoDS_Shape&         S,
+static void Decomposition(const TopoShape&         S,
                           TopTools_IndexedMapOfShape& MapV,
                           TopTools_IndexedMapOfShape& MapE,
                           TopTools_IndexedMapOfShape& MapF)
@@ -50,9 +50,9 @@ static void Decomposition(const TopoDS_Shape&         S,
   MapV.Clear();
   MapE.Clear();
   MapF.Clear();
-  TopExp::MapShapes(S, TopAbs_VERTEX, MapV);
-  TopExp::MapShapes(S, TopAbs_EDGE, MapE);
-  TopExp::MapShapes(S, TopAbs_FACE, MapF);
+  TopExp1::MapShapes(S, TopAbs_VERTEX, MapV);
+  TopExp1::MapShapes(S, TopAbs_EDGE, MapE);
+  TopExp1::MapShapes(S, TopAbs_FACE, MapF);
 }
 
 static void BoxCalculation(const TopTools_IndexedMapOfShape& Map, Bnd_Array1OfBox& SBox)
@@ -65,9 +65,9 @@ static void BoxCalculation(const TopTools_IndexedMapOfShape& Map, Bnd_Array1OfBo
   }
 }
 
-inline Standard_Real DistanceInitiale(const TopoDS_Vertex& V1, const TopoDS_Vertex& V2)
+inline Standard_Real DistanceInitiale(const TopoVertex& V1, const TopoVertex& V2)
 {
-  return (BRep_Tool::Pnt(V1).Distance(BRep_Tool::Pnt(V2)));
+  return (BRepInspector::Pnt(V1).Distance(BRepInspector::Pnt(V2)));
 }
 
 //! Pair of objects to check extrema.
@@ -184,12 +184,12 @@ struct VertexFunctor
       }
       aScope.Next();
 
-      const TopoDS_Vertex& aVertex1 = TopoDS::Vertex(Map1->FindKey(anIdx1));
-      const Point3d         aPoint1  = BRep_Tool::Pnt(aVertex1);
+      const TopoVertex& aVertex1 = TopoDS::Vertex(Map1->FindKey(anIdx1));
+      const Point3d         aPoint1  = BRepInspector::Pnt(aVertex1);
       for (Standard_Integer anIdx2 = 1; anIdx2 <= aCount2; ++anIdx2)
       {
-        const TopoDS_Vertex& aVertex2 = TopoDS::Vertex(Map2->FindKey(anIdx2));
-        const Point3d         aPoint2  = BRep_Tool::Pnt(aVertex2);
+        const TopoVertex& aVertex2 = TopoDS::Vertex(Map2->FindKey(anIdx2));
+        const Point3d         aPoint2  = BRepInspector::Pnt(aVertex2);
         const Standard_Real  aDist    = aPoint1.Distance(aPoint2);
         {
           if (aDist < Solution.Dist[theIndex] - Eps)
@@ -339,8 +339,8 @@ struct DistanceFunctor
       }
       const Bnd_Box&         aBox1   = LBox1->Value(aPair.Index1);
       const Bnd_Box&         aBox2   = LBox2->Value(aPair.Index2);
-      const TopoDS_Shape&    aShape1 = Map1->FindKey(aPair.Index1);
-      const TopoDS_Shape&    aShape2 = Map2->FindKey(aPair.Index2);
+      const TopoShape&    aShape1 = Map1->FindKey(aPair.Index1);
+      const TopoShape&    aShape2 = Map2->FindKey(aPair.Index2);
       BRepExtrema_DistanceSS aDistTool(aShape1,
                                        aShape2,
                                        aBox1,
@@ -631,8 +631,8 @@ BRepExtrema_DistShapeShape::BRepExtrema_DistShapeShape()
 
 //=================================================================================================
 
-BRepExtrema_DistShapeShape::BRepExtrema_DistShapeShape(const TopoDS_Shape&          Shape1,
-                                                       const TopoDS_Shape&          Shape2,
+BRepExtrema_DistShapeShape::BRepExtrema_DistShapeShape(const TopoShape&          Shape1,
+                                                       const TopoShape&          Shape2,
                                                        const Extrema_ExtFlag        F,
                                                        const Extrema_ExtAlgo        A,
                                                        const Message_ProgressRange& theRange)
@@ -653,8 +653,8 @@ BRepExtrema_DistShapeShape::BRepExtrema_DistShapeShape(const TopoDS_Shape&      
 
 //=================================================================================================
 
-BRepExtrema_DistShapeShape::BRepExtrema_DistShapeShape(const TopoDS_Shape&          Shape1,
-                                                       const TopoDS_Shape&          Shape2,
+BRepExtrema_DistShapeShape::BRepExtrema_DistShapeShape(const TopoShape&          Shape1,
+                                                       const TopoShape&          Shape2,
                                                        const Standard_Real          theDeflection,
                                                        const Extrema_ExtFlag        F,
                                                        const Extrema_ExtAlgo        A,
@@ -676,7 +676,7 @@ BRepExtrema_DistShapeShape::BRepExtrema_DistShapeShape(const TopoDS_Shape&      
 
 //=================================================================================================
 
-void BRepExtrema_DistShapeShape::LoadS1(const TopoDS_Shape& Shape1)
+void BRepExtrema_DistShapeShape::LoadS1(const TopoShape& Shape1)
 {
   myShape1   = Shape1;
   myIsInitS1 = Standard_False;
@@ -685,7 +685,7 @@ void BRepExtrema_DistShapeShape::LoadS1(const TopoDS_Shape& Shape1)
 
 //=================================================================================================
 
-void BRepExtrema_DistShapeShape::LoadS2(const TopoDS_Shape& Shape2)
+void BRepExtrema_DistShapeShape::LoadS2(const TopoShape& Shape2)
 {
   myShape2   = Shape2;
   myIsInitS2 = Standard_False;
@@ -698,7 +698,7 @@ void BRepExtrema_DistShapeShape::LoadS2(const TopoDS_Shape& Shape2)
 //=======================================================================
 struct TreatmentFunctor
 {
-  TreatmentFunctor(NCollection_Array1<NCollection_Array1<TopoDS_Shape>>* theArrayOfArrays,
+  TreatmentFunctor(NCollection_Array1<NCollection_Array1<TopoShape>>* theArrayOfArrays,
                    const Message_ProgressRange&                          theRange)
       : ArrayOfArrays(theArrayOfArrays),
         SolutionsShape1(NULL),
@@ -734,8 +734,8 @@ struct TreatmentFunctor
         break;
       }
 
-      const TopoDS_Vertex& aVertex = TopoDS::Vertex(ArrayOfArrays->Value(theIndex).Value(i));
-      const Point3d         aPnt    = BRep_Tool::Pnt(aVertex);
+      const TopoVertex& aVertex = TopoDS::Vertex(ArrayOfArrays->Value(theIndex).Value(i));
+      const Point3d         aPnt    = BRepInspector::Pnt(aVertex);
       aClassifier.Perform(aPnt, aTolerance);
       if (aClassifier.State() == TopAbs_IN)
       {
@@ -751,10 +751,10 @@ struct TreatmentFunctor
     }
   }
 
-  NCollection_Array1<NCollection_Array1<TopoDS_Shape>>* ArrayOfArrays;
+  NCollection_Array1<NCollection_Array1<TopoShape>>* ArrayOfArrays;
   BRepExtrema_SeqOfSolution*                            SolutionsShape1;
   BRepExtrema_SeqOfSolution*                            SolutionsShape2;
-  TopoDS_Shape                                          Shape;
+  TopoShape                                          Shape;
   Message_ProgressScope                                 Scope;
   NCollection_Array1<Message_ProgressRange>             Ranges;
   Standard_Real*                                        DistRef;
@@ -766,7 +766,7 @@ struct TreatmentFunctor
 //=================================================================================================
 
 Standard_Boolean BRepExtrema_DistShapeShape::SolidTreatment(
-  const TopoDS_Shape&               theShape,
+  const TopoShape&               theShape,
   const TopTools_IndexedMapOfShape& theVertexMap,
   const Message_ProgressRange&      theRange)
 {
@@ -782,7 +782,7 @@ Standard_Boolean BRepExtrema_DistShapeShape::SolidTreatment(
     aNbTasks  = (Standard_Integer)Ceiling((double)aMapSize / aTaskSize);
   }
 
-  NCollection_Array1<NCollection_Array1<TopoDS_Shape>> anArrayOfArray(0, aNbTasks - 1);
+  NCollection_Array1<NCollection_Array1<TopoShape>> anArrayOfArray(0, aNbTasks - 1);
   for (Standard_Integer anI = 1; anI <= aMapSize; ++anI)
   {
     Standard_Integer aVectIndex  = (anI - 1) / aTaskSize;
@@ -908,8 +908,8 @@ Standard_Boolean BRepExtrema_DistShapeShape::Perform(const Message_ProgressRange
 
     if (myMapV1.Extent() && myMapV2.Extent())
     {
-      const TopoDS_Vertex& V1 = TopoDS::Vertex(myMapV1(1));
-      const TopoDS_Vertex& V2 = TopoDS::Vertex(myMapV2(1));
+      const TopoVertex& V1 = TopoDS::Vertex(myMapV1(1));
+      const TopoVertex& V2 = TopoDS::Vertex(myMapV2(1));
       myDistRef               = DistanceInitiale(V1, V2);
     }
     else
@@ -983,7 +983,7 @@ Standard_Real BRepExtrema_DistShapeShape::Value() const
 
 //=================================================================================================
 
-TopoDS_Shape BRepExtrema_DistShapeShape::SupportOnShape1(const Standard_Integer N) const
+TopoShape BRepExtrema_DistShapeShape::SupportOnShape1(const Standard_Integer N) const
 {
   if (!myIsDone)
     throw StdFail_NotDone("BRepExtrema_DistShapeShape::SupportOnShape1: There's no solution ");
@@ -998,12 +998,12 @@ TopoDS_Shape BRepExtrema_DistShapeShape::SupportOnShape1(const Standard_Integer 
     case BRepExtrema_IsInFace:
       return sol.Face();
   }
-  return TopoDS_Shape();
+  return TopoShape();
 }
 
 //=================================================================================================
 
-TopoDS_Shape BRepExtrema_DistShapeShape::SupportOnShape2(const Standard_Integer N) const
+TopoShape BRepExtrema_DistShapeShape::SupportOnShape2(const Standard_Integer N) const
 {
   if (!myIsDone)
     throw StdFail_NotDone("BRepExtrema_DistShapeShape::SupportOnShape2: There's no solution ");
@@ -1018,7 +1018,7 @@ TopoDS_Shape BRepExtrema_DistShapeShape::SupportOnShape2(const Standard_Integer 
     case BRepExtrema_IsInFace:
       return sol.Face();
   }
-  return TopoDS_Shape();
+  return TopoShape();
 }
 
 //=================================================================================================

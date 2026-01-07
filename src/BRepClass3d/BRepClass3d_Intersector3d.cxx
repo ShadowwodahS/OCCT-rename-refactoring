@@ -41,14 +41,14 @@ BRepClass3d_Intersector3d::BRepClass3d_Intersector3d()
 void BRepClass3d_Intersector3d::Perform(const gp_Lin& L,
                                         const Standard_Real /*Prm*/,
                                         const Standard_Real Tol,
-                                        const TopoDS_Face&  Face)
+                                        const TopoFace&  Face)
 {
 
   IntCurveSurface_HInter   HICS;
   BRepAdaptor_Surface      surface;
   BRepClass_FaceClassifier classifier2d;
 
-  Handle(Geom_Line) geomline = new Geom_Line(L);
+  Handle(GeomLine) geomline = new GeomLine(L);
   GeomAdaptor_Curve LL(geomline);
 
   surface.Initialize(Face, Standard_True);

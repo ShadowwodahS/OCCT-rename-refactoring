@@ -41,7 +41,7 @@ Standard_Boolean Blend_Function::TwistOnS2() const
   return Standard_False;
 }
 
-Standard_Boolean Blend_Function::Section(const Blend_Point& /*P*/,
+Standard_Boolean Blend_Function::Section(const Point2& /*P*/,
                                          TColgp_Array1OfPnt& /*Poles*/,
                                          TColgp_Array1OfVec& /*DPoles*/,
                                          TColgp_Array1OfVec& /*D2Poles*/,

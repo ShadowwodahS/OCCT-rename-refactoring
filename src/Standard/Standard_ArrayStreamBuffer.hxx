@@ -41,9 +41,9 @@
 //!   const size_t theBufferLength;
 //!   Standard_ArrayStreamBuffer aStreamBuffer (theBuffer, theBufferLength);
 //!   std::istream aStream (&aStreamBuffer);
-//!   TopoDS_Shape aShape;
-//!   BRep_Builder aBuilder;
-//!   BRepTools::Read (aShape, aStream, aBuilder);
+//!   TopoShape aShape;
+//!   ShapeBuilder aBuilder;
+//!   BRepTools1::Read (aShape, aStream, aBuilder);
 //! @endcode
 class Standard_ArrayStreamBuffer : public std::streambuf
 {

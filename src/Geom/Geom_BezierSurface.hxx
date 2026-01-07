@@ -33,7 +33,7 @@
 
 class Point3d;
 class Vector3d;
-class Geom_Curve;
+class GeomCurve3d;
 class Transform3d;
 class Geom_Geometry;
 
@@ -522,7 +522,7 @@ public:
 
   //! Computes the U isoparametric curve. For a Bezier surface the
   //! UIso curve is a Bezier curve.
-  Standard_EXPORT Handle(Geom_Curve) UIso(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) UIso(const Standard_Real U) const Standard_OVERRIDE;
 
   //! Returns the degree of the surface in the V direction it is
   //! NbVPoles - 1
@@ -530,7 +530,7 @@ public:
 
   //! Computes the V isoparametric curve. For a Bezier surface the
   //! VIso  curve is a Bezier curve.
-  Standard_EXPORT Handle(Geom_Curve) VIso(const Standard_Real V) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) VIso(const Standard_Real V) const Standard_OVERRIDE;
 
   //! Returns the weight of range UIndex, VIndex
   //!

@@ -28,7 +28,7 @@
 
 //=================================================================================================
 
-class Approx_SweepApproximation_Eval : public AdvApprox_EvaluatorFunction
+class Approx_SweepApproximation_Eval : public EvaluatorFunction
 {
 public:
   Approx_SweepApproximation_Eval(Approx_SweepApproximation& theTool)
@@ -279,8 +279,8 @@ void Approx_SweepApproximation::Approximation(const Handle(TColStd_HArray1OfReal
                                               const GeomAbs_Shape                  Continuity,
                                               const Standard_Integer               Degmax,
                                               const Standard_Integer               Segmax,
-                                              const AdvApprox_EvaluatorFunction& TheApproxFunction,
-                                              const AdvApprox_Cutting&           TheCuttingTool)
+                                              const EvaluatorFunction& TheApproxFunction,
+                                              const CuttingTool&           TheCuttingTool)
 {
   AdvApprox_ApproxAFunction Approx(Num1DSS,
                                    Num2DSS,
@@ -494,7 +494,7 @@ Standard_Boolean Approx_SweepApproximation::D1(const Standard_Real Param,
                                                const Standard_Real Last,
                                                Standard_Real&      Result)
 {
-  gp_XY            Vcoord;
+  Coords2d            Vcoord;
   Vector3d           Vaux;
   Standard_Integer index, ii;
   Standard_Boolean Ok          = Standard_True;
@@ -576,7 +576,7 @@ Standard_Boolean Approx_SweepApproximation::D2(const Standard_Real Param,
                                                const Standard_Real Last,
                                                Standard_Real&      Result)
 {
-  gp_XY            Vcoord;
+  Coords2d            Vcoord;
   Vector3d           Vaux;
   Standard_Integer index, ii;
   Standard_Boolean Ok          = Standard_True;

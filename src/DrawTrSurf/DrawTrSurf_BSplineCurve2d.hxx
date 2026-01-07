@@ -35,16 +35,16 @@ class DrawTrSurf_BSplineCurve2d : public DrawTrSurf_Curve2d
       DrawTrSurf_BSplineCurve2d(const Handle(Geom2d_BSplineCurve)& C);
 
   Standard_EXPORT DrawTrSurf_BSplineCurve2d(const Handle(Geom2d_BSplineCurve)& C,
-                                            const Draw_Color&                  CurvColor,
-                                            const Draw_Color&                  PolesColor,
-                                            const Draw_Color&                  KnotsColor,
+                                            const DrawColor&                  CurvColor,
+                                            const DrawColor&                  PolesColor,
+                                            const DrawColor&                  KnotsColor,
                                             const Draw_MarkerShape             KnotsShape,
                                             const Standard_Integer             KnotsSize,
                                             const Standard_Boolean             ShowPoles,
                                             const Standard_Boolean             ShowKnots,
                                             const Standard_Integer             Discret);
 
-  Standard_EXPORT virtual void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   void ShowPoles() { drawPoles = Standard_True; }
 
@@ -61,27 +61,27 @@ class DrawTrSurf_BSplineCurve2d : public DrawTrSurf_Curve2d
   //! value of index.
   Standard_EXPORT void FindPole(const Standard_Real X,
                                 const Standard_Real Y,
-                                const Draw_Display& D,
+                                const DrawDisplay& D,
                                 const Standard_Real Prec,
                                 Standard_Integer&   Index) const;
 
   Standard_EXPORT void FindKnot(const Standard_Real X,
                                 const Standard_Real Y,
-                                const Draw_Display& D,
+                                const DrawDisplay& D,
                                 const Standard_Real Prec,
                                 Standard_Integer&   Index) const;
 
-  void SetPolesColor(const Draw_Color& theColor) { polesLook = theColor; }
+  void SetPolesColor(const DrawColor& theColor) { polesLook = theColor; }
 
-  void SetKnotsColor(const Draw_Color& theColor) { knotsLook = theColor; }
+  void SetKnotsColor(const DrawColor& theColor) { knotsLook = theColor; }
 
   void SetKnotsShape(const Draw_MarkerShape theShape) { knotsForm = theShape; }
 
   Draw_MarkerShape KnotsShape() const { return knotsForm; }
 
-  Draw_Color KnotsColor() const { return knotsLook; }
+  DrawColor KnotsColor() const { return knotsLook; }
 
-  Draw_Color PolesColor() const { return polesLook; }
+  DrawColor PolesColor() const { return polesLook; }
 
   //! For variable copy.
   Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
@@ -90,9 +90,9 @@ private:
   Standard_Boolean drawPoles;
   Standard_Boolean drawKnots;
   Draw_MarkerShape knotsForm;
-  Draw_Color       knotsLook;
+  DrawColor       knotsLook;
   Standard_Integer knotsDim;
-  Draw_Color       polesLook;
+  DrawColor       polesLook;
 };
 
 #endif // _DrawTrSurf_BSplineCurve2d_HeaderFile

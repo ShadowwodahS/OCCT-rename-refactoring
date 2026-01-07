@@ -32,21 +32,21 @@ public:
 
   void Set(const Standard_Boolean b, Standard_Integer n, char** a);
 
-  void Set(const TCollection_AsciiString& brep1,
-           const TCollection_AsciiString& brep2,
-           const TCollection_AsciiString& n);
+  void Set(const AsciiString1& brep1,
+           const AsciiString1& brep2,
+           const AsciiString1& n);
 
-  TCollection_AsciiString Name1(const Standard_Integer I) const;
-  TCollection_AsciiString Name2(const Standard_Integer I) const;
+  AsciiString1 Name1(const Standard_Integer I) const;
+  AsciiString1 Name2(const Standard_Integer I) const;
 
-  const TCollection_AsciiString& File() const;
+  const AsciiString1& File() const;
 
-  Standard_Boolean Start(const TCollection_AsciiString& s, Standard_OStream& OS);
+  Standard_Boolean Start(const AsciiString1& s, Standard_OStream& OS);
   void             Add(const Standard_Integer I1, const Standard_Integer I2);
-  void             End(const TCollection_AsciiString& s, Standard_OStream& OS);
+  void             End(const AsciiString1& s, Standard_OStream& OS);
 
 private:
-  TCollection_AsciiString mybrep1, mybrep2, myfilename;
+  AsciiString1 mybrep1, mybrep2, myfilename;
   std::filebuf            myfilebuf;
   Standard_Boolean        myopen;
 };

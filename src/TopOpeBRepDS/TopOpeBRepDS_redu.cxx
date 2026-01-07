@@ -53,7 +53,7 @@ Standard_EXPORT Standard_Boolean FUN_ds_redu2d1d(const TopOpeBRepDS_DataStructur
                                                  const Standard_Integer                   ISE,
                                                  const Handle(TopOpeBRepDS_Interference)& I2d,
                                                  const TopOpeBRepDS_ListOfInterference&   l1d,
-                                                 TopOpeBRepDS_Transition&                 newT2d)
+                                                 StateTransition&                 newT2d)
 // attached to edge(ISE) : l1d = {I1d=(Tr1d(Esd),vG,Esd)}, I2d=(Tr2d(F),vG,E)
 //                         - vG is not vertex of SE -
 // purpose : I2d -> (newT2d(F),vG,E), with Esd is edge of F
@@ -65,7 +65,7 @@ Standard_EXPORT Standard_Boolean FUN_ds_redu2d1d(const TopOpeBRepDS_DataStructur
   TopOpeBRepDS_Kind GT2, ST2;
   Standard_Integer  G2, S2;
   FDS_Idata(I2d, SB2, IB2, SA2, IA2, GT2, G2, ST2, S2);
-  const TopOpeBRepDS_Transition T2d = I2d->Transition();
+  const StateTransition T2d = I2d->Transition();
   TopAbs_Orientation            O2  = T2d.Orientation(TopAbs_IN);
   newT2d.Index(IB2);
   newT2d.Set(O2);
@@ -73,10 +73,10 @@ Standard_EXPORT Standard_Boolean FUN_ds_redu2d1d(const TopOpeBRepDS_DataStructur
   if (!ok2)
     return Standard_False;
 
-  const TopoDS_Edge& SE = TopoDS::Edge(BDS.Shape(ISE));
+  const TopoEdge& SE = TopoDS::Edge(BDS.Shape(ISE));
   // clang-format off
-  const TopoDS_Face& F  = TopoDS::Face(BDS.Shape(IB2)); Standard_Real tolF = BRep_Tool::Tolerance(F)*1.e2;//nyitol
-  const TopoDS_Edge& E  = TopoDS::Edge(BDS.Shape(S2)); Standard_Real tolE = BRep_Tool::Tolerance(E)*1.e2;//nyitol
+  const TopoFace& F  = TopoDS::Face(BDS.Shape(IB2)); Standard_Real tolF = BRepInspector::Tolerance(F)*1.e2;//nyitol
+  const TopoEdge& E  = TopoDS::Edge(BDS.Shape(S2)); Standard_Real tolE = BRepInspector::Tolerance(E)*1.e2;//nyitol
   // clang-format on
   Standard_Boolean EclosingF = FUN_tool_IsClosingE(E, F, F);
   if (EclosingF)
@@ -127,7 +127,7 @@ Standard_EXPORT Standard_Boolean FUN_ds_redu2d1d(const TopOpeBRepDS_DataStructur
       continue;
     TopAbs_Orientation O1 = I1d->Transition().Orientation(TopAbs_IN);
 
-    const TopoDS_Edge& Esd     = TopoDS::Edge(BDS.Shape(IB1));
+    const TopoEdge& Esd     = TopoDS::Edge(BDS.Shape(IB1));
     Standard_Boolean   isedgeF = FUN_tool_inS(Esd, F);
     if (!isedgeF)
       continue;

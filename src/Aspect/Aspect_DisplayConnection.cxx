@@ -56,7 +56,7 @@ Aspect_DisplayConnection::~Aspect_DisplayConnection()
 
 //=================================================================================================
 
-Aspect_DisplayConnection::Aspect_DisplayConnection(const TCollection_AsciiString& theDisplayName)
+Aspect_DisplayConnection::Aspect_DisplayConnection(const AsciiString1& theDisplayName)
     : myDisplay(NULL),
       myDefVisualInfo(NULL),
       myDefFBConfig(NULL),
@@ -108,7 +108,7 @@ void Aspect_DisplayConnection::Init(Aspect_XDisplay* theDisplay)
     theDisplay != NULL ? theDisplay : (Aspect_XDisplay*)XOpenDisplay(myDisplayName.ToCString());
   if (myDisplay == NULL)
   {
-    TCollection_AsciiString aMessage;
+    AsciiString1 aMessage;
     aMessage += "Can not connect to the server \"";
     aMessage += myDisplayName + "\"";
     throw Aspect_DisplayConnectionDefinitionError(aMessage.ToCString());

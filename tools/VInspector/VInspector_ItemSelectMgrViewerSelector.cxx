@@ -64,7 +64,7 @@ void VInspector_ItemSelectMgrViewerSelector::Init()
       itemDynamicCast<VInspector_ItemContext>(aParentItem->Parent());
     if (aParentContextItem)
     {
-      Handle(AIS_InteractiveContext) aContext = aParentContextItem->GetContext();
+      Handle(VisualContext) aContext = aParentContextItem->GetContext();
       aViewerSelector                         = aContext->MainSelector();
     }
   }

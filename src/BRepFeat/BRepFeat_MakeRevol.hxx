@@ -27,9 +27,9 @@
 #include <BRepFeat_StatusError.hxx>
 #include <BRepFeat_Form.hxx>
 #include <Standard_Integer.hxx>
-class Geom_Curve;
-class TopoDS_Face;
-class TopoDS_Edge;
+class GeomCurve3d;
+class TopoFace;
+class TopoEdge;
 
 //! Describes functions to build revolved shells from basis shapes.
 class BRepFeat_MakeRevol : public BRepFeat_Form
@@ -49,16 +49,16 @@ public:
   //! The sketch face Skface serves to determine
   //! the type of operation. If it is inside the basis
   //! shape, a local operation such as glueing can be performed.
-  BRepFeat_MakeRevol(const TopoDS_Shape&    Sbase,
-                     const TopoDS_Shape&    Pbase,
-                     const TopoDS_Face&     Skface,
+  BRepFeat_MakeRevol(const TopoShape&    Sbase,
+                     const TopoShape&    Pbase,
+                     const TopoFace&     Skface,
                      const Axis3d&          Axis,
                      const Standard_Integer Fuse,
                      const Standard_Boolean Modify);
 
-  Standard_EXPORT void Init(const TopoDS_Shape&    Sbase,
-                            const TopoDS_Shape&    Pbase,
-                            const TopoDS_Face&     Skface,
+  Standard_EXPORT void Init(const TopoShape&    Sbase,
+                            const TopoShape&    Pbase,
+                            const TopoFace&     Skface,
                             const Axis3d&          Axis,
                             const Standard_Integer Fuse,
                             const Standard_Boolean Modify);
@@ -66,35 +66,35 @@ public:
   //! Indicates that the edge <E> will slide on the face
   //! <OnFace>. Raises ConstructionError if the  face does not belong to the
   //! basis shape, or the edge to the prismed shape.
-  Standard_EXPORT void Add(const TopoDS_Edge& E, const TopoDS_Face& OnFace);
+  Standard_EXPORT void Add(const TopoEdge& E, const TopoFace& OnFace);
 
   Standard_EXPORT void Perform(const Standard_Real Angle);
 
-  Standard_EXPORT void Perform(const TopoDS_Shape& Until);
+  Standard_EXPORT void Perform(const TopoShape& Until);
 
   //! Reconstructs the feature topologically.
-  Standard_EXPORT void Perform(const TopoDS_Shape& From, const TopoDS_Shape& Until);
+  Standard_EXPORT void Perform(const TopoShape& From, const TopoShape& Until);
 
   //! Builds an infinite shell. The infinite descendants
   //! will not be kept in the result.
   Standard_EXPORT void PerformThruAll();
 
   //! Assigns both a limiting shape, Until from
-  //! TopoDS_Shape, and an angle, Angle at
+  //! TopoShape, and an angle, Angle at
   //! which to stop generation of the revolved shell feature.
-  Standard_EXPORT void PerformUntilAngle(const TopoDS_Shape& Until, const Standard_Real Angle);
+  Standard_EXPORT void PerformUntilAngle(const TopoShape& Until, const Standard_Real Angle);
 
   Standard_EXPORT void Curves(TColGeom_SequenceOfCurve& S);
 
-  Standard_EXPORT Handle(Geom_Curve) BarycCurve();
+  Standard_EXPORT Handle(GeomCurve3d) BarycCurve();
 
 protected:
 private:
-  TopoDS_Shape                       myPbase;
+  TopoShape                       myPbase;
   TopTools_DataMapOfShapeListOfShape mySlface;
   Axis3d                             myAxis;
   TColGeom_SequenceOfCurve           myCurves;
-  Handle(Geom_Curve)                 myBCurve;
+  Handle(GeomCurve3d)                 myBCurve;
   BRepFeat_StatusError               myStatusError;
 };
 

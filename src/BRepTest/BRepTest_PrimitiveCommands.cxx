@@ -35,7 +35,7 @@
 // box
 //=======================================================================
 
-static Standard_Integer box(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer box(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   Point3d           anOrigin;
   gp_XYZ           aParams;
@@ -47,45 +47,45 @@ static Standard_Integer box(Draw_Interpretor&, Standard_Integer n, const char** 
 
   for (Standard_Integer anArgIter = 2; anArgIter < n; ++anArgIter)
   {
-    TCollection_AsciiString anArgCase(a[anArgIter]);
+    AsciiString1 anArgCase(a[anArgIter]);
     anArgCase.LowerCase();
     if (anArgCase == "-min" && anArgIter + 3 <= n)
     {
-      anOrigin.SetX(Draw::Atof(a[anArgIter + 1]));
-      anOrigin.SetY(Draw::Atof(a[anArgIter + 2]));
-      anOrigin.SetZ(Draw::Atof(a[anArgIter + 3]));
+      anOrigin.SetX(Draw1::Atof(a[anArgIter + 1]));
+      anOrigin.SetY(Draw1::Atof(a[anArgIter + 2]));
+      anOrigin.SetZ(Draw1::Atof(a[anArgIter + 3]));
       anArgIter += 3;
     }
     else if (anArgCase == "-max" && anArgIter + 3 <= n)
     {
-      aParams.SetX(Draw::Atof(a[anArgIter + 1]));
-      aParams.SetY(Draw::Atof(a[anArgIter + 2]));
-      aParams.SetZ(Draw::Atof(a[anArgIter + 3]));
+      aParams.SetX(Draw1::Atof(a[anArgIter + 1]));
+      aParams.SetY(Draw1::Atof(a[anArgIter + 2]));
+      aParams.SetZ(Draw1::Atof(a[anArgIter + 3]));
       isMinMax = Standard_True;
       anArgIter += 3;
     }
     else if (anArgCase == "-size" && anArgIter + 3 <= n)
     {
-      aParams.SetX(Draw::Atof(a[anArgIter + 1]));
-      aParams.SetY(Draw::Atof(a[anArgIter + 2]));
-      aParams.SetZ(Draw::Atof(a[anArgIter + 3]));
+      aParams.SetX(Draw1::Atof(a[anArgIter + 1]));
+      aParams.SetY(Draw1::Atof(a[anArgIter + 2]));
+      aParams.SetZ(Draw1::Atof(a[anArgIter + 3]));
       isMinMax = Standard_False;
       anArgIter += 3;
     }
     else if (anArgCase == "-dir" && anArgIter + 3 <= n)
     {
-      Standard_Real aX  = Draw::Atof(a[anArgIter + 1]);
-      Standard_Real anY = Draw::Atof(a[anArgIter + 2]);
-      Standard_Real aZ  = Draw::Atof(a[anArgIter + 3]);
+      Standard_Real aX  = Draw1::Atof(a[anArgIter + 1]);
+      Standard_Real anY = Draw1::Atof(a[anArgIter + 2]);
+      Standard_Real aZ  = Draw1::Atof(a[anArgIter + 3]);
       aDir.SetCoord(aX, anY, aZ);
       isAxis = Standard_True;
       anArgIter += 3;
     }
     else if (anArgCase == "-xdir" && anArgIter + 3 <= n)
     {
-      Standard_Real aX  = Draw::Atof(a[anArgIter + 1]);
-      Standard_Real anY = Draw::Atof(a[anArgIter + 2]);
-      Standard_Real aZ  = Draw::Atof(a[anArgIter + 3]);
+      Standard_Real aX  = Draw1::Atof(a[anArgIter + 1]);
+      Standard_Real anY = Draw1::Atof(a[anArgIter + 2]);
+      Standard_Real aZ  = Draw1::Atof(a[anArgIter + 3]);
       aXDir.SetCoord(aX, anY, aZ);
       isAxis = Standard_True;
       anArgIter += 3;
@@ -99,7 +99,7 @@ static Standard_Integer box(Draw_Interpretor&, Standard_Integer n, const char** 
       Standard_Real    aValue     = 0.0;
       Standard_Integer aCountReal = 0;
       Standard_Integer anIter     = anArgIter;
-      while (anIter < n && Draw::ParseReal(a[anIter], aValue))
+      while (anIter < n && Draw1::ParseReal(a[anIter], aValue))
       {
         anIter++;
         aCountReal++;
@@ -107,21 +107,21 @@ static Standard_Integer box(Draw_Interpretor&, Standard_Integer n, const char** 
 
       if (aCountReal == 6)
       {
-        anOrigin.SetX(Draw::Atof(a[anArgIter]));
-        anOrigin.SetY(Draw::Atof(a[anArgIter + 1]));
-        anOrigin.SetZ(Draw::Atof(a[anArgIter + 2]));
+        anOrigin.SetX(Draw1::Atof(a[anArgIter]));
+        anOrigin.SetY(Draw1::Atof(a[anArgIter + 1]));
+        anOrigin.SetZ(Draw1::Atof(a[anArgIter + 2]));
 
-        aParams.SetX(Draw::Atof(a[anArgIter + 3]));
-        aParams.SetY(Draw::Atof(a[anArgIter + 4]));
-        aParams.SetZ(Draw::Atof(a[anArgIter + 5]));
+        aParams.SetX(Draw1::Atof(a[anArgIter + 3]));
+        aParams.SetY(Draw1::Atof(a[anArgIter + 4]));
+        aParams.SetZ(Draw1::Atof(a[anArgIter + 5]));
         anArgIter += 5;
       }
 
       else if (aCountReal == 3)
       {
-        aParams.SetX(Draw::Atof(a[anArgIter]));
-        aParams.SetY(Draw::Atof(a[anArgIter + 1]));
-        aParams.SetZ(Draw::Atof(a[anArgIter + 2]));
+        aParams.SetX(Draw1::Atof(a[anArgIter]));
+        aParams.SetY(Draw1::Atof(a[anArgIter + 1]));
+        aParams.SetZ(Draw1::Atof(a[anArgIter + 2]));
         anArgIter += 2;
       }
       else
@@ -134,7 +134,7 @@ static Standard_Integer box(Draw_Interpretor&, Standard_Integer n, const char** 
 
   if (isPreview)
   {
-    TopoDS_Shape           S;
+    TopoShape           S;
     BRepPreviewAPI_MakeBox aPreview;
 
     if (isMinMax == Standard_True)
@@ -156,29 +156,29 @@ static Standard_Integer box(Draw_Interpretor&, Standard_Integer n, const char** 
     }
 
     S = aPreview;
-    DBRep::Set(a[1], S);
+    DBRep1::Set(a[1], S);
   }
   else
   {
-    TopoDS_Solid S;
+    TopoSolid S;
     if (isMinMax == Standard_True)
     {
-      S = BRepPrimAPI_MakeBox(anOrigin, aParams);
+      S = BoxMaker(anOrigin, aParams);
     }
     else if (isMinMax == Standard_False && isAxis == Standard_False)
     {
-      S = BRepPrimAPI_MakeBox(anOrigin, aParams.X(), aParams.Y(), aParams.Z());
+      S = BoxMaker(anOrigin, aParams.X(), aParams.Y(), aParams.Z());
     }
     else if (isAxis)
     {
       Frame3d anAxis(anOrigin, aDir, aXDir);
-      S = BRepPrimAPI_MakeBox(anAxis, aParams.X(), aParams.Y(), aParams.Z());
+      S = BoxMaker(anAxis, aParams.X(), aParams.Y(), aParams.Z());
     }
     else
     {
-      S = BRepPrimAPI_MakeBox(aParams.X(), aParams.Y(), aParams.Z());
+      S = BoxMaker(aParams.X(), aParams.Y(), aParams.Z());
     }
-    DBRep::Set(a[1], S);
+    DBRep1::Set(a[1], S);
   }
   return 0;
 }
@@ -187,59 +187,59 @@ static Standard_Integer box(Draw_Interpretor&, Standard_Integer n, const char** 
 // wedge
 //=======================================================================
 
-static Standard_Integer wedge(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer wedge(DrawInterpreter&, Standard_Integer n, const char** a)
 {
-  TopoDS_Solid S;
+  TopoSolid S;
 
   //  Standard_Integer i = 0;
   if (n == 15 || n == 18)
   {
-    Point3d LocalP(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
-    Dir3d LocalN(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]));
-    Dir3d LocalVx(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]));
+    Point3d LocalP(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4]));
+    Dir3d LocalN(Draw1::Atof(a[5]), Draw1::Atof(a[6]), Draw1::Atof(a[7]));
+    Dir3d LocalVx(Draw1::Atof(a[8]), Draw1::Atof(a[9]), Draw1::Atof(a[10]));
     Frame3d Axis(LocalP, LocalN, LocalVx);
-    //    Frame3d Axis(Point3d(Draw::Atof(a[2]),Draw::Atof(a[3]),Draw::Atof(a[4])),
-    //		Dir3d(Draw::Atof(a[5]),Draw::Atof(a[6]),Draw::Atof(a[7])),
-    //		Dir3d(Draw::Atof(a[8]),Draw::Atof(a[9]),Draw::Atof(a[10])));
+    //    Frame3d Axis(Point3d(Draw1::Atof(a[2]),Draw1::Atof(a[3]),Draw1::Atof(a[4])),
+    //		Dir3d(Draw1::Atof(a[5]),Draw1::Atof(a[6]),Draw1::Atof(a[7])),
+    //		Dir3d(Draw1::Atof(a[8]),Draw1::Atof(a[9]),Draw1::Atof(a[10])));
     if (n == 15)
     {
       S = BRepPrimAPI_MakeWedge(Axis,
-                                Draw::Atof(a[11]),
-                                Draw::Atof(a[12]),
-                                Draw::Atof(a[13]),
-                                Draw::Atof(a[14]));
+                                Draw1::Atof(a[11]),
+                                Draw1::Atof(a[12]),
+                                Draw1::Atof(a[13]),
+                                Draw1::Atof(a[14]));
     }
     else
     {
       S = BRepPrimAPI_MakeWedge(Axis,
-                                Draw::Atof(a[11]),
-                                Draw::Atof(a[12]),
-                                Draw::Atof(a[13]),
-                                Draw::Atof(a[14]),
-                                Draw::Atof(a[15]),
-                                Draw::Atof(a[16]),
-                                Draw::Atof(a[17]));
+                                Draw1::Atof(a[11]),
+                                Draw1::Atof(a[12]),
+                                Draw1::Atof(a[13]),
+                                Draw1::Atof(a[14]),
+                                Draw1::Atof(a[15]),
+                                Draw1::Atof(a[16]),
+                                Draw1::Atof(a[17]));
     }
   }
   else if (n == 6)
   {
     S =
-      BRepPrimAPI_MakeWedge(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
+      BRepPrimAPI_MakeWedge(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4]), Draw1::Atof(a[5]));
   }
   else if (n == 9)
   {
-    S = BRepPrimAPI_MakeWedge(Draw::Atof(a[2]),
-                              Draw::Atof(a[3]),
-                              Draw::Atof(a[4]),
-                              Draw::Atof(a[5]),
-                              Draw::Atof(a[6]),
-                              Draw::Atof(a[7]),
-                              Draw::Atof(a[8]));
+    S = BRepPrimAPI_MakeWedge(Draw1::Atof(a[2]),
+                              Draw1::Atof(a[3]),
+                              Draw1::Atof(a[4]),
+                              Draw1::Atof(a[5]),
+                              Draw1::Atof(a[6]),
+                              Draw1::Atof(a[7]),
+                              Draw1::Atof(a[8]));
   }
   else
     return 1;
 
-  DBRep::Set(a[1], S);
+  DBRep1::Set(a[1], S);
   return 0;
 }
 
@@ -247,40 +247,40 @@ static Standard_Integer wedge(Draw_Interpretor&, Standard_Integer n, const char*
 // cylinder
 //=======================================================================
 
-static Standard_Integer cylinder(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer cylinder(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
-  TopoDS_Solid       S;
-  Handle(Geom_Plane) P = Handle(Geom_Plane)::DownCast(DrawTrSurf::Get(a[2]));
+  TopoSolid       S;
+  Handle(GeomPlane) P = Handle(GeomPlane)::DownCast(DrawTrSurf1::Get(a[2]));
 
   if (n == 4)
   {
-    S = BRepPrimAPI_MakeCylinder(Draw::Atof(a[2]), Draw::Atof(a[3]));
+    S = CylinderMaker(Draw1::Atof(a[2]), Draw1::Atof(a[3]));
   }
   else if (n == 5)
   {
     if (P.IsNull())
-      S = BRepPrimAPI_MakeCylinder(Draw::Atof(a[2]),
-                                   Draw::Atof(a[3]),
-                                   Draw::Atof(a[4]) * (M_PI / 180.0));
+      S = CylinderMaker(Draw1::Atof(a[2]),
+                                   Draw1::Atof(a[3]),
+                                   Draw1::Atof(a[4]) * (M_PI / 180.0));
     else
-      S = BRepPrimAPI_MakeCylinder(P->Pln().Position().Ax2(), Draw::Atof(a[3]), Draw::Atof(a[4]));
+      S = CylinderMaker(P->Pln().Position().Ax2(), Draw1::Atof(a[3]), Draw1::Atof(a[4]));
   }
   else if (n == 6)
   {
     if (P.IsNull())
       return 1;
     else
-      S = BRepPrimAPI_MakeCylinder(P->Pln().Position().Ax2(),
-                                   Draw::Atof(a[3]),
-                                   Draw::Atof(a[4]),
-                                   Draw::Atof(a[5]) * (M_PI / 180.0));
+      S = CylinderMaker(P->Pln().Position().Ax2(),
+                                   Draw1::Atof(a[3]),
+                                   Draw1::Atof(a[4]),
+                                   Draw1::Atof(a[5]) * (M_PI / 180.0));
   }
   else
     return 1;
 
-  DBRep::Set(a[1], S);
+  DBRep1::Set(a[1], S);
   return 0;
 }
 
@@ -288,43 +288,43 @@ static Standard_Integer cylinder(Draw_Interpretor&, Standard_Integer n, const ch
 // cone
 //=======================================================================
 
-static Standard_Integer cone(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer cone(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
-  TopoDS_Solid S;
+  TopoSolid S;
 
-  Handle(Geom_Plane) P = Handle(Geom_Plane)::DownCast(DrawTrSurf::Get(a[2]));
+  Handle(GeomPlane) P = Handle(GeomPlane)::DownCast(DrawTrSurf1::Get(a[2]));
 
   if (n == 5)
   {
-    S = BRepPrimAPI_MakeCone(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
+    S = BRepPrimAPI_MakeCone(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4]));
   }
   else if (n == 6)
   {
     if (P.IsNull())
-      S = BRepPrimAPI_MakeCone(Draw::Atof(a[2]),
-                               Draw::Atof(a[3]),
-                               Draw::Atof(a[4]),
-                               Draw::Atof(a[5]) * (M_PI / 180.0));
+      S = BRepPrimAPI_MakeCone(Draw1::Atof(a[2]),
+                               Draw1::Atof(a[3]),
+                               Draw1::Atof(a[4]),
+                               Draw1::Atof(a[5]) * (M_PI / 180.0));
     else
       S = BRepPrimAPI_MakeCone(P->Pln().Position().Ax2(),
-                               Draw::Atof(a[3]),
-                               Draw::Atof(a[4]),
-                               Draw::Atof(a[5]));
+                               Draw1::Atof(a[3]),
+                               Draw1::Atof(a[4]),
+                               Draw1::Atof(a[5]));
   }
   else if (n == 7)
   {
     S = BRepPrimAPI_MakeCone(P->Pln().Position().Ax2(),
-                             Draw::Atof(a[3]),
-                             Draw::Atof(a[4]),
-                             Draw::Atof(a[5]),
-                             Draw::Atof(a[6]) * (M_PI / 180.0));
+                             Draw1::Atof(a[3]),
+                             Draw1::Atof(a[4]),
+                             Draw1::Atof(a[5]),
+                             Draw1::Atof(a[6]) * (M_PI / 180.0));
   }
   else
     return 1;
 
-  DBRep::Set(a[1], S);
+  DBRep1::Set(a[1], S);
   return 0;
 }
 
@@ -332,61 +332,61 @@ static Standard_Integer cone(Draw_Interpretor&, Standard_Integer n, const char**
 // sphere
 //=======================================================================
 
-static Standard_Integer sphere(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer sphere(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
-  TopoDS_Solid S;
+  TopoSolid S;
 
-  Handle(Geom_Plane) P = Handle(Geom_Plane)::DownCast(DrawTrSurf::Get(a[2]));
+  Handle(GeomPlane) P = Handle(GeomPlane)::DownCast(DrawTrSurf1::Get(a[2]));
 
   if (n == 3)
   {
-    S = BRepPrimAPI_MakeSphere(Draw::Atof(a[2]));
+    S = BRepPrimAPI_MakeSphere(Draw1::Atof(a[2]));
   }
   else if (n == 4)
   {
     if (P.IsNull())
-      S = BRepPrimAPI_MakeSphere(Draw::Atof(a[2]), Draw::Atof(a[3]) * (M_PI / 180.0));
+      S = BRepPrimAPI_MakeSphere(Draw1::Atof(a[2]), Draw1::Atof(a[3]) * (M_PI / 180.0));
     else
-      S = BRepPrimAPI_MakeSphere(P->Pln().Position().Ax2(), Draw::Atof(a[3]));
+      S = BRepPrimAPI_MakeSphere(P->Pln().Position().Ax2(), Draw1::Atof(a[3]));
   }
   else if (n == 5)
   {
     if (P.IsNull())
-      S = BRepPrimAPI_MakeSphere(Draw::Atof(a[2]),
-                                 Draw::Atof(a[3]) * (M_PI / 180.0),
-                                 Draw::Atof(a[4]) * (M_PI / 180.0));
+      S = BRepPrimAPI_MakeSphere(Draw1::Atof(a[2]),
+                                 Draw1::Atof(a[3]) * (M_PI / 180.0),
+                                 Draw1::Atof(a[4]) * (M_PI / 180.0));
     else
       S = BRepPrimAPI_MakeSphere(P->Pln().Position().Ax2(),
-                                 Draw::Atof(a[3]),
-                                 Draw::Atof(a[4]) * (M_PI / 180.0));
+                                 Draw1::Atof(a[3]),
+                                 Draw1::Atof(a[4]) * (M_PI / 180.0));
   }
   else if (n == 6)
   {
     if (P.IsNull())
-      S = BRepPrimAPI_MakeSphere(Draw::Atof(a[2]),
-                                 Draw::Atof(a[3]) * (M_PI / 180.0),
-                                 Draw::Atof(a[4]) * (M_PI / 180.0),
-                                 Draw::Atof(a[5]) * (M_PI / 180.0));
+      S = BRepPrimAPI_MakeSphere(Draw1::Atof(a[2]),
+                                 Draw1::Atof(a[3]) * (M_PI / 180.0),
+                                 Draw1::Atof(a[4]) * (M_PI / 180.0),
+                                 Draw1::Atof(a[5]) * (M_PI / 180.0));
     else
       S = BRepPrimAPI_MakeSphere(P->Pln().Position().Ax2(),
-                                 Draw::Atof(a[3]),
-                                 Draw::Atof(a[4]) * (M_PI / 180.0),
-                                 Draw::Atof(a[5]) * (M_PI / 180.0));
+                                 Draw1::Atof(a[3]),
+                                 Draw1::Atof(a[4]) * (M_PI / 180.0),
+                                 Draw1::Atof(a[5]) * (M_PI / 180.0));
   }
   else if (n == 7)
   {
     S = BRepPrimAPI_MakeSphere(P->Pln().Position().Ax2(),
-                               Draw::Atof(a[3]),
-                               Draw::Atof(a[4]) * (M_PI / 180.0),
-                               Draw::Atof(a[5]) * (M_PI / 180.0),
-                               Draw::Atof(a[6]) * (M_PI / 180.0));
+                               Draw1::Atof(a[3]),
+                               Draw1::Atof(a[4]) * (M_PI / 180.0),
+                               Draw1::Atof(a[5]) * (M_PI / 180.0),
+                               Draw1::Atof(a[6]) * (M_PI / 180.0));
   }
   else
     return 1;
 
-  DBRep::Set(a[1], S);
+  DBRep1::Set(a[1], S);
   return 0;
 }
 
@@ -394,81 +394,81 @@ static Standard_Integer sphere(Draw_Interpretor&, Standard_Integer n, const char
 // torus
 //=======================================================================
 
-static Standard_Integer torus(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer torus(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
-  TopoDS_Solid S;
+  TopoSolid S;
 
-  Handle(Geom_Plane) P = Handle(Geom_Plane)::DownCast(DrawTrSurf::Get(a[2]));
+  Handle(GeomPlane) P = Handle(GeomPlane)::DownCast(DrawTrSurf1::Get(a[2]));
 
   if (n == 4)
   {
-    S = BRepPrimAPI_MakeTorus(Draw::Atof(a[2]), Draw::Atof(a[3]));
+    S = BRepPrimAPI_MakeTorus(Draw1::Atof(a[2]), Draw1::Atof(a[3]));
   }
   else if (n == 5)
   {
     if (P.IsNull())
-      S = BRepPrimAPI_MakeTorus(Draw::Atof(a[2]),
-                                Draw::Atof(a[3]),
-                                Draw::Atof(a[4]) * (M_PI / 180.0));
+      S = BRepPrimAPI_MakeTorus(Draw1::Atof(a[2]),
+                                Draw1::Atof(a[3]),
+                                Draw1::Atof(a[4]) * (M_PI / 180.0));
     else
-      S = BRepPrimAPI_MakeTorus(P->Pln().Position().Ax2(), Draw::Atof(a[3]), Draw::Atof(a[4]));
+      S = BRepPrimAPI_MakeTorus(P->Pln().Position().Ax2(), Draw1::Atof(a[3]), Draw1::Atof(a[4]));
   }
   else if (n == 6)
   {
     if (P.IsNull())
-      S = BRepPrimAPI_MakeTorus(Draw::Atof(a[2]),
-                                Draw::Atof(a[3]),
-                                Draw::Atof(a[4]) * (M_PI / 180.0),
-                                Draw::Atof(a[5]) * (M_PI / 180.0));
+      S = BRepPrimAPI_MakeTorus(Draw1::Atof(a[2]),
+                                Draw1::Atof(a[3]),
+                                Draw1::Atof(a[4]) * (M_PI / 180.0),
+                                Draw1::Atof(a[5]) * (M_PI / 180.0));
     else
       S = BRepPrimAPI_MakeTorus(P->Pln().Position().Ax2(),
-                                Draw::Atof(a[3]),
-                                Draw::Atof(a[4]),
-                                Draw::Atof(a[5]) * (M_PI / 180.0));
+                                Draw1::Atof(a[3]),
+                                Draw1::Atof(a[4]),
+                                Draw1::Atof(a[5]) * (M_PI / 180.0));
   }
   else if (n == 7)
   {
     if (P.IsNull())
-      S = BRepPrimAPI_MakeTorus(Draw::Atof(a[2]),
-                                Draw::Atof(a[3]),
-                                Draw::Atof(a[4]) * (M_PI / 180.0),
-                                Draw::Atof(a[5]) * (M_PI / 180.0),
-                                Draw::Atof(a[6]) * (M_PI / 180.0));
+      S = BRepPrimAPI_MakeTorus(Draw1::Atof(a[2]),
+                                Draw1::Atof(a[3]),
+                                Draw1::Atof(a[4]) * (M_PI / 180.0),
+                                Draw1::Atof(a[5]) * (M_PI / 180.0),
+                                Draw1::Atof(a[6]) * (M_PI / 180.0));
     else
       S = BRepPrimAPI_MakeTorus(P->Pln().Position().Ax2(),
-                                Draw::Atof(a[3]),
-                                Draw::Atof(a[4]),
-                                Draw::Atof(a[5]) * (M_PI / 180.0),
-                                Draw::Atof(a[6]) * (M_PI / 180.0));
+                                Draw1::Atof(a[3]),
+                                Draw1::Atof(a[4]),
+                                Draw1::Atof(a[5]) * (M_PI / 180.0),
+                                Draw1::Atof(a[6]) * (M_PI / 180.0));
   }
   else if (n == 8)
   {
     S = BRepPrimAPI_MakeTorus(P->Pln().Position().Ax2(),
-                              Draw::Atof(a[3]),
-                              Draw::Atof(a[4]),
-                              Draw::Atof(a[5]) * (M_PI / 180.0),
-                              Draw::Atof(a[6]) * (M_PI / 180.0),
-                              Draw::Atof(a[7]) * (M_PI / 180.0));
+                              Draw1::Atof(a[3]),
+                              Draw1::Atof(a[4]),
+                              Draw1::Atof(a[5]) * (M_PI / 180.0),
+                              Draw1::Atof(a[6]) * (M_PI / 180.0),
+                              Draw1::Atof(a[7]) * (M_PI / 180.0));
   }
   else
     return 1;
 
-  DBRep::Set(a[1], S);
+  DBRep1::Set(a[1], S);
   return 0;
 }
 
 //=================================================================================================
 
-void BRepTest::PrimitiveCommands(Draw_Interpretor& theCommands)
+void BRepTest::PrimitiveCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
 
-  DBRep::BasicCommands(theCommands);
+  DBRep1::BasicCommands(theCommands);
 
   const char* g = "Primitive building commands";
 

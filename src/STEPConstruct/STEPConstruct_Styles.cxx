@@ -242,14 +242,14 @@ STEPConstruct_Styles::STEPConstruct_Styles() {}
 
 //=================================================================================================
 
-STEPConstruct_Styles::STEPConstruct_Styles(const Handle(XSControl_WorkSession)& WS)
+STEPConstruct_Styles::STEPConstruct_Styles(const Handle(ExchangeSession)& WS)
     : STEPConstruct_Tool(WS)
 {
 }
 
 //=================================================================================================
 
-Standard_Boolean STEPConstruct_Styles::Init(const Handle(XSControl_WorkSession)& WS)
+Standard_Boolean STEPConstruct_Styles::Init(const Handle(ExchangeSession)& WS)
 {
   myMapOfStyles.Clear();
   myStyles.Clear();
@@ -338,11 +338,11 @@ Handle(StepVisual_StyledItem) STEPConstruct_Styles::AddStyle(
 //=================================================================================================
 
 Handle(StepVisual_StyledItem) STEPConstruct_Styles::AddStyle(
-  const TopoDS_Shape&                                   Shape,
+  const TopoShape&                                   Shape,
   const Handle(StepVisual_PresentationStyleAssignment)& PSA,
   const Handle(StepVisual_StyledItem)&                  Override)
 {
-  Handle(StepRepr_RepresentationItem) item = STEPConstruct::FindEntity(FinderProcess(), Shape);
+  Handle(StepRepr_RepresentationItem) item = STEPConstruct1::FindEntity(FinderProcess(), Shape);
   Handle(StepVisual_StyledItem)       Style;
   if (!item.IsNull())
     Style = AddStyle(item, PSA, Override);
@@ -442,7 +442,7 @@ Standard_Boolean STEPConstruct_Styles::CreateNAUOSRD(
 //=================================================================================================
 
 Handle(StepRepr_RepresentationContext) STEPConstruct_Styles::FindContext(
-  const TopoDS_Shape& Shape) const
+  const TopoShape& Shape) const
 {
   // find context of items
   Handle(StepRepr_RepresentationContext) Context;
@@ -839,7 +839,7 @@ Handle(StepVisual_Colour) STEPConstruct_Styles::EncodeColor(
   if (cName)
   {
     Handle(StepVisual_DraughtingPreDefinedColour) ColPr;
-    TCollection_AsciiString                       aName(cName);
+    AsciiString1                       aName(cName);
     if (DPDCs.IsBound(aName))
     {
       ColPr = Handle(StepVisual_DraughtingPreDefinedColour)::DownCast(DPDCs.Find(aName));
@@ -900,7 +900,7 @@ Standard_Boolean STEPConstruct_Styles::DecodeColor(const Handle(StepVisual_Colou
   {
     Handle(StepVisual_PreDefinedColour) pdc = Handle(StepVisual_PreDefinedColour)::DownCast(Colour);
     Handle(StepVisual_PreDefinedItem)   pdi = pdc->GetPreDefinedItem();
-    const TCollection_AsciiString       name = pdi->Name()->String();
+    const AsciiString1       name = pdi->Name()->String();
     if (name.IsEqual("red"))
       Col.SetValues(Quantity_NOC_RED);
     else if (name.IsEqual("green"))

@@ -25,7 +25,7 @@
 
 class Message_ProgressRange;
 class RWMesh_FaceIterator;
-class TDocStd_Document;
+class AppDocument;
 
 class Message_LazyProgressScope;
 class RWPly_PlyWriterContext;
@@ -37,7 +37,7 @@ class RWPly_CafWriter : public RefObject
 public:
   //! Main constructor.
   //! @param[in] theFile path to output PLY file
-  Standard_EXPORT RWPly_CafWriter(const TCollection_AsciiString& theFile);
+  Standard_EXPORT RWPly_CafWriter(const AsciiString1& theFile);
 
   //! Destructor.
   Standard_EXPORT virtual ~RWPly_CafWriter();
@@ -120,7 +120,7 @@ public:
   //! @param[in] theFileInfo    map with file metadata to put into PLY header section
   //! @param[in] theProgress    optional progress indicator
   //! @return FALSE on file writing failure
-  Standard_EXPORT virtual bool Perform(const Handle(TDocStd_Document)&             theDocument,
+  Standard_EXPORT virtual bool Perform(const Handle(AppDocument)&             theDocument,
                                        const TDF_LabelSequence&                    theRootLabels,
                                        const TColStd_MapOfAsciiString*             theLabelFilter,
                                        const TColStd_IndexedDataMapOfStringString& theFileInfo,
@@ -132,7 +132,7 @@ public:
   //! @param[in] theFileInfo map with file metadata to put into PLY header section
   //! @param[in] theProgress optional progress indicator
   //! @return FALSE on file writing failure
-  Standard_EXPORT virtual bool Perform(const Handle(TDocStd_Document)&             theDocument,
+  Standard_EXPORT virtual bool Perform(const Handle(AppDocument)&             theDocument,
                                        const TColStd_IndexedDataMapOfStringString& theFileInfo,
                                        const Message_ProgressRange&                theProgress);
 
@@ -158,7 +158,7 @@ protected:
   Standard_EXPORT virtual bool writeShape(RWPly_PlyWriterContext&    theWriter,
                                           Message_LazyProgressScope& thePSentry,
                                           const Standard_Integer     theWriteStep,
-                                          const TDF_Label&           theLabel,
+                                          const DataLabel&           theLabel,
                                           const TopLoc_Location&     theParentTrsf,
                                           const XCAFPrs_Style&       theParentStyle);
 
@@ -181,7 +181,7 @@ protected:
                                             const RWMesh_FaceIterator& theFace);
 
 protected:
-  TCollection_AsciiString myFile; //!< output PLY file
+  AsciiString1 myFile; //!< output PLY file
                                   // clang-format off
   RWMesh_CoordinateSystemConverter myCSTrsf;       //!< transformation from OCCT to PLY coordinate system
   XCAFPrs_Style                    myDefaultStyle; //!< default material definition to be used for nodes with only color defined

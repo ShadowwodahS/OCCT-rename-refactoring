@@ -40,7 +40,7 @@ const Standard_GUID& TDataStd_RealArray::GetID()
 // function : SetAttr
 // purpose  : Implements Set functionality
 //=======================================================================
-static Handle(TDataStd_RealArray) SetAttr(const TDF_Label&       label,
+static Handle(TDataStd_RealArray) SetAttr(const DataLabel&       label,
                                           const Standard_Integer lower,
                                           const Standard_Integer upper,
                                           const Standard_Boolean isDelta,
@@ -84,7 +84,7 @@ void TDataStd_RealArray::Init(const Standard_Integer lower, const Standard_Integ
 
 //=================================================================================================
 
-Handle(TDataStd_RealArray) TDataStd_RealArray::Set(const TDF_Label&       label,
+Handle(TDataStd_RealArray) TDataStd_RealArray::Set(const DataLabel&       label,
                                                    const Standard_Integer lower,
                                                    const Standard_Integer upper,
                                                    const Standard_Boolean isDelta)
@@ -97,7 +97,7 @@ Handle(TDataStd_RealArray) TDataStd_RealArray::Set(const TDF_Label&       label,
 // purpose  : Set user defined attribute with specific ID
 //=======================================================================
 
-Handle(TDataStd_RealArray) TDataStd_RealArray::Set(const TDF_Label&       label,
+Handle(TDataStd_RealArray) TDataStd_RealArray::Set(const DataLabel&       label,
                                                    const Standard_GUID&   theGuid,
                                                    const Standard_Integer lower,
                                                    const Standard_Integer upper,

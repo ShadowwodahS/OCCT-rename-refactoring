@@ -32,10 +32,10 @@ Handle(ExprIntrp_GenFct) ExprIntrp_GenFct::Create()
   return new ExprIntrp_GenFct();
 }
 
-void ExprIntrp_GenFct::Process(const TCollection_AsciiString& str)
+void ExprIntrp_GenFct::Process(const AsciiString1& str)
 {
   Handle(ExprIntrp_GenFct) me = this;
-  done                        = ExprIntrp::Parse(me, str);
+  done                        = ExprIntrp1::Parse(me, str);
 }
 
 Standard_Boolean ExprIntrp_GenFct::IsDone() const

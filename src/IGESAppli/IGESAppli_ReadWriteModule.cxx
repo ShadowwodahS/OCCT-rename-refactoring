@@ -138,7 +138,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_DrilledHole, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolDrilledHole tool;
+      DrilledHoleTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -146,7 +146,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_ElementResults, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolElementResults tool;
+      ElementResultsTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -154,7 +154,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_FiniteElement, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolFiniteElement tool;
+      FiniteElementTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -162,7 +162,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_Flow, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolFlow tool;
+      FlowTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -170,7 +170,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_FlowLineSpec, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolFlowLineSpec tool;
+      FlowLineSpecTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -178,7 +178,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_LevelFunction, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolLevelFunction tool;
+      LevelFunctionTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -186,7 +186,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_LevelToPWBLayerMap, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolLevelToPWBLayerMap tool;
+      LevelToPWBLayerMapTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -194,7 +194,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_LineWidening, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolLineWidening tool;
+      LineWideningTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -202,7 +202,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_NodalConstraint, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNodalConstraint tool;
+      NodalConstraintTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -210,7 +210,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_NodalDisplAndRot, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNodalDisplAndRot tool;
+      NodalDisplRotTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -218,7 +218,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_NodalResults, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNodalResults tool;
+      NodalResultsTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -226,7 +226,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_Node, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNode tool;
+      NodeTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -234,7 +234,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_PWBArtworkStackup, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPWBArtworkStackup tool;
+      PWBArtworkStackupTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -242,7 +242,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_PWBDrilledHole, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPWBDrilledHole tool;
+      PWBDrilledHoleTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -250,7 +250,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_PartNumber, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPartNumber tool;
+      PartNumberTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -258,7 +258,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_PinNumber, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPinNumber tool;
+      PinNumberTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -266,7 +266,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_PipingFlow, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPipingFlow tool;
+      PipingFlowTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -274,7 +274,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_ReferenceDesignator, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolReferenceDesignator tool;
+      ReferenceDesignatorTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -282,7 +282,7 @@ void IGESAppli_ReadWriteModule::ReadOwnParams(const Standard_Integer            
       DeclareAndCast(IGESAppli_RegionRestriction, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolRegionRestriction tool;
+      RegionRestrictionTool tool;
       tool.ReadOwnParams(anent, IR, PR);
     }
     break;
@@ -301,7 +301,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_DrilledHole, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolDrilledHole tool;
+      DrilledHoleTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -309,7 +309,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_ElementResults, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolElementResults tool;
+      ElementResultsTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -317,7 +317,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_FiniteElement, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolFiniteElement tool;
+      FiniteElementTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -325,7 +325,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_Flow, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolFlow tool;
+      FlowTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -333,7 +333,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_FlowLineSpec, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolFlowLineSpec tool;
+      FlowLineSpecTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -341,7 +341,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_LevelFunction, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolLevelFunction tool;
+      LevelFunctionTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -349,7 +349,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_LevelToPWBLayerMap, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolLevelToPWBLayerMap tool;
+      LevelToPWBLayerMapTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -357,7 +357,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_LineWidening, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolLineWidening tool;
+      LineWideningTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -365,7 +365,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_NodalConstraint, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNodalConstraint tool;
+      NodalConstraintTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -373,7 +373,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_NodalDisplAndRot, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNodalDisplAndRot tool;
+      NodalDisplRotTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -381,7 +381,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_NodalResults, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNodalResults tool;
+      NodalResultsTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -389,7 +389,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_Node, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolNode tool;
+      NodeTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -397,7 +397,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_PWBArtworkStackup, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPWBArtworkStackup tool;
+      PWBArtworkStackupTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -405,7 +405,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_PWBDrilledHole, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPWBDrilledHole tool;
+      PWBDrilledHoleTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -413,7 +413,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_PartNumber, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPartNumber tool;
+      PartNumberTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -421,7 +421,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_PinNumber, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPinNumber tool;
+      PinNumberTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -429,7 +429,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_PipingFlow, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolPipingFlow tool;
+      PipingFlowTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -437,7 +437,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_ReferenceDesignator, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolReferenceDesignator tool;
+      ReferenceDesignatorTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;
@@ -445,7 +445,7 @@ void IGESAppli_ReadWriteModule::WriteOwnParams(const Standard_Integer           
       DeclareAndCast(IGESAppli_RegionRestriction, anent, ent);
       if (anent.IsNull())
         return;
-      IGESAppli_ToolRegionRestriction tool;
+      RegionRestrictionTool tool;
       tool.WriteOwnParams(anent, IW);
     }
     break;

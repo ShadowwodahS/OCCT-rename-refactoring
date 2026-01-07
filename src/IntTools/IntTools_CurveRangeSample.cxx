@@ -26,12 +26,12 @@ IntTools_CurveRangeSample::IntTools_CurveRangeSample(const Standard_Integer theI
   myIndex = theIndex;
 }
 
-IntTools_Range IntTools_CurveRangeSample::GetRange(const Standard_Real    theFirst,
+IntToolsRange IntTools_CurveRangeSample::GetRange(const Standard_Real    theFirst,
                                                    const Standard_Real    theLast,
                                                    const Standard_Integer theNbSample) const
 {
   Standard_Real  diffC = theLast - theFirst;
-  IntTools_Range aResult;
+  IntToolsRange aResult;
 
   if (GetDepth() <= 0)
   {

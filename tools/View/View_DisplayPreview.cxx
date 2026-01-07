@@ -35,7 +35,7 @@
 #include <Prs3d_PointAspect.hxx>
 #include <TopoDS_Compound.hxx>
 
-static void enableGlobalClipping(const Handle(AIS_InteractiveObject)& theObject,
+static void enableGlobalClipping(const Handle(VisualEntity)& theObject,
                                  const bool                           theIsEnable)
 {
   if (theIsEnable)
@@ -63,7 +63,7 @@ View_DisplayPreview::View_DisplayPreview()
 // function : SetContext
 // purpose :
 // =======================================================================
-void View_DisplayPreview::SetContext(const Handle(AIS_InteractiveContext)& theContext)
+void View_DisplayPreview::SetContext(const Handle(VisualContext)& theContext)
 {
   if (myContext == theContext)
     return;
@@ -89,7 +89,7 @@ void View_DisplayPreview::UpdatePreview(
   int aPreviewDisplayMode = AIS_Shaded;
 
   // clear previous previews
-  for (NCollection_List<Handle(AIS_InteractiveObject)>::Iterator anIterator(
+  for (NCollection_List<Handle(VisualEntity)>::Iterator anIterator(
          myPreviewReadyPresentations);
        anIterator.More();
        anIterator.Next())
@@ -109,8 +109,8 @@ void View_DisplayPreview::UpdatePreview(
   }
 
   // display parameter previews
-  BRep_Builder    aBuilder;
-  TopoDS_Compound aCompound;
+  ShapeBuilder    aBuilder;
+  TopoCompound aCompound;
   aBuilder.MakeCompound(aCompound);
   for (NCollection_List<Handle(RefObject)>::Iterator anIterator(thePresentations);
        anIterator.More();
@@ -121,8 +121,8 @@ void View_DisplayPreview::UpdatePreview(
     {
       aBuilder.Add(aCompound, aShapePtr->Shape());
     }
-    Handle(AIS_InteractiveObject) aPrs =
-      Handle(AIS_InteractiveObject)::DownCast(anIterator.Value());
+    Handle(VisualEntity) aPrs =
+      Handle(VisualEntity)::DownCast(anIterator.Value());
     if (!aPrs.IsNull() && aPrs->GetContext().IsNull() /*is not displayed in another context*/)
     {
       myContext->Display(
@@ -137,7 +137,7 @@ void View_DisplayPreview::UpdatePreview(
 
   if (myPreviewPresentation.IsNull())
   {
-    myPreviewPresentation = new AIS_Shape(aCompound);
+    myPreviewPresentation = new VisualShape(aCompound);
     myPreviewPresentation->Attributes()->SetAutoTriangulation(Standard_False);
 
     Quantity_Color aColor(Quantity_NOC_TOMATO);
@@ -154,7 +154,7 @@ void View_DisplayPreview::UpdatePreview(
   }
   else
   {
-    Handle(AIS_Shape)::DownCast(myPreviewPresentation)->Set(aCompound);
+    Handle(VisualShape)::DownCast(myPreviewPresentation)->Set(aCompound);
     if (!myPreviewPresentation->GetContext().IsNull())
     {
       myPreviewPresentation->GetContext()->Redisplay(myPreviewPresentation, Standard_True);

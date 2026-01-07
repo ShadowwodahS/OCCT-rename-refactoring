@@ -26,7 +26,7 @@
 #include <TFunction_ExecutionStatus.hxx>
 #include <Standard_OStream.hxx>
 class TFunction_Scope;
-class TDF_Label;
+class DataLabel;
 
 //! Iterator of the graph of functions
 class TFunction_Iterator
@@ -39,10 +39,10 @@ public:
 
   //! A constructor.
   //! Initializes the iterator.
-  Standard_EXPORT TFunction_Iterator(const TDF_Label& Access);
+  Standard_EXPORT TFunction_Iterator(const DataLabel& Access);
 
   //! Initializes the Iterator.
-  Standard_EXPORT virtual void Init(const TDF_Label& Access);
+  Standard_EXPORT virtual void Init(const DataLabel& Access);
 
   //! Defines the mode of iteration - usage or not of the execution status.
   //! If the iterator takes into account the execution status,
@@ -74,11 +74,11 @@ public:
 
   //! A help-function aimed to help the user to check the status of retrurned function.
   //! It calls TFunction_GraphNode::GetStatus() inside.
-  Standard_EXPORT TFunction_ExecutionStatus GetStatus(const TDF_Label& func) const;
+  Standard_EXPORT TFunction_ExecutionStatus GetStatus(const DataLabel& func) const;
 
   //! A help-function aimed to help the user to change the execution status of a function.
   //! It calls TFunction_GraphNode::SetStatus() inside.
-  Standard_EXPORT void SetStatus(const TDF_Label&                func,
+  Standard_EXPORT void SetStatus(const DataLabel&                func,
                                  const TFunction_ExecutionStatus status) const;
 
   Standard_EXPORT Standard_OStream& Dump(Standard_OStream& OS) const;

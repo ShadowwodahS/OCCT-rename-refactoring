@@ -49,7 +49,7 @@ BinLDrivers_DocumentStorageDriver::BinLDrivers_DocumentStorageDriver() {}
 //=================================================================================================
 
 void BinLDrivers_DocumentStorageDriver::Write(const Handle(CDM_Document)&       theDocument,
-                                              const TCollection_ExtendedString& theFileName,
+                                              const UtfString& theFileName,
                                               const Message_ProgressRange&      theRange)
 {
   SetIsError(Standard_False);
@@ -82,7 +82,7 @@ void BinLDrivers_DocumentStorageDriver::Write(const Handle(CDM_Document)&  theDo
   myMapUnsupported.Clear();
   mySizesToWrite.Clear();
 
-  Handle(TDocStd_Document) aDoc = Handle(TDocStd_Document)::DownCast(theDoc);
+  Handle(AppDocument) aDoc = Handle(AppDocument)::DownCast(theDoc);
   if (aDoc.IsNull())
   {
     SetIsError(Standard_True);
@@ -203,7 +203,7 @@ void BinLDrivers_DocumentStorageDriver::Write(const Handle(CDM_Document)&  theDo
     {
       // A problem with the stream
 #ifdef OCCT_DEBUG
-      TCollection_ExtendedString anErrorStr(
+      UtfString anErrorStr(
         "BinLDrivers_DocumentStorageDriver, Problem with the file stream, rdstate = ");
       myMsgDriver->Send(anErrorStr + (Standard_Integer)theOStream.rdstate(), Message_Info);
 #endif
@@ -218,7 +218,7 @@ void BinLDrivers_DocumentStorageDriver::Write(const Handle(CDM_Document)&  theDo
 void BinLDrivers_DocumentStorageDriver::UnsupportedAttrMsg(const Handle(TypeInfo)& theType)
 {
 #ifdef OCCT_DEBUG
-  TCollection_ExtendedString aMsg(
+  UtfString aMsg(
     "BinLDrivers_DocumentStorageDriver: warning: attribute driver for type ");
 #endif
   if (!myMapUnsupported.Contains(theType))
@@ -232,7 +232,7 @@ void BinLDrivers_DocumentStorageDriver::UnsupportedAttrMsg(const Handle(TypeInfo
 
 //=================================================================================================
 
-void BinLDrivers_DocumentStorageDriver::WriteSubTree(const TDF_Label&             theLabel,
+void BinLDrivers_DocumentStorageDriver::WriteSubTree(const DataLabel&             theLabel,
                                                      Standard_OStream&            theOS,
                                                      const Standard_Boolean&      theQuickPart,
                                                      const Message_ProgressRange& theRange)
@@ -313,7 +313,7 @@ void BinLDrivers_DocumentStorageDriver::WriteSubTree(const TDF_Label&           
   TDF_ChildIterator itChld(theLabel);
   for (; itChld.More(); itChld.Next())
   {
-    const TDF_Label& aChildLab = itChld.Value();
+    const DataLabel& aChildLab = itChld.Value();
     if (!aPS.More())
     {
       SetIsError(Standard_True);
@@ -337,12 +337,12 @@ void BinLDrivers_DocumentStorageDriver::WriteSubTree(const TDF_Label&           
 Handle(BinMDF_ADriverTable) BinLDrivers_DocumentStorageDriver::AttributeDrivers(
   const Handle(Message_Messenger)& theMessageDriver)
 {
-  return BinLDrivers::AttributeDrivers(theMessageDriver);
+  return BinLDrivers1::AttributeDrivers(theMessageDriver);
 }
 
 //=================================================================================================
 
-Standard_Boolean BinLDrivers_DocumentStorageDriver::FirstPassSubTree(const TDF_Label& L,
+Standard_Boolean BinLDrivers_DocumentStorageDriver::FirstPassSubTree(const DataLabel& L,
                                                                      TDF_LabelList&   ListOfEmptyL)
 {
   // are there writable attributes on L ?
@@ -388,7 +388,7 @@ Standard_Boolean BinLDrivers_DocumentStorageDriver::FirstPassSubTree(const TDF_L
 
 //=================================================================================================
 
-void BinLDrivers_DocumentStorageDriver::FirstPass(const TDF_Label& theRoot)
+void BinLDrivers_DocumentStorageDriver::FirstPass(const DataLabel& theRoot)
 {
   myTypesMap.Clear();
   myEmptyLabels.Clear();
@@ -467,7 +467,7 @@ void BinLDrivers_DocumentStorageDriver::WriteInfoSection(const Handle(CDM_Docume
     Handle(BinMDF_ADriver) aDriver = myDrivers->GetDriver(i);
     if (!aDriver.IsNull())
     {
-      const TCollection_AsciiString& aTypeName = aDriver->TypeName();
+      const AsciiString1& aTypeName = aDriver->TypeName();
       theData->AddToUserInfo(aTypeName);
     }
   }
@@ -481,7 +481,7 @@ void BinLDrivers_DocumentStorageDriver::WriteInfoSection(const Handle(CDM_Docume
   theData->SetApplicationVersion(theDoc->Application()->Version());
   theData->SetApplicationName(theDoc->Application()->Name());
 
-  Handle(TDocStd_Document) aDoc    = Handle(TDocStd_Document)::DownCast(theDoc);
+  Handle(AppDocument) aDoc    = Handle(AppDocument)::DownCast(theDoc);
   const Standard_Integer   aDocVer = aDoc->StorageFormatVersion();
   aHeader.einfo += FSD_BinaryFile::WriteInfo(theOStream,
                                              aObjNb,
@@ -532,7 +532,7 @@ void BinLDrivers_DocumentStorageDriver::WriteInfoSection(const Handle(CDM_Docume
 
 //=================================================================================================
 
-void BinLDrivers_DocumentStorageDriver::AddSection(const TCollection_AsciiString& theName,
+void BinLDrivers_DocumentStorageDriver::AddSection(const AsciiString1& theName,
                                                    const Standard_Boolean         isPostRead)
 {
   mySections.Append(BinLDrivers_DocumentSection(theName, isPostRead));
@@ -540,7 +540,7 @@ void BinLDrivers_DocumentStorageDriver::AddSection(const TCollection_AsciiString
 
 //=================================================================================================
 
-void BinLDrivers_DocumentStorageDriver::WriteSection(const TCollection_AsciiString& /*theName*/,
+void BinLDrivers_DocumentStorageDriver::WriteSection(const AsciiString1& /*theName*/,
                                                      const Handle(CDM_Document)& /*theDocument*/,
                                                      Standard_OStream& /*theOS*/)
 {

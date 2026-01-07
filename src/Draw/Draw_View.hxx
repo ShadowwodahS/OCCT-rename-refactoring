@@ -17,14 +17,14 @@
 #include <gp_Trsf.hxx>
 #include <Draw_Window.hxx>
 
-class Draw_Viewer;
+class DrawViewer;
 
-class Draw_View : public Draw_Window
+class Draw_View : public DrawWindow
 {
 public:
   //! Constructor
   Draw_View(Standard_Integer theId,
-            Draw_Viewer*     theViewer,
+            DrawViewer*     theViewer,
             Standard_Integer theX,
             Standard_Integer theY,
             Standard_Integer theWidth,
@@ -32,7 +32,7 @@ public:
             Aspect_Drawable  theWindow = 0);
 
   //! Constructor.
-  Draw_View(Standard_Integer theId, Draw_Viewer* theViewer, const char* theTitle);
+  Draw_View(Standard_Integer theId, DrawViewer* theViewer, const char* theTitle);
 
   //! Destructor.
   ~Draw_View();
@@ -98,7 +98,7 @@ public: //! @name view API
 
 protected:
   Standard_Integer myId;
-  Draw_Viewer*     myViewer;
+  DrawViewer*     myViewer;
   char             myType[5];
   Standard_Boolean myIsPers;
   Standard_Boolean myIs2D;

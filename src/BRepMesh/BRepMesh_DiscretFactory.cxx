@@ -23,12 +23,12 @@
 namespace
 {
 //! Embedded triangulation tool(s)
-static TCollection_AsciiString THE_FAST_DISCRET_MESH("FastDiscret");
+static AsciiString1 THE_FAST_DISCRET_MESH("FastDiscret");
 
 //! Generate system-dependent name for dynamic library
 //! (add standard prefixes and postfixes)
-static void MakeLibName(const TCollection_AsciiString& theDefaultName,
-                        TCollection_AsciiString&       theLibName)
+static void MakeLibName(const AsciiString1& theDefaultName,
+                        AsciiString1&       theLibName)
 {
   theLibName = "";
 #ifndef _WIN32
@@ -84,8 +84,8 @@ BRepMesh_DiscretFactory& BRepMesh_DiscretFactory::Get()
 
 //=================================================================================================
 
-Standard_Boolean BRepMesh_DiscretFactory::SetDefault(const TCollection_AsciiString& theName,
-                                                     const TCollection_AsciiString& theFuncName)
+Standard_Boolean BRepMesh_DiscretFactory::SetDefault(const AsciiString1& theName,
+                                                     const AsciiString1& theFuncName)
 {
   myErrorStatus = BRepMesh_FE_NOERROR;
   if (theName == THE_FAST_DISCRET_MESH)
@@ -102,7 +102,7 @@ Standard_Boolean BRepMesh_DiscretFactory::SetDefault(const TCollection_AsciiStri
     return myPluginEntry != NULL;
   }
 
-  TCollection_AsciiString  aMeshAlgoId = theName + "_" + theFuncName;
+  AsciiString1  aMeshAlgoId = theName + "_" + theFuncName;
   BRepMesh_PluginEntryType aFunc       = NULL;
   if (myFactoryMethods.IsBound(aMeshAlgoId))
   {
@@ -111,7 +111,7 @@ Standard_Boolean BRepMesh_DiscretFactory::SetDefault(const TCollection_AsciiStri
   }
   else
   {
-    TCollection_AsciiString aLibName;
+    AsciiString1 aLibName;
     MakeLibName(theName, aLibName);
     OSD_SharedLibrary aSL(aLibName.ToCString());
     if (!aSL.DlOpen(OSD_RTLD_LAZY))
@@ -135,7 +135,7 @@ Standard_Boolean BRepMesh_DiscretFactory::SetDefault(const TCollection_AsciiStri
 
   // try to create dummy tool
   BRepMesh_DiscretRoot* anInstancePtr = NULL;
-  Standard_Integer      anErr         = aFunc(TopoDS_Shape(), 0.001, 0.1, anInstancePtr);
+  Standard_Integer      anErr         = aFunc(TopoShape(), 0.001, 0.1, anInstancePtr);
   if (anErr != 0 || anInstancePtr == NULL)
   {
     // can not create the algo specified
@@ -155,7 +155,7 @@ Standard_Boolean BRepMesh_DiscretFactory::SetDefault(const TCollection_AsciiStri
 
 //=================================================================================================
 
-Handle(BRepMesh_DiscretRoot) BRepMesh_DiscretFactory::Discret(const TopoDS_Shape& theShape,
+Handle(BRepMesh_DiscretRoot) BRepMesh_DiscretFactory::Discret(const TopoShape& theShape,
                                                               const Standard_Real theDeflection,
                                                               const Standard_Real theAngle)
 {
@@ -176,7 +176,7 @@ Handle(BRepMesh_DiscretRoot) BRepMesh_DiscretFactory::Discret(const TopoDS_Shape
   else // if (myDefaultName == THE_FAST_DISCRET_MESH)
   {
     // use built-in
-    BRepMesh_IncrementalMesh::Discret(theShape, theDeflection, theAngle, anInstancePtr);
+    MeshGenerator::Discret(theShape, theDeflection, theAngle, anInstancePtr);
   }
 
   // cover with handle

@@ -31,7 +31,7 @@
 // Creation d' un vector de prostep a partir d' un Vec de gp
 //=============================================================================
 GeomToStep_MakeVector::GeomToStep_MakeVector(const Vector3d&           V,
-                                             const StepData_Factors& theLocalFactors)
+                                             const ConversionFactors& theLocalFactors)
 {
   Dir3d        D       = Dir3d(V);
   Standard_Real lFactor = theLocalFactors.LengthFactor();
@@ -43,7 +43,7 @@ GeomToStep_MakeVector::GeomToStep_MakeVector(const Vector3d&           V,
 //=============================================================================
 
 GeomToStep_MakeVector::GeomToStep_MakeVector(const gp_Vec2d&         V,
-                                             const StepData_Factors& theLocalFactors)
+                                             const ConversionFactors& theLocalFactors)
 {
   (void)theLocalFactors;
   gp_Dir2d      D       = gp_Dir2d(V);
@@ -56,7 +56,7 @@ GeomToStep_MakeVector::GeomToStep_MakeVector(const gp_Vec2d&         V,
 //=============================================================================
 
 GeomToStep_MakeVector::GeomToStep_MakeVector(const Handle(Geom_Vector)& GVector,
-                                             const StepData_Factors&    theLocalFactors)
+                                             const ConversionFactors&    theLocalFactors)
 {
   Vector3d V;
   V                     = GVector->Vec();
@@ -70,7 +70,7 @@ GeomToStep_MakeVector::GeomToStep_MakeVector(const Handle(Geom_Vector)& GVector,
 //=============================================================================
 
 GeomToStep_MakeVector::GeomToStep_MakeVector(const Handle(Geom2d_Vector)& GVector,
-                                             const StepData_Factors&      theLocalFactors)
+                                             const ConversionFactors&      theLocalFactors)
 {
   (void)theLocalFactors;
   gp_Vec2d V;

@@ -25,7 +25,7 @@
 #include <TCollection_AsciiString.hxx>
 
 class Quantity_Date;
-class OSD_Path;
+class SystemPath;
 
 // undefine SetCurrentDirectory that can be #defined by previous inclusion of windows.h
 #ifdef SetCurrentDirectory
@@ -37,10 +37,10 @@ class OSD_Process
 {
 public:
   //! Return full path to the current process executable.
-  Standard_EXPORT static TCollection_AsciiString ExecutablePath();
+  Standard_EXPORT static AsciiString1 ExecutablePath();
 
   //! Return full path to the folder containing current process executable with trailing separator.
-  Standard_EXPORT static TCollection_AsciiString ExecutableFolder();
+  Standard_EXPORT static AsciiString1 ExecutableFolder();
 
 public:
   DEFINE_STANDARD_ALLOC
@@ -49,13 +49,13 @@ public:
   Standard_EXPORT OSD_Process();
 
   //! Returns the terminal used (vt100, vt200 ,sun-cmd ...)
-  Standard_EXPORT void TerminalType(TCollection_AsciiString& Name);
+  Standard_EXPORT void TerminalType(AsciiString1& Name);
 
   //! Gets system date.
   Standard_EXPORT Quantity_Date SystemDate();
 
   //! Returns the user name.
-  Standard_EXPORT TCollection_AsciiString UserName();
+  Standard_EXPORT AsciiString1 UserName();
 
   //! Returns True if the process user is the super-user.
   Standard_EXPORT Standard_Boolean IsSuperUser();
@@ -64,10 +64,10 @@ public:
   Standard_EXPORT Standard_Integer ProcessId();
 
   //! Returns the current path where the process is.
-  Standard_EXPORT OSD_Path CurrentDirectory();
+  Standard_EXPORT SystemPath CurrentDirectory();
 
   //! Changes the current process directory.
-  Standard_EXPORT void SetCurrentDirectory(const OSD_Path& where);
+  Standard_EXPORT void SetCurrentDirectory(const SystemPath& where);
 
   //! Returns TRUE if an error occurs
   Standard_EXPORT Standard_Boolean Failed() const;

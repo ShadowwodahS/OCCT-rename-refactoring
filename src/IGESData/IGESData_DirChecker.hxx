@@ -39,25 +39,25 @@ class IGESData_IGESEntity;
 //! if criterium is not satisfied
 //! An Ignored field causes a Correction Message if the field is
 //! not null/zero
-class IGESData_DirChecker
+class DirectoryChecker
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns a DirChecker, with no criterium at all to be checked
-  Standard_EXPORT IGESData_DirChecker();
+  Standard_EXPORT DirectoryChecker();
 
   //! Returns a DirChecker, with no criterium except Required Type
-  Standard_EXPORT IGESData_DirChecker(const Standard_Integer atype);
+  Standard_EXPORT DirectoryChecker(const Standard_Integer atype);
 
   //! Returns a DirChecker, with no criterium except Required values
   //! for Type and Form numbers
-  Standard_EXPORT IGESData_DirChecker(const Standard_Integer atype, const Standard_Integer aform);
+  Standard_EXPORT DirectoryChecker(const Standard_Integer atype, const Standard_Integer aform);
 
   //! Returns a DirChecker, with no criterium except Required values
   //! for Type number (atype), and Required Range for Form number
   //! (which must be between aform1 and aform2 included)
-  Standard_EXPORT IGESData_DirChecker(const Standard_Integer atype,
+  Standard_EXPORT DirectoryChecker(const Standard_Integer atype,
                                       const Standard_Integer aform1,
                                       const Standard_Integer aform2);
 

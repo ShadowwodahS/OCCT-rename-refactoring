@@ -36,8 +36,8 @@
 class Adaptor3d_Curve;
 class Point3d;
 class Vector3d;
-class Geom_BezierCurve;
-class Geom_BSplineCurve;
+class BezierCurve3d;
+class BSplineCurve3d;
 
 class Extrema_CurveTool
 {
@@ -113,9 +113,9 @@ public:
 
   static Standard_Integer NbKnots(const Adaptor3d_Curve& C);
 
-  static Handle(Geom_BezierCurve) Bezier(const Adaptor3d_Curve& C);
+  static Handle(BezierCurve3d) Bezier(const Adaptor3d_Curve& C);
 
-  static Handle(Geom_BSplineCurve) BSpline(const Adaptor3d_Curve& C);
+  static Handle(BSplineCurve3d) BSpline(const Adaptor3d_Curve& C);
 
 protected:
 private:

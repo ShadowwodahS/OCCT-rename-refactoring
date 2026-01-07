@@ -16,7 +16,7 @@
 
 #include <Geom_Conic.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_Conic, Geom_Curve)
+IMPLEMENT_STANDARD_RTTIEXT(Geom_Conic, GeomCurve3d)
 
 //=================================================================================================
 
@@ -60,6 +60,6 @@ Standard_Boolean Geom_Conic::IsCN(const Standard_Integer) const
 void Geom_Conic::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Geom_Curve)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, GeomCurve3d)
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &pos)
 }

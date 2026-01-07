@@ -41,11 +41,11 @@ public:
 
   BOPTools_Set& operator=(const BOPTools_Set& Other) { return Assign(Other); }
 
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
-  Standard_EXPORT void Add(const TopoDS_Shape& theS, const TopAbs_ShapeEnum theType);
+  Standard_EXPORT void Add(const TopoShape& theS, const TopAbs_ShapeEnum theType);
 
-  Standard_EXPORT Standard_Integer NbShapes() const;
+  Standard_EXPORT Standard_Integer NbShapes1() const;
 
   Standard_EXPORT Standard_Boolean IsEqual(const BOPTools_Set& aOther) const;
 
@@ -57,8 +57,8 @@ protected:
   Standard_EXPORT void Clear();
 
   Handle(NCollection_BaseAllocator) myAllocator;
-  TopTools_ListOfShape              myShapes;
-  TopoDS_Shape                      myShape;
+  ShapeList              myShapes;
+  TopoShape                      myShape;
   Standard_Integer                  myNbShapes;
   size_t                            mySum;
   Standard_Integer                  myUpper;

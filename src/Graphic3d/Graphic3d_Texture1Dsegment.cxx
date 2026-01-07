@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Texture1Dsegment, Graphic3d_Texture1D)
 
 //=================================================================================================
 
-Graphic3d_Texture1Dsegment::Graphic3d_Texture1Dsegment(const TCollection_AsciiString& theFileName)
+Graphic3d_Texture1Dsegment::Graphic3d_Texture1Dsegment(const AsciiString1& theFileName)
     : Graphic3d_Texture1D(theFileName, Graphic3d_TypeOfTexture_1D),
       myX1(0.0f),
       myY1(0.0f),

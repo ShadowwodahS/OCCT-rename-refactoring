@@ -24,7 +24,7 @@
 #include <HLRAlgo_EdgeIterator.hxx>
 #include <Standard_Integer.hxx>
 class HLRBRep_Data;
-class TopoDS_Shape;
+class TopoShape;
 class HLRAlgo_Projector;
 class BRepAdaptor_Curve;
 
@@ -33,7 +33,7 @@ class StdPrs_HLRToolShape
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT StdPrs_HLRToolShape(const TopoDS_Shape&      TheShape,
+  Standard_EXPORT StdPrs_HLRToolShape(const TopoShape&      TheShape,
                                       const HLRAlgo_Projector& TheProjector);
 
   Standard_EXPORT Standard_Integer NbEdges() const;

@@ -13,7 +13,7 @@
 
 #include <Vrml_FontStyle.hxx>
 
-Vrml_FontStyle::Vrml_FontStyle(const Standard_Real        aSize,
+FontStyle::FontStyle(const Standard_Real        aSize,
                                const Vrml_FontStyleFamily aFamily,
                                const Vrml_FontStyleStyle  aStyle)
 {
@@ -22,37 +22,37 @@ Vrml_FontStyle::Vrml_FontStyle(const Standard_Real        aSize,
   myStyle  = aStyle;
 }
 
-void Vrml_FontStyle::SetSize(const Standard_Real aSize)
+void FontStyle::SetSize(const Standard_Real aSize)
 {
   mySize = aSize;
 }
 
-Standard_Real Vrml_FontStyle::Size() const
+Standard_Real FontStyle::Size() const
 {
   return mySize;
 }
 
-void Vrml_FontStyle::SetFamily(const Vrml_FontStyleFamily aFamily)
+void FontStyle::SetFamily(const Vrml_FontStyleFamily aFamily)
 {
   myFamily = aFamily;
 }
 
-Vrml_FontStyleFamily Vrml_FontStyle::Family() const
+Vrml_FontStyleFamily FontStyle::Family() const
 {
   return myFamily;
 }
 
-void Vrml_FontStyle::SetStyle(const Vrml_FontStyleStyle aStyle)
+void FontStyle::SetStyle(const Vrml_FontStyleStyle aStyle)
 {
   myStyle = aStyle;
 }
 
-Vrml_FontStyleStyle Vrml_FontStyle::Style() const
+Vrml_FontStyleStyle FontStyle::Style() const
 {
   return myStyle;
 }
 
-Standard_OStream& Vrml_FontStyle::Print(Standard_OStream& anOStream) const
+Standard_OStream& FontStyle::Print(Standard_OStream& anOStream) const
 {
   anOStream << "FontStyle {\n";
 

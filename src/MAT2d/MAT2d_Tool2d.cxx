@@ -71,7 +71,7 @@ static Handle(DrawTrSurf_Curve2d) draw;
 static Standard_Integer           AffichBis = Standard_False;
 #endif
 #ifdef OCCT_DEBUG
-static void MAT2d_DrawCurve(const Handle(Geom2d_Curve)& aCurve, const Standard_Integer Indice);
+static void MAT2d_DrawCurve(const Handle(GeomCurve2d)& aCurve, const Standard_Integer Indice);
 static Standard_Boolean Store      = Standard_False;
 static Standard_Boolean AffichDist = Standard_False;
 #endif
@@ -88,7 +88,7 @@ static Standard_Boolean AreNeighbours(const Standard_Integer IEdge1,
                                       const Standard_Integer IEdge2,
                                       const Standard_Integer NbEdge);
 
-static void             SetTrim(Bisector_Bisec& Bis, const Handle(Geom2d_Curve)& Line1);
+static void             SetTrim(Bisector_Bisec& Bis, const Handle(GeomCurve2d)& Line1);
 static Standard_Boolean CheckEnds(const Handle(Geom2d_Geometry)& Elt,
                                   const gp_Pnt2d&                PCom,
                                   const Standard_Real            Distance,
@@ -157,7 +157,7 @@ Standard_Real MAT2d_Tool2d::ToleranceOfConfusion() const
 
 Standard_Integer MAT2d_Tool2d::FirstPoint(const Standard_Integer anitem, Standard_Real& dist)
 {
-  Handle(Geom2d_Curve) curve;
+  Handle(GeomCurve2d) curve;
   Handle(Geom2d_Point) point;
   theNumberOfPnts++;
 
@@ -176,7 +176,7 @@ Standard_Integer MAT2d_Tool2d::FirstPoint(const Standard_Integer anitem, Standar
 
   if (type != STANDARD_TYPE(Geom2d_CartesianPoint))
   {
-    curve = Handle(Geom2d_Curve)::DownCast(theCircuit->Value(anitem));
+    curve = Handle(GeomCurve2d)::DownCast(theCircuit->Value(anitem));
     theGeomPnts.Bind(theNumberOfPnts, curve->Value(curve->FirstParameter()));
   }
   else
@@ -193,7 +193,7 @@ Standard_Integer MAT2d_Tool2d::TangentBefore(const Standard_Integer anitem,
                                              const Standard_Boolean IsOpenResult)
 {
   Standard_Integer     item;
-  Handle(Geom2d_Curve) curve;
+  Handle(GeomCurve2d) curve;
   theNumberOfVecs++;
 
   if (!IsOpenResult)
@@ -213,22 +213,22 @@ Standard_Integer MAT2d_Tool2d::TangentBefore(const Standard_Integer anitem,
   type = theCircuit->Value(anitem)->DynamicType();
   if (type != STANDARD_TYPE(Geom2d_CartesianPoint))
   {
-    curve = Handle(Geom2d_Curve)::DownCast(theCircuit->Value(anitem));
+    curve = Handle(GeomCurve2d)::DownCast(theCircuit->Value(anitem));
 #ifdef DRAW
     char* name = new char[100];
     sprintf(name, "c%d", anitem);
-    DrawTrSurf::Set(name, curve);
+    DrawTrSurf1::Set(name, curve);
     delete[] name;
 #endif
     theGeomVecs.Bind(theNumberOfVecs, curve->DN(curve->LastParameter(), 1));
   }
   else
   {
-    curve = Handle(Geom2d_Curve)::DownCast(theCircuit->Value(item));
+    curve = Handle(GeomCurve2d)::DownCast(theCircuit->Value(item));
 #ifdef DRAW
     char* name = new char[100];
     sprintf(name, "c%d", item);
-    DrawTrSurf::Set(name, curve);
+    DrawTrSurf1::Set(name, curve);
     delete[] name;
 #endif
     Standard_Real param = (IsOpenResult && anitem == theCircuit->NumberOfItems())
@@ -246,7 +246,7 @@ Standard_Integer MAT2d_Tool2d::TangentAfter(const Standard_Integer anitem,
                                             const Standard_Boolean IsOpenResult)
 {
   Standard_Integer     item;
-  Handle(Geom2d_Curve) curve;
+  Handle(GeomCurve2d) curve;
   gp_Vec2d             thevector;
   theNumberOfVecs++;
 
@@ -263,11 +263,11 @@ Standard_Integer MAT2d_Tool2d::TangentAfter(const Standard_Integer anitem,
   type = theCircuit->Value(anitem)->DynamicType();
   if (type != STANDARD_TYPE(Geom2d_CartesianPoint))
   {
-    curve = Handle(Geom2d_Curve)::DownCast(theCircuit->Value(anitem));
+    curve = Handle(GeomCurve2d)::DownCast(theCircuit->Value(anitem));
 #ifdef DRAW
     char* name = new char[100];
     sprintf(name, "c%d", anitem);
-    DrawTrSurf::Set(name, curve);
+    DrawTrSurf1::Set(name, curve);
     delete[] name;
 #endif
     thevector = curve->DN(curve->FirstParameter(), 1);
@@ -279,11 +279,11 @@ Standard_Integer MAT2d_Tool2d::TangentAfter(const Standard_Integer anitem,
     else
       item = (anitem == 1) ? 2 : (anitem - 1);
 
-    curve = Handle(Geom2d_Curve)::DownCast(theCircuit->Value(item));
+    curve = Handle(GeomCurve2d)::DownCast(theCircuit->Value(item));
 #ifdef DRAW
     char* name = new char[100];
     sprintf(name, "c%d", item);
-    DrawTrSurf::Set(name, curve);
+    DrawTrSurf1::Set(name, curve);
     delete[] name;
 #endif
     Standard_Real param =
@@ -328,17 +328,17 @@ void MAT2d_Tool2d::CreateBisector(const Handle(MAT_Bisector)& abisector)
   type1 = theCircuit->Value(edge1number)->DynamicType();
   Handle(TypeInfo) type2;
   type2 = theCircuit->Value(edge2number)->DynamicType();
-  Handle(Geom2d_Curve) item1;
-  Handle(Geom2d_Curve) item2;
+  Handle(GeomCurve2d) item1;
+  Handle(GeomCurve2d) item2;
 
   if (type1 != STANDARD_TYPE(Geom2d_CartesianPoint))
   {
-    item1 = Handle(Geom2d_Curve)::DownCast(elt1);
+    item1 = Handle(GeomCurve2d)::DownCast(elt1);
   }
 
   if (type2 != STANDARD_TYPE(Geom2d_CartesianPoint))
   {
-    item2 = Handle(Geom2d_Curve)::DownCast(elt2);
+    item2 = Handle(GeomCurve2d)::DownCast(elt2);
   }
 
 #ifdef OCCT_DEBUG
@@ -427,7 +427,7 @@ void MAT2d_Tool2d::CreateBisector(const Handle(MAT_Bisector)& abisector)
 #ifdef DRAW
   char* name = new char[100];
   sprintf(name, "b%d", theNumberOfBisectors);
-  DrawTrSurf::Set(name, bisector.Value());
+  DrawTrSurf1::Set(name, bisector.Value());
   Dump(abisector->BisectorNumber(), 1);
   delete[] name;
 #endif
@@ -439,7 +439,7 @@ void MAT2d_Tool2d::CreateBisector(const Handle(MAT_Bisector)& abisector)
   if (Store)
   {
     Handle(TypeInfo) Type1 = Type(bisector.Value()->BasisCurve());
-    Handle(Geom2d_Curve)  BasisCurve;
+    Handle(GeomCurve2d)  BasisCurve;
     if (Type1 == STANDARD_TYPE(Bisector_BisecAna))
     {
       BasisCurve =
@@ -447,7 +447,7 @@ void MAT2d_Tool2d::CreateBisector(const Handle(MAT_Bisector)& abisector)
   #ifdef DRAW
       char* name = new char[100];
       sprintf(name, "BISSEC_%d", abisector->BisectorNumber());
-      DrawTrSurf::Set(name, BasisCurve);
+      DrawTrSurf1::Set(name, BasisCurve);
       delete[] name;
   #endif
     }
@@ -467,7 +467,7 @@ void MAT2d_Tool2d::TrimBisec(Bisector_Bisec&        B1,
                              const Standard_Boolean InitialNeighbour,
                              const Standard_Integer StartOrEnd) const
 {
-  Handle(Geom2d_Curve)        Curve;
+  Handle(GeomCurve2d)        Curve;
   Handle(Geom2d_TrimmedCurve) LineSupportDomain, Line;
   Handle(Geom2d_Line)         Line1, Line2;
 
@@ -1072,8 +1072,8 @@ Standard_Real MAT2d_Tool2d::IntersectBisector(const Handle(MAT_Bisector)& Bisect
 #ifdef DRAW
       if (AffichBis)
       {
-        DrawTrSurf::Set("Bis1", Bisector1);
-        DrawTrSurf::Set("Bis2", Bisector2);
+        DrawTrSurf1::Set("Bis1", Bisector1);
+        DrawTrSurf1::Set("Bis2", Bisector2);
       }
 #endif
       return Precision::Infinite();
@@ -1084,8 +1084,8 @@ Standard_Real MAT2d_Tool2d::IntersectBisector(const Handle(MAT_Bisector)& Bisect
 #ifdef DRAW
       if (AffichBis)
       {
-        DrawTrSurf::Set("Bis1", Bisector1);
-        DrawTrSurf::Set("Bis2", Bisector2);
+        DrawTrSurf1::Set("Bis1", Bisector1);
+        DrawTrSurf1::Set("Bis2", Bisector2);
       }
 #endif
       return Precision::Infinite();
@@ -1147,7 +1147,7 @@ void MAT2d_Tool2d::Dump(const Standard_Integer bisector, const Standard_Integer)
   if (bisector > theNumberOfBisectors)
     return;
 
-  Handle(Geom2d_Curve) thebisector = (Handle(Geom2d_Curve))GeomBis(bisector).Value();
+  Handle(GeomCurve2d) thebisector = (Handle(GeomCurve2d))GeomBis(bisector).Value();
 
   MAT2d_DrawCurve(thebisector, 3);
 
@@ -1252,7 +1252,7 @@ void MAT2d_Tool2d::BisecFusion(const Standard_Integer I1, const Standard_Integer
     Handle(Bisector_BisecAna) BAna = Handle(Bisector_BisecAna)::DownCast(Bisector1->BasisCurve());
     //---------------------------- uncomment if new method Bisector_BisecAna::SetTrim(f,l) is not
     // used
-    //    Handle(Geom2d_Curve) C2d = BAna->Geom2dCurve();
+    //    Handle(GeomCurve2d) C2d = BAna->Geom2dCurve();
     //    Handle(Geom2d_TrimmedCurve) trimC2d = new Geom2d_TrimmedCurve(C2d, UF1, UL1);
     //    BAna->Init(trimC2d);
     //--------------------------- end
@@ -1267,7 +1267,7 @@ void MAT2d_Tool2d::BisecFusion(const Standard_Integer I1, const Standard_Integer
 static Handle(TypeInfo) Type(const Handle(Geom2d_Geometry)& aGeom)
 {
   Handle(TypeInfo) type = aGeom->DynamicType();
-  Handle(Geom2d_Curve)  curve;
+  Handle(GeomCurve2d)  curve;
 
   if (type == STANDARD_TYPE(Geom2d_TrimmedCurve))
   {
@@ -1296,7 +1296,7 @@ Standard_Boolean AreNeighbours(const Standard_Integer IEdge1,
 
 //=================================================================================================
 
-static void SetTrim(Bisector_Bisec& Bis, const Handle(Geom2d_Curve)& Line1)
+static void SetTrim(Bisector_Bisec& Bis, const Handle(GeomCurve2d)& Line1)
 {
   Geom2dInt_GInter            Intersect;
   Standard_Real               Distance;
@@ -1344,7 +1344,7 @@ IntRes2d_Domain Domain(const Handle(Geom2d_TrimmedCurve)& Bisector1, const Stand
   {
     Param2                      = 10000.;
     Handle(TypeInfo) Type1 = Type(Bisector1->BasisCurve());
-    Handle(Geom2d_Curve)  BasisCurve;
+    Handle(GeomCurve2d)  BasisCurve;
     if (Type1 == STANDARD_TYPE(Bisector_BisecAna))
     {
       BasisCurve = Handle(Bisector_BisecAna)::DownCast(Bisector1->BasisCurve())->Geom2dCurve();
@@ -1428,13 +1428,13 @@ Standard_Boolean CheckEnds(const Handle(Geom2d_Geometry)& Elt,
 //            Indice = 3 rouge,
 //            Indice = 4 vert.
 //==========================================================================
-void MAT2d_DrawCurve(const Handle(Geom2d_Curve)& aCurve, const Standard_Integer /*Indice*/)
+void MAT2d_DrawCurve(const Handle(GeomCurve2d)& aCurve, const Standard_Integer /*Indice*/)
 {
   Handle(TypeInfo) type = aCurve->DynamicType();
-  Handle(Geom2d_Curve)  curve, CurveDraw;
+  Handle(GeomCurve2d)  curve, CurveDraw;
   #ifdef DRAW
   Handle(DrawTrSurf_Curve2d) dr;
-  Draw_Color                 Couleur;
+  DrawColor                 Couleur;
   #endif
 
   if (type == STANDARD_TYPE(Geom2d_TrimmedCurve))

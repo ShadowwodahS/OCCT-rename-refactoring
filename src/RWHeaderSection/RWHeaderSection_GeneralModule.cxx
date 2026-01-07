@@ -33,7 +33,7 @@ IMPLEMENT_STANDARD_RTTIEXT(RWHeaderSection_GeneralModule, StepData_GeneralModule
 
 RWHeaderSection_GeneralModule::RWHeaderSection_GeneralModule()
 {
-  Interface_GeneralLib::SetGlobal(this, HeaderSection::Protocol());
+  Interface_GeneralLib::SetGlobal(this, HeaderSection1::Protocol());
 }
 
 void RWHeaderSection_GeneralModule::FillSharedCase(const Standard_Integer            CN,

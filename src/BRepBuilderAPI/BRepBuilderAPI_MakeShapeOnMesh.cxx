@@ -97,7 +97,7 @@ void BRepBuilderAPI_MakeShapeOnMesh::Build(const Message_ProgressRange& theRange
                             Standard_Real(aNbNodes + 2 * aNbTriangles));
 
   // Build shared vertices.
-  NCollection_IndexedDataMap<Standard_Integer, TopoDS_Vertex> aPnt2VertexMap;
+  NCollection_IndexedDataMap<Standard_Integer, TopoVertex> aPnt2VertexMap;
 
   for (Standard_Integer i = 1; i <= aNbNodes; ++i)
   {
@@ -106,12 +106,12 @@ void BRepBuilderAPI_MakeShapeOnMesh::Build(const Message_ProgressRange& theRange
       return;
 
     const Point3d        aP = myMesh->Node(i);
-    const TopoDS_Vertex aV = BRepBuilderAPI_MakeVertex(aP);
+    const TopoVertex aV = BRepBuilderAPI_MakeVertex(aP);
     aPnt2VertexMap.Add(i, aV);
   }
 
   // Build shared edges.
-  NCollection_IndexedDataMap<Edge, TopoDS_Edge> anEdgeToTEgeMap;
+  NCollection_IndexedDataMap<Edge, TopoEdge> anEdgeToTEgeMap;
   for (Standard_Integer i = 1; i <= aNbTriangles; ++i)
   {
     aPS.Next();
@@ -138,29 +138,29 @@ void BRepBuilderAPI_MakeShapeOnMesh::Build(const Message_ProgressRange& theRange
     }
 
     // Edges are constructed in forward order for the existing normals orientation.
-    // In Poly_Triangulation, positive direction is defined as cross product:
+    // In MeshTriangulation, positive direction is defined as cross product:
     // (aV1, aV2) x (aV1, aV3).
-    const TopoDS_Vertex& aV1 = aPnt2VertexMap.FindFromKey(anIdx[0]);
-    const TopoDS_Vertex& aV2 = aPnt2VertexMap.FindFromKey(anIdx[1]);
-    const TopoDS_Vertex& aV3 = aPnt2VertexMap.FindFromKey(anIdx[2]);
+    const TopoVertex& aV1 = aPnt2VertexMap.FindFromKey(anIdx[0]);
+    const TopoVertex& aV2 = aPnt2VertexMap.FindFromKey(anIdx[1]);
+    const TopoVertex& aV3 = aPnt2VertexMap.FindFromKey(anIdx[2]);
 
     const Edge aMeshEdge1(anIdx[0], anIdx[1]);
     const Edge aMeshEdge2(anIdx[1], anIdx[2]);
     const Edge aMeshEdge3(anIdx[2], anIdx[0]);
 
-    BRepBuilderAPI_MakeEdge aMaker1(aV1, aV2);
-    BRepBuilderAPI_MakeEdge aMaker2(aV2, aV3);
-    BRepBuilderAPI_MakeEdge aMaker3(aV3, aV1);
+    EdgeMaker aMaker1(aV1, aV2);
+    EdgeMaker aMaker2(aV2, aV3);
+    EdgeMaker aMaker3(aV3, aV1);
 
-    TopoDS_Edge aTE1 = aMaker1.Edge();
+    TopoEdge aTE1 = aMaker1.Edge();
     if (anIdx[1] < anIdx[0])
       aTE1.Reverse();
 
-    TopoDS_Edge aTE2 = aMaker2.Edge();
+    TopoEdge aTE2 = aMaker2.Edge();
     if (anIdx[2] < anIdx[1])
       aTE2.Reverse();
 
-    TopoDS_Edge aTE3 = aMaker3.Edge();
+    TopoEdge aTE3 = aMaker3.Edge();
     if (anIdx[0] < anIdx[2])
       aTE3.Reverse();
 
@@ -170,8 +170,8 @@ void BRepBuilderAPI_MakeShapeOnMesh::Build(const Message_ProgressRange& theRange
   }
 
   // Construct planar faces using shared topology.
-  TopoDS_Compound aResult;
-  BRep_Builder    aBB;
+  TopoCompound aResult;
+  ShapeBuilder    aBB;
   aBB.MakeCompound(aResult);
   for (Standard_Integer i = 1; i <= aNbTriangles; ++i)
   {
@@ -198,13 +198,13 @@ void BRepBuilderAPI_MakeShapeOnMesh::Build(const Message_ProgressRange& theRange
     if (!aHasAllEdges)
       continue;
 
-    TopoDS_Edge aTEdge1 = anEdgeToTEgeMap.FindFromKey(aMeshEdge1);
+    TopoEdge aTEdge1 = anEdgeToTEgeMap.FindFromKey(aMeshEdge1);
     if (isReversed1)
       aTEdge1.Reverse();
-    TopoDS_Edge aTEdge2 = anEdgeToTEgeMap.FindFromKey(aMeshEdge2);
+    TopoEdge aTEdge2 = anEdgeToTEgeMap.FindFromKey(aMeshEdge2);
     if (isReversed2)
       aTEdge2.Reverse();
-    TopoDS_Edge aTEdge3 = anEdgeToTEgeMap.FindFromKey(aMeshEdge3);
+    TopoEdge aTEdge3 = anEdgeToTEgeMap.FindFromKey(aMeshEdge3);
     if (isReversed3)
       aTEdge3.Reverse();
 
@@ -212,10 +212,10 @@ void BRepBuilderAPI_MakeShapeOnMesh::Build(const Message_ProgressRange& theRange
     aWireMaker.Add(aTEdge1);
     aWireMaker.Add(aTEdge2);
     aWireMaker.Add(aTEdge3);
-    const TopoDS_Wire aWire = aWireMaker.Wire();
+    const TopoWire aWire = aWireMaker.Wire();
 
     // Construct plane explicitly since it is faster than automatic construction
-    // within BRepBuilderAPI_MakeFace.
+    // within FaceMaker.
     BRepAdaptor_Curve aC1(aTEdge1);
     BRepAdaptor_Curve aC2(aTEdge2);
     const Dir3d      aD1 = aC1.Line().Direction();
@@ -230,8 +230,8 @@ void BRepBuilderAPI_MakeShapeOnMesh::Build(const Message_ProgressRange& theRange
     const Dir3d aNorm(aN);
     gp_Pln       aPln(myMesh->Node(anIdx[0]), aNorm);
 
-    BRepBuilderAPI_MakeFace aFaceMaker(aPln, aWire);
-    const TopoDS_Face&      aFace = aFaceMaker.Face();
+    FaceMaker aFaceMaker(aPln, aWire);
+    const TopoFace&      aFace = aFaceMaker.Face();
 
     aBB.Add(aResult, aFace);
   }

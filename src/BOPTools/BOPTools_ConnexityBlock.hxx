@@ -38,10 +38,10 @@ public:
         myLoops(myAllocator) {};
 
   //
-  const TopTools_ListOfShape& Shapes() const { return myShapes; };
+  const ShapeList& Shapes() const { return myShapes; };
 
   //
-  TopTools_ListOfShape& ChangeShapes() { return myShapes; };
+  ShapeList& ChangeShapes() { return myShapes; };
 
   //
   void SetRegular(const Standard_Boolean theFlag) { myRegular = theFlag; }
@@ -50,17 +50,17 @@ public:
   Standard_Boolean IsRegular() const { return myRegular; }
 
   //
-  const TopTools_ListOfShape& Loops() const { return myLoops; };
+  const ShapeList& Loops() const { return myLoops; };
 
   //
-  TopTools_ListOfShape& ChangeLoops() { return myLoops; };
+  ShapeList& ChangeLoops() { return myLoops; };
 
   //
 protected:
   Handle(NCollection_BaseAllocator) myAllocator;
   Standard_Boolean                  myRegular;
-  TopTools_ListOfShape              myShapes;
-  TopTools_ListOfShape              myLoops;
+  ShapeList              myShapes;
+  ShapeList              myLoops;
 };
 
 #endif

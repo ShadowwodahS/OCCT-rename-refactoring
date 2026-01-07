@@ -19,13 +19,13 @@
 #define DISCRETPLUGIN(name)                                                                        \
   extern "C"                                                                                       \
   {                                                                                                \
-    Standard_EXPORT Standard_Integer DISCRETALGO(const TopoDS_Shape&,                              \
+    Standard_EXPORT Standard_Integer DISCRETALGO(const TopoShape&,                              \
                                                  const Standard_Real,                              \
                                                  const Standard_Real,                              \
                                                  BRepMesh_DiscretRoot*&);                          \
   }                                                                                                \
                                                                                                    \
-  Standard_Integer DISCRETALGO(const TopoDS_Shape&    theShape,                                    \
+  Standard_Integer DISCRETALGO(const TopoShape&    theShape,                                    \
                                const Standard_Real    theLinDeflection,                            \
                                const Standard_Real    theAngDeflection,                            \
                                BRepMesh_DiscretRoot*& theAlgo)                                     \

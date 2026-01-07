@@ -42,30 +42,30 @@
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
 
-static TopAbs_Orientation Orientation(const TopoDS_Shape&, const TopoDS_Shape&);
+static TopAbs_Orientation Orientation(const TopoShape&, const TopoShape&);
 
 //=================================================================================================
 
-LocOpe_Pipe::LocOpe_Pipe(const TopoDS_Wire& Spine, const TopoDS_Shape& Profile)
+LocOpe_Pipe::LocOpe_Pipe(const TopoWire& Spine, const TopoShape& Profile)
     : myPipe(Spine, Profile)
 {
 
-  TopoDS_Shape Result = myPipe.Shape();
+  TopoShape Result = myPipe.Shape();
 
   // On enleve les faces generees par les edges de connexite du profile,
   // et on fusionne les plans si possible
 
   TopTools_IndexedDataMapOfShapeListOfShape theEFMap;
-  TopExp::MapShapesAndAncestors(Profile, TopAbs_EDGE, TopAbs_FACE, theEFMap);
-  TopExp_Explorer                    exp;
-  TopTools_ListOfShape               Empty;
+  TopExp1::MapShapesAndAncestors(Profile, TopAbs_EDGE, TopAbs_FACE, theEFMap);
+  ShapeExplorer                    exp;
+  ShapeList               Empty;
   TopTools_ListIteratorOfListOfShape it;
 
-  TopTools_ListOfShape goodfaces;
+  ShapeList goodfaces;
 
   for (Standard_Integer i = 1; i <= theEFMap.Extent(); i++)
   {
-    const TopoDS_Edge& edgpr = TopoDS::Edge(theEFMap.FindKey(i));
+    const TopoEdge& edgpr = TopoDS::Edge(theEFMap.FindKey(i));
     myMap.Bind(edgpr, Empty);
     if (theEFMap(i).Extent() >= 2)
     {
@@ -76,16 +76,16 @@ LocOpe_Pipe::LocOpe_Pipe(const TopoDS_Wire& Spine, const TopoDS_Shape& Profile)
       TopTools_MapOfShape MapFac; // on mappe les plans generes par cet edge
       for (exp.Init(Spine, TopAbs_EDGE); exp.More(); exp.Next())
       {
-        const TopoDS_Edge& edgsp  = TopoDS::Edge(exp.Current());
-        TopoDS_Face        resfac = myPipe.Face(edgsp, edgpr);
+        const TopoEdge& edgsp  = TopoDS::Edge(exp.Current());
+        TopoFace        resfac = myPipe.Face(edgsp, edgpr);
         if (!resfac.IsNull())
         {
-          Handle(Geom_Surface) P = BRep_Tool::Surface(resfac);
+          Handle(GeomSurface) P = BRepInspector::Surface(resfac);
           if (P->DynamicType() == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
           {
             P = Handle(Geom_RectangularTrimmedSurface)::DownCast(P)->BasisSurface();
           }
-          if (P->DynamicType() == STANDARD_TYPE(Geom_Plane))
+          if (P->DynamicType() == STANDARD_TYPE(GeomPlane))
           {
             MapFac.Add(resfac);
           }
@@ -114,24 +114,24 @@ LocOpe_Pipe::LocOpe_Pipe(const TopoDS_Wire& Spine, const TopoDS_Shape& Profile)
       while (MapFac.Extent() >= 2)
       {
         itm = TopTools_MapIteratorOfMapOfShape(MapFac);
-        TopTools_ListOfShape FacFuse;
-        TopoDS_Face          FaceRef = TopoDS::Face(itm.Key());
+        ShapeList FacFuse;
+        TopoFace          FaceRef = TopoDS::Face(itm.Key());
         FacFuse.Append(FaceRef);
-        Handle(Geom_Surface) P = BRep_Tool::Surface(FaceRef);
+        Handle(GeomSurface) P = BRepInspector::Surface(FaceRef);
         if (P->DynamicType() == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
         {
           P = Handle(Geom_RectangularTrimmedSurface)::DownCast(P)->BasisSurface();
         }
-        gp_Pln Plref = Handle(Geom_Plane)::DownCast(P)->Pln();
+        gp_Pln Plref = Handle(GeomPlane)::DownCast(P)->Pln();
 
         for (itm.Next(); itm.More(); itm.Next())
         {
-          P = BRep_Tool::Surface(TopoDS::Face(itm.Key()));
+          P = BRepInspector::Surface(TopoDS::Face(itm.Key()));
           if (P->DynamicType() == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
           {
             P = Handle(Geom_RectangularTrimmedSurface)::DownCast(P)->BasisSurface();
           }
-          gp_Pln Pl = Handle(Geom_Plane)::DownCast(P)->Pln();
+          gp_Pln Pl = Handle(GeomPlane)::DownCast(P)->Pln();
           if (Pl.Axis().IsParallel(Plref.Axis(), Precision::Angular())
               && Plref.Contains(Pl.Location(), Precision::Confusion()))
           {
@@ -147,12 +147,12 @@ LocOpe_Pipe::LocOpe_Pipe(const TopoDS_Wire& Spine, const TopoDS_Shape& Profile)
           FaceRef = TopoDS::Face(FacFuse.First());
           // Recuperer l'orientation
           TopAbs_Orientation orref = Orientation(FaceRef, Result);
-          P                        = BRep_Tool::Surface(FaceRef);
+          P                        = BRepInspector::Surface(FaceRef);
           if (P->DynamicType() == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
           {
             P = Handle(Geom_RectangularTrimmedSurface)::DownCast(P)->BasisSurface();
           }
-          Plref = Handle(Geom_Plane)::DownCast(P)->Pln();
+          Plref = Handle(GeomPlane)::DownCast(P)->Pln();
           Dir3d Dirref(Plref.Axis().Direction());
           if ((Plref.Direct() && orref == TopAbs_REVERSED)
               || (!Plref.Direct() && orref == TopAbs_FORWARD))
@@ -192,14 +192,14 @@ LocOpe_Pipe::LocOpe_Pipe(const TopoDS_Wire& Spine, const TopoDS_Shape& Profile)
             }
             if (MoreFound)
             {
-              const TopoDS_Face&   fac     = TopoDS::Face(it.Value());
+              const TopoFace&   fac     = TopoDS::Face(it.Value());
               TopAbs_Orientation   orrelat = Orientation(fac, Result);
-              Handle(Geom_Surface) OtherP  = BRep_Tool::Surface(fac);
+              Handle(GeomSurface) OtherP  = BRepInspector::Surface(fac);
               if (OtherP->DynamicType() == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
               {
                 OtherP = Handle(Geom_RectangularTrimmedSurface)::DownCast(OtherP)->BasisSurface();
               }
-              gp_Pln Pl = Handle(Geom_Plane)::DownCast(OtherP)->Pln();
+              gp_Pln Pl = Handle(GeomPlane)::DownCast(OtherP)->Pln();
               Dir3d Dirpl(Pl.Axis().Direction());
               if ((Pl.Direct() && orrelat == TopAbs_REVERSED)
                   || (!Plref.Direct() && orrelat == TopAbs_FORWARD))
@@ -228,10 +228,10 @@ LocOpe_Pipe::LocOpe_Pipe(const TopoDS_Wire& Spine, const TopoDS_Shape& Profile)
 
           if (FaceToFuse)
           {
-            TopoDS_Face  NewFace;
-            BRep_Builder B;
-            B.MakeFace(NewFace, P, BRep_Tool::Tolerance(FaceRef));
-            TopoDS_Wire NewWire;
+            TopoFace  NewFace;
+            ShapeBuilder B;
+            B.MakeFace(NewFace, P, BRepInspector::Tolerance(FaceRef));
+            TopoWire NewWire;
             B.MakeWire(NewWire);
             for (TopTools_MapIteratorOfMapOfShape itm2(MapEd); itm2.More(); itm2.Next())
             {
@@ -269,22 +269,22 @@ LocOpe_Pipe::LocOpe_Pipe(const TopoDS_Wire& Spine, const TopoDS_Shape& Profile)
 
 //=================================================================================================
 
-const TopoDS_Shape& LocOpe_Pipe::Shape() const
+const TopoShape& LocOpe_Pipe::Shape() const
 {
   return myRes;
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& LocOpe_Pipe::Shapes(const TopoDS_Shape& S)
+const ShapeList& LocOpe_Pipe::Shapes(const TopoShape& S)
 {
   TopAbs_ShapeEnum typS = S.ShapeType();
   if (typS != TopAbs_EDGE && typS != TopAbs_VERTEX)
   {
     throw Standard_DomainError();
   }
-  //  for (TopExp_Explorer exp(myPipe.Profile(),typS); exp.More(); exp.Next()) {
-  TopExp_Explorer exp(myPipe.Profile(), typS);
+  //  for (ShapeExplorer exp(myPipe.Profile(),typS); exp.More(); exp.Next()) {
+  ShapeExplorer exp(myPipe.Profile(), typS);
   for (; exp.More(); exp.Next())
   {
     if (exp.Current().IsSame(S))
@@ -300,11 +300,11 @@ const TopTools_ListOfShape& LocOpe_Pipe::Shapes(const TopoDS_Shape& S)
   myGShap.Clear();
   if (typS == TopAbs_VERTEX)
   {
-    const TopoDS_Vertex& VProfile = TopoDS::Vertex(S);
+    const TopoVertex& VProfile = TopoDS::Vertex(S);
     for (exp.Init(myPipe.Spine(), TopAbs_EDGE); exp.More(); exp.Next())
     {
-      const TopoDS_Edge& edsp  = TopoDS::Edge(exp.Current());
-      TopoDS_Edge        resed = myPipe.Edge(edsp, VProfile);
+      const TopoEdge& edsp  = TopoDS::Edge(exp.Current());
+      TopoEdge        resed = myPipe.Edge(edsp, VProfile);
       if (!resed.IsNull())
       {
         myGShap.Append(resed);
@@ -313,7 +313,7 @@ const TopTools_ListOfShape& LocOpe_Pipe::Shapes(const TopoDS_Shape& S)
     return myGShap;
   }
   // TopAbs_EDGE
-  const TopoDS_Edge& EProfile = TopoDS::Edge(S);
+  const TopoEdge& EProfile = TopoDS::Edge(S);
   return myMap(EProfile);
 }
 
@@ -334,13 +334,13 @@ const TColGeom_SequenceOfCurve& LocOpe_Pipe::Curves(const TColgp_SequenceOfPnt& 
     Point3d                   P1     = Spt(i);
     Standard_Integer         MaxDeg = 0;
     TColGeom_SequenceOfCurve seq;
-    TopoDS_Wire              W = myPipe.PipeLine(P1);
+    TopoWire              W = myPipe.PipeLine(P1);
 
-    TopExp_Explorer ex(W, TopAbs_EDGE);
+    ShapeExplorer ex(W, TopAbs_EDGE);
     for (; ex.More(); ex.Next())
     {
-      Handle(Geom_Curve)        C1 = BRep_Tool::Curve(TopoDS::Edge(ex.Current()), p1, p2);
-      Handle(Geom_BSplineCurve) C  = GeomConvert::CurveToBSplineCurve(C1);
+      Handle(GeomCurve3d)        C1 = BRepInspector::Curve(TopoDS::Edge(ex.Current()), p1, p2);
+      Handle(BSplineCurve3d) C  = GeomConvert::CurveToBSplineCurve(C1);
       if (C.IsNull())
       {
         continue;
@@ -359,7 +359,7 @@ const TColGeom_SequenceOfCurve& LocOpe_Pipe::Curves(const TColgp_SequenceOfPnt& 
       seq.Append(C);
     }
 
-    Handle(Geom_Curve) newC;
+    Handle(GeomCurve3d) newC;
     Standard_Integer   Nbkn = 0, Nbp = 0;
     Standard_Integer   Nbcurv = seq.Length();
     if (Nbcurv == 0)
@@ -368,10 +368,10 @@ const TColGeom_SequenceOfCurve& LocOpe_Pipe::Curves(const TColgp_SequenceOfPnt& 
       continue;
     }
 
-    Handle(Geom_BSplineCurve) Bsp;
+    Handle(BSplineCurve3d) Bsp;
     for (j = 1; j <= Nbcurv; j++)
     {
-      Bsp = Handle(Geom_BSplineCurve)::DownCast(seq(j));
+      Bsp = Handle(BSplineCurve3d)::DownCast(seq(j));
       Bsp->IncreaseDegree(MaxDeg);
       Nbp += Bsp->NbPoles();
       Nbkn += Bsp->NbKnots();
@@ -383,7 +383,7 @@ const TColGeom_SequenceOfCurve& LocOpe_Pipe::Curves(const TColgp_SequenceOfPnt& 
     TColgp_Array1OfPnt      Tpol(1, Nbp);
     Standard_Integer        Ik = 0, Ip = 0;
 
-    Bsp = Handle(Geom_BSplineCurve)::DownCast(seq(1));
+    Bsp = Handle(BSplineCurve3d)::DownCast(seq(1));
     for (k = 1; k <= Bsp->NbPoles(); k++)
     {
       Ip++;
@@ -399,7 +399,7 @@ const TColGeom_SequenceOfCurve& LocOpe_Pipe::Curves(const TColgp_SequenceOfPnt& 
 
     for (j = 2; j <= Nbcurv; j++)
     {
-      Bsp = Handle(Geom_BSplineCurve)::DownCast(seq(j));
+      Bsp = Handle(BSplineCurve3d)::DownCast(seq(j));
       for (k = 2; k <= Bsp->NbPoles(); k++)
       {
         Ip++;
@@ -414,7 +414,7 @@ const TColGeom_SequenceOfCurve& LocOpe_Pipe::Curves(const TColgp_SequenceOfPnt& 
       Tmu(Ik)--;
     }
     Tmu(Ik)++;
-    newC = new Geom_BSplineCurve(Tpol, Tkn, Tmu, MaxDeg);
+    newC = new BSplineCurve3d(Tpol, Tkn, Tmu, MaxDeg);
     myCrvs.Append(newC);
   }
 
@@ -426,9 +426,9 @@ const TColGeom_SequenceOfCurve& LocOpe_Pipe::Curves(const TColgp_SequenceOfPnt& 
 // purpose  : static, not member
 //=======================================================================
 
-static TopAbs_Orientation Orientation(const TopoDS_Shape& Sub, const TopoDS_Shape& S)
+static TopAbs_Orientation Orientation(const TopoShape& Sub, const TopoShape& S)
 {
-  TopExp_Explorer exp;
+  ShapeExplorer exp;
   for (exp.Init(S, Sub.ShapeType()); exp.More(); exp.Next())
   {
     if (exp.Current().IsSame(Sub))
@@ -441,14 +441,14 @@ static TopAbs_Orientation Orientation(const TopoDS_Shape& Sub, const TopoDS_Shap
 
 //=================================================================================================
 
-Handle(Geom_Curve) LocOpe_Pipe::BarycCurve()
+Handle(GeomCurve3d) LocOpe_Pipe::BarycCurve()
 {
   Standard_Integer j, k;
 
   Point3d               bar(0., 0., 0.);
   TColgp_SequenceOfPnt spt;
-  TopoDS_Shape         Base = FirstShape();
-  LocOpe::SampleEdges(Base, spt);
+  TopoShape         Base = FirstShape();
+  LocOpe1::SampleEdges(Base, spt);
   for (Standard_Integer jj = 1; jj <= spt.Length(); jj++)
   {
     const Point3d& pvt = spt(jj);
@@ -462,13 +462,13 @@ Handle(Geom_Curve) LocOpe_Pipe::BarycCurve()
 
   Standard_Integer         MaxDeg = 0;
   TColGeom_SequenceOfCurve seq;
-  TopoDS_Wire              W = myPipe.PipeLine(P1);
+  TopoWire              W = myPipe.PipeLine(P1);
 
-  TopExp_Explorer ex(W, TopAbs_EDGE);
+  ShapeExplorer ex(W, TopAbs_EDGE);
   for (; ex.More(); ex.Next())
   {
-    Handle(Geom_Curve)        C1 = BRep_Tool::Curve(TopoDS::Edge(ex.Current()), p1, p2);
-    Handle(Geom_BSplineCurve) C  = GeomConvert::CurveToBSplineCurve(C1);
+    Handle(GeomCurve3d)        C1 = BRepInspector::Curve(TopoDS::Edge(ex.Current()), p1, p2);
+    Handle(BSplineCurve3d) C  = GeomConvert::CurveToBSplineCurve(C1);
 
     if (C.IsNull())
     {
@@ -487,17 +487,17 @@ Handle(Geom_Curve) LocOpe_Pipe::BarycCurve()
     C->SetKnots(Tkn);
     seq.Append(C);
   }
-  Handle(Geom_Curve) newC;
+  Handle(GeomCurve3d) newC;
   Standard_Integer   Nbkn = 0, Nbp = 0;
   Standard_Integer   Nbcurv = seq.Length();
   if (Nbcurv == 0)
   {
     myCrvs.Append(newC);
   }
-  Handle(Geom_BSplineCurve) Bsp;
+  Handle(BSplineCurve3d) Bsp;
   for (j = 1; j <= Nbcurv; j++)
   {
-    Bsp = Handle(Geom_BSplineCurve)::DownCast(seq(j));
+    Bsp = Handle(BSplineCurve3d)::DownCast(seq(j));
     Bsp->IncreaseDegree(MaxDeg);
     Nbp += Bsp->NbPoles();
     Nbkn += Bsp->NbKnots();
@@ -509,7 +509,7 @@ Handle(Geom_Curve) LocOpe_Pipe::BarycCurve()
   TColgp_Array1OfPnt      Tpol(1, Nbp);
   Standard_Integer        Ik = 0, Ip = 0;
 
-  Bsp = Handle(Geom_BSplineCurve)::DownCast(seq(1));
+  Bsp = Handle(BSplineCurve3d)::DownCast(seq(1));
   for (k = 1; k <= Bsp->NbPoles(); k++)
   {
     Ip++;
@@ -525,7 +525,7 @@ Handle(Geom_Curve) LocOpe_Pipe::BarycCurve()
 
   for (j = 2; j <= Nbcurv; j++)
   {
-    Bsp = Handle(Geom_BSplineCurve)::DownCast(seq(j));
+    Bsp = Handle(BSplineCurve3d)::DownCast(seq(j));
     for (k = 2; k <= Bsp->NbPoles(); k++)
     {
       Ip++;
@@ -540,7 +540,7 @@ Handle(Geom_Curve) LocOpe_Pipe::BarycCurve()
     Tmu(Ik)--;
   }
   Tmu(Ik)++;
-  newC = new Geom_BSplineCurve(Tpol, Tkn, Tmu, MaxDeg);
+  newC = new BSplineCurve3d(Tpol, Tkn, Tmu, MaxDeg);
 
   return newC;
 }

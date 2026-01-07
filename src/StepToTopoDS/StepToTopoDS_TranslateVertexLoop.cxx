@@ -50,8 +50,8 @@ StepToTopoDS_TranslateVertexLoop::StepToTopoDS_TranslateVertexLoop()
 StepToTopoDS_TranslateVertexLoop::StepToTopoDS_TranslateVertexLoop(
   const Handle(StepShape_VertexLoop)& VL,
   StepToTopoDS_Tool&                  T,
-  StepToTopoDS_NMTool&                NMTool,
-  const StepData_Factors&             theLocalFactors)
+  NamingTool2&                NMTool,
+  const ConversionFactors&             theLocalFactors)
 {
   Init(VL, T, NMTool, theLocalFactors);
 }
@@ -63,20 +63,20 @@ StepToTopoDS_TranslateVertexLoop::StepToTopoDS_TranslateVertexLoop(
 
 void StepToTopoDS_TranslateVertexLoop::Init(const Handle(StepShape_VertexLoop)& VL,
                                             StepToTopoDS_Tool&                  aTool,
-                                            StepToTopoDS_NMTool&                NMTool,
-                                            const StepData_Factors&             theLocalFactors)
+                                            NamingTool2&                NMTool,
+                                            const ConversionFactors&             theLocalFactors)
 {
   // A Vertex Loop shall be mapped onto a Vertex + Edge + Wire;
   if (!aTool.IsBound(VL))
   {
-    BRep_Builder                      B;
+    ShapeBuilder                      B;
     Handle(Transfer_TransientProcess) TP = aTool.TransientProcess();
 
     //: S4136    Standard_Real preci = BRepAPI::Precision();
     Handle(StepShape_Vertex) Vtx;
-    TopoDS_Vertex            V1, V2;
-    TopoDS_Edge              E;
-    TopoDS_Wire              W;
+    TopoVertex            V1, V2;
+    TopoEdge              E;
+    TopoWire              W;
     Vtx = VL->LoopVertex();
     StepToTopoDS_TranslateVertex myTranVtx(Vtx, aTool, NMTool, theLocalFactors);
     if (myTranVtx.IsDone())
@@ -119,7 +119,7 @@ void StepToTopoDS_TranslateVertexLoop::Init(const Handle(StepShape_VertexLoop)& 
 // Purpose : Return the mapped Shape
 // ============================================================================
 
-const TopoDS_Shape& StepToTopoDS_TranslateVertexLoop::Value() const
+const TopoShape& StepToTopoDS_TranslateVertexLoop::Value() const
 {
   StdFail_NotDone_Raise_if(!done, "StepToTopoDS_TranslateVertexLoop::Value() - no result");
   return myResult;

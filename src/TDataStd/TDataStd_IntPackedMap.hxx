@@ -25,7 +25,7 @@
 #include <Standard_OStream.hxx>
 
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 class TDF_DeltaOnModification;
 
@@ -51,7 +51,7 @@ public:
   //! Attribute methods
   //! ===================
   Standard_EXPORT static Handle(TDataStd_IntPackedMap) Set(
-    const TDF_Label&       label,
+    const DataLabel&       label,
     const Standard_Boolean isDelta = Standard_False);
 
   Standard_EXPORT TDataStd_IntPackedMap();

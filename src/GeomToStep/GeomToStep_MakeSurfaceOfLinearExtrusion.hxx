@@ -30,14 +30,14 @@ class Geom_SurfaceOfLinearExtrusion;
 //! SurfaceOfLinearExtrusion from Geom and the class
 //! SurfaceOfLinearExtrusion from StepGeom which describes a
 //! surface_of_linear_extrusion from Prostep
-class GeomToStep_MakeSurfaceOfLinearExtrusion : public GeomToStep_Root
+class GeomToStep_MakeSurfaceOfLinearExtrusion : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeSurfaceOfLinearExtrusion(
     const Handle(Geom_SurfaceOfLinearExtrusion)& CSurf,
-    const StepData_Factors&                      theLocalFactors = StepData_Factors());
+    const ConversionFactors&                      theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_SurfaceOfLinearExtrusion)& Value() const;
 

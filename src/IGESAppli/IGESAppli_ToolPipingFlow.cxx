@@ -40,9 +40,9 @@
 #include <Standard_DomainError.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESAppli_ToolPipingFlow::IGESAppli_ToolPipingFlow() {}
+PipingFlowTool::PipingFlowTool() {}
 
-void IGESAppli_ToolPipingFlow::ReadOwnParams(const Handle(IGESAppli_PipingFlow)&    ent,
+void PipingFlowTool::ReadOwnParams(const Handle(IGESAppli_PipingFlow)&    ent,
                                              const Handle(IGESData_IGESReaderData)& IR,
                                              IGESData_ParamReader&                  PR) const
 {
@@ -182,7 +182,7 @@ void IGESAppli_ToolPipingFlow::ReadOwnParams(const Handle(IGESAppli_PipingFlow)&
             tempContFlowAssocs);
 }
 
-void IGESAppli_ToolPipingFlow::WriteOwnParams(const Handle(IGESAppli_PipingFlow)& ent,
+void PipingFlowTool::WriteOwnParams(const Handle(IGESAppli_PipingFlow)& ent,
                                               IGESData_IGESWriter&                IW) const
 {
   Standard_Integer i, num;
@@ -208,7 +208,7 @@ void IGESAppli_ToolPipingFlow::WriteOwnParams(const Handle(IGESAppli_PipingFlow)
     IW.Send(ent->ContFlowAssociativity(i));
 }
 
-void IGESAppli_ToolPipingFlow::OwnShared(const Handle(IGESAppli_PipingFlow)& ent,
+void PipingFlowTool::OwnShared(const Handle(IGESAppli_PipingFlow)& ent,
                                          Interface_EntityIterator&           iter) const
 {
   Standard_Integer i, num;
@@ -224,7 +224,7 @@ void IGESAppli_ToolPipingFlow::OwnShared(const Handle(IGESAppli_PipingFlow)& ent
     iter.GetOneItem(ent->ContFlowAssociativity(i));
 }
 
-void IGESAppli_ToolPipingFlow::OwnCopy(const Handle(IGESAppli_PipingFlow)& another,
+void PipingFlowTool::OwnCopy(const Handle(IGESAppli_PipingFlow)& another,
                                        const Handle(IGESAppli_PipingFlow)& ent,
                                        Interface_CopyTool&                 TC) const
 {
@@ -288,15 +288,15 @@ void IGESAppli_ToolPipingFlow::OwnCopy(const Handle(IGESAppli_PipingFlow)& anoth
             tempContFlowAssocs);
 }
 
-Standard_Boolean IGESAppli_ToolPipingFlow::OwnCorrect(const Handle(IGESAppli_PipingFlow)& ent) const
+Standard_Boolean PipingFlowTool::OwnCorrect(const Handle(IGESAppli_PipingFlow)& ent) const
 {
   return ent->OwnCorrect(); // nbcontextflags = 1
 }
 
-IGESData_DirChecker IGESAppli_ToolPipingFlow::DirChecker(
+DirectoryChecker PipingFlowTool::DirChecker(
   const Handle(IGESAppli_PipingFlow)& /* ent  */) const
 {
-  IGESData_DirChecker DC(402, 20);
+  DirectoryChecker DC(402, 20);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -308,7 +308,7 @@ IGESData_DirChecker IGESAppli_ToolPipingFlow::DirChecker(
   return DC;
 }
 
-void IGESAppli_ToolPipingFlow::OwnCheck(const Handle(IGESAppli_PipingFlow)& ent,
+void PipingFlowTool::OwnCheck(const Handle(IGESAppli_PipingFlow)& ent,
                                         const Interface_ShareTool&,
                                         Handle(Interface_Check)& ach) const
 {
@@ -318,7 +318,7 @@ void IGESAppli_ToolPipingFlow::OwnCheck(const Handle(IGESAppli_PipingFlow)& ent,
     ach->AddFail("Type of Flow != 0,1,2");
 }
 
-void IGESAppli_ToolPipingFlow::OwnDump(const Handle(IGESAppli_PipingFlow)& ent,
+void PipingFlowTool::OwnDump(const Handle(IGESAppli_PipingFlow)& ent,
                                        const IGESData_IGESDumper&          dumper,
                                        Standard_OStream&                   S,
                                        const Standard_Integer              level) const

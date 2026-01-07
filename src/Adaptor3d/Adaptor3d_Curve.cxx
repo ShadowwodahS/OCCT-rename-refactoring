@@ -237,14 +237,14 @@ Standard_Integer Adaptor3d_Curve::NbKnots() const
 
 //=================================================================================================
 
-Handle(Geom_BezierCurve) Adaptor3d_Curve::Bezier() const
+Handle(BezierCurve3d) Adaptor3d_Curve::Bezier() const
 {
   throw Standard_NotImplemented("Adaptor3d_Curve::Bezier");
 }
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) Adaptor3d_Curve::BSpline() const
+Handle(BSplineCurve3d) Adaptor3d_Curve::BSpline() const
 {
   throw Standard_NotImplemented("Adaptor3d_Curve::BSpline");
 }

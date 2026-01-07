@@ -56,7 +56,7 @@ PrsDim_DiameterDimension::PrsDim_DiameterDimension(const gp_Circ& theCircle, con
 
 //=================================================================================================
 
-PrsDim_DiameterDimension::PrsDim_DiameterDimension(const TopoDS_Shape& theShape)
+PrsDim_DiameterDimension::PrsDim_DiameterDimension(const TopoShape& theShape)
     : PrsDim_Dimension(PrsDim_KOD_DIAMETER)
 {
   SetMeasuredGeometry(theShape);
@@ -67,7 +67,7 @@ PrsDim_DiameterDimension::PrsDim_DiameterDimension(const TopoDS_Shape& theShape)
 
 //=================================================================================================
 
-PrsDim_DiameterDimension::PrsDim_DiameterDimension(const TopoDS_Shape& theShape,
+PrsDim_DiameterDimension::PrsDim_DiameterDimension(const TopoShape& theShape,
                                                    const gp_Pln&       thePlane)
     : PrsDim_Dimension(PrsDim_KOD_DIAMETER)
 {
@@ -115,7 +115,7 @@ void PrsDim_DiameterDimension::SetMeasuredGeometry(const gp_Circ& theCircle)
 
 //=================================================================================================
 
-void PrsDim_DiameterDimension::SetMeasuredGeometry(const TopoDS_Shape& theShape)
+void PrsDim_DiameterDimension::SetMeasuredGeometry(const TopoShape& theShape)
 {
   Point3d           aDummyPnt(gp::Origin());
   Standard_Boolean isClosed = Standard_False;
@@ -169,8 +169,8 @@ void PrsDim_DiameterDimension::ComputePlane()
 void PrsDim_DiameterDimension::ComputeAnchorPoint()
 {
   // Anchor point is an intersection of dimension plane and circle.
-  Handle(Geom_Circle) aCircle = new Geom_Circle(myCircle);
-  Handle(Geom_Plane)  aPlane  = new Geom_Plane(myPlane);
+  Handle(GeomCircle) aCircle = new GeomCircle(myCircle);
+  Handle(GeomPlane)  aPlane  = new GeomPlane(myPlane);
   GeomAPI_IntCS       anIntersector(aCircle, aPlane);
   if (!anIntersector.IsDone())
   {
@@ -200,28 +200,28 @@ void PrsDim_DiameterDimension::ComputeAnchorPoint()
 
 //=================================================================================================
 
-const TCollection_AsciiString& PrsDim_DiameterDimension::GetModelUnits() const
+const AsciiString1& PrsDim_DiameterDimension::GetModelUnits() const
 {
   return myDrawer->DimLengthModelUnits();
 }
 
 //=================================================================================================
 
-const TCollection_AsciiString& PrsDim_DiameterDimension::GetDisplayUnits() const
+const AsciiString1& PrsDim_DiameterDimension::GetDisplayUnits() const
 {
   return myDrawer->DimLengthDisplayUnits();
 }
 
 //=================================================================================================
 
-void PrsDim_DiameterDimension::SetModelUnits(const TCollection_AsciiString& theUnits)
+void PrsDim_DiameterDimension::SetModelUnits(const AsciiString1& theUnits)
 {
   myDrawer->SetDimLengthModelUnits(theUnits);
 }
 
 //=================================================================================================
 
-void PrsDim_DiameterDimension::SetDisplayUnits(const TCollection_AsciiString& theUnits)
+void PrsDim_DiameterDimension::SetDisplayUnits(const AsciiString1& theUnits)
 {
   myDrawer->SetDimLengthDisplayUnits(theUnits);
 }
@@ -261,7 +261,7 @@ void PrsDim_DiameterDimension::Compute(const Handle(PrsMgr_PresentationManager)&
 //=================================================================================================
 
 void PrsDim_DiameterDimension::ComputeFlyoutSelection(
-  const Handle(SelectMgr_Selection)&   theSelection,
+  const Handle(SelectionContainer)&   theSelection,
   const Handle(SelectMgr_EntityOwner)& theEntityOwner)
 {
   if (!IsValid())

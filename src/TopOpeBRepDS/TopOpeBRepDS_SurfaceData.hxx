@@ -23,7 +23,7 @@
 #include <TopOpeBRepDS_Surface.hxx>
 #include <TopOpeBRepDS_GeometryData.hxx>
 
-class TopOpeBRepDS_SurfaceData : public TopOpeBRepDS_GeometryData
+class TopOpeBRepDS_SurfaceData : public GeometryData
 {
 public:
   DEFINE_STANDARD_ALLOC

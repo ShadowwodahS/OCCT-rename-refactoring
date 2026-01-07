@@ -35,8 +35,8 @@
 #include <TColgp_Array1OfPnt.hxx>
 #include <V3d_View.hxx>
 
-IMPLEMENT_STANDARD_HANDLE(AIS_Manipulator, AIS_InteractiveObject)
-IMPLEMENT_STANDARD_RTTIEXT(AIS_Manipulator, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_HANDLE(AIS_Manipulator, VisualEntity)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_Manipulator, VisualEntity)
 
 IMPLEMENT_HSEQUENCE(AIS_ManipulatorObjectSequence)
 
@@ -109,7 +109,7 @@ class ManipSensTriangulation : public Select3D_SensitiveTriangulation, public Ma
 {
 public:
   ManipSensTriangulation(const Handle(SelectMgr_EntityOwner)& theOwnerId,
-                         const Handle(Poly_Triangulation)&    theTrg,
+                         const Handle(MeshTriangulation)&    theTrg,
                          const Dir3d&                        thePlaneNormal)
       : Select3D_SensitiveTriangulation(theOwnerId, theTrg, TopLoc_Location(), Standard_True),
         ManipSensRotation(thePlaneNormal)
@@ -322,7 +322,7 @@ void AIS_Manipulator::EnableMode(const AIS_ManipulatorMode theMode)
     return;
   }
 
-  const Handle(AIS_InteractiveContext)& aContext = GetContext();
+  const Handle(VisualContext)& aContext = GetContext();
   if (aContext.IsNull())
   {
     return;
@@ -373,7 +373,7 @@ void AIS_Manipulator::adjustSize(const Bnd_Box& theBox)
 
 //=================================================================================================
 
-void AIS_Manipulator::Attach(const Handle(AIS_InteractiveObject)& theObject,
+void AIS_Manipulator::Attach(const Handle(VisualEntity)& theObject,
                              const OptionsForAttach&              theOptions)
 {
   if (theObject->IsKind(STANDARD_TYPE(AIS_Manipulator)))
@@ -398,7 +398,7 @@ void AIS_Manipulator::Attach(const Handle(AIS_ManipulatorObjectSequence)& theObj
 
   SetOwner(theObjects);
   Bnd_Box                              aBox;
-  const Handle(AIS_InteractiveObject)& aCurObject = theObjects->Value(theObjects->Lower());
+  const Handle(VisualEntity)& aCurObject = theObjects->Value(theObjects->Lower());
   aCurObject->BoundingBox(aBox);
 
   if (theOptions.AdjustPosition)
@@ -419,7 +419,7 @@ void AIS_Manipulator::Attach(const Handle(AIS_ManipulatorObjectSequence)& theObj
     adjustSize(aBox);
   }
 
-  const Handle(AIS_InteractiveContext)& aContext = Object()->GetContext();
+  const Handle(VisualContext)& aContext = Object()->GetContext();
   if (!aContext.IsNull())
   {
     if (!aContext->IsDisplayed(this))
@@ -455,8 +455,8 @@ void AIS_Manipulator::Detach()
     return;
   }
 
-  Handle(AIS_InteractiveObject)         anObject = Object();
-  const Handle(AIS_InteractiveContext)& aContext = anObject->GetContext();
+  Handle(VisualEntity)         anObject = Object();
+  const Handle(VisualContext)& aContext = anObject->GetContext();
   if (!aContext.IsNull())
   {
     aContext->Remove(this, Standard_False);
@@ -474,7 +474,7 @@ Handle(AIS_ManipulatorObjectSequence) AIS_Manipulator::Objects() const
 
 //=================================================================================================
 
-Handle(AIS_InteractiveObject) AIS_Manipulator::Object(const Standard_Integer theIndex) const
+Handle(VisualEntity) AIS_Manipulator::Object(const Standard_Integer theIndex) const
 {
   Handle(AIS_ManipulatorObjectSequence) anOwner =
     Handle(AIS_ManipulatorObjectSequence)::DownCast(GetOwner());
@@ -492,7 +492,7 @@ Handle(AIS_InteractiveObject) AIS_Manipulator::Object(const Standard_Integer the
 
 //=================================================================================================
 
-Handle(AIS_InteractiveObject) AIS_Manipulator::Object() const
+Handle(VisualEntity) AIS_Manipulator::Object() const
 {
   return Object(1);
 }
@@ -501,7 +501,7 @@ Handle(AIS_InteractiveObject) AIS_Manipulator::Object() const
 
 Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  theMaxX,
                                                        const Standard_Integer  theMaxY,
-                                                       const Handle(V3d_View)& theView,
+                                                       const Handle(ViewWindow)& theView,
                                                        Transform3d&                theTrsf)
 {
   // Initialize start reference data
@@ -616,7 +616,7 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
         return Standard_False;
       }
 
-      // Draw a sector indicating the rotation angle
+      // Draw1 a sector indicating the rotation angle
       if (mySkinMode == ManipulatorSkin_Flat)
       {
         const Axis3d& anAxis = myAxes[myCurrentIndex].ReferenceAxis();
@@ -698,8 +698,8 @@ Standard_Boolean AIS_Manipulator::ObjectTransformation(const Standard_Integer  t
 
 //=================================================================================================
 
-Standard_Boolean AIS_Manipulator::ProcessDragging(const Handle(AIS_InteractiveContext)& aCtx,
-                                                  const Handle(V3d_View)&               theView,
+Standard_Boolean AIS_Manipulator::ProcessDragging(const Handle(VisualContext)& aCtx,
+                                                  const Handle(ViewWindow)&               theView,
                                                   const Handle(SelectMgr_EntityOwner)&,
                                                   const Graphic3d_Vec2i& theDragFrom,
                                                   const Graphic3d_Vec2i& theDragTo,
@@ -748,7 +748,7 @@ Standard_Boolean AIS_Manipulator::ProcessDragging(const Handle(AIS_InteractiveCo
 
 void AIS_Manipulator::StartTransform(const Standard_Integer  theX,
                                      const Standard_Integer  theY,
-                                     const Handle(V3d_View)& theView)
+                                     const Handle(ViewWindow)& theView)
 {
   if (myHasStartedTransformation)
   {
@@ -786,7 +786,7 @@ void AIS_Manipulator::StopTransform(const Standard_Boolean theToApply)
 
 //=================================================================================================
 
-void AIS_Manipulator::RecomputeTransformation(const Handle(Graphic3d_Camera)& theCamera)
+void AIS_Manipulator::RecomputeTransformation(const Handle(CameraOn3d)& theCamera)
 {
   if (mySkinMode == ManipulatorSkin_Shaded)
   {
@@ -988,7 +988,7 @@ void AIS_Manipulator::Transform(const Transform3d& theTrsf)
     NCollection_Sequence<Transform3d>::Iterator aTrsfIter(myStartTrsfs);
     for (; anObjIter.More(); anObjIter.Next(), aTrsfIter.Next())
     {
-      const Handle(AIS_InteractiveObject)&   anObj      = anObjIter.ChangeValue();
+      const Handle(VisualEntity)&   anObj      = anObjIter.ChangeValue();
       const Handle(Graphic3d_TransformPers)& aTransPers = anObj->TransformPersistence();
       if (!aTransPers.IsNull() && (aTransPers->IsZoomOrRotate() || aTransPers->IsAxial()))
       {
@@ -1029,7 +1029,7 @@ void AIS_Manipulator::Transform(const Transform3d& theTrsf)
 
 Transform3d AIS_Manipulator::Transform(const Standard_Integer  thePX,
                                    const Standard_Integer  thePY,
-                                   const Handle(V3d_View)& theView)
+                                   const Handle(ViewWindow)& theView)
 {
   Transform3d aTrsf;
   if (ObjectTransformation(thePX, thePY, theView, aTrsf))
@@ -1079,7 +1079,7 @@ void AIS_Manipulator::updateTransformation()
   // we explicitly call here setLocalTransformation() of the base class
   // since AIS_Manipulator::setLocalTransformation() implementation throws exception
   // as protection from external calls
-  AIS_InteractiveObject::setLocalTransformation(aGeomTrsf);
+  VisualEntity::setLocalTransformation(aGeomTrsf);
   for (Standard_Integer anIt = 0; anIt < 3; ++anIt)
   {
     myAxes[anIt].Transform(aGeomTrsf);
@@ -1214,7 +1214,7 @@ void AIS_Manipulator::SetTransformPersistence(const Handle(Graphic3d_TransformPe
 
 void AIS_Manipulator::setTransformPersistence(const Handle(Graphic3d_TransformPers)& theTrsfPers)
 {
-  AIS_InteractiveObject::SetTransformPersistence(theTrsfPers);
+  VisualEntity::SetTransformPersistence(theTrsfPers);
 
   for (Standard_Integer anIt = 0; anIt < 3; ++anIt)
   {
@@ -1343,7 +1343,7 @@ void AIS_Manipulator::ClearSelected()
 //=================================================================================================
 
 void AIS_Manipulator::HilightOwnerWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                            const Handle(Prs3d_Drawer)&               theStyle,
+                                            const Handle(StyleDrawer)&               theStyle,
                                             const Handle(SelectMgr_EntityOwner)&      theOwner)
 {
   Handle(AIS_ManipulatorOwner) anOwner       = Handle(AIS_ManipulatorOwner)::DownCast(theOwner);
@@ -1357,7 +1357,7 @@ void AIS_Manipulator::HilightOwnerWithColor(const Handle(PrsMgr_PresentationMana
 
   if (anOwner->Mode() == AIS_MM_TranslationPlane && mySkinMode == ManipulatorSkin_Shaded)
   {
-    Handle(Prs3d_Drawer) aStyle = new Prs3d_Drawer();
+    Handle(StyleDrawer) aStyle = new StyleDrawer();
     aStyle->SetColor(myAxes[anOwner->Index()].Color());
     aStyle->SetTransparency(0.5);
     aPresentation->Highlight(aStyle);
@@ -1400,7 +1400,7 @@ void AIS_Manipulator::RecomputeSelection(const AIS_ManipulatorMode theMode)
     return;
   }
 
-  const Handle(SelectMgr_Selection)& aSelection = Object()->Selection(theMode);
+  const Handle(SelectionContainer)& aSelection = Object()->Selection(theMode);
   if (!aSelection.IsNull())
   {
     aSelection->Clear();
@@ -1410,7 +1410,7 @@ void AIS_Manipulator::RecomputeSelection(const AIS_ManipulatorMode theMode)
 
 //=================================================================================================
 
-void AIS_Manipulator::ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+void AIS_Manipulator::ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                        const Standard_Integer             theMode)
 {
   // Check mode
@@ -1661,7 +1661,7 @@ void AIS_Manipulator::Cube::Init(const Axis3d&            thePosition,
 
     Poly_Array1OfTriangle aPolyTriangles(1, 12);
     TColgp_Array1OfPnt    aPoints(1, 36);
-    myTriangulation = new Poly_Triangulation(aPoints, aPolyTriangles);
+    myTriangulation = new MeshTriangulation(aPoints, aPolyTriangles);
 
     Frame3d aPln(thePosition.Location(), thePosition.Direction());
     Point3d aBottomLeft = thePosition.Location().XYZ() - aPln.XDirection().XYZ() * theSize * 0.5
@@ -1748,7 +1748,7 @@ void AIS_Manipulator::Sector::Init(const Standard_ShortReal theRadius,
   if (theSkinMode == ManipulatorSkin_Flat)
   {
     myArray         = new Graphic3d_ArrayOfTriangles(4, 6, Graphic3d_ArrayFlags_VertexNormal);
-    myTriangulation = new Poly_Triangulation(4, 2, Standard_False);
+    myTriangulation = new MeshTriangulation(4, 2, Standard_False);
 
     const Standard_Real anIndent = theRadius / 3.0;
     Point3d              aV1      = Point3d(anIndent, anIndent, 0.0).Transformed(aTrsf);

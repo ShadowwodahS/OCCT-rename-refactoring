@@ -21,9 +21,9 @@
 class Media_PlayerContext;
 
 //! Presentation for video playback.
-class AIS_MediaPlayer : public AIS_InteractiveObject
+class AIS_MediaPlayer : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_MediaPlayer, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_MediaPlayer, VisualEntity)
 public:
   //! Empty constructor.
   Standard_EXPORT AIS_MediaPlayer();
@@ -39,7 +39,7 @@ public:
   }
 
   //! Open specified file.
-  Standard_EXPORT void OpenInput(const TCollection_AsciiString& thePath,
+  Standard_EXPORT void OpenInput(const AsciiString1& thePath,
                                  Standard_Boolean               theToWait);
 
   //! Display new frame.
@@ -62,7 +62,7 @@ public:
   //! Return duration.
   double Duration() const { return myFramePair->Duration(); }
 
-  //! @name AIS_InteractiveObject interface
+  //! @name VisualEntity interface
 protected:
   //! Accept only display mode 0.
   virtual Standard_Boolean AcceptDisplayMode(const Standard_Integer theMode) const Standard_OVERRIDE
@@ -76,7 +76,7 @@ protected:
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Compute selection
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
 protected:

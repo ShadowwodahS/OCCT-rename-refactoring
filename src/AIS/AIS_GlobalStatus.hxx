@@ -47,10 +47,10 @@ public:
   void SetHilightStatus(const Standard_Boolean theStatus) { myIsHilit = theStatus; }
 
   //! Changes applied highlight style for a particular object
-  void SetHilightStyle(const Handle(Prs3d_Drawer)& theStyle) { myHiStyle = theStyle; }
+  void SetHilightStyle(const Handle(StyleDrawer)& theStyle) { myHiStyle = theStyle; }
 
   //! Returns applied highlight style for a particular object
-  const Handle(Prs3d_Drawer)& HilightStyle() const { return myHiStyle; }
+  const Handle(StyleDrawer)& HilightStyle() const { return myHiStyle; }
 
   //! Returns active selection modes of the object.
   const TColStd_ListOfInteger& SelectionModes() const { return mySelModes; }
@@ -87,7 +87,7 @@ public:
 
 private:
   TColStd_ListOfInteger mySelModes;
-  Handle(Prs3d_Drawer)  myHiStyle;
+  Handle(StyleDrawer)  myHiStyle;
   Standard_Integer      myDispMode;
   Standard_Boolean      myIsHilit;
   Standard_Boolean      mySubInt;

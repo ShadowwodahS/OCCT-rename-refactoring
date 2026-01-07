@@ -17,33 +17,33 @@
 #include <StdFail_NotDone.hxx>
 
 //=======================================================================
-// function : LocOpe_CurveShapeIntersector
+// function : CurveShapeIntersector
 // purpose  :
 //=======================================================================
 
-inline LocOpe_CurveShapeIntersector::LocOpe_CurveShapeIntersector()
+inline CurveShapeIntersector::CurveShapeIntersector()
     : myDone(Standard_False)
 {
 }
 
 //=======================================================================
-// function : LocOpe_CurveShapeIntersector
+// function : CurveShapeIntersector
 // purpose  :
 //=======================================================================
 
-inline LocOpe_CurveShapeIntersector::LocOpe_CurveShapeIntersector(const Axis3d&       Axis,
-                                                                  const TopoDS_Shape& S)
+inline CurveShapeIntersector::CurveShapeIntersector(const Axis3d&       Axis,
+                                                                  const TopoShape& S)
 {
   Init(Axis, S);
 }
 
 //=======================================================================
-// function : LocOpe_CurveShapeIntersector
+// function : CurveShapeIntersector
 // purpose  :
 //=======================================================================
 
-inline LocOpe_CurveShapeIntersector::LocOpe_CurveShapeIntersector(const gp_Circ&      C,
-                                                                  const TopoDS_Shape& S)
+inline CurveShapeIntersector::CurveShapeIntersector(const gp_Circ&      C,
+                                                                  const TopoShape& S)
 {
   Init(C, S);
 }
@@ -53,7 +53,7 @@ inline LocOpe_CurveShapeIntersector::LocOpe_CurveShapeIntersector(const gp_Circ&
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean LocOpe_CurveShapeIntersector::IsDone() const
+inline Standard_Boolean CurveShapeIntersector::IsDone() const
 {
   return myDone;
 }
@@ -63,7 +63,7 @@ inline Standard_Boolean LocOpe_CurveShapeIntersector::IsDone() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer LocOpe_CurveShapeIntersector::NbPoints() const
+inline Standard_Integer CurveShapeIntersector::NbPoints() const
 {
   if (!myDone)
   {
@@ -77,7 +77,7 @@ inline Standard_Integer LocOpe_CurveShapeIntersector::NbPoints() const
 // purpose  :
 //=======================================================================
 
-inline const LocOpe_PntFace& LocOpe_CurveShapeIntersector::Point(const Standard_Integer I) const
+inline const LocOpe_PntFace& CurveShapeIntersector::Point(const Standard_Integer I) const
 {
   if (!myDone)
   {

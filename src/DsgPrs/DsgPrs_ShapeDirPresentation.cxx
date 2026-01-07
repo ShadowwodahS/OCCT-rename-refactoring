@@ -43,11 +43,11 @@
 
 //=================================================================================================
 
-static Standard_Boolean FindPointOnFace(const TopoDS_Face& face, gp_Pnt2d& pt2d)
+static Standard_Boolean FindPointOnFace(const TopoFace& face, gp_Pnt2d& pt2d)
 {
   // discredisation of the external contour and computing the center of gravity
 
-  TopExp_Explorer wireExp;
+  ShapeExplorer wireExp;
   wireExp.Init(face, TopAbs_WIRE);
   if (!wireExp.More())
   {
@@ -57,14 +57,14 @@ static Standard_Boolean FindPointOnFace(const TopoDS_Face& face, gp_Pnt2d& pt2d)
   Standard_Integer     npoints, nptt = 21;
   TColgp_Array1OfPnt2d points(1, nptt);
   Standard_Real        area = 0., xcent = 0., ycent = 0.;
-  TopExp_Explorer      edgeExp;
+  ShapeExplorer      edgeExp;
 
   for (edgeExp.Init(wireExp.Current(), TopAbs_EDGE); edgeExp.More(); edgeExp.Next())
   {
     // discretize the 2d curve
     Standard_Real        first, last;
-    Handle(Geom2d_Curve) c2d =
-      BRep_Tool::CurveOnSurface(TopoDS::Edge(edgeExp.Current()), face, first, last);
+    Handle(GeomCurve2d) c2d =
+      BRepInspector::CurveOnSurface(TopoDS::Edge(edgeExp.Current()), face, first, last);
     if (TopoDS::Edge(edgeExp.Current()).Orientation() == TopAbs_REVERSED)
     {
       Standard_Real change = first;
@@ -137,7 +137,7 @@ static Standard_Boolean FindPointOnFace(const TopoDS_Face& face, gp_Pnt2d& pt2d)
 
 //=================================================================================================
 
-static Standard_Boolean ComputeDir(const TopoDS_Shape&    shape,
+static Standard_Boolean ComputeDir(const TopoShape&    shape,
                                    Point3d&                pt,
                                    Dir3d&                dir,
                                    const Standard_Integer mode)
@@ -146,8 +146,8 @@ static Standard_Boolean ComputeDir(const TopoDS_Shape&    shape,
   if (shape.ShapeType() == TopAbs_EDGE)
   {
     Standard_Real      first, last;
-    Handle(Geom_Curve) curv0 = BRep_Tool::Curve(TopoDS::Edge(shape), loc, first, last);
-    Handle(Geom_Curve) curve = Handle(Geom_Curve)::DownCast(curv0->Copy());
+    Handle(GeomCurve3d) curv0 = BRepInspector::Curve(TopoDS::Edge(shape), loc, first, last);
+    Handle(GeomCurve3d) curve = Handle(GeomCurve3d)::DownCast(curv0->Copy());
     curve->Transform(loc.Transformation());
     GeomLProp_CLProps lProps(curve, 1, gp::Resolution());
     lProps.SetParameter((mode == 0) ? last : first);
@@ -159,8 +159,8 @@ static Standard_Boolean ComputeDir(const TopoDS_Shape&    shape,
   else if (shape.ShapeType() == TopAbs_FACE)
   {
     gp_Pnt2d             pt2d;
-    Handle(Geom_Surface) surface = BRep_Tool::Surface(TopoDS::Face(shape));
-    if (BRep_Tool::NaturalRestriction(TopoDS::Face(shape)))
+    Handle(GeomSurface) surface = BRepInspector::Surface(TopoDS::Face(shape));
+    if (BRepInspector::NaturalRestriction(TopoDS::Face(shape)))
     {
       Standard_Real u1, u2, v1, v2;
       surface->Bounds(u1, u2, v1, v2);
@@ -190,8 +190,8 @@ static Standard_Boolean ComputeDir(const TopoDS_Shape&    shape,
 //=================================================================================================
 
 void DsgPrs_ShapeDirPresentation::Add(const Handle(Prs3d_Presentation)& prs,
-                                      const Handle(Prs3d_Drawer)&       drawer,
-                                      const TopoDS_Shape&               shape,
+                                      const Handle(StyleDrawer)&       drawer,
+                                      const TopoShape&               shape,
                                       const Standard_Integer            mode)
 
 {
@@ -214,12 +214,12 @@ void DsgPrs_ShapeDirPresentation::Add(const Handle(Prs3d_Presentation)& prs,
   }
   else if (shape.ShapeType() == TopAbs_WIRE)
   {
-    TopTools_ListOfShape   aList;
+    ShapeList   aList;
     Standard_Integer       nb = 0;
     BRepTools_WireExplorer anExp;
     for (anExp.Init(TopoDS::Wire(shape)); anExp.More(); anExp.Next())
     {
-      const TopoDS_Edge& edge = anExp.Current();
+      const TopoEdge& edge = anExp.Current();
       nb++;
       if (nb <= 3)
         BRepBndLib::Add(edge, box);
@@ -228,31 +228,31 @@ void DsgPrs_ShapeDirPresentation::Add(const Handle(Prs3d_Presentation)& prs,
 
     if (mode == 0)
     {
-      const TopoDS_Edge& edge = TopoDS::Edge(aList.Last());
+      const TopoEdge& edge = TopoDS::Edge(aList.Last());
       ComputeDir(edge, pt, dir, mode);
     }
     else
     {
-      const TopoDS_Edge& edge = TopoDS::Edge(aList.First());
+      const TopoEdge& edge = TopoDS::Edge(aList.First());
       ComputeDir(edge, pt, dir, mode);
     }
   }
   else
   {
-    TopExp_Explorer faceExp;
+    ShapeExplorer faceExp;
 
-    TopTools_ListOfShape aList;
+    ShapeList aList;
     Standard_Integer     nb = 0;
     for (faceExp.Init(shape, TopAbs_FACE); faceExp.More(); faceExp.Next())
     {
       nb++;
-      const TopoDS_Face& face = TopoDS::Face(faceExp.Current());
+      const TopoFace& face = TopoDS::Face(faceExp.Current());
       aList.Append(face);
       BRepBndLib::Add(face, box);
       if (nb > 3)
         break;
     }
-    const TopoDS_Face& face = TopoDS::Face(aList.Last());
+    const TopoFace& face = TopoDS::Face(aList.Last());
     ComputeDir(face, pt, dir, mode);
   }
 
@@ -274,5 +274,5 @@ void DsgPrs_ShapeDirPresentation::Add(const Handle(Prs3d_Presentation)& prs,
   aPrims->AddVertex(pt2);
   prs->CurrentGroup()->AddPrimitiveArray(aPrims);
 
-  Prs3d_Arrow::Draw(prs->CurrentGroup(), pt2, dir, M_PI / 180. * 10., leng * 0.3);
+  Prs3d_Arrow::Draw1(prs->CurrentGroup(), pt2, dir, M_PI / 180. * 10., leng * 0.3);
 }

@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRep_PolygonOnClosedSurface, BRep_PolygonOnSurface)
 
 BRep_PolygonOnClosedSurface::BRep_PolygonOnClosedSurface(const Handle(Poly_Polygon2D)& P1,
                                                          const Handle(Poly_Polygon2D)& P2,
-                                                         const Handle(Geom_Surface)&   S,
+                                                         const Handle(GeomSurface)&   S,
                                                          const TopLoc_Location&        L)
     : BRep_PolygonOnSurface(P1, S, L),
       myPolygon2(P2)

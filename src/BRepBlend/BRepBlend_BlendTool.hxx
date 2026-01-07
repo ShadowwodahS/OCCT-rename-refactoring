@@ -23,7 +23,7 @@ class gp_Pnt2d;
 class Adaptor2d_Curve2d;
 class Adaptor3d_HVertex;
 
-class BRepBlend_BlendTool
+class BlendTool
 {
 public:
   DEFINE_STANDARD_ALLOC

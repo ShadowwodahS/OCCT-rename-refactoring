@@ -33,7 +33,7 @@ public:
   //! @param theMaxShapeSize maximum size of the whole shape.
   //! @return absolute deflection for the shape.
   Standard_EXPORT static Standard_Real ComputeAbsoluteDeflection(
-    const TopoDS_Shape& theShape,
+    const TopoShape& theShape,
     const Standard_Real theRelativeDeflection,
     const Standard_Real theMaxShapeSize);
 

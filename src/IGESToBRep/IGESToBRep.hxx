@@ -26,12 +26,12 @@
 #include <TColStd_HSequenceOfTransient.hxx>
 class IGESToBRep_AlgoContainer;
 class IGESData_IGESEntity;
-class TopoDS_Edge;
-class TopoDS_Face;
+class TopoEdge;
+class TopoFace;
 
 //! Provides tools in order to transfer IGES entities
 //! to CAS.CADE.
-class IGESToBRep
+class IGESToBRep1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -47,39 +47,39 @@ public:
 
   //! Return True if the IGESEntity can be transferred by
   //! TransferCurveAndSurface.
-  //! ex: All IGESEntity from IGESGeom
+  //! ex: All IGESEntity from IGESGeom1
   Standard_EXPORT static Standard_Boolean IsCurveAndSurface(
     const Handle(IGESData_IGESEntity)& start);
 
   //! Return True if the IGESEntity can be transferred by
   //! TransferBasicCurve.
   //! ex: CircularArc, ConicArc, Line, CopiousData,
-  //! BSplineCurve, SplineCurve... from IGESGeom :
+  //! BSplineCurve, SplineCurve... from IGESGeom1 :
   //! 104,110,112,126
   Standard_EXPORT static Standard_Boolean IsBasicCurve(const Handle(IGESData_IGESEntity)& start);
 
   //! Return True if the IGESEntity can be transferred by
   //! TransferBasicSurface.
-  //! ex: BSplineSurface, SplineSurface... from IGESGeom :
+  //! ex: BSplineSurface, SplineSurface... from IGESGeom1 :
   //! 114,128
   Standard_EXPORT static Standard_Boolean IsBasicSurface(const Handle(IGESData_IGESEntity)& start);
 
   //! Return True if the IGESEntity can be transferred by
   //! TransferTopoCurve.
-  //! ex: all Curves from IGESGeom :
+  //! ex: all Curves from IGESGeom1 :
   //! all basic curves,102,130,142,144
   Standard_EXPORT static Standard_Boolean IsTopoCurve(const Handle(IGESData_IGESEntity)& start);
 
   //! Return True if the IGESEntity can be transferred by
   //! TransferTopoSurface.
-  //! ex: All Surfaces from IGESGeom :
+  //! ex: All Surfaces from IGESGeom1 :
   //! all basic surfaces,108,118,120,122,141,143
   Standard_EXPORT static Standard_Boolean IsTopoSurface(const Handle(IGESData_IGESEntity)& start);
 
   //! Return True if the IGESEntity can be transferred by
   //! TransferBRepEntity.
   //! ex: VertexList, EdgeList, Loop, Face, Shell,
-  //! Manifold Solid BRep Object from IGESSolid :
+  //! Manifold Solid BRep Object from IGESSolid1 :
   //! 502, 504, 508, 510, 514, 186.
   Standard_EXPORT static Standard_Boolean IsBRepEntity(const Handle(IGESData_IGESEntity)& start);
 
@@ -87,9 +87,9 @@ public:
     const Handle(IGESData_IGESEntity)&    curve,
     Handle(TColStd_HSequenceOfTransient)& sequence);
 
-  Standard_EXPORT static Standard_Boolean TransferPCurve(const TopoDS_Edge& fromedge,
-                                                         const TopoDS_Edge& toedge,
-                                                         const TopoDS_Face& face);
+  Standard_EXPORT static Standard_Boolean TransferPCurve(const TopoEdge& fromedge,
+                                                         const TopoEdge& toedge,
+                                                         const TopoFace& face);
 };
 
 #endif // _IGESToBRep_HeaderFile

@@ -23,7 +23,7 @@
 #include <Standard_Real.hxx>
 #include <Draw_Color.hxx>
 #include <Draw_Drawable2D.hxx>
-class Draw_Display;
+class DrawDisplay;
 
 class Draw_Circle2D;
 DEFINE_STANDARD_HANDLE(Draw_Circle2D, Draw_Drawable2D)
@@ -35,9 +35,9 @@ public:
   Standard_EXPORT Draw_Circle2D(const gp_Circ2d&    C,
                                 const Standard_Real A1,
                                 const Standard_Real A2,
-                                const Draw_Color&   col);
+                                const DrawColor&   col);
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Draw_Circle2D, Draw_Drawable2D)
 
@@ -46,7 +46,7 @@ private:
   gp_Circ2d     myCirc;
   Standard_Real myA1;
   Standard_Real myA2;
-  Draw_Color    myColor;
+  DrawColor    myColor;
 };
 
 #endif // _Draw_Circle2D_HeaderFile

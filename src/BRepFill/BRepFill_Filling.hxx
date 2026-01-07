@@ -29,7 +29,7 @@
 
 #include <memory>
 
-class TopoDS_Edge;
+class TopoEdge;
 class Point3d;
 
 //! N-Side Filling
@@ -121,7 +121,7 @@ public:
   //! at each point of surface.
   //! If this condition breaks, distortions of resulting surface
   //! are possible.
-  Standard_EXPORT void LoadInitSurface(const TopoDS_Face& aFace);
+  Standard_EXPORT void LoadInitSurface(const TopoFace& aFace);
 
   //! Adds a new constraint which also defines an edge of the wire
   //! of the face
@@ -134,7 +134,7 @@ public:
   //! GeomAbs_G2 : the surface has to pass by 3D representation
   //! of the edge and to respect tangency and curvature
   //! with the first face of the edge.
-  Standard_EXPORT Standard_Integer Add(const TopoDS_Edge&     anEdge,
+  Standard_EXPORT Standard_Integer Add(const TopoEdge&     anEdge,
                                        const GeomAbs_Shape    Order,
                                        const Standard_Boolean IsBound = Standard_True);
 
@@ -149,15 +149,15 @@ public:
   //! GeomAbs_G2 : the surface has to pass by 3D representation
   //! of the edge and to respect tangency and curvature
   //! with the given face.
-  Standard_EXPORT Standard_Integer Add(const TopoDS_Edge&     anEdge,
-                                       const TopoDS_Face&     Support,
+  Standard_EXPORT Standard_Integer Add(const TopoEdge&     anEdge,
+                                       const TopoFace&     Support,
                                        const GeomAbs_Shape    Order,
                                        const Standard_Boolean IsBound = Standard_True);
 
   //! Adds a free constraint on a face. The corresponding edge has to
   //! be automatically recomputed.
   //! It is always a bound.
-  Standard_EXPORT Standard_Integer Add(const TopoDS_Face& Support, const GeomAbs_Shape Order);
+  Standard_EXPORT Standard_Integer Add(const TopoFace& Support, const GeomAbs_Shape Order);
 
   //! Adds a punctual constraint
   Standard_EXPORT Standard_Integer Add(const Point3d& Point);
@@ -165,7 +165,7 @@ public:
   //! Adds a punctual constraint.
   Standard_EXPORT Standard_Integer Add(const Standard_Real U,
                                        const Standard_Real V,
-                                       const TopoDS_Face&  Support,
+                                       const TopoFace&  Support,
                                        const GeomAbs_Shape Order);
 
   //! Builds the resulting faces
@@ -173,11 +173,11 @@ public:
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 
-  Standard_EXPORT TopoDS_Face Face() const;
+  Standard_EXPORT TopoFace Face() const;
 
   //! Returns the list of shapes generated from the
   //! shape <S>.
-  Standard_EXPORT const TopTools_ListOfShape& Generated(const TopoDS_Shape& S);
+  Standard_EXPORT const ShapeList& Generated(const TopoShape& S);
 
   Standard_EXPORT Standard_Real G0Error() const;
 
@@ -196,11 +196,11 @@ private:
   Standard_EXPORT void AddConstraints(const BRepFill_SequenceOfEdgeFaceAndOrder& SeqOfConstraints);
 
   //! Builds wires of maximum length
-  Standard_EXPORT void BuildWires(TopTools_ListOfShape& EdgeList, TopTools_ListOfShape& WireList);
+  Standard_EXPORT void BuildWires(ShapeList& EdgeList, ShapeList& WireList);
 
   //! Finds extremities of future edges to fix the holes between wires.
   //! Can properly operate only with convex contour
-  Standard_EXPORT void FindExtremitiesOfHoles(const TopTools_ListOfShape& WireList,
+  Standard_EXPORT void FindExtremitiesOfHoles(const ShapeList& WireList,
                                               TopTools_SequenceOfShape&   VerSeq) const;
 
 private:
@@ -210,9 +210,9 @@ private:
   BRepFill_SequenceOfFaceAndOrder              myFreeConstraints;
   GeomPlate_SequenceOfPointConstraint          myPoints;
   TopTools_DataMapOfShapeShape                 myOldNewMap;
-  TopTools_ListOfShape                         myGenerated;
-  TopoDS_Face                                  myFace;
-  TopoDS_Face                                  myInitFace;
+  ShapeList                         myGenerated;
+  TopoFace                                  myFace;
+  TopoFace                                  myInitFace;
   Standard_Real                                myTol2d;
   Standard_Real                                myTol3d;
   Standard_Real                                myTolAng;

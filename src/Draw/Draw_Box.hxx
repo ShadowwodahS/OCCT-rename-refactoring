@@ -22,7 +22,7 @@
 #include <Bnd_OBB.hxx>
 #include <Draw_Color.hxx>
 #include <Draw_Drawable3D.hxx>
-class Draw_Display;
+class DrawDisplay;
 
 class Draw_Box;
 DEFINE_STANDARD_HANDLE(Draw_Box, Draw_Drawable3D)
@@ -32,10 +32,10 @@ class Draw_Box : public Draw_Drawable3D
 {
 public:
   //! Constructor
-  Standard_EXPORT Draw_Box(const Bnd_OBB& theOBB, const Draw_Color& theColor);
+  Standard_EXPORT Draw_Box(const Bnd_OBB& theOBB, const DrawColor& theColor);
 
   //! Draws myOBB
-  Standard_EXPORT void DrawOn(Draw_Display& theDis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& theDis) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Draw_Box, Draw_Drawable3D)
 
@@ -60,7 +60,7 @@ private:
   Bnd_OBB myOBB;
 
   //! Color value
-  Draw_Color myColor;
+  DrawColor myColor;
 };
 
 #endif // _Draw_Box_HeaderFile

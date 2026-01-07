@@ -107,14 +107,14 @@ void XmlMDF_ADriverTable::CreateDrvMap(XmlMDF_MapOfDriver& theDriverMap)
   for (XmlMDF_DataMapIteratorOfTypeADriverMap anIter(myMap); anIter.More(); anIter.Next())
   {
     const Handle(XmlMDF_ADriver)& aDriver   = anIter.Value();
-    const TCollection_AsciiString aTypeName = aDriver->TypeName();
+    const AsciiString1 aTypeName = aDriver->TypeName();
     if (!theDriverMap.IsBound(aTypeName))
     {
       theDriverMap.Bind(aTypeName, aDriver);
     }
     else
     {
-      aDriver->MessageDriver()->Send(TCollection_AsciiString("Warning: skipped driver name: \"")
+      aDriver->MessageDriver()->Send(AsciiString1("Warning: skipped driver name: \"")
                                        + aTypeName + "\"",
                                      Message_Warning);
     }

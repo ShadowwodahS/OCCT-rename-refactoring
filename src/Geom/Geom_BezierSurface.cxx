@@ -1755,7 +1755,7 @@ Standard_Integer Geom_BezierSurface::UDegree() const
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_BezierSurface::UIso(const Standard_Real U) const
+Handle(GeomCurve3d) Geom_BezierSurface::UIso(const Standard_Real U) const
 {
   TColStd_Array1OfReal biduknots(1, 2);
   biduknots(1) = 0.;
@@ -1763,7 +1763,7 @@ Handle(Geom_Curve) Geom_BezierSurface::UIso(const Standard_Real U) const
   TColStd_Array1OfInteger bidumults(1, 2);
   bidumults.Init(UDegree() + 1);
 
-  Handle(Geom_BezierCurve)  UIsoCurve;
+  Handle(BezierCurve3d)  UIsoCurve;
   const TColgp_Array2OfPnt& Poles = poles->Array2();
   TColgp_Array1OfPnt        VCurvePoles(Poles.LowerCol(), Poles.UpperCol());
   if (urational || vrational)
@@ -1781,9 +1781,9 @@ Handle(Geom_Curve) Geom_BezierSurface::UIso(const Standard_Real U) const
                   VCurvePoles,
                   &VCurveWeights);
     if (urational)
-      UIsoCurve = new Geom_BezierCurve(VCurvePoles, VCurveWeights);
+      UIsoCurve = new BezierCurve3d(VCurvePoles, VCurveWeights);
     else
-      UIsoCurve = new Geom_BezierCurve(VCurvePoles);
+      UIsoCurve = new BezierCurve3d(VCurvePoles);
   }
   else
   {
@@ -1797,7 +1797,7 @@ Handle(Geom_Curve) Geom_BezierSurface::UIso(const Standard_Real U) const
                   0,
                   VCurvePoles,
                   PLib::NoWeights());
-    UIsoCurve = new Geom_BezierCurve(VCurvePoles);
+    UIsoCurve = new BezierCurve3d(VCurvePoles);
   }
   return UIsoCurve;
 }
@@ -1811,7 +1811,7 @@ Standard_Integer Geom_BezierSurface::VDegree() const
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_BezierSurface::VIso(const Standard_Real V) const
+Handle(GeomCurve3d) Geom_BezierSurface::VIso(const Standard_Real V) const
 {
   TColStd_Array1OfReal bidvknots(1, 2);
   bidvknots(1) = 0.;
@@ -1819,7 +1819,7 @@ Handle(Geom_Curve) Geom_BezierSurface::VIso(const Standard_Real V) const
   TColStd_Array1OfInteger bidvmults(1, 2);
   bidvmults.Init(VDegree() + 1);
 
-  Handle(Geom_BezierCurve)  VIsoCurve;
+  Handle(BezierCurve3d)  VIsoCurve;
   const TColgp_Array2OfPnt& Poles = poles->Array2();
   TColgp_Array1OfPnt        VCurvePoles(Poles.LowerRow(), Poles.UpperRow());
   if (vrational || urational)
@@ -1837,9 +1837,9 @@ Handle(Geom_Curve) Geom_BezierSurface::VIso(const Standard_Real V) const
                   VCurvePoles,
                   &VCurveWeights);
     if (vrational)
-      VIsoCurve = new Geom_BezierCurve(VCurvePoles, VCurveWeights);
+      VIsoCurve = new BezierCurve3d(VCurvePoles, VCurveWeights);
     else
-      VIsoCurve = new Geom_BezierCurve(VCurvePoles);
+      VIsoCurve = new BezierCurve3d(VCurvePoles);
   }
   else
   {
@@ -1853,7 +1853,7 @@ Handle(Geom_Curve) Geom_BezierSurface::VIso(const Standard_Real V) const
                   0,
                   VCurvePoles,
                   PLib::NoWeights());
-    VIsoCurve = new Geom_BezierCurve(VCurvePoles);
+    VIsoCurve = new BezierCurve3d(VCurvePoles);
   }
   return VIsoCurve;
 }

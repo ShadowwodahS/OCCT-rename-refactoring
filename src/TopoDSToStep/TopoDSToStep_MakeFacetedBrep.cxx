@@ -37,9 +37,9 @@
 //=============================================================================
 // Create a FacetedBrep of StepShape from a Shell of TopoDS
 //=============================================================================
-TopoDSToStep_MakeFacetedBrep::TopoDSToStep_MakeFacetedBrep(const TopoDS_Shell& aShell,
+TopoDSToStep_MakeFacetedBrep::TopoDSToStep_MakeFacetedBrep(const TopoShell& aShell,
                                                            const Handle(Transfer_FinderProcess)& FP,
-                                                           const StepData_Factors& theLocalFactors,
+                                                           const ConversionFactors& theLocalFactors,
                                                            const Message_ProgressRange& theProgress)
 {
   done = Standard_False;
@@ -56,7 +56,7 @@ TopoDSToStep_MakeFacetedBrep::TopoDSToStep_MakeFacetedBrep(const TopoDS_Shell& a
     TopoDSToStep_Builder StepB(aShell, aTool, FP, aWriteTessGeom, theLocalFactors, theProgress);
     if (theProgress.UserBreak())
       return;
-    TopoDSToStep::AddResult(FP, aTool);
+    TopoDSToStep1::AddResult(FP, aTool);
 
     if (StepB.IsDone())
     {
@@ -89,15 +89,15 @@ TopoDSToStep_MakeFacetedBrep::TopoDSToStep_MakeFacetedBrep(const TopoDS_Shell& a
 // only one closed shell
 //=============================================================================
 
-TopoDSToStep_MakeFacetedBrep::TopoDSToStep_MakeFacetedBrep(const TopoDS_Solid& aSolid,
+TopoDSToStep_MakeFacetedBrep::TopoDSToStep_MakeFacetedBrep(const TopoSolid& aSolid,
                                                            const Handle(Transfer_FinderProcess)& FP,
-                                                           const StepData_Factors& theLocalFactors,
+                                                           const ConversionFactors& theLocalFactors,
                                                            const Message_ProgressRange& theProgress)
 {
   done = Standard_False;
 
   // Looking for the Outer Shell
-  TopoDS_Shell aOuterShell = BRepClass3d::OuterShell(aSolid);
+  TopoShell aOuterShell = BRepClass3d::OuterShell(aSolid);
 
   if (!aOuterShell.IsNull())
   {
@@ -119,7 +119,7 @@ TopoDSToStep_MakeFacetedBrep::TopoDSToStep_MakeFacetedBrep(const TopoDS_Solid& a
                                  theProgress);
       if (theProgress.UserBreak())
         return;
-      TopoDSToStep::AddResult(FP, aTool);
+      TopoDSToStep1::AddResult(FP, aTool);
 
       if (StepB.IsDone())
       {

@@ -30,7 +30,7 @@
 // function : TopOpeBRepBuild_Builder1::CorrectResult2d
 // purpose  : Change the Result (after CorrectFace2d)
 //=======================================================================
-Standard_Integer TopOpeBRepBuild_Builder1::CorrectResult2d(TopoDS_Shape& aResult)
+Standard_Integer TopOpeBRepBuild_Builder1::CorrectResult2d(TopoShape& aResult)
 
 {
   Standard_Integer aNb = myMapOfCorrect2dEdges.Extent();
@@ -44,56 +44,56 @@ Standard_Integer TopOpeBRepBuild_Builder1::CorrectResult2d(TopoDS_Shape& aResult
   // 1. Map Of sources' subshapes .
   //    The map (aSourceShapeMap) is to prevent unnecessary coping
   TopTools_IndexedMapOfShape aSourceShapeMap;
-  TopExp::MapShapes(myShape1, TopAbs_EDGE, aSourceShapeMap);
-  TopExp::MapShapes(myShape2, TopAbs_EDGE, aSourceShapeMap);
+  TopExp1::MapShapes(myShape1, TopAbs_EDGE, aSourceShapeMap);
+  TopExp1::MapShapes(myShape2, TopAbs_EDGE, aSourceShapeMap);
 
   TopTools_IndexedDataMapOfShapeShape EdMap;
-  BRep_Builder                        BB;
-  TopoDS_Shape                        aLocalShape = aResult.EmptyCopied();
-  TopoDS_Solid                        aSolid      = TopoDS::Solid(aLocalShape);
-  //  TopoDS_Solid aSolid=TopoDS::Solid(aResult.EmptyCopied());
+  ShapeBuilder                        BB;
+  TopoShape                        aLocalShape = aResult.EmptyCopied();
+  TopoSolid                        aSolid      = TopoDS::Solid(aLocalShape);
+  //  TopoSolid aSolid=TopoDS::Solid(aResult.EmptyCopied());
 
-  TopExp_Explorer anExpShells(aResult, TopAbs_SHELL);
+  ShapeExplorer anExpShells(aResult, TopAbs_SHELL);
   for (; anExpShells.More(); anExpShells.Next())
   {
-    const TopoDS_Shell& S = TopoDS::Shell(anExpShells.Current());
+    const TopoShell& S = TopoDS::Shell(anExpShells.Current());
     aLocalShape           = S.EmptyCopied();
-    TopoDS_Shell aShell   = TopoDS::Shell(aLocalShape);
-    //    TopoDS_Shell aShell=TopoDS::Shell(S.EmptyCopied());
+    TopoShell aShell   = TopoDS::Shell(aLocalShape);
+    //    TopoShell aShell=TopoDS::Shell(S.EmptyCopied());
 
-    TopExp_Explorer anExpFaces(S, TopAbs_FACE);
+    ShapeExplorer anExpFaces(S, TopAbs_FACE);
     for (; anExpFaces.More(); anExpFaces.Next())
     {
-      TopoDS_Face F = TopoDS::Face(anExpFaces.Current());
+      TopoFace F = TopoDS::Face(anExpFaces.Current());
       // modified by NIZHNY-MZV  Mon Mar 27 09:51:59 2000
       TopAbs_Orientation Fori = F.Orientation();
       // we should explore FORWARD face
       //      F.Orientation(TopAbs_FORWARD);
       aLocalShape       = F.EmptyCopied();
-      TopoDS_Face aFace = TopoDS::Face(aLocalShape);
-      //      TopoDS_Face aFace=TopoDS::Face(F.EmptyCopied());
+      TopoFace aFace = TopoDS::Face(aLocalShape);
+      //      TopoFace aFace=TopoDS::Face(F.EmptyCopied());
 
-      TopExp_Explorer anExpWires(F, TopAbs_WIRE);
+      ShapeExplorer anExpWires(F, TopAbs_WIRE);
       for (; anExpWires.More(); anExpWires.Next())
       {
-        TopoDS_Wire W = TopoDS::Wire(anExpWires.Current());
+        TopoWire W = TopoDS::Wire(anExpWires.Current());
         // modified by NIZHNY-MZV  Mon Mar 27 09:51:59 2000
         TopAbs_Orientation Wori = W.Orientation();
 
         // we should explore FORWARD wire
         //	W.Orientation(TopAbs_FORWARD);
         aLocalShape       = W.EmptyCopied();
-        TopoDS_Wire aWire = TopoDS::Wire(aLocalShape);
-        //	TopoDS_Wire aWire = TopoDS::Wire(W.EmptyCopied());
+        TopoWire aWire = TopoDS::Wire(aLocalShape);
+        //	TopoWire aWire = TopoDS::Wire(W.EmptyCopied());
 
-        TopExp_Explorer anExpEdges(W, TopAbs_EDGE);
+        ShapeExplorer anExpEdges(W, TopAbs_EDGE);
         for (; anExpEdges.More(); anExpEdges.Next())
         {
-          TopoDS_Edge E = TopoDS::Edge(anExpEdges.Current());
+          TopoEdge E = TopoDS::Edge(anExpEdges.Current());
 
           if (EdMap.Contains(E))
           {
-            TopoDS_Shape anEdge = EdMap.ChangeFromKey(E);
+            TopoShape anEdge = EdMap.ChangeFromKey(E);
 
             anEdge.Orientation(E.Orientation());
             BB.Add(aWire, anEdge);
@@ -102,7 +102,7 @@ Standard_Integer TopOpeBRepBuild_Builder1::CorrectResult2d(TopoDS_Shape& aResult
 
           if (myMapOfCorrect2dEdges.Contains(E))
           {
-            TopoDS_Shape anEdge = myMapOfCorrect2dEdges.ChangeFromKey(E);
+            TopoShape anEdge = myMapOfCorrect2dEdges.ChangeFromKey(E);
 
             anEdge.Orientation(E.Orientation());
             BB.Add(aWire, anEdge);
@@ -111,17 +111,17 @@ Standard_Integer TopOpeBRepBuild_Builder1::CorrectResult2d(TopoDS_Shape& aResult
           }
 
           // add edges
-          TopoDS_Edge anEdge;
+          TopoEdge anEdge;
           // we copy edge in order to not change it in source shapes
           if (aSourceShapeMap.Contains(E))
           {
-            TopoDS_Shape aLocalShape1 = E.EmptyCopied();
+            TopoShape aLocalShape1 = E.EmptyCopied();
             anEdge                    = TopoDS::Edge(aLocalShape1);
             //	    anEdge = TopoDS::Edge(E.EmptyCopied());
 
             EdMap.Add(E, anEdge);
 
-            TopExp_Explorer  anExpVertices(E, TopAbs_VERTEX);
+            ShapeExplorer  anExpVertices(E, TopAbs_VERTEX);
             Standard_Boolean free = anEdge.Free();
             anEdge.Free(Standard_True);
             for (; anExpVertices.More(); anExpVertices.Next())
@@ -137,7 +137,7 @@ Standard_Integer TopOpeBRepBuild_Builder1::CorrectResult2d(TopoDS_Shape& aResult
         }
         // Add wires
         aWire.Orientation(Wori);
-        aWire.Closed(BRep_Tool::IsClosed(aWire));
+        aWire.Closed(BRepInspector::IsClosed(aWire));
         BB.Add(aFace, aWire);
       }
 
@@ -146,25 +146,25 @@ Standard_Integer TopOpeBRepBuild_Builder1::CorrectResult2d(TopoDS_Shape& aResult
     }
 
     aShell.Orientation(S.Orientation());
-    aShell.Closed(BRep_Tool::IsClosed(aShell));
+    aShell.Closed(BRepInspector::IsClosed(aShell));
     BB.Add(aSolid, aShell);
   }
   aResult = aSolid;
 
   // update section curves
-  TopOpeBRepDS_CurveExplorer cex(myDataStructure->DS());
+  CurveExplorer cex(myDataStructure->DS());
   for (; cex.More(); cex.Next())
   {
     Standard_Integer                   ic  = cex.Index();
-    TopTools_ListOfShape&              LSE = ChangeNewEdges(ic);
-    TopTools_ListOfShape               corrLSE;
+    ShapeList&              LSE = ChangeNewEdges(ic);
+    ShapeList               corrLSE;
     TopTools_ListIteratorOfListOfShape it(LSE);
     for (; it.More(); it.Next())
     {
-      const TopoDS_Shape& E = it.Value();
+      const TopoShape& E = it.Value();
       if (EdMap.Contains(E))
       {
-        const TopoDS_Shape& newE = EdMap.FindFromKey(E);
+        const TopoShape& newE = EdMap.FindFromKey(E);
         corrLSE.Append(newE);
       }
       else
@@ -180,22 +180,22 @@ Standard_Integer TopOpeBRepBuild_Builder1::CorrectResult2d(TopoDS_Shape& aResult
 
   for (i = 1; i <= nes; i++)
   {
-    const TopoDS_Shape& es = BDS.SectionEdge(i);
+    const TopoShape& es = BDS.SectionEdge(i);
     if (es.IsNull())
       continue;
 
     for (Standard_Integer j = 0; j <= 2; j++)
     {
       TopAbs_State                       staspl = TopAbs_State(j); // 0 - IN, 1 - OUT, 2 - ON
-      TopTools_ListOfShape&              LSE    = ChangeSplit(es, staspl);
-      TopTools_ListOfShape               corrLSE;
+      ShapeList&              LSE    = ChangeSplit(es, staspl);
+      ShapeList               corrLSE;
       TopTools_ListIteratorOfListOfShape it(LSE);
       for (; it.More(); it.Next())
       {
-        const TopoDS_Shape& E = it.Value();
+        const TopoShape& E = it.Value();
         if (EdMap.Contains(E))
         {
-          const TopoDS_Shape& newE = EdMap.FindFromKey(E);
+          const TopoShape& newE = EdMap.FindFromKey(E);
           corrLSE.Append(newE);
         }
         else

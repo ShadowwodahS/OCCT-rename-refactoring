@@ -26,14 +26,14 @@
 #include <BOPAlgo_Tools.hxx>
 #include <BRepLib.hxx>
 
-static Standard_Integer attachpcurve(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer edgestowire(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer edgestofaces(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer BuildPcurvesOnPlane(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer attachpcurve(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer edgestowire(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer edgestofaces(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer BuildPcurvesOnPlane(DrawInterpreter&, Standard_Integer, const char**);
 
 //=================================================================================================
 
-void BOPTest::UtilityCommands(Draw_Interpretor& theCommands)
+void BOPTest::UtilityCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -61,7 +61,7 @@ void BOPTest::UtilityCommands(Draw_Interpretor& theCommands)
 // function : BOPCommands
 // purpose  : Attaches p-curve of the given edge to the given face.
 //=======================================================================
-static Standard_Integer attachpcurve(Draw_Interpretor& theDI,
+static Standard_Integer attachpcurve(DrawInterpreter& theDI,
                                      Standard_Integer  theNArg,
                                      const char**      theArgVal)
 {
@@ -71,9 +71,9 @@ static Standard_Integer attachpcurve(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape aShEOld(DBRep::Get(theArgVal[1]));
-  TopoDS_Shape aShENew(DBRep::Get(theArgVal[2]));
-  TopoDS_Shape aShFace(DBRep::Get(theArgVal[3]));
+  TopoShape aShEOld(DBRep1::Get(theArgVal[1]));
+  TopoShape aShENew(DBRep1::Get(theArgVal[2]));
+  TopoShape aShFace(DBRep1::Get(theArgVal[3]));
 
   if (aShEOld.IsNull())
   {
@@ -108,14 +108,14 @@ static Standard_Integer attachpcurve(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Edge aEOld = TopoDS::Edge(aShEOld);
-  TopoDS_Edge aENew = TopoDS::Edge(aShENew);
-  TopoDS_Face aFace = TopoDS::Face(aShFace);
+  TopoEdge aEOld = TopoDS::Edge(aShEOld);
+  TopoEdge aENew = TopoDS::Edge(aShENew);
+  TopoFace aFace = TopoDS::Face(aShFace);
 
   // Try to copy PCurve from old edge to the new one.
   Handle(IntTools_Context) aCtx = new IntTools_Context;
   const Standard_Integer   iRet =
-    BOPTools_AlgoTools2D::AttachExistingPCurve(aEOld, aENew, aFace, aCtx);
+    AlgoTools2D::AttachExistingPCurve(aEOld, aENew, aFace, aCtx);
 
   if (iRet)
   {
@@ -133,7 +133,7 @@ static Standard_Integer attachpcurve(Draw_Interpretor& theDI,
 // function : edgestowire
 // purpose  : Orients the edges to make wire
 //=======================================================================
-static Standard_Integer edgestowire(Draw_Interpretor& theDI,
+static Standard_Integer edgestowire(DrawInterpreter& theDI,
                                     Standard_Integer  theNArg,
                                     const char**      theArgVal)
 {
@@ -143,15 +143,15 @@ static Standard_Integer edgestowire(Draw_Interpretor& theDI,
     return 1;
   }
   //
-  TopoDS_Shape anEdges = DBRep::Get(theArgVal[2]);
+  TopoShape anEdges = DBRep1::Get(theArgVal[2]);
   if (anEdges.IsNull())
   {
     theDI << "no edges\n";
     return 1;
   }
   //
-  BOPTools_AlgoTools::OrientEdgesOnWire(anEdges);
-  DBRep::Set(theArgVal[1], anEdges);
+  AlgoTools::OrientEdgesOnWire(anEdges);
+  DBRep1::Set(theArgVal[1], anEdges);
   return 0;
 }
 
@@ -159,7 +159,7 @@ static Standard_Integer edgestowire(Draw_Interpretor& theDI,
 // function : edgestofaces
 // purpose  : Creates planar faces from linear edges
 //=======================================================================
-static Standard_Integer edgestofaces(Draw_Interpretor& theDI,
+static Standard_Integer edgestofaces(DrawInterpreter& theDI,
                                      Standard_Integer  theNArg,
                                      const char**      theArgVal)
 {
@@ -172,7 +172,7 @@ static Standard_Integer edgestofaces(Draw_Interpretor& theDI,
     return 1;
   }
   //
-  TopoDS_Shape anEdges = DBRep::Get(theArgVal[2]);
+  TopoShape anEdges = DBRep1::Get(theArgVal[2]);
   if (anEdges.IsNull())
   {
     theDI << "no edges\n";
@@ -186,31 +186,31 @@ static Standard_Integer edgestofaces(Draw_Interpretor& theDI,
   {
     if (!strcmp(theArgVal[i], "-a") && (i + 1 < theNArg))
     {
-      anAngTol = Draw::Atof(theArgVal[i + 1]);
+      anAngTol = Draw1::Atof(theArgVal[i + 1]);
     }
     if (!strcmp(theArgVal[i], "-s") && (i + 1 < theNArg))
     {
-      bShared = (Draw::Atoi(theArgVal[i + 1]) == 1);
+      bShared = (Draw1::Atoi(theArgVal[i + 1]) == 1);
     }
   }
   //
-  TopoDS_Shape     aWires;
-  Standard_Integer iErr = BOPAlgo_Tools::EdgesToWires(anEdges, aWires, bShared, anAngTol);
+  TopoShape     aWires;
+  Standard_Integer iErr = BooleanTools::EdgesToWires(anEdges, aWires, bShared, anAngTol);
   if (iErr)
   {
     theDI << "Unable to build wires from given edges\n";
     return 0;
   }
   //
-  TopoDS_Shape     aFaces;
-  Standard_Boolean bDone = BOPAlgo_Tools::WiresToFaces(aWires, aFaces, anAngTol);
+  TopoShape     aFaces;
+  Standard_Boolean bDone = BooleanTools::WiresToFaces(aWires, aFaces, anAngTol);
   if (!bDone)
   {
     theDI << "Unable to build faces from wires\n";
     return 0;
   }
   //
-  DBRep::Set(theArgVal[1], aFaces);
+  DBRep1::Set(theArgVal[1], aFaces);
   return 0;
 }
 
@@ -218,7 +218,7 @@ static Standard_Integer edgestofaces(Draw_Interpretor& theDI,
 // function : BuildPcurvesOnPlane
 // purpose  : Build and store pcurves of edges on planes
 //=======================================================================
-static Standard_Integer BuildPcurvesOnPlane(Draw_Interpretor& theDI,
+static Standard_Integer BuildPcurvesOnPlane(DrawInterpreter& theDI,
                                             Standard_Integer  theNArg,
                                             const char**      theArgVal)
 {
@@ -228,22 +228,22 @@ static Standard_Integer BuildPcurvesOnPlane(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape aShape(DBRep::Get(theArgVal[1]));
+  TopoShape aShape(DBRep1::Get(theArgVal[1]));
   if (aShape.IsNull())
   {
     theDI << theArgVal[1] << " is null shape\n";
     return 1;
   }
 
-  TopExp_Explorer exp(aShape, TopAbs_FACE);
+  ShapeExplorer exp(aShape, TopAbs_FACE);
   for (; exp.More(); exp.Next())
   {
-    const TopoDS_Face&  aF = TopoDS::Face(exp.Current());
+    const TopoFace&  aF = TopoDS::Face(exp.Current());
     BRepAdaptor_Surface aS(aF, Standard_False);
     if (aS.GetType() == GeomAbs_Plane)
     {
-      TopTools_ListOfShape aLE;
-      TopExp_Explorer      exp1(aF, TopAbs_EDGE);
+      ShapeList aLE;
+      ShapeExplorer      exp1(aF, TopAbs_EDGE);
       for (; exp1.More(); exp1.Next())
         aLE.Append(exp1.Current());
       BRepLib::BuildPCurveForEdgesOnPlane(aLE, aF);

@@ -35,7 +35,7 @@ public:
   //! @param theAllSubChildren do not stop at the first level of children, but search for
   //! sub-children too
   Standard_EXPORT TObj_OcafObjectIterator(
-    const TDF_Label&             theLabel,
+    const DataLabel&             theLabel,
     const Handle(TypeInfo)& theType           = NULL,
     const Standard_Boolean       theRecursive      = Standard_False,
     const Standard_Boolean       theAllSubChildren = Standard_False);

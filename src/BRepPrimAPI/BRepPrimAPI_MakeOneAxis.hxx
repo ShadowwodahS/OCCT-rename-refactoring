@@ -21,9 +21,9 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <BRepBuilderAPI_MakeShape.hxx>
-class TopoDS_Face;
-class TopoDS_Shell;
-class TopoDS_Solid;
+class TopoFace;
+class TopoShell;
+class TopoSolid;
 
 //! The abstract class MakeOneAxis is the root class of
 //! algorithms used to construct rotational primitives.
@@ -41,16 +41,16 @@ public:
     const Message_ProgressRange& theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Returns the lateral face of the rotational primitive.
-  Standard_EXPORT const TopoDS_Face& Face();
-  Standard_EXPORT                    operator TopoDS_Face();
+  Standard_EXPORT const TopoFace& Face();
+  Standard_EXPORT                    operator TopoFace();
 
   //! Returns the constructed rotational primitive as a shell.
-  Standard_EXPORT const TopoDS_Shell& Shell();
-  Standard_EXPORT                     operator TopoDS_Shell();
+  Standard_EXPORT const TopoShell& Shell();
+  Standard_EXPORT                     operator TopoShell();
 
   //! Returns the constructed rotational primitive as a solid.
-  Standard_EXPORT const TopoDS_Solid& Solid();
-  Standard_EXPORT                     operator TopoDS_Solid();
+  Standard_EXPORT const TopoSolid& Solid();
+  Standard_EXPORT                     operator TopoSolid();
 
 protected:
 private:

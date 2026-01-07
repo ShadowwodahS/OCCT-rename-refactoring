@@ -27,7 +27,7 @@
 #include <BRepOffset_Mode.hxx>
 #include <GeomAbs_JoinType.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! Describes functions to build a shell out of a shape. The
 //! result is an unlooped shape parallel to the source shape.
@@ -45,7 +45,7 @@ public:
 
   //! Constructs offset shape for the given one using simple algorithm without intersections
   //! computation.
-  Standard_EXPORT void PerformBySimple(const TopoDS_Shape& theS,
+  Standard_EXPORT void PerformBySimple(const TopoShape& theS,
                                        const Standard_Real theOffsetValue);
 
   //! Constructs a shape parallel to the shape S, where
@@ -104,7 +104,7 @@ public:
   //! Geom_UndefinedDerivative if the underlying
   //! geometry of S is BSpline with continuity C0.
   Standard_EXPORT void PerformByJoin(
-    const TopoDS_Shape&          S,
+    const TopoShape&          S,
     const Standard_Real          Offset,
     const Standard_Real          Tol,
     const BRepOffset_Mode        Mode           = BRepOffset_Skin,
@@ -122,15 +122,15 @@ public:
     const Message_ProgressRange& theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Returns the list of shapes generated from the shape <S>.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Generated(const TopoDS_Shape& S)
+  Standard_EXPORT virtual const ShapeList& Generated(const TopoShape& S)
     Standard_OVERRIDE;
 
   //! Returns the list of shapes Modified from the shape <S>.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Modified(const TopoDS_Shape& S)
+  Standard_EXPORT virtual const ShapeList& Modified(const TopoShape& S)
     Standard_OVERRIDE;
 
   //! Returns true if the shape has been removed from the result.
-  Standard_EXPORT virtual Standard_Boolean IsDeleted(const TopoDS_Shape& S) Standard_OVERRIDE;
+  Standard_EXPORT virtual Standard_Boolean IsDeleted(const TopoShape& S) Standard_OVERRIDE;
 
   //! Returns offset join type.
   Standard_EXPORT GeomAbs_JoinType GetJoinType() const;

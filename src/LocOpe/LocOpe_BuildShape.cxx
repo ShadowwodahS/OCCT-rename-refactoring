@@ -39,24 +39,24 @@ static void Add(const Standard_Integer,
                 TopTools_IndexedMapOfShape&,
                 const TopTools_IndexedDataMapOfShapeListOfShape&);
 
-static void Propagate(const TopoDS_Shape&, // face
-                      TopoDS_Shape&,       // shell
+static void Propagate(const TopoShape&, // face
+                      TopoShape&,       // shell
                       const TopTools_IndexedMapOfShape&,
                       TColStd_MapOfInteger&);
 
-static Standard_Boolean IsInside(const TopoDS_Shape&, const TopoDS_Shape&);
+static Standard_Boolean IsInside(const TopoShape&, const TopoShape&);
 
 //=================================================================================================
 
-void LocOpe_BuildShape::Perform(const TopTools_ListOfShape& L)
+void LocOpe_BuildShape::Perform(const ShapeList& L)
 {
   Standard_Integer i;
   Standard_Integer j;
   Standard_Integer k;
   myRes.Nullify();
 
-  TopoDS_Compound C;
-  BRep_Builder    B;
+  TopoCompound C;
+  ShapeBuilder    B;
   B.MakeCompound(C);
 
   TopTools_IndexedMapOfShape         mapF;
@@ -77,14 +77,14 @@ void LocOpe_BuildShape::Perform(const TopTools_ListOfShape& L)
   }
 
   TopTools_IndexedDataMapOfShapeListOfShape theMapEF;
-  TopExp::MapShapesAndAncestors(C, TopAbs_EDGE, TopAbs_FACE, theMapEF);
+  TopExp1::MapShapesAndAncestors(C, TopAbs_EDGE, TopAbs_FACE, theMapEF);
 
   TopTools_DataMapOfShapeListOfShape mapSh;
   TColStd_MapOfInteger               mapI, mapIf;
   Standard_Integer                   Nbedges = theMapEF.Extent();
 
-  TopTools_ListOfShape lshell;
-  TopTools_ListOfShape lresult;
+  ShapeList lshell;
+  ShapeList lresult;
 
   do
   {
@@ -102,7 +102,7 @@ void LocOpe_BuildShape::Perform(const TopTools_ListOfShape& L)
       mapIf.Clear();
       Add(i, mapI, mapF, theMapEF);
       Standard_Boolean   Manifold = Standard_True;
-      TopoDS_Shape       FaceRef;
+      TopoShape       FaceRef;
       TopAbs_Orientation orient;
 
       for (j = 1; j <= mapF.Extent(); j++)
@@ -119,7 +119,7 @@ void LocOpe_BuildShape::Perform(const TopTools_ListOfShape& L)
         mapIf.Add(j);
       }
 
-      TopoDS_Shell newSh;
+      TopoShell newSh;
       B.MakeShell(newSh);
       if (!Manifold && FaceRef.IsNull())
       {
@@ -148,7 +148,7 @@ void LocOpe_BuildShape::Perform(const TopTools_ListOfShape& L)
         B.Add(newSh, FaceRef);
         Propagate(FaceRef, newSh, mapF, mapIf);
       }
-      newSh.Closed(BRep_Tool::IsClosed(newSh));
+      newSh.Closed(BRepInspector::IsClosed(newSh));
       if (!Manifold)
       {
         lshell.Append(newSh.Oriented(TopAbs_INTERNAL));
@@ -156,10 +156,10 @@ void LocOpe_BuildShape::Perform(const TopTools_ListOfShape& L)
       else
       {
         TopTools_IndexedDataMapOfShapeListOfShape theMapEFbis;
-        TopExp::MapShapesAndAncestors(newSh, TopAbs_EDGE, TopAbs_FACE, theMapEFbis);
+        TopExp1::MapShapesAndAncestors(newSh, TopAbs_EDGE, TopAbs_FACE, theMapEFbis);
         for (k = 1; k <= theMapEFbis.Extent(); k++)
         {
-          const TopoDS_Edge& Ed    = TopoDS::Edge(theMapEFbis.FindKey(k));
+          const TopoEdge& Ed    = TopoDS::Edge(theMapEFbis.FindKey(k));
           TopAbs_Orientation OriEd = Ed.Orientation();
           if (OriEd != TopAbs_INTERNAL && OriEd != TopAbs_EXTERNAL)
           {
@@ -170,7 +170,7 @@ void LocOpe_BuildShape::Perform(const TopTools_ListOfShape& L)
             }
             else if (Nbfac == 1)
             {
-              if (!BRep_Tool::Degenerated(Ed))
+              if (!BRepInspector::Degenerated(Ed))
               {
                 break;
               }
@@ -179,7 +179,7 @@ void LocOpe_BuildShape::Perform(const TopTools_ListOfShape& L)
         }
         if (k > theMapEFbis.Extent())
         {
-          TopoDS_Solid newSo;
+          TopoSolid newSo;
           B.MakeSolid(newSo);
           B.Add(newSo, newSh); // newSh est FORWARD
           BRepClass3d_SolidClassifier Class(newSo);
@@ -206,16 +206,16 @@ void LocOpe_BuildShape::Perform(const TopTools_ListOfShape& L)
   // on n`accepte qu`1 niveau d'imbrication
 
   TopTools_DataMapOfShapeListOfShape imbSh;
-  TopTools_ListOfShape               LIntern;
+  ShapeList               LIntern;
 
   for (itl.Initialize(lresult); itl.More(); itl.Next())
   {
-    const TopoDS_Shape& sh = itl.Value();
-    TopoDS_Solid        tempo;
+    const TopoShape& sh = itl.Value();
+    TopoSolid        tempo;
     B.MakeSolid(tempo);
     B.Add(tempo, sh);
 
-    TopTools_ListOfShape thelist;
+    ShapeList thelist;
     imbSh.Bind(sh, thelist);
     TopTools_ListIteratorOfListOfShape itl2;
     for (itl2.Initialize(lresult);
@@ -223,7 +223,7 @@ void LocOpe_BuildShape::Perform(const TopTools_ListOfShape& L)
          itl2.More();
          itl2.Next())
     {
-      const TopoDS_Shape& sh2 = itl2.Value();
+      const TopoShape& sh2 = itl2.Value();
       if (!sh2.IsSame(sh))
       {
         if (IsInside(sh2, tempo))
@@ -239,14 +239,14 @@ void LocOpe_BuildShape::Perform(const TopTools_ListOfShape& L)
   // etant aussi des solides a part entiere.
   for (itl.Initialize(LIntern); itl.More(); itl.Next())
   {
-    const TopoDS_Shape& sh = itl.Value();
+    const TopoShape& sh = itl.Value();
     if (imbSh.IsBound(sh))
     {
       imbSh.UnBind(sh);
     }
   }
 
-  TopTools_ListOfShape lsolid;
+  ShapeList lsolid;
   do
   {
     //    for (TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itdm(imbSh);
@@ -260,7 +260,7 @@ void LocOpe_BuildShape::Perform(const TopTools_ListOfShape& L)
     }
     if (itdm.More())
     {
-      TopoDS_Solid newSo;
+      TopoSolid newSo;
       B.MakeSolid(newSo);
       B.Add(newSo, itdm.Key());
       for (itl.Initialize(itdm.Value()); itl.More(); itl.Next())
@@ -274,7 +274,7 @@ void LocOpe_BuildShape::Perform(const TopTools_ListOfShape& L)
     {
       for (itdm.Initialize(imbSh); itdm.More(); itdm.Next())
       {
-        TopoDS_Solid newSo;
+        TopoSolid newSo;
         B.MakeSolid(newSo);
         B.Add(newSo, itdm.Key());
         lsolid.Append(newSo);
@@ -330,13 +330,13 @@ static void Add(const Standard_Integer                           ind,
     if (!mapF.Contains(itl.Value()))
     {
       mapF.Add(itl.Value());
-      TopExp_Explorer exp;
+      ShapeExplorer exp;
       for (exp.Init(itl.Value(), TopAbs_EDGE);
-           //      for (TopExp_Explorer exp(itl.Value(),TopAbs_EDGE);
+           //      for (ShapeExplorer exp(itl.Value(),TopAbs_EDGE);
            exp.More();
            exp.Next())
       {
-        const TopoDS_Shape& edg    = exp.Current();
+        const TopoShape& edg    = exp.Current();
         Standard_Integer    indedg = mapEF.FindIndex(edg);
         if (indedg == 0)
         {
@@ -356,12 +356,12 @@ static void Add(const Standard_Integer                           ind,
 // purpose  : static function
 //=======================================================================
 
-static void Propagate(const TopoDS_Shape&               F,
-                      TopoDS_Shape&                     Sh,
+static void Propagate(const TopoShape&               F,
+                      TopoShape&                     Sh,
                       const TopTools_IndexedMapOfShape& mapF,
                       TColStd_MapOfInteger&             mapIf)
 {
-  BRep_Builder     B;
+  ShapeBuilder     B;
   Standard_Integer indf = mapF.FindIndex(F);
   if (!mapIf.Contains(indf))
   {
@@ -373,11 +373,11 @@ static void Propagate(const TopoDS_Shape&               F,
     return;
   }
 
-  TopExp_Explorer exp;
+  ShapeExplorer exp;
   for (exp.Init(F, TopAbs_EDGE); exp.More(); exp.Next())
   {
-    //  for (TopExp_Explorer exp(F,TopAbs_EDGE); exp.More(); exp.Next()) {
-    const TopoDS_Shape& edg = exp.Current();
+    //  for (ShapeExplorer exp(F,TopAbs_EDGE); exp.More(); exp.Next()) {
+    const TopoShape& edg = exp.Current();
 
     TopAbs_Orientation ored1 = edg.Orientation(), ored2 = TopAbs_FORWARD;
 
@@ -389,9 +389,9 @@ static void Propagate(const TopoDS_Shape&               F,
     TColStd_MapIteratorOfMapOfInteger itm(mapIf);
     for (; itm.More(); itm.Next())
     {
-      const TopoDS_Shape& newF = mapF(itm.Key());
-      //      for (TopExp_Explorer exp2(newF,TopAbs_EDGE);exp2.More(); exp2.Next()) {
-      TopExp_Explorer exp2(newF, TopAbs_EDGE);
+      const TopoShape& newF = mapF(itm.Key());
+      //      for (ShapeExplorer exp2(newF,TopAbs_EDGE);exp2.More(); exp2.Next()) {
+      ShapeExplorer exp2(newF, TopAbs_EDGE);
       for (; exp2.More(); exp2.Next())
       {
         if (exp2.Current().IsSame(edg))
@@ -407,7 +407,7 @@ static void Propagate(const TopoDS_Shape&               F,
     }
     if (itm.More())
     {
-      TopoDS_Shape     FtoAdd = mapF(itm.Key());
+      TopoShape     FtoAdd = mapF(itm.Key());
       Standard_Boolean added  = Standard_False;
       if (ored2 == ored1)
       {
@@ -415,7 +415,7 @@ static void Propagate(const TopoDS_Shape&               F,
         B.Add(Sh, FtoAdd);
         added = Standard_True;
       }
-      else if (ored2 == TopAbs::Reverse(ored1))
+      else if (ored2 == TopAbs1::Reverse(ored1))
       {
         B.Add(Sh, FtoAdd);
         added = Standard_True;
@@ -433,16 +433,16 @@ static void Propagate(const TopoDS_Shape&               F,
 // purpose  : static function
 //=======================================================================
 
-static Standard_Boolean IsInside(const TopoDS_Shape& S1, const TopoDS_Shape& S2)
+static Standard_Boolean IsInside(const TopoShape& S1, const TopoShape& S2)
 {
   BRepClass3d_SolidClassifier Class(S2);
-  TopExp_Explorer             exp;
+  ShapeExplorer             exp;
   for (exp.Init(S1, TopAbs_VERTEX); exp.More(); exp.Next())
   {
-    //  for (TopExp_Explorer exp(S1,TopAbs_VERTEX);exp.More(); exp.Next()) {
-    const TopoDS_Vertex& vtx    = TopoDS::Vertex(exp.Current());
-    Point3d               Pttest = BRep_Tool::Pnt(vtx);
-    Standard_Real        Tol    = BRep_Tool::Tolerance(vtx);
+    //  for (ShapeExplorer exp(S1,TopAbs_VERTEX);exp.More(); exp.Next()) {
+    const TopoVertex& vtx    = TopoDS::Vertex(exp.Current());
+    Point3d               Pttest = BRepInspector::Pnt(vtx);
+    Standard_Real        Tol    = BRepInspector::Tolerance(vtx);
     Class.Perform(Pttest, Tol);
     if (Class.State() == TopAbs_IN)
     {

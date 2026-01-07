@@ -33,7 +33,7 @@
 
 //=================================================================================================
 
-Standard_Boolean BRepAlgo::IsValid(const TopoDS_Shape& S)
+Standard_Boolean BRepAlgo1::IsValid(const TopoShape& S)
 {
   BRepCheck_Analyzer ana(S);
   return ana.IsValid();
@@ -41,8 +41,8 @@ Standard_Boolean BRepAlgo::IsValid(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-Standard_Boolean BRepAlgo::IsValid(const TopTools_ListOfShape& theArgs,
-                                   const TopoDS_Shape&         theResult,
+Standard_Boolean BRepAlgo1::IsValid(const ShapeList& theArgs,
+                                   const TopoShape&         theResult,
                                    const Standard_Boolean      closedSolid,
                                    const Standard_Boolean      GeomCtrl)
 {
@@ -51,7 +51,7 @@ Standard_Boolean BRepAlgo::IsValid(const TopTools_ListOfShape& theArgs,
   Standard_Boolean validate = Standard_False;
 
   TopTools_MapOfShape                allFaces;
-  TopExp_Explorer                    tEx;
+  ShapeExplorer                    tEx;
   TopTools_ListIteratorOfListOfShape itLOS;
   for (itLOS.Initialize(theArgs); itLOS.More(); itLOS.Next())
   {
@@ -66,7 +66,7 @@ Standard_Boolean BRepAlgo::IsValid(const TopTools_ListOfShape& theArgs,
     }
   }
 
-  TopoDS_Compound toCheck;
+  TopoCompound toCheck;
 
   if (allFaces.IsEmpty())
   {
@@ -78,8 +78,8 @@ Standard_Boolean BRepAlgo::IsValid(const TopTools_ListOfShape& theArgs,
   }
   else if (!validate)
   {
-    BRep_Builder bB;
-    TopoDS_Face  curf;
+    ShapeBuilder bB;
+    TopoFace  curf;
     for (tEx.Init(theResult, TopAbs_FACE); tEx.More(); tEx.Next())
     {
       curf = TopoDS::Face(tEx.Current());
@@ -87,7 +87,7 @@ Standard_Boolean BRepAlgo::IsValid(const TopTools_ListOfShape& theArgs,
       {
         if (toCheck.IsNull())
           bB.MakeCompound(toCheck);
-        BRepTools::Update(curf);
+        BRepTools1::Update(curf);
         bB.Add(toCheck, curf);
       }
     }
@@ -115,7 +115,7 @@ Standard_Boolean BRepAlgo::IsValid(const TopTools_ListOfShape& theArgs,
               if (sta != BRepCheck_NoError)
               {
                 BRepCheck_ListIteratorOfListOfStatus ilt;
-                TopExp_Explorer                      exp;
+                ShapeExplorer                      exp;
                 for (exp.Init(tEx.Current(), TopAbs_EDGE); exp.More(); exp.Next())
                 {
                   const Handle(BRepCheck_Result)& res = ana.Result(exp.Current());
@@ -135,7 +135,7 @@ Standard_Boolean BRepAlgo::IsValid(const TopTools_ListOfShape& theArgs,
                           bB.SameRange(TopoDS::Edge(exp.Current()), Standard_False);
                           bB.SameParameter(TopoDS::Edge(exp.Current()), Standard_False);
                           BRepLib::SameParameter(TopoDS::Edge(exp.Current()),
-                                                 BRep_Tool::Tolerance(TopoDS::Edge(exp.Current())));
+                                                 BRepInspector::Tolerance(TopoDS::Edge(exp.Current())));
                           break;
                         }
                       }
@@ -179,7 +179,7 @@ Standard_Boolean BRepAlgo::IsValid(const TopTools_ListOfShape& theArgs,
 
 //=================================================================================================
 
-Standard_Boolean BRepAlgo::IsTopologicallyValid(const TopoDS_Shape& S)
+Standard_Boolean BRepAlgo1::IsTopologicallyValid(const TopoShape& S)
 {
   //
 

@@ -29,7 +29,7 @@
 #include <gp_Hypr2d.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-class BRepBlend_HCurve2dTool
+class HCurve2dTool
 {
 public:
   DEFINE_STANDARD_ALLOC

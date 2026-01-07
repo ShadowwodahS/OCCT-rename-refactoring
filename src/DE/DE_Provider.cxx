@@ -31,9 +31,9 @@ DE_Provider::DE_Provider(const Handle(DE_ConfigurationNode)& theNode)
 
 //=================================================================================================
 
-Standard_Boolean DE_Provider::Read(const TCollection_AsciiString&  thePath,
-                                   const Handle(TDocStd_Document)& theDocument,
-                                   Handle(XSControl_WorkSession)&  theWS,
+Standard_Boolean DE_Provider::Read(const AsciiString1&  thePath,
+                                   const Handle(AppDocument)& theDocument,
+                                   Handle(ExchangeSession)&  theWS,
                                    const Message_ProgressRange&    theProgress)
 {
   (void)thePath;
@@ -47,9 +47,9 @@ Standard_Boolean DE_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Provider::Write(const TCollection_AsciiString&  thePath,
-                                    const Handle(TDocStd_Document)& theDocument,
-                                    Handle(XSControl_WorkSession)&  theWS,
+Standard_Boolean DE_Provider::Write(const AsciiString1&  thePath,
+                                    const Handle(AppDocument)& theDocument,
+                                    Handle(ExchangeSession)&  theWS,
                                     const Message_ProgressRange&    theProgress)
 {
   (void)thePath;
@@ -63,8 +63,8 @@ Standard_Boolean DE_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Provider::Read(const TCollection_AsciiString&  thePath,
-                                   const Handle(TDocStd_Document)& theDocument,
+Standard_Boolean DE_Provider::Read(const AsciiString1&  thePath,
+                                   const Handle(AppDocument)& theDocument,
                                    const Message_ProgressRange&    theProgress)
 {
   (void)thePath;
@@ -77,8 +77,8 @@ Standard_Boolean DE_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Provider::Write(const TCollection_AsciiString&  thePath,
-                                    const Handle(TDocStd_Document)& theDocument,
+Standard_Boolean DE_Provider::Write(const AsciiString1&  thePath,
+                                    const Handle(AppDocument)& theDocument,
                                     const Message_ProgressRange&    theProgress)
 {
   (void)thePath;
@@ -91,9 +91,9 @@ Standard_Boolean DE_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Provider::Read(const TCollection_AsciiString& thePath,
-                                   TopoDS_Shape&                  theShape,
-                                   Handle(XSControl_WorkSession)& theWS,
+Standard_Boolean DE_Provider::Read(const AsciiString1& thePath,
+                                   TopoShape&                  theShape,
+                                   Handle(ExchangeSession)& theWS,
                                    const Message_ProgressRange&   theProgress)
 {
   (void)thePath;
@@ -107,9 +107,9 @@ Standard_Boolean DE_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Provider::Write(const TCollection_AsciiString& thePath,
-                                    const TopoDS_Shape&            theShape,
-                                    Handle(XSControl_WorkSession)& theWS,
+Standard_Boolean DE_Provider::Write(const AsciiString1& thePath,
+                                    const TopoShape&            theShape,
+                                    Handle(ExchangeSession)& theWS,
                                     const Message_ProgressRange&   theProgress)
 {
   (void)thePath;
@@ -123,8 +123,8 @@ Standard_Boolean DE_Provider::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Provider::Read(const TCollection_AsciiString& thePath,
-                                   TopoDS_Shape&                  theShape,
+Standard_Boolean DE_Provider::Read(const AsciiString1& thePath,
+                                   TopoShape&                  theShape,
                                    const Message_ProgressRange&   theProgress)
 {
   (void)thePath;
@@ -137,8 +137,8 @@ Standard_Boolean DE_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Provider::Write(const TCollection_AsciiString& thePath,
-                                    const TopoDS_Shape&            theShape,
+Standard_Boolean DE_Provider::Write(const AsciiString1& thePath,
+                                    const TopoShape&            theShape,
                                     const Message_ProgressRange&   theProgress)
 {
   (void)thePath;

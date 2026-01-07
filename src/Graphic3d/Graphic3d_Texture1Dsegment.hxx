@@ -21,7 +21,7 @@
 
 #include <Graphic3d_Texture1D.hxx>
 #include <Graphic3d_NameOfTexture1D.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 
 class Graphic3d_Texture1Dsegment;
 DEFINE_STANDARD_HANDLE(Graphic3d_Texture1Dsegment, Graphic3d_Texture1D)
@@ -35,7 +35,7 @@ class Graphic3d_Texture1Dsegment : public Graphic3d_Texture1D
 
 public:
   //! Creates a texture from a file
-  Standard_EXPORT Graphic3d_Texture1Dsegment(const TCollection_AsciiString& theFileName);
+  Standard_EXPORT Graphic3d_Texture1Dsegment(const AsciiString1& theFileName);
 
   //! Creates a texture from a predefined texture name set.
   Standard_EXPORT Graphic3d_Texture1Dsegment(const Graphic3d_NameOfTexture1D theNOT);

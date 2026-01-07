@@ -31,7 +31,7 @@
 class Point3d;
 class Vector3d;
 class gp_Vec2d;
-class Blend_Point;
+class Point2;
 
 //! Deferred class for a function used to compute a blending
 //! surface between two surfaces, using a guide line.
@@ -98,7 +98,7 @@ public:
 
   Standard_EXPORT virtual Standard_Boolean TwistOnS2() const;
 
-  Standard_EXPORT virtual void Section(const Blend_Point&    P,
+  Standard_EXPORT virtual void Section(const Point2&    P,
                                        TColgp_Array1OfPnt&   Poles,
                                        TColgp_Array1OfPnt2d& Poles2d,
                                        TColStd_Array1OfReal& Weigths) Standard_OVERRIDE = 0;
@@ -106,7 +106,7 @@ public:
   //! Used for the first and last section
   //! The method returns Standard_True if the derivatives
   //! are computed, otherwise it returns Standard_False
-  Standard_EXPORT virtual Standard_Boolean Section(const Blend_Point&    P,
+  Standard_EXPORT virtual Standard_Boolean Section(const Point2&    P,
                                                    TColgp_Array1OfPnt&   Poles,
                                                    TColgp_Array1OfVec&   DPoles,
                                                    TColgp_Array1OfVec&   D2Poles,

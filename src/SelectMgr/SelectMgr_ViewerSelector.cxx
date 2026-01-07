@@ -196,7 +196,7 @@ void SelectMgr_ViewerSelector::SetPixelTolerance(const Standard_Integer theToler
 
 //=================================================================================================
 
-void SelectMgr_ViewerSelector::Activate(const Handle(SelectMgr_Selection)& theSelection)
+void SelectMgr_ViewerSelector::Activate(const Handle(SelectionContainer)& theSelection)
 {
   for (NCollection_Vector<Handle(SelectMgr_SensitiveEntity)>::Iterator aSelEntIter(
          theSelection->Entities());
@@ -216,7 +216,7 @@ void SelectMgr_ViewerSelector::Activate(const Handle(SelectMgr_Selection)& theSe
 
 //=================================================================================================
 
-void SelectMgr_ViewerSelector::Deactivate(const Handle(SelectMgr_Selection)& theSelection)
+void SelectMgr_ViewerSelector::Deactivate(const Handle(SelectionContainer)& theSelection)
 {
   for (NCollection_Vector<Handle(SelectMgr_SensitiveEntity)>::Iterator aSelEntIter(
          theSelection->Entities());
@@ -283,7 +283,7 @@ void SelectMgr_ViewerSelector::checkOverlap(const Handle(Select3D_SensitiveEntit
   aCriterion.SelectionPriority        = anOwner->Priority();
   aCriterion.Depth                    = aPickResult.Depth();
   aCriterion.MinDist                  = aPickResult.DistToGeomCenter();
-  Handle(AIS_InteractiveObject) anObj = Handle(AIS_InteractiveObject)::DownCast(aSelectable);
+  Handle(VisualEntity) anObj = Handle(VisualEntity)::DownCast(aSelectable);
   if (!aSelectable.IsNull())
   {
     if (aSelectable->Presentations().Size() > 0 && !aSelectable->TransformPersistence().IsNull())
@@ -327,7 +327,7 @@ void SelectMgr_ViewerSelector::checkOverlap(const Handle(Select3D_SensitiveEntit
 
 //=================================================================================================
 
-void SelectMgr_ViewerSelector::updateZLayers(const Handle(V3d_View)& theView)
+void SelectMgr_ViewerSelector::updateZLayers(const Handle(ViewWindow)& theView)
 {
   myZLayerOrderMap.Clear();
   TColStd_SequenceOfInteger aZLayers;
@@ -394,7 +394,7 @@ void SelectMgr_ViewerSelector::computeFrustum(const Handle(Select3D_SensitiveEnt
 //=======================================================================
 void SelectMgr_ViewerSelector::traverseObject(const Handle(SelectMgr_SelectableObject)& theObject,
                                               const SelectMgr_SelectingVolumeManager&   theMgr,
-                                              const Handle(Graphic3d_Camera)&           theCamera,
+                                              const Handle(CameraOn3d)&           theCamera,
                                               const Graphic3d_Mat4d& theProjectionMat,
                                               const Graphic3d_Mat4d& theWorldViewMat,
                                               const Graphic3d_Vec2i& theWinSize)
@@ -671,7 +671,7 @@ void SelectMgr_ViewerSelector::TraverseSensitives(const Standard_Integer theView
   const double aPixelSize =
     aWinSize.x() > 0 && aWinSize.y() > 0 ? Max(1.0 / aWinSize.x(), 1.0 / aWinSize.y()) : 1.0;
 
-  const Handle(Graphic3d_Camera)& aCamera = mySelectingVolumeMgr.Camera();
+  const Handle(CameraOn3d)& aCamera = mySelectingVolumeMgr.Camera();
   Graphic3d_Mat4d                 aProjectionMat, aWorldViewMat;
   Graphic3d_WorldViewProjState    aViewState;
   if (!aCamera.IsNull())
@@ -723,12 +723,12 @@ void SelectMgr_ViewerSelector::TraverseSensitives(const Standard_Integer theView
 
       // define corresponding frustum builder parameters for 2d persistence.
       Handle(SelectMgr_FrustumBuilder) aBuilder   = new SelectMgr_FrustumBuilder();
-      Handle(Graphic3d_Camera)         aNewCamera = new Graphic3d_Camera();
+      Handle(CameraOn3d)         aNewCamera = new CameraOn3d();
       aNewCamera->CopyMappingData(aCamera);
       aNewCamera->SetIdentityOrientation();
       if (aBVHSubset == SelectMgr_SelectableObjectSet::BVHSubset_ortho2dPersistent)
       {
-        aNewCamera->SetProjectionType(Graphic3d_Camera::Projection_Orthographic);
+        aNewCamera->SetProjectionType(CameraOn3d::Projection_Orthographic);
       }
       aWorldViewMat  = aNewCamera->OrientationMatrix(); // should be identity matrix
       aProjectionMat = aNewCamera->ProjectionMatrix();  // should be the same to aProjectionMat
@@ -740,8 +740,8 @@ void SelectMgr_ViewerSelector::TraverseSensitives(const Standard_Integer theView
     {
       // define corresponding frustum builder parameters for 3d orthographic persistence.
       Handle(SelectMgr_FrustumBuilder) aBuilder   = new SelectMgr_FrustumBuilder();
-      Handle(Graphic3d_Camera)         aNewCamera = new Graphic3d_Camera(*aCamera);
-      aNewCamera->SetProjectionType(Graphic3d_Camera::Projection_Orthographic);
+      Handle(CameraOn3d)         aNewCamera = new CameraOn3d(*aCamera);
+      aNewCamera->SetProjectionType(CameraOn3d::Projection_Orthographic);
       aWorldViewMat  = aNewCamera->OrientationMatrix(); // should be the same to aWorldViewMat
       aProjectionMat = aNewCamera->ProjectionMatrix();  // should be orthographic projection
       aBuilder->SetCamera(aNewCamera);
@@ -963,7 +963,7 @@ Standard_Boolean SelectMgr_ViewerSelector::IsActive(
   if (!Contains(theSelectableObject))
     return Standard_False;
 
-  const Handle(SelectMgr_Selection)& aSel = theSelectableObject->Selection(theMode);
+  const Handle(SelectionContainer)& aSel = theSelectableObject->Selection(theMode);
   return !aSel.IsNull() && aSel->GetSelectionState() == SelectMgr_SOS_Activated;
 }
 
@@ -976,14 +976,14 @@ Standard_Boolean SelectMgr_ViewerSelector::IsInside(
   if (!Contains(theSelectableObject))
     return Standard_False;
 
-  const Handle(SelectMgr_Selection)& aSel = theSelectableObject->Selection(theMode);
+  const Handle(SelectionContainer)& aSel = theSelectableObject->Selection(theMode);
   return !aSel.IsNull() && aSel->GetSelectionState() != SelectMgr_SOS_Unknown;
 }
 
 //=================================================================================================
 
 SelectMgr_StateOfSelection SelectMgr_ViewerSelector::Status(
-  const Handle(SelectMgr_Selection)& theSelection) const
+  const Handle(SelectionContainer)& theSelection) const
 {
   return theSelection->GetSelectionState();
 }
@@ -993,10 +993,10 @@ SelectMgr_StateOfSelection SelectMgr_ViewerSelector::Status(
 // Purpose : gives Information about selectors
 //==================================================
 
-TCollection_AsciiString SelectMgr_ViewerSelector::Status(
+AsciiString1 SelectMgr_ViewerSelector::Status(
   const Handle(SelectMgr_SelectableObject)& theSelectableObject) const
 {
-  TCollection_AsciiString aStatus("Status Object :\n\t");
+  AsciiString1 aStatus("Status Object :\n\t");
   for (SelectMgr_SequenceOfSelection::Iterator aSelIter(theSelectableObject->Selections());
        aSelIter.More();
        aSelIter.Next())
@@ -1004,7 +1004,7 @@ TCollection_AsciiString SelectMgr_ViewerSelector::Status(
     if (aSelIter.Value()->GetSelectionState() != SelectMgr_SOS_Unknown)
     {
       aStatus =
-        aStatus + "Mode " + TCollection_AsciiString(aSelIter.Value()->Mode()) + " present - "
+        aStatus + "Mode " + AsciiString1(aSelIter.Value()->Mode()) + " present - "
         + (aSelIter.Value()->GetSelectionState() == SelectMgr_SOS_Activated ? " Active \n\t"
                                                                             : " Inactive \n\t");
     }
@@ -1064,7 +1064,7 @@ void SelectMgr_ViewerSelector::AddSelectableObject(
 //=======================================================================
 void SelectMgr_ViewerSelector::AddSelectionToObject(
   const Handle(SelectMgr_SelectableObject)& theObject,
-  const Handle(SelectMgr_Selection)&        theSelection)
+  const Handle(SelectionContainer)&        theSelection)
 {
   if (Handle(SelectMgr_SensitiveEntitySet)* anEntitySet =
         myMapOfObjectSensitives.ChangeSeek(theObject))
@@ -1108,7 +1108,7 @@ void SelectMgr_ViewerSelector::RemoveSelectableObject(
 //=======================================================================
 void SelectMgr_ViewerSelector::RemoveSelectionOfObject(
   const Handle(SelectMgr_SelectableObject)& theObject,
-  const Handle(SelectMgr_Selection)&        theSelection)
+  const Handle(SelectionContainer)&        theSelection)
 {
   if (Handle(SelectMgr_SensitiveEntitySet)* anEntitySet =
         myMapOfObjectSensitives.ChangeSeek(theObject))
@@ -1213,7 +1213,7 @@ void SelectMgr_ViewerSelector::AllowOverlapDetection(const Standard_Boolean theI
 
 void SelectMgr_ViewerSelector::Pick(const Standard_Integer  theXPix,
                                     const Standard_Integer  theYPix,
-                                    const Handle(V3d_View)& theView)
+                                    const Handle(ViewWindow)& theView)
 {
   updateZLayers(theView);
 
@@ -1240,7 +1240,7 @@ void SelectMgr_ViewerSelector::Pick(const Standard_Integer  theXPMin,
                                     const Standard_Integer  theYPMin,
                                     const Standard_Integer  theXPMax,
                                     const Standard_Integer  theYPMax,
-                                    const Handle(V3d_View)& theView)
+                                    const Handle(ViewWindow)& theView)
 {
   updateZLayers(theView);
 
@@ -1265,7 +1265,7 @@ void SelectMgr_ViewerSelector::Pick(const Standard_Integer  theXPMin,
 // Purpose : Selection using a polyline
 //=======================================================================
 void SelectMgr_ViewerSelector::Pick(const TColgp_Array1OfPnt2d& thePolyline,
-                                    const Handle(V3d_View)&     theView)
+                                    const Handle(ViewWindow)&     theView)
 {
   updateZLayers(theView);
 
@@ -1284,7 +1284,7 @@ void SelectMgr_ViewerSelector::Pick(const TColgp_Array1OfPnt2d& thePolyline,
 
 //=================================================================================================
 
-void SelectMgr_ViewerSelector::Pick(const Axis3d& theAxis, const Handle(V3d_View)& theView)
+void SelectMgr_ViewerSelector::Pick(const Axis3d& theAxis, const Handle(ViewWindow)& theView)
 {
   updateZLayers(theView);
 
@@ -1300,7 +1300,7 @@ void SelectMgr_ViewerSelector::Pick(const Axis3d& theAxis, const Handle(V3d_View
 //=================================================================================================
 
 Standard_Boolean SelectMgr_ViewerSelector::ToPixMap(Image_PixMap&                        theImage,
-                                                    const Handle(V3d_View)&              theView,
+                                                    const Handle(ViewWindow)&              theView,
                                                     const StdSelect_TypeOfSelectionImage theType,
                                                     const Standard_Integer thePickedIndex)
 {
@@ -1335,7 +1335,7 @@ Standard_Boolean SelectMgr_ViewerSelector::ToPixMap(Image_PixMap&               
 // Function: DisplaySensitive.
 // Purpose : Display active primitives.
 //=======================================================================
-void SelectMgr_ViewerSelector::DisplaySensitive(const Handle(V3d_View)& theView)
+void SelectMgr_ViewerSelector::DisplaySensitive(const Handle(ViewWindow)& theView)
 {
   for (SelectMgr_SelectableObjectSet::Iterator aSelectableIt(mySelectableObjects);
        aSelectableIt.More();
@@ -1372,7 +1372,7 @@ void SelectMgr_ViewerSelector::DisplaySensitive(const Handle(V3d_View)& theView)
 
 //=================================================================================================
 
-void SelectMgr_ViewerSelector::ClearSensitive(const Handle(V3d_View)& theView)
+void SelectMgr_ViewerSelector::ClearSensitive(const Handle(ViewWindow)& theView)
 {
   for (Graphic3d_SequenceOfStructure::Iterator aStructIter(myStructs); aStructIter.More();
        aStructIter.Next())
@@ -1392,9 +1392,9 @@ void SelectMgr_ViewerSelector::ClearSensitive(const Handle(V3d_View)& theView)
 
 //=================================================================================================
 
-void SelectMgr_ViewerSelector::DisplaySensitive(const Handle(SelectMgr_Selection)& theSel,
+void SelectMgr_ViewerSelector::DisplaySensitive(const Handle(SelectionContainer)& theSel,
                                                 const Transform3d&                     theTrsf,
-                                                const Handle(V3d_View)&            theView,
+                                                const Handle(ViewWindow)&            theView,
                                                 const Standard_Boolean             theToClearOthers)
 {
   if (theToClearOthers)

@@ -30,7 +30,7 @@ Vrml_Texture2::Vrml_Texture2()
   myWrapT = Vrml_REPEAT;
 }
 
-Vrml_Texture2::Vrml_Texture2(const TCollection_AsciiString& aFilename,
+Vrml_Texture2::Vrml_Texture2(const AsciiString1& aFilename,
                              const Handle(Vrml_SFImage)&    aImage,
                              const Vrml_Texture2Wrap        aWrapS,
                              const Vrml_Texture2Wrap        aWrapT)
@@ -41,12 +41,12 @@ Vrml_Texture2::Vrml_Texture2(const TCollection_AsciiString& aFilename,
   myWrapT    = aWrapT;
 }
 
-void Vrml_Texture2::SetFilename(const TCollection_AsciiString& aFilename)
+void Vrml_Texture2::SetFilename(const AsciiString1& aFilename)
 {
   myFilename = aFilename;
 }
 
-TCollection_AsciiString Vrml_Texture2::Filename() const
+AsciiString1 Vrml_Texture2::Filename() const
 {
   return myFilename;
 }

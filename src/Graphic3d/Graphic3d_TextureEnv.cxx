@@ -35,7 +35,7 @@ static const char* NameOfTextureEnv_to_FileName[] = {"env_clouds.rgb",
 
 //=================================================================================================
 
-Graphic3d_TextureEnv::Graphic3d_TextureEnv(const TCollection_AsciiString& theFileName)
+Graphic3d_TextureEnv::Graphic3d_TextureEnv(const AsciiString1& theFileName)
     : Graphic3d_TextureRoot(theFileName, Graphic3d_TypeOfTexture_2D),
       myName(Graphic3d_NOT_ENV_UNKNOWN)
 {
@@ -54,7 +54,7 @@ Graphic3d_TextureEnv::Graphic3d_TextureEnv(const Graphic3d_NameOfTextureEnv theN
 {
   myHasMipmaps = true;
   myPath.SetTrek(Graphic3d_TextureRoot::TexturesFolder());
-  myTexId = TCollection_AsciiString("Graphic3d_TextureEnv_") + NameOfTextureEnv_to_FileName[theNOT];
+  myTexId = AsciiString1("Graphic3d_TextureEnv_") + NameOfTextureEnv_to_FileName[theNOT];
 
   myParams->SetFilter(Graphic3d_TOTF_TRILINEAR);
   myParams->SetGenMode(Graphic3d_TOTM_SPHERE,
@@ -91,14 +91,14 @@ Standard_Integer Graphic3d_TextureEnv::NumberOfTextures()
 
 //=================================================================================================
 
-TCollection_AsciiString Graphic3d_TextureEnv::TextureName(const Standard_Integer theRank)
+AsciiString1 Graphic3d_TextureEnv::TextureName(const Standard_Integer theRank)
 {
   if (theRank < 1 || theRank > NumberOfTextures())
   {
     throw Standard_OutOfRange("BAD index of texture");
   }
 
-  TCollection_AsciiString aFileName(NameOfTextureEnv_to_FileName[theRank - 1]);
+  AsciiString1 aFileName(NameOfTextureEnv_to_FileName[theRank - 1]);
   Standard_Integer        i = aFileName.SearchFromEnd(".");
   return aFileName.SubString(5, i - 1);
 }

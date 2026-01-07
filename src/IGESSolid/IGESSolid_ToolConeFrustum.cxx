@@ -34,9 +34,9 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESSolid_ToolConeFrustum::IGESSolid_ToolConeFrustum() {}
+ConeFrustumTool::ConeFrustumTool() {}
 
-void IGESSolid_ToolConeFrustum::ReadOwnParams(const Handle(IGESSolid_ConeFrustum)& ent,
+void ConeFrustumTool::ReadOwnParams(const Handle(IGESSolid_ConeFrustum)& ent,
                                               const Handle(IGESData_IGESReaderData)& /* IR */,
                                               IGESData_ParamReader& PR) const
 {
@@ -122,7 +122,7 @@ void IGESSolid_ToolConeFrustum::ReadOwnParams(const Handle(IGESSolid_ConeFrustum
     PR.AddWarning("Axis poorly unitary, normalized");
 }
 
-void IGESSolid_ToolConeFrustum::WriteOwnParams(const Handle(IGESSolid_ConeFrustum)& ent,
+void ConeFrustumTool::WriteOwnParams(const Handle(IGESSolid_ConeFrustum)& ent,
                                                IGESData_IGESWriter&                 IW) const
 {
   IW.Send(ent->Height());
@@ -136,12 +136,12 @@ void IGESSolid_ToolConeFrustum::WriteOwnParams(const Handle(IGESSolid_ConeFrustu
   IW.Send(ent->Axis().Z());
 }
 
-void IGESSolid_ToolConeFrustum::OwnShared(const Handle(IGESSolid_ConeFrustum)& /* ent */,
+void ConeFrustumTool::OwnShared(const Handle(IGESSolid_ConeFrustum)& /* ent */,
                                           Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESSolid_ToolConeFrustum::OwnCopy(const Handle(IGESSolid_ConeFrustum)& another,
+void ConeFrustumTool::OwnCopy(const Handle(IGESSolid_ConeFrustum)& another,
                                         const Handle(IGESSolid_ConeFrustum)& ent,
                                         Interface_CopyTool& /* TC */) const
 {
@@ -152,10 +152,10 @@ void IGESSolid_ToolConeFrustum::OwnCopy(const Handle(IGESSolid_ConeFrustum)& ano
             another->Axis().XYZ());
 }
 
-IGESData_DirChecker IGESSolid_ToolConeFrustum::DirChecker(
+DirectoryChecker ConeFrustumTool::DirChecker(
   const Handle(IGESSolid_ConeFrustum)& /* ent */) const
 {
-  IGESData_DirChecker DC(156, 0);
+  DirectoryChecker DC(156, 0);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
@@ -166,7 +166,7 @@ IGESData_DirChecker IGESSolid_ToolConeFrustum::DirChecker(
   return DC;
 }
 
-void IGESSolid_ToolConeFrustum::OwnCheck(const Handle(IGESSolid_ConeFrustum)& ent,
+void ConeFrustumTool::OwnCheck(const Handle(IGESSolid_ConeFrustum)& ent,
                                          const Interface_ShareTool&,
                                          Handle(Interface_Check)& ach) const
 {
@@ -180,7 +180,7 @@ void IGESSolid_ToolConeFrustum::OwnCheck(const Handle(IGESSolid_ConeFrustum)& en
     ach->AddFail("Smaller face radius : is greater than Larger face radius");
 }
 
-void IGESSolid_ToolConeFrustum::OwnDump(const Handle(IGESSolid_ConeFrustum)& ent,
+void ConeFrustumTool::OwnDump(const Handle(IGESSolid_ConeFrustum)& ent,
                                         const IGESData_IGESDumper& /* dumper */,
                                         Standard_OStream&      S,
                                         const Standard_Integer level) const

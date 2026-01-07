@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_OStream.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class VrmlConverter_Drawer;
 class VrmlConverter_Projector;
 
@@ -39,14 +39,14 @@ class VrmlConverter_Projector;
 //! DirectionLight,
 //! PointLight,
 //! SpotLight
-//! from  Vrml  package.
-class VrmlConverter_HLRShape
+//! from  Vrml1  package.
+class HLRShapeConverter
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT static void Add(Standard_OStream&                      anOStream,
-                                  const TopoDS_Shape&                    aShape,
+                                  const TopoShape&                    aShape,
                                   const Handle(VrmlConverter_Drawer)&    aDrawer,
                                   const Handle(VrmlConverter_Projector)& aProjector);
 

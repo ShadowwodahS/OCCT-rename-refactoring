@@ -39,12 +39,12 @@
 // forward declarations of aux functions
 //=======================================================================
 static Standard_Boolean SelectDouble(TopTools_MapOfShape&  Doubles,
-                                     TopTools_ListOfShape& L,
-                                     TopoDS_Edge&          E);
+                                     ShapeList& L,
+                                     TopoEdge&          E);
 
-static Standard_Boolean SelectDegenerated(TopTools_ListOfShape& L, TopoDS_Edge& E);
+static Standard_Boolean SelectDegenerated(ShapeList& L, TopoEdge& E);
 
-static Standard_Real GetNextParamOnPC(const Handle(Geom2d_Curve)& aPC,
+static Standard_Real GetNextParamOnPC(const Handle(GeomCurve2d)& aPC,
                                       const gp_Pnt2d&             aPRef,
                                       const Standard_Real&        fP,
                                       const Standard_Real&        lP,
@@ -63,33 +63,33 @@ BRepTools_WireExplorer::BRepTools_WireExplorer()
 
 //=================================================================================================
 
-BRepTools_WireExplorer::BRepTools_WireExplorer(const TopoDS_Wire& W)
+BRepTools_WireExplorer::BRepTools_WireExplorer(const TopoWire& W)
 {
-  TopoDS_Face F = TopoDS_Face();
+  TopoFace F = TopoFace();
   Init(W, F);
 }
 
 //=================================================================================================
 
-BRepTools_WireExplorer::BRepTools_WireExplorer(const TopoDS_Wire& W, const TopoDS_Face& F)
+BRepTools_WireExplorer::BRepTools_WireExplorer(const TopoWire& W, const TopoFace& F)
 {
   Init(W, F);
 }
 
 //=================================================================================================
 
-void BRepTools_WireExplorer::Init(const TopoDS_Wire& W)
+void BRepTools_WireExplorer::Init(const TopoWire& W)
 {
-  TopoDS_Face F = TopoDS_Face();
+  TopoFace F = TopoFace();
   Init(W, F);
 }
 
 //=================================================================================================
 
-void BRepTools_WireExplorer::Init(const TopoDS_Wire& W, const TopoDS_Face& F)
+void BRepTools_WireExplorer::Init(const TopoWire& W, const TopoFace& F)
 {
-  myEdge   = TopoDS_Edge();
-  myVertex = TopoDS_Vertex();
+  myEdge   = TopoEdge();
+  myVertex = TopoVertex();
   myMap.Clear();
   myDoubles.Clear();
 
@@ -105,7 +105,7 @@ void BRepTools_WireExplorer::Init(const TopoDS_Wire& W, const TopoDS_Face& F)
     if (aSurfType == GeomAbs_Cone || aSurfType == GeomAbs_BSplineSurface
         || aSurfType == GeomAbs_BezierSurface)
     {
-      BRepTools::UVBounds(F, UMin, UMax, VMin, VMax);
+      BRepTools1::UVBounds(F, UMin, UMax, VMin, VMax);
     }
   }
 
@@ -114,15 +114,15 @@ void BRepTools_WireExplorer::Init(const TopoDS_Wire& W, const TopoDS_Face& F)
 
 //=================================================================================================
 
-void BRepTools_WireExplorer::Init(const TopoDS_Wire&  W,
-                                  const TopoDS_Face&  F,
+void BRepTools_WireExplorer::Init(const TopoWire&  W,
+                                  const TopoFace&  F,
                                   const Standard_Real UMin,
                                   const Standard_Real UMax,
                                   const Standard_Real VMin,
                                   const Standard_Real VMax)
 {
-  myEdge   = TopoDS_Edge();
-  myVertex = TopoDS_Vertex();
+  myEdge   = TopoEdge();
+  myVertex = TopoVertex();
   myMap.Clear();
   myDoubles.Clear();
 
@@ -136,19 +136,19 @@ void BRepTools_WireExplorer::Init(const TopoDS_Wire&  W,
   if (!myFace.IsNull())
   {
     TopLoc_Location             aL;
-    const Handle(Geom_Surface)& aSurf = BRep_Tool::Surface(myFace, aL);
+    const Handle(GeomSurface)& aSurf = BRepInspector::Surface(myFace, aL);
     GeomAdaptor_Surface         aGAS(aSurf);
-    TopExp_Explorer             anExp(W, TopAbs_VERTEX);
+    ShapeExplorer             anExp(W, TopAbs_VERTEX);
     for (; anExp.More(); anExp.Next())
     {
-      const TopoDS_Vertex& aV = TopoDS::Vertex(anExp.Current());
-      dfVertToler             = Max(BRep_Tool::Tolerance(aV), dfVertToler);
+      const TopoVertex& aV = TopoDS::Vertex(anExp.Current());
+      dfVertToler             = Max(BRepInspector::Tolerance(aV), dfVertToler);
     }
     if (dfVertToler < Precision::Confusion())
     {
       // Use tolerance of edges
       for (TopoDS_Iterator it(W); it.More(); it.Next())
-        dfVertToler = Max(BRep_Tool::Tolerance(TopoDS::Edge(it.Value())), dfVertToler);
+        dfVertToler = Max(BRepInspector::Tolerance(TopoDS::Edge(it.Value())), dfVertToler);
 
       if (dfVertToler < Precision::Confusion())
         // empty wire
@@ -208,20 +208,20 @@ void BRepTools_WireExplorer::Init(const TopoDS_Wire&  W,
   TopTools_MapOfShape anInfEmap;
 
   // list the vertices
-  TopoDS_Vertex        V1, V2;
-  TopTools_ListOfShape empty;
+  TopoVertex        V1, V2;
+  ShapeList empty;
 
   TopoDS_Iterator it(W);
   while (it.More())
   {
-    const TopoDS_Edge& E    = TopoDS::Edge(it.Value());
+    const TopoEdge& E    = TopoDS::Edge(it.Value());
     TopAbs_Orientation Eori = E.Orientation();
     if (Eori == TopAbs_INTERNAL || Eori == TopAbs_EXTERNAL)
     {
       it.Next();
       continue;
     }
-    TopExp::Vertices(E, V1, V2, Standard_True);
+    TopExp1::Vertices(E, V1, V2, Standard_True);
 
     if (!V1.IsNull())
     {
@@ -251,7 +251,7 @@ void BRepTools_WireExplorer::Init(const TopoDS_Wire&  W,
     if (V1.IsNull() || V2.IsNull())
     {
       Standard_Real aF = 0., aL = 0.;
-      BRep_Tool::Range(E, aF, aL);
+      BRepInspector::Range(E, aF, aL);
 
       if (Eori == TopAbs_FORWARD)
       {
@@ -305,17 +305,17 @@ void BRepTools_WireExplorer::Init(const TopoDS_Wire&  W,
 
       for (; itt.More(); itt.Next())
       {
-        TopoDS_Edge        anEdge = TopoDS::Edge(itt.Key());
+        TopoEdge        anEdge = TopoDS::Edge(itt.Key());
         TopAbs_Orientation anOri  = anEdge.Orientation();
         Standard_Real      aF;
         Standard_Real      aL;
 
-        BRep_Tool::Range(anEdge, aF, aL);
+        BRepInspector::Range(anEdge, aF, aL);
         if ((anOri == TopAbs_FORWARD && aF == -Precision::Infinite())
             || (anOri == TopAbs_REVERSED && aL == Precision::Infinite()))
         {
           myEdge   = anEdge;
-          myVertex = TopoDS_Vertex();
+          myVertex = TopoVertex();
 
           return;
         }
@@ -326,7 +326,7 @@ void BRepTools_WireExplorer::Init(const TopoDS_Wire&  W,
     it.Initialize(W);
     while (it.More())
     {
-      const TopoDS_Edge& E    = TopoDS::Edge(it.Value());
+      const TopoEdge& E    = TopoDS::Edge(it.Value());
       TopAbs_Orientation Eori = E.Orientation();
       if (Eori == TopAbs_INTERNAL || Eori == TopAbs_EXTERNAL)
       {
@@ -335,7 +335,7 @@ void BRepTools_WireExplorer::Init(const TopoDS_Wire&  W,
         it.Next();
         continue;
       }
-      TopExp::Vertices(E, V1, V2, Standard_True);
+      TopExp1::Vertices(E, V1, V2, Standard_True);
       break;
     }
   }
@@ -345,10 +345,10 @@ void BRepTools_WireExplorer::Init(const TopoDS_Wire&  W,
   if (!myMap.IsBound(V1))
     return;
 
-  TopTools_ListOfShape& l = myMap(V1);
+  ShapeList& l = myMap(V1);
   myEdge                  = TopoDS::Edge(l.First());
   l.RemoveFirst();
-  myVertex = TopExp::FirstVertex(myEdge, Standard_True);
+  myVertex = TopExp1::FirstVertex(myEdge, Standard_True);
 }
 
 //=================================================================================================
@@ -362,55 +362,55 @@ Standard_Boolean BRepTools_WireExplorer::More() const
 
 void BRepTools_WireExplorer::Next()
 {
-  myVertex = TopExp::LastVertex(myEdge, Standard_True);
+  myVertex = TopExp1::LastVertex(myEdge, Standard_True);
 
   if (myVertex.IsNull())
   {
-    myEdge = TopoDS_Edge();
+    myEdge = TopoEdge();
     return;
   }
   if (!myMap.IsBound(myVertex))
   {
-    myEdge = TopoDS_Edge();
+    myEdge = TopoEdge();
     return;
   }
 
-  TopTools_ListOfShape& l = myMap(myVertex);
+  ShapeList& l = myMap(myVertex);
 
   if (l.IsEmpty())
   {
-    myEdge = TopoDS_Edge();
+    myEdge = TopoEdge();
   }
   else if (l.Extent() == 1)
   {
     //  Modified by Sergey KHROMOV - Fri Jun 21 10:28:01 2002 OCC325 Begin
-    TopoDS_Vertex aV1;
-    TopoDS_Vertex aV2;
-    TopoDS_Edge   aNextEdge = TopoDS::Edge(l.First());
+    TopoVertex aV1;
+    TopoVertex aV2;
+    TopoEdge   aNextEdge = TopoDS::Edge(l.First());
 
-    TopExp::Vertices(aNextEdge, aV1, aV2, Standard_True);
+    TopExp1::Vertices(aNextEdge, aV1, aV2, Standard_True);
 
     if (!aV1.IsSame(myVertex))
     {
-      myEdge = TopoDS_Edge();
+      myEdge = TopoEdge();
       return;
     }
     if (!myFace.IsNull() && aV1.IsSame(aV2))
     {
-      Handle(Geom2d_Curve) aPrevPC;
-      Handle(Geom2d_Curve) aNextPC;
+      Handle(GeomCurve2d) aPrevPC;
+      Handle(GeomCurve2d) aNextPC;
       Standard_Real        aPar11, aPar12;
       Standard_Real        aPar21, aPar22;
       Standard_Real        aPrevPar;
       Standard_Real        aNextFPar;
       Standard_Real        aNextLPar;
 
-      aPrevPC = BRep_Tool::CurveOnSurface(myEdge, myFace, aPar11, aPar12);
-      aNextPC = BRep_Tool::CurveOnSurface(aNextEdge, myFace, aPar21, aPar22);
+      aPrevPC = BRepInspector::CurveOnSurface(myEdge, myFace, aPar11, aPar12);
+      aNextPC = BRepInspector::CurveOnSurface(aNextEdge, myFace, aPar21, aPar22);
 
       if (aPrevPC.IsNull() || aNextPC.IsNull())
       {
-        myEdge = TopoDS_Edge();
+        myEdge = TopoEdge();
         return;
       }
 
@@ -436,7 +436,7 @@ void BRepTools_WireExplorer::Next()
 
       if (aPPrev.SquareDistance(aPNextF) > aPPrev.SquareDistance(aPNextL))
       {
-        myEdge = TopoDS_Edge();
+        myEdge = TopoEdge();
         return;
       }
     }
@@ -451,7 +451,7 @@ void BRepTools_WireExplorer::Next()
       // Without Face - try to return edges
       // as logically as possible
       // At first degenerated edges.
-      TopoDS_Edge E = myEdge;
+      TopoEdge E = myEdge;
       if (SelectDegenerated(l, E))
       {
         myEdge = E;
@@ -481,7 +481,7 @@ void BRepTools_WireExplorer::Next()
 
       if (notfound)
       {
-        myEdge = TopoDS_Edge();
+        myEdge = TopoEdge();
         return;
       }
     }
@@ -490,10 +490,10 @@ void BRepTools_WireExplorer::Next()
       // If we have more than one edge attached to the list
       // probably wire that we explore contains a loop or loops.
       Standard_Real        dfFPar = 0., dfLPar = 0.;
-      Handle(Geom2d_Curve) aPCurve = BRep_Tool::CurveOnSurface(myEdge, myFace, dfFPar, dfLPar);
+      Handle(GeomCurve2d) aPCurve = BRepInspector::CurveOnSurface(myEdge, myFace, dfFPar, dfLPar);
       if (aPCurve.IsNull())
       {
-        myEdge = TopoDS_Edge();
+        myEdge = TopoEdge();
         return;
       }
       // Note: current < myVertex > which is last on < myEdge >
@@ -520,7 +520,7 @@ void BRepTools_WireExplorer::Next()
       gp_Vec2d anERefDir(PRef, PRefm);
       if (anERefDir.SquareMagnitude() < gp::Resolution())
       {
-        myEdge = TopoDS_Edge();
+        myEdge = TopoEdge();
         return;
       }
 
@@ -539,7 +539,7 @@ void BRepTools_WireExplorer::Next()
         it.Initialize(l);
         while (it.More())
         {
-          const TopoDS_Edge& E = TopoDS::Edge(it.Value());
+          const TopoEdge& E = TopoDS::Edge(it.Value());
           if (E.IsSame(myEdge))
           {
             it.Next();
@@ -547,8 +547,8 @@ void BRepTools_WireExplorer::Next()
             continue;
           }
 
-          TopoDS_Vertex aVert1, aVert2;
-          TopExp::Vertices(E, aVert1, aVert2, Standard_True);
+          TopoVertex aVert1, aVert2;
+          TopExp1::Vertices(E, aVert1, aVert2, Standard_True);
           if (aVert1.IsNull() || aVert2.IsNull())
           {
             it.Next();
@@ -556,7 +556,7 @@ void BRepTools_WireExplorer::Next()
             continue;
           }
 
-          aPCurve = BRep_Tool::CurveOnSurface(E, myFace, dfFPar, dfLPar);
+          aPCurve = BRepInspector::CurveOnSurface(E, myFace, dfFPar, dfLPar);
           if (aPCurve.IsNull())
           {
             it.Next();
@@ -634,7 +634,7 @@ void BRepTools_WireExplorer::Next()
       if (kMin == 0)
       {
         // probably unclosed in 2d space wire
-        myEdge = TopoDS_Edge();
+        myEdge = TopoEdge();
         return;
       }
 
@@ -658,7 +658,7 @@ void BRepTools_WireExplorer::Next()
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepTools_WireExplorer::Current() const
+const TopoEdge& BRepTools_WireExplorer::Current() const
 {
   return myEdge;
 }
@@ -685,7 +685,7 @@ TopAbs_Orientation BRepTools_WireExplorer::Orientation() const
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepTools_WireExplorer::CurrentVertex() const
+const TopoVertex& BRepTools_WireExplorer::CurrentVertex() const
 {
   return myVertex;
 }
@@ -696,20 +696,20 @@ void BRepTools_WireExplorer::Clear()
 {
   myMap.Clear();
   myDoubles.Clear();
-  myEdge   = TopoDS_Edge();
-  myFace   = TopoDS_Face();
-  myVertex = TopoDS_Vertex();
+  myEdge   = TopoEdge();
+  myFace   = TopoFace();
+  myVertex = TopoVertex();
 }
 
 //=================================================================================================
 
-Standard_Boolean SelectDouble(TopTools_MapOfShape& Doubles, TopTools_ListOfShape& L, TopoDS_Edge& E)
+Standard_Boolean SelectDouble(TopTools_MapOfShape& Doubles, ShapeList& L, TopoEdge& E)
 {
   TopTools_ListIteratorOfListOfShape it(L);
 
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape& CE = it.Value();
+    const TopoShape& CE = it.Value();
     if (Doubles.Contains(CE) && (!E.IsSame(CE)))
     {
       E = TopoDS::Edge(CE);
@@ -722,7 +722,7 @@ Standard_Boolean SelectDouble(TopTools_MapOfShape& Doubles, TopTools_ListOfShape
 
 //=================================================================================================
 
-Standard_Boolean SelectDegenerated(TopTools_ListOfShape& L, TopoDS_Edge& E)
+Standard_Boolean SelectDegenerated(ShapeList& L, TopoEdge& E)
 {
   TopTools_ListIteratorOfListOfShape it(L);
   while (it.More())
@@ -730,7 +730,7 @@ Standard_Boolean SelectDegenerated(TopTools_ListOfShape& L, TopoDS_Edge& E)
     if (!it.Value().IsSame(E))
     {
       E = TopoDS::Edge(it.Value());
-      if (BRep_Tool::Degenerated(E))
+      if (BRepInspector::Degenerated(E))
       {
         L.Remove(it);
         return 1;
@@ -743,7 +743,7 @@ Standard_Boolean SelectDegenerated(TopTools_ListOfShape& L, TopoDS_Edge& E)
 
 //=================================================================================================
 
-Standard_Real GetNextParamOnPC(const Handle(Geom2d_Curve)& aPC,
+Standard_Real GetNextParamOnPC(const Handle(GeomCurve2d)& aPC,
                                const gp_Pnt2d&             aPRef,
                                const Standard_Real&        fP,
                                const Standard_Real&        lP,

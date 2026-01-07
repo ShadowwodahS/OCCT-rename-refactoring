@@ -34,8 +34,8 @@
 #include <TCollection_ExtendedString.hxx>
 
 void DsgPrs_OffsetPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                    const Handle(Prs3d_Drawer)&       aDrawer,
-                                    const TCollection_ExtendedString& aText,
+                                    const Handle(StyleDrawer)&       aDrawer,
+                                    const UtfString& aText,
                                     const Point3d&                     AttachmentPoint1,
                                     const Point3d&                     AttachmentPoint2,
                                     const Dir3d&                     aDirection,
@@ -101,12 +101,12 @@ void DsgPrs_OffsetPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
 
   if (DimNulle)
   {
-    Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+    Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                       offp,
                       L4.Direction(),
                       LA->ArrowAspect()->Angle(),
                       LA->ArrowAspect()->Length());
-    Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+    Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                       offp,
                       L4.Direction().Reversed(),
                       LA->ArrowAspect()->Angle(),
@@ -121,7 +121,7 @@ void DsgPrs_OffsetPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
       arrdir.Reverse();
 
     // fleche 1 : 2eme groupe
-    Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+    Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                       Proj1,
                       arrdir,
                       LA->ArrowAspect()->Angle(),
@@ -142,7 +142,7 @@ void DsgPrs_OffsetPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
     aPresentation->NewGroup();
 
     // texte : 4eme groupe
-    Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), aText, offp);
+    Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, offp);
   }
 
   aPresentation->NewGroup();
@@ -160,8 +160,8 @@ void DsgPrs_OffsetPresentation::Add(const Handle(Prs3d_Presentation)& aPresentat
 }
 
 void DsgPrs_OffsetPresentation::AddAxes(const Handle(Prs3d_Presentation)& aPresentation,
-                                        const Handle(Prs3d_Drawer)&       aDrawer,
-                                        const TCollection_ExtendedString& /*aText*/,
+                                        const Handle(StyleDrawer)&       aDrawer,
+                                        const UtfString& /*aText*/,
                                         const Point3d& AttachmentPoint1,
                                         const Point3d& AttachmentPoint2,
                                         const Dir3d& aDirection,

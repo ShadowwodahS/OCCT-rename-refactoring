@@ -61,14 +61,14 @@ public:
 
   //! Fills tree model by the application and register pane creator
   //! \param theApplication a current application
-  Standard_EXPORT void SetApplication(const Handle(TDocStd_Application)& theApplication);
+  Standard_EXPORT void SetApplication(const Handle(AppManager)& theApplication);
 
   //! Fills viewer by the context
   //! \param theContext a current context where presentations should be visualized
   Standard_EXPORT void SetExternalContext(const Handle(RefObject)& theContext);
 
   //! Returns external context or NULL
-  const Handle(AIS_InteractiveContext)& GetExternalContext() const { return myExternalContext; }
+  const Handle(VisualContext)& GetExternalContext() const { return myExternalContext; }
 
   //! Returns a view model with the OCAF structure content
   QAbstractItemModel* GetOCAFViewModel() { return myOCAFViewModel; }
@@ -84,7 +84,7 @@ public:
 
   //! Returns an OCAF application or NULL
   //! \return an application instance
-  Standard_EXPORT Handle(TDocStd_Application) GetTDocStdApplication() const;
+  Standard_EXPORT Handle(AppManager) GetTDocStdApplication() const;
 
   //! Rebuilds an OCAF tree view model
   Standard_EXPORT void UpdateTreeModel();
@@ -152,10 +152,10 @@ protected:
 private:
   DFBrowser_TreeModel* myOCAFViewModel;          //!< the tree view abstract model
   QItemSelectionModel* myOCAFViewSelectionModel; //!< selection model over OCAF tree view
-  QMap<TCollection_AsciiString, DFBrowserPane_AttributePaneAPI*>
+  QMap<AsciiString1, DFBrowserPane_AttributePaneAPI*>
                                                 myAttributeTypes; //!< container of created panes
   QList<DFBrowserPane_AttributePaneCreatorAPI*> myPaneCreators;   //!< pane creators
-  Handle(AIS_InteractiveContext) myExternalContext; //!< context that comes in initialize parameters
+  Handle(VisualContext) myExternalContext; //!< context that comes in initialize parameters
 };
 
 #endif

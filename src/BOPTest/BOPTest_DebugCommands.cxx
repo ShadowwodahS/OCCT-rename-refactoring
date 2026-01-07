@@ -44,14 +44,14 @@ static void GetTypeByName(const char* theName, TopAbs_ShapeEnum& theType);
 static void GetNameByType(const TopAbs_ShapeEnum& theType, char* theName);
 
 template <class InterfType>
-static void DumpInterfs(const NCollection_Vector<InterfType>& theVInterf, Draw_Interpretor& di);
+static void DumpInterfs(const NCollection_Vector<InterfType>& theVInterf, DrawInterpreter& di);
 
 template <class InterfType>
 static void             SearchNewIndex(const char*                           theCType,
                                        const Standard_Integer                theInd,
                                        const NCollection_Vector<InterfType>& theVInterf,
-                                       Draw_Interpretor&                     di);
-static Standard_Integer bopfinfo(Draw_Interpretor&      di,
+                                       DrawInterpreter&                     di);
+static Standard_Integer bopfinfo(DrawInterpreter&      di,
                                  Standard_Integer       n,
                                  const char**           a,
                                  const Standard_Integer iPriz);
@@ -59,40 +59,40 @@ static Standard_Integer bopfinfo(Draw_Interpretor&      di,
 // commands
 // 1. filler commands
 // 1.1 DS commands
-static Standard_Integer bopds(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopiterator(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopinterf(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopnews(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopwho(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopindex(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopsd(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopsc(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer bopds(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopiterator(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopinterf(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopnews(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopwho(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopindex(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopsd(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopsc(DrawInterpreter&, Standard_Integer, const char**);
 
 // 1.2 pave blocks commands
-static Standard_Integer boppb(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopcb(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopsp(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer boppb(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopcb(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopsp(DrawInterpreter&, Standard_Integer, const char**);
 
 // 1.3 face info commands
-static Standard_Integer bopfon(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopfin(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopfsc(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopfav(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer bopfon(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopfin(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopfsc(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopfav(DrawInterpreter&, Standard_Integer, const char**);
 
 // 2. builder commands
 // 2.1 images commands
-static Standard_Integer bopimage(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer boporigin(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopfsd(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer bopimage(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer boporigin(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopfsd(DrawInterpreter&, Standard_Integer, const char**);
 
 // 2.2 building faces
-static Standard_Integer bopbface(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer bopbface(DrawInterpreter&, Standard_Integer, const char**);
 // 2.3 building solids
-static Standard_Integer bopbsolid(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer bopbsolid(DrawInterpreter&, Standard_Integer, const char**);
 
 //=================================================================================================
 
-void BOPTest::DebugCommands(Draw_Interpretor& theCommands)
+void BOPTest::DebugCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -189,7 +189,7 @@ void BOPTest::DebugCommands(Draw_Interpretor& theCommands)
 
 //=================================================================================================
 
-Standard_Integer bopds(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopds(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n > 2)
   {
@@ -208,7 +208,7 @@ Standard_Integer bopds(Draw_Interpretor& di, Standard_Integer n, const char** a)
   Standard_CString aText;
   Standard_Integer i, aNbS;
   TopAbs_ShapeEnum aType, aTypeShape;
-  Draw_Color       aTextColor(Draw_cyan);
+  DrawColor       aTextColor(Draw_cyan);
   //
   BOPDS_DS& aDS = *pDS;
   aNbS          = aDS.NbSourceShapes();
@@ -222,7 +222,7 @@ Standard_Integer bopds(Draw_Interpretor& di, Standard_Integer n, const char** a)
   for (i = 0; i < aNbS; ++i)
   {
     const BOPDS_ShapeInfo& aSI = aDS.ShapeInfo(i);
-    const TopoDS_Shape&    aS  = aSI.Shape();
+    const TopoShape&    aS  = aSI.Shape();
     aTypeShape                 = aSI.ShapeType();
     if (n == 1)
     {
@@ -243,7 +243,7 @@ Standard_Integer bopds(Draw_Interpretor& di, Standard_Integer n, const char** a)
     Sprintf(buf, "z%d", i);
     aText                                 = buf;
     Handle(BOPTest_DrawableShape) aDShape = new BOPTest_DrawableShape(aS, aText, aTextColor);
-    Draw::Set(aText, aDShape);
+    Draw1::Set(aText, aDShape);
   }
   //
   return 0;
@@ -251,7 +251,7 @@ Standard_Integer bopds(Draw_Interpretor& di, Standard_Integer n, const char** a)
 
 //=================================================================================================
 
-Standard_Integer bopiterator(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopiterator(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 1 && n != 3)
   {
@@ -325,7 +325,7 @@ Standard_Integer bopiterator(Draw_Interpretor& di, Standard_Integer n, const cha
 
 //=================================================================================================
 
-Standard_Integer bopinterf(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopinterf(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 3)
   {
@@ -405,7 +405,7 @@ Standard_Integer bopinterf(Draw_Interpretor& di, Standard_Integer n, const char*
 
 //=================================================================================================
 
-Standard_Integer bopwho(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopwho(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -420,7 +420,7 @@ Standard_Integer bopwho(Draw_Interpretor& di, Standard_Integer n, const char** a
     return 0;
   }
   //
-  Standard_Integer ind = Draw::Atoi(a[1]);
+  Standard_Integer ind = Draw1::Atoi(a[1]);
   if (ind <= 0)
   {
     di << " Index must be grater than 0\n";
@@ -430,7 +430,7 @@ Standard_Integer bopwho(Draw_Interpretor& di, Standard_Integer n, const char** a
   Standard_Integer i1, i2;
   //
   i1 = 0;
-  i2 = pDS->NbShapes();
+  i2 = pDS->NbShapes1();
   if (ind < i1 || ind > i2)
   {
     di << " DS does not contain the shape\n";
@@ -537,7 +537,7 @@ Standard_Integer bopwho(Draw_Interpretor& di, Standard_Integer n, const char** a
 
 //=================================================================================================
 
-Standard_Integer bopnews(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopnews(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -565,23 +565,23 @@ Standard_Integer bopnews(Draw_Interpretor& di, Standard_Integer n, const char** 
   Standard_CString              aText;
   Standard_Boolean              bFound;
   Standard_Integer              i, i1, i2;
-  Draw_Color                    aTextColor(Draw_cyan);
+  DrawColor                    aTextColor(Draw_cyan);
   Handle(BOPTest_DrawableShape) aDShape;
   //
   bFound = Standard_False;
   i1     = pDS->NbSourceShapes();
-  i2     = pDS->NbShapes();
+  i2     = pDS->NbShapes1();
   for (i = i1; i < i2; ++i)
   {
     const BOPDS_ShapeInfo& aSI = pDS->ShapeInfo(i);
     if (aSI.ShapeType() == aType)
     {
-      const TopoDS_Shape& aS = aSI.Shape();
+      const TopoShape& aS = aSI.Shape();
       //
       sprintf(buf, "z%d", i);
       aText   = buf;
       aDShape = new BOPTest_DrawableShape(aS, aText, aTextColor);
-      Draw::Set(aText, aDShape);
+      Draw1::Set(aText, aDShape);
       //
       sprintf(buf, "z%d ", i);
       di << buf;
@@ -604,7 +604,7 @@ Standard_Integer bopnews(Draw_Interpretor& di, Standard_Integer n, const char** 
 
 //=================================================================================================
 
-Standard_Integer bopindex(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopindex(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -619,7 +619,7 @@ Standard_Integer bopindex(Draw_Interpretor& di, Standard_Integer n, const char**
     return 1;
   }
   //
-  TopoDS_Shape aS = DBRep::Get(a[1]);
+  TopoShape aS = DBRep1::Get(a[1]);
   if (aS.IsNull())
   {
     di << a[1] << " is a null shape\n";
@@ -642,7 +642,7 @@ Standard_Integer bopindex(Draw_Interpretor& di, Standard_Integer n, const char**
 
 //=================================================================================================
 
-Standard_Integer bopsd(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopsd(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -661,10 +661,10 @@ Standard_Integer bopsd(Draw_Interpretor& di, Standard_Integer n, const char** a)
   Standard_Boolean bHasSD;
   Standard_Integer ind, i1, i2, iSD;
   //
-  ind = Draw::Atoi(a[1]);
+  ind = Draw1::Atoi(a[1]);
   //
   i1 = 0;
-  i2 = pDS->NbShapes();
+  i2 = pDS->NbShapes1();
   if (ind < i1 || ind > i2)
   {
     di << " DS does not contain the shape\n";
@@ -688,7 +688,7 @@ Standard_Integer bopsd(Draw_Interpretor& di, Standard_Integer n, const char** a)
 
 //=================================================================================================
 
-Standard_Integer bopsc(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopsc(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n > 3)
   {
@@ -705,7 +705,7 @@ Standard_Integer bopsc(Draw_Interpretor& di, Standard_Integer n, const char** a)
   //
   char                                buf[32];
   Standard_CString                    aText;
-  Draw_Color                          aTextColor(Draw_cyan);
+  DrawColor                          aTextColor(Draw_cyan);
   Standard_Integer                    nSF1, nSF2, nF1, nF2;
   Standard_Integer                    aNb, j, iCnt, k, iPriz, aNbC, aNbP, nSp;
   Standard_Integer                    iX;
@@ -714,9 +714,9 @@ Standard_Integer bopsc(Draw_Interpretor& di, Standard_Integer n, const char** a)
   //
   nSF1 = nSF2 = -1;
   if (n > 1)
-    nSF1 = Draw::Atoi(a[1]);
+    nSF1 = Draw1::Atoi(a[1]);
   if (n > 2)
-    nSF2 = Draw::Atoi(a[2]);
+    nSF2 = Draw1::Atoi(a[2]);
 
   BOPDS_VectorOfInterfFF& aFFs = pDS->InterfFF();
   //
@@ -767,10 +767,10 @@ Standard_Integer bopsc(Draw_Interpretor& di, Standard_Integer n, const char** a)
         sprintf(buf, "t_%d_%d", k, nSp);
         di << buf;
         //
-        const TopoDS_Shape& aSp = pDS->Shape(nSp);
+        const TopoShape& aSp = pDS->Shape(nSp);
         aText                   = buf;
         aDShape                 = new BOPTest_DrawableShape(aSp, aText, aTextColor);
-        Draw::Set(aText, aDShape);
+        Draw1::Set(aText, aDShape);
         di << " ";
         ++iCnt;
       }
@@ -800,10 +800,10 @@ Standard_Integer bopsc(Draw_Interpretor& di, Standard_Integer n, const char** a)
       sprintf(buf, "p_%d_%d", k, nSp);
       di << buf;
       //
-      const TopoDS_Shape& aSp = pDS->Shape(nSp);
+      const TopoShape& aSp = pDS->Shape(nSp);
       aText                   = buf;
       aDShape                 = new BOPTest_DrawableShape(aSp, aText, aTextColor);
-      Draw::Set(aText, aDShape);
+      Draw1::Set(aText, aDShape);
       di << " ";
       ++iCnt;
     }
@@ -832,7 +832,7 @@ Standard_Integer bopsc(Draw_Interpretor& di, Standard_Integer n, const char** a)
 
 //=================================================================================================
 
-Standard_Integer boppb(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer boppb(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n > 2)
   {
@@ -856,7 +856,7 @@ Standard_Integer boppb(Draw_Interpretor& di, Standard_Integer n, const char** a)
   i2 = pDS->NbSourceShapes();
   if (n == 2)
   {
-    ind = Draw::Atoi(a[1]);
+    ind = Draw1::Atoi(a[1]);
     i1  = ind;
     i2  = ind + 1;
   }
@@ -891,7 +891,7 @@ Standard_Integer boppb(Draw_Interpretor& di, Standard_Integer n, const char** a)
 
 //=================================================================================================
 
-Standard_Integer bopcb(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopcb(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n > 2)
   {
@@ -916,7 +916,7 @@ Standard_Integer bopcb(Draw_Interpretor& di, Standard_Integer n, const char** a)
   i2 = pDS->NbSourceShapes();
   if (n == 2)
   {
-    ind = Draw::Atoi(a[1]);
+    ind = Draw1::Atoi(a[1]);
     i1  = ind;
     i2  = ind + 1;
   }
@@ -958,7 +958,7 @@ Standard_Integer bopcb(Draw_Interpretor& di, Standard_Integer n, const char** a)
 
 //=================================================================================================
 
-Standard_Integer bopsp(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopsp(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n > 2)
   {
@@ -979,14 +979,14 @@ Standard_Integer bopsp(Draw_Interpretor& di, Standard_Integer n, const char** a)
   TopAbs_ShapeEnum                    aType;
   BOPDS_ListIteratorOfListOfPaveBlock aItPB;
   Standard_CString                    aText;
-  Draw_Color                          aTextColor(Draw_cyan);
+  DrawColor                          aTextColor(Draw_cyan);
   Handle(BOPTest_DrawableShape)       aDShape;
   //
   i1 = 0;
   i2 = pDS->NbSourceShapes();
   if (n == 2)
   {
-    ind = Draw::Atoi(a[1]);
+    ind = Draw1::Atoi(a[1]);
     i1  = ind;
     i2  = ind + 1;
   }
@@ -1014,12 +1014,12 @@ Standard_Integer bopsp(Draw_Interpretor& di, Standard_Integer n, const char** a)
     {
       const Handle(BOPDS_PaveBlock)& aPB = aItPB.Value();
       nSp                                = aPB->Edge();
-      const TopoDS_Shape& aSp            = pDS->Shape(nSp);
+      const TopoShape& aSp            = pDS->Shape(nSp);
       //
       Sprintf(buf, "z%d_%d", ind, nSp);
       aText   = buf;
       aDShape = new BOPTest_DrawableShape(aSp, aText, aTextColor);
-      Draw::Set(aText, aDShape);
+      Draw1::Set(aText, aDShape);
       di << buf << " ";
     }
     di << "\n";
@@ -1030,28 +1030,28 @@ Standard_Integer bopsp(Draw_Interpretor& di, Standard_Integer n, const char** a)
 
 //=================================================================================================
 
-Standard_Integer bopfon(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopfon(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   return bopfinfo(di, n, a, 0);
 }
 
 //=================================================================================================
 
-Standard_Integer bopfin(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopfin(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   return bopfinfo(di, n, a, 1);
 }
 
 //=================================================================================================
 
-Standard_Integer bopfsc(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopfsc(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   return bopfinfo(di, n, a, 2);
 }
 
 //=================================================================================================
 
-Standard_Integer bopfinfo(Draw_Interpretor&      di,
+Standard_Integer bopfinfo(DrawInterpreter&      di,
                           Standard_Integer       n,
                           const char**           a,
                           const Standard_Integer iPriz)
@@ -1074,7 +1074,7 @@ Standard_Integer bopfinfo(Draw_Interpretor&      di,
   Standard_Integer        nF, i1, i2, nV, i, aNb;
   Handle(BOPDS_PaveBlock) aPB;
   //
-  nF = Draw::Atoi(a[1]);
+  nF = Draw1::Atoi(a[1]);
   i1 = 0;
   i2 = pDS->NbSourceShapes();
   if (nF < i1 || nF > i2)
@@ -1157,7 +1157,7 @@ Standard_Integer bopfinfo(Draw_Interpretor&      di,
 // function : bopfav
 // purpose  : alone vertices on face
 //=======================================================================
-Standard_Integer bopfav(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopfav(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -1174,7 +1174,7 @@ Standard_Integer bopfav(Draw_Interpretor& di, Standard_Integer n, const char** a
   //
   Standard_Integer i1, i2, nF, nV;
   //
-  nF = Draw::Atoi(a[1]);
+  nF = Draw1::Atoi(a[1]);
   i1 = 0;
   i2 = pDS->NbSourceShapes();
   if (nF < i1 || nF > i2)
@@ -1217,7 +1217,7 @@ Standard_Integer bopfav(Draw_Interpretor& di, Standard_Integer n, const char** a
 
 //=================================================================================================
 
-Standard_Integer bopimage(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopimage(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -1232,7 +1232,7 @@ Standard_Integer bopimage(Draw_Interpretor& di, Standard_Integer n, const char**
     return 1;
   }
   //
-  TopoDS_Shape aS = DBRep::Get(a[1]);
+  TopoShape aS = DBRep1::Get(a[1]);
   if (aS.IsNull())
   {
     di << a[1] << " is a null shape\n";
@@ -1249,22 +1249,22 @@ Standard_Integer bopimage(Draw_Interpretor& di, Standard_Integer n, const char**
   //
   char             buf[32];
   Standard_Integer i;
-  BRep_Builder     aBB;
-  TopoDS_Compound  aC;
+  ShapeBuilder     aBB;
+  TopoCompound  aC;
   //
   aBB.MakeCompound(aC);
   //
-  const TopTools_ListOfShape&        aLSIm = anImages.Find(aS);
+  const ShapeList&        aLSIm = anImages.Find(aS);
   TopTools_ListIteratorOfListOfShape aIt(aLSIm);
   for (i = 0; aIt.More(); aIt.Next(), ++i)
   {
-    const TopoDS_Shape& aSIm = aIt.Value();
+    const TopoShape& aSIm = aIt.Value();
     aBB.Add(aC, aSIm);
   }
   //
   di << i << " images found\n";
   sprintf(buf, "%s_im", a[1]);
-  DBRep::Set(buf, aC);
+  DBRep1::Set(buf, aC);
   di << buf << "\n";
   //
   return 0;
@@ -1272,7 +1272,7 @@ Standard_Integer bopimage(Draw_Interpretor& di, Standard_Integer n, const char**
 
 //=================================================================================================
 
-Standard_Integer boporigin(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer boporigin(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -1287,7 +1287,7 @@ Standard_Integer boporigin(Draw_Interpretor& di, Standard_Integer n, const char*
     return 1;
   }
   //
-  TopoDS_Shape aS = DBRep::Get(a[1]);
+  TopoShape aS = DBRep1::Get(a[1]);
   if (aS.IsNull())
   {
     di << a[1] << " is a null shape\n";
@@ -1305,24 +1305,24 @@ Standard_Integer boporigin(Draw_Interpretor& di, Standard_Integer n, const char*
   char buf[32];
   sprintf(buf, "%s_or", a[1]);
   //
-  const TopTools_ListOfShape& aLSx = aDMI.Find(aS);
+  const ShapeList& aLSx = aDMI.Find(aS);
   if (aLSx.Extent() == 1)
   {
-    DBRep::Set(buf, aLSx.First());
+    DBRep1::Set(buf, aLSx.First());
     di << "1 origin found\n" << buf << "\n";
     return 0;
   }
   //
-  TopoDS_Compound aCOr;
-  BRep_Builder().MakeCompound(aCOr);
+  TopoCompound aCOr;
+  ShapeBuilder().MakeCompound(aCOr);
   //
   TopTools_ListIteratorOfListOfShape aItLSx(aLSx);
   for (; aItLSx.More(); aItLSx.Next())
   {
-    BRep_Builder().Add(aCOr, aItLSx.Value());
+    ShapeBuilder().Add(aCOr, aItLSx.Value());
   }
   //
-  DBRep::Set(buf, aCOr);
+  DBRep1::Set(buf, aCOr);
   //
   di << aLSx.Extent() << " origins found\n";
   di << buf << "\n";
@@ -1332,7 +1332,7 @@ Standard_Integer boporigin(Draw_Interpretor& di, Standard_Integer n, const char*
 
 //=================================================================================================
 
-Standard_Integer bopfsd(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopfsd(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -1347,7 +1347,7 @@ Standard_Integer bopfsd(Draw_Interpretor& di, Standard_Integer n, const char** a
     return 1;
   }
   //
-  TopoDS_Shape aS = DBRep::Get(a[1]);
+  TopoShape aS = DBRep1::Get(a[1]);
   if (aS.IsNull())
   {
     di << a[1] << " is a null shape\n";
@@ -1364,8 +1364,8 @@ Standard_Integer bopfsd(Draw_Interpretor& di, Standard_Integer n, const char** a
   //
   char             buf[32];
   Standard_Integer i;
-  BRep_Builder     aBB;
-  TopoDS_Compound  aC;
+  ShapeBuilder     aBB;
+  TopoCompound  aC;
   //
   aBB.MakeCompound(aC);
   //
@@ -1373,8 +1373,8 @@ Standard_Integer bopfsd(Draw_Interpretor& di, Standard_Integer n, const char** a
   aItSD.Initialize(aDMSD);
   for (i = 0; aItSD.More(); aItSD.Next())
   {
-    const TopoDS_Shape& aSK = aItSD.Key();
-    const TopoDS_Shape& aSV = aItSD.Value();
+    const TopoShape& aSK = aItSD.Key();
+    const TopoShape& aSV = aItSD.Value();
     if (aSK.IsEqual(aS))
     {
       if (!aSV.IsEqual(aS))
@@ -1397,7 +1397,7 @@ Standard_Integer bopfsd(Draw_Interpretor& di, Standard_Integer n, const char** a
   di << i << " SD shapes found\n";
   //
   sprintf(buf, "%s_sd", a[1]);
-  DBRep::Set(buf, aC);
+  DBRep1::Set(buf, aC);
   //
   di << buf << "\n";
   return 0;
@@ -1405,7 +1405,7 @@ Standard_Integer bopfsd(Draw_Interpretor& di, Standard_Integer n, const char** a
 
 //=================================================================================================
 
-Standard_Integer bopbface(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopbface(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 3)
   {
@@ -1413,21 +1413,21 @@ Standard_Integer bopbface(Draw_Interpretor& di, Standard_Integer n, const char**
     return 1;
   }
   //
-  TopoDS_Shape aS = DBRep::Get(a[2]);
+  TopoShape aS = DBRep1::Get(a[2]);
   if (aS.IsNull())
   {
     di << a[1] << " is a null shape\n";
     return 1;
   }
   //
-  TopoDS_Face          aF;
-  TopTools_ListOfShape aLE;
+  TopoFace          aF;
+  ShapeList aLE;
   Standard_Integer     i;
   //
   TopoDS_Iterator aItS(aS);
   for (i = 0; aItS.More(); aItS.Next(), ++i)
   {
-    const TopoDS_Shape& aSx = aItS.Value();
+    const TopoShape& aSx = aItS.Value();
     if (!i)
     {
       if (aSx.ShapeType() != TopAbs_FACE)
@@ -1435,7 +1435,7 @@ Standard_Integer bopbface(Draw_Interpretor& di, Standard_Integer n, const char**
         di << " shape " << i << " is not a face\n";
         return 1;
       }
-      aF = *(TopoDS_Face*)&aSx;
+      aF = *(TopoFace*)&aSx;
     }
     else
     {
@@ -1459,13 +1459,13 @@ Standard_Integer bopbface(Draw_Interpretor& di, Standard_Integer n, const char**
   }
   //
   char                               buf[128];
-  const TopTools_ListOfShape&        aLFR = aBF.Areas();
+  const ShapeList&        aLFR = aBF.Areas();
   TopTools_ListIteratorOfListOfShape aIt(aLFR);
   for (i = 1; aIt.More(); aIt.Next(), ++i)
   {
-    const TopoDS_Shape& aFR = aIt.Value();
+    const TopoShape& aFR = aIt.Value();
     sprintf(buf, "%s_%d", a[1], i);
-    DBRep::Set(buf, aFR);
+    DBRep1::Set(buf, aFR);
     di << " " << buf;
   }
   //
@@ -1484,7 +1484,7 @@ Standard_Integer bopbface(Draw_Interpretor& di, Standard_Integer n, const char**
 
 //=================================================================================================
 
-Standard_Integer bopbsolid(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopbsolid(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 3)
   {
@@ -1492,18 +1492,18 @@ Standard_Integer bopbsolid(Draw_Interpretor& di, Standard_Integer n, const char*
     return 1;
   }
   //
-  TopoDS_Shape aS = DBRep::Get(a[2]);
+  TopoShape aS = DBRep1::Get(a[2]);
   if (aS.IsNull())
   {
     di << a[1] << " is a null shape\n";
     return 1;
   }
   //
-  TopTools_ListOfShape aLF;
-  TopExp_Explorer      aExp(aS, TopAbs_FACE);
+  ShapeList aLF;
+  ShapeExplorer      aExp(aS, TopAbs_FACE);
   for (; aExp.More(); aExp.Next())
   {
-    const TopoDS_Shape& aF = aExp.Current();
+    const TopoShape& aF = aExp.Current();
     aLF.Append(aF);
   }
   //
@@ -1523,19 +1523,19 @@ Standard_Integer bopbsolid(Draw_Interpretor& di, Standard_Integer n, const char*
   }
   //
   Standard_Integer i;
-  TopoDS_Compound  aSolids;
-  BRep_Builder     aBB;
+  TopoCompound  aSolids;
+  ShapeBuilder     aBB;
   //
   aBB.MakeCompound(aSolids);
   //
   char                               buf[128];
-  const TopTools_ListOfShape&        aLSR = aBS.Areas();
+  const ShapeList&        aLSR = aBS.Areas();
   TopTools_ListIteratorOfListOfShape aIt(aLSR);
   for (i = 1; aIt.More(); aIt.Next(), ++i)
   {
-    const TopoDS_Shape& aSR = aIt.Value();
+    const TopoShape& aSR = aIt.Value();
     sprintf(buf, "%s_%d", a[1], i);
-    DBRep::Set(buf, aSR);
+    DBRep1::Set(buf, aSR);
     di << " " << buf;
   }
   //
@@ -1633,7 +1633,7 @@ void GetNameByType(const TopAbs_ShapeEnum& theType, char* theName)
 //=================================================================================================
 
 template <class InterfType>
-void DumpInterfs(const NCollection_Vector<InterfType>& theVInterf, Draw_Interpretor& di)
+void DumpInterfs(const NCollection_Vector<InterfType>& theVInterf, DrawInterpreter& di)
 {
   Standard_Integer i, aNb, n1, n2, nNew;
   char             buf[64];
@@ -1669,7 +1669,7 @@ template <class InterfType>
 void SearchNewIndex(const char*                           theCType,
                     const Standard_Integer                theInd,
                     const NCollection_Vector<InterfType>& theVInterf,
-                    Draw_Interpretor&                     di)
+                    DrawInterpreter&                     di)
 {
   char             buf[64];
   Standard_Boolean bFound;

@@ -27,7 +27,7 @@ public:
   DEFINE_INC_ALLOC
 
   //! Constructor.
-  Standard_EXPORT BRepMeshData_Face(const TopoDS_Face&                      theFace,
+  Standard_EXPORT BRepMeshData_Face(const TopoFace&                      theFace,
                                     const Handle(NCollection_IncAllocator)& theAllocator);
 
   //! Destructor.
@@ -42,7 +42,7 @@ public:
 
   //! Adds wire to discrete model of face.
   Standard_EXPORT virtual const IMeshData::IWireHandle& AddWire(
-    const TopoDS_Wire&     theWire,
+    const TopoWire&     theWire,
     const Standard_Integer theEdgeNb = 0) Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(BRepMeshData_Face, IMeshData_Face)

@@ -23,8 +23,8 @@
 #include <Standard_Boolean.hxx>
 #include <Standard_Real.hxx>
 #include <GeomAbs_CurveType.hxx>
-class Geom_Curve;
-class Geom2d_Curve;
+class GeomCurve3d;
+class GeomCurve2d;
 class Point3d;
 
 //! The class is a container of one 3D curve, two 2D curves and two Tolerance values.<br>
@@ -46,16 +46,16 @@ public:
   Standard_EXPORT IntTools_Curve();
 
   //! Constructor taking 3d curve, two 2d curves and two tolerance values
-  Standard_EXPORT IntTools_Curve(const Handle(Geom_Curve)&   the3dCurve3d,
-                                 const Handle(Geom2d_Curve)& the2dCurve1,
-                                 const Handle(Geom2d_Curve)& the2dCurve2,
+  Standard_EXPORT IntTools_Curve(const Handle(GeomCurve3d)&   the3dCurve3d,
+                                 const Handle(GeomCurve2d)& the2dCurve1,
+                                 const Handle(GeomCurve2d)& the2dCurve2,
                                  const Standard_Real         theTolerance           = 0.0,
                                  const Standard_Real         theTangentialTolerance = 0.0);
 
   //! Sets the curves
-  void SetCurves(const Handle(Geom_Curve)&   the3dCurve,
-                 const Handle(Geom2d_Curve)& the2dCurve1,
-                 const Handle(Geom2d_Curve)& the2dCurve2)
+  void SetCurves(const Handle(GeomCurve3d)&   the3dCurve,
+                 const Handle(GeomCurve2d)& the2dCurve1,
+                 const Handle(GeomCurve2d)& the2dCurve2)
   {
     my3dCurve  = the3dCurve;
     my2dCurve1 = the2dCurve1;
@@ -63,13 +63,13 @@ public:
   }
 
   //! Sets the 3d curve
-  void SetCurve(const Handle(Geom_Curve)& the3dCurve) { my3dCurve = the3dCurve; }
+  void SetCurve(const Handle(GeomCurve3d)& the3dCurve) { my3dCurve = the3dCurve; }
 
   //! Sets the first 2d curve
-  void SetFirstCurve2d(const Handle(Geom2d_Curve)& the2dCurve1) { my2dCurve1 = the2dCurve1; }
+  void SetFirstCurve2d(const Handle(GeomCurve2d)& the2dCurve1) { my2dCurve1 = the2dCurve1; }
 
   //! Sets the second 2d curve
-  void SetSecondCurve2d(const Handle(Geom2d_Curve)& the2dCurve2) { my2dCurve2 = the2dCurve2; }
+  void SetSecondCurve2d(const Handle(GeomCurve2d)& the2dCurve2) { my2dCurve2 = the2dCurve2; }
 
   //! Sets the tolerance for the curve
   void SetTolerance(const Standard_Real theTolerance) { myTolerance = theTolerance; }
@@ -81,13 +81,13 @@ public:
   }
 
   //! Returns 3d curve
-  const Handle(Geom_Curve)& Curve() const { return my3dCurve; }
+  const Handle(GeomCurve3d)& Curve() const { return my3dCurve; }
 
   //! Returns first 2d curve
-  const Handle(Geom2d_Curve)& FirstCurve2d() const { return my2dCurve1; }
+  const Handle(GeomCurve2d)& FirstCurve2d() const { return my2dCurve1; }
 
   //! Returns second 2d curve
-  const Handle(Geom2d_Curve)& SecondCurve2d() const { return my2dCurve2; }
+  const Handle(GeomCurve2d)& SecondCurve2d() const { return my2dCurve2; }
 
   //! Returns the tolerance
   Standard_Real Tolerance() const { return myTolerance; }
@@ -119,9 +119,9 @@ public:
 
 protected:
 private:
-  Handle(Geom_Curve)   my3dCurve;
-  Handle(Geom2d_Curve) my2dCurve1;
-  Handle(Geom2d_Curve) my2dCurve2;
+  Handle(GeomCurve3d)   my3dCurve;
+  Handle(GeomCurve2d) my2dCurve1;
+  Handle(GeomCurve2d) my2dCurve2;
   Standard_Real        myTolerance;
   Standard_Real        myTangentialTolerance;
 };

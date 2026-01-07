@@ -32,7 +32,7 @@ class IGESAppli_NodalResults;
 DEFINE_STANDARD_HANDLE(IGESAppli_NodalResults, IGESData_IGESEntity)
 
 //! defines NodalResults, Type <146>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Used to store the Analysis Data results per FEM Node
 class IGESAppli_NodalResults : public IGESData_IGESEntity
 {

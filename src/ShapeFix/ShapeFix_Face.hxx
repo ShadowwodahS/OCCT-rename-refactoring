@@ -29,12 +29,12 @@
 #include <ShapeFix_DataMapOfShapeBox2d.hxx>
 #include <ShapeExtend_Status.hxx>
 class ShapeAnalysis_Surface;
-class ShapeFix_Wire;
-class Geom_Surface;
+class WireHealer;
+class GeomSurface;
 class ShapeExtend_BasicMsgRegistrator;
-class TopoDS_Wire;
+class TopoWire;
 class ShapeExtend_WireData;
-class TopoDS_Vertex;
+class TopoVertex;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -45,7 +45,7 @@ class ShapeFix_Face;
 DEFINE_STANDARD_HANDLE(ShapeFix_Face, ShapeFix_Root)
 
 //! This operator allows to perform various fixes on face
-//! and its wires: fixes provided by ShapeFix_Wire,
+//! and its wires: fixes provided by WireHealer,
 //! fixing orientation of wires, addition of natural bounds,
 //! fixing of missing seam edge,
 //! and detection and removal of null-area wires
@@ -57,18 +57,18 @@ public:
   Standard_EXPORT ShapeFix_Face();
 
   //! Creates a tool and loads a face
-  Standard_EXPORT ShapeFix_Face(const TopoDS_Face& face);
+  Standard_EXPORT ShapeFix_Face(const TopoFace& face);
 
   //! Sets all modes to default
   Standard_EXPORT virtual void ClearModes();
 
   //! Loads a whole face already created, with its wires, sense and
   //! location
-  Standard_EXPORT void Init(const TopoDS_Face& face);
+  Standard_EXPORT void Init(const TopoFace& face);
 
   //! Starts the creation of the face
   //! By default it will be FORWARD, or REVERSED if <fwd> is False
-  Standard_EXPORT void Init(const Handle(Geom_Surface)& surf,
+  Standard_EXPORT void Init(const Handle(GeomSurface)& surf,
                             const Standard_Real         preci,
                             const Standard_Boolean      fwd = Standard_True);
 
@@ -92,7 +92,7 @@ public:
   Standard_EXPORT virtual void SetMaxTolerance(const Standard_Real maxtol) Standard_OVERRIDE;
 
   //! Returns (modifiable) the mode for applying fixes of
-  //! ShapeFix_Wire, by default True.
+  //! WireHealer, by default True.
   Standard_Integer& FixWireMode();
 
   //! Returns (modifiable) the fix orientation mode, by default
@@ -140,16 +140,16 @@ public:
   //! Returns a face which corresponds to the current state
   //! Warning: The finally produced face may be another one ... but with the
   //! same support
-  TopoDS_Face Face() const;
+  TopoFace Face() const;
 
   //! Returns resulting shape (Face or Shell if split)
   //! To be used instead of Face() if FixMissingSeam involved
-  TopoDS_Shape Result() const;
+  TopoShape Result() const;
 
-  //! Add a wire to current face using BRep_Builder.
+  //! Add a wire to current face using ShapeBuilder.
   //! Wire is added without taking into account orientation of face
   //! (as if face were FORWARD).
-  Standard_EXPORT void Add(const TopoDS_Wire& wire);
+  Standard_EXPORT void Add(const TopoWire& wire);
 
   //! Performs all the fixes, depending on modes
   //! Function Status returns the status of last call to Perform()
@@ -244,15 +244,15 @@ public:
   Standard_Boolean Status(const ShapeExtend_Status status) const;
 
   //! Returns tool for fixing wires.
-  Handle(ShapeFix_Wire) FixWireTool();
+  Handle(WireHealer) FixWireTool();
 
   DEFINE_STANDARD_RTTIEXT(ShapeFix_Face, ShapeFix_Root)
 
 protected:
   Handle(ShapeAnalysis_Surface) mySurf;
-  TopoDS_Face                   myFace;
-  TopoDS_Shape                  myResult;
-  Handle(ShapeFix_Wire)         myFixWire;
+  TopoFace                   myFace;
+  TopoShape                  myResult;
+  Handle(WireHealer)         myFixWire;
   Standard_Boolean              myFwd;
   Standard_Integer              myStatus;
 
@@ -264,7 +264,7 @@ private:
   Standard_EXPORT Standard_Boolean SplitEdge(const Handle(ShapeExtend_WireData)& sewd,
                                              const Standard_Integer              num,
                                              const Standard_Real                 param,
-                                             const TopoDS_Vertex&                vert,
+                                             const TopoVertex&                vert,
                                              const Standard_Real                 preci,
                                              ShapeFix_DataMapOfShapeBox2d&       boxes);
 
@@ -272,7 +272,7 @@ private:
                                              const Standard_Integer              num,
                                              const Standard_Real                 param1,
                                              const Standard_Real                 param2,
-                                             const TopoDS_Vertex&                vert,
+                                             const TopoVertex&                vert,
                                              const Standard_Real                 preci,
                                              ShapeFix_DataMapOfShapeBox2d&       boxes);
 

@@ -30,21 +30,21 @@ class Convert_TransientShape : public RefObject
 {
 public:
   //! Constructor
-  Convert_TransientShape(const TopoDS_Shape& theShape) { SetShape(theShape); }
+  Convert_TransientShape(const TopoShape& theShape) { SetShape(theShape); }
 
   //! Destructor
   virtual ~Convert_TransientShape() {}
 
   //! Returns current shape
-  const TopoDS_Shape Shape() const { return myShape; }
+  const TopoShape Shape() const { return myShape; }
 
   //! Fills current shape
-  void SetShape(const TopoDS_Shape& theShape) { myShape = theShape; }
+  void SetShape(const TopoShape& theShape) { myShape = theShape; }
 
   DEFINE_STANDARD_RTTI_INLINE(Convert_TransientShape, RefObject)
 
 private:
-  TopoDS_Shape myShape; //!< the shape
+  TopoShape myShape; //!< the shape
 };
 
 #endif

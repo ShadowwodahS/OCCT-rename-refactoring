@@ -61,7 +61,7 @@ Standard_Boolean BinMDataStd_ExtStringListDriver::Paste(
       return Standard_False;
     for (Standard_Integer i = aFirstInd; i <= aLastInd; i++)
     {
-      TCollection_ExtendedString aStr;
+      UtfString aStr;
       if (!(theSource >> aStr))
       {
         return Standard_False;
@@ -70,7 +70,7 @@ Standard_Boolean BinMDataStd_ExtStringListDriver::Paste(
     }
   }
 
-  BinMDataStd::SetAttributeID(theSource,
+  BinMDataStd1::SetAttributeID(theSource,
                               anAtt,
                               theRelocTable.GetHeaderData()->StorageVersion().IntegerValue());
   return Standard_True;

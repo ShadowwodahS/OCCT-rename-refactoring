@@ -52,7 +52,7 @@ TDataStd_NamedData::TDataStd_NamedData() {}
 
 //=================================================================================================
 
-Handle(TDataStd_NamedData) TDataStd_NamedData::Set(const TDF_Label& label)
+Handle(TDataStd_NamedData) TDataStd_NamedData::Set(const DataLabel& label)
 {
   Handle(TDataStd_NamedData) A;
   if (!label.FindAttribute(TDataStd_NamedData::GetID(), A))
@@ -90,7 +90,7 @@ Standard_Boolean TDataStd_NamedData::HasIntegers() const
 // function : HasInteger
 // purpose  : Returns true if the attribute contains this named integer.
 //=======================================================================
-Standard_Boolean TDataStd_NamedData::HasInteger(const TCollection_ExtendedString& theName) const
+Standard_Boolean TDataStd_NamedData::HasInteger(const UtfString& theName) const
 {
   if (!HasIntegers())
     return Standard_False;
@@ -102,7 +102,7 @@ Standard_Boolean TDataStd_NamedData::HasInteger(const TCollection_ExtendedString
 // purpose  : Returns the named integer. It returns 0 if there is no such
 //         : a named integer(use HasInteger()).
 //=======================================================================
-Standard_Integer TDataStd_NamedData::GetInteger(const TCollection_ExtendedString& theName)
+Standard_Integer TDataStd_NamedData::GetInteger(const UtfString& theName)
 {
   if (!HasIntegers())
   {
@@ -114,7 +114,7 @@ Standard_Integer TDataStd_NamedData::GetInteger(const TCollection_ExtendedString
 
 //=================================================================================================
 
-void TDataStd_NamedData::setInteger(const TCollection_ExtendedString& theName,
+void TDataStd_NamedData::setInteger(const UtfString& theName,
                                     const Standard_Integer            theInteger)
 {
   if (!HasIntegers())
@@ -130,7 +130,7 @@ void TDataStd_NamedData::setInteger(const TCollection_ExtendedString& theName,
 // purpose  : Defines a named integer. If the integer already exists,
 //         : it changes its value to <theInteger>.
 //=======================================================================
-void TDataStd_NamedData::SetInteger(const TCollection_ExtendedString& theName,
+void TDataStd_NamedData::SetInteger(const UtfString& theName,
                                     const Standard_Integer            theInteger)
 {
   if (!HasIntegers())
@@ -201,7 +201,7 @@ Standard_Boolean TDataStd_NamedData::HasReals() const
 // function : HasReal
 // purpose  : Returns true if the attribute contains this named real.
 //=======================================================================
-Standard_Boolean TDataStd_NamedData::HasReal(const TCollection_ExtendedString& theName) const
+Standard_Boolean TDataStd_NamedData::HasReal(const UtfString& theName) const
 {
   if (!HasReals())
     return Standard_False;
@@ -213,7 +213,7 @@ Standard_Boolean TDataStd_NamedData::HasReal(const TCollection_ExtendedString& t
 // purpose  : Returns the named real. It returns 0 if there is no such
 //         : a named real (use HasReal()).
 //=======================================================================
-Standard_Real TDataStd_NamedData::GetReal(const TCollection_ExtendedString& theName)
+Standard_Real TDataStd_NamedData::GetReal(const UtfString& theName)
 {
   if (!HasReals())
   {
@@ -225,7 +225,7 @@ Standard_Real TDataStd_NamedData::GetReal(const TCollection_ExtendedString& theN
 
 //=================================================================================================
 
-void TDataStd_NamedData::setReal(const TCollection_ExtendedString& theName,
+void TDataStd_NamedData::setReal(const UtfString& theName,
                                  const Standard_Real               theReal)
 {
   if (!HasReals())
@@ -241,7 +241,7 @@ void TDataStd_NamedData::setReal(const TCollection_ExtendedString& theName,
 // purpose  : Defines a named real. If the real already exists,
 //         : it changes its value to <theReal>.
 //=======================================================================
-void TDataStd_NamedData::SetReal(const TCollection_ExtendedString& theName,
+void TDataStd_NamedData::SetReal(const UtfString& theName,
                                  const Standard_Real               theReal)
 {
   if (!HasReals())
@@ -310,7 +310,7 @@ Standard_Boolean TDataStd_NamedData::HasStrings() const
 // function : HasString
 // purpose  : Returns true if the attribute contains this named string.
 //=======================================================================
-Standard_Boolean TDataStd_NamedData::HasString(const TCollection_ExtendedString& theName) const
+Standard_Boolean TDataStd_NamedData::HasString(const UtfString& theName) const
 {
   if (!HasStrings())
     return Standard_False;
@@ -322,8 +322,8 @@ Standard_Boolean TDataStd_NamedData::HasString(const TCollection_ExtendedString&
 // purpose  : Returns the named string.It returns empty string if there is
 //         : string specified by the Name(use HasString()).
 //=======================================================================
-const TCollection_ExtendedString& TDataStd_NamedData::GetString(
-  const TCollection_ExtendedString& theName)
+const UtfString& TDataStd_NamedData::GetString(
+  const UtfString& theName)
 {
   if (!HasStrings())
   {
@@ -335,8 +335,8 @@ const TCollection_ExtendedString& TDataStd_NamedData::GetString(
 
 //=================================================================================================
 
-void TDataStd_NamedData::setString(const TCollection_ExtendedString& theName,
-                                   const TCollection_ExtendedString& theString)
+void TDataStd_NamedData::setString(const UtfString& theName,
+                                   const UtfString& theString)
 {
   if (!HasStrings())
   {
@@ -352,8 +352,8 @@ void TDataStd_NamedData::setString(const TCollection_ExtendedString& theName,
 // purpose  : Defines a named string. If the string already exists,
 //         : it changes its value to <theString>.
 //=======================================================================
-void TDataStd_NamedData::SetString(const TCollection_ExtendedString& theName,
-                                   const TCollection_ExtendedString& theString)
+void TDataStd_NamedData::SetString(const UtfString& theName,
+                                   const UtfString& theString)
 {
   if (!HasStrings())
   {
@@ -361,7 +361,7 @@ void TDataStd_NamedData::SetString(const TCollection_ExtendedString& theName,
     myStrings = new TDataStd_HDataMapOfStringString(aMap);
   }
 
-  if (TCollection_ExtendedString* aValuePtr = myStrings->ChangeMap().ChangeSeek(theName))
+  if (UtfString* aValuePtr = myStrings->ChangeMap().ChangeSeek(theName))
   {
     if (*aValuePtr != theString)
     {
@@ -423,7 +423,7 @@ Standard_Boolean TDataStd_NamedData::HasBytes() const
 // function : HasByte
 // purpose  : Returns true if the attribute contains this named byte.
 //=======================================================================
-Standard_Boolean TDataStd_NamedData::HasByte(const TCollection_ExtendedString& theName) const
+Standard_Boolean TDataStd_NamedData::HasByte(const UtfString& theName) const
 {
   if (!HasBytes())
     return Standard_False;
@@ -435,7 +435,7 @@ Standard_Boolean TDataStd_NamedData::HasByte(const TCollection_ExtendedString& t
 // purpose  : Returns the named byte. It returns 0 if there is no such
 //         : a named byte (use HasByte()).
 //=======================================================================
-Standard_Byte TDataStd_NamedData::GetByte(const TCollection_ExtendedString& theName)
+Standard_Byte TDataStd_NamedData::GetByte(const UtfString& theName)
 {
   if (!HasBytes())
   {
@@ -447,7 +447,7 @@ Standard_Byte TDataStd_NamedData::GetByte(const TCollection_ExtendedString& theN
 
 //=================================================================================================
 
-void TDataStd_NamedData::setByte(const TCollection_ExtendedString& theName,
+void TDataStd_NamedData::setByte(const UtfString& theName,
                                  const Standard_Byte               theByte)
 {
   if (!HasBytes())
@@ -463,7 +463,7 @@ void TDataStd_NamedData::setByte(const TCollection_ExtendedString& theName,
 // purpose  : Defines a named byte. If the byte already exists,
 //         : it changes its value to <theByte>.
 //=======================================================================
-void TDataStd_NamedData::SetByte(const TCollection_ExtendedString& theName,
+void TDataStd_NamedData::SetByte(const UtfString& theName,
                                  const Standard_Byte               theByte)
 {
   if (!HasBytes())
@@ -536,7 +536,7 @@ Standard_Boolean TDataStd_NamedData::HasArraysOfIntegers() const
 //         : of integer values.
 //=======================================================================
 Standard_Boolean TDataStd_NamedData::HasArrayOfIntegers(
-  const TCollection_ExtendedString& theName) const
+  const UtfString& theName) const
 {
   if (!HasArraysOfIntegers())
     return Standard_False;
@@ -549,7 +549,7 @@ Standard_Boolean TDataStd_NamedData::HasArrayOfIntegers(
 //         : Handle if there is no such a named array of integers
 //=======================================================================
 const Handle(TColStd_HArray1OfInteger)& TDataStd_NamedData::GetArrayOfIntegers(
-  const TCollection_ExtendedString& theName)
+  const UtfString& theName)
 {
   if (!HasArraysOfIntegers())
   {
@@ -562,7 +562,7 @@ const Handle(TColStd_HArray1OfInteger)& TDataStd_NamedData::GetArrayOfIntegers(
 //=================================================================================================
 
 void TDataStd_NamedData::setArrayOfIntegers(
-  const TCollection_ExtendedString&       theName,
+  const UtfString&       theName,
   const Handle(TColStd_HArray1OfInteger)& theArrayOfIntegers)
 {
   if (!HasArraysOfIntegers())
@@ -636,7 +636,7 @@ Standard_Boolean TDataStd_NamedData::HasArraysOfReals() const
 //         : real values.
 //=======================================================================
 Standard_Boolean TDataStd_NamedData::HasArrayOfReals(
-  const TCollection_ExtendedString& theName) const
+  const UtfString& theName) const
 {
   if (!HasArraysOfReals())
     return Standard_False;
@@ -649,7 +649,7 @@ Standard_Boolean TDataStd_NamedData::HasArrayOfReals(
 //         : Handle if there is no such a named array of reals.
 //=======================================================================
 const Handle(TColStd_HArray1OfReal)& TDataStd_NamedData::GetArrayOfReals(
-  const TCollection_ExtendedString& theName)
+  const UtfString& theName)
 {
   if (!HasArraysOfReals())
   {
@@ -661,7 +661,7 @@ const Handle(TColStd_HArray1OfReal)& TDataStd_NamedData::GetArrayOfReals(
 
 //=================================================================================================
 
-void TDataStd_NamedData::setArrayOfReals(const TCollection_ExtendedString&    theName,
+void TDataStd_NamedData::setArrayOfReals(const UtfString&    theName,
                                          const Handle(TColStd_HArray1OfReal)& theArrayOfReals)
 {
   if (!HasArraysOfReals())

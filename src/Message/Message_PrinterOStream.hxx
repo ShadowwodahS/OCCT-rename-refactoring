@@ -21,14 +21,14 @@
 #include <Standard_OStream.hxx>
 
 class Message_PrinterOStream;
-DEFINE_STANDARD_HANDLE(Message_PrinterOStream, Message_Printer)
+DEFINE_STANDARD_HANDLE(Message_PrinterOStream, LogPrinter)
 
 //! Implementation of a message printer associated with an std::ostream
 //! The std::ostream may be either externally defined one (e.g. std::cout),
 //! or file stream maintained internally (depending on constructor).
-class Message_PrinterOStream : public Message_Printer
+class Message_PrinterOStream : public LogPrinter
 {
-  DEFINE_STANDARD_RTTIEXT(Message_PrinterOStream, Message_Printer)
+  DEFINE_STANDARD_RTTIEXT(Message_PrinterOStream, LogPrinter)
 public:
   //! Setup console text color.
   //!
@@ -76,7 +76,7 @@ protected:
   //! Puts a message to the current stream
   //! if its gravity is equal or greater
   //! to the trace level set by SetTraceLevel()
-  Standard_EXPORT virtual void send(const TCollection_AsciiString& theString,
+  Standard_EXPORT virtual void send(const AsciiString1& theString,
                                     const Message_Gravity theGravity) const Standard_OVERRIDE;
 
 private:

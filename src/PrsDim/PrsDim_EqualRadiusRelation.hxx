@@ -19,7 +19,7 @@
 
 #include <PrsDim_Relation.hxx>
 
-class Geom_Plane;
+class GeomPlane;
 
 DEFINE_STANDARD_HANDLE(PrsDim_EqualRadiusRelation, PrsDim_Relation)
 
@@ -30,16 +30,16 @@ public:
   //! Creates equal relation of two arc's radiuses.
   //! If one of edges is not in the given plane,
   //! the presentation method projects it onto the plane.
-  Standard_EXPORT PrsDim_EqualRadiusRelation(const TopoDS_Edge&        aFirstEdge,
-                                             const TopoDS_Edge&        aSecondEdge,
-                                             const Handle(Geom_Plane)& aPlane);
+  Standard_EXPORT PrsDim_EqualRadiusRelation(const TopoEdge&        aFirstEdge,
+                                             const TopoEdge&        aSecondEdge,
+                                             const Handle(GeomPlane)& aPlane);
 
 private:
   Standard_EXPORT virtual void Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
                                        const Handle(Prs3d_Presentation)&         thePrs,
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT void ComputeRadiusPosition();

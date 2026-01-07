@@ -27,8 +27,8 @@
 #include <TopTools_DataMapOfShapeShape.hxx>
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Face;
-class TopoDS_Edge;
+class TopoFace;
+class TopoEdge;
 
 class LocOpe_Gluer
 {
@@ -37,13 +37,13 @@ public:
 
   LocOpe_Gluer();
 
-  LocOpe_Gluer(const TopoDS_Shape& Sbase, const TopoDS_Shape& Snew);
+  LocOpe_Gluer(const TopoShape& Sbase, const TopoShape& Snew);
 
-  Standard_EXPORT void Init(const TopoDS_Shape& Sbase, const TopoDS_Shape& Snew);
+  Standard_EXPORT void Init(const TopoShape& Sbase, const TopoShape& Snew);
 
-  Standard_EXPORT void Bind(const TopoDS_Face& Fnew, const TopoDS_Face& Fbase);
+  Standard_EXPORT void Bind(const TopoFace& Fnew, const TopoFace& Fbase);
 
-  Standard_EXPORT void Bind(const TopoDS_Edge& Enew, const TopoDS_Edge& Ebase);
+  Standard_EXPORT void Bind(const TopoEdge& Enew, const TopoEdge& Ebase);
 
   LocOpe_Operation OpeType() const;
 
@@ -51,33 +51,33 @@ public:
 
   Standard_Boolean IsDone() const;
 
-  const TopoDS_Shape& ResultingShape() const;
+  const TopoShape& ResultingShape() const;
 
-  Standard_EXPORT const TopTools_ListOfShape& DescendantFaces(const TopoDS_Face& F) const;
+  Standard_EXPORT const ShapeList& DescendantFaces(const TopoFace& F) const;
 
-  const TopoDS_Shape& BasisShape() const;
+  const TopoShape& BasisShape() const;
 
-  const TopoDS_Shape& GluedShape() const;
+  const TopoShape& GluedShape() const;
 
-  const TopTools_ListOfShape& Edges() const;
+  const ShapeList& Edges() const;
 
-  const TopTools_ListOfShape& TgtEdges() const;
+  const ShapeList& TgtEdges() const;
 
 protected:
 private:
   Standard_EXPORT void AddEdges();
 
   Standard_Boolean                    myDone;
-  TopoDS_Shape                        mySb;
-  TopoDS_Shape                        mySn;
-  TopoDS_Shape                        myRes;
+  TopoShape                        mySb;
+  TopoShape                        mySn;
+  TopoShape                        myRes;
   TopAbs_Orientation                  myOri;
   LocOpe_Operation                    myOpe;
   TopTools_IndexedDataMapOfShapeShape myMapEF;
   TopTools_DataMapOfShapeShape        myMapEE;
   TopTools_DataMapOfShapeListOfShape  myDescF;
-  TopTools_ListOfShape                myEdges;
-  TopTools_ListOfShape                myTgtEdges;
+  ShapeList                myEdges;
+  ShapeList                myTgtEdges;
 };
 
 #include <LocOpe_Gluer.lxx>

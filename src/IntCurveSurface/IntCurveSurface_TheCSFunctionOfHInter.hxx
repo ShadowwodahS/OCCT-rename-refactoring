@@ -23,7 +23,7 @@
 #include <math_FunctionSetWithDerivatives.hxx>
 #include <math_Vector.hxx>
 
-class Adaptor3d_HSurfaceTool;
+class HSurfaceTool;
 class IntCurveSurface_TheHCurveTool;
 class math_Matrix;
 

@@ -36,7 +36,7 @@
 //! document containing a TDF-based data
 //! structure. The documents themselves are
 //! contained in a class inheriting from
-//! TDocStd_Application which manages creation,
+//! AppManager which manages creation,
 //! storage and retrieval of documents.
 //! You can implement undo and redo in your
 //! document, and refer from the data framework of

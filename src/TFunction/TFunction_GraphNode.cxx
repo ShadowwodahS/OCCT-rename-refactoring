@@ -38,7 +38,7 @@ const Standard_GUID& TFunction_GraphNode::GetID()
 // purpose  : Finds or creates a graph node attribute
 //=======================================================================
 
-Handle(TFunction_GraphNode) TFunction_GraphNode::Set(const TDF_Label& L)
+Handle(TFunction_GraphNode) TFunction_GraphNode::Set(const DataLabel& L)
 {
   Handle(TFunction_GraphNode) G;
   if (!L.FindAttribute(TFunction_GraphNode::GetID(), G))
@@ -86,7 +86,7 @@ Standard_Boolean TFunction_GraphNode::AddPrevious(const Standard_Integer funcID)
 // purpose  : Adds a function to the previous functions of this function.
 //=======================================================================
 
-Standard_Boolean TFunction_GraphNode::AddPrevious(const TDF_Label& func)
+Standard_Boolean TFunction_GraphNode::AddPrevious(const DataLabel& func)
 {
   Handle(TFunction_Scope) scope = TFunction_Scope::Set(func);
   if (!scope->GetFunctions().IsBound2(func))
@@ -115,7 +115,7 @@ Standard_Boolean TFunction_GraphNode::RemovePrevious(const Standard_Integer func
 // purpose  : Removes a function to the previous functions of this function.
 //=======================================================================
 
-Standard_Boolean TFunction_GraphNode::RemovePrevious(const TDF_Label& func)
+Standard_Boolean TFunction_GraphNode::RemovePrevious(const DataLabel& func)
 {
   Handle(TFunction_Scope) scope = TFunction_Scope::Set(func);
   if (!scope->GetFunctions().IsBound2(func))
@@ -169,7 +169,7 @@ Standard_Boolean TFunction_GraphNode::AddNext(const Standard_Integer funcID)
 // purpose  : Adds a function to the next functions of this function.
 //=======================================================================
 
-Standard_Boolean TFunction_GraphNode::AddNext(const TDF_Label& func)
+Standard_Boolean TFunction_GraphNode::AddNext(const DataLabel& func)
 {
   Handle(TFunction_Scope) scope = TFunction_Scope::Set(func);
   if (!scope->GetFunctions().IsBound2(func))
@@ -198,7 +198,7 @@ Standard_Boolean TFunction_GraphNode::RemoveNext(const Standard_Integer funcID)
 // purpose  : Remove a function to the next functions of this function.
 //=======================================================================
 
-Standard_Boolean TFunction_GraphNode::RemoveNext(const TDF_Label& func)
+Standard_Boolean TFunction_GraphNode::RemoveNext(const DataLabel& func)
 {
   Handle(TFunction_Scope) scope = TFunction_Scope::Set(func);
   if (!scope->GetFunctions().IsBound2(func))

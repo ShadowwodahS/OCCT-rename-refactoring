@@ -41,7 +41,7 @@
 
 //=================================================================================================
 
-Standard_Real TopOpeBRepTool_ShapeTool::Tolerance(const TopoDS_Shape& S)
+Standard_Real ShapeTool::Tolerance(const TopoShape& S)
 {
   if (S.IsNull())
     return 0.;
@@ -49,16 +49,16 @@ Standard_Real TopOpeBRepTool_ShapeTool::Tolerance(const TopoDS_Shape& S)
   switch (S.ShapeType())
   {
     case TopAbs_FACE:
-      tol = BRep_Tool::Tolerance(TopoDS::Face(S));
+      tol = BRepInspector::Tolerance(TopoDS::Face(S));
       break;
     case TopAbs_EDGE:
-      tol = BRep_Tool::Tolerance(TopoDS::Edge(S));
+      tol = BRepInspector::Tolerance(TopoDS::Edge(S));
       break;
     case TopAbs_VERTEX:
-      tol = BRep_Tool::Tolerance(TopoDS::Vertex(S));
+      tol = BRepInspector::Tolerance(TopoDS::Vertex(S));
       break;
     default:
-      throw Standard_ProgramError("TopOpeBRepTool_ShapeTool : Shape has no tolerance");
+      throw Standard_ProgramError("ShapeTool : Shape has no tolerance");
       break;
   }
   return tol;
@@ -66,13 +66,13 @@ Standard_Real TopOpeBRepTool_ShapeTool::Tolerance(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-Point3d TopOpeBRepTool_ShapeTool::Pnt(const TopoDS_Shape& S)
+Point3d ShapeTool::Pnt(const TopoShape& S)
 {
   if (S.ShapeType() != TopAbs_VERTEX)
   {
-    throw Standard_ProgramError("TopOpeBRepTool_ShapeTool::Pnt");
+    throw Standard_ProgramError("ShapeTool::Pnt");
   }
-  return BRep_Tool::Pnt(TopoDS::Vertex(S));
+  return BRepInspector::Pnt(TopoDS::Vertex(S));
 }
 
 #include <Geom_OffsetCurve.hxx>
@@ -80,7 +80,7 @@ Point3d TopOpeBRepTool_ShapeTool::Pnt(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-Handle(Geom_Curve) TopOpeBRepTool_ShapeTool::BASISCURVE(const Handle(Geom_Curve)& C)
+Handle(GeomCurve3d) ShapeTool::BASISCURVE(const Handle(GeomCurve3d)& C)
 {
   Handle(TypeInfo) T = C->DynamicType();
   if (T == STANDARD_TYPE(Geom_OffsetCurve))
@@ -91,10 +91,10 @@ Handle(Geom_Curve) TopOpeBRepTool_ShapeTool::BASISCURVE(const Handle(Geom_Curve)
     return C;
 }
 
-Handle(Geom_Curve) TopOpeBRepTool_ShapeTool::BASISCURVE(const TopoDS_Edge& E)
+Handle(GeomCurve3d) ShapeTool::BASISCURVE(const TopoEdge& E)
 {
   Standard_Real      f, l;
-  Handle(Geom_Curve) C = BRep_Tool::Curve(E, f, l);
+  Handle(GeomCurve3d) C = BRepInspector::Curve(E, f, l);
   if (C.IsNull())
     return C;
   return BASISCURVE(C);
@@ -107,7 +107,7 @@ Handle(Geom_Curve) TopOpeBRepTool_ShapeTool::BASISCURVE(const TopoDS_Edge& E)
 
 //=================================================================================================
 
-Handle(Geom_Surface) TopOpeBRepTool_ShapeTool::BASISSURFACE(const Handle(Geom_Surface)& S)
+Handle(GeomSurface) ShapeTool::BASISSURFACE(const Handle(GeomSurface)& S)
 {
   Handle(TypeInfo) T = S->DynamicType();
   if (T == STANDARD_TYPE(Geom_OffsetSurface))
@@ -118,16 +118,16 @@ Handle(Geom_Surface) TopOpeBRepTool_ShapeTool::BASISSURFACE(const Handle(Geom_Su
     return S;
 }
 
-Handle(Geom_Surface) TopOpeBRepTool_ShapeTool::BASISSURFACE(const TopoDS_Face& F)
+Handle(GeomSurface) ShapeTool::BASISSURFACE(const TopoFace& F)
 {
   TopLoc_Location      L;
-  Handle(Geom_Surface) S = BRep_Tool::Surface(F, L);
+  Handle(GeomSurface) S = BRepInspector::Surface(F, L);
   return BASISSURFACE(S);
 }
 
 //=================================================================================================
 
-void TopOpeBRepTool_ShapeTool::UVBOUNDS(const Handle(Geom_Surface)& S,
+void ShapeTool::UVBOUNDS(const Handle(GeomSurface)& S,
                                         Standard_Boolean&           UPeriodic,
                                         Standard_Boolean&           VPeriodic,
                                         Standard_Real&              Umin,
@@ -135,13 +135,13 @@ void TopOpeBRepTool_ShapeTool::UVBOUNDS(const Handle(Geom_Surface)& S,
                                         Standard_Real&              Vmin,
                                         Standard_Real&              Vmax)
 {
-  const Handle(Geom_Surface) BS = BASISSURFACE(S);
+  const Handle(GeomSurface) BS = BASISSURFACE(S);
   Handle(TypeInfo)      T  = BS->DynamicType();
 
   if (T == STANDARD_TYPE(Geom_SurfaceOfRevolution))
   {
     Handle(Geom_SurfaceOfRevolution) SR = Handle(Geom_SurfaceOfRevolution)::DownCast(BS);
-    Handle(Geom_Curve)               C  = BASISCURVE(SR->BasisCurve());
+    Handle(GeomCurve3d)               C  = BASISCURVE(SR->BasisCurve());
     if (C->IsPeriodic())
     {
       UPeriodic = Standard_False;
@@ -153,7 +153,7 @@ void TopOpeBRepTool_ShapeTool::UVBOUNDS(const Handle(Geom_Surface)& S,
   else if (T == STANDARD_TYPE(Geom_SurfaceOfLinearExtrusion))
   {
     Handle(Geom_SurfaceOfLinearExtrusion) SE = Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(BS);
-    Handle(Geom_Curve)                    C  = BASISCURVE(SE->BasisCurve());
+    Handle(GeomCurve3d)                    C  = BASISCURVE(SE->BasisCurve());
     if (C->IsPeriodic())
     {
       UPeriodic = Standard_True;
@@ -170,7 +170,7 @@ void TopOpeBRepTool_ShapeTool::UVBOUNDS(const Handle(Geom_Surface)& S,
   }
 }
 
-void TopOpeBRepTool_ShapeTool::UVBOUNDS(const TopoDS_Face& F,
+void ShapeTool::UVBOUNDS(const TopoFace& F,
                                         Standard_Boolean&  UPeriodic,
                                         Standard_Boolean&  VPeriodic,
                                         Standard_Real&     Umin,
@@ -179,19 +179,19 @@ void TopOpeBRepTool_ShapeTool::UVBOUNDS(const TopoDS_Face& F,
                                         Standard_Real&     Vmax)
 {
   TopLoc_Location      L;
-  Handle(Geom_Surface) S = BRep_Tool::Surface(F, L);
+  Handle(GeomSurface) S = BRepInspector::Surface(F, L);
   UVBOUNDS(S, UPeriodic, VPeriodic, Umin, Umax, Vmin, Vmax);
 }
 
 //=================================================================================================
 
-void TopOpeBRepTool_ShapeTool::AdjustOnPeriodic(const TopoDS_Shape& F,
+void ShapeTool::AdjustOnPeriodic(const TopoShape& F,
                                                 Standard_Real&      u,
                                                 Standard_Real&      v)
 {
-  TopoDS_Face                FF = TopoDS::Face(F);
+  TopoFace                FF = TopoDS::Face(F);
   TopLoc_Location            Loc;
-  const Handle(Geom_Surface) Surf = BRep_Tool::Surface(FF, Loc);
+  const Handle(GeomSurface) Surf = BRepInspector::Surface(FF, Loc);
 
   //  Standard_Real Ufirst,Ulast,Vfirst,Vlast;
   Standard_Boolean isUperio, isVperio;
@@ -203,7 +203,7 @@ void TopOpeBRepTool_ShapeTool::AdjustOnPeriodic(const TopoDS_Shape& F,
     return;
 
   Standard_Real UFfirst, UFlast, VFfirst, VFlast;
-  BRepTools::UVBounds(FF, UFfirst, UFlast, VFfirst, VFlast);
+  BRepTools1::UVBounds(FF, UFfirst, UFlast, VFfirst, VFlast);
 
   Standard_Real tol = Precision::PConfusion();
 
@@ -231,15 +231,15 @@ void TopOpeBRepTool_ShapeTool::AdjustOnPeriodic(const TopoDS_Shape& F,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_ShapeTool::Closed(const TopoDS_Shape& S1, const TopoDS_Shape& S2)
+Standard_Boolean ShapeTool::Closed(const TopoShape& S1, const TopoShape& S2)
 {
-  const TopoDS_Edge& E          = TopoDS::Edge(S1);
-  const TopoDS_Face& F          = TopoDS::Face(S2);
-  Standard_Boolean   brepclosed = BRep_Tool::IsClosed(E, F);
+  const TopoEdge& E          = TopoDS::Edge(S1);
+  const TopoFace& F          = TopoDS::Face(S2);
+  Standard_Boolean   brepclosed = BRepInspector::IsClosed(E, F);
   if (brepclosed)
   {
     Standard_Integer n = 0;
-    for (TopExp_Explorer x(F, TopAbs_EDGE); x.More(); x.Next())
+    for (ShapeExplorer x(F, TopAbs_EDGE); x.More(); x.Next())
       if (x.Current().IsSame(E))
         n++;
     if (n < 2)
@@ -296,19 +296,19 @@ Standard_Real ADJUST(const Standard_Real par,
 
 //=================================================================================================
 
-Standard_Real TopOpeBRepTool_ShapeTool::PeriodizeParameter(const Standard_Real par,
-                                                           const TopoDS_Shape& EE,
-                                                           const TopoDS_Shape& FF)
+Standard_Real ShapeTool::PeriodizeParameter(const Standard_Real par,
+                                                           const TopoShape& EE,
+                                                           const TopoShape& FF)
 {
   Standard_Real periopar = par;
-  if (!TopOpeBRepTool_ShapeTool::Closed(EE, FF))
+  if (!ShapeTool::Closed(EE, FF))
     return periopar;
 
-  TopoDS_Edge E = TopoDS::Edge(EE);
-  TopoDS_Face F = TopoDS::Face(FF);
+  TopoEdge E = TopoDS::Edge(EE);
+  TopoFace F = TopoDS::Face(FF);
 
   TopLoc_Location            Loc;
-  const Handle(Geom_Surface) Surf     = BRep_Tool::Surface(F, Loc);
+  const Handle(GeomSurface) Surf     = BRepInspector::Surface(F, Loc);
   Standard_Boolean           isUperio = Surf->IsUPeriodic();
   Standard_Boolean           isVperio = Surf->IsVPeriodic();
   if (!isUperio && !isVperio)
@@ -318,7 +318,7 @@ Standard_Real TopOpeBRepTool_ShapeTool::PeriodizeParameter(const Standard_Real p
   Surf->Bounds(Ufirst, Ulast, Vfirst, Vlast);
 
   Standard_Real              first, last, tolpc;
-  const Handle(Geom2d_Curve) PC = FC2D_CurveOnSurface(E, F, first, last, tolpc);
+  const Handle(GeomCurve2d) PC = FC2D_CurveOnSurface(E, F, first, last, tolpc);
   if (PC.IsNull())
     throw Standard_ProgramError("ShapeTool::PeriodizeParameter : no 2d curve");
 
@@ -347,7 +347,7 @@ Standard_Real TopOpeBRepTool_ShapeTool::PeriodizeParameter(const Standard_Real p
 #ifdef OCCT_DEBUG
     if (TopOpeBRepTool_GettraceVC())
     {
-      std::cout << "TopOpeBRepTool_ShapeTool PC on edge is ";
+      std::cout << "ShapeTool PC on edge is ";
       if (isoU)
         std::cout << "isoU f,l " << Ufirst << " " << Ulast << std::endl;
       else if (isoV)
@@ -365,8 +365,8 @@ Standard_Real TopOpeBRepTool_ShapeTool::PeriodizeParameter(const Standard_Real p
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_ShapeTool::ShapesSameOriented(const TopoDS_Shape& S1,
-                                                              const TopoDS_Shape& S2)
+Standard_Boolean ShapeTool::ShapesSameOriented(const TopoShape& S1,
+                                                              const TopoShape& S2)
 {
   Standard_Boolean so = Standard_True;
 
@@ -412,7 +412,7 @@ Standard_Boolean TopOpeBRepTool_ShapeTool::ShapesSameOriented(const TopoDS_Shape
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_ShapeTool::SurfacesSameOriented(const BRepAdaptor_Surface& S1,
+Standard_Boolean ShapeTool::SurfacesSameOriented(const BRepAdaptor_Surface& S1,
                                                                 const BRepAdaptor_Surface& Sref)
 {
   const BRepAdaptor_Surface& S2  = Sref;
@@ -453,8 +453,8 @@ Standard_Boolean TopOpeBRepTool_ShapeTool::SurfacesSameOriented(const BRepAdapto
     S1.D1(u1, v1, p1, d1u, d1v);
     Vector3d n1 = d1u.Crossed(d1v);
 
-    Handle(Geom_Surface) HS2 = S2.Surface().Surface();
-    HS2                      = Handle(Geom_Surface)::DownCast(HS2->Transformed(S2.Trsf()));
+    Handle(GeomSurface) HS2 = S2.Surface().Surface();
+    HS2                      = Handle(GeomSurface)::DownCast(HS2->Transformed(S2.Trsf()));
     gp_Pnt2d         p22d;
     Standard_Real    dp2;
     Standard_Boolean ok = FUN_tool_projPonS(p1, HS2, p22d, dp2);
@@ -478,7 +478,7 @@ Standard_Boolean TopOpeBRepTool_ShapeTool::SurfacesSameOriented(const BRepAdapto
 #ifdef OCCT_DEBUG
     if (TopOpeBRepTool_GettraceNYI())
     {
-      std::cout << "TopOpeBRepTool_ShapeTool::SurfacesSameOriented surfaces non traitees : NYI";
+      std::cout << "ShapeTool::SurfacesSameOriented surfaces non traitees : NYI";
       std::cout << std::endl;
     }
 #endif
@@ -489,12 +489,12 @@ Standard_Boolean TopOpeBRepTool_ShapeTool::SurfacesSameOriented(const BRepAdapto
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_ShapeTool::FacesSameOriented(const TopoDS_Shape& S1,
-                                                             const TopoDS_Shape& Sref)
+Standard_Boolean ShapeTool::FacesSameOriented(const TopoShape& S1,
+                                                             const TopoShape& Sref)
 {
-  const TopoDS_Shape& S2 = Sref;
-  const TopoDS_Face&  F1 = TopoDS::Face(S1);
-  const TopoDS_Face&  F2 = TopoDS::Face(S2);
+  const TopoShape& S2 = Sref;
+  const TopoFace&  F1 = TopoDS::Face(S1);
+  const TopoFace&  F2 = TopoDS::Face(S2);
   TopAbs_Orientation  o1 = F1.Orientation();
   TopAbs_Orientation  o2 = F2.Orientation();
   if (o1 == TopAbs_EXTERNAL || o1 == TopAbs_INTERNAL || o2 == TopAbs_EXTERNAL
@@ -515,7 +515,7 @@ Standard_Boolean TopOpeBRepTool_ShapeTool::FacesSameOriented(const TopoDS_Shape&
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_ShapeTool::CurvesSameOriented(const BRepAdaptor_Curve& C1,
+Standard_Boolean ShapeTool::CurvesSameOriented(const BRepAdaptor_Curve& C1,
                                                               const BRepAdaptor_Curve& Cref)
 {
   const BRepAdaptor_Curve& C2  = Cref;
@@ -543,7 +543,7 @@ Standard_Boolean TopOpeBRepTool_ShapeTool::CurvesSameOriented(const BRepAdaptor_
 #ifdef OCCT_DEBUG
     if (TopOpeBRepTool_GettraceNYI())
     {
-      std::cout << "TopOpeBRepTool_ShapeTool::CurvesSameOriented non lineaires : NYI";
+      std::cout << "ShapeTool::CurvesSameOriented non lineaires : NYI";
       std::cout << std::endl;
     }
 #endif
@@ -554,12 +554,12 @@ Standard_Boolean TopOpeBRepTool_ShapeTool::CurvesSameOriented(const BRepAdaptor_
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_ShapeTool::EdgesSameOriented(const TopoDS_Shape& S1,
-                                                             const TopoDS_Shape& Sref)
+Standard_Boolean ShapeTool::EdgesSameOriented(const TopoShape& S1,
+                                                             const TopoShape& Sref)
 {
-  const TopoDS_Shape& S2 = Sref;
-  const TopoDS_Edge&  E1 = TopoDS::Edge(S1);
-  const TopoDS_Edge&  E2 = TopoDS::Edge(S2);
+  const TopoShape& S2 = Sref;
+  const TopoEdge&  E1 = TopoDS::Edge(S1);
+  const TopoEdge&  E2 = TopoDS::Edge(S2);
   TopAbs_Orientation  o1 = E1.Orientation();
   TopAbs_Orientation  o2 = E2.Orientation();
   if (o1 == TopAbs_EXTERNAL || o1 == TopAbs_INTERNAL || o2 == TopAbs_EXTERNAL
@@ -578,7 +578,7 @@ Standard_Boolean TopOpeBRepTool_ShapeTool::EdgesSameOriented(const TopoDS_Shape&
 
 //=================================================================================================
 
-Standard_Real TopOpeBRepTool_ShapeTool::EdgeData(const BRepAdaptor_Curve& BAC,
+Standard_Real ShapeTool::EdgeData(const BRepAdaptor_Curve& BAC,
                                                  const Standard_Real      P,
                                                  Dir3d&                  T,
                                                  Dir3d&                  N,
@@ -603,7 +603,7 @@ Standard_Real TopOpeBRepTool_ShapeTool::EdgeData(const BRepAdaptor_Curve& BAC,
 
 //=================================================================================================
 
-Standard_Real TopOpeBRepTool_ShapeTool::EdgeData(const TopoDS_Shape& E,
+Standard_Real ShapeTool::EdgeData(const TopoShape& E,
                                                  const Standard_Real P,
                                                  Dir3d&             T,
                                                  Dir3d&             N,
@@ -616,7 +616,7 @@ Standard_Real TopOpeBRepTool_ShapeTool::EdgeData(const TopoDS_Shape& E,
 
 //=================================================================================================
 
-Standard_Real TopOpeBRepTool_ShapeTool::Resolution3dU(const Handle(Geom_Surface)& SU,
+Standard_Real ShapeTool::Resolution3dU(const Handle(GeomSurface)& SU,
                                                       const Standard_Real         Tol2d)
 {
   GeomAdaptor_Surface GAS(SU);
@@ -628,7 +628,7 @@ Standard_Real TopOpeBRepTool_ShapeTool::Resolution3dU(const Handle(Geom_Surface)
 
 //=================================================================================================
 
-Standard_Real TopOpeBRepTool_ShapeTool::Resolution3dV(const Handle(Geom_Surface)& SU,
+Standard_Real ShapeTool::Resolution3dV(const Handle(GeomSurface)& SU,
                                                       const Standard_Real         Tol2d)
 {
   GeomAdaptor_Surface GAS(SU);
@@ -640,7 +640,7 @@ Standard_Real TopOpeBRepTool_ShapeTool::Resolution3dV(const Handle(Geom_Surface)
 
 //=================================================================================================
 
-Standard_Real TopOpeBRepTool_ShapeTool::Resolution3d(const Handle(Geom_Surface)& SU,
+Standard_Real ShapeTool::Resolution3d(const Handle(GeomSurface)& SU,
                                                      const Standard_Real         Tol2d)
 {
   Standard_Real ru = Resolution3dU(SU, Tol2d);
@@ -651,11 +651,11 @@ Standard_Real TopOpeBRepTool_ShapeTool::Resolution3d(const Handle(Geom_Surface)&
 
 //=================================================================================================
 
-Standard_Real TopOpeBRepTool_ShapeTool::Resolution3d(const TopoDS_Face&  F,
+Standard_Real ShapeTool::Resolution3d(const TopoFace&  F,
                                                      const Standard_Real Tol2d)
 {
   TopLoc_Location             L;
-  const Handle(Geom_Surface)& SU = BRep_Tool::Surface(F, L);
+  const Handle(GeomSurface)& SU = BRepInspector::Surface(F, L);
   Standard_Real               r  = Resolution3d(SU, Tol2d);
   return r;
 }

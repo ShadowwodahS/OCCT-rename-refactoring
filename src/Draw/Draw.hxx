@@ -26,23 +26,23 @@ class Draw_Drawable3D;
 class Draw_ProgressIndicator;
 
 //! MAQUETTE DESSIN MODELISATION
-class Draw
+class Draw1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! (Re)Load a Draw Harness plugin.
+  //! (Re)Load a Draw1 Harness plugin.
   //! @param[in][out] theDI    Tcl interpretor to append loaded commands
   //! @param[in] theKey  plugin code name to be resolved in resource file
   //! @param[in] theResourceFileName    description file name
   //! @param[in] theDefaultsDirectory   default folder for looking description file
   //! @param[in] theUserDefaultsDirectory  user folder for looking description file
   //! @param[in] theIsVerbose  print verbose messages
-  Standard_EXPORT static void Load(Draw_Interpretor&              theDI,
-                                   const TCollection_AsciiString& theKey,
-                                   const TCollection_AsciiString& theResourceFileName,
-                                   const TCollection_AsciiString& theDefaultsDirectory,
-                                   const TCollection_AsciiString& theUserDefaultsDirectory,
+  Standard_EXPORT static void Load(DrawInterpreter&              theDI,
+                                   const AsciiString1& theKey,
+                                   const AsciiString1& theResourceFileName,
+                                   const AsciiString1& theDefaultsDirectory,
+                                   const AsciiString1& theUserDefaultsDirectory,
                                    const Standard_Boolean         theIsVerbose = Standard_False);
 
 public: //! @name Tcl variables management tools
@@ -59,7 +59,7 @@ public: //! @name Tcl variables management tools
   Standard_EXPORT static void Set(const Standard_CString Name, const Standard_Real val);
 
   //! Returns main DRAW interpretor.
-  Standard_EXPORT static Draw_Interpretor& GetInterpretor();
+  Standard_EXPORT static DrawInterpreter& GetInterpretor();
 
   //! Returns a variable value.
   //! The name "." does a graphic selection; in this case theName will be is overwritten with the
@@ -120,12 +120,12 @@ public: //! @name argument parsing tools
   //! @code
   //!   for (int anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   //!   {
-  //!     TCollection_AsciiString aParam (theArgVec[anArgIter]);
+  //!     AsciiString1 aParam (theArgVec[anArgIter]);
   //!     aParam.LowerCase();
   //!     if (aParam == "-color")
   //!     {
   //!       Quantity_ColorRGBA aColor;
-  //!       Standard_Integer aNbParsed = Draw::ParseColor (theArgNb  - anArgIter - 1,
+  //!       Standard_Integer aNbParsed = Draw1::ParseColor (theArgNb  - anArgIter - 1,
   //!                                                      theArgVec + anArgIter + 1, aColor);
   //!       anArgIter += aNbParsed;
   //!       if (aNbParsed == 0) { std::cerr << "Syntax error at '" << aParam << "'"; return 1; }
@@ -169,12 +169,12 @@ public: //! @name argument parsing tools
   //! @code
   //!   for (int anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   //!   {
-  //!     TCollection_AsciiString aParam (theArgVec[anArgIter]);
+  //!     AsciiString1 aParam (theArgVec[anArgIter]);
   //!     aParam.LowerCase();
   //!     if (aParam == "-usefeature")
   //!     {
   //!       bool toUseFeature = true;
-  //!       if (anArgIter + 1 < theNbArgs && Draw::ParseOnOff (theArgVec[anArgIter + 1]))
+  //!       if (anArgIter + 1 < theNbArgs && Draw1::ParseOnOff (theArgVec[anArgIter + 1]))
   //!       {
   //!         ++anArgIter;
   //!       }
@@ -197,7 +197,7 @@ public: //! @name argument parsing tools
   //!   {
   //!     if (strcasecmp (theArgVec[anArgIter], "-usefeature") == 0)
   //!     {
-  //!       bool toUseFeature = Draw::ParseOnOffIterator (theNbArgs, theArgVec, anArgIter);
+  //!       bool toUseFeature = Draw1::ParseOnOffIterator (theNbArgs, theArgVec, anArgIter);
   //!       // process feature
   //!     }
   //!   }
@@ -240,26 +240,26 @@ public:
   Standard_EXPORT static Handle(Draw_ProgressIndicator) GetProgressBar();
 
 public: //! @name methods loading standard command sets
-  //! Defines all Draw commands
-  Standard_EXPORT static void Commands(Draw_Interpretor& I);
+  //! Defines all Draw1 commands
+  Standard_EXPORT static void Commands(DrawInterpreter& I);
 
-  //! Defines Draw basic commands
-  Standard_EXPORT static void BasicCommands(Draw_Interpretor& I);
+  //! Defines Draw1 basic commands
+  Standard_EXPORT static void BasicCommands(DrawInterpreter& I);
 
-  //! Defines Draw message commands
-  Standard_EXPORT static void MessageCommands(Draw_Interpretor& I);
+  //! Defines Draw1 message commands
+  Standard_EXPORT static void MessageCommands(DrawInterpreter& I);
 
-  //! Defines Draw variables handling commands.
-  Standard_EXPORT static void VariableCommands(Draw_Interpretor& I);
+  //! Defines Draw1 variables handling commands.
+  Standard_EXPORT static void VariableCommands(DrawInterpreter& I);
 
-  //! Defines Draw variables handling commands.
-  Standard_EXPORT static void GraphicCommands(Draw_Interpretor& I);
+  //! Defines Draw1 variables handling commands.
+  Standard_EXPORT static void GraphicCommands(DrawInterpreter& I);
 
-  //! Defines Loads Draw plugins commands.
-  Standard_EXPORT static void PloadCommands(Draw_Interpretor& I);
+  //! Defines Loads Draw1 plugins commands.
+  Standard_EXPORT static void PloadCommands(DrawInterpreter& I);
 
-  //! Defines Draw unit commands
-  Standard_EXPORT static void UnitCommands(Draw_Interpretor& I);
+  //! Defines Draw1 unit commands
+  Standard_EXPORT static void UnitCommands(DrawInterpreter& I);
 
 protected:
   //! Returns a variable value.

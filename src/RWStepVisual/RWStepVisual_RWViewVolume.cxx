@@ -21,8 +21,8 @@
 #include <TCollection_AsciiString.hxx>
 
 // --- Enum : CentralOrParallel ---
-static TCollection_AsciiString copCentral(".CENTRAL.");
-static TCollection_AsciiString copParallel(".PARALLEL.");
+static AsciiString1 copCentral(".CENTRAL.");
+static AsciiString1 copParallel(".PARALLEL.");
 
 RWStepVisual_RWViewVolume::RWStepVisual_RWViewVolume() {}
 

@@ -63,10 +63,10 @@ void StdLPersistent_HString::instance<StringClass, CharType>::Write(
 // purpose  : Get/create a label defined by referenced string
 //=======================================================================
 template <class StringClass, typename CharType>
-TDF_Label StdLPersistent_HString::instance<StringClass, CharType>::Label(
+DataLabel StdLPersistent_HString::instance<StringClass, CharType>::Label(
   const Handle(TDF_Data)& theDF) const
 {
-  TDF_Label aLabel;
+  DataLabel aLabel;
 
   if (!myValue.IsNull())
     TDF_Tool::Label(theDF, myValue->String(), aLabel, Standard_True);

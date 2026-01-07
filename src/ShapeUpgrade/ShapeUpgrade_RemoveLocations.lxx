@@ -16,7 +16,7 @@
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape ShapeUpgrade_RemoveLocations::GetResult() const
+inline TopoShape ShapeUpgrade_RemoveLocations::GetResult() const
 {
   return myShape;
 }
@@ -50,10 +50,10 @@ inline TopAbs_ShapeEnum ShapeUpgrade_RemoveLocations::RemoveLevel() const
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape ShapeUpgrade_RemoveLocations::ModifiedShape(
-  const TopoDS_Shape& theInitShape) const
+inline TopoShape ShapeUpgrade_RemoveLocations::ModifiedShape(
+  const TopoShape& theInitShape) const
 {
-  TopoDS_Shape aShape = theInitShape;
+  TopoShape aShape = theInitShape;
   if (myMapNewShapes.IsBound(theInitShape))
     aShape = myMapNewShapes.Find(theInitShape);
   return aShape;

@@ -64,7 +64,7 @@ void XCAFNoteObjects_NoteObject::SetPointText(const Point3d& thePnt)
 
 //=================================================================================================
 
-void XCAFNoteObjects_NoteObject::SetPresentation(const TopoDS_Shape& thePresentation)
+void XCAFNoteObjects_NoteObject::SetPresentation(const TopoShape& thePresentation)
 {
   myPresentation = thePresentation;
 }

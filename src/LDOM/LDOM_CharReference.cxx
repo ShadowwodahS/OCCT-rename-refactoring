@@ -53,7 +53,7 @@ struct entityRef
 //           Always returns the same string (shortened after replacements)
 //=======================================================================
 
-char* LDOM_CharReference::Decode(char* theSrc, Standard_Integer& theLen)
+char* CharReference::Decode(char* theSrc, Standard_Integer& theLen)
 {
 #define IS_EQUAL(_ptr, _string) (!memcmp(_ptr, _string, sizeof(_string) - 1))
 
@@ -150,7 +150,7 @@ char* LDOM_CharReference::Decode(char* theSrc, Standard_Integer& theLen)
 //           the returned string (whatever the case)
 //=======================================================================
 
-char* LDOM_CharReference::Encode(const char*            theSrc,
+char* CharReference::Encode(const char*            theSrc,
                                  Standard_Integer&      theLen,
                                  const Standard_Boolean isAttribute)
 {
@@ -212,7 +212,7 @@ char* LDOM_CharReference::Encode(const char*            theSrc,
   return aDest;
 }
 
-int LDOM_CharReference::myTab[256] = {
+int CharReference::myTab[256] = {
   NORMAL_C,  // 000
   CHAR_REF,  // 001
   CHAR_REF,  // 002

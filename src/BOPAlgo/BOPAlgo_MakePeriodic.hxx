@@ -83,7 +83,7 @@
 //!
 //! Example of usage of the algorithm:
 //! ~~~~
-//! TopoDS_Shape aShape = ...;                 // The shape to make periodic
+//! TopoShape aShape = ...;                 // The shape to make periodic
 //! Standard_Boolean bMakeXPeriodic = ...;     // Flag for making or not the shape periodic in X
 //! direction Standard_Real aXPeriod = ...;              // X period for the shape Standard_Boolean
 //! isXTrimmed = ...;         // Flag defining whether it is necessary to trimming
@@ -113,11 +113,11 @@
 //!   Standard_SStream aSStream;
 //!   aPeriodicityMaker.DumpWarnings(aSStream);
 //! }
-//! const TopoDS_Shape& aPeriodicShape = aPeriodicityMaker.Shape(); // Result periodic shape
+//! const TopoShape& aPeriodicShape = aPeriodicityMaker.Shape(); // Result periodic shape
 //!
 //!
 //! aPeriodicityMaker.XRepeat(2);                                    // Making repetitions
-//! const TopoDS_Shape& aRepeat = aPeriodicityMaker.RepeatedShape(); // Getting the repeated shape
+//! const TopoShape& aRepeat = aPeriodicityMaker.RepeatedShape(); // Getting the repeated shape
 //! aPeriodicityMaker.ClearRepetitions();                            // Clearing the repetitions
 //! ~~~~
 //!
@@ -137,13 +137,13 @@ public: //! @name Constructor
 public: //! @name Setting the shape to make it periodic
   //! Sets the shape to make it periodic.
   //! @param[in] theShape  The shape to make periodic.
-  void SetShape(const TopoDS_Shape& theShape) { myInputShape = theShape; }
+  void SetShape(const TopoShape& theShape) { myInputShape = theShape; }
 
 public: //! @name Definition of the structure to keep all periodicity parameters
   //! Structure to keep all periodicity parameters:
-  struct PeriodicityParams
+  struct PeriodicityParams1
   {
-    PeriodicityParams() { Clear(); }
+    PeriodicityParams1() { Clear(); }
 
     //! Returns all previously set parameters to default values
     void Clear()
@@ -169,12 +169,12 @@ public: //! @name Definition of the structure to keep all periodicity parameters
 public: //! @name Setters/Getters for periodicity parameters structure
   //! Sets the periodicity parameters.
   //! @param[in] theParams  Periodicity parameters
-  void SetPeriodicityParameters(const PeriodicityParams& theParams)
+  void SetPeriodicityParameters(const PeriodicityParams1& theParams)
   {
     myPeriodicityParams = theParams;
   }
 
-  const PeriodicityParams& PeriodicityParameters() const { return myPeriodicityParams; }
+  const PeriodicityParams1& PeriodicityParameters() const { return myPeriodicityParams; }
 
 public: //! @name Methods for setting/getting periodicity info using ID as a direction
   //! Sets the flag to make the shape periodic in specified direction:
@@ -373,7 +373,7 @@ public: //! @name Using the algorithm to repeat the shape
   //!
   //! @param[in] theDirectionID  The direction's ID;
   //! @param[in] theTimes  Requested number of repetitions.
-  Standard_EXPORT const TopoDS_Shape& RepeatShape(const Standard_Integer theDirectionID,
+  Standard_EXPORT const TopoShape& RepeatShape(const Standard_Integer theDirectionID,
                                                   const Standard_Integer theTimes);
 
   //! Repeats the shape in X direction specified number of times.
@@ -382,7 +382,7 @@ public: //! @name Using the algorithm to repeat the shape
   //! Makes the repeated shape a base for following repetitions.
   //!
   //! @param[in] theTimes  Requested number of repetitions.
-  const TopoDS_Shape& XRepeat(const Standard_Integer theTimes) { return RepeatShape(0, theTimes); }
+  const TopoShape& XRepeat(const Standard_Integer theTimes) { return RepeatShape(0, theTimes); }
 
   //! Repeats the shape in Y direction specified number of times.
   //! Negative value of times means that the repetition should be
@@ -390,7 +390,7 @@ public: //! @name Using the algorithm to repeat the shape
   //! Makes the repeated shape a base for following repetitions.
   //!
   //! @param[in] theTimes  Requested number of repetitions.
-  const TopoDS_Shape& YRepeat(const Standard_Integer theTimes) { return RepeatShape(1, theTimes); }
+  const TopoShape& YRepeat(const Standard_Integer theTimes) { return RepeatShape(1, theTimes); }
 
   //! Repeats the shape in Z direction specified number of times.
   //! Negative value of times means that the repetition should be
@@ -398,11 +398,11 @@ public: //! @name Using the algorithm to repeat the shape
   //! Makes the repeated shape a base for following repetitions.
   //!
   //! @param[in] theTimes  Requested number of repetitions.
-  const TopoDS_Shape& ZRepeat(const Standard_Integer theTimes) { return RepeatShape(2, theTimes); }
+  const TopoShape& ZRepeat(const Standard_Integer theTimes) { return RepeatShape(2, theTimes); }
 
 public: //! @name Starting the repetitions over
   //! Returns the repeated shape
-  const TopoDS_Shape& RepeatedShape() const { return myRepeatedShape; }
+  const TopoShape& RepeatedShape() const { return myRepeatedShape; }
 
   //! Clears all performed repetitions.
   //! The next repetition will be performed on the base shape.
@@ -421,7 +421,7 @@ public: //! @name Starting the repetitions over
 
 public: //! @name Obtaining the result shape
   //! Returns the resulting periodic shape
-  const TopoDS_Shape& Shape() const { return myShape; }
+  const TopoShape& Shape() const { return myShape; }
 
 public: //! @name Getting the identical shapes
   //! Returns the identical shapes for the given shape located
@@ -429,10 +429,10 @@ public: //! @name Getting the identical shapes
   //! Returns empty list in case the shape has no twin.
   //!
   //! @param[in] theS  Shape to get the twins for.
-  const TopTools_ListOfShape& GetTwins(const TopoDS_Shape& theS) const
+  const ShapeList& GetTwins(const TopoShape& theS) const
   {
-    static TopTools_ListOfShape empty;
-    const TopTools_ListOfShape* aTwins =
+    static ShapeList empty;
+    const ShapeList* aTwins =
       myRepeatedTwins.IsEmpty() ? myTwins.Seek(theS) : myRepeatedTwins.Seek(theS);
     return (aTwins ? *aTwins : empty);
   }
@@ -491,7 +491,7 @@ protected: //! @name Protected methods performing the operation
   //!                      for coinciding parts.
   //! @param[out] theSplitShapeHistory  The history of shape split
   //! @param[out] theSplitToolsHistory  The history of tools modifications during the split
-  Standard_EXPORT void SplitShape(const TopTools_ListOfShape& theTools,
+  Standard_EXPORT void SplitShape(const ShapeList& theTools,
                                   Handle(BRepTools_History)   theSplitShapeHistory = NULL,
                                   Handle(BRepTools_History)   theSplitToolsHistory = NULL);
 
@@ -503,13 +503,13 @@ protected: //! @name Protected methods performing the operation
 
 protected: //! @name Fields
   // Inputs
-  TopoDS_Shape myInputShape; //!< Input shape to make periodic
+  TopoShape myInputShape; //!< Input shape to make periodic
 
-  PeriodicityParams myPeriodicityParams; //!< Periodicity parameters
+  PeriodicityParams1 myPeriodicityParams; //!< Periodicity parameters
 
   // Results
-  TopoDS_Shape  myShape;           //!< Resulting periodic shape (base for repetitions)
-  TopoDS_Shape  myRepeatedShape;   //!< Resulting shape after making repetitions of the base
+  TopoShape  myShape;           //!< Resulting periodic shape (base for repetitions)
+  TopoShape  myRepeatedShape;   //!< Resulting shape after making repetitions of the base
   Standard_Real myRepeatPeriod[3]; //!< XYZ repeat period
                                    // clang-format off
   TopTools_DataMapOfShapeListOfShape myRepeatedTwins; //!< Map of associations of the identical sub-shapes

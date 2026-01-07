@@ -40,7 +40,7 @@ BRepAlgo_FaceRestrictor::BRepAlgo_FaceRestrictor() {}
 
 //=================================================================================================
 
-void BRepAlgo_FaceRestrictor::Init(const TopoDS_Face&     F,
+void BRepAlgo_FaceRestrictor::Init(const TopoFace&     F,
                                    const Standard_Boolean Proj,
                                    const Standard_Boolean CorrectionOrientation)
 {
@@ -51,7 +51,7 @@ void BRepAlgo_FaceRestrictor::Init(const TopoDS_Face&     F,
 
 //=================================================================================================
 
-void BRepAlgo_FaceRestrictor::Add(TopoDS_Wire& W)
+void BRepAlgo_FaceRestrictor::Add(TopoWire& W)
 {
   wires.Append(W);
 }
@@ -66,17 +66,17 @@ void BRepAlgo_FaceRestrictor::Clear()
 
 //=================================================================================================
 
-static Standard_Boolean ChangePCurve(TopoDS_Edge&                E,
-                                     const Handle(Geom_Surface)& S,
+static Standard_Boolean ChangePCurve(TopoEdge&                E,
+                                     const Handle(GeomSurface)& S,
                                      TopLoc_Location&            L)
 {
-  BRep_Builder         BB;
-  Handle(Geom_Surface) SE;
-  Handle(Geom2d_Curve) C2;
+  ShapeBuilder         BB;
+  Handle(GeomSurface) SE;
+  Handle(GeomCurve2d) C2;
   TopLoc_Location      LE;
   Standard_Real        f, l;
 
-  BRep_Tool::CurveOnSurface(E, C2, SE, LE, f, l, 1);
+  BRepInspector::CurveOnSurface(E, C2, SE, LE, f, l, 1);
   if (!C2.IsNull())
     BB.UpdateEdge(E, C2, S, L, Precision::Confusion());
   return (C2.IsNull());
@@ -84,12 +84,12 @@ static Standard_Boolean ChangePCurve(TopoDS_Edge&                E,
 
 //=================================================================================================
 
-static bool ProjCurve3d(TopoDS_Edge& E, const Handle(Geom_Surface)& S, TopLoc_Location& L)
+static bool ProjCurve3d(TopoEdge& E, const Handle(GeomSurface)& S, TopLoc_Location& L)
 {
-  BRep_Builder       BB;
+  ShapeBuilder       BB;
   TopLoc_Location    LE;
   Standard_Real      f, l;
-  Handle(Geom_Curve) C = BRep_Tool::Curve(E, LE, f, l);
+  Handle(GeomCurve3d) C = BRepInspector::Curve(E, LE, f, l);
   if (C.IsNull())
   {
     return false;
@@ -99,7 +99,7 @@ static bool ProjCurve3d(TopoDS_Edge& E, const Handle(Geom_Surface)& S, TopLoc_Lo
   TopLoc_Location LL = L.Inverted().Multiplied(LE);
   CT->Transform(LL.Transformation());
 
-  Handle(Geom2d_Curve) C2 = GeomProjLib::Curve2d(CT, S);
+  Handle(GeomCurve2d) C2 = GeomProjLib::Curve2d(CT, S);
   BB.UpdateEdge(E, C2, S, L, Precision::Confusion());
   return true;
 }
@@ -122,28 +122,28 @@ void BRepAlgo_FaceRestrictor::Perform()
   // return geometry of the reference face.
   //--------------------------------------------------------------------
   TopLoc_Location             L;
-  const Handle(Geom_Surface)& S = BRep_Tool::Surface(myFace, L);
+  const Handle(GeomSurface)& S = BRepInspector::Surface(myFace, L);
 
   //-----------------------------------------------------------------------
   // test if edges are on S. otherwise  add S to the first pcurve.
   // or projection of the edge on F.
   //----------------------------------------------------------------------
-  TopExp_Explorer Exp;
-  //  BRep_Builder    BB;
+  ShapeExplorer Exp;
+  //  ShapeBuilder    BB;
   Standard_Real f, l;
 
-  TopOpeBRepBuild_WireToFace WTF;
+  WireToFaceBuilder WTF;
 
   for (; it.More(); it.Next())
   {
     // update the surface on edges.
-    const TopoDS_Wire& W = TopoDS::Wire(it.Value());
+    const TopoWire& W = TopoDS::Wire(it.Value());
 
     for (Exp.Init(W, TopAbs_EDGE); Exp.More(); Exp.Next())
     {
 
-      TopoDS_Edge          E  = TopoDS::Edge(Exp.Current());
-      Handle(Geom2d_Curve) C2 = BRep_Tool::CurveOnSurface(E, S, L, f, l);
+      TopoEdge          E  = TopoDS::Edge(Exp.Current());
+      Handle(GeomCurve2d) C2 = BRepInspector::CurveOnSurface(E, S, L, f, l);
 
       if (C2.IsNull())
       {
@@ -201,36 +201,36 @@ void BRepAlgo_FaceRestrictor::Next()
 
 //=================================================================================================
 
-TopoDS_Face BRepAlgo_FaceRestrictor::Current() const
+TopoFace BRepAlgo_FaceRestrictor::Current() const
 {
   return (TopoDS::Face(faces.First()));
 }
 
 //=================================================================================================
 
-static Standard_Boolean IsClosed(const TopoDS_Wire& W)
+static Standard_Boolean IsClosed(const TopoWire& W)
 
 {
   if (W.Closed())
     return 1;
-  TopoDS_Vertex V1, V2;
-  TopExp::Vertices(W, V1, V2);
+  TopoVertex V1, V2;
+  TopExp1::Vertices(W, V1, V2);
   return (V1.IsSame(V2));
 }
 
 //=================================================================================================
 
-static Standard_Boolean IsInside(const TopoDS_Wire& wir,
-                                 const TopoDS_Face& F,
+static Standard_Boolean IsInside(const TopoWire& wir,
+                                 const TopoFace& F,
                                  BRepTopAdaptor_FClass2d& /*FClass2d*/)
 {
-  TopExp_Explorer exp;
+  ShapeExplorer exp;
   exp.Init(wir, TopAbs_EDGE);
   if (exp.More())
   {
-    const TopoDS_Edge&   edg = TopoDS::Edge(exp.Current());
+    const TopoEdge&   edg = TopoDS::Edge(exp.Current());
     Standard_Real        f, l;
-    Handle(Geom2d_Curve) C2d = BRep_Tool::CurveOnSurface(edg, F, f, l);
+    Handle(GeomCurve2d) C2d = BRepInspector::CurveOnSurface(edg, F, f, l);
     Standard_Real        prm;
 
     if (!Precision::IsNegativeInfinite(f) && !Precision::IsPositiveInfinite(l))
@@ -263,20 +263,20 @@ static Standard_Boolean IsInside(const TopoDS_Wire& wir,
 
 //=================================================================================================
 
-static void Store(const TopoDS_Wire&                  W2,
-                  const TopoDS_Wire&                  W1,
+static void Store(const TopoWire&                  W2,
+                  const TopoWire&                  W1,
                   TopTools_DataMapOfShapeListOfShape& keyIsIn,
                   TopTools_DataMapOfShapeListOfShape& keyContains)
 {
   if (!keyIsIn.IsBound(W2))
   {
-    TopTools_ListOfShape empty;
+    ShapeList empty;
     keyIsIn.Bind(W2, empty);
   }
   keyIsIn(W2).Append(W1);
   if (!keyContains.IsBound(W1))
   {
-    TopTools_ListOfShape empty;
+    ShapeList empty;
     keyContains.Bind(W1, empty);
   }
   keyContains(W1).Append(W2);
@@ -284,14 +284,14 @@ static void Store(const TopoDS_Wire&                  W2,
 
 //=================================================================================================
 
-static void BuildFaceIn(TopoDS_Face&                        F,
-                        const TopoDS_Wire&                  W,
+static void BuildFaceIn(TopoFace&                        F,
+                        const TopoWire&                  W,
                         TopTools_DataMapOfShapeListOfShape& KeyContains,
                         TopTools_DataMapOfShapeListOfShape& KeyIsIn,
                         TopAbs_Orientation                  Orientation,
-                        TopTools_ListOfShape&               Faces)
+                        ShapeList&               Faces)
 {
-  BRep_Builder B;
+  ShapeBuilder B;
 
   if (!KeyContains.IsBound(W) || KeyContains(W).IsEmpty())
     return;
@@ -302,8 +302,8 @@ static void BuildFaceIn(TopoDS_Face&                        F,
   TopTools_ListIteratorOfListOfShape it;
   for (it.Initialize(KeyContains(W)); it.More(); it.Next())
   {
-    const TopoDS_Wire&                 WI = TopoDS::Wire(it.Value());
-    TopTools_ListOfShape&              L2 = KeyIsIn(WI);
+    const TopoWire&                 WI = TopoDS::Wire(it.Value());
+    ShapeList&              L2 = KeyIsIn(WI);
     TopTools_ListIteratorOfListOfShape it2;
     for (it2.Initialize(L2); it2.More(); it2.Next())
     {
@@ -315,12 +315,12 @@ static void BuildFaceIn(TopoDS_Face&                        F,
     }
   }
 
-  TopTools_ListOfShape WireExt;
+  ShapeList WireExt;
 
   for (it.Initialize(KeyContains(W)); it.More(); it.Next())
   {
-    const TopoDS_Wire&    WI = TopoDS::Wire(it.Value());
-    TopTools_ListOfShape& L2 = KeyIsIn(WI);
+    const TopoWire&    WI = TopoDS::Wire(it.Value());
+    ShapeList& L2 = KeyIsIn(WI);
 
     if (L2.IsEmpty())
     {
@@ -330,23 +330,23 @@ static void BuildFaceIn(TopoDS_Face&                        F,
 
   for (it.Initialize(WireExt); it.More(); it.Next())
   {
-    const TopoDS_Wire&    WI = TopoDS::Wire(it.Value());
-    TopTools_ListOfShape& L2 = KeyIsIn(WI);
+    const TopoWire&    WI = TopoDS::Wire(it.Value());
+    ShapeList& L2 = KeyIsIn(WI);
     if (L2.IsEmpty())
     {
       if (Orientation == TopAbs_FORWARD)
       {
-        TopoDS_Wire NWI(WI);
+        TopoWire NWI(WI);
         NWI.Reverse();
-        // TopoDS_Wire NWI = TopoDS::Wire(WI.Reversed());
+        // TopoWire NWI = TopoDS::Wire(WI.Reversed());
         B.Add(F, NWI);
         BuildFaceIn(F, WI, KeyContains, KeyIsIn, TopAbs_REVERSED, Faces);
       }
       else
       {
-        TopoDS_Shape aLocalShape = Faces.First().EmptyCopied();
-        TopoDS_Face  NF          = TopoDS::Face(aLocalShape);
-        // TopoDS_Face NF = TopoDS::Face(Faces.First().EmptyCopied());
+        TopoShape aLocalShape = Faces.First().EmptyCopied();
+        TopoFace  NF          = TopoDS::Face(aLocalShape);
+        // TopoFace NF = TopoDS::Face(Faces.First().EmptyCopied());
         B.Add(NF, WI);
         Faces.Append(NF);
         BuildFaceIn(NF, WI, KeyContains, KeyIsIn, TopAbs_FORWARD, Faces);
@@ -359,7 +359,7 @@ static void BuildFaceIn(TopoDS_Face&                        F,
 
 void BRepAlgo_FaceRestrictor::PerformWithCorrection()
 {
-  BRep_Builder B;
+  ShapeBuilder B;
 
   myDone = Standard_False;
   TopTools_ListIteratorOfListOfShape it(wires);
@@ -368,10 +368,10 @@ void BRepAlgo_FaceRestrictor::PerformWithCorrection()
   //---------------------------------------------------------
   for (; it.More(); it.Next())
   {
-    TopoDS_Wire& W           = TopoDS::Wire(it.ChangeValue());
-    TopoDS_Shape aLocalShape = myFace.EmptyCopied();
-    TopoDS_Face  NF          = TopoDS::Face(aLocalShape);
-    //    TopoDS_Face  NF = TopoDS::Face(myFace.EmptyCopied());
+    TopoWire& W           = TopoDS::Wire(it.ChangeValue());
+    TopoShape aLocalShape = myFace.EmptyCopied();
+    TopoFace  NF          = TopoDS::Face(aLocalShape);
+    //    TopoFace  NF = TopoDS::Face(myFace.EmptyCopied());
     NF.Orientation(TopAbs_FORWARD);
     B.Add(NF, W);
 
@@ -389,21 +389,21 @@ void BRepAlgo_FaceRestrictor::PerformWithCorrection()
   //---------------------------------------------------------
   for (it.Initialize(wires); it.More(); it.Next())
   {
-    const TopoDS_Wire&                 W1 = TopoDS::Wire(it.Value());
+    const TopoWire&                 W1 = TopoDS::Wire(it.Value());
     TopTools_ListIteratorOfListOfShape it2(wires);
 
     if (IsClosed(W1))
     {
-      TopoDS_Shape aLocalShape = myFace.EmptyCopied();
-      TopoDS_Face  NF          = TopoDS::Face(aLocalShape);
-      //      TopoDS_Face  NF = TopoDS::Face(myFace.EmptyCopied());
+      TopoShape aLocalShape = myFace.EmptyCopied();
+      TopoFace  NF          = TopoDS::Face(aLocalShape);
+      //      TopoFace  NF = TopoDS::Face(myFace.EmptyCopied());
       NF.Orientation(TopAbs_FORWARD);
       B.Add(NF, W1);
 
       BRepTopAdaptor_FClass2d FClass2d(NF, Precision::PConfusion());
       while (it2.More())
       {
-        const TopoDS_Wire& W2 = TopoDS::Wire(it2.Value());
+        const TopoWire& W2 = TopoDS::Wire(it2.Value());
         if (!W1.IsSame(W2) && IsInside(W2, NF, FClass2d))
         {
           Store(W2, W1, keyIsIn, keyContains);
@@ -412,11 +412,11 @@ void BRepAlgo_FaceRestrictor::PerformWithCorrection()
       }
     }
   }
-  TopTools_ListOfShape WireExt;
+  ShapeList WireExt;
 
   for (it.Initialize(wires); it.More(); it.Next())
   {
-    const TopoDS_Wire& W = TopoDS::Wire(it.Value());
+    const TopoWire& W = TopoDS::Wire(it.Value());
     if (!keyIsIn.IsBound(W) || keyIsIn(W).IsEmpty())
     {
       WireExt.Append(W);
@@ -425,12 +425,12 @@ void BRepAlgo_FaceRestrictor::PerformWithCorrection()
 
   for (it.Initialize(WireExt); it.More(); it.Next())
   {
-    const TopoDS_Wire& W = TopoDS::Wire(it.Value());
+    const TopoWire& W = TopoDS::Wire(it.Value());
     if (!keyIsIn.IsBound(W) || keyIsIn(W).IsEmpty())
     {
-      TopoDS_Shape aLocalShape = myFace.EmptyCopied();
-      TopoDS_Face  NewFace     = TopoDS::Face(aLocalShape);
-      //      TopoDS_Face NewFace = TopoDS::Face(myFace.EmptyCopied());
+      TopoShape aLocalShape = myFace.EmptyCopied();
+      TopoFace  NewFace     = TopoDS::Face(aLocalShape);
+      //      TopoFace NewFace = TopoDS::Face(myFace.EmptyCopied());
       NewFace.Orientation(TopAbs_FORWARD);
       B.Add(NewFace, W);
       faces.Append(NewFace);

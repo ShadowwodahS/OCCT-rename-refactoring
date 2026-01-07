@@ -45,29 +45,29 @@
 extern Standard_Boolean           TopOpeBRepTool_GettraceREGUSO();
 static TopTools_IndexedMapOfShape STATIC_mape, STATIC_mapf, STATIC_mapw, STATIC_mapsh;
 
-static Standard_Integer FUN_adds(const TopoDS_Shape& s)
+static Standard_Integer FUN_adds(const TopoShape& s)
 {
   TopAbs_ShapeEnum        typ = s.ShapeType();
-  TCollection_AsciiString aa;
+  AsciiString1 aa;
   Standard_Integer        is = 0;
   if (typ == TopAbs_SHELL)
   {
-    aa = TCollection_AsciiString("s");
+    aa = AsciiString1("s");
     is = STATIC_mapsh.Add(s);
   }
   if (typ == TopAbs_WIRE)
   {
-    aa = TCollection_AsciiString("w");
+    aa = AsciiString1("w");
     is = STATIC_mapw.Add(s);
   }
   if (typ == TopAbs_FACE)
   {
-    aa = TCollection_AsciiString("f");
+    aa = AsciiString1("f");
     is = STATIC_mapf.Add(s);
   }
   if (typ == TopAbs_EDGE)
   {
-    aa = TCollection_AsciiString("e");
+    aa = AsciiString1("e");
     is = STATIC_mape.Add(s);
   }
   #ifdef DRAW
@@ -109,7 +109,7 @@ TopOpeBRepTool_REGUS::TopOpeBRepTool_REGUS()
 
 //=================================================================================================
 
-void TopOpeBRepTool_REGUS::Init(const TopoDS_Shape& S)
+void TopOpeBRepTool_REGUS::Init(const TopoShape& S)
 {
   hasnewsplits = Standard_False;
 
@@ -124,7 +124,7 @@ void TopOpeBRepTool_REGUS::Init(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepTool_REGUS::S() const
+const TopoShape& TopOpeBRepTool_REGUS::S() const
 {
   return myS;
 }
@@ -170,16 +170,16 @@ Standard_Boolean TopOpeBRepTool_REGUS::MapS()
 
   // mymapeFs, myoldnF :
   myoldnF = 0;
-  TopExp_Explorer exf(myS, TopAbs_FACE);
+  ShapeExplorer exf(myS, TopAbs_FACE);
   for (; exf.More(); exf.Next())
   {
-    const TopoDS_Shape& f = exf.Current();
+    const TopoShape& f = exf.Current();
     myoldnF++;
 
-    TopExp_Explorer exe(f, TopAbs_EDGE);
+    ShapeExplorer exe(f, TopAbs_EDGE);
     for (; exe.More(); exe.Next())
     {
-      const TopoDS_Shape& e   = exe.Current();
+      const TopoShape& e   = exe.Current();
       Standard_Boolean    isb = mymapeFs.IsBound(e);
       if (isb)
       {
@@ -188,7 +188,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::MapS()
       }
       else
       {
-        TopTools_ListOfShape lof;
+        ShapeList lof;
         lof.Append(f);
         mymapeFs.Bind(e, lof);
         mymapeFsstatic.Bind(e, lof);
@@ -201,8 +201,8 @@ Standard_Boolean TopOpeBRepTool_REGUS::MapS()
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itm(mymapeFs);
   for (; itm.More(); itm.Next())
   {
-    const TopoDS_Shape&         e   = itm.Key();
-    const TopTools_ListOfShape& lof = itm.Value();
+    const TopoShape&         e   = itm.Key();
+    const ShapeList& lof = itm.Value();
     Standard_Integer            nf  = lof.Extent();
     if (nf > 2)
       mymapemult.Add(e);
@@ -222,18 +222,18 @@ Standard_Boolean TopOpeBRepTool_REGUS::MapS()
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_REGUS::WireToFace(const TopoDS_Face&          Fanc,
-                                                  const TopTools_ListOfShape& nWs,
-                                                  TopTools_ListOfShape&       nFs)
+Standard_Boolean TopOpeBRepTool_REGUS::WireToFace(const TopoFace&          Fanc,
+                                                  const ShapeList& nWs,
+                                                  ShapeList&       nFs)
 {
 #ifdef OCCT_DEBUG
   Standard_Boolean trc = TopOpeBRepTool_GettraceREGUSO();
 #endif
   nFs.Clear();
   TopTools_DataMapOfShapeListOfShape mapWlow;
-  TopoDS_Shape                       aLocalShape = Fanc.Oriented(TopAbs_FORWARD);
-  TopoDS_Face                        aFace       = TopoDS::Face(aLocalShape);
-  //  TopoDS_Face aFace = TopoDS::Face(Fanc.Oriented(TopAbs_FORWARD));
+  TopoShape                       aLocalShape = Fanc.Oriented(TopAbs_FORWARD);
+  TopoFace                        aFace       = TopoDS::Face(aLocalShape);
+  //  TopoFace aFace = TopoDS::Face(Fanc.Oriented(TopAbs_FORWARD));
   TopOpeBRepTool_CLASSI classi;
   classi.Init2d(aFace);
 
@@ -247,7 +247,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::WireToFace(const TopoDS_Face&          Fa
     return Standard_False;
   }
 
-  Standard_Boolean facesbuilt = TopOpeBRepTool_TOOL::WireToFace(Fanc, mapWlow, nFs);
+  Standard_Boolean facesbuilt = TOOL1::WireToFace(Fanc, mapWlow, nFs);
   if (!facesbuilt)
   {
 #ifdef OCCT_DEBUG
@@ -261,35 +261,35 @@ Standard_Boolean TopOpeBRepTool_REGUS::WireToFace(const TopoDS_Face&          Fa
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_REGUS::SplitF(const TopoDS_Face&    Fanc,
-                                              TopTools_ListOfShape& FSplits)
+Standard_Boolean TopOpeBRepTool_REGUS::SplitF(const TopoFace&    Fanc,
+                                              ShapeList& FSplits)
 {
   // prequesitory : All edges have already been split, there is no
   //                internal vertex on edge, except for internal edge.
   TopAbs_Orientation oAnc                = Fanc.Orientation();
-  TopoDS_Shape       aLocalShapeFromFace = Fanc.Oriented(TopAbs_FORWARD);
-  TopoDS_Face        aFace               = TopoDS::Face(aLocalShapeFromFace);
-  //  TopoDS_Face aFace = TopoDS::Face(Fanc.Oriented(TopAbs_FORWARD));
+  TopoShape       aLocalShapeFromFace = Fanc.Oriented(TopAbs_FORWARD);
+  TopoFace        aFace               = TopoDS::Face(aLocalShapeFromFace);
+  //  TopoFace aFace = TopoDS::Face(Fanc.Oriented(TopAbs_FORWARD));
 
   FSplits.Clear();
 
   TopOpeBRepTool_REGUW REGUW(aFace);
 
-  TopTools_ListOfShape nWs;
+  ShapeList nWs;
   Standard_Boolean     hassp = Standard_False;
-  TopExp_Explorer      exw(aFace, TopAbs_WIRE);
+  ShapeExplorer      exw(aFace, TopAbs_WIRE);
   for (; exw.More(); exw.Next())
   {
-    const TopoDS_Shape& w = exw.Current();
+    const TopoShape& w = exw.Current();
     REGUW.Init(w);
     REGUW.MapS();
 
-    TopTools_ListOfShape eIs;
+    ShapeList eIs;
     // --------
-    TopExp_Explorer exe(w, TopAbs_EDGE);
+    ShapeExplorer exe(w, TopAbs_EDGE);
     for (; exe.More(); exe.Next())
     {
-      const TopoDS_Shape& e = exe.Current();
+      const TopoShape& e = exe.Current();
       if (M_INTERNAL(e.Orientation()))
         eIs.Append(e);
     } // exe
@@ -299,18 +299,18 @@ Standard_Boolean TopOpeBRepTool_REGUS::SplitF(const TopoDS_Face&    Fanc,
 
     while (ite.More())
     {
-      const TopoDS_Edge& eI = TopoDS::Edge(ite.Value());
-      TopoDS_Vertex      vf, vl;
-      TopoDS_Shape       aLocalShape = eI.Oriented(TopAbs_FORWARD);
-      TopExp::Vertices(TopoDS::Edge(aLocalShape), vf, vl);
-      //      TopExp::Vertices(TopoDS::Edge(eI.Oriented(TopAbs_FORWARD)),vf,vl);
+      const TopoEdge& eI = TopoDS::Edge(ite.Value());
+      TopoVertex      vf, vl;
+      TopoShape       aLocalShape = eI.Oriented(TopAbs_FORWARD);
+      TopExp1::Vertices(TopoDS::Edge(aLocalShape), vf, vl);
+      //      TopExp1::Vertices(TopoDS::Edge(eI.Oriented(TopAbs_FORWARD)),vf,vl);
       TopOpeBRepTool_connexity cof;
       REGUW.Connexity(vf, cof);
-      TopTools_ListOfShape     lef;
+      ShapeList     lef;
       Standard_Integer         nef = cof.AllItems(lef);
       TopOpeBRepTool_connexity col;
       REGUW.Connexity(vl, col);
-      TopTools_ListOfShape lel;
+      ShapeList lel;
       Standard_Integer     nel = col.AllItems(lel);
       if ((nef <= 1) || (nel <= 1))
       {
@@ -320,24 +320,24 @@ Standard_Boolean TopOpeBRepTool_REGUS::SplitF(const TopoDS_Face&    Fanc,
 
       // prequesitory : we do not have internal vertices in edges oriented FOR
       aLocalShape    = eI.Oriented(TopAbs_REVERSED);
-      TopoDS_Edge eR = TopoDS::Edge(aLocalShape);
+      TopoEdge eR = TopoDS::Edge(aLocalShape);
       aLocalShape    = eI.Oriented(TopAbs_FORWARD);
-      TopoDS_Edge eF = TopoDS::Edge(aLocalShape);
-      //      TopoDS_Edge eR = TopoDS::Edge(eI.Oriented(TopAbs_REVERSED));
-      //      TopoDS_Edge eF = TopoDS::Edge(eI.Oriented(TopAbs_FORWARD));
+      TopoEdge eF = TopoDS::Edge(aLocalShape);
+      //      TopoEdge eR = TopoDS::Edge(eI.Oriented(TopAbs_REVERSED));
+      //      TopoEdge eF = TopoDS::Edge(eI.Oriented(TopAbs_FORWARD));
 
-      TopExp_Explorer exv(eI, TopAbs_VERTEX);
+      ShapeExplorer exv(eI, TopAbs_VERTEX);
       for (; exv.More(); exv.Next())
       {
-        const TopoDS_Vertex& v  = TopoDS::Vertex(exv.Current());
+        const TopoVertex& v  = TopoDS::Vertex(exv.Current());
         Standard_Boolean     ok = REGUW.RemoveOldConnexity(v, INTERNAL, eI);
         if (!ok)
           return Standard_False;
-        Standard_Integer ivF = TopOpeBRepTool_TOOL::OriinSor(v, eF);
+        Standard_Integer ivF = TOOL1::OriinSor(v, eF);
         ok                   = REGUW.AddNewConnexity(v, ivF, eF);
         if (!ok)
           return Standard_False;
-        Standard_Integer ivR = TopOpeBRepTool_TOOL::OriinSor(v, eR);
+        Standard_Integer ivR = TOOL1::OriinSor(v, eR);
         ok                   = REGUW.AddNewConnexity(v, ivR, eR);
         if (!ok)
           return Standard_False;
@@ -352,7 +352,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::SplitF(const TopoDS_Face&    Fanc,
     // their 2 bounds are of connexity > 1.
     //    if (eIs.IsEmpty()) {nWs.Append(w); continue;}
 
-    TopTools_ListOfShape spW;
+    ShapeList spW;
     // --------
     Standard_Boolean spok = REGUW.REGU(); // only first step
     if (!spok)
@@ -370,7 +370,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::SplitF(const TopoDS_Face&    Fanc,
 
   if (!hassp)
     return Standard_False;
-  TopTools_ListOfShape nFs;
+  ShapeList nFs;
   Standard_Boolean     ok = TopOpeBRepTool_REGUS::WireToFace(aFace, nWs, nFs);
   if (!ok)
   {
@@ -394,13 +394,13 @@ Standard_Boolean TopOpeBRepTool_REGUS::SplitFaces()
   if (trc)
     std::cout << "**    SPLITTING FACES    ** shape" << ish << std::endl;
 #endif
-  TopExp_Explorer exf(myS, TopAbs_FACE);
+  ShapeExplorer exf(myS, TopAbs_FACE);
   for (; exf.More(); exf.Next())
   {
 
     // splitting face :
-    const TopoDS_Face&   f = TopoDS::Face(exf.Current());
-    TopTools_ListOfShape lfsp;
+    const TopoFace&   f = TopoDS::Face(exf.Current());
+    ShapeList lfsp;
     Standard_Boolean     issp = TopOpeBRepTool_REGUS::SplitF(f, lfsp);
 
     if (!issp)
@@ -414,14 +414,14 @@ Standard_Boolean TopOpeBRepTool_REGUS::SplitFaces()
     TopTools_ListIteratorOfListOfShape itf(lfsp);
     for (; itf.More(); itf.Next())
     {
-      const TopoDS_Shape& fsp = itf.Value();
+      const TopoShape& fsp = itf.Value();
       mynF++;
 
-      TopExp_Explorer exe(fsp, TopAbs_EDGE);
+      ShapeExplorer exe(fsp, TopAbs_EDGE);
       for (; exe.More(); exe.Next())
       {
         // fsp -> {e}
-        const TopoDS_Shape& e   = exe.Current();
+        const TopoShape& e   = exe.Current();
         Standard_Boolean    isb = mymapeFs.IsBound(e);
         if (!isb)
         {
@@ -430,8 +430,8 @@ Standard_Boolean TopOpeBRepTool_REGUS::SplitFaces()
         }
 
         // <mymapeFs>
-        TopTools_ListOfShape& lof = mymapeFs.ChangeFind(e);
-        TopOpeBRepTool_TOOL::Remove(lof, f);
+        ShapeList& lof = mymapeFs.ChangeFind(e);
+        TOOL1::Remove(lof, f);
         lof.Append(fsp);
 
         // <mymapemult>
@@ -455,7 +455,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::SplitFaces()
   return Standard_True;
 }
 
-static void FUN_update(const TopoDS_Shape& fcur, TopTools_MapOfShape& edstoconnect)
+static void FUN_update(const TopoShape& fcur, TopTools_MapOfShape& edstoconnect)
 // purpose : <e> edge of <fcur>
 //  1. <e> is INTERNAL or EXTERNAL   -> nothing is done
 //  2. <e> is closing edge of <fcur> -> nothing is done
@@ -469,15 +469,15 @@ static void FUN_update(const TopoDS_Shape& fcur, TopTools_MapOfShape& edstoconne
   if (M_INTERNAL(ofcur) || M_EXTERNAL(ofcur))
     return;
 
-  TopExp_Explorer exe(fcur, TopAbs_EDGE);
+  ShapeExplorer exe(fcur, TopAbs_EDGE);
   for (; exe.More(); exe.Next())
   {
-    const TopoDS_Shape& e  = exe.Current();
+    const TopoShape& e  = exe.Current();
     TopAbs_Orientation  oe = e.Orientation();
     if (M_INTERNAL(oe) || M_EXTERNAL(oe))
       continue;
 
-    Standard_Boolean isclo = TopOpeBRepTool_TOOL::IsClosingE(TopoDS::Edge(e), TopoDS::Face(fcur));
+    Standard_Boolean isclo = TOOL1::IsClosingE(TopoDS::Edge(e), TopoDS::Face(fcur));
     if (isclo)
       continue;
 
@@ -499,7 +499,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::REGU()
   if (trc)
     std::cout << "**    REGU    **" << ishe << std::endl;
 #endif
-  TopTools_ListOfShape Splits;
+  ShapeList Splits;
   Standard_Boolean     toregu = !mymapemult.IsEmpty() || (mynF != myoldnF);
   if (!toregu)
     return Standard_False;
@@ -519,7 +519,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::REGU()
   //   - else if bound edge has two ancestor faces in current list <mylFinBlock>,
   //     delete it form the map.
   //
-  //  TopTools_ListOfShape lFinBlock; // <lFinBlock> describes a valid closed shell when
+  //  ShapeList lFinBlock; // <lFinBlock> describes a valid closed shell when
   //  <myedstoconnect> is emptied.
   mylFinBlock.Clear();
   Standard_Integer nite = 0;
@@ -557,8 +557,8 @@ Standard_Boolean TopOpeBRepTool_REGUS::REGU()
       }
       else
       {
-        TopoDS_Shell newShe;
-        TopOpeBRepTool_TOOL::MkShell(mylFinBlock, newShe);
+        TopoShell newShe;
+        TOOL1::MkShell(mylFinBlock, newShe);
         Splits.Append(newShe);
 #ifdef OCCT_DEBUG
         if (trc)
@@ -609,14 +609,14 @@ Standard_Boolean TopOpeBRepTool_REGUS::REGU()
         continue;
     }
 
-    TopExp_Explorer exe(myf, TopAbs_EDGE);
+    ShapeExplorer exe(myf, TopAbs_EDGE);
     for (; exe.More(); exe.Next())
     {
-      const TopoDS_Shape& e   = exe.Current();
+      const TopoShape& e   = exe.Current();
       Standard_Boolean    isb = mymapeFs.IsBound(e);
       if (!isb)
         continue; // ancestors faces of <e> are stored in Blocks
-      TopOpeBRepTool_TOOL::Remove(mymapeFs.ChangeFind(e), myf);
+      TOOL1::Remove(mymapeFs.ChangeFind(e), myf);
     } // exe
 
     mylFinBlock.Append(myf);
@@ -635,7 +635,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::InitBlock()
   if (nec != 0)
     return Standard_False; // should be empty
 
-  TopTools_ListOfShape                                eds;
+  ShapeList                                eds;
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itm(mymapeFs);
   for (; itm.More(); itm.Next())
     eds.Append(itm.Key());
@@ -643,8 +643,8 @@ Standard_Boolean TopOpeBRepTool_REGUS::InitBlock()
   TopTools_ListIteratorOfListOfShape ite(eds);
   for (; ite.More(); ite.Next())
   {
-    const TopoDS_Shape&         e   = ite.Value();
-    const TopTools_ListOfShape& lof = mymapeFs.Find(e);
+    const TopoShape&         e   = ite.Value();
+    const ShapeList& lof = mymapeFs.Find(e);
     if (lof.IsEmpty())
     {
       mymapeFs.UnBind(e);
@@ -669,11 +669,11 @@ Standard_Boolean TopOpeBRepTool_REGUS::NextinBlock()
   Standard_Boolean trc = TopOpeBRepTool_GettraceREGUSO();
 #endif
   // we try to connect first edge of <myf> bound in <myedstoconnect>
-  TopTools_ListOfShape eds;
-  TopExp_Explorer      exe(myf, TopAbs_EDGE);
+  ShapeList eds;
+  ShapeExplorer      exe(myf, TopAbs_EDGE);
   for (; exe.More(); exe.Next())
   {
-    const TopoDS_Shape& e   = exe.Current();
+    const TopoShape& e   = exe.Current();
     Standard_Boolean    isb = myedstoconnect.Contains(e);
     if (isb)
       eds.Append(e);
@@ -684,7 +684,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::NextinBlock()
     TopTools_MapIteratorOfMapOfShape itc(myedstoconnect);
     for (; itc.More(); itc.Next())
     {
-      const TopoDS_Shape& e       = itc.Key();
+      const TopoShape& e       = itc.Key();
       Standard_Boolean    isBound = mymapeFs.IsBound(e);
       // all ancestor faces of <e> have been stored
       if (!isBound)
@@ -693,7 +693,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::NextinBlock()
         continue;
       }
 
-      const TopTools_ListOfShape& lof = mymapeFs.Find(e);
+      const ShapeList& lof = mymapeFs.Find(e);
       Standard_Integer            nf  = lof.Extent();
       if (nf == 0)
       {
@@ -716,13 +716,13 @@ Standard_Boolean TopOpeBRepTool_REGUS::NextinBlock()
           mapf.Add(itff.Value());
         // lofc : the list of faces connexed to e in <myS>
         // lof  : the list of untouched faces connexed to e in <myS>
-        const TopTools_ListOfShape& lofc = mymapeFsstatic.Find(e);
+        const ShapeList& lofc = mymapeFsstatic.Find(e);
 
         itff.Initialize(lofc);
-        TopoDS_Face fref;
+        TopoFace fref;
         for (; itff.More(); itff.Next())
         {
-          const TopoDS_Face& fc  = TopoDS::Face(itff.Value());
+          const TopoFace& fc  = TopoDS::Face(itff.Value());
           Standard_Boolean   isb = mapf.Contains(fc);
           if (isb)
           {
@@ -737,7 +737,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::NextinBlock()
         else
         {
           myf = fref;
-          TopoDS_Face      ffound;
+          TopoFace      ffound;
           Standard_Boolean ok = NearestF(TopoDS::Edge(e), lof, ffound);
           if (!ok)
             return Standard_False;
@@ -753,7 +753,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::NextinBlock()
   TopTools_ListIteratorOfListOfShape ite(eds);
   for (; ite.More(); ite.Next())
   {
-    const TopoDS_Shape& e   = ite.Value();
+    const TopoShape& e   = ite.Value();
     Standard_Boolean    isb = mymapeFs.IsBound(e);
     // all ancestor faces of <e> have been stored
     if (!isb)
@@ -762,7 +762,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::NextinBlock()
       continue;
     }
 
-    const TopTools_ListOfShape& lof = mymapeFs.Find(e);
+    const ShapeList& lof = mymapeFs.Find(e);
     Standard_Integer            nf  = lof.Extent();
     if (nf == 0)
     {
@@ -780,7 +780,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::NextinBlock()
       myf = lof.First();
     else
     {
-      TopoDS_Face      ffound;
+      TopoFace      ffound;
       Standard_Boolean ok = NearestF(TopoDS::Edge(e), lof, ffound);
       if (!ok)
         return Standard_False;
@@ -795,8 +795,8 @@ Standard_Boolean TopOpeBRepTool_REGUS::NextinBlock()
   return Standard_False;
 }
 
-static Standard_Boolean FUN_vectors(const TopoDS_Face&     f,
-                                    const TopoDS_Edge&     e,
+static Standard_Boolean FUN_vectors(const TopoFace&     f,
+                                    const TopoEdge&     e,
                                     const Standard_Real    pare,
                                     Dir3d&                nt,
                                     Dir3d&                xx,
@@ -806,7 +806,7 @@ static Standard_Boolean FUN_vectors(const TopoDS_Face&     f,
   // <nt> :
   if (approx)
   {
-    Standard_Boolean ok = TopOpeBRepTool_TOOL::tryNgApp(pare, e, f, tola, nt);
+    Standard_Boolean ok = TOOL1::tryNgApp(pare, e, f, tola, nt);
     if (!ok)
       return Standard_False;
   }
@@ -829,9 +829,9 @@ static Standard_Boolean FUN_vectors(const TopoDS_Face&     f,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_REGUS::NearestF(const TopoDS_Edge&          e,
-                                                const TopTools_ListOfShape& lof,
-                                                TopoDS_Face&                ffound) const
+Standard_Boolean TopOpeBRepTool_REGUS::NearestF(const TopoEdge&          e,
+                                                const ShapeList& lof,
+                                                TopoFace&                ffound) const
 // prequesitory : <e> is shared by <myf> and faces of <lof>.
 //
 // NYIXPU!!!!!!!! if (xx1 tg xx2) -> use curvatures
@@ -841,7 +841,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::NearestF(const TopoDS_Edge&          e,
   Standard_Boolean trc = TopOpeBRepTool_GettraceREGUSO();
 #endif
   ffound.Nullify();
-  TopoDS_Face fref = TopoDS::Face(myf);
+  TopoFace fref = TopoDS::Face(myf);
 
   // Give us edge <e>, and a reference face <fref> (= <myf>)
   // - parameter on <e> = <pare>.
@@ -884,7 +884,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::NearestF(const TopoDS_Edge&          e,
       return Standard_False;
     }
 
-    Standard_Boolean oppo = TopOpeBRepTool_TOOL::Matter(x, y, xxfound, ntfound, tola, angfound);
+    Standard_Boolean oppo = TOOL1::Matter(x, y, xxfound, ntfound, tola, angfound);
 #ifdef OCCT_DEBUG
     if (trc && !oppo)
       std::cout << "   f" << FUN_adds(fref) << ",f" << FUN_adds(ffound) << " not oppo" << std::endl;
@@ -899,8 +899,8 @@ Standard_Boolean TopOpeBRepTool_REGUS::NearestF(const TopoDS_Edge&          e,
     {
       //      refapp = Standard_True; ::FUN_vectors(fref,e,pare,yapp,xapp,tola,Standard_True);
       //      ::FUN_vectors(ffound,e,pare,ntfound,xxfound,tola,Standard_True);
-      //      TopOpeBRepTool_TOOL::Matter(xapp,yapp,xxfound,ntfound,tola, angfound);
-      ok = TopOpeBRepTool_TOOL::MatterKPtg(fref, ffound, e, angfound);
+      //      TOOL1::Matter(xapp,yapp,xxfound,ntfound,tola, angfound);
+      ok = TOOL1::MatterKPtg(fref, ffound, e, angfound);
       if (!ok)
       {
         FUN_Raise();
@@ -929,7 +929,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::NearestF(const TopoDS_Edge&          e,
   for (; itf.More(); itf.Next())
   {
     Dir3d             nti, xxi;
-    const TopoDS_Face& fi = TopoDS::Face(itf.Value());
+    const TopoFace& fi = TopoDS::Face(itf.Value());
     ok                    = ::FUN_vectors(fi, e, pare, nti, xxi, tola, Standard_False);
     if (!ok)
     {
@@ -938,7 +938,7 @@ Standard_Boolean TopOpeBRepTool_REGUS::NearestF(const TopoDS_Edge&          e,
     }
 
     Standard_Real    angi = 0;
-    Standard_Boolean oppo = TopOpeBRepTool_TOOL::Matter(x, y, xxi, nti, tola, angi);
+    Standard_Boolean oppo = TOOL1::Matter(x, y, xxi, nti, tola, angi);
 #ifdef OCCT_DEBUG
     if (trc && !oppo)
       std::cout << "   f" << FUN_adds(fref) << ",f" << FUN_adds(fi) << " not oppo" << std::endl;
@@ -950,8 +950,8 @@ Standard_Boolean TopOpeBRepTool_REGUS::NearestF(const TopoDS_Edge&          e,
     {
       //      if (!refapp) ::FUN_vectors(fref,e,pare,yapp,xapp,tola,Standard_True);
       //      ::FUN_vectors(fi,e,pare,nti,xxi,tola,Standard_True);
-      //      TopOpeBRepTool_TOOL::Matter(xapp,yapp,xxi,nti,tola, angi);
-      ok = TopOpeBRepTool_TOOL::MatterKPtg(fref, fi, e, angi);
+      //      TOOL1::Matter(xapp,yapp,xxi,nti,tola, angi);
+      ok = TOOL1::MatterKPtg(fref, fi, e, angi);
       if (!ok)
       {
         FUN_Raise();

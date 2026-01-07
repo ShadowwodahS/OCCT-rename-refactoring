@@ -53,10 +53,10 @@ IMPLEMENT_STANDARD_RTTIEXT(PrsDim_OffsetDimension, PrsDim_Relation)
 
 //=================================================================================================
 
-PrsDim_OffsetDimension::PrsDim_OffsetDimension(const TopoDS_Shape&               FistShape,
-                                               const TopoDS_Shape&               SecondShape,
+PrsDim_OffsetDimension::PrsDim_OffsetDimension(const TopoShape&               FistShape,
+                                               const TopoShape&               SecondShape,
                                                const Standard_Real               aVal,
-                                               const TCollection_ExtendedString& aText)
+                                               const UtfString& aText)
     : PrsDim_Relation(),
       myFAttach(0., 0., 0.),
       mySAttach(0., 0., 0.)
@@ -135,7 +135,7 @@ void PrsDim_OffsetDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void PrsDim_OffsetDimension::ComputeSelection(const Handle(SelectMgr_Selection)& aSel,
+void PrsDim_OffsetDimension::ComputeSelection(const Handle(SelectionContainer)& aSel,
                                               const Standard_Integer)
 {
   // myArrowSize = fabs (myVal/5.);
@@ -340,9 +340,9 @@ void PrsDim_OffsetDimension::ComputeTwoAxesOffset(const Handle(Prs3d_Presentatio
                                      Tcurpos);
 
   BRepBuilderAPI_Transform transform1(myFShape, aTrsf, Standard_True);
-  TopoDS_Shape             myTFShape = transform1.Shape();
+  TopoShape             myTFShape = transform1.Shape();
   BRepBuilderAPI_Transform transform2(mySShape, aTrsf, Standard_True);
-  TopoDS_Shape             myTSShape = transform2.Shape();
+  TopoShape             myTSShape = transform2.Shape();
 
   StdPrs_WFShape::Add(aprs, myTFShape, myDrawer);
   StdPrs_WFShape::Add(aprs, myTSShape, myDrawer);
@@ -358,11 +358,11 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
   Frame3d myax2;
   if (myAutomaticPosition && !myIsSetBndBox)
   {
-    TopExp_Explorer explo(myFShape, TopAbs_VERTEX);
+    ShapeExplorer explo(myFShape, TopAbs_VERTEX);
     if (explo.More())
     {
-      TopoDS_Vertex vertref = TopoDS::Vertex(explo.Current());
-      myFAttach             = BRep_Tool::Pnt(vertref);
+      TopoVertex vertref = TopoDS::Vertex(explo.Current());
+      myFAttach             = BRepInspector::Pnt(vertref);
       Vector3d trans          = norm1.XYZ() * fabs(myVal / 2);
       Frame3d ax2(myFAttach, norm1);
       myDirAttach = ax2.XDirection();
@@ -461,9 +461,9 @@ void PrsDim_OffsetDimension::ComputeTwoFacesOffset(const Handle(Prs3d_Presentati
                                  Tcurpos);
 
   BRepBuilderAPI_Transform transform1(myFShape, aTrsf, Standard_True);
-  TopoDS_Shape             myTFShape = transform1.Shape();
+  TopoShape             myTFShape = transform1.Shape();
   BRepBuilderAPI_Transform transform2(mySShape, aTrsf, Standard_True);
-  TopoDS_Shape             myTSShape = transform2.Shape();
+  TopoShape             myTSShape = transform2.Shape();
 
   StdPrs_WFShape::Add(aprs, myTFShape, myDrawer);
   StdPrs_WFShape::Add(aprs, myTSShape, myDrawer);
@@ -475,9 +475,9 @@ void PrsDim_OffsetDimension::ComputeAxeFaceOffset(const Handle(Prs3d_Presentatio
                                                   const Transform3d&                    aTrsf)
 {
   BRepBuilderAPI_Transform transform1(myFShape, aTrsf, Standard_True);
-  TopoDS_Shape             myTFShape = transform1.Shape();
+  TopoShape             myTFShape = transform1.Shape();
   BRepBuilderAPI_Transform transform2(mySShape, aTrsf, Standard_True);
-  TopoDS_Shape             myTSShape = transform2.Shape();
+  TopoShape             myTSShape = transform2.Shape();
 
   StdPrs_WFShape::Add(aprs, myTFShape, myDrawer);
   StdPrs_WFShape::Add(aprs, myTSShape, myDrawer);

@@ -24,20 +24,20 @@
 #include <TopTools_ListOfShape.hxx>
 #include <TopAbs_State.hxx>
 #include <Standard_Boolean.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
-class TopOpeBRepDS_ShapeWithState
+class ShapeWithState
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepDS_ShapeWithState();
+  Standard_EXPORT ShapeWithState();
 
-  Standard_EXPORT const TopTools_ListOfShape& Part(const TopAbs_State aState) const;
+  Standard_EXPORT const ShapeList& Part(const TopAbs_State aState) const;
 
-  Standard_EXPORT void AddPart(const TopoDS_Shape& aShape, const TopAbs_State aState);
+  Standard_EXPORT void AddPart(const TopoShape& aShape, const TopAbs_State aState);
 
-  Standard_EXPORT void AddParts(const TopTools_ListOfShape& aListOfShape,
+  Standard_EXPORT void AddParts(const ShapeList& aListOfShape,
                                 const TopAbs_State          aState);
 
   Standard_EXPORT void SetState(const TopAbs_State aState);
@@ -50,9 +50,9 @@ public:
 
 protected:
 private:
-  TopTools_ListOfShape myPartIn;
-  TopTools_ListOfShape myPartOut;
-  TopTools_ListOfShape myPartOn;
+  ShapeList myPartIn;
+  ShapeList myPartOut;
+  ShapeList myPartOn;
   TopAbs_State         myState;
   Standard_Boolean     myIsSplitted;
 };

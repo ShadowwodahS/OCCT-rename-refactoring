@@ -36,7 +36,7 @@ const Standard_GUID& TDF_TagSource::GetID()
 
 //=================================================================================================
 
-Handle(TDF_TagSource) TDF_TagSource::Set(const TDF_Label& L)
+Handle(TDF_TagSource) TDF_TagSource::Set(const DataLabel& L)
 {
 
   Handle(TDF_TagSource) T;
@@ -50,7 +50,7 @@ Handle(TDF_TagSource) TDF_TagSource::Set(const TDF_Label& L)
 
 //=================================================================================================
 
-TDF_Label TDF_TagSource::NewChild(const TDF_Label& L)
+DataLabel TDF_TagSource::NewChild(const DataLabel& L)
 {
   Handle(TDF_TagSource) T;
   if (!L.FindAttribute(GetID(), T))
@@ -79,7 +79,7 @@ Standard_Integer TDF_TagSource::NewTag()
 
 //=================================================================================================
 
-TDF_Label TDF_TagSource::NewChild()
+DataLabel TDF_TagSource::NewChild()
 {
   return Label().FindChild(NewTag(), Standard_True);
 }

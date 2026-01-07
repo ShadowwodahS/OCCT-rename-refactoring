@@ -58,7 +58,7 @@ public:
 
   //! Set reference point to be checked.
   //! @param thePoint bullet point.
-  void SetPoint(const gp_XY& thePoint)
+  void SetPoint(const Coords2d& thePoint)
   {
     myResIndices.Clear();
     myPoint = thePoint;
@@ -77,7 +77,7 @@ public:
     if (aRadius < 0.)
       return CellFilter_Purge;
 
-    gp_XY& aLoc = const_cast<gp_XY&>(aCircle.Location());
+    Coords2d& aLoc = const_cast<Coords2d&>(aCircle.Location());
 
     const Standard_Real aDX = myPoint.ChangeCoord(1) - aLoc.ChangeCoord(1);
     const Standard_Real aDY = myPoint.ChangeCoord(2) - aLoc.ChangeCoord(2);
@@ -116,7 +116,7 @@ private:
   Standard_Real             mySqTolerance;
   IMeshData::ListOfInteger  myResIndices;
   IMeshData::VectorOfCircle myCircles;
-  gp_XY                     myPoint;
+  Coords2d                     myPoint;
 };
 
 #endif

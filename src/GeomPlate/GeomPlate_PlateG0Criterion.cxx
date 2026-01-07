@@ -89,7 +89,7 @@ void GeomPlate_PlateG0Criterion::Value(AdvApp2Var_Patch& P, const AdvApp2Var_Con
   Standard_Integer i, NbCtr = myData.Length();
   for (i = 1; i <= NbCtr; i++)
   {
-    gp_XY P2d = myData.Value(i);
+    Coords2d P2d = myData.Value(i);
     //    Point3d PP = myXYZ.Value(i);
     Point3d P3d;
     if (UInt[0] < P2d.X() && P2d.X() < UInt[1] && VInt[0] < P2d.Y() && P2d.Y() < VInt[1])

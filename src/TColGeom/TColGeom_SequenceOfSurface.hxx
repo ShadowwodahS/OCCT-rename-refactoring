@@ -20,6 +20,6 @@
 #include <Geom_Surface.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Handle(Geom_Surface)> TColGeom_SequenceOfSurface;
+typedef NCollection_Sequence<Handle(GeomSurface)> TColGeom_SequenceOfSurface;
 
 #endif

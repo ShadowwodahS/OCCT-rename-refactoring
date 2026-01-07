@@ -47,7 +47,7 @@ void ShapeFix_WireSegment::Clear()
   myIUMax                = new TColStd_HSequenceOfInteger;
   myIVMin                = new TColStd_HSequenceOfInteger;
   myIVMax                = new TColStd_HSequenceOfInteger;
-  myVertex               = TopoDS_Vertex();
+  myVertex               = TopoVertex();
 }
 
 //=================================================================================================
@@ -84,7 +84,7 @@ TopAbs_Orientation ShapeFix_WireSegment::Orientation() const
 
 //=================================================================================================
 
-TopoDS_Vertex ShapeFix_WireSegment::FirstVertex() const
+TopoVertex ShapeFix_WireSegment::FirstVertex() const
 {
   ShapeAnalysis_Edge sae;
   return sae.FirstVertex(myWire->Edge(1));
@@ -92,7 +92,7 @@ TopoDS_Vertex ShapeFix_WireSegment::FirstVertex() const
 
 //=================================================================================================
 
-TopoDS_Vertex ShapeFix_WireSegment::LastVertex() const
+TopoVertex ShapeFix_WireSegment::LastVertex() const
 {
   ShapeAnalysis_Edge sae;
   return sae.LastVertex(myWire->Edge(myWire->NbEdges()));
@@ -102,7 +102,7 @@ TopoDS_Vertex ShapeFix_WireSegment::LastVertex() const
 
 Standard_Boolean ShapeFix_WireSegment::IsClosed() const
 {
-  TopoDS_Vertex v;
+  TopoVertex v;
   v = FirstVertex();
   return v.IsSame(LastVertex());
 }
@@ -123,7 +123,7 @@ Standard_Integer ShapeFix_WireSegment::NbEdges() const
 
 //=================================================================================================
 
-TopoDS_Edge ShapeFix_WireSegment::Edge(const Standard_Integer i) const
+TopoEdge ShapeFix_WireSegment::Edge(const Standard_Integer i) const
 {
 
   return myWire->Edge(i);
@@ -131,14 +131,14 @@ TopoDS_Edge ShapeFix_WireSegment::Edge(const Standard_Integer i) const
 
 //=================================================================================================
 
-void ShapeFix_WireSegment::SetEdge(const Standard_Integer i, const TopoDS_Edge& edge)
+void ShapeFix_WireSegment::SetEdge(const Standard_Integer i, const TopoEdge& edge)
 {
   myWire->Set(edge, i);
 }
 
 //=================================================================================================
 
-void ShapeFix_WireSegment::AddEdge(const Standard_Integer i, const TopoDS_Edge& edge)
+void ShapeFix_WireSegment::AddEdge(const Standard_Integer i, const TopoEdge& edge)
 {
   AddEdge(i, edge, MININD, MAXIND, MININD, MAXIND);
 }
@@ -146,7 +146,7 @@ void ShapeFix_WireSegment::AddEdge(const Standard_Integer i, const TopoDS_Edge& 
 //=================================================================================================
 
 void ShapeFix_WireSegment::AddEdge(const Standard_Integer i,
-                                   const TopoDS_Edge&     edge,
+                                   const TopoEdge&     edge,
                                    const Standard_Integer iumin,
                                    const Standard_Integer iumax,
                                    const Standard_Integer ivmin,
@@ -265,7 +265,7 @@ Standard_Boolean ShapeFix_WireSegment::CheckPatchIndex(const Standard_Integer i)
 
 //=================================================================================================
 
-void ShapeFix_WireSegment::SetVertex(const TopoDS_Vertex& theVertex)
+void ShapeFix_WireSegment::SetVertex(const TopoVertex& theVertex)
 {
   myVertex = theVertex;
   // SetVertex(theVertex, MININD, MAXIND, MININD, MAXIND);
@@ -273,7 +273,7 @@ void ShapeFix_WireSegment::SetVertex(const TopoDS_Vertex& theVertex)
 
 /*//=================================================================================================
 
-void ShapeFix_WireSegment::SetVertex(const TopoDS_Vertex& theVertex,
+void ShapeFix_WireSegment::SetVertex(const TopoVertex& theVertex,
                      Standard_Integer iumin,
                      Standard_Integer iumax,
                      Standard_Integer ivmin,
@@ -287,7 +287,7 @@ void ShapeFix_WireSegment::SetVertex(const TopoDS_Vertex& theVertex,
 */
 //=================================================================================================
 
-TopoDS_Vertex ShapeFix_WireSegment::GetVertex() const
+TopoVertex ShapeFix_WireSegment::GetVertex() const
 {
   return myVertex;
 }

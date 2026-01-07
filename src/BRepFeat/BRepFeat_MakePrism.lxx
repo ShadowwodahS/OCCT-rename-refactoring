@@ -29,9 +29,9 @@ inline BRepFeat_MakePrism::BRepFeat_MakePrism()
 // purpose  :
 //=======================================================================
 
-inline BRepFeat_MakePrism::BRepFeat_MakePrism(const TopoDS_Shape&    Sbase,
-                                              const TopoDS_Shape&    Pbase,
-                                              const TopoDS_Face&     Skface,
+inline BRepFeat_MakePrism::BRepFeat_MakePrism(const TopoShape&    Sbase,
+                                              const TopoShape&    Pbase,
+                                              const TopoFace&     Skface,
                                               const Dir3d&          Direc,
                                               const Standard_Integer Fuse,
                                               const Standard_Boolean Modify)

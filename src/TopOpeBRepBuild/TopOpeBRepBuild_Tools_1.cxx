@@ -40,9 +40,9 @@
 #include <TopOpeBRepTool_ShapeClassifier.hxx>
 #include <TopTools_IndexedMapOfShape.hxx>
 
-static void             CheckEdge(const TopoDS_Edge& E, const Standard_Real aMaxTol);
-static void             CorrectEdgeTolerance(const TopoDS_Edge&  myShape,
-                                             const TopoDS_Face&  S,
+static void             CheckEdge(const TopoEdge& E, const Standard_Real aMaxTol);
+static void             CorrectEdgeTolerance(const TopoEdge&  myShape,
+                                             const TopoFace&  S,
                                              const Standard_Real aMaxTol);
 static Standard_Boolean Validate(const Adaptor3d_Curve& CRef,
                                  const Adaptor3d_Curve& Other,
@@ -52,47 +52,47 @@ static Standard_Boolean Validate(const Adaptor3d_Curve& CRef,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Tools::CorrectTolerances(const TopoDS_Shape& aShape,
+void Tools3::CorrectTolerances(const TopoShape& aShape,
                                               const Standard_Real aMaxTol)
 {
-  TopOpeBRepBuild_Tools::CorrectPointOnCurve(aShape, aMaxTol);
-  TopOpeBRepBuild_Tools::CorrectCurveOnSurface(aShape, aMaxTol);
+  Tools3::CorrectPointOnCurve(aShape, aMaxTol);
+  Tools3::CorrectCurveOnSurface(aShape, aMaxTol);
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Tools::CorrectPointOnCurve(const TopoDS_Shape& S, const Standard_Real aMaxTol)
+void Tools3::CorrectPointOnCurve(const TopoShape& S, const Standard_Real aMaxTol)
 {
   Standard_Integer           i, aNb;
   TopTools_IndexedMapOfShape Edges;
-  TopExp::MapShapes(S, TopAbs_EDGE, Edges);
+  TopExp1::MapShapes(S, TopAbs_EDGE, Edges);
   aNb = Edges.Extent();
   for (i = 1; i <= aNb; i++)
   {
-    const TopoDS_Edge& E = TopoDS::Edge(Edges(i));
+    const TopoEdge& E = TopoDS::Edge(Edges(i));
     CheckEdge(E, aMaxTol);
   }
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Tools::CorrectCurveOnSurface(const TopoDS_Shape& S,
+void Tools3::CorrectCurveOnSurface(const TopoShape& S,
                                                   const Standard_Real aMaxTol)
 {
   Standard_Integer           i, aNbFaces, j, aNbEdges;
   TopTools_IndexedMapOfShape Faces;
-  TopExp::MapShapes(S, TopAbs_FACE, Faces);
+  TopExp1::MapShapes(S, TopAbs_FACE, Faces);
 
   aNbFaces = Faces.Extent();
   for (i = 1; i <= aNbFaces; i++)
   {
-    const TopoDS_Face&         F = TopoDS::Face(Faces(i));
+    const TopoFace&         F = TopoDS::Face(Faces(i));
     TopTools_IndexedMapOfShape Edges;
-    TopExp::MapShapes(F, TopAbs_EDGE, Edges);
+    TopExp1::MapShapes(F, TopAbs_EDGE, Edges);
     aNbEdges = Edges.Extent();
     for (j = 1; j <= aNbEdges; j++)
     {
-      const TopoDS_Edge& E = TopoDS::Edge(Edges(j));
+      const TopoEdge& E = TopoDS::Edge(Edges(j));
       CorrectEdgeTolerance(E, F, aMaxTol);
     }
   }
@@ -102,8 +102,8 @@ void TopOpeBRepBuild_Tools::CorrectCurveOnSurface(const TopoDS_Shape& S,
 // Function : CorrectEdgeTolerance
 // purpose :  Correct tolerances for Edge
 //=======================================================================
-void CorrectEdgeTolerance(const TopoDS_Edge&  myShape,
-                          const TopoDS_Face&  S,
+void CorrectEdgeTolerance(const TopoEdge&  myShape,
+                          const TopoFace&  S,
                           const Standard_Real aMaxTol)
 {
   //
@@ -186,17 +186,17 @@ void CorrectEdgeTolerance(const TopoDS_Edge&  myShape,
     {
       if (myCref->IsCurve3D())
       {
-        Handle(Geom_Curve) C3d = Handle(Geom_Curve)::DownCast(
+        Handle(GeomCurve3d) C3d = Handle(GeomCurve3d)::DownCast(
           myCref->Curve3D()->Transformed(myCref->Location().Transformation()));
         GeomAdaptor_Curve GAC3d(C3d, First, Last);
         myHCurve = new GeomAdaptor_Curve(GAC3d);
       }
       else
       { // curve on surface
-        Handle(Geom_Surface) Sref = myCref->Surface();
+        Handle(GeomSurface) Sref = myCref->Surface();
         Sref =
-          Handle(Geom_Surface)::DownCast(Sref->Transformed(myCref->Location().Transformation()));
-        const Handle(Geom2d_Curve)& PCref   = myCref->PCurve();
+          Handle(GeomSurface)::DownCast(Sref->Transformed(myCref->Location().Transformation()));
+        const Handle(GeomCurve2d)& PCref   = myCref->PCurve();
         Handle(GeomAdaptor_Surface) GAHSref = new GeomAdaptor_Surface(Sref);
         Handle(Geom2dAdaptor_Curve) GHPCref = new Geom2dAdaptor_Curve(PCref, First, Last);
         Adaptor3d_CurveOnSurface    ACSref(GHPCref, GAHSref);
@@ -212,7 +212,7 @@ void CorrectEdgeTolerance(const TopoDS_Edge&  myShape,
       return;
     Standard_Boolean ok = Standard_True;
 
-    Standard_Real Tol     = BRep_Tool::Tolerance(TopoDS::Edge(myShape));
+    Standard_Real Tol     = BRepInspector::Tolerance(TopoDS::Edge(myShape));
     Standard_Real aNewTol = Tol;
 
     Standard_Real First = myHCurve->FirstParameter();
@@ -221,7 +221,7 @@ void CorrectEdgeTolerance(const TopoDS_Edge&  myShape,
     Handle(BRep_TFace)&         TF          = *((Handle(BRep_TFace)*)&S.TShape());
     const TopLoc_Location&      Floc        = S.Location();
     const TopLoc_Location&      TFloc       = TF->Location();
-    const Handle(Geom_Surface)& Su          = TF->Surface();
+    const Handle(GeomSurface)& Su          = TF->Surface();
     TopLoc_Location             L           = (Floc * TFloc).Predivided(myShape.Location());
     Standard_Boolean            pcurvefound = Standard_False;
 
@@ -240,9 +240,9 @@ void CorrectEdgeTolerance(const TopoDS_Edge&  myShape,
           return; // BRepCheck_InvalidSameRangeFlag;
         }
 
-        Handle(Geom_Surface) Sb = cr->Surface();
-        Sb = Handle(Geom_Surface)::DownCast(Su->Transformed(L.Transformation()));
-        Handle(Geom2d_Curve)        PC   = cr->PCurve();
+        Handle(GeomSurface) Sb = cr->Surface();
+        Sb = Handle(GeomSurface)::DownCast(Su->Transformed(L.Transformation()));
+        Handle(GeomCurve2d)        PC   = cr->PCurve();
         Handle(GeomAdaptor_Surface) GAHS = new GeomAdaptor_Surface(Sb);
         Handle(Geom2dAdaptor_Curve) GHPC = new Geom2dAdaptor_Curve(PC, f, l);
         Adaptor3d_CurveOnSurface    ACS(GHPC, GAHS);
@@ -271,31 +271,31 @@ void CorrectEdgeTolerance(const TopoDS_Edge&  myShape,
 
     if (!pcurvefound)
     {
-      Handle(Geom_Plane)    P;
+      Handle(GeomPlane)    P;
       Handle(TypeInfo) styp = Su->DynamicType();
       if (styp == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
       {
-        P = Handle(Geom_Plane)::DownCast(
+        P = Handle(GeomPlane)::DownCast(
           Handle(Geom_RectangularTrimmedSurface)::DownCast(Su)->BasisSurface());
       }
       else
       {
-        P = Handle(Geom_Plane)::DownCast(Su);
+        P = Handle(GeomPlane)::DownCast(Su);
       }
       if (P.IsNull())
       {         // not a plane
         return; // BRepCheck::Add(lst,BRepCheck_NoCurveOnSurface);
       }
       else
-      { // on fait la projection a la volee, comme BRep_Tool
-        P = Handle(Geom_Plane)::DownCast(P->Transformed(L.Transformation()));
+      { // on fait la projection a la volee, comme BRepInspector
+        P = Handle(GeomPlane)::DownCast(P->Transformed(L.Transformation()));
         // on projette Cref sur ce plan
         Handle(GeomAdaptor_Surface) GAHS = new GeomAdaptor_Surface(P);
 
         // Dub - Normalement myHCurve est une GeomAdaptor_Curve
         Handle(GeomAdaptor_Curve) Gac = Handle(GeomAdaptor_Curve)::DownCast(myHCurve);
-        Handle(Geom_Curve)        C3d = Gac->Curve();
-        Handle(Geom_Curve)        ProjOnPlane =
+        Handle(GeomCurve3d)        C3d = Gac->Curve();
+        Handle(GeomCurve3d)        ProjOnPlane =
           GeomProjLib::ProjectOnPlane(new Geom_TrimmedCurve(C3d, First, Last),
                                       P,
                                       P->Position().Direction(),
@@ -304,7 +304,7 @@ void CorrectEdgeTolerance(const TopoDS_Edge&  myShape,
         Handle(GeomAdaptor_Curve) aHCurve = new GeomAdaptor_Curve(ProjOnPlane);
 
         ProjLib_ProjectedCurve      proj(GAHS, aHCurve);
-        Handle(Geom2d_Curve)        PC = Geom2dAdaptor::MakeCurve(proj);
+        Handle(GeomCurve2d)        PC = Geom2dAdaptor1::MakeCurve(proj);
         Handle(Geom2dAdaptor_Curve) GHPC =
           new Geom2dAdaptor_Curve(PC, myHCurve->FirstParameter(), myHCurve->LastParameter());
 
@@ -445,26 +445,26 @@ Standard_Boolean Validate(const Adaptor3d_Curve& CRef,
 // Function : CheckEdge
 // purpose :  Correct tolerances for Vertices on Edge
 //=======================================================================
-void CheckEdge(const TopoDS_Edge& Ed, const Standard_Real aMaxTol)
+void CheckEdge(const TopoEdge& Ed, const Standard_Real aMaxTol)
 {
-  TopoDS_Edge E = Ed;
+  TopoEdge E = Ed;
   E.Orientation(TopAbs_FORWARD);
 
   Point3d Controlp;
 
-  TopExp_Explorer aVExp;
+  ShapeExplorer aVExp;
   aVExp.Init(E, TopAbs_VERTEX);
   for (; aVExp.More(); aVExp.Next())
   {
-    TopoDS_Vertex aVertex = TopoDS::Vertex(aVExp.Current());
+    TopoVertex aVertex = TopoDS::Vertex(aVExp.Current());
 
     Handle(BRep_TVertex)& TV   = *((Handle(BRep_TVertex)*)&aVertex.TShape());
     const Point3d&         prep = TV->Pnt();
 
     Standard_Real Tol, aD2, aNewTolerance, dd;
 
-    Tol = BRep_Tool::Tolerance(aVertex);
-    Tol = Max(Tol, BRep_Tool::Tolerance(E));
+    Tol = BRepInspector::Tolerance(aVertex);
+    Tol = Max(Tol, BRepInspector::Tolerance(E));
     dd  = 0.1 * Tol;
     Tol *= Tol;
 
@@ -481,7 +481,7 @@ void CheckEdge(const TopoDS_Edge& Ed, const Standard_Real aMaxTol)
 
       if (cr->IsCurve3D())
       {
-        const Handle(Geom_Curve)& C = cr->Curve3D();
+        const Handle(GeomCurve3d)& C = cr->Curve3D();
         if (!C.IsNull())
         {
           itpr.Initialize(TV->Points());
@@ -532,13 +532,13 @@ void CheckEdge(const TopoDS_Edge& Ed, const Standard_Real aMaxTol)
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_Tools::CheckFaceClosed2d(const TopoDS_Face& theFace)
+Standard_Boolean Tools3::CheckFaceClosed2d(const TopoFace& theFace)
 {
   Standard_Boolean isClosed = Standard_True;
-  TopExp_Explorer  ex(theFace, TopAbs_WIRE);
+  ShapeExplorer  ex(theFace, TopAbs_WIRE);
   for (; ex.More() && isClosed; ex.Next())
   {
-    const TopoDS_Wire& aW = TopoDS::Wire(ex.Current());
+    const TopoWire& aW = TopoDS::Wire(ex.Current());
     BRepCheck_Wire     aWChk(aW);
     BRepCheck_Status   aStatus = aWChk.Orientation(theFace);
     if (aStatus != BRepCheck_NoError)

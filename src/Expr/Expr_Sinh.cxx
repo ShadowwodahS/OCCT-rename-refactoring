@@ -50,7 +50,7 @@ Handle(Expr_GeneralExpression) Expr_Sinh::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_Sinh::Copy() const
 {
-  return new Expr_Sinh(Expr::CopyShare(Operand()));
+  return new Expr_Sinh(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_Sinh::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -76,7 +76,7 @@ Handle(Expr_GeneralExpression) Expr_Sinh::Derivative(const Handle(Expr_NamedUnkn
   }
   Handle(Expr_GeneralExpression) myexp    = Operand();
   Handle(Expr_GeneralExpression) myder    = myexp->Derivative(X);
-  Handle(Expr_Cosh)              firstder = new Expr_Cosh(Expr::CopyShare(myexp));
+  Handle(Expr_Cosh)              firstder = new Expr_Cosh(Expr1::CopyShare(myexp));
   Handle(Expr_Product)           resu     = firstder->ShallowSimplified() * myder;
   return resu->ShallowSimplified();
 }
@@ -88,9 +88,9 @@ Standard_Real Expr_Sinh::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return (::Exp(val) - ::Exp(-val)) / 2.0;
 }
 
-TCollection_AsciiString Expr_Sinh::String() const
+AsciiString1 Expr_Sinh::String() const
 {
-  TCollection_AsciiString str("Sinh(");
+  AsciiString1 str("Sinh(");
   str += Operand()->String();
   str += ")";
   return str;

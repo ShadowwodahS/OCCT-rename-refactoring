@@ -60,8 +60,8 @@ public:
                            const Standard_Integer                   G,
                            const Handle(TopOpeBRepDS_Interference)& HI);
 
-  Standard_EXPORT void DumpTKIIterator(const TCollection_AsciiString& s1 = "",
-                                       const TCollection_AsciiString& s2 = "");
+  Standard_EXPORT void DumpTKIIterator(const AsciiString1& s1 = "",
+                                       const AsciiString1& s2 = "");
 
   Standard_EXPORT void Init();
 
@@ -111,7 +111,7 @@ private:
   TopOpeBRepDS_DataMapIteratorOfDataMapOfIntegerListOfInterference myITM;
   TopOpeBRepDS_Kind                                                myK;
   TopOpeBRepDS_ListOfInterference                                  myEmptyLOI;
-  TCollection_AsciiString                                          myDummyAsciiString;
+  AsciiString1                                          myDummyAsciiString;
 };
 
 #endif // _TopOpeBRepDS_TKI_HeaderFile

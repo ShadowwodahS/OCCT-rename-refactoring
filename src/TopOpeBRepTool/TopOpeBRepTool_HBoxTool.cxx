@@ -46,22 +46,22 @@ void TopOpeBRepTool_HBoxTool::Clear()
 
 //=================================================================================================
 
-void TopOpeBRepTool_HBoxTool::AddBoxes(const TopoDS_Shape&    S,
+void TopOpeBRepTool_HBoxTool::AddBoxes(const TopoShape&    S,
                                        const TopAbs_ShapeEnum TS,
                                        const TopAbs_ShapeEnum TA)
 {
-  TopExp_Explorer ex;
+  ShapeExplorer ex;
   for (ex.Init(S, TS, TA); ex.More(); ex.Next())
   {
-    //  for (TopExp_Explorer ex(S,TS,TA);ex.More();ex.Next()) {
-    const TopoDS_Shape& ss = ex.Current();
+    //  for (ShapeExplorer ex(S,TS,TA);ex.More();ex.Next()) {
+    const TopoShape& ss = ex.Current();
     AddBox(ss);
   }
 }
 
 //=================================================================================================
 
-void TopOpeBRepTool_HBoxTool::AddBox(const TopoDS_Shape& S)
+void TopOpeBRepTool_HBoxTool::AddBox(const TopoShape& S)
 {
 #ifdef OCCT_DEBUG
   TopAbs_ShapeEnum t =
@@ -79,7 +79,7 @@ void TopOpeBRepTool_HBoxTool::AddBox(const TopoDS_Shape& S)
   {
     DumpB(Box(S));
     std::cout << "; # HBT::AddBox " << Index(S) << " : ";
-    TopAbs::Print(t, std::cout);
+    TopAbs1::Print(t, std::cout);
     std::cout << "\n";
     std::cout << std::endl;
   }
@@ -88,7 +88,7 @@ void TopOpeBRepTool_HBoxTool::AddBox(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-void TopOpeBRepTool_HBoxTool::ComputeBox(const TopoDS_Shape& S, Bnd_Box& B)
+void TopOpeBRepTool_HBoxTool::ComputeBox(const TopoShape& S, Bnd_Box& B)
 {
   TopAbs_ShapeEnum t = S.ShapeType();
   if (t == TopAbs_FACE)
@@ -111,9 +111,9 @@ void TopOpeBRepTool_HBoxTool::ComputeBox(const TopoDS_Shape& S, Bnd_Box& B)
 
 //=================================================================================================
 
-void TopOpeBRepTool_HBoxTool::ComputeBoxOnVertices(const TopoDS_Shape& S, Bnd_Box& B)
+void TopOpeBRepTool_HBoxTool::ComputeBoxOnVertices(const TopoShape& S, Bnd_Box& B)
 {
-  TopExp_Explorer ex(S, TopAbs_VERTEX);
+  ShapeExplorer ex(S, TopAbs_VERTEX);
   if (!ex.More())
   {
     B.Update(-1.e5, -1.e5, -1.e5, 1.e5, 1.e5, 1.e5);
@@ -123,16 +123,16 @@ void TopOpeBRepTool_HBoxTool::ComputeBoxOnVertices(const TopoDS_Shape& S, Bnd_Bo
   for (; ex.More(); ex.Next())
   {
     Standard_Real x, y, z;
-    BRep_Tool::Pnt(TopoDS::Vertex(ex.Current())).Coord(x, y, z);
+    BRepInspector::Pnt(TopoDS::Vertex(ex.Current())).Coord(x, y, z);
     B.Update(x, y, z);
-    tol = Max(tol, BRep_Tool::Tolerance(TopoDS::Vertex(ex.Current())));
+    tol = Max(tol, BRepInspector::Tolerance(TopoDS::Vertex(ex.Current())));
   }
   B.Enlarge(tol);
 }
 
 //=================================================================================================
 
-const Bnd_Box& TopOpeBRepTool_HBoxTool::Box(const TopoDS_Shape& S)
+const Bnd_Box& TopOpeBRepTool_HBoxTool::Box(const TopoShape& S)
 {
   Standard_Boolean hb = HasBox(S);
   if (!hb)
@@ -160,7 +160,7 @@ const Bnd_Box& TopOpeBRepTool_HBoxTool::Box(const Standard_Integer I) const
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_HBoxTool::HasBox(const TopoDS_Shape& S) const
+Standard_Boolean TopOpeBRepTool_HBoxTool::HasBox(const TopoShape& S) const
 {
   Standard_Boolean hb = myIMS.Contains(S);
   return hb;
@@ -168,7 +168,7 @@ Standard_Boolean TopOpeBRepTool_HBoxTool::HasBox(const TopoDS_Shape& S) const
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepTool_HBoxTool::Shape(const Standard_Integer I) const
+const TopoShape& TopOpeBRepTool_HBoxTool::Shape(const Standard_Integer I) const
 {
   Standard_Integer iu = Extent();
   Standard_Integer hs = (I >= 1 && I <= iu);
@@ -176,13 +176,13 @@ const TopoDS_Shape& TopOpeBRepTool_HBoxTool::Shape(const Standard_Integer I) con
   {
     throw Standard_ProgramError("HBT::Box4");
   }
-  const TopoDS_Shape& S = myIMS.FindKey(I);
+  const TopoShape& S = myIMS.FindKey(I);
   return S;
 }
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepTool_HBoxTool::Index(const TopoDS_Shape& S) const
+Standard_Integer TopOpeBRepTool_HBoxTool::Index(const TopoShape& S) const
 {
   Standard_Integer i = myIMS.FindIndex(S);
   return i;

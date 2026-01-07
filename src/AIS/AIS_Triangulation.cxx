@@ -24,9 +24,9 @@
 #include <Graphic3d_AspectFillArea3d.hxx>
 #include <Graphic3d_ArrayOfTriangles.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_Triangulation, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_Triangulation, VisualEntity)
 
-AIS_Triangulation::AIS_Triangulation(const Handle(Poly_Triangulation)& Triangulation)
+AIS_Triangulation::AIS_Triangulation(const Handle(MeshTriangulation)& Triangulation)
 {
   myTriangulation = Triangulation;
   myNbNodes       = Triangulation->NbNodes();
@@ -183,7 +183,7 @@ void AIS_Triangulation::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void AIS_Triangulation::ComputeSelection(const Handle(SelectMgr_Selection)& /*aSelection*/,
+void AIS_Triangulation::ComputeSelection(const Handle(SelectionContainer)& /*aSelection*/,
                                          const Standard_Integer /*aMode*/)
 {
 }
@@ -214,14 +214,14 @@ Handle(TColStd_HArray1OfInteger) AIS_Triangulation::GetColors() const
 
 //=================================================================================================
 
-void AIS_Triangulation::SetTriangulation(const Handle(Poly_Triangulation)& aTriangulation)
+void AIS_Triangulation::SetTriangulation(const Handle(MeshTriangulation)& aTriangulation)
 {
   myTriangulation = aTriangulation;
 }
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) AIS_Triangulation::GetTriangulation() const
+Handle(MeshTriangulation) AIS_Triangulation::GetTriangulation() const
 {
   return myTriangulation;
 }

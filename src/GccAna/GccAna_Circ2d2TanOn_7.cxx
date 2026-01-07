@@ -32,7 +32,7 @@
 #include <IntAna2d_IntPoint.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const GccEnt_QualifiedCirc& Qualified1,
                                          const GccEnt_QualifiedLin&  Qualified2,
                                          const gp_Circ2d&            OnCirc,
                                          const Standard_Real         Tolerance)
@@ -164,7 +164,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
         }
 
         Standard_Real sign = dc2.Dot(gp_Dir2d(-dirL2.Y(), dirL2.X()));
-        dc2                = gp_Dir2d(sign * gp_XY(-dirL2.Y(), dirL2.X()));
+        dc2                = gp_Dir2d(sign * Coords2d(-dirL2.Y(), dirL2.X()));
         pnttg1sol(NbrSol)  = gp_Pnt2d(pinterm.XY() + Rradius(i) * dc1.XY());
         pnttg2sol(NbrSol)  = gp_Pnt2d(pinterm.XY() + Rradius(i) * dc2.XY());
         par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
@@ -184,7 +184,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
   //   General case.                                                         +
   //=========================================================================
 
-  GccAna_CircLin2dBisec Bis(C1, L2);
+  CircleLine2dBisector Bis(C1, L2);
   if (Bis.IsDone())
   {
     Standard_Integer nbsolution = Bis.NbSolutions();
@@ -310,7 +310,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedCirc& Qualified1,
               }
               TheSame2(NbrSol)   = 0;
               Standard_Real sign = dc2.Dot(gp_Dir2d(normL2.XY()));
-              dc2                = gp_Dir2d(sign * gp_XY(normL2.XY()));
+              dc2                = gp_Dir2d(sign * Coords2d(normL2.XY()));
               pnttg2sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc2.XY());
               par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
               pararg2(NbrSol)    = ElCLib::Parameter(L2, pnttg2sol(NbrSol));

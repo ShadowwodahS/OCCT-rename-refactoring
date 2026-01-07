@@ -43,7 +43,7 @@ public:
   /**
    * Query the associated URL.
    */
-  inline const NCollection_List<TCollection_AsciiString>& URL() const { return myURL; }
+  inline const NCollection_List<AsciiString1>& URL() const { return myURL; }
 
   /**
    * Create a copy of this node.
@@ -56,7 +56,7 @@ public:
   /**
    * Read the Node from input stream.
    */
-  Standard_EXPORT virtual VrmlData_ErrorStatus Read(VrmlData_InBuffer& theBuffer) Standard_OVERRIDE;
+  Standard_EXPORT virtual VrmlData_ErrorStatus Read(InputBuffer& theBuffer) Standard_OVERRIDE;
 
   /**
    * Write the Node to output stream.
@@ -69,7 +69,7 @@ protected:
 private:
   // ---------- PRIVATE FIELDS ----------
 
-  NCollection_List<TCollection_AsciiString> myURL;
+  NCollection_List<AsciiString1> myURL;
 
 public:
   // Declaration of CASCADE RTTI

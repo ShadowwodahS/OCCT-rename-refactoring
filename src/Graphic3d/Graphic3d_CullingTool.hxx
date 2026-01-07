@@ -70,7 +70,7 @@ public:
   //! @param[in] theCamera  camera definition
   //! @param[in] theModelWorld  optional object transformation for computing frustum in object local
   //! coordinate system
-  Standard_EXPORT void SetViewVolume(const Handle(Graphic3d_Camera)& theCamera,
+  Standard_EXPORT void SetViewVolume(const Handle(CameraOn3d)& theCamera,
                                      const Graphic3d_Mat4d& theModelWorld = Graphic3d_Mat4d());
 
   Standard_EXPORT void SetViewportSize(Standard_Integer theViewportWidth,
@@ -106,7 +106,7 @@ public:
   }
 
   //! Return the camera definition.
-  const Handle(Graphic3d_Camera)& Camera() const { return myCamera; }
+  const Handle(CameraOn3d)& Camera() const { return myCamera; }
 
   //! Returns current projection matrix.
   const Graphic3d_Mat4d& ProjectionMatrix() const { return myProjectionMat; }
@@ -280,7 +280,7 @@ protected:
   Plane                               myClipPlanes[PlanesNB]; //!< Planes
   NCollection_Array1<Graphic3d_Vec3d> myClipVerts;            //!< Vertices
 
-  Handle(Graphic3d_Camera) myCamera; //!< camera definition
+  Handle(CameraOn3d) myCamera; //!< camera definition
 
   // for caching clip points projections onto viewing area normals once per traverse
   // ORDER: LEFT, RIGHT, BOTTOM, TOP, NEAR, FAR

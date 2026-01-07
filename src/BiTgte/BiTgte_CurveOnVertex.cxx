@@ -44,8 +44,8 @@ BiTgte_CurveOnVertex::BiTgte_CurveOnVertex()
 
 //=================================================================================================
 
-BiTgte_CurveOnVertex::BiTgte_CurveOnVertex(const TopoDS_Edge&   theEonF,
-                                           const TopoDS_Vertex& theVertex)
+BiTgte_CurveOnVertex::BiTgte_CurveOnVertex(const TopoEdge&   theEonF,
+                                           const TopoVertex& theVertex)
     : myFirst(0.0),
       myLast(0.0)
 {
@@ -54,10 +54,10 @@ BiTgte_CurveOnVertex::BiTgte_CurveOnVertex(const TopoDS_Edge&   theEonF,
 
 //=================================================================================================
 
-void BiTgte_CurveOnVertex::Init(const TopoDS_Edge& EonF, const TopoDS_Vertex& V)
+void BiTgte_CurveOnVertex::Init(const TopoEdge& EonF, const TopoVertex& V)
 {
-  BRep_Tool::Range(EonF, myFirst, myLast);
-  myPnt = BRep_Tool::Pnt(V);
+  BRepInspector::Range(EonF, myFirst, myLast);
+  myPnt = BRepInspector::Pnt(V);
 }
 
 //=================================================================================================
@@ -246,14 +246,14 @@ Standard_Integer BiTgte_CurveOnVertex::NbKnots() const
 
 //=================================================================================================
 
-Handle(Geom_BezierCurve) BiTgte_CurveOnVertex::Bezier() const
+Handle(BezierCurve3d) BiTgte_CurveOnVertex::Bezier() const
 {
   throw Standard_NotImplemented("BiTgte_CurveOnVertex");
 }
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) BiTgte_CurveOnVertex::BSpline() const
+Handle(BSplineCurve3d) BiTgte_CurveOnVertex::BSpline() const
 {
   throw Standard_NotImplemented("BiTgte_CurveOnVertex");
 }

@@ -40,7 +40,7 @@ void IGESConvGeom_GeomBuilder::Clear()
   thepos = trid;
 }
 
-void IGESConvGeom_GeomBuilder::AddXY(const gp_XY& val)
+void IGESConvGeom_GeomBuilder::AddXY(const Coords2d& val)
 {
   gp_XYZ aval(val.X(), val.Y(), 0.);
   theXYZ->Append(aval);

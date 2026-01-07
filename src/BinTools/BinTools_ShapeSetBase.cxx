@@ -15,7 +15,7 @@
 #include <BinTools_ShapeSetBase.hxx>
 #include <TopoDS_Shape.hxx>
 
-const Standard_CString BinTools_ShapeSetBase::THE_ASCII_VERSIONS[BinTools_FormatVersion_UPPER + 1] =
+const Standard_CString ShapeSetBase::THE_ASCII_VERSIONS[BinTools_FormatVersion_UPPER + 1] =
   {"",
    "Open CASCADE Topology V1 (c)",
    "Open CASCADE Topology V2 (c)",
@@ -28,15 +28,15 @@ const Standard_CString BinTools_ShapeSetBase::THE_ASCII_VERSIONS[BinTools_Format
 //=======================================================================
 Standard_OStream& operator<<(Standard_OStream& OS, const Point3d& P)
 {
-  BinTools::PutReal(OS, P.X());
-  BinTools::PutReal(OS, P.Y());
-  BinTools::PutReal(OS, P.Z());
+  BinTools1::PutReal(OS, P.X());
+  BinTools1::PutReal(OS, P.Y());
+  BinTools1::PutReal(OS, P.Z());
   return OS;
 }
 
 //=================================================================================================
 
-BinTools_ShapeSetBase::BinTools_ShapeSetBase()
+ShapeSetBase::ShapeSetBase()
     : myFormatNb(BinTools_FormatVersion_CURRENT),
       myWithTriangles(Standard_False),
       myWithNormals(Standard_False)
@@ -45,15 +45,15 @@ BinTools_ShapeSetBase::BinTools_ShapeSetBase()
 
 //=================================================================================================
 
-BinTools_ShapeSetBase::~BinTools_ShapeSetBase() {}
+ShapeSetBase::~ShapeSetBase() {}
 
 //=================================================================================================
 
-void BinTools_ShapeSetBase::SetFormatNb(const Standard_Integer theFormatNb)
+void ShapeSetBase::SetFormatNb(const Standard_Integer theFormatNb)
 {
   Standard_ASSERT_RETURN(theFormatNb >= BinTools_FormatVersion_LOWER
                            && theFormatNb <= BinTools_FormatVersion_UPPER,
-                         "Error: unsupported BinTools version.", );
+                         "Error: unsupported BinTools1 version.", );
 
   myFormatNb = theFormatNb;
 }

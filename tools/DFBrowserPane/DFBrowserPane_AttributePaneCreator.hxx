@@ -36,7 +36,7 @@ public:
   virtual ~DFBrowserPane_AttributePaneCreator() Standard_OVERRIDE {}
 
 public:
-  //! Creates attribute pane for TDF, TDataStd, TDocStd, TPrsStd, TNaming and TFunction attribute
+  //! Creates attribute pane for TDF, TDataStd, TDocStd, TPrsStd, TNaming1 and TFunction attribute
   //! types \param theAttributeName a standard type of attribute \return an attribute pane if it can
   //! be created for this type
   Standard_EXPORT virtual DFBrowserPane_AttributePaneAPI* CreateAttributePane(

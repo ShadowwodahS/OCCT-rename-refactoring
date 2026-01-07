@@ -51,10 +51,10 @@ static void StoreGToI(TopOpeBRepDS_DataMapOfIntegerListOfInterference& GToI,
 void TopOpeBRepDS_GapTool::Init(const Handle(TopOpeBRepDS_HDataStructure)& HDS)
 {
   myHDS = HDS;
-  Standard_Integer i, Nb = myHDS->NbShapes();
+  Standard_Integer i, Nb = myHDS->NbShapes1();
   for (i = 1; i <= Nb; i++)
   {
-    const TopoDS_Shape&                    S  = myHDS->Shape(i);
+    const TopoShape&                    S  = myHDS->Shape(i);
     const TopOpeBRepDS_ListOfInterference& LI = myHDS->DS().ShapeInterferences(S);
     for (TopOpeBRepDS_ListIteratorOfListOfInterference it(LI); it.More(); it.Next())
     {
@@ -134,13 +134,13 @@ TopOpeBRepDS_ListOfInterference& TopOpeBRepDS_GapTool::ChangeSameInterferences(
 //=================================================================================================
 
 Standard_Boolean TopOpeBRepDS_GapTool::EdgeSupport(const Handle(TopOpeBRepDS_Interference)& I,
-                                                   TopoDS_Shape&                            E) const
+                                                   TopoShape&                            E) const
 {
   if (I->GeometryType() == TopOpeBRepDS_POINT)
   {
     if (myInterToShape.IsBound(I))
     {
-      const TopoDS_Shape& S = myInterToShape(I);
+      const TopoShape& S = myInterToShape(I);
       if (S.ShapeType() == TopAbs_EDGE)
       {
         E = S;
@@ -153,7 +153,7 @@ Standard_Boolean TopOpeBRepDS_GapTool::EdgeSupport(const Handle(TopOpeBRepDS_Int
       const Handle(TopOpeBRepDS_Interference)& II = it.Value();
       if (myInterToShape.IsBound(II))
       {
-        const TopoDS_Shape& S = myInterToShape(II);
+        const TopoShape& S = myInterToShape(II);
         if (S.ShapeType() == TopAbs_EDGE)
         {
           E = S;
@@ -168,8 +168,8 @@ Standard_Boolean TopOpeBRepDS_GapTool::EdgeSupport(const Handle(TopOpeBRepDS_Int
 //=================================================================================================
 
 Standard_Boolean TopOpeBRepDS_GapTool::FacesSupport(const Handle(TopOpeBRepDS_Interference)& I,
-                                                    TopoDS_Shape&                            F1,
-                                                    TopoDS_Shape& F2) const
+                                                    TopoShape&                            F1,
+                                                    TopoShape& F2) const
 {
   TopOpeBRepDS_Curve C;
   if (Curve(I, C))
@@ -183,14 +183,14 @@ Standard_Boolean TopOpeBRepDS_GapTool::FacesSupport(const Handle(TopOpeBRepDS_In
 //=================================================================================================
 
 Standard_Boolean TopOpeBRepDS_GapTool::ParameterOnEdge(const Handle(TopOpeBRepDS_Interference)& I,
-                                                       const TopoDS_Shape&                      E,
+                                                       const TopoShape&                      E,
                                                        Standard_Real& U) const
 {
   if (I->GeometryType() == TopOpeBRepDS_POINT)
   {
     if (myInterToShape.IsBound(I))
     {
-      const TopoDS_Shape& S = myInterToShape(I);
+      const TopoShape& S = myInterToShape(I);
       if (S.IsSame(E))
       {
         U = Handle(TopOpeBRepDS_CurvePointInterference)::DownCast(I)->Parameter();
@@ -203,7 +203,7 @@ Standard_Boolean TopOpeBRepDS_GapTool::ParameterOnEdge(const Handle(TopOpeBRepDS
       const Handle(TopOpeBRepDS_Interference)& II = it.Value();
       if (myInterToShape.IsBound(II))
       {
-        const TopoDS_Shape& S = myInterToShape(II);
+        const TopoShape& S = myInterToShape(II);
         if (S.IsSame(E))
         {
           U = Handle(TopOpeBRepDS_CurvePointInterference)::DownCast(II)->Parameter();
@@ -218,14 +218,14 @@ Standard_Boolean TopOpeBRepDS_GapTool::ParameterOnEdge(const Handle(TopOpeBRepDS
 //=================================================================================================
 
 void TopOpeBRepDS_GapTool::SetParameterOnEdge(const Handle(TopOpeBRepDS_Interference)& I,
-                                              const TopoDS_Shape&                      E,
+                                              const TopoShape&                      E,
                                               const Standard_Real                      U)
 {
   if (I->GeometryType() == TopOpeBRepDS_POINT)
   {
     if (myInterToShape.IsBound(I))
     {
-      const TopoDS_Shape& S = myInterToShape(I);
+      const TopoShape& S = myInterToShape(I);
       if (S.IsSame(E))
       {
         Handle(TopOpeBRepDS_CurvePointInterference)::DownCast(I)->Parameter(U);
@@ -237,7 +237,7 @@ void TopOpeBRepDS_GapTool::SetParameterOnEdge(const Handle(TopOpeBRepDS_Interfer
       const Handle(TopOpeBRepDS_Interference)& II = it.Value();
       if (myInterToShape.IsBound(II))
       {
-        const TopoDS_Shape& S = myInterToShape(II);
+        const TopoShape& S = myInterToShape(II);
         if (S.IsSame(E))
         {
           Handle(TopOpeBRepDS_CurvePointInterference)::DownCast(II)->Parameter(U);

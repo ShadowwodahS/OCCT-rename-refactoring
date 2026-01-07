@@ -16,21 +16,21 @@
 
 Vrml_Rotation::Vrml_Rotation()
 {
-  Vrml_SFRotation tmpR(0, 0, 1, 0);
+  SFRotation tmpR(0, 0, 1, 0);
   myRotation = tmpR;
 }
 
-Vrml_Rotation::Vrml_Rotation(const Vrml_SFRotation& aRotation)
+Vrml_Rotation::Vrml_Rotation(const SFRotation& aRotation)
 {
   myRotation = aRotation;
 }
 
-void Vrml_Rotation::SetRotation(const Vrml_SFRotation& aRotation)
+void Vrml_Rotation::SetRotation(const SFRotation& aRotation)
 {
   myRotation = aRotation;
 }
 
-Vrml_SFRotation Vrml_Rotation::Rotation() const
+SFRotation Vrml_Rotation::Rotation() const
 {
   return myRotation;
 }

@@ -24,7 +24,7 @@
 #include <gp_Vec.hxx>
 #include <gp_Dir.hxx>
 
-inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_XY& theXY)
+inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, Coords2d& theXY)
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
 
@@ -34,7 +34,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_XY& th
   return theReadData;
 }
 
-inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const gp_XY& theXY)
+inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const Coords2d& theXY)
 {
   StdObjMgt_WriteData::ObjectSentry aSentry(theWriteData);
 
@@ -47,7 +47,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Pnt2d&
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
 
-  gp_XY aXY;
+  Coords2d aXY;
   theReadData >> aXY;
   thePnt.SetXY(aXY);
   return theReadData;
@@ -65,7 +65,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Vec2d&
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
 
-  gp_XY aXY;
+  Coords2d aXY;
   theReadData >> aXY;
   theVec.SetXY(aXY);
   return theReadData;
@@ -83,7 +83,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Dir2d&
 {
   StdObjMgt_ReadData::ObjectSentry aSentry(theReadData);
 
-  gp_XY aXY;
+  Coords2d aXY;
   theReadData >> aXY;
   theDir.SetXY(aXY);
   return theReadData;

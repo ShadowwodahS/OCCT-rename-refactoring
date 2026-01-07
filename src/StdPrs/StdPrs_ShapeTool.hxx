@@ -26,7 +26,7 @@
 #include <TopTools_HSequenceOfShape.hxx>
 
 class Bnd_Box;
-class Poly_Triangulation;
+class MeshTriangulation;
 class Poly_PolygonOnTriangulation;
 class Poly_Polygon3D;
 
@@ -40,7 +40,7 @@ public:
   //! (optional) arguments. By default, only isolated and internal vertices are considered,
   //! however if theAllVertices argument is equal to True, all shape's vertices are taken into
   //! account.
-  Standard_EXPORT StdPrs_ShapeTool(const TopoDS_Shape&    theShape,
+  Standard_EXPORT StdPrs_ShapeTool(const TopoShape&    theShape,
                                    const Standard_Boolean theAllVertices = Standard_False);
 
   void InitFace() { myFaceExplorer.Init(myShape, TopAbs_FACE); }
@@ -49,13 +49,13 @@ public:
 
   void NextFace() { myFaceExplorer.Next(); }
 
-  const TopoDS_Face& GetFace() const { return TopoDS::Face(myFaceExplorer.Current()); }
+  const TopoFace& GetFace() const { return TopoDS::Face(myFaceExplorer.Current()); }
 
   Standard_EXPORT Bnd_Box FaceBound() const;
 
   Standard_Boolean IsPlanarFace() const
   {
-    const TopoDS_Face& aFace = TopoDS::Face(myFaceExplorer.Current());
+    const TopoFace& aFace = TopoDS::Face(myFaceExplorer.Current());
     return IsPlanarFace(aFace);
   }
 
@@ -65,7 +65,7 @@ public:
 
   void NextCurve() { ++myEdge; }
 
-  const TopoDS_Edge& GetCurve() const { return TopoDS::Edge(myEdgeMap.FindKey(myEdge)); }
+  const TopoEdge& GetCurve() const { return TopoDS::Edge(myEdgeMap.FindKey(myEdge)); }
 
   Standard_EXPORT Bnd_Box CurveBound() const;
 
@@ -79,26 +79,26 @@ public:
 
   void NextVertex() { ++myVertex; }
 
-  const TopoDS_Vertex& GetVertex() const { return TopoDS::Vertex(myVertexMap.FindKey(myVertex)); }
+  const TopoVertex& GetVertex() const { return TopoDS::Vertex(myVertexMap.FindKey(myVertex)); }
 
   Standard_EXPORT Standard_Boolean HasSurface() const;
 
-  Standard_EXPORT Handle(Poly_Triangulation) CurrentTriangulation(TopLoc_Location& l) const;
+  Standard_EXPORT Handle(MeshTriangulation) CurrentTriangulation(TopLoc_Location& l) const;
 
   Standard_EXPORT Standard_Boolean HasCurve() const;
 
   Standard_EXPORT void PolygonOnTriangulation(Handle(Poly_PolygonOnTriangulation)& Indices,
-                                              Handle(Poly_Triangulation)&          T,
+                                              Handle(MeshTriangulation)&          T,
                                               TopLoc_Location&                     l) const;
 
   Standard_EXPORT Handle(Poly_Polygon3D) Polygon3D(TopLoc_Location& l) const;
 
 public:
-  Standard_EXPORT static Standard_Boolean IsPlanarFace(const TopoDS_Face& theFace);
+  Standard_EXPORT static Standard_Boolean IsPlanarFace(const TopoFace& theFace);
 
 private:
-  TopoDS_Shape                              myShape;
-  TopExp_Explorer                           myFaceExplorer;
+  TopoShape                              myShape;
+  ShapeExplorer                           myFaceExplorer;
   TopTools_IndexedDataMapOfShapeListOfShape myEdgeMap;
   TopTools_IndexedMapOfShape                myVertexMap;
   Standard_Integer                          myEdge;

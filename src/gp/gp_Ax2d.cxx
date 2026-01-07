@@ -30,12 +30,12 @@ Standard_Boolean gp_Ax2d::IsCoaxial(const gp_Ax2d&      Other,
                                     const Standard_Real AngularTolerance,
                                     const Standard_Real LinearTolerance) const
 {
-  gp_XY XY1 = loc.XY();
+  Coords2d XY1 = loc.XY();
   XY1.Subtract(Other.loc.XY());
   Standard_Real D1 = XY1.Crossed(Other.vdir.XY());
   if (D1 < 0)
     D1 = -D1;
-  gp_XY XY2 = Other.loc.XY();
+  Coords2d XY2 = Other.loc.XY();
   XY2.Subtract(loc.XY());
   Standard_Real D2 = XY2.Crossed(vdir.XY());
   if (D2 < 0)

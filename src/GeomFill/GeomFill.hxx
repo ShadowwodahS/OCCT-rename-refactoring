@@ -29,8 +29,8 @@
 #include <TColgp_Array1OfVec.hxx>
 #include <Standard_Integer.hxx>
 #include <TColStd_Array1OfInteger.hxx>
-class Geom_Surface;
-class Geom_Curve;
+class GeomSurface;
+class GeomCurve3d;
 class Vector3d;
 class Point3d;
 
@@ -41,8 +41,8 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Builds a ruled surface between the two curves, Curve1 and Curve2.
-  Standard_EXPORT static Handle(Geom_Surface) Surface(const Handle(Geom_Curve)& Curve1,
-                                                      const Handle(Geom_Curve)& Curve2);
+  Standard_EXPORT static Handle(GeomSurface) Surface(const Handle(GeomCurve3d)& Curve1,
+                                                      const Handle(GeomCurve3d)& Curve2);
 
   Standard_EXPORT static void GetCircle(const Convert_ParameterisationType TConv,
                                         const Vector3d&                      ns1,

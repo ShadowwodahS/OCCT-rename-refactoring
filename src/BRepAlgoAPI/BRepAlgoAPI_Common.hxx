@@ -21,32 +21,32 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <BRepAlgoAPI_BooleanOperation.hxx>
-class BOPAlgo_PaveFiller;
-class TopoDS_Shape;
+class BooleanPaveFiller;
+class TopoShape;
 
 //! The class provides Boolean common operation
 //! between arguments and tools (Boolean Intersection).
-class BRepAlgoAPI_Common : public BRepAlgoAPI_BooleanOperation
+class BooleanCommon : public BRepAlgoAPI_BooleanOperation
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor
-  Standard_EXPORT BRepAlgoAPI_Common();
-  Standard_EXPORT virtual ~BRepAlgoAPI_Common();
+  Standard_EXPORT BooleanCommon();
+  Standard_EXPORT virtual ~BooleanCommon();
 
   //! Empty constructor
   //! <PF> - PaveFiller object that is carried out
-  Standard_EXPORT BRepAlgoAPI_Common(const BOPAlgo_PaveFiller& PF);
+  Standard_EXPORT BooleanCommon(const BooleanPaveFiller& PF);
 
   //! Constructor with two shapes
   //! <S1>  -argument
   //! <S2>  -tool
   //! <anOperation> - the type of the operation
   //! Obsolete
-  Standard_EXPORT BRepAlgoAPI_Common(
-    const TopoDS_Shape&          S1,
-    const TopoDS_Shape&          S2,
+  Standard_EXPORT BooleanCommon(
+    const TopoShape&          S1,
+    const TopoShape&          S2,
     const Message_ProgressRange& theRange = Message_ProgressRange());
 
   //! Constructor with two shapes
@@ -55,10 +55,10 @@ public:
   //! <anOperation> - the type of the operation
   //! <PF> - PaveFiller object that is carried out
   //! Obsolete
-  Standard_EXPORT BRepAlgoAPI_Common(
-    const TopoDS_Shape&          S1,
-    const TopoDS_Shape&          S2,
-    const BOPAlgo_PaveFiller&    PF,
+  Standard_EXPORT BooleanCommon(
+    const TopoShape&          S1,
+    const TopoShape&          S2,
+    const BooleanPaveFiller&    PF,
     const Message_ProgressRange& theRange = Message_ProgressRange());
 
 protected:

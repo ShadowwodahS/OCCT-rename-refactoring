@@ -23,7 +23,7 @@
 #include <Standard_Integer.hxx>
 #include <Draw_Drawable3D.hxx>
 class HLRBRep_Algo;
-class Draw_Display;
+class DrawDisplay;
 class HLRBRep_Data;
 class HLRBRep_EdgeData;
 
@@ -42,15 +42,15 @@ public:
                                            const Standard_Boolean      RgNLine,
                                            const Standard_Integer      ViewId);
 
-  Standard_EXPORT void DrawOn(Draw_Display& D) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& D) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(HLRTest_DrawableEdgeTool, Draw_Drawable3D)
 
 protected:
 private:
-  Standard_EXPORT void InternalDraw(Draw_Display& D, const Standard_Integer typ) const;
+  Standard_EXPORT void InternalDraw(DrawDisplay& D, const Standard_Integer typ) const;
 
-  Standard_EXPORT void DrawFace(Draw_Display&          D,
+  Standard_EXPORT void DrawFace(DrawDisplay&          D,
                                 const Standard_Integer typ,
                                 const Standard_Integer nCB,
                                 const Standard_Integer iface,
@@ -58,7 +58,7 @@ private:
                                 Standard_Integer&      iCB,
                                 Handle(HLRBRep_Data)&  DS) const;
 
-  Standard_EXPORT void DrawEdge(Draw_Display&          D,
+  Standard_EXPORT void DrawEdge(DrawDisplay&          D,
                                 const Standard_Boolean inFace,
                                 const Standard_Integer typ,
                                 const Standard_Integer nCB,

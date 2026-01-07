@@ -24,7 +24,7 @@
 #include <Standard_Boolean.hxx>
 class TDF_DataSet;
 class TDF_RelocationTable;
-class TDF_Label;
+class DataLabel;
 
 //! This  tool class  is  used to copy  the content of
 //! source label   under  target label.   Only child
@@ -40,7 +40,7 @@ class TDF_Label;
 //! opportunity to copy, set a link or  update  it.
 //! Such decisions must be under application control.
 //! Warning2: If the document manages shapes, use after copy
-//! TNaming::ChangeShapes(target,M) to make copy of
+//! TNaming1::ChangeShapes(target,M) to make copy of
 //! shapes.
 class TDocStd_XLinkTool
 {
@@ -54,11 +54,11 @@ public:
   //! label.  if  the    content  of <fromsource>   is  not
   //! self-contained,  and/or <intarget> has already an XLink
   //! attribute, an exception is raised.
-  Standard_EXPORT void CopyWithLink(const TDF_Label& intarget, const TDF_Label& fromsource);
+  Standard_EXPORT void CopyWithLink(const DataLabel& intarget, const DataLabel& fromsource);
 
   //! Update the external reference set   at <L>.
   //! Example
-  //! Handle(TDocStd_Document) aDoc;
+  //! Handle(AppDocument) aDoc;
   //! if
   //! (!OCAFTest::GetDocument(1,aDoc)) return 1;
   //! Handle(TDataStd_Reference) aRef;
@@ -68,13 +68,13 @@ public:
   //! xlinktool.UpdateLink(aRef->Label());
   //! Exceptions
   //! Standard_DomainError if <L> has no XLink attribute.
-  Standard_EXPORT void UpdateLink(const TDF_Label& L);
+  Standard_EXPORT void UpdateLink(const DataLabel& L);
 
   //! Copy    the   content     of    <fromsource>   under
   //! <intarget>. No link is registered. No check is done.
   //! Example
-  //! Handle(TDocStd_Document) DOC, XDOC;
-  //! TDF_Label L, XL;
+  //! Handle(AppDocument) DOC, XDOC;
+  //! DataLabel L, XL;
   //! TDocStd_XLinkTool xlinktool;
   //! xlinktool.Copy(L,XL);
   //! Exceptions:
@@ -86,8 +86,8 @@ public:
   //! TDocStd_XLinkTool xlinktool;
   //! xlinktool.Copy(L,XL);
   //! TopTools_DataMapOfShapeShape M;
-  //! TNaming::ChangeShapes(target,M);
-  Standard_EXPORT virtual void Copy(const TDF_Label& intarget, const TDF_Label& fromsource);
+  //! TNaming1::ChangeShapes(target,M);
+  Standard_EXPORT virtual void Copy(const DataLabel& intarget, const DataLabel& fromsource);
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 

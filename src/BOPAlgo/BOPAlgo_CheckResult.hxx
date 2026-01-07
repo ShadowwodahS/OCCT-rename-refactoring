@@ -35,28 +35,28 @@ public:
   Standard_EXPORT BOPAlgo_CheckResult();
 
   //! sets ancestor shape (object) for faulty sub-shapes
-  Standard_EXPORT void SetShape1(const TopoDS_Shape& TheShape);
+  Standard_EXPORT void SetShape1(const TopoShape& TheShape);
 
   //! adds faulty sub-shapes from object to a list
-  Standard_EXPORT void AddFaultyShape1(const TopoDS_Shape& TheShape);
+  Standard_EXPORT void AddFaultyShape1(const TopoShape& TheShape);
 
   //! sets ancestor shape (tool) for faulty sub-shapes
-  Standard_EXPORT void SetShape2(const TopoDS_Shape& TheShape);
+  Standard_EXPORT void SetShape2(const TopoShape& TheShape);
 
   //! adds faulty sub-shapes from tool to a list
-  Standard_EXPORT void AddFaultyShape2(const TopoDS_Shape& TheShape);
+  Standard_EXPORT void AddFaultyShape2(const TopoShape& TheShape);
 
   //! returns ancestor shape (object) for faulties
-  Standard_EXPORT const TopoDS_Shape& GetShape1() const;
+  Standard_EXPORT const TopoShape& GetShape1() const;
 
   //! returns ancestor shape (tool) for faulties
-  Standard_EXPORT const TopoDS_Shape& GetShape2() const;
+  Standard_EXPORT const TopoShape& GetShape2() const;
 
   //! returns list of faulty shapes for object
-  Standard_EXPORT const TopTools_ListOfShape& GetFaultyShapes1() const;
+  Standard_EXPORT const ShapeList& GetFaultyShapes1() const;
 
   //! returns list of faulty shapes for tool
-  Standard_EXPORT const TopTools_ListOfShape& GetFaultyShapes2() const;
+  Standard_EXPORT const ShapeList& GetFaultyShapes2() const;
 
   //! set status of faulty
   Standard_EXPORT void SetCheckStatus(const BOPAlgo_CheckStatus TheStatus);
@@ -90,11 +90,11 @@ public:
 
 protected:
 private:
-  TopoDS_Shape         myShape1;
-  TopoDS_Shape         myShape2;
+  TopoShape         myShape1;
+  TopoShape         myShape2;
   BOPAlgo_CheckStatus  myStatus;
-  TopTools_ListOfShape myFaulty1;
-  TopTools_ListOfShape myFaulty2;
+  ShapeList myFaulty1;
+  ShapeList myFaulty2;
   Standard_Real        myMaxDist1;
   Standard_Real        myMaxDist2;
   Standard_Real        myMaxPar1;

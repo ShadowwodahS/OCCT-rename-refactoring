@@ -212,19 +212,19 @@ protected:
 private:
   Standard_EXPORT Standard_Integer Kind() const;
 
-  TCollection_AsciiString thename;
+  AsciiString1 thename;
   Standard_Integer        thesel;
-  TCollection_AsciiString thesnam;
+  AsciiString1 thesnam;
   Handle(StepData_PDescr) thenext;
   Standard_Integer        thekind;
-  StepData_EnumTool       theenum;
+  EnumTool       theenum;
   Handle(TypeInfo)   thetype;
-  TCollection_AsciiString thednam;
+  AsciiString1 thednam;
   Standard_Integer        thearit;
   Handle(StepData_PDescr) thefrom;
   Standard_Boolean        theopt;
   Standard_Boolean        theder;
-  TCollection_AsciiString thefnam;
+  AsciiString1 thefnam;
   Standard_Integer        thefnum;
 };
 

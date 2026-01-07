@@ -18,7 +18,7 @@
 #define _Units_UnitsDictionary_HeaderFile
 
 #include <Units_QuantitiesSequence.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 class Units_Dimensions;
 
 class Units_UnitsDictionary;
@@ -43,7 +43,7 @@ public:
   Handle(Units_QuantitiesSequence) Sequence() const;
 
   //! Returns for <aquantity> the active unit.
-  Standard_EXPORT TCollection_AsciiString ActiveUnit(const Standard_CString aquantity) const;
+  Standard_EXPORT AsciiString1 ActiveUnit(const Standard_CString aquantity) const;
 
   //! Dumps only  the sequence   of  quantities without  the
   //! units  if  <alevel> is  equal  to zero,  and  for each

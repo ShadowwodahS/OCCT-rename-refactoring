@@ -27,7 +27,7 @@ class IGESDimen_DimensionUnits;
 DEFINE_STANDARD_HANDLE(IGESDimen_DimensionUnits, IGESData_IGESEntity)
 
 //! defines Dimension Units, Type <406>, Form <28>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Describes the units and formatting details of the
 //! nominal value of a dimension.
 class IGESDimen_DimensionUnits : public IGESData_IGESEntity

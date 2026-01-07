@@ -22,9 +22,9 @@
 #include <PrsDim_KindOfSurface.hxx>
 
 class Geom_OffsetCurve;
-class TopoDS_Shape;
-class TCollection_ExtendedString;
-class Geom_Surface;
+class TopoShape;
+class UtfString;
+class GeomSurface;
 
 DEFINE_STANDARD_HANDLE(PrsDim_EllipseRadiusDimension, PrsDim_Relation)
 
@@ -45,8 +45,8 @@ public:
   Standard_EXPORT void ComputeGeometry();
 
 protected:
-  Standard_EXPORT PrsDim_EllipseRadiusDimension(const TopoDS_Shape&               aShape,
-                                                const TCollection_ExtendedString& aText);
+  Standard_EXPORT PrsDim_EllipseRadiusDimension(const TopoShape&               aShape,
+                                                const UtfString& aText);
 
 protected:
   gp_Elips                 myEllipse;
@@ -61,7 +61,7 @@ private:
   Standard_EXPORT void ComputeFaceGeometry();
 
   Standard_EXPORT void ComputeCylFaceGeometry(const PrsDim_KindOfSurface  aSurfType,
-                                              const Handle(Geom_Surface)& aSurf,
+                                              const Handle(GeomSurface)& aSurf,
                                               const Standard_Real         Offset);
 
   Standard_EXPORT void ComputePlanarFaceGeometry();

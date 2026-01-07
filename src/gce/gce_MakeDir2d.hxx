@@ -24,7 +24,7 @@
 #include <gp_Dir2d.hxx>
 #include <gce_Root.hxx>
 class gp_Vec2d;
-class gp_XY;
+class Coords2d;
 class gp_Pnt2d;
 
 //! This class implements the following algorithms used
@@ -45,7 +45,7 @@ public:
   //! Creates a direction from a triplet of coordinates.
   //! Status is "NullVector" if Coord.Modulus() <=
   //! Resolution from gp.
-  Standard_EXPORT gce_MakeDir2d(const gp_XY& Coord);
+  Standard_EXPORT gce_MakeDir2d(const Coords2d& Coord);
 
   //! Creates a direction with its 3 cartesian coordinates.
   //! Status is "NullVector" if Sqrt(Xv*Xv + Yv*Yv )

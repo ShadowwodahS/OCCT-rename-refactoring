@@ -33,11 +33,11 @@
 #include <BiTgte_ContactType.hxx>
 #include <TopTools_DataMapOfShapeBox.hxx>
 class BRepAlgo_AsDes;
-class TopoDS_Face;
-class TopoDS_Edge;
-class Geom_Surface;
-class Geom_Curve;
-class Geom2d_Curve;
+class TopoFace;
+class TopoEdge;
+class GeomSurface;
+class GeomCurve3d;
+class GeomCurve2d;
 class BRepOffset_Offset;
 class BRepOffset_Inter3d;
 
@@ -54,12 +54,12 @@ public:
   //! <Tol>: Tol3d used in approximations
   //! <NUBS>: if true,  generate only NUBS surfaces,
   //! if false, generate analytical surfaces if possible
-  Standard_EXPORT BiTgte_Blend(const TopoDS_Shape&    S,
+  Standard_EXPORT BiTgte_Blend(const TopoShape&    S,
                                const Standard_Real    Radius,
                                const Standard_Real    Tol,
                                const Standard_Boolean NUBS);
 
-  Standard_EXPORT void Init(const TopoDS_Shape&    S,
+  Standard_EXPORT void Init(const TopoShape&    S,
                             const Standard_Real    Radius,
                             const Standard_Real    Tol,
                             const Standard_Boolean NUBS);
@@ -69,13 +69,13 @@ public:
 
   //! Set two faces   of <myShape> on which the  Sphere
   //! must roll.
-  Standard_EXPORT void SetFaces(const TopoDS_Face& F1, const TopoDS_Face& F2);
+  Standard_EXPORT void SetFaces(const TopoFace& F1, const TopoFace& F2);
 
   //! Set an edge of <myShape> to be rounded.
-  Standard_EXPORT void SetEdge(const TopoDS_Edge& Edge);
+  Standard_EXPORT void SetEdge(const TopoEdge& Edge);
 
   //! Set a face on which the fillet must stop.
-  Standard_EXPORT void SetStoppingFace(const TopoDS_Face& Face);
+  Standard_EXPORT void SetStoppingFace(const TopoFace& Face);
 
   //! Compute the generated surfaces.
   //! If <BuildShape> is true, compute the resulting Shape.
@@ -85,19 +85,19 @@ public:
   Standard_EXPORT Standard_Boolean IsDone() const;
 
   //! returns the result
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
   //! returns the Number of generated surfaces.
   Standard_EXPORT Standard_Integer NbSurfaces() const;
 
   //! returns the surface of range Index
-  Standard_EXPORT Handle(Geom_Surface) Surface(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(GeomSurface) Surface(const Standard_Integer Index) const;
 
   //! returns the surface of range Index
-  Standard_EXPORT const TopoDS_Face& Face(const Standard_Integer Index) const;
+  Standard_EXPORT const TopoFace& Face(const Standard_Integer Index) const;
 
   //! set in <LC> all the center lines
-  Standard_EXPORT void CenterLines(TopTools_ListOfShape& LC) const;
+  Standard_EXPORT void CenterLines(ShapeList& LC) const;
 
   //! returns  the surface generated  by the centerline.
   //! <CenterLine> may be
@@ -105,7 +105,7 @@ public:
   //! - a vertex : generate a sphere.
   //! Warning: returns a Null Handle if <CenterLine> generates
   //! no surface.
-  Standard_EXPORT Handle(Geom_Surface) Surface(const TopoDS_Shape& CenterLine) const;
+  Standard_EXPORT Handle(GeomSurface) Surface(const TopoShape& CenterLine) const;
 
   //! returns  the face generated  by the centerline.
   //! <CenterLine> may be
@@ -113,44 +113,44 @@ public:
   //! - a vertex : generate a sphere.
   //! Warning: returns a Null Shape if <CenterLine> generates
   //! no surface.
-  Standard_EXPORT const TopoDS_Face& Face(const TopoDS_Shape& CenterLine) const;
+  Standard_EXPORT const TopoFace& Face(const TopoShape& CenterLine) const;
 
   //! returns the type of contact
   Standard_EXPORT BiTgte_ContactType ContactType(const Standard_Integer Index) const;
 
   //! gives the first support shape relative to
   //! SurfaceFillet(Index);
-  Standard_EXPORT const TopoDS_Shape& SupportShape1(const Standard_Integer Index) const;
+  Standard_EXPORT const TopoShape& SupportShape1(const Standard_Integer Index) const;
 
   //! gives the second support shape relative to
   //! SurfaceFillet(Index);
-  Standard_EXPORT const TopoDS_Shape& SupportShape2(const Standard_Integer Index) const;
+  Standard_EXPORT const TopoShape& SupportShape2(const Standard_Integer Index) const;
 
   //! gives the 3d curve of SurfaceFillet(Index)
   //! on SupportShape1(Index)
-  Standard_EXPORT Handle(Geom_Curve) CurveOnShape1(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(GeomCurve3d) CurveOnShape1(const Standard_Integer Index) const;
 
   //! gives the 3d curve of SurfaceFillet(Index)
   //! on SupportShape2(Index)
-  Standard_EXPORT Handle(Geom_Curve) CurveOnShape2(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(GeomCurve3d) CurveOnShape2(const Standard_Integer Index) const;
 
   //! gives the PCurve associated to CurvOnShape1(Index)
   //! on the support face
   //! Warning: returns a Null Handle if SupportShape1 is not a Face
-  Standard_EXPORT Handle(Geom2d_Curve) PCurveOnFace1(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(GeomCurve2d) PCurveOnFace1(const Standard_Integer Index) const;
 
   //! gives the PCurve associated to CurveOnShape1(Index)
   //! on the Fillet
-  Standard_EXPORT Handle(Geom2d_Curve) PCurve1OnFillet(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(GeomCurve2d) PCurve1OnFillet(const Standard_Integer Index) const;
 
   //! gives the PCurve  associated to CurveOnShape2(Index)
   //! on the  support face
   //! Warning: returns a Null Handle if SupportShape2 is not a Face
-  Standard_EXPORT Handle(Geom2d_Curve) PCurveOnFace2(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(GeomCurve2d) PCurveOnFace2(const Standard_Integer Index) const;
 
   //! gives the PCurve associated to CurveOnShape2(Index)
   //! on the fillet
-  Standard_EXPORT Handle(Geom2d_Curve) PCurve2OnFillet(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(GeomCurve2d) PCurve2OnFillet(const Standard_Integer Index) const;
 
   Standard_EXPORT Standard_Integer NbBranches();
 
@@ -177,8 +177,8 @@ private:
   //! Computes the intersections with <Face> and all the
   //! OffsetFaces stored  in <myMapSF>.  Returns <True>
   //! if an intersections ends on a boundary of a Face.
-  Standard_EXPORT Standard_Boolean Intersect(const TopoDS_Shape&               Init,
-                                             const TopoDS_Face&                Face,
+  Standard_EXPORT Standard_Boolean Intersect(const TopoShape&               Init,
+                                             const TopoFace&                Face,
                                              const TopTools_DataMapOfShapeBox& MapSBox,
                                              const BRepOffset_Offset&          OF1,
                                              BRepOffset_Inter3d&               Inter);
@@ -186,8 +186,8 @@ private:
   Standard_Real                                    myRadius;
   Standard_Real                                    myTol;
   Standard_Boolean                                 myNubs;
-  TopoDS_Shape                                     myShape;
-  TopoDS_Shape                                     myResult;
+  TopoShape                                     myShape;
+  TopoShape                                     myResult;
   Standard_Boolean                                 myBuildShape;
   TopTools_IndexedDataMapOfShapeListOfShape        myAncestors;
   BRepFill_DataMapOfShapeDataMapOfShapeListOfShape myCreated;
@@ -198,9 +198,9 @@ private:
   BRepOffset_Analyse                               myAnalyse;
   TopTools_IndexedMapOfShape                       myCenters;
   BRepOffset_DataMapOfShapeOffset                  myMapSF;
-  BRepAlgo_Image                                   myInitOffsetFace;
-  BRepAlgo_Image                                   myImage;
-  BRepAlgo_Image                                   myImageOffset;
+  ShapeImage                                   myInitOffsetFace;
+  ShapeImage                                   myImage;
+  ShapeImage                                   myImageOffset;
   Handle(BRepAlgo_AsDes)                           myAsDes;
   Standard_Integer                                 myNbBranches;
   Handle(TColStd_HArray1OfInteger)                 myIndices;

@@ -25,37 +25,37 @@
 
 //=================================================================================================
 
-void DPrsStd::AllCommands(Draw_Interpretor& theCommands)
+void DPrsStd1::AllCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
 
-  DPrsStd::AISPresentationCommands(theCommands);
-  DPrsStd::AISViewerCommands(theCommands);
-  // DPrsStd::BasicCommands(theCommands);
+  DPrsStd1::AISPresentationCommands(theCommands);
+  DPrsStd1::AISViewerCommands(theCommands);
+  // DPrsStd1::BasicCommands(theCommands);
 }
 
 //==============================================================================
-// DPrsStd::Factory
+// DPrsStd1::Factory
 //==============================================================================
-void DPrsStd::Factory(Draw_Interpretor& theDI)
+void DPrsStd1::Factory(DrawInterpreter& theDI)
 {
   static Standard_Boolean DPrsStdFactoryDone = Standard_False;
   if (DPrsStdFactoryDone)
     return;
   DPrsStdFactoryDone = Standard_True;
 
-  DDF::AllCommands(theDI);
-  DNaming::AllCommands(theDI);
-  DDataStd::AllCommands(theDI);
-  DPrsStd::AllCommands(theDI);
-  DDocStd::AllCommands(theDI);
+  DDF1::AllCommands(theDI);
+  DNaming1::AllCommands(theDI);
+  DDataStd1::AllCommands(theDI);
+  DPrsStd1::AllCommands(theDI);
+  DDocStd1::AllCommands(theDI);
 #ifdef OCCT_DEBUG
-  std::cout << "Draw Plugin : All DF commands are loaded" << std::endl;
+  std::cout << "Draw1 Plugin : All DF commands are loaded" << std::endl;
 #endif
 }
 
 // Declare entry point PLUGINFACTORY
-DPLUGIN(DPrsStd)
+DPLUGIN(DPrsStd1)

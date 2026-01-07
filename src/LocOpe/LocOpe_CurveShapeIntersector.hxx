@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <TopAbs_Orientation.hxx>
 class Axis3d;
-class TopoDS_Shape;
+class TopoShape;
 class gp_Circ;
 class LocOpe_PntFace;
 
@@ -32,27 +32,27 @@ class LocOpe_PntFace;
 //! axis  or  a circle and  the  faces of a shape. The
 //! intersection   points  are   sorted in  increasing
 //! parameter along the axis.
-class LocOpe_CurveShapeIntersector
+class CurveShapeIntersector
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor.
-  LocOpe_CurveShapeIntersector();
+  CurveShapeIntersector();
 
   //! Creates  and performs the intersection     between
   //! <Ax1> and <S>.
-  LocOpe_CurveShapeIntersector(const Axis3d& Axis, const TopoDS_Shape& S);
+  CurveShapeIntersector(const Axis3d& Axis, const TopoShape& S);
 
   //! Creates  and performs yte intersection     between
   //! <C> and <S>.
-  LocOpe_CurveShapeIntersector(const gp_Circ& C, const TopoDS_Shape& S);
+  CurveShapeIntersector(const gp_Circ& C, const TopoShape& S);
 
   //! Performs the intersection between <Ax1 and <S>.
-  Standard_EXPORT void Init(const Axis3d& Axis, const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const Axis3d& Axis, const TopoShape& S);
 
   //! Performs the intersection between <Ax1 and <S>.
-  Standard_EXPORT void Init(const gp_Circ& C, const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const gp_Circ& C, const TopoShape& S);
 
   //! Returns <Standard_True>  if the  intersection  has
   //! been done.

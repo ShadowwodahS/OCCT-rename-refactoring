@@ -20,11 +20,11 @@
 #include <TopoDS_Shape.hxx>
 #include <DBRep.hxx>
 
-static Standard_Integer BuildNamedShape(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer BuildNamedShape(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
   if (nb >= 4)
   {
-    TDF_Label aLabel;
+    DataLabel aLabel;
     if (!QADNaming::Entry(arg, aLabel))
       return 1;
     char             anEvolution = arg[3][0];
@@ -32,11 +32,11 @@ static Standard_Integer BuildNamedShape(Draw_Interpretor& di, Standard_Integer n
     //     if (anEvolution == 'G')
     //       for(a=1;arg[3][a]!=0 && arg[3][a]!='\n';a++) if (arg[3][a]=='2') anEvolution = '2';
     TNaming_Builder aBuilder(aLabel);
-    TopoDS_Shape    aShape1, aShape2;
+    TopoShape    aShape1, aShape2;
 
     for (a = 4; a < nb; a += anInc)
     {
-      aShape1 = DBRep::Get(arg[a]);
+      aShape1 = DBRep1::Get(arg[a]);
       if (anInc == 2)
       {
         if (a == nb - 1)
@@ -44,7 +44,7 @@ static Standard_Integer BuildNamedShape(Draw_Interpretor& di, Standard_Integer n
           di << "For this type of evolution number of shapes must be even\n";
           return 1;
         }
-        aShape2 = DBRep::Get(arg[a + 1]);
+        aShape2 = DBRep1::Get(arg[a + 1]);
       }
 
       switch (anEvolution)
@@ -75,7 +75,7 @@ static Standard_Integer BuildNamedShape(Draw_Interpretor& di, Standard_Integer n
     }
 
     //     if (nb >= 4) {
-    //       OnlyModif = Draw::Atoi(arg[3]);
+    //       OnlyModif = Draw1::Atoi(arg[3]);
     //     }
   }
   else
@@ -87,7 +87,7 @@ static Standard_Integer BuildNamedShape(Draw_Interpretor& di, Standard_Integer n
   return 0;
 }
 
-void QADNaming::BuilderCommands(Draw_Interpretor& theCommands)
+void QADNaming::BuilderCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

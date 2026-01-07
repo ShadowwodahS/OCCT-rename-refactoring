@@ -40,7 +40,7 @@ Graphic3d_ValueInterface::~Graphic3d_ValueInterface()
 // function : Graphic3d_ShaderVariable
 // purpose  : Creates new abstract shader variable
 // =======================================================================
-Graphic3d_ShaderVariable::Graphic3d_ShaderVariable(const TCollection_AsciiString& theName)
+Graphic3d_ShaderVariable::Graphic3d_ShaderVariable(const AsciiString1& theName)
     : myName(theName),
       myValue(NULL)
 {
@@ -69,7 +69,7 @@ Standard_Boolean Graphic3d_ShaderVariable::IsDone() const
 // function : Name
 // purpose  : Returns name of shader variable
 // =======================================================================
-const TCollection_AsciiString& Graphic3d_ShaderVariable::Name() const
+const AsciiString1& Graphic3d_ShaderVariable::Name() const
 {
   return myName;
 }

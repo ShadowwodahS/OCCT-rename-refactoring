@@ -47,7 +47,7 @@ public:
   Standard_EXPORT void Perform(const gp_Lin&       L,
                                const Standard_Real Prm,
                                const Standard_Real Tol,
-                               const TopoDS_Face&  F);
+                               const TopoFace&  F);
 
   //! True is returned when the intersection have been computed.
   Standard_Boolean IsDone() const;
@@ -83,7 +83,7 @@ public:
 
   //! Returns the significant face used to determine
   //! the intersection.
-  const TopoDS_Face& Face() const;
+  const TopoFace& Face() const;
 
 protected:
 private:
@@ -95,7 +95,7 @@ private:
   Standard_Boolean                  done;
   Standard_Boolean                  hasapoint;
   TopAbs_State                      state;
-  TopoDS_Face                       face;
+  TopoFace                       face;
 };
 
 #include <BRepClass3d_Intersector3d.lxx>

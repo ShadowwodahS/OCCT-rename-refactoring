@@ -18,12 +18,12 @@
 #include <Quantity_Color.hxx>
 
 //! Customizable properties.
-class AIS_ColoredDrawer : public Prs3d_Drawer
+class AIS_ColoredDrawer : public StyleDrawer
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_ColoredDrawer, Prs3d_Drawer)
+  DEFINE_STANDARD_RTTIEXT(AIS_ColoredDrawer, StyleDrawer)
 public:
   //! Default constructor.
-  AIS_ColoredDrawer(const Handle(Prs3d_Drawer)& theLink)
+  AIS_ColoredDrawer(const Handle(StyleDrawer)& theLink)
       : myIsHidden(false),
         myHasOwnMaterial(false),
         myHasOwnColor(false),
@@ -69,6 +69,6 @@ public: //! @name list of overridden properties
   bool myHasOwnWidth;
 };
 
-DEFINE_STANDARD_HANDLE(AIS_ColoredDrawer, Prs3d_Drawer)
+DEFINE_STANDARD_HANDLE(AIS_ColoredDrawer, StyleDrawer)
 
 #endif // _AIS_ColoredDrawer_HeaderFile

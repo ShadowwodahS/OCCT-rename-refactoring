@@ -23,7 +23,7 @@
 #include <Prs3d_Drawer.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class TCollection_ExtendedString;
+class UtfString;
 class Point3d;
 
 //! A framework to define display of symbols.
@@ -37,8 +37,8 @@ public:
   //! The display attributes of the shaded plane are
   //! defined by the attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
                                   const Point3d&                     OffsetPoint);
 
 protected:

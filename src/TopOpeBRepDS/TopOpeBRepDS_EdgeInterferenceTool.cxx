@@ -47,7 +47,7 @@ static Standard_Real Parameter(const Handle(TopOpeBRepDS_Interference)& I)
 
 //=================================================================================================
 
-void TopOpeBRepDS_EdgeInterferenceTool::Init(const TopoDS_Shape&                      E,
+void TopOpeBRepDS_EdgeInterferenceTool::Init(const TopoShape&                      E,
                                              const Handle(TopOpeBRepDS_Interference)& I)
 {
   myEdgeOrientation = E.Orientation();
@@ -66,14 +66,14 @@ void TopOpeBRepDS_EdgeInterferenceTool::Init(const TopoDS_Shape&                
   Standard_Real par = ::Parameter(I);
   Dir3d        T, N;
   Standard_Real C;
-  TopOpeBRepTool_ShapeTool::EdgeData(E, par, T, N, C);
+  ShapeTool::EdgeData(E, par, T, N, C);
   myTool.Reset(T, N, C);
 }
 
 //=================================================================================================
 
-void TopOpeBRepDS_EdgeInterferenceTool::Add(const TopoDS_Shape&                      E,
-                                            const TopoDS_Shape&                      V,
+void TopOpeBRepDS_EdgeInterferenceTool::Add(const TopoShape&                      E,
+                                            const TopoShape&                      V,
                                             const Handle(TopOpeBRepDS_Interference)& I)
 {
   TopAbs_Orientation Eori = E.Orientation();
@@ -94,7 +94,7 @@ void TopOpeBRepDS_EdgeInterferenceTool::Add(const TopoDS_Shape&                 
   TopoDS_Iterator  it(E, Standard_False);
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape& S = it.Value();
+    const TopoShape& S = it.Value();
     if (S.IsSame(V))
     {
       VofE = Standard_True;
@@ -107,13 +107,13 @@ void TopOpeBRepDS_EdgeInterferenceTool::Add(const TopoDS_Shape&                 
     return;
   }
   // V est un sommet de E
-  const TopoDS_Vertex& VV  = TopoDS::Vertex(V);
-  const TopoDS_Edge&   EE  = TopoDS::Edge(E);
-  Standard_Real        par = BRep_Tool::Parameter(VV, EE);
+  const TopoVertex& VV  = TopoDS::Vertex(V);
+  const TopoEdge&   EE  = TopoDS::Edge(E);
+  Standard_Real        par = BRepInspector::Parameter(VV, EE);
 
   Dir3d             T, N;
   Standard_Real      C;
-  Standard_Real      tol    = TopOpeBRepTool_ShapeTool::EdgeData(E, par, T, N, C);
+  Standard_Real      tol    = ShapeTool::EdgeData(E, par, T, N, C);
   TopAbs_Orientation oriloc = I->Transition().Orientation(TopAbs_IN);
   TopAbs_Orientation oritan = it.Value().Orientation();
   myTool.Compare(tol, T, N, C, oriloc, oritan);
@@ -121,9 +121,9 @@ void TopOpeBRepDS_EdgeInterferenceTool::Add(const TopoDS_Shape&                 
 
 //=================================================================================================
 
-void TopOpeBRepDS_EdgeInterferenceTool::Add(const TopoDS_Shape& E,
-                                            // const TopOpeBRepDS_Point& P,
-                                            const TopOpeBRepDS_Point&,
+void TopOpeBRepDS_EdgeInterferenceTool::Add(const TopoShape& E,
+                                            // const Point1& P,
+                                            const Point1&,
                                             const Handle(TopOpeBRepDS_Interference)& I)
 {
   TopAbs_Orientation Eori = E.Orientation();
@@ -143,7 +143,7 @@ void TopOpeBRepDS_EdgeInterferenceTool::Add(const TopoDS_Shape& E,
 
   Dir3d             T, N;
   Standard_Real      C;
-  Standard_Real      tol    = TopOpeBRepTool_ShapeTool::EdgeData(E, par, T, N, C);
+  Standard_Real      tol    = ShapeTool::EdgeData(E, par, T, N, C);
   TopAbs_Orientation oriloc = I->Transition().Orientation(TopAbs_IN);
   TopAbs_Orientation oritan = TopAbs_INTERNAL;
   myTool.Compare(tol, T, N, C, oriloc, oritan);
@@ -153,7 +153,7 @@ void TopOpeBRepDS_EdgeInterferenceTool::Add(const TopoDS_Shape& E,
 
 void TopOpeBRepDS_EdgeInterferenceTool::Transition(const Handle(TopOpeBRepDS_Interference)& I) const
 {
-  TopOpeBRepDS_Transition& T = I->ChangeTransition();
+  StateTransition& T = I->ChangeTransition();
 
   if (myEdgeOrientation == TopAbs_INTERNAL)
   {

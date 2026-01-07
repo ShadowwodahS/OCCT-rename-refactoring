@@ -20,7 +20,7 @@
 #include <PrsDim_Relation.hxx>
 #include <gp_Dir.hxx>
 
-class Geom_Plane;
+class GeomPlane;
 
 DEFINE_STANDARD_HANDLE(PrsDim_ConcentricRelation, PrsDim_Relation)
 
@@ -39,9 +39,9 @@ public:
   //! and aSShape and the plane aPlane.
   //! aPlane is provided to create an axis along which the
   //! relation of concentricity can be extended.
-  Standard_EXPORT PrsDim_ConcentricRelation(const TopoDS_Shape&       aFShape,
-                                            const TopoDS_Shape&       aSShape,
-                                            const Handle(Geom_Plane)& aPlane);
+  Standard_EXPORT PrsDim_ConcentricRelation(const TopoShape&       aFShape,
+                                            const TopoShape&       aSShape,
+                                            const Handle(GeomPlane)& aPlane);
 
 private:
   Standard_EXPORT virtual void Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
@@ -54,7 +54,7 @@ private:
 
   Standard_EXPORT void ComputeTwoVerticesConcentric(const Handle(Prs3d_Presentation)& thePrsMgr);
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
 private:

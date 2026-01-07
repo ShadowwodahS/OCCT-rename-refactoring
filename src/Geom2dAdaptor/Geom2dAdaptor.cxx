@@ -30,9 +30,9 @@
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) Geom2dAdaptor::MakeCurve(const Adaptor2d_Curve2d& HC)
+Handle(GeomCurve2d) Geom2dAdaptor1::MakeCurve(const Adaptor2d_Curve2d& HC)
 {
-  Handle(Geom2d_Curve) C2D;
+  Handle(GeomCurve2d) C2D;
   switch (HC.GetType())
   {
 
@@ -84,13 +84,13 @@ Handle(Geom2d_Curve) Geom2dAdaptor::MakeCurve(const Adaptor2d_Curve2d& HC)
       }
       else
       {
-        Standard_DomainError::Raise("Geom2dAdaptor::MakeCurve, Not Geom2dAdaptor_Curve");
+        Standard_DomainError::Raise("Geom2dAdaptor1::MakeCurve, Not Geom2dAdaptor_Curve");
       }
     }
     break;
 
     default:
-      throw Standard_DomainError("Geom2dAdaptor::MakeCurve, OtherCurve");
+      throw Standard_DomainError("Geom2dAdaptor1::MakeCurve, OtherCurve");
   }
 
   // trim the curve if necassary.

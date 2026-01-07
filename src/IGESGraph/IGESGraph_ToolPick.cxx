@@ -28,9 +28,9 @@
 #include <Interface_EntityIterator.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESGraph_ToolPick::IGESGraph_ToolPick() {}
+PickTool::PickTool() {}
 
-void IGESGraph_ToolPick::ReadOwnParams(const Handle(IGESGraph_Pick)& ent,
+void PickTool::ReadOwnParams(const Handle(IGESGraph_Pick)& ent,
                                        const Handle(IGESData_IGESReaderData)& /*IR*/,
                                        IGESData_ParamReader& PR) const
 {
@@ -52,26 +52,26 @@ void IGESGraph_ToolPick::ReadOwnParams(const Handle(IGESGraph_Pick)& ent,
   ent->Init(nbPropertyValues, pickStatus);
 }
 
-void IGESGraph_ToolPick::WriteOwnParams(const Handle(IGESGraph_Pick)& ent,
+void PickTool::WriteOwnParams(const Handle(IGESGraph_Pick)& ent,
                                         IGESData_IGESWriter&          IW) const
 {
   IW.Send(ent->NbPropertyValues());
   IW.Send(ent->PickFlag());
 }
 
-void IGESGraph_ToolPick::OwnShared(const Handle(IGESGraph_Pick)& /*ent*/,
+void PickTool::OwnShared(const Handle(IGESGraph_Pick)& /*ent*/,
                                    Interface_EntityIterator& /*iter*/) const
 {
 }
 
-void IGESGraph_ToolPick::OwnCopy(const Handle(IGESGraph_Pick)& another,
+void PickTool::OwnCopy(const Handle(IGESGraph_Pick)& another,
                                  const Handle(IGESGraph_Pick)& ent,
                                  Interface_CopyTool& /*TC*/) const
 {
   ent->Init(1, another->PickFlag());
 }
 
-Standard_Boolean IGESGraph_ToolPick::OwnCorrect(const Handle(IGESGraph_Pick)& ent) const
+Standard_Boolean PickTool::OwnCorrect(const Handle(IGESGraph_Pick)& ent) const
 {
   Standard_Boolean res = (ent->NbPropertyValues() != 1);
   if (res)
@@ -79,9 +79,9 @@ Standard_Boolean IGESGraph_ToolPick::OwnCorrect(const Handle(IGESGraph_Pick)& en
   return res;
 }
 
-IGESData_DirChecker IGESGraph_ToolPick::DirChecker(const Handle(IGESGraph_Pick)& /*ent*/) const
+DirectoryChecker PickTool::DirChecker(const Handle(IGESGraph_Pick)& /*ent*/) const
 {
-  IGESData_DirChecker DC(406, 21);
+  DirectoryChecker DC(406, 21);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -92,7 +92,7 @@ IGESData_DirChecker IGESGraph_ToolPick::DirChecker(const Handle(IGESGraph_Pick)&
   return DC;
 }
 
-void IGESGraph_ToolPick::OwnCheck(const Handle(IGESGraph_Pick)& ent,
+void PickTool::OwnCheck(const Handle(IGESGraph_Pick)& ent,
                                   const Interface_ShareTool&,
                                   Handle(Interface_Check)& ach) const
 {
@@ -102,7 +102,7 @@ void IGESGraph_ToolPick::OwnCheck(const Handle(IGESGraph_Pick)& ent,
     ach->AddFail("Pick Flag : Value != 0/1");
 }
 
-void IGESGraph_ToolPick::OwnDump(const Handle(IGESGraph_Pick)& ent,
+void PickTool::OwnDump(const Handle(IGESGraph_Pick)& ent,
                                  const IGESData_IGESDumper& /*dumper*/,
                                  Standard_OStream& S,
                                  const Standard_Integer /*level*/) const

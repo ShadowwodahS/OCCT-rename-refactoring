@@ -24,9 +24,9 @@
 //! Structure defining document node.
 struct XCAFPrs_DocumentNode
 {
-  TCollection_AsciiString Id;         //!< string identifier
-  TDF_Label               Label;      //!< label in the document
-  TDF_Label               RefLabel;   //!< reference label in the document
+  AsciiString1 Id;         //!< string identifier
+  DataLabel               Label;      //!< label in the document
+  DataLabel               RefLabel;   //!< reference label in the document
   XCAFPrs_Style           Style;      //!< node style
   TopLoc_Location         Location;   //!< node global transformation
   TopLoc_Location         LocalTrsf;  //!< node transformation relative to parent
@@ -49,7 +49,7 @@ struct hash<XCAFPrs_DocumentNode>
 {
   size_t operator()(const XCAFPrs_DocumentNode& theDocumentNode) const
   {
-    return std::hash<TCollection_AsciiString>{}(theDocumentNode.Id);
+    return std::hash<AsciiString1>{}(theDocumentNode.Id);
   }
 };
 } // namespace std

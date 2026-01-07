@@ -22,7 +22,7 @@
 
 #include <Standard_Integer.hxx>
 #include <Draw_MarkerShape.hxx>
-class Draw_Color;
+class DrawColor;
 class Point3d;
 class gp_Pnt2d;
 class gp_Circ;
@@ -37,15 +37,15 @@ class gp_Circ2d;
 //!
 //! * To draw in screen coordinates the length must be
 //! divided by the zoom.
-class Draw_Display
+class DrawDisplay
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Draw_Display();
+  Standard_EXPORT DrawDisplay();
 
   //! Following drawings will use this color.
-  Standard_EXPORT void SetColor(const Draw_Color& col) const;
+  Standard_EXPORT void SetColor(const DrawColor& col) const;
 
   //! Set the drawing mode, 3 = copy, 6 = xor
   Standard_EXPORT void SetMode(const Standard_Integer M) const;
@@ -60,22 +60,22 @@ public:
 
   Standard_EXPORT void DrawTo(const gp_Pnt2d& pt);
 
-  Standard_EXPORT void Draw(const Point3d& p1, const Point3d& p2);
+  Standard_EXPORT void Draw1(const Point3d& p1, const Point3d& p2);
 
-  Standard_EXPORT void Draw(const gp_Pnt2d& p1, const gp_Pnt2d& p2);
+  Standard_EXPORT void Draw1(const gp_Pnt2d& p1, const gp_Pnt2d& p2);
 
-  //! Draw  a  circle   <C> from  angle <A1>   to  <A2>
+  //! Draw1  a  circle   <C> from  angle <A1>   to  <A2>
   //! (Radians). if ModifyWithZoom  = 0,  then
   //! rayon of circle is convert to Integer.
-  Standard_EXPORT void Draw(const gp_Circ&         C,
+  Standard_EXPORT void Draw1(const gp_Circ&         C,
                             const Standard_Real    A1,
                             const Standard_Real    A2,
                             const Standard_Boolean ModifyWithZoom = Standard_True);
 
-  //! Draw  a 2D circle  <C>  from angle   <A1> to <A2>
+  //! Draw1  a 2D circle  <C>  from angle   <A1> to <A2>
   //! (Radians). if ModifyWithZoom  = 0,  then
   //! rayon of circle is convert to Integer.
-  Standard_EXPORT void Draw(const gp_Circ2d&       C,
+  Standard_EXPORT void Draw1(const gp_Circ2d&       C,
                             const Standard_Real    A1,
                             const Standard_Real    A2,
                             const Standard_Boolean ModifyWithZoom = Standard_True);

@@ -23,7 +23,7 @@
 
 //=================================================================================================
 
-Handle(Express_Schema)& Express::Schema()
+Handle(Express_Schema)& Express1::Schema()
 {
   static Handle(Express_Schema) aSchema;
   return aSchema;
@@ -34,14 +34,14 @@ Handle(Express_Schema)& Express::Schema()
 // purpose  : Write header of HXX or CXX file
 //=======================================================================
 
-void Express::WriteFileStamp(Standard_OStream& theOS)
+void Express1::WriteFileStamp(Standard_OStream& theOS)
 {
   static const char* EC_VERSION = "2.0";
 
   OSD_Process             aProcess;
   Quantity_Date           aCurTime = aProcess.SystemDate();
   OSD_Environment         anEnv("EXPTOCAS_TIME");
-  TCollection_AsciiString aTimeString = anEnv.Value();
+  AsciiString1 aTimeString = anEnv.Value();
   if (aTimeString.IsEmpty())
   {
     aTimeString += aCurTime.Year();
@@ -78,7 +78,7 @@ void Express::WriteFileStamp(Standard_OStream& theOS)
 
 //=================================================================================================
 
-void Express::WriteMethodStamp(Standard_OStream& theOS, const TCollection_AsciiString& theName)
+void Express1::WriteMethodStamp(Standard_OStream& theOS, const AsciiString1& theName)
 {
   theOS << "\n"
            "//=======================================================================\n"
@@ -92,9 +92,9 @@ void Express::WriteMethodStamp(Standard_OStream& theOS, const TCollection_AsciiS
 
 //=================================================================================================
 
-TCollection_AsciiString Express::ToStepName(const TCollection_AsciiString& theName)
+AsciiString1 Express1::ToStepName(const AsciiString1& theName)
 {
-  TCollection_AsciiString aStepName(theName);
+  AsciiString1 aStepName(theName);
   for (Standard_Integer i = 2; i <= aStepName.Length(); i++)
   {
     if (isupper(aStepName.Value(i)))
@@ -109,9 +109,9 @@ TCollection_AsciiString Express::ToStepName(const TCollection_AsciiString& theNa
 
 //=================================================================================================
 
-TCollection_AsciiString Express::EnumPrefix(const TCollection_AsciiString& theName)
+AsciiString1 Express1::EnumPrefix(const AsciiString1& theName)
 {
-  TCollection_AsciiString aStepName;
+  AsciiString1 aStepName;
   for (Standard_Integer i = 1; i <= theName.Length(); i++)
   {
     if (isupper(theName.Value(i)))

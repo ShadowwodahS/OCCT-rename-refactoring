@@ -22,7 +22,7 @@ IMPLEMENT_TOBJOCAF_PERSISTENCE(TObj_HiddenPartition)
 
 //=================================================================================================
 
-Standard_EXPORT TObj_HiddenPartition::TObj_HiddenPartition(const TDF_Label& theLabel)
+Standard_EXPORT TObj_HiddenPartition::TObj_HiddenPartition(const DataLabel& theLabel)
     : TObj_Partition(theLabel)
 {
 }

@@ -41,7 +41,7 @@ void BRepClass3d_SolidPassiveClassifier::Reset(const gp_Lin& L,
   isSet       = Standard_True;
 }
 
-void BRepClass3d_SolidPassiveClassifier::Compare(const TopoDS_Face& Face, const TopAbs_Orientation)
+void BRepClass3d_SolidPassiveClassifier::Compare(const TopoFace& Face, const TopAbs_Orientation)
 {
   if (!isSet)
   {

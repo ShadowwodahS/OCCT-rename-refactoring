@@ -22,15 +22,15 @@
 
 #include <TransferBRep_BinderOfShape.hxx>
 #include <TopAbs_ShapeEnum.hxx>
-class TopoDS_Shape;
-class TopoDS_Vertex;
-class TopoDS_Edge;
-class TopoDS_Wire;
-class TopoDS_Face;
-class TopoDS_Shell;
-class TopoDS_Solid;
+class TopoShape;
+class TopoVertex;
+class TopoEdge;
+class TopoWire;
+class TopoFace;
+class TopoShell;
+class TopoSolid;
 class TopoDS_CompSolid;
-class TopoDS_Compound;
+class TopoCompound;
 
 class TransferBRep_ShapeBinder;
 DEFINE_STANDARD_HANDLE(TransferBRep_ShapeBinder, TransferBRep_BinderOfShape)
@@ -45,26 +45,26 @@ public:
   Standard_EXPORT TransferBRep_ShapeBinder();
 
   //! Creates a ShapeBinder with a result
-  Standard_EXPORT TransferBRep_ShapeBinder(const TopoDS_Shape& res);
+  Standard_EXPORT TransferBRep_ShapeBinder(const TopoShape& res);
 
-  //! Returns the Type of the Shape Result (under TopAbs form)
+  //! Returns the Type of the Shape Result (under TopAbs1 form)
   Standard_EXPORT TopAbs_ShapeEnum ShapeType() const;
 
-  Standard_EXPORT TopoDS_Vertex Vertex() const;
+  Standard_EXPORT TopoVertex Vertex() const;
 
-  Standard_EXPORT TopoDS_Edge Edge() const;
+  Standard_EXPORT TopoEdge Edge() const;
 
-  Standard_EXPORT TopoDS_Wire Wire() const;
+  Standard_EXPORT TopoWire Wire() const;
 
-  Standard_EXPORT TopoDS_Face Face() const;
+  Standard_EXPORT TopoFace Face() const;
 
-  Standard_EXPORT TopoDS_Shell Shell() const;
+  Standard_EXPORT TopoShell Shell() const;
 
-  Standard_EXPORT TopoDS_Solid Solid() const;
+  Standard_EXPORT TopoSolid Solid() const;
 
   Standard_EXPORT TopoDS_CompSolid CompSolid() const;
 
-  Standard_EXPORT TopoDS_Compound Compound() const;
+  Standard_EXPORT TopoCompound Compound() const;
 
   DEFINE_STANDARD_RTTIEXT(TransferBRep_ShapeBinder, TransferBRep_BinderOfShape)
 

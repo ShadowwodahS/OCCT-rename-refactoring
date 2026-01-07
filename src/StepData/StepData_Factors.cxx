@@ -17,7 +17,7 @@
 // Method : Constructor
 // Purpose:
 // ============================================================================
-StepData_Factors::StepData_Factors()
+ConversionFactors::ConversionFactors()
     : myLengthFactor(1.),
       myPlaneAngleFactor(1.),
       mySolidAngleFactor(1.),
@@ -31,7 +31,7 @@ StepData_Factors::StepData_Factors()
 // Method : InitializeFactors
 // Purpose:
 // ============================================================================
-void StepData_Factors::InitializeFactors(const Standard_Real theLengthFactor,
+void ConversionFactors::InitializeFactors(const Standard_Real theLengthFactor,
                                          const Standard_Real thePlaneAngleFactor,
                                          const Standard_Real theSolidAngleFactor)
 {
@@ -46,7 +46,7 @@ void StepData_Factors::InitializeFactors(const Standard_Real theLengthFactor,
 // Method : LengthFactor
 // Purpose:
 // ============================================================================
-Standard_Real StepData_Factors::LengthFactor() const
+Standard_Real ConversionFactors::LengthFactor() const
 {
   return myLengthFactor;
 }
@@ -55,7 +55,7 @@ Standard_Real StepData_Factors::LengthFactor() const
 // Method : PlaneAngleFactor
 // Purpose:
 // ============================================================================
-Standard_Real StepData_Factors::PlaneAngleFactor() const
+Standard_Real ConversionFactors::PlaneAngleFactor() const
 {
   return myPlaneAngleFactor;
 }
@@ -64,7 +64,7 @@ Standard_Real StepData_Factors::PlaneAngleFactor() const
 // Method : SolidAngleFactor
 // Purpose:
 // ============================================================================
-Standard_Real StepData_Factors::SolidAngleFactor() const
+Standard_Real ConversionFactors::SolidAngleFactor() const
 {
   return mySolidAngleFactor;
 }
@@ -73,7 +73,7 @@ Standard_Real StepData_Factors::SolidAngleFactor() const
 // Method : FactorRadianDegree
 // Purpose:
 // ============================================================================
-Standard_Real StepData_Factors::FactorRadianDegree() const
+Standard_Real ConversionFactors::FactorRadianDegree() const
 {
   return myFactRD;
 }
@@ -82,7 +82,7 @@ Standard_Real StepData_Factors::FactorRadianDegree() const
 // Method : FactorDegreeRadian
 // Purpose:
 // ============================================================================
-Standard_Real StepData_Factors::FactorDegreeRadian() const
+Standard_Real ConversionFactors::FactorDegreeRadian() const
 {
   return myFactDR;
 }
@@ -91,7 +91,7 @@ Standard_Real StepData_Factors::FactorDegreeRadian() const
 // Method : SetCascadeUnit
 // Purpose:
 // ============================================================================
-void StepData_Factors::SetCascadeUnit(const Standard_Real theUnit)
+void ConversionFactors::SetCascadeUnit(const Standard_Real theUnit)
 {
   myCascadeUnit = theUnit;
 }
@@ -100,7 +100,7 @@ void StepData_Factors::SetCascadeUnit(const Standard_Real theUnit)
 // Method : CascadeUnit
 // Purpose:
 // ============================================================================
-Standard_Real StepData_Factors::CascadeUnit() const
+Standard_Real ConversionFactors::CascadeUnit() const
 {
   return myCascadeUnit;
 }

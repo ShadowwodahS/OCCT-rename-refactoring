@@ -24,31 +24,31 @@
 #include <TNaming_PtrNode.hxx>
 class Standard_NoMoreObject;
 class Standard_NoSuchObject;
-class TNaming_Tool;
-class TopoDS_Shape;
+class Tool11;
+class TopoShape;
 class TNaming_UsedShapes;
-class TDF_Label;
+class DataLabel;
 
 //! To iterate on   all  the label which contained  a
 //! given shape.
-class TNaming_SameShapeIterator
+class SameShapeIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TNaming_SameShapeIterator(const TopoDS_Shape& aShape, const TDF_Label& access);
+  Standard_EXPORT SameShapeIterator(const TopoShape& aShape, const DataLabel& access);
 
   Standard_Boolean More() const;
 
   Standard_EXPORT void Next();
 
-  Standard_EXPORT TDF_Label Label() const;
+  Standard_EXPORT DataLabel Label() const;
 
-  friend class TNaming_Tool;
+  friend class Tool11;
 
 protected:
 private:
-  Standard_EXPORT TNaming_SameShapeIterator(const TopoDS_Shape&               aShape,
+  Standard_EXPORT SameShapeIterator(const TopoShape&               aShape,
                                             const Handle(TNaming_UsedShapes)& Shapes);
 
   TNaming_PtrNode  myNode;

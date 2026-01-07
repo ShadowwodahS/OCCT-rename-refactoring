@@ -37,8 +37,8 @@ class BRepGProp_Domain;
 //! . a surface limited in U-V space with its curves of restriction,
 //!
 //! The surface 's requirements to evaluate the global properties
-//! are defined in the template SurfaceTool from package GProp.
-class BRepGProp_Vinert : public GProp_GProps
+//! are defined in the template SurfaceTool from package GProp1.
+class BRepGProp_Vinert : public GeometricProperties
 {
 public:
   DEFINE_STANDARD_ALLOC

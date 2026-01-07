@@ -47,9 +47,9 @@ IMPLEMENT_STANDARD_RTTIEXT(PrsDim_TangentRelation, PrsDim_Relation)
 
 //=================================================================================================
 
-PrsDim_TangentRelation::PrsDim_TangentRelation(const TopoDS_Shape&       aFShape,
-                                               const TopoDS_Shape&       aSShape,
-                                               const Handle(Geom_Plane)& aPlane,
+PrsDim_TangentRelation::PrsDim_TangentRelation(const TopoShape&       aFShape,
+                                               const TopoShape&       aSShape,
+                                               const Handle(GeomPlane)& aPlane,
                                                const Standard_Integer    anExternRef)
     : myExternRef(anExternRef)
 {
@@ -82,7 +82,7 @@ void PrsDim_TangentRelation::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void PrsDim_TangentRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+void PrsDim_TangentRelation::ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                               const Standard_Integer)
 {
   Vector3d vec(myDir);
@@ -106,8 +106,8 @@ void PrsDim_TangentRelation::ComputeTwoFacesTangent(
 // jfa 19/10/2000 begin
 //=================================================================================================
 
-static Standard_Boolean ComputeTangencyPoint(const Handle(Geom_Curve)& GC1,
-                                             const Handle(Geom_Curve)& GC2,
+static Standard_Boolean ComputeTangencyPoint(const Handle(GeomCurve3d)& GC1,
+                                             const Handle(GeomCurve3d)& GC2,
                                              Point3d&                   aPoint)
 {
   Standard_Real U1f = GC1->FirstParameter();
@@ -138,14 +138,14 @@ static Standard_Boolean ComputeTangencyPoint(const Handle(Geom_Curve)& GC1,
     }
     if (dist < Precision::Confusion())
     {
-      if (GC1->IsInstance(STANDARD_TYPE(Geom_Line)))
+      if (GC1->IsInstance(STANDARD_TYPE(GeomLine)))
       {
         continue; // tangent line and conic can have only one point with zero distance
       }
       Vector3d aVector1, aVector2;
-      if (GC1->IsInstance(STANDARD_TYPE(Geom_Circle)))
+      if (GC1->IsInstance(STANDARD_TYPE(GeomCircle)))
       {
-        Handle(Geom_Circle) circle(Handle(Geom_Circle)::DownCast(GC1));
+        Handle(GeomCircle) circle(Handle(GeomCircle)::DownCast(GC1));
         Standard_Real       par_inter = ElCLib::Parameter(circle->Circ(), P1);
         ElCLib::D1(par_inter, circle->Circ(), P1, aVector1);
       }
@@ -155,9 +155,9 @@ static Standard_Boolean ComputeTangencyPoint(const Handle(Geom_Curve)& GC1,
         Standard_Real        par_inter = ElCLib::Parameter(ellipse->Elips(), P1);
         ElCLib::D1(par_inter, ellipse->Elips(), P1, aVector1);
       }
-      if (GC2->IsInstance(STANDARD_TYPE(Geom_Circle)))
+      if (GC2->IsInstance(STANDARD_TYPE(GeomCircle)))
       {
-        Handle(Geom_Circle) circle(Handle(Geom_Circle)::DownCast(GC2));
+        Handle(GeomCircle) circle(Handle(GeomCircle)::DownCast(GC2));
         Standard_Real       par_inter = ElCLib::Parameter(circle->Circ(), P2);
         ElCLib::D1(par_inter, circle->Circ(), P2, aVector2);
       }
@@ -182,10 +182,10 @@ static Standard_Boolean ComputeTangencyPoint(const Handle(Geom_Curve)& GC1,
 
 void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentation)& aPresentation)
 {
-  Handle(Geom_Curve) copy1, copy2;
+  Handle(GeomCurve3d) copy1, copy2;
   Point3d             ptat11, ptat12, ptat21, ptat22;
   Standard_Boolean   isInfinite1, isInfinite2;
-  Handle(Geom_Curve) extCurv;
+  Handle(GeomCurve3d) extCurv;
   if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape),
                                TopoDS::Edge(mySShape),
                                myExtShape,
@@ -205,16 +205,16 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
 
   aPresentation->SetInfiniteState(isInfinite1 || isInfinite2);
   // current face
-  BRepBuilderAPI_MakeFace makeface(myPlane->Pln());
+  FaceMaker makeface(myPlane->Pln());
   BRepAdaptor_Surface     adp(makeface.Face());
 
   Standard_Integer typArg(0);
 
-  if (copy1->IsInstance(STANDARD_TYPE(Geom_Line)))
+  if (copy1->IsInstance(STANDARD_TYPE(GeomLine)))
   {
     typArg = 10;
   }
-  else if (copy1->IsInstance(STANDARD_TYPE(Geom_Circle)))
+  else if (copy1->IsInstance(STANDARD_TYPE(GeomCircle)))
   {
     typArg = 20;
   }
@@ -225,11 +225,11 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
   else
     return;
 
-  if (copy2->IsInstance(STANDARD_TYPE(Geom_Line)))
+  if (copy2->IsInstance(STANDARD_TYPE(GeomLine)))
   {
     typArg += 1;
   }
-  else if (copy2->IsInstance(STANDARD_TYPE(Geom_Circle)))
+  else if (copy2->IsInstance(STANDARD_TYPE(GeomCircle)))
   {
     typArg += 2;
   }
@@ -241,10 +241,10 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
     return;
 
   // First find the tangengy vector if exists
-  TopoDS_Vertex    VCom;
-  TopExp_Explorer  expF(TopoDS::Edge(myFShape), TopAbs_VERTEX);
-  TopExp_Explorer  expS(TopoDS::Edge(mySShape), TopAbs_VERTEX);
-  TopoDS_Shape     tab[2];
+  TopoVertex    VCom;
+  ShapeExplorer  expF(TopoDS::Edge(myFShape), TopAbs_VERTEX);
+  ShapeExplorer  expS(TopoDS::Edge(mySShape), TopAbs_VERTEX);
+  TopoShape     tab[2];
   Standard_Integer p;
   for (p = 0; expF.More(); expF.Next(), p++)
   {
@@ -268,7 +268,7 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
 
   if (found)
   {
-    pint3d = BRep_Tool::Pnt(VCom);
+    pint3d = BRepInspector::Pnt(VCom);
   }
 
   // Otherwise it is found as if it was known that 2 curves
@@ -277,8 +277,8 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
   {
     case 12: // circle line
     {
-      Handle(Geom_Line)   line(Handle(Geom_Line)::DownCast(copy1));
-      Handle(Geom_Circle) circle(Handle(Geom_Circle)::DownCast(copy2));
+      Handle(GeomLine)   line(Handle(GeomLine)::DownCast(copy1));
+      Handle(GeomCircle) circle(Handle(GeomCircle)::DownCast(copy2));
 
       if (!found)
       {
@@ -299,8 +299,8 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
     break;
     case 21: // circle line
     {
-      Handle(Geom_Circle) circle(Handle(Geom_Circle)::DownCast(copy1));
-      Handle(Geom_Line)   line(Handle(Geom_Line)::DownCast(copy2));
+      Handle(GeomCircle) circle(Handle(GeomCircle)::DownCast(copy1));
+      Handle(GeomLine)   line(Handle(GeomLine)::DownCast(copy2));
 
       if (!found)
       {
@@ -322,7 +322,7 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
     // jfa 19/10/2000 begin
     case 13: // line ellipse
     {
-      Handle(Geom_Line)    line(Handle(Geom_Line)::DownCast(copy1));
+      Handle(GeomLine)    line(Handle(GeomLine)::DownCast(copy1));
       Handle(Geom_Ellipse) ellipse(Handle(Geom_Ellipse)::DownCast(copy2));
 
       if (!found)
@@ -344,7 +344,7 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
     case 31: // ellipse line
     {
       Handle(Geom_Ellipse) ellipse(Handle(Geom_Ellipse)::DownCast(copy1));
-      Handle(Geom_Line)    line(Handle(Geom_Line)::DownCast(copy2));
+      Handle(GeomLine)    line(Handle(GeomLine)::DownCast(copy2));
 
       if (!found)
       {
@@ -364,8 +364,8 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
     break;
     case 22: // circle circle
     {
-      Handle(Geom_Circle) circle1(Handle(Geom_Circle)::DownCast(copy1));
-      Handle(Geom_Circle) circle2(Handle(Geom_Circle)::DownCast(copy2));
+      Handle(GeomCircle) circle1(Handle(GeomCircle)::DownCast(copy1));
+      Handle(GeomCircle) circle2(Handle(GeomCircle)::DownCast(copy2));
       Standard_Real       R1 = circle1->Radius();
       Standard_Real       R2 = circle2->Radius();
       myLength               = Max(R1, R2) / 5.0;
@@ -406,7 +406,7 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
     break;
     case 23: // circle ellipse
     {
-      Handle(Geom_Circle)  circle(Handle(Geom_Circle)::DownCast(copy1));
+      Handle(GeomCircle)  circle(Handle(GeomCircle)::DownCast(copy1));
       Handle(Geom_Ellipse) ellipse(Handle(Geom_Ellipse)::DownCast(copy2));
       Standard_Real        R1 = circle->Radius();
       Standard_Real        R2 = ellipse->MajorRadius();
@@ -437,7 +437,7 @@ void PrsDim_TangentRelation::ComputeTwoEdgesTangent(const Handle(Prs3d_Presentat
     case 32: // ellipse circle
     {
       Handle(Geom_Ellipse) ellipse(Handle(Geom_Ellipse)::DownCast(copy1));
-      Handle(Geom_Circle)  circle(Handle(Geom_Circle)::DownCast(copy2));
+      Handle(GeomCircle)  circle(Handle(GeomCircle)::DownCast(copy2));
       Standard_Real        R1 = ellipse->MajorRadius();
       Standard_Real        R2 = circle->Radius();
       myLength                = Max(R1, R2) / 5.0;

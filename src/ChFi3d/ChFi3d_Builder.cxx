@@ -77,42 +77,42 @@ extern Standard_Boolean ChFi3d_GettraceCHRON();
 
 //=================================================================================================
 
-static void CompleteDS(TopOpeBRepDS_DataStructure& DStr, const TopoDS_Shape& S)
+static void CompleteDS(TopOpeBRepDS_DataStructure& DStr, const TopoShape& S)
 {
   ChFiDS_Map MapEW, MapFS;
   MapEW.Fill(S, TopAbs_EDGE, TopAbs_WIRE);
   MapFS.Fill(S, TopAbs_FACE, TopAbs_SHELL);
 
-  TopExp_Explorer ExpE;
+  ShapeExplorer ExpE;
   for (ExpE.Init(S, TopAbs_EDGE); ExpE.More(); ExpE.Next())
   {
-    const TopoDS_Edge& E       = TopoDS::Edge(ExpE.Current());
+    const TopoEdge& E       = TopoDS::Edge(ExpE.Current());
     Standard_Boolean   hasgeom = DStr.HasGeometry(E);
     if (hasgeom)
     {
-      const TopTools_ListOfShape&        WireListAnc = MapEW(E);
+      const ShapeList&        WireListAnc = MapEW(E);
       TopTools_ListIteratorOfListOfShape itaW(WireListAnc);
       while (itaW.More())
       {
-        const TopoDS_Shape& WireAnc = itaW.Value();
+        const TopoShape& WireAnc = itaW.Value();
         DStr.AddShape(WireAnc);
         itaW.Next();
       }
     }
   }
 
-  TopExp_Explorer ExpF;
+  ShapeExplorer ExpF;
   for (ExpF.Init(S, TopAbs_FACE); ExpF.More(); ExpF.Next())
   {
-    const TopoDS_Face& F       = TopoDS::Face(ExpF.Current());
+    const TopoFace& F       = TopoDS::Face(ExpF.Current());
     Standard_Boolean   hasgeom = DStr.HasGeometry(F);
     if (hasgeom)
     {
-      const TopTools_ListOfShape&        ShellListAnc = MapFS(F);
+      const ShapeList&        ShellListAnc = MapFS(F);
       TopTools_ListIteratorOfListOfShape itaS(ShellListAnc);
       while (itaS.More())
       {
-        const TopoDS_Shape& ShellAnc = itaS.Value();
+        const TopoShape& ShellAnc = itaS.Value();
         DStr.AddShape(ShellAnc);
         itaS.Next();
       }
@@ -146,7 +146,7 @@ void ChFi3d_Builder::ExtentAnalyse()
   for (Standard_Integer iv = 1; iv <= myVDataMap.Extent(); iv++)
   {
     nbs                      = myVDataMap(iv).Extent();
-    const TopoDS_Vertex& Vtx = myVDataMap.FindKey(iv);
+    const TopoVertex& Vtx = myVDataMap.FindKey(iv);
     // nbedges = ChFi3d_NumberOfEdges(Vtx, myVEMap);
     nbedges = ChFi3d_NumberOfSharpEdges(Vtx, myVEMap, myEFMap);
     switch (nbs)
@@ -314,17 +314,17 @@ void ChFi3d_Builder::Compute()
 #endif
 
   TColStd_MapOfInteger MapIndSo;
-  TopExp_Explorer      expso(myShape, TopAbs_SOLID);
+  ShapeExplorer      expso(myShape, TopAbs_SOLID);
   for (; expso.More(); expso.Next())
   {
-    const TopoDS_Shape& cursol    = expso.Current();
+    const TopoShape& cursol    = expso.Current();
     Standard_Integer    indcursol = DStr.AddShape(cursol);
     MapIndSo.Add(indcursol);
   }
-  TopExp_Explorer expsh(myShape, TopAbs_SHELL, TopAbs_SOLID);
+  ShapeExplorer expsh(myShape, TopAbs_SHELL, TopAbs_SOLID);
   for (; expsh.More(); expsh.Next())
   {
-    const TopoDS_Shape& cursh    = expsh.Current();
+    const TopoShape& cursh    = expsh.Current();
     Standard_Integer    indcursh = DStr.AddShape(cursh);
     MapIndSo.Add(indcursh);
   }
@@ -375,11 +375,11 @@ void ChFi3d_Builder::Compute()
 
     if (done)
     {
-      BRep_Builder B1;
+      ShapeBuilder B1;
       CompleteDS(DStr, myShape);
       // Update tolerances on vertex to max adjacent edges or
       // Update tolerances on degenerated edge to max of adjacent vertexes.
-      TopOpeBRepDS_CurveExplorer cex(DStr);
+      CurveExplorer cex(DStr);
       for (; cex.More(); cex.Next())
       {
         TopOpeBRepDS_Curve& c     = *((TopOpeBRepDS_Curve*)(void*)&(cex.Curve()));
@@ -399,8 +399,8 @@ void ChFi3d_Builder::Compute()
           Standard_Integer  gi = II->Geometry();
           if (gk == TopOpeBRepDS_VERTEX)
           {
-            const TopoDS_Vertex& v    = TopoDS::Vertex(myDS->Shape(gi));
-            Standard_Real        tolv = BRep_Tool::Tolerance(v);
+            const TopoVertex& v    = TopoDS::Vertex(myDS->Shape(gi));
+            Standard_Real        tolv = BRepInspector::Tolerance(v);
             if (tolv > 0.0001)
             {
               tolv += 0.0003;
@@ -414,7 +414,7 @@ void ChFi3d_Builder::Compute()
           }
           else if (gk == TopOpeBRepDS_POINT)
           {
-            TopOpeBRepDS_Point& p    = DStr.ChangePoint(gi);
+            Point1& p    = DStr.ChangePoint(gi);
             Standard_Real       tolp = p.Tolerance();
             if (degen && tolc < tolp)
               tolc = tolp;
@@ -430,14 +430,14 @@ void ChFi3d_Builder::Compute()
       for (; It.More(); It.Next())
       {
         Standard_Integer    indsol   = It.Key();
-        const TopoDS_Shape& curshape = DStr.Shape(indsol);
+        const TopoShape& curshape = DStr.Shape(indsol);
         myCoup->MergeSolid(curshape, TopAbs_IN);
       }
 
-      Standard_Integer i = 1, n = DStr.NbShapes();
+      Standard_Integer i = 1, n = DStr.NbShapes1();
       for (; i <= n; i++)
       {
-        const TopoDS_Shape S = DStr.Shape(i);
+        const TopoShape S = DStr.Shape(i);
         if (S.ShapeType() != TopAbs_EDGE)
           continue;
         Standard_Boolean issplitIN = myCoup->IsSplit(S, TopAbs_IN);
@@ -446,13 +446,13 @@ void ChFi3d_Builder::Compute()
         TopTools_ListIteratorOfListOfShape it(myCoup->Splits(S, TopAbs_IN));
         for (; it.More(); it.Next())
         {
-          const TopoDS_Edge& newE = TopoDS::Edge(it.Value());
-          Standard_Real      tole = BRep_Tool::Tolerance(newE);
-          TopExp_Explorer    exv(newE, TopAbs_VERTEX);
+          const TopoEdge& newE = TopoDS::Edge(it.Value());
+          Standard_Real      tole = BRepInspector::Tolerance(newE);
+          ShapeExplorer    exv(newE, TopAbs_VERTEX);
           for (; exv.More(); exv.Next())
           {
-            const TopoDS_Vertex& v    = TopoDS::Vertex(exv.Current());
-            Standard_Real        tolv = BRep_Tool::Tolerance(v);
+            const TopoVertex& v    = TopoDS::Vertex(exv.Current());
+            Standard_Real        tolv = BRepInspector::Tolerance(v);
             if (tole > tolv)
               B1.UpdateVertex(v, tole);
           }
@@ -464,7 +464,7 @@ void ChFi3d_Builder::Compute()
         for (It = TColStd_MapIteratorOfMapOfInteger(MapIndSo); It.More(); It.Next())
         {
           Standard_Integer                   indsol   = It.Key();
-          const TopoDS_Shape&                curshape = DStr.Shape(indsol);
+          const TopoShape&                curshape = DStr.Shape(indsol);
           TopTools_ListIteratorOfListOfShape its      = myCoup->Merged(curshape, TopAbs_IN);
           if (!its.More())
             B1.Add(myShapeResult, curshape);
@@ -477,8 +477,8 @@ void ChFi3d_Builder::Compute()
               const TopAbs_ShapeEnum letype = curshape.ShapeType();
               if (letype == TopAbs_SHELL)
               {
-                TopExp_Explorer     expsh2(its.Value(), TopAbs_SHELL);
-                const TopoDS_Shape& cursh = expsh2.Current();
+                ShapeExplorer     expsh2(its.Value(), TopAbs_SHELL);
+                const TopoShape& cursh = expsh2.Current();
                 B1.Add(myShapeResult, cursh);
                 its.Next();
               }
@@ -498,7 +498,7 @@ void ChFi3d_Builder::Compute()
         for (It = TColStd_MapIteratorOfMapOfInteger(MapIndSo); It.More(); It.Next())
         {
           Standard_Integer                   indsol   = It.Key();
-          const TopoDS_Shape&                curshape = DStr.Shape(indsol);
+          const TopoShape&                curshape = DStr.Shape(indsol);
           TopTools_ListIteratorOfListOfShape its      = myCoup->Merged(curshape, TopAbs_IN);
           if (!its.More())
             B1.Add(badShape, curshape);
@@ -574,7 +574,7 @@ void ChFi3d_Builder::Compute()
     std::cout << "temps PerformTwocorner " << t_perform2corner << "s  dont:" << std::endl;
     std::cout << "- temps initialisation " << t_t2cornerinit << "s" << std::endl;
     std::cout << "- temps PerformTwoCornerbyInter " << t_perf2cornerbyinter << "s" << std::endl;
-    std::cout << "- temps ChFiKPart_ComputeData " << t_chfikpartcompdata << "s" << std::endl;
+    std::cout << "- temps ComputeData " << t_chfikpartcompdata << "s" << std::endl;
     std::cout << "- temps cheminement " << t_cheminement << "s" << std::endl;
     std::cout << "- temps remplissage " << t_remplissage << "s" << std::endl;
     std::cout << "- temps mise a jour stripes  " << t_t2cornerDS << "s" << std::endl << std::endl;
@@ -609,11 +609,11 @@ void ChFi3d_Builder::Compute()
 
     for (iF = 1; iF <= aNbSurfaces; ++iF)
     {
-      const TopTools_ListOfShape& aLF = myCoup->NewFaces(iF);
+      const ShapeList& aLF = myCoup->NewFaces(iF);
       aIt.Initialize(aLF);
       for (; aIt.More(); aIt.Next())
       {
-        const TopoDS_Shape& aF = aIt.Value();
+        const TopoShape& aF = aIt.Value();
         BRepLib::SameParameter(aF, SameParTol, Standard_True);
         ShapeFix::SameParameter(aF, Standard_False, SameParTol);
       }
@@ -631,7 +631,7 @@ void ChFi3d_Builder::PerformSingularCorner(const Standard_Integer Index)
   ChFiDS_ListIteratorOfListOfStripe It;
   Handle(ChFiDS_Stripe)             stripe;
   TopOpeBRepDS_DataStructure&       DStr = myDS->ChangeDS();
-  const TopoDS_Vertex&              Vtx  = myVDataMap.FindKey(Index);
+  const TopoVertex&              Vtx  = myVDataMap.FindKey(Index);
 
   Handle(ChFiDS_SurfData) Fd;
   Standard_Integer        i, Icurv;
@@ -656,8 +656,8 @@ void ChFi3d_Builder::PerformSingularCorner(const Standard_Integer Index)
       Standard_Real        tolreached;
       Standard_Real        Pardeb, Parfin;
       gp_Pnt2d             VOnS1, VOnS2;
-      Handle(Geom_Curve)   C3d;
-      Handle(Geom2d_Curve) PCurv;
+      Handle(GeomCurve3d)   C3d;
+      Handle(GeomCurve2d) PCurv;
       TopOpeBRepDS_Curve   Crv;
       if (isfirst)
       {
@@ -707,7 +707,7 @@ void ChFi3d_Builder::PerformFilletOnVertex(const Standard_Integer Index)
   ChFiDS_ListIteratorOfListOfStripe It;
   Handle(ChFiDS_Stripe)             stripe;
   Handle(ChFiDS_Spine)              sp;
-  const TopoDS_Vertex&              Vtx = myVDataMap.FindKey(Index);
+  const TopoVertex&              Vtx = myVDataMap.FindKey(Index);
 
   Handle(ChFiDS_SurfData) Fd;
   Standard_Integer        i;
@@ -738,7 +738,7 @@ void ChFi3d_Builder::PerformFilletOnVertex(const Standard_Integer Index)
     for (ItF.Initialize(myVFMap(Vtx)); ItF.More(); ItF.Next()){
       jf++;
       Standard_Integer kf = 1;
-      const TopoDS_Shape& cur = ItF.Value();
+      const TopoShape& cur = ItF.Value();
       for (JtF.Initialize(myVFMap(Vtx)); JtF.More() && (kf < jf); JtF.Next(), kf++){
         if(cur.IsSame(JtF.Value())) break;
       }
@@ -746,8 +746,8 @@ void ChFi3d_Builder::PerformFilletOnVertex(const Standard_Integer Index)
     }
     Standard_Integer nba=myVEMap(Vtx).Extent();
     for (ItE.Initialize(myVEMap(Vtx)); ItE.More(); ItE.Next()){
-      const TopoDS_Edge& cur = TopoDS::Edge(ItE.Value());
-      if (BRep_Tool::Degenerated(cur)) nba--;
+      const TopoEdge& cur = TopoDS::Edge(ItE.Value());
+      if (BRepInspector::Degenerated(cur)) nba--;
     }
     nba=nba/2;*/
   Standard_Integer nba = ChFi3d_NumberOfSharpEdges(Vtx, myVEMap, myEFMap);
@@ -876,7 +876,7 @@ void ChFi3d_Builder::Reset()
 
 //=================================================================================================
 
-const TopTools_ListOfShape& ChFi3d_Builder::Generated(const TopoDS_Shape& EouV)
+const ShapeList& ChFi3d_Builder::Generated(const TopoShape& EouV)
 {
   myGenerated.Clear();
   if (EouV.IsNull())
@@ -890,7 +890,7 @@ const TopTools_ListOfShape& ChFi3d_Builder::Generated(const TopoDS_Shape& EouV)
     for (IL.Initialize(L); IL.More(); IL.Next())
     {
       Standard_Integer                   I  = IL.Value();
-      const TopTools_ListOfShape&        LS = myCoup->NewFaces(I);
+      const ShapeList&        LS = myCoup->NewFaces(I);
       TopTools_ListIteratorOfListOfShape ILS;
       for (ILS.Initialize(LS); ILS.More(); ILS.Next())
       {

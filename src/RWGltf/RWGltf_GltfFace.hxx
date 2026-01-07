@@ -25,11 +25,11 @@
 class RWGltf_GltfFace : public RefObject
 {
 public:
-  RWGltf_GltfAccessor NodePos;  //!< accessor for nodal positions
-  RWGltf_GltfAccessor NodeNorm; //!< accessor for nodal normals
-  RWGltf_GltfAccessor NodeUV;   //!< accessor for nodal UV texture coordinates
-  RWGltf_GltfAccessor Indices;  //!< accessor for indexes
-  TopoDS_Shape        Shape;    //!< original Face or face list
+  GltfAccessor NodePos;  //!< accessor for nodal positions
+  GltfAccessor NodeNorm; //!< accessor for nodal normals
+  GltfAccessor NodeUV;   //!< accessor for nodal UV texture coordinates
+  GltfAccessor Indices;  //!< accessor for indexes
+  TopoShape        Shape;    //!< original Face or face list
   XCAFPrs_Style       Style;    //!< face style
                                 // clang-format off
   Standard_Integer    NbIndexedNodes; //!< transient variable for merging several faces into one while writing Indices

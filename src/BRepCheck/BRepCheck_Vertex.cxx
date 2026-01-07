@@ -39,7 +39,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRepCheck_Vertex, BRepCheck_Result)
 
 //=================================================================================================
 
-BRepCheck_Vertex::BRepCheck_Vertex(const TopoDS_Vertex& V)
+BRepCheck_Vertex::BRepCheck_Vertex(const TopoVertex& V)
 {
   Init(V);
 }
@@ -60,7 +60,7 @@ void BRepCheck_Vertex::Minimum()
 
 //=================================================================================================
 
-void BRepCheck_Vertex::InContext(const TopoDS_Shape& S)
+void BRepCheck_Vertex::InContext(const TopoShape& S)
 {
   Handle(BRepCheck_HListOfStatus) aHList;
   {
@@ -75,7 +75,7 @@ void BRepCheck_Vertex::InContext(const TopoDS_Shape& S)
   }
   BRepCheck_ListOfStatus& lst = *aHList;
 
-  TopExp_Explorer exp(S, TopAbs_VERTEX);
+  ShapeExplorer exp(S, TopAbs_VERTEX);
   for (; exp.More(); exp.Next())
   {
     if (exp.Current().IsSame(myShape))
@@ -98,13 +98,13 @@ void BRepCheck_Vertex::InContext(const TopoDS_Shape& S)
   {
     case TopAbs_EDGE: {
       // Try to find the vertex on the edge
-      const TopoDS_Edge& E = TopoDS::Edge(S);
+      const TopoEdge& E = TopoDS::Edge(S);
       TopoDS_Iterator    itv(E.Oriented(TopAbs_FORWARD));
-      TopoDS_Vertex      VFind;
+      TopoVertex      VFind;
       Standard_Boolean   multiple = Standard_False;
       while (itv.More())
       {
-        const TopoDS_Vertex& VF = TopoDS::Vertex(itv.Value());
+        const TopoVertex& VF = TopoDS::Vertex(itv.Value());
         if (itv.Value().IsSame(myShape))
         {
           if (VFind.IsNull())
@@ -134,8 +134,8 @@ void BRepCheck_Vertex::InContext(const TopoDS_Shape& S)
       // VFind is not null for sure
       TopAbs_Orientation orv = VFind.Orientation();
 
-      Standard_Real Tol = BRep_Tool::Tolerance(TopoDS::Vertex(myShape));
-      Tol               = Max(Tol, BRep_Tool::Tolerance(E)); // to check
+      Standard_Real Tol = BRepInspector::Tolerance(TopoDS::Vertex(myShape));
+      Tol               = Max(Tol, BRepInspector::Tolerance(E)); // to check
       Tol *= Tol;
 
       Handle(BRep_TEdge)&                          TE = *((Handle(BRep_TEdge)*)&E.TShape());
@@ -152,7 +152,7 @@ void BRepCheck_Vertex::InContext(const TopoDS_Shape& S)
 
         if (cr->IsCurve3D())
         {
-          const Handle(Geom_Curve)& C = cr->Curve3D();
+          const Handle(GeomCurve3d)& C = cr->Curve3D();
           if (!C.IsNull()) // edge non degenerated
           {
             itpr.Initialize(TV->Points());
@@ -196,9 +196,9 @@ void BRepCheck_Vertex::InContext(const TopoDS_Shape& S)
         }
         else if (cr->IsCurveOnSurface())
         {
-          const Handle(Geom_Surface)& Su = cr->Surface();
-          const Handle(Geom2d_Curve)& PC = cr->PCurve();
-          Handle(Geom2d_Curve)        PC2;
+          const Handle(GeomSurface)& Su = cr->Surface();
+          const Handle(GeomCurve2d)& PC = cr->PCurve();
+          Handle(GeomCurve2d)        PC2;
           if (cr->IsCurveOnClosedSurface())
           {
             PC2 = cr->PCurve2();
@@ -242,11 +242,11 @@ void BRepCheck_Vertex::InContext(const TopoDS_Shape& S)
       Handle(BRep_TFace)&         TF    = *((Handle(BRep_TFace)*)&S.TShape());
       const TopLoc_Location&      Floc  = S.Location();
       const TopLoc_Location&      TFloc = TF->Location();
-      const Handle(Geom_Surface)& Su    = TF->Surface();
+      const Handle(GeomSurface)& Su    = TF->Surface();
       TopLoc_Location             L     = (Floc * TFloc).Predivided(myShape.Location());
 
-      Standard_Real Tol = BRep_Tool::Tolerance(TopoDS::Vertex(myShape));
-      Tol               = Max(Tol, BRep_Tool::Tolerance(TopoDS::Face(S))); // to check
+      Standard_Real Tol = BRepInspector::Tolerance(TopoDS::Vertex(myShape));
+      Tol               = Max(Tol, BRepInspector::Tolerance(TopoDS::Face(S))); // to check
       Tol *= Tol;
 
       BRep_ListIteratorOfListOfPointRepresentation itpr(TV->Points());
@@ -294,7 +294,7 @@ void BRepCheck_Vertex::Blind()
 
   //   Handle(BRep_TVertex)& TV = *((Handle(BRep_TVertex)*) &myShape.TShape());
   //   const Point3d& prep = TV->Pnt();
-  //   Standard_Real Tol  = BRep_Tool::Tolerance(TopoDS::Vertex(myShape));
+  //   Standard_Real Tol  = BRepInspector::Tolerance(TopoDS::Vertex(myShape));
   //   Tol *= Tol;
 
   //   Point3d Controlp;
@@ -338,7 +338,7 @@ Standard_Real BRepCheck_Vertex::Tolerance()
   // Check all the representations  of the vertex. (i-e checks the TVertex
   Handle(BRep_TVertex)& TV   = *((Handle(BRep_TVertex)*)&myShape.TShape());
   const Point3d&         prep = TV->Pnt();
-  Standard_Real         Tol  = BRep_Tool::Tolerance(TopoDS::Vertex(myShape));
+  Standard_Real         Tol  = BRepInspector::Tolerance(TopoDS::Vertex(myShape));
   Tol *= Tol;
 
   Point3d Controlp;

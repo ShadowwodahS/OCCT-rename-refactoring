@@ -16,7 +16,7 @@
 
 #include <StdObjMgt_Persistent.hxx>
 
-class TDocStd_Document;
+class AppDocument;
 class StdLPersistent_Data;
 
 class StdLPersistent_Document : public StdObjMgt_Persistent
@@ -33,7 +33,7 @@ public:
   virtual Standard_CString PName() const { return "PDocStd_Document"; }
 
   //! Import transient document from the persistent data.
-  Standard_EXPORT virtual void ImportDocument(const Handle(TDocStd_Document)& theDocument) const;
+  Standard_EXPORT virtual void ImportDocument(const Handle(AppDocument)& theDocument) const;
 
 private:
   Handle(StdLPersistent_Data) myData;

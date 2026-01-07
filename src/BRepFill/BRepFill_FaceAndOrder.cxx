@@ -20,7 +20,7 @@
 
 BRepFill_FaceAndOrder::BRepFill_FaceAndOrder() {}
 
-BRepFill_FaceAndOrder::BRepFill_FaceAndOrder(const TopoDS_Face& aFace, const GeomAbs_Shape anOrder)
+BRepFill_FaceAndOrder::BRepFill_FaceAndOrder(const TopoFace& aFace, const GeomAbs_Shape anOrder)
 {
   myFace  = aFace;
   myOrder = anOrder;

@@ -44,7 +44,7 @@ void IGESSelect_ComputeStatus::Performing(IFSelect_ContextModif&            ctx,
   corrector.ComputeStatus();
 }
 
-TCollection_AsciiString IGESSelect_ComputeStatus::Label() const
+AsciiString1 IGESSelect_ComputeStatus::Label() const
 {
-  return TCollection_AsciiString("Compute Status of IGES Entities (Directory Part)");
+  return AsciiString1("Compute Status of IGES Entities (Directory Part)");
 }

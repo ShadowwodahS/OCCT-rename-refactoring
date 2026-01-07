@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 class IFSelect_ContextWrite;
 class IGESData_IGESWriter;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IGESSelect_AddFileComment;
 DEFINE_STANDARD_HANDLE(IGESSelect_AddFileComment, IGESSelect_FileModifier)
@@ -67,7 +67,7 @@ public:
 
   //! Returns specific Label, which is
   //! "Add <nn> Comment Lines (Start Section)"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_AddFileComment, IGESSelect_FileModifier)
 

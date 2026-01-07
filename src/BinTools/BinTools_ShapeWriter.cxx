@@ -33,7 +33,7 @@
 //=================================================================================================
 
 BinTools_ShapeWriter::BinTools_ShapeWriter()
-    : BinTools_ShapeSetBase()
+    : ShapeSetBase()
 {
 }
 
@@ -45,7 +45,7 @@ BinTools_ShapeWriter::~BinTools_ShapeWriter() {}
 
 void BinTools_ShapeWriter::Clear()
 {
-  BinTools_ShapeSetBase::Clear();
+  ShapeSetBase::Clear();
   myShapePos.Clear();
   myLocationPos.Clear();
   myCurvePos.Clear();
@@ -58,22 +58,22 @@ void BinTools_ShapeWriter::Clear()
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::Write(const TopoDS_Shape& theShape, Standard_OStream& theStream)
+void BinTools_ShapeWriter::Write(const TopoShape& theShape, Standard_OStream& theStream)
 {
-  BinTools_OStream anOStream(theStream);
+  BinaryOutputStream anOStream(theStream);
   WriteShape(anOStream, theShape);
 }
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::WriteShape(BinTools_OStream& theStream, const TopoDS_Shape& theShape)
+void BinTools_ShapeWriter::WriteShape(BinaryOutputStream& theStream, const TopoShape& theShape)
 {
   if (theShape.IsNull())
   {
     theStream << BinTools_ObjectType_EmptyShape;
     return;
   }
-  TopoDS_Shape    aShape     = theShape.Located(TopLoc_Location());
+  TopoShape    aShape     = theShape.Located(TopLoc_Location());
   const uint64_t* anExisting = myShapePos.Seek(aShape);
   if (anExisting) // shape is already there, so, write reference to it
   {
@@ -93,9 +93,9 @@ void BinTools_ShapeWriter::WriteShape(BinTools_OStream& theStream, const TopoDS_
     switch (aShape.ShapeType())
     {
       case TopAbs_VERTEX: {
-        TopoDS_Vertex aV = TopoDS::Vertex(aShape);
-        theStream << BRep_Tool::Tolerance(aV);
-        Point3d aP = BRep_Tool::Pnt(aV);
+        TopoVertex aV = TopoDS::Vertex(aShape);
+        theStream << BRepInspector::Tolerance(aV);
+        Point3d aP = BRepInspector::Pnt(aV);
         theStream << aP;
         Handle(BRep_TVertex) aTV = Handle(BRep_TVertex)::DownCast(aShape.TShape());
         for (BRep_ListIteratorOfListOfPointRepresentation anIter(aTV->Points()); anIter.More();
@@ -211,10 +211,10 @@ void BinTools_ShapeWriter::WriteShape(BinTools_OStream& theStream, const TopoDS_
       case TopAbs_FACE: {
 
         Handle(BRep_TFace) aTF = Handle(BRep_TFace)::DownCast(aShape.TShape());
-        const TopoDS_Face& aF  = TopoDS::Face(aShape);
+        const TopoFace& aF  = TopoDS::Face(aShape);
 
         // Write the surface geometry
-        theStream << BRep_Tool::NaturalRestriction(aF) << aTF->Tolerance();
+        theStream << BRepInspector::NaturalRestriction(aF) << aTF->Tolerance();
         WriteSurface(theStream, aTF->Surface());
         WriteLocation(theStream, aTF->Location());
 
@@ -262,7 +262,7 @@ void BinTools_ShapeWriter::WriteShape(BinTools_OStream& theStream, const TopoDS_
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::WriteLocation(BinTools_OStream&      theStream,
+void BinTools_ShapeWriter::WriteLocation(BinaryOutputStream&      theStream,
                                          const TopLoc_Location& theLocation)
 {
   if (theLocation.IsIdentity())
@@ -317,8 +317,8 @@ void BinTools_ShapeWriter::WriteLocation(BinTools_OStream&      theStream,
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::WriteCurve(BinTools_OStream&         theStream,
-                                      const Handle(Geom_Curve)& theCurve)
+void BinTools_ShapeWriter::WriteCurve(BinaryOutputStream&         theStream,
+                                      const Handle(GeomCurve3d)& theCurve)
 {
   if (theCurve.IsNull())
   {
@@ -333,13 +333,13 @@ void BinTools_ShapeWriter::WriteCurve(BinTools_OStream&         theStream,
   }
   myCurvePos.Bind(theCurve, theStream.Position());
   theStream << BinTools_ObjectType_Curve;
-  BinTools_CurveSet::WriteCurve(theCurve, theStream);
+  CurveBinarySet::WriteCurve(theCurve, theStream);
 }
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::WriteCurve(BinTools_OStream&           theStream,
-                                      const Handle(Geom2d_Curve)& theCurve)
+void BinTools_ShapeWriter::WriteCurve(BinaryOutputStream&           theStream,
+                                      const Handle(GeomCurve2d)& theCurve)
 {
   if (theCurve.IsNull())
   {
@@ -354,13 +354,13 @@ void BinTools_ShapeWriter::WriteCurve(BinTools_OStream&           theStream,
   }
   myCurve2dPos.Bind(theCurve, theStream.Position());
   theStream << BinTools_ObjectType_Curve2d;
-  BinTools_Curve2dSet::WriteCurve2d(theCurve, theStream);
+  Curve2dBinarySet::WriteCurve2d(theCurve, theStream);
 }
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::WriteSurface(BinTools_OStream&           theStream,
-                                        const Handle(Geom_Surface)& theSurface)
+void BinTools_ShapeWriter::WriteSurface(BinaryOutputStream&           theStream,
+                                        const Handle(GeomSurface)& theSurface)
 {
   if (theSurface.IsNull())
   {
@@ -375,12 +375,12 @@ void BinTools_ShapeWriter::WriteSurface(BinTools_OStream&           theStream,
   }
   mySurfacePos.Bind(theSurface, theStream.Position());
   theStream << BinTools_ObjectType_Surface;
-  BinTools_SurfaceSet::WriteSurface(theSurface, theStream);
+  SurfaceBinarySet::WriteSurface(theSurface, theStream);
 }
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::WritePolygon(BinTools_OStream&             theStream,
+void BinTools_ShapeWriter::WritePolygon(BinaryOutputStream&             theStream,
                                         const Handle(Poly_Polygon3D)& thePolygon)
 {
   if (thePolygon.IsNull())
@@ -412,7 +412,7 @@ void BinTools_ShapeWriter::WritePolygon(BinTools_OStream&             theStream,
 
 //=================================================================================================
 
-void BinTools_ShapeWriter::WritePolygon(BinTools_OStream&                          theStream,
+void BinTools_ShapeWriter::WritePolygon(BinaryOutputStream&                          theStream,
                                         const Handle(Poly_PolygonOnTriangulation)& thePolygon)
 {
   if (thePolygon.IsNull())
@@ -444,8 +444,8 @@ void BinTools_ShapeWriter::WritePolygon(BinTools_OStream&                       
     theStream << Standard_False;
 }
 
-void BinTools_ShapeWriter::WriteTriangulation(BinTools_OStream&                 theStream,
-                                              const Handle(Poly_Triangulation)& theTriangulation,
+void BinTools_ShapeWriter::WriteTriangulation(BinaryOutputStream&                 theStream,
+                                              const Handle(MeshTriangulation)& theTriangulation,
                                               const Standard_Boolean theNeedToWriteNormals)
 {
   if (theTriangulation.IsNull())

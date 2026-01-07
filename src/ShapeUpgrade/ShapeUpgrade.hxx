@@ -24,7 +24,7 @@
 #include <Standard_Boolean.hxx>
 #include <TColGeom_HSequenceOfBoundedCurve.hxx>
 #include <TColGeom2d_HSequenceOfBoundedCurve.hxx>
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 class Geom2d_BSplineCurve;
 
 //! This package provides tools for splitting and converting shapes by some criteria.
@@ -41,7 +41,7 @@ public:
 
   //! Unifies same domain faces and edges of specified shape
   Standard_EXPORT static Standard_Boolean C0BSplineToSequenceOfC1BSplineCurve(
-    const Handle(Geom_BSplineCurve)&          BS,
+    const Handle(BSplineCurve3d)&          BS,
     Handle(TColGeom_HSequenceOfBoundedCurve)& seqBS);
 
   //! Converts C0 B-Spline curve into sequence of C1 B-Spline curves.

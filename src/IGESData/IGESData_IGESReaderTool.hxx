@@ -35,7 +35,7 @@ class IGESData_Protocol;
 class RefObject;
 class Interface_InterfaceModel;
 class IGESData_IGESEntity;
-class IGESData_DirPart;
+class DirectoryPart;
 class IGESData_ParamReader;
 
 //! specific FileReaderTool for IGES
@@ -52,7 +52,7 @@ public:
                                           const Handle(IGESData_Protocol)&       protocol);
 
   //! binds empty entities to records, works with the Protocol
-  //! (from IGESData) stored and later used
+  //! (from IGESData1) stored and later used
   //! RQ : Actually, sets DNum into IGES Entities
   //! Also loads the list of parameters for ParamReader
   Standard_EXPORT void Prepare(const Handle(IGESData_FileRecognizer)& reco);
@@ -81,7 +81,7 @@ public:
   //! directory part, IR detains entities referenced by DP
   Standard_EXPORT void ReadDir(const Handle(IGESData_IGESEntity)&     ent,
                                const Handle(IGESData_IGESReaderData)& IR,
-                               const IGESData_DirPart&                DP,
+                               const DirectoryPart&                DP,
                                Handle(Interface_Check)&               ach) const;
 
   //! Performs Reading of own Parameters for each IGESEntity
@@ -118,7 +118,7 @@ private:
   Interface_GeneralLib            theglib;
   Interface_ReaderLib             therlib;
   Standard_Integer                thecnum;
-  IGESData_IGESType               thectyp;
+  IGESType               thectyp;
   IGESData_ReadStage              thestep;
   Handle(Interface_Check)         thechk;
   Standard_Integer                thegradweight;

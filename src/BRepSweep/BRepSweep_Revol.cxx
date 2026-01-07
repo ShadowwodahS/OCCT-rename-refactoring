@@ -26,7 +26,7 @@
 
 //=================================================================================================
 
-BRepSweep_Revol::BRepSweep_Revol(const TopoDS_Shape&    S,
+BRepSweep_Revol::BRepSweep_Revol(const TopoShape&    S,
                                  const Axis3d&          Ax,
                                  const Standard_Real    D,
                                  const Standard_Boolean C)
@@ -38,7 +38,7 @@ BRepSweep_Revol::BRepSweep_Revol(const TopoDS_Shape&    S,
 
 //=================================================================================================
 
-BRepSweep_Revol::BRepSweep_Revol(const TopoDS_Shape& S, const Axis3d& Ax, const Standard_Boolean C)
+BRepSweep_Revol::BRepSweep_Revol(const TopoShape& S, const Axis3d& Ax, const Standard_Boolean C)
     : myRotation(S.Oriented(TopAbs_FORWARD),
                  NumShape(2 * M_PI),
                  Location(Ax, 2 * M_PI),
@@ -51,42 +51,42 @@ BRepSweep_Revol::BRepSweep_Revol(const TopoDS_Shape& S, const Axis3d& Ax, const 
 
 //=================================================================================================
 
-TopoDS_Shape BRepSweep_Revol::Shape()
+TopoShape BRepSweep_Revol::Shape()
 {
   return myRotation.Shape();
 }
 
 //=================================================================================================
 
-TopoDS_Shape BRepSweep_Revol::Shape(const TopoDS_Shape& aGenS)
+TopoShape BRepSweep_Revol::Shape(const TopoShape& aGenS)
 {
   return myRotation.Shape(aGenS);
 }
 
 //=================================================================================================
 
-TopoDS_Shape BRepSweep_Revol::FirstShape()
+TopoShape BRepSweep_Revol::FirstShape()
 {
   return myRotation.FirstShape();
 }
 
 //=================================================================================================
 
-TopoDS_Shape BRepSweep_Revol::FirstShape(const TopoDS_Shape& aGenS)
+TopoShape BRepSweep_Revol::FirstShape(const TopoShape& aGenS)
 {
   return myRotation.FirstShape(aGenS);
 }
 
 //=================================================================================================
 
-TopoDS_Shape BRepSweep_Revol::LastShape()
+TopoShape BRepSweep_Revol::LastShape()
 {
   return myRotation.LastShape();
 }
 
 //=================================================================================================
 
-TopoDS_Shape BRepSweep_Revol::LastShape(const TopoDS_Shape& aGenS)
+TopoShape BRepSweep_Revol::LastShape(const TopoShape& aGenS)
 {
   return myRotation.LastShape(aGenS);
 }
@@ -155,7 +155,7 @@ Axis3d BRepSweep_Revol::Axe() const
 
 //=================================================================================================
 
-Standard_Boolean BRepSweep_Revol::IsUsed(const TopoDS_Shape& aGenS) const
+Standard_Boolean BRepSweep_Revol::IsUsed(const TopoShape& aGenS) const
 {
   return myRotation.IsUsed(aGenS);
 }

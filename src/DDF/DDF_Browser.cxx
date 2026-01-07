@@ -53,7 +53,7 @@ DDF_Browser::DDF_Browser(const Handle(TDF_Data)& aDF)
 
 //=================================================================================================
 
-void DDF_Browser::DrawOn(Draw_Display& /*dis*/) const
+void DDF_Browser::DrawOn(DrawDisplay& /*dis*/) const
 {
   // std::cout<<"DDF_Browser"<<std::endl;
 }
@@ -75,7 +75,7 @@ void DDF_Browser::Dump(Standard_OStream& S) const
 
 //=================================================================================================
 
-void DDF_Browser::Whatis(Draw_Interpretor& I) const
+void DDF_Browser::Whatis(DrawInterpreter& I) const
 {
   I << "Data Framework Browser";
 }
@@ -96,17 +96,17 @@ Handle(TDF_Data) DDF_Browser::Data() const
 
 //=================================================================================================
 
-TCollection_AsciiString DDF_Browser::OpenRoot() const
+AsciiString1 DDF_Browser::OpenRoot() const
 {
-  TCollection_AsciiString list;
-  const TDF_Label&        root = myDF->Root();
+  AsciiString1 list;
+  const DataLabel&        root = myDF->Root();
   TDF_Tool::Entry(root, list);
-  Handle(TDataStd_Name) name;
+  Handle(NameAttribute) name;
   list.AssignCat(TDF_BrowserSeparator2);
   list.AssignCat("\"");
-  if (root.FindAttribute(TDataStd_Name::GetID(), name))
+  if (root.FindAttribute(NameAttribute::GetID(), name))
   {
-    TCollection_AsciiString tmpStr(name->Get());
+    AsciiString1 tmpStr(name->Get());
     tmpStr.ChangeAll(' ', '_');
     list.AssignCat(tmpStr);
   }
@@ -131,10 +131,10 @@ TCollection_AsciiString DDF_Browser::OpenRoot() const
 // The items are separated by "\\".
 //=======================================================================
 
-TCollection_AsciiString DDF_Browser::OpenLabel(const TDF_Label& aLab) const
+AsciiString1 DDF_Browser::OpenLabel(const DataLabel& aLab) const
 {
   Standard_Boolean        split = Standard_False;
-  TCollection_AsciiString entry, list;
+  AsciiString1 entry, list;
   if (aLab.HasAttribute() || aLab.AttributesModified())
   {
     list.AssignCat("AttributeList");
@@ -144,7 +144,7 @@ TCollection_AsciiString DDF_Browser::OpenLabel(const TDF_Label& aLab) const
     list.AssignCat("Modified");
     split = Standard_True;
   }
-  Handle(TDataStd_Name) name;
+  Handle(NameAttribute) name;
   for (TDF_ChildIterator itr(aLab); itr.More(); itr.Next())
   {
     if (split)
@@ -153,9 +153,9 @@ TCollection_AsciiString DDF_Browser::OpenLabel(const TDF_Label& aLab) const
     list.AssignCat(entry);
     list.AssignCat(TDF_BrowserSeparator2);
     list.AssignCat("\"");
-    if (itr.Value().FindAttribute(TDataStd_Name::GetID(), name))
+    if (itr.Value().FindAttribute(NameAttribute::GetID(), name))
     {
-      TCollection_AsciiString tmpStr(name->Get());
+      AsciiString1 tmpStr(name->Get());
       tmpStr.ChangeAll(' ', '_');
       list.AssignCat(tmpStr);
     }
@@ -180,9 +180,9 @@ TCollection_AsciiString DDF_Browser::OpenLabel(const TDF_Label& aLab) const
 // Backuped|NotBackuped" The items are separated by "\\".
 //=======================================================================
 
-TCollection_AsciiString DDF_Browser::OpenAttributeList(const TDF_Label& aLab)
+AsciiString1 DDF_Browser::OpenAttributeList(const DataLabel& aLab)
 {
-  TCollection_AsciiString list;
+  AsciiString1 list;
   Standard_Boolean        split1 = Standard_False;
   for (TDF_AttributeIterator itr(aLab, Standard_False); itr.More(); itr.Next())
   {
@@ -190,7 +190,7 @@ TCollection_AsciiString DDF_Browser::OpenAttributeList(const TDF_Label& aLab)
       list.AssignCat(TDF_BrowserSeparator1);
     const Handle(TDF_Attribute)& att   = itr.Value();
     const Standard_Integer       index = myAttMap.Add(att);
-    TCollection_AsciiString      indexStr(index);
+    AsciiString1      indexStr(index);
     list.AssignCat(att->DynamicType()->Name());
     list.AssignCat(TDF_BrowserSeparator3);
     list.AssignCat(indexStr);
@@ -225,9 +225,9 @@ TCollection_AsciiString DDF_Browser::OpenAttributeList(const TDF_Label& aLab)
 // purpose  : Attribute's intrinsic information given by an attribute browser.
 //=======================================================================
 
-TCollection_AsciiString DDF_Browser::OpenAttribute(const Standard_Integer anIndex)
+AsciiString1 DDF_Browser::OpenAttribute(const Standard_Integer anIndex)
 {
-  TCollection_AsciiString list;
+  AsciiString1 list;
   Handle(TDF_Attribute)   att = myAttMap.FindKey(anIndex);
   DDF_AttributeBrowser*   br  = DDF_AttributeBrowser::FindBrowser(att);
   if (br)
@@ -240,9 +240,9 @@ TCollection_AsciiString DDF_Browser::OpenAttribute(const Standard_Integer anInde
 // purpose  : Information about <myDF>.
 //=======================================================================
 
-TCollection_AsciiString DDF_Browser::Information() const
+AsciiString1 DDF_Browser::Information() const
 {
-  TCollection_AsciiString list;
+  AsciiString1 list;
   return list;
 }
 
@@ -251,9 +251,9 @@ TCollection_AsciiString DDF_Browser::Information() const
 // purpose  : Information about a label.
 //=======================================================================
 
-TCollection_AsciiString DDF_Browser::Information(const TDF_Label& /*aLab*/) const
+AsciiString1 DDF_Browser::Information(const DataLabel& /*aLab*/) const
 {
-  TCollection_AsciiString list;
+  AsciiString1 list;
   return list;
 }
 
@@ -262,8 +262,8 @@ TCollection_AsciiString DDF_Browser::Information(const TDF_Label& /*aLab*/) cons
 // purpose  : Information about an attribute.
 //=======================================================================
 
-TCollection_AsciiString DDF_Browser::Information(const Standard_Integer /*anIndex*/) const
+AsciiString1 DDF_Browser::Information(const Standard_Integer /*anIndex*/) const
 {
-  TCollection_AsciiString list;
+  AsciiString1 list;
   return list;
 }

@@ -26,7 +26,7 @@ inline LocOpe_BuildShape::LocOpe_BuildShape() {}
 // purpose  :
 //=======================================================================
 
-inline LocOpe_BuildShape::LocOpe_BuildShape(const TopTools_ListOfShape& L)
+inline LocOpe_BuildShape::LocOpe_BuildShape(const ShapeList& L)
 {
   Perform(L);
 }
@@ -36,7 +36,7 @@ inline LocOpe_BuildShape::LocOpe_BuildShape(const TopTools_ListOfShape& L)
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& LocOpe_BuildShape::Shape() const
+inline const TopoShape& LocOpe_BuildShape::Shape() const
 {
   return myRes;
 }

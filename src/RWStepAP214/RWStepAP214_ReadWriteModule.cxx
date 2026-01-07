@@ -1617,893 +1617,893 @@ IMPLEMENT_STANDARD_RTTIEXT(RWStepAP214_ReadWriteModule, StepData_ReadWriteModule
 
 // -- General Declarations (Recognize, StepType) ---
 
-static TCollection_AsciiString PasReco("?");
-static TCollection_AsciiString Reco_Address("ADDRESS");
-static TCollection_AsciiString Reco_AdvancedBrepShapeRepresentation(
+static AsciiString1 PasReco("?");
+static AsciiString1 Reco_Address("ADDRESS");
+static AsciiString1 Reco_AdvancedBrepShapeRepresentation(
   "ADVANCED_BREP_SHAPE_REPRESENTATION");
-static TCollection_AsciiString Reco_AdvancedFace("ADVANCED_FACE");
-static TCollection_AsciiString Reco_AnnotationCurveOccurrence("ANNOTATION_CURVE_OCCURRENCE");
-static TCollection_AsciiString Reco_AnnotationFillArea("ANNOTATION_FILL_AREA");
-static TCollection_AsciiString Reco_AnnotationFillAreaOccurrence("ANNOTATION_FILL_AREA_OCCURRENCE");
-static TCollection_AsciiString Reco_AnnotationOccurrence("ANNOTATION_OCCURRENCE");
-static TCollection_AsciiString Reco_AnnotationSubfigureOccurrence(
+static AsciiString1 Reco_AdvancedFace("ADVANCED_FACE");
+static AsciiString1 Reco_AnnotationCurveOccurrence("ANNOTATION_CURVE_OCCURRENCE");
+static AsciiString1 Reco_AnnotationFillArea("ANNOTATION_FILL_AREA");
+static AsciiString1 Reco_AnnotationFillAreaOccurrence("ANNOTATION_FILL_AREA_OCCURRENCE");
+static AsciiString1 Reco_AnnotationOccurrence("ANNOTATION_OCCURRENCE");
+static AsciiString1 Reco_AnnotationSubfigureOccurrence(
   "ANNOTATION_SUBFIGURE_OCCURRENCE");
-static TCollection_AsciiString Reco_AnnotationSymbol("ANNOTATION_SYMBOL");
-static TCollection_AsciiString Reco_AnnotationSymbolOccurrence("ANNOTATION_SYMBOL_OCCURRENCE");
-static TCollection_AsciiString Reco_AnnotationText("ANNOTATION_TEXT");
-static TCollection_AsciiString Reco_AnnotationTextOccurrence("ANNOTATION_TEXT_OCCURRENCE");
-static TCollection_AsciiString Reco_ApplicationContext("APPLICATION_CONTEXT");
-static TCollection_AsciiString Reco_ApplicationContextElement("APPLICATION_CONTEXT_ELEMENT");
-static TCollection_AsciiString Reco_ApplicationProtocolDefinition(
+static AsciiString1 Reco_AnnotationSymbol("ANNOTATION_SYMBOL");
+static AsciiString1 Reco_AnnotationSymbolOccurrence("ANNOTATION_SYMBOL_OCCURRENCE");
+static AsciiString1 Reco_AnnotationText("ANNOTATION_TEXT");
+static AsciiString1 Reco_AnnotationTextOccurrence("ANNOTATION_TEXT_OCCURRENCE");
+static AsciiString1 Reco_ApplicationContext("APPLICATION_CONTEXT");
+static AsciiString1 Reco_ApplicationContextElement("APPLICATION_CONTEXT_ELEMENT");
+static AsciiString1 Reco_ApplicationProtocolDefinition(
   "APPLICATION_PROTOCOL_DEFINITION");
-static TCollection_AsciiString Reco_Approval("APPROVAL");
-static TCollection_AsciiString Reco_ApprovalAssignment("APPROVAL_ASSIGNMENT");
-static TCollection_AsciiString Reco_ApprovalPersonOrganization("APPROVAL_PERSON_ORGANIZATION");
-static TCollection_AsciiString Reco_ApprovalRelationship("APPROVAL_RELATIONSHIP");
-static TCollection_AsciiString Reco_ApprovalRole("APPROVAL_ROLE");
-static TCollection_AsciiString Reco_ApprovalStatus("APPROVAL_STATUS");
-static TCollection_AsciiString Reco_AreaInSet("AREA_IN_SET");
-static TCollection_AsciiString Reco_AutoDesignActualDateAndTimeAssignment(
+static AsciiString1 Reco_Approval("APPROVAL");
+static AsciiString1 Reco_ApprovalAssignment("APPROVAL_ASSIGNMENT");
+static AsciiString1 Reco_ApprovalPersonOrganization("APPROVAL_PERSON_ORGANIZATION");
+static AsciiString1 Reco_ApprovalRelationship("APPROVAL_RELATIONSHIP");
+static AsciiString1 Reco_ApprovalRole("APPROVAL_ROLE");
+static AsciiString1 Reco_ApprovalStatus("APPROVAL_STATUS");
+static AsciiString1 Reco_AreaInSet("AREA_IN_SET");
+static AsciiString1 Reco_AutoDesignActualDateAndTimeAssignment(
   "AUTO_DESIGN_ACTUAL_DATE_AND_TIME_ASSIGNMENT");
-static TCollection_AsciiString Reco_AutoDesignActualDateAssignment(
+static AsciiString1 Reco_AutoDesignActualDateAssignment(
   "AUTO_DESIGN_ACTUAL_DATE_ASSIGNMENT");
-static TCollection_AsciiString Reco_AutoDesignApprovalAssignment("AUTO_DESIGN_APPROVAL_ASSIGNMENT");
-static TCollection_AsciiString Reco_AutoDesignDateAndPersonAssignment(
+static AsciiString1 Reco_AutoDesignApprovalAssignment("AUTO_DESIGN_APPROVAL_ASSIGNMENT");
+static AsciiString1 Reco_AutoDesignDateAndPersonAssignment(
   "AUTO_DESIGN_DATE_AND_PERSON_ASSIGNMENT");
-static TCollection_AsciiString Reco_AutoDesignGroupAssignment("AUTO_DESIGN_GROUP_ASSIGNMENT");
-static TCollection_AsciiString Reco_AutoDesignNominalDateAndTimeAssignment(
+static AsciiString1 Reco_AutoDesignGroupAssignment("AUTO_DESIGN_GROUP_ASSIGNMENT");
+static AsciiString1 Reco_AutoDesignNominalDateAndTimeAssignment(
   "AUTO_DESIGN_NOMINAL_DATE_AND_TIME_ASSIGNMENT");
-static TCollection_AsciiString Reco_AutoDesignNominalDateAssignment(
+static AsciiString1 Reco_AutoDesignNominalDateAssignment(
   "AUTO_DESIGN_NOMINAL_DATE_ASSIGNMENT");
-static TCollection_AsciiString Reco_AutoDesignOrganizationAssignment(
+static AsciiString1 Reco_AutoDesignOrganizationAssignment(
   "AUTO_DESIGN_ORGANIZATION_ASSIGNMENT");
-static TCollection_AsciiString Reco_AutoDesignPersonAndOrganizationAssignment(
+static AsciiString1 Reco_AutoDesignPersonAndOrganizationAssignment(
   "AUTO_DESIGN_PERSON_AND_ORGANIZATION_ASSIGNMENT");
-static TCollection_AsciiString Reco_AutoDesignPresentedItem("AUTO_DESIGN_PRESENTED_ITEM");
-static TCollection_AsciiString Reco_AutoDesignSecurityClassificationAssignment(
+static AsciiString1 Reco_AutoDesignPresentedItem("AUTO_DESIGN_PRESENTED_ITEM");
+static AsciiString1 Reco_AutoDesignSecurityClassificationAssignment(
   "AUTO_DESIGN_SECURITY_CLASSIFICATION_ASSIGNMENT");
-static TCollection_AsciiString Reco_AutoDesignViewArea("AUTO_DESIGN_VIEW_AREA");
-static TCollection_AsciiString Reco_Axis1Placement("AXIS1_PLACEMENT");
-static TCollection_AsciiString Reco_Axis2Placement2d("AXIS2_PLACEMENT_2D");
-static TCollection_AsciiString Reco_Axis2Placement3d("AXIS2_PLACEMENT_3D");
-static TCollection_AsciiString Reco_BSplineCurve("B_SPLINE_CURVE");
-static TCollection_AsciiString Reco_BSplineCurveWithKnots("B_SPLINE_CURVE_WITH_KNOTS");
-static TCollection_AsciiString Reco_BSplineSurface("B_SPLINE_SURFACE");
-static TCollection_AsciiString Reco_BSplineSurfaceWithKnots("B_SPLINE_SURFACE_WITH_KNOTS");
-static TCollection_AsciiString Reco_BackgroundColour("BACKGROUND_COLOUR");
-static TCollection_AsciiString Reco_BezierCurve("BEZIER_CURVE");
-static TCollection_AsciiString Reco_BezierSurface("BEZIER_SURFACE");
-static TCollection_AsciiString Reco_Block("BLOCK");
-static TCollection_AsciiString Reco_BooleanResult("BOOLEAN_RESULT");
-static TCollection_AsciiString Reco_BoundaryCurve("BOUNDARY_CURVE");
-static TCollection_AsciiString Reco_BoundedCurve("BOUNDED_CURVE");
-static TCollection_AsciiString Reco_BoundedSurface("BOUNDED_SURFACE");
-static TCollection_AsciiString Reco_BoxDomain("BOX_DOMAIN");
-static TCollection_AsciiString Reco_BoxedHalfSpace("BOXED_HALF_SPACE");
-static TCollection_AsciiString Reco_BrepWithVoids("BREP_WITH_VOIDS");
-static TCollection_AsciiString Reco_CalendarDate("CALENDAR_DATE");
-static TCollection_AsciiString Reco_CameraImage("CAMERA_IMAGE");
-static TCollection_AsciiString Reco_CameraModel("CAMERA_MODEL");
-static TCollection_AsciiString Reco_CameraModelD2("CAMERA_MODEL_D2");
-static TCollection_AsciiString Reco_CameraModelD3("CAMERA_MODEL_D3");
-static TCollection_AsciiString Reco_CameraUsage("CAMERA_USAGE");
-static TCollection_AsciiString Reco_CartesianPoint("CARTESIAN_POINT");
-static TCollection_AsciiString Reco_CartesianTransformationOperator(
+static AsciiString1 Reco_AutoDesignViewArea("AUTO_DESIGN_VIEW_AREA");
+static AsciiString1 Reco_Axis1Placement("AXIS1_PLACEMENT");
+static AsciiString1 Reco_Axis2Placement2d("AXIS2_PLACEMENT_2D");
+static AsciiString1 Reco_Axis2Placement3d("AXIS2_PLACEMENT_3D");
+static AsciiString1 Reco_BSplineCurve("B_SPLINE_CURVE");
+static AsciiString1 Reco_BSplineCurveWithKnots("B_SPLINE_CURVE_WITH_KNOTS");
+static AsciiString1 Reco_BSplineSurface("B_SPLINE_SURFACE");
+static AsciiString1 Reco_BSplineSurfaceWithKnots("B_SPLINE_SURFACE_WITH_KNOTS");
+static AsciiString1 Reco_BackgroundColour("BACKGROUND_COLOUR");
+static AsciiString1 Reco_BezierCurve("BEZIER_CURVE");
+static AsciiString1 Reco_BezierSurface("BEZIER_SURFACE");
+static AsciiString1 Reco_Block("BLOCK");
+static AsciiString1 Reco_BooleanResult("BOOLEAN_RESULT");
+static AsciiString1 Reco_BoundaryCurve("BOUNDARY_CURVE");
+static AsciiString1 Reco_BoundedCurve("BOUNDED_CURVE");
+static AsciiString1 Reco_BoundedSurface("BOUNDED_SURFACE");
+static AsciiString1 Reco_BoxDomain("BOX_DOMAIN");
+static AsciiString1 Reco_BoxedHalfSpace("BOXED_HALF_SPACE");
+static AsciiString1 Reco_BrepWithVoids("BREP_WITH_VOIDS");
+static AsciiString1 Reco_CalendarDate("CALENDAR_DATE");
+static AsciiString1 Reco_CameraImage("CAMERA_IMAGE");
+static AsciiString1 Reco_CameraModel("CAMERA_MODEL");
+static AsciiString1 Reco_CameraModelD2("CAMERA_MODEL_D2");
+static AsciiString1 Reco_CameraModelD3("CAMERA_MODEL_D3");
+static AsciiString1 Reco_CameraUsage("CAMERA_USAGE");
+static AsciiString1 Reco_CartesianPoint("CARTESIAN_POINT");
+static AsciiString1 Reco_CartesianTransformationOperator(
   "CARTESIAN_TRANSFORMATION_OPERATOR");
-static TCollection_AsciiString Reco_CartesianTransformationOperator3d(
+static AsciiString1 Reco_CartesianTransformationOperator3d(
   "CARTESIAN_TRANSFORMATION_OPERATOR_3D");
-static TCollection_AsciiString Reco_Circle("CIRCLE");
-static TCollection_AsciiString Reco_ClosedShell("CLOSED_SHELL");
-static TCollection_AsciiString Reco_Colour("COLOUR");
-static TCollection_AsciiString Reco_ColourRgb("COLOUR_RGB");
-static TCollection_AsciiString Reco_ColourSpecification("COLOUR_SPECIFICATION");
-static TCollection_AsciiString Reco_CompositeCurve("COMPOSITE_CURVE");
-static TCollection_AsciiString Reco_CompositeCurveOnSurface("COMPOSITE_CURVE_ON_SURFACE");
-static TCollection_AsciiString Reco_CompositeCurveSegment("COMPOSITE_CURVE_SEGMENT");
-static TCollection_AsciiString Reco_CompositeText("COMPOSITE_TEXT");
-static TCollection_AsciiString Reco_CompositeTextWithAssociatedCurves(
+static AsciiString1 Reco_Circle("CIRCLE");
+static AsciiString1 Reco_ClosedShell("CLOSED_SHELL");
+static AsciiString1 Reco_Colour("COLOUR");
+static AsciiString1 Reco_ColourRgb("COLOUR_RGB");
+static AsciiString1 Reco_ColourSpecification("COLOUR_SPECIFICATION");
+static AsciiString1 Reco_CompositeCurve("COMPOSITE_CURVE");
+static AsciiString1 Reco_CompositeCurveOnSurface("COMPOSITE_CURVE_ON_SURFACE");
+static AsciiString1 Reco_CompositeCurveSegment("COMPOSITE_CURVE_SEGMENT");
+static AsciiString1 Reco_CompositeText("COMPOSITE_TEXT");
+static AsciiString1 Reco_CompositeTextWithAssociatedCurves(
   "COMPOSITE_TEXT_WITH_ASSOCIATED_CURVES");
-static TCollection_AsciiString Reco_CompositeTextWithBlankingBox(
+static AsciiString1 Reco_CompositeTextWithBlankingBox(
   "COMPOSITE_TEXT_WITH_BLANKING_BOX");
-static TCollection_AsciiString Reco_CompositeTextWithExtent("COMPOSITE_TEXT_WITH_EXTENT");
-static TCollection_AsciiString Reco_Conic("CONIC");
-static TCollection_AsciiString Reco_ConicalSurface("CONICAL_SURFACE");
-static TCollection_AsciiString Reco_ConnectedFaceSet("CONNECTED_FACE_SET");
-static TCollection_AsciiString Reco_ContextDependentInvisibility("CONTEXT_DEPENDENT_INVISIBILITY");
-static TCollection_AsciiString Reco_ContextDependentOverRidingStyledItem(
+static AsciiString1 Reco_CompositeTextWithExtent("COMPOSITE_TEXT_WITH_EXTENT");
+static AsciiString1 Reco_Conic("CONIC");
+static AsciiString1 Reco_ConicalSurface("CONICAL_SURFACE");
+static AsciiString1 Reco_ConnectedFaceSet("CONNECTED_FACE_SET");
+static AsciiString1 Reco_ContextDependentInvisibility("CONTEXT_DEPENDENT_INVISIBILITY");
+static AsciiString1 Reco_ContextDependentOverRidingStyledItem(
   "CONTEXT_DEPENDENT_OVER_RIDING_STYLED_ITEM");
-static TCollection_AsciiString Reco_ConversionBasedUnit("CONVERSION_BASED_UNIT");
-static TCollection_AsciiString Reco_CoordinatedUniversalTimeOffset(
+static AsciiString1 Reco_ConversionBasedUnit("CONVERSION_BASED_UNIT");
+static AsciiString1 Reco_CoordinatedUniversalTimeOffset(
   "COORDINATED_UNIVERSAL_TIME_OFFSET");
-static TCollection_AsciiString Reco_CsgRepresentation("CSG_REPRESENTATION");
-static TCollection_AsciiString Reco_CsgShapeRepresentation("CSG_SHAPE_REPRESENTATION");
-static TCollection_AsciiString Reco_CsgSolid("CSG_SOLID");
-static TCollection_AsciiString Reco_Curve("CURVE");
-static TCollection_AsciiString Reco_CurveBoundedSurface("CURVE_BOUNDED_SURFACE");
-static TCollection_AsciiString Reco_CurveReplica("CURVE_REPLICA");
-static TCollection_AsciiString Reco_CurveStyle("CURVE_STYLE");
-static TCollection_AsciiString Reco_CurveStyleFont("CURVE_STYLE_FONT");
-static TCollection_AsciiString Reco_CurveStyleFontPattern("CURVE_STYLE_FONT_PATTERN");
-static TCollection_AsciiString Reco_CylindricalSurface("CYLINDRICAL_SURFACE");
-static TCollection_AsciiString Reco_Date("DATE");
-static TCollection_AsciiString Reco_DateAndTime("DATE_AND_TIME");
-static TCollection_AsciiString Reco_DateAndTimeAssignment("DATE_AND_TIME_ASSIGNMENT");
-static TCollection_AsciiString Reco_DateAssignment("DATE_ASSIGNMENT");
-static TCollection_AsciiString Reco_DateRole("DATE_ROLE");
-static TCollection_AsciiString Reco_DateTimeRole("DATE_TIME_ROLE");
-static TCollection_AsciiString Reco_DefinedSymbol("DEFINED_SYMBOL");
-static TCollection_AsciiString Reco_DefinitionalRepresentation("DEFINITIONAL_REPRESENTATION");
-static TCollection_AsciiString Reco_DegeneratePcurve("DEGENERATE_PCURVE");
-static TCollection_AsciiString Reco_DegenerateToroidalSurface("DEGENERATE_TOROIDAL_SURFACE");
-static TCollection_AsciiString Reco_DescriptiveRepresentationItem(
+static AsciiString1 Reco_CsgRepresentation("CSG_REPRESENTATION");
+static AsciiString1 Reco_CsgShapeRepresentation("CSG_SHAPE_REPRESENTATION");
+static AsciiString1 Reco_CsgSolid("CSG_SOLID");
+static AsciiString1 Reco_Curve("CURVE");
+static AsciiString1 Reco_CurveBoundedSurface("CURVE_BOUNDED_SURFACE");
+static AsciiString1 Reco_CurveReplica("CURVE_REPLICA");
+static AsciiString1 Reco_CurveStyle("CURVE_STYLE");
+static AsciiString1 Reco_CurveStyleFont("CURVE_STYLE_FONT");
+static AsciiString1 Reco_CurveStyleFontPattern("CURVE_STYLE_FONT_PATTERN");
+static AsciiString1 Reco_CylindricalSurface("CYLINDRICAL_SURFACE");
+static AsciiString1 Reco_Date("DATE");
+static AsciiString1 Reco_DateAndTime("DATE_AND_TIME");
+static AsciiString1 Reco_DateAndTimeAssignment("DATE_AND_TIME_ASSIGNMENT");
+static AsciiString1 Reco_DateAssignment("DATE_ASSIGNMENT");
+static AsciiString1 Reco_DateRole("DATE_ROLE");
+static AsciiString1 Reco_DateTimeRole("DATE_TIME_ROLE");
+static AsciiString1 Reco_DefinedSymbol("DEFINED_SYMBOL");
+static AsciiString1 Reco_DefinitionalRepresentation("DEFINITIONAL_REPRESENTATION");
+static AsciiString1 Reco_DegeneratePcurve("DEGENERATE_PCURVE");
+static AsciiString1 Reco_DegenerateToroidalSurface("DEGENERATE_TOROIDAL_SURFACE");
+static AsciiString1 Reco_DescriptiveRepresentationItem(
   "DESCRIPTIVE_REPRESENTATION_ITEM");
-static TCollection_AsciiString Reco_DimensionCurve("DIMENSION_CURVE");
-static TCollection_AsciiString Reco_DimensionCurveTerminator("DIMENSION_CURVE_TERMINATOR");
-static TCollection_AsciiString Reco_DimensionalExponents("DIMENSIONAL_EXPONENTS");
-static TCollection_AsciiString Reco_Direction("DIRECTION");
-static TCollection_AsciiString Reco_DraughtingAnnotationOccurrence(
+static AsciiString1 Reco_DimensionCurve("DIMENSION_CURVE");
+static AsciiString1 Reco_DimensionCurveTerminator("DIMENSION_CURVE_TERMINATOR");
+static AsciiString1 Reco_DimensionalExponents("DIMENSIONAL_EXPONENTS");
+static AsciiString1 Reco_Direction("DIRECTION");
+static AsciiString1 Reco_DraughtingAnnotationOccurrence(
   "DRAUGHTING_ANNOTATION_OCCURRENCE");
-static TCollection_AsciiString Reco_DraughtingCallout("DRAUGHTING_CALLOUT");
-static TCollection_AsciiString Reco_DraughtingPreDefinedColour("DRAUGHTING_PRE_DEFINED_COLOUR");
-static TCollection_AsciiString Reco_DraughtingPreDefinedCurveFont(
+static AsciiString1 Reco_DraughtingCallout("DRAUGHTING_CALLOUT");
+static AsciiString1 Reco_DraughtingPreDefinedColour("DRAUGHTING_PRE_DEFINED_COLOUR");
+static AsciiString1 Reco_DraughtingPreDefinedCurveFont(
   "DRAUGHTING_PRE_DEFINED_CURVE_FONT");
-static TCollection_AsciiString Reco_DraughtingSubfigureRepresentation(
+static AsciiString1 Reco_DraughtingSubfigureRepresentation(
   "DRAUGHTING_SUBFIGURE_REPRESENTATION");
-static TCollection_AsciiString Reco_DraughtingSymbolRepresentation(
+static AsciiString1 Reco_DraughtingSymbolRepresentation(
   "DRAUGHTING_SYMBOL_REPRESENTATION");
-static TCollection_AsciiString Reco_DraughtingTextLiteralWithDelineation(
+static AsciiString1 Reco_DraughtingTextLiteralWithDelineation(
   "DRAUGHTING_TEXT_LITERAL_WITH_DELINEATION");
-static TCollection_AsciiString Reco_DrawingDefinition("DRAWING_DEFINITION");
-static TCollection_AsciiString Reco_DrawingRevision("DRAWING_REVISION");
-static TCollection_AsciiString Reco_Edge("EDGE");
-static TCollection_AsciiString Reco_EdgeCurve("EDGE_CURVE");
-static TCollection_AsciiString Reco_EdgeLoop("EDGE_LOOP");
-static TCollection_AsciiString Reco_ElementarySurface("ELEMENTARY_SURFACE");
-static TCollection_AsciiString Reco_Ellipse("ELLIPSE");
-static TCollection_AsciiString Reco_EvaluatedDegeneratePcurve("EVALUATED_DEGENERATE_PCURVE");
-static TCollection_AsciiString Reco_ExternalSource("EXTERNAL_SOURCE");
-static TCollection_AsciiString Reco_ExternallyDefinedCurveFont("EXTERNALLY_DEFINED_CURVE_FONT");
-static TCollection_AsciiString Reco_ExternallyDefinedHatchStyle("EXTERNALLY_DEFINED_HATCH_STYLE");
-static TCollection_AsciiString Reco_ExternallyDefinedItem("EXTERNALLY_DEFINED_ITEM");
-static TCollection_AsciiString Reco_ExternallyDefinedSymbol("EXTERNALLY_DEFINED_SYMBOL");
-static TCollection_AsciiString Reco_ExternallyDefinedTextFont("EXTERNALLY_DEFINED_TEXT_FONT");
-static TCollection_AsciiString Reco_ExternallyDefinedTileStyle("EXTERNALLY_DEFINED_TILE_STYLE");
-static TCollection_AsciiString Reco_ExtrudedAreaSolid("EXTRUDED_AREA_SOLID");
-static TCollection_AsciiString Reco_Face("FACE");
-static TCollection_AsciiString Reco_FaceBound("FACE_BOUND");
-static TCollection_AsciiString Reco_FaceOuterBound("FACE_OUTER_BOUND");
-static TCollection_AsciiString Reco_FaceSurface("FACE_SURFACE");
-static TCollection_AsciiString Reco_FacetedBrep("FACETED_BREP");
-static TCollection_AsciiString Reco_FacetedBrepShapeRepresentation(
+static AsciiString1 Reco_DrawingDefinition("DRAWING_DEFINITION");
+static AsciiString1 Reco_DrawingRevision("DRAWING_REVISION");
+static AsciiString1 Reco_Edge("EDGE");
+static AsciiString1 Reco_EdgeCurve("EDGE_CURVE");
+static AsciiString1 Reco_EdgeLoop("EDGE_LOOP");
+static AsciiString1 Reco_ElementarySurface("ELEMENTARY_SURFACE");
+static AsciiString1 Reco_Ellipse("ELLIPSE");
+static AsciiString1 Reco_EvaluatedDegeneratePcurve("EVALUATED_DEGENERATE_PCURVE");
+static AsciiString1 Reco_ExternalSource("EXTERNAL_SOURCE");
+static AsciiString1 Reco_ExternallyDefinedCurveFont("EXTERNALLY_DEFINED_CURVE_FONT");
+static AsciiString1 Reco_ExternallyDefinedHatchStyle("EXTERNALLY_DEFINED_HATCH_STYLE");
+static AsciiString1 Reco_ExternallyDefinedItem("EXTERNALLY_DEFINED_ITEM");
+static AsciiString1 Reco_ExternallyDefinedSymbol("EXTERNALLY_DEFINED_SYMBOL");
+static AsciiString1 Reco_ExternallyDefinedTextFont("EXTERNALLY_DEFINED_TEXT_FONT");
+static AsciiString1 Reco_ExternallyDefinedTileStyle("EXTERNALLY_DEFINED_TILE_STYLE");
+static AsciiString1 Reco_ExtrudedAreaSolid("EXTRUDED_AREA_SOLID");
+static AsciiString1 Reco_Face("FACE");
+static AsciiString1 Reco_FaceBound("FACE_BOUND");
+static AsciiString1 Reco_FaceOuterBound("FACE_OUTER_BOUND");
+static AsciiString1 Reco_FaceSurface("FACE_SURFACE");
+static AsciiString1 Reco_FacetedBrep("FACETED_BREP");
+static AsciiString1 Reco_FacetedBrepShapeRepresentation(
   "FACETED_BREP_SHAPE_REPRESENTATION");
-static TCollection_AsciiString Reco_FillAreaStyle("FILL_AREA_STYLE");
-static TCollection_AsciiString Reco_FillAreaStyleColour("FILL_AREA_STYLE_COLOUR");
-static TCollection_AsciiString Reco_FillAreaStyleHatching("FILL_AREA_STYLE_HATCHING");
-static TCollection_AsciiString Reco_FillAreaStyleTileSymbolWithStyle(
+static AsciiString1 Reco_FillAreaStyle("FILL_AREA_STYLE");
+static AsciiString1 Reco_FillAreaStyleColour("FILL_AREA_STYLE_COLOUR");
+static AsciiString1 Reco_FillAreaStyleHatching("FILL_AREA_STYLE_HATCHING");
+static AsciiString1 Reco_FillAreaStyleTileSymbolWithStyle(
   "FILL_AREA_STYLE_TILE_SYMBOL_WITH_STYLE");
-static TCollection_AsciiString Reco_FillAreaStyleTiles("FILL_AREA_STYLE_TILES");
-static TCollection_AsciiString Reco_FunctionallyDefinedTransformation(
+static AsciiString1 Reco_FillAreaStyleTiles("FILL_AREA_STYLE_TILES");
+static AsciiString1 Reco_FunctionallyDefinedTransformation(
   "FUNCTIONALLY_DEFINED_TRANSFORMATION");
-static TCollection_AsciiString Reco_GeometricCurveSet("GEOMETRIC_CURVE_SET");
-static TCollection_AsciiString Reco_GeometricRepresentationContext(
+static AsciiString1 Reco_GeometricCurveSet("GEOMETRIC_CURVE_SET");
+static AsciiString1 Reco_GeometricRepresentationContext(
   "GEOMETRIC_REPRESENTATION_CONTEXT");
-static TCollection_AsciiString Reco_GeometricRepresentationItem("GEOMETRIC_REPRESENTATION_ITEM");
-static TCollection_AsciiString Reco_GeometricSet("GEOMETRIC_SET");
-static TCollection_AsciiString Reco_GeometricallyBoundedSurfaceShapeRepresentation(
+static AsciiString1 Reco_GeometricRepresentationItem("GEOMETRIC_REPRESENTATION_ITEM");
+static AsciiString1 Reco_GeometricSet("GEOMETRIC_SET");
+static AsciiString1 Reco_GeometricallyBoundedSurfaceShapeRepresentation(
   "GEOMETRICALLY_BOUNDED_SURFACE_SHAPE_REPRESENTATION");
-static TCollection_AsciiString Reco_GeometricallyBoundedWireframeShapeRepresentation(
+static AsciiString1 Reco_GeometricallyBoundedWireframeShapeRepresentation(
   "GEOMETRICALLY_BOUNDED_WIREFRAME_SHAPE_REPRESENTATION");
-static TCollection_AsciiString Reco_GlobalUncertaintyAssignedContext(
+static AsciiString1 Reco_GlobalUncertaintyAssignedContext(
   "GLOBAL_UNCERTAINTY_ASSIGNED_CONTEXT");
-static TCollection_AsciiString Reco_GlobalUnitAssignedContext("GLOBAL_UNIT_ASSIGNED_CONTEXT");
-static TCollection_AsciiString Reco_Group("GROUP");
-static TCollection_AsciiString Reco_GroupAssignment("GROUP_ASSIGNMENT");
-static TCollection_AsciiString Reco_GroupRelationship("GROUP_RELATIONSHIP");
-static TCollection_AsciiString Reco_HalfSpaceSolid("HALF_SPACE_SOLID");
-static TCollection_AsciiString Reco_Hyperbola("HYPERBOLA");
-static TCollection_AsciiString Reco_IntersectionCurve("INTERSECTION_CURVE");
-static TCollection_AsciiString Reco_Invisibility("INVISIBILITY");
-static TCollection_AsciiString Reco_LengthMeasureWithUnit("LENGTH_MEASURE_WITH_UNIT");
-static TCollection_AsciiString Reco_LengthUnit("LENGTH_UNIT");
-static TCollection_AsciiString Reco_Line("LINE");
-static TCollection_AsciiString Reco_LocalTime("LOCAL_TIME");
-static TCollection_AsciiString Reco_Loop("LOOP");
-static TCollection_AsciiString Reco_ManifoldSolidBrep("MANIFOLD_SOLID_BREP");
-static TCollection_AsciiString Reco_ManifoldSurfaceShapeRepresentation(
+static AsciiString1 Reco_GlobalUnitAssignedContext("GLOBAL_UNIT_ASSIGNED_CONTEXT");
+static AsciiString1 Reco_Group("GROUP");
+static AsciiString1 Reco_GroupAssignment("GROUP_ASSIGNMENT");
+static AsciiString1 Reco_GroupRelationship("GROUP_RELATIONSHIP");
+static AsciiString1 Reco_HalfSpaceSolid("HALF_SPACE_SOLID");
+static AsciiString1 Reco_Hyperbola("HYPERBOLA");
+static AsciiString1 Reco_IntersectionCurve("INTERSECTION_CURVE");
+static AsciiString1 Reco_Invisibility("INVISIBILITY");
+static AsciiString1 Reco_LengthMeasureWithUnit("LENGTH_MEASURE_WITH_UNIT");
+static AsciiString1 Reco_LengthUnit("LENGTH_UNIT");
+static AsciiString1 Reco_Line("LINE");
+static AsciiString1 Reco_LocalTime("LOCAL_TIME");
+static AsciiString1 Reco_Loop("LOOP");
+static AsciiString1 Reco_ManifoldSolidBrep("MANIFOLD_SOLID_BREP");
+static AsciiString1 Reco_ManifoldSurfaceShapeRepresentation(
   "MANIFOLD_SURFACE_SHAPE_REPRESENTATION");
-static TCollection_AsciiString Reco_MappedItem("MAPPED_ITEM");
-static TCollection_AsciiString Reco_MeasureWithUnit("MEASURE_WITH_UNIT");
-static TCollection_AsciiString Reco_MechanicalDesignGeometricPresentationArea(
+static AsciiString1 Reco_MappedItem("MAPPED_ITEM");
+static AsciiString1 Reco_MeasureWithUnit("MEASURE_WITH_UNIT");
+static AsciiString1 Reco_MechanicalDesignGeometricPresentationArea(
   "MECHANICAL_DESIGN_GEOMETRIC_PRESENTATION_AREA");
-static TCollection_AsciiString Reco_MechanicalDesignGeometricPresentationRepresentation(
+static AsciiString1 Reco_MechanicalDesignGeometricPresentationRepresentation(
   "MECHANICAL_DESIGN_GEOMETRIC_PRESENTATION_REPRESENTATION");
-static TCollection_AsciiString Reco_MechanicalDesignPresentationArea(
+static AsciiString1 Reco_MechanicalDesignPresentationArea(
   "MECHANICAL_DESIGN_PRESENTATION_AREA");
-static TCollection_AsciiString Reco_NamedUnit("NAMED_UNIT");
-static TCollection_AsciiString Reco_OffsetCurve3d("OFFSET_CURVE_3D");
-static TCollection_AsciiString Reco_OffsetSurface("OFFSET_SURFACE");
-static TCollection_AsciiString Reco_OneDirectionRepeatFactor("ONE_DIRECTION_REPEAT_FACTOR");
-static TCollection_AsciiString Reco_OpenShell("OPEN_SHELL");
-static TCollection_AsciiString Reco_OrdinalDate("ORDINAL_DATE");
-static TCollection_AsciiString Reco_Organization("ORGANIZATION");
-static TCollection_AsciiString Reco_OrganizationAssignment("ORGANIZATION_ASSIGNMENT");
-static TCollection_AsciiString Reco_OrganizationRole("ORGANIZATION_ROLE");
-static TCollection_AsciiString Reco_OrganizationalAddress("ORGANIZATIONAL_ADDRESS");
-static TCollection_AsciiString Reco_OrientedClosedShell("ORIENTED_CLOSED_SHELL");
-static TCollection_AsciiString Reco_OrientedEdge("ORIENTED_EDGE");
-static TCollection_AsciiString Reco_OrientedFace("ORIENTED_FACE");
-static TCollection_AsciiString Reco_OrientedOpenShell("ORIENTED_OPEN_SHELL");
-static TCollection_AsciiString Reco_OrientedPath("ORIENTED_PATH");
-static TCollection_AsciiString Reco_OuterBoundaryCurve("OUTER_BOUNDARY_CURVE");
-static TCollection_AsciiString Reco_OverRidingStyledItem("OVER_RIDING_STYLED_ITEM");
-static TCollection_AsciiString Reco_Parabola("PARABOLA");
-static TCollection_AsciiString Reco_ParametricRepresentationContext(
+static AsciiString1 Reco_NamedUnit("NAMED_UNIT");
+static AsciiString1 Reco_OffsetCurve3d("OFFSET_CURVE_3D");
+static AsciiString1 Reco_OffsetSurface("OFFSET_SURFACE");
+static AsciiString1 Reco_OneDirectionRepeatFactor("ONE_DIRECTION_REPEAT_FACTOR");
+static AsciiString1 Reco_OpenShell("OPEN_SHELL");
+static AsciiString1 Reco_OrdinalDate("ORDINAL_DATE");
+static AsciiString1 Reco_Organization("ORGANIZATION");
+static AsciiString1 Reco_OrganizationAssignment("ORGANIZATION_ASSIGNMENT");
+static AsciiString1 Reco_OrganizationRole("ORGANIZATION_ROLE");
+static AsciiString1 Reco_OrganizationalAddress("ORGANIZATIONAL_ADDRESS");
+static AsciiString1 Reco_OrientedClosedShell("ORIENTED_CLOSED_SHELL");
+static AsciiString1 Reco_OrientedEdge("ORIENTED_EDGE");
+static AsciiString1 Reco_OrientedFace("ORIENTED_FACE");
+static AsciiString1 Reco_OrientedOpenShell("ORIENTED_OPEN_SHELL");
+static AsciiString1 Reco_OrientedPath("ORIENTED_PATH");
+static AsciiString1 Reco_OuterBoundaryCurve("OUTER_BOUNDARY_CURVE");
+static AsciiString1 Reco_OverRidingStyledItem("OVER_RIDING_STYLED_ITEM");
+static AsciiString1 Reco_Parabola("PARABOLA");
+static AsciiString1 Reco_ParametricRepresentationContext(
   "PARAMETRIC_REPRESENTATION_CONTEXT");
-static TCollection_AsciiString Reco_Path("PATH");
-static TCollection_AsciiString Reco_Pcurve("PCURVE");
-static TCollection_AsciiString Reco_Person("PERSON");
-static TCollection_AsciiString Reco_PersonAndOrganization("PERSON_AND_ORGANIZATION");
-static TCollection_AsciiString Reco_PersonAndOrganizationAssignment(
+static AsciiString1 Reco_Path("PATH");
+static AsciiString1 Reco_Pcurve("PCURVE");
+static AsciiString1 Reco_Person("PERSON");
+static AsciiString1 Reco_PersonAndOrganization("PERSON_AND_ORGANIZATION");
+static AsciiString1 Reco_PersonAndOrganizationAssignment(
   "PERSON_AND_ORGANIZATION_ASSIGNMENT");
-static TCollection_AsciiString Reco_PersonAndOrganizationRole("PERSON_AND_ORGANIZATION_ROLE");
-static TCollection_AsciiString Reco_PersonalAddress("PERSONAL_ADDRESS");
-static TCollection_AsciiString Reco_Placement("PLACEMENT");
-static TCollection_AsciiString Reco_PlanarBox("PLANAR_BOX");
-static TCollection_AsciiString Reco_PlanarExtent("PLANAR_EXTENT");
-static TCollection_AsciiString Reco_Plane("PLANE");
-static TCollection_AsciiString Reco_PlaneAngleMeasureWithUnit("PLANE_ANGLE_MEASURE_WITH_UNIT");
-static TCollection_AsciiString Reco_PlaneAngleUnit("PLANE_ANGLE_UNIT");
-static TCollection_AsciiString Reco_Point("POINT");
-static TCollection_AsciiString Reco_PointOnCurve("POINT_ON_CURVE");
-static TCollection_AsciiString Reco_PointOnSurface("POINT_ON_SURFACE");
-static TCollection_AsciiString Reco_PointReplica("POINT_REPLICA");
-static TCollection_AsciiString Reco_PointStyle("POINT_STYLE");
-static TCollection_AsciiString Reco_PolyLoop("POLY_LOOP");
-static TCollection_AsciiString Reco_Polyline("POLYLINE");
-static TCollection_AsciiString Reco_PreDefinedColour("PRE_DEFINED_COLOUR");
-static TCollection_AsciiString Reco_PreDefinedCurveFont("PRE_DEFINED_CURVE_FONT");
-static TCollection_AsciiString Reco_PreDefinedItem("PRE_DEFINED_ITEM");
-static TCollection_AsciiString Reco_PreDefinedSymbol("PRE_DEFINED_SYMBOL");
-static TCollection_AsciiString Reco_PreDefinedTextFont("PRE_DEFINED_TEXT_FONT");
-static TCollection_AsciiString Reco_PresentationArea("PRESENTATION_AREA");
-static TCollection_AsciiString Reco_PresentationLayerAssignment("PRESENTATION_LAYER_ASSIGNMENT");
-static TCollection_AsciiString Reco_PresentationRepresentation("PRESENTATION_REPRESENTATION");
-static TCollection_AsciiString Reco_PresentationSet("PRESENTATION_SET");
-static TCollection_AsciiString Reco_PresentationSize("PRESENTATION_SIZE");
-static TCollection_AsciiString Reco_PresentationStyleAssignment("PRESENTATION_STYLE_ASSIGNMENT");
-static TCollection_AsciiString Reco_PresentationStyleByContext("PRESENTATION_STYLE_BY_CONTEXT");
-static TCollection_AsciiString Reco_PresentationView("PRESENTATION_VIEW");
-static TCollection_AsciiString Reco_PresentedItem("PRESENTED_ITEM");
-static TCollection_AsciiString Reco_Product("PRODUCT");
-static TCollection_AsciiString Reco_ProductCategory("PRODUCT_CATEGORY");
-static TCollection_AsciiString Reco_ProductContext("PRODUCT_CONTEXT");
-static TCollection_AsciiString Reco_ProductDataRepresentationView(
+static AsciiString1 Reco_PersonAndOrganizationRole("PERSON_AND_ORGANIZATION_ROLE");
+static AsciiString1 Reco_PersonalAddress("PERSONAL_ADDRESS");
+static AsciiString1 Reco_Placement("PLACEMENT");
+static AsciiString1 Reco_PlanarBox("PLANAR_BOX");
+static AsciiString1 Reco_PlanarExtent("PLANAR_EXTENT");
+static AsciiString1 Reco_Plane("PLANE");
+static AsciiString1 Reco_PlaneAngleMeasureWithUnit("PLANE_ANGLE_MEASURE_WITH_UNIT");
+static AsciiString1 Reco_PlaneAngleUnit("PLANE_ANGLE_UNIT");
+static AsciiString1 Reco_Point("POINT");
+static AsciiString1 Reco_PointOnCurve("POINT_ON_CURVE");
+static AsciiString1 Reco_PointOnSurface("POINT_ON_SURFACE");
+static AsciiString1 Reco_PointReplica("POINT_REPLICA");
+static AsciiString1 Reco_PointStyle("POINT_STYLE");
+static AsciiString1 Reco_PolyLoop("POLY_LOOP");
+static AsciiString1 Reco_Polyline("POLYLINE");
+static AsciiString1 Reco_PreDefinedColour("PRE_DEFINED_COLOUR");
+static AsciiString1 Reco_PreDefinedCurveFont("PRE_DEFINED_CURVE_FONT");
+static AsciiString1 Reco_PreDefinedItem("PRE_DEFINED_ITEM");
+static AsciiString1 Reco_PreDefinedSymbol("PRE_DEFINED_SYMBOL");
+static AsciiString1 Reco_PreDefinedTextFont("PRE_DEFINED_TEXT_FONT");
+static AsciiString1 Reco_PresentationArea("PRESENTATION_AREA");
+static AsciiString1 Reco_PresentationLayerAssignment("PRESENTATION_LAYER_ASSIGNMENT");
+static AsciiString1 Reco_PresentationRepresentation("PRESENTATION_REPRESENTATION");
+static AsciiString1 Reco_PresentationSet("PRESENTATION_SET");
+static AsciiString1 Reco_PresentationSize("PRESENTATION_SIZE");
+static AsciiString1 Reco_PresentationStyleAssignment("PRESENTATION_STYLE_ASSIGNMENT");
+static AsciiString1 Reco_PresentationStyleByContext("PRESENTATION_STYLE_BY_CONTEXT");
+static AsciiString1 Reco_PresentationView("PRESENTATION_VIEW");
+static AsciiString1 Reco_PresentedItem("PRESENTED_ITEM");
+static AsciiString1 Reco_Product("PRODUCT");
+static AsciiString1 Reco_ProductCategory("PRODUCT_CATEGORY");
+static AsciiString1 Reco_ProductContext("PRODUCT_CONTEXT");
+static AsciiString1 Reco_ProductDataRepresentationView(
   "PRODUCT_DATA_REPRESENTATION_VIEW");
-static TCollection_AsciiString Reco_ProductDefinition("PRODUCT_DEFINITION");
-static TCollection_AsciiString Reco_ProductDefinitionContext("PRODUCT_DEFINITION_CONTEXT");
-static TCollection_AsciiString Reco_ProductDefinitionFormation("PRODUCT_DEFINITION_FORMATION");
-static TCollection_AsciiString Reco_ProductDefinitionFormationWithSpecifiedSource(
+static AsciiString1 Reco_ProductDefinition("PRODUCT_DEFINITION");
+static AsciiString1 Reco_ProductDefinitionContext("PRODUCT_DEFINITION_CONTEXT");
+static AsciiString1 Reco_ProductDefinitionFormation("PRODUCT_DEFINITION_FORMATION");
+static AsciiString1 Reco_ProductDefinitionFormationWithSpecifiedSource(
   "PRODUCT_DEFINITION_FORMATION_WITH_SPECIFIED_SOURCE");
-static TCollection_AsciiString Reco_ProductDefinitionShape("PRODUCT_DEFINITION_SHAPE");
-static TCollection_AsciiString Reco_ProductRelatedProductCategory(
+static AsciiString1 Reco_ProductDefinitionShape("PRODUCT_DEFINITION_SHAPE");
+static AsciiString1 Reco_ProductRelatedProductCategory(
   "PRODUCT_RELATED_PRODUCT_CATEGORY");
-static TCollection_AsciiString Reco_ProductType("PRODUCT_TYPE");
-static TCollection_AsciiString Reco_PropertyDefinition("PROPERTY_DEFINITION");
-static TCollection_AsciiString Reco_PropertyDefinitionRepresentation(
+static AsciiString1 Reco_ProductType("PRODUCT_TYPE");
+static AsciiString1 Reco_PropertyDefinition("PROPERTY_DEFINITION");
+static AsciiString1 Reco_PropertyDefinitionRepresentation(
   "PROPERTY_DEFINITION_REPRESENTATION");
-static TCollection_AsciiString Reco_QuasiUniformCurve("QUASI_UNIFORM_CURVE");
-static TCollection_AsciiString Reco_QuasiUniformSurface("QUASI_UNIFORM_SURFACE");
-static TCollection_AsciiString Reco_RatioMeasureWithUnit("RATIO_MEASURE_WITH_UNIT");
-static TCollection_AsciiString Reco_RationalBSplineCurve("RATIONAL_B_SPLINE_CURVE");
-static TCollection_AsciiString Reco_RationalBSplineSurface("RATIONAL_B_SPLINE_SURFACE");
-static TCollection_AsciiString Reco_RectangularCompositeSurface("RECTANGULAR_COMPOSITE_SURFACE");
-static TCollection_AsciiString Reco_RectangularTrimmedSurface("RECTANGULAR_TRIMMED_SURFACE");
-static TCollection_AsciiString Reco_RepItemGroup("REP_ITEM_GROUP");
-static TCollection_AsciiString Reco_ReparametrisedCompositeCurveSegment(
+static AsciiString1 Reco_QuasiUniformCurve("QUASI_UNIFORM_CURVE");
+static AsciiString1 Reco_QuasiUniformSurface("QUASI_UNIFORM_SURFACE");
+static AsciiString1 Reco_RatioMeasureWithUnit("RATIO_MEASURE_WITH_UNIT");
+static AsciiString1 Reco_RationalBSplineCurve("RATIONAL_B_SPLINE_CURVE");
+static AsciiString1 Reco_RationalBSplineSurface("RATIONAL_B_SPLINE_SURFACE");
+static AsciiString1 Reco_RectangularCompositeSurface("RECTANGULAR_COMPOSITE_SURFACE");
+static AsciiString1 Reco_RectangularTrimmedSurface("RECTANGULAR_TRIMMED_SURFACE");
+static AsciiString1 Reco_RepItemGroup("REP_ITEM_GROUP");
+static AsciiString1 Reco_ReparametrisedCompositeCurveSegment(
   "REPARAMETRISED_COMPOSITE_CURVE_SEGMENT");
-static TCollection_AsciiString Reco_Representation("REPRESENTATION");
-static TCollection_AsciiString Reco_RepresentationContext("REPRESENTATION_CONTEXT");
-static TCollection_AsciiString Reco_RepresentationItem("REPRESENTATION_ITEM");
-static TCollection_AsciiString Reco_RepresentationMap("REPRESENTATION_MAP");
-static TCollection_AsciiString Reco_RepresentationRelationship("REPRESENTATION_RELATIONSHIP");
-static TCollection_AsciiString Reco_RevolvedAreaSolid("REVOLVED_AREA_SOLID");
-static TCollection_AsciiString Reco_RightAngularWedge("RIGHT_ANGULAR_WEDGE");
-static TCollection_AsciiString Reco_RightCircularCone("RIGHT_CIRCULAR_CONE");
-static TCollection_AsciiString Reco_RightCircularCylinder("RIGHT_CIRCULAR_CYLINDER");
-static TCollection_AsciiString Reco_SeamCurve("SEAM_CURVE");
-static TCollection_AsciiString Reco_SecurityClassification("SECURITY_CLASSIFICATION");
-static TCollection_AsciiString Reco_SecurityClassificationAssignment(
+static AsciiString1 Reco_Representation("REPRESENTATION");
+static AsciiString1 Reco_RepresentationContext("REPRESENTATION_CONTEXT");
+static AsciiString1 Reco_RepresentationItem("REPRESENTATION_ITEM");
+static AsciiString1 Reco_RepresentationMap("REPRESENTATION_MAP");
+static AsciiString1 Reco_RepresentationRelationship("REPRESENTATION_RELATIONSHIP");
+static AsciiString1 Reco_RevolvedAreaSolid("REVOLVED_AREA_SOLID");
+static AsciiString1 Reco_RightAngularWedge("RIGHT_ANGULAR_WEDGE");
+static AsciiString1 Reco_RightCircularCone("RIGHT_CIRCULAR_CONE");
+static AsciiString1 Reco_RightCircularCylinder("RIGHT_CIRCULAR_CYLINDER");
+static AsciiString1 Reco_SeamCurve("SEAM_CURVE");
+static AsciiString1 Reco_SecurityClassification("SECURITY_CLASSIFICATION");
+static AsciiString1 Reco_SecurityClassificationAssignment(
   "SECURITY_CLASSIFICATION_ASSIGNMENT");
-static TCollection_AsciiString Reco_SecurityClassificationLevel("SECURITY_CLASSIFICATION_LEVEL");
-static TCollection_AsciiString Reco_ShapeAspect("SHAPE_ASPECT");
-static TCollection_AsciiString Reco_ShapeAspectRelationship("SHAPE_ASPECT_RELATIONSHIP");
-static TCollection_AsciiString Reco_ShapeAspectTransition("SHAPE_ASPECT_TRANSITION");
-static TCollection_AsciiString Reco_ShapeDefinitionRepresentation(
+static AsciiString1 Reco_SecurityClassificationLevel("SECURITY_CLASSIFICATION_LEVEL");
+static AsciiString1 Reco_ShapeAspect("SHAPE_ASPECT");
+static AsciiString1 Reco_ShapeAspectRelationship("SHAPE_ASPECT_RELATIONSHIP");
+static AsciiString1 Reco_ShapeAspectTransition("SHAPE_ASPECT_TRANSITION");
+static AsciiString1 Reco_ShapeDefinitionRepresentation(
   "SHAPE_DEFINITION_REPRESENTATION");
-static TCollection_AsciiString Reco_ShapeRepresentation("SHAPE_REPRESENTATION");
-static TCollection_AsciiString Reco_ShellBasedSurfaceModel("SHELL_BASED_SURFACE_MODEL");
-static TCollection_AsciiString Reco_SiUnit("SI_UNIT");
-static TCollection_AsciiString Reco_SolidAngleMeasureWithUnit("SOLID_ANGLE_MEASURE_WITH_UNIT");
-static TCollection_AsciiString Reco_SolidModel("SOLID_MODEL");
-static TCollection_AsciiString Reco_SolidReplica("SOLID_REPLICA");
-static TCollection_AsciiString Reco_Sphere("SPHERE");
-static TCollection_AsciiString Reco_SphericalSurface("SPHERICAL_SURFACE");
-static TCollection_AsciiString Reco_StyledItem("STYLED_ITEM");
-static TCollection_AsciiString Reco_Surface("SURFACE");
-static TCollection_AsciiString Reco_SurfaceCurve("SURFACE_CURVE");
-static TCollection_AsciiString Reco_SurfaceOfLinearExtrusion("SURFACE_OF_LINEAR_EXTRUSION");
-static TCollection_AsciiString Reco_SurfaceOfRevolution("SURFACE_OF_REVOLUTION");
-static TCollection_AsciiString Reco_SurfacePatch("SURFACE_PATCH");
-static TCollection_AsciiString Reco_SurfaceReplica("SURFACE_REPLICA");
-static TCollection_AsciiString Reco_SurfaceSideStyle("SURFACE_SIDE_STYLE");
-static TCollection_AsciiString Reco_SurfaceStyleBoundary("SURFACE_STYLE_BOUNDARY");
-static TCollection_AsciiString Reco_SurfaceStyleControlGrid("SURFACE_STYLE_CONTROL_GRID");
-static TCollection_AsciiString Reco_SurfaceStyleFillArea("SURFACE_STYLE_FILL_AREA");
-static TCollection_AsciiString Reco_SurfaceStyleParameterLine("SURFACE_STYLE_PARAMETER_LINE");
-static TCollection_AsciiString Reco_SurfaceStyleSegmentationCurve(
+static AsciiString1 Reco_ShapeRepresentation("SHAPE_REPRESENTATION");
+static AsciiString1 Reco_ShellBasedSurfaceModel("SHELL_BASED_SURFACE_MODEL");
+static AsciiString1 Reco_SiUnit("SI_UNIT");
+static AsciiString1 Reco_SolidAngleMeasureWithUnit("SOLID_ANGLE_MEASURE_WITH_UNIT");
+static AsciiString1 Reco_SolidModel("SOLID_MODEL");
+static AsciiString1 Reco_SolidReplica("SOLID_REPLICA");
+static AsciiString1 Reco_Sphere("SPHERE");
+static AsciiString1 Reco_SphericalSurface("SPHERICAL_SURFACE");
+static AsciiString1 Reco_StyledItem("STYLED_ITEM");
+static AsciiString1 Reco_Surface("SURFACE");
+static AsciiString1 Reco_SurfaceCurve("SURFACE_CURVE");
+static AsciiString1 Reco_SurfaceOfLinearExtrusion("SURFACE_OF_LINEAR_EXTRUSION");
+static AsciiString1 Reco_SurfaceOfRevolution("SURFACE_OF_REVOLUTION");
+static AsciiString1 Reco_SurfacePatch("SURFACE_PATCH");
+static AsciiString1 Reco_SurfaceReplica("SURFACE_REPLICA");
+static AsciiString1 Reco_SurfaceSideStyle("SURFACE_SIDE_STYLE");
+static AsciiString1 Reco_SurfaceStyleBoundary("SURFACE_STYLE_BOUNDARY");
+static AsciiString1 Reco_SurfaceStyleControlGrid("SURFACE_STYLE_CONTROL_GRID");
+static AsciiString1 Reco_SurfaceStyleFillArea("SURFACE_STYLE_FILL_AREA");
+static AsciiString1 Reco_SurfaceStyleParameterLine("SURFACE_STYLE_PARAMETER_LINE");
+static AsciiString1 Reco_SurfaceStyleSegmentationCurve(
   "SURFACE_STYLE_SEGMENTATION_CURVE");
-static TCollection_AsciiString Reco_SurfaceStyleSilhouette("SURFACE_STYLE_SILHOUETTE");
-static TCollection_AsciiString Reco_SurfaceStyleUsage("SURFACE_STYLE_USAGE");
-static TCollection_AsciiString Reco_SweptAreaSolid("SWEPT_AREA_SOLID");
-static TCollection_AsciiString Reco_SweptSurface("SWEPT_SURFACE");
-static TCollection_AsciiString Reco_SymbolColour("SYMBOL_COLOUR");
-static TCollection_AsciiString Reco_SymbolRepresentation("SYMBOL_REPRESENTATION");
-static TCollection_AsciiString Reco_SymbolRepresentationMap("SYMBOL_REPRESENTATION_MAP");
-static TCollection_AsciiString Reco_SymbolStyle("SYMBOL_STYLE");
-static TCollection_AsciiString Reco_SymbolTarget("SYMBOL_TARGET");
-static TCollection_AsciiString Reco_Template("TEMPLATE");
-static TCollection_AsciiString Reco_TemplateInstance("TEMPLATE_INSTANCE");
-static TCollection_AsciiString Reco_TerminatorSymbol("TERMINATOR_SYMBOL");
-static TCollection_AsciiString Reco_TextLiteral("TEXT_LITERAL");
-static TCollection_AsciiString Reco_TextLiteralWithAssociatedCurves(
+static AsciiString1 Reco_SurfaceStyleSilhouette("SURFACE_STYLE_SILHOUETTE");
+static AsciiString1 Reco_SurfaceStyleUsage("SURFACE_STYLE_USAGE");
+static AsciiString1 Reco_SweptAreaSolid("SWEPT_AREA_SOLID");
+static AsciiString1 Reco_SweptSurface("SWEPT_SURFACE");
+static AsciiString1 Reco_SymbolColour("SYMBOL_COLOUR");
+static AsciiString1 Reco_SymbolRepresentation("SYMBOL_REPRESENTATION");
+static AsciiString1 Reco_SymbolRepresentationMap("SYMBOL_REPRESENTATION_MAP");
+static AsciiString1 Reco_SymbolStyle("SYMBOL_STYLE");
+static AsciiString1 Reco_SymbolTarget("SYMBOL_TARGET");
+static AsciiString1 Reco_Template("TEMPLATE");
+static AsciiString1 Reco_TemplateInstance("TEMPLATE_INSTANCE");
+static AsciiString1 Reco_TerminatorSymbol("TERMINATOR_SYMBOL");
+static AsciiString1 Reco_TextLiteral("TEXT_LITERAL");
+static AsciiString1 Reco_TextLiteralWithAssociatedCurves(
   "TEXT_LITERAL_WITH_ASSOCIATED_CURVES");
-static TCollection_AsciiString Reco_TextLiteralWithBlankingBox("TEXT_LITERAL_WITH_BLANKING_BOX");
-static TCollection_AsciiString Reco_TextLiteralWithDelineation("TEXT_LITERAL_WITH_DELINEATION");
-static TCollection_AsciiString Reco_TextLiteralWithExtent("TEXT_LITERAL_WITH_EXTENT");
-static TCollection_AsciiString Reco_TextStyle("TEXT_STYLE");
-static TCollection_AsciiString Reco_TextStyleForDefinedFont("TEXT_STYLE_FOR_DEFINED_FONT");
-static TCollection_AsciiString Reco_TextStyleWithBoxCharacteristics(
+static AsciiString1 Reco_TextLiteralWithBlankingBox("TEXT_LITERAL_WITH_BLANKING_BOX");
+static AsciiString1 Reco_TextLiteralWithDelineation("TEXT_LITERAL_WITH_DELINEATION");
+static AsciiString1 Reco_TextLiteralWithExtent("TEXT_LITERAL_WITH_EXTENT");
+static AsciiString1 Reco_TextStyle("TEXT_STYLE");
+static AsciiString1 Reco_TextStyleForDefinedFont("TEXT_STYLE_FOR_DEFINED_FONT");
+static AsciiString1 Reco_TextStyleWithBoxCharacteristics(
   "TEXT_STYLE_WITH_BOX_CHARACTERISTICS");
-static TCollection_AsciiString Reco_TextStyleWithMirror("TEXT_STYLE_WITH_MIRROR");
-static TCollection_AsciiString Reco_TopologicalRepresentationItem(
+static AsciiString1 Reco_TextStyleWithMirror("TEXT_STYLE_WITH_MIRROR");
+static AsciiString1 Reco_TopologicalRepresentationItem(
   "TOPOLOGICAL_REPRESENTATION_ITEM");
-static TCollection_AsciiString Reco_ToroidalSurface("TOROIDAL_SURFACE");
-static TCollection_AsciiString Reco_Torus("TORUS");
-static TCollection_AsciiString Reco_TransitionalShapeRepresentation(
+static AsciiString1 Reco_ToroidalSurface("TOROIDAL_SURFACE");
+static AsciiString1 Reco_Torus("TORUS");
+static AsciiString1 Reco_TransitionalShapeRepresentation(
   "TRANSITIONAL_SHAPE_REPRESENTATION");
-static TCollection_AsciiString Reco_TrimmedCurve("TRIMMED_CURVE");
-static TCollection_AsciiString Reco_TwoDirectionRepeatFactor("TWO_DIRECTION_REPEAT_FACTOR");
-static TCollection_AsciiString Reco_UncertaintyMeasureWithUnit("UNCERTAINTY_MEASURE_WITH_UNIT");
-static TCollection_AsciiString Reco_UniformCurve("UNIFORM_CURVE");
-static TCollection_AsciiString Reco_UniformSurface("UNIFORM_SURFACE");
-static TCollection_AsciiString Reco_Vector("VECTOR");
-static TCollection_AsciiString Reco_Vertex("VERTEX");
-static TCollection_AsciiString Reco_VertexLoop("VERTEX_LOOP");
-static TCollection_AsciiString Reco_VertexPoint("VERTEX_POINT");
-static TCollection_AsciiString Reco_ViewVolume("VIEW_VOLUME");
-static TCollection_AsciiString Reco_WeekOfYearAndDayDate("WEEK_OF_YEAR_AND_DAY_DATE");
+static AsciiString1 Reco_TrimmedCurve("TRIMMED_CURVE");
+static AsciiString1 Reco_TwoDirectionRepeatFactor("TWO_DIRECTION_REPEAT_FACTOR");
+static AsciiString1 Reco_UncertaintyMeasureWithUnit("UNCERTAINTY_MEASURE_WITH_UNIT");
+static AsciiString1 Reco_UniformCurve("UNIFORM_CURVE");
+static AsciiString1 Reco_UniformSurface("UNIFORM_SURFACE");
+static AsciiString1 Reco_Vector("VECTOR");
+static AsciiString1 Reco_Vertex("VERTEX");
+static AsciiString1 Reco_VertexLoop("VERTEX_LOOP");
+static AsciiString1 Reco_VertexPoint("VERTEX_POINT");
+static AsciiString1 Reco_ViewVolume("VIEW_VOLUME");
+static AsciiString1 Reco_WeekOfYearAndDayDate("WEEK_OF_YEAR_AND_DAY_DATE");
 
 // Added by FMA for Rev4
 
-static TCollection_AsciiString Reco_SolidAngleUnit("SOLID_ANGLE_UNIT");
-static TCollection_AsciiString Reco_MechanicalContext("MECHANICAL_CONTEXT");
-static TCollection_AsciiString Reco_DesignContext("DESIGN_CONTEXT");
+static AsciiString1 Reco_SolidAngleUnit("SOLID_ANGLE_UNIT");
+static AsciiString1 Reco_MechanicalContext("MECHANICAL_CONTEXT");
+static AsciiString1 Reco_DesignContext("DESIGN_CONTEXT");
 
 // Added for full Rev4
-static TCollection_AsciiString Reco_TimeMeasureWithUnit("TIME_MEASURE_WITH_UNIT");
-static TCollection_AsciiString Reco_RatioUnit("RATIO_UNIT");
-static TCollection_AsciiString Reco_TimeUnit("TIME_UNIT");
-static TCollection_AsciiString Reco_ApprovalDateTime("APPROVAL_DATE_TIME");
-static TCollection_AsciiString Reco_CameraImage2dWithScale("CAMERA_IMAGE_2D_WITH_SCALE");
-static TCollection_AsciiString Reco_CameraImage3dWithScale("CAMERA_IMAGE_3D_WITH_SCALE");
-static TCollection_AsciiString Reco_CartesianTransformationOperator2d(
+static AsciiString1 Reco_TimeMeasureWithUnit("TIME_MEASURE_WITH_UNIT");
+static AsciiString1 Reco_RatioUnit("RATIO_UNIT");
+static AsciiString1 Reco_TimeUnit("TIME_UNIT");
+static AsciiString1 Reco_ApprovalDateTime("APPROVAL_DATE_TIME");
+static AsciiString1 Reco_CameraImage2dWithScale("CAMERA_IMAGE_2D_WITH_SCALE");
+static AsciiString1 Reco_CameraImage3dWithScale("CAMERA_IMAGE_3D_WITH_SCALE");
+static AsciiString1 Reco_CartesianTransformationOperator2d(
   "CARTESIAN_TRANSFORMATION_OPERATOR_2D");
-static TCollection_AsciiString Reco_DerivedUnit("DERIVED_UNIT");
-static TCollection_AsciiString Reco_DerivedUnitElement("DERIVED_UNIT_ELEMENT");
-static TCollection_AsciiString Reco_ItemDefinedTransformation("ITEM_DEFINED_TRANSFORMATION");
-static TCollection_AsciiString Reco_PresentedItemRepresentation("PRESENTED_ITEM_REPRESENTATION");
-static TCollection_AsciiString Reco_PresentationLayerUsage("PRESENTATION_LAYER_USAGE");
+static AsciiString1 Reco_DerivedUnit("DERIVED_UNIT");
+static AsciiString1 Reco_DerivedUnitElement("DERIVED_UNIT_ELEMENT");
+static AsciiString1 Reco_ItemDefinedTransformation("ITEM_DEFINED_TRANSFORMATION");
+static AsciiString1 Reco_PresentedItemRepresentation("PRESENTED_ITEM_REPRESENTATION");
+static AsciiString1 Reco_PresentationLayerUsage("PRESENTATION_LAYER_USAGE");
 
 // Added for AP214 : CC1 -> CC2
 
-static TCollection_AsciiString Reco_AutoDesignDocumentReference("AUTO_DESIGN_DOCUMENT_REFERENCE");
-static TCollection_AsciiString Reco_Document("DOCUMENT");
-static TCollection_AsciiString Reco_DigitalDocument("DIGITAL_DOCUMENT");
-static TCollection_AsciiString Reco_DocumentRelationship("DOCUMENT_RELATIONSHIP");
-static TCollection_AsciiString Reco_DocumentType("DOCUMENT_TYPE");
-static TCollection_AsciiString Reco_DocumentUsageConstraint("DOCUMENT_USAGE_CONSTRAINT");
-static TCollection_AsciiString Reco_Effectivity("EFFECTIVITY");
-static TCollection_AsciiString Reco_ProductDefinitionEffectivity("PRODUCT_DEFINITION_EFFECTIVITY");
-static TCollection_AsciiString Reco_ProductDefinitionRelationship(
+static AsciiString1 Reco_AutoDesignDocumentReference("AUTO_DESIGN_DOCUMENT_REFERENCE");
+static AsciiString1 Reco_Document("DOCUMENT");
+static AsciiString1 Reco_DigitalDocument("DIGITAL_DOCUMENT");
+static AsciiString1 Reco_DocumentRelationship("DOCUMENT_RELATIONSHIP");
+static AsciiString1 Reco_DocumentType("DOCUMENT_TYPE");
+static AsciiString1 Reco_DocumentUsageConstraint("DOCUMENT_USAGE_CONSTRAINT");
+static AsciiString1 Reco_Effectivity("EFFECTIVITY");
+static AsciiString1 Reco_ProductDefinitionEffectivity("PRODUCT_DEFINITION_EFFECTIVITY");
+static AsciiString1 Reco_ProductDefinitionRelationship(
   "PRODUCT_DEFINITION_RELATIONSHIP");
-static TCollection_AsciiString Reco_ProductDefinitionWithAssociatedDocuments(
+static AsciiString1 Reco_ProductDefinitionWithAssociatedDocuments(
   "PRODUCT_DEFINITION_WITH_ASSOCIATED_DOCUMENTS");
-static TCollection_AsciiString Reco_PhysicallyModeledProductDefinition(
+static AsciiString1 Reco_PhysicallyModeledProductDefinition(
   "PHYSICALLY_MODELED_PRODUCT_DEFINITION");
 
-static TCollection_AsciiString Reco_ProductDefinitionUsage("PRODUCT_DEFINITION_USAGE");
-static TCollection_AsciiString Reco_MakeFromUsageOption("MAKE_FROM_USAGE_OPTION");
-static TCollection_AsciiString Reco_AssemblyComponentUsage("ASSEMBLY_COMPONENT_USAGE");
-static TCollection_AsciiString Reco_NextAssemblyUsageOccurrence("NEXT_ASSEMBLY_USAGE_OCCURRENCE");
-static TCollection_AsciiString Reco_PromissoryUsageOccurrence("PROMISSORY_USAGE_OCCURRENCE");
-static TCollection_AsciiString Reco_QuantifiedAssemblyComponentUsage(
+static AsciiString1 Reco_ProductDefinitionUsage("PRODUCT_DEFINITION_USAGE");
+static AsciiString1 Reco_MakeFromUsageOption("MAKE_FROM_USAGE_OPTION");
+static AsciiString1 Reco_AssemblyComponentUsage("ASSEMBLY_COMPONENT_USAGE");
+static AsciiString1 Reco_NextAssemblyUsageOccurrence("NEXT_ASSEMBLY_USAGE_OCCURRENCE");
+static AsciiString1 Reco_PromissoryUsageOccurrence("PROMISSORY_USAGE_OCCURRENCE");
+static AsciiString1 Reco_QuantifiedAssemblyComponentUsage(
   "QUANTIFIED_ASSEMBLY_COMPONENT_USAGE");
-static TCollection_AsciiString Reco_SpecifiedHigherUsageOccurrence(
+static AsciiString1 Reco_SpecifiedHigherUsageOccurrence(
   "SPECIFIED_HIGHER_USAGE_OCCURRENCE");
-static TCollection_AsciiString Reco_AssemblyComponentUsageSubstitute(
+static AsciiString1 Reco_AssemblyComponentUsageSubstitute(
   "ASSEMBLY_COMPONENT_USAGE_SUBSTITUTE");
-static TCollection_AsciiString Reco_SuppliedPartRelationship("SUPPLIED_PART_RELATIONSHIP");
-static TCollection_AsciiString Reco_ExternallyDefinedRepresentation(
+static AsciiString1 Reco_SuppliedPartRelationship("SUPPLIED_PART_RELATIONSHIP");
+static AsciiString1 Reco_ExternallyDefinedRepresentation(
   "EXTERNALLY_DEFINED_REPRESENTATION");
-static TCollection_AsciiString Reco_ShapeRepresentationRelationship(
+static AsciiString1 Reco_ShapeRepresentationRelationship(
   "SHAPE_REPRESENTATION_RELATIONSHIP");
-static TCollection_AsciiString Reco_RepresentationRelationshipWithTransformation(
+static AsciiString1 Reco_RepresentationRelationshipWithTransformation(
   "REPRESENTATION_RELATIONSHIP_WITH_TRANSFORMATION");
-static TCollection_AsciiString Reco_MaterialDesignation("MATERIAL_DESIGNATION");
-static TCollection_AsciiString Reco_ContextDependentShapeRepresentation(
+static AsciiString1 Reco_MaterialDesignation("MATERIAL_DESIGNATION");
+static AsciiString1 Reco_ContextDependentShapeRepresentation(
   "CONTEXT_DEPENDENT_SHAPE_REPRESENTATION");
 
 // Added from CD To DIS (S4134)
-static TCollection_AsciiString Reco_AppliedDateAndTimeAssignment(
+static AsciiString1 Reco_AppliedDateAndTimeAssignment(
   "APPLIED_DATE_AND_TIME_ASSIGNMENT");
-static TCollection_AsciiString Reco_AppliedDateAssignment("APPLIED_DATE_ASSIGNMENT");
-static TCollection_AsciiString Reco_AppliedApprovalAssignment("APPLIED_APPROVAL_ASSIGNMENT");
-static TCollection_AsciiString Reco_AppliedDocumentReference("APPLIED_DOCUMENT_REFERENCE");
-static TCollection_AsciiString Reco_AppliedGroupAssignment("APPLIED_GROUP_ASSIGNMENT");
-static TCollection_AsciiString Reco_AppliedOrganizationAssignment(
+static AsciiString1 Reco_AppliedDateAssignment("APPLIED_DATE_ASSIGNMENT");
+static AsciiString1 Reco_AppliedApprovalAssignment("APPLIED_APPROVAL_ASSIGNMENT");
+static AsciiString1 Reco_AppliedDocumentReference("APPLIED_DOCUMENT_REFERENCE");
+static AsciiString1 Reco_AppliedGroupAssignment("APPLIED_GROUP_ASSIGNMENT");
+static AsciiString1 Reco_AppliedOrganizationAssignment(
   "APPLIED_ORGANIZATION_ASSIGNMENT");
-static TCollection_AsciiString Reco_AppliedPersonAndOrganizationAssignment(
+static AsciiString1 Reco_AppliedPersonAndOrganizationAssignment(
   "APPLIED_PERSON_AND_ORGANIZATION_ASSIGNMENT");
-static TCollection_AsciiString Reco_AppliedPresentedItem("APPLIED_PRESENTED_ITEM");
-static TCollection_AsciiString Reco_AppliedSecurityClassificationAssignment(
+static AsciiString1 Reco_AppliedPresentedItem("APPLIED_PRESENTED_ITEM");
+static AsciiString1 Reco_AppliedSecurityClassificationAssignment(
   "APPLIED_SECURITY_CLASSIFICATION_ASSIGNMENT");
-static TCollection_AsciiString Reco_DocumentFile("DOCUMENT_FILE");
-static TCollection_AsciiString Reco_CharacterizedObject("CHARACTERIZED_OBJECT");
-static TCollection_AsciiString Reco_ExtrudedFaceSolid("EXTRUDED_FACE_SOLID");
-static TCollection_AsciiString Reco_RevolvedFaceSolid("REVOLVED_FACE_SOLID");
-static TCollection_AsciiString Reco_SweptFaceSolid("SWEPT_FACE_SOLID");
+static AsciiString1 Reco_DocumentFile("DOCUMENT_FILE");
+static AsciiString1 Reco_CharacterizedObject("CHARACTERIZED_OBJECT");
+static AsciiString1 Reco_ExtrudedFaceSolid("EXTRUDED_FACE_SOLID");
+static AsciiString1 Reco_RevolvedFaceSolid("REVOLVED_FACE_SOLID");
+static AsciiString1 Reco_SweptFaceSolid("SWEPT_FACE_SOLID");
 
 // Added by ABV 08.09.99 for CAX TRJ 2 (validation properties)
-static TCollection_AsciiString Reco_MeasureRepresentationItem("MEASURE_REPRESENTATION_ITEM");
-static TCollection_AsciiString Reco_AreaUnit("AREA_UNIT");
-static TCollection_AsciiString Reco_VolumeUnit("VOLUME_UNIT");
+static AsciiString1 Reco_MeasureRepresentationItem("MEASURE_REPRESENTATION_ITEM");
+static AsciiString1 Reco_AreaUnit("AREA_UNIT");
+static AsciiString1 Reco_VolumeUnit("VOLUME_UNIT");
 
 // Added by ABV 10.11.99 for AP203
-static TCollection_AsciiString Reco_Action("ACTION");
-static TCollection_AsciiString Reco_ActionAssignment("ACTION_ASSIGNMENT");
-static TCollection_AsciiString Reco_ActionMethod("ACTION_METHOD");
-static TCollection_AsciiString Reco_ActionRequestAssignment("ACTION_REQUEST_ASSIGNMENT");
-static TCollection_AsciiString Reco_CcDesignApproval("CC_DESIGN_APPROVAL");
-static TCollection_AsciiString Reco_CcDesignCertification("CC_DESIGN_CERTIFICATION");
-static TCollection_AsciiString Reco_CcDesignContract("CC_DESIGN_CONTRACT");
-static TCollection_AsciiString Reco_CcDesignDateAndTimeAssignment(
+static AsciiString1 Reco_Action("ACTION");
+static AsciiString1 Reco_ActionAssignment("ACTION_ASSIGNMENT");
+static AsciiString1 Reco_ActionMethod("ACTION_METHOD");
+static AsciiString1 Reco_ActionRequestAssignment("ACTION_REQUEST_ASSIGNMENT");
+static AsciiString1 Reco_CcDesignApproval("CC_DESIGN_APPROVAL");
+static AsciiString1 Reco_CcDesignCertification("CC_DESIGN_CERTIFICATION");
+static AsciiString1 Reco_CcDesignContract("CC_DESIGN_CONTRACT");
+static AsciiString1 Reco_CcDesignDateAndTimeAssignment(
   "CC_DESIGN_DATE_AND_TIME_ASSIGNMENT");
-static TCollection_AsciiString Reco_CcDesignPersonAndOrganizationAssignment(
+static AsciiString1 Reco_CcDesignPersonAndOrganizationAssignment(
   "CC_DESIGN_PERSON_AND_ORGANIZATION_ASSIGNMENT");
-static TCollection_AsciiString Reco_CcDesignSecurityClassification(
+static AsciiString1 Reco_CcDesignSecurityClassification(
   "CC_DESIGN_SECURITY_CLASSIFICATION");
-static TCollection_AsciiString Reco_CcDesignSpecificationReference(
+static AsciiString1 Reco_CcDesignSpecificationReference(
   "CC_DESIGN_SPECIFICATION_REFERENCE");
-static TCollection_AsciiString Reco_Certification("CERTIFICATION");
-static TCollection_AsciiString Reco_CertificationAssignment("CERTIFICATION_ASSIGNMENT");
-static TCollection_AsciiString Reco_CertificationType("CERTIFICATION_TYPE");
-static TCollection_AsciiString Reco_Change("CHANGE");
-static TCollection_AsciiString Reco_ChangeRequest("CHANGE_REQUEST");
-static TCollection_AsciiString Reco_ConfigurationDesign("CONFIGURATION_DESIGN");
-static TCollection_AsciiString Reco_ConfigurationEffectivity("CONFIGURATION_EFFECTIVITY");
-static TCollection_AsciiString Reco_Contract("CONTRACT");
-static TCollection_AsciiString Reco_ContractAssignment("CONTRACT_ASSIGNMENT");
-static TCollection_AsciiString Reco_ContractType("CONTRACT_TYPE");
-static TCollection_AsciiString Reco_ProductConcept("PRODUCT_CONCEPT");
-static TCollection_AsciiString Reco_ProductConceptContext("PRODUCT_CONCEPT_CONTEXT");
-static TCollection_AsciiString Reco_StartRequest("START_REQUEST");
-static TCollection_AsciiString Reco_StartWork("START_WORK");
-static TCollection_AsciiString Reco_VersionedActionRequest("VERSIONED_ACTION_REQUEST");
-static TCollection_AsciiString Reco_ProductCategoryRelationship("PRODUCT_CATEGORY_RELATIONSHIP");
-static TCollection_AsciiString Reco_ActionRequestSolution("ACTION_REQUEST_SOLUTION");
-static TCollection_AsciiString Reco_DraughtingModel("DRAUGHTING_MODEL");
+static AsciiString1 Reco_Certification("CERTIFICATION");
+static AsciiString1 Reco_CertificationAssignment("CERTIFICATION_ASSIGNMENT");
+static AsciiString1 Reco_CertificationType("CERTIFICATION_TYPE");
+static AsciiString1 Reco_Change("CHANGE");
+static AsciiString1 Reco_ChangeRequest("CHANGE_REQUEST");
+static AsciiString1 Reco_ConfigurationDesign("CONFIGURATION_DESIGN");
+static AsciiString1 Reco_ConfigurationEffectivity("CONFIGURATION_EFFECTIVITY");
+static AsciiString1 Reco_Contract("CONTRACT");
+static AsciiString1 Reco_ContractAssignment("CONTRACT_ASSIGNMENT");
+static AsciiString1 Reco_ContractType("CONTRACT_TYPE");
+static AsciiString1 Reco_ProductConcept("PRODUCT_CONCEPT");
+static AsciiString1 Reco_ProductConceptContext("PRODUCT_CONCEPT_CONTEXT");
+static AsciiString1 Reco_StartRequest("START_REQUEST");
+static AsciiString1 Reco_StartWork("START_WORK");
+static AsciiString1 Reco_VersionedActionRequest("VERSIONED_ACTION_REQUEST");
+static AsciiString1 Reco_ProductCategoryRelationship("PRODUCT_CATEGORY_RELATIONSHIP");
+static AsciiString1 Reco_ActionRequestSolution("ACTION_REQUEST_SOLUTION");
+static AsciiString1 Reco_DraughtingModel("DRAUGHTING_MODEL");
 // Added by ABV 18.04.00 for CAX-IF TRJ4
-static TCollection_AsciiString Reco_AngularLocation("ANGULAR_LOCATION");
-static TCollection_AsciiString Reco_AngularSize("ANGULAR_SIZE");
-static TCollection_AsciiString Reco_DimensionalCharacteristicRepresentation(
+static AsciiString1 Reco_AngularLocation("ANGULAR_LOCATION");
+static AsciiString1 Reco_AngularSize("ANGULAR_SIZE");
+static AsciiString1 Reco_DimensionalCharacteristicRepresentation(
   "DIMENSIONAL_CHARACTERISTIC_REPRESENTATION");
-static TCollection_AsciiString Reco_DimensionalLocation("DIMENSIONAL_LOCATION");
-static TCollection_AsciiString Reco_DimensionalLocationWithPath("DIMENSIONAL_LOCATION_WITH_PATH");
-static TCollection_AsciiString Reco_DimensionalSize("DIMENSIONAL_SIZE");
-static TCollection_AsciiString Reco_DimensionalSizeWithPath("DIMENSIONAL_SIZE_WITH_PATH");
-static TCollection_AsciiString Reco_ShapeDimensionRepresentation("SHAPE_DIMENSION_REPRESENTATION");
+static AsciiString1 Reco_DimensionalLocation("DIMENSIONAL_LOCATION");
+static AsciiString1 Reco_DimensionalLocationWithPath("DIMENSIONAL_LOCATION_WITH_PATH");
+static AsciiString1 Reco_DimensionalSize("DIMENSIONAL_SIZE");
+static AsciiString1 Reco_DimensionalSizeWithPath("DIMENSIONAL_SIZE_WITH_PATH");
+static AsciiString1 Reco_ShapeDimensionRepresentation("SHAPE_DIMENSION_REPRESENTATION");
 // Added by ABV 10.05.00 for CAX-IF TRJ4 (external references)
-static TCollection_AsciiString Reco_DocumentRepresentationType("DOCUMENT_REPRESENTATION_TYPE");
-static TCollection_AsciiString Reco_ObjectRole("OBJECT_ROLE");
-static TCollection_AsciiString Reco_RoleAssociation("ROLE_ASSOCIATION");
-static TCollection_AsciiString Reco_IdentificationRole("IDENTIFICATION_ROLE");
-static TCollection_AsciiString Reco_IdentificationAssignment("IDENTIFICATION_ASSIGNMENT");
-static TCollection_AsciiString Reco_ExternalIdentificationAssignment(
+static AsciiString1 Reco_DocumentRepresentationType("DOCUMENT_REPRESENTATION_TYPE");
+static AsciiString1 Reco_ObjectRole("OBJECT_ROLE");
+static AsciiString1 Reco_RoleAssociation("ROLE_ASSOCIATION");
+static AsciiString1 Reco_IdentificationRole("IDENTIFICATION_ROLE");
+static AsciiString1 Reco_IdentificationAssignment("IDENTIFICATION_ASSIGNMENT");
+static AsciiString1 Reco_ExternalIdentificationAssignment(
   "EXTERNAL_IDENTIFICATION_ASSIGNMENT");
-static TCollection_AsciiString Reco_EffectivityAssignment("EFFECTIVITY_ASSIGNMENT");
-static TCollection_AsciiString Reco_NameAssignment("NAME_ASSIGNMENT");
-static TCollection_AsciiString Reco_GeneralProperty("GENERAL_PROPERTY");
-static TCollection_AsciiString Reco_Class("CLASS");
-static TCollection_AsciiString Reco_ExternallyDefinedClass("EXTERNALLY_DEFINED_Class");
-static TCollection_AsciiString Reco_ExternallyDefinedGeneralProperty(
+static AsciiString1 Reco_EffectivityAssignment("EFFECTIVITY_ASSIGNMENT");
+static AsciiString1 Reco_NameAssignment("NAME_ASSIGNMENT");
+static AsciiString1 Reco_GeneralProperty("GENERAL_PROPERTY");
+static AsciiString1 Reco_Class("CLASS");
+static AsciiString1 Reco_ExternallyDefinedClass("EXTERNALLY_DEFINED_Class");
+static AsciiString1 Reco_ExternallyDefinedGeneralProperty(
   "EXTERNALLY_DEFINED_GENERAL_PROPERTY");
-static TCollection_AsciiString Reco_AppliedExternalIdentificationAssignment(
+static AsciiString1 Reco_AppliedExternalIdentificationAssignment(
   "APPLIED_EXTERNAL_IDENTIFICATION_ASSIGNMENT");
 // Added by CKY , 25 APR 2001 for Dimensional Tolerances (CAX-IF TRJ7)
-static TCollection_AsciiString Reco_CompositeShapeAspect("COMPOSITE_SHAPE_ASPECT");
-static TCollection_AsciiString Reco_DerivedShapeAspect("DERIVED_SHAPE_ASPECT");
-static TCollection_AsciiString Reco_Extension("EXTENSION");
-static TCollection_AsciiString Reco_DirectedDimensionalLocation("DIRECTED_DIMENSIONAL_LOCATION");
-static TCollection_AsciiString Reco_LimitsAndFits("LIMITS_AND_FITS");
-static TCollection_AsciiString Reco_ToleranceValue("TOLERANCE_VALUE");
-static TCollection_AsciiString Reco_MeasureQualification("MEASURE_QUALIFICATION");
-static TCollection_AsciiString Reco_PlusMinusTolerance("PLUS_MINUS_TOLERANCE");
-static TCollection_AsciiString Reco_PrecisionQualifier("PRECISION_QUALIFIER");
-static TCollection_AsciiString Reco_TypeQualifier("TYPE_QUALIFIER");
-static TCollection_AsciiString Reco_QualifiedRepresentationItem("QUALIFIED_REPRESENTATION_ITEM");
-static TCollection_AsciiString Reco_CompoundRepresentationItem("COMPOUND_REPRESENTATION_ITEM");
-static TCollection_AsciiString Reco_ValueRange("VALUE_RANGE");
-static TCollection_AsciiString Reco_ShapeAspectDerivingRelationship(
+static AsciiString1 Reco_CompositeShapeAspect("COMPOSITE_SHAPE_ASPECT");
+static AsciiString1 Reco_DerivedShapeAspect("DERIVED_SHAPE_ASPECT");
+static AsciiString1 Reco_Extension("EXTENSION");
+static AsciiString1 Reco_DirectedDimensionalLocation("DIRECTED_DIMENSIONAL_LOCATION");
+static AsciiString1 Reco_LimitsAndFits("LIMITS_AND_FITS");
+static AsciiString1 Reco_ToleranceValue("TOLERANCE_VALUE");
+static AsciiString1 Reco_MeasureQualification("MEASURE_QUALIFICATION");
+static AsciiString1 Reco_PlusMinusTolerance("PLUS_MINUS_TOLERANCE");
+static AsciiString1 Reco_PrecisionQualifier("PRECISION_QUALIFIER");
+static AsciiString1 Reco_TypeQualifier("TYPE_QUALIFIER");
+static AsciiString1 Reco_QualifiedRepresentationItem("QUALIFIED_REPRESENTATION_ITEM");
+static AsciiString1 Reco_CompoundRepresentationItem("COMPOUND_REPRESENTATION_ITEM");
+static AsciiString1 Reco_ValueRange("VALUE_RANGE");
+static AsciiString1 Reco_ShapeAspectDerivingRelationship(
   "SHAPE_ASPECT_DERIVING_RELATIONSHIP");
 
-static TCollection_AsciiString Reco_CompoundShapeRepresentation("COMPOUND_SHAPE_REPRESENTATION");
-static TCollection_AsciiString Reco_ConnectedEdgeSet("CONNECTED_EDGE_SET");
-static TCollection_AsciiString Reco_ConnectedFaceShapeRepresentation(
+static AsciiString1 Reco_CompoundShapeRepresentation("COMPOUND_SHAPE_REPRESENTATION");
+static AsciiString1 Reco_ConnectedEdgeSet("CONNECTED_EDGE_SET");
+static AsciiString1 Reco_ConnectedFaceShapeRepresentation(
   "CONNECTED_FACE_SHAPE_REPRESENTATION");
-static TCollection_AsciiString Reco_EdgeBasedWireframeModel("EDGE_BASED_WIREFRAME_MODEL");
-static TCollection_AsciiString Reco_EdgeBasedWireframeShapeRepresentation(
+static AsciiString1 Reco_EdgeBasedWireframeModel("EDGE_BASED_WIREFRAME_MODEL");
+static AsciiString1 Reco_EdgeBasedWireframeShapeRepresentation(
   "EDGE_BASED_WIREFRAME_SHAPE_REPRESENTATION");
-static TCollection_AsciiString Reco_FaceBasedSurfaceModel("FACE_BASED_SURFACE_MODEL");
-static TCollection_AsciiString Reco_NonManifoldSurfaceShapeRepresentation(
+static AsciiString1 Reco_FaceBasedSurfaceModel("FACE_BASED_SURFACE_MODEL");
+static AsciiString1 Reco_NonManifoldSurfaceShapeRepresentation(
   "NON_MANIFOLD_SURFACE_SHAPE_REPRESENTATION");
 
 // gka 08.01.02
-static TCollection_AsciiString Reco_OrientedSurface("ORIENTED_SURFACE");
-static TCollection_AsciiString Reco_Subface("SUBFACE");
-static TCollection_AsciiString Reco_Subedge("SUBEDGE");
-static TCollection_AsciiString Reco_SeamEdge("SEAM_EDGE");
-static TCollection_AsciiString Reco_ConnectedFaceSubSet("CONNECTED_FACE_SUB_SET");
+static AsciiString1 Reco_OrientedSurface("ORIENTED_SURFACE");
+static AsciiString1 Reco_Subface("SUBFACE");
+static AsciiString1 Reco_Subedge("SUBEDGE");
+static AsciiString1 Reco_SeamEdge("SEAM_EDGE");
+static AsciiString1 Reco_ConnectedFaceSubSet("CONNECTED_FACE_SUB_SET");
 
 // Added for AP209
-static TCollection_AsciiString Reco_EulerAngles("EULER_ANGLES");
-static TCollection_AsciiString Reco_MassUnit("MASS_UNIT");
-static TCollection_AsciiString Reco_MassMeasureWithUnit("MASS_MEASURE_WITH_UNIT");
-static TCollection_AsciiString Reco_ThermodynamicTemperatureUnit("THERMODYNAMIC_TEMPERATURE_UNIT");
-static TCollection_AsciiString Reco_AnalysisItemWithinRepresentation(
+static AsciiString1 Reco_EulerAngles("EULER_ANGLES");
+static AsciiString1 Reco_MassUnit("MASS_UNIT");
+static AsciiString1 Reco_MassMeasureWithUnit("MASS_MEASURE_WITH_UNIT");
+static AsciiString1 Reco_ThermodynamicTemperatureUnit("THERMODYNAMIC_TEMPERATURE_UNIT");
+static AsciiString1 Reco_AnalysisItemWithinRepresentation(
   "ANALYSIS_ITEM_WITHIN_REPRESENTATION");
-static TCollection_AsciiString Reco_Curve3dElementDescriptor("CURVE_3D_ELEMENT_DESCRIPTOR");
-static TCollection_AsciiString Reco_CurveElementEndReleasePacket(
+static AsciiString1 Reco_Curve3dElementDescriptor("CURVE_3D_ELEMENT_DESCRIPTOR");
+static AsciiString1 Reco_CurveElementEndReleasePacket(
   "CURVE_ELEMENT_END_RELEASE_PACKET");
-static TCollection_AsciiString Reco_CurveElementSectionDefinition(
+static AsciiString1 Reco_CurveElementSectionDefinition(
   "CURVE_ELEMENT_SECTION_DEFINITION");
-static TCollection_AsciiString Reco_CurveElementSectionDerivedDefinitions(
+static AsciiString1 Reco_CurveElementSectionDerivedDefinitions(
   "CURVE_ELEMENT_SECTION_DERIVED_DEFINITIONS");
-static TCollection_AsciiString Reco_ElementDescriptor("ELEMENT_DESCRIPTOR");
-static TCollection_AsciiString Reco_ElementMaterial("ELEMENT_MATERIAL");
-static TCollection_AsciiString Reco_Surface3dElementDescriptor("SURFACE_3D_ELEMENT_DESCRIPTOR");
-static TCollection_AsciiString Reco_SurfaceElementProperty("SURFACE_ELEMENT_PROPERTY");
-static TCollection_AsciiString Reco_SurfaceSection("SURFACE_SECTION");
-static TCollection_AsciiString Reco_SurfaceSectionField("SURFACE_SECTION_FIELD");
-static TCollection_AsciiString Reco_SurfaceSectionFieldConstant("SURFACE_SECTION_FIELD_CONSTANT");
-static TCollection_AsciiString Reco_SurfaceSectionFieldVarying("SURFACE_SECTION_FIELD_VARYING");
-static TCollection_AsciiString Reco_UniformSurfaceSection("UNIFORM_SURFACE_SECTION");
-static TCollection_AsciiString Reco_Volume3dElementDescriptor("VOLUME_3D_ELEMENT_DESCRIPTOR");
-static TCollection_AsciiString Reco_AlignedCurve3dElementCoordinateSystem(
+static AsciiString1 Reco_ElementDescriptor("ELEMENT_DESCRIPTOR");
+static AsciiString1 Reco_ElementMaterial("ELEMENT_MATERIAL");
+static AsciiString1 Reco_Surface3dElementDescriptor("SURFACE_3D_ELEMENT_DESCRIPTOR");
+static AsciiString1 Reco_SurfaceElementProperty("SURFACE_ELEMENT_PROPERTY");
+static AsciiString1 Reco_SurfaceSection("SURFACE_SECTION");
+static AsciiString1 Reco_SurfaceSectionField("SURFACE_SECTION_FIELD");
+static AsciiString1 Reco_SurfaceSectionFieldConstant("SURFACE_SECTION_FIELD_CONSTANT");
+static AsciiString1 Reco_SurfaceSectionFieldVarying("SURFACE_SECTION_FIELD_VARYING");
+static AsciiString1 Reco_UniformSurfaceSection("UNIFORM_SURFACE_SECTION");
+static AsciiString1 Reco_Volume3dElementDescriptor("VOLUME_3D_ELEMENT_DESCRIPTOR");
+static AsciiString1 Reco_AlignedCurve3dElementCoordinateSystem(
   "ALIGNED_CURVE_3D_ELEMENT_COORDINATE_SYSTEM");
-static TCollection_AsciiString Reco_ArbitraryVolume3dElementCoordinateSystem(
+static AsciiString1 Reco_ArbitraryVolume3dElementCoordinateSystem(
   "ARBITRARY_VOLUME_3D_ELEMENT_COORDINATE_SYSTEM");
-static TCollection_AsciiString Reco_Curve3dElementProperty("CURVE_3D_ELEMENT_PROPERTY");
-static TCollection_AsciiString Reco_Curve3dElementRepresentation("CURVE_3D_ELEMENT_REPRESENTATION");
-static TCollection_AsciiString Reco_Node("NODE");
-// static TCollection_AsciiString Reco_CurveElementEndCoordinateSystem(" ");
-static TCollection_AsciiString Reco_CurveElementEndOffset("CURVE_ELEMENT_END_OFFSET");
-static TCollection_AsciiString Reco_CurveElementEndRelease("CURVE_ELEMENT_END_RELEASE");
-static TCollection_AsciiString Reco_CurveElementInterval("CURVE_ELEMENT_INTERVAL");
-static TCollection_AsciiString Reco_CurveElementIntervalConstant("CURVE_ELEMENT_INTERVAL_CONSTANT");
-static TCollection_AsciiString Reco_DummyNode("DUMMY_NODE");
-static TCollection_AsciiString Reco_CurveElementLocation("CURVE_ELEMENT_LOCATION");
-static TCollection_AsciiString Reco_ElementGeometricRelationship("ELEMENT_GEOMETRIC_RELATIONSHIP");
-static TCollection_AsciiString Reco_ElementGroup("ELEMENT_GROUP");
-static TCollection_AsciiString Reco_ElementRepresentation("ELEMENT_REPRESENTATION");
-static TCollection_AsciiString Reco_FeaAreaDensity("FEA_AREA_DENSITY");
-static TCollection_AsciiString Reco_FeaAxis2Placement3d("FEA_AXIS2_PLACEMENT_3D");
-static TCollection_AsciiString Reco_FeaGroup("FEA_GROUP");
-static TCollection_AsciiString Reco_FeaLinearElasticity("FEA_LINEAR_ELASTICITY");
-static TCollection_AsciiString Reco_FeaMassDensity("FEA_MASS_DENSITY");
-static TCollection_AsciiString Reco_FeaMaterialPropertyRepresentation(
+static AsciiString1 Reco_Curve3dElementProperty("CURVE_3D_ELEMENT_PROPERTY");
+static AsciiString1 Reco_Curve3dElementRepresentation("CURVE_3D_ELEMENT_REPRESENTATION");
+static AsciiString1 Reco_Node("NODE");
+// static AsciiString1 Reco_CurveElementEndCoordinateSystem(" ");
+static AsciiString1 Reco_CurveElementEndOffset("CURVE_ELEMENT_END_OFFSET");
+static AsciiString1 Reco_CurveElementEndRelease("CURVE_ELEMENT_END_RELEASE");
+static AsciiString1 Reco_CurveElementInterval("CURVE_ELEMENT_INTERVAL");
+static AsciiString1 Reco_CurveElementIntervalConstant("CURVE_ELEMENT_INTERVAL_CONSTANT");
+static AsciiString1 Reco_DummyNode("DUMMY_NODE");
+static AsciiString1 Reco_CurveElementLocation("CURVE_ELEMENT_LOCATION");
+static AsciiString1 Reco_ElementGeometricRelationship("ELEMENT_GEOMETRIC_RELATIONSHIP");
+static AsciiString1 Reco_ElementGroup("ELEMENT_GROUP");
+static AsciiString1 Reco_ElementRepresentation("ELEMENT_REPRESENTATION");
+static AsciiString1 Reco_FeaAreaDensity("FEA_AREA_DENSITY");
+static AsciiString1 Reco_FeaAxis2Placement3d("FEA_AXIS2_PLACEMENT_3D");
+static AsciiString1 Reco_FeaGroup("FEA_GROUP");
+static AsciiString1 Reco_FeaLinearElasticity("FEA_LINEAR_ELASTICITY");
+static AsciiString1 Reco_FeaMassDensity("FEA_MASS_DENSITY");
+static AsciiString1 Reco_FeaMaterialPropertyRepresentation(
   "FEA_MATERIAL_PROPERTY_REPRESENTATION");
-static TCollection_AsciiString Reco_FeaMaterialPropertyRepresentationItem(
+static AsciiString1 Reco_FeaMaterialPropertyRepresentationItem(
   "FEA_MATERIAL_PROPERTY_REPRESENTATION_ITEM");
-static TCollection_AsciiString Reco_FeaModel("FEA_MODEL");
-static TCollection_AsciiString Reco_FeaModel3d("FEA_MODEL_3D");
-static TCollection_AsciiString Reco_FeaMoistureAbsorption("FEA_MOISTURE_ABSORPTION");
-static TCollection_AsciiString Reco_FeaParametricPoint("FEA_PARAMETRIC_POINT");
-static TCollection_AsciiString Reco_FeaRepresentationItem("FEA_REPRESENTATION_ITEM");
-static TCollection_AsciiString Reco_FeaSecantCoefficientOfLinearThermalExpansion(
+static AsciiString1 Reco_FeaModel("FEA_MODEL");
+static AsciiString1 Reco_FeaModel3d("FEA_MODEL_3D");
+static AsciiString1 Reco_FeaMoistureAbsorption("FEA_MOISTURE_ABSORPTION");
+static AsciiString1 Reco_FeaParametricPoint("FEA_PARAMETRIC_POINT");
+static AsciiString1 Reco_FeaRepresentationItem("FEA_REPRESENTATION_ITEM");
+static AsciiString1 Reco_FeaSecantCoefficientOfLinearThermalExpansion(
   "FEA_SECANT_COEFFICIENT_OF_LINEAR_THERMAL_EXPANSION");
-static TCollection_AsciiString Reco_FeaShellBendingStiffness("FEA_SHELL_BENDING_STIFFNESS");
-static TCollection_AsciiString Reco_FeaShellMembraneBendingCouplingStiffness(
+static AsciiString1 Reco_FeaShellBendingStiffness("FEA_SHELL_BENDING_STIFFNESS");
+static AsciiString1 Reco_FeaShellMembraneBendingCouplingStiffness(
   "FEA_SHELL_MEMBRANE_BENDING_COUPLING_STIFFNESS");
-static TCollection_AsciiString Reco_FeaShellMembraneStiffness("FEA_SHELL_MEMBRANE_STIFFNESS");
-static TCollection_AsciiString Reco_FeaShellShearStiffness("FEA_SHELL_SHEAR_STIFFNESS");
-static TCollection_AsciiString Reco_GeometricNode("GEOMETRIC_NODE");
-static TCollection_AsciiString Reco_FeaTangentialCoefficientOfLinearThermalExpansion(
+static AsciiString1 Reco_FeaShellMembraneStiffness("FEA_SHELL_MEMBRANE_STIFFNESS");
+static AsciiString1 Reco_FeaShellShearStiffness("FEA_SHELL_SHEAR_STIFFNESS");
+static AsciiString1 Reco_GeometricNode("GEOMETRIC_NODE");
+static AsciiString1 Reco_FeaTangentialCoefficientOfLinearThermalExpansion(
   "FEA_TANGENTIAL_COEFFICIENT_OF_LINEAR_THERMAL_EXPANSION");
-static TCollection_AsciiString Reco_NodeGroup("NODE_GROUP");
-static TCollection_AsciiString Reco_NodeRepresentation("NODE_REPRESENTATION");
-static TCollection_AsciiString Reco_NodeSet("NODE_SET");
-static TCollection_AsciiString Reco_NodeWithSolutionCoordinateSystem(
+static AsciiString1 Reco_NodeGroup("NODE_GROUP");
+static AsciiString1 Reco_NodeRepresentation("NODE_REPRESENTATION");
+static AsciiString1 Reco_NodeSet("NODE_SET");
+static AsciiString1 Reco_NodeWithSolutionCoordinateSystem(
   "NODE_WITH_SOLUTION_COORDINATE_SYSTEM");
-static TCollection_AsciiString Reco_NodeWithVector("NODE_WITH_VECTOR");
-static TCollection_AsciiString Reco_ParametricCurve3dElementCoordinateDirection(
+static AsciiString1 Reco_NodeWithVector("NODE_WITH_VECTOR");
+static AsciiString1 Reco_ParametricCurve3dElementCoordinateDirection(
   "PARAMETRIC_CURVE_3D_ELEMENT_COORDINATE_DIRECTION");
-static TCollection_AsciiString Reco_ParametricCurve3dElementCoordinateSystem(
+static AsciiString1 Reco_ParametricCurve3dElementCoordinateSystem(
   "PARAMETRIC_CURVE_3D_ELEMENT_COORDINATE_SYSTEM");
-static TCollection_AsciiString Reco_ParametricSurface3dElementCoordinateSystem(
+static AsciiString1 Reco_ParametricSurface3dElementCoordinateSystem(
   "PARAMETRIC_SURFACE_3D_ELEMENT_COORDINATE_SYSTEM");
-static TCollection_AsciiString Reco_Surface3dElementRepresentation(
+static AsciiString1 Reco_Surface3dElementRepresentation(
   "SURFACE_3D_ELEMENT_REPRESENTATION");
-// static TCollection_AsciiString Reco_SymmetricTensor22d(" ");
-// static TCollection_AsciiString Reco_SymmetricTensor42d(" ");
-// static TCollection_AsciiString Reco_SymmetricTensor43d(" ");
-static TCollection_AsciiString Reco_Volume3dElementRepresentation(
+// static AsciiString1 Reco_SymmetricTensor22d(" ");
+// static AsciiString1 Reco_SymmetricTensor42d(" ");
+// static AsciiString1 Reco_SymmetricTensor43d(" ");
+static AsciiString1 Reco_Volume3dElementRepresentation(
   "VOLUME_3D_ELEMENT_REPRESENTATION");
-static TCollection_AsciiString Reco_DataEnvironment("DATA_ENVIRONMENT");
-static TCollection_AsciiString Reco_MaterialPropertyRepresentation(
+static AsciiString1 Reco_DataEnvironment("DATA_ENVIRONMENT");
+static AsciiString1 Reco_MaterialPropertyRepresentation(
   "MATERIAL_PROPERTY_REPRESENTATION");
-static TCollection_AsciiString Reco_PropertyDefinitionRelationship(
+static AsciiString1 Reco_PropertyDefinitionRelationship(
   "PROPERTY_DEFINITION_RELATIONSHIP");
-static TCollection_AsciiString Reco_PointRepresentation("POINT_REPRESENTATION");
-static TCollection_AsciiString Reco_MaterialProperty("MATERIAL_PROPERTY");
-static TCollection_AsciiString Reco_FeaModelDefinition("FEA_MODEL_DEFINITION");
-static TCollection_AsciiString Reco_FreedomAndCoefficient("FREEDOM_AND_COEFFICIENT");
-static TCollection_AsciiString Reco_FreedomsList("FREEDOMS_LIST");
-static TCollection_AsciiString Reco_ProductDefinitionFormationRelationship(
+static AsciiString1 Reco_PointRepresentation("POINT_REPRESENTATION");
+static AsciiString1 Reco_MaterialProperty("MATERIAL_PROPERTY");
+static AsciiString1 Reco_FeaModelDefinition("FEA_MODEL_DEFINITION");
+static AsciiString1 Reco_FreedomAndCoefficient("FREEDOM_AND_COEFFICIENT");
+static AsciiString1 Reco_FreedomsList("FREEDOMS_LIST");
+static AsciiString1 Reco_ProductDefinitionFormationRelationship(
   "PRODUCT_DEFINITION_FORMATION_RELATIONSHIP");
-// static TCollection_AsciiString Reco_FeaModelDefinition("FEA_MODEL_DEFINITION");
-static TCollection_AsciiString Reco_NodeDefinition("NODE_DEFINITION");
-static TCollection_AsciiString Reco_StructuralResponseProperty("STRUCTURAL_RESPONSE_PROPERTY");
-static TCollection_AsciiString Reco_StructuralResponsePropertyDefinitionRepresentation(
+// static AsciiString1 Reco_FeaModelDefinition("FEA_MODEL_DEFINITION");
+static AsciiString1 Reco_NodeDefinition("NODE_DEFINITION");
+static AsciiString1 Reco_StructuralResponseProperty("STRUCTURAL_RESPONSE_PROPERTY");
+static AsciiString1 Reco_StructuralResponsePropertyDefinitionRepresentation(
   "STRUCTURAL_RESPONSE_PROPERTY_DEFINITION_REPRESENTATION");
-static TCollection_AsciiString Reco_AlignedSurface3dElementCoordinateSystem(
+static AsciiString1 Reco_AlignedSurface3dElementCoordinateSystem(
   "ALIGNED_SURFACE_3D_ELEMENT_COORDINATE_SYSTEM");
-static TCollection_AsciiString Reco_ConstantSurface3dElementCoordinateSystem(
+static AsciiString1 Reco_ConstantSurface3dElementCoordinateSystem(
   "CONSTANT_SURFACE_3D_ELEMENT_COORDINATE_SYSTEM");
-static TCollection_AsciiString Reco_CurveElementIntervalLinearlyVarying(
+static AsciiString1 Reco_CurveElementIntervalLinearlyVarying(
   "CURVE_ELEMENT_INTERVAL_LINEARLY_VARYING");
-static TCollection_AsciiString Reco_FeaCurveSectionGeometricRelationship(
+static AsciiString1 Reco_FeaCurveSectionGeometricRelationship(
   "FEA_CURVE_SECTION_GEOMETRIC_RELATIONSHIP");
-static TCollection_AsciiString Reco_FeaSurfaceSectionGeometricRelationship(
+static AsciiString1 Reco_FeaSurfaceSectionGeometricRelationship(
   "FEA_SURFACE_SECTION_GEOMETRIC_RELATIONSHIP");
 
 // PTV 28.01.2003 TRJ11 AP214 external references
-static TCollection_AsciiString Reco_DocumentProductAssociation("DOCUMENT_PRODUCT_ASSOCIATION");
-static TCollection_AsciiString Reco_DocumentProductEquivalence("DOCUMENT_PRODUCT_EQUIVALENCE");
+static AsciiString1 Reco_DocumentProductAssociation("DOCUMENT_PRODUCT_ASSOCIATION");
+static AsciiString1 Reco_DocumentProductEquivalence("DOCUMENT_PRODUCT_EQUIVALENCE");
 
 // Added by SKL 18.06.2003 for Dimensional Tolerances (CAX-IF TRJ11)
-static TCollection_AsciiString Reco_ShapeRepresentationWithParameters(
+static AsciiString1 Reco_ShapeRepresentationWithParameters(
   "SHAPE_REPRESENTATION_WITH_PARAMETERS");
-static TCollection_AsciiString Reco_AngularityTolerance("ANGULARITY_TOLERANCE");
-static TCollection_AsciiString Reco_ConcentricityTolerance("CONCENTRICITY_TOLERANCE");
-static TCollection_AsciiString Reco_CircularRunoutTolerance("CIRCULAR_RUNOUT_TOLERANCE");
-static TCollection_AsciiString Reco_CoaxialityTolerance("COAXIALITY_TOLERANCE");
-static TCollection_AsciiString Reco_CylindricityTolerance("CYLINDRICITY_TOLERANCE");
-static TCollection_AsciiString Reco_FlatnessTolerance("FLATNESS_TOLERANCE");
-static TCollection_AsciiString Reco_LineProfileTolerance("LINE_PROFILE_TOLERANCE");
-static TCollection_AsciiString Reco_ParallelismTolerance("PARALLELISM_TOLERANCE");
-static TCollection_AsciiString Reco_PerpendicularityTolerance("PERPENDICULARITY_TOLERANCE");
-static TCollection_AsciiString Reco_PositionTolerance("POSITION_TOLERANCE");
-static TCollection_AsciiString Reco_RoundnessTolerance("ROUNDNESS_TOLERANCE");
-static TCollection_AsciiString Reco_StraightnessTolerance("STRAIGHTNESS_TOLERANCE");
-static TCollection_AsciiString Reco_SurfaceProfileTolerance("SURFACE_PROFILE_TOLERANCE");
-static TCollection_AsciiString Reco_SymmetryTolerance("SYMMETRY_TOLERANCE");
-static TCollection_AsciiString Reco_TotalRunoutTolerance("TOTAL_RUNOUT_TOLERANCE");
-static TCollection_AsciiString Reco_GeometricTolerance("GEOMETRIC_TOLERANCE");
-static TCollection_AsciiString Reco_GeometricToleranceRelationship(
+static AsciiString1 Reco_AngularityTolerance("ANGULARITY_TOLERANCE");
+static AsciiString1 Reco_ConcentricityTolerance("CONCENTRICITY_TOLERANCE");
+static AsciiString1 Reco_CircularRunoutTolerance("CIRCULAR_RUNOUT_TOLERANCE");
+static AsciiString1 Reco_CoaxialityTolerance("COAXIALITY_TOLERANCE");
+static AsciiString1 Reco_CylindricityTolerance("CYLINDRICITY_TOLERANCE");
+static AsciiString1 Reco_FlatnessTolerance("FLATNESS_TOLERANCE");
+static AsciiString1 Reco_LineProfileTolerance("LINE_PROFILE_TOLERANCE");
+static AsciiString1 Reco_ParallelismTolerance("PARALLELISM_TOLERANCE");
+static AsciiString1 Reco_PerpendicularityTolerance("PERPENDICULARITY_TOLERANCE");
+static AsciiString1 Reco_PositionTolerance("POSITION_TOLERANCE");
+static AsciiString1 Reco_RoundnessTolerance("ROUNDNESS_TOLERANCE");
+static AsciiString1 Reco_StraightnessTolerance("STRAIGHTNESS_TOLERANCE");
+static AsciiString1 Reco_SurfaceProfileTolerance("SURFACE_PROFILE_TOLERANCE");
+static AsciiString1 Reco_SymmetryTolerance("SYMMETRY_TOLERANCE");
+static AsciiString1 Reco_TotalRunoutTolerance("TOTAL_RUNOUT_TOLERANCE");
+static AsciiString1 Reco_GeometricTolerance("GEOMETRIC_TOLERANCE");
+static AsciiString1 Reco_GeometricToleranceRelationship(
   "GEOMETRIC_TOLERANCE_RELATIONSHIP");
-static TCollection_AsciiString Reco_GeometricToleranceWithDatumReference(
+static AsciiString1 Reco_GeometricToleranceWithDatumReference(
   "GEOMETRIC_TOLERANCE_WITH_DATUM_REFERENCE");
-static TCollection_AsciiString Reco_ModifiedGeometricTolerance("MODIFIED_GEOMETRIC_TOLERANCE");
-static TCollection_AsciiString Reco_Datum("DATUM");
-static TCollection_AsciiString Reco_DatumFeature("DATUM_FEATURE");
-static TCollection_AsciiString Reco_DatumReference("DATUM_REFERENCE");
-static TCollection_AsciiString Reco_CommonDatum("COMMON_DATUM");
-static TCollection_AsciiString Reco_DatumTarget("DATUM_TARGET");
-static TCollection_AsciiString Reco_PlacedDatumTargetFeature("PLACED_DATUM_TARGET_FEATURE");
+static AsciiString1 Reco_ModifiedGeometricTolerance("MODIFIED_GEOMETRIC_TOLERANCE");
+static AsciiString1 Reco_Datum("DATUM");
+static AsciiString1 Reco_DatumFeature("DATUM_FEATURE");
+static AsciiString1 Reco_DatumReference("DATUM_REFERENCE");
+static AsciiString1 Reco_CommonDatum("COMMON_DATUM");
+static AsciiString1 Reco_DatumTarget("DATUM_TARGET");
+static AsciiString1 Reco_PlacedDatumTargetFeature("PLACED_DATUM_TARGET_FEATURE");
 
 // Added by ika for GD&T AP242
-static TCollection_AsciiString Reco_Apex("APEX");
-static TCollection_AsciiString Reco_CentreOfSymmetry("CENTRE_OF_SYMMETRY");
-static TCollection_AsciiString Reco_GeometricAlignment("GEOMETRIC_ALIGNMENT");
-static TCollection_AsciiString Reco_PerpendicularTo("PERPENDICULAR_TO");
-static TCollection_AsciiString Reco_Tangent("TANGENT");
-static TCollection_AsciiString Reco_ParallelOffset("PARALLEL_OFFSET");
-static TCollection_AsciiString Reco_GeometricItemSpecificUsage("GEOMETRIC_ITEM_SPECIFIC_USAGE");
-static TCollection_AsciiString Reco_IdAttribute("ID_ATTRIBUTE");
-static TCollection_AsciiString Reco_ItemIdentifiedRepresentationUsage(
+static AsciiString1 Reco_Apex("APEX");
+static AsciiString1 Reco_CentreOfSymmetry("CENTRE_OF_SYMMETRY");
+static AsciiString1 Reco_GeometricAlignment("GEOMETRIC_ALIGNMENT");
+static AsciiString1 Reco_PerpendicularTo("PERPENDICULAR_TO");
+static AsciiString1 Reco_Tangent("TANGENT");
+static AsciiString1 Reco_ParallelOffset("PARALLEL_OFFSET");
+static AsciiString1 Reco_GeometricItemSpecificUsage("GEOMETRIC_ITEM_SPECIFIC_USAGE");
+static AsciiString1 Reco_IdAttribute("ID_ATTRIBUTE");
+static AsciiString1 Reco_ItemIdentifiedRepresentationUsage(
   "ITEM_IDENTIFIED_REPRESENTATION_USAGE");
-static TCollection_AsciiString Reco_AllAroundShapeAspect("ALL_AROUND_SHAPE_ASPECT");
-static TCollection_AsciiString Reco_BetweenShapeAspect("BETWEEN_SHAPE_ASPECT");
-static TCollection_AsciiString Reco_CompositeGroupShapeAspect("COMPOSITE_GROUP_SHAPE_ASPECT");
-static TCollection_AsciiString Reco_ContinuosShapeAspect("CONTINUOUS_SHAPE_ASPECT");
-static TCollection_AsciiString Reco_GeometricToleranceWithDefinedAreaUnit(
+static AsciiString1 Reco_AllAroundShapeAspect("ALL_AROUND_SHAPE_ASPECT");
+static AsciiString1 Reco_BetweenShapeAspect("BETWEEN_SHAPE_ASPECT");
+static AsciiString1 Reco_CompositeGroupShapeAspect("COMPOSITE_GROUP_SHAPE_ASPECT");
+static AsciiString1 Reco_ContinuosShapeAspect("CONTINUOUS_SHAPE_ASPECT");
+static AsciiString1 Reco_GeometricToleranceWithDefinedAreaUnit(
   "GEOMETRIC_TOLERANCE_WITH_DEFINED_AREA_UNIT");
-static TCollection_AsciiString Reco_GeometricToleranceWithDefinedUnit(
+static AsciiString1 Reco_GeometricToleranceWithDefinedUnit(
   "GEOMETRIC_TOLERANCE_WITH_DEFINED_UNIT");
-static TCollection_AsciiString Reco_GeometricToleranceWithMaximumTolerance(
+static AsciiString1 Reco_GeometricToleranceWithMaximumTolerance(
   "GEOMETRIC_TOLERANCE_WITH_MAXIMUM_TOLERANCE");
-static TCollection_AsciiString Reco_GeometricToleranceWithModifiers(
+static AsciiString1 Reco_GeometricToleranceWithModifiers(
   "GEOMETRIC_TOLERANCE_WITH_MODIFIERS");
-static TCollection_AsciiString Reco_UnequallyDisposedGeometricTolerance(
+static AsciiString1 Reco_UnequallyDisposedGeometricTolerance(
   "UNEQUALLY_DISPOSED_GEOMETRIC_TOLERANCE");
-static TCollection_AsciiString Reco_NonUniformZoneDefinition("NON_UNIFORM_ZONE_DEFINITION");
-static TCollection_AsciiString Reco_ProjectedZoneDefinition("PROJECTED_ZONE_DEFINITION");
-static TCollection_AsciiString Reco_RunoutZoneDefinition("RUNOUT_ZONE_DEFINITION");
-static TCollection_AsciiString Reco_RunoutZoneOrientation("RUNOUT_ZONE_ORIENTATION");
-static TCollection_AsciiString Reco_ToleranceZone("TOLERANCE_ZONE");
-static TCollection_AsciiString Reco_ToleranceZoneDefinition("TOLERANCE_ZONE_DEFINITION");
-static TCollection_AsciiString Reco_ToleranceZoneForm("TOLERANCE_ZONE_FORM");
-static TCollection_AsciiString Reco_ValueFormatTypeQualifier("VALUE_FORMAT_TYPE_QUALIFIER");
-static TCollection_AsciiString Reco_DatumReferenceCompartment("DATUM_REFERENCE_COMPARTMENT");
-static TCollection_AsciiString Reco_DatumReferenceElement("DATUM_REFERENCE_ELEMENT");
-static TCollection_AsciiString Reco_DatumReferenceModifierWithValue(
+static AsciiString1 Reco_NonUniformZoneDefinition("NON_UNIFORM_ZONE_DEFINITION");
+static AsciiString1 Reco_ProjectedZoneDefinition("PROJECTED_ZONE_DEFINITION");
+static AsciiString1 Reco_RunoutZoneDefinition("RUNOUT_ZONE_DEFINITION");
+static AsciiString1 Reco_RunoutZoneOrientation("RUNOUT_ZONE_ORIENTATION");
+static AsciiString1 Reco_ToleranceZone("TOLERANCE_ZONE");
+static AsciiString1 Reco_ToleranceZoneDefinition("TOLERANCE_ZONE_DEFINITION");
+static AsciiString1 Reco_ToleranceZoneForm("TOLERANCE_ZONE_FORM");
+static AsciiString1 Reco_ValueFormatTypeQualifier("VALUE_FORMAT_TYPE_QUALIFIER");
+static AsciiString1 Reco_DatumReferenceCompartment("DATUM_REFERENCE_COMPARTMENT");
+static AsciiString1 Reco_DatumReferenceElement("DATUM_REFERENCE_ELEMENT");
+static AsciiString1 Reco_DatumReferenceModifierWithValue(
   "DATUM_REFERENCE_MODIFIER_WITH_VALUE");
-static TCollection_AsciiString Reco_DatumSystem("DATUM_SYSTEM");
-static TCollection_AsciiString Reco_GeneralDatumReference("GENERAL_DATUM_REFERENCE");
-static TCollection_AsciiString Reco_IntegerRepresentationItem("INTEGER_REPRESENTATION_ITEM");
-static TCollection_AsciiString Reco_ValueRepresentationItem("VALUE_REPRESENTATION_ITEM");
-static TCollection_AsciiString Reco_FeatureForDatumTargetRelationship(
+static AsciiString1 Reco_DatumSystem("DATUM_SYSTEM");
+static AsciiString1 Reco_GeneralDatumReference("GENERAL_DATUM_REFERENCE");
+static AsciiString1 Reco_IntegerRepresentationItem("INTEGER_REPRESENTATION_ITEM");
+static AsciiString1 Reco_ValueRepresentationItem("VALUE_REPRESENTATION_ITEM");
+static AsciiString1 Reco_FeatureForDatumTargetRelationship(
   "FEATURE_FOR_DATUM_TARGET_RELATIONSHIP");
-static TCollection_AsciiString Reco_DraughtingModelItemAssociation(
+static AsciiString1 Reco_DraughtingModelItemAssociation(
   "DRAUGHTING_MODEL_ITEM_ASSOCIATION");
-static TCollection_AsciiString Reco_AnnotationPlane("ANNOTATION_PLANE");
+static AsciiString1 Reco_AnnotationPlane("ANNOTATION_PLANE");
 
-static TCollection_AsciiString Reco_TessellatedAnnotationOccurrence(
+static AsciiString1 Reco_TessellatedAnnotationOccurrence(
   "TESSELLATED_ANNOTATION_OCCURRENCE");
-static TCollection_AsciiString Reco_TessellatedGeometricSet("TESSELLATED_GEOMETRIC_SET");
-static TCollection_AsciiString Reco_TessellatedCurveSet("TESSELLATED_CURVE_SET");
-static TCollection_AsciiString Reco_TessellatedItem("TESSELLATED_ITEM");
-static TCollection_AsciiString Reco_RepositionedTessellatedItem("REPOSITIONED_TESSELLATED_ITEM");
-static TCollection_AsciiString Reco_CoordinatesList("COORDINATES_LIST");
-static TCollection_AsciiString Reco_ConstructiveGeometryRepresentation(
+static AsciiString1 Reco_TessellatedGeometricSet("TESSELLATED_GEOMETRIC_SET");
+static AsciiString1 Reco_TessellatedCurveSet("TESSELLATED_CURVE_SET");
+static AsciiString1 Reco_TessellatedItem("TESSELLATED_ITEM");
+static AsciiString1 Reco_RepositionedTessellatedItem("REPOSITIONED_TESSELLATED_ITEM");
+static AsciiString1 Reco_CoordinatesList("COORDINATES_LIST");
+static AsciiString1 Reco_ConstructiveGeometryRepresentation(
   "CONSTRUCTIVE_GEOMETRY_REPRESENTATION");
-static TCollection_AsciiString Reco_ConstructiveGeometryRepresentationRelationship(
+static AsciiString1 Reco_ConstructiveGeometryRepresentationRelationship(
   "CONSTRUCTIVE_GEOMETRY_REPRESENTATION_RELATIONSHIP");
-static TCollection_AsciiString Reco_CharacterizedRepresentation("CHARACTERIZED_REPRESENTATION");
-static TCollection_AsciiString Reco_CameraModelD3MultiClipping("CAMERA_MODEL_D3_MULTI_CLIPPING");
-static TCollection_AsciiString Reco_CameraModelD3MultiClippingIntersection(
+static AsciiString1 Reco_CharacterizedRepresentation("CHARACTERIZED_REPRESENTATION");
+static AsciiString1 Reco_CameraModelD3MultiClipping("CAMERA_MODEL_D3_MULTI_CLIPPING");
+static AsciiString1 Reco_CameraModelD3MultiClippingIntersection(
   "CAMERA_MODEL_D3_MULTI_CLIPPING_INTERSECTION");
-static TCollection_AsciiString Reco_CameraModelD3MultiClippingUnion(
+static AsciiString1 Reco_CameraModelD3MultiClippingUnion(
   "CAMERA_MODEL_D3_MULTI_CLIPPING_UNION");
 
-static TCollection_AsciiString Reco_SurfaceStyleTransparent("SURFACE_STYLE_TRANSPARENT");
-static TCollection_AsciiString Reco_SurfaceStyleReflectanceAmbient(
+static AsciiString1 Reco_SurfaceStyleTransparent("SURFACE_STYLE_TRANSPARENT");
+static AsciiString1 Reco_SurfaceStyleReflectanceAmbient(
   "SURFACE_STYLE_REFLECTANCE_AMBIENT");
-static TCollection_AsciiString Reco_SurfaceStyleRendering("SURFACE_STYLE_RENDERING");
-static TCollection_AsciiString Reco_SurfaceStyleRenderingWithProperties(
+static AsciiString1 Reco_SurfaceStyleRendering("SURFACE_STYLE_RENDERING");
+static AsciiString1 Reco_SurfaceStyleRenderingWithProperties(
   "SURFACE_STYLE_RENDERING_WITH_PROPERTIES");
 
-static TCollection_AsciiString Reco_RepresentationContextReference(
+static AsciiString1 Reco_RepresentationContextReference(
   "REPRESENTATION_CONTEXT_REFERENCE");
-static TCollection_AsciiString Reco_RepresentationReference("REPRESENTATION_REFERENCE");
-static TCollection_AsciiString Reco_SuParameters("SU_PARAMETERS");
-static TCollection_AsciiString Reco_RotationAboutDirection("ROTATION_ABOUT_DIRECTION");
-static TCollection_AsciiString Reco_KinematicJoint("KINEMATIC_JOINT");
-static TCollection_AsciiString Reco_ActuatedKinematicPair("ACTUATED_KINEMATIC_PAIR");
-static TCollection_AsciiString Reco_ContextDependentKinematicLinkRepresentation(
+static AsciiString1 Reco_RepresentationReference("REPRESENTATION_REFERENCE");
+static AsciiString1 Reco_SuParameters("SU_PARAMETERS");
+static AsciiString1 Reco_RotationAboutDirection("ROTATION_ABOUT_DIRECTION");
+static AsciiString1 Reco_KinematicJoint("KINEMATIC_JOINT");
+static AsciiString1 Reco_ActuatedKinematicPair("ACTUATED_KINEMATIC_PAIR");
+static AsciiString1 Reco_ContextDependentKinematicLinkRepresentation(
   "CONTEXT_DEPENDENT_KINEMATIC_LINK_REPRESENTATION");
-static TCollection_AsciiString Reco_CylindricalPair("CYLINDRICAL_PAIR");
-static TCollection_AsciiString Reco_CylindricalPairValue("CYLINDRICAL_PAIR_VALUE");
-static TCollection_AsciiString Reco_CylindricalPairWithRange("CYLINDRICAL_PAIR_WITH_RANGE");
-static TCollection_AsciiString Reco_FullyConstrainedPair("FULLY_CONSTRAINED_PAIR");
-static TCollection_AsciiString Reco_GearPair("GEAR_PAIR");
-static TCollection_AsciiString Reco_GearPairValue("GEAR_PAIR_VALUE");
-static TCollection_AsciiString Reco_GearPairWithRange("GEAR_PAIR_WITH_RANGE");
-static TCollection_AsciiString Reco_HomokineticPair("HOMOKINETIC_PAIR");
-static TCollection_AsciiString Reco_KinematicLink("KINEMATIC_LINK");
-static TCollection_AsciiString Reco_KinematicLinkRepresentationAssociation(
+static AsciiString1 Reco_CylindricalPair("CYLINDRICAL_PAIR");
+static AsciiString1 Reco_CylindricalPairValue("CYLINDRICAL_PAIR_VALUE");
+static AsciiString1 Reco_CylindricalPairWithRange("CYLINDRICAL_PAIR_WITH_RANGE");
+static AsciiString1 Reco_FullyConstrainedPair("FULLY_CONSTRAINED_PAIR");
+static AsciiString1 Reco_GearPair("GEAR_PAIR");
+static AsciiString1 Reco_GearPairValue("GEAR_PAIR_VALUE");
+static AsciiString1 Reco_GearPairWithRange("GEAR_PAIR_WITH_RANGE");
+static AsciiString1 Reco_HomokineticPair("HOMOKINETIC_PAIR");
+static AsciiString1 Reco_KinematicLink("KINEMATIC_LINK");
+static AsciiString1 Reco_KinematicLinkRepresentationAssociation(
   "KINEMATIC_LINK_REPRESENTATION_ASSOCIATION");
-static TCollection_AsciiString Reco_KinematicPropertyMechanismRepresentation(
+static AsciiString1 Reco_KinematicPropertyMechanismRepresentation(
   "KINEMATIC_PROPERTY_MECHANISM_REPRESENTATION");
-static TCollection_AsciiString Reco_KinematicTopologyDirectedStructure(
+static AsciiString1 Reco_KinematicTopologyDirectedStructure(
   "KINEMATIC_TOPOLOGY_DIRECTED_STRUCTURE");
-static TCollection_AsciiString Reco_KinematicTopologyNetworkStructure(
+static AsciiString1 Reco_KinematicTopologyNetworkStructure(
   "KINEMATIC_TOPOLOGY_NETWORK_STRUCTURE");
-static TCollection_AsciiString Reco_KinematicTopologyStructure("KINEMATIC_TOPOLOGY_STRUCTURE");
-static TCollection_AsciiString Reco_LinearFlexibleAndPinionPair("LINEAR_FLEXIBLE_AND_PINION_PAIR");
-static TCollection_AsciiString Reco_LinearFlexibleAndPlanarCurvePair(
+static AsciiString1 Reco_KinematicTopologyStructure("KINEMATIC_TOPOLOGY_STRUCTURE");
+static AsciiString1 Reco_LinearFlexibleAndPinionPair("LINEAR_FLEXIBLE_AND_PINION_PAIR");
+static AsciiString1 Reco_LinearFlexibleAndPlanarCurvePair(
   "LINEAR_FLEXIBLE_AND_PLANAR_CURVE_PAIR");
-static TCollection_AsciiString Reco_LinearFlexibleLinkRepresentation(
+static AsciiString1 Reco_LinearFlexibleLinkRepresentation(
   "LINEAR_FLEXIBLE_LINK_REPRESENTATION");
-static TCollection_AsciiString Reco_LowOrderKinematicPair("LOW_ORDER_KINEMATIC_PAIR");
-static TCollection_AsciiString Reco_LowOrderKinematicPairValue("LOW_ORDER_KINEMATIC_PAIR_VALUE");
-static TCollection_AsciiString Reco_LowOrderKinematicPairWithRange(
+static AsciiString1 Reco_LowOrderKinematicPair("LOW_ORDER_KINEMATIC_PAIR");
+static AsciiString1 Reco_LowOrderKinematicPairValue("LOW_ORDER_KINEMATIC_PAIR_VALUE");
+static AsciiString1 Reco_LowOrderKinematicPairWithRange(
   "LOW_ORDER_KINEMATIC_PAIR_WITH_RANGE");
-static TCollection_AsciiString Reco_MechanismRepresentation("MECHANISM_REPRESENTATION");
-static TCollection_AsciiString Reco_OrientedJoint("ORIENTED_JOINT");
-static TCollection_AsciiString Reco_PairRepresentationRelationship(
+static AsciiString1 Reco_MechanismRepresentation("MECHANISM_REPRESENTATION");
+static AsciiString1 Reco_OrientedJoint("ORIENTED_JOINT");
+static AsciiString1 Reco_PairRepresentationRelationship(
   "PAIR_REPRESENTATION_RELATIONSHIP");
-static TCollection_AsciiString Reco_PlanarCurvePair("PLANAR_CURVE_PAIR");
-static TCollection_AsciiString Reco_PlanarCurvePairRange("PLANAR_CURVE_PAIR_RANGE");
-static TCollection_AsciiString Reco_PlanarPair("PLANAR_PAIR");
-static TCollection_AsciiString Reco_PlanarPairValue("PLANAR_PAIR_VALUE");
-static TCollection_AsciiString Reco_PlanarPairWithRange("PLANAR_PAIR_WITH_RANGE");
-static TCollection_AsciiString Reco_PointOnPlanarCurvePair("POINT_ON_PLANAR_CURVE_PAIR");
-static TCollection_AsciiString Reco_PointOnPlanarCurvePairValue("POINT_ON_PLANAR_CURVE_PAIR_VALUE");
-static TCollection_AsciiString Reco_PointOnPlanarCurvePairWithRange(
+static AsciiString1 Reco_PlanarCurvePair("PLANAR_CURVE_PAIR");
+static AsciiString1 Reco_PlanarCurvePairRange("PLANAR_CURVE_PAIR_RANGE");
+static AsciiString1 Reco_PlanarPair("PLANAR_PAIR");
+static AsciiString1 Reco_PlanarPairValue("PLANAR_PAIR_VALUE");
+static AsciiString1 Reco_PlanarPairWithRange("PLANAR_PAIR_WITH_RANGE");
+static AsciiString1 Reco_PointOnPlanarCurvePair("POINT_ON_PLANAR_CURVE_PAIR");
+static AsciiString1 Reco_PointOnPlanarCurvePairValue("POINT_ON_PLANAR_CURVE_PAIR_VALUE");
+static AsciiString1 Reco_PointOnPlanarCurvePairWithRange(
   "POINT_ON_PLANAR_CURVE_PAIR_WITH_RANGE");
-static TCollection_AsciiString Reco_PointOnSurfacePair("POINT_ON_SURFACE_PAIR");
-static TCollection_AsciiString Reco_PointOnSurfacePairValue("POINT_ON_SURFACE_PAIR_VALUE");
-static TCollection_AsciiString Reco_PointOnSurfacePairWithRange("POINT_ON_SURFACE_PAIR_WITH_RANGE");
-static TCollection_AsciiString Reco_PrismaticPair("PRISMATIC_PAIR");
-static TCollection_AsciiString Reco_PrismaticPairValue("PRISMATIC_PAIR_VALUE");
-static TCollection_AsciiString Reco_PrismaticPairWithRange("PRISMATIC_PAIR_WITH_RANGE");
-static TCollection_AsciiString Reco_ProductDefinitionKinematics("PRODUCT_DEFINITION_KINEMATICS");
-static TCollection_AsciiString Reco_ProductDefinitionRelationshipKinematics(
+static AsciiString1 Reco_PointOnSurfacePair("POINT_ON_SURFACE_PAIR");
+static AsciiString1 Reco_PointOnSurfacePairValue("POINT_ON_SURFACE_PAIR_VALUE");
+static AsciiString1 Reco_PointOnSurfacePairWithRange("POINT_ON_SURFACE_PAIR_WITH_RANGE");
+static AsciiString1 Reco_PrismaticPair("PRISMATIC_PAIR");
+static AsciiString1 Reco_PrismaticPairValue("PRISMATIC_PAIR_VALUE");
+static AsciiString1 Reco_PrismaticPairWithRange("PRISMATIC_PAIR_WITH_RANGE");
+static AsciiString1 Reco_ProductDefinitionKinematics("PRODUCT_DEFINITION_KINEMATICS");
+static AsciiString1 Reco_ProductDefinitionRelationshipKinematics(
   "PRODUCT_DEFINITION_RELATIONSHIP_KINEMATICS");
-static TCollection_AsciiString Reco_RackAndPinionPair("RACK_AND_PINION_PAIR");
-static TCollection_AsciiString Reco_RackAndPinionPairValue("RACK_AND_PINION_PAIR_VALUE");
-static TCollection_AsciiString Reco_RackAndPinionPairWithRange("RACK_AND_PINION_PAIR_WITH_RANGE");
-static TCollection_AsciiString Reco_RevolutePair("REVOLUTE_PAIR");
-static TCollection_AsciiString Reco_RevolutePairValue("REVOLUTE_PAIR_VALUE");
-static TCollection_AsciiString Reco_RevolutePairWithRange("REVOLUTE_PAIR_WITH_RANGE");
-static TCollection_AsciiString Reco_RigidLinkRepresentation("RIGID_LINK_REPRESENTATION");
-static TCollection_AsciiString Reco_RollingCurvePair("ROLLING_CURVE_PAIR");
-static TCollection_AsciiString Reco_RollingCurvePairValue("ROLLING_CURVE_PAIR_VALUE");
-static TCollection_AsciiString Reco_RollingSurfacePair("ROLLING_SURFACE_PAIR");
-static TCollection_AsciiString Reco_RollingSurfacePairValue("ROLLING_SURFACE_PAIR_VALUE");
-static TCollection_AsciiString Reco_ScrewPair("SCREW_PAIR");
-static TCollection_AsciiString Reco_ScrewPairValue("SCREW_PAIR_VALUE");
-static TCollection_AsciiString Reco_ScrewPairWithRange("SCREW_PAIR_WITH_RANGE");
-static TCollection_AsciiString Reco_SlidingCurvePair("SLIDING_CURVE_PAIR");
-static TCollection_AsciiString Reco_SlidingCurvePairValue("SLIDING_CURVE_PAIR_VALUE");
-static TCollection_AsciiString Reco_SlidingSurfacePair("SLIDING_SURFACE_PAIR");
-static TCollection_AsciiString Reco_SlidingSurfacePairValue("SLIDING_SURFACE_PAIR_VALUE");
-static TCollection_AsciiString Reco_SphericalPair("SPHERICAL_PAIR");
-static TCollection_AsciiString Reco_SphericalPairValue("SPHERICAL_PAIR_VALUE");
-static TCollection_AsciiString Reco_SphericalPairWithPin("SPHERICAL_PAIR_WITH_PIN");
-static TCollection_AsciiString Reco_SphericalPairWithPinAndRange(
+static AsciiString1 Reco_RackAndPinionPair("RACK_AND_PINION_PAIR");
+static AsciiString1 Reco_RackAndPinionPairValue("RACK_AND_PINION_PAIR_VALUE");
+static AsciiString1 Reco_RackAndPinionPairWithRange("RACK_AND_PINION_PAIR_WITH_RANGE");
+static AsciiString1 Reco_RevolutePair("REVOLUTE_PAIR");
+static AsciiString1 Reco_RevolutePairValue("REVOLUTE_PAIR_VALUE");
+static AsciiString1 Reco_RevolutePairWithRange("REVOLUTE_PAIR_WITH_RANGE");
+static AsciiString1 Reco_RigidLinkRepresentation("RIGID_LINK_REPRESENTATION");
+static AsciiString1 Reco_RollingCurvePair("ROLLING_CURVE_PAIR");
+static AsciiString1 Reco_RollingCurvePairValue("ROLLING_CURVE_PAIR_VALUE");
+static AsciiString1 Reco_RollingSurfacePair("ROLLING_SURFACE_PAIR");
+static AsciiString1 Reco_RollingSurfacePairValue("ROLLING_SURFACE_PAIR_VALUE");
+static AsciiString1 Reco_ScrewPair("SCREW_PAIR");
+static AsciiString1 Reco_ScrewPairValue("SCREW_PAIR_VALUE");
+static AsciiString1 Reco_ScrewPairWithRange("SCREW_PAIR_WITH_RANGE");
+static AsciiString1 Reco_SlidingCurvePair("SLIDING_CURVE_PAIR");
+static AsciiString1 Reco_SlidingCurvePairValue("SLIDING_CURVE_PAIR_VALUE");
+static AsciiString1 Reco_SlidingSurfacePair("SLIDING_SURFACE_PAIR");
+static AsciiString1 Reco_SlidingSurfacePairValue("SLIDING_SURFACE_PAIR_VALUE");
+static AsciiString1 Reco_SphericalPair("SPHERICAL_PAIR");
+static AsciiString1 Reco_SphericalPairValue("SPHERICAL_PAIR_VALUE");
+static AsciiString1 Reco_SphericalPairWithPin("SPHERICAL_PAIR_WITH_PIN");
+static AsciiString1 Reco_SphericalPairWithPinAndRange(
   "SPHERICAL_PAIR_WITH_PIN_AND_RANGE");
-static TCollection_AsciiString Reco_SphericalPairWithRange("SPHERICAL_PAIR_WITH_RANGE");
-static TCollection_AsciiString Reco_SurfacePairWithRange("SURFACE_PAIR_WITH_RANGE");
-static TCollection_AsciiString Reco_UnconstrainedPair("UNCONSTRAINED_PAIR");
-static TCollection_AsciiString Reco_UnconstrainedPairValue("UNCONSTRAINED_PAIR_VALUE");
-static TCollection_AsciiString Reco_UniversalPair("UNIVERSAL_PAIR");
-static TCollection_AsciiString Reco_UniversalPairValue("UNIVERSAL_PAIR_VALUE");
-static TCollection_AsciiString Reco_UniversalPairWithRange("UNIVERSAL_PAIR_WITH_RANGE");
-static TCollection_AsciiString Reco_KinematicPair("KINEMATIC_PAIR");
-static TCollection_AsciiString Reco_MechanismStateRepresentation("MECHANISM_STATE_REPRESENTATION");
+static AsciiString1 Reco_SphericalPairWithRange("SPHERICAL_PAIR_WITH_RANGE");
+static AsciiString1 Reco_SurfacePairWithRange("SURFACE_PAIR_WITH_RANGE");
+static AsciiString1 Reco_UnconstrainedPair("UNCONSTRAINED_PAIR");
+static AsciiString1 Reco_UnconstrainedPairValue("UNCONSTRAINED_PAIR_VALUE");
+static AsciiString1 Reco_UniversalPair("UNIVERSAL_PAIR");
+static AsciiString1 Reco_UniversalPairValue("UNIVERSAL_PAIR_VALUE");
+static AsciiString1 Reco_UniversalPairWithRange("UNIVERSAL_PAIR_WITH_RANGE");
+static AsciiString1 Reco_KinematicPair("KINEMATIC_PAIR");
+static AsciiString1 Reco_MechanismStateRepresentation("MECHANISM_STATE_REPRESENTATION");
 
-static TCollection_AsciiString Reco_TessellatedConnectingEdge("TESSELLATED_CONNECTING_EDGE");
-static TCollection_AsciiString Reco_TessellatedEdge("TESSELLATED_EDGE");
-static TCollection_AsciiString Reco_TessellatedPointSet("TESSELLATED_POINT_SET");
-static TCollection_AsciiString Reco_TessellatedShapeRepresentation(
+static AsciiString1 Reco_TessellatedConnectingEdge("TESSELLATED_CONNECTING_EDGE");
+static AsciiString1 Reco_TessellatedEdge("TESSELLATED_EDGE");
+static AsciiString1 Reco_TessellatedPointSet("TESSELLATED_POINT_SET");
+static AsciiString1 Reco_TessellatedShapeRepresentation(
   "TESSELLATED_SHAPE_REPRESENTATION");
-static TCollection_AsciiString Reco_TessellatedShapeRepresentationWithAccuracyParameters(
+static AsciiString1 Reco_TessellatedShapeRepresentationWithAccuracyParameters(
   "TESSELLATED_SHAPE_REPRESENTATION_WITH_ACCURACY_PARAMETERS");
-static TCollection_AsciiString Reco_TessellatedShell("TESSELLATED_SHELL");
-static TCollection_AsciiString Reco_TessellatedSolid("TESSELLATED_SOLID");
-static TCollection_AsciiString Reco_TessellatedStructuredItem("TESSELLATED_STRUCTURED_ITEM");
-static TCollection_AsciiString Reco_TessellatedVertex("TESSELLATED_VERTEX");
-static TCollection_AsciiString Reco_TessellatedWire("TESSELLATED_WIRE");
-static TCollection_AsciiString Reco_TriangulatedFace("TRIANGULATED_FACE");
-static TCollection_AsciiString Reco_ComplexTriangulatedFace("COMPLEX_TRIANGULATED_FACE");
-static TCollection_AsciiString Reco_ComplexTriangulatedSurfaceSet(
+static AsciiString1 Reco_TessellatedShell("TESSELLATED_SHELL");
+static AsciiString1 Reco_TessellatedSolid("TESSELLATED_SOLID");
+static AsciiString1 Reco_TessellatedStructuredItem("TESSELLATED_STRUCTURED_ITEM");
+static AsciiString1 Reco_TessellatedVertex("TESSELLATED_VERTEX");
+static AsciiString1 Reco_TessellatedWire("TESSELLATED_WIRE");
+static AsciiString1 Reco_TriangulatedFace("TRIANGULATED_FACE");
+static AsciiString1 Reco_ComplexTriangulatedFace("COMPLEX_TRIANGULATED_FACE");
+static AsciiString1 Reco_ComplexTriangulatedSurfaceSet(
   "COMPLEX_TRIANGULATED_SURFACE_SET");
-static TCollection_AsciiString Reco_CubicBezierTessellatedEdge("CUBIC_BEZIER_TESSELLATED_EDGE");
-static TCollection_AsciiString Reco_CubicBezierTriangulatedFace("CUBIC_BEZIER_TRIANGULATED_FACE");
-static TCollection_AsciiString Reco_TriangulatedSurfaceSet("TRIANGULATED_SURFACE_SET");
-static TCollection_AsciiString Reco_GeneralPropertyAssociation("GENERAL_PROPERTY_ASSOCIATION");
-static TCollection_AsciiString Reco_GeneralPropertyRelationship("GENERAL_PROPERTY_RELATIONSHIP");
-static TCollection_AsciiString Reco_BooleanRepresentationItem("BOOLEAN_REPRESENTATION_ITEM");
-static TCollection_AsciiString Reco_RealRepresentationItem("REAL_REPRESENTATION_ITEM");
-static TCollection_AsciiString Reco_MechanicalDesignAndDraughtingRelationship(
+static AsciiString1 Reco_CubicBezierTessellatedEdge("CUBIC_BEZIER_TESSELLATED_EDGE");
+static AsciiString1 Reco_CubicBezierTriangulatedFace("CUBIC_BEZIER_TRIANGULATED_FACE");
+static AsciiString1 Reco_TriangulatedSurfaceSet("TRIANGULATED_SURFACE_SET");
+static AsciiString1 Reco_GeneralPropertyAssociation("GENERAL_PROPERTY_ASSOCIATION");
+static AsciiString1 Reco_GeneralPropertyRelationship("GENERAL_PROPERTY_RELATIONSHIP");
+static AsciiString1 Reco_BooleanRepresentationItem("BOOLEAN_REPRESENTATION_ITEM");
+static AsciiString1 Reco_RealRepresentationItem("REAL_REPRESENTATION_ITEM");
+static AsciiString1 Reco_MechanicalDesignAndDraughtingRelationship(
   "MECHANICAL_DESIGN_AND_DRAUGHTING_RELATIONSHIP");
 
 // -- Definition of the libraries --
 
-static NCollection_DataMap<TCollection_AsciiString, Standard_Integer> typenums;
-static NCollection_DataMap<TCollection_AsciiString, Standard_Integer> typeshor;
+static NCollection_DataMap<AsciiString1, Standard_Integer> typenums;
+static NCollection_DataMap<AsciiString1, Standard_Integer> typeshor;
 
 RWStepAP214_ReadWriteModule::RWStepAP214_ReadWriteModule()
 {
@@ -3802,7 +3802,7 @@ RWStepAP214_ReadWriteModule::RWStepAP214_ReadWriteModule()
 
 // --- Case Recognition ---
 
-Standard_Integer RWStepAP214_ReadWriteModule::CaseStep(const TCollection_AsciiString& key) const
+Standard_Integer RWStepAP214_ReadWriteModule::CaseStep(const AsciiString1& key) const
 {
   // FMA - le 25-07-96 : Optimisation -> on teste en premier les types les plus
   //                     frequents dans le fichier cad geometry/topology
@@ -3868,7 +3868,7 @@ Standard_Integer RWStepAP214_ReadWriteModule::CaseStep(
       types.Append(theTypes(i));
     // do ascending sorting
     Standard_Boolean        isOK = Standard_False;
-    TCollection_AsciiString tmpStr;
+    AsciiString1 tmpStr;
     Standard_Integer        aLen = types.Length() - 1;
     while (!isOK)
     {
@@ -4406,7 +4406,7 @@ Standard_Boolean RWStepAP214_ReadWriteModule::IsComplex(const Standard_Integer C
 
 //=================================================================================================
 
-const TCollection_AsciiString& RWStepAP214_ReadWriteModule::StepType(
+const AsciiString1& RWStepAP214_ReadWriteModule::StepType(
   const Standard_Integer CN) const
 {
   switch (CN)

@@ -44,7 +44,7 @@
 //   sections of L1 with OnCirc and the radius the distance between Point1 and   +
 //   the point calculated below.                                          +
 //=========================================================================
-GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const gp_Pnt2d&     Point1,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const gp_Pnt2d&     Point1,
                                          const gp_Pnt2d&     Point2,
                                          const gp_Circ2d&    OnCirc,
                                          const Standard_Real Tolerance)

@@ -23,7 +23,7 @@
 #include <TDataStd_GenericEmpty.hxx>
 #include <Standard_Boolean.hxx>
 #include <Standard_OStream.hxx>
-class TDF_Label;
+class DataLabel;
 class Standard_GUID;
 
 class TDataStd_Directory;
@@ -43,12 +43,12 @@ public:
   //! current, or on one of the father labels of current.
   //! If a directory attribute is found, true is returned,
   //! and the attribute found is set as D.
-  Standard_EXPORT static Standard_Boolean Find(const TDF_Label&            current,
+  Standard_EXPORT static Standard_Boolean Find(const DataLabel&            current,
                                                Handle(TDataStd_Directory)& D);
 
   //! Creates  an  empty   Directory attribute,  located  at
   //! <label>. Raises if <label> has attribute
-  Standard_EXPORT static Handle(TDataStd_Directory) New(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataStd_Directory) New(const DataLabel& label);
 
   //! Creates a new sub-label and sets the
   //! sub-directory dir on that label.
@@ -57,7 +57,7 @@ public:
 
   //! Makes new label and returns it to insert
   //! other object attributes (sketch,part...etc...)
-  Standard_EXPORT static TDF_Label MakeObjectLabel(const Handle(TDataStd_Directory)& dir);
+  Standard_EXPORT static DataLabel MakeObjectLabel(const Handle(TDataStd_Directory)& dir);
 
   //! Directory methods
   //! ===============

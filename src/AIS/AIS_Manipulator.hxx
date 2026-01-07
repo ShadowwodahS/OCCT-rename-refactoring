@@ -28,9 +28,9 @@
 #include <V3d_View.hxx>
 #include <Standard_DefineHandle.hxx>
 
-NCOLLECTION_HSEQUENCE(AIS_ManipulatorObjectSequence, Handle(AIS_InteractiveObject))
+NCOLLECTION_HSEQUENCE(AIS_ManipulatorObjectSequence, Handle(VisualEntity))
 
-DEFINE_STANDARD_HANDLE(AIS_Manipulator, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(AIS_Manipulator, VisualEntity)
 
 //! Interactive object class to manipulate local transformation of another interactive
 //! object or a group of objects via mouse.
@@ -90,7 +90,7 @@ DEFINE_STANDARD_HANDLE(AIS_Manipulator, AIS_InteractiveObject)
 //! aManipulator->Detach();
 //! @endcode
 //! The last method erases manipulator object.
-class AIS_Manipulator : public AIS_InteractiveObject
+class AIS_Manipulator : public VisualEntity
 {
 public:
   //! Constructs a manipulator object with default placement and all parts to be displayed.
@@ -156,7 +156,7 @@ public:
   //! Attaches himself to the input interactive object and become displayed in the same context.
   //! It is placed in the center of object bounding box, and its size is adjusted to the object
   //! bounding box.
-  Standard_EXPORT void Attach(const Handle(AIS_InteractiveObject)& theObject,
+  Standard_EXPORT void Attach(const Handle(VisualEntity)& theObject,
                               const OptionsForAttach&              theOptions = OptionsForAttach());
 
   //! Attaches himself to the input interactive object group and become displayed in the same
@@ -192,8 +192,8 @@ public:
   //! @param[in] theAction    drag action
   //! @return FALSE if object rejects dragging action (e.g. AIS_DragAction_Start)
   Standard_EXPORT virtual Standard_Boolean ProcessDragging(
-    const Handle(AIS_InteractiveContext)& theCtx,
-    const Handle(V3d_View)&               theView,
+    const Handle(VisualContext)& theCtx,
+    const Handle(ViewWindow)&               theView,
     const Handle(SelectMgr_EntityOwner)&  theOwner,
     const Graphic3d_Vec2i&                theDragFrom,
     const Graphic3d_Vec2i&                theDragTo,
@@ -206,7 +206,7 @@ public:
   //! DeactivateCurrentMode call if it is not reset yet.
   Standard_EXPORT void StartTransform(const Standard_Integer  theX,
                                       const Standard_Integer  theY,
-                                      const Handle(V3d_View)& theView);
+                                      const Handle(ViewWindow)& theView);
 
   //! Apply to the owning objects the input transformation.
   //! @remark The transformation is set using SetLocalTransformation for owning objects.
@@ -218,7 +218,7 @@ public:
   Standard_EXPORT void Transform(const Transform3d& aTrsf);
 
   //! Apply camera transformation to flat skin manipulator
-  Standard_EXPORT void RecomputeTransformation(const Handle(Graphic3d_Camera)& theCamera)
+  Standard_EXPORT void RecomputeTransformation(const Handle(CameraOn3d)& theCamera)
     Standard_OVERRIDE;
 
   //! Recomputes sensitive primitives for the given selection mode.
@@ -236,7 +236,7 @@ public:
   //! to the in/out mouse position (theX, theY)
   Standard_EXPORT Transform3d Transform(const Standard_Integer  theX,
                                     const Standard_Integer  theY,
-                                    const Handle(V3d_View)& theView);
+                                    const Handle(ViewWindow)& theView);
 
   //! Computes transformation of parent object according to the active mode and input motion vector.
   //! You can use this method to get object transformation according to current mode or use own
@@ -244,7 +244,7 @@ public:
   //! @return transformation of parent object.
   Standard_EXPORT Standard_Boolean ObjectTransformation(const Standard_Integer  theX,
                                                         const Standard_Integer  theY,
-                                                        const Handle(V3d_View)& theView,
+                                                        const Handle(ViewWindow)& theView,
                                                         Transform3d&                theTrsf);
 
   //! Make inactive the current selected manipulator part and reset current axis index and current
@@ -259,11 +259,11 @@ public:
   Standard_EXPORT Handle(AIS_ManipulatorObjectSequence) Objects() const;
 
   //! @return the first (leading) object of the owning objects.
-  Standard_EXPORT Handle(AIS_InteractiveObject) Object() const;
+  Standard_EXPORT Handle(VisualEntity) Object() const;
 
   //! @return one of the owning objects.
   //! @warning raises program error if theIndex is more than owning objects count or less than 1.
-  Standard_EXPORT Handle(AIS_InteractiveObject) Object(const Standard_Integer theIndex) const;
+  Standard_EXPORT Handle(VisualEntity) Object(const Standard_Integer theIndex) const;
 
   //! @return true if manipulator is attached to some interactive object (has owning object).
   Standard_Boolean IsAttached() const { return HasOwner(); }
@@ -402,7 +402,7 @@ public: //! @name Presentation computation
 
   //! Computes selection sensitive zones (triangulation) for manipulator.
   //! @param[in] theNode  Selection mode that is treated as transformation mode.
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Disables auto highlighting to use HilightSelected() and HilightOwnerWithColor() overridden
@@ -422,7 +422,7 @@ public: //! @name Presentation computation
   //! this selectable object  ( for fast presentation draw ).
   Standard_EXPORT virtual void HilightOwnerWithColor(
     const Handle(PrsMgr_PresentationManager)& thePM,
-    const Handle(Prs3d_Drawer)&               theStyle,
+    const Handle(StyleDrawer)&               theStyle,
     const Handle(SelectMgr_EntityOwner)&      theOwner) Standard_OVERRIDE;
 
 protected:
@@ -452,7 +452,7 @@ protected:
   //! method, silently does nothing in release mode.
   Standard_EXPORT virtual void setLocalTransformation(const Handle(TopLoc_Datum3D)& theTrsf)
     Standard_OVERRIDE;
-  using AIS_InteractiveObject::SetLocalTransformation; // hide visibility
+  using VisualEntity::SetLocalTransformation; // hide visibility
 
 protected: //! @name Auxiliary classes to fill presentation with proper primitives
   class Quadric
@@ -464,12 +464,12 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
       myArray.Nullify();
     }
 
-    const Handle(Poly_Triangulation)& Triangulation() const { return myTriangulation; }
+    const Handle(MeshTriangulation)& Triangulation() const { return myTriangulation; }
 
     const Handle(Graphic3d_ArrayOfTriangles)& Array() const { return myArray; }
 
   protected:
-    Handle(Poly_Triangulation)         myTriangulation;
+    Handle(MeshTriangulation)         myTriangulation;
     Handle(Graphic3d_ArrayOfTriangles) myArray;
   };
 
@@ -529,7 +529,7 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
               const Standard_ShortReal myBoxSize,
               const ManipulatorSkin    theSkinMode);
 
-    const Handle(Poly_Triangulation)& Triangulation() const { return myTriangulation; }
+    const Handle(MeshTriangulation)& Triangulation() const { return myTriangulation; }
 
     const Handle(Graphic3d_ArrayOfTriangles)& Array() const { return myArray; }
 
@@ -541,7 +541,7 @@ protected: //! @name Auxiliary classes to fill presentation with proper primitiv
                      const Dir3d&          theNormal);
 
   protected:
-    Handle(Poly_Triangulation)         myTriangulation;
+    Handle(MeshTriangulation)         myTriangulation;
     Handle(Graphic3d_ArrayOfTriangles) myArray;
   };
 
@@ -811,6 +811,6 @@ protected: //! @name Fields for interactive transformation. Fields only for inte
   Handle(Prs3d_ShadingAspect) myDraggerHighlight;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(AIS_Manipulator, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_Manipulator, VisualEntity)
 };
 #endif // _AIS_Manipulator_HeaderFile

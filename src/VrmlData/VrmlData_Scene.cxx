@@ -49,10 +49,10 @@
 
 static void dumpNode(Standard_OStream&              theStream,
                      const Handle(VrmlData_Node)&   theNode,
-                     const TCollection_AsciiString& theIndent);
+                     const AsciiString1& theIndent);
 
 static void dumpNodeHeader(Standard_OStream&              theStream,
-                           const TCollection_AsciiString& theIndent,
+                           const AsciiString1& theIndent,
                            const char*                    theType,
                            const char*                    theName);
 
@@ -157,9 +157,9 @@ Standard_OStream& operator<<(Standard_OStream& theOutput, const VrmlData_Scene& 
 
 //=================================================================================================
 
-void VrmlData_Scene::SetVrmlDir(const TCollection_ExtendedString& theDir)
+void VrmlData_Scene::SetVrmlDir(const UtfString& theDir)
 {
-  TCollection_ExtendedString& aDir = myVrmlDir.Append(theDir);
+  UtfString& aDir = myVrmlDir.Append(theDir);
   if (aDir.IsEmpty())
   {
     return;
@@ -167,9 +167,9 @@ void VrmlData_Scene::SetVrmlDir(const TCollection_ExtendedString& theDir)
   const Standard_ExtCharacter aTerminator = aDir.Value(aDir.Length());
   if (aTerminator != Standard_ExtCharacter('\\') && aTerminator != Standard_ExtCharacter('/'))
 #ifdef _WIN32
-    aDir += TCollection_ExtendedString("\\");
+    aDir += UtfString("\\");
 #else
-    aDir += TCollection_ExtendedString("/");
+    aDir += UtfString("/");
 #endif
 }
 
@@ -182,7 +182,7 @@ const Handle(VrmlData_WorldInfo)& VrmlData_Scene::WorldInfo() const
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Scene::readLine(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_Scene::readLine(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus = VrmlData_StatusOK;
   if (theBuffer.Input.eof())
@@ -243,7 +243,7 @@ VrmlData_ErrorStatus VrmlData_Scene::readLine(VrmlData_InBuffer& theBuffer)
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Scene::ReadLine(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_Scene::ReadLine(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus(VrmlData_StatusOK);
 
@@ -298,14 +298,14 @@ nonempty_line:
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Scene::readHeader(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_Scene::readHeader(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStat = readLine(theBuffer);
   if (aStat != VrmlData_StatusOK)
   {
     return VrmlData_NotVrmlFile;
   }
-  TCollection_AsciiString aHeader(theBuffer.LinePtr);
+  AsciiString1 aHeader(theBuffer.LinePtr);
   // The max possible header size is 25 (with spaces)
   // 4 (max BOM size) + 11 (search string) + 9 (max size for encoding)
   if (aHeader.Length() <= 25 && aHeader.Search("#VRML V2.0") != -1)
@@ -326,7 +326,7 @@ VrmlData_ErrorStatus VrmlData_Scene::readHeader(VrmlData_InBuffer& theBuffer)
 
 VrmlData_Scene& VrmlData_Scene::operator<<(Standard_IStream& theInput)
 {
-  VrmlData_InBuffer aBuffer(theInput);
+  InputBuffer aBuffer(theInput);
   myMutex.Lock();
   // Read the VRML header
   myStatus                                     = readHeader(aBuffer);
@@ -432,8 +432,8 @@ Handle(VrmlData_Node) VrmlData_Scene::FindNode(const char* theName, Transform3d&
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Scene::ReadWord(VrmlData_InBuffer&       theBuffer,
-                                              TCollection_AsciiString& theWord)
+VrmlData_ErrorStatus VrmlData_Scene::ReadWord(InputBuffer&       theBuffer,
+                                              AsciiString1& theWord)
 {
   VrmlData_ErrorStatus aStatus = ReadLine(theBuffer);
   if (aStatus == VrmlData_StatusOK)
@@ -447,7 +447,7 @@ VrmlData_ErrorStatus VrmlData_Scene::ReadWord(VrmlData_InBuffer&       theBuffer
       aStatus = VrmlData_StringInputError;
     else
     {
-      theWord           = TCollection_AsciiString((Standard_CString)theBuffer.LinePtr, aLen);
+      theWord           = AsciiString1((Standard_CString)theBuffer.LinePtr, aLen);
       theBuffer.LinePtr = ptr;
     }
   }
@@ -456,13 +456,13 @@ VrmlData_ErrorStatus VrmlData_Scene::ReadWord(VrmlData_InBuffer&       theBuffer
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Scene::createNode(VrmlData_InBuffer&           theBuffer,
+VrmlData_ErrorStatus VrmlData_Scene::createNode(InputBuffer&           theBuffer,
                                                 Handle(VrmlData_Node)&       theNode,
                                                 const Handle(TypeInfo)& theType)
 {
   VrmlData_ErrorStatus    aStatus;
   Handle(VrmlData_Node)   aNode;
-  TCollection_AsciiString aName;
+  AsciiString1 aName;
 
   // Read the DEF token to assign the node name
   if (VrmlData_Node::OK(aStatus, ReadLine(theBuffer)))
@@ -535,7 +535,7 @@ VrmlData_ErrorStatus VrmlData_Scene::createNode(VrmlData_InBuffer&           the
     else
     {
       void*                   isProto = VRMLDATA_LCOMPARE(theBuffer.LinePtr, "PROTO");
-      TCollection_AsciiString aTitle;
+      AsciiString1 aTitle;
       aStatus = ReadWord(theBuffer, aTitle);
       if (isProto)
       {
@@ -603,31 +603,31 @@ VrmlData_ErrorStatus VrmlData_Scene::createNode(VrmlData_InBuffer&           the
 
 //=================================================================================================
 
-VrmlData_Scene::operator TopoDS_Shape() const
+VrmlData_Scene::operator TopoShape() const
 {
-  TopoDS_Shape aShape;
+  TopoShape aShape;
   VrmlData_Scene::createShape(aShape, myLstNodes, 0L);
   return aShape;
 }
 
 //=================================================================================================
 
-TopoDS_Shape VrmlData_Scene::GetShape(VrmlData_DataMapOfShapeAppearance& aMap)
+TopoShape VrmlData_Scene::GetShape(VrmlData_DataMapOfShapeAppearance& aMap)
 {
-  TopoDS_Shape aShape;
+  TopoShape aShape;
   VrmlData_Scene::createShape(aShape, myLstNodes, &aMap);
   return aShape;
 }
 
 //=================================================================================================
 
-void VrmlData_Scene::createShape(TopoDS_Shape&                      outShape,
+void VrmlData_Scene::createShape(TopoShape&                      outShape,
                                  const VrmlData_ListOfNode&         lstNodes,
                                  VrmlData_DataMapOfShapeAppearance* pMapShapeApp)
 {
-  TopoDS_Shape     aSingleShape; // used when there is a single ShapeNode
+  TopoShape     aSingleShape; // used when there is a single ShapeNode
   Standard_Boolean isSingleShape(Standard_True);
-  BRep_Builder     aBuilder;
+  ShapeBuilder     aBuilder;
   outShape.Nullify();
   aBuilder.MakeCompound(TopoDS::Compound(outShape));
   aSingleShape.Orientation(TopAbs_FORWARD);
@@ -661,12 +661,12 @@ void VrmlData_Scene::createShape(TopoDS_Shape&                      outShape,
               else
               {
                 // This is not a face, explode it in faces and bind each face
-                TopoDS_Shape aCurShape;
+                TopoShape aCurShape;
                 aCurShape.TShape(aTShape);
-                TopExp_Explorer anExp(aCurShape, TopAbs_FACE);
+                ShapeExplorer anExp(aCurShape, TopAbs_FACE);
                 for (; anExp.More(); anExp.Next())
                 {
-                  const TopoDS_Face& aFace = TopoDS::Face(anExp.Current());
+                  const TopoFace& aFace = TopoDS::Face(anExp.Current());
                   pMapShapeApp->Bind(aFace.TShape(), anAppearance);
                 }
               }
@@ -680,7 +680,7 @@ void VrmlData_Scene::createShape(TopoDS_Shape&                      outShape,
     const Handle(VrmlData_Group) aNodeGroup = Handle(VrmlData_Group)::DownCast(anIter.Value());
     if (aNodeGroup.IsNull() == Standard_False)
     {
-      TopoDS_Shape aShape;
+      TopoShape aShape;
       aNodeGroup->Shape(aShape, pMapShapeApp);
       if (aShape.IsNull() == Standard_False)
       {
@@ -695,7 +695,7 @@ void VrmlData_Scene::createShape(TopoDS_Shape&                      outShape,
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Scene::ReadReal(VrmlData_InBuffer& theBuffer,
+VrmlData_ErrorStatus VrmlData_Scene::ReadReal(InputBuffer& theBuffer,
                                               Standard_Real&     theResult,
                                               Standard_Boolean   isScale,
                                               Standard_Boolean   isOnlyPositive) const
@@ -721,7 +721,7 @@ VrmlData_ErrorStatus VrmlData_Scene::ReadReal(VrmlData_InBuffer& theBuffer,
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Scene::ReadXYZ(VrmlData_InBuffer& theBuffer,
+VrmlData_ErrorStatus VrmlData_Scene::ReadXYZ(InputBuffer& theBuffer,
                                              gp_XYZ&            theXYZ,
                                              Standard_Boolean   isScale,
                                              Standard_Boolean   isOnlyPos) const
@@ -765,8 +765,8 @@ VrmlData_ErrorStatus VrmlData_Scene::ReadXYZ(VrmlData_InBuffer& theBuffer,
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Scene::ReadXY(VrmlData_InBuffer& theBuffer,
-                                            gp_XY&             theXY,
+VrmlData_ErrorStatus VrmlData_Scene::ReadXY(InputBuffer& theBuffer,
+                                            Coords2d&             theXY,
                                             Standard_Boolean   isScale,
                                             Standard_Boolean   isOnlyPos) const
 {
@@ -809,7 +809,7 @@ VrmlData_ErrorStatus VrmlData_Scene::ReadXY(VrmlData_InBuffer& theBuffer,
 //           multiplets)
 //=======================================================================
 
-VrmlData_ErrorStatus VrmlData_Scene::ReadArrIndex(VrmlData_InBuffer&        theBuffer,
+VrmlData_ErrorStatus VrmlData_Scene::ReadArrIndex(InputBuffer&        theBuffer,
                                                   const Standard_Integer**& theArray,
                                                   Standard_Size&            theNBlocks) const
 {
@@ -1086,7 +1086,7 @@ VrmlData_ErrorStatus VrmlData_Scene::WriteNode(const char*                  theP
         else
         {
           // Name is written under DEF clause
-          TCollection_AsciiString buf;
+          AsciiString1 buf;
           if (myNamedNodesOut.Contains(theNode))
           {
             buf += "USE ";
@@ -1134,11 +1134,11 @@ void VrmlData_Scene::Dump(Standard_OStream& theStream) const
 
 void dumpNode(Standard_OStream&              theStream,
               const Handle(VrmlData_Node)&   theNode,
-              const TCollection_AsciiString& theIndent)
+              const AsciiString1& theIndent)
 {
   if (theNode.IsNull())
     return;
-  TCollection_AsciiString aNewIndent = theIndent.IsEmpty() ? theIndent : theIndent + "  ";
+  AsciiString1 aNewIndent = theIndent.IsEmpty() ? theIndent : theIndent + "  ";
   if (theNode->IsKind(STANDARD_TYPE(VrmlData_Appearance)))
   {
     const Handle(VrmlData_Appearance) anAppearance = Handle(VrmlData_Appearance)::DownCast(theNode);
@@ -1234,7 +1234,7 @@ void dumpNode(Standard_OStream&              theStream,
 //=================================================================================================
 
 void dumpNodeHeader(Standard_OStream&              theStream,
-                    const TCollection_AsciiString& theIndent,
+                    const AsciiString1& theIndent,
                     const char*                    theType,
                     const char*                    theName)
 {

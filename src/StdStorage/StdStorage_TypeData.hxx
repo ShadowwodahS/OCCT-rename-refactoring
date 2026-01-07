@@ -54,24 +54,24 @@ public:
   Standard_EXPORT Standard_Integer NumberOfTypes() const;
 
   //! Add a type to the list in case of reading data
-  Standard_EXPORT void AddType(const TCollection_AsciiString& aTypeName,
+  Standard_EXPORT void AddType(const AsciiString1& aTypeName,
                                const Standard_Integer         aTypeNum);
 
   //! Add a type of the persistent object in case of writing data
   Standard_EXPORT Standard_Integer AddType(const Handle(StdObjMgt_Persistent)& aPObj);
 
   //! Returns the name of the type with number <aTypeNum>
-  Standard_EXPORT TCollection_AsciiString Type(const Standard_Integer aTypeNum) const;
+  Standard_EXPORT AsciiString1 Type(const Standard_Integer aTypeNum) const;
 
   //! Returns the name of the type with number <aTypeNum>
-  Standard_EXPORT Standard_Integer Type(const TCollection_AsciiString& aTypeName) const;
+  Standard_EXPORT Standard_Integer Type(const AsciiString1& aTypeName) const;
 
   //! Returns a persistent object instantiator of <aTypeName>
   Standard_EXPORT StdObjMgt_Persistent::Instantiator Instantiator(
     const Standard_Integer aTypeNum) const;
 
   //! Checks if <aName> is a registered type
-  Standard_EXPORT Standard_Boolean IsType(const TCollection_AsciiString& aName) const;
+  Standard_EXPORT Standard_Boolean IsType(const AsciiString1& aName) const;
 
   //! Returns a sequence of all registered types
   Standard_EXPORT Handle(TColStd_HSequenceOfAsciiString) Types() const;
@@ -80,7 +80,7 @@ public:
   Standard_EXPORT Storage_Error ErrorStatus() const;
 
   //! Returns an error message if any of the latest call to Read / Write functions
-  Standard_EXPORT TCollection_AsciiString ErrorStatusExtension() const;
+  Standard_EXPORT AsciiString1 ErrorStatusExtension() const;
 
   //! Clears error status
   Standard_EXPORT void ClearErrorStatus();
@@ -93,13 +93,13 @@ private:
 
   Standard_EXPORT void SetErrorStatus(const Storage_Error anError);
 
-  Standard_EXPORT void SetErrorStatusExtension(const TCollection_AsciiString& anErrorExt);
+  Standard_EXPORT void SetErrorStatusExtension(const AsciiString1& anErrorExt);
 
   Standard_Integer             myTypeId;
   StdObjMgt_MapOfInstantiators myMapOfPInst;
   StdStorage_MapOfTypes        myPt;
   Storage_Error                myErrorStatus;
-  TCollection_AsciiString      myErrorStatusExt;
+  AsciiString1      myErrorStatusExt;
 };
 
 #endif // _StdStorage_TypeData_HeaderFile

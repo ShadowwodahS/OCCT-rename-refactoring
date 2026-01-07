@@ -46,10 +46,10 @@ IMPLEMENT_STANDARD_RTTIEXT(PrsDim_MidPointRelation, PrsDim_Relation)
 
 //=================================================================================================
 
-PrsDim_MidPointRelation::PrsDim_MidPointRelation(const TopoDS_Shape&       aMidPointTool,
-                                                 const TopoDS_Shape&       FirstShape,
-                                                 const TopoDS_Shape&       SecondShape,
-                                                 const Handle(Geom_Plane)& aPlane)
+PrsDim_MidPointRelation::PrsDim_MidPointRelation(const TopoShape&       aMidPointTool,
+                                                 const TopoShape&       FirstShape,
+                                                 const TopoShape&       SecondShape,
+                                                 const Handle(GeomPlane)& aPlane)
     : PrsDim_Relation(),
       myTool(aMidPointTool)
 {
@@ -121,7 +121,7 @@ void PrsDim_MidPointRelation::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSel,
+void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectionContainer)& aSel,
                                                const Standard_Integer)
 {
   Handle(Select3D_SensitiveSegment) seg;
@@ -148,34 +148,34 @@ void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectMgr_Selection)
   ax.SetLocation(myMidPoint);
   Standard_Real                   rad = myFAttach.Distance(myMidPoint) / 20.0;
   gp_Circ                         aCircleM(ax, rad);
-  Handle(Geom_Curve)              thecir = new Geom_Circle(aCircleM);
+  Handle(GeomCurve3d)              thecir = new GeomCircle(aCircleM);
   Handle(Select3D_SensitiveCurve) scurv  = new Select3D_SensitiveCurve(own, thecir);
   aSel->Add(scurv);
 
-  Handle(Geom_Curve) curv;
+  Handle(GeomCurve3d) curv;
   Point3d             firstp, lastp;
   Standard_Boolean   isInfinite, isOnPlane;
-  Handle(Geom_Curve) extCurv;
+  Handle(GeomCurve3d) extCurv;
 
   // segment on first curve
   if (myFShape.ShapeType() == TopAbs_EDGE)
   {
-    TopoDS_Edge E = TopoDS::Edge(myFShape);
+    TopoEdge E = TopoDS::Edge(myFShape);
     if (!PrsDim::ComputeGeometry(E, curv, firstp, lastp, extCurv, isInfinite, isOnPlane, myPlane))
       return;
-    if (curv->IsInstance(STANDARD_TYPE(Geom_Line))) // case of line
+    if (curv->IsInstance(STANDARD_TYPE(GeomLine))) // case of line
     {
       // segment on line
       seg = new Select3D_SensitiveSegment(own, myFirstPnt1, myFirstPnt2);
       aSel->Add(seg);
     }
-    else if (curv->IsInstance(STANDARD_TYPE(Geom_Circle))) // case of circle
+    else if (curv->IsInstance(STANDARD_TYPE(GeomCircle))) // case of circle
     {
       // segment on circle
-      Handle(Geom_Circle) thecirc = Handle(Geom_Circle)::DownCast(curv);
+      Handle(GeomCircle) thecirc = Handle(GeomCircle)::DownCast(curv);
       Standard_Real       udeb    = ElCLib::Parameter(thecirc->Circ(), myFirstPnt1);
       Standard_Real       ufin    = ElCLib::Parameter(thecirc->Circ(), myFirstPnt2);
-      Handle(Geom_Curve)  thecu   = new Geom_TrimmedCurve(thecirc, udeb, ufin);
+      Handle(GeomCurve3d)  thecu   = new Geom_TrimmedCurve(thecirc, udeb, ufin);
 
       scurv = new Select3D_SensitiveCurve(own, thecu);
       aSel->Add(scurv);
@@ -186,7 +186,7 @@ void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectMgr_Selection)
       Handle(Geom_Ellipse) theEll = Handle(Geom_Ellipse)::DownCast(curv);
       Standard_Real        udeb   = ElCLib::Parameter(theEll->Elips(), myFirstPnt1);
       Standard_Real        ufin   = ElCLib::Parameter(theEll->Elips(), myFirstPnt2);
-      Handle(Geom_Curve)   thecu  = new Geom_TrimmedCurve(theEll, udeb, ufin);
+      Handle(GeomCurve3d)   thecu  = new Geom_TrimmedCurve(theEll, udeb, ufin);
 
       scurv = new Select3D_SensitiveCurve(own, thecu);
       aSel->Add(scurv);
@@ -196,22 +196,22 @@ void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectMgr_Selection)
   // segment on second curve
   if (mySShape.ShapeType() == TopAbs_EDGE)
   {
-    TopoDS_Edge E = TopoDS::Edge(mySShape);
+    TopoEdge E = TopoDS::Edge(mySShape);
     if (!PrsDim::ComputeGeometry(E, curv, firstp, lastp, extCurv, isInfinite, isOnPlane, myPlane))
       return;
-    if (curv->IsInstance(STANDARD_TYPE(Geom_Line))) // case of line
+    if (curv->IsInstance(STANDARD_TYPE(GeomLine))) // case of line
     {
       // segment on line
       seg = new Select3D_SensitiveSegment(own, mySecondPnt1, mySecondPnt2);
       aSel->Add(seg);
     }
-    else if (curv->IsInstance(STANDARD_TYPE(Geom_Circle))) // case of circle
+    else if (curv->IsInstance(STANDARD_TYPE(GeomCircle))) // case of circle
     {
       // segment on circle
-      Handle(Geom_Circle) thecirc = Handle(Geom_Circle)::DownCast(curv);
+      Handle(GeomCircle) thecirc = Handle(GeomCircle)::DownCast(curv);
       Standard_Real       udeb    = ElCLib::Parameter(thecirc->Circ(), mySecondPnt1);
       Standard_Real       ufin    = ElCLib::Parameter(thecirc->Circ(), mySecondPnt2);
-      Handle(Geom_Curve)  thecu   = new Geom_TrimmedCurve(thecirc, udeb, ufin);
+      Handle(GeomCurve3d)  thecu   = new Geom_TrimmedCurve(thecirc, udeb, ufin);
 
       scurv = new Select3D_SensitiveCurve(own, thecu);
       aSel->Add(scurv);
@@ -222,7 +222,7 @@ void PrsDim_MidPointRelation::ComputeSelection(const Handle(SelectMgr_Selection)
       Handle(Geom_Ellipse) theEll = Handle(Geom_Ellipse)::DownCast(curv);
       Standard_Real        udeb   = ElCLib::Parameter(theEll->Elips(), mySecondPnt1);
       Standard_Real        ufin   = ElCLib::Parameter(theEll->Elips(), mySecondPnt2);
-      Handle(Geom_Curve)   thecu  = new Geom_TrimmedCurve(theEll, udeb, ufin);
+      Handle(GeomCurve3d)   thecu  = new Geom_TrimmedCurve(theEll, udeb, ufin);
 
       scurv = new Select3D_SensitiveCurve(own, thecu);
       aSel->Add(scurv);
@@ -242,28 +242,28 @@ void PrsDim_MidPointRelation::ComputeFaceFromPnt(const Handle(Prs3d_Presentation
 void PrsDim_MidPointRelation::ComputeEdgeFromPnt(const Handle(Prs3d_Presentation)& aprs,
                                                  const Standard_Boolean            first)
 {
-  TopoDS_Edge E;
+  TopoEdge E;
   if (first)
     E = TopoDS::Edge(myFShape);
   else
     E = TopoDS::Edge(mySShape);
 
-  Handle(Geom_Curve) geom;
+  Handle(GeomCurve3d) geom;
   Point3d             ptat1, ptat2;
-  Handle(Geom_Curve) extCurv;
+  Handle(GeomCurve3d) extCurv;
   Standard_Boolean   isInfinite, isOnPlane;
   if (!PrsDim::ComputeGeometry(E, geom, ptat1, ptat2, extCurv, isInfinite, isOnPlane, myPlane))
     return;
 
   Frame3d ax = myPlane->Pln().Position().Ax2();
 
-  if (geom->IsInstance(STANDARD_TYPE(Geom_Line)))
+  if (geom->IsInstance(STANDARD_TYPE(GeomLine)))
   {
     if (!isInfinite)
       ComputePointsOnLine(ptat1, ptat2, first);
     else
     {
-      const gp_Lin& line = Handle(Geom_Line)::DownCast(geom)->Lin();
+      const gp_Lin& line = Handle(GeomLine)::DownCast(geom)->Lin();
       ComputePointsOnLine(line, first);
     }
     if (first)
@@ -287,9 +287,9 @@ void PrsDim_MidPointRelation::ComputeEdgeFromPnt(const Handle(Prs3d_Presentation
                                        mySecondPnt2,
                                        first);
   }
-  else if (geom->IsInstance(STANDARD_TYPE(Geom_Circle)))
+  else if (geom->IsInstance(STANDARD_TYPE(GeomCircle)))
   {
-    Handle(Geom_Circle) geom_cir(Handle(Geom_Circle)::DownCast(geom));
+    Handle(GeomCircle) geom_cir(Handle(GeomCircle)::DownCast(geom));
     gp_Circ             circ(geom_cir->Circ());
     ComputePointsOnCirc(circ, ptat1, ptat2, first);
     if (first)
@@ -356,7 +356,7 @@ void PrsDim_MidPointRelation::ComputeVertexFromPnt(const Handle(Prs3d_Presentati
   if (first)
   {
     Standard_Boolean isOnPlane;
-    TopoDS_Vertex    V = TopoDS::Vertex(myFShape);
+    TopoVertex    V = TopoDS::Vertex(myFShape);
     PrsDim::ComputeGeometry(V, myFAttach, myPlane, isOnPlane);
     DsgPrs_MidPointPresentation::Add(aprs, myDrawer, ax, myMidPoint, myPosition, myFAttach, first);
     if (!isOnPlane)
@@ -365,7 +365,7 @@ void PrsDim_MidPointRelation::ComputeVertexFromPnt(const Handle(Prs3d_Presentati
   else
   {
     Standard_Boolean isOnPlane;
-    TopoDS_Vertex    V = TopoDS::Vertex(mySShape);
+    TopoVertex    V = TopoDS::Vertex(mySShape);
     PrsDim::ComputeGeometry(V, mySAttach, myPlane, isOnPlane);
     DsgPrs_MidPointPresentation::Add(aprs, myDrawer, ax, myMidPoint, myPosition, mySAttach, first);
     if (!isOnPlane)

@@ -35,9 +35,9 @@
 #include <TColStd_HArray1OfReal.hxx>
 
 // MGE 30/07/98
-IGESGeom_ToolSplineSurface::IGESGeom_ToolSplineSurface() {}
+SplineSurfaceTool::SplineSurfaceTool() {}
 
-void IGESGeom_ToolSplineSurface::ReadOwnParams(const Handle(IGESGeom_SplineSurface)& ent,
+void SplineSurfaceTool::ReadOwnParams(const Handle(IGESGeom_SplineSurface)& ent,
                                                const Handle(IGESData_IGESReaderData)& /* IR */,
                                                IGESData_ParamReader& PR) const
 {
@@ -204,7 +204,7 @@ void IGESGeom_ToolSplineSurface::ReadOwnParams(const Handle(IGESGeom_SplineSurfa
             allZCoeffs);
 }
 
-void IGESGeom_ToolSplineSurface::WriteOwnParams(const Handle(IGESGeom_SplineSurface)& ent,
+void SplineSurfaceTool::WriteOwnParams(const Handle(IGESGeom_SplineSurface)& ent,
                                                 IGESData_IGESWriter&                  IW) const
 {
   Standard_Integer I, J, k;
@@ -241,12 +241,12 @@ void IGESGeom_ToolSplineSurface::WriteOwnParams(const Handle(IGESGeom_SplineSurf
     IW.Send(0.0); // Send Arbitrary Values
 }
 
-void IGESGeom_ToolSplineSurface::OwnShared(const Handle(IGESGeom_SplineSurface)& /* ent */,
+void SplineSurfaceTool::OwnShared(const Handle(IGESGeom_SplineSurface)& /* ent */,
                                            Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESGeom_ToolSplineSurface::OwnCopy(const Handle(IGESGeom_SplineSurface)& another,
+void SplineSurfaceTool::OwnCopy(const Handle(IGESGeom_SplineSurface)& another,
                                          const Handle(IGESGeom_SplineSurface)& ent,
                                          Interface_CopyTool& /* TC */) const
 {
@@ -300,10 +300,10 @@ void IGESGeom_ToolSplineSurface::OwnCopy(const Handle(IGESGeom_SplineSurface)& a
             allZCoeffs);
 }
 
-IGESData_DirChecker IGESGeom_ToolSplineSurface::DirChecker(
+DirectoryChecker SplineSurfaceTool::DirChecker(
   const Handle(IGESGeom_SplineSurface)& /* ent */) const
 {
-  IGESData_DirChecker DC(114, 0);
+  DirectoryChecker DC(114, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   //  DC.LineWeight(IGESData_DefValue);
@@ -312,7 +312,7 @@ IGESData_DirChecker IGESGeom_ToolSplineSurface::DirChecker(
   return DC;
 }
 
-void IGESGeom_ToolSplineSurface::OwnCheck(const Handle(IGESGeom_SplineSurface)& ent,
+void SplineSurfaceTool::OwnCheck(const Handle(IGESGeom_SplineSurface)& ent,
                                           const Interface_ShareTool&,
                                           Handle(Interface_Check)& ach) const
 {
@@ -332,7 +332,7 @@ void IGESGeom_ToolSplineSurface::OwnCheck(const Handle(IGESGeom_SplineSurface)& 
   //    ach.AddFail("Incorrect Patch Type not in [0-1]");
 }
 
-void IGESGeom_ToolSplineSurface::OwnDump(const Handle(IGESGeom_SplineSurface)& ent,
+void SplineSurfaceTool::OwnDump(const Handle(IGESGeom_SplineSurface)& ent,
                                          const IGESData_IGESDumper& /* dumper */,
                                          Standard_OStream&      S,
                                          const Standard_Integer level) const

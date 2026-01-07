@@ -32,7 +32,7 @@
 //=================================================================================================
 
 void DsgPrs_FixPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                 const Handle(Prs3d_Drawer)&       aDrawer,
+                                 const Handle(StyleDrawer)&       aDrawer,
                                  const Point3d&                     aPntAttach,
                                  const Point3d&                     aPntEnd,
                                  const Dir3d&                     aNormPln,

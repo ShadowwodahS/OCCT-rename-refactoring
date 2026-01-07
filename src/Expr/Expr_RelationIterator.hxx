@@ -29,12 +29,12 @@ class Expr_SingleRelation;
 
 //! Iterates on every basic relation contained in
 //! a GeneralRelation.
-class Expr_RelationIterator
+class RelationIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Expr_RelationIterator(const Handle(Expr_GeneralRelation)& rel);
+  Standard_EXPORT RelationIterator(const Handle(Expr_GeneralRelation)& rel);
 
   //! Returns False if no other relation remains.
   Standard_EXPORT Standard_Boolean More() const;

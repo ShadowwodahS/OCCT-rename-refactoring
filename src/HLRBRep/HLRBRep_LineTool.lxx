@@ -156,15 +156,15 @@ inline gp_Parab HLRBRep_LineTool::Parabola(const gp_Lin&)
   return gp_Parab();
 }
 
-inline Handle(Geom_BezierCurve) HLRBRep_LineTool::Bezier(const gp_Lin&)
+inline Handle(BezierCurve3d) HLRBRep_LineTool::Bezier(const gp_Lin&)
 {
-  Handle(Geom_BezierCurve) NullCurve;
+  Handle(BezierCurve3d) NullCurve;
   return NullCurve;
 }
 
-inline Handle(Geom_BSplineCurve) HLRBRep_LineTool::BSpline(const gp_Lin&)
+inline Handle(BSplineCurve3d) HLRBRep_LineTool::BSpline(const gp_Lin&)
 {
-  Handle(Geom_BSplineCurve) NullCurve;
+  Handle(BSplineCurve3d) NullCurve;
   return NullCurve;
 }
 

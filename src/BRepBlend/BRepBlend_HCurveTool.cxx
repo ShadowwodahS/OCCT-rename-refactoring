@@ -22,7 +22,7 @@
 #include <GeomAbs_CurveType.hxx>
 
 //============================================================
-Standard_Integer BRepBlend_HCurveTool::NbSamples(const Handle(Adaptor3d_Curve)& C,
+Standard_Integer HCurveTool1::NbSamples(const Handle(Adaptor3d_Curve)& C,
                                                  const Standard_Real            U0,
                                                  const Standard_Real            U1)
 {
@@ -36,7 +36,7 @@ Standard_Integer BRepBlend_HCurveTool::NbSamples(const Handle(Adaptor3d_Curve)& 
     nbs = 3 + C->Bezier()->NbPoles();
   else if (typC == GeomAbs_BSplineCurve)
   {
-    Handle(Geom_BSplineCurve) BSC = C->BSpline();
+    Handle(BSplineCurve3d) BSC = C->BSpline();
     nbs                           = BSC->NbKnots();
     nbs *= BSC->Degree();
     nbs *= BSC->LastParameter() - BSC->FirstParameter();

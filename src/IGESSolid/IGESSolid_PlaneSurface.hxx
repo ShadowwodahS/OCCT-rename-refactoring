@@ -28,7 +28,7 @@ class IGESSolid_PlaneSurface;
 DEFINE_STANDARD_HANDLE(IGESSolid_PlaneSurface, IGESData_IGESEntity)
 
 //! defines PlaneSurface, Type <190> Form Number <0,1>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! A plane surface entity is defined by a point on the
 //! surface and a normal to it.
 class IGESSolid_PlaneSurface : public IGESData_IGESEntity

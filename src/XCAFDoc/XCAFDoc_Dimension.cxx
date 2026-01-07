@@ -72,7 +72,7 @@ const Standard_GUID& XCAFDoc_Dimension::GetID()
 
 //=================================================================================================
 
-Handle(XCAFDoc_Dimension) XCAFDoc_Dimension::Set(const TDF_Label& theLabel)
+Handle(XCAFDoc_Dimension) XCAFDoc_Dimension::Set(const DataLabel& theLabel)
 {
   Handle(XCAFDoc_Dimension) A;
   if (!theLabel.FindAttribute(XCAFDoc_Dimension::GetID(), A))
@@ -91,16 +91,16 @@ void XCAFDoc_Dimension::SetObject(const Handle(XCAFDimTolObjects_DimensionObject
 
   if (theObject->GetSemanticName())
   {
-    TCollection_ExtendedString str(theObject->GetSemanticName()->String());
-    TDataStd_Name::Set(Label(), str);
+    UtfString str(theObject->GetSemanticName()->String());
+    NameAttribute::Set(Label(), str);
   }
 
   for (int aChild = ChildLab_Begin; aChild < ChildLab_End; aChild++)
   {
     Label().FindChild(aChild).ForgetAllAttributes();
   }
-  Handle(TDataStd_Integer) aType =
-    TDataStd_Integer::Set(Label().FindChild(ChildLab_Type), theObject->GetType());
+  Handle(IntAttribute) aType =
+    IntAttribute::Set(Label().FindChild(ChildLab_Type), theObject->GetType());
 
   if (!theObject->GetValues().IsNull())
   {
@@ -112,11 +112,11 @@ void XCAFDoc_Dimension::SetObject(const Handle(XCAFDimTolObjects_DimensionObject
       aVal->ChangeArray(theObject->GetValues());
   }
 
-  Handle(TDataStd_Integer) aQualifier =
-    TDataStd_Integer::Set(Label().FindChild(ChildLab_Qualifier), theObject->GetQualifier());
+  Handle(IntAttribute) aQualifier =
+    IntAttribute::Set(Label().FindChild(ChildLab_Qualifier), theObject->GetQualifier());
 
-  Handle(TDataStd_Integer) anAngularQualifier =
-    TDataStd_Integer::Set(Label().FindChild(ChildLab_AngularQualifier),
+  Handle(IntAttribute) anAngularQualifier =
+    IntAttribute::Set(Label().FindChild(ChildLab_AngularQualifier),
                           theObject->GetAngularQualifier());
 
   Standard_Boolean                        aH;
@@ -251,17 +251,17 @@ void XCAFDoc_Dimension::SetObject(const Handle(XCAFDimTolObjects_DimensionObject
       aLoc->ChangeArray(aLocArr);
   }
 
-  TopoDS_Shape aPresentation = theObject->GetPresentation();
+  TopoShape aPresentation = theObject->GetPresentation();
   if (!aPresentation.IsNull())
   {
-    TDF_Label       aLPres = Label().FindChild(ChildLab_Presentation);
+    DataLabel       aLPres = Label().FindChild(ChildLab_Presentation);
     TNaming_Builder tnBuild(aLPres);
     tnBuild.Generated(aPresentation);
     Handle(TCollection_HAsciiString) aName = theObject->GetPresentationName();
     if (!aName.IsNull())
     {
-      TCollection_ExtendedString str(aName->String());
-      TDataStd_Name::Set(aLPres, str);
+      UtfString str(aName->String());
+      NameAttribute::Set(aLPres, str);
     }
   }
 
@@ -273,9 +273,9 @@ void XCAFDoc_Dimension::SetObject(const Handle(XCAFDimTolObjects_DimensionObject
       new TColStd_HArray1OfExtendedString(1, theObject->NbDescriptions());
     for (Standard_Integer i = 0; i < theObject->NbDescriptions(); i++)
     {
-      TCollection_ExtendedString aDescr(theObject->GetDescription(i)->String());
+      UtfString aDescr(theObject->GetDescription(i)->String());
       aDescrArr->SetValue(i + 1, aDescr);
-      TCollection_ExtendedString aDescrName(theObject->GetDescriptionName(i)->String());
+      UtfString aDescrName(theObject->GetDescriptionName(i)->String());
       aDescrNameArr->SetValue(i + 1, aDescrName);
     }
     Handle(TDataStd_ExtStringArray) aDescriptions =
@@ -299,18 +299,18 @@ Handle(XCAFDimTolObjects_DimensionObject) XCAFDoc_Dimension::GetObject() const
 {
   Handle(XCAFDimTolObjects_DimensionObject) anObj = new XCAFDimTolObjects_DimensionObject();
 
-  Handle(TDataStd_Name)            aSemanticNameAttr;
+  Handle(NameAttribute)            aSemanticNameAttr;
   Handle(TCollection_HAsciiString) aSemanticName;
-  if (Label().FindAttribute(TDataStd_Name::GetID(), aSemanticNameAttr))
+  if (Label().FindAttribute(NameAttribute::GetID(), aSemanticNameAttr))
   {
-    const TCollection_ExtendedString& aName = aSemanticNameAttr->Get();
+    const UtfString& aName = aSemanticNameAttr->Get();
     if (!aName.IsEmpty())
       aSemanticName = new TCollection_HAsciiString(aName);
   }
   anObj->SetSemanticName(aSemanticName);
 
-  Handle(TDataStd_Integer) aType;
-  if (Label().FindChild(ChildLab_Type).FindAttribute(TDataStd_Integer::GetID(), aType))
+  Handle(IntAttribute) aType;
+  if (Label().FindChild(ChildLab_Type).FindAttribute(IntAttribute::GetID(), aType))
   {
     anObj->SetType((XCAFDimTolObjects_DimensionType)aType->Get());
   }
@@ -322,16 +322,16 @@ Handle(XCAFDimTolObjects_DimensionObject) XCAFDoc_Dimension::GetObject() const
     anObj->SetValues(aVal->Array());
   }
 
-  Handle(TDataStd_Integer) aQualifier;
-  if (Label().FindChild(ChildLab_Qualifier).FindAttribute(TDataStd_Integer::GetID(), aQualifier))
+  Handle(IntAttribute) aQualifier;
+  if (Label().FindChild(ChildLab_Qualifier).FindAttribute(IntAttribute::GetID(), aQualifier))
   {
     anObj->SetQualifier((XCAFDimTolObjects_DimensionQualifier)aQualifier->Get());
   }
 
-  Handle(TDataStd_Integer) anAngularQualifier;
+  Handle(IntAttribute) anAngularQualifier;
   if (Label()
         .FindChild(ChildLab_AngularQualifier)
-        .FindAttribute(TDataStd_Integer::GetID(), anAngularQualifier))
+        .FindAttribute(IntAttribute::GetID(), anAngularQualifier))
   {
     anObj->SetAngularQualifier((XCAFDimTolObjects_AngularQualifier)anAngularQualifier->Get());
   }
@@ -364,8 +364,8 @@ Handle(XCAFDimTolObjects_DimensionObject) XCAFDoc_Dimension::GetObject() const
     anObj->SetModifiers(aM);
   }
 
-  Handle(TNaming_NamedShape) aShape;
-  if (Label().FindChild(ChildLab_Path).FindAttribute(TNaming_NamedShape::GetID(), aShape)
+  Handle(ShapeAttribute) aShape;
+  if (Label().FindChild(ChildLab_Path).FindAttribute(ShapeAttribute::GetID(), aShape)
       && !aShape.IsNull())
   {
     anObj->SetPath(TopoDS::Edge(aShape->Get()));
@@ -426,18 +426,18 @@ Handle(XCAFDimTolObjects_DimensionObject) XCAFDoc_Dimension::GetObject() const
     anObj->SetPointTextAttach(aP);
   }
 
-  Handle(TNaming_NamedShape) aNS;
-  TDF_Label                  aLPres = Label().FindChild(ChildLab_Presentation);
-  if (aLPres.FindAttribute(TNaming_NamedShape::GetID(), aNS))
+  Handle(ShapeAttribute) aNS;
+  DataLabel                  aLPres = Label().FindChild(ChildLab_Presentation);
+  if (aLPres.FindAttribute(ShapeAttribute::GetID(), aNS))
   {
-    TopoDS_Shape aPresentation = TNaming_Tool::GetShape(aNS);
+    TopoShape aPresentation = Tool11::GetShape(aNS);
     if (!aPresentation.IsNull())
     {
-      Handle(TDataStd_Name)            aNameAtrr;
+      Handle(NameAttribute)            aNameAtrr;
       Handle(TCollection_HAsciiString) aPresentName;
-      if (aLPres.FindAttribute(TDataStd_Name::GetID(), aNameAtrr))
+      if (aLPres.FindAttribute(NameAttribute::GetID(), aNameAtrr))
       {
-        const TCollection_ExtendedString& aName = aNameAtrr->Get();
+        const UtfString& aName = aNameAtrr->Get();
         if (!aName.IsEmpty())
           aPresentName = new TCollection_HAsciiString(aName);
       }
@@ -456,9 +456,9 @@ Handle(XCAFDimTolObjects_DimensionObject) XCAFDoc_Dimension::GetObject() const
     for (Standard_Integer i = 1; i <= aDescriptions->Length(); i++)
     {
       Handle(TCollection_HAsciiString) aDescription, aDescriptionName;
-      aDescription = new TCollection_HAsciiString(TCollection_AsciiString(aDescriptions->Value(i)));
+      aDescription = new TCollection_HAsciiString(AsciiString1(aDescriptions->Value(i)));
       aDescriptionName =
-        new TCollection_HAsciiString(TCollection_AsciiString(aDescriptionNames->Value(i)));
+        new TCollection_HAsciiString(AsciiString1(aDescriptionNames->Value(i)));
       anObj->AddDescription(aDescription, aDescriptionName);
     }
   }

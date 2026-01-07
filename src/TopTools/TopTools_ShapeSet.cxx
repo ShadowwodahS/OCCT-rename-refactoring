@@ -54,7 +54,7 @@ void TopTools_ShapeSet::SetFormatNb(const Standard_Integer theFormatNb)
 {
   Standard_ASSERT_RETURN(theFormatNb >= TopTools_FormatVersion_LOWER
                            && theFormatNb <= TopTools_FormatVersion_UPPER,
-                         "Error: unsupported TopTools version.", );
+                         "Error: unsupported TopTools1 version.", );
 
   myFormatNb = theFormatNb;
 }
@@ -76,12 +76,12 @@ void TopTools_ShapeSet::Clear()
 
 //=================================================================================================
 
-Standard_Integer TopTools_ShapeSet::Add(const TopoDS_Shape& S)
+Standard_Integer TopTools_ShapeSet::Add(const TopoShape& S)
 {
   if (S.IsNull())
     return 0;
   myLocations.Add(S.Location());
-  TopoDS_Shape S2 = S;
+  TopoShape S2 = S;
   S2.Location(TopLoc_Location());
   Standard_Integer index = myShapes.FindIndex(S2);
   if (index == 0)
@@ -97,28 +97,28 @@ Standard_Integer TopTools_ShapeSet::Add(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-const TopoDS_Shape& TopTools_ShapeSet::Shape(const Standard_Integer I) const
+const TopoShape& TopTools_ShapeSet::Shape(const Standard_Integer I) const
 {
   return myShapes(I);
 }
 
 //=================================================================================================
 
-Standard_Integer TopTools_ShapeSet::Index(const TopoDS_Shape& S) const
+Standard_Integer TopTools_ShapeSet::Index(const TopoShape& S) const
 {
   return myShapes.FindIndex(S);
 }
 
 //=================================================================================================
 
-const TopTools_LocationSet& TopTools_ShapeSet::Locations() const
+const LocationSet1& TopTools_ShapeSet::Locations() const
 {
   return myLocations;
 }
 
 //=================================================================================================
 
-TopTools_LocationSet& TopTools_ShapeSet::ChangeLocations()
+LocationSet1& TopTools_ShapeSet::ChangeLocations()
 {
   return myLocations;
 }
@@ -311,7 +311,7 @@ Standard_OStream& TopTools_ShapeSet::DumpExtent(Standard_OStream& OS) const
 // purpose  : Dump number of shapes.
 //=======================================================================
 
-void TopTools_ShapeSet::DumpExtent(TCollection_AsciiString& S) const
+void TopTools_ShapeSet::DumpExtent(AsciiString1& S) const
 {
 
   Standard_Integer nbVERTEX    = 0;
@@ -367,15 +367,15 @@ void TopTools_ShapeSet::DumpExtent(TCollection_AsciiString& S) const
     }
   }
 
-  S = S + " VERTEX    : " + TCollection_AsciiString(nbVERTEX) + "\n";
-  S = S + " EDGE      : " + TCollection_AsciiString(nbEDGE) + "\n";
-  S = S + " WIRE      : " + TCollection_AsciiString(nbWIRE) + "\n";
-  S = S + " FACE      : " + TCollection_AsciiString(nbFACE) + "\n";
-  S = S + " SHELL     : " + TCollection_AsciiString(nbSHELL) + "\n";
-  S = S + " SOLID     : " + TCollection_AsciiString(nbSOLID) + "\n";
-  S = S + " COMPSOLID : " + TCollection_AsciiString(nbCOMPSOLID) + "\n";
-  S = S + " COMPOUND  : " + TCollection_AsciiString(nbCOMPOUND) + "\n";
-  S = S + " SHAPE     : " + TCollection_AsciiString(nbSHAPE) + "\n";
+  S = S + " VERTEX    : " + AsciiString1(nbVERTEX) + "\n";
+  S = S + " EDGE      : " + AsciiString1(nbEDGE) + "\n";
+  S = S + " WIRE      : " + AsciiString1(nbWIRE) + "\n";
+  S = S + " FACE      : " + AsciiString1(nbFACE) + "\n";
+  S = S + " SHELL     : " + AsciiString1(nbSHELL) + "\n";
+  S = S + " SOLID     : " + AsciiString1(nbSOLID) + "\n";
+  S = S + " COMPSOLID : " + AsciiString1(nbCOMPSOLID) + "\n";
+  S = S + " COMPOUND  : " + AsciiString1(nbCOMPOUND) + "\n";
+  S = S + " SHAPE     : " + AsciiString1(nbSHAPE) + "\n";
 }
 
 //=================================================================================================
@@ -397,7 +397,7 @@ void TopTools_ShapeSet::Dump(Standard_OStream& OS) const
   for (i = nbShapes; i >= 1; i--)
   {
 
-    const TopoDS_Shape& S = myShapes(i);
+    const TopoShape& S = myShapes(i);
     OS << "TShape # " << nbShapes - i + 1 << " : ";
 
     // Type and flags
@@ -419,7 +419,7 @@ void TopTools_ShapeSet::Dump(Standard_OStream& OS) const
     TopoDS_Iterator its(S, Standard_False, Standard_False);
     while (its.More())
     {
-      const TopoDS_Shape& sub = its.Value();
+      const TopoShape& sub = its.Value();
       PrintOrientation(sub.Orientation(), OS, Standard_True);
       OS << nbShapes - myShapes.FindIndex(sub.Located(TopLoc_Location())) + 1;
       if (!sub.Location().IsIdentity())
@@ -502,7 +502,7 @@ void TopTools_ShapeSet::Write(Standard_OStream& OS, const Message_ProgressRange&
   Message_ProgressScope aPS1(aPS.Next(15), "Shapes", nbShapes);
   for (i = 1; i <= nbShapes && aPS1.More(); i++, aPS1.Next())
   {
-    const TopoDS_Shape& S = myShapes(i);
+    const TopoShape& S = myShapes(i);
 
     // Type
     PrintShapeEnum(S.ShapeType(), OS, Standard_True);
@@ -537,7 +537,7 @@ void TopTools_ShapeSet::Write(Standard_OStream& OS, const Message_ProgressRange&
       }
       its.Next();
     }
-    Write(TopoDS_Shape(), OS); // Null shape to end the list
+    Write(TopoShape(), OS); // Null shape to end the list
     OS << "\n";
   }
 
@@ -684,7 +684,7 @@ void TopTools_ShapeSet::Read(Standard_IStream& IS, const Message_ProgressRange& 
   Message_ProgressScope aPS1(aPS.Next(15), "Shapes", nbShapes);
   for (i = 1; i <= nbShapes && aPS1.More(); i++, aPS1.Next())
   {
-    TopoDS_Shape S;
+    TopoShape S;
 
     // Read type and create empty shape.
 
@@ -695,7 +695,7 @@ void TopTools_ShapeSet::Read(Standard_IStream& IS, const Message_ProgressRange& 
     IS >> buffer;
 
     // sub-shapes
-    TopoDS_Shape SS;
+    TopoShape SS;
     do
     {
       Read(SS, IS, nbShapes);
@@ -731,7 +731,7 @@ void TopTools_ShapeSet::Read(Standard_IStream& IS, const Message_ProgressRange& 
 
 //=================================================================================================
 
-void TopTools_ShapeSet::Dump(const TopoDS_Shape& S, Standard_OStream& OS) const
+void TopTools_ShapeSet::Dump(const TopoShape& S, Standard_OStream& OS) const
 {
   if (S.IsNull())
     OS << "Null shape\n";
@@ -745,7 +745,7 @@ void TopTools_ShapeSet::Dump(const TopoDS_Shape& S, Standard_OStream& OS) const
 
 //=================================================================================================
 
-void TopTools_ShapeSet::Write(const TopoDS_Shape& S, Standard_OStream& OS) const
+void TopTools_ShapeSet::Write(const TopoShape& S, Standard_OStream& OS) const
 {
   if (S.IsNull())
     OS << "*";
@@ -759,26 +759,26 @@ void TopTools_ShapeSet::Write(const TopoDS_Shape& S, Standard_OStream& OS) const
 
 //=================================================================================================
 
-void TopTools_ShapeSet::Read(TopoDS_Shape& S, Standard_IStream& IS) const
+void TopTools_ShapeSet::Read(TopoShape& S, Standard_IStream& IS) const
 {
   Read(S, IS, myShapes.Extent());
 }
 
 //=================================================================================================
 
-void TopTools_ShapeSet::Read(TopoDS_Shape&          S,
+void TopTools_ShapeSet::Read(TopoShape&          S,
                              Standard_IStream&      IS,
                              const Standard_Integer nbshapes) const
 {
   if (nbshapes < 1)
   {
-    S = TopoDS_Shape();
+    S = TopoShape();
     return;
   }
   char buffer[255];
   IS >> buffer;
   if (buffer[0] == '*')
-    S = TopoDS_Shape();
+    S = TopoShape();
   else
   {
     S = myShapes(nbshapes - atoi(buffer + 1) + 1);
@@ -810,7 +810,7 @@ void TopTools_ShapeSet::Read(TopoDS_Shape&          S,
 
 //=================================================================================================
 
-void TopTools_ShapeSet::AddGeometry(const TopoDS_Shape&) {}
+void TopTools_ShapeSet::AddGeometry(const TopoShape&) {}
 
 //=================================================================================================
 
@@ -826,27 +826,27 @@ void TopTools_ShapeSet::ReadGeometry(Standard_IStream&, const Message_ProgressRa
 
 //=================================================================================================
 
-void TopTools_ShapeSet::DumpGeometry(const TopoDS_Shape&, Standard_OStream&) const {}
+void TopTools_ShapeSet::DumpGeometry(const TopoShape&, Standard_OStream&) const {}
 
 //=================================================================================================
 
-void TopTools_ShapeSet::WriteGeometry(const TopoDS_Shape&, Standard_OStream&) const {}
+void TopTools_ShapeSet::WriteGeometry(const TopoShape&, Standard_OStream&) const {}
 
 //=================================================================================================
 
-void TopTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum, Standard_IStream&, TopoDS_Shape&) {}
+void TopTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum, Standard_IStream&, TopoShape&) {}
 
 //=================================================================================================
 
-void TopTools_ShapeSet::AddShapes(TopoDS_Shape&, const TopoDS_Shape&) {}
+void TopTools_ShapeSet::AddShapes(TopoShape&, const TopoShape&) {}
 
 //=================================================================================================
 
-void TopTools_ShapeSet::Check(const TopAbs_ShapeEnum, TopoDS_Shape&) {}
+void TopTools_ShapeSet::Check(const TopAbs_ShapeEnum, TopoShape&) {}
 
 //=================================================================================================
 
-Standard_Integer TopTools_ShapeSet::NbShapes() const
+Standard_Integer TopTools_ShapeSet::NbShapes1() const
 {
   return myShapes.Extent();
 }

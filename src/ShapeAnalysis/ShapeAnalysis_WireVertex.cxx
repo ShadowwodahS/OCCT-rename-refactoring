@@ -37,7 +37,7 @@ ShapeAnalysis_WireVertex::ShapeAnalysis_WireVertex()
 
 //=================================================================================================
 
-void ShapeAnalysis_WireVertex::Init(const TopoDS_Wire& wire, const Standard_Real preci)
+void ShapeAnalysis_WireVertex::Init(const TopoWire& wire, const Standard_Real preci)
 {
   Init(new ShapeExtend_WireData(wire), preci);
 }
@@ -63,7 +63,7 @@ void ShapeAnalysis_WireVertex::Init(const Handle(ShapeExtend_WireData)& sbwd,
 
 //=================================================================================================
 
-void ShapeAnalysis_WireVertex::Load(const TopoDS_Wire& wire)
+void ShapeAnalysis_WireVertex::Load(const TopoWire& wire)
 {
   Init(wire, myPreci);
 }
@@ -91,7 +91,7 @@ void ShapeAnalysis_WireVertex::Analyze()
     return;
   myDone = Standard_True;
   //  Analyse des vertex qui se suivent
-  Handle(Geom_Curve) c1, c2;
+  Handle(GeomCurve3d) c1, c2;
   Standard_Real      cf, cl, upre, ufol;
   Standard_Integer   i, j, nb = myStat->Length(), stat;
   ShapeAnalysis_Edge EA;
@@ -100,14 +100,14 @@ void ShapeAnalysis_WireVertex::Analyze()
     stat = -1; // au depart
 
     j                  = (i == nb ? 1 : i + 1);
-    TopoDS_Edge   E1   = myWire->Edge(i);
-    TopoDS_Edge   E2   = myWire->Edge(j);
-    TopoDS_Vertex V1   = EA.LastVertex(myWire->Edge(i));
-    TopoDS_Vertex V2   = EA.FirstVertex(myWire->Edge(j));
-    Point3d        PV1  = BRep_Tool::Pnt(V1);
-    Point3d        PV2  = BRep_Tool::Pnt(V2);
-    Standard_Real tol1 = BRep_Tool::Tolerance(V1);
-    Standard_Real tol2 = BRep_Tool::Tolerance(V2);
+    TopoEdge   E1   = myWire->Edge(i);
+    TopoEdge   E2   = myWire->Edge(j);
+    TopoVertex V1   = EA.LastVertex(myWire->Edge(i));
+    TopoVertex V2   = EA.FirstVertex(myWire->Edge(j));
+    Point3d        PV1  = BRepInspector::Pnt(V1);
+    Point3d        PV2  = BRepInspector::Pnt(V2);
+    Standard_Real tol1 = BRepInspector::Tolerance(V1);
+    Standard_Real tol2 = BRepInspector::Tolerance(V2);
     EA.Curve3d(myWire->Edge(i), c1, cf, upre);
     EA.Curve3d(myWire->Edge(j), c2, ufol, cl);
     if (c1.IsNull() || c2.IsNull())

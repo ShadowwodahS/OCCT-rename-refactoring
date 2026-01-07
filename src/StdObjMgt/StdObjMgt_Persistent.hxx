@@ -23,7 +23,7 @@
 
 class StdObjMgt_ReadData;
 class StdObjMgt_WriteData;
-class TDocStd_Document;
+class AppDocument;
 class TDF_Attribute;
 class TDF_Data;
 class TCollection_HAsciiString;
@@ -63,7 +63,7 @@ public:
   //! Import transient document from the persistent data
   //! (to be overridden by document class;
   //! does nothing by default for other classes).
-  Standard_EXPORT virtual void ImportDocument(const Handle(TDocStd_Document)& theDocument) const;
+  Standard_EXPORT virtual void ImportDocument(const Handle(AppDocument)& theDocument) const;
 
   //! Create an empty transient attribute
   //! (to be overridden by attribute classes;
@@ -93,7 +93,7 @@ public:
   //! Get a label expressed by referenced extended string
   //! (to be overridden by extended string class;
   //! returns a null label by default for other classes).
-  Standard_EXPORT virtual TDF_Label Label(const Handle(TDF_Data)& theDF) const;
+  Standard_EXPORT virtual DataLabel Label(const Handle(TDF_Data)& theDF) const;
 
   //! Returns the assigned persistent type number
   Standard_Integer TypeNum() const { return myTypeNum; }

@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline const BRep_Builder& BRepSweep_Builder::Builder() const
+inline const ShapeBuilder& BRepSweep_Builder::Builder() const
 {
   return myBuilder;
 }

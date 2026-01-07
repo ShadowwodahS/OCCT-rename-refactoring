@@ -32,9 +32,9 @@ class TCollection_HAsciiString;
 class RWStepAP214_GeneralModule;
 DEFINE_STANDARD_HANDLE(RWStepAP214_GeneralModule, StepData_GeneralModule)
 
-//! Defines General Services for StepAP214 Entities
+//! Defines General Services for StepAP2141 Entities
 //! (Share,Check,Copy; Trace already inherited)
-//! Depends (for case numbers) of Protocol from StepAP214
+//! Depends (for case numbers) of Protocol from StepAP2141
 class RWStepAP214_GeneralModule : public StepData_GeneralModule
 {
 
@@ -43,7 +43,7 @@ public:
   Standard_HIDDEN RWStepAP214_GeneralModule();
 
   //! Specific filling of the list of Entities shared by an Entity
-  //! <ent>, according to a Case Number <CN> (provided by StepAP214
+  //! <ent>, according to a Case Number <CN> (provided by StepAP2141
   //! Protocol).
   Standard_HIDDEN void FillSharedCase(const Standard_Integer            CN,
                                       const Handle(RefObject)& ent,

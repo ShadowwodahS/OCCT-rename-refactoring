@@ -25,7 +25,7 @@
 #include <Extrema_ExtCC.hxx>
 #include <GeomAdaptor_Curve.hxx>
 #include <gp_Pnt.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 
 //! Describes functions for computing all the extrema
 //! between two 3D curves.
@@ -60,8 +60,8 @@ public:
   Standard_EXPORT GeomAPI_ExtremaCurveCurve();
 
   //! Computes the extrema between the curves C1 and C2.
-  Standard_EXPORT GeomAPI_ExtremaCurveCurve(const Handle(Geom_Curve)& C1,
-                                            const Handle(Geom_Curve)& C2);
+  Standard_EXPORT GeomAPI_ExtremaCurveCurve(const Handle(GeomCurve3d)& C1,
+                                            const Handle(GeomCurve3d)& C2);
 
   //! Computes   the portion of the curve C1 limited by the two
   //! points of parameter (U1min,U1max), and
@@ -70,8 +70,8 @@ public:
   //! Warning
   //! Use the function NbExtrema to obtain the number
   //! of solutions. If this algorithm fails, NbExtrema returns 0.
-  Standard_EXPORT GeomAPI_ExtremaCurveCurve(const Handle(Geom_Curve)& C1,
-                                            const Handle(Geom_Curve)& C2,
+  Standard_EXPORT GeomAPI_ExtremaCurveCurve(const Handle(GeomCurve3d)& C1,
+                                            const Handle(GeomCurve3d)& C2,
                                             const Standard_Real       U1min,
                                             const Standard_Real       U1max,
                                             const Standard_Real       U2min,
@@ -79,7 +79,7 @@ public:
 
   //! Initializes this algorithm with the given arguments
   //! and computes the extrema between the curves C1 and C2
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& C1, const Handle(Geom_Curve)& C2);
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& C1, const Handle(GeomCurve3d)& C2);
 
   //! Initializes this algorithm with the given arguments
   //! and computes the extrema between :
@@ -90,8 +90,8 @@ public:
   //! Warning
   //! Use the function NbExtrema to obtain the number
   //! of solutions. If this algorithm fails, NbExtrema returns 0.
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& C1,
-                            const Handle(Geom_Curve)& C2,
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& C1,
+                            const Handle(GeomCurve3d)& C2,
                             const Standard_Real       U1min,
                             const Standard_Real       U1max,
                             const Standard_Real       U2min,

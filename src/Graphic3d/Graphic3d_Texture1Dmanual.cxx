@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Texture1Dmanual, Graphic3d_Texture1D)
 
 //=================================================================================================
 
-Graphic3d_Texture1Dmanual::Graphic3d_Texture1Dmanual(const TCollection_AsciiString& theFileName)
+Graphic3d_Texture1Dmanual::Graphic3d_Texture1Dmanual(const AsciiString1& theFileName)
     : Graphic3d_Texture1D(theFileName, Graphic3d_TypeOfTexture_1D)
 {
   //

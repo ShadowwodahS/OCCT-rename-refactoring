@@ -93,7 +93,7 @@ public:
 
   //! Add new level of alerts
   //! @param theLevel a level
-  Standard_EXPORT void AddLevel(Message_Level* theLevel, const TCollection_AsciiString& theName);
+  Standard_EXPORT void AddLevel(Message_Level* theLevel, const AsciiString1& theName);
 
   //! Remove level of alerts
   Standard_EXPORT void RemoveLevel(Message_Level* theLevel);

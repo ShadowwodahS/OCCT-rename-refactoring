@@ -27,9 +27,9 @@
 //  (Modules are created and loaded in appropriate libraries, once by Init)
 static Handle(IGESDefs_Protocol) protocol;
 
-void IGESDefs::Init()
+void IGESDefs1::Init()
 {
-  IGESGraph::Init();
+  IGESGraph1::Init();
   if (protocol.IsNull())
   {
     protocol = new IGESDefs_Protocol;
@@ -40,7 +40,7 @@ void IGESDefs::Init()
   }
 }
 
-Handle(IGESDefs_Protocol) IGESDefs::Protocol()
+Handle(IGESDefs_Protocol) IGESDefs1::Protocol()
 {
   return protocol;
 }

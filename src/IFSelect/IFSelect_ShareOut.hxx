@@ -28,7 +28,7 @@ class TCollection_HAsciiString;
 class IFSelect_Dispatch;
 class IFSelect_GeneralModifier;
 class IFSelect_Modifier;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_ShareOut;
 DEFINE_STANDARD_HANDLE(IFSelect_ShareOut, RefObject)
@@ -230,7 +230,7 @@ public:
   //! Dispatch, DefaultRootName is considered (and pnum is not used,
   //! but <thenbdefs> is incremented and used
   //! Error if no Root is defined for this <idnum>
-  Standard_EXPORT TCollection_AsciiString FileName(const Standard_Integer dnum,
+  Standard_EXPORT AsciiString1 FileName(const Standard_Integer dnum,
                                                    const Standard_Integer pnum,
                                                    const Standard_Integer nbpack = 0);
 

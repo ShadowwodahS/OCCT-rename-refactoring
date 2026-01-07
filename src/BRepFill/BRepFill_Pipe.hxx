@@ -31,9 +31,9 @@
 #include <GeomAbs_Shape.hxx>
 #include <GeomFill_Trihedron.hxx>
 class BRepFill_LocationLaw;
-class TopoDS_Face;
-class TopoDS_Edge;
-class TopoDS_Vertex;
+class TopoFace;
+class TopoEdge;
+class TopoVertex;
 class Point3d;
 class BRepFill_Sweep;
 
@@ -50,80 +50,80 @@ public:
 
   Standard_EXPORT BRepFill_Pipe();
 
-  Standard_EXPORT BRepFill_Pipe(const TopoDS_Wire&       Spine,
-                                const TopoDS_Shape&      Profile,
+  Standard_EXPORT BRepFill_Pipe(const TopoWire&       Spine,
+                                const TopoShape&      Profile,
                                 const GeomFill_Trihedron aMode         = GeomFill_IsCorrectedFrenet,
                                 const Standard_Boolean   ForceApproxC1 = Standard_False,
                                 const Standard_Boolean   GeneratePartCase = Standard_False);
 
-  Standard_EXPORT void Perform(const TopoDS_Wire&     Spine,
-                               const TopoDS_Shape&    Profile,
+  Standard_EXPORT void Perform(const TopoWire&     Spine,
+                               const TopoShape&    Profile,
                                const Standard_Boolean GeneratePartCase = Standard_False);
 
-  Standard_EXPORT const TopoDS_Shape& Spine() const;
+  Standard_EXPORT const TopoShape& Spine() const;
 
-  Standard_EXPORT const TopoDS_Shape& Profile() const;
+  Standard_EXPORT const TopoShape& Profile() const;
 
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
   Standard_EXPORT Standard_Real ErrorOnSurface() const;
 
-  Standard_EXPORT const TopoDS_Shape& FirstShape() const;
+  Standard_EXPORT const TopoShape& FirstShape() const;
 
-  Standard_EXPORT const TopoDS_Shape& LastShape() const;
+  Standard_EXPORT const TopoShape& LastShape() const;
 
   //! Returns the  list   of shapes generated   from the
   //! shape <S>.
-  Standard_EXPORT void Generated(const TopoDS_Shape& S, TopTools_ListOfShape& L);
+  Standard_EXPORT void Generated(const TopoShape& S, ShapeList& L);
 
   //! Returns the face created from an edge of the spine
   //! and an edge of the profile.
   //! if the edges are not in the spine or the profile
-  Standard_EXPORT TopoDS_Face Face(const TopoDS_Edge& ESpine, const TopoDS_Edge& EProfile);
+  Standard_EXPORT TopoFace Face(const TopoEdge& ESpine, const TopoEdge& EProfile);
 
   //! Returns the edge created from an edge of the spine
   //! and a vertex of the profile.
   //! if the edge or the vertex are not in  the spine or
   //! the profile.
-  Standard_EXPORT TopoDS_Edge Edge(const TopoDS_Edge& ESpine, const TopoDS_Vertex& VProfile);
+  Standard_EXPORT TopoEdge Edge(const TopoEdge& ESpine, const TopoVertex& VProfile);
 
   //! Returns  the shape created from the profile at the
   //! position of the vertex VSpine.
   //! if the vertex is not in the Spine
-  Standard_EXPORT TopoDS_Shape Section(const TopoDS_Vertex& VSpine) const;
+  Standard_EXPORT TopoShape Section(const TopoVertex& VSpine) const;
 
   //! Create a Wire by sweeping the Point along the <spine>
   //! if the <Spine> is undefined
-  Standard_EXPORT TopoDS_Wire PipeLine(const Point3d& Point);
+  Standard_EXPORT TopoWire PipeLine(const Point3d& Point);
 
 protected:
 private:
   //! Auxiliary  recursive  method  used  to  build  the
   //! result.
-  Standard_EXPORT TopoDS_Shape MakeShape(const TopoDS_Shape& S,
-                                         const TopoDS_Shape& theOriginalS,
-                                         const TopoDS_Shape& FirstShape,
-                                         const TopoDS_Shape& LastShape);
+  Standard_EXPORT TopoShape MakeShape(const TopoShape& S,
+                                         const TopoShape& theOriginalS,
+                                         const TopoShape& FirstShape,
+                                         const TopoShape& LastShape);
 
   //! Auxiliary recursive method used to find the edge's index
-  Standard_EXPORT Standard_Integer FindEdge(const TopoDS_Shape& S,
-                                            const TopoDS_Edge&  E,
+  Standard_EXPORT Standard_Integer FindEdge(const TopoShape& S,
+                                            const TopoEdge&  E,
                                             Standard_Integer&   Init) const;
 
-  Standard_EXPORT Standard_Integer FindVertex(const TopoDS_Shape&  S,
-                                              const TopoDS_Vertex& V,
+  Standard_EXPORT Standard_Integer FindVertex(const TopoShape&  S,
+                                              const TopoVertex& V,
                                               Standard_Integer&    Init) const;
 
   Standard_EXPORT void DefineRealSegmax();
 
-  Standard_EXPORT void RebuildTopOrBottomFace(const TopoDS_Shape&    aFace,
+  Standard_EXPORT void RebuildTopOrBottomFace(const TopoShape&    aFace,
                                               const Standard_Boolean IsTop) const;
 
-  Standard_EXPORT void BuildHistory(const BRepFill_Sweep& theSweep, const TopoDS_Shape& theSection);
+  Standard_EXPORT void BuildHistory(const BRepFill_Sweep& theSweep, const TopoShape& theSection);
 
-  TopoDS_Wire                           mySpine;
-  TopoDS_Shape                          myProfile;
-  TopoDS_Shape                          myShape;
+  TopoWire                           mySpine;
+  TopoShape                          myProfile;
+  TopoShape                          myShape;
   Transform3d                               myTrsf;
   Handle(BRepFill_LocationLaw)          myLoc;
   Handle(TopTools_HArray2OfShape)       mySections;
@@ -133,8 +133,8 @@ private:
   BRepFill_DataMapOfShapeHArray2OfShape myTapes;
   BRepFill_DataMapOfShapeHArray2OfShape myRails;
   Standard_Integer                      myCurIndexOfSectionEdge;
-  TopoDS_Shape                          myFirst;
-  TopoDS_Shape                          myLast;
+  TopoShape                          myFirst;
+  TopoShape                          myLast;
   TopTools_DataMapOfShapeListOfShape    myGenMap;
   Standard_Integer                      myDegmax;
   Standard_Integer                      mySegmax;

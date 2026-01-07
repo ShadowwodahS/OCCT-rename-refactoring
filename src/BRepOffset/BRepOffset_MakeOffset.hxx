@@ -37,7 +37,7 @@
 
 #include <Message_ProgressRange.hxx>
 class BRepAlgo_AsDes;
-class TopoDS_Face;
+class TopoFace;
 class BRepOffset_Inter3d;
 
 class BRepOffset_MakeOffset
@@ -48,7 +48,7 @@ public:
   Standard_EXPORT BRepOffset_MakeOffset();
 
   Standard_EXPORT BRepOffset_MakeOffset(
-    const TopoDS_Shape&          S,
+    const TopoShape&          S,
     const Standard_Real          Offset,
     const Standard_Real          Tol,
     const BRepOffset_Mode        Mode           = BRepOffset_Skin,
@@ -59,7 +59,7 @@ public:
     const Standard_Boolean       RemoveIntEdges = Standard_False,
     const Message_ProgressRange& theRange       = Message_ProgressRange());
 
-  Standard_EXPORT void Initialize(const TopoDS_Shape&    S,
+  Standard_EXPORT void Initialize(const TopoShape&    S,
                                   const Standard_Real    Offset,
                                   const Standard_Real    Tol,
                                   const BRepOffset_Mode  Mode           = BRepOffset_Skin,
@@ -76,10 +76,10 @@ public:
 
   //! Add Closing Faces,  <F>  has to be  in  the initial
   //! shape S.
-  Standard_EXPORT void AddFace(const TopoDS_Face& F);
+  Standard_EXPORT void AddFace(const TopoFace& F);
 
   //! set the offset <Off> on the Face <F>
-  Standard_EXPORT void SetOffsetOnFace(const TopoDS_Face& F, const Standard_Real Off);
+  Standard_EXPORT void SetOffsetOnFace(const TopoFace& F, const Standard_Real Off);
 
   Standard_EXPORT void MakeOffsetShape(
     const Message_ProgressRange& theRange = Message_ProgressRange());
@@ -91,23 +91,23 @@ public:
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
-  const TopoDS_Shape& InitShape() const { return myInitialShape; }
+  const TopoShape& InitShape() const { return myInitialShape; }
 
   //! returns information about offset state.
   Standard_EXPORT BRepOffset_Error Error() const;
 
   //! Returns <Image> containing links between initials
   //! shapes and offset faces.
-  Standard_EXPORT const BRepAlgo_Image& OffsetFacesFromShapes() const;
+  Standard_EXPORT const ShapeImage& OffsetFacesFromShapes() const;
 
   //! Returns myJoin.
   Standard_EXPORT GeomAbs_JoinType GetJoinType() const;
 
   //! Returns <Image> containing links between initials
   //! shapes and offset edges.
-  Standard_EXPORT const BRepAlgo_Image& OffsetEdgesFromShapes() const;
+  Standard_EXPORT const ShapeImage& OffsetEdgesFromShapes() const;
 
   //! Returns the list of closing faces stores by AddFace
   Standard_EXPORT const TopTools_IndexedMapOfShape& ClosingFaces() const;
@@ -122,17 +122,17 @@ public:
   Standard_EXPORT Standard_Boolean CheckInputData(const Message_ProgressRange& theRange);
 
   //! Return bad shape, which obtained in CheckInputData.
-  Standard_EXPORT const TopoDS_Shape& GetBadShape() const;
+  Standard_EXPORT const TopoShape& GetBadShape() const;
 
 public: //! @name History methods
   //! Returns the  list of shapes generated from the shape <S>.
-  Standard_EXPORT const TopTools_ListOfShape& Generated(const TopoDS_Shape& theS);
+  Standard_EXPORT const ShapeList& Generated(const TopoShape& theS);
 
   //! Returns the list of shapes modified from the shape <S>.
-  Standard_EXPORT const TopTools_ListOfShape& Modified(const TopoDS_Shape& theS);
+  Standard_EXPORT const ShapeList& Modified(const TopoShape& theS);
 
   //! Returns true if the shape S has been deleted.
-  Standard_EXPORT Standard_Boolean IsDeleted(const TopoDS_Shape& S);
+  Standard_EXPORT Standard_Boolean IsDeleted(const TopoShape& S);
 
 protected:
   //! Analyze progress steps of the whole operation.
@@ -206,7 +206,7 @@ private:
   Standard_EXPORT void RemoveInternalEdges();
 
   //! Intersects edges
-  Standard_EXPORT void IntersectEdges(const TopTools_ListOfShape&      theFaces,
+  Standard_EXPORT void IntersectEdges(const ShapeList&      theFaces,
                                       BRepOffset_DataMapOfShapeOffset& theMapSF,
                                       TopTools_DataMapOfShapeShape&    theMES,
                                       TopTools_DataMapOfShapeShape&    theBuild,
@@ -219,27 +219,27 @@ private:
   //! for BRepOffset_MakeLoops::Build method.
   //! Currently the Complete intersection mode is limited to work only on planar cases.
   Standard_EXPORT void BuildSplitsOfExtendedFaces(
-    const TopTools_ListOfShape&         theLF,
+    const ShapeList&         theLF,
     const BRepOffset_Analyse&           theAnalyse,
     const Handle(BRepAlgo_AsDes)&       theAsDes,
     TopTools_DataMapOfShapeListOfShape& theEdgesOrigins,
     TopTools_DataMapOfShapeShape&       theFacesOrigins,
     TopTools_DataMapOfShapeShape&       theETrimEInf,
-    BRepAlgo_Image&                     theImage,
+    ShapeImage&                     theImage,
     const Message_ProgressRange&        theRange);
 
   //! Building of the splits of the already trimmed offset faces for mode Complete
   //! and joint type Intersection.
-  Standard_EXPORT void BuildSplitsOfTrimmedFaces(const TopTools_ListOfShape&   theLF,
+  Standard_EXPORT void BuildSplitsOfTrimmedFaces(const ShapeList&   theLF,
                                                  const Handle(BRepAlgo_AsDes)& theAsDes,
-                                                 BRepAlgo_Image&               theImage,
+                                                 ShapeImage&               theImage,
                                                  const Message_ProgressRange&  theRange);
 
   Standard_Real                      myOffset;
   Standard_Real                      myTol;
-  TopoDS_Shape                       myInitialShape;
-  TopoDS_Shape                       myShape;
-  TopoDS_Compound                    myFaceComp;
+  TopoShape                       myInitialShape;
+  TopoShape                       myShape;
+  TopoCompound                    myFaceComp;
   BRepOffset_Mode                    myMode;
   Standard_Boolean                   myIsLinearizationAllowed;
   Standard_Boolean                   myInter;
@@ -251,12 +251,12 @@ private:
   TopTools_IndexedMapOfShape         myFaces;
   TopTools_IndexedMapOfShape         myOriginalFaces;
   BRepOffset_Analyse                 myAnalyse;
-  TopoDS_Shape                       myOffsetShape;
-  BRepAlgo_Image                     myInitOffsetFace;
-  BRepAlgo_Image                     myInitOffsetEdge;
-  BRepAlgo_Image                     myImageOffset;
-  BRepAlgo_Image                     myImageVV;
-  TopTools_ListOfShape               myWalls;
+  TopoShape                       myOffsetShape;
+  ShapeImage                     myInitOffsetFace;
+  ShapeImage                     myInitOffsetEdge;
+  ShapeImage                     myImageOffset;
+  ShapeImage                     myImageVV;
+  ShapeList               myWalls;
   Handle(BRepAlgo_AsDes)             myAsDes;
   TopTools_DataMapOfShapeListOfShape myEdgeIntEdges;
   Standard_Boolean                   myDone;
@@ -264,9 +264,9 @@ private:
   BRepOffset_MakeLoops               myMakeLoops;
   Standard_Boolean                   myIsPerformSewing; // Handle bad walls in thicksolid mode.
   Standard_Boolean                   myIsPlanar;
-  TopoDS_Shape                       myBadShape;
+  TopoShape                       myBadShape;
   TopTools_DataMapOfShapeShape       myFacePlanfaceMap;
-  TopTools_ListOfShape               myGenerated;
+  ShapeList               myGenerated;
   TopTools_MapOfShape                myResMap;
 };
 

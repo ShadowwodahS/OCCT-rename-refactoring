@@ -50,7 +50,7 @@ DFBrowserPane_AttributePaneAPI* DFBrowserPane_AttributePaneCreator::CreateAttrib
     aPane = new DFBrowserPane_TDataStdReferenceList();
   else if (theAttributeName == STANDARD_TYPE(TDataStd_ReferenceArray)->Name())
     aPane = new DFBrowserPane_TDataStdReferenceArray();
-  else if (theAttributeName == STANDARD_TYPE(TNaming_NamedShape)->Name())
+  else if (theAttributeName == STANDARD_TYPE(ShapeAttribute)->Name())
     aPane = new DFBrowserPane_TNamingNamedShape();
   else if (theAttributeName == STANDARD_TYPE(TNaming_Naming)->Name())
     aPane = new DFBrowserPane_TNamingNaming();

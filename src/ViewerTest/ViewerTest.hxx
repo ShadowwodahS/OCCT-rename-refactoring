@@ -27,22 +27,22 @@
 #include <TopTools_HArray1OfShape.hxx>
 #include <Quantity_ColorRGBA.hxx>
 
-class AIS_InteractiveContext;
-class AIS_InteractiveObject;
+class VisualContext;
+class VisualEntity;
 class Image_PixMap;
-class V3d_View;
-class V3d_Viewer;
+class ViewWindow;
+class ViewManager;
 class ViewerTest_EventManager;
-class TopoDS_Shape;
+class TopoShape;
 class WNT_WClass;
 
 //! Parameters for creating new view.
 struct ViewerTest_VinitParams
 {
-  TCollection_AsciiString       ViewName;
-  TCollection_AsciiString       DisplayName;
-  Handle(V3d_View)              ViewToClone;
-  Handle(V3d_View)              ParentView;
+  AsciiString1       ViewName;
+  AsciiString1       DisplayName;
+  Handle(ViewWindow)              ViewToClone;
+  Handle(ViewWindow)              ParentView;
   Graphic3d_Vec2d               Offset;
   Graphic3d_Vec2d               Size;
   Aspect_TypeOfTriedronPosition Corner;
@@ -63,16 +63,16 @@ class ViewerTest
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Loads all Draw commands of  V2d & V3d. Used for plugin.
-  Standard_EXPORT static void Factory(Draw_Interpretor& theDI);
+  //! Loads all Draw1 commands of  V2d & V3d. Used for plugin.
+  Standard_EXPORT static void Factory(DrawInterpreter& theDI);
 
   //! Creates view with default or custom name and adds this name in map to manage multiple views.
   //! Implemented in ViewerTest_ViewerCommands.cxx.
-  Standard_EXPORT static TCollection_AsciiString ViewerInit(
+  Standard_EXPORT static AsciiString1 ViewerInit(
     const ViewerTest_VinitParams& theParams);
 
   //! Creates view.
-  static TCollection_AsciiString ViewerInit(const TCollection_AsciiString& theViewName = "")
+  static AsciiString1 ViewerInit(const AsciiString1& theViewName = "")
   {
     ViewerTest_VinitParams aParams;
     aParams.ViewName = theViewName;
@@ -80,14 +80,14 @@ public:
   }
 
   //! Creates view.
-  static TCollection_AsciiString ViewerInit(
+  static AsciiString1 ViewerInit(
     const Standard_Integer         thePxLeft,
     const Standard_Integer         thePxTop,
     const Standard_Integer         thePxWidth,
     const Standard_Integer         thePxHeight,
-    const TCollection_AsciiString& theViewName,
-    const TCollection_AsciiString& theDisplayName = "",
-    const Handle(V3d_View)&        theViewToClone = Handle(V3d_View)(),
+    const AsciiString1& theViewName,
+    const AsciiString1& theDisplayName = "",
+    const Handle(ViewWindow)&        theViewToClone = Handle(ViewWindow)(),
     const Standard_Boolean         theIsVirtual   = false)
   {
     ViewerTest_VinitParams aParams;
@@ -100,25 +100,25 @@ public:
     return ViewerInit(aParams);
   }
 
-  Standard_EXPORT static void RemoveViewName(const TCollection_AsciiString& theName);
+  Standard_EXPORT static void RemoveViewName(const AsciiString1& theName);
 
-  Standard_EXPORT static void InitViewName(const TCollection_AsciiString& theName,
-                                           const Handle(V3d_View)&        theView);
+  Standard_EXPORT static void InitViewName(const AsciiString1& theName,
+                                           const Handle(ViewWindow)&        theView);
 
-  Standard_EXPORT static TCollection_AsciiString GetCurrentViewName();
+  Standard_EXPORT static AsciiString1 GetCurrentViewName();
 
   //! Make the view active
-  Standard_EXPORT static void ActivateView(const Handle(V3d_View)& theView,
+  Standard_EXPORT static void ActivateView(const Handle(ViewWindow)& theView,
                                            Standard_Boolean        theToUpdate);
 
   //! Removes view and clear all maps
   //! with information about its resources if necessary
-  Standard_EXPORT static void RemoveView(const TCollection_AsciiString& theViewName,
+  Standard_EXPORT static void RemoveView(const AsciiString1& theViewName,
                                          const Standard_Boolean theToRemoveContext = Standard_True);
 
   //! Removes view and clear all maps
   //! with information about its resources if necessary
-  Standard_EXPORT static void RemoveView(const Handle(V3d_View)& theView,
+  Standard_EXPORT static void RemoveView(const Handle(ViewWindow)& theView,
                                          const Standard_Boolean theToRemoveContext = Standard_True);
 
   //! Display AIS object in active Viewer and register it in the map of Interactive Objects with
@@ -129,15 +129,15 @@ public:
   //! @param theReplaceIfExists replace the object assigned to specified key
   //! @return true if new object has been displayed
   Standard_EXPORT static Standard_Boolean Display(
-    const TCollection_AsciiString&       theName,
-    const Handle(AIS_InteractiveObject)& theObject,
+    const AsciiString1&       theName,
+    const Handle(VisualEntity)& theObject,
     const Standard_Boolean               theToUpdate        = Standard_True,
     const Standard_Boolean               theReplaceIfExists = Standard_True);
 
   //! waits until a shape of type <aType> is picked in the AIS Viewer and returns it.
   //! if <aType> == TopAbs_Shape, any shape can be picked...
   //! MaxPick  is the Max number before exiting, if no pick is successful
-  Standard_EXPORT static TopoDS_Shape PickShape(const TopAbs_ShapeEnum aType,
+  Standard_EXPORT static TopoShape PickShape(const TopAbs_ShapeEnum aType,
                                                 const Standard_Integer MaxPick = 5);
 
   //! wait until the array is filled with picked shapes.
@@ -147,31 +147,31 @@ public:
                                                      Handle(TopTools_HArray1OfShape)& thepicked,
                                                      const Standard_Integer           MaxPick = 5);
 
-  Standard_EXPORT static void Commands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void Commands(DrawInterpreter& theCommands);
 
-  Standard_EXPORT static void ViewerCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void ViewerCommands(DrawInterpreter& theCommands);
 
-  Standard_EXPORT static void RelationCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void RelationCommands(DrawInterpreter& theCommands);
 
-  Standard_EXPORT static void ObjectCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void ObjectCommands(DrawInterpreter& theCommands);
 
-  Standard_EXPORT static void FilletCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void FilletCommands(DrawInterpreter& theCommands);
 
-  Standard_EXPORT static void OpenGlCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void OpenGlCommands(DrawInterpreter& theCommands);
 
   Standard_EXPORT static void GetMousePosition(Standard_Integer& xpix, Standard_Integer& ypix);
 
-  Standard_EXPORT static Handle(V3d_Viewer) GetViewerFromContext();
+  Standard_EXPORT static Handle(ViewManager) GetViewerFromContext();
 
-  Standard_EXPORT static Handle(V3d_Viewer) GetCollectorFromContext();
+  Standard_EXPORT static Handle(ViewManager) GetCollectorFromContext();
 
-  Standard_EXPORT static const Handle(AIS_InteractiveContext)& GetAISContext();
+  Standard_EXPORT static const Handle(VisualContext)& GetAISContext();
 
-  Standard_EXPORT static void SetAISContext(const Handle(AIS_InteractiveContext)& aContext);
+  Standard_EXPORT static void SetAISContext(const Handle(VisualContext)& aContext);
 
-  Standard_EXPORT static const Handle(V3d_View)& CurrentView();
+  Standard_EXPORT static const Handle(ViewWindow)& CurrentView();
 
-  Standard_EXPORT static void CurrentView(const Handle(V3d_View)& aViou);
+  Standard_EXPORT static void CurrentView(const Handle(ViewWindow)& aViou);
 
   Standard_EXPORT static void Clear();
 
@@ -195,12 +195,12 @@ public:
   //! Splits "parameter=value" string into separate
   //! parameter and value strings.
   //! @return TRUE if the string matches pattern "<string>=<empty or string>"
-  Standard_EXPORT static Standard_Boolean SplitParameter(const TCollection_AsciiString& theString,
-                                                         TCollection_AsciiString&       theName,
-                                                         TCollection_AsciiString&       theValue);
+  Standard_EXPORT static Standard_Boolean SplitParameter(const AsciiString1& theString,
+                                                         AsciiString1&       theName,
+                                                         AsciiString1&       theValue);
 
   //! Returns list of selected shapes.
-  Standard_EXPORT static void GetSelectedShapes(TopTools_ListOfShape& theShapes);
+  Standard_EXPORT static void GetSelectedShapes(ShapeList& theShapes);
 
   //! Parses line type argument.
   //! Handles either enumeration (integer) value or string constant.
@@ -254,21 +254,21 @@ public:
 public: //! @name deprecated methods
   //! Parses RGB(A) color argument(s) specified within theArgVec[0], theArgVec[1], theArgVec[2] and
   //! theArgVec[3].
-  Standard_DEPRECATED("Method has been moved to Draw::ParseColor()")
+  Standard_DEPRECATED("Method has been moved to Draw1::ParseColor()")
   Standard_EXPORT static Standard_Integer ParseColor(const Standard_Integer   theArgNb,
                                                      const char* const* const theArgVec,
                                                      Quantity_ColorRGBA&      theColor);
 
   //! Parses RGB color argument(s).
   //! Returns number of handled arguments (1 or 3) or 0 on syntax error.
-  Standard_DEPRECATED("Method has been moved to Draw::ParseColor()")
+  Standard_DEPRECATED("Method has been moved to Draw1::ParseColor()")
   Standard_EXPORT static Standard_Integer ParseColor(const Standard_Integer   theArgNb,
                                                      const char* const* const theArgVec,
                                                      Quantity_Color&          theColor);
 
   //! Parses boolean argument.
   //! Handles either flag specified by 0|1 or on|off.
-  Standard_DEPRECATED("Method has been moved to Draw::ParseOnOff()")
+  Standard_DEPRECATED("Method has been moved to Draw1::ParseOnOff()")
   Standard_EXPORT static Standard_Boolean ParseOnOff(Standard_CString  theArg,
                                                      Standard_Boolean& theIsOn);
 

@@ -52,9 +52,9 @@ Handle(Interface_Protocol) IGESAppli_Protocol::Resource(const Standard_Integer n
 {
   Handle(Interface_Protocol) res;
   if (num == 1)
-    res = IGESDefs::Protocol();
+    res = IGESDefs1::Protocol();
   if (num == 2)
-    res = IGESDraw::Protocol();
+    res = IGESDraw1::Protocol();
   return res;
 }
 

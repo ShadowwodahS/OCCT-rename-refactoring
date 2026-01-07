@@ -43,7 +43,7 @@
 //! If commands to advance Current Number are not set, it must be
 //! set by the user (with method SetCurrent from ParamReader)
 //! ParamReader offers methods which create most useful cases
-class IGESData_ParamCursor
+class ParameterCursor
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -53,7 +53,7 @@ public:
   //! (this constructor allows to simply give a Number to a method
   //! Read... from ParamReader, which will be translated into a
   //! ParamCursor by compiler)
-  Standard_EXPORT IGESData_ParamCursor(const Standard_Integer num);
+  Standard_EXPORT ParameterCursor(const Standard_Integer num);
 
   //! Creates a Cursor to read a list of parameters (count "nb")
   //! starting from a precise one (number "num") included, then
@@ -64,7 +64,7 @@ public:
   //! instance, a Parameter comprises one Integer, or one Entity ...
   //! Size gives the complete size of each Item if it is complex.
   //! To be used ONLY IF it is constant
-  Standard_EXPORT IGESData_ParamCursor(const Standard_Integer num,
+  Standard_EXPORT ParameterCursor(const Standard_Integer num,
                                        const Standard_Integer nb,
                                        const Standard_Integer size = 1);
 

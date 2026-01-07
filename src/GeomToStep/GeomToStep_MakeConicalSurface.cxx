@@ -30,7 +30,7 @@
 //=============================================================================
 GeomToStep_MakeConicalSurface::GeomToStep_MakeConicalSurface(
   const Handle(Geom_ConicalSurface)& CS,
-  const StepData_Factors&            theLocalFactors)
+  const ConversionFactors&            theLocalFactors)
 
 {
   Handle(StepGeom_ConicalSurface)   CSstep = new StepGeom_ConicalSurface;

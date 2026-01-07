@@ -30,14 +30,14 @@ public:
 
   //! Sets the history of the given algorithm into the session.
   template <class TheAlgo>
-  static void SetHistory(const TopTools_ListOfShape& theArguments, TheAlgo& theAlgo)
+  static void SetHistory(const ShapeList& theArguments, TheAlgo& theAlgo)
   {
     SetHistory(new BRepTools_History(theArguments, theAlgo));
   }
 
   //! Adds the history of the given algorithm into the session.
   template <class TheAlgo>
-  static void AddHistory(const TopTools_ListOfShape& theArguments, TheAlgo& theAlgo)
+  static void AddHistory(const ShapeList& theArguments, TheAlgo& theAlgo)
   {
     AddHistory(new BRepTools_History(theArguments, theAlgo));
   }

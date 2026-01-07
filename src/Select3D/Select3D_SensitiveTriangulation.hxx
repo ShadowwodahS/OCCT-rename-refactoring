@@ -21,7 +21,7 @@
 #include <Select3D_SensitiveSet.hxx>
 
 class Poly_Triangle;
-class Poly_Triangulation;
+class MeshTriangulation;
 
 //! A framework to define selection of a sensitive entity made of a set of triangles.
 class Select3D_SensitiveTriangulation : public Select3D_SensitiveSet
@@ -33,7 +33,7 @@ public:
   //! the location theInitLoc, and the flag theIsInterior.
   Standard_EXPORT Select3D_SensitiveTriangulation(
     const Handle(SelectMgr_EntityOwner)& theOwnerId,
-    const Handle(Poly_Triangulation)&    theTrg,
+    const Handle(MeshTriangulation)&    theTrg,
     const TopLoc_Location&               theInitLoc,
     const Standard_Boolean               theIsInterior = Standard_True);
 
@@ -45,7 +45,7 @@ public:
   //! to be computed later, this syntax reduces computation time.
   Standard_EXPORT Select3D_SensitiveTriangulation(
     const Handle(SelectMgr_EntityOwner)&    theOwnerId,
-    const Handle(Poly_Triangulation)&       theTrg,
+    const Handle(MeshTriangulation)&       theTrg,
     const TopLoc_Location&                  theInitLoc,
     const Handle(TColStd_HArray1OfInteger)& theFreeEdges,
     const Point3d&                           theCOG,
@@ -79,7 +79,7 @@ public:
 
   Standard_EXPORT Handle(Select3D_SensitiveEntity) GetConnected() Standard_OVERRIDE;
 
-  const Handle(Poly_Triangulation)& Triangulation() const { return myTriangul; }
+  const Handle(MeshTriangulation)& Triangulation() const { return myTriangul; }
 
   //! Returns the length of array of triangles or edges
   Standard_EXPORT virtual Standard_Integer Size() const Standard_OVERRIDE;
@@ -152,7 +152,7 @@ private:
     Standard_Boolean                     theIsFullInside) Standard_OVERRIDE;
 
 protected:
-  Handle(Poly_Triangulation)       myTriangul;
+  Handle(MeshTriangulation)       myTriangul;
   TopLoc_Location                  myInitLocation;
   Point3d                           myCDG3D; //!< Center of the whole triangulation
   Handle(TColStd_HArray1OfInteger) myFreeEdges;

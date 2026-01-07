@@ -23,10 +23,10 @@
 #include <BRepCheck_Status.hxx>
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 #include <BRepCheck_Result.hxx>
-class TopoDS_Wire;
-class TopoDS_Shape;
-class TopoDS_Face;
-class TopoDS_Edge;
+class TopoWire;
+class TopoShape;
+class TopoFace;
+class TopoEdge;
 
 class BRepCheck_Wire;
 DEFINE_STANDARD_HANDLE(BRepCheck_Wire, BRepCheck_Result)
@@ -35,12 +35,12 @@ class BRepCheck_Wire : public BRepCheck_Result
 {
 
 public:
-  Standard_EXPORT BRepCheck_Wire(const TopoDS_Wire& W);
+  Standard_EXPORT BRepCheck_Wire(const TopoWire& W);
 
   //! if <ContextShape> is  a  face, consequently checks
   //! SelfIntersect(),   Closed(),   Orientation()   and
   //! Closed2d until faulty is found
-  Standard_EXPORT void InContext(const TopoDS_Shape& ContextShape) Standard_OVERRIDE;
+  Standard_EXPORT void InContext(const TopoShape& ContextShape) Standard_OVERRIDE;
 
   //! checks that the  wire  is  not empty and "connex".
   //! Called by constructor
@@ -69,7 +69,7 @@ public:
   //! Returns BRepCheck_NoError,  or BRepCheck_NotClosed
   //! If <Update> is set to Standard_True, registers the
   //! status in the list.
-  Standard_EXPORT BRepCheck_Status Closed2d(const TopoDS_Face&     F,
+  Standard_EXPORT BRepCheck_Status Closed2d(const TopoFace&     F,
                                             const Standard_Boolean Update = Standard_False);
 
   //! Checks   if  the oriented edges   of  the wire are
@@ -83,7 +83,7 @@ public:
   //! BRepCheck_BadOrientationOfSubshape,
   //! BRepCheck_NotClosed,
   //! BRepCheck_NoError
-  Standard_EXPORT BRepCheck_Status Orientation(const TopoDS_Face&     F,
+  Standard_EXPORT BRepCheck_Status Orientation(const TopoFace&     F,
                                                const Standard_Boolean Update = Standard_False);
 
   //! Checks if  the wire intersect   itself on the face
@@ -97,9 +97,9 @@ public:
   //! BRepCheck_SelfIntersectingWire,
   //! BRepCheck_NoCurveOnSurface,
   //! BRepCheck_NoError
-  Standard_EXPORT BRepCheck_Status SelfIntersect(const TopoDS_Face&     F,
-                                                 TopoDS_Edge&           E1,
-                                                 TopoDS_Edge&           E2,
+  Standard_EXPORT BRepCheck_Status SelfIntersect(const TopoFace&     F,
+                                                 TopoEdge&           E1,
+                                                 TopoEdge&           E2,
                                                  const Standard_Boolean Update = Standard_False);
 
   //! report SelfIntersect() check would be (is) done

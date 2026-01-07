@@ -65,8 +65,8 @@ Standard_Boolean XmlMFunction_FunctionDriver::Paste(const XmlObjMgt_Persistent& 
   XmlObjMgt_DOMString aFStr = theSource.Element().getAttribute(::FailureString());
   if (!aFStr.GetInteger(aValue))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString(
+    UtfString aMessageString =
+      UtfString(
         "Cannot retrieve failure number for TFunction_Function attribute from \"")
       + aFStr + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);

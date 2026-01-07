@@ -24,11 +24,11 @@
 
 //! Substitution of OStream for shape writer for fast management of position in the file
 //! and operation on all writing types.
-class BinTools_OStream
+class BinaryOutputStream
 {
 public:
   //! Creates OStream using the current stream OStream.
-  Standard_EXPORT BinTools_OStream(Standard_OStream& theStream);
+  Standard_EXPORT BinaryOutputStream(Standard_OStream& theStream);
 
   //! Returns the current position of the stream
   Standard_EXPORT const uint64_t& Position() { return myPosition; }
@@ -40,31 +40,31 @@ public:
                                   const TopAbs_Orientation& theOrientation);
 
   //! Writes an object type to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const BinTools_ObjectType& theType);
+  Standard_EXPORT BinaryOutputStream& operator<<(const BinTools_ObjectType& theType);
   //! Writes a byte to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const Standard_Byte& theValue);
+  Standard_EXPORT BinaryOutputStream& operator<<(const Standard_Byte& theValue);
   //! Writes a real to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const Standard_Real& theValue);
+  Standard_EXPORT BinaryOutputStream& operator<<(const Standard_Real& theValue);
   //! Writes a boolean to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const Standard_Boolean& theValue);
+  Standard_EXPORT BinaryOutputStream& operator<<(const Standard_Boolean& theValue);
   //! Writes a integer to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const Standard_Integer& theValue);
+  Standard_EXPORT BinaryOutputStream& operator<<(const Standard_Integer& theValue);
   //! Writes a extended character to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const Standard_ExtCharacter& theValue);
+  Standard_EXPORT BinaryOutputStream& operator<<(const Standard_ExtCharacter& theValue);
   //! Writes a 3D point to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const Point3d& theValue);
+  Standard_EXPORT BinaryOutputStream& operator<<(const Point3d& theValue);
   //! Writes a 3D direction to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const Dir3d& theValue);
+  Standard_EXPORT BinaryOutputStream& operator<<(const Dir3d& theValue);
   //! Writes a 2D point to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const gp_Pnt2d& theValue);
+  Standard_EXPORT BinaryOutputStream& operator<<(const gp_Pnt2d& theValue);
   //! Writes a 2D direction to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const gp_Dir2d& theValue);
+  Standard_EXPORT BinaryOutputStream& operator<<(const gp_Dir2d& theValue);
   //! Writes a transformation matrix to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const Transform3d& theValue);
+  Standard_EXPORT BinaryOutputStream& operator<<(const Transform3d& theValue);
   //! Writes triangle nodes indices to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const Poly_Triangle& theValue);
+  Standard_EXPORT BinaryOutputStream& operator<<(const Poly_Triangle& theValue);
   //! Writes a vector to the stream.
-  Standard_EXPORT BinTools_OStream& operator<<(const gp_Vec3f& theValue);
+  Standard_EXPORT BinaryOutputStream& operator<<(const gp_Vec3f& theValue);
 
   //! Writes 3 booleans as one byte to the stream.
   Standard_EXPORT void PutBools(const Standard_Boolean theValue1,

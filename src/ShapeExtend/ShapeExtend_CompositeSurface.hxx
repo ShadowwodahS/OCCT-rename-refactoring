@@ -31,12 +31,12 @@ class gp_Pnt2d;
 class gp_Trsf2d;
 class Transform3d;
 class Geom_Geometry;
-class Geom_Curve;
+class GeomCurve3d;
 class Point3d;
 class Vector3d;
 
 class ShapeExtend_CompositeSurface;
-DEFINE_STANDARD_HANDLE(ShapeExtend_CompositeSurface, Geom_Surface)
+DEFINE_STANDARD_HANDLE(ShapeExtend_CompositeSurface, GeomSurface)
 
 //! Composite surface is represented by a grid of surfaces
 //! (patches) connected geometrically. Patches may have different
@@ -63,13 +63,13 @@ DEFINE_STANDARD_HANDLE(ShapeExtend_CompositeSurface, Geom_Surface)
 //! S[i,j](U,Vj+1) = S[i,j+1](U,Vj+1) for any i, j, U
 //! It is checked with Precision::Confusion() by default.
 //!
-//! NOTE 1: This class is inherited from Geom_Surface in order to
+//! NOTE 1: This class is inherited from GeomSurface in order to
 //! make it more easy to store and deal with it. However, it should
 //! not be passed to standard methods dealing with geometry since
 //! this type is not known to them.
 //! NOTE 2: Not all the inherited methods are implemented, and some are
 //! implemented not in the full form.
-class ShapeExtend_CompositeSurface : public Geom_Surface
+class ShapeExtend_CompositeSurface : public GeomSurface
 {
 
 public:
@@ -123,7 +123,7 @@ public:
   Standard_EXPORT Standard_Integer NbVPatches() const;
 
   //! Returns one surface patch
-  Standard_EXPORT const Handle(Geom_Surface)& Patch(const Standard_Integer i,
+  Standard_EXPORT const Handle(GeomSurface)& Patch(const Standard_Integer i,
                                                     const Standard_Integer j) const;
 
   //! Returns grid of surfaces
@@ -184,11 +184,11 @@ public:
                                      Standard_Integer& j) const;
 
   //! Returns one surface patch that contains given (global) parameters
-  Standard_EXPORT const Handle(Geom_Surface)& Patch(const Standard_Real U,
+  Standard_EXPORT const Handle(GeomSurface)& Patch(const Standard_Real U,
                                                     const Standard_Real V) const;
 
   //! Returns one surface patch that contains given point
-  Standard_EXPORT const Handle(Geom_Surface)& Patch(const gp_Pnt2d& pnt) const;
+  Standard_EXPORT const Handle(GeomSurface)& Patch(const gp_Pnt2d& pnt) const;
 
   //! Converts local parameter u on patch i,j to global parameter U
   Standard_EXPORT Standard_Real ULocalToGlobal(const Standard_Integer i,
@@ -272,10 +272,10 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsVPeriodic() const Standard_OVERRIDE;
 
   //! NOT IMPLEMENTED (returns Null curve)
-  Standard_EXPORT virtual Handle(Geom_Curve) UIso(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(GeomCurve3d) UIso(const Standard_Real U) const Standard_OVERRIDE;
 
   //! NOT IMPLEMENTED (returns Null curve)
-  Standard_EXPORT virtual Handle(Geom_Curve) VIso(const Standard_Real V) const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(GeomCurve3d) VIso(const Standard_Real V) const Standard_OVERRIDE;
 
   //! returns C0
   Standard_EXPORT virtual GeomAbs_Shape Continuity() const Standard_OVERRIDE;
@@ -343,7 +343,7 @@ public:
   //! closedness (sets fields muUClosed and myVClosed)
   Standard_EXPORT Standard_Boolean CheckConnectivity(const Standard_Real prec);
 
-  DEFINE_STANDARD_RTTIEXT(ShapeExtend_CompositeSurface, Geom_Surface)
+  DEFINE_STANDARD_RTTIEXT(ShapeExtend_CompositeSurface, GeomSurface)
 
 protected:
 private:

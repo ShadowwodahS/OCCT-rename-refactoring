@@ -30,8 +30,8 @@
 
 class Point3d;
 class Vector3d;
-class Geom_BezierCurve;
-class Geom_BSplineCurve;
+class BezierCurve3d;
+class BSplineCurve3d;
 class Geom_OffsetCurve;
 
 DEFINE_STANDARD_HANDLE(Adaptor3d_Curve, RefObject)
@@ -149,9 +149,9 @@ public:
 
   Standard_EXPORT virtual Standard_Integer NbKnots() const;
 
-  Standard_EXPORT virtual Handle(Geom_BezierCurve) Bezier() const;
+  Standard_EXPORT virtual Handle(BezierCurve3d) Bezier() const;
 
-  Standard_EXPORT virtual Handle(Geom_BSplineCurve) BSpline() const;
+  Standard_EXPORT virtual Handle(BSplineCurve3d) BSpline() const;
 
   Standard_EXPORT virtual Handle(Geom_OffsetCurve) OffsetCurve() const;
 

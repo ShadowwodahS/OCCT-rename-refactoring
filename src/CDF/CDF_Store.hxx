@@ -65,7 +65,7 @@ public:
   //! defines the   folder in which  the document  should be
   //! stored.  returns  Standard_True if  the Folder exists,
   //! Standard_False otherwise.
-  Standard_EXPORT Standard_Boolean SetFolder(const TCollection_ExtendedString& aFolder);
+  Standard_EXPORT Standard_Boolean SetFolder(const UtfString& aFolder);
 
   //! defines the name under which the document should be stored.
   Standard_EXPORT CDF_StoreSetNameStatus SetName(const Standard_ExtString aName);
@@ -104,7 +104,7 @@ public:
   Standard_EXPORT Standard_ExtString AssociatedStatusText() const;
 
   //! defines the name under which the document should be stored.
-  Standard_EXPORT CDF_StoreSetNameStatus SetName(const TCollection_ExtendedString& aName);
+  Standard_EXPORT CDF_StoreSetNameStatus SetName(const UtfString& aName);
 
   //! defines the   folder in which  the document  should be
   //! stored.  returns  Standard_True if  the Folder exists,
@@ -124,8 +124,8 @@ private:
   Handle(CDM_Document)       myCurrentDocument;
   Standard_Boolean           myHasSubComponents;
   Standard_Boolean           myIsMainDocument;
-  TCollection_ExtendedString myPath;
-  TCollection_ExtendedString myText;
+  UtfString myPath;
+  UtfString myText;
   PCDM_StoreStatus           myStatus;
 };
 

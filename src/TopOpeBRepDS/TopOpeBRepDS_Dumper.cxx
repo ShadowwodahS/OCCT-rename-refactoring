@@ -35,30 +35,30 @@ TopOpeBRepDS_Dumper::TopOpeBRepDS_Dumper(const Handle(TopOpeBRepDS_HDataStructur
 
 //=================================================================================================
 
-TCollection_AsciiString TopOpeBRepDS_Dumper::SDumpRefOri(const TopOpeBRepDS_Kind K,
+AsciiString1 TopOpeBRepDS_Dumper::SDumpRefOri(const TopOpeBRepDS_Kind K,
                                                          const Standard_Integer  I) const
 {
-  TCollection_AsciiString           SS;
+  AsciiString1           SS;
   Standard_Boolean                  fk = Standard_False;
   const TopOpeBRepDS_DataStructure& DS = myHDS->DS();
-  if (!TopOpeBRepDS::IsTopology(K))
+  if (!TopOpeBRepDS1::IsTopology(K))
     return SS;
-  TopAbs_ShapeEnum t = TopOpeBRepDS::KindToShape(K);
+  TopAbs_ShapeEnum t = TopOpeBRepDS1::KindToShape(K);
   if (DS.Shape(I, fk).ShapeType() != t)
     return SS;
-  const TopoDS_Shape& S = myHDS->Shape(I, fk);
+  const TopoShape& S = myHDS->Shape(I, fk);
   Standard_Integer    r = myHDS->SameDomainReference(S);
   TopOpeBRepDS_Config o = myHDS->SameDomainOrientation(S);
-  SS                    = SS + "(" + SPrintShape(r) + "," + TopOpeBRepDS::SPrint(o) + ")";
+  SS                    = SS + "(" + SPrintShape(r) + "," + TopOpeBRepDS1::SPrint(o) + ")";
   return SS;
 }
 
 //=================================================================================================
 
-TCollection_AsciiString TopOpeBRepDS_Dumper::SDumpRefOri(const TopoDS_Shape& S) const
+AsciiString1 TopOpeBRepDS_Dumper::SDumpRefOri(const TopoShape& S) const
 {
-  TCollection_AsciiString SS;
-  TopOpeBRepDS_Kind       k  = TopOpeBRepDS::ShapeToKind(S.ShapeType());
+  AsciiString1 SS;
+  TopOpeBRepDS_Kind       k  = TopOpeBRepDS1::ShapeToKind(S.ShapeType());
   Standard_Boolean        fk = Standard_False;
   Standard_Integer        i  = myHDS->Shape(S, fk);
   SS                         = SDumpRefOri(k, i);
@@ -67,11 +67,11 @@ TCollection_AsciiString TopOpeBRepDS_Dumper::SDumpRefOri(const TopoDS_Shape& S) 
 
 //=================================================================================================
 
-TCollection_AsciiString TopOpeBRepDS_Dumper::SPrintShape(const Standard_Integer IS) const
+AsciiString1 TopOpeBRepDS_Dumper::SPrintShape(const Standard_Integer IS) const
 {
-  TCollection_AsciiString           SS;
+  AsciiString1           SS;
   const TopOpeBRepDS_DataStructure& BDS = myHDS->DS();
-  if (IS < 1 || IS > BDS.NbShapes())
+  if (IS < 1 || IS > BDS.NbShapes1())
     return SS;
   SS = SPrintShape(BDS.Shape(IS));
   return SS;
@@ -79,12 +79,12 @@ TCollection_AsciiString TopOpeBRepDS_Dumper::SPrintShape(const Standard_Integer 
 
 //=================================================================================================
 
-TCollection_AsciiString TopOpeBRepDS_Dumper::SPrintShape(const TopoDS_Shape& S) const
+AsciiString1 TopOpeBRepDS_Dumper::SPrintShape(const TopoShape& S) const
 {
   const TopOpeBRepDS_DataStructure& BDS    = myHDS->DS();
   const Standard_Integer            IS     = myHDS->DS().Shape(S);
   Standard_Integer                  rankIS = BDS.AncestorRank(IS);
-  // JR/Hp  TCollection_AsciiString s1,s2;
+  // JR/Hp  AsciiString1 s1,s2;
   Standard_CString s1, s2;
   if (BDS.KeepShape(IS))
   {
@@ -96,36 +96,36 @@ TCollection_AsciiString TopOpeBRepDS_Dumper::SPrintShape(const TopoDS_Shape& S) 
     s1 = (Standard_CString)((rankIS == 1) ? "~" : "");
     s2 = (Standard_CString)((rankIS == 2) ? "~" : "");
   }
-  TCollection_AsciiString sse =
-    TopOpeBRepDS::SPrint(TopOpeBRepDS::ShapeToKind(S.ShapeType()), IS, s1, s2);
+  AsciiString1 sse =
+    TopOpeBRepDS1::SPrint(TopOpeBRepDS1::ShapeToKind(S.ShapeType()), IS, s1, s2);
   return sse;
 }
 
 //=================================================================================================
 
-TCollection_AsciiString TopOpeBRepDS_Dumper::SPrintShapeRefOri(
-  const TopoDS_Shape&            S,
-  const TCollection_AsciiString& astr) const
+AsciiString1 TopOpeBRepDS_Dumper::SPrintShapeRefOri(
+  const TopoShape&            S,
+  const AsciiString1& astr) const
 {
-  TCollection_AsciiString SS = astr + SPrintShape(S) + " " + SDumpRefOri(S);
+  AsciiString1 SS = astr + SPrintShape(S) + " " + SDumpRefOri(S);
   return SS;
 }
 
 //=================================================================================================
 
-TCollection_AsciiString TopOpeBRepDS_Dumper::SPrintShapeRefOri(
-  const TopTools_ListOfShape&    L,
-  const TCollection_AsciiString& astr) const
+AsciiString1 TopOpeBRepDS_Dumper::SPrintShapeRefOri(
+  const ShapeList&    L,
+  const AsciiString1& astr) const
 {
-  TCollection_AsciiString            SS;
+  AsciiString1            SS;
   TopTools_ListIteratorOfListOfShape it(L);
   if (!it.More())
     return SS;
   SS = SS + astr;
-  TCollection_AsciiString bst(astr.Length(), ' ');
+  AsciiString1 bst(astr.Length(), ' ');
   for (Standard_Integer il = 0; it.More(); it.Next(), il++)
   {
-    TCollection_AsciiString ss = SPrintShapeRefOri(it.Value());
+    AsciiString1 ss = SPrintShapeRefOri(it.Value());
     if (il)
       ss = bst + ss;
     SS = SS + ss + "\n";

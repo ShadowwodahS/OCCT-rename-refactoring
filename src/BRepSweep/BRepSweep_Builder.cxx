@@ -20,60 +20,60 @@
 
 //=================================================================================================
 
-BRepSweep_Builder::BRepSweep_Builder(const BRep_Builder& aBuilder)
+BRepSweep_Builder::BRepSweep_Builder(const ShapeBuilder& aBuilder)
     : myBuilder(aBuilder)
 {
 }
 
 //=================================================================================================
 
-void BRepSweep_Builder::MakeCompound(TopoDS_Shape& aCompound) const
+void BRepSweep_Builder::MakeCompound(TopoShape& aCompound) const
 {
   myBuilder.MakeCompound(TopoDS::Compound(aCompound));
 }
 
 //=================================================================================================
 
-void BRepSweep_Builder::MakeCompSolid(TopoDS_Shape& aCompSolid) const
+void BRepSweep_Builder::MakeCompSolid(TopoShape& aCompSolid) const
 {
   myBuilder.MakeCompSolid(TopoDS::CompSolid(aCompSolid));
 }
 
 //=================================================================================================
 
-void BRepSweep_Builder::MakeSolid(TopoDS_Shape& aSolid) const
+void BRepSweep_Builder::MakeSolid(TopoShape& aSolid) const
 {
   myBuilder.MakeSolid(TopoDS::Solid(aSolid));
 }
 
 //=================================================================================================
 
-void BRepSweep_Builder::MakeShell(TopoDS_Shape& aShell) const
+void BRepSweep_Builder::MakeShell(TopoShape& aShell) const
 {
   myBuilder.MakeShell(TopoDS::Shell(aShell));
 }
 
 //=================================================================================================
 
-void BRepSweep_Builder::MakeWire(TopoDS_Shape& aWire) const
+void BRepSweep_Builder::MakeWire(TopoShape& aWire) const
 {
   myBuilder.MakeWire(TopoDS::Wire(aWire));
 }
 
 //=================================================================================================
 
-void BRepSweep_Builder::Add(TopoDS_Shape&            aShape1,
-                            const TopoDS_Shape&      aShape2,
+void BRepSweep_Builder::Add(TopoShape&            aShape1,
+                            const TopoShape&      aShape2,
                             const TopAbs_Orientation Orient) const
 {
-  TopoDS_Shape aComp = aShape2;
+  TopoShape aComp = aShape2;
   aComp.Orientation(Orient);
   myBuilder.Add(aShape1, aComp);
 }
 
 //=================================================================================================
 
-void BRepSweep_Builder::Add(TopoDS_Shape& aShape1, const TopoDS_Shape& aShape2) const
+void BRepSweep_Builder::Add(TopoShape& aShape1, const TopoShape& aShape2) const
 {
   myBuilder.Add(aShape1, aShape2);
 }

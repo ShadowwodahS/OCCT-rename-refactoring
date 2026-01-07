@@ -38,9 +38,9 @@ DEVRML_Provider::DEVRML_Provider(const Handle(DE_ConfigurationNode)& theNode)
 
 //=================================================================================================
 
-bool DEVRML_Provider::Read(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
-                           Handle(XSControl_WorkSession)&  theWS,
+bool DEVRML_Provider::Read(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
+                           Handle(ExchangeSession)&  theWS,
                            const Message_ProgressRange&    theProgress)
 {
   (void)theWS;
@@ -49,9 +49,9 @@ bool DEVRML_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEVRML_Provider::Write(const TCollection_AsciiString&  thePath,
-                            const Handle(TDocStd_Document)& theDocument,
-                            Handle(XSControl_WorkSession)&  theWS,
+bool DEVRML_Provider::Write(const AsciiString1&  thePath,
+                            const Handle(AppDocument)& theDocument,
+                            Handle(ExchangeSession)&  theWS,
                             const Message_ProgressRange&    theProgress)
 {
   (void)theWS;
@@ -60,8 +60,8 @@ bool DEVRML_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEVRML_Provider::Read(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
+bool DEVRML_Provider::Read(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
                            const Message_ProgressRange&    theProgress)
 {
   if (theDocument.IsNull())
@@ -105,8 +105,8 @@ bool DEVRML_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEVRML_Provider::Write(const TCollection_AsciiString&  thePath,
-                            const Handle(TDocStd_Document)& theDocument,
+bool DEVRML_Provider::Write(const AsciiString1&  thePath,
+                            const Handle(AppDocument)& theDocument,
                             const Message_ProgressRange&    theProgress)
 {
   (void)theProgress;
@@ -148,9 +148,9 @@ bool DEVRML_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEVRML_Provider::Read(const TCollection_AsciiString& thePath,
-                           TopoDS_Shape&                  theShape,
-                           Handle(XSControl_WorkSession)& theWS,
+bool DEVRML_Provider::Read(const AsciiString1& thePath,
+                           TopoShape&                  theShape,
+                           Handle(ExchangeSession)& theWS,
                            const Message_ProgressRange&   theProgress)
 {
   (void)theWS;
@@ -159,9 +159,9 @@ bool DEVRML_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEVRML_Provider::Write(const TCollection_AsciiString& thePath,
-                            const TopoDS_Shape&            theShape,
-                            Handle(XSControl_WorkSession)& theWS,
+bool DEVRML_Provider::Write(const AsciiString1& thePath,
+                            const TopoShape&            theShape,
+                            Handle(ExchangeSession)& theWS,
                             const Message_ProgressRange&   theProgress)
 {
   (void)theWS;
@@ -170,8 +170,8 @@ bool DEVRML_Provider::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEVRML_Provider::Read(const TCollection_AsciiString& thePath,
-                           TopoDS_Shape&                  theShape,
+bool DEVRML_Provider::Read(const AsciiString1& thePath,
+                           TopoShape&                  theShape,
                            const Message_ProgressRange&   theProgress)
 {
   (void)theProgress;
@@ -183,7 +183,7 @@ bool DEVRML_Provider::Read(const TCollection_AsciiString& thePath,
   }
   Handle(DEVRML_ConfigurationNode) aNode = Handle(DEVRML_ConfigurationNode)::DownCast(GetNode());
 
-  TopoDS_Shape                      aShape;
+  TopoShape                      aShape;
   VrmlData_DataMapOfShapeAppearance aShapeAppMap;
 
   std::filebuf aFic;
@@ -192,10 +192,10 @@ bool DEVRML_Provider::Read(const TCollection_AsciiString& thePath,
   if (aFic.open(thePath.ToCString(), std::ios::in))
   {
     // Get path of the VRML file.
-    OSD_Path                aPath(thePath.ToCString());
-    TCollection_AsciiString aVrmlDir(".");
-    TCollection_AsciiString aDisk = aPath.Disk();
-    TCollection_AsciiString aTrek = aPath.Trek();
+    SystemPath                aPath(thePath.ToCString());
+    AsciiString1 aVrmlDir(".");
+    AsciiString1 aDisk = aPath.Disk();
+    AsciiString1 aTrek = aPath.Trek();
     if (!aTrek.IsEmpty())
     {
       if (!aDisk.IsEmpty())
@@ -298,11 +298,11 @@ bool DEVRML_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEVRML_Provider::Write(const TCollection_AsciiString& thePath,
-                            const TopoDS_Shape&            theShape,
+bool DEVRML_Provider::Write(const AsciiString1& thePath,
+                            const TopoShape&            theShape,
                             const Message_ProgressRange&   theProgress)
 {
-  Handle(TDocStd_Document)  aDoc    = new TDocStd_Document("BinXCAF");
+  Handle(AppDocument)  aDoc    = new AppDocument("BinXCAF");
   Handle(XCAFDoc_ShapeTool) aShTool = XCAFDoc_DocumentTool::ShapeTool(aDoc->Main());
   aShTool->AddShape(theShape);
   return Write(thePath, aDoc, theProgress);
@@ -310,14 +310,14 @@ bool DEVRML_Provider::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-TCollection_AsciiString DEVRML_Provider::GetFormat() const
+AsciiString1 DEVRML_Provider::GetFormat() const
 {
-  return TCollection_AsciiString("VRML");
+  return AsciiString1("VRML");
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DEVRML_Provider::GetVendor() const
+AsciiString1 DEVRML_Provider::GetVendor() const
 {
-  return TCollection_AsciiString("OCC");
+  return AsciiString1("OCC");
 }

@@ -33,9 +33,9 @@
 // function : GetLabel
 // purpose :
 // =======================================================================
-TDF_Label DFBrowser_ItemDocument::GetLabel() const
+DataLabel DFBrowser_ItemDocument::GetLabel() const
 {
-  TDF_Label aLabel;
+  DataLabel aLabel;
   if (myDocument.IsNull())
     getDocument();
 
@@ -52,7 +52,7 @@ TDF_Label DFBrowser_ItemDocument::GetLabel() const
 // function : getDocument
 // purpose :
 // =======================================================================
-const Handle(TDocStd_Document)& DFBrowser_ItemDocument::getDocument() const
+const Handle(AppDocument)& DFBrowser_ItemDocument::getDocument() const
 {
   initItem();
   return myDocument;
@@ -97,7 +97,7 @@ void DFBrowser_ItemDocument::Init()
   if (!aParentItem)
     return;
 
-  const Handle(TDocStd_Application)& anApplication = aParentItem->GetApplication();
+  const Handle(AppManager)& anApplication = aParentItem->GetApplication();
   // items can exist only by items with not empty label
   if (anApplication.IsNull())
     return;
@@ -114,12 +114,12 @@ void DFBrowser_ItemDocument::Init()
   }
   if (aDocumentId > 0)
   {
-    Handle(TDocStd_Document) aDocument;
+    Handle(AppDocument) aDocument;
     anApplication->GetDocument(aDocumentId, aDocument);
     setDocument(aDocument);
   }
   else
-    setDocument(Handle(TDocStd_Document)());
+    setDocument(Handle(AppDocument)());
 
   TreeModel_ItemBase::Init();
 }
@@ -130,7 +130,7 @@ void DFBrowser_ItemDocument::Init()
 // =======================================================================
 void DFBrowser_ItemDocument::Reset()
 {
-  Handle(TDocStd_Document) aDocument;
+  Handle(AppDocument) aDocument;
   setDocument(aDocument);
 
   DFBrowser_ItemBase::Reset();

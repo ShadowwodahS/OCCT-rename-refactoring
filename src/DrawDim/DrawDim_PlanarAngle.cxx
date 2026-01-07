@@ -47,9 +47,9 @@ IMPLEMENT_STANDARD_RTTIEXT(DrawDim_PlanarAngle, DrawDim_PlanarDimension)
 
 //=================================================================================================
 
-DrawDim_PlanarAngle::DrawDim_PlanarAngle(const TopoDS_Face&  face,
-                                         const TopoDS_Shape& line1,
-                                         const TopoDS_Shape& line2)
+DrawDim_PlanarAngle::DrawDim_PlanarAngle(const TopoFace&  face,
+                                         const TopoShape& line1,
+                                         const TopoShape& line2)
 {
   myPlane    = face;
   myLine1    = line1;
@@ -59,7 +59,7 @@ DrawDim_PlanarAngle::DrawDim_PlanarAngle(const TopoDS_Face&  face,
 
 //=================================================================================================
 
-DrawDim_PlanarAngle::DrawDim_PlanarAngle(const TopoDS_Shape& line1, const TopoDS_Shape& line2)
+DrawDim_PlanarAngle::DrawDim_PlanarAngle(const TopoShape& line1, const TopoShape& line2)
 {
   myLine1    = line1;
   myLine2    = line2;
@@ -86,21 +86,21 @@ void DrawDim_PlanarAngle::Position(const Standard_Real value)
 // purpose  : line1^line2 suppose positifs
 //=======================================================================
 
-void DrawDim_PlanarAngle::DrawOn(Draw_Display& dis) const
+void DrawDim_PlanarAngle::DrawOn(DrawDisplay& dis) const
 {
   Standard_Boolean clockwise = myIsReversed;
   Standard_Boolean parallel  = !myIsInverted;
   // geometrie
-  gp_Pln plane = Handle(Geom_Plane)::DownCast(BRep_Tool::Surface(myPlane))->Pln();
+  gp_Pln plane = Handle(GeomPlane)::DownCast(BRepInspector::Surface(myPlane))->Pln();
   // if (plane.IsNull()) return;
   if (!(myLine1.ShapeType() == TopAbs_EDGE))
     return;
   if (!(myLine2.ShapeType() == TopAbs_EDGE))
     return;
   Standard_Real      s1, e1, s2, e2;
-  Handle(Geom_Curve) curve1 = BRep_Tool::Curve(TopoDS::Edge(myLine1), s1, e1);
-  Handle(Geom_Curve) curve2 = BRep_Tool::Curve(TopoDS::Edge(myLine2), s2, e2);
-  if (!curve1->IsKind(STANDARD_TYPE(Geom_Line)) || !curve2->IsKind(STANDARD_TYPE(Geom_Line)))
+  Handle(GeomCurve3d) curve1 = BRepInspector::Curve(TopoDS::Edge(myLine1), s1, e1);
+  Handle(GeomCurve3d) curve2 = BRepInspector::Curve(TopoDS::Edge(myLine2), s2, e2);
+  if (!curve1->IsKind(STANDARD_TYPE(GeomLine)) || !curve2->IsKind(STANDARD_TYPE(GeomLine)))
     return;
   Handle(Geom2d_Geometry) L1 = GeomAPI::To2d(curve1, plane);
   if (L1->IsInstance(STANDARD_TYPE(Geom2d_TrimmedCurve)))
@@ -126,8 +126,8 @@ void DrawDim_PlanarAngle::DrawOn(Draw_Display& dis) const
   gp_Circ2d c(gp_Ax2d(pinter, l1.Direction()), myPosition);
 
   // retour au plan
-  Handle(Geom_Curve) C      = GeomAPI::To3d(new Geom2d_Circle(c), plane);
-  gp_Circ            circle = Handle(Geom_Circle)::DownCast(C)->Circ();
+  Handle(GeomCurve3d) C      = GeomAPI::To3d(new Geom2d_Circle(c), plane);
+  gp_Circ            circle = Handle(GeomCircle)::DownCast(C)->Circ();
   //
   Standard_Real p1 = 0., p2 = 0.;
   angle = Abs(angle);
@@ -135,7 +135,7 @@ void DrawDim_PlanarAngle::DrawOn(Draw_Display& dis) const
   {
     p1 = 0.0;
     p2 = angle;
-    dis.Draw(circle, 0.0, angle);
+    dis.Draw1(circle, 0.0, angle);
   }
   if (!parallel && !clockwise)
   {
@@ -153,7 +153,7 @@ void DrawDim_PlanarAngle::DrawOn(Draw_Display& dis) const
     p2 = 2 * M_PI;
   }
   // affichage
-  dis.Draw(circle, p1, p2);
+  dis.Draw1(circle, p1, p2);
   Standard_Real ptext   = (p1 + p2) / 2;
   Point3d        pnttext = ElCLib::Value(ptext, circle);
   //

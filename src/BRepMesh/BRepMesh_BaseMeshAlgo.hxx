@@ -103,10 +103,10 @@ private:
   void commitSurfaceTriangulation();
 
   //! Collects triangles to output data.
-  Handle(Poly_Triangulation) collectTriangles();
+  Handle(MeshTriangulation) collectTriangles();
 
   //! Collects nodes to output data.
-  void collectNodes(const Handle(Poly_Triangulation)& theTriangulation);
+  void collectNodes(const Handle(MeshTriangulation)& theTriangulation);
 
 private:
   typedef NCollection_Shared<NCollection_DataMap<Standard_Integer, Standard_Integer>>

@@ -40,7 +40,7 @@ IMPLEMENT_STANDARD_RTTIEXT(StdLDrivers_DocumentRetrievalDriver, PCDM_RetrievalDr
 // function : Read
 // purpose  : Retrieve the content of a file into a new document
 //=======================================================================
-void StdLDrivers_DocumentRetrievalDriver::Read(const TCollection_ExtendedString& theFileName,
+void StdLDrivers_DocumentRetrievalDriver::Read(const UtfString& theFileName,
                                                const Handle(CDM_Document)&       theNewDocument,
                                                const Handle(CDM_Application)&,
                                                const Handle(PCDM_ReaderFilter)&,
@@ -53,7 +53,7 @@ void StdLDrivers_DocumentRetrievalDriver::Read(const TCollection_ExtendedString&
     return;
 
   // Import transient document from the persistent one
-  aPDocument->ImportDocument(Handle(TDocStd_Document)::DownCast(theNewDocument));
+  aPDocument->ImportDocument(Handle(AppDocument)::DownCast(theNewDocument));
 
   // Copy comments from the header data
   theNewDocument->SetComments(aHeaderData.Comments());
@@ -64,14 +64,14 @@ void StdLDrivers_DocumentRetrievalDriver::Read(const TCollection_ExtendedString&
 // purpose  : Read persistent document from a file
 //=======================================================================
 Handle(StdObjMgt_Persistent) StdLDrivers_DocumentRetrievalDriver::read(
-  const TCollection_ExtendedString& theFileName,
+  const UtfString& theFileName,
   Storage_HeaderData&               theHeaderData)
 {
   Standard_Integer i;
 
   // Create a driver appropriate for the given file
   Handle(Storage_BaseDriver) aFileDriver;
-  if (PCDM::FileDriverType(TCollection_AsciiString(theFileName), aFileDriver) == PCDM_TOFD_Unknown)
+  if (PCDM1::FileDriverType(AsciiString1(theFileName), aFileDriver) == PCDM_TOFD_Unknown)
   {
     myReaderStatus = PCDM_RS_UnknownFileDriver;
     return NULL;
@@ -125,14 +125,14 @@ Handle(StdObjMgt_Persistent) StdLDrivers_DocumentRetrievalDriver::read(
 
     TColStd_SequenceOfAsciiString anUnknownTypes;
     Standard_Integer              aCurTypeNum;
-    TCollection_AsciiString       aCurTypeName;
+    AsciiString1       aCurTypeName;
 
     for (i = 1; i <= aTypeData.NumberOfTypes(); i++)
     {
       aCurTypeName = aTypeData.Type(i);
       aCurTypeNum  = aTypeData.Type(aCurTypeName);
 
-      TCollection_AsciiString newName;
+      AsciiString1 newName;
       if (Storage_Schema::CheckTypeMigration(aCurTypeName, newName))
       {
 #ifdef OCCT_DEBUG

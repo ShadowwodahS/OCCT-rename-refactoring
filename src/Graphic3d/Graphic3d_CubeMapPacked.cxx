@@ -21,7 +21,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_CubeMapPacked, Graphic3d_CubeMap)
 
 //=================================================================================================
 
-Graphic3d_CubeMapPacked::Graphic3d_CubeMapPacked(const TCollection_AsciiString&         theFilePath,
+Graphic3d_CubeMapPacked::Graphic3d_CubeMapPacked(const AsciiString1&         theFilePath,
                                                  const Graphic3d_ValidatedCubeMapOrder& theOrder)
     : Graphic3d_CubeMap(theFilePath),
       myOrder(theOrder),
@@ -53,7 +53,7 @@ Handle(Image_CompressedPixMap) Graphic3d_CubeMapPacked::CompressedValue(
     return Handle(Image_CompressedPixMap)();
   }
 
-  TCollection_AsciiString aFilePath;
+  AsciiString1 aFilePath;
   myPath.SystemName(aFilePath);
   if (!aFilePath.IsEmpty())
   {
@@ -78,7 +78,7 @@ Handle(Image_PixMap) Graphic3d_CubeMapPacked::Value(
   {
     if (myPixMap.IsNull())
     {
-      TCollection_AsciiString aFilePath;
+      AsciiString1 aFilePath;
       myPath.SystemName(aFilePath);
       if (!aFilePath.IsEmpty())
       {
@@ -202,7 +202,7 @@ Standard_Boolean Graphic3d_CubeMapPacked::checkImage(const Handle(Image_PixMap)&
 //=================================================================================================
 
 void Graphic3d_CubeMapPacked::tryLoadImage(const Handle(Image_SupportedFormats)& theSupported,
-                                           const TCollection_AsciiString&        theFilePath)
+                                           const AsciiString1&        theFilePath)
 {
   Handle(Image_AlienPixMap) anImage = new Image_AlienPixMap;
   if (anImage->Load(theFilePath))

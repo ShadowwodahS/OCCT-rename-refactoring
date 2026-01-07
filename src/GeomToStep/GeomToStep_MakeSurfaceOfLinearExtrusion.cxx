@@ -32,7 +32,7 @@
 //=============================================================================
 GeomToStep_MakeSurfaceOfLinearExtrusion::GeomToStep_MakeSurfaceOfLinearExtrusion(
   const Handle(Geom_SurfaceOfLinearExtrusion)& S,
-  const StepData_Factors&                      theLocalFactors)
+  const ConversionFactors&                      theLocalFactors)
 {
   Handle(StepGeom_SurfaceOfLinearExtrusion) Surf;
   Handle(StepGeom_Curve)                    aSweptCurve;

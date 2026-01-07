@@ -87,12 +87,12 @@ Interface_EntityIterator IFSelect_SelectSuite::RootResult(const Interface_Graph&
   return iter;
 }
 
-TCollection_AsciiString IFSelect_SelectSuite::Label() const
+AsciiString1 IFSelect_SelectSuite::Label() const
 {
   if (thelab.Length() > 0)
     return thelab;
   char txt[100];
   sprintf(txt, "Suite of %d Selections", NbItems());
-  TCollection_AsciiString lab(txt);
+  AsciiString1 lab(txt);
   return lab;
 }

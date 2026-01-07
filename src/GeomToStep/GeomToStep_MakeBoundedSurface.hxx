@@ -31,14 +31,14 @@ class Geom_BoundedSurface;
 //! StepGeom which describes a BoundedSurface from prostep.
 //! As BoundedSurface is an abstract BoundedSurface this class
 //! is an access to the sub-class required.
-class GeomToStep_MakeBoundedSurface : public GeomToStep_Root
+class GeomToStep_MakeBoundedSurface : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeBoundedSurface(
     const Handle(Geom_BoundedSurface)& C,
-    const StepData_Factors&            theLocalFactors = StepData_Factors());
+    const ConversionFactors&            theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_BoundedSurface)& Value() const;
 

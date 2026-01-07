@@ -47,8 +47,8 @@ IMPLEMENT_STANDARD_RTTIEXT(PrsDim_EllipseRadiusDimension, PrsDim_Relation)
 //=================================================================================================
 
 PrsDim_EllipseRadiusDimension::PrsDim_EllipseRadiusDimension(
-  const TopoDS_Shape&               aShape,
-  const TCollection_ExtendedString& aText)
+  const TopoShape&               aShape,
+  const UtfString& aText)
     : PrsDim_Relation()
 {
   myFShape = aShape;
@@ -91,7 +91,7 @@ void PrsDim_EllipseRadiusDimension::ComputeFaceGeometry()
 {
 
   gp_Pln               aPln;
-  Handle(Geom_Surface) aBasisSurf;
+  Handle(GeomSurface) aBasisSurf;
   PrsDim_KindOfSurface aSurfType;
   Standard_Real        Offset;
   PrsDim::GetPlaneFromFace(TopoDS::Face(myFShape), aPln, aBasisSurf, aSurfType, Offset);
@@ -108,7 +108,7 @@ void PrsDim_EllipseRadiusDimension::ComputeFaceGeometry()
 //=======================================================================
 
 void PrsDim_EllipseRadiusDimension::ComputeCylFaceGeometry(const PrsDim_KindOfSurface  aSurfType,
-                                                           const Handle(Geom_Surface)& aBasisSurf,
+                                                           const Handle(GeomSurface)& aBasisSurf,
                                                            const Standard_Real         Offset)
 {
 
@@ -128,9 +128,9 @@ void PrsDim_EllipseRadiusDimension::ComputeCylFaceGeometry(const PrsDim_KindOfSu
 
     aPlane.SetAxis(Axis);
     aPlane.SetLocation(myEllipse.Location());
-    myPlane = new Geom_Plane(aPlane);
+    myPlane = new GeomPlane(aPlane);
 
-    Handle(Geom_Curve) aCurve;
+    Handle(GeomCurve3d) aCurve;
     aCurve = aBasisSurf->VIso(vMid);
     if (aCurve->DynamicType() == STANDARD_TYPE(Geom_Ellipse))
     {
@@ -189,11 +189,11 @@ void PrsDim_EllipseRadiusDimension::ComputePlanarFaceGeometry()
 
   Standard_Boolean find = Standard_False;
   Point3d           ptfirst, ptend;
-  TopExp_Explorer  ExploEd(TopoDS::Face(myFShape), TopAbs_EDGE);
+  ShapeExplorer  ExploEd(TopoDS::Face(myFShape), TopAbs_EDGE);
   for (; ExploEd.More(); ExploEd.Next())
   {
-    TopoDS_Edge          curedge = TopoDS::Edge(ExploEd.Current());
-    Handle(Geom_Curve)   curv;
+    TopoEdge          curedge = TopoDS::Edge(ExploEd.Current());
+    Handle(GeomCurve3d)   curv;
     Handle(Geom_Ellipse) ellips;
     if (PrsDim::ComputeGeometry(curedge, curv, ptfirst, ptend))
     {
@@ -225,7 +225,7 @@ void PrsDim_EllipseRadiusDimension::ComputePlanarFaceGeometry()
     myIsAnArc = Standard_False;
 
   BRepAdaptor_Surface surfAlgo(TopoDS::Face(myFShape));
-  myPlane = new Geom_Plane(surfAlgo.Plane());
+  myPlane = new GeomPlane(surfAlgo.Plane());
 }
 
 //=================================================================================================
@@ -233,7 +233,7 @@ void PrsDim_EllipseRadiusDimension::ComputePlanarFaceGeometry()
 void PrsDim_EllipseRadiusDimension::ComputeEdgeGeometry()
 {
   Point3d             ptfirst, ptend;
-  Handle(Geom_Curve) curv;
+  Handle(GeomCurve3d) curv;
   if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape), curv, ptfirst, ptend))
     return;
 
@@ -244,7 +244,7 @@ void PrsDim_EllipseRadiusDimension::ComputeEdgeGeometry()
   myEllipse = elips->Elips();
   gp_Pln aPlane;
   aPlane.SetPosition(gp_Ax3(myEllipse.Position()));
-  myPlane = new Geom_Plane(aPlane);
+  myPlane = new GeomPlane(aPlane);
 
   if (ptfirst.IsEqual(ptend, Precision::Confusion()))
   {

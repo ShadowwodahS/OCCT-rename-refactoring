@@ -31,7 +31,7 @@ class IGESDimen_PointDimension;
 DEFINE_STANDARD_HANDLE(IGESDimen_PointDimension, IGESData_IGESEntity)
 
 //! defines IGES Point Dimension, Type <220> Form <0>,
-//! in package IGESDimen
+//! in package IGESDimen1
 //! A Point Dimension Entity consists of a leader, text, and
 //! an optional circle or hexagon enclosing the text
 //! IGES specs for this entity mention SimpleClosedPlanarCurve

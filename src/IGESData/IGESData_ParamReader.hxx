@@ -38,7 +38,7 @@ class Interface_Check;
 class IGESData_IGESEntity;
 class IGESData_IGESReaderData;
 class Message_Msg;
-class gp_XY;
+class Coords2d;
 class gp_XYZ;
 class TCollection_HAsciiString;
 class Interface_EntityList;
@@ -130,13 +130,13 @@ public:
 
   //! Creates a ParamCursor from the Current Number, to read one
   //! parameter, and to advance Current Number after reading
-  Standard_EXPORT IGESData_ParamCursor Current() const;
+  Standard_EXPORT ParameterCursor Current() const;
 
   //! Creates a ParamCursor from the Current Number, to read a list
   //! of "nb" items, and to advance Current Number after reading
   //! By default, each item is made of one parameter
   //! If size is given, it precises the number of params per item
-  Standard_EXPORT IGESData_ParamCursor CurrentList(const Standard_Integer nb,
+  Standard_EXPORT ParameterCursor CurrentList(const Standard_Integer nb,
                                                    const Standard_Integer size = 1) const;
 
   //! Allows to simply process a parameter which can be defaulted.
@@ -156,7 +156,7 @@ public:
   //! For Message
   Standard_EXPORT Standard_Boolean DefinedElseSkip();
 
-  Standard_EXPORT Standard_Boolean ReadInteger(const IGESData_ParamCursor& PC,
+  Standard_EXPORT Standard_Boolean ReadInteger(const ParameterCursor& PC,
                                                Standard_Integer&           val);
 
   //! Reads an Integer value designated by PC
@@ -165,11 +165,11 @@ public:
   //! Note that if a count (not 1) is given, it is ignored
   //! If it is not an Integer, fills Check with a Fail (using mess)
   //! and returns False
-  Standard_EXPORT Standard_Boolean ReadInteger(const IGESData_ParamCursor& PC,
+  Standard_EXPORT Standard_Boolean ReadInteger(const ParameterCursor& PC,
                                                const Standard_CString      mess,
                                                Standard_Integer&           val);
 
-  Standard_EXPORT Standard_Boolean ReadBoolean(const IGESData_ParamCursor& PC,
+  Standard_EXPORT Standard_Boolean ReadBoolean(const ParameterCursor& PC,
                                                const Message_Msg&          amsg,
                                                Standard_Boolean&           val,
                                                const Standard_Boolean      exact = Standard_True);
@@ -182,34 +182,34 @@ public:
   //! (with a Warning error message, and return is True)
   //! In case of error (not an Integer, or not 0/1 and exact True),
   //! Check is filled with a Fail (using mess) and return is False
-  Standard_EXPORT Standard_Boolean ReadBoolean(const IGESData_ParamCursor& PC,
+  Standard_EXPORT Standard_Boolean ReadBoolean(const ParameterCursor& PC,
                                                const Standard_CString      mess,
                                                Standard_Boolean&           val,
                                                const Standard_Boolean      exact = Standard_True);
 
-  Standard_EXPORT Standard_Boolean ReadReal(const IGESData_ParamCursor& PC, Standard_Real& val);
+  Standard_EXPORT Standard_Boolean ReadReal(const ParameterCursor& PC, Standard_Real& val);
 
   //! Reads a Real value from parameter "num"
   //! An Integer is accepted (Check is filled with a Warning
   //! message) and causes return to be True (as normal case)
   //! In other cases, Check is filled with a Fail and return is False
-  Standard_EXPORT Standard_Boolean ReadReal(const IGESData_ParamCursor& PC,
+  Standard_EXPORT Standard_Boolean ReadReal(const ParameterCursor& PC,
                                             const Standard_CString      mess,
                                             Standard_Real&              val);
 
-  Standard_EXPORT Standard_Boolean ReadXY(const IGESData_ParamCursor& PC,
+  Standard_EXPORT Standard_Boolean ReadXY(const ParameterCursor& PC,
                                           Message_Msg&                amsg,
-                                          gp_XY&                      val);
+                                          Coords2d&                      val);
 
   //! Reads a couple of Real values (X,Y) from parameter "num"
   //! Integers are accepted (Check is filled with a Warning
   //! message) and cause return to be True (as normal case)
   //! In other cases, Check is filled with a Fail and return is False
-  Standard_EXPORT Standard_Boolean ReadXY(const IGESData_ParamCursor& PC,
+  Standard_EXPORT Standard_Boolean ReadXY(const ParameterCursor& PC,
                                           const Standard_CString      mess,
-                                          gp_XY&                      val);
+                                          Coords2d&                      val);
 
-  Standard_EXPORT Standard_Boolean ReadXYZ(const IGESData_ParamCursor& PC,
+  Standard_EXPORT Standard_Boolean ReadXYZ(const ParameterCursor& PC,
                                            Message_Msg&                amsg,
                                            gp_XYZ&                     val);
 
@@ -218,11 +218,11 @@ public:
   //! message) and cause return to be True (as normal case)
   //! In other cases, Check is filled with a Fail and return is False
   //! For Message
-  Standard_EXPORT Standard_Boolean ReadXYZ(const IGESData_ParamCursor& PC,
+  Standard_EXPORT Standard_Boolean ReadXYZ(const ParameterCursor& PC,
                                            const Standard_CString      mess,
                                            gp_XYZ&                     val);
 
-  Standard_EXPORT Standard_Boolean ReadText(const IGESData_ParamCursor&       thePC,
+  Standard_EXPORT Standard_Boolean ReadText(const ParameterCursor&       thePC,
                                             const Message_Msg&                theMsg,
                                             Handle(TCollection_HAsciiString)& theVal);
 
@@ -230,12 +230,12 @@ public:
   //! Collection, that is, Hollerith text without leading "nnnH"
   //! If it is not a String, fills Check with a Fail (using mess)
   //! and returns False
-  Standard_EXPORT Standard_Boolean ReadText(const IGESData_ParamCursor&       PC,
+  Standard_EXPORT Standard_Boolean ReadText(const ParameterCursor&       PC,
                                             const Standard_CString            mess,
                                             Handle(TCollection_HAsciiString)& val);
 
   Standard_EXPORT Standard_Boolean ReadEntity(const Handle(IGESData_IGESReaderData)& IR,
-                                              const IGESData_ParamCursor&            PC,
+                                              const ParameterCursor&            PC,
                                               IGESData_Status&                       aStatus,
                                               Handle(IGESData_IGESEntity)&           val,
                                               const Standard_Boolean canbenul = Standard_False);
@@ -249,13 +249,13 @@ public:
   //! If the parameter cannot refer to an entity (or null), fills
   //! Check with a Fail (using mess) and returns False
   Standard_EXPORT Standard_Boolean ReadEntity(const Handle(IGESData_IGESReaderData)& IR,
-                                              const IGESData_ParamCursor&            PC,
+                                              const ParameterCursor&            PC,
                                               const Standard_CString                 mess,
                                               Handle(IGESData_IGESEntity)&           val,
                                               const Standard_Boolean canbenul = Standard_False);
 
   Standard_EXPORT Standard_Boolean ReadEntity(const Handle(IGESData_IGESReaderData)& IR,
-                                              const IGESData_ParamCursor&            PC,
+                                              const ParameterCursor&            PC,
                                               IGESData_Status&                       aStatus,
                                               const Handle(TypeInfo)&           type,
                                               Handle(IGESData_IGESEntity)&           val,
@@ -264,7 +264,7 @@ public:
   //! Safe variant for arbitrary type of argument
   template <class T>
   Standard_Boolean ReadEntity(const Handle(IGESData_IGESReaderData)& IR,
-                              const IGESData_ParamCursor&            PC,
+                              const ParameterCursor&            PC,
                               IGESData_Status&                       aStatus,
                               const Handle(TypeInfo)&           type,
                               Handle(T)&                             val,
@@ -282,7 +282,7 @@ public:
   //! plus the case "Incorrect Type"
   //! (in such a case, returns False and givel <val> = Null)
   Standard_EXPORT Standard_Boolean ReadEntity(const Handle(IGESData_IGESReaderData)& IR,
-                                              const IGESData_ParamCursor&            PC,
+                                              const ParameterCursor&            PC,
                                               const Standard_CString                 mess,
                                               const Handle(TypeInfo)&           type,
                                               Handle(IGESData_IGESEntity)&           val,
@@ -291,7 +291,7 @@ public:
   //! Safe variant for arbitrary type of argument
   template <class T>
   Standard_Boolean ReadEntity(const Handle(IGESData_IGESReaderData)& IR,
-                              const IGESData_ParamCursor&            PC,
+                              const ParameterCursor&            PC,
                               const Standard_CString                 mess,
                               const Handle(TypeInfo)&           type,
                               Handle(T)&                             val,
@@ -303,7 +303,7 @@ public:
     return aRes && (canbenul || !val.IsNull());
   }
 
-  Standard_EXPORT Standard_Boolean ReadInts(const IGESData_ParamCursor&       PC,
+  Standard_EXPORT Standard_Boolean ReadInts(const ParameterCursor&       PC,
                                             const Message_Msg&                amsg,
                                             Handle(TColStd_HArray1OfInteger)& val,
                                             const Standard_Integer            index = 1);
@@ -314,12 +314,12 @@ public:
   //! The list is given as a HArray1, numered from "index"
   //! If all params are not Integer, Check is filled (using mess)
   //! and return value is False
-  Standard_EXPORT Standard_Boolean ReadInts(const IGESData_ParamCursor&       PC,
+  Standard_EXPORT Standard_Boolean ReadInts(const ParameterCursor&       PC,
                                             const Standard_CString            mess,
                                             Handle(TColStd_HArray1OfInteger)& val,
                                             const Standard_Integer            index = 1);
 
-  Standard_EXPORT Standard_Boolean ReadReals(const IGESData_ParamCursor&    PC,
+  Standard_EXPORT Standard_Boolean ReadReals(const ParameterCursor&    PC,
                                              Message_Msg&                   amsg,
                                              Handle(TColStd_HArray1OfReal)& val,
                                              const Standard_Integer         index = 1);
@@ -330,12 +330,12 @@ public:
   //! Integer, Check is filled with a "Warning" message
   //! If all params are neither Real nor Integer, Check is filled
   //! (using mess) and return value is False
-  Standard_EXPORT Standard_Boolean ReadReals(const IGESData_ParamCursor&    PC,
+  Standard_EXPORT Standard_Boolean ReadReals(const ParameterCursor&    PC,
                                              const Standard_CString         mess,
                                              Handle(TColStd_HArray1OfReal)& val,
                                              const Standard_Integer         index = 1);
 
-  Standard_EXPORT Standard_Boolean ReadTexts(const IGESData_ParamCursor&              PC,
+  Standard_EXPORT Standard_Boolean ReadTexts(const ParameterCursor&              PC,
                                              const Message_Msg&                       amsg,
                                              Handle(Interface_HArray1OfHAsciiString)& val,
                                              const Standard_Integer                   index = 1);
@@ -345,13 +345,13 @@ public:
   //! Same conditions as for ReadInts, for PC and index
   //! If all params are not Text, Check is filled (using mess)
   //! and return value is False
-  Standard_EXPORT Standard_Boolean ReadTexts(const IGESData_ParamCursor&              PC,
+  Standard_EXPORT Standard_Boolean ReadTexts(const ParameterCursor&              PC,
                                              const Standard_CString                   mess,
                                              Handle(Interface_HArray1OfHAsciiString)& val,
                                              const Standard_Integer                   index = 1);
 
   Standard_EXPORT Standard_Boolean ReadEnts(const Handle(IGESData_IGESReaderData)& IR,
-                                            const IGESData_ParamCursor&            PC,
+                                            const ParameterCursor&            PC,
                                             const Message_Msg&                     amsg,
                                             Handle(IGESData_HArray1OfIGESEntity)&  val,
                                             const Standard_Integer                 index = 1);
@@ -366,13 +366,13 @@ public:
   //! If the caller wants to check them, a loop on ReadEntity should
   //! be used
   Standard_EXPORT Standard_Boolean ReadEnts(const Handle(IGESData_IGESReaderData)& IR,
-                                            const IGESData_ParamCursor&            PC,
+                                            const ParameterCursor&            PC,
                                             const Standard_CString                 mess,
                                             Handle(IGESData_HArray1OfIGESEntity)&  val,
                                             const Standard_Integer                 index = 1);
 
   Standard_EXPORT Standard_Boolean ReadEntList(const Handle(IGESData_IGESReaderData)& IR,
-                                               const IGESData_ParamCursor&            PC,
+                                               const ParameterCursor&            PC,
                                                Message_Msg&                           amsg,
                                                Interface_EntityList&                  val,
                                                const Standard_Boolean ord = Standard_True);
@@ -388,7 +388,7 @@ public:
   //! If all params cannot be read as Entities, same as above
   //! Warning  Give "ord" to False ONLY if order is not significant
   Standard_EXPORT Standard_Boolean ReadEntList(const Handle(IGESData_IGESReaderData)& IR,
-                                               const IGESData_ParamCursor&            PC,
+                                               const ParameterCursor&            PC,
                                                const Standard_CString                 mess,
                                                Interface_EntityList&                  val,
                                                const Standard_Boolean ord = Standard_True);
@@ -449,7 +449,7 @@ public:
 
 protected:
 private:
-  Standard_EXPORT Standard_Boolean PrepareRead(const IGESData_ParamCursor& PC,
+  Standard_EXPORT Standard_Boolean PrepareRead(const ParameterCursor& PC,
                                                const Standard_Boolean      several,
                                                const Standard_Integer      size = 1);
 
@@ -460,7 +460,7 @@ private:
   //! multiple count of this size.
   //! If one of above condition is not satisfied, a Fail Message is
   //! recorded into Check, using the root "mess" and return is False
-  Standard_EXPORT Standard_Boolean PrepareRead(const IGESData_ParamCursor& PC,
+  Standard_EXPORT Standard_Boolean PrepareRead(const ParameterCursor& PC,
                                                const Standard_CString      mess,
                                                const Standard_Boolean      several,
                                                const Standard_Integer      size = 1);

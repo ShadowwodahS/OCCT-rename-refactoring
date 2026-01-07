@@ -29,13 +29,13 @@
 #include <TopAbs_Orientation.hxx>
 #include <TopAbs_State.hxx>
 
-class TopoDS_Shape;
-class TopoDS_Edge;
-class TopoDS_Face;
+class TopoShape;
+class TopoEdge;
+class TopoFace;
 class ChFiDS_SurfData;
 class ChFiDS_Spine;
 class Adaptor3d_TopolTool;
-class TopoDS_Vertex;
+class TopoVertex;
 class ChFiDS_Stripe;
 
 //! construction tool for 3D chamfers on edges (on a solid).
@@ -46,20 +46,20 @@ public:
 
   //! initializes the Builder with the Shape <S> for the
   //! computation of chamfers
-  Standard_EXPORT ChFi3d_ChBuilder(const TopoDS_Shape& S, const Standard_Real Ta = 1.0e-2);
+  Standard_EXPORT ChFi3d_ChBuilder(const TopoShape& S, const Standard_Real Ta = 1.0e-2);
 
   //! initializes a contour with the edge <E> as first
   //! (the next are found by propagation ).
   //! The two distances (parameters of the chamfer) must
   //! be set after.
   //! if the edge <E> has more than 2 adjacent faces
-  Standard_EXPORT void Add(const TopoDS_Edge& E);
+  Standard_EXPORT void Add(const TopoEdge& E);
 
   //! initializes a new contour with the edge <E> as first
   //! (the next are found by propagation ), and  the
   //! distance <Dis>
   //! if the edge <E> has more than 2 adjacent faces
-  Standard_EXPORT void Add(const Standard_Real Dis, const TopoDS_Edge& E);
+  Standard_EXPORT void Add(const Standard_Real Dis, const TopoEdge& E);
 
   //! set the distance <Dis> of the fillet
   //! contour of index <IC> in the DS with <Dis> on <F>.
@@ -67,7 +67,7 @@ public:
   //! of an edge of the contour <IC>
   Standard_EXPORT void SetDist(const Standard_Real    Dis,
                                const Standard_Integer IC,
-                               const TopoDS_Face&     F);
+                               const TopoFace&     F);
 
   //! gives the distances <Dis> of the fillet
   //! contour of index <IC> in the DS
@@ -79,8 +79,8 @@ public:
   //! if the edge <E> has more than 2 adjacent faces
   Standard_EXPORT void Add(const Standard_Real Dis1,
                            const Standard_Real Dis2,
-                           const TopoDS_Edge&  E,
-                           const TopoDS_Face&  F);
+                           const TopoEdge&  E,
+                           const TopoFace&  F);
 
   //! set the distances <Dis1> and <Dis2> of the fillet
   //! contour of index <IC> in the DS with <Dis1> on <F>.
@@ -89,7 +89,7 @@ public:
   Standard_EXPORT void SetDists(const Standard_Real    Dis1,
                                 const Standard_Real    Dis2,
                                 const Standard_Integer IC,
-                                const TopoDS_Face&     F);
+                                const TopoFace&     F);
 
   //! gives the distances <Dis1> and <Dis2> of the fillet
   //! contour of index <IC> in the DS
@@ -103,8 +103,8 @@ public:
   //! if the edge <E> has more than 2 adjacent faces
   Standard_EXPORT void AddDA(const Standard_Real Dis,
                              const Standard_Real Angle,
-                             const TopoDS_Edge&  E,
-                             const TopoDS_Face&  F);
+                             const TopoEdge&  E,
+                             const TopoFace&  F);
 
   //! set the distance <Dis> and <Angle> of the fillet
   //! contour of index <IC> in the DS with <Dis> on <F>.
@@ -113,7 +113,7 @@ public:
   Standard_EXPORT void SetDistAngle(const Standard_Real    Dis,
                                     const Standard_Real    Angle,
                                     const Standard_Integer IC,
-                                    const TopoDS_Face&     F);
+                                    const TopoFace&     F);
 
   //! gives the distances <Dis> and <Angle> of the fillet
   //! contour of index <IC> in the DS
@@ -384,17 +384,17 @@ protected:
 
   //! extends  the spine  of  the Stripe  <S> at  the
   //! extremity of the vertex <V>.
-  Standard_EXPORT void ExtentOneCorner(const TopoDS_Vertex&         V,
+  Standard_EXPORT void ExtentOneCorner(const TopoVertex&         V,
                                        const Handle(ChFiDS_Stripe)& S) Standard_OVERRIDE;
 
   //! extends the spine of the 2 stripes of <LS> at the
   //! extremity of the vertex <V>
-  Standard_EXPORT void ExtentTwoCorner(const TopoDS_Vertex&       V,
+  Standard_EXPORT void ExtentTwoCorner(const TopoVertex&       V,
                                        const ChFiDS_ListOfStripe& LS) Standard_OVERRIDE;
 
   //! extends the spine of the 2 stripes of <LS> at the
   //! extremity of the vertex <V>
-  Standard_EXPORT void ExtentThreeCorner(const TopoDS_Vertex&       V,
+  Standard_EXPORT void ExtentThreeCorner(const TopoVertex&       V,
                                          const ChFiDS_ListOfStripe& LS) Standard_OVERRIDE;
 
   //! set the regularities
@@ -403,8 +403,8 @@ protected:
 private:
   Standard_EXPORT void ConexFaces(const Handle(ChFiDS_Spine)& Sp,
                                   const Standard_Integer      IEdge,
-                                  TopoDS_Face&                F1,
-                                  TopoDS_Face&                F2) const;
+                                  TopoFace&                F1,
+                                  TopoFace&                F2) const;
 
   ChFiDS_ChamfMode myMode;
 };

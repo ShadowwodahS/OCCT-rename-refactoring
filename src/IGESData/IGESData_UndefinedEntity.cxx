@@ -151,7 +151,7 @@ Standard_Boolean IGESData_UndefinedEntity::HasSubScriptNumber() const
 //=================================================================================================
 
 Standard_Boolean IGESData_UndefinedEntity::ReadDir(const Handle(IGESData_IGESReaderData)& IR,
-                                                   IGESData_DirPart&                      DP,
+                                                   DirectoryPart&                      DP,
                                                    Handle(Interface_Check)&               ach)
 {
   // MGE 23/07/98

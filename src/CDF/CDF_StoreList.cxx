@@ -26,8 +26,8 @@
 IMPLEMENT_STANDARD_RTTIEXT(CDF_StoreList, RefObject)
 
 static void CAUGHT(const ExceptionBase&           theException,
-                   TCollection_ExtendedString&       status,
-                   const TCollection_ExtendedString& what)
+                   UtfString&       status,
+                   const UtfString& what)
 {
   status += what;
   status += theException.GetMessageString();
@@ -46,7 +46,7 @@ void CDF_StoreList::Add(const Handle(CDM_Document)& aDocument)
     myItems.Add(aDocument);
   myStack.Prepend(aDocument);
 
-  CDM_ReferenceIterator it(aDocument);
+  ReferenceIterator it(aDocument);
   for (; it.More(); it.Next())
   {
     if (it.Document()->IsModified())
@@ -86,7 +86,7 @@ Handle(CDM_Document) CDF_StoreList::Value() const
 }
 
 PCDM_StoreStatus CDF_StoreList::Store(Handle(CDM_MetaData)&        aMetaData,
-                                      TCollection_ExtendedString&  aStatusAssociatedText,
+                                      UtfString&  aStatusAssociatedText,
                                       const Message_ProgressRange& theRange)
 {
   PCDM_StoreStatus           status = PCDM_SS_OK;
@@ -135,13 +135,13 @@ PCDM_StoreStatus CDF_StoreList::Store(Handle(CDM_MetaData)&        aMetaData,
             }
             else
             {
-              TCollection_ExtendedString theName = theMetaDataDriver->BuildFileName(theDocument);
+              UtfString theName = theMetaDataDriver->BuildFileName(theDocument);
               aDocumentStorageDriver->Write(theDocument, theName, theRange);
               status    = aDocumentStorageDriver->GetStoreStatus();
               aMetaData = theMetaDataDriver->CreateMetaData(theDocument, theName);
               theDocument->SetMetaData(aMetaData);
 
-              CDM_ReferenceIterator it(theDocument);
+              ReferenceIterator it(theDocument);
               for (; it.More(); it.Next())
                 theMetaDataDriver->CreateReference(aMetaData,
                                                    it.Document()->MetaData(),
@@ -155,7 +155,7 @@ PCDM_StoreStatus CDF_StoreList::Store(Handle(CDM_MetaData)&        aMetaData,
       {
         CAUGHT(anException,
                aStatusAssociatedText,
-               TCollection_ExtendedString("driver failed; reason: "));
+               UtfString("driver failed; reason: "));
         status = PCDM_SS_DriverFailure;
       }
     }

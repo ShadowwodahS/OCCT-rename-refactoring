@@ -34,12 +34,12 @@ Handle(Geom2d_BSplineCurve) ChFiKPart_PCurve(const gp_Pnt2d&     UV1,
 
 void ChFiKPart_ProjPC(const GeomAdaptor_Curve&   Cg,
                       const GeomAdaptor_Surface& Sg,
-                      Handle(Geom2d_Curve)&      Pcurv);
+                      Handle(GeomCurve2d)&      Pcurv);
 
-Standard_EXPORT Standard_Integer ChFiKPart_IndexCurveInDS(const Handle(Geom_Curve)&   C,
+Standard_EXPORT Standard_Integer ChFiKPart_IndexCurveInDS(const Handle(GeomCurve3d)&   C,
                                                           TopOpeBRepDS_DataStructure& DStr);
 
-Standard_EXPORT Standard_Integer ChFiKPart_IndexSurfaceInDS(const Handle(Geom_Surface)& S,
+Standard_EXPORT Standard_Integer ChFiKPart_IndexSurfaceInDS(const Handle(GeomSurface)& S,
                                                             TopOpeBRepDS_DataStructure& DStr);
 
 #endif

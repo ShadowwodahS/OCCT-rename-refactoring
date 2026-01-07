@@ -187,7 +187,7 @@ private:
 
 private:
   IMeshData::IFaceHandle            myDFace;
-  Handle(Geom_Surface)              mySurface;
+  Handle(GeomSurface)              mySurface;
   Standard_Boolean                  myIsoU;
   Handle(IMeshData::SequenceOfReal) myParams;
   Handle(IMeshData::SequenceOfReal) myControlParams;
@@ -258,7 +258,7 @@ Standard_Boolean initParamsFromIntervals(const TColStd_Array1OfReal& theInterval
 //! Checks whether intervals should be split.
 //! Returns true in case if it is impossible to compute normal
 //! directly on intervals, false is returned elsewhere.
-Standard_Boolean toSplitIntervals(const Handle(Geom_Surface)& theSurf,
+Standard_Boolean toSplitIntervals(const Handle(GeomSurface)& theSurf,
                                   const TColStd_Array1OfReal (&theIntervals)[2])
 {
   Standard_Integer aIntervalU = theIntervals[0].Lower();
@@ -322,7 +322,7 @@ Handle(IMeshData::ListOfPnt2d) BRepMesh_NURBSRangeSplitter::GenerateSurfaceNodes
 
   const Standard_Real                aDefFace = GetDFace()->GetDeflection();
   const Handle(BRepAdaptor_Surface)& gFace    = GetSurface();
-  Handle(Geom_Surface)               aSurface = gFace->Surface().Surface();
+  Handle(GeomSurface)               aSurface = gFace->Surface().Surface();
 
   const Handle(NCollection_IncAllocator) aTmpAlloc =
     new NCollection_IncAllocator(IMeshData::MEMORY_BLOCK_SIZE_HUGE);

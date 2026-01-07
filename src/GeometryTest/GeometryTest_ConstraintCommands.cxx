@@ -53,17 +53,17 @@
 #include <GC_MakeArcOfCircle.hxx>
 
 #ifdef _WIN32
-Standard_IMPORT Draw_Viewer dout;
+Standard_IMPORT DrawViewer dout;
 #endif
-Standard_IMPORT Draw_Color DrawTrSurf_CurveColor(const Draw_Color);
+Standard_IMPORT DrawColor DrawTrSurf_CurveColor(const DrawColor);
 
-static Standard_Integer solutions(Draw_Interpretor&        di,
+static Standard_Integer solutions(DrawInterpreter&        di,
                                   Geom2dGcc_Circ2d2TanRad& ct3,
                                   const char*              name)
 {
   char solname[200];
 
-  Draw_Color col = DrawTrSurf_CurveColor(Draw_Color(Draw_vert));
+  DrawColor col = DrawTrSurf_CurveColor(DrawColor(Draw_vert));
   DrawTrSurf_CurveColor(col);
 
   if (ct3.IsDone())
@@ -72,7 +72,7 @@ static Standard_Integer solutions(Draw_Interpretor&        di,
     {
       Handle(Geom2d_Circle) C = new Geom2d_Circle(ct3.ThisSolution(i));
       Sprintf(solname, "%s_%d", name, i);
-      DrawTrSurf::Set(solname, C);
+      DrawTrSurf1::Set(solname, C);
       di << solname << " ";
     }
     return 0;
@@ -84,11 +84,11 @@ static Standard_Integer solutions(Draw_Interpretor&        di,
   }
 }
 
-static Standard_Integer solutions(Draw_Interpretor& di, Geom2dGcc_Circ2d3Tan& ct3, const char* name)
+static Standard_Integer solutions(DrawInterpreter& di, Geom2dGcc_Circ2d3Tan& ct3, const char* name)
 {
   char solname[200];
 
-  Draw_Color col = DrawTrSurf_CurveColor(Draw_Color(Draw_vert));
+  DrawColor col = DrawTrSurf_CurveColor(DrawColor(Draw_vert));
   DrawTrSurf_CurveColor(col);
 
   if (ct3.IsDone())
@@ -97,7 +97,7 @@ static Standard_Integer solutions(Draw_Interpretor& di, Geom2dGcc_Circ2d3Tan& ct
     {
       Handle(Geom2d_Circle) C = new Geom2d_Circle(ct3.ThisSolution(i));
       Sprintf(solname, "%s_%d", name, i);
-      DrawTrSurf::Set(solname, C);
+      DrawTrSurf1::Set(solname, C);
       di << solname << " ";
     }
     return 0;
@@ -111,13 +111,13 @@ static Standard_Integer solutions(Draw_Interpretor& di, Geom2dGcc_Circ2d3Tan& ct
 
 //=================================================================================================
 
-static Standard_Integer solutions(Draw_Interpretor&       theDI,
+static Standard_Integer solutions(DrawInterpreter&       theDI,
                                   Geom2dGcc_Circ2dTanCen& theCt2,
                                   const char*             theName)
 {
   char solname[200];
 
-  Draw_Color col = DrawTrSurf_CurveColor(Draw_Color(Draw_vert));
+  DrawColor col = DrawTrSurf_CurveColor(DrawColor(Draw_vert));
   DrawTrSurf_CurveColor(col);
 
   if (theCt2.IsDone())
@@ -126,7 +126,7 @@ static Standard_Integer solutions(Draw_Interpretor&       theDI,
     {
       Handle(Geom2d_Circle) C = new Geom2d_Circle(theCt2.ThisSolution(i));
       Sprintf(solname, "%s_%d", theName, i);
-      DrawTrSurf::Set(solname, C);
+      DrawTrSurf1::Set(solname, C);
       theDI << solname << " ";
     }
     return 0;
@@ -140,7 +140,7 @@ static Standard_Integer solutions(Draw_Interpretor&       theDI,
 
 //=================================================================================================
 
-static Standard_Integer Cirtang(Draw_Interpretor& theDI,
+static Standard_Integer Cirtang(DrawInterpreter& theDI,
                                 Standard_Integer  theNArgs,
                                 const char**      theArgVals)
 {
@@ -152,7 +152,7 @@ static Standard_Integer Cirtang(Draw_Interpretor& theDI,
   }
 
   Standard_Real        aTol = Precision::Confusion();
-  Handle(Geom2d_Curve) aC[3];
+  Handle(GeomCurve2d) aC[3];
   gp_Pnt2d             aP[3];
   Standard_Real        aRadius = -1.0;
 
@@ -173,7 +173,7 @@ static Standard_Integer Cirtang(Draw_Interpretor& theDI,
         return 1;
       }
 
-      aC[aNbCurves] = DrawTrSurf::GetCurve2d(theArgVals[++anArgID]);
+      aC[aNbCurves] = DrawTrSurf1::GetCurve2d(theArgVals[++anArgID]);
       if (aC[aNbCurves].IsNull())
       {
         theDI << "Error: " << theArgVals[anArgID] << " is not a curve\n";
@@ -190,7 +190,7 @@ static Standard_Integer Cirtang(Draw_Interpretor& theDI,
         return 1;
       }
 
-      if (!DrawTrSurf::GetPoint2d(theArgVals[++anArgID], aP[aNbPnts]))
+      if (!DrawTrSurf1::GetPoint2d(theArgVals[++anArgID], aP[aNbPnts]))
       {
         theDI << "Error: " << theArgVals[anArgID] << " is not a point\n";
         return 1;
@@ -200,11 +200,11 @@ static Standard_Integer Cirtang(Draw_Interpretor& theDI,
     }
     else if (!strcmp(theArgVals[anArgID], "-r"))
     {
-      aRadius = Draw::Atof(theArgVals[++anArgID]);
+      aRadius = Draw1::Atof(theArgVals[++anArgID]);
     }
     else if (!strcmp(theArgVals[anArgID], "-t"))
     {
-      aTol = Draw::Atof(theArgVals[++anArgID]);
+      aTol = Draw1::Atof(theArgVals[++anArgID]);
     }
     else
     {
@@ -326,20 +326,20 @@ static Standard_Integer Cirtang(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer lintang(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer lintang(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
 
-  Handle(Geom2d_Curve) C1 = DrawTrSurf::GetCurve2d(a[2]);
-  Handle(Geom2d_Curve) C2 = DrawTrSurf::GetCurve2d(a[3]);
+  Handle(GeomCurve2d) C1 = DrawTrSurf1::GetCurve2d(a[2]);
+  Handle(GeomCurve2d) C2 = DrawTrSurf1::GetCurve2d(a[3]);
 
   char solname[200];
 
   if (C1.IsNull() || C2.IsNull())
     return 1;
 
-  Draw_Color col = DrawTrSurf_CurveColor(Draw_Color(Draw_vert));
+  DrawColor col = DrawTrSurf_CurveColor(DrawColor(Draw_vert));
 
   if (n >= 5)
   {
@@ -349,7 +349,7 @@ static Standard_Integer lintang(Draw_Interpretor& di, Standard_Integer n, const 
       di << "Second argument must be a line";
       return 1;
     }
-    Standard_Real         ang = Draw::Atof(a[4]) * (M_PI / 180.0);
+    Standard_Real         ang = Draw1::Atof(a[4]) * (M_PI / 180.0);
     Geom2dGcc_Lin2dTanObl ct3(Geom2dGcc::Unqualified(C1),
                               L->Lin2d(),
                               Precision::Angular(),
@@ -362,7 +362,7 @@ static Standard_Integer lintang(Draw_Interpretor& di, Standard_Integer n, const 
         Handle(Geom2d_Line) LS = new Geom2d_Line(ct3.ThisSolution(i));
         Sprintf(solname, "%s_%d", a[1], i);
         char* temp = solname; // pour portage WNT
-        DrawTrSurf::Set(temp, LS);
+        DrawTrSurf1::Set(temp, LS);
         di << solname << " ";
       }
     }
@@ -383,7 +383,7 @@ static Standard_Integer lintang(Draw_Interpretor& di, Standard_Integer n, const 
         Handle(Geom2d_Line) LS = new Geom2d_Line(ct3.ThisSolution(i));
         Sprintf(solname, "%s_%d", a[1], i);
         char* temp = solname; // pour portage WNT
-        DrawTrSurf::Set(temp, LS);
+        DrawTrSurf1::Set(temp, LS);
         di << solname << " ";
       }
     }
@@ -397,7 +397,7 @@ static Standard_Integer lintang(Draw_Interpretor& di, Standard_Integer n, const 
 }
 
 //==================================================================================
-static Standard_Integer interpol(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer interpol(DrawInterpreter& di, Standard_Integer n, const char** a)
 //==================================================================================
 {
   if (n == 1)
@@ -430,7 +430,7 @@ static Standard_Integer interpol(Draw_Interpretor& di, Standard_Integer n, const
       mark = new Draw_Marker3D(Points->Value(1), Draw_X, Draw_vert);
       dout << mark;
       dout.Flush();
-      Handle(Geom_BSplineCurve) C;
+      Handle(BSplineCurve3d) C;
       i = 1;
 
       while (b != 3)
@@ -459,7 +459,7 @@ static Standard_Integer interpol(Draw_Interpretor& di, Standard_Integer n, const
             Handle(DrawTrSurf_BSplineCurve) DC = new DrawTrSurf_BSplineCurve(C);
             DC->ClearPoles();
             DC->ClearKnots();
-            Draw::Set(a[1], DC);
+            Draw1::Set(a[1], DC);
             dout.RepaintView(id);
           }
           if (newcurve)
@@ -475,7 +475,7 @@ static Standard_Integer interpol(Draw_Interpretor& di, Standard_Integer n, const
       if (anInterpolator.IsDone())
       {
         C = anInterpolator.Curve();
-        DrawTrSurf::Set(a[1], C);
+        DrawTrSurf1::Set(a[1], C);
         dout.RepaintView(id);
       }
     }
@@ -520,7 +520,7 @@ static Standard_Integer interpol(Draw_Interpretor& di, Standard_Integer n, const
             Handle(DrawTrSurf_BSplineCurve2d) DC = new DrawTrSurf_BSplineCurve2d(C);
             DC->ClearPoles();
             DC->ClearKnots();
-            Draw::Set(a[1], DC);
+            Draw1::Set(a[1], DC);
             dout.RepaintView(id);
           }
 
@@ -538,7 +538,7 @@ static Standard_Integer interpol(Draw_Interpretor& di, Standard_Integer n, const
       {
         C = a2dInterpolator.Curve();
 
-        DrawTrSurf::Set(a[1], C);
+        DrawTrSurf1::Set(a[1], C);
         dout.RepaintView(id);
       }
     }
@@ -568,8 +568,8 @@ static Standard_Integer interpol(Draw_Interpretor& di, Standard_Integer n, const
       anInterpolator.Perform();
       if (anInterpolator.IsDone())
       {
-        const Handle(Geom_BSplineCurve)& C = anInterpolator.Curve();
-        DrawTrSurf::Set(a[1], C);
+        const Handle(BSplineCurve3d)& C = anInterpolator.Curve();
+        DrawTrSurf1::Set(a[1], C);
       }
     }
     else if (!strcmp(dimen, "2d"))
@@ -585,14 +585,14 @@ static Standard_Integer interpol(Draw_Interpretor& di, Standard_Integer n, const
       if (a2dInterpolator.IsDone())
       {
         const Handle(Geom2d_BSplineCurve)& C = a2dInterpolator.Curve();
-        DrawTrSurf::Set(a[1], C);
+        DrawTrSurf1::Set(a[1], C);
       }
     }
   }
   return 0;
 }
 
-static Standard_Integer tanginterpol(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer tanginterpol(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
 
   if (n < 4)
@@ -613,7 +613,7 @@ static Standard_Integer tanginterpol(Draw_Interpretor& di, Standard_Integer n, c
   Vector3d           a_vector;
   tolerance = 1.0e-5;
 
-  Handle(Geom_BSplineCurve) NewCurvePtr;
+  Handle(BSplineCurve3d) NewCurvePtr;
 
   num_read = 2;
   if (strcmp(a[num_read], "p") == 0)
@@ -621,7 +621,7 @@ static Standard_Integer tanginterpol(Draw_Interpretor& di, Standard_Integer n, c
     periodic_flag = Standard_True;
     num_read += 1;
   }
-  num_parameters = Draw::Atoi(a[num_read]);
+  num_parameters = Draw1::Atoi(a[num_read]);
 
   if (num_parameters < 2)
   {
@@ -643,7 +643,7 @@ static Standard_Integer tanginterpol(Draw_Interpretor& di, Standard_Integer n, c
   {
     for (jj = 1; jj <= 3; jj++)
     {
-      a_point.SetCoord(jj, Draw::Atof(a[num_read]));
+      a_point.SetCoord(jj, Draw1::Atof(a[num_read]));
       num_read += 1;
     }
     PointsArrayPtr->SetValue(ii, a_point);
@@ -670,7 +670,7 @@ static Standard_Integer tanginterpol(Draw_Interpretor& di, Standard_Integer n, c
     {
       for (jj = 1; jj <= 3; jj++)
       {
-        a_vector.SetCoord(jj, Draw::Atof(a[num_read]));
+        a_vector.SetCoord(jj, Draw1::Atof(a[num_read]));
         num_read += 1;
       }
       TangentsArray.SetValue(ii, a_vector);
@@ -684,14 +684,14 @@ static Standard_Integer tanginterpol(Draw_Interpretor& di, Standard_Integer n, c
   {
     NewCurvePtr = anInterpolator.Curve();
 
-    DrawTrSurf::Set(a[1], NewCurvePtr);
+    DrawTrSurf1::Set(a[1], NewCurvePtr);
     di << a[2] << " ";
   }
   return 0;
 }
 
 //==================================================================================
-static Standard_Integer gcarc(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer gcarc(DrawInterpreter& di, Standard_Integer n, const char** a)
 //==================================================================================
 {
   if (n >= 5)
@@ -699,37 +699,37 @@ static Standard_Integer gcarc(Draw_Interpretor& di, Standard_Integer n, const ch
     Point3d P1, P2, P3, P4;
     if (!strcmp(a[2], "seg"))
     {
-      if (DrawTrSurf::GetPoint(a[3], P1))
+      if (DrawTrSurf1::GetPoint(a[3], P1))
       {
-        if (DrawTrSurf::GetPoint(a[4], P2))
+        if (DrawTrSurf1::GetPoint(a[4], P2))
         {
-          Handle(Geom_Curve) theline(GC_MakeSegment(P1, P2).Value());
-          DrawTrSurf::Set(a[1], theline);
+          Handle(GeomCurve3d) theline(GC_MakeSegment(P1, P2).Value());
+          DrawTrSurf1::Set(a[1], theline);
           return 1;
         }
       }
     }
     else if (!strcmp(a[2], "cir"))
     {
-      if (DrawTrSurf::GetPoint(a[3], P1))
+      if (DrawTrSurf1::GetPoint(a[3], P1))
       {
-        if (DrawTrSurf::GetPoint(a[4], P2))
+        if (DrawTrSurf1::GetPoint(a[4], P2))
         {
-          if (DrawTrSurf::GetPoint(a[5], P3))
+          if (DrawTrSurf1::GetPoint(a[5], P3))
           {
-            //	    if (DrawTrSurf::GetPoint(a[6], P4)) {
+            //	    if (DrawTrSurf1::GetPoint(a[6], P4)) {
             if (n > 6)
             {
-              DrawTrSurf::GetPoint(a[6], P4);
+              DrawTrSurf1::GetPoint(a[6], P4);
               Vector3d             V1 = Vector3d(P2, P3);
-              Handle(Geom_Curve) thearc(GC_MakeArcOfCircle(P1, V1, P4).Value());
-              DrawTrSurf::Set(a[1], thearc);
+              Handle(GeomCurve3d) thearc(GC_MakeArcOfCircle(P1, V1, P4).Value());
+              DrawTrSurf1::Set(a[1], thearc);
               return 1;
             }
             else
             {
-              Handle(Geom_Curve) thearc(GC_MakeArcOfCircle(P1, P2, P3).Value());
-              DrawTrSurf::Set(a[1], thearc);
+              Handle(GeomCurve3d) thearc(GC_MakeArcOfCircle(P1, P2, P3).Value());
+              DrawTrSurf1::Set(a[1], thearc);
               return 1;
             }
           }
@@ -745,7 +745,7 @@ static Standard_Integer gcarc(Draw_Interpretor& di, Standard_Integer n, const ch
 
 //=================================================================================================
 
-void GeometryTest::ConstraintCommands(Draw_Interpretor& theCommands)
+void GeometryTest::ConstraintCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean loaded = Standard_False;
@@ -753,7 +753,7 @@ void GeometryTest::ConstraintCommands(Draw_Interpretor& theCommands)
     return;
   loaded = Standard_True;
 
-  DrawTrSurf::BasicCommands(theCommands);
+  DrawTrSurf1::BasicCommands(theCommands);
 
   const char* g;
   // constrained constructs

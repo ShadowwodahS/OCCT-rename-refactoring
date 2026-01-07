@@ -281,7 +281,7 @@ static void FindBounds(const TColStd_Array1OfReal& Arr,
 static void Locate1Coord(const Standard_Integer           Index,
                          const gp_Pnt2d&                  UV,
                          const gp_Vec2d&                  DUV,
-                         const Handle(Geom_BSplineCurve)& BSplC,
+                         const Handle(BSplineCurve3d)& BSplC,
                          gp_Pnt2d&                        LeftBot,
                          gp_Pnt2d&                        RightTop)
 {
@@ -1447,7 +1447,7 @@ Standard_Integer Adaptor3d_CurveOnSurface::NbKnots() const
 
 //=================================================================================================
 
-Handle(Geom_BezierCurve) Adaptor3d_CurveOnSurface::Bezier() const
+Handle(BezierCurve3d) Adaptor3d_CurveOnSurface::Bezier() const
 {
   Standard_NoSuchObject_Raise_if(mySurface->GetType() != GeomAbs_Plane,
                                  "Adaptor3d_CurveOnSurface : Bezier");
@@ -1462,24 +1462,24 @@ Handle(Geom_BezierCurve) Adaptor3d_CurveOnSurface::Bezier() const
   {
     Poles(i) = to3d(Plane, Bez2d->Pole(i));
   }
-  Handle(Geom_BezierCurve) Bez;
+  Handle(BezierCurve3d) Bez;
 
   if (Bez2d->IsRational())
   {
     TColStd_Array1OfReal Weights(1, NbPoles);
     Bez2d->Weights(Weights);
-    Bez = new Geom_BezierCurve(Poles, Weights);
+    Bez = new BezierCurve3d(Poles, Weights);
   }
   else
   {
-    Bez = new Geom_BezierCurve(Poles);
+    Bez = new BezierCurve3d(Poles);
   }
   return Bez;
 }
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) Adaptor3d_CurveOnSurface::BSpline() const
+Handle(BSplineCurve3d) Adaptor3d_CurveOnSurface::BSpline() const
 {
   Standard_NoSuchObject_Raise_if(mySurface->GetType() != GeomAbs_Plane,
                                  "Adaptor3d_CurveOnSurface : BSpline");
@@ -1500,17 +1500,17 @@ Handle(Geom_BSplineCurve) Adaptor3d_CurveOnSurface::BSpline() const
   Bsp2d->Knots(Knots);
   Bsp2d->Multiplicities(Mults);
 
-  Handle(Geom_BSplineCurve) Bsp;
+  Handle(BSplineCurve3d) Bsp;
 
   if (Bsp2d->IsRational())
   {
     TColStd_Array1OfReal Weights(1, NbPoles);
     Bsp2d->Weights(Weights);
-    Bsp = new Geom_BSplineCurve(Poles, Weights, Knots, Mults, Bsp2d->Degree(), Bsp2d->IsPeriodic());
+    Bsp = new BSplineCurve3d(Poles, Weights, Knots, Mults, Bsp2d->Degree(), Bsp2d->IsPeriodic());
   }
   else
   {
-    Bsp = new Geom_BSplineCurve(Poles, Knots, Mults, Bsp2d->Degree(), Bsp2d->IsPeriodic());
+    Bsp = new BSplineCurve3d(Poles, Knots, Mults, Bsp2d->Degree(), Bsp2d->IsPeriodic());
   }
   return Bsp;
 }
@@ -1829,7 +1829,7 @@ Standard_Boolean Adaptor3d_CurveOnSurface::LocatePart_RevExt(const gp_Pnt2d&    
 
   if (AHC->GetType() == GeomAbs_BSplineCurve)
   {
-    Handle(Geom_BSplineCurve) BSplC;
+    Handle(BSplineCurve3d) BSplC;
     BSplC = AHC->BSpline();
 
     if ((S->GetType()) == GeomAbs_SurfaceOfExtrusion)

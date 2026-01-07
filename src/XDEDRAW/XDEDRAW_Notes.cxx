@@ -33,31 +33,31 @@ struct cmd
   const char*      use;
 };
 
-Draw_Interpretor& operator<<(Draw_Interpretor& di, const cmd& c)
+DrawInterpreter& operator<<(DrawInterpreter& di, const cmd& c)
 {
   di << "Use: " << c.use << "\n";
   return di;
 }
 
-Draw_Interpretor& operator<<(Draw_Interpretor& di, const TDF_Label& L)
+DrawInterpreter& operator<<(DrawInterpreter& di, const DataLabel& L)
 {
-  TCollection_AsciiString anEntry;
+  AsciiString1 anEntry;
   TDF_Tool::Entry(L, anEntry);
   di << anEntry;
   return di;
 }
 
-Draw_Interpretor& operator<<(Draw_Interpretor& di, const Handle(XCAFDoc_Note)& note)
+DrawInterpreter& operator<<(DrawInterpreter& di, const Handle(XCAFDoc_Note)& note)
 {
-  TCollection_AsciiString anEntry;
+  AsciiString1 anEntry;
   TDF_Tool::Entry(note->Label(), anEntry);
   di << anEntry;
   return di;
 }
 
-Draw_Interpretor& operator<<(Draw_Interpretor& di, const Handle(XCAFDoc_AssemblyItemRef)& ref)
+DrawInterpreter& operator<<(DrawInterpreter& di, const Handle(XCAFDoc_AssemblyItemRef)& ref)
 {
-  TCollection_AsciiString anEntry;
+  AsciiString1 anEntry;
   TDF_Tool::Entry(ref->Label(), anEntry);
   di << anEntry;
   return di;
@@ -69,7 +69,7 @@ Draw_Interpretor& operator<<(Draw_Interpretor& di, const Handle(XCAFDoc_Assembly
 //=======================================================================
 static const cmd XNoteCount = {"XNoteCount", 2, "XNoteCount Doc"};
 
-static Standard_Integer noteCount(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer noteCount(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   static const cmd& myCommand = XNoteCount;
 
@@ -79,8 +79,8 @@ static Standard_Integer noteCount(Draw_Interpretor& di, Standard_Integer argc, c
     return 1;
   }
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
@@ -99,7 +99,7 @@ static Standard_Integer noteCount(Draw_Interpretor& di, Standard_Integer argc, c
 //=======================================================================
 static const cmd XNoteNotes = {"XNoteNotes", 2, "XNoteNotes Doc"};
 
-static Standard_Integer noteNotes(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer noteNotes(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   static const cmd& myCommand = XNoteNotes;
 
@@ -109,8 +109,8 @@ static Standard_Integer noteNotes(Draw_Interpretor& di, Standard_Integer argc, c
     return 1;
   }
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
@@ -135,7 +135,7 @@ static Standard_Integer noteNotes(Draw_Interpretor& di, Standard_Integer argc, c
 //=======================================================================
 static const cmd XNoteAnnotations = {"XNoteAnnotations", 2, "XNoteAnnotations Doc"};
 
-static Standard_Integer noteAnnotations(Draw_Interpretor& di,
+static Standard_Integer noteAnnotations(DrawInterpreter& di,
                                         Standard_Integer  argc,
                                         const char**      argv)
 {
@@ -147,8 +147,8 @@ static Standard_Integer noteAnnotations(Draw_Interpretor& di,
     return 1;
   }
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
@@ -176,7 +176,7 @@ static const cmd XNoteCreateBalloon = {
   3,
   "XNoteCreateBalloon Doc comment [--user name] [--time stamp]"};
 
-static Standard_Integer noteCreateBalloon(Draw_Interpretor& di,
+static Standard_Integer noteCreateBalloon(DrawInterpreter& di,
                                           Standard_Integer  argc,
                                           const char**      argv)
 {
@@ -190,19 +190,19 @@ static Standard_Integer noteCreateBalloon(Draw_Interpretor& di,
 
   Standard_Integer iarg = 0;
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[++iarg], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[++iarg], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
   }
 
-  TCollection_ExtendedString aComment = argv[++iarg];
-  TCollection_ExtendedString aUsername, aTimestamp;
+  UtfString aComment = argv[++iarg];
+  UtfString aUsername, aTimestamp;
 
   for (++iarg; iarg < argc; ++iarg)
   {
-    TCollection_AsciiString opt = argv[iarg];
+    AsciiString1 opt = argv[iarg];
     if (opt == "--user")
     {
       if (++iarg >= argc)
@@ -210,7 +210,7 @@ static Standard_Integer noteCreateBalloon(Draw_Interpretor& di,
         di << "Error: user name is expected.\n" << myCommand;
         return 1;
       }
-      aUsername = TCollection_ExtendedString(argv[iarg], Standard_True);
+      aUsername = UtfString(argv[iarg], Standard_True);
     }
     else if (opt == "--time")
     {
@@ -219,7 +219,7 @@ static Standard_Integer noteCreateBalloon(Draw_Interpretor& di,
         di << "Error: timestamp is expected.\n" << myCommand;
         return 1;
       }
-      aTimestamp = TCollection_ExtendedString(argv[iarg], Standard_True);
+      aTimestamp = UtfString(argv[iarg], Standard_True);
     }
   }
 
@@ -244,7 +244,7 @@ static const cmd XNoteCreateComment = {
   3,
   "XNoteCreateComment Doc comment [--user name] [--time stamp]"};
 
-static Standard_Integer noteCreateComment(Draw_Interpretor& di,
+static Standard_Integer noteCreateComment(DrawInterpreter& di,
                                           Standard_Integer  argc,
                                           const char**      argv)
 {
@@ -258,19 +258,19 @@ static Standard_Integer noteCreateComment(Draw_Interpretor& di,
 
   Standard_Integer iarg = 0;
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[++iarg], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[++iarg], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
   }
 
-  TCollection_ExtendedString aComment = argv[++iarg];
-  TCollection_ExtendedString aUsername, aTimestamp;
+  UtfString aComment = argv[++iarg];
+  UtfString aUsername, aTimestamp;
 
   for (++iarg; iarg < argc; ++iarg)
   {
-    TCollection_AsciiString opt = argv[iarg];
+    AsciiString1 opt = argv[iarg];
     if (opt == "--user")
     {
       if (++iarg >= argc)
@@ -278,7 +278,7 @@ static Standard_Integer noteCreateComment(Draw_Interpretor& di,
         di << "Error: user name is expected.\n" << myCommand;
         return 1;
       }
-      aUsername = TCollection_ExtendedString(argv[iarg], Standard_True);
+      aUsername = UtfString(argv[iarg], Standard_True);
     }
     else if (opt == "--time")
     {
@@ -287,7 +287,7 @@ static Standard_Integer noteCreateComment(Draw_Interpretor& di,
         di << "Error: timestamp is expected.\n" << myCommand;
         return 1;
       }
-      aTimestamp = TCollection_ExtendedString(argv[iarg], Standard_True);
+      aTimestamp = UtfString(argv[iarg], Standard_True);
     }
   }
 
@@ -312,7 +312,7 @@ static const cmd XNoteCreateBinData = {"XNoteCreateBinData",
                                        "XNoteCreateBinData Doc title <--file path | --data data> "
                                        "[--mime type] [--user name] [--time stamp]"};
 
-static Standard_Integer noteCreateBinData(Draw_Interpretor& di,
+static Standard_Integer noteCreateBinData(DrawInterpreter& di,
                                           Standard_Integer  argc,
                                           const char**      argv)
 {
@@ -326,8 +326,8 @@ static Standard_Integer noteCreateBinData(Draw_Interpretor& di,
 
   Standard_Integer iarg = 0;
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[++iarg], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[++iarg], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
@@ -335,15 +335,15 @@ static Standard_Integer noteCreateBinData(Draw_Interpretor& di,
 
   Standard_Boolean              aFromFile = Standard_False;
   Standard_Boolean              aFromData = Standard_False;
-  TCollection_ExtendedString    aFilename;
+  UtfString    aFilename;
   Handle(TColStd_HArray1OfByte) aData;
-  TCollection_ExtendedString    aTitle = argv[++iarg];
-  TCollection_AsciiString       aMIMEtype;
-  TCollection_ExtendedString    aUsername, aTimestamp;
+  UtfString    aTitle = argv[++iarg];
+  AsciiString1       aMIMEtype;
+  UtfString    aUsername, aTimestamp;
 
   for (++iarg; iarg < argc; ++iarg)
   {
-    TCollection_AsciiString opt = argv[iarg];
+    AsciiString1 opt = argv[iarg];
     if (opt == "--file")
     {
       if (aFromData)
@@ -356,7 +356,7 @@ static Standard_Integer noteCreateBinData(Draw_Interpretor& di,
         di << "Error: file path is expected.\n" << myCommand;
         return 1;
       }
-      aFilename = TCollection_ExtendedString(argv[iarg], Standard_True);
+      aFilename = UtfString(argv[iarg], Standard_True);
       aFromFile = Standard_True;
     }
     else if (opt == "--data")
@@ -397,7 +397,7 @@ static Standard_Integer noteCreateBinData(Draw_Interpretor& di,
         di << "Error: user name is expected.\n" << myCommand;
         return 1;
       }
-      aUsername = TCollection_ExtendedString(argv[iarg], Standard_True);
+      aUsername = UtfString(argv[iarg], Standard_True);
     }
     else if (opt == "--time")
     {
@@ -406,7 +406,7 @@ static Standard_Integer noteCreateBinData(Draw_Interpretor& di,
         di << "Error: timestamp is expected.\n" << myCommand;
         return 1;
       }
-      aTimestamp = TCollection_ExtendedString(argv[iarg], Standard_True);
+      aTimestamp = UtfString(argv[iarg], Standard_True);
     }
   }
 
@@ -415,8 +415,8 @@ static Standard_Integer noteCreateBinData(Draw_Interpretor& di,
   Handle(XCAFDoc_Note) aNote;
   if (aFromFile)
   {
-    OSD_Path aPath(aFilename);
-    OSD_File aFile(aPath);
+    SystemPath aPath(aFilename);
+    SystemFile aFile(aPath);
     aFile.Open(OSD_ReadOnly, OSD_Protection());
     aNote = aNotesTool->CreateBinData(aUsername, aTimestamp, aTitle, aMIMEtype, aFile);
   }
@@ -446,7 +446,7 @@ static Standard_Integer noteCreateBinData(Draw_Interpretor& di,
 //=======================================================================
 static const cmd XNoteDelete = {"XNoteDelete", 3, "XNoteDelete Doc note"};
 
-static Standard_Integer noteDelete(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer noteDelete(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   static const cmd& myCommand = XNoteDelete;
 
@@ -456,16 +456,16 @@ static Standard_Integer noteDelete(Draw_Interpretor& di, Standard_Integer argc, 
     return 1;
   }
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
   }
 
-  TCollection_ExtendedString anEntry = argv[2];
+  UtfString anEntry = argv[2];
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), anEntry, aLabel);
   if (aLabel.IsNull())
   {
@@ -489,7 +489,7 @@ static Standard_Integer noteDelete(Draw_Interpretor& di, Standard_Integer argc, 
 //=======================================================================
 static const cmd XNoteDeleteAll = {"XNoteDeleteAll", 2, "XNoteDeleteAll Doc"};
 
-static Standard_Integer noteDeleteAll(Draw_Interpretor& di,
+static Standard_Integer noteDeleteAll(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -501,8 +501,8 @@ static Standard_Integer noteDeleteAll(Draw_Interpretor& di,
     return 1;
   }
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
@@ -521,7 +521,7 @@ static Standard_Integer noteDeleteAll(Draw_Interpretor& di,
 //=======================================================================
 static const cmd XNoteDeleteOrphan = {"XNoteDeleteOrphan", 2, "XNoteDeleteOrphan Doc"};
 
-static Standard_Integer noteDeleteOrphan(Draw_Interpretor& di,
+static Standard_Integer noteDeleteOrphan(DrawInterpreter& di,
                                          Standard_Integer  argc,
                                          const char**      argv)
 {
@@ -533,8 +533,8 @@ static Standard_Integer noteDeleteOrphan(Draw_Interpretor& di,
     return 1;
   }
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
@@ -555,7 +555,7 @@ static const cmd XNoteAdd = {"XNoteAdd",
                              4,
                              "XNoteAdd Doc note item [--attr guid | --subshape num]"};
 
-static Standard_Integer noteAdd(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer noteAdd(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   static const cmd& myCommand = XNoteAdd;
 
@@ -567,17 +567,17 @@ static Standard_Integer noteAdd(Draw_Interpretor& di, Standard_Integer argc, con
 
   Standard_Integer iarg = 0;
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[++iarg], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[++iarg], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
   }
 
-  TCollection_AsciiString aNoteEntry  = argv[++iarg];
-  TCollection_AsciiString anItemEntry = argv[++iarg];
+  AsciiString1 aNoteEntry  = argv[++iarg];
+  AsciiString1 anItemEntry = argv[++iarg];
 
-  TDF_Label aNoteLabel;
+  DataLabel aNoteLabel;
   TDF_Tool::Label(aDoc->GetData(), aNoteEntry, aNoteLabel);
   if (aNoteLabel.IsNull())
   {
@@ -585,7 +585,7 @@ static Standard_Integer noteAdd(Draw_Interpretor& di, Standard_Integer argc, con
     return 1;
   }
   XCAFDoc_AssemblyItemId anItemId(anItemEntry);
-  TDF_Label              anItemLabel;
+  DataLabel              anItemLabel;
   TDF_Tool::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
   if (anItemLabel.IsNull())
   {
@@ -599,7 +599,7 @@ static Standard_Integer noteAdd(Draw_Interpretor& di, Standard_Integer argc, con
   Standard_Boolean aHasSubshape = Standard_False;
   for (++iarg; iarg < argc; ++iarg)
   {
-    TCollection_AsciiString opt = argv[iarg];
+    AsciiString1 opt = argv[iarg];
     if (opt == "--attr")
     {
       if (aHasSubshape)
@@ -612,7 +612,7 @@ static Standard_Integer noteAdd(Draw_Interpretor& di, Standard_Integer argc, con
         di << "Error: attribute guid is expected.\n" << myCommand;
         return 1;
       }
-      TCollection_AsciiString arg = argv[iarg];
+      AsciiString1 arg = argv[iarg];
       aGUID                       = arg.ToCString();
       aHasGUID                    = Standard_True;
     }
@@ -623,7 +623,7 @@ static Standard_Integer noteAdd(Draw_Interpretor& di, Standard_Integer argc, con
         di << "Error: subshape index is expected.\n" << myCommand;
         return 1;
       }
-      TCollection_AsciiString arg = argv[iarg];
+      AsciiString1 arg = argv[iarg];
       if (!arg.IsIntegerValue())
       {
         di << "Error: subshape index must be integer value.\n" << myCommand;
@@ -675,7 +675,7 @@ static const cmd XNoteRemove = {
   4,
   "XNoteRemove Doc item note [--attr guid | --subshape num] [--del-orphan]"};
 
-static Standard_Integer noteRemove(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer noteRemove(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   static const cmd& myCommand = XNoteRemove;
 
@@ -687,17 +687,17 @@ static Standard_Integer noteRemove(Draw_Interpretor& di, Standard_Integer argc, 
 
   Standard_Integer iarg = 0;
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[++iarg], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[++iarg], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
   }
 
-  TCollection_AsciiString anItemEntry = argv[++iarg];
-  TCollection_AsciiString aNoteEntry  = argv[++iarg];
+  AsciiString1 anItemEntry = argv[++iarg];
+  AsciiString1 aNoteEntry  = argv[++iarg];
 
-  TDF_Label aNoteLabel;
+  DataLabel aNoteLabel;
   TDF_Tool::Label(aDoc->GetData(), aNoteEntry, aNoteLabel);
   if (aNoteLabel.IsNull())
   {
@@ -705,7 +705,7 @@ static Standard_Integer noteRemove(Draw_Interpretor& di, Standard_Integer argc, 
     return 1;
   }
   XCAFDoc_AssemblyItemId anItemId(anItemEntry);
-  TDF_Label              anItemLabel;
+  DataLabel              anItemLabel;
   TDF_Tool::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
   if (anItemLabel.IsNull())
   {
@@ -720,7 +720,7 @@ static Standard_Integer noteRemove(Draw_Interpretor& di, Standard_Integer argc, 
   Standard_Boolean aDelOrphan   = Standard_False;
   for (++iarg; iarg < argc; ++iarg)
   {
-    TCollection_AsciiString opt = argv[iarg];
+    AsciiString1 opt = argv[iarg];
     if (opt == "--attr")
     {
       if (aHasSubshape)
@@ -733,7 +733,7 @@ static Standard_Integer noteRemove(Draw_Interpretor& di, Standard_Integer argc, 
         di << "Error: attribute guid is expected.\n" << myCommand;
         return 1;
       }
-      TCollection_AsciiString arg = argv[iarg];
+      AsciiString1 arg = argv[iarg];
       aGUID                       = arg.ToCString();
       aHasGUID                    = Standard_True;
     }
@@ -749,7 +749,7 @@ static Standard_Integer noteRemove(Draw_Interpretor& di, Standard_Integer argc, 
         di << "Error: subshape index is expected.\n" << myCommand;
         return 1;
       }
-      TCollection_AsciiString arg = argv[iarg];
+      AsciiString1 arg = argv[iarg];
       if (!arg.IsIntegerValue())
       {
         di << "Error: subshape index must be integer value.\n" << myCommand;
@@ -791,7 +791,7 @@ static const cmd XNoteRemoveAll = {
   3,
   "XNoteRemoveAll Doc item [--attr guid] [--subshape num] [--del-orphan]"};
 
-static Standard_Integer noteRemoveAll(Draw_Interpretor& di,
+static Standard_Integer noteRemoveAll(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -805,17 +805,17 @@ static Standard_Integer noteRemoveAll(Draw_Interpretor& di,
 
   Standard_Integer iarg = 0;
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[++iarg], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[++iarg], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
   }
 
-  TCollection_AsciiString anItemEntry = argv[++iarg];
+  AsciiString1 anItemEntry = argv[++iarg];
 
   XCAFDoc_AssemblyItemId anItemId(anItemEntry);
-  TDF_Label              anItemLabel;
+  DataLabel              anItemLabel;
   TDF_Tool::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
   if (anItemLabel.IsNull())
   {
@@ -830,7 +830,7 @@ static Standard_Integer noteRemoveAll(Draw_Interpretor& di,
   Standard_Boolean aDelOrphan   = Standard_False;
   for (++iarg; iarg < argc; ++iarg)
   {
-    TCollection_AsciiString opt = argv[iarg];
+    AsciiString1 opt = argv[iarg];
     if (opt == "--attr")
     {
       if (aHasSubshape)
@@ -843,7 +843,7 @@ static Standard_Integer noteRemoveAll(Draw_Interpretor& di,
         di << "Error: attribute guid is expected.\n" << myCommand;
         return 1;
       }
-      TCollection_AsciiString arg = argv[iarg];
+      AsciiString1 arg = argv[iarg];
       aGUID                       = arg.ToCString();
       aHasGUID                    = Standard_True;
     }
@@ -859,7 +859,7 @@ static Standard_Integer noteRemoveAll(Draw_Interpretor& di,
         di << "Error: subshape index is expected.\n" << myCommand;
         return 1;
       }
-      TCollection_AsciiString arg = argv[iarg];
+      AsciiString1 arg = argv[iarg];
       if (!arg.IsIntegerValue())
       {
         di << "Error: subshape index must be integer value.\n" << myCommand;
@@ -901,7 +901,7 @@ static const cmd XNoteFindAnnotated = {
   3,
   "XNoteFindAnnotated Doc item [--attr guid | --subshape num]"};
 
-static Standard_Integer noteFindAnnotated(Draw_Interpretor& di,
+static Standard_Integer noteFindAnnotated(DrawInterpreter& di,
                                           Standard_Integer  argc,
                                           const char**      argv)
 {
@@ -915,17 +915,17 @@ static Standard_Integer noteFindAnnotated(Draw_Interpretor& di,
 
   Standard_Integer iarg = 0;
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[++iarg], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[++iarg], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
   }
 
-  TCollection_AsciiString anItemEntry = argv[++iarg];
+  AsciiString1 anItemEntry = argv[++iarg];
 
   XCAFDoc_AssemblyItemId anItemId(anItemEntry);
-  TDF_Label              anItemLabel;
+  DataLabel              anItemLabel;
   TDF_Tool::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
   if (anItemLabel.IsNull())
   {
@@ -939,7 +939,7 @@ static Standard_Integer noteFindAnnotated(Draw_Interpretor& di,
   Standard_Boolean aHasSubshape = Standard_False;
   for (++iarg; iarg < argc; ++iarg)
   {
-    TCollection_AsciiString opt = argv[iarg];
+    AsciiString1 opt = argv[iarg];
     if (opt == "--attr")
     {
       if (aHasSubshape)
@@ -952,7 +952,7 @@ static Standard_Integer noteFindAnnotated(Draw_Interpretor& di,
         di << "Error: attribute guid is expected.\n" << myCommand;
         return 1;
       }
-      TCollection_AsciiString arg = argv[iarg];
+      AsciiString1 arg = argv[iarg];
       aGUID                       = arg.ToCString();
       aHasGUID                    = Standard_True;
     }
@@ -963,7 +963,7 @@ static Standard_Integer noteFindAnnotated(Draw_Interpretor& di,
         di << "Error: subshape index is expected.\n" << myCommand;
         return 1;
       }
-      TCollection_AsciiString arg = argv[iarg];
+      AsciiString1 arg = argv[iarg];
       if (!arg.IsIntegerValue())
       {
         di << "Error: subshape index must be integer value.\n" << myCommand;
@@ -1000,7 +1000,7 @@ static const cmd XNoteGetNotes = {"XNoteGetNotes",
                                   3,
                                   "XNoteGetNotes Doc item [--attr guid | --subshape num]"};
 
-static Standard_Integer noteGetNotes(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer noteGetNotes(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   static const cmd& myCommand = XNoteGetNotes;
 
@@ -1012,17 +1012,17 @@ static Standard_Integer noteGetNotes(Draw_Interpretor& di, Standard_Integer argc
 
   Standard_Integer iarg = 0;
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[++iarg], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[++iarg], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
   }
 
-  TCollection_AsciiString anItemEntry = argv[++iarg];
+  AsciiString1 anItemEntry = argv[++iarg];
 
   XCAFDoc_AssemblyItemId anItemId(anItemEntry);
-  TDF_Label              anItemLabel;
+  DataLabel              anItemLabel;
   TDF_Tool::Label(aDoc->GetData(), anItemId.GetPath().Last(), anItemLabel);
   if (anItemLabel.IsNull())
   {
@@ -1036,7 +1036,7 @@ static Standard_Integer noteGetNotes(Draw_Interpretor& di, Standard_Integer argc
   Standard_Boolean aHasSubshape = Standard_False;
   for (++iarg; iarg < argc; ++iarg)
   {
-    TCollection_AsciiString opt = argv[iarg];
+    AsciiString1 opt = argv[iarg];
     if (opt == "--attr")
     {
       if (aHasSubshape)
@@ -1049,7 +1049,7 @@ static Standard_Integer noteGetNotes(Draw_Interpretor& di, Standard_Integer argc
         di << "Error: attribute guid is expected.\n" << myCommand;
         return 1;
       }
-      TCollection_AsciiString arg = argv[iarg];
+      AsciiString1 arg = argv[iarg];
       aGUID                       = arg.ToCString();
       aHasGUID                    = Standard_True;
     }
@@ -1060,7 +1060,7 @@ static Standard_Integer noteGetNotes(Draw_Interpretor& di, Standard_Integer argc
         di << "Error: subshape index is expected.\n" << myCommand;
         return 1;
       }
-      TCollection_AsciiString arg = argv[iarg];
+      AsciiString1 arg = argv[iarg];
       if (!arg.IsIntegerValue())
       {
         di << "Error: subshape index must be integer value.\n" << myCommand;
@@ -1101,7 +1101,7 @@ static Standard_Integer noteGetNotes(Draw_Interpretor& di, Standard_Integer argc
 //=======================================================================
 static const cmd XNoteUsername = {"XNoteUsername", 3, "XNoteUsername Doc note"};
 
-static Standard_Integer noteUsername(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer noteUsername(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   static const cmd& myCommand = XNoteUsername;
 
@@ -1113,16 +1113,16 @@ static Standard_Integer noteUsername(Draw_Interpretor& di, Standard_Integer argc
 
   Standard_Integer iarg = 0;
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[++iarg], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[++iarg], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
   }
 
-  TCollection_AsciiString aNoteEntry = argv[++iarg];
+  AsciiString1 aNoteEntry = argv[++iarg];
 
-  TDF_Label aNoteLabel;
+  DataLabel aNoteLabel;
   TDF_Tool::Label(aDoc->GetData(), aNoteEntry, aNoteLabel);
   if (aNoteLabel.IsNull())
   {
@@ -1148,7 +1148,7 @@ static Standard_Integer noteUsername(Draw_Interpretor& di, Standard_Integer argc
 //=======================================================================
 static const cmd XNoteTimestamp = {"XNoteTimestamp", 3, "XNoteTimestamp Doc note"};
 
-static Standard_Integer noteTimestamp(Draw_Interpretor& di,
+static Standard_Integer noteTimestamp(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -1162,16 +1162,16 @@ static Standard_Integer noteTimestamp(Draw_Interpretor& di,
 
   Standard_Integer iarg = 0;
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[++iarg], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[++iarg], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
   }
 
-  TCollection_AsciiString aNoteEntry = argv[++iarg];
+  AsciiString1 aNoteEntry = argv[++iarg];
 
-  TDF_Label aNoteLabel;
+  DataLabel aNoteLabel;
   TDF_Tool::Label(aDoc->GetData(), aNoteEntry, aNoteLabel);
   if (aNoteLabel.IsNull())
   {
@@ -1197,7 +1197,7 @@ static Standard_Integer noteTimestamp(Draw_Interpretor& di,
 //=======================================================================
 static const cmd XNoteDump = {"XNoteDump", 3, "XNoteDump Doc note"};
 
-static Standard_Integer noteDump(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer noteDump(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   static const cmd& myCommand = XNoteDump;
 
@@ -1209,16 +1209,16 @@ static Standard_Integer noteDump(Draw_Interpretor& di, Standard_Integer argc, co
 
   Standard_Integer iarg = 0;
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[++iarg], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[++iarg], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
   }
 
-  TCollection_AsciiString aNoteEntry = argv[++iarg];
+  AsciiString1 aNoteEntry = argv[++iarg];
 
-  TDF_Label aNoteLabel;
+  DataLabel aNoteLabel;
   TDF_Tool::Label(aDoc->GetData(), aNoteEntry, aNoteLabel);
   if (aNoteLabel.IsNull())
   {
@@ -1307,7 +1307,7 @@ static Standard_Integer noteDump(Draw_Interpretor& di, Standard_Integer argc, co
 //=======================================================================
 static const cmd XNoteRefDump = {"XNoteRefDump", 3, "XNoteRefDump Doc ref"};
 
-static Standard_Integer noteRefDump(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer noteRefDump(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   static const cmd& myCommand = XNoteRefDump;
 
@@ -1319,16 +1319,16 @@ static Standard_Integer noteRefDump(Draw_Interpretor& di, Standard_Integer argc,
 
   Standard_Integer iarg = 0;
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[++iarg], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[++iarg], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
   }
 
-  TCollection_AsciiString aRefEntry = argv[++iarg];
+  AsciiString1 aRefEntry = argv[++iarg];
 
-  TDF_Label aRefLabel;
+  DataLabel aRefLabel;
   TDF_Tool::Label(aDoc->GetData(), aRefEntry, aRefLabel);
   if (aRefLabel.IsNull())
   {
@@ -1366,7 +1366,7 @@ static Standard_Integer noteRefDump(Draw_Interpretor& di, Standard_Integer argc,
 //=======================================================================
 static const cmd XNoteIsRefOrphan = {"XNoteIsRefOrphan", 3, "XNoteIsRefOrphan Doc ref"};
 
-static Standard_Integer noteIsRefOrphan(Draw_Interpretor& di,
+static Standard_Integer noteIsRefOrphan(DrawInterpreter& di,
                                         Standard_Integer  argc,
                                         const char**      argv)
 {
@@ -1380,16 +1380,16 @@ static Standard_Integer noteIsRefOrphan(Draw_Interpretor& di,
 
   Standard_Integer iarg = 0;
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[++iarg], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[++iarg], aDoc);
   if (aDoc.IsNull())
   {
     return 1;
   }
 
-  TCollection_AsciiString aRefEntry = argv[++iarg];
+  AsciiString1 aRefEntry = argv[++iarg];
 
-  TDF_Label aRefLabel;
+  DataLabel aRefLabel;
   TDF_Tool::Label(aDoc->GetData(), aRefEntry, aRefLabel);
   if (aRefLabel.IsNull())
   {
@@ -1411,7 +1411,7 @@ static Standard_Integer noteIsRefOrphan(Draw_Interpretor& di,
 
 //=================================================================================================
 
-void XDEDRAW_Notes::InitCommands(Draw_Interpretor& di)
+void XDEDRAW_Notes::InitCommands(DrawInterpreter& di)
 {
   static Standard_Boolean initialized = Standard_False;
   if (initialized)

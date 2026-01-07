@@ -64,7 +64,7 @@ void IGESGraph_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESGraph_Color, anent, ent);
       if (anent.IsNull())
         return;
-      IGESGraph_ToolColor tool;
+      ColorTool1 tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -72,7 +72,7 @@ void IGESGraph_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESGraph_DefinitionLevel, anent, ent);
       if (anent.IsNull())
         return;
-      IGESGraph_ToolDefinitionLevel tool;
+      DefinitionLevelTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -80,7 +80,7 @@ void IGESGraph_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESGraph_DrawingSize, anent, ent);
       if (anent.IsNull())
         return;
-      IGESGraph_ToolDrawingSize tool;
+      DrawingSizeTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -88,7 +88,7 @@ void IGESGraph_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESGraph_DrawingUnits, anent, ent);
       if (anent.IsNull())
         return;
-      IGESGraph_ToolDrawingUnits tool;
+      DrawingUnitsTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -96,7 +96,7 @@ void IGESGraph_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESGraph_HighLight, anent, ent);
       if (anent.IsNull())
         return;
-      IGESGraph_ToolHighLight tool;
+      HighLightTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -104,7 +104,7 @@ void IGESGraph_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESGraph_IntercharacterSpacing, anent, ent);
       if (anent.IsNull())
         return;
-      IGESGraph_ToolIntercharacterSpacing tool;
+      IntercharacterSpacingTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -112,7 +112,7 @@ void IGESGraph_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESGraph_LineFontDefPattern, anent, ent);
       if (anent.IsNull())
         return;
-      IGESGraph_ToolLineFontDefPattern tool;
+      LineFontDefPatternTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -120,7 +120,7 @@ void IGESGraph_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESGraph_LineFontPredefined, anent, ent);
       if (anent.IsNull())
         return;
-      IGESGraph_ToolLineFontPredefined tool;
+      LineFontPredefinedTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -128,7 +128,7 @@ void IGESGraph_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESGraph_LineFontDefTemplate, anent, ent);
       if (anent.IsNull())
         return;
-      IGESGraph_ToolLineFontDefTemplate tool;
+      LineFontDefTemplateTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -136,7 +136,7 @@ void IGESGraph_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESGraph_NominalSize, anent, ent);
       if (anent.IsNull())
         return;
-      IGESGraph_ToolNominalSize tool;
+      NominalSizeTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -144,7 +144,7 @@ void IGESGraph_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESGraph_Pick, anent, ent);
       if (anent.IsNull())
         return;
-      IGESGraph_ToolPick tool;
+      PickTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -152,7 +152,7 @@ void IGESGraph_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESGraph_TextDisplayTemplate, anent, ent);
       if (anent.IsNull())
         return;
-      IGESGraph_ToolTextDisplayTemplate tool;
+      TextDisplayTemplateTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -160,7 +160,7 @@ void IGESGraph_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESGraph_TextFontDef, anent, ent);
       if (anent.IsNull())
         return;
-      IGESGraph_ToolTextFontDef tool;
+      TextFontDefTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -168,7 +168,7 @@ void IGESGraph_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESGraph_UniformRectGrid, anent, ent);
       if (anent.IsNull())
         return;
-      IGESGraph_ToolUniformRectGrid tool;
+      UniformRectGridTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -187,56 +187,56 @@ Standard_Boolean IGESGraph_SpecificModule::OwnCorrect(const Standard_Integer    
       DeclareAndCast(IGESGraph_DrawingSize, anent, ent);
       if (anent.IsNull())
         break;
-      IGESGraph_ToolDrawingSize tool;
+      DrawingSizeTool tool;
       return tool.OwnCorrect(anent);
     }
     case 4: {
       DeclareAndCast(IGESGraph_DrawingUnits, anent, ent);
       if (anent.IsNull())
         break;
-      IGESGraph_ToolDrawingUnits tool;
+      DrawingUnitsTool tool;
       return tool.OwnCorrect(anent);
     }
     case 5: {
       DeclareAndCast(IGESGraph_HighLight, anent, ent);
       if (anent.IsNull())
         break;
-      IGESGraph_ToolHighLight tool;
+      HighLightTool tool;
       return tool.OwnCorrect(anent);
     }
     case 6: {
       DeclareAndCast(IGESGraph_IntercharacterSpacing, anent, ent);
       if (anent.IsNull())
         break;
-      IGESGraph_ToolIntercharacterSpacing tool;
+      IntercharacterSpacingTool tool;
       return tool.OwnCorrect(anent);
     }
     case 8: {
       DeclareAndCast(IGESGraph_LineFontPredefined, anent, ent);
       if (anent.IsNull())
         break;
-      IGESGraph_ToolLineFontPredefined tool;
+      LineFontPredefinedTool tool;
       return tool.OwnCorrect(anent);
     }
     case 10: {
       DeclareAndCast(IGESGraph_NominalSize, anent, ent);
       if (anent.IsNull())
         break;
-      IGESGraph_ToolNominalSize tool;
+      NominalSizeTool tool;
       return tool.OwnCorrect(anent);
     }
     case 11: {
       DeclareAndCast(IGESGraph_Pick, anent, ent);
       if (anent.IsNull())
         break;
-      IGESGraph_ToolPick tool;
+      PickTool tool;
       return tool.OwnCorrect(anent);
     }
     case 14: {
       DeclareAndCast(IGESGraph_UniformRectGrid, anent, ent);
       if (anent.IsNull())
         break;
-      IGESGraph_ToolUniformRectGrid tool;
+      UniformRectGridTool tool;
       return tool.OwnCorrect(anent);
     }
     default:

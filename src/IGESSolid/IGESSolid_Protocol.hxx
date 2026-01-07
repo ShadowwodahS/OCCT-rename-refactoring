@@ -27,7 +27,7 @@ class Interface_Protocol;
 class IGESSolid_Protocol;
 DEFINE_STANDARD_HANDLE(IGESSolid_Protocol, IGESData_Protocol)
 
-//! Description of Protocol for IGESSolid
+//! Description of Protocol for IGESSolid1
 class IGESSolid_Protocol : public IGESData_Protocol
 {
 
@@ -35,7 +35,7 @@ public:
   Standard_EXPORT IGESSolid_Protocol();
 
   //! Gives the count of Resource Protocol. Here, one
-  //! (Protocol from IGESGeom)
+  //! (Protocol from IGESGeom1)
   Standard_EXPORT virtual Standard_Integer NbResources() const Standard_OVERRIDE;
 
   //! Returns a Resource, given a rank.

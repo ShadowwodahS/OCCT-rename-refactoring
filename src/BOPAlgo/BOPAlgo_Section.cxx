@@ -69,7 +69,7 @@ void BOPAlgo_Section::CheckData()
 
 //=================================================================================================
 
-void BOPAlgo_Section::fillPIConstants(const Standard_Real theWhole, BOPAlgo_PISteps& theSteps) const
+void BOPAlgo_Section::fillPIConstants(const Standard_Real theWhole, PISteps& theSteps) const
 {
   // Fill in the constants:
   if (myFillHistory)
@@ -84,10 +84,10 @@ void BOPAlgo_Section::fillPIConstants(const Standard_Real theWhole, BOPAlgo_PISt
 
 //=================================================================================================
 
-void BOPAlgo_Section::fillPISteps(BOPAlgo_PISteps& theSteps) const
+void BOPAlgo_Section::fillPISteps(PISteps& theSteps) const
 {
   // Compute the rest of the operations - all depend on the number of sub-shapes of certain type
-  NbShapes aNbShapes = getNbShapes();
+  NbShapes1 aNbShapes = getNbShapes();
   theSteps.SetStep(PIOperation_TreatVertices, aNbShapes.NbVertices());
   theSteps.SetStep(PIOperation_TreatEdges, aNbShapes.NbEdges());
   theSteps.SetStep(PIOperation_BuildSection, aNbShapes.NbEdges() + aNbShapes.NbFaces());
@@ -95,11 +95,11 @@ void BOPAlgo_Section::fillPISteps(BOPAlgo_PISteps& theSteps) const
 
 //=================================================================================================
 
-void BOPAlgo_Section::PerformInternal1(const BOPAlgo_PaveFiller&    theFiller,
+void BOPAlgo_Section::PerformInternal1(const BooleanPaveFiller&    theFiller,
                                        const Message_ProgressRange& theRange)
 {
   Message_ProgressScope aPS(theRange, "Building result of SECTION operation", 100);
-  myPaveFiller = (BOPAlgo_PaveFiller*)&theFiller;
+  myPaveFiller = (BooleanPaveFiller*)&theFiller;
   myDS         = myPaveFiller->PDS();
   myContext    = myPaveFiller->Context();
   //
@@ -117,7 +117,7 @@ void BOPAlgo_Section::PerformInternal1(const BOPAlgo_PaveFiller&    theFiller,
     return;
   }
   //
-  BOPAlgo_PISteps aSteps(PIOperation_Last);
+  PISteps aSteps(PIOperation_Last);
   analyzeProgress(100., aSteps);
   // 3. Fill Images
   // 3.1 Vertices
@@ -167,12 +167,12 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
   Message_ProgressScope              aPS(theRange, "Building the result of Section operation", 1);
   Standard_Integer                   i, aNbMS, aNbLE;
   Standard_Integer                   j, nE, nV, aNb, aNbF, aNbPBSc;
-  TopoDS_Shape                       aRC, aRC1;
-  BRep_Builder                       aBB;
-  TopExp_Explorer                    aExp;
-  TopTools_ListOfShape               aLSA, aLS;
+  TopoShape                       aRC, aRC1;
+  ShapeBuilder                       aBB;
+  ShapeExplorer                    aExp;
+  ShapeList               aLSA, aLS;
   TopTools_ListIteratorOfListOfShape aIt, aItIm, aItLS;
-  NCollection_IndexedDataMap<TopoDS_Shape, Standard_Integer, TopTools_ShapeMapHasher> aMSI(
+  NCollection_IndexedDataMap<TopoShape, Standard_Integer, ShapeHasher> aMSI(
     100,
     myAllocator);
   TopTools_IndexedMapOfShape          aMS(100, myAllocator);
@@ -182,7 +182,7 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
   //
   GetReport()->Clear();
   //
-  BOPTools_AlgoTools::MakeContainer(TopAbs_COMPOUND, aRC1);
+  AlgoTools::MakeContainer(TopAbs_COMPOUND, aRC1);
   //
   // 1. aRC1
   aNb = myDS->NbSourceShapes();
@@ -206,7 +206,7 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
     for (; aItMI.More(); aItMI.Next())
     {
       nV                     = aItMI.Key();
-      const TopoDS_Shape& aV = myDS->Shape(nV);
+      const TopoShape& aV = myDS->Shape(nV);
       aBB.Add(aRC1, aV);
     }
     //
@@ -222,7 +222,7 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
       }
       if (myDS->IsNewShape(nV) || myDS->HasInterf(nV))
       {
-        const TopoDS_Shape& aV = myDS->Shape(nV);
+        const TopoShape& aV = myDS->Shape(nV);
         aBB.Add(aRC1, aV);
       }
     }
@@ -235,7 +235,7 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
     {
       const Handle(BOPDS_PaveBlock)& aPB = aMPBSc(j);
       nE                                 = aPB->Edge();
-      const TopoDS_Shape& aE             = myDS->Shape(nE);
+      const TopoShape& aE             = myDS->Shape(nE);
       aBB.Add(aRC1, aE);
     }
   }
@@ -260,7 +260,7 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
         {
           const Handle(BOPDS_PaveBlock)& aPBR = aCB->PaveBlock1();
           nE                                  = aPBR->Edge();
-          const TopoDS_Shape& aE              = myDS->Shape(nE);
+          const TopoShape& aE              = myDS->Shape(nE);
           aBB.Add(aRC1, aE);
         }
       }
@@ -270,7 +270,7 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
   aIt.Initialize(myArguments);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aSA = aIt.Value();
+    const TopoShape& aSA = aIt.Value();
     if (aMFence.Add(aSA))
     {
       aLSA.Append(aSA);
@@ -289,7 +289,7 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
     {
       return;
     }
-    const TopoDS_Shape& aSA = aIt.Value();
+    const TopoShape& aSA = aIt.Value();
     //
     aLS.Clear();
     aMS.Clear();
@@ -298,7 +298,7 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
     aExp.Init(aSA, TopAbs_EDGE);
     for (; aExp.More(); aExp.Next())
     {
-      const TopoDS_Shape& aE = aExp.Current();
+      const TopoShape& aE = aExp.Current();
       if (aMFence.Add(aE))
       {
         aLS.Append(aE);
@@ -307,7 +307,7 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
     aExp.Init(aSA, TopAbs_VERTEX);
     for (; aExp.More(); aExp.Next())
     {
-      const TopoDS_Shape& aE = aExp.Current();
+      const TopoShape& aE = aExp.Current();
       if (aMFence.Add(aE))
       {
         aLS.Append(aE);
@@ -318,30 +318,30 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
     aItLS.Initialize(aLS);
     for (; aItLS.More(); aItLS.Next())
     {
-      const TopoDS_Shape& aS = aItLS.Value();
+      const TopoShape& aS = aItLS.Value();
       //
       if (myImages.IsBound(aS))
       {
-        const TopTools_ListOfShape& aLSIm = myImages.Find(aS);
+        const ShapeList& aLSIm = myImages.Find(aS);
         aItIm.Initialize(aLSIm);
         for (; aItIm.More(); aItIm.Next())
         {
-          const TopoDS_Shape& aSIm = aItIm.Value();
-          TopExp::MapShapes(aSIm, TopAbs_VERTEX, aMS);
-          TopExp::MapShapes(aSIm, TopAbs_EDGE, aMS);
+          const TopoShape& aSIm = aItIm.Value();
+          TopExp1::MapShapes(aSIm, TopAbs_VERTEX, aMS);
+          TopExp1::MapShapes(aSIm, TopAbs_EDGE, aMS);
         }
       } // if (myImages.IsBound(aF)){
       else
       {
-        TopExp::MapShapes(aS, TopAbs_VERTEX, aMS);
-        TopExp::MapShapes(aS, TopAbs_EDGE, aMS);
+        TopExp1::MapShapes(aS, TopAbs_VERTEX, aMS);
+        TopExp1::MapShapes(aS, TopAbs_EDGE, aMS);
       }
     } // for (; aItLS.More(); aItLS.Next()) {
     //
     aNbMS = aMS.Extent();
     for (i = 1; i <= aNbMS; ++i)
     {
-      const TopoDS_Shape& aS = aMS(i);
+      const TopoShape& aS = aMS(i);
       if (aMSI.Contains(aS))
       {
         Standard_Integer& iCnt = aMSI.ChangeFromKey(aS);
@@ -360,20 +360,20 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
   // 4. Build the result
   TopTools_IndexedDataMapOfShapeListOfShape aMVE(100, myAllocator);
   //
-  TopExp::MapShapesAndAncestors(aRC1, TopAbs_VERTEX, TopAbs_EDGE, aMVE);
+  TopExp1::MapShapesAndAncestors(aRC1, TopAbs_VERTEX, TopAbs_EDGE, aMVE);
   //
   aNbMS = aMSI.Extent();
   for (i = 1; i <= aNbMS; ++i)
   {
-    const TopoDS_Shape&     aV   = aMSI.FindKey(i);
+    const TopoShape&     aV   = aMSI.FindKey(i);
     const Standard_Integer& iCnt = aMSI.FindFromIndex(i);
     if (iCnt > 1)
     {
-      TopExp::MapShapesAndAncestors(aV, TopAbs_VERTEX, TopAbs_EDGE, aMVE);
+      TopExp1::MapShapesAndAncestors(aV, TopAbs_VERTEX, TopAbs_EDGE, aMVE);
     }
   }
   //
-  BOPTools_AlgoTools::MakeContainer(TopAbs_COMPOUND, aRC);
+  AlgoTools::MakeContainer(TopAbs_COMPOUND, aRC);
   //
   aNbMS = aMVE.Extent();
   for (i = 1; i <= aNbMS; ++i)
@@ -382,8 +382,8 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
     {
       return;
     }
-    const TopoDS_Shape&         aV  = aMVE.FindKey(i);
-    const TopTools_ListOfShape& aLE = aMVE.FindFromIndex(i);
+    const TopoShape&         aV  = aMVE.FindKey(i);
+    const ShapeList& aLE = aMVE.FindFromIndex(i);
     aNbLE                           = aLE.Extent();
     if (!aNbLE)
     {
@@ -399,7 +399,7 @@ void BOPAlgo_Section::BuildSection(const Message_ProgressRange& theRange)
       aIt.Initialize(aLE);
       for (; aIt.More(); aIt.Next())
       {
-        const TopoDS_Shape& aE = aIt.Value();
+        const TopoShape& aE = aIt.Value();
         if (aMFence.Add(aE))
         {
           aBB.Add(aRC, aE);

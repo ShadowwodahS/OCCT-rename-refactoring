@@ -27,7 +27,7 @@ BRepTopAdaptor_Tool::BRepTopAdaptor_Tool()
   myloaded = Standard_False;
 }
 
-BRepTopAdaptor_Tool::BRepTopAdaptor_Tool(const TopoDS_Face& F, const Standard_Real /*Tol2d*/)
+BRepTopAdaptor_Tool::BRepTopAdaptor_Tool(const TopoFace& F, const Standard_Real /*Tol2d*/)
 {
   myTopolTool = new BRepTopAdaptor_TopolTool();
 
@@ -48,7 +48,7 @@ BRepTopAdaptor_Tool::BRepTopAdaptor_Tool(const Handle(Adaptor3d_Surface)& surfac
   myloaded   = Standard_True;
 }
 
-void BRepTopAdaptor_Tool::Init(const TopoDS_Face& F, const Standard_Real /*Tol2d*/)
+void BRepTopAdaptor_Tool::Init(const TopoFace& F, const Standard_Real /*Tol2d*/)
 {
   Handle(BRepAdaptor_Surface) surface = new BRepAdaptor_Surface();
   surface->Initialize(F);

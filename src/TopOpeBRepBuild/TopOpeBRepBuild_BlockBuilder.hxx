@@ -26,17 +26,17 @@
 #include <TColStd_SequenceOfInteger.hxx>
 #include <Standard_Boolean.hxx>
 class TopOpeBRepBuild_ShapeSet;
-class TopOpeBRepBuild_BlockIterator;
-class TopoDS_Shape;
+class TopOpeBRepBuildBlockIterator;
+class TopoShape;
 
-class TopOpeBRepBuild_BlockBuilder
+class BlockBuilder
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepBuild_BlockBuilder();
+  Standard_EXPORT BlockBuilder();
 
-  Standard_EXPORT TopOpeBRepBuild_BlockBuilder(TopOpeBRepBuild_ShapeSet& SS);
+  Standard_EXPORT BlockBuilder(TopOpeBRepBuild_ShapeSet& SS);
 
   Standard_EXPORT void MakeBlock(TopOpeBRepBuild_ShapeSet& SS);
 
@@ -46,22 +46,22 @@ public:
 
   Standard_EXPORT void NextBlock();
 
-  Standard_EXPORT TopOpeBRepBuild_BlockIterator BlockIterator() const;
+  Standard_EXPORT TopOpeBRepBuildBlockIterator BlockIterator() const;
 
   //! Returns the current element of <BI>.
-  Standard_EXPORT const TopoDS_Shape& Element(const TopOpeBRepBuild_BlockIterator& BI) const;
+  Standard_EXPORT const TopoShape& Element(const TopOpeBRepBuildBlockIterator& BI) const;
 
-  Standard_EXPORT const TopoDS_Shape& Element(const Standard_Integer I) const;
+  Standard_EXPORT const TopoShape& Element(const Standard_Integer I) const;
 
-  Standard_EXPORT Standard_Integer Element(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Integer Element(const TopoShape& S) const;
 
-  Standard_EXPORT Standard_Boolean ElementIsValid(const TopOpeBRepBuild_BlockIterator& BI) const;
+  Standard_EXPORT Standard_Boolean ElementIsValid(const TopOpeBRepBuildBlockIterator& BI) const;
 
   Standard_EXPORT Standard_Boolean ElementIsValid(const Standard_Integer I) const;
 
-  Standard_EXPORT Standard_Integer AddElement(const TopoDS_Shape& S);
+  Standard_EXPORT Standard_Integer AddElement(const TopoShape& S);
 
-  Standard_EXPORT void SetValid(const TopOpeBRepBuild_BlockIterator& BI,
+  Standard_EXPORT void SetValid(const TopOpeBRepBuildBlockIterator& BI,
                                 const Standard_Boolean               isvalid);
 
   Standard_EXPORT void SetValid(const Standard_Integer I, const Standard_Boolean isvalid);

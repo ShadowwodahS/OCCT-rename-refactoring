@@ -28,7 +28,7 @@ class gp_Pnt2d;
 class DrawFairCurve_Batten;
 DEFINE_STANDARD_HANDLE(DrawFairCurve_Batten, DrawTrSurf_BSplineCurve2d)
 
-//! Interactive Draw object of type "Batten"
+//! Interactive Draw1 object of type "Batten"
 class DrawFairCurve_Batten : public DrawTrSurf_BSplineCurve2d
 {
 

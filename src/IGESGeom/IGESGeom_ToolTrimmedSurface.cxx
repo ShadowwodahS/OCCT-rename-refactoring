@@ -35,11 +35,11 @@
 // MGE 31/07/98
 //=================================================================================================
 
-IGESGeom_ToolTrimmedSurface::IGESGeom_ToolTrimmedSurface() {}
+TrimmedSurfaceTool::TrimmedSurfaceTool() {}
 
 //=================================================================================================
 
-void IGESGeom_ToolTrimmedSurface::ReadOwnParams(const Handle(IGESGeom_TrimmedSurface)& ent,
+void TrimmedSurfaceTool::ReadOwnParams(const Handle(IGESGeom_TrimmedSurface)& ent,
                                                 const Handle(IGESData_IGESReaderData)& IR,
                                                 IGESData_ParamReader&                  PR) const
 {
@@ -190,7 +190,7 @@ void IGESGeom_ToolTrimmedSurface::ReadOwnParams(const Handle(IGESGeom_TrimmedSur
 
 //=================================================================================================
 
-void IGESGeom_ToolTrimmedSurface::WriteOwnParams(const Handle(IGESGeom_TrimmedSurface)& ent,
+void TrimmedSurfaceTool::WriteOwnParams(const Handle(IGESGeom_TrimmedSurface)& ent,
                                                  IGESData_IGESWriter&                   IW) const
 {
   Standard_Integer up = ent->NbInnerContours();
@@ -209,7 +209,7 @@ void IGESGeom_ToolTrimmedSurface::WriteOwnParams(const Handle(IGESGeom_TrimmedSu
 
 //=================================================================================================
 
-void IGESGeom_ToolTrimmedSurface::OwnShared(const Handle(IGESGeom_TrimmedSurface)& ent,
+void TrimmedSurfaceTool::OwnShared(const Handle(IGESGeom_TrimmedSurface)& ent,
                                             Interface_EntityIterator&              iter) const
 {
   Standard_Integer up = ent->NbInnerContours();
@@ -222,7 +222,7 @@ void IGESGeom_ToolTrimmedSurface::OwnShared(const Handle(IGESGeom_TrimmedSurface
 
 //=================================================================================================
 
-void IGESGeom_ToolTrimmedSurface::OwnCopy(const Handle(IGESGeom_TrimmedSurface)& another,
+void TrimmedSurfaceTool::OwnCopy(const Handle(IGESGeom_TrimmedSurface)& another,
                                           const Handle(IGESGeom_TrimmedSurface)& ent,
                                           Interface_CopyTool&                    TC) const
 {
@@ -249,10 +249,10 @@ void IGESGeom_ToolTrimmedSurface::OwnCopy(const Handle(IGESGeom_TrimmedSurface)&
 
 //=================================================================================================
 
-IGESData_DirChecker IGESGeom_ToolTrimmedSurface::DirChecker(
+DirectoryChecker TrimmedSurfaceTool::DirChecker(
   const Handle(IGESGeom_TrimmedSurface)& /* ent */) const
 {
-  IGESData_DirChecker DC(144, 0);
+  DirectoryChecker DC(144, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   //  DC.LineWeight(IGESData_DefValue);
@@ -265,7 +265,7 @@ IGESData_DirChecker IGESGeom_ToolTrimmedSurface::DirChecker(
 
 //=================================================================================================
 
-void IGESGeom_ToolTrimmedSurface::OwnCheck(const Handle(IGESGeom_TrimmedSurface)& ent,
+void TrimmedSurfaceTool::OwnCheck(const Handle(IGESGeom_TrimmedSurface)& ent,
                                            const Interface_ShareTool&,
                                            Handle(Interface_Check)& ach) const
 {
@@ -284,7 +284,7 @@ void IGESGeom_ToolTrimmedSurface::OwnCheck(const Handle(IGESGeom_TrimmedSurface)
 
 //=================================================================================================
 
-void IGESGeom_ToolTrimmedSurface::OwnDump(const Handle(IGESGeom_TrimmedSurface)& ent,
+void TrimmedSurfaceTool::OwnDump(const Handle(IGESGeom_TrimmedSurface)& ent,
                                           const IGESData_IGESDumper&             dumper,
                                           Standard_OStream&                      S,
                                           const Standard_Integer                 level) const

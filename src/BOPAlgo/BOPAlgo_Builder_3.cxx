@@ -53,7 +53,7 @@
 
 #include <algorithm>
 
-static void OwnInternalShapes(const TopoDS_Shape&, TopTools_IndexedMapOfShape&);
+static void OwnInternalShapes(const TopoShape&, TopTools_IndexedMapOfShape&);
 
 //=================================================================================================
 
@@ -110,7 +110,7 @@ void BOPAlgo_Builder::FillIn3DParts(TopTools_DataMapOfShapeShape& theDraftSolids
   TopTools_MapOfShape aMFence(1, anAlloc);
 
   // Get all faces
-  TopTools_ListOfShape aLFaces(anAlloc);
+  ShapeList aLFaces(anAlloc);
 
   Standard_Integer i, aNbS = myDS->NbSourceShapes();
   for (i = 0; i < aNbS; ++i)
@@ -124,15 +124,15 @@ void BOPAlgo_Builder::FillIn3DParts(TopTools_DataMapOfShapeShape& theDraftSolids
       return;
     }
 
-    const TopoDS_Shape&         aS    = aSI.Shape();
-    const TopTools_ListOfShape* pLSIm = myImages.Seek(aS);
+    const TopoShape&         aS    = aSI.Shape();
+    const ShapeList* pLSIm = myImages.Seek(aS);
 
     if (pLSIm)
     {
       TopTools_ListIteratorOfListOfShape aItLSIm(*pLSIm);
       for (; aItLSIm.More(); aItLSIm.Next())
       {
-        const TopoDS_Shape& aSIm = aItLSIm.Value();
+        const TopoShape& aSIm = aItLSIm.Value();
         if (aMFence.Add(aSIm))
           aLFaces.Append(aSIm);
       }
@@ -144,10 +144,10 @@ void BOPAlgo_Builder::FillIn3DParts(TopTools_DataMapOfShapeShape& theDraftSolids
     }
   }
 
-  BRep_Builder aBB;
+  ShapeBuilder aBB;
 
   // Get all solids
-  TopTools_ListOfShape aLSolids(anAlloc);
+  ShapeList aLSolids(anAlloc);
   // Keep INTERNAL faces of the solids
   TopTools_DataMapOfShapeListOfShape aSolidsIF(1, anAlloc);
   // Draft solids
@@ -164,8 +164,8 @@ void BOPAlgo_Builder::FillIn3DParts(TopTools_DataMapOfShapeShape& theDraftSolids
     {
       return;
     }
-    const TopoDS_Shape& aS     = aSI.Shape();
-    const TopoDS_Solid& aSolid = (*(TopoDS_Solid*)(&aS));
+    const TopoShape& aS     = aSI.Shape();
+    const TopoSolid& aSolid = (*(TopoSolid*)(&aS));
     //
     // Bounding box for the solid aS
     Bnd_Box& aBoxS = aSI.ChangeBox();
@@ -173,8 +173,8 @@ void BOPAlgo_Builder::FillIn3DParts(TopTools_DataMapOfShapeShape& theDraftSolids
       myDS->BuildBndBoxSolid(i, aBoxS, myCheckInverted);
 
     // Build Draft Solid
-    TopTools_ListOfShape aLIF;
-    TopoDS_Solid         aSD;
+    ShapeList aLIF;
+    TopoSolid         aSD;
     aBB.MakeSolid(aSD);
     BuildDraftSolid(aSolid, aSD, aLIF);
 
@@ -187,7 +187,7 @@ void BOPAlgo_Builder::FillIn3DParts(TopTools_DataMapOfShapeShape& theDraftSolids
   // Perform classification of the faces
   TopTools_IndexedDataMapOfShapeListOfShape anInParts;
 
-  BOPAlgo_Tools::ClassifyFaces(aLFaces,
+  BooleanTools::ClassifyFaces(aLFaces,
                                aLSolids,
                                myRunParallel,
                                myContext,
@@ -204,10 +204,10 @@ void BOPAlgo_Builder::FillIn3DParts(TopTools_DataMapOfShapeShape& theDraftSolids
     {
       return;
     }
-    const TopoDS_Solid&         aSolid     = TopoDS::Solid(aDraftSolid.FindKey(i));
-    const TopoDS_Solid&         aSDraft    = TopoDS::Solid(aDraftSolid(i));
-    const TopTools_ListOfShape& aLInFaces  = anInParts.FindFromKey(aSDraft);
-    const TopTools_ListOfShape& aLInternal = aSolidsIF.Find(aSDraft);
+    const TopoSolid&         aSolid     = TopoDS::Solid(aDraftSolid.FindKey(i));
+    const TopoSolid&         aSDraft    = TopoDS::Solid(aDraftSolid(i));
+    const ShapeList& aLInFaces  = anInParts.FindFromKey(aSDraft);
+    const ShapeList& aLInternal = aSolidsIF.Find(aSDraft);
 
     Standard_Integer aNbIN = aLInFaces.Extent();
 
@@ -229,7 +229,7 @@ void BOPAlgo_Builder::FillIn3DParts(TopTools_DataMapOfShapeShape& theDraftSolids
     if (aNbInt || aNbIN)
     {
       // Combine the lists
-      TopTools_ListOfShape* pLIN = myInParts.Bound(aSolid, TopTools_ListOfShape());
+      ShapeList* pLIN = myInParts.Bound(aSolid, ShapeList());
 
       TopTools_ListIteratorOfListOfShape aItLS(aLInFaces);
       for (; aItLS.More(); aItLS.Next())
@@ -244,17 +244,17 @@ void BOPAlgo_Builder::FillIn3DParts(TopTools_DataMapOfShapeShape& theDraftSolids
 
 //=================================================================================================
 
-void BOPAlgo_Builder::BuildDraftSolid(const TopoDS_Shape&   theSolid,
-                                      TopoDS_Shape&         theDraftSolid,
-                                      TopTools_ListOfShape& theLIF)
+void BOPAlgo_Builder::BuildDraftSolid(const TopoShape&   theSolid,
+                                      TopoShape&         theDraftSolid,
+                                      ShapeList& theLIF)
 {
   Standard_Boolean                   bToReverse;
   Standard_Integer                   iFlag;
   TopAbs_Orientation                 aOrF, aOrSh, aOrSd;
   TopoDS_Iterator                    aIt1, aIt2;
-  TopoDS_Shell                       aShD;
-  TopoDS_Shape                       aFx;
-  BRep_Builder                       aBB;
+  TopoShell                       aShD;
+  TopoShape                       aFx;
+  ShapeBuilder                       aBB;
   TopTools_ListIteratorOfListOfShape aItS;
   //
   aOrSd = theSolid.Orientation();
@@ -263,7 +263,7 @@ void BOPAlgo_Builder::BuildDraftSolid(const TopoDS_Shape&   theSolid,
   aIt1.Initialize(theSolid);
   for (; aIt1.More(); aIt1.Next())
   {
-    const TopoDS_Shape& aSh = aIt1.Value();
+    const TopoShape& aSh = aIt1.Value();
     if (aSh.ShapeType() != TopAbs_SHELL)
     {
       continue; // mb internal edges,vertices
@@ -277,12 +277,12 @@ void BOPAlgo_Builder::BuildDraftSolid(const TopoDS_Shape&   theSolid,
     aIt2.Initialize(aSh);
     for (; aIt2.More(); aIt2.Next())
     {
-      const TopoDS_Shape& aF = aIt2.Value();
+      const TopoShape& aF = aIt2.Value();
       aOrF                   = aF.Orientation();
       //
       if (myImages.IsBound(aF))
       {
-        const TopTools_ListOfShape& aLSp = myImages.Find(aF);
+        const ShapeList& aLSp = myImages.Find(aF);
         aItS.Initialize(aLSp);
         for (; aItS.More(); aItS.Next())
         {
@@ -299,7 +299,7 @@ void BOPAlgo_Builder::BuildDraftSolid(const TopoDS_Shape&   theSolid,
             else
             {
               bToReverse =
-                BOPTools_AlgoTools::IsSplitToReverseWithWarn(aFx, aF, myContext, myReport);
+                AlgoTools::IsSplitToReverseWithWarn(aFx, aF, myContext, myReport);
               if (bToReverse)
               {
                 aFx.Reverse();
@@ -341,7 +341,7 @@ void BOPAlgo_Builder::BuildDraftSolid(const TopoDS_Shape&   theSolid,
     //
     if (iFlag)
     {
-      aShD.Closed(BRep_Tool::IsClosed(aShD));
+      aShD.Closed(BRepInspector::IsClosed(aShD));
       aBB.Add(theDraftSolid, aShD);
     }
   } // for (; aIt1.More(); aIt1.Next()) {
@@ -357,10 +357,10 @@ class BOPAlgo_SplitSolid : public BOPAlgo_BuilderSolid
 {
 public:
   //! Sets the solid
-  void SetSolid(const TopoDS_Solid& theSolid) { mySolid = theSolid; }
+  void SetSolid(const TopoSolid& theSolid) { mySolid = theSolid; }
 
   //! Returns the solid
-  const TopoDS_Solid& Solid() const { return mySolid; }
+  const TopoSolid& Solid() const { return mySolid; }
 
   //! Sets progress range
   void SetProgressRange(const Message_ProgressRange& theRange) { myRange = theRange; }
@@ -381,7 +381,7 @@ private:
   virtual void Perform(const Message_ProgressRange& /* theRange*/) {}
 
 private:
-  TopoDS_Solid          mySolid; //!< Solid to split
+  TopoSolid          mySolid; //!< Solid to split
   Message_ProgressRange myRange;
 };
 
@@ -395,13 +395,13 @@ void BOPAlgo_Builder::BuildSplitSolids(TopTools_DataMapOfShapeShape& theDraftSol
 {
   Standard_Boolean                   bFlagSD;
   Standard_Integer                   i, aNbS;
-  TopExp_Explorer                    aExp;
+  ShapeExplorer                    aExp;
   TopTools_ListIteratorOfListOfShape aIt;
   //
   Handle(NCollection_BaseAllocator) aAlr0;
   aAlr0 = NCollection_BaseAllocator::CommonBaseAllocator();
   //
-  TopTools_ListOfShape         aSFS(aAlr0), aLSEmpty(aAlr0);
+  ShapeList         aSFS(aAlr0), aLSEmpty(aAlr0);
   TopTools_MapOfShape          aMFence(100, aAlr0);
   BOPTools_MapOfSet            aMST(100, aAlr0);
   BOPAlgo_VectorOfBuilderSolid aVBS;
@@ -422,7 +422,7 @@ void BOPAlgo_Builder::BuildSplitSolids(TopTools_DataMapOfShapeShape& theDraftSol
       return;
     }
     //
-    const TopoDS_Shape& aS = aSI.Shape();
+    const TopoShape& aS = aSI.Shape();
     if (!aMFence.Add(aS))
     {
       continue;
@@ -449,16 +449,16 @@ void BOPAlgo_Builder::BuildSplitSolids(TopTools_DataMapOfShapeShape& theDraftSol
     if (aSI.ShapeType() != TopAbs_SOLID)
       continue;
 
-    const TopoDS_Shape& aS     = aSI.Shape();
-    const TopoDS_Solid& aSolid = (*(TopoDS_Solid*)(&aS));
+    const TopoShape& aS     = aSI.Shape();
+    const TopoSolid& aSolid = (*(TopoSolid*)(&aS));
     if (!theDraftSolids.IsBound(aS))
       continue;
 
-    const TopoDS_Shape&         aSD   = theDraftSolids.Find(aS);
-    const TopTools_ListOfShape* pLFIN = myInParts.Seek(aS);
+    const TopoShape&         aSD   = theDraftSolids.Find(aS);
+    const ShapeList* pLFIN = myInParts.Seek(aS);
     if (!pLFIN || pLFIN->IsEmpty())
     {
-      aSolidsIm(aSolidsIm.Add(aS, TopTools_ListOfShape())).Append(aSD);
+      aSolidsIm(aSolidsIm.Add(aS, ShapeList())).Append(aSD);
       continue;
     }
 
@@ -468,7 +468,7 @@ void BOPAlgo_Builder::BuildSplitSolids(TopTools_DataMapOfShapeShape& theDraftSol
     aExp.Init(aSD, TopAbs_FACE);
     for (; aExp.More(); aExp.Next())
     {
-      const TopoDS_Shape& aF = aExp.Current();
+      const TopoShape& aF = aExp.Current();
       aSFS.Append(aF);
     }
     //
@@ -476,7 +476,7 @@ void BOPAlgo_Builder::BuildSplitSolids(TopTools_DataMapOfShapeShape& theDraftSol
     aIt.Initialize(*pLFIN);
     for (; aIt.More(); aIt.Next())
     {
-      TopoDS_Shape aF = aIt.Value();
+      TopoShape aF = aIt.Value();
       //
       aF.Orientation(TopAbs_FORWARD);
       aSFS.Append(aF);
@@ -503,7 +503,7 @@ void BOPAlgo_Builder::BuildSplitSolids(TopTools_DataMapOfShapeShape& theDraftSol
   }
   //
   //===================================================
-  BOPTools_Parallel::Perform(myRunParallel, aVBS);
+  BooleanParallelTools::Perform(myRunParallel, aVBS);
   //===================================================
   if (UserBreak(aPSOuter))
   {
@@ -532,10 +532,10 @@ void BOPAlgo_Builder::BuildSplitSolids(TopTools_DataMapOfShapeShape& theDraftSol
           Handle(TopoDS_AlertWithShape)::DownCast(itA.Value());
         if (!anAlertWithShape.IsNull())
         {
-          TopoDS_Shape aWarnShape;
-          BRep_Builder().MakeCompound(TopoDS::Compound(aWarnShape));
-          BRep_Builder().Add(aWarnShape, aBS.Solid());
-          BRep_Builder().Add(aWarnShape, anAlertWithShape->GetShape());
+          TopoShape aWarnShape;
+          ShapeBuilder().MakeCompound(TopoDS::Compound(aWarnShape));
+          ShapeBuilder().Add(aWarnShape, aBS.Solid());
+          ShapeBuilder().Add(aWarnShape, anAlertWithShape->GetShape());
 
           anAlertWithShape->SetShape(aWarnShape);
           AddWarning(anAlertWithShape);
@@ -550,31 +550,31 @@ void BOPAlgo_Builder::BuildSplitSolids(TopTools_DataMapOfShapeShape& theDraftSol
   aNbBS = aSolidsIm.Extent();
   for (k = 1; k <= aNbBS; ++k)
   {
-    const TopoDS_Shape&         aS   = aSolidsIm.FindKey(k);
-    const TopTools_ListOfShape& aLSR = aSolidsIm(k);
+    const TopoShape&         aS   = aSolidsIm.FindKey(k);
+    const ShapeList& aLSR = aSolidsIm(k);
     //
     if (!myImages.IsBound(aS))
     {
-      TopTools_ListOfShape* pLSx = myImages.Bound(aS, TopTools_ListOfShape());
+      ShapeList* pLSx = myImages.Bound(aS, ShapeList());
       //
       aIt.Initialize(aLSR);
       for (; aIt.More(); aIt.Next())
       {
         BOPTools_Set aST;
         //
-        const TopoDS_Shape& aSR = aIt.Value();
+        const TopoShape& aSR = aIt.Value();
         aST.Add(aSR, TopAbs_FACE);
         //
         bFlagSD = aMST.Contains(aST);
         //
         const BOPTools_Set& aSTx = aMST.Added(aST);
-        const TopoDS_Shape& aSx  = aSTx.Shape();
+        const TopoShape& aSx  = aSTx.Shape();
         pLSx->Append(aSx);
         //
-        TopTools_ListOfShape* pLOr = myOrigins.ChangeSeek(aSx);
+        ShapeList* pLOr = myOrigins.ChangeSeek(aSx);
         if (!pLOr)
         {
-          pLOr = myOrigins.Bound(aSx, TopTools_ListOfShape());
+          pLOr = myOrigins.Bound(aSx, ShapeList());
         }
         pLOr->Append(aS);
         //
@@ -595,7 +595,7 @@ void BOPAlgo_Builder::FillInternalShapes(const Message_ProgressRange& theRange)
   TopAbs_ShapeEnum                   aType;
   TopAbs_State                       aState;
   TopoDS_Iterator                    aItS;
-  BRep_Builder                       aBB;
+  ShapeBuilder                       aBB;
   TopTools_ListIteratorOfListOfShape aIt, aIt1;
   //
   Handle(NCollection_BaseAllocator) aAllocator;
@@ -607,10 +607,10 @@ void BOPAlgo_Builder::FillInternalShapes(const Message_ProgressRange& theRange)
   TopTools_IndexedMapOfShape                aMSI(100, aAllocator);
   TopTools_MapOfShape                       aMFence(100, aAllocator);
   TopTools_MapOfShape                       aMSOr(100, aAllocator);
-  TopTools_ListOfShape                      aLSd(aAllocator);
-  TopTools_ListOfShape                      aLArgs(aAllocator);
-  TopTools_ListOfShape                      aLSC(aAllocator);
-  TopTools_ListOfShape                      aLSI(aAllocator);
+  ShapeList                      aLSd(aAllocator);
+  ShapeList                      aLArgs(aAllocator);
+  ShapeList                      aLSC(aAllocator);
+  ShapeList                      aLSI(aAllocator);
 
   Message_ProgressScope aPS(theRange, NULL, 10);
   //
@@ -619,24 +619,24 @@ void BOPAlgo_Builder::FillInternalShapes(const Message_ProgressRange& theRange)
   // 1.1 Shapes from pure arguments aMSI
   // 1.1.1 vertex, edge, wire
   //
-  const TopTools_ListOfShape& aArguments = myDS->Arguments();
+  const ShapeList& aArguments = myDS->Arguments();
   aIt.Initialize(aArguments);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aS = aIt.Value();
-    BOPTools_AlgoTools::TreatCompound(aS, aLSC, &aMFence);
+    const TopoShape& aS = aIt.Value();
+    AlgoTools::TreatCompound(aS, aLSC, &aMFence);
   }
   aIt.Initialize(aLSC);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aS = aIt.Value();
+    const TopoShape& aS = aIt.Value();
     aType                  = aS.ShapeType();
     if (aType == TopAbs_WIRE)
     {
       aItS.Initialize(aS);
       for (; aItS.More(); aItS.Next())
       {
-        const TopoDS_Shape& aE = aItS.Value();
+        const TopoShape& aE = aItS.Value();
         if (aMFence.Add(aE))
         {
           aLArgs.Append(aE);
@@ -653,7 +653,7 @@ void BOPAlgo_Builder::FillInternalShapes(const Message_ProgressRange& theRange)
   aIt.Initialize(aLArgs);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aS = aIt.Value();
+    const TopoShape& aS = aIt.Value();
     aType                  = aS.ShapeType();
     if (aType == TopAbs_VERTEX || aType == TopAbs_EDGE || aType == TopAbs_WIRE)
     {
@@ -661,11 +661,11 @@ void BOPAlgo_Builder::FillInternalShapes(const Message_ProgressRange& theRange)
       {
         if (myImages.IsBound(aS))
         {
-          const TopTools_ListOfShape& aLSp = myImages.Find(aS);
+          const ShapeList& aLSp = myImages.Find(aS);
           aIt1.Initialize(aLSp);
           for (; aIt1.More(); aIt1.Next())
           {
-            const TopoDS_Shape& aSp = aIt1.Value();
+            const TopoShape& aSp = aIt1.Value();
             aMSI.Add(aSp);
           }
         }
@@ -701,7 +701,7 @@ void BOPAlgo_Builder::FillInternalShapes(const Message_ProgressRange& theRange)
       return;
     }
     //
-    const TopoDS_Shape& aS = aSI.Shape();
+    const TopoShape& aS = aSI.Shape();
     //
     aMx.Clear();
     OwnInternalShapes(aS, aMx);
@@ -709,14 +709,14 @@ void BOPAlgo_Builder::FillInternalShapes(const Message_ProgressRange& theRange)
     aNbSx = aMx.Extent();
     for (j = 1; j <= aNbSx; ++j)
     {
-      const TopoDS_Shape& aSi = aMx(j);
+      const TopoShape& aSi = aMx(j);
       if (myImages.IsBound(aSi))
       {
-        const TopTools_ListOfShape& aLSp = myImages.Find(aSi);
+        const ShapeList& aLSp = myImages.Find(aSi);
         aIt1.Initialize(aLSp);
         for (; aIt1.More(); aIt1.Next())
         {
-          const TopoDS_Shape& aSp = aIt1.Value();
+          const TopoShape& aSp = aIt1.Value();
           aMSI.Add(aSp);
         }
       }
@@ -729,16 +729,16 @@ void BOPAlgo_Builder::FillInternalShapes(const Message_ProgressRange& theRange)
     // build aux map from splits of solids
     if (myImages.IsBound(aS))
     {
-      const TopTools_ListOfShape& aLSp = myImages.Find(aS);
+      const ShapeList& aLSp = myImages.Find(aS);
       aIt.Initialize(aLSp);
       for (; aIt.More(); aIt.Next())
       {
-        const TopoDS_Shape& aSp = aIt.Value();
+        const TopoShape& aSp = aIt.Value();
         if (aMFence.Add(aSp))
         {
-          TopExp::MapShapesAndAncestors(aSp, TopAbs_VERTEX, TopAbs_EDGE, aMSx);
-          TopExp::MapShapesAndAncestors(aSp, TopAbs_VERTEX, TopAbs_FACE, aMSx);
-          TopExp::MapShapesAndAncestors(aSp, TopAbs_EDGE, TopAbs_FACE, aMSx);
+          TopExp1::MapShapesAndAncestors(aSp, TopAbs_VERTEX, TopAbs_EDGE, aMSx);
+          TopExp1::MapShapesAndAncestors(aSp, TopAbs_VERTEX, TopAbs_FACE, aMSx);
+          TopExp1::MapShapesAndAncestors(aSp, TopAbs_EDGE, TopAbs_FACE, aMSx);
           aLSd.Append(aSp);
         }
       }
@@ -747,9 +747,9 @@ void BOPAlgo_Builder::FillInternalShapes(const Message_ProgressRange& theRange)
     {
       if (aMFence.Add(aS))
       {
-        TopExp::MapShapesAndAncestors(aS, TopAbs_VERTEX, TopAbs_EDGE, aMSx);
-        TopExp::MapShapesAndAncestors(aS, TopAbs_VERTEX, TopAbs_FACE, aMSx);
-        TopExp::MapShapesAndAncestors(aS, TopAbs_EDGE, TopAbs_FACE, aMSx);
+        TopExp1::MapShapesAndAncestors(aS, TopAbs_VERTEX, TopAbs_EDGE, aMSx);
+        TopExp1::MapShapesAndAncestors(aS, TopAbs_VERTEX, TopAbs_FACE, aMSx);
+        TopExp1::MapShapesAndAncestors(aS, TopAbs_EDGE, TopAbs_FACE, aMSx);
         aLSd.Append(aS);
         aMSOr.Add(aS);
       }
@@ -761,10 +761,10 @@ void BOPAlgo_Builder::FillInternalShapes(const Message_ProgressRange& theRange)
   aNbSI = aMSI.Extent();
   for (i = 1; i <= aNbSI; ++i)
   {
-    const TopoDS_Shape& aSI = aMSI(i);
+    const TopoShape& aSI = aMSI(i);
     if (aMSx.Contains(aSI))
     {
-      const TopTools_ListOfShape& aLSx = aMSx.FindFromKey(aSI);
+      const ShapeList& aLSx = aMSx.FindFromKey(aSI);
       aNbSx                            = aLSx.Extent();
       if (!aNbSx)
       {
@@ -794,15 +794,15 @@ void BOPAlgo_Builder::FillInternalShapes(const Message_ProgressRange& theRange)
   aIt.Initialize(aLSd);
   for (; aIt.More(); aIt.Next(), aPSLoop.Next())
   {
-    TopoDS_Solid aSd = TopoDS::Solid(aIt.Value());
+    TopoSolid aSd = TopoDS::Solid(aIt.Value());
     //
     aIt1.Initialize(aLSI);
     for (; aIt1.More();)
     {
-      TopoDS_Shape aSI = aIt1.Value();
+      TopoShape aSI = aIt1.Value();
       aSI.Orientation(TopAbs_INTERNAL);
       //
-      aState = BOPTools_AlgoTools::ComputeStateByOnePoint(aSI, aSd, 1.e-11, myContext);
+      aState = AlgoTools::ComputeStateByOnePoint(aSI, aSd, 1.e-11, myContext);
       //
       if (aState != TopAbs_IN)
       {
@@ -813,23 +813,23 @@ void BOPAlgo_Builder::FillInternalShapes(const Message_ProgressRange& theRange)
       if (aMSOr.Contains(aSd))
       {
         // make new solid
-        TopoDS_Solid aSdx;
+        TopoSolid aSdx;
         //
         aBB.MakeSolid(aSdx);
         aItS.Initialize(aSd);
         for (; aItS.More(); aItS.Next())
         {
-          const TopoDS_Shape& aSh = aItS.Value();
+          const TopoShape& aSh = aItS.Value();
           aBB.Add(aSdx, aSh);
         }
         //
         aBB.Add(aSdx, aSI);
         //
         // no need to check for images of aSd as aMSOr contains only original solids
-        TopTools_ListOfShape* pLS = myImages.Bound(aSd, TopTools_ListOfShape());
+        ShapeList* pLS = myImages.Bound(aSd, ShapeList());
         pLS->Append(aSdx);
         //
-        TopTools_ListOfShape* pLOr = myOrigins.Bound(aSdx, TopTools_ListOfShape());
+        ShapeList* pLOr = myOrigins.Bound(aSdx, ShapeList());
         pLOr->Append(aSd);
         //
         aMSOr.Remove(aSd);
@@ -856,14 +856,14 @@ void BOPAlgo_Builder::FillInternalShapes(const Message_ProgressRange& theRange)
 
 //=================================================================================================
 
-void OwnInternalShapes(const TopoDS_Shape& theS, TopTools_IndexedMapOfShape& theMx)
+void OwnInternalShapes(const TopoShape& theS, TopTools_IndexedMapOfShape& theMx)
 {
   TopoDS_Iterator aIt;
   //
   aIt.Initialize(theS);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aSx = aIt.Value();
+    const TopoShape& aSx = aIt.Value();
     if (aSx.ShapeType() != TopAbs_SHELL)
     {
       theMx.Add(aSx);

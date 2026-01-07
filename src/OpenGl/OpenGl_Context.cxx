@@ -91,18 +91,18 @@ static const OpenGl_Mat4             THE_IDENTITY_MATRIX;
 
 //! Add key-value pair to the dictionary.
 static void addInfo(TColStd_IndexedDataMapOfStringString& theDict,
-                    const TCollection_AsciiString&        theKey,
-                    const TCollection_AsciiString&        theValue)
+                    const AsciiString1&        theKey,
+                    const AsciiString1&        theValue)
 {
   theDict.ChangeFromIndex(theDict.Add(theKey, theValue)) = theValue;
 }
 
 //! Add key-value pair to the dictionary.
 static void addInfo(TColStd_IndexedDataMapOfStringString& theDict,
-                    const TCollection_AsciiString&        theKey,
+                    const AsciiString1&        theKey,
                     const char*                           theValue)
 {
-  TCollection_AsciiString aValue(theValue != NULL ? theValue : "");
+  AsciiString1 aValue(theValue != NULL ? theValue : "");
   theDict.ChangeFromIndex(theDict.Add(theKey, aValue)) = aValue;
 }
 } // namespace
@@ -330,7 +330,7 @@ OpenGl_Context::~OpenGl_Context()
   if (mySharedResources->GetRefCount() <= 1)
   {
     myShaderManager.Nullify();
-    for (NCollection_DataMap<TCollection_AsciiString, Handle(OpenGl_Resource)>::Iterator anIter(
+    for (NCollection_DataMap<AsciiString1, Handle(OpenGl_Resource)>::Iterator anIter(
            *mySharedResources);
          anIter.More();
          anIter.Next())
@@ -373,7 +373,7 @@ OpenGl_Context::~OpenGl_Context()
 void OpenGl_Context::forcedRelease()
 {
   ReleaseDelayed();
-  for (NCollection_DataMap<TCollection_AsciiString, Handle(OpenGl_Resource)>::Iterator anIter(
+  for (NCollection_DataMap<AsciiString1, Handle(OpenGl_Resource)>::Iterator anIter(
          *mySharedResources);
        anIter.More();
        anIter.Next())
@@ -706,7 +706,7 @@ Standard_Boolean OpenGl_Context::MakeCurrent()
                    (wchar_t*)&aMsgBuff,
                    0,
                    NULL);
-    TCollection_ExtendedString aMsg("wglMakeCurrent() has failed. ");
+    UtfString aMsg("wglMakeCurrent() has failed. ");
     if (aMsgBuff != NULL)
     {
       aMsg += (Standard_ExtString)aMsgBuff;
@@ -990,7 +990,7 @@ Standard_Boolean OpenGl_Context::Init(const Aspect_Drawable         theSurface,
 
 //=================================================================================================
 
-TCollection_AsciiString OpenGl_Context::FormatGlEnumHex(int theGlEnum)
+AsciiString1 OpenGl_Context::FormatGlEnumHex(int theGlEnum)
 {
   char aBuff[16];
   Sprintf(aBuff,
@@ -1001,7 +1001,7 @@ TCollection_AsciiString OpenGl_Context::FormatGlEnumHex(int theGlEnum)
 
 //=================================================================================================
 
-TCollection_AsciiString OpenGl_Context::FormatSize(Standard_Size theSize)
+AsciiString1 OpenGl_Context::FormatSize(Standard_Size theSize)
 {
   char aBuff[32];
   Sprintf(aBuff, "%" PRIu64, (uint64_t)theSize);
@@ -1010,7 +1010,7 @@ TCollection_AsciiString OpenGl_Context::FormatSize(Standard_Size theSize)
 
 //=================================================================================================
 
-TCollection_AsciiString OpenGl_Context::FormatPointer(const void* thePtr)
+AsciiString1 OpenGl_Context::FormatPointer(const void* thePtr)
 {
   char aBuff[32];
   Sprintf(aBuff, "0x%" PRIXPTR, (uintptr_t)thePtr);
@@ -1019,7 +1019,7 @@ TCollection_AsciiString OpenGl_Context::FormatPointer(const void* thePtr)
 
 //=================================================================================================
 
-TCollection_AsciiString OpenGl_Context::FormatGlError(int theGlError)
+AsciiString1 OpenGl_Context::FormatGlError(int theGlError)
 {
   switch (theGlError)
   {
@@ -1061,8 +1061,8 @@ bool OpenGl_Context::ResetErrors(const bool theToPrintErrors)
   for (; anErr != GL_NO_ERROR && aPrevErr != anErr;
        aPrevErr = anErr, anErr = core11fwd->glGetError())
   {
-    const TCollection_ExtendedString aMsg =
-      TCollection_ExtendedString("Unhandled GL error: ") + FormatGlError(anErr);
+    const UtfString aMsg =
+      UtfString("Unhandled GL error: ") + FormatGlError(anErr);
     PushMessage(GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_OTHER, 0, GL_DEBUG_SEVERITY_LOW, aMsg);
   }
   return hasError;
@@ -1117,7 +1117,7 @@ void OpenGl_Context::PushMessage(const unsigned int                theSource,
                                  const unsigned int                theType,
                                  const unsigned int                theId,
                                  const unsigned int                theSeverity,
-                                 const TCollection_ExtendedString& theMessage)
+                                 const UtfString& theMessage)
 {
   if (caps->suppressExtraMsg && theSource >= GL_DEBUG_SOURCE_API
       && theSource <= GL_DEBUG_SOURCE_OTHER
@@ -1141,7 +1141,7 @@ void OpenGl_Context::PushMessage(const unsigned int                theSource,
       ? Message_Alarm
       : (theSeverity == GL_DEBUG_SEVERITY_MEDIUM ? Message_Warning : Message_Info);
 
-  TCollection_ExtendedString aMsg;
+  UtfString aMsg;
   aMsg += "TKOpenGl";
   aMsg += aSrc;
   aMsg += " | Type: ";
@@ -1188,7 +1188,7 @@ void OpenGl_Context::checkWrongVersion(Standard_Integer theGlVerMajor,
               GL_DEBUG_TYPE_ERROR,
               0,
               GL_DEBUG_SEVERITY_HIGH,
-              TCollection_AsciiString() + "Error! OpenGL context reports version " + myGlVerMajor
+              AsciiString1() + "Error! OpenGL context reports version " + myGlVerMajor
                 + "." + myGlVerMinor + " but does not export required functions for "
                 + theGlVerMajor + "." + theGlVerMinor + " ("
                 + (theLastFailedProc != NULL ? theLastFailedProc : "") + ")\n"
@@ -1292,7 +1292,7 @@ void OpenGl_Context::init(const Standard_Boolean theIsCoreProfile)
                   GL_DEBUG_TYPE_PORTABILITY,
                   0,
                   GL_DEBUG_SEVERITY_MEDIUM,
-                  TCollection_AsciiString("OpenGL version ") + aCtxVer[0] + "." + aCtxVer[1]
+                  AsciiString1("OpenGL version ") + aCtxVer[0] + "." + aCtxVer[1]
                     + " has been lowered to " + myGlVerMajor + "." + myGlVerMinor);
     }
   }
@@ -1302,8 +1302,8 @@ void OpenGl_Context::init(const Standard_Boolean theIsCoreProfile)
   if (!caps->ffpEnable && !IsGlGreaterEqual(2, 0))
   {
     caps->ffpEnable = true;
-    TCollection_ExtendedString aMsg =
-      TCollection_ExtendedString("OpenGL driver is too old! Context info:\n")
+    UtfString aMsg =
+      UtfString("OpenGL driver is too old! Context info:\n")
       + "    Vendor:   " + (const char*)core11fwd->glGetString(GL_VENDOR) + "\n"
       + "    Renderer: " + (const char*)core11fwd->glGetString(GL_RENDERER) + "\n"
       + "    Version:  " + (const char*)core11fwd->glGetString(GL_VERSION) + "\n"
@@ -1684,19 +1684,19 @@ Standard_Size OpenGl_Context::AvailableMemory() const
 
 //=================================================================================================
 
-TCollection_AsciiString OpenGl_Context::MemoryInfo() const
+AsciiString1 OpenGl_Context::MemoryInfo() const
 {
   TColStd_IndexedDataMapOfStringString aDict;
   MemoryInfo(aDict);
 
-  TCollection_AsciiString aText;
+  AsciiString1 aText;
   for (TColStd_IndexedDataMapOfStringString::Iterator anIter(aDict); anIter.More(); anIter.Next())
   {
     if (!aText.IsEmpty())
     {
       aText += "\n";
     }
-    aText += TCollection_AsciiString("  ") + anIter.Key() + ": " + anIter.Value();
+    aText += AsciiString1("  ") + anIter.Key() + ": " + anIter.Value();
   }
   return aText;
 }
@@ -1730,23 +1730,23 @@ void OpenGl_Context::MemoryInfo(TColStd_IndexedDataMapOfStringString& theDict) c
   #if MAC_OS_X_VERSION_MIN_REQUIRED >= 1070
     if (CGLDescribeRenderer(aRendObj, aRendIter, kCGLRPVideoMemoryMegabytes, &aVMem) == kCGLNoError)
     {
-      addInfo(theDict, "GPU memory", TCollection_AsciiString() + aVMem + " MiB");
+      addInfo(theDict, "GPU memory", AsciiString1() + aVMem + " MiB");
     }
     if (CGLDescribeRenderer(aRendObj, aRendIter, kCGLRPTextureMemoryMegabytes, &aVMem)
         == kCGLNoError)
     {
-      addInfo(theDict, "GPU Texture memory", TCollection_AsciiString() + aVMem + " MiB");
+      addInfo(theDict, "GPU Texture memory", AsciiString1() + aVMem + " MiB");
     }
   #else
     if (CGLDescribeRenderer(aRendObj, aRendIter, kCGLRPVideoMemory, &aVMem) == kCGLNoError)
     {
-      addInfo(theDict, "GPU memory", TCollection_AsciiString() + (aVMem / (1024 * 1024)) + " MiB");
+      addInfo(theDict, "GPU memory", AsciiString1() + (aVMem / (1024 * 1024)) + " MiB");
     }
     if (CGLDescribeRenderer(aRendObj, aRendIter, kCGLRPTextureMemory, &aVMem) == kCGLNoError)
     {
       addInfo(theDict,
               "GPU Texture memory",
-              TCollection_AsciiString() + (aVMem / (1024 * 1024)) + " MiB");
+              AsciiString1() + (aVMem / (1024 * 1024)) + " MiB");
     }
   #endif
   }
@@ -1759,21 +1759,21 @@ void OpenGl_Context::MemoryInfo(TColStd_IndexedDataMapOfStringString& theDict) c
     core11fwd->glGetIntegerv(GL_VBO_FREE_MEMORY_ATI, aValues);
 
     // total memory free in the pool
-    addInfo(theDict, "GPU free memory", TCollection_AsciiString() + (aValues[0] / 1024) + " MiB");
+    addInfo(theDict, "GPU free memory", AsciiString1() + (aValues[0] / 1024) + " MiB");
 
     if (aValues[1] != aValues[0])
     {
       // largest available free block in the pool
       addInfo(theDict,
               "Largest free block",
-              TCollection_AsciiString() + (aValues[1] / 1024) + " MiB");
+              AsciiString1() + (aValues[1] / 1024) + " MiB");
     }
     if (aValues[2] != aValues[0])
     {
       // total auxiliary memory free
       addInfo(theDict,
               "Free auxiliary memory",
-              TCollection_AsciiString() + (aValues[2] / 1024) + " MiB");
+              AsciiString1() + (aValues[2] / 1024) + " MiB");
     }
   }
   else if (nvxMem)
@@ -1781,19 +1781,19 @@ void OpenGl_Context::MemoryInfo(TColStd_IndexedDataMapOfStringString& theDict) c
     // current available dedicated video memory (in KiB), currently unused GPU memory
     GLint aValue = 0;
     core11fwd->glGetIntegerv(GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX, &aValue);
-    addInfo(theDict, "GPU free memory", TCollection_AsciiString() + (aValue / 1024) + " MiB");
+    addInfo(theDict, "GPU free memory", AsciiString1() + (aValue / 1024) + " MiB");
 
     // dedicated video memory, total size (in KiB) of the GPU memory
     GLint aDedicated = 0;
     core11fwd->glGetIntegerv(GL_GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX, &aDedicated);
-    addInfo(theDict, "GPU memory", TCollection_AsciiString() + (aDedicated / 1024) + " MiB");
+    addInfo(theDict, "GPU memory", AsciiString1() + (aDedicated / 1024) + " MiB");
 
     // total available memory, total size (in KiB) of the memory available for allocations
     core11fwd->glGetIntegerv(GL_GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX, &aValue);
     if (aValue != aDedicated)
     {
       // different only for special configurations
-      addInfo(theDict, "Total memory", TCollection_AsciiString() + (aValue / 1024) + " MiB");
+      addInfo(theDict, "Total memory", AsciiString1() + (aValue / 1024) + " MiB");
     }
   }
 #if defined(_WIN32)
@@ -1810,7 +1810,7 @@ void OpenGl_Context::MemoryInfo(TColStd_IndexedDataMapOfStringString& theDict) c
                                     &aTotalMemMiB)
           > 0)
       {
-        addInfo(theDict, "GPU memory", TCollection_AsciiString() + (int)aTotalMemMiB + " MiB");
+        addInfo(theDict, "GPU memory", AsciiString1() + (int)aTotalMemMiB + " MiB");
       }
     }
   }
@@ -1823,7 +1823,7 @@ void OpenGl_Context::MemoryInfo(TColStd_IndexedDataMapOfStringString& theDict) c
     unsigned int aVMemMiB = 0;
     if (myFuncs->glXQueryCurrentRendererIntegerMESA(GLX_RENDERER_VIDEO_MEMORY_MESA, &aVMemMiB) != 0)
     {
-      addInfo(theDict, "GPU memory", TCollection_AsciiString() + int(aVMemMiB) + " MiB");
+      addInfo(theDict, "GPU memory", AsciiString1() + int(aVMemMiB) + " MiB");
     }
   }
 #endif
@@ -1955,7 +1955,7 @@ void OpenGl_Context::DiagnosticInformation(TColStd_IndexedDataMapOfStringString&
     {
       addInfo(theDict,
               "GLversionOcct",
-              TCollection_AsciiString(myGlVerMajor) + "." + TCollection_AsciiString(myGlVerMinor));
+              AsciiString1(myGlVerMajor) + "." + AsciiString1(myGlVerMinor));
     }
     if (IsGlGreaterEqual(2, 0))
     {
@@ -1971,26 +1971,26 @@ void OpenGl_Context::DiagnosticInformation(TColStd_IndexedDataMapOfStringString&
 
   if ((theFlags & Graphic3d_DiagnosticInfo_Limits) != 0)
   {
-    addInfo(theDict, "Max texture size", TCollection_AsciiString(myMaxTexDim));
+    addInfo(theDict, "Max texture size", AsciiString1(myMaxTexDim));
     addInfo(theDict,
             "Max FBO dump size",
-            TCollection_AsciiString() + myMaxDumpSizeX + "x" + myMaxDumpSizeY);
-    addInfo(theDict, "Max combined texture units", TCollection_AsciiString(myMaxTexCombined));
-    addInfo(theDict, "Max MSAA samples", TCollection_AsciiString(myMaxMsaaSamples));
+            AsciiString1() + myMaxDumpSizeX + "x" + myMaxDumpSizeY);
+    addInfo(theDict, "Max combined texture units", AsciiString1(myMaxTexCombined));
+    addInfo(theDict, "Max MSAA samples", AsciiString1(myMaxMsaaSamples));
   }
 
   if ((theFlags & Graphic3d_DiagnosticInfo_FrameBuffer) != 0)
   {
     GLint aViewport[4] = {};
     core11fwd->glGetIntegerv(GL_VIEWPORT, aViewport);
-    addInfo(theDict, "Viewport", TCollection_AsciiString() + aViewport[2] + "x" + aViewport[3]);
+    addInfo(theDict, "Viewport", AsciiString1() + aViewport[2] + "x" + aViewport[3]);
 
     Graphic3d_Vec4i aWinBitsRGBA;
     Graphic3d_Vec2i aWinBitsDepthStencil;
     WindowBufferBits(aWinBitsRGBA, aWinBitsDepthStencil);
     addInfo(theDict,
             "Window buffer",
-            TCollection_AsciiString() + "RGB" + aWinBitsRGBA.r() + " ALPHA" + aWinBitsRGBA.a()
+            AsciiString1() + "RGB" + aWinBitsRGBA.r() + " ALPHA" + aWinBitsRGBA.a()
               + " DEPTH" + aWinBitsDepthStencil[0] + " STENCIL" + aWinBitsDepthStencil[1]);
   }
 
@@ -2004,7 +2004,7 @@ void OpenGl_Context::DiagnosticInformation(TColStd_IndexedDataMapOfStringString&
     if (myGapi != Aspect_GraphicsLibrary_OpenGLES && IsGlGreaterEqual(3, 0)
         && myFuncs->glGetStringi != NULL)
     {
-      TCollection_AsciiString anExtList;
+      AsciiString1 anExtList;
       GLint                   anExtNb = 0;
       core11fwd->glGetIntegerv(GL_NUM_EXTENSIONS, &anExtNb);
       for (GLint anIter = 0; anIter < anExtNb; ++anIter)
@@ -2028,14 +2028,14 @@ void OpenGl_Context::DiagnosticInformation(TColStd_IndexedDataMapOfStringString&
 //=================================================================================================
 
 const Handle(OpenGl_Resource)& OpenGl_Context::GetResource(
-  const TCollection_AsciiString& theKey) const
+  const AsciiString1& theKey) const
 {
   return mySharedResources->IsBound(theKey) ? mySharedResources->Find(theKey) : NULL_GL_RESOURCE;
 }
 
 //=================================================================================================
 
-Standard_Boolean OpenGl_Context::ShareResource(const TCollection_AsciiString& theKey,
+Standard_Boolean OpenGl_Context::ShareResource(const AsciiString1& theKey,
                                                const Handle(OpenGl_Resource)& theResource)
 {
   if (theKey.IsEmpty() || theResource.IsNull())
@@ -2047,7 +2047,7 @@ Standard_Boolean OpenGl_Context::ShareResource(const TCollection_AsciiString& th
 
 //=================================================================================================
 
-void OpenGl_Context::ReleaseResource(const TCollection_AsciiString& theKey,
+void OpenGl_Context::ReleaseResource(const AsciiString1& theKey,
                                      const Standard_Boolean         theToDelay)
 {
   if (!mySharedResources->IsBound(theKey))
@@ -2083,8 +2083,8 @@ void OpenGl_Context::ReleaseDelayed()
   }
 
   // release delayed shared resources
-  NCollection_Vector<TCollection_AsciiString> aDeadList;
-  for (NCollection_DataMap<TCollection_AsciiString, Standard_Integer>::Iterator anIter(*myDelayed);
+  NCollection_Vector<AsciiString1> aDeadList;
+  for (NCollection_DataMap<AsciiString1, Standard_Integer>::Iterator anIter(*myDelayed);
        anIter.More();
        anIter.Next())
   {
@@ -2093,7 +2093,7 @@ void OpenGl_Context::ReleaseDelayed()
       continue; // postpone release one more frame to ensure no one uses it periodically
     }
 
-    const TCollection_AsciiString& aKey = anIter.Key();
+    const AsciiString1& aKey = anIter.Key();
     if (!mySharedResources->IsBound(aKey))
     {
       // mixed unshared strategy delayed/undelayed was used!
@@ -2189,7 +2189,7 @@ Handle(OpenGl_TextureSet) OpenGl_Context::BindTextures(
                       GL_DEBUG_TYPE_ERROR,
                       0,
                       GL_DEBUG_SEVERITY_HIGH,
-                      TCollection_AsciiString("Texture unit ") + aTexUnit + " for "
+                      AsciiString1("Texture unit ") + aTexUnit + " for "
                         + aTextureNew->ResourceId() + " exceeds hardware limit "
                         + myMaxTexCombined);
           continue;
@@ -2798,7 +2798,7 @@ void OpenGl_Context::SetPolygonOffset(const Graphic3d_PolygonOffset& theOffset)
 
 //=================================================================================================
 
-void OpenGl_Context::SetCamera(const Handle(Graphic3d_Camera)& theCamera)
+void OpenGl_Context::SetCamera(const Handle(CameraOn3d)& theCamera)
 {
   myCamera = theCamera;
   if (!theCamera.IsNull())

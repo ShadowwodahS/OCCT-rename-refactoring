@@ -62,8 +62,8 @@ static void Drawsect(const Handle(Adaptor3d_Surface)& surf,
 {
   gp_Pnt2d      p2d = Func.Pnt2d();
   Standard_Real pc  = Func.ParameterOnC();
-  Blend_Point   BP(Adaptor3d_HSurfaceTool::Value(surf, p2d.X(), p2d.Y()),
-                 BRepBlend_HCurveTool::Value(curv, pc),
+  Point2   BP(HSurfaceTool::Value(surf, p2d.X(), p2d.Y()),
+                 HCurveTool1::Value(curv, pc),
                  param,
                  p2d.X(),
                  p2d.Y(),
@@ -79,7 +79,7 @@ static void Drawsect(const Handle(Adaptor3d_Surface)& surf,
   TColgp_Array1OfPnt2d TP2d(1, hp2d);
   TColStd_Array1OfReal TW(1, hp);
   Func.Section(BP, TP, TP2d, TW);
-  Handle(Geom_BSplineCurve) sect = new Geom_BSplineCurve(TP, TW, TK, TMul, hd);
+  Handle(BSplineCurve3d) sect = new BSplineCurve3d(TP, TW, TK, TMul, hd);
   IndexOfSection++;
 
   // POP pour NT
@@ -87,7 +87,7 @@ static void Drawsect(const Handle(Adaptor3d_Surface)& surf,
   char* name = new char[100];
   sprintf(name, "%s_%d", "Section", IndexOfSection);
   #ifdef DRAW
-  DrawTrSurf::Set(name, sect);
+  DrawTrSurf1::Set(name, sect);
   #endif
 }
 
@@ -434,8 +434,8 @@ Blend_Status BRepBlend_CSWalking::CheckDeflectionOnSurf(const Point3d&   Psurf,
 
   prevP  = previousP.PointOnS();
   prevTg = previousP.TangentOnS();
-  tolu   = Adaptor3d_HSurfaceTool::UResolution(surf, tolpoint3d);
-  tolv   = Adaptor3d_HSurfaceTool::VResolution(surf, tolpoint3d);
+  tolu   = HSurfaceTool::UResolution(surf, tolpoint3d);
+  tolv   = HSurfaceTool::VResolution(surf, tolpoint3d);
 
   Vector3d Corde(prevP, Psurf);
   Norme     = Corde.SquareMagnitude();
@@ -539,7 +539,7 @@ Blend_Status BRepBlend_CSWalking::CheckDeflectionOnCurv(const Point3d&       Pcu
 
   prevP  = previousP.PointOnC();
   prevTg = previousP.TangentOnC();
-  tolu   = BRepBlend_HCurveTool::Resolution(curv, tolpoint3d);
+  tolu   = HCurveTool1::Resolution(curv, tolpoint3d);
 
   Vector3d Corde(prevP, Pcurv);
   Norme     = Corde.SquareMagnitude();
@@ -653,10 +653,10 @@ Standard_Boolean BRepBlend_CSWalking::Recadre(Blend_FuncInv& FuncInv,
   while (Iter->More()) {
     nbarc++;
     if (OnFirst) {
-      ok = BRepBlend_BlendTool::Project(pt2d,surf1,Iter->Value(),prm,dist);
+      ok = BlendTool::Project(pt2d,surf1,Iter->Value(),prm,dist);
     }
     else {
-      ok = BRepBlend_BlendTool::Project(pt2d,surf2,Iter->Value(),prm,dist);
+      ok = BlendTool::Project(pt2d,surf2,Iter->Value(),prm,dist);
     }
     if (ok) {
       if (dist<distmin) {
@@ -684,10 +684,10 @@ Standard_Boolean BRepBlend_CSWalking::Recadre(Blend_FuncInv& FuncInv,
   Handle(Adaptor2d_Curve2d) thearc = Iter->Value();
   Handle(Adaptor2d_Curve2d) thecur;
   if (OnFirst) {
-    thecur = BRepBlend_BlendTool::CurveOnSurf(thearc,surf1);
+    thecur = BlendTool::CurveOnSurf(thearc,surf1);
   }
   else {
-    thecur = BRepBlend_BlendTool::CurveOnSurf(thearc,surf2);
+    thecur = BlendTool::CurveOnSurf(thearc,surf2);
   }
 
   FuncInv.Set(OnFirst,thecur);
@@ -753,8 +753,8 @@ Standard_Boolean BRepBlend_CSWalking::Recadre(Blend_FuncInv& FuncInv,
     IsVtx = !Iter->MoreVertex();
     while (!IsVtx) {
       Vtx = Iter->Vertex();
-      if (Abs(BRepBlend_BlendTool::Parameter(Vtx,thearc)-solrst(1)) <=
-      BRepBlend_BlendTool::Tolerance(Vtx,thearc)) {
+      if (Abs(BlendTool::Parameter(Vtx,thearc)-solrst(1)) <=
+      BlendTool::Tolerance(Vtx,thearc)) {
     IsVtx = Standard_True;
       }
       else {
@@ -785,8 +785,8 @@ void BRepBlend_CSWalking::Transition(const Handle(Adaptor2d_Curve2d)& A,
   Point3d pbid;
   Vector3d d1u, d1v, normale, tgrst;
 
-  BRepBlend_HCurve2dTool::D1(A, Param, p2d, dp2d);
-  Adaptor3d_HSurfaceTool::D1(surf, p2d.X(), p2d.Y(), pbid, d1u, d1v);
+  HCurve2dTool::D1(A, Param, p2d, dp2d);
+  HSurfaceTool::D1(surf, p2d.X(), p2d.Y(), pbid, d1u, d1v);
 
   tgrst.SetLinearForm(dp2d.X(), d1u, dp2d.Y(), d1v);
   normale = d1u.Crossed(d1v);
@@ -839,7 +839,7 @@ void BRepBlend_CSWalking::MakeExtremity(BRepBlend_Extremity&             Extrem,
           //	  if (Adaptor3d_TopolTool::Identical(Vtx,Iter.Vertex())) {
           if (Iter->Identical(Vtx, Iter->Vertex()))
           {
-            prm = BRepBlend_BlendTool::Parameter(Vtx, arc);
+            prm = BlendTool::Parameter(Vtx, arc);
             Transition(arc, prm, Tline, Tarc);
             Extrem.AddArc(arc, prm, Tline, Tarc);
           }
@@ -951,7 +951,7 @@ void BRepBlend_CSWalking::InternalPerform(Blend_CSFunction& Func,
             nbarc++;
             domain->Next();
           }
-          p2d    = BRepBlend_HCurve2dTool::Value(domain->Value(), solrst(1));
+          p2d    = HCurve2dTool::Value(domain->Value(), solrst(1));
           sol(1) = p2d.X();
           sol(2) = p2d.Y();
           sol(3) = solrst(3);

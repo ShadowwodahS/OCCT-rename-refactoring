@@ -40,7 +40,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Adds "DEF  <myName>" in  anOStream  (VRML  file).
-  Standard_EXPORT Vrml_Instancing(const TCollection_AsciiString& aString);
+  Standard_EXPORT Vrml_Instancing(const AsciiString1& aString);
 
   //! Adds "USE  <myName>" in  anOStream (VRML  file).
   Standard_EXPORT Standard_OStream& DEF(Standard_OStream& anOStream) const;
@@ -49,7 +49,7 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString myName;
+  AsciiString1 myName;
 };
 
 #endif // _Vrml_Instancing_HeaderFile

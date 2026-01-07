@@ -22,7 +22,7 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_IndexedDataMap.hxx>
 
-typedef NCollection_IndexedDataMap<TopoDS_Vertex, Draft_VertexInfo, TopTools_ShapeMapHasher>
+typedef NCollection_IndexedDataMap<TopoVertex, Draft_VertexInfo, ShapeHasher>
   Draft_IndexedDataMapOfVertexVertexInfo;
 
 #endif

@@ -30,73 +30,73 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Defines all the topology commands.
-  Standard_EXPORT static void AllCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void AllCommands(DrawInterpreter& DI);
 
   //! Defines the basic commands.
-  Standard_EXPORT static void BasicCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void BasicCommands(DrawInterpreter& DI);
 
   //! Defines the commands to build edges and wires.
-  Standard_EXPORT static void CurveCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void CurveCommands(DrawInterpreter& DI);
 
   //! Defines the  commands  to perform add  fillets on
   //! wires and  edges.
-  Standard_EXPORT static void Fillet2DCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void Fillet2DCommands(DrawInterpreter& DI);
 
   //! Defines the commands to build faces and shells.
-  Standard_EXPORT static void SurfaceCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void SurfaceCommands(DrawInterpreter& DI);
 
   //! Defines the commands to build primitives.
-  Standard_EXPORT static void PrimitiveCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void PrimitiveCommands(DrawInterpreter& DI);
 
   //! Defines the commands to build primitives.
-  Standard_EXPORT static void FillingCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void FillingCommands(DrawInterpreter& DI);
 
   //! Defines the commands to sweep shapes.
-  Standard_EXPORT static void SweepCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void SweepCommands(DrawInterpreter& DI);
 
   //! Defines  the    commands   to perform  topological
   //! operations.
-  Standard_EXPORT static void TopologyCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void TopologyCommands(DrawInterpreter& DI);
 
   //! Defines  the commands  to perform  add  fillets on
   //! shells.
-  Standard_EXPORT static void FilletCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void FilletCommands(DrawInterpreter& DI);
 
   //! Defines  the commands  to perform  add chamfers on
   //! shells.
-  Standard_EXPORT static void ChamferCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void ChamferCommands(DrawInterpreter& DI);
 
   //! Defines commands to compute global properties.
-  Standard_EXPORT static void GPropCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void GPropCommands(DrawInterpreter& DI);
 
   //! Defines commands to compute and to explore the map of the
   //! Bisecting locus.
-  Standard_EXPORT static void MatCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void MatCommands(DrawInterpreter& DI);
 
   //! Defines the commands to modify draft angles of the
   //! faces of a shape.
-  Standard_EXPORT static void DraftAngleCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void DraftAngleCommands(DrawInterpreter& DI);
 
   //! Defines the commands to create features on a shape.
-  Standard_EXPORT static void FeatureCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void FeatureCommands(DrawInterpreter& DI);
 
   //! Defines the auxiliary topology commands.
-  Standard_EXPORT static void OtherCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void OtherCommands(DrawInterpreter& DI);
 
   //! Defines the extrema commands.
-  Standard_EXPORT static void ExtremaCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void ExtremaCommands(DrawInterpreter& DI);
 
   //! Defines the checkshape command.
-  Standard_EXPORT static void CheckCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void CheckCommands(DrawInterpreter& DI);
 
   //! Defines the placement  command.
-  Standard_EXPORT static void PlacementCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void PlacementCommands(DrawInterpreter& DI);
 
   //! Defines the commands to project a wire on a shape.
-  Standard_EXPORT static void ProjectionCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void ProjectionCommands(DrawInterpreter& DI);
 
   //! Defines the History commands for the algorithms.
-  Standard_EXPORT static void HistoryCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void HistoryCommands(DrawInterpreter& DI);
 
 protected:
 private:

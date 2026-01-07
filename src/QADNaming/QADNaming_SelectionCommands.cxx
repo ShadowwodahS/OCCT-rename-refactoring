@@ -40,7 +40,7 @@
 
 //=================================================================================================
 
-static void Display(const Standard_CString Name, const TopoDS_Shape& S)
+static void Display(const Standard_CString Name, const TopoShape& S)
 {
   // char* name = Name;
   static Standard_Integer nbIsos  = 2;
@@ -49,25 +49,25 @@ static void Display(const Standard_CString Name, const TopoDS_Shape& S)
 
   Handle(DBRep_DrawableShape) D =
     new DBRep_DrawableShape(S, Draw_jaune, Draw_vert, Draw_bleu, Draw_rouge, size, nbIsos, discret);
-  Draw::Set(Name, D);
+  Draw1::Set(Name, D);
 }
 
 //=================================================================================================
 
-static void DumpNaming(const Handle(TNaming_Naming)& naming, Draw_Interpretor& di)
+static void DumpNaming(const Handle(TNaming_Naming)& naming, DrawInterpreter& di)
 {
-  TCollection_AsciiString Entry;
+  AsciiString1 Entry;
   const TNaming_Name&     AName = naming->GetName();
 
-  // TNaming::Print(AName.Type(),std::cout);
+  // TNaming1::Print(AName.Type(),std::cout);
   Standard_SStream aSStream1;
-  TNaming::Print(AName.Type(), aSStream1);
+  TNaming1::Print(AName.Type(), aSStream1);
   di << aSStream1;
   di << " ";
 
-  // TopAbs::Print(AName.ShapeType(),std::cout);
+  // TopAbs1::Print(AName.ShapeType(),std::cout);
   Standard_SStream aSStream2;
-  TopAbs::Print(AName.ShapeType(), aSStream2);
+  TopAbs1::Print(AName.ShapeType(), aSStream2);
   di << aSStream2;
 
   const TNaming_ListOfNamedShape& NSS = AName.Arguments();
@@ -88,26 +88,26 @@ static void DumpNaming(const Handle(TNaming_Naming)& naming, Draw_Interpretor& d
 // purpose  : "Select DF entry shape [context]",
 //=======================================================================
 
-static Standard_Integer QADNaming_Select(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer QADNaming_Select(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n == 4 || n == 5)
   {
     Standard_Boolean geometry = (strcmp(a[0], "SelectGeometry") == 0 ? 1 : 0);
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
-    TDF_Label L;
-    DDF::AddLabel(DF, a[2], L);
+    DataLabel L;
+    DDF1::AddLabel(DF, a[2], L);
     TNaming_Selector SL(L);
     if (n == 4)
     {
-      TopoDS_Shape S = DBRep::Get(a[3], TopAbs_SHAPE);
+      TopoShape S = DBRep1::Get(a[3], TopAbs_SHAPE);
       SL.Select(S, geometry);
     }
     if (n == 5)
     {
-      TopoDS_Shape S = DBRep::Get(a[3], TopAbs_SHAPE);
-      TopoDS_Shape C = DBRep::Get(a[4], TopAbs_SHAPE);
+      TopoShape S = DBRep1::Get(a[3], TopAbs_SHAPE);
+      TopoShape C = DBRep1::Get(a[4], TopAbs_SHAPE);
       SL.Select(S, C, geometry);
     }
     return 0;
@@ -121,13 +121,13 @@ static Standard_Integer QADNaming_Select(Draw_Interpretor& di, Standard_Integer 
 // purpose  : "SolveSelection DF entry",
 //=======================================================================
 
-static Standard_Integer QADNaming_SolveSelection(Draw_Interpretor& di,
+static Standard_Integer QADNaming_SolveSelection(DrawInterpreter& di,
                                                  Standard_Integer  n,
                                                  const char**      a)
 {
   if (n >= 3)
   {
-    TDF_Label aLabel;
+    DataLabel aLabel;
     if (!QADNaming::Entry(a, aLabel))
       return 1;
     char             name[100];
@@ -136,15 +136,15 @@ static Standard_Integer QADNaming_SolveSelection(Draw_Interpretor& di,
     Standard_Integer i;
     for (i = 3; i < n; i++)
     {
-      TDF_Label aValidLab;
-      if (!DDF::FindLabel(aLabel.Data(), a[i], aValidLab))
+      DataLabel aValidLab;
+      if (!DDF1::FindLabel(aLabel.Data(), a[i], aValidLab))
         di << "Warning: label " << a[i] << " not exists\n";
       else
         valid.Add(aValidLab);
     }
     Standard_Boolean done = SL.Solve(valid);
-    TopoDS_Shape     Res  = TNaming_Tool::CurrentShape(SL.NamedShape());
-    // TopoDS_Shape Res = TNaming_Tool::CurrentShape(NS);
+    TopoShape     Res  = Tool11::CurrentShape(SL.NamedShape());
+    // TopoShape Res = Tool11::CurrentShape(NS);
     Sprintf(name, "%s_%s", "new", a[2]);
     Display(name, Res);
     return done ? 0 : 1;
@@ -158,17 +158,17 @@ static Standard_Integer QADNaming_SolveSelection(Draw_Interpretor& di,
 // purpose  : DumpSelection DF entry (R)
 //=======================================================================
 
-static Standard_Integer QADNaming_DumpSelection(Draw_Interpretor& di,
+static Standard_Integer QADNaming_DumpSelection(DrawInterpreter& di,
                                                 Standard_Integer  n,
                                                 const char**      a)
 {
   if (n == 3 || n == 4)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(DF, a[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(DF, a[2], L))
       return 1;
     Handle(TNaming_Naming) naming;
     if (!L.FindAttribute(TNaming_Naming::GetID(), naming))
@@ -182,7 +182,7 @@ static Standard_Integer QADNaming_DumpSelection(Draw_Interpretor& di,
     {
       Standard_Integer        depth    = L.Depth();
       Standard_Integer        curdepth = 0;
-      TCollection_AsciiString Entry;
+      AsciiString1 Entry;
       TDF_ChildIterator       it(naming->Label(), Standard_True);
       for (; it.More(); it.Next())
       {
@@ -209,17 +209,17 @@ static Standard_Integer QADNaming_DumpSelection(Draw_Interpretor& di,
 // purpose  : ArgsSelection DF entry
 //=======================================================================
 
-static Standard_Integer QADNaming_ArgsSelection(Draw_Interpretor& di,
+static Standard_Integer QADNaming_ArgsSelection(DrawInterpreter& di,
                                                 Standard_Integer  n,
                                                 const char**      a)
 {
   if (n == 3)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(DF, a[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(DF, a[2], L))
       return 1;
     Handle(TNaming_Naming) naming;
     if (!L.FindAttribute(TNaming_Naming::GetID(), naming))
@@ -227,7 +227,7 @@ static Standard_Integer QADNaming_ArgsSelection(Draw_Interpretor& di,
       di << "QADNaming_DumpSelection : not a selection\n";
       return 1;
     }
-    TCollection_AsciiString Entry;
+    AsciiString1 Entry;
     TNaming_Selector        SL(L);
     di << " Selection Arguments : ";
     TDF_AttributeMap args;
@@ -246,7 +246,7 @@ static Standard_Integer QADNaming_ArgsSelection(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static void CollectAttachment(const TDF_Label&              root,
+static void CollectAttachment(const DataLabel&              root,
                               const Handle(TNaming_Naming)& naming,
                               TNaming_MapOfNamedShape&      attachment)
 {
@@ -277,17 +277,17 @@ static void CollectAttachment(const TDF_Label&              root,
 // purpose  : Attachment DF entry
 //=======================================================================
 
-static Standard_Integer QADNaming_Attachment(Draw_Interpretor& di,
+static Standard_Integer QADNaming_Attachment(DrawInterpreter& di,
                                              Standard_Integer  n,
                                              const char**      a)
 {
   if (n == 3)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(DF, a[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(DF, a[2], L))
       return 1;
     Handle(TNaming_Naming)  naming;
     TNaming_MapOfNamedShape attachment;
@@ -306,7 +306,7 @@ static Standard_Integer QADNaming_Attachment(Draw_Interpretor& di,
         }
       }
     }
-    TCollection_AsciiString Entry;
+    AsciiString1 Entry;
     TDF_Tool::Entry(L, Entry);
     di << " Attachment of " << Entry.ToCString();
     di << "\n";
@@ -324,7 +324,7 @@ static Standard_Integer QADNaming_Attachment(Draw_Interpretor& di,
 
 //=================================================================================================
 
-void QADNaming::SelectionCommands(Draw_Interpretor& theCommands)
+void QADNaming::SelectionCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean done = Standard_False;

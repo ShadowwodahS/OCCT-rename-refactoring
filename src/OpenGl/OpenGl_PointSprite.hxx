@@ -27,7 +27,7 @@ class OpenGl_PointSprite : public OpenGl_Texture
   DEFINE_STANDARD_RTTIEXT(OpenGl_PointSprite, OpenGl_Texture)
 public:
   //! Create uninitialized resource.
-  Standard_EXPORT OpenGl_PointSprite(const TCollection_AsciiString& theResourceId);
+  Standard_EXPORT OpenGl_PointSprite(const AsciiString1& theResourceId);
 
   //! Destroy object.
   Standard_EXPORT virtual ~OpenGl_PointSprite();
@@ -47,7 +47,7 @@ public:
   //! @return true if this is display list bitmap
   inline Standard_Boolean IsDisplayList() const { return myBitmapList != 0; }
 
-  //! Draw sprite using glBitmap.
+  //! Draw1 sprite using glBitmap.
   //! Please call glRasterPos3fv() before to setup sprite position.
   Standard_EXPORT void DrawBitmap(const Handle(OpenGl_Context)& theCtx) const;
 

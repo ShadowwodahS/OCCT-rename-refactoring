@@ -23,7 +23,7 @@
 
 #include <GeomAbs_JoinType.hxx>
 class Geom2d_TrimmedCurve;
-class Geom2d_Curve;
+class GeomCurve2d;
 class gp_Pnt2d;
 class gp_Vec2d;
 class Geom2d_Point;
@@ -59,8 +59,8 @@ public:
   //! <Cu1> and <Cu2>.
   //! <oncurve> is True if the point <P> is common to <Cu1>
   //! and <Cu2>.
-  Standard_EXPORT void Perform(const Handle(Geom2d_Curve)& Cu1,
-                               const Handle(Geom2d_Curve)& Cu2,
+  Standard_EXPORT void Perform(const Handle(GeomCurve2d)& Cu1,
+                               const Handle(GeomCurve2d)& Cu2,
                                const gp_Pnt2d&             P,
                                const gp_Vec2d&             V1,
                                const gp_Vec2d&             V2,
@@ -72,7 +72,7 @@ public:
   //! Performs  the bisecting line  between the  curve
   //! <Cu1> and the point <Pnt>.
   //! <oncurve> is True if the point <P> is the point <Pnt>.
-  Standard_EXPORT void Perform(const Handle(Geom2d_Curve)& Cu,
+  Standard_EXPORT void Perform(const Handle(GeomCurve2d)& Cu,
                                const Handle(Geom2d_Point)& Pnt,
                                const gp_Pnt2d&             P,
                                const gp_Vec2d&             V1,
@@ -85,7 +85,7 @@ public:
   //! <Cu> and the point <Pnt>.
   //! <oncurve> is True if the point <P> is the point <Pnt>.
   Standard_EXPORT void Perform(const Handle(Geom2d_Point)& Pnt,
-                               const Handle(Geom2d_Curve)& Cu,
+                               const Handle(GeomCurve2d)& Cu,
                                const gp_Pnt2d&             P,
                                const gp_Vec2d&             V1,
                                const gp_Vec2d&             V2,

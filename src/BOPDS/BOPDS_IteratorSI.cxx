@@ -100,8 +100,8 @@ void BOPDS_IteratorSI::Intersect(const Handle(IntTools_Context)& theCtx,
     const TopAbs_ShapeEnum aType1 = aSI1.ShapeType();
     const TopAbs_ShapeEnum aType2 = aSI2.ShapeType();
 
-    Standard_Integer iType1 = BOPDS_Tools::TypeToInteger(aType1);
-    Standard_Integer iType2 = BOPDS_Tools::TypeToInteger(aType2);
+    Standard_Integer iType1 = Tools1::TypeToInteger(aType1);
+    Standard_Integer iType2 = Tools1::TypeToInteger(aType2);
 
     // avoid interfering of the shape with its sub-shapes
     if (((iType1 < iType2) && aSI1.HasSubShape(aPair.ID2))
@@ -118,7 +118,7 @@ void BOPDS_IteratorSI::Intersect(const Handle(IntTools_Context)& theCtx,
         continue;
     }
 
-    Standard_Integer iX = BOPDS_Tools::TypeToInteger(aType1, aType2);
-    myLists(iX).Append(BOPDS_Pair(Min(aPair.ID1, aPair.ID2), Max(aPair.ID1, aPair.ID2)));
+    Standard_Integer iX = Tools1::TypeToInteger(aType1, aType2);
+    myLists(iX).Append(IndexPair(Min(aPair.ID1, aPair.ID2), Max(aPair.ID1, aPair.ID2)));
   }
 }

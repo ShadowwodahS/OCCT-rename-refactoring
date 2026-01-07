@@ -56,7 +56,7 @@ if (EMSCRIPTEN)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s \"EXTRA_EXPORTED_RUNTIME_METHODS=['FS']\"")
   endif()
 
-  # Embed Draw Harness .tcl scripts at recognizable location.
+  # Embed Draw1 Harness .tcl scripts at recognizable location.
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --preload-file ${CMAKE_CURRENT_SOURCE_DIR}/../DrawResources@/DrawResources")
   # Tcl will look for "init.tcl" at path "$tcl_library/init.tcl" on startup (configurable from environment variable TCL_LIBRARY)
   # In case of WebAssembly build $tcl_library looks like "tcl8.6.11/library" by default.

@@ -17,12 +17,12 @@
 #include <Standard_Type.hxx>
 #include <TDF_LabelSequence.hxx>
 
-class TopoDS_Shape;
+class TopoShape;
 class XCAFDoc_ShapeTool;
 class XCAFDoc_VisMaterial;
 
-//! Provides tools to store and retrieve attributes (visualization materials) of TopoDS_Shape in and
-//! from TDocStd_Document.
+//! Provides tools to store and retrieve attributes (visualization materials) of TopoShape in and
+//! from AppDocument.
 //!
 //! This attribute defines the list of visualization materials (XCAFDoc_VisMaterial) within the
 //! whole document. Particular material is assigned to the shape through tree-nodes links.
@@ -39,7 +39,7 @@ class XCAFDoc_VisMaterialTool : public TDF_Attribute
   DEFINE_STANDARD_RTTIEXT(XCAFDoc_VisMaterialTool, TDF_Attribute)
 public:
   //! Creates (if not exist) ColorTool.
-  Standard_EXPORT static Handle(XCAFDoc_VisMaterialTool) Set(const TDF_Label& L);
+  Standard_EXPORT static Handle(XCAFDoc_VisMaterialTool) Set(const DataLabel& L);
 
   Standard_EXPORT static const Standard_GUID& GetID();
 
@@ -48,77 +48,77 @@ public:
   Standard_EXPORT XCAFDoc_VisMaterialTool();
 
   //! returns the label under which colors are stored
-  Standard_EXPORT TDF_Label BaseLabel() const { return Label(); }
+  Standard_EXPORT DataLabel BaseLabel() const { return Label(); }
 
   //! Returns internal XCAFDoc_ShapeTool tool
   Standard_EXPORT const Handle(XCAFDoc_ShapeTool)& ShapeTool();
 
   //! Returns TRUE if Label belongs to a Material Table.
-  Standard_Boolean IsMaterial(const TDF_Label& theLabel) const
+  Standard_Boolean IsMaterial(const DataLabel& theLabel) const
   {
     return !GetMaterial(theLabel).IsNull();
   }
 
   //! Returns Material defined by specified Label, or NULL if the label is not in Material Table.
-  Standard_EXPORT static Handle(XCAFDoc_VisMaterial) GetMaterial(const TDF_Label& theMatLabel);
+  Standard_EXPORT static Handle(XCAFDoc_VisMaterial) GetMaterial(const DataLabel& theMatLabel);
 
   //! Adds Material definition to a Material Table and returns its Label.
-  Standard_EXPORT TDF_Label AddMaterial(const Handle(XCAFDoc_VisMaterial)& theMat,
-                                        const TCollection_AsciiString&     theName) const;
+  Standard_EXPORT DataLabel AddMaterial(const Handle(XCAFDoc_VisMaterial)& theMat,
+                                        const AsciiString1&     theName) const;
 
   //! Adds Material definition to a Material Table and returns its Label.
-  Standard_EXPORT TDF_Label AddMaterial(const TCollection_AsciiString& theName) const;
+  Standard_EXPORT DataLabel AddMaterial(const AsciiString1& theName) const;
 
   //! Removes Material from the Material Table
-  Standard_EXPORT void RemoveMaterial(const TDF_Label& theLabel) const;
+  Standard_EXPORT void RemoveMaterial(const DataLabel& theLabel) const;
 
   //! Returns a sequence of Materials currently stored in the Material Table.
   Standard_EXPORT void GetMaterials(TDF_LabelSequence& Labels) const;
 
   //! Sets new material to the shape.
-  Standard_EXPORT void SetShapeMaterial(const TDF_Label& theShapeLabel,
-                                        const TDF_Label& theMaterialLabel) const;
+  Standard_EXPORT void SetShapeMaterial(const DataLabel& theShapeLabel,
+                                        const DataLabel& theMaterialLabel) const;
 
   //! Removes a link with GUID XCAFDoc::VisMaterialRefGUID() from shape label to material.
-  Standard_EXPORT void UnSetShapeMaterial(const TDF_Label& theShapeLabel) const;
+  Standard_EXPORT void UnSetShapeMaterial(const DataLabel& theShapeLabel) const;
 
   //! Returns TRUE if label has a material assignment.
-  Standard_EXPORT Standard_Boolean IsSetShapeMaterial(const TDF_Label& theLabel) const;
+  Standard_EXPORT Standard_Boolean IsSetShapeMaterial(const DataLabel& theLabel) const;
 
   //! Returns label with material assigned to shape label.
   //! @param[in] theShapeLabel  shape label
   //! @param[out] theMaterialLabel  material label
   //! @return FALSE if no material is assigned
-  Standard_EXPORT static Standard_Boolean GetShapeMaterial(const TDF_Label& theShapeLabel,
-                                                           TDF_Label&       theMaterialLabel);
+  Standard_EXPORT static Standard_Boolean GetShapeMaterial(const DataLabel& theShapeLabel,
+                                                           DataLabel&       theMaterialLabel);
 
   //! Returns material assigned to the shape label.
   Standard_EXPORT static Handle(XCAFDoc_VisMaterial) GetShapeMaterial(
-    const TDF_Label& theShapeLabel);
+    const DataLabel& theShapeLabel);
 
   //! Sets a link with GUID XCAFDoc::VisMaterialRefGUID() from shape label to material label.
   //! @param[in] theShape  shape
   //! @param[in] theMaterialLabel  material label
   //! @return FALSE if cannot find a label for shape
-  Standard_EXPORT Standard_Boolean SetShapeMaterial(const TopoDS_Shape& theShape,
-                                                    const TDF_Label&    theMaterialLabel);
+  Standard_EXPORT Standard_Boolean SetShapeMaterial(const TopoShape& theShape,
+                                                    const DataLabel&    theMaterialLabel);
 
   //! Removes a link with GUID XCAFDoc::VisMaterialRefGUID() from shape label to material.
   //! @return TRUE if such link existed
-  Standard_EXPORT Standard_Boolean UnSetShapeMaterial(const TopoDS_Shape& theShape);
+  Standard_EXPORT Standard_Boolean UnSetShapeMaterial(const TopoShape& theShape);
 
   //! Returns TRUE if shape has a material assignment.
-  Standard_EXPORT Standard_Boolean IsSetShapeMaterial(const TopoDS_Shape& theShape);
+  Standard_EXPORT Standard_Boolean IsSetShapeMaterial(const TopoShape& theShape);
 
   //! Returns label with material assigned to shape.
   //! @param[in] theShape  shape
   //! @param[out] theMaterialLabel  material label
   //! @return FALSE if no material is assigned
-  Standard_EXPORT Standard_Boolean GetShapeMaterial(const TopoDS_Shape& theShape,
-                                                    TDF_Label&          theMaterialLabel);
+  Standard_EXPORT Standard_Boolean GetShapeMaterial(const TopoShape& theShape,
+                                                    DataLabel&          theMaterialLabel);
 
   //! Returns material assigned to shape or NULL if not assigned.
-  Standard_EXPORT Handle(XCAFDoc_VisMaterial) GetShapeMaterial(const TopoDS_Shape& theShape);
+  Standard_EXPORT Handle(XCAFDoc_VisMaterial) GetShapeMaterial(const TopoShape& theShape);
 
 public:
   //! Returns GUID of this attribute type.

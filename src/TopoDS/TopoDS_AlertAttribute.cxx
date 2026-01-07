@@ -21,8 +21,8 @@ IMPLEMENT_STANDARD_RTTIEXT(TopoDS_AlertAttribute, Message_Attribute)
 
 //=================================================================================================
 
-TopoDS_AlertAttribute::TopoDS_AlertAttribute(const TopoDS_Shape&            theShape,
-                                             const TCollection_AsciiString& theName)
+TopoDS_AlertAttribute::TopoDS_AlertAttribute(const TopoShape&            theShape,
+                                             const AsciiString1& theName)
     : Message_AttributeStream(Standard_SStream(), theName),
       myShape(theShape)
 {
@@ -35,13 +35,13 @@ TopoDS_AlertAttribute::TopoDS_AlertAttribute(const TopoDS_Shape&            theS
 //=================================================================================================
 
 void TopoDS_AlertAttribute::Send(const Handle(Message_Messenger)& theMessenger,
-                                 const TopoDS_Shape&              theShape)
+                                 const TopoShape&              theShape)
 {
   for (Message_SequenceOfPrinters::Iterator aPrinterIter(theMessenger->Printers());
        aPrinterIter.More();
        aPrinterIter.Next())
   {
-    const Handle(Message_Printer)& aPrinter = aPrinterIter.Value();
+    const Handle(LogPrinter)& aPrinter = aPrinterIter.Value();
     if (!aPrinter->IsKind(STANDARD_TYPE(Message_PrinterToReport)))
     {
       continue;

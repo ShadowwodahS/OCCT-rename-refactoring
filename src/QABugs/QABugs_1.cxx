@@ -36,9 +36,9 @@
 #include <Draw.hxx>
 
 #ifndef _WIN32
-extern Draw_Viewer dout;
+extern DrawViewer dout;
 #else
-Standard_IMPORT Draw_Viewer dout;
+Standard_IMPORT DrawViewer dout;
 #endif
 
 #include <BRep_Builder.hxx>
@@ -57,7 +57,7 @@ Standard_EXPORT ViewerTest_DoubleMapOfInteractiveAndName& GetMapOfAIS();
 #include <BRepAdaptor_Curve.hxx>
 #include <GC_MakePlane.hxx>
 
-static Standard_Integer OCC159bug(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC159bug(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 2)
   {
@@ -65,8 +65,8 @@ static Standard_Integer OCC159bug(Draw_Interpretor& di, Standard_Integer argc, c
     return 1;
   }
 
-  Handle(TDocStd_Document) D;
-  if (!DDocStd::GetDocument(argv[1], D))
+  Handle(AppDocument) D;
+  if (!DDocStd1::GetDocument(argv[1], D))
     return 1;
 
   Standard_Integer DocRefCount1 = D->GetRefCount();
@@ -76,7 +76,7 @@ static Standard_Integer OCC159bug(Draw_Interpretor& di, Standard_Integer argc, c
   if (!D->Main().Root().FindAttribute(TDocStd_Owner::GetID(), Owner))
     return 1;
 
-  Handle(TDocStd_Document) OwnerD1 = Owner->GetDocument();
+  Handle(AppDocument) OwnerD1 = Owner->GetDocument();
   if (OwnerD1.IsNull())
   {
     di << "DocOwner1 = NULL\n";
@@ -87,15 +87,15 @@ static Standard_Integer OCC159bug(Draw_Interpretor& di, Standard_Integer argc, c
   }
   OwnerD1.Nullify();
 
-  Handle(TDocStd_Application) A = DDocStd::GetApplication();
+  Handle(AppManager) A = DDocStd1::GetApplication();
   A->Close(D);
 
-  if (Handle(Draw_Drawable3D) DD = Draw::GetExisting(argv[1]))
+  if (Handle(Draw_Drawable3D) DD = Draw1::GetExisting(argv[1]))
   {
     dout.RemoveDrawable(DD);
   }
 
-  Handle(TDocStd_Document) OwnerD2 = Owner->GetDocument();
+  Handle(AppDocument) OwnerD2 = Owner->GetDocument();
   if (OwnerD2.IsNull())
   {
     di << "DocOwner2 = NULL\n";
@@ -111,7 +111,7 @@ static Standard_Integer OCC159bug(Draw_Interpretor& di, Standard_Integer argc, c
   return 0;
 }
 
-static Standard_Integer OCC145bug(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC145bug(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 3)
   {
@@ -119,24 +119,24 @@ static Standard_Integer OCC145bug(Draw_Interpretor& di, Standard_Integer argc, c
     return 1;
   }
 
-  TCollection_AsciiString aFileName = argv[1];
-  Standard_Integer        aMaxNbr   = Draw::Atoi(argv[2]);
+  AsciiString1 aFileName = argv[1];
+  Standard_Integer        aMaxNbr   = Draw1::Atoi(argv[2]);
 
-  BRep_Builder aBld;
-  TopoDS_Shape aShape;
+  ShapeBuilder aBld;
+  TopoShape aShape;
 
-  if (!BRepTools::Read(aShape, aFileName.ToCString(), aBld))
+  if (!BRepTools1::Read(aShape, aFileName.ToCString(), aBld))
   {
     di << "ERROR :Could not read a shape!!!\n";
     return 1;
   }
 
   Standard_Integer i;
-  TopoDS_Wire      aWire = TopoDS::Wire(aShape);
+  TopoWire      aWire = TopoDS::Wire(aShape);
 
   for (i = 1; i <= aMaxNbr; i++)
   {
-    BRepBuilderAPI_MakeFace aMF(aWire);
+    FaceMaker aMF(aWire);
     if (!aMF.IsDone())
     {
       di << "ERROR : Could not make a face\n";
@@ -147,7 +147,7 @@ static Standard_Integer OCC145bug(Draw_Interpretor& di, Standard_Integer argc, c
   return 0;
 }
 
-static Standard_Integer OCC73_SelectionMode(Draw_Interpretor& di,
+static Standard_Integer OCC73_SelectionMode(DrawInterpreter& di,
                                             Standard_Integer  argc,
                                             const char**      argv)
 {
@@ -157,13 +157,13 @@ static Standard_Integer OCC73_SelectionMode(Draw_Interpretor& di,
     return 1;
   }
 
-  Handle(TDocStd_Document) D;
+  Handle(AppDocument) D;
   // std::cout << "OCC73_SelectionMode  1" << std::endl;
-  if (!DDocStd::GetDocument(argv[1], D))
+  if (!DDocStd1::GetDocument(argv[1], D))
     return 1;
-  TDF_Label L;
+  DataLabel L;
   // std::cout << "OCC73_SelectionMode  2" << std::endl;
-  if (!DDF::FindLabel(D->GetData(), argv[2], L))
+  if (!DDF1::FindLabel(D->GetData(), argv[2], L))
     return 1;
 
   Handle(TPrsStd_AISViewer) viewer;
@@ -177,7 +177,7 @@ static Standard_Integer OCC73_SelectionMode(Draw_Interpretor& di,
   {
     if (argc == 4)
     {
-      prs->SetSelectionMode((Standard_Integer)Draw::Atoi(argv[3]));
+      prs->SetSelectionMode((Standard_Integer)Draw1::Atoi(argv[3]));
       TPrsStd_AISViewer::Update(L);
     }
     else
@@ -192,9 +192,9 @@ static Standard_Integer OCC73_SelectionMode(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer OCC10bug(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC10bug(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -207,15 +207,15 @@ static Standard_Integer OCC10bug(Draw_Interpretor& di, Standard_Integer argc, co
     return 1;
   }
 
-  TopoDS_Shape S = DBRep::Get(argv[2]);
+  TopoShape S = DBRep1::Get(argv[2]);
   if (S.IsNull())
   {
     di << "Shape is empty\n";
     return 1;
   }
 
-  TCollection_AsciiString name(argv[1]);
-  Standard_Real           Length = Draw::Atof(argv[3]);
+  AsciiString1 name(argv[1]);
+  Standard_Real           Length = Draw1::Atof(argv[3]);
 
   // Construction de l'AIS_PlaneTrihedron
   Handle(AIS_PlaneTrihedron) theAISPlaneTri;
@@ -224,13 +224,13 @@ static Standard_Integer OCC10bug(Draw_Interpretor& di, Standard_Integer argc, co
   if (IsBound)
   {
     // on recupere la shape dans la map des objets displayes
-    Handle(AIS_InteractiveObject) aShape = GetMapOfAIS().Find2(name);
+    Handle(VisualEntity) aShape = GetMapOfAIS().Find2(name);
 
     // On verifie que l'AIS InteraciveObject est bien
     // un AIS_PlaneTrihedron
     if (aShape->Type() == AIS_KindOfInteractive_Datum && aShape->Signature() == 4)
     {
-      // On downcast aShape de AIS_InteractiveObject a AIS_PlaneTrihedron
+      // On downcast aShape de VisualEntity a AIS_PlaneTrihedron
       theAISPlaneTri = Handle(AIS_PlaneTrihedron)::DownCast(aShape);
 
       theAISPlaneTri->SetLength(Length);
@@ -241,13 +241,13 @@ static Standard_Integer OCC10bug(Draw_Interpretor& di, Standard_Integer argc, co
   }
   else
   {
-    TopoDS_Face FaceB = TopoDS::Face(S);
+    TopoFace FaceB = TopoDS::Face(S);
 
     // Construction du Plane
     // recuperation des edges des faces.
-    TopExp_Explorer FaceExpB(FaceB, TopAbs_EDGE);
+    ShapeExplorer FaceExpB(FaceB, TopAbs_EDGE);
 
-    TopoDS_Edge EdgeB = TopoDS::Edge(FaceExpB.Current());
+    TopoEdge EdgeB = TopoDS::Edge(FaceExpB.Current());
     // declarations
     Point3d A, B, C;
 
@@ -255,7 +255,7 @@ static Standard_Integer OCC10bug(Draw_Interpretor& di, Standard_Integer argc, co
     if (FaceExpB.More())
     {
       FaceExpB.Next();
-      TopoDS_Edge       EdgeC = TopoDS::Edge(FaceExpB.Current());
+      TopoEdge       EdgeC = TopoDS::Edge(FaceExpB.Current());
       BRepAdaptor_Curve theCurveB(EdgeB);
       BRepAdaptor_Curve theCurveC(EdgeC);
       A = theCurveC.Value(0.1);
@@ -270,9 +270,9 @@ static Standard_Integer OCC10bug(Draw_Interpretor& di, Standard_Integer argc, co
       B = theCurveB.Value(0.9);
       C = theCurveB.Value(0.5);
     }
-    // Construction du Geom_Plane
+    // Construction du GeomPlane
     GC_MakePlane              MkPlane(A, B, C);
-    const Handle(Geom_Plane)& theGeomPlane = MkPlane.Value();
+    const Handle(GeomPlane)& theGeomPlane = MkPlane.Value();
 
     // on le display & bind
     theAISPlaneTri = new AIS_PlaneTrihedron(theGeomPlane);
@@ -299,9 +299,9 @@ static Standard_Integer OCC10bug(Draw_Interpretor& di, Standard_Integer argc, co
   return 0;
 }
 
-static Standard_Integer OCC74bug_set(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC74bug_set(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
     di << argv[0] << "ERROR : use 'vinit' command before \n";
@@ -318,10 +318,10 @@ static Standard_Integer OCC74bug_set(Draw_Interpretor& di, Standard_Integer argc
 
   ViewerTest_DoubleMapOfInteractiveAndName& aMap = GetMapOfAIS();
 
-  TCollection_AsciiString       aName(argv[1]);
-  Handle(AIS_InteractiveObject) AISObj;
+  AsciiString1       aName(argv[1]);
+  Handle(VisualEntity) AISObj;
 
-  Standard_Integer SelectMode = Draw::Atoi(argv[2]);
+  Standard_Integer SelectMode = Draw1::Atoi(argv[2]);
   if (!aMap.Find2(aName, AISObj) || AISObj.IsNull())
   {
     di << "Use 'vdisplay' before\n";
@@ -337,9 +337,9 @@ static Standard_Integer OCC74bug_set(Draw_Interpretor& di, Standard_Integer argc
   return 0;
 }
 
-static Standard_Integer OCC74bug_get(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC74bug_get(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
     di << argv[0] << "ERROR : use 'vinit' command before \n";
@@ -354,8 +354,8 @@ static Standard_Integer OCC74bug_get(Draw_Interpretor& di, Standard_Integer argc
 
   ViewerTest_DoubleMapOfInteractiveAndName& aMap = GetMapOfAIS();
 
-  TCollection_AsciiString       aName(argv[1]);
-  Handle(AIS_InteractiveObject) AISObj;
+  AsciiString1       aName(argv[1]);
+  Handle(VisualEntity) AISObj;
   if (!aMap.Find2(aName, AISObj) || AISObj.IsNull())
   {
     di << "Use 'vdisplay' before\n";
@@ -374,7 +374,7 @@ static Standard_Integer OCC74bug_get(Draw_Interpretor& di, Standard_Integer argc
 #include <TNaming_NamedShape.hxx>
 #include <AIS_InteractiveObject.hxx>
 
-static Standard_Integer OCC361bug(Draw_Interpretor& di, Standard_Integer nb, const char** a)
+static Standard_Integer OCC361bug(DrawInterpreter& di, Standard_Integer nb, const char** a)
 {
   if (nb != 2)
   {
@@ -383,23 +383,23 @@ static Standard_Integer OCC361bug(Draw_Interpretor& di, Standard_Integer nb, con
     return -1;
   }
 
-  Handle(TDocStd_Document) D;
-  if (!DDocStd::GetDocument(a[1], D))
+  Handle(AppDocument) D;
+  if (!DDocStd1::GetDocument(a[1], D))
   {
     di << "-2\n";
     return 1;
   }
 
-  BRepPrimAPI_MakeBox aBox(Point3d(0, 0, 0), 100, 100, 100);
-  TopoDS_Shape        aTBox = aBox.Shape();
+  BoxMaker aBox(Point3d(0, 0, 0), 100, 100, 100);
+  TopoShape        aTBox = aBox.Shape();
   aTBox.Orientation(TopAbs_FORWARD);
 
-  TDF_Label aTestLabel = D->Main();
+  DataLabel aTestLabel = D->Main();
 
   TNaming_Builder aBuilder(aTestLabel);
   aBuilder.Generated(aTBox);
 
-  TopoDS_Shape aTBox1 = aTBox;
+  TopoShape aTBox1 = aTBox;
   aTBox1.Orientation(TopAbs_REVERSED);
   aTestLabel.ForgetAllAttributes();
 
@@ -427,7 +427,7 @@ static Standard_Integer OCC361bug(Draw_Interpretor& di, Standard_Integer nb, con
 // function : OCC30182
 // purpose  : Testing different interfaces of Image_AlienPixMap::Load()
 //=======================================================================
-static Standard_Integer OCC30182(Draw_Interpretor& di,
+static Standard_Integer OCC30182(DrawInterpreter& di,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
@@ -437,16 +437,16 @@ static Standard_Integer OCC30182(Draw_Interpretor& di,
     return 1;
   }
 
-  TCollection_AsciiString aPrsName, anImgPath;
+  AsciiString1 aPrsName, anImgPath;
   Standard_Integer        anOffset = 0;
   Standard_Integer        aSrc     = 0; // 0 - file name, 1 - file stream, 2 - memory buffer
   for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     if (anArg == "-offset" && anArgIter + 1 < theNbArgs)
     {
-      anOffset = Draw::Atoi(theArgVec[++anArgIter]);
+      anOffset = Draw1::Atoi(theArgVec[++anArgIter]);
     }
     else if (anArg == "-filename")
     {
@@ -533,8 +533,8 @@ static Standard_Integer OCC30182(Draw_Interpretor& di,
     }
   }
 
-  TopoDS_Shape      aShape = BRepPrimAPI_MakeBox(100.0 * anImage->Ratio(), 100.0, 1.0).Shape();
-  Handle(AIS_Shape) aPrs   = new AIS_Shape(aShape);
+  TopoShape      aShape = BoxMaker(100.0 * anImage->Ratio(), 100.0, 1.0).Shape();
+  Handle(VisualShape) aPrs   = new VisualShape(aShape);
   aPrs->SetDisplayMode(AIS_Shaded);
   aPrs->Attributes()->SetupOwnShadingAspect();
   const Handle(Graphic3d_AspectFillArea3d)& anAspect =
@@ -556,7 +556,7 @@ static Standard_Integer OCC30182(Draw_Interpretor& di,
 // function : OCC31956
 // purpose  : Testing Image_AlienPixMap::Save() overload for saving into a memory buffer or stream
 //=======================================================================
-static Standard_Integer OCC31956(Draw_Interpretor& di,
+static Standard_Integer OCC31956(DrawInterpreter& di,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
@@ -572,10 +572,10 @@ static Standard_Integer OCC31956(Draw_Interpretor& di,
   }
 
   bool                    useStream = false;
-  TCollection_AsciiString aTempImgPath;
+  AsciiString1 aTempImgPath;
   if (theNbArgs == 5)
   {
-    TCollection_AsciiString anArg(theArgVec[3]);
+    AsciiString1 anArg(theArgVec[3]);
     anArg.LowerCase();
     if (anArg == "-stream")
     {
@@ -589,7 +589,7 @@ static Standard_Integer OCC31956(Draw_Interpretor& di,
     }
   }
 
-  TCollection_AsciiString aPrsName, anImgPath;
+  AsciiString1 aPrsName, anImgPath;
   aPrsName                                               = theArgVec[1];
   anImgPath                                              = theArgVec[2];
   Handle(Image_AlienPixMap)                  anImage     = new Image_AlienPixMap();
@@ -639,8 +639,8 @@ static Standard_Integer OCC31956(Draw_Interpretor& di,
     aControlImg->Load(&aBuff.ChangeFirst(), aBuff.Size(), anImgPath);
   }
 
-  TopoDS_Shape      aShape = BRepPrimAPI_MakeBox(100.0 * aControlImg->Ratio(), 100.0, 1.0).Shape();
-  Handle(AIS_Shape) aPrs   = new AIS_Shape(aShape);
+  TopoShape      aShape = BoxMaker(100.0 * aControlImg->Ratio(), 100.0, 1.0).Shape();
+  Handle(VisualShape) aPrs   = new VisualShape(aShape);
   aPrs->SetDisplayMode(AIS_Shaded);
   aPrs->Attributes()->SetupOwnShadingAspect();
   const Handle(Graphic3d_AspectFillArea3d)& anAspect =
@@ -658,7 +658,7 @@ static Standard_Integer OCC31956(Draw_Interpretor& di,
   return 0;
 }
 
-void QABugs::Commands_1(Draw_Interpretor& theCommands)
+void QABugs::Commands_1(DrawInterpreter& theCommands)
 {
   const char* group = "QABugs";
 

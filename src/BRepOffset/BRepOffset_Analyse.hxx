@@ -33,10 +33,10 @@
 
 #include <Message_ProgressRange.hxx>
 
-class TopoDS_Edge;
-class TopoDS_Vertex;
-class TopoDS_Face;
-class TopoDS_Compound;
+class TopoEdge;
+class TopoVertex;
+class TopoFace;
+class TopoCompound;
 
 //! Analyses the shape to find the parts of edges
 //! connecting the convex, concave or tangent faces.
@@ -50,11 +50,11 @@ public: //! @name Constructors
   Standard_EXPORT BRepOffset_Analyse();
 
   //! C-tor performing the job inside
-  Standard_EXPORT BRepOffset_Analyse(const TopoDS_Shape& theS, const Standard_Real theAngle);
+  Standard_EXPORT BRepOffset_Analyse(const TopoShape& theS, const Standard_Real theAngle);
 
 public: //! @name Performing analysis
   //! Performs the analysis
-  Standard_EXPORT void Perform(const TopoDS_Shape&          theS,
+  Standard_EXPORT void Perform(const TopoShape&          theS,
                                const Standard_Real          theAngle,
                                const Message_ProgressRange& theRange = Message_ProgressRange());
 
@@ -63,60 +63,60 @@ public: //! @name Results
   Standard_Boolean IsDone() const { return myDone; }
 
   //! Returns the connectivity type of the edge
-  Standard_EXPORT const BRepOffset_ListOfInterval& Type(const TopoDS_Edge& theE) const;
+  Standard_EXPORT const BRepOffset_ListOfInterval& Type(const TopoEdge& theE) const;
 
   //! Stores in <L> all the edges of Type <T>
   //! on the vertex <V>.
-  Standard_EXPORT void Edges(const TopoDS_Vertex&         theV,
+  Standard_EXPORT void Edges(const TopoVertex&         theV,
                              const ChFiDS_TypeOfConcavity theType,
-                             TopTools_ListOfShape&        theL) const;
+                             ShapeList&        theL) const;
 
   //! Stores in <L> all the edges of Type <T>
   //! on the face <F>.
-  Standard_EXPORT void Edges(const TopoDS_Face&           theF,
+  Standard_EXPORT void Edges(const TopoFace&           theF,
                              const ChFiDS_TypeOfConcavity theType,
-                             TopTools_ListOfShape&        theL) const;
+                             ShapeList&        theL) const;
 
   //! set in <Edges> all  the Edges of <Shape> which are
   //! tangent to <Edge> at the vertex <Vertex>.
-  Standard_EXPORT void TangentEdges(const TopoDS_Edge&    theEdge,
-                                    const TopoDS_Vertex&  theVertex,
-                                    TopTools_ListOfShape& theEdges) const;
+  Standard_EXPORT void TangentEdges(const TopoEdge&    theEdge,
+                                    const TopoVertex&  theVertex,
+                                    ShapeList& theEdges) const;
 
   //! Checks if the given shape has ancestors
-  Standard_Boolean HasAncestor(const TopoDS_Shape& theS) const
+  Standard_Boolean HasAncestor(const TopoShape& theS) const
   {
     return myAncestors.Contains(theS);
   }
 
   //! Returns ancestors for the shape
-  const TopTools_ListOfShape& Ancestors(const TopoDS_Shape& theS) const
+  const ShapeList& Ancestors(const TopoShape& theS) const
   {
     return myAncestors.FindFromKey(theS);
   }
 
   //! Explode in compounds of faces where
   //! all the connex edges are of type <Side>
-  Standard_EXPORT void Explode(TopTools_ListOfShape&        theL,
+  Standard_EXPORT void Explode(ShapeList&        theL,
                                const ChFiDS_TypeOfConcavity theType) const;
 
   //! Explode in compounds of faces where
   //! all the connex edges are of type <Side1> or <Side2>
-  Standard_EXPORT void Explode(TopTools_ListOfShape&        theL,
+  Standard_EXPORT void Explode(ShapeList&        theL,
                                const ChFiDS_TypeOfConcavity theType1,
                                const ChFiDS_TypeOfConcavity theType2) const;
 
   //! Add in <CO> the faces of the shell containing <Face>
   //! where all the connex edges are of type <Side>.
-  Standard_EXPORT void AddFaces(const TopoDS_Face&           theFace,
-                                TopoDS_Compound&             theCo,
+  Standard_EXPORT void AddFaces(const TopoFace&           theFace,
+                                TopoCompound&             theCo,
                                 TopTools_MapOfShape&         theMap,
                                 const ChFiDS_TypeOfConcavity theType) const;
 
   //! Add in <CO> the faces of the shell containing <Face>
   //! where all the connex edges are of type <Side1> or <Side2>.
-  Standard_EXPORT void AddFaces(const TopoDS_Face&           theFace,
-                                TopoDS_Compound&             theCo,
+  Standard_EXPORT void AddFaces(const TopoFace&           theFace,
+                                TopoCompound&             theCo,
                                 TopTools_MapOfShape&         theMap,
                                 const ChFiDS_TypeOfConcavity theType1,
                                 const ChFiDS_TypeOfConcavity theType2) const;
@@ -128,26 +128,26 @@ public: //! @name Results
 
   //! Returns the new faces constructed between tangent faces
   //! having different offset values on the shape
-  const TopTools_ListOfShape& NewFaces() const { return myNewFaces; }
+  const ShapeList& NewFaces() const { return myNewFaces; }
 
   //! Returns the new face constructed for the edge connecting
   //! the two tangent faces having different offset values
-  Standard_EXPORT TopoDS_Shape Generated(const TopoDS_Shape& theS) const;
+  Standard_EXPORT TopoShape Generated(const TopoShape& theS) const;
 
   //! Checks if the edge has generated a new face.
-  Standard_Boolean HasGenerated(const TopoDS_Shape& theS) const
+  Standard_Boolean HasGenerated(const TopoShape& theS) const
   {
     return myGenerated.Seek(theS) != NULL;
   }
 
   //! Returns the replacement of the edge in the face.
   //! If no replacement exists, returns the edge
-  Standard_EXPORT const TopoDS_Edge& EdgeReplacement(const TopoDS_Face& theFace,
-                                                     const TopoDS_Edge& theEdge) const;
+  Standard_EXPORT const TopoEdge& EdgeReplacement(const TopoFace& theFace,
+                                                     const TopoEdge& theEdge) const;
 
   //! Returns the shape descendants.
-  Standard_EXPORT const TopTools_ListOfShape* Descendants(
-    const TopoDS_Shape&    theS,
+  Standard_EXPORT const ShapeList* Descendants(
+    const TopoShape&    theS,
     const Standard_Boolean theUpdate = Standard_False) const;
 
 public: //! @name Clearing the content
@@ -157,12 +157,12 @@ public: //! @name Clearing the content
 private: //! @name Treatment of tangential cases
   //! Treatment of the tangential cases.
   //! @param theEdges List of edges connecting tangent faces
-  Standard_EXPORT void TreatTangentFaces(const TopTools_ListOfShape&  theEdges,
+  Standard_EXPORT void TreatTangentFaces(const ShapeList&  theEdges,
                                          const Message_ProgressRange& theRange);
 
 private: //! @name Fields
   // Inputs
-  TopoDS_Shape  myShape; //!< Input shape to analyze
+  TopoShape  myShape; //!< Input shape to analyze
   Standard_Real myAngle; //!< Criteria angle to check tangency
 
   Standard_Real               myOffset;        //!< Offset value
@@ -175,13 +175,13 @@ private: //! @name Fields
   // clang-format off
   BRepOffset_DataMapOfShapeListOfInterval myMapEdgeType; //!< Map containing the list of intervals on the edge
   TopTools_IndexedDataMapOfShapeListOfShape myAncestors; //!< Ancestors map
-  NCollection_DataMap<TopoDS_Shape,
+  NCollection_DataMap<TopoShape,
                       TopTools_DataMapOfShapeShape,
-                      TopTools_ShapeMapHasher> myReplacement; //!< Replacement of an edge in the face
+                      ShapeHasher> myReplacement; //!< Replacement of an edge in the face
   mutable TopTools_DataMapOfShapeListOfShape myDescendants; //!< Map of shapes descendants built on the base of
                                                             //!< Ancestors map. Filled on the first query.
 
-  TopTools_ListOfShape myNewFaces; //!< New faces generated to close the gaps between adjacent
+  ShapeList myNewFaces; //!< New faces generated to close the gaps between adjacent
                                    //!  tangential faces having different offset values
   TopTools_DataMapOfShapeShape myGenerated; //!< Binding between edge and face generated from the edge
   // clang-format on

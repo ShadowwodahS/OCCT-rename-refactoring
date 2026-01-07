@@ -20,6 +20,6 @@
 #include <TopoDS_Shape.hxx>
 #include <NCollection_IndexedMap.hxx>
 
-typedef NCollection_IndexedMap<TopoDS_Shape> TopTools_IndexedMapOfOrientedShape;
+typedef NCollection_IndexedMap<TopoShape> TopTools_IndexedMapOfOrientedShape;
 
 #endif

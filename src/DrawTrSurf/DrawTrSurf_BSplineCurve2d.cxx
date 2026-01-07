@@ -39,9 +39,9 @@ DrawTrSurf_BSplineCurve2d::DrawTrSurf_BSplineCurve2d(const Handle(Geom2d_BSpline
 }
 
 DrawTrSurf_BSplineCurve2d::DrawTrSurf_BSplineCurve2d(const Handle(Geom2d_BSplineCurve)& C,
-                                                     const Draw_Color&                  CurvColor,
-                                                     const Draw_Color&                  PolesColor,
-                                                     const Draw_Color&                  KnotsColor,
+                                                     const DrawColor&                  CurvColor,
+                                                     const DrawColor&                  PolesColor,
+                                                     const DrawColor&                  KnotsColor,
                                                      const Draw_MarkerShape             KnotsShape,
                                                      const Standard_Integer             KnotsSize,
                                                      const Standard_Boolean             ShowPoles,
@@ -57,7 +57,7 @@ DrawTrSurf_BSplineCurve2d::DrawTrSurf_BSplineCurve2d(const Handle(Geom2d_BSpline
   polesLook = PolesColor;
 }
 
-void DrawTrSurf_BSplineCurve2d::DrawOn(Draw_Display& dis) const
+void DrawTrSurf_BSplineCurve2d::DrawOn(DrawDisplay& dis) const
 {
   Handle(Geom2d_BSplineCurve) C = Handle(Geom2d_BSplineCurve)::DownCast(curv);
 
@@ -94,7 +94,7 @@ void DrawTrSurf_BSplineCurve2d::DrawOn(Draw_Display& dis) const
 
 void DrawTrSurf_BSplineCurve2d::FindPole(const Standard_Real X,
                                          const Standard_Real Y,
-                                         const Draw_Display& D,
+                                         const DrawDisplay& D,
                                          const Standard_Real XPrec,
                                          Standard_Integer&   Index) const
 {
@@ -120,7 +120,7 @@ void DrawTrSurf_BSplineCurve2d::FindPole(const Standard_Real X,
 
 void DrawTrSurf_BSplineCurve2d::FindKnot(const Standard_Real X,
                                          const Standard_Real Y,
-                                         const Draw_Display& D,
+                                         const DrawDisplay& D,
                                          const Standard_Real Prec,
                                          Standard_Integer&   Index) const
 {
@@ -165,7 +165,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_BSplineCurve2d::Copy() const
 
 Handle(Draw_Drawable3D) DrawTrSurf_BSplineCurve2d::Restore(Standard_IStream& theStream)
 {
-  const DrawTrSurf_Params&    aParams = DrawTrSurf::Parameters();
+  const DrawTrSurf_Params&    aParams = DrawTrSurf1::Parameters();
   Handle(Geom2d_BSplineCurve) aGeomCurve =
     Handle(Geom2d_BSplineCurve)::DownCast(GeomTools_Curve2dSet::ReadCurve2d(theStream));
   Handle(DrawTrSurf_BSplineCurve2d) aDrawCurve = new DrawTrSurf_BSplineCurve2d(aGeomCurve,

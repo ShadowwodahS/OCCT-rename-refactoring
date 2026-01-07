@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 
 //! Describes a list of ONE field
-class StepData_FieldList1 : public StepData_FieldList
+class StepData_FieldList1 : public FieldList
 {
 public:
   DEFINE_STANDARD_ALLOC

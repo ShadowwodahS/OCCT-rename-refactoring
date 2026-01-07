@@ -33,7 +33,7 @@ Graphic3d_CView::Graphic3d_CView(const Handle(Graphic3d_StructureManager)& theMg
       mySubviewSize(1.0, 1.0),
       //
       myStructureManager(theMgr),
-      myCamera(new Graphic3d_Camera()),
+      myCamera(new CameraOn3d()),
       myIsInComputedMode(Standard_False),
       myIsActive(Standard_False),
       myIsRemoved(Standard_False),
@@ -540,7 +540,7 @@ Bnd_Box Graphic3d_CView::MinMaxValues(const Standard_Boolean theToIncludeAuxilia
     return Bnd_Box();
   }
 
-  const Handle(Graphic3d_Camera)& aCamera = Camera();
+  const Handle(CameraOn3d)& aCamera = Camera();
   Graphic3d_Vec2i                 aWinSize;
   Window()->Size(aWinSize.x(), aWinSize.y());
 
@@ -568,7 +568,7 @@ Standard_Real Graphic3d_CView::ConsiderZoomPersistenceObjects()
     return 1.0;
   }
 
-  const Handle(Graphic3d_Camera)& aCamera = Camera();
+  const Handle(CameraOn3d)& aCamera = Camera();
   Graphic3d_Vec2i                 aWinSize;
   Window()->Size(aWinSize.x(), aWinSize.y());
 
@@ -595,7 +595,7 @@ Bnd_Box Graphic3d_CView::MinMaxValues(const Graphic3d_MapOfStructure& theSet,
   Bnd_Box                aResult;
   const Standard_Integer aViewId = Identification();
 
-  Handle(Graphic3d_Camera) aCamera    = Camera();
+  Handle(CameraOn3d) aCamera    = Camera();
   Standard_Integer         aWinWidth  = 0;
   Standard_Integer         aWinHeight = 0;
   if (IsDefined())
@@ -1154,7 +1154,7 @@ void Graphic3d_CView::CopySettings(const Handle(Graphic3d_CView)& theOther)
   SetTextureEnv(theOther->TextureEnv());
   SetShadingModel(theOther->ShadingModel());
   SetBackfacingModel(theOther->BackfacingModel());
-  SetCamera(new Graphic3d_Camera(theOther->Camera()));
+  SetCamera(new CameraOn3d(theOther->Camera()));
   SetLights(theOther->Lights());
   SetClipPlanes(theOther->ClipPlanes());
 }
@@ -1209,7 +1209,7 @@ bool Graphic3d_CView::InitXR()
     if (myBackXRCamera.IsNull())
     {
       // backup camera properties
-      myBackXRCamera = new Graphic3d_Camera(myCamera);
+      myBackXRCamera = new CameraOn3d(myCamera);
     }
   }
   return myXRSession->IsOpen();
@@ -1241,7 +1241,7 @@ void Graphic3d_CView::ReleaseXR()
 void Graphic3d_CView::ProcessXRInput()
 {
   if (myRenderParams.StereoMode == Graphic3d_StereoMode_OpenVR
-      && myCamera->ProjectionType() == Graphic3d_Camera::Projection_Stereo)
+      && myCamera->ProjectionType() == CameraOn3d::Projection_Stereo)
   {
     InitXR();
   }
@@ -1263,15 +1263,15 @@ void Graphic3d_CView::ProcessXRInput()
   myCamera->SetFOV2d(myRenderParams.HmdFov2d);
   myCamera->SetAspect(myXRSession->Aspect());
   myCamera->SetFOVy(myXRSession->FieldOfView());
-  myCamera->SetIOD(Graphic3d_Camera::IODType_Absolute, myXRSession->IOD());
-  myCamera->SetZFocus(Graphic3d_Camera::FocusType_Absolute, 1.0 * myUnitFactor);
+  myCamera->SetIOD(CameraOn3d::IODType_Absolute, myXRSession->IOD());
+  myCamera->SetZFocus(CameraOn3d::FocusType_Absolute, 1.0 * myUnitFactor);
 
   // VR APIs tend to decompose camera orientation-projection matrices into the following components:
   // @begincode
   //   Model * [View * Eye^-1] * [Projection]
   // @endcode
   // so that Eye position is encoded into Orientation matrix, and there should be 2 Orientation
-  // matrices and 2 Projection matrices to make the stereo. Graphic3d_Camera historically follows
+  // matrices and 2 Projection matrices to make the stereo. CameraOn3d historically follows
   // different decomposition, with Eye position encoded into Projection matrix, so that there is
   // only 1 Orientation matrix (matching mono view) and 2 Projection matrices.
   if (myXRSession->HasProjectionFrustums())
@@ -1293,7 +1293,7 @@ void Graphic3d_CView::ProcessXRInput()
   myBaseXRCamera = myCamera;
   if (myPosedXRCamera.IsNull())
   {
-    myPosedXRCamera = new Graphic3d_Camera();
+    myPosedXRCamera = new CameraOn3d();
   }
   SynchronizeXRBaseToPosedCamera();
 }
@@ -1310,7 +1310,7 @@ void Graphic3d_CView::SynchronizeXRBaseToPosedCamera()
 
 //=================================================================================================
 
-void Graphic3d_CView::ComputeXRPosedCameraFromBase(Graphic3d_Camera& theCam,
+void Graphic3d_CView::ComputeXRPosedCameraFromBase(CameraOn3d& theCam,
                                                    const Transform3d&    theXRTrsf) const
 {
   theCam.Copy(myBaseXRCamera);
@@ -1359,7 +1359,7 @@ void Graphic3d_CView::SynchronizeXRPosedToBaseCamera()
 
 //=================================================================================================
 
-void Graphic3d_CView::ComputeXRBaseCameraFromPosed(const Graphic3d_Camera& theCamPosed,
+void Graphic3d_CView::ComputeXRBaseCameraFromPosed(const CameraOn3d& theCamPosed,
                                                    const Transform3d&          thePoseTrsf)
 {
   const gp_Ax3 anAxVr(gp::Origin(), gp::DZ(), gp::DX());
@@ -1381,7 +1381,7 @@ void Graphic3d_CView::ComputeXRBaseCameraFromPosed(const Graphic3d_Camera& theCa
 void Graphic3d_CView::TurnViewXRCamera(const Transform3d& theTrsfTurn)
 {
   // use current eye position as an anchor
-  const Handle(Graphic3d_Camera)& aCamBase = myBaseXRCamera;
+  const Handle(CameraOn3d)& aCamBase = myBaseXRCamera;
   Transform3d                         aHeadTrsfLocal;
   aHeadTrsfLocal.SetTranslationPart(myXRSession->HeadPose().TranslationPart());
   const Point3d anEyeAnchor = PoseXRToWorld(aHeadTrsfLocal).TranslationPart();
@@ -1410,7 +1410,7 @@ void Graphic3d_CView::SetupXRPosedCamera()
     myCamera = myPosedXRCamera;
     if (myPosedXRCameraCopy.IsNull())
     {
-      myPosedXRCameraCopy = new Graphic3d_Camera();
+      myPosedXRCameraCopy = new CameraOn3d();
     }
     myPosedXRCameraCopy->Copy(myPosedXRCamera);
   }
@@ -1434,13 +1434,13 @@ void Graphic3d_CView::DiagnosticInformation(TColStd_IndexedDataMapOfStringString
 {
   if ((theFlags & Graphic3d_DiagnosticInfo_Device) != 0 && !myXRSession.IsNull())
   {
-    TCollection_AsciiString aVendor  = myXRSession->GetString(Aspect_XRSession::InfoString_Vendor);
-    TCollection_AsciiString aDevice  = myXRSession->GetString(Aspect_XRSession::InfoString_Device);
-    TCollection_AsciiString aTracker = myXRSession->GetString(Aspect_XRSession::InfoString_Tracker);
-    TCollection_AsciiString aSerial =
+    AsciiString1 aVendor  = myXRSession->GetString(Aspect_XRSession::InfoString_Vendor);
+    AsciiString1 aDevice  = myXRSession->GetString(Aspect_XRSession::InfoString_Device);
+    AsciiString1 aTracker = myXRSession->GetString(Aspect_XRSession::InfoString_Tracker);
+    AsciiString1 aSerial =
       myXRSession->GetString(Aspect_XRSession::InfoString_SerialNumber);
-    TCollection_AsciiString aDisplay =
-      TCollection_AsciiString() + myXRSession->RecommendedViewport().x() + "x"
+    AsciiString1 aDisplay =
+      AsciiString1() + myXRSession->RecommendedViewport().x() + "x"
       + myXRSession->RecommendedViewport().y() + "@" + (int)Round(myXRSession->DisplayFrequency())
       + " [FOVy: " + (int)Round(myXRSession->FieldOfView()) + "]";
 

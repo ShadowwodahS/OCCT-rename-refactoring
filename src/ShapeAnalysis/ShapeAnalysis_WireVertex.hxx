@@ -26,7 +26,7 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <Standard_Integer.hxx>
 class ShapeExtend_WireData;
-class TopoDS_Wire;
+class TopoWire;
 class gp_XYZ;
 
 // resolve name collisions with X11 headers
@@ -48,11 +48,11 @@ public:
   //! Empty constructor
   Standard_EXPORT ShapeAnalysis_WireVertex();
 
-  Standard_EXPORT void Init(const TopoDS_Wire& wire, const Standard_Real preci);
+  Standard_EXPORT void Init(const TopoWire& wire, const Standard_Real preci);
 
   Standard_EXPORT void Init(const Handle(ShapeExtend_WireData)& swbd, const Standard_Real preci);
 
-  Standard_EXPORT void Load(const TopoDS_Wire& wire);
+  Standard_EXPORT void Load(const TopoWire& wire);
 
   Standard_EXPORT void Load(const Handle(ShapeExtend_WireData)& sbwd);
 

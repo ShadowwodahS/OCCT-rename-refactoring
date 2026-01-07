@@ -35,7 +35,7 @@ IMPLEMENT_STANDARD_RTTIEXT(PCDM_StorageDriver, PCDM_Writer)
 #define STORAGE_VERSION "STORAGE_VERSION:"
 
 void PCDM_StorageDriver::Write(const Handle(CDM_Document)&       aDocument,
-                               const TCollection_ExtendedString& aFileName,
+                               const UtfString& aFileName,
                                const Message_ProgressRange& /*theRange*/)
 {
   Handle(Storage_Schema) theSchema = new Storage_Schema;
@@ -74,7 +74,7 @@ void PCDM_StorageDriver::Write(const Handle(CDM_Document)&       aDocument,
     theData->AddRoot(thePersistentDocuments(i));
   }
 
-  TCollection_AsciiString ligne(STORAGE_VERSION);
+  AsciiString1 ligne(STORAGE_VERSION);
   ligne += PCDM_ReadWriter::Writer()->Version();
   theData->AddToUserInfo(ligne);
 
@@ -127,14 +127,14 @@ void PCDM_StorageDriver::Make(const Handle(CDM_Document)& aDocument,
 
 //=================================================================================================
 
-void PCDM_StorageDriver::SetFormat(const TCollection_ExtendedString& aformat)
+void PCDM_StorageDriver::SetFormat(const UtfString& aformat)
 {
   myFormat = aformat;
 }
 
 //=================================================================================================
 
-TCollection_ExtendedString PCDM_StorageDriver::GetFormat() const
+UtfString PCDM_StorageDriver::GetFormat() const
 {
   return myFormat;
 }

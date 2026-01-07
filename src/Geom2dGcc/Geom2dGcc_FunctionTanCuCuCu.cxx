@@ -169,20 +169,20 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Value(const math_Vector& X, math_V
   gp_Vec2d D23;
   InitDerivative(X, Point1, Point2, Point3, Tan1, Tan2, Tan3, D21, D22, D23);
   // pipj (normes) et PiPj (non Normes).
-  gp_XY         P1P2(gp_Vec2d(Point1, Point2).XY());
-  gp_XY         P2P3(gp_Vec2d(Point2, Point3).XY());
-  gp_XY         P3P1(gp_Vec2d(Point3, Point1).XY());
+  Coords2d         P1P2(gp_Vec2d(Point1, Point2).XY());
+  Coords2d         P2P3(gp_Vec2d(Point2, Point3).XY());
+  Coords2d         P3P1(gp_Vec2d(Point3, Point1).XY());
   Standard_Real NorP1P2 = P1P2.Modulus();
   Standard_Real NorP2P3 = P2P3.Modulus();
   Standard_Real NorP3P1 = P3P1.Modulus();
-  gp_XY         p1p2, p2p3, p3p1;
+  Coords2d         p1p2, p2p3, p3p1;
   if (NorP1P2 >= gp::Resolution())
   {
     p1p2 = P1P2 / NorP1P2;
   }
   else
   {
-    p1p2 = gp_XY(0., 0.);
+    p1p2 = Coords2d(0., 0.);
   }
   if (NorP2P3 >= gp::Resolution())
   {
@@ -190,7 +190,7 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Value(const math_Vector& X, math_V
   }
   else
   {
-    p2p3 = gp_XY(0., 0.);
+    p2p3 = Coords2d(0., 0.);
   }
   if (NorP3P1 >= gp::Resolution())
   {
@@ -198,27 +198,27 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Value(const math_Vector& X, math_V
   }
   else
   {
-    p3p1 = gp_XY(0., 0.);
+    p3p1 = Coords2d(0., 0.);
   }
   // derivees premieres non normees Deriv1ui.
-  gp_XY Deriv1u1(Tan1.XY());
-  gp_XY Deriv1u2(Tan2.XY());
-  gp_XY Deriv1u3(Tan3.XY());
+  Coords2d Deriv1u1(Tan1.XY());
+  Coords2d Deriv1u2(Tan2.XY());
+  Coords2d Deriv1u3(Tan3.XY());
   // normales aux courbes.
   Standard_Real nnor1 = Deriv1u1.Modulus();
   Standard_Real nnor2 = Deriv1u2.Modulus();
   Standard_Real nnor3 = Deriv1u3.Modulus();
-  gp_XY         Nor1(-Deriv1u1.Y(), Deriv1u1.X());
-  gp_XY         Nor2(-Deriv1u2.Y(), Deriv1u2.X());
-  gp_XY         Nor3(-Deriv1u3.Y(), Deriv1u3.X());
-  gp_XY         nor1, nor2, nor3;
+  Coords2d         Nor1(-Deriv1u1.Y(), Deriv1u1.X());
+  Coords2d         Nor2(-Deriv1u2.Y(), Deriv1u2.X());
+  Coords2d         Nor3(-Deriv1u3.Y(), Deriv1u3.X());
+  Coords2d         nor1, nor2, nor3;
   if (nnor1 >= gp::Resolution())
   {
     nor1 = Nor1 / nnor1;
   }
   else
   {
-    nor1 = gp_XY(0., 0.);
+    nor1 = Coords2d(0., 0.);
   }
   if (nnor2 >= gp::Resolution())
   {
@@ -226,7 +226,7 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Value(const math_Vector& X, math_V
   }
   else
   {
-    nor2 = gp_XY(0., 0.);
+    nor2 = Coords2d(0., 0.);
   }
   if (nnor3 >= gp::Resolution())
   {
@@ -234,16 +234,16 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Value(const math_Vector& X, math_V
   }
   else
   {
-    nor3 = gp_XY(0., 0.);
+    nor3 = Coords2d(0., 0.);
   }
   // determination des signes pour les produits scalaires.
   Standard_Real signe1 = 1.;
   Standard_Real signe2 = 1.;
   Standard_Real signe3 = 1.;
-  gp_Pnt2d      Pcenter(gp_XY(Point1.XY() + Point2.XY() + Point3.XY()) / 3.);
-  gp_XY         fic1(Pcenter.XY() - Point1.XY());
-  gp_XY         fic2(Pcenter.XY() - Point2.XY());
-  gp_XY         fic3(Pcenter.XY() - Point3.XY());
+  gp_Pnt2d      Pcenter(Coords2d(Point1.XY() + Point2.XY() + Point3.XY()) / 3.);
+  Coords2d         fic1(Pcenter.XY() - Point1.XY());
+  Coords2d         fic2(Pcenter.XY() - Point2.XY());
+  Coords2d         fic3(Pcenter.XY() - Point3.XY());
   Standard_Real pscal11 = nor1.Dot(fic1);
   Standard_Real pscal22 = nor2.Dot(fic2);
   Standard_Real pscal33 = nor3.Dot(fic3);
@@ -281,56 +281,56 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Derivatives(const math_Vector&, ma
   gp_Vec2d D23;
   InitDerivative(X,Point1,Point2,Point3,Tan1,Tan2,Tan3,D21,D22,D23);
   //derivees premieres non normees Deriv1ui.
-  gp_XY Deriv1u1(Tan1.XY());
-  gp_XY Deriv1u2(Tan2.XY());
-  gp_XY Deriv1u3(Tan3.XY());
+  Coords2d Deriv1u1(Tan1.XY());
+  Coords2d Deriv1u2(Tan2.XY());
+  Coords2d Deriv1u3(Tan3.XY());
   //pipj (normes) et PiPj (non Normes).
-  gp_XY P1P2(gp_Vec2d(Point1,Point2).XY());
-  gp_XY P2P3(gp_Vec2d(Point2,Point3).XY());
-  gp_XY P3P1(gp_Vec2d(Point3,Point1).XY());
+  Coords2d P1P2(gp_Vec2d(Point1,Point2).XY());
+  Coords2d P2P3(gp_Vec2d(Point2,Point3).XY());
+  Coords2d P3P1(gp_Vec2d(Point3,Point1).XY());
   Standard_Real NorP1P2 = P1P2.Modulus();
   Standard_Real NorP2P3 = P2P3.Modulus();
   Standard_Real NorP3P1 = P3P1.Modulus();
-  gp_XY p1p2,p2p3,p3p1;
+  Coords2d p1p2,p2p3,p3p1;
   if (NorP1P2 >= gp::Resolution()) { p1p2 = P1P2/NorP1P2; }
-  else { p1p2 = gp_XY(0.,0.); }
+  else { p1p2 = Coords2d(0.,0.); }
   if (NorP2P3 >= gp::Resolution()) { p2p3 = P2P3/NorP2P3; }
-  else { p2p3 = gp_XY(0.,0.); }
+  else { p2p3 = Coords2d(0.,0.); }
   if (NorP3P1 >= gp::Resolution()) { p3p1 = P3P1/NorP3P1; }
-  else { p3p1 = gp_XY(0.,0.); }
+  else { p3p1 = Coords2d(0.,0.); }
   //normales au courbes normees Nori et non nromees nori et norme des nori.
   Standard_Real nnor1 = Deriv1u1.Modulus();
   Standard_Real nnor2 = Deriv1u2.Modulus();
   Standard_Real nnor3 = Deriv1u3.Modulus();
-  gp_XY Nor1(-Deriv1u1.Y(),Deriv1u1.X());
-  gp_XY Nor2(-Deriv1u2.Y(),Deriv1u2.X());
-  gp_XY Nor3(-Deriv1u3.Y(),Deriv1u3.X());
-  gp_XY nor1,nor2,nor3;
+  Coords2d Nor1(-Deriv1u1.Y(),Deriv1u1.X());
+  Coords2d Nor2(-Deriv1u2.Y(),Deriv1u2.X());
+  Coords2d Nor3(-Deriv1u3.Y(),Deriv1u3.X());
+  Coords2d nor1,nor2,nor3;
   if (nnor1 >= gp::Resolution()) { nor1 = Nor1/nnor1; }
-  else { nor1 = gp_XY(0.,0.); }
+  else { nor1 = Coords2d(0.,0.); }
   if (nnor2 >= gp::Resolution()) { nor2 = Nor2/nnor2; }
-  else { nor2 = gp_XY(0.,0.); }
+  else { nor2 = Coords2d(0.,0.); }
   if (nnor3 >= gp::Resolution()) { nor3 = Nor3/nnor3; }
-  else { nor3 = gp_XY(0.,0.); }
+  else { nor3 = Coords2d(0.,0.); }
   //derivees des normales.
-  gp_XY NorD21,NorD22,NorD23;
-  NorD21 = gp_XY(-D21.Y(),D21.X());
-  NorD22 = gp_XY(-D22.Y(),D22.X());
-  NorD23 = gp_XY(-D23.Y(),D23.X());
+  Coords2d NorD21,NorD22,NorD23;
+  NorD21 = Coords2d(-D21.Y(),D21.X());
+  NorD22 = Coords2d(-D22.Y(),D22.X());
+  NorD23 = Coords2d(-D23.Y(),D23.X());
   //determination des signes pour les produits scalaires.
   Standard_Real signe1 = 1.;
   Standard_Real signe2 = 1.;
   Standard_Real signe3 = 1.;
-  gp_XY P = Point1.XY();
+  Coords2d P = Point1.XY();
   P += Point2.XY();
   P += Point3.XY();
   P /= 3.;
   gp_Pnt2d Pcenter(P);
-  gp_XY fic1 = Pcenter.XY();
+  Coords2d fic1 = Pcenter.XY();
   fic1 -= Point1.XY();
-  gp_XY fic2 = Pcenter.XY();
+  Coords2d fic2 = Pcenter.XY();
   fic2 -= Point2.XY();
-  gp_XY fic3 = Pcenter.XY();
+  Coords2d fic3 = Pcenter.XY();
   fic3 -= Point3.XY();
   Standard_Real pscal11 = nor1.Dot(fic1);
   Standard_Real pscal22 = nor2.Dot(fic2);
@@ -405,56 +405,56 @@ Standard_Boolean Geom2dGcc_FunctionTanCuCuCu::Values(const math_Vector&, math_Ve
   gp_Vec2d D23;
   InitDerivative(X,Point1,Point2,Point3,Tan1,Tan2,Tan3,D21,D22,D23);
   //derivees premieres non normees Deriv1ui.
-  gp_XY Deriv1u1(Tan1.XY());
-  gp_XY Deriv1u2(Tan2.XY());
-  gp_XY Deriv1u3(Tan3.XY());
+  Coords2d Deriv1u1(Tan1.XY());
+  Coords2d Deriv1u2(Tan2.XY());
+  Coords2d Deriv1u3(Tan3.XY());
   //pipj (normes) et PiPj (non Normes).
-  gp_XY P1P2(gp_Vec2d(Point1,Point2).XY());
-  gp_XY P2P3(gp_Vec2d(Point2,Point3).XY());
-  gp_XY P3P1(gp_Vec2d(Point3,Point1).XY());
+  Coords2d P1P2(gp_Vec2d(Point1,Point2).XY());
+  Coords2d P2P3(gp_Vec2d(Point2,Point3).XY());
+  Coords2d P3P1(gp_Vec2d(Point3,Point1).XY());
   Standard_Real NorP1P2 = P1P2.Modulus();
   Standard_Real NorP2P3 = P2P3.Modulus();
   Standard_Real NorP3P1 = P3P1.Modulus();
-  gp_XY p1p2,p2p3,p3p1;
+  Coords2d p1p2,p2p3,p3p1;
   if (NorP1P2 >= gp::Resolution()) { p1p2 = P1P2/NorP1P2; }
-  else { p1p2 = gp_XY(0.,0.); }
+  else { p1p2 = Coords2d(0.,0.); }
   if (NorP2P3 >= gp::Resolution()) { p2p3 = P2P3/NorP2P3; }
-  else { p2p3 = gp_XY(0.,0.); }
+  else { p2p3 = Coords2d(0.,0.); }
   if (NorP3P1 >= gp::Resolution()) { p3p1 = P3P1/NorP3P1; }
-  else { p3p1 = gp_XY(0.,0.); }
+  else { p3p1 = Coords2d(0.,0.); }
   //normales au courbes normees Nori et non nromees nori et norme des nori.
   Standard_Real nnor1 = Deriv1u1.Modulus();
   Standard_Real nnor2 = Deriv1u2.Modulus();
   Standard_Real nnor3 = Deriv1u3.Modulus();
-  gp_XY Nor1(-Deriv1u1.Y(),Deriv1u1.X());
-  gp_XY Nor2(-Deriv1u2.Y(),Deriv1u2.X());
-  gp_XY Nor3(-Deriv1u3.Y(),Deriv1u3.X());
-  gp_XY nor1,nor2,nor3;
+  Coords2d Nor1(-Deriv1u1.Y(),Deriv1u1.X());
+  Coords2d Nor2(-Deriv1u2.Y(),Deriv1u2.X());
+  Coords2d Nor3(-Deriv1u3.Y(),Deriv1u3.X());
+  Coords2d nor1,nor2,nor3;
   if (nnor1 >= gp::Resolution()) { nor1 = Nor1/nnor1; }
-  else { nor1 = gp_XY(0.,0.); }
+  else { nor1 = Coords2d(0.,0.); }
   if (nnor2 >= gp::Resolution()) { nor2 = Nor2/nnor2; }
-  else { nor2 = gp_XY(0.,0.); }
+  else { nor2 = Coords2d(0.,0.); }
   if (nnor3 >= gp::Resolution()) { nor3 = Nor3/nnor3; }
-  else { nor3 = gp_XY(0.,0.); }
+  else { nor3 = Coords2d(0.,0.); }
   //derivees des normales.
-  gp_XY NorD21,NorD22,NorD23;
-  NorD21 = gp_XY(-D21.Y(),D21.X());
-  NorD22 = gp_XY(-D22.Y(),D22.X());
-  NorD23 = gp_XY(-D23.Y(),D23.X());
+  Coords2d NorD21,NorD22,NorD23;
+  NorD21 = Coords2d(-D21.Y(),D21.X());
+  NorD22 = Coords2d(-D22.Y(),D22.X());
+  NorD23 = Coords2d(-D23.Y(),D23.X());
   //determination des signes pour les produits scalaires.
   Standard_Real signe1 = 1.;
   Standard_Real signe2 = 1.;
   Standard_Real signe3 = 1.;
-  gp_XY P = Point1.XY();
+  Coords2d P = Point1.XY();
   P += Point2.XY();
   P += Point3.XY();
   P /= 3.;
   gp_Pnt2d Pcenter(P);
-  gp_XY fic1 = Pcenter.XY();
+  Coords2d fic1 = Pcenter.XY();
   fic1 -= Point1.XY();
-  gp_XY fic2 = Pcenter.XY();
+  Coords2d fic2 = Pcenter.XY();
   fic2 -= Point2.XY();
-  gp_XY fic3 = Pcenter.XY();
+  Coords2d fic3 = Pcenter.XY();
   fic3 -= Point3.XY();
   Standard_Real pscal11 = nor1.Dot(fic1);
   Standard_Real pscal22 = nor2.Dot(fic2);

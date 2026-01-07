@@ -71,7 +71,7 @@ void XmlMXCAFDoc_NoteCommentDriver::Paste(const Handle(TDF_Attribute)& theSource
 
   Handle(XCAFDoc_NoteComment) aNote = Handle(XCAFDoc_NoteComment)::DownCast(theSource);
 
-  XmlObjMgt_DOMString aComment(TCollection_AsciiString(aNote->TimeStamp()).ToCString());
+  XmlObjMgt_DOMString aComment(AsciiString1(aNote->TimeStamp()).ToCString());
 
   theTarget.Element().setAttribute(::Comment(), aComment);
 }

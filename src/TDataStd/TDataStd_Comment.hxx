@@ -35,18 +35,18 @@ public:
 
   //! Find, or create  a   Comment attribute.  the  Comment
   //! attribute is returned.
-  Standard_EXPORT static Handle(TDataStd_Comment) Set(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataStd_Comment) Set(const DataLabel& label);
 
   //! Finds, or creates a Comment attribute and sets the string.
   //! the Comment attribute is returned.
   //! Comment methods
   //! ============
-  Standard_EXPORT static Handle(TDataStd_Comment) Set(const TDF_Label&                  label,
-                                                      const TCollection_ExtendedString& string);
+  Standard_EXPORT static Handle(TDataStd_Comment) Set(const DataLabel&                  label,
+                                                      const UtfString& string);
 
   Standard_EXPORT TDataStd_Comment();
 
-  Standard_EXPORT void Set(const TCollection_ExtendedString& S) Standard_OVERRIDE;
+  Standard_EXPORT void Set(const UtfString& S) Standard_OVERRIDE;
 
   //! Sets the explicit user defined GUID  to the attribute.
   Standard_EXPORT void SetID(const Standard_GUID& guid) Standard_OVERRIDE;

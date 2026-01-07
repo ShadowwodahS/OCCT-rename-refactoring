@@ -391,7 +391,7 @@ void Extrema_GenExtPS::GetGridPoints(const Adaptor3d_Surface& theSurf)
     Standard_Integer              aDegree = 0;
     if (theSurf.BasisCurve()->GetType() == GeomAbs_BSplineCurve)
     {
-      Handle(Geom_BSplineCurve) aBspl = theSurf.BasisCurve()->BSpline();
+      Handle(BSplineCurve3d) aBspl = theSurf.BasisCurve()->BSpline();
       if (!aBspl.IsNull())
       {
         anArrKnots = new TColStd_HArray1OfReal(1, aBspl->NbKnots());
@@ -401,7 +401,7 @@ void Extrema_GenExtPS::GetGridPoints(const Adaptor3d_Surface& theSurf)
     }
     if (theSurf.BasisCurve()->GetType() == GeomAbs_BezierCurve)
     {
-      Handle(Geom_BezierCurve) aBez = theSurf.BasisCurve()->Bezier();
+      Handle(BezierCurve3d) aBez = theSurf.BasisCurve()->Bezier();
       if (!aBez.IsNull())
       {
         anArrKnots = new TColStd_HArray1OfReal(1, 2);

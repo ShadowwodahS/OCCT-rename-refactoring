@@ -75,14 +75,14 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString                                        thename;
-  TCollection_AsciiString                                        thedef;
-  TCollection_AsciiString                                        thelabel;
+  AsciiString1                                        thename;
+  AsciiString1                                        thedef;
+  AsciiString1                                        thelabel;
   Handle(TypeInfo)                                          theotyp;
-  TCollection_AsciiString                                        theunidef;
+  AsciiString1                                        theunidef;
   Handle(TColStd_HArray1OfAsciiString)                           theenums;
-  NCollection_DataMap<TCollection_AsciiString, Standard_Integer> theeadds;
-  TCollection_AsciiString                                        thesatisn;
+  NCollection_DataMap<AsciiString1, Standard_Integer> theeadds;
+  AsciiString1                                        thesatisn;
   Handle(TCollection_HAsciiString)                               thehval;
   Handle(RefObject)                                     theoval;
 };

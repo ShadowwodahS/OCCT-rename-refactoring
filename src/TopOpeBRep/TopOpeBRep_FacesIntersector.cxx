@@ -49,24 +49,24 @@ extern Standard_Boolean TopOpeBRep_GettraceSAVFF();
 Standard_Integer SAVFFi1 = 0;
 Standard_Integer SAVFFi2 = 0;
 
-static void SAVFF(const TopoDS_Face& F1, const TopoDS_Face& F2)
+static void SAVFF(const TopoFace& F1, const TopoFace& F2)
 {
-  TCollection_AsciiString an1("SAVA");
+  AsciiString1 an1("SAVA");
   if (SAVFFi1)
     an1 = an1 + SAVFFi1;
-  TCollection_AsciiString an2("SAVB");
+  AsciiString1 an2("SAVB");
   if (SAVFFi2)
     an2 = an2 + SAVFFi2;
   Standard_CString n1 = an1.ToCString();
   Standard_CString n2 = an2.ToCString();
   #ifdef DRAW
   std::cout << "FaceIntersector :   set " << n1 << "," << n2 << std::endl;
-  DBRep::Set(n1, F1);
-  DBRep::Set(n2, F2);
+  DBRep1::Set(n1, F1);
+  DBRep1::Set(n2, F2);
   #endif
   std::cout << "FaceIntersector : write " << n1 << "," << n2 << std::endl;
-  BRepTools::Write(F1, n1);
-  BRepTools::Write(F2, n2);
+  BRepTools1::Write(F1, n1);
+  BRepTools1::Write(F2, n2);
 }
 
 extern Standard_Boolean TopOpeBRepTool_GettraceKRO();
@@ -170,8 +170,8 @@ TopOpeBRep_FacesIntersector::TopOpeBRep_FacesIntersector()
 
 //=================================================================================================
 
-void TopOpeBRep_FacesIntersector::Perform(const TopoDS_Shape& F1,
-                                          const TopoDS_Shape& F2,
+void TopOpeBRep_FacesIntersector::Perform(const TopoShape& F1,
+                                          const TopoShape& F2,
                                           const Bnd_Box&      B1,
                                           const Bnd_Box&      B2)
 {
@@ -253,7 +253,7 @@ void TopOpeBRep_FacesIntersector::Perform(const TopoDS_Shape& F1,
   // mySurfacesSameOriented : a mettre dans IntPatch NYI
   if (SameDomain())
   {
-    mySurfacesSameOriented = TopOpeBRepTool_ShapeTool::SurfacesSameOriented(S1, S2);
+    mySurfacesSameOriented = ShapeTool::SurfacesSameOriented(S1, S2);
   }
 
   // build the map of edges found as RESTRICTION
@@ -262,7 +262,7 @@ void TopOpeBRep_FacesIntersector::Perform(const TopoDS_Shape& F1,
     TopOpeBRep_LineInter& L = CurrentLine();
     if (L.TypeLineCurve() == TopOpeBRep_RESTRICTION)
     {
-      const TopoDS_Shape& E = L.Arc();
+      const TopoShape& E = L.Arc();
       myEdgeRestrictionMap.Add(E);
     }
   }
@@ -275,7 +275,7 @@ void TopOpeBRep_FacesIntersector::Perform(const TopoDS_Shape& F1,
 
 //=================================================================================================
 
-void TopOpeBRep_FacesIntersector::Perform(const TopoDS_Shape& F1, const TopoDS_Shape& F2)
+void TopOpeBRep_FacesIntersector::Perform(const TopoShape& F1, const TopoShape& F2)
 {
   Bnd_Box B1, B2;
   Perform(F1, F2, B1, B2);
@@ -330,7 +330,7 @@ Standard_Boolean TopOpeBRep_FacesIntersector::SameDomain() const
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRep_FacesIntersector::Face(const Standard_Integer Index) const
+const TopoShape& TopOpeBRep_FacesIntersector::Face(const Standard_Integer Index) const
 {
   if (Index == 1)
     return myFace1;
@@ -353,7 +353,7 @@ Standard_Boolean TopOpeBRep_FacesIntersector::SurfacesSameOriented() const
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRep_FacesIntersector::IsRestriction(const TopoDS_Shape& E) const
+Standard_Boolean TopOpeBRep_FacesIntersector::IsRestriction(const TopoShape& E) const
 {
   Standard_Boolean isrest = myEdgeRestrictionMap.Contains(E);
   return isrest;
@@ -590,9 +590,9 @@ void TopOpeBRep_FacesIntersector::GetTolerances(Standard_Real& Tol1, Standard_Re
 //=================================================================================================
 
 #ifdef OCCT_DEBUG
-void TopOpeBRep_FacesIntersector::ShapeTolerances(const TopoDS_Shape& S1, const TopoDS_Shape& S2)
+void TopOpeBRep_FacesIntersector::ShapeTolerances(const TopoShape& S1, const TopoShape& S2)
 #else
-void TopOpeBRep_FacesIntersector::ShapeTolerances(const TopoDS_Shape&, const TopoDS_Shape&)
+void TopOpeBRep_FacesIntersector::ShapeTolerances(const TopoShape&, const TopoShape&)
 #endif
 {
   //  myTol1 = Max(ToleranceMax(S1,TopAbs_EDGE),ToleranceMax(S2,TopAbs_EDGE));
@@ -603,9 +603,9 @@ void TopOpeBRep_FacesIntersector::ShapeTolerances(const TopoDS_Shape&, const Top
   if (TopOpeBRep_GettraceFITOL())
   {
     std::cout << "ShapeTolerances on S1 = ";
-    TopAbs::Print(S1.ShapeType(), std::cout);
+    TopAbs1::Print(S1.ShapeType(), std::cout);
     std::cout << " S2 = ";
-    TopAbs::Print(S2.ShapeType(), std::cout);
+    TopAbs1::Print(S2.ShapeType(), std::cout);
     std::cout << " : myTol1,myTol2 = " << myTol1 << "," << myTol2 << std::endl;
   }
 #endif
@@ -613,17 +613,17 @@ void TopOpeBRep_FacesIntersector::ShapeTolerances(const TopoDS_Shape&, const Top
 
 //=================================================================================================
 
-Standard_Real TopOpeBRep_FacesIntersector::ToleranceMax(const TopoDS_Shape&    S,
+Standard_Real TopOpeBRep_FacesIntersector::ToleranceMax(const TopoShape&    S,
                                                         const TopAbs_ShapeEnum T) const
 {
-  TopExp_Explorer e(S, T);
+  ShapeExplorer e(S, T);
   if (!e.More())
     return Precision::Intersection();
   else
   {
     Standard_Real tol = RealFirst();
     for (; e.More(); e.Next())
-      tol = Max(tol, TopOpeBRepTool_ShapeTool::Tolerance(e.Current()));
+      tol = Max(tol, ShapeTool::Tolerance(e.Current()));
     return tol;
   }
 }
@@ -1305,8 +1305,8 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
     if (anEAddress == NULL)
       continue;
 
-    TopoDS_Edge*       anE    = (TopoDS_Edge*)anEAddress;
-    Handle(Geom_Curve) aCEdge = BRep_Tool::Curve(*anE, firstES1, lastES1);
+    TopoEdge*       anE    = (TopoEdge*)anEAddress;
+    Handle(GeomCurve3d) aCEdge = BRepInspector::Curve(*anE, firstES1, lastES1);
     if (aCEdge.IsNull()) // e.g. degenerated edge, see OCC21770
       continue;
     GeomAdaptor_Curve CE;
@@ -1397,14 +1397,14 @@ static Standard_Integer GetArc(IntPatch_SequenceOfLine&           theSlin,
     }
 
     Standard_Address anEAddress = theDomainObj->Edge();
-    TopoDS_Edge*     anE        = (TopoDS_Edge*)anEAddress;
-    TopoDS_Vertex    V1, V2;
-    TopExp::Vertices(*anE, V1, V2);
-    Standard_Real MaxVertexTol = Max(BRep_Tool::Tolerance(V1), BRep_Tool::Tolerance(V2));
+    TopoEdge*     anE        = (TopoEdge*)anEAddress;
+    TopoVertex    V1, V2;
+    TopExp1::Vertices(*anE, V1, V2);
+    Standard_Real MaxVertexTol = Max(BRepInspector::Tolerance(V1), BRepInspector::Tolerance(V2));
     theVrtxTol                 = MaxVertexTol;
-    Standard_Real EdgeTol      = BRep_Tool::Tolerance(*anE);
+    Standard_Real EdgeTol      = BRepInspector::Tolerance(*anE);
     CheckTol                   = Max(MaxVertexTol, EdgeTol);
-    Handle(Geom_Curve) aCEdge  = BRep_Tool::Curve(*anE, firstES1, lastES1);
+    Handle(GeomCurve3d) aCEdge  = BRepInspector::Curve(*anE, firstES1, lastES1);
     // classification gaps
     //  a. min - first
     if (Abs(firstES1 - WLVertexParameters.Value(1)) > arc->Resolution(MaxVertexTol))

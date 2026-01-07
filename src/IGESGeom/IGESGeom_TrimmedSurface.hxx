@@ -28,7 +28,7 @@ class IGESGeom_TrimmedSurface;
 DEFINE_STANDARD_HANDLE(IGESGeom_TrimmedSurface, IGESData_IGESEntity)
 
 //! defines IGESTrimmedSurface, Type <144> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A simple closed curve  in Euclidean plane  divides the
 //! plane in to two disjoint, open connected components; one
 //! bounded, one unbounded. The bounded one is called the

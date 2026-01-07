@@ -30,7 +30,7 @@
 #include <TopOpeBRepTool_GEOMETRY.hxx>
 
 // ----------------------------------------------------------------------
-Standard_EXPORT void FUN_tool_bounds(const TopoDS_Edge& E, Standard_Real& f, Standard_Real& l)
+Standard_EXPORT void FUN_tool_bounds(const TopoEdge& E, Standard_Real& f, Standard_Real& l)
 {
   BRepAdaptor_Curve BAC(E);
   f = BAC.FirstParameter();
@@ -155,7 +155,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonC2D(const Point3d&             
   Standard_Boolean ok = Standard_False;
 
   gp_Pnt2d           P2D;
-  const TopoDS_Face& F = BAC2D.Face();
+  const TopoFace& F = BAC2D.Face();
   ok                   = FUN_tool_projPonF(P, F, P2D, dist);
   if (!ok)
     return Standard_False;
@@ -198,7 +198,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonC2D(const Point3d&             
                                                      Standard_Real&             dist)
 {
   // <True> if projection succeeds,and sets <param> to parameter of <P> on <C>.
-  Standard_Real    tole = BRep_Tool::Tolerance(BAC2D.Edge());
+  Standard_Real    tole = BRepInspector::Tolerance(BAC2D.Edge());
   Standard_Boolean ok   = FUN_tool_projPonC2D(P, tole, BAC2D, pmin, pmax, param, dist);
   return ok;
 }
@@ -210,7 +210,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonC2D(const Point3d&             
                                                      Standard_Real&             dist)
 {
   // <True> if projection succeeds,and sets <param> to parameter of <P> on <C>.
-  Standard_Real    tole = BRep_Tool::Tolerance(BAC2D.Edge());
+  Standard_Real    tole = BRepInspector::Tolerance(BAC2D.Edge());
   Standard_Real    pmin = BAC2D.FirstParameter();
   Standard_Real    pmax = BAC2D.LastParameter();
   Standard_Boolean ok   = FUN_tool_projPonC2D(P, tole, BAC2D, pmin, pmax, param, dist);
@@ -219,14 +219,14 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonC2D(const Point3d&             
 
 // ----------------------------------------------------------------------
 Standard_EXPORT Standard_Boolean FUN_tool_projPonS(const Point3d&               P,
-                                                   const Handle(Geom_Surface)& S,
+                                                   const Handle(GeomSurface)& S,
                                                    gp_Pnt2d&                   UV,
                                                    Standard_Real&              dist,
                                                    const Extrema_ExtFlag       anExtFlag,
                                                    const Extrema_ExtAlgo       anExtAlgo)
 {
   Standard_Real              UMin, UMax, VMin, VMax;
-  GeomAPI_ProjectPointOnSurf PonS;
+  PointOnSurfProjector PonS;
   //
   S->Bounds(UMin, UMax, VMin, VMax);
   PonS.Init(S, UMin, UMax, VMin, VMax, anExtAlgo);
@@ -253,7 +253,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonS(const Point3d&               
 // ----------------------------------------------------------------------
 Standard_EXPORT Standard_Boolean FUN_tool_projPonE(const Point3d&       P,
                                                    const Standard_Real tole,
-                                                   const TopoDS_Edge&  E,
+                                                   const TopoEdge&  E,
                                                    Standard_Real&      param,
                                                    Standard_Real&      dist)
 {
@@ -279,18 +279,18 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonE(const Point3d&       P,
 
 // ----------------------------------------------------------------------
 Standard_EXPORT Standard_Boolean FUN_tool_projPonE(const Point3d&      P,
-                                                   const TopoDS_Edge& E,
+                                                   const TopoEdge& E,
                                                    Standard_Real&     param,
                                                    Standard_Real&     dist)
 {
-  Standard_Real    tole = BRep_Tool::Tolerance(E);
+  Standard_Real    tole = BRepInspector::Tolerance(E);
   Standard_Boolean ok   = FUN_tool_projPonE(P, tole, E, param, dist);
   return ok;
 }
 
 // ----------------------------------------------------------------------
 Standard_EXPORT Standard_Boolean FUN_tool_projPonboundedF(const Point3d&      P,
-                                                          const TopoDS_Face& F,
+                                                          const TopoFace& F,
                                                           gp_Pnt2d&          UV,
                                                           Standard_Real&     dist)
 {
@@ -298,7 +298,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonboundedF(const Point3d&      P,
   // ! projecting point on surf does not take into account the face's
   // restriction
   BRepLib_MakeVertex mv(P);
-  TopoDS_Vertex      V = mv.Vertex();
+  TopoVertex      V = mv.Vertex();
   BRepExtrema_ExtPF  PonF(V, F);
   if (!PonF.IsDone())
     return Standard_False;
@@ -330,14 +330,14 @@ Standard_EXPORT Standard_Boolean FUN_tool_projPonboundedF(const Point3d&      P,
 
 // ----------------------------------------------------------------------
 Standard_EXPORT Standard_Boolean FUN_tool_projPonF(const Point3d&         P,
-                                                   const TopoDS_Face&    F,
+                                                   const TopoFace&    F,
                                                    gp_Pnt2d&             UV,
                                                    Standard_Real&        dist,
                                                    const Extrema_ExtFlag anExtFlag,
                                                    const Extrema_ExtAlgo anExtAlgo)
 {
   dist                    = 1.;
-  Handle(Geom_Surface) S  = BRep_Tool::Surface(F);
+  Handle(GeomSurface) S  = BRepInspector::Surface(F);
   Standard_Boolean     ok = FUN_tool_projPonS(P, S, UV, dist, anExtFlag, anExtAlgo);
   return ok;
 }

@@ -24,7 +24,7 @@
 #include <Draw_Drawable2D.hxx>
 #include <Standard_OStream.hxx>
 #include <Draw_Interpretor.hxx>
-class Draw_Display;
+class DrawDisplay;
 
 class Draw_Segment2D;
 DEFINE_STANDARD_HANDLE(Draw_Segment2D, Draw_Drawable2D)
@@ -33,9 +33,9 @@ class Draw_Segment2D : public Draw_Drawable2D
 {
 
 public:
-  Standard_EXPORT Draw_Segment2D(const gp_Pnt2d& p1, const gp_Pnt2d& p2, const Draw_Color& col);
+  Standard_EXPORT Draw_Segment2D(const gp_Pnt2d& p1, const gp_Pnt2d& p2, const DrawColor& col);
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   Standard_EXPORT const gp_Pnt2d& First() const;
 
@@ -47,7 +47,7 @@ public:
 
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Draw_Segment2D, Draw_Drawable2D)
 
@@ -55,7 +55,7 @@ protected:
 private:
   gp_Pnt2d   myFirst;
   gp_Pnt2d   myLast;
-  Draw_Color myColor;
+  DrawColor myColor;
 };
 
 #endif // _Draw_Segment2D_HeaderFile

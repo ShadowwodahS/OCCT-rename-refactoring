@@ -28,7 +28,7 @@
 class TopOpeBRepDS_HDataStructure;
 class TopOpeBRepDS_Interference;
 class TopOpeBRepDS_Curve;
-class TopoDS_Shape;
+class TopoShape;
 
 class TopOpeBRepDS_GapTool;
 DEFINE_STANDARD_HANDLE(TopOpeBRepDS_GapTool, RefObject)
@@ -56,23 +56,23 @@ public:
                                          TopOpeBRepDS_Curve&                      C) const;
 
   Standard_EXPORT Standard_Boolean EdgeSupport(const Handle(TopOpeBRepDS_Interference)& I,
-                                               TopoDS_Shape&                            E) const;
+                                               TopoShape&                            E) const;
 
   //! Return les faces qui  ont genere la section origine
   //! de I
   Standard_EXPORT Standard_Boolean FacesSupport(const Handle(TopOpeBRepDS_Interference)& I,
-                                                TopoDS_Shape&                            F1,
-                                                TopoDS_Shape&                            F2) const;
+                                                TopoShape&                            F1,
+                                                TopoShape&                            F2) const;
 
   Standard_EXPORT Standard_Boolean ParameterOnEdge(const Handle(TopOpeBRepDS_Interference)& I,
-                                                   const TopoDS_Shape&                      E,
+                                                   const TopoShape&                      E,
                                                    Standard_Real& U) const;
 
   Standard_EXPORT void SetPoint(const Handle(TopOpeBRepDS_Interference)& I,
                                 const Standard_Integer                   IndexPoint);
 
   Standard_EXPORT void SetParameterOnEdge(const Handle(TopOpeBRepDS_Interference)& I,
-                                          const TopoDS_Shape&                      E,
+                                          const TopoShape&                      E,
                                           const Standard_Real                      U);
 
   DEFINE_STANDARD_RTTIEXT(TopOpeBRepDS_GapTool, RefObject)

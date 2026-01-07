@@ -42,18 +42,18 @@ public:
                                   const Standard_Integer                        theCellsCountV,
                                   const Standard_Boolean                        isFillCircles);
 
-  //! Creates the triangulation with an empty Mesh data structure.
+  //! Creates the triangulation with an empty Mesh1 data structure.
   Standard_EXPORT BRepMesh_Delaun(IMeshData::Array1OfVertexOfDelaun& theVertices);
 
-  //! Creates the triangulation with an existent Mesh data structure.
+  //! Creates the triangulation with an existent Mesh1 data structure.
   Standard_EXPORT BRepMesh_Delaun(const Handle(BRepMesh_DataStructureOfDelaun)& theOldMesh,
                                   IMeshData::Array1OfVertexOfDelaun&            theVertices);
 
-  //! Creates the triangulation with an existant Mesh data structure.
+  //! Creates the triangulation with an existant Mesh1 data structure.
   Standard_EXPORT BRepMesh_Delaun(const Handle(BRepMesh_DataStructureOfDelaun)& theOldMesh,
                                   IMeshData::VectorOfInteger&                   theVertexIndices);
 
-  //! Creates the triangulation with an existant Mesh data structure.
+  //! Creates the triangulation with an existant Mesh1 data structure.
   Standard_EXPORT BRepMesh_Delaun(const Handle(BRepMesh_DataStructureOfDelaun)& theOldMesh,
                                   IMeshData::VectorOfInteger&                   theVertexIndices,
                                   const Standard_Integer                        theCellsCountU,
@@ -77,7 +77,7 @@ public:
   //! @return True if done
   Standard_EXPORT Standard_Boolean UseEdge(const Standard_Integer theEdge);
 
-  //! Gives the Mesh data structure.
+  //! Gives the Mesh1 data structure.
   const Handle(BRepMesh_DataStructureOfDelaun)& Result() const { return myMeshData; }
 
   //! Forces insertion of constraint edges into the base triangulation.
@@ -174,7 +174,7 @@ private:
   void superMesh(const Bnd_Box2d& theBox);
 
   //! Computes the triangulation and adds the vertices,
-  //! edges and triangles to the Mesh data structure.
+  //! edges and triangles to the Mesh1 data structure.
   void compute(IMeshData::VectorOfInteger& theVertexIndices);
 
   //! Adjust the mesh on the frontier.
@@ -320,8 +320,8 @@ private:
                          IMeshData::MapOfIntegerInteger& theLoopEdges);
 
   //! Calculates distances between the given point and edges of triangle.
-  Standard_Real calculateDist(const gp_XY            theVEdges[3],
-                              const gp_XY            thePoints[3],
+  Standard_Real calculateDist(const Coords2d            theVEdges[3],
+                              const Coords2d            thePoints[3],
                               const BRepMesh_Vertex& theVertex,
                               Standard_Real          theDistance[3],
                               Standard_Real          theSqModulus[3],

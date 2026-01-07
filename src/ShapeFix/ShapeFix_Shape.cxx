@@ -51,7 +51,7 @@ ShapeFix_Shape::ShapeFix_Shape()
 
 //=================================================================================================
 
-ShapeFix_Shape::ShapeFix_Shape(const TopoDS_Shape& shape)
+ShapeFix_Shape::ShapeFix_Shape(const TopoShape& shape)
 {
   myStatus                = ShapeExtend::EncodeStatus(ShapeExtend_OK);
   myFixSolidMode          = -1;
@@ -67,7 +67,7 @@ ShapeFix_Shape::ShapeFix_Shape(const TopoDS_Shape& shape)
 
 //=================================================================================================
 
-void ShapeFix_Shape::Init(const TopoDS_Shape& shape)
+void ShapeFix_Shape::Init(const TopoShape& shape)
 {
   myShape = shape;
   if (Context().IsNull())
@@ -101,7 +101,7 @@ Standard_Boolean ShapeFix_Shape::Perform(const Message_ProgressRange& theProgres
   // gka fix for sharing assembly
   TopLoc_Location nullLoc, L;
   L                                    = myShape.Location();
-  TopoDS_Shape           aShapeNullLoc = myShape;
+  TopoShape           aShapeNullLoc = myShape;
   const Standard_Boolean aIsRecorded   = Context()->IsNewShape(myShape);
   aShapeNullLoc.Location(nullLoc);
   if (aIsRecorded || myMapFixingShape.Contains(aShapeNullLoc))
@@ -114,7 +114,7 @@ Standard_Boolean ShapeFix_Shape::Perform(const Message_ProgressRange& theProgres
   myMapFixingShape.Add(aShapeNullLoc);
   //---------------------------------------
   myShape.Location(L, Standard_False);
-  TopoDS_Shape S = Context()->Apply(myShape);
+  TopoShape S = Context()->Apply(myShape);
   if (NeedFix(myFixVertexPositionMode))
     ShapeFix::FixVertexPosition(S, Precision(), Context());
 
@@ -129,7 +129,7 @@ Standard_Boolean ShapeFix_Shape::Perform(const Message_ProgressRange& theProgres
   {
     case TopAbs_COMPOUND:
     case TopAbs_COMPSOLID: {
-      TopoDS_Shape     shape                   = myShape;
+      TopoShape     shape                   = myShape;
       Standard_Integer savFixSameParameterMode = myFixSameParameterMode;
       myFixSameParameterMode                   = Standard_False;
       myFixVertexTolMode                       = Standard_False;
@@ -196,13 +196,13 @@ Standard_Boolean ShapeFix_Shape::Perform(const Message_ProgressRange& theProgres
     case TopAbs_WIRE: {
       if (!NeedFix(myFixWireMode))
         break;
-      Handle(ShapeFix_Wire) sfw           = FixWireTool();
+      Handle(WireHealer) sfw           = FixWireTool();
       Standard_Boolean      savTopoMode   = sfw->ModifyTopologyMode();
       Standard_Boolean      savClosedMode = sfw->ClosedWireMode();
       sfw->ModifyTopologyMode()           = Standard_True;
       if (!S.Closed())
         sfw->ClosedWireMode() = Standard_False;
-      sfw->SetFace(TopoDS_Face());
+      sfw->SetFace(TopoFace());
       sfw->Load(TopoDS::Wire(S));
       sfw->SetContext(Context());
       if (sfw->Perform())
@@ -241,7 +241,7 @@ Standard_Boolean ShapeFix_Shape::Perform(const Message_ProgressRange& theProgres
   if (NeedFix(myFixVertexTolMode))
   {
     Standard_Integer nbF = 0;
-    TopExp_Explorer  anExpF(myResult, TopAbs_FACE);
+    ShapeExplorer  anExpF(myResult, TopAbs_FACE);
     for (; anExpF.More() && nbF <= 1; anExpF.Next())
       nbF++;
     if (nbF > 1)
@@ -254,8 +254,8 @@ Standard_Boolean ShapeFix_Shape::Perform(const Message_ProgressRange& theProgres
       Handle(ShapeFix_Edge) sfe = FixEdgeTool();
       for (anExpF.ReInit(); anExpF.More(); anExpF.Next())
       {
-        TopoDS_Face     aF = TopoDS::Face(anExpF.Current());
-        TopExp_Explorer anExpE(aF, TopAbs_EDGE);
+        TopoFace     aF = TopoDS::Face(anExpF.Current());
+        ShapeExplorer anExpE(aF, TopAbs_EDGE);
         for (; anExpE.More(); anExpE.Next())
           sfe->FixVertexTolerance(TopoDS::Edge(anExpE.Current()), aF);
       }
@@ -272,7 +272,7 @@ Standard_Boolean ShapeFix_Shape::Perform(const Message_ProgressRange& theProgres
 
 //=================================================================================================
 
-void ShapeFix_Shape::SameParameter(const TopoDS_Shape&          sh,
+void ShapeFix_Shape::SameParameter(const TopoShape&          sh,
                                    const Standard_Boolean       enforce,
                                    const Message_ProgressRange& theProgress)
 {
@@ -281,7 +281,7 @@ void ShapeFix_Shape::SameParameter(const TopoDS_Shape&          sh,
 
 //=================================================================================================
 
-TopoDS_Shape ShapeFix_Shape::Shape() const
+TopoShape ShapeFix_Shape::Shape() const
 {
   return myResult;
 }

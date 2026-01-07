@@ -28,13 +28,13 @@
 //! or as a Rank, integer value addressing a builtin table
 //! The entity reference is not included here, only reference
 //! status is kept (because entity type must be adapted)
-class IGESData_DefSwitch
+class DefinitionSwitch
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! creates a DefSwitch as Void
-  Standard_EXPORT IGESData_DefSwitch();
+  Standard_EXPORT DefinitionSwitch();
 
   //! sets DefSwitch to "Void" status (in file : Integer = 0)
   Standard_EXPORT void SetVoid();

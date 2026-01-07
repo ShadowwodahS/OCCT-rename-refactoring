@@ -48,13 +48,13 @@
 // purpose  : DDisplay (DOC,entry, not_update)
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISDisplay(Draw_Interpretor&, Standard_Integer nb, const char** arg)
+static Standard_Integer DPrsStd_AISDisplay(DrawInterpreter&, Standard_Integer nb, const char** arg)
 {
-  Handle(TDocStd_Document) D;
-  if (!DDocStd::GetDocument(arg[1], D))
+  Handle(AppDocument) D;
+  if (!DDocStd1::GetDocument(arg[1], D))
     return 1;
-  TDF_Label L;
-  if (!DDF::FindLabel(D->GetData(), arg[2], L))
+  DataLabel L;
+  if (!DDF1::FindLabel(D->GetData(), arg[2], L))
     return 1;
   Handle(TPrsStd_AISPresentation) prs;
   if (!L.FindAttribute(TPrsStd_AISPresentation::GetID(), prs))
@@ -69,17 +69,17 @@ static Standard_Integer DPrsStd_AISDisplay(Draw_Interpretor&, Standard_Integer n
 // purpose  : AISRemove (DOC,entry)
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISRemove(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISRemove(DrawInterpreter& di,
                                           Standard_Integer  nb,
                                           const char**      arg)
 {
   if (nb == 3)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
     Handle(TPrsStd_AISPresentation) P;
     if (!L.FindAttribute(TPrsStd_AISPresentation::GetID(), P))
@@ -97,17 +97,17 @@ static Standard_Integer DPrsStd_AISRemove(Draw_Interpretor& di,
 // purpose  : AISErase (DOC,entry)
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISErase(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISErase(DrawInterpreter& di,
                                          Standard_Integer  nb,
                                          const char**      arg)
 {
   if (nb == 3)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
     Handle(TPrsStd_AISPresentation) prs;
     if (!L.FindAttribute(TPrsStd_AISPresentation::GetID(), prs))
@@ -125,17 +125,17 @@ static Standard_Integer DPrsStd_AISErase(Draw_Interpretor& di,
 // purpose  : AISUpdate (DOC,entry)
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISUpdate(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISUpdate(DrawInterpreter& di,
                                           Standard_Integer  nb,
                                           const char**      arg)
 {
   if (nb == 3)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
     Handle(TPrsStd_AISPresentation) prs;
     if (!L.FindAttribute(TPrsStd_AISPresentation::GetID(), prs))
@@ -153,18 +153,18 @@ static Standard_Integer DPrsStd_AISUpdate(Draw_Interpretor& di,
 // purpose  : AISSet (DOC,entry, id)
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISSet(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer DPrsStd_AISSet(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
   if (nb == 4)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
     Standard_GUID              guid;
-    TCollection_ExtendedString str = arg[3];
+    UtfString str = arg[3];
 #ifdef OCCT_DEBUG
     std::cout << "Inputted parameter > " << str << std::endl;
 #endif
@@ -173,7 +173,7 @@ static Standard_Integer DPrsStd_AISSet(Draw_Interpretor& di, Standard_Integer nb
     else if (str == "C")                   // constraint
       guid = TDataXtd_Constraint::GetID(); //"2a96b602-ec8b-11d0-bee7-080009dc3333"
     else if (str == "NS")                  // namedshape
-      guid = TNaming_NamedShape::GetID();  //"c4ef4200-568f-11d1-8940-080009dc3333"
+      guid = ShapeAttribute::GetID();  //"c4ef4200-568f-11d1-8940-080009dc3333"
     else if (str == "G")                   // geometry
       guid = TDataXtd_Geometry::GetID();   //"2a96b604-ec8b-11d0-bee7-080009dc3333"
     else if (str == "PL")                  // plane
@@ -207,17 +207,17 @@ static Standard_Integer DPrsStd_AISSet(Draw_Interpretor& di, Standard_Integer nb
 // purpose  : AISDriver (DOC,entry, [ID])
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISDriver(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISDriver(DrawInterpreter& di,
                                           Standard_Integer  nb,
                                           const char**      arg)
 {
   if (nb >= 3)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
 
     Standard_GUID                   guid;
@@ -236,7 +236,7 @@ static Standard_Integer DPrsStd_AISDriver(Draw_Interpretor& di,
       }
       else
       {
-        TCollection_ExtendedString str = arg[3];
+        UtfString str = arg[3];
 #ifdef OCCT_DEBUG
         std::cout << "Inputted parameter > " << str << std::endl;
 #endif
@@ -245,7 +245,7 @@ static Standard_Integer DPrsStd_AISDriver(Draw_Interpretor& di,
         else if (str == "C")                   // constraint
           guid = TDataXtd_Constraint::GetID(); //"2a96b602-ec8b-11d0-bee7-080009dc3333"
         else if (str == "NS")                  // namedshape
-          guid = TNaming_NamedShape::GetID();  //"c4ef4200-568f-11d1-8940-080009dc3333"
+          guid = ShapeAttribute::GetID();  //"c4ef4200-568f-11d1-8940-080009dc3333"
         else if (str == "G")                   // geometry
           guid = TDataXtd_Geometry::GetID();   //"2a96b604-ec8b-11d0-bee7-080009dc3333"
         else if (str == "PL")                  // plane
@@ -278,17 +278,17 @@ static Standard_Integer DPrsStd_AISDriver(Draw_Interpretor& di,
 // purpose  : AISUnset (DOC,entry)
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISUnset(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISUnset(DrawInterpreter& di,
                                          Standard_Integer  nb,
                                          const char**      arg)
 {
   if (nb == 3)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
     TPrsStd_AISPresentation::Unset(L);
     TPrsStd_AISViewer::Update(L);
@@ -303,17 +303,17 @@ static Standard_Integer DPrsStd_AISUnset(Draw_Interpretor& di,
 // purpose  : AISTransparency  (DOC,entry,[real])
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISTransparency(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISTransparency(DrawInterpreter& di,
                                                 Standard_Integer  nb,
                                                 const char**      arg)
 {
   if (nb >= 3)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
 
     Handle(TPrsStd_AISViewer) viewer;
@@ -325,7 +325,7 @@ static Standard_Integer DPrsStd_AISTransparency(Draw_Interpretor& di,
     {
       if (nb == 4)
       {
-        prs->SetTransparency(Draw::Atof(arg[3]));
+        prs->SetTransparency(Draw1::Atof(arg[3]));
         TPrsStd_AISViewer::Update(L);
       }
       else
@@ -353,17 +353,17 @@ static Standard_Integer DPrsStd_AISTransparency(Draw_Interpretor& di,
 // purpose  : AISDefaultTransparency (DOC,entry)
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISDefaultTransparency(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISDefaultTransparency(DrawInterpreter& di,
                                                        Standard_Integer  nb,
                                                        const char**      arg)
 {
   if (nb == 3)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
 
     Handle(TPrsStd_AISPresentation) prs;
@@ -383,7 +383,7 @@ static Standard_Integer DPrsStd_AISDefaultTransparency(Draw_Interpretor& di,
 // purpose  : AISColor (DOC,entry,[color])
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISColor(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISColor(DrawInterpreter& di,
                                          Standard_Integer  nb,
                                          const char**      arg)
 {
@@ -393,15 +393,15 @@ static Standard_Integer DPrsStd_AISColor(Draw_Interpretor& di,
     return 1;
   }
 
-  Handle(TDocStd_Document) D;
-  if (!DDocStd::GetDocument(arg[1], D))
+  Handle(AppDocument) D;
+  if (!DDocStd1::GetDocument(arg[1], D))
   {
     std::cout << "Syntax error: '" << arg[1] << "' is not a document\n";
     return 1;
   }
 
-  TDF_Label L;
-  if (!DDF::FindLabel(D->GetData(), arg[2], L))
+  DataLabel L;
+  if (!DDF1::FindLabel(D->GetData(), arg[2], L))
   {
     std::cout << "Syntax error: '" << arg[2] << "' label cannot be found in the document\n";
     return 1;
@@ -445,17 +445,17 @@ static Standard_Integer DPrsStd_AISColor(Draw_Interpretor& di,
 // purpose  : AISDefaultColor (DOC,entry)
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISDefaultColor(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISDefaultColor(DrawInterpreter& di,
                                                 Standard_Integer  nb,
                                                 const char**      arg)
 {
   if (nb == 3)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
 
     Handle(TPrsStd_AISViewer) viewer;
@@ -479,17 +479,17 @@ static Standard_Integer DPrsStd_AISDefaultColor(Draw_Interpretor& di,
 // purpose  : AISMaterial (DOC,entry,[material])
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISMaterial(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISMaterial(DrawInterpreter& di,
                                             Standard_Integer  nb,
                                             const char**      arg)
 {
   if (nb >= 3)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
 
     Handle(TPrsStd_AISViewer) viewer;
@@ -501,7 +501,7 @@ static Standard_Integer DPrsStd_AISMaterial(Draw_Interpretor& di,
     {
       if (nb == 4)
       {
-        prs->SetMaterial((Graphic3d_NameOfMaterial)Draw::Atoi(arg[3]));
+        prs->SetMaterial((Graphic3d_NameOfMaterial)Draw1::Atoi(arg[3]));
         TPrsStd_AISViewer::Update(L);
       }
       else
@@ -529,17 +529,17 @@ static Standard_Integer DPrsStd_AISMaterial(Draw_Interpretor& di,
 // purpose  : AISDefaultMaterial (DOC,entry)
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISDefaultMaterial(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISDefaultMaterial(DrawInterpreter& di,
                                                    Standard_Integer  nb,
                                                    const char**      arg)
 {
   if (nb == 3)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
 
     Handle(TPrsStd_AISViewer) viewer;
@@ -564,7 +564,7 @@ static Standard_Integer DPrsStd_AISDefaultMaterial(Draw_Interpretor& di,
 // return   : Boolean
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISHasOwnColor(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISHasOwnColor(DrawInterpreter& di,
                                                Standard_Integer  nb,
                                                const char**      arg)
 {
@@ -573,11 +573,11 @@ static Standard_Integer DPrsStd_AISHasOwnColor(Draw_Interpretor& di,
     if (nb > 3)
       di << "DPrsStd_AISHasOwnColor : Warning : too many arguments\n";
 
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
 
     Handle(TPrsStd_AISViewer) viewer;
@@ -601,7 +601,7 @@ static Standard_Integer DPrsStd_AISHasOwnColor(Draw_Interpretor& di,
 // return   : Boolean
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISHasOwnMaterial(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISHasOwnMaterial(DrawInterpreter& di,
                                                   Standard_Integer  nb,
                                                   const char**      arg)
 {
@@ -610,11 +610,11 @@ static Standard_Integer DPrsStd_AISHasOwnMaterial(Draw_Interpretor& di,
     if (nb > 3)
       di << "DPrsStd_AISHasOwnMaterial : Warning : too many arguments\n";
 
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
 
     Handle(TPrsStd_AISViewer) viewer;
@@ -638,7 +638,7 @@ static Standard_Integer DPrsStd_AISHasOwnMaterial(Draw_Interpretor& di,
 // return   : Boolean
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISHasOwnTransparency(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISHasOwnTransparency(DrawInterpreter& di,
                                                       Standard_Integer  nb,
                                                       const char**      arg)
 {
@@ -647,11 +647,11 @@ static Standard_Integer DPrsStd_AISHasOwnTransparency(Draw_Interpretor& di,
     if (nb > 3)
       di << "DPrsStd_AISHasOwnTransparency : Warning : too many arguments\n";
 
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    DataLabel L;
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
 
     Handle(TPrsStd_AISViewer) viewer;
@@ -673,22 +673,22 @@ static Standard_Integer DPrsStd_AISHasOwnTransparency(Draw_Interpretor& di,
 // function : DPrsStd_AISMode
 // purpose  : AISMode (DOC,entry,[Mode])
 //=======================================================================
-static Standard_Integer DPrsStd_AISMode(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer DPrsStd_AISMode(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
-  TDF_Label                       L;
-  Handle(TDocStd_Document)        D;
+  DataLabel                       L;
+  Handle(AppDocument)        D;
   Handle(TPrsStd_AISPresentation) prs;
   if (nb >= 3 && nb <= 4)
   {
-    if (!DDocStd::GetDocument(arg[1], D))
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
     if (!L.FindAttribute(TPrsStd_AISPresentation::GetID(), prs))
       return 1;
     if (nb == 4)
     {
-      Standard_Integer mode = Draw::Atoi(arg[3]);
+      Standard_Integer mode = Draw1::Atoi(arg[3]);
       prs->SetMode(mode);
       TPrsStd_AISViewer::Update(L);
     }
@@ -707,30 +707,30 @@ static Standard_Integer DPrsStd_AISMode(Draw_Interpretor& di, Standard_Integer n
 // function : DPrsStd_AISSelMode
 // purpose  : AISSelMode (DOC,entry,[SelMode1 SelMode2 ...])
 //=======================================================================
-static Standard_Integer DPrsStd_AISSelMode(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISSelMode(DrawInterpreter& di,
                                            Standard_Integer  nb,
                                            const char**      arg)
 {
-  TDF_Label                       L;
-  Handle(TDocStd_Document)        D;
+  DataLabel                       L;
+  Handle(AppDocument)        D;
   Handle(TPrsStd_AISPresentation) prs;
   if (nb >= 3)
   {
-    if (!DDocStd::GetDocument(arg[1], D))
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    if (!DDF::FindLabel(D->GetData(), arg[2], L))
+    if (!DDF1::FindLabel(D->GetData(), arg[2], L))
       return 1;
     if (!L.FindAttribute(TPrsStd_AISPresentation::GetID(), prs))
       return 1;
     if (nb >= 4)
     {
       // Set selection mode.
-      Standard_Integer selMode = Draw::Atoi(arg[3]);
+      Standard_Integer selMode = Draw1::Atoi(arg[3]);
       prs->SetSelectionMode(selMode);
       // Add other selection modes.
       for (Standard_Integer i = 4; i < nb; i++)
       {
-        selMode = Draw::Atoi(arg[i]);
+        selMode = Draw1::Atoi(arg[i]);
         prs->AddSelectionMode(selMode);
       }
       TPrsStd_AISViewer::Update(L);
@@ -763,13 +763,13 @@ static Standard_Integer DPrsStd_AISSelMode(Draw_Interpretor& di,
 
 //=================================================================================================
 
-void DPrsStd::AISPresentationCommands(Draw_Interpretor& theCommands)
+void DPrsStd1::AISPresentationCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done          = Standard_True;
-  const char* g = "DPrsStd : standard presentation commands";
+  const char* g = "DPrsStd1 : standard presentation commands";
 
   // standard commands working on AISPresentation
 

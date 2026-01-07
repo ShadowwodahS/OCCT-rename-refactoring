@@ -33,15 +33,15 @@
 
 //=================================================================================================
 
-StdPrs_ShapeTool::StdPrs_ShapeTool(const TopoDS_Shape&    theShape,
+StdPrs_ShapeTool::StdPrs_ShapeTool(const TopoShape&    theShape,
                                    const Standard_Boolean theAllVertices)
     : myShape(theShape)
 {
   myEdgeMap.Clear();
   myVertexMap.Clear();
-  TopExp::MapShapesAndAncestors(theShape, TopAbs_EDGE, TopAbs_FACE, myEdgeMap);
+  TopExp1::MapShapesAndAncestors(theShape, TopAbs_EDGE, TopAbs_FACE, myEdgeMap);
 
-  TopExp_Explorer anExpl;
+  ShapeExplorer anExpl;
   if (theAllVertices)
   {
     for (anExpl.Init(theShape, TopAbs_VERTEX); anExpl.More(); anExpl.Next())
@@ -63,7 +63,7 @@ StdPrs_ShapeTool::StdPrs_ShapeTool(const TopoDS_Shape&    theShape,
       TopoDS_Iterator aIt(anExpl.Current(), Standard_False, Standard_True);
       for (; aIt.More(); aIt.Next())
       {
-        const TopoDS_Shape& aV = aIt.Value();
+        const TopoShape& aV = aIt.Value();
         if (aV.Orientation() == TopAbs_INTERNAL)
         {
           myVertexMap.Add(aV);
@@ -77,7 +77,7 @@ StdPrs_ShapeTool::StdPrs_ShapeTool(const TopoDS_Shape&    theShape,
 
 Bnd_Box StdPrs_ShapeTool::FaceBound() const
 {
-  const TopoDS_Face& F = TopoDS::Face(myFaceExplorer.Current());
+  const TopoFace& F = TopoDS::Face(myFaceExplorer.Current());
   Bnd_Box            B;
   BRepBndLib::Add(F, B);
   return B;
@@ -85,10 +85,10 @@ Bnd_Box StdPrs_ShapeTool::FaceBound() const
 
 //=================================================================================================
 
-Standard_Boolean StdPrs_ShapeTool::IsPlanarFace(const TopoDS_Face& theFace)
+Standard_Boolean StdPrs_ShapeTool::IsPlanarFace(const TopoFace& theFace)
 {
   TopLoc_Location             l;
-  const Handle(Geom_Surface)& S = BRep_Tool::Surface(theFace, l);
+  const Handle(GeomSurface)& S = BRepInspector::Surface(theFace, l);
   if (S.IsNull())
   {
     return Standard_False;
@@ -102,14 +102,14 @@ Standard_Boolean StdPrs_ShapeTool::IsPlanarFace(const TopoDS_Face& theFace)
       Handle(Geom_RectangularTrimmedSurface)::DownCast(S);
     TheType = RTS->BasisSurface()->DynamicType();
   }
-  return (TheType == STANDARD_TYPE(Geom_Plane));
+  return (TheType == STANDARD_TYPE(GeomPlane));
 }
 
 //=================================================================================================
 
 Bnd_Box StdPrs_ShapeTool::CurveBound() const
 {
-  const TopoDS_Edge& E = TopoDS::Edge(myEdgeMap.FindKey(myEdge));
+  const TopoEdge& E = TopoDS::Edge(myEdgeMap.FindKey(myEdge));
   Bnd_Box            B;
   BRepBndLib::Add(E, B);
   return B;
@@ -119,7 +119,7 @@ Bnd_Box StdPrs_ShapeTool::CurveBound() const
 
 Standard_Integer StdPrs_ShapeTool::Neighbours() const
 {
-  const TopTools_ListOfShape& L = myEdgeMap.FindFromIndex(myEdge);
+  const ShapeList& L = myEdgeMap.FindFromIndex(myEdge);
   return L.Extent();
 }
 
@@ -128,7 +128,7 @@ Standard_Integer StdPrs_ShapeTool::Neighbours() const
 Handle(TopTools_HSequenceOfShape) StdPrs_ShapeTool::FacesOfEdge() const
 {
   Handle(TopTools_HSequenceOfShape) H = new TopTools_HSequenceOfShape();
-  const TopTools_ListOfShape&       L = myEdgeMap.FindFromIndex(myEdge);
+  const ShapeList&       L = myEdgeMap.FindFromIndex(myEdge);
   for (TopTools_ListIteratorOfListOfShape LI(L); LI.More(); LI.Next())
   {
     H->Append(LI.Value());
@@ -141,36 +141,36 @@ Handle(TopTools_HSequenceOfShape) StdPrs_ShapeTool::FacesOfEdge() const
 Standard_Boolean StdPrs_ShapeTool::HasSurface() const
 {
   TopLoc_Location             l;
-  const Handle(Geom_Surface)& S = BRep_Tool::Surface(GetFace(), l);
+  const Handle(GeomSurface)& S = BRepInspector::Surface(GetFace(), l);
   return !S.IsNull();
 }
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) StdPrs_ShapeTool::CurrentTriangulation(TopLoc_Location& l) const
+Handle(MeshTriangulation) StdPrs_ShapeTool::CurrentTriangulation(TopLoc_Location& l) const
 {
-  return BRep_Tool::Triangulation(GetFace(), l);
+  return BRepInspector::Triangulation(GetFace(), l);
 }
 
 //=================================================================================================
 
 Standard_Boolean StdPrs_ShapeTool::HasCurve() const
 {
-  return BRep_Tool::IsGeometric(GetCurve());
+  return BRepInspector::IsGeometric(GetCurve());
 }
 
 //=================================================================================================
 
 void StdPrs_ShapeTool::PolygonOnTriangulation(Handle(Poly_PolygonOnTriangulation)& Indices,
-                                              Handle(Poly_Triangulation)&          T,
+                                              Handle(MeshTriangulation)&          T,
                                               TopLoc_Location&                     l) const
 {
-  BRep_Tool::PolygonOnTriangulation(GetCurve(), Indices, T, l);
+  BRepInspector::PolygonOnTriangulation(GetCurve(), Indices, T, l);
 }
 
 //=================================================================================================
 
 Handle(Poly_Polygon3D) StdPrs_ShapeTool::Polygon3D(TopLoc_Location& l) const
 {
-  return BRep_Tool::Polygon3D(GetCurve(), l);
+  return BRepInspector::Polygon3D(GetCurve(), l);
 }

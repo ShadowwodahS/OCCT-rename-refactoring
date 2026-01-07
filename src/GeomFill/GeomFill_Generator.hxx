@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <GeomFill_Profiler.hxx>
-class Geom_Surface;
+class GeomSurface;
 
 //! Create a surface using generating lines.  Inherits
 //! profiler.  The  surface will be  a  BSplineSurface
@@ -42,11 +42,11 @@ public:
   //! <PTol> is used to compare 2 knots.
   Standard_EXPORT virtual void Perform(const Standard_Real PTol) Standard_OVERRIDE;
 
-  const Handle(Geom_Surface)& Surface() const;
+  const Handle(GeomSurface)& Surface() const;
 
 protected:
 private:
-  Handle(Geom_Surface) mySurface;
+  Handle(GeomSurface) mySurface;
 };
 
 #include <GeomFill_Generator.lxx>

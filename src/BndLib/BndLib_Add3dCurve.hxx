@@ -44,7 +44,7 @@ public:
   //! -   the services provided by a 3D curve from the package   Geom
   //! -   and those required of the curve by the computation algorithm.
   //! The adapted curve is created in the following way:
-  //! Handle(Geom_Curve) mycurve = ... ;
+  //! Handle(GeomCurve3d) mycurve = ... ;
   //! GeomAdaptor_Curve C(mycurve);
   //! The bounding box B is then enlarged by adding it:
   //! Bnd_Box B;
@@ -53,7 +53,7 @@ public:
   //! Add3dCurve::Add ( C, Tol, B );
   //! Exceptions
   //! ExceptionBase if the curve is built from:
-  //! -   a Geom_Line, or
+  //! -   a GeomLine, or
   //! -   a Geom_Parabola, or
   //! -   a Geom_Hyperbola,
   //! and P1 and P2 are either two negative infinite real
@@ -72,7 +72,7 @@ public:
   //! -   the services provided by a 3D curve from the package   Geom
   //! -   and those required of the curve by the computation algorithm.
   //! The adapted curve is created in the following way:
-  //! Handle(Geom_Curve) mycurve = ... ;
+  //! Handle(GeomCurve3d) mycurve = ... ;
   //! GeomAdaptor_Curve C(mycurve);
   //! The bounding box B is then enlarged by adding it:
   //! Bnd_Box B;
@@ -81,7 +81,7 @@ public:
   //! Add3dCurve::Add ( C, Tol, B );
   //! Exceptions
   //! ExceptionBase if the curve is built from:
-  //! -   a Geom_Line, or
+  //! -   a GeomLine, or
   //! -   a Geom_Parabola, or
   //! -   a Geom_Hyperbola,
   //! and P1 and P2 are either two negative infinite real

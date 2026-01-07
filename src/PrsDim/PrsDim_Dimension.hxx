@@ -37,7 +37,7 @@
 #include <NCollection_Sequence.hxx>
 #include <NCollection_Handle.hxx>
 
-DEFINE_STANDARD_HANDLE(PrsDim_Dimension, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(PrsDim_Dimension, VisualEntity)
 
 //! PrsDim_Dimension is a base class for 2D presentations of linear (length, diameter, radius)
 //! and angular dimensions.
@@ -46,7 +46,7 @@ DEFINE_STANDARD_HANDLE(PrsDim_Dimension, AIS_InteractiveObject)
 //! The measurement of dimension "value" is done in model space "as is".
 //! These "value" are said to be represented in "model units", which can be specified by user.
 //! During the display the measured value converted from "model units" to "display units".
-//! The display and model units are stored in common Prs3d_Drawer (drawer of the context)
+//! The display and model units are stored in common StyleDrawer (drawer of the context)
 //! to share it between all dimensions.
 //! The specified by user units are stored in the dimension's drawer.
 //!
@@ -158,9 +158,9 @@ DEFINE_STANDARD_HANDLE(PrsDim_Dimension, AIS_InteractiveObject)
 //! it can be converted to the text position by calling the method GetTextPosition(). In this case
 //! the text position is NOT fixed, and SetMeasureGeometry() without user-defined plane adjusts
 //! the automatic plane according input geometry (if it is possible).
-class PrsDim_Dimension : public AIS_InteractiveObject
+class PrsDim_Dimension : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(PrsDim_Dimension, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(PrsDim_Dimension, VisualEntity)
 protected:
   //! Geometry type defines type of shapes on which the dimension is to be built.
   //! Some type of geometry allows automatic plane computing and
@@ -240,11 +240,11 @@ public:
   //! Sets user-defined dimension value.
   //! Unit conversion during the display is not applied.
   //! @param[in] theValue  the user-defined value to display.
-  Standard_EXPORT void SetCustomValue(const TCollection_ExtendedString& theValue);
+  Standard_EXPORT void SetCustomValue(const UtfString& theValue);
 
   //! Gets user-defined dimension value.
   //! @return dimension value string.
-  const TCollection_ExtendedString& GetCustomValue() const { return myCustomStringValue; }
+  const UtfString& GetCustomValue() const { return myCustomStringValue; }
 
   //! Get the dimension plane in which the 2D dimension presentation is computed.
   //! By default, if plane is not defined by user, it is computed automatically
@@ -325,13 +325,13 @@ public:
   //! Specifies special symbol.
   Standard_EXPORT void SetSpecialSymbol(const Standard_ExtCharacter theSpecialSymbol);
 
-  Standard_EXPORT virtual const TCollection_AsciiString& GetDisplayUnits() const;
+  Standard_EXPORT virtual const AsciiString1& GetDisplayUnits() const;
 
-  Standard_EXPORT virtual const TCollection_AsciiString& GetModelUnits() const;
+  Standard_EXPORT virtual const AsciiString1& GetModelUnits() const;
 
-  virtual void SetDisplayUnits(const TCollection_AsciiString& /*theUnits*/) {}
+  virtual void SetDisplayUnits(const AsciiString1& /*theUnits*/) {}
 
-  virtual void SetModelUnits(const TCollection_AsciiString& /*theUnits*/) {}
+  virtual void SetModelUnits(const AsciiString1& /*theUnits*/) {}
 
   //! Unsets user defined text positioning and enables text positioning
   //!  by other parameters: text alignment, extension size, flyout and custom plane.
@@ -366,7 +366,7 @@ protected:
   //! Get formatted value string and its model space width.
   //! @param[out] theWidth  the model space with of the string.
   //! @return formatted dimension value string.
-  Standard_EXPORT TCollection_ExtendedString GetValueString(Standard_Real& theWidth) const;
+  Standard_EXPORT UtfString GetValueString(Standard_Real& theWidth) const;
 
   //! Performs drawing of 2d or 3d arrows on the working plane
   //! @param[in] theLocation  the location of the arrow tip.
@@ -386,7 +386,7 @@ protected:
   Standard_EXPORT void drawText(const Handle(Prs3d_Presentation)& thePresentation,
                                 const Point3d&                     theTextPos,
                                 const Dir3d&                     theTextDir,
-                                const TCollection_ExtendedString& theText,
+                                const UtfString& theText,
                                 const Standard_Integer            theLabelPosition);
 
   //! Performs computing of dimension linear extension with text
@@ -402,7 +402,7 @@ protected:
                                      const Standard_Real               theExtensionSize,
                                      const Point3d&                     theExtensionStart,
                                      const Dir3d&                     theExtensionDir,
-                                     const TCollection_ExtendedString& theLabelString,
+                                     const UtfString& theLabelString,
                                      const Standard_Real               theLabelWidth,
                                      const Standard_Integer            theMode,
                                      const Standard_Integer            theLabelPosition);
@@ -437,7 +437,7 @@ protected:
   //! @param[in] theOwner  the selection entity owner.
   //! @param[in] theFirstPoint  the first attach point of linear dimension.
   //! @param[in] theSecondPoint  the second attach point of linear dimension.
-  Standard_EXPORT void ComputeLinearFlyouts(const Handle(SelectMgr_Selection)&   theSelection,
+  Standard_EXPORT void ComputeLinearFlyouts(const Handle(SelectionContainer)&   theSelection,
                                             const Handle(SelectMgr_EntityOwner)& theOwner,
                                             const Point3d&                        theFirstPoint,
                                             const Point3d&                        theSecondPoint);
@@ -449,7 +449,7 @@ protected:
   //! @param[out] theMiddleArcPoint  the middle point of the arc.
   //! @param[out] theIsClosed  returns TRUE if the geometry is closed circle.
   //! @return TRUE if the circle is successfully returned from the input shape.
-  Standard_EXPORT Standard_Boolean InitCircularDimension(const TopoDS_Shape& theShape,
+  Standard_EXPORT Standard_Boolean InitCircularDimension(const TopoShape& theShape,
                                                          gp_Circ&            theCircle,
                                                          Point3d&             theMiddleArcPoint,
                                                          Standard_Boolean&   theIsClosed);
@@ -522,8 +522,8 @@ protected: //! @name Static auxiliary methods for geometry extraction
   //! @param[out] theFirstPoint   the point of the first parameter of the circlular curve
   //! @param[out] theSecondPoint  the point of the last parameter of the circlular curve
   //! @return TRUE in case of successful circle extraction
-  static Standard_Boolean CircleFromPlanarFace(const TopoDS_Face&  theFace,
-                                               Handle(Geom_Curve)& theCurve,
+  static Standard_Boolean CircleFromPlanarFace(const TopoFace&  theFace,
+                                               Handle(GeomCurve3d)& theCurve,
                                                Point3d&             theFirstPoint,
                                                Point3d&             theLastPoint);
 
@@ -533,7 +533,7 @@ protected: //! @name Static auxiliary methods for geometry extraction
   //! @param[out] theFirstPoint   the point of the first parameter of the circlular curve
   //! @param[out] theSecondPoint  the point of the last parameter of the circlular curve
   //! @return TRUE in case of successful circle extraction.
-  static Standard_Boolean CircleFromEdge(const TopoDS_Edge& theEdge,
+  static Standard_Boolean CircleFromEdge(const TopoEdge& theEdge,
                                          gp_Circ&           theCircle,
                                          Point3d&            theFirstPoint,
                                          Point3d&            theLastPoint);
@@ -555,7 +555,7 @@ protected: //! @name Behavior to implement
   //! flyout lines (if the dimension provides it).
   //! This callback is a only a part of base selection
   //! computation routine.
-  virtual void ComputeFlyoutSelection(const Handle(SelectMgr_Selection)&,
+  virtual void ComputeFlyoutSelection(const Handle(SelectionContainer)&,
                                       const Handle(SelectMgr_EntityOwner)&)
   {
   }
@@ -563,7 +563,7 @@ protected: //! @name Behavior to implement
   //! Base procedure of computing selection (based on selection geometry data).
   //! @param[in] theSelection  the selection structure to will with primitives.
   //! @param[in] theMode  the selection mode.
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
 protected: //! @name Selection geometry
@@ -641,7 +641,7 @@ protected:                     //! @name Value properties
   Standard_Real myCustomValue; //!< Value of the dimension (computed or user-defined).
 
   // clang-format off
-  TCollection_ExtendedString myCustomStringValue; //!< Value of the dimension (computed or user-defined).
+  UtfString myCustomStringValue; //!< Value of the dimension (computed or user-defined).
   // clang-format on
 
 protected:                                //! @name Fixed text position properties

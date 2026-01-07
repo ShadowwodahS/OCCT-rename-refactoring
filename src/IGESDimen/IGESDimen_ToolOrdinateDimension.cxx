@@ -32,9 +32,9 @@
 #include <Interface_Macros.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESDimen_ToolOrdinateDimension::IGESDimen_ToolOrdinateDimension() {}
+OrdinateDimensionTool::OrdinateDimensionTool() {}
 
-void IGESDimen_ToolOrdinateDimension::ReadOwnParams(
+void OrdinateDimensionTool::ReadOwnParams(
   const Handle(IGESDimen_OrdinateDimension)& theEnt,
   const Handle(IGESData_IGESReaderData)&     IR,
   IGESData_ParamReader&                      PR) const
@@ -75,7 +75,7 @@ void IGESDimen_ToolOrdinateDimension::ReadOwnParams(
   theEnt->Init(tempNote, isLine, witLine, leadArr);
 }
 
-void IGESDimen_ToolOrdinateDimension::WriteOwnParams(const Handle(IGESDimen_OrdinateDimension)& ent,
+void OrdinateDimensionTool::WriteOwnParams(const Handle(IGESDimen_OrdinateDimension)& ent,
                                                      IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->Note());
@@ -93,7 +93,7 @@ void IGESDimen_ToolOrdinateDimension::WriteOwnParams(const Handle(IGESDimen_Ordi
   }
 }
 
-void IGESDimen_ToolOrdinateDimension::OwnShared(const Handle(IGESDimen_OrdinateDimension)& ent,
+void OrdinateDimensionTool::OwnShared(const Handle(IGESDimen_OrdinateDimension)& ent,
                                                 Interface_EntityIterator& iter) const
 {
   iter.GetOneItem(ent->Note());
@@ -101,7 +101,7 @@ void IGESDimen_ToolOrdinateDimension::OwnShared(const Handle(IGESDimen_OrdinateD
   iter.GetOneItem(ent->Leader());
 }
 
-void IGESDimen_ToolOrdinateDimension::OwnCopy(const Handle(IGESDimen_OrdinateDimension)& another,
+void OrdinateDimensionTool::OwnCopy(const Handle(IGESDimen_OrdinateDimension)& another,
                                               const Handle(IGESDimen_OrdinateDimension)& ent,
                                               Interface_CopyTool&                        TC) const
 {
@@ -111,10 +111,10 @@ void IGESDimen_ToolOrdinateDimension::OwnCopy(const Handle(IGESDimen_OrdinateDim
   ent->Init(tempNote, another->IsLine(), witLine, leadArr);
 }
 
-IGESData_DirChecker IGESDimen_ToolOrdinateDimension::DirChecker(
+DirectoryChecker OrdinateDimensionTool::DirChecker(
   const Handle(IGESDimen_OrdinateDimension)& /*ent*/) const
 {
-  IGESData_DirChecker DC(218, 0, 1);
+  DirectoryChecker DC(218, 0, 1);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.LineWeight(IGESData_DefValue);
@@ -125,7 +125,7 @@ IGESData_DirChecker IGESDimen_ToolOrdinateDimension::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolOrdinateDimension::OwnCheck(const Handle(IGESDimen_OrdinateDimension)& ent,
+void OrdinateDimensionTool::OwnCheck(const Handle(IGESDimen_OrdinateDimension)& ent,
                                                const Interface_ShareTool&,
                                                Handle(Interface_Check)& ach) const
 {
@@ -145,7 +145,7 @@ void IGESDimen_ToolOrdinateDimension::OwnCheck(const Handle(IGESDimen_OrdinateDi
   }
 }
 
-void IGESDimen_ToolOrdinateDimension::OwnDump(const Handle(IGESDimen_OrdinateDimension)& ent,
+void OrdinateDimensionTool::OwnDump(const Handle(IGESDimen_OrdinateDimension)& ent,
                                               const IGESData_IGESDumper&                 dumper,
                                               Standard_OStream&                          S,
                                               const Standard_Integer level) const

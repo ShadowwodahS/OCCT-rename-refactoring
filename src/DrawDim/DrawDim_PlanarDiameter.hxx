@@ -21,8 +21,8 @@
 #include <Standard_Type.hxx>
 
 #include <DrawDim_PlanarDimension.hxx>
-class TopoDS_Face;
-class Draw_Display;
+class TopoFace;
+class DrawDisplay;
 
 class DrawDim_PlanarDiameter;
 DEFINE_STANDARD_HANDLE(DrawDim_PlanarDiameter, DrawDim_PlanarDimension)
@@ -31,17 +31,17 @@ class DrawDim_PlanarDiameter : public DrawDim_PlanarDimension
 {
 
 public:
-  Standard_EXPORT DrawDim_PlanarDiameter(const TopoDS_Face& plane, const TopoDS_Shape& circle);
+  Standard_EXPORT DrawDim_PlanarDiameter(const TopoFace& plane, const TopoShape& circle);
 
-  Standard_EXPORT DrawDim_PlanarDiameter(const TopoDS_Shape& circle);
+  Standard_EXPORT DrawDim_PlanarDiameter(const TopoShape& circle);
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(DrawDim_PlanarDiameter, DrawDim_PlanarDimension)
 
 protected:
 private:
-  TopoDS_Shape myCircle;
+  TopoShape myCircle;
 };
 
 #endif // _DrawDim_PlanarDiameter_HeaderFile

@@ -32,7 +32,7 @@ public:
   //! Allocate specified number of bytes.
   //! The actually allocated space should be rounded up to
   //! double word size (4 bytes), as this is expected by implementation
-  //! of some classes in OCC (e.g. TCollection_AsciiString)
+  //! of some classes in OCC (e.g. AsciiString1)
   Standard_EXPORT virtual Standard_Address Allocate(const Standard_Size theSize) = 0;
 
   //! Reallocate previously allocated memory to contain at least theSize bytes.

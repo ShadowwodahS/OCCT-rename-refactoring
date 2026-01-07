@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRep_PointsOnSurface, BRep_PointRepresentation)
 //=================================================================================================
 
 BRep_PointsOnSurface::BRep_PointsOnSurface(const Standard_Real         P,
-                                           const Handle(Geom_Surface)& S,
+                                           const Handle(GeomSurface)& S,
                                            const TopLoc_Location&      L)
     : BRep_PointRepresentation(P, L),
       mySurface(S)
@@ -33,14 +33,14 @@ BRep_PointsOnSurface::BRep_PointsOnSurface(const Standard_Real         P,
 
 //=================================================================================================
 
-const Handle(Geom_Surface)& BRep_PointsOnSurface::Surface() const
+const Handle(GeomSurface)& BRep_PointsOnSurface::Surface() const
 {
   return mySurface;
 }
 
 //=================================================================================================
 
-void BRep_PointsOnSurface::Surface(const Handle(Geom_Surface)& S)
+void BRep_PointsOnSurface::Surface(const Handle(GeomSurface)& S)
 {
   mySurface = S;
 }

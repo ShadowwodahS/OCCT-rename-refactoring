@@ -23,8 +23,8 @@ XmlLDrivers_NamespaceDef::XmlLDrivers_NamespaceDef() {}
 
 //=================================================================================================
 
-XmlLDrivers_NamespaceDef::XmlLDrivers_NamespaceDef(const TCollection_AsciiString& thePrefix,
-                                                   const TCollection_AsciiString& theURI)
+XmlLDrivers_NamespaceDef::XmlLDrivers_NamespaceDef(const AsciiString1& thePrefix,
+                                                   const AsciiString1& theURI)
     : myPrefix(thePrefix),
       myURI(theURI)
 {
@@ -32,14 +32,14 @@ XmlLDrivers_NamespaceDef::XmlLDrivers_NamespaceDef(const TCollection_AsciiString
 
 //=================================================================================================
 
-const TCollection_AsciiString& XmlLDrivers_NamespaceDef::Prefix() const
+const AsciiString1& XmlLDrivers_NamespaceDef::Prefix() const
 {
   return myPrefix;
 }
 
 //=================================================================================================
 
-const TCollection_AsciiString& XmlLDrivers_NamespaceDef::URI() const
+const AsciiString1& XmlLDrivers_NamespaceDef::URI() const
 {
   return myURI;
 }

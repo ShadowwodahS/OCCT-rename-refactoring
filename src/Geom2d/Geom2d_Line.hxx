@@ -32,7 +32,7 @@ class gp_Trsf2d;
 class Geom2d_Geometry;
 
 class Geom2d_Line;
-DEFINE_STANDARD_HANDLE(Geom2d_Line, Geom2d_Curve)
+DEFINE_STANDARD_HANDLE(Geom2d_Line, GeomCurve2d)
 
 //! Describes an infinite line in the plane (2D space).
 //! A line is defined and positioned in the plane with an
@@ -50,7 +50,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Line, Geom2d_Curve)
 //! complex line constructions
 //! gp_Ax2d
 //! gp_Lin2d for an equivalent, non-parameterized data structure.
-class Geom2d_Line : public Geom2d_Curve
+class Geom2d_Line : public GeomCurve2d
 {
 
 public:
@@ -179,7 +179,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom2d_Line, Geom2d_Curve)
+  DEFINE_STANDARD_RTTIEXT(Geom2d_Line, GeomCurve2d)
 
 protected:
 private:

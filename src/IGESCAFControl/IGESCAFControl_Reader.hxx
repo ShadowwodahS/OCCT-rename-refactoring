@@ -22,8 +22,8 @@
 
 #include <IGESControl_Reader.hxx>
 #include <TCollection_AsciiString.hxx>
-class XSControl_WorkSession;
-class TDocStd_Document;
+class ExchangeSession;
+class AppDocument;
 
 //! Provides a tool to read IGES file and put it into
 //! DECAF document. Besides transfer of shapes (including
@@ -43,7 +43,7 @@ class TDocStd_Document;
 //! Names
 //! reader.SetNameMode(namemode);
 //! Standard_Boolean namemode = reader.GetNameMode();
-class IGESCAFControl_Reader : public IGESControl_Reader
+class IGESCAFControl_Reader : public IgesFileReader
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -59,7 +59,7 @@ public:
 
   //! Creates a reader tool and attaches it to an already existing Session
   //! Clears the session if it was not yet set for IGES
-  IGESCAFControl_Reader(const Handle(XSControl_WorkSession)& theWS,
+  IGESCAFControl_Reader(const Handle(ExchangeSession)& theWS,
                         const Standard_Boolean               FromScratch = Standard_True)
       : myColorMode(Standard_True),
         myNameMode(Standard_True),
@@ -71,11 +71,11 @@ public:
   //! Translates currently loaded IGES file into the document
   //! Returns True if succeeded, and False in case of fail
   Standard_EXPORT Standard_Boolean
-    Transfer(const Handle(TDocStd_Document)& theDoc,
+    Transfer(const Handle(AppDocument)& theDoc,
              const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
-  Standard_Boolean Perform(const TCollection_AsciiString&  theFileName,
-                           const Handle(TDocStd_Document)& theDoc,
+  Standard_Boolean Perform(const AsciiString1&  theFileName,
+                           const Handle(AppDocument)& theDoc,
                            const Message_ProgressRange&    theProgress = Message_ProgressRange())
   {
     return Perform(theFileName.ToCString(), theDoc, theProgress);
@@ -85,7 +85,7 @@ public:
   //! Return True if succeeded, and False in case of fail
   Standard_EXPORT Standard_Boolean
     Perform(const Standard_CString          theFileName,
-            const Handle(TDocStd_Document)& theDoc,
+            const Handle(AppDocument)& theDoc,
             const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Set ColorMode for indicate read Colors or not.

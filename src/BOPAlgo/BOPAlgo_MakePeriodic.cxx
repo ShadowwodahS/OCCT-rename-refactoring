@@ -87,18 +87,18 @@ void BOPAlgo_MakePeriodic::CheckData()
 // function : AddToShape
 // purpose  : Adds the shape <theWhat> to the shape <theWhere>
 //=======================================================================
-static void AddToShape(const TopoDS_Shape& theWhat, TopoDS_Shape& theWhere)
+static void AddToShape(const TopoShape& theWhat, TopoShape& theWhere)
 {
   if (theWhere.IsNull())
-    BRep_Builder().MakeCompound(TopoDS::Compound(theWhere));
-  BRep_Builder().Add(theWhere, theWhat);
+    ShapeBuilder().MakeCompound(TopoDS::Compound(theWhere));
+  ShapeBuilder().Add(theWhere, theWhat);
 }
 
 //=======================================================================
 // function : AddToShape
 // purpose  : Adds the shape in the list <theLWhat> to the shape <theWhere>
 //=======================================================================
-static void AddToShape(const TopTools_ListOfShape& theLWhat, TopoDS_Shape& theWhere)
+static void AddToShape(const ShapeList& theLWhat, TopoShape& theWhere)
 {
   TopTools_ListIteratorOfListOfShape it(theLWhat);
   for (; it.More(); it.Next())
@@ -138,17 +138,17 @@ void BOPAlgo_MakePeriodic::Trim()
   }
 
   // Build Trimming solid using corner points
-  BRepPrimAPI_MakeBox aMBox(aPMin, aPMax);
-  const TopoDS_Shape& aTrimBox = aMBox.Solid();
+  BoxMaker aMBox(aPMin, aPMax);
+  const TopoShape& aTrimBox = aMBox.Solid();
 
   // Perform trimming of the shape by solid
-  BRepAlgoAPI_Common aCommon;
+  BooleanCommon aCommon;
   // Set Object
-  TopTools_ListOfShape anObj;
+  ShapeList anObj;
   anObj.Append(myInputShape);
   aCommon.SetArguments(anObj);
   // Set Tool
-  TopTools_ListOfShape aTool;
+  ShapeList aTool;
   aTool.Append(aTrimBox);
   aCommon.SetTools(aTool);
   // Set the parallel processing mode
@@ -161,7 +161,7 @@ void BOPAlgo_MakePeriodic::Trim()
     // Merge errors from Common operation
     myReport->Merge(aCommon.GetReport());
     // Add new error saving the shapes for analysis
-    TopoDS_Compound aWS;
+    TopoCompound aWS;
     AddToShape(myInputShape, aWS);
     AddToShape(aTrimBox, aWS);
     AddError(new BOPAlgo_AlertUnableToTrim(aWS));
@@ -226,7 +226,7 @@ void BOPAlgo_MakePeriodic::SplitNegative()
     BRepBuilderAPI_Transform aNegT(myShape, aNegTrsf, Standard_False);
 
     // Split the negative side of the shape.
-    TopTools_ListOfShape aTools;
+    ShapeList aTools;
     aTools.Append(aNegT.Shape());
     SplitShape(aTools, mySplitHistory);
   }
@@ -236,14 +236,14 @@ void BOPAlgo_MakePeriodic::SplitNegative()
 // function : AddTwin
 // purpose  : Associates the shape <theS> with the shape <theTwin> in the map.
 //=======================================================================
-static void AddTwin(const TopoDS_Shape&                 theS,
-                    const TopoDS_Shape&                 theTwin,
+static void AddTwin(const TopoShape&                 theS,
+                    const TopoShape&                 theTwin,
                     TopTools_DataMapOfShapeListOfShape& theMap)
 {
-  TopTools_ListOfShape* aTwins = theMap.ChangeSeek(theS);
+  ShapeList* aTwins = theMap.ChangeSeek(theS);
   if (!aTwins)
   {
-    theMap.Bound(theS, TopTools_ListOfShape())->Append(theTwin);
+    theMap.Bound(theS, ShapeList())->Append(theTwin);
     return;
   }
 
@@ -269,12 +269,12 @@ void BOPAlgo_MakePeriodic::SplitPositive()
   // Prepare map of the sub-shapes of the input shape to make
   // associations of the opposite shapes
   TopTools_IndexedMapOfShape aSubShapesMap;
-  TopExp::MapShapes(myShape, aSubShapesMap);
+  TopExp1::MapShapes(myShape, aSubShapesMap);
   const Standard_Integer aNbS = aSubShapesMap.Extent();
 
   // Translate the shape to the positive periodic directions to make the
   // shapes look identical on the opposite sides.
-  TopTools_ListOfShape aTools;
+  ShapeList aTools;
 
   // Remember the history of shapes translation
   TopTools_IndexedDataMapOfShapeListOfShape aTranslationHistMap;
@@ -294,13 +294,13 @@ void BOPAlgo_MakePeriodic::SplitPositive()
     // Fill the translation history map
     for (Standard_Integer j = 1; j <= aNbS; ++j)
     {
-      const TopoDS_Shape& aS = aSubShapesMap(j);
+      const TopoShape& aS = aSubShapesMap(j);
       if (BRepTools_History::IsSupportedType(aS))
       {
-        const TopTools_ListOfShape& aSM = aTranslator.Modified(aS);
-        TopTools_ListOfShape*       pTS = aTranslationHistMap.ChangeSeek(aS);
+        const ShapeList& aSM = aTranslator.Modified(aS);
+        ShapeList*       pTS = aTranslationHistMap.ChangeSeek(aS);
         if (!pTS)
-          pTS = &aTranslationHistMap(aTranslationHistMap.Add(aS, TopTools_ListOfShape()));
+          pTS = &aTranslationHistMap(aTranslationHistMap.Add(aS, ShapeList()));
         pTS->Append(aSM.First());
       }
     }
@@ -321,27 +321,27 @@ void BOPAlgo_MakePeriodic::SplitPositive()
   const Standard_Integer aNbSH = aTranslationHistMap.Extent();
   for (Standard_Integer i = 1; i <= aNbSH; ++i)
   {
-    const TopoDS_Shape*         pS   = &aTranslationHistMap.FindKey(i);
-    const TopTools_ListOfShape& aSIm = aSplitShapeHist->Modified(*pS);
+    const TopoShape*         pS   = &aTranslationHistMap.FindKey(i);
+    const ShapeList& aSIm = aSplitShapeHist->Modified(*pS);
     if (aSIm.Extent() == 1)
       pS = &aSIm.First();
     else if (aSIm.Extent() > 1)
       continue;
 
-    const TopTools_ListOfShape& aLTranslated = aTranslationHistMap(i);
+    const ShapeList& aLTranslated = aTranslationHistMap(i);
 
     TopTools_ListIteratorOfListOfShape itLT(aLTranslated);
     for (; itLT.More(); itLT.Next())
     {
-      const TopoDS_Shape& aT = itLT.Value();
+      const TopoShape& aT = itLT.Value();
       // Get shapes modifications during the split
-      const TopTools_ListOfShape& aTSplits = aSplitToolsHist->Modified(aT);
+      const ShapeList& aTSplits = aSplitToolsHist->Modified(aT);
 
       // Associate the shapes to each other
       TopTools_ListIteratorOfListOfShape itSp(aTSplits);
       for (; itSp.More(); itSp.Next())
       {
-        const TopoDS_Shape& aSp = itSp.Value();
+        const TopoShape& aSp = itSp.Value();
         AddTwin(*pS, aSp, myTwins);
         AddTwin(aSp, *pS, myTwins);
       }
@@ -353,7 +353,7 @@ void BOPAlgo_MakePeriodic::SplitPositive()
 // function : SplitShape
 // purpose  : Splits the shape by the given tools
 //=======================================================================
-void BOPAlgo_MakePeriodic::SplitShape(const TopTools_ListOfShape& theTools,
+void BOPAlgo_MakePeriodic::SplitShape(const ShapeList& theTools,
                                       Handle(BRepTools_History)   theSplitShapeHistory,
                                       Handle(BRepTools_History)   theSplitToolsHistory)
 {
@@ -363,7 +363,7 @@ void BOPAlgo_MakePeriodic::SplitShape(const TopTools_ListOfShape& theTools,
   // use the geometry of the first argument.
 
   // Intersection tool for passing ordered arguments
-  BOPAlgo_PaveFiller anIntersector;
+  BooleanPaveFiller anIntersector;
   anIntersector.SetArguments(theTools);
   // Add the shape
   anIntersector.AddArgument(myShape);
@@ -382,7 +382,7 @@ void BOPAlgo_MakePeriodic::SplitShape(const TopTools_ListOfShape& theTools,
     // Copy the intersection errors
     myReport->Merge(anIntersector.GetReport());
     // Add new error saving the shapes for analysis
-    TopoDS_Compound aWS;
+    TopoCompound aWS;
     AddToShape(theTools, aWS);
     AddToShape(myShape, aWS);
     AddError(new BOPAlgo_AlertUnableToMakeIdentical(aWS));
@@ -392,7 +392,7 @@ void BOPAlgo_MakePeriodic::SplitShape(const TopTools_ListOfShape& theTools,
   // Perform the splitting of the shape with the precomputed intersection results
   BRepAlgoAPI_Splitter aSplitter(anIntersector);
   // Set Object
-  TopTools_ListOfShape anObj;
+  ShapeList anObj;
   anObj.Append(myShape);
   aSplitter.SetArguments(anObj);
   // Set Tools
@@ -410,7 +410,7 @@ void BOPAlgo_MakePeriodic::SplitShape(const TopTools_ListOfShape& theTools,
     // Copy the splitter errors
     myReport->Merge(aSplitter.GetReport());
     // Add new error saving the shape for analysis
-    TopoDS_Compound aWS;
+    TopoCompound aWS;
     AddToShape(theTools, aWS);
     AddToShape(myShape, aWS);
     AddError(new BOPAlgo_AlertUnableToMakeIdentical(aWS));
@@ -429,7 +429,7 @@ void BOPAlgo_MakePeriodic::SplitShape(const TopTools_ListOfShape& theTools,
 // function : RepeatShape
 // purpose  : Repeats the shape in the required periodic direction
 //=======================================================================
-const TopoDS_Shape& BOPAlgo_MakePeriodic::RepeatShape(const Standard_Integer theDir,
+const TopoShape& BOPAlgo_MakePeriodic::RepeatShape(const Standard_Integer theDir,
                                                       const Standard_Integer theTimes)
 {
   if (myRepeatedShape.IsNull())
@@ -456,16 +456,16 @@ const TopoDS_Shape& BOPAlgo_MakePeriodic::RepeatShape(const Standard_Integer the
   // created as Generated from the shape.
   BRepTools_History          aTranslationHistory;
   TopTools_IndexedMapOfShape aSubShapesMap;
-  TopExp::MapShapes(myRepeatedShape, aSubShapesMap);
+  TopExp1::MapShapes(myRepeatedShape, aSubShapesMap);
   const Standard_Integer aNbS = aSubShapesMap.Extent();
 
   // Add shapes for gluing
-  TopTools_ListOfShape aShapes;
+  ShapeList aShapes;
   // Add the shape itself
   aShapes.Append(myRepeatedShape);
   for (Standard_Integer i = 1; i <= aNbS; ++i)
   {
-    const TopoDS_Shape& aS = aSubShapesMap(i);
+    const TopoShape& aS = aSubShapesMap(i);
     if (BRepTools_History::IsSupportedType(aS))
       aTranslationHistory.AddGenerated(aS, aS);
   }
@@ -481,10 +481,10 @@ const TopoDS_Shape& BOPAlgo_MakePeriodic::RepeatShape(const Standard_Integer the
     // Fill the translation history
     for (Standard_Integer j = 1; j <= aNbS; ++j)
     {
-      const TopoDS_Shape& aS = aSubShapesMap(j);
+      const TopoShape& aS = aSubShapesMap(j);
       if (BRepTools_History::IsSupportedType(aS))
       {
-        const TopTools_ListOfShape& aLT = aTranslator.Modified(aS);
+        const ShapeList& aLT = aTranslator.Modified(aS);
         aTranslationHistory.AddGenerated(aS, aLT.First());
       }
     }
@@ -506,7 +506,7 @@ const TopoDS_Shape& BOPAlgo_MakePeriodic::RepeatShape(const Standard_Integer the
   {
     // Repetition in this direction is not possible
     // Add warning saving the shapes for analysis
-    TopoDS_Compound aWS;
+    TopoCompound aWS;
     AddToShape(aShapes, aWS);
     AddWarning(new BOPAlgo_AlertUnableToRepeat(aWS));
     return myRepeatedShape;
@@ -550,10 +550,10 @@ void BOPAlgo_MakePeriodic::UpdateTwins(const BRepTools_History& theTranslationHi
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itDMap(myRepeatedTwins);
   for (; itDMap.More(); itDMap.Next())
   {
-    const TopoDS_Shape& aS = itDMap.Key();
+    const TopoShape& aS = itDMap.Key();
     aMTwinsDone.Add(aS);
 
-    const TopTools_ListOfShape& aLTwins = itDMap.Value();
+    const ShapeList& aLTwins = itDMap.Value();
 
     // Check if the twins have not been already processed
     TopTools_ListIteratorOfListOfShape itLT(aLTwins);
@@ -573,13 +573,13 @@ void BOPAlgo_MakePeriodic::UpdateTwins(const BRepTools_History& theTranslationHi
 
     for (Standard_Boolean bShape = Standard_True; itLT.More();)
     {
-      const TopoDS_Shape&                aTwin = bShape ? aS : itLT.Value();
-      const TopTools_ListOfShape&        aLG   = theTranslationHistory.Generated(aTwin);
+      const TopoShape&                aTwin = bShape ? aS : itLT.Value();
+      const ShapeList&        aLG   = theTranslationHistory.Generated(aTwin);
       TopTools_ListIteratorOfListOfShape itLG(aLG);
       for (; itLG.More(); itLG.Next())
       {
-        const TopoDS_Shape&         aG  = itLG.Value();
-        const TopTools_ListOfShape& aLM = theGluingHistory.Modified(aG);
+        const TopoShape&         aG  = itLG.Value();
+        const ShapeList& aLM = theGluingHistory.Modified(aG);
         if (aLM.IsEmpty())
           aNewGroup.Add(aG);
         else
@@ -600,7 +600,7 @@ void BOPAlgo_MakePeriodic::UpdateTwins(const BRepTools_History& theTranslationHi
     const Standard_Integer aNbTwins = aNewGroup.Extent();
     for (Standard_Integer i = 1; i <= aNbTwins; ++i)
     {
-      TopTools_ListOfShape* pTwins = aNewTwinsMap.Bound(aNewGroup(i), TopTools_ListOfShape());
+      ShapeList* pTwins = aNewTwinsMap.Bound(aNewGroup(i), ShapeList());
       for (Standard_Integer j = 1; j <= aNbTwins; ++j)
         if (i != j)
           pTwins->Append(aNewGroup(j));

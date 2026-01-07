@@ -27,9 +27,9 @@
 #include <TopOpeBRepTool_DataMapOfOrientedShapeC2DF.hxx>
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_DataMapOfOrientedShapeInteger.hxx>
-class TopoDS_Edge;
+class TopoEdge;
 class TopOpeBRepTool_C2DF;
-class TopoDS_Vertex;
+class TopoVertex;
 
 //! Fref is built on x-periodic surface (x=u,v).
 //! S built on Fref's geometry, should be UVClosed.
@@ -52,82 +52,82 @@ public:
 
   Standard_EXPORT TopOpeBRepTool_CORRISO();
 
-  Standard_EXPORT TopOpeBRepTool_CORRISO(const TopoDS_Face& FRef);
+  Standard_EXPORT TopOpeBRepTool_CORRISO(const TopoFace& FRef);
 
-  Standard_EXPORT const TopoDS_Face& Fref() const;
+  Standard_EXPORT const TopoFace& Fref() const;
 
   Standard_EXPORT const GeomAdaptor_Surface& GASref() const;
 
   Standard_EXPORT Standard_Boolean Refclosed(const Standard_Integer x,
                                              Standard_Real&         xperiod) const;
 
-  Standard_EXPORT Standard_Boolean Init(const TopoDS_Shape& S);
+  Standard_EXPORT Standard_Boolean Init(const TopoShape& S);
 
-  Standard_EXPORT const TopoDS_Shape& S() const;
+  Standard_EXPORT const TopoShape& S() const;
 
-  Standard_EXPORT const TopTools_ListOfShape& Eds() const;
+  Standard_EXPORT const ShapeList& Eds() const;
 
   Standard_EXPORT Standard_Boolean UVClosed() const;
 
   Standard_EXPORT Standard_Real Tol(const Standard_Integer I, const Standard_Real tol3d) const;
 
-  Standard_EXPORT Standard_Boolean PurgeFyClosingE(const TopTools_ListOfShape& ClEds,
-                                                   TopTools_ListOfShape&       fyClEds) const;
+  Standard_EXPORT Standard_Boolean PurgeFyClosingE(const ShapeList& ClEds,
+                                                   ShapeList&       fyClEds) const;
 
-  Standard_EXPORT Standard_Integer EdgeOUTofBoundsUV(const TopoDS_Edge&     E,
+  Standard_EXPORT Standard_Integer EdgeOUTofBoundsUV(const TopoEdge&     E,
                                                      const Standard_Boolean onU,
                                                      const Standard_Real    tolx,
                                                      Standard_Real&         parspE) const;
 
   Standard_EXPORT Standard_Boolean
-    EdgesOUTofBoundsUV(const TopTools_ListOfShape&             EdsToCheck,
+    EdgesOUTofBoundsUV(const ShapeList&             EdsToCheck,
                        const Standard_Boolean                  onU,
                        const Standard_Real                     tolx,
                        TopTools_DataMapOfOrientedShapeInteger& FyEds) const;
 
-  Standard_EXPORT Standard_Boolean EdgeWithFaultyUV(const TopoDS_Edge& E,
+  Standard_EXPORT Standard_Boolean EdgeWithFaultyUV(const TopoEdge& E,
                                                     Standard_Integer&  Ivfaulty) const;
 
   Standard_EXPORT Standard_Boolean
-    EdgesWithFaultyUV(const TopTools_ListOfShape&             EdsToCheck,
+    EdgesWithFaultyUV(const ShapeList&             EdsToCheck,
                       const Standard_Integer                  nfybounds,
                       TopTools_DataMapOfOrientedShapeInteger& FyEds,
                       const Standard_Boolean                  stopatfirst = Standard_False) const;
 
-  Standard_EXPORT Standard_Boolean EdgeWithFaultyUV(const TopTools_ListOfShape& EdsToCheck,
+  Standard_EXPORT Standard_Boolean EdgeWithFaultyUV(const ShapeList& EdsToCheck,
                                                     const Standard_Integer      nfybounds,
-                                                    TopoDS_Shape&               fyE,
+                                                    TopoShape&               fyE,
                                                     Standard_Integer&           Ifaulty) const;
 
   Standard_EXPORT Standard_Boolean TrslUV(const Standard_Boolean                        onU,
                                           const TopTools_DataMapOfOrientedShapeInteger& FyEds);
 
-  Standard_EXPORT Standard_Boolean GetnewS(TopoDS_Face& newS) const;
+  Standard_EXPORT Standard_Boolean GetnewS(TopoFace& newS) const;
 
-  Standard_EXPORT Standard_Boolean UVRep(const TopoDS_Edge& E, TopOpeBRepTool_C2DF& C2DF) const;
+  Standard_EXPORT Standard_Boolean UVRep(const TopoEdge& E, TopOpeBRepTool_C2DF& C2DF) const;
 
-  Standard_EXPORT Standard_Boolean SetUVRep(const TopoDS_Edge& E, const TopOpeBRepTool_C2DF& C2DF);
+  Standard_EXPORT Standard_Boolean SetUVRep(const TopoEdge& E, const TopOpeBRepTool_C2DF& C2DF);
 
-  Standard_EXPORT Standard_Boolean Connexity(const TopoDS_Vertex&  V,
-                                             TopTools_ListOfShape& Eds) const;
+  Standard_EXPORT Standard_Boolean Connexity(const TopoVertex&  V,
+                                             ShapeList& Eds) const;
 
-  Standard_EXPORT Standard_Boolean SetConnexity(const TopoDS_Vertex&        V,
-                                                const TopTools_ListOfShape& Eds);
+  Standard_EXPORT Standard_Boolean SetConnexity(const TopoVertex&        V,
+                                                const ShapeList& Eds);
 
-  Standard_EXPORT Standard_Boolean AddNewConnexity(const TopoDS_Vertex& V, const TopoDS_Edge& E);
+  Standard_EXPORT Standard_Boolean AddNewConnexity(const TopoVertex& V, const TopoEdge& E);
 
-  Standard_EXPORT Standard_Boolean RemoveOldConnexity(const TopoDS_Vertex& V, const TopoDS_Edge& E);
+  Standard_EXPORT Standard_Boolean RemoveOldConnexity(const TopoVertex& V, const TopoEdge& E);
 
 protected:
 private:
-  TopoDS_Face                               myFref;
+  TopoFace                               myFref;
   GeomAdaptor_Surface                       myGAS;
   Standard_Boolean                          myUclosed;
   Standard_Boolean                          myVclosed;
   Standard_Real                             myUper;
   Standard_Real                             myVper;
-  TopoDS_Shape                              myS;
-  TopTools_ListOfShape                      myEds;
+  TopoShape                              myS;
+  ShapeList                      myEds;
   TopOpeBRepTool_DataMapOfOrientedShapeC2DF myERep2d;
   TopTools_DataMapOfShapeListOfShape        myVEds;
 };

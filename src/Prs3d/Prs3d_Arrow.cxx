@@ -27,7 +27,7 @@
 
 //=================================================================================================
 
-void Prs3d_Arrow::Draw(const Handle(Graphic3d_Group)& theGroup,
+void Prs3d_Arrow::Draw1(const Handle(Graphic3d_Group)& theGroup,
                        const Point3d&                  theLocation,
                        const Dir3d&                  theDirection,
                        const Standard_Real            theAngle,

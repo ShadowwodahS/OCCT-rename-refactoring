@@ -61,7 +61,7 @@ Standard_Boolean IGESSelect_Dumper::WriteOwn(IFSelect_SessionFile&             f
   /*  if (type == STANDARD_TYPE(IGESSelect_SelectIGESTypeForm)) {
       DeclareAndCast(IGESSelect_SelectIGESTypeForm,sf,item);
       Standard_Boolean exact = sf->IsExact();
-      TCollection_AsciiString text = sf->SignatureText();  // attention, 1-2 term
+      AsciiString1 text = sf->SignatureText();  // attention, 1-2 term
       if (exact) file.SendText("exact");
       else       file.SendText("contains");
       file.SendText(text.ToCString());
@@ -99,7 +99,7 @@ Standard_Boolean IGESSelect_Dumper::WriteOwn(IFSelect_SessionFile&             f
     DeclareAndCast(IGESSelect_FloatFormat, ff, item);
     Standard_Boolean        zerosup, hasrange;
     Standard_Real           rangemin, rangemax;
-    TCollection_AsciiString mainform, forminrange;
+    AsciiString1 mainform, forminrange;
     ff->Format(zerosup, mainform, hasrange, forminrange, rangemin, rangemax);
     file.SendText((char*)(zerosup ? "zerosup" : "nozerosup"));
     file.SendText(mainform.ToCString());
@@ -165,7 +165,7 @@ Standard_Boolean IGESSelect_Dumper::WriteOwn(IFSelect_SessionFile&             f
 }
 
 Standard_Boolean IGESSelect_Dumper::ReadOwn(IFSelect_SessionFile&          file,
-                                            const TCollection_AsciiString& type,
+                                            const AsciiString1& type,
                                             Handle(RefObject)&    item) const
 {
   if (type.IsEqual("IGESSelect_DispPerSingleView"))
@@ -184,7 +184,7 @@ Standard_Boolean IGESSelect_Dumper::ReadOwn(IFSelect_SessionFile&          file,
     if (file.NbParams() < 2)
       return Standard_False;
     // Standard_Boolean exact; //szv#4:S4163:12Mar99 not needed
-    const TCollection_AsciiString& exname = file.ParamValue(1);
+    const AsciiString1& exname = file.ParamValue(1);
     if (exname.Length() < 1)
       return Standard_False;
     if (exname.Value(1) == 'e')
@@ -261,7 +261,7 @@ Standard_Boolean IGESSelect_Dumper::ReadOwn(IFSelect_SessionFile&          file,
       return Standard_False;
     Handle(IGESSelect_FloatFormat) ff = new IGESSelect_FloatFormat;
     Standard_Boolean               zerosup;
-    const TCollection_AsciiString& zsup = file.ParamValue(1);
+    const AsciiString1& zsup = file.ParamValue(1);
     if (zsup.Length() < 1)
       return Standard_False;
     if (zsup.Value(1) == 'z')
@@ -362,7 +362,7 @@ Standard_Boolean IGESSelect_Dumper::ReadOwn(IFSelect_SessionFile&          file,
     if (file.NbParams() < 1)
       return Standard_False;
     Standard_Boolean               tryc2;
-    const TCollection_AsciiString& tc2 = file.ParamValue(1);
+    const AsciiString1& tc2 = file.ParamValue(1);
     if (tc2.Length() < 1)
       return Standard_False;
     if (tc2.Value(1) == 'T')

@@ -37,7 +37,7 @@
 // function : SetCurWS
 // purpose  : Set current file if many files are read
 //=======================================================================
-static Standard_Integer SetCurWS(Draw_Interpretor& theDI,
+static Standard_Integer SetCurWS(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
@@ -46,12 +46,12 @@ static Standard_Integer SetCurWS(Draw_Interpretor& theDI,
     theDI << "Use: " << theArgVec[0] << " filename \n";
     return 1;
   }
-  const TCollection_AsciiString   aSessionName(theArgVec[1]);
-  Handle(XSControl_WorkSession)   aSession;
+  const AsciiString1   aSessionName(theArgVec[1]);
+  Handle(ExchangeSession)   aSession;
   const XSControl_WorkSessionMap& aWSList = XSDRAW::WorkSessionList();
   if (!aWSList.Find(aSessionName, aSession))
   {
-    TCollection_AsciiString aWSs;
+    AsciiString1 aWSs;
     for (XSControl_WorkSessionMap::Iterator anIter(aWSList); anIter.More(); anIter.Next())
     {
       aWSs += "\"";
@@ -69,14 +69,14 @@ static Standard_Integer SetCurWS(Draw_Interpretor& theDI,
 // function : GetDicWSList
 // purpose  : List all files recorded after translation
 //=======================================================================
-static Standard_Integer GetDicWSList(Draw_Interpretor& theDI,
+static Standard_Integer GetDicWSList(DrawInterpreter& theDI,
                                      Standard_Integer  theNbArgs,
                                      const char**      theArgVec)
 {
   (void)theNbArgs;
   (void)theArgVec;
   Message::SendInfo() << "Active sessions list:";
-  TCollection_AsciiString aWSs;
+  AsciiString1 aWSs;
   for (XSControl_WorkSessionMap::Iterator anIter(XSDRAW::WorkSessionList()); anIter.More();
        anIter.Next())
   {
@@ -89,13 +89,13 @@ static Standard_Integer GetDicWSList(Draw_Interpretor& theDI,
 // function : GetCurWS
 // purpose  : Return name of file which is current
 //=======================================================================
-static Standard_Integer GetCurWS(Draw_Interpretor& theDI,
+static Standard_Integer GetCurWS(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
   (void)theNbArgs;
   (void)theArgVec;
-  Handle(XSControl_WorkSession) WS = XSDRAW::Session();
+  Handle(ExchangeSession) WS = XSDRAW::Session();
   theDI << "\"" << WS->LoadedFile() << "\"";
   return 0;
 }
@@ -104,7 +104,7 @@ static Standard_Integer GetCurWS(Draw_Interpretor& theDI,
 // function : FromShape
 // purpose  : Apply fromshape command to all the loaded WSs
 //=======================================================================
-static Standard_Integer FromShape(Draw_Interpretor& theDI,
+static Standard_Integer FromShape(DrawInterpreter& theDI,
                                   Standard_Integer  theNbArgs,
                                   const char**      theArgVec)
 {
@@ -120,11 +120,11 @@ static Standard_Integer FromShape(Draw_Interpretor& theDI,
   if (DictWS.IsEmpty())
     return theDI.Eval(command);
 
-  Handle(XSControl_WorkSession) aWS = XSDRAW::Session();
+  Handle(ExchangeSession) aWS = XSDRAW::Session();
   for (XSControl_WorkSessionMap::Iterator DicIt(DictWS); DicIt.More(); DicIt.Next())
   {
-    Handle(XSControl_WorkSession) CurrentWS =
-      Handle(XSControl_WorkSession)::DownCast(DicIt.Value());
+    Handle(ExchangeSession) CurrentWS =
+      Handle(ExchangeSession)::DownCast(DicIt.Value());
     if (!CurrentWS.IsNull())
     {
       XSDRAW::SetSession(CurrentWS);
@@ -137,7 +137,7 @@ static Standard_Integer FromShape(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer Expand(Draw_Interpretor& theDI,
+static Standard_Integer Expand(DrawInterpreter& theDI,
                                Standard_Integer  theNbArgs,
                                const char**      theArgVec)
 {
@@ -148,8 +148,8 @@ static Standard_Integer Expand(Draw_Interpretor& theDI,
              "shape2 ...\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(theArgVec[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(theArgVec[1], Doc);
   if (Doc.IsNull())
   {
     theDI << theArgVec[1] << " is not a document\n";
@@ -173,12 +173,12 @@ static Standard_Integer Expand(Draw_Interpretor& theDI,
   {
     for (Standard_Integer i = 3; i < theNbArgs; i++)
     {
-      TDF_Label aLabel;
+      DataLabel aLabel;
       TDF_Tool::Label(Doc->GetData(), theArgVec[i], aLabel);
       if (aLabel.IsNull())
       {
-        TopoDS_Shape aShape;
-        aShape = DBRep::Get(theArgVec[i]);
+        TopoShape aShape;
+        aShape = DBRep1::Get(theArgVec[i]);
         aLabel = aShapeTool->FindShape(aShape);
       }
 
@@ -202,7 +202,7 @@ static Standard_Integer Expand(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer Extract(Draw_Interpretor& theDI,
+static Standard_Integer Extract(DrawInterpreter& theDI,
                                 Standard_Integer  theNbArgs,
                                 const char**      theArgVec)
 {
@@ -212,14 +212,14 @@ static Standard_Integer Extract(Draw_Interpretor& theDI,
     return 1;
   }
 
-  Handle(TDocStd_Document) aSrcDoc, aDstDoc;
-  DDocStd::GetDocument(theArgVec[1], aDstDoc);
+  Handle(AppDocument) aSrcDoc, aDstDoc;
+  DDocStd1::GetDocument(theArgVec[1], aDstDoc);
   if (aDstDoc.IsNull())
   {
     theDI << "Error " << theArgVec[1] << " is not a document\n";
     return 1;
   }
-  TDF_Label        aDstLabel;
+  DataLabel        aDstLabel;
   Standard_Integer anArgInd = 3;
   TDF_Tool::Label(aDstDoc->GetData(), theArgVec[2], aDstLabel);
   Handle(XCAFDoc_ShapeTool) aDstShapeTool = XCAFDoc_DocumentTool::ShapeTool(aDstDoc->Main());
@@ -228,7 +228,7 @@ static Standard_Integer Extract(Draw_Interpretor& theDI,
     aDstLabel = aDstShapeTool->Label();
     anArgInd  = 2; // to get Src Doc
   }
-  DDocStd::GetDocument(theArgVec[anArgInd++], aSrcDoc);
+  DDocStd1::GetDocument(theArgVec[anArgInd++], aSrcDoc);
   if (aSrcDoc.IsNull())
   {
     theDI << "Error " << theArgVec[anArgInd] << " is not a document\n";
@@ -238,7 +238,7 @@ static Standard_Integer Extract(Draw_Interpretor& theDI,
   TDF_LabelSequence aSrcShapes;
   for (; anArgInd < theNbArgs; anArgInd++)
   {
-    TDF_Label aSrcLabel;
+    DataLabel aSrcLabel;
     TDF_Tool::Label(aSrcDoc->GetData(), theArgVec[anArgInd], aSrcLabel);
     if (aSrcLabel.IsNull())
     {
@@ -263,7 +263,7 @@ static Standard_Integer Extract(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer Filter(Draw_Interpretor& theDI,
+static Standard_Integer Filter(DrawInterpreter& theDI,
                                Standard_Integer  theNbArgs,
                                const char**      theArgVec)
 {
@@ -273,8 +273,8 @@ static Standard_Integer Filter(Draw_Interpretor& theDI,
     return 1;
   }
 
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(theArgVec[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(theArgVec[1], aDoc);
   if (aDoc.IsNull())
   {
     theDI << "Error " << theArgVec[1] << " is not a document\n";
@@ -283,7 +283,7 @@ static Standard_Integer Filter(Draw_Interpretor& theDI,
   TDF_LabelMap aSrcShapes;
   for (Standard_Integer anArgInd = 2; anArgInd < theNbArgs; anArgInd++)
   {
-    TDF_Label aSrcLabel;
+    DataLabel aSrcLabel;
     TDF_Tool::Label(aDoc->GetData(), theArgVec[anArgInd], aSrcLabel);
     if (aSrcLabel.IsNull() || !XCAFDoc_ShapeTool::IsShape(aSrcLabel))
     {
@@ -308,7 +308,7 @@ static Standard_Integer Filter(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-void XDEDRAW_Common::InitCommands(Draw_Interpretor& theDI)
+void XDEDRAW_Common::InitCommands(DrawInterpreter& theDI)
 {
   static Standard_Boolean aIsActivated = Standard_False;
   if (aIsActivated)

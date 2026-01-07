@@ -39,7 +39,7 @@ BinDrivers_DocumentRetrievalDriver::BinDrivers_DocumentRetrievalDriver() {}
 Handle(BinMDF_ADriverTable) BinDrivers_DocumentRetrievalDriver::AttributeDrivers(
   const Handle(Message_Messenger)& theMessageDriver)
 {
-  return BinDrivers::AttributeDrivers(theMessageDriver);
+  return BinDrivers1::AttributeDrivers(theMessageDriver);
 }
 
 //=================================================================================================
@@ -53,7 +53,7 @@ void BinDrivers_DocumentRetrievalDriver::ReadShapeSection(
 {
   // Read Shapes
   Handle(BinMDF_ADriver) aDriver;
-  if (myDrivers->GetDriver(STANDARD_TYPE(TNaming_NamedShape), aDriver))
+  if (myDrivers->GetDriver(STANDARD_TYPE(ShapeAttribute), aDriver))
   {
     try
     {
@@ -64,7 +64,7 @@ void BinDrivers_DocumentRetrievalDriver::ReadShapeSection(
     }
     catch (ExceptionBase const& anException)
     {
-      const TCollection_ExtendedString aMethStr("BinDrivers_DocumentRetrievalDriver: ");
+      const UtfString aMethStr("BinDrivers_DocumentRetrievalDriver: ");
       myMsgDriver->Send(aMethStr + "error of Shape Section " + anException.GetMessageString(),
                         Message_Fail);
     }
@@ -85,7 +85,7 @@ void BinDrivers_DocumentRetrievalDriver::Clear()
 {
   // Clear NamedShape driver
   Handle(BinMDF_ADriver) aDriver;
-  if (myDrivers->GetDriver(STANDARD_TYPE(TNaming_NamedShape), aDriver))
+  if (myDrivers->GetDriver(STANDARD_TYPE(ShapeAttribute), aDriver))
   {
     Handle(BinMNaming_NamedShapeDriver) aNamedShapeDriver =
       Handle(BinMNaming_NamedShapeDriver)::DownCast(aDriver);
@@ -106,11 +106,11 @@ void BinDrivers_DocumentRetrievalDriver::EnableQuickPartReading(
     return;
 
   Handle(BinMDF_ADriver) aDriver;
-  myDrivers->GetDriver(STANDARD_TYPE(TNaming_NamedShape), aDriver);
+  myDrivers->GetDriver(STANDARD_TYPE(ShapeAttribute), aDriver);
   Handle(BinMNaming_NamedShapeDriver) aShapesDriver =
     Handle(BinMNaming_NamedShapeDriver)::DownCast(aDriver);
   if (aShapesDriver.IsNull())
-    throw Standard_NotImplemented("Internal Error - TNaming_NamedShape is not found!");
+    throw Standard_NotImplemented("Internal Error - ShapeAttribute is not found!");
 
   aShapesDriver->EnableQuickPart(theValue);
 }

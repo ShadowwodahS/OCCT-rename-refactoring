@@ -31,9 +31,9 @@
 #include <Interface_ShareTool.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESAppli_ToolReferenceDesignator::IGESAppli_ToolReferenceDesignator() {}
+ReferenceDesignatorTool::ReferenceDesignatorTool() {}
 
-void IGESAppli_ToolReferenceDesignator::ReadOwnParams(
+void ReferenceDesignatorTool::ReadOwnParams(
   const Handle(IGESAppli_ReferenceDesignator)& ent,
   const Handle(IGESData_IGESReaderData)& /* IR */,
   IGESData_ParamReader& PR) const
@@ -50,7 +50,7 @@ void IGESAppli_ToolReferenceDesignator::ReadOwnParams(
   ent->Init(tempNbPropertyValues, tempReferenceDesignator);
 }
 
-void IGESAppli_ToolReferenceDesignator::WriteOwnParams(
+void ReferenceDesignatorTool::WriteOwnParams(
   const Handle(IGESAppli_ReferenceDesignator)& ent,
   IGESData_IGESWriter&                         IW) const
 {
@@ -58,13 +58,13 @@ void IGESAppli_ToolReferenceDesignator::WriteOwnParams(
   IW.Send(ent->RefDesignatorText());
 }
 
-void IGESAppli_ToolReferenceDesignator::OwnShared(
+void ReferenceDesignatorTool::OwnShared(
   const Handle(IGESAppli_ReferenceDesignator)& /* ent */,
   Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESAppli_ToolReferenceDesignator::OwnCopy(
+void ReferenceDesignatorTool::OwnCopy(
   const Handle(IGESAppli_ReferenceDesignator)& another,
   const Handle(IGESAppli_ReferenceDesignator)& ent,
   Interface_CopyTool& /* TC */) const
@@ -76,7 +76,7 @@ void IGESAppli_ToolReferenceDesignator::OwnCopy(
   ent->Init(aNbPropertyValues, aReferenceDesignator);
 }
 
-Standard_Boolean IGESAppli_ToolReferenceDesignator::OwnCorrect(
+Standard_Boolean ReferenceDesignatorTool::OwnCorrect(
   const Handle(IGESAppli_ReferenceDesignator)& ent) const
 {
   Standard_Boolean res = (ent->NbPropertyValues() != 1);
@@ -92,11 +92,11 @@ Standard_Boolean IGESAppli_ToolReferenceDesignator::OwnCorrect(
   return res; // + RAZ level selon subordibate
 }
 
-IGESData_DirChecker IGESAppli_ToolReferenceDesignator::DirChecker(
+DirectoryChecker ReferenceDesignatorTool::DirChecker(
   const Handle(IGESAppli_ReferenceDesignator)& /* ent */) const
 {
   // UNFINISHED
-  IGESData_DirChecker DC(406, 7); // Form no = 7 & Type = 406
+  DirectoryChecker DC(406, 7); // Form no = 7 & Type = 406
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.BlankStatusIgnored();
@@ -105,7 +105,7 @@ IGESData_DirChecker IGESAppli_ToolReferenceDesignator::DirChecker(
   return DC;
 }
 
-void IGESAppli_ToolReferenceDesignator::OwnCheck(const Handle(IGESAppli_ReferenceDesignator)& ent,
+void ReferenceDesignatorTool::OwnCheck(const Handle(IGESAppli_ReferenceDesignator)& ent,
                                                  const Interface_ShareTool&,
                                                  Handle(Interface_Check)& ach) const
 {
@@ -119,7 +119,7 @@ void IGESAppli_ToolReferenceDesignator::OwnCheck(const Handle(IGESAppli_Referenc
   // the level is ignored if this property is subordinate -- queried
 }
 
-void IGESAppli_ToolReferenceDesignator::OwnDump(const Handle(IGESAppli_ReferenceDesignator)& ent,
+void ReferenceDesignatorTool::OwnDump(const Handle(IGESAppli_ReferenceDesignator)& ent,
                                                 const IGESData_IGESDumper& /* dumper */,
                                                 Standard_OStream& S,
                                                 const Standard_Integer /* level */) const

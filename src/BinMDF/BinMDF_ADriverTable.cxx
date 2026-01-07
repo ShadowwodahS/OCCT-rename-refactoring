@@ -93,7 +93,7 @@ void BinMDF_ADriverTable::AssignIds(const TColStd_IndexedMapOfTransient& theType
     }
     else
     {
-      throw Standard_NoSuchObject((TCollection_AsciiString("BinMDF_ADriverTable::AssignIds : ")
+      throw Standard_NoSuchObject((AsciiString1("BinMDF_ADriverTable::AssignIds : ")
                                    + "the type " + aType->Name() + " has not been registered")
                                     .ToCString());
     }
@@ -115,7 +115,7 @@ void BinMDF_ADriverTable::AssignIds(const TColStd_SequenceOfAsciiString& theType
   Standard_Integer   i;
   for (i = 1; i <= theTypeNames.Length(); i++)
   {
-    const TCollection_AsciiString& aTypeName = theTypeNames(i);
+    const AsciiString1& aTypeName = theTypeNames(i);
     aStringIdMap.Bind(aTypeName, i);
   }
   // and now associate the names with the registered types
@@ -124,7 +124,7 @@ void BinMDF_ADriverTable::AssignIds(const TColStd_SequenceOfAsciiString& theType
   {
     const Handle(TypeInfo)&   aType     = it.Key();
     const Handle(BinMDF_ADriver)&  aDriver   = it.Value();
-    const TCollection_AsciiString& aTypeName = aDriver->TypeName();
+    const AsciiString1& aTypeName = aDriver->TypeName();
     if (aStringIdMap.IsBound(aTypeName))
     {
       i = aStringIdMap(aTypeName);

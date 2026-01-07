@@ -76,8 +76,8 @@ IGESControl_Controller::IGESControl_Controller(const Standard_Boolean mod)
   static Standard_Boolean init = Standard_False;
   if (!init)
   {
-    IGESSolid::Init();
-    IGESAppli::Init();
+    IGESSolid1::Init();
+    IGESAppli1::Init();
     init = Standard_True;
   }
   AddSessionItem(new IGESSelect_RemoveCurves(Standard_True), "iges-remove-pcurves");
@@ -95,7 +95,7 @@ IGESControl_Controller::IGESControl_Controller(const Standard_Boolean mod)
   //  --   Sender Product Identification   --  (pas un statique ...)
   Handle(IGESSelect_SetGlobalParameter) set3 = new IGESSelect_SetGlobalParameter(3);
   Handle(TCollection_HAsciiString)      pa3 =
-    Interface_Static::Static("write.iges.header.product")->HStringValue();
+    ExchangeConfig::Static("write.iges.header.product")->HStringValue();
   set3->SetValue(pa3);
   AddSessionItem(pa3, "iges-header-val-sender");
   AddSessionItem(set3, "iges-header-set-sender", Standard_True);
@@ -105,7 +105,7 @@ IGESControl_Controller::IGESControl_Controller(const Standard_Boolean mod)
   //  --   Receiver   --   Acces par Static, ajustable
   Handle(IGESSelect_SetGlobalParameter) set12 = new IGESSelect_SetGlobalParameter(12);
   Handle(TCollection_HAsciiString)      pa12 =
-    Interface_Static::Static("write.iges.header.receiver")->HStringValue();
+    ExchangeConfig::Static("write.iges.header.receiver")->HStringValue();
   set12->SetValue(pa12);
   AddSessionItem(pa12, "iges-header-val-receiver");
   AddSessionItem(set12, "iges-header-set-receiver", Standard_True);
@@ -113,7 +113,7 @@ IGESControl_Controller::IGESControl_Controller(const Standard_Boolean mod)
   //  --   Auteur   --   acces par Static (demarre par whoami), ajustable
   Handle(IGESSelect_SetGlobalParameter) set21 = new IGESSelect_SetGlobalParameter(21);
   Handle(TCollection_HAsciiString)      pa21 =
-    Interface_Static::Static("write.iges.header.author")->HStringValue();
+    ExchangeConfig::Static("write.iges.header.author")->HStringValue();
   set21->SetValue(pa21);
   AddSessionItem(pa21, "iges-header-val-author");
   AddSessionItem(set21, "iges-header-set-author", Standard_True);
@@ -121,7 +121,7 @@ IGESControl_Controller::IGESControl_Controller(const Standard_Boolean mod)
   //  --   Compagnie (de l auteur)   --   acces par Static, ajustable
   Handle(IGESSelect_SetGlobalParameter) set22 = new IGESSelect_SetGlobalParameter(22);
   Handle(TCollection_HAsciiString)      pa22 =
-    Interface_Static::Static("write.iges.header.company")->HStringValue();
+    ExchangeConfig::Static("write.iges.header.company")->HStringValue();
   set22->SetValue(pa22);
   AddSessionItem(pa22, "iges-header-val-company");
   AddSessionItem(set22, "iges-header-set-company", Standard_True);
@@ -151,7 +151,7 @@ IGESControl_Controller::IGESControl_Controller(const Standard_Boolean mod)
   SetModeWriteHelp(1, "BRep");
 }
 
-void IGESControl_Controller::Customise(Handle(XSControl_WorkSession)& WS)
+void IGESControl_Controller::Customise(Handle(ExchangeSession)& WS)
 {
   XSControl_Controller::Customise(WS);
 
@@ -305,11 +305,11 @@ Handle(Interface_InterfaceModel) IGESControl_Controller::NewModel() const
   DeclareAndCast(IGESData_IGESModel, igm, Interface_InterfaceModel::Template("iges"));
   IGESData_GlobalSection GS = igm->GlobalSection();
 
-  GS.SetReceiveName(Interface_Static::Static("write.iges.header.receiver")->HStringValue());
-  GS.SetUnitFlag(Interface_Static::IVal("write.iges.unit"));
-  GS.SetUnitName(new TCollection_HAsciiString(Interface_Static::CVal("write.iges.unit")));
-  GS.SetAuthorName(Interface_Static::Static("write.iges.header.author")->HStringValue());
-  GS.SetCompanyName(Interface_Static::Static("write.iges.header.company")->HStringValue());
+  GS.SetReceiveName(ExchangeConfig::Static("write.iges.header.receiver")->HStringValue());
+  GS.SetUnitFlag(ExchangeConfig::IVal("write.iges.unit"));
+  GS.SetUnitName(new TCollection_HAsciiString(ExchangeConfig::CVal("write.iges.unit")));
+  GS.SetAuthorName(ExchangeConfig::Static("write.iges.header.author")->HStringValue());
+  GS.SetCompanyName(ExchangeConfig::Static("write.iges.header.company")->HStringValue());
   igm->SetGlobalSection(GS);
   return igm;
 }
@@ -327,7 +327,7 @@ Handle(Transfer_ActorOfTransientProcess) IGESControl_Controller::ActorRead(
     Handle(Interface_InterfaceModel) aModel =
       (model->IsKind(STANDARD_TYPE(IGESData_IGESModel)) ? model : NewModel());
     anactiges->SetModel(GetCasted(IGESData_IGESModel, aModel));
-    anactiges->SetContinuity(Interface_Static::IVal("read.iges.bspline.continuity"));
+    anactiges->SetContinuity(ExchangeConfig::IVal("read.iges.bspline.continuity"));
   }
   return myAdaptorRead;
 }
@@ -338,7 +338,7 @@ Handle(Transfer_ActorOfTransientProcess) IGESControl_Controller::ActorRead(
 //=================================================================================================
 
 IFSelect_ReturnStatus IGESControl_Controller::TransferWriteShape(
-  const TopoDS_Shape&                     shape,
+  const TopoShape&                     shape,
   const Handle(Transfer_FinderProcess)&   FP,
   const Handle(Interface_InterfaceModel)& model,
   const Standard_Integer                  modetrans,
@@ -357,8 +357,8 @@ Standard_Boolean IGESControl_Controller::Init()
     Handle(IGESControl_Controller) ADIGES = new IGESControl_Controller(Standard_False);
     ADIGES->AutoRecord();
     XSAlgo::Init();
-    IGESToBRep::Init();
-    IGESToBRep::SetAlgoContainer(new IGESControl_AlgoContainer());
+    IGESToBRep1::Init();
+    IGESToBRep1::SetAlgoContainer(new IGESControl_AlgoContainer());
     inic = Standard_True;
   }
   return Standard_True;

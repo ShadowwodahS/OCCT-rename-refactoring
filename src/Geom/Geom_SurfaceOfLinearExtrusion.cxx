@@ -46,7 +46,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Geom_SurfaceOfLinearExtrusion, Geom_SweptSurface)
 #define FMULTS (BSplCLib::NoMults())
 
 typedef Geom_SurfaceOfLinearExtrusion SurfaceOfLinearExtrusion;
-typedef Geom_Curve                    Curve;
+typedef GeomCurve3d                    Curve;
 typedef Dir3d                        Dir;
 typedef Point3d                        Pnt;
 typedef Transform3d                       Trsf;
@@ -65,11 +65,11 @@ Handle(Geom_Geometry) Geom_SurfaceOfLinearExtrusion::Copy() const
 
 //=================================================================================================
 
-Geom_SurfaceOfLinearExtrusion::Geom_SurfaceOfLinearExtrusion(const Handle(Geom_Curve)& C,
+Geom_SurfaceOfLinearExtrusion::Geom_SurfaceOfLinearExtrusion(const Handle(GeomCurve3d)& C,
                                                              const Dir&                V)
 {
 
-  basisCurve  = Handle(Geom_Curve)::DownCast(C->Copy()); // Copy 10-03-93
+  basisCurve  = Handle(GeomCurve3d)::DownCast(C->Copy()); // Copy 10-03-93
   direction   = V;
   smooth      = C->Continuity();
   myEvaluator = new GeomEvaluator_SurfaceOfExtrusion(basisCurve, direction);
@@ -118,11 +118,11 @@ void Geom_SurfaceOfLinearExtrusion::SetDirection(const Dir& V)
 
 //=================================================================================================
 
-void Geom_SurfaceOfLinearExtrusion::SetBasisCurve(const Handle(Geom_Curve)& C)
+void Geom_SurfaceOfLinearExtrusion::SetBasisCurve(const Handle(GeomCurve3d)& C)
 {
 
   smooth      = C->Continuity();
-  basisCurve  = Handle(Geom_Curve)::DownCast(C->Copy()); // Copy 10-03-93
+  basisCurve  = Handle(GeomCurve3d)::DownCast(C->Copy()); // Copy 10-03-93
   myEvaluator = new GeomEvaluator_SurfaceOfExtrusion(basisCurve, direction);
 }
 
@@ -202,23 +202,23 @@ Vec Geom_SurfaceOfLinearExtrusion::DN(const Standard_Real    U,
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_SurfaceOfLinearExtrusion::UIso(const Standard_Real U) const
+Handle(GeomCurve3d) Geom_SurfaceOfLinearExtrusion::UIso(const Standard_Real U) const
 {
 
-  Handle(Geom_Line) L;
-  L = new Geom_Line(basisCurve->Value(U), direction);
+  Handle(GeomLine) L;
+  L = new GeomLine(basisCurve->Value(U), direction);
   return L;
 }
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_SurfaceOfLinearExtrusion::VIso(const Standard_Real V) const
+Handle(GeomCurve3d) Geom_SurfaceOfLinearExtrusion::VIso(const Standard_Real V) const
 {
 
   Vec Vdir(direction);
   Vdir.Multiply(V);
-  Handle(Geom_Curve) C;
-  C = Handle(Geom_Curve)::DownCast(basisCurve->Translated(Vdir));
+  Handle(GeomCurve3d) C;
+  C = Handle(GeomCurve3d)::DownCast(basisCurve->Translated(Vdir));
   return C;
 }
 

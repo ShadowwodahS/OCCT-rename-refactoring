@@ -31,12 +31,12 @@
 
 #include <TopoDS.hxx>
 
-static Standard_Integer MakeConnected(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer MakePeriodic(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer MaterialsOn(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer RepeatShape(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer GetTwins(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer ClearRepetitions(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer MakeConnected(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer MakePeriodic(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer MaterialsOn(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer RepeatShape(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer GetTwins(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer ClearRepetitions(DrawInterpreter&, Standard_Integer, const char**);
 
 namespace
 {
@@ -49,7 +49,7 @@ static BOPAlgo_MakeConnected& getMakeConnectedTool()
 
 //=================================================================================================
 
-void BOPTest::MkConnectedCommands(Draw_Interpretor& theCommands)
+void BOPTest::MkConnectedCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -115,7 +115,7 @@ void BOPTest::MkConnectedCommands(Draw_Interpretor& theCommands)
 
 //=================================================================================================
 
-Standard_Integer MakeConnected(Draw_Interpretor& theDI,
+Standard_Integer MakeConnected(DrawInterpreter& theDI,
                                Standard_Integer  theArgc,
                                const char**      theArgv)
 {
@@ -129,7 +129,7 @@ Standard_Integer MakeConnected(Draw_Interpretor& theDI,
 
   for (Standard_Integer i = 2; i < theArgc; ++i)
   {
-    TopoDS_Shape aS = DBRep::Get(theArgv[i]);
+    TopoShape aS = DBRep1::Get(theArgv[i]);
     if (aS.IsNull())
     {
       theDI << "Error: " << theArgv[i] << " is a null shape. Skip it.\n";
@@ -151,16 +151,16 @@ Standard_Integer MakeConnected(Draw_Interpretor& theDI,
   if (getMakeConnectedTool().HasErrors())
     return 0;
 
-  // Draw the result shape
-  const TopoDS_Shape& aResult = getMakeConnectedTool().Shape();
-  DBRep::Set(theArgv[1], aResult);
+  // Draw1 the result shape
+  const TopoShape& aResult = getMakeConnectedTool().Shape();
+  DBRep1::Set(theArgv[1], aResult);
 
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer MakePeriodic(Draw_Interpretor& theDI,
+Standard_Integer MakePeriodic(DrawInterpreter& theDI,
                               Standard_Integer  theArgc,
                               const char**      theArgv)
 {
@@ -176,7 +176,7 @@ Standard_Integer MakePeriodic(Draw_Interpretor& theDI,
     return 1;
   }
 
-  BOPAlgo_MakePeriodic::PeriodicityParams aParams;
+  BOPAlgo_MakePeriodic::PeriodicityParams1 aParams;
 
   for (Standard_Integer i = 2; i < theArgc;)
   {
@@ -198,7 +198,7 @@ Standard_Integer MakePeriodic(Draw_Interpretor& theDI,
 
     Standard_Real aPeriod = 0;
     if (theArgc > i + 1)
-      aPeriod = Draw::Atof(theArgv[++i]);
+      aPeriod = Draw1::Atof(theArgv[++i]);
 
     if (aPeriod <= Precision::Confusion())
     {
@@ -220,7 +220,7 @@ Standard_Integer MakePeriodic(Draw_Interpretor& theDI,
           theDI << "Trim bounds for " << cDirName << " direction are not set\n";
           return 1;
         }
-        Standard_Real aFirst = Draw::Atof(theArgv[++i]);
+        Standard_Real aFirst = Draw1::Atof(theArgv[++i]);
 
         aParams.myIsTrimmed[aDirID]   = Standard_False;
         aParams.myPeriodFirst[aDirID] = aFirst;
@@ -240,16 +240,16 @@ Standard_Integer MakePeriodic(Draw_Interpretor& theDI,
   if (getMakeConnectedTool().HasErrors())
     return 0;
 
-  // Draw the result shape
-  const TopoDS_Shape& aResult = getMakeConnectedTool().PeriodicShape();
-  DBRep::Set(theArgv[1], aResult);
+  // Draw1 the result shape
+  const TopoShape& aResult = getMakeConnectedTool().PeriodicShape();
+  DBRep1::Set(theArgv[1], aResult);
 
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer RepeatShape(Draw_Interpretor& theDI,
+Standard_Integer RepeatShape(DrawInterpreter& theDI,
                              Standard_Integer  theArgc,
                              const char**      theArgv)
 {
@@ -285,7 +285,7 @@ Standard_Integer RepeatShape(Draw_Interpretor& theDI,
 
     Standard_Integer aTimes = 0;
     if (theArgc > i + 1)
-      aTimes = Draw::Atoi(theArgv[++i]);
+      aTimes = Draw1::Atoi(theArgv[++i]);
 
     if (aTimes == 0)
     {
@@ -305,16 +305,16 @@ Standard_Integer RepeatShape(Draw_Interpretor& theDI,
   if (getMakeConnectedTool().HasErrors())
     return 0;
 
-  // Draw the result shape
-  const TopoDS_Shape& aResult = getMakeConnectedTool().PeriodicShape();
-  DBRep::Set(theArgv[1], aResult);
+  // Draw1 the result shape
+  const TopoShape& aResult = getMakeConnectedTool().PeriodicShape();
+  DBRep1::Set(theArgv[1], aResult);
 
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer MaterialsOn(Draw_Interpretor& theDI,
+Standard_Integer MaterialsOn(DrawInterpreter& theDI,
                              Standard_Integer  theArgc,
                              const char**      theArgv)
 {
@@ -325,7 +325,7 @@ Standard_Integer MaterialsOn(Draw_Interpretor& theDI,
   }
 
   // Get the shape to get materials
-  TopoDS_Shape aShape = DBRep::Get(theArgv[3]);
+  TopoShape aShape = DBRep1::Get(theArgv[3]);
   if (aShape.IsNull())
   {
     theDI << "Error: " << theArgv[3] << " is a null shape.\n";
@@ -345,30 +345,30 @@ Standard_Integer MaterialsOn(Draw_Interpretor& theDI,
     return 1;
   }
 
-  const TopTools_ListOfShape& aLS = bPositive
+  const ShapeList& aLS = bPositive
                                       ? getMakeConnectedTool().MaterialsOnPositiveSide(aShape)
                                       : getMakeConnectedTool().MaterialsOnNegativeSide(aShape);
 
-  TopoDS_Shape aResult;
+  TopoShape aResult;
   if (aLS.IsEmpty())
     theDI << "No materials on this side.\n";
   else if (aLS.Extent() == 1)
     aResult = aLS.First();
   else
   {
-    BRep_Builder().MakeCompound(TopoDS::Compound(aResult));
+    ShapeBuilder().MakeCompound(TopoDS::Compound(aResult));
     for (TopTools_ListIteratorOfListOfShape it(aLS); it.More(); it.Next())
-      BRep_Builder().Add(aResult, it.Value());
+      ShapeBuilder().Add(aResult, it.Value());
   }
 
-  DBRep::Set(theArgv[1], aResult);
+  DBRep1::Set(theArgv[1], aResult);
 
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer GetTwins(Draw_Interpretor& theDI, Standard_Integer theArgc, const char** theArgv)
+Standard_Integer GetTwins(DrawInterpreter& theDI, Standard_Integer theArgc, const char** theArgv)
 {
   if (theArgc != 3)
   {
@@ -377,35 +377,35 @@ Standard_Integer GetTwins(Draw_Interpretor& theDI, Standard_Integer theArgc, con
   }
 
   // Get the shape to find twins
-  TopoDS_Shape aShape = DBRep::Get(theArgv[2]);
+  TopoShape aShape = DBRep1::Get(theArgv[2]);
   if (aShape.IsNull())
   {
     theDI << "Error: " << theArgv[2] << " is a null shape.\n";
     return 1;
   }
 
-  const TopTools_ListOfShape& aTwins = getMakeConnectedTool().PeriodicityTool().GetTwins(aShape);
+  const ShapeList& aTwins = getMakeConnectedTool().PeriodicityTool().GetTwins(aShape);
 
-  TopoDS_Shape aCTwins;
+  TopoShape aCTwins;
   if (aTwins.IsEmpty())
     theDI << "No twins for the shape.\n";
   else if (aTwins.Extent() == 1)
     aCTwins = aTwins.First();
   else
   {
-    BRep_Builder().MakeCompound(TopoDS::Compound(aCTwins));
+    ShapeBuilder().MakeCompound(TopoDS::Compound(aCTwins));
     for (TopTools_ListIteratorOfListOfShape it(aTwins); it.More(); it.Next())
-      BRep_Builder().Add(aCTwins, it.Value());
+      ShapeBuilder().Add(aCTwins, it.Value());
   }
 
-  DBRep::Set(theArgv[1], aCTwins);
+  DBRep1::Set(theArgv[1], aCTwins);
 
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer ClearRepetitions(Draw_Interpretor&, Standard_Integer theArgc, const char** theArgv)
+Standard_Integer ClearRepetitions(DrawInterpreter&, Standard_Integer theArgc, const char** theArgv)
 {
   // Clear all previous repetitions
   getMakeConnectedTool().ClearRepetitions();
@@ -415,7 +415,7 @@ Standard_Integer ClearRepetitions(Draw_Interpretor&, Standard_Integer theArgc, c
 
   if (theArgc > 1)
   {
-    DBRep::Set(theArgv[1], getMakeConnectedTool().PeriodicShape());
+    DBRep1::Set(theArgv[1], getMakeConnectedTool().PeriodicShape());
   }
 
   return 0;

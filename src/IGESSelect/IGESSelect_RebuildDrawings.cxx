@@ -202,7 +202,7 @@ void IGESSelect_RebuildDrawings::Performing(IFSelect_ContextModif&            ct
   }
 }
 
-TCollection_AsciiString IGESSelect_RebuildDrawings::Label() const
+AsciiString1 IGESSelect_RebuildDrawings::Label() const
 {
-  return TCollection_AsciiString("Rebuild Drawings (with empty views)");
+  return AsciiString1("Rebuild Drawings (with empty views)");
 }

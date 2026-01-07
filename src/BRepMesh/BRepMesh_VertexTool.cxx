@@ -29,7 +29,7 @@ NCollection_CellFilter_Action BRepMesh_VertexInspector::Inspect(const Standard_I
     return CellFilter_Purge;
   }
 
-  gp_XY            aVec = (myPoint - aVertex.Coord());
+  Coords2d            aVec = (myPoint - aVertex.Coord());
   Standard_Boolean inTol;
   if (Abs(myTolerance[1]) < Precision::Confusion())
   {
@@ -75,7 +75,7 @@ Standard_Integer BRepMesh_VertexTool::Add(const BRepMesh_Vertex& theVertex,
   {
     aIndex = mySelector.Add(theVertex);
 
-    gp_XY aMinPnt, aMaxPnt;
+    Coords2d aMinPnt, aMaxPnt;
     expandPoint(theVertex.Coord(), aMinPnt, aMaxPnt);
     myCellFilter.Add(aIndex, aMinPnt, aMaxPnt);
   }
@@ -88,7 +88,7 @@ void BRepMesh_VertexTool::DeleteVertex(const Standard_Integer theIndex)
 {
   BRepMesh_Vertex& aV = mySelector.GetVertex(theIndex);
 
-  gp_XY aMinPnt, aMaxPnt;
+  Coords2d aMinPnt, aMaxPnt;
   expandPoint(aV.Coord(), aMinPnt, aMaxPnt);
 
   myCellFilter.Remove(theIndex, aMinPnt, aMaxPnt);
@@ -102,7 +102,7 @@ void BRepMesh_VertexTool::Substitute(const Standard_Integer theIndex,
 {
   BRepMesh_Vertex& aV = mySelector.GetVertex(theIndex);
 
-  gp_XY aMinPnt, aMaxPnt;
+  Coords2d aMinPnt, aMaxPnt;
   expandPoint(aV.Coord(), aMinPnt, aMaxPnt);
 
   myCellFilter.Remove(theIndex, aMinPnt, aMaxPnt);

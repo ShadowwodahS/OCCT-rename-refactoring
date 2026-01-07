@@ -34,10 +34,10 @@ public:
   //! Constructs the offset display object defined by the
   //! first shape aFShape, the second shape aSShape, the
   //! dimension aVal, and the text aText.
-  Standard_EXPORT PrsDim_OffsetDimension(const TopoDS_Shape&               FistShape,
-                                         const TopoDS_Shape&               SecondShape,
+  Standard_EXPORT PrsDim_OffsetDimension(const TopoShape&               FistShape,
+                                         const TopoShape&               SecondShape,
                                          const Standard_Real               aVal,
-                                         const TCollection_ExtendedString& aText);
+                                         const UtfString& aText);
 
   //! Indicates that the dimension we are concerned with is an offset.
   virtual PrsDim_KindOfDimension KindOfDimension() const Standard_OVERRIDE
@@ -57,7 +57,7 @@ private:
                                        const Handle(Prs3d_Presentation)&         thePrs,
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT void ComputeTwoFacesOffset(const Handle(Prs3d_Presentation)& aPresentation,

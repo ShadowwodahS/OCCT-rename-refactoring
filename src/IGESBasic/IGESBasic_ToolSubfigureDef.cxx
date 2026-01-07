@@ -36,9 +36,9 @@
 #include <TCollection_HAsciiString.hxx>
 
 // MGE 03/08/98
-IGESBasic_ToolSubfigureDef::IGESBasic_ToolSubfigureDef() {}
+SubfigureDefTool::SubfigureDefTool() {}
 
-void IGESBasic_ToolSubfigureDef::ReadOwnParams(const Handle(IGESBasic_SubfigureDef)&  ent,
+void SubfigureDefTool::ReadOwnParams(const Handle(IGESBasic_SubfigureDef)&  ent,
                                                const Handle(IGESData_IGESReaderData)& IR,
                                                IGESData_ParamReader&                  PR) const
 {
@@ -78,7 +78,7 @@ void IGESBasic_ToolSubfigureDef::ReadOwnParams(const Handle(IGESBasic_SubfigureD
   ent->Init(tempDepth, tempName, EntArray);
 }
 
-void IGESBasic_ToolSubfigureDef::WriteOwnParams(const Handle(IGESBasic_SubfigureDef)& ent,
+void SubfigureDefTool::WriteOwnParams(const Handle(IGESBasic_SubfigureDef)& ent,
                                                 IGESData_IGESWriter&                  IW) const
 {
   Standard_Integer nb = ent->NbEntities();
@@ -90,7 +90,7 @@ void IGESBasic_ToolSubfigureDef::WriteOwnParams(const Handle(IGESBasic_Subfigure
     IW.Send(ent->AssociatedEntity(i));
 }
 
-void IGESBasic_ToolSubfigureDef::OwnShared(const Handle(IGESBasic_SubfigureDef)& ent,
+void SubfigureDefTool::OwnShared(const Handle(IGESBasic_SubfigureDef)& ent,
                                            Interface_EntityIterator&             iter) const
 {
   Standard_Integer nb = ent->NbEntities();
@@ -98,7 +98,7 @@ void IGESBasic_ToolSubfigureDef::OwnShared(const Handle(IGESBasic_SubfigureDef)&
     iter.GetOneItem(ent->AssociatedEntity(i));
 }
 
-void IGESBasic_ToolSubfigureDef::OwnCopy(const Handle(IGESBasic_SubfigureDef)& another,
+void SubfigureDefTool::OwnCopy(const Handle(IGESBasic_SubfigureDef)& another,
                                          const Handle(IGESBasic_SubfigureDef)& ent,
                                          Interface_CopyTool&                   TC) const
 {
@@ -117,10 +117,10 @@ void IGESBasic_ToolSubfigureDef::OwnCopy(const Handle(IGESBasic_SubfigureDef)& a
   ent->Init(aDepth, aName, EntArray);
 }
 
-IGESData_DirChecker IGESBasic_ToolSubfigureDef::DirChecker(
+DirectoryChecker SubfigureDefTool::DirChecker(
   const Handle(IGESBasic_SubfigureDef)& ent) const
 {
-  IGESData_DirChecker DC(308, 0); // TypeNo. 308, Form no. 0
+  DirectoryChecker DC(308, 0); // TypeNo. 308, Form no. 0
   DC.Structure(IGESData_DefVoid);
   if (ent->HierarchyStatus() == 1)
     DC.GraphicsIgnored(01);
@@ -133,13 +133,13 @@ IGESData_DirChecker IGESBasic_ToolSubfigureDef::DirChecker(
   return DC;
 }
 
-void IGESBasic_ToolSubfigureDef::OwnCheck(const Handle(IGESBasic_SubfigureDef)& /* ent */,
+void SubfigureDefTool::OwnCheck(const Handle(IGESBasic_SubfigureDef)& /* ent */,
                                           const Interface_ShareTool&,
                                           Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESBasic_ToolSubfigureDef::OwnDump(const Handle(IGESBasic_SubfigureDef)& ent,
+void SubfigureDefTool::OwnDump(const Handle(IGESBasic_SubfigureDef)& ent,
                                          const IGESData_IGESDumper&            dumper,
                                          Standard_OStream&                     S,
                                          const Standard_Integer                level) const

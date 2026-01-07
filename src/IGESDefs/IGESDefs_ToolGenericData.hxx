@@ -27,7 +27,7 @@ class IGESData_IGESReaderData;
 class IGESData_ParamReader;
 class IGESData_IGESWriter;
 class Interface_EntityIterator;
-class IGESData_DirChecker;
+class DirectoryChecker;
 class Interface_ShareTool;
 class Interface_Check;
 class Interface_CopyTool;
@@ -35,13 +35,13 @@ class IGESData_IGESDumper;
 
 //! Tool to work on a GenericData. Called by various Modules
 //! (ReadWriteModule, GeneralModule, SpecificModule)
-class IGESDefs_ToolGenericData
+class GenericDataTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns a ToolGenericData, ready to work
-  Standard_EXPORT IGESDefs_ToolGenericData();
+  Standard_EXPORT GenericDataTool();
 
   //! Reads own parameters from file. <PR> gives access to them,
   //! <IR> detains parameter types and values
@@ -59,7 +59,7 @@ public:
                                  Interface_EntityIterator&           iter) const;
 
   //! Returns specific DirChecker
-  Standard_EXPORT IGESData_DirChecker DirChecker(const Handle(IGESDefs_GenericData)& ent) const;
+  Standard_EXPORT DirectoryChecker DirChecker(const Handle(IGESDefs_GenericData)& ent) const;
 
   //! Performs Specific Semantic Check
   Standard_EXPORT void OwnCheck(const Handle(IGESDefs_GenericData)& ent,

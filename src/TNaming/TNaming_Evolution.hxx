@@ -20,7 +20,7 @@
 //! Defines the type of evolution in old shape - new shape pairs.
 //! The definitions - in the form of the terms of
 //! the enumeration - are needed by the
-//! TNaming_NamedShape attribute and
+//! ShapeAttribute attribute and
 //! indicate what entities this attribute records as follows:
 //! -   PRIMITIVE
 //! -   New entities; in each pair, old shape is a

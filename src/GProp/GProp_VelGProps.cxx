@@ -142,7 +142,7 @@ void GProp_VelGProps::Perform(const gp_Cylinder&  S,
   inertia =
     gp_Mat(gp_XYZ(V1(1), V2(1), V3(1)), gp_XYZ(V1(2), V2(2), V3(2)), gp_XYZ(V1(3), V2(3), V3(3)));
   gp_Mat Hop;
-  GProp::HOperator(g, loc, dim, Hop);
+  GProp1::HOperator(g, loc, dim, Hop);
   inertia = inertia + Hop;
 }
 
@@ -225,7 +225,7 @@ void GProp_VelGProps::Perform(const gp_Cone&      S,
   inertia =
     gp_Mat(gp_XYZ(V1(1), V2(1), V3(1)), gp_XYZ(V1(2), V2(2), V3(2)), gp_XYZ(V1(3), V2(3), V3(3)));
   gp_Mat Hop;
-  GProp::HOperator(g, loc, dim, Hop);
+  GProp1::HOperator(g, loc, dim, Hop);
   inertia = inertia + Hop;
 }
 
@@ -305,7 +305,7 @@ void GProp_VelGProps::Perform(const gp_Sphere&    S,
   inertia =
     gp_Mat(gp_XYZ(V1(1), V2(1), V3(1)), gp_XYZ(V1(2), V2(2), V3(2)), gp_XYZ(V1(3), V2(3), V3(3)));
   gp_Mat Hop;
-  GProp::HOperator(g, loc, dim, Hop);
+  GProp1::HOperator(g, loc, dim, Hop);
   inertia = inertia + Hop;
 }
 
@@ -387,6 +387,6 @@ void GProp_VelGProps::Perform(const gp_Torus&     S,
   inertia =
     gp_Mat(gp_XYZ(V1(1), V2(1), V3(1)), gp_XYZ(V1(2), V2(2), V3(2)), gp_XYZ(V1(3), V2(3), V3(3)));
   gp_Mat Hop;
-  GProp::HOperator(g, loc, dim, Hop);
+  GProp1::HOperator(g, loc, dim, Hop);
   inertia = inertia + Hop;
 }

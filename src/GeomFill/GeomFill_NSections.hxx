@@ -32,7 +32,7 @@
 #include <GeomAbs_Shape.hxx>
 class Geom_BSplineSurface;
 class Point3d;
-class Geom_Curve;
+class GeomCurve3d;
 
 class GeomFill_NSections;
 DEFINE_STANDARD_HANDLE(GeomFill_NSections, GeomFill_SectionLaw)
@@ -202,7 +202,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsConstant(Standard_Real& Error) const Standard_OVERRIDE;
 
   //! Return the constant Section if <me>  IsConstant.
-  Standard_EXPORT virtual Handle(Geom_Curve) ConstantSection() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(GeomCurve3d) ConstantSection() const Standard_OVERRIDE;
 
   //! Returns True if all section  are circle, with same
   //! plane,same center and  linear  radius  evolution
@@ -212,7 +212,7 @@ public:
 
   //! Return the circle section  at parameter <Param>, if
   //! <me> a  IsConicalLaw
-  Standard_EXPORT virtual Handle(Geom_Curve) CirclSection(const Standard_Real Param) const
+  Standard_EXPORT virtual Handle(GeomCurve3d) CirclSection(const Standard_Real Param) const
     Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(GeomFill_NSections, GeomFill_SectionLaw)

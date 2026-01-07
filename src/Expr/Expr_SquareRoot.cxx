@@ -50,7 +50,7 @@ Handle(Expr_GeneralExpression) Expr_SquareRoot::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_SquareRoot::Copy() const
 {
-  return new Expr_SquareRoot(Expr::CopyShare(Operand()));
+  return new Expr_SquareRoot(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_SquareRoot::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -75,7 +75,7 @@ Handle(Expr_GeneralExpression) Expr_SquareRoot::Derivative(const Handle(Expr_Nam
   }
   Handle(Expr_GeneralExpression) myexp   = Operand();
   Handle(Expr_GeneralExpression) myder   = myexp->Derivative(X);
-  Handle(Expr_SquareRoot)        sq      = new Expr_SquareRoot(Expr::CopyShare(myexp));
+  Handle(Expr_SquareRoot)        sq      = new Expr_SquareRoot(Expr1::CopyShare(myexp));
   Handle(Expr_Product)           theprod = 2.0 * sq;
   Handle(Expr_Division)          resu    = myder / theprod->ShallowSimplified();
   return resu->ShallowSimplified();
@@ -87,9 +87,9 @@ Standard_Real Expr_SquareRoot::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return ::Sqrt(Operand()->Evaluate(vars, vals));
 }
 
-TCollection_AsciiString Expr_SquareRoot::String() const
+AsciiString1 Expr_SquareRoot::String() const
 {
-  TCollection_AsciiString str("Sqrt(");
+  AsciiString1 str("Sqrt(");
   str += Operand()->String();
   str += ")";
   return str;

@@ -20,7 +20,7 @@
 #include <Standard_DefineHandle.hxx>
 #include <Standard_Transient.hxx>
 
-class TCollection_AsciiString;
+class AsciiString1;
 class TCollection_HAsciiString;
 
 //! Base class for items of the schema. Stores a name of the class,
@@ -41,26 +41,26 @@ public:
   };
 
   //! Returns item name
-  Standard_EXPORT const TCollection_AsciiString& Name() const;
+  Standard_EXPORT const AsciiString1& Name() const;
 
   //! Returns a pointer to the item name to modify it
   Standard_EXPORT Handle(TCollection_HAsciiString) HName() const;
 
   //! Returns (generated) name for the item in CXX-style (Package_Class)
-  Standard_EXPORT virtual const TCollection_AsciiString CPPName() const;
+  Standard_EXPORT virtual const AsciiString1 CPPName() const;
 
   //! Returns package name
   //! If not defined, returns unknown package name: "StepStep"
-  Standard_EXPORT const TCollection_AsciiString& GetPackageName() const;
+  Standard_EXPORT const AsciiString1& GetPackageName() const;
 
   //! Returns whether the package name is set.
   Standard_EXPORT Standard_Boolean IsPackageNameSet() const;
 
   //! Returns unknown package name: "StepStep"
-  Standard_EXPORT static TCollection_AsciiString& GetUnknownPackageName();
+  Standard_EXPORT static AsciiString1& GetUnknownPackageName();
 
   //! Sets package name
-  Standard_EXPORT void SetPackageName(const TCollection_AsciiString& thePack);
+  Standard_EXPORT void SetPackageName(const AsciiString1& thePack);
 
   //! Returns item generation mode
   Standard_EXPORT GenMode GetGenMode() const;
@@ -88,14 +88,14 @@ public:
   Standard_EXPORT Standard_Boolean Use();
 
   //! Mark Item as visited in PropagateUse flow and defined the package name if not set.
-  Standard_EXPORT void Use2(const TCollection_AsciiString& theRefName,
-                            const TCollection_AsciiString& theRefPack);
+  Standard_EXPORT void Use2(const AsciiString1& theRefName,
+                            const AsciiString1& theRefPack);
 
   //! Set category for item
   Standard_EXPORT void SetCategory(const Handle(TCollection_HAsciiString)& theCateg);
 
   //! Get item category
-  Standard_EXPORT const TCollection_AsciiString& Category() const;
+  Standard_EXPORT const AsciiString1& Category() const;
 
   //! Set short name for item
   Standard_EXPORT void SetShortName(const Handle(TCollection_HAsciiString)& theShName);

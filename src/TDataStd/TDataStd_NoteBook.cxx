@@ -28,9 +28,9 @@ IMPLEMENT_DERIVED_ATTRIBUTE(TDataStd_NoteBook, TDataStd_GenericEmpty)
 
 //=================================================================================================
 
-Standard_Boolean TDataStd_NoteBook::Find(const TDF_Label& current, Handle(TDataStd_NoteBook)& N)
+Standard_Boolean TDataStd_NoteBook::Find(const DataLabel& current, Handle(TDataStd_NoteBook)& N)
 {
-  TDF_Label                 L = current;
+  DataLabel                 L = current;
   Handle(TDataStd_NoteBook) NB;
   if (L.IsNull())
     return Standard_False;
@@ -54,7 +54,7 @@ Standard_Boolean TDataStd_NoteBook::Find(const TDF_Label& current, Handle(TDataS
 
 //=================================================================================================
 
-Handle(TDataStd_NoteBook) TDataStd_NoteBook::New(const TDF_Label& label)
+Handle(TDataStd_NoteBook) TDataStd_NoteBook::New(const DataLabel& label)
 {
   if (label.HasAttribute())
   {
@@ -82,18 +82,18 @@ TDataStd_NoteBook::TDataStd_NoteBook() {}
 
 Handle(TDataStd_Real) TDataStd_NoteBook::Append(const Standard_Real value, const Standard_Boolean)
 {
-  TDF_Label             newlabel = TDF_TagSource::NewChild(Label());
+  DataLabel             newlabel = TDF_TagSource::NewChild(Label());
   Handle(TDataStd_Real) variable = TDataStd_Real::Set(newlabel, value);
   return variable;
 }
 
 //=================================================================================================
 
-Handle(TDataStd_Integer) TDataStd_NoteBook::Append(const Standard_Integer value,
+Handle(IntAttribute) TDataStd_NoteBook::Append(const Standard_Integer value,
                                                    const Standard_Boolean)
 {
-  TDF_Label                newlabel = TDF_TagSource::NewChild(Label());
-  Handle(TDataStd_Integer) variable = TDataStd_Integer::Set(newlabel, value);
+  DataLabel                newlabel = TDF_TagSource::NewChild(Label());
+  Handle(IntAttribute) variable = IntAttribute::Set(newlabel, value);
   return variable;
 }
 

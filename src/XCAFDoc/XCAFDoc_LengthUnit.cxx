@@ -33,8 +33,8 @@ XCAFDoc_LengthUnit::XCAFDoc_LengthUnit()
 
 //=================================================================================================
 
-Handle(XCAFDoc_LengthUnit) XCAFDoc_LengthUnit::Set(const TDF_Label&               theLabel,
-                                                   const TCollection_AsciiString& theUnitName,
+Handle(XCAFDoc_LengthUnit) XCAFDoc_LengthUnit::Set(const DataLabel&               theLabel,
+                                                   const AsciiString1& theUnitName,
                                                    const Standard_Real            theUnitValue)
 {
   return Set(theLabel, GetID(), theUnitName, theUnitValue);
@@ -42,19 +42,19 @@ Handle(XCAFDoc_LengthUnit) XCAFDoc_LengthUnit::Set(const TDF_Label&             
 
 //=================================================================================================
 
-Handle(XCAFDoc_LengthUnit) XCAFDoc_LengthUnit::Set(const TDF_Label&    theLabel,
+Handle(XCAFDoc_LengthUnit) XCAFDoc_LengthUnit::Set(const DataLabel&    theLabel,
                                                    const Standard_Real theUnitValue)
 {
-  TCollection_AsciiString aUnitName =
+  AsciiString1 aUnitName =
     UnitsMethods::DumpLengthUnit(theUnitValue, UnitsMethods_LengthUnit_Meter);
   return Set(theLabel, GetID(), aUnitName, theUnitValue);
 }
 
 //=================================================================================================
 
-Handle(XCAFDoc_LengthUnit) XCAFDoc_LengthUnit::Set(const TDF_Label&               theLabel,
+Handle(XCAFDoc_LengthUnit) XCAFDoc_LengthUnit::Set(const DataLabel&               theLabel,
                                                    const Standard_GUID&           theGUID,
-                                                   const TCollection_AsciiString& theUnitName,
+                                                   const AsciiString1& theUnitName,
                                                    const Standard_Real            theUnitValue)
 {
   Handle(XCAFDoc_LengthUnit) A;
@@ -70,7 +70,7 @@ Handle(XCAFDoc_LengthUnit) XCAFDoc_LengthUnit::Set(const TDF_Label&             
 
 //=================================================================================================
 
-void XCAFDoc_LengthUnit::Set(const TCollection_AsciiString& theUnitName,
+void XCAFDoc_LengthUnit::Set(const AsciiString1& theUnitName,
                              const Standard_Real            theUnitValue)
 {
   Backup();

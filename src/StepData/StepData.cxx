@@ -24,16 +24,16 @@ StaticHandle(StepData_Protocol, proto);
 
 StaticHandleA(StepData_Protocol, theheader);
 
-void StepData::Init() {}
+void StepData1::Init() {}
 
-Handle(StepData_Protocol) StepData::Protocol()
+Handle(StepData_Protocol) StepData1::Protocol()
 {
   InitHandleVoid(StepData_Protocol, proto); // svv #2
                                             //  UseHandle(StepData_Protocol,proto);
   return proto;
 }
 
-void StepData::AddHeaderProtocol(const Handle(StepData_Protocol)& header)
+void StepData1::AddHeaderProtocol(const Handle(StepData_Protocol)& header)
 {
   InitHandle(StepData_Protocol, theheader);
   if (theheader.IsNull())
@@ -51,7 +51,7 @@ void StepData::AddHeaderProtocol(const Handle(StepData_Protocol)& header)
   }
 }
 
-Handle(StepData_Protocol) StepData::HeaderProtocol()
+Handle(StepData_Protocol) StepData1::HeaderProtocol()
 {
   UseHandle(StepData_Protocol, theheader);
   return theheader;

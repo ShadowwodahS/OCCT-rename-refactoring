@@ -21,9 +21,9 @@
 #include <TopoDS_Shape.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<Handle(StepRepr_RepresentationItem), TopoDS_Shape>
+typedef NCollection_DataMap<Handle(StepRepr_RepresentationItem), TopoShape>
   StepToTopoDS_DataMapOfRI;
-typedef NCollection_DataMap<Handle(StepRepr_RepresentationItem), TopoDS_Shape>::Iterator
+typedef NCollection_DataMap<Handle(StepRepr_RepresentationItem), TopoShape>::Iterator
   StepToTopoDS_DataMapIteratorOfDataMapOfRI;
 
 #endif

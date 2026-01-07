@@ -30,9 +30,9 @@ IGESSelect_DispPerSingleView::IGESSelect_DispPerSingleView()
   thesorter = new IGESSelect_ViewSorter;
 }
 
-TCollection_AsciiString IGESSelect_DispPerSingleView::Label() const
+AsciiString1 IGESSelect_DispPerSingleView::Label() const
 {
-  return TCollection_AsciiString("One File per single View or Drawing Frame");
+  return AsciiString1("One File per single View or Drawing Frame");
 }
 
 void IGESSelect_DispPerSingleView::Packets(const Interface_Graph&    G,

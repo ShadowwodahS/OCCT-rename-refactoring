@@ -28,7 +28,7 @@
 #include <TopoDSToStep_MakeVertexError.hxx>
 class TCollection_HAsciiString;
 class Transfer_FinderProcess;
-class TopoDS_Shape;
+class TopoShape;
 class RefObject;
 class TopoDSToStep_Tool;
 
@@ -46,7 +46,7 @@ class TopoDSToStep_Tool;
 //! MakeShellBasedSurfaceModel
 //! Each of these classes call the Builder
 //! The class tool centralizes some common information.
-class TopoDSToStep
+class TopoDSToStep1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -70,7 +70,7 @@ public:
   //! Adds an entity into the list of results (binders) for
   //! shape stored in FinderProcess
   Standard_EXPORT static void AddResult(const Handle(Transfer_FinderProcess)& FP,
-                                        const TopoDS_Shape&                   Shape,
+                                        const TopoShape&                   Shape,
                                         const Handle(RefObject)&     entity);
 
   //! Adds all entities recorded in Tool into the map of results

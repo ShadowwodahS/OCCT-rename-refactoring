@@ -29,7 +29,7 @@ class IGESSolid_Ellipsoid;
 DEFINE_STANDARD_HANDLE(IGESSolid_Ellipsoid, IGESData_IGESEntity)
 
 //! defines Ellipsoid, Type <168> Form Number <0>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! The ellipsoid is a solid bounded by the surface defined
 //! by:
 //! X^2       Y^2       Z^2

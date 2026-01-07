@@ -65,7 +65,7 @@ Standard_Boolean HLRBRep_EdgeFaceTool::UVPoint(const Standard_Real    Par,
                                                Standard_Real&         V)
 {
   Standard_Real pfbid, plbid;
-  if (BRep_Tool::CurveOnSurface(((HLRBRep_Curve*)E)->Curve().Edge(),
+  if (BRepInspector::CurveOnSurface(((HLRBRep_Curve*)E)->Curve().Edge(),
                                 ((HLRBRep_Surface*)F)->Surface().Face(),
                                 pfbid,
                                 plbid)

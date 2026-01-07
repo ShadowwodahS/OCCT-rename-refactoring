@@ -44,7 +44,7 @@ void XmlMXCAFDoc::AddDrivers(const Handle(XmlMDF_ADriverTable)& aDriverTable,
 
   // oan: changes for sharing locations map
   Handle(XmlMDF_ADriver) aDriver;
-  aDriverTable->GetDriver(STANDARD_TYPE(TNaming_NamedShape), aDriver);
+  aDriverTable->GetDriver(STANDARD_TYPE(ShapeAttribute), aDriver);
   Handle(XmlMNaming_NamedShapeDriver) aNamedShapeDriver =
     Handle(XmlMNaming_NamedShapeDriver)::DownCast(aDriver);
 

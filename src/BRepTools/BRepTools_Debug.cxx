@@ -32,7 +32,7 @@ const char* BRepTools_Write(const char* theFileStr, void* theShapePtr)
   try
   {
     OCC_CATCH_SIGNALS
-    if (BRepTools::Write(*(TopoDS_Shape*)theShapePtr, theFileStr))
+    if (BRepTools1::Write(*(TopoShape*)theShapePtr, theFileStr))
       return theFileStr;
     else
       return "Error: write failed";
@@ -55,7 +55,7 @@ const char* BRepTools_Dump(void* theShapePtr)
     OCC_CATCH_SIGNALS
 
     std::cout << "\n\n";
-    BRepTools::Dump(*(TopoDS_Shape*)theShapePtr, std::cout);
+    BRepTools1::Dump(*(TopoShape*)theShapePtr, std::cout);
     std::cout << std::endl;
 
     return "Shape dumped to std::cout";
@@ -78,7 +78,7 @@ const char* BRepTools_DumpLoc(void* theLocationPtr)
     OCC_CATCH_SIGNALS
 
     std::cout << "\n\n";
-    TopTools_LocationSet LS;
+    LocationSet1 LS;
     LS.Add(*(TopLoc_Location*)theLocationPtr);
     LS.Dump(std::cout);
     std::cout << std::endl;
@@ -97,17 +97,17 @@ const char* BRepTools_DumpLoc(void* theLocationPtr)
 // work with them (DBX could, on SUN Solaris).
 #ifndef _MSC_VER
 
-const char* BRepTools_Write(const char* theFileNameStr, const TopoDS_Shape& theShape)
+const char* BRepTools_Write(const char* theFileNameStr, const TopoShape& theShape)
 {
   return BRepTools_Write(theFileNameStr, (void*)&theShape);
 }
 
-const char* BRepTools_Dump(const TopoDS_Shape& theShape)
+const char* BRepTools_Dump(const TopoShape& theShape)
 {
   return BRepTools_Dump((void*)&theShape);
 }
 
-const char* BRepTools_DumpLoc(const TopoDS_Shape& theShape)
+const char* BRepTools_DumpLoc(const TopoShape& theShape)
 {
   return BRepTools_DumpLoc((void*)&theShape);
 }

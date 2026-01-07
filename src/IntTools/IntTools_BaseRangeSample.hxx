@@ -21,14 +21,14 @@
 #include <Standard_Handle.hxx>
 
 //! base class for range index management
-class IntTools_BaseRangeSample
+class BaseRangeSample
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT IntTools_BaseRangeSample();
+  Standard_EXPORT BaseRangeSample();
 
-  Standard_EXPORT IntTools_BaseRangeSample(const Standard_Integer theDepth);
+  Standard_EXPORT BaseRangeSample(const Standard_Integer theDepth);
 
   void SetDepth(const Standard_Integer theDepth) { myDepth = theDepth; }
 

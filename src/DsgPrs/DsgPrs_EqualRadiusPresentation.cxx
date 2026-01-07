@@ -32,12 +32,12 @@
 #include <TCollection_ExtendedString.hxx>
 
 void DsgPrs_EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                         const Handle(Prs3d_Drawer)&       aDrawer,
+                                         const Handle(StyleDrawer)&       aDrawer,
                                          const Point3d&                     FirstCenter,
                                          const Point3d&                     SecondCenter,
                                          const Point3d&                     FirstPoint,
                                          const Point3d&                     SecondPoint,
-                                         const Handle(Geom_Plane)&         Plane)
+                                         const Handle(GeomPlane)&         Plane)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
@@ -71,7 +71,7 @@ void DsgPrs_EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPres
   Point3d        Middle((FirstCenter.XYZ() + SecondCenter.XYZ()) * 0.5), aTextPos;
   Standard_Real SmallDist;
   // Mark of constraint
-  TCollection_ExtendedString aText("==");
+  UtfString aText("==");
 
   Standard_Real Dist = FirstCenter.Distance(SecondCenter);
   if (Dist > Precision::Confusion())
@@ -101,7 +101,7 @@ void DsgPrs_EqualRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPres
     aTextPos = FirstCenter.Translated(aVec);
   }
 
-  // Draw the text
-  Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aTextPos);
+  // Draw1 the text
+  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aTextPos);
   // ota === end ===
 }

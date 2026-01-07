@@ -24,8 +24,8 @@
 #include <Standard_Integer.hxx>
 #include <TopTools_ListOfShape.hxx>
 class BRepBuilderAPI_Sewing;
-class TopoDS_Shape;
-class TopoDS_Edge;
+class TopoShape;
+class TopoEdge;
 
 //! Provides methods to identify contiguous boundaries for continuity control (C0, C1, ...)
 //!
@@ -68,7 +68,7 @@ public:
   //! Once all the shapes to be checked have been added,
   //! use the function Perform to find the contiguous edges
   //! and the function ContigousEdge to return these edges.
-  Standard_EXPORT void Add(const TopoDS_Shape& shape);
+  Standard_EXPORT void Add(const TopoShape& shape);
 
   //! Finds coincident parts of edges of two or more shapes
   //! added to this algorithm and breaks down these edges
@@ -98,7 +98,7 @@ public:
   //! - index is less than 1, or
   //! - index is greater than the number of contiguous
   //! edges found by the function Perform on the shapes added to this algorithm.
-  Standard_EXPORT const TopoDS_Edge& ContigousEdge(const Standard_Integer index) const;
+  Standard_EXPORT const TopoEdge& ContigousEdge(const Standard_Integer index) const;
 
   //! Returns a list of edges coincident with the contiguous
   //! edge of index index found by the function Perform.
@@ -109,7 +109,7 @@ public:
   //! - index is less than 1, or
   //! - index is greater than the number of contiguous edges
   //! found by the function Perform on the shapes added to this algorithm.
-  Standard_EXPORT const TopTools_ListOfShape& ContigousEdgeCouple(
+  Standard_EXPORT const ShapeList& ContigousEdgeCouple(
     const Standard_Integer index) const;
 
   //! Returns the edge on the initial shape, of which the
@@ -124,16 +124,16 @@ public:
   //! Standard_NoSuchObject if section is not coincident
   //! with a contiguous edge. Use the function
   //! ContigousEdgeCouple to obtain a valid section.
-  Standard_EXPORT const TopoDS_Edge& SectionToBoundary(const TopoDS_Edge& section) const;
+  Standard_EXPORT const TopoEdge& SectionToBoundary(const TopoEdge& section) const;
 
   //! Gives the number of degenerated shapes
   Standard_EXPORT Standard_Integer NbDegeneratedShapes() const;
 
   //! Gives a degenerated shape
-  Standard_EXPORT const TopoDS_Shape& DegeneratedShape(const Standard_Integer index) const;
+  Standard_EXPORT const TopoShape& DegeneratedShape(const Standard_Integer index) const;
 
   //! Indicates if a input shape is degenerated
-  Standard_EXPORT Standard_Boolean IsDegenerated(const TopoDS_Shape& shape) const;
+  Standard_EXPORT Standard_Boolean IsDegenerated(const TopoShape& shape) const;
 
   //! Returns true if the copy of the initial shape shape was
   //! modified by the function Perform (i.e. if one or more of
@@ -141,11 +141,11 @@ public:
   //! Warning
   //! Returns false if shape is not one of the initial shapes
   //! added to this algorithm.
-  Standard_EXPORT Standard_Boolean IsModified(const TopoDS_Shape& shape) const;
+  Standard_EXPORT Standard_Boolean IsModified(const TopoShape& shape) const;
 
   //! Gives a modifieded shape
   //! Raises   NoSuchObject if shape has not been modified
-  Standard_EXPORT const TopoDS_Shape& Modified(const TopoDS_Shape& shape) const;
+  Standard_EXPORT const TopoShape& Modified(const TopoShape& shape) const;
 
   //! Dump properties of resulting shape.
   Standard_EXPORT void Dump() const;

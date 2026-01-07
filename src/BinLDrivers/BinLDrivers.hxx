@@ -22,16 +22,16 @@ class RefObject;
 class Standard_GUID;
 class BinMDF_ADriverTable;
 class Message_Messenger;
-class TDocStd_Application;
+class AppManager;
 
-class BinLDrivers
+class BinLDrivers1
 {
 public:
   Standard_EXPORT static const Handle(RefObject)& Factory(const Standard_GUID& theGUID);
 
   //! Defines format "BinLOcaf" and registers its read and write drivers
   //! in the specified application
-  Standard_EXPORT static void DefineFormat(const Handle(TDocStd_Application)& theApp);
+  Standard_EXPORT static void DefineFormat(const Handle(AppManager)& theApp);
 
   //! Creates a table of the supported drivers' types
   Standard_EXPORT static Handle(BinMDF_ADriverTable) AttributeDrivers(

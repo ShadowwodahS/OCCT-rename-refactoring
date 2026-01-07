@@ -23,8 +23,8 @@ class XSDRAWSTEP
 {
   DEFINE_STANDARD_ALLOC
 public:
-  //! Loads all Draw commands of XSDRAWSTEP. Used for plugin.
-  Standard_EXPORT static void Factory(Draw_Interpretor& theDI);
+  //! Loads all Draw1 commands of XSDRAWSTEP. Used for plugin.
+  Standard_EXPORT static void Factory(DrawInterpreter& theDI);
 };
 
 #endif // _XSDRAWSTEP_HeaderFile

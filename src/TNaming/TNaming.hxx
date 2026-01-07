@@ -28,15 +28,15 @@
 #include <Standard_OStream.hxx>
 #include <TNaming_Evolution.hxx>
 #include <TNaming_NameType.hxx>
-class TDF_Label;
+class DataLabel;
 class TopLoc_Location;
 class Transform3d;
-class TNaming_NamedShape;
-class TopoDS_Shape;
-class TopoDS_Face;
-class TopoDS_Wire;
-class TopoDS_Solid;
-class TopoDS_Shell;
+class ShapeAttribute;
+class TopoShape;
+class TopoFace;
+class TopoWire;
+class TopoSolid;
+class TopoShell;
 
 //! A topological attribute can be seen as a hook
 //! into the topological structure. To this hook,
@@ -48,11 +48,11 @@ class TopoDS_Shell;
 //! attribute at the root label of the data
 //! framework. This attribute contains map with all
 //! topological shapes, used in this document.
-//! To all other labels TNaming_NamedShape
+//! To all other labels ShapeAttribute
 //! attribute can be added. This attribute contains
 //! references (hooks) to shapes from the
 //! TNaming_UsedShapes attribute and evolution
-//! of these shapes. TNaming_NamedShape
+//! of these shapes. ShapeAttribute
 //! attribute contains a set of pairs of hooks: old
 //! shape and new shape (see the figure below).
 //! It allows not only get the topological shapes by
@@ -77,7 +77,7 @@ class TopoDS_Shell;
 //! Modified/generated shapes may be placed to one named shape and
 //! identified as this named shape and source named shape that also can be
 //! identified with used algorithms.
-//! TNaming_NamedShape may contain a few
+//! ShapeAttribute may contain a few
 //! pairs of hooks with the same evolution. In this
 //! case topology shape, which belongs to the
 //! named shape, is a compound of new shapes.
@@ -94,15 +94,15 @@ class TopoDS_Shell;
 //! all topological entities they create, but all
 //! topological entities can be turned into hooks
 //! when necessary. This is where topological naming is necessary.
-class TNaming
+class TNaming1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Subtituter les  shapes  sur les structures de   source
   //! vers cible
-  Standard_EXPORT static void Substitute(const TDF_Label&              labelsource,
-                                         const TDF_Label&              labelcible,
+  Standard_EXPORT static void Substitute(const DataLabel&              labelsource,
+                                         const DataLabel&              labelcible,
                                          TopTools_DataMapOfShapeShape& mapOldNew);
 
   //! Mise a jour des shapes du label  et de ses fils en
@@ -112,68 +112,68 @@ public:
   //! Warning: le  remplacement du shape est  fait    dans tous
   //! les    attributs  qui  le contiennent meme si ceux
   //! ci ne sont pas associees a des sous-labels de <Label>.
-  Standard_EXPORT static void Update(const TDF_Label&              label,
+  Standard_EXPORT static void Update(const DataLabel&              label,
                                      TopTools_DataMapOfShapeShape& mapOldNew);
 
   //! Application de la Location sur les shapes du label
   //! et  de   ses   sous   labels.
-  Standard_EXPORT static void Displace(const TDF_Label&       label,
+  Standard_EXPORT static void Displace(const DataLabel&       label,
                                        const TopLoc_Location& aLocation,
                                        const Standard_Boolean WithOld = Standard_True);
 
   //! Remplace  les  shapes du label et  des sous-labels
   //! par des copies.
-  Standard_EXPORT static void ChangeShapes(const TDF_Label& label, TopTools_DataMapOfShapeShape& M);
+  Standard_EXPORT static void ChangeShapes(const DataLabel& label, TopTools_DataMapOfShapeShape& M);
 
   //! Application de la transformation sur les shapes du
   //! label et de ses sous labels.
   //! Warning: le  remplacement du shape est  fait    dans tous
   //! les    attributs  qui  le contiennent meme si ceux
   //! ci ne sont pas associees a des sous-labels de <Label>.
-  Standard_EXPORT static void Transform(const TDF_Label& label, const Transform3d& aTransformation);
+  Standard_EXPORT static void Transform(const DataLabel& label, const Transform3d& aTransformation);
 
   //! Replicates the named shape with the transformation <T>
   //! on the label <L> (and sub-labels if necessary)
   //! (TNaming_GENERATED is set)
-  Standard_EXPORT static void Replicate(const Handle(TNaming_NamedShape)& NS,
+  Standard_EXPORT static void Replicate(const Handle(ShapeAttribute)& NS,
                                         const Transform3d&                    T,
-                                        const TDF_Label&                  L);
+                                        const DataLabel&                  L);
 
   //! Replicates the shape with the transformation <T>
   //! on the label <L> (and sub-labels if necessary)
   //! (TNaming_GENERATED is set)
-  Standard_EXPORT static void Replicate(const TopoDS_Shape& SH,
+  Standard_EXPORT static void Replicate(const TopoShape& SH,
                                         const Transform3d&      T,
-                                        const TDF_Label&    L);
+                                        const DataLabel&    L);
 
   //! Builds shape from map content
-  Standard_EXPORT static TopoDS_Shape MakeShape(const TopTools_MapOfShape& MS);
+  Standard_EXPORT static TopoShape MakeShape(const TopTools_MapOfShape& MS);
 
   //! Find unique context of shape <S>
-  Standard_EXPORT static TopoDS_Shape FindUniqueContext(const TopoDS_Shape& S,
-                                                        const TopoDS_Shape& Context);
+  Standard_EXPORT static TopoShape FindUniqueContext(const TopoShape& S,
+                                                        const TopoShape& Context);
 
   //! Find unique context of shape <S>,which is pure concatenation
   //! of atomic shapes (Compound). The result is concatenation of
   //! single contexts
-  Standard_EXPORT static TopoDS_Shape FindUniqueContextSet(const TopoDS_Shape&              S,
-                                                           const TopoDS_Shape&              Context,
+  Standard_EXPORT static TopoShape FindUniqueContextSet(const TopoShape&              S,
+                                                           const TopoShape&              Context,
                                                            Handle(TopTools_HArray1OfShape)& Arr);
 
   //! Substitutes shape in source structure
-  Standard_EXPORT static Standard_Boolean SubstituteSShape(const TDF_Label&    accesslabel,
-                                                           const TopoDS_Shape& From,
-                                                           TopoDS_Shape&       To);
+  Standard_EXPORT static Standard_Boolean SubstituteSShape(const DataLabel&    accesslabel,
+                                                           const TopoShape& From,
+                                                           TopoShape&       To);
 
   //! Returns True if outer wire is found and the found wire in <theWire>.
-  Standard_EXPORT static Standard_Boolean OuterWire(const TopoDS_Face& theFace,
-                                                    TopoDS_Wire&       theWire);
+  Standard_EXPORT static Standard_Boolean OuterWire(const TopoFace& theFace,
+                                                    TopoWire&       theWire);
 
   //! Returns True if outer Shell is found and the found shell in <theShell>.
-  //! Print of TNaming enumeration
+  //! Print of TNaming1 enumeration
   //! =============================
-  Standard_EXPORT static Standard_Boolean OuterShell(const TopoDS_Solid& theSolid,
-                                                     TopoDS_Shell&       theShell);
+  Standard_EXPORT static Standard_Boolean OuterShell(const TopoSolid& theSolid,
+                                                     TopoShell&       theShell);
 
   //! Appends to <anIDList> the list of the attributes
   //! IDs of this package. CAUTION: <anIDList> is NOT
@@ -190,7 +190,7 @@ public:
 
   //! Prints the content of UsedShapes private  attribute as a String Table on
   //! the Stream <S> and returns <S>.
-  Standard_EXPORT static Standard_OStream& Print(const TDF_Label& ACCESS, Standard_OStream& S);
+  Standard_EXPORT static Standard_OStream& Print(const DataLabel& ACCESS, Standard_OStream& S);
 };
 
 #endif // _TNaming_HeaderFile

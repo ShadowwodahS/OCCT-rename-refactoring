@@ -22,7 +22,7 @@
 
 #include <BRepLib_MakeShape.hxx>
 class Point3d;
-class TopoDS_Vertex;
+class TopoVertex;
 
 //! Provides methods to build vertices.
 class BRepLib_MakeVertex : public BRepLib_MakeShape
@@ -32,8 +32,8 @@ public:
 
   Standard_EXPORT BRepLib_MakeVertex(const Point3d& P);
 
-  Standard_EXPORT const TopoDS_Vertex& Vertex();
-  Standard_EXPORT                      operator TopoDS_Vertex();
+  Standard_EXPORT const TopoVertex& Vertex();
+  Standard_EXPORT                      operator TopoVertex();
 
 protected:
 private:

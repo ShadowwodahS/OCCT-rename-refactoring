@@ -38,7 +38,7 @@
 static Standard_Real GetDeflection(const Adaptor3d_Curve&      aCurve,
                                    const Standard_Real         U1,
                                    const Standard_Real         U2,
-                                   const Handle(Prs3d_Drawer)& aDrawer)
+                                   const Handle(StyleDrawer)& aDrawer)
 {
   Standard_Real TheDeflection;
 
@@ -281,7 +281,7 @@ static Standard_Boolean MatchCurve(const Standard_Real    X,
 
 void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                  Adaptor3d_Curve&                  aCurve,
-                                 const Handle(Prs3d_Drawer)&       aDrawer,
+                                 const Handle(StyleDrawer)&       aDrawer,
                                  const Standard_Boolean            theToDrawCurve)
 {
   Handle(Graphic3d_Group) aGroup;
@@ -308,7 +308,7 @@ void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation
       Point3d Location;
       Vector3d Direction;
       aCurve.D1(V2, Location, Direction);
-      Prs3d_Arrow::Draw(aGroup,
+      Prs3d_Arrow::Draw1(aGroup,
                         Location,
                         Dir3d(Direction),
                         aDrawer->ArrowAspect()->Angle(),
@@ -323,7 +323,7 @@ void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation
                                  Adaptor3d_Curve&                  aCurve,
                                  const Standard_Real               U1,
                                  const Standard_Real               U2,
-                                 const Handle(Prs3d_Drawer)&       aDrawer,
+                                 const Handle(StyleDrawer)&       aDrawer,
                                  const Standard_Boolean            theToDrawCurve)
 {
   Handle(Graphic3d_Group) aGroup;
@@ -355,7 +355,7 @@ void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation
     Point3d Location;
     Vector3d Direction;
     aCurve.D1(V2, Location, Direction);
-    Prs3d_Arrow::Draw(aGroup,
+    Prs3d_Arrow::Draw1(aGroup,
                       Location,
                       Dir3d(Direction),
                       aDrawer->ArrowAspect()->Angle(),
@@ -413,7 +413,7 @@ void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation
 void StdPrs_DeflectionCurve::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                  Adaptor3d_Curve&                  aCurve,
                                  const Standard_Real               aDeflection,
-                                 const Handle(Prs3d_Drawer)&       aDrawer,
+                                 const Handle(StyleDrawer)&       aDrawer,
                                  TColgp_SequenceOfPnt&             Points,
                                  const Standard_Boolean            theToDrawCurve)
 {
@@ -438,7 +438,7 @@ Standard_Boolean StdPrs_DeflectionCurve::Match(const Standard_Real         X,
                                                const Standard_Real         Z,
                                                const Standard_Real         aDistance,
                                                const Adaptor3d_Curve&      aCurve,
-                                               const Handle(Prs3d_Drawer)& aDrawer)
+                                               const Handle(StyleDrawer)& aDrawer)
 {
   Standard_Real V1, V2;
   if (FindLimits(aCurve, aDrawer->MaximalParameterValue(), V1, V2))
@@ -465,7 +465,7 @@ Standard_Boolean StdPrs_DeflectionCurve::Match(const Standard_Real         X,
                                                const Adaptor3d_Curve&      aCurve,
                                                const Standard_Real         U1,
                                                const Standard_Real         U2,
-                                               const Handle(Prs3d_Drawer)& aDrawer)
+                                               const Handle(StyleDrawer)& aDrawer)
 {
   Standard_Real V1 = U1;
   Standard_Real V2 = U2;

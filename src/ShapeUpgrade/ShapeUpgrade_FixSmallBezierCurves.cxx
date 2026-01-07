@@ -45,15 +45,15 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeUpgrade_FixSmallBezierCurves, ShapeUpgrade_FixSm
 
 ShapeUpgrade_FixSmallBezierCurves::ShapeUpgrade_FixSmallBezierCurves() {}
 
-Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(Geom_Curve)&   Curve3d,
-                                                           Handle(Geom2d_Curve)& Curve2d,
-                                                           Handle(Geom2d_Curve)& Curve2dR,
+Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(GeomCurve3d)&   Curve3d,
+                                                           Handle(GeomCurve2d)& Curve2d,
+                                                           Handle(GeomCurve2d)& Curve2dR,
                                                            Standard_Real&        First,
                                                            Standard_Real&        Last)
 {
 
   ShapeAnalysis_Edge sae;
-  Handle(Geom_Curve) c3d;
+  Handle(GeomCurve3d) c3d;
   Standard_Real      f, l;
   if (sae.Curve3d(myEdge, c3d, f, l, Standard_False))
   {
@@ -61,7 +61,7 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(Geom_Curve)&  
       First = f;
     if (Last > l)
       Last = l;
-    Handle(Geom_Curve) trc   = new Geom_TrimmedCurve(c3d, First, Last);
+    Handle(GeomCurve3d) trc   = new Geom_TrimmedCurve(c3d, First, Last);
     GeomAbs_Shape      aCont = (GeomAbs_Shape)trc->Continuity();
     if (aCont == GeomAbs_C3 || aCont == GeomAbs_CN)
       aCont = GeomAbs_C2;
@@ -71,7 +71,7 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(Geom_Curve)&  
       GeomConvert_ApproxCurve AproxCurve(trc, Precision(), aCont, 1, 9);
       if (AproxCurve.IsDone())
       {
-        Handle(Geom_Curve) newCurve = AproxCurve.Curve();
+        Handle(GeomCurve3d) newCurve = AproxCurve.Curve();
         mySplitCurve3dTool->Init(AproxCurve.Curve(), First, Last);
         mySplitCurve3dTool->Perform(Standard_True);
         if (!mySplitCurve3dTool->Status(ShapeExtend_FAIL))
@@ -98,9 +98,9 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(Geom_Curve)&  
   }
   if (myFace.IsNull())
     return Standard_True;
-  Handle(Geom2d_Curve) c2d;
+  Handle(GeomCurve2d) c2d;
   TopLoc_Location      L;
-  Handle(Geom_Surface) aSurf = BRep_Tool::Surface(myFace, L);
+  Handle(GeomSurface) aSurf = BRepInspector::Surface(myFace, L);
   GeomAdaptor_Surface  ads(aSurf); // = new GeomAdaptor_Surface(aSurf);
   Standard_Real        prec = Max(ads.UResolution(Precision()), ads.VResolution(Precision()));
   if (sae.PCurve(myEdge, myFace, c2d, f, l, Standard_False))
@@ -109,7 +109,7 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(Geom_Curve)&  
       First = f;
     if (Last > l)
       Last = l;
-    Handle(Geom2d_Curve) trc2d = new Geom2d_TrimmedCurve(c2d, First, Last);
+    Handle(GeomCurve2d) trc2d = new Geom2d_TrimmedCurve(c2d, First, Last);
     GeomAbs_Shape        aCont = (GeomAbs_Shape)trc2d->Continuity();
     try
     {
@@ -117,7 +117,7 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(Geom_Curve)&  
       Geom2dConvert_ApproxCurve AproxCurve2d(trc2d, prec, aCont, 1, 9);
       if (AproxCurve2d.IsDone())
       {
-        Handle(Geom2d_Curve) newCurve = AproxCurve2d.Curve();
+        Handle(GeomCurve2d) newCurve = AproxCurve2d.Curve();
         mySplitCurve2dTool->Init(AproxCurve2d.Curve(), First, Last);
         mySplitCurve2dTool->Perform(Standard_True);
         if (mySplitCurve2dTool->Status(ShapeExtend_FAIL))
@@ -141,21 +141,21 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(Geom_Curve)&  
       return Standard_False;
     }
   }
-  Standard_Boolean isSeam = BRep_Tool::IsClosed(myEdge, myFace);
+  Standard_Boolean isSeam = BRepInspector::IsClosed(myEdge, myFace);
   if (isSeam)
   {
-    Handle(Geom2d_Curve) c2;
+    Handle(GeomCurve2d) c2;
     Standard_Real        f2, l2;
     // smh#8
-    TopoDS_Shape tmpE = myEdge.Reversed();
-    TopoDS_Edge  erev = TopoDS::Edge(tmpE);
+    TopoShape tmpE = myEdge.Reversed();
+    TopoEdge  erev = TopoDS::Edge(tmpE);
     if (sae.PCurve(erev, myFace, c2, f2, l2, Standard_False))
     {
       if (First > f)
         First = f;
       if (Last > l)
         Last = l;
-      Handle(Geom2d_Curve)      trc2d = new Geom2d_TrimmedCurve(c2, First, Last);
+      Handle(GeomCurve2d)      trc2d = new Geom2d_TrimmedCurve(c2, First, Last);
       GeomAbs_Shape             aCont = trc2d->Continuity();
       Geom2dConvert_ApproxCurve AproxCurve2d(trc2d, prec, aCont, 1, 9);
       try
@@ -163,7 +163,7 @@ Standard_Boolean ShapeUpgrade_FixSmallBezierCurves::Approx(Handle(Geom_Curve)&  
         OCC_CATCH_SIGNALS
         if (AproxCurve2d.IsDone())
         {
-          Handle(Geom2d_Curve) newCurve = AproxCurve2d.Curve();
+          Handle(GeomCurve2d) newCurve = AproxCurve2d.Curve();
           mySplitCurve2dTool->Init(AproxCurve2d.Curve(), First, Last);
           mySplitCurve2dTool->Perform(Standard_True);
           if (!mySplitCurve2dTool->Status(ShapeExtend_DONE))

@@ -24,16 +24,16 @@
 
 //! The class describes the  1-d range
 //! [myFirst, myLast].
-class IntTools_Range
+class IntToolsRange
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor
-  Standard_EXPORT IntTools_Range();
+  Standard_EXPORT IntToolsRange();
 
   //! Initialize me by range boundaries
-  Standard_EXPORT IntTools_Range(const Standard_Real aFirst, const Standard_Real aLast);
+  Standard_EXPORT IntToolsRange(const Standard_Real aFirst, const Standard_Real aLast);
 
   //! Modifier
   Standard_EXPORT void SetFirst(const Standard_Real aFirst);

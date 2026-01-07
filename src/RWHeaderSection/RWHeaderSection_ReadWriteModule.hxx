@@ -23,7 +23,7 @@
 #include <StepData_ReadWriteModule.hxx>
 #include <Standard_Integer.hxx>
 #include <TColStd_SequenceOfAsciiString.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 class StepData_StepReaderData;
 class Interface_Check;
 class RefObject;
@@ -32,19 +32,19 @@ class StepData_StepWriter;
 class RWHeaderSection_ReadWriteModule;
 DEFINE_STANDARD_HANDLE(RWHeaderSection_ReadWriteModule, StepData_ReadWriteModule)
 
-//! General module to read and write HeaderSection entities
+//! General module to read and write HeaderSection1 entities
 class RWHeaderSection_ReadWriteModule : public StepData_ReadWriteModule
 {
 
 public:
   Standard_EXPORT RWHeaderSection_ReadWriteModule();
 
-  //! associates a positive Case Number to each type of HeaderSection entity,
+  //! associates a positive Case Number to each type of HeaderSection1 entity,
   //! given as a String defined in the EXPRESS form
   Standard_EXPORT Standard_Integer
-    CaseStep(const TCollection_AsciiString& atype) const Standard_OVERRIDE;
+    CaseStep(const AsciiString1& atype) const Standard_OVERRIDE;
 
-  //! associates a positive Case Number to each type of HeaderSection Complex entity,
+  //! associates a positive Case Number to each type of HeaderSection1 Complex entity,
   //! given as a String defined in the EXPRESS form
   Standard_EXPORT virtual Standard_Integer CaseStep(
     const TColStd_SequenceOfAsciiString& types) const Standard_OVERRIDE;
@@ -55,7 +55,7 @@ public:
 
   //! returns a StepType (defined in EXPRESS form which belongs to a
   //! Type of Entity, identified by its CaseNumber determined by Protocol
-  Standard_EXPORT const TCollection_AsciiString& StepType(const Standard_Integer CN) const
+  Standard_EXPORT const AsciiString1& StepType(const Standard_Integer CN) const
     Standard_OVERRIDE;
 
   Standard_EXPORT void ReadStep(const Standard_Integer                 CN,

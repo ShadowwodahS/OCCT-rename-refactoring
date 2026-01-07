@@ -63,13 +63,13 @@
 #include <Units_UnitsDictionary.hxx>
 #include <UnitsAPI.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(PrsDim_Dimension, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(PrsDim_Dimension, VisualEntity)
 
 namespace
 {
 // default text strings
-static const TCollection_ExtendedString THE_EMPTY_LABEL;
-static const TCollection_AsciiString    THE_UNDEFINED_UNITS;
+static const UtfString THE_EMPTY_LABEL;
+static const AsciiString1    THE_UNDEFINED_UNITS;
 
 // default text margin and resolution
 static const Standard_Real THE_3D_TEXT_MARGIN = 0.1;
@@ -82,7 +82,7 @@ static const Standard_Integer THE_LOCAL_SEL_PRIORITY   = 6;
 //=================================================================================================
 
 PrsDim_Dimension::PrsDim_Dimension(const PrsDim_KindOfDimension theType)
-    : AIS_InteractiveObject(),
+    : VisualEntity(),
       mySelToleranceForText2d(0.0),
       myValueType(ValueType_Computed),
       myCustomValue(0.0),
@@ -115,7 +115,7 @@ void PrsDim_Dimension::SetCustomValue(const Standard_Real theValue)
 
 //=================================================================================================
 
-void PrsDim_Dimension::SetCustomValue(const TCollection_ExtendedString& theValue)
+void PrsDim_Dimension::SetCustomValue(const UtfString& theValue)
 {
   if (myValueType == ValueType_CustomText && myCustomStringValue == theValue)
   {
@@ -216,14 +216,14 @@ void PrsDim_Dimension::SetFlyout(const Standard_Real theFlyout)
 
 //=================================================================================================
 
-const TCollection_AsciiString& PrsDim_Dimension::GetDisplayUnits() const
+const AsciiString1& PrsDim_Dimension::GetDisplayUnits() const
 {
   return THE_UNDEFINED_UNITS;
 }
 
 //=================================================================================================
 
-const TCollection_AsciiString& PrsDim_Dimension::GetModelUnits() const
+const AsciiString1& PrsDim_Dimension::GetModelUnits() const
 {
   return THE_UNDEFINED_UNITS;
 }
@@ -237,9 +237,9 @@ Standard_Real PrsDim_Dimension::ValueToDisplayUnits() const
 
 //=================================================================================================
 
-TCollection_ExtendedString PrsDim_Dimension::GetValueString(Standard_Real& theWidth) const
+UtfString PrsDim_Dimension::GetValueString(Standard_Real& theWidth) const
 {
-  TCollection_ExtendedString aValueStr;
+  UtfString aValueStr;
   if (myValueType == ValueType_CustomText)
   {
     aValueStr = myCustomStringValue;
@@ -247,18 +247,18 @@ TCollection_ExtendedString PrsDim_Dimension::GetValueString(Standard_Real& theWi
   else
   {
     // format value string using "sprintf"
-    TCollection_AsciiString aFormatStr = myDrawer->DimensionAspect()->ValueStringFormat();
+    AsciiString1 aFormatStr = myDrawer->DimensionAspect()->ValueStringFormat();
 
     char aFmtBuffer[256];
     sprintf(aFmtBuffer, aFormatStr.ToCString(), ValueToDisplayUnits());
-    aValueStr = TCollection_ExtendedString(aFmtBuffer);
+    aValueStr = UtfString(aFmtBuffer);
   }
 
   // add units to values string
   if (myDrawer->DimensionAspect()->IsUnitsDisplayed())
   {
     aValueStr += " ";
-    aValueStr += TCollection_ExtendedString(GetDisplayUnits());
+    aValueStr += UtfString(GetDisplayUnits());
   }
 
   switch (myDisplaySpecialSymbol)
@@ -337,7 +337,7 @@ void PrsDim_Dimension::DrawArrow(const Handle(Prs3d_Presentation)& thePresentati
 
   if (myDrawer->DimensionAspect()->IsArrows3d())
   {
-    Prs3d_Arrow::Draw(aGroup, theLocation, theDirection, anAngle, aLength);
+    Prs3d_Arrow::Draw1(aGroup, theLocation, theDirection, anAngle, aLength);
     aGroup->SetGroupPrimitivesAspect(myDrawer->DimensionAspect()->ArrowAspect()->Aspect());
   }
   else
@@ -385,7 +385,7 @@ void PrsDim_Dimension::DrawArrow(const Handle(Prs3d_Presentation)& thePresentati
 void PrsDim_Dimension::drawText(const Handle(Prs3d_Presentation)& thePresentation,
                                 const Point3d&                     theTextPos,
                                 const Dir3d&                     theTextDir,
-                                const TCollection_ExtendedString& theText,
+                                const UtfString& theText,
                                 const Standard_Integer            theLabelPosition)
 {
   Handle(Graphic3d_Group) aGroup = thePresentation->NewGroup();
@@ -397,12 +397,12 @@ void PrsDim_Dimension::drawText(const Handle(Prs3d_Presentation)& thePresentatio
     Font_FontAspect          aFontAspect = aTextAspect->Aspect()->GetTextFontAspect();
     Standard_Real            aFontHeight = aTextAspect->Height();
 
-    // creating TopoDS_Shape for text
+    // creating TopoShape for text
     Font_BRepFont aFont(aTextAspect->Aspect()->Font().ToCString(), aFontAspect, aFontHeight);
     NCollection_Utf8String anUTFString(theText.ToExtString());
 
     Font_BRepTextBuilder aBuilder;
-    TopoDS_Shape         aTextShape = aBuilder.Perform(aFont, anUTFString);
+    TopoShape         aTextShape = aBuilder.Perform(aFont, anUTFString);
 
     // compute text width with kerning
     Standard_Real aTextWidth  = 0.0;
@@ -538,7 +538,7 @@ void PrsDim_Dimension::drawText(const Handle(Prs3d_Presentation)& thePresentatio
   // generate primitives for 2D text
   myDrawer->DimensionAspect()->TextAspect()->Aspect()->SetDisplayType(Aspect_TODT_DIMENSION);
 
-  Prs3d_Text::Draw(aGroup, myDrawer->DimensionAspect()->TextAspect(), theText, theTextPos);
+  Prs3d_Text::Draw1(aGroup, myDrawer->DimensionAspect()->TextAspect(), theText, theTextPos);
 
   mySelectionGeom.TextPos    = theTextPos;
   mySelectionGeom.TextDir    = theTextDir;
@@ -552,7 +552,7 @@ void PrsDim_Dimension::DrawExtension(const Handle(Prs3d_Presentation)& thePresen
                                      const Standard_Real               theExtensionSize,
                                      const Point3d&                     theExtensionStart,
                                      const Dir3d&                     theExtensionDir,
-                                     const TCollection_ExtendedString& theLabelString,
+                                     const UtfString& theLabelString,
                                      const Standard_Real               theLabelWidth,
                                      const Standard_Integer            theMode,
                                      const Standard_Integer            theLabelPosition)
@@ -631,7 +631,7 @@ void PrsDim_Dimension::DrawLinearDimension(const Handle(Prs3d_Presentation)& the
   Standard_Real anExtensionSize = aDimensionAspect->ExtensionSize();
   // prepare label string and compute its geometrical width
   Standard_Real              aLabelWidth;
-  TCollection_ExtendedString aLabelString = GetValueString(aLabelWidth);
+  UtfString aLabelString = GetValueString(aLabelWidth);
 
   // add margins to cut dimension lines for 3d text
   if (aDimensionAspect->IsText3d())
@@ -1011,7 +1011,7 @@ void PrsDim_Dimension::ComputeFlyoutLinePoints(const Point3d& theFirstPoint,
 
 //=================================================================================================
 
-void PrsDim_Dimension::ComputeLinearFlyouts(const Handle(SelectMgr_Selection)&   theSelection,
+void PrsDim_Dimension::ComputeLinearFlyouts(const Handle(SelectionContainer)&   theSelection,
                                             const Handle(SelectMgr_EntityOwner)& theOwner,
                                             const Point3d&                        theFirstPoint,
                                             const Point3d&                        theSecondPoint)
@@ -1044,18 +1044,18 @@ void PrsDim_Dimension::ComputeLinearFlyouts(const Handle(SelectMgr_Selection)&  
 // function : CircleFromPlanarFace
 // purpose  : if possible computes circle from planar face
 //=======================================================================
-Standard_Boolean PrsDim_Dimension::CircleFromPlanarFace(const TopoDS_Face&  theFace,
-                                                        Handle(Geom_Curve)& theCurve,
+Standard_Boolean PrsDim_Dimension::CircleFromPlanarFace(const TopoFace&  theFace,
+                                                        Handle(GeomCurve3d)& theCurve,
                                                         Point3d&             theFirstPoint,
                                                         Point3d&             theLastPoint)
 {
-  TopExp_Explorer anIt(theFace, TopAbs_EDGE);
+  ShapeExplorer anIt(theFace, TopAbs_EDGE);
   for (; anIt.More(); anIt.Next())
   {
-    TopoDS_Edge aCurEdge = TopoDS::Edge(anIt.Current());
+    TopoEdge aCurEdge = TopoDS::Edge(anIt.Current());
     if (PrsDim::ComputeGeometry(aCurEdge, theCurve, theFirstPoint, theLastPoint))
     {
-      if (theCurve->IsInstance(STANDARD_TYPE(Geom_Circle)))
+      if (theCurve->IsInstance(STANDARD_TYPE(GeomCircle)))
       {
         return Standard_True;
       }
@@ -1068,7 +1068,7 @@ Standard_Boolean PrsDim_Dimension::CircleFromPlanarFace(const TopoDS_Face&  theF
 // function : CircleFromEdge
 // purpose  : if possible computes circle from edge
 //=======================================================================
-Standard_Boolean PrsDim_Dimension::CircleFromEdge(const TopoDS_Edge& theEdge,
+Standard_Boolean PrsDim_Dimension::CircleFromEdge(const TopoEdge& theEdge,
                                                   gp_Circ&           theCircle,
                                                   Point3d&            theFirstPoint,
                                                   Point3d&            theLastPoint)
@@ -1106,13 +1106,13 @@ Standard_Boolean PrsDim_Dimension::CircleFromEdge(const TopoDS_Edge& theEdge,
 
 //=================================================================================================
 
-Standard_Boolean PrsDim_Dimension::InitCircularDimension(const TopoDS_Shape& theShape,
+Standard_Boolean PrsDim_Dimension::InitCircularDimension(const TopoShape& theShape,
                                                          gp_Circ&            theCircle,
                                                          Point3d&             theMiddleArcPoint,
                                                          Standard_Boolean&   theIsClosed)
 {
   gp_Pln               aPln;
-  Handle(Geom_Surface) aBasisSurf;
+  Handle(GeomSurface) aBasisSurf;
   PrsDim_KindOfSurface aSurfType = PrsDim_KOS_OtherSurface;
   Point3d               aFirstPoint, aLastPoint;
   Standard_Real        anOffset    = 0.0;
@@ -1127,13 +1127,13 @@ Standard_Boolean PrsDim_Dimension::InitCircularDimension(const TopoDS_Shape& the
 
       if (aSurfType == PrsDim_KOS_Plane)
       {
-        Handle(Geom_Curve) aCurve;
+        Handle(GeomCurve3d) aCurve;
         if (!CircleFromPlanarFace(TopoDS::Face(theShape), aCurve, aFirstPoint, aLastPoint))
         {
           return Standard_False;
         }
 
-        theCircle = Handle(Geom_Circle)::DownCast(aCurve)->Circ();
+        theCircle = Handle(GeomCircle)::DownCast(aCurve)->Circ();
       }
       else
       {
@@ -1177,19 +1177,19 @@ Standard_Boolean PrsDim_Dimension::InitCircularDimension(const TopoDS_Shape& the
           return Standard_False;
         }
 
-        Handle(Geom_Curve) aCurve = aBasisSurf->VIso(aMidV);
-        if (aCurve->DynamicType() == STANDARD_TYPE(Geom_Circle))
+        Handle(GeomCurve3d) aCurve = aBasisSurf->VIso(aMidV);
+        if (aCurve->DynamicType() == STANDARD_TYPE(GeomCircle))
         {
-          theCircle = Handle(Geom_Circle)::DownCast(aCurve)->Circ();
+          theCircle = Handle(GeomCircle)::DownCast(aCurve)->Circ();
         }
         else if (aCurve->DynamicType() == STANDARD_TYPE(Geom_TrimmedCurve))
         {
           Handle(Geom_TrimmedCurve) aTrimmedCurve = Handle(Geom_TrimmedCurve)::DownCast(aCurve);
           aFirstU                                 = aTrimmedCurve->FirstParameter();
           aLastU                                  = aTrimmedCurve->LastParameter();
-          if (aTrimmedCurve->BasisCurve()->DynamicType() == STANDARD_TYPE(Geom_Circle))
+          if (aTrimmedCurve->BasisCurve()->DynamicType() == STANDARD_TYPE(GeomCircle))
           {
-            theCircle = Handle(Geom_Circle)::DownCast(aTrimmedCurve->BasisCurve())->Circ();
+            theCircle = Handle(GeomCircle)::DownCast(aTrimmedCurve->BasisCurve())->Circ();
           }
         }
         else
@@ -1208,8 +1208,8 @@ Standard_Boolean PrsDim_Dimension::InitCircularDimension(const TopoDS_Shape& the
       break;
     }
     case TopAbs_WIRE: {
-      TopoDS_Edge     anEdge;
-      TopExp_Explorer anIt(theShape, TopAbs_EDGE);
+      TopoEdge     anEdge;
+      ShapeExplorer anIt(theShape, TopAbs_EDGE);
       if (anIt.More())
       {
         anEdge = TopoDS::Edge(anIt.Current());
@@ -1221,7 +1221,7 @@ Standard_Boolean PrsDim_Dimension::InitCircularDimension(const TopoDS_Shape& the
       break;
     }
     case TopAbs_EDGE: {
-      TopoDS_Edge anEdge = TopoDS::Edge(theShape);
+      TopoEdge anEdge = TopoDS::Edge(theShape);
       if (!PrsDim_Dimension::CircleFromEdge(anEdge, theCircle, aFirstPoint, aLastPoint))
       {
         return Standard_False;
@@ -1267,7 +1267,7 @@ Standard_Boolean PrsDim_Dimension::InitCircularDimension(const TopoDS_Shape& the
 
 //=================================================================================================
 
-void PrsDim_Dimension::ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+void PrsDim_Dimension::ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                         const Standard_Integer             theMode)
 {
   if (!mySelectionGeom.IsComputed)
@@ -1382,8 +1382,8 @@ void PrsDim_Dimension::ComputeSelection(const Handle(SelectMgr_Selection)& theSe
       aTriangles.ChangeValue(1) = Poly_Triangle(1, 2, 3);
       aTriangles.ChangeValue(2) = Poly_Triangle(1, 3, 4);
 
-      Handle(Poly_Triangulation) aRectanglePoly =
-        new Poly_Triangulation(aRectanglePoints, aTriangles);
+      Handle(MeshTriangulation) aRectanglePoly =
+        new MeshTriangulation(aRectanglePoints, aTriangles);
 
       aTextSensitive = new Select3D_SensitiveTriangulation(aSensitiveOwner,
                                                            aRectanglePoly,
@@ -1620,7 +1620,7 @@ void PrsDim_Dimension::FitTextAlignmentForLinear(
 
   // prepare label string and compute its geometrical width
   Standard_Real              aLabelWidth;
-  TCollection_ExtendedString aLabelString = GetValueString(aLabelWidth);
+  UtfString aLabelString = GetValueString(aLabelWidth);
 
   // Add margins to cut dimension lines for 3d text
   if (aDimensionAspect->IsText3d())

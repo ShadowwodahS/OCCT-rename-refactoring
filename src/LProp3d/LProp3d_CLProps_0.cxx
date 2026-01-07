@@ -33,7 +33,7 @@
 #define Pnt_hxx <gp_Pnt.hxx>
 #define Dir Dir3d
 #define Dir_hxx <gp_Dir.hxx>
-#define Tool LProp3d_CurveTool
+#define Tool CurveTool2
 #define Tool_hxx <LProp3d_CurveTool.hxx>
 #define LProp_CLProps LProp3d_CLProps
 #define LProp_CLProps_hxx <LProp3d_CLProps.hxx>

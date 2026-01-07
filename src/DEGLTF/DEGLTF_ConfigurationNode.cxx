@@ -21,9 +21,9 @@ IMPLEMENT_STANDARD_RTTIEXT(DEGLTF_ConfigurationNode, DE_ConfigurationNode)
 
 namespace
 {
-static const TCollection_AsciiString& THE_CONFIGURATION_SCOPE()
+static const AsciiString1& THE_CONFIGURATION_SCOPE()
 {
-  static const TCollection_AsciiString aScope = "provider";
+  static const AsciiString1 aScope = "provider";
   return aScope;
 }
 
@@ -50,7 +50,7 @@ DEGLTF_ConfigurationNode::DEGLTF_ConfigurationNode(const Handle(DEGLTF_Configura
 
 bool DEGLTF_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
 {
-  TCollection_AsciiString aScope =
+  AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor();
 
   InternalParameters.FileLengthUnit =
@@ -140,13 +140,13 @@ bool DEGLTF_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theRe
 
 //=================================================================================================
 
-TCollection_AsciiString DEGLTF_ConfigurationNode::Save() const
+AsciiString1 DEGLTF_ConfigurationNode::Save() const
 {
-  TCollection_AsciiString aResult;
+  AsciiString1 aResult;
   aResult += "!*****************************************************************************\n";
   aResult =
     aResult + "!Configuration Node " + " Vendor: " + GetVendor() + " Format: " + GetFormat() + "\n";
-  TCollection_AsciiString aScope =
+  AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor() + ".";
 
   aResult += "!\n";
@@ -233,7 +233,7 @@ TCollection_AsciiString DEGLTF_ConfigurationNode::Save() const
   aResult += "!\n";
 
   aResult += "!\n";
-  aResult += "!Flag to use Mesh name in case if Node name is empty\n";
+  aResult += "!Flag to use Mesh1 name in case if Node name is empty\n";
   aResult += "!Default value: 1(true). Available values: 0(false), 1(true)\n";
   aResult += aScope + "read.use.mesh.name.as.fallback :\t "
              + InternalParameters.ReadUseMeshNameAsFallback + "\n";
@@ -359,16 +359,16 @@ bool DEGLTF_ConfigurationNode::IsExportSupported() const
 
 //=================================================================================================
 
-TCollection_AsciiString DEGLTF_ConfigurationNode::GetFormat() const
+AsciiString1 DEGLTF_ConfigurationNode::GetFormat() const
 {
-  return TCollection_AsciiString("GLTF");
+  return AsciiString1("GLTF");
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DEGLTF_ConfigurationNode::GetVendor() const
+AsciiString1 DEGLTF_ConfigurationNode::GetVendor() const
 {
-  return TCollection_AsciiString("OCC");
+  return AsciiString1("OCC");
 }
 
 //=================================================================================================

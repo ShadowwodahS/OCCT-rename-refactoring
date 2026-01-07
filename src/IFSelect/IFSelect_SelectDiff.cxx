@@ -36,7 +36,7 @@ Standard_Boolean IFSelect_SelectDiff::HasUniqueResult() const
   return Standard_True;
 } // naturellement unique
 
-TCollection_AsciiString IFSelect_SelectDiff::Label() const
+AsciiString1 IFSelect_SelectDiff::Label() const
 {
-  return TCollection_AsciiString("Differences");
+  return AsciiString1("Differences");
 }

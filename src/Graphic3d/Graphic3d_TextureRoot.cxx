@@ -36,10 +36,10 @@ static volatile Standard_Integer THE_TEXTURE_COUNTER = 0;
 
 //=================================================================================================
 
-TCollection_AsciiString Graphic3d_TextureRoot::TexturesFolder()
+AsciiString1 Graphic3d_TextureRoot::TexturesFolder()
 {
   static Standard_Boolean        IsDefined = Standard_False;
-  static TCollection_AsciiString VarName;
+  static AsciiString1 VarName;
   if (!IsDefined)
   {
     IsDefined = Standard_True;
@@ -65,10 +65,10 @@ TCollection_AsciiString Graphic3d_TextureRoot::TexturesFolder()
       throw ExceptionBase("CSF_MDTVTexturesDirectory and CASROOT are undefined");
     }
 
-    const OSD_Path                aDirPath(VarName);
+    const SystemPath                aDirPath(VarName);
     OSD_Directory                 aDir(aDirPath);
-    const TCollection_AsciiString aTexture = VarName + "/2d_MatraDatavision.rgb";
-    OSD_File                      aTextureFile(aTexture);
+    const AsciiString1 aTexture = VarName + "/2d_MatraDatavision.rgb";
+    SystemFile                      aTextureFile(aTexture);
     if (!aDir.Exists() || !aTextureFile.Exists())
     {
 #ifdef OCCT_DEBUG
@@ -83,7 +83,7 @@ TCollection_AsciiString Graphic3d_TextureRoot::TexturesFolder()
 
 //=================================================================================================
 
-Graphic3d_TextureRoot::Graphic3d_TextureRoot(const TCollection_AsciiString& theFileName,
+Graphic3d_TextureRoot::Graphic3d_TextureRoot(const AsciiString1& theFileName,
                                              const Graphic3d_TypeOfTexture  theType)
     : myParams(new Graphic3d_TextureParams()),
       myPath(theFileName),
@@ -122,8 +122,8 @@ Graphic3d_TextureRoot::~Graphic3d_TextureRoot()
 
 void Graphic3d_TextureRoot::generateId()
 {
-  myTexId = TCollection_AsciiString("Graphic3d_TextureRoot_")
-            + TCollection_AsciiString(Standard_Atomic_Increment(&THE_TEXTURE_COUNTER));
+  myTexId = AsciiString1("Graphic3d_TextureRoot_")
+            + AsciiString1(Standard_Atomic_Increment(&THE_TEXTURE_COUNTER));
 }
 
 //=================================================================================================
@@ -137,14 +137,14 @@ Handle(Image_CompressedPixMap) Graphic3d_TextureRoot::GetCompressedImage(
   }
 
   // Case 2: texture source is specified as path
-  TCollection_AsciiString aFilePath;
+  AsciiString1 aFilePath;
   myPath.SystemName(aFilePath);
   if (aFilePath.IsEmpty())
   {
     return Handle(Image_CompressedPixMap)();
   }
 
-  TCollection_AsciiString aFilePathLower = aFilePath;
+  AsciiString1 aFilePathLower = aFilePath;
   aFilePathLower.LowerCase();
   if (!aFilePathLower.EndsWith(".dds"))
   {
@@ -179,7 +179,7 @@ Handle(Image_PixMap) Graphic3d_TextureRoot::GetImage(
   }
 
   // Case 2: texture source is specified as path
-  TCollection_AsciiString aFilePath;
+  AsciiString1 aFilePath;
   myPath.SystemName(aFilePath);
   if (aFilePath.IsEmpty())
   {
@@ -236,6 +236,6 @@ Standard_Boolean Graphic3d_TextureRoot::IsDone() const
   }
 
   // Case 2: texture source is specified as path
-  OSD_File aTextureFile(myPath);
+  SystemFile aTextureFile(myPath);
   return aTextureFile.Exists();
 }

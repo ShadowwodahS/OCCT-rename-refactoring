@@ -63,7 +63,7 @@
 #include <BRep_GCurve.hxx>
 
 // modified by NIZNHY-PKV Fri Oct 17 14:13:29 2008f
-static Standard_Boolean IsPlane(const Handle(Geom_Surface)& aS);
+static Standard_Boolean IsPlane(const Handle(GeomSurface)& aS);
 
 // modified by NIZNHY-PKV Fri Oct 17 14:13:33 2008t
 //
@@ -73,7 +73,7 @@ static Standard_Boolean IsPlane(const Handle(Geom_Surface)& aS);
 //            in <L> the location for the surface.
 //=======================================================================
 
-const Handle(Geom_Surface)& BRep_Tool::Surface(const TopoDS_Face& F, TopLoc_Location& L)
+const Handle(GeomSurface)& BRepInspector::Surface(const TopoFace& F, TopLoc_Location& L)
 {
   const BRep_TFace* TF = static_cast<const BRep_TFace*>(F.TShape().get());
   L                    = F.Location() * TF->Location();
@@ -86,10 +86,10 @@ const Handle(Geom_Surface)& BRep_Tool::Surface(const TopoDS_Face& F, TopLoc_Loca
 //           be a copy if there is a Location.
 //=======================================================================
 
-Handle(Geom_Surface) BRep_Tool::Surface(const TopoDS_Face& F)
+Handle(GeomSurface) BRepInspector::Surface(const TopoFace& F)
 {
   const BRep_TFace*           TF = static_cast<const BRep_TFace*>(F.TShape().get());
-  const Handle(Geom_Surface)& S  = TF->Surface();
+  const Handle(GeomSurface)& S  = TF->Surface();
 
   if (S.IsNull())
     return S;
@@ -98,15 +98,15 @@ Handle(Geom_Surface) BRep_Tool::Surface(const TopoDS_Face& F)
   if (!L.IsIdentity())
   {
     Handle(Geom_Geometry) aCopy = S->Transformed(L.Transformation());
-    Geom_Surface*         aGS   = static_cast<Geom_Surface*>(aCopy.get());
-    return Handle(Geom_Surface)(aGS);
+    GeomSurface*         aGS   = static_cast<GeomSurface*>(aCopy.get());
+    return Handle(GeomSurface)(aGS);
   }
   return S;
 }
 
 //=================================================================================================
 
-const Handle(Poly_Triangulation)& BRep_Tool::Triangulation(const TopoDS_Face&     theFace,
+const Handle(MeshTriangulation)& BRepInspector::Triangulation(const TopoFace&     theFace,
                                                            TopLoc_Location&       theLocation,
                                                            const Poly_MeshPurpose theMeshPurpose)
 {
@@ -117,7 +117,7 @@ const Handle(Poly_Triangulation)& BRep_Tool::Triangulation(const TopoDS_Face&   
 
 //=================================================================================================
 
-const Poly_ListOfTriangulation& BRep_Tool::Triangulations(const TopoDS_Face& theFace,
+const Poly_ListOfTriangulation& BRepInspector::Triangulations(const TopoFace& theFace,
                                                           TopLoc_Location&   theLocation)
 {
   theLocation              = theFace.Location();
@@ -130,7 +130,7 @@ const Poly_ListOfTriangulation& BRep_Tool::Triangulations(const TopoDS_Face& the
 // purpose  : Returns the tolerance of the face.
 //=======================================================================
 
-Standard_Real BRep_Tool::Tolerance(const TopoDS_Face& F)
+Standard_Real BRepInspector::Tolerance(const TopoFace& F)
 {
   const BRep_TFace*       TF   = static_cast<const BRep_TFace*>(F.TShape().get());
   Standard_Real           p    = TF->Tolerance();
@@ -146,7 +146,7 @@ Standard_Real BRep_Tool::Tolerance(const TopoDS_Face& F)
 // purpose  : Returns the  NaturalRestriction  flag of the  face.
 //=======================================================================
 
-Standard_Boolean BRep_Tool::NaturalRestriction(const TopoDS_Face& F)
+Standard_Boolean BRepInspector::NaturalRestriction(const TopoFace& F)
 {
   const BRep_TFace* TF = static_cast<const BRep_TFace*>(F.TShape().get());
   return TF->NaturalRestriction();
@@ -159,9 +159,9 @@ Standard_Boolean BRep_Tool::NaturalRestriction(const TopoDS_Face& F)
 //           In <First> and <Last> the parameter range.
 //=======================================================================
 
-static const Handle(Geom_Curve) nullCurve;
+static const Handle(GeomCurve3d) nullCurve;
 
-const Handle(Geom_Curve)& BRep_Tool::Curve(const TopoDS_Edge& E,
+const Handle(GeomCurve3d)& BRepInspector::Curve(const TopoEdge& E,
                                            TopLoc_Location&   L,
                                            Standard_Real&     First,
                                            Standard_Real&     Last)
@@ -194,17 +194,17 @@ const Handle(Geom_Curve)& BRep_Tool::Curve(const TopoDS_Edge& E,
 //           It can be a copy if there is a Location.
 //=======================================================================
 
-Handle(Geom_Curve) BRep_Tool::Curve(const TopoDS_Edge& E, Standard_Real& First, Standard_Real& Last)
+Handle(GeomCurve3d) BRepInspector::Curve(const TopoEdge& E, Standard_Real& First, Standard_Real& Last)
 {
   TopLoc_Location           L;
-  const Handle(Geom_Curve)& C = Curve(E, L, First, Last);
+  const Handle(GeomCurve3d)& C = Curve(E, L, First, Last);
   if (!C.IsNull())
   {
     if (!L.IsIdentity())
     {
       Handle(Geom_Geometry) aCopy = C->Transformed(L.Transformation());
-      Geom_Curve*           aGC   = static_cast<Geom_Curve*>(aCopy.get());
-      return Handle(Geom_Curve)(aGC);
+      GeomCurve3d*           aGC   = static_cast<GeomCurve3d*>(aCopy.get());
+      return Handle(GeomCurve3d)(aGC);
     }
   }
   return C;
@@ -214,10 +214,10 @@ Handle(Geom_Curve) BRep_Tool::Curve(const TopoDS_Edge& E, Standard_Real& First, 
 // function : IsGeometric
 // purpose  : Returns True if <F> has a surface.
 //=======================================================================
-Standard_Boolean BRep_Tool::IsGeometric(const TopoDS_Face& F)
+Standard_Boolean BRepInspector::IsGeometric(const TopoFace& F)
 {
   const BRep_TFace*           TF = static_cast<const BRep_TFace*>(F.TShape().get());
-  const Handle(Geom_Surface)& S  = TF->Surface();
+  const Handle(GeomSurface)& S  = TF->Surface();
   return !S.IsNull();
 }
 
@@ -227,7 +227,7 @@ Standard_Boolean BRep_Tool::IsGeometric(const TopoDS_Face& F)
 //           surface.
 //=======================================================================
 
-Standard_Boolean BRep_Tool::IsGeometric(const TopoDS_Edge& E)
+Standard_Boolean BRepInspector::IsGeometric(const TopoEdge& E)
 {
   // find the representation
   const BRep_TEdge* TE = static_cast<const BRep_TEdge*>(E.TShape().get());
@@ -257,7 +257,7 @@ Standard_Boolean BRep_Tool::IsGeometric(const TopoDS_Edge& E)
 
 static const Handle(Poly_Polygon3D) nullPolygon3D;
 
-const Handle(Poly_Polygon3D)& BRep_Tool::Polygon3D(const TopoDS_Edge& E, TopLoc_Location& L)
+const Handle(Poly_Polygon3D)& BRepInspector::Polygon3D(const TopoEdge& E, TopLoc_Location& L)
 {
   // find the representation
   const BRep_TEdge* TE = static_cast<const BRep_TEdge*>(E.TShape().get());
@@ -286,15 +286,15 @@ const Handle(Poly_Polygon3D)& BRep_Tool::Polygon3D(const TopoDS_Edge& E, TopLoc_
 //           <First> and <Last> the parameter range.
 //=======================================================================
 
-Handle(Geom2d_Curve) BRep_Tool::CurveOnSurface(const TopoDS_Edge& E,
-                                               const TopoDS_Face& F,
+Handle(GeomCurve2d) BRepInspector::CurveOnSurface(const TopoEdge& E,
+                                               const TopoFace& F,
                                                Standard_Real&     First,
                                                Standard_Real&     Last,
                                                Standard_Boolean*  theIsStored)
 {
   TopLoc_Location             l;
-  const Handle(Geom_Surface)& S          = BRep_Tool::Surface(F, l);
-  TopoDS_Edge                 aLocalEdge = E;
+  const Handle(GeomSurface)& S          = BRepInspector::Surface(F, l);
+  TopoEdge                 aLocalEdge = E;
   if (F.Orientation() == TopAbs_REVERSED)
   {
     aLocalEdge.Reverse();
@@ -310,10 +310,10 @@ Handle(Geom2d_Curve) BRep_Tool::CurveOnSurface(const TopoDS_Edge& E,
 //           <First> and <Last> the parameter range.
 //=======================================================================
 
-static const Handle(Geom2d_Curve) nullPCurve;
+static const Handle(GeomCurve2d) nullPCurve;
 
-Handle(Geom2d_Curve) BRep_Tool::CurveOnSurface(const TopoDS_Edge&          E,
-                                               const Handle(Geom_Surface)& S,
+Handle(GeomCurve2d) BRepInspector::CurveOnSurface(const TopoEdge&          E,
+                                               const Handle(GeomSurface)& S,
                                                const TopLoc_Location&      L,
                                                Standard_Real&              First,
                                                Standard_Real&              Last,
@@ -353,8 +353,8 @@ Handle(Geom2d_Curve) BRep_Tool::CurveOnSurface(const TopoDS_Edge&          E,
 // function : CurveOnPlane
 // purpose  : For planar surface returns projection of the edge on the plane
 //=======================================================================
-Handle(Geom2d_Curve) BRep_Tool::CurveOnPlane(const TopoDS_Edge&          E,
-                                             const Handle(Geom_Surface)& S,
+Handle(GeomCurve2d) BRepInspector::CurveOnPlane(const TopoEdge&          E,
+                                             const Handle(GeomSurface)& S,
                                              const TopLoc_Location&      L,
                                              Standard_Real&              First,
                                              Standard_Real&              Last)
@@ -362,13 +362,13 @@ Handle(Geom2d_Curve) BRep_Tool::CurveOnPlane(const TopoDS_Edge&          E,
   First = Last = 0.;
 
   // Check if the surface is planar
-  Handle(Geom_Plane)                     GP;
+  Handle(GeomPlane)                     GP;
   Handle(Geom_RectangularTrimmedSurface) GRTS;
   GRTS = Handle(Geom_RectangularTrimmedSurface)::DownCast(S);
   if (!GRTS.IsNull())
-    GP = Handle(Geom_Plane)::DownCast(GRTS->BasisSurface());
+    GP = Handle(GeomPlane)::DownCast(GRTS->BasisSurface());
   else
-    GP = Handle(Geom_Plane)::DownCast(S);
+    GP = Handle(GeomPlane)::DownCast(S);
 
   if (GP.IsNull())
     // not a plane
@@ -377,7 +377,7 @@ Handle(Geom2d_Curve) BRep_Tool::CurveOnPlane(const TopoDS_Edge&          E,
   // Check existence of 3d curve in edge
   Standard_Real      f, l;
   TopLoc_Location    aCurveLocation;
-  Handle(Geom_Curve) C3D = BRep_Tool::Curve(E, aCurveLocation, f, l);
+  Handle(GeomCurve3d) C3D = BRepInspector::Curve(E, aCurveLocation, f, l);
 
   if (C3D.IsNull())
     // no 3d curve
@@ -391,13 +391,13 @@ Handle(Geom2d_Curve) BRep_Tool::CurveOnPlane(const TopoDS_Edge&          E,
   if (!aCurveLocation.IsIdentity())
   {
     const Transform3d& aTrsf = aCurveLocation.Transformation();
-    C3D                  = Handle(Geom_Curve)::DownCast(C3D->Transformed(aTrsf));
+    C3D                  = Handle(GeomCurve3d)::DownCast(C3D->Transformed(aTrsf));
     f                    = C3D->TransformedParameter(f, aTrsf);
     l                    = C3D->TransformedParameter(l, aTrsf);
   }
 
   // Perform projection
-  Handle(Geom_Curve) ProjOnPlane =
+  Handle(GeomCurve3d) ProjOnPlane =
     GeomProjLib::ProjectOnPlane(new Geom_TrimmedCurve(C3D, f, l, Standard_True, Standard_False),
                                 GP,
                                 GP->Position().Direction(),
@@ -407,7 +407,7 @@ Handle(Geom2d_Curve) BRep_Tool::CurveOnPlane(const TopoDS_Edge&          E,
   Handle(GeomAdaptor_Curve)   HC = new GeomAdaptor_Curve(ProjOnPlane);
 
   ProjLib_ProjectedCurve Proj(HS, HC);
-  Handle(Geom2d_Curve)   pc = Geom2dAdaptor::MakeCurve(Proj);
+  Handle(GeomCurve2d)   pc = Geom2dAdaptor1::MakeCurve(Proj);
 
   if (pc->DynamicType() == STANDARD_TYPE(Geom2d_TrimmedCurve))
   {
@@ -420,9 +420,9 @@ Handle(Geom2d_Curve) BRep_Tool::CurveOnPlane(const TopoDS_Edge&          E,
 
 //=================================================================================================
 
-void BRep_Tool::CurveOnSurface(const TopoDS_Edge&    E,
-                               Handle(Geom2d_Curve)& C,
-                               Handle(Geom_Surface)& S,
+void BRepInspector::CurveOnSurface(const TopoEdge&    E,
+                               Handle(GeomCurve2d)& C,
+                               Handle(GeomSurface)& S,
                                TopLoc_Location&      L,
                                Standard_Real&        First,
                                Standard_Real&        Last)
@@ -454,9 +454,9 @@ void BRep_Tool::CurveOnSurface(const TopoDS_Edge&    E,
 
 //=================================================================================================
 
-void BRep_Tool::CurveOnSurface(const TopoDS_Edge&     E,
-                               Handle(Geom2d_Curve)&  C,
-                               Handle(Geom_Surface)&  S,
+void BRepInspector::CurveOnSurface(const TopoEdge&     E,
+                               Handle(GeomCurve2d)&  C,
+                               Handle(GeomSurface)&  S,
                                TopLoc_Location&       L,
                                Standard_Real&         First,
                                Standard_Real&         Last,
@@ -505,11 +505,11 @@ void BRep_Tool::CurveOnSurface(const TopoDS_Edge&     E,
 //           handle  if this polygon  does not exist.
 //=======================================================================
 
-Handle(Poly_Polygon2D) BRep_Tool::PolygonOnSurface(const TopoDS_Edge& E, const TopoDS_Face& F)
+Handle(Poly_Polygon2D) BRepInspector::PolygonOnSurface(const TopoEdge& E, const TopoFace& F)
 {
   TopLoc_Location             l;
-  const Handle(Geom_Surface)& S          = BRep_Tool::Surface(F, l);
-  TopoDS_Edge                 aLocalEdge = E;
+  const Handle(GeomSurface)& S          = BRepInspector::Surface(F, l);
+  TopoEdge                 aLocalEdge = E;
   if (F.Orientation() == TopAbs_REVERSED)
   {
     aLocalEdge.Reverse();
@@ -530,8 +530,8 @@ Handle(Poly_Polygon2D) BRep_Tool::PolygonOnSurface(const TopoDS_Edge& E, const T
 
 static const Handle(Poly_Polygon2D) nullPolygon2D;
 
-Handle(Poly_Polygon2D) BRep_Tool::PolygonOnSurface(const TopoDS_Edge&          E,
-                                                   const Handle(Geom_Surface)& S,
+Handle(Poly_Polygon2D) BRepInspector::PolygonOnSurface(const TopoEdge&          E,
+                                                   const Handle(GeomSurface)& S,
                                                    const TopLoc_Location&      L)
 {
   TopLoc_Location  l           = L.Predivided(E.Location());
@@ -559,9 +559,9 @@ Handle(Poly_Polygon2D) BRep_Tool::PolygonOnSurface(const TopoDS_Edge&          E
 
 //=================================================================================================
 
-void BRep_Tool::PolygonOnSurface(const TopoDS_Edge&      E,
+void BRepInspector::PolygonOnSurface(const TopoEdge&      E,
                                  Handle(Poly_Polygon2D)& P,
-                                 Handle(Geom_Surface)&   S,
+                                 Handle(GeomSurface)&   S,
                                  TopLoc_Location&        L)
 {
   // find the representation
@@ -589,9 +589,9 @@ void BRep_Tool::PolygonOnSurface(const TopoDS_Edge&      E,
 
 //=================================================================================================
 
-void BRep_Tool::PolygonOnSurface(const TopoDS_Edge&      E,
+void BRepInspector::PolygonOnSurface(const TopoEdge&      E,
                                  Handle(Poly_Polygon2D)& P,
-                                 Handle(Geom_Surface)&   S,
+                                 Handle(GeomSurface)&   S,
                                  TopLoc_Location&        L,
                                  const Standard_Integer  Index)
 {
@@ -635,9 +635,9 @@ void BRep_Tool::PolygonOnSurface(const TopoDS_Edge&      E,
 
 static const Handle(Poly_PolygonOnTriangulation) nullArray;
 
-const Handle(Poly_PolygonOnTriangulation)& BRep_Tool::PolygonOnTriangulation(
-  const TopoDS_Edge&                E,
-  const Handle(Poly_Triangulation)& T,
+const Handle(Poly_PolygonOnTriangulation)& BRepInspector::PolygonOnTriangulation(
+  const TopoEdge&                E,
+  const Handle(MeshTriangulation)& T,
   const TopLoc_Location&            L)
 {
   TopLoc_Location  l           = L.Predivided(E.Location());
@@ -665,9 +665,9 @@ const Handle(Poly_PolygonOnTriangulation)& BRep_Tool::PolygonOnTriangulation(
 
 //=================================================================================================
 
-void BRep_Tool::PolygonOnTriangulation(const TopoDS_Edge&                   E,
+void BRepInspector::PolygonOnTriangulation(const TopoEdge&                   E,
                                        Handle(Poly_PolygonOnTriangulation)& P,
-                                       Handle(Poly_Triangulation)&          T,
+                                       Handle(MeshTriangulation)&          T,
                                        TopLoc_Location&                     L)
 {
   // find the representation
@@ -696,9 +696,9 @@ void BRep_Tool::PolygonOnTriangulation(const TopoDS_Edge&                   E,
 
 //=================================================================================================
 
-void BRep_Tool::PolygonOnTriangulation(const TopoDS_Edge&                   E,
+void BRepInspector::PolygonOnTriangulation(const TopoEdge&                   E,
                                        Handle(Poly_PolygonOnTriangulation)& P,
-                                       Handle(Poly_Triangulation)&          T,
+                                       Handle(MeshTriangulation)&          T,
                                        TopLoc_Location&                     L,
                                        const Standard_Integer               Index)
 {
@@ -741,13 +741,13 @@ void BRep_Tool::PolygonOnTriangulation(const TopoDS_Edge&                   E,
 //           surface and <E> is on the closing curve.
 //=======================================================================
 
-Standard_Boolean BRep_Tool::IsClosed(const TopoDS_Edge& E, const TopoDS_Face& F)
+Standard_Boolean BRepInspector::IsClosed(const TopoEdge& E, const TopoFace& F)
 {
   TopLoc_Location             l;
-  const Handle(Geom_Surface)& S = BRep_Tool::Surface(F, l);
+  const Handle(GeomSurface)& S = BRepInspector::Surface(F, l);
   if (IsClosed(E, S, l))
     return Standard_True;
-  const Handle(Poly_Triangulation)& T = BRep_Tool::Triangulation(F, l);
+  const Handle(MeshTriangulation)& T = BRepInspector::Triangulation(F, l);
   return IsClosed(E, T, l);
 }
 
@@ -758,8 +758,8 @@ Standard_Boolean BRep_Tool::IsClosed(const TopoDS_Edge& E, const TopoDS_Face& F)
 //           surface and <E> is on the closing curve.
 //=======================================================================
 
-Standard_Boolean BRep_Tool::IsClosed(const TopoDS_Edge&          E,
-                                     const Handle(Geom_Surface)& S,
+Standard_Boolean BRepInspector::IsClosed(const TopoEdge&          E,
+                                     const Handle(GeomSurface)& S,
                                      const TopLoc_Location&      L)
 {
   // modified by NIZNHY-PKV Fri Oct 17 12:16:58 2008f
@@ -791,8 +791,8 @@ Standard_Boolean BRep_Tool::IsClosed(const TopoDS_Edge&          E,
 //           the triangulation <T>.
 //=======================================================================
 
-Standard_Boolean BRep_Tool::IsClosed(const TopoDS_Edge&                E,
-                                     const Handle(Poly_Triangulation)& T,
+Standard_Boolean BRepInspector::IsClosed(const TopoEdge&                E,
+                                     const Handle(MeshTriangulation)& T,
                                      const TopLoc_Location&            L)
 {
   TopLoc_Location l = L.Predivided(E.Location());
@@ -816,7 +816,7 @@ Standard_Boolean BRep_Tool::IsClosed(const TopoDS_Edge&                E,
 // purpose  : Returns the tolerance for <E>.
 //=======================================================================
 
-Standard_Real BRep_Tool::Tolerance(const TopoDS_Edge& E)
+Standard_Real BRepInspector::Tolerance(const TopoEdge& E)
 {
   const BRep_TEdge*       TE   = static_cast<const BRep_TEdge*>(E.TShape().get());
   Standard_Real           p    = TE->Tolerance();
@@ -832,7 +832,7 @@ Standard_Real BRep_Tool::Tolerance(const TopoDS_Edge& E)
 // purpose  : Returns the SameParameter flag for the edge.
 //=======================================================================
 
-Standard_Boolean BRep_Tool::SameParameter(const TopoDS_Edge& E)
+Standard_Boolean BRepInspector::SameParameter(const TopoEdge& E)
 {
   const BRep_TEdge* TE = static_cast<const BRep_TEdge*>(E.TShape().get());
   return TE->SameParameter();
@@ -843,7 +843,7 @@ Standard_Boolean BRep_Tool::SameParameter(const TopoDS_Edge& E)
 // purpose  : Returns the SameRange flag for the edge.
 //=======================================================================
 
-Standard_Boolean BRep_Tool::SameRange(const TopoDS_Edge& E)
+Standard_Boolean BRepInspector::SameRange(const TopoEdge& E)
 {
   const BRep_TEdge* TE = static_cast<const BRep_TEdge*>(E.TShape().get());
   return TE->SameRange();
@@ -854,7 +854,7 @@ Standard_Boolean BRep_Tool::SameRange(const TopoDS_Edge& E)
 // purpose  : Returns True  if the edge is degenerated.
 //=======================================================================
 
-Standard_Boolean BRep_Tool::Degenerated(const TopoDS_Edge& E)
+Standard_Boolean BRepInspector::Degenerated(const TopoEdge& E)
 {
   const BRep_TEdge* TE = static_cast<const BRep_TEdge*>(E.TShape().get());
   return TE->Degenerated();
@@ -862,7 +862,7 @@ Standard_Boolean BRep_Tool::Degenerated(const TopoDS_Edge& E)
 
 //=================================================================================================
 
-void BRep_Tool::Range(const TopoDS_Edge& E, Standard_Real& First, Standard_Real& Last)
+void BRepInspector::Range(const TopoEdge& E, Standard_Real& First, Standard_Real& Last)
 {
   //  set the range to all the representations
   const BRep_TEdge* TE = static_cast<const BRep_TEdge*>(E.TShape().get());
@@ -895,8 +895,8 @@ void BRep_Tool::Range(const TopoDS_Edge& E, Standard_Real& First, Standard_Real&
 
 //=================================================================================================
 
-void BRep_Tool::Range(const TopoDS_Edge&          E,
-                      const Handle(Geom_Surface)& S,
+void BRepInspector::Range(const TopoEdge&          E,
+                      const Handle(GeomSurface)& S,
                       const TopLoc_Location&      L,
                       Standard_Real&              First,
                       Standard_Real&              Last)
@@ -927,20 +927,20 @@ void BRep_Tool::Range(const TopoDS_Edge&          E,
 
 //=================================================================================================
 
-void BRep_Tool::Range(const TopoDS_Edge& E,
-                      const TopoDS_Face& F,
+void BRepInspector::Range(const TopoEdge& E,
+                      const TopoFace& F,
                       Standard_Real&     First,
                       Standard_Real&     Last)
 {
   TopLoc_Location             L;
-  const Handle(Geom_Surface)& S = BRep_Tool::Surface(F, L);
+  const Handle(GeomSurface)& S = BRepInspector::Surface(F, L);
   Range(E, S, L, First, Last);
 }
 
 //=================================================================================================
 
-void BRep_Tool::UVPoints(const TopoDS_Edge&          E,
-                         const Handle(Geom_Surface)& S,
+void BRepInspector::UVPoints(const TopoEdge&          E,
+                         const Handle(GeomSurface)& S,
                          const TopLoc_Location&      L,
                          gp_Pnt2d&                   PFirst,
                          gp_Pnt2d&                   PLast)
@@ -975,19 +975,19 @@ void BRep_Tool::UVPoints(const TopoDS_Edge&          E,
 
   // for planar surface project the vertices
   // modif 21-05-97 : for RectangularTrimmedSurface, project the vertices
-  Handle(Geom_Plane)                     GP;
+  Handle(GeomPlane)                     GP;
   Handle(Geom_RectangularTrimmedSurface) GRTS;
   GRTS = Handle(Geom_RectangularTrimmedSurface)::DownCast(S);
   if (!GRTS.IsNull())
-    GP = Handle(Geom_Plane)::DownCast(GRTS->BasisSurface());
+    GP = Handle(GeomPlane)::DownCast(GRTS->BasisSurface());
   else
-    GP = Handle(Geom_Plane)::DownCast(S);
+    GP = Handle(GeomPlane)::DownCast(S);
   // fin modif du 21-05-97
   if (!GP.IsNull())
   {
     // get the two vertices
-    TopoDS_Vertex Vf, Vl;
-    TopExp::Vertices(E, Vf, Vl);
+    TopoVertex Vf, Vl;
+    TopExp1::Vertices(E, Vf, Vl);
 
     TopLoc_Location Linverted = L.Inverted();
     Vf.Move(Linverted, Standard_False);
@@ -998,7 +998,7 @@ void BRep_Tool::UVPoints(const TopoDS_Edge&          E,
     u = v = 0.;
     if (!Vf.IsNull())
     {
-      Point3d PF = BRep_Tool::Pnt(Vf);
+      Point3d PF = BRepInspector::Pnt(Vf);
       ElSLib::Parameters(pln, PF, u, v);
     }
     PFirst.SetCoord(u, v);
@@ -1006,7 +1006,7 @@ void BRep_Tool::UVPoints(const TopoDS_Edge&          E,
     u = v = 0.;
     if (!Vl.IsNull())
     {
-      Point3d PL = BRep_Tool::Pnt(Vl);
+      Point3d PL = BRepInspector::Pnt(Vl);
       ElSLib::Parameters(pln, PL, u, v);
     }
     PLast.SetCoord(u, v);
@@ -1020,14 +1020,14 @@ void BRep_Tool::UVPoints(const TopoDS_Edge&          E,
 
 //=================================================================================================
 
-void BRep_Tool::UVPoints(const TopoDS_Edge& E,
-                         const TopoDS_Face& F,
+void BRepInspector::UVPoints(const TopoEdge& E,
+                         const TopoFace& F,
                          gp_Pnt2d&          PFirst,
                          gp_Pnt2d&          PLast)
 {
   TopLoc_Location             L;
-  const Handle(Geom_Surface)& S          = BRep_Tool::Surface(F, L);
-  TopoDS_Edge                 aLocalEdge = E;
+  const Handle(GeomSurface)& S          = BRepInspector::Surface(F, L);
+  TopoEdge                 aLocalEdge = E;
   if (F.Orientation() == TopAbs_REVERSED)
   {
     aLocalEdge.Reverse();
@@ -1041,8 +1041,8 @@ void BRep_Tool::UVPoints(const TopoDS_Edge& E,
 
 //=================================================================================================
 
-void BRep_Tool::SetUVPoints(const TopoDS_Edge&          E,
-                            const Handle(Geom_Surface)& S,
+void BRepInspector::SetUVPoints(const TopoEdge&          E,
+                            const Handle(GeomSurface)& S,
                             const TopLoc_Location&      L,
                             const gp_Pnt2d&             PFirst,
                             const gp_Pnt2d&             PLast)
@@ -1076,14 +1076,14 @@ void BRep_Tool::SetUVPoints(const TopoDS_Edge&          E,
 
 //=================================================================================================
 
-void BRep_Tool::SetUVPoints(const TopoDS_Edge& E,
-                            const TopoDS_Face& F,
+void BRepInspector::SetUVPoints(const TopoEdge& E,
+                            const TopoFace& F,
                             const gp_Pnt2d&    PFirst,
                             const gp_Pnt2d&    PLast)
 {
   TopLoc_Location             L;
-  const Handle(Geom_Surface)& S          = BRep_Tool::Surface(F, L);
-  TopoDS_Edge                 aLocalEdge = E;
+  const Handle(GeomSurface)& S          = BRepInspector::Surface(F, L);
+  TopoEdge                 aLocalEdge = E;
   if (F.Orientation() == TopAbs_REVERSED)
   {
     aLocalEdge.Reverse();
@@ -1100,13 +1100,13 @@ void BRep_Tool::SetUVPoints(const TopoDS_Edge& E,
 //           two faces.
 //=======================================================================
 
-Standard_Boolean BRep_Tool::HasContinuity(const TopoDS_Edge& E,
-                                          const TopoDS_Face& F1,
-                                          const TopoDS_Face& F2)
+Standard_Boolean BRepInspector::HasContinuity(const TopoEdge& E,
+                                          const TopoFace& F1,
+                                          const TopoFace& F2)
 {
   TopLoc_Location             l1, l2;
-  const Handle(Geom_Surface)& S1 = BRep_Tool::Surface(F1, l1);
-  const Handle(Geom_Surface)& S2 = BRep_Tool::Surface(F2, l2);
+  const Handle(GeomSurface)& S1 = BRepInspector::Surface(F1, l1);
+  const Handle(GeomSurface)& S2 = BRepInspector::Surface(F2, l2);
   return HasContinuity(E, S1, S2, l1, l2);
 }
 
@@ -1115,13 +1115,13 @@ Standard_Boolean BRep_Tool::HasContinuity(const TopoDS_Edge& E,
 // purpose  : Returns the continuity.
 //=======================================================================
 
-GeomAbs_Shape BRep_Tool::Continuity(const TopoDS_Edge& E,
-                                    const TopoDS_Face& F1,
-                                    const TopoDS_Face& F2)
+GeomAbs_Shape BRepInspector::Continuity(const TopoEdge& E,
+                                    const TopoFace& F1,
+                                    const TopoFace& F2)
 {
   TopLoc_Location             l1, l2;
-  const Handle(Geom_Surface)& S1 = BRep_Tool::Surface(F1, l1);
-  const Handle(Geom_Surface)& S2 = BRep_Tool::Surface(F2, l2);
+  const Handle(GeomSurface)& S1 = BRepInspector::Surface(F1, l1);
+  const Handle(GeomSurface)& S2 = BRepInspector::Surface(F2, l2);
   return Continuity(E, S1, S2, l1, l2);
 }
 
@@ -1130,9 +1130,9 @@ GeomAbs_Shape BRep_Tool::Continuity(const TopoDS_Edge& E,
 // purpose  : Returns True if the edge is on the surfaces.
 //=======================================================================
 
-Standard_Boolean BRep_Tool::HasContinuity(const TopoDS_Edge&          E,
-                                          const Handle(Geom_Surface)& S1,
-                                          const Handle(Geom_Surface)& S2,
+Standard_Boolean BRepInspector::HasContinuity(const TopoEdge&          E,
+                                          const Handle(GeomSurface)& S1,
+                                          const Handle(GeomSurface)& S2,
                                           const TopLoc_Location&      L1,
                                           const TopLoc_Location&      L2)
 {
@@ -1159,9 +1159,9 @@ Standard_Boolean BRep_Tool::HasContinuity(const TopoDS_Edge&          E,
 // purpose  : Returns the continuity.
 //=======================================================================
 
-GeomAbs_Shape BRep_Tool::Continuity(const TopoDS_Edge&          E,
-                                    const Handle(Geom_Surface)& S1,
-                                    const Handle(Geom_Surface)& S2,
+GeomAbs_Shape BRepInspector::Continuity(const TopoEdge&          E,
+                                    const Handle(GeomSurface)& S1,
+                                    const Handle(GeomSurface)& S2,
                                     const TopLoc_Location&      L1,
                                     const TopLoc_Location&      L2)
 {
@@ -1187,7 +1187,7 @@ GeomAbs_Shape BRep_Tool::Continuity(const TopoDS_Edge&          E,
 // purpose  : Returns True if the edge is on some two surfaces.
 //=======================================================================
 
-Standard_Boolean BRep_Tool::HasContinuity(const TopoDS_Edge& E)
+Standard_Boolean BRepInspector::HasContinuity(const TopoEdge& E)
 {
   const BRep_TEdge* TE = static_cast<const BRep_TEdge*>(E.TShape().get());
   BRep_ListIteratorOfListOfCurveRepresentation itcr(TE->Curves());
@@ -1203,7 +1203,7 @@ Standard_Boolean BRep_Tool::HasContinuity(const TopoDS_Edge& E)
 
 //=================================================================================================
 
-GeomAbs_Shape BRep_Tool::MaxContinuity(const TopoDS_Edge& theEdge)
+GeomAbs_Shape BRepInspector::MaxContinuity(const TopoEdge& theEdge)
 {
   GeomAbs_Shape aMaxCont = GeomAbs_C0;
   for (BRep_ListIteratorOfListOfCurveRepresentation aReprIter(
@@ -1229,13 +1229,13 @@ GeomAbs_Shape BRep_Tool::MaxContinuity(const TopoDS_Edge& theEdge)
 // purpose  : Returns the 3d point.
 //=======================================================================
 
-Point3d BRep_Tool::Pnt(const TopoDS_Vertex& V)
+Point3d BRepInspector::Pnt(const TopoVertex& V)
 {
   const BRep_TVertex* TV = static_cast<const BRep_TVertex*>(V.TShape().get());
 
   if (TV == 0)
   {
-    throw Standard_NullObject("BRep_Tool:: TopoDS_Vertex hasn't Point3d");
+    throw Standard_NullObject("BRepInspector:: TopoVertex hasn't Point3d");
   }
 
   const Point3d& P = TV->Pnt();
@@ -1252,13 +1252,13 @@ Point3d BRep_Tool::Pnt(const TopoDS_Vertex& V)
 // purpose  : Returns the tolerance.
 //=======================================================================
 
-Standard_Real BRep_Tool::Tolerance(const TopoDS_Vertex& V)
+Standard_Real BRepInspector::Tolerance(const TopoVertex& V)
 {
   const BRep_TVertex* aTVert = static_cast<const BRep_TVertex*>(V.TShape().get());
 
   if (aTVert == 0)
   {
-    throw Standard_NullObject("BRep_Tool:: TopoDS_Vertex hasn't Point3d");
+    throw Standard_NullObject("BRepInspector:: TopoVertex hasn't Point3d");
   }
 
   Standard_Real           p    = aTVert->Tolerance();
@@ -1274,14 +1274,14 @@ Standard_Real BRep_Tool::Tolerance(const TopoDS_Vertex& V)
 // purpose  : Returns the parameter of <V> on <E>.
 //=======================================================================
 
-Standard_Boolean BRep_Tool::Parameter(const TopoDS_Vertex& theV,
-                                      const TopoDS_Edge&   theE,
+Standard_Boolean BRepInspector::Parameter(const TopoVertex& theV,
+                                      const TopoEdge&   theE,
                                       Standard_Real&       theParam)
 {
   // Search the vertex in the edge
 
   Standard_Boolean   rev = Standard_False;
-  TopoDS_Shape       VF;
+  TopoShape       VF;
   TopAbs_Orientation orient = TopAbs_INTERNAL;
 
   TopoDS_Iterator itv(theE.Oriented(TopAbs_FORWARD));
@@ -1290,14 +1290,14 @@ Standard_Boolean BRep_Tool::Parameter(const TopoDS_Vertex& theV,
   // and is degenerated use the vertex orientation
   // RLE, june 94
 
-  if (!itv.More() && BRep_Tool::Degenerated(theE))
+  if (!itv.More() && BRepInspector::Degenerated(theE))
   {
     orient = theV.Orientation();
   }
 
   while (itv.More())
   {
-    const TopoDS_Shape& Vcur = itv.Value();
+    const TopoShape& Vcur = itv.Value();
     if (theV.IsSame(Vcur))
     {
       if (VF.IsNull())
@@ -1323,14 +1323,14 @@ Standard_Boolean BRep_Tool::Parameter(const TopoDS_Vertex& theV,
 
   if (orient == TopAbs_FORWARD)
   {
-    BRep_Tool::Range(theE, f, l);
+    BRepInspector::Range(theE, f, l);
     theParam = (rev) ? l : f;
     return Standard_True;
   }
 
   else if (orient == TopAbs_REVERSED)
   {
-    BRep_Tool::Range(theE, f, l);
+    BRepInspector::Range(theE, f, l);
     theParam = (rev) ? f : l;
     return Standard_True;
   }
@@ -1338,9 +1338,9 @@ Standard_Boolean BRep_Tool::Parameter(const TopoDS_Vertex& theV,
   else
   {
     TopLoc_Location           L;
-    const Handle(Geom_Curve)& C = BRep_Tool::Curve(theE, L, f, l);
+    const Handle(GeomCurve3d)& C = BRepInspector::Curve(theE, L, f, l);
     L                           = L.Predivided(theV.Location());
-    if (!C.IsNull() || BRep_Tool::Degenerated(theE))
+    if (!C.IsNull() || BRepInspector::Degenerated(theE))
     {
       const BRep_TVertex* TV = static_cast<const BRep_TVertex*>(theV.TShape().get());
       BRep_ListIteratorOfListOfPointRepresentation itpr(TV->Points());
@@ -1367,10 +1367,10 @@ Standard_Boolean BRep_Tool::Parameter(const TopoDS_Vertex& theV,
             }
             Point3d        Pf  = C->Value(f).Transformed(L.Transformation());
             Point3d        Pl  = C->Value(l).Transformed(L.Transformation());
-            Standard_Real tol = BRep_Tool::Tolerance(theV);
+            Standard_Real tol = BRepInspector::Tolerance(theV);
             if (Pf.Distance(Pl) < tol)
             {
-              if (Pf.Distance(BRep_Tool::Pnt(theV)) < tol)
+              if (Pf.Distance(BRepInspector::Pnt(theV)) < tol)
               {
                 if (theV.Orientation() == TopAbs_FORWARD)
                   res = f; // p = f;
@@ -1389,9 +1389,9 @@ Standard_Boolean BRep_Tool::Parameter(const TopoDS_Vertex& theV,
     {
       // no 3d curve !!
       // let us try with the first pcurve
-      Handle(Geom2d_Curve) PC;
-      Handle(Geom_Surface) S;
-      BRep_Tool::CurveOnSurface(theE, PC, S, L, f, l);
+      Handle(GeomCurve2d) PC;
+      Handle(GeomSurface) S;
+      BRepInspector::CurveOnSurface(theE, PC, S, L, f, l);
       L                      = L.Predivided(theV.Location());
       const BRep_TVertex* TV = static_cast<const BRep_TVertex*>(theV.TShape().get());
       BRep_ListIteratorOfListOfPointRepresentation itpr(TV->Points());
@@ -1429,12 +1429,12 @@ Standard_Boolean BRep_Tool::Parameter(const TopoDS_Vertex& theV,
 // purpose  : Returns the parameter of <V> on <E>.
 //=======================================================================
 
-Standard_Real BRep_Tool::Parameter(const TopoDS_Vertex& V, const TopoDS_Edge& E)
+Standard_Real BRepInspector::Parameter(const TopoVertex& V, const TopoEdge& E)
 {
   Standard_Real p;
   if (Parameter(V, E, p))
     return p;
-  throw Standard_NoSuchObject("BRep_Tool:: no parameter on edge");
+  throw Standard_NoSuchObject("BRepInspector:: no parameter on edge");
 }
 
 //=======================================================================
@@ -1443,13 +1443,13 @@ Standard_Real BRep_Tool::Parameter(const TopoDS_Vertex& V, const TopoDS_Edge& E)
 //           pcurve of the edge on the face.
 //=======================================================================
 
-Standard_Real BRep_Tool::Parameter(const TopoDS_Vertex& V,
-                                   const TopoDS_Edge&   E,
-                                   const TopoDS_Face&   F)
+Standard_Real BRepInspector::Parameter(const TopoVertex& V,
+                                   const TopoEdge&   E,
+                                   const TopoFace&   F)
 {
   TopLoc_Location             L;
-  const Handle(Geom_Surface)& S = BRep_Tool::Surface(F, L);
-  return BRep_Tool::Parameter(V, E, S, L);
+  const Handle(GeomSurface)& S = BRepInspector::Surface(F, L);
+  return BRepInspector::Parameter(V, E, S, L);
 }
 
 //=======================================================================
@@ -1458,15 +1458,15 @@ Standard_Real BRep_Tool::Parameter(const TopoDS_Vertex& V,
 //           pcurve of the edge on the surface.
 //=======================================================================
 
-Standard_Real BRep_Tool::Parameter(const TopoDS_Vertex&        V,
-                                   const TopoDS_Edge&          E,
-                                   const Handle(Geom_Surface)& S,
+Standard_Real BRepInspector::Parameter(const TopoVertex&        V,
+                                   const TopoEdge&          E,
+                                   const Handle(GeomSurface)& S,
                                    const TopLoc_Location&      L)
 {
   // Search the vertex in the edge
 
   Standard_Boolean rev = Standard_False;
-  TopoDS_Shape     VF;
+  TopoShape     VF;
   TopoDS_Iterator  itv(E.Oriented(TopAbs_FORWARD));
 
   while (itv.More())
@@ -1493,19 +1493,19 @@ Standard_Real BRep_Tool::Parameter(const TopoDS_Vertex&        V,
 
   if (orient == TopAbs_FORWARD)
   {
-    BRep_Tool::Range(E, S, L, f, l);
+    BRepInspector::Range(E, S, L, f, l);
     return (rev) ? l : f;
   }
 
   else if (orient == TopAbs_REVERSED)
   {
-    BRep_Tool::Range(E, S, L, f, l);
+    BRepInspector::Range(E, S, L, f, l);
     return (rev) ? f : l;
   }
 
   else
   {
-    Handle(Geom2d_Curve) PC = BRep_Tool::CurveOnSurface(E, S, L, f, l);
+    Handle(GeomCurve2d) PC = BRepInspector::CurveOnSurface(E, S, L, f, l);
     const BRep_TVertex*  TV = static_cast<const BRep_TVertex*>(V.TShape().get());
     BRep_ListIteratorOfListOfPointRepresentation itpr(TV->Points());
 
@@ -1520,7 +1520,7 @@ Standard_Real BRep_Tool::Parameter(const TopoDS_Vertex&        V,
   //----------------------------------------------------------
 
   TopLoc_Location           L1;
-  const Handle(Geom_Curve)& C = BRep_Tool::Curve(E, L1, f, l);
+  const Handle(GeomCurve3d)& C = BRepInspector::Curve(E, L1, f, l);
   L1                          = L1.Predivided(V.Location());
   if (!C.IsNull() || Degenerated(E))
   {
@@ -1543,10 +1543,10 @@ Standard_Real BRep_Tool::Parameter(const TopoDS_Vertex&        V,
             return res;
           Point3d        Pf  = C->Value(f).Transformed(L1.Transformation());
           Point3d        Pl  = C->Value(l).Transformed(L1.Transformation());
-          Standard_Real tol = BRep_Tool::Tolerance(V);
+          Standard_Real tol = BRepInspector::Tolerance(V);
           if (Pf.Distance(Pl) < tol)
           {
-            if (Pf.Distance(BRep_Tool::Pnt(V)) < tol)
+            if (Pf.Distance(BRepInspector::Pnt(V)) < tol)
             {
               if (V.Orientation() == TopAbs_FORWARD)
                 res = f;
@@ -1563,7 +1563,7 @@ Standard_Real BRep_Tool::Parameter(const TopoDS_Vertex&        V,
 
   //----------------------------------------------------------
 
-  throw Standard_NoSuchObject("BRep_Tool:: no parameter on edge");
+  throw Standard_NoSuchObject("BRepInspector:: no parameter on edge");
 }
 
 //=======================================================================
@@ -1571,10 +1571,10 @@ Standard_Real BRep_Tool::Parameter(const TopoDS_Vertex&        V,
 // purpose  : Returns the parameters of the vertex on the face.
 //=======================================================================
 
-gp_Pnt2d BRep_Tool::Parameters(const TopoDS_Vertex& V, const TopoDS_Face& F)
+gp_Pnt2d BRepInspector::Parameters(const TopoVertex& V, const TopoFace& F)
 {
   TopLoc_Location             L;
-  const Handle(Geom_Surface)& S = BRep_Tool::Surface(F, L);
+  const Handle(GeomSurface)& S = BRepInspector::Surface(F, L);
   L                             = L.Predivided(V.Location());
   const BRep_TVertex* TV        = static_cast<const BRep_TVertex*>(V.TShape().get());
   BRep_ListIteratorOfListOfPointRepresentation itpr(TV->Points());
@@ -1589,15 +1589,15 @@ gp_Pnt2d BRep_Tool::Parameters(const TopoDS_Vertex& V, const TopoDS_Face& F)
     itpr.Next();
   }
 
-  TopoDS_Vertex Vf, Vl;
-  TopoDS_Edge   E;
+  TopoVertex Vf, Vl;
+  TopoEdge   E;
   // Otherwise the edges are searched (PMN 4/06/97) It is not possible to succeed 999/1000!
   // even if often there is a way to make more economically than above...
-  TopExp_Explorer exp;
+  ShapeExplorer exp;
   for (exp.Init(F, TopAbs_EDGE); exp.More(); exp.Next())
   {
     E = TopoDS::Edge(exp.Current());
-    TopExp::Vertices(E, Vf, Vl);
+    TopExp1::Vertices(E, Vf, Vl);
     if ((V.IsSame(Vf)) || (V.IsSame(Vl)))
     {
       gp_Pnt2d Pf, Pl;
@@ -1608,22 +1608,22 @@ gp_Pnt2d BRep_Tool::Parameters(const TopoDS_Vertex& V, const TopoDS_Face& F)
         return Pl; // Ambiguity (natural) for degenerated edges.
     }
   }
-  throw Standard_NoSuchObject("BRep_Tool:: no parameters on surface");
+  throw Standard_NoSuchObject("BRepInspector:: no parameters on surface");
 }
 
 //=================================================================================================
 
-Standard_Boolean BRep_Tool::IsClosed(const TopoDS_Shape& theShape)
+Standard_Boolean BRepInspector::IsClosed(const TopoShape& theShape)
 {
   if (theShape.ShapeType() == TopAbs_SHELL)
   {
-    NCollection_Map<TopoDS_Shape, TopTools_ShapeMapHasher> aMap(101, new NCollection_IncAllocator);
-    TopExp_Explorer  exp(theShape.Oriented(TopAbs_FORWARD), TopAbs_EDGE);
+    NCollection_Map<TopoShape, ShapeHasher> aMap(101, new NCollection_IncAllocator);
+    ShapeExplorer  exp(theShape.Oriented(TopAbs_FORWARD), TopAbs_EDGE);
     Standard_Boolean hasBound = Standard_False;
     for (; exp.More(); exp.Next())
     {
-      const TopoDS_Edge& E = TopoDS::Edge(exp.Current());
-      if (BRep_Tool::Degenerated(E) || E.Orientation() == TopAbs_INTERNAL
+      const TopoEdge& E = TopoDS::Edge(exp.Current());
+      if (BRepInspector::Degenerated(E) || E.Orientation() == TopAbs_INTERNAL
           || E.Orientation() == TopAbs_EXTERNAL)
         continue;
       hasBound = Standard_True;
@@ -1634,12 +1634,12 @@ Standard_Boolean BRep_Tool::IsClosed(const TopoDS_Shape& theShape)
   }
   else if (theShape.ShapeType() == TopAbs_WIRE)
   {
-    NCollection_Map<TopoDS_Shape, TopTools_ShapeMapHasher> aMap(101, new NCollection_IncAllocator);
-    TopExp_Explorer  exp(theShape.Oriented(TopAbs_FORWARD), TopAbs_VERTEX);
+    NCollection_Map<TopoShape, ShapeHasher> aMap(101, new NCollection_IncAllocator);
+    ShapeExplorer  exp(theShape.Oriented(TopAbs_FORWARD), TopAbs_VERTEX);
     Standard_Boolean hasBound = Standard_False;
     for (; exp.More(); exp.Next())
     {
-      const TopoDS_Shape& V = exp.Current();
+      const TopoShape& V = exp.Current();
       if (V.Orientation() == TopAbs_INTERNAL || V.Orientation() == TopAbs_EXTERNAL)
         continue;
       hasBound = Standard_True;
@@ -1650,8 +1650,8 @@ Standard_Boolean BRep_Tool::IsClosed(const TopoDS_Shape& theShape)
   }
   else if (theShape.ShapeType() == TopAbs_EDGE)
   {
-    TopoDS_Vertex aVFirst, aVLast;
-    TopExp::Vertices(TopoDS::Edge(theShape), aVFirst, aVLast);
+    TopoVertex aVFirst, aVLast;
+    TopExp1::Vertices(TopoDS::Edge(theShape), aVFirst, aVLast);
     return !aVFirst.IsNull() && aVFirst.IsSame(aVLast);
   }
   return theShape.Closed();
@@ -1660,10 +1660,10 @@ Standard_Boolean BRep_Tool::IsClosed(const TopoDS_Shape& theShape)
 // modified by NIZNHY-PKV Fri Oct 17 14:09:58 2008 f
 //=================================================================================================
 
-Standard_Boolean IsPlane(const Handle(Geom_Surface)& aS)
+Standard_Boolean IsPlane(const Handle(GeomSurface)& aS)
 {
   Standard_Boolean                       bRet;
-  Handle(Geom_Plane)                     aGP;
+  Handle(GeomPlane)                     aGP;
   Handle(Geom_RectangularTrimmedSurface) aGRTS;
   Handle(Geom_OffsetSurface)             aGOFS;
   //
@@ -1672,15 +1672,15 @@ Standard_Boolean IsPlane(const Handle(Geom_Surface)& aS)
   //
   if (!aGOFS.IsNull())
   {
-    aGP = Handle(Geom_Plane)::DownCast(aGOFS->BasisSurface());
+    aGP = Handle(GeomPlane)::DownCast(aGOFS->BasisSurface());
   }
   else if (!aGRTS.IsNull())
   {
-    aGP = Handle(Geom_Plane)::DownCast(aGRTS->BasisSurface());
+    aGP = Handle(GeomPlane)::DownCast(aGRTS->BasisSurface());
   }
   else
   {
-    aGP = Handle(Geom_Plane)::DownCast(aS);
+    aGP = Handle(GeomPlane)::DownCast(aS);
   }
   //
   bRet = !aGP.IsNull();
@@ -1690,18 +1690,18 @@ Standard_Boolean IsPlane(const Handle(Geom_Surface)& aS)
 
 //=================================================================================================
 
-Standard_Real BRep_Tool::MaxTolerance(const TopoDS_Shape&    theShape,
+Standard_Real BRepInspector::MaxTolerance(const TopoShape&    theShape,
                                       const TopAbs_ShapeEnum theSubShape)
 {
   Standard_Real aTol = 0.0;
 
   // Explorer Shape-Subshape.
-  TopExp_Explorer anExpSS(theShape, theSubShape);
+  ShapeExplorer anExpSS(theShape, theSubShape);
   if (theSubShape == TopAbs_FACE)
   {
     for (; anExpSS.More(); anExpSS.Next())
     {
-      const TopoDS_Shape& aCurrentSubShape = anExpSS.Current();
+      const TopoShape& aCurrentSubShape = anExpSS.Current();
       aTol                                 = Max(aTol, Tolerance(TopoDS::Face(aCurrentSubShape)));
     }
   }
@@ -1709,7 +1709,7 @@ Standard_Real BRep_Tool::MaxTolerance(const TopoDS_Shape&    theShape,
   {
     for (; anExpSS.More(); anExpSS.Next())
     {
-      const TopoDS_Shape& aCurrentSubShape = anExpSS.Current();
+      const TopoShape& aCurrentSubShape = anExpSS.Current();
       aTol                                 = Max(aTol, Tolerance(TopoDS::Edge(aCurrentSubShape)));
     }
   }
@@ -1717,7 +1717,7 @@ Standard_Real BRep_Tool::MaxTolerance(const TopoDS_Shape&    theShape,
   {
     for (; anExpSS.More(); anExpSS.Next())
     {
-      const TopoDS_Shape& aCurrentSubShape = anExpSS.Current();
+      const TopoShape& aCurrentSubShape = anExpSS.Current();
       aTol                                 = Max(aTol, Tolerance(TopoDS::Vertex(aCurrentSubShape)));
     }
   }

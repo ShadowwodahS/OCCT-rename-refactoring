@@ -24,7 +24,7 @@
 #include <TColStd_SequenceOfAsciiString.hxx>
 #include <TColStd_SequenceOfExtendedString.hxx>
 
-class TCollection_ExtendedString;
+class UtfString;
 
 DEFINE_STANDARD_HANDLE(Storage_BaseDriver, RefObject)
 
@@ -41,16 +41,16 @@ public:
 public:
   Standard_EXPORT virtual ~Storage_BaseDriver();
 
-  TCollection_AsciiString Name() const { return myName; }
+  AsciiString1 Name() const { return myName; }
 
   Storage_OpenMode OpenMode() const { return myOpenMode; }
 
-  Standard_EXPORT static TCollection_AsciiString ReadMagicNumber(Standard_IStream& theIStream);
+  Standard_EXPORT static AsciiString1 ReadMagicNumber(Standard_IStream& theIStream);
 
 public:
   //!@name Virtual methods, to be provided by descendants
 
-  Standard_EXPORT virtual Storage_Error Open(const TCollection_AsciiString& aName,
+  Standard_EXPORT virtual Storage_Error Open(const AsciiString1& aName,
                                              const Storage_OpenMode         aMode) = 0;
 
   //! returns True if we are at end of the stream
@@ -62,13 +62,13 @@ public:
   Standard_EXPORT virtual Storage_Error BeginWriteInfoSection() = 0;
 
   Standard_EXPORT virtual void WriteInfo(const Standard_Integer               nbObj,
-                                         const TCollection_AsciiString&       dbVersion,
-                                         const TCollection_AsciiString&       date,
-                                         const TCollection_AsciiString&       schemaName,
-                                         const TCollection_AsciiString&       schemaVersion,
-                                         const TCollection_ExtendedString&    appName,
-                                         const TCollection_AsciiString&       appVersion,
-                                         const TCollection_ExtendedString&    objectType,
+                                         const AsciiString1&       dbVersion,
+                                         const AsciiString1&       date,
+                                         const AsciiString1&       schemaName,
+                                         const AsciiString1&       schemaVersion,
+                                         const UtfString&    appName,
+                                         const AsciiString1&       appVersion,
+                                         const UtfString&    objectType,
                                          const TColStd_SequenceOfAsciiString& userInfo) = 0;
 
   Standard_EXPORT virtual Storage_Error EndWriteInfoSection() = 0;
@@ -76,13 +76,13 @@ public:
   Standard_EXPORT virtual Storage_Error BeginReadInfoSection() = 0;
 
   Standard_EXPORT virtual void ReadInfo(Standard_Integer&              nbObj,
-                                        TCollection_AsciiString&       dbVersion,
-                                        TCollection_AsciiString&       date,
-                                        TCollection_AsciiString&       schemaName,
-                                        TCollection_AsciiString&       schemaVersion,
-                                        TCollection_ExtendedString&    appName,
-                                        TCollection_AsciiString&       appVersion,
-                                        TCollection_ExtendedString&    objectType,
+                                        AsciiString1&       dbVersion,
+                                        AsciiString1&       date,
+                                        AsciiString1&       schemaName,
+                                        AsciiString1&       schemaVersion,
+                                        UtfString&    appName,
+                                        AsciiString1&       appVersion,
+                                        UtfString&    objectType,
                                         TColStd_SequenceOfAsciiString& userInfo) = 0;
 
   Standard_EXPORT virtual void ReadCompleteInfo(Standard_IStream&     theIStream,
@@ -108,7 +108,7 @@ public:
   Standard_EXPORT virtual void SetTypeSectionSize(const Standard_Integer aSize) = 0;
 
   Standard_EXPORT virtual void WriteTypeInformations(const Standard_Integer         typeNum,
-                                                     const TCollection_AsciiString& typeName) = 0;
+                                                     const AsciiString1& typeName) = 0;
 
   Standard_EXPORT virtual Storage_Error EndWriteTypeSection() = 0;
 
@@ -117,7 +117,7 @@ public:
   Standard_EXPORT virtual Standard_Integer TypeSectionSize() = 0;
 
   Standard_EXPORT virtual void ReadTypeInformations(Standard_Integer&        typeNum,
-                                                    TCollection_AsciiString& typeName) = 0;
+                                                    AsciiString1& typeName) = 0;
 
   Standard_EXPORT virtual Storage_Error EndReadTypeSection() = 0;
 
@@ -125,9 +125,9 @@ public:
 
   Standard_EXPORT virtual void SetRootSectionSize(const Standard_Integer aSize) = 0;
 
-  Standard_EXPORT virtual void WriteRoot(const TCollection_AsciiString& rootName,
+  Standard_EXPORT virtual void WriteRoot(const AsciiString1& rootName,
                                          const Standard_Integer         aRef,
-                                         const TCollection_AsciiString& aType) = 0;
+                                         const AsciiString1& aType) = 0;
 
   Standard_EXPORT virtual Storage_Error EndWriteRootSection() = 0;
 
@@ -135,9 +135,9 @@ public:
 
   Standard_EXPORT virtual Standard_Integer RootSectionSize() = 0;
 
-  Standard_EXPORT virtual void ReadRoot(TCollection_AsciiString& rootName,
+  Standard_EXPORT virtual void ReadRoot(AsciiString1& rootName,
                                         Standard_Integer&        aRef,
-                                        TCollection_AsciiString& aType) = 0;
+                                        AsciiString1& aType) = 0;
 
   Standard_EXPORT virtual Storage_Error EndReadRootSection() = 0;
 
@@ -258,13 +258,13 @@ public:
 protected:
   Standard_EXPORT Storage_BaseDriver();
 
-  void SetName(const TCollection_AsciiString& aName) { myName = aName; }
+  void SetName(const AsciiString1& aName) { myName = aName; }
 
   void SetOpenMode(const Storage_OpenMode aMode) { myOpenMode = aMode; }
 
 private:
   Storage_OpenMode        myOpenMode;
-  TCollection_AsciiString myName;
+  AsciiString1 myName;
 };
 
 #endif // _Storage_BaseDriver_HeaderFile

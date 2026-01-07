@@ -24,8 +24,8 @@
 #include <TopTools_ListOfShape.hxx>
 #include <BRepFill_ListOfOffsetWire.hxx>
 #include <BRepBuilderAPI_MakeShape.hxx>
-class TopoDS_Wire;
-class TopoDS_Shape;
+class TopoWire;
+class TopoShape;
 
 //! Describes algorithms for offsetting wires from a set of
 //! wires contained in a planar face.
@@ -33,17 +33,17 @@ class TopoDS_Shape;
 //! - defining the construction of an offset,
 //! - implementing the construction algorithm, and
 //! - consulting the result.
-class BRepOffsetAPI_MakeOffset : public BRepBuilderAPI_MakeShape
+class OffsetMaker : public BRepBuilderAPI_MakeShape
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs an algorithm for creating an empty offset
-  Standard_EXPORT BRepOffsetAPI_MakeOffset();
+  Standard_EXPORT OffsetMaker();
 
   //! Constructs an algorithm for creating an algorithm
   //! to build parallels to the spine Spine
-  Standard_EXPORT BRepOffsetAPI_MakeOffset(const TopoDS_Face&     Spine,
+  Standard_EXPORT OffsetMaker(const TopoFace&     Spine,
                                            const GeomAbs_JoinType Join         = GeomAbs_Arc,
                                            const Standard_Boolean IsOpenResult = Standard_False);
 
@@ -55,11 +55,11 @@ public:
   //! If join type is GeomAbs_Intersection, the edges that
   //! intersect in a salient vertex generate the edges
   //! prolonged until intersection.
-  Standard_EXPORT void Init(const TopoDS_Face&     Spine,
+  Standard_EXPORT void Init(const TopoFace&     Spine,
                             const GeomAbs_JoinType Join         = GeomAbs_Arc,
                             const Standard_Boolean IsOpenResult = Standard_False);
 
-  Standard_EXPORT BRepOffsetAPI_MakeOffset(const TopoDS_Wire&     Spine,
+  Standard_EXPORT OffsetMaker(const TopoWire&     Spine,
                                            const GeomAbs_JoinType Join         = GeomAbs_Arc,
                                            const Standard_Boolean IsOpenResult = Standard_False);
 
@@ -73,7 +73,7 @@ public:
   Standard_EXPORT void SetApprox(const Standard_Boolean ToApprox);
 
   //! Initializes the algorithm to construct parallels to the wire Spine.
-  Standard_EXPORT void AddWire(const TopoDS_Wire& Spine);
+  Standard_EXPORT void AddWire(const TopoWire& Spine);
 
   //! Computes a parallel to the spine at distance Offset and
   //! at an altitude Alt from the plane of the spine in relation
@@ -87,12 +87,12 @@ public:
 
   //! returns a list of the created shapes
   //! from the shape <S>.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Generated(const TopoDS_Shape& S)
+  Standard_EXPORT virtual const ShapeList& Generated(const TopoShape& S)
     Standard_OVERRIDE;
 
   //! Converts each wire of the face into contour consisting only of
   //! arcs and segments. New 3D curves are built too.
-  Standard_EXPORT static TopoDS_Face ConvertFace(const TopoDS_Face&  theFace,
+  Standard_EXPORT static TopoFace ConvertFace(const TopoFace&  theFace,
                                                  const Standard_Real theAngleTolerance);
 
 protected:
@@ -102,8 +102,8 @@ private:
   GeomAbs_JoinType          myJoin;
   Standard_Boolean          myIsOpenResult;
   Standard_Boolean          myIsToApprox;
-  TopoDS_Face               myFace;
-  TopTools_ListOfShape      myWires;
+  TopoFace               myFace;
+  ShapeList      myWires;
   BRepFill_ListOfOffsetWire myLeft;
   BRepFill_ListOfOffsetWire myRight;
 };

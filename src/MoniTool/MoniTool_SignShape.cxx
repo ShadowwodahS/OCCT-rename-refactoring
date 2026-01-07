@@ -26,7 +26,7 @@ Standard_CString MoniTool_SignShape::Name() const
   return "SHAPE";
 }
 
-TCollection_AsciiString MoniTool_SignShape::Text(
+AsciiString1 MoniTool_SignShape::Text(
   const Handle(RefObject)& ent,
   const Handle(RefObject)& /*context*/) const
 {
@@ -35,8 +35,8 @@ TCollection_AsciiString MoniTool_SignShape::Text(
   Handle(TopoDS_HShape) HS = Handle(TopoDS_HShape)::DownCast(ent);
   if (HS.IsNull())
     return ent->DynamicType()->Name();
-  TopoDS_Shape sh = HS->Shape();
+  TopoShape sh = HS->Shape();
   if (sh.IsNull())
     return "SHAPE";
-  return TopAbs::ShapeTypeToString(sh.ShapeType());
+  return TopAbs1::ShapeTypeToString(sh.ShapeType());
 }

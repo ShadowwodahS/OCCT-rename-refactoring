@@ -29,7 +29,7 @@
 
 BRepLib_MakeSolid::BRepLib_MakeSolid()
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeSolid(TopoDS::Solid(myShape));
   Done();
 }
@@ -38,10 +38,10 @@ BRepLib_MakeSolid::BRepLib_MakeSolid()
 
 BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoDS_CompSolid& S)
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeSolid(TopoDS::Solid(myShape));
 
-  TopExp_Explorer     ex1, ex2;
+  ShapeExplorer     ex1, ex2;
   TopTools_MapOfShape aMapOfFaces;
   for (ex1.Init(S, TopAbs_SHELL); ex1.More(); ex1.Next())
   {
@@ -55,7 +55,7 @@ BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoDS_CompSolid& S)
     }
   }
 
-  TopoDS_Shape aShell;
+  TopoShape aShell;
   B.MakeShell(TopoDS::Shell(aShell));
 
   TopTools_MapIteratorOfMapOfShape aFaceIter(aMapOfFaces);
@@ -63,7 +63,7 @@ BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoDS_CompSolid& S)
   {
     B.Add(aShell, aFaceIter.Key());
   }
-  aShell.Closed(BRep_Tool::IsClosed(aShell));
+  aShell.Closed(BRepInspector::IsClosed(aShell));
 
   B.Add(myShape, aShell);
 
@@ -72,9 +72,9 @@ BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoDS_CompSolid& S)
 
 //=================================================================================================
 
-BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoDS_Shell& S)
+BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoShell& S)
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeSolid(TopoDS::Solid(myShape));
   B.Add(myShape, S);
   Done();
@@ -82,9 +82,9 @@ BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoDS_Shell& S)
 
 //=================================================================================================
 
-BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoDS_Shell& S1, const TopoDS_Shell& S2)
+BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoShell& S1, const TopoShell& S2)
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeSolid(TopoDS::Solid(myShape));
   B.Add(myShape, S1);
   B.Add(myShape, S2);
@@ -93,11 +93,11 @@ BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoDS_Shell& S1, const TopoDS_Shell&
 
 //=================================================================================================
 
-BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoDS_Shell& S1,
-                                     const TopoDS_Shell& S2,
-                                     const TopoDS_Shell& S3)
+BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoShell& S1,
+                                     const TopoShell& S2,
+                                     const TopoShell& S3)
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeSolid(TopoDS::Solid(myShape));
   B.Add(myShape, S1);
   B.Add(myShape, S2);
@@ -107,11 +107,11 @@ BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoDS_Shell& S1,
 
 //=================================================================================================
 
-BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoDS_Solid& So)
+BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoSolid& So)
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeSolid(TopoDS::Solid(myShape));
-  TopExp_Explorer ex;
+  ShapeExplorer ex;
   for (ex.Init(So, TopAbs_SHELL); ex.More(); ex.Next())
     B.Add(myShape, ex.Current());
   Done();
@@ -119,11 +119,11 @@ BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoDS_Solid& So)
 
 //=================================================================================================
 
-BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoDS_Solid& So, const TopoDS_Shell& S)
+BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoSolid& So, const TopoShell& S)
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeSolid(TopoDS::Solid(myShape));
-  TopExp_Explorer ex;
+  ShapeExplorer ex;
   for (ex.Init(So, TopAbs_SHELL); ex.More(); ex.Next())
     B.Add(myShape, ex.Current());
   B.Add(myShape, S);
@@ -132,29 +132,29 @@ BRepLib_MakeSolid::BRepLib_MakeSolid(const TopoDS_Solid& So, const TopoDS_Shell&
 
 //=================================================================================================
 
-void BRepLib_MakeSolid::Add(const TopoDS_Shell& S)
+void BRepLib_MakeSolid::Add(const TopoShell& S)
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.Add(myShape, S);
 }
 
 //=================================================================================================
 
-const TopoDS_Solid& BRepLib_MakeSolid::Solid()
+const TopoSolid& BRepLib_MakeSolid::Solid()
 {
   return TopoDS::Solid(Shape());
 }
 
 //=================================================================================================
 
-BRepLib_MakeSolid::operator TopoDS_Solid()
+BRepLib_MakeSolid::operator TopoSolid()
 {
   return TopoDS::Solid(Shape());
 }
 
 //=================================================================================================
 
-BRepLib_ShapeModification BRepLib_MakeSolid::FaceStatus(const TopoDS_Face& F) const
+BRepLib_ShapeModification BRepLib_MakeSolid::FaceStatus(const TopoFace& F) const
 {
   BRepLib_ShapeModification          myStatus = BRepLib_Preserved;
   TopTools_ListIteratorOfListOfShape anIter(myDeletedFaces);

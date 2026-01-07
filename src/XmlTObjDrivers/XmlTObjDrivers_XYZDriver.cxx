@@ -62,9 +62,9 @@ Standard_Boolean XmlTObjDrivers_XYZDriver::Paste(const XmlObjMgt_Persistent&  So
   const XmlObjMgt_Element& anElement = Source;
 
   // get coordinates
-  TCollection_AsciiString CoordX = anElement.getAttribute(::CoordX());
-  TCollection_AsciiString CoordY = anElement.getAttribute(::CoordY());
-  TCollection_AsciiString CoordZ = anElement.getAttribute(::CoordZ());
+  AsciiString1 CoordX = anElement.getAttribute(::CoordX());
+  AsciiString1 CoordY = anElement.getAttribute(::CoordY());
+  AsciiString1 CoordZ = anElement.getAttribute(::CoordZ());
 
   // creating gp_XYZ
   gp_XYZ           aXYZ;
@@ -113,17 +113,17 @@ void XmlTObjDrivers_XYZDriver::Paste(const Handle(TDF_Attribute)& Source,
 
   gp_XYZ aXYZ = aSource->Get();
 
-  TCollection_AsciiString aCoord;
+  AsciiString1 aCoord;
 
   // coordinate X
-  aCoord = TCollection_AsciiString(aXYZ.X());
+  aCoord = AsciiString1(aXYZ.X());
   Target.Element().setAttribute(::CoordX(), aCoord.ToCString());
 
   // coordinate Y
-  aCoord = TCollection_AsciiString(aXYZ.Y());
+  aCoord = AsciiString1(aXYZ.Y());
   Target.Element().setAttribute(::CoordY(), aCoord.ToCString());
 
   // coordinate Z
-  aCoord = TCollection_AsciiString(aXYZ.Z());
+  aCoord = AsciiString1(aXYZ.Z());
   Target.Element().setAttribute(::CoordZ(), aCoord.ToCString());
 }

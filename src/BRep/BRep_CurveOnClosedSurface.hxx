@@ -20,8 +20,8 @@
 #include <Standard.hxx>
 
 #include <BRep_CurveOnSurface.hxx>
-class Geom2d_Curve;
-class Geom_Surface;
+class GeomCurve2d;
+class GeomSurface;
 class TopLoc_Location;
 class BRep_CurveRepresentation;
 
@@ -34,9 +34,9 @@ class BRep_CurveOnClosedSurface : public BRep_CurveOnSurface
 {
 
 public:
-  Standard_EXPORT BRep_CurveOnClosedSurface(const Handle(Geom2d_Curve)& PC1,
-                                            const Handle(Geom2d_Curve)& PC2,
-                                            const Handle(Geom_Surface)& S,
+  Standard_EXPORT BRep_CurveOnClosedSurface(const Handle(GeomCurve2d)& PC1,
+                                            const Handle(GeomCurve2d)& PC2,
+                                            const Handle(GeomSurface)& S,
                                             const TopLoc_Location&      L,
                                             const GeomAbs_Shape         C);
 
@@ -51,16 +51,16 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsRegularity() const Standard_OVERRIDE;
 
   //! A curve on two surfaces (continuity).
-  Standard_EXPORT virtual Standard_Boolean IsRegularity(const Handle(Geom_Surface)& S1,
-                                                        const Handle(Geom_Surface)& S2,
+  Standard_EXPORT virtual Standard_Boolean IsRegularity(const Handle(GeomSurface)& S1,
+                                                        const Handle(GeomSurface)& S2,
                                                         const TopLoc_Location&      L1,
                                                         const TopLoc_Location&      L2) const
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const Handle(Geom2d_Curve)& PCurve2() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(GeomCurve2d)& PCurve2() const Standard_OVERRIDE;
 
   //! Returns Surface()
-  Standard_EXPORT virtual const Handle(Geom_Surface)& Surface2() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(GeomSurface)& Surface2() const Standard_OVERRIDE;
 
   //! Returns Location()
   Standard_EXPORT virtual const TopLoc_Location& Location2() const Standard_OVERRIDE;
@@ -69,7 +69,7 @@ public:
 
   Standard_EXPORT virtual void Continuity(const GeomAbs_Shape C) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void PCurve2(const Handle(Geom2d_Curve)& C) Standard_OVERRIDE;
+  Standard_EXPORT virtual void PCurve2(const Handle(GeomCurve2d)& C) Standard_OVERRIDE;
 
   //! Return a copy of this representation.
   Standard_EXPORT virtual Handle(BRep_CurveRepresentation) Copy() const Standard_OVERRIDE;
@@ -86,7 +86,7 @@ public:
 
 protected:
 private:
-  Handle(Geom2d_Curve) myPCurve2;
+  Handle(GeomCurve2d) myPCurve2;
   GeomAbs_Shape        myContinuity;
   gp_Pnt2d             myUV21;
   gp_Pnt2d             myUV22;

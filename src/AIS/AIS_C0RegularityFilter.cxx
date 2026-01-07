@@ -30,16 +30,16 @@ IMPLEMENT_STANDARD_RTTIEXT(AIS_C0RegularityFilter, SelectMgr_Filter)
 
 //=================================================================================================
 
-AIS_C0RegularityFilter::AIS_C0RegularityFilter(const TopoDS_Shape& aShape)
+AIS_C0RegularityFilter::AIS_C0RegularityFilter(const TopoShape& aShape)
 {
   TopTools_IndexedDataMapOfShapeListOfShape SubShapes;
-  TopExp::MapShapesAndAncestors(aShape, TopAbs_EDGE, TopAbs_FACE, SubShapes);
+  TopExp1::MapShapesAndAncestors(aShape, TopAbs_EDGE, TopAbs_FACE, SubShapes);
   Standard_Boolean Ok;
   for (Standard_Integer i = 1; i <= SubShapes.Extent(); i++)
   {
     Ok = Standard_False;
     TopTools_ListIteratorOfListOfShape it(SubShapes(i));
-    TopoDS_Face                        Face1, Face2;
+    TopoFace                        Face1, Face2;
     if (it.More())
     {
       Face1 = TopoDS::Face(it.Value());
@@ -51,14 +51,14 @@ AIS_C0RegularityFilter::AIS_C0RegularityFilter(const TopoDS_Shape& aShape)
         if (!it.More())
         {
           GeomAbs_Shape ShapeContinuity =
-            BRep_Tool::Continuity(TopoDS::Edge(SubShapes.FindKey(i)), Face1, Face2);
+            BRepInspector::Continuity(TopoDS::Edge(SubShapes.FindKey(i)), Face1, Face2);
           Ok = (ShapeContinuity == GeomAbs_C0);
         }
       }
     }
     if (Ok)
     {
-      const TopoDS_Shape& curEdge = SubShapes.FindKey(i);
+      const TopoShape& curEdge = SubShapes.FindKey(i);
       myMapOfEdges.Add(curEdge);
     }
   }
@@ -79,7 +79,7 @@ Standard_Boolean AIS_C0RegularityFilter::IsOk(const Handle(SelectMgr_EntityOwner
   if (aBO.IsNull())
     return Standard_False;
 
-  const TopoDS_Shape& aShape = aBO->Shape();
+  const TopoShape& aShape = aBO->Shape();
 
   if (aShape.ShapeType() != TopAbs_EDGE)
     return Standard_False;

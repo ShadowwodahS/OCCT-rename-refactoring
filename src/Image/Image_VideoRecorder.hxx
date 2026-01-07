@@ -40,9 +40,9 @@ struct SwsContext;
 struct Image_VideoParams
 {
   // clang-format off
-  TCollection_AsciiString Format;           //!< [optional]  video format (container), if empty - will be determined from the file name
-  TCollection_AsciiString VideoCodec;       //!< [optional]  codec identifier, if empty - default codec from file format will be used
-  TCollection_AsciiString PixelFormat;      //!< [optional]  pixel format, if empty - default codec pixel format will be used
+  AsciiString1 Format;           //!< [optional]  video format (container), if empty - will be determined from the file name
+  AsciiString1 VideoCodec;       //!< [optional]  codec identifier, if empty - default codec from file format will be used
+  AsciiString1 PixelFormat;      //!< [optional]  pixel format, if empty - default codec pixel format will be used
   // clang-format on
   Standard_Integer Width;  //!< [mandatory] video frame width
   Standard_Integer Height; //!< [mandatory] video frame height
@@ -109,7 +109,7 @@ public:
 
 protected:
   //! Wrapper for av_strerror().
-  Standard_EXPORT TCollection_AsciiString formatAvError(const int theError) const;
+  Standard_EXPORT AsciiString1 formatAvError(const int theError) const;
 
   //! Append video stream.
   //! theParams[in]      video parameters

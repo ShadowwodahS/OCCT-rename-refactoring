@@ -52,7 +52,7 @@ private:
   {
 
     //! Constructor
-    TInspector_ToolInfo(const TCollection_AsciiString& theName = TCollection_AsciiString())
+    TInspector_ToolInfo(const AsciiString1& theName = AsciiString1())
         : myName(theName),
           myCommunicator(0),
           myButton(0),
@@ -60,7 +60,7 @@ private:
     {
     }
 
-    TCollection_AsciiString     myName;         //!< plugin name
+    AsciiString1     myName;         //!< plugin name
     TInspectorAPI_Communicator* myCommunicator; //!< plugin communicator
     QPushButton*
       myButton; //!< button with plugin name, that will be added into TInspector window layout
@@ -76,25 +76,25 @@ public:
 
   //! Appends the plugin names into internal container
   //! \param thePluginName a name of the plugin
-  Standard_EXPORT void RegisterPlugin(const TCollection_AsciiString& thePluginName);
+  Standard_EXPORT void RegisterPlugin(const AsciiString1& thePluginName);
 
   //! Returns list of registered plugins
   //! \return container of plugin names
-  Standard_EXPORT NCollection_List<TCollection_AsciiString> RegisteredPlugins() const;
+  Standard_EXPORT NCollection_List<AsciiString1> RegisteredPlugins() const;
 
   //! Stores parameters for the plugin. If the plugin name is empty, it inits all plugins with the
   //! parameters \param thePluginName a name of the plugin \param theParameters container of
-  //! parameters(e.g. AIS_InteractiveContext, TDocStd_Application) \param theAppend boolean state
+  //! parameters(e.g. VisualContext, AppManager) \param theAppend boolean state
   //! whether the parameters should be added to existing
-  Standard_EXPORT void Init(const TCollection_AsciiString&                      thePluginName,
+  Standard_EXPORT void Init(const AsciiString1&                      thePluginName,
                             const NCollection_List<Handle(RefObject)>& theParameters,
                             const Standard_Boolean theAppend = Standard_False);
 
   //! Appends to container of parameters the given name, if the given parameter is active, cal
   //! UpdateContent \param thePluginName a name of the plugin \param theParameters container of
-  //! parameters(e.g. AIS_InteractiveContext, TDocStd_Application)
-  Standard_EXPORT void OpenFile(const TCollection_AsciiString& thePluginName,
-                                const TCollection_AsciiString& theFileName);
+  //! parameters(e.g. VisualContext, AppManager)
+  Standard_EXPORT void OpenFile(const AsciiString1& thePluginName,
+                                const AsciiString1& theFileName);
 
   //! Calls UpdateContent for the active plugin
   Standard_EXPORT void UpdateContent();
@@ -104,11 +104,11 @@ public:
 
   //! Activates the plugin. Loads the plugin if it has not been loaded yet
   //! \param thePluginName a name of the plugin
-  Standard_EXPORT void ActivateTool(const TCollection_AsciiString& thePluginName);
+  Standard_EXPORT void ActivateTool(const AsciiString1& thePluginName);
 
   //! Sets item selected in the active plugin
   //! \param theItemNames a container of name of items in plugin that should become selected
-  Standard_EXPORT void SetSelected(const NCollection_List<TCollection_AsciiString>& theItemNames);
+  Standard_EXPORT void SetSelected(const NCollection_List<AsciiString1>& theItemNames);
 
   //! Sets objects to be selected in the plugin
   //! \param theObjects an objects
@@ -121,19 +121,19 @@ public:
   //! Loads plugin, appends the plugin widget into layout, stores the plugin information
   //! \param thePluginName a name of the plugin
   //! \param theInfo an output parameter for plugin info
-  Standard_EXPORT bool LoadPlugin(const TCollection_AsciiString& thePluginName,
+  Standard_EXPORT bool LoadPlugin(const AsciiString1& thePluginName,
                                   TInspector_ToolInfo&           theInfo);
 
   //! Sets path to a directory for temporary plugin files. If parameter is empty, using default
   //! directory \param thePath a path
-  void SetTemporaryDirectory(const TCollection_AsciiString& thePath)
+  void SetTemporaryDirectory(const AsciiString1& thePath)
   {
     myParameters->SetTemporaryDirectory(thePath.IsEmpty() ? myDefaultDirectory : thePath);
   }
 
   //! Returns path to a directory for temporary plugin files
   //! \return path
-  TCollection_AsciiString GetTemporaryDirectory() const
+  AsciiString1 GetTemporaryDirectory() const
   {
     return myParameters->GetTemporaryDirectory();
   }
@@ -183,7 +183,7 @@ protected:
   //! \param theToolInfo an output parameter for plugin information
   //! \param theToolId an index in internal map
   //! \return true if the plugin is found
-  bool findPlugin(const TCollection_AsciiString& thePluginName,
+  bool findPlugin(const AsciiString1& thePluginName,
                   TInspector_ToolInfo&           theToolInfo,
                   int&                           theToolId);
 
@@ -192,7 +192,7 @@ protected:
 
   //! Generates default temp directory by 'TEMP' or 'TMP' environment variables
   //! \return generated path
-  TCollection_AsciiString defaultTemporaryDirectory() const;
+  AsciiString1 defaultTemporaryDirectory() const;
 
 private:
   QWidget* myEmptyWidget; //!< widget that is active in tools stack while no one plugin is loaded
@@ -206,7 +206,7 @@ private:
   QList<TInspector_ToolInfo> myToolNames;     //!< container of plugin names
   Handle(TInspectorAPI_PluginParameters) myParameters;       //!< plugins parameters container
   TInspector_Shortcut*                   myShortcut;         //!< listener of key events
-  TCollection_AsciiString                myDefaultDirectory; //!< default directory
+  AsciiString1                myDefaultDirectory; //!< default directory
 };
 
 #endif

@@ -91,7 +91,7 @@ public:
   Standard_EXPORT void Update();
 
   //! Return the string representation for all available counter.
-  Standard_EXPORT TCollection_AsciiString ToString() const;
+  Standard_EXPORT AsciiString1 ToString() const;
 
   //! Return value of specified counter in bytes.
   //! Notice that NOT all counters are available on various systems.
@@ -110,7 +110,7 @@ public:
 
 public:
   //! Return the string representation for all available counter.
-  Standard_EXPORT static TCollection_AsciiString PrintInfo();
+  Standard_EXPORT static AsciiString1 PrintInfo();
 
 protected:
   //! Return true if the counter is active and the value is valid

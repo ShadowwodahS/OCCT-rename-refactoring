@@ -27,7 +27,7 @@
 class HLRBRep_Data;
 class HLRTopoBRep_OutLiner;
 class HLRAlgo_Projector;
-class TopoDS_Face;
+class TopoFace;
 
 //! compute  the   OutLinedShape  of  a Shape with  an
 //! OutLiner,    a  Projector  and   create  the  Data
@@ -51,7 +51,7 @@ private:
                                           const TopTools_IndexedMapOfShape&   FM,
                                           const TopTools_IndexedMapOfShape&   EM,
                                           Standard_Integer&                   i,
-                                          const TopoDS_Face&                  F,
+                                          const TopoFace&                  F,
                                           const Standard_Boolean              closed);
 
   Standard_EXPORT static void ExploreShape(const Handle(HLRTopoBRep_OutLiner)& S,

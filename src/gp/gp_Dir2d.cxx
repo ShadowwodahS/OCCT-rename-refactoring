@@ -56,7 +56,7 @@ Standard_Real gp_Dir2d::Angle(const gp_Dir2d& Other) const
 
 void gp_Dir2d::Mirror(const gp_Ax2d& A2)
 {
-  const gp_XY&  XY = A2.Direction().XY();
+  const Coords2d&  XY = A2.Direction().XY();
   Standard_Real A  = XY.X();
   Standard_Real B  = XY.Y();
   Standard_Real X  = coord.X();
@@ -97,7 +97,7 @@ void gp_Dir2d::Transform(const gp_Trsf2d& T)
 
 void gp_Dir2d::Mirror(const gp_Dir2d& V)
 {
-  const gp_XY&  XY = V.coord;
+  const Coords2d&  XY = V.coord;
   Standard_Real A  = XY.X();
   Standard_Real B  = XY.Y();
   Standard_Real X  = coord.X();

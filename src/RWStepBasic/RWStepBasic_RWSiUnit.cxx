@@ -19,52 +19,52 @@
 #include <TCollection_AsciiString.hxx>
 
 // --- Enum : SiPrefix ---
-static TCollection_AsciiString spExa(".EXA.");
-static TCollection_AsciiString spPico(".PICO.");
-static TCollection_AsciiString spMega(".MEGA.");
-static TCollection_AsciiString spFemto(".FEMTO.");
-static TCollection_AsciiString spAtto(".ATTO.");
-static TCollection_AsciiString spCenti(".CENTI.");
-static TCollection_AsciiString spNano(".NANO.");
-static TCollection_AsciiString spHecto(".HECTO.");
-static TCollection_AsciiString spMicro(".MICRO.");
-static TCollection_AsciiString spTera(".TERA.");
-static TCollection_AsciiString spGiga(".GIGA.");
-static TCollection_AsciiString spMilli(".MILLI.");
-static TCollection_AsciiString spPeta(".PETA.");
-static TCollection_AsciiString spDeci(".DECI.");
-static TCollection_AsciiString spKilo(".KILO.");
-static TCollection_AsciiString spDeca(".DECA.");
+static AsciiString1 spExa(".EXA.");
+static AsciiString1 spPico(".PICO.");
+static AsciiString1 spMega(".MEGA.");
+static AsciiString1 spFemto(".FEMTO.");
+static AsciiString1 spAtto(".ATTO.");
+static AsciiString1 spCenti(".CENTI.");
+static AsciiString1 spNano(".NANO.");
+static AsciiString1 spHecto(".HECTO.");
+static AsciiString1 spMicro(".MICRO.");
+static AsciiString1 spTera(".TERA.");
+static AsciiString1 spGiga(".GIGA.");
+static AsciiString1 spMilli(".MILLI.");
+static AsciiString1 spPeta(".PETA.");
+static AsciiString1 spDeci(".DECI.");
+static AsciiString1 spKilo(".KILO.");
+static AsciiString1 spDeca(".DECA.");
 
 // --- Enum : SiUnitName ---
-static TCollection_AsciiString sunHertz(".HERTZ.");
-static TCollection_AsciiString sunDegreeCelsius(".DEGREE_CELSIUS.");
-static TCollection_AsciiString sunSiemens(".SIEMENS.");
-static TCollection_AsciiString sunSievert(".SIEVERT.");
-static TCollection_AsciiString sunLux(".LUX.");
-static TCollection_AsciiString sunWatt(".WATT.");
-static TCollection_AsciiString sunOhm(".OHM.");
-static TCollection_AsciiString sunSecond(".SECOND.");
-static TCollection_AsciiString sunBecquerel(".BECQUEREL.");
-static TCollection_AsciiString sunPascal(".PASCAL.");
-static TCollection_AsciiString sunHenry(".HENRY.");
-static TCollection_AsciiString sunTesla(".TESLA.");
-static TCollection_AsciiString sunVolt(".VOLT.");
-static TCollection_AsciiString sunJoule(".JOULE.");
-static TCollection_AsciiString sunKelvin(".KELVIN.");
-static TCollection_AsciiString sunAmpere(".AMPERE.");
-static TCollection_AsciiString sunGram(".GRAM.");
-static TCollection_AsciiString sunSteradian(".STERADIAN.");
-static TCollection_AsciiString sunMole(".MOLE.");
-static TCollection_AsciiString sunLumen(".LUMEN.");
-static TCollection_AsciiString sunGray(".GRAY.");
-static TCollection_AsciiString sunCandela(".CANDELA.");
-static TCollection_AsciiString sunFarad(".FARAD.");
-static TCollection_AsciiString sunRadian(".RADIAN.");
-static TCollection_AsciiString sunNewton(".NEWTON.");
-static TCollection_AsciiString sunMetre(".METRE.");
-static TCollection_AsciiString sunWeber(".WEBER.");
-static TCollection_AsciiString sunCoulomb(".COULOMB.");
+static AsciiString1 sunHertz(".HERTZ.");
+static AsciiString1 sunDegreeCelsius(".DEGREE_CELSIUS.");
+static AsciiString1 sunSiemens(".SIEMENS.");
+static AsciiString1 sunSievert(".SIEVERT.");
+static AsciiString1 sunLux(".LUX.");
+static AsciiString1 sunWatt(".WATT.");
+static AsciiString1 sunOhm(".OHM.");
+static AsciiString1 sunSecond(".SECOND.");
+static AsciiString1 sunBecquerel(".BECQUEREL.");
+static AsciiString1 sunPascal(".PASCAL.");
+static AsciiString1 sunHenry(".HENRY.");
+static AsciiString1 sunTesla(".TESLA.");
+static AsciiString1 sunVolt(".VOLT.");
+static AsciiString1 sunJoule(".JOULE.");
+static AsciiString1 sunKelvin(".KELVIN.");
+static AsciiString1 sunAmpere(".AMPERE.");
+static AsciiString1 sunGram(".GRAM.");
+static AsciiString1 sunSteradian(".STERADIAN.");
+static AsciiString1 sunMole(".MOLE.");
+static AsciiString1 sunLumen(".LUMEN.");
+static AsciiString1 sunGray(".GRAY.");
+static AsciiString1 sunCandela(".CANDELA.");
+static AsciiString1 sunFarad(".FARAD.");
+static AsciiString1 sunRadian(".RADIAN.");
+static AsciiString1 sunNewton(".NEWTON.");
+static AsciiString1 sunMetre(".METRE.");
+static AsciiString1 sunWeber(".WEBER.");
+static AsciiString1 sunCoulomb(".COULOMB.");
 
 RWStepBasic_RWSiUnit::RWStepBasic_RWSiUnit() {}
 
@@ -235,7 +235,7 @@ Standard_Boolean RWStepBasic_RWSiUnit::DecodeName(StepBasic_SiUnitName&  aName,
   return Standard_True;
 }
 
-TCollection_AsciiString RWStepBasic_RWSiUnit::EncodePrefix(const StepBasic_SiPrefix aPrefix) const
+AsciiString1 RWStepBasic_RWSiUnit::EncodePrefix(const StepBasic_SiPrefix aPrefix) const
 {
   switch (aPrefix)
   {
@@ -272,10 +272,10 @@ TCollection_AsciiString RWStepBasic_RWSiUnit::EncodePrefix(const StepBasic_SiPre
     case StepBasic_spDeca:
       return spDeca;
   }
-  return TCollection_AsciiString("");
+  return AsciiString1("");
 }
 
-TCollection_AsciiString RWStepBasic_RWSiUnit::EncodeName(const StepBasic_SiUnitName aName) const
+AsciiString1 RWStepBasic_RWSiUnit::EncodeName(const StepBasic_SiUnitName aName) const
 {
   switch (aName)
   {
@@ -336,5 +336,5 @@ TCollection_AsciiString RWStepBasic_RWSiUnit::EncodeName(const StepBasic_SiUnitN
     case StepBasic_sunCoulomb:
       return sunCoulomb;
   }
-  return TCollection_AsciiString("");
+  return AsciiString1("");
 }

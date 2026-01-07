@@ -23,7 +23,7 @@ StdStorage_Root::StdStorage_Root()
 {
 }
 
-StdStorage_Root::StdStorage_Root(const TCollection_AsciiString&      theName,
+StdStorage_Root::StdStorage_Root(const AsciiString1&      theName,
                                  const Handle(StdObjMgt_Persistent)& theObject)
     : myName(theName),
       myType(theObject->PName()),
@@ -32,21 +32,21 @@ StdStorage_Root::StdStorage_Root(const TCollection_AsciiString&      theName,
 {
 }
 
-StdStorage_Root::StdStorage_Root(const TCollection_AsciiString& theName,
+StdStorage_Root::StdStorage_Root(const AsciiString1& theName,
                                  const Standard_Integer         theRef,
-                                 const TCollection_AsciiString& theType)
+                                 const AsciiString1& theType)
     : myName(theName),
       myType(theType),
       myRef(theRef)
 {
 }
 
-void StdStorage_Root::SetName(const TCollection_AsciiString& theName)
+void StdStorage_Root::SetName(const AsciiString1& theName)
 {
   myName = theName;
 }
 
-TCollection_AsciiString StdStorage_Root::Name() const
+AsciiString1 StdStorage_Root::Name() const
 {
   return myName;
 }
@@ -61,7 +61,7 @@ Handle(StdObjMgt_Persistent) StdStorage_Root::Object() const
   return myObject;
 }
 
-TCollection_AsciiString StdStorage_Root::Type() const
+AsciiString1 StdStorage_Root::Type() const
 {
   return myType;
 }
@@ -76,7 +76,7 @@ Standard_Integer StdStorage_Root::Reference() const
   return myRef;
 }
 
-void StdStorage_Root::SetType(const TCollection_AsciiString& aType)
+void StdStorage_Root::SetType(const AsciiString1& aType)
 {
   myType = aType;
 }

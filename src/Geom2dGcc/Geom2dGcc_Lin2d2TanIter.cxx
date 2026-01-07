@@ -92,7 +92,7 @@ Geom2dGcc_Lin2d2TanIter::Geom2dGcc_Lin2d2TanIter(const GccEnt_QualifiedCirc& Qua
         {
           gp_Dir2d      direc(Vect1);
           Standard_Real R1 = C1.Radius();
-          gp_XY         normal(-R1 * direc.Y(), R1 * direc.X());
+          Coords2d         normal(-R1 * direc.Y(), R1 * direc.X());
           sign1 = Vect1.Crossed(Vdir);
           if (Qualified1.IsEnclosing())
           {

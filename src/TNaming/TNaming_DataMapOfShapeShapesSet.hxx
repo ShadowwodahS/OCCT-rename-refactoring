@@ -21,9 +21,9 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TopoDS_Shape, TNaming_ShapesSet, TopTools_ShapeMapHasher>
+typedef NCollection_DataMap<TopoShape, ShapesSet, ShapeHasher>
   TNaming_DataMapOfShapeShapesSet;
-typedef NCollection_DataMap<TopoDS_Shape, TNaming_ShapesSet, TopTools_ShapeMapHasher>::Iterator
+typedef NCollection_DataMap<TopoShape, ShapesSet, ShapeHasher>::Iterator
   TNaming_DataMapIteratorOfDataMapOfShapeShapesSet;
 
 #endif

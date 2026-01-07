@@ -25,8 +25,8 @@
 #include <BRepBuilderAPI_MakeShape.hxx>
 #include <Standard_Real.hxx>
 #include <BRepBuilderAPI_ShellError.hxx>
-class Geom_Surface;
-class TopoDS_Shell;
+class GeomSurface;
+class TopoShell;
 
 //! Describes functions to build a
 //! shape corresponding to the skin of a surface.
@@ -64,14 +64,14 @@ public:
   Standard_EXPORT BRepBuilderAPI_MakeShell();
 
   //! Constructs a shell from the surface S.
-  Standard_EXPORT BRepBuilderAPI_MakeShell(const Handle(Geom_Surface)& S,
+  Standard_EXPORT BRepBuilderAPI_MakeShell(const Handle(GeomSurface)& S,
                                            const Standard_Boolean      Segment = Standard_False);
 
   //! Constructs a shell from the surface S,
   //! limited in the u parametric direction by the two
   //! parameter values UMin and UMax, and limited in the v
   //! parametric direction by the two parameter values VMin and VMax.
-  Standard_EXPORT BRepBuilderAPI_MakeShell(const Handle(Geom_Surface)& S,
+  Standard_EXPORT BRepBuilderAPI_MakeShell(const Handle(GeomSurface)& S,
                                            const Standard_Real         UMin,
                                            const Standard_Real         UMax,
                                            const Standard_Real         VMin,
@@ -88,7 +88,7 @@ public:
   //! -      BRepBuilderAPI_ShellParametersOutOfRange
   //! when the given parameters are outside the bounds of the
   //! surface or the basis surface if S is trimmed
-  Standard_EXPORT void Init(const Handle(Geom_Surface)& S,
+  Standard_EXPORT void Init(const Handle(GeomSurface)& S,
                             const Standard_Real         UMin,
                             const Standard_Real         UMax,
                             const Standard_Real         VMin,
@@ -107,8 +107,8 @@ public:
   Standard_EXPORT BRepBuilderAPI_ShellError Error() const;
 
   //! Returns the new Shell.
-  Standard_EXPORT const TopoDS_Shell& Shell() const;
-  Standard_EXPORT                     operator TopoDS_Shell() const;
+  Standard_EXPORT const TopoShell& Shell() const;
+  Standard_EXPORT                     operator TopoShell() const;
 
 protected:
 private:

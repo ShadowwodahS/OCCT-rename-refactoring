@@ -30,7 +30,7 @@
 class ShapeFix_Solid;
 class ShapeFix_Shell;
 class ShapeFix_Face;
-class ShapeFix_Wire;
+class WireHealer;
 class ShapeFix_Edge;
 class ShapeExtend_BasicMsgRegistrator;
 
@@ -51,17 +51,17 @@ public:
   Standard_EXPORT ShapeFix_Shape();
 
   //! Initislises by shape.
-  Standard_EXPORT ShapeFix_Shape(const TopoDS_Shape& shape);
+  Standard_EXPORT ShapeFix_Shape(const TopoShape& shape);
 
   //! Initislises by shape.
-  Standard_EXPORT void Init(const TopoDS_Shape& shape);
+  Standard_EXPORT void Init(const TopoShape& shape);
 
   //! Iterates on sub- shape and performs fixes
   Standard_EXPORT Standard_Boolean
     Perform(const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Returns resulting shape
-  Standard_EXPORT TopoDS_Shape Shape() const;
+  Standard_EXPORT TopoShape Shape() const;
 
   //! Returns tool for fixing solids.
   Handle(ShapeFix_Solid) FixSolidTool() const;
@@ -73,7 +73,7 @@ public:
   Handle(ShapeFix_Face) FixFaceTool() const;
 
   //! Returns tool for fixing wires.
-  Handle(ShapeFix_Wire) FixWireTool() const;
+  Handle(WireHealer) FixWireTool() const;
 
   //! Returns tool for fixing edges.
   Handle(ShapeFix_Edge) FixEdgeTool() const;
@@ -114,7 +114,7 @@ public:
   Standard_Integer& FixFreeFaceMode();
 
   //! Returns (modifiable) the mode for applying fixes of
-  //! ShapeFix_Wire, by default True.
+  //! WireHealer, by default True.
   Standard_Integer& FixFreeWireMode();
 
   //! Returns (modifiable) the mode for applying
@@ -136,11 +136,11 @@ protected:
   //! by updating tolerances of the corresponding topological
   //! entities.
   Standard_EXPORT void SameParameter(
-    const TopoDS_Shape&          shape,
+    const TopoShape&          shape,
     const Standard_Boolean       enforce,
     const Message_ProgressRange& theProgress = Message_ProgressRange());
 
-  TopoDS_Shape           myResult;
+  TopoShape           myResult;
   Handle(ShapeFix_Solid) myFixSolid;
   TopTools_MapOfShape    myMapFixingShape;
   Standard_Integer       myFixSolidMode;

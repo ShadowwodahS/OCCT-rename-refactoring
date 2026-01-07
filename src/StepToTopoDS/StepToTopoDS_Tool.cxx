@@ -95,7 +95,7 @@ Standard_Boolean StepToTopoDS_Tool::IsBound(
 // ============================================================================
 
 void StepToTopoDS_Tool::Bind(const Handle(StepShape_TopologicalRepresentationItem)& TRI,
-                             const TopoDS_Shape&                                    S)
+                             const TopoShape&                                    S)
 {
   myDataMap.Bind(TRI, S);
   TransferBRep::SetShapeResult(myTransProc, TRI, S);
@@ -106,7 +106,7 @@ void StepToTopoDS_Tool::Bind(const Handle(StepShape_TopologicalRepresentationIte
 // Purpose : Returns the Shape corresponding to the bounded TRI
 // ============================================================================
 
-const TopoDS_Shape& StepToTopoDS_Tool::Find(
+const TopoShape& StepToTopoDS_Tool::Find(
   const Handle(StepShape_TopologicalRepresentationItem)& TRI)
 {
   return myDataMap.Find(TRI);
@@ -137,7 +137,7 @@ Standard_Boolean StepToTopoDS_Tool::IsEdgeBound(const StepToTopoDS_PointPair& PP
 // Purpose :
 // ============================================================================
 
-void StepToTopoDS_Tool::BindEdge(const StepToTopoDS_PointPair& PP, const TopoDS_Edge& E)
+void StepToTopoDS_Tool::BindEdge(const StepToTopoDS_PointPair& PP, const TopoEdge& E)
 {
   myEdgeMap.Bind(PP, E);
 }
@@ -147,7 +147,7 @@ void StepToTopoDS_Tool::BindEdge(const StepToTopoDS_PointPair& PP, const TopoDS_
 // Purpose :
 // ============================================================================
 
-const TopoDS_Edge& StepToTopoDS_Tool::FindEdge(const StepToTopoDS_PointPair& PP)
+const TopoEdge& StepToTopoDS_Tool::FindEdge(const StepToTopoDS_PointPair& PP)
 {
   return myEdgeMap.Find(PP);
 }
@@ -177,7 +177,7 @@ Standard_Boolean StepToTopoDS_Tool::IsVertexBound(const Handle(StepGeom_Cartesia
 // Purpose :
 // ============================================================================
 
-void StepToTopoDS_Tool::BindVertex(const Handle(StepGeom_CartesianPoint)& P, const TopoDS_Vertex& V)
+void StepToTopoDS_Tool::BindVertex(const Handle(StepGeom_CartesianPoint)& P, const TopoVertex& V)
 {
   myVertexMap.Bind(P, V);
 #ifdef OCCT_DEBUG
@@ -190,7 +190,7 @@ void StepToTopoDS_Tool::BindVertex(const Handle(StepGeom_CartesianPoint)& P, con
 // Purpose :
 // ============================================================================
 
-const TopoDS_Vertex& StepToTopoDS_Tool::FindVertex(const Handle(StepGeom_CartesianPoint)& P)
+const TopoVertex& StepToTopoDS_Tool::FindVertex(const Handle(StepGeom_CartesianPoint)& P)
 {
   return myVertexMap.Find(P);
 }
@@ -229,7 +229,7 @@ Handle(Transfer_TransientProcess) StepToTopoDS_Tool::TransientProcess() const
 // AddStatistics
 //===========
 
-void StepToTopoDS_Tool::AddContinuity(const Handle(Geom_Surface)& GeomSurf)
+void StepToTopoDS_Tool::AddContinuity(const Handle(GeomSurface)& GeomSurf)
 {
   switch (GeomSurf->Continuity())
   {
@@ -244,7 +244,7 @@ void StepToTopoDS_Tool::AddContinuity(const Handle(Geom_Surface)& GeomSurf)
   }
 }
 
-void StepToTopoDS_Tool::AddContinuity(const Handle(Geom_Curve)& GeomCurve)
+void StepToTopoDS_Tool::AddContinuity(const Handle(GeomCurve3d)& GeomCurve)
 {
   switch (GeomCurve->Continuity())
   {
@@ -259,7 +259,7 @@ void StepToTopoDS_Tool::AddContinuity(const Handle(Geom_Curve)& GeomCurve)
   }
 }
 
-void StepToTopoDS_Tool::AddContinuity(const Handle(Geom2d_Curve)& GeomCur2d)
+void StepToTopoDS_Tool::AddContinuity(const Handle(GeomCurve2d)& GeomCur2d)
 {
   switch (GeomCur2d->Continuity())
   {

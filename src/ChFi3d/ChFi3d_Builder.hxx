@@ -36,10 +36,10 @@
 
 class TopOpeBRepDS_HDataStructure;
 class TopOpeBRepBuild_HBuilder;
-class TopoDS_Edge;
+class TopoEdge;
 class ChFiDS_Spine;
-class TopoDS_Vertex;
-class Geom_Surface;
+class TopoVertex;
+class GeomSurface;
 class ChFiDS_SurfData;
 class Adaptor3d_TopolTool;
 class BRepBlend_Line;
@@ -54,9 +54,9 @@ class ChFiDS_Stripe;
 class BRepTopAdaptor_TopolTool;
 class gp_Pnt2d;
 class ChFiDS_CommonPoint;
-class TopoDS_Face;
-class AppBlend_Approx;
-class Geom2d_Curve;
+class TopoFace;
+class BlendApproximation;
+class GeomCurve2d;
 
 //! Root  class  for calculation of  surfaces (fillets,
 //! chamfers)  destined  to smooth edges  of
@@ -79,16 +79,16 @@ public:
                                      const Standard_Real AngularTolerance);
 
   //! extracts from  the list the contour containing edge E.
-  Standard_EXPORT void Remove(const TopoDS_Edge& E);
+  Standard_EXPORT void Remove(const TopoEdge& E);
 
   //! gives the number of  the contour containing E or 0
   //! if E does  not  belong to  any  contour.
-  Standard_EXPORT Standard_Integer Contains(const TopoDS_Edge& E) const;
+  Standard_EXPORT Standard_Integer Contains(const TopoEdge& E) const;
 
   //! gives  the number of  the contour containing E or 0
   //! if E does  not  belong  to  any  contour.
   //! Sets in IndexInSpine the index of E in the contour if it's found
-  Standard_EXPORT Standard_Integer Contains(const TopoDS_Edge& E,
+  Standard_EXPORT Standard_Integer Contains(const TopoEdge& E,
                                             Standard_Integer&  IndexInSpine) const;
 
   //! gives the number of  disjoint contours on  which
@@ -104,20 +104,20 @@ public:
 
   //! returns the First vertex V of
   //! the contour of index IC.
-  Standard_EXPORT TopoDS_Vertex FirstVertex(const Standard_Integer IC) const;
+  Standard_EXPORT TopoVertex FirstVertex(const Standard_Integer IC) const;
 
   //! returns the Last vertex V of
   //! the contour of index IC.
-  Standard_EXPORT TopoDS_Vertex LastVertex(const Standard_Integer IC) const;
+  Standard_EXPORT TopoVertex LastVertex(const Standard_Integer IC) const;
 
   //! returns the abscissa of the vertex V on
   //! the contour of index IC.
-  Standard_EXPORT Standard_Real Abscissa(const Standard_Integer IC, const TopoDS_Vertex& V) const;
+  Standard_EXPORT Standard_Real Abscissa(const Standard_Integer IC, const TopoVertex& V) const;
 
   //! returns the relative abscissa([0.,1.]) of the
   //! vertex V on the contour of index IC.
   Standard_EXPORT Standard_Real RelativeAbscissa(const Standard_Integer IC,
-                                                 const TopoDS_Vertex&   V) const;
+                                                 const TopoVertex&   V) const;
 
   //! returns true if the contour of index IC is closed
   //! an tangent.
@@ -135,10 +135,10 @@ public:
 
   //! if (Isdone()) makes the result.
   //! if (!Isdone())
-  Standard_EXPORT TopoDS_Shape Shape() const;
+  Standard_EXPORT TopoShape Shape() const;
 
   //! Advanced  function for the history
-  Standard_EXPORT const TopTools_ListOfShape& Generated(const TopoDS_Shape& EouV);
+  Standard_EXPORT const ShapeList& Generated(const TopoShape& EouV);
 
   //! Returns the number of contours on  which the calculation
   //! has failed.
@@ -152,7 +152,7 @@ public:
   Standard_EXPORT Standard_Integer NbComputedSurfaces(const Standard_Integer IC) const;
 
   //! Returns the IS'th surface calculated on  the contour IC.
-  Standard_EXPORT Handle(Geom_Surface) ComputedSurface(const Standard_Integer IC,
+  Standard_EXPORT Handle(GeomSurface) ComputedSurface(const Standard_Integer IC,
                                                        const Standard_Integer IS) const;
 
   //! Returns the number of vertices on  which the calculation
@@ -160,14 +160,14 @@ public:
   Standard_EXPORT Standard_Integer NbFaultyVertices() const;
 
   //! Returns the IV'th vertex on  which the calculation has failed.
-  Standard_EXPORT TopoDS_Vertex FaultyVertex(const Standard_Integer IV) const;
+  Standard_EXPORT TopoVertex FaultyVertex(const Standard_Integer IV) const;
 
   //! returns True if  a partial result has  been  calculated
   Standard_EXPORT Standard_Boolean HasResult() const;
 
   //! if (HasResult()) returns partial result
   //! if (!HasResult())
-  Standard_EXPORT TopoDS_Shape BadShape() const;
+  Standard_EXPORT TopoShape BadShape() const;
 
   //! for the stripe IC ,indication on the cause
   //! of  failure WalkingFailure,TwistedSurface,Error, Ok
@@ -197,7 +197,7 @@ public:
   Standard_EXPORT Standard_Boolean PerformTwoCornerbyInter(const Standard_Integer Index);
 
 protected:
-  Standard_EXPORT ChFi3d_Builder(const TopoDS_Shape& S, const Standard_Real Ta);
+  Standard_EXPORT ChFi3d_Builder(const TopoShape& S, const Standard_Real Ta);
 
   Standard_EXPORT virtual void SimulKPart(const Handle(ChFiDS_SurfData)& SD) const = 0;
 
@@ -390,7 +390,7 @@ protected:
 
   Standard_EXPORT Standard_Boolean PerformElement(const Handle(ChFiDS_Spine)& CElement,
                                                   const Standard_Real         Offset,
-                                                  const TopoDS_Face&          theFirstFace);
+                                                  const TopoFace&          theFirstFace);
 
   Standard_EXPORT void PerformExtremity(const Handle(ChFiDS_Spine)& CElement);
 
@@ -568,13 +568,13 @@ protected:
   Standard_EXPORT void PerformMoreThreeCorner(const Standard_Integer Index,
                                               const Standard_Integer nbcourb);
 
-  Standard_EXPORT virtual void ExtentOneCorner(const TopoDS_Vertex&         V,
+  Standard_EXPORT virtual void ExtentOneCorner(const TopoVertex&         V,
                                                const Handle(ChFiDS_Stripe)& S) = 0;
 
-  Standard_EXPORT virtual void ExtentTwoCorner(const TopoDS_Vertex&       V,
+  Standard_EXPORT virtual void ExtentTwoCorner(const TopoVertex&       V,
                                                const ChFiDS_ListOfStripe& LS) = 0;
 
-  Standard_EXPORT virtual void ExtentThreeCorner(const TopoDS_Vertex&       V,
+  Standard_EXPORT virtual void ExtentThreeCorner(const TopoVertex&       V,
                                                  const ChFiDS_ListOfStripe& LS) = 0;
 
   Standard_EXPORT virtual Standard_Boolean PerformFirstSection(
@@ -592,8 +592,8 @@ protected:
 
   Standard_EXPORT Standard_Boolean SearchFace(const Handle(ChFiDS_Spine)& Sp,
                                               const ChFiDS_CommonPoint&   Pc,
-                                              const TopoDS_Face&          FRef,
-                                              TopoDS_Face&                FVoi) const;
+                                              const TopoFace&          FRef,
+                                              TopoFace&                FVoi) const;
 
   Standard_EXPORT Standard_Boolean StripeOrientations(const Handle(ChFiDS_Spine)& Sp,
                                                       TopAbs_Orientation&         Or1,
@@ -718,7 +718,7 @@ protected:
                                                 const TopAbs_Orientation         Or);
 
   Standard_EXPORT Standard_Boolean StoreData(Handle(ChFiDS_SurfData)&         Data,
-                                             const AppBlend_Approx&           Approx,
+                                             const BlendApproximation&           Approx,
                                              const Handle(BRepBlend_Line)&    Lin,
                                              const Handle(Adaptor3d_Surface)& S1,
                                              const Handle(Adaptor3d_Surface)& S2,
@@ -730,11 +730,11 @@ protected:
                                              const Standard_Boolean Reversed = Standard_False);
 
   Standard_EXPORT Standard_Boolean CompleteData(Handle(ChFiDS_SurfData)&         Data,
-                                                const Handle(Geom_Surface)&      Surfcoin,
+                                                const Handle(GeomSurface)&      Surfcoin,
                                                 const Handle(Adaptor3d_Surface)& S1,
-                                                const Handle(Geom2d_Curve)&      PC1,
+                                                const Handle(GeomCurve2d)&      PC1,
                                                 const Handle(Adaptor3d_Surface)& S2,
-                                                const Handle(Geom2d_Curve)&      PC2,
+                                                const Handle(GeomCurve2d)&      PC2,
                                                 const TopAbs_Orientation         Or,
                                                 const Standard_Boolean           On1,
                                                 const Standard_Boolean           Gd1,
@@ -757,19 +757,19 @@ protected:
   Handle(TopOpeBRepDS_HDataStructure)  myDS;
   Handle(TopOpeBRepBuild_HBuilder)     myCoup;
   ChFiDS_ListOfStripe                  myListStripe;
-  ChFiDS_StripeMap                     myVDataMap;
+  StripeMap                     myVDataMap;
   ChFiDS_Regularities                  myRegul;
   ChFiDS_ListOfStripe                  badstripes;
-  TopTools_ListOfShape                 badvertices;
+  ShapeList                 badvertices;
   TopTools_DataMapOfShapeListOfInteger myEVIMap;
   TopTools_DataMapOfShapeShape         myEdgeFirstFace;
   Standard_Boolean                     done;
   Standard_Boolean                     hasresult;
 
 private:
-  Standard_EXPORT Standard_Boolean FaceTangency(const TopoDS_Edge&   E0,
-                                                const TopoDS_Edge&   E1,
-                                                const TopoDS_Vertex& V) const;
+  Standard_EXPORT Standard_Boolean FaceTangency(const TopoEdge&   E0,
+                                                const TopoEdge&   E1,
+                                                const TopoVertex& V) const;
 
   Standard_EXPORT void PerformSetOfSurfOnElSpine(const Handle(ChFiDS_ElSpine)&     ES,
                                                  Handle(ChFiDS_Stripe)&            St,
@@ -792,16 +792,16 @@ private:
 
   Standard_EXPORT void ExtentAnalyse();
 
-  Standard_EXPORT Standard_Boolean FindFace(const TopoDS_Vertex&      V,
+  Standard_EXPORT Standard_Boolean FindFace(const TopoVertex&      V,
                                             const ChFiDS_CommonPoint& P1,
                                             const ChFiDS_CommonPoint& P2,
-                                            TopoDS_Face&              Fv) const;
+                                            TopoFace&              Fv) const;
 
-  Standard_EXPORT Standard_Boolean FindFace(const TopoDS_Vertex&      V,
+  Standard_EXPORT Standard_Boolean FindFace(const TopoVertex&      V,
                                             const ChFiDS_CommonPoint& P1,
                                             const ChFiDS_CommonPoint& P2,
-                                            TopoDS_Face&              Fv,
-                                            const TopoDS_Face&        Favoid) const;
+                                            TopoFace&              Fv,
+                                            const TopoFace&        Favoid) const;
 
   Standard_EXPORT Standard_Boolean MoreSurfdata(const Standard_Integer Index) const;
 
@@ -822,7 +822,7 @@ private:
                                             Handle(BRepAdaptor_Surface)&   HSbis,
                                             gp_Pnt2d&                      Pbis,
                                             const Standard_Boolean         Decroch,
-                                            const TopoDS_Vertex&           Vref) const;
+                                            const TopoVertex&           Vref) const;
 
   Standard_EXPORT void StartSol(const Handle(ChFiDS_Stripe)&      S,
                                 const Handle(ChFiDS_ElSpine)&     HGuide,
@@ -843,11 +843,11 @@ private:
   //! than default initial value.
   Standard_EXPORT void UpdateTolesp();
 
-  TopoDS_Shape         myShape;
+  TopoShape         myShape;
   Standard_Real        angular;
-  TopTools_ListOfShape myGenerated;
-  TopoDS_Shape         myShapeResult;
-  TopoDS_Shape         badShape;
+  ShapeList myGenerated;
+  TopoShape         myShapeResult;
+  TopoShape         badShape;
 };
 
 #endif // _ChFi3d_Builder_HeaderFile

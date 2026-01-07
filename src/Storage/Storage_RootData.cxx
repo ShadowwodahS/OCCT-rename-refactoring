@@ -46,7 +46,7 @@ Standard_Boolean Storage_RootData::Read(const Handle(Storage_BaseDriver)& theDri
     return Standard_False;
   }
 
-  TCollection_AsciiString aRootName, aTypeName;
+  AsciiString1 aRootName, aTypeName;
   Standard_Integer        aRef;
 
   Standard_Integer len = theDriver->RootSectionSize();
@@ -101,7 +101,7 @@ Handle(Storage_HSeqOfRoot) Storage_RootData::Roots() const
   return anObjectsSeq;
 }
 
-Handle(Storage_Root) Storage_RootData::Find(const TCollection_AsciiString& aName) const
+Handle(Storage_Root) Storage_RootData::Find(const AsciiString1& aName) const
 {
   Handle(Storage_Root) p;
 
@@ -113,12 +113,12 @@ Handle(Storage_Root) Storage_RootData::Find(const TCollection_AsciiString& aName
   return p;
 }
 
-Standard_Boolean Storage_RootData::IsRoot(const TCollection_AsciiString& aName) const
+Standard_Boolean Storage_RootData::IsRoot(const AsciiString1& aName) const
 {
   return myObjects.IsBound(aName);
 }
 
-void Storage_RootData::RemoveRoot(const TCollection_AsciiString& aName)
+void Storage_RootData::RemoveRoot(const AsciiString1& aName)
 {
   if (myObjects.IsBound(aName))
   {
@@ -126,7 +126,7 @@ void Storage_RootData::RemoveRoot(const TCollection_AsciiString& aName)
   }
 }
 
-void Storage_RootData::UpdateRoot(const TCollection_AsciiString&     aName,
+void Storage_RootData::UpdateRoot(const AsciiString1&     aName,
                                   const Handle(DbObject)& aPers)
 {
   if (myObjects.IsBound(aName))
@@ -155,12 +155,12 @@ void Storage_RootData::ClearErrorStatus()
   myErrorStatusExt.Clear();
 }
 
-TCollection_AsciiString Storage_RootData::ErrorStatusExtension() const
+AsciiString1 Storage_RootData::ErrorStatusExtension() const
 {
   return myErrorStatusExt;
 }
 
-void Storage_RootData::SetErrorStatusExtension(const TCollection_AsciiString& anErrorExt)
+void Storage_RootData::SetErrorStatusExtension(const AsciiString1& anErrorExt)
 {
   myErrorStatusExt = anErrorExt;
 }

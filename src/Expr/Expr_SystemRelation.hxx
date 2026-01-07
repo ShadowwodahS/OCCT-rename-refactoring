@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 class Expr_GeneralExpression;
 class Expr_NamedUnknown;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class Expr_SystemRelation;
 DEFINE_STANDARD_HANDLE(Expr_SystemRelation, Expr_GeneralRelation)
@@ -80,7 +80,7 @@ public:
                                const Handle(Expr_GeneralExpression)& with) Standard_OVERRIDE;
 
   //! returns a string representing <me> in a readable way.
-  Standard_EXPORT TCollection_AsciiString String() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 String() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Expr_SystemRelation, Expr_GeneralRelation)
 

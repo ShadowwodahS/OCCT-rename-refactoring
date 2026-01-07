@@ -17,7 +17,7 @@
 #include <RWMesh_MaterialMap.hxx>
 #include <RWGltf_GltfBufferView.hxx>
 
-class RWGltf_GltfOStreamWriter;
+class GltfBinaryWriter;
 
 //! Material manager for exporting into glTF format.
 class RWGltf_GltfMaterialMap : public RWMesh_MaterialMap
@@ -25,7 +25,7 @@ class RWGltf_GltfMaterialMap : public RWMesh_MaterialMap
   DEFINE_STANDARD_RTTIEXT(RWGltf_GltfMaterialMap, RWMesh_MaterialMap)
 public:
   //! Main constructor.
-  Standard_EXPORT RWGltf_GltfMaterialMap(const TCollection_AsciiString& theFile,
+  Standard_EXPORT RWGltf_GltfMaterialMap(const AsciiString1& theFile,
                                          const Standard_Integer         theDefSamplerId);
 
   //! Destructor.
@@ -39,26 +39,26 @@ public:
 
   //! Add bufferView's into RWGltf_GltfRootElement_BufferViews section with images collected by
   //! AddImagesToGlb().
-  Standard_EXPORT void FlushGlbBufferViews(RWGltf_GltfOStreamWriter* theWriter,
+  Standard_EXPORT void FlushGlbBufferViews(GltfBinaryWriter* theWriter,
                                            const Standard_Integer    theBinDataBufferId,
                                            Standard_Integer&         theBuffViewId);
 
   //! Write RWGltf_GltfRootElement_Images section with images collected by AddImagesToGlb().
-  Standard_EXPORT void FlushGlbImages(RWGltf_GltfOStreamWriter* theWriter);
+  Standard_EXPORT void FlushGlbImages(GltfBinaryWriter* theWriter);
 
 public:
   //! Add material images in case of non-GLB file
   //! (an alternative to AddImagesToGlb() + FlushBufferViews() + FlushImagesGlb()).
-  Standard_EXPORT void AddImages(RWGltf_GltfOStreamWriter* theWriter,
+  Standard_EXPORT void AddImages(GltfBinaryWriter* theWriter,
                                  const XCAFPrs_Style&      theStyle,
                                  Standard_Boolean&         theIsStarted);
 
   //! Add material.
-  Standard_EXPORT void AddMaterial(RWGltf_GltfOStreamWriter* theWriter,
+  Standard_EXPORT void AddMaterial(GltfBinaryWriter* theWriter,
                                    const XCAFPrs_Style&      theStyle,
                                    Standard_Boolean&         theIsStarted);
   //! Add material textures.
-  Standard_EXPORT void AddTextures(RWGltf_GltfOStreamWriter* theWriter,
+  Standard_EXPORT void AddTextures(GltfBinaryWriter* theWriter,
                                    const XCAFPrs_Style&      theStyle,
                                    Standard_Boolean&         theIsStarted);
 
@@ -75,7 +75,7 @@ public:
 
 protected:
   //! Add texture image.
-  Standard_EXPORT void addImage(RWGltf_GltfOStreamWriter*    theWriter,
+  Standard_EXPORT void addImage(GltfBinaryWriter*    theWriter,
                                 const Handle(Image_Texture)& theTexture,
                                 Standard_Boolean&            theIsStarted);
 
@@ -86,23 +86,23 @@ protected:
                                    const Handle(Image_Texture)& theTexture);
 
   //! Add texture.
-  Standard_EXPORT void addTexture(RWGltf_GltfOStreamWriter*    theWriter,
+  Standard_EXPORT void addTexture(GltfBinaryWriter*    theWriter,
                                   const Handle(Image_Texture)& theTexture,
                                   Standard_Boolean&            theIsStarted);
 
   //! Add material
-  Standard_EXPORT virtual TCollection_AsciiString AddMaterial(const XCAFPrs_Style& theStyle)
+  Standard_EXPORT virtual AsciiString1 AddMaterial(const XCAFPrs_Style& theStyle)
     Standard_OVERRIDE;
 
   //! Virtual method actually defining the material (e.g. export to the file).
   Standard_EXPORT virtual void DefineMaterial(const XCAFPrs_Style&           theStyle,
-                                              const TCollection_AsciiString& theKey,
-                                              const TCollection_AsciiString& theName)
+                                              const AsciiString1& theKey,
+                                              const AsciiString1& theName)
     Standard_OVERRIDE;
 
 protected:
-  RWGltf_GltfOStreamWriter*                                                myWriter;
-  NCollection_IndexedDataMap<Handle(Image_Texture), RWGltf_GltfBufferView> myImageMap;
+  GltfBinaryWriter*                                                myWriter;
+  NCollection_IndexedDataMap<Handle(Image_Texture), GltfBufferView> myImageMap;
   NCollection_Map<Handle(Image_Texture)>                                   myTextureMap;
 
   Standard_Integer myDefSamplerId;

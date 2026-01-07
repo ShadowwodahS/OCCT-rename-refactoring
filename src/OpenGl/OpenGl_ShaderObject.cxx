@@ -29,17 +29,17 @@
 IMPLEMENT_STANDARD_RTTIEXT(OpenGl_ShaderObject, OpenGl_Resource)
 
 //! Puts line numbers to the output of GLSL program source code.
-static TCollection_AsciiString putLineNumbers(const TCollection_AsciiString& theSource)
+static AsciiString1 putLineNumbers(const AsciiString1& theSource)
 {
   std::stringstream aStream;
   theSource.Print(aStream);
   std::string             aLine;
   Standard_Integer        aLineNumber = 1;
-  TCollection_AsciiString aResultSource;
+  AsciiString1 aResultSource;
   while (std::getline(aStream, aLine))
   {
-    TCollection_AsciiString anAsciiString = TCollection_AsciiString(aLine.c_str());
-    anAsciiString.Prepend(TCollection_AsciiString("\n") + TCollection_AsciiString(aLineNumber)
+    AsciiString1 anAsciiString = AsciiString1(aLine.c_str());
+    anAsciiString.Prepend(AsciiString1("\n") + AsciiString1(aLineNumber)
                           + ": ");
     aResultSource += anAsciiString;
     aLineNumber++;
@@ -48,7 +48,7 @@ static TCollection_AsciiString putLineNumbers(const TCollection_AsciiString& the
 }
 
 //! Return GLSL shader stage title.
-static TCollection_AsciiString getShaderTypeString(GLenum theType)
+static AsciiString1 getShaderTypeString(GLenum theType)
 {
   switch (theType)
   {
@@ -91,8 +91,8 @@ OpenGl_ShaderObject::~OpenGl_ShaderObject()
 //=================================================================================================
 
 Standard_Boolean OpenGl_ShaderObject::LoadAndCompile(const Handle(OpenGl_Context)&  theCtx,
-                                                     const TCollection_AsciiString& theId,
-                                                     const TCollection_AsciiString& theSource,
+                                                     const AsciiString1& theId,
+                                                     const AsciiString1& theSource,
                                                      bool                           theIsVerbose,
                                                      bool theToPrintSource)
 {
@@ -115,7 +115,7 @@ Standard_Boolean OpenGl_ShaderObject::LoadAndCompile(const Handle(OpenGl_Context
                         GL_DEBUG_TYPE_ERROR,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString("Error! Failed to set ")
+                        AsciiString1("Error! Failed to set ")
                           + getShaderTypeString(myType) + " [" + theId + "] source");
     return false;
   }
@@ -130,7 +130,7 @@ Standard_Boolean OpenGl_ShaderObject::LoadAndCompile(const Handle(OpenGl_Context
                           GL_DEBUG_SEVERITY_HIGH,
                           putLineNumbers(theSource));
     }
-    TCollection_AsciiString aLog;
+    AsciiString1 aLog;
     FetchInfoLog(theCtx, aLog);
     if (aLog.IsEmpty())
     {
@@ -140,13 +140,13 @@ Standard_Boolean OpenGl_ShaderObject::LoadAndCompile(const Handle(OpenGl_Context
                         GL_DEBUG_TYPE_ERROR,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString("Failed to compile ") + getShaderTypeString(myType)
+                        AsciiString1("Failed to compile ") + getShaderTypeString(myType)
                           + " [" + theId + "]. Compilation log:\n" + aLog);
     return false;
   }
   else if (theCtx->caps->glslWarnings)
   {
-    TCollection_AsciiString aLog;
+    AsciiString1 aLog;
     FetchInfoLog(theCtx, aLog);
     if (!aLog.IsEmpty() && !aLog.IsEqual("No errors.\n"))
     {
@@ -164,8 +164,8 @@ Standard_Boolean OpenGl_ShaderObject::LoadAndCompile(const Handle(OpenGl_Context
 //=================================================================================================
 
 void OpenGl_ShaderObject::DumpSourceCode(const Handle(OpenGl_Context)&  theCtx,
-                                         const TCollection_AsciiString& theId,
-                                         const TCollection_AsciiString& theSource) const
+                                         const AsciiString1& theId,
+                                         const AsciiString1& theSource) const
 {
   theCtx->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
                       GL_DEBUG_TYPE_OTHER,
@@ -179,7 +179,7 @@ void OpenGl_ShaderObject::DumpSourceCode(const Handle(OpenGl_Context)&  theCtx,
 // purpose  : Loads shader source code
 // =======================================================================
 Standard_Boolean OpenGl_ShaderObject::LoadSource(const Handle(OpenGl_Context)&  theCtx,
-                                                 const TCollection_AsciiString& theSource)
+                                                 const AsciiString1& theSource)
 {
   if (myShaderID == NO_SHADER)
   {
@@ -216,7 +216,7 @@ Standard_Boolean OpenGl_ShaderObject::Compile(const Handle(OpenGl_Context)& theC
 // purpose  : Fetches information log of the last compile operation
 // =======================================================================
 Standard_Boolean OpenGl_ShaderObject::FetchInfoLog(const Handle(OpenGl_Context)& theCtx,
-                                                   TCollection_AsciiString&      theLog)
+                                                   AsciiString1&      theLog)
 {
   if (myShaderID == NO_SHADER)
   {
@@ -295,9 +295,9 @@ static const char* getShaderExtension(GLenum theType)
 }
 
 //! Expand substring with additional tail.
-static void insertSubString(TCollection_AsciiString&       theString,
+static void insertSubString(AsciiString1&       theString,
                             const char&                    thePattern,
-                            const TCollection_AsciiString& theSubstitution)
+                            const AsciiString1& theSubstitution)
 {
   const int aSubLen = theSubstitution.Length();
   for (int aCharIter = 1, aNbChars = theString.Length(); aCharIter <= aNbChars; ++aCharIter)
@@ -312,13 +312,13 @@ static void insertSubString(TCollection_AsciiString&       theString,
 }
 
 //! Dump GLSL shader source code into file.
-static bool dumpShaderSource(const TCollection_AsciiString& theFileName,
-                             const TCollection_AsciiString& theSource,
+static bool dumpShaderSource(const AsciiString1& theFileName,
+                             const AsciiString1& theSource,
                              bool                           theToBeautify)
 {
-  OSD_File aFile(theFileName);
+  SystemFile aFile(theFileName);
   aFile.Build(OSD_WriteOnly, OSD_Protection());
-  TCollection_AsciiString aSource = theSource;
+  AsciiString1 aSource = theSource;
   if (theToBeautify)
   {
     insertSubString(aSource, ';', "\n");
@@ -327,7 +327,7 @@ static bool dumpShaderSource(const TCollection_AsciiString& theFileName,
   }
   if (!aFile.IsOpen())
   {
-    Message::SendFail(TCollection_AsciiString("Error: File '") + theFileName
+    Message::SendFail(AsciiString1("Error: File '") + theFileName
                       + "' cannot be opened to save shader");
     return false;
   }
@@ -337,19 +337,19 @@ static bool dumpShaderSource(const TCollection_AsciiString& theFileName,
     aFile.Write(aSource.ToCString(), aSource.Length());
   }
   aFile.Close();
-  Message::SendWarning(TCollection_AsciiString("Shader source dumped into '") + theFileName + "'");
+  Message::SendWarning(AsciiString1("Shader source dumped into '") + theFileName + "'");
   return true;
 }
 
 //! Read GLSL shader source code from file dump.
-static bool restoreShaderSource(TCollection_AsciiString&       theSource,
-                                const TCollection_AsciiString& theFileName)
+static bool restoreShaderSource(AsciiString1&       theSource,
+                                const AsciiString1& theFileName)
 {
-  OSD_File aFile(theFileName);
+  SystemFile aFile(theFileName);
   aFile.Open(OSD_ReadOnly, OSD_Protection());
   if (!aFile.IsOpen())
   {
-    Message::SendFail(TCollection_AsciiString("File '") + theFileName
+    Message::SendFail(AsciiString1("File '") + theFileName
                       + "' cannot be opened to load shader");
     return false;
   }
@@ -357,33 +357,33 @@ static bool restoreShaderSource(TCollection_AsciiString&       theSource,
   const Standard_Integer aSize = (Standard_Integer)aFile.Size();
   if (aSize > 0)
   {
-    theSource = TCollection_AsciiString(aSize, '\0');
+    theSource = AsciiString1(aSize, '\0');
     aFile.Read(theSource, aSize);
   }
   aFile.Close();
-  Message::SendWarning(TCollection_AsciiString("Restored shader dump from '") + theFileName + "'");
+  Message::SendWarning(AsciiString1("Restored shader dump from '") + theFileName + "'");
   return true;
 }
 
 //=================================================================================================
 
 Standard_Boolean OpenGl_ShaderObject::updateDebugDump(const Handle(OpenGl_Context)&  theCtx,
-                                                      const TCollection_AsciiString& theProgramId,
-                                                      const TCollection_AsciiString& theFolder,
+                                                      const AsciiString1& theProgramId,
+                                                      const AsciiString1& theFolder,
                                                       Standard_Boolean               theToBeautify,
                                                       Standard_Boolean               theToReset)
 {
-  const TCollection_AsciiString aFileName =
+  const AsciiString1 aFileName =
     theFolder + "/" + theProgramId + getShaderExtension(myType);
   if (!theToReset)
   {
-    OSD_File aFile(aFileName);
+    SystemFile aFile(aFileName);
     if (aFile.Exists())
     {
       const Quantity_Date aDate = aFile.AccessMoment();
       if (aDate > myDumpDate)
       {
-        TCollection_AsciiString aNewSource;
+        AsciiString1 aNewSource;
         if (restoreShaderSource(aNewSource, aFileName))
         {
           LoadAndCompile(theCtx, theProgramId, aNewSource);
@@ -401,7 +401,7 @@ Standard_Boolean OpenGl_ShaderObject::updateDebugDump(const Handle(OpenGl_Contex
     theCtx->core20fwd->glGetShaderiv(myShaderID, GL_SHADER_SOURCE_LENGTH, &aLength);
     if (aLength > 0)
     {
-      TCollection_AsciiString aSource(aLength - 1, '\0');
+      AsciiString1 aSource(aLength - 1, '\0');
       theCtx->core20fwd->glGetShaderSource(myShaderID, aLength, NULL, (GLchar*)aSource.ToCString());
       dumpShaderSource(aFileName, aSource, theToBeautify);
       isDumped = true;

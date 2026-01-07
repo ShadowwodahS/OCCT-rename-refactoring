@@ -22,9 +22,9 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TopoDS_Shape, TNaming_PtrRefShape, TopTools_ShapeMapHasher>
+typedef NCollection_DataMap<TopoShape, TNaming_PtrRefShape, ShapeHasher>
   TNaming_DataMapOfShapePtrRefShape;
-typedef NCollection_DataMap<TopoDS_Shape, TNaming_PtrRefShape, TopTools_ShapeMapHasher>::Iterator
+typedef NCollection_DataMap<TopoShape, TNaming_PtrRefShape, ShapeHasher>::Iterator
   TNaming_DataMapIteratorOfDataMapOfShapePtrRefShape;
 
 #endif

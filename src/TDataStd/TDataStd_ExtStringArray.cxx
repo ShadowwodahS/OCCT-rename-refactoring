@@ -40,7 +40,7 @@ const Standard_GUID& TDataStd_ExtStringArray::GetID()
 // function : SetAttr
 // purpose  : Implements Set functionality
 //=======================================================================
-Handle(TDataStd_ExtStringArray) SetAttr(const TDF_Label&       label,
+Handle(TDataStd_ExtStringArray) SetAttr(const DataLabel&       label,
                                         const Standard_Integer lower,
                                         const Standard_Integer upper,
                                         const Standard_Boolean isDelta,
@@ -81,7 +81,7 @@ void TDataStd_ExtStringArray::Init(const Standard_Integer lower, const Standard_
 
 //=================================================================================================
 
-Handle(TDataStd_ExtStringArray) TDataStd_ExtStringArray::Set(const TDF_Label&       label,
+Handle(TDataStd_ExtStringArray) TDataStd_ExtStringArray::Set(const DataLabel&       label,
                                                              const Standard_Integer lower,
                                                              const Standard_Integer upper,
                                                              const Standard_Boolean isDelta)
@@ -95,7 +95,7 @@ Handle(TDataStd_ExtStringArray) TDataStd_ExtStringArray::Set(const TDF_Label&   
 // purpose  : Set user defined attribute with specific ID
 //=======================================================================
 
-Handle(TDataStd_ExtStringArray) TDataStd_ExtStringArray::Set(const TDF_Label&       label,
+Handle(TDataStd_ExtStringArray) TDataStd_ExtStringArray::Set(const DataLabel&       label,
                                                              const Standard_GUID&   theGuid,
                                                              const Standard_Integer lower,
                                                              const Standard_Integer upper,
@@ -108,7 +108,7 @@ Handle(TDataStd_ExtStringArray) TDataStd_ExtStringArray::Set(const TDF_Label&   
 //=================================================================================================
 
 void TDataStd_ExtStringArray::SetValue(const Standard_Integer            index,
-                                       const TCollection_ExtendedString& value)
+                                       const UtfString& value)
 {
   if (myValue.IsNull())
     return;
@@ -121,11 +121,11 @@ void TDataStd_ExtStringArray::SetValue(const Standard_Integer            index,
 
 //=================================================================================================
 
-const TCollection_ExtendedString& TDataStd_ExtStringArray::Value(const Standard_Integer index) const
+const UtfString& TDataStd_ExtStringArray::Value(const Standard_Integer index) const
 {
   if (myValue.IsNull())
   {
-    static TCollection_ExtendedString staticEmptyValue;
+    static UtfString staticEmptyValue;
     return staticEmptyValue;
   }
   return myValue->Value(index);
@@ -324,7 +324,7 @@ void TDataStd_ExtStringArray::DumpJson(Standard_OStream& theOStream,
     for (TColStd_Array1OfExtendedString::Iterator aValueIt(myValue->Array1()); aValueIt.More();
          aValueIt.Next())
     {
-      const TCollection_ExtendedString& aValue = aValueIt.Value();
+      const UtfString& aValue = aValueIt.Value();
       OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aValue)
     }
   }

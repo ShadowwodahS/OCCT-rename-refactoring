@@ -31,18 +31,18 @@
 // Method  :
 // Purpose :
 // ============================================================================
-TopoDSToStep_FacetedError TopoDSToStep_FacetedTool::CheckTopoDSShape(const TopoDS_Shape& aShape)
+TopoDSToStep_FacetedError FacetedTool::CheckTopoDSShape(const TopoShape& aShape)
 {
-  TopExp_Explorer FaceExp, EdgeExp;
+  ShapeExplorer FaceExp, EdgeExp;
   FaceExp.Init(aShape, TopAbs_FACE);
   while (FaceExp.More())
   {
-    const TopoDS_Face aFace = TopoDS::Face(FaceExp.Current());
+    const TopoFace aFace = TopoDS::Face(FaceExp.Current());
     FaceExp.Next();
 
-    Handle(Geom_Surface) Su = BRep_Tool::Surface(aFace);
+    Handle(GeomSurface) Su = BRepInspector::Surface(aFace);
 
-    if (Su->IsKind(STANDARD_TYPE(Geom_Plane)))
+    if (Su->IsKind(STANDARD_TYPE(GeomPlane)))
     {
       // OK -> no further check
     }
@@ -115,11 +115,11 @@ TopoDSToStep_FacetedError TopoDSToStep_FacetedTool::CheckTopoDSShape(const TopoD
     EdgeExp.Init(aFace, TopAbs_EDGE);
     while (EdgeExp.More())
     {
-      const TopoDS_Edge anEdge = TopoDS::Edge(EdgeExp.Current());
+      const TopoEdge anEdge = TopoDS::Edge(EdgeExp.Current());
       EdgeExp.Next();
 
       Standard_Real        cf, cl;
-      Handle(Geom2d_Curve) C2d = BRep_Tool::CurveOnSurface(anEdge, aFace, cf, cl);
+      Handle(GeomCurve2d) C2d = BRepInspector::CurveOnSurface(anEdge, aFace, cf, cl);
 
       if (C2d->IsKind(STANDARD_TYPE(Geom2d_Line)))
       {

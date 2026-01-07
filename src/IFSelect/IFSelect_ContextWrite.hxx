@@ -156,7 +156,7 @@ protected:
 private:
   Handle(Interface_InterfaceModel)  themodel;
   Handle(Interface_Protocol)        theproto;
-  TCollection_AsciiString           thefile;
+  AsciiString1           thefile;
   Handle(IFSelect_AppliedModifiers) theapply;
   Handle(Interface_HGraph)          thehgraf;
   Interface_CheckIterator           thecheck;

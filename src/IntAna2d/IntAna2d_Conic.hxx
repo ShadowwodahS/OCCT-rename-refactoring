@@ -25,7 +25,7 @@ class gp_Lin2d;
 class gp_Parab2d;
 class gp_Hypr2d;
 class gp_Elips2d;
-class gp_XY;
+class Coords2d;
 class gp_Ax2d;
 
 //! Definition of a conic by its implicit quadaratic equation:
@@ -49,14 +49,14 @@ public:
   Standard_EXPORT Standard_Real Value(const Standard_Real X, const Standard_Real Y) const;
 
   //! returns the value of the gradient of F at the point X,Y.
-  Standard_EXPORT gp_XY Grad(const Standard_Real X, const Standard_Real Y) const;
+  Standard_EXPORT Coords2d Grad(const Standard_Real X, const Standard_Real Y) const;
 
   //! Returns the value of the function and its gradient at
   //! the point X,Y.
   Standard_EXPORT void ValAndGrad(const Standard_Real X,
                                   const Standard_Real Y,
                                   Standard_Real&      Val,
-                                  gp_XY&              Grd) const;
+                                  Coords2d&              Grd) const;
 
   //! returns the coefficients of the polynomial equation
   //! which defines the conic:

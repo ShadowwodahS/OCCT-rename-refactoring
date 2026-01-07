@@ -26,12 +26,12 @@
 #include <TopTools_ListOfShape.hxx>
 #include <BRepFeat_RibSlot.hxx>
 #include <Standard_Integer.hxx>
-class Geom_Curve;
-class Geom_Plane;
-class TopoDS_Shape;
-class TopoDS_Wire;
-class TopoDS_Edge;
-class TopoDS_Face;
+class GeomCurve3d;
+class GeomPlane;
+class TopoShape;
+class TopoWire;
+class TopoEdge;
+class TopoFace;
 class Point3d;
 
 //! Builds a rib or a groove along a developable, planar surface.
@@ -64,9 +64,9 @@ public:
   //! setting 0 in case of the groove
   //! -   adding matter with Boolean fusion using the
   //! setting 1 in case of the rib.
-  BRepFeat_MakeLinearForm(const TopoDS_Shape&       Sbase,
-                          const TopoDS_Wire&        W,
-                          const Handle(Geom_Plane)& P,
+  BRepFeat_MakeLinearForm(const TopoShape&       Sbase,
+                          const TopoWire&        W,
+                          const Handle(GeomPlane)& P,
                           const Vector3d&             Direction,
                           const Vector3d&             Direction1,
                           const Standard_Integer    Fuse,
@@ -83,9 +83,9 @@ public:
   //! 0 in case of the groove
   //! -   adding matter with Boolean fusion using the setting 1
   //! in case of the rib.
-  Standard_EXPORT void Init(const TopoDS_Shape&       Sbase,
-                            const TopoDS_Wire&        W,
-                            const Handle(Geom_Plane)& P,
+  Standard_EXPORT void Init(const TopoShape&       Sbase,
+                            const TopoWire&        W,
+                            const Handle(GeomPlane)& P,
                             const Vector3d&             Direction,
                             const Vector3d&             Direction1,
                             const Standard_Integer    Fuse,
@@ -95,7 +95,7 @@ public:
   //! <OnFace>.
   //! Raises ConstructionError if the  face does not belong to the
   //! basis shape, or the edge to the prismed shape.
-  Standard_EXPORT void Add(const TopoDS_Edge& E, const TopoDS_Face& OnFace);
+  Standard_EXPORT void Add(const TopoEdge& E, const TopoFace& OnFace);
 
   //! Performs a prism from the wire to the plane along the
   //! basis shape Sbase. Reconstructs the feature topologically.
@@ -111,21 +111,21 @@ public:
   //! is selected by showing both from and until at the same time.
   Standard_EXPORT void TransformShapeFU(const Standard_Integer flag);
 
-  Standard_EXPORT Standard_Boolean Propagate(TopTools_ListOfShape& L,
-                                             const TopoDS_Face&    F,
+  Standard_EXPORT Standard_Boolean Propagate(ShapeList& L,
+                                             const TopoFace&    F,
                                              const Point3d&         FPoint,
                                              const Point3d&         LPoint,
                                              Standard_Boolean&     falseside);
 
 protected:
 private:
-  Handle(Geom_Curve)                 myCrv;
+  Handle(GeomCurve3d)                 myCrv;
   Vector3d                             myDir;
   Vector3d                             myDir1;
-  Handle(Geom_Plane)                 myPln;
+  Handle(GeomPlane)                 myPln;
   Standard_Real                      myBnd;
   TopTools_DataMapOfShapeListOfShape mySlface;
-  TopTools_ListOfShape               myListOfEdges;
+  ShapeList               myListOfEdges;
   Standard_Real                      myTol;
 };
 

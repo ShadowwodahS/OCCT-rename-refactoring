@@ -58,10 +58,10 @@ BRepPrim_Sphere::BRepPrim_Sphere(const Frame3d& Axes, const Standard_Real Radius
 
 //=================================================================================================
 
-TopoDS_Face BRepPrim_Sphere::MakeEmptyLateralFace() const
+TopoFace BRepPrim_Sphere::MakeEmptyLateralFace() const
 {
   Handle(Geom_SphericalSurface) S = new Geom_SphericalSurface(Axes(), myRadius);
-  TopoDS_Face                   F;
+  TopoFace                   F;
   myBuilder.Builder().MakeFace(F, S, Precision::Confusion());
   return F;
 }
@@ -78,7 +78,7 @@ void BRepPrim_Sphere::SetMeridian()
   Dir3d D = Axes().YDirection();
   D.Reverse();
   Frame3d                A(Axes().Location(), D, Axes().XDirection());
-  Handle(Geom_Circle)   C   = new Geom_Circle(A, myRadius);
+  Handle(GeomCircle)   C   = new GeomCircle(A, myRadius);
   Handle(Geom2d_Circle) C2d = new Geom2d_Circle(gp_Ax2d(gp_Pnt2d(0, 0), gp_Dir2d(1, 0)), myRadius);
   Meridian(C, C2d);
 }

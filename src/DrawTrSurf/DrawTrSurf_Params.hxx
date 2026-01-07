@@ -17,16 +17,16 @@
 #include <Draw_Color.hxx>
 #include <Draw_MarkerShape.hxx>
 
-//! DrawTrSurf parameters.
+//! DrawTrSurf1 parameters.
 struct DrawTrSurf_Params
 {
 public:
-  Draw_Color PntColor;
-  Draw_Color CurvColor;
-  Draw_Color BoundsColor;
-  Draw_Color IsosColor;
-  Draw_Color PolesColor;
-  Draw_Color KnotsColor;
+  DrawColor PntColor;
+  DrawColor CurvColor;
+  DrawColor BoundsColor;
+  DrawColor IsosColor;
+  DrawColor PolesColor;
+  DrawColor KnotsColor;
 
   Draw_MarkerShape PntMarker;
   Draw_MarkerShape KnotsMarker;

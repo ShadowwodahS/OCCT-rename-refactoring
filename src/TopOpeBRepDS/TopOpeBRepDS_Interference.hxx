@@ -56,7 +56,7 @@ class TopOpeBRepDS_Interference : public RefObject
 public:
   Standard_EXPORT TopOpeBRepDS_Interference();
 
-  Standard_EXPORT TopOpeBRepDS_Interference(const TopOpeBRepDS_Transition& Transition,
+  Standard_EXPORT TopOpeBRepDS_Interference(const StateTransition& Transition,
                                             const TopOpeBRepDS_Kind        SupportType,
                                             const Standard_Integer         Support,
                                             const TopOpeBRepDS_Kind        GeometryType,
@@ -64,11 +64,11 @@ public:
 
   Standard_EXPORT TopOpeBRepDS_Interference(const Handle(TopOpeBRepDS_Interference)& I);
 
-  Standard_EXPORT const TopOpeBRepDS_Transition& Transition() const;
+  Standard_EXPORT const StateTransition& Transition() const;
 
-  Standard_EXPORT TopOpeBRepDS_Transition& ChangeTransition();
+  Standard_EXPORT StateTransition& ChangeTransition();
 
-  Standard_EXPORT void Transition(const TopOpeBRepDS_Transition& T);
+  Standard_EXPORT void Transition(const StateTransition& T);
 
   //! return GeometryType + Geometry + SupportType + Support
   Standard_EXPORT void GKGSKS(TopOpeBRepDS_Kind& GK,
@@ -104,7 +104,7 @@ public:
 
 protected:
 private:
-  TopOpeBRepDS_Transition myTransition;
+  StateTransition myTransition;
   Standard_Integer        mySupport;
   Standard_Integer        myGeometry;
   TopOpeBRepDS_Kind       mySupportType;

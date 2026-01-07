@@ -45,7 +45,7 @@ const Standard_GUID& XCAFDoc_Volume::ID() const
 
 //=================================================================================================
 
-Handle(XCAFDoc_Volume) XCAFDoc_Volume::Set(const TDF_Label& L, const Standard_Real V)
+Handle(XCAFDoc_Volume) XCAFDoc_Volume::Set(const DataLabel& L, const Standard_Real V)
 {
   Handle(XCAFDoc_Volume) A;
   if (!L.FindAttribute(XCAFDoc_Volume::GetID(), A))
@@ -73,7 +73,7 @@ Standard_Real XCAFDoc_Volume::Get() const
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_Volume::Get(const TDF_Label& label, Standard_Real& vol)
+Standard_Boolean XCAFDoc_Volume::Get(const DataLabel& label, Standard_Real& vol)
 {
   Handle(XCAFDoc_Volume) aVolume;
   if (!label.FindAttribute(XCAFDoc_Volume::GetID(), aVolume))

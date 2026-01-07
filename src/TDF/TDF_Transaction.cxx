@@ -36,7 +36,7 @@
 
 //=================================================================================================
 
-TDF_Transaction::TDF_Transaction(const TCollection_AsciiString& aName)
+TDF_Transaction::TDF_Transaction(const AsciiString1& aName)
     : myName(aName),
       myUntilTransaction(0)
 {
@@ -44,7 +44,7 @@ TDF_Transaction::TDF_Transaction(const TCollection_AsciiString& aName)
 
 //=================================================================================================
 
-TDF_Transaction::TDF_Transaction(const Handle(TDF_Data)& aDF, const TCollection_AsciiString& aName)
+TDF_Transaction::TDF_Transaction(const Handle(TDF_Data)& aDF, const AsciiString1& aName)
     : myDF(aDF),
       myName(aName),
       myUntilTransaction(0)

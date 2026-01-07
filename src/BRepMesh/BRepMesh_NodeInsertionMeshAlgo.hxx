@@ -186,10 +186,10 @@ private:
   //! creates corresponding nodes in data structure.
   void insertInternalVertices()
   {
-    TopExp_Explorer aExplorer(this->getDFace()->GetFace(), TopAbs_VERTEX, TopAbs_EDGE);
+    ShapeExplorer aExplorer(this->getDFace()->GetFace(), TopAbs_VERTEX, TopAbs_EDGE);
     for (; aExplorer.More(); aExplorer.Next())
     {
-      const TopoDS_Vertex& aVertex = TopoDS::Vertex(aExplorer.Current());
+      const TopoVertex& aVertex = TopoDS::Vertex(aExplorer.Current());
       if (aVertex.Orientation() != TopAbs_INTERNAL)
       {
         continue;
@@ -200,18 +200,18 @@ private:
   }
 
   //! Inserts the given vertex into mesh.
-  void insertInternalVertex(const TopoDS_Vertex& theVertex)
+  void insertInternalVertex(const TopoVertex& theVertex)
   {
     try
     {
       OCC_CATCH_SIGNALS
 
-      gp_Pnt2d aPnt2d = BRep_Tool::Parameters(theVertex, this->getDFace()->GetFace());
+      gp_Pnt2d aPnt2d = BRepInspector::Parameters(theVertex, this->getDFace()->GetFace());
       // check UV values for internal vertices
       if (myClassifier->Perform(aPnt2d) != TopAbs_IN)
         return;
 
-      this->registerNode(BRep_Tool::Pnt(theVertex), aPnt2d, BRepMesh_Fixed, Standard_False);
+      this->registerNode(BRepInspector::Pnt(theVertex), aPnt2d, BRepMesh_Fixed, Standard_False);
     }
     catch (ExceptionBase const&)
     {

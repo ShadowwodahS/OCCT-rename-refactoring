@@ -23,7 +23,7 @@
 #include <TopoDS_Edge.hxx>
 #include <Standard_Real.hxx>
 #include <Standard_Transient.hxx>
-class Geom2d_Curve;
+class GeomCurve2d;
 
 class ShapeFix_EdgeProjAux;
 DEFINE_STANDARD_HANDLE(ShapeFix_EdgeProjAux, RefObject)
@@ -36,9 +36,9 @@ class ShapeFix_EdgeProjAux : public RefObject
 public:
   Standard_EXPORT ShapeFix_EdgeProjAux();
 
-  Standard_EXPORT ShapeFix_EdgeProjAux(const TopoDS_Face& F, const TopoDS_Edge& E);
+  Standard_EXPORT ShapeFix_EdgeProjAux(const TopoFace& F, const TopoEdge& E);
 
-  Standard_EXPORT void Init(const TopoDS_Face& F, const TopoDS_Edge& E);
+  Standard_EXPORT void Init(const TopoFace& F, const TopoEdge& E);
 
   Standard_EXPORT void Compute(const Standard_Real preci);
 
@@ -50,7 +50,7 @@ public:
 
   Standard_EXPORT Standard_Real LastParam() const;
 
-  Standard_EXPORT Standard_Boolean IsIso(const Handle(Geom2d_Curve)& C);
+  Standard_EXPORT Standard_Boolean IsIso(const Handle(GeomCurve2d)& C);
 
   DEFINE_STANDARD_RTTIEXT(ShapeFix_EdgeProjAux, RefObject)
 
@@ -59,10 +59,10 @@ protected:
 
   Standard_EXPORT void Init3d(const Standard_Real preci);
 
-  Standard_EXPORT void UpdateParam2d(const Handle(Geom2d_Curve)& C);
+  Standard_EXPORT void UpdateParam2d(const Handle(GeomCurve2d)& C);
 
-  TopoDS_Face      myFace;
-  TopoDS_Edge      myEdge;
+  TopoFace      myFace;
+  TopoEdge      myEdge;
   Standard_Real    myFirstParam;
   Standard_Real    myLastParam;
   Standard_Boolean myFirstDone;

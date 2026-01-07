@@ -39,7 +39,7 @@ const Standard_GUID& TDataStd_Expression::GetID()
 
 //=================================================================================================
 
-Handle(TDataStd_Expression) TDataStd_Expression::Set(const TDF_Label& L)
+Handle(TDataStd_Expression) TDataStd_Expression::Set(const DataLabel& L)
 {
   Handle(TDataStd_Expression) A;
   if (!L.FindAttribute(TDataStd_Expression::GetID(), A))
@@ -56,14 +56,14 @@ TDataStd_Expression::TDataStd_Expression() {}
 
 //=================================================================================================
 
-TCollection_ExtendedString TDataStd_Expression::Name() const
+UtfString TDataStd_Expression::Name() const
 {
   return myExpression; // ->String();
 }
 
 //=================================================================================================
 
-void TDataStd_Expression::SetExpression(const TCollection_ExtendedString& E)
+void TDataStd_Expression::SetExpression(const UtfString& E)
 {
   // OCC2932 correction
   if (myExpression == E)
@@ -75,7 +75,7 @@ void TDataStd_Expression::SetExpression(const TCollection_ExtendedString& E)
 
 //=================================================================================================
 
-const TCollection_ExtendedString& TDataStd_Expression::GetExpression() const
+const UtfString& TDataStd_Expression::GetExpression() const
 {
   return myExpression;
 }

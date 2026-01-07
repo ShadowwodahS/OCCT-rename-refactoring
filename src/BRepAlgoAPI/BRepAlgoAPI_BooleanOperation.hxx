@@ -23,8 +23,8 @@
 
 #include <BOPAlgo_Operation.hxx>
 #include <BRepAlgoAPI_BuilderAlgo.hxx>
-class BOPAlgo_PaveFiller;
-class TopoDS_Shape;
+class BooleanPaveFiller;
+class TopoShape;
 
 //! The root API class for performing Boolean Operations on arbitrary shapes.
 //!
@@ -58,22 +58,22 @@ public: //! @name Constructors
   Standard_EXPORT BRepAlgoAPI_BooleanOperation();
 
   //! Constructor with precomputed intersections of arguments.
-  Standard_EXPORT BRepAlgoAPI_BooleanOperation(const BOPAlgo_PaveFiller& thePF);
+  Standard_EXPORT BRepAlgoAPI_BooleanOperation(const BooleanPaveFiller& thePF);
 
 public: //! @name Setting/getting arguments
   //! Returns the first argument involved in this Boolean operation.
   //! Obsolete
-  const TopoDS_Shape& Shape1() const { return myArguments.First(); }
+  const TopoShape& Shape1() const { return myArguments.First(); }
 
   //! Returns the second argument involved in this Boolean operation.
   //! Obsolete
-  const TopoDS_Shape& Shape2() const { return myTools.First(); }
+  const TopoShape& Shape2() const { return myTools.First(); }
 
   //! Sets the Tool arguments
-  void SetTools(const TopTools_ListOfShape& theLS) { myTools = theLS; }
+  void SetTools(const ShapeList& theLS) { myTools = theLS; }
 
   //! Returns the Tools arguments
-  const TopTools_ListOfShape& Tools() const { return myTools; }
+  const ShapeList& Tools() const { return myTools; }
 
 public: //! @name Setting/Getting the type of Boolean operation
   //! Sets the type of Boolean operation
@@ -90,20 +90,20 @@ public: //! @name Performing the operation
 protected: //! @name Constructors
   //! Constructor to perform Boolean operation on only two arguments.
   //! Obsolete
-  Standard_EXPORT BRepAlgoAPI_BooleanOperation(const TopoDS_Shape&     theS1,
-                                               const TopoDS_Shape&     theS2,
+  Standard_EXPORT BRepAlgoAPI_BooleanOperation(const TopoShape&     theS1,
+                                               const TopoShape&     theS2,
                                                const BOPAlgo_Operation theOperation);
 
   //! Constructor to perform Boolean operation on only two arguments
   //! with precomputed intersection results.
   //! Obsolete
-  Standard_EXPORT BRepAlgoAPI_BooleanOperation(const TopoDS_Shape&       theS1,
-                                               const TopoDS_Shape&       theS2,
-                                               const BOPAlgo_PaveFiller& thePF,
+  Standard_EXPORT BRepAlgoAPI_BooleanOperation(const TopoShape&       theS1,
+                                               const TopoShape&       theS2,
+                                               const BooleanPaveFiller& thePF,
                                                const BOPAlgo_Operation   theOperation);
 
 protected:                          //! @name Fields
-  TopTools_ListOfShape myTools;     //!< Tool arguments of operation
+  ShapeList myTools;     //!< Tool arguments of operation
   BOPAlgo_Operation    myOperation; //!< Type of Boolean Operation
 };
 

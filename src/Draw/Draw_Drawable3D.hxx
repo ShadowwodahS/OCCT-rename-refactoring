@@ -24,7 +24,7 @@
 #include <Standard_OStream.hxx>
 #include <Draw_Interpretor.hxx>
 
-class Draw_Display;
+class DrawDisplay;
 
 DEFINE_STANDARD_HANDLE(Draw_Drawable3D, RefObject)
 
@@ -55,7 +55,7 @@ public:
   Standard_EXPORT static Handle(Draw_Drawable3D) Restore(Standard_IStream& theStream);
 
 public:
-  Standard_EXPORT virtual void DrawOn(Draw_Display& dis) const = 0;
+  Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const = 0;
 
   //! Returns True if the pick is outside the box
   Standard_EXPORT virtual Standard_Boolean PickReject(const Standard_Real X,
@@ -72,7 +72,7 @@ public:
   Standard_EXPORT virtual void Save(Standard_OStream& theStream) const;
 
   //! For variable whatis command. Set as a result the type of the variable.
-  Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const;
+  Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const;
 
   //! Is a 3D object. (Default True).
   virtual bool Is3D() const { return true; }

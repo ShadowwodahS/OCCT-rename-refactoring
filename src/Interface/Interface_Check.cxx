@@ -86,10 +86,10 @@ void Interface_Check::AddFail(const Standard_CString amess, const Standard_CStri
 void Interface_Check::AddFail(const Message_Msg& amsg)
 {
   if (amsg.IsEdited())
-    AddFail(new TCollection_HAsciiString(TCollection_AsciiString(amsg.Value())),
-            new TCollection_HAsciiString(TCollection_AsciiString(amsg.Original())));
+    AddFail(new TCollection_HAsciiString(AsciiString1(amsg.Value())),
+            new TCollection_HAsciiString(AsciiString1(amsg.Original())));
   else
-    AddFail(new TCollection_HAsciiString(TCollection_AsciiString(amsg.Value())));
+    AddFail(new TCollection_HAsciiString(AsciiString1(amsg.Value())));
 }
 
 //=================================================================================================
@@ -184,10 +184,10 @@ void Interface_Check::AddWarning(const Standard_CString amess, const Standard_CS
 void Interface_Check::AddWarning(const Message_Msg& amsg)
 {
   if (amsg.IsEdited())
-    AddWarning(new TCollection_HAsciiString(TCollection_AsciiString(amsg.Value())),
-               new TCollection_HAsciiString(TCollection_AsciiString(amsg.Original())));
+    AddWarning(new TCollection_HAsciiString(AsciiString1(amsg.Value())),
+               new TCollection_HAsciiString(AsciiString1(amsg.Original())));
   else
-    AddWarning(new TCollection_HAsciiString(TCollection_AsciiString(amsg.Value())));
+    AddWarning(new TCollection_HAsciiString(AsciiString1(amsg.Value())));
 }
 
 //=================================================================================================

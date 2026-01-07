@@ -70,7 +70,7 @@ const Standard_GUID& XCAFDoc_GeomTolerance::GetID()
 
 //=================================================================================================
 
-Handle(XCAFDoc_GeomTolerance) XCAFDoc_GeomTolerance::Set(const TDF_Label& theLabel)
+Handle(XCAFDoc_GeomTolerance) XCAFDoc_GeomTolerance::Set(const DataLabel& theLabel)
 {
   Handle(XCAFDoc_GeomTolerance) A;
   if (!theLabel.FindAttribute(XCAFDoc_GeomTolerance::GetID(), A))
@@ -90,8 +90,8 @@ void XCAFDoc_GeomTolerance::SetObject(
 
   if (theObject->GetSemanticName())
   {
-    TCollection_ExtendedString str(theObject->GetSemanticName()->String());
-    TDataStd_Name::Set(Label(), str);
+    UtfString str(theObject->GetSemanticName()->String());
+    NameAttribute::Set(Label(), str);
   }
 
   for (int aChild = ChildLab_Begin; aChild < ChildLab_End; aChild++)
@@ -99,25 +99,25 @@ void XCAFDoc_GeomTolerance::SetObject(
     Label().FindChild(aChild).ForgetAllAttributes();
   }
 
-  Handle(TDataStd_Integer) aType =
-    TDataStd_Integer::Set(Label().FindChild(ChildLab_Type), theObject->GetType());
+  Handle(IntAttribute) aType =
+    IntAttribute::Set(Label().FindChild(ChildLab_Type), theObject->GetType());
 
   if (theObject->GetTypeOfValue() != XCAFDimTolObjects_GeomToleranceTypeValue_None)
-    Handle(TDataStd_Integer) aTypeOfValue =
-      TDataStd_Integer::Set(Label().FindChild(ChildLab_TypeOfValue), theObject->GetTypeOfValue());
+    Handle(IntAttribute) aTypeOfValue =
+      IntAttribute::Set(Label().FindChild(ChildLab_TypeOfValue), theObject->GetTypeOfValue());
 
   Handle(TDataStd_Real) aValue =
     TDataStd_Real::Set(Label().FindChild(ChildLab_Value), theObject->GetValue());
 
-  Handle(TDataStd_Integer) aMatReqModif;
+  Handle(IntAttribute) aMatReqModif;
   if (theObject->GetMaterialRequirementModifier()
       != XCAFDimTolObjects_GeomToleranceMatReqModif_None)
-    aMatReqModif = TDataStd_Integer::Set(Label().FindChild(ChildLab_MatReqModif),
+    aMatReqModif = IntAttribute::Set(Label().FindChild(ChildLab_MatReqModif),
                                          theObject->GetMaterialRequirementModifier());
 
   if (theObject->GetZoneModifier() != XCAFDimTolObjects_GeomToleranceZoneModif_None)
-    Handle(TDataStd_Integer) aZoneModif =
-      TDataStd_Integer::Set(Label().FindChild(ChildLab_ZoneModif), theObject->GetZoneModifier());
+    Handle(IntAttribute) aZoneModif =
+      IntAttribute::Set(Label().FindChild(ChildLab_ZoneModif), theObject->GetZoneModifier());
 
   if (theObject->GetValueOfZoneModifier() > 0)
     Handle(TDataStd_Real) aValueOfZoneModif =
@@ -227,24 +227,24 @@ void XCAFDoc_GeomTolerance::SetObject(
       aLoc->ChangeArray(aLocArr);
   }
 
-  TopoDS_Shape aPresentation = theObject->GetPresentation();
+  TopoShape aPresentation = theObject->GetPresentation();
   if (!aPresentation.IsNull())
   {
-    TDF_Label       aLPres = Label().FindChild(ChildLab_Presentation);
+    DataLabel       aLPres = Label().FindChild(ChildLab_Presentation);
     TNaming_Builder tnBuild(aLPres);
     tnBuild.Generated(aPresentation);
     Handle(TCollection_HAsciiString) aName = theObject->GetPresentationName();
     if (!aName.IsNull())
     {
-      TCollection_ExtendedString str(aName->String());
-      TDataStd_Name::Set(aLPres, str);
+      UtfString str(aName->String());
+      NameAttribute::Set(aLPres, str);
     }
   }
 
   if (theObject->HasAffectedPlane())
   {
-    TDF_Label aLAffectedPlane = Label().FindChild(ChildLab_AffectedPlane);
-    TDataStd_Integer::Set(aLAffectedPlane, (Standard_Integer)theObject->GetAffectedPlaneType());
+    DataLabel aLAffectedPlane = Label().FindChild(ChildLab_AffectedPlane);
+    IntAttribute::Set(aLAffectedPlane, (Standard_Integer)theObject->GetAffectedPlaneType());
     TDataXtd_Plane::Set(aLAffectedPlane, theObject->GetAffectedPlane());
   }
 }
@@ -255,26 +255,26 @@ Handle(XCAFDimTolObjects_GeomToleranceObject) XCAFDoc_GeomTolerance::GetObject()
 {
   Handle(XCAFDimTolObjects_GeomToleranceObject) anObj = new XCAFDimTolObjects_GeomToleranceObject();
 
-  Handle(TDataStd_Name)            aSemanticNameAttr;
+  Handle(NameAttribute)            aSemanticNameAttr;
   Handle(TCollection_HAsciiString) aSemanticName;
-  if (Label().FindAttribute(TDataStd_Name::GetID(), aSemanticNameAttr))
+  if (Label().FindAttribute(NameAttribute::GetID(), aSemanticNameAttr))
   {
-    const TCollection_ExtendedString& aName = aSemanticNameAttr->Get();
+    const UtfString& aName = aSemanticNameAttr->Get();
     if (!aName.IsEmpty())
       aSemanticName = new TCollection_HAsciiString(aName);
   }
   anObj->SetSemanticName(aSemanticName);
 
-  Handle(TDataStd_Integer) aType;
-  if (Label().FindChild(ChildLab_Type).FindAttribute(TDataStd_Integer::GetID(), aType))
+  Handle(IntAttribute) aType;
+  if (Label().FindChild(ChildLab_Type).FindAttribute(IntAttribute::GetID(), aType))
   {
     anObj->SetType((XCAFDimTolObjects_GeomToleranceType)aType->Get());
   }
 
-  Handle(TDataStd_Integer) aTypeOfValue;
+  Handle(IntAttribute) aTypeOfValue;
   if (Label()
         .FindChild(ChildLab_TypeOfValue)
-        .FindAttribute(TDataStd_Integer::GetID(), aTypeOfValue))
+        .FindAttribute(IntAttribute::GetID(), aTypeOfValue))
   {
     anObj->SetTypeOfValue((XCAFDimTolObjects_GeomToleranceTypeValue)aTypeOfValue->Get());
   }
@@ -285,17 +285,17 @@ Handle(XCAFDimTolObjects_GeomToleranceObject) XCAFDoc_GeomTolerance::GetObject()
     anObj->SetValue(aValue->Get());
   }
 
-  Handle(TDataStd_Integer) aMatReqModif;
+  Handle(IntAttribute) aMatReqModif;
   if (Label()
         .FindChild(ChildLab_MatReqModif)
-        .FindAttribute(TDataStd_Integer::GetID(), aMatReqModif))
+        .FindAttribute(IntAttribute::GetID(), aMatReqModif))
   {
     anObj->SetMaterialRequirementModifier(
       (XCAFDimTolObjects_GeomToleranceMatReqModif)aMatReqModif->Get());
   }
 
-  Handle(TDataStd_Integer) aZoneModif;
-  if (Label().FindChild(ChildLab_ZoneModif).FindAttribute(TDataStd_Integer::GetID(), aZoneModif))
+  Handle(IntAttribute) aZoneModif;
+  if (Label().FindChild(ChildLab_ZoneModif).FindAttribute(IntAttribute::GetID(), aZoneModif))
   {
     anObj->SetZoneModifier((XCAFDimTolObjects_GeomToleranceZoneModif)aZoneModif->Get());
   }
@@ -381,19 +381,19 @@ Handle(XCAFDimTolObjects_GeomToleranceObject) XCAFDoc_GeomTolerance::GetObject()
     anObj->SetPointTextAttach(aP);
   }
 
-  Handle(TNaming_NamedShape) aNS;
-  TDF_Label                  aLPres = Label().FindChild(ChildLab_Presentation);
-  if (aLPres.FindAttribute(TNaming_NamedShape::GetID(), aNS))
+  Handle(ShapeAttribute) aNS;
+  DataLabel                  aLPres = Label().FindChild(ChildLab_Presentation);
+  if (aLPres.FindAttribute(ShapeAttribute::GetID(), aNS))
   {
 
-    TopoDS_Shape aPresentation = TNaming_Tool::GetShape(aNS);
+    TopoShape aPresentation = Tool11::GetShape(aNS);
     if (!aPresentation.IsNull())
     {
-      Handle(TDataStd_Name)            aNameAtrr;
+      Handle(NameAttribute)            aNameAtrr;
       Handle(TCollection_HAsciiString) aPresentName;
-      if (aLPres.FindAttribute(TDataStd_Name::GetID(), aNameAtrr))
+      if (aLPres.FindAttribute(NameAttribute::GetID(), aNameAtrr))
       {
-        const TCollection_ExtendedString& aName = aNameAtrr->Get();
+        const UtfString& aName = aNameAtrr->Get();
 
         if (!aName.IsEmpty())
           aPresentName = new TCollection_HAsciiString(aName);
@@ -410,8 +410,8 @@ Handle(XCAFDimTolObjects_GeomToleranceObject) XCAFDoc_GeomTolerance::GetObject()
   {
     gp_Pln aPlane;
     TDataXtd_Geometry::Plane(anAffectedPlaneAttr->Label(), aPlane);
-    Handle(TDataStd_Integer) aTypeAttr;
-    Label().FindChild(ChildLab_AffectedPlane).FindAttribute(TDataStd_Integer::GetID(), aTypeAttr);
+    Handle(IntAttribute) aTypeAttr;
+    Label().FindChild(ChildLab_AffectedPlane).FindAttribute(IntAttribute::GetID(), aTypeAttr);
     anObj->SetAffectedPlane(aPlane, (XCAFDimTolObjects_ToleranceZoneAffectedPlane)aTypeAttr->Get());
   }
 

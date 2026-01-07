@@ -36,7 +36,7 @@ const Standard_GUID& TFunction_Scope::GetID()
 // purpose  : Finds or creates a Scope attribute
 //=======================================================================
 
-Handle(TFunction_Scope) TFunction_Scope::Set(const TDF_Label& Access)
+Handle(TFunction_Scope) TFunction_Scope::Set(const DataLabel& Access)
 {
   Handle(TFunction_Scope) S;
   if (!Access.Root().FindAttribute(TFunction_Scope::GetID(), S))
@@ -69,7 +69,7 @@ TFunction_Scope::TFunction_Scope()
 // purpose  : Adds a function to the scope.
 //=======================================================================
 
-Standard_Boolean TFunction_Scope::AddFunction(const TDF_Label& L)
+Standard_Boolean TFunction_Scope::AddFunction(const DataLabel& L)
 {
   if (myFunctions.IsBound2(L))
     return Standard_False;
@@ -85,7 +85,7 @@ Standard_Boolean TFunction_Scope::AddFunction(const TDF_Label& L)
 // purpose  : Removes a function from the scope.
 //=======================================================================
 
-Standard_Boolean TFunction_Scope::RemoveFunction(const TDF_Label& L)
+Standard_Boolean TFunction_Scope::RemoveFunction(const DataLabel& L)
 {
   if (!myFunctions.IsBound2(L))
     return Standard_False;
@@ -140,7 +140,7 @@ Standard_Boolean TFunction_Scope::HasFunction(const Standard_Integer ID) const
 // purpose  : Checks presence of a function.
 //=======================================================================
 
-Standard_Boolean TFunction_Scope::HasFunction(const TDF_Label& L) const
+Standard_Boolean TFunction_Scope::HasFunction(const DataLabel& L) const
 {
   return myFunctions.IsBound2(L);
 }
@@ -150,7 +150,7 @@ Standard_Boolean TFunction_Scope::HasFunction(const TDF_Label& L) const
 // purpose  : Returns a function.
 //=======================================================================
 
-Standard_Integer TFunction_Scope::GetFunction(const TDF_Label& L) const
+Standard_Integer TFunction_Scope::GetFunction(const DataLabel& L) const
 {
   return myFunctions.Find2(L);
 }
@@ -160,7 +160,7 @@ Standard_Integer TFunction_Scope::GetFunction(const TDF_Label& L) const
 // purpose  : Returns a function.
 //=======================================================================
 
-const TDF_Label& TFunction_Scope::GetFunction(const Standard_Integer ID) const
+const DataLabel& TFunction_Scope::GetFunction(const Standard_Integer ID) const
 {
   return myFunctions.Find1(ID);
 }

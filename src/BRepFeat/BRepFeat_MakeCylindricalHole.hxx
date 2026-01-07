@@ -44,7 +44,7 @@ public:
 
   //! Sets the shape and  axis on which hole(s)  will be
   //! performed.
-  void Init(const TopoDS_Shape& S, const Axis3d& Axis);
+  void Init(const TopoShape& S, const Axis3d& Axis);
 
   //! Performs every  hole of    radius  <Radius>.  This
   //! command  has the  same effect as   a cut operation
@@ -109,8 +109,8 @@ private:
   BRepFeat_Status  myStatus;
   Standard_Boolean myIsBlind;
   Standard_Boolean myValidate;
-  TopoDS_Face      myTopFace;
-  TopoDS_Face      myBotFace;
+  TopoFace      myTopFace;
+  TopoFace      myBotFace;
 };
 
 #include <BRepFeat_MakeCylindricalHole.lxx>

@@ -19,7 +19,7 @@
 // PROTOTYPES
 #define Storage_DECLARE_SCHEMA_METHODS(schema)                                                     \
 public:                                                                                            \
-  Standard_EXPORT Handle(Storage_CallBack) CallBackSelection(const TCollection_AsciiString&)       \
+  Standard_EXPORT Handle(Storage_CallBack) CallBackSelection(const AsciiString1&)       \
     const;                                                                                         \
   Standard_EXPORT Handle(Storage_CallBack) AddTypeSelection(const Handle(DbObject)&)    \
     const;                                                                                         \
@@ -28,7 +28,7 @@ public:                                                                         
 // Read_TypeSelection
 //
 #define Storage_BEGIN_READ_SELECTION(schema)                                                       \
-  Handle(Storage_CallBack) schema::CallBackSelection(const TCollection_AsciiString& rt) const      \
+  Handle(Storage_CallBack) schema::CallBackSelection(const AsciiString1& rt) const      \
   {                                                                                                \
     Handle(DbObject) p;                                                                 \
     Handle(Storage_CallBack)    cback;
@@ -72,7 +72,7 @@ public:                                                                         
     if (!p.IsNull())                                                                               \
     {                                                                                              \
       const Handle(TypeInfo)&   t = p->DynamicType();                                         \
-      static TCollection_AsciiString theTypeName;                                                  \
+      static AsciiString1 theTypeName;                                                  \
       theTypeName = t->Name();                                                                     \
       if (HasTypeBinding(theTypeName))                                                             \
       {                                                                                            \

@@ -36,11 +36,11 @@ class TDF_Reference : public TDF_Attribute
 public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
-  Standard_EXPORT static Handle(TDF_Reference) Set(const TDF_Label& I, const TDF_Label& Origin);
+  Standard_EXPORT static Handle(TDF_Reference) Set(const DataLabel& I, const DataLabel& Origin);
 
-  Standard_EXPORT void Set(const TDF_Label& Origin);
+  Standard_EXPORT void Set(const DataLabel& Origin);
 
-  Standard_EXPORT TDF_Label Get() const;
+  Standard_EXPORT DataLabel Get() const;
 
   Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
 
@@ -65,7 +65,7 @@ public:
 
 protected:
 private:
-  TDF_Label myOrigin;
+  DataLabel myOrigin;
 };
 
 #endif // _TDF_Reference_HeaderFile

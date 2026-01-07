@@ -24,7 +24,7 @@
 #include <IntTools_SequenceOfCommonPrts.hxx>
 #include <IntTools_SequenceOfRanges.hxx>
 #include <TopAbs_ShapeEnum.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 class Bnd_Box;
 
 //! The class provides Edge/Edge intersection algorithm
@@ -41,36 +41,36 @@ public:
   ~IntTools_EdgeEdge();
 
   //! Constructor
-  IntTools_EdgeEdge(const TopoDS_Edge& theEdge1, const TopoDS_Edge& theEdge2);
+  IntTools_EdgeEdge(const TopoEdge& theEdge1, const TopoEdge& theEdge2);
 
   //! Constructor
-  IntTools_EdgeEdge(const TopoDS_Edge&  theEdge1,
+  IntTools_EdgeEdge(const TopoEdge&  theEdge1,
                     const Standard_Real aT11,
                     const Standard_Real aT12,
-                    const TopoDS_Edge&  theEdge2,
+                    const TopoEdge&  theEdge2,
                     const Standard_Real aT21,
                     const Standard_Real aT22);
 
   //! Sets the first edge
-  void SetEdge1(const TopoDS_Edge& theEdge);
+  void SetEdge1(const TopoEdge& theEdge);
 
   //! Sets the first edge and its range
-  void SetEdge1(const TopoDS_Edge& theEdge, const Standard_Real aT1, const Standard_Real aT2);
+  void SetEdge1(const TopoEdge& theEdge, const Standard_Real aT1, const Standard_Real aT2);
 
   //! Sets the range for the first edge
-  void SetRange1(const IntTools_Range& theRange1);
+  void SetRange1(const IntToolsRange& theRange1);
 
   //! Sets the range for the first edge
   void SetRange1(const Standard_Real aT1, const Standard_Real aT2);
 
   //! Sets the second edge
-  void SetEdge2(const TopoDS_Edge& theEdge);
+  void SetEdge2(const TopoEdge& theEdge);
 
   //! Sets the first edge and its range
-  void SetEdge2(const TopoDS_Edge& theEdge, const Standard_Real aT1, const Standard_Real aT2);
+  void SetEdge2(const TopoEdge& theEdge, const Standard_Real aT1, const Standard_Real aT2);
 
   //! Sets the range for the second edge
-  void SetRange2(const IntTools_Range& theRange);
+  void SetRange2(const IntToolsRange& theRange);
 
   //! Sets the range for the second edge
   void SetRange2(const Standard_Real aT1, const Standard_Real aT2);
@@ -112,9 +112,9 @@ protected:
                                      Standard_Boolean&          bSplit2);
 
   //! Looking for the exact intersection ranges
-  Standard_EXPORT void FindSolutions(const IntTools_Range&      theR1,
+  Standard_EXPORT void FindSolutions(const IntToolsRange&      theR1,
                                      const Bnd_Box&             theBox1,
-                                     const IntTools_Range&      theR2,
+                                     const IntToolsRange&      theR2,
                                      const Bnd_Box&             theBox2,
                                      IntTools_SequenceOfRanges& theRanges1,
                                      IntTools_SequenceOfRanges& theRanges2);
@@ -169,10 +169,10 @@ protected:
   //! Checks if the edges are coincident really.
   Standard_EXPORT Standard_Boolean IsCoincident();
 
-  TopoDS_Edge                   myEdge1;
-  TopoDS_Edge                   myEdge2;
-  Handle(Geom_Curve)            myGeom1;
-  Handle(Geom_Curve)            myGeom2;
+  TopoEdge                   myEdge1;
+  TopoEdge                   myEdge2;
+  Handle(GeomCurve3d)            myGeom1;
+  Handle(GeomCurve3d)            myGeom2;
   BRepAdaptor_Curve             myCurve1;
   BRepAdaptor_Curve             myCurve2;
   Standard_Real                 myTol1;
@@ -185,8 +185,8 @@ protected:
   Standard_Real                 myResCoeff2;
   Standard_Real                 myPTol1;
   Standard_Real                 myPTol2;
-  IntTools_Range                myRange1;
-  IntTools_Range                myRange2;
+  IntToolsRange                myRange1;
+  IntToolsRange                myRange2;
   Standard_Boolean              mySwap;
   Standard_Integer              myErrorStatus;
   IntTools_SequenceOfCommonPrts myCommonParts;

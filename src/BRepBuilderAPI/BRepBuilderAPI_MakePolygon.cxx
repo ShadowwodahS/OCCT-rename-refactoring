@@ -69,8 +69,8 @@ BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const Point3d&          P
 
 //=================================================================================================
 
-BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const TopoDS_Vertex& V1,
-                                                       const TopoDS_Vertex& V2)
+BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const TopoVertex& V1,
+                                                       const TopoVertex& V2)
     : myMakePolygon(V1, V2)
 {
   if (myMakePolygon.IsDone())
@@ -82,9 +82,9 @@ BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const TopoDS_Vertex& V1,
 
 //=================================================================================================
 
-BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const TopoDS_Vertex&   V1,
-                                                       const TopoDS_Vertex&   V2,
-                                                       const TopoDS_Vertex&   V3,
+BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const TopoVertex&   V1,
+                                                       const TopoVertex&   V2,
+                                                       const TopoVertex&   V3,
                                                        const Standard_Boolean Cl)
     : myMakePolygon(V1, V2, V3, Cl)
 {
@@ -97,10 +97,10 @@ BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const TopoDS_Vertex&   V1
 
 //=================================================================================================
 
-BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const TopoDS_Vertex&   V1,
-                                                       const TopoDS_Vertex&   V2,
-                                                       const TopoDS_Vertex&   V3,
-                                                       const TopoDS_Vertex&   V4,
+BRepBuilderAPI_MakePolygon::BRepBuilderAPI_MakePolygon(const TopoVertex&   V1,
+                                                       const TopoVertex&   V2,
+                                                       const TopoVertex&   V3,
+                                                       const TopoVertex&   V4,
                                                        const Standard_Boolean Cl)
     : myMakePolygon(V1, V2, V3, V4, Cl)
 {
@@ -126,7 +126,7 @@ void BRepBuilderAPI_MakePolygon::Add(const Point3d& P)
 
 //=================================================================================================
 
-void BRepBuilderAPI_MakePolygon::Add(const TopoDS_Vertex& V)
+void BRepBuilderAPI_MakePolygon::Add(const TopoVertex& V)
 {
   myMakePolygon.Add(V);
   if (myMakePolygon.IsDone())
@@ -153,14 +153,14 @@ void BRepBuilderAPI_MakePolygon::Close()
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepBuilderAPI_MakePolygon::FirstVertex() const
+const TopoVertex& BRepBuilderAPI_MakePolygon::FirstVertex() const
 {
   return myMakePolygon.FirstVertex();
 }
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepBuilderAPI_MakePolygon::LastVertex() const
+const TopoVertex& BRepBuilderAPI_MakePolygon::LastVertex() const
 {
   return myMakePolygon.LastVertex();
 }
@@ -174,28 +174,28 @@ Standard_Boolean BRepBuilderAPI_MakePolygon::IsDone() const
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepBuilderAPI_MakePolygon::Edge() const
+const TopoEdge& BRepBuilderAPI_MakePolygon::Edge() const
 {
   return myMakePolygon.Edge();
 }
 
 //=================================================================================================
 
-const TopoDS_Wire& BRepBuilderAPI_MakePolygon::Wire()
+const TopoWire& BRepBuilderAPI_MakePolygon::Wire()
 {
   return myMakePolygon.Wire();
 }
 
 //=================================================================================================
 
-BRepBuilderAPI_MakePolygon::operator TopoDS_Edge() const
+BRepBuilderAPI_MakePolygon::operator TopoEdge() const
 {
   return Edge();
 }
 
 //=================================================================================================
 
-BRepBuilderAPI_MakePolygon::operator TopoDS_Wire()
+BRepBuilderAPI_MakePolygon::operator TopoWire()
 {
   return Wire();
 }

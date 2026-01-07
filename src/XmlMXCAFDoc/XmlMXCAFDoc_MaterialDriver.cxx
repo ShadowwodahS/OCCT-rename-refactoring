@@ -55,8 +55,8 @@ Standard_Boolean XmlMXCAFDoc_MaterialDriver::Paste(const XmlObjMgt_Persistent&  
 
   if (XmlObjMgt::GetReal(aRealStr, aDensity) == Standard_False)
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve Material attribute density from \"") + aRealStr
+    UtfString aMessageString =
+      UtfString("Cannot retrieve Material attribute density from \"") + aRealStr
       + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
@@ -69,7 +69,7 @@ Standard_Boolean XmlMXCAFDoc_MaterialDriver::Paste(const XmlObjMgt_Persistent&  
   XmlObjMgt_DOMString      aDensTypeStr = anElement.getAttribute(::DensTypeIndexString());
   if (aNameStr == NULL || aDescrStr == NULL || aDensNameStr == NULL || aDensTypeStr == NULL)
   {
-    TCollection_ExtendedString aMessageString(
+    UtfString aMessageString(
       "Cannot retrieve Material attribute name or description");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
@@ -108,7 +108,7 @@ void XmlMXCAFDoc_MaterialDriver::Paste(const Handle(TDF_Attribute)& theSource,
   if (!anAtt->GetDensValType().IsNull())
     aDensTypeStr = anAtt->GetDensValType()->String().ToCString();
 
-  TCollection_AsciiString aDensityStr(anAtt->GetDensity());
+  AsciiString1 aDensityStr(anAtt->GetDensity());
   XmlObjMgt::SetStringValue(theTarget, aDensityStr.ToCString());
   theTarget.Element().setAttribute(::NameIndexString(), aNameString);
   theTarget.Element().setAttribute(::DescrIndexString(), aDescrString);

@@ -33,7 +33,7 @@ Interface_EntityIterator IFSelect_SelectModelEntities::CompleteResult(
   return G.Model()->Entities();
 }
 
-TCollection_AsciiString IFSelect_SelectModelEntities::Label() const
+AsciiString1 IFSelect_SelectModelEntities::Label() const
 {
-  return TCollection_AsciiString("All Entities from Model");
+  return AsciiString1("All Entities from Model");
 }

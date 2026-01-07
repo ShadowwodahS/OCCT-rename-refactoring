@@ -21,8 +21,8 @@
 #include <Standard_Type.hxx>
 
 #include <Standard_Transient.hxx>
-class TDF_Label;
-class AIS_InteractiveObject;
+class DataLabel;
+class VisualEntity;
 
 class TPrsStd_Driver;
 DEFINE_STANDARD_HANDLE(TPrsStd_Driver, RefObject)
@@ -31,7 +31,7 @@ DEFINE_STANDARD_HANDLE(TPrsStd_Driver, RefObject)
 //! ==============
 //! An abstract class, which - in classes inheriting
 //! from it - allows you to update an
-//! AIS_InteractiveObject or create one if one does
+//! VisualEntity or create one if one does
 //! not already exist.
 //! For both creation and update, the interactive
 //! object is filled with information contained in
@@ -39,7 +39,7 @@ DEFINE_STANDARD_HANDLE(TPrsStd_Driver, RefObject)
 //! the label given as an argument in the method Update.
 //! true is returned if the interactive object was modified by the update.
 //! This class  provide  an algorithm  to  Build with its  default
-//! values (if Null) or Update (if !Null) an AIS_InteractiveObject
+//! values (if Null) or Update (if !Null) an VisualEntity
 //! .   Resources are found  in  attributes associated to  a given
 //! label.
 class TPrsStd_Driver : public RefObject
@@ -48,8 +48,8 @@ class TPrsStd_Driver : public RefObject
 public:
   //! Updates the interactive object ais with
   //! information found on the attributes associated with the label L.
-  Standard_EXPORT virtual Standard_Boolean Update(const TDF_Label&               L,
-                                                  Handle(AIS_InteractiveObject)& ais) = 0;
+  Standard_EXPORT virtual Standard_Boolean Update(const DataLabel&               L,
+                                                  Handle(VisualEntity)& ais) = 0;
 
   DEFINE_STANDARD_RTTIEXT(TPrsStd_Driver, RefObject)
 

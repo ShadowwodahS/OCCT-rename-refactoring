@@ -24,9 +24,9 @@
 #include <Standard_Transient.hxx>
 #include <ShapeExtend_Status.hxx>
 class ShapeConstruct_ProjectCurveOnSurface;
-class TopoDS_Edge;
-class TopoDS_Face;
-class Geom_Surface;
+class TopoEdge;
+class TopoFace;
+class GeomSurface;
 class TopLoc_Location;
 class ShapeAnalysis_Surface;
 class ShapeBuild_ReShape;
@@ -57,8 +57,8 @@ public:
   //! Can be used for adjusting parameters of projector
   Standard_EXPORT Handle(ShapeConstruct_ProjectCurveOnSurface) Projector();
 
-  Standard_EXPORT Standard_Boolean FixRemovePCurve(const TopoDS_Edge& edge,
-                                                   const TopoDS_Face& face);
+  Standard_EXPORT Standard_Boolean FixRemovePCurve(const TopoEdge& edge,
+                                                   const TopoFace& face);
 
   //! Removes the pcurve(s) of the edge if it does not match the
   //! vertices
@@ -68,32 +68,32 @@ public:
   //! Returns: True, if does not match, removed (status DONE)
   //! False, (status OK) if matches or (status FAIL) if no pcurve,
   //! nothing done
-  Standard_EXPORT Standard_Boolean FixRemovePCurve(const TopoDS_Edge&          edge,
-                                                   const Handle(Geom_Surface)& surface,
+  Standard_EXPORT Standard_Boolean FixRemovePCurve(const TopoEdge&          edge,
+                                                   const Handle(GeomSurface)& surface,
                                                    const TopLoc_Location&      location);
 
   //! Removes 3d curve of the edge if it does not match the vertices
   //! Returns: True,  if does not match, removed (status DONE)
   //! False, (status OK) if matches or (status FAIL) if no 3d curve,
   //! nothing done
-  Standard_EXPORT Standard_Boolean FixRemoveCurve3d(const TopoDS_Edge& edge);
+  Standard_EXPORT Standard_Boolean FixRemoveCurve3d(const TopoEdge& edge);
 
   //! See method below for information
-  Standard_EXPORT Standard_Boolean FixAddPCurve(const TopoDS_Edge&     edge,
-                                                const TopoDS_Face&     face,
+  Standard_EXPORT Standard_Boolean FixAddPCurve(const TopoEdge&     edge,
+                                                const TopoFace&     face,
                                                 const Standard_Boolean isSeam,
                                                 const Standard_Real    prec = 0.0);
 
   //! See method below for information
-  Standard_EXPORT Standard_Boolean FixAddPCurve(const TopoDS_Edge&          edge,
-                                                const Handle(Geom_Surface)& surface,
+  Standard_EXPORT Standard_Boolean FixAddPCurve(const TopoEdge&          edge,
+                                                const Handle(GeomSurface)& surface,
                                                 const TopLoc_Location&      location,
                                                 const Standard_Boolean      isSeam,
                                                 const Standard_Real         prec = 0.0);
 
   //! See method below for information
-  Standard_EXPORT Standard_Boolean FixAddPCurve(const TopoDS_Edge&                   edge,
-                                                const TopoDS_Face&                   face,
+  Standard_EXPORT Standard_Boolean FixAddPCurve(const TopoEdge&                   edge,
+                                                const TopoFace&                   face,
                                                 const Standard_Boolean               isSeam,
                                                 const Handle(ShapeAnalysis_Surface)& surfana,
                                                 const Standard_Real                  prec = 0.0);
@@ -115,8 +115,8 @@ public:
   //! DONE2: specific case of pcurve going through degenerated point on
   //! sphere encountered during projection (see class
   //! ShapeConstruct_ProjectCurveOnSurface for more info)
-  Standard_EXPORT Standard_Boolean FixAddPCurve(const TopoDS_Edge&                   edge,
-                                                const Handle(Geom_Surface)&          surface,
+  Standard_EXPORT Standard_Boolean FixAddPCurve(const TopoEdge&                   edge,
+                                                const Handle(GeomSurface)&          surface,
                                                 const TopLoc_Location&               location,
                                                 const Standard_Boolean               isSeam,
                                                 const Handle(ShapeAnalysis_Surface)& surfana,
@@ -130,10 +130,10 @@ public:
   //! OK   : 3d curve exists
   //! FAIL1: BRepLib::BuildCurve3d() has failed
   //! DONE1: 3d curve was added
-  Standard_EXPORT Standard_Boolean FixAddCurve3d(const TopoDS_Edge& edge);
+  Standard_EXPORT Standard_Boolean FixAddCurve3d(const TopoEdge& edge);
 
-  Standard_EXPORT Standard_Boolean FixVertexTolerance(const TopoDS_Edge& edge,
-                                                      const TopoDS_Face& face);
+  Standard_EXPORT Standard_Boolean FixVertexTolerance(const TopoEdge& edge,
+                                                      const TopoFace& face);
 
   //! Increases the tolerances of the edge vertices to comprise
   //! the ends of 3d curve and pcurve on the given face
@@ -143,9 +143,9 @@ public:
   //! OK   : the original tolerances have not been changed
   //! DONE1: the tolerance of first vertex has been increased
   //! DONE2: the tolerance of last  vertex has been increased
-  Standard_EXPORT Standard_Boolean FixVertexTolerance(const TopoDS_Edge& edge);
+  Standard_EXPORT Standard_Boolean FixVertexTolerance(const TopoEdge& edge);
 
-  Standard_EXPORT Standard_Boolean FixReversed2d(const TopoDS_Edge& edge, const TopoDS_Face& face);
+  Standard_EXPORT Standard_Boolean FixReversed2d(const TopoEdge& edge, const TopoFace& face);
 
   //! Fixes edge if pcurve is directed opposite to 3d curve
   //! Check is done by call to the function
@@ -158,8 +158,8 @@ public:
   //! FAIL1 - no pcurve
   //! FAIL2 - no 3d curve
   //! DONE1 - pcurve was reversed
-  Standard_EXPORT Standard_Boolean FixReversed2d(const TopoDS_Edge&          edge,
-                                                 const Handle(Geom_Surface)& surface,
+  Standard_EXPORT Standard_Boolean FixReversed2d(const TopoEdge&          edge,
+                                                 const Handle(GeomSurface)& surface,
                                                  const TopLoc_Location&      location);
 
   //! Tries to make edge SameParameter and sets corresponding
@@ -195,7 +195,7 @@ public:
   //! DONE4 - not used anymore
   //! DONE5 - if the edge resulting from BRepLib has been chosen, i.e. variant b. above
   //! (only for edges with not set SameParameter)
-  Standard_EXPORT Standard_Boolean FixSameParameter(const TopoDS_Edge&  edge,
+  Standard_EXPORT Standard_Boolean FixSameParameter(const TopoEdge&  edge,
                                                     const Standard_Real tolerance = 0.0);
 
   //! Tries to make edge SameParameter and sets corresponding
@@ -231,8 +231,8 @@ public:
   //! DONE4 - not used anymore
   //! DONE5 - if the edge resulting from BRepLib has been chosen, i.e. variant b. above
   //! (only for edges with not set SameParameter)
-  Standard_EXPORT Standard_Boolean FixSameParameter(const TopoDS_Edge&  edge,
-                                                    const TopoDS_Face&  face,
+  Standard_EXPORT Standard_Boolean FixSameParameter(const TopoEdge&  edge,
+                                                    const TopoFace&  face,
                                                     const Standard_Real tolerance = 0.0);
 
   //! Returns the status (in the form of True/False) of last Fix

@@ -18,9 +18,9 @@ IMPLEMENT_STANDARD_RTTIEXT(AIS_AnimationObject, AIS_BaseAnimationObject)
 
 //=================================================================================================
 
-AIS_AnimationObject::AIS_AnimationObject(const TCollection_AsciiString&        theAnimationName,
-                                         const Handle(AIS_InteractiveContext)& theContext,
-                                         const Handle(AIS_InteractiveObject)&  theObject,
+AIS_AnimationObject::AIS_AnimationObject(const AsciiString1&        theAnimationName,
+                                         const Handle(VisualContext)& theContext,
+                                         const Handle(VisualEntity)&  theObject,
                                          const Transform3d&                        theTrsfStart,
                                          const Transform3d&                        theTrsfEnd)
     : AIS_BaseAnimationObject(theAnimationName, theContext, theObject),

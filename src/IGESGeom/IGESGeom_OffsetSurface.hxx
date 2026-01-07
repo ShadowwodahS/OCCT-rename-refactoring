@@ -28,7 +28,7 @@ class IGESGeom_OffsetSurface;
 DEFINE_STANDARD_HANDLE(IGESGeom_OffsetSurface, IGESData_IGESEntity)
 
 //! defines IGESOffsetSurface, Type <140> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! An offset surface is a surface defined in terms of an
 //! already existing surface.If S(u, v) is a parametrised
 //! regular surface and N(u, v) is a differential field of

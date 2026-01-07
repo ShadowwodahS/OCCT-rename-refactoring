@@ -25,7 +25,7 @@
 class TCollection_HAsciiString;
 class IFSelect_Selection;
 class IFSelect_SelectionIterator;
-class TCollection_AsciiString;
+class AsciiString1;
 class Interface_EntityIterator;
 class Interface_Graph;
 class IFGraph_SubPartsIterator;
@@ -95,7 +95,7 @@ public:
 
   //! Returns a text which defines the way a Dispatch produces
   //! packets (which will become files) from its Input
-  Standard_EXPORT virtual TCollection_AsciiString Label() const = 0;
+  Standard_EXPORT virtual AsciiString1 Label() const = 0;
 
   //! Gets Unique Root Entities from the Final Selection, given an
   //! input Graph

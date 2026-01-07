@@ -29,7 +29,7 @@ class StepBasic_DocumentType;
 class StepBasic_ProductDefinitionContext;
 class StepBasic_ProductContext;
 class StepBasic_ApplicationProtocolDefinition;
-class XSControl_WorkSession;
+class ExchangeSession;
 class StepBasic_ProductDefinition;
 class TCollection_HAsciiString;
 class StepAP214_AppliedDocumentReference;
@@ -51,10 +51,10 @@ public:
   Standard_EXPORT STEPConstruct_ExternRefs();
 
   //! Creates a tool and initializes it
-  Standard_EXPORT STEPConstruct_ExternRefs(const Handle(XSControl_WorkSession)& WS);
+  Standard_EXPORT STEPConstruct_ExternRefs(const Handle(ExchangeSession)& WS);
 
   //! Initializes tool; returns True if succeeded
-  Standard_EXPORT Standard_Boolean Init(const Handle(XSControl_WorkSession)& WS);
+  Standard_EXPORT Standard_Boolean Init(const Handle(ExchangeSession)& WS);
 
   //! Clears internal fields (list of defined extern refs)
   Standard_EXPORT void Clear();

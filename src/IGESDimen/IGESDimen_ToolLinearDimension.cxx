@@ -32,9 +32,9 @@
 #include <Interface_Macros.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESDimen_ToolLinearDimension::IGESDimen_ToolLinearDimension() {}
+LinearDimensionTool::LinearDimensionTool() {}
 
-void IGESDimen_ToolLinearDimension::ReadOwnParams(const Handle(IGESDimen_LinearDimension)& ent,
+void LinearDimensionTool::ReadOwnParams(const Handle(IGESDimen_LinearDimension)& ent,
                                                   const Handle(IGESData_IGESReaderData)&   IR,
                                                   IGESData_ParamReader&                    PR) const
 {
@@ -78,7 +78,7 @@ void IGESDimen_ToolLinearDimension::ReadOwnParams(const Handle(IGESDimen_LinearD
   ent->Init(note, firstLeader, secondLeader, firstWitness, secondWitness);
 }
 
-void IGESDimen_ToolLinearDimension::WriteOwnParams(const Handle(IGESDimen_LinearDimension)& ent,
+void LinearDimensionTool::WriteOwnParams(const Handle(IGESDimen_LinearDimension)& ent,
                                                    IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->Note());
@@ -88,7 +88,7 @@ void IGESDimen_ToolLinearDimension::WriteOwnParams(const Handle(IGESDimen_Linear
   IW.Send(ent->SecondWitness());
 }
 
-void IGESDimen_ToolLinearDimension::OwnShared(const Handle(IGESDimen_LinearDimension)& ent,
+void LinearDimensionTool::OwnShared(const Handle(IGESDimen_LinearDimension)& ent,
                                               Interface_EntityIterator&                iter) const
 {
   iter.GetOneItem(ent->Note());
@@ -98,7 +98,7 @@ void IGESDimen_ToolLinearDimension::OwnShared(const Handle(IGESDimen_LinearDimen
   iter.GetOneItem(ent->SecondWitness());
 }
 
-void IGESDimen_ToolLinearDimension::OwnCopy(const Handle(IGESDimen_LinearDimension)& another,
+void LinearDimensionTool::OwnCopy(const Handle(IGESDimen_LinearDimension)& another,
                                             const Handle(IGESDimen_LinearDimension)& ent,
                                             Interface_CopyTool&                      TC) const
 {
@@ -112,10 +112,10 @@ void IGESDimen_ToolLinearDimension::OwnCopy(const Handle(IGESDimen_LinearDimensi
   ent->SetFormNumber(another->FormNumber());
 }
 
-IGESData_DirChecker IGESDimen_ToolLinearDimension::DirChecker(
+DirectoryChecker LinearDimensionTool::DirChecker(
   const Handle(IGESDimen_LinearDimension)& /*ent*/) const
 {
-  IGESData_DirChecker DC(216, 0, 2);
+  DirectoryChecker DC(216, 0, 2);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.LineWeight(IGESData_DefValue);
@@ -124,13 +124,13 @@ IGESData_DirChecker IGESDimen_ToolLinearDimension::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolLinearDimension::OwnCheck(const Handle(IGESDimen_LinearDimension)& /*ent*/,
+void LinearDimensionTool::OwnCheck(const Handle(IGESDimen_LinearDimension)& /*ent*/,
                                              const Interface_ShareTool&,
                                              Handle(Interface_Check)& /*ach*/) const
 {
 }
 
-void IGESDimen_ToolLinearDimension::OwnDump(const Handle(IGESDimen_LinearDimension)& ent,
+void LinearDimensionTool::OwnDump(const Handle(IGESDimen_LinearDimension)& ent,
                                             const IGESData_IGESDumper&               dumper,
                                             Standard_OStream&                        S,
                                             const Standard_Integer                   level) const

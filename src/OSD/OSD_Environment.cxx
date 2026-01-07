@@ -34,8 +34,8 @@ static const OSD_WhoAmI Iam = OSD_WEnvironment;
 //
 // Updated by : JPT Dec,7 1992
 // What       : OSD_Environment::OSD_Environment
-//                              (const TCollection_AsciiString& Name,
-//                               const TCollection_AsciiString& Value)
+//                              (const AsciiString1& Name,
+//                               const AsciiString1& Value)
 //              Value could contain the character $ (Ex setenv a = $c)
 //
 // ----------------------------------------------------------------------
@@ -47,7 +47,7 @@ OSD_Environment::OSD_Environment() {}
 // Constructor
 // ----------------------------------------------------------------------
 
-OSD_Environment::OSD_Environment(const TCollection_AsciiString& Name)
+OSD_Environment::OSD_Environment(const AsciiString1& Name)
 {
 
   if (!Name.IsAscii() || Name.Search("$") != -1)
@@ -60,8 +60,8 @@ OSD_Environment::OSD_Environment(const TCollection_AsciiString& Name)
 // Create an environment variable and initialize it
 // ----------------------------------------------------------------------
 
-OSD_Environment::OSD_Environment(const TCollection_AsciiString& Name,
-                                 const TCollection_AsciiString& Value)
+OSD_Environment::OSD_Environment(const AsciiString1& Name,
+                                 const AsciiString1& Value)
 {
 
   if (!Name.IsAscii() || !Value.IsAscii() ||
@@ -77,7 +77,7 @@ OSD_Environment::OSD_Environment(const TCollection_AsciiString& Name,
 // Returns the name of the symbol
 // ----------------------------------------------------------------------
 
-TCollection_AsciiString OSD_Environment::Name() const
+AsciiString1 OSD_Environment::Name() const
 {
   return myName;
 }
@@ -86,7 +86,7 @@ TCollection_AsciiString OSD_Environment::Name() const
 // Set new value for environment variable
 // ----------------------------------------------------------------------
 
-void OSD_Environment::SetName(const TCollection_AsciiString& Name)
+void OSD_Environment::SetName(const AsciiString1& Name)
 {
   myError.Reset();
   if (!Name.IsAscii() || Name.Search("$") != -1)
@@ -99,7 +99,7 @@ void OSD_Environment::SetName(const TCollection_AsciiString& Name)
 // Change value
 // ----------------------------------------------------------------------
 
-void OSD_Environment::SetValue(const TCollection_AsciiString& Value)
+void OSD_Environment::SetValue(const AsciiString1& Value)
 {
   if (!Value.IsAscii() || Value.Search("$") != -1)
     throw Standard_ConstructionError("OSD_Environment::Change: bad argument");
@@ -111,7 +111,7 @@ void OSD_Environment::SetValue(const TCollection_AsciiString& Value)
 // Get environment variable physically
 // ----------------------------------------------------------------------
 
-TCollection_AsciiString OSD_Environment::Value()
+AsciiString1 OSD_Environment::Value()
 {
   char* result = getenv(myName.ToCString());
   if (result == NULL)
@@ -243,7 +243,7 @@ namespace
 {
 // emulate global map of environment variables
 static Standard_Mutex                                                        THE_ENV_LOCK;
-static NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString> THE_ENV_MAP;
+static NCollection_DataMap<AsciiString1, AsciiString1> THE_ENV_MAP;
 } // namespace
   #else
 static void __fastcall _set_error(OSD_Error&, DWORD);
@@ -251,15 +251,15 @@ static void __fastcall _set_error(OSD_Error&, DWORD);
 
 OSD_Environment ::OSD_Environment() {} // end constructor ( 1 )
 
-OSD_Environment ::OSD_Environment(const TCollection_AsciiString& Name)
+OSD_Environment ::OSD_Environment(const AsciiString1& Name)
 {
 
   myName = Name;
 
 } // end constructor ( 2 )
 
-OSD_Environment ::OSD_Environment(const TCollection_AsciiString& Name,
-                                  const TCollection_AsciiString& Value)
+OSD_Environment ::OSD_Environment(const AsciiString1& Name,
+                                  const AsciiString1& Value)
 {
 
   myName  = Name;
@@ -267,14 +267,14 @@ OSD_Environment ::OSD_Environment(const TCollection_AsciiString& Name,
 
 } // end constructor ( 3 )
 
-void OSD_Environment ::SetValue(const TCollection_AsciiString& Value)
+void OSD_Environment ::SetValue(const AsciiString1& Value)
 {
 
   myValue = Value;
 
 } // end OSD_Environment :: SetValue
 
-TCollection_AsciiString OSD_Environment::Value()
+AsciiString1 OSD_Environment::Value()
 {
   myValue.Clear();
   #ifdef OCCT_UWP
@@ -317,14 +317,14 @@ TCollection_AsciiString OSD_Environment::Value()
   return myValue;
 }
 
-void OSD_Environment ::SetName(const TCollection_AsciiString& name)
+void OSD_Environment ::SetName(const AsciiString1& name)
 {
 
   myName = name;
 
 } // end OSD_Environment :: SetName
 
-TCollection_AsciiString OSD_Environment ::Name() const
+AsciiString1 OSD_Environment ::Name() const
 {
 
   return myName;
@@ -395,12 +395,12 @@ static void __fastcall _set_error(OSD_Error& theErr, DWORD theCode)
   {
     theErr.SetValue(anErrCode,
                     OSD_WEnvironment,
-                    TCollection_AsciiString("error code ") + (Standard_Integer)anErrCode);
+                    AsciiString1("error code ") + (Standard_Integer)anErrCode);
     SetLastError(anErrCode);
   }
   else
   {
-    theErr.SetValue(anErrCode, OSD_WEnvironment, TCollection_AsciiString(aBuffer));
+    theErr.SetValue(anErrCode, OSD_WEnvironment, AsciiString1(aBuffer));
   }
 }
   #endif

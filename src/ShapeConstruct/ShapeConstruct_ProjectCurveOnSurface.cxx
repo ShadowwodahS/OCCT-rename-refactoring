@@ -80,7 +80,7 @@ IMPLEMENT_STANDARD_RTTIEXT(ShapeConstruct_ProjectCurveOnSurface, RefObject)
 
 static void AdjustSecondPointToFirstPoint(const gp_Pnt2d&             theFirstPoint,
                                           gp_Pnt2d&                   theSecondPoint,
-                                          const Handle(Geom_Surface)& theSurf)
+                                          const Handle(GeomSurface)& theSurf)
 {
   if (theSurf->IsUPeriodic())
   {
@@ -112,7 +112,7 @@ ShapeConstruct_ProjectCurveOnSurface::ShapeConstruct_ProjectCurveOnSurface()
 
 //=================================================================================================
 
-void ShapeConstruct_ProjectCurveOnSurface::Init(const Handle(Geom_Surface)& surf,
+void ShapeConstruct_ProjectCurveOnSurface::Init(const Handle(GeomSurface)& surf,
                                                 const Standard_Real         preci)
 {
   Init(new ShapeAnalysis_Surface(surf), preci);
@@ -129,7 +129,7 @@ void ShapeConstruct_ProjectCurveOnSurface::Init(const Handle(ShapeAnalysis_Surfa
 
 //=================================================================================================
 
-void ShapeConstruct_ProjectCurveOnSurface::SetSurface(const Handle(Geom_Surface)& surf)
+void ShapeConstruct_ProjectCurveOnSurface::SetSurface(const Handle(GeomSurface)& surf)
 {
   SetSurface(new ShapeAnalysis_Surface(surf));
 }
@@ -178,10 +178,10 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Status(
 
 //=================================================================================================
 
-Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(Geom_Curve)&   c3d,
+Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(GeomCurve3d)&   c3d,
                                                                const Standard_Real   First,
                                                                const Standard_Real   Last,
-                                                               Handle(Geom2d_Curve)& c2d,
+                                                               Handle(GeomCurve2d)& c2d,
                                                                const Standard_Real   TolFirst,
                                                                const Standard_Real   TolLast)
 {
@@ -195,7 +195,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(Geom_Curve
     return Standard_False;
   }
   //  Projection Analytique
-  Handle(Geom_Curve) crv3dtrim = c3d;
+  Handle(GeomCurve3d) crv3dtrim = c3d;
   if (!c3d->IsKind(STANDARD_TYPE(Geom_BoundedCurve)))
     crv3dtrim = new Geom_TrimmedCurve(c3d, First, Last);
   c2d = ProjectAnalytic(crv3dtrim);
@@ -217,14 +217,14 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(Geom_Curve
 
   //: 92 abv 28 Jan 98: if curve is BSpline with many intervals,
   // increase number of points to provide at least Degree()+1 points per interval
-  Handle(Geom_BSplineCurve) bspl;
+  Handle(BSplineCurve3d) bspl;
   if (c3d->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
   {
     Handle(Geom_TrimmedCurve) ctrim = Handle(Geom_TrimmedCurve)::DownCast(c3d);
-    bspl                            = Handle(Geom_BSplineCurve)::DownCast(ctrim->BasisCurve());
+    bspl                            = Handle(BSplineCurve3d)::DownCast(ctrim->BasisCurve());
   }
   else
-    bspl = Handle(Geom_BSplineCurve)::DownCast(c3d);
+    bspl = Handle(BSplineCurve3d)::DownCast(c3d);
   if (!bspl.IsNull())
   {
     Standard_Integer nint = 0;
@@ -374,7 +374,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(Geom_Curve
       theParams->SetValue(iPnt, params(iPnt));
     }
 
-    Handle(Geom_Curve) newc3d = InterpolateCurve3d(nbPini, thePnts, theParams, c3d);
+    Handle(GeomCurve3d) newc3d = InterpolateCurve3d(nbPini, thePnts, theParams, c3d);
     if (newc3d.IsNull())
       myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
     else
@@ -401,10 +401,10 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::Perform(Handle(Geom_Curve
 //=================================================================================================
 
 Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::PerformByProjLib(
-  Handle(Geom_Curve)&   c3d,
+  Handle(GeomCurve3d)&   c3d,
   const Standard_Real   First,
   const Standard_Real   Last,
-  Handle(Geom2d_Curve)& c2d,
+  Handle(GeomCurve2d)& c2d,
   const GeomAbs_Shape /*continuity*/,
   const Standard_Integer /*maxdeg */,
   const Standard_Integer /*nbinterval */)
@@ -476,38 +476,38 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::PerformByProjLib(
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::ProjectAnalytic(
-  const Handle(Geom_Curve)& c3d) const
+Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::ProjectAnalytic(
+  const Handle(GeomCurve3d)& c3d) const
 {
-  Handle(Geom2d_Curve) result;
+  Handle(GeomCurve2d) result;
 
   //: k1 abv 16 Dec 98: limit analytic cases by Plane surfaces only
   // This is necessary for K4L since it fails on other surfaces
   // when general method GeomProjLib::Curve2d() is used
-  // Projection is done as in BRep_Tool and BRepCheck_Edge
-  Handle(Geom_Surface) surf  = mySurf->Surface();
-  Handle(Geom_Plane)   Plane = Handle(Geom_Plane)::DownCast(surf);
+  // Projection is done as in BRepInspector and BRepCheck_Edge
+  Handle(GeomSurface) surf  = mySurf->Surface();
+  Handle(GeomPlane)   Plane = Handle(GeomPlane)::DownCast(surf);
   if (Plane.IsNull())
   {
     Handle(Geom_RectangularTrimmedSurface) RTS =
       Handle(Geom_RectangularTrimmedSurface)::DownCast(surf);
     if (!RTS.IsNull())
-      Plane = Handle(Geom_Plane)::DownCast(RTS->BasisSurface());
+      Plane = Handle(GeomPlane)::DownCast(RTS->BasisSurface());
     else
     {
       Handle(Geom_OffsetSurface) OS = Handle(Geom_OffsetSurface)::DownCast(surf);
       if (!OS.IsNull())
-        Plane = Handle(Geom_Plane)::DownCast(OS->BasisSurface());
+        Plane = Handle(GeomPlane)::DownCast(OS->BasisSurface());
     }
   }
   if (!Plane.IsNull())
   {
-    Handle(Geom_Curve) ProjOnPlane =
+    Handle(GeomCurve3d) ProjOnPlane =
       GeomProjLib::ProjectOnPlane(c3d, Plane, Plane->Position().Direction(), Standard_True);
     Handle(GeomAdaptor_Curve) HC = new GeomAdaptor_Curve(ProjOnPlane);
     ProjLib_ProjectedCurve    Proj(mySurf->Adaptor3d(), HC);
 
-    result = Geom2dAdaptor::MakeCurve(Proj);
+    result = Geom2dAdaptor1::MakeCurve(Proj);
     if (result.IsNull())
       return result;
     if (result->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve)))
@@ -643,7 +643,7 @@ static Standard_Boolean fixPeriodictyTroubles(
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::getLine(
+Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::getLine(
   const TColgp_SequenceOfPnt&   thepoints,
   const TColStd_SequenceOfReal& theparams,
   TColgp_SequenceOfPnt2d&       thePnt2ds,
@@ -769,13 +769,13 @@ Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::getLine(
     return 0;
   gp_Vec2d             aVec0(aP2d[0], aP2d[3]);
   gp_Vec2d             aVec          = aVec0 / dPar;
-  Handle(Geom_Surface) aSurf         = mySurf->Surface();
+  Handle(GeomSurface) aSurf         = mySurf->Surface();
   Standard_Boolean     isNormalCheck = aSurf->IsCNu(1) && aSurf->IsCNv(1);
   if (isNormalCheck)
   {
     for (i = 1; i <= nb; i++)
     {
-      gp_XY  aCurPoint = aP2d[0].XY() + aVec.XY() * (theparams(i) - theparams(1));
+      Coords2d  aCurPoint = aP2d[0].XY() + aVec.XY() * (theparams(i) - theparams(1));
       Point3d aCurP;
       Vector3d aNormalVec, aDu, aDv;
       aSurf->D1(aCurPoint.X(), aCurPoint.Y(), aCurP, aDu, aDv);
@@ -798,7 +798,7 @@ Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::getLine(
     aTol2 = Max(aTol2, aTol2 * 2 * aFirstPointDist);
     for (i = 2; i < nb; i++)
     {
-      gp_XY  aCurPoint = aP2d[0].XY() + aVec.XY() * (theparams(i) - theparams(1));
+      Coords2d  aCurPoint = aP2d[0].XY() + aVec.XY() * (theparams(i) - theparams(1));
       Point3d aCurP;
       aSurf->D0(aCurPoint.X(), aCurPoint.Y(), aCurP);
       Standard_Real aDist1 = aCurP.SquareDistance(thepoints(i));
@@ -812,7 +812,7 @@ Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::getLine(
   Standard_Real aLLength = aVec0.Magnitude();
   if (Abs(aLLength - dPar) <= Precision::PConfusion())
   {
-    gp_XY    aDirL = aVec0.XY() / aLLength;
+    Coords2d    aDirL = aVec0.XY() / aLLength;
     gp_Pnt2d aPL(aP2d[0].XY() - theparams(1) * aDirL);
     return new Geom2d_Line(aPL, gp_Dir2d(aDirL));
   }
@@ -837,13 +837,13 @@ Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::getLine(
 //=================================================================================================
 
 Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standard_Integer nbrPnt,
-                                                                    const Handle(Geom_Curve)& c3d,
+                                                                    const Handle(GeomCurve3d)& c3d,
                                                                     const Standard_Real   TolFirst,
                                                                     const Standard_Real   TolLast,
                                                                     TColgp_SequenceOfPnt& points,
                                                                     TColStd_SequenceOfReal& params,
                                                                     TColgp_SequenceOfPnt2d& pnt2d,
-                                                                    Handle(Geom2d_Curve)&   c2d)
+                                                                    Handle(GeomCurve2d)&   c2d)
 {
   // for performance, first try to handle typical case when pcurve is straight
   Standard_Boolean isRecompute     = Standard_False;
@@ -884,7 +884,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
 
   Standard_Boolean   isoParam, isoPar2d3d, isoTypeU, p1OnIso, p2OnIso, isoclosed;
   gp_Pnt2d           valueP1, valueP2;
-  Handle(Geom_Curve) cIso;
+  Handle(GeomCurve3d) cIso;
   Standard_Real      t1, t2;
 
   Handle(TypeInfo) sType      = mySurf->Surface()->DynamicType();
@@ -1662,16 +1662,16 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::ApproxPCurve(const Standa
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::ApproximatePCurve(
+Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::ApproximatePCurve(
   const Standard_Integer /*nbrPnt*/,
   Handle(TColgp_HArray1OfPnt2d)& points2d,
   Handle(TColStd_HArray1OfReal)& params,
-  const Handle(Geom_Curve)& /*orig*/) const
+  const Handle(GeomCurve3d)& /*orig*/) const
 {
   //  Standard_Real resol = Min(mySurf->Adaptor3d()->VResolution(myPreci),
   //  mySurf->Adaptor3d()->UResolution(myPreci));
   Standard_Real        theTolerance2d = myPreci; // (100*nbrPnt);//resol;
-  Handle(Geom2d_Curve) C2d;
+  Handle(GeomCurve2d) C2d;
   try
   {
     OCC_CATCH_SIGNALS
@@ -1690,7 +1690,7 @@ Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::ApproximatePCurve(
     }
 
     GeomAPI_PointsToBSpline appr(points3d, params->Array1(), 1, 10, GeomAbs_C1, theTolerance2d);
-    const Handle(Geom_BSplineCurve)& crv3d   = appr.Curve();
+    const Handle(BSplineCurve3d)& crv3d   = appr.Curve();
     Standard_Integer                 NbPoles = crv3d->NbPoles();
     TColgp_Array1OfPnt               poles3d(1, NbPoles);
     TColgp_Array1OfPnt2d             poles2d(1, NbPoles);
@@ -1742,13 +1742,13 @@ Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::ApproximatePCurve(
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::InterpolatePCurve(
+Handle(GeomCurve2d) ShapeConstruct_ProjectCurveOnSurface::InterpolatePCurve(
   const Standard_Integer         nbrPnt,
   Handle(TColgp_HArray1OfPnt2d)& points2d,
   Handle(TColStd_HArray1OfReal)& params,
-  const Handle(Geom_Curve)& /*orig*/) const
+  const Handle(GeomCurve3d)& /*orig*/) const
 {
-  Handle(Geom2d_Curve) C2d; // NULL si echec
+  Handle(GeomCurve2d) C2d; // NULL si echec
   Standard_Real        theTolerance2d = myPreci / (100 * nbrPnt);
   try
   {
@@ -1789,13 +1789,13 @@ Handle(Geom2d_Curve) ShapeConstruct_ProjectCurveOnSurface::InterpolatePCurve(
 
 //=================================================================================================
 
-Handle(Geom_Curve) ShapeConstruct_ProjectCurveOnSurface::InterpolateCurve3d(
+Handle(GeomCurve3d) ShapeConstruct_ProjectCurveOnSurface::InterpolateCurve3d(
   const Standard_Integer,
   Handle(TColgp_HArray1OfPnt)&   points,
   Handle(TColStd_HArray1OfReal)& params,
-  const Handle(Geom_Curve)& /*orig*/) const
+  const Handle(GeomCurve3d)& /*orig*/) const
 {
-  Handle(Geom_Curve) C3d; // NULL si echec
+  Handle(GeomCurve3d) C3d; // NULL si echec
   try
   {
     OCC_CATCH_SIGNALS
@@ -1826,7 +1826,7 @@ Handle(Geom_Curve) ShapeConstruct_ProjectCurveOnSurface::InterpolateCurve3d(
 //           in the case when it coincids with a singularity of surface
 //============================================================================================
 
-void ShapeConstruct_ProjectCurveOnSurface::CorrectExtremity(const Handle(Geom_Curve)&     theC3d,
+void ShapeConstruct_ProjectCurveOnSurface::CorrectExtremity(const Handle(GeomCurve3d)&     theC3d,
                                                             const TColStd_SequenceOfReal& theParams,
                                                             TColgp_SequenceOfPnt2d&       thePnt2d,
                                                             const Standard_Boolean theIsFirstPoint,
@@ -1954,7 +1954,7 @@ void ShapeConstruct_ProjectCurveOnSurface::InsertAdditionalPointOrAdjust(
   const Standard_Real       TolOnPeriod,
   Standard_Real&            CurCoord,
   const Standard_Real       prevCoord,
-  const Handle(Geom_Curve)& c3d,
+  const Handle(GeomCurve3d)& c3d,
   Standard_Integer&         theIndex,
   TColgp_SequenceOfPnt&     points,
   TColStd_SequenceOfReal&   params,
@@ -2161,8 +2161,8 @@ void ShapeConstruct_ProjectCurveOnSurface::CheckPoints2d(Handle(TColgp_HArray1Of
     // pdn 12.02.99 S4135 Creating pcurve with minimal length.
     tmpParam.SetValue(firstElem, 1);
     tmpParam.SetValue(lastElem, 1);
-    gp_XY lastPnt = points->Value(lastElem).XY();
-    lastPnt.Add(gp_XY(preci, preci));
+    Coords2d lastPnt = points->Value(lastElem).XY();
+    lastPnt.Add(Coords2d(preci, preci));
     points->SetValue(lastElem, lastPnt);
     newLast = firstElem + 1;
     // return;
@@ -2209,7 +2209,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
   Standard_Boolean&             p2OnIso,
   gp_Pnt2d&                     valueP2,
   Standard_Boolean&             isoPar2d3d,
-  Handle(Geom_Curve)&           cIso,
+  Handle(GeomCurve3d)&           cIso,
   Standard_Real&                t1,
   Standard_Real&                t2,
   TColStd_Array1OfReal&         pout) const
@@ -2249,7 +2249,7 @@ Standard_Boolean ShapeConstruct_ProjectCurveOnSurface::IsAnIsoparametric(
     {
       Standard_Real    isoVal = 0.;
       Standard_Boolean isoU = Standard_False; // szv#4:S4163:12Mar99 `isoU` must be Standard_Boolean
-      Handle(Geom_Curve) cI;
+      Handle(GeomCurve3d) cI;
       Standard_Real      tt1, tt2;
 
       if (j == 1)

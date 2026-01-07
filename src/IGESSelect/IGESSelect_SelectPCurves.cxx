@@ -164,10 +164,10 @@ Standard_Boolean IGESSelect_SelectPCurves::Explore(const Standard_Integer       
   return Standard_False;
 }
 
-TCollection_AsciiString IGESSelect_SelectPCurves::ExploreLabel() const
+AsciiString1 IGESSelect_SelectPCurves::ExploreLabel() const
 {
   if (thebasic)
-    return TCollection_AsciiString("Basic PCurves");
+    return AsciiString1("Basic PCurves");
   else
-    return TCollection_AsciiString("Global PCurves");
+    return AsciiString1("Global PCurves");
 }

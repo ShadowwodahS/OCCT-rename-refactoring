@@ -24,10 +24,10 @@
 #include <Standard_Real.hxx>
 #include <Message_ProgressRange.hxx>
 
-class TopoDS_Shape;
+class TopoShape;
 
 //! Tool to keep shapes in binary format
-class BinTools
+class BinTools1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -66,7 +66,7 @@ public:
   //! @param[in] theShape        the shape to write
   //! @param[in][out] theStream  the stream to output shape into
   //! @param theRange            the range of progress indicator to fill in
-  static void Write(const TopoDS_Shape&          theShape,
+  static void Write(const TopoShape&          theShape,
                     Standard_OStream&            theStream,
                     const Message_ProgressRange& theRange = Message_ProgressRange())
   {
@@ -87,10 +87,10 @@ public:
   //! @param[in] theWithNormals    flag which specifies whether to save triangulation with (TRUE) or
   //! without (FALSE) normals;
   //!                              has no effect on triangulation-only geometry
-  //! @param[in] theVersion        the BinTools format version
+  //! @param[in] theVersion        the BinTools1 format version
   //! @param theRange              the range of progress indicator to fill in
   Standard_EXPORT static void Write(
-    const TopoDS_Shape&          theShape,
+    const TopoShape&          theShape,
     Standard_OStream&            theStream,
     const Standard_Boolean       theWithTriangles,
     const Standard_Boolean       theWithNormals,
@@ -98,7 +98,7 @@ public:
     const Message_ProgressRange& theRange = Message_ProgressRange());
 
   //! Reads a shape from <theStream> and returns it in <theShape>.
-  Standard_EXPORT static void Read(TopoDS_Shape&                theShape,
+  Standard_EXPORT static void Read(TopoShape&                theShape,
                                    Standard_IStream&            theStream,
                                    const Message_ProgressRange& theRange = Message_ProgressRange());
 
@@ -106,7 +106,7 @@ public:
   //! @param[in] theShape  the shape to write
   //! @param[in] theFile   the path to file to output shape into
   //! @param theRange      the range of progress indicator to fill in
-  static Standard_Boolean Write(const TopoDS_Shape&          theShape,
+  static Standard_Boolean Write(const TopoShape&          theShape,
                                 const Standard_CString       theFile,
                                 const Message_ProgressRange& theRange = Message_ProgressRange())
   {
@@ -127,10 +127,10 @@ public:
   //! @param[in] theWithNormals    flag which specifies whether to save triangulation with (TRUE) or
   //! without (FALSE) normals;
   //!                              has no effect on triangulation-only geometry
-  //! @param[in] theVersion        the BinTools format version
+  //! @param[in] theVersion        the BinTools1 format version
   //! @param theRange              the range of progress indicator to fill in
   Standard_EXPORT static Standard_Boolean Write(
-    const TopoDS_Shape&          theShape,
+    const TopoShape&          theShape,
     const Standard_CString       theFile,
     const Standard_Boolean       theWithTriangles,
     const Standard_Boolean       theWithNormals,
@@ -139,7 +139,7 @@ public:
 
   //! Reads a shape from <theFile> and returns it in <theShape>.
   Standard_EXPORT static Standard_Boolean Read(
-    TopoDS_Shape&                theShape,
+    TopoShape&                theShape,
     const Standard_CString       theFile,
     const Message_ProgressRange& theRange = Message_ProgressRange());
 };

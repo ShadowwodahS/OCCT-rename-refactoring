@@ -30,12 +30,12 @@
 //! The relation between the connected interactive object
 //! and its source is generally one of geometric transformation.
 //! AIS_ConnectedInteractive class supports selection mode 0 for any InteractiveObject and
-//! all standard modes if its reference based on AIS_Shape.
+//! all standard modes if its reference based on VisualShape.
 //! Descendants may redefine ComputeSelection() though.
-//! Also ConnectedInteractive will handle HLR if its reference based on AIS_Shape.
-class AIS_ConnectedInteractive : public AIS_InteractiveObject
+//! Also ConnectedInteractive will handle HLR if its reference based on VisualShape.
+class AIS_ConnectedInteractive : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_ConnectedInteractive, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_ConnectedInteractive, VisualEntity)
 public:
   //! Disconnects the previous view and sets highlight
   //! mode to 0. This highlights the wireframe presentation
@@ -55,7 +55,7 @@ public:
 
   //! Establishes the connection between the Connected
   //! Interactive Object, anotherIobj, and its reference.
-  void Connect(const Handle(AIS_InteractiveObject)& theAnotherObj)
+  void Connect(const Handle(VisualEntity)& theAnotherObj)
   {
     connect(theAnotherObj, Handle(TopLoc_Datum3D)());
   }
@@ -63,7 +63,7 @@ public:
   //! Establishes the connection between the Connected
   //! Interactive Object, anotherIobj, and its reference.
   //! Locates instance in aLocation.
-  void Connect(const Handle(AIS_InteractiveObject)& theAnotherObj, const Transform3d& theLocation)
+  void Connect(const Handle(VisualEntity)& theAnotherObj, const Transform3d& theLocation)
   {
     connect(theAnotherObj, new TopLoc_Datum3D(theLocation));
   }
@@ -71,7 +71,7 @@ public:
   //! Establishes the connection between the Connected
   //! Interactive Object, anotherIobj, and its reference.
   //! Locates instance in aLocation.
-  void Connect(const Handle(AIS_InteractiveObject)& theAnotherObj,
+  void Connect(const Handle(VisualEntity)& theAnotherObj,
                const Handle(TopLoc_Datum3D)&        theLocation)
   {
     connect(theAnotherObj, theLocation);
@@ -82,7 +82,7 @@ public:
   Standard_Boolean HasConnection() const { return !myReference.IsNull(); }
 
   //! Returns the connection with the reference Interactive Object.
-  const Handle(AIS_InteractiveObject)& ConnectedTo() const { return myReference; }
+  const Handle(VisualEntity)& ConnectedTo() const { return myReference; }
 
   //! Clears the connection with a source reference. The
   //! presentation will no longer be displayed.
@@ -117,7 +117,7 @@ protected:
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Computes the presentation according to a point of view.
-  Standard_EXPORT virtual void computeHLR(const Handle(Graphic3d_Camera)&   theProjector,
+  Standard_EXPORT virtual void computeHLR(const Handle(CameraOn3d)&   theProjector,
                                           const Handle(TopLoc_Datum3D)&     theTrsf,
                                           const Handle(Prs3d_Presentation)& thePrs)
     Standard_OVERRIDE;
@@ -125,25 +125,25 @@ protected:
   //! Generates sensitive entities by copying
   //! them from myReference selection, creates and sets an entity
   //! owner for this entities and adds them to theSelection
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Generates sensitive entities by copying
   //! them from myReference sub shapes selection, creates and sets an entity
   //! owner for this entities and adds them to theSelection
-  Standard_EXPORT void computeSubShapeSelection(const Handle(SelectMgr_Selection)& theSelection,
+  Standard_EXPORT void computeSubShapeSelection(const Handle(SelectionContainer)& theSelection,
                                                 const Standard_Integer             theMode);
 
   Standard_EXPORT void updateShape(const Standard_Boolean WithLocation = Standard_True);
 
-  Standard_EXPORT void connect(const Handle(AIS_InteractiveObject)& theAnotherObj,
+  Standard_EXPORT void connect(const Handle(VisualEntity)& theAnotherObj,
                                const Handle(TopLoc_Datum3D)&        theLocation);
 
 protected:
-  Handle(AIS_InteractiveObject) myReference;
-  TopoDS_Shape                  myShape;
+  Handle(VisualEntity) myReference;
+  TopoShape                  myShape;
 };
 
-DEFINE_STANDARD_HANDLE(AIS_ConnectedInteractive, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(AIS_ConnectedInteractive, VisualEntity)
 
 #endif // _AIS_ConnectedInteractive_HeaderFile

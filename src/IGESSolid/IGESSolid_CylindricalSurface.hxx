@@ -28,7 +28,7 @@ class IGESSolid_CylindricalSurface;
 DEFINE_STANDARD_HANDLE(IGESSolid_CylindricalSurface, IGESData_IGESEntity)
 
 //! defines CylindricalSurface, Type <192> Form Number <0,1>
-//! in package IGESSolid
+//! in package IGESSolid1
 class IGESSolid_CylindricalSurface : public IGESData_IGESEntity
 {
 

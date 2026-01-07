@@ -68,7 +68,7 @@ Standard_Boolean IntTools_EdgeFace::IsCoincident()
   TopAbs_State aState;
   gp_Pnt2d     aP2d;
   //
-  GeomAPI_ProjectPointOnSurf& aProjector = myContext->ProjPS(myFace);
+  PointOnSurfProjector& aProjector = myContext->ProjPS(myFace);
 
   Standard_Integer aNbSeg = 23;
   if (myC.GetType() == GeomAbs_Line && myS.GetType() == GeomAbs_Plane)
@@ -77,7 +77,7 @@ Standard_Boolean IntTools_EdgeFace::IsCoincident()
   const Standard_Real    aTresh     = 0.5;
   const Standard_Integer aTreshIdxF = RealToInt((aNbSeg + 1) * 0.25),
                          aTreshIdxL = RealToInt((aNbSeg + 1) * 0.75);
-  const Handle(Geom_Surface) aSurf  = BRep_Tool::Surface(myFace);
+  const Handle(GeomSurface) aSurf  = BRepInspector::Surface(myFace);
 
   aT1                     = myRange.First();
   aT2                     = myRange.Last();
@@ -152,11 +152,11 @@ Standard_Boolean IntTools_EdgeFace::IsCoincident()
 
 void IntTools_EdgeFace::CheckData()
 {
-  if (BRep_Tool::Degenerated(myEdge))
+  if (BRepInspector::Degenerated(myEdge))
   {
     myErrorStatus = 2;
   }
-  if (!BRep_Tool::IsGeometric(myEdge))
+  if (!BRepInspector::IsGeometric(myEdge))
   {
     myErrorStatus = 3;
   }
@@ -197,7 +197,7 @@ Standard_Real IntTools_EdgeFace::DistanceFunction(const Standard_Real t)
   //
   Standard_Boolean bFlag = Standard_False;
 
-  GeomAPI_ProjectPointOnSurf& aLocProj = myContext->ProjPS(myFace);
+  PointOnSurfProjector& aLocProj = myContext->ProjPS(myFace);
   aLocProj.Perform(P);
   bFlag = aLocProj.IsDone();
 
@@ -363,8 +363,8 @@ Standard_Boolean IntTools_EdgeFace::CheckTouch(const IntTools_CommonPrt& aCP, St
 
   Tol = Precision::PConfusion();
 
-  const Handle(Geom_Curve)&   Curve   = BRep_Tool::Curve(myC.Edge(), af, al);
-  const Handle(Geom_Surface)& Surface = BRep_Tool::Surface(myS.Face());
+  const Handle(GeomCurve3d)&   Curve   = BRepInspector::Curve(myC.Edge(), af, al);
+  const Handle(GeomSurface)& Surface = BRepInspector::Surface(myS.Face());
   //   Surface->Bounds(U1f,U1l,V1f,V1l);
   U1f = myS.FirstUParameter();
   U1l = myS.LastUParameter();
@@ -511,8 +511,8 @@ void IntTools_EdgeFace::Perform()
   //
   // Prepare myCriteria
   Standard_Real aFuzz = myFuzzyValue / 2.;
-  Standard_Real aTolF = BRep_Tool::Tolerance(myFace) + aFuzz;
-  Standard_Real aTolE = BRep_Tool::Tolerance(myEdge) + aFuzz;
+  Standard_Real aTolF = BRepInspector::Tolerance(myFace) + aFuzz;
+  Standard_Real aTolE = BRepInspector::Tolerance(myEdge) + aFuzz;
   if (aCurveType == GeomAbs_BSplineCurve || aCurveType == GeomAbs_BezierCurve)
   {
     //--- 5112
@@ -561,9 +561,9 @@ void IntTools_EdgeFace::Perform()
 
   for (Standard_Integer r = 1; r <= anIntersector.Result().Length(); r++)
   {
-    const IntTools_Range& aRange = anIntersector.Result().Value(r);
+    const IntToolsRange& aRange = anIntersector.Result().Value(r);
 
-    if (IsProjectable(IntTools_Tools::IntermediatePoint(aRange.First(), aRange.Last())))
+    if (IsProjectable(Tools2::IntermediatePoint(aRange.First(), aRange.Last())))
     {
       aCommonPrt.SetRange1(aRange.First(), aRange.Last());
       mySeqOfCommonPrts.Append(aCommonPrt);
@@ -690,8 +690,8 @@ Standard_Boolean IntTools_EdgeFace::CheckTouchVertex(const IntTools_CommonPrt& a
 
   Tol = Precision::PConfusion();
 
-  const Handle(Geom_Curve)&   Curve   = BRep_Tool::Curve(myC.Edge(), af, al);
-  const Handle(Geom_Surface)& Surface = BRep_Tool::Surface(myS.Face());
+  const Handle(GeomCurve3d)&   Curve   = BRepInspector::Curve(myC.Edge(), af, al);
+  const Handle(GeomSurface)& Surface = BRepInspector::Surface(myS.Face());
 
   Surface->Bounds(U1f, U1l, V1f, V1l);
 
@@ -786,7 +786,7 @@ Standard_Boolean IsCoplanar(const BRepAdaptor_Curve& aCurve, const BRepAdaptor_S
     const Axis3d& anAx    = aPln.Axis();
     const Dir3d& aDirPln = anAx.Direction();
 
-    bFlag = IntTools_Tools::IsDirsCoinside(aDirAx1, aDirPln);
+    bFlag = Tools2::IsDirsCoinside(aDirAx1, aDirPln);
   }
   return bFlag;
 }
@@ -839,7 +839,7 @@ Standard_Integer AdaptiveDiscret(const Standard_Integer     iDiscret,
   {
     Standard_Real aELength, aRadius, dLR;
 
-    aELength = IntTools::Length(aCurve.Edge());
+    aELength = IntTools1::Length(aCurve.Edge());
 
     gp_Cylinder aCylinder = aSurface.Cylinder();
     aRadius               = aCylinder.Radius();

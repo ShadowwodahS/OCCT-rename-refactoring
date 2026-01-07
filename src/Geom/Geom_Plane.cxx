@@ -31,9 +31,9 @@
 #include <Standard_RangeError.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_Plane, Geom_ElementarySurface)
+IMPLEMENT_STANDARD_RTTIEXT(GeomPlane, Geom_ElementarySurface)
 
-typedef Geom_Plane Plane;
+typedef GeomPlane Plane;
 typedef Axis3d     Ax1;
 typedef Frame3d     Ax2;
 typedef gp_Ax3     Ax3;
@@ -47,16 +47,16 @@ typedef gp_XYZ     XYZ;
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_Plane::Copy() const
+Handle(Geom_Geometry) GeomPlane::Copy() const
 {
 
-  Handle(Geom_Plane) Pl = new Plane(pos);
+  Handle(GeomPlane) Pl = new Plane(pos);
   return Pl;
 }
 
 //=================================================================================================
 
-Geom_Plane::Geom_Plane(const gp_Ax3& A3)
+GeomPlane::GeomPlane(const gp_Ax3& A3)
 {
 
   pos = A3;
@@ -64,7 +64,7 @@ Geom_Plane::Geom_Plane(const gp_Ax3& A3)
 
 //=================================================================================================
 
-Geom_Plane::Geom_Plane(const gp_Pln& Pl)
+GeomPlane::GeomPlane(const gp_Pln& Pl)
 {
 
   pos = Pl.Position();
@@ -72,7 +72,7 @@ Geom_Plane::Geom_Plane(const gp_Pln& Pl)
 
 //=================================================================================================
 
-Geom_Plane::Geom_Plane(const Pnt& P, const Dir& V)
+GeomPlane::GeomPlane(const Pnt& P, const Dir& V)
 {
 
   gp_Pln Pl(P, V);
@@ -81,7 +81,7 @@ Geom_Plane::Geom_Plane(const Pnt& P, const Dir& V)
 
 //=================================================================================================
 
-Geom_Plane::Geom_Plane(const Standard_Real A,
+GeomPlane::GeomPlane(const Standard_Real A,
                        const Standard_Real B,
                        const Standard_Real C,
                        const Standard_Real D)
@@ -93,14 +93,14 @@ Geom_Plane::Geom_Plane(const Standard_Real A,
 
 //=================================================================================================
 
-void Geom_Plane::SetPln(const gp_Pln& Pl)
+void GeomPlane::SetPln(const gp_Pln& Pl)
 {
   pos = Pl.Position();
 }
 
 //=================================================================================================
 
-gp_Pln Geom_Plane::Pln() const
+gp_Pln GeomPlane::Pln() const
 {
 
   return gp_Pln(Position());
@@ -108,14 +108,14 @@ gp_Pln Geom_Plane::Pln() const
 
 //=================================================================================================
 
-void Geom_Plane::UReverse()
+void GeomPlane::UReverse()
 {
   pos.XReverse();
 }
 
 //=================================================================================================
 
-Standard_Real Geom_Plane::UReversedParameter(const Standard_Real U) const
+Standard_Real GeomPlane::UReversedParameter(const Standard_Real U) const
 {
 
   return (-U);
@@ -123,7 +123,7 @@ Standard_Real Geom_Plane::UReversedParameter(const Standard_Real U) const
 
 //=================================================================================================
 
-void Geom_Plane::VReverse()
+void GeomPlane::VReverse()
 {
 
   pos.YReverse();
@@ -131,7 +131,7 @@ void Geom_Plane::VReverse()
 
 //=================================================================================================
 
-Standard_Real Geom_Plane::VReversedParameter(const Standard_Real V) const
+Standard_Real GeomPlane::VReversedParameter(const Standard_Real V) const
 {
 
   return (-V);
@@ -139,14 +139,14 @@ Standard_Real Geom_Plane::VReversedParameter(const Standard_Real V) const
 
 //=================================================================================================
 
-void Geom_Plane::Transform(const Trsf& T)
+void GeomPlane::Transform(const Trsf& T)
 {
   pos.Transform(T);
 }
 
 //=================================================================================================
 
-Standard_Boolean Geom_Plane::IsUClosed() const
+Standard_Boolean GeomPlane::IsUClosed() const
 {
 
   return Standard_False;
@@ -154,7 +154,7 @@ Standard_Boolean Geom_Plane::IsUClosed() const
 
 //=================================================================================================
 
-Standard_Boolean Geom_Plane::IsVClosed() const
+Standard_Boolean GeomPlane::IsVClosed() const
 {
 
   return Standard_False;
@@ -162,7 +162,7 @@ Standard_Boolean Geom_Plane::IsVClosed() const
 
 //=================================================================================================
 
-Standard_Boolean Geom_Plane::IsUPeriodic() const
+Standard_Boolean GeomPlane::IsUPeriodic() const
 {
 
   return Standard_False;
@@ -170,7 +170,7 @@ Standard_Boolean Geom_Plane::IsUPeriodic() const
 
 //=================================================================================================
 
-Standard_Boolean Geom_Plane::IsVPeriodic() const
+Standard_Boolean GeomPlane::IsVPeriodic() const
 {
 
   return Standard_False;
@@ -178,7 +178,7 @@ Standard_Boolean Geom_Plane::IsVPeriodic() const
 
 //=================================================================================================
 
-void Geom_Plane::Bounds(Standard_Real& U1,
+void GeomPlane::Bounds(Standard_Real& U1,
                         Standard_Real& U2,
                         Standard_Real& V1,
                         Standard_Real& V2) const
@@ -192,7 +192,7 @@ void Geom_Plane::Bounds(Standard_Real& U1,
 
 //=================================================================================================
 
-void Geom_Plane::Coefficients(Standard_Real& A,
+void GeomPlane::Coefficients(Standard_Real& A,
                               Standard_Real& B,
                               Standard_Real& C,
                               Standard_Real& D) const
@@ -204,7 +204,7 @@ void Geom_Plane::Coefficients(Standard_Real& A,
 
 //=================================================================================================
 
-void Geom_Plane::D0(const Standard_Real U, const Standard_Real V, Pnt& P) const
+void GeomPlane::D0(const Standard_Real U, const Standard_Real V, Pnt& P) const
 {
 
   P = ElSLib::PlaneValue(U, V, pos);
@@ -212,7 +212,7 @@ void Geom_Plane::D0(const Standard_Real U, const Standard_Real V, Pnt& P) const
 
 //=================================================================================================
 
-void Geom_Plane::D1(const Standard_Real U, const Standard_Real V, Pnt& P, Vec& D1U, Vec& D1V) const
+void GeomPlane::D1(const Standard_Real U, const Standard_Real V, Pnt& P, Vec& D1U, Vec& D1V) const
 {
 
   ElSLib::PlaneD1(U, V, pos, P, D1U, D1V);
@@ -220,7 +220,7 @@ void Geom_Plane::D1(const Standard_Real U, const Standard_Real V, Pnt& P, Vec& D
 
 //=================================================================================================
 
-void Geom_Plane::D2(const Standard_Real U,
+void GeomPlane::D2(const Standard_Real U,
                     const Standard_Real V,
                     Pnt&                P,
                     Vec&                D1U,
@@ -238,7 +238,7 @@ void Geom_Plane::D2(const Standard_Real U,
 
 //=================================================================================================
 
-void Geom_Plane::D3(const Standard_Real U,
+void GeomPlane::D3(const Standard_Real U,
                     const Standard_Real V,
                     Pnt&                P,
                     Vec&                D1U,
@@ -263,7 +263,7 @@ void Geom_Plane::D3(const Standard_Real U,
 
 //=================================================================================================
 
-Vec Geom_Plane::DN(const Standard_Real,
+Vec GeomPlane::DN(const Standard_Real,
                    const Standard_Real,
                    const Standard_Integer Nu,
                    const Standard_Integer Nv) const
@@ -283,23 +283,23 @@ Vec Geom_Plane::DN(const Standard_Real,
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_Plane::UIso(const Standard_Real U) const
+Handle(GeomCurve3d) GeomPlane::UIso(const Standard_Real U) const
 {
-  Handle(Geom_Line) GL = new Geom_Line(ElSLib::PlaneUIso(pos, U));
+  Handle(GeomLine) GL = new GeomLine(ElSLib::PlaneUIso(pos, U));
   return GL;
 }
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_Plane::VIso(const Standard_Real V) const
+Handle(GeomCurve3d) GeomPlane::VIso(const Standard_Real V) const
 {
-  Handle(Geom_Line) GL = new Geom_Line(ElSLib::PlaneVIso(pos, V));
+  Handle(GeomLine) GL = new GeomLine(ElSLib::PlaneVIso(pos, V));
   return GL;
 }
 
 //=================================================================================================
 
-void Geom_Plane::TransformParameters(Standard_Real& U, Standard_Real& V, const Transform3d& T) const
+void GeomPlane::TransformParameters(Standard_Real& U, Standard_Real& V, const Transform3d& T) const
 {
   if (!Precision::IsInfinite(U))
     U *= Abs(T.ScaleFactor());
@@ -309,7 +309,7 @@ void Geom_Plane::TransformParameters(Standard_Real& U, Standard_Real& V, const T
 
 //=================================================================================================
 
-gp_GTrsf2d Geom_Plane::ParametricTransformation(const Transform3d& T) const
+gp_GTrsf2d GeomPlane::ParametricTransformation(const Transform3d& T) const
 {
   gp_Trsf2d T2;
   T2.SetScale(gp::Origin2d(), Abs(T.ScaleFactor()));
@@ -318,7 +318,7 @@ gp_GTrsf2d Geom_Plane::ParametricTransformation(const Transform3d& T) const
 
 //=================================================================================================
 
-void Geom_Plane::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void GeomPlane::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 

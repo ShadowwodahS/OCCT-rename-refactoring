@@ -24,7 +24,7 @@
 
 static Handle(Units_Token) CreateTokenForNumber(const Standard_CString str)
 {
-  TCollection_AsciiString tstr    = str[0];
+  AsciiString1 tstr    = str[0];
   Standard_Boolean        IsPoint = Standard_False;
   Standard_Size           len     = strlen(str);
   for (Standard_Size in = 1; in < len; in++)
@@ -62,18 +62,18 @@ Units_Sentence::Units_Sentence(const Handle(Units_Lexicon)& alexicon,
   limchain = strlen(astring);
   i        = 0;
 
-  TCollection_AsciiString tmpstr = astring;
+  AsciiString1 tmpstr = astring;
   // Handle(Units_Token) tmptoken;
-  TCollection_AsciiString PrevMean;
-  TCollection_AsciiString PrevWord;
+  AsciiString1 PrevMean;
+  AsciiString1 PrevWord;
   while (i < limchain)
   {
     Standard_Boolean        IsFound  = Standard_False;
-    TCollection_AsciiString LastWord = "";
+    AsciiString1 LastWord = "";
     for (index = 1; index <= lstlexicon->Length(); index++)
     {
       referencetoken                = lstlexicon->Value(index);
-      TCollection_AsciiString aword = referencetoken->Word();
+      AsciiString1 aword = referencetoken->Word();
       int                     num   = tmpstr.Search(aword);
       if (num == 1 && aword.Length() >= LastWord.Length())
       {
@@ -137,7 +137,7 @@ void Units_Sentence::SetConstants()
   Standard_Integer        index;
   Standard_Real           value;
   Handle(Units_Token)     token;
-  TCollection_AsciiString string;
+  AsciiString1 string;
 
   for (index = 1; index <= thesequenceoftokens->Length(); index++)
   {
@@ -181,7 +181,7 @@ static Handle(Units_Token) CalculateLocal(const Handle(Units_TokensSequence)& aS
     if (aSeq->Value(1)->Word() == "-")
     {
       tok2                          = aSeq->Value(2);
-      TCollection_AsciiString aword = "-";
+      AsciiString1 aword = "-";
       aword.AssignCat(tok2->Word());
       tok1 = new Units_Token(aword.ToCString(),
                              tok2->Mean().ToCString(),
@@ -273,9 +273,9 @@ Handle(Units_Token) Units_Sentence::Evaluate()
     static char *ooper[6] = { "+", "-", "*", ".", "/", "**" };
     Standard_Integer numterm,i,j,k,maxlevel,curlevel,level[255];
     Handle(Units_Token) currenttoken;
-    TCollection_AsciiString string;
-    TCollection_AsciiString mean;
-    TCollection_AsciiString oper;
+    AsciiString1 string;
+    AsciiString1 mean;
+    AsciiString1 oper;
 
     numterm=curlevel=i=0;
     for(index=1;index<=thesequenceoftokens->Length();index++) {

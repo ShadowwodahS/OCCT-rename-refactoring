@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 #include <TColgp_Array1OfPnt.hxx>
 #include <TColStd_Array1OfReal.hxx>
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 
 //! this class is used to construct a BSpline curve by
 //! interpolation  of points  at given parameters  The
@@ -52,11 +52,11 @@ public:
   GeomLib_InterpolationErrors Error() const;
 
   //! returns the interpolated curve of the requested degree
-  Standard_EXPORT Handle(Geom_BSplineCurve) Curve() const;
+  Standard_EXPORT Handle(BSplineCurve3d) Curve() const;
 
 protected:
 private:
-  Handle(Geom_BSplineCurve)   myCurve;
+  Handle(BSplineCurve3d)   myCurve;
   Standard_Boolean            myIsDone;
   GeomLib_InterpolationErrors myError;
 };

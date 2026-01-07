@@ -68,10 +68,10 @@ Standard_Integer DNaming_CylinderDriver::Execute(Handle(TFunction_Logbook)& theL
   if (aFunction.IsNull())
     return -1;
 
-  Standard_Real               aRadius  = DNaming::GetReal(aFunction, CYL_RADIUS)->Get();
-  Standard_Real               aHeight  = DNaming::GetReal(aFunction, CYL_HEIGHT)->Get();
-  Handle(TDataStd_UAttribute) anObject = DNaming::GetObjectArg(aFunction, CYL_AXIS);
-  Handle(TNaming_NamedShape)  aNSAxis  = DNaming::GetObjectValue(anObject);
+  Standard_Real               aRadius  = DNaming1::GetReal(aFunction, CYL_RADIUS)->Get();
+  Standard_Real               aHeight  = DNaming1::GetReal(aFunction, CYL_HEIGHT)->Get();
+  Handle(TDataStd_UAttribute) anObject = DNaming1::GetObjectArg(aFunction, CYL_AXIS);
+  Handle(ShapeAttribute)  aNSAxis  = DNaming1::GetObjectValue(anObject);
   if (aNSAxis->IsEmpty())
   {
 #ifdef OCCT_DEBUG
@@ -80,7 +80,7 @@ Standard_Integer DNaming_CylinderDriver::Execute(Handle(TFunction_Logbook)& theL
     aFunction->SetFailure(WRONG_AXIS);
     return -1;
   }
-  TopoDS_Shape aTopoDSAxis = aNSAxis->Get();
+  TopoShape aTopoDSAxis = aNSAxis->Get();
   if (aTopoDSAxis.IsNull())
   {
 #ifdef OCCT_DEBUG
@@ -103,7 +103,7 @@ Standard_Integer DNaming_CylinderDriver::Execute(Handle(TFunction_Logbook)& theL
   Frame3d anAxis;
   if (aTopoDSAxis.ShapeType() == TopAbs_WIRE)
   {
-    TopExp_Explorer anExplorer(aTopoDSAxis, TopAbs_EDGE);
+    ShapeExplorer anExplorer(aTopoDSAxis, TopAbs_EDGE);
     aTopoDSAxis = anExplorer.Current();
   }
 
@@ -114,9 +114,9 @@ Standard_Integer DNaming_CylinderDriver::Execute(Handle(TFunction_Logbook)& theL
     anAxis      = Frame3d(aLin.Location(), aLin.Direction());
     if (!aTopoDSAxis.Infinite())
     {
-      TopoDS_Vertex V1, V2;
-      TopExp::Vertices(TopoDS::Edge(aTopoDSAxis), V1, V2);
-      Point3d aP1 = BRep_Tool::Pnt(V1);
+      TopoVertex V1, V2;
+      TopExp1::Vertices(TopoDS::Edge(aTopoDSAxis), V1, V2);
+      Point3d aP1 = BRepInspector::Pnt(V1);
       anAxis.SetLocation(aP1);
     }
   }
@@ -129,7 +129,7 @@ Standard_Integer DNaming_CylinderDriver::Execute(Handle(TFunction_Logbook)& theL
     return -1;
   }
 
-  Handle(TNaming_NamedShape) aPrevCyl = DNaming::GetFunctionResult(aFunction);
+  Handle(ShapeAttribute) aPrevCyl = DNaming1::GetFunctionResult(aFunction);
   // Save location
   TopLoc_Location aLocation;
   if (!aPrevCyl.IsNull() && !aPrevCyl->IsEmpty())
@@ -137,7 +137,7 @@ Standard_Integer DNaming_CylinderDriver::Execute(Handle(TFunction_Logbook)& theL
     aLocation = aPrevCyl->Get().Location();
   }
 
-  BRepPrimAPI_MakeCylinder aMakeCylinder(anAxis, aRadius, aHeight);
+  CylinderMaker aMakeCylinder(anAxis, aRadius, aHeight);
   aMakeCylinder.Build();
   if (!aMakeCylinder.IsDone())
   {
@@ -145,7 +145,7 @@ Standard_Integer DNaming_CylinderDriver::Execute(Handle(TFunction_Logbook)& theL
     return -1;
   }
 
-  TopoDS_Shape       aResult = aMakeCylinder.Solid();
+  TopoShape       aResult = aMakeCylinder.Solid();
   BRepCheck_Analyzer aCheck(aResult);
   if (!aCheck.IsValid(aResult))
   {
@@ -158,7 +158,7 @@ Standard_Integer DNaming_CylinderDriver::Execute(Handle(TFunction_Logbook)& theL
 
   // restore location
   if (!aLocation.IsIdentity())
-    TNaming::Displace(RESPOSITION(aFunction), aLocation, Standard_True);
+    TNaming1::Displace(RESPOSITION(aFunction), aLocation, Standard_True);
 
   theLog->SetValid(RESPOSITION(aFunction), Standard_True);
   aFunction->SetFailure(DONE);
@@ -167,8 +167,8 @@ Standard_Integer DNaming_CylinderDriver::Execute(Handle(TFunction_Logbook)& theL
 
 //=================================================================================================
 
-void DNaming_CylinderDriver::LoadNamingDS(const TDF_Label&          theResultLabel,
-                                          BRepPrimAPI_MakeCylinder& MS) const
+void DNaming_CylinderDriver::LoadNamingDS(const DataLabel&          theResultLabel,
+                                          CylinderMaker& MS) const
 {
   TNaming_Builder Builder(theResultLabel);
   Builder.Generated(MS.Solid());
@@ -178,28 +178,28 @@ void DNaming_CylinderDriver::LoadNamingDS(const TDF_Label&          theResultLab
   // Load faces of the Cyl :
   if (S.HasBottom())
   {
-    TopoDS_Face     BottomFace = S.BottomFace();
+    TopoFace     BottomFace = S.BottomFace();
     TNaming_Builder BOF(theResultLabel.FindChild(1, Standard_True));
     BOF.Generated(BottomFace);
   }
 
   if (S.HasTop())
   {
-    TopoDS_Face     TopFace = S.TopFace();
+    TopoFace     TopFace = S.TopFace();
     TNaming_Builder TOF(theResultLabel.FindChild(2, Standard_True));
     TOF.Generated(TopFace);
   }
 
-  TopoDS_Face     LateralFace = S.LateralFace();
+  TopoFace     LateralFace = S.LateralFace();
   TNaming_Builder LOF(theResultLabel.FindChild(3, Standard_True));
   LOF.Generated(LateralFace);
 
   if (S.HasSides())
   {
-    TopoDS_Face     StartFace = S.StartFace();
+    TopoFace     StartFace = S.StartFace();
     TNaming_Builder SF(theResultLabel.FindChild(4, Standard_True));
     SF.Generated(StartFace);
-    TopoDS_Face     EndFace = S.EndFace();
+    TopoFace     EndFace = S.EndFace();
     TNaming_Builder EF(theResultLabel.FindChild(5, Standard_True));
     EF.Generated(EndFace);
   }

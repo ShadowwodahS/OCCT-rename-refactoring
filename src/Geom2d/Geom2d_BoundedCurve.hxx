@@ -24,7 +24,7 @@
 class gp_Pnt2d;
 
 class Geom2d_BoundedCurve;
-DEFINE_STANDARD_HANDLE(Geom2d_BoundedCurve, Geom2d_Curve)
+DEFINE_STANDARD_HANDLE(Geom2d_BoundedCurve, GeomCurve2d)
 
 //! The abstract class BoundedCurve describes the
 //! common behavior of bounded curves in 2D space. A
@@ -42,7 +42,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_BoundedCurve, Geom2d_Curve)
 //! - Geom2d_TrimmedCurve to trim a curve, i.e. to
 //! only take part of the curve limited by two values of
 //! the parameter of the basis curve.
-class Geom2d_BoundedCurve : public Geom2d_Curve
+class Geom2d_BoundedCurve : public GeomCurve2d
 {
 
 public:
@@ -60,7 +60,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom2d_BoundedCurve, Geom2d_Curve)
+  DEFINE_STANDARD_RTTIEXT(Geom2d_BoundedCurve, GeomCurve2d)
 
 protected:
 private:

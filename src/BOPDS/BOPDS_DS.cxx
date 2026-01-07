@@ -45,9 +45,9 @@
 #include <algorithm>
 //
 
-static void TotalShapes(const TopoDS_Shape& aS, Standard_Integer& aNbS, TopTools_MapOfShape& aMS);
+static void TotalShapes(const TopoShape& aS, Standard_Integer& aNbS, TopTools_MapOfShape& aMS);
 
-static Standard_Real ComputeParameter(const TopoDS_Vertex& aV, const TopoDS_Edge& aE);
+static Standard_Real ComputeParameter(const TopoVertex& aV, const TopoEdge& aE);
 
 //=================================================================================================
 
@@ -148,14 +148,14 @@ void BOPDS_DS::Clear()
 
 //=================================================================================================
 
-void BOPDS_DS::SetArguments(const TopTools_ListOfShape& theLS)
+void BOPDS_DS::SetArguments(const ShapeList& theLS)
 {
   myArguments = theLS;
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BOPDS_DS::Arguments() const
+const ShapeList& BOPDS_DS::Arguments() const
 {
   return myArguments;
 }
@@ -169,7 +169,7 @@ const Handle(NCollection_BaseAllocator)& BOPDS_DS::Allocator() const
 
 //=================================================================================================
 
-Standard_Integer BOPDS_DS::NbShapes() const
+Standard_Integer BOPDS_DS::NbShapes1() const
 {
   return myLines.Size();
 }
@@ -190,7 +190,7 @@ Standard_Integer BOPDS_DS::NbRanges() const
 
 //=================================================================================================
 
-const BOPDS_IndexRange& BOPDS_DS::Range(const Standard_Integer theI) const
+const IndexRange& BOPDS_DS::Range(const Standard_Integer theI) const
 {
   return myRanges(theI);
 }
@@ -205,7 +205,7 @@ Standard_Integer BOPDS_DS::Rank(const Standard_Integer theI) const
   aNb  = NbRanges();
   for (i = 0; i < aNb; ++i)
   {
-    const BOPDS_IndexRange& aR = Range(i);
+    const IndexRange& aR = Range(i);
     if (aR.Contains(theI))
     {
       return i;
@@ -236,7 +236,7 @@ Standard_Integer BOPDS_DS::Append(const BOPDS_ShapeInfo& theSI)
 
 //=================================================================================================
 
-Standard_Integer BOPDS_DS::Append(const TopoDS_Shape& theS)
+Standard_Integer BOPDS_DS::Append(const TopoShape& theS)
 {
   Standard_Integer iX;
   //
@@ -266,16 +266,16 @@ BOPDS_ShapeInfo& BOPDS_DS::ChangeShapeInfo(const Standard_Integer theI)
 
 //=================================================================================================
 
-const TopoDS_Shape& BOPDS_DS::Shape(const Standard_Integer theI) const
+const TopoShape& BOPDS_DS::Shape(const Standard_Integer theI) const
 {
 
-  const TopoDS_Shape& aS = ShapeInfo(theI).Shape();
+  const TopoShape& aS = ShapeInfo(theI).Shape();
   return aS;
 }
 
 //=================================================================================================
 
-Standard_Integer BOPDS_DS::Index(const TopoDS_Shape& theS) const
+Standard_Integer BOPDS_DS::Index(const TopoShape& theS) const
 {
   Standard_Integer iRet;
   //
@@ -298,7 +298,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
   TopoDS_Iterator                     aItS;
   TColStd_ListIteratorOfListOfInteger aIt1, aIt2, aIt3;
   TopTools_ListIteratorOfListOfShape  aIt;
-  BOPDS_IndexRange                    aR;
+  IndexRange                    aR;
   Handle(NCollection_BaseAllocator)   aAllocator;
   TopTools_MapOfShape                 aMS;
   //
@@ -315,7 +315,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
   aIt.Initialize(myArguments);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aSx = aIt.Value();
+    const TopoShape& aSx = aIt.Value();
     //
     aNbSx = 0;
     TotalShapes(aSx, aNbSx, aMS);
@@ -334,7 +334,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
   aIt.Initialize(myArguments);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aS = aIt.Value();
+    const TopoShape& aS = aIt.Value();
     if (myMapShapeIndex.IsBound(aS))
     {
       continue;
@@ -343,14 +343,14 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
     //
     InitShape(aI, aS);
     //
-    i2 = NbShapes() - 1;
+    i2 = NbShapes1() - 1;
     aR.SetIndices(i1, i2);
     myRanges.Append(aR);
     i1 = i2 + 1;
   }
   //
   aTolAdd          = Max(theFuzz, Precision::Confusion()) * 0.5;
-  myNbSourceShapes = NbShapes();
+  myNbSourceShapes = NbShapes1();
   //
   // 2 Bounding Boxes
   //
@@ -359,16 +359,16 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
   {
     BOPDS_ShapeInfo& aSI = ChangeShapeInfo(j);
     //
-    const TopoDS_Shape& aS = aSI.Shape();
+    const TopoShape& aS = aSI.Shape();
     //
     aTS = aSI.ShapeType();
     //
     if (aTS == TopAbs_VERTEX)
     {
       Bnd_Box&             aBox = aSI.ChangeBox();
-      const TopoDS_Vertex& aV   = *((TopoDS_Vertex*)&aS);
-      const Point3d&        aP   = BRep_Tool::Pnt(aV);
-      aTol                      = BRep_Tool::Tolerance(aV);
+      const TopoVertex& aV   = *((TopoVertex*)&aS);
+      const Point3d&        aP   = BRepInspector::Pnt(aV);
+      aTol                      = BRepInspector::Tolerance(aV);
       aBox.SetGap(aTol + aTolAdd);
       aBox.Add(aP);
     }
@@ -382,20 +382,20 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
     aTS = aSI.ShapeType();
     if (aTS == TopAbs_EDGE)
     {
-      const TopoDS_Shape& aS = aSI.Shape();
-      const TopoDS_Edge&  aE = *((TopoDS_Edge*)&aS);
-      aTol                   = BRep_Tool::Tolerance(aE);
+      const TopoShape& aS = aSI.Shape();
+      const TopoEdge&  aE = *((TopoEdge*)&aS);
+      aTol                   = BRepInspector::Tolerance(aE);
       //
-      if (!BRep_Tool::Degenerated(aE))
+      if (!BRepInspector::Degenerated(aE))
       {
         Standard_Boolean   bInf1, bInf2;
         Standard_Integer   aIx;
         Standard_Real      aT1, aT2;
         Point3d             aPx;
-        Handle(Geom_Curve) aC3D;
-        TopoDS_Vertex      aVx;
-        TopoDS_Edge        aEx;
-        BRep_Builder       aBB;
+        Handle(GeomCurve3d) aC3D;
+        TopoVertex      aVx;
+        TopoEdge        aEx;
+        ShapeBuilder       aBB;
         BOPDS_ShapeInfo    aSIx;
         //
         TColStd_ListOfInteger& aLI = aSI.ChangeSubShapes();
@@ -403,7 +403,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
         aEx = aE;
         aEx.Orientation(TopAbs_FORWARD);
         //
-        aC3D  = BRep_Tool::Curve(aEx, aT1, aT2);
+        aC3D  = BRepInspector::Curve(aEx, aT1, aT2);
         bInf1 = Precision::IsNegativeInfinite(aT1);
         bInf2 = Precision::IsPositiveInfinite(aT2);
         //
@@ -467,7 +467,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
     aTS = aSI.ShapeType();
     if (aTS == TopAbs_FACE)
     {
-      const TopoDS_Shape& aS = aSI.Shape();
+      const TopoShape& aS = aSI.Shape();
       //
       Bnd_Box& aBox = aSI.ChangeBox();
       BRepBndLib::Add(aS, aBox);
@@ -489,8 +489,8 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
           aBox.Add(aBx);
           aMI.Add(nE);
           //
-          const TopoDS_Edge& aE = *(TopoDS_Edge*)(&aSIE.Shape());
-          if (BRep_Tool::Degenerated(aE))
+          const TopoEdge& aE = *(TopoEdge*)(&aSIE.Shape());
+          if (BRepInspector::Degenerated(aE))
           {
             aSIE.SetFlag(j);
           }
@@ -509,7 +509,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
       aItS.Initialize(aS);
       for (; aItS.More(); aItS.Next())
       {
-        const TopoDS_Shape& aSx = aItS.Value();
+        const TopoShape& aSx = aItS.Value();
         if (aSx.ShapeType() == TopAbs_VERTEX)
         {
           nV = Index(aSx);
@@ -642,7 +642,7 @@ void BOPDS_DS::Init(const Standard_Real theFuzz)
 
 //=================================================================================================
 
-void BOPDS_DS::InitShape(const Standard_Integer aI, const TopoDS_Shape& aS)
+void BOPDS_DS::InitShape(const Standard_Integer aI, const TopoShape& aS)
 {
   Standard_Integer                    aIx;
   TopoDS_Iterator                     aIt;
@@ -663,7 +663,7 @@ void BOPDS_DS::InitShape(const Standard_Integer aI, const TopoDS_Shape& aS)
   aIt.Initialize(aS);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape&     aSx = aIt.Value();
+    const TopoShape&     aSx = aIt.Value();
     const Standard_Integer* pIx = myMapShapeIndex.Seek(aSx);
     aIx                         = (pIx ? *pIx : Append(aSx));
     //
@@ -801,13 +801,13 @@ void BOPDS_DS::InitPaveBlocks(const Standard_Integer theI)
   Standard_Integer                    nV = 0, iRef, aNbV, nVSD;
   Standard_Real                       aT;
   TopAbs_Orientation                  aOrE;
-  TopoDS_Vertex                       aV;
+  TopoVertex                       aV;
   TColStd_ListIteratorOfListOfInteger aIt;
   BOPDS_Pave                          aPave;
   Handle(BOPDS_PaveBlock)             aPB;
   //
   BOPDS_ShapeInfo&   aSI = ChangeShapeInfo(theI);
-  const TopoDS_Edge& aE  = *(TopoDS_Edge*)(&aSI.Shape());
+  const TopoEdge& aE  = *(TopoEdge*)(&aSI.Shape());
   aOrE                   = aE.Orientation();
   //
   const TColStd_ListOfInteger& aLV = aSI.SubShapes();
@@ -828,14 +828,14 @@ void BOPDS_DS::InitPaveBlocks(const Standard_Integer theI)
       nV = aIt.Value();
       //
       const BOPDS_ShapeInfo& aSIV = ShapeInfo(nV);
-      aV                          = *(TopoDS_Vertex*)(&aSIV.Shape());
+      aV                          = *(TopoVertex*)(&aSIV.Shape());
       if (aSIV.HasFlag())
       {
         aT = ComputeParameter(aV, aE);
       }
       else
       {
-        aT = BRep_Tool::Parameter(aV, aE);
+        aT = BRepInspector::Parameter(aV, aE);
       }
       //
       if (HasShapeSD(nV, nVSD))
@@ -854,7 +854,7 @@ void BOPDS_DS::InitPaveBlocks(const Standard_Integer theI)
     if (aNbV == 1)
     {
       aV.Reverse();
-      aT = BRep_Tool::Parameter(aV, aE);
+      aT = BRepInspector::Parameter(aV, aE);
       aPave.SetIndex(nV);
       aPave.SetParameter(aT);
       aPB->AppendExtPave1(aPave);
@@ -868,7 +868,7 @@ void BOPDS_DS::InitPaveBlocks(const Standard_Integer theI)
     aItE.Initialize(aE, Standard_False, Standard_True);
     for (; aItE.More(); aItE.Next())
     {
-      aV = *((TopoDS_Vertex*)&aItE.Value());
+      aV = *((TopoVertex*)&aItE.Value());
       nV = Index(aV);
       //
       const BOPDS_ShapeInfo& aSIV = ShapeInfo(nV);
@@ -878,7 +878,7 @@ void BOPDS_DS::InitPaveBlocks(const Standard_Integer theI)
       }
       else
       {
-        aT = BRep_Tool::Parameter(aV, aE);
+        aT = BRepInspector::Parameter(aV, aE);
       }
       //
       if (HasShapeSD(nV, nVSD))
@@ -977,11 +977,11 @@ void BOPDS_DS::UpdateCommonBlock(const Handle(BOPDS_CommonBlock)& theCB,
   Standard_Integer                                                 nE, iRef, n1, n2;
   BOPDS_ListIteratorOfListOfPaveBlock                              aItPB, aItPBCB, aItPBN;
   BOPDS_ListOfPaveBlock                                            aLPBN;
-  NCollection_DataMap<BOPDS_Pair, BOPDS_ListOfPaveBlock>           aMPKLPB;
-  NCollection_DataMap<BOPDS_Pair, BOPDS_ListOfPaveBlock>::Iterator aItMPKLPB;
+  NCollection_DataMap<IndexPair, BOPDS_ListOfPaveBlock>           aMPKLPB;
+  NCollection_DataMap<IndexPair, BOPDS_ListOfPaveBlock>::Iterator aItMPKLPB;
   Handle(BOPDS_PaveBlock)                                          aPB;
   Handle(BOPDS_CommonBlock)                                        aCBx;
-  BOPDS_Pair                                                       aPK;
+  IndexPair                                                       aPK;
   //
   const BOPDS_ListOfPaveBlock& aLPBCB = theCB->PaveBlocks();
   if (!aLPBCB.First()->IsToUpdate())
@@ -1220,10 +1220,10 @@ void BOPDS_DS::InitFaceInfoIn(const Standard_Integer theI)
   if (aSI.HasReference())
   {
     BOPDS_FaceInfo&     aFI = myFaceInfoPool(aSI.Reference());
-    const TopoDS_Shape& aF  = Shape(theI);
+    const TopoShape& aF  = Shape(theI);
     for (TopoDS_Iterator itS(aF); itS.More(); itS.Next())
     {
-      const TopoDS_Shape& aV = itS.Value();
+      const TopoShape& aV = itS.Value();
       if (aV.ShapeType() == TopAbs_VERTEX)
       {
         Standard_Integer nV = Index(aV);
@@ -1328,11 +1328,11 @@ void BOPDS_DS::FaceInfoIn(const Standard_Integer       theF,
   BOPDS_ListIteratorOfListOfPaveBlock aItPB;
   //
   // 1. Pure internal vertices on the face
-  const TopoDS_Shape& aF = Shape(theF);
+  const TopoShape& aF = Shape(theF);
   aItS.Initialize(aF);
   for (; aItS.More(); aItS.Next())
   {
-    const TopoDS_Shape& aSx = aItS.Value();
+    const TopoShape& aSx = aItS.Value();
     if (aSx.ShapeType() == TopAbs_VERTEX)
     {
       nV = Index(aSx);
@@ -1794,14 +1794,14 @@ void BOPDS_DS::Dump() const
   printf(" Ranges:%d\n", aNb);
   for (i = 0; i < aNb; ++i)
   {
-    const BOPDS_IndexRange& aR = Range(i);
+    const IndexRange& aR = Range(i);
     aR.Dump();
     printf("\n");
   }
   //
   aNbSS = NbSourceShapes();
   printf(" Shapes:%d\n", aNbSS);
-  aNb = NbShapes();
+  aNb = NbShapes1();
   for (i = 0; i < aNb; ++i)
   {
     const BOPDS_ShapeInfo& aSI = ShapeInfo(i);
@@ -1830,17 +1830,17 @@ Standard_Boolean BOPDS_DS::CheckCoincidence(const Handle(BOPDS_PaveBlock)& aPB1,
   bRet = Standard_False;
   //
   aPB1->Range(aT11, aT12);
-  aT1m                   = IntTools_Tools::IntermediatePoint(aT11, aT12);
+  aT1m                   = Tools2::IntermediatePoint(aT11, aT12);
   nE1                    = aPB1->OriginalEdge();
-  const TopoDS_Edge& aE1 = (*(TopoDS_Edge*)(&Shape(nE1)));
-  BOPTools_AlgoTools::PointOnEdge(aE1, aT1m, aP1m);
+  const TopoEdge& aE1 = (*(TopoEdge*)(&Shape(nE1)));
+  AlgoTools::PointOnEdge(aE1, aT1m, aP1m);
   //
   aPB2->Range(aT21, aT22);
   nE2                    = aPB2->OriginalEdge();
-  const TopoDS_Edge& aE2 = (*(TopoDS_Edge*)(&Shape(nE2)));
+  const TopoEdge& aE2 = (*(TopoEdge*)(&Shape(nE2)));
   //
   Standard_Real               f, l;
-  Handle(Geom_Curve)          aC2 = BRep_Tool::Curve(aE2, f, l);
+  Handle(GeomCurve3d)          aC2 = BRepInspector::Curve(aE2, f, l);
   GeomAPI_ProjectPointOnCurve aPPC;
   aPPC.Init(aC2, f, l);
   aPPC.Perform(aP1m);
@@ -1849,9 +1849,9 @@ Standard_Boolean BOPDS_DS::CheckCoincidence(const Handle(BOPDS_PaveBlock)& aPB1,
   {
     aD = aPPC.LowerDistance();
     //
-    aTol = BRep_Tool::MaxTolerance(aE1, TopAbs_VERTEX);
+    aTol = BRepInspector::MaxTolerance(aE1, TopAbs_VERTEX);
     aTol =
-      aTol + BRep_Tool::MaxTolerance(aE2, TopAbs_VERTEX) + Max(theFuzz, Precision::Confusion());
+      aTol + BRepInspector::MaxTolerance(aE2, TopAbs_VERTEX) + Max(theFuzz, Precision::Confusion());
     if (aD < aTol)
     {
       aT2x = aPPC.LowerDistanceParameter();
@@ -1940,7 +1940,7 @@ void BOPDS_DS::Paves(const Standard_Integer theEdge, BOPDS_ListOfPave& theLP)
 
 //=================================================================================================
 
-void TotalShapes(const TopoDS_Shape& aS, Standard_Integer& aNbS, TopTools_MapOfShape& aMS)
+void TotalShapes(const TopoShape& aS, Standard_Integer& aNbS, TopTools_MapOfShape& aMS)
 {
   if (aMS.Add(aS))
   {
@@ -1949,7 +1949,7 @@ void TotalShapes(const TopoDS_Shape& aS, Standard_Integer& aNbS, TopTools_MapOfS
     aIt.Initialize(aS);
     for (; aIt.More(); aIt.Next())
     {
-      const TopoDS_Shape& aSx = aIt.Value();
+      const TopoShape& aSx = aIt.Value();
       TotalShapes(aSx, aNbS, aMS);
     }
   }
@@ -1957,24 +1957,24 @@ void TotalShapes(const TopoDS_Shape& aS, Standard_Integer& aNbS, TopTools_MapOfS
 
 //=================================================================================================
 
-Standard_Real ComputeParameter(const TopoDS_Vertex& aV, const TopoDS_Edge& aE)
+Standard_Real ComputeParameter(const TopoVertex& aV, const TopoEdge& aE)
 {
   Standard_Real      aT1, aT2, aTRet, aTolE2, aD2;
   Point3d             aPC, aPV;
-  Handle(Geom_Curve) aC3D;
-  TopoDS_Edge        aEE;
+  Handle(GeomCurve3d) aC3D;
+  TopoEdge        aEE;
   //
   aEE = aE;
   aEE.Orientation(TopAbs_FORWARD);
   //
   aTRet = 0.;
   //
-  aTolE2 = BRep_Tool::Tolerance(aE);
+  aTolE2 = BRepInspector::Tolerance(aE);
   aTolE2 = aTolE2 * aTolE2;
   //
-  aPV = BRep_Tool::Pnt(aV);
+  aPV = BRepInspector::Pnt(aV);
   //
-  aC3D = BRep_Tool::Curve(aEE, aT1, aT2);
+  aC3D = BRepInspector::Curve(aEE, aT1, aT2);
   //
   aC3D->D0(aT1, aPC);
   aD2 = aPC.SquareDistance(aPV);
@@ -2005,8 +2005,8 @@ void BOPDS_DS::BuildBndBoxSolid(const Standard_Integer theIndex,
   TColStd_ListIteratorOfListOfInteger aItLI, aItLI1;
   //
   const BOPDS_ShapeInfo& aSI    = ShapeInfo(theIndex);
-  const TopoDS_Shape&    aS     = aSI.Shape();
-  const TopoDS_Solid&    aSolid = (*(TopoDS_Solid*)(&aS));
+  const TopoShape&    aS     = aSI.Shape();
+  const TopoSolid&    aSolid = (*(TopoSolid*)(&aS));
   //
   bIsOpenBox = Standard_False;
   //
@@ -2046,8 +2046,8 @@ void BOPDS_DS::BuildBndBoxSolid(const Standard_Integer theIndex,
         }
       }
       //
-      const TopoDS_Face& aFc = *((TopoDS_Face*)&aSIFc.Shape());
-      aTolFc                 = BRep_Tool::Tolerance(aFc);
+      const TopoFace& aFc = *((TopoFace*)&aSIFc.Shape());
+      aTolFc                 = BRepInspector::Tolerance(aFc);
       if (aTolFc > aTolS)
       {
         aTolS = aTolFc;
@@ -2058,8 +2058,8 @@ void BOPDS_DS::BuildBndBoxSolid(const Standard_Integer theIndex,
       break;
     }
     //
-    const TopoDS_Shell& aSh = *((TopoDS_Shell*)&aSISh.Shape());
-    bIsOpenBox              = BOPTools_AlgoTools::IsOpenShell(aSh);
+    const TopoShell& aSh = *((TopoShell*)&aSISh.Shape());
+    bIsOpenBox              = AlgoTools::IsOpenShell(aSh);
     if (bIsOpenBox)
     {
       break;
@@ -2072,7 +2072,7 @@ void BOPDS_DS::BuildBndBoxSolid(const Standard_Integer theIndex,
   }
   else if (theCheckInverted)
   {
-    bIsInverted = BOPTools_AlgoTools::IsInvertedSolid(aSolid);
+    bIsInverted = AlgoTools::IsInvertedSolid(aSolid);
     if (bIsInverted)
     {
       aBoxS.SetWhole();
@@ -2224,17 +2224,17 @@ Standard_Boolean BOPDS_DS::IsValidShrunkData(const Handle(BOPDS_PaveBlock)& theP
   Standard_Integer nV[2];
   thePB->Indices(nV[0], nV[1]);
   //
-  const TopoDS_Edge& aE = TopoDS::Edge(Shape(thePB->OriginalEdge()));
+  const TopoEdge& aE = TopoDS::Edge(Shape(thePB->OriginalEdge()));
   BRepAdaptor_Curve  aBAC(aE);
   //
-  Standard_Real anEps = BRep_Tool::Tolerance(aE) * 0.01;
+  Standard_Real anEps = BRepInspector::Tolerance(aE) * 0.01;
   //
   for (Standard_Integer i = 0; i < 2; ++i)
   {
-    const TopoDS_Vertex& aV   = TopoDS::Vertex(Shape(nV[i]));
-    Standard_Real        aTol = BRep_Tool::Tolerance(aV) + Precision::Confusion();
+    const TopoVertex& aV   = TopoDS::Vertex(Shape(nV[i]));
+    Standard_Real        aTol = BRepInspector::Tolerance(aV) + Precision::Confusion();
     // Bounding point
-    Point3d aP = BRep_Tool::Pnt(aV);
+    Point3d aP = BRepInspector::Pnt(aV);
     //
     // Point on the end of shrunk range
     Point3d aPS = aBAC.Value(aTS[i]);

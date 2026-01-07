@@ -19,7 +19,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-class OSD_File;
+class SystemFile;
 
 class XCAFDoc_NoteBinData : public XCAFDoc_Note
 {
@@ -30,7 +30,7 @@ public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
   //! Finds a binary data attribute on the given label and returns it, if it is found
-  Standard_EXPORT static Handle(XCAFDoc_NoteBinData) Get(const TDF_Label& theLabel);
+  Standard_EXPORT static Handle(XCAFDoc_NoteBinData) Get(const DataLabel& theLabel);
 
   //! @name Set attribute functions.
   //! @{
@@ -44,12 +44,12 @@ public:
   //! \param[in]  theFile      - input binary file.
   //! \return A handle to the attribute instance.
   Standard_EXPORT static Handle(XCAFDoc_NoteBinData) Set(
-    const TDF_Label&                  theLabel,
-    const TCollection_ExtendedString& theUserName,
-    const TCollection_ExtendedString& theTimeStamp,
-    const TCollection_ExtendedString& theTitle,
-    const TCollection_AsciiString&    theMIMEtype,
-    OSD_File&                         theFile);
+    const DataLabel&                  theLabel,
+    const UtfString& theUserName,
+    const UtfString& theTimeStamp,
+    const UtfString& theTitle,
+    const AsciiString1&    theMIMEtype,
+    SystemFile&                         theFile);
 
   //! Create (if not exist) a binary note byte data array.
   //! \param[in]  theLabel     - label to add the attribute.
@@ -60,11 +60,11 @@ public:
   //! \param[in]  theData      - byte data array.
   //! \return A handle to the attribute instance.
   Standard_EXPORT static Handle(XCAFDoc_NoteBinData) Set(
-    const TDF_Label&                     theLabel,
-    const TCollection_ExtendedString&    theUserName,
-    const TCollection_ExtendedString&    theTimeStamp,
-    const TCollection_ExtendedString&    theTitle,
-    const TCollection_AsciiString&       theMIMEtype,
+    const DataLabel&                     theLabel,
+    const UtfString&    theUserName,
+    const UtfString&    theTimeStamp,
+    const UtfString&    theTitle,
+    const AsciiString1&       theMIMEtype,
     const Handle(TColStd_HArray1OfByte)& theData);
 
   //! @}
@@ -79,25 +79,25 @@ public:
   //! \param[in]  theTitle     - file title.
   //! \param[in]  theMIMEtype  - MIME type of the file.
   //! \param[in]  theFile      - input binary file.
-  Standard_EXPORT Standard_Boolean Set(const TCollection_ExtendedString& theTitle,
-                                       const TCollection_AsciiString&    theMIMEtype,
-                                       OSD_File&                         theFile);
+  Standard_EXPORT Standard_Boolean Set(const UtfString& theTitle,
+                                       const AsciiString1&    theMIMEtype,
+                                       SystemFile&                         theFile);
 
   //! Sets title, MIME type and data from a byte array.
   //! \param[in]  theTitle     - data title.
   //! \param[in]  theMIMEtype  - MIME type of data.
   //! \param[in]  theData      - byte data array.
-  Standard_EXPORT void Set(const TCollection_ExtendedString&    theTitle,
-                           const TCollection_AsciiString&       theMIMEtype,
+  Standard_EXPORT void Set(const UtfString&    theTitle,
+                           const AsciiString1&       theMIMEtype,
                            const Handle(TColStd_HArray1OfByte)& theData);
 
   //! @}
 
   //! Returns the note title.
-  const TCollection_ExtendedString& Title() const { return myTitle; }
+  const UtfString& Title() const { return myTitle; }
 
   //! Returns data MIME type.
-  const TCollection_AsciiString& MIMEtype() const { return myMIMEtype; }
+  const AsciiString1& MIMEtype() const { return myMIMEtype; }
 
   //! Size of data in bytes.
   Standard_Integer Size() const { return (!myData.IsNull() ? myData->Length() : 0); }
@@ -115,8 +115,8 @@ public:
   Standard_EXPORT Standard_OStream& Dump(Standard_OStream& theOS) const Standard_OVERRIDE;
 
 protected:
-  TCollection_ExtendedString    myTitle;    ///< Note title.
-  TCollection_AsciiString       myMIMEtype; ///< MIME type of data.
+  UtfString    myTitle;    ///< Note title.
+  AsciiString1       myMIMEtype; ///< MIME type of data.
   Handle(TColStd_HArray1OfByte) myData;     ///< Byte data array.
 };
 

@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 class gp_Ax3;
 class gp_Torus;
-class Geom_Curve;
+class GeomCurve3d;
 class Point3d;
 class Vector3d;
 class Transform3d;
@@ -189,7 +189,7 @@ public:
   //! Warnings :
   //! The radius of the circle can be zero if for the surface
   //! MinorRadius = 0.0
-  Standard_EXPORT Handle(Geom_Curve) UIso(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) UIso(const Standard_Real U) const Standard_OVERRIDE;
 
   //! Computes the V isoparametric curve.
   //!
@@ -199,7 +199,7 @@ public:
   //! Warnings :
   //! The radius of the circle can be zero if for the surface
   //! MajorRadius = MinorRadius
-  Standard_EXPORT Handle(Geom_Curve) VIso(const Standard_Real V) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) VIso(const Standard_Real V) const Standard_OVERRIDE;
 
   //! Computes the  point P (U, V) on the surface.
   //! P (U, V) = Loc + MinorRadius * Sin (V) * Zdir +

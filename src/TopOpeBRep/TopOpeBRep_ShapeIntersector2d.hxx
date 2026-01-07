@@ -42,12 +42,12 @@ class TopOpeBRepTool_HBoxTool;
 //! It  is in charge  of  exploration  of the shapes  and
 //! rejection. For this it is provided with two tools :
 //!
-//! - ShapeExplorer from TopOpeBRepTool.
-//! - ShapeScanner from TopOpeBRep which implements bounding boxes.
+//! - ShapeExplorer from TopOpeBRepTool1.
+//! - ShapeScanner from TopOpeBRep1 which implements bounding boxes.
 //!
 //! Let S1,S2 the shapes sent to InitIntersection(S1,S2) method :
-//! - S1 is always SCANNED by a ShapeScanner from TopOpeBRep.
-//! - S2 is always EXPLORED by a ShapeExplorer from TopOpeBRepTool.
+//! - S1 is always SCANNED by a ShapeScanner from TopOpeBRep1.
+//! - S2 is always EXPLORED by a ShapeExplorer from TopOpeBRepTool1.
 class TopOpeBRep_ShapeIntersector2d
 {
 public:
@@ -56,12 +56,12 @@ public:
   Standard_EXPORT TopOpeBRep_ShapeIntersector2d();
 
   //! Initialize the intersection of shapes S1,S2.
-  Standard_EXPORT void InitIntersection(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
+  Standard_EXPORT void InitIntersection(const TopoShape& S1, const TopoShape& S2);
 
   //! return  the shape  <Index> ( = 1 or 2) given to
   //! InitIntersection().
   //! Index = 1 will return S1, Index = 2 will return S2.
-  Standard_EXPORT const TopoDS_Shape& Shape(const Standard_Integer Index) const;
+  Standard_EXPORT const TopoShape& Shape(const Standard_Integer Index) const;
 
   //! returns True if there are more intersection
   //! between two the shapes.
@@ -75,7 +75,7 @@ public:
 
   //! return  geometric  shape <Index> ( = 1 or 2 )  of
   //! current intersection.
-  Standard_EXPORT const TopoDS_Shape& CurrentGeomShape(const Standard_Integer Index) const;
+  Standard_EXPORT const TopoShape& CurrentGeomShape(const Standard_Integer Index) const;
 
   Standard_EXPORT void DumpCurrent(const Standard_Integer K) const;
 
@@ -85,7 +85,7 @@ protected:
 private:
   Standard_EXPORT void Reset();
 
-  Standard_EXPORT void Init(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
+  Standard_EXPORT void Init(const TopoShape& S1, const TopoShape& S2);
 
   Standard_EXPORT void SetIntersectionDone();
 
@@ -105,8 +105,8 @@ private:
 
   Standard_EXPORT void NextEEFFCouple();
 
-  TopoDS_Shape                    myShape1;
-  TopoDS_Shape                    myShape2;
+  TopoShape                    myShape1;
+  TopoShape                    myShape2;
   Handle(TopOpeBRepTool_HBoxTool) myHBoxTool;
   TopOpeBRepTool_ShapeExplorer    myFaceExplorer;
   TopOpeBRep_ShapeScanner         myFaceScanner;

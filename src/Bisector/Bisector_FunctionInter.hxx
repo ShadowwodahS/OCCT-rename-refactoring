@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <math_FunctionWithDerivative.hxx>
-class Geom2d_Curve;
+class GeomCurve2d;
 class Bisector_Curve;
 
 //! 2                      2
@@ -34,11 +34,11 @@ public:
 
   Standard_EXPORT Bisector_FunctionInter();
 
-  Standard_EXPORT Bisector_FunctionInter(const Handle(Geom2d_Curve)&   C,
+  Standard_EXPORT Bisector_FunctionInter(const Handle(GeomCurve2d)&   C,
                                          const Handle(Bisector_Curve)& Bis1,
                                          const Handle(Bisector_Curve)& Bis2);
 
-  Standard_EXPORT void Perform(const Handle(Geom2d_Curve)&   C,
+  Standard_EXPORT void Perform(const Handle(GeomCurve2d)&   C,
                                const Handle(Bisector_Curve)& Bis1,
                                const Handle(Bisector_Curve)& Bis2);
 
@@ -55,7 +55,7 @@ public:
 
 protected:
 private:
-  Handle(Geom2d_Curve)   curve;
+  Handle(GeomCurve2d)   curve;
   Handle(Bisector_Curve) bisector1;
   Handle(Bisector_Curve) bisector2;
 };

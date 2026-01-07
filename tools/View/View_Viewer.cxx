@@ -42,7 +42,7 @@ void View_Viewer::SetWindow(const Handle(Aspect_Window)& theWindow)
 // function : InitViewer
 // purpose :
 // =======================================================================
-void View_Viewer::InitViewer(const Handle(AIS_InteractiveContext)& theContext)
+void View_Viewer::InitViewer(const Handle(VisualContext)& theContext)
 {
   myContext = theContext;
   myViewer  = myContext->CurrentViewer();
@@ -52,17 +52,17 @@ void View_Viewer::InitViewer(const Handle(AIS_InteractiveContext)& theContext)
 // function : CreateStandardViewer
 // purpose :
 // =======================================================================
-Handle(AIS_InteractiveContext) View_Viewer::CreateStandardViewer()
+Handle(VisualContext) View_Viewer::CreateStandardViewer()
 {
   Handle(Aspect_DisplayConnection)    aDisplayConnection = new Aspect_DisplayConnection();
   static Handle(OpenGl_GraphicDriver) aGraphicDriver = new OpenGl_GraphicDriver(aDisplayConnection);
 
-  Handle(V3d_Viewer) aViewer = new V3d_Viewer(aGraphicDriver);
+  Handle(ViewManager) aViewer = new ViewManager(aGraphicDriver);
   aViewer->SetDefaultLights();
   aViewer->SetLightOn();
   aViewer->SetDefaultBackgroundColor(Quantity_NOC_GRAY30);
 
-  Handle(AIS_InteractiveContext) aContext = new AIS_InteractiveContext(aViewer);
+  Handle(VisualContext) aContext = new VisualContext(aViewer);
   aContext->UpdateCurrentViewer();
 
   return aContext;

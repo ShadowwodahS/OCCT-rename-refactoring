@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <Expr_Array1OfNamedUnknown.hxx>
 #include <TColStd_Array1OfReal.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 class Expr_GeneralExpression;
 class Expr_NamedUnknown;
 
@@ -38,7 +38,7 @@ class Expr_NamedConstant : public Expr_NamedExpression
 
 public:
   //! Creates a constant value of name <name> and value <value>.
-  Standard_EXPORT Expr_NamedConstant(const TCollection_AsciiString& name,
+  Standard_EXPORT Expr_NamedConstant(const AsciiString1& name,
                                      const Standard_Real            value);
 
   Standard_Real GetValue() const;

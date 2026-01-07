@@ -86,7 +86,7 @@ void ShapeUpgrade_SplitCurve3dContinuity::Compute()
   if (myCurve->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
   {
     Handle(Geom_TrimmedCurve)           tmp      = Handle(Geom_TrimmedCurve)::DownCast(myCurve);
-    Handle(Geom_Curve)                  BasCurve = tmp->BasisCurve();
+    Handle(GeomCurve3d)                  BasCurve = tmp->BasisCurve();
     ShapeUpgrade_SplitCurve3dContinuity spc;
     //    spc.Init(BasCurve,Max(tmp->FirstParameter(),First),Min(tmp->LastParameter(),Last));
     spc.Init(BasCurve, First, Last);
@@ -122,7 +122,7 @@ void ShapeUpgrade_SplitCurve3dContinuity::Compute()
         break;
     }
     Handle(Geom_OffsetCurve) tmp      = Handle(Geom_OffsetCurve)::DownCast(myCurve);
-    Handle(Geom_Curve)       BasCurve = tmp->BasisCurve();
+    Handle(GeomCurve3d)       BasCurve = tmp->BasisCurve();
     // Standard_Real Offset = tmp->Offset(); // Offset not used (skl)
     // Dir3d Direct = tmp->Direction(); // Direct not used (skl)
     ShapeUpgrade_SplitCurve3dContinuity spc;
@@ -138,7 +138,7 @@ void ShapeUpgrade_SplitCurve3dContinuity::Compute()
     return;
   }
 
-  Handle(Geom_BSplineCurve) MyBSpline = Handle(Geom_BSplineCurve)::DownCast(myCurve);
+  Handle(BSplineCurve3d) MyBSpline = Handle(BSplineCurve3d)::DownCast(myCurve);
   if (MyBSpline.IsNull())
   {
     //    if (ShapeUpgrade::Debug()) std::cout<<". curve is not a Bspline"<<std::endl;
@@ -225,7 +225,7 @@ void ShapeUpgrade_SplitCurve3dContinuity::Compute()
 
 //=================================================================================================
 
-const Handle(Geom_Curve)& ShapeUpgrade_SplitCurve3dContinuity::GetCurve() const
+const Handle(GeomCurve3d)& ShapeUpgrade_SplitCurve3dContinuity::GetCurve() const
 {
   return myCurve;
 }

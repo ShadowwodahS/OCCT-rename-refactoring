@@ -28,7 +28,7 @@
 //! inherits class Cutting; contains a list of preferential points (pi)i
 //! and a list of Recommended points used in cutting management.
 //! if Cutting is necessary in [a,b], we cut at the di nearest from (a+b)/2
-class AdvApprox_PrefAndRec : public AdvApprox_Cutting
+class AdvApprox_PrefAndRec : public CuttingTool
 {
 public:
   DEFINE_STANDARD_ALLOC

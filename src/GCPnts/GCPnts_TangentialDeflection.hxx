@@ -46,7 +46,7 @@
 //! A minimum number of points can be fixed for a linear or circular element.
 //! Example:
 //! @code
-//! Handle(Geom_BezierCurve) aCurve = new Geom_BezierCurve (thePoles);
+//! Handle(BezierCurve3d) aCurve = new BezierCurve3d (thePoles);
 //! GeomAdaptor_Curve aCurveAdaptor (aCurve);
 //! double aCDeflect  = 0.01; // Curvature deflection
 //! double anADeflect = 0.09; // Angular   deflection

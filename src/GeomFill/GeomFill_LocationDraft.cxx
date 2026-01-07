@@ -138,7 +138,7 @@ void GeomFill_LocationDraft::Prepare()
   Standard_Real                     f, l, t;
   Point3d                            P;
   Vector3d                            D, T, N, B;
-  Handle(Geom_Line)                 L;
+  Handle(GeomLine)                 L;
   IntCurveSurface_IntersectionPoint P1, P2;
   f = myCurve->FirstParameter();
   l = myCurve->LastParameter();
@@ -154,7 +154,7 @@ void GeomFill_LocationDraft::Prepare()
     // Generatrice
     D = Cos(myAngle) * B + Sin(myAngle) * N;
 
-    L = new (Geom_Line)(P, D);
+    L = new (GeomLine)(P, D);
 
     IntCurveSurface_HInter    Int; // intersection surface / generatrice
     Handle(GeomAdaptor_Curve) AC = new (GeomAdaptor_Curve)(L);
@@ -249,7 +249,7 @@ Standard_Boolean GeomFill_LocationDraft::D0(const Standard_Real   Param,
     // la generatrice
     D = Cos(myAngle) * B + Sin(myAngle) * N;
 
-    Handle(Geom_Line)         L = new (Geom_Line)(P, D);
+    Handle(GeomLine)         L = new (GeomLine)(P, D);
     Handle(GeomAdaptor_Curve) G = new (GeomAdaptor_Curve)(L);
 
     Standard_Real t1, t2, Paramt1, t2Param;
@@ -364,7 +364,7 @@ Standard_Boolean GeomFill_LocationDraft::D1(const Standard_Real   Param,
     // la generatrice
     D = Cos(myAngle) * B + Sin(myAngle) * N;
 
-    Handle(Geom_Line)         L = new (Geom_Line)(P, D);
+    Handle(GeomLine)         L = new (GeomLine)(P, D);
     Handle(GeomAdaptor_Curve) G = new (GeomAdaptor_Curve)(L);
 
     Standard_Real t1, t2, Paramt1, t2Param;
@@ -501,7 +501,7 @@ Standard_Boolean GeomFill_LocationDraft::D2(const Standard_Real   Param,
     // la generatrice
     D = Cos(myAngle) * B + Sin(myAngle) * N;
 
-    Handle(Geom_Line)         L = new (Geom_Line)(P, D);
+    Handle(GeomLine)         L = new (GeomLine)(P, D);
     Handle(GeomAdaptor_Curve) G = new (GeomAdaptor_Curve)(L);
 
     Standard_Real t1, t2, Paramt1, t2Param;

@@ -31,19 +31,19 @@ public:
   Standard_EXPORT PCDM_Reference();
 
   Standard_EXPORT PCDM_Reference(const Standard_Integer            aReferenceIdentifier,
-                                 const TCollection_ExtendedString& aFileName,
+                                 const UtfString& aFileName,
                                  const Standard_Integer            aDocumentVersion);
 
   Standard_EXPORT Standard_Integer ReferenceIdentifier() const;
 
-  Standard_EXPORT TCollection_ExtendedString FileName() const;
+  Standard_EXPORT UtfString FileName() const;
 
   Standard_EXPORT Standard_Integer DocumentVersion() const;
 
 protected:
 private:
   Standard_Integer           myReferenceIdentifier;
-  TCollection_ExtendedString myFileName;
+  UtfString myFileName;
   Standard_Integer           myDocumentVersion;
 };
 

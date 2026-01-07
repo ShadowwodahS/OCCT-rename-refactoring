@@ -56,7 +56,7 @@ OSD_FileIterator::OSD_FileIterator()
 {
 }
 
-OSD_FileIterator::OSD_FileIterator(const OSD_Path& where, const TCollection_AsciiString& Mask)
+OSD_FileIterator::OSD_FileIterator(const SystemPath& where, const AsciiString1& Mask)
     : myFlag(false),
       myDescr(0),
       myEntry(0),
@@ -68,7 +68,7 @@ OSD_FileIterator::OSD_FileIterator(const OSD_Path& where, const TCollection_Asci
 // For Windows NT compatibility
 void OSD_FileIterator ::Destroy() {}
 
-void OSD_FileIterator::Initialize(const OSD_Path& where, const TCollection_AsciiString& Mask)
+void OSD_FileIterator::Initialize(const SystemPath& where, const AsciiString1& Mask)
 {
   myFlag = Standard_False;
   where.SystemName(myPlace);
@@ -206,7 +206,7 @@ void OSD_FileIterator::Next()
         continue;
 
       // Is it a file ?
-      const TCollection_AsciiString aFullName = myPlace + "/" + ((struct dirent*)myEntry)->d_name;
+      const AsciiString1 aFullName = myPlace + "/" + ((struct dirent*)myEntry)->d_name;
       stat(aFullName.ToCString(), &stat_buf);
       if (S_ISREG(stat_buf.st_mode)) // LD : Ensure me it's a regular file
         if (strcmp_joker(myMask.ToCString(), ((struct dirent*)myEntry)->d_name))
@@ -222,11 +222,11 @@ void OSD_FileIterator::Next()
 
 // Get Name of selected file
 
-OSD_File OSD_FileIterator::Values()
+SystemFile OSD_FileIterator::Values()
 {
-  OSD_Path                thisvalue;
-  TCollection_AsciiString Name;
-  TCollection_AsciiString Ext;
+  SystemPath                thisvalue;
+  AsciiString1 Name;
+  AsciiString1 Ext;
   Standard_Integer        position;
 
   if (myEntry)
@@ -284,7 +284,7 @@ Standard_Integer OSD_FileIterator::Error() const
 
 void _osd_wnt_set_error(OSD_Error&, Standard_Integer, ...);
 
-OSD_FileIterator ::OSD_FileIterator(const OSD_Path& where, const TCollection_AsciiString& Mask)
+OSD_FileIterator ::OSD_FileIterator(const SystemPath& where, const AsciiString1& Mask)
 {
 
   myFlag   = Standard_False;
@@ -318,12 +318,12 @@ Standard_Boolean OSD_FileIterator ::More()
   if (myHandle == INVALID_HANDLE_VALUE)
   {
 
-    TCollection_AsciiString wc = myPlace + "/" + myMask;
+    AsciiString1 wc = myPlace + "/" + myMask;
 
     myData = HeapAlloc(GetProcessHeap(), HEAP_GENERATE_EXCEPTIONS, sizeof(WIN32_FIND_DATAW));
 
     // make wchar_t string from UTF-8
-    TCollection_ExtendedString wcW(wc);
+    UtfString wcW(wc);
     myHandle = FindFirstFileExW(wcW.ToWideString(),
                                 FindExInfoStandard,
                                 (PWIN32_FIND_DATAW)myData,
@@ -383,12 +383,12 @@ void OSD_FileIterator ::Next()
 
 } // end OSD_FileIterator :: Next
 
-OSD_File OSD_FileIterator ::Values()
+SystemFile OSD_FileIterator ::Values()
 {
 
   // make UTF-8 string
-  TCollection_AsciiString aFileName(TCollection_ExtendedString((Standard_ExtString)_FD->cFileName));
-  TheIterator.SetPath(OSD_Path(aFileName));
+  AsciiString1 aFileName(UtfString((Standard_ExtString)_FD->cFileName));
+  TheIterator.SetPath(SystemPath(aFileName));
 
   return TheIterator;
 
@@ -431,6 +431,6 @@ OSD_FileIterator::OSD_FileIterator()
 {
 }
 
-void OSD_FileIterator::Initialize(const OSD_Path&, const TCollection_AsciiString&) {}
+void OSD_FileIterator::Initialize(const SystemPath&, const AsciiString1&) {}
 
 #endif

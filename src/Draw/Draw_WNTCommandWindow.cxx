@@ -195,7 +195,7 @@ LRESULT APIENTRY EditProc(HWND hWnd, UINT wMsg, WPARAM wParam, LPARAM lParam)
           SendMessageW(hWnd, EM_REPLACESEL, 0, (LPARAM)THE_PROMPT);
           // Display the command in the console
           // std::wcout << aCmdBuffer << std::endl; // wcout does not work well with UTF-8
-          TCollection_AsciiString aCmdUtf8(aCmdBuffer + sizeof(THE_PROMPT) / sizeof(wchar_t) - 1);
+          AsciiString1 aCmdUtf8(aCmdBuffer + sizeof(THE_PROMPT) / sizeof(wchar_t) - 1);
           std::cout << aCmdUtf8.ToCString() << std::endl;
           // Draw_Interprete (aCmdUtf8.ToCString());
           // if (toExit) { DestroyProc (hWnd); }

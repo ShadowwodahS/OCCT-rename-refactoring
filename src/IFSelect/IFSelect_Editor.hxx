@@ -99,7 +99,7 @@ public:
   Standard_EXPORT Standard_Integer MaxNameLength(const Standard_Integer what) const;
 
   //! Returns the specific label
-  Standard_EXPORT virtual TCollection_AsciiString Label() const = 0;
+  Standard_EXPORT virtual AsciiString1 Label() const = 0;
 
   //! Builds and Returns an EditForm, empty (no data yet)
   //! Can be redefined to return a specific type of EditForm
@@ -190,7 +190,7 @@ private:
   Standard_Integer                                               themaxsh;
   Standard_Integer                                               themaxco;
   Standard_Integer                                               themaxla;
-  NCollection_DataMap<TCollection_AsciiString, Standard_Integer> thenames;
+  NCollection_DataMap<AsciiString1, Standard_Integer> thenames;
   TColStd_Array1OfTransient                                      thevalues;
   TColStd_Array1OfAsciiString                                    theshorts;
   TColStd_Array1OfInteger                                        themodes;

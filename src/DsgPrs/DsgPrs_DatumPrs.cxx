@@ -25,7 +25,7 @@
 
 void DsgPrs_DatumPrs::Add(const Handle(Prs3d_Presentation)& thePresentation,
                           const Frame3d&                     theDatum,
-                          const Handle(Prs3d_Drawer)&       theDrawer)
+                          const Handle(StyleDrawer)&       theDrawer)
 {
   Handle(Prs3d_DatumAspect) aDatumAspect = theDrawer->DatumAspect();
   Handle(Graphic3d_Group)   aGroup       = thePresentation->CurrentGroup();

@@ -44,18 +44,18 @@
 // purpose  : Returns a list of sub-label entries.
 //=======================================================================
 
-static Standard_Integer DDF_Children(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DDF_Children(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
 
   Handle(TDF_Data)        DF;
-  TCollection_AsciiString entry;
+  AsciiString1 entry;
 
-  if (!DDF::GetDF(a[1], DF))
+  if (!DDF1::GetDF(a[1], DF))
     return 1;
 
-  TDF_Label lab;
+  DataLabel lab;
   if (n == 3)
     TDF_Tool::Label(DF, a[2], lab);
 
@@ -68,7 +68,7 @@ static Standard_Integer DDF_Children(Draw_Interpretor& di, Standard_Integer n, c
     for (TDF_ChildIterator itr(lab); itr.More(); itr.Next())
     {
       TDF_Tool::Entry(itr.Value(), entry);
-      // TCollection_AsciiString entry(itr.Value().Tag());
+      // AsciiString1 entry(itr.Value().Tag());
       di << entry.ToCString() << " ";
     }
   }
@@ -80,17 +80,17 @@ static Standard_Integer DDF_Children(Draw_Interpretor& di, Standard_Integer n, c
 // purpose  : Returns a list of label attributes.
 //=======================================================================
 
-static Standard_Integer DDF_Attributes(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DDF_Attributes(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 3)
     return 1;
 
   Handle(TDF_Data) DF;
 
-  if (!DDF::GetDF(a[1], DF))
+  if (!DDF1::GetDF(a[1], DF))
     return 1;
 
-  TDF_Label lab;
+  DataLabel lab;
   TDF_Tool::Label(DF, a[2], lab);
 
   if (lab.IsNull())
@@ -108,7 +108,7 @@ static Standard_Integer DDF_Attributes(Draw_Interpretor& di, Standard_Integer n,
 // purpose  : Adds an empty attribute to the label by its dynamic type.
 //=======================================================================
 
-static Standard_Integer DDF_SetEmptyAttribute(Draw_Interpretor& di,
+static Standard_Integer DDF_SetEmptyAttribute(DrawInterpreter& di,
                                               Standard_Integer  n,
                                               const char**      a)
 {
@@ -117,10 +117,10 @@ static Standard_Integer DDF_SetEmptyAttribute(Draw_Interpretor& di,
 
   Handle(TDF_Data) DF;
 
-  if (!DDF::GetDF(a[1], DF))
+  if (!DDF1::GetDF(a[1], DF))
     return 1;
 
-  TDF_Label lab;
+  DataLabel lab;
   TDF_Tool::Label(DF, a[2], lab);
 
   if (lab.IsNull())
@@ -129,7 +129,7 @@ static Standard_Integer DDF_SetEmptyAttribute(Draw_Interpretor& di,
   Handle(TDF_Attribute) anAttrByType = TDF_DerivedAttribute::Attribute(a[3]);
   if (anAttrByType.IsNull())
   {
-    di << "DDF: Not registered attribute type '" << a[3] << "'\n";
+    di << "DDF1: Not registered attribute type '" << a[3] << "'\n";
     return 1;
   }
 
@@ -143,17 +143,17 @@ static Standard_Integer DDF_SetEmptyAttribute(Draw_Interpretor& di,
 // purpose  : "ForgetAll dfname Label"
 //=======================================================================
 
-static Standard_Integer DDF_ForgetAll(Draw_Interpretor& /*di*/, Standard_Integer n, const char** a)
+static Standard_Integer DDF_ForgetAll(DrawInterpreter& /*di*/, Standard_Integer n, const char** a)
 {
   if (n != 3)
     return 1;
 
   Handle(TDF_Data) DF;
 
-  if (!DDF::GetDF(a[1], DF))
+  if (!DDF1::GetDF(a[1], DF))
     return 1;
 
-  TDF_Label label;
+  DataLabel label;
   TDF_Tool::Label(DF, a[2], label);
   if (label.IsNull())
     return 1;
@@ -167,17 +167,17 @@ static Standard_Integer DDF_ForgetAll(Draw_Interpretor& /*di*/, Standard_Integer
 // purpose  : "ForgetAtt dfname Label guid_or_type"
 //=======================================================================
 
-static Standard_Integer DDF_ForgetAttribute(Draw_Interpretor& di,
+static Standard_Integer DDF_ForgetAttribute(DrawInterpreter& di,
                                             Standard_Integer  n,
                                             const char**      a)
 {
   if (n != 4)
     return 1;
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(a[1], DF))
+  if (!DDF1::GetDF(a[1], DF))
     return 1;
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(DF, a[2], aLabel);
   if (aLabel.IsNull())
     return 1;
@@ -190,7 +190,7 @@ static Standard_Integer DDF_ForgetAttribute(Draw_Interpretor& di,
       aLabel.ForgetAttribute(anAttrByType->ID());
       return 0;
     }
-    di << "DDF: The format of GUID is invalid\n";
+    di << "DDF1: The format of GUID is invalid\n";
     return 1;
   }
   Standard_GUID guid(a[3]);
@@ -203,15 +203,15 @@ static Standard_Integer DDF_ForgetAttribute(Draw_Interpretor& di,
 // purpose  : SetTagger (DF, entry)
 //=======================================================================
 
-static Standard_Integer DDF_SetTagger(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer DDF_SetTagger(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
   if (nb == 3)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(arg[1], DF))
+    if (!DDF1::GetDF(arg[1], DF))
       return 1;
-    TDF_Label L;
-    DDF::AddLabel(DF, arg[2], L);
+    DataLabel L;
+    DDF1::AddLabel(DF, arg[2], L);
     TDF_TagSource::Set(L);
     return 0;
   }
@@ -224,15 +224,15 @@ static Standard_Integer DDF_SetTagger(Draw_Interpretor& di, Standard_Integer nb,
 // purpose  : NewTag (DF,[father]
 //=======================================================================
 
-static Standard_Integer DDF_NewTag(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer DDF_NewTag(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
   if (nb == 3)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(arg[1], DF))
+    if (!DDF1::GetDF(arg[1], DF))
       return 1;
     Handle(TDF_TagSource) A;
-    if (!DDF::Find(DF, arg[2], TDF_TagSource::GetID(), A))
+    if (!DDF1::Find(DF, arg[2], TDF_TagSource::GetID(), A))
       return 1;
     di << A->NewTag();
     return 0;
@@ -246,25 +246,25 @@ static Standard_Integer DDF_NewTag(Draw_Interpretor& di, Standard_Integer nb, co
 // purpose  : NewChild(DF,[father])
 //=======================================================================
 
-static Standard_Integer DDF_NewChild(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer DDF_NewChild(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
   Handle(TDF_Data) DF;
   if (nb >= 2)
   {
-    if (!DDF::GetDF(arg[1], DF))
+    if (!DDF1::GetDF(arg[1], DF))
       return 1;
     if (nb == 2)
     {
-      TDF_Label free = TDF_TagSource::NewChild(DF->Root());
+      DataLabel free = TDF_TagSource::NewChild(DF->Root());
       di << free.Tag();
       return 0;
     }
     else if (nb == 3)
     {
-      TDF_Label fatherlabel;
-      if (!DDF::FindLabel(DF, arg[2], fatherlabel))
+      DataLabel fatherlabel;
+      if (!DDF1::FindLabel(DF, arg[2], fatherlabel))
         return 1;
-      TDF_Label free = TDF_TagSource::NewChild(fatherlabel);
+      DataLabel free = TDF_TagSource::NewChild(fatherlabel);
       di << arg[2] << ":" << free.Tag();
       return 0;
     }
@@ -277,21 +277,21 @@ static Standard_Integer DDF_NewChild(Draw_Interpretor& di, Standard_Integer nb, 
 // function : Label (DF,freeentry)
 //=======================================================================
 
-static Standard_Integer DDF_Label(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DDF_Label(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n == 3)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
-    TDF_Label L;
-    if (!DDF::FindLabel(DF, a[2], L, Standard_False))
+    DataLabel L;
+    if (!DDF1::FindLabel(DF, a[2], L, Standard_False))
     {
-      DDF::AddLabel(DF, a[2], L);
+      DDF1::AddLabel(DF, a[2], L);
       // di << "Label : " << a[2] << " created\n";
     }
     // else di << "Label : " << a[2] << " retrieved\n";
-    DDF::ReturnLabel(di, L);
+    DDF1::ReturnLabel(di, L);
     return 0;
   }
   di << "DDF_Label : Error\n";
@@ -300,7 +300,7 @@ static Standard_Integer DDF_Label(Draw_Interpretor& di, Standard_Integer n, cons
 
 //=================================================================================================
 
-void DDF::BasicCommands(Draw_Interpretor& theCommands)
+void DDF1::BasicCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

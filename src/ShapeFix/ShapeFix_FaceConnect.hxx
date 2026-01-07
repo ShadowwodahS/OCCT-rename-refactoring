@@ -21,8 +21,8 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
-class TopoDS_Face;
-class TopoDS_Shell;
+class TopoFace;
+class TopoShell;
 
 //! Rebuilds connectivity between faces in shell
 class ShapeFix_FaceConnect
@@ -32,9 +32,9 @@ public:
 
   Standard_EXPORT ShapeFix_FaceConnect();
 
-  Standard_EXPORT Standard_Boolean Add(const TopoDS_Face& aFirst, const TopoDS_Face& aSecond);
+  Standard_EXPORT Standard_Boolean Add(const TopoFace& aFirst, const TopoFace& aSecond);
 
-  Standard_EXPORT TopoDS_Shell Build(const TopoDS_Shell& shell,
+  Standard_EXPORT TopoShell Build(const TopoShell& shell,
                                      const Standard_Real sewtoler,
                                      const Standard_Real fixtoler);
 

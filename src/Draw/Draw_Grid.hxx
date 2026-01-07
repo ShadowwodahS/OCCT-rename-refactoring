@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <Draw_Drawable3D.hxx>
-class Draw_Display;
+class DrawDisplay;
 
 class Draw_Grid;
 DEFINE_STANDARD_HANDLE(Draw_Grid, Draw_Drawable3D)
@@ -51,7 +51,7 @@ public:
   Standard_Boolean IsActive() const;
 
   //! Displays the grid.
-  Standard_EXPORT void DrawOn(Draw_Display& Out) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& Out) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Draw_Grid, Draw_Drawable3D)
 

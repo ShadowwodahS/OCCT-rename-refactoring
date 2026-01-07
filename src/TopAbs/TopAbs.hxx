@@ -43,7 +43,7 @@
 //!
 //! * Methods to manage the enumerations.
 
-class TopAbs
+class TopAbs1
 {
 public:
   DEFINE_STANDARD_ALLOC

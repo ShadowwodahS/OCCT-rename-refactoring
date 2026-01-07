@@ -173,16 +173,16 @@ static std::ostream& formatTime(std::ostream&    theStream,
 
 //! Add key-value pair to the dictionary.
 static void addInfo(TColStd_IndexedDataMapOfStringString& theDict,
-                    const TCollection_AsciiString&        theKey,
+                    const AsciiString1&        theKey,
                     const char*                           theValue)
 {
-  TCollection_AsciiString aValue(theValue != NULL ? theValue : "");
+  AsciiString1 aValue(theValue != NULL ? theValue : "");
   theDict.ChangeFromIndex(theDict.Add(theKey, aValue)) = aValue;
 }
 
 //! Add key-value pair to the dictionary.
 static void addInfo(TColStd_IndexedDataMapOfStringString& theDict,
-                    const TCollection_AsciiString&        theKey,
+                    const AsciiString1&        theKey,
                     const Standard_Real                   theValue)
 {
   char aTmp[50];
@@ -192,7 +192,7 @@ static void addInfo(TColStd_IndexedDataMapOfStringString& theDict,
 
 //! Add key-value pair to the dictionary.
 static void addInfo(TColStd_IndexedDataMapOfStringString& theDict,
-                    const TCollection_AsciiString&        theKey,
+                    const AsciiString1&        theKey,
                     const Standard_Size                   theValue)
 {
   char aTmp[50];
@@ -202,7 +202,7 @@ static void addInfo(TColStd_IndexedDataMapOfStringString& theDict,
 
 //! Format time.
 static void addTimeInfo(TColStd_IndexedDataMapOfStringString& theDict,
-                        const TCollection_AsciiString&        theKey,
+                        const AsciiString1&        theKey,
                         Standard_Real                         theSeconds)
 {
   Standard_Real aSecIn = theSeconds;
@@ -261,7 +261,7 @@ Graphic3d_FrameStats::~Graphic3d_FrameStats()
 
 //=================================================================================================
 
-TCollection_AsciiString Graphic3d_FrameStats::FormatStats(
+AsciiString1 Graphic3d_FrameStats::FormatStats(
   Graphic3d_RenderingParams::PerfCounters theFlags) const
 {
   const Standard_Integer aValWidth = 5;
@@ -549,7 +549,7 @@ TCollection_AsciiString Graphic3d_FrameStats::FormatStats(
     }
   }
 
-  return TCollection_AsciiString(aBuf.str().c_str());
+  return AsciiString1(aBuf.str().c_str());
 }
 
 //=================================================================================================

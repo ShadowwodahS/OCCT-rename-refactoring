@@ -40,9 +40,9 @@
 #include <TColgp_HArray1OfXYZ.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 
-IGESAppli_ToolNodalDisplAndRot::IGESAppli_ToolNodalDisplAndRot() {}
+NodalDisplRotTool::NodalDisplRotTool() {}
 
-void IGESAppli_ToolNodalDisplAndRot::ReadOwnParams(const Handle(IGESAppli_NodalDisplAndRot)& ent,
+void NodalDisplRotTool::ReadOwnParams(const Handle(IGESAppli_NodalDisplAndRot)& ent,
                                                    const Handle(IGESData_IGESReaderData)&    IR,
                                                    IGESData_ParamReader& PR) const
 {
@@ -116,7 +116,7 @@ void IGESAppli_ToolNodalDisplAndRot::ReadOwnParams(const Handle(IGESAppli_NodalD
   ent->Init(tempNotes, tempNodeIdentifiers, tempNodes, tempRotParam, tempTransParam);
 }
 
-void IGESAppli_ToolNodalDisplAndRot::WriteOwnParams(const Handle(IGESAppli_NodalDisplAndRot)& ent,
+void NodalDisplRotTool::WriteOwnParams(const Handle(IGESAppli_NodalDisplAndRot)& ent,
                                                     IGESData_IGESWriter& IW) const
 {
   Standard_Integer nbcases = ent->NbCases();
@@ -142,7 +142,7 @@ void IGESAppli_ToolNodalDisplAndRot::WriteOwnParams(const Handle(IGESAppli_Nodal
   }
 }
 
-void IGESAppli_ToolNodalDisplAndRot::OwnShared(const Handle(IGESAppli_NodalDisplAndRot)& ent,
+void NodalDisplRotTool::OwnShared(const Handle(IGESAppli_NodalDisplAndRot)& ent,
                                                Interface_EntityIterator&                 iter) const
 {
   Standard_Integer nbcases = ent->NbCases();
@@ -154,7 +154,7 @@ void IGESAppli_ToolNodalDisplAndRot::OwnShared(const Handle(IGESAppli_NodalDispl
     iter.GetOneItem(ent->Node(j));
 }
 
-void IGESAppli_ToolNodalDisplAndRot::OwnCopy(const Handle(IGESAppli_NodalDisplAndRot)& another,
+void NodalDisplRotTool::OwnCopy(const Handle(IGESAppli_NodalDisplAndRot)& another,
                                              const Handle(IGESAppli_NodalDisplAndRot)& ent,
                                              Interface_CopyTool&                       TC) const
 {
@@ -195,23 +195,23 @@ void IGESAppli_ToolNodalDisplAndRot::OwnCopy(const Handle(IGESAppli_NodalDisplAn
   ent->Init(aNotes, aNodeIdentifiers, aNodes, aRotParam, aTransParam);
 }
 
-IGESData_DirChecker IGESAppli_ToolNodalDisplAndRot::DirChecker(
+DirectoryChecker NodalDisplRotTool::DirChecker(
   const Handle(IGESAppli_NodalDisplAndRot)& /* ent */) const
 {
-  IGESData_DirChecker DC(138, 0); // Form no = 0 & Type = 138
+  DirectoryChecker DC(138, 0); // Form no = 0 & Type = 138
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.HierarchyStatusIgnored();
   return DC;
 }
 
-void IGESAppli_ToolNodalDisplAndRot::OwnCheck(const Handle(IGESAppli_NodalDisplAndRot)& /* ent */,
+void NodalDisplRotTool::OwnCheck(const Handle(IGESAppli_NodalDisplAndRot)& /* ent */,
                                               const Interface_ShareTool&,
                                               Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESAppli_ToolNodalDisplAndRot::OwnDump(const Handle(IGESAppli_NodalDisplAndRot)& ent,
+void NodalDisplRotTool::OwnDump(const Handle(IGESAppli_NodalDisplAndRot)& ent,
                                              const IGESData_IGESDumper&                dumper,
                                              Standard_OStream&                         S,
                                              const Standard_Integer                    level) const

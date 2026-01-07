@@ -26,7 +26,7 @@ class Interface_EntityIterator;
 class Interface_Graph;
 class RefObject;
 class Interface_InterfaceModel;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_SelectExtract;
 DEFINE_STANDARD_HANDLE(IFSelect_SelectExtract, IFSelect_SelectDeduct)
@@ -78,10 +78,10 @@ public:
 
   //! Returns a text saying "Picked" or "Removed", plus the
   //! specific criterium returned by ExtractLabel (see below)
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   //! Returns a text defining the criterium for extraction
-  Standard_EXPORT virtual TCollection_AsciiString ExtractLabel() const = 0;
+  Standard_EXPORT virtual AsciiString1 ExtractLabel() const = 0;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectExtract, IFSelect_SelectDeduct)
 

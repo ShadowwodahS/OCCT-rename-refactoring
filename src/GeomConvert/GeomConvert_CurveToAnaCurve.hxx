@@ -26,8 +26,8 @@
 #include <GeomConvert_ConvType.hxx>
 #include <GeomAbs_CurveType.hxx>
 
-class Geom_Curve;
-class Geom_Line;
+class GeomCurve3d;
+class GeomLine;
 class gp_Lin;
 class Point3d;
 class gp_Circ;
@@ -39,22 +39,22 @@ public:
 
   Standard_EXPORT GeomConvert_CurveToAnaCurve();
 
-  Standard_EXPORT GeomConvert_CurveToAnaCurve(const Handle(Geom_Curve)& C);
+  Standard_EXPORT GeomConvert_CurveToAnaCurve(const Handle(GeomCurve3d)& C);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& C);
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& C);
 
   //! Converts me to analytical if possible with given
   //! tolerance. The new first and last parameters are
   //! returned to newF, newL
   Standard_EXPORT Standard_Boolean ConvertToAnalytical(const Standard_Real theTol,
-                                                       Handle(Geom_Curve)& theResultCurve,
+                                                       Handle(GeomCurve3d)& theResultCurve,
                                                        const Standard_Real F,
                                                        const Standard_Real L,
                                                        Standard_Real&      newF,
                                                        Standard_Real&      newL);
 
-  Standard_EXPORT static Handle(Geom_Curve) ComputeCurve(
-    const Handle(Geom_Curve)&  curve,
+  Standard_EXPORT static Handle(GeomCurve3d) ComputeCurve(
+    const Handle(GeomCurve3d)&  curve,
     const Standard_Real        tolerance,
     const Standard_Real        c1,
     const Standard_Real        c2,
@@ -67,7 +67,7 @@ public:
   //! Tries to convert the given curve to circle with given
   //! tolerance. Returns NULL curve if conversion is
   //! not possible.
-  Standard_EXPORT static Handle(Geom_Curve) ComputeCircle(const Handle(Geom_Curve)& curve,
+  Standard_EXPORT static Handle(GeomCurve3d) ComputeCircle(const Handle(GeomCurve3d)& curve,
                                                           const Standard_Real       tolerance,
                                                           const Standard_Real       c1,
                                                           const Standard_Real       c2,
@@ -78,7 +78,7 @@ public:
   //! Tries to convert the given curve to ellipse with given
   //! tolerance. Returns NULL curve if conversion is
   //! not possible.
-  Standard_EXPORT static Handle(Geom_Curve) ComputeEllipse(const Handle(Geom_Curve)& curve,
+  Standard_EXPORT static Handle(GeomCurve3d) ComputeEllipse(const Handle(GeomCurve3d)& curve,
                                                            const Standard_Real       tolerance,
                                                            const Standard_Real       c1,
                                                            const Standard_Real       c2,
@@ -89,7 +89,7 @@ public:
   //! Tries to convert the given curve to line with given
   //! tolerance. Returns NULL curve if conversion is
   //! not possible.
-  Standard_EXPORT static Handle(Geom_Line) ComputeLine(const Handle(Geom_Curve)& curve,
+  Standard_EXPORT static Handle(GeomLine) ComputeLine(const Handle(GeomCurve3d)& curve,
                                                        const Standard_Real       tolerance,
                                                        const Standard_Real       c1,
                                                        const Standard_Real       c2,
@@ -134,7 +134,7 @@ public:
 
 protected:
 private:
-  Handle(Geom_Curve)   myCurve;
+  Handle(GeomCurve3d)   myCurve;
   Standard_Real        myGap;
   GeomConvert_ConvType myConvType;
   GeomAbs_CurveType    myTarget;

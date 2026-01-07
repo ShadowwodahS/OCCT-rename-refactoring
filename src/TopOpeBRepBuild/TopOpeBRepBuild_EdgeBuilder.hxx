@@ -25,9 +25,9 @@
 #include <Standard_Boolean.hxx>
 class TopOpeBRepBuild_PaveSet;
 class TopOpeBRepBuild_PaveClassifier;
-class TopOpeBRepBuild_LoopSet;
-class TopOpeBRepBuild_LoopClassifier;
-class TopoDS_Shape;
+class LoopSet;
+class LoopClassifier;
+class TopoShape;
 
 class TopOpeBRepBuild_EdgeBuilder : public TopOpeBRepBuild_Area1dBuilder
 {
@@ -42,8 +42,8 @@ public:
                                               TopOpeBRepBuild_PaveClassifier& LC,
                                               const Standard_Boolean ForceClass = Standard_False);
 
-  Standard_EXPORT void InitEdgeBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                       TopOpeBRepBuild_LoopClassifier& LC,
+  Standard_EXPORT void InitEdgeBuilder(LoopSet&        LS,
+                                       LoopClassifier& LC,
                                        const Standard_Boolean          ForceClass = Standard_False);
 
   Standard_EXPORT void InitEdge();
@@ -58,7 +58,7 @@ public:
 
   Standard_EXPORT void NextVertex();
 
-  Standard_EXPORT const TopoDS_Shape& Vertex() const;
+  Standard_EXPORT const TopoShape& Vertex() const;
 
   Standard_EXPORT Standard_Real Parameter() const;
 

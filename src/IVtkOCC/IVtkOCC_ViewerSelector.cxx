@@ -42,14 +42,14 @@ IVtkOCC_ViewerSelector::~IVtkOCC_ViewerSelector() {}
 // Method: ConvertVtkToOccCamera
 // Purpose:
 //============================================================================
-Handle(Graphic3d_Camera) IVtkOCC_ViewerSelector::ConvertVtkToOccCamera(
+Handle(CameraOn3d) IVtkOCC_ViewerSelector::ConvertVtkToOccCamera(
   const IVtk_IView::Handle& theView)
 {
-  Handle(Graphic3d_Camera) aCamera = new Graphic3d_Camera();
+  Handle(CameraOn3d) aCamera = new CameraOn3d();
   aCamera->SetZeroToOneDepth(true);
   Standard_Boolean isOrthographic = !theView->IsPerspective();
-  aCamera->SetProjectionType(isOrthographic ? Graphic3d_Camera::Projection_Orthographic
-                                            : Graphic3d_Camera::Projection_Perspective);
+  aCamera->SetProjectionType(isOrthographic ? CameraOn3d::Projection_Orthographic
+                                            : CameraOn3d::Projection_Perspective);
   if (isOrthographic)
   {
     aCamera->SetScale(2 * theView->GetParallelScale());
@@ -175,9 +175,9 @@ void IVtkOCC_ViewerSelector::Pick(double**                  thePoly,
   TColgp_Array1OfPnt2d aPolyline(1, theNbPoints);
   for (Standard_Integer anIt = 0; anIt < theNbPoints; anIt++)
   {
-    gp_XY aDispPnt = thePoly[anIt][2] != 0 ? gp_XY(thePoly[anIt][0] / thePoly[anIt][2],
+    Coords2d aDispPnt = thePoly[anIt][2] != 0 ? Coords2d(thePoly[anIt][0] / thePoly[anIt][2],
                                                    thePoly[anIt][1] / thePoly[anIt][2])
-                                           : gp_XY(thePoly[anIt][0], thePoly[anIt][1]);
+                                           : Coords2d(thePoly[anIt][0], thePoly[anIt][1]);
     aPolyline.SetValue(anIt + 1, aDispPnt);
   }
   mySelectingVolumeMgr.InitPolylineSelectingVolume(aPolyline);
@@ -215,7 +215,7 @@ void IVtkOCC_ViewerSelector::Pick(double**                  thePoly,
 // Method:  Activate
 // Purpose: Activates the given selection
 //============================================================================
-void IVtkOCC_ViewerSelector::Activate(const Handle(SelectMgr_Selection)& theSelection)
+void IVtkOCC_ViewerSelector::Activate(const Handle(SelectionContainer)& theSelection)
 {
   for (NCollection_Vector<Handle(SelectMgr_SensitiveEntity)>::Iterator aSelEntIter(
          theSelection->Entities());
@@ -236,7 +236,7 @@ void IVtkOCC_ViewerSelector::Activate(const Handle(SelectMgr_Selection)& theSele
 // Method:  Deactivate
 // Purpose: Deactivate the given selection
 //============================================================================
-void IVtkOCC_ViewerSelector::Deactivate(const Handle(SelectMgr_Selection)& theSelection)
+void IVtkOCC_ViewerSelector::Deactivate(const Handle(SelectionContainer)& theSelection)
 {
   for (NCollection_Vector<Handle(SelectMgr_SensitiveEntity)>::Iterator aSelEntIter(
          theSelection->Entities());

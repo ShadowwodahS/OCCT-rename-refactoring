@@ -31,25 +31,25 @@
 #include <TopoDS_Shape.hxx>
 
 #include <stdio.h>
-static void                 PrintState(Draw_Interpretor& aDI, const TopAbs_State& aState);
-static Handle(Geom2d_Curve) CurveOnSurface(const TopoDS_Edge& E,
-                                           const TopoDS_Face& F,
+static void                 PrintState(DrawInterpreter& aDI, const TopAbs_State& aState);
+static Handle(GeomCurve2d) CurveOnSurface(const TopoEdge& E,
+                                           const TopoFace& F,
                                            Standard_Real&     First,
                                            Standard_Real&     Last);
-static Handle(Geom2d_Curve) CurveOnSurface(const TopoDS_Edge&          E,
-                                           const Handle(Geom_Surface)& S,
+static Handle(GeomCurve2d) CurveOnSurface(const TopoEdge&          E,
+                                           const Handle(GeomSurface)& S,
                                            const TopLoc_Location&      L,
                                            Standard_Real&              First,
                                            Standard_Real&              Last);
 
-static Standard_Integer bclassify(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer b2dclassify(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer b2dclassifx(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bhaspc(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer bclassify(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer b2dclassify(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer b2dclassifx(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bhaspc(DrawInterpreter&, Standard_Integer, const char**);
 
 //=================================================================================================
 
-void BOPTest::LowCommands(Draw_Interpretor& theCommands)
+void BOPTest::LowCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -79,7 +79,7 @@ void BOPTest::LowCommands(Draw_Interpretor& theCommands)
 // lj cd
 //=================================================================================================
 
-Standard_Integer b2dclassifx(Draw_Interpretor& theDI,
+Standard_Integer b2dclassifx(DrawInterpreter& theDI,
                              Standard_Integer  theArgNb,
                              const char**      theArgVec)
 {
@@ -89,7 +89,7 @@ Standard_Integer b2dclassifx(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape aS = DBRep::Get(theArgVec[1]);
+  TopoShape aS = DBRep1::Get(theArgVec[1]);
   if (aS.IsNull())
   {
     theDI << " Null Shape is not allowed here\n";
@@ -103,9 +103,9 @@ Standard_Integer b2dclassifx(Draw_Interpretor& theDI,
   TopAbs_State aState;
   gp_Pnt2d     aP(8., 9.);
   //
-  DrawTrSurf::GetPoint2d(theArgVec[2], aP);
-  const TopoDS_Face&  aF   = TopoDS::Face(aS);
-  const Standard_Real aTol = (theArgNb == 4) ? Draw::Atof(theArgVec[3]) : BRep_Tool::Tolerance(aF);
+  DrawTrSurf1::GetPoint2d(theArgVec[2], aP);
+  const TopoFace&  aF   = TopoDS::Face(aS);
+  const Standard_Real aTol = (theArgNb == 4) ? Draw1::Atof(theArgVec[3]) : BRepInspector::Tolerance(aF);
   //
   IntTools_FClass2d aClassifier(aF, aTol);
   aState = aClassifier.Perform(aP);
@@ -117,7 +117,7 @@ Standard_Integer b2dclassifx(Draw_Interpretor& theDI,
 //
 //=================================================================================================
 
-Standard_Integer b2dclassify(Draw_Interpretor& theDI,
+Standard_Integer b2dclassify(DrawInterpreter& theDI,
                              Standard_Integer  theArgNb,
                              const char**      theArgVec)
 {
@@ -127,7 +127,7 @@ Standard_Integer b2dclassify(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape aS = DBRep::Get(theArgVec[1]);
+  TopoShape aS = DBRep1::Get(theArgVec[1]);
   if (aS.IsNull())
   {
     theDI << " Null Shape is not allowed here\n";
@@ -141,12 +141,12 @@ Standard_Integer b2dclassify(Draw_Interpretor& theDI,
   //
   gp_Pnt2d aP(8., 9.);
   //
-  DrawTrSurf::GetPoint2d(theArgVec[2], aP);
-  const TopoDS_Face&  aF   = TopoDS::Face(aS);
-  const Standard_Real aTol = (theArgNb >= 4) ? Draw::Atof(theArgVec[3]) : BRep_Tool::Tolerance(aF);
+  DrawTrSurf1::GetPoint2d(theArgVec[2], aP);
+  const TopoFace&  aF   = TopoDS::Face(aS);
+  const Standard_Real aTol = (theArgNb >= 4) ? Draw1::Atof(theArgVec[3]) : BRepInspector::Tolerance(aF);
   const Standard_Boolean anUseBox =
-    (theArgNb >= 5 && Draw::Atof(theArgVec[4]) == 1) ? Standard_True : Standard_False;
-  const Standard_Real      aGapCheckTol = (theArgNb == 6) ? Draw::Atof(theArgVec[5]) : 0.1;
+    (theArgNb >= 5 && Draw1::Atof(theArgVec[4]) == 1) ? Standard_True : Standard_False;
+  const Standard_Real      aGapCheckTol = (theArgNb == 6) ? Draw1::Atof(theArgVec[5]) : 0.1;
   BRepClass_FaceClassifier aClassifier;
   aClassifier.Perform(aF, aP, aTol, anUseBox, aGapCheckTol);
   PrintState(theDI, aClassifier.State());
@@ -156,7 +156,7 @@ Standard_Integer b2dclassify(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-Standard_Integer bclassify(Draw_Interpretor& theDI,
+Standard_Integer bclassify(DrawInterpreter& theDI,
                            Standard_Integer  theArgNb,
                            const char**      theArgVec)
 {
@@ -166,7 +166,7 @@ Standard_Integer bclassify(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape aS = DBRep::Get(theArgVec[1]);
+  TopoShape aS = DBRep1::Get(theArgVec[1]);
   if (aS.IsNull())
   {
     theDI << " Null Shape is not allowed\n";
@@ -179,8 +179,8 @@ Standard_Integer bclassify(Draw_Interpretor& theDI,
   }
 
   Point3d aP(8., 9., 10.);
-  DrawTrSurf::GetPoint(theArgVec[2], aP);
-  const Standard_Real aTol = (theArgNb == 4) ? Draw::Atof(theArgVec[3]) : 1.e-7;
+  DrawTrSurf1::GetPoint(theArgVec[2], aP);
+  const Standard_Real aTol = (theArgNb == 4) ? Draw1::Atof(theArgVec[3]) : 1.e-7;
 
   BRepClass3d_SolidClassifier aSC(aS);
   aSC.Perform(aP, aTol);
@@ -191,7 +191,7 @@ Standard_Integer bclassify(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-Standard_Integer bhaspc(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bhaspc(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
   {
@@ -199,8 +199,8 @@ Standard_Integer bhaspc(Draw_Interpretor& di, Standard_Integer n, const char** a
     return 1;
   }
 
-  TopoDS_Shape S1 = DBRep::Get(a[1]);
-  TopoDS_Shape S2 = DBRep::Get(a[2]);
+  TopoShape S1 = DBRep1::Get(a[1]);
+  TopoShape S2 = DBRep1::Get(a[2]);
 
   if (S1.IsNull() || S2.IsNull())
   {
@@ -213,11 +213,11 @@ Standard_Integer bhaspc(Draw_Interpretor& di, Standard_Integer n, const char** a
     return 1;
   }
   //
-  const TopoDS_Edge& aE = TopoDS::Edge(S1);
-  const TopoDS_Face& aF = TopoDS::Face(S2);
+  const TopoEdge& aE = TopoDS::Edge(S1);
+  const TopoFace& aF = TopoDS::Face(S2);
   Standard_Real      f2D, l2D;
 
-  Handle(Geom2d_Curve) C2D = CurveOnSurface(aE, aF, f2D, l2D);
+  Handle(GeomCurve2d) C2D = CurveOnSurface(aE, aF, f2D, l2D);
 
   if (C2D.IsNull())
   {
@@ -232,7 +232,7 @@ Standard_Integer bhaspc(Draw_Interpretor& di, Standard_Integer n, const char** a
   {
     if (!strcmp(a[3], "do"))
     {
-      BOPTools_AlgoTools2D::BuildPCurveForEdgeOnFace(aE, aF);
+      AlgoTools2D::BuildPCurveForEdgeOnFace(aE, aF);
     }
   }
 
@@ -241,7 +241,7 @@ Standard_Integer bhaspc(Draw_Interpretor& di, Standard_Integer n, const char** a
 
 //=================================================================================================
 
-void PrintState(Draw_Interpretor& theDI, const TopAbs_State& theState)
+void PrintState(DrawInterpreter& theDI, const TopAbs_State& theState)
 {
   switch (theState)
   {
@@ -263,14 +263,14 @@ void PrintState(Draw_Interpretor& theDI, const TopAbs_State& theState)
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) CurveOnSurface(const TopoDS_Edge& E,
-                                    const TopoDS_Face& F,
+Handle(GeomCurve2d) CurveOnSurface(const TopoEdge& E,
+                                    const TopoFace& F,
                                     Standard_Real&     First,
                                     Standard_Real&     Last)
 {
   TopLoc_Location             l;
-  const Handle(Geom_Surface)& S          = BRep_Tool::Surface(F, l);
-  TopoDS_Edge                 aLocalEdge = E;
+  const Handle(GeomSurface)& S          = BRepInspector::Surface(F, l);
+  TopoEdge                 aLocalEdge = E;
   if (F.Orientation() == TopAbs_REVERSED)
   {
     aLocalEdge.Reverse();
@@ -278,12 +278,12 @@ Handle(Geom2d_Curve) CurveOnSurface(const TopoDS_Edge& E,
   return CurveOnSurface(aLocalEdge, S, l, First, Last);
 }
 
-static Handle(Geom2d_Curve) nullPCurve;
+static Handle(GeomCurve2d) nullPCurve;
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) CurveOnSurface(const TopoDS_Edge&          E,
-                                    const Handle(Geom_Surface)& S,
+Handle(GeomCurve2d) CurveOnSurface(const TopoEdge&          E,
+                                    const Handle(GeomSurface)& S,
                                     const TopLoc_Location&      L,
                                     Standard_Real&              First,
                                     Standard_Real&              Last)

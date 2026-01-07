@@ -24,11 +24,11 @@
 #include <TopLoc_Location.hxx>
 #include <ShapeAnalysis_TransferParameters.hxx>
 #include <TColStd_HSequenceOfReal.hxx>
-class Geom_Curve;
-class Geom2d_Curve;
-class TopoDS_Edge;
-class TopoDS_Face;
-class TopoDS_Vertex;
+class GeomCurve3d;
+class GeomCurve2d;
+class TopoEdge;
+class TopoFace;
+class TopoVertex;
 
 class ShapeAnalysis_TransferParametersProj;
 DEFINE_STANDARD_HANDLE(ShapeAnalysis_TransferParametersProj, ShapeAnalysis_TransferParameters)
@@ -45,9 +45,9 @@ public:
   //! Creates empty constructor.
   Standard_EXPORT ShapeAnalysis_TransferParametersProj();
 
-  Standard_EXPORT ShapeAnalysis_TransferParametersProj(const TopoDS_Edge& E, const TopoDS_Face& F);
+  Standard_EXPORT ShapeAnalysis_TransferParametersProj(const TopoEdge& E, const TopoFace& F);
 
-  Standard_EXPORT virtual void Init(const TopoDS_Edge& E, const TopoDS_Face& F) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Init(const TopoEdge& E, const TopoFace& F) Standard_OVERRIDE;
 
   //! Transfers parameters given by sequence Params from 3d curve
   //! to pcurve (if To2d is True) or back (if To2d is False)
@@ -68,7 +68,7 @@ public:
 
   //! Recomputes range of curves from NewEdge.
   //! If Is2d equals True parameters are recomputed by curve2d else by curve3d.
-  Standard_EXPORT virtual void TransferRange(TopoDS_Edge&           newEdge,
+  Standard_EXPORT virtual void TransferRange(TopoEdge&           newEdge,
                                              const Standard_Real    prevPar,
                                              const Standard_Real    currPar,
                                              const Standard_Boolean Is2d) Standard_OVERRIDE;
@@ -79,16 +79,16 @@ public:
   //! Make a copy of non-manifold vertex theVert
   //! (i.e. create new  TVertex and replace PointRepresentations for this vertex
   //! from fromedge to toedge. Other representations were copied)
-  Standard_EXPORT static TopoDS_Vertex CopyNMVertex(const TopoDS_Vertex& theVert,
-                                                    const TopoDS_Edge&   toedge,
-                                                    const TopoDS_Edge&   fromedge);
+  Standard_EXPORT static TopoVertex CopyNMVertex(const TopoVertex& theVert,
+                                                    const TopoEdge&   toedge,
+                                                    const TopoEdge&   fromedge);
 
   //! Make a copy of non-manifold vertex theVert
   //! (i.e. create new  TVertex and replace PointRepresentations for this vertex
   //! from fromFace to toFace. Other representations were copied)
-  Standard_EXPORT static TopoDS_Vertex CopyNMVertex(const TopoDS_Vertex& theVert,
-                                                    const TopoDS_Face&   toFace,
-                                                    const TopoDS_Face&   fromFace);
+  Standard_EXPORT static TopoVertex CopyNMVertex(const TopoVertex& theVert,
+                                                    const TopoFace&   toFace,
+                                                    const TopoFace&   fromFace);
 
   DEFINE_STANDARD_RTTIEXT(ShapeAnalysis_TransferParametersProj, ShapeAnalysis_TransferParameters)
 
@@ -99,8 +99,8 @@ private:
                                                const Standard_Real    First,
                                                const Standard_Real    Last);
 
-  Handle(Geom_Curve)       myCurve;
-  Handle(Geom2d_Curve)     myCurve2d;
+  Handle(GeomCurve3d)       myCurve;
+  Handle(GeomCurve2d)     myCurve2d;
   Adaptor3d_CurveOnSurface myAC3d;
   Standard_Real            myPrecision;
   TopLoc_Location          myLocation;

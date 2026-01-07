@@ -64,11 +64,11 @@ namespace
 // function : VUserDraw
 // purpose  : Checks availability and operation of UserDraw feature
 //=======================================================================
-class VUserDrawObj : public AIS_InteractiveObject
+class VUserDrawObj : public VisualEntity
 {
 public:
   // CASCADE RTTI
-  DEFINE_STANDARD_RTTI_INLINE(VUserDrawObj, AIS_InteractiveObject);
+  DEFINE_STANDARD_RTTI_INLINE(VUserDrawObj, VisualEntity);
 
   VUserDrawObj()
   {
@@ -115,7 +115,7 @@ private:
                        const Handle(Prs3d_Presentation)&         thePrs,
                        const Standard_Integer                    theMode) Standard_OVERRIDE;
 
-  virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+  virtual void ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                 const Standard_Integer             theMode) Standard_OVERRIDE;
 
   // Called by VUserDrawElement
@@ -149,7 +149,7 @@ void VUserDrawObj::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
   thePrsMgr->StructureManager()->Update();
 }
 
-void VUserDrawObj::ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+void VUserDrawObj::ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                     const Standard_Integer             theMode)
 {
   if (theMode != 0)
@@ -202,9 +202,9 @@ void VUserDrawObj::Render(const Handle(OpenGl_Workspace)& theWorkspace) const
 
 } // end of anonymous namespace
 
-static Standard_Integer VUserDraw(Draw_Interpretor&, Standard_Integer argc, const char** argv)
+static Standard_Integer VUserDraw(DrawInterpreter&, Standard_Integer argc, const char** argv)
 {
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
     Message::SendFail("Error: no active viewer");
@@ -225,8 +225,8 @@ static Standard_Integer VUserDraw(Draw_Interpretor&, Standard_Integer argc, cons
     return 1;
   }
 
-  TCollection_AsciiString aName(argv[1]);
-  ViewerTest::Display(aName, Handle(AIS_InteractiveObject)());
+  AsciiString1 aName(argv[1]);
+  ViewerTest::Display(aName, Handle(VisualEntity)());
 
   Handle(VUserDrawObj) anIObj = new VUserDrawObj();
   ViewerTest::Display(aName, anIObj);
@@ -236,11 +236,11 @@ static Standard_Integer VUserDraw(Draw_Interpretor&, Standard_Integer argc, cons
 
 //=================================================================================================
 
-static Standard_Integer VGlShaders(Draw_Interpretor& theDI,
+static Standard_Integer VGlShaders(DrawInterpreter& theDI,
                                    Standard_Integer  theArgNb,
                                    const char**      theArgVec)
 {
-  Handle(AIS_InteractiveContext) aCtx = ViewerTest::GetAISContext();
+  Handle(VisualContext) aCtx = ViewerTest::GetAISContext();
   if (aCtx.IsNull())
   {
     Message::SendFail("Error: no active viewer");
@@ -262,7 +262,7 @@ static Standard_Integer VGlShaders(Draw_Interpretor& theDI,
   bool toList = theArgNb < 2;
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     if (anArg == "-list")
     {
@@ -272,7 +272,7 @@ static Standard_Integer VGlShaders(Draw_Interpretor& theDI,
               || anArg == "-load")
              && anArgIter + 1 < theArgNb)
     {
-      TCollection_AsciiString      aShaderName = theArgVec[++anArgIter];
+      AsciiString1      aShaderName = theArgVec[++anArgIter];
       Handle(OpenGl_ShaderProgram) aResProg;
       if (!aGlCtx->GetResource(aShaderName, aResProg))
       {
@@ -312,7 +312,7 @@ static Standard_Integer VGlShaders(Draw_Interpretor& theDI,
 static Standard_Boolean parseGlslSourceFlag(Standard_CString               theArg,
                                             OpenGl_ShaderProgramDumpLevel& theGlslDumpLevel)
 {
-  TCollection_AsciiString aTypeStr(theArg);
+  AsciiString1 aTypeStr(theArg);
   aTypeStr.LowerCase();
   if (aTypeStr == "off" || aTypeStr == "0")
   {
@@ -335,11 +335,11 @@ static Standard_Boolean parseGlslSourceFlag(Standard_CString               theAr
 
 //=================================================================================================
 
-static int VGlDebug(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theArgVec)
+static int VGlDebug(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
   Handle(OpenGl_GraphicDriver) aDriver;
   Handle(OpenGl_Context)       aGlCtx;
-  Handle(V3d_View)             aView = ViewerTest::CurrentView();
+  Handle(ViewWindow)             aView = ViewerTest::CurrentView();
   if (!aView.IsNull())
   {
     aDriver = Handle(OpenGl_GraphicDriver)::DownCast(aView->Viewer()->Driver());
@@ -353,7 +353,7 @@ static int VGlDebug(Draw_Interpretor& theDI, Standard_Integer theArgNb, const ch
 
   if (theArgNb < 2)
   {
-    TCollection_AsciiString aDebActive, aSyncActive;
+    AsciiString1 aDebActive, aSyncActive;
     if (aCaps == NULL)
     {
       aCaps = aDefCaps;
@@ -372,8 +372,8 @@ static int VGlDebug(Draw_Interpretor& theDI, Standard_Integer theArgNb, const ch
       }
     }
 
-    TCollection_AsciiString aGlslCodeDebugStatus =
-      TCollection_AsciiString() + "glslSourceCode: "
+    AsciiString1 aGlslCodeDebugStatus =
+      AsciiString1() + "glslSourceCode: "
       + (aCaps->glslDumpLevel == OpenGl_ShaderProgramDumpLevel_Off     ? "Off"
          : aCaps->glslDumpLevel == OpenGl_ShaderProgramDumpLevel_Short ? "Short"
                                                                        : "Full")
@@ -389,14 +389,14 @@ static int VGlDebug(Draw_Interpretor& theDI, Standard_Integer theArgNb, const ch
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
     Standard_CString        anArg = theArgVec[anArgIter];
-    TCollection_AsciiString anArgCase(anArg);
+    AsciiString1 anArgCase(anArg);
     anArgCase.LowerCase();
     Standard_Boolean toEnableDebug = Standard_True;
     if (anArgCase == "-glsl" || anArgCase == "-glslwarn" || anArgCase == "-glslwarns"
         || anArgCase == "-glslwarnings")
     {
       Standard_Boolean toShowWarns = Standard_True;
-      if (++anArgIter < theArgNb && !Draw::ParseOnOff(theArgVec[anArgIter], toShowWarns))
+      if (++anArgIter < theArgNb && !Draw1::ParseOnOff(theArgVec[anArgIter], toShowWarns))
       {
         --anArgIter;
       }
@@ -409,7 +409,7 @@ static int VGlDebug(Draw_Interpretor& theDI, Standard_Integer theArgNb, const ch
     else if (anArgCase == "-extra" || anArgCase == "-extramsg" || anArgCase == "-extramessages")
     {
       Standard_Boolean toShow = Standard_True;
-      if (++anArgIter < theArgNb && !Draw::ParseOnOff(theArgVec[anArgIter], toShow))
+      if (++anArgIter < theArgNb && !Draw1::ParseOnOff(theArgVec[anArgIter], toShow))
       {
         --anArgIter;
       }
@@ -423,7 +423,7 @@ static int VGlDebug(Draw_Interpretor& theDI, Standard_Integer theArgNb, const ch
              || anArgCase == "-noextramessages")
     {
       Standard_Boolean toSuppress = Standard_True;
-      if (++anArgIter < theArgNb && !Draw::ParseOnOff(theArgVec[anArgIter], toSuppress))
+      if (++anArgIter < theArgNb && !Draw1::ParseOnOff(theArgVec[anArgIter], toSuppress))
       {
         --anArgIter;
       }
@@ -436,7 +436,7 @@ static int VGlDebug(Draw_Interpretor& theDI, Standard_Integer theArgNb, const ch
     else if (anArgCase == "-sync")
     {
       Standard_Boolean toSync = Standard_True;
-      if (++anArgIter < theArgNb && !Draw::ParseOnOff(theArgVec[anArgIter], toSync))
+      if (++anArgIter < theArgNb && !Draw1::ParseOnOff(theArgVec[anArgIter], toSync))
       {
         --anArgIter;
       }
@@ -461,13 +461,13 @@ static int VGlDebug(Draw_Interpretor& theDI, Standard_Integer theArgNb, const ch
     }
     else if (anArgCase == "-debug")
     {
-      if (++anArgIter < theArgNb && !Draw::ParseOnOff(theArgVec[anArgIter], toEnableDebug))
+      if (++anArgIter < theArgNb && !Draw1::ParseOnOff(theArgVec[anArgIter], toEnableDebug))
       {
         --anArgIter;
       }
       aDefCaps->contextDebug = toEnableDebug;
     }
-    else if (Draw::ParseOnOff(anArg, toEnableDebug) && (anArgIter + 1 == theArgNb))
+    else if (Draw1::ParseOnOff(anArg, toEnableDebug) && (anArgIter + 1 == theArgNb))
     {
       // simple alias to turn on almost everything
       aDefCaps->contextDebug     = toEnableDebug;
@@ -502,17 +502,17 @@ static int VGlDebug(Draw_Interpretor& theDI, Standard_Integer theArgNb, const ch
 
 //=================================================================================================
 
-static int VVbo(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theArgVec)
+static int VVbo(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
   const Standard_Boolean toSet    = (theArgNb > 1);
-  const Standard_Boolean toUseVbo = toSet ? (Draw::Atoi(theArgVec[1]) == 0) : 1;
+  const Standard_Boolean toUseVbo = toSet ? (Draw1::Atoi(theArgVec[1]) == 0) : 1;
   if (toSet)
   {
     getDefaultCaps()->vboDisable = toUseVbo;
   }
 
   // get the context
-  Handle(AIS_InteractiveContext) aContextAIS = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContextAIS = ViewerTest::GetAISContext();
   if (aContextAIS.IsNull())
   {
     if (!toSet)
@@ -540,11 +540,11 @@ static int VVbo(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char**
 
 //=================================================================================================
 
-static int VCaps(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theArgVec)
+static int VCaps(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
   OpenGl_Caps*                   aCaps = getDefaultCaps().get();
   Handle(OpenGl_GraphicDriver)   aDriver;
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (!aContext.IsNull())
   {
     aDriver = Handle(OpenGl_GraphicDriver)::DownCast(aContext->CurrentViewer()->Driver());
@@ -577,7 +577,7 @@ static int VCaps(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char*
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
     Standard_CString        anArg = theArgVec[anArgIter];
-    TCollection_AsciiString anArgCase(anArg);
+    AsciiString1 anArgCase(anArg);
     anArgCase.LowerCase();
     if (anUpdateTool.parseRedrawMode(anArg))
     {
@@ -585,68 +585,68 @@ static int VCaps(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char*
     }
     else if (anArgCase == "-vsync" || anArgCase == "-novsync" || anArgCase == "-swapinterval")
     {
-      aCaps->swapInterval = Draw::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->swapInterval = Draw1::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
     }
     else if (anArgCase == "-ffp" || anArgCase == "-noffp")
     {
-      aCaps->ffpEnable = Draw::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->ffpEnable = Draw1::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
     }
     else if (anArgCase == "-polygonmode" || anArgCase == "-nopolygonmode")
     {
-      aCaps->usePolygonMode = Draw::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->usePolygonMode = Draw1::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
     }
     else if (anArgCase == "-srgb" || anArgCase == "-nosrgb")
     {
-      aCaps->sRGBDisable = !Draw::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->sRGBDisable = !Draw1::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
     }
     else if (anArgCase == "-compressedtextures" || anArgCase == "-nocompressedtextures")
     {
       aCaps->compressedTexturesDisable =
-        !Draw::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
+        !Draw1::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
     }
     else if (anArgCase == "-vbo" || anArgCase == "-novbo")
     {
-      aCaps->vboDisable = !Draw::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->vboDisable = !Draw1::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
     }
     else if (anArgCase == "-sprite" || anArgCase == "-sprites")
     {
-      aCaps->pntSpritesDisable = !Draw::ParseOnOffIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->pntSpritesDisable = !Draw1::ParseOnOffIterator(theArgNb, theArgVec, anArgIter);
     }
     else if (anArgCase == "-depthzerotoone" || anArgCase == "-zerotoonedepth"
              || anArgCase == "-usezerotoonedepth" || anArgCase == "-iszerotoonedepth")
     {
-      aCaps->useZeroToOneDepth = Draw::ParseOnOffIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->useZeroToOneDepth = Draw1::ParseOnOffIterator(theArgNb, theArgVec, anArgIter);
     }
     else if (anArgCase == "-softmode" || anArgCase == "-contextnoaccel")
     {
-      aCaps->contextNoAccel = Draw::ParseOnOffIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->contextNoAccel = Draw1::ParseOnOffIterator(theArgNb, theArgVec, anArgIter);
     }
     else if (anArgCase == "-opaquealpha" || anArgCase == "-noopaquealpha"
              || anArgCase == "-buffersopaquealpha" || anArgCase == "-nobuffersopaquealpha")
     {
-      aCaps->buffersOpaqueAlpha = Draw::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->buffersOpaqueAlpha = Draw1::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
     }
     else if (anArgCase == "-deepcolor" || anArgCase == "-nodeepcolor"
              || anArgCase == "-buffersdeepcolor" || anArgCase == "-nobuffersdeepcolor")
     {
-      aCaps->buffersDeepColor = Draw::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->buffersDeepColor = Draw1::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
     }
     else if (anArgCase == "-winbuffer" || anArgCase == "-windowbuffer"
              || anArgCase == "-nowinbuffer" || anArgCase == "-nowindowbuffer"
              || anArgCase == "-usewinbuffer" || anArgCase == "-usewindowbuffer"
              || anArgCase == "-usesystembuffer")
     {
-      aCaps->useSystemBuffer = Draw::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->useSystemBuffer = Draw1::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
     }
     else if (anArgCase == "-accel" || anArgCase == "-acceleration" || anArgCase == "-noaccel"
              || anArgCase == "-noacceleration")
     {
-      aCaps->contextNoAccel = !Draw::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->contextNoAccel = !Draw1::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
     }
     else if (anArgCase == "-compat" || anArgCase == "-compatprofile" || anArgCase == "-compatible"
              || anArgCase == "-compatibleprofile")
     {
-      aCaps->contextCompatible = Draw::ParseOnOffIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->contextCompatible = Draw1::ParseOnOffIterator(theArgNb, theArgVec, anArgIter);
       if (!aCaps->contextCompatible)
       {
         aCaps->ffpEnable = Standard_False;
@@ -654,7 +654,7 @@ static int VCaps(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char*
     }
     else if (anArgCase == "-core" || anArgCase == "-coreprofile")
     {
-      aCaps->contextCompatible = !Draw::ParseOnOffIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->contextCompatible = !Draw1::ParseOnOffIterator(theArgNb, theArgVec, anArgIter);
       if (!aCaps->contextCompatible)
       {
         aCaps->ffpEnable = Standard_False;
@@ -663,11 +663,11 @@ static int VCaps(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char*
     else if (anArgCase == "-stereo" || anArgCase == "-quadbuffer" || anArgCase == "-nostereo"
              || anArgCase == "-noquadbuffer")
     {
-      aCaps->contextStereo = Draw::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->contextStereo = Draw1::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
     }
     else if (anArgCase == "-noext" || anArgCase == "-noextensions" || anArgCase == "-noextension")
     {
-      aCaps->contextNoExtensions = Draw::ParseOnOffIterator(theArgNb, theArgVec, anArgIter);
+      aCaps->contextNoExtensions = Draw1::ParseOnOffIterator(theArgNb, theArgVec, anArgIter);
     }
     else if (anArgCase == "-maxversion" || anArgCase == "-upperversion"
              || anArgCase == "-limitversion")
@@ -677,7 +677,7 @@ static int VCaps(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char*
       {
         if (anArgIter + 1 < theArgNb)
         {
-          const TCollection_AsciiString aStr(theArgVec[anArgIter + 1]);
+          const AsciiString1 aStr(theArgVec[anArgIter + 1]);
           if (aStr.IsIntegerValue())
           {
             aVer[aValIter] = aStr.IntegerValue();
@@ -708,7 +708,7 @@ static int VCaps(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char*
 
 //=================================================================================================
 
-void OpenGlTest::Commands(Draw_Interpretor& theCommands)
+void OpenGlTest::Commands(DrawInterpreter& theCommands)
 {
   const char* aGroup = "Commands for low-level TKOpenGl features";
 

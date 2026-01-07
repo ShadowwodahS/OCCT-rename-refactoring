@@ -340,7 +340,7 @@ Standard_Boolean BRepPrim_GWedge::IsInfinite(const BRepPrim_Direction d1) const
 
 //=================================================================================================
 
-const TopoDS_Shell& BRepPrim_GWedge::Shell()
+const TopoShell& BRepPrim_GWedge::Shell()
 {
   if (IsDegeneratedShape())
     throw Standard_DomainError();
@@ -362,7 +362,7 @@ const TopoDS_Shell& BRepPrim_GWedge::Shell()
     if (HasFace(BRepPrim_ZMax))
       myBuilder.AddShellFace(myShell, Face(BRepPrim_ZMax));
 
-    myShell.Closed(BRep_Tool::IsClosed(myShell));
+    myShell.Closed(BRepInspector::IsClosed(myShell));
     myBuilder.CompleteShell(myShell);
     ShellBuilt = Standard_True;
   }
@@ -478,7 +478,7 @@ gp_Pln BRepPrim_GWedge::Plane(const BRepPrim_Direction d1)
 // purpose  : the face in one direction
 //=======================================================================
 
-const TopoDS_Face& BRepPrim_GWedge::Face(const BRepPrim_Direction d1)
+const TopoFace& BRepPrim_GWedge::Face(const BRepPrim_Direction d1)
 {
 
   Standard_Integer i = BRepPrim_Wedge_NumDir1(d1);
@@ -627,7 +627,7 @@ Standard_Boolean BRepPrim_GWedge::HasWire(const BRepPrim_Direction d1) const
 
 //=================================================================================================
 
-const TopoDS_Wire& BRepPrim_GWedge::Wire(const BRepPrim_Direction d1)
+const TopoWire& BRepPrim_GWedge::Wire(const BRepPrim_Direction d1)
 {
   Standard_Integer i = BRepPrim_Wedge_NumDir1(d1);
 
@@ -845,7 +845,7 @@ gp_Lin BRepPrim_GWedge::Line(const BRepPrim_Direction d1, const BRepPrim_Directi
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepPrim_GWedge::Edge(const BRepPrim_Direction d1, const BRepPrim_Direction d2)
+const TopoEdge& BRepPrim_GWedge::Edge(const BRepPrim_Direction d1, const BRepPrim_Direction d2)
 {
   if (!HasEdge(d1, d2))
     throw Standard_DomainError();
@@ -1015,7 +1015,7 @@ Point3d BRepPrim_GWedge::Point(const BRepPrim_Direction d1,
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepPrim_GWedge::Vertex(const BRepPrim_Direction d1,
+const TopoVertex& BRepPrim_GWedge::Vertex(const BRepPrim_Direction d1,
                                              const BRepPrim_Direction d2,
                                              const BRepPrim_Direction d3)
 {

@@ -27,7 +27,7 @@ public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
   //! Finds a reference attribute on the given label and returns it, if it is found
-  Standard_EXPORT static Handle(XCAFDoc_NoteBalloon) Get(const TDF_Label& theLabel);
+  Standard_EXPORT static Handle(XCAFDoc_NoteBalloon) Get(const DataLabel& theLabel);
 
   //! Create (if not exist) a comment note on the given label.
   //! \param[in]  theLabel     - note label.
@@ -35,10 +35,10 @@ public:
   //! \param[in]  theTimeStamp - creation timestamp of the note.
   //! \param[in]  theComment   - comment text.
   Standard_EXPORT static Handle(XCAFDoc_NoteBalloon) Set(
-    const TDF_Label&                  theLabel,
-    const TCollection_ExtendedString& theUserName,
-    const TCollection_ExtendedString& theTimeStamp,
-    const TCollection_ExtendedString& theComment);
+    const DataLabel&                  theLabel,
+    const UtfString& theUserName,
+    const UtfString& theTimeStamp,
+    const UtfString& theComment);
 
   //! Creates an empty comment note.
   Standard_EXPORT XCAFDoc_NoteBalloon();

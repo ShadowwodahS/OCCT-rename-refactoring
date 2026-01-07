@@ -33,9 +33,9 @@
 #include <Standard_DomainError.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESBasic_ToolExternalReferenceFile::IGESBasic_ToolExternalReferenceFile() {}
+ExternalReferenceFileTool::ExternalReferenceFileTool() {}
 
-void IGESBasic_ToolExternalReferenceFile::ReadOwnParams(
+void ExternalReferenceFileTool::ReadOwnParams(
   const Handle(IGESBasic_ExternalReferenceFile)& ent,
   const Handle(IGESData_IGESReaderData)& /* IR */,
   IGESData_ParamReader& PR) const
@@ -57,7 +57,7 @@ void IGESBasic_ToolExternalReferenceFile::ReadOwnParams(
   ent->Init(tempNames);
 }
 
-void IGESBasic_ToolExternalReferenceFile::WriteOwnParams(
+void ExternalReferenceFileTool::WriteOwnParams(
   const Handle(IGESBasic_ExternalReferenceFile)& ent,
   IGESData_IGESWriter&                           IW) const
 {
@@ -67,13 +67,13 @@ void IGESBasic_ToolExternalReferenceFile::WriteOwnParams(
     IW.Send(ent->Name(i));
 }
 
-void IGESBasic_ToolExternalReferenceFile::OwnShared(
+void ExternalReferenceFileTool::OwnShared(
   const Handle(IGESBasic_ExternalReferenceFile)& /* ent */,
   Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESBasic_ToolExternalReferenceFile::OwnCopy(
+void ExternalReferenceFileTool::OwnCopy(
   const Handle(IGESBasic_ExternalReferenceFile)& another,
   const Handle(IGESBasic_ExternalReferenceFile)& ent,
   Interface_CopyTool& /* TC */) const
@@ -85,10 +85,10 @@ void IGESBasic_ToolExternalReferenceFile::OwnCopy(
   ent->Init(tempNames);
 }
 
-IGESData_DirChecker IGESBasic_ToolExternalReferenceFile::DirChecker(
+DirectoryChecker ExternalReferenceFileTool::DirChecker(
   const Handle(IGESBasic_ExternalReferenceFile)& /* ent */) const
 {
-  IGESData_DirChecker DC(406, 12);
+  DirectoryChecker DC(406, 12);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -100,14 +100,14 @@ IGESData_DirChecker IGESBasic_ToolExternalReferenceFile::DirChecker(
   return DC;
 }
 
-void IGESBasic_ToolExternalReferenceFile::OwnCheck(
+void ExternalReferenceFileTool::OwnCheck(
   const Handle(IGESBasic_ExternalReferenceFile)& /* ent */,
   const Interface_ShareTool&,
   Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESBasic_ToolExternalReferenceFile::OwnDump(
+void ExternalReferenceFileTool::OwnDump(
   const Handle(IGESBasic_ExternalReferenceFile)& ent,
   const IGESData_IGESDumper& /* dumper */,
   Standard_OStream&      S,

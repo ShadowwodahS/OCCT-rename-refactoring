@@ -25,13 +25,13 @@
 #include <GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox.hxx>
 #include <ApproxInt_SvSurfaces.hxx>
 
-class Adaptor3d_HSurfaceTool;
+class HSurfaceTool;
 class IntSurf_Quadric;
 class IntSurf_QuadricTool;
 class IntPatch_WLine;
 class GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox;
 
-class GeomInt_TheImpPrmSvSurfacesOfWLApprox : public ApproxInt_SvSurfaces
+class GeomInt_TheImpPrmSvSurfacesOfWLApprox : public SurfaceSurfaces
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -17,7 +17,7 @@
 #define VrmlData_TextureCoordinate_HeaderFile
 
 #include <VrmlData_Node.hxx>
-class gp_XY;
+class Coords2d;
 
 /**
  *  Implementation of the node TextureCoordinate
@@ -42,7 +42,7 @@ public:
   inline VrmlData_TextureCoordinate(const VrmlData_Scene& theScene,
                                     const char*           theName,
                                     const size_t          nPoints   = 0,
-                                    const gp_XY*          arrPoints = 0L)
+                                    const Coords2d*          arrPoints = 0L)
       : VrmlData_Node(theScene, theName),
         myPoints(arrPoints),
         myLength(nPoints)
@@ -64,12 +64,12 @@ public:
   /**
    * Query the points
    */
-  inline const gp_XY* Points() { return myPoints; }
+  inline const Coords2d* Points() { return myPoints; }
 
   /**
    * Set the points array
    */
-  inline void SetPoints(const size_t nPoints, const gp_XY* arrPoints)
+  inline void SetPoints(const size_t nPoints, const Coords2d* arrPoints)
   {
     myPoints = arrPoints;
     myLength = nPoints;
@@ -86,12 +86,12 @@ public:
   /**
    * Read the Node from input stream.
    */
-  Standard_EXPORT virtual VrmlData_ErrorStatus Read(VrmlData_InBuffer& theBuffer) Standard_OVERRIDE;
+  Standard_EXPORT virtual VrmlData_ErrorStatus Read(InputBuffer& theBuffer) Standard_OVERRIDE;
 
 private:
   // ---------- PRIVATE FIELDS ----------
 
-  const gp_XY* myPoints;
+  const Coords2d* myPoints;
   size_t       myLength;
 
 public:

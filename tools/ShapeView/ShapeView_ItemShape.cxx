@@ -36,7 +36,7 @@
 // function : Shape
 // purpose :
 // =======================================================================
-TopoDS_Shape ShapeView_ItemShape::Shape(const int theRowId) const
+TopoShape ShapeView_ItemShape::Shape(const int theRowId) const
 {
   if (myChildShapes.IsEmpty())
   {
@@ -44,7 +44,7 @@ TopoDS_Shape ShapeView_ItemShape::Shape(const int theRowId) const
 
     if (myExplodeType != TopAbs_SHAPE)
     {
-      TopExp::MapShapes(myShape, myExplodeType, aThis->myChildShapes);
+      TopExp1::MapShapes(myShape, myExplodeType, aThis->myChildShapes);
     }
     else
     {
@@ -58,7 +58,7 @@ TopoDS_Shape ShapeView_ItemShape::Shape(const int theRowId) const
   if (myChildShapes.Extent() >= theRowId + 1)
     return myChildShapes(theRowId + 1);
 
-  return TopoDS_Shape();
+  return TopoShape();
 }
 
 // =======================================================================
@@ -71,7 +71,7 @@ QVariant ShapeView_ItemShape::initValue(const int theRole) const
   if (aParentValue.isValid())
     return aParentValue;
 
-  TopoDS_Shape aShape = getShape();
+  TopoShape aShape = getShape();
   if (aShape.IsNull())
     return QVariant();
 
@@ -81,7 +81,7 @@ QVariant ShapeView_ItemShape::initValue(const int theRole) const
   switch (Column())
   {
     case 0:
-      return TopAbs::ShapeTypeToString(aShape.ShapeType());
+      return TopAbs1::ShapeTypeToString(aShape.ShapeType());
     default:
       break;
   }
@@ -94,7 +94,7 @@ QVariant ShapeView_ItemShape::initValue(const int theRole) const
 // =======================================================================
 int ShapeView_ItemShape::initRowCount() const
 {
-  TopoDS_Shape aShape = getShape();
+  TopoShape aShape = getShape();
   if (aShape.IsNull())
     return 0;
 
@@ -102,7 +102,7 @@ int ShapeView_ItemShape::initRowCount() const
   if (myExplodeType != TopAbs_SHAPE)
   {
     TopTools_IndexedMapOfShape aSubShapes;
-    TopExp::MapShapes(aShape, myExplodeType, aSubShapes);
+    TopExp1::MapShapes(aShape, myExplodeType, aSubShapes);
     aRowsCount = aSubShapes.Extent();
   }
   else
@@ -119,7 +119,7 @@ int ShapeView_ItemShape::initRowCount() const
 // =======================================================================
 void ShapeView_ItemShape::initStream(Standard_OStream& theOStream) const
 {
-  TopoDS_Shape aShape = getShape();
+  TopoShape aShape = getShape();
   if (aShape.IsNull())
     return;
 
@@ -152,7 +152,7 @@ void ShapeView_ItemShape::Init()
 // function : getShape
 // purpose :
 // =======================================================================
-TopoDS_Shape ShapeView_ItemShape::getShape() const
+TopoShape ShapeView_ItemShape::getShape() const
 {
   initItem();
   return myShape;
@@ -166,7 +166,7 @@ void ShapeView_ItemShape::Reset()
 {
   myFileName = QString();
   myChildShapes.Clear();
-  myShape = TopoDS_Shape();
+  myShape = TopoShape();
 
   TreeModel_ItemBase::Reset();
 }

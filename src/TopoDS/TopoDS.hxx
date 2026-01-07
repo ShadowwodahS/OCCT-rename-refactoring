@@ -23,15 +23,15 @@
 #include <TopAbs_ShapeEnum.hxx>
 #include <TopoDS_Shape.hxx>
 
-class TopoDS_Vertex;
-class TopoDS_Shape;
-class TopoDS_Edge;
-class TopoDS_Wire;
-class TopoDS_Face;
-class TopoDS_Shell;
-class TopoDS_Solid;
+class TopoVertex;
+class TopoShape;
+class TopoEdge;
+class TopoWire;
+class TopoFace;
+class TopoShell;
+class TopoSolid;
 class TopoDS_CompSolid;
-class TopoDS_Compound;
+class TopoCompound;
 class TopoDS_HShape;
 class TopoDS_TShape;
 class TopoDS_TVertex;
@@ -42,176 +42,176 @@ class TopoDS_TShell;
 class TopoDS_TSolid;
 class TopoDS_TCompSolid;
 class TopoDS_TCompound;
-class TopoDS_Builder;
+class TopoBuilder;
 class TopoDS_Iterator;
 
-//! Provides methods to cast objects of class TopoDS_Shape to more specialized
+//! Provides methods to cast objects of class TopoShape to more specialized
 //! sub-classes. The types are not verified before casting. If the type does
 //! not match, a Standard_TypeMismatch exception is thrown. Below are examples
 //! of correct and incorrect casts:
 //!
 //! Correct:
 //! @code
-//! TopoDS_Shape aShape = ...; // aShape->ShapeType() == TopAbs_VERTEX
-//! const TopoDS_Vertex& aVertex = TopoDS::Vertex(aShape);
+//! TopoShape aShape = ...; // aShape->ShapeType() == TopAbs_VERTEX
+//! const TopoVertex& aVertex = TopoDS::Vertex(aShape);
 //! @endcode
 //!
 //! Incorrect (will throw a Standard_TypeMismatch exception):
 //! @code
-//! TopoDS_Shape aShape = ...; // aShape->ShapeType() == TopAbs_VERTEX
-//! const TopoDS_Face& face = TopoDS::Edge(aShape);
+//! TopoShape aShape = ...; // aShape->ShapeType() == TopAbs_VERTEX
+//! const TopoFace& face = TopoDS::Edge(aShape);
 //! @endcode
 namespace TopoDS
 {
 //! Casts shape theShape to the more specialized return type, Vertex.
 //! @param theShape the shape to be cast
-//! @return the casted shape as TopoDS_Vertex
+//! @return the casted shape as TopoVertex
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline const TopoDS_Vertex& Vertex(const TopoDS_Shape& theShape)
+inline const TopoVertex& Vertex(const TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_VERTEX,
                                  "TopoDS::Vertex");
-  return *(TopoDS_Vertex*)&theShape;
+  return *(TopoVertex*)&theShape;
 }
 
 //! Casts shape theShape to the more specialized return type, Vertex.
 //! @param theShape the shape to be cast
-//! @return the casted shape as TopoDS_Vertex
+//! @return the casted shape as TopoVertex
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline TopoDS_Vertex& Vertex(TopoDS_Shape& theShape)
+inline TopoVertex& Vertex(TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_VERTEX,
                                  "TopoDS::Vertex");
-  return *(TopoDS_Vertex*)&theShape;
+  return *(TopoVertex*)&theShape;
 }
 
 //! Casts shape theShape to the more specialized return type, Edge.
 //! @param theShape the shape to be cast
-//! @return the casted shape as TopoDS_Edge
+//! @return the casted shape as TopoEdge
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline const TopoDS_Edge& Edge(const TopoDS_Shape& theShape)
+inline const TopoEdge& Edge(const TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_EDGE,
                                  "TopoDS::Edge");
-  return *(TopoDS_Edge*)&theShape;
+  return *(TopoEdge*)&theShape;
 }
 
 //! Casts shape theShape to the more specialized return type, Edge.
 //! @param theShape the shape to be cast
-//! @return the casted shape as TopoDS_Edge
+//! @return the casted shape as TopoEdge
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline TopoDS_Edge& Edge(TopoDS_Shape& theShape)
+inline TopoEdge& Edge(TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_EDGE,
                                  "TopoDS::Edge");
-  return *(TopoDS_Edge*)&theShape;
+  return *(TopoEdge*)&theShape;
 }
 
 //! Casts shape theShape to the more specialized return type, Wire.
 //! @param theShape the shape to be cast
-//! @return the casted shape as TopoDS_Wire
+//! @return the casted shape as TopoWire
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline const TopoDS_Wire& Wire(const TopoDS_Shape& theShape)
+inline const TopoWire& Wire(const TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_WIRE,
                                  "TopoDS::Wire");
-  return *(TopoDS_Wire*)&theShape;
+  return *(TopoWire*)&theShape;
 }
 
 //! Casts shape theShape to the more specialized return type, Wire.
 //! @param theShape the shape to be cast
-//! @return the casted shape as TopoDS_Wire
+//! @return the casted shape as TopoWire
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline TopoDS_Wire& Wire(TopoDS_Shape& theShape)
+inline TopoWire& Wire(TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_WIRE,
                                  "TopoDS::Wire");
-  return *(TopoDS_Wire*)&theShape;
+  return *(TopoWire*)&theShape;
 }
 
 //! Casts shape theShape to the more specialized return type, Face.
 //! @param theShape the shape to be cast
-//! @return the casted shape as TopoDS_Face
+//! @return the casted shape as TopoFace
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline const TopoDS_Face& Face(const TopoDS_Shape& theShape)
+inline const TopoFace& Face(const TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_FACE,
                                  "TopoDS::Face");
-  return *(TopoDS_Face*)&theShape;
+  return *(TopoFace*)&theShape;
 }
 
 //! Casts shape theShape to the more specialized return type, Face.
 //! @param theShape the shape to be cast
-//! @return the casted shape as TopoDS_Face
+//! @return the casted shape as TopoFace
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline TopoDS_Face& Face(TopoDS_Shape& theShape)
+inline TopoFace& Face(TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_FACE,
                                  "TopoDS::Face");
-  return *(TopoDS_Face*)&theShape;
+  return *(TopoFace*)&theShape;
 }
 
 //! Casts shape theShape to the more specialized return type, Shell.
 //! @param theShape the shape to be cast
-//! @return the casted shape as TopoDS_Shell
+//! @return the casted shape as TopoShell
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline const TopoDS_Shell& Shell(const TopoDS_Shape& theShape)
+inline const TopoShell& Shell(const TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_SHELL,
                                  "TopoDS::Shell");
-  return *(TopoDS_Shell*)&theShape;
+  return *(TopoShell*)&theShape;
 }
 
 //! Casts shape theShape to the more specialized return type, Shell.
 //! @param theShape the shape to be cast
-//! @return the casted shape as TopoDS_Shell
+//! @return the casted shape as TopoShell
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline TopoDS_Shell& Shell(TopoDS_Shape& theShape)
+inline TopoShell& Shell(TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_SHELL,
                                  "TopoDS::Shell");
-  return *(TopoDS_Shell*)&theShape;
+  return *(TopoShell*)&theShape;
 }
 
 //! Casts shape theShape to the more specialized return type, Solid.
 //! @param theShape the shape to be cast
-//! @return the casted shape as TopoDS_Solid
+//! @return the casted shape as TopoSolid
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline const TopoDS_Solid& Solid(const TopoDS_Shape& theShape)
+inline const TopoSolid& Solid(const TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_SOLID,
                                  "TopoDS::Solid");
-  return *(TopoDS_Solid*)&theShape;
+  return *(TopoSolid*)&theShape;
 }
 
 //! Casts shape theShape to the more specialized return type, Solid.
 //! @param theShape the shape to be cast
-//! @return the casted shape as TopoDS_Solid
+//! @return the casted shape as TopoSolid
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline TopoDS_Solid& Solid(TopoDS_Shape& theShape)
+inline TopoSolid& Solid(TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_SOLID,
                                  "TopoDS::Solid");
-  return *(TopoDS_Solid*)&theShape;
+  return *(TopoSolid*)&theShape;
 }
 
 //! Casts shape theShape to the more specialized return type, CompSolid.
 //! @param theShape the shape to be cast
 //! @return the casted shape as TopoDS_CompSolid
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline const TopoDS_CompSolid& CompSolid(const TopoDS_Shape& theShape)
+inline const TopoDS_CompSolid& CompSolid(const TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_COMPSOLID,
@@ -223,7 +223,7 @@ inline const TopoDS_CompSolid& CompSolid(const TopoDS_Shape& theShape)
 //! @param theShape the shape to be cast
 //! @return the casted shape as TopoDS_CompSolid
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline TopoDS_CompSolid& CompSolid(TopoDS_Shape& theShape)
+inline TopoDS_CompSolid& CompSolid(TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_COMPSOLID,
@@ -233,26 +233,26 @@ inline TopoDS_CompSolid& CompSolid(TopoDS_Shape& theShape)
 
 //! Casts shape theShape to the more specialized return type, Compound.
 //! @param theShape the shape to be cast
-//! @return the casted shape as TopoDS_Compound
+//! @return the casted shape as TopoCompound
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline const TopoDS_Compound& Compound(const TopoDS_Shape& theShape)
+inline const TopoCompound& Compound(const TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_COMPOUND,
                                  "TopoDS::Compound");
-  return *(TopoDS_Compound*)&theShape;
+  return *(TopoCompound*)&theShape;
 }
 
 //! Casts shape theShape to the more specialized return type, Compound.
 //! @param theShape the shape to be cast
-//! @return the casted shape as TopoDS_Compound
+//! @return the casted shape as TopoCompound
 //! @throws Standard_TypeMismatch if theShape cannot be cast to this return type.
-inline TopoDS_Compound& Compound(TopoDS_Shape& theShape)
+inline TopoCompound& Compound(TopoShape& theShape)
 {
   Standard_TypeMismatch_Raise_if(theShape.IsNull() ? Standard_False
                                                    : theShape.ShapeType() != TopAbs_COMPOUND,
                                  "TopoDS::Compound");
-  return *(TopoDS_Compound*)&theShape;
+  return *(TopoCompound*)&theShape;
 }
 } // namespace TopoDS
 

@@ -88,12 +88,12 @@ public:
 
 public:
   //! Returns current camera definition.
-  Standard_EXPORT const Handle(Graphic3d_Camera)& Camera() const;
+  Standard_EXPORT const Handle(CameraOn3d)& Camera() const;
 
   //! Updates camera projection and orientation matrices in all selecting volumes
   //! Note: this method should be called after selection volume building
   //! else exception will be thrown
-  Standard_EXPORT void SetCamera(const Handle(Graphic3d_Camera)& theCamera);
+  Standard_EXPORT void SetCamera(const Handle(CameraOn3d)& theCamera);
 
   //! Updates viewport in all selecting volumes
   //! Note: this method should be called after selection volume building

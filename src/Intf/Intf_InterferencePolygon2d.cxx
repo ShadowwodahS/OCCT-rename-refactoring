@@ -309,8 +309,8 @@ void Intf_InterferencePolygon2d::Intersect(const Standard_Integer iObje1,
   Standard_Real          parO[8];
   Standard_Real          parT[8];
   Intf_SeqOfSectionPoint thePi;
-  gp_XY                  segT = EndT.XY() - BegT.XY();
-  gp_XY                  segO = EndO.XY() - BegO.XY();
+  Coords2d                  segT = EndT.XY() - BegT.XY();
+  Coords2d                  segO = EndO.XY() - BegO.XY();
 
   // If the length of segment is zero, nothing is done
   Standard_Real lgT = Sqrt(segT * segT);

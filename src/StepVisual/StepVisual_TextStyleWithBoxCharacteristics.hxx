@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 class TCollection_HAsciiString;
 class StepVisual_TextStyleForDefinedFont;
-class StepVisual_BoxCharacteristicSelect;
+class BoxCharacteristicSelect;
 
 class StepVisual_TextStyleWithBoxCharacteristics;
 DEFINE_STANDARD_HANDLE(StepVisual_TextStyleWithBoxCharacteristics, StepVisual_TextStyle)
@@ -47,7 +47,7 @@ public:
 
   Standard_EXPORT Handle(StepVisual_HArray1OfBoxCharacteristicSelect) Characteristics() const;
 
-  Standard_EXPORT StepVisual_BoxCharacteristicSelect
+  Standard_EXPORT BoxCharacteristicSelect
     CharacteristicsValue(const Standard_Integer num) const;
 
   Standard_EXPORT Standard_Integer NbCharacteristics() const;

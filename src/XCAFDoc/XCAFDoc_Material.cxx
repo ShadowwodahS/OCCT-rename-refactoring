@@ -37,7 +37,7 @@ const Standard_GUID& XCAFDoc_Material::GetID()
 
 //=================================================================================================
 
-Handle(XCAFDoc_Material) XCAFDoc_Material::Set(const TDF_Label&                        label,
+Handle(XCAFDoc_Material) XCAFDoc_Material::Set(const DataLabel&                        label,
                                                const Handle(TCollection_HAsciiString)& aName,
                                                const Handle(TCollection_HAsciiString)& aDescription,
                                                const Standard_Real                     aDensity,

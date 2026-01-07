@@ -34,27 +34,27 @@
 
 //=================================================================================================
 
-void LocOpe_FindEdges::Set(const TopoDS_Shape& FFrom, const TopoDS_Shape& FTo)
+void LocOpe_FindEdges::Set(const TopoShape& FFrom, const TopoShape& FTo)
 {
   myFFrom = FFrom;
   myFTo   = FTo;
   myLFrom.Clear();
   myLTo.Clear();
 
-  TopExp_Explorer       expf, expt;
-  Handle(Geom_Curve)    Cf, Ct;
+  ShapeExplorer       expf, expt;
+  Handle(GeomCurve3d)    Cf, Ct;
   TopLoc_Location       Loc;
   Standard_Real         ff, lf, ft, lt;
   Handle(TypeInfo) Tf, Tt;
 
   for (expf.Init(myFFrom, TopAbs_EDGE); expf.More(); expf.Next())
   {
-    const TopoDS_Edge& edgf = TopoDS::Edge(expf.Current());
-    Cf                      = BRep_Tool::Curve(edgf, Loc, ff, lf);
+    const TopoEdge& edgf = TopoDS::Edge(expf.Current());
+    Cf                      = BRepInspector::Curve(edgf, Loc, ff, lf);
     if (!Loc.IsIdentity())
     {
       Handle(Geom_Geometry) GGf = Cf->Transformed(Loc.Transformation());
-      Cf                        = Handle(Geom_Curve)::DownCast(GGf);
+      Cf                        = Handle(GeomCurve3d)::DownCast(GGf);
     }
     Tf = Cf->DynamicType();
     if (Tf == STANDARD_TYPE(Geom_TrimmedCurve))
@@ -62,20 +62,20 @@ void LocOpe_FindEdges::Set(const TopoDS_Shape& FFrom, const TopoDS_Shape& FTo)
       Cf = Handle(Geom_TrimmedCurve)::DownCast(Cf)->BasisCurve();
       Tf = Cf->DynamicType();
     }
-    if (Tf != STANDARD_TYPE(Geom_Line) && Tf != STANDARD_TYPE(Geom_Circle)
-        && Tf != STANDARD_TYPE(Geom_Ellipse) && Tf != STANDARD_TYPE(Geom_BSplineCurve)
-        && Tf != STANDARD_TYPE(Geom_BezierCurve))
+    if (Tf != STANDARD_TYPE(GeomLine) && Tf != STANDARD_TYPE(GeomCircle)
+        && Tf != STANDARD_TYPE(Geom_Ellipse) && Tf != STANDARD_TYPE(BSplineCurve3d)
+        && Tf != STANDARD_TYPE(BezierCurve3d))
     {
       continue;
     }
     for (expt.Init(myFTo, TopAbs_EDGE); expt.More(); expt.Next())
     {
-      const TopoDS_Edge& edgt = TopoDS::Edge(expt.Current());
-      Ct                      = BRep_Tool::Curve(edgt, Loc, ft, lt);
+      const TopoEdge& edgt = TopoDS::Edge(expt.Current());
+      Ct                      = BRepInspector::Curve(edgt, Loc, ft, lt);
       if (!Loc.IsIdentity())
       {
         Handle(Geom_Geometry) GGt = Ct->Transformed(Loc.Transformation());
-        Ct                        = Handle(Geom_Curve)::DownCast(GGt);
+        Ct                        = Handle(GeomCurve3d)::DownCast(GGt);
       }
       Tt = Ct->DynamicType();
       if (Tt == STANDARD_TYPE(Geom_TrimmedCurve))
@@ -89,10 +89,10 @@ void LocOpe_FindEdges::Set(const TopoDS_Shape& FFrom, const TopoDS_Shape& FTo)
       }
       // On a presomption de confusion
       Standard_Real Tol = Precision::Confusion();
-      if (Tt == STANDARD_TYPE(Geom_Line))
+      if (Tt == STANDARD_TYPE(GeomLine))
       {
-        gp_Lin        lif  = Handle(Geom_Line)::DownCast(Cf)->Lin();
-        gp_Lin        lit  = Handle(Geom_Line)::DownCast(Ct)->Lin();
+        gp_Lin        lif  = Handle(GeomLine)::DownCast(Cf)->Lin();
+        gp_Lin        lit  = Handle(GeomLine)::DownCast(Ct)->Lin();
         Point3d        p1   = ElCLib::Value(ff, lif);
         Point3d        p2   = ElCLib::Value(lf, lif);
         Standard_Real prm1 = ElCLib::Parameter(lit, p1);
@@ -113,10 +113,10 @@ void LocOpe_FindEdges::Set(const TopoDS_Shape& FFrom, const TopoDS_Shape& FTo)
           }
         }
       }
-      else if (Tt == STANDARD_TYPE(Geom_Circle))
+      else if (Tt == STANDARD_TYPE(GeomCircle))
       {
-        gp_Circ cif = Handle(Geom_Circle)::DownCast(Cf)->Circ();
-        gp_Circ cit = Handle(Geom_Circle)::DownCast(Ct)->Circ();
+        gp_Circ cif = Handle(GeomCircle)::DownCast(Cf)->Circ();
+        gp_Circ cit = Handle(GeomCircle)::DownCast(Ct)->Circ();
         if (Abs(cif.Radius() - cit.Radius()) <= Tol
             && cif.Location().SquareDistance(cit.Location()) <= Tol * Tol)
         {
@@ -230,10 +230,10 @@ void LocOpe_FindEdges::Set(const TopoDS_Shape& FFrom, const TopoDS_Shape& FTo)
           }
         }
       }
-      else if (Tt == STANDARD_TYPE(Geom_BSplineCurve))
+      else if (Tt == STANDARD_TYPE(BSplineCurve3d))
       {
-        Handle(Geom_BSplineCurve) Bf = Handle(Geom_BSplineCurve)::DownCast(Cf);
-        Handle(Geom_BSplineCurve) Bt = Handle(Geom_BSplineCurve)::DownCast(Ct);
+        Handle(BSplineCurve3d) Bf = Handle(BSplineCurve3d)::DownCast(Cf);
+        Handle(BSplineCurve3d) Bt = Handle(BSplineCurve3d)::DownCast(Ct);
 
         Standard_Boolean IsSame = Standard_True;
 
@@ -257,7 +257,7 @@ void LocOpe_FindEdges::Set(const TopoDS_Shape& FFrom, const TopoDS_Shape& FTo)
             Bf->Poles(Pf);
             Bt->Poles(Pt);
 
-            Standard_Real tol3d = BRep_Tool::Tolerance(edgt);
+            Standard_Real tol3d = BRepInspector::Tolerance(edgt);
             for (Standard_Integer p = 1; p <= nbpoles; p++)
             {
               if ((Pf(p)).Distance(Pt(p)) > tol3d)
@@ -335,10 +335,10 @@ void LocOpe_FindEdges::Set(const TopoDS_Shape& FFrom, const TopoDS_Shape& FTo)
           }
         }
       }
-      else if (Tt == STANDARD_TYPE(Geom_BezierCurve))
+      else if (Tt == STANDARD_TYPE(BezierCurve3d))
       {
-        Handle(Geom_BezierCurve) Bf = Handle(Geom_BezierCurve)::DownCast(Cf);
-        Handle(Geom_BezierCurve) Bt = Handle(Geom_BezierCurve)::DownCast(Ct);
+        Handle(BezierCurve3d) Bf = Handle(BezierCurve3d)::DownCast(Cf);
+        Handle(BezierCurve3d) Bt = Handle(BezierCurve3d)::DownCast(Ct);
 
         Standard_Boolean IsSame = Standard_True;
 

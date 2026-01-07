@@ -33,7 +33,7 @@ class BRepAdaptor_Curve;
 class Vector3d;
 class Point3d;
 class Dir3d;
-class BRepLProp_CurveTool;
+class CurveLocalPropsTool;
 
 class BRepLProp_CLProps
 {

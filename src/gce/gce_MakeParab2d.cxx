@@ -69,7 +69,7 @@ gce_MakeParab2d::gce_MakeParab2d(const gp_Pnt2d&        S,
 {
   if (S.Distance(Center) >= gp::Resolution())
   {
-    gp_Dir2d XAxis(gp_XY(S.XY() - Center.XY()));
+    gp_Dir2d XAxis(Coords2d(S.XY() - Center.XY()));
     TheParab2d = gp_Parab2d(gp_Ax2d(Center, XAxis), S.Distance(Center), Sense);
     TheError   = gce_Done;
   }

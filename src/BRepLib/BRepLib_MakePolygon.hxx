@@ -24,7 +24,7 @@
 #include <TopoDS_Edge.hxx>
 #include <BRepLib_MakeShape.hxx>
 class Point3d;
-class TopoDS_Wire;
+class TopoWire;
 
 //! Class to build polygonal wires.
 //!
@@ -62,22 +62,22 @@ public:
                                       const Point3d&          P4,
                                       const Standard_Boolean Close = Standard_False);
 
-  Standard_EXPORT BRepLib_MakePolygon(const TopoDS_Vertex& V1, const TopoDS_Vertex& V2);
+  Standard_EXPORT BRepLib_MakePolygon(const TopoVertex& V1, const TopoVertex& V2);
 
-  Standard_EXPORT BRepLib_MakePolygon(const TopoDS_Vertex&   V1,
-                                      const TopoDS_Vertex&   V2,
-                                      const TopoDS_Vertex&   V3,
+  Standard_EXPORT BRepLib_MakePolygon(const TopoVertex&   V1,
+                                      const TopoVertex&   V2,
+                                      const TopoVertex&   V3,
                                       const Standard_Boolean Close = Standard_False);
 
-  Standard_EXPORT BRepLib_MakePolygon(const TopoDS_Vertex&   V1,
-                                      const TopoDS_Vertex&   V2,
-                                      const TopoDS_Vertex&   V3,
-                                      const TopoDS_Vertex&   V4,
+  Standard_EXPORT BRepLib_MakePolygon(const TopoVertex&   V1,
+                                      const TopoVertex&   V2,
+                                      const TopoVertex&   V3,
+                                      const TopoVertex&   V4,
                                       const Standard_Boolean Close = Standard_False);
 
   Standard_EXPORT void Add(const Point3d& P);
 
-  Standard_EXPORT void Add(const TopoDS_Vertex& V);
+  Standard_EXPORT void Add(const TopoVertex& V);
 
   //! Returns  True if  the last   vertex  or point  was
   //! successfully added.
@@ -85,22 +85,22 @@ public:
 
   Standard_EXPORT void Close();
 
-  Standard_EXPORT const TopoDS_Vertex& FirstVertex() const;
+  Standard_EXPORT const TopoVertex& FirstVertex() const;
 
-  Standard_EXPORT const TopoDS_Vertex& LastVertex() const;
+  Standard_EXPORT const TopoVertex& LastVertex() const;
 
   //! Returns the last edge added to the polygon.
-  Standard_EXPORT const TopoDS_Edge& Edge() const;
-  Standard_EXPORT                    operator TopoDS_Edge() const;
+  Standard_EXPORT const TopoEdge& Edge() const;
+  Standard_EXPORT                    operator TopoEdge() const;
 
-  Standard_EXPORT const TopoDS_Wire& Wire();
-  Standard_EXPORT                    operator TopoDS_Wire();
+  Standard_EXPORT const TopoWire& Wire();
+  Standard_EXPORT                    operator TopoWire();
 
 protected:
 private:
-  TopoDS_Vertex myFirstVertex;
-  TopoDS_Vertex myLastVertex;
-  TopoDS_Edge   myEdge;
+  TopoVertex myFirstVertex;
+  TopoVertex myLastVertex;
+  TopoEdge   myEdge;
 };
 
 #endif // _BRepLib_MakePolygon_HeaderFile

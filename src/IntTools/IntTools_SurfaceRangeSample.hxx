@@ -21,7 +21,7 @@
 
 #include <IntTools_CurveRangeSample.hxx>
 #include <Standard_Integer.hxx>
-class IntTools_Range;
+class IntToolsRange;
 
 //! class for range index management of surface
 class IntTools_SurfaceRangeSample
@@ -83,11 +83,11 @@ public:
 
   Standard_Integer GetDepthV() const;
 
-  Standard_EXPORT IntTools_Range GetRangeU(const Standard_Real    theFirstU,
+  Standard_EXPORT IntToolsRange GetRangeU(const Standard_Real    theFirstU,
                                            const Standard_Real    theLastU,
                                            const Standard_Integer theNbSampleU) const;
 
-  Standard_EXPORT IntTools_Range GetRangeV(const Standard_Real    theFirstV,
+  Standard_EXPORT IntToolsRange GetRangeV(const Standard_Real    theFirstV,
                                            const Standard_Real    theLastV,
                                            const Standard_Integer theNbSampleV) const;
 

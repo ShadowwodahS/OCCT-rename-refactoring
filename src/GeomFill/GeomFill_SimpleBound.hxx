@@ -50,13 +50,13 @@ public:
   //! algorithm which uses it.
   //! The adapted curve is created in one of the following ways:
   //! -   First sequence:
-  //! Handle(Geom_Curve) myCurve = ... ;
+  //! Handle(GeomCurve3d) myCurve = ... ;
   //! Handle(GeomAdaptor_Curve)
   //! Curve = new
   //! GeomAdaptor_Curve(myCurve);
   //! -   Second sequence:
   //! // Step 1
-  //! Handle(Geom_Curve) myCurve = ... ;
+  //! Handle(GeomCurve3d) myCurve = ... ;
   //! GeomAdaptor_Curve Crv (myCurve);
   //! // Step 2
   //! Handle(GeomAdaptor_Curve)

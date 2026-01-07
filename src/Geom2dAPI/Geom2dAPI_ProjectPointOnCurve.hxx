@@ -25,7 +25,7 @@
 #include <Extrema_ExtPC2d.hxx>
 #include <Geom2dAdaptor_Curve.hxx>
 class gp_Pnt2d;
-class Geom2d_Curve;
+class GeomCurve2d;
 
 //! This class implements methods for computing all the orthogonal
 //! projections of a 2D point onto a 2D curve.
@@ -41,7 +41,7 @@ public:
   //! Create the projection  of a  point  <P> on a curve
   //! <Curve>
   Standard_EXPORT Geom2dAPI_ProjectPointOnCurve(const gp_Pnt2d&             P,
-                                                const Handle(Geom2d_Curve)& Curve);
+                                                const Handle(GeomCurve2d)& Curve);
 
   //! Create  the projection  of a point <P>  on a curve
   //! <Curve> limited by the two   points of parameter Umin and Usup.
@@ -49,19 +49,19 @@ public:
   //! Use the function NbPoints to obtain the number of solutions. If
   //! projection fails, NbPoints returns 0.
   Standard_EXPORT Geom2dAPI_ProjectPointOnCurve(const gp_Pnt2d&             P,
-                                                const Handle(Geom2d_Curve)& Curve,
+                                                const Handle(GeomCurve2d)& Curve,
                                                 const Standard_Real         Umin,
                                                 const Standard_Real         Usup);
 
   //! Initializes this algorithm with the given arguments, and
   //! computes the orthogonal  projections  of a  point  <P> on a curve <Curve>
-  Standard_EXPORT void Init(const gp_Pnt2d& P, const Handle(Geom2d_Curve)& Curve);
+  Standard_EXPORT void Init(const gp_Pnt2d& P, const Handle(GeomCurve2d)& Curve);
 
   //! Initializes this algorithm with the given arguments, and
   //! computes the orthogonal projections of the point P onto the portion
   //! of the curve Curve limited by the two points of parameter Umin and Usup.
   Standard_EXPORT void Init(const gp_Pnt2d&             P,
-                            const Handle(Geom2d_Curve)& Curve,
+                            const Handle(GeomCurve2d)& Curve,
                             const Standard_Real         Umin,
                             const Standard_Real         Usup);
 

@@ -585,12 +585,12 @@ const TColgp_Array2OfPnt& Geom_BSplineSurface::Poles() const
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_BSplineSurface::UIso(const Standard_Real U) const
+Handle(GeomCurve3d) Geom_BSplineSurface::UIso(const Standard_Real U) const
 {
   TColgp_Array1OfPnt   cpoles(1, poles->RowLength());
   TColStd_Array1OfReal cweights(1, poles->RowLength());
 
-  Handle(Geom_BSplineCurve) C;
+  Handle(BSplineCurve3d) C;
 
   if (urational || vrational)
   {
@@ -605,7 +605,7 @@ Handle(Geom_Curve) Geom_BSplineSurface::UIso(const Standard_Real U) const
                   cpoles,
                   &cweights);
     C =
-      new Geom_BSplineCurve(cpoles, cweights, vknots->Array1(), vmults->Array1(), vdeg, vperiodic);
+      new BSplineCurve3d(cpoles, cweights, vknots->Array1(), vmults->Array1(), vdeg, vperiodic);
   }
   else
   {
@@ -619,7 +619,7 @@ Handle(Geom_Curve) Geom_BSplineSurface::UIso(const Standard_Real U) const
                   uperiodic,
                   cpoles,
                   &cweights);
-    C = new Geom_BSplineCurve(cpoles, vknots->Array1(), vmults->Array1(), vdeg, vperiodic);
+    C = new BSplineCurve3d(cpoles, vknots->Array1(), vmults->Array1(), vdeg, vperiodic);
   }
 
   return C;
@@ -630,13 +630,13 @@ Handle(Geom_Curve) Geom_BSplineSurface::UIso(const Standard_Real U) const
 // purpose  : If CheckRational=False, no try to make it non-rational
 //=======================================================================
 
-Handle(Geom_Curve) Geom_BSplineSurface::UIso(const Standard_Real    U,
+Handle(GeomCurve3d) Geom_BSplineSurface::UIso(const Standard_Real    U,
                                              const Standard_Boolean CheckRational) const
 {
   TColgp_Array1OfPnt   cpoles(1, poles->RowLength());
   TColStd_Array1OfReal cweights(1, poles->RowLength());
 
-  Handle(Geom_BSplineCurve) C;
+  Handle(BSplineCurve3d) C;
 
   if (urational || vrational)
   {
@@ -650,7 +650,7 @@ Handle(Geom_Curve) Geom_BSplineSurface::UIso(const Standard_Real    U,
                   uperiodic,
                   cpoles,
                   &cweights);
-    C = new Geom_BSplineCurve(cpoles,
+    C = new BSplineCurve3d(cpoles,
                               cweights,
                               vknots->Array1(),
                               vmults->Array1(),
@@ -670,7 +670,7 @@ Handle(Geom_Curve) Geom_BSplineSurface::UIso(const Standard_Real    U,
                   uperiodic,
                   cpoles,
                   &cweights);
-    C = new Geom_BSplineCurve(cpoles, vknots->Array1(), vmults->Array1(), vdeg, vperiodic);
+    C = new BSplineCurve3d(cpoles, vknots->Array1(), vmults->Array1(), vdeg, vperiodic);
   }
 
   return C;
@@ -767,12 +767,12 @@ const TColStd_Array1OfInteger& Geom_BSplineSurface::UMultiplicities() const
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_BSplineSurface::VIso(const Standard_Real V) const
+Handle(GeomCurve3d) Geom_BSplineSurface::VIso(const Standard_Real V) const
 {
   TColgp_Array1OfPnt   cpoles(1, poles->ColLength());
   TColStd_Array1OfReal cweights(1, poles->ColLength());
 
-  Handle(Geom_BSplineCurve) C;
+  Handle(BSplineCurve3d) C;
 
   if (urational || vrational)
   {
@@ -787,7 +787,7 @@ Handle(Geom_Curve) Geom_BSplineSurface::VIso(const Standard_Real V) const
                   cpoles,
                   &cweights);
     C =
-      new Geom_BSplineCurve(cpoles, cweights, uknots->Array1(), umults->Array1(), udeg, uperiodic);
+      new BSplineCurve3d(cpoles, cweights, uknots->Array1(), umults->Array1(), udeg, uperiodic);
   }
   else
   {
@@ -801,7 +801,7 @@ Handle(Geom_Curve) Geom_BSplineSurface::VIso(const Standard_Real V) const
                   vperiodic,
                   cpoles,
                   &cweights);
-    C = new Geom_BSplineCurve(cpoles, uknots->Array1(), umults->Array1(), udeg, uperiodic);
+    C = new BSplineCurve3d(cpoles, uknots->Array1(), umults->Array1(), udeg, uperiodic);
   }
 
   return C;
@@ -812,13 +812,13 @@ Handle(Geom_Curve) Geom_BSplineSurface::VIso(const Standard_Real V) const
 // purpose  : If CheckRational=False, no try to make it non-rational
 //=======================================================================
 
-Handle(Geom_Curve) Geom_BSplineSurface::VIso(const Standard_Real    V,
+Handle(GeomCurve3d) Geom_BSplineSurface::VIso(const Standard_Real    V,
                                              const Standard_Boolean CheckRational) const
 {
   TColgp_Array1OfPnt   cpoles(1, poles->ColLength());
   TColStd_Array1OfReal cweights(1, poles->ColLength());
 
-  Handle(Geom_BSplineCurve) C;
+  Handle(BSplineCurve3d) C;
 
   if (urational || vrational)
   {
@@ -832,7 +832,7 @@ Handle(Geom_Curve) Geom_BSplineSurface::VIso(const Standard_Real    V,
                   vperiodic,
                   cpoles,
                   &cweights);
-    C = new Geom_BSplineCurve(cpoles,
+    C = new BSplineCurve3d(cpoles,
                               cweights,
                               uknots->Array1(),
                               umults->Array1(),
@@ -852,7 +852,7 @@ Handle(Geom_Curve) Geom_BSplineSurface::VIso(const Standard_Real    V,
                   vperiodic,
                   cpoles,
                   &cweights);
-    C = new Geom_BSplineCurve(cpoles, uknots->Array1(), umults->Array1(), udeg, uperiodic);
+    C = new BSplineCurve3d(cpoles, uknots->Array1(), umults->Array1(), udeg, uperiodic);
   }
 
   return C;
@@ -1057,7 +1057,7 @@ void Geom_BSplineSurface::SetUOrigin(const Standard_Integer Index)
   Standard_Integer last  = LastUKnotIndex();
 
   if ((Index < first) || (Index > last))
-    throw Standard_DomainError("Geom_BSplineCurve::SetUOrigin: Index out of range");
+    throw Standard_DomainError("BSplineCurve3d::SetUOrigin: Index out of range");
 
   Standard_Integer nbknots = uknots->Length();
   Standard_Integer nbpoles = poles->ColLength();
@@ -1159,7 +1159,7 @@ void Geom_BSplineSurface::SetVOrigin(const Standard_Integer Index)
   Standard_Integer last  = LastVKnotIndex();
 
   if ((Index < first) || (Index > last))
-    throw Standard_DomainError("Geom_BSplineCurve::SetVOrigin: Index out of range");
+    throw Standard_DomainError("BSplineCurve3d::SetVOrigin: Index out of range");
 
   Standard_Integer nbknots = vknots->Length();
   Standard_Integer nbpoles = poles->RowLength();
@@ -1372,12 +1372,12 @@ Standard_Boolean Geom_BSplineSurface::IsUClosed() const
 
   Standard_Real aU1, aU2, aV1, aV2;
   Bounds(aU1, aU2, aV1, aV2);
-  Handle(Geom_Curve) aCUF = UIso(aU1);
-  Handle(Geom_Curve) aCUL = UIso(aU2);
+  Handle(GeomCurve3d) aCUF = UIso(aU1);
+  Handle(GeomCurve3d) aCUL = UIso(aU2);
   if (aCUF.IsNull() || aCUL.IsNull())
     return Standard_False;
-  Handle(Geom_BSplineCurve) aBsF = Handle(Geom_BSplineCurve)::DownCast(aCUF);
-  Handle(Geom_BSplineCurve) aBsL = Handle(Geom_BSplineCurve)::DownCast(aCUL);
+  Handle(BSplineCurve3d) aBsF = Handle(BSplineCurve3d)::DownCast(aCUF);
+  Handle(BSplineCurve3d) aBsL = Handle(BSplineCurve3d)::DownCast(aCUL);
   return (!aBsF.IsNull() && !aBsL.IsNull() && aBsF->IsEqual(aBsL, Precision::Confusion()));
 }
 
@@ -1390,12 +1390,12 @@ Standard_Boolean Geom_BSplineSurface::IsVClosed() const
 
   Standard_Real aU1, aU2, aV1, aV2;
   Bounds(aU1, aU2, aV1, aV2);
-  Handle(Geom_Curve) aCVF = VIso(aV1);
-  Handle(Geom_Curve) aCVL = VIso(aV2);
+  Handle(GeomCurve3d) aCVF = VIso(aV1);
+  Handle(GeomCurve3d) aCVL = VIso(aV2);
   if (aCVF.IsNull() || aCVL.IsNull())
     return Standard_False;
-  Handle(Geom_BSplineCurve) aBsF = Handle(Geom_BSplineCurve)::DownCast(aCVF);
-  Handle(Geom_BSplineCurve) aBsL = Handle(Geom_BSplineCurve)::DownCast(aCVL);
+  Handle(BSplineCurve3d) aBsF = Handle(BSplineCurve3d)::DownCast(aCVF);
+  Handle(BSplineCurve3d) aBsL = Handle(BSplineCurve3d)::DownCast(aCVL);
   return (!aBsF.IsNull() && !aBsL.IsNull() && aBsF->IsEqual(aBsL, Precision::Confusion()));
 }
 

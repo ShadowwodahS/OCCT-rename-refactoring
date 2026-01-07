@@ -28,7 +28,7 @@
 
 class TDF_Data;
 class XmlMDF_ADriverTable;
-class TDF_Label;
+class DataLabel;
 class Message_Messenger;
 
 //! This package provides classes and methods to
@@ -77,7 +77,7 @@ public:
 
 private:
   Standard_EXPORT static Standard_Integer WriteSubTree(
-    const TDF_Label&                   theLabel,
+    const DataLabel&                   theLabel,
     XmlObjMgt_Element&                 theElement,
     XmlObjMgt_SRelocationTable&        aReloc,
     const Handle(XmlMDF_ADriverTable)& aDrivers,
@@ -85,7 +85,7 @@ private:
 
   Standard_EXPORT static Standard_Integer ReadSubTree(
     const XmlObjMgt_Element&     theElement,
-    const TDF_Label&             theLabel,
+    const DataLabel&             theLabel,
     XmlObjMgt_RRelocationTable&  aReloc,
     const XmlMDF_MapOfDriver&    aDrivers,
     const Message_ProgressRange& theRange = Message_ProgressRange());

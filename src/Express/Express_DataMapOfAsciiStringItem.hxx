@@ -18,7 +18,7 @@
 #include <NCollection_DataMap.hxx>
 #include <TCollection_AsciiString.hxx>
 
-typedef NCollection_DataMap<TCollection_AsciiString, Handle(Express_Item)>
+typedef NCollection_DataMap<AsciiString1, Handle(Express_Item)>
   Express_DataMapOfAsciiStringItem;
 
 #endif

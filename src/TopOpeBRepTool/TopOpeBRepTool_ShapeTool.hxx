@@ -21,37 +21,37 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class TopoDS_Shape;
+class TopoShape;
 class Point3d;
-class Geom_Curve;
-class TopoDS_Edge;
-class Geom_Surface;
-class TopoDS_Face;
+class GeomCurve3d;
+class TopoEdge;
+class GeomSurface;
+class TopoFace;
 class BRepAdaptor_Surface;
 class BRepAdaptor_Curve;
 class Dir3d;
 
-class TopOpeBRepTool_ShapeTool
+class ShapeTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns the tolerance of the shape <S>.
   //! If the shape <S> is Null, returns 0.
-  Standard_EXPORT static Standard_Real Tolerance(const TopoDS_Shape& S);
+  Standard_EXPORT static Standard_Real Tolerance(const TopoShape& S);
 
   //! Returns 3D point of vertex <S>.
-  Standard_EXPORT static Point3d Pnt(const TopoDS_Shape& S);
+  Standard_EXPORT static Point3d Pnt(const TopoShape& S);
 
-  Standard_EXPORT static Handle(Geom_Curve) BASISCURVE(const Handle(Geom_Curve)& C);
+  Standard_EXPORT static Handle(GeomCurve3d) BASISCURVE(const Handle(GeomCurve3d)& C);
 
-  Standard_EXPORT static Handle(Geom_Curve) BASISCURVE(const TopoDS_Edge& E);
+  Standard_EXPORT static Handle(GeomCurve3d) BASISCURVE(const TopoEdge& E);
 
-  Standard_EXPORT static Handle(Geom_Surface) BASISSURFACE(const Handle(Geom_Surface)& S);
+  Standard_EXPORT static Handle(GeomSurface) BASISSURFACE(const Handle(GeomSurface)& S);
 
-  Standard_EXPORT static Handle(Geom_Surface) BASISSURFACE(const TopoDS_Face& F);
+  Standard_EXPORT static Handle(GeomSurface) BASISSURFACE(const TopoFace& F);
 
-  Standard_EXPORT static void UVBOUNDS(const Handle(Geom_Surface)& S,
+  Standard_EXPORT static void UVBOUNDS(const Handle(GeomSurface)& S,
                                        Standard_Boolean&           UPeri,
                                        Standard_Boolean&           VPeri,
                                        Standard_Real&              Umin,
@@ -59,7 +59,7 @@ public:
                                        Standard_Real&              Vmin,
                                        Standard_Real&              Vmax);
 
-  Standard_EXPORT static void UVBOUNDS(const TopoDS_Face& F,
+  Standard_EXPORT static void UVBOUNDS(const TopoFace& F,
                                        Standard_Boolean&  UPeri,
                                        Standard_Boolean&  VPeri,
                                        Standard_Real&     Umin,
@@ -73,31 +73,31 @@ public:
   //! <S> is assumed to be a face.
   //! u and/or v is/are not modified when the domain is
   //! not periodic in U and/or V .
-  Standard_EXPORT static void AdjustOnPeriodic(const TopoDS_Shape& S,
+  Standard_EXPORT static void AdjustOnPeriodic(const TopoShape& S,
                                                Standard_Real&      u,
                                                Standard_Real&      v);
 
   //! indicates whether shape S1 is a closing shape on S2 or not.
-  Standard_EXPORT static Standard_Boolean Closed(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
+  Standard_EXPORT static Standard_Boolean Closed(const TopoShape& S1, const TopoShape& S2);
 
   Standard_EXPORT static Standard_Real PeriodizeParameter(const Standard_Real par,
-                                                          const TopoDS_Shape& EE,
-                                                          const TopoDS_Shape& FF);
+                                                          const TopoShape& EE,
+                                                          const TopoShape& FF);
 
-  Standard_EXPORT static Standard_Boolean ShapesSameOriented(const TopoDS_Shape& S1,
-                                                             const TopoDS_Shape& S2);
+  Standard_EXPORT static Standard_Boolean ShapesSameOriented(const TopoShape& S1,
+                                                             const TopoShape& S2);
 
   Standard_EXPORT static Standard_Boolean SurfacesSameOriented(const BRepAdaptor_Surface& S1,
                                                                const BRepAdaptor_Surface& S2);
 
-  Standard_EXPORT static Standard_Boolean FacesSameOriented(const TopoDS_Shape& F1,
-                                                            const TopoDS_Shape& F2);
+  Standard_EXPORT static Standard_Boolean FacesSameOriented(const TopoShape& F1,
+                                                            const TopoShape& F2);
 
   Standard_EXPORT static Standard_Boolean CurvesSameOriented(const BRepAdaptor_Curve& C1,
                                                              const BRepAdaptor_Curve& C2);
 
-  Standard_EXPORT static Standard_Boolean EdgesSameOriented(const TopoDS_Shape& E1,
-                                                            const TopoDS_Shape& E2);
+  Standard_EXPORT static Standard_Boolean EdgesSameOriented(const TopoShape& E1,
+                                                            const TopoShape& E2);
 
   //! Compute tangent T, normal N, curvature C at point of parameter
   //! P on curve BRAC. Returns the tolerance indicating if T,N are null.
@@ -108,22 +108,22 @@ public:
                                                 Standard_Real&           C);
 
   //! Same as previous on edge E.
-  Standard_EXPORT static Standard_Real EdgeData(const TopoDS_Shape& E,
+  Standard_EXPORT static Standard_Real EdgeData(const TopoShape& E,
                                                 const Standard_Real P,
                                                 Dir3d&             T,
                                                 Dir3d&             N,
                                                 Standard_Real&      C);
 
-  Standard_EXPORT static Standard_Real Resolution3dU(const Handle(Geom_Surface)& SU,
+  Standard_EXPORT static Standard_Real Resolution3dU(const Handle(GeomSurface)& SU,
                                                      const Standard_Real         Tol2d);
 
-  Standard_EXPORT static Standard_Real Resolution3dV(const Handle(Geom_Surface)& SU,
+  Standard_EXPORT static Standard_Real Resolution3dV(const Handle(GeomSurface)& SU,
                                                      const Standard_Real         Tol2d);
 
-  Standard_EXPORT static Standard_Real Resolution3d(const Handle(Geom_Surface)& SU,
+  Standard_EXPORT static Standard_Real Resolution3d(const Handle(GeomSurface)& SU,
                                                     const Standard_Real         Tol2d);
 
-  Standard_EXPORT static Standard_Real Resolution3d(const TopoDS_Face&  F,
+  Standard_EXPORT static Standard_Real Resolution3d(const TopoFace&  F,
                                                     const Standard_Real Tol2d);
 
 protected:

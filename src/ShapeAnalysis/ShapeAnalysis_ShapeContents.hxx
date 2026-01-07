@@ -23,7 +23,7 @@
 
 #include <Standard_Integer.hxx>
 #include <TopTools_HSequenceOfShape.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! Dumps shape contents
 class ShapeAnalysis_ShapeContents
@@ -42,7 +42,7 @@ public:
 
   //! Counts quantities of sun-shapes in shape and
   //! stores sub-shapes according to flags
-  Standard_EXPORT void Perform(const TopoDS_Shape& shape);
+  Standard_EXPORT void Perform(const TopoShape& shape);
 
   //! Returns (modifiable) the flag which defines whether to store faces
   //! with edges if its 3D curves has more than 8192 poles.

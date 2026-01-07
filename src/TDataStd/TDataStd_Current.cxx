@@ -38,7 +38,7 @@ const Standard_GUID& TDataStd_Current::GetID()
 
 //=================================================================================================
 
-void TDataStd_Current::Set(const TDF_Label& current)
+void TDataStd_Current::Set(const DataLabel& current)
 {
   Handle(TDataStd_Current) A;
   Handle(TDF_Data)         D = current.Data();
@@ -52,9 +52,9 @@ void TDataStd_Current::Set(const TDF_Label& current)
 
 //=================================================================================================
 
-TDF_Label TDataStd_Current::Get(const TDF_Label& access)
+DataLabel TDataStd_Current::Get(const DataLabel& access)
 {
-  //  TDF_Label current;
+  //  DataLabel current;
   Handle(TDataStd_Current) A;
   if (!access.Data()->Root().FindAttribute(TDataStd_Current::GetID(), A))
   {
@@ -65,7 +65,7 @@ TDF_Label TDataStd_Current::Get(const TDF_Label& access)
 
 //=================================================================================================
 
-Standard_Boolean TDataStd_Current::Has(const TDF_Label& access)
+Standard_Boolean TDataStd_Current::Has(const DataLabel& access)
 {
   return (access.Data()->Root().IsAttribute(TDataStd_Current::GetID()));
 }
@@ -76,7 +76,7 @@ TDataStd_Current::TDataStd_Current() {}
 
 //=================================================================================================
 
-void TDataStd_Current::SetLabel(const TDF_Label& current)
+void TDataStd_Current::SetLabel(const DataLabel& current)
 {
   // OCC2932 correction
   if (myLabel == current)
@@ -88,7 +88,7 @@ void TDataStd_Current::SetLabel(const TDF_Label& current)
 
 //=================================================================================================
 
-TDF_Label TDataStd_Current::GetLabel() const
+DataLabel TDataStd_Current::GetLabel() const
 {
   return myLabel;
 }
@@ -119,7 +119,7 @@ void TDataStd_Current::Restore(const Handle(TDF_Attribute)& With)
 void TDataStd_Current::Paste(const Handle(TDF_Attribute)&       Into,
                              const Handle(TDF_RelocationTable)& RT) const
 {
-  TDF_Label tLab;
+  DataLabel tLab;
   if (!myLabel.IsNull())
   {
     if (!RT->HasRelocation(myLabel, tLab))
@@ -144,7 +144,7 @@ void TDataStd_Current::DumpJson(Standard_OStream& theOStream, Standard_Integer t
 
   OCCT_DUMP_BASE_CLASS(theOStream, theDepth, TDF_Attribute)
 
-  TCollection_AsciiString aLabel;
+  AsciiString1 aLabel;
   TDF_Tool::Entry(myLabel, aLabel);
   OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aLabel)
 }

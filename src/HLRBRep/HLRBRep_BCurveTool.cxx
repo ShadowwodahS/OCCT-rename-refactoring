@@ -66,13 +66,13 @@ void HLRBRep_BCurveTool::PolesAndWeights(const BRepAdaptor_Curve& C,
 {
   if (C.GetType() == GeomAbs_BezierCurve)
   {
-    const Handle(Geom_BezierCurve) HB = C.Bezier();
+    const Handle(BezierCurve3d) HB = C.Bezier();
     HB->Poles(T);
     HB->Weights(W);
   }
   else if (C.GetType() == GeomAbs_BSplineCurve)
   {
-    const Handle(Geom_BSplineCurve) HB = C.BSpline();
+    const Handle(BSplineCurve3d) HB = C.BSpline();
     HB->Poles(T);
     HB->Weights(W);
   }
@@ -80,14 +80,14 @@ void HLRBRep_BCurveTool::PolesAndWeights(const BRepAdaptor_Curve& C,
 
 //=================================================================================================
 
-Handle(Geom_BezierCurve) HLRBRep_BCurveTool::Bezier(const BRepAdaptor_Curve& C)
+Handle(BezierCurve3d) HLRBRep_BCurveTool::Bezier(const BRepAdaptor_Curve& C)
 {
   return (C.Bezier());
 }
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) HLRBRep_BCurveTool::BSpline(const BRepAdaptor_Curve& C)
+Handle(BSplineCurve3d) HLRBRep_BCurveTool::BSpline(const BRepAdaptor_Curve& C)
 {
   return (C.BSpline());
 }

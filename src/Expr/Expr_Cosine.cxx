@@ -51,7 +51,7 @@ Handle(Expr_GeneralExpression) Expr_Cosine::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_Cosine::Copy() const
 {
-  return new Expr_Cosine(Expr::CopyShare(Operand()));
+  return new Expr_Cosine(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_Cosine::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -77,7 +77,7 @@ Handle(Expr_GeneralExpression) Expr_Cosine::Derivative(const Handle(Expr_NamedUn
   }
   Handle(Expr_GeneralExpression) myexp    = Operand();
   Handle(Expr_GeneralExpression) myder    = myexp->Derivative(X);
-  Handle(Expr_Sine)              firstder = new Expr_Sine(Expr::CopyShare(myexp));
+  Handle(Expr_Sine)              firstder = new Expr_Sine(Expr1::CopyShare(myexp));
   Handle(Expr_UnaryMinus)        fder     = -(firstder->ShallowSimplified());
   Handle(Expr_Product)           resu     = fder->ShallowSimplified() * myder;
   return resu->ShallowSimplified();
@@ -89,9 +89,9 @@ Standard_Real Expr_Cosine::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return ::Cos(Operand()->Evaluate(vars, vals));
 }
 
-TCollection_AsciiString Expr_Cosine::String() const
+AsciiString1 Expr_Cosine::String() const
 {
-  TCollection_AsciiString str("Cos(");
+  AsciiString1 str("Cos(");
   str += Operand()->String();
   str += ")";
   return str;

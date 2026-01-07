@@ -21,9 +21,9 @@
 #include <TopTools_ListOfShape.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<Standard_Integer, TopTools_ListOfShape>
+typedef NCollection_DataMap<Standard_Integer, ShapeList>
   TopTools_DataMapOfIntegerListOfShape;
-typedef NCollection_DataMap<Standard_Integer, TopTools_ListOfShape>::Iterator
+typedef NCollection_DataMap<Standard_Integer, ShapeList>::Iterator
   TopTools_DataMapIteratorOfDataMapOfIntegerListOfShape;
 
 #endif

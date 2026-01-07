@@ -19,7 +19,7 @@
 #include <TCollection_HAsciiString.hxx>
 
 #include <stdio.h>
-IMPLEMENT_STANDARD_RTTIEXT(Interface_Static, Interface_TypedValue)
+IMPLEMENT_STANDARD_RTTIEXT(ExchangeConfig, Interface_TypedValue)
 
 static char defmess[31];
 
@@ -28,11 +28,11 @@ static char defmess[31];
 // svv #2
 // static Standard_Boolean StaticPath(const Handle(TCollection_HAsciiString)& val)
 //{
-//   OSD_Path apath;
-//   return apath.IsValid (TCollection_AsciiString(val->ToCString()));
+//   SystemPath apath;
+//   return apath.IsValid (AsciiString1(val->ToCString()));
 // }
 
-Interface_Static::Interface_Static(const Standard_CString    family,
+ExchangeConfig::ExchangeConfig(const Standard_CString    family,
                                    const Standard_CString    name,
                                    const Interface_ParamType type,
                                    const Standard_CString    init)
@@ -42,9 +42,9 @@ Interface_Static::Interface_Static(const Standard_CString    family,
 {
 }
 
-Interface_Static::Interface_Static(const Standard_CString          family,
+ExchangeConfig::ExchangeConfig(const Standard_CString          family,
                                    const Standard_CString          name,
-                                   const Handle(Interface_Static)& other)
+                                   const Handle(ExchangeConfig)& other)
     : Interface_TypedValue(name, other->Type(), ""),
       thefamily(family),
       theupdate(Standard_True)
@@ -91,7 +91,7 @@ Interface_Static::Interface_Static(const Standard_CString          family,
 
 //  ##   Print   ##
 
-void Interface_Static::PrintStatic(Standard_OStream& S) const
+void ExchangeConfig::PrintStatic(Standard_OStream& S) const
 {
   S << "--- Static Value : " << Name() << "  Family:" << Family();
   Print(S);
@@ -105,29 +105,29 @@ void Interface_Static::PrintStatic(Standard_OStream& S) const
 
 //  #########    COMPLEMENTS    ##########
 
-Standard_CString Interface_Static::Family() const
+Standard_CString ExchangeConfig::Family() const
 {
   return thefamily.ToCString();
 }
 
-Handle(Interface_Static) Interface_Static::Wild() const
+Handle(ExchangeConfig) ExchangeConfig::Wild() const
 {
   return thewild;
 }
 
-void Interface_Static::SetWild(const Handle(Interface_Static)& wild)
+void ExchangeConfig::SetWild(const Handle(ExchangeConfig)& wild)
 {
   thewild = wild;
 }
 
 //  #########   UPDATE    ##########
 
-void Interface_Static::SetUptodate()
+void ExchangeConfig::SetUptodate()
 {
   theupdate = Standard_True;
 }
 
-Standard_Boolean Interface_Static::UpdatedStatus() const
+Standard_Boolean ExchangeConfig::UpdatedStatus() const
 {
   return theupdate;
 }
@@ -135,7 +135,7 @@ Standard_Boolean Interface_Static::UpdatedStatus() const
 //  #######################################################################
 //  #########    DICTIONNAIRE DES STATICS (static sur Static)    ##########
 
-Standard_Boolean Interface_Static::Init(const Standard_CString    family,
+Standard_Boolean ExchangeConfig::Init(const Standard_CString    family,
                                         const Standard_CString    name,
                                         const Interface_ParamType type,
                                         const Standard_CString    init)
@@ -145,22 +145,22 @@ Standard_Boolean Interface_Static::Init(const Standard_CString    family,
 
   if (MoniTool_TypedValue::Stats().IsBound(name))
     return Standard_False;
-  Handle(Interface_Static) item;
+  Handle(ExchangeConfig) item;
   if (type == Interface_ParamMisc)
   {
-    Handle(Interface_Static) other = Interface_Static::Static(init);
+    Handle(ExchangeConfig) other = ExchangeConfig::Static(init);
     if (other.IsNull())
       return Standard_False;
-    item = new Interface_Static(family, name, other);
+    item = new ExchangeConfig(family, name, other);
   }
   else
-    item = new Interface_Static(family, name, type, init);
+    item = new ExchangeConfig(family, name, type, init);
 
   MoniTool_TypedValue::Stats().Bind(name, item);
   return Standard_True;
 }
 
-Standard_Boolean Interface_Static::Init(const Standard_CString   family,
+Standard_Boolean ExchangeConfig::Init(const Standard_CString   family,
                                         const Standard_CString   name,
                                         const Standard_Character type,
                                         const Standard_CString   init)
@@ -190,7 +190,7 @@ Standard_Boolean Interface_Static::Init(const Standard_CString   family,
       epyt = Interface_ParamMisc;
       break;
     case '&': {
-      Handle(Interface_Static) unstat = Interface_Static::Static(name);
+      Handle(ExchangeConfig) unstat = ExchangeConfig::Static(name);
       if (unstat.IsNull())
         return Standard_False;
       //    Editions : init donne un petit texte d edition, en 2 termes "cmd var" :
@@ -224,34 +224,34 @@ Standard_Boolean Interface_Static::Init(const Standard_CString   family,
     default:
       return Standard_False;
   }
-  if (!Interface_Static::Init(family, name, epyt, init))
+  if (!ExchangeConfig::Init(family, name, epyt, init))
     return Standard_False;
   if (type != 'p')
     return Standard_True;
-  Handle(Interface_Static) stat = Interface_Static::Static(name);
+  Handle(ExchangeConfig) stat = ExchangeConfig::Static(name);
   // NT  stat->SetSatisfies (StaticPath,"Path");
   if (!stat->Satisfies(stat->HStringValue()))
     stat->SetCStringValue("");
   return Standard_True;
 }
 
-Handle(Interface_Static) Interface_Static::Static(const Standard_CString name)
+Handle(ExchangeConfig) ExchangeConfig::Static(const Standard_CString name)
 {
   Handle(RefObject) result;
   MoniTool_TypedValue::Stats().Find(name, result);
-  return Handle(Interface_Static)::DownCast(result);
+  return Handle(ExchangeConfig)::DownCast(result);
 }
 
-Standard_Boolean Interface_Static::IsPresent(const Standard_CString name)
+Standard_Boolean ExchangeConfig::IsPresent(const Standard_CString name)
 {
   return MoniTool_TypedValue::Stats().IsBound(name);
 }
 
-Standard_CString Interface_Static::CDef(const Standard_CString name, const Standard_CString part)
+Standard_CString ExchangeConfig::CDef(const Standard_CString name, const Standard_CString part)
 {
   if (!part || part[0] == '\0')
     return "";
-  Handle(Interface_Static) stat = Interface_Static::Static(name);
+  Handle(ExchangeConfig) stat = ExchangeConfig::Static(name);
   if (stat.IsNull())
     return "";
   if (part[0] == 'f' && part[1] == 'a')
@@ -300,11 +300,11 @@ Standard_CString Interface_Static::CDef(const Standard_CString name, const Stand
   return "";
 }
 
-Standard_Integer Interface_Static::IDef(const Standard_CString name, const Standard_CString part)
+Standard_Integer ExchangeConfig::IDef(const Standard_CString name, const Standard_CString part)
 {
   if (!part || part[0] == '\0')
     return 0;
-  Handle(Interface_Static) stat = Interface_Static::Static(name);
+  Handle(ExchangeConfig) stat = ExchangeConfig::Static(name);
   if (stat.IsNull())
     return 0;
   if (part[0] == 'i')
@@ -337,9 +337,9 @@ Standard_Integer Interface_Static::IDef(const Standard_CString name, const Stand
 
 //  ##########  VALEUR COURANTE  ###########
 
-Standard_Boolean Interface_Static::IsSet(const Standard_CString name, const Standard_Boolean proper)
+Standard_Boolean ExchangeConfig::IsSet(const Standard_CString name, const Standard_Boolean proper)
 {
-  Handle(Interface_Static) item = Interface_Static::Static(name);
+  Handle(ExchangeConfig) item = ExchangeConfig::Static(name);
   if (item.IsNull())
     return Standard_False;
   if (item->IsSetValue())
@@ -350,56 +350,56 @@ Standard_Boolean Interface_Static::IsSet(const Standard_CString name, const Stan
   return item->IsSetValue();
 }
 
-Standard_CString Interface_Static::CVal(const Standard_CString name)
+Standard_CString ExchangeConfig::CVal(const Standard_CString name)
 {
-  Handle(Interface_Static) item = Interface_Static::Static(name);
+  Handle(ExchangeConfig) item = ExchangeConfig::Static(name);
   if (item.IsNull())
   {
 #ifdef OCCT_DEBUG
-    std::cout << "Warning: Interface_Static::CVal: incorrect parameter " << name << std::endl;
+    std::cout << "Warning: ExchangeConfig::CVal: incorrect parameter " << name << std::endl;
 #endif
     return "";
   }
   return item->CStringValue();
 }
 
-Standard_Integer Interface_Static::IVal(const Standard_CString name)
+Standard_Integer ExchangeConfig::IVal(const Standard_CString name)
 {
-  Handle(Interface_Static) item = Interface_Static::Static(name);
+  Handle(ExchangeConfig) item = ExchangeConfig::Static(name);
   if (item.IsNull())
   {
 #ifdef OCCT_DEBUG
-    std::cout << "Warning: Interface_Static::IVal: incorrect parameter " << name << std::endl;
+    std::cout << "Warning: ExchangeConfig::IVal: incorrect parameter " << name << std::endl;
 #endif
     return 0;
   }
   return item->IntegerValue();
 }
 
-Standard_Real Interface_Static::RVal(const Standard_CString name)
+Standard_Real ExchangeConfig::RVal(const Standard_CString name)
 {
-  Handle(Interface_Static) item = Interface_Static::Static(name);
+  Handle(ExchangeConfig) item = ExchangeConfig::Static(name);
   if (item.IsNull())
   {
 #ifdef OCCT_DEBUG
-    std::cout << "Warning: Interface_Static::RVal: incorrect parameter " << name << std::endl;
+    std::cout << "Warning: ExchangeConfig::RVal: incorrect parameter " << name << std::endl;
 #endif
     return 0.0;
   }
   return item->RealValue();
 }
 
-Standard_Boolean Interface_Static::SetCVal(const Standard_CString name, const Standard_CString val)
+Standard_Boolean ExchangeConfig::SetCVal(const Standard_CString name, const Standard_CString val)
 {
-  Handle(Interface_Static) item = Interface_Static::Static(name);
+  Handle(ExchangeConfig) item = ExchangeConfig::Static(name);
   if (item.IsNull())
     return Standard_False;
   return item->SetCStringValue(val);
 }
 
-Standard_Boolean Interface_Static::SetIVal(const Standard_CString name, const Standard_Integer val)
+Standard_Boolean ExchangeConfig::SetIVal(const Standard_CString name, const Standard_Integer val)
 {
-  Handle(Interface_Static) item = Interface_Static::Static(name);
+  Handle(ExchangeConfig) item = ExchangeConfig::Static(name);
   if (item.IsNull())
     return Standard_False;
   if (!item->SetIntegerValue(val))
@@ -407,9 +407,9 @@ Standard_Boolean Interface_Static::SetIVal(const Standard_CString name, const St
   return Standard_True;
 }
 
-Standard_Boolean Interface_Static::SetRVal(const Standard_CString name, const Standard_Real val)
+Standard_Boolean ExchangeConfig::SetRVal(const Standard_CString name, const Standard_Real val)
 {
-  Handle(Interface_Static) item = Interface_Static::Static(name);
+  Handle(ExchangeConfig) item = ExchangeConfig::Static(name);
   if (item.IsNull())
     return Standard_False;
   return item->SetRealValue(val);
@@ -417,33 +417,33 @@ Standard_Boolean Interface_Static::SetRVal(const Standard_CString name, const St
 
 //    UPDATE
 
-Standard_Boolean Interface_Static::Update(const Standard_CString name)
+Standard_Boolean ExchangeConfig::Update(const Standard_CString name)
 {
-  Handle(Interface_Static) item = Interface_Static::Static(name);
+  Handle(ExchangeConfig) item = ExchangeConfig::Static(name);
   if (item.IsNull())
     return Standard_False;
   item->SetUptodate();
   return Standard_True;
 }
 
-Standard_Boolean Interface_Static::IsUpdated(const Standard_CString name)
+Standard_Boolean ExchangeConfig::IsUpdated(const Standard_CString name)
 {
-  Handle(Interface_Static) item = Interface_Static::Static(name);
+  Handle(ExchangeConfig) item = ExchangeConfig::Static(name);
   if (item.IsNull())
     return Standard_False;
   return item->UpdatedStatus();
 }
 
-Handle(TColStd_HSequenceOfHAsciiString) Interface_Static::Items(const Standard_Integer mode,
+Handle(TColStd_HSequenceOfHAsciiString) ExchangeConfig::Items(const Standard_Integer mode,
                                                                 const Standard_CString criter)
 {
   Standard_Integer                        modup = (mode / 100); // 0 any, 1 non-update, 2 update
   Handle(TColStd_HSequenceOfHAsciiString) list  = new TColStd_HSequenceOfHAsciiString();
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(
+  NCollection_DataMap<AsciiString1, Handle(RefObject)>::Iterator iter(
     MoniTool_TypedValue::Stats());
   for (; iter.More(); iter.Next())
   {
-    Handle(Interface_Static) item = Handle(Interface_Static)::DownCast(iter.Value());
+    Handle(ExchangeConfig) item = Handle(ExchangeConfig)::DownCast(iter.Value());
     if (item.IsNull())
       continue;
     Standard_Boolean ok = Standard_True;
@@ -478,20 +478,20 @@ Handle(TColStd_HSequenceOfHAsciiString) Interface_Static::Items(const Standard_I
 // function : FillMap
 // purpose  : Fills given string-to-string map with all static data
 //=======================================================================
-void Interface_Static::FillMap(
-  NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString>& theMap)
+void ExchangeConfig::FillMap(
+  NCollection_DataMap<AsciiString1, AsciiString1>& theMap)
 {
   theMap.Clear();
 
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& aMap =
+  NCollection_DataMap<AsciiString1, Handle(RefObject)>& aMap =
     MoniTool_TypedValue::Stats();
 
-  for (NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator anIt(
+  for (NCollection_DataMap<AsciiString1, Handle(RefObject)>::Iterator anIt(
          aMap);
        anIt.More();
        anIt.Next())
   {
-    Handle(Interface_Static) aValue = Handle(Interface_Static)::DownCast(anIt.Value());
+    Handle(ExchangeConfig) aValue = Handle(ExchangeConfig)::DownCast(anIt.Value());
     if (aValue.IsNull())
     {
       continue;

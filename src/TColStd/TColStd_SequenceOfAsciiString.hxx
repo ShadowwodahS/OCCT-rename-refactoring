@@ -18,6 +18,6 @@
 #include <TCollection_AsciiString.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<TCollection_AsciiString> TColStd_SequenceOfAsciiString;
+typedef NCollection_Sequence<AsciiString1> TColStd_SequenceOfAsciiString;
 
 #endif

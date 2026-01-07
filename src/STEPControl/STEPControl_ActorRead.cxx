@@ -141,12 +141,12 @@ IMPLEMENT_STANDARD_RTTIEXT(STEPControl_ActorRead, Transfer_ActorOfTransientProce
 // ============================================================================
 
 #ifdef OCCT_DEBUG
-static void DumpWhatIs(const TopoDS_Shape& S)
+static void DumpWhatIs(const TopoShape& S)
 {
 
   TopTools_MapOfShape aMapOfShape;
   aMapOfShape.Add(S);
-  TopTools_ListOfShape aListOfShape;
+  ShapeList aListOfShape;
   aListOfShape.Append(S);
   TopTools_ListIteratorOfListOfShape itL(aListOfShape);
   Standard_Integer nbSolids = 0, nbShells = 0, nbOpenShells = 0, nbFaces = 0, nbWires = 0,
@@ -160,7 +160,7 @@ static void DumpWhatIs(const TopoDS_Shape& S)
     TopoDS_Iterator it(itL.Value());
     for (; it.More(); it.Next())
     {
-      TopoDS_Shape aSubShape = it.Value();
+      TopoShape aSubShape = it.Value();
       if (!aMapOfShape.Add(aSubShape))
         continue;
       aListOfShape.Append(aSubShape);
@@ -200,7 +200,7 @@ static void DumpWhatIs(const TopoDS_Shape& S)
 namespace
 {
 // Set global var to inform outer methods that current representation item is non-manifold.
-// The better way is to pass this information via binder or via TopoDS_Shape itself, however,
+// The better way is to pass this information via binder or via TopoShape itself, however,
 // this is very specific info to do so...
 Standard_Boolean NM_DETECTED = Standard_False;
 } // namespace
@@ -324,7 +324,7 @@ Handle(Transfer_Binder) STEPControl_ActorRead::Transfer(const Handle(RefObject)&
                                                         const Message_ProgressRange& theProgress)
 {
   // [BEGIN] Get version of preprocessor (to detect I-Deas case) (ssv; 23.11.2010)
-  StepData_Factors           aLocalFactors;
+  ConversionFactors           aLocalFactors;
   Handle(StepData_StepModel) aStepModel = Handle(StepData_StepModel)::DownCast(TP->Model());
   if (!aStepModel->IsInitializedUnit())
   {
@@ -363,7 +363,7 @@ Handle(Transfer_Binder) STEPControl_ActorRead::Transfer(const Handle(RefObject)&
 // ============================================================================
 // auxiliary function : ApplyTransformation
 // ============================================================================
-static void ApplyTransformation(TopoDS_Shape& shape, const Transform3d& Trsf)
+static void ApplyTransformation(TopoShape& shape, const Transform3d& Trsf)
 {
   if (Trsf.Form() == gp_Identity)
     return;
@@ -537,7 +537,7 @@ static void getSDR(const Handle(StepRepr_ProductDefinitionShape)& PDS,
 Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   const Handle(StepBasic_ProductDefinition)& PD,
   const Handle(Transfer_TransientProcess)&   TP,
-  const StepData_Factors&                    theLocalFactors,
+  const ConversionFactors&                    theLocalFactors,
   const Standard_Boolean                     theUseTrsf,
   const Message_ProgressRange&               theProgress)
 
@@ -545,9 +545,9 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   Message_Messenger::StreamBuffer  sout = TP->Messenger()->SendInfo();
   Handle(TransferBRep_ShapeBinder) shbinder;
 
-  TopoDS_Compound Cund;
-  TopoDS_Shape    Result1;
-  BRep_Builder    B;
+  TopoCompound Cund;
+  TopoShape    Result1;
+  ShapeBuilder    B;
   B.MakeCompound(Cund);
 
   // Find subcomponents of assembly (NAUO)
@@ -635,7 +635,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
     else
       binder = TP->Find(NAUO);
 
-    TopoDS_Shape theResult = TransferBRep::ShapeResult(binder);
+    TopoShape theResult = TransferBRep::ShapeResult(binder);
     if (!theResult.IsNull())
     {
       Result1 = theResult;
@@ -645,7 +645,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
         TopoDS_Iterator it(Result1);
         for (; it.More(); it.Next())
         {
-          const TopoDS_Shape& aSubShape = it.Value();
+          const TopoShape& aSubShape = it.Value();
           B.Add(Cund, aSubShape);
         }
       }
@@ -687,7 +687,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
       continue;
 
     // record shape resulting from translation
-    TopoDS_Shape theResult;
+    TopoShape theResult;
     if (!binder.IsNull())
     {
       theResult = TransferBRep::ShapeResult(binder);
@@ -700,7 +700,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
           TopoDS_Iterator it(Result1);
           for (; it.More(); it.Next())
           {
-            const TopoDS_Shape& aSubShape = it.Value();
+            const TopoShape& aSubShape = it.Value();
             B.Add(Cund, aSubShape);
           }
         }
@@ -715,7 +715,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
     // Note that both AP203 and AP209 allow main representation to be non-empty
     if (readSRR && /*theResult.IsNull() &&*/ i <= nbNotAspect)
     {
-      TopoDS_Shape aNewResult =
+      TopoShape aNewResult =
         TransferRelatedSRR(TP, rep, useTrsf, readConstructiveGeomRR, theLocalFactors, Cund, aPS1);
       if (!aNewResult.IsNull())
       {
@@ -744,7 +744,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
 Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   const Handle(StepRepr_NextAssemblyUsageOccurrence)& NAUO,
   const Handle(Transfer_TransientProcess)&            TP,
-  const StepData_Factors&                             theLocalFactors,
+  const ConversionFactors&                             theLocalFactors,
   const Message_ProgressRange&                        theProgress)
 {
   Handle(TransferBRep_ShapeBinder)    shbinder;
@@ -806,7 +806,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   }
 
   Handle(Transfer_Binder) binder;
-  TopoDS_Shape            theResult;
+  TopoShape            theResult;
   shbinder.Nullify();
 
   if (IsDepend)
@@ -853,7 +853,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
 Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   const Handle(StepShape_ShapeRepresentation)& sr,
   const Handle(Transfer_TransientProcess)&     TP,
-  const StepData_Factors&                      theLocalFactors,
+  const ConversionFactors&                      theLocalFactors,
   Standard_Boolean&                            isBound,
   const Standard_Boolean                       theUseTrsf,
   const Message_ProgressRange&                 theProgress)
@@ -874,13 +874,13 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
 
   // Compute unit conversion factors and geometric Accuracy
   Handle(StepRepr_Representation) oldSRContext  = mySRContext; //: S4136
-  StepData_Factors                aLocalFactors = theLocalFactors;
+  ConversionFactors                aLocalFactors = theLocalFactors;
   PrepareUnits(sr, TP, aLocalFactors);
 
-  BRep_Builder    B;
-  TopoDS_Compound comp;
+  ShapeBuilder    B;
+  TopoCompound comp;
   B.MakeCompound(comp);
-  TopoDS_Shape     OneResult;
+  TopoShape     OneResult;
   Standard_Integer nsh = 0;
 
   // [BEGIN] Proceed with non-manifold topology (ssv; 12.11.2010)
@@ -951,7 +951,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
         {
           Handle(StepGeom_Axis2Placement3d) aCS =
             Handle(StepGeom_Axis2Placement3d)::DownCast(anitem);
-          Handle(Geom_Axis2Placement) aTargAP = StepToGeom::MakeAxis2Placement(aCS, aLocalFactors);
+          Handle(Geom_Axis2Placement) aTargAP = StepToGeom1::MakeAxis2Placement(aCS, aLocalFactors);
           if (!aTargAP.IsNull())
           {
             const gp_Ax3 ax3Orig(Point3d(0., 0., 0), Vector3d(0., 0., 1.), Vector3d(1., 0., 0.));
@@ -978,14 +978,14 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
       isBound = Standard_True;
       binder  = TP->Find(anitem);
     }
-    TopoDS_Shape theResult = TransferBRep::ShapeResult(binder);
+    TopoShape theResult = TransferBRep::ShapeResult(binder);
     if (!theResult.IsNull())
     {
       OneResult = theResult;
       if (!aCompoundedShapes.Contains(theResult))
       {
         aCompoundedShapes.Add(theResult);
-        TopExp::MapShapes(theResult, aCompoundedShapes, Standard_False, Standard_False);
+        TopExp1::MapShapes(theResult, aCompoundedShapes, Standard_False, Standard_False);
         B.Add(comp, theResult);
         nsh++;
       }
@@ -1005,7 +1005,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
     XSAlgo_ShapeProcessor::SetParameter("FixShape.MaxTolerance3d", myMaxTol, true, aParameters);
     XSAlgo_ShapeProcessor::SetParameter("FixShape.NonManifold", "1", true, aParameters);
     XSAlgo_ShapeProcessor aShapeProcessor(aParameters);
-    TopoDS_Shape          fixedResult =
+    TopoShape          fixedResult =
       aShapeProcessor.ProcessShape(comp, GetProcessingFlags().first, aPS1.Next());
     aShapeProcessor.MergeTransferInfo(TP, nbTPitems);
 
@@ -1020,7 +1020,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
       B.Add(comp, fixedResult);
     }
 
-    BRep_Builder brepBuilder;
+    ShapeBuilder brepBuilder;
 
     // [BEGIN] Try to close OPEN Shells in I-DEAS case (ssv; 17.11.2010)
     if (myNMTool.IsIDEASCase())
@@ -1037,22 +1037,22 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
       this->computeIDEASClosings(comp, shellClosingsMap);
 
       // Make compound to store closed Shells
-      TopoDS_Compound compWithClosings;
+      TopoCompound compWithClosings;
       brepBuilder.MakeCompound(compWithClosings);
 
       // Attempt to close Shells one-by-one
       for (Standard_Integer i = 1; i <= shellClosingsMap.Extent(); i++)
       {
-        TopoDS_Shell adjustedShell =
+        TopoShell adjustedShell =
           this->closeIDEASShell(TopoDS::Shell(shellClosingsMap.FindKey(i)),
                                 shellClosingsMap.FindFromIndex(i));
         brepBuilder.Add(compWithClosings, adjustedShell);
       }
       // Put not suspected open Shells as they are (updated 23.11.2010)
-      TopExp_Explorer allShellsExp(comp, TopAbs_SHELL);
+      ShapeExplorer allShellsExp(comp, TopAbs_SHELL);
       for (; allShellsExp.More(); allShellsExp.Next())
       {
-        const TopoDS_Shape& aCurrentShell = allShellsExp.Current();
+        const TopoShape& aCurrentShell = allShellsExp.Current();
         if (!myNMTool.IsPureNMShell(aCurrentShell) && !shellClosingsMap.Contains(aCurrentShell))
           brepBuilder.Add(compWithClosings, aCurrentShell);
       }
@@ -1061,15 +1061,15 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
     // [END] Try to close OPEN Shells in I-DEAS case (ssv; 17.11.2010)
 
     // [BEGIN] Reconstruct Solids from Closed Shells (ssv; 15.11.2010)
-    TopoDS_Compound reconstComp;
+    TopoCompound reconstComp;
     brepBuilder.MakeCompound(reconstComp);
-    TopExp_Explorer exp(comp, TopAbs_SHELL);
+    ShapeExplorer exp(comp, TopAbs_SHELL);
     for (; exp.More(); exp.Next())
     {
-      const TopoDS_Shape& aSubShape = exp.Current();
+      const TopoShape& aSubShape = exp.Current();
       if (aSubShape.ShapeType() == TopAbs_SHELL && aSubShape.Closed())
       {
-        TopoDS_Solid nextSolid;
+        TopoSolid nextSolid;
         brepBuilder.MakeSolid(nextSolid);
         brepBuilder.Add(nextSolid, aSubShape);
         brepBuilder.Add(reconstComp, nextSolid);
@@ -1121,7 +1121,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
 Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   const Handle(StepShape_ContextDependentShapeRepresentation)& CDSR,
   const Handle(Transfer_TransientProcess)&                     TP,
-  const StepData_Factors&                                      theLocalFactors,
+  const ConversionFactors&                                      theLocalFactors,
   const Message_ProgressRange&                                 theProgress)
 {
   Handle(TransferBRep_ShapeBinder) shbinder;
@@ -1137,7 +1137,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   if (SRRReversed)
     TP->AddWarning(SRR, "SRR reverses relation defined by NAUO; NAUO definition is taken");
 
-  TopoDS_Shape theResult;
+  TopoShape theResult;
 
   Transform3d          Trsf;
   Standard_Boolean iatrsf = ComputeSRRWT(SRR, TP, Trsf, theLocalFactors);
@@ -1172,7 +1172,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
 Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   const Handle(StepRepr_ShapeRepresentationRelationship)& und,
   const Handle(Transfer_TransientProcess)&                TP,
-  const StepData_Factors&                                 theLocalFactors,
+  const ConversionFactors&                                 theLocalFactors,
   const Standard_Integer                                  nbrep,
   const Standard_Boolean                                  theUseTrsf,
   const Message_ProgressRange&                            theProgress)
@@ -1186,9 +1186,9 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   //  On prend son contenu : Rep1 ou Rep2 , that is the question
   //    on prend les 2. Mais quoi faire des axes
 
-  TopoDS_Compound Cund;
-  TopoDS_Shape    OneResult;
-  BRep_Builder    B;
+  TopoCompound Cund;
+  TopoShape    OneResult;
+  ShapeBuilder    B;
   B.MakeCompound(Cund);
   Standard_Integer nsh = 0;
 
@@ -1215,7 +1215,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
       binder = TransferEntity(anitem, TP, theLocalFactors, isBound, theUseTrsf, aRange);
     else
       binder = TP->Find(anitem);
-    TopoDS_Shape theResult = TransferBRep::ShapeResult(binder);
+    TopoShape theResult = TransferBRep::ShapeResult(binder);
     if (!theResult.IsNull())
     {
       OneResult = theResult;
@@ -1250,7 +1250,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
 Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   const Handle(StepRepr_ConstructiveGeometryRepresentationRelationship)& theCGRR,
   const Handle(Transfer_TransientProcess)&                               theTP,
-  const StepData_Factors&                                                theLocalFactors)
+  const ConversionFactors&                                                theLocalFactors)
 {
 
   Handle(TransferBRep_ShapeBinder) shbinder;
@@ -1258,9 +1258,9 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
     return shbinder;
   Standard_Boolean                resetUnits    = Standard_False;
   Handle(StepRepr_Representation) oldSRContext  = mySRContext;
-  StepData_Factors                aLocalFactors = theLocalFactors;
-  TopoDS_Compound                 aComp;
-  BRep_Builder                    aB;
+  ConversionFactors                aLocalFactors = theLocalFactors;
+  TopoCompound                 aComp;
+  ShapeBuilder                    aB;
   aB.MakeCompound(aComp);
   for (Standard_Integer i = 1; i <= 2; i++)
   {
@@ -1285,11 +1285,11 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
       if (!aStepAxis.IsNull())
       {
         Handle(Geom_Axis2Placement) anAxis =
-          StepToGeom::MakeAxis2Placement(aStepAxis, aLocalFactors);
+          StepToGeom1::MakeAxis2Placement(aStepAxis, aLocalFactors);
         if (anAxis.IsNull())
           continue;
-        Handle(Geom_Plane) aPlane = new Geom_Plane(gp_Ax3(anAxis->Ax2()));
-        TopoDS_Face        aPlaneFace;
+        Handle(GeomPlane) aPlane = new GeomPlane(gp_Ax3(anAxis->Ax2()));
+        TopoFace        aPlaneFace;
         aB.MakeFace(aPlaneFace, aPlane, Precision::Confusion());
         Handle(TransferBRep_ShapeBinder) axisbinder = new TransferBRep_ShapeBinder(aPlaneFace);
         theTP->Bind(aStepAxis, axisbinder);
@@ -1312,7 +1312,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
 Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   const Handle(StepRepr_MechanicalDesignAndDraughtingRelationship)& theMDADR,
   const Handle(Transfer_TransientProcess)&                          theTP,
-  const StepData_Factors&                                           theLocalFactors,
+  const ConversionFactors&                                           theLocalFactors,
   const Message_ProgressRange&                                      theProgress)
 {
   Handle(TransferBRep_ShapeBinder) aShBinder;
@@ -1321,9 +1321,9 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
 
   Standard_Boolean                aResetUnits    = Standard_False;
   Handle(StepRepr_Representation) anOldSRContext = mySRContext;
-  StepData_Factors                aLocalFactors  = theLocalFactors;
-  TopoDS_Compound                 aComp;
-  BRep_Builder                    aBuilder;
+  ConversionFactors                aLocalFactors  = theLocalFactors;
+  TopoCompound                 aComp;
+  ShapeBuilder                    aBuilder;
   aBuilder.MakeCompound(aComp);
 
   Message_ProgressScope aPS(theProgress, NULL, 2);
@@ -1353,7 +1353,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
         aBinder = theTP->Find(aShapeRepr);
       }
     }
-    TopoDS_Shape aResult = TransferBRep::ShapeResult(aBinder);
+    TopoShape aResult = TransferBRep::ShapeResult(aBinder);
     if (!aResult.IsNull())
     {
       aBuilder.Add(aComp, aResult);
@@ -1466,9 +1466,9 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::OldWay(
 
   //    SDR designant des CDSR (lien implicite, via la UsedRepr)
 
-  TopoDS_Compound Cund;
-  TopoDS_Shape    OneResult;
-  BRep_Builder    B;
+  TopoCompound Cund;
+  TopoShape    OneResult;
+  ShapeBuilder    B;
   B.MakeCompound(Cund);
   Standard_Integer nsh = 0;
 
@@ -1479,7 +1479,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::OldWay(
   // clang-format on
   if (!binder.IsNull())
   {
-    TopoDS_Shape theResult = TransferBRep::ShapeResult(binder);
+    TopoShape theResult = TransferBRep::ShapeResult(binder);
     if (!theResult.IsNull())
     {
       OneResult = theResult;
@@ -1515,7 +1515,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::OldWay(
       binder = TP->Transferring(anitem, aRange);
     else
       binder = TP->Find(anitem);
-    TopoDS_Shape theResult = TransferBRep::ShapeResult(binder);
+    TopoShape theResult = TransferBRep::ShapeResult(binder);
     if (!theResult.IsNull())
     {
       OneResult = theResult;
@@ -1539,7 +1539,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::OldWay(
 Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   const Handle(StepGeom_GeometricRepresentationItem)& start,
   const Handle(Transfer_TransientProcess)&            TP,
-  const StepData_Factors&                             theLocalFactors,
+  const ConversionFactors&                             theLocalFactors,
   const Standard_Boolean                              isManifold,
   const Message_ProgressRange&                        theProgress)
 {
@@ -1547,7 +1547,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   Handle(TransferBRep_ShapeBinder) shbinder;
   Standard_Boolean                 found = Standard_False;
   StepToTopoDS_Builder             myShapeBuilder;
-  TopoDS_Shape                     mappedShape;
+  TopoShape                     mappedShape;
   Standard_Integer                 nbTPitems = TP->NbMapped();
 #ifdef TRANSLOG
   OSD_Timer chrono;
@@ -1557,7 +1557,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
 #endif
   Handle(StepData_StepModel) aStepModel = Handle(StepData_StepModel)::DownCast(TP->Model());
   //: S4136
-  StepData_Factors                aLocalFactors = theLocalFactors;
+  ConversionFactors                aLocalFactors = theLocalFactors;
   Handle(StepRepr_Representation) oldSRContext  = mySRContext;
   if (mySRContext.IsNull())
   { // if no context, try to find it (ex: r0701_ug.stp #4790)
@@ -1725,7 +1725,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
 Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   const Handle(StepRepr_MappedItem)&       mapit,
   const Handle(Transfer_TransientProcess)& TP,
-  const StepData_Factors&                  theLocalFactors,
+  const ConversionFactors&                  theLocalFactors,
   const Message_ProgressRange&             theProgress)
 {
   Handle(TransferBRep_ShapeBinder) shbinder;
@@ -1751,7 +1751,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
     TP->AddWarning(mapit, "No Shape Produced");
   else
   {
-    TopoDS_Shape mappedShape = shbinder->Result();
+    TopoShape mappedShape = shbinder->Result();
     if (!mappedShape.IsNull())
     {
       //  Positionnement : 2 formules
@@ -1765,7 +1765,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
         Handle(StepGeom_CartesianTransformationOperator3d)::DownCast(mapit->MappingTarget());
       if (!CartOp.IsNull())
       {
-        ok = StepToGeom::MakeTransformation3d(CartOp, Trsf, theLocalFactors);
+        ok = StepToGeom1::MakeTransformation3d(CartOp, Trsf, theLocalFactors);
       }
       else
       {
@@ -1790,9 +1790,9 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
       shbinder = new TransferBRep_ShapeBinder(mappedShape);
     }
   }
-  TopoDS_Compound aCund;
-  TopoDS_Shape    aResult;
-  BRep_Builder    aBuilder;
+  TopoCompound aCund;
+  TopoShape    aResult;
+  ShapeBuilder    aBuilder;
   aBuilder.MakeCompound(aCund);
   if (!shbinder.IsNull())
   {
@@ -1810,7 +1810,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
     for (Interface_EntityIterator aSubsIt(aGraph.Sharings(maprep)); aSubsIt.More(); aSubsIt.Next())
       ++aSRRnum;
     Message_ProgressScope aPS(aPSRoot.Next(), "Part", aSRRnum);
-    TopoDS_Shape          aNewResult = TransferRelatedSRR(TP,
+    TopoShape          aNewResult = TransferRelatedSRR(TP,
                                                  maprep,
                                                  Standard_False,
                                                  aStepModel->InternalParameters.ReadConstrRelation,
@@ -1838,7 +1838,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
 Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
   const Handle(StepShape_FaceSurface)&     fs,
   const Handle(Transfer_TransientProcess)& TP,
-  const StepData_Factors&                  theLocalFactors,
+  const ConversionFactors&                  theLocalFactors,
   const Message_ProgressRange&             theProgress)
 {
 
@@ -1858,10 +1858,10 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
     myTF.SetMaxTol(myMaxTol);
 
     // Non-manifold topology is not processed here (ssv; 15.11.2010)
-    StepToTopoDS_NMTool dummyNMTool;
+    NamingTool2 dummyNMTool;
     myTF.Init(fs, myTool, dummyNMTool, theLocalFactors);
     Handle(StepRepr_Representation) oldSRContext  = mySRContext;
-    StepData_Factors                aLocalFactors = theLocalFactors;
+    ConversionFactors                aLocalFactors = theLocalFactors;
     Handle(StepData_StepModel)      aStepModel = Handle(StepData_StepModel)::DownCast(TP->Model());
     if (mySRContext.IsNull())
     { // if no context, try to find it (ex: r0701_ug.stp #4790)
@@ -1880,13 +1880,13 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
     sb                             = Handle(TransferBRep_ShapeBinder)::DownCast(binder);
     if (!sb.IsNull() && !sb->Result().IsNull())
     {
-      TopoDS_Shape S = sb->Result();
+      TopoShape S = sb->Result();
 
       XSAlgo_ShapeProcessor::ParameterMap aParameters = GetShapeFixParameters();
       XSAlgo_ShapeProcessor::SetParameter("FixShape.Tolerance3d", myPrecision, true, aParameters);
       XSAlgo_ShapeProcessor::SetParameter("FixShape.MaxTolerance3d", myMaxTol, true, aParameters);
       XSAlgo_ShapeProcessor aShapeProcessor(aParameters);
-      TopoDS_Shape shape = aShapeProcessor.ProcessShape(S, GetProcessingFlags().first, theProgress);
+      TopoShape shape = aShapeProcessor.ProcessShape(S, GetProcessingFlags().first, theProgress);
       aShapeProcessor.MergeTransferInfo(TP, nbTPitems);
 
       if (shape != S)
@@ -1916,7 +1916,7 @@ Handle(TransferBRep_ShapeBinder) STEPControl_ActorRead::TransferEntity(
 Handle(Transfer_Binder) STEPControl_ActorRead::TransferShape(
   const Handle(RefObject)&        start,
   const Handle(Transfer_TransientProcess)& TP,
-  const StepData_Factors&                  theLocalFactors,
+  const ConversionFactors&                  theLocalFactors,
   const Standard_Boolean                   isManifold,
   const Standard_Boolean                   theUseTrsf,
   const Message_ProgressRange&             theProgress)
@@ -2015,7 +2015,7 @@ Handle(Transfer_Binder) STEPControl_ActorRead::TransferShape(
 
 void STEPControl_ActorRead::PrepareUnits(const Handle(StepRepr_Representation)&   rep,
                                          const Handle(Transfer_TransientProcess)& TP,
-                                         StepData_Factors&                        theLocalFactors)
+                                         ConversionFactors&                        theLocalFactors)
 {
   mySRContext                       = rep;
   Handle(StepData_StepModel) aModel = Handle(StepData_StepModel)::DownCast(TP->Model());
@@ -2116,7 +2116,7 @@ void STEPControl_ActorRead::PrepareUnits(const Handle(StepRepr_Representation)& 
 //=================================================================================================
 
 void STEPControl_ActorRead::ResetUnits(Handle(StepData_StepModel)& theModel,
-                                       StepData_Factors&           theLocalFactors)
+                                       ConversionFactors&           theLocalFactors)
 {
   theLocalFactors.InitializeFactors(1, 1, 1);
   myPrecision = theModel->InternalParameters.ReadPrecisionVal;
@@ -2133,7 +2133,7 @@ Standard_Boolean STEPControl_ActorRead::ComputeTransformation(
   const Handle(StepRepr_Representation)&   TargContext,
   const Handle(Transfer_TransientProcess)& TP,
   Transform3d&                                 Trsf,
-  const StepData_Factors&                  theLocalFactors)
+  const ConversionFactors&                  theLocalFactors)
 {
   Trsf = Transform3d(); // reinit
   if (Origin.IsNull() || Target.IsNull())
@@ -2176,13 +2176,13 @@ Standard_Boolean STEPControl_ActorRead::ComputeTransformation(
 
   // translate axis_placements taking units into account
   Handle(StepRepr_Representation) oldSRContext  = mySRContext;
-  StepData_Factors                aLocalFactors = theLocalFactors;
+  ConversionFactors                aLocalFactors = theLocalFactors;
   if (OrigContext != oldSRContext)
     PrepareUnits(OrigContext, TP, aLocalFactors);
-  Handle(Geom_Axis2Placement) theOrig = StepToGeom::MakeAxis2Placement(org, aLocalFactors);
+  Handle(Geom_Axis2Placement) theOrig = StepToGeom1::MakeAxis2Placement(org, aLocalFactors);
   if (TargContext != OrigContext)
     PrepareUnits(TargContext, TP, aLocalFactors);
-  Handle(Geom_Axis2Placement) theTarg = StepToGeom::MakeAxis2Placement(trg, aLocalFactors);
+  Handle(Geom_Axis2Placement) theTarg = StepToGeom1::MakeAxis2Placement(trg, aLocalFactors);
   if (oldSRContext != TargContext)
     PrepareUnits(oldSRContext, TP, aLocalFactors);
 
@@ -2201,7 +2201,7 @@ Standard_Boolean STEPControl_ActorRead::ComputeSRRWT(
   const Handle(StepRepr_RepresentationRelationship)& SRR,
   const Handle(Transfer_TransientProcess)&           TP,
   Transform3d&                                           Trsf,
-  const StepData_Factors&                            theLocalFactors)
+  const ConversionFactors&                            theLocalFactors)
 {
   Trsf = Transform3d(); // init
 
@@ -2210,7 +2210,7 @@ Standard_Boolean STEPControl_ActorRead::ComputeSRRWT(
     return Standard_False;
 
   StepRepr_Transformation SelectTrans   = srwt->TransformationOperator();
-  StepData_Factors        aLocalFactors = theLocalFactors;
+  ConversionFactors        aLocalFactors = theLocalFactors;
   // cartesian transformation
   Handle(StepGeom_CartesianTransformationOperator3d) CartOp =
     Handle(StepGeom_CartesianTransformationOperator3d)::DownCast(SelectTrans.Value());
@@ -2220,7 +2220,7 @@ Standard_Boolean STEPControl_ActorRead::ComputeSRRWT(
     Handle(StepRepr_Representation) oldSRContext = mySRContext;
     if (SRR->Rep2() != oldSRContext)
       PrepareUnits(SRR->Rep2(), TP, aLocalFactors);
-    StepToGeom::MakeTransformation3d(CartOp, Trsf, aLocalFactors);
+    StepToGeom1::MakeTransformation3d(CartOp, Trsf, aLocalFactors);
     if (SRR->Rep2() != oldSRContext)
       PrepareUnits(oldSRContext, TP, aLocalFactors);
     return Trsf.Form() != gp_Identity;
@@ -2246,35 +2246,35 @@ Standard_Boolean STEPControl_ActorRead::ComputeSRRWT(
 //           Shells. Cuts redundant Faces from the closing Shells if any
 //=======================================================================
 
-TopoDS_Shell STEPControl_ActorRead::closeIDEASShell(const TopoDS_Shell&         shell,
-                                                    const TopTools_ListOfShape& closingShells)
+TopoShell STEPControl_ActorRead::closeIDEASShell(const TopoShell&         shell,
+                                                    const ShapeList& closingShells)
 {
 
   // Make Shell to provide closeness adjustments
-  TopoDS_Shell result;
-  BRep_Builder brepBuilder;
+  TopoShell result;
+  ShapeBuilder brepBuilder;
   brepBuilder.MakeShell(result);
 
   // Firstly, add all existing faces to the new Shell
-  TopExp_Explorer currentFExp(shell, TopAbs_FACE);
+  ShapeExplorer currentFExp(shell, TopAbs_FACE);
   for (; currentFExp.More(); currentFExp.Next())
   {
-    TopoDS_Face currentFace = TopoDS::Face(currentFExp.Current());
+    TopoFace currentFace = TopoDS::Face(currentFExp.Current());
     brepBuilder.Add(result, currentFace);
   }
 
   TopTools_ListIteratorOfListOfShape itL(closingShells);
-  TopTools_ListOfShape               closingFaces;
+  ShapeList               closingFaces;
 
   // Then add the closing faces
   for (; itL.More(); itL.Next())
   {
-    TopoDS_Shape    currentClosing = itL.Value();
-    TopExp_Explorer faceExp(currentClosing, TopAbs_FACE);
+    TopoShape    currentClosing = itL.Value();
+    ShapeExplorer faceExp(currentClosing, TopAbs_FACE);
 
     for (; faceExp.More(); faceExp.Next())
     {
-      TopoDS_Face currentFace = TopoDS::Face(faceExp.Current());
+      TopoFace currentFace = TopoDS::Face(faceExp.Current());
       brepBuilder.Add(result, currentFace);
       // Store each added closing face for subsequent processing
       closingFaces.Append(currentFace);
@@ -2292,7 +2292,7 @@ TopoDS_Shell STEPControl_ActorRead::closeIDEASShell(const TopoDS_Shell&         
   // Try to remove redundant Faces
   for (itL.Initialize(closingFaces); itL.More(); itL.Next())
   {
-    TopoDS_Face currentFace = TopoDS::Face(itL.Value());
+    TopoFace currentFace = TopoDS::Face(itL.Value());
     // Remove face to see if Shell is still closed
     brepBuilder.Remove(result, currentFace);
     BRepCheck_Shell  subChecker(TopoDS::Shell(result));
@@ -2319,20 +2319,20 @@ TopoDS_Shell STEPControl_ActorRead::closeIDEASShell(const TopoDS_Shell&         
 //=======================================================================
 
 void STEPControl_ActorRead::computeIDEASClosings(
-  const TopoDS_Compound&                     comp,
+  const TopoCompound&                     comp,
   TopTools_IndexedDataMapOfShapeListOfShape& shellClosingsMap)
 {
-  TopExp_Explorer shellExpA(comp, TopAbs_SHELL);
+  ShapeExplorer shellExpA(comp, TopAbs_SHELL);
 
   for (; shellExpA.More(); shellExpA.Next())
   {
-    const TopoDS_Shape&  shellA = shellExpA.Current();
-    TopExp_Explorer      shellExpB(comp, TopAbs_SHELL);
-    TopTools_ListOfShape closingShells;
+    const TopoShape&  shellA = shellExpA.Current();
+    ShapeExplorer      shellExpB(comp, TopAbs_SHELL);
+    ShapeList closingShells;
 
     for (; shellExpB.More(); shellExpB.Next())
     {
-      const TopoDS_Shape& shellB = shellExpB.Current();
+      const TopoShape& shellB = shellExpB.Current();
       if (shellA.IsSame(shellB))
         continue;
       // Check whether ShellB is non-manifold and adjacent to ShellA.
@@ -2359,17 +2359,17 @@ void STEPControl_ActorRead::SetModel(const Handle(Interface_InterfaceModel)& the
 // Method  : TransferRelatedSRR
 // Purpose : Helper method to transfer SRR related to the representation
 //=======================================================================
-TopoDS_Shape STEPControl_ActorRead::TransferRelatedSRR(
+TopoShape STEPControl_ActorRead::TransferRelatedSRR(
   const Handle(Transfer_TransientProcess)&     theTP,
   const Handle(StepShape_ShapeRepresentation)& theRep,
   const Standard_Boolean                       theUseTrsf,
   const Standard_Boolean                       theReadConstructiveGeomRR,
-  const StepData_Factors&                      theLocalFactors,
-  TopoDS_Compound&                             theCund,
+  const ConversionFactors&                      theLocalFactors,
+  TopoCompound&                             theCund,
   Message_ProgressScope&                       thePS)
 {
-  BRep_Builder           aBuilder;
-  TopoDS_Shape           aResult;
+  ShapeBuilder           aBuilder;
+  TopoShape           aResult;
   const Interface_Graph& aGraph = theTP->Graph();
   for (Interface_EntityIterator aSubsIt(aGraph.Sharings(theRep)); aSubsIt.More() && thePS.More();
        aSubsIt.Next())

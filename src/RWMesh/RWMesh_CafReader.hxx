@@ -23,7 +23,7 @@
 #include <TDF_Label.hxx>
 #include <TopTools_SequenceOfShape.hxx>
 
-class TDocStd_Document;
+class AppDocument;
 class XCAFDoc_ShapeTool;
 class XCAFDoc_ColorTool;
 class XCAFDoc_VisMaterialTool;
@@ -39,7 +39,7 @@ enum RWMesh_CafReaderStatusEx
 //! The general interface for importing mesh data into XDE document.
 //!
 //! The tool implements auxiliary structures for creating an XDE document in two steps:
-//! 1) Creating TopoDS_Shape hierarchy (myRootShapes)
+//! 1) Creating TopoShape hierarchy (myRootShapes)
 //!    and Shape attributes (myAttribMap) separately within performMesh().
 //!    Attributes include names and styles.
 //! 2) Filling XDE document from these auxiliary structures.
@@ -57,8 +57,8 @@ public:
     Handle(XCAFDoc_ShapeTool)                                             ShapeTool;
     Handle(XCAFDoc_ColorTool)                                             ColorTool;
     Handle(XCAFDoc_VisMaterialTool)                                       VisMaterialTool;
-    NCollection_DataMap<TopoDS_Shape, TDF_Label, TopTools_ShapeMapHasher> ComponentMap;
-    NCollection_DataMap<TopoDS_Shape, TDF_Label, TopTools_ShapeMapHasher> OriginalShapeMap;
+    NCollection_DataMap<TopoShape, DataLabel, ShapeHasher> ComponentMap;
+    NCollection_DataMap<TopoShape, DataLabel, ShapeHasher> OriginalShapeMap;
   };
 
 public:
@@ -69,17 +69,17 @@ public:
   Standard_EXPORT virtual ~RWMesh_CafReader();
 
   //! Return target document.
-  const Handle(TDocStd_Document)& Document() const { return myXdeDoc; }
+  const Handle(AppDocument)& Document() const { return myXdeDoc; }
 
   //! Set target document.
   //! Set system length unit according to the units of the document
-  Standard_EXPORT void SetDocument(const Handle(TDocStd_Document)& theDoc);
+  Standard_EXPORT void SetDocument(const Handle(AppDocument)& theDoc);
 
   //! Return prefix for generating root labels names.
-  const TCollection_AsciiString& RootPrefix() const { return myRootPrefix; }
+  const AsciiString1& RootPrefix() const { return myRootPrefix; }
 
   //! Set prefix for generating root labels names
-  void SetRootPrefix(const TCollection_AsciiString& theRootPrefix) { myRootPrefix = theRootPrefix; }
+  void SetRootPrefix(const AsciiString1& theRootPrefix) { myRootPrefix = theRootPrefix; }
 
   //! Flag indicating if partially read file content should be put into the XDE document, TRUE by
   //! default.
@@ -191,7 +191,7 @@ public:
 public:
   //! Open stream and pass it to Perform method.
   //! The Document instance should be set beforehand.
-  bool Perform(const TCollection_AsciiString& theFile, const Message_ProgressRange& theProgress)
+  bool Perform(const AsciiString1& theFile, const Message_ProgressRange& theProgress)
   {
     std::ifstream aStream;
     OSD_OpenStream(aStream, theFile, std::ios_base::in | std::ios_base::binary);
@@ -201,7 +201,7 @@ public:
   //! Read the data from specified file.
   bool Perform(std::istream&                  theStream,
                const Message_ProgressRange&   theProgress,
-               const TCollection_AsciiString& theFile = "")
+               const AsciiString1& theFile = "")
   {
     return perform(theStream, theFile, theProgress, Standard_False);
   }
@@ -212,10 +212,10 @@ public:
 
 public:
   //! Return result as a single shape.
-  Standard_EXPORT TopoDS_Shape SingleShape() const;
+  Standard_EXPORT TopoShape SingleShape() const;
 
   //! Return the list of complementary files - external references (textures, data, etc.).
-  const NCollection_IndexedMap<TCollection_AsciiString>& ExternalFiles() const
+  const NCollection_IndexedMap<AsciiString1>& ExternalFiles() const
   {
     return myExternalFiles;
   }
@@ -224,7 +224,7 @@ public:
   const TColStd_IndexedDataMapOfStringString& Metadata() const { return myMetadata; }
 
   //! Open stream and pass it to ProbeHeader method.
-  Standard_Boolean ProbeHeader(const TCollection_AsciiString& theFile,
+  Standard_Boolean ProbeHeader(const AsciiString1& theFile,
                                const Message_ProgressRange&   theProgress = Message_ProgressRange())
   {
     std::ifstream aStream;
@@ -236,7 +236,7 @@ public:
   //! The main purpose is collecting metadata and external references - for copying model into a new
   //! location, for example. Can be NOT implemented (unsupported by format / reader).
   Standard_Boolean ProbeHeader(std::istream&                  theStream,
-                               const TCollection_AsciiString& theFile     = "",
+                               const AsciiString1& theFile     = "",
                                const Message_ProgressRange&   theProgress = Message_ProgressRange())
   {
     return perform(theStream, theFile, theProgress, Standard_True);
@@ -248,7 +248,7 @@ protected:
   //! @param optional   progress indicator
   //! @param theToProbe flag indicating that mesh data should be skipped and only basing information
   //! to be read
-  Standard_EXPORT virtual Standard_Boolean perform(const TCollection_AsciiString& theFile,
+  Standard_EXPORT virtual Standard_Boolean perform(const AsciiString1& theFile,
                                                    const Message_ProgressRange&   theProgress,
                                                    const Standard_Boolean         theToProbe);
 
@@ -260,12 +260,12 @@ protected:
   //! @param theToProbe flag indicating that mesh data should be skipped and only basing information
   //! to be read
   Standard_EXPORT virtual Standard_Boolean perform(std::istream&                  theStream,
-                                                   const TCollection_AsciiString& theFile,
+                                                   const AsciiString1& theFile,
                                                    const Message_ProgressRange&   theProgress,
                                                    const Standard_Boolean         theToProbe);
 
   //! Read the mesh from specified file
-  Standard_EXPORT virtual Standard_Boolean performMesh(const TCollection_AsciiString& theFile,
+  Standard_EXPORT virtual Standard_Boolean performMesh(const AsciiString1& theFile,
                                                        const Message_ProgressRange&   theProgress,
                                                        const Standard_Boolean         theToProbe)
   {
@@ -276,7 +276,7 @@ protected:
 
   //! Read the mesh from specified file - interface to be implemented by sub-classes.
   Standard_EXPORT virtual Standard_Boolean performMesh(std::istream&                  theStream,
-                                                       const TCollection_AsciiString& theFile,
+                                                       const AsciiString1& theFile,
                                                        const Message_ProgressRange&   theProgress,
                                                        const Standard_Boolean theToProbe) = 0;
 
@@ -287,54 +287,54 @@ protected:
 
   //! Append new shape into the document (recursively).
   Standard_EXPORT Standard_Boolean addShapeIntoDoc(CafDocumentTools&              theTools,
-                                                   const TopoDS_Shape&            theShape,
-                                                   const TDF_Label&               theLabel,
-                                                   const TCollection_AsciiString& theParentName);
+                                                   const TopoShape&            theShape,
+                                                   const DataLabel&               theLabel,
+                                                   const AsciiString1& theParentName);
 
   //! Append new sub-shape into the document (recursively).
   Standard_EXPORT Standard_Boolean addSubShapeIntoDoc(CafDocumentTools&   theTools,
-                                                      const TopoDS_Shape& theShape,
-                                                      const TDF_Label&    theParentLabel);
+                                                      const TopoShape& theShape,
+                                                      const DataLabel&    theParentLabel);
 
   //! Put name attribute onto the label.
-  Standard_EXPORT void setShapeName(const TDF_Label&               theLabel,
+  Standard_EXPORT void setShapeName(const DataLabel&               theLabel,
                                     const TopAbs_ShapeEnum         theShapeType,
-                                    const TCollection_AsciiString& theName,
-                                    const TDF_Label&               theParentLabel,
-                                    const TCollection_AsciiString& theParentName);
+                                    const AsciiString1& theName,
+                                    const DataLabel&               theParentLabel,
+                                    const AsciiString1& theParentName);
 
   //! Put color and material attributes onto the label.
   Standard_EXPORT void setShapeStyle(const CafDocumentTools& theTools,
-                                     const TDF_Label&        theLabel,
+                                     const DataLabel&        theLabel,
                                      const XCAFPrs_Style&    theStyle);
 
   //! Put name data (metadata) attribute onto the label.
   Standard_EXPORT void setShapeNamedData(const CafDocumentTools&           theTools,
-                                         const TDF_Label&                  theLabel,
+                                         const DataLabel&                  theLabel,
                                          const Handle(TDataStd_NamedData)& theNameData);
 
   //! Generate names for root labels starting from specified index.
-  Standard_EXPORT void generateNames(const TCollection_AsciiString& theFile,
+  Standard_EXPORT void generateNames(const AsciiString1& theFile,
                                      const Standard_Integer         theRootLower,
                                      const Standard_Boolean         theWithSubLabels);
 
   //! Return shape type as string.
-  //! @sa TopAbs::ShapeTypeToString()
-  static TCollection_AsciiString shapeTypeToString(TopAbs_ShapeEnum theType)
+  //! @sa TopAbs1::ShapeTypeToString()
+  static AsciiString1 shapeTypeToString(TopAbs_ShapeEnum theType)
   {
-    TCollection_AsciiString aString = TopAbs::ShapeTypeToString(theType);
+    AsciiString1 aString = TopAbs1::ShapeTypeToString(theType);
     aString.Capitalize();
     return aString;
   }
 
 protected:
-  Handle(TDocStd_Document) myXdeDoc; //!< target document
+  Handle(AppDocument) myXdeDoc; //!< target document
 
   TColStd_IndexedDataMapOfStringString myMetadata; //!< metadata map
-  NCollection_IndexedMap<TCollection_AsciiString>
+  NCollection_IndexedMap<AsciiString1>
     // clang-format off
                             myExternalFiles;     //!< the list of complementary files - external references (textures, data, etc.)
-  TCollection_AsciiString   myRootPrefix;        //!< root folder for generating root labels names
+  AsciiString1   myRootPrefix;        //!< root folder for generating root labels names
   TopTools_SequenceOfShape  myRootShapes;        //!< sequence of result root shapes
   RWMesh_NodeAttributeMap   myAttribMap;         //!< map of per-shape attributes
 

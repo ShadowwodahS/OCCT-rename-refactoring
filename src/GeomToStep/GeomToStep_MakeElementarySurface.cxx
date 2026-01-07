@@ -41,7 +41,7 @@
 //=============================================================================
 GeomToStep_MakeElementarySurface::GeomToStep_MakeElementarySurface(
   const Handle(Geom_ElementarySurface)& S,
-  const StepData_Factors&               theLocalFactors)
+  const ConversionFactors&               theLocalFactors)
 {
   done = Standard_True;
   if (S->IsKind(STANDARD_TYPE(Geom_CylindricalSurface)))
@@ -68,9 +68,9 @@ GeomToStep_MakeElementarySurface::GeomToStep_MakeElementarySurface(
     GeomToStep_MakeToroidalSurface MkToroidal(Sur, theLocalFactors);
     theElementarySurface = MkToroidal.Value();
   }
-  else if (S->IsKind(STANDARD_TYPE(Geom_Plane)))
+  else if (S->IsKind(STANDARD_TYPE(GeomPlane)))
   {
-    Handle(Geom_Plane)   Sur = Handle(Geom_Plane)::DownCast(S);
+    Handle(GeomPlane)   Sur = Handle(GeomPlane)::DownCast(S);
     GeomToStep_MakePlane MkPlane(Sur, theLocalFactors);
     theElementarySurface = MkPlane.Value();
   }

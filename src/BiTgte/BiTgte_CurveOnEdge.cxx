@@ -46,7 +46,7 @@ BiTgte_CurveOnEdge::BiTgte_CurveOnEdge()
 
 //=================================================================================================
 
-BiTgte_CurveOnEdge::BiTgte_CurveOnEdge(const TopoDS_Edge& theEonF, const TopoDS_Edge& theEdge)
+BiTgte_CurveOnEdge::BiTgte_CurveOnEdge(const TopoEdge& theEonF, const TopoEdge& theEdge)
     : myEdge(theEdge),
       myEonF(theEonF),
       myType(GeomAbs_OtherCurve)
@@ -72,16 +72,16 @@ Handle(Adaptor3d_Curve) BiTgte_CurveOnEdge::ShallowCopy() const
 
 //=================================================================================================
 
-void BiTgte_CurveOnEdge::Init(const TopoDS_Edge& EonF, const TopoDS_Edge& Edge)
+void BiTgte_CurveOnEdge::Init(const TopoEdge& EonF, const TopoEdge& Edge)
 {
   Standard_Real f, l;
 
   myEdge = Edge;
-  myCurv = BRep_Tool::Curve(myEdge, f, l);
+  myCurv = BRepInspector::Curve(myEdge, f, l);
   myCurv = new Geom_TrimmedCurve(myCurv, f, l);
 
   myEonF = EonF;
-  myConF = BRep_Tool::Curve(myEonF, f, l);
+  myConF = BRepInspector::Curve(myEonF, f, l);
   myConF = new Geom_TrimmedCurve(myConF, f, l);
 
   // peut on generer un cercle de rayon nul
@@ -297,14 +297,14 @@ Standard_Integer BiTgte_CurveOnEdge::NbKnots() const
 
 //=================================================================================================
 
-Handle(Geom_BezierCurve) BiTgte_CurveOnEdge::Bezier() const
+Handle(BezierCurve3d) BiTgte_CurveOnEdge::Bezier() const
 {
   throw Standard_NotImplemented("BiTgte_CurveOnEdge");
 }
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) BiTgte_CurveOnEdge::BSpline() const
+Handle(BSplineCurve3d) BiTgte_CurveOnEdge::BSpline() const
 {
   throw Standard_NotImplemented("BiTgte_CurveOnEdge");
 }

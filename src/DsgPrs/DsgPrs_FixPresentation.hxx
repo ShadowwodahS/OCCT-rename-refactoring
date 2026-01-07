@@ -38,7 +38,7 @@ public:
   //! ( which belongs to the fixed object) and <aPntEnd>.
   //! aSymbSize is the size of the 'fix'symbol
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Point3d&                     aPntAttach,
                                   const Point3d&                     aPntEnd,
                                   const Dir3d&                     aNormPln,

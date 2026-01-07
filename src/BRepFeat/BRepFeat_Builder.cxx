@@ -59,7 +59,7 @@ void BRepFeat_Builder::Clear()
 
 //=================================================================================================
 
-void BRepFeat_Builder::Init(const TopoDS_Shape& theShape)
+void BRepFeat_Builder::Init(const TopoShape& theShape)
 {
   Clear();
   //
@@ -68,7 +68,7 @@ void BRepFeat_Builder::Init(const TopoDS_Shape& theShape)
 
 //=================================================================================================
 
-void BRepFeat_Builder::Init(const TopoDS_Shape& theShape, const TopoDS_Shape& theTool)
+void BRepFeat_Builder::Init(const TopoShape& theShape, const TopoShape& theTool)
 {
   Clear();
   //
@@ -101,40 +101,40 @@ void BRepFeat_Builder::SetOperation(const Standard_Integer theFuse, const Standa
 
 //=================================================================================================
 
-void BRepFeat_Builder::PartsOfTool(TopTools_ListOfShape& aLT)
+void BRepFeat_Builder::PartsOfTool(ShapeList& aLT)
 {
-  TopExp_Explorer aExp;
+  ShapeExplorer aExp;
   //
   aLT.Clear();
   aExp.Init(myShape, TopAbs_SOLID);
   for (; aExp.More(); aExp.Next())
   {
-    const TopoDS_Shape& aS = aExp.Current();
+    const TopoShape& aS = aExp.Current();
     aLT.Append(aS);
   }
 }
 
 //=================================================================================================
 
-void BRepFeat_Builder::KeepParts(const TopTools_ListOfShape& theIm)
+void BRepFeat_Builder::KeepParts(const ShapeList& theIm)
 {
   TopTools_ListIteratorOfListOfShape aItT;
   aItT.Initialize(theIm);
   for (; aItT.More(); aItT.Next())
   {
-    const TopoDS_Shape& aTIm = aItT.Value();
+    const TopoShape& aTIm = aItT.Value();
     KeepPart(aTIm);
   }
 }
 
 //=================================================================================================
 
-void BRepFeat_Builder::KeepPart(const TopoDS_Shape& thePart)
+void BRepFeat_Builder::KeepPart(const TopoShape& thePart)
 {
-  TopoDS_Shape    aF, aFOr;
-  TopExp_Explorer aExp;
+  TopoShape    aF, aFOr;
+  ShapeExplorer aExp;
   //
-  TopExp::MapShapes(thePart, myShapes);
+  TopExp1::MapShapes(thePart, myShapes);
 }
 
 //=================================================================================================
@@ -143,8 +143,8 @@ void BRepFeat_Builder::Prepare()
 {
   GetReport()->Clear();
   //
-  BRep_Builder    aBB;
-  TopoDS_Compound aC;
+  ShapeBuilder    aBB;
+  TopoCompound aC;
   aBB.MakeCompound(aC);
   myShape = aC;
   //
@@ -155,15 +155,15 @@ void BRepFeat_Builder::Prepare()
 
 void BRepFeat_Builder::FillRemoved()
 {
-  TopExp_Explorer aExp;
+  ShapeExplorer aExp;
   //
-  const TopoDS_Shape& aArgs0 = myArguments.First();
-  const TopoDS_Shape& aArgs1 = myTools.First();
+  const TopoShape& aArgs0 = myArguments.First();
+  const TopoShape& aArgs1 = myTools.First();
   //
   aExp.Init(aArgs0, TopAbs_SOLID);
   for (; aExp.More(); aExp.Next())
   {
-    const TopoDS_Shape& aS = aExp.Current();
+    const TopoShape& aS = aExp.Current();
     myImages.UnBind(aS);
   }
   //
@@ -174,11 +174,11 @@ void BRepFeat_Builder::FillRemoved()
   //
   TopTools_ListIteratorOfListOfShape aItIm;
   //
-  TopTools_ListOfShape& aLS = myImages.ChangeFind(aArgs1);
+  ShapeList& aLS = myImages.ChangeFind(aArgs1);
   aItIm.Initialize(aLS);
   for (; aItIm.More(); aItIm.Next())
   {
-    const TopoDS_Shape& aS = aItIm.Value();
+    const TopoShape& aS = aItIm.Value();
     FillRemoved(aS, myRemoved);
   }
 }
@@ -206,7 +206,7 @@ void BRepFeat_Builder::PerformResult(const Message_ProgressRange& theRange)
     for (Standard_Integer i = 0; i < aSize; ++i)
       aSteps(i) = 0.;
 
-    NbShapes      aNbShapes       = getNbShapes();
+    NbShapes1      aNbShapes       = getNbShapes();
     Standard_Real aTreatFaces     = 5 * aNbShapes.NbFaces();
     Standard_Real aTreatShells    = aNbShapes.NbShells();
     Standard_Real aTreatSolids    = 20 * aNbShapes.NbSolids();
@@ -269,21 +269,21 @@ void BRepFeat_Builder::RebuildFaces()
   Standard_Integer    aNbS, i, iRank, nSp, j;
   Standard_Boolean    bIsClosed, bIsDegenerated, bToReverse, bRem, bIm, bFlagSD, bVInShapes;
   TopAbs_Orientation  anOriF, anOriE;
-  TopoDS_Face         aFF, aFSD;
-  TopoDS_Edge         aSp;
-  TopoDS_Shape        aSx;
-  TopExp_Explorer     aExp, aExpE;
+  TopoFace         aFF, aFSD;
+  TopoEdge         aSp;
+  TopoShape        aSx;
+  ShapeExplorer     aExp, aExpE;
   TopTools_MapOfShape aME, aMESplit;
   TopTools_ListIteratorOfListOfShape aItIm;
   BOPDS_MapIteratorOfMapOfPaveBlock  aItMPB;
   TopTools_MapIteratorOfMapOfShape   aItM;
   BOPTools_MapOfSet                  aMST;
-  TopTools_ListOfShape               aLE;
+  ShapeList               aLE;
   //
   aItM.Initialize(myShapes);
   for (; aItM.More(); aItM.Next())
   {
-    const TopoDS_Shape& aS = aItM.Value();
+    const TopoShape& aS = aItM.Value();
     if (aS.ShapeType() == TopAbs_FACE)
     {
       BOPTools_Set aST;
@@ -300,15 +300,15 @@ void BRepFeat_Builder::RebuildFaces()
     iRank = myDS->Rank(i);
     if (iRank == 1)
     {
-      const TopoDS_Shape& aS = aSI.Shape();
+      const TopoShape& aS = aSI.Shape();
       //
       if (myImages.IsBound(aS))
       {
-        TopTools_ListOfShape& aLIm = myImages.ChangeFind(aS);
+        ShapeList& aLIm = myImages.ChangeFind(aS);
         aItIm.Initialize(aLIm);
         for (; aItIm.More();)
         {
-          const TopoDS_Shape& aSIm = aItIm.Value();
+          const TopoShape& aSIm = aItIm.Value();
           if (!myShapes.Contains(aSIm))
           {
             aLIm.Remove(aItIm);
@@ -326,7 +326,7 @@ void BRepFeat_Builder::RebuildFaces()
     }
     //
     const BOPDS_FaceInfo& aFI = myDS->FaceInfo(i);
-    const TopoDS_Face&    aF  = (*(TopoDS_Face*)(&aSI.Shape()));
+    const TopoFace&    aF  = (*(TopoFace*)(&aSI.Shape()));
     //
     if (!myImages.IsBound(aF))
     {
@@ -346,23 +346,23 @@ void BRepFeat_Builder::RebuildFaces()
     aExp.Init(aFF, TopAbs_EDGE);
     for (; aExp.More(); aExp.Next())
     {
-      const TopoDS_Edge& aE = (*(TopoDS_Edge*)(&aExp.Current()));
+      const TopoEdge& aE = (*(TopoEdge*)(&aExp.Current()));
       anOriE                = aE.Orientation();
-      bIsDegenerated        = BRep_Tool::Degenerated(aE);
-      bIsClosed             = BRep_Tool::IsClosed(aE, aF);
+      bIsDegenerated        = BRepInspector::Degenerated(aE);
+      bIsClosed             = BRepInspector::IsClosed(aE, aF);
       if (myImages.IsBound(aE))
       {
-        TopTools_ListOfShape& aLEIm = myImages.ChangeFind(aE);
+        ShapeList& aLEIm = myImages.ChangeFind(aE);
         //
         bRem = Standard_False;
         bIm  = Standard_False;
         aME.Clear();
-        TopTools_ListOfShape aLEImNew;
+        ShapeList aLEImNew;
         //
         aItIm.Initialize(aLEIm);
         for (; aItIm.More(); aItIm.Next())
         {
-          const TopoDS_Shape& aS = aItIm.Value();
+          const TopoShape& aS = aItIm.Value();
 
           bVInShapes = Standard_False;
           if (myShapes.Contains(aS))
@@ -374,7 +374,7 @@ void BRepFeat_Builder::RebuildFaces()
             aExpE.Init(aS, TopAbs_VERTEX);
             for (; aExpE.More(); aExpE.Next())
             {
-              const TopoDS_Shape& aV = aExpE.Current();
+              const TopoShape& aV = aExpE.Current();
               if (myShapes.Contains(aV))
               {
                 bVInShapes = Standard_True;
@@ -423,7 +423,7 @@ void BRepFeat_Builder::RebuildFaces()
         aItIm.Initialize(aLEIm);
         for (; aItIm.More(); aItIm.Next())
         {
-          aSp = *(TopoDS_Edge*)&aItIm.Value();
+          aSp = *(TopoEdge*)&aItIm.Value();
 
           if (bIsDegenerated)
           {
@@ -443,9 +443,9 @@ void BRepFeat_Builder::RebuildFaces()
           //
           if (bIsClosed)
           {
-            if (!BRep_Tool::IsClosed(aSp, aFF))
+            if (!BRepInspector::IsClosed(aSp, aFF))
             {
-              BOPTools_AlgoTools3D::DoSplitSEAMOnFace(aSp, aFF);
+              AlgoTools3D::DoSplitSEAMOnFace(aSp, aFF);
             }
             //
             aSp.Orientation(TopAbs_FORWARD);
@@ -456,7 +456,7 @@ void BRepFeat_Builder::RebuildFaces()
           } // if (bIsClosed){
           //
           aSp.Orientation(anOriE);
-          bToReverse = BOPTools_AlgoTools::IsSplitToReverse(aSp, aE, myContext);
+          bToReverse = AlgoTools::IsSplitToReverse(aSp, aE, myContext);
           if (bToReverse)
           {
             aSp.Reverse();
@@ -479,7 +479,7 @@ void BRepFeat_Builder::RebuildFaces()
     {
       const Handle(BOPDS_PaveBlock)& aPB = aMPBIn(j);
       nSp                                = aPB->Edge();
-      aSp                                = (*(TopoDS_Edge*)(&myDS->Shape(nSp)));
+      aSp                                = (*(TopoEdge*)(&myDS->Shape(nSp)));
       if (myRemoved.Contains(aSp))
       {
         continue;
@@ -495,7 +495,7 @@ void BRepFeat_Builder::RebuildFaces()
     {
       const Handle(BOPDS_PaveBlock)& aPB = aMPBSc(j);
       nSp                                = aPB->Edge();
-      aSp                                = (*(TopoDS_Edge*)(&myDS->Shape(nSp)));
+      aSp                                = (*(TopoEdge*)(&myDS->Shape(nSp)));
       if (myRemoved.Contains(aSp))
       {
         continue;
@@ -514,14 +514,14 @@ void BRepFeat_Builder::RebuildFaces()
 
     aBF.Perform();
 
-    TopTools_ListOfShape& aLFIm = myImages.ChangeFind(aF);
+    ShapeList& aLFIm = myImages.ChangeFind(aF);
     aLFIm.Clear();
 
-    const TopTools_ListOfShape& aLFR = aBF.Areas();
+    const ShapeList& aLFR = aBF.Areas();
     aItIm.Initialize(aLFR);
     for (; aItIm.More(); aItIm.Next())
     {
-      TopoDS_Shape& aFR = aItIm.ChangeValue();
+      TopoShape& aFR = aItIm.ChangeValue();
       //
       BOPTools_Set aST;
       aST.Add(aFR, TopAbs_EDGE);
@@ -532,10 +532,10 @@ void BRepFeat_Builder::RebuildFaces()
       aSx.Orientation(anOriF);
       aLFIm.Append(aSx);
       //
-      TopTools_ListOfShape* pLOr = myOrigins.ChangeSeek(aSx);
+      ShapeList* pLOr = myOrigins.ChangeSeek(aSx);
       if (!pLOr)
       {
-        pLOr = myOrigins.Bound(aSx, TopTools_ListOfShape());
+        pLOr = myOrigins.Bound(aSx, ShapeList());
       }
       pLOr->Append(aF);
       //
@@ -554,19 +554,19 @@ void BRepFeat_Builder::RebuildFaces()
 
 //=================================================================================================
 
-void BRepFeat_Builder::RebuildEdge(const TopoDS_Shape&        theE,
-                                   const TopoDS_Face&         theF,
+void BRepFeat_Builder::RebuildEdge(const TopoShape&        theE,
+                                   const TopoFace&         theF,
                                    const TopTools_MapOfShape& aME,
-                                   TopTools_ListOfShape&      aLIm)
+                                   ShapeList&      aLIm)
 {
   Standard_Integer                    nE, nSp, nV1, nV2, nE1, nV, nVx, nVSD;
   Standard_Integer                    nV11, nV21;
   Standard_Boolean                    bOld;
   Standard_Real                       aT11, aT21;
   Standard_Real                       aT1, aT2;
-  TopoDS_Edge                         aSp, aE;
+  TopoEdge                         aSp, aE;
   BOPDS_ShapeInfo                     aSI;
-  TopoDS_Vertex                       aV1, aV2;
+  TopoVertex                       aV1, aV2;
   Handle(BOPDS_PaveBlock)             aPBNew;
   TColStd_MapOfInteger                aMI, aMAdd, aMV, aMVOr;
   BOPDS_ListIteratorOfListOfPaveBlock aItPB;
@@ -604,7 +604,7 @@ void BRepFeat_Builder::RebuildEdge(const TopoDS_Shape&        theE,
   {
     const Handle(BOPDS_PaveBlock)& aPB = aItPB.Value();
     nE1                                = aPB->Edge();
-    const TopoDS_Shape& aE1            = myDS->Shape(nE1);
+    const TopoShape& aE1            = myDS->Shape(nE1);
     //
     if (aME.Contains(aE1))
     {
@@ -655,7 +655,7 @@ void BRepFeat_Builder::RebuildEdge(const TopoDS_Shape&        theE,
     }
   }
 
-  aE = (*(TopoDS_Edge*)(&theE));
+  aE = (*(TopoEdge*)(&theE));
   aE.Orientation(TopAbs_FORWARD);
   //
   aLIm.Clear();
@@ -684,7 +684,7 @@ void BRepFeat_Builder::RebuildEdge(const TopoDS_Shape&        theE,
       aPB1->Range(aT11, aT21);
       if (nV1 == nV11 && nV2 == nV21 && aT1 == aT11 && aT2 == aT21)
       {
-        const TopoDS_Shape& aEIm = myDS->Shape(aPB1->Edge());
+        const TopoShape& aEIm = myDS->Shape(aPB1->Edge());
         aLIm.Append(aEIm);
         bOld = Standard_True;
         break;
@@ -695,14 +695,14 @@ void BRepFeat_Builder::RebuildEdge(const TopoDS_Shape&        theE,
       continue;
     }
     //
-    aV1 = (*(TopoDS_Vertex*)(&myDS->Shape(nV1)));
+    aV1 = (*(TopoVertex*)(&myDS->Shape(nV1)));
     aV1.Orientation(TopAbs_FORWARD);
     //
-    aV2 = (*(TopoDS_Vertex*)(&myDS->Shape(nV2)));
+    aV2 = (*(TopoVertex*)(&myDS->Shape(nV2)));
     aV2.Orientation(TopAbs_REVERSED);
     //
-    BOPTools_AlgoTools::MakeSplitEdge(aE, aV1, aT1, aV2, aT2, aSp);
-    BOPTools_AlgoTools2D::BuildPCurveForEdgeOnFace(aSp, theF, myContext);
+    AlgoTools::MakeSplitEdge(aE, aV1, aT1, aV2, aT2, aSp);
+    AlgoTools2D::BuildPCurveForEdgeOnFace(aSp, theF, myContext);
     //
     aSI.SetShape(aSp);
     //
@@ -721,20 +721,20 @@ void BRepFeat_Builder::RebuildEdge(const TopoDS_Shape&        theE,
 void BRepFeat_Builder::CheckSolidImages()
 {
   BOPTools_MapOfSet                  aMST;
-  TopTools_ListOfShape               aLSImNew;
+  ShapeList               aLSImNew;
   TopTools_MapOfShape                aMS;
   TopTools_ListIteratorOfListOfShape aIt;
-  TopExp_Explorer                    aExp, aExpF;
+  ShapeExplorer                    aExp, aExpF;
   Standard_Boolean                   bFlagSD;
   //
-  const TopoDS_Shape& aArgs0 = myArguments.First();
-  const TopoDS_Shape& aArgs1 = myTools.First();
+  const TopoShape& aArgs0 = myArguments.First();
+  const TopoShape& aArgs1 = myTools.First();
   //
-  const TopTools_ListOfShape& aLSIm = myImages.Find(aArgs1);
+  const ShapeList& aLSIm = myImages.Find(aArgs1);
   aIt.Initialize(aLSIm);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aSolIm = aIt.Value();
+    const TopoShape& aSolIm = aIt.Value();
     //
     BOPTools_Set aST;
     aST.Add(aSolIm, TopAbs_FACE);
@@ -744,21 +744,21 @@ void BRepFeat_Builder::CheckSolidImages()
   aExp.Init(aArgs0, TopAbs_SOLID);
   for (; aExp.More(); aExp.Next())
   {
-    const TopoDS_Shape& aSolid = aExp.Current();
+    const TopoShape& aSolid = aExp.Current();
     if (myImages.IsBound(aSolid))
     {
-      TopTools_ListOfShape& aLSImSol = myImages.ChangeFind(aSolid);
+      ShapeList& aLSImSol = myImages.ChangeFind(aSolid);
       aIt.Initialize(aLSImSol);
       for (; aIt.More(); aIt.Next())
       {
-        const TopoDS_Shape& aSolIm = aIt.Value();
+        const TopoShape& aSolIm = aIt.Value();
         //
         BOPTools_Set aST;
         aST.Add(aSolIm, TopAbs_FACE);
         bFlagSD = aMST.Contains(aST);
         //
         const BOPTools_Set& aSTx = aMST.Added(aST);
-        const TopoDS_Shape& aSx  = aSTx.Shape();
+        const TopoShape& aSx  = aSTx.Shape();
         aLSImNew.Append(aSx);
         //
         if (bFlagSD)
@@ -773,7 +773,7 @@ void BRepFeat_Builder::CheckSolidImages()
 
 //=================================================================================================
 
-void BRepFeat_Builder::FillRemoved(const TopoDS_Shape& S, TopTools_MapOfShape& M)
+void BRepFeat_Builder::FillRemoved(const TopoShape& S, TopTools_MapOfShape& M)
 {
   if (myShapes.Contains(S))
   {
@@ -802,8 +802,8 @@ void BRepFeat_Builder::FillIn3DParts(TopTools_DataMapOfShapeShape& theDraftSolid
   TopTools_DataMapOfShapeListOfShape::Iterator itM(myInParts);
   for (; itM.More(); itM.Next())
   {
-    TopTools_ListOfShape&          aList = itM.ChangeValue();
-    TopTools_ListOfShape::Iterator itL(aList);
+    ShapeList&          aList = itM.ChangeValue();
+    ShapeList::Iterator itL(aList);
     for (; itL.More();)
     {
       if (myRemoved.Contains(itL.Value()))

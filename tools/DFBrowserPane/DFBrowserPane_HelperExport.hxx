@@ -44,7 +44,7 @@ public:
   //! Append a shape to be exported if pressed button on item from the given list
   //! \param theShape a shape
   //! \param theIndicies a list of indices for this shape
-  void AddShape(const TopoDS_Shape& theShape, const QModelIndexList& theIndices);
+  void AddShape(const TopoShape& theShape, const QModelIndexList& theIndices);
 
   //! Returns whether the map of shapes contains a shape for the index
   //! \param theIndex a model index
@@ -54,7 +54,7 @@ public:
   //! Returns shape for the index
   //! \param theIndex a model view index
   //! \return a cached shape
-  const TopoDS_Shape& Shape(const QModelIndex& theIndex) { return myShapes[theIndex]; }
+  const TopoShape& Shape(const QModelIndex& theIndex) { return myShapes[theIndex]; }
 
 public slots:
 
@@ -66,9 +66,9 @@ private:
 #ifdef _MSC_VER
   #pragma warning(                                                                                 \
     push,                                                                                          \
-    0) // 4251: class 'QMap<QModelIndex,TopoDS_Shape>' needs to have dll-interface...
+    0) // 4251: class 'QMap<QModelIndex,TopoShape>' needs to have dll-interface...
 #endif
-  QMap<QModelIndex, TopoDS_Shape> myShapes; //!< a container of shapes
+  QMap<QModelIndex, TopoShape> myShapes; //!< a container of shapes
 #ifdef _MSC_VER
   #pragma warning(pop)
 #endif

@@ -18,7 +18,7 @@
 
 #include <Standard_TypeDef.hxx>
 
-//  Class LDOM_CharReference: treatment of character reference and internal
+//  Class CharReference: treatment of character reference and internal
 //     entities in input and output streams
 //  On output all 256 characters are classified as this:
 //     For string values of attributes:
@@ -39,7 +39,7 @@
 //  Note that apostrophe (\') is not treated as markup on output (all relevant
 //  markup is produced by quote characters (\")).
 
-class LDOM_CharReference
+class CharReference
 {
 public:
   // ---------- PUBLIC METHODS ----------

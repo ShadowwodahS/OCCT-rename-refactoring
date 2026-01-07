@@ -33,7 +33,7 @@ IGESDimen_AngularDimension::IGESDimen_AngularDimension() {}
 void IGESDimen_AngularDimension::Init(const Handle(IGESDimen_GeneralNote)& aNote,
                                       const Handle(IGESDimen_WitnessLine)& aLine,
                                       const Handle(IGESDimen_WitnessLine)& anotherLine,
-                                      const gp_XY&                         aVertex,
+                                      const Coords2d&                         aVertex,
                                       const Standard_Real                  aRadius,
                                       const Handle(IGESDimen_LeaderArrow)& aLeader,
                                       const Handle(IGESDimen_LeaderArrow)& anotherLeader)

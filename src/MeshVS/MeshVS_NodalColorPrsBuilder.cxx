@@ -174,7 +174,7 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
                                                PolygonBoundsFor3D);
   }
 
-  // Draw faces with nodal color
+  // Draw1 faces with nodal color
   // OCC20644 Use "plastic" material as it is "non-physic" and so it is easier to get the required
   // colors
   Graphic3d_MaterialAspect aMaterial[2] = {Graphic3d_NameOfMaterial_Plastified,
@@ -445,7 +445,7 @@ void MeshVS_NodalColorPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
 
   if (myUseTexture)
   {
-    Handle(Prs3d_Drawer) aPrsDrawer = myParentMesh->Attributes();
+    Handle(StyleDrawer) aPrsDrawer = myParentMesh->Attributes();
     if (aPrsDrawer.IsNull())
       return;
 
@@ -626,7 +626,7 @@ void MeshVS_NodalColorPrsBuilder::AddVolumePrs(
       }
     }
 
-    // Draw edges
+    // Draw1 edges
     for (NCollection_Map<MeshVS_NodePair, MeshVS_SymmetricPairHasher>::Iterator anIt(aEdgeMap);
          anIt.More();
          anIt.Next())

@@ -28,14 +28,14 @@
 // purpose  : Builds an assembly graph from the OCAF document
 // =======================================================================
 
-XCAFDoc_AssemblyGraph::XCAFDoc_AssemblyGraph(const Handle(TDocStd_Document)& theDoc)
+XCAFDoc_AssemblyGraph::XCAFDoc_AssemblyGraph(const Handle(AppDocument)& theDoc)
 {
   Standard_NullObject_Raise_if(theDoc.IsNull(), "Null document!");
 
   myShapeTool = XCAFDoc_DocumentTool::ShapeTool(theDoc->Main());
   Standard_NoSuchObject_Raise_if(myShapeTool.IsNull(), "No XCAFDoc_ShapeTool attribute!");
 
-  TDF_Label aDummy;
+  DataLabel aDummy;
   buildGraph(aDummy);
 }
 
@@ -44,7 +44,7 @@ XCAFDoc_AssemblyGraph::XCAFDoc_AssemblyGraph(const Handle(TDocStd_Document)& the
 // purpose  : Builds an assembly graph from the OCAF label
 // =======================================================================
 
-XCAFDoc_AssemblyGraph::XCAFDoc_AssemblyGraph(const TDF_Label& theLabel)
+XCAFDoc_AssemblyGraph::XCAFDoc_AssemblyGraph(const DataLabel& theLabel)
 {
   Standard_NullObject_Raise_if(theLabel.IsNull(), "Null label!");
 
@@ -114,7 +114,7 @@ Standard_Integer XCAFDoc_AssemblyGraph::NbOccurrences(const Standard_Integer the
 // purpose  : Builds an assembly graph from the OCAF document
 // =======================================================================
 
-void XCAFDoc_AssemblyGraph::buildGraph(const TDF_Label& theLabel)
+void XCAFDoc_AssemblyGraph::buildGraph(const DataLabel& theLabel)
 {
   // We start from those shapes which are "free" in terms of XDE.
   TDF_LabelSequence aRoots;
@@ -125,9 +125,9 @@ void XCAFDoc_AssemblyGraph::buildGraph(const TDF_Label& theLabel)
 
   for (TDF_LabelSequence::Iterator it(aRoots); it.More(); it.Next())
   {
-    TDF_Label aLabel = it.Value();
+    DataLabel aLabel = it.Value();
 
-    TDF_Label anOriginal;
+    DataLabel anOriginal;
     if (!myShapeTool->GetReferredShape(aLabel, anOriginal))
       anOriginal = aLabel;
 
@@ -148,7 +148,7 @@ void XCAFDoc_AssemblyGraph::buildGraph(const TDF_Label& theLabel)
 // purpose  : Adds components for the given parent to the graph structure
 // =======================================================================
 
-void XCAFDoc_AssemblyGraph::addComponents(const TDF_Label&       theParent,
+void XCAFDoc_AssemblyGraph::addComponents(const DataLabel&       theParent,
                                           const Standard_Integer theParentId)
 {
   if (!myShapeTool->IsShape(theParent))
@@ -162,7 +162,7 @@ void XCAFDoc_AssemblyGraph::addComponents(const TDF_Label&       theParent,
   // Loop over the children (persistent representation of "part-of" relation).
   for (TDF_ChildIterator anIt(theParent); anIt.More(); anIt.Next())
   {
-    TDF_Label aComponent = anIt.Value();
+    DataLabel aComponent = anIt.Value();
 
     // Add component
     const Standard_Integer aComponentId = addNode(aComponent, theParentId);
@@ -175,7 +175,7 @@ void XCAFDoc_AssemblyGraph::addComponents(const TDF_Label&       theParent,
       continue;
 
     // Jump to the referred object (the original).
-    TDF_Label aChildOriginal;
+    DataLabel aChildOriginal;
     if (!aJumpNode.IsNull() && aJumpNode->HasFather())
       aChildOriginal = aJumpNode->Father()->Label(); // Declaration-level origin.
 
@@ -197,7 +197,7 @@ void XCAFDoc_AssemblyGraph::addComponents(const TDF_Label&       theParent,
 // purpose  : Adds node into the graph
 // =======================================================================
 
-Standard_Integer XCAFDoc_AssemblyGraph::addNode(const TDF_Label&       theLabel,
+Standard_Integer XCAFDoc_AssemblyGraph::addNode(const DataLabel&       theLabel,
                                                 const Standard_Integer theParentId)
 {
   NodeType aNodeType = NodeType_UNDEFINED;

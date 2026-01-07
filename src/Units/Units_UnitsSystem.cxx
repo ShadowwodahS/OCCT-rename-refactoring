@@ -77,7 +77,7 @@ void Units_UnitsSystem::Specify(const Standard_CString aquantity, const Standard
   Handle(Units_Quantity)           quantity;
   Handle(Units_Quantity)           thequantity;
   Handle(Units_QuantitiesSequence) quantitiessequence;
-  TCollection_AsciiString          quantityname;
+  AsciiString1          quantityname;
 
   Units_UnitSentence unitsentence(aunit);
   if (!unitsentence.IsDone())
@@ -231,7 +231,7 @@ void Units_UnitsSystem::Activates()
 
 //=================================================================================================
 
-TCollection_AsciiString Units_UnitsSystem::ActiveUnit(const Standard_CString aquantity) const
+AsciiString1 Units_UnitsSystem::ActiveUnit(const Standard_CString aquantity) const
 {
   Standard_Integer            index1, index2;
   Handle(Units_Unit)          unit;
@@ -252,7 +252,7 @@ TCollection_AsciiString Units_UnitsSystem::ActiveUnit(const Standard_CString aqu
 #ifdef OCCT_DEBUG
         std::cout << " Pas d'unite active pour " << aquantity << std::endl;
 #endif
-        return TCollection_AsciiString();
+        return AsciiString1();
       }
     }
   }

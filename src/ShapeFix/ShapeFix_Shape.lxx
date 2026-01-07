@@ -54,7 +54,7 @@ inline Handle(ShapeFix_Face) ShapeFix_Shape::FixFaceTool() const
 // purpose  :
 //=======================================================================
 
-inline Handle(ShapeFix_Wire) ShapeFix_Shape::FixWireTool() const
+inline Handle(WireHealer) ShapeFix_Shape::FixWireTool() const
 {
   return myFixSolid->FixShellTool()->FixFaceTool()->FixWireTool();
 }

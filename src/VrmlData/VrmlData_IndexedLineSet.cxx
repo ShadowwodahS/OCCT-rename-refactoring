@@ -55,11 +55,11 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedLineSet::TShape()
   else if (myIsModified)
   {
     Standard_Integer i;
-    BRep_Builder     aBuilder;
+    ShapeBuilder     aBuilder;
     const gp_XYZ*    arrNodes = myCoords->Values();
 
     // Create the Wire
-    TopoDS_Wire aWire;
+    TopoWire aWire;
     aBuilder.MakeWire(aWire);
     for (i = 0; i < (int)myNbPolygons; i++)
     {
@@ -73,7 +73,7 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedLineSet::TShape()
         arrParam(j + 1) = j;
       }
       const Handle(Poly_Polygon3D) aPolyPolygon = new Poly_Polygon3D(arrPoint, arrParam);
-      TopoDS_Edge                  anEdge;
+      TopoEdge                  anEdge;
       aBuilder.MakeEdge(anEdge, aPolyPolygon);
       aBuilder.Add(aWire, anEdge);
     }
@@ -122,7 +122,7 @@ Handle(VrmlData_Node) VrmlData_IndexedLineSet::Clone(const Handle(VrmlData_Node)
 // purpose  : Read the Node from input stream.
 //=======================================================================
 
-VrmlData_ErrorStatus VrmlData_IndexedLineSet::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_IndexedLineSet::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus  aStatus;
   const VrmlData_Scene& aScene = Scene();

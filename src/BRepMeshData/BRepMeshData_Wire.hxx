@@ -26,7 +26,7 @@ public:
   DEFINE_INC_ALLOC
 
   //! Constructor.
-  Standard_EXPORT BRepMeshData_Wire(const TopoDS_Wire&                      theWire,
+  Standard_EXPORT BRepMeshData_Wire(const TopoWire&                      theWire,
                                     const Standard_Integer                  theEdgeNb,
                                     const Handle(NCollection_IncAllocator)& theAllocator);
 

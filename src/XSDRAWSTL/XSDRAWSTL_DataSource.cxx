@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(XSDRAWSTL_DataSource, MeshVS_DataSource)
 
 //=================================================================================================
 
-XSDRAWSTL_DataSource::XSDRAWSTL_DataSource(const Handle(Poly_Triangulation)& aMesh)
+XSDRAWSTL_DataSource::XSDRAWSTL_DataSource(const Handle(MeshTriangulation)& aMesh)
 {
   myMesh = aMesh;
 

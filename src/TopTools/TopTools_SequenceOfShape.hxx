@@ -20,6 +20,6 @@
 #include <TopoDS_Shape.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<TopoDS_Shape> TopTools_SequenceOfShape;
+typedef NCollection_Sequence<TopoShape> TopTools_SequenceOfShape;
 
 #endif

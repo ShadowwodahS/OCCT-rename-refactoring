@@ -53,7 +53,7 @@ public:
   //! -   the services provided by a 2D curve from the package Geom2d,
   //! -   and those required on the curve by a computation algorithm.
   //! The adapted curve is created in the following way:
-  //! Handle(Geom2d_Curve) mycurve = ... ;
+  //! Handle(GeomCurve2d) mycurve = ... ;
   //! Geom2dAdaptor_Curve Curve ( mycurve ) ;
   //! The qualified curve is then constructed with this object:
   //! GccEnt_Position myQualif = GccEnt_outside ;
@@ -72,7 +72,7 @@ public:
   //! based can be obtained in the following way:
   //! myQualifiedCurve = ... ;
   //! Geom2dAdaptor_Curve myAdaptedCurve = myQualifiedCurve.Qualified();
-  //! Handle(Geom2d_Curve) = myAdaptedCurve.Curve();
+  //! Handle(GeomCurve2d) = myAdaptedCurve.Curve();
   Standard_EXPORT Geom2dAdaptor_Curve Qualified() const;
 
   //! Returns

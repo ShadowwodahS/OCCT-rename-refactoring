@@ -21,9 +21,9 @@
 #include <NCollection_DoubleMap.hxx>
 
 typedef NCollection_DoubleMap<Standard_Integer,
-                              TopoDS_Shape,
+                              TopoShape,
                               NCollection_DefaultHasher<int>,
-                              TopTools_ShapeMapHasher>
+                              ShapeHasher>
   TopOpeBRepDS_DoubleMapOfIntegerShape;
 typedef TopOpeBRepDS_DoubleMapOfIntegerShape::Iterator
   TopOpeBRepDS_DoubleMapIteratorOfDoubleMapOfIntegerShape;

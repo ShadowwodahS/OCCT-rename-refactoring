@@ -29,7 +29,7 @@ class IGESSolid_ToroidalSurface;
 DEFINE_STANDARD_HANDLE(IGESSolid_ToroidalSurface, IGESData_IGESEntity)
 
 //! defines ToroidalSurface, Type <198> Form Number <0,1>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! This entity is defined by the center point, the axis
 //! direction and the major and minor radii. In case of
 //! parametrised surface a reference direction is provided.

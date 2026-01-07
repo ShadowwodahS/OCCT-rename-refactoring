@@ -17,7 +17,7 @@
 
 //=================================================================================================
 
-IntTools_Root::IntTools_Root()
+IntersectionRoot::IntersectionRoot()
     : myRoot(0.),
       myType(-1),
       myLayerHeight(0.),
@@ -32,7 +32,7 @@ IntTools_Root::IntTools_Root()
 
 //=================================================================================================
 
-IntTools_Root::IntTools_Root(const Standard_Real aRoot, const Standard_Integer aType)
+IntersectionRoot::IntersectionRoot(const Standard_Real aRoot, const Standard_Integer aType)
     : myLayerHeight(0.),
       myStateBefore(TopAbs_UNKNOWN),
       myStateAfter(TopAbs_UNKNOWN),
@@ -47,42 +47,42 @@ IntTools_Root::IntTools_Root(const Standard_Real aRoot, const Standard_Integer a
 
 //=================================================================================================
 
-void IntTools_Root::SetRoot(const Standard_Real aRoot)
+void IntersectionRoot::SetRoot(const Standard_Real aRoot)
 {
   myRoot = aRoot;
 }
 
 //=================================================================================================
 
-void IntTools_Root::SetType(const Standard_Integer aType)
+void IntersectionRoot::SetType(const Standard_Integer aType)
 {
   myType = aType;
 }
 
 //=================================================================================================
 
-void IntTools_Root::SetStateBefore(const TopAbs_State aState)
+void IntersectionRoot::SetStateBefore(const TopAbs_State aState)
 {
   myStateBefore = aState;
 }
 
 //=================================================================================================
 
-void IntTools_Root::SetStateAfter(const TopAbs_State aState)
+void IntersectionRoot::SetStateAfter(const TopAbs_State aState)
 {
   myStateAfter = aState;
 }
 
 //=================================================================================================
 
-void IntTools_Root::SetLayerHeight(const Standard_Real aHeight)
+void IntersectionRoot::SetLayerHeight(const Standard_Real aHeight)
 {
   myLayerHeight = aHeight;
 }
 
 //=================================================================================================
 
-void IntTools_Root::SetInterval(const Standard_Real t1,
+void IntersectionRoot::SetInterval(const Standard_Real t1,
                                 const Standard_Real t2,
                                 const Standard_Real f1,
                                 const Standard_Real f2)
@@ -95,7 +95,7 @@ void IntTools_Root::SetInterval(const Standard_Real t1,
 
 //=================================================================================================
 
-void IntTools_Root::Interval(Standard_Real& t1,
+void IntersectionRoot::Interval(Standard_Real& t1,
                              Standard_Real& t2,
                              Standard_Real& f1,
                              Standard_Real& f2) const
@@ -108,42 +108,42 @@ void IntTools_Root::Interval(Standard_Real& t1,
 
 //=================================================================================================
 
-Standard_Real IntTools_Root::Root() const
+Standard_Real IntersectionRoot::Root() const
 {
   return myRoot;
 }
 
 //=================================================================================================
 
-Standard_Integer IntTools_Root::Type() const
+Standard_Integer IntersectionRoot::Type() const
 {
   return myType;
 }
 
 //=================================================================================================
 
-TopAbs_State IntTools_Root::StateBefore() const
+TopAbs_State IntersectionRoot::StateBefore() const
 {
   return myStateBefore;
 }
 
 //=================================================================================================
 
-TopAbs_State IntTools_Root::StateAfter() const
+TopAbs_State IntersectionRoot::StateAfter() const
 {
   return myStateAfter;
 }
 
 //=================================================================================================
 
-Standard_Real IntTools_Root::LayerHeight() const
+Standard_Real IntersectionRoot::LayerHeight() const
 {
   return myLayerHeight;
 }
 
 //=================================================================================================
 
-Standard_Boolean IntTools_Root::IsValid() const
+Standard_Boolean IntersectionRoot::IsValid() const
 {
   if (myStateBefore == TopAbs_OUT && myStateAfter == TopAbs_IN)
     return Standard_True;

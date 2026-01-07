@@ -31,11 +31,11 @@
 
 //=================================================================================================
 
-Standard_Real Draft::Angle(const TopoDS_Face& F, const Dir3d& D)
+Standard_Real Draft::Angle(const TopoFace& F, const Dir3d& D)
 {
 
   TopLoc_Location       Lo;
-  Handle(Geom_Surface)  S     = BRep_Tool::Surface(F, Lo);
+  Handle(GeomSurface)  S     = BRepInspector::Surface(F, Lo);
   Handle(TypeInfo) TypeS = S->DynamicType();
   if (TypeS == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
   {
@@ -43,17 +43,17 @@ Standard_Real Draft::Angle(const TopoDS_Face& F, const Dir3d& D)
     TypeS = S->DynamicType();
   }
 
-  if (TypeS != STANDARD_TYPE(Geom_Plane) && TypeS != STANDARD_TYPE(Geom_ConicalSurface)
+  if (TypeS != STANDARD_TYPE(GeomPlane) && TypeS != STANDARD_TYPE(Geom_ConicalSurface)
       && TypeS != STANDARD_TYPE(Geom_CylindricalSurface))
   {
     throw Standard_DomainError();
   }
 
   Standard_Real Angle;
-  S = Handle(Geom_Surface)::DownCast(S->Transformed(Lo.Transformation()));
-  if (TypeS == STANDARD_TYPE(Geom_Plane))
+  S = Handle(GeomSurface)::DownCast(S->Transformed(Lo.Transformation()));
+  if (TypeS == STANDARD_TYPE(GeomPlane))
   {
-    gp_Ax3 ax3(Handle(Geom_Plane)::DownCast(S)->Pln().Position());
+    gp_Ax3 ax3(Handle(GeomPlane)::DownCast(S)->Pln().Position());
     Vector3d normale(ax3.Direction());
     if (!ax3.Direct())
     {
@@ -84,7 +84,7 @@ Standard_Real Draft::Angle(const TopoDS_Face& F, const Dir3d& D)
       throw Standard_DomainError();
     }
     Standard_Real umin, umax, vmin, vmax;
-    BRepTools::UVBounds(F, umin, umax, vmin, vmax);
+    BRepTools1::UVBounds(F, umin, umax, vmin, vmax);
     Point3d ptbid;
     Vector3d d1u, d1v;
     ElSLib::D1(umin + umax / 2., vmin + vmax / 2., Co, ptbid, d1u, d1v);

@@ -41,13 +41,13 @@ public:
   //! Find, or create, an Relation attribute.
   //! Real methods
   //! ============
-  Standard_EXPORT static Handle(TDataStd_Relation) Set(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataStd_Relation) Set(const DataLabel& label);
 
   Standard_EXPORT TDataStd_Relation();
 
-  Standard_EXPORT void SetRelation(const TCollection_ExtendedString& E);
+  Standard_EXPORT void SetRelation(const UtfString& E);
 
-  Standard_EXPORT const TCollection_ExtendedString& GetRelation() const;
+  Standard_EXPORT const UtfString& GetRelation() const;
 
   Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
 

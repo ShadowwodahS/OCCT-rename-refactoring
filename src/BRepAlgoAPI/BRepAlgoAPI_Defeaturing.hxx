@@ -67,8 +67,8 @@
 //!
 //! Here is the example of usage of the algorithm:
 //! ~~~~
-//! TopoDS_Shape aSolid = ...;               // Input shape to remove the features from
-//! TopTools_ListOfShape aFeatures = ...;    // Features to remove from the shape
+//! TopoShape aSolid = ...;               // Input shape to remove the features from
+//! ShapeList aFeatures = ...;    // Features to remove from the shape
 //! Standard_Boolean bRunParallel = ...;     // Parallel processing mode
 //! Standard_Boolean isHistoryNeeded = ...;  // History support
 //!
@@ -91,7 +91,7 @@
 //!   Standard_SStream aSStream;
 //!   aDF.DumpWarnings(aSStream);
 //! }
-//! const TopoDS_Shape& aResult = aDF.Shape(); // Result shape
+//! const TopoShape& aResult = aDF.Shape(); // Result shape
 //! ~~~~
 //!
 //! The algorithm preserves the type of the input shape in the result shape. Thus,
@@ -114,18 +114,18 @@ public: //! @name Setting input data for the algorithm
   //! Sets the shape for processing.
   //! @param[in] theShape  The shape to remove the features from.
   //!                      It should either be the SOLID, COMPSOLID or COMPOUND of Solids.
-  void SetShape(const TopoDS_Shape& theShape) { myInputShape = theShape; }
+  void SetShape(const TopoShape& theShape) { myInputShape = theShape; }
 
   //! Returns the input shape
-  const TopoDS_Shape& InputShape() const { return myInputShape; }
+  const TopoShape& InputShape() const { return myInputShape; }
 
   //! Adds the features to remove from the input shape.
   //! @param[in] theFace  The shape to extract the faces for removal.
-  void AddFaceToRemove(const TopoDS_Shape& theFace) { myFacesToRemove.Append(theFace); }
+  void AddFaceToRemove(const TopoShape& theFace) { myFacesToRemove.Append(theFace); }
 
   //! Adds the faces to remove from the input shape.
   //! @param[in] theFaces  The list of shapes to extract the faces for removal.
-  void AddFacesToRemove(const TopTools_ListOfShape& theFaces)
+  void AddFacesToRemove(const ShapeList& theFaces)
   {
     TopTools_ListIteratorOfListOfShape it(theFaces);
     for (; it.More(); it.Next())
@@ -134,7 +134,7 @@ public: //! @name Setting input data for the algorithm
 
   //! Returns the list of faces which have been requested for removal
   //! from the input shape.
-  const TopTools_ListOfShape& FacesToRemove() const { return myFacesToRemove; }
+  const ShapeList& FacesToRemove() const { return myFacesToRemove; }
 
 public: //! @name Performing the operation
   //! Performs the operation
@@ -149,17 +149,17 @@ public: //! @name History Methods
   Standard_Boolean HasHistory() const { return myFillHistory; }
 
   //! Returns the list of shapes modified from the shape <theS> during the operation.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Modified(const TopoDS_Shape& theS)
+  Standard_EXPORT virtual const ShapeList& Modified(const TopoShape& theS)
     Standard_OVERRIDE;
 
   //! Returns the list of shapes generated from the shape <theS> during the operation.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Generated(const TopoDS_Shape& theS)
+  Standard_EXPORT virtual const ShapeList& Generated(const TopoShape& theS)
     Standard_OVERRIDE;
 
   //! Returns true if the shape <theS> has been deleted during the operation.
   //! It means that the shape has no any trace in the result.
   //! Otherwise it returns false.
-  Standard_EXPORT virtual Standard_Boolean IsDeleted(const TopoDS_Shape& theS) Standard_OVERRIDE;
+  Standard_EXPORT virtual Standard_Boolean IsDeleted(const TopoShape& theS) Standard_OVERRIDE;
 
   //! Returns true if any of the input shapes has been modified during operation.
   Standard_EXPORT virtual Standard_Boolean HasModified() const;
@@ -181,8 +181,8 @@ protected: //! @name Setting the algorithm into default state
   }
 
 protected:                                     //! @name Fields
-  TopoDS_Shape         myInputShape;           //!< Input shape to remove the features from
-  TopTools_ListOfShape myFacesToRemove;        //!< Features to remove from the shape
+  TopoShape         myInputShape;           //!< Input shape to remove the features from
+  ShapeList myFacesToRemove;        //!< Features to remove from the shape
   Standard_Boolean     myFillHistory;          //!< Defines whether to track the history of
                                                //! shapes modifications or not (true by default)
   BOPAlgo_RemoveFeatures myFeatureRemovalTool; //!< Tool for the features removal

@@ -60,9 +60,9 @@ STEPEdit_EditSDR::STEPEdit_EditSDR()
   // Handle(TCollection_HAsciiString) StepPDR_SDRtool::PDdescription() const
 }
 
-TCollection_AsciiString STEPEdit_EditSDR::Label() const
+AsciiString1 STEPEdit_EditSDR::Label() const
 {
-  return TCollection_AsciiString("STEP : Product Data (SDR)");
+  return AsciiString1("STEP : Product Data (SDR)");
 }
 
 Standard_Boolean STEPEdit_EditSDR::Recognize(const Handle(IFSelect_EditForm)& /*form*/) const

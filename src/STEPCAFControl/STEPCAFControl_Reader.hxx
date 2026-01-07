@@ -28,11 +28,11 @@
 #include <XCAFDimTolObjects_DatumModifiersSequence.hxx>
 #include <XCAFDimTolObjects_DatumModifWithValue.hxx>
 
-class XSControl_WorkSession;
+class ExchangeSession;
 class TDataStd_NamedData;
-class TDocStd_Document;
+class AppDocument;
 class STEPCAFControl_ExternFile;
-class TopoDS_Shape;
+class TopoShape;
 class XCAFDoc_ShapeTool;
 class StepRepr_RepresentationItem;
 class Transfer_TransientProcess;
@@ -70,7 +70,7 @@ public:
 
   //! Creates a reader tool and attaches it to an already existing Session
   //! Clears the session if it was not yet set for STEP
-  Standard_EXPORT STEPCAFControl_Reader(const Handle(XSControl_WorkSession)& WS,
+  Standard_EXPORT STEPCAFControl_Reader(const Handle(ExchangeSession)& WS,
                                         const Standard_Boolean scratch = Standard_True);
 
   //! Destructor.
@@ -78,7 +78,7 @@ public:
 
   //! Clears the internal data structures and attaches to a new session
   //! Clears the session if it was not yet set for STEP
-  Standard_EXPORT void Init(const Handle(XSControl_WorkSession)& WS,
+  Standard_EXPORT void Init(const Handle(ExchangeSession)& WS,
                             const Standard_Boolean               scratch = Standard_True);
 
   //! Loads a file and returns the read status
@@ -111,24 +111,24 @@ public:
   //! Provided for use like single-file reader
   Standard_EXPORT Standard_Boolean
     TransferOneRoot(const Standard_Integer          num,
-                    const Handle(TDocStd_Document)& doc,
+                    const Handle(AppDocument)& doc,
                     const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Translates currently loaded STEP file into the document
   //! Returns True if succeeded, and False in case of fail
   //! Provided for use like single-file reader
   Standard_EXPORT Standard_Boolean
-    Transfer(const Handle(TDocStd_Document)& doc,
+    Transfer(const Handle(AppDocument)& doc,
              const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   Standard_EXPORT Standard_Boolean
-    Perform(const TCollection_AsciiString&  filename,
-            const Handle(TDocStd_Document)& doc,
+    Perform(const AsciiString1&  filename,
+            const Handle(AppDocument)& doc,
             const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   Standard_EXPORT Standard_Boolean
-    Perform(const TCollection_AsciiString&  filename,
-            const Handle(TDocStd_Document)& doc,
+    Perform(const AsciiString1&  filename,
+            const Handle(AppDocument)& doc,
             const DESTEP_Parameters&        theParams,
             const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
@@ -136,20 +136,20 @@ public:
   //! Return True if succeeded, and False in case of fail
   Standard_EXPORT Standard_Boolean
     Perform(const Standard_CString          filename,
-            const Handle(TDocStd_Document)& doc,
+            const Handle(AppDocument)& doc,
             const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Translate STEP file given by filename into the document
   //! Return True if succeeded, and False in case of fail
   Standard_EXPORT Standard_Boolean
     Perform(const Standard_CString          filename,
-            const Handle(TDocStd_Document)& doc,
+            const Handle(AppDocument)& doc,
             const DESTEP_Parameters&        theParams,
             const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Returns data on external files
   //! Returns Null handle if no external files are read
-  Standard_EXPORT const NCollection_DataMap<TCollection_AsciiString,
+  Standard_EXPORT const NCollection_DataMap<AsciiString1,
                                             Handle(STEPCAFControl_ExternFile)>&
                         ExternFiles() const;
 
@@ -159,14 +159,14 @@ public:
                                               Handle(STEPCAFControl_ExternFile)& ef) const;
 
   //! Returns basic reader
-  Standard_EXPORT STEPControl_Reader& ChangeReader();
+  Standard_EXPORT StepFileReader& ChangeReader();
 
   //! Returns basic reader as const
-  Standard_EXPORT const STEPControl_Reader& Reader() const;
+  Standard_EXPORT const StepFileReader& Reader() const;
 
   //! Returns label of instance of an assembly component
   //! corresponding to a given NAUO
-  Standard_EXPORT static TDF_Label FindInstance(
+  Standard_EXPORT static DataLabel FindInstance(
     const Handle(StepRepr_NextAssemblyUsageOccurrence)& NAUO,
     const Handle(XCAFDoc_ShapeTool)&                    STool,
     const STEPConstruct_Tool&                           Tool,
@@ -242,7 +242,7 @@ public:
   //! @param theParameters the parameters for shape processing.
   //! @param theAdditionalParameters the additional parameters for shape processing.
   Standard_EXPORT void SetShapeFixParameters(
-    const DE_ShapeFixParameters&               theParameters,
+    const ShapeFixParameters&               theParameters,
     const XSAlgo_ShapeProcessor::ParameterMap& theAdditionalParameters = {});
 
   //! Returns parameters for shape processing that was set by SetParameters() method.
@@ -266,9 +266,9 @@ protected:
   //! If asOne is True, in case of multiple results composes
   //! them into assembly. Fills sequence of produced labels
   Standard_EXPORT Standard_Boolean
-    Transfer(STEPControl_Reader&             rd,
+    Transfer(StepFileReader&             rd,
              const Standard_Integer          num,
-             const Handle(TDocStd_Document)& doc,
+             const Handle(AppDocument)& doc,
              TDF_LabelSequence&              Lseq,
              const Standard_Boolean          asOne       = Standard_False,
              const Message_ProgressRange&    theProgress = Message_ProgressRange());
@@ -277,7 +277,7 @@ protected:
   //! Depending on a case, this shape can be added as one, or
   //! as assembly, or (in case if it is associated with external
   //! reference) taken as that referred shape
-  Standard_EXPORT TDF_Label AddShape(const TopoDS_Shape&                         S,
+  Standard_EXPORT DataLabel AddShape(const TopoShape&                         S,
                                      const Handle(XCAFDoc_ShapeTool)&            STool,
                                      const TopTools_MapOfShape&                  NewShapesMap,
                                      const STEPCAFControl_DataMapOfShapePD&      ShapePDMap,
@@ -288,81 +288,81 @@ protected:
   Standard_EXPORT Handle(STEPCAFControl_ExternFile) ReadExternFile(
     const Standard_CString          file,
     const Standard_CString          fullpath,
-    const Handle(TDocStd_Document)& doc,
+    const Handle(AppDocument)& doc,
     const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Reads style assignments from STEP model and sets
   //! corresponding color assignments in the DECAF document
   Standard_EXPORT Standard_Boolean
-    ReadColors(const Handle(XSControl_WorkSession)& WS,
-               const Handle(TDocStd_Document)&      doc,
-               const StepData_Factors&              theLocalFactors = StepData_Factors()) const;
+    ReadColors(const Handle(ExchangeSession)& WS,
+               const Handle(AppDocument)&      doc,
+               const ConversionFactors&              theLocalFactors = ConversionFactors()) const;
 
   //! Reads names of parts defined in the STEP model and
   //! assigns them to corresponding labels in the DECAF document
   Standard_EXPORT Standard_Boolean
-    ReadNames(const Handle(XSControl_WorkSession)&        WS,
-              const Handle(TDocStd_Document)&             doc,
+    ReadNames(const Handle(ExchangeSession)&        WS,
+              const Handle(AppDocument)&             doc,
               const STEPCAFControl_DataMapOfPDExternFile& PDFileMap) const;
 
   //! Reads validation properties assigned to shapes in the STEP
   //! model and assigns them to corresponding labels in the DECAF
   //! document
   Standard_EXPORT Standard_Boolean
-    ReadValProps(const Handle(XSControl_WorkSession)&        WS,
-                 const Handle(TDocStd_Document)&             doc,
+    ReadValProps(const Handle(ExchangeSession)&        WS,
+                 const Handle(AppDocument)&             doc,
                  const STEPCAFControl_DataMapOfPDExternFile& PDFileMap,
-                 const StepData_Factors& theLocalFactors = StepData_Factors()) const;
+                 const ConversionFactors& theLocalFactors = ConversionFactors()) const;
 
   //! Reads metadata assigned to shapes in the STEP model and
   //! assigns them to corresponding labels in the DECAF document
   Standard_EXPORT Standard_Boolean
-    ReadMetadata(const Handle(XSControl_WorkSession)& theWS,
-                 const Handle(TDocStd_Document)&      theDoc,
-                 const StepData_Factors&              theLocalFactors = StepData_Factors()) const;
+    ReadMetadata(const Handle(ExchangeSession)& theWS,
+                 const Handle(AppDocument)&      theDoc,
+                 const ConversionFactors&              theLocalFactors = ConversionFactors()) const;
 
   Standard_EXPORT Standard_Boolean
-    ReadProductMetadata(const Handle(XSControl_WorkSession)& theWS,
-                        const Handle(TDocStd_Document)&      theDoc) const;
+    ReadProductMetadata(const Handle(ExchangeSession)& theWS,
+                        const Handle(AppDocument)&      theDoc) const;
 
   //! Reads layers of parts defined in the STEP model and
   //! set reference between shape and layers in the DECAF document
-  Standard_EXPORT Standard_Boolean ReadLayers(const Handle(XSControl_WorkSession)& WS,
-                                              const Handle(TDocStd_Document)&      doc) const;
+  Standard_EXPORT Standard_Boolean ReadLayers(const Handle(ExchangeSession)& WS,
+                                              const Handle(AppDocument)&      doc) const;
 
   //! Reads SHUO for instances defined in the STEP model and
   //! set reference between shape instances from different assemblyes
   Standard_EXPORT Standard_Boolean
-    ReadSHUOs(const Handle(XSControl_WorkSession)&        WS,
-              const Handle(TDocStd_Document)&             doc,
+    ReadSHUOs(const Handle(ExchangeSession)&        WS,
+              const Handle(AppDocument)&             doc,
               const STEPCAFControl_DataMapOfPDExternFile& PDFileMap) const;
 
   //! Reads D&GT for instances defined in the STEP model and
   //! set reference between shape instances from different assemblyes
   Standard_EXPORT Standard_Boolean
-    ReadGDTs(const Handle(XSControl_WorkSession)& WS,
-             const Handle(TDocStd_Document)&      doc,
-             const StepData_Factors&              theLocalFactors = StepData_Factors());
+    ReadGDTs(const Handle(ExchangeSession)& WS,
+             const Handle(AppDocument)&      doc,
+             const ConversionFactors&              theLocalFactors = ConversionFactors());
 
   //! Reads materials for instances defined in the STEP model and
   //! set reference between shape instances from different assemblyes
   Standard_EXPORT Standard_Boolean
-    ReadMaterials(const Handle(XSControl_WorkSession)&        WS,
-                  const Handle(TDocStd_Document)&             doc,
+    ReadMaterials(const Handle(ExchangeSession)&        WS,
+                  const Handle(AppDocument)&             doc,
                   const Handle(TColStd_HSequenceOfTransient)& SeqPDS,
-                  const StepData_Factors& theLocalFactors = StepData_Factors()) const;
+                  const ConversionFactors& theLocalFactors = ConversionFactors()) const;
 
   //! Reads Views for instances defined in the STEP model
   Standard_EXPORT Standard_Boolean
-    ReadViews(const Handle(XSControl_WorkSession)& theWS,
-              const Handle(TDocStd_Document)&      theDoc,
-              const StepData_Factors&              theLocalFactors = StepData_Factors()) const;
+    ReadViews(const Handle(ExchangeSession)& theWS,
+              const Handle(AppDocument)&      theDoc,
+              const ConversionFactors&              theLocalFactors = ConversionFactors()) const;
 
   //! Populates the sub-Label of the passed TDF Label with shape
   //! data associated with the given STEP Representation Item,
   //! including naming and topological information.
-  Standard_EXPORT TDF_Label SettleShapeData(const Handle(StepRepr_RepresentationItem)& theItem,
-                                            const TDF_Label&                           theLab,
+  Standard_EXPORT DataLabel SettleShapeData(const Handle(StepRepr_RepresentationItem)& theItem,
+                                            const DataLabel&                           theLab,
                                             const Handle(XCAFDoc_ShapeTool)&           theShapeTool,
                                             const Handle(Transfer_TransientProcess)&   theTP) const;
 
@@ -376,7 +376,7 @@ protected:
   //! Expands the topological structure of Manifold Solid BRep
   //! STEP entity to OCAF sub-tree. Entities having no names
   //! associated via their Representation Items are skipped.
-  Standard_EXPORT void ExpandManifoldSolidBrep(TDF_Label&                                 theLab,
+  Standard_EXPORT void ExpandManifoldSolidBrep(DataLabel&                                 theLab,
                                                const Handle(StepRepr_RepresentationItem)& theItem,
                                                const Handle(Transfer_TransientProcess)&   theTP,
                                                const Handle(XCAFDoc_ShapeTool)& theShapeTool) const;
@@ -384,7 +384,7 @@ protected:
   //! Expands the topological structure of Shell-Based Surface
   //! Model STEP entity to OCAF sub-tree. Entities having no names
   //! associated via their Representation Items are skipped.
-  Standard_EXPORT void ExpandSBSM(TDF_Label&                                 theLab,
+  Standard_EXPORT void ExpandSBSM(DataLabel&                                 theLab,
                                   const Handle(StepRepr_RepresentationItem)& theItem,
                                   const Handle(Transfer_TransientProcess)&   theTP,
                                   const Handle(XCAFDoc_ShapeTool)&           theShapeTool) const;
@@ -393,62 +393,62 @@ protected:
   //! having no names associated via their Representation Items
   //! are skipped.
   Standard_EXPORT void ExpandShell(const Handle(StepShape_ConnectedFaceSet)& theShell,
-                                   TDF_Label&                                theLab,
+                                   DataLabel&                                theLab,
                                    const Handle(Transfer_TransientProcess)&  theTP,
                                    const Handle(XCAFDoc_ShapeTool)&          theShapeTool) const;
 
   //! Convert name into UNICODE text.
-  Standard_EXPORT virtual TCollection_ExtendedString convertName(
-    const TCollection_AsciiString& theName) const;
+  Standard_EXPORT virtual UtfString convertName(
+    const AsciiString1& theName) const;
 
 private:
   //! Internal method. Import all Datum attributes and set them to XCAF object. Set connection of
   //! Datum to GeomTolerance (theGDTL).
   Standard_Boolean setDatumToXCAF(const Handle(StepDimTol_Datum)& theDat,
-                                  const TDF_Label                 theGDTL,
+                                  const DataLabel                 theGDTL,
                                   const Standard_Integer          thePositionCounter,
                                   const XCAFDimTolObjects_DatumModifiersSequence& theXCAFModifiers,
                                   const XCAFDimTolObjects_DatumModifWithValue theXCAFModifWithVal,
                                   const Standard_Real                         theModifValue,
-                                  const Handle(TDocStd_Document)&             theDoc,
-                                  const Handle(XSControl_WorkSession)&        theWS,
-                                  const StepData_Factors& theLocalFactors = StepData_Factors());
+                                  const Handle(AppDocument)&             theDoc,
+                                  const Handle(ExchangeSession)&        theWS,
+                                  const ConversionFactors& theLocalFactors = ConversionFactors());
 
   //! Internal method. Read Datums, connected to GeomTolerance theGDTL.
   Standard_Boolean readDatumsAP242(const Handle(RefObject)&    theEnt,
-                                   const TDF_Label                      theGDTL,
-                                   const Handle(TDocStd_Document)&      theDoc,
-                                   const Handle(XSControl_WorkSession)& theWS,
-                                   const StepData_Factors& theLocalFactors = StepData_Factors());
+                                   const DataLabel                      theGDTL,
+                                   const Handle(AppDocument)&      theDoc,
+                                   const Handle(ExchangeSession)& theWS,
+                                   const ConversionFactors& theLocalFactors = ConversionFactors());
 
   //! Internal method. Read Dimension or GeomTolerance.
-  TDF_Label createGDTObjectInXCAF(const Handle(RefObject)&    theEnt,
-                                  const Handle(TDocStd_Document)&      theDoc,
-                                  const Handle(XSControl_WorkSession)& theWS,
-                                  const StepData_Factors& theLocalFactors = StepData_Factors());
+  DataLabel createGDTObjectInXCAF(const Handle(RefObject)&    theEnt,
+                                  const Handle(AppDocument)&      theDoc,
+                                  const Handle(ExchangeSession)& theWS,
+                                  const ConversionFactors& theLocalFactors = ConversionFactors());
 
   //! Prepares units for transfer
   void prepareUnits(const Handle(StepData_StepModel)& theModel,
-                    const Handle(TDocStd_Document)&   theDoc,
-                    StepData_Factors&                 theLocalFactors) const;
+                    const Handle(AppDocument)&   theDoc,
+                    ConversionFactors&                 theLocalFactors) const;
 
   //! Find RepresentationItems
   Standard_Boolean findReprItems(
-    const Handle(XSControl_WorkSession)&                   theWS,
+    const Handle(ExchangeSession)&                   theWS,
     const Handle(StepShape_ShapeDefinitionRepresentation)& theShDefRepr,
     NCollection_List<Handle(Transfer_Binder)>&             theBinders) const;
 
   //! Fill metadata
-  Standard_Boolean fillAttributes(const Handle(XSControl_WorkSession)&       theWS,
+  Standard_Boolean fillAttributes(const Handle(ExchangeSession)&       theWS,
                                   const Handle(StepRepr_PropertyDefinition)& thePropDef,
-                                  const StepData_Factors&                    theLocalFactors,
+                                  const ConversionFactors&                    theLocalFactors,
                                   Handle(TDataStd_NamedData)&                theAttr) const;
 
   //! Returns the label of the shape associated with the given product definition.
   //! @param theTransferProcess The transfer process to use for finding the label.
   //! @param theProductDefinition The product definition for which to find the label.
   //! @return The label of the shape associated with the given product definition.
-  TDF_Label getShapeLabelFromProductDefinition(
+  DataLabel getShapeLabelFromProductDefinition(
     const Handle(Transfer_TransientProcess)&   theTransferProcess,
     const Handle(StepBasic_ProductDefinition)& theProductDefinition) const;
 
@@ -463,7 +463,7 @@ private:
   //! @param theGeneralProperty The general property from which to collect property definitions.
   //! @return A vector of collected property definitions.
   std::vector<Handle(StepRepr_PropertyDefinition)> collectPropertyDefinitions(
-    const Handle(XSControl_WorkSession)& theWorkSession,
+    const Handle(ExchangeSession)& theWorkSession,
     const Handle(RefObject)&    theGeneralProperty) const;
 
   //! Collects shape labels from the given property definition.
@@ -471,8 +471,8 @@ private:
   //! @param theTransferProcess The transfer process to use for collecting shape labels.
   //! @param theSource The property definition from which to collect shape labels.
   //! @return A vector of collected shape labels.
-  std::vector<TDF_Label> collectShapeLabels(
-    const Handle(XSControl_WorkSession)&       theWorkSession,
+  std::vector<DataLabel> collectShapeLabels(
+    const Handle(ExchangeSession)&       theWorkSession,
     const Handle(Transfer_TransientProcess)&   theTransferProcess,
     const Handle(StepRepr_PropertyDefinition)& theSource) const;
 
@@ -482,27 +482,27 @@ private:
   //! @param theProperty The property definition from which to collect related property definitions.
   //! @return A vector of collected related property definitions.
   std::vector<Handle(StepRepr_PropertyDefinition)> collectRelatedPropertyDefinitions(
-    const Handle(XSControl_WorkSession)&       theWorkSession,
+    const Handle(ExchangeSession)&       theWorkSession,
     const Handle(StepRepr_PropertyDefinition)& theProperty) const;
 
   //! Helper method to get NamedData attribute assigned to the given label.
   //! @param theLabel The label to get NamedData attribute from.
   //! @return Handle to the NamedData attribute. Guarantees that the attribute is never null.
-  Handle(TDataStd_NamedData) getNamedData(const TDF_Label& theLabel) const;
+  Handle(TDataStd_NamedData) getNamedData(const DataLabel& theLabel) const;
 
   //! Collects binders from the given property definition and stores them in the binder list.
   //! @param theWorkSession The work session to use for collecting binders.
   //! @param theTransientProcess The transient process to use for collecting binders.
   //! @param theSource The property definition from which to collect binders.
   //! @param theBinders The list to store the collected binders.
-  void collectBinders(const Handle(XSControl_WorkSession)&       theWorkSession,
+  void collectBinders(const Handle(ExchangeSession)&       theWorkSession,
                       const Handle(Transfer_TransientProcess)&   theTransientProcess,
                       const Handle(StepRepr_PropertyDefinition)& theSource,
                       NCollection_List<Handle(Transfer_Binder)>& theBinders) const;
 
 private:
-  STEPControl_Reader                                                              myReader;
-  NCollection_DataMap<TCollection_AsciiString, Handle(STEPCAFControl_ExternFile)> myFiles;
+  StepFileReader                                                              myReader;
+  NCollection_DataMap<AsciiString1, Handle(STEPCAFControl_ExternFile)> myFiles;
   XCAFDoc_DataMapOfShapeLabel                                                     myMap;
   Standard_Boolean                                                                myColorMode;
   Standard_Boolean                                                                myNameMode;
@@ -514,7 +514,7 @@ private:
   Standard_Boolean                                                                myGDTMode;
   Standard_Boolean                                                                myMatMode;
   Standard_Boolean                                                                myViewMode;
-  NCollection_DataMap<Handle(RefObject), TDF_Label>                      myGDTMap;
+  NCollection_DataMap<Handle(RefObject), DataLabel>                      myGDTMap;
 };
 
 #endif // _STEPCAFControl_Reader_HeaderFile

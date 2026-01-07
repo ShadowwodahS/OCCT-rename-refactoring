@@ -49,7 +49,7 @@ public:
 
   //! Open stream and pass it to Read method
   //! Returns true if success, false on error.
-  Standard_Boolean Read(const TCollection_AsciiString& theFile,
+  Standard_Boolean Read(const AsciiString1& theFile,
                         const Message_ProgressRange&   theProgress)
   {
     std::ifstream aStream;
@@ -61,7 +61,7 @@ public:
   //! Unicode paths can be given in UTF-8 encoding.
   //! Returns true if success, false on error or user break.
   Standard_Boolean Read(std::istream&                  theStream,
-                        const TCollection_AsciiString& theFile,
+                        const AsciiString1& theFile,
                         const Message_ProgressRange&   theProgress)
   {
     return read(theStream, theFile, theProgress, Standard_False);
@@ -72,7 +72,7 @@ public:
   //! @param theProgress progress indicator
   //! @return TRUE if success, FALSE on error or user break.
   //! @sa FileComments(), ExternalFiles(), NbProbeNodes(), NbProbeElems().
-  Standard_Boolean Probe(const TCollection_AsciiString& theFile,
+  Standard_Boolean Probe(const AsciiString1& theFile,
                          const Message_ProgressRange&   theProgress)
   {
     std::ifstream aStream;
@@ -89,17 +89,17 @@ public:
   //! @return TRUE if success, FALSE on error or user break.
   //! @sa FileComments(), ExternalFiles(), NbProbeNodes(), NbProbeElems().
   Standard_Boolean Probe(std::istream&                  theStream,
-                         const TCollection_AsciiString& theFile,
+                         const AsciiString1& theFile,
                          const Message_ProgressRange&   theProgress)
   {
     return read(theStream, theFile, theProgress, Standard_True);
   }
 
   //! Returns file comments (lines starting with # at the beginning of file).
-  const TCollection_AsciiString& FileComments() const { return myFileComments; }
+  const AsciiString1& FileComments() const { return myFileComments; }
 
   //! Return the list of external file references.
-  const NCollection_IndexedMap<TCollection_AsciiString>& ExternalFiles() const
+  const NCollection_IndexedMap<AsciiString1>& ExternalFiles() const
   {
     return myExternalFiles;
   }
@@ -142,7 +142,7 @@ protected:
   //! Unicode paths can be given in UTF-8 encoding.
   //! Returns true if success, false on error or user break.
   Standard_EXPORT Standard_Boolean read(std::istream&                  theStream,
-                                        const TCollection_AsciiString& theFile,
+                                        const AsciiString1& theFile,
                                         const Message_ProgressRange&   theProgress,
                                         const Standard_Boolean         theToProbe);
 
@@ -271,8 +271,8 @@ private:
   bool checkMemory();
 
 protected:
-  //! Hasher for 3 ordered integers.
-  struct ObjVec3iHasher
+  //! Hasher1 for 3 ordered integers.
+  struct ObjVec3iHasher1
   {
     std::size_t operator()(const Graphic3d_Vec3i& theKey) const noexcept
     {
@@ -286,11 +286,11 @@ protected:
   };
 
   //! Auxiliary structure holding vertex data either with single or double floating point precision.
-  class VectorOfVertices
+  class VectorOfVertices1
   {
   public:
     //! Empty constructor.
-    VectorOfVertices()
+    VectorOfVertices1()
         : myIsSinglePrecision(Standard_False)
     {
     }
@@ -362,10 +362,10 @@ protected:
   };
 
 protected:
-  NCollection_IndexedMap<TCollection_AsciiString>
+  NCollection_IndexedMap<AsciiString1>
                                    myExternalFiles; //!< list of external file references
-  TCollection_AsciiString          myFileComments;  //!< file header comments
-  TCollection_AsciiString          myFolder;        //!< folder containing the OBJ file
+  AsciiString1          myFileComments;  //!< file header comments
+  AsciiString1          myFolder;        //!< folder containing the OBJ file
   RWMesh_CoordinateSystemConverter myCSTrsf;        //!< coordinate system flipper
   Standard_Size                    myMemLimitBytes; //!< memory limit in bytes
   Standard_Size                    myMemEstim;      //!< estimated memory occupation in bytes
@@ -382,11 +382,11 @@ protected:
   // set of nodal properties defines Vertex (thus node at the same location but with different
   // normal should be duplicated). The following code converts OBJ definition of nodal properties to
   // Primitive Array definition.
-  VectorOfVertices                   myObjVerts;   //!< temporary vector of vertices
+  VectorOfVertices1                   myObjVerts;   //!< temporary vector of vertices
   NCollection_Vector<Graphic3d_Vec2> myObjVertsUV; //!< temporary vector of UV parameters
   NCollection_Vector<Graphic3d_Vec3> myObjNorms;   //!< temporary vector of normals
-  NCollection_DataMap<Graphic3d_Vec3i, Standard_Integer, ObjVec3iHasher> myPackedIndices;
-  NCollection_DataMap<TCollection_AsciiString, RWObj_Material>
+  NCollection_DataMap<Graphic3d_Vec3i, Standard_Integer, ObjVec3iHasher1> myPackedIndices;
+  NCollection_DataMap<AsciiString1, RWObj_Material>
     myMaterials; //!< map of known materials
 
   RWObj_SubMesh                 myActiveSubMesh; //!< active sub-mesh definition

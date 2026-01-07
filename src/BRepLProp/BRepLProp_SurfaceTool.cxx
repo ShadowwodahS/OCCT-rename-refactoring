@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-void BRepLProp_SurfaceTool::Value(const BRepAdaptor_Surface& S,
+void SurfaceLocalPropsTool::Value(const BRepAdaptor_Surface& S,
                                   const Standard_Real        U,
                                   const Standard_Real        V,
                                   Point3d&                    P)
@@ -31,7 +31,7 @@ void BRepLProp_SurfaceTool::Value(const BRepAdaptor_Surface& S,
 
 //=================================================================================================
 
-void BRepLProp_SurfaceTool::D1(const BRepAdaptor_Surface& S,
+void SurfaceLocalPropsTool::D1(const BRepAdaptor_Surface& S,
                                const Standard_Real        U,
                                const Standard_Real        V,
                                Point3d&                    P,
@@ -43,7 +43,7 @@ void BRepLProp_SurfaceTool::D1(const BRepAdaptor_Surface& S,
 
 //=================================================================================================
 
-void BRepLProp_SurfaceTool::D2(const BRepAdaptor_Surface& S,
+void SurfaceLocalPropsTool::D2(const BRepAdaptor_Surface& S,
                                const Standard_Real        U,
                                const Standard_Real        V,
                                Point3d&                    P,
@@ -58,7 +58,7 @@ void BRepLProp_SurfaceTool::D2(const BRepAdaptor_Surface& S,
 
 //=================================================================================================
 
-Vector3d BRepLProp_SurfaceTool::DN(const BRepAdaptor_Surface& S,
+Vector3d SurfaceLocalPropsTool::DN(const BRepAdaptor_Surface& S,
                                  const Standard_Real        U,
                                  const Standard_Real        V,
                                  const Standard_Integer     IU,
@@ -69,7 +69,7 @@ Vector3d BRepLProp_SurfaceTool::DN(const BRepAdaptor_Surface& S,
 
 //=================================================================================================
 
-Standard_Integer BRepLProp_SurfaceTool::Continuity(const BRepAdaptor_Surface& S)
+Standard_Integer SurfaceLocalPropsTool::Continuity(const BRepAdaptor_Surface& S)
 {
   GeomAbs_Shape s = (GeomAbs_Shape)Min(S.UContinuity(), S.VContinuity());
   switch (s)
@@ -94,7 +94,7 @@ Standard_Integer BRepLProp_SurfaceTool::Continuity(const BRepAdaptor_Surface& S)
 
 //=================================================================================================
 
-void BRepLProp_SurfaceTool::Bounds(const BRepAdaptor_Surface& S,
+void SurfaceLocalPropsTool::Bounds(const BRepAdaptor_Surface& S,
                                    Standard_Real&             U1,
                                    Standard_Real&             V1,
                                    Standard_Real&             U2,

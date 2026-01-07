@@ -32,8 +32,8 @@
 
 //=================================================================================================
 
-void VrmlConverter_WFDeflectionShape::Add(Standard_OStream&                   anOStream,
-                                          const TopoDS_Shape&                 aShape,
+void WFDeflectionShapeConverter::Add(Standard_OStream&                   anOStream,
+                                          const TopoShape&                 aShape,
                                           const Handle(VrmlConverter_Drawer)& aDrawer)
 {
 
@@ -83,7 +83,7 @@ void VrmlConverter_WFDeflectionShape::Add(Standard_OStream&                   an
     if (isoU || isoV) {
       S.Initialize(Tool.GetFace());
       Handle(BRepAdaptor_Surface) HS = new BRepAdaptor_Surface(S);
-      VrmlConverter_WFDeflectionRestrictedFace::Add(anOStream, HS,
+      WFDeflectionRestrictedFaceConverter::Add(anOStream, HS,
                             isoU, isoV,
                             theRequestedDeflection,
                             aDrawer->UIsoAspect()->Number(),
@@ -106,7 +106,7 @@ else {
     if (isoU) {
       S.Initialize(Tool.GetFace());
       Handle(BRepAdaptor_Surface) HS = new BRepAdaptor_Surface(S);
-      VrmlConverter_WFDeflectionRestrictedFace::Add(anOStream, HS,
+      WFDeflectionRestrictedFaceConverter::Add(anOStream, HS,
                             isoU, Standard_False,
                             theRequestedDeflection,
                             aDrawer->UIsoAspect()->Number(),
@@ -127,7 +127,7 @@ else {
     if (isoV) {
       S.Initialize(Tool.GetFace());
       Handle(BRepAdaptor_Surface) HS = new BRepAdaptor_Surface(S);
-      VrmlConverter_WFDeflectionRestrictedFace::Add(anOStream, HS,
+      WFDeflectionRestrictedFaceConverter::Add(anOStream, HS,
                             Standard_False, isoV,
                             theRequestedDeflection,
                             0,
@@ -147,7 +147,7 @@ else {
   }
 
   Handle(Poly_PolygonOnTriangulation) aPT;
-  Handle(Poly_Triangulation)          aT;
+  Handle(MeshTriangulation)          aT;
   TopLoc_Location                     aL;
 
   //   std::cout << "Quantity of Curves  = " << qnt << std::endl;
@@ -171,15 +171,15 @@ else {
           if (Tool.HasCurve())
           {
             BRepAdaptor_Curve C(Tool.GetCurve());
-            BRep_Tool::PolygonOnTriangulation(Tool.GetCurve(), aPT, aT, aL);
+            BRepInspector::PolygonOnTriangulation(Tool.GetCurve(), aPT, aT, aL);
             if (!aPT.IsNull() && !aT.IsNull() && aPT->HasParameters())
-              VrmlConverter_DeflectionCurve::Add(anOStream,
+              DeflectionCurveConverter::Add(anOStream,
                                                  C,
                                                  aPT->Parameters(),
                                                  aPT->NbNodes(),
                                                  aDrawer);
             else
-              VrmlConverter_DeflectionCurve::Add(anOStream, C, theRequestedDeflection, aDrawer);
+              DeflectionCurveConverter::Add(anOStream, C, theRequestedDeflection, aDrawer);
           }
         }
       }
@@ -206,15 +206,15 @@ else {
           if (Tool.HasCurve())
           {
             BRepAdaptor_Curve C(Tool.GetCurve());
-            BRep_Tool::PolygonOnTriangulation(Tool.GetCurve(), aPT, aT, aL);
+            BRepInspector::PolygonOnTriangulation(Tool.GetCurve(), aPT, aT, aL);
             if (!aPT.IsNull() && !aT.IsNull() && aPT->HasParameters())
-              VrmlConverter_DeflectionCurve::Add(anOStream,
+              DeflectionCurveConverter::Add(anOStream,
                                                  C,
                                                  aPT->Parameters(),
                                                  aPT->NbNodes(),
                                                  aDrawer);
             else
-              VrmlConverter_DeflectionCurve::Add(anOStream, C, theRequestedDeflection, aDrawer);
+              DeflectionCurveConverter::Add(anOStream, C, theRequestedDeflection, aDrawer);
           }
         }
       }
@@ -241,15 +241,15 @@ else {
           if (Tool.HasCurve())
           {
             BRepAdaptor_Curve C(Tool.GetCurve());
-            BRep_Tool::PolygonOnTriangulation(Tool.GetCurve(), aPT, aT, aL);
+            BRepInspector::PolygonOnTriangulation(Tool.GetCurve(), aPT, aT, aL);
             if (!aPT.IsNull() && !aT.IsNull() && aPT->HasParameters())
-              VrmlConverter_DeflectionCurve::Add(anOStream,
+              DeflectionCurveConverter::Add(anOStream,
                                                  C,
                                                  aPT->Parameters(),
                                                  aPT->NbNodes(),
                                                  aDrawer);
             else
-              VrmlConverter_DeflectionCurve::Add(anOStream, C, theRequestedDeflection, aDrawer);
+              DeflectionCurveConverter::Add(anOStream, C, theRequestedDeflection, aDrawer);
           }
         }
       }
@@ -278,7 +278,7 @@ else {
     for (Tool.InitVertex(); Tool.MoreVertex(); Tool.NextVertex())
     {
       i++;
-      P = BRep_Tool::Pnt(Tool.GetVertex());
+      P = BRepInspector::Pnt(Tool.GetVertex());
       V.SetX(P.X());
       V.SetY(P.Y());
       V.SetZ(P.Z());
@@ -289,7 +289,7 @@ else {
     PA                                   = aDrawer->PointAspect();
 
     // Separator P {
-    Vrml_Separator SEP;
+    Separator SEP;
     SEP.Print(anOStream);
 
     // Material
@@ -306,7 +306,7 @@ else {
     C3->Print(anOStream);
 
     // PointSet
-    Vrml_PointSet PS;
+    PointSet PS;
     PS.Print(anOStream);
 
     // Separator P }

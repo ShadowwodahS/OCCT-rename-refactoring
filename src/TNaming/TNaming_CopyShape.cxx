@@ -23,20 +23,20 @@
 // function : CopyTool
 // purpose  : Tool to copy a set of shape(s), using the aMap
 //=======================================================================
-void TNaming_CopyShape::CopyTool(const TopoDS_Shape&                         aShape,
+void ShapeCopier::CopyTool(const TopoShape&                         aShape,
                                  TColStd_IndexedDataMapOfTransientTransient& aMap,
-                                 TopoDS_Shape&                               aResult)
+                                 TopoShape&                               aResult)
 {
 
   Handle(TNaming_TranslateTool) TrTool = new TNaming_TranslateTool();
-  TNaming_CopyShape::Translate(aShape, aMap, aResult, TrTool);
+  ShapeCopier::Translate(aShape, aMap, aResult, TrTool);
 }
 
 //=================================================================================================
 
-void TNaming_CopyShape::Translate(const TopoDS_Shape&                         aShape,
+void ShapeCopier::Translate(const TopoShape&                         aShape,
                                   TColStd_IndexedDataMapOfTransientTransient& aMap,
-                                  TopoDS_Shape&                               aResult,
+                                  TopoShape&                               aResult,
                                   const Handle(TNaming_TranslateTool)&        TrTool)
 {
   aResult.Nullify();
@@ -104,7 +104,7 @@ void TNaming_CopyShape::Translate(const TopoDS_Shape&                         aS
 
     // bind and copy the sub-elements
     aMap.Add(aShape.TShape(), aResult.TShape()); // TShapes
-    TopoDS_Shape S = aShape;
+    TopoShape S = aShape;
     S.Orientation(TopAbs_FORWARD);
     S.Location(TopLoc_Location()); // Identity
     // copy current Shape
@@ -114,8 +114,8 @@ void TNaming_CopyShape::Translate(const TopoDS_Shape&                         aS
     // translate <sub-shapes>
     for (; itr.More(); itr.Next())
     {
-      TopoDS_Shape subShape;
-      TNaming_CopyShape::Translate(itr.Value(), aMap, subShape, TrTool);
+      TopoShape subShape;
+      ShapeCopier::Translate(itr.Value(), aMap, subShape, TrTool);
       TrTool->Add(aResult, subShape); // add subshapes
     }
 
@@ -123,7 +123,7 @@ void TNaming_CopyShape::Translate(const TopoDS_Shape&                         aS
   }
 
   aResult.Orientation(aShape.Orientation());
-  aResult.Location(TNaming_CopyShape::Translate(aShape.Location(), aMap), false);
+  aResult.Location(ShapeCopier::Translate(aShape.Location(), aMap), false);
   TrTool->UpdateShape(aShape, aResult);
   // #ifdef OCCT_DEBUG
   //     if(fShar) {
@@ -162,7 +162,7 @@ static Handle(TopLoc_Datum3D) TranslateDatum3D(const Handle(TopLoc_Datum3D)&    
 // purpose  : Topological Location
 //=======================================================================
 
-TopLoc_Location TNaming_CopyShape::Translate(const TopLoc_Location&                      L,
+TopLoc_Location ShapeCopier::Translate(const TopLoc_Location&                      L,
                                              TColStd_IndexedDataMapOfTransientTransient& aMap)
 {
   TopLoc_Location result;

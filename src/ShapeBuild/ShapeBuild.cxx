@@ -20,10 +20,10 @@
 
 //=================================================================================================
 
-Handle(Geom_Plane) ShapeBuild::PlaneXOY()
+Handle(GeomPlane) ShapeBuild::PlaneXOY()
 {
-  static Handle(Geom_Plane) xoy;
+  static Handle(GeomPlane) xoy;
   if (xoy.IsNull())
-    xoy = new Geom_Plane(0, 0, 1, 0);
+    xoy = new GeomPlane(0, 0, 1, 0);
   return xoy;
 }

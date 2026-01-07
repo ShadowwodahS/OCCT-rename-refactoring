@@ -24,7 +24,7 @@
 class IGESBasic_Protocol;
 
 //! This package represents basic entities from IGES
-class IGESBasic
+class IGESBasic1
 {
 public:
   DEFINE_STANDARD_ALLOC

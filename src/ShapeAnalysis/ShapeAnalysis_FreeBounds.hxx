@@ -24,7 +24,7 @@
 #include <TopoDS_Compound.hxx>
 #include <TopTools_HSequenceOfShape.hxx>
 #include <TopTools_DataMapOfShapeShape.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! This class is intended to output free bounds of the shape.
 //!
@@ -73,7 +73,7 @@ public:
   //! built closed wires.
   //! If <splitopen> is True extracts closed sub-wires out of
   //! built open wires.
-  Standard_EXPORT ShapeAnalysis_FreeBounds(const TopoDS_Shape&    shape,
+  Standard_EXPORT ShapeAnalysis_FreeBounds(const TopoShape&    shape,
                                            const Standard_Real    toler,
                                            const Standard_Boolean splitclosed = Standard_False,
                                            const Standard_Boolean splitopen   = Standard_True);
@@ -90,16 +90,16 @@ public:
   //! If <splitopen> is True extracts closed sub-wires out of
   //! built open wires.
   Standard_EXPORT ShapeAnalysis_FreeBounds(
-    const TopoDS_Shape&    shape,
+    const TopoShape&    shape,
     const Standard_Boolean splitclosed        = Standard_False,
     const Standard_Boolean splitopen          = Standard_True,
     const Standard_Boolean checkinternaledges = Standard_False);
 
   //! Returns compound of closed wires out of free edges.
-  const TopoDS_Compound& GetClosedWires() const;
+  const TopoCompound& GetClosedWires() const;
 
   //! Returns compound of open wires out of free edges.
-  const TopoDS_Compound& GetOpenWires() const;
+  const TopoCompound& GetOpenWires() const;
 
   //! Builds sequence of <wires> out of sequence of not sorted
   //! <edges>.
@@ -158,15 +158,15 @@ public:
   //! <closed> for closed wires and <open> for open wires.
   //! If a compound is not empty wires are added into it.
   Standard_EXPORT static void DispatchWires(const Handle(TopTools_HSequenceOfShape)& wires,
-                                            TopoDS_Compound&                         closed,
-                                            TopoDS_Compound&                         open);
+                                            TopoCompound&                         closed,
+                                            TopoCompound&                         open);
 
 protected:
 private:
   Standard_EXPORT void SplitWires();
 
-  TopoDS_Compound  myWires;
-  TopoDS_Compound  myEdges;
+  TopoCompound  myWires;
+  TopoCompound  myEdges;
   Standard_Real    myTolerance;
   Standard_Boolean myShared;
   Standard_Boolean mySplitClosed;

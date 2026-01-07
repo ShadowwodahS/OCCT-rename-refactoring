@@ -30,7 +30,7 @@
 //   Solution of the equation of second degree showing that the center of the  +
 //   circle is equidistant from two points.                                    +
 //==============================================================================
-GccAna_Circ2d2TanRad::GccAna_Circ2d2TanRad(const gp_Pnt2d&     Point1,
+Circle2dTwoTangentRadius::Circle2dTwoTangentRadius(const gp_Pnt2d&     Point1,
                                            const gp_Pnt2d&     Point2,
                                            const Standard_Real Radius,
                                            const Standard_Real Tolerance)

@@ -29,9 +29,9 @@
 
 class BRep_PointRepresentation;
 class BRep_CurveRepresentation;
-class TopoDS_Vertex;
-class TopoDS_Edge;
-class TopoDS_Face;
+class TopoVertex;
+class TopoEdge;
+class TopoFace;
 
 class ShapePersistent_BRep : public ShapePersistent_TopoDS
 {
@@ -502,63 +502,63 @@ public:
 public:
   //! Create a persistent object for a vertex
   Standard_EXPORT static Handle(TVertex::pTObjectT) Translate(
-    const TopoDS_Vertex&              theVertex,
+    const TopoVertex&              theVertex,
     StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for an edge
   Standard_EXPORT static Handle(TEdge::pTObjectT) Translate(
-    const TopoDS_Edge&                theEdge,
+    const TopoEdge&                theEdge,
     StdObjMgt_TransientPersistentMap& theMap,
     ShapePersistent_TriangleMode      theTriangleMode);
   //! Create a persistent object for a face
   Standard_EXPORT static Handle(TFace::pTObjectT) Translate(
-    const TopoDS_Face&                theFace,
+    const TopoFace&                theFace,
     StdObjMgt_TransientPersistentMap& theMap,
     ShapePersistent_TriangleMode      theTriangleMode);
   //! Create a persistent object for a point on a 3D curve
   Standard_EXPORT static Handle(PointOnCurve) Translate(Standard_Real                     theParam,
-                                                        const Handle(Geom_Curve)&         theCurve,
+                                                        const Handle(GeomCurve3d)&         theCurve,
                                                         const TopLoc_Location&            theLoc,
                                                         StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a point on a 3D curve on a surface
   Standard_EXPORT static Handle(PointOnCurveOnSurface) Translate(
     Standard_Real                     theParam,
-    const Handle(Geom2d_Curve)&       theCurve,
-    const Handle(Geom_Surface)&       theSurf,
+    const Handle(GeomCurve2d)&       theCurve,
+    const Handle(GeomSurface)&       theSurf,
     const TopLoc_Location&            theLoc,
     StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a point on a surface
   Standard_EXPORT static Handle(PointOnSurface) Translate(Standard_Real               theParam,
                                                           Standard_Real               theParam2,
-                                                          const Handle(Geom_Surface)& theSurf,
+                                                          const Handle(GeomSurface)& theSurf,
                                                           const TopLoc_Location&      theLoc,
                                                           StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a curve on a surface
-  Standard_EXPORT static Handle(CurveOnSurface) Translate(const Handle(Geom2d_Curve)& theCurve,
+  Standard_EXPORT static Handle(CurveOnSurface) Translate(const Handle(GeomCurve2d)& theCurve,
                                                           const Standard_Real         theFirstParam,
                                                           const Standard_Real         theLastParam,
-                                                          const Handle(Geom_Surface)& theSurf,
+                                                          const Handle(GeomSurface)& theSurf,
                                                           const TopLoc_Location&      theLoc,
                                                           StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a curve on a closed surface
   Standard_EXPORT static Handle(CurveOnClosedSurface) Translate(
-    const Handle(Geom2d_Curve)&       theCurve,
-    const Handle(Geom2d_Curve)&       theCurve2,
+    const Handle(GeomCurve2d)&       theCurve,
+    const Handle(GeomCurve2d)&       theCurve2,
     const Standard_Real               theFirstParam,
     const Standard_Real               theLastParam,
-    const Handle(Geom_Surface)&       theSurf,
+    const Handle(GeomSurface)&       theSurf,
     const TopLoc_Location&            theLoc,
     const GeomAbs_Shape               theContinuity,
     StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a curve on two surfaces
   Standard_EXPORT static Handle(CurveOn2Surfaces) Translate(
-    const Handle(Geom_Surface)&       theSurf,
-    const Handle(Geom_Surface)&       theSurf2,
+    const Handle(GeomSurface)&       theSurf,
+    const Handle(GeomSurface)&       theSurf2,
     const TopLoc_Location&            theLoc,
     const TopLoc_Location&            theLoc2,
     const GeomAbs_Shape               theContinuity,
     StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a 3D curve
-  Standard_EXPORT static Handle(Curve3D) Translate(const Handle(Geom_Curve)&         theCurve,
+  Standard_EXPORT static Handle(Curve3D) Translate(const Handle(GeomCurve3d)&         theCurve,
                                                    const Standard_Real               theFirstParam,
                                                    const Standard_Real               theLastParam,
                                                    const TopLoc_Location&            theLoc,
@@ -571,26 +571,26 @@ public:
   Standard_EXPORT static Handle(PolygonOnClosedSurface) Translate(
     const Handle(Poly_Polygon2D)&     thePoly,
     const Handle(Poly_Polygon2D)&     thePoly2,
-    const Handle(Geom_Surface)&       theSurf,
+    const Handle(GeomSurface)&       theSurf,
     const TopLoc_Location&            theLoc,
     StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a polygon on a surface
   Standard_EXPORT static Handle(PolygonOnSurface) Translate(
     const Handle(Poly_Polygon2D)&     thePoly,
-    const Handle(Geom_Surface)&       theSurf,
+    const Handle(GeomSurface)&       theSurf,
     const TopLoc_Location&            theLoc,
     StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a polygon on a surface
   Standard_EXPORT static Handle(PolygonOnClosedTriangulation) Translate(
     const Handle(Poly_PolygonOnTriangulation)& thePolyOnTriang,
     const Handle(Poly_PolygonOnTriangulation)& thePolyOnTriang2,
-    const Handle(Poly_Triangulation)&          thePolyTriang,
+    const Handle(MeshTriangulation)&          thePolyTriang,
     const TopLoc_Location&                     theLoc,
     StdObjMgt_TransientPersistentMap&          theMap);
   //! Create a persistent object for a polygon on a surface
   Standard_EXPORT static Handle(PolygonOnTriangulation) Translate(
     const Handle(Poly_PolygonOnTriangulation)& thePolyOnTriang,
-    const Handle(Poly_Triangulation)&          thePolyTriang,
+    const Handle(MeshTriangulation)&          thePolyTriang,
     const TopLoc_Location&                     theLoc,
     StdObjMgt_TransientPersistentMap&          theMap);
 };

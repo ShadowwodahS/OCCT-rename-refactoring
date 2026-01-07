@@ -22,9 +22,9 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TopoDS_Shape, HLRTopoBRep_ListOfVData, TopTools_ShapeMapHasher>
+typedef NCollection_DataMap<TopoShape, HLRTopoBRep_ListOfVData, ShapeHasher>
   HLRTopoBRep_MapOfShapeListOfVData;
-typedef NCollection_DataMap<TopoDS_Shape, HLRTopoBRep_ListOfVData, TopTools_ShapeMapHasher>::
+typedef NCollection_DataMap<TopoShape, HLRTopoBRep_ListOfVData, ShapeHasher>::
   Iterator HLRTopoBRep_DataMapIteratorOfMapOfShapeListOfVData;
 
 #endif

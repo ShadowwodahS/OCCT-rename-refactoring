@@ -186,7 +186,7 @@ void OpenGl_ShaderManager::clear()
 // purpose  : Creates new shader program
 // =======================================================================
 Standard_Boolean OpenGl_ShaderManager::Create(const Handle(Graphic3d_ShaderProgram)& theProxy,
-                                              TCollection_AsciiString&               theShareKey,
+                                              AsciiString1&               theShareKey,
                                               Handle(OpenGl_ShaderProgram)&          theProgram)
 {
   theProgram.Nullify();
@@ -223,7 +223,7 @@ Standard_Boolean OpenGl_ShaderManager::Create(const Handle(Graphic3d_ShaderProgr
 // function : Unregister
 // purpose  : Removes specified shader program from the manager
 // =======================================================================
-void OpenGl_ShaderManager::Unregister(TCollection_AsciiString&      theShareKey,
+void OpenGl_ShaderManager::Unregister(AsciiString1&      theShareKey,
                                       Handle(OpenGl_ShaderProgram)& theProgram)
 {
   for (OpenGl_ShaderProgramList::Iterator anIt(myProgramList); anIt.More(); anIt.Next())
@@ -242,7 +242,7 @@ void OpenGl_ShaderManager::Unregister(TCollection_AsciiString&      theShareKey,
     }
   }
 
-  const TCollection_AsciiString anID = theProgram->myProxy->GetId();
+  const AsciiString1 anID = theProgram->myProxy->GetId();
   if (anID.IsEmpty())
   {
     myContext->DelayedRelease(theProgram);
@@ -270,7 +270,7 @@ void OpenGl_ShaderManager::switchLightPrograms()
     return;
   }
 
-  const TCollection_AsciiString aKey = genLightKey(aLights, myLightSourceState.HasShadowMaps());
+  const AsciiString1 aKey = genLightKey(aLights, myLightSourceState.HasShadowMaps());
   if (!myMapOfLightPrograms.Find(aKey, myLightPrograms))
   {
     myLightPrograms = new OpenGl_SetOfShaderPrograms();
@@ -467,7 +467,7 @@ void OpenGl_ShaderManager::pushLightSourceState(
                                GL_DEBUG_TYPE_PORTABILITY,
                                0,
                                GL_DEBUG_SEVERITY_MEDIUM,
-                               TCollection_AsciiString("Warning: light sources limit (")
+                               AsciiString1("Warning: light sources limit (")
                                  + aNbLightsMax + ") has been exceeded.");
       }
       continue;
@@ -888,7 +888,7 @@ void OpenGl_ShaderManager::pushClippingState(const Handle(OpenGl_ShaderProgram)&
                                GL_DEBUG_TYPE_PORTABILITY,
                                0,
                                GL_DEBUG_SEVERITY_HIGH,
-                               TCollection_AsciiString("Error: clipping planes limit (")
+                               AsciiString1("Error: clipping planes limit (")
                                  + aNbClipPlanesMax + ") has been exceeded.");
         break;
       }
@@ -912,7 +912,7 @@ void OpenGl_ShaderManager::pushClippingState(const Handle(OpenGl_ShaderProgram)&
                                GL_DEBUG_TYPE_PORTABILITY,
                                0,
                                GL_DEBUG_SEVERITY_HIGH,
-                               TCollection_AsciiString("Error: clipping planes limit (")
+                               AsciiString1("Error: clipping planes limit (")
                                  + aNbClipPlanesMax + ") has been exceeded.");
         break;
       }
@@ -1125,7 +1125,7 @@ Standard_Boolean OpenGl_ShaderManager::BindFontProgram(
   if (myFontProgram.IsNull())
   {
     Handle(Graphic3d_ShaderProgram) aProgramSrc = getStdProgramFont();
-    TCollection_AsciiString         aKey;
+    AsciiString1         aKey;
     if (!Create(aProgramSrc, aKey, myFontProgram))
     {
       myFontProgram = new OpenGl_ShaderProgram(); // just mark as invalid
@@ -1157,7 +1157,7 @@ Standard_Boolean OpenGl_ShaderManager::BindFboBlitProgram(Standard_Integer theNb
 
   Handle(Graphic3d_ShaderProgram) aProgramSrc =
     getStdProgramFboBlit(aNbSamples, theIsFallback_sRGB);
-  TCollection_AsciiString aKey;
+  AsciiString1 aKey;
   if (!Create(aProgramSrc, aKey, aProg))
   {
     aProg = new OpenGl_ShaderProgram(); // just mark as invalid
@@ -1182,7 +1182,7 @@ Standard_Boolean OpenGl_ShaderManager::BindOitCompositingProgram(Standard_Boolea
   }
 
   Handle(Graphic3d_ShaderProgram) aProgramSrc = getStdProgramOitCompositing(theIsMSAAEnabled);
-  TCollection_AsciiString         aKey;
+  AsciiString1         aKey;
   if (!Create(aProgramSrc, aKey, aProgram))
   {
     aProgram = new OpenGl_ShaderProgram(); // just mark as invalid
@@ -1207,7 +1207,7 @@ Standard_Boolean OpenGl_ShaderManager::BindOitDepthPeelingBlendProgram(bool theI
   }
 
   Handle(Graphic3d_ShaderProgram) aProgramSrc = getStdProgramOitDepthPeelingBlend(theIsMSAAEnabled);
-  TCollection_AsciiString         aKey;
+  AsciiString1         aKey;
   if (!Create(aProgramSrc, aKey, aProgram))
   {
     aProgram = new OpenGl_ShaderProgram(); // just mark as invalid
@@ -1231,7 +1231,7 @@ Standard_Boolean OpenGl_ShaderManager::BindOitDepthPeelingFlushProgram(bool theI
   }
 
   Handle(Graphic3d_ShaderProgram) aProgramSrc = getStdProgramOitDepthPeelingFlush(theIsMSAAEnabled);
-  TCollection_AsciiString         aKey;
+  AsciiString1         aKey;
   if (!Create(aProgramSrc, aKey, aProgram))
   {
     aProgram = new OpenGl_ShaderProgram(); // just mark as invalid
@@ -1252,7 +1252,7 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramUnlit(
   Standard_Boolean              theIsOutline)
 {
   Handle(Graphic3d_ShaderProgram) aProgramSrc = getStdProgramUnlit(theBits, theIsOutline);
-  TCollection_AsciiString         aKey;
+  AsciiString1         aKey;
   if (!Create(aProgramSrc, aKey, theProgram))
   {
     theProgram = new OpenGl_ShaderProgram(); // just mark as invalid
@@ -1269,7 +1269,7 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramGouraud(
 {
   Handle(Graphic3d_ShaderProgram) aProgramSrc =
     getStdProgramGouraud(myLightSourceState.LightSources(), theBits);
-  TCollection_AsciiString aKey;
+  AsciiString1 aKey;
   if (!Create(aProgramSrc, aKey, theProgram))
   {
     theProgram = new OpenGl_ShaderProgram(); // just mark as invalid
@@ -1294,7 +1294,7 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramPhong(
                        theIsFlatNormal,
                        theIsPBR,
                        aNbShadowMaps);
-  TCollection_AsciiString aKey;
+  AsciiString1 aKey;
   if (!Create(aProgramSrc, aKey, theProgram))
   {
     theProgram = new OpenGl_ShaderProgram(); // just mark as invalid
@@ -1319,7 +1319,7 @@ Standard_Boolean OpenGl_ShaderManager::BindStereoProgram(Graphic3d_StereoMode th
   }
 
   Handle(Graphic3d_ShaderProgram) aProgramSrc = getStdProgramStereo(theStereoMode);
-  TCollection_AsciiString         aKey;
+  AsciiString1         aKey;
   if (!Create(aProgramSrc, aKey, aProgram))
   {
     aProgram = new OpenGl_ShaderProgram(); // just mark as invalid
@@ -1338,7 +1338,7 @@ Standard_Boolean OpenGl_ShaderManager::BindStereoProgram(Graphic3d_StereoMode th
 Standard_Boolean OpenGl_ShaderManager::prepareStdProgramBoundBox()
 {
   Handle(Graphic3d_ShaderProgram) aProgramSrc = Graphic3d_ShaderManager::getStdProgramBoundBox();
-  TCollection_AsciiString         aKey;
+  AsciiString1         aKey;
   if (!Create(aProgramSrc, aKey, myBoundBoxProgram))
   {
     myBoundBoxProgram = new OpenGl_ShaderProgram(); // just mark as invalid
@@ -1385,7 +1385,7 @@ Standard_Boolean OpenGl_ShaderManager::prepareStdProgramBoundBox()
 Standard_Boolean OpenGl_ShaderManager::preparePBREnvBakingProgram(Standard_Integer theIndex)
 {
   Handle(Graphic3d_ShaderProgram) aProgramSrc = getPBREnvBakingProgram(theIndex);
-  TCollection_AsciiString         aKey;
+  AsciiString1         aKey;
   if (!Create(aProgramSrc, aKey, myPBREnvBakingProgram[theIndex]))
   {
     myPBREnvBakingProgram[theIndex] = new OpenGl_ShaderProgram(); // just mark as invalid

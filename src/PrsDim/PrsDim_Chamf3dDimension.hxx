@@ -34,18 +34,18 @@ public:
   //! Constructs a display object for 3D chamfers.
   //! This object is defined by the shape aFShape, the
   //! dimension aVal and the text aText.
-  Standard_EXPORT PrsDim_Chamf3dDimension(const TopoDS_Shape&               aFShape,
+  Standard_EXPORT PrsDim_Chamf3dDimension(const TopoShape&               aFShape,
                                           const Standard_Real               aVal,
-                                          const TCollection_ExtendedString& aText);
+                                          const UtfString& aText);
 
   //! Constructs a display object for 3D chamfers.
   //! This object is defined by the shape aFShape, the
   //! dimension aVal, the text aText, the point of origin of
   //! the chamfer aPosition, the type of arrow aSymbolPrs
   //! with the size anArrowSize.
-  Standard_EXPORT PrsDim_Chamf3dDimension(const TopoDS_Shape&               aFShape,
+  Standard_EXPORT PrsDim_Chamf3dDimension(const TopoShape&               aFShape,
                                           const Standard_Real               aVal,
-                                          const TCollection_ExtendedString& aText,
+                                          const UtfString& aText,
                                           const Point3d&                     aPosition,
                                           const DsgPrs_ArrowSide            aSymbolPrs,
                                           const Standard_Real               anArrowSize = 0.0);
@@ -64,7 +64,7 @@ private:
                                        const Handle(Prs3d_Presentation)&         thePrs,
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
 private:

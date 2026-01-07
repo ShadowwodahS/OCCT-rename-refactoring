@@ -59,7 +59,7 @@ static Handle(StepGeom_Axis2Placement3d) MakeAxis2Placement3d(const Point3d&    
 //=============================================================================
 
 GeomToStep_MakeAxis2Placement3d::GeomToStep_MakeAxis2Placement3d(
-  const StepData_Factors& theLocalFactors)
+  const ConversionFactors& theLocalFactors)
 {
   Frame3d A(Point3d(0., 0., 0.), Dir3d(0., 0., 1.), Dir3d(1., 0., 0.));
   //   le reste inchange
@@ -79,7 +79,7 @@ GeomToStep_MakeAxis2Placement3d::GeomToStep_MakeAxis2Placement3d(
 
 GeomToStep_MakeAxis2Placement3d::GeomToStep_MakeAxis2Placement3d(
   const Frame3d&           A,
-  const StepData_Factors& theLocalFactors)
+  const ConversionFactors& theLocalFactors)
 {
   Handle(StepGeom_Axis2Placement3d) Axe = MakeAxis2Placement3d(A.Location(),
                                                                A.Direction(),
@@ -96,7 +96,7 @@ GeomToStep_MakeAxis2Placement3d::GeomToStep_MakeAxis2Placement3d(
 
 GeomToStep_MakeAxis2Placement3d::GeomToStep_MakeAxis2Placement3d(
   const gp_Ax3&           A,
-  const StepData_Factors& theLocalFactors)
+  const ConversionFactors& theLocalFactors)
 {
   Handle(StepGeom_Axis2Placement3d) Axe = MakeAxis2Placement3d(A.Location(),
                                                                A.Direction(),
@@ -113,7 +113,7 @@ GeomToStep_MakeAxis2Placement3d::GeomToStep_MakeAxis2Placement3d(
 
 GeomToStep_MakeAxis2Placement3d::GeomToStep_MakeAxis2Placement3d(
   const Transform3d&          T,
-  const StepData_Factors& theLocalFactors)
+  const ConversionFactors& theLocalFactors)
 {
   Frame3d A(Point3d(0., 0., 0.), Dir3d(0., 0., 1.), Dir3d(1., 0., 0.));
   A.Transform(T);
@@ -135,7 +135,7 @@ GeomToStep_MakeAxis2Placement3d::GeomToStep_MakeAxis2Placement3d(
 
 GeomToStep_MakeAxis2Placement3d::GeomToStep_MakeAxis2Placement3d(
   const Handle(Geom_Axis2Placement)& Axis2,
-  const StepData_Factors&            theLocalFactors)
+  const ConversionFactors&            theLocalFactors)
 {
   Frame3d A;
   A = Axis2->Ax2();

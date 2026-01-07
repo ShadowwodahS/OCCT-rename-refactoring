@@ -34,7 +34,7 @@
 //!
 //! It  is created or  initialized with a  Face and an
 //! Edge.  The methods are  inherited from  Curve from
-//! Geom2dAdaptor.
+//! Geom2dAdaptor1.
 class BRepAdaptor_Curve2d : public Geom2dAdaptor_Curve
 {
   DEFINE_STANDARD_RTTIEXT(BRepAdaptor_Curve2d, Geom2dAdaptor_Curve)
@@ -43,23 +43,23 @@ public:
   Standard_EXPORT BRepAdaptor_Curve2d();
 
   //! Creates with the pcurve of <E> on <F>.
-  Standard_EXPORT BRepAdaptor_Curve2d(const TopoDS_Edge& E, const TopoDS_Face& F);
+  Standard_EXPORT BRepAdaptor_Curve2d(const TopoEdge& E, const TopoFace& F);
 
   //! Shallow copy of adaptor
   Standard_EXPORT virtual Handle(Adaptor2d_Curve2d) ShallowCopy() const Standard_OVERRIDE;
 
   //! Initialize with the pcurve of <E> on <F>.
-  Standard_EXPORT void Initialize(const TopoDS_Edge& E, const TopoDS_Face& F);
+  Standard_EXPORT void Initialize(const TopoEdge& E, const TopoFace& F);
 
   //! Returns the Edge.
-  Standard_EXPORT const TopoDS_Edge& Edge() const;
+  Standard_EXPORT const TopoEdge& Edge() const;
 
   //! Returns the Face.
-  Standard_EXPORT const TopoDS_Face& Face() const;
+  Standard_EXPORT const TopoFace& Face() const;
 
 private:
-  TopoDS_Edge myEdge;
-  TopoDS_Face myFace;
+  TopoEdge myEdge;
+  TopoFace myFace;
 };
 
 DEFINE_STANDARD_HANDLE(BRepAdaptor_Curve2d, Geom2dAdaptor_Curve)

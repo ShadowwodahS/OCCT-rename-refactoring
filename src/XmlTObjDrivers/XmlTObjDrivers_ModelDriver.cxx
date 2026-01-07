@@ -59,7 +59,7 @@ Standard_Boolean XmlTObjDrivers_ModelDriver::Paste(const XmlObjMgt_Persistent&  
                                                    const Handle(TDF_Attribute)& Target,
                                                    XmlObjMgt_RRelocationTable& /*RelocTable*/) const
 {
-  TCollection_ExtendedString aString;
+  UtfString aString;
   if (XmlObjMgt::GetExtendedString(Source, aString))
   {
     Standard_GUID      aGUID(aString.ToExtString());

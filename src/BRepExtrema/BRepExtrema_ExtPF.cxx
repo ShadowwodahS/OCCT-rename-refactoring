@@ -28,8 +28,8 @@
 
 //=================================================================================================
 
-BRepExtrema_ExtPF::BRepExtrema_ExtPF(const TopoDS_Vertex&  TheVertex,
-                                     const TopoDS_Face&    TheFace,
+BRepExtrema_ExtPF::BRepExtrema_ExtPF(const TopoVertex&  TheVertex,
+                                     const TopoFace&    TheFace,
                                      const Extrema_ExtFlag TheFlag,
                                      const Extrema_ExtAlgo TheAlgo)
 {
@@ -39,7 +39,7 @@ BRepExtrema_ExtPF::BRepExtrema_ExtPF(const TopoDS_Vertex&  TheVertex,
 
 //=================================================================================================
 
-void BRepExtrema_ExtPF::Initialize(const TopoDS_Face&    TheFace,
+void BRepExtrema_ExtPF::Initialize(const TopoFace&    TheFace,
                                    const Extrema_ExtFlag TheFlag,
                                    const Extrema_ExtAlgo TheAlgo)
 {
@@ -50,12 +50,12 @@ void BRepExtrema_ExtPF::Initialize(const TopoDS_Face&    TheFace,
   if (mySurf.GetType() == GeomAbs_OtherSurface)
     return; // protect against non-geometric type (e.g. triangulation)
 
-  Standard_Real Tol = Min(BRep_Tool::Tolerance(TheFace), Precision::Confusion());
+  Standard_Real Tol = Min(BRepInspector::Tolerance(TheFace), Precision::Confusion());
   Standard_Real aTolU, aTolV;
   aTolU = Max(mySurf.UResolution(Tol), Precision::PConfusion());
   aTolV = Max(mySurf.VResolution(Tol), Precision::PConfusion());
   Standard_Real U1, U2, V1, V2;
-  BRepTools::UVBounds(TheFace, U1, U2, V1, V2);
+  BRepTools1::UVBounds(TheFace, U1, U2, V1, V2);
   myExtPS.SetFlag(TheFlag);
   myExtPS.SetAlgo(TheAlgo);
   myExtPS.Initialize(mySurf, U1, U2, V1, V2, aTolU, aTolV);
@@ -63,12 +63,12 @@ void BRepExtrema_ExtPF::Initialize(const TopoDS_Face&    TheFace,
 
 //=================================================================================================
 
-void BRepExtrema_ExtPF::Perform(const TopoDS_Vertex& TheVertex, const TopoDS_Face& TheFace)
+void BRepExtrema_ExtPF::Perform(const TopoVertex& TheVertex, const TopoFace& TheFace)
 {
   mySqDist.Clear();
   myPoints.Clear();
 
-  const Point3d P = BRep_Tool::Pnt(TheVertex);
+  const Point3d P = BRepInspector::Pnt(TheVertex);
   if (mySurf.GetType() == GeomAbs_OtherSurface)
     return; // protect against non-geometric type (e.g. triangulation)
 
@@ -79,7 +79,7 @@ void BRepExtrema_ExtPF::Perform(const TopoDS_Vertex& TheVertex, const TopoDS_Fac
   {
     BRepClass_FaceClassifier classifier;
     Standard_Real            U1, U2;
-    const Standard_Real      Tol = BRep_Tool::Tolerance(TheFace);
+    const Standard_Real      Tol = BRepInspector::Tolerance(TheFace);
     for (Standard_Integer i = 1; i <= myExtPS.NbExt(); i++)
     {
       myExtPS.Point(i).Parameter(U1, U2);

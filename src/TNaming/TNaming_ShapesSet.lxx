@@ -17,18 +17,18 @@
 #include <TopTools_MapOfShape.hxx>
 
 //=======================================================================
-// function : TNaming_ShapesSet
+// function : ShapesSet
 // purpose  :
 //=======================================================================
 
-inline TNaming_ShapesSet::TNaming_ShapesSet() {}
+inline ShapesSet::ShapesSet() {}
 
 //=======================================================================
 // function : Clear
 // purpose  :
 //=======================================================================
 
-inline void TNaming_ShapesSet::Clear()
+inline void ShapesSet::Clear()
 {
   myMap.Clear();
 }
@@ -38,7 +38,7 @@ inline void TNaming_ShapesSet::Clear()
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean TNaming_ShapesSet::Add(const TopoDS_Shape& S)
+inline Standard_Boolean ShapesSet::Add(const TopoShape& S)
 {
   return myMap.Add(S);
 }
@@ -48,7 +48,7 @@ inline Standard_Boolean TNaming_ShapesSet::Add(const TopoDS_Shape& S)
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean TNaming_ShapesSet::Contains(const TopoDS_Shape& S) const
+inline Standard_Boolean ShapesSet::Contains(const TopoShape& S) const
 {
   return myMap.Contains(S);
 }
@@ -58,7 +58,7 @@ inline Standard_Boolean TNaming_ShapesSet::Contains(const TopoDS_Shape& S) const
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean TNaming_ShapesSet::Remove(const TopoDS_Shape& S)
+inline Standard_Boolean ShapesSet::Remove(const TopoShape& S)
 {
   return myMap.Remove(S);
 }
@@ -68,17 +68,17 @@ inline Standard_Boolean TNaming_ShapesSet::Remove(const TopoDS_Shape& S)
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean TNaming_ShapesSet::IsEmpty() const
+inline Standard_Boolean ShapesSet::IsEmpty() const
 {
   return myMap.IsEmpty();
 }
 
 //=======================================================================
-// function : NbShapes
+// function : NbShapes1
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer TNaming_ShapesSet::NbShapes() const
+inline Standard_Integer ShapesSet::NbShapes1() const
 {
   return myMap.Extent();
 }
@@ -88,7 +88,7 @@ inline Standard_Integer TNaming_ShapesSet::NbShapes() const
 // purpose  :
 //=======================================================================
 
-inline TopTools_MapOfShape& TNaming_ShapesSet::ChangeMap()
+inline TopTools_MapOfShape& ShapesSet::ChangeMap()
 {
   return myMap;
 }
@@ -98,7 +98,7 @@ inline TopTools_MapOfShape& TNaming_ShapesSet::ChangeMap()
 // purpose  :
 //=======================================================================
 
-inline const TopTools_MapOfShape& TNaming_ShapesSet::Map() const
+inline const TopTools_MapOfShape& ShapesSet::Map() const
 {
   return myMap;
 }

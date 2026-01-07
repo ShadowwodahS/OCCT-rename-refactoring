@@ -28,7 +28,7 @@
 #include <Standard_Integer.hxx>
 class Quantity_Color;
 class Graphic3d_MaterialAspect;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class MeshVS_Drawer;
 DEFINE_STANDARD_HANDLE(MeshVS_Drawer, RefObject)
@@ -56,7 +56,7 @@ public:
                                    const Graphic3d_MaterialAspect& Value);
 
   Standard_EXPORT void SetAsciiString(const Standard_Integer         Key,
-                                      const TCollection_AsciiString& Value);
+                                      const AsciiString1& Value);
 
   Standard_EXPORT Standard_Boolean GetInteger(const Standard_Integer Key,
                                               Standard_Integer&      Value) const;
@@ -74,7 +74,7 @@ public:
                                                Graphic3d_MaterialAspect& Value) const;
 
   Standard_EXPORT Standard_Boolean GetAsciiString(const Standard_Integer   Key,
-                                                  TCollection_AsciiString& Value) const;
+                                                  AsciiString1& Value) const;
 
   Standard_EXPORT Standard_Boolean RemoveInteger(const Standard_Integer Key);
 

@@ -35,23 +35,23 @@
 // purpose  : SetShape (DF, entry, drawshape)
 //=======================================================================
 
-static Standard_Integer DDataStd_SetShape(Draw_Interpretor& di,
+static Standard_Integer DDataStd_SetShape(DrawInterpreter& di,
                                           Standard_Integer  nb,
                                           const char**      arg)
 {
   if (nb == 4)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(arg[1], DF))
+    if (!DDF1::GetDF(arg[1], DF))
       return 1;
-    TopoDS_Shape s = DBRep::Get(arg[3]);
+    TopoShape s = DBRep1::Get(arg[3]);
     if (s.IsNull())
     {
       di << "shape not found\n";
       return 1;
     }
-    TDF_Label L;
-    DDF::AddLabel(DF, arg[2], L);
+    DataLabel L;
+    DDF1::AddLabel(DF, arg[2], L);
     TNaming_Builder SI(L);
     SI.Generated(s);
     return 0;
@@ -62,7 +62,7 @@ static Standard_Integer DDataStd_SetShape(Draw_Interpretor& di,
 
 //=================================================================================================
 
-void DDataStd::NamedShapeCommands(Draw_Interpretor& theCommands)
+void DDataStd1::NamedShapeCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean done = Standard_False;

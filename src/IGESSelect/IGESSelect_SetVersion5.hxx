@@ -24,7 +24,7 @@
 class IFSelect_ContextModif;
 class IGESData_IGESModel;
 class Interface_CopyTool;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IGESSelect_SetVersion5;
 DEFINE_STANDARD_HANDLE(IGESSelect_SetVersion5, IGESSelect_ModelModifier)
@@ -51,7 +51,7 @@ public:
 
   //! Returns a text which is
   //! "Update IGES Version to 5.1"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_SetVersion5, IGESSelect_ModelModifier)
 

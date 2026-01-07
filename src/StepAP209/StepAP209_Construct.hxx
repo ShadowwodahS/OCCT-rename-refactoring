@@ -26,7 +26,7 @@
 #include <StepFEA_HSequenceOfElementRepresentation.hxx>
 #include <Standard_Type.hxx>
 #include <StepElement_HSequenceOfCurveElementSectionDefinition.hxx>
-class XSControl_WorkSession;
+class ExchangeSession;
 class StepBasic_ProductDefinitionFormation;
 class StepFEA_FeaModel;
 class StepBasic_Product;
@@ -48,10 +48,10 @@ public:
   Standard_EXPORT StepAP209_Construct();
 
   //! Creates a tool and initializes it
-  Standard_EXPORT StepAP209_Construct(const Handle(XSControl_WorkSession)& WS);
+  Standard_EXPORT StepAP209_Construct(const Handle(ExchangeSession)& WS);
 
   //! Initializes tool; returns True if succeeded
-  Standard_EXPORT Standard_Boolean Init(const Handle(XSControl_WorkSession)& WS);
+  Standard_EXPORT Standard_Boolean Init(const Handle(ExchangeSession)& WS);
 
   Standard_EXPORT Standard_Boolean
     IsDesing(const Handle(StepBasic_ProductDefinitionFormation)& PD) const;

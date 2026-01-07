@@ -662,7 +662,7 @@ Standard_CString Graphic3d_MaterialAspect::MaterialName(const Standard_Integer t
 Standard_Boolean Graphic3d_MaterialAspect::MaterialFromName(const Standard_CString    theName,
                                                             Graphic3d_NameOfMaterial& theMat)
 {
-  TCollection_AsciiString aName(theName);
+  AsciiString1 aName(theName);
   aName.LowerCase();
   aName.Capitalize();
   const Standard_Integer aNbMaterials = Graphic3d_MaterialAspect::NumberOfMaterials();

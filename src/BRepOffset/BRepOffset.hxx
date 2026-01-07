@@ -23,8 +23,8 @@
 
 #include <BRepOffset_Status.hxx>
 
-class Geom_Surface;
-class TopoDS_Face;
+class GeomSurface;
+class TopoFace;
 
 //! Auxiliary tools for offset algorithms
 
@@ -41,7 +41,7 @@ public:
   //! surface will have the Type Geom_OffsetSurface.
   //! Parameter allowC0 is then passed as last argument to
   //! constructor of Geom_OffsetSurface.
-  Standard_EXPORT static Handle(Geom_Surface) Surface(const Handle(Geom_Surface)& Surface,
+  Standard_EXPORT static Handle(GeomSurface) Surface(const Handle(GeomSurface)& Surface,
                                                       const Standard_Real         Offset,
                                                       BRepOffset_Status&          theStatus,
                                                       Standard_Boolean allowC0 = Standard_False);
@@ -58,9 +58,9 @@ public:
   //! or if all poles defining that side fit into sphere with radius thePrecision.
   //!
   //! Returns either original surface or its modified copy (if some poles have been moved).
-  Standard_EXPORT static Handle(Geom_Surface) CollapseSingularities(
-    const Handle(Geom_Surface)& theSurface,
-    const TopoDS_Face&          theFace,
+  Standard_EXPORT static Handle(GeomSurface) CollapseSingularities(
+    const Handle(GeomSurface)& theSurface,
+    const TopoFace&          theFace,
     Standard_Real               thePrecision);
 };
 

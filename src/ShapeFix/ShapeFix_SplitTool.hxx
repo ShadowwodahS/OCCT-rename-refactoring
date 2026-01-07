@@ -22,9 +22,9 @@
 
 #include <TopTools_SequenceOfShape.hxx>
 #include <Standard_Integer.hxx>
-class TopoDS_Edge;
-class TopoDS_Vertex;
-class TopoDS_Face;
+class TopoEdge;
+class TopoVertex;
+class TopoFace;
 class ShapeBuild_ReShape;
 
 //! Tool for splitting and cutting edges; includes methods
@@ -40,45 +40,45 @@ public:
   //! Split edge on two new edges using new vertex "vert"
   //! and "param" - parameter for splitting
   //! The "face" is necessary for pcurves and using TransferParameterProj
-  Standard_EXPORT Standard_Boolean SplitEdge(const TopoDS_Edge&   edge,
+  Standard_EXPORT Standard_Boolean SplitEdge(const TopoEdge&   edge,
                                              const Standard_Real  param,
-                                             const TopoDS_Vertex& vert,
-                                             const TopoDS_Face&   face,
-                                             TopoDS_Edge&         newE1,
-                                             TopoDS_Edge&         newE2,
+                                             const TopoVertex& vert,
+                                             const TopoFace&   face,
+                                             TopoEdge&         newE1,
+                                             TopoEdge&         newE2,
                                              const Standard_Real  tol3d,
                                              const Standard_Real  tol2d) const;
 
   //! Split edge on two new edges using new vertex "vert"
   //! and "param1" and "param2" - parameter for splitting and cutting
   //! The "face" is necessary for pcurves and using TransferParameterProj
-  Standard_EXPORT Standard_Boolean SplitEdge(const TopoDS_Edge&   edge,
+  Standard_EXPORT Standard_Boolean SplitEdge(const TopoEdge&   edge,
                                              const Standard_Real  param1,
                                              const Standard_Real  param2,
-                                             const TopoDS_Vertex& vert,
-                                             const TopoDS_Face&   face,
-                                             TopoDS_Edge&         newE1,
-                                             TopoDS_Edge&         newE2,
+                                             const TopoVertex& vert,
+                                             const TopoFace&   face,
+                                             TopoEdge&         newE1,
+                                             TopoEdge&         newE2,
                                              const Standard_Real  tol3d,
                                              const Standard_Real  tol2d) const;
 
   //! Cut edge by parameters pend and cut
-  Standard_EXPORT Standard_Boolean CutEdge(const TopoDS_Edge&  edge,
+  Standard_EXPORT Standard_Boolean CutEdge(const TopoEdge&  edge,
                                            const Standard_Real pend,
                                            const Standard_Real cut,
-                                           const TopoDS_Face&  face,
+                                           const TopoFace&  face,
                                            Standard_Boolean&   iscutline) const;
 
   //! Split edge on two new edges using two new vertex V1 and V2
   //! and two parameters for splitting - fp and lp correspondingly
   //! The "face" is necessary for pcurves and using TransferParameterProj
   //! aNum - number of edge in SeqE which corresponding to [fp,lp]
-  Standard_EXPORT Standard_Boolean SplitEdge(const TopoDS_Edge&                edge,
+  Standard_EXPORT Standard_Boolean SplitEdge(const TopoEdge&                edge,
                                              const Standard_Real               fp,
-                                             const TopoDS_Vertex&              V1,
+                                             const TopoVertex&              V1,
                                              const Standard_Real               lp,
-                                             const TopoDS_Vertex&              V2,
-                                             const TopoDS_Face&                face,
+                                             const TopoVertex&              V2,
+                                             const TopoFace&                face,
                                              TopTools_SequenceOfShape&         SeqE,
                                              Standard_Integer&                 aNum,
                                              const Handle(ShapeBuild_ReShape)& context,

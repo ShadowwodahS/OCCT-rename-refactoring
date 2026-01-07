@@ -26,10 +26,10 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESDimen_BasicDimension, IGESData_IGESEntity)
 IGESDimen_BasicDimension::IGESDimen_BasicDimension() {}
 
 void IGESDimen_BasicDimension::Init(const Standard_Integer nbPropVal,
-                                    const gp_XY&           thell,
-                                    const gp_XY&           thelr,
-                                    const gp_XY&           theur,
-                                    const gp_XY&           theul)
+                                    const Coords2d&           thell,
+                                    const Coords2d&           thelr,
+                                    const Coords2d&           theur,
+                                    const Coords2d&           theul)
 {
   theNbPropertyValues = nbPropVal;
   theLowerLeft        = thell;

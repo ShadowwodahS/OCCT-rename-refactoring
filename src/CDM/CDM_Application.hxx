@@ -52,16 +52,16 @@ public:
   //! By default, writes in MessageDriver().
   Standard_EXPORT virtual void EndOfUpdate(const Handle(CDM_Document)&       aDocument,
                                            const Standard_Boolean            theStatus,
-                                           const TCollection_ExtendedString& ErrorString);
+                                           const UtfString& ErrorString);
 
   //! writes the string in the application MessagerDriver.
   Standard_EXPORT void Write(const Standard_ExtString aString);
 
   //! Returns the application name.
-  Standard_EXPORT virtual TCollection_ExtendedString Name() const;
+  Standard_EXPORT virtual UtfString Name() const;
 
   //! Returns the application version.
-  Standard_EXPORT virtual TCollection_AsciiString Version() const;
+  Standard_EXPORT virtual AsciiString1 Version() const;
 
   //! Returns MetaData LookUpTable
   Standard_EXPORT virtual CDM_MetaDataLookUpTable& MetaDataLookUpTable();

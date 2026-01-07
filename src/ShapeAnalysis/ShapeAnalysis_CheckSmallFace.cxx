@@ -121,7 +121,7 @@ static Standard_Boolean MinMaxSmall(const Standard_Real minx,
 
 //=================================================================================================
 
-Standard_Integer ShapeAnalysis_CheckSmallFace::IsSpotFace(const TopoDS_Face&  F,
+Standard_Integer ShapeAnalysis_CheckSmallFace::IsSpotFace(const TopoFace&  F,
                                                           Point3d&             spot,
                                                           Standard_Real&      spotol,
                                                           const Standard_Real tol) const
@@ -139,7 +139,7 @@ Standard_Integer ShapeAnalysis_CheckSmallFace::IsSpotFace(const TopoDS_Face&  F,
   {
     if (itw.Value().ShapeType() != TopAbs_WIRE)
       continue;
-    TopoDS_Wire w1 = TopoDS::Wire(itw.Value());
+    TopoWire w1 = TopoDS::Wire(itw.Value());
     if (!w1.IsNull())
     {
       isWir = Standard_True;
@@ -151,11 +151,11 @@ Standard_Integer ShapeAnalysis_CheckSmallFace::IsSpotFace(const TopoDS_Face&  F,
   Standard_Integer nbv  = 0;
   Standard_Real    minx = 0, miny = 0, minz = 0, maxx = Precision::Infinite(),
                 maxy = Precision::Infinite(), maxz = Precision::Infinite();
-  TopoDS_Vertex    V0;
+  TopoVertex    V0;
   Standard_Boolean same = Standard_True;
-  for (TopExp_Explorer iv(F, TopAbs_VERTEX); iv.More(); iv.Next())
+  for (ShapeExplorer iv(F, TopAbs_VERTEX); iv.More(); iv.Next())
   {
-    TopoDS_Vertex V = TopoDS::Vertex(iv.Current());
+    TopoVertex V = TopoDS::Vertex(iv.Current());
     if (V0.IsNull())
       V0 = V;
     else if (same)
@@ -164,13 +164,13 @@ Standard_Integer ShapeAnalysis_CheckSmallFace::IsSpotFace(const TopoDS_Face&  F,
         same = Standard_False;
     }
 
-    Point3d pnt = BRep_Tool::Pnt(V);
+    Point3d pnt = BRepInspector::Pnt(V);
     // Standard_Real x,y,z;
     MinMaxPnt(pnt, nbv, minx, miny, minz, maxx, maxy, maxz);
 
     if (tol < 0)
     {
-      tolv = BRep_Tool::Tolerance(V);
+      tolv = BRepInspector::Tolerance(V);
       if (tolv > toler)
         toler = tolv;
     }
@@ -183,11 +183,11 @@ Standard_Integer ShapeAnalysis_CheckSmallFace::IsSpotFace(const TopoDS_Face&  F,
   //   All vertices are confused
   //   Check edges (a closed edge may be a non-null length edge !)
   //   By picking intermediate point on each one
-  for (TopExp_Explorer ie(F, TopAbs_EDGE); ie.More(); ie.Next())
+  for (ShapeExplorer ie(F, TopAbs_EDGE); ie.More(); ie.Next())
   {
-    TopoDS_Edge        E = TopoDS::Edge(ie.Current());
+    TopoEdge        E = TopoDS::Edge(ie.Current());
     Standard_Real      cf, cl;
-    Handle(Geom_Curve) C3D = BRep_Tool::Curve(E, cf, cl);
+    Handle(GeomCurve3d) C3D = BRepInspector::Curve(E, cf, cl);
     if (C3D.IsNull())
       continue;
     Point3d debut  = C3D->Value(cf);
@@ -207,7 +207,7 @@ Standard_Integer ShapeAnalysis_CheckSmallFace::IsSpotFace(const TopoDS_Face&  F,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckSpotFace(const TopoDS_Face&  F,
+Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckSpotFace(const TopoFace&  F,
                                                              const Standard_Real tol)
 {
   Point3d           spot;
@@ -231,7 +231,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckSpotFace(const TopoDS_Face& 
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_CheckSmallFace::IsStripSupport(const TopoDS_Face&  F,
+Standard_Boolean ShapeAnalysis_CheckSmallFace::IsStripSupport(const TopoFace&  F,
                                                               const Standard_Real tol)
 {
 
@@ -240,7 +240,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::IsStripSupport(const TopoDS_Face&
     toler = 1.e-07; // ?? better to compute tolerance zones
 
   TopLoc_Location      loc;
-  Handle(Geom_Surface) surf = BRep_Tool::Surface(F, loc);
+  Handle(GeomSurface) surf = BRepInspector::Surface(F, loc);
   if (surf.IsNull())
     return 0;
 
@@ -316,8 +316,8 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::IsStripSupport(const TopoDS_Face&
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckStripEdges(const TopoDS_Edge&  E1,
-                                                               const TopoDS_Edge&  E2,
+Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckStripEdges(const TopoEdge&  E1,
+                                                               const TopoEdge&  E2,
                                                                const Standard_Real tol,
                                                                Standard_Real&      dmax) const
 {
@@ -326,7 +326,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckStripEdges(const TopoDS_Edge
   Standard_Real toler = tol;
   if (tol < 0)
   {
-    Standard_Real tole = BRep_Tool::Tolerance(E1) + BRep_Tool::Tolerance(E2);
+    Standard_Real tole = BRepInspector::Tolerance(E1) + BRepInspector::Tolerance(E2);
     if (toler < tole / 2.)
       toler = tole / 2.;
   }
@@ -338,9 +338,9 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckStripEdges(const TopoDS_Edge
   ShapeAnalysis_Curve SAC;
   Standard_Real       cf1, cl1, cf2, cl2, u;
   dmax = 0;
-  Handle(Geom_Curve) C1, C2;
-  C1 = BRep_Tool::Curve(E1, cf1, cl1);
-  C2 = BRep_Tool::Curve(E2, cf2, cl2);
+  Handle(GeomCurve3d) C1, C2;
+  C1 = BRepInspector::Curve(E1, cf1, cl1);
+  C2 = BRepInspector::Curve(E2, cf2, cl2);
   if (C1.IsNull() || C2.IsNull())
     return Standard_False;
   cf1                           = Max(cf1, C1->FirstParameter());
@@ -396,35 +396,35 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckStripEdges(const TopoDS_Edge
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_CheckSmallFace::FindStripEdges(const TopoDS_Face&  F,
-                                                              TopoDS_Edge&        E1,
-                                                              TopoDS_Edge&        E2,
+Standard_Boolean ShapeAnalysis_CheckSmallFace::FindStripEdges(const TopoFace&  F,
+                                                              TopoEdge&        E1,
+                                                              TopoEdge&        E2,
                                                               const Standard_Real tol,
                                                               Standard_Real&      dmax)
 {
   E1.Nullify();
   E2.Nullify();
   Standard_Integer nb = 0;
-  for (TopExp_Explorer ex(F, TopAbs_EDGE); ex.More(); ex.Next())
+  for (ShapeExplorer ex(F, TopAbs_EDGE); ex.More(); ex.Next())
   {
-    TopoDS_Edge E = TopoDS::Edge(ex.Current());
+    TopoEdge E = TopoDS::Edge(ex.Current());
     if (nb == 1 && E.IsSame(E1))
       continue; // ignore seam edge
-    TopoDS_Vertex V1, V2;
-    TopExp::Vertices(E, V1, V2);
+    TopoVertex V1, V2;
+    TopExp1::Vertices(E, V1, V2);
     Point3d p1, p2;
-    p1                  = BRep_Tool::Pnt(V1);
-    p2                  = BRep_Tool::Pnt(V2);
+    p1                  = BRepInspector::Pnt(V1);
+    p2                  = BRepInspector::Pnt(V2);
     Standard_Real toler = tol;
     if (toler <= 0)
-      toler = (BRep_Tool::Tolerance(V1) + BRep_Tool::Tolerance(V2)) / 2.;
+      toler = (BRepInspector::Tolerance(V1) + BRepInspector::Tolerance(V2)) / 2.;
 
     //    Extremities
     Standard_Real dist = p1.Distance(p2);
     //    Middle point
     Standard_Real      cf, cl;
-    Handle(Geom_Curve) CC;
-    CC                            = BRep_Tool::Curve(E, cf, cl);
+    Handle(GeomCurve3d) CC;
+    CC                            = BRepInspector::Curve(E, cf, cl);
     Standard_Boolean isNullLength = Standard_True;
     if (!CC.IsNull())
     {
@@ -459,9 +459,9 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::FindStripEdges(const TopoDS_Face&
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckSingleStrip(const TopoDS_Face&  F,
-                                                                TopoDS_Edge&        E1,
-                                                                TopoDS_Edge&        E2,
+Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckSingleStrip(const TopoFace&  F,
+                                                                TopoEdge&        E1,
+                                                                TopoEdge&        E2,
                                                                 const Standard_Real tol)
 {
   Standard_Real toler = tol;
@@ -469,11 +469,11 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckSingleStrip(const TopoDS_Fac
 
   // In this case, we have 2 vertices and 2 great edges. Plus possibly 2 small
   //    edges, one on each vertex
-  TopoDS_Vertex    V1, V2;
+  TopoVertex    V1, V2;
   Standard_Integer nb = 0;
-  for (TopExp_Explorer itv(F, TopAbs_VERTEX); itv.More(); itv.Next())
+  for (ShapeExplorer itv(F, TopAbs_VERTEX); itv.More(); itv.Next())
   {
-    TopoDS_Vertex V = TopoDS::Vertex(itv.Current());
+    TopoVertex V = TopoDS::Vertex(itv.Current());
     if (V1.IsNull())
       V1 = V;
     else if (V1.IsSame(V))
@@ -487,22 +487,22 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckSingleStrip(const TopoDS_Fac
   }
 
   // Checking edges
-  // TopoDS_Edge E1,E2;
+  // TopoEdge E1,E2;
   nb = 0;
-  for (TopExp_Explorer ite(F, TopAbs_EDGE); ite.More(); ite.Next())
+  for (ShapeExplorer ite(F, TopAbs_EDGE); ite.More(); ite.Next())
   {
-    TopoDS_Edge E = TopoDS::Edge(ite.Current());
+    TopoEdge E = TopoDS::Edge(ite.Current());
     if (nb == 1 && E.IsSame(E1))
       continue; // ignore seam edge
-    TopoDS_Vertex VA, VB;
-    TopExp::Vertices(E, VA, VB);
+    TopoVertex VA, VB;
+    TopExp1::Vertices(E, VA, VB);
     if (tol < 0)
     {
       Standard_Real tolv;
-      tolv = BRep_Tool::Tolerance(VA);
+      tolv = BRepInspector::Tolerance(VA);
       if (toler < tolv)
         toler = tolv;
-      tolv = BRep_Tool::Tolerance(VB);
+      tolv = BRepInspector::Tolerance(VB);
       if (toler < tolv)
         toler = tolv;
     }
@@ -511,9 +511,9 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckSingleStrip(const TopoDS_Fac
     if (VA.IsSame(VB))
     {
       Standard_Real      cf = 0., cl = 0.;
-      Handle(Geom_Curve) C3D;
-      if (!BRep_Tool::Degenerated(E))
-        C3D = BRep_Tool::Curve(E, cf, cl);
+      Handle(GeomCurve3d) C3D;
+      if (!BRepInspector::Degenerated(E))
+        C3D = BRepInspector::Curve(E, cf, cl);
       if (C3D.IsNull())
         continue; // DGNR
       Standard_Integer np  = 0;
@@ -564,9 +564,9 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckSingleStrip(const TopoDS_Fac
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckStripFace(const TopoDS_Face&  F,
-                                                              TopoDS_Edge&        E1,
-                                                              TopoDS_Edge&        E2,
+Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckStripFace(const TopoFace&  F,
+                                                              TopoEdge&        E1,
+                                                              TopoEdge&        E2,
                                                               const Standard_Real tol)
 {
 
@@ -581,7 +581,7 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckStripFace(const TopoDS_Face&
   //  ?? record a diagnostic StripFace, but without yet lists of edges
   //  ??  Record Diagnostic "StripFace", no data (should be "Edges1" "Edges2")
   //      but direction is known (1:U  2:V)
-  // TopoDS_Edge E1,E2;
+  // TopoEdge E1,E2;
   Standard_Real dmax;
   if (FindStripEdges(F, E1, E2, tol, dmax))
     return Standard_True;
@@ -596,18 +596,18 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckStripFace(const TopoDS_Face&
 //=================================================================================================
 
 Standard_Integer ShapeAnalysis_CheckSmallFace::CheckSplittingVertices(
-  const TopoDS_Face&                      F,
+  const TopoFace&                      F,
   TopTools_DataMapOfShapeListOfShape&     MapEdges,
   ShapeAnalysis_DataMapOfShapeListOfReal& MapParam,
-  TopoDS_Compound&                        theAllVert)
+  TopoCompound&                        theAllVert)
 {
 
-  //  Prepare array of vertices with their locations //TopTools
+  //  Prepare array of vertices with their locations //TopTools1
   Standard_Integer nbv = 0, nbp = 0;
-  // TopoDS_Compound theAllVert;
-  BRep_Builder theBuilder;
+  // TopoCompound theAllVert;
+  ShapeBuilder theBuilder;
   // theBuilder.MakeCompound(theAllVert);
-  TopExp_Explorer itv; // svv Jan11 2000 : porting on DEC
+  ShapeExplorer itv; // svv Jan11 2000 : porting on DEC
   for (itv.Init(F, TopAbs_VERTEX); itv.More(); itv.Next())
     nbv++;
 
@@ -621,13 +621,13 @@ Standard_Integer ShapeAnalysis_CheckSmallFace::CheckSplittingVertices(
   for (itv.Init(F, TopAbs_VERTEX); itv.More(); itv.Next())
   {
     nbp++;
-    TopoDS_Vertex unv = TopoDS::Vertex(itv.Current());
+    TopoVertex unv = TopoDS::Vertex(itv.Current());
     vtx.SetValue(nbp, unv);
-    Point3d unp = BRep_Tool::Pnt(unv);
+    Point3d unp = BRepInspector::Pnt(unv);
     vtp.SetValue(nbp, unp);
     Standard_Real unt = myPrecision;
     if (unt < 0)
-      unt = BRep_Tool::Tolerance(unv);
+      unt = BRepInspector::Tolerance(unv);
     vto.SetValue(nbp, unt);
   }
   nbv = nbp;
@@ -637,17 +637,17 @@ Standard_Integer ShapeAnalysis_CheckSmallFace::CheckSplittingVertices(
   ShapeAnalysis_Curve SAC;
   for (Standard_Integer iv = 1; iv <= nbv; iv++)
   {
-    TopoDS_Vertex        V = TopoDS::Vertex(vtx.Value(iv));
-    TopTools_ListOfShape listEdge;
+    TopoVertex        V = TopoDS::Vertex(vtx.Value(iv));
+    ShapeList listEdge;
     TColStd_ListOfReal   listParam;
     Standard_Boolean     issplit = Standard_False;
-    for (TopExp_Explorer ite(F, TopAbs_EDGE); ite.More(); ite.Next())
+    for (ShapeExplorer ite(F, TopAbs_EDGE); ite.More(); ite.Next())
     {
-      TopoDS_Edge   E = TopoDS::Edge(ite.Current());
-      TopoDS_Vertex V1, V2;
-      TopExp::Vertices(E, V1, V2);
+      TopoEdge   E = TopoDS::Edge(ite.Current());
+      TopoVertex V1, V2;
+      TopExp1::Vertices(E, V1, V2);
       Standard_Real      cf, cl;
-      Handle(Geom_Curve) C3D = BRep_Tool::Curve(E, cf, cl);
+      Handle(GeomCurve3d) C3D = BRepInspector::Curve(E, cf, cl);
       if (C3D.IsNull())
         continue;
       if (V.IsSame(V1) || V.IsSame(V2))
@@ -733,12 +733,12 @@ static Standard_Boolean CheckPoles(const TColgp_Array2OfPnt& poles,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPin(const TopoDS_Face& F,
+Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPin(const TopoFace& F,
                                                         Standard_Integer&  whatrow,
                                                         Standard_Integer&  sens)
 {
   TopLoc_Location      loc;
-  Handle(Geom_Surface) surf = BRep_Tool::Surface(F, loc);
+  Handle(GeomSurface) surf = BRepInspector::Surface(F, loc);
   if (surf->IsKind(STANDARD_TYPE(Geom_ElementarySurface)))
     return Standard_False;
 
@@ -844,12 +844,12 @@ static Standard_Real TwistedNorm(const Standard_Real x1,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckTwisted(const TopoDS_Face& F,
+Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckTwisted(const TopoFace& F,
                                                             Standard_Real&     paramu,
                                                             Standard_Real&     paramv)
 {
   TopLoc_Location      loc;
-  Handle(Geom_Surface) surf = BRep_Tool::Surface(F, loc);
+  Handle(GeomSurface) surf = BRepInspector::Surface(F, loc);
   if (surf->IsKind(STANDARD_TYPE(Geom_ElementarySurface)))
     return Standard_False;
 
@@ -933,15 +933,15 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckTwisted(const TopoDS_Face& F
 
 // Warning: This function not tested on many examples
 
-Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinFace(const TopoDS_Face&            F,
+Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinFace(const TopoFace&            F,
                                                             TopTools_DataMapOfShapeShape& mapEdges,
                                                             const Standard_Real           toler)
 {
-  // ShapeFix_Wire sfw;
-  TopExp_Explorer exp_w(F, TopAbs_WIRE);
+  // WireHealer sfw;
+  ShapeExplorer exp_w(F, TopAbs_WIRE);
   exp_w.More();
   Standard_Real                coef1      = 0, coef2; // =0 for deleting warning (skl)
-  TopoDS_Wire                  theCurWire = TopoDS::Wire(exp_w.Current());
+  TopoWire                  theCurWire = TopoDS::Wire(exp_w.Current());
   ShapeAnalysis_WireOrder      wi;
   ShapeAnalysis_Wire           sfw;
   Handle(ShapeExtend_WireData) sbwd = new ShapeExtend_WireData(theCurWire);
@@ -961,20 +961,20 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinFace(const TopoDS_Face&  
   i                     = 1;
   Standard_Boolean done = Standard_False;
   Standard_Real    tol  = Precision::Confusion();
-  TopoDS_Edge      theFirstEdge, theSecondEdge;
+  TopoEdge      theFirstEdge, theSecondEdge;
   Standard_Real    d1 = 0, d2 = 0;
-  for (TopExp_Explorer exp_e(F, TopAbs_EDGE); exp_e.More(); exp_e.Next())
+  for (ShapeExplorer exp_e(F, TopAbs_EDGE); exp_e.More(); exp_e.Next())
   {
-    TopoDS_Vertex V1, V2;
+    TopoVertex V1, V2;
     Point3d        p1, p2;
     if (i == 1)
     {
       theFirstEdge = TopoDS::Edge(exp_e.Current());
-      V1           = TopExp::FirstVertex(theFirstEdge);
-      V2           = TopExp::LastVertex(theFirstEdge);
-      p1           = BRep_Tool::Pnt(V1);
-      p2           = BRep_Tool::Pnt(V2);
-      tol          = Max(BRep_Tool::Tolerance(V1), BRep_Tool::Tolerance(V2));
+      V1           = TopExp1::FirstVertex(theFirstEdge);
+      V2           = TopExp1::LastVertex(theFirstEdge);
+      p1           = BRepInspector::Pnt(V1);
+      p2           = BRepInspector::Pnt(V2);
+      tol          = Max(BRepInspector::Tolerance(V1), BRepInspector::Tolerance(V2));
       if (toler > 0) // tol = Max(tol, toler); gka
         tol = toler;
       d1 = p1.Distance(p2);
@@ -991,13 +991,13 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinFace(const TopoDS_Face&  
     }
     // Check the length of edge
     theSecondEdge = TopoDS::Edge(exp_e.Current());
-    V1            = TopExp::FirstVertex(theSecondEdge);
-    V2            = TopExp::LastVertex(theSecondEdge);
+    V1            = TopExp1::FirstVertex(theSecondEdge);
+    V2            = TopExp1::LastVertex(theSecondEdge);
 
-    p1 = BRep_Tool::Pnt(V1);
-    p2 = BRep_Tool::Pnt(V2);
+    p1 = BRepInspector::Pnt(V1);
+    p2 = BRepInspector::Pnt(V2);
     if (toler == -1)
-      tol = Max(BRep_Tool::Tolerance(V1), BRep_Tool::Tolerance(V2));
+      tol = Max(BRepInspector::Tolerance(V1), BRepInspector::Tolerance(V2));
     else
       tol = toler;
     if (p1.Distance(p2) > tol)
@@ -1039,17 +1039,17 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinFace(const TopoDS_Face&  
 
 // Warning: This function not tested on many examples
 
-Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinEdges(const TopoDS_Edge&  theFirstEdge,
-                                                             const TopoDS_Edge&  theSecondEdge,
+Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinEdges(const TopoEdge&  theFirstEdge,
+                                                             const TopoEdge&  theSecondEdge,
                                                              const Standard_Real coef1,
                                                              const Standard_Real coef2,
                                                              const Standard_Real toler) const
 {
 
   Standard_Real      cf1, cl1, cf2, cl2;
-  Handle(Geom_Curve) C1, C2, C3;
-  C1 = BRep_Tool::Curve(theFirstEdge, cf1, cl1);
-  C2 = BRep_Tool::Curve(theSecondEdge, cf2, cl2);
+  Handle(GeomCurve3d) C1, C2, C3;
+  C1 = BRepInspector::Curve(theFirstEdge, cf1, cl1);
+  C2 = BRepInspector::Curve(theSecondEdge, cf2, cl2);
   Point3d        p1, p2, pp1, pp2, pv;
   Standard_Real d1 = (cf1 - cl1) / coef1;
   Standard_Real d2 = (cf2 - cl2) / coef2;
@@ -1061,12 +1061,12 @@ Standard_Boolean ShapeAnalysis_CheckSmallFace::CheckPinEdges(const TopoDS_Edge& 
   pp2 = C2->Value(cl2);
   Standard_Real tol;
   Standard_Real paramc1 = 0, paramc2 = 0; // =0 for deleting warning (skl)
-  TopoDS_Vertex theSharedV = TopExp::LastVertex(theFirstEdge);
+  TopoVertex theSharedV = TopExp1::LastVertex(theFirstEdge);
   if (toler == -1)
-    tol = BRep_Tool::Tolerance(theSharedV);
+    tol = BRepInspector::Tolerance(theSharedV);
   else
     tol = toler;
-  pv = BRep_Tool::Pnt(theSharedV);
+  pv = BRepInspector::Pnt(theSharedV);
   if (pv.Distance(p1) <= tol)
     paramc1 = cf1;
   else if (pv.Distance(p2) <= tol)

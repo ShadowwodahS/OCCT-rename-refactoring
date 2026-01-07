@@ -25,66 +25,66 @@
 #include <Storage_Error.hxx>
 #include <Storage_OpenMode.hxx>
 #include <Standard_Integer.hxx>
-class TCollection_ExtendedString;
+class UtfString;
 class Storage_BaseDriver;
 class Storage_Data;
-class OSD_Path;
+class SystemPath;
 class OSD_FileIterator;
-class TCollection_AsciiString;
+class AsciiString1;
 class Standard_GUID;
 class Resource_Manager;
 
-class UTL
+class UTL1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static TCollection_ExtendedString xgetenv(const Standard_CString aCString);
+  Standard_EXPORT static UtfString xgetenv(const Standard_CString aCString);
 
   Standard_EXPORT static Storage_Error OpenFile(const Handle(Storage_BaseDriver)& aFile,
-                                                const TCollection_ExtendedString& aName,
+                                                const UtfString& aName,
                                                 const Storage_OpenMode            aMode);
 
   Standard_EXPORT static void AddToUserInfo(const Handle(Storage_Data)&       aData,
-                                            const TCollection_ExtendedString& anInfo);
+                                            const UtfString& anInfo);
 
-  Standard_EXPORT static OSD_Path Path(const TCollection_ExtendedString& aFileName);
+  Standard_EXPORT static SystemPath Path(const UtfString& aFileName);
 
-  Standard_EXPORT static TCollection_ExtendedString Disk(const OSD_Path& aPath);
+  Standard_EXPORT static UtfString Disk(const SystemPath& aPath);
 
-  Standard_EXPORT static TCollection_ExtendedString Trek(const OSD_Path& aPath);
+  Standard_EXPORT static UtfString Trek(const SystemPath& aPath);
 
-  Standard_EXPORT static TCollection_ExtendedString Name(const OSD_Path& aPath);
+  Standard_EXPORT static UtfString Name(const SystemPath& aPath);
 
-  Standard_EXPORT static TCollection_ExtendedString Extension(const OSD_Path& aPath);
+  Standard_EXPORT static UtfString Extension(const SystemPath& aPath);
 
-  Standard_EXPORT static OSD_FileIterator FileIterator(const OSD_Path&                   aPath,
-                                                       const TCollection_ExtendedString& aMask);
+  Standard_EXPORT static OSD_FileIterator FileIterator(const SystemPath&                   aPath,
+                                                       const UtfString& aMask);
 
-  Standard_EXPORT static TCollection_ExtendedString Extension(
-    const TCollection_ExtendedString& aFileName);
+  Standard_EXPORT static UtfString Extension(
+    const UtfString& aFileName);
 
-  Standard_EXPORT static TCollection_ExtendedString LocalHost();
+  Standard_EXPORT static UtfString LocalHost();
 
-  Standard_EXPORT static TCollection_ExtendedString ExtendedString(
-    const TCollection_AsciiString& anAsciiString);
+  Standard_EXPORT static UtfString ExtendedString(
+    const AsciiString1& anAsciiString);
 
-  Standard_EXPORT static Standard_GUID GUID(const TCollection_ExtendedString& anXString);
+  Standard_EXPORT static Standard_GUID GUID(const UtfString& anXString);
 
   Standard_EXPORT static Standard_Boolean Find(const Handle(Resource_Manager)&   aResourceManager,
-                                               const TCollection_ExtendedString& aResourceName);
+                                               const UtfString& aResourceName);
 
-  Standard_EXPORT static TCollection_ExtendedString Value(
+  Standard_EXPORT static UtfString Value(
     const Handle(Resource_Manager)&   aResourceManager,
-    const TCollection_ExtendedString& aResourceName);
+    const UtfString& aResourceName);
 
   Standard_EXPORT static Standard_Integer IntegerValue(
-    const TCollection_ExtendedString& anExtendedString);
+    const UtfString& anExtendedString);
 
   Standard_EXPORT static Standard_CString CString(
-    const TCollection_ExtendedString& anExtendedString);
+    const UtfString& anExtendedString);
 
-  Standard_EXPORT static Standard_Boolean IsReadOnly(const TCollection_ExtendedString& aFileName);
+  Standard_EXPORT static Standard_Boolean IsReadOnly(const UtfString& aFileName);
 
 protected:
 private:

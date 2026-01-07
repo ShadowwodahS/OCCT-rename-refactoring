@@ -20,6 +20,6 @@
 #include <Geom_BSplineCurve.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Handle(Geom_BSplineCurve)> TColGeom_Array1OfBSplineCurve;
+typedef NCollection_Array1<Handle(BSplineCurve3d)> TColGeom_Array1OfBSplineCurve;
 
 #endif

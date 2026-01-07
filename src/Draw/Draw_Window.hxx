@@ -51,7 +51,7 @@ struct Draw_XSegment
 #if defined(_WIN32)
 
   #define DRAWCLASS L"DRAWWINDOW"
-  #define DRAWTITLE L"Draw View"
+  #define DRAWTITLE L"Draw1 View"
 
 enum console_semaphore_value
 {
@@ -106,15 +106,15 @@ struct Draw_CocoaView;
 
 #endif
 
-//! Draw window.
-class Draw_Window
+//! Draw1 window.
+class DrawWindow
 {
 public:
   //! Type of the callback function that is to be passed to the method AddCallbackBeforeTerminate().
   typedef void (*FCallbackBeforeTerminate)();
 
   //! This method registers a callback function that will be called just before exit.
-  //! This is useful especially for Windows platform, on which Draw is normally self-terminated
+  //! This is useful especially for Windows platform, on which Draw1 is normally self-terminated
   //! instead of exiting.
   Standard_EXPORT static void AddCallbackBeforeTerminate(FCallbackBeforeTerminate theCB);
 
@@ -131,7 +131,7 @@ public:
 
 public:
   //! Destructor.
-  Standard_EXPORT virtual ~Draw_Window();
+  Standard_EXPORT virtual ~DrawWindow();
 
   //! Get window position.
   Standard_EXPORT void GetPosition(Standard_Integer& thePosX, Standard_Integer& thePosY);
@@ -149,10 +149,10 @@ public:
   Standard_EXPORT void SetDimension(Standard_Integer theNewDx, Standard_Integer theNewDy);
 
   //! Return window title.
-  Standard_EXPORT TCollection_AsciiString GetTitle() const;
+  Standard_EXPORT AsciiString1 GetTitle() const;
 
   //! Set window title.
-  Standard_EXPORT void SetTitle(const TCollection_AsciiString& theTitle);
+  Standard_EXPORT void SetTitle(const AsciiString1& theTitle);
 
   //! Return true if window is displayed on the screen.
   Standard_EXPORT bool IsMapped() const;
@@ -182,12 +182,12 @@ public:
   //! Set active paint mode (3 for COPY; 6 for XOR).
   Standard_EXPORT void SetMode(Standard_Integer theMode);
 
-  //! Draw the string.
+  //! Draw1 the string.
   Standard_EXPORT void DrawString(Standard_Integer theX,
                                   Standard_Integer theY,
                                   const char*      theText);
 
-  //! Draw array of segments.
+  //! Draw1 array of segments.
   Standard_EXPORT void DrawSegments(const Draw_XSegment* theSegments,
                                     Standard_Integer     theNumberOfElements);
 
@@ -210,7 +210,7 @@ protected:
   //! @param[in] theSize    window dimensions
   //! @param[in] theParent  optional native parent window
   //! @param[in] theWin     optional native window
-  Standard_EXPORT Draw_Window(const char*                  theTitle,
+  Standard_EXPORT DrawWindow(const char*                  theTitle,
                               const NCollection_Vec2<int>& theXY,
                               const NCollection_Vec2<int>& theSize,
                               Aspect_Drawable              theParent,

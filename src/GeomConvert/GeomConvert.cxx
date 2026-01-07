@@ -62,11 +62,11 @@
 
 //=================================================================================================
 
-static Handle(Geom_BSplineCurve) BSplineCurveBuilder(const Handle(Geom_Conic)&          TheConic,
+static Handle(BSplineCurve3d) BSplineCurveBuilder(const Handle(Geom_Conic)&          TheConic,
                                                      const Convert_ConicToBSplineCurve& Convert)
 
 {
-  Handle(Geom_BSplineCurve) TheCurve;
+  Handle(BSplineCurve3d) TheCurve;
   Standard_Integer          NbPoles = Convert.NbPoles();
   Standard_Integer          NbKnots = Convert.NbKnots();
   TColgp_Array1OfPnt        Poles(1, NbPoles);
@@ -89,17 +89,17 @@ static Handle(Geom_BSplineCurve) BSplineCurveBuilder(const Handle(Geom_Conic)&  
     Mults(i) = Convert.Multiplicity(i);
   }
   TheCurve =
-    new Geom_BSplineCurve(Poles, Weights, Knots, Mults, Convert.Degree(), Convert.IsPeriodic());
+    new BSplineCurve3d(Poles, Weights, Knots, Mults, Convert.Degree(), Convert.IsPeriodic());
   Transform3d T;
   T.SetTransformation(TheConic->Position(), gp::XOY());
-  Handle(Geom_BSplineCurve) Cres;
-  Cres = Handle(Geom_BSplineCurve)::DownCast(TheCurve->Transformed(T));
+  Handle(BSplineCurve3d) Cres;
+  Cres = Handle(BSplineCurve3d)::DownCast(TheCurve->Transformed(T));
   return Cres;
 }
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) GeomConvert::SplitBSplineCurve(const Handle(Geom_BSplineCurve)& C,
+Handle(BSplineCurve3d) GeomConvert::SplitBSplineCurve(const Handle(BSplineCurve3d)& C,
                                                          const Standard_Integer           FromK1,
                                                          const Standard_Integer           ToK2,
                                                          const Standard_Boolean SameOrientation)
@@ -113,7 +113,7 @@ Handle(Geom_BSplineCurve) GeomConvert::SplitBSplineCurve(const Handle(Geom_BSpli
   if (FirstK < TheFirst || LastK > TheLast)
     throw Standard_DomainError();
 
-  Handle(Geom_BSplineCurve) C1 = Handle(Geom_BSplineCurve)::DownCast(C->Copy());
+  Handle(BSplineCurve3d) C1 = Handle(BSplineCurve3d)::DownCast(C->Copy());
 
   C1->Segment(C->Knot(FirstK), C->Knot(LastK));
 
@@ -132,8 +132,8 @@ Handle(Geom_BSplineCurve) GeomConvert::SplitBSplineCurve(const Handle(Geom_BSpli
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) GeomConvert::SplitBSplineCurve(
-  const Handle(Geom_BSplineCurve)& C,
+Handle(BSplineCurve3d) GeomConvert::SplitBSplineCurve(
+  const Handle(BSplineCurve3d)& C,
   const Standard_Real              FromU1,
   const Standard_Real              ToU2,
   const Standard_Real, // ParametricTolerance,
@@ -142,7 +142,7 @@ Handle(Geom_BSplineCurve) GeomConvert::SplitBSplineCurve(
   Standard_Real FirstU = Min(FromU1, ToU2);
   Standard_Real LastU  = Max(FromU1, ToU2);
 
-  Handle(Geom_BSplineCurve) C1 = Handle(Geom_BSplineCurve)::DownCast(C->Copy());
+  Handle(BSplineCurve3d) C1 = Handle(BSplineCurve3d)::DownCast(C->Copy());
 
   C1->Segment(FirstU, LastU);
 
@@ -162,15 +162,15 @@ Handle(Geom_BSplineCurve) GeomConvert::SplitBSplineCurve(
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) GeomConvert::CurveToBSplineCurve(
-  const Handle(Geom_Curve)&          C,
+Handle(BSplineCurve3d) GeomConvert::CurveToBSplineCurve(
+  const Handle(GeomCurve3d)&          C,
   const Convert_ParameterisationType Parameterisation)
 {
-  Handle(Geom_BSplineCurve) TheCurve;
+  Handle(BSplineCurve3d) TheCurve;
 
   if (C->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
   {
-    Handle(Geom_Curve)        Curv;
+    Handle(GeomCurve3d)        Curv;
     Handle(Geom_TrimmedCurve) Ctrim = Handle(Geom_TrimmedCurve)::DownCast(C);
     Curv                            = Ctrim->BasisCurve();
     Standard_Real U1                = Ctrim->FirstParameter();
@@ -186,7 +186,7 @@ Handle(Geom_BSplineCurve) GeomConvert::CurveToBSplineCurve(
         U2 = Curv->LastParameter();
     }
 
-    if (Curv->IsKind(STANDARD_TYPE(Geom_Line)))
+    if (Curv->IsKind(STANDARD_TYPE(GeomLine)))
     {
       Point3d             Pdeb = Ctrim->StartPoint();
       Point3d             Pfin = Ctrim->EndPoint();
@@ -200,12 +200,12 @@ Handle(Geom_BSplineCurve) GeomConvert::CurveToBSplineCurve(
       Mults(1)                = 2;
       Mults(2)                = 2;
       Standard_Integer Degree = 1;
-      TheCurve                = new Geom_BSplineCurve(Poles, Knots, Mults, Degree);
+      TheCurve                = new BSplineCurve3d(Poles, Knots, Mults, Degree);
     }
 
-    else if (Curv->IsKind(STANDARD_TYPE(Geom_Circle)))
+    else if (Curv->IsKind(STANDARD_TYPE(GeomCircle)))
     {
-      Handle(Geom_Circle) TheConic = Handle(Geom_Circle)::DownCast(Curv);
+      Handle(GeomCircle) TheConic = Handle(GeomCircle)::DownCast(Curv);
       gp_Circ2d           C2d(gp::OX2d(), TheConic->Radius());
       if (Parameterisation != Convert_RationalC1)
       {
@@ -226,11 +226,11 @@ Handle(Geom_BSplineCurve) GeomConvert::CurveToBSplineCurve(
           Standard_Real                Umed = (U1 + U2) * .5;
           Convert_CircleToBSplineCurve Convert1(C2d, U1, Umed, Parameterisation);
 
-          Handle(Geom_BSplineCurve) TheCurve1 = BSplineCurveBuilder(TheConic, Convert1);
+          Handle(BSplineCurve3d) TheCurve1 = BSplineCurveBuilder(TheConic, Convert1);
 
           Convert_CircleToBSplineCurve Convert2(C2d, Umed, U2, Parameterisation);
 
-          Handle(Geom_BSplineCurve) TheCurve2 = BSplineCurveBuilder(TheConic, Convert2);
+          Handle(BSplineCurve3d) TheCurve2 = BSplineCurveBuilder(TheConic, Convert2);
 
           GeomConvert_CompCurveToBSplineCurve CCTBSpl(TheCurve1, Parameterisation);
 
@@ -264,11 +264,11 @@ Handle(Geom_BSplineCurve) GeomConvert::CurveToBSplineCurve(
           Standard_Real                 Umed = (U1 + U2) * .5;
           Convert_EllipseToBSplineCurve Convert1(E2d, U1, Umed, Parameterisation);
 
-          Handle(Geom_BSplineCurve) TheCurve1 = BSplineCurveBuilder(TheConic, Convert1);
+          Handle(BSplineCurve3d) TheCurve1 = BSplineCurveBuilder(TheConic, Convert1);
 
           Convert_EllipseToBSplineCurve Convert2(E2d, Umed, U2, Parameterisation);
 
-          Handle(Geom_BSplineCurve) TheCurve2 = BSplineCurveBuilder(TheConic, Convert2);
+          Handle(BSplineCurve3d) TheCurve2 = BSplineCurveBuilder(TheConic, Convert2);
 
           GeomConvert_CompCurveToBSplineCurve CCTBSpl(TheCurve1, Parameterisation);
 
@@ -295,10 +295,10 @@ Handle(Geom_BSplineCurve) GeomConvert::CurveToBSplineCurve(
       TheCurve = BSplineCurveBuilder(TheConic, Convert);
     }
 
-    else if (Curv->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+    else if (Curv->IsKind(STANDARD_TYPE(BezierCurve3d)))
     {
 
-      Handle(Geom_BezierCurve) CBez = Handle(Geom_BezierCurve)::DownCast(Curv->Copy());
+      Handle(BezierCurve3d) CBez = Handle(BezierCurve3d)::DownCast(Curv->Copy());
       CBez->Segment(U1, U2);
       Standard_Integer        NbPoles = CBez->NbPoles();
       Standard_Integer        Degree  = CBez->Degree();
@@ -314,16 +314,16 @@ Handle(Geom_BSplineCurve) GeomConvert::CurveToBSplineCurve(
       {
         TColStd_Array1OfReal Weights(1, NbPoles);
         CBez->Weights(Weights);
-        TheCurve = new Geom_BSplineCurve(Poles, Weights, Knots, Mults, Degree);
+        TheCurve = new BSplineCurve3d(Poles, Weights, Knots, Mults, Degree);
       }
       else
       {
-        TheCurve = new Geom_BSplineCurve(Poles, Knots, Mults, Degree);
+        TheCurve = new BSplineCurve3d(Poles, Knots, Mults, Degree);
       }
     }
-    else if (Curv->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+    else if (Curv->IsKind(STANDARD_TYPE(BSplineCurve3d)))
     {
-      TheCurve = Handle(Geom_BSplineCurve)::DownCast(Curv->Copy());
+      TheCurve = Handle(BSplineCurve3d)::DownCast(Curv->Copy());
       //// modified by jgv, 14.01.05 for OCC7355 ////
       if (TheCurve->IsPeriodic())
       {
@@ -379,9 +379,9 @@ Handle(Geom_BSplineCurve) GeomConvert::CurveToBSplineCurve(
                                //      }
     }
 
-    else if (C->IsKind(STANDARD_TYPE(Geom_Circle)))
+    else if (C->IsKind(STANDARD_TYPE(GeomCircle)))
     {
-      Handle(Geom_Circle) TheConic = Handle(Geom_Circle)::DownCast(C);
+      Handle(GeomCircle) TheConic = Handle(GeomCircle)::DownCast(C);
       gp_Circ2d           C2d(gp::OX2d(), TheConic->Radius());
       /*      if (Parameterisation == Convert_TgtThetaOver2_1 ||
             Parameterisation == Convert_TgtThetaOver2_2) {
@@ -402,9 +402,9 @@ Handle(Geom_BSplineCurve) GeomConvert::CurveToBSplineCurve(
       //      }
     }
 
-    else if (C->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+    else if (C->IsKind(STANDARD_TYPE(BezierCurve3d)))
     {
-      Handle(Geom_BezierCurve) CBez    = Handle(Geom_BezierCurve)::DownCast(C);
+      Handle(BezierCurve3d) CBez    = Handle(BezierCurve3d)::DownCast(C);
       Standard_Integer         NbPoles = CBez->NbPoles();
       Standard_Integer         Degree  = CBez->Degree();
       TColgp_Array1OfPnt       Poles(1, NbPoles);
@@ -419,17 +419,17 @@ Handle(Geom_BSplineCurve) GeomConvert::CurveToBSplineCurve(
       {
         TColStd_Array1OfReal Weights(1, NbPoles);
         CBez->Weights(Weights);
-        TheCurve = new Geom_BSplineCurve(Poles, Weights, Knots, Mults, Degree);
+        TheCurve = new BSplineCurve3d(Poles, Weights, Knots, Mults, Degree);
       }
       else
       {
-        TheCurve = new Geom_BSplineCurve(Poles, Knots, Mults, Degree);
+        TheCurve = new BSplineCurve3d(Poles, Knots, Mults, Degree);
       }
     }
 
-    else if (C->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+    else if (C->IsKind(STANDARD_TYPE(BSplineCurve3d)))
     {
-      TheCurve = Handle(Geom_BSplineCurve)::DownCast(C->Copy());
+      TheCurve = Handle(BSplineCurve3d)::DownCast(C->Copy());
     }
 
     else if (C->IsKind(STANDARD_TYPE(Geom_OffsetCurve)))
@@ -493,8 +493,8 @@ private:
 // purpose  : Multiply two BSpline curves to make one
 //=======================================================================
 
-static Handle(Geom_BSplineCurve) MultNumandDenom(const Handle(Geom2d_BSplineCurve)& a,
-                                                 const Handle(Geom_BSplineCurve)&   BS)
+static Handle(BSplineCurve3d) MultNumandDenom(const Handle(Geom2d_BSplineCurve)& a,
+                                                 const Handle(BSplineCurve3d)&   BS)
 
 {
   TColStd_Array1OfReal             aKnots(1, a->NbKnots());
@@ -505,7 +505,7 @@ static Handle(Geom_BSplineCurve) MultNumandDenom(const Handle(Geom2d_BSplineCurv
   TColStd_Array1OfInteger          BSMults(1, BS->NbKnots());
   TColgp_Array1OfPnt2d             aPoles(1, a->NbPoles());
   TColgp_Array1OfPnt               BSPoles(1, BS->NbPoles());
-  Handle(Geom_BSplineCurve)        res;
+  Handle(BSplineCurve3d)        res;
   Handle(TColStd_HArray1OfReal)    resKnots;
   Handle(TColStd_HArray1OfInteger) resMults;
   Standard_Real                    start_value, end_value;
@@ -574,7 +574,7 @@ static Handle(Geom_BSplineCurve) MultNumandDenom(const Handle(Geom2d_BSplineCurv
     for (jj = 1; jj <= 3; jj++)
       resPoles(ii).SetCoord(jj, resNumPoles(ii).Coord(jj) / resDenPoles(ii));
   res =
-    new Geom_BSplineCurve(resPoles, resDenPoles, resKnots->Array1(), resMults->Array1(), degree);
+    new BSplineCurve3d(resPoles, resDenPoles, resKnots->Array1(), resMults->Array1(), degree);
   return res;
 }
 
@@ -610,7 +610,7 @@ static void Pretreatment(TColGeom_Array1OfBSplineCurve& tab)
 //           last weights are different
 //=======================================================================
 
-static Standard_Boolean NeedToBeTreated(const Handle(Geom_BSplineCurve)& BS)
+static Standard_Boolean NeedToBeTreated(const Handle(BSplineCurve3d)& BS)
 
 {
   TColStd_Array1OfReal tabWeights(1, BS->NbPoles());
@@ -784,7 +784,7 @@ void GeomConvert::ConcatG1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves
   GeomAbs_Shape             Cont;
   Vector3d                    Vec1, Vec2; // consecutive tangential vectors
   Point3d                    Pint;
-  Handle(Geom_BSplineCurve) Curve1, Curve2;
+  Handle(BSplineCurve3d) Curve1, Curve2;
   // clang-format off
  TColStd_Array1OfBoolean      tabG1(0,nb_curve-2);         //array of the G1 continuity at the intersections
   // clang-format on
@@ -799,7 +799,7 @@ void GeomConvert::ConcatG1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves
     if (i >= 1)
     {
       First = ArrayOfCurves(i)->FirstParameter();
-      Cont  = GeomLProp::Continuity(ArrayOfCurves(i - 1),
+      Cont  = GeomLProp1::Continuity(ArrayOfCurves(i - 1),
                                    ArrayOfCurves(i),
                                    PreLast,
                                    First,
@@ -936,7 +936,7 @@ void GeomConvert::ConcatG1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves
           for (jj = 1; jj <= 3; jj++)
             NewPoles(ii).SetCoord(jj, NewPoles(ii).Coord(jj) / NewWeights(ii));
         Curve1 =
-          new Geom_BSplineCurve(NewPoles, NewWeights, KnotC1, KnotC1Mults, 2 * Curve1->Degree());
+          new BSplineCurve3d(NewPoles, NewWeights, KnotC1, KnotC1Mults, 2 * Curve1->Degree());
       }
       GeomConvert_CompCurveToBSplineCurve C(Curve2);
       fusion = C.Add(Curve1,
@@ -1021,7 +1021,7 @@ void GeomConvert::ConcatC1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves
   GeomAbs_Shape             Cont;
   Vector3d                    Vec1, Vec2; // consecutive tangential vectors
   Point3d                    Pint;
-  Handle(Geom_BSplineCurve) Curve1, Curve2;
+  Handle(BSplineCurve3d) Curve1, Curve2;
   // clang-format off
  TColStd_Array1OfBoolean      tabG1(0,nb_curve-2);         //array of the G1 continuity at the intersections
   // clang-format on
@@ -1036,7 +1036,7 @@ void GeomConvert::ConcatC1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves
     if (i >= 1)
     {
       First = ArrayOfCurves(i)->FirstParameter();
-      Cont  = GeomLProp::Continuity(ArrayOfCurves(i - 1),
+      Cont  = GeomLProp1::Continuity(ArrayOfCurves(i - 1),
                                    ArrayOfCurves(i),
                                    PreLast,
                                    First,
@@ -1186,7 +1186,7 @@ void GeomConvert::ConcatC1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves
             for (jj = 1; jj <= 3; jj++)
               NewPoles(ii).SetCoord(jj, NewPoles(ii).Coord(jj) / NewWeights(ii));
           Curve1 =
-            new Geom_BSplineCurve(NewPoles, NewWeights, KnotC1, KnotC1Mults, 2 * Curve1->Degree());
+            new BSplineCurve3d(NewPoles, NewWeights, KnotC1, KnotC1Mults, 2 * Curve1->Degree());
         }
         GeomConvert_CompCurveToBSplineCurve C(Curve2);
         fusion = C.Add(Curve1,
@@ -1253,7 +1253,7 @@ void GeomConvert::ConcatC1(TColGeom_Array1OfBSplineCurve&          ArrayOfCurves
 
 //=================================================================================================
 
-void GeomConvert::C0BSplineToC1BSplineCurve(Handle(Geom_BSplineCurve)& BS,
+void GeomConvert::C0BSplineToC1BSplineCurve(Handle(BSplineCurve3d)& BS,
                                             const Standard_Real        tolerance,
                                             const Standard_Real        AngularTol)
 
@@ -1280,7 +1280,7 @@ void GeomConvert::C0BSplineToC1BSplineCurve(Handle(Geom_BSplineCurve)& BS,
 
 //=================================================================================================
 
-void GeomConvert::C0BSplineToArrayOfC1BSplineCurve(const Handle(Geom_BSplineCurve)&        BS,
+void GeomConvert::C0BSplineToArrayOfC1BSplineCurve(const Handle(BSplineCurve3d)&        BS,
                                                    Handle(TColGeom_HArray1OfBSplineCurve)& tabBS,
                                                    const Standard_Real tolerance)
 {
@@ -1289,7 +1289,7 @@ void GeomConvert::C0BSplineToArrayOfC1BSplineCurve(const Handle(Geom_BSplineCurv
 
 //=================================================================================================
 
-void GeomConvert::C0BSplineToArrayOfC1BSplineCurve(const Handle(Geom_BSplineCurve)&        BS,
+void GeomConvert::C0BSplineToArrayOfC1BSplineCurve(const Handle(BSplineCurve3d)&        BS,
                                                    Handle(TColGeom_HArray1OfBSplineCurve)& tabBS,
                                                    const Standard_Real AngularTolerance,
                                                    const Standard_Real tolerance)
@@ -1333,7 +1333,7 @@ void GeomConvert::C0BSplineToArrayOfC1BSplineCurve(const Handle(Geom_BSplineCurv
         j++;
       U2 = BSKnots(j);
       j++;
-      Handle(Geom_BSplineCurve) BSbis = Handle(Geom_BSplineCurve)::DownCast(BS->Copy());
+      Handle(BSplineCurve3d) BSbis = Handle(BSplineCurve3d)::DownCast(BS->Copy());
       BSbis->Segment(U1, U2);
       ArrayOfCurves(i) = BSbis;
     }

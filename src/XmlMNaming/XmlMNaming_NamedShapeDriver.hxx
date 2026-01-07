@@ -28,7 +28,7 @@
 class Message_Messenger;
 class TDF_Attribute;
 class XmlObjMgt_Persistent;
-class TopTools_LocationSet;
+class LocationSet1;
 
 class XmlMNaming_NamedShapeDriver;
 DEFINE_STANDARD_HANDLE(XmlMNaming_NamedShapeDriver, XmlMDF_ADriver)
@@ -65,7 +65,7 @@ public:
   Standard_EXPORT void Clear();
 
   //! get the format of topology
-  TopTools_LocationSet& GetShapesLocations();
+  LocationSet1& GetShapesLocations();
 
   DEFINE_STANDARD_RTTIEXT(XmlMNaming_NamedShapeDriver, XmlMDF_ADriver)
 

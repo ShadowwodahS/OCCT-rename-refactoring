@@ -34,7 +34,7 @@ public:
   //! defined by the attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Adaptor3d_Surface&          aPlane,
-                                  const Handle(Prs3d_Drawer)&       aDrawer);
+                                  const Handle(StyleDrawer)&       aDrawer);
 
   //! returns true if the distance between the point (X,Y,Z) and the
   //! plane is less than aDistance.
@@ -43,7 +43,7 @@ public:
                                                 const Standard_Real         Z,
                                                 const Standard_Real         aDistance,
                                                 const Adaptor3d_Surface&    aPlane,
-                                                const Handle(Prs3d_Drawer)& aDrawer);
+                                                const Handle(StyleDrawer)& aDrawer);
 };
 
 #endif // _StdPrs_Plane_HeaderFile

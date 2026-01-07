@@ -29,7 +29,7 @@ class IGESDimen_WitnessLine;
 DEFINE_STANDARD_HANDLE(IGESDimen_WitnessLine, IGESData_IGESEntity)
 
 //! defines WitnessLine, Type <106> Form <40>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Contains one or more straight line segments associated
 //! with drafting entities of various types
 class IGESDimen_WitnessLine : public IGESData_IGESEntity

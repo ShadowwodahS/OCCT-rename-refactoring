@@ -32,14 +32,14 @@
 #include <ShapeExtend_Status.hxx>
 class ShapeExtend_WireData;
 class ShapeAnalysis_Surface;
-class TopoDS_Wire;
-class Geom_Surface;
+class TopoWire;
+class GeomSurface;
 class TopLoc_Location;
 class ShapeAnalysis_WireOrder;
-class Geom2d_Curve;
+class GeomCurve2d;
 class gp_Pnt2d;
-class TopoDS_Shape;
-class TopoDS_Edge;
+class TopoShape;
+class TopoEdge;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -64,15 +64,15 @@ DEFINE_STANDARD_HANDLE(ShapeAnalysis_Wire, RefObject)
 //! 5. if a wire is outer on its face (considering pcurves)
 //!
 //! This class can be used in conjunction with class
-//! ShapeFix_Wire, which will fix the problems detected by this class.
+//! WireHealer, which will fix the problems detected by this class.
 //!
 //! The methods of the given class match to ones of the class
-//! ShapeFix_Wire, e.g., CheckSmall and FixSmall.
+//! WireHealer, e.g., CheckSmall and FixSmall.
 //! This class also includes some auxiliary methods
 //! (e.g., CheckOuterBound, etc.),
-//! which have no pair in ShapeFix_Wire.
+//! which have no pair in WireHealer.
 //!
-//! Like methods of ShapeFix_Wire the ones of this class are
+//! Like methods of WireHealer the ones of this class are
 //! grouped into two levels:
 //! - Public which are recommended for use (the most global
 //! method is Perform),
@@ -93,44 +93,44 @@ public:
   //! Empty constructor
   Standard_EXPORT ShapeAnalysis_Wire();
 
-  //! Creates object with standard TopoDS_Wire, face
+  //! Creates object with standard TopoWire, face
   //! and precision
-  Standard_EXPORT ShapeAnalysis_Wire(const TopoDS_Wire&  wire,
-                                     const TopoDS_Face&  face,
+  Standard_EXPORT ShapeAnalysis_Wire(const TopoWire&  wire,
+                                     const TopoFace&  face,
                                      const Standard_Real precision);
 
   //! Creates the object with WireData object, face
   //! and precision
   Standard_EXPORT ShapeAnalysis_Wire(const Handle(ShapeExtend_WireData)& sbwd,
-                                     const TopoDS_Face&                  face,
+                                     const TopoFace&                  face,
                                      const Standard_Real                 precision);
 
-  //! Initializes the object with standard TopoDS_Wire, face
+  //! Initializes the object with standard TopoWire, face
   //! and precision
-  Standard_EXPORT void Init(const TopoDS_Wire&  wire,
-                            const TopoDS_Face&  face,
+  Standard_EXPORT void Init(const TopoWire&  wire,
+                            const TopoFace&  face,
                             const Standard_Real precision);
 
   //! Initializes the object with WireData object, face
   //! and precision
   Standard_EXPORT void Init(const Handle(ShapeExtend_WireData)& sbwd,
-                            const TopoDS_Face&                  face,
+                            const TopoFace&                  face,
                             const Standard_Real                 precision);
 
-  //! Loads the object with standard TopoDS_Wire
-  Standard_EXPORT void Load(const TopoDS_Wire& wire);
+  //! Loads the object with standard TopoWire
+  Standard_EXPORT void Load(const TopoWire& wire);
 
   //! Loads the object with WireData object
   Standard_EXPORT void Load(const Handle(ShapeExtend_WireData)& sbwd);
 
   //! Loads the face the wire lies on
-  Standard_EXPORT void SetFace(const TopoDS_Face& face);
+  Standard_EXPORT void SetFace(const TopoFace& face);
 
   //! Loads the surface the wire lies on
-  Standard_EXPORT void SetSurface(const Handle(Geom_Surface)& surface);
+  Standard_EXPORT void SetSurface(const Handle(GeomSurface)& surface);
 
   //! Loads the surface the wire lies on
-  Standard_EXPORT void SetSurface(const Handle(Geom_Surface)& surface,
+  Standard_EXPORT void SetSurface(const Handle(GeomSurface)& surface,
                                   const TopLoc_Location&      location);
 
   Standard_EXPORT void SetPrecision(const Standard_Real precision);
@@ -155,7 +155,7 @@ public:
   Standard_Integer NbEdges() const;
 
   //! Returns the working face
-  const TopoDS_Face& Face() const;
+  const TopoFace& Face() const;
 
   //! Returns the working surface
   const Handle(ShapeAnalysis_Surface)& Surface() const;
@@ -292,8 +292,8 @@ public:
   //! OK   : Pcurves are correct or edge is not seam
   //! DONE : Seam pcurves should be swapped
   Standard_EXPORT Standard_Boolean CheckSeam(const Standard_Integer num,
-                                             Handle(Geom2d_Curve)&  C1,
-                                             Handle(Geom2d_Curve)&  C2,
+                                             Handle(GeomCurve2d)&  C1,
+                                             Handle(GeomCurve2d)&  C2,
                                              Standard_Real&         cf,
                                              Standard_Real&         cl);
 
@@ -452,7 +452,7 @@ public:
   //! Uses ShapeAnalysis::IsOuterBound for analysis
   //! If <APIMake> is True uses BRepAPI_MakeWire to build the
   //! wire, if False (to be used only when edges share common
-  //! vertices) uses BRep_Builder to build the wire
+  //! vertices) uses ShapeBuilder to build the wire
   Standard_EXPORT Standard_Boolean CheckOuterBound(const Standard_Boolean APIMake = Standard_True);
 
   //! Detects a notch
@@ -462,7 +462,7 @@ public:
                                                      const Standard_Real    Tolerance = 0.0);
 
   //! Checks if wire has parametric area less than precision.
-  Standard_EXPORT Standard_Boolean CheckSmallArea(const TopoDS_Wire& theWire);
+  Standard_EXPORT Standard_Boolean CheckSmallArea(const TopoWire& theWire);
 
   //! Checks with what orientation <shape> (wire or edge) can be
   //! connected to the wire.
@@ -493,7 +493,7 @@ public:
   //! otherwise reversed.
   //! For head of <SBWD> if DONE5 is True <shape> should be direct,
   //! otherwise reversed.
-  Standard_EXPORT Standard_Boolean CheckShapeConnect(const TopoDS_Shape& shape,
+  Standard_EXPORT Standard_Boolean CheckShapeConnect(const TopoShape& shape,
                                                      const Standard_Real prec = 0.0);
 
   //! The same as previous CheckShapeConnect but is more advanced.
@@ -505,7 +505,7 @@ public:
                                                      Standard_Real&      tailtail,
                                                      Standard_Real&      headtail,
                                                      Standard_Real&      headhead,
-                                                     const TopoDS_Shape& shape,
+                                                     const TopoShape& shape,
                                                      const Standard_Real prec = 0.0);
 
   //! Checks existence of loop on wire and return vertices which are loop vertices
@@ -515,15 +515,15 @@ public:
                                              TopTools_MapOfShape&                aMapSmallEdges,
                                              TopTools_MapOfShape&                aMapSeemEdges);
 
-  Standard_EXPORT Standard_Boolean CheckTail(const TopoDS_Edge&  theEdge1,
-                                             const TopoDS_Edge&  theEdge2,
+  Standard_EXPORT Standard_Boolean CheckTail(const TopoEdge&  theEdge1,
+                                             const TopoEdge&  theEdge2,
                                              const Standard_Real theMaxSine,
                                              const Standard_Real theMaxWidth,
                                              const Standard_Real theMaxTolerance,
-                                             TopoDS_Edge&        theEdge11,
-                                             TopoDS_Edge&        theEdge12,
-                                             TopoDS_Edge&        theEdge21,
-                                             TopoDS_Edge&        theEdge22);
+                                             TopoEdge&        theEdge11,
+                                             TopoEdge&        theEdge12,
+                                             TopoEdge&        theEdge21,
+                                             TopoEdge&        theEdge22);
 
   Standard_Boolean StatusOrder(const ShapeExtend_Status Status) const;
 
@@ -574,7 +574,7 @@ public:
 
 protected:
   Handle(ShapeExtend_WireData)  myWire;
-  TopoDS_Face                   myFace;
+  TopoFace                   myFace;
   Handle(ShapeAnalysis_Surface) mySurf;
   Standard_Real                 myPrecision;
   Standard_Real                 myMin3d;

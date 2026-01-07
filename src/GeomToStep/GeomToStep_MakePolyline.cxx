@@ -29,7 +29,7 @@
 // Creation d' une polyline Step a partir d' une Array1OfPnt
 //=============================================================================
 GeomToStep_MakePolyline::GeomToStep_MakePolyline(const TColgp_Array1OfPnt& P,
-                                                 const StepData_Factors&   theLocalFactors)
+                                                 const ConversionFactors&   theLocalFactors)
 {
   Point3d P1;
 #include "GeomToStep_MakePolyline_gen.pxx"
@@ -40,7 +40,7 @@ GeomToStep_MakePolyline::GeomToStep_MakePolyline(const TColgp_Array1OfPnt& P,
 //=============================================================================
 
 GeomToStep_MakePolyline::GeomToStep_MakePolyline(const TColgp_Array1OfPnt2d& P,
-                                                 const StepData_Factors&     theLocalFactors)
+                                                 const ConversionFactors&     theLocalFactors)
 {
   gp_Pnt2d P1;
 #include "GeomToStep_MakePolyline_gen.pxx"

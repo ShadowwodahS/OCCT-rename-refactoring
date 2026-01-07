@@ -28,12 +28,12 @@ class Expr_NamedUnknown;
 
 //! Describes an iterator on NamedUnknowns contained
 //! in any GeneralExpression.
-class Expr_UnknownIterator
+class UnknownIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Expr_UnknownIterator(const Handle(Expr_GeneralExpression)& exp);
+  Standard_EXPORT UnknownIterator(const Handle(Expr_GeneralExpression)& exp);
 
   Standard_EXPORT Standard_Boolean More() const;
 

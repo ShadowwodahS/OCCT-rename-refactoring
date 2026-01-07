@@ -40,7 +40,7 @@ const Standard_GUID& TDataXtd_Point::GetID()
 
 //=================================================================================================
 
-Handle(TDataXtd_Point) TDataXtd_Point::Set(const TDF_Label& L)
+Handle(TDataXtd_Point) TDataXtd_Point::Set(const DataLabel& L)
 {
   Handle(TDataXtd_Point) A;
   if (!L.FindAttribute(TDataXtd_Point::GetID(), A))
@@ -53,17 +53,17 @@ Handle(TDataXtd_Point) TDataXtd_Point::Set(const TDF_Label& L)
 
 //=================================================================================================
 
-Handle(TDataXtd_Point) TDataXtd_Point::Set(const TDF_Label& L, const Point3d& P)
+Handle(TDataXtd_Point) TDataXtd_Point::Set(const DataLabel& L, const Point3d& P)
 {
   Handle(TDataXtd_Point) A = Set(L);
 
-  Handle(TNaming_NamedShape) aNS;
-  if (L.FindAttribute(TNaming_NamedShape::GetID(), aNS))
+  Handle(ShapeAttribute) aNS;
+  if (L.FindAttribute(ShapeAttribute::GetID(), aNS))
   {
     if (!aNS->Get().IsNull())
       if (aNS->Get().ShapeType() == TopAbs_VERTEX)
       {
-        Point3d anOldPnt = BRep_Tool::Pnt(TopoDS::Vertex(aNS->Get()));
+        Point3d anOldPnt = BRepInspector::Pnt(TopoDS::Vertex(aNS->Get()));
         if (anOldPnt.X() == P.X() && anOldPnt.Y() == P.Y() && anOldPnt.Z() == P.Z())
           return A;
       }

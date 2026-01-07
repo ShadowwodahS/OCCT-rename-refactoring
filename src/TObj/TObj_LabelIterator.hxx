@@ -46,7 +46,7 @@ public:
 
   //! Creates an iterator an initialize it by theLabel and recursive flag.
   //! If isRecursive is Standard_True make recursive iterations
-  Standard_EXPORT TObj_LabelIterator(const TDF_Label&       theLabel,
+  Standard_EXPORT TObj_LabelIterator(const DataLabel&       theLabel,
                                      const Standard_Boolean isRecursive = Standard_False);
 
 public:
@@ -64,7 +64,7 @@ public:
   virtual Handle(TObj_Object) Value() const Standard_OVERRIDE { return myObject; }
 
   //! Returns the label of the current item
-  inline const TDF_Label& LabelValue() const { return myNode; }
+  inline const DataLabel& LabelValue() const { return myNode; }
 
 protected:
   /**
@@ -80,7 +80,7 @@ protected:
    */
 
   //! Initialize Iterator by the theLabel
-  void Init(const TDF_Label& theLabel, const Standard_Boolean isRecursive = Standard_False)
+  void Init(const DataLabel& theLabel, const Standard_Boolean isRecursive = Standard_False)
   {
     myIterator.Initialize(theLabel, isRecursive);
   }
@@ -89,7 +89,7 @@ protected:
   /**
    * Fields
    */
-  TDF_Label           myNode;     //!< Current node
+  DataLabel           myNode;     //!< Current node
   TDF_ChildIterator   myIterator; //!< OCAF Child iterator
   Handle(TObj_Object) myObject;   //!< Current Object
 

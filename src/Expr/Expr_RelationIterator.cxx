@@ -20,7 +20,7 @@
 #include <Standard_NoMoreObject.hxx>
 #include <Standard_NoSuchObject.hxx>
 
-Expr_RelationIterator::Expr_RelationIterator(const Handle(Expr_GeneralRelation)& rel)
+RelationIterator::RelationIterator(const Handle(Expr_GeneralRelation)& rel)
     : myRelation(1, rel->NbOfSingleRelations())
 {
   if (rel->IsKind(STANDARD_TYPE(Expr_SingleRelation)))
@@ -41,7 +41,7 @@ Expr_RelationIterator::Expr_RelationIterator(const Handle(Expr_GeneralRelation)&
       }
       else
       {
-        Expr_RelationIterator subit(currel);
+        RelationIterator subit(currel);
         while (subit.More())
         {
           myRelation(nbcur) = subit.Value();
@@ -54,12 +54,12 @@ Expr_RelationIterator::Expr_RelationIterator(const Handle(Expr_GeneralRelation)&
   current = 1;
 }
 
-Standard_Boolean Expr_RelationIterator::More() const
+Standard_Boolean RelationIterator::More() const
 {
   return (current <= myRelation.Length());
 }
 
-void Expr_RelationIterator::Next()
+void RelationIterator::Next()
 {
   if (!More())
   {
@@ -68,7 +68,7 @@ void Expr_RelationIterator::Next()
   current++;
 }
 
-Handle(Expr_SingleRelation) Expr_RelationIterator::Value() const
+Handle(Expr_SingleRelation) RelationIterator::Value() const
 {
   if (!More())
   {

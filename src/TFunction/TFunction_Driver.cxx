@@ -28,7 +28,7 @@ TFunction_Driver::TFunction_Driver() {}
 // purpose  : Initialization
 //=======================================================================
 
-void TFunction_Driver::Init(const TDF_Label& L)
+void TFunction_Driver::Init(const DataLabel& L)
 {
   myLabel = L;
 }

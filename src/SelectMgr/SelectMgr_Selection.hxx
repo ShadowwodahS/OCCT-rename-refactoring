@@ -34,7 +34,7 @@ class Select3D_SensitiveEntity;
 //! been detected. Each Selection mode is identified by
 //! an index. The set of sensitive primitives which
 //! correspond to a given mode is stocked in a
-//! SelectMgr_Selection object. By Convention, the
+//! SelectionContainer object. By Convention, the
 //! default selection mode which allows us to grasp the
 //! Interactive object in its entirety will be mode 0.
 //! AIS_Trihedron : 4 selection modes
@@ -43,31 +43,31 @@ class Select3D_SensitiveEntity;
 //! -   mode 2 : selection of the axes
 //! -   mode 3 : selection of the planes XOY, YOZ, XOZ
 //! when you activate one of modes 1 2 3 4 , you pick AIS objects of type:
-//! -   AIS_Point
-//! -   AIS_Axis (and information on the type of axis)
+//! -   VisualPoint
+//! -   VisualAxis (and information on the type of axis)
 //! -   AIS_Plane (and information on the type of plane).
 //!   AIS_PlaneTrihedron offers 3 selection modes:
 //! -   mode 0 : selection of the whole trihedron
 //! -   mode 1 : selection of the origin of the trihedron
 //! -   mode 2 : selection of the axes - same remarks as for the Trihedron.
-//! AIS_Shape : 7 maximum selection modes, depending
+//! VisualShape : 7 maximum selection modes, depending
 //! on the complexity of the shape :
-//! -   mode 0 : selection of the AIS_Shape
+//! -   mode 0 : selection of the VisualShape
 //! -   mode 1 : selection of the vertices
 //! -   mode 2 : selection of the edges
 //! -   mode 3 : selection of the wires
 //! -   mode 4 : selection of the faces
 //! -   mode 5 : selection of the shells
 //! -   mode 6 :   selection of the constituent solids.
-class SelectMgr_Selection : public RefObject
+class SelectionContainer : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(SelectMgr_Selection, RefObject)
+  DEFINE_STANDARD_RTTIEXT(SelectionContainer, RefObject)
 public:
   //! Constructs a selection object defined by the selection mode IdMode.
   //! The default setting 0 is the selection mode for a shape in its entirety.
-  Standard_EXPORT SelectMgr_Selection(const Standard_Integer theModeIdx = 0);
+  Standard_EXPORT SelectionContainer(const Standard_Integer theModeIdx = 0);
 
-  Standard_EXPORT ~SelectMgr_Selection();
+  Standard_EXPORT ~SelectionContainer();
 
   Standard_EXPORT void Destroy();
 
@@ -138,6 +138,6 @@ private:
   Standard_Boolean                                      myIsCustomSens;
 };
 
-DEFINE_STANDARD_HANDLE(SelectMgr_Selection, RefObject)
+DEFINE_STANDARD_HANDLE(SelectionContainer, RefObject)
 
 #endif

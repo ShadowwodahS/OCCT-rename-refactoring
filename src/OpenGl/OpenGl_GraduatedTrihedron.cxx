@@ -778,7 +778,7 @@ void OpenGl_GraduatedTrihedron::Axis::InitArrow(const Handle(OpenGl_Context)& th
                                                 const Standard_ShortReal      theLength,
                                                 const OpenGl_Vec3&            theNormal) const
 {
-  // Draw from the end point of the aris
+  // Draw1 from the end point of the aris
   OpenGl_Vec3 aLengthVec = -Direction * theLength;
 
   // Radial direction to the arrow

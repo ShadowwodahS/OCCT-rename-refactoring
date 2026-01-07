@@ -29,37 +29,37 @@ class BOPTest
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static void AllCommands(Draw_Interpretor& aDI);
+  Standard_EXPORT static void AllCommands(DrawInterpreter& aDI);
 
-  Standard_EXPORT static void BOPCommands(Draw_Interpretor& aDI);
+  Standard_EXPORT static void BOPCommands(DrawInterpreter& aDI);
 
-  Standard_EXPORT static void CheckCommands(Draw_Interpretor& aDI);
+  Standard_EXPORT static void CheckCommands(DrawInterpreter& aDI);
 
-  Standard_EXPORT static void TolerCommands(Draw_Interpretor& aDI);
+  Standard_EXPORT static void TolerCommands(DrawInterpreter& aDI);
 
-  Standard_EXPORT static void LowCommands(Draw_Interpretor& aDI);
+  Standard_EXPORT static void LowCommands(DrawInterpreter& aDI);
 
-  Standard_EXPORT static void ObjCommands(Draw_Interpretor& aDI);
+  Standard_EXPORT static void ObjCommands(DrawInterpreter& aDI);
 
-  Standard_EXPORT static void PartitionCommands(Draw_Interpretor& aDI);
+  Standard_EXPORT static void PartitionCommands(DrawInterpreter& aDI);
 
-  Standard_EXPORT static void APICommands(Draw_Interpretor& aDI);
+  Standard_EXPORT static void APICommands(DrawInterpreter& aDI);
 
-  Standard_EXPORT static void OptionCommands(Draw_Interpretor& aDI);
+  Standard_EXPORT static void OptionCommands(DrawInterpreter& aDI);
 
-  Standard_EXPORT static void Factory(Draw_Interpretor& aDI);
+  Standard_EXPORT static void Factory(DrawInterpreter& aDI);
 
-  Standard_EXPORT static void DebugCommands(Draw_Interpretor& aDI);
+  Standard_EXPORT static void DebugCommands(DrawInterpreter& aDI);
 
-  Standard_EXPORT static void CellsCommands(Draw_Interpretor& aDI);
+  Standard_EXPORT static void CellsCommands(DrawInterpreter& aDI);
 
-  Standard_EXPORT static void UtilityCommands(Draw_Interpretor& aDI);
+  Standard_EXPORT static void UtilityCommands(DrawInterpreter& aDI);
 
-  Standard_EXPORT static void RemoveFeaturesCommands(Draw_Interpretor& aDI);
+  Standard_EXPORT static void RemoveFeaturesCommands(DrawInterpreter& aDI);
 
-  Standard_EXPORT static void PeriodicityCommands(Draw_Interpretor& aDI);
+  Standard_EXPORT static void PeriodicityCommands(DrawInterpreter& aDI);
 
-  Standard_EXPORT static void MkConnectedCommands(Draw_Interpretor& aDI);
+  Standard_EXPORT static void MkConnectedCommands(DrawInterpreter& aDI);
 
   //! Prints errors and warnings if any and draws attached shapes
   //! if flag BOPTest_Objects::DrawWarnShapes() is set

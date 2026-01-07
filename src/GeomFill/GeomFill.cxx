@@ -39,12 +39,12 @@
 
 //=================================================================================================
 
-Handle(Geom_Surface) GeomFill::Surface(const Handle(Geom_Curve)& Curve1,
-                                       const Handle(Geom_Curve)& Curve2)
+Handle(GeomSurface) GeomFill::Surface(const Handle(GeomCurve3d)& Curve1,
+                                       const Handle(GeomCurve3d)& Curve2)
 
 {
-  Handle(Geom_Curve)   TheCurve1, TheCurve2;
-  Handle(Geom_Surface) Surf;
+  Handle(GeomCurve3d)   TheCurve1, TheCurve2;
+  Handle(GeomSurface) Surf;
 
   // recherche du type de la surface resultat:
   // les surfaces reglees particulieres sont :
@@ -67,7 +67,7 @@ Handle(Geom_Surface) GeomFill::Surface(const Handle(Geom_Curve)& Curve1,
   }
   else
   {
-    TheCurve1 = Handle(Geom_Curve)::DownCast(Curve1->Copy());
+    TheCurve1 = Handle(GeomCurve3d)::DownCast(Curve1->Copy());
   }
   if (Curve2->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
   {
@@ -79,17 +79,17 @@ Handle(Geom_Surface) GeomFill::Surface(const Handle(Geom_Curve)& Curve1,
   }
   else
   {
-    TheCurve2 = Handle(Geom_Curve)::DownCast(Curve2->Copy());
+    TheCurve2 = Handle(GeomCurve3d)::DownCast(Curve2->Copy());
   }
 
   Standard_Boolean IsDone = Standard_False;
   // Les deux courbes sont des droites.
-  if (TheCurve1->IsKind(STANDARD_TYPE(Geom_Line)) && TheCurve2->IsKind(STANDARD_TYPE(Geom_Line))
+  if (TheCurve1->IsKind(STANDARD_TYPE(GeomLine)) && TheCurve2->IsKind(STANDARD_TYPE(GeomLine))
       && Trim1 && Trim2)
   {
 
-    gp_Lin L1 = (Handle(Geom_Line)::DownCast(TheCurve1))->Lin();
-    gp_Lin L2 = (Handle(Geom_Line)::DownCast(TheCurve2))->Lin();
+    gp_Lin L1 = (Handle(GeomLine)::DownCast(TheCurve1))->Lin();
+    gp_Lin L2 = (Handle(GeomLine)::DownCast(TheCurve2))->Lin();
     Dir3d D1 = L1.Direction();
     Dir3d D2 = L2.Direction();
 
@@ -104,7 +104,7 @@ Handle(Geom_Surface) GeomFill::Surface(const Handle(Geom_Curve)& Curve1,
             && Abs(b1 - proj - b2) <= Precision::Confusion())
         {
           gp_Ax3             Ax(L1.Location(), Dir3d(D1.Crossed(P1P2)), D1);
-          Handle(Geom_Plane) P = new Geom_Plane(Ax);
+          Handle(GeomPlane) P = new GeomPlane(Ax);
           Standard_Real      V = P1P2.Dot(Ax.YDirection());
           Surf   = new Geom_RectangularTrimmedSurface(P, a1, b1, Min(0., V), Max(0., V));
           IsDone = Standard_True;
@@ -116,7 +116,7 @@ Handle(Geom_Surface) GeomFill::Surface(const Handle(Geom_Curve)& Curve1,
             && Abs(b1 - proj + a2) <= Precision::Confusion())
         {
           gp_Ax3             Ax(L1.Location(), Dir3d(D1.Crossed(P1P2)), D1);
-          Handle(Geom_Plane) P = new Geom_Plane(Ax);
+          Handle(GeomPlane) P = new GeomPlane(Ax);
           Standard_Real      V = P1P2.Dot(Ax.YDirection());
           Surf   = new Geom_RectangularTrimmedSurface(P, a1, b1, Min(0., V), Max(0., V));
           IsDone = Standard_True;
@@ -126,12 +126,12 @@ Handle(Geom_Surface) GeomFill::Surface(const Handle(Geom_Curve)& Curve1,
   }
 
   // Les deux courbes sont des cercles.
-  else if (TheCurve1->IsKind(STANDARD_TYPE(Geom_Circle))
-           && TheCurve2->IsKind(STANDARD_TYPE(Geom_Circle)))
+  else if (TheCurve1->IsKind(STANDARD_TYPE(GeomCircle))
+           && TheCurve2->IsKind(STANDARD_TYPE(GeomCircle)))
   {
 
-    gp_Circ C1 = (Handle(Geom_Circle)::DownCast(TheCurve1))->Circ();
-    gp_Circ C2 = (Handle(Geom_Circle)::DownCast(TheCurve2))->Circ();
+    gp_Circ C1 = (Handle(GeomCircle)::DownCast(TheCurve1))->Circ();
+    gp_Circ C2 = (Handle(GeomCircle)::DownCast(TheCurve2))->Circ();
 
     gp_Ax3 A1 = C1.Position();
     gp_Ax3 A2 = C2.Position();
@@ -242,14 +242,14 @@ void GeomFill::GetMinimalWeights(const Convert_ParameterisationType TConv,
   {
     Frame3d                    popAx2(Point3d(0, 0, 0), Dir3d(0, 0, 1));
     gp_Circ                   C(popAx2, 1);
-    Handle(Geom_TrimmedCurve) Sect1   = new Geom_TrimmedCurve(new Geom_Circle(C), 0., MaxAng);
-    Handle(Geom_BSplineCurve) CtoBspl = GeomConvert::CurveToBSplineCurve(Sect1, TConv);
+    Handle(Geom_TrimmedCurve) Sect1   = new Geom_TrimmedCurve(new GeomCircle(C), 0., MaxAng);
+    Handle(BSplineCurve3d) CtoBspl = GeomConvert::CurveToBSplineCurve(Sect1, TConv);
     CtoBspl->Weights(Weights);
 
     TColStd_Array1OfReal poids(Weights.Lower(), Weights.Upper());
     Standard_Real        angle_min = Max(Precision::PConfusion(), MinAng);
 
-    Handle(Geom_TrimmedCurve) Sect2 = new Geom_TrimmedCurve(new Geom_Circle(C), 0., angle_min);
+    Handle(Geom_TrimmedCurve) Sect2 = new Geom_TrimmedCurve(new GeomCircle(C), 0., angle_min);
     CtoBspl                         = GeomConvert::CurveToBSplineCurve(Sect2, TConv);
     CtoBspl->Weights(poids);
 
@@ -328,11 +328,11 @@ Standard_Real GeomFill::GetTolerance(const Convert_ParameterisationType TConv,
 {
   Frame3d                    popAx2(Point3d(0, 0, 0), Dir3d(0, 0, 1));
   gp_Circ                   C(popAx2, Radius);
-  Handle(Geom_Circle)       popCircle = new Geom_Circle(C);
+  Handle(GeomCircle)       popCircle = new GeomCircle(C);
   Handle(Geom_TrimmedCurve) Sect      = new Geom_TrimmedCurve(popCircle, 0., Max(AngleMin, 0.02));
   // 0.02 est proche d'1 degree, en desous on ne se preocupe pas de la tngence
   // afin d'eviter des tolerances d'approximation tendant vers 0 !
-  Handle(Geom_BSplineCurve) CtoBspl = GeomConvert::CurveToBSplineCurve(Sect, TConv);
+  Handle(BSplineCurve3d) CtoBspl = GeomConvert::CurveToBSplineCurve(Sect, TConv);
   Standard_Real             Dist;
   Dist = CtoBspl->Pole(1).Distance(CtoBspl->Pole(2)) + SpatialTol;
   return Dist * AngularTol / 2;

@@ -19,6 +19,6 @@
 #include <TDF_Label.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<TDF_Label> TDF_LabelSequence;
+typedef NCollection_Sequence<DataLabel> TDF_LabelSequence;
 
 #endif

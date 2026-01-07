@@ -19,7 +19,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(StepData_FileProtocol, StepData_Protocol)
 
-// static TCollection_AsciiString  thename("");
+// static AsciiString1  thename("");
 static Standard_CString thename = "";
 
 //  Protocol fabrique a la demande avec d autres Protocoles

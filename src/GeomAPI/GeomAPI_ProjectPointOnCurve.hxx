@@ -25,7 +25,7 @@
 #include <Extrema_ExtPC.hxx>
 #include <GeomAdaptor_Curve.hxx>
 class Point3d;
-class Geom_Curve;
+class GeomCurve3d;
 
 //! This class implements methods for  computing all the orthogonal
 //! projections of a 3D point onto a  3D curve.
@@ -40,29 +40,29 @@ public:
 
   //! Create the projection  of a  point  <P> on a curve
   //! <Curve>
-  Standard_EXPORT GeomAPI_ProjectPointOnCurve(const Point3d& P, const Handle(Geom_Curve)& Curve);
+  Standard_EXPORT GeomAPI_ProjectPointOnCurve(const Point3d& P, const Handle(GeomCurve3d)& Curve);
 
   //! Create  the projection  of a point <P>  on a curve
   //! <Curve> limited by the two points of parameter Umin and Usup.
   Standard_EXPORT GeomAPI_ProjectPointOnCurve(const Point3d&             P,
-                                              const Handle(Geom_Curve)& Curve,
+                                              const Handle(GeomCurve3d)& Curve,
                                               const Standard_Real       Umin,
                                               const Standard_Real       Usup);
 
   //! Init the projection  of a  point  <P> on a curve
   //! <Curve>
-  Standard_EXPORT void Init(const Point3d& P, const Handle(Geom_Curve)& Curve);
+  Standard_EXPORT void Init(const Point3d& P, const Handle(GeomCurve3d)& Curve);
 
   //! Init  the  projection  of a  point <P>  on a curve
   //! <Curve> limited by the two points of parameter Umin and Usup.
   Standard_EXPORT void Init(const Point3d&             P,
-                            const Handle(Geom_Curve)& Curve,
+                            const Handle(GeomCurve3d)& Curve,
                             const Standard_Real       Umin,
                             const Standard_Real       Usup);
 
   //! Init  the  projection  of a  point <P>  on a curve
   //! <Curve> limited by the two points of parameter Umin and Usup.
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& Curve,
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& Curve,
                             const Standard_Real       Umin,
                             const Standard_Real       Usup);
 

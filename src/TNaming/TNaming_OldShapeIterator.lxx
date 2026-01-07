@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean TNaming_OldShapeIterator::More() const
+inline Standard_Boolean OldShapeIterator::More() const
 {
   return (myNode != 0L);
 }

@@ -66,14 +66,14 @@ public:
 
   //! Construct diameter on the passed shape, if applicable.
   //! @param[in] theShape  the shape to measure.
-  Standard_EXPORT PrsDim_DiameterDimension(const TopoDS_Shape& theShape);
+  Standard_EXPORT PrsDim_DiameterDimension(const TopoShape& theShape);
 
   //! Construct diameter on the passed shape, if applicable - and
   //! define the preferred plane to orient the dimension.
   //! @param[in] theShape  the shape to measure.
   //! @param[in] thePlane  the plane defining preferred orientation
   //!        for dimension.
-  Standard_EXPORT PrsDim_DiameterDimension(const TopoDS_Shape& theShape, const gp_Pln& thePlane);
+  Standard_EXPORT PrsDim_DiameterDimension(const TopoShape& theShape, const gp_Pln& thePlane);
 
 public:
   //! @return measured geometry circle.
@@ -83,7 +83,7 @@ public:
   Standard_EXPORT Point3d AnchorPoint();
 
   //! @return the measured shape.
-  const TopoDS_Shape& Shape() const { return myShape; }
+  const TopoShape& Shape() const { return myShape; }
 
 public:
   //! Measure diameter of the circle.
@@ -98,18 +98,18 @@ public:
   //! The dimension will become invalid if the passed shape is not
   //! measurable or if measured diameter value is less than Precision::Confusion().
   //! @param[in] theShape  the shape to measure.
-  Standard_EXPORT void SetMeasuredGeometry(const TopoDS_Shape& theShape);
+  Standard_EXPORT void SetMeasuredGeometry(const TopoShape& theShape);
 
   //! @return the display units string.
-  Standard_EXPORT virtual const TCollection_AsciiString& GetDisplayUnits() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const AsciiString1& GetDisplayUnits() const Standard_OVERRIDE;
 
   //! @return the model units string.
-  Standard_EXPORT virtual const TCollection_AsciiString& GetModelUnits() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const AsciiString1& GetModelUnits() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void SetDisplayUnits(const TCollection_AsciiString& theUnits)
+  Standard_EXPORT virtual void SetDisplayUnits(const AsciiString1& theUnits)
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void SetModelUnits(const TCollection_AsciiString& theUnits)
+  Standard_EXPORT virtual void SetModelUnits(const AsciiString1& theUnits)
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual void SetTextPosition(const Point3d& theTextPos) Standard_OVERRIDE;
@@ -139,7 +139,7 @@ protected:
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void ComputeFlyoutSelection(
-    const Handle(SelectMgr_Selection)&   theSelection,
+    const Handle(SelectionContainer)&   theSelection,
     const Handle(SelectMgr_EntityOwner)& theEntityOwner) Standard_OVERRIDE;
 
 protected:
@@ -162,7 +162,7 @@ protected:
 private:
   gp_Circ      myCircle;
   Point3d       myAnchorPoint;
-  TopoDS_Shape myShape;
+  TopoShape myShape;
 };
 
 #endif // _PrsDim_DiameterDimension_HeaderFile

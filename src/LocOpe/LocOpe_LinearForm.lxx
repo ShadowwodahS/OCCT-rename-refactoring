@@ -30,7 +30,7 @@ inline LocOpe_LinearForm::LocOpe_LinearForm()
 // purpose  :
 //=======================================================================
 
-inline LocOpe_LinearForm::LocOpe_LinearForm(const TopoDS_Shape& Base,
+inline LocOpe_LinearForm::LocOpe_LinearForm(const TopoShape& Base,
                                             const Vector3d&       V,
                                             const Point3d&       Pnt1,
                                             const Point3d&       Pnt2)
@@ -44,7 +44,7 @@ inline LocOpe_LinearForm::LocOpe_LinearForm(const TopoDS_Shape& Base,
 // purpose  :
 //=======================================================================
 
-inline LocOpe_LinearForm::LocOpe_LinearForm(const TopoDS_Shape& Base,
+inline LocOpe_LinearForm::LocOpe_LinearForm(const TopoShape& Base,
                                             const Vector3d&       V,
                                             const Vector3d&       Vectra,
                                             const Point3d&       Pnt1,

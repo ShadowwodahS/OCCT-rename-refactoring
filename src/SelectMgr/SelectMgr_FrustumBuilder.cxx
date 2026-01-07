@@ -34,7 +34,7 @@ SelectMgr_FrustumBuilder::SelectMgr_FrustumBuilder()
 
 //=================================================================================================
 
-void SelectMgr_FrustumBuilder::SetCamera(const Handle(Graphic3d_Camera)& theCamera)
+void SelectMgr_FrustumBuilder::SetCamera(const Handle(CameraOn3d)& theCamera)
 {
   myCamera = theCamera;
 }

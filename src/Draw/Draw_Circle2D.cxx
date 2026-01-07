@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Draw_Circle2D, Draw_Drawable2D)
 Draw_Circle2D::Draw_Circle2D(const gp_Circ2d&    C,
                              const Standard_Real A1,
                              const Standard_Real A2,
-                             const Draw_Color&   col)
+                             const DrawColor&   col)
     : myCirc(C),
       myA1(A1),
       myA2(A2),
@@ -37,8 +37,8 @@ Draw_Circle2D::Draw_Circle2D(const gp_Circ2d&    C,
 
 //=================================================================================================
 
-void Draw_Circle2D::DrawOn(Draw_Display& d) const
+void Draw_Circle2D::DrawOn(DrawDisplay& d) const
 {
   d.SetColor(myColor);
-  d.Draw(myCirc, myA1, myA2);
+  d.Draw1(myCirc, myA1, myA2);
 }

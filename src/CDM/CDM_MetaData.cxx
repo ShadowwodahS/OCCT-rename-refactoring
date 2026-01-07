@@ -27,10 +27,10 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(CDM_MetaData, RefObject)
 
-CDM_MetaData::CDM_MetaData(const TCollection_ExtendedString& aFolder,
-                           const TCollection_ExtendedString& aName,
-                           const TCollection_ExtendedString& aPath,
-                           const TCollection_ExtendedString& aFileName,
+CDM_MetaData::CDM_MetaData(const UtfString& aFolder,
+                           const UtfString& aName,
+                           const UtfString& aPath,
+                           const UtfString& aFileName,
                            const Standard_Boolean            ReadOnly)
     : myIsRetrieved(Standard_False),
       myDocument(NULL),
@@ -44,11 +44,11 @@ CDM_MetaData::CDM_MetaData(const TCollection_ExtendedString& aFolder,
 {
 }
 
-CDM_MetaData::CDM_MetaData(const TCollection_ExtendedString& aFolder,
-                           const TCollection_ExtendedString& aName,
-                           const TCollection_ExtendedString& aPath,
-                           const TCollection_ExtendedString& aVersion,
-                           const TCollection_ExtendedString& aFileName,
+CDM_MetaData::CDM_MetaData(const UtfString& aFolder,
+                           const UtfString& aName,
+                           const UtfString& aPath,
+                           const UtfString& aVersion,
+                           const UtfString& aFileName,
                            const Standard_Boolean            ReadOnly)
     : myIsRetrieved(Standard_False),
       myDocument(NULL),
@@ -85,14 +85,14 @@ void CDM_MetaData::UnsetDocument()
 }
 
 Handle(CDM_MetaData) CDM_MetaData::LookUp(CDM_MetaDataLookUpTable&          theLookUpTable,
-                                          const TCollection_ExtendedString& aFolder,
-                                          const TCollection_ExtendedString& aName,
-                                          const TCollection_ExtendedString& aPath,
-                                          const TCollection_ExtendedString& aFileName,
+                                          const UtfString& aFolder,
+                                          const UtfString& aName,
+                                          const UtfString& aPath,
+                                          const UtfString& aFileName,
                                           const Standard_Boolean            ReadOnly)
 {
   Handle(CDM_MetaData)       theMetaData;
-  TCollection_ExtendedString aConventionalPath = aPath;
+  UtfString aConventionalPath = aPath;
   aConventionalPath.ChangeAll('\\', '/');
   if (!theLookUpTable.IsBound(aConventionalPath))
   {
@@ -108,15 +108,15 @@ Handle(CDM_MetaData) CDM_MetaData::LookUp(CDM_MetaDataLookUpTable&          theL
 }
 
 Handle(CDM_MetaData) CDM_MetaData::LookUp(CDM_MetaDataLookUpTable&          theLookUpTable,
-                                          const TCollection_ExtendedString& aFolder,
-                                          const TCollection_ExtendedString& aName,
-                                          const TCollection_ExtendedString& aPath,
-                                          const TCollection_ExtendedString& aVersion,
-                                          const TCollection_ExtendedString& aFileName,
+                                          const UtfString& aFolder,
+                                          const UtfString& aName,
+                                          const UtfString& aPath,
+                                          const UtfString& aVersion,
+                                          const UtfString& aFileName,
                                           const Standard_Boolean            ReadOnly)
 {
   Handle(CDM_MetaData)       theMetaData;
-  TCollection_ExtendedString aConventionalPath = aPath;
+  UtfString aConventionalPath = aPath;
   aConventionalPath.ChangeAll('\\', '/');
   if (!theLookUpTable.IsBound(aConventionalPath))
   {
@@ -131,17 +131,17 @@ Handle(CDM_MetaData) CDM_MetaData::LookUp(CDM_MetaDataLookUpTable&          theL
   return theMetaData;
 }
 
-TCollection_ExtendedString CDM_MetaData::Folder() const
+UtfString CDM_MetaData::Folder() const
 {
   return myFolder;
 }
 
-TCollection_ExtendedString CDM_MetaData::Name() const
+UtfString CDM_MetaData::Name() const
 {
   return myName;
 }
 
-TCollection_ExtendedString CDM_MetaData::Version() const
+UtfString CDM_MetaData::Version() const
 {
   Standard_NoSuchObject_Raise_if(!myHasVersion, "Document has no version");
   return myVersion;
@@ -152,12 +152,12 @@ Standard_Boolean CDM_MetaData::HasVersion() const
   return myHasVersion;
 }
 
-TCollection_ExtendedString CDM_MetaData::FileName() const
+UtfString CDM_MetaData::FileName() const
 {
   return myFileName;
 }
 
-TCollection_ExtendedString CDM_MetaData::Path() const
+UtfString CDM_MetaData::Path() const
 {
   return myPath;
 }

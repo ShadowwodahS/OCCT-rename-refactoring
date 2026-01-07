@@ -23,7 +23,7 @@
 
 //=================================================================================================
 
-static Standard_Integer ApplySequence(Draw_Interpretor& di,
+static Standard_Integer ApplySequence(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -38,7 +38,7 @@ static Standard_Integer ApplySequence(Draw_Interpretor& di,
   Standard_CString arg4 = "";
   if (argc > 4)
     arg4 = argv[4];
-  TopoDS_Shape Shape = DBRep::Get(arg2);
+  TopoShape Shape = DBRep1::Get(arg2);
   if (Shape.IsNull())
   {
     di << "Shape unknown : " << arg2 << "\n";
@@ -47,16 +47,16 @@ static Standard_Integer ApplySequence(Draw_Interpretor& di,
 
   ShapeProcessAPI_ApplySequence seq(arg3, arg4);
   // clang-format off
-  TopoDS_Shape result = seq.PrepareShape(Shape, Standard_True, TopAbs_FACE);//fill history map for faces and above
+  TopoShape result = seq.PrepareShape(Shape, Standard_True, TopAbs_FACE);//fill history map for faces and above
   // clang-format on
   seq.PrintPreparationResult();
-  DBRep::Set(arg1, result);
+  DBRep1::Set(arg1, result);
   return 0;
 }
 
 //=================================================================================================
 
-void SWDRAW_ShapeProcessAPI::InitCommands(Draw_Interpretor& theCommands)
+void SWDRAW_ShapeProcessAPI::InitCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean initactor = Standard_False;
   if (!initactor)

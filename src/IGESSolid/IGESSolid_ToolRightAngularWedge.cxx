@@ -34,9 +34,9 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESSolid_ToolRightAngularWedge::IGESSolid_ToolRightAngularWedge() {}
+RightAngularWedgeTool::RightAngularWedgeTool() {}
 
-void IGESSolid_ToolRightAngularWedge::ReadOwnParams(const Handle(IGESSolid_RightAngularWedge)& ent,
+void RightAngularWedgeTool::ReadOwnParams(const Handle(IGESSolid_RightAngularWedge)& ent,
                                                     const Handle(IGESData_IGESReaderData)& /* IR */,
                                                     IGESData_ParamReader& PR) const
 {
@@ -150,7 +150,7 @@ void IGESSolid_ToolRightAngularWedge::ReadOwnParams(const Handle(IGESSolid_Right
     PR.AddWarning("ZAxis poorly unitary, normalized");
 }
 
-void IGESSolid_ToolRightAngularWedge::WriteOwnParams(const Handle(IGESSolid_RightAngularWedge)& ent,
+void RightAngularWedgeTool::WriteOwnParams(const Handle(IGESSolid_RightAngularWedge)& ent,
                                                      IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->Size().X());
@@ -168,13 +168,13 @@ void IGESSolid_ToolRightAngularWedge::WriteOwnParams(const Handle(IGESSolid_Righ
   IW.Send(ent->ZAxis().Z());
 }
 
-void IGESSolid_ToolRightAngularWedge::OwnShared(
+void RightAngularWedgeTool::OwnShared(
   const Handle(IGESSolid_RightAngularWedge)& /* ent */,
   Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESSolid_ToolRightAngularWedge::OwnCopy(const Handle(IGESSolid_RightAngularWedge)& another,
+void RightAngularWedgeTool::OwnCopy(const Handle(IGESSolid_RightAngularWedge)& another,
                                               const Handle(IGESSolid_RightAngularWedge)& ent,
                                               Interface_CopyTool& /* TC */) const
 {
@@ -185,10 +185,10 @@ void IGESSolid_ToolRightAngularWedge::OwnCopy(const Handle(IGESSolid_RightAngula
             another->ZAxis().XYZ());
 }
 
-IGESData_DirChecker IGESSolid_ToolRightAngularWedge::DirChecker(
+DirectoryChecker RightAngularWedgeTool::DirChecker(
   const Handle(IGESSolid_RightAngularWedge)& /* ent */) const
 {
-  IGESData_DirChecker DC(152, 0);
+  DirectoryChecker DC(152, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.Color(IGESData_DefAny);
@@ -198,7 +198,7 @@ IGESData_DirChecker IGESSolid_ToolRightAngularWedge::DirChecker(
   return DC;
 }
 
-void IGESSolid_ToolRightAngularWedge::OwnCheck(const Handle(IGESSolid_RightAngularWedge)& ent,
+void RightAngularWedgeTool::OwnCheck(const Handle(IGESSolid_RightAngularWedge)& ent,
                                                const Interface_ShareTool&,
                                                Handle(Interface_Check)& ach) const
 {
@@ -214,7 +214,7 @@ void IGESSolid_ToolRightAngularWedge::OwnCheck(const Handle(IGESSolid_RightAngul
     ach->AddFail("Small X Length : Value not < LX");
 }
 
-void IGESSolid_ToolRightAngularWedge::OwnDump(const Handle(IGESSolid_RightAngularWedge)& ent,
+void RightAngularWedgeTool::OwnDump(const Handle(IGESSolid_RightAngularWedge)& ent,
                                               const IGESData_IGESDumper& /* dumper */,
                                               Standard_OStream&      S,
                                               const Standard_Integer level) const

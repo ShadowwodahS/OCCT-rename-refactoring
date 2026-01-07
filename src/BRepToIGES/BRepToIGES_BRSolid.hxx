@@ -23,10 +23,10 @@
 
 #include <BRepToIGES_BREntity.hxx>
 class IGESData_IGESEntity;
-class TopoDS_Shape;
-class TopoDS_Solid;
+class TopoShape;
+class TopoSolid;
 class TopoDS_CompSolid;
-class TopoDS_Compound;
+class TopoCompound;
 
 //! This class implements the transfer of Shape Entities from Geom
 //! To IGES. These can be :
@@ -46,13 +46,13 @@ public:
   //! this entity must be a Solid or a CompSolid or a Compound.
   //! If this Entity could not be converted, this member returns a NullEntity.
   Standard_EXPORT Handle(IGESData_IGESEntity) TransferSolid(
-    const TopoDS_Shape&          start,
+    const TopoShape&          start,
     const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Transfert a Solid entity from TopoDS to IGES
   //! If this Entity could not be converted, this member returns a NullEntity.
   Standard_EXPORT Handle(IGESData_IGESEntity) TransferSolid(
-    const TopoDS_Solid&          start,
+    const TopoSolid&          start,
     const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Transfert an CompSolid entity from TopoDS to IGES
@@ -64,7 +64,7 @@ public:
   //! Transfert a Compound entity from TopoDS to IGES
   //! If this Entity could not be converted, this member returns a NullEntity.
   Standard_EXPORT Handle(IGESData_IGESEntity) TransferCompound(
-    const TopoDS_Compound&       start,
+    const TopoCompound&       start,
     const Message_ProgressRange& theProgress = Message_ProgressRange());
 
 protected:

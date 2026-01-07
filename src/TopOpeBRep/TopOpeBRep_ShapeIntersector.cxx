@@ -73,8 +73,8 @@ void seteefff(const Standard_Integer e1,
 #include <BRepLib_MakeFace.hxx>
 #include <BRep_Builder.hxx>
 #include <BRepAdaptor_Surface.hxx>
-static Standard_Integer OneShapeIsHalfSpace(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
-static TopoDS_Solid     GetNewSolid(const TopoDS_Shape& S, TopoDS_Face& F);
+static Standard_Integer OneShapeIsHalfSpace(const TopoShape& S1, const TopoShape& S2);
+static TopoSolid     GetNewSolid(const TopoShape& S, TopoFace& F);
 
 // modified by NIZHNY-OFV  Thu Apr 18 17:16:45 2002 (F)
 
@@ -111,7 +111,7 @@ void TopOpeBRep_ShapeIntersector::Reset()
 
 //=================================================================================================
 
-void TopOpeBRep_ShapeIntersector::Init(const TopoDS_Shape& S1, const TopoDS_Shape& S2)
+void TopOpeBRep_ShapeIntersector::Init(const TopoShape& S1, const TopoShape& S2)
 {
   Reset();
   myShape1 = S1;
@@ -127,7 +127,7 @@ void TopOpeBRep_ShapeIntersector::SetIntersectionDone()
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRep_ShapeIntersector::CurrentGeomShape(
+const TopoShape& TopOpeBRep_ShapeIntersector::CurrentGeomShape(
   const Standard_Integer Index) const
 {
   if (myIntersectionDone)
@@ -175,16 +175,16 @@ const TopoDS_Shape& TopOpeBRep_ShapeIntersector::CurrentGeomShape(
 // modified by NIZNHY-PKV Fri Sep 24 11:02:59 1999 from
 //=================================================================================================
 
-void TopOpeBRep_ShapeIntersector::RejectedFaces(const TopoDS_Shape&   anObj,
-                                                const TopoDS_Shape&   aReference,
-                                                TopTools_ListOfShape& aListOfShape)
+void TopOpeBRep_ShapeIntersector::RejectedFaces(const TopoShape&   anObj,
+                                                const TopoShape&   aReference,
+                                                ShapeList& aListOfShape)
 {
 
   Standard_Integer isHalfSpace = OneShapeIsHalfSpace(anObj, aReference);
   if (isHalfSpace != 0)
   {
-    TopoDS_Face  newRejectFace;
-    TopoDS_Solid newSolid;
+    TopoFace  newRejectFace;
+    TopoSolid newSolid;
     aListOfShape.Clear();
 
     if (isHalfSpace == 1)
@@ -203,7 +203,7 @@ void TopOpeBRep_ShapeIntersector::RejectedFaces(const TopoDS_Shape&   anObj,
         TopOpeBRepTool_BoxSort& aBS = myFaceScanner.ChangeBoxSort();
         if (!aBS.Compare(myFaceExplorer.Current()).More())
         {
-          const TopoDS_Shape& aS = myFaceExplorer.Current();
+          const TopoShape& aS = myFaceExplorer.Current();
           aListOfShape.Append(aS);
         }
       }
@@ -218,7 +218,7 @@ void TopOpeBRep_ShapeIntersector::RejectedFaces(const TopoDS_Shape&   anObj,
         TopOpeBRepTool_BoxSort& aBS = myFaceScanner.ChangeBoxSort();
         if (!aBS.Compare(myFaceExplorer.Current()).More())
         {
-          const TopoDS_Shape& aS = myFaceExplorer.Current();
+          const TopoShape& aS = myFaceExplorer.Current();
           aListOfShape.Append(aS);
         }
       }
@@ -239,7 +239,7 @@ void TopOpeBRep_ShapeIntersector::RejectedFaces(const TopoDS_Shape&   anObj,
         TopOpeBRepTool_BoxSort& aBS = myFaceScanner.ChangeBoxSort();
         if (!aBS.Compare(myFaceExplorer.Current()).More())
         {
-          const TopoDS_Shape& aS = myFaceExplorer.Current();
+          const TopoShape& aS = myFaceExplorer.Current();
           aListOfShape.Append(aS);
         }
       }
@@ -254,25 +254,25 @@ void TopOpeBRep_ShapeIntersector::RejectedFaces(const TopoDS_Shape&   anObj,
         TopOpeBRepTool_BoxSort& aBS = myFaceScanner.ChangeBoxSort();
         if (!aBS.Compare(myFaceExplorer.Current()).More())
         {
-          const TopoDS_Shape& aS = myFaceExplorer.Current();
+          const TopoShape& aS = myFaceExplorer.Current();
           aListOfShape.Append(aS);
         }
       }
     }
     // remove all shapes of < newRejectFace > from list
-    TopExp_Explorer ExpRF(newRejectFace, TopAbs_EDGE);
+    ShapeExplorer ExpRF(newRejectFace, TopAbs_EDGE);
     for (; ExpRF.More(); ExpRF.Next())
     {
-      const TopoDS_Edge&                 edgef = TopoDS::Edge(ExpRF.Current());
+      const TopoEdge&                 edgef = TopoDS::Edge(ExpRF.Current());
       TopTools_ListIteratorOfListOfShape it(aListOfShape);
       for (; it.More(); it.Next())
       {
-        const TopoDS_Shape& shape = it.Value();
+        const TopoShape& shape = it.Value();
 
         if (shape.ShapeType() != TopAbs_EDGE)
           continue;
 
-        const TopoDS_Edge& edgel = TopoDS::Edge(shape);
+        const TopoEdge& edgel = TopoDS::Edge(shape);
         if (edgef.IsSame(edgel))
         {
           aListOfShape.Remove(it);
@@ -283,12 +283,12 @@ void TopOpeBRep_ShapeIntersector::RejectedFaces(const TopoDS_Shape&   anObj,
     TopTools_ListIteratorOfListOfShape it(aListOfShape);
     for (; it.More(); it.Next())
     {
-      const TopoDS_Shape& shape = it.Value();
+      const TopoShape& shape = it.Value();
 
       if (shape.ShapeType() != TopAbs_FACE)
         continue;
 
-      const TopoDS_Face& facel = TopoDS::Face(shape);
+      const TopoFace& facel = TopoDS::Face(shape);
       if (facel.IsSame(newRejectFace))
       {
         aListOfShape.Remove(it);
@@ -316,7 +316,7 @@ void TopOpeBRep_ShapeIntersector::RejectedFaces(const TopoDS_Shape&   anObj,
     TopOpeBRepTool_BoxSort& aBS = myFaceScanner.ChangeBoxSort();
     if (!aBS.Compare(myFaceExplorer.Current()).More())
     {
-      const TopoDS_Shape& aS = myFaceExplorer.Current();
+      const TopoShape& aS = myFaceExplorer.Current();
       aListOfShape.Append(aS);
     }
   }
@@ -332,7 +332,7 @@ void TopOpeBRep_ShapeIntersector::RejectedFaces(const TopoDS_Shape&   anObj,
     TopOpeBRepTool_BoxSort& aBS = myFaceScanner.ChangeBoxSort();
     if (!aBS.Compare(myFaceExplorer.Current()).More())
     {
-      const TopoDS_Shape& aS = myFaceExplorer.Current();
+      const TopoShape& aS = myFaceExplorer.Current();
       aListOfShape.Append(aS);
     }
   }
@@ -346,7 +346,7 @@ void TopOpeBRep_ShapeIntersector::RejectedFaces(const TopoDS_Shape&   anObj,
     for(; myFaceExplorer.More(); myFaceExplorer.Next()) {
       TopOpeBRepTool_BoxSort& aBS = myFaceScanner.ChangeBoxSort();
       if(!aBS.Compare(myFaceExplorer.Current()).More()) {
-        const TopoDS_Shape& aS=myFaceExplorer.Current();
+        const TopoShape& aS=myFaceExplorer.Current();
         aListOfShape.Append (aS);
       }
     }
@@ -357,7 +357,7 @@ void TopOpeBRep_ShapeIntersector::RejectedFaces(const TopoDS_Shape&   anObj,
 
 //=================================================================================================
 
-void TopOpeBRep_ShapeIntersector::InitIntersection(const TopoDS_Shape& S1, const TopoDS_Shape& S2)
+void TopOpeBRep_ShapeIntersector::InitIntersection(const TopoShape& S1, const TopoShape& S2)
 {
   Init(S1, S2);
 
@@ -376,10 +376,10 @@ void TopOpeBRep_ShapeIntersector::InitIntersection(const TopoDS_Shape& S1, const
 
 //=================================================================================================
 
-void TopOpeBRep_ShapeIntersector::InitIntersection(const TopoDS_Shape& S1,
-                                                   const TopoDS_Shape& S2,
-                                                   const TopoDS_Face&  F1,
-                                                   const TopoDS_Face&  F2)
+void TopOpeBRep_ShapeIntersector::InitIntersection(const TopoShape& S1,
+                                                   const TopoShape& S2,
+                                                   const TopoFace&  F1,
+                                                   const TopoFace&  F2)
 {
   Init(S1, S2);
 
@@ -633,8 +633,8 @@ void TopOpeBRep_ShapeIntersector::FindFFIntersection()
   {
 
     // The two candidate intersecting GeomShapes GS1,GS2 and their types t1,t2
-    const TopoDS_Shape& GS1 = myFaceScanner.Current();
-    const TopoDS_Shape& GS2 = myFaceExplorer.Current();
+    const TopoShape& GS1 = myFaceScanner.Current();
+    const TopoShape& GS2 = myFaceExplorer.Current();
 
 #ifdef OCCT_DEBUG
     SAVFFi1 = myFaceScanner.Index();
@@ -727,8 +727,8 @@ void TopOpeBRep_ShapeIntersector::NextFFCouple()
 void TopOpeBRep_ShapeIntersector::InitEEFFIntersection()
 {
   // prepare exploration of the edges of the two current SameDomain faces
-  TopoDS_Shape face1 = myFaceScanner.Current();  // -26-08-96
-  TopoDS_Shape face2 = myFaceExplorer.Current(); // -26-08-96
+  TopoShape face1 = myFaceScanner.Current();  // -26-08-96
+  TopoShape face2 = myFaceExplorer.Current(); // -26-08-96
 
 #ifdef OCCT_DEBUG
   if (TopOpeBRep_GetcontextFFOR())
@@ -761,8 +761,8 @@ void TopOpeBRep_ShapeIntersector::FindEEFFIntersection()
   myEEFFDone = Standard_False;
   while (MoreEEFFCouple())
   {
-    const TopoDS_Shape& GS1 = myEdgeScanner.Current();
-    const TopoDS_Shape& GS2 = myEdgeExplorer.Current();
+    const TopoShape& GS1 = myEdgeScanner.Current();
+    const TopoShape& GS2 = myEdgeExplorer.Current();
     myEEIntersector.Perform(GS1, GS2);
 
 #ifdef OCCT_DEBUG
@@ -835,8 +835,8 @@ void TopOpeBRep_ShapeIntersector::FindFEIntersection()
   myFEDone = Standard_False;
   while (MoreFECouple())
   {
-    const TopoDS_Shape& GS1 = myFaceScanner.Current();
-    const TopoDS_Shape& GS2 = myEdgeExplorer.Current();
+    const TopoShape& GS1 = myFaceScanner.Current();
+    const TopoShape& GS2 = myEdgeExplorer.Current();
     myFEIntersector.Perform(GS1, GS2);
     myFEDone = !(myFEIntersector.IsEmpty());
     if (myFEDone)
@@ -896,8 +896,8 @@ void TopOpeBRep_ShapeIntersector::FindEFIntersection()
   myEFDone = Standard_False;
   while (MoreEFCouple())
   {
-    const TopoDS_Shape& GS1 = myEdgeScanner.Current();
-    const TopoDS_Shape& GS2 = myFaceExplorer.Current();
+    const TopoShape& GS1 = myEdgeScanner.Current();
+    const TopoShape& GS2 = myFaceExplorer.Current();
     myFEIntersector.Perform(GS2, GS1);
     myEFDone = !(myFEIntersector.IsEmpty());
     if (myEFDone)
@@ -939,8 +939,8 @@ void TopOpeBRep_ShapeIntersector::InitEEIntersection()
 {
   if (!myEEInit)
   {
-    TopoDS_Shape                  face1 = myEEFace1.Oriented(TopAbs_FORWARD);
-    TopoDS_Shape                  face2 = myEEFace2.Oriented(TopAbs_FORWARD);
+    TopoShape                  face1 = myEEFace1.Oriented(TopAbs_FORWARD);
+    TopoShape                  face2 = myEEFace2.Oriented(TopAbs_FORWARD);
     const TopOpeBRepTool_BoxSort& BS    = myFaceScanner.BoxSort();
     const Bnd_Box&                B1    = BS.Box(face1);
     const Bnd_Box&                B2    = BS.Box(face2);
@@ -964,8 +964,8 @@ void TopOpeBRep_ShapeIntersector::FindEEIntersection()
   myEEDone = Standard_False;
   while (MoreEECouple())
   {
-    const TopoDS_Shape& GS1 = myEdgeScanner.Current();
-    const TopoDS_Shape& GS2 = myEdgeExplorer.Current();
+    const TopoShape& GS1 = myEdgeScanner.Current();
+    const TopoShape& GS2 = myEdgeExplorer.Current();
     myEEIntersector.Perform(GS1, GS2);
     myEEDone = !(myEEIntersector.IsEmpty());
     if (myEEDone)
@@ -999,7 +999,7 @@ void TopOpeBRep_ShapeIntersector::NextEECouple()
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRep_ShapeIntersector::Shape(const Standard_Integer Index) const
+const TopoShape& TopOpeBRep_ShapeIntersector::Shape(const Standard_Integer Index) const
 {
   if (Index == 1)
     return myShape1;
@@ -1046,14 +1046,14 @@ void TopOpeBRep_ShapeIntersector::GetTolerances(Standard_Real& tol1, Standard_Re
 //                    1 - half space is S1
 //                    2 - half space is S2
 //=======================================================================
-static Standard_Integer OneShapeIsHalfSpace(const TopoDS_Shape& S1, const TopoDS_Shape& S2)
+static Standard_Integer OneShapeIsHalfSpace(const TopoShape& S1, const TopoShape& S2)
 {
   Standard_Integer result = 0;
 
   if (S1.ShapeType() == TopAbs_SOLID && S2.ShapeType() == TopAbs_SOLID)
   {
-    TopExp_Explorer  ExpSol1(S1, TopAbs_FACE);
-    TopExp_Explorer  ExpSol2(S2, TopAbs_FACE);
+    ShapeExplorer  ExpSol1(S1, TopAbs_FACE);
+    ShapeExplorer  ExpSol2(S2, TopAbs_FACE);
     Standard_Integer NbFacesSol1 = 0;
     Standard_Integer NbFacesSol2 = 0;
 
@@ -1080,8 +1080,8 @@ static Standard_Integer OneShapeIsHalfSpace(const TopoDS_Shape& S1, const TopoDS
       // -PI/2, PI/2), torus  (U: 0, 2PI) (V: 0, 2PI). SSRFS  (U period = (PI), 2PI) (V period =
       // (PI), 2PI) these solids are not halfspaces.
 
-      TopExp_Explorer SolidExplorer;
-      TopoDS_Face     testFace;
+      ShapeExplorer SolidExplorer;
+      TopoFace     testFace;
 
       if (NbFacesSol1 == 1)
       {
@@ -1133,14 +1133,14 @@ static Standard_Integer OneShapeIsHalfSpace(const TopoDS_Shape& S1, const TopoDS
       Standard_Integer NbEdges = 0, NbFaces = 0, iE = 0;
 
       if (NbFacesSol1 == 1)
-        TopExp::MapShapesAndAncestors(S2, TopAbs_EDGE, TopAbs_FACE, aMapEF);
+        TopExp1::MapShapesAndAncestors(S2, TopAbs_EDGE, TopAbs_FACE, aMapEF);
       else
-        TopExp::MapShapesAndAncestors(S1, TopAbs_EDGE, TopAbs_FACE, aMapEF);
+        TopExp1::MapShapesAndAncestors(S1, TopAbs_EDGE, TopAbs_FACE, aMapEF);
 
       NbEdges = aMapEF.Extent();
       for (iE = 1; iE <= NbEdges; iE++)
       {
-        const TopTools_ListOfShape& listFaces = aMapEF.FindFromIndex(iE);
+        const ShapeList& listFaces = aMapEF.FindFromIndex(iE);
         NbFaces                               = listFaces.Extent();
         if (NbFaces != 2)
         {
@@ -1179,7 +1179,7 @@ static Standard_Integer OneShapeIsHalfSpace(const TopoDS_Shape& S1, const TopoDS
 //           to build correct bounding box to classify carefully
 //           "rejected shapes".
 //=======================================================================
-static TopoDS_Solid GetNewSolid(const TopoDS_Shape& S, TopoDS_Face& F)
+static TopoSolid GetNewSolid(const TopoShape& S, TopoFace& F)
 {
   // "new solid" is a new halfspace solid consists of two faces now: the first face is a face
   // used to build halfspace solid and the second face is a new "face on infinity" specially
@@ -1196,9 +1196,9 @@ static TopoDS_Solid GetNewSolid(const TopoDS_Shape& S, TopoDS_Face& F)
   // 4. return this solid and "face on infinity" to remove it and all its subshapes from the list
   //    of rejected shapes.
 
-  TopExp_Explorer ShapeExplorer;
+  ShapeExplorer ShapeExplorer;
 
-  TopoDS_Face hsFace;
+  TopoFace hsFace;
 
   for (ShapeExplorer.Init(S, TopAbs_FACE); ShapeExplorer.More(); ShapeExplorer.Next())
     hsFace = TopoDS::Face(ShapeExplorer.Current());
@@ -1245,27 +1245,27 @@ static TopoDS_Solid GetNewSolid(const TopoDS_Shape& S, TopoDS_Face& F)
   BRepLib_MakeEdge mke3(P4, P3);
   BRepLib_MakeEdge mke4(P3, P1);
 
-  TopoDS_Edge e1 = mke1.Edge();
-  TopoDS_Edge e2 = mke2.Edge();
-  TopoDS_Edge e3 = mke3.Edge();
-  TopoDS_Edge e4 = mke4.Edge();
+  TopoEdge e1 = mke1.Edge();
+  TopoEdge e2 = mke2.Edge();
+  TopoEdge e3 = mke3.Edge();
+  TopoEdge e4 = mke4.Edge();
 
   BRepLib_MakeWire mkw(e1, e2, e3, e4);
-  TopoDS_Wire      w = mkw.Wire();
+  TopoWire      w = mkw.Wire();
 
   BRepLib_MakeFace   mkf(w);
-  const TopoDS_Face& infFace = mkf.Face();
+  const TopoFace& infFace = mkf.Face();
 
-  TopoDS_Shell newShell;
-  TopoDS_Solid newSolid;
+  TopoShell newShell;
+  TopoSolid newSolid;
 
-  BRep_Builder newShellBuilder;
+  ShapeBuilder newShellBuilder;
   newShellBuilder.MakeShell(newShell);
   newShellBuilder.Add(newShell, hsFace);
   newShellBuilder.Add(newShell, infFace);
-  newShell.Closed(BRep_Tool::IsClosed(newShell));
+  newShell.Closed(BRepInspector::IsClosed(newShell));
 
-  BRep_Builder newSolidBuilder;
+  ShapeBuilder newSolidBuilder;
   newSolidBuilder.MakeSolid(newSolid);
   newSolidBuilder.Add(newSolid, newShell);
 

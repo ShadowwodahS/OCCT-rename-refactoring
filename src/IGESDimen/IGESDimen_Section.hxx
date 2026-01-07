@@ -29,7 +29,7 @@ class IGESDimen_Section;
 DEFINE_STANDARD_HANDLE(IGESDimen_Section, IGESData_IGESEntity)
 
 //! defines Section, Type <106> Form <31-38>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Contains information to display sectioned sides
 class IGESDimen_Section : public IGESData_IGESEntity
 {

@@ -25,12 +25,12 @@
 #include <gp_Lin.hxx>
 
 //! A Section of fillet.
-class ChFiDS_CircSection
+class CircularSection
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT ChFiDS_CircSection();
+  Standard_EXPORT CircularSection();
 
   Standard_EXPORT void Set(const gp_Circ& C, const Standard_Real F, const Standard_Real L);
 

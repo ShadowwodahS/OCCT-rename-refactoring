@@ -30,7 +30,7 @@ class IGESGeom_CircularArc;
 DEFINE_STANDARD_HANDLE(IGESGeom_CircularArc, IGESData_IGESEntity)
 
 //! defines IGESCircularArc, Type <100> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A circular arc is a connected portion of a parent circle
 //! which consists of more than one point. The definition space
 //! coordinate system is always chosen so that the circular arc
@@ -49,9 +49,9 @@ public:
   //! - aStart  : Starting point of the circular arc
   //! - anEnd   : Ending point of the circular arc
   Standard_EXPORT void Init(const Standard_Real aZT,
-                            const gp_XY&        aCenter,
-                            const gp_XY&        aStart,
-                            const gp_XY&        anEnd);
+                            const Coords2d&        aCenter,
+                            const Coords2d&        aStart,
+                            const Coords2d&        anEnd);
 
   //! returns the center of the circle of which arc forms a part
   Standard_EXPORT gp_Pnt2d Center() const;
@@ -96,9 +96,9 @@ public:
 protected:
 private:
   Standard_Real theZT;
-  gp_XY         theCenter;
-  gp_XY         theStart;
-  gp_XY         theEnd;
+  Coords2d         theCenter;
+  Coords2d         theStart;
+  Coords2d         theEnd;
 };
 
 #endif // _IGESGeom_CircularArc_HeaderFile

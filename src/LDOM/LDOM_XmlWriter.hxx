@@ -23,12 +23,12 @@ class LDOM_Document;
 class LDOM_Node;
 class LDOMBasicString;
 
-class LDOM_XmlWriter
+class XmlWriter
 {
 public:
-  Standard_EXPORT LDOM_XmlWriter(const char* theEncoding = NULL);
+  Standard_EXPORT XmlWriter(const char* theEncoding = NULL);
 
-  Standard_EXPORT ~LDOM_XmlWriter();
+  Standard_EXPORT ~XmlWriter();
 
   // Set indentation for output (by default 0)
   void SetIndentation(const Standard_Integer theIndent) { myIndent = theIndent; }
@@ -41,9 +41,9 @@ public:
   Standard_EXPORT void Write(Standard_OStream& theOStream, const LDOM_Node& theNode);
 
 private:
-  LDOM_XmlWriter(const LDOM_XmlWriter& anOther);
+  XmlWriter(const XmlWriter& anOther);
 
-  LDOM_XmlWriter& operator=(const LDOM_XmlWriter& anOther);
+  XmlWriter& operator=(const XmlWriter& anOther);
 
   void Write(Standard_OStream& theOStream, const LDOMBasicString& theString);
   void Write(Standard_OStream& theOStream, const char* theString);

@@ -18,7 +18,7 @@
 
 #include <LDOM_Node.hxx>
 
-class LDOM_BasicNode;
+class BasicNode;
 class LDOM_BasicNodeSequence;
 
 //  Class LDOM_NodeList
@@ -60,7 +60,7 @@ private:
 
   Standard_EXPORT LDOM_NodeList(const Handle(LDOM_MemManager)& aDoc);
 
-  Standard_EXPORT void Append(const LDOM_BasicNode& aNode) const;
+  Standard_EXPORT void Append(const BasicNode& aNode) const;
 
   Handle(LDOM_MemManager) myDoc;
   LDOM_BasicNodeSequence* mySeq;

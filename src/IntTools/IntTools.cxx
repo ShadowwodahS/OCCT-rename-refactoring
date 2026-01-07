@@ -33,7 +33,7 @@
 
 //=================================================================================================
 
-Standard_Integer IntTools::GetRadius(const BRepAdaptor_Curve& C,
+Standard_Integer IntTools1::GetRadius(const BRepAdaptor_Curve& C,
                                      const Standard_Real      t1,
                                      const Standard_Real      t3,
                                      Standard_Real&           aR)
@@ -86,7 +86,7 @@ Standard_Integer IntTools::GetRadius(const BRepAdaptor_Curve& C,
 
 //=================================================================================================
 
-Standard_Integer IntTools::PrepareArgs(BRepAdaptor_Curve&     C,
+Standard_Integer IntTools1::PrepareArgs(BRepAdaptor_Curve&     C,
                                        const Standard_Real    Tmax,
                                        const Standard_Real    Tmin,
                                        const Standard_Integer Discret,
@@ -123,7 +123,7 @@ Standard_Integer IntTools::PrepareArgs(BRepAdaptor_Curve&     C,
       continue;
     }
     //
-    ip = IntTools::GetRadius(C, tCurrent, tNext, aR);
+    ip = IntTools1::GetRadius(C, tCurrent, tNext, aR);
     if (ip < 0)
     {
       return 1;
@@ -165,14 +165,14 @@ Standard_Integer IntTools::PrepareArgs(BRepAdaptor_Curve&     C,
 
 //=================================================================================================
 
-Standard_Real IntTools::Length(const TopoDS_Edge& anEdge)
+Standard_Real IntTools1::Length(const TopoEdge& anEdge)
 {
   Standard_Real aLength = 0;
 
-  if (!BRep_Tool::Degenerated(anEdge) && BRep_Tool::IsGeometric(anEdge))
+  if (!BRepInspector::Degenerated(anEdge) && BRepInspector::IsGeometric(anEdge))
   {
 
-    GProp_GProps Temp;
+    GeometricProperties Temp;
     BRepGProp::LinearProperties(anEdge, Temp);
     aLength = Temp.Mass();
   }
@@ -181,17 +181,17 @@ Standard_Real IntTools::Length(const TopoDS_Edge& anEdge)
 
 //=================================================================================================
 
-void IntTools::RemoveIdenticalRoots(IntTools_SequenceOfRoots& aSR, const Standard_Real anEpsT)
+void IntTools1::RemoveIdenticalRoots(IntTools_SequenceOfRoots& aSR, const Standard_Real anEpsT)
 {
   Standard_Integer aNbRoots, j, k;
   Standard_Real    anEpsT2 = 0.5 * anEpsT;
   aNbRoots                 = aSR.Length();
   for (j = 1; j <= aNbRoots; j++)
   {
-    const IntTools_Root& aRj = aSR(j);
+    const IntersectionRoot& aRj = aSR(j);
     for (k = j + 1; k <= aNbRoots; k++)
     {
-      const IntTools_Root& aRk = aSR(k);
+      const IntersectionRoot& aRk = aSR(k);
       if (fabs(aRj.Root() - aRk.Root()) < anEpsT2)
       {
         aSR.Remove(k);
@@ -206,7 +206,7 @@ void IntTools::RemoveIdenticalRoots(IntTools_SequenceOfRoots& aSR, const Standar
 namespace
 {
 // Auxiliary: comparator function for sorting roots
-bool IntTools_RootComparator(const IntTools_Root& theLeft, const IntTools_Root& theRight)
+bool IntTools_RootComparator(const IntersectionRoot& theLeft, const IntersectionRoot& theRight)
 {
   return theLeft.Root() < theRight.Root();
 }
@@ -214,7 +214,7 @@ bool IntTools_RootComparator(const IntTools_Root& theLeft, const IntTools_Root& 
 
 //=================================================================================================
 
-void IntTools::SortRoots(IntTools_SequenceOfRoots& mySequenceOfRoots,
+void IntTools1::SortRoots(IntTools_SequenceOfRoots& mySequenceOfRoots,
                          const Standard_Real /*myEpsT*/)
 {
   Standard_Integer j, aNbRoots;
@@ -238,7 +238,7 @@ void IntTools::SortRoots(IntTools_SequenceOfRoots& mySequenceOfRoots,
 
 //=================================================================================================
 
-void IntTools::FindRootStates(IntTools_SequenceOfRoots& mySequenceOfRoots,
+void IntTools1::FindRootStates(IntTools_SequenceOfRoots& mySequenceOfRoots,
                               const Standard_Real       myEpsNull)
 {
   Standard_Integer aType, j, aNbRoots;
@@ -248,7 +248,7 @@ void IntTools::FindRootStates(IntTools_SequenceOfRoots& mySequenceOfRoots,
 
   for (j = 1; j <= aNbRoots; j++)
   {
-    IntTools_Root& aR = mySequenceOfRoots.ChangeValue(j);
+    IntersectionRoot& aR = mySequenceOfRoots.ChangeValue(j);
 
     aR.Interval(t1, t2, f1, f2);
 
@@ -317,8 +317,8 @@ void IntTools::FindRootStates(IntTools_SequenceOfRoots& mySequenceOfRoots,
 
 //=================================================================================================
 
-Standard_Integer IntTools::Parameter(const Point3d&             aP,
-                                     const Handle(Geom_Curve)& aCurve,
+Standard_Integer IntTools1::Parameter(const Point3d&             aP,
+                                     const Handle(GeomCurve3d)& aCurve,
                                      Standard_Real&            aParameter)
 {
   Standard_Real     aFirst, aLast;

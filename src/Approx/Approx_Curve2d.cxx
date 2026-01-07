@@ -24,7 +24,7 @@
 
 //=================================================================================================
 
-class Approx_Curve2d_Eval : public AdvApprox_EvaluatorFunction
+class Approx_Curve2d_Eval : public EvaluatorFunction
 {
 public:
   Approx_Curve2d_Eval(const Handle(Adaptor2d_Curve2d)& theFunc,

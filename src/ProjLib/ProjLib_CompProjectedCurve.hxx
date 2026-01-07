@@ -226,11 +226,11 @@ public:
 
   //! Returns the resulting 2d-curve of projecting
   //! of the curve interval with number Index.
-  Standard_EXPORT Handle(Geom2d_Curve) GetResult2dC(const Standard_Integer theIndex) const;
+  Standard_EXPORT Handle(GeomCurve2d) GetResult2dC(const Standard_Integer theIndex) const;
 
   //! Returns the resulting 3d-curve of projecting
   //! of the curve interval with number Index.
-  Standard_EXPORT Handle(Geom_Curve) GetResult3dC(const Standard_Integer theIndex) const;
+  Standard_EXPORT Handle(GeomCurve3d) GetResult3dC(const Standard_Integer theIndex) const;
 
   //! Returns the resulting 2d-point of projecting
   //! of the curve interval with number Index.

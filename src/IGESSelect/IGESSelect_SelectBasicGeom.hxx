@@ -25,7 +25,7 @@
 class RefObject;
 class Interface_Graph;
 class Interface_EntityIterator;
-class TCollection_AsciiString;
+class AsciiString1;
 class IGESData_IGESEntity;
 
 class IGESSelect_SelectBasicGeom;
@@ -68,7 +68,7 @@ public:
 
   //! Returns a text defining the criterium : "Curves 3d" or
   //! "Basic Geometry"
-  Standard_EXPORT TCollection_AsciiString ExploreLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExploreLabel() const Standard_OVERRIDE;
 
   //! This method can be called from everywhere to get the curves
   //! as sub-elements of a given curve :

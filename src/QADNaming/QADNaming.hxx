@@ -25,49 +25,49 @@
 #include <TopTools_ListOfShape.hxx>
 #include <Standard_Integer.hxx>
 #include <Draw_Interpretor.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class TDF_Data;
-class TCollection_AsciiString;
-class TDF_Label;
+class AsciiString1;
+class DataLabel;
 
 class QADNaming
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static TopoDS_Shape CurrentShape(const Standard_CString  ShapeEntry,
+  Standard_EXPORT static TopoShape CurrentShape(const Standard_CString  ShapeEntry,
                                                    const Handle(TDF_Data)& Data);
 
   Standard_EXPORT static void GetShape(const Standard_CString  ShapeEntry,
                                        const Handle(TDF_Data)& Data,
-                                       TopTools_ListOfShape&   Shapes);
+                                       ShapeList&   Shapes);
 
   //! theStatus = 0  Not  found,
   //! theStatus = 1  One  shape,
   //! theStatus = 2  More than one shape.
-  Standard_EXPORT static TCollection_AsciiString GetEntry(const TopoDS_Shape&     Shape,
+  Standard_EXPORT static AsciiString1 GetEntry(const TopoShape&     Shape,
                                                           const Handle(TDF_Data)& Data,
                                                           Standard_Integer&       theStatus);
 
   //! returns label by first two arguments (df and entry string)
   Standard_EXPORT static Standard_Boolean Entry(const Standard_Address theArguments,
-                                                TDF_Label&             theLabel);
+                                                DataLabel&             theLabel);
 
-  Standard_EXPORT static void AllCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void AllCommands(DrawInterpreter& DI);
 
   //! commands relatives to NamedShape
-  Standard_EXPORT static void BasicCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void BasicCommands(DrawInterpreter& DI);
 
   //! loading NamedShape to the Data Framework
-  Standard_EXPORT static void BuilderCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void BuilderCommands(DrawInterpreter& DI);
 
   //! loading NamedShape to the Data Framework
-  Standard_EXPORT static void IteratorsCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void IteratorsCommands(DrawInterpreter& DI);
 
-  Standard_EXPORT static void ToolsCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void ToolsCommands(DrawInterpreter& DI);
 
   //! commands relatives to Naming
-  Standard_EXPORT static void SelectionCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void SelectionCommands(DrawInterpreter& DI);
 
 protected:
 private:

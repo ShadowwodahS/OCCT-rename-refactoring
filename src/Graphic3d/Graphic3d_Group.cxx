@@ -307,7 +307,7 @@ void Graphic3d_Group::Text(const Standard_CString  theText,
 
 //=================================================================================================
 
-void Graphic3d_Group::Text(const TCollection_ExtendedString& theText,
+void Graphic3d_Group::Text(const UtfString& theText,
                            const Graphic3d_Vertex&           thePoint,
                            const Standard_Real               theHeight,
                            const Standard_Real /*theAngle*/,
@@ -326,7 +326,7 @@ void Graphic3d_Group::Text(const TCollection_ExtendedString& theText,
 
 //=================================================================================================
 
-void Graphic3d_Group::Text(const TCollection_ExtendedString& theText,
+void Graphic3d_Group::Text(const UtfString& theText,
                            const Frame3d&                     theOrientation,
                            const Standard_Real               theHeight,
                            const Standard_Real /*theAngle*/,
@@ -368,7 +368,7 @@ void Graphic3d_Group::Text(const Standard_CString theText,
 
 //=================================================================================================
 
-void Graphic3d_Group::Text(const TCollection_ExtendedString& theText,
+void Graphic3d_Group::Text(const UtfString& theText,
                            const Graphic3d_Vertex&           thePoint,
                            const Standard_Real               theHeight,
                            const Standard_Boolean            theToEvalMinMax)

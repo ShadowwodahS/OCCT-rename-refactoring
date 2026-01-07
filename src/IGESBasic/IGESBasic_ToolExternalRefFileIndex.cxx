@@ -36,9 +36,9 @@
 #include <Standard_DomainError.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESBasic_ToolExternalRefFileIndex::IGESBasic_ToolExternalRefFileIndex() {}
+ExternalRefFileIndexTool::ExternalRefFileIndexTool() {}
 
-void IGESBasic_ToolExternalRefFileIndex::ReadOwnParams(
+void ExternalRefFileIndexTool::ReadOwnParams(
   const Handle(IGESBasic_ExternalRefFileIndex)& ent,
   const Handle(IGESData_IGESReaderData)&        IR,
   IGESData_ParamReader&                         PR) const
@@ -74,7 +74,7 @@ void IGESBasic_ToolExternalRefFileIndex::ReadOwnParams(
   ent->Init(tempNames, tempEntities);
 }
 
-void IGESBasic_ToolExternalRefFileIndex::WriteOwnParams(
+void ExternalRefFileIndexTool::WriteOwnParams(
   const Handle(IGESBasic_ExternalRefFileIndex)& ent,
   IGESData_IGESWriter&                          IW) const
 {
@@ -87,7 +87,7 @@ void IGESBasic_ToolExternalRefFileIndex::WriteOwnParams(
   }
 }
 
-void IGESBasic_ToolExternalRefFileIndex::OwnShared(
+void ExternalRefFileIndexTool::OwnShared(
   const Handle(IGESBasic_ExternalRefFileIndex)& ent,
   Interface_EntityIterator&                     iter) const
 {
@@ -96,7 +96,7 @@ void IGESBasic_ToolExternalRefFileIndex::OwnShared(
     iter.GetOneItem(ent->Entity(i));
 }
 
-void IGESBasic_ToolExternalRefFileIndex::OwnCopy(
+void ExternalRefFileIndexTool::OwnCopy(
   const Handle(IGESBasic_ExternalRefFileIndex)& another,
   const Handle(IGESBasic_ExternalRefFileIndex)& ent,
   Interface_CopyTool&                           TC) const
@@ -113,10 +113,10 @@ void IGESBasic_ToolExternalRefFileIndex::OwnCopy(
   ent->Init(tempNames, tempEntities);
 }
 
-IGESData_DirChecker IGESBasic_ToolExternalRefFileIndex::DirChecker(
+DirectoryChecker ExternalRefFileIndexTool::DirChecker(
   const Handle(IGESBasic_ExternalRefFileIndex)& /* ent */) const
 {
-  IGESData_DirChecker DC(402, 12);
+  DirectoryChecker DC(402, 12);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -128,14 +128,14 @@ IGESData_DirChecker IGESBasic_ToolExternalRefFileIndex::DirChecker(
   return DC;
 }
 
-void IGESBasic_ToolExternalRefFileIndex::OwnCheck(
+void ExternalRefFileIndexTool::OwnCheck(
   const Handle(IGESBasic_ExternalRefFileIndex)& /* ent */,
   const Interface_ShareTool&,
   Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESBasic_ToolExternalRefFileIndex::OwnDump(const Handle(IGESBasic_ExternalRefFileIndex)& ent,
+void ExternalRefFileIndexTool::OwnDump(const Handle(IGESBasic_ExternalRefFileIndex)& ent,
                                                  const IGESData_IGESDumper& dumper,
                                                  Standard_OStream&          S,
                                                  const Standard_Integer     level) const

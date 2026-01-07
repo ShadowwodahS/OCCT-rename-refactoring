@@ -24,7 +24,7 @@
 #include <Standard_Boolean.hxx>
 class StepRepr_RepresentationItem;
 class Transfer_FinderProcess;
-class TopoDS_Shape;
+class TopoShape;
 class TopLoc_Location;
 class Transfer_TransientProcess;
 class Transfer_Binder;
@@ -37,7 +37,7 @@ class StepShape_ContextDependentShapeRepresentation;
 //! The creation of these structures is made according to currently
 //! active schema (AP203 or AP214 CD2 or DIS)
 //! This is taken from parameter write.step.schema
-class STEPConstruct
+class STEPConstruct1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -47,7 +47,7 @@ public:
   //! no result is recorded
   Standard_EXPORT static Handle(StepRepr_RepresentationItem) FindEntity(
     const Handle(Transfer_FinderProcess)& FinderProcess,
-    const TopoDS_Shape&                   Shape);
+    const TopoShape&                   Shape);
 
   //! The same as above, but in the case if item not found, repeats
   //! search on the same shape without location. The Loc corresponds to the
@@ -55,11 +55,11 @@ public:
   //! or Null)
   Standard_EXPORT static Handle(StepRepr_RepresentationItem) FindEntity(
     const Handle(Transfer_FinderProcess)& FinderProcess,
-    const TopoDS_Shape&                   Shape,
+    const TopoShape&                   Shape,
     TopLoc_Location&                      Loc);
 
   //! Returns Shape resulting from given STEP entity (Null if not mapped)
-  Standard_EXPORT static TopoDS_Shape FindShape(
+  Standard_EXPORT static TopoShape FindShape(
     const Handle(Transfer_TransientProcess)&   TransientProcess,
     const Handle(StepRepr_RepresentationItem)& item);
 

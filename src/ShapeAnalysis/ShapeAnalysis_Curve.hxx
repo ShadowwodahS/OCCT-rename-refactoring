@@ -25,10 +25,10 @@
 #include <TColgp_Array1OfPnt.hxx>
 #include <TColgp_SequenceOfPnt2d.hxx>
 #include <TColgp_SequenceOfPnt.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 class Point3d;
 class Adaptor3d_Curve;
-class Geom2d_Curve;
+class GeomCurve2d;
 class Bnd_Box2d;
 class gp_XYZ;
 
@@ -49,7 +49,7 @@ public:
   //!
   //! Returned value is the distance between the given point and
   //! computed one.
-  Standard_EXPORT Standard_Real Project(const Handle(Geom_Curve)& C3D,
+  Standard_EXPORT Standard_Real Project(const Handle(GeomCurve3d)& C3D,
                                         const Point3d&             P3D,
                                         const Standard_Real       preci,
                                         Point3d&                   proj,
@@ -77,7 +77,7 @@ public:
   //! basis of 3d precision <preci>.
   //! If AdjustToEnds is True, point will be adjusted to the end
   //! of the curve if distance is less than <preci>
-  Standard_EXPORT Standard_Real Project(const Handle(Geom_Curve)& C3D,
+  Standard_EXPORT Standard_Real Project(const Handle(GeomCurve3d)& C3D,
                                         const Point3d&             P3D,
                                         const Standard_Real       preci,
                                         Point3d&                   proj,
@@ -99,7 +99,7 @@ public:
   //! of the curve if distance is less than <preci>
   Standard_EXPORT Standard_Real
     NextProject(const Standard_Real       paramPrev,
-                const Handle(Geom_Curve)& C3D,
+                const Handle(GeomCurve3d)& C3D,
                 const Point3d&             P3D,
                 const Standard_Real       preci,
                 Point3d&                   proj,
@@ -127,7 +127,7 @@ public:
   //! Returns True if parameters are OK or are successfully
   //! corrected, or False if parameters cannot be corrected.
   //! In the latter case, parameters are reset to range of curve.
-  Standard_EXPORT Standard_Boolean ValidateRange(const Handle(Geom_Curve)& Crv,
+  Standard_EXPORT Standard_Boolean ValidateRange(const Handle(GeomCurve3d)& Crv,
                                                  Standard_Real&            First,
                                                  Standard_Real&            Last,
                                                  const Standard_Real       prec) const;
@@ -136,7 +136,7 @@ public:
   //! to Last. This is done by taking NPoints points from the
   //! curve and, if Exact is True, by searching for exact
   //! extrema. All these points are added to Box.
-  Standard_EXPORT void FillBndBox(const Handle(Geom2d_Curve)& C2d,
+  Standard_EXPORT void FillBndBox(const Handle(GeomCurve2d)& C2d,
                                   const Standard_Real         First,
                                   const Standard_Real         Last,
                                   const Standard_Integer      NPoints,
@@ -145,8 +145,8 @@ public:
 
   //! Defines which pcurve (C1 or C2) should be chosen for FORWARD
   //! seam edge.
-  Standard_EXPORT Standard_Integer SelectForwardSeam(const Handle(Geom2d_Curve)& C1,
-                                                     const Handle(Geom2d_Curve)& C2) const;
+  Standard_EXPORT Standard_Integer SelectForwardSeam(const Handle(GeomCurve2d)& C1,
+                                                     const Handle(GeomCurve2d)& C2) const;
 
   //! Checks if points are planar with given preci. If Normal has not zero
   //! modulus, checks with given normal
@@ -156,7 +156,7 @@ public:
 
   //! Checks if curve is planar with given preci. If Normal has not zero
   //! modulus, checks with given normal
-  Standard_EXPORT static Standard_Boolean IsPlanar(const Handle(Geom_Curve)& curve,
+  Standard_EXPORT static Standard_Boolean IsPlanar(const Handle(GeomCurve3d)& curve,
                                                    gp_XYZ&                   Normal,
                                                    const Standard_Real       preci = 0);
 
@@ -164,31 +164,31 @@ public:
   //! of the2d curve in range (first, last)
   //! The distribution of sample points is consystent with
   //! what is used by BRepTopAdaptor_FClass2d
-  Standard_EXPORT static Standard_Boolean GetSamplePoints(const Handle(Geom2d_Curve)& curve,
+  Standard_EXPORT static Standard_Boolean GetSamplePoints(const Handle(GeomCurve2d)& curve,
                                                           const Standard_Real         first,
                                                           const Standard_Real         last,
                                                           TColgp_SequenceOfPnt2d&     seq);
 
   //! Returns sample points which will serve as linearisation
   //! of the curve in range (first, last)
-  Standard_EXPORT static Standard_Boolean GetSamplePoints(const Handle(Geom_Curve)& curve,
+  Standard_EXPORT static Standard_Boolean GetSamplePoints(const Handle(GeomCurve3d)& curve,
                                                           const Standard_Real       first,
                                                           const Standard_Real       last,
                                                           TColgp_SequenceOfPnt&     seq);
 
   //! Tells if the Curve is closed with given precision.
   //! If <preci> < 0 then Precision::Confusion is used.
-  Standard_EXPORT static Standard_Boolean IsClosed(const Handle(Geom_Curve)& curve,
+  Standard_EXPORT static Standard_Boolean IsClosed(const Handle(GeomCurve3d)& curve,
                                                    const Standard_Real       preci = -1);
 
   //! This method was implemented as fix for changes in trimmed curve
   //! behaviour. For the moment trimmed curve returns false anyway.
   //! So it is necessary to adapt all Data exchange tools for this behaviour.
   //! Current implementation takes into account that curve may be offset.
-  Standard_EXPORT static Standard_Boolean IsPeriodic(const Handle(Geom_Curve)& curve);
+  Standard_EXPORT static Standard_Boolean IsPeriodic(const Handle(GeomCurve3d)& curve);
 
   //! The same as for Curve3d.
-  Standard_EXPORT static Standard_Boolean IsPeriodic(const Handle(Geom2d_Curve)& curve);
+  Standard_EXPORT static Standard_Boolean IsPeriodic(const Handle(GeomCurve2d)& curve);
 
 protected:
 private:

@@ -25,7 +25,7 @@
 class IFSelect_IntParam;
 class RefObject;
 class Interface_InterfaceModel;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_SelectRange;
 DEFINE_STANDARD_HANDLE(IFSelect_SelectRange, IFSelect_SelectExtract)
@@ -81,7 +81,7 @@ public:
 
   //! Returns a text defining the criterium : following cases,
   //! " From .. Until .." or "From .." or "Until .." or "Rank no .."
-  Standard_EXPORT TCollection_AsciiString ExtractLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExtractLabel() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectRange, IFSelect_SelectExtract)
 

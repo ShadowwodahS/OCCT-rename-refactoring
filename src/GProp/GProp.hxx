@@ -40,7 +40,7 @@ class gp_Mat;
 //!
 //! It provides  also a class to  compile the average point or
 //! line of a set of points.
-class GProp
+class GProp1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -57,7 +57,7 @@ public:
   //! Inertia/Q = Inertia/G + HOperator (Q, G, Mass)
   //! where Inertia/G is the matrix of inertia of the
   //! system relative to its center of mass as returned by
-  //! the function MatrixOfInertia on any GProp_GProps object.
+  //! the function MatrixOfInertia on any GeometricProperties object.
   Standard_EXPORT static void HOperator(const Point3d&       G,
                                         const Point3d&       Q,
                                         const Standard_Real Mass,

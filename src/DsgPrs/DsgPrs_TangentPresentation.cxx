@@ -27,7 +27,7 @@
 #include <StdPrs_Point.hxx>
 
 void DsgPrs_TangentPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                     const Handle(Prs3d_Drawer)&       aDrawer,
+                                     const Handle(StyleDrawer)&       aDrawer,
                                      const Point3d&                     OffsetPoint,
                                      const Dir3d&                     aDirection,
                                      const Standard_Real               length)
@@ -57,7 +57,7 @@ void DsgPrs_TangentPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   // fleche 1 :
   aPresentation->NewGroup();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
-  Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+  Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                     p1,
                     aDirection,
                     LA->ArrowAspect()->Angle(),
@@ -66,7 +66,7 @@ void DsgPrs_TangentPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   // fleche 2
   aPresentation->NewGroup();
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
-  Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+  Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                     p2,
                     aDirection.Reversed(),
                     LA->ArrowAspect()->Angle(),

@@ -35,16 +35,16 @@ GeomAPI_ExtremaCurveSurface::GeomAPI_ExtremaCurveSurface()
 
 //=================================================================================================
 
-GeomAPI_ExtremaCurveSurface::GeomAPI_ExtremaCurveSurface(const Handle(Geom_Curve)&   Curve,
-                                                         const Handle(Geom_Surface)& Surface)
+GeomAPI_ExtremaCurveSurface::GeomAPI_ExtremaCurveSurface(const Handle(GeomCurve3d)&   Curve,
+                                                         const Handle(GeomSurface)& Surface)
 {
   Init(Curve, Surface);
 }
 
 //=================================================================================================
 
-GeomAPI_ExtremaCurveSurface::GeomAPI_ExtremaCurveSurface(const Handle(Geom_Curve)&   Curve,
-                                                         const Handle(Geom_Surface)& Surface,
+GeomAPI_ExtremaCurveSurface::GeomAPI_ExtremaCurveSurface(const Handle(GeomCurve3d)&   Curve,
+                                                         const Handle(GeomSurface)& Surface,
                                                          const Standard_Real         Wmin,
                                                          const Standard_Real         Wmax,
                                                          const Standard_Real         Umin,
@@ -57,8 +57,8 @@ GeomAPI_ExtremaCurveSurface::GeomAPI_ExtremaCurveSurface(const Handle(Geom_Curve
 
 //=================================================================================================
 
-void GeomAPI_ExtremaCurveSurface::Init(const Handle(Geom_Curve)&   Curve,
-                                       const Handle(Geom_Surface)& Surface)
+void GeomAPI_ExtremaCurveSurface::Init(const Handle(GeomCurve3d)&   Curve,
+                                       const Handle(GeomSurface)& Surface)
 {
   GeomAdaptor_Curve   TheCurve(Curve);
   GeomAdaptor_Surface TheSurface(Surface);
@@ -90,8 +90,8 @@ void GeomAPI_ExtremaCurveSurface::Init(const Handle(Geom_Curve)&   Curve,
 
 //=================================================================================================
 
-void GeomAPI_ExtremaCurveSurface::Init(const Handle(Geom_Curve)&   Curve,
-                                       const Handle(Geom_Surface)& Surface,
+void GeomAPI_ExtremaCurveSurface::Init(const Handle(GeomCurve3d)&   Curve,
+                                       const Handle(GeomSurface)& Surface,
                                        const Standard_Real         Wmin,
                                        const Standard_Real         Wmax,
                                        const Standard_Real         Umin,

@@ -43,10 +43,10 @@ public:
   //! Creates empty  constructor.
   Standard_EXPORT ShapeUpgrade_RemoveInternalWires();
 
-  Standard_EXPORT ShapeUpgrade_RemoveInternalWires(const TopoDS_Shape& theShape);
+  Standard_EXPORT ShapeUpgrade_RemoveInternalWires(const TopoShape& theShape);
 
   //! Initialize by a Shape.
-  Standard_EXPORT void Init(const TopoDS_Shape& theShape);
+  Standard_EXPORT void Init(const TopoShape& theShape);
 
   //! Removes all internal wires having area less than area specified as minimal allowed area
   Standard_EXPORT Standard_Boolean Perform();
@@ -58,7 +58,7 @@ public:
   Standard_EXPORT Standard_Boolean Perform(const TopTools_SequenceOfShape& theSeqShapes);
 
   //! Get result shape
-  TopoDS_Shape GetResult() const;
+  TopoShape GetResult() const;
 
   //! Set min area allowed for holes( all holes having area less than mi area will be removed)
   Standard_Real& MinArea();
@@ -92,14 +92,14 @@ protected:
 
 private:
   //! Removes internal wires having area of contour less than specified MinArea
-  Standard_EXPORT void removeSmallWire(const TopoDS_Shape& theFace, const TopoDS_Shape& theWire);
+  Standard_EXPORT void removeSmallWire(const TopoShape& theFace, const TopoShape& theWire);
 
   //! Removes faces having outer wire consisting
   //! from removed edges(belonging small internal wires)
   Standard_EXPORT void removeSmallFaces();
 
-  TopoDS_Shape                              myShape;
-  TopoDS_Shape                              myResult;
+  TopoShape                              myShape;
+  TopoShape                              myResult;
   Standard_Real                             myMinArea;
   Standard_Boolean                          myRemoveFacesMode;
   TopTools_IndexedDataMapOfShapeListOfShape myEdgeFaces;

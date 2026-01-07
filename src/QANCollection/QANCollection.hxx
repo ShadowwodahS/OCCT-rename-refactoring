@@ -27,17 +27,17 @@ class QANCollection
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static void Commands(Draw_Interpretor& DI);
+  Standard_EXPORT static void Commands(DrawInterpreter& DI);
 
-  Standard_EXPORT static void CommandsTest(Draw_Interpretor& DI);
+  Standard_EXPORT static void CommandsTest(DrawInterpreter& DI);
 
-  Standard_EXPORT static void CommandsPerf(Draw_Interpretor& DI);
+  Standard_EXPORT static void CommandsPerf(DrawInterpreter& DI);
 
-  Standard_EXPORT static void CommandsAlloc(Draw_Interpretor& DI);
+  Standard_EXPORT static void CommandsAlloc(DrawInterpreter& DI);
 
-  Standard_EXPORT static void CommandsStl(Draw_Interpretor& DI);
+  Standard_EXPORT static void CommandsStl(DrawInterpreter& DI);
 
-  Standard_EXPORT static void CommandsHandle(Draw_Interpretor& DI);
+  Standard_EXPORT static void CommandsHandle(DrawInterpreter& DI);
 };
 
 #endif // _QANCollection_HeaderFile

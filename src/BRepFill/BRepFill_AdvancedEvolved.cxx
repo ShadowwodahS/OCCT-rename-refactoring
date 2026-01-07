@@ -53,25 +53,25 @@
 static const Standard_Real aPipeLinearTolerance  = 1.0e-4;
 static const Standard_Real aPipeAngularTolerance = 1.0e-2;
 
-static Standard_Boolean ContainsInList(const TopTools_ListOfShape& theL,
-                                       const TopoDS_Shape&         theObject);
+static Standard_Boolean ContainsInList(const ShapeList& theL,
+                                       const TopoShape&         theObject);
 
-static void FindInternals(const TopoDS_Shape& theS, TopTools_ListOfShape& theLInt);
+static void FindInternals(const TopoShape& theS, ShapeList& theLInt);
 
-static void RemoveInternalWires(const TopoDS_Shape& theShape);
+static void RemoveInternalWires(const TopoShape& theShape);
 
-static void ProcessVertex(const TopoDS_Vertex&        aV,
-                          const TopTools_ListOfShape& aLE,
-                          const TopTools_ListOfShape& aLF);
+static void ProcessVertex(const TopoVertex&        aV,
+                          const ShapeList& aLE,
+                          const ShapeList& aLF);
 
-static void ReduceVertexTolerance(const TopoDS_Shape& aS);
+static void ReduceVertexTolerance(const TopoShape& aS);
 
 //=================================================================================================
 
-Standard_Boolean BRepFill_AdvancedEvolved::PerformBoolean(const TopTools_ListOfShape& theArgsList,
-                                                          TopoDS_Shape& theResult) const
+Standard_Boolean BRepFill_AdvancedEvolved::PerformBoolean(const ShapeList& theArgsList,
+                                                          TopoShape& theResult) const
 {
-  BOPAlgo_PaveFiller aPF;
+  BooleanPaveFiller aPF;
 
   aPF.SetArguments(theArgsList);
   aPF.SetRunParallel(myIsParallel);
@@ -99,34 +99,34 @@ Standard_Boolean BRepFill_AdvancedEvolved::PerformBoolean(const TopTools_ListOfS
 
 //=================================================================================================
 
-void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
-                                                  const TopoDS_Wire& theProfile)
+void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoWire& theSpine,
+                                                  const TopoWire& theProfile)
 {
   mySpine   = theSpine;
   myProfile = theProfile;
 
   TopTools_IndexedDataMapOfShapeListOfShape aMVEP;
-  TopExp::MapShapesAndAncestors(theProfile, TopAbs_VERTEX, TopAbs_EDGE, aMVEP);
+  TopExp1::MapShapesAndAncestors(theProfile, TopAbs_VERTEX, TopAbs_EDGE, aMVEP);
 
   Vector3d aN2;
   Point3d aLoc;
 
   for (Standard_Integer i = 1; i <= aMVEP.Size(); i++)
   {
-    const TopoDS_Vertex& aVC = TopoDS::Vertex(aMVEP.FindKey(i));
+    const TopoVertex& aVC = TopoDS::Vertex(aMVEP.FindKey(i));
 
-    const TopTools_ListOfShape& aLE = aMVEP.FindFromIndex(i);
+    const ShapeList& aLE = aMVEP.FindFromIndex(i);
 
     if (aLE.Extent() < 2)
       continue;
 
-    const TopoDS_Edge& anE1 = TopoDS::Edge(aLE.First());
-    const TopoDS_Edge& anE2 = TopoDS::Edge(aLE.Last());
+    const TopoEdge& anE1 = TopoDS::Edge(aLE.First());
+    const TopoEdge& anE2 = TopoDS::Edge(aLE.Last());
 
     const BRepAdaptor_Curve anAC1(anE1), anAC2(anE2);
 
-    const Standard_Real aPar1 = BRep_Tool::Parameter(aVC, anE1);
-    const Standard_Real aPar2 = BRep_Tool::Parameter(aVC, anE2);
+    const Standard_Real aPar1 = BRepInspector::Parameter(aVC, anE1);
+    const Standard_Real aPar2 = BRepInspector::Parameter(aVC, anE2);
 
     Point3d aP;
     Vector3d aT1, aT2;
@@ -138,7 +138,7 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
 
     if (aN2.SquareMagnitude() > Precision::SquareConfusion())
     {
-      aLoc = BRep_Tool::Pnt(aVC);
+      aLoc = BRepInspector::Pnt(aVC);
       break;
     }
   }
@@ -192,19 +192,19 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
     case BRepExtrema_IsInFace:
       if (anExtr.SupportTypeShape1(anIdxMin) == BRepExtrema_IsVertex)
       {
-        const TopoDS_Vertex aV = TopoDS::Vertex(anExtr.SupportOnShape1(anIdxMin));
+        const TopoVertex aV = TopoDS::Vertex(anExtr.SupportOnShape1(anIdxMin));
         TopTools_IndexedDataMapOfShapeListOfShape aMVES;
-        TopExp::MapShapesAndAncestors(theSpine, TopAbs_VERTEX, TopAbs_EDGE, aMVES);
+        TopExp1::MapShapesAndAncestors(theSpine, TopAbs_VERTEX, TopAbs_EDGE, aMVES);
 
-        const TopTools_ListOfShape& aLE = aMVES.FindFromKey(aV);
+        const ShapeList& aLE = aMVES.FindFromKey(aV);
 
-        const TopoDS_Edge& anE1 = TopoDS::Edge(aLE.First());
-        const TopoDS_Edge& anE2 = TopoDS::Edge(aLE.Last());
+        const TopoEdge& anE1 = TopoDS::Edge(aLE.First());
+        const TopoEdge& anE2 = TopoDS::Edge(aLE.Last());
 
         const BRepAdaptor_Curve anAC1(anE1), anAC2(anE2);
 
-        const Standard_Real aPar1 = BRep_Tool::Parameter(aV, anE1);
-        const Standard_Real aPar2 = BRep_Tool::Parameter(aV, anE2);
+        const Standard_Real aPar1 = BRepInspector::Parameter(aV, anE1);
+        const Standard_Real aPar2 = BRepInspector::Parameter(aV, anE2);
 
         Point3d aP;
         Vector3d aT1, aT2;
@@ -236,7 +236,7 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
       }
       else // if (... == BRepExtrema_IsOnEdge)
       {
-        const TopoDS_Edge       anE = TopoDS::Edge(anExtr.SupportOnShape1(anIdxMin));
+        const TopoEdge       anE = TopoDS::Edge(anExtr.SupportOnShape1(anIdxMin));
         const BRepAdaptor_Curve anAC(anE);
         Standard_Real           aPar;
         anExtr.ParOnEdgeS1(anIdxMin, aPar);
@@ -258,27 +258,27 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
       if (!aMkFSpine.IsDone())
         return;
 
-      const TopoDS_Face&       aFSpine = aMkFSpine.Face();
-      const Handle(Geom_Plane) aPlnSpine =
-        Handle(Geom_Plane)::DownCast(BRep_Tool::Surface(aFSpine));
+      const TopoFace&       aFSpine = aMkFSpine.Face();
+      const Handle(GeomPlane) aPlnSpine =
+        Handle(GeomPlane)::DownCast(BRepInspector::Surface(aFSpine));
       const Vector3d aN1(aPlnSpine->Axis().Direction());
       Vector3d       aTanV;
 
       if (anExtr.SupportTypeShape2(anIdxMin) == BRepExtrema_IsVertex)
       {
-        const TopoDS_Vertex aV = TopoDS::Vertex(anExtr.SupportOnShape2(anIdxMin));
+        const TopoVertex aV = TopoDS::Vertex(anExtr.SupportOnShape2(anIdxMin));
         TopTools_IndexedDataMapOfShapeListOfShape aMVES;
-        TopExp::MapShapesAndAncestors(theProfile, TopAbs_VERTEX, TopAbs_EDGE, aMVES);
+        TopExp1::MapShapesAndAncestors(theProfile, TopAbs_VERTEX, TopAbs_EDGE, aMVES);
 
-        const TopTools_ListOfShape& aLE = aMVES.FindFromKey(aV);
+        const ShapeList& aLE = aMVES.FindFromKey(aV);
 
-        const TopoDS_Edge& anE1 = TopoDS::Edge(aLE.First());
-        const TopoDS_Edge& anE2 = TopoDS::Edge(aLE.Last());
+        const TopoEdge& anE1 = TopoDS::Edge(aLE.First());
+        const TopoEdge& anE2 = TopoDS::Edge(aLE.Last());
 
         const BRepAdaptor_Curve anAC1(anE1), anAC2(anE2);
 
-        const Standard_Real aPar1 = BRep_Tool::Parameter(aV, anE1);
-        const Standard_Real aPar2 = BRep_Tool::Parameter(aV, anE2);
+        const Standard_Real aPar1 = BRepInspector::Parameter(aV, anE1);
+        const Standard_Real aPar2 = BRepInspector::Parameter(aV, anE2);
 
         Point3d aP;
         Vector3d aT1, aT2;
@@ -311,7 +311,7 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
       }
       else // if(anExtr.SupportTypeShape2(anIdxMin) == BRepExtrema_IsOnEdge)
       {
-        const TopoDS_Edge       anE = TopoDS::Edge(anExtr.SupportOnShape2(anIdxMin));
+        const TopoEdge       anE = TopoDS::Edge(anExtr.SupportOnShape2(anIdxMin));
         const BRepAdaptor_Curve anAC(anE);
         Standard_Real           aPar;
         anExtr.ParOnEdgeS2(anIdxMin, aPar);
@@ -348,13 +348,13 @@ void BRepFill_AdvancedEvolved::GetSpineAndProfile(const TopoDS_Wire& theSpine,
 //=================================================================================================
 
 Standard_Boolean BRepFill_AdvancedEvolved::IsLid(
-  const TopoDS_Face&                theF,
+  const TopoFace&                theF,
   const TopTools_IndexedMapOfShape& theMapOfLids) const
 {
   if (theMapOfLids.IsEmpty())
     return Standard_False;
 
-  const Handle(Geom_Plane) aPlnF = Handle(Geom_Plane)::DownCast(BRep_Tool::Surface(theF));
+  const Handle(GeomPlane) aPlnF = Handle(GeomPlane)::DownCast(BRepInspector::Surface(theF));
 
   if (aPlnF.IsNull())
     return Standard_False;
@@ -362,8 +362,8 @@ Standard_Boolean BRepFill_AdvancedEvolved::IsLid(
   TopTools_IndexedMapOfShape::Iterator anItr(theMapOfLids);
   for (; anItr.More(); anItr.Next())
   {
-    const TopoDS_Face&       aF     = TopoDS::Face(anItr.Value());
-    const Handle(Geom_Plane) aPlane = Handle(Geom_Plane)::DownCast(BRep_Tool::Surface(aF));
+    const TopoFace&       aF     = TopoDS::Face(anItr.Value());
+    const Handle(GeomPlane) aPlane = Handle(GeomPlane)::DownCast(BRepInspector::Surface(aF));
 
     if (aPlane == aPlnF)
       return Standard_True;
@@ -374,8 +374,8 @@ Standard_Boolean BRepFill_AdvancedEvolved::IsLid(
 
 //=================================================================================================
 
-void BRepFill_AdvancedEvolved::Perform(const TopoDS_Wire&     theSpine,
-                                       const TopoDS_Wire&     theProfile,
+void BRepFill_AdvancedEvolved::Perform(const TopoWire&     theSpine,
+                                       const TopoWire&     theProfile,
                                        const Standard_Real    theTolerance,
                                        const Standard_Boolean theSolidReq)
 {
@@ -389,20 +389,20 @@ void BRepFill_AdvancedEvolved::Perform(const TopoDS_Wire&     theSpine,
 #ifdef BRepFill_AdvancedEvolved_DEBUG
   char aBuff[10000];
   Sprintf(aBuff, "%s%s", myDebugShapesPath, "spine.nbv");
-  BinTools::Write(theSpine, aBuff);
+  BinTools1::Write(theSpine, aBuff);
   Sprintf(aBuff, "%s%s", myDebugShapesPath, "profile.nbv");
-  BinTools::Write(theProfile, aBuff);
+  BinTools1::Write(theProfile, aBuff);
 
   std::streamsize aPrecVal = std::cout.precision();
 
   std::cout.precision(15);
 
   std::cout << "++++ Dump of Spine" << std::endl;
-  BRepTools::Dump(theSpine, std::cout);
+  BRepTools1::Dump(theSpine, std::cout);
   std::cout << "---- Dump of Spine" << std::endl;
 
   std::cout << "++++ Dump of Profile" << std::endl;
-  BRepTools::Dump(theProfile, std::cout);
+  BRepTools1::Dump(theProfile, std::cout);
   std::cout << "---- Dump of Profile" << std::endl;
 
   std::cout.precision(aPrecVal);
@@ -444,18 +444,18 @@ void BRepFill_AdvancedEvolved::Perform(const TopoDS_Wire&     theSpine,
     return;
   }
 
-  TopoDS_Shell               aShell;
+  TopoShell               aShell;
   TopTools_IndexedMapOfShape aMFLids;
-  TopExp::MapShapes(myTopBottom, TopAbs_FACE, aMFLids);
+  TopExp1::MapShapes(myTopBottom, TopAbs_FACE, aMFLids);
 
-  TopExp_Explorer anExp(myResult, TopAbs_FACE);
+  ShapeExplorer anExp(myResult, TopAbs_FACE);
   for (; anExp.More(); anExp.Next())
   {
-    BRep_Builder aBB;
+    ShapeBuilder aBB;
     if (aShell.IsNull())
       aBB.MakeShell(aShell);
 
-    const TopoDS_Face& aF = TopoDS::Face(anExp.Current());
+    const TopoFace& aF = TopoDS::Face(anExp.Current());
     if (IsLid(aF, aMFLids))
       continue;
 
@@ -494,7 +494,7 @@ void BRepFill_AdvancedEvolved::GetLids()
   if (myPipeShell.IsNull())
     return;
 
-  if (BRep_Tool::IsClosed(myProfile))
+  if (BRepInspector::IsClosed(myProfile))
   {
     // No need in lids creation
     myErrorStatus = BRepFill_AdvancedEvolved_NotSolid;
@@ -504,7 +504,7 @@ void BRepFill_AdvancedEvolved::GetLids()
   myErrorStatus = BRepFill_AdvancedEvolved_NoLids;
 
   BRepLib_FindSurface      aFS(mySpine, -1.0, Standard_True);
-  const Handle(Geom_Plane) aSurf = Handle(Geom_Plane)::DownCast(aFS.Surface());
+  const Handle(GeomPlane) aSurf = Handle(GeomPlane)::DownCast(aFS.Surface());
 
   if (aSurf.IsNull())
   {
@@ -518,7 +518,7 @@ void BRepFill_AdvancedEvolved::GetLids()
   BRepBndLib::Add(myProfile, aProfBox);
   Standard_Real aSqDiag = aProfBox.SquareExtent();
   // Square of the default angular tolerance in
-  // BOPAlgo_Tools::EdgesToWires(...) and BOPAlgo_Tools::WiresToFaces(...) methods
+  // BooleanTools::EdgesToWires(...) and BooleanTools::WiresToFaces(...) methods
   const Standard_Real aSqAnguarTol = aTol * aTol / aSqDiag;
   const Dir3d&       aNormal      = aSurf->Position().Direction();
 
@@ -527,9 +527,9 @@ void BRepFill_AdvancedEvolved::GetLids()
 
   TopTools_IndexedDataMapOfShapeListOfShape aMapEF;
 
-  TopExp::MapShapesAndAncestors(myPipeShell, TopAbs_EDGE, TopAbs_FACE, aMapEF);
+  TopExp1::MapShapesAndAncestors(myPipeShell, TopAbs_EDGE, TopAbs_FACE, aMapEF);
 
-  TopTools_ListOfShape aLE;
+  ShapeList aLE;
 
   Point3d aPtmp;
   Vector3d aTan;
@@ -537,12 +537,12 @@ void BRepFill_AdvancedEvolved::GetLids()
   Standard_Real aDPMax = 0.;
   for (Standard_Integer i = 1; i <= aMapEF.Size(); i++)
   {
-    TopTools_ListOfShape& aListF = aMapEF(i);
+    ShapeList& aListF = aMapEF(i);
 
     if (aListF.Extent() != 1)
       continue;
 
-    const TopoDS_Edge& anE = TopoDS::Edge(aMapEF.FindKey(i));
+    const TopoEdge& anE = TopoDS::Edge(aMapEF.FindKey(i));
 
     BRepAdaptor_Curve anAC(anE);
     if (!anAC.Is3DCurve())
@@ -576,7 +576,7 @@ void BRepFill_AdvancedEvolved::GetLids()
   }
 
   // Split interfered edges
-  TopoDS_Shape aFreeEdges;
+  TopoShape aFreeEdges;
   if (!PerformBoolean(aLE, aFreeEdges))
   {
     myErrorStatus = BRepFill_AdvancedEvolved_NotPlanarSpine;
@@ -585,25 +585,25 @@ void BRepFill_AdvancedEvolved::GetLids()
 
   // Collect all free edges to wires and create planar
   // top and bottom lids from these wires.
-  BRep_Builder    aBB;
-  TopoDS_Compound aCompW, aCompF;
+  ShapeBuilder    aBB;
+  TopoCompound aCompW, aCompF;
   aBB.MakeCompound(aCompW);
   aBB.MakeCompound(aCompF);
   aBB.MakeCompound(myTopBottom);
   Standard_Real anAngTol = Sqrt(aSqAnguarTol);
-  BOPAlgo_Tools::EdgesToWires(aFreeEdges, aCompW, Standard_True, anAngTol);
-  BOPAlgo_Tools::WiresToFaces(aCompW, aCompF, anAngTol);
+  BooleanTools::EdgesToWires(aFreeEdges, aCompW, Standard_True, anAngTol);
+  BooleanTools::WiresToFaces(aCompW, aCompF, anAngTol);
 
   {
     // Check orientation
 
     TopTools_IndexedMapOfShape aMapV;
-    TopExp::MapShapes(myPipeShell, TopAbs_VERTEX, aMapV);
-    TopExp_Explorer anExp(aCompF, TopAbs_FACE);
+    TopExp1::MapShapes(myPipeShell, TopAbs_VERTEX, aMapV);
+    ShapeExplorer anExp(aCompF, TopAbs_FACE);
     for (; anExp.More(); anExp.Next())
     {
-      const TopoDS_Face        aF    = TopoDS::Face(anExp.Current());
-      const Handle(Geom_Plane) aPln  = Handle(Geom_Plane)::DownCast(BRep_Tool::Surface(aF));
+      const TopoFace        aF    = TopoDS::Face(anExp.Current());
+      const Handle(GeomPlane) aPln  = Handle(GeomPlane)::DownCast(BRepInspector::Surface(aF));
       const gp_XYZ&            aNorm = aPln->Position().Direction().XYZ();
       const gp_XYZ&            aLocP = aPln->Position().Location().XYZ();
 
@@ -611,8 +611,8 @@ void BRepFill_AdvancedEvolved::GetLids()
 
       for (Standard_Integer i = 1; i <= aMapV.Size(); i++)
       {
-        const TopoDS_Vertex aV = TopoDS::Vertex(aMapV.FindKey(i));
-        const gp_XYZ        aP = BRep_Tool::Pnt(aV).XYZ();
+        const TopoVertex aV = TopoDS::Vertex(aMapV.FindKey(i));
+        const gp_XYZ        aP = BRepInspector::Pnt(aV).XYZ();
 
         const gp_XYZ        aDelta = aP - aLocP;
         const Standard_Real aSqD   = aDelta.SquareModulus();
@@ -661,18 +661,18 @@ void BRepFill_AdvancedEvolved::BuildSolid()
   myErrorStatus = BRepFill_AdvancedEvolved_NotVolume;
 
   TopTools_MapOfShape  aMapF;
-  TopTools_ListOfShape aLF, aLSplits;
-  TopExp_Explorer      anExpF;
+  ShapeList aLF, aLSplits;
+  ShapeExplorer      anExpF;
 
 #ifdef BRepFill_AdvancedEvolved_DEBUG
   char aBuff[10000];
   Sprintf(aBuff, "%s%s", myDebugShapesPath, "shape2.nbv");
-  BinTools::Write(myPipeShell, aBuff);
+  BinTools1::Write(myPipeShell, aBuff);
 #endif
 
   for (anExpF.Init(myPipeShell, TopAbs_FACE); anExpF.More(); anExpF.Next())
   {
-    const TopoDS_Face& aF = TopoDS::Face(anExpF.Current());
+    const TopoFace& aF = TopoDS::Face(anExpF.Current());
     if (!aMapF.Add(aF))
       continue;
 
@@ -684,30 +684,30 @@ void BRepFill_AdvancedEvolved::BuildSolid()
     TopTools_ListIteratorOfListOfShape anItrS(aLSplits);
     for (; anItrS.More(); anItrS.Next())
     {
-      const TopoDS_Face& aF = TopoDS::Face(anItrS.Value());
+      const TopoFace& aF = TopoDS::Face(anItrS.Value());
       aLF.Append(aF);
     }
 
 #ifdef BRepFill_AdvancedEvolved_DEBUG
-    BRep_Builder    aBB;
-    TopoDS_Compound aDebComp;
+    ShapeBuilder    aBB;
+    TopoCompound aDebComp;
     aBB.MakeCompound(aDebComp);
     TopTools_ListIteratorOfListOfShape anItrDeb(aLF);
     for (; anItrDeb.More(); anItrDeb.Next())
     {
-      const TopoDS_Face& aF = TopoDS::Face(anItrDeb.Value());
+      const TopoFace& aF = TopoDS::Face(anItrDeb.Value());
       aBB.Add(aDebComp, aF);
     }
 
     Sprintf(aBuff, "%s%s", myDebugShapesPath, "shape3.nbv");
-    BinTools::Write(aDebComp, aBuff);
+    BinTools1::Write(aDebComp, aBuff);
 #endif
 
     // Split interfered faces
     PerformBoolean(aLF, myPipeShell);
 #ifdef BRepFill_AdvancedEvolved_DEBUG
     Sprintf(aBuff, "%s%s", myDebugShapesPath, "shape4.nbv");
-    BinTools::Write(myPipeShell, aBuff);
+    BinTools1::Write(myPipeShell, aBuff);
 #endif
   }
 
@@ -715,7 +715,7 @@ void BRepFill_AdvancedEvolved::BuildSolid()
   aMapF.Clear();
   for (anExpF.Init(myPipeShell, TopAbs_FACE); anExpF.More(); anExpF.Next())
   {
-    const TopoDS_Face& aF = TopoDS::Face(anExpF.Current());
+    const TopoFace& aF = TopoDS::Face(anExpF.Current());
     if (!aMapF.Add(aF))
       continue;
 
@@ -727,24 +727,24 @@ void BRepFill_AdvancedEvolved::BuildSolid()
     TopoDS_Iterator anItLids(myTopBottom);
     for (; anItLids.More(); anItLids.Next())
     {
-      const TopoDS_Face& aF = TopoDS::Face(anItLids.Value());
+      const TopoFace& aF = TopoDS::Face(anItLids.Value());
       aLF.Append(aF);
     }
   }
 
 #ifdef BRepFill_AdvancedEvolved_DEBUG
-  BRep_Builder    aBB;
-  TopoDS_Compound aDebComp;
+  ShapeBuilder    aBB;
+  TopoCompound aDebComp;
   aBB.MakeCompound(aDebComp);
   TopTools_ListIteratorOfListOfShape anItrDeb(aLF);
   for (; anItrDeb.More(); anItrDeb.Next())
   {
-    const TopoDS_Face& aF = TopoDS::Face(anItrDeb.Value());
+    const TopoFace& aF = TopoDS::Face(anItrDeb.Value());
     aBB.Add(aDebComp, aF);
   }
 
   Sprintf(aBuff, "%s%s", myDebugShapesPath, "shape5.nbv");
-  BinTools::Write(aDebComp, aBuff);
+  BinTools1::Write(aDebComp, aBuff);
 #endif
 
   BOPAlgo_MakerVolume aMV;
@@ -792,14 +792,14 @@ void BRepFill_AdvancedEvolved::UnifyShape()
 
 //=================================================================================================
 
-void BRepFill_AdvancedEvolved::ExtractOuterSolid(TopoDS_Shape&         theShape,
-                                                 TopTools_ListOfShape& theArgsList)
+void BRepFill_AdvancedEvolved::ExtractOuterSolid(TopoShape&         theShape,
+                                                 ShapeList& theArgsList)
 {
   TopTools_IndexedDataMapOfShapeListOfShape aMapS;
-  TopExp::MapShapesAndAncestors(theShape, TopAbs_FACE, TopAbs_SOLID, aMapS);
+  TopExp1::MapShapesAndAncestors(theShape, TopAbs_FACE, TopAbs_SOLID, aMapS);
 
   // theArgsList.Clear();
-  TopTools_ListOfShape   aNewList;
+  ShapeList   aNewList;
   const Standard_Integer aNbF = aMapS.Extent();
   for (Standard_Integer i = 1; i <= aNbF; ++i)
   {
@@ -819,7 +819,7 @@ void BRepFill_AdvancedEvolved::ExtractOuterSolid(TopoDS_Shape&         theShape,
       isRemoved = Standard_False;
       for (anItrF.Init(theArgsList); anItrF.More(); anItrF.Next())
       {
-        const TopoDS_Face& aF = TopoDS::Face(anItrF.Value());
+        const TopoFace& aF = TopoDS::Face(anItrF.Value());
         if (!ContainsInList(aNewList, aF))
         {
           theArgsList.Remove(aF);
@@ -847,17 +847,17 @@ void BRepFill_AdvancedEvolved::ExtractOuterSolid(TopoDS_Shape&         theShape,
 
 //=================================================================================================
 
-void BRepFill_AdvancedEvolved::RemoveExcessSolids(const TopTools_ListOfShape& theLSplits,
-                                                  const TopoDS_Shape&         theShape,
-                                                  TopTools_ListOfShape&       theArgsList,
+void BRepFill_AdvancedEvolved::RemoveExcessSolids(const ShapeList& theLSplits,
+                                                  const TopoShape&         theShape,
+                                                  ShapeList&       theArgsList,
                                                   BOPAlgo_MakerVolume&        theMV)
 {
   if (myErrorStatus != BRepFill_AdvancedEvolved_NotVolume)
     return;
 
-  TopoDS_Shape aResShape = theShape;
+  TopoShape aResShape = theShape;
 
-  TopExp_Explorer anExpSo;
+  ShapeExplorer anExpSo;
   for (Standard_Integer i = 0; i < 2; i++)
   {
     anExpSo.Init(aResShape, TopAbs_SOLID);
@@ -882,28 +882,28 @@ void BRepFill_AdvancedEvolved::RemoveExcessSolids(const TopTools_ListOfShape& th
     ExtractOuterSolid(aResShape, theArgsList);
   }
 
-  TopTools_ListOfShape aSolidList;
+  ShapeList aSolidList;
 
   // Look for all solids containing lids
   {
     anExpSo.Init(aResShape, TopAbs_SOLID);
     for (; anExpSo.More(); anExpSo.Next())
     {
-      const TopoDS_Solid&        aSol = TopoDS::Solid(anExpSo.Current());
+      const TopoSolid&        aSol = TopoDS::Solid(anExpSo.Current());
       TopTools_IndexedMapOfShape aMapF;
-      TopExp::MapShapes(aSol, aMapF);
+      TopExp1::MapShapes(aSol, aMapF);
 
       Standard_Boolean areThereLids = Standard_False;
-      TopExp_Explorer  anExpLids(myTopBottom, TopAbs_FACE);
+      ShapeExplorer  anExpLids(myTopBottom, TopAbs_FACE);
       for (; anExpLids.More(); anExpLids.Next())
       {
         areThereLids                 = Standard_True;
-        const TopoDS_Face&     aFLid = TopoDS::Face(anExpLids.Current());
+        const TopoFace&     aFLid = TopoDS::Face(anExpLids.Current());
         const Standard_Integer aFIdx = aMapF.FindIndex(aFLid);
         if (aFIdx < 1)
           continue;
 
-        const TopoDS_Face& aFSol = TopoDS::Face(aMapF.FindKey(aFIdx));
+        const TopoFace& aFSol = TopoDS::Face(aMapF.FindKey(aFIdx));
 
         if (aFSol.IsEqual(aFLid))
         {
@@ -931,13 +931,13 @@ void BRepFill_AdvancedEvolved::RemoveExcessSolids(const TopTools_ListOfShape& th
 
     if (aSolidList.Extent() > 0)
     {
-      BRep_Builder     aBB;
+      ShapeBuilder     aBB;
       TopoDS_CompSolid aCompSol;
       aBB.MakeCompSolid(aCompSol);
       TopTools_ListIteratorOfListOfShape anItl(aSolidList);
       for (; anItl.More(); anItl.Next())
       {
-        const TopoDS_Solid& aSol = TopoDS::Solid(anItl.Value());
+        const TopoSolid& aSol = TopoDS::Solid(anItl.Value());
         aBB.Add(aCompSol, aSol);
       }
 
@@ -951,20 +951,20 @@ void BRepFill_AdvancedEvolved::RemoveExcessSolids(const TopTools_ListOfShape& th
     TopTools_ListIteratorOfListOfShape anItl(theLSplits);
     for (; anItl.More(); anItl.Next())
     {
-      const TopoDS_Face& aF = TopoDS::Face(anItl.Value());
+      const TopoFace& aF = TopoDS::Face(anItl.Value());
       theArgsList.Remove(aF);
     }
 
     // Create a list of invalid faces. The face is invalid if
     // BOPAlgo_MakerVolume changes its orientation while creating solids.
     // Faces from theLSplits are not checked.
-    TopTools_ListOfShape aListInvFaces;
+    ShapeList aListInvFaces;
     for (anItl.Init(theArgsList); anItl.More(); anItl.Next())
     {
-      const TopoDS_Face& aF = TopoDS::Face(anItl.Value());
+      const TopoFace& aF = TopoDS::Face(anItl.Value());
       for (TopTools_ListIteratorOfListOfShape anItM(theMV.Modified(aF)); anItM.More(); anItM.Next())
       {
-        const TopoDS_Face& aFM = TopoDS::Face(anItM.Value());
+        const TopoFace& aFM = TopoDS::Face(anItM.Value());
 
         if (aFM.Orientation() != aF.Orientation())
           aListInvFaces.Append(aFM);
@@ -973,14 +973,14 @@ void BRepFill_AdvancedEvolved::RemoveExcessSolids(const TopTools_ListOfShape& th
 
     for (anExpSo.Init(aResShape, TopAbs_SOLID); anExpSo.More(); anExpSo.Next())
     {
-      const TopoDS_Solid&        aSo = TopoDS::Solid(anExpSo.Current());
+      const TopoSolid&        aSo = TopoDS::Solid(anExpSo.Current());
       TopTools_IndexedMapOfShape aMapF;
-      TopExp::MapShapes(aSo, TopAbs_FACE, aMapF);
+      TopExp1::MapShapes(aSo, TopAbs_FACE, aMapF);
       Standard_Boolean isToDelete = Standard_False;
 
       for (anItl.Init(aListInvFaces); anItl.More(); anItl.Next())
       {
-        const TopoDS_Face& aF = TopoDS::Face(anItl.Value());
+        const TopoFace& aF = TopoDS::Face(anItl.Value());
         if (aMapF.Contains(aF))
         {
           isToDelete = Standard_True;
@@ -995,12 +995,12 @@ void BRepFill_AdvancedEvolved::RemoveExcessSolids(const TopTools_ListOfShape& th
 
       for (anItl.Init(theArgsList); anItl.More(); anItl.Next())
       {
-        const TopoDS_Face&     aF    = TopoDS::Face(anItl.Value());
+        const TopoFace&     aF    = TopoDS::Face(anItl.Value());
         const Standard_Integer anIdx = aMapF.FindIndex(aF);
         if (anIdx == 0)
           continue;
 
-        const TopoDS_Face& aF1 = TopoDS::Face(aMapF.FindKey(anIdx));
+        const TopoFace& aF1 = TopoDS::Face(aMapF.FindKey(anIdx));
 
         // aF and aF1 are same shapes. Check if they are equal.
 
@@ -1032,13 +1032,13 @@ void BRepFill_AdvancedEvolved::RemoveExcessSolids(const TopTools_ListOfShape& th
     return;
   }
 
-  BRep_Builder     aBB;
+  ShapeBuilder     aBB;
   TopoDS_CompSolid aCmpSol;
   aBB.MakeCompSolid(aCmpSol);
 
   for (TopTools_ListIteratorOfListOfShape anItl(aSolidList); anItl.More(); anItl.Next())
   {
-    const TopoDS_Solid& aSo = TopoDS::Solid(anItl.Value());
+    const TopoSolid& aSo = TopoDS::Solid(anItl.Value());
     aBB.Add(aCmpSol, aSo);
   }
 
@@ -1053,13 +1053,13 @@ void BRepFill_AdvancedEvolved::RemoveExcessSolids(const TopTools_ListOfShape& th
 //            whether the curve goes through the singular point(s).
 //            It will be useful in case(s) when the result after PipeShell
 //            algorithm contains only one face with single seam-edge. E.g.:
-//                Draw[]> ellipse cc 0 0 0 0 0 1 30 10
-//                Draw[]> mkedge ee cc
-//                Draw[]> wire ww ee
-//                Draw[]> polyline tw 0 25 -5 0 -20 10
-//                Draw[]> mksweep ww
-//                Draw[]> addsweep tw
-//                Draw[]> buildsweep r1 -R
+//                Draw1[]> ellipse cc 0 0 0 0 0 1 30 10
+//                Draw1[]> mkedge ee cc
+//                Draw1[]> wire ww ee
+//                Draw1[]> polyline tw 0 25 -5 0 -20 10
+//                Draw1[]> mksweep ww
+//                Draw1[]> addsweep tw
+//                Draw1[]> buildsweep r1 -R
 //
 //           It results in creation of shell with self-interfered face.
 //            However, "checkshape" does not detect any invalidities.
@@ -1226,21 +1226,21 @@ Standard_Boolean NormalFunc::Gradient(const math_Vector& theX, math_Vector& theG
 // purpose  : Creates a wires from theEdges and puts it to the new face
 //            which is empty-copied from theSourceFace.
 //=======================================================================
-static void RebuildFaces(const TopTools_ListOfShape& theLE,
-                         const TopoDS_Face&          theSourceFace,
-                         TopTools_ListOfShape&       theList)
+static void RebuildFaces(const ShapeList& theLE,
+                         const TopoFace&          theSourceFace,
+                         ShapeList&       theList)
 {
   // build new faces
   BOPAlgo_BuilderFace aBF;
 
-  TopoDS_Face aF = TopoDS::Face(theSourceFace.Oriented(TopAbs_FORWARD));
+  TopoFace aF = TopoDS::Face(theSourceFace.Oriented(TopAbs_FORWARD));
 
   aBF.SetFace(aF);
   aBF.SetShapes(theLE);
 
   aBF.Perform();
 
-  const TopTools_ListOfShape& aLFR = aBF.Areas();
+  const ShapeList& aLFR = aBF.Areas();
 
   if (aLFR.IsEmpty())
   {
@@ -1251,7 +1251,7 @@ static void RebuildFaces(const TopTools_ListOfShape& theLE,
   TopTools_ListIteratorOfListOfShape aItFR(aLFR);
   for (; aItFR.More(); aItFR.Next())
   {
-    const TopoDS_Shape& aFR = TopoDS::Face(aItFR.Value());
+    const TopoShape& aFR = TopoDS::Face(aItFR.Value());
     theList.Append(aFR);
   }
 }
@@ -1263,29 +1263,29 @@ static void RebuildFaces(const TopTools_ListOfShape& theLE,
 //           with different orientations. Moreover, Degenerated edges cannot be shared.
 //           Therefore, make copy of them before adding.
 //=======================================================================
-static Standard_Boolean MakeEdgeDegenerated(const TopoDS_Vertex&  theV,
-                                            const TopoDS_Face&    theFace,
+static Standard_Boolean MakeEdgeDegenerated(const TopoVertex&  theV,
+                                            const TopoFace&    theFace,
                                             const gp_Pnt2d&       thePf,
                                             const gp_Pnt2d&       thePl,
-                                            TopTools_ListOfShape& theLEdges)
+                                            ShapeList& theLEdges)
 {
   BRepAdaptor_Surface anAS(theFace, Standard_False);
 
-  const Standard_Real aTol  = 2.0 * BRep_Tool::Tolerance(theV);
+  const Standard_Real aTol  = 2.0 * BRepInspector::Tolerance(theV);
   const Standard_Real aTolU = anAS.UResolution(aTol), aTolV = anAS.VResolution(aTol);
 
   if ((Abs(thePf.X() - thePl.X()) < aTolU) && (Abs(thePf.Y() - thePl.Y()) < aTolV))
     return Standard_False;
 
-  const TopoDS_Vertex aVf = TopoDS::Vertex(theV.Oriented(TopAbs_FORWARD)),
+  const TopoVertex aVf = TopoDS::Vertex(theV.Oriented(TopAbs_FORWARD)),
                       aVl = TopoDS::Vertex(theV.Oriented(TopAbs_REVERSED));
 
-  const gp_XY               aV  = thePl.XY() - thePf.XY();
+  const Coords2d               aV  = thePl.XY() - thePf.XY();
   const Handle(Geom2d_Line) aL1 = new Geom2d_Line(thePf, gp_Dir2d(aV));
   const Handle(Geom2d_Line) aL2 = new Geom2d_Line(thePl, gp_Dir2d(aV.Reversed()));
 
-  BRep_Builder aBB;
-  TopoDS_Edge  anEdegen1, anEdegen2;
+  ShapeBuilder aBB;
+  TopoEdge  anEdegen1, anEdegen2;
   aBB.MakeEdge(anEdegen1);
   aBB.MakeEdge(anEdegen2);
 
@@ -1315,25 +1315,25 @@ static Standard_Boolean MakeEdgeDegenerated(const TopoDS_Vertex&  theV,
 
 //=================================================================================================
 
-static void InsertEDegenerated(const TopoDS_Face& theFace, TopTools_ListOfShape& theLEdges)
+static void InsertEDegenerated(const TopoFace& theFace, ShapeList& theLEdges)
 {
-  BRep_Builder aBB;
-  TopoDS_Wire  aWir;
+  ShapeBuilder aBB;
+  TopoWire  aWir;
   aBB.MakeWire(aWir);
 
   TopTools_ListIteratorOfListOfShape anItr(theLEdges);
   for (; anItr.More(); anItr.Next())
   {
-    const TopoDS_Edge& anE = TopoDS::Edge(anItr.Value());
+    const TopoEdge& anE = TopoDS::Edge(anItr.Value());
     aBB.Add(aWir, anE);
   }
 
   TopTools_IndexedDataMapOfShapeListOfShape aMapVE;
-  TopExp::MapShapesAndUniqueAncestors(aWir, TopAbs_VERTEX, TopAbs_EDGE, aMapVE);
+  TopExp1::MapShapesAndUniqueAncestors(aWir, TopAbs_VERTEX, TopAbs_EDGE, aMapVE);
 
   BRepTools_WireExplorer anExp(aWir, theFace);
 
-  TopoDS_Edge anE1 = anExp.Current(), aFirstEdge, aLastEdge;
+  TopoEdge anE1 = anExp.Current(), aFirstEdge, aLastEdge;
 
   if (anE1.IsNull())
   {
@@ -1352,14 +1352,14 @@ static void InsertEDegenerated(const TopoDS_Face& theFace, TopTools_ListOfShape&
     // The wire contains only single edge.
     // But this edge can be closed itself (e.g. circle).
 
-    TopoDS_Vertex aVf, aVl;
-    TopExp::Vertices(anE1, aVf, aVl);
+    TopoVertex aVf, aVl;
+    TopExp1::Vertices(anE1, aVf, aVl);
     if (!aVf.IsNull() && aVf.IsSame(aVl))
     {
       Standard_Real aF, aL;
-      const Handle(Geom2d_Curve) aC = BRep_Tool::CurveOnSurface(anE1, theFace, aF, aL);
-      aF = BRep_Tool::Parameter(aVf, anE1);
-      aL = BRep_Tool::Parameter(aVl, anE1);
+      const Handle(GeomCurve2d) aC = BRepInspector::CurveOnSurface(anE1, theFace, aF, aL);
+      aF = BRepInspector::Parameter(aVf, anE1);
+      aL = BRepInspector::Parameter(aVl, anE1);
       const gp_Pnt2d aPf(aC->Value(aF)), aPl(aC->Value(aL));
 
       MakeEdgeDegenerated(aVf, theFace, aPf, aPl, theLEdges);
@@ -1373,15 +1373,15 @@ static void InsertEDegenerated(const TopoDS_Face& theFace, TopTools_ListOfShape&
   TopTools_MapOfShape aMapVofDE;
 
   {
-    TopExp_Explorer anExpDE(aWir, TopAbs_EDGE);
+    ShapeExplorer anExpDE(aWir, TopAbs_EDGE);
     for (; anExpDE.More(); anExpDE.Next())
     {
-      const TopoDS_Edge& anE = TopoDS::Edge(anExpDE.Current());
-      if (!BRep_Tool::Degenerated(anE))
+      const TopoEdge& anE = TopoDS::Edge(anExpDE.Current());
+      if (!BRepInspector::Degenerated(anE))
         continue;
 
-      TopoDS_Vertex aV1, aV2;
-      TopExp::Vertices(anE, aV1, aV2);
+      TopoVertex aV1, aV2;
+      TopExp1::Vertices(anE, aV1, aV2);
 
       // aV1 and aV2 are SAME vertices
 
@@ -1391,7 +1391,7 @@ static void InsertEDegenerated(const TopoDS_Face& theFace, TopTools_ListOfShape&
 
   for (; anExp.More(); anExp.Next())
   {
-    const TopoDS_Edge& anE2 = anExp.Current();
+    const TopoEdge& anE2 = anExp.Current();
     aLastEdge               = anE2;
 #if 0
     if (anE1.IsSame(anE2))
@@ -1402,7 +1402,7 @@ static void InsertEDegenerated(const TopoDS_Face& theFace, TopTools_ListOfShape&
     }
 #endif
 
-    const TopoDS_Vertex& aVertCurr = anExp.CurrentVertex();
+    const TopoVertex& aVertCurr = anExp.CurrentVertex();
 
     if (aMapVofDE.Contains(aVertCurr))
     {
@@ -1412,10 +1412,10 @@ static void InsertEDegenerated(const TopoDS_Face& theFace, TopTools_ListOfShape&
     }
 
     Standard_Real              aF, aL;
-    const Handle(Geom2d_Curve) aC1 = BRep_Tool::CurveOnSurface(anE1, theFace, aF, aL),
-                               aC2 = BRep_Tool::CurveOnSurface(anE2, theFace, aF, aL);
-    aF                             = BRep_Tool::Parameter(aVertCurr, anE1);
-    aL                             = BRep_Tool::Parameter(aVertCurr, anE2);
+    const Handle(GeomCurve2d) aC1 = BRepInspector::CurveOnSurface(anE1, theFace, aF, aL),
+                               aC2 = BRepInspector::CurveOnSurface(anE2, theFace, aF, aL);
+    aF                             = BRepInspector::Parameter(aVertCurr, anE1);
+    aL                             = BRepInspector::Parameter(aVertCurr, anE2);
     const gp_Pnt2d aPf(aC1->Value(aF)), aPl(aC2->Value(aL));
 
     if (MakeEdgeDegenerated(aVertCurr, theFace, aPf, aPl, theLEdges))
@@ -1425,7 +1425,7 @@ static void InsertEDegenerated(const TopoDS_Face& theFace, TopTools_ListOfShape&
       continue;
     }
 
-    const TopTools_ListOfShape* anEList = aMapVE.Seek(aVertCurr);
+    const ShapeList* anEList = aMapVE.Seek(aVertCurr);
     if ((anEList != 0) && (anEList->Extent() <= 2))
     {
       anE1 = anE2;
@@ -1441,8 +1441,8 @@ static void InsertEDegenerated(const TopoDS_Face& theFace, TopTools_ListOfShape&
     anItr.Init(*anEList);
     for (; anItr.More(); anItr.Next())
     {
-      const TopoDS_Edge& anEdge = TopoDS::Edge(anItr.Value());
-      if (BRep_Tool::Degenerated(anEdge))
+      const TopoEdge& anEdge = TopoDS::Edge(anItr.Value());
+      if (BRepInspector::Degenerated(anEdge))
       {
         hasDegenerated = Standard_True;
         break;
@@ -1462,13 +1462,13 @@ static void InsertEDegenerated(const TopoDS_Face& theFace, TopTools_ListOfShape&
       anItr.Init(*anEList);
       for (; anItr.More(); anItr.Next())
       {
-        const TopoDS_Edge& anEdge = TopoDS::Edge(anItr.Value());
+        const TopoEdge& anEdge = TopoDS::Edge(anItr.Value());
 
         if (anEdge.IsSame(anE1) || anEdge.IsSame(anE2))
           continue;
 
-        const Handle(Geom2d_Curve) aC = BRep_Tool::CurveOnSurface(anEdge, theFace, aF, aL);
-        aF                            = BRep_Tool::Parameter(aVertCurr, anEdge);
+        const Handle(GeomCurve2d) aC = BRepInspector::CurveOnSurface(anEdge, theFace, aF, aL);
+        aF                            = BRepInspector::Parameter(aVertCurr, anEdge);
         const gp_Pnt2d aP(aC->Value(aF));
 
         if (MakeEdgeDegenerated(aVertCurr, theFace, aPoint, aP, theLEdges))
@@ -1495,11 +1495,11 @@ static void InsertEDegenerated(const TopoDS_Face& theFace, TopTools_ListOfShape&
   }
 #endif
 
-  // TopExp::CommonVertex(...) does not work
+  // TopExp1::CommonVertex(...) does not work
   // if edges have more than one pair of common vertex
   //(e.g. two halves of circle). Here, we process this case.
-  TopoDS_Vertex aV[4];
-  TopExp::Vertices(aFirstEdge, aV[0], aV[1]);
+  TopoVertex aV[4];
+  TopExp1::Vertices(aFirstEdge, aV[0], aV[1]);
   if (!aV[0].IsNull() && aV[0].IsSame(aV[1]))
   {
     // Possible reason is the NOT-CLOSED edge
@@ -1507,7 +1507,7 @@ static void InsertEDegenerated(const TopoDS_Face& theFace, TopTools_ListOfShape&
     return;
   }
 
-  TopExp::Vertices(aLastEdge, aV[2], aV[3]);
+  TopExp1::Vertices(aLastEdge, aV[2], aV[3]);
   if (!aV[2].IsNull() && aV[2].IsSame(aV[3]))
   {
     // Possible reason is the NOT-CLOSED edge
@@ -1522,7 +1522,7 @@ static void InsertEDegenerated(const TopoDS_Face& theFace, TopTools_ListOfShape&
       if (!aV[anIDFE].IsSame(aV[anIDLE]))
         continue;
 
-      const NCollection_List<TopoDS_Shape>* anEList = aMapVE.Seek(aV[anIDFE]);
+      const NCollection_List<TopoShape>* anEList = aMapVE.Seek(aV[anIDFE]);
       if ((anEList != 0) && (anEList->Extent() > 2))
       {
         // Causes:
@@ -1547,10 +1547,10 @@ static void InsertEDegenerated(const TopoDS_Face& theFace, TopTools_ListOfShape&
       }
 
       Standard_Real              aF, aL;
-      const Handle(Geom2d_Curve) aC1 = BRep_Tool::CurveOnSurface(aFirstEdge, theFace, aF, aL),
-                                 aC2 = BRep_Tool::CurveOnSurface(aLastEdge, theFace, aF, aL);
-      aF                             = BRep_Tool::Parameter(aV[anIDFE], aFirstEdge);
-      aL                             = BRep_Tool::Parameter(aV[anIDLE], aLastEdge);
+      const Handle(GeomCurve2d) aC1 = BRepInspector::CurveOnSurface(aFirstEdge, theFace, aF, aL),
+                                 aC2 = BRepInspector::CurveOnSurface(aLastEdge, theFace, aF, aL);
+      aF                             = BRepInspector::Parameter(aV[anIDFE], aFirstEdge);
+      aL                             = BRepInspector::Parameter(aV[anIDLE], aLastEdge);
       const gp_Pnt2d aPf(aC1->Value(aF)), aPl(aC2->Value(aL));
 
       MakeEdgeDegenerated(aV[anIDFE], theFace, aPf, aPl, theLEdges);
@@ -1563,10 +1563,10 @@ static void InsertEDegenerated(const TopoDS_Face& theFace, TopTools_ListOfShape&
 // purpose  : Returns TRUE if theF has been split
 //=======================================================================
 Standard_Boolean BRepFill_AdvancedEvolved::CheckSingularityAndAdd(
-  const TopoDS_Face&    theF,
+  const TopoFace&    theF,
   const Standard_Real   theFuzzyToler,
-  TopTools_ListOfShape& theListOfFaces,
-  TopTools_ListOfShape& theListOfSplits) const
+  ShapeList& theListOfFaces,
+  ShapeList& theListOfSplits) const
 {
   const BRepAdaptor_Surface anAS(theF, Standard_False);
   GeomAbs_SurfaceType       aSType = anAS.GetType();
@@ -1579,18 +1579,18 @@ Standard_Boolean BRepFill_AdvancedEvolved::CheckSingularityAndAdd(
   if (aSType == GeomAbs_Plane)
   {
     TopTools_MapOfShape  aME;
-    TopTools_ListOfShape aLE;
-    TopExp_Explorer      anExp(theF, TopAbs_EDGE);
+    ShapeList aLE;
+    ShapeExplorer      anExp(theF, TopAbs_EDGE);
     for (; anExp.More(); anExp.Next())
     {
-      const TopoDS_Edge& anE = TopoDS::Edge(anExp.Current());
+      const TopoEdge& anE = TopoDS::Edge(anExp.Current());
 
       if (aME.Add(anE))
         aLE.Append(anE);
     }
 
     // Split interfered edges
-    BOPAlgo_PaveFiller aPF;
+    BooleanPaveFiller aPF;
     aPF.SetArguments(aLE);
     aPF.SetRunParallel(myIsParallel);
 
@@ -1602,7 +1602,7 @@ Standard_Boolean BRepFill_AdvancedEvolved::CheckSingularityAndAdd(
     }
 
     const BOPDS_DS& aDS = aPF.DS();
-    if (aDS.NbShapes() == aDS.NbSourceShapes())
+    if (aDS.NbShapes1() == aDS.NbSourceShapes())
     {
       // Interfered edges have not been detected
       theListOfFaces.Append(theF);
@@ -1619,20 +1619,20 @@ Standard_Boolean BRepFill_AdvancedEvolved::CheckSingularityAndAdd(
       return Standard_False;
     }
 
-    const TopoDS_Shape& anEdges = aBuilder.Shape();
+    const TopoShape& anEdges = aBuilder.Shape();
 
-    BRep_Builder    aBB;
-    TopoDS_Compound aCompW, aCompF;
+    ShapeBuilder    aBB;
+    TopoCompound aCompW, aCompF;
     aBB.MakeCompound(aCompW);
     aBB.MakeCompound(aCompF);
-    BOPAlgo_Tools::EdgesToWires(anEdges, aCompW, Standard_True);
-    BOPAlgo_Tools::WiresToFaces(aCompW, aCompF);
+    BooleanTools::EdgesToWires(anEdges, aCompW, Standard_True);
+    BooleanTools::WiresToFaces(aCompW, aCompF);
 
     aME.Clear();
     anExp.Init(aCompF, TopAbs_FACE);
     for (; anExp.More(); anExp.Next())
     {
-      const TopoDS_Face& aF = TopoDS::Face(anExp.Current());
+      const TopoFace& aF = TopoDS::Face(anExp.Current());
       theListOfSplits.Append(aF);
     }
 
@@ -1646,29 +1646,29 @@ Standard_Boolean BRepFill_AdvancedEvolved::CheckSingularityAndAdd(
     return Standard_False;
   }
 
-  BRep_Builder aBB;
+  ShapeBuilder aBB;
 
-  TopoDS_Compound aCWires;
+  TopoCompound aCWires;
   aBB.MakeCompound(aCWires);
 
   Standard_Boolean     isSplit = Standard_False;
-  TopTools_ListOfShape aListEdges;
+  ShapeList aListEdges;
 
-  const TopoDS_Face aFace = TopoDS::Face(theF.Oriented(TopAbs_FORWARD));
+  const TopoFace aFace = TopoDS::Face(theF.Oriented(TopAbs_FORWARD));
 
   for (TopoDS_Iterator anExpW(aFace); anExpW.More(); anExpW.Next())
   {
-    const TopoDS_Wire& aWir = TopoDS::Wire(anExpW.Value());
+    const TopoWire& aWir = TopoDS::Wire(anExpW.Value());
 
-    TopTools_ListOfShape aLGF;
-    TopExp_Explorer      anEExp(aWir, TopAbs_EDGE);
+    ShapeList aLGF;
+    ShapeExplorer      anEExp(aWir, TopAbs_EDGE);
     for (; anEExp.More(); anEExp.Next())
     {
-      const TopoDS_Edge& anE = TopoDS::Edge(anEExp.Current());
+      const TopoEdge& anE = TopoDS::Edge(anEExp.Current());
       aLGF.Append(anE);
     }
 
-    BOPAlgo_PaveFiller aPF;
+    BooleanPaveFiller aPF;
     aPF.SetArguments(aLGF);
     aPF.SetFuzzyValue(theFuzzyToler);
     aPF.Perform();
@@ -1679,7 +1679,7 @@ Standard_Boolean BRepFill_AdvancedEvolved::CheckSingularityAndAdd(
     }
 
     const BOPDS_DS& aDS = aPF.DS();
-    if (aDS.NbShapes() == aDS.NbSourceShapes())
+    if (aDS.NbShapes1() == aDS.NbSourceShapes())
     {
       // No new shapes have been created
       continue;
@@ -1695,14 +1695,14 @@ Standard_Boolean BRepFill_AdvancedEvolved::CheckSingularityAndAdd(
       continue;
     }
 
-    TopTools_ListOfShape aLE;
+    ShapeList aLE;
 #if 0
     // This fragment requires fixing the issue #29656
     TopTools_MapOfShape aMM;
-    TopExp_Explorer anExpEB(aBAB.Shape(), TopAbs_EDGE);
+    ShapeExplorer anExpEB(aBAB.Shape(), TopAbs_EDGE);
     for (; anExpEB.More(); anExpEB.Next())
     {
-      const TopoDS_Edge anEE = TopoDS::Edge(anExpEB.Current());
+      const TopoEdge anEE = TopoDS::Edge(anExpEB.Current());
       if (!aMM.Add(anEE))
         continue;
 
@@ -1712,9 +1712,9 @@ Standard_Boolean BRepFill_AdvancedEvolved::CheckSingularityAndAdd(
     TopTools_ListIteratorOfListOfShape aBItr(aLGF);
     for (; aBItr.More(); aBItr.Next())
     {
-      const TopoDS_Edge&          aSh = TopoDS::Edge(aBItr.Value());
-      const TopTools_ListOfShape& aLM = aBuilder.Modified(aSh);
-      if (aLM.IsEmpty() || BRep_Tool::Degenerated(aSh))
+      const TopoEdge&          aSh = TopoDS::Edge(aBItr.Value());
+      const ShapeList& aLM = aBuilder.Modified(aSh);
+      if (aLM.IsEmpty() || BRepInspector::Degenerated(aSh))
       {
         aLE.Append(aSh);
         continue;
@@ -1723,7 +1723,7 @@ Standard_Boolean BRepFill_AdvancedEvolved::CheckSingularityAndAdd(
       TopTools_ListIteratorOfListOfShape anItLM(aLM);
       for (; anItLM.More(); anItLM.Next())
       {
-        const TopoDS_Edge& anEM = TopoDS::Edge(anItLM.Value());
+        const TopoEdge& anEM = TopoDS::Edge(anItLM.Value());
         aLE.Append(anEM);
       }
     }
@@ -1745,7 +1745,7 @@ Standard_Boolean BRepFill_AdvancedEvolved::CheckSingularityAndAdd(
   TopTools_ListIteratorOfListOfShape anItrS(theListOfSplits);
   for (; anItrS.More(); anItrS.Next())
   {
-    const TopoDS_Face& aF = TopoDS::Face(anItrS.Value());
+    const TopoFace& aF = TopoDS::Face(anItrS.Value());
     theListOfFaces.Append(aF.Oriented(theF.Orientation()));
   }
 
@@ -1754,7 +1754,7 @@ Standard_Boolean BRepFill_AdvancedEvolved::CheckSingularityAndAdd(
 
 //=================================================================================================
 
-Standard_Boolean ContainsInList(const TopTools_ListOfShape& theL, const TopoDS_Shape& theObject)
+Standard_Boolean ContainsInList(const ShapeList& theL, const TopoShape& theObject)
 {
   TopTools_ListIteratorOfListOfShape anIt(theL);
   for (; anIt.More(); anIt.Next())
@@ -1771,12 +1771,12 @@ Standard_Boolean ContainsInList(const TopTools_ListOfShape& theL, const TopoDS_S
 // function: FindInternals
 // purpose: Looks for internal shapes inside the face or solid
 //=======================================================================
-void FindInternals(const TopoDS_Shape& theS, TopTools_ListOfShape& theLInt)
+void FindInternals(const TopoShape& theS, ShapeList& theLInt)
 {
   TopoDS_Iterator itS(theS);
   for (; itS.More(); itS.Next())
   {
-    const TopoDS_Shape& aSS = itS.Value();
+    const TopoShape& aSS = itS.Value();
     if (aSS.Orientation() == TopAbs_INTERNAL)
       theLInt.Append(aSS);
     else
@@ -1798,13 +1798,13 @@ void FindInternals(const TopoDS_Shape& theS, TopTools_ListOfShape& theLInt)
 // function: RemoveInternalWires
 // purpose: Removes internal wires from the faces
 //=======================================================================
-void RemoveInternalWires(const TopoDS_Shape& theShape)
+void RemoveInternalWires(const TopoShape& theShape)
 {
-  TopExp_Explorer anExpF(theShape, TopAbs_FACE);
+  ShapeExplorer anExpF(theShape, TopAbs_FACE);
   for (; anExpF.More(); anExpF.Next())
   {
-    TopoDS_Face&         aF = *(TopoDS_Face*)&anExpF.Current();
-    TopTools_ListOfShape aLWToRemove;
+    TopoFace&         aF = *(TopoFace*)&anExpF.Current();
+    ShapeList aLWToRemove;
     FindInternals(aF, aLWToRemove);
     if (aLWToRemove.Extent())
     {
@@ -1812,7 +1812,7 @@ void RemoveInternalWires(const TopoDS_Shape& theShape)
       TopTools_ListIteratorOfListOfShape itR(aLWToRemove);
       for (; itR.More(); itR.Next())
       {
-        BRep_Builder().Remove(aF, itR.Value());
+        ShapeBuilder().Remove(aF, itR.Value());
       }
       aF.Free(Standard_False);
     }
@@ -1821,9 +1821,9 @@ void RemoveInternalWires(const TopoDS_Shape& theShape)
 
 //=================================================================================================
 
-void ProcessVertex(const TopoDS_Vertex&        aV,
-                   const TopTools_ListOfShape& aLE,
-                   const TopTools_ListOfShape& aLF)
+void ProcessVertex(const TopoVertex&        aV,
+                   const ShapeList& aLE,
+                   const ShapeList& aLF)
 {
   Standard_Real      aTol, aD2, aTolMax2, aTolE, aParam;
   Point3d             aPC3D;
@@ -1831,7 +1831,7 @@ void ProcessVertex(const TopoDS_Vertex&        aV,
   TopAbs_Orientation anOrV;
 
   TopTools_ListIteratorOfListOfShape anIt;
-  TopExp_Explorer                    aVExp;
+  ShapeExplorer                    aVExp;
 
   BRep_ListIteratorOfListOfCurveRepresentation itcr;
   //
@@ -1839,12 +1839,12 @@ void ProcessVertex(const TopoDS_Vertex&        aV,
   //
   Handle(BRep_TVertex)& TV    = *((Handle(BRep_TVertex)*)&aV.TShape());
   const Point3d&         aPV3D = TV->Pnt();
-  aTol                        = BRep_Tool::Tolerance(aV);
+  aTol                        = BRepInspector::Tolerance(aV);
   //
   anIt.Initialize(aLE);
   for (; anIt.More(); anIt.Next())
   {
-    const TopoDS_Edge& aE = TopoDS::Edge(anIt.Value());
+    const TopoEdge& aE = TopoDS::Edge(anIt.Value());
     //
     Handle(BRep_TEdge)&    TE   = *((Handle(BRep_TEdge)*)&aE.TShape());
     const TopLoc_Location& Eloc = aE.Location();
@@ -1852,7 +1852,7 @@ void ProcessVertex(const TopoDS_Vertex&        aV,
     aVExp.Init(aE, TopAbs_VERTEX);
     for (; aVExp.More(); aVExp.Next())
     {
-      const TopoDS_Vertex& aVx = TopoDS::Vertex(aVExp.Current());
+      const TopoVertex& aVx = TopoDS::Vertex(aVExp.Current());
       //
       if (!aVx.IsSame(aV))
       {
@@ -1876,14 +1876,14 @@ void ProcessVertex(const TopoDS_Vertex&        aV,
         // 3D-Curve
         if (cr->IsCurve3D())
         {
-          const Handle(Geom_Curve)& aC3D = cr->Curve3D();
+          const Handle(GeomCurve3d)& aC3D = cr->Curve3D();
           //
           if (aC3D.IsNull())
           {
             continue;
           }
           // 3D-point treatment
-          aParam = BRep_Tool::Parameter(aVx, aE);
+          aParam = BRepInspector::Parameter(aVx, aE);
           aPC3D  = aC3D->Value(aParam);
           aPC3D.Transform(L.Transformation());
           aD2 = aPV3D.SquareDistance(aPC3D);
@@ -1897,16 +1897,16 @@ void ProcessVertex(const TopoDS_Vertex&        aV,
         // 2D-Curve
         else if (cr->IsCurveOnSurface())
         {
-          const Handle(Geom2d_Curve)& aC2D = cr->PCurve();
+          const Handle(GeomCurve2d)& aC2D = cr->PCurve();
           if (aC2D.IsNull())
           {
             continue;
           }
           // Surface
-          const Handle(Geom_Surface)& aS = cr->Surface();
+          const Handle(GeomSurface)& aS = cr->Surface();
           //
           // 2D-point treatment
-          aParam = BRep_Tool::Parameter(aVx, aE, aS, L);
+          aParam = BRepInspector::Parameter(aVx, aE, aS, L);
           aPC2D  = aC2D->Value(aParam);
           aS->D0(aPC2D.X(), aPC2D.Y(), aPC3D);
           aPC3D.Transform(L.Transformation());
@@ -1937,9 +1937,9 @@ void ProcessVertex(const TopoDS_Vertex&        aV,
   anIt.Initialize(aLE);
   for (; anIt.More(); anIt.Next())
   {
-    const TopoDS_Edge& aE = TopoDS::Edge(anIt.Value());
+    const TopoEdge& aE = TopoDS::Edge(anIt.Value());
 
-    aTolE = BRep_Tool::Tolerance(aE);
+    aTolE = BRepInspector::Tolerance(aE);
     if (aTolMax2 < aTolE)
     {
       aTolMax2 = aTolE;
@@ -1949,9 +1949,9 @@ void ProcessVertex(const TopoDS_Vertex&        aV,
   anIt.Initialize(aLF);
   for (; anIt.More(); anIt.Next())
   {
-    const TopoDS_Face& aF = TopoDS::Face(anIt.Value());
+    const TopoFace& aF = TopoDS::Face(anIt.Value());
 
-    aTolE = BRep_Tool::Tolerance(aF);
+    aTolE = BRepInspector::Tolerance(aF);
     if (aTolMax2 < aTolE)
     {
       aTolMax2 = aTolE;
@@ -1970,20 +1970,20 @@ void ProcessVertex(const TopoDS_Vertex&        aV,
 
 //=================================================================================================
 
-void ReduceVertexTolerance(const TopoDS_Shape& aS)
+void ReduceVertexTolerance(const TopoShape& aS)
 {
   Standard_Integer                          i, aNbV;
   TopTools_IndexedDataMapOfShapeListOfShape aVEMap, aVFMap;
 
-  TopExp::MapShapesAndUniqueAncestors(aS, TopAbs_VERTEX, TopAbs_EDGE, aVEMap);
-  TopExp::MapShapesAndUniqueAncestors(aS, TopAbs_VERTEX, TopAbs_FACE, aVFMap);
+  TopExp1::MapShapesAndUniqueAncestors(aS, TopAbs_VERTEX, TopAbs_EDGE, aVEMap);
+  TopExp1::MapShapesAndUniqueAncestors(aS, TopAbs_VERTEX, TopAbs_FACE, aVFMap);
 
   aNbV = aVEMap.Extent();
   for (i = 1; i <= aNbV; i++)
   {
-    const TopoDS_Vertex&        aV  = TopoDS::Vertex(aVEMap.FindKey(i));
-    const TopTools_ListOfShape& aLE = aVEMap(i);
-    const TopTools_ListOfShape& aLF = aVFMap.FindFromKey(aV);
+    const TopoVertex&        aV  = TopoDS::Vertex(aVEMap.FindKey(i));
+    const ShapeList& aLE = aVEMap(i);
+    const ShapeList& aLF = aVFMap.FindFromKey(aV);
 
     ProcessVertex(aV, aLE, aLF);
   }

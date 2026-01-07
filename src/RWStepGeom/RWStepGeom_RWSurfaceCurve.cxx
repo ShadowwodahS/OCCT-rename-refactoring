@@ -20,9 +20,9 @@
 #include <TCollection_AsciiString.hxx>
 
 // --- Enum : PreferredSurfaceCurveRepresentation ---
-static TCollection_AsciiString pscrPcurveS2(".PCURVE_S2.");
-static TCollection_AsciiString pscrPcurveS1(".PCURVE_S1.");
-static TCollection_AsciiString pscrCurve3d(".CURVE_3D.");
+static AsciiString1 pscrPcurveS2(".PCURVE_S2.");
+static AsciiString1 pscrPcurveS1(".PCURVE_S1.");
+static AsciiString1 pscrCurve3d(".CURVE_3D.");
 
 RWStepGeom_RWSurfaceCurve::RWStepGeom_RWSurfaceCurve() {}
 

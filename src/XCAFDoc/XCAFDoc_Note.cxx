@@ -37,7 +37,7 @@ enum ChildLab
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_Note::IsMine(const TDF_Label& theLabel)
+Standard_Boolean XCAFDoc_Note::IsMine(const DataLabel& theLabel)
 {
   return !Get(theLabel).IsNull();
 }
@@ -48,7 +48,7 @@ XCAFDoc_Note::XCAFDoc_Note() {}
 
 //=================================================================================================
 
-Handle(XCAFDoc_Note) XCAFDoc_Note::Get(const TDF_Label& theLabel)
+Handle(XCAFDoc_Note) XCAFDoc_Note::Get(const DataLabel& theLabel)
 {
   Handle(XCAFDoc_Note) aNote;
   for (TDF_AttributeIterator anIt(theLabel); anIt.More(); anIt.Next())
@@ -62,8 +62,8 @@ Handle(XCAFDoc_Note) XCAFDoc_Note::Get(const TDF_Label& theLabel)
 
 //=================================================================================================
 
-void XCAFDoc_Note::Set(const TCollection_ExtendedString& theUserName,
-                       const TCollection_ExtendedString& theTimeStamp)
+void XCAFDoc_Note::Set(const UtfString& theUserName,
+                       const UtfString& theTimeStamp)
 {
   Backup();
 
@@ -115,11 +115,11 @@ Handle(XCAFNoteObjects_NoteObject) XCAFDoc_Note::GetObject() const
     }
   }
 
-  Handle(TNaming_NamedShape) aNS;
-  TDF_Label                  aLPres = Label().FindChild(ChildLab_Presentation);
-  if (aLPres.FindAttribute(TNaming_NamedShape::GetID(), aNS))
+  Handle(ShapeAttribute) aNS;
+  DataLabel                  aLPres = Label().FindChild(ChildLab_Presentation);
+  if (aLPres.FindAttribute(ShapeAttribute::GetID(), aNS))
   {
-    TopoDS_Shape aPresentation = TNaming_Tool::GetShape(aNS);
+    TopoShape aPresentation = Tool11::GetShape(aNS);
     if (!aPresentation.IsNull())
     {
       anObj->SetPresentation(aPresentation);
@@ -160,10 +160,10 @@ void XCAFDoc_Note::SetObject(const Handle(XCAFNoteObjects_NoteObject)& theObject
     TDataXtd_Point::Set(Label().FindChild(ChildLab_PntText), aPntText);
   }
 
-  TopoDS_Shape aPresentation = theObject->GetPresentation();
+  TopoShape aPresentation = theObject->GetPresentation();
   if (!aPresentation.IsNull())
   {
-    TDF_Label       aLPres = Label().FindChild(ChildLab_Presentation);
+    DataLabel       aLPres = Label().FindChild(ChildLab_Presentation);
     TNaming_Builder aBuilder(aLPres);
     aBuilder.Generated(aPresentation);
   }

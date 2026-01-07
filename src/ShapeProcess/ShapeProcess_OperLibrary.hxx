@@ -21,7 +21,7 @@
 #include <Standard_Handle.hxx>
 
 #include <TopTools_DataMapOfShapeShape.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class ShapeProcess_ShapeContext;
 class BRepTools_Modification;
 class ShapeExtend_MsgRegistrator;
@@ -56,8 +56,8 @@ public:
   //! taking into account sharing of components of compounds.
   //! if theMutableInput vat is set to true then input shape S
   //! can be modified during the modification process.
-  Standard_EXPORT static TopoDS_Shape ApplyModifier(
-    const TopoDS_Shape&                       S,
+  Standard_EXPORT static TopoShape ApplyModifier(
+    const TopoShape&                       S,
     const Handle(ShapeProcess_ShapeContext)&  context,
     const Handle(BRepTools_Modification)&     M,
     TopTools_DataMapOfShapeShape&             map,

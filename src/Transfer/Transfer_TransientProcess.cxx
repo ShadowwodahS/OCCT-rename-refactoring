@@ -105,7 +105,7 @@ Standard_Boolean Transfer_TransientProcess::GetContext(const Standard_CString   
 
 //=================================================================================================
 
-NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>&
+NCollection_DataMap<AsciiString1, Handle(RefObject)>&
   Transfer_TransientProcess::Context()
 {
   return thectx;

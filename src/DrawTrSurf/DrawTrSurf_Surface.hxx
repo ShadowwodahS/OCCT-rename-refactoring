@@ -21,7 +21,7 @@
 #include <DrawTrSurf_Drawable.hxx>
 #include <Draw_Interpretor.hxx>
 
-class Geom_Surface;
+class GeomSurface;
 
 DEFINE_STANDARD_HANDLE(DrawTrSurf_Surface, DrawTrSurf_Drawable)
 
@@ -37,31 +37,31 @@ class DrawTrSurf_Surface : public DrawTrSurf_Drawable
       //! The boundaries are yellow, the isoparametric curves are blues.
       //! For the discretisation 50 points are computed in each parametric direction.
       Standard_EXPORT
-      DrawTrSurf_Surface(const Handle(Geom_Surface)& S);
+      DrawTrSurf_Surface(const Handle(GeomSurface)& S);
 
-  Standard_EXPORT DrawTrSurf_Surface(const Handle(Geom_Surface)& S,
+  Standard_EXPORT DrawTrSurf_Surface(const Handle(GeomSurface)& S,
                                      const Standard_Integer      Nu,
                                      const Standard_Integer      Nv,
-                                     const Draw_Color&           BoundsColor,
-                                     const Draw_Color&           IsosColor,
+                                     const DrawColor&           BoundsColor,
+                                     const DrawColor&           IsosColor,
                                      const Standard_Integer      Discret,
                                      const Standard_Real         Deflection,
                                      const Standard_Integer      DrawMode);
 
-  Draw_Color BoundsColor() const { return boundsLook; }
+  DrawColor BoundsColor() const { return boundsLook; }
 
   //! rub out all the isoparametric curves.
   Standard_EXPORT virtual void ClearIsos();
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
-  //! Iso = True : Draw the isos, the boundaries, the UVMarker.
-  //! Iso = False: Only Draw the boundary and the UVMarker.
-  Standard_EXPORT void DrawOn(Draw_Display& dis, const Standard_Boolean Iso) const;
+  //! Iso = True : Draw1 the isos, the boundaries, the UVMarker.
+  //! Iso = False: Only Draw1 the boundary and the UVMarker.
+  Standard_EXPORT void DrawOn(DrawDisplay& dis, const Standard_Boolean Iso) const;
 
-  Handle(Geom_Surface) GetSurface() const { return surf; }
+  Handle(GeomSurface) GetSurface() const { return surf; }
 
-  Draw_Color IsosColor() const { return isosLook; }
+  DrawColor IsosColor() const { return isosLook; }
 
   void NbIsos(Standard_Integer& theNU, Standard_Integer& theNV) const
   {
@@ -69,9 +69,9 @@ class DrawTrSurf_Surface : public DrawTrSurf_Drawable
     theNV = nbVIsos;
   }
 
-  void SetBoundsColor(const Draw_Color& theColor) { boundsLook = theColor; }
+  void SetBoundsColor(const DrawColor& theColor) { boundsLook = theColor; }
 
-  void SetIsosColor(const Draw_Color& theColor) { isosLook = theColor; }
+  void SetIsosColor(const DrawColor& theColor) { isosLook = theColor; }
 
   //! change the number of isoparametric curves to be drawn.
   virtual void ShowIsos(const Standard_Integer theNu, const Standard_Integer theNv)
@@ -90,12 +90,12 @@ class DrawTrSurf_Surface : public DrawTrSurf_Drawable
   Standard_EXPORT virtual void Save(Standard_OStream& theStream) const Standard_OVERRIDE;
 
   //! For variable whatis command.
-  Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
 protected:
-  Handle(Geom_Surface) surf;
-  Draw_Color           boundsLook;
-  Draw_Color           isosLook;
+  Handle(GeomSurface) surf;
+  DrawColor           boundsLook;
+  DrawColor           isosLook;
   Standard_Integer     nbUIsos;
   Standard_Integer     nbVIsos;
 };

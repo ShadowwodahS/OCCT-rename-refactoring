@@ -31,47 +31,47 @@ class HLRTest_ShapeData : public RefObject
 {
 
 public:
-  Standard_EXPORT HLRTest_ShapeData(const Draw_Color& CVis,
-                                    const Draw_Color& COVis,
-                                    const Draw_Color& CIVis,
-                                    const Draw_Color& CHid,
-                                    const Draw_Color& COHid,
-                                    const Draw_Color& CIHid);
+  Standard_EXPORT HLRTest_ShapeData(const DrawColor& CVis,
+                                    const DrawColor& COVis,
+                                    const DrawColor& CIVis,
+                                    const DrawColor& CHid,
+                                    const DrawColor& COHid,
+                                    const DrawColor& CIHid);
 
-  void VisibleColor(const Draw_Color& CVis);
+  void VisibleColor(const DrawColor& CVis);
 
-  void VisibleOutLineColor(const Draw_Color& COVis);
+  void VisibleOutLineColor(const DrawColor& COVis);
 
-  void VisibleIsoColor(const Draw_Color& CIVis);
+  void VisibleIsoColor(const DrawColor& CIVis);
 
-  void HiddenColor(const Draw_Color& CHid);
+  void HiddenColor(const DrawColor& CHid);
 
-  void HiddenOutLineColor(const Draw_Color& COHid);
+  void HiddenOutLineColor(const DrawColor& COHid);
 
-  void HiddenIsoColor(const Draw_Color& CIHid);
+  void HiddenIsoColor(const DrawColor& CIHid);
 
-  Draw_Color VisibleColor() const;
+  DrawColor VisibleColor() const;
 
-  Draw_Color VisibleOutLineColor() const;
+  DrawColor VisibleOutLineColor() const;
 
-  Draw_Color VisibleIsoColor() const;
+  DrawColor VisibleIsoColor() const;
 
-  Draw_Color HiddenColor() const;
+  DrawColor HiddenColor() const;
 
-  Draw_Color HiddenOutLineColor() const;
+  DrawColor HiddenOutLineColor() const;
 
-  Draw_Color HiddenIsoColor() const;
+  DrawColor HiddenIsoColor() const;
 
   DEFINE_STANDARD_RTTIEXT(HLRTest_ShapeData, RefObject)
 
 protected:
 private:
-  Draw_Color myVColor;
-  Draw_Color myVOColor;
-  Draw_Color myVIColor;
-  Draw_Color myHColor;
-  Draw_Color myHOColor;
-  Draw_Color myHIColor;
+  DrawColor myVColor;
+  DrawColor myVOColor;
+  DrawColor myVIColor;
+  DrawColor myHColor;
+  DrawColor myHOColor;
+  DrawColor myHIColor;
 };
 
 #include <HLRTest_ShapeData.lxx>

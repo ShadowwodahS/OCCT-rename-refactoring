@@ -21,7 +21,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(NLPlate_HPG0G2Constraint, NLPlate_HPG0G1Constraint)
 
-NLPlate_HPG0G2Constraint::NLPlate_HPG0G2Constraint(const gp_XY&    UV,
+NLPlate_HPG0G2Constraint::NLPlate_HPG0G2Constraint(const Coords2d&    UV,
                                                    const gp_XYZ&   Value,
                                                    const Plate_D1& D1T,
                                                    const Plate_D2& D2T)

@@ -27,10 +27,10 @@
 #include <XCAFPrs_DataMapOfStyleTransient.hxx>
 #include <TopTools_MapOfShape.hxx>
 
-class XSControl_WorkSession;
-class TDocStd_Document;
-class TCollection_AsciiString;
-class TopoDS_Shape;
+class ExchangeSession;
+class AppDocument;
+class AsciiString1;
+class TopoShape;
 class XCAFPrs_Style;
 
 //! Provides a tool to write DECAF document to the
@@ -52,7 +52,7 @@ class XCAFPrs_Style;
 //! Names
 //! writer.SetNameMode(namemode);
 //! Standard_Boolean namemode = writer.GetNameMode();
-class IGESCAFControl_Writer : public IGESControl_Writer
+class IGESCAFControl_Writer : public IgesFileWriter
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -63,19 +63,19 @@ public:
 
   //! Creates a reader tool and attaches it to an already existing Session
   //! Clears the session if it was not yet set for IGES
-  Standard_EXPORT IGESCAFControl_Writer(const Handle(XSControl_WorkSession)& WS,
+  Standard_EXPORT IGESCAFControl_Writer(const Handle(ExchangeSession)& WS,
                                         const Standard_Boolean scratch = Standard_True);
 
   //! Creates a reader tool and attaches it to an already existing Session
   //! Clears the session if it was not yet set for IGES
   //! Sets target Unit for the writing process.
-  Standard_EXPORT IGESCAFControl_Writer(const Handle(XSControl_WorkSession)& theWS,
+  Standard_EXPORT IGESCAFControl_Writer(const Handle(ExchangeSession)& theWS,
                                         const Standard_CString               theUnit);
 
   //! Transfers a document to a IGES model
   //! Returns True if translation is OK
   Standard_EXPORT Standard_Boolean
-    Transfer(const Handle(TDocStd_Document)& doc,
+    Transfer(const Handle(AppDocument)& doc,
              const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Transfers labels to a IGES model
@@ -87,18 +87,18 @@ public:
   //! Transfers label to a IGES model
   //! Returns True if translation is OK
   Standard_EXPORT Standard_Boolean
-    Transfer(const TDF_Label&             label,
+    Transfer(const DataLabel&             label,
              const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   Standard_EXPORT Standard_Boolean
-    Perform(const Handle(TDocStd_Document)& doc,
-            const TCollection_AsciiString&  filename,
+    Perform(const Handle(AppDocument)& doc,
+            const AsciiString1&  filename,
             const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Transfers a document and writes it to a IGES file
   //! Returns True if translation is OK
   Standard_EXPORT Standard_Boolean
-    Perform(const Handle(TDocStd_Document)& doc,
+    Perform(const Handle(AppDocument)& doc,
             const Standard_CString          filename,
             const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
@@ -133,12 +133,12 @@ protected:
   //! Finds length units located in root of label
   //! If it exists, initializes local length unit from it
   //! Else initializes according to Cascade length unit
-  Standard_EXPORT void prepareUnit(const TDF_Label& theLabel);
+  Standard_EXPORT void prepareUnit(const DataLabel& theLabel);
 
 private:
   //! Recursively iterates on subshapes and assigns colors
   //! to faces and edges (if set)
-  Standard_EXPORT void MakeColors(const TopoDS_Shape&                       S,
+  Standard_EXPORT void MakeColors(const TopoShape&                       S,
                                   const XCAFPrs_IndexedDataMapOfShapeStyle& settings,
                                   XCAFPrs_DataMapOfStyleTransient&          colors,
                                   TopTools_MapOfShape&                      Map,

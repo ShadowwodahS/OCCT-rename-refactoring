@@ -44,9 +44,9 @@ IMPLEMENT_STANDARD_RTTIEXT(PrsDim_MaxRadiusDimension, PrsDim_EllipseRadiusDimens
 
 //=================================================================================================
 
-PrsDim_MaxRadiusDimension::PrsDim_MaxRadiusDimension(const TopoDS_Shape&               aShape,
+PrsDim_MaxRadiusDimension::PrsDim_MaxRadiusDimension(const TopoShape&               aShape,
                                                      const Standard_Real               aVal,
-                                                     const TCollection_ExtendedString& aText)
+                                                     const UtfString& aText)
     : PrsDim_EllipseRadiusDimension(aShape, aText)
 {
   myVal               = aVal;
@@ -57,9 +57,9 @@ PrsDim_MaxRadiusDimension::PrsDim_MaxRadiusDimension(const TopoDS_Shape&        
 
 //=================================================================================================
 
-PrsDim_MaxRadiusDimension::PrsDim_MaxRadiusDimension(const TopoDS_Shape&               aShape,
+PrsDim_MaxRadiusDimension::PrsDim_MaxRadiusDimension(const TopoShape&               aShape,
                                                      const Standard_Real               aVal,
-                                                     const TCollection_ExtendedString& aText,
+                                                     const UtfString& aText,
                                                      const Point3d&                     aPosition,
                                                      const DsgPrs_ArrowSide            aSymbolPrs,
                                                      const Standard_Real               anArrowSize)
@@ -233,7 +233,7 @@ void PrsDim_MaxRadiusDimension::ComputeArcOfEllipse(const Handle(Prs3d_Presentat
 
 //=================================================================================================
 
-void PrsDim_MaxRadiusDimension::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+void PrsDim_MaxRadiusDimension::ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                                  const Standard_Integer /*aMode*/)
 {
 
@@ -286,10 +286,10 @@ void PrsDim_MaxRadiusDimension::ComputeSelection(const Handle(SelectMgr_Selectio
       else
         parStart = par;
 
-      Handle(Geom_Curve) TrimCurve;
+      Handle(GeomCurve3d) TrimCurve;
       if (myIsOffset)
       {
-        Handle(Geom_Curve) aCurve = myOffsetCurve;
+        Handle(GeomCurve3d) aCurve = myOffsetCurve;
         TrimCurve                 = new Geom_TrimmedCurve(aCurve, parStart, parEnd);
       }
       else

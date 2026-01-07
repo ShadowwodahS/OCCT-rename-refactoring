@@ -55,7 +55,7 @@
 #include <NCollection_IndexedMap.hxx>
 
 static Standard_Boolean SetEmptyResultRange(const Standard_Real      theParameter,
-                                            IntTools_MarkedRangeSet& theMarkedRange);
+                                            MarkedRangeSet& theMarkedRange);
 
 static Bnd_Box GetSurfaceBox(const Handle(Geom_BSplineSurface)& theSurf,
                              const Standard_Real                theFirstU,
@@ -88,7 +88,7 @@ static void MergeSolutions(const IntTools_ListOfCurveRangeSample&   theListCurve
 
 static void CheckSampling(const IntTools_CurveRangeSample&         theCurveRange,
                           const IntTools_SurfaceRangeSample&       theSurfaceRange,
-                          const IntTools_CurveRangeLocalizeData&   theCurveData,
+                          const CurveRangeLocalizeData&   theCurveData,
                           const IntTools_SurfaceRangeLocalizeData& theSurfaceData,
                           const Standard_Real                      DiffC,
                           const Standard_Real                      DiffU,
@@ -117,8 +117,8 @@ IntTools_BeanFaceIntersector::IntTools_BeanFaceIntersector()
 
 //=================================================================================================
 
-IntTools_BeanFaceIntersector::IntTools_BeanFaceIntersector(const TopoDS_Edge& theEdge,
-                                                           const TopoDS_Face& theFace)
+IntTools_BeanFaceIntersector::IntTools_BeanFaceIntersector(const TopoEdge& theEdge,
+                                                           const TopoFace& theFace)
     : myFirstParameter(0.),
       myLastParameter(0.),
       myUMinParameter(0.),
@@ -181,12 +181,12 @@ IntTools_BeanFaceIntersector::IntTools_BeanFaceIntersector(const BRepAdaptor_Cur
 
   mySurface = theSurface;
   myTrsfSurface =
-    Handle(Geom_Surface)::DownCast(mySurface.Surface().Surface()->Transformed(mySurface.Trsf()));
+    Handle(GeomSurface)::DownCast(mySurface.Surface().Surface()->Transformed(mySurface.Trsf()));
 }
 
 //=================================================================================================
 
-void IntTools_BeanFaceIntersector::Init(const TopoDS_Edge& theEdge, const TopoDS_Face& theFace)
+void IntTools_BeanFaceIntersector::Init(const TopoEdge& theEdge, const TopoFace& theFace)
 {
   if (myContext.IsNull())
   {
@@ -196,9 +196,9 @@ void IntTools_BeanFaceIntersector::Init(const TopoDS_Edge& theEdge, const TopoDS
   myCurve.Initialize(theEdge);
   mySurface = myContext->SurfaceAdaptor(theFace);
   myTrsfSurface =
-    Handle(Geom_Surface)::DownCast(mySurface.Surface().Surface()->Transformed(mySurface.Trsf()));
-  myBeanTolerance = BRep_Tool::Tolerance(theEdge);
-  myFaceTolerance = BRep_Tool::Tolerance(theFace);
+    Handle(GeomSurface)::DownCast(mySurface.Surface().Surface()->Transformed(mySurface.Trsf()));
+  myBeanTolerance = BRepInspector::Tolerance(theEdge);
+  myFaceTolerance = BRepInspector::Tolerance(theFace);
 
   myCriteria        = myBeanTolerance + myFaceTolerance + Precision::Confusion();
   myCurveResolution = myCurve.Resolution(myCriteria);
@@ -220,7 +220,7 @@ void IntTools_BeanFaceIntersector::Init(const BRepAdaptor_Curve&   theCurve,
   myCurve   = theCurve;
   mySurface = theSurface;
   myTrsfSurface =
-    Handle(Geom_Surface)::DownCast(mySurface.Surface().Surface()->Transformed(mySurface.Trsf()));
+    Handle(GeomSurface)::DownCast(mySurface.Surface().Surface()->Transformed(mySurface.Trsf()));
   myBeanTolerance = theBeanTolerance;
   myFaceTolerance = theFaceTolerance;
 
@@ -322,7 +322,7 @@ void IntTools_BeanFaceIntersector::Perform()
   Standard_Boolean isCoincide = TestComputeCoinside();
   if (isCoincide)
   {
-    myResults.Append(IntTools_Range(myFirstParameter, myLastParameter));
+    myResults.Append(IntToolsRange(myFirstParameter, myLastParameter));
     myIsDone = Standard_True;
     return;
   }
@@ -360,11 +360,11 @@ void IntTools_BeanFaceIntersector::Perform()
     if (myRangeManager.Flag(i) != 2)
       continue;
 
-    IntTools_Range   aRange     = myRangeManager.Range(i);
+    IntToolsRange   aRange     = myRangeManager.Range(i);
     Standard_Integer iLastRange = myResults.Length();
     if (iLastRange > 0)
     {
-      IntTools_Range& aLastRange = myResults.ChangeValue(iLastRange);
+      IntToolsRange& aLastRange = myResults.ChangeValue(iLastRange);
       if (Abs(aRange.First() - aLastRange.Last()) > Precision::PConfusion())
       {
         myResults.Append(aRange);
@@ -399,7 +399,7 @@ Standard_Real IntTools_BeanFaceIntersector::Distance(const Standard_Real theArg)
 {
   Point3d aPoint = myCurve.Value(theArg);
 
-  GeomAPI_ProjectPointOnSurf& aProjector = myContext->ProjPS(mySurface.Face());
+  PointOnSurfProjector& aProjector = myContext->ProjPS(mySurface.Face());
   aProjector.Perform(aPoint);
 
   if (aProjector.IsDone() && aProjector.NbPoints() > 0)
@@ -435,7 +435,7 @@ Standard_Real IntTools_BeanFaceIntersector::Distance(const Standard_Real theArg)
 
     if (computeisoline)
     {
-      Handle(Geom_Curve) aCurve =
+      Handle(GeomCurve3d) aCurve =
         (i < 2) ? myTrsfSurface->UIso(anIsoParameter) : myTrsfSurface->VIso(anIsoParameter);
       GeomAPI_ProjectPointOnCurve aProjectorOnCurve(aPoint, aCurve, aMinParameter, aMaxParameter);
 
@@ -473,7 +473,7 @@ Standard_Real IntTools_BeanFaceIntersector::Distance(const Standard_Real theArg,
   Standard_Real    aDistance       = RealLast();
   Standard_Boolean projectionfound = Standard_False;
 
-  GeomAPI_ProjectPointOnSurf& aProjector = myContext->ProjPS(mySurface.Face());
+  PointOnSurfProjector& aProjector = myContext->ProjPS(mySurface.Face());
   aProjector.Perform(aPoint);
 
   if (aProjector.IsDone() && aProjector.NbPoints() > 0)
@@ -512,7 +512,7 @@ Standard_Real IntTools_BeanFaceIntersector::Distance(const Standard_Real theArg,
 
       if (computeisoline)
       {
-        Handle(Geom_Curve) aCurve =
+        Handle(GeomCurve3d) aCurve =
           (i < 2) ? myTrsfSurface->UIso(anIsoParameter) : myTrsfSurface->VIso(anIsoParameter);
         GeomAPI_ProjectPointOnCurve aProjectorOnCurve(aPoint, aCurve, aMinParameter, aMaxParameter);
 
@@ -802,7 +802,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::FastComputeAnalytic()
   // Check intermediate point
   if (isCoincide)
   {
-    myResults.Append(IntTools_Range(myFirstParameter, myLastParameter));
+    myResults.Append(IntToolsRange(myFirstParameter, myLastParameter));
   }
 
   return isCoincide || !hasIntersection;
@@ -860,7 +860,7 @@ void IntTools_BeanFaceIntersector::ComputeLinePlane()
 
   if (inplane)
   {
-    IntTools_Range aRange(myFirstParameter, myLastParameter);
+    IntToolsRange aRange(myFirstParameter, myLastParameter);
     myResults.Append(aRange);
     return;
   }
@@ -893,11 +893,11 @@ void IntTools_BeanFaceIntersector::ComputeLinePlane()
   aDP     = P.Position().Direction();
   anAngle = Abs(M_PI_2 - aDL.Angle(aDP));
   //
-  aDt = IntTools_Tools::ComputeIntRange(myBeanTolerance, myFaceTolerance, anAngle);
+  aDt = Tools2::ComputeIntRange(myBeanTolerance, myFaceTolerance, anAngle);
   //
   Standard_Real  t1 = Max(myFirstParameter, t - aDt);
   Standard_Real  t2 = Min(myLastParameter, t + aDt);
-  IntTools_Range aRange(t1, t2);
+  IntToolsRange aRange(t1, t2);
   myResults.Append(aRange);
 
   return;
@@ -909,7 +909,7 @@ void IntTools_BeanFaceIntersector::ComputeUsingExtremum()
 {
   Standard_Real Tol, af, al;
   Tol                        = Precision::PConfusion();
-  Handle(Geom_Curve)  aCurve = BRep_Tool::Curve(myCurve.Edge(), af, al);
+  Handle(GeomCurve3d)  aCurve = BRepInspector::Curve(myCurve.Edge(), af, al);
   GeomAdaptor_Surface aGASurface(myTrsfSurface,
                                  myUMinParameter,
                                  myUMaxParameter,
@@ -922,7 +922,7 @@ void IntTools_BeanFaceIntersector::ComputeUsingExtremum()
     if (myRangeManager.Flag(i) > 0)
       continue;
 
-    IntTools_Range aParamRange = myRangeManager.Range(i);
+    IntToolsRange aParamRange = myRangeManager.Range(i);
     Standard_Real  anarg1      = aParamRange.First();
     Standard_Real  anarg2      = aParamRange.Last();
 
@@ -1097,7 +1097,7 @@ void IntTools_BeanFaceIntersector::ComputeNearRangeBoundaries()
     if ((i > 1) && (myRangeManager.Flag(i - 1) > 0))
       continue;
 
-    IntTools_Range aParamRange = myRangeManager.Range(i);
+    IntToolsRange aParamRange = myRangeManager.Range(i);
 
     if (Distance(aParamRange.First(), U, V) < myCriteria)
     {
@@ -1122,7 +1122,7 @@ void IntTools_BeanFaceIntersector::ComputeNearRangeBoundaries()
 
   if (myRangeManager.Flag(myRangeManager.Length()) == 0)
   {
-    IntTools_Range aParamRange = myRangeManager.Range(myRangeManager.Length());
+    IntToolsRange aParamRange = myRangeManager.Range(myRangeManager.Length());
 
     if (Distance(aParamRange.Last(), U, V) < myCriteria)
     {
@@ -1194,7 +1194,7 @@ void IntTools_BeanFaceIntersector::ComputeRangeFromStartPoint(
 
   Standard_Real aCurPar = (ToIncreaseParameter) ? (theParameter + aDelta) : (theParameter - aDelta);
   Standard_Real aPrevPar       = theParameter;
-  IntTools_Range aCurrentRange = myRangeManager.Range(aValidIndex);
+  IntToolsRange aCurrentRange = myRangeManager.Range(aValidIndex);
 
   Standard_Boolean BoundaryCondition =
     (ToIncreaseParameter) ? (aCurPar > aCurrentRange.Last()) : (aCurPar < aCurrentRange.First());
@@ -1331,7 +1331,7 @@ void IntTools_BeanFaceIntersector::ComputeRangeFromStartPoint(
 // purpose:
 // ---------------------------------------------------------------------------------
 static Standard_Boolean SetEmptyResultRange(const Standard_Real      theParameter,
-                                            IntTools_MarkedRangeSet& theMarkedRange)
+                                            MarkedRangeSet& theMarkedRange)
 {
 
   const TColStd_SequenceOfInteger& anIndices = theMarkedRange.GetIndices(theParameter);
@@ -1420,7 +1420,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::LocalizeSolutions(
   const Bnd_Box&                     theBoxCurve,
   const IntTools_SurfaceRangeSample& theSurfaceRange,
   const Bnd_Box&                     theBoxSurface,
-  IntTools_CurveRangeLocalizeData&   theCurveData,
+  CurveRangeLocalizeData&   theCurveData,
   IntTools_SurfaceRangeLocalizeData& theSurfaceData,
   IntTools_ListOfCurveRangeSample&   theListCurveRange,
   IntTools_ListOfSurfaceRangeSample& theListSurfaceRange)
@@ -1440,7 +1440,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::LocalizeSolutions(
   IntTools_ListOfCurveRangeSample   aListCurveRangeFound;
   IntTools_ListOfSurfaceRangeSample aListSurfaceRangeFound;
 
-  IntTools_Range aRangeC =
+  IntToolsRange aRangeC =
     theCurveRange.GetRange(myFirstParameter, myLastParameter, theCurveData.GetNbSample());
   Standard_Real localdiffC = (aRangeC.Last() - aRangeC.First()) / theCurveData.GetNbSample();
 
@@ -1458,11 +1458,11 @@ Standard_Boolean IntTools_BeanFaceIntersector::LocalizeSolutions(
 
   Standard_Integer aCurIndexVInit =
     theSurfaceRange.GetRangeIndexVDeeper(theSurfaceData.GetNbSampleV());
-  IntTools_Range aRangeV =
+  IntToolsRange aRangeV =
     theSurfaceRange.GetRangeV(myVMinParameter, myVMaxParameter, theSurfaceData.GetNbSampleV());
 
   //
-  IntTools_Range aRangeU =
+  IntToolsRange aRangeU =
     theSurfaceRange.GetRangeU(myUMinParameter, myUMaxParameter, theSurfaceData.GetNbSampleU());
   Standard_Real aCurParU    = aRangeU.First();
   Standard_Real aLocalDiffU = (aRangeU.Last() - aRangeU.First()) / theSurfaceData.GetNbSampleU();
@@ -1949,7 +1949,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::ComputeLocalized()
   Standard_Boolean                  bAllowSamplingC = Standard_True;
   Standard_Boolean                  bAllowSamplingU = Standard_True;
   Standard_Boolean                  bAllowSamplingV = Standard_True;
-  IntTools_CurveRangeLocalizeData   aCurveDataTmp(nbSampleC, dMinC);
+  CurveRangeLocalizeData   aCurveDataTmp(nbSampleC, dMinC);
   IntTools_SurfaceRangeLocalizeData aSurfaceDataTmp(nbSampleU, nbSampleV, dMinU, dMinV);
 
   CheckSampling(aCurveRange,
@@ -1964,7 +1964,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::ComputeLocalized()
                 bAllowSamplingV);
 
   {
-    IntTools_CurveRangeLocalizeData aCurveData(nbSampleC, dMinC);
+    CurveRangeLocalizeData aCurveData(nbSampleC, dMinC);
 
     aCurveData.AddBox(aCurveRange, EBox);
 
@@ -1995,17 +1995,17 @@ Standard_Boolean IntTools_BeanFaceIntersector::ComputeLocalized()
     for (; anItC.More() && anItS.More(); anItC.Next(), anItS.Next())
     {
 
-      IntTools_Range aRangeC(myFirstParameter, myLastParameter);
+      IntToolsRange aRangeC(myFirstParameter, myLastParameter);
 
       if (bAllowSamplingC)
         aRangeC = anItC.Value().GetRange(myFirstParameter, myLastParameter, nbSampleC);
 
-      IntTools_Range aRangeU(myUMinParameter, myUMaxParameter);
+      IntToolsRange aRangeU(myUMinParameter, myUMaxParameter);
 
       if (bAllowSamplingU)
         aRangeU = anItS.Value().GetRangeU(myUMinParameter, myUMaxParameter, nbSampleU);
 
-      IntTools_Range aRangeV(myVMinParameter, myVMaxParameter);
+      IntToolsRange aRangeV(myVMinParameter, myVMaxParameter);
 
       if (bAllowSamplingV)
         aRangeV = anItS.Value().GetRangeV(myVMinParameter, myVMaxParameter, nbSampleV);
@@ -2137,7 +2137,7 @@ Standard_Boolean IntTools_BeanFaceIntersector::ComputeLocalized()
 
     for (; anItC.More(); anItC.Next())
     {
-      IntTools_Range aRangeC = anItC.Value().GetRange(myFirstParameter, myLastParameter, nbSampleC);
+      IntToolsRange aRangeC = anItC.Value().GetRange(myFirstParameter, myLastParameter, nbSampleC);
       myRangeManager.InsertRange(aRangeC.First(), aRangeC.Last(), 1);
     }
   }
@@ -2583,7 +2583,7 @@ static void MergeSolutions(const IntTools_ListOfCurveRangeSample&   theListCurve
 // ---------------------------------------------------------------------------------
 static void CheckSampling(const IntTools_CurveRangeSample&         theCurveRange,
                           const IntTools_SurfaceRangeSample&       theSurfaceRange,
-                          const IntTools_CurveRangeLocalizeData&   theCurveData,
+                          const CurveRangeLocalizeData&   theCurveData,
                           const IntTools_SurfaceRangeLocalizeData& theSurfaceData,
                           const Standard_Real                      DiffC,
                           const Standard_Real                      DiffU,

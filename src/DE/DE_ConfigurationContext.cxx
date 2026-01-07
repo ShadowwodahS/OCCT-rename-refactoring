@@ -36,9 +36,9 @@ namespace
 {
 //=================================================================================================
 
-static Standard_Boolean GetLine(OSD_File& theFile, TCollection_AsciiString& theLine)
+static Standard_Boolean GetLine(SystemFile& theFile, AsciiString1& theLine)
 {
-  TCollection_AsciiString aBuffer;
+  AsciiString1 aBuffer;
   Standard_Integer        aBufSize = 10;
   Standard_Integer        aLen;
   theLine.Clear();
@@ -63,13 +63,13 @@ static Standard_Boolean GetLine(OSD_File& theFile, TCollection_AsciiString& theL
 
 //=================================================================================================
 
-static DE_ConfigurationContext_KindOfLine WhatKindOfLine(const TCollection_AsciiString& theLine,
-                                                         TCollection_AsciiString&       theToken1,
-                                                         TCollection_AsciiString&       theToken2)
+static DE_ConfigurationContext_KindOfLine WhatKindOfLine(const AsciiString1& theLine,
+                                                         AsciiString1&       theToken1,
+                                                         AsciiString1&       theToken2)
 {
-  static const TCollection_AsciiString aWhiteSpace = " \t\r\n";
+  static const AsciiString1 aWhiteSpace = " \t\r\n";
   Standard_Integer                     aPos1 = 0, aPos2 = 0, aPos = 0;
-  TCollection_AsciiString              aLine(theLine);
+  AsciiString1              aLine(theLine);
   aLine.LeftAdjust();
   aLine.RightAdjust();
   if (!aLine.EndsWith(':')
@@ -132,10 +132,10 @@ static DE_ConfigurationContext_KindOfLine WhatKindOfLine(const TCollection_Ascii
 
 //=================================================================================================
 
-static TCollection_AsciiString MakeName(const TCollection_AsciiString& theScope,
-                                        const TCollection_AsciiString& theParam)
+static AsciiString1 MakeName(const AsciiString1& theScope,
+                                        const AsciiString1& theParam)
 {
-  TCollection_AsciiString aStr(theScope);
+  AsciiString1 aStr(theScope);
   if (!aStr.IsEmpty())
   {
     aStr += '.';
@@ -151,10 +151,10 @@ DE_ConfigurationContext::DE_ConfigurationContext() {}
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::Load(const TCollection_AsciiString& theConfiguration)
+Standard_Boolean DE_ConfigurationContext::Load(const AsciiString1& theConfiguration)
 {
-  OSD_Path aPath = theConfiguration;
-  OSD_File aFile(aPath);
+  SystemPath aPath = theConfiguration;
+  SystemFile aFile(aPath);
   if (!aFile.Exists())
   {
     if (!LoadStr(theConfiguration))
@@ -174,19 +174,19 @@ Standard_Boolean DE_ConfigurationContext::Load(const TCollection_AsciiString& th
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::LoadFile(const TCollection_AsciiString& theFile)
+Standard_Boolean DE_ConfigurationContext::LoadFile(const AsciiString1& theFile)
 {
   myResource.Clear();
-  OSD_Path                aPath(theFile);
-  OSD_File                aFile    = aPath;
-  TCollection_AsciiString FileName = aPath.Name();
+  SystemPath                aPath(theFile);
+  SystemFile                aFile    = aPath;
+  AsciiString1 FileName = aPath.Name();
   aFile.Open(OSD_ReadOnly, OSD_Protection());
   if (aFile.Failed())
   {
     Message::SendFail("Error: DE Context loading is stopped. Can't open the file");
     return Standard_True;
   }
-  TCollection_AsciiString aLine;
+  AsciiString1 aLine;
   while (GetLine(aFile, aLine))
   {
     if (!load(aLine))
@@ -200,10 +200,10 @@ Standard_Boolean DE_ConfigurationContext::LoadFile(const TCollection_AsciiString
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::LoadStr(const TCollection_AsciiString& theResource)
+Standard_Boolean DE_ConfigurationContext::LoadStr(const AsciiString1& theResource)
 {
   myResource.Clear();
-  TCollection_AsciiString aLine   = "";
+  AsciiString1 aLine   = "";
   const Standard_Integer  aLength = theResource.Length();
   for (Standard_Integer anInd = 1; anInd <= aLength; anInd++)
   {
@@ -225,18 +225,18 @@ Standard_Boolean DE_ConfigurationContext::LoadStr(const TCollection_AsciiString&
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::IsParamSet(const TCollection_AsciiString& theParam,
-                                                     const TCollection_AsciiString& theScope) const
+Standard_Boolean DE_ConfigurationContext::IsParamSet(const AsciiString1& theParam,
+                                                     const AsciiString1& theScope) const
 {
-  TCollection_AsciiString aResource(MakeName(theScope, theParam));
+  AsciiString1 aResource(MakeName(theScope, theParam));
   return myResource.IsBound(aResource);
 }
 
 //=================================================================================================
 
-Standard_Real DE_ConfigurationContext::RealVal(const TCollection_AsciiString& theParam,
+Standard_Real DE_ConfigurationContext::RealVal(const AsciiString1& theParam,
                                                const Standard_Real            theDefValue,
-                                               const TCollection_AsciiString& theScope) const
+                                               const AsciiString1& theScope) const
 {
   Standard_Real aVal = 0.;
   return GetReal(theParam, aVal, theScope) ? aVal : theDefValue;
@@ -244,9 +244,9 @@ Standard_Real DE_ConfigurationContext::RealVal(const TCollection_AsciiString& th
 
 //=================================================================================================
 
-Standard_Integer DE_ConfigurationContext::IntegerVal(const TCollection_AsciiString& theParam,
+Standard_Integer DE_ConfigurationContext::IntegerVal(const AsciiString1& theParam,
                                                      const Standard_Integer         theDefValue,
-                                                     const TCollection_AsciiString& theScope) const
+                                                     const AsciiString1& theScope) const
 {
   Standard_Integer aVal = 0;
   return GetInteger(theParam, aVal, theScope) ? aVal : theDefValue;
@@ -254,9 +254,9 @@ Standard_Integer DE_ConfigurationContext::IntegerVal(const TCollection_AsciiStri
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::BooleanVal(const TCollection_AsciiString& theParam,
+Standard_Boolean DE_ConfigurationContext::BooleanVal(const AsciiString1& theParam,
                                                      const Standard_Boolean         theDefValue,
-                                                     const TCollection_AsciiString& theScope) const
+                                                     const AsciiString1& theScope) const
 {
   Standard_Boolean aVal = Standard_False;
   return GetBoolean(theParam, aVal, theScope) ? aVal : theDefValue;
@@ -264,22 +264,22 @@ Standard_Boolean DE_ConfigurationContext::BooleanVal(const TCollection_AsciiStri
 
 //=================================================================================================
 
-TCollection_AsciiString DE_ConfigurationContext::StringVal(
-  const TCollection_AsciiString& theParam,
-  const TCollection_AsciiString& theDefValue,
-  const TCollection_AsciiString& theScope) const
+AsciiString1 DE_ConfigurationContext::StringVal(
+  const AsciiString1& theParam,
+  const AsciiString1& theDefValue,
+  const AsciiString1& theScope) const
 {
-  TCollection_AsciiString aVal = "";
+  AsciiString1 aVal = "";
   return GetString(theParam, aVal, theScope) ? aVal : theDefValue;
 }
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::GetReal(const TCollection_AsciiString& theParam,
+Standard_Boolean DE_ConfigurationContext::GetReal(const AsciiString1& theParam,
                                                   Standard_Real&                 theValue,
-                                                  const TCollection_AsciiString& theScope) const
+                                                  const AsciiString1& theScope) const
 {
-  TCollection_AsciiString aStr;
+  AsciiString1 aStr;
   if (!GetString(theParam, aStr, theScope))
   {
     return Standard_False;
@@ -294,11 +294,11 @@ Standard_Boolean DE_ConfigurationContext::GetReal(const TCollection_AsciiString&
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::GetInteger(const TCollection_AsciiString& theParam,
+Standard_Boolean DE_ConfigurationContext::GetInteger(const AsciiString1& theParam,
                                                      Standard_Integer&              theValue,
-                                                     const TCollection_AsciiString& theScope) const
+                                                     const AsciiString1& theScope) const
 {
-  TCollection_AsciiString aStr;
+  AsciiString1 aStr;
   if (!GetString(theParam, aStr, theScope))
   {
     return Standard_False;
@@ -313,11 +313,11 @@ Standard_Boolean DE_ConfigurationContext::GetInteger(const TCollection_AsciiStri
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::GetBoolean(const TCollection_AsciiString& theParam,
+Standard_Boolean DE_ConfigurationContext::GetBoolean(const AsciiString1& theParam,
                                                      Standard_Boolean&              theValue,
-                                                     const TCollection_AsciiString& theScope) const
+                                                     const AsciiString1& theScope) const
 {
-  TCollection_AsciiString aStr;
+  AsciiString1 aStr;
   if (!GetString(theParam, aStr, theScope))
   {
     return Standard_False;
@@ -332,28 +332,28 @@ Standard_Boolean DE_ConfigurationContext::GetBoolean(const TCollection_AsciiStri
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::GetString(const TCollection_AsciiString& theParam,
-                                                    TCollection_AsciiString&       theStr,
-                                                    const TCollection_AsciiString& theScope) const
+Standard_Boolean DE_ConfigurationContext::GetString(const AsciiString1& theParam,
+                                                    AsciiString1&       theStr,
+                                                    const AsciiString1& theScope) const
 {
-  TCollection_AsciiString aResource = MakeName(theScope, theParam);
+  AsciiString1 aResource = MakeName(theScope, theParam);
   return myResource.Find(aResource, theStr);
 }
 
 //=================================================================================================
 
 Standard_Boolean DE_ConfigurationContext::GetStringSeq(
-  const TCollection_AsciiString& theParam,
+  const AsciiString1& theParam,
   TColStd_ListOfAsciiString&     theValue,
-  const TCollection_AsciiString& theScope) const
+  const AsciiString1& theScope) const
 {
-  TCollection_AsciiString aStr;
+  AsciiString1 aStr;
   if (!GetString(theParam, aStr, theScope))
   {
     return Standard_False;
   }
   theValue.Clear();
-  TCollection_AsciiString anElem;
+  AsciiString1 anElem;
   const Standard_Integer  aLength = aStr.Length();
   for (Standard_Integer anInd = 1; anInd <= aLength; anInd++)
   {
@@ -372,13 +372,13 @@ Standard_Boolean DE_ConfigurationContext::GetStringSeq(
 
 //=================================================================================================
 
-Standard_Boolean DE_ConfigurationContext::load(const TCollection_AsciiString& theResourceLine)
+Standard_Boolean DE_ConfigurationContext::load(const AsciiString1& theResourceLine)
 {
   if (theResourceLine.IsEmpty())
   {
     return Standard_False;
   }
-  TCollection_AsciiString            aToken1, aToken2;
+  AsciiString1            aToken1, aToken2;
   DE_ConfigurationContext_KindOfLine aKind = WhatKindOfLine(theResourceLine, aToken1, aToken2);
   switch (aKind)
   {

@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-GeomLib_CheckBSplineCurve::GeomLib_CheckBSplineCurve(const Handle(Geom_BSplineCurve)& Curve,
+GeomLib_CheckBSplineCurve::GeomLib_CheckBSplineCurve(const Handle(BSplineCurve3d)& Curve,
                                                      const Standard_Real              Tolerance,
                                                      const Standard_Real AngularTolerance)
     : myCurve(Curve),
@@ -122,13 +122,13 @@ void GeomLib_CheckBSplineCurve::NeedTangentFix(Standard_Boolean& FirstFlag,
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) GeomLib_CheckBSplineCurve::FixedTangent(const Standard_Boolean FirstFlag,
+Handle(BSplineCurve3d) GeomLib_CheckBSplineCurve::FixedTangent(const Standard_Boolean FirstFlag,
                                                                   const Standard_Boolean LastFlag)
 {
-  Handle(Geom_BSplineCurve) new_curve;
+  Handle(BSplineCurve3d) new_curve;
   if ((myFixFirstTangent && FirstFlag) || (myFixLastTangent && LastFlag))
   {
-    new_curve = Handle(Geom_BSplineCurve)::DownCast(myCurve->Copy());
+    new_curve = Handle(BSplineCurve3d)::DownCast(myCurve->Copy());
 
     FixTangentOnCurve(new_curve, FirstFlag, LastFlag);
   }
@@ -145,7 +145,7 @@ void GeomLib_CheckBSplineCurve::FixTangent(const Standard_Boolean FirstFlag,
 
 //=================================================================================================
 
-void GeomLib_CheckBSplineCurve::FixTangentOnCurve(Handle(Geom_BSplineCurve)& theCurve,
+void GeomLib_CheckBSplineCurve::FixTangentOnCurve(Handle(BSplineCurve3d)& theCurve,
                                                   const Standard_Boolean     FirstFlag,
                                                   const Standard_Boolean     LastFlag)
 {

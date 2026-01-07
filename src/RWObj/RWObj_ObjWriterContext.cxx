@@ -19,8 +19,8 @@
 
 //=================================================================================================
 
-static void splitLines(const TCollection_AsciiString&                   theString,
-                       NCollection_IndexedMap<TCollection_AsciiString>& theLines)
+static void splitLines(const AsciiString1&                   theString,
+                       NCollection_IndexedMap<AsciiString1>& theLines)
 {
   if (theString.IsEmpty())
   {
@@ -38,7 +38,7 @@ static void splitLines(const TCollection_AsciiString&                   theStrin
 
     if (aLineFrom != aCharIter)
     {
-      TCollection_AsciiString aLine = theString.SubString(aLineFrom, aCharIter);
+      AsciiString1 aLine = theString.SubString(aLineFrom, aCharIter);
       aLine.RightAdjust();
       theLines.Add(aLine);
     }
@@ -58,7 +58,7 @@ static void splitLines(const TCollection_AsciiString&                   theStrin
 
 //=================================================================================================
 
-RWObj_ObjWriterContext::RWObj_ObjWriterContext(const TCollection_AsciiString& theName)
+RWObj_ObjWriterContext::RWObj_ObjWriterContext(const AsciiString1& theName)
     : NbFaces(0),
       myFile(OSD_OpenFile(theName.ToCString(), "wb")),
       myName(theName),
@@ -70,7 +70,7 @@ RWObj_ObjWriterContext::RWObj_ObjWriterContext(const TCollection_AsciiString& th
 {
   if (myFile == NULL)
   {
-    Message::SendFail(TCollection_AsciiString("File cannot be created\n") + theName);
+    Message::SendFail(AsciiString1("File cannot be created\n") + theName);
     return;
   }
 }
@@ -82,7 +82,7 @@ RWObj_ObjWriterContext::~RWObj_ObjWriterContext()
   if (myFile != NULL)
   {
     ::fclose(myFile);
-    Message::SendFail(TCollection_AsciiString("File cannot be written\n") + myName);
+    Message::SendFail(AsciiString1("File cannot be written\n") + myName);
   }
 }
 
@@ -99,7 +99,7 @@ bool RWObj_ObjWriterContext::Close()
 
 bool RWObj_ObjWriterContext::WriteHeader(const Standard_Integer                      theNbNodes,
                                          const Standard_Integer                      theNbElems,
-                                         const TCollection_AsciiString&              theMatLib,
+                                         const AsciiString1&              theMatLib,
                                          const TColStd_IndexedDataMapOfStringString& theFileInfo)
 {
   bool isOk = ::Fprintf(myFile,
@@ -113,18 +113,18 @@ bool RWObj_ObjWriterContext::WriteHeader(const Standard_Integer                 
        aKeyValueIter.More();
        aKeyValueIter.Next())
   {
-    NCollection_IndexedMap<TCollection_AsciiString> aKeyLines, aValLines;
+    NCollection_IndexedMap<AsciiString1> aKeyLines, aValLines;
     splitLines(aKeyValueIter.Key(), aKeyLines);
     splitLines(aKeyValueIter.Value(), aValLines);
     for (Standard_Integer aLineIter = 1; aLineIter <= aKeyLines.Extent(); ++aLineIter)
     {
-      const TCollection_AsciiString& aLine = aKeyLines.FindKey(aLineIter);
+      const AsciiString1& aLine = aKeyLines.FindKey(aLineIter);
       isOk = isOk && ::Fprintf(myFile, aLineIter > 1 ? "\n# %s" : "# %s", aLine.ToCString()) != 0;
     }
     isOk = isOk && ::Fprintf(myFile, !aKeyLines.IsEmpty() ? ":" : "# ") != 0;
     for (Standard_Integer aLineIter = 1; aLineIter <= aValLines.Extent(); ++aLineIter)
     {
-      const TCollection_AsciiString& aLine = aValLines.FindKey(aLineIter);
+      const AsciiString1& aLine = aValLines.FindKey(aLineIter);
       isOk = isOk && ::Fprintf(myFile, aLineIter > 1 ? "\n# %s" : " %s", aLine.ToCString()) != 0;
     }
     isOk = isOk && ::Fprintf(myFile, "\n") != 0;
@@ -139,7 +139,7 @@ bool RWObj_ObjWriterContext::WriteHeader(const Standard_Integer                 
 
 //=================================================================================================
 
-bool RWObj_ObjWriterContext::WriteActiveMaterial(const TCollection_AsciiString& theMaterial)
+bool RWObj_ObjWriterContext::WriteActiveMaterial(const AsciiString1& theMaterial)
 {
   myActiveMaterial = theMaterial;
   return !theMaterial.IsEmpty() ? Fprintf(myFile, "usemtl %s\n", theMaterial.ToCString()) != 0
@@ -288,7 +288,7 @@ bool RWObj_ObjWriterContext::WriteTexCoord(const Graphic3d_Vec2& theValue)
 
 //=================================================================================================
 
-bool RWObj_ObjWriterContext::WriteGroup(const TCollection_AsciiString& theValue)
+bool RWObj_ObjWriterContext::WriteGroup(const AsciiString1& theValue)
 {
   return !theValue.IsEmpty() ? Fprintf(myFile, "g %s\n", theValue.ToCString()) != 0
                              : Fprintf(myFile, "g\n") != 0;

@@ -18,7 +18,7 @@ Vrml_Transform::Vrml_Transform()
   Vector3d tmpV(0, 0, 0);
   myTranslation = tmpV;
 
-  Vrml_SFRotation tmpSFR(0, 0, 1, 0);
+  SFRotation tmpSFR(0, 0, 1, 0);
   myRotation = tmpSFR;
 
   tmpV.SetX(1);
@@ -39,9 +39,9 @@ Vrml_Transform::Vrml_Transform()
 }
 
 Vrml_Transform::Vrml_Transform(const Vector3d&          aTranslation,
-                               const Vrml_SFRotation& aRotation,
+                               const SFRotation& aRotation,
                                const Vector3d&          aScaleFactor,
-                               const Vrml_SFRotation& aScaleOrientation,
+                               const SFRotation& aScaleOrientation,
                                const Vector3d&          aCenter)
 {
   myTranslation      = aTranslation;
@@ -61,12 +61,12 @@ Vector3d Vrml_Transform::Translation() const
   return myTranslation;
 }
 
-void Vrml_Transform::SetRotation(const Vrml_SFRotation& aRotation)
+void Vrml_Transform::SetRotation(const SFRotation& aRotation)
 {
   myRotation = aRotation;
 }
 
-Vrml_SFRotation Vrml_Transform::Rotation() const
+SFRotation Vrml_Transform::Rotation() const
 {
   return myRotation;
 }
@@ -81,12 +81,12 @@ Vector3d Vrml_Transform::ScaleFactor() const
   return myScaleFactor;
 }
 
-void Vrml_Transform::SetScaleOrientation(const Vrml_SFRotation& aScaleOrientation)
+void Vrml_Transform::SetScaleOrientation(const SFRotation& aScaleOrientation)
 {
   myScaleOrientation = aScaleOrientation;
 }
 
-Vrml_SFRotation Vrml_Transform::ScaleOrientation() const
+SFRotation Vrml_Transform::ScaleOrientation() const
 {
   return myScaleOrientation;
 }

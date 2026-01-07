@@ -58,25 +58,25 @@ ShapeAnalysis_Edge::ShapeAnalysis_Edge()
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::BoundUV(const TopoDS_Edge& edge,
-                                             const TopoDS_Face& face,
+Standard_Boolean ShapeAnalysis_Edge::BoundUV(const TopoEdge& edge,
+                                             const TopoFace& face,
                                              gp_Pnt2d&          first,
                                              gp_Pnt2d&          last) const
 {
   TopLoc_Location            L;
-  const Handle(Geom_Surface) S = BRep_Tool::Surface(face, L);
+  const Handle(GeomSurface) S = BRepInspector::Surface(face, L);
   return BoundUV(edge, S, L, first, last);
 }
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::BoundUV(const TopoDS_Edge&          edge,
-                                             const Handle(Geom_Surface)& surface,
+Standard_Boolean ShapeAnalysis_Edge::BoundUV(const TopoEdge&          edge,
+                                             const Handle(GeomSurface)& surface,
                                              const TopLoc_Location&      location,
                                              gp_Pnt2d&                   first,
                                              gp_Pnt2d&                   last) const
 {
-  Handle(Geom2d_Curve) c2d;
+  Handle(GeomCurve2d) c2d;
   Standard_Real        uf, ul;
   if (!PCurve(edge, surface, location, c2d, uf, ul))
     return Standard_False;
@@ -87,26 +87,26 @@ Standard_Boolean ShapeAnalysis_Edge::BoundUV(const TopoDS_Edge&          edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::HasCurve3d(const TopoDS_Edge& edge) const
+Standard_Boolean ShapeAnalysis_Edge::HasCurve3d(const TopoEdge& edge) const
 {
   Standard_Real      cf, cl;
-  Handle(Geom_Curve) c3d = BRep_Tool::Curve(edge, cf, cl);
+  Handle(GeomCurve3d) c3d = BRepInspector::Curve(edge, cf, cl);
   return !c3d.IsNull();
 }
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::Curve3d(const TopoDS_Edge&     edge,
-                                             Handle(Geom_Curve)&    C3d,
+Standard_Boolean ShapeAnalysis_Edge::Curve3d(const TopoEdge&     edge,
+                                             Handle(GeomCurve3d)&    C3d,
                                              Standard_Real&         cf,
                                              Standard_Real&         cl,
                                              const Standard_Boolean orient) const
 {
   TopLoc_Location L;
-  C3d = BRep_Tool::Curve(edge, L, cf, cl);
+  C3d = BRepInspector::Curve(edge, L, cf, cl);
   if (!C3d.IsNull() && !L.IsIdentity())
   {
-    C3d = Handle(Geom_Curve)::DownCast(C3d->Transformed(L.Transformation()));
+    C3d = Handle(GeomCurve3d)::DownCast(C3d->Transformed(L.Transformation()));
     cf  = C3d->TransformedParameter(cf, L.Transformation());
     cl  = C3d->TransformedParameter(cl, L.Transformation());
   }
@@ -124,10 +124,10 @@ Standard_Boolean ShapeAnalysis_Edge::Curve3d(const TopoDS_Edge&     edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::IsClosed3d(const TopoDS_Edge& edge) const
+Standard_Boolean ShapeAnalysis_Edge::IsClosed3d(const TopoEdge& edge) const
 {
   Standard_Real      cf, cl;
-  Handle(Geom_Curve) c3d = BRep_Tool::Curve(edge, cf, cl);
+  Handle(GeomCurve3d) c3d = BRepInspector::Curve(edge, cf, cl);
   if (c3d.IsNull())
     return Standard_False;
   if (!c3d->IsClosed())
@@ -137,23 +137,23 @@ Standard_Boolean ShapeAnalysis_Edge::IsClosed3d(const TopoDS_Edge& edge) const
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::HasPCurve(const TopoDS_Edge& edge,
-                                               const TopoDS_Face& face) const
+Standard_Boolean ShapeAnalysis_Edge::HasPCurve(const TopoEdge& edge,
+                                               const TopoFace& face) const
 {
   TopLoc_Location             L;
-  const Handle(Geom_Surface)& S = BRep_Tool::Surface(face, L);
+  const Handle(GeomSurface)& S = BRepInspector::Surface(face, L);
   return HasPCurve(edge, S, L);
 }
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::HasPCurve(const TopoDS_Edge&          edge,
-                                               const Handle(Geom_Surface)& surface,
+Standard_Boolean ShapeAnalysis_Edge::HasPCurve(const TopoEdge&          edge,
+                                               const Handle(GeomSurface)& surface,
                                                const TopLoc_Location&      location) const
 {
   // try { //szv#4:S4163:12Mar99 waste try
   Standard_Real        cf, cl;
-  Handle(Geom2d_Curve) c2d = BRep_Tool::CurveOnSurface(edge, surface, location, cf, cl);
+  Handle(GeomCurve2d) c2d = BRepInspector::CurveOnSurface(edge, surface, location, cf, cl);
   return !c2d.IsNull();
   /* }
   catch (ExceptionBase) {
@@ -163,36 +163,36 @@ Standard_Boolean ShapeAnalysis_Edge::HasPCurve(const TopoDS_Edge&          edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::PCurve(const TopoDS_Edge&     edge,
-                                            const TopoDS_Face&     face,
-                                            Handle(Geom2d_Curve)&  C2d,
+Standard_Boolean ShapeAnalysis_Edge::PCurve(const TopoEdge&     edge,
+                                            const TopoFace&     face,
+                                            Handle(GeomCurve2d)&  C2d,
                                             Standard_Real&         cf,
                                             Standard_Real&         cl,
                                             const Standard_Boolean orient) const
 {
   //: abv 20.05.02: take into account face orientation
   // COMMENTED BACK - NEEDS MORE CHANGES IN ALL SHAPEHEALING
-  //   C2d = BRep_Tool::CurveOnSurface (edge, face, cf, cl);
+  //   C2d = BRepInspector::CurveOnSurface (edge, face, cf, cl);
   //   if (orient && edge.Orientation() == TopAbs_REVERSED) {
   //     Standard_Real tmp = cf; cf = cl; cl = tmp;
   //   }
   //   return !C2d.IsNull();
   TopLoc_Location             L;
-  const Handle(Geom_Surface)& S = BRep_Tool::Surface(face, L);
+  const Handle(GeomSurface)& S = BRepInspector::Surface(face, L);
   return PCurve(edge, S, L, C2d, cf, cl, orient);
 }
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::PCurve(const TopoDS_Edge&          edge,
-                                            const Handle(Geom_Surface)& surface,
+Standard_Boolean ShapeAnalysis_Edge::PCurve(const TopoEdge&          edge,
+                                            const Handle(GeomSurface)& surface,
                                             const TopLoc_Location&      location,
-                                            Handle(Geom2d_Curve)&       C2d,
+                                            Handle(GeomCurve2d)&       C2d,
                                             Standard_Real&              cf,
                                             Standard_Real&              cl,
                                             const Standard_Boolean      orient) const
 {
-  C2d = BRep_Tool::CurveOnSurface(edge, surface, location, cf, cl);
+  C2d = BRepInspector::CurveOnSurface(edge, surface, location, cf, cl);
   if (orient && edge.Orientation() == TopAbs_REVERSED)
   {
     Standard_Real tmp = cf;
@@ -204,50 +204,50 @@ Standard_Boolean ShapeAnalysis_Edge::PCurve(const TopoDS_Edge&          edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::IsSeam(const TopoDS_Edge& edge, const TopoDS_Face& face) const
+Standard_Boolean ShapeAnalysis_Edge::IsSeam(const TopoEdge& edge, const TopoFace& face) const
 {
-  return BRep_Tool::IsClosed(edge, face);
+  return BRepInspector::IsClosed(edge, face);
 }
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::IsSeam(const TopoDS_Edge&          edge,
-                                            const Handle(Geom_Surface)& surface,
+Standard_Boolean ShapeAnalysis_Edge::IsSeam(const TopoEdge&          edge,
+                                            const Handle(GeomSurface)& surface,
                                             const TopLoc_Location&      location) const
 {
-  return BRep_Tool::IsClosed(edge, surface, location);
+  return BRepInspector::IsClosed(edge, surface, location);
 }
 
 //=================================================================================================
 
-TopoDS_Vertex ShapeAnalysis_Edge::FirstVertex(const TopoDS_Edge& edge) const
+TopoVertex ShapeAnalysis_Edge::FirstVertex(const TopoEdge& edge) const
 {
-  TopoDS_Vertex V;
+  TopoVertex V;
   if (edge.Orientation() == TopAbs_REVERSED)
   {
-    V = TopExp::LastVertex(edge);
+    V = TopExp1::LastVertex(edge);
     V.Reverse();
   }
   else
   {
-    V = TopExp::FirstVertex(edge);
+    V = TopExp1::FirstVertex(edge);
   }
   return V;
 }
 
 //=================================================================================================
 
-TopoDS_Vertex ShapeAnalysis_Edge::LastVertex(const TopoDS_Edge& edge) const
+TopoVertex ShapeAnalysis_Edge::LastVertex(const TopoEdge& edge) const
 {
-  TopoDS_Vertex V;
+  TopoVertex V;
   if (edge.Orientation() == TopAbs_REVERSED)
   {
-    V = TopExp::FirstVertex(edge);
+    V = TopExp1::FirstVertex(edge);
     V.Reverse();
   }
   else
   {
-    V = TopExp::LastVertex(edge);
+    V = TopExp1::LastVertex(edge);
   }
   return V;
 }
@@ -262,23 +262,23 @@ Standard_Boolean ShapeAnalysis_Edge::Status(const ShapeExtend_Status Status) con
 //=================================================================================================
 
 Standard_Boolean ShapeAnalysis_Edge::GetEndTangent2d(
-  const TopoDS_Edge&     edge,
-  const TopoDS_Face&     face,
+  const TopoEdge&     edge,
+  const TopoFace&     face,
   const Standard_Boolean atend1, /* skl : change "atend" to "atend1" */
   gp_Pnt2d&              pnt,
   gp_Vec2d&              v,
   const Standard_Real    dparam) const
 {
   TopLoc_Location            L;
-  const Handle(Geom_Surface) S = BRep_Tool::Surface(face, L);
+  const Handle(GeomSurface) S = BRepInspector::Surface(face, L);
   return GetEndTangent2d(edge, S, L, atend1, pnt, v, dparam);
 }
 
 //=================================================================================================
 
 Standard_Boolean ShapeAnalysis_Edge::GetEndTangent2d(
-  const TopoDS_Edge&          edge,
-  const Handle(Geom_Surface)& S,
+  const TopoEdge&          edge,
+  const Handle(GeomSurface)& S,
   const TopLoc_Location&      L,
   const Standard_Boolean      atend2, /* skl : change "atend" to "atend2" */
   gp_Pnt2d&                   pnt,
@@ -286,7 +286,7 @@ Standard_Boolean ShapeAnalysis_Edge::GetEndTangent2d(
   const Standard_Real         dparam) const
 {
   Standard_Real        cf, cl;
-  Handle(Geom2d_Curve) c2d;
+  Handle(GeomCurve2d) c2d;
   if (!PCurve(edge, S, L, c2d, cf, cl))
   {
     v = gp_Vec2d(0, 0);
@@ -360,26 +360,26 @@ Standard_Boolean ShapeAnalysis_Edge::GetEndTangent2d(
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckCurve3dWithPCurve(const TopoDS_Edge& edge,
-                                                            const TopoDS_Face& face)
+Standard_Boolean ShapeAnalysis_Edge::CheckCurve3dWithPCurve(const TopoEdge& edge,
+                                                            const TopoFace& face)
 {
   TopLoc_Location             L;
-  const Handle(Geom_Surface)& S = BRep_Tool::Surface(face, L);
+  const Handle(GeomSurface)& S = BRepInspector::Surface(face, L);
   return CheckCurve3dWithPCurve(edge, S, L);
 }
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckCurve3dWithPCurve(const TopoDS_Edge&          edge,
-                                                            const Handle(Geom_Surface)& surface,
+Standard_Boolean ShapeAnalysis_Edge::CheckCurve3dWithPCurve(const TopoEdge&          edge,
+                                                            const Handle(GeomSurface)& surface,
                                                             const TopLoc_Location&      location)
 {
   myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
 
-  if (surface->IsKind(STANDARD_TYPE(Geom_Plane)))
+  if (surface->IsKind(STANDARD_TYPE(GeomPlane)))
     return Standard_False;
 
-  Handle(Geom2d_Curve) c2d;
+  Handle(GeomCurve2d) c2d;
   Standard_Real        f2d, l2d; // szv#4:S4163:12Mar99 moved down f3d, l3d
   if (!PCurve(edge, surface, location, c2d, f2d, l2d, Standard_False))
   {
@@ -387,7 +387,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckCurve3dWithPCurve(const TopoDS_Edge&  
     return Standard_False;
   }
 
-  Handle(Geom_Curve) c3d;      // szv#4:S4163:12Mar99 moved
+  Handle(GeomCurve3d) c3d;      // szv#4:S4163:12Mar99 moved
   Standard_Real      f3d, l3d; // szv#4:S4163:12Mar99 moved
   if (!Curve3d(edge, c3d, f3d, l3d, Standard_False))
   {
@@ -395,13 +395,13 @@ Standard_Boolean ShapeAnalysis_Edge::CheckCurve3dWithPCurve(const TopoDS_Edge&  
     return Standard_False;
   }
 
-  TopoDS_Vertex aFirstVert = FirstVertex(edge);
-  TopoDS_Vertex aLastVert  = LastVertex(edge);
+  TopoVertex aFirstVert = FirstVertex(edge);
+  TopoVertex aLastVert  = LastVertex(edge);
 
   if (aFirstVert.IsNull() || aLastVert.IsNull())
     return Standard_False;
 
-  Standard_Real preci1 = BRep_Tool::Tolerance(aFirstVert), preci2 = BRep_Tool::Tolerance(aLastVert);
+  Standard_Real preci1 = BRepInspector::Tolerance(aFirstVert), preci2 = BRepInspector::Tolerance(aLastVert);
 
   gp_Pnt2d p2d1 = c2d->Value(f2d), p2d2 = c2d->Value(l2d);
 
@@ -433,19 +433,19 @@ Standard_Boolean ShapeAnalysis_Edge::CheckPoints(const Point3d&       P1A,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithCurve3d(const TopoDS_Edge&     edge,
+Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithCurve3d(const TopoEdge&     edge,
                                                               const Standard_Real    preci,
                                                               const Standard_Integer vtx)
 {
   myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
 
-  TopoDS_Vertex V1  = FirstVertex(edge);
-  TopoDS_Vertex V2  = LastVertex(edge);
-  Point3d        p1v = BRep_Tool::Pnt(V1);
-  Point3d        p2v = BRep_Tool::Pnt(V2);
+  TopoVertex V1  = FirstVertex(edge);
+  TopoVertex V2  = LastVertex(edge);
+  Point3d        p1v = BRepInspector::Pnt(V1);
+  Point3d        p2v = BRepInspector::Pnt(V2);
 
   Standard_Real      cf, cl;
-  Handle(Geom_Curve) c3d;
+  Handle(GeomCurve3d) c3d;
   if (!Curve3d(edge, c3d, cf, cl))
   {
     myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
@@ -458,7 +458,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithCurve3d(const TopoDS_Edge&
     //  1er VTX
     Point3d p13d = c3d->Value(cf);
     // szv#4:S4163:12Mar99 optimized
-    if (p1v.Distance(p13d) > (preci < 0 ? BRep_Tool::Tolerance(V1) : preci))
+    if (p1v.Distance(p13d) > (preci < 0 ? BRepInspector::Tolerance(V1) : preci))
       myStatus |= ShapeExtend_DONE1;
   }
 
@@ -467,7 +467,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithCurve3d(const TopoDS_Edge&
     //  2me VTX
     Point3d p23d = c3d->Value(cl);
     // szv#4:S4163:12Mar99 optimized
-    if (p2v.Distance(p23d) > (preci < 0 ? BRep_Tool::Tolerance(V2) : preci))
+    if (p2v.Distance(p23d) > (preci < 0 ? BRepInspector::Tolerance(V2) : preci))
       myStatus |= ShapeExtend_DONE2;
   }
 
@@ -476,13 +476,13 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithCurve3d(const TopoDS_Edge&
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithPCurve(const TopoDS_Edge&     edge,
-                                                             const TopoDS_Face&     face,
+Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithPCurve(const TopoEdge&     edge,
+                                                             const TopoFace&     face,
                                                              const Standard_Real    preci,
                                                              const Standard_Integer vtx)
 {
   TopLoc_Location             L;
-  const Handle(Geom_Surface)& S = BRep_Tool::Surface(face, L);
+  const Handle(GeomSurface)& S = BRepInspector::Surface(face, L);
   // clang-format off
   return CheckVerticesWithPCurve (edge, S, L, preci, vtx); //szv#4:S4163:12Mar99 `vtx,preci` wrong parameters order
   // clang-format on
@@ -490,21 +490,21 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithPCurve(const TopoDS_Edge& 
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithPCurve(const TopoDS_Edge&          edge,
-                                                             const Handle(Geom_Surface)& surf,
+Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithPCurve(const TopoEdge&          edge,
+                                                             const Handle(GeomSurface)& surf,
                                                              const TopLoc_Location&      loc,
                                                              const Standard_Real         preci,
                                                              const Standard_Integer      vtx)
 {
   myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
 
-  TopoDS_Vertex V1  = FirstVertex(edge);
-  TopoDS_Vertex V2  = LastVertex(edge);
-  Point3d        p1v = BRep_Tool::Pnt(V1);
-  Point3d        p2v = BRep_Tool::Pnt(V2);
+  TopoVertex V1  = FirstVertex(edge);
+  TopoVertex V2  = LastVertex(edge);
+  Point3d        p1v = BRepInspector::Pnt(V1);
+  Point3d        p2v = BRepInspector::Pnt(V2);
 
   Standard_Real        cf, cl;
-  Handle(Geom2d_Curve) c2d;
+  Handle(GeomCurve2d) c2d;
   if (!PCurve(edge, surf, loc, c2d, cf, cl))
   {
     myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
@@ -519,7 +519,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithPCurve(const TopoDS_Edge& 
     if (!loc.IsIdentity())
       p12d.Transform(loc.Transformation());
     // szv#4:S4163:12Mar99 optimized
-    if (p1v.Distance(p12d) > (preci < 0 ? BRep_Tool::Tolerance(V1) : preci))
+    if (p1v.Distance(p12d) > (preci < 0 ? BRepInspector::Tolerance(V1) : preci))
       myStatus |= ShapeExtend_DONE1;
   }
 
@@ -530,7 +530,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithPCurve(const TopoDS_Edge& 
     if (!loc.IsIdentity())
       p22d.Transform(loc.Transformation());
     // szv#4:S4163:12Mar99 optimized
-    if (p2v.Distance(p22d) > (preci < 0 ? BRep_Tool::Tolerance(V2) : preci))
+    if (p2v.Distance(p22d) > (preci < 0 ? BRepInspector::Tolerance(V2) : preci))
       myStatus |= ShapeExtend_DONE2;
   }
 
@@ -539,8 +539,8 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVerticesWithPCurve(const TopoDS_Edge& 
 
 //=================================================================================================
 
-static Standard_Integer CheckVertexTolerance(const TopoDS_Edge&     edge,
-                                             const TopoDS_Face&     face,
+static Standard_Integer CheckVertexTolerance(const TopoEdge&     edge,
+                                             const TopoFace&     face,
                                              const Standard_Boolean checkAll,
                                              Standard_Real&         toler1,
                                              Standard_Real&         toler2)
@@ -548,24 +548,24 @@ static Standard_Integer CheckVertexTolerance(const TopoDS_Edge&     edge,
   Standard_Integer Status = ShapeExtend::EncodeStatus(ShapeExtend_OK);
 
   ShapeAnalysis_Edge sae;
-  TopoDS_Vertex      V1 = sae.FirstVertex(edge);
-  TopoDS_Vertex      V2 = sae.LastVertex(edge);
+  TopoVertex      V1 = sae.FirstVertex(edge);
+  TopoVertex      V2 = sae.LastVertex(edge);
   if (V1.IsNull() || V2.IsNull())
   { //: p1 abv 22 Feb 99: r76sy.stp
     Status |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
     return Status;
   }
 
-  Standard_Real old1 = BRep_Tool::Tolerance(V1);
-  Standard_Real old2 = BRep_Tool::Tolerance(V2);
-  Point3d        pnt1 = BRep_Tool::Pnt(V1);
-  Point3d        pnt2 = BRep_Tool::Pnt(V2);
+  Standard_Real old1 = BRepInspector::Tolerance(V1);
+  Standard_Real old2 = BRepInspector::Tolerance(V2);
+  Point3d        pnt1 = BRepInspector::Pnt(V1);
+  Point3d        pnt2 = BRepInspector::Pnt(V2);
 
   Standard_Real      a, b;
-  Handle(Geom_Curve) c3d;
+  Handle(GeomCurve3d) c3d;
   if (!sae.Curve3d(edge, c3d, a, b, Standard_True))
   {
-    if (!BRep_Tool::Degenerated(edge))
+    if (!BRepInspector::Degenerated(edge))
       Status |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
     toler1 = toler2 = 0.;
     //    return Standard_False;
@@ -584,8 +584,8 @@ static Standard_Integer CheckVertexTolerance(const TopoDS_Edge&     edge,
       Handle(BRep_GCurve) GC = Handle(BRep_GCurve)::DownCast(itcr.Value());
       if (GC.IsNull() || !GC->IsCurveOnSurface())
         continue;
-      Handle(Geom2d_Curve) pcurve;
-      Handle(Geom_Surface) S = GC->Surface();
+      Handle(GeomCurve2d) pcurve;
+      Handle(GeomSurface) S = GC->Surface();
       TopLoc_Location      L = edge.Location() * GC->Location();
       sae.PCurve(edge, S, L, pcurve, a, b, Standard_True);
       gp_Pnt2d p1 = pcurve->Value(a);
@@ -600,9 +600,9 @@ static Standard_Integer CheckVertexTolerance(const TopoDS_Edge&     edge,
   // Check with given face is needed for plane surfaces (if no stored pcurves)
   else if (!face.IsNull())
   {
-    Handle(Geom2d_Curve)        pcurve;
+    Handle(GeomCurve2d)        pcurve;
     TopLoc_Location             L;
-    const Handle(Geom_Surface)& S = BRep_Tool::Surface(face, L);
+    const Handle(GeomSurface)& S = BRepInspector::Surface(face, L);
     if (sae.PCurve(edge, S, L, pcurve, a, b, Standard_True))
     {
       gp_Pnt2d p1 = pcurve->Value(a);
@@ -618,7 +618,7 @@ static Standard_Integer CheckVertexTolerance(const TopoDS_Edge&     edge,
 
   //: o8 abv 19 Feb 99: CTS18541.stp #18559: coeff 1.0001 added
   // szv 18 Aug 99: edge tolerance is taken in consideration
-  Standard_Real tole = BRep_Tool::Tolerance(edge);
+  Standard_Real tole = BRepInspector::Tolerance(edge);
   toler1             = Max(1.0000001 * Sqrt(toler1), tole);
   toler2             = Max(1.0000001 * Sqrt(toler2), tole);
   if (toler1 > old1)
@@ -631,8 +631,8 @@ static Standard_Integer CheckVertexTolerance(const TopoDS_Edge&     edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckVertexTolerance(const TopoDS_Edge& edge,
-                                                          const TopoDS_Face& face,
+Standard_Boolean ShapeAnalysis_Edge::CheckVertexTolerance(const TopoEdge& edge,
+                                                          const TopoFace& face,
                                                           Standard_Real&     toler1,
                                                           Standard_Real&     toler2)
 {
@@ -642,34 +642,34 @@ Standard_Boolean ShapeAnalysis_Edge::CheckVertexTolerance(const TopoDS_Edge& edg
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckVertexTolerance(const TopoDS_Edge& edge,
+Standard_Boolean ShapeAnalysis_Edge::CheckVertexTolerance(const TopoEdge& edge,
                                                           Standard_Real&     toler1,
                                                           Standard_Real&     toler2)
 {
-  TopoDS_Face F;
+  TopoFace F;
   myStatus = ::CheckVertexTolerance(edge, F, Standard_True, toler1, toler2);
   return Status(ShapeExtend_DONE);
 }
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckSameParameter(const TopoDS_Edge&     edge,
+Standard_Boolean ShapeAnalysis_Edge::CheckSameParameter(const TopoEdge&     edge,
                                                         Standard_Real&         maxdev,
                                                         const Standard_Integer NbControl)
 {
-  TopoDS_Face anEmptyFace;
+  TopoFace anEmptyFace;
   return CheckSameParameter(edge, anEmptyFace, maxdev, NbControl);
 }
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckSameParameter(const TopoDS_Edge&     edge,
-                                                        const TopoDS_Face&     face,
+Standard_Boolean ShapeAnalysis_Edge::CheckSameParameter(const TopoEdge&     edge,
+                                                        const TopoFace&     face,
                                                         Standard_Real&         maxdev,
                                                         const Standard_Integer NbControl)
 {
   myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
-  if (BRep_Tool::Degenerated(edge))
+  if (BRepInspector::Degenerated(edge))
     return Standard_False;
 
   maxdev = 0;
@@ -681,7 +681,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckSameParameter(const TopoDS_Edge&     e
   // Get 3D curve of the edge
   Standard_Real      aFirst, aLast;
   TopLoc_Location    aCurveLoc;
-  Handle(Geom_Curve) aC3D = BRep_Tool::Curve(edge, aCurveLoc, aFirst, aLast);
+  Handle(GeomCurve3d) aC3D = BRepInspector::Curve(edge, aCurveLoc, aFirst, aLast);
   if (aC3D.IsNull())
   {
     myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL1);
@@ -691,7 +691,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckSameParameter(const TopoDS_Edge&     e
   if (!aCurveLoc.IsIdentity())
   {
     const Transform3d& aTrsf = aCurveLoc.Transformation();
-    aC3D                 = Handle(Geom_Curve)::DownCast(aC3D->Transformed(aTrsf));
+    aC3D                 = Handle(GeomCurve3d)::DownCast(aC3D->Transformed(aTrsf));
     aFirst               = aC3D->TransformedParameter(aFirst, aTrsf);
     aLast                = aC3D->TransformedParameter(aLast, aTrsf);
   }
@@ -699,10 +699,10 @@ Standard_Boolean ShapeAnalysis_Edge::CheckSameParameter(const TopoDS_Edge&     e
   // Create adaptor for the curve
   Handle(GeomAdaptor_Curve) aGAC = new GeomAdaptor_Curve(aC3D, aFirst, aLast);
 
-  Handle(Geom_Surface) aFaceSurf;
+  Handle(GeomSurface) aFaceSurf;
   TopLoc_Location      aFaceLoc;
   if (!face.IsNull())
-    aFaceSurf = BRep_Tool::Surface(face, aFaceLoc);
+    aFaceSurf = BRepInspector::Surface(face, aFaceLoc);
 
   Standard_Boolean IsPCurveFound = Standard_False;
   Standard_Integer i             = 1;
@@ -710,12 +710,12 @@ Standard_Boolean ShapeAnalysis_Edge::CheckSameParameter(const TopoDS_Edge&     e
   // Iterate on all curve representations
   for (;;)
   {
-    Handle(Geom2d_Curve) aPC;
-    Handle(Geom_Surface) aS;
+    Handle(GeomCurve2d) aPC;
+    Handle(GeomSurface) aS;
     TopLoc_Location      aLoc;
     Standard_Real        f, l;
 
-    BRep_Tool::CurveOnSurface(edge, aPC, aS, aLoc, f, l, i);
+    BRepInspector::CurveOnSurface(edge, aPC, aS, aLoc, f, l, i);
 
     if (aPC.IsNull())
       // No more curves
@@ -735,8 +735,8 @@ Standard_Boolean ShapeAnalysis_Edge::CheckSameParameter(const TopoDS_Edge&     e
     IsPCurveFound = Standard_True;
 
     // Apply transformations for the surface
-    Handle(Geom_Surface) aST =
-      Handle(Geom_Surface)::DownCast(aS->Transformed(aLoc.Transformation()));
+    Handle(GeomSurface) aST =
+      Handle(GeomSurface)::DownCast(aS->Transformed(aLoc.Transformation()));
 
     // Compute deviation between curves
     Handle(Geom2dAdaptor_Curve) GHPC = new Geom2dAdaptor_Curve(aPC, f, l);
@@ -759,13 +759,13 @@ Standard_Boolean ShapeAnalysis_Edge::CheckSameParameter(const TopoDS_Edge&     e
   if (!IsPCurveFound && !aFaceSurf.IsNull())
   {
     Standard_Real        f, l;
-    Handle(Geom2d_Curve) aPC = BRep_Tool::CurveOnPlane(edge, aFaceSurf, aFaceLoc, f, l);
+    Handle(GeomCurve2d) aPC = BRepInspector::CurveOnPlane(edge, aFaceSurf, aFaceLoc, f, l);
     if (!aPC.IsNull())
     {
       Handle(Geom2dAdaptor_Curve) GHPC = new Geom2dAdaptor_Curve(aPC, aFirst, aLast);
 
-      Handle(Geom_Surface) aST =
-        Handle(Geom_Surface)::DownCast(aFaceSurf->Transformed(aFaceLoc.Transformation()));
+      Handle(GeomSurface) aST =
+        Handle(GeomSurface)::DownCast(aFaceSurf->Transformed(aFaceLoc.Transformation()));
       Handle(GeomAdaptor_Surface) GAHS = new GeomAdaptor_Surface(aST);
 
       Handle(Adaptor3d_CurveOnSurface) ACS = new Adaptor3d_CurveOnSurface(GHPC, GAHS);
@@ -791,8 +791,8 @@ Standard_Boolean ShapeAnalysis_Edge::CheckSameParameter(const TopoDS_Edge&     e
 
 //=================================================================================================
 
-static Standard_Boolean IsOverlapPartEdges(const TopoDS_Edge&   theFirstEdge,
-                                           const TopoDS_Edge&   theSecEdge,
+static Standard_Boolean IsOverlapPartEdges(const TopoEdge&   theFirstEdge,
+                                           const TopoEdge&   theSecEdge,
                                            const Standard_Real& theTolerance,
                                            const Standard_Real& theStep,
                                            const Standard_Real& theStartLength,
@@ -810,8 +810,8 @@ static Standard_Boolean IsOverlapPartEdges(const TopoDS_Edge&   theFirstEdge,
     Point3d aPoint;
     if (aS <= Precision::Confusion())
     {
-      TopoDS_Vertex V1 = TopExp::FirstVertex(theFirstEdge, Standard_True);
-      aPoint           = BRep_Tool::Pnt(V1);
+      TopoVertex V1 = TopExp1::FirstVertex(theFirstEdge, Standard_True);
+      aPoint           = BRepInspector::Pnt(V1);
     }
     else
     {
@@ -824,8 +824,8 @@ static Standard_Boolean IsOverlapPartEdges(const TopoDS_Edge&   theFirstEdge,
       else
         continue;
     }
-    BRep_Builder  aB;
-    TopoDS_Vertex aV;
+    ShapeBuilder  aB;
+    TopoVertex aV;
     aB.MakeVertex(aV, aPoint, Precision::Confusion());
     aMinDist.LoadS2(aV);
     aMinDist.Perform();
@@ -837,8 +837,8 @@ static Standard_Boolean IsOverlapPartEdges(const TopoDS_Edge&   theFirstEdge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Edge::CheckOverlapping(const TopoDS_Edge&  theEdge1,
-                                                      const TopoDS_Edge&  theEdge2,
+Standard_Boolean ShapeAnalysis_Edge::CheckOverlapping(const TopoEdge&  theEdge1,
+                                                      const TopoEdge&  theEdge2,
                                                       Standard_Real&      theTolOverlap,
                                                       const Standard_Real theDomainDist)
 {
@@ -847,8 +847,8 @@ Standard_Boolean ShapeAnalysis_Edge::CheckOverlapping(const TopoDS_Edge&  theEdg
   Standard_Real     aLength1 = GCPnts_AbscissaPoint::Length(aAdCurve1);
   BRepAdaptor_Curve aAdCurve2(theEdge2);
   Standard_Real     aLength2   = GCPnts_AbscissaPoint::Length(aAdCurve2);
-  TopoDS_Edge       aFirstEdge = (aLength1 >= aLength2 ? theEdge2 : theEdge1);
-  TopoDS_Edge       aSecEdge   = (aLength1 >= aLength2 ? theEdge1 : theEdge2);
+  TopoEdge       aFirstEdge = (aLength1 >= aLength2 ? theEdge2 : theEdge1);
+  TopoEdge       aSecEdge   = (aLength1 >= aLength2 ? theEdge1 : theEdge2);
   Standard_Real     aLength    = Min(aLength1, aLength2);
 
   // check overalpping between edges on whole edges
@@ -882,9 +882,9 @@ Standard_Boolean ShapeAnalysis_Edge::CheckOverlapping(const TopoDS_Edge&  theEdg
       Standard_Real           aEndLength, aStartLength, aLengthP;
       if (aType1 == BRepExtrema_IsVertex)
       {
-        TopoDS_Shape  aSupportShape1 = aMinDist.SupportOnShape1(i);
-        TopoDS_Vertex aV1, aV2;
-        TopExp::Vertices(aFirstEdge, aV1, aV2, Standard_True);
+        TopoShape  aSupportShape1 = aMinDist.SupportOnShape1(i);
+        TopoVertex aV1, aV2;
+        TopExp1::Vertices(aFirstEdge, aV1, aV2, Standard_True);
         if (aV1.IsSame(aSupportShape1))
           aLengthP = 0.0;
         else
@@ -894,7 +894,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckOverlapping(const TopoDS_Edge&  theEdg
       {
         Standard_Real aParam1, aFirst, aLast;
         aMinDist.ParOnEdgeS1(i, aParam1);
-        BRep_Tool::Range(aFirstEdge, aFirst, aLast);
+        BRepInspector::Range(aFirstEdge, aFirst, aLast);
         BRepAdaptor_Curve anAdaptor(aFirstEdge);
         aLengthP = GCPnts_AbscissaPoint::Length(anAdaptor, aFirst, aParam1);
       }
@@ -928,7 +928,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckOverlapping(const TopoDS_Edge&  theEdg
 
 Standard_Boolean ShapeAnalysis_Edge::CheckPCurveRange(const Standard_Real         theFirst,
                                                       const Standard_Real         theLast,
-                                                      const Handle(Geom2d_Curve)& thePC)
+                                                      const Handle(GeomCurve2d)& thePC)
 {
   constexpr Standard_Real eps        = Precision::PConfusion();
   Standard_Boolean        isValid    = Standard_True;
@@ -941,7 +941,7 @@ Standard_Boolean ShapeAnalysis_Edge::CheckPCurveRange(const Standard_Real       
   Standard_Real fp = thePC->FirstParameter(), lp = thePC->LastParameter();
   if (thePC->DynamicType() == STANDARD_TYPE(Geom2d_TrimmedCurve))
   {
-    const Handle(Geom2d_Curve)& aC = Handle(Geom2d_TrimmedCurve)::DownCast(thePC)->BasisCurve();
+    const Handle(GeomCurve2d)& aC = Handle(Geom2d_TrimmedCurve)::DownCast(thePC)->BasisCurve();
     fp                             = aC->FirstParameter();
     lp                             = aC->LastParameter();
     IsPeriodic                     = aC->IsPeriodic();

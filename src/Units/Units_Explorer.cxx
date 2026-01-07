@@ -165,7 +165,7 @@ void Units_Explorer::NextQuantity()
 
 //=================================================================================================
 
-TCollection_AsciiString Units_Explorer::Quantity() const
+AsciiString1 Units_Explorer::Quantity() const
 {
   return thequantitiessequence->Value(thecurrentquantity)->Name();
 }
@@ -186,7 +186,7 @@ void Units_Explorer::NextUnit()
 
 //=================================================================================================
 
-TCollection_AsciiString Units_Explorer::Unit() const
+AsciiString1 Units_Explorer::Unit() const
 {
   return theunitssequence->Value(thecurrentunit)->SymbolsSequence()->Value(1)->String();
 }

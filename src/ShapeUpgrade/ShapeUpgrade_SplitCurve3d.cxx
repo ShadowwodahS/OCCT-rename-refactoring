@@ -37,24 +37,24 @@ ShapeUpgrade_SplitCurve3d::ShapeUpgrade_SplitCurve3d() {}
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitCurve3d::Init(const Handle(Geom_Curve)& C)
+void ShapeUpgrade_SplitCurve3d::Init(const Handle(GeomCurve3d)& C)
 {
   Init(C, C->FirstParameter(), C->LastParameter());
 }
 
 //=================================================================================================
 
-void ShapeUpgrade_SplitCurve3d::Init(const Handle(Geom_Curve)& C,
+void ShapeUpgrade_SplitCurve3d::Init(const Handle(GeomCurve3d)& C,
                                      const Standard_Real       First,
                                      const Standard_Real       Last)
 {
   //  if (ShapeUpgrade::Debug()) std::cout << "SplitCurve3d::Init"<<std::endl;
-  Handle(Geom_Curve) CopyOfC        = Handle(Geom_Curve)::DownCast(C->Copy());
+  Handle(GeomCurve3d) CopyOfC        = Handle(GeomCurve3d)::DownCast(C->Copy());
   myCurve                           = CopyOfC;
   constexpr Standard_Real precision = Precision::PConfusion();
   Standard_Real           firstPar  = First;
   Standard_Real           lastPar   = Last;
-  Handle(Geom_Curve)      aCurve    = myCurve;
+  Handle(GeomCurve3d)      aCurve    = myCurve;
   if (aCurve->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
     aCurve = Handle(Geom_TrimmedCurve)::DownCast(aCurve)->BasisCurve();
   // 15.11.2002 PTV OCC966
@@ -105,7 +105,7 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
   if (myCurve->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
   {
     Handle(Geom_TrimmedCurve) tmp      = Handle(Geom_TrimmedCurve)::DownCast(myCurve);
-    Handle(Geom_Curve)        BasCurve = tmp->BasisCurve();
+    Handle(GeomCurve3d)        BasCurve = tmp->BasisCurve();
     ShapeUpgrade_SplitCurve3d spc;
     spc.Init(BasCurve, First, Last);
     spc.SetSplitValues(mySplitValues);
@@ -126,7 +126,7 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
   else if (myCurve->IsKind(STANDARD_TYPE(Geom_OffsetCurve)))
   {
     Handle(Geom_OffsetCurve)  tmp      = Handle(Geom_OffsetCurve)::DownCast(myCurve);
-    Handle(Geom_Curve)        BasCurve = tmp->BasisCurve();
+    Handle(GeomCurve3d)        BasCurve = tmp->BasisCurve();
     Standard_Real             Offset   = tmp->Offset();
     Dir3d                    Direct   = tmp->Direction();
     ShapeUpgrade_SplitCurve3d spc;
@@ -185,19 +185,19 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
       myResultingCurves->SetValue(1, myCurve);
 
     else if (!Segment
-             || (!myCurve->IsKind(STANDARD_TYPE(Geom_BSplineCurve))
-                 && !myCurve->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+             || (!myCurve->IsKind(STANDARD_TYPE(BSplineCurve3d))
+                 && !myCurve->IsKind(STANDARD_TYPE(BezierCurve3d)))
              || !Status(ShapeExtend_DONE2))
     {
-      /*      if(myCurve->IsKind (STANDARD_TYPE (Geom_BSplineCurve)) ||
-               myCurve->IsKind (STANDARD_TYPE (Geom_BezierCurve) )) {
-          Handle(Geom_Curve) theNewCurve = Handle(Geom_Curve)::DownCast(myCurve->Copy());
+      /*      if(myCurve->IsKind (STANDARD_TYPE (BSplineCurve3d)) ||
+               myCurve->IsKind (STANDARD_TYPE (BezierCurve3d) )) {
+          Handle(GeomCurve3d) theNewCurve = Handle(GeomCurve3d)::DownCast(myCurve->Copy());
           try {
             OCC_CATCH_SIGNALS
-            if (myCurve->IsKind (STANDARD_TYPE (Geom_BSplineCurve)))
-              Handle(Geom_BSplineCurve)::DownCast(theNewCurve)->Segment (First, Last);
-            else if (myCurve->IsKind (STANDARD_TYPE (Geom_BezierCurve)))
-              Handle(Geom_BezierCurve)::DownCast(theNewCurve)->Segment (First, Last);
+            if (myCurve->IsKind (STANDARD_TYPE (BSplineCurve3d)))
+              Handle(BSplineCurve3d)::DownCast(theNewCurve)->Segment (First, Last);
+            else if (myCurve->IsKind (STANDARD_TYPE (BezierCurve3d)))
+              Handle(BezierCurve3d)::DownCast(theNewCurve)->Segment (First, Last);
           }
             catch (ExceptionBase) {
       #ifdef OCCT_DEBUG
@@ -205,13 +205,13 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
             ExceptionBase::Caught()->Print(std::cout); std::cout << std::endl;
       #endif
             theNewCurve = new
-      Geom_TrimmedCurve(Handle(Geom_Curve)::DownCast(myCurve->Copy()),First,Last);
+      Geom_TrimmedCurve(Handle(GeomCurve3d)::DownCast(myCurve->Copy()),First,Last);
           }
           myResultingCurves->SetValue (1, theNewCurve);
             }
             else {*/
       Handle(Geom_TrimmedCurve) theNewCurve =
-        new Geom_TrimmedCurve(Handle(Geom_Curve)::DownCast(myCurve->Copy()), First, Last);
+        new Geom_TrimmedCurve(Handle(GeomCurve3d)::DownCast(myCurve->Copy()), First, Last);
       myResultingCurves->SetValue(1, theNewCurve);
       // }
     }
@@ -220,9 +220,9 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
     if (filled)
       return;
   }
-  if (myCurve->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (myCurve->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    Handle(Geom_BSplineCurve) BsCurve = Handle(Geom_BSplineCurve)::DownCast(myCurve->Copy());
+    Handle(BSplineCurve3d) BsCurve = Handle(BSplineCurve3d)::DownCast(myCurve->Copy());
     Standard_Integer FirstInd = BsCurve->FirstUKnotIndex(), LastInd = BsCurve->LastUKnotIndex();
     Standard_Integer j = FirstInd;
     for (Standard_Integer ii = 1; ii <= mySplitValues->Length(); ii++)
@@ -245,20 +245,20 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
   {
     // skl : in the next block I change "First","Last" to "Firstt","Lastt"
     Standard_Real      Firstt = mySplitValues->Value(i), Lastt = mySplitValues->Value(i + 1);
-    Handle(Geom_Curve) theNewCurve;
+    Handle(GeomCurve3d) theNewCurve;
     if (Segment)
     {
-      if (myCurve->IsKind(STANDARD_TYPE(Geom_BSplineCurve))
-          || myCurve->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+      if (myCurve->IsKind(STANDARD_TYPE(BSplineCurve3d))
+          || myCurve->IsKind(STANDARD_TYPE(BezierCurve3d)))
       {
-        theNewCurve = Handle(Geom_Curve)::DownCast(myCurve->Copy());
+        theNewCurve = Handle(GeomCurve3d)::DownCast(myCurve->Copy());
         try
         {
           OCC_CATCH_SIGNALS
-          if (myCurve->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
-            Handle(Geom_BSplineCurve)::DownCast(theNewCurve)->Segment(Firstt, Lastt);
-          else if (myCurve->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
-            Handle(Geom_BezierCurve)::DownCast(theNewCurve)->Segment(Firstt, Lastt);
+          if (myCurve->IsKind(STANDARD_TYPE(BSplineCurve3d)))
+            Handle(BSplineCurve3d)::DownCast(theNewCurve)->Segment(Firstt, Lastt);
+          else if (myCurve->IsKind(STANDARD_TYPE(BezierCurve3d)))
+            Handle(BezierCurve3d)::DownCast(theNewCurve)->Segment(Firstt, Lastt);
           myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE3);
         }
         catch (ExceptionBase const& anException)
@@ -270,12 +270,12 @@ void ShapeUpgrade_SplitCurve3d::Build(const Standard_Boolean Segment)
 #endif
           (void)anException;
           theNewCurve =
-            new Geom_TrimmedCurve(Handle(Geom_Curve)::DownCast(myCurve->Copy()), Firstt, Lastt);
+            new Geom_TrimmedCurve(Handle(GeomCurve3d)::DownCast(myCurve->Copy()), Firstt, Lastt);
         }
       }
       else
         theNewCurve =
-          new Geom_TrimmedCurve(Handle(Geom_Curve)::DownCast(myCurve->Copy()), Firstt, Lastt);
+          new Geom_TrimmedCurve(Handle(GeomCurve3d)::DownCast(myCurve->Copy()), Firstt, Lastt);
     }
     myResultingCurves->SetValue(i, theNewCurve);
   }

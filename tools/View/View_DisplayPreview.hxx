@@ -23,7 +23,7 @@
 #include <Standard_Handle.hxx>
 #include <Standard_Macro.hxx>
 
-class AIS_InteractiveObject;
+class VisualEntity;
 class View_PreviewParameters;
 
 //! \class View_DisplayPreview
@@ -45,7 +45,7 @@ public:
   //! Stores the current context where the presentations will be displayed/erased.
   //! Erases previously displayed presentations if there were some displayed
   //! \param theContext a context instance
-  Standard_EXPORT void SetContext(const Handle(AIS_InteractiveContext)& theContext);
+  Standard_EXPORT void SetContext(const Handle(VisualContext)& theContext);
 
   //! Returns preview parameters
   View_PreviewParameters* GetPreviewParameters() const { return myPreviewParameters; }
@@ -63,15 +63,15 @@ public:
 
 private:
   //! Returns the current context
-  const Handle(AIS_InteractiveContext)& GetContext() const { return myContext; }
+  const Handle(VisualContext)& GetContext() const { return myContext; }
 
 private:
-  Handle(AIS_InteractiveContext) myContext; //!< context, where the displayer works
+  Handle(VisualContext) myContext; //!< context, where the displayer works
 
   View_PreviewParameters* myPreviewParameters; //!< drawer of preview presentation
-  Handle(AIS_InteractiveObject)
+  Handle(VisualEntity)
     myPreviewPresentation; //!< presentation of preview for a selected object
-  NCollection_List<Handle(AIS_InteractiveObject)>
+  NCollection_List<Handle(VisualEntity)>
     myPreviewReadyPresentations; //!< presentation of preview for a selected object
 };
 

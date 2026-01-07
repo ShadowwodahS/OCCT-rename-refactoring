@@ -28,7 +28,7 @@ class IGESAppli_FlowLineSpec;
 DEFINE_STANDARD_HANDLE(IGESAppli_FlowLineSpec, IGESData_IGESEntity)
 
 //! defines FlowLineSpec, Type <406> Form <14>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Attaches one or more text strings to entities being
 //! used to represent a flow line
 class IGESAppli_FlowLineSpec : public IGESData_IGESEntity

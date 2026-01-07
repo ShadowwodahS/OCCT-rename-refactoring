@@ -24,7 +24,7 @@
 #include <TColgp_HSequenceOfXYZ.hxx>
 #include <gp_Trsf.hxx>
 #include <Standard_Integer.hxx>
-class gp_XY;
+class Coords2d;
 class gp_XYZ;
 class IGESGeom_CopiousData;
 class gp_Ax3;
@@ -32,7 +32,7 @@ class Frame3d;
 class Axis3d;
 class IGESGeom_TransformationMatrix;
 
-//! This class provides some useful basic tools to build IGESGeom
+//! This class provides some useful basic tools to build IGESGeom1
 //! curves, especially :
 //! define a curve in a plane in 3D space (ex. Circular or Conic
 //! arc, or Copious Data defined in 2D)
@@ -49,7 +49,7 @@ public:
   Standard_EXPORT void Clear();
 
   //! Adds a XY (Z=0) to the list of points
-  Standard_EXPORT void AddXY(const gp_XY& val);
+  Standard_EXPORT void AddXY(const Coords2d& val);
 
   //! Adds a XYZ to the list of points
   Standard_EXPORT void AddXYZ(const gp_XYZ& val);

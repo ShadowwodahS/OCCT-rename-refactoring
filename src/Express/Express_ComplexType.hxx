@@ -17,7 +17,7 @@
 #include <Express_Type.hxx>
 #include <Standard_Type.hxx>
 
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! Base class for complex types (ARRAY, LIST, BAG, SET)
 //! in EXPRESS schema
@@ -35,7 +35,7 @@ public:
   Standard_EXPORT const Handle(Express_Type)& Type() const;
 
   //! Returns CPP-style name of the type
-  Standard_EXPORT virtual const TCollection_AsciiString CPPName() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const AsciiString1 CPPName() const Standard_OVERRIDE;
 
   //! Declares type as used by some item being generated.
   //! Calls Use() for type of elements
@@ -43,8 +43,8 @@ public:
 
   //! Declares type as used by some item being generated.
   //! Calls Use() for type of elements
-  Standard_EXPORT virtual void Use2(const TCollection_AsciiString& theRefName,
-                                    const TCollection_AsciiString& theRefPack) const
+  Standard_EXPORT virtual void Use2(const AsciiString1& theRefName,
+                                    const AsciiString1& theRefPack) const
     Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Express_ComplexType, Express_Type)

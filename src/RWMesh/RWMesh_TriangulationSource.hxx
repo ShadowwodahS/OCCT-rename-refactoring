@@ -19,12 +19,12 @@
 
 class RWMesh_TriangulationReader;
 
-//! Mesh data wrapper for delayed triangulation loading.
-//! Class inherits Poly_Triangulation so that it can be put temporarily into TopoDS_Face within
+//! Mesh1 data wrapper for delayed triangulation loading.
+//! Class inherits MeshTriangulation so that it can be put temporarily into TopoFace within
 //! assembly structure.
-class RWMesh_TriangulationSource : public Poly_Triangulation
+class RWMesh_TriangulationSource : public MeshTriangulation
 {
-  DEFINE_STANDARD_RTTIEXT(RWMesh_TriangulationSource, Poly_Triangulation)
+  DEFINE_STANDARD_RTTIEXT(RWMesh_TriangulationSource, MeshTriangulation)
 public:
   //! Constructor.
   Standard_EXPORT RWMesh_TriangulationSource();
@@ -102,7 +102,7 @@ protected:
   //! Loads triangulation data from deferred storage using specified shared input file system.
   Standard_EXPORT virtual Standard_Boolean loadDeferredData(
     const Handle(OSD_FileSystem)&     theFileSystem,
-    const Handle(Poly_Triangulation)& theDestTriangulation) const Standard_OVERRIDE;
+    const Handle(MeshTriangulation)& theDestTriangulation) const Standard_OVERRIDE;
 
 protected:
   Handle(RWMesh_TriangulationReader)   myReader;

@@ -23,7 +23,7 @@
 
 #include <Convert_ParameterisationType.hxx>
 #include <Standard_Integer.hxx>
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 class Geom_BoundedCurve;
 
 //! Algorithm converts and concat several curve in an BSplineCurve
@@ -59,7 +59,7 @@ public:
                                        const Standard_Boolean           WithRatio = Standard_True,
                                        const Standard_Integer           MinM      = 0);
 
-  Standard_EXPORT Handle(Geom_BSplineCurve) BSplineCurve() const;
+  Standard_EXPORT Handle(BSplineCurve3d) BSplineCurve() const;
 
   //! Clear a result curve
   Standard_EXPORT void Clear();
@@ -67,13 +67,13 @@ public:
 protected:
 private:
   //! Concat two BSplineCurves.
-  Standard_EXPORT void Add(Handle(Geom_BSplineCurve)& FirstCurve,
-                           Handle(Geom_BSplineCurve)& SecondCurve,
+  Standard_EXPORT void Add(Handle(BSplineCurve3d)& FirstCurve,
+                           Handle(BSplineCurve3d)& SecondCurve,
                            const Standard_Boolean     After,
                            const Standard_Boolean     WithRatio,
                            const Standard_Integer     MinM);
 
-  Handle(Geom_BSplineCurve)    myCurve;
+  Handle(BSplineCurve3d)    myCurve;
   Standard_Real                myTol;
   Convert_ParameterisationType myType;
 };

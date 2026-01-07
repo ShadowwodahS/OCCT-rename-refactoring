@@ -19,14 +19,14 @@
 
 //=================================================================================================
 
-void BRepTest::AllCommands(Draw_Interpretor& theCommands)
+void BRepTest::AllCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
 
-  DBRep::BasicCommands(theCommands);
+  DBRep1::BasicCommands(theCommands);
   BRepTest::BasicCommands(theCommands);
   BRepTest::CurveCommands(theCommands);
   BRepTest::Fillet2DCommands(theCommands);

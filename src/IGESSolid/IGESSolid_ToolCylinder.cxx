@@ -33,9 +33,9 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESSolid_ToolCylinder::IGESSolid_ToolCylinder() {}
+CylinderTool::CylinderTool() {}
 
-void IGESSolid_ToolCylinder::ReadOwnParams(const Handle(IGESSolid_Cylinder)& ent,
+void CylinderTool::ReadOwnParams(const Handle(IGESSolid_Cylinder)& ent,
                                            const Handle(IGESData_IGESReaderData)& /* IR */,
                                            IGESData_ParamReader& PR) const
 {
@@ -114,7 +114,7 @@ void IGESSolid_ToolCylinder::ReadOwnParams(const Handle(IGESSolid_Cylinder)& ent
     PR.AddWarning("Axis poorly unitary, normalized");
 }
 
-void IGESSolid_ToolCylinder::WriteOwnParams(const Handle(IGESSolid_Cylinder)& ent,
+void CylinderTool::WriteOwnParams(const Handle(IGESSolid_Cylinder)& ent,
                                             IGESData_IGESWriter&              IW) const
 {
   IW.Send(ent->Height());
@@ -127,12 +127,12 @@ void IGESSolid_ToolCylinder::WriteOwnParams(const Handle(IGESSolid_Cylinder)& en
   IW.Send(ent->Axis().Z());
 }
 
-void IGESSolid_ToolCylinder::OwnShared(const Handle(IGESSolid_Cylinder)& /* ent */,
+void CylinderTool::OwnShared(const Handle(IGESSolid_Cylinder)& /* ent */,
                                        Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESSolid_ToolCylinder::OwnCopy(const Handle(IGESSolid_Cylinder)& another,
+void CylinderTool::OwnCopy(const Handle(IGESSolid_Cylinder)& another,
                                      const Handle(IGESSolid_Cylinder)& ent,
                                      Interface_CopyTool& /* TC */) const
 {
@@ -142,10 +142,10 @@ void IGESSolid_ToolCylinder::OwnCopy(const Handle(IGESSolid_Cylinder)& another,
             another->Axis().XYZ());
 }
 
-IGESData_DirChecker IGESSolid_ToolCylinder::DirChecker(
+DirectoryChecker CylinderTool::DirChecker(
   const Handle(IGESSolid_Cylinder)& /* ent */) const
 {
-  IGESData_DirChecker DC(154, 0);
+  DirectoryChecker DC(154, 0);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
@@ -156,7 +156,7 @@ IGESData_DirChecker IGESSolid_ToolCylinder::DirChecker(
   return DC;
 }
 
-void IGESSolid_ToolCylinder::OwnCheck(const Handle(IGESSolid_Cylinder)& ent,
+void CylinderTool::OwnCheck(const Handle(IGESSolid_Cylinder)& ent,
                                       const Interface_ShareTool&,
                                       Handle(Interface_Check)& ach) const
 {
@@ -166,7 +166,7 @@ void IGESSolid_ToolCylinder::OwnCheck(const Handle(IGESSolid_Cylinder)& ent,
     ach->AddFail("Radius : Value < 0");
 }
 
-void IGESSolid_ToolCylinder::OwnDump(const Handle(IGESSolid_Cylinder)& ent,
+void CylinderTool::OwnDump(const Handle(IGESSolid_Cylinder)& ent,
                                      const IGESData_IGESDumper& /* dumper */,
                                      Standard_OStream&      S,
                                      const Standard_Integer level) const

@@ -32,11 +32,11 @@
 // purpose :
 // =======================================================================
 TInspectorAPI_Communicator* TInspectorAPI_Communicator::LoadPluginLibrary(
-  const TCollection_AsciiString& thePluginName)
+  const AsciiString1& thePluginName)
 {
   if (thePluginName.IsEmpty())
     std::cout << thePluginName.ToCString() << "%s plugin could not be loaded." << std::endl;
-  TCollection_AsciiString aPluginLibraryName = thePluginName;
+  AsciiString1 aPluginLibraryName = thePluginName;
 #ifdef _WIN32
   aPluginLibraryName += ".dll";
 #elif __APPLE__

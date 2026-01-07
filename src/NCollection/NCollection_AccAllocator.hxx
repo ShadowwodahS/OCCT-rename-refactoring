@@ -126,7 +126,7 @@ protected:
   };
 
   //! Key hasher
-  class Hasher
+  class Hasher1
   {
   public:
     //! Returns hash code for the given key
@@ -198,7 +198,7 @@ private:
 protected:
   AlignedSize                             myBlockSize;
   Block*                                  mypLastBlock;
-  NCollection_DataMap<Key, Block, Hasher> myBlocks;
+  NCollection_DataMap<Key, Block, Hasher1> myBlocks;
 
   // Declaration of CASCADE RTTI
 public:

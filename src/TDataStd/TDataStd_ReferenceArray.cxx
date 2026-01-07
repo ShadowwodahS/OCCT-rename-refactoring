@@ -38,7 +38,7 @@ const Standard_GUID& TDataStd_ReferenceArray::GetID()
 // function : SetAttr
 // purpose  : Implements Set functionality
 //=======================================================================
-static Handle(TDataStd_ReferenceArray) SetAttr(const TDF_Label&       label,
+static Handle(TDataStd_ReferenceArray) SetAttr(const DataLabel&       label,
                                                const Standard_Integer lower,
                                                const Standard_Integer upper,
                                                const Standard_GUID&   theGuid)
@@ -78,7 +78,7 @@ void TDataStd_ReferenceArray::Init(const Standard_Integer lower, const Standard_
 
 //=================================================================================================
 
-Handle(TDataStd_ReferenceArray) TDataStd_ReferenceArray::Set(const TDF_Label&       label,
+Handle(TDataStd_ReferenceArray) TDataStd_ReferenceArray::Set(const DataLabel&       label,
                                                              const Standard_Integer lower,
                                                              const Standard_Integer upper)
 {
@@ -89,7 +89,7 @@ Handle(TDataStd_ReferenceArray) TDataStd_ReferenceArray::Set(const TDF_Label&   
 // function : Set
 // purpose  : Set user defined attribute with specific ID
 //=======================================================================
-Handle(TDataStd_ReferenceArray) TDataStd_ReferenceArray::Set(const TDF_Label&       label,
+Handle(TDataStd_ReferenceArray) TDataStd_ReferenceArray::Set(const DataLabel&       label,
                                                              const Standard_GUID&   theGuid,
                                                              const Standard_Integer lower,
                                                              const Standard_Integer upper)
@@ -99,7 +99,7 @@ Handle(TDataStd_ReferenceArray) TDataStd_ReferenceArray::Set(const TDF_Label&   
 
 //=================================================================================================
 
-void TDataStd_ReferenceArray::SetValue(const Standard_Integer index, const TDF_Label& value)
+void TDataStd_ReferenceArray::SetValue(const Standard_Integer index, const DataLabel& value)
 {
   if (myArray.IsNull())
     return;
@@ -112,7 +112,7 @@ void TDataStd_ReferenceArray::SetValue(const Standard_Integer index, const TDF_L
 
 //=================================================================================================
 
-TDF_Label TDataStd_ReferenceArray::Value(const Standard_Integer index) const
+DataLabel TDataStd_ReferenceArray::Value(const Standard_Integer index) const
 {
   return myArray->Value(index);
 }
@@ -266,7 +266,7 @@ void TDataStd_ReferenceArray::Paste(const Handle(TDF_Attribute)&       Into,
     anArray->Init(lower, upper);
   for (; i <= upper; i++)
   {
-    TDF_Label L = arr.Value(i), rL;
+    DataLabel L = arr.Value(i), rL;
     if (!L.IsNull())
     {
       if (!RT->HasRelocation(L, rL))
@@ -320,7 +320,7 @@ void TDataStd_ReferenceArray::DumpJson(Standard_OStream& theOStream,
     OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, myArray->Lower())
     OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, myArray->Upper())
 
-    TCollection_AsciiString aLabel;
+    AsciiString1 aLabel;
     for (TDataStd_LabelArray1::Iterator anArrayIt(myArray->Array1()); anArrayIt.More();
          anArrayIt.Next())
     {

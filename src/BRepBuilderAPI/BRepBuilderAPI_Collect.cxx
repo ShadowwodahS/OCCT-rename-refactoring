@@ -40,11 +40,11 @@ static void BuildBack(const TopTools_DataMapOfShapeListOfShape& M1,
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape it(M1);
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape&                KS = it.Key();
+    const TopoShape&                KS = it.Key();
     TopTools_ListIteratorOfListOfShape itl(it.Value());
     for (; itl.More(); itl.Next())
     {
-      const TopoDS_Shape& VS = itl.Value();
+      const TopoShape& VS = itl.Value();
       BM1.Bind(VS, KS);
     }
   }
@@ -52,9 +52,9 @@ static void BuildBack(const TopTools_DataMapOfShapeListOfShape& M1,
 
 //=================================================================================================
 
-static void Replace(TopTools_ListOfShape&       L,
-                    const TopoDS_Shape&         Old,
-                    const TopTools_ListOfShape& New)
+static void Replace(ShapeList&       L,
+                    const TopoShape&         Old,
+                    const ShapeList& New)
 {
   //-----------------------------------
   // Suppression de Old dans la liste.
@@ -73,7 +73,7 @@ static void Replace(TopTools_ListOfShape&       L,
   //---------------------------
   // Ajout de New a L.
   //---------------------------
-  TopTools_ListOfShape copNew;
+  ShapeList copNew;
   copNew = New;
   L.Append(copNew);
 }
@@ -81,9 +81,9 @@ static void Replace(TopTools_ListOfShape&       L,
 //=================================================================================================
 
 static void StoreImage(TopTools_DataMapOfShapeListOfShape& MG,
-                       const TopoDS_Shape&                 S,
+                       const TopoShape&                 S,
                        const TopTools_DataMapOfShapeShape& MGBack,
-                       const TopTools_ListOfShape&         LI)
+                       const ShapeList&         LI)
 {
   if (!LI.IsEmpty())
   {
@@ -96,7 +96,7 @@ static void StoreImage(TopTools_DataMapOfShapeListOfShape& MG,
     {
       if (!MG.IsBound(S))
       {
-        TopTools_ListOfShape empty;
+        ShapeList empty;
         MG.Bind(S, empty);
       }
       // Dans tous les cas on copie la liste pour eviter les pb de
@@ -104,7 +104,7 @@ static void StoreImage(TopTools_DataMapOfShapeListOfShape& MG,
       TopTools_ListIteratorOfListOfShape it;
       for (it.Initialize(LI); it.More(); it.Next())
       {
-        const TopoDS_Shape& SS = it.Value();
+        const TopoShape& SS = it.Value();
         MG(S).Append(SS);
       }
     }
@@ -117,24 +117,24 @@ static void Update(TopTools_DataMapOfShapeListOfShape& Mod,
                    TopTools_DataMapOfShapeListOfShape& Gen,
                    const TopTools_DataMapOfShapeShape& ModBack,
                    const TopTools_DataMapOfShapeShape& GenBack,
-                   const TopoDS_Shape&                 SI,
+                   const TopoShape&                 SI,
                    BRepBuilderAPI_MakeShape&           MKS,
                    const TopAbs_ShapeEnum              ShapeType)
 {
 
   TopTools_MapOfShape DejaVu;
-  TopExp_Explorer     exp;
+  ShapeExplorer     exp;
 
   for (exp.Init(SI, ShapeType); exp.More(); exp.Next())
   {
-    const TopoDS_Shape& S = exp.Current();
+    const TopoShape& S = exp.Current();
     if (!DejaVu.Add(S))
       continue;
 
     //---------------------------------------
     // Recuperation de l image de S par MKS.
     //---------------------------------------
-    const TopTools_ListOfShape& LIM = MKS.Modified(S);
+    const ShapeList& LIM = MKS.Modified(S);
     if (!LIM.IsEmpty())
     {
       if (GenBack.IsBound(S))
@@ -147,13 +147,13 @@ static void Update(TopTools_DataMapOfShapeListOfShape& Mod,
         StoreImage(Mod, S, ModBack, LIM);
       }
     }
-    const TopTools_ListOfShape& LIG = MKS.Generated(S);
+    const ShapeList& LIG = MKS.Generated(S);
     if (!LIG.IsEmpty())
     {
       if (ModBack.IsBound(S))
       {
         // Generation de modif  => generation du shape initial
-        const TopoDS_Shape& IS = ModBack(S);
+        const TopoShape& IS = ModBack(S);
         StoreImage(Gen, IS, GenBack, LIG);
       }
       else
@@ -174,10 +174,10 @@ static void DEBControl(const TopTools_DataMapOfShapeListOfShape& MG)
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape it(MG);
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape& OS = it.Key();
+    const TopoShape& OS = it.Key();
     sprintf(name, "SK_%d", ++IK);
   #ifdef DRAW
-    DBRep::Set(name, OS);
+    DBRep1::Set(name, OS);
   #endif
     TopTools_ListIteratorOfListOfShape itl(MG(OS));
     Standard_Integer                   IV = 1;
@@ -185,7 +185,7 @@ static void DEBControl(const TopTools_DataMapOfShapeListOfShape& MG)
     {
       sprintf(name, "SV_%d_%d", IK, IV++);
   #ifdef DRAW
-      DBRep::Set(name, NS);
+      DBRep1::Set(name, NS);
   #endif
     }
   }
@@ -197,7 +197,7 @@ BRepBuilderAPI_Collect::BRepBuilderAPI_Collect() {}
 
 //=================================================================================================
 
-void BRepBuilderAPI_Collect::Add(const TopoDS_Shape& SI, BRepBuilderAPI_MakeShape& MKS)
+void BRepBuilderAPI_Collect::Add(const TopoShape& SI, BRepBuilderAPI_MakeShape& MKS)
 
 {
   TopTools_DataMapOfShapeShape GenBack;
@@ -225,19 +225,19 @@ void BRepBuilderAPI_Collect::Add(const TopoDS_Shape& SI, BRepBuilderAPI_MakeShap
 
 //=================================================================================================
 
-void BRepBuilderAPI_Collect::AddGenerated(const TopoDS_Shape& S, const TopoDS_Shape& NS)
+void BRepBuilderAPI_Collect::AddGenerated(const TopoShape& S, const TopoShape& NS)
 {
   TopTools_DataMapOfShapeShape GenBack;
   TopTools_DataMapOfShapeShape ModBack;
   BuildBack(myGen, GenBack);
   BuildBack(myMod, ModBack);
 
-  TopTools_ListOfShape LIG;
+  ShapeList LIG;
   LIG.Append(NS);
   if (ModBack.IsBound(S))
   {
     // Generation de modif  => generation du shape initial
-    TopoDS_Shape IS = ModBack(S);
+    TopoShape IS = ModBack(S);
     StoreImage(myGen, IS, GenBack, LIG);
   }
   else
@@ -248,7 +248,7 @@ void BRepBuilderAPI_Collect::AddGenerated(const TopoDS_Shape& S, const TopoDS_Sh
 
 //=================================================================================================
 
-void BRepBuilderAPI_Collect::AddModif(const TopoDS_Shape& S, const TopoDS_Shape& NS)
+void BRepBuilderAPI_Collect::AddModif(const TopoShape& S, const TopoShape& NS)
 
 {
   TopTools_DataMapOfShapeShape GenBack;
@@ -256,7 +256,7 @@ void BRepBuilderAPI_Collect::AddModif(const TopoDS_Shape& S, const TopoDS_Shape&
   BuildBack(myGen, GenBack);
   BuildBack(myMod, ModBack);
 
-  TopTools_ListOfShape LIG;
+  ShapeList LIG;
   LIG.Append(NS);
   if (GenBack.IsBound(S))
   {
@@ -271,10 +271,10 @@ void BRepBuilderAPI_Collect::AddModif(const TopoDS_Shape& S, const TopoDS_Shape&
 
 //=================================================================================================
 
-static void FilterByShape(TopTools_DataMapOfShapeListOfShape& MG, const TopoDS_Shape& SF)
+static void FilterByShape(TopTools_DataMapOfShapeListOfShape& MG, const TopoShape& SF)
 {
   TopTools_MapOfShape MSF;
-  TopExp_Explorer     exp;
+  ShapeExplorer     exp;
   Standard_Boolean    YaEdge   = Standard_False;
   Standard_Boolean    YaVertex = Standard_False;
   for (exp.Init(SF, TopAbs_FACE); exp.More(); exp.Next())
@@ -286,12 +286,12 @@ static void FilterByShape(TopTools_DataMapOfShapeListOfShape& MG, const TopoDS_S
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape it(MG);
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape&                OS  = it.Key();
-    TopTools_ListOfShape&              LNS = MG.ChangeFind(OS);
+    const TopoShape&                OS  = it.Key();
+    ShapeList&              LNS = MG.ChangeFind(OS);
     TopTools_ListIteratorOfListOfShape itl(LNS);
     while (itl.More())
     {
-      const TopoDS_Shape& NS = itl.Value();
+      const TopoShape& NS = itl.Value();
       //-------------------------------------------------------------------
       // Images contiennet des edges => ajout des edges resultat dans MSF.
       //-------------------------------------------------------------------
@@ -349,7 +349,7 @@ const TopTools_DataMapOfShapeListOfShape& BRepBuilderAPI_Collect::Generated() co
 
 //=================================================================================================
 
-void BRepBuilderAPI_Collect::Filter(const TopoDS_Shape& SF)
+void BRepBuilderAPI_Collect::Filter(const TopoShape& SF)
 {
   FilterByShape(myGen, SF);
   FilterByShape(myMod, SF);

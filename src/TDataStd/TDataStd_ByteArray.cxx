@@ -49,7 +49,7 @@ TDataStd_ByteArray::TDataStd_ByteArray()
 // function : SetAttr
 // purpose  : Implements Set functionality
 //=======================================================================
-static Handle(TDataStd_ByteArray) SetAttr(const TDF_Label&       label,
+static Handle(TDataStd_ByteArray) SetAttr(const DataLabel&       label,
                                           const Standard_Integer lower,
                                           const Standard_Integer upper,
                                           const Standard_Boolean isDelta,
@@ -82,7 +82,7 @@ void TDataStd_ByteArray::Init(const Standard_Integer lower, const Standard_Integ
 
 //=================================================================================================
 
-Handle(TDataStd_ByteArray) TDataStd_ByteArray::Set(const TDF_Label&       label,
+Handle(TDataStd_ByteArray) TDataStd_ByteArray::Set(const DataLabel&       label,
                                                    const Standard_Integer lower,
                                                    const Standard_Integer upper,
                                                    const Standard_Boolean isDelta)
@@ -94,7 +94,7 @@ Handle(TDataStd_ByteArray) TDataStd_ByteArray::Set(const TDF_Label&       label,
 // function : Set
 // purpose  : Set user defined attribute with specific ID
 //=======================================================================
-Handle(TDataStd_ByteArray) TDataStd_ByteArray::Set(const TDF_Label&       label,
+Handle(TDataStd_ByteArray) TDataStd_ByteArray::Set(const DataLabel&       label,
                                                    const Standard_GUID&   theGuid,
                                                    const Standard_Integer lower,
                                                    const Standard_Integer upper,

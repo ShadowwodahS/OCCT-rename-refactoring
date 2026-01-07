@@ -26,7 +26,7 @@
 #include <GeomAbs_Shape.hxx>
 #include <Approx_ParametrizationType.hxx>
 #include <TColStd_Array1OfReal.hxx>
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 
 //! This  class  is  used  to  approximate a  BsplineCurve
 //! passing  through an  array  of points,  with  a  given Continuity.
@@ -156,15 +156,15 @@ public:
 
   //! Returns the computed BSpline curve.
   //! Raises StdFail_NotDone if the curve is not built.
-  Standard_EXPORT const Handle(Geom_BSplineCurve)& Curve() const;
-  Standard_EXPORT                                  operator Handle(Geom_BSplineCurve)() const;
+  Standard_EXPORT const Handle(BSplineCurve3d)& Curve() const;
+  Standard_EXPORT                                  operator Handle(BSplineCurve3d)() const;
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 
 protected:
 private:
   Standard_Boolean          myIsDone;
-  Handle(Geom_BSplineCurve) myCurve;
+  Handle(BSplineCurve3d) myCurve;
 };
 
 #endif // _GeomAPI_PointsToBSpline_HeaderFile

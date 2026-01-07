@@ -22,7 +22,7 @@
 
 #include <gp_Pnt.hxx>
 #include <TopoDS_Shape.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class Point3d;
 
 //! Contains the colors of a shape.
@@ -45,7 +45,7 @@ public:
                   const Standard_Real    x2,
                   const Standard_Real    y2,
                   const Standard_Real    z2,
-                  const TopoDS_Shape&    S,
+                  const TopoShape&    S,
                   const Standard_Boolean reg1,
                   const Standard_Boolean regn,
                   const Standard_Boolean outl,
@@ -64,9 +64,9 @@ public:
 
   const Point3d& P2() const { return myP2; }
 
-  const TopoDS_Shape& Shape() const { return myShape; }
+  const TopoShape& Shape() const { return myShape; }
 
-  void Shape(const TopoDS_Shape& S) { myShape = S; }
+  void Shape(const TopoShape& S) { myShape = S; }
 
   Standard_Boolean Rg1Line() const { return myRg1Line; }
 
@@ -87,7 +87,7 @@ public:
 private:
   Point3d           myP1;
   Point3d           myP2;
-  TopoDS_Shape     myShape;
+  TopoShape     myShape;
   Standard_Boolean myRg1Line;
   Standard_Boolean myRgNLine;
   Standard_Boolean myOutLine;

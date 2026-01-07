@@ -34,8 +34,8 @@ static volatile Standard_Integer THE_SHADER_OBJECT_COUNTER = 0;
 Graphic3d_ShaderObject::Graphic3d_ShaderObject(const Graphic3d_TypeOfShaderObject theType)
     : myType(theType)
 {
-  myID = TCollection_AsciiString("Graphic3d_ShaderObject_")
-         + TCollection_AsciiString(Standard_Atomic_Increment(&THE_SHADER_OBJECT_COUNTER));
+  myID = AsciiString1("Graphic3d_ShaderObject_")
+         + AsciiString1(Standard_Atomic_Increment(&THE_SHADER_OBJECT_COUNTER));
 }
 
 // =======================================================================
@@ -44,12 +44,12 @@ Graphic3d_ShaderObject::Graphic3d_ShaderObject(const Graphic3d_TypeOfShaderObjec
 // =======================================================================
 Handle(Graphic3d_ShaderObject) Graphic3d_ShaderObject::CreateFromFile(
   const Graphic3d_TypeOfShaderObject theType,
-  const TCollection_AsciiString&     thePath)
+  const AsciiString1&     thePath)
 {
   Handle(Graphic3d_ShaderObject) aShader = new Graphic3d_ShaderObject(theType);
   aShader->myPath                        = thePath;
 
-  OSD_File aFile(thePath);
+  SystemFile aFile(thePath);
   if (!aFile.Exists())
   {
     return NULL;
@@ -68,7 +68,7 @@ Handle(Graphic3d_ShaderObject) Graphic3d_ShaderObject::CreateFromFile(
 // =======================================================================
 Handle(Graphic3d_ShaderObject) Graphic3d_ShaderObject::CreateFromSource(
   const Graphic3d_TypeOfShaderObject theType,
-  const TCollection_AsciiString&     theSource)
+  const AsciiString1&     theSource)
 {
   Handle(Graphic3d_ShaderObject) aShader = new Graphic3d_ShaderObject(theType);
   aShader->mySource                      = theSource;
@@ -96,12 +96,12 @@ Standard_Boolean Graphic3d_ShaderObject::IsDone() const
 //=================================================================================================
 
 Handle(Graphic3d_ShaderObject) Graphic3d_ShaderObject::CreateFromSource(
-  TCollection_AsciiString&       theSource,
+  AsciiString1&       theSource,
   Graphic3d_TypeOfShaderObject   theType,
   const ShaderVariableList&      theUniforms,
   const ShaderVariableList&      theStageInOuts,
-  const TCollection_AsciiString& theInName,
-  const TCollection_AsciiString& theOutName,
+  const AsciiString1& theInName,
+  const AsciiString1& theOutName,
   Standard_Integer               theNbGeomInputVerts)
 {
   if (theSource.IsEmpty())
@@ -109,14 +109,14 @@ Handle(Graphic3d_ShaderObject) Graphic3d_ShaderObject::CreateFromSource(
     return Handle(Graphic3d_ShaderObject)();
   }
 
-  TCollection_AsciiString aSrcUniforms, aSrcInOuts, aSrcInStructs, aSrcOutStructs;
+  AsciiString1 aSrcUniforms, aSrcInOuts, aSrcInStructs, aSrcOutStructs;
   for (ShaderVariableList::Iterator anUniformIter(theUniforms); anUniformIter.More();
        anUniformIter.Next())
   {
     const ShaderVariable& aVar = anUniformIter.Value();
     if ((aVar.Stages & theType) != 0)
     {
-      aSrcUniforms += TCollection_AsciiString("\nuniform ") + aVar.Name + ";";
+      aSrcUniforms += AsciiString1("\nuniform ") + aVar.Name + ";";
     }
   }
   for (ShaderVariableList::Iterator aVarListIter(theStageInOuts); aVarListIter.More();
@@ -168,36 +168,36 @@ Handle(Graphic3d_ShaderObject) Graphic3d_ShaderObject::CreateFromSource(
     {
       if (!aSrcInStructs.IsEmpty())
       {
-        aSrcInStructs += TCollection_AsciiString("\n  ") + aVar.Name + ";";
+        aSrcInStructs += AsciiString1("\n  ") + aVar.Name + ";";
       }
       if (!aSrcOutStructs.IsEmpty())
       {
-        aSrcOutStructs += TCollection_AsciiString("\n  ") + aVar.Name + ";";
+        aSrcOutStructs += AsciiString1("\n  ") + aVar.Name + ";";
       }
     }
     else
     {
       if (theType == aStageLower)
       {
-        aSrcInOuts += TCollection_AsciiString("\nTHE_SHADER_OUT ") + aVar.Name + ";";
+        aSrcInOuts += AsciiString1("\nTHE_SHADER_OUT ") + aVar.Name + ";";
       }
       else if (theType == aStageUpper)
       {
-        aSrcInOuts += TCollection_AsciiString("\nTHE_SHADER_IN ") + aVar.Name + ";";
+        aSrcInOuts += AsciiString1("\nTHE_SHADER_IN ") + aVar.Name + ";";
       }
     }
   }
 
   if (theType == Graphic3d_TOS_GEOMETRY)
   {
-    aSrcUniforms.Prepend(TCollection_AsciiString()
+    aSrcUniforms.Prepend(AsciiString1()
                          + "\nlayout (triangles) in;"
                            "\nlayout (triangle_strip, max_vertices = "
                          + theNbGeomInputVerts + ") out;");
   }
   if (!aSrcInStructs.IsEmpty() && theType == Graphic3d_TOS_GEOMETRY)
   {
-    aSrcInStructs += TCollection_AsciiString("\n} ") + theInName + "[" + theNbGeomInputVerts + "];";
+    aSrcInStructs += AsciiString1("\n} ") + theInName + "[" + theNbGeomInputVerts + "];";
   }
   else if (!aSrcInStructs.IsEmpty())
   {

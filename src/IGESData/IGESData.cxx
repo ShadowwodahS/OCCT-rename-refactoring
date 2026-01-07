@@ -31,7 +31,7 @@ static Handle(IGESData_Protocol) proto;
 static Handle(IGESData_DefaultGeneral)  stmod;
 static Handle(IGESData_DefaultSpecific) speci;
 
-void IGESData::Init()
+void IGESData1::Init()
 {
   if (proto.IsNull())
     proto = new IGESData_Protocol;
@@ -47,142 +47,142 @@ void IGESData::Init()
 
   // Static Parameters - see also Static Standards
   // -----------------
-  Interface_Static::Standards();
+  ExchangeConfig::Standards();
 
-  Interface_Static::Init("XSTEP", "read.iges.bspline.approxd1.mode", 'e', "");
-  Interface_Static::Init("XSTEP", "read.iges.bspline.approxd1.mode", '&', "ematch 0");
-  Interface_Static::Init("XSTEP", "read.iges.bspline.approxd1.mode", '&', "eval Off");
-  Interface_Static::Init("XSTEP", "read.iges.bspline.approxd1.mode", '&', "eval On");
-  Interface_Static::SetIVal("read.iges.bspline.approxd1.mode", 0);
+  ExchangeConfig::Init("XSTEP", "read.iges.bspline.approxd1.mode", 'e', "");
+  ExchangeConfig::Init("XSTEP", "read.iges.bspline.approxd1.mode", '&', "ematch 0");
+  ExchangeConfig::Init("XSTEP", "read.iges.bspline.approxd1.mode", '&', "eval Off");
+  ExchangeConfig::Init("XSTEP", "read.iges.bspline.approxd1.mode", '&', "eval On");
+  ExchangeConfig::SetIVal("read.iges.bspline.approxd1.mode", 0);
 
-  Interface_Static::Init("XSTEP", "read.iges.bspline.continuity", 'i', "1");
-  Interface_Static::Init("XSTEP", "read.iges.bspline.continuity", '&', "imin 0");
-  Interface_Static::Init("XSTEP", "read.iges.bspline.continuity", '&', "imax 2");
+  ExchangeConfig::Init("XSTEP", "read.iges.bspline.continuity", 'i', "1");
+  ExchangeConfig::Init("XSTEP", "read.iges.bspline.continuity", '&', "imin 0");
+  ExchangeConfig::Init("XSTEP", "read.iges.bspline.continuity", '&', "imax 2");
 
-  // #58 rln Interface_Static::Init ("XSTEP","write.iges.header.product" ,'t',"");
-  Interface_Static::Init("XSTEP", "write.iges.header.receiver", 't', ""); // 58 rln Unknown
-  Interface_Static::Init("XSTEP", "write.iges.header.author", 't', process.UserName().ToCString());
-  Interface_Static::Init("XSTEP", "write.iges.header.company", 't', ""); // 58 rln Matra Datavision
+  // #58 rln ExchangeConfig::Init ("XSTEP","write.iges.header.product" ,'t',"");
+  ExchangeConfig::Init("XSTEP", "write.iges.header.receiver", 't', ""); // 58 rln Unknown
+  ExchangeConfig::Init("XSTEP", "write.iges.header.author", 't', process.UserName().ToCString());
+  ExchangeConfig::Init("XSTEP", "write.iges.header.company", 't', ""); // 58 rln Matra Datavision
 
-  Interface_Static::Init("XSTEP", "write.iges.unit", 'e', "");
-  Interface_Static::Init("XSTEP", "write.iges.unit", '&', "enum 1");
-  Interface_Static::Init("XSTEP", "write.iges.unit", '&', "eval INCH"); // 1
-  Interface_Static::Init("XSTEP", "write.iges.unit", '&', "eval MM");   // 2
-  Interface_Static::Init("XSTEP", "write.iges.unit", '&', "eval ??");   // 3
-  Interface_Static::Init("XSTEP", "write.iges.unit", '&', "eval FT");   // 4
-  Interface_Static::Init("XSTEP", "write.iges.unit", '&', "eval MI");   // 5
-  Interface_Static::Init("XSTEP", "write.iges.unit", '&', "eval M");    // 6
-  Interface_Static::Init("XSTEP", "write.iges.unit", '&', "eval KM");   // 7
-  Interface_Static::Init("XSTEP", "write.iges.unit", '&', "eval MIL");  // 8
-  Interface_Static::Init("XSTEP", "write.iges.unit", '&', "eval UM");   // 9
-  Interface_Static::Init("XSTEP", "write.iges.unit", '&', "eval CM");   // 10
-  Interface_Static::Init("XSTEP", "write.iges.unit", '&', "eval UIN");  // 11
-  Interface_Static::SetCVal("write.iges.unit", "MM");
+  ExchangeConfig::Init("XSTEP", "write.iges.unit", 'e', "");
+  ExchangeConfig::Init("XSTEP", "write.iges.unit", '&', "enum 1");
+  ExchangeConfig::Init("XSTEP", "write.iges.unit", '&', "eval INCH"); // 1
+  ExchangeConfig::Init("XSTEP", "write.iges.unit", '&', "eval MM");   // 2
+  ExchangeConfig::Init("XSTEP", "write.iges.unit", '&', "eval ??");   // 3
+  ExchangeConfig::Init("XSTEP", "write.iges.unit", '&', "eval FT");   // 4
+  ExchangeConfig::Init("XSTEP", "write.iges.unit", '&', "eval MI");   // 5
+  ExchangeConfig::Init("XSTEP", "write.iges.unit", '&', "eval M");    // 6
+  ExchangeConfig::Init("XSTEP", "write.iges.unit", '&', "eval KM");   // 7
+  ExchangeConfig::Init("XSTEP", "write.iges.unit", '&', "eval MIL");  // 8
+  ExchangeConfig::Init("XSTEP", "write.iges.unit", '&', "eval UM");   // 9
+  ExchangeConfig::Init("XSTEP", "write.iges.unit", '&', "eval CM");   // 10
+  ExchangeConfig::Init("XSTEP", "write.iges.unit", '&', "eval UIN");  // 11
+  ExchangeConfig::SetCVal("write.iges.unit", "MM");
 
-  Interface_Static::Init("XSTEP", "write.iges.brep.mode", 'e', "");
-  Interface_Static::Init("XSTEP", "write.iges.brep.mode", '&', "ematch 0");
-  Interface_Static::Init("XSTEP", "write.iges.brep.mode", '&', "eval Faces");
-  Interface_Static::Init("XSTEP", "write.iges.brep.mode", '&', "eval BRep");
-  Interface_Static::SetIVal("write.iges.brep.mode", 0);
+  ExchangeConfig::Init("XSTEP", "write.iges.brep.mode", 'e', "");
+  ExchangeConfig::Init("XSTEP", "write.iges.brep.mode", '&', "ematch 0");
+  ExchangeConfig::Init("XSTEP", "write.iges.brep.mode", '&', "eval Faces");
+  ExchangeConfig::Init("XSTEP", "write.iges.brep.mode", '&', "eval BRep");
+  ExchangeConfig::SetIVal("write.iges.brep.mode", 0);
 
   // S4181 pdn 23.04.99: adding new parameter handling writing of elementary surfaces
-  Interface_Static::Init("XSTEP", "write.convertsurface.mode", 'e', "");
-  Interface_Static::Init("XSTEP", "write.convertsurface.mode", '&', "ematch 0");
-  Interface_Static::Init("XSTEP", "write.convertsurface.mode", '&', "eval Off");
-  Interface_Static::Init("XSTEP", "write.convertsurface.mode", '&', "eval On");
-  Interface_Static::SetIVal("write.convertsurface.mode", 0);
+  ExchangeConfig::Init("XSTEP", "write.convertsurface.mode", 'e', "");
+  ExchangeConfig::Init("XSTEP", "write.convertsurface.mode", '&', "ematch 0");
+  ExchangeConfig::Init("XSTEP", "write.convertsurface.mode", '&', "eval Off");
+  ExchangeConfig::Init("XSTEP", "write.convertsurface.mode", '&', "eval On");
+  ExchangeConfig::SetIVal("write.convertsurface.mode", 0);
 
   // abv 15.11.00: ShapeProcessing
-  Interface_Static::Init("XSTEP", "write.iges.resource.name", 't', "IGES");
-  Interface_Static::Init("XSTEP", "read.iges.resource.name", 't', "IGES");
-  Interface_Static::Init("XSTEP", "write.iges.sequence", 't', "ToIGES");
-  Interface_Static::Init("XSTEP", "read.iges.sequence", 't', "FromIGES");
-  Interface_Static::Init("XSTEP", "ToIGES.exec.op", 't', "DirectFaces");
-  Interface_Static::Init("XSTEP", "FromIGES.exec.op", 't', "FixShape");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.Tolerance3d", 't', "&Runtime.Tolerance");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.MaxTolerance3d", 't', "&Runtime.MaxTolerance");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.MinTolerance3d", 't', "1.e-7");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixFreeShellMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixFreeFaceMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixFreeWireMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixSameParameterMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixSolidMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixShellOrientationMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.CreateOpenSolidMode", 't', "1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixShellMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixFaceOrientationMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixFaceMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixWireMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixOrientationMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixAddNaturalBoundMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixMissingSeamMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixSmallAreaWireMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.RemoveSmallAreaFaceMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixIntersectingWiresMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixLoopWiresMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixSplitFaceMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.AutoCorrectPrecisionMode", 't', "1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.ModifyTopologyMode", 't', "0");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.ModifyGeometryMode", 't', "1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.ClosedWireMode", 't', "1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.PreferencePCurveMode", 't', "1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixReorderMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixSmallMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixConnectedMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixEdgeCurvesMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixDegeneratedMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixLackingMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixSelfIntersectionMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.RemoveLoopMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixReversed2dMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixRemovePCurveMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixRemoveCurve3dMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixAddPCurveMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixAddCurve3dMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixSeamMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixShiftedMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixEdgeSameParameterMode", 't', "0");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixNotchedEdgesMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixTailMode", 't', "0");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.MaxTailAngle", 't', "0.0");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.MaxTailWidth", 't', "-1.0");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixSelfIntersectingEdgeMode", 't', "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixIntersectingEdgesMode", 't', "-1");
-  Interface_Static::Init("XSTEP",
+  ExchangeConfig::Init("XSTEP", "write.iges.resource.name", 't', "IGES");
+  ExchangeConfig::Init("XSTEP", "read.iges.resource.name", 't', "IGES");
+  ExchangeConfig::Init("XSTEP", "write.iges.sequence", 't', "ToIGES");
+  ExchangeConfig::Init("XSTEP", "read.iges.sequence", 't', "FromIGES");
+  ExchangeConfig::Init("XSTEP", "ToIGES.exec.op", 't', "DirectFaces");
+  ExchangeConfig::Init("XSTEP", "FromIGES.exec.op", 't', "FixShape");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.Tolerance3d", 't', "&Runtime.Tolerance");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.MaxTolerance3d", 't', "&Runtime.MaxTolerance");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.MinTolerance3d", 't', "1.e-7");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixFreeShellMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixFreeFaceMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixFreeWireMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixSameParameterMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixSolidMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixShellOrientationMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.CreateOpenSolidMode", 't', "1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixShellMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixFaceOrientationMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixFaceMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixWireMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixOrientationMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixAddNaturalBoundMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixMissingSeamMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixSmallAreaWireMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.RemoveSmallAreaFaceMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixIntersectingWiresMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixLoopWiresMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixSplitFaceMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.AutoCorrectPrecisionMode", 't', "1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.ModifyTopologyMode", 't', "0");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.ModifyGeometryMode", 't', "1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.ClosedWireMode", 't', "1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.PreferencePCurveMode", 't', "1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixReorderMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixSmallMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixConnectedMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixEdgeCurvesMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixDegeneratedMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixLackingMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixSelfIntersectionMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.RemoveLoopMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixReversed2dMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixRemovePCurveMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixRemoveCurve3dMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixAddPCurveMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixAddCurve3dMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixSeamMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixShiftedMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixEdgeSameParameterMode", 't', "0");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixNotchedEdgesMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixTailMode", 't', "0");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.MaxTailAngle", 't', "0.0");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.MaxTailWidth", 't', "-1.0");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixSelfIntersectingEdgeMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixIntersectingEdgesMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP",
                          "FromIGES.FixShape.FixNonAdjacentIntersectingEdgesMode",
                          't',
                          "-1");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixVertexPositionMode", 't', "0");
-  Interface_Static::Init("XSTEP", "FromIGES.FixShape.FixVertexToleranceMode", 't', "-1");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixVertexPositionMode", 't', "0");
+  ExchangeConfig::Init("XSTEP", "FromIGES.FixShape.FixVertexToleranceMode", 't', "-1");
 
   // sln 11.06.2002 OCC448 : Initialize "read.onlyvisible" parameter to control transferring
   // invisible sub entities which logically depend on the grouping entities
-  Interface_Static::Init("XSTEP", "read.iges.onlyvisible", 'e', "");
-  Interface_Static::Init("XSTEP", "read.iges.onlyvisible", '&', "ematch 0");
-  Interface_Static::Init("XSTEP", "read.iges.onlyvisible", '&', "eval Off");
-  Interface_Static::Init("XSTEP", "read.iges.onlyvisible", '&', "eval On");
-  Interface_Static::SetIVal("read.iges.onlyvisible", 0);
+  ExchangeConfig::Init("XSTEP", "read.iges.onlyvisible", 'e', "");
+  ExchangeConfig::Init("XSTEP", "read.iges.onlyvisible", '&', "ematch 0");
+  ExchangeConfig::Init("XSTEP", "read.iges.onlyvisible", '&', "eval Off");
+  ExchangeConfig::Init("XSTEP", "read.iges.onlyvisible", '&', "eval On");
+  ExchangeConfig::SetIVal("read.iges.onlyvisible", 0);
 
   // gka added parameter for reading failed entities. 19.07
-  Interface_Static::Init("XSTEP", "read.iges.faulty.entities", 'e', "");
-  Interface_Static::Init("XSTEP", "read.iges.faulty.entities", '&', "ematch 0");
-  Interface_Static::Init("XSTEP", "read.iges.faulty.entities", '&', "eval Off");
-  Interface_Static::Init("XSTEP", "read.iges.faulty.entities", '&', "eval On");
-  Interface_Static::SetIVal("read.iges.faulty.entities", 0);
+  ExchangeConfig::Init("XSTEP", "read.iges.faulty.entities", 'e', "");
+  ExchangeConfig::Init("XSTEP", "read.iges.faulty.entities", '&', "ematch 0");
+  ExchangeConfig::Init("XSTEP", "read.iges.faulty.entities", '&', "eval Off");
+  ExchangeConfig::Init("XSTEP", "read.iges.faulty.entities", '&', "eval On");
+  ExchangeConfig::SetIVal("read.iges.faulty.entities", 0);
 
   // ika added parameter for writing planes mode 2.11.2012
-  Interface_Static::Init("XSTEP", "write.iges.plane.mode", 'e', "");
-  Interface_Static::Init("XSTEP", "write.iges.plane.mode", '&', "ematch 0");
-  Interface_Static::Init("XSTEP", "write.iges.plane.mode", '&', "eval Plane");
-  Interface_Static::Init("XSTEP", "write.iges.plane.mode", '&', "eval BSpline");
-  Interface_Static::SetIVal("write.iges.plane.mode", 0);
+  ExchangeConfig::Init("XSTEP", "write.iges.plane.mode", 'e', "");
+  ExchangeConfig::Init("XSTEP", "write.iges.plane.mode", '&', "ematch 0");
+  ExchangeConfig::Init("XSTEP", "write.iges.plane.mode", '&', "eval Plane");
+  ExchangeConfig::Init("XSTEP", "write.iges.plane.mode", '&', "eval BSpline");
+  ExchangeConfig::SetIVal("write.iges.plane.mode", 0);
 
   // ika added parameter for writing offset curves like BSplines 12.04.2013
-  Interface_Static::Init("XSTEP", "write.iges.offset.mode", 'e', "");
-  Interface_Static::Init("XSTEP", "write.iges.offset.mode", '&', "ematch 0");
-  Interface_Static::Init("XSTEP", "write.iges.offset.mode", '&', "eval On");
-  Interface_Static::Init("XSTEP", "write.iges.offset.mode", '&', "eval Off");
-  Interface_Static::SetIVal("write.iges.offset.mode", 0);
+  ExchangeConfig::Init("XSTEP", "write.iges.offset.mode", 'e', "");
+  ExchangeConfig::Init("XSTEP", "write.iges.offset.mode", '&', "ematch 0");
+  ExchangeConfig::Init("XSTEP", "write.iges.offset.mode", '&', "eval On");
+  ExchangeConfig::Init("XSTEP", "write.iges.offset.mode", '&', "eval Off");
+  ExchangeConfig::SetIVal("write.iges.offset.mode", 0);
 
   // Creating the Global Section
   //----------------------------
@@ -192,7 +192,7 @@ void IGESData::Init()
   char procver[80];
   sprintf(procver, XSTEP_PROCESSOR_VERSION, "IGES");
   Handle(TCollection_HAsciiString) gsys = new TCollection_HAsciiString(procver);
-  Interface_Static::Init("XSTEP", "write.iges.header.product", 't', procver);
+  ExchangeConfig::Init("XSTEP", "write.iges.header.product", 't', procver);
 
   /*  Handle(TCollection_HAsciiString) gsys = new TCollection_HAsciiString
       (XSTEP_VERSION);
@@ -200,7 +200,7 @@ void IGESData::Init()
     gsys->AssignCat
   #ifdef HPUX
       ("HP-UX");
-    std::cout<<"--  OSD_Path::SystemVersion, does not work well on HP-UX"<<std::endl;
+    std::cout<<"--  SystemPath::SystemVersion, does not work well on HP-UX"<<std::endl;
   #endif
   #ifndef HPUX
       (host.SystemVersion().ToCString());
@@ -236,7 +236,7 @@ void IGESData::Init()
     datestr = GS.NewDateString(0, 0, 0, 0, 0, 0, -1);
   GS.SetSeparator(',');
   GS.SetEndMark(';');
-  GS.SetSendName(new TCollection_HAsciiString(Interface_Static::CVal("write.iges.header.product")));
+  GS.SetSendName(new TCollection_HAsciiString(ExchangeConfig::CVal("write.iges.header.product")));
   GS.SetFileName(new TCollection_HAsciiString("Filename.iges"));
   // clang-format off
   GS.SetSystemId (new TCollection_HAsciiString(XSTEP_SYSTEM_VERSION));//#58 rln "MATRA-DATAVISION EUCLID-QUANTUM"
@@ -247,19 +247,19 @@ void IGESData::Init()
   GS.SetMaxDigitsSingle(RealDigits());
   GS.SetMaxPower10Double(RealLast10Exp());
   GS.SetMaxDigitsDouble(RealDigits());
-  GS.SetReceiveName(Interface_Static::Static("write.iges.header.receiver")->HStringValue());
+  GS.SetReceiveName(ExchangeConfig::Static("write.iges.header.receiver")->HStringValue());
   // new TCollection_HAsciiString("Unknown");
   GS.SetScale(1.0);
-  GS.SetUnitFlag(Interface_Static::IVal("write.iges.unit"));
-  GS.SetUnitName(new TCollection_HAsciiString(Interface_Static::CVal("write.iges.unit")));
+  GS.SetUnitFlag(ExchangeConfig::IVal("write.iges.unit"));
+  GS.SetUnitName(new TCollection_HAsciiString(ExchangeConfig::CVal("write.iges.unit")));
   GS.SetLineWeightGrad(1);
   GS.SetMaxLineWeight(0.01);
   GS.SetDate(datestr);
   GS.SetResolution(0.0001);
   GS.SetMaxCoord(0.0 /*1000.0*/); // 22.10.98 rln BUC60081
-  GS.SetAuthorName(Interface_Static::Static("write.iges.header.author")->HStringValue());
+  GS.SetAuthorName(ExchangeConfig::Static("write.iges.header.author")->HStringValue());
   //  new TCollection_HAsciiString (process.UserName());
-  GS.SetCompanyName(Interface_Static::Static("write.iges.header.company")->HStringValue());
+  GS.SetCompanyName(ExchangeConfig::Static("write.iges.header.company")->HStringValue());
   //  new TCollection_HAsciiString("Matra Datavision");
   GS.SetIGESVersion(11); // pour IGES-5.3 //gka 19.01.99
   GS.SetDraftingStandard(0);
@@ -277,7 +277,7 @@ void IGESData::Init()
   Interface_InterfaceModel::SetTemplate("iges", model);
 }
 
-Handle(IGESData_Protocol) IGESData::Protocol()
+Handle(IGESData_Protocol) IGESData1::Protocol()
 {
   return proto;
 }

@@ -33,7 +33,7 @@ BRepCheck_Result::BRepCheck_Result()
 
 //=================================================================================================
 
-void BRepCheck_Result::Init(const TopoDS_Shape& S)
+void BRepCheck_Result::Init(const TopoShape& S)
 {
   myShape = S;
   myMin   = Standard_False;
@@ -44,7 +44,7 @@ void BRepCheck_Result::Init(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-void BRepCheck_Result::SetFailStatus(const TopoDS_Shape& S)
+void BRepCheck_Result::SetFailStatus(const TopoShape& S)
 {
   Standard_Mutex::Sentry          aLock(myMutex.get());
   Handle(BRepCheck_HListOfStatus) aList;

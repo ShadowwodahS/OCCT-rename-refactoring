@@ -23,7 +23,7 @@
 #include <TDF_Attribute.hxx>
 #include <Standard_OStream.hxx>
 #include <Standard_GUID.hxx>
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 
 class TDataStd_BooleanArray;
@@ -40,12 +40,12 @@ public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
   //! Finds or creates an attribute with internal boolean array.
-  Standard_EXPORT static Handle(TDataStd_BooleanArray) Set(const TDF_Label&       label,
+  Standard_EXPORT static Handle(TDataStd_BooleanArray) Set(const DataLabel&       label,
                                                            const Standard_Integer lower,
                                                            const Standard_Integer upper);
 
   //! Finds or creates an attribute with the array using explicit user defined <guid>.
-  Standard_EXPORT static Handle(TDataStd_BooleanArray) Set(const TDF_Label&       label,
+  Standard_EXPORT static Handle(TDataStd_BooleanArray) Set(const DataLabel&       label,
                                                            const Standard_GUID&   theGuid,
                                                            const Standard_Integer lower,
                                                            const Standard_Integer upper);

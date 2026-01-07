@@ -32,16 +32,16 @@ namespace
 //           criteria and visits each one in order to add it to data model.
 //=======================================================================
 void visitEdges(const Handle(IMeshTools_ShapeVisitor)& theVisitor,
-                const TopoDS_Shape&                    theShape,
+                const TopoShape&                    theShape,
                 const Standard_Boolean                 isResetLocation,
                 const TopAbs_ShapeEnum                 theToFind,
                 const TopAbs_ShapeEnum                 theToAvoid = TopAbs_SHAPE)
 {
-  TopExp_Explorer aEdgesIt(theShape, theToFind, theToAvoid);
+  ShapeExplorer aEdgesIt(theShape, theToFind, theToAvoid);
   for (; aEdgesIt.More(); aEdgesIt.Next())
   {
-    const TopoDS_Edge& aEdge = TopoDS::Edge(aEdgesIt.Current());
-    if (!BRep_Tool::IsGeometric(aEdge))
+    const TopoEdge& aEdge = TopoDS::Edge(aEdgesIt.Current());
+    if (!BRepInspector::IsGeometric(aEdge))
     {
       continue;
     }
@@ -53,7 +53,7 @@ void visitEdges(const Handle(IMeshTools_ShapeVisitor)& theVisitor,
 
 //=================================================================================================
 
-IMeshTools_ShapeExplorer::IMeshTools_ShapeExplorer(const TopoDS_Shape& theShape)
+IMeshTools_ShapeExplorer::IMeshTools_ShapeExplorer(const TopoShape& theShape)
     : IMeshData_Shape(theShape)
 {
 }
@@ -71,7 +71,7 @@ void IMeshTools_ShapeExplorer::Accept(const Handle(IMeshTools_ShapeVisitor)& the
 
   // Explore all related to some face edges in shape.
   // make array of faces suitable for processing (excluding faces without surface)
-  TopTools_ListOfShape aFaceList;
+  ShapeList aFaceList;
   BRepLib::ReverseSortFaces(GetShape(), aFaceList);
   TopTools_MapOfShape aFaceMap;
 
@@ -79,15 +79,15 @@ void IMeshTools_ShapeExplorer::Accept(const Handle(IMeshTools_ShapeVisitor)& the
   TopTools_ListIteratorOfListOfShape aFaceIter(aFaceList);
   for (; aFaceIter.More(); aFaceIter.Next())
   {
-    TopoDS_Shape aFaceNoLoc = aFaceIter.Value();
+    TopoShape aFaceNoLoc = aFaceIter.Value();
     aFaceNoLoc.Location(aEmptyLoc);
     if (!aFaceMap.Add(aFaceNoLoc))
     {
       continue; // already processed
     }
 
-    const TopoDS_Face& aFace = TopoDS::Face(aFaceIter.Value());
-    if (!BRep_Tool::IsGeometric(aFace))
+    const TopoFace& aFace = TopoDS::Face(aFaceIter.Value());
+    if (!BRepInspector::IsGeometric(aFace))
     {
       continue;
     }

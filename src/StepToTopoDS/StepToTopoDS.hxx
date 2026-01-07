@@ -35,7 +35,7 @@ class TCollection_HAsciiString;
 //! This package implements the mapping between AP214
 //! Shape representation and  CAS.CAD Shape Representation.
 //! The source schema is Part42 (which is included in AP214)
-class StepToTopoDS
+class StepToTopoDS1
 {
 public:
   DEFINE_STANDARD_ALLOC

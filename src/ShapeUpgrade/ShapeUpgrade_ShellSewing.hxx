@@ -24,7 +24,7 @@
 #include <TopTools_IndexedMapOfShape.hxx>
 #include <Standard_Integer.hxx>
 class ShapeBuild_ReShape;
-class TopoDS_Shape;
+class TopoShape;
 
 //! This class provides a tool for applying sewing algorithm from
 //! BRepBuilderAPI: it takes a shape, calls sewing for each shell,
@@ -45,16 +45,16 @@ public:
   //!
   //! If no shell has been sewed, this method returns the input
   //! shape
-  Standard_EXPORT TopoDS_Shape ApplySewing(const TopoDS_Shape& shape,
+  Standard_EXPORT TopoShape ApplySewing(const TopoShape& shape,
                                            const Standard_Real tol = 0.0);
 
 protected:
 private:
-  Standard_EXPORT void Init(const TopoDS_Shape& shape);
+  Standard_EXPORT void Init(const TopoShape& shape);
 
   Standard_EXPORT Standard_Integer Prepare(const Standard_Real tol);
 
-  Standard_EXPORT TopoDS_Shape Apply(const TopoDS_Shape& shape, const Standard_Real tol);
+  Standard_EXPORT TopoShape Apply(const TopoShape& shape, const Standard_Real tol);
 
   TopTools_IndexedMapOfShape myShells;
   Handle(ShapeBuild_ReShape) myReShape;

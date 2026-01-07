@@ -22,7 +22,7 @@
 
 #include <TopoDS_Face.hxx>
 #include <DrawDim_Dimension.hxx>
-class Draw_Display;
+class DrawDisplay;
 
 class DrawDim_Angle;
 DEFINE_STANDARD_HANDLE(DrawDim_Angle, DrawDim_Dimension)
@@ -31,24 +31,24 @@ class DrawDim_Angle : public DrawDim_Dimension
 {
 
 public:
-  Standard_EXPORT DrawDim_Angle(const TopoDS_Face& plane1, const TopoDS_Face& plane2);
+  Standard_EXPORT DrawDim_Angle(const TopoFace& plane1, const TopoFace& plane2);
 
-  Standard_EXPORT const TopoDS_Face& Plane1() const;
+  Standard_EXPORT const TopoFace& Plane1() const;
 
-  Standard_EXPORT void Plane1(const TopoDS_Face& plane);
+  Standard_EXPORT void Plane1(const TopoFace& plane);
 
-  Standard_EXPORT const TopoDS_Face& Plane2() const;
+  Standard_EXPORT const TopoFace& Plane2() const;
 
-  Standard_EXPORT void Plane2(const TopoDS_Face& plane);
+  Standard_EXPORT void Plane2(const TopoFace& plane);
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(DrawDim_Angle, DrawDim_Dimension)
 
 protected:
 private:
-  TopoDS_Face myPlane1;
-  TopoDS_Face myPlane2;
+  TopoFace myPlane1;
+  TopoFace myPlane2;
 };
 
 #endif // _DrawDim_Angle_HeaderFile

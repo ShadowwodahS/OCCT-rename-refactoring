@@ -39,7 +39,7 @@ Handle(ShapeExtend_BasicMsgRegistrator) ShapeCustom_Modification::MsgRegistrator
 
 //=================================================================================================
 
-void ShapeCustom_Modification::SendMsg(const TopoDS_Shape&   shape,
+void ShapeCustom_Modification::SendMsg(const TopoShape&   shape,
                                        const Message_Msg&    message,
                                        const Message_Gravity gravity) const
 {

@@ -195,7 +195,7 @@ void BOPDS_Iterator::Initialize(const TopAbs_ShapeEnum aType1, const TopAbs_Shap
   Standard_Integer iX;
   //
   myLength = 0;
-  iX       = BOPDS_Tools::TypeToInteger(aType1, aType2);
+  iX       = Tools1::TypeToInteger(aType1, aType2);
   if (iX >= 0)
   {
     BOPDS_VectorOfPair& aPairs =
@@ -228,7 +228,7 @@ void BOPDS_Iterator::Value(Standard_Integer& theI1, Standard_Integer& theI2) con
 {
   Standard_Integer iT1, iT2, n1, n2;
   //
-  const BOPDS_Pair& aPair = myIterator.Value();
+  const IndexPair& aPair = myIterator.Value();
   aPair.Indices(n1, n2);
   //
   iT1 = (Standard_Integer)(myDS->ShapeInfo(n1).ShapeType());
@@ -305,7 +305,7 @@ void BOPDS_Iterator::Intersect(const Handle(IntTools_Context)& theCtx,
   const Standard_Integer aNbR = myDS->NbRanges();
   for (Standard_Integer iR = 0; iR < aNbR; ++iR)
   {
-    const BOPDS_IndexRange& aRange = myDS->Range(iR);
+    const IndexRange& aRange = myDS->Range(iR);
 
     for (; iPair < aNbPairs; ++iPair)
     {
@@ -324,8 +324,8 @@ void BOPDS_Iterator::Intersect(const Handle(IntTools_Context)& theCtx,
       const TopAbs_ShapeEnum aType1 = aSI1.ShapeType();
       const TopAbs_ShapeEnum aType2 = aSI2.ShapeType();
 
-      Standard_Integer iType1 = BOPDS_Tools::TypeToInteger(aType1);
-      Standard_Integer iType2 = BOPDS_Tools::TypeToInteger(aType2);
+      Standard_Integer iType1 = Tools1::TypeToInteger(aType1);
+      Standard_Integer iType2 = Tools1::TypeToInteger(aType2);
 
       // avoid interfering of the shape with its sub-shapes
       if (((iType1 < iType2) && aSI1.HasSubShape(aPair.ID2))
@@ -342,8 +342,8 @@ void BOPDS_Iterator::Intersect(const Handle(IntTools_Context)& theCtx,
           continue;
       }
 
-      Standard_Integer iX = BOPDS_Tools::TypeToInteger(aType1, aType2);
-      myLists(iX).Append(BOPDS_Pair(Min(aPair.ID1, aPair.ID2), Max(aPair.ID1, aPair.ID2)));
+      Standard_Integer iX = Tools1::TypeToInteger(aType1, aType2);
+      myLists(iX).Append(IndexPair(Min(aPair.ID1, aPair.ID2), Max(aPair.ID1, aPair.ID2)));
     }
   }
 }
@@ -390,7 +390,7 @@ void BOPDS_Iterator::IntersectExt(const TColStd_MapOfInteger& theIndices)
   aBoxTree.Build();
 
   // Perform selection
-  BOPTools_Parallel::Perform(myRunParallel, aVTSR);
+  BooleanParallelTools::Perform(myRunParallel, aVTSR);
 
   // Treat selections
 
@@ -409,7 +409,7 @@ void BOPDS_Iterator::IntersectExt(const TColStd_MapOfInteger& theIndices)
     const BOPDS_ShapeInfo& aSI    = myDS->ShapeInfo(i);
     const Standard_Integer iRankI = myDS->Rank(i);
     const TopAbs_ShapeEnum aTI    = aSI.ShapeType();
-    const Standard_Integer iTI    = BOPDS_Tools::TypeToInteger(aTI);
+    const Standard_Integer iTI    = Tools1::TypeToInteger(aTI);
 
     TColStd_ListIteratorOfListOfInteger itLI(aLI);
     for (; itLI.More(); itLI.Next())
@@ -421,16 +421,16 @@ void BOPDS_Iterator::IntersectExt(const TColStd_MapOfInteger& theIndices)
 
       const BOPDS_ShapeInfo& aSJ = myDS->ShapeInfo(j);
       const TopAbs_ShapeEnum aTJ = aSJ.ShapeType();
-      const Standard_Integer iTJ = BOPDS_Tools::TypeToInteger(aTJ);
+      const Standard_Integer iTJ = Tools1::TypeToInteger(aTJ);
 
       // avoid interfering of the shape with its sub-shapes
       if (((iTI < iTJ) && aSI.HasSubShape(j)) || ((iTI > iTJ) && aSJ.HasSubShape(i)))
         continue;
 
-      BOPDS_Pair aPair(i, j);
+      IndexPair aPair(i, j);
       if (aMPFence.Add(aPair))
       {
-        const Standard_Integer iX = BOPDS_Tools::TypeToInteger(aTI, aTJ);
+        const Standard_Integer iX = Tools1::TypeToInteger(aTI, aTJ);
         if (iX < BOPDS_Iterator::NbExtInterfs())
           myExtLists(iX).Append(aPair);
       }

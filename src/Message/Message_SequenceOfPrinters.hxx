@@ -20,6 +20,6 @@
 #include <Message_Printer.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Handle(Message_Printer)> Message_SequenceOfPrinters;
+typedef NCollection_Sequence<Handle(LogPrinter)> Message_SequenceOfPrinters;
 
 #endif

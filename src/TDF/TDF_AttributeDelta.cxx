@@ -40,7 +40,7 @@ TDF_AttributeDelta::TDF_AttributeDelta(const Handle(TDF_Attribute)& anAttribute)
 
 //=================================================================================================
 
-TDF_Label TDF_AttributeDelta::Label() const
+DataLabel TDF_AttributeDelta::Label() const
 {
   return myLabel;
 }
@@ -63,7 +63,7 @@ Standard_GUID TDF_AttributeDelta::ID() const
 
 Standard_OStream& TDF_AttributeDelta::Dump(Standard_OStream& OS) const
 {
-  static TCollection_AsciiString entry;
+  static AsciiString1 entry;
   TDF_Tool::Entry(Label(), entry);
   OS << this->DynamicType()->Name() << " at " << entry;
   OS << " on " << Attribute()->DynamicType()->Name();
@@ -78,7 +78,7 @@ void TDF_AttributeDelta::DumpJson(Standard_OStream& theOStream, Standard_Integer
 
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, myAttribute.get())
 
-  TCollection_AsciiString aStrForTDF_Label;
+  AsciiString1 aStrForTDF_Label;
   TDF_Tool::Entry(myLabel, aStrForTDF_Label);
   OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aStrForTDF_Label)
 }

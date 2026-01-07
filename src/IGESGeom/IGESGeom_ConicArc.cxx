@@ -36,8 +36,8 @@ void IGESGeom_ConicArc::Init(const Standard_Real A,
                              const Standard_Real E,
                              const Standard_Real F,
                              const Standard_Real ZT,
-                             const gp_XY&        aStart,
-                             const gp_XY&        anEnd)
+                             const Coords2d&        aStart,
+                             const Coords2d&        anEnd)
 {
   theA     = A;
   theB     = B;

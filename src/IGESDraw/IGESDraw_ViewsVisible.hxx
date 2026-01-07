@@ -29,7 +29,7 @@ class IGESDraw_ViewsVisible;
 DEFINE_STANDARD_HANDLE(IGESDraw_ViewsVisible, IGESData_ViewKindEntity)
 
 //! Defines IGESViewsVisible, Type <402>, Form <3>
-//! in package IGESDraw
+//! in package IGESDraw1
 //!
 //! If an entity is to be displayed in more than one views,
 //! this class instance is used, which contains the Visible

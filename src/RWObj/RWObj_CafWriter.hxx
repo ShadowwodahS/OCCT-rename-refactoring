@@ -25,7 +25,7 @@
 
 class Message_ProgressRange;
 class RWMesh_FaceIterator;
-class TDocStd_Document;
+class AppDocument;
 
 class Message_LazyProgressScope;
 class RWObj_ObjWriterContext;
@@ -38,7 +38,7 @@ class RWObj_CafWriter : public RefObject
 public:
   //! Main constructor.
   //! @param[in] theFile  path to output OBJ file
-  Standard_EXPORT RWObj_CafWriter(const TCollection_AsciiString& theFile);
+  Standard_EXPORT RWObj_CafWriter(const AsciiString1& theFile);
 
   //! Destructor.
   Standard_EXPORT virtual ~RWObj_CafWriter();
@@ -73,7 +73,7 @@ public:
   //! @param[in] theFileInfo     map with file metadata to put into OBJ header section
   //! @param[in] theProgress     optional progress indicator
   //! @return FALSE on file writing failure
-  Standard_EXPORT virtual bool Perform(const Handle(TDocStd_Document)&             theDocument,
+  Standard_EXPORT virtual bool Perform(const Handle(AppDocument)&             theDocument,
                                        const TDF_LabelSequence&                    theRootLabels,
                                        const TColStd_MapOfAsciiString*             theLabelFilter,
                                        const TColStd_IndexedDataMapOfStringString& theFileInfo,
@@ -85,7 +85,7 @@ public:
   //! @param[in] theFileInfo     map with file metadata to put into glTF header section
   //! @param[in] theProgress     optional progress indicator
   //! @return FALSE on file writing failure
-  Standard_EXPORT virtual bool Perform(const Handle(TDocStd_Document)&             theDocument,
+  Standard_EXPORT virtual bool Perform(const Handle(AppDocument)&             theDocument,
                                        const TColStd_IndexedDataMapOfStringString& theFileInfo,
                                        const Message_ProgressRange&                theProgress);
 
@@ -116,10 +116,10 @@ protected:
   Standard_EXPORT virtual bool writeShape(RWObj_ObjWriterContext&        theWriter,
                                           RWObj_ObjMaterialMap&          theMatMgr,
                                           Message_LazyProgressScope&     thePSentry,
-                                          const TDF_Label&               theLabel,
+                                          const DataLabel&               theLabel,
                                           const TopLoc_Location&         theParentTrsf,
                                           const XCAFPrs_Style&           theParentStyle,
-                                          const TCollection_AsciiString& theName);
+                                          const AsciiString1& theName);
 
   //! Write face triangle vertex positions.
   //! @param[in] theWriter   OBJ writer context
@@ -158,7 +158,7 @@ protected:
                                             const RWMesh_FaceIterator& theFace);
 
 protected:
-  TCollection_AsciiString myFile; //!< output OBJ file
+  AsciiString1 myFile; //!< output OBJ file
   // clang-format off
   RWMesh_CoordinateSystemConverter myCSTrsf;       //!< transformation from OCCT to OBJ coordinate system
   XCAFPrs_Style                    myDefaultStyle; //!< default material definition to be used for nodes with only color defined

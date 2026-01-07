@@ -37,7 +37,7 @@ class gp_Pln;
 //!
 //! The surface's requirements to evaluate the global
 //! properties are defined in the template FaceTool class from
-//! the package GProp.
+//! the package GProp1.
 //!
 //! The adaptive 2D algorithm of Gauss-Kronrod integration of
 //! double integral is used.
@@ -49,7 +49,7 @@ class gp_Pln;
 //! The outer integral is computed along T parameter of a
 //! bounding curve. The integrand function is encapsulated in
 //! the support class TFunction that is defined below.
-class BRepGProp_VinertGK : public GProp_GProps
+class BRepGProp_VinertGK : public GeometricProperties
 {
 public:
   DEFINE_STANDARD_ALLOC

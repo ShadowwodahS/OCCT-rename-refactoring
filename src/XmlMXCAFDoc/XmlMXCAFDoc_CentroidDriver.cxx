@@ -63,8 +63,8 @@ Standard_Boolean XmlMXCAFDoc_CentroidDriver::Paste(const XmlObjMgt_Persistent&  
   // X
   if (!XmlObjMgt::GetReal(aValueStr, aValue))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString(
+    UtfString aMessageString =
+      UtfString(
         "Cannot retrieve X coordinate for XCAFDoc_Centroid attribute as \"")
       + aValueStr + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -75,8 +75,8 @@ Standard_Boolean XmlMXCAFDoc_CentroidDriver::Paste(const XmlObjMgt_Persistent&  
   // Y
   if (!XmlObjMgt::GetReal(aValueStr, aValue))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString(
+    UtfString aMessageString =
+      UtfString(
         "Cannot retrieve Y coordinate for XCAFDoc_Centroid attribute as \"")
       + aValueStr + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -87,8 +87,8 @@ Standard_Boolean XmlMXCAFDoc_CentroidDriver::Paste(const XmlObjMgt_Persistent&  
   // Z
   if (!XmlObjMgt::GetReal(aValueStr, aValue))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString(
+    UtfString aMessageString =
+      UtfString(
         "Cannot retrieve Z coordinate for XCAFDoc_Centroid attribute as \"")
       + aValueStr + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);

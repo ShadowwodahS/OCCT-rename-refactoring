@@ -23,7 +23,7 @@ class TDF_RelocationTable;
 class TDataStd_GenericExtString;
 DEFINE_STANDARD_HANDLE(TDataStd_GenericExtString, TDF_Attribute)
 
-//! An ancestor attribute for all attributes which have TCollection_ExtendedString field.
+//! An ancestor attribute for all attributes which have UtfString field.
 //! If an attribute inherits this one it should not have drivers for persistence.
 //! Also this attribute provides functionality to have on the same label same attributes with
 //! different IDs.
@@ -32,13 +32,13 @@ class TDataStd_GenericExtString : public TDF_Attribute
 
 public:
   //! Sets <S> as name. Raises if <S> is not a valid name.
-  Standard_EXPORT virtual void Set(const TCollection_ExtendedString& S);
+  Standard_EXPORT virtual void Set(const UtfString& S);
 
   //! Sets the explicit user defined GUID  to the attribute.
   Standard_EXPORT void SetID(const Standard_GUID& guid) Standard_OVERRIDE;
 
   //! Returns the name contained in this name attribute.
-  Standard_EXPORT virtual const TCollection_ExtendedString& Get() const;
+  Standard_EXPORT virtual const UtfString& Get() const;
 
   //! Returns the ID of the attribute.
   Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
@@ -56,7 +56,7 @@ public:
 
 protected:
   //! A string field of the attribute, participated in persistence.
-  TCollection_ExtendedString myString;
+  UtfString myString;
   //! A private GUID of the attribute.
   Standard_GUID myID;
 };

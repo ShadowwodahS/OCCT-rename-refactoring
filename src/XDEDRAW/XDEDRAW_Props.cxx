@@ -110,37 +110,37 @@ static gp_XYZ TetraCen(const Point3d& RefPoint,
 
 //=================================================================================================
 
-static Standard_Real CalculVolume(const TopoDS_Shape& So,
+static Standard_Real CalculVolume(const TopoShape& So,
                                   Point3d&             aRefPoint,
                                   Standard_Real       tol,
                                   Standard_Boolean    withForce,
-                                  Draw_Interpretor&   di)
+                                  DrawInterpreter&   di)
 {
   Standard_Real    myVolume = 0, curVolume = 0;
   gp_XYZ           localCentroid(0, 0, 0), curCentroid(0, 0, 0);
   Standard_Boolean haveVertex = Standard_False;
-  for (TopExp_Explorer ex(So, TopAbs_FACE); ex.More(); ex.Next())
+  for (ShapeExplorer ex(So, TopAbs_FACE); ex.More(); ex.Next())
   {
-    TopoDS_Face     F = TopoDS::Face(ex.Current());
+    TopoFace     F = TopoDS::Face(ex.Current());
     TopLoc_Location L;
     if (!haveVertex)
-      for (TopExp_Explorer Vex(F, TopAbs_VERTEX); Vex.More(); Vex.Next())
+      for (ShapeExplorer Vex(F, TopAbs_VERTEX); Vex.More(); Vex.Next())
       {
-        TopoDS_Vertex v = TopoDS::Vertex(Vex.Current());
+        TopoVertex v = TopoDS::Vertex(Vex.Current());
         if (!v.IsNull())
         {
-          aRefPoint  = BRep_Tool::Pnt(v);
+          aRefPoint  = BRepInspector::Pnt(v);
           haveVertex = Standard_True;
           break;
         }
       }
 
-    Handle(Poly_Triangulation) facing = BRep_Tool::Triangulation(F, L);
+    Handle(MeshTriangulation) facing = BRepInspector::Triangulation(F, L);
     if (facing.IsNull() || withForce)
     {
-      BRepMesh_IncrementalMesh MESH(F, tol);
+      MeshGenerator MESH(F, tol);
 
-      facing = BRep_Tool::Triangulation(F, L);
+      facing = BRepInspector::Triangulation(F, L);
     }
 
     for (Standard_Integer i = 1; i <= (facing->NbTriangles()); i++)
@@ -179,15 +179,15 @@ static Standard_Real CalculVolume(const TopoDS_Shape& So,
 
 //=================================================================================================
 
-static Standard_Integer SetProps(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer SetProps(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: " << argv[0] << " DocName {Shape|Label} [epsilon = 0.001]\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -196,12 +196,12 @@ static Standard_Integer SetProps(Draw_Interpretor& di, Standard_Integer argc, co
 
   Standard_Real Vres, Ares;
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
-  TopoDS_Shape aShape;
+  TopoShape aShape;
   if (aLabel.IsNull())
   {
-    aShape = DBRep::Get(argv[2]);
+    aShape = DBRep1::Get(argv[2]);
     if (!aShape.IsNull())
     {
       Handle(XCAFDoc_ShapeTool) STool = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
@@ -218,11 +218,11 @@ static Standard_Integer SetProps(Draw_Interpretor& di, Standard_Integer argc, co
     // retrieve epsilon
     Standard_Real anEps;
     if (argc > 3)
-      anEps = Draw::Atof(argv[3]);
+      anEps = Draw1::Atof(argv[3]);
     else
       anEps = 0.001;
 
-    GProp_GProps G;
+    GeometricProperties G;
     BRepGProp::VolumeProperties(aShape, G, anEps, Standard_True);
     Vres                           = G.Mass();
     Handle(XCAFDoc_Volume) aVolume = new XCAFDoc_Volume;
@@ -251,15 +251,15 @@ static Standard_Integer SetProps(Draw_Interpretor& di, Standard_Integer argc, co
 
 //=================================================================================================
 
-static Standard_Integer SetVolume(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer SetVolume(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 4)
   {
     di << "Use: " << argv[0] << " DocName {Label|Shape} volume\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -268,11 +268,11 @@ static Standard_Integer SetVolume(Draw_Interpretor& di, Standard_Integer argc, c
 
   Standard_Real res = 0.;
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
-    TopoDS_Shape aShape = DBRep::Get(argv[2]);
+    TopoShape aShape = DBRep1::Get(argv[2]);
     if (!aShape.IsNull())
     {
       Handle(XCAFDoc_ShapeTool) STool = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
@@ -281,7 +281,7 @@ static Standard_Integer SetVolume(Draw_Interpretor& di, Standard_Integer argc, c
   }
   if (!aLabel.IsNull())
   {
-    res                            = Draw::Atof(argv[3]);
+    res                            = Draw1::Atof(argv[3]);
     Handle(XCAFDoc_Volume) aVolume = new XCAFDoc_Volume;
     if (!aLabel.FindAttribute(XCAFDoc_Volume::GetID(), aVolume))
       aLabel.AddAttribute(aVolume);
@@ -294,15 +294,15 @@ static Standard_Integer SetVolume(Draw_Interpretor& di, Standard_Integer argc, c
 
 //=================================================================================================
 
-static Standard_Integer SetArea(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer SetArea(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 4)
   {
     di << "Use: " << argv[0] << " DocName {Label|Shape} area\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -311,11 +311,11 @@ static Standard_Integer SetArea(Draw_Interpretor& di, Standard_Integer argc, con
 
   Standard_Real res = 0.;
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
-    TopoDS_Shape aShape = DBRep::Get(argv[2]);
+    TopoShape aShape = DBRep1::Get(argv[2]);
     if (!aShape.IsNull())
     {
       Handle(XCAFDoc_ShapeTool) STool = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
@@ -324,7 +324,7 @@ static Standard_Integer SetArea(Draw_Interpretor& di, Standard_Integer argc, con
   }
   if (!aLabel.IsNull())
   {
-    res                        = Draw::Atof(argv[3]);
+    res                        = Draw1::Atof(argv[3]);
     Handle(XCAFDoc_Area) aArea = new XCAFDoc_Area;
     if (!aLabel.FindAttribute(XCAFDoc_Area::GetID(), aArea))
       aLabel.AddAttribute(aArea);
@@ -336,15 +336,15 @@ static Standard_Integer SetArea(Draw_Interpretor& di, Standard_Integer argc, con
 
 //=================================================================================================
 
-static Standard_Integer SetCentroid(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer SetCentroid(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 6)
   {
     di << "Use: " << argv[0] << " DocName {Label|Shape} x y z\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -353,11 +353,11 @@ static Standard_Integer SetCentroid(Draw_Interpretor& di, Standard_Integer argc,
 
   Point3d aPoint;
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
-    TopoDS_Shape aShape = DBRep::Get(argv[2]);
+    TopoShape aShape = DBRep1::Get(argv[2]);
     if (!aShape.IsNull())
     {
       Handle(XCAFDoc_ShapeTool) STool = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
@@ -366,40 +366,40 @@ static Standard_Integer SetCentroid(Draw_Interpretor& di, Standard_Integer argc,
   }
   if (!aLabel.IsNull())
   {
-    aPoint.SetX(Draw::Atof(argv[3]));
-    aPoint.SetY(Draw::Atof(argv[4]));
-    aPoint.SetZ(Draw::Atof(argv[5]));
+    aPoint.SetX(Draw1::Atof(argv[3]));
+    aPoint.SetY(Draw1::Atof(argv[4]));
+    aPoint.SetZ(Draw1::Atof(argv[5]));
     Handle(XCAFDoc_Centroid) aCentroid = new XCAFDoc_Centroid;
     if (!aLabel.FindAttribute(XCAFDoc_Centroid::GetID(), aCentroid))
       aLabel.AddAttribute(aCentroid);
     aCentroid->Set(aPoint);
-    di << Draw::Atof(argv[3]) << " " << Draw::Atof(argv[4]) << " " << Draw::Atof(argv[5]);
+    di << Draw1::Atof(argv[3]) << " " << Draw1::Atof(argv[4]) << " " << Draw1::Atof(argv[5]);
   }
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer GetVolume(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer GetVolume(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 3)
   {
     di << "Use: " << argv[0] << " DocName {Shape|Label}\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
     return 1;
   }
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
-    TopoDS_Shape aShape = DBRep::Get(argv[2]);
+    TopoShape aShape = DBRep1::Get(argv[2]);
     if (!aShape.IsNull())
     {
       Handle(XCAFDoc_ShapeTool) STool = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
@@ -420,26 +420,26 @@ static Standard_Integer GetVolume(Draw_Interpretor& di, Standard_Integer argc, c
 
 //=================================================================================================
 
-static Standard_Integer GetArea(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer GetArea(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 3)
   {
     di << "Use: " << argv[0] << " DocName {Shape|Label}\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
     return 1;
   }
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
-    TopoDS_Shape aShape = DBRep::Get(argv[2]);
+    TopoShape aShape = DBRep1::Get(argv[2]);
     if (!aShape.IsNull())
     {
       Handle(XCAFDoc_ShapeTool) STool = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
@@ -460,15 +460,15 @@ static Standard_Integer GetArea(Draw_Interpretor& di, Standard_Integer argc, con
 
 //=================================================================================================
 
-static Standard_Integer GetCentroid(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer GetCentroid(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 3)
   {
     di << "Use: " << argv[0] << " DocName {Shape|Label} \n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -477,11 +477,11 @@ static Standard_Integer GetCentroid(Draw_Interpretor& di, Standard_Integer argc,
 
   Point3d aPoint;
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
-    TopoDS_Shape aShape = DBRep::Get(argv[2]);
+    TopoShape aShape = DBRep1::Get(argv[2]);
     if (!aShape.IsNull())
     {
       Handle(XCAFDoc_ShapeTool) STool = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
@@ -505,7 +505,7 @@ static Standard_Integer GetCentroid(Draw_Interpretor& di, Standard_Integer argc,
 
 //=================================================================================================
 
-static Standard_Integer CheckProps(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer CheckProps(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 2)
   {
@@ -517,26 +517,26 @@ static Standard_Integer CheckProps(Draw_Interpretor& di, Standard_Integer argc, 
     di << "     If the second argument is negative, meshing is forced\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
     return 1;
   }
   Standard_Boolean withVolFix = Standard_False;
-  if (argc > 2 && Draw::Atof(argv[2]) != 0)
+  if (argc > 2 && Draw1::Atof(argv[2]) != 0)
     withVolFix = Standard_True;
   Standard_Boolean  wholeDoc = (argc < 4);
   TDF_LabelSequence seq;
   if (!wholeDoc)
   {
-    TDF_Label aLabel;
+    DataLabel aLabel;
     TDF_Tool::Label(Doc->GetData(), argv[3], aLabel);
-    TopoDS_Shape aShape;
+    TopoShape aShape;
     if (aLabel.IsNull())
     {
-      aShape = DBRep::Get(argv[3]);
+      aShape = DBRep1::Get(argv[3]);
       if (!aShape.IsNull())
       {
         Handle(XCAFDoc_ShapeTool) STool = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
@@ -558,7 +558,7 @@ static Standard_Integer CheckProps(Draw_Interpretor& di, Standard_Integer argc, 
   }
   for (Standard_Integer i = 1; i <= seq.Length(); i++)
   {
-    TDF_Label aLabel = seq(i);
+    DataLabel aLabel = seq(i);
 
     // add instance labels to sequence to process them as well
     if (XCAFDoc_ShapeTool::IsAssembly(aLabel))
@@ -568,7 +568,7 @@ static Standard_Integer CheckProps(Draw_Interpretor& di, Standard_Integer argc, 
       Standard_Integer m = i;
       for (Standard_Integer k = 1; k <= comp.Length(); k++)
       {
-        TDF_Label                lab = comp(k);
+        DataLabel                lab = comp(k);
         Handle(XCAFDoc_Volume)   aVolume;
         Handle(XCAFDoc_Area)     aArea;
         Handle(XCAFDoc_Centroid) aCentroid;
@@ -580,15 +580,15 @@ static Standard_Integer CheckProps(Draw_Interpretor& di, Standard_Integer argc, 
       }
     }
 
-    TCollection_AsciiString str;
+    AsciiString1 str;
     TDF_Tool::Entry(aLabel, str);
     // printf ( "%s%-12.12s", ( wholeDoc ? "" : "Label " ), str.ToCString() );
     // fflush ( stdout );
     char string1[260];
     Sprintf(string1, "%s%-12.12s", (wholeDoc ? "" : "Label "), str.ToCString());
     di << string1;
-    Handle(TDataStd_Name) N;
-    if (aLabel.FindAttribute(TDataStd_Name::GetID(), N) && !wholeDoc)
+    Handle(NameAttribute) N;
+    if (aLabel.FindAttribute(NameAttribute::GetID(), N) && !wholeDoc)
     {
       di << " \"" << N->Get() << "\"";
     }
@@ -601,9 +601,9 @@ static Standard_Integer CheckProps(Draw_Interpretor& di, Standard_Integer argc, 
     aLabel.FindAttribute(XCAFDoc_Volume::GetID(), aVolume);
     aLabel.FindAttribute(XCAFDoc_Area::GetID(), aArea);
     aLabel.FindAttribute(XCAFDoc_Centroid::GetID(), aCentroid);
-    GProp_GProps G;
+    GeometricProperties G;
 
-    TopoDS_Shape aShape = XCAFDoc_ShapeTool::GetShape(aLabel);
+    TopoShape aShape = XCAFDoc_ShapeTool::GetShape(aLabel);
     if (!aArea.IsNull())
     {
       try
@@ -651,7 +651,7 @@ static Standard_Integer CheckProps(Draw_Interpretor& di, Standard_Integer argc, 
         Point3d        pcg(0, 0, 0);
         if (withVolFix)
         {
-          Standard_Real    tol       = Draw::Atof(argv[2]);
+          Standard_Real    tol       = Draw1::Atof(argv[2]);
           Standard_Boolean withForce = Standard_False;
           if (tol < 0)
           {
@@ -764,19 +764,19 @@ static Standard_Integer CheckProps(Draw_Interpretor& di, Standard_Integer argc, 
 
 //=================================================================================================
 
-static Standard_Integer ShapeVolume(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer ShapeVolume(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 3)
   {
     di << "Use: " << argv[0] << " Shape deflection \n";
     return 1;
   }
-  TopoDS_Shape aShape = DBRep::Get(argv[1]);
+  TopoShape aShape = DBRep1::Get(argv[1]);
   if (aShape.IsNull())
     return 1;
   Point3d           aPoint(0, 0, 0);
   Standard_Real    localVolume;
-  Standard_Real    tol       = Draw::Atof(argv[2]);
+  Standard_Real    tol       = Draw1::Atof(argv[2]);
   Standard_Boolean withForce = Standard_False;
   if (tol < 0)
   {
@@ -796,7 +796,7 @@ static Standard_Integer ShapeVolume(Draw_Interpretor& di, Standard_Integer argc,
 // purpose  : auxiliary for ShapeMassProps
 //=======================================================================
 
-static Standard_Boolean GetMassProps(const TDF_Label&    aLabel,
+static Standard_Boolean GetMassProps(const DataLabel&    aLabel,
                                      gp_XYZ&             theCenterGravity,
                                      Standard_Real&      theMassVal,
                                      const Standard_Real thetol)
@@ -805,8 +805,8 @@ static Standard_Boolean GetMassProps(const TDF_Label&    aLabel,
 
   if (aDensity > 0)
   {
-    TopoDS_Shape aShape = XCAFDoc_ShapeTool::GetShape(aLabel);
-    GProp_GProps G;
+    TopoShape aShape = XCAFDoc_ShapeTool::GetShape(aLabel);
+    GeometricProperties G;
     BRepGProp::VolumeProperties(aShape, G, 0.001, Standard_True);
     Standard_Real localVolume = G.Mass();
     theMassVal                = aDensity * localVolume;
@@ -816,22 +816,22 @@ static Standard_Boolean GetMassProps(const TDF_Label&    aLabel,
 
   if (aDensity == 0)
   {
-    Handle(TNaming_NamedShape) NS;
-    if (aLabel.FindAttribute(TNaming_NamedShape::GetID(), NS))
+    Handle(ShapeAttribute) NS;
+    if (aLabel.FindAttribute(ShapeAttribute::GetID(), NS))
     {
-      // S = TNaming_Tool::GetShape(NS);
-      TopoDS_Shape aSh = NS->Get();
+      // S = Tool11::GetShape(NS);
+      TopoShape aSh = NS->Get();
       if (aSh.ShapeType() == TopAbs_SOLID)
         return Standard_False;
     }
 
-    // TopoDS_Shape aSh = XCAFDoc_ShapeTool::GetShape(aLabel);
+    // TopoShape aSh = XCAFDoc_ShapeTool::GetShape(aLabel);
     // if(aSh.ShapeType()==TopAbs_SOLID) return Standard_False;
 
     Handle(TDataStd_TreeNode) Node;
     if (aLabel.FindAttribute(XCAFDoc::ShapeRefGUID(), Node) && Node->HasFather())
     {
-      TDF_Label SubL = Node->Father()->Label();
+      DataLabel SubL = Node->Father()->Label();
       if (GetMassProps(SubL, theCenterGravity, theMassVal, thetol))
       {
         Handle(XCAFDoc_Location) LocationAttribute;
@@ -860,7 +860,7 @@ static Standard_Boolean GetMassProps(const TDF_Label&    aLabel,
       Standard_Integer k          = 1;
       for (; k <= comp.Length(); k++)
       {
-        TDF_Label     lab = comp(k);
+        DataLabel     lab = comp(k);
         gp_XYZ        aCenterGravity(0.0, 0.0, 0.0);
         Standard_Real aMassVal = 0.0;
         if (GetMassProps(lab, aCenterGravity, aMassVal, thetol))
@@ -890,7 +890,7 @@ static Standard_Boolean GetMassProps(const TDF_Label&    aLabel,
 
 //=================================================================================================
 
-static Standard_Integer ShapeMassProps(Draw_Interpretor& di,
+static Standard_Integer ShapeMassProps(DrawInterpreter& di,
                                        Standard_Integer  argc,
                                        const char**      argv)
 {
@@ -905,11 +905,11 @@ static Standard_Integer ShapeMassProps(Draw_Interpretor& di,
     di << "     If the second argument is negative, meshing is forced\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   Standard_Real atol = Precision::Confusion();
   if (argc > 2)
-    atol = Draw::Atof(argv[2]);
+    atol = Draw1::Atof(argv[2]);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -919,12 +919,12 @@ static Standard_Integer ShapeMassProps(Draw_Interpretor& di,
   TDF_LabelSequence seq;
   if (!wholeDoc)
   {
-    TDF_Label aLabel;
+    DataLabel aLabel;
     TDF_Tool::Label(Doc->GetData(), argv[3], aLabel);
-    TopoDS_Shape aShape;
+    TopoShape aShape;
     if (aLabel.IsNull())
     {
-      aShape = DBRep::Get(argv[3]);
+      aShape = DBRep1::Get(argv[3]);
       if (!aShape.IsNull())
       {
         Handle(XCAFDoc_ShapeTool) STool = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
@@ -947,11 +947,11 @@ static Standard_Integer ShapeMassProps(Draw_Interpretor& di,
   Standard_Real aMassVal = 0.0;
   for (Standard_Integer i = 1; i <= seq.Length(); i++)
   {
-    TDF_Label aLabel = seq(i);
+    DataLabel aLabel = seq(i);
     GetMassProps(aLabel, aCenterGravity, aMassVal, atol);
     //    if(GetMassProps(aLabel,aCenterGravity,aMassVal,atol))
     //    {
-    TCollection_AsciiString str;
+    AsciiString1 str;
     TDF_Tool::Entry(aLabel, str);
     if (aMassVal > 0)
     {
@@ -972,22 +972,22 @@ static Standard_Integer ShapeMassProps(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer SetMaterial(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer SetMaterial(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 5)
   {
     di << "Use: " << argv[0] << " Doc {Label|Shape} name density(g/cu sm) \n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
     return 1;
   }
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
 
   Handle(XCAFDoc_MaterialTool) MatTool = XCAFDoc_DocumentTool::MaterialTool(Doc->Main());
@@ -995,14 +995,14 @@ static Standard_Integer SetMaterial(Draw_Interpretor& di, Standard_Integer argc,
   MatTool->SetMaterial(aLabel,
                        new TCollection_HAsciiString(argv[3]),
                        new TCollection_HAsciiString(""),
-                       Draw::Atof(argv[4]),
+                       Draw1::Atof(argv[4]),
                        new TCollection_HAsciiString("density measure"),
                        new TCollection_HAsciiString("POSITIVE_RATIO_MEASURE"));
 
   return 0;
 }
 
-static Standard_Integer GetValidationProps(Draw_Interpretor& di,
+static Standard_Integer GetValidationProps(DrawInterpreter& di,
                                            Standard_Integer  argc,
                                            const char**      argv)
 {
@@ -1011,8 +1011,8 @@ static Standard_Integer GetValidationProps(Draw_Interpretor& di,
     di << "Use: " << argv[0] << " Doc {Label|Shape}\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1024,8 +1024,8 @@ static Standard_Integer GetValidationProps(Draw_Interpretor& di,
     STool->GetShapes(aLabels);
   else
   {
-    TDF_Label    aLabel;
-    TopoDS_Shape aShape = DBRep::Get(argv[2]);
+    DataLabel    aLabel;
+    TopoShape aShape = DBRep1::Get(argv[2]);
     if (aShape.IsNull())
     {
       TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
@@ -1052,7 +1052,7 @@ static Standard_Integer GetValidationProps(Draw_Interpretor& di,
   Standard_Integer i = 1;
   for (; i <= aLabels.Length(); i++)
   {
-    TDF_Label aLabel = aLabels(i);
+    DataLabel aLabel = aLabels(i);
 
     Standard_Real aProp[2];
 
@@ -1069,7 +1069,7 @@ static Standard_Integer GetValidationProps(Draw_Interpretor& di,
 
     if (aProp[Vol] > 0 || aProp[Area] > 0 || !Precision::IsInfinite(aP.X()))
     {
-      TCollection_AsciiString str;
+      AsciiString1 str;
       TDF_Tool::Entry(aLabel, str);
       di << "Label : " << str;
 
@@ -1101,7 +1101,7 @@ static Standard_Integer GetValidationProps(Draw_Interpretor& di,
 
 //=================================================================================================
 
-void XDEDRAW_Props::InitCommands(Draw_Interpretor& di)
+void XDEDRAW_Props::InitCommands(DrawInterpreter& di)
 {
   static Standard_Boolean initactor = Standard_False;
   if (initactor)

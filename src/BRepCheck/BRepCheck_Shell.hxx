@@ -23,8 +23,8 @@
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 #include <BRepCheck_Result.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Shell;
-class TopoDS_Shape;
+class TopoShell;
+class TopoShape;
 
 class BRepCheck_Shell;
 DEFINE_STANDARD_HANDLE(BRepCheck_Shell, BRepCheck_Result)
@@ -33,9 +33,9 @@ class BRepCheck_Shell : public BRepCheck_Result
 {
 
 public:
-  Standard_EXPORT BRepCheck_Shell(const TopoDS_Shell& S);
+  Standard_EXPORT BRepCheck_Shell(const TopoShell& S);
 
-  Standard_EXPORT void InContext(const TopoDS_Shape& ContextShape) Standard_OVERRIDE;
+  Standard_EXPORT void InContext(const TopoShape& ContextShape) Standard_OVERRIDE;
 
   Standard_EXPORT void Minimum() Standard_OVERRIDE;
 
@@ -57,7 +57,7 @@ public:
 
   Standard_EXPORT Standard_Boolean IsUnorientable() const;
 
-  Standard_EXPORT Standard_Integer NbConnectedSet(TopTools_ListOfShape& theSets);
+  Standard_EXPORT Standard_Integer NbConnectedSet(ShapeList& theSets);
 
   DEFINE_STANDARD_RTTIEXT(BRepCheck_Shell, BRepCheck_Result)
 

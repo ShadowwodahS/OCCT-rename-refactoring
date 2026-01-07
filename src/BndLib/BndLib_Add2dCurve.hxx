@@ -23,7 +23,7 @@
 
 class Adaptor2d_Curve2d;
 class Bnd_Box2d;
-class Geom2d_Curve;
+class GeomCurve2d;
 
 //! Computes the bounding box for a curve in 2d .
 //! Functions to add a 2D curve to a bounding box.
@@ -45,7 +45,7 @@ public:
   //! -   the services provided by a 2D curve from the package Geom2d
   //! -   and those required of the curve by the computation algorithm.
   //! The adapted curve is created in the following way:
-  //! Handle(Geom2d_Curve) mycurve = ...
+  //! Handle(GeomCurve2d) mycurve = ...
   //! ;
   //! Geom2dAdaptor_Curve C(mycurve);
   //! The bounding box B is then enlarged by adding it:
@@ -55,7 +55,7 @@ public:
   //! Add2dCurve::Add ( C, Tol, B );
   //! Exceptions
   //! ExceptionBase if the curve is built from:
-  //! -   a Geom_Line, or
+  //! -   a GeomLine, or
   //! -   a Geom_Parabola, or
   //! -   a Geom_Hyperbola,
   //! and P1 and P2 are either two negative infinite real
@@ -77,7 +77,7 @@ public:
   //! -   the services provided by a 2D curve from the package Geom2d
   //! -   and those required of the curve by the computation algorithm.
   //! The adapted curve is created in the following way:
-  //! Handle(Geom2d_Curve) mycurve = ...
+  //! Handle(GeomCurve2d) mycurve = ...
   //! ;
   //! Geom2dAdaptor_Curve C(mycurve);
   //! The bounding box B is then enlarged by adding it:
@@ -87,7 +87,7 @@ public:
   //! Add2dCurve::Add ( C, Tol, B );
   //! Exceptions
   //! ExceptionBase if the curve is built from:
-  //! -   a Geom_Line, or
+  //! -   a GeomLine, or
   //! -   a Geom_Parabola, or
   //! -   a Geom_Hyperbola,
   //! and P1 and P2 are either two negative infinite real
@@ -105,7 +105,7 @@ public:
   //! -   an exact representation if C is built from a line, a circle or a conic curve,
   //! -   the poles of the curve if C is built from a Bezier curve or a BSpline curve,
   //! -   if not, the points of an approximation of the curve C.
-  Standard_EXPORT static void Add(const Handle(Geom2d_Curve)& C,
+  Standard_EXPORT static void Add(const Handle(GeomCurve2d)& C,
                                   const Standard_Real         Tol,
                                   Bnd_Box2d&                  Box);
 
@@ -117,7 +117,7 @@ public:
   //! -   an exact representation if C is built from a line, a circle or a conic curve,
   //! -   the poles of the curve if C is built from a Bezier curve or a BSpline curve,
   //! -   if not, the points of an approximation of the curve C.
-  Standard_EXPORT static void Add(const Handle(Geom2d_Curve)& C,
+  Standard_EXPORT static void Add(const Handle(GeomCurve2d)& C,
                                   const Standard_Real         U1,
                                   const Standard_Real         U2,
                                   const Standard_Real         Tol,
@@ -132,7 +132,7 @@ public:
   //! -   numerical calculation of bounding box sizes, based on minimization algorithm,  for other
   //! types of curve If Tol = < Precision::PConfusion(), Precision::PConfusion is used as tolerance
   //! for calculation
-  Standard_EXPORT static void AddOptimal(const Handle(Geom2d_Curve)& C,
+  Standard_EXPORT static void AddOptimal(const Handle(GeomCurve2d)& C,
                                          const Standard_Real         U1,
                                          const Standard_Real         U2,
                                          const Standard_Real         Tol,

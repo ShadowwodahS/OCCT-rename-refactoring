@@ -109,7 +109,7 @@ protected:
   //! Generate map key for light sources configuration.
   //! @param[in] theLights  list of light sources
   //! @param[in] theHasShadowMap  flag indicating shadow maps usage
-  Standard_EXPORT TCollection_AsciiString genLightKey(const Handle(Graphic3d_LightSet)& theLights,
+  Standard_EXPORT AsciiString1 genLightKey(const Handle(Graphic3d_LightSet)& theLights,
                                                       const bool theHasShadowMap) const;
 
   //! Prepare standard GLSL program for textured font.
@@ -192,7 +192,7 @@ protected:
   //! @return filtered program bits with unsupported features disabled
   Standard_EXPORT Standard_Integer
     defaultGlslVersion(const Handle(Graphic3d_ShaderProgram)& theProgram,
-                       const TCollection_AsciiString&         theName,
+                       const AsciiString1&         theName,
                        Standard_Integer                       theBits,
                        bool                                   theUsesDerivates = false) const;
 
@@ -201,15 +201,15 @@ protected:
   //! @param[in] theName  program id suffix
   //! @param[in] theMsaa  multisampling flag
   Standard_EXPORT void defaultOitGlslVersion(const Handle(Graphic3d_ShaderProgram)& theProgram,
-                                             const TCollection_AsciiString&         theName,
+                                             const AsciiString1&         theName,
                                              bool                                   theMsaa) const;
 
   //! Prepare standard GLSL program for accessing point sprite alpha.
-  Standard_EXPORT TCollection_AsciiString pointSpriteAlphaSrc(Standard_Integer theBits) const;
+  Standard_EXPORT AsciiString1 pointSpriteAlphaSrc(Standard_Integer theBits) const;
 
   //! Prepare standard GLSL program for computing point sprite shading.
-  Standard_EXPORT TCollection_AsciiString
-    pointSpriteShadingSrc(const TCollection_AsciiString& theBaseColorSrc,
+  Standard_EXPORT AsciiString1
+    pointSpriteShadingSrc(const AsciiString1& theBaseColorSrc,
                           Standard_Integer               theBits) const;
 
   //! Define computeLighting GLSL function depending on current lights configuration
@@ -220,7 +220,7 @@ protected:
   //! @param[in] theIsPBR          flag to activate PBR pipeline
   //! @param[in] theHasTexColor    flag to include color texturing
   //! @param[in] theNbShadowMaps   flag to include shadow map
-  Standard_EXPORT TCollection_AsciiString
+  Standard_EXPORT AsciiString1
     stdComputeLighting(Standard_Integer&                 theNbLights,
                        const Handle(Graphic3d_LightSet)& theLights,
                        Standard_Boolean                  theHasVertColor,

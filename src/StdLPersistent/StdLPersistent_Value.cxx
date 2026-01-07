@@ -50,7 +50,7 @@ void StdLPersistent_Value::string<TDF_Reference>::ImportAttribute()
 {
   if (this->myData)
   {
-    TDF_Label aLabel = myData->Label(this->myTransient->Label().Data());
+    DataLabel aLabel = myData->Label(this->myTransient->Label().Data());
     if (!aLabel.IsNull())
       this->myTransient->Set(aLabel);
     this->myData.Nullify();
@@ -88,11 +88,11 @@ Handle(TDF_Attribute) StdLPersistent_Value::UAttribute::CreateAttribute()
 //=======================================================================
 Handle(TDF_Attribute) StdLPersistent_Value::Integer::CreateAttribute()
 {
-  integer<TDataStd_Integer>::CreateAttribute();
+  integer<IntAttribute>::CreateAttribute();
 
   if (this->myData)
   {
-    this->myTransient->SetID(TDataStd_Integer::GetID());
+    this->myTransient->SetID(IntAttribute::GetID());
   }
 
   return this->myTransient;
@@ -101,11 +101,11 @@ Handle(TDF_Attribute) StdLPersistent_Value::Integer::CreateAttribute()
 //=======================================================================
 Handle(TDF_Attribute) StdLPersistent_Value::Name::CreateAttribute()
 {
-  string<TDataStd_Name>::CreateAttribute();
+  string<NameAttribute>::CreateAttribute();
 
   if (this->myData)
   {
-    this->myTransient->SetID(TDataStd_Name::GetID());
+    this->myTransient->SetID(NameAttribute::GetID());
   }
 
   return this->myTransient;
@@ -124,11 +124,11 @@ Handle(TDF_Attribute) StdLPersistent_Value::AsciiString::CreateAttribute()
   return this->myTransient;
 }
 
-template class StdLPersistent_Value::integer<TDataStd_Integer>;
+template class StdLPersistent_Value::integer<IntAttribute>;
 template class StdLPersistent_Value::integer<TDF_TagSource>;
 
 template class StdLPersistent_Value::string<TDF_Reference>;
 template class StdLPersistent_Value::string<TDataStd_UAttribute>;
-template class StdLPersistent_Value::string<TDataStd_Name>;
+template class StdLPersistent_Value::string<NameAttribute>;
 template class StdLPersistent_Value::string<TDataStd_Comment>;
 template class StdLPersistent_Value::string<TDataStd_AsciiString, StdLPersistent_HString::Ascii>;

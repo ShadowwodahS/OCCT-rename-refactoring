@@ -31,7 +31,7 @@ class Expr_GeneralRelation;
 //! It also describes the assignment of variables. Standard
 //! mathematical functions are implemented such as
 //! trigonometrics, hyperbolics, and log functions.
-class Expr
+class Expr1
 {
 public:
   DEFINE_STANDARD_ALLOC

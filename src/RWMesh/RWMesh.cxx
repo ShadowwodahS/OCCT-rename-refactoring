@@ -18,73 +18,73 @@
 
 //=================================================================================================
 
-TCollection_AsciiString RWMesh::ReadNameAttribute(const TDF_Label& theLabel)
+AsciiString1 RWMesh::ReadNameAttribute(const DataLabel& theLabel)
 {
-  Handle(TDataStd_Name) aNodeName;
-  return theLabel.FindAttribute(TDataStd_Name::GetID(), aNodeName)
-           ? TCollection_AsciiString(aNodeName->Get())
-           : TCollection_AsciiString();
+  Handle(NameAttribute) aNodeName;
+  return theLabel.FindAttribute(NameAttribute::GetID(), aNodeName)
+           ? AsciiString1(aNodeName->Get())
+           : AsciiString1();
 }
 
 //=================================================================================================
 
-TCollection_AsciiString RWMesh::FormatName(RWMesh_NameFormat theFormat,
-                                           const TDF_Label&  theLabel,
-                                           const TDF_Label&  theRefLabel)
+AsciiString1 RWMesh::FormatName(RWMesh_NameFormat theFormat,
+                                           const DataLabel&  theLabel,
+                                           const DataLabel&  theRefLabel)
 {
   switch (theFormat)
   {
     case RWMesh_NameFormat_Empty: {
-      return TCollection_AsciiString();
+      return AsciiString1();
     }
     case RWMesh_NameFormat_Product: {
-      Handle(TDataStd_Name) aRefNodeName;
-      return theRefLabel.FindAttribute(TDataStd_Name::GetID(), aRefNodeName)
-               ? TCollection_AsciiString(aRefNodeName->Get())
-               : TCollection_AsciiString();
+      Handle(NameAttribute) aRefNodeName;
+      return theRefLabel.FindAttribute(NameAttribute::GetID(), aRefNodeName)
+               ? AsciiString1(aRefNodeName->Get())
+               : AsciiString1();
     }
     case RWMesh_NameFormat_Instance: {
-      Handle(TDataStd_Name) aNodeName;
-      return theLabel.FindAttribute(TDataStd_Name::GetID(), aNodeName)
-               ? TCollection_AsciiString(aNodeName->Get())
-               : TCollection_AsciiString();
+      Handle(NameAttribute) aNodeName;
+      return theLabel.FindAttribute(NameAttribute::GetID(), aNodeName)
+               ? AsciiString1(aNodeName->Get())
+               : AsciiString1();
     }
     case RWMesh_NameFormat_InstanceOrProduct: {
-      Handle(TDataStd_Name) aNodeName;
-      if (theLabel.FindAttribute(TDataStd_Name::GetID(), aNodeName) && !aNodeName->Get().IsEmpty())
+      Handle(NameAttribute) aNodeName;
+      if (theLabel.FindAttribute(NameAttribute::GetID(), aNodeName) && !aNodeName->Get().IsEmpty())
       {
-        return TCollection_AsciiString(aNodeName->Get());
+        return AsciiString1(aNodeName->Get());
       }
 
-      Handle(TDataStd_Name) aRefNodeName;
-      return theRefLabel.FindAttribute(TDataStd_Name::GetID(), aRefNodeName)
-               ? TCollection_AsciiString(aRefNodeName->Get())
-               : TCollection_AsciiString();
+      Handle(NameAttribute) aRefNodeName;
+      return theRefLabel.FindAttribute(NameAttribute::GetID(), aRefNodeName)
+               ? AsciiString1(aRefNodeName->Get())
+               : AsciiString1();
     }
     case RWMesh_NameFormat_ProductOrInstance: {
-      Handle(TDataStd_Name) aRefNodeName;
-      if (theRefLabel.FindAttribute(TDataStd_Name::GetID(), aRefNodeName)
+      Handle(NameAttribute) aRefNodeName;
+      if (theRefLabel.FindAttribute(NameAttribute::GetID(), aRefNodeName)
           && !aRefNodeName->Get().IsEmpty())
       {
-        return TCollection_AsciiString(aRefNodeName->Get());
+        return AsciiString1(aRefNodeName->Get());
       }
 
-      Handle(TDataStd_Name) aNodeName;
-      return theLabel.FindAttribute(TDataStd_Name::GetID(), aNodeName)
-               ? TCollection_AsciiString(aNodeName->Get())
-               : TCollection_AsciiString();
+      Handle(NameAttribute) aNodeName;
+      return theLabel.FindAttribute(NameAttribute::GetID(), aNodeName)
+               ? AsciiString1(aNodeName->Get())
+               : AsciiString1();
     }
     case RWMesh_NameFormat_ProductAndInstance: {
-      const TCollection_AsciiString anInstName = ReadNameAttribute(theLabel);
-      const TCollection_AsciiString aProdName  = ReadNameAttribute(theRefLabel);
+      const AsciiString1 anInstName = ReadNameAttribute(theLabel);
+      const AsciiString1 aProdName  = ReadNameAttribute(theRefLabel);
       return !anInstName.IsEmpty() && aProdName != anInstName
                ? aProdName + " [" + anInstName + "]"
-               : (!aProdName.IsEmpty() ? aProdName : TCollection_AsciiString(""));
+               : (!aProdName.IsEmpty() ? aProdName : AsciiString1(""));
     }
     case RWMesh_NameFormat_ProductAndInstanceAndOcaf: {
-      const TCollection_AsciiString anInstName = ReadNameAttribute(theLabel);
-      const TCollection_AsciiString aProdName  = ReadNameAttribute(theRefLabel);
-      TCollection_AsciiString       anEntryId;
+      const AsciiString1 anInstName = ReadNameAttribute(theLabel);
+      const AsciiString1 aProdName  = ReadNameAttribute(theRefLabel);
+      AsciiString1       anEntryId;
       TDF_Tool::Entry(theLabel, anEntryId);
       return !anInstName.IsEmpty() && aProdName != anInstName
                ? aProdName + " [" + anInstName + "]" + " [" + anEntryId + "]"
@@ -92,5 +92,5 @@ TCollection_AsciiString RWMesh::FormatName(RWMesh_NameFormat theFormat,
     }
   }
 
-  return TCollection_AsciiString();
+  return AsciiString1();
 }

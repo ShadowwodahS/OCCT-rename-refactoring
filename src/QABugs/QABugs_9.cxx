@@ -29,13 +29,13 @@
 #include <BRepBuilderAPI_MakeFace.hxx>
 #include <GC_MakeTrimmedCone.hxx>
 
-static Standard_Integer BUC60857(Draw_Interpretor& di, Standard_Integer /*argc*/, const char** argv)
+static Standard_Integer BUC60857(DrawInterpreter& di, Standard_Integer /*argc*/, const char** argv)
 {
   Frame3d Cone_Ax;
   double R1 = 8, R2 = 16;
   Point3d P0(0, 0, 0), P1(0, 0, 20), P2(0, 0, 45);
 
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
     di << "Use vinit command before " << argv[0] << "\n";
@@ -43,23 +43,23 @@ static Standard_Integer BUC60857(Draw_Interpretor& di, Standard_Integer /*argc*/
   }
 
   Handle(Geom_RectangularTrimmedSurface) S = GC_MakeTrimmedCone(P1, P2, R1, R2).Value();
-  TopoDS_Shape myshape = BRepBuilderAPI_MakeFace(S, Precision::Confusion()).Shape();
-  DBRep::Set("BUC60857_BLUE", myshape);
-  Handle(AIS_Shape) ais1 = new AIS_Shape(myshape);
+  TopoShape myshape = FaceMaker(S, Precision::Confusion()).Shape();
+  DBRep1::Set("BUC60857_BLUE", myshape);
+  Handle(VisualShape) ais1 = new VisualShape(myshape);
   aContext->Display(ais1, Standard_False);
   aContext->SetColor(ais1, Quantity_NOC_BLUE1, Standard_False);
 
   Handle(Geom_RectangularTrimmedSurface) S2 = GC_MakeTrimmedCone(P1, P2, R1, 0).Value();
-  TopoDS_Shape myshape2 = BRepBuilderAPI_MakeFace(S2, Precision::Confusion()).Shape();
-  DBRep::Set("BUC60857_RED", myshape2);
-  Handle(AIS_Shape) ais2 = new AIS_Shape(myshape2);
+  TopoShape myshape2 = FaceMaker(S2, Precision::Confusion()).Shape();
+  DBRep1::Set("BUC60857_RED", myshape2);
+  Handle(VisualShape) ais2 = new VisualShape(myshape2);
   aContext->Display(ais2, Standard_False);
   aContext->SetColor(ais2, Quantity_NOC_RED, Standard_False);
 
   Handle(Geom_RectangularTrimmedSurface) S3 = GC_MakeTrimmedCone(P1, P2, R2, R1).Value();
-  TopoDS_Shape myshape3 = BRepBuilderAPI_MakeFace(S3, Precision::Confusion()).Shape();
-  DBRep::Set("BUC60857_GREEN", myshape3);
-  Handle(AIS_Shape) ais3 = new AIS_Shape(myshape3);
+  TopoShape myshape3 = FaceMaker(S3, Precision::Confusion()).Shape();
+  DBRep1::Set("BUC60857_GREEN", myshape3);
+  Handle(VisualShape) ais3 = new VisualShape(myshape3);
   aContext->Display(ais3, Standard_False);
   aContext->SetColor(ais3, Quantity_NOC_GREEN, Standard_True);
 
@@ -72,12 +72,12 @@ static Standard_Integer BUC60857(Draw_Interpretor& di, Standard_Integer /*argc*/
 #include <Geom2d_Ellipse.hxx>
 #include <Geom2d_Circle.hxx>
 
-static Standard_Integer OCC24303(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer OCC24303(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
 
-  const Standard_Integer SolID = Draw::Atoi(a[1]);
+  const Standard_Integer SolID = Draw1::Atoi(a[1]);
 
   // Ellipses
   Standard_Real majorRadius = 2.0;
@@ -88,10 +88,10 @@ static Standard_Integer OCC24303(Draw_Interpretor& di, Standard_Integer n, const
   gp_Elips2d ellipse1 = gp_Elips2d(gp_Ax2d(p0, gp::DX2d()), majorRadius, minorRadius, true);
   gp_Elips2d ellipse2 = gp_Elips2d(gp_Ax2d(p1, gp::DX2d()), majorRadius, minorRadius, true);
 
-  Handle(Geom2d_Curve) curve1 = new Geom2d_Ellipse(ellipse1);
-  Handle(Geom2d_Curve) curve2 = new Geom2d_Ellipse(ellipse2);
-  DrawTrSurf::Set("c1", curve1);
-  DrawTrSurf::Set("c2", curve2);
+  Handle(GeomCurve2d) curve1 = new Geom2d_Ellipse(ellipse1);
+  Handle(GeomCurve2d) curve2 = new Geom2d_Ellipse(ellipse2);
+  DrawTrSurf1::Set("c1", curve1);
+  DrawTrSurf1::Set("c2", curve2);
   // Expected tangent
   gp_Pnt2d      centre(5.0, 0.0);
   Standard_Real radius            = 3.0;
@@ -130,7 +130,7 @@ static Standard_Integer OCC24303(Draw_Interpretor& di, Standard_Integer n, const
     gp_Circ2d             ct   = circCalc.ThisSolution(i);
     Handle(Geom2d_Circle) GSol = new Geom2d_Circle(ct);
     Sprintf(Buf, "Sol%d", i);
-    DrawTrSurf::Set(Buf, GSol);
+    DrawTrSurf1::Set(Buf, GSol);
   }
 
   // This distance is different in OC 6.5.4 and OC 6.6.0
@@ -140,7 +140,7 @@ static Standard_Integer OCC24303(Draw_Interpretor& di, Standard_Integer n, const
   return 0;
 }
 
-void QABugs::Commands_9(Draw_Interpretor& theCommands)
+void QABugs::Commands_9(DrawInterpreter& theCommands)
 {
   const char* group = "QABugs";
 

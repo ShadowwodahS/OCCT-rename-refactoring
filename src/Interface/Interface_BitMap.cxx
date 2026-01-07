@@ -115,7 +115,7 @@ Standard_Integer Interface_BitMap::AddFlag(const Standard_CString name)
     }
   }
   if (!deja)
-    thenames->Append(TCollection_AsciiString(name));
+    thenames->Append(AsciiString1(name));
   thenbflags++;
   return (deja ? deja : thenbflags);
 }
@@ -126,7 +126,7 @@ Standard_Integer Interface_BitMap::AddSomeFlags(const Standard_Integer more)
   if (thenames.IsNull())
     thenames = new TColStd_HSequenceOfAsciiString();
   for (Standard_Integer i = 1; i <= more; i++)
-    thenames->Append(TCollection_AsciiString(""));
+    thenames->Append(AsciiString1(""));
   thenbflags += more;
   return thenbflags;
 }

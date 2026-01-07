@@ -297,8 +297,8 @@ Handle(MAT2d_Connexion) MAT2d_MiniPath::MinimumL1L2(
   Standard_Real                 ParameterOnC1 = 0., ParameterOnC2 = 0.;
   TColGeom2d_SequenceOfGeometry L1, L2;
   gp_Pnt2d                      Point1, Point2, P1, P2;
-  Handle(Geom2d_Curve)          Item1;
-  Handle(Geom2d_Curve)          Item2;
+  Handle(GeomCurve2d)          Item1;
+  Handle(GeomCurve2d)          Item2;
 
   L1 = Figure.Value(IL1);
   L2 = Figure.Value(IL2);
@@ -315,7 +315,7 @@ Handle(MAT2d_Connexion) MAT2d_MiniPath::MinimumL1L2(
     Handle(TypeInfo) Type1 = L1.Value(IC1)->DynamicType();
     if (Type1 != STANDARD_TYPE(Geom2d_CartesianPoint))
     {
-      Item1 = Handle(Geom2d_Curve)::DownCast(L1.Value(IC1));
+      Item1 = Handle(GeomCurve2d)::DownCast(L1.Value(IC1));
     }
     else
     {
@@ -328,7 +328,7 @@ Handle(MAT2d_Connexion) MAT2d_MiniPath::MinimumL1L2(
       Handle(TypeInfo) Type2 = L2.Value(IC2)->DynamicType();
       if (Type2 != STANDARD_TYPE(Geom2d_CartesianPoint))
       {
-        Item2 = Handle(Geom2d_Curve)::DownCast(L2.Value(IC2));
+        Item2 = Handle(GeomCurve2d)::DownCast(L2.Value(IC2));
       }
       else
       {

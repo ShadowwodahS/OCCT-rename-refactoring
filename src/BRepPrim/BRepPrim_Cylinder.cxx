@@ -87,10 +87,10 @@ BRepPrim_Cylinder::BRepPrim_Cylinder(const Point3d&       Center,
 
 //=================================================================================================
 
-TopoDS_Face BRepPrim_Cylinder::MakeEmptyLateralFace() const
+TopoFace BRepPrim_Cylinder::MakeEmptyLateralFace() const
 {
   Handle(Geom_CylindricalSurface) C = new Geom_CylindricalSurface(Axes(), myRadius);
-  TopoDS_Face                     F;
+  TopoFace                     F;
   myBuilder.Builder().MakeFace(F, C, Precision::Confusion());
   return F;
 }
@@ -103,7 +103,7 @@ void BRepPrim_Cylinder::SetMeridian()
   V.Multiply(myRadius);
   Axis3d A = Axes().Axis();
   A.Translate(V);
-  Handle(Geom_Line)   L   = new Geom_Line(A);
+  Handle(GeomLine)   L   = new GeomLine(A);
   Handle(Geom2d_Line) L2d = new Geom2d_Line(gp_Pnt2d(myRadius, 0), gp_Dir2d(0, 1));
   Meridian(L, L2d);
 }

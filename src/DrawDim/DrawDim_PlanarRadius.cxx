@@ -33,7 +33,7 @@ IMPLEMENT_STANDARD_RTTIEXT(DrawDim_PlanarRadius, DrawDim_PlanarDimension)
 
 //=================================================================================================
 
-DrawDim_PlanarRadius::DrawDim_PlanarRadius(const TopoDS_Face& face, const TopoDS_Shape& c)
+DrawDim_PlanarRadius::DrawDim_PlanarRadius(const TopoFace& face, const TopoShape& c)
 {
   myPlane  = face;
   myCircle = c;
@@ -41,28 +41,28 @@ DrawDim_PlanarRadius::DrawDim_PlanarRadius(const TopoDS_Face& face, const TopoDS
 
 //=================================================================================================
 
-DrawDim_PlanarRadius::DrawDim_PlanarRadius(const TopoDS_Shape& c)
+DrawDim_PlanarRadius::DrawDim_PlanarRadius(const TopoShape& c)
 {
   myCircle = c;
 }
 
 //=================================================================================================
 
-void DrawDim_PlanarRadius::DrawOn(Draw_Display& dis) const
+void DrawDim_PlanarRadius::DrawOn(DrawDisplay& dis) const
 {
   if (myCircle.ShapeType() == TopAbs_EDGE)
   {
     Standard_Real      f, l;
-    Handle(Geom_Curve) curve = BRep_Tool::Curve(TopoDS::Edge(myCircle), f, l);
-    if (curve->IsKind(STANDARD_TYPE(Geom_Circle)))
+    Handle(GeomCurve3d) curve = BRepInspector::Curve(TopoDS::Edge(myCircle), f, l);
+    if (curve->IsKind(STANDARD_TYPE(GeomCircle)))
     {
-      gp_Circ       circle = Handle(Geom_Circle)::DownCast(curve)->Circ();
+      gp_Circ       circle = Handle(GeomCircle)::DownCast(curve)->Circ();
       const Point3d& first  = circle.Location();
-      TopoDS_Vertex vf, vl;
-      TopExp::Vertices(TopoDS::Edge(myCircle), vf, vl);
-      const Point3d last = BRep_Tool::Pnt(vf);
+      TopoVertex vf, vl;
+      TopExp1::Vertices(TopoDS::Edge(myCircle), vf, vl);
+      const Point3d last = BRepInspector::Pnt(vf);
       //
-      dis.Draw(first, last);
+      dis.Draw1(first, last);
       Point3d p((first.X() + last.X()) / 2, (first.Y() + last.Y()) / 2, (first.Z() + last.Z()) / 2);
       DrawText(p, dis);
       return;

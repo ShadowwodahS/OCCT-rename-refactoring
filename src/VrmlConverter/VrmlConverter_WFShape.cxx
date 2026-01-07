@@ -31,8 +31,8 @@
 
 //=================================================================================================
 
-void VrmlConverter_WFShape::Add(Standard_OStream&                   anOStream,
-                                const TopoDS_Shape&                 aShape,
+void WFShapeConverter::Add(Standard_OStream&                   anOStream,
+                                const TopoShape&                 aShape,
                                 const Handle(VrmlConverter_Drawer)& aDrawer)
 {
 
@@ -58,7 +58,7 @@ void VrmlConverter_WFShape::Add(Standard_OStream&                   anOStream,
         {
           S.Initialize(Tool.GetFace());
           Handle(BRepAdaptor_Surface) HS = new BRepAdaptor_Surface(S);
-          VrmlConverter_WFRestrictedFace::Add(anOStream,
+          WFRestrictedFaceConverter::Add(anOStream,
                                               HS,
                                               isoU,
                                               isoV,
@@ -88,7 +88,7 @@ void VrmlConverter_WFShape::Add(Standard_OStream&                   anOStream,
           {
             S.Initialize(Tool.GetFace());
             Handle(BRepAdaptor_Surface) HS = new BRepAdaptor_Surface(S);
-            VrmlConverter_WFRestrictedFace::Add(anOStream,
+            WFRestrictedFaceConverter::Add(anOStream,
                                                 HS,
                                                 isoU,
                                                 Standard_False,
@@ -115,7 +115,7 @@ void VrmlConverter_WFShape::Add(Standard_OStream&                   anOStream,
           {
             S.Initialize(Tool.GetFace());
             Handle(BRepAdaptor_Surface) HS = new BRepAdaptor_Surface(S);
-            VrmlConverter_WFRestrictedFace::Add(anOStream,
+            WFRestrictedFaceConverter::Add(anOStream,
                                                 HS,
                                                 Standard_False,
                                                 isoV,
@@ -156,7 +156,7 @@ void VrmlConverter_WFShape::Add(Standard_OStream&                   anOStream,
           if (Tool.HasCurve())
           {
             BRepAdaptor_Curve C(Tool.GetCurve());
-            VrmlConverter_Curve::Add(C, aDrawer, anOStream);
+            CurveConverter::Add(C, aDrawer, anOStream);
           }
         }
       }
@@ -183,7 +183,7 @@ void VrmlConverter_WFShape::Add(Standard_OStream&                   anOStream,
           if (Tool.HasCurve())
           {
             BRepAdaptor_Curve C(Tool.GetCurve());
-            VrmlConverter_Curve::Add(C, aDrawer, anOStream);
+            CurveConverter::Add(C, aDrawer, anOStream);
           }
         }
       }
@@ -210,7 +210,7 @@ void VrmlConverter_WFShape::Add(Standard_OStream&                   anOStream,
           if (Tool.HasCurve())
           {
             BRepAdaptor_Curve C(Tool.GetCurve());
-            VrmlConverter_Curve::Add(C, aDrawer, anOStream);
+            CurveConverter::Add(C, aDrawer, anOStream);
           }
         }
       }
@@ -239,7 +239,7 @@ void VrmlConverter_WFShape::Add(Standard_OStream&                   anOStream,
     for (Tool.InitVertex(); Tool.MoreVertex(); Tool.NextVertex())
     {
       i++;
-      P = BRep_Tool::Pnt(Tool.GetVertex());
+      P = BRepInspector::Pnt(Tool.GetVertex());
       V.SetX(P.X());
       V.SetY(P.Y());
       V.SetZ(P.Z());
@@ -250,7 +250,7 @@ void VrmlConverter_WFShape::Add(Standard_OStream&                   anOStream,
     PA                                   = aDrawer->PointAspect();
 
     // Separator P {
-    Vrml_Separator SEP;
+    Separator SEP;
     SEP.Print(anOStream);
 
     // Material
@@ -267,7 +267,7 @@ void VrmlConverter_WFShape::Add(Standard_OStream&                   anOStream,
     C3->Print(anOStream);
 
     // PointSet
-    Vrml_PointSet PS;
+    PointSet PS;
     PS.Print(anOStream);
 
     // Separator P }

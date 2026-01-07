@@ -14,9 +14,9 @@
 #include <StepData_EnumTool.hxx>
 #include <TCollection_AsciiString.hxx>
 
-static TCollection_AsciiString nulstr("");
+static AsciiString1 nulstr("");
 
-StepData_EnumTool::StepData_EnumTool(const Standard_CString e0,
+EnumTool::EnumTool(const Standard_CString e0,
                                      const Standard_CString e1,
                                      const Standard_CString e2,
                                      const Standard_CString e3,
@@ -101,7 +101,7 @@ StepData_EnumTool::StepData_EnumTool(const Standard_CString e0,
   theopt  = Standard_True;
 }
 
-void StepData_EnumTool::AddDefinition(const Standard_CString term)
+void EnumTool::AddDefinition(const Standard_CString term)
 {
   char text[80];
   if (!term)
@@ -124,7 +124,7 @@ void StepData_EnumTool::AddDefinition(const Standard_CString term)
         }
         text[n1] = '\0';
       }
-      thetexts.Append(TCollection_AsciiString(text));
+      thetexts.Append(AsciiString1(text));
       n1 = 0;
     }
     if (n1 == 0 && term[n0] != '.' && term[n0] != '$')
@@ -150,37 +150,37 @@ void StepData_EnumTool::AddDefinition(const Standard_CString term)
     n1++;
   }
   text[n1] = '\0';
-  thetexts.Append(TCollection_AsciiString(text));
+  thetexts.Append(AsciiString1(text));
 }
 
-Standard_Boolean StepData_EnumTool::IsSet() const
+Standard_Boolean EnumTool::IsSet() const
 {
   return (thetexts.Length() > theinit);
 }
 
-Standard_Integer StepData_EnumTool::MaxValue() const
+Standard_Integer EnumTool::MaxValue() const
 {
   return thetexts.Length() - 1;
 }
 
-void StepData_EnumTool::Optional(const Standard_Boolean mode)
+void EnumTool::Optional(const Standard_Boolean mode)
 {
   theopt = mode;
 }
 
-Standard_Integer StepData_EnumTool::NullValue() const
+Standard_Integer EnumTool::NullValue() const
 {
   return (theopt ? Value("$") : Standard_False);
 }
 
-const TCollection_AsciiString& StepData_EnumTool::Text(const Standard_Integer num) const
+const AsciiString1& EnumTool::Text(const Standard_Integer num) const
 {
   if (num < 0 || num >= thetexts.Length())
     return nulstr;
   return thetexts.Value(num + 1);
 }
 
-Standard_Integer StepData_EnumTool::Value(const Standard_CString txt) const
+Standard_Integer EnumTool::Value(const Standard_CString txt) const
 {
   Standard_Integer nb = thetexts.Length();
   for (Standard_Integer i = 1; i <= nb; i++)
@@ -191,7 +191,7 @@ Standard_Integer StepData_EnumTool::Value(const Standard_CString txt) const
   return (-1);
 }
 
-Standard_Integer StepData_EnumTool::Value(const TCollection_AsciiString& txt) const
+Standard_Integer EnumTool::Value(const AsciiString1& txt) const
 {
   Standard_Integer nb = thetexts.Length();
   for (Standard_Integer i = 1; i <= nb; i++)

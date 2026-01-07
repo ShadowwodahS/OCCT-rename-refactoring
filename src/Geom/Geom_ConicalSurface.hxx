@@ -27,7 +27,7 @@ class gp_Cone;
 class Transform3d;
 class gp_GTrsf2d;
 class Point3d;
-class Geom_Curve;
+class GeomCurve3d;
 class Vector3d;
 class Geom_Geometry;
 
@@ -231,7 +231,7 @@ public:
   //! The origin of this line is on the reference plane of this cone
   //! (i.e. the plane defined by the origin, "X Direction"
   //! and "Y Direction" of the local coordinate system of this cone).
-  Standard_EXPORT Handle(Geom_Curve) UIso(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) UIso(const Standard_Real U) const Standard_OVERRIDE;
 
   //! Builds the V isoparametric circle of this cone.
   //! It is the circle on this cone, located in the plane of Z
@@ -242,7 +242,7 @@ public:
   //! If the V isoparametric circle is close to the apex of
   //! this cone, the radius of the circle becomes very small.
   //! It is possible to have a circle with radius equal to 0.0.
-  Standard_EXPORT Handle(Geom_Curve) VIso(const Standard_Real V) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) VIso(const Standard_Real V) const Standard_OVERRIDE;
 
   //! Computes the point P (U, V) on the surface.
   //! @code

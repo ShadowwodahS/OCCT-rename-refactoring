@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 
 //! Checks for the end  tangents : whether or not those
 //! are reversed regarding the third or n-3rd control
@@ -30,7 +30,7 @@ class GeomLib_CheckBSplineCurve
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT GeomLib_CheckBSplineCurve(const Handle(Geom_BSplineCurve)& Curve,
+  Standard_EXPORT GeomLib_CheckBSplineCurve(const Handle(BSplineCurve3d)& Curve,
                                             const Standard_Real              Tolerance,
                                             const Standard_Real              AngularTolerance);
 
@@ -47,16 +47,16 @@ public:
   //!
   //! if Index3D not in the Range [1,Nb3dSpaces]
   //! if the Approx is not Done
-  Standard_EXPORT Handle(Geom_BSplineCurve) FixedTangent(const Standard_Boolean FirstFlag,
+  Standard_EXPORT Handle(BSplineCurve3d) FixedTangent(const Standard_Boolean FirstFlag,
                                                          const Standard_Boolean LastFlag);
 
 protected:
 private:
-  void FixTangentOnCurve(Handle(Geom_BSplineCurve)& theCurve,
+  void FixTangentOnCurve(Handle(BSplineCurve3d)& theCurve,
                          const Standard_Boolean     FirstFlag,
                          const Standard_Boolean     LastFlag);
 
-  Handle(Geom_BSplineCurve) myCurve;
+  Handle(BSplineCurve3d) myCurve;
   Standard_Boolean          myDone;
   Standard_Boolean          myFixFirstTangent;
   Standard_Boolean          myFixLastTangent;

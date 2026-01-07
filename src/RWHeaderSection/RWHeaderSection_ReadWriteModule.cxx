@@ -32,10 +32,10 @@
 IMPLEMENT_STANDARD_RTTIEXT(RWHeaderSection_ReadWriteModule, StepData_ReadWriteModule)
 
 // -- General Declarations (Recognize, StepType) ---
-static TCollection_AsciiString PasReco(""); // neutralise StartEntity de SW
-static TCollection_AsciiString Reco_FileName("FILE_NAME");
-static TCollection_AsciiString Reco_FileDescription("FILE_DESCRIPTION");
-static TCollection_AsciiString Reco_FileSchema("FILE_SCHEMA");
+static AsciiString1 PasReco(""); // neutralise StartEntity de SW
+static AsciiString1 Reco_FileName("FILE_NAME");
+static AsciiString1 Reco_FileDescription("FILE_DESCRIPTION");
+static AsciiString1 Reco_FileSchema("FILE_SCHEMA");
 
 // -- Definition of the libraries --
 
@@ -48,7 +48,7 @@ RWHeaderSection_ReadWriteModule::RWHeaderSection_ReadWriteModule()
 
 // --- Case Recognition ---
 
-Standard_Integer RWHeaderSection_ReadWriteModule::CaseStep(const TCollection_AsciiString& key) const
+Standard_Integer RWHeaderSection_ReadWriteModule::CaseStep(const AsciiString1& key) const
 {
   if (key.IsEqual(Reco_FileName))
     return 1;
@@ -86,7 +86,7 @@ Standard_Boolean RWHeaderSection_ReadWriteModule::IsComplex(const Standard_Integ
   return Standard_False;
 }
 
-const TCollection_AsciiString& RWHeaderSection_ReadWriteModule::StepType(
+const AsciiString1& RWHeaderSection_ReadWriteModule::StepType(
   const Standard_Integer CN) const
 {
   switch (CN)
@@ -116,7 +116,7 @@ void RWHeaderSection_ReadWriteModule::ReadStep(const Standard_Integer           
   {
     case 1: {
       DeclareAndCast(HeaderSection_FileName, anent, ent);
-      RWHeaderSection_RWFileName tool;
+      FileNameWriter tool;
       if (anent.IsNull())
         ach->AddFail("Type Mismatch on FileName");
       else
@@ -126,7 +126,7 @@ void RWHeaderSection_ReadWriteModule::ReadStep(const Standard_Integer           
     break;
     case 2: {
       DeclareAndCast(HeaderSection_FileDescription, anent, ent);
-      RWHeaderSection_RWFileDescription tool;
+      FileDescriptionWriter tool;
       if (anent.IsNull())
         ach->AddFail("Type Mismatch on FileDescription");
       else
@@ -136,7 +136,7 @@ void RWHeaderSection_ReadWriteModule::ReadStep(const Standard_Integer           
     break;
     case 3: {
       DeclareAndCast(HeaderSection_FileSchema, anent, ent);
-      RWHeaderSection_RWFileSchema tool;
+      FileSchemaWriter tool;
       if (anent.IsNull())
         ach->AddFail("Type Mismatch on FileSchema");
       else
@@ -147,7 +147,7 @@ void RWHeaderSection_ReadWriteModule::ReadStep(const Standard_Integer           
     case 4: {
       DeclareAndCast(StepData_UndefinedEntity, und, ent);
       if (und.IsNull())
-        ach->AddFail("# Entity neither Recognized nor set as UndefinedEntity from StepData #");
+        ach->AddFail("# Entity neither Recognized nor set as UndefinedEntity from StepData1 #");
       else
         und->ReadRecord(data, num, ach);
     }
@@ -172,7 +172,7 @@ void RWHeaderSection_ReadWriteModule::WriteStep(const Standard_Integer          
   {
     case 1: {
       DeclareAndCast(HeaderSection_FileName, anent, ent);
-      RWHeaderSection_RWFileName tool;
+      FileNameWriter tool;
       if (anent.IsNull())
         return;
       else
@@ -182,7 +182,7 @@ void RWHeaderSection_ReadWriteModule::WriteStep(const Standard_Integer          
     break;
     case 2: {
       DeclareAndCast(HeaderSection_FileDescription, anent, ent);
-      RWHeaderSection_RWFileDescription tool;
+      FileDescriptionWriter tool;
       if (anent.IsNull())
         return;
       else
@@ -192,7 +192,7 @@ void RWHeaderSection_ReadWriteModule::WriteStep(const Standard_Integer          
     break;
     case 3: {
       DeclareAndCast(HeaderSection_FileSchema, anent, ent);
-      RWHeaderSection_RWFileSchema tool;
+      FileSchemaWriter tool;
       if (anent.IsNull())
         return;
       else

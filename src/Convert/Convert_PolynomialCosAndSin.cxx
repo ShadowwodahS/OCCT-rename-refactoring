@@ -158,7 +158,7 @@ void BuildPolynomialCosAndSin(const Standard_Real            UFirst,
 
   Standard_Real dtg = NewTPoles(1).Distance(NewTPoles(2));
   NewTPoles(1)      = Pdeb;
-  gp_XY theXY(0., dtg);
+  Coords2d theXY(0., dtg);
   Pdeb.ChangeCoord() += theXY;
   NewTPoles(2) = Pdeb;
 

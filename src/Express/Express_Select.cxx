@@ -59,7 +59,7 @@ const Handle(Express_HSequenceOfItem)& Express_Select::Items() const
 
 Standard_Boolean Express_Select::GenerateClass() const
 {
-  const TCollection_AsciiString aCPPName = CPPName();
+  const AsciiString1 aCPPName = CPPName();
 
   Handle(TColStd_HSequenceOfInteger) aSeqMember   = new TColStd_HSequenceOfInteger;
   Handle(TColStd_HSequenceOfInteger) aSeqEntities = new TColStd_HSequenceOfInteger;
@@ -86,8 +86,8 @@ Standard_Boolean Express_Select::GenerateClass() const
   }
   // create a package directory (if not yet exist)
   OSD_Protection          aProt(OSD_RWXD, OSD_RWXD, OSD_RX, OSD_RX);
-  TCollection_AsciiString aPack = GetPackageName();
-  OSD_Path                aPath(aPack);
+  AsciiString1 aPack = GetPackageName();
+  SystemPath                aPath(aPack);
   OSD_Directory           aDir(aPath);
   aDir.Build(aProt);
   aPack += "/";
@@ -103,7 +103,7 @@ Standard_Boolean Express_Select::GenerateClass() const
     Standard_OStream& anOS = *aStreamPtr;
 
     // write header
-    Express::WriteFileStamp(anOS);
+    Express1::WriteFileStamp(anOS);
 
     // write start define
     anOS << "#ifndef _" << aCPPName
@@ -197,7 +197,7 @@ Standard_Boolean Express_Select::GenerateClass() const
     {
       Standard_Integer               anIdx  = aSeqEntities->Value(i);
       Handle(Express_Item)           anItem = myItems->Value(anIdx);
-      const TCollection_AsciiString& aName  = anItem->Name();
+      const AsciiString1& aName  = anItem->Name();
       anOS << "  //! Returns Value as " << aName
            << " (or Null if another type)\n"
               "  Standard_EXPORT Handle("
@@ -211,8 +211,8 @@ Standard_Boolean Express_Select::GenerateClass() const
     {
       Standard_Integer               anIdx         = aSeqMember->Value(i);
       Handle(Express_Item)           anItem        = myItems->Value(anIdx);
-      const TCollection_AsciiString& aName         = anItem->Name();
-      const TCollection_AsciiString& anItemCPPName = anItem->CPPName();
+      const AsciiString1& aName         = anItem->Name();
+      const AsciiString1& anItemCPPName = anItem->CPPName();
       anOS << "  //! Set Value for " << aName
            << "\n"
               "  Standard_EXPORT void Set"
@@ -243,7 +243,7 @@ Standard_Boolean Express_Select::GenerateClass() const
     Standard_OStream& anOS = *aStreamPtr;
 
     // write header
-    Express::WriteFileStamp(anOS);
+    Express1::WriteFileStamp(anOS);
 
     // write include section
     anOS << "#include <" << aCPPName << ".hxx>\n";
@@ -260,14 +260,14 @@ Standard_Boolean Express_Select::GenerateClass() const
     }
 
     // write constructor
-    Express::WriteMethodStamp(anOS, aCPPName);
+    Express1::WriteMethodStamp(anOS, aCPPName);
     anOS << aCPPName << "::" << aCPPName
          << "()\n"
             "{\n"
             "}\n";
 
     // write CaseNum method
-    Express::WriteMethodStamp(anOS, "CaseNum");
+    Express1::WriteMethodStamp(anOS, "CaseNum");
     anOS << "Standard_Integer " << aCPPName
          << "::CaseNum (const Handle(RefObject)& theEnt) const\n"
             "{\n";
@@ -293,7 +293,7 @@ Standard_Boolean Express_Select::GenerateClass() const
     if (!aSeqMember->IsEmpty())
     {
       // write CaseMem method
-      Express::WriteMethodStamp(anOS, "CaseMem");
+      Express1::WriteMethodStamp(anOS, "CaseMem");
       anOS << "Standard_Integer " << aCPPName
            << "::CaseMem (const Handle(StepData_SelectMember)& theEnt) const\n"
               "{\n"
@@ -316,7 +316,7 @@ Standard_Boolean Express_Select::GenerateClass() const
               "}\n";
 
       // write NewMember method
-      Express::WriteMethodStamp(anOS, "NewMember");
+      Express1::WriteMethodStamp(anOS, "NewMember");
       anOS << "Handle(StepData_SelectMember) " << aCPPName
            << "::NewMember() const\n"
               "{\n"
@@ -331,9 +331,9 @@ Standard_Boolean Express_Select::GenerateClass() const
     {
       Standard_Integer               anIdx         = aSeqEntities->Value(i);
       Handle(Express_Item)           anItem        = myItems->Value(anIdx);
-      const TCollection_AsciiString& aName         = anItem->Name();
-      const TCollection_AsciiString& anItemCPPName = anItem->CPPName();
-      Express::WriteMethodStamp(anOS, aName);
+      const AsciiString1& aName         = anItem->Name();
+      const AsciiString1& anItemCPPName = anItem->CPPName();
+      Express1::WriteMethodStamp(anOS, aName);
       anOS << "Handle(" << anItemCPPName << ") " << aCPPName << "::" << aName
            << "() const\n"
               "{\n"
@@ -348,16 +348,16 @@ Standard_Boolean Express_Select::GenerateClass() const
     {
       Standard_Integer               anIdx         = aSeqMember->Value(i);
       Handle(Express_Item)           anItem        = myItems->Value(anIdx);
-      const TCollection_AsciiString& aName         = anItem->Name();
-      const TCollection_AsciiString& anItemCPPName = anItem->CPPName();
-      TCollection_AsciiString        aStamp        = "Set";
+      const AsciiString1& aName         = anItem->Name();
+      const AsciiString1& anItemCPPName = anItem->CPPName();
+      AsciiString1        aStamp        = "Set";
       aStamp += aName;
-      Express::WriteMethodStamp(anOS, aStamp);
+      Express1::WriteMethodStamp(anOS, aStamp);
 
       Standard_Boolean isString =
         (anItemCPPName.Location("HAsciiString", 1, anItemCPPName.Length()) > 0);
-      TCollection_AsciiString aNameFunc;
-      TCollection_AsciiString aFunc;
+      AsciiString1 aNameFunc;
+      AsciiString1 aFunc;
       Standard_Boolean        isEnum = anItem->IsKind(STANDARD_TYPE(Express_Enum));
       if (!isEnum)
       {
@@ -413,7 +413,7 @@ Standard_Boolean Express_Select::GenerateClass() const
       anOS << "}\n";
 
       // write method get
-      Express::WriteMethodStamp(anOS, aName);
+      Express1::WriteMethodStamp(anOS, aName);
       if (isString)
       {
         anOS << "Handle(" << anItemCPPName << ") " << aCPPName << "::" << aName << "() const\n";
@@ -444,7 +444,7 @@ Standard_Boolean Express_Select::GenerateClass() const
                 "  {\n";
         Handle(Express_Enum)                    anEnum    = Handle(Express_Enum)::DownCast(anItem);
         Handle(TColStd_HSequenceOfHAsciiString) anEnItems = anEnum->Names();
-        TCollection_AsciiString                 aPrefix   = Express::EnumPrefix(aName);
+        AsciiString1                 aPrefix   = Express1::EnumPrefix(aName);
         for (Standard_Integer k = 1; k <= anEnItems->Length(); k++)
         {
           anOS << "    case " << k << " : aVal = " << aName << "_" << aPrefix
@@ -476,8 +476,8 @@ Standard_Boolean Express_Select::GenerateClass() const
 
 void Express_Select::PropagateUse() const
 {
-  const TCollection_AsciiString& aPack = GetPackageName();
-  const TCollection_AsciiString& aName = Name();
+  const AsciiString1& aPack = GetPackageName();
+  const AsciiString1& aName = Name();
 
   for (Standard_Integer i = 1; i <= myItems->Length(); i++)
   {
@@ -491,13 +491,13 @@ void Express_Select::PropagateUse() const
 Standard_Boolean Express_Select::generateSelectMember(
   const Handle(TColStd_HSequenceOfInteger)& theSeqMember) const
 {
-  TCollection_AsciiString aCPPname = CPPName();
+  AsciiString1 aCPPname = CPPName();
   aCPPname += "Member";
 
   // create a package directory (if not yet exist)
   OSD_Protection          aProt(OSD_RWXD, OSD_RWXD, OSD_RX, OSD_RX);
-  TCollection_AsciiString aPack = GetPackageName();
-  OSD_Path                aPath(aPack);
+  AsciiString1 aPack = GetPackageName();
+  SystemPath                aPath(aPack);
   OSD_Directory           aDir(aPath);
   aDir.Build(aProt);
   aPack += "/";
@@ -511,7 +511,7 @@ Standard_Boolean Express_Select::generateSelectMember(
       aFileSystem->OpenOStream(aPack.Cat(".hxx"), std::ios::out | std::ios::binary);
     Standard_OStream& anOS = *aStreamPtr;
     // write header
-    Express::WriteFileStamp(anOS);
+    Express1::WriteFileStamp(anOS);
 
     // write start define
     anOS << "#ifndef _" << aCPPname
@@ -583,21 +583,21 @@ Standard_Boolean Express_Select::generateSelectMember(
     Standard_OStream& anOS = *aStreamPtr;
 
     // write header
-    Express::WriteFileStamp(anOS);
+    Express1::WriteFileStamp(anOS);
 
     // write include section
     anOS << "#include <" << aCPPname
          << ".hxx>\n"
             "#include <TCollection_HAsciiString.hxx>\n";
     // write constructor
-    Express::WriteMethodStamp(anOS, aCPPname);
+    Express1::WriteMethodStamp(anOS, aCPPname);
     anOS << aCPPname << "::" << aCPPname
          << "() : myCase(0) \n"
             "{\n"
             "}\n";
 
     // write method HasName
-    Express::WriteMethodStamp(anOS, "HasName");
+    Express1::WriteMethodStamp(anOS, "HasName");
     anOS << "Standard_Boolean " << aCPPname
          << "::HasName() const\n"
             "{\n"
@@ -606,7 +606,7 @@ Standard_Boolean Express_Select::generateSelectMember(
 
     Standard_Boolean hasEnum = Standard_False;
     // write method Name
-    Express::WriteMethodStamp(anOS, "Name");
+    Express1::WriteMethodStamp(anOS, "Name");
     anOS << "Standard_CString " << aCPPname
          << "::Name() const\n"
             "{\n"
@@ -630,7 +630,7 @@ Standard_Boolean Express_Select::generateSelectMember(
             "}\n";
 
     // write static method for compare name
-    Express::WriteMethodStamp(anOS, "CompareNames");
+    Express1::WriteMethodStamp(anOS, "CompareNames");
     anOS << "static Standard_Integer CompareNames (const Standard_CString theName";
     if (hasEnum)
     {
@@ -674,7 +674,7 @@ Standard_Boolean Express_Select::generateSelectMember(
             "}\n";
 
     // write method SetName
-    Express::WriteMethodStamp(anOS, "SetName");
+    Express1::WriteMethodStamp(anOS, "SetName");
     anOS << "Standard_Boolean " << aCPPname
          << "::SetName (const Standard_CString theName) \n"
             "{\n";
@@ -692,7 +692,7 @@ Standard_Boolean Express_Select::generateSelectMember(
             "}\n";
 
     // write method Matches
-    Express::WriteMethodStamp(anOS, "Matches");
+    Express1::WriteMethodStamp(anOS, "Matches");
     anOS << "Standard_Boolean " << aCPPname
          << "::Matches (const Standard_CString theName) const\n"
             "{\n";

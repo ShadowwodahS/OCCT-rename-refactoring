@@ -29,7 +29,7 @@ class IGESSolid_SphericalSurface;
 DEFINE_STANDARD_HANDLE(IGESSolid_SphericalSurface, IGESData_IGESEntity)
 
 //! defines SphericalSurface, Type <196> Form Number <0,1>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! Spherical surface is defined by a center and radius.
 //! In case of parametrised surface an axis and a
 //! reference direction is provided.

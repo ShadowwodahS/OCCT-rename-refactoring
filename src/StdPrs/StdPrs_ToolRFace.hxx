@@ -23,7 +23,7 @@
 #include <TopExp_Explorer.hxx>
 #include <TopoDS_Face.hxx>
 
-class TopoDS_Edge;
+class TopoEdge;
 
 //! Iterator over 2D curves restricting a face (skipping internal/external edges).
 //! In addition, the algorithm skips NULL curves - IsInvalidGeometry() can be checked if this should
@@ -63,7 +63,7 @@ public:
   const Adaptor2d_Curve2d& Value() const { return myCurve; }
 
   //! Return current edge.
-  Standard_EXPORT const TopoDS_Edge& Edge() const;
+  Standard_EXPORT const TopoEdge& Edge() const;
 
   //! Return current edge orientation.
   TopAbs_Orientation Orientation() const { return myExplorer.Current().Orientation(); }
@@ -76,8 +76,8 @@ private:
   Standard_EXPORT void next();
 
 private:
-  TopoDS_Face         myFace;
-  TopExp_Explorer     myExplorer;
+  TopoFace         myFace;
+  ShapeExplorer     myExplorer;
   Geom2dAdaptor_Curve myCurve;
   Standard_Boolean    myHasNullCurves;
 };

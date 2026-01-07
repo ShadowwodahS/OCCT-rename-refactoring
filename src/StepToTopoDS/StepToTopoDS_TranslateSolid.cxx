@@ -48,18 +48,18 @@ StepToTopoDS_TranslateSolid::StepToTopoDS_TranslateSolid()
 void StepToTopoDS_TranslateSolid::Init(const Handle(StepVisual_TessellatedSolid)& theTSo,
                                        const Handle(Transfer_TransientProcess)&   theTP,
                                        StepToTopoDS_Tool&                         theTool,
-                                       StepToTopoDS_NMTool&                       theNMTool,
+                                       NamingTool2&                       theNMTool,
                                        const Standard_Boolean  theReadTessellatedWhenNoBRepOnly,
                                        Standard_Boolean&       theHasGeom,
-                                       const StepData_Factors& theLocalFactors,
+                                       const ConversionFactors& theLocalFactors,
                                        const Message_ProgressRange& theProgress)
 {
   if (theTSo.IsNull())
     return;
 
-  BRep_Builder aB;
-  TopoDS_Shell aSh;
-  TopoDS_Solid aSo;
+  ShapeBuilder aB;
+  TopoShell aSh;
+  TopoSolid aSo;
 
   Standard_Integer      aNb = theTSo->NbItems();
   Message_ProgressScope aPS(theProgress, "Face", aNb);
@@ -138,7 +138,7 @@ void StepToTopoDS_TranslateSolid::Init(const Handle(StepVisual_TessellatedSolid)
 // Purpose : Return the mapped Shape
 // ============================================================================
 
-const TopoDS_Shape& StepToTopoDS_TranslateSolid::Value() const
+const TopoShape& StepToTopoDS_TranslateSolid::Value() const
 {
   StdFail_NotDone_Raise_if(!done, "StepToTopoDS_TranslateSolid::Value() - no result");
   return myResult;

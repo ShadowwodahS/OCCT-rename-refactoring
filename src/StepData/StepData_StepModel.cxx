@@ -45,7 +45,7 @@ void StepData_StepModel::GetFromAnother(const Handle(Interface_InterfaceModel)& 
     return;
   Interface_EntityIterator iter = another->Header();
   //  recopier le header. Attention, header distinct du contenu ...
-  Interface_CopyTool TC(this, StepData::HeaderProtocol());
+  Interface_CopyTool TC(this, StepData1::HeaderProtocol());
   for (; iter.More(); iter.Next())
   {
     Handle(RefObject) newhead;
@@ -93,9 +93,9 @@ void StepData_StepModel::AddHeaderEntity(const Handle(RefObject)& ent)
 
 void StepData_StepModel::VerifyCheck(Handle(Interface_Check)& ach) const
 {
-  Interface_GeneralLib            lib(StepData::HeaderProtocol());
+  Interface_GeneralLib            lib(StepData1::HeaderProtocol());
   Handle(StepData_StepModel)      me(this);
-  Handle(Interface_Protocol)      aHP = StepData::HeaderProtocol();
+  Handle(Interface_Protocol)      aHP = StepData1::HeaderProtocol();
   Interface_ShareTool             sh(me, aHP);
   Handle(Interface_GeneralModule) module;
   Standard_Integer                CN;
@@ -112,7 +112,7 @@ void StepData_StepModel::DumpHeader(Standard_OStream& S, const Standard_Integer 
 {
   //  NB : level n est pas utilise
 
-  Handle(StepData_Protocol) stepro = StepData::HeaderProtocol();
+  Handle(StepData_Protocol) stepro = StepData1::HeaderProtocol();
   Standard_Boolean          iapro  = !stepro.IsNull();
   if (!iapro)
     S << " -- WARNING : StepModel DumpHeader, Protocol not defined\n";

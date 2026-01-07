@@ -30,21 +30,21 @@
 #include <StdPrs_Point.hxx>
 #include <TopoDS_Vertex.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_Point, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(VisualPoint, VisualEntity)
 
 //=================================================================================================
 
-AIS_Point::AIS_Point(const Handle(Geom_Point)& aComponent)
+VisualPoint::VisualPoint(const Handle(Geom_Point)& aComponent)
     : myComponent(aComponent),
       myHasTOM(Standard_False),
       myTOM(Aspect_TOM_PLUS)
 {
-  myHilightDrawer = new Prs3d_Drawer();
+  myHilightDrawer = new StyleDrawer();
   myHilightDrawer->SetDisplayMode(-99);
   myHilightDrawer->SetPointAspect(new Prs3d_PointAspect(Aspect_TOM_PLUS, Quantity_NOC_GRAY80, 3.0));
   myHilightDrawer->SetColor(Quantity_NOC_GRAY80);
   myHilightDrawer->SetZLayer(Graphic3d_ZLayerId_UNKNOWN);
-  myDynHilightDrawer = new Prs3d_Drawer();
+  myDynHilightDrawer = new StyleDrawer();
   myDynHilightDrawer->SetDisplayMode(-99);
   myDynHilightDrawer->SetPointAspect(
     new Prs3d_PointAspect(Aspect_TOM_PLUS, Quantity_NOC_CYAN1, 3.0));
@@ -54,21 +54,21 @@ AIS_Point::AIS_Point(const Handle(Geom_Point)& aComponent)
 
 //=================================================================================================
 
-Handle(Geom_Point) AIS_Point::Component()
+Handle(Geom_Point) VisualPoint::Component()
 {
   return myComponent;
 }
 
 //=================================================================================================
 
-void AIS_Point::SetComponent(const Handle(Geom_Point)& aComponent)
+void VisualPoint::SetComponent(const Handle(Geom_Point)& aComponent)
 {
   myComponent = aComponent;
 }
 
 //=================================================================================================
 
-void AIS_Point::Compute(const Handle(PrsMgr_PresentationManager)&,
+void VisualPoint::Compute(const Handle(PrsMgr_PresentationManager)&,
                         const Handle(Prs3d_Presentation)& thePrs,
                         const Standard_Integer            theMode)
 {
@@ -89,7 +89,7 @@ void AIS_Point::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void AIS_Point::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+void VisualPoint::ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                  const Standard_Integer /*aMode*/)
 {
   Handle(SelectMgr_EntityOwner)   eown = new SelectMgr_EntityOwner(this, 10);
@@ -99,7 +99,7 @@ void AIS_Point::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
 
 //=================================================================================================
 
-void AIS_Point::SetColor(const Quantity_Color& theCol)
+void VisualPoint::SetColor(const Quantity_Color& theCol)
 {
   hasOwnColor = Standard_True;
   myDrawer->SetColor(theCol);
@@ -108,7 +108,7 @@ void AIS_Point::SetColor(const Quantity_Color& theCol)
 
 //=================================================================================================
 
-void AIS_Point::UnsetColor()
+void VisualPoint::UnsetColor()
 {
   hasOwnColor = Standard_False;
   UpdatePointValues();
@@ -116,7 +116,7 @@ void AIS_Point::UnsetColor()
 
 //=================================================================================================
 
-TopoDS_Vertex AIS_Point::Vertex() const
+TopoVertex VisualPoint::Vertex() const
 {
   Point3d P = myComponent->Pnt();
   return BRepBuilderAPI_MakeVertex(P);
@@ -124,7 +124,7 @@ TopoDS_Vertex AIS_Point::Vertex() const
 
 //=================================================================================================
 
-void AIS_Point::SetMarker(const Aspect_TypeOfMarker aTOM)
+void VisualPoint::SetMarker(const Aspect_TypeOfMarker aTOM)
 {
   myTOM    = aTOM;
   myHasTOM = Standard_True;
@@ -133,7 +133,7 @@ void AIS_Point::SetMarker(const Aspect_TypeOfMarker aTOM)
 
 //=================================================================================================
 
-void AIS_Point::UnsetMarker()
+void VisualPoint::UnsetMarker()
 {
   myHasTOM = Standard_False;
   UpdatePointValues();
@@ -141,14 +141,14 @@ void AIS_Point::UnsetMarker()
 
 //=================================================================================================
 
-Standard_Boolean AIS_Point::AcceptDisplayMode(const Standard_Integer theMode) const
+Standard_Boolean VisualPoint::AcceptDisplayMode(const Standard_Integer theMode) const
 {
   return theMode == 0 || theMode == -99;
 }
 
 //=================================================================================================
 
-void AIS_Point::replaceWithNewPointAspect(const Handle(Prs3d_PointAspect)& theAspect)
+void VisualPoint::replaceWithNewPointAspect(const Handle(Prs3d_PointAspect)& theAspect)
 {
   if (!myDrawer->HasLink())
   {
@@ -170,7 +170,7 @@ void AIS_Point::replaceWithNewPointAspect(const Handle(Prs3d_PointAspect)& theAs
 
 //=================================================================================================
 
-void AIS_Point::UpdatePointValues()
+void VisualPoint::UpdatePointValues()
 {
   if (!hasOwnColor && myOwnWidth == 0.0f && !myHasTOM)
   {

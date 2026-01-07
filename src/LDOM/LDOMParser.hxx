@@ -63,7 +63,7 @@ public:
   //                - if false - parse a document as usual (parse header, document tag and etc)
   // Returns True if error occurred, then GetError() can be called
 
-  Standard_EXPORT const TCollection_AsciiString& GetError(TCollection_AsciiString& aData) const;
+  Standard_EXPORT const AsciiString1& GetError(AsciiString1& aData) const;
   // Return text describing a parsing error, or Empty if no error occurred
 
   // Returns the byte order mask defined at the start of a stream
@@ -102,7 +102,7 @@ private:
   LDOM_XmlReader*         myReader;
   Handle(LDOM_MemManager) myDocument;
   LDOM_OSStream           myCurrentData;
-  TCollection_AsciiString myError;
+  AsciiString1 myError;
 };
 
 #endif

@@ -34,11 +34,11 @@
 #include <StdPrs_Curve.hxx>
 #include <UnitsAPI.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_Line, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_Line, VisualEntity)
 
 //=================================================================================================
 
-AIS_Line::AIS_Line(const Handle(Geom_Line)& aComponent)
+AIS_Line::AIS_Line(const Handle(GeomLine)& aComponent)
     : myComponent(aComponent),
       myLineIsSegment(Standard_False)
 {
@@ -72,7 +72,7 @@ void AIS_Line::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void AIS_Line::ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+void AIS_Line::ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                 const Standard_Integer             theMode)
 {
   // Do not support selection modes different from 0 currently
@@ -217,7 +217,7 @@ void AIS_Line::ComputeSegmentLine(const Handle(Prs3d_Presentation)& aPresentatio
   Point3d P1 = myStartPoint->Pnt();
   Point3d P2 = myEndPoint->Pnt();
 
-  myComponent = new Geom_Line(P1, Dir3d(P2.XYZ() - P1.XYZ()));
+  myComponent = new GeomLine(P1, Dir3d(P2.XYZ() - P1.XYZ()));
 
   Standard_Real     dist = P1.Distance(P2);
   GeomAdaptor_Curve curv(myComponent, 0., dist);
@@ -226,7 +226,7 @@ void AIS_Line::ComputeSegmentLine(const Handle(Prs3d_Presentation)& aPresentatio
 
 //=================================================================================================
 
-void AIS_Line::ComputeInfiniteLineSelection(const Handle(SelectMgr_Selection)& aSelection)
+void AIS_Line::ComputeInfiniteLineSelection(const Handle(SelectionContainer)& aSelection)
 {
 
   /*  // on calcule les points min max a partir desquels on cree un segment sensible...
@@ -249,7 +249,7 @@ void AIS_Line::ComputeInfiniteLineSelection(const Handle(SelectMgr_Selection)& a
 
 //=================================================================================================
 
-void AIS_Line::ComputeSegmentLineSelection(const Handle(SelectMgr_Selection)& aSelection)
+void AIS_Line::ComputeSegmentLineSelection(const Handle(SelectionContainer)& aSelection)
 {
 
   Handle(SelectMgr_EntityOwner)     eown = new SelectMgr_EntityOwner(this, 5);

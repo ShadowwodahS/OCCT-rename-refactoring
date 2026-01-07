@@ -22,7 +22,7 @@
 // purpose  : Sets contour
 //=======================================================================
 
-inline void ShapeAnalysis_FreeBoundData::SetFreeBound(const TopoDS_Wire& freebound)
+inline void ShapeAnalysis_FreeBoundData::SetFreeBound(const TopoWire& freebound)
 {
   myBound = freebound;
 }
@@ -77,7 +77,7 @@ inline void ShapeAnalysis_FreeBoundData::SetWidth(const Standard_Real width)
 // purpose  : Returns contour
 //=======================================================================
 
-inline TopoDS_Wire ShapeAnalysis_FreeBoundData::FreeBound() const
+inline TopoWire ShapeAnalysis_FreeBoundData::FreeBound() const
 {
   return myBound;
 }
@@ -147,7 +147,7 @@ inline Handle(TopTools_HSequenceOfShape) ShapeAnalysis_FreeBoundData::Notches() 
 // purpose  : Returns notch on the contour
 //=======================================================================
 
-inline TopoDS_Wire ShapeAnalysis_FreeBoundData::Notch(const Standard_Integer index) const
+inline TopoWire ShapeAnalysis_FreeBoundData::Notch(const Standard_Integer index) const
 {
   return TopoDS::Wire(myNotches->Value(index));
 }

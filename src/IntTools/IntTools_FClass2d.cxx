@@ -57,7 +57,7 @@ IntTools_FClass2d::IntTools_FClass2d() {}
 
 //=================================================================================================
 
-IntTools_FClass2d::IntTools_FClass2d(const TopoDS_Face& aFace, const Standard_Real TolUV)
+IntTools_FClass2d::IntTools_FClass2d(const TopoFace& aFace, const Standard_Real TolUV)
     : Toluv(TolUV),
       Face(aFace)
 {
@@ -73,7 +73,7 @@ Standard_Boolean IntTools_FClass2d::IsHole() const
 
 //=================================================================================================
 
-void IntTools_FClass2d::Init(const TopoDS_Face& aFace, const Standard_Real TolUV)
+void IntTools_FClass2d::Init(const TopoFace& aFace, const Standard_Real TolUV)
 {
   Standard_Boolean WireIsNotEmpty, Ancienpnt3dinitialise, degenerated;
   Standard_Integer firstpoint, NbEdges;
@@ -83,12 +83,12 @@ void IntTools_FClass2d::Init(const TopoDS_Face& aFace, const Standard_Real TolUV
   Standard_Real    uFirst, uLast;
   Standard_Real    aPrCf, aPrCf2;
   //
-  TopoDS_Edge                     edge;
-  TopoDS_Vertex                   Va, Vb;
+  TopoEdge                     edge;
+  TopoVertex                   Va, Vb;
   TopAbs_Orientation              Or;
   BRepTools_WireExplorer          aWExp;
-  TopExp_Explorer                 aExpF, aExp;
-  Handle(Geom2d_Curve)            aC2D;
+  ShapeExplorer                 aExpF, aExp;
+  Handle(GeomCurve2d)            aC2D;
   Point3d                          Ancienpnt3d;
   TColgp_SequenceOfPnt2d          SeqPnt2d;
   TColStd_DataMapOfIntegerInteger anIndexMap;
@@ -118,7 +118,7 @@ void IntTools_FClass2d::Init(const TopoDS_Face& aFace, const Standard_Real TolUV
   aExpF.Init(Face, TopAbs_WIRE);
   for (; aExpF.More(); aExpF.Next())
   {
-    const TopoDS_Wire& aW = *((TopoDS_Wire*)&aExpF.Current());
+    const TopoWire& aW = *((TopoWire*)&aExpF.Current());
     //
     firstpoint            = 1;
     FlecheU               = 0.;
@@ -153,7 +153,7 @@ void IntTools_FClass2d::Init(const TopoDS_Face& aFace, const Standard_Real TolUV
         continue;
       }
       //
-      aC2D = BRep_Tool::CurveOnSurface(edge, Face, pfbid, plbid);
+      aC2D = BRepInspector::CurveOnSurface(edge, Face, pfbid, plbid);
       if (aC2D.IsNull())
       {
         return;
@@ -163,12 +163,12 @@ void IntTools_FClass2d::Init(const TopoDS_Face& aFace, const Standard_Real TolUV
       BRepAdaptor_Curve   C3d;
       //------------------------------------------
       degenerated = Standard_False;
-      if (BRep_Tool::Degenerated(edge) || BRep_Tool::IsClosed(edge, Face))
+      if (BRepInspector::Degenerated(edge) || BRepInspector::IsClosed(edge, Face))
       {
         degenerated = Standard_True;
       }
       //
-      TopExp::Vertices(edge, Va, Vb);
+      TopExp1::Vertices(edge, Va, Vb);
       //
       TolVertex1 = 0.;
       TolVertex  = 0.;
@@ -178,7 +178,7 @@ void IntTools_FClass2d::Init(const TopoDS_Face& aFace, const Standard_Real TolUV
       }
       else
       {
-        TolVertex1 = BRep_Tool::Tolerance(Va);
+        TolVertex1 = BRepInspector::Tolerance(Va);
       }
       if (Vb.IsNull())
       {
@@ -186,7 +186,7 @@ void IntTools_FClass2d::Init(const TopoDS_Face& aFace, const Standard_Real TolUV
       }
       else
       {
-        TolVertex = BRep_Tool::Tolerance(Vb);
+        TolVertex = BRepInspector::Tolerance(Vb);
       }
       //
       if (TolVertex < TolVertex1)
@@ -218,7 +218,7 @@ void IntTools_FClass2d::Init(const TopoDS_Face& aFace, const Standard_Real TolUV
         }
       } // if(!degenerated)
       //-- ----------------------------------------
-      Tole = BRep_Tool::Tolerance(edge);
+      Tole = BRepInspector::Tolerance(edge);
       if (Tole > Tol)
       {
         Tol = Tole;
@@ -425,7 +425,7 @@ void IntTools_FClass2d::Init(const TopoDS_Face& aFace, const Standard_Real TolUV
         }
         aMults(1) = aMults(nbpnts)       = 2;
         Handle(Geom2d_BSplineCurve) aPol = new Geom2d_BSplineCurve(PClass, aKnots, aMults, 1);
-        DrawTrSurf::Set("pol", aPol);
+        DrawTrSurf1::Set("pol", aPol);
 #endif
 
         Standard_Real aS   = 0.;
@@ -452,7 +452,7 @@ void IntTools_FClass2d::Init(const TopoDS_Face& aFace, const Standard_Real TolUV
             Or   = edge.Orientation();
             if (Or == TopAbs_FORWARD || Or == TopAbs_REVERSED)
             {
-              BRep_Tool::Range(edge, Face, pfbid, plbid);
+              BRepInspector::Range(edge, Face, pfbid, plbid);
               if (Abs(plbid - pfbid) < 1.e-9)
                 continue;
               BRepAdaptor_Curve2d           C(edge, Face);

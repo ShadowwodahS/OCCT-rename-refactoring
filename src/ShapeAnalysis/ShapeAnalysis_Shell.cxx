@@ -42,7 +42,7 @@ void ShapeAnalysis_Shell::Clear()
 
 //=================================================================================================
 
-void ShapeAnalysis_Shell::LoadShells(const TopoDS_Shape& shape)
+void ShapeAnalysis_Shell::LoadShells(const TopoShape& shape)
 {
   if (shape.IsNull())
     return;
@@ -51,9 +51,9 @@ void ShapeAnalysis_Shell::LoadShells(const TopoDS_Shape& shape)
     myShells.Add(shape); // szv#4:S4163:12Mar99 i =
   else
   {
-    for (TopExp_Explorer exs(shape, TopAbs_SHELL); exs.More(); exs.Next())
+    for (ShapeExplorer exs(shape, TopAbs_SHELL); exs.More(); exs.Next())
     {
-      const TopoDS_Shape& sh = exs.Current();
+      const TopoShape& sh = exs.Current();
       myShells.Add(sh); // szv#4:S4163:12Mar99 i =
     }
   }
@@ -65,7 +65,7 @@ void ShapeAnalysis_Shell::LoadShells(const TopoDS_Shape& shape)
 //  On utilise pour cela une fonction auxiliaire : CheckEdges
 //    Qui alimente 2 maps auxiliaires : les edges directes et les inverses
 
-static Standard_Boolean CheckEdges(const TopoDS_Shape&         shape,
+static Standard_Boolean CheckEdges(const TopoShape&         shape,
                                    TopTools_IndexedMapOfShape& bads,
                                    TopTools_IndexedMapOfShape& dirs,
                                    TopTools_IndexedMapOfShape& revs,
@@ -83,8 +83,8 @@ static Standard_Boolean CheckEdges(const TopoDS_Shape&         shape,
   }
   else
   {
-    TopoDS_Edge E = TopoDS::Edge(shape);
-    if (BRep_Tool::Degenerated(E))
+    TopoEdge E = TopoDS::Edge(shape);
+    if (BRepInspector::Degenerated(E))
       return Standard_False;
 
     if (shape.Orientation() == TopAbs_FORWARD)
@@ -122,7 +122,7 @@ static Standard_Boolean CheckEdges(const TopoDS_Shape&         shape,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Shell::CheckOrientedShells(const TopoDS_Shape&    shape,
+Standard_Boolean ShapeAnalysis_Shell::CheckOrientedShells(const TopoShape&    shape,
                                                           const Standard_Boolean alsofree,
                                                           const Standard_Boolean checkinternaledges)
 {
@@ -132,9 +132,9 @@ Standard_Boolean ShapeAnalysis_Shell::CheckOrientedShells(const TopoDS_Shape&   
   Standard_Boolean res = Standard_False;
 
   TopTools_IndexedMapOfShape dirs, revs, ints;
-  for (TopExp_Explorer exs(shape, TopAbs_SHELL); exs.More(); exs.Next())
+  for (ShapeExplorer exs(shape, TopAbs_SHELL); exs.More(); exs.Next())
   {
-    const TopoDS_Shape& sh = exs.Current();
+    const TopoShape& sh = exs.Current();
     // szv#4:S4163:12Mar99 optimized
     if (CheckEdges(sh, myBad, dirs, revs, ints))
       if (myShells.Add(sh))
@@ -151,7 +151,7 @@ Standard_Boolean ShapeAnalysis_Shell::CheckOrientedShells(const TopoDS_Shape&   
   Standard_Integer i; // svv Jan11 2000 : porting on DEC
   for (i = 1; i <= nb; i++)
   {
-    const TopoDS_Shape& sh = dirs.FindKey(i);
+    const TopoShape& sh = dirs.FindKey(i);
     if (!myBad.Contains(sh))
     {
       if (!revs.Contains(sh))
@@ -180,7 +180,7 @@ Standard_Boolean ShapeAnalysis_Shell::CheckOrientedShells(const TopoDS_Shape&   
   nb = revs.Extent();
   for (i = 1; i <= nb; i++)
   {
-    const TopoDS_Shape& sh = revs.FindKey(i);
+    const TopoShape& sh = revs.FindKey(i);
     if (!myBad.Contains(sh))
     {
       if (!dirs.Contains(sh))
@@ -211,7 +211,7 @@ Standard_Boolean ShapeAnalysis_Shell::CheckOrientedShells(const TopoDS_Shape&   
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Shell::IsLoaded(const TopoDS_Shape& shape) const
+Standard_Boolean ShapeAnalysis_Shell::IsLoaded(const TopoShape& shape) const
 {
   if (shape.IsNull())
     return Standard_False;
@@ -227,7 +227,7 @@ Standard_Integer ShapeAnalysis_Shell::NbLoaded() const
 
 //=================================================================================================
 
-TopoDS_Shape ShapeAnalysis_Shell::Loaded(const Standard_Integer num) const
+TopoShape ShapeAnalysis_Shell::Loaded(const Standard_Integer num) const
 {
   return myShells.FindKey(num);
 }
@@ -241,10 +241,10 @@ Standard_Boolean ShapeAnalysis_Shell::HasBadEdges() const
 
 //=================================================================================================
 
-TopoDS_Compound ShapeAnalysis_Shell::BadEdges() const
+TopoCompound ShapeAnalysis_Shell::BadEdges() const
 {
-  TopoDS_Compound C;
-  BRep_Builder    B;
+  TopoCompound C;
+  ShapeBuilder    B;
   B.MakeCompound(C);
   Standard_Integer n = myBad.Extent();
   for (Standard_Integer i = 1; i <= n; i++)
@@ -261,10 +261,10 @@ Standard_Boolean ShapeAnalysis_Shell::HasFreeEdges() const
 
 //=================================================================================================
 
-TopoDS_Compound ShapeAnalysis_Shell::FreeEdges() const
+TopoCompound ShapeAnalysis_Shell::FreeEdges() const
 {
-  TopoDS_Compound C;
-  BRep_Builder    B;
+  TopoCompound C;
+  ShapeBuilder    B;
   B.MakeCompound(C);
   Standard_Integer n = myFree.Extent();
   for (Standard_Integer i = 1; i <= n; i++)

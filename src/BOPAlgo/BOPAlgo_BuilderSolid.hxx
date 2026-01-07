@@ -54,7 +54,7 @@
 //!
 //! Example of usage of the algorithm:
 //! ~~~~
-//! const TopTools_ListOfShape& aFaces = ...;     // Faces to build the solids
+//! const ShapeList& aFaces = ...;     // Faces to build the solids
 //! Standard_Boolean isAvoidInternals = ...;      // Flag which defines whether to create the
 //! internal shells or not BOPAlgo_BuilderSolid aBS;                     // Solid Builder tool
 //! aBS.SetShapes(aFaces);                        // Set the faces
@@ -74,7 +74,7 @@
 //!   aBS.DumpWarnings(aSStream);
 //! }
 //!
-//! const TopTools_ListOfShape& aSolids = aBS.Areas(); // Obtaining the result solids
+//! const ShapeList& aSolids = aBS.Areas(); // Obtaining the result solids
 //! ~~~~
 //!
 class BOPAlgo_BuilderSolid : public BOPAlgo_BuilderArea

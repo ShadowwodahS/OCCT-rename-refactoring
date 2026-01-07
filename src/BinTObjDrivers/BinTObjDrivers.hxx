@@ -22,11 +22,11 @@
 
 class BinMDF_ADriverTable;
 class Message_Messenger;
-class TDocStd_Application;
+class AppManager;
 
 //! Class for registering storage/retrieval drivers for TObj Bin persistence
 
-class BinTObjDrivers
+class BinTObjDrivers1
 {
 public:
   // ---------- PUBLIC METHODS ----------
@@ -36,7 +36,7 @@ public:
 
   //! Defines format "TObjBin" and registers its read and write drivers
   //! in the specified application
-  Standard_EXPORT static void DefineFormat(const Handle(TDocStd_Application)& theApp);
+  Standard_EXPORT static void DefineFormat(const Handle(AppManager)& theApp);
 
   Standard_EXPORT static void AddDrivers(const Handle(BinMDF_ADriverTable)& aDriverTable,
                                          const Handle(Message_Messenger)&   aMsgDrv);

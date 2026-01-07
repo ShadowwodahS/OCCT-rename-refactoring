@@ -60,9 +60,9 @@ TDF_Attribute::TDF_Attribute()
 
 //=================================================================================================
 
-const TDF_Label TDF_Attribute::Label() const
+const DataLabel TDF_Attribute::Label() const
 {
-  return TDF_Label(myLabelNode);
+  return DataLabel(myLabelNode);
 }
 
 //=================================================================================================
@@ -202,7 +202,7 @@ void TDF_Attribute::Backup()
     // check that modification is allowed
     if (!aData->IsModificationAllowed())
     {
-      TCollection_AsciiString aMess;
+      AsciiString1 aMess;
       aMess = "Attribute \"";
       aMess += DynamicType()->Name();
       aMess += "\" is changed outside transaction";
@@ -363,7 +363,7 @@ void TDF_Attribute::DumpJson(Standard_OStream& theOStream, Standard_Integer) con
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
-  TCollection_AsciiString aLabel;
+  AsciiString1 aLabel;
   TDF_Tool::Entry(Label(), aLabel);
   OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aLabel)
 

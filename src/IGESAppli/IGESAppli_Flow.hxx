@@ -33,7 +33,7 @@ class IGESAppli_Flow;
 DEFINE_STANDARD_HANDLE(IGESAppli_Flow, IGESData_IGESEntity)
 
 //! defines Flow, Type <402> Form <18>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Represents a single signal or a single fluid flow path
 //! starting from a starting Connect Point Entity and
 //! including additional intermediate connect points.

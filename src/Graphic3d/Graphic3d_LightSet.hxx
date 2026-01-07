@@ -187,21 +187,21 @@ public:
   //! (Directional), 'p' (Point), 's' (Spot) depending on the type of light source in the list.
   //! Example: "dppp".
   //! @sa UpdateRevision()
-  const TCollection_AsciiString& KeyEnabledLong() const { return myKeyEnabledLong; }
+  const AsciiString1& KeyEnabledLong() const { return myKeyEnabledLong; }
 
   //! Returns a string defining a list of enabled light sources as concatenation of letters 'd'
   //! (Directional), 'p' (Point), 's' (Spot) depending on the type of light source in the list,
   //! specified only once. Example: "dp".
   //! @sa UpdateRevision()
-  const TCollection_AsciiString& KeyEnabledShort() const { return myKeyEnabledShort; }
+  const AsciiString1& KeyEnabledShort() const { return myKeyEnabledShort; }
 
 protected:
   NCollection_IndexedDataMap<Handle(Graphic3d_CLight), Standard_Size>
     // clang-format off
                           myLights;                 //!< list of light sources with their cached state (revision)
   Graphic3d_Vec4          myAmbient;                //!< cached value of cumulative ambient color
-  TCollection_AsciiString myKeyEnabledLong;         //!< key identifying the list of enabled light sources by their type
-  TCollection_AsciiString myKeyEnabledShort;        //!< key identifying the list of enabled light sources by the number of sources of each type
+  AsciiString1 myKeyEnabledLong;         //!< key identifying the list of enabled light sources by their type
+  AsciiString1 myKeyEnabledShort;        //!< key identifying the list of enabled light sources by the number of sources of each type
   Standard_Integer        myLightTypes       [Graphic3d_TypeOfLightSource_NB]; //!< counters per each light source type defined in the list
   Standard_Integer        myLightTypesEnabled[Graphic3d_TypeOfLightSource_NB]; //!< counters per each light source type enabled in the list
   Standard_Integer        myNbEnabled;              //!< number of enabled light sources, excluding ambient

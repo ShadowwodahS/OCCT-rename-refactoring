@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <Bisector_Curve.hxx>
 #include <GeomAbs_Shape.hxx>
-class Geom2d_Curve;
+class GeomCurve2d;
 class Geom2d_Geometry;
 class gp_Trsf2d;
 class gp_Vec2d;
@@ -48,7 +48,7 @@ public:
   //! <DistMax> is used to trim the bisector.The distance
   //! between the points of the bisector and <Cu> is smaller
   //! than <DistMax>.
-  Standard_EXPORT Bisector_BisecPC(const Handle(Geom2d_Curve)& Cu,
+  Standard_EXPORT Bisector_BisecPC(const Handle(GeomCurve2d)& Cu,
                                    const gp_Pnt2d&             P,
                                    const Standard_Real         Side,
                                    const Standard_Real         DistMax = 500);
@@ -59,7 +59,7 @@ public:
   //! else <Side> = -1.
   //! Warning: the bisector is supposed all over defined between
   //! <UMin> and <UMax>.
-  Standard_EXPORT Bisector_BisecPC(const Handle(Geom2d_Curve)& Cu,
+  Standard_EXPORT Bisector_BisecPC(const Handle(GeomCurve2d)& Cu,
                                    const gp_Pnt2d&             P,
                                    const Standard_Real         Side,
                                    const Standard_Real         UMin,
@@ -72,7 +72,7 @@ public:
   //! <DistMax> is used to trim the bisector.The distance
   //! between the points of the bisector and <Cu> is smaller
   //! than <DistMax>.
-  Standard_EXPORT void Perform(const Handle(Geom2d_Curve)& Cu,
+  Standard_EXPORT void Perform(const Handle(GeomCurve2d)& Cu,
                                const gp_Pnt2d&             P,
                                const Standard_Real         Side,
                                const Standard_Real         DistMax = 500);
@@ -195,7 +195,7 @@ private:
 
   Standard_EXPORT Standard_Real SearchBound(const Standard_Real U1, const Standard_Real U2) const;
 
-  Standard_EXPORT void Init(const Handle(Geom2d_Curve)&   Curve,
+  Standard_EXPORT void Init(const Handle(GeomCurve2d)&   Curve,
                             const gp_Pnt2d&               Point,
                             const Standard_Real           Sign,
                             const TColStd_SequenceOfReal& StartIntervals,
@@ -211,7 +211,7 @@ private:
                             const gp_Pnt2d&               PointStartBis,
                             const gp_Pnt2d&               PointEndBis);
 
-  Handle(Geom2d_Curve)   curve;
+  Handle(GeomCurve2d)   curve;
   gp_Pnt2d               point;
   Standard_Real          sign;
   TColStd_SequenceOfReal startIntervals;

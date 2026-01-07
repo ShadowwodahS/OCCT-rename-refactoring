@@ -39,7 +39,7 @@ void ShapePersistent_Geom::Geometry::PChildren(SequenceOfPersistent&) const {}
 // purpose  : Create a persistent object for a curve
 //=======================================================================
 Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom::Translate(
-  const Handle(Geom_Curve)&         theCurve,
+  const Handle(GeomCurve3d)&         theCurve,
   StdObjMgt_TransientPersistentMap& theMap)
 {
   Handle(Curve) aPC;
@@ -50,14 +50,14 @@ Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom::Translate(
     else
     {
       Handle(TypeInfo) aCT = theCurve->DynamicType();
-      if (aCT == STANDARD_TYPE(Geom_Line))
+      if (aCT == STANDARD_TYPE(GeomLine))
       {
-        aPC = ShapePersistent_Geom_Curve::Translate(Handle(Geom_Line)::DownCast(theCurve), theMap);
+        aPC = ShapePersistent_Geom_Curve::Translate(Handle(GeomLine)::DownCast(theCurve), theMap);
       }
-      else if (aCT == STANDARD_TYPE(Geom_Circle))
+      else if (aCT == STANDARD_TYPE(GeomCircle))
       {
         aPC =
-          ShapePersistent_Geom_Curve::Translate(Handle(Geom_Circle)::DownCast(theCurve), theMap);
+          ShapePersistent_Geom_Curve::Translate(Handle(GeomCircle)::DownCast(theCurve), theMap);
       }
       else if (aCT == STANDARD_TYPE(Geom_Ellipse))
       {
@@ -74,14 +74,14 @@ Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom::Translate(
         aPC =
           ShapePersistent_Geom_Curve::Translate(Handle(Geom_Parabola)::DownCast(theCurve), theMap);
       }
-      else if (aCT == STANDARD_TYPE(Geom_BezierCurve))
+      else if (aCT == STANDARD_TYPE(BezierCurve3d))
       {
-        aPC = ShapePersistent_Geom_Curve::Translate(Handle(Geom_BezierCurve)::DownCast(theCurve),
+        aPC = ShapePersistent_Geom_Curve::Translate(Handle(BezierCurve3d)::DownCast(theCurve),
                                                     theMap);
       }
-      else if (aCT == STANDARD_TYPE(Geom_BSplineCurve))
+      else if (aCT == STANDARD_TYPE(BSplineCurve3d))
       {
-        aPC = ShapePersistent_Geom_Curve::Translate(Handle(Geom_BSplineCurve)::DownCast(theCurve),
+        aPC = ShapePersistent_Geom_Curve::Translate(Handle(BSplineCurve3d)::DownCast(theCurve),
                                                     theMap);
       }
       else if (aCT == STANDARD_TYPE(Geom_TrimmedCurve))
@@ -109,7 +109,7 @@ Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom::Translate(
 // purpose  : Create a persistent object for a surface
 //=======================================================================
 Handle(ShapePersistent_Geom::Surface) ShapePersistent_Geom::Translate(
-  const Handle(Geom_Surface)&       theSurf,
+  const Handle(GeomSurface)&       theSurf,
   StdObjMgt_TransientPersistentMap& theMap)
 {
   Handle(Surface) aPS;
@@ -120,10 +120,10 @@ Handle(ShapePersistent_Geom::Surface) ShapePersistent_Geom::Translate(
     else
     {
       Handle(TypeInfo) aST = theSurf->DynamicType();
-      if (aST == STANDARD_TYPE(Geom_Plane))
+      if (aST == STANDARD_TYPE(GeomPlane))
       {
         aPS =
-          ShapePersistent_Geom_Surface::Translate(Handle(Geom_Plane)::DownCast(theSurf), theMap);
+          ShapePersistent_Geom_Surface::Translate(Handle(GeomPlane)::DownCast(theSurf), theMap);
       }
       else if (aST == STANDARD_TYPE(Geom_CylindricalSurface))
       {

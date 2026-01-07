@@ -27,8 +27,8 @@
 #include <Standard_Integer.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 #include <GeomAbs_Shape.hxx>
-class Geom_Curve;
-class Geom_BSplineCurve;
+class GeomCurve3d;
+class BSplineCurve3d;
 class Geom_BSplineSurface;
 class Point3d;
 
@@ -42,7 +42,7 @@ class GeomFill_UniformSection : public GeomFill_SectionLaw
 public:
   //! Make an constant Law with C.
   //! [First, Last] define law definition domain
-  Standard_EXPORT GeomFill_UniformSection(const Handle(Geom_Curve)& C,
+  Standard_EXPORT GeomFill_UniformSection(const Handle(GeomCurve3d)& C,
                                           const Standard_Real       FirstParameter = 0.0,
                                           const Standard_Real       LastParameter  = 1.0);
 
@@ -162,7 +162,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsConstant(Standard_Real& Error) const Standard_OVERRIDE;
 
   //! Return the constant Section if <me>  IsConstant.
-  Standard_EXPORT virtual Handle(Geom_Curve) ConstantSection() const Standard_OVERRIDE;
+  Standard_EXPORT virtual Handle(GeomCurve3d) ConstantSection() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(GeomFill_UniformSection, GeomFill_SectionLaw)
 
@@ -170,8 +170,8 @@ protected:
 private:
   Standard_Real             First;
   Standard_Real             Last;
-  Handle(Geom_Curve)        mySection;
-  Handle(Geom_BSplineCurve) myCurve;
+  Handle(GeomCurve3d)        mySection;
+  Handle(BSplineCurve3d) myCurve;
 };
 
 #endif // _GeomFill_UniformSection_HeaderFile

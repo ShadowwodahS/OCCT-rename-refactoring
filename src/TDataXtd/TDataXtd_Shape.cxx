@@ -29,9 +29,9 @@ IMPLEMENT_DERIVED_ATTRIBUTE(TDataXtd_Shape, TDataStd_GenericEmpty)
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Shape::Find(const TDF_Label& current, Handle(TDataXtd_Shape)& S)
+Standard_Boolean TDataXtd_Shape::Find(const DataLabel& current, Handle(TDataXtd_Shape)& S)
 {
-  TDF_Label              L = current;
+  DataLabel              L = current;
   Handle(TDataXtd_Shape) SA;
   if (L.IsNull())
     return Standard_False;
@@ -54,7 +54,7 @@ Standard_Boolean TDataXtd_Shape::Find(const TDF_Label& current, Handle(TDataXtd_
 
 //=================================================================================================
 
-Handle(TDataXtd_Shape) TDataXtd_Shape::New(const TDF_Label& label)
+Handle(TDataXtd_Shape) TDataXtd_Shape::New(const DataLabel& label)
 {
   if (label.HasAttribute())
   {
@@ -67,7 +67,7 @@ Handle(TDataXtd_Shape) TDataXtd_Shape::New(const TDF_Label& label)
 
 //=================================================================================================
 
-Handle(TDataXtd_Shape) TDataXtd_Shape::Set(const TDF_Label& label, const TopoDS_Shape& shape)
+Handle(TDataXtd_Shape) TDataXtd_Shape::Set(const DataLabel& label, const TopoShape& shape)
 {
   Handle(TDataXtd_Shape) A;
   if (!label.FindAttribute(TDataXtd_Shape::GetID(), A))
@@ -75,8 +75,8 @@ Handle(TDataXtd_Shape) TDataXtd_Shape::Set(const TDF_Label& label, const TopoDS_
     A = TDataXtd_Shape::New(label);
   }
 
-  Handle(TNaming_NamedShape) aNS;
-  if (label.FindAttribute(TNaming_NamedShape::GetID(), aNS))
+  Handle(ShapeAttribute) aNS;
+  if (label.FindAttribute(ShapeAttribute::GetID(), aNS))
   {
     if (!aNS->Get().IsNull())
       if (aNS->Get() == shape)
@@ -90,14 +90,14 @@ Handle(TDataXtd_Shape) TDataXtd_Shape::Set(const TDF_Label& label, const TopoDS_
 
 //=================================================================================================
 
-TopoDS_Shape TDataXtd_Shape::Get(const TDF_Label& label)
+TopoShape TDataXtd_Shape::Get(const DataLabel& label)
 {
-  TopoDS_Shape shape;
+  TopoShape shape;
 
-  Handle(TNaming_NamedShape) NS;
-  if (label.FindAttribute(TNaming_NamedShape::GetID(), NS))
+  Handle(ShapeAttribute) NS;
+  if (label.FindAttribute(ShapeAttribute::GetID(), NS))
   {
-    shape = TNaming_Tool::GetShape(NS);
+    shape = Tool11::GetShape(NS);
     return shape;
   }
 

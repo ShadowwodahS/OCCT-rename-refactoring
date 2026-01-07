@@ -44,7 +44,7 @@ Interface_EntityIterator IGESSelect_SelectSingleViewFrom::RootResult(const Inter
   return list;
 }
 
-TCollection_AsciiString IGESSelect_SelectSingleViewFrom::Label() const
+AsciiString1 IGESSelect_SelectSingleViewFrom::Label() const
 {
-  return TCollection_AsciiString("Single Views attached");
+  return AsciiString1("Single Views attached");
 }

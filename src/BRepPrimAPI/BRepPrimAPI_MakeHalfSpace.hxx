@@ -22,9 +22,9 @@
 
 #include <TopoDS_Solid.hxx>
 #include <BRepBuilderAPI_MakeShape.hxx>
-class TopoDS_Face;
+class TopoFace;
 class Point3d;
-class TopoDS_Shell;
+class TopoShell;
 
 //! Describes functions to build half-spaces.
 //! A half-space is an infinite solid, limited by a surface. It
@@ -42,18 +42,18 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Make a HalfSpace defined with a Face and a Point.
-  Standard_EXPORT BRepPrimAPI_MakeHalfSpace(const TopoDS_Face& Face, const Point3d& RefPnt);
+  Standard_EXPORT BRepPrimAPI_MakeHalfSpace(const TopoFace& Face, const Point3d& RefPnt);
 
   //! Make a HalfSpace defined with a Shell and a Point.
-  Standard_EXPORT BRepPrimAPI_MakeHalfSpace(const TopoDS_Shell& Shell, const Point3d& RefPnt);
+  Standard_EXPORT BRepPrimAPI_MakeHalfSpace(const TopoShell& Shell, const Point3d& RefPnt);
 
   //! Returns the constructed half-space as a solid.
-  Standard_EXPORT const TopoDS_Solid& Solid() const;
-  Standard_EXPORT                     operator TopoDS_Solid() const;
+  Standard_EXPORT const TopoSolid& Solid() const;
+  Standard_EXPORT                     operator TopoSolid() const;
 
 protected:
 private:
-  TopoDS_Solid mySolid;
+  TopoSolid mySolid;
 };
 
 #endif // _BRepPrimAPI_MakeHalfSpace_HeaderFile

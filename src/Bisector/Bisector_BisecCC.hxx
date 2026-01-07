@@ -25,7 +25,7 @@
 #include <gp_Pnt2d.hxx>
 #include <Bisector_Curve.hxx>
 #include <GeomAbs_Shape.hxx>
-class Geom2d_Curve;
+class GeomCurve2d;
 class Geom2d_Geometry;
 class gp_Trsf2d;
 class gp_Vec2d;
@@ -52,8 +52,8 @@ public:
   //! <DistMax> is used to trim the bisector.The distance
   //! between the points of the bisector and <Cu> is smaller
   //! than <DistMax>.
-  Standard_EXPORT Bisector_BisecCC(const Handle(Geom2d_Curve)& Cu1,
-                                   const Handle(Geom2d_Curve)& Cu2,
+  Standard_EXPORT Bisector_BisecCC(const Handle(GeomCurve2d)& Cu1,
+                                   const Handle(GeomCurve2d)& Cu2,
                                    const Standard_Real         Side1,
                                    const Standard_Real         Side2,
                                    const gp_Pnt2d&             Origin,
@@ -71,8 +71,8 @@ public:
   //! <DistMax> is used to trim the bisector.The distance
   //! between the points of the bisector and <Cu> is smaller
   //! than <DistMax>.
-  Standard_EXPORT void Perform(const Handle(Geom2d_Curve)& Cu1,
-                               const Handle(Geom2d_Curve)& Cu2,
+  Standard_EXPORT void Perform(const Handle(GeomCurve2d)& Cu1,
+                               const Handle(GeomCurve2d)& Cu2,
                                const Standard_Real         Side1,
                                const Standard_Real         Side2,
                                const gp_Pnt2d&             Origin,
@@ -177,7 +177,7 @@ public:
 
   Standard_EXPORT Standard_Real Parameter(const gp_Pnt2d& P) const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Geom2d_Curve) Curve(const Standard_Integer IndCurve) const;
+  Standard_EXPORT Handle(GeomCurve2d) Curve(const Standard_Integer IndCurve) const;
 
   Standard_EXPORT const Bisector_PolyBis& Polygon() const;
 
@@ -207,7 +207,7 @@ private:
 
   Standard_EXPORT void ComputePointEnd();
 
-  Standard_EXPORT void Curve(const Standard_Integer Index, const Handle(Geom2d_Curve)& C);
+  Standard_EXPORT void Curve(const Standard_Integer Index, const Handle(GeomCurve2d)& C);
 
   Standard_EXPORT void Sign(const Standard_Integer Index, const Standard_Real Sign);
 
@@ -235,8 +235,8 @@ private:
 
   Standard_EXPORT void LastParameter(const Standard_Real U1);
 
-  Handle(Geom2d_Curve)   curve1;
-  Handle(Geom2d_Curve)   curve2;
+  Handle(GeomCurve2d)   curve1;
+  Handle(GeomCurve2d)   curve2;
   Standard_Real          sign1;
   Standard_Real          sign2;
   TColStd_SequenceOfReal startIntervals;

@@ -26,16 +26,16 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_BezierCurve, DrawTrSurf_Curve)
 
-DrawTrSurf_BezierCurve::DrawTrSurf_BezierCurve(const Handle(Geom_BezierCurve)& C)
+DrawTrSurf_BezierCurve::DrawTrSurf_BezierCurve(const Handle(BezierCurve3d)& C)
     : DrawTrSurf_Curve(C, Draw_vert, 16, 0.05, 1)
 {
   drawPoles = Standard_True;
   polesLook = Draw_rouge;
 }
 
-DrawTrSurf_BezierCurve::DrawTrSurf_BezierCurve(const Handle(Geom_BezierCurve)& C,
-                                               const Draw_Color&               CurvColor,
-                                               const Draw_Color&               PolesColor,
+DrawTrSurf_BezierCurve::DrawTrSurf_BezierCurve(const Handle(BezierCurve3d)& C,
+                                               const DrawColor&               CurvColor,
+                                               const DrawColor&               PolesColor,
                                                const Standard_Boolean          ShowPoles,
                                                const Standard_Integer          Discret,
                                                const Standard_Real             Deflection,
@@ -46,9 +46,9 @@ DrawTrSurf_BezierCurve::DrawTrSurf_BezierCurve(const Handle(Geom_BezierCurve)& C
   polesLook = PolesColor;
 }
 
-void DrawTrSurf_BezierCurve::DrawOn(Draw_Display& dis) const
+void DrawTrSurf_BezierCurve::DrawOn(DrawDisplay& dis) const
 {
-  Handle(Geom_BezierCurve) C = Handle(Geom_BezierCurve)::DownCast(curv);
+  Handle(BezierCurve3d) C = Handle(BezierCurve3d)::DownCast(curv);
   if (drawPoles)
   {
     Standard_Integer NbPoles = C->NbPoles();
@@ -67,11 +67,11 @@ void DrawTrSurf_BezierCurve::DrawOn(Draw_Display& dis) const
 
 void DrawTrSurf_BezierCurve::FindPole(const Standard_Real X,
                                       const Standard_Real Y,
-                                      const Draw_Display& D,
+                                      const DrawDisplay& D,
                                       const Standard_Real XPrec,
                                       Standard_Integer&   Index) const
 {
-  Handle(Geom_BezierCurve) bz = Handle(Geom_BezierCurve)::DownCast(curv);
+  Handle(BezierCurve3d) bz = Handle(BezierCurve3d)::DownCast(curv);
   gp_Pnt2d                 p1(X / D.Zoom(), Y / D.Zoom());
   Standard_Real            Prec = XPrec / D.Zoom();
   Index++;
@@ -92,7 +92,7 @@ void DrawTrSurf_BezierCurve::FindPole(const Standard_Real X,
 Handle(Draw_Drawable3D) DrawTrSurf_BezierCurve::Copy() const
 {
   Handle(DrawTrSurf_BezierCurve) DC =
-    new DrawTrSurf_BezierCurve(Handle(Geom_BezierCurve)::DownCast(curv->Copy()),
+    new DrawTrSurf_BezierCurve(Handle(BezierCurve3d)::DownCast(curv->Copy()),
                                look,
                                polesLook,
                                drawPoles,
@@ -106,9 +106,9 @@ Handle(Draw_Drawable3D) DrawTrSurf_BezierCurve::Copy() const
 
 Handle(Draw_Drawable3D) DrawTrSurf_BezierCurve::Restore(Standard_IStream& theStream)
 {
-  const DrawTrSurf_Params& aParams = DrawTrSurf::Parameters();
-  Handle(Geom_BezierCurve) aGeomCurve =
-    Handle(Geom_BezierCurve)::DownCast(GeomTools_CurveSet::ReadCurve(theStream));
+  const DrawTrSurf_Params& aParams = DrawTrSurf1::Parameters();
+  Handle(BezierCurve3d) aGeomCurve =
+    Handle(BezierCurve3d)::DownCast(GeomTools_CurveSet::ReadCurve(theStream));
   Handle(DrawTrSurf_BezierCurve) aDrawCurve = new DrawTrSurf_BezierCurve(aGeomCurve,
                                                                          aParams.CurvColor,
                                                                          aParams.PolesColor,

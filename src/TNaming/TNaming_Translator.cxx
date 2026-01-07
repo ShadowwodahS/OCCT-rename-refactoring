@@ -33,7 +33,7 @@
 
 //=================================================================================================
 
-TNaming_Translator::TNaming_Translator()
+NamingTranslator::NamingTranslator()
     : myIsDone(Standard_False)
 {
   myDataMapOfResults.Clear();
@@ -41,22 +41,22 @@ TNaming_Translator::TNaming_Translator()
 
 //=================================================================================================
 
-void TNaming_Translator::Add(const TopoDS_Shape& aShape)
+void NamingTranslator::Add(const TopoShape& aShape)
 {
-  TopoDS_Shape aResult;
+  TopoShape aResult;
   myDataMapOfResults.Bind(aShape, aResult);
 }
 
 //=================================================================================================
 
-Standard_Boolean TNaming_Translator::IsDone() const
+Standard_Boolean NamingTranslator::IsDone() const
 {
   return myIsDone;
 }
 
 //=================================================================================================
 
-const TopTools_DataMapOfShapeShape& TNaming_Translator::Copied() const
+const TopTools_DataMapOfShapeShape& NamingTranslator::Copied() const
 {
   return myDataMapOfResults;
 }
@@ -66,9 +66,9 @@ const TopTools_DataMapOfShapeShape& TNaming_Translator::Copied() const
 // purpose  : find bind shape if it is in the Map
 //=======================================================================
 
-const TopoDS_Shape TNaming_Translator::Copied(const TopoDS_Shape& aShape) const
+const TopoShape NamingTranslator::Copied(const TopoShape& aShape) const
 {
-  TopoDS_Shape aResult;
+  TopoShape aResult;
   if (myDataMapOfResults.IsBound(aShape))
     aResult = myDataMapOfResults.Find(aShape);
   return aResult;
@@ -76,13 +76,13 @@ const TopoDS_Shape TNaming_Translator::Copied(const TopoDS_Shape& aShape) const
 
 //=================================================================================================
 
-void TNaming_Translator::Perform()
+void NamingTranslator::Perform()
 {
-  TopoDS_Shape                                  Result;
+  TopoShape                                  Result;
   TopTools_DataMapIteratorOfDataMapOfShapeShape itm(myDataMapOfResults);
   for (; itm.More(); itm.Next())
   {
-    TNaming_CopyShape::CopyTool(itm.Key(), myMap, Result);
+    ShapeCopier::CopyTool(itm.Key(), myMap, Result);
     if (!Result.IsNull())
       myDataMapOfResults(itm.Key()) = Result;
     Result.Nullify();
@@ -93,22 +93,22 @@ void TNaming_Translator::Perform()
 
 //=================================================================================================
 
-void TNaming_Translator::DumpMap(const Standard_Boolean isWrite) const
+void NamingTranslator::DumpMap(const Standard_Boolean isWrite) const
 {
-  TCollection_AsciiString name("Map");
-  TCollection_AsciiString keyname;
-  TCollection_AsciiString itemname;
+  AsciiString1 name("Map");
+  AsciiString1 keyname;
+  AsciiString1 itemname;
   keyname  = name.Cat("_Key");
   itemname = name.Cat("_Item");
 
   if (!myMap.Extent())
     return;
   else
-    std::cout << "TNaming_Translator:: IndexedDataMap Extent = " << myMap.Extent() << std::endl;
+    std::cout << "NamingTranslator:: IndexedDataMap Extent = " << myMap.Extent() << std::endl;
 
   for (Standard_Integer i = 1; i <= myMap.Extent(); i++)
   {
-    std::cout << "TNaming_Translator::DumpMap:  Index = " << i
+    std::cout << "NamingTranslator::DumpMap:  Index = " << i
               << " Type = " << (myMap.FindKey(i))->DynamicType() << std::endl;
     Handle(TypeInfo) T = (myMap.FindKey(i))->DynamicType();
     if ((T == STANDARD_TYPE(BRep_TVertex)) || (T == STANDARD_TYPE(BRep_TEdge))
@@ -120,12 +120,12 @@ void TNaming_Translator::DumpMap(const Standard_Boolean isWrite) const
       {
         Handle(TopoDS_TShape) key(Handle(TopoDS_TShape)::DownCast(myMap.FindKey(i)));
         Handle(TopoDS_TShape) item(Handle(TopoDS_TShape)::DownCast(myMap.FindFromIndex(i)));
-        TopoDS_Shape          S1;
+        TopoShape          S1;
         S1.TShape(key);
-        TopoDS_Shape S2;
+        TopoShape S2;
         S2.TShape(item);
-        BRepTools::Write(S1, keyname.Cat(i).ToCString());
-        BRepTools::Write(S2, itemname.Cat(i).ToCString());
+        BRepTools1::Write(S1, keyname.Cat(i).ToCString());
+        BRepTools1::Write(S2, itemname.Cat(i).ToCString());
       }
     }
     else if ((myMap.FindKey(i))->DynamicType() == STANDARD_TYPE(TopLoc_Datum3D))
@@ -135,17 +135,17 @@ void TNaming_Translator::DumpMap(const Standard_Boolean isWrite) const
         const Handle(TopLoc_Datum3D) key = Handle(TopLoc_Datum3D)::DownCast(myMap.FindKey(i));
         const Handle(TopLoc_Datum3D) Item =
           Handle(TopLoc_Datum3D)::DownCast(myMap.FindFromIndex(i));
-        std::cout << "TNaming_Translator::DumpMap: Location_Key_name  = "
+        std::cout << "NamingTranslator::DumpMap: Location_Key_name  = "
                   << keyname.Cat(i).ToCString() << std::endl;
         key->ShallowDump(std::cout);
-        std::cout << "TNaming_Translator::DumpMap: Location_Item_name = "
+        std::cout << "NamingTranslator::DumpMap: Location_Item_name = "
                   << itemname.Cat(i).ToCString() << std::endl;
         Item->ShallowDump(std::cout);
       }
     }
     else
     {
-      std::cout << "TNaming_Translator::DumpMap: Unexpected Type >> Idex = " << i
+      std::cout << "NamingTranslator::DumpMap: Unexpected Type >> Idex = " << i
                 << " Type = " << (myMap.FindKey(i))->DynamicType() << std::endl;
       continue;
     }

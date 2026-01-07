@@ -22,8 +22,8 @@
 
 #include <TopoDS_Shape.hxx>
 #include <DrawDim_PlanarDimension.hxx>
-class TopoDS_Face;
-class Draw_Display;
+class TopoFace;
+class DrawDisplay;
 
 class DrawDim_PlanarAngle;
 DEFINE_STANDARD_HANDLE(DrawDim_PlanarAngle, DrawDim_PlanarDimension)
@@ -32,24 +32,24 @@ class DrawDim_PlanarAngle : public DrawDim_PlanarDimension
 {
 
 public:
-  Standard_EXPORT DrawDim_PlanarAngle(const TopoDS_Face&  plane,
-                                      const TopoDS_Shape& line1,
-                                      const TopoDS_Shape& line2);
+  Standard_EXPORT DrawDim_PlanarAngle(const TopoFace&  plane,
+                                      const TopoShape& line1,
+                                      const TopoShape& line2);
 
-  Standard_EXPORT DrawDim_PlanarAngle(const TopoDS_Shape& line1, const TopoDS_Shape& line2);
+  Standard_EXPORT DrawDim_PlanarAngle(const TopoShape& line1, const TopoShape& line2);
 
   Standard_EXPORT void Sector(const Standard_Boolean inverted, const Standard_Boolean reversed);
 
   Standard_EXPORT void Position(const Standard_Real value);
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(DrawDim_PlanarAngle, DrawDim_PlanarDimension)
 
 protected:
 private:
-  TopoDS_Shape     myLine1;
-  TopoDS_Shape     myLine2;
+  TopoShape     myLine1;
+  TopoShape     myLine2;
   Standard_Boolean myIsReversed;
   Standard_Boolean myIsInverted;
   Standard_Real    myPosition;

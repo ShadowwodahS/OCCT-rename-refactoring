@@ -23,11 +23,11 @@
 #endif
 
 //=======================================================================
-// function : Arg (TCollection_AsciiString)
+// function : Arg (AsciiString1)
 // purpose  :
 //=======================================================================
 
-inline Message_Msg& Message_Msg::Arg(const TCollection_AsciiString& theString)
+inline Message_Msg& Message_Msg::Arg(const AsciiString1& theString)
 {
   return Arg(theString.ToCString());
 }
@@ -57,7 +57,7 @@ inline Message_Msg& Message_Msg::Arg(const Handle(TCollection_HExtendedString)& 
 // purpose  :
 //=======================================================================
 
-inline const TCollection_ExtendedString& Message_Msg::Original() const
+inline const UtfString& Message_Msg::Original() const
 {
   return myOriginal;
 }
@@ -67,7 +67,7 @@ inline const TCollection_ExtendedString& Message_Msg::Original() const
 // purpose  :
 //=======================================================================
 
-inline const TCollection_ExtendedString& Message_Msg::Value() const
+inline const UtfString& Message_Msg::Value() const
 {
   return myMessageBody;
 }

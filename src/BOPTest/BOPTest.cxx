@@ -32,7 +32,7 @@
 
 //=================================================================================================
 
-void BOPTest::AllCommands(Draw_Interpretor& theCommands)
+void BOPTest::AllCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -57,7 +57,7 @@ void BOPTest::AllCommands(Draw_Interpretor& theCommands)
 
 //=================================================================================================
 
-void BOPTest::Factory(Draw_Interpretor& theCommands)
+void BOPTest::Factory(DrawInterpreter& theCommands)
 {
   static Standard_Boolean FactoryDone = Standard_False;
   if (FactoryDone)
@@ -65,7 +65,7 @@ void BOPTest::Factory(Draw_Interpretor& theCommands)
 
   FactoryDone = Standard_True;
 
-  DBRep::BasicCommands(theCommands);
+  DBRep1::BasicCommands(theCommands);
   GeomliteTest::AllCommands(theCommands);
   GeometryTest::AllCommands(theCommands);
   BRepTest::AllCommands(theCommands);
@@ -83,7 +83,7 @@ void BOPTest::ReportAlerts(const Handle(Message_Report)& theReport)
 {
   // first report warnings, then errors
   Message_Gravity            anAlertTypes[2] = {Message_Warning, Message_Fail};
-  TCollection_ExtendedString aMsgType[2]     = {"Warning: ", "Error: "};
+  UtfString aMsgType[2]     = {"Warning: ", "Error: "};
   for (int iGravity = 0; iGravity < 2; iGravity++)
   {
     // report shapes for the same type of alert together
@@ -98,12 +98,12 @@ void BOPTest::ReportAlerts(const Handle(Message_Report)& theReport)
 
       // get alert message
       Message_Msg                aMsg(aIt.Value()->GetMessageKey());
-      TCollection_ExtendedString aText = aMsgType[iGravity] + aMsg.Get();
+      UtfString aText = aMsgType[iGravity] + aMsg.Get();
 
       // collect all shapes if any attached to this alert
       if (BOPTest_Objects::DrawWarnShapes())
       {
-        TCollection_AsciiString aShapeList;
+        AsciiString1 aShapeList;
         Standard_Integer        aNbShapes = 0;
         for (Message_ListOfAlert::Iterator aIt2(aIt); aIt2.More(); aIt2.Next())
         {
@@ -116,7 +116,7 @@ void BOPTest::ReportAlerts(const Handle(Message_Report)& theReport)
             //
             char aName[80];
             Sprintf(aName, "%ss_%d_%d", (iGravity ? "e" : "w"), aPassedTypes.Extent(), ++aNbShapes);
-            DBRep::Set(aName, aShapeAlert->GetShape());
+            DBRep1::Set(aName, aShapeAlert->GetShape());
             //
             aShapeList += " ";
             aShapeList += aName;
@@ -127,7 +127,7 @@ void BOPTest::ReportAlerts(const Handle(Message_Report)& theReport)
       }
 
       // output message with list of shapes
-      Draw_Interpretor& aDrawInterpretor = Draw::GetInterpretor();
+      DrawInterpreter& aDrawInterpretor = Draw1::GetInterpretor();
       aDrawInterpretor << aText << "\n";
     }
   }
@@ -137,7 +137,7 @@ void BOPTest::ReportAlerts(const Handle(Message_Report)& theReport)
 
 BOPAlgo_Operation BOPTest::GetOperationType(const Standard_CString theOp)
 {
-  TCollection_AsciiString anOp(theOp);
+  AsciiString1 anOp(theOp);
   anOp.LowerCase();
 
   if (anOp.IsIntegerValue())

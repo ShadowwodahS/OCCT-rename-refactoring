@@ -25,7 +25,7 @@
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 #include <BRepAlgo_Image.hxx>
-class TopoDS_Edge;
+class TopoEdge;
 
 //! Builds the loops from a set of edges on a face.
 class BRepAlgo_Loop
@@ -37,20 +37,20 @@ public:
 
   //! Init with <F> the set of edges must have
   //! pcurves on <F>.
-  Standard_EXPORT void Init(const TopoDS_Face& F);
+  Standard_EXPORT void Init(const TopoFace& F);
 
   //! Add E with <LV>. <E> will be copied and trim
   //! by vertices in <LV>.
-  Standard_EXPORT void AddEdge(TopoDS_Edge& E, const TopTools_ListOfShape& LV);
+  Standard_EXPORT void AddEdge(TopoEdge& E, const ShapeList& LV);
 
   //! Add <E> as const edge, E can be in the result.
-  Standard_EXPORT void AddConstEdge(const TopoDS_Edge& E);
+  Standard_EXPORT void AddConstEdge(const TopoEdge& E);
 
   //! Add <LE> as a set of const edges.
-  Standard_EXPORT void AddConstEdges(const TopTools_ListOfShape& LE);
+  Standard_EXPORT void AddConstEdges(const ShapeList& LE);
 
   //! Sets the Image Vertex - Vertex
-  Standard_EXPORT void SetImageVV(const BRepAlgo_Image& theImageVV);
+  Standard_EXPORT void SetImageVV(const ShapeImage& theImageVV);
 
   //! Make loops.
   Standard_EXPORT void Perform();
@@ -60,13 +60,13 @@ public:
 
   //! Cut the  edge <E>  in  several edges  <NE> on the
   //! vertices<VonE>.
-  Standard_EXPORT void CutEdge(const TopoDS_Edge&          E,
-                               const TopTools_ListOfShape& VonE,
-                               TopTools_ListOfShape&       NE) const;
+  Standard_EXPORT void CutEdge(const TopoEdge&          E,
+                               const ShapeList& VonE,
+                               ShapeList&       NE) const;
 
   //! Returns the list of wires performed.
   //! can be an empty list.
-  Standard_EXPORT const TopTools_ListOfShape& NewWires() const;
+  Standard_EXPORT const ShapeList& NewWires() const;
 
   //! Build faces from the wires result.
   Standard_EXPORT void WiresToFaces();
@@ -74,11 +74,11 @@ public:
   //! Returns the list of faces.
   //! Warning: The method <WiresToFaces> as to be called before.
   //! can be an empty list.
-  Standard_EXPORT const TopTools_ListOfShape& NewFaces() const;
+  Standard_EXPORT const ShapeList& NewFaces() const;
 
   //! Returns the list of new edges built from an edge <E>
   //! it can be an empty list.
-  Standard_EXPORT const TopTools_ListOfShape& NewEdges(const TopoDS_Edge& E) const;
+  Standard_EXPORT const ShapeList& NewEdges(const TopoEdge& E) const;
 
   //! Returns the datamap of vertices with their substitutes.
   Standard_EXPORT void GetVerticesForSubstitute(TopTools_DataMapOfShapeShape& VerVerMap) const;
@@ -93,15 +93,15 @@ public:
 
 protected:
 private:
-  TopoDS_Face                        myFace;
-  TopTools_ListOfShape               myConstEdges;
-  TopTools_ListOfShape               myEdges;
+  TopoFace                        myFace;
+  ShapeList               myConstEdges;
+  ShapeList               myEdges;
   TopTools_DataMapOfShapeListOfShape myVerOnEdges;
-  TopTools_ListOfShape               myNewWires;
-  TopTools_ListOfShape               myNewFaces;
+  ShapeList               myNewWires;
+  ShapeList               myNewFaces;
   TopTools_DataMapOfShapeListOfShape myCutEdges;
   TopTools_DataMapOfShapeShape       myVerticesForSubstitute;
-  BRepAlgo_Image                     myImageVV;
+  ShapeImage                     myImageVV;
   Standard_Real                      myTolConf;
 };
 

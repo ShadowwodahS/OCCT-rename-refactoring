@@ -31,7 +31,7 @@ Interface_EntityIterator IFSelect_SelectUnion::RootResult(const Interface_Graph&
   return GC.Result();
 }
 
-TCollection_AsciiString IFSelect_SelectUnion::Label() const
+AsciiString1 IFSelect_SelectUnion::Label() const
 {
-  return TCollection_AsciiString("Union (OR)");
+  return AsciiString1("Union (OR)");
 }

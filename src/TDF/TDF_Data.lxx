@@ -24,9 +24,9 @@ inline Standard_Integer TDF_Data::Transaction() const
   return myTransaction;
 }
 
-inline const TDF_Label TDF_Data::Root() const
+inline const DataLabel TDF_Data::Root() const
 {
-  return TDF_Label(myRoot);
+  return DataLabel(myRoot);
 }
 
 inline Standard_Integer TDF_Data::Time() const

@@ -55,13 +55,13 @@ static Standard_Integer NbProj      = 1;
 
 //=================================================================================================
 
-static Standard_Boolean isIsoU(const TopoDS_Face& Face, const TopoDS_Edge& Edge)
+static Standard_Boolean isIsoU(const TopoFace& Face, const TopoEdge& Edge)
 {
-  Handle(Geom2d_Curve) C;
+  Handle(GeomCurve2d) C;
   Handle(Geom2d_Line)  Li;
   Standard_Real        f, l;
 
-  C = BRep_Tool::CurveOnSurface(Edge, Face, f, l);
+  C = BRepInspector::CurveOnSurface(Edge, Face, f, l);
   if (C.IsNull())
   {
     throw Standard_ConstructionError("BRepFill_MultiLine : Edge without PCurve");
@@ -85,13 +85,13 @@ BRepFill_MultiLine::BRepFill_MultiLine()
 
 //=================================================================================================
 
-BRepFill_MultiLine::BRepFill_MultiLine(const TopoDS_Face&          Face1,
-                                       const TopoDS_Face&          Face2,
-                                       const TopoDS_Edge&          Edge1,
-                                       const TopoDS_Edge&          Edge2,
+BRepFill_MultiLine::BRepFill_MultiLine(const TopoFace&          Face1,
+                                       const TopoFace&          Face2,
+                                       const TopoEdge&          Edge1,
+                                       const TopoEdge&          Edge2,
                                        const Standard_Boolean      Inv1,
                                        const Standard_Boolean      Inv2,
-                                       const Handle(Geom2d_Curve)& Bissec)
+                                       const Handle(GeomCurve2d)& Bissec)
     : myFace1(Face1),
       myFace2(Face2),
       myBis(Bissec),
@@ -109,11 +109,11 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoDS_Face&          Face1,
   myIsoU2 = isIsoU(Face2, Edge2);
 
   // eval myU1, myV1, myU2, myV2;
-  Handle(Geom_Plane) RefPlane;
-  Handle(Geom_Plane) BasisPlane = new Geom_Plane(0., 0., 1., 0.);
+  Handle(GeomPlane) RefPlane;
+  Handle(GeomPlane) BasisPlane = new GeomPlane(0., 0., 1., 0.);
   TopLoc_Location    L;
 
-  TopExp_Explorer Exp;
+  ShapeExplorer Exp;
   Standard_Real   Umin = 0., Vmin = 0., Umax = 0., Vmax = 0., U, V;
   gp_Pnt2d        P1, P2;
   Vector3d          DZ;
@@ -123,8 +123,8 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoDS_Face&          Face1,
   Standard_Boolean First = Standard_True;
   for (Exp.Init(myFace1, TopAbs_EDGE); Exp.More(); Exp.Next())
   {
-    TopoDS_Edge CurEdge = TopoDS::Edge(Exp.Current());
-    BRep_Tool::UVPoints(CurEdge, myFace1, P1, P2);
+    TopoEdge CurEdge = TopoDS::Edge(Exp.Current());
+    BRepInspector::UVPoints(CurEdge, myFace1, P1, P2);
     if (First)
     {
       First = Standard_False;
@@ -149,15 +149,15 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoDS_Face&          Face1,
   }
 
   // return isos in their domain of restriction.
-  Handle(Geom_Curve)   UU1, UU2, VV1, VV2;
-  Handle(Geom_Surface) S;
-  S = BRep_Tool::Surface(myFace1, L);
+  Handle(GeomCurve3d)   UU1, UU2, VV1, VV2;
+  Handle(GeomSurface) S;
+  S = BRepInspector::Surface(myFace1, L);
   if (!L.IsIdentity())
-    S = Handle(Geom_Surface)::DownCast(S->Transformed(L.Transformation()));
+    S = Handle(GeomSurface)::DownCast(S->Transformed(L.Transformation()));
 
   if (myIsoU1)
   {
-    if (!BRep_Tool::Degenerated(Edge1) && !Inv1)
+    if (!BRepInspector::Degenerated(Edge1) && !Inv1)
     {
       UU1 = S->UIso(Umin);
       GeomAdaptor_Curve Dummy(UU1);
@@ -179,7 +179,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoDS_Face&          Face1,
   }
   else
   {
-    if (!BRep_Tool::Degenerated(Edge1) && !Inv1)
+    if (!BRepInspector::Degenerated(Edge1) && !Inv1)
     {
       UU1 = S->VIso(Vmin);
       GeomAdaptor_Curve Dummy(UU1);
@@ -234,15 +234,15 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoDS_Face&          Face1,
   myU1 = Geom2dAdaptor_Curve(GeomProjLib::Curve2d(UU1, BasisPlane), Umin, Umax);
 
   UU1->D1(Umin, P, DZ);
-  RefPlane = new Geom_Plane(gp_Ax3(P, DZ, gp::DZ()));
+  RefPlane = new GeomPlane(gp_Ax3(P, DZ, gp::DZ()));
 
   myV1 = Geom2dAdaptor_Curve(GeomProjLib::Curve2d(VV1, RefPlane), Vmin, Vmax);
 
   First = Standard_True;
   for (Exp.Init(myFace2, TopAbs_EDGE); Exp.More(); Exp.Next())
   {
-    TopoDS_Edge CurEdge = TopoDS::Edge(Exp.Current());
-    BRep_Tool::UVPoints(CurEdge, myFace2, P1, P2);
+    TopoEdge CurEdge = TopoDS::Edge(Exp.Current());
+    BRepInspector::UVPoints(CurEdge, myFace2, P1, P2);
     if (First)
     {
       First = Standard_False;
@@ -267,14 +267,14 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoDS_Face&          Face1,
   }
 
   // return isos in their domain of restriction.
-  S = BRep_Tool::Surface(myFace2, L);
+  S = BRepInspector::Surface(myFace2, L);
 
   if (!L.IsIdentity())
-    S = Handle(Geom_Surface)::DownCast(S->Transformed(L.Transformation()));
+    S = Handle(GeomSurface)::DownCast(S->Transformed(L.Transformation()));
 
   if (myIsoU2)
   {
-    if (!BRep_Tool::Degenerated(Edge2) && !Inv2)
+    if (!BRepInspector::Degenerated(Edge2) && !Inv2)
     {
       UU2 = S->UIso(Umin);
       GeomAdaptor_Curve Dummy(UU2);
@@ -296,7 +296,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoDS_Face&          Face1,
   }
   else
   {
-    if (!BRep_Tool::Degenerated(Edge2) && !Inv2)
+    if (!BRepInspector::Degenerated(Edge2) && !Inv2)
     {
       UU2 = S->VIso(Vmin);
       GeomAdaptor_Curve Dummy(UU2);
@@ -351,7 +351,7 @@ BRepFill_MultiLine::BRepFill_MultiLine(const TopoDS_Face&          Face1,
   myU2 = Geom2dAdaptor_Curve(GeomProjLib::Curve2d(UU2, BasisPlane), Umin, Umax);
 
   UU2->D1(Umin, P, DZ);
-  RefPlane = new Geom_Plane(gp_Ax3(P, DZ, gp::DZ()));
+  RefPlane = new GeomPlane(gp_Ax3(P, DZ, gp::DZ()));
   myV2     = Geom2dAdaptor_Curve(GeomProjLib::Curve2d(VV2, RefPlane), Vmin, Vmax);
 
   // eval if in a particular case.
@@ -398,9 +398,9 @@ Standard_Boolean BRepFill_MultiLine::IsParticularCase() const
 
 //=================================================================================================
 
-void BRepFill_MultiLine::Curves(Handle(Geom_Curve)&   Curve,
-                                Handle(Geom2d_Curve)& PCurve1,
-                                Handle(Geom2d_Curve)& PCurve2) const
+void BRepFill_MultiLine::Curves(Handle(GeomCurve3d)&   Curve,
+                                Handle(GeomCurve2d)& PCurve1,
+                                Handle(GeomCurve2d)& PCurve2) const
 {
   if (myKPart == 1)
   {
@@ -416,9 +416,9 @@ void BRepFill_MultiLine::Curves(Handle(Geom_Curve)&   Curve,
     PMil = ValueOnF1(0.5 * (myBis.FirstParameter() + myBis.LastParameter()));
 
     TopLoc_Location      L;
-    Handle(Geom_Surface) S = BRep_Tool::Surface(myFace1, L);
+    Handle(GeomSurface) S = BRepInspector::Surface(myFace1, L);
     if (!L.IsIdentity())
-      S = Handle(Geom_Surface)::DownCast(S->Transformed(L.Transformation()));
+      S = Handle(GeomSurface)::DownCast(S->Transformed(L.Transformation()));
 
     Standard_Boolean Sens;
     if (!myIsoU1)
@@ -482,18 +482,18 @@ void BRepFill_MultiLine::Curves(Handle(Geom_Curve)&   Curve,
   {
     TopLoc_Location L;
 
-    Handle(Geom_Surface) S = BRep_Tool::Surface(myFace1, L);
+    Handle(GeomSurface) S = BRepInspector::Surface(myFace1, L);
     if (!L.IsIdentity())
-      S = Handle(Geom_Surface)::DownCast(S->Transformed(L.Transformation()));
+      S = Handle(GeomSurface)::DownCast(S->Transformed(L.Transformation()));
 
     if (S->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
       S = Handle(Geom_RectangularTrimmedSurface)::DownCast(S)->BasisSurface();
 
-    Handle(Geom_Plane) Plane = Handle(Geom_Plane)::DownCast(S);
+    Handle(GeomPlane) Plane = Handle(GeomPlane)::DownCast(S);
     // eval the 3d curve corresponding to the bissectrice.
     gp_Pnt2d          P    = myBis.Line().Location();
     gp_Dir2d          D    = myBis.Line().Direction();
-    Handle(Geom_Line) Line = new Geom_Line(Point3d(P.X(), P.Y(), 0.), Dir3d(D.X(), D.Y(), 0.));
+    Handle(GeomLine) Line = new GeomLine(Point3d(P.X(), P.Y(), 0.), Dir3d(D.X(), D.Y(), 0.));
     Handle(Geom_TrimmedCurve) TLine =
       new Geom_TrimmedCurve(Line, myBis.FirstParameter(), myBis.LastParameter());
     Curve = GeomProjLib::ProjectOnPlane(TLine, Plane, gp::DZ(), Standard_False);
@@ -503,11 +503,11 @@ void BRepFill_MultiLine::Curves(Handle(Geom_Curve)&   Curve,
     {
       char name[100];
       sprintf(name, "C2_%d", NbProj);
-      DrawTrSurf::Set(name, TLine);
+      DrawTrSurf1::Set(name, TLine);
       sprintf(name, "C3_%d", NbProj);
-      DrawTrSurf::Set(name, Curve);
+      DrawTrSurf1::Set(name, Curve);
       sprintf(name, "SS_%d", NbProj);
-      DrawTrSurf::Set(name, Plane);
+      DrawTrSurf1::Set(name, Plane);
       NbProj++;
     }
 #endif
@@ -516,12 +516,12 @@ void BRepFill_MultiLine::Curves(Handle(Geom_Curve)&   Curve,
     PCurve1 = GeomProjLib::Curve2d(Curve, Plane);
 
     // eval PCurve2
-    S = BRep_Tool::Surface(myFace2, L);
+    S = BRepInspector::Surface(myFace2, L);
     if (!L.IsIdentity())
-      S = Handle(Geom_Surface)::DownCast(S->Transformed(L.Transformation()));
+      S = Handle(GeomSurface)::DownCast(S->Transformed(L.Transformation()));
     if (S->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
       S = Handle(Geom_RectangularTrimmedSurface)::DownCast(S)->BasisSurface();
-    Plane   = Handle(Geom_Plane)::DownCast(S);
+    Plane   = Handle(GeomPlane)::DownCast(S);
     PCurve2 = GeomProjLib::Curve2d(Curve, Plane);
   }
 }
@@ -544,10 +544,10 @@ Standard_Real BRepFill_MultiLine::LastParameter() const
 
 Point3d BRepFill_MultiLine::Value(const Standard_Real U) const
 {
-  Handle(Geom_Surface) S;
+  Handle(GeomSurface) S;
   TopLoc_Location      L;
 
-  S = BRep_Tool::Surface(myFace1, L);
+  S = BRepInspector::Surface(myFace1, L);
 
   gp_Pnt2d P2d = ValueOnF1(U);
 
@@ -573,10 +573,10 @@ static gp_Pnt2d ValueOnFace(const Standard_Real        U,
   {
     char* TheUname = "TheU";
     char* PP1name  = "PP1";
-    DrawTrSurf::Set(TheUname, TheU.Curve());
-    DrawTrSurf::Set(PP1name, P);
-    //    DrawTrSurf::Set("TheU",TheU.Curve());
-    //    DrawTrSurf::Set("PP1",P);
+    DrawTrSurf1::Set(TheUname, TheU.Curve());
+    DrawTrSurf1::Set(PP1name, P);
+    //    DrawTrSurf1::Set("TheU",TheU.Curve());
+    //    DrawTrSurf1::Set("PP1",P);
   }
 #endif
   //
@@ -655,9 +655,9 @@ static gp_Pnt2d ValueOnFace(const Standard_Real        U,
     if (AffichCurve)
     {
       static Standard_CString aTheV = "TheV";
-      DrawTrSurf::Set(aTheV, TheV.Curve());
+      DrawTrSurf1::Set(aTheV, TheV.Curve());
       static Standard_CString aLINF1 = "LINF1";
-      DrawTrSurf::Set(aLINF1, Line);
+      DrawTrSurf1::Set(aLINF1, Line);
     }
 #endif
 
@@ -736,10 +736,10 @@ void BRepFill_MultiLine::Value3dOnF1OnF2(const Standard_Real U,
   PF1 = ValueOnFace(U, myBis, myU1, myV1, myIsoU1);
   PF2 = ValueOnFace(U, myBis, myU2, myV2, myIsoU2);
 
-  Handle(Geom_Surface) S;
+  Handle(GeomSurface) S;
   TopLoc_Location      L;
 
-  S   = BRep_Tool::Surface(myFace1, L);
+  S   = BRepInspector::Surface(myFace1, L);
   P3d = S->Value(PF1.X(), PF1.Y());
   P3d.Transform(L.Transformation());
 }

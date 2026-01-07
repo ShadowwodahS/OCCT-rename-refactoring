@@ -34,7 +34,7 @@ class GeomFill_TrihedronWithGuide;
 class GeomFill_SectionLaw;
 class Vector3d;
 class Point3d;
-class Geom_Curve;
+class GeomCurve3d;
 
 class GeomFill_LocationGuide;
 DEFINE_STANDARD_HANDLE(GeomFill_LocationGuide, GeomFill_LocationLaw)
@@ -187,7 +187,7 @@ public:
 
   Standard_EXPORT virtual void Rotation(Point3d& Center) const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Geom_Curve) Section() const;
+  Standard_EXPORT Handle(GeomCurve3d) Section() const;
 
   Standard_EXPORT Handle(Adaptor3d_Curve) Guide() const;
 

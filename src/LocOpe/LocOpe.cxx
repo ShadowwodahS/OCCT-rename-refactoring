@@ -39,10 +39,10 @@
 
 //=================================================================================================
 
-Standard_Boolean LocOpe::Closed(const TopoDS_Wire& W, const TopoDS_Face& F)
+Standard_Boolean LocOpe1::Closed(const TopoWire& W, const TopoFace& F)
 {
-  TopoDS_Vertex Vf, Vl;
-  TopExp::Vertices(W, Vf, Vl);
+  TopoVertex Vf, Vl;
+  TopExp1::Vertices(W, Vf, Vl);
   if (!Vf.IsSame(Vl))
   {
     return Standard_False;
@@ -50,7 +50,7 @@ Standard_Boolean LocOpe::Closed(const TopoDS_Wire& W, const TopoDS_Face& F)
 
   // On recherche l`edge contenant Vf FORWARD
 
-  TopExp_Explorer exp, exp2;
+  ShapeExplorer exp, exp2;
   for (exp.Init(W.Oriented(TopAbs_FORWARD), TopAbs_EDGE); exp.More(); exp.Next())
   {
     for (exp2.Init(exp.Current(), TopAbs_VERTEX); exp2.More(); exp2.Next())
@@ -65,7 +65,7 @@ Standard_Boolean LocOpe::Closed(const TopoDS_Wire& W, const TopoDS_Face& F)
       break;
     }
   }
-  TopoDS_Edge Ef = TopoDS::Edge(exp.Current());
+  TopoEdge Ef = TopoDS::Edge(exp.Current());
 
   // On recherche l`edge contenant Vl REVERSED
 
@@ -83,11 +83,11 @@ Standard_Boolean LocOpe::Closed(const TopoDS_Wire& W, const TopoDS_Face& F)
       break;
     }
   }
-  TopoDS_Edge El = TopoDS::Edge(exp.Current());
+  TopoEdge El = TopoDS::Edge(exp.Current());
 
   Standard_Real        f, l;
   gp_Pnt2d             pf, pl;
-  Handle(Geom2d_Curve) C2d = BRep_Tool::CurveOnSurface(Ef, F, f, l);
+  Handle(GeomCurve2d) C2d = BRepInspector::CurveOnSurface(Ef, F, f, l);
   if (Ef.Orientation() == TopAbs_FORWARD)
   {
     pf = C2d->Value(f);
@@ -96,7 +96,7 @@ Standard_Boolean LocOpe::Closed(const TopoDS_Wire& W, const TopoDS_Face& F)
   {
     pf = C2d->Value(l);
   }
-  C2d = BRep_Tool::CurveOnSurface(El, F, f, l);
+  C2d = BRepInspector::CurveOnSurface(El, F, f, l);
   if (El.Orientation() == TopAbs_FORWARD)
   {
     pl = C2d->Value(l);
@@ -115,26 +115,26 @@ Standard_Boolean LocOpe::Closed(const TopoDS_Wire& W, const TopoDS_Face& F)
 
 //=================================================================================================
 
-Standard_Boolean LocOpe::Closed(const TopoDS_Edge& E, const TopoDS_Face& F)
+Standard_Boolean LocOpe1::Closed(const TopoEdge& E, const TopoFace& F)
 {
-  BRep_Builder B;
-  TopoDS_Wire  W;
+  ShapeBuilder B;
+  TopoWire  W;
   B.MakeWire(W);
   B.Add(W, E.Oriented(TopAbs_FORWARD));
-  return LocOpe::Closed(W, F);
+  return LocOpe1::Closed(W, F);
 }
 
 //=================================================================================================
 
-Standard_Boolean LocOpe::TgtFaces(const TopoDS_Edge& E,
-                                  const TopoDS_Face& F1,
-                                  const TopoDS_Face& F2)
+Standard_Boolean LocOpe1::TgtFaces(const TopoEdge& E,
+                                  const TopoFace& F1,
+                                  const TopoFace& F2)
 {
   BRepAdaptor_Surface bs(F1, Standard_False);
   Standard_Real       u;
   Standard_Real       ta = 0.0001;
 
-  TopoDS_Edge e = E;
+  TopoEdge e = E;
 
   Handle(BRepAdaptor_Surface) HS1 = new BRepAdaptor_Surface(F1);
   Handle(BRepAdaptor_Surface) HS2 = new BRepAdaptor_Surface(F2);
@@ -149,7 +149,7 @@ Standard_Boolean LocOpe::TgtFaces(const TopoDS_Edge& E,
   Standard_Boolean rev1 = (F1.Orientation() == TopAbs_REVERSED);
   Standard_Boolean rev2 = (F2.Orientation() == TopAbs_REVERSED);
   Standard_Real    f, l, eps, angmin = M_PI, angmax = -M_PI, ang;
-  BRep_Tool::Range(e, f, l);
+  BRepInspector::Range(e, f, l);
 
   eps = (l - f) / 100.;
   f += eps; // pour eviter de faire des calculs sur les
@@ -187,29 +187,29 @@ Standard_Boolean LocOpe::TgtFaces(const TopoDS_Edge& E,
 
 //=================================================================================================
 
-void LocOpe::SampleEdges(const TopoDS_Shape& theShape, TColgp_SequenceOfPnt& theSeq)
+void LocOpe1::SampleEdges(const TopoShape& theShape, TColgp_SequenceOfPnt& theSeq)
 {
   theSeq.Clear();
   TopTools_MapOfShape theMap;
 
-  TopExp_Explorer    exp(theShape, TopAbs_EDGE);
+  ShapeExplorer    exp(theShape, TopAbs_EDGE);
   TopLoc_Location    Loc;
-  Handle(Geom_Curve) C;
+  Handle(GeomCurve3d) C;
   Standard_Real      f, l, prm;
   Standard_Integer   i;
 
   // Computes points on edge, but does not take the extremities into account
   for (; exp.More(); exp.Next())
   {
-    const TopoDS_Edge& edg = TopoDS::Edge(exp.Current());
+    const TopoEdge& edg = TopoDS::Edge(exp.Current());
     if (!theMap.Add(edg))
     {
       continue;
     }
-    if (!BRep_Tool::Degenerated(edg))
+    if (!BRepInspector::Degenerated(edg))
     {
-      C                   = BRep_Tool::Curve(edg, Loc, f, l);
-      C                   = Handle(Geom_Curve)::DownCast(C->Transformed(Loc.Transformation()));
+      C                   = BRepInspector::Curve(edg, Loc, f, l);
+      C                   = Handle(GeomCurve3d)::DownCast(C->Transformed(Loc.Transformation()));
       Standard_Real delta = (l - f) / NECHANT * 0.123456;
       for (i = 1; i < NECHANT; i++)
       {
@@ -224,24 +224,24 @@ void LocOpe::SampleEdges(const TopoDS_Shape& theShape, TColgp_SequenceOfPnt& the
   {
     if (theMap.Add(exp.Current()))
     {
-      theSeq.Append(BRep_Tool::Pnt(TopoDS::Vertex(exp.Current())));
+      theSeq.Append(BRepInspector::Pnt(TopoDS::Vertex(exp.Current())));
     }
   }
 }
 
 /*
-Standard_Boolean LocOpe::IsInside(const TopoDS_Face& F1,
-                  const TopoDS_Face& F2)
+Standard_Boolean LocOpe1::IsInside(const TopoFace& F1,
+                  const TopoFace& F2)
 {
   Standard_Boolean Result = Standard_True;
 
-  TopExp_Explorer exp1, exp2;
+  ShapeExplorer exp1, exp2;
 
   for(exp1.Init(F1, TopAbs_EDGE); exp1.More(); exp1.Next())  {
-    TopoDS_Edge e1 = TopoDS::Edge(exp1.Current());
+    TopoEdge e1 = TopoDS::Edge(exp1.Current());
     BRepAdaptor_Curve2d C1(e1, F1);
     for(exp2.Init(F2, TopAbs_EDGE); exp2.More(); exp2.Next())  {
-      TopoDS_Edge e2 = TopoDS::Edge(exp2.Current());
+      TopoEdge e2 = TopoDS::Edge(exp2.Current());
       BRepAdaptor_Curve2d C2(e2, F2);
       Geom2dInt_GInter C;
       C.Perform(C1, C2, Precision::Confusion(), Precision::Confusion());

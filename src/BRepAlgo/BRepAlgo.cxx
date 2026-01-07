@@ -78,22 +78,22 @@ struct OrientedCurve
 
 //=================================================================================================
 
-TopoDS_Wire BRepAlgo::ConvertWire(const TopoDS_Wire&  theWire,
+TopoWire BRepAlgo1::ConvertWire(const TopoWire&  theWire,
                                   const Standard_Real theAngleTol,
-                                  const TopoDS_Face&  theFace)
+                                  const TopoFace&  theFace)
 {
-  TopoDS_Wire                       aResult;
+  TopoWire                       aResult;
   Standard_Real                     aMaxTol(0.);
-  const Handle(Geom_Surface)        aSurf = BRep_Tool::Surface(theFace);
+  const Handle(GeomSurface)        aSurf = BRepInspector::Surface(theFace);
   NCollection_Vector<OrientedCurve> vecCurve;
 
   BRepTools_WireExplorer anExpE(theWire, theFace);
   // Explore the edges in the current wire, in their connection order
   for (; anExpE.More(); anExpE.Next())
   {
-    const TopoDS_Edge&  anEdge = anExpE.Current();
+    const TopoEdge&  anEdge = anExpE.Current();
     BRepAdaptor_Curve2d aCurve(anEdge, theFace);
-    Standard_Real       aTol = BRep_Tool::Tolerance(anEdge);
+    Standard_Real       aTol = BRepInspector::Tolerance(anEdge);
     if (aTol < MINIMAL_TOLERANCE)
       aTol = MINIMAL_TOLERANCE;
     if (aTol > aMaxTol)
@@ -106,7 +106,7 @@ TopoDS_Wire BRepAlgo::ConvertWire(const TopoDS_Wire&  theWire,
     {
       for (Standard_Integer iCrv = aResultApprox.Length(); iCrv > 0; iCrv--)
       {
-        const Handle(Geom2d_Curve)& aCrv = aResultApprox(iCrv);
+        const Handle(GeomCurve2d)& aCrv = aResultApprox(iCrv);
         if (aCrv.IsNull() == Standard_False)
         {
           OrientedCurve& anOCurve = vecCurve.Append(OrientedCurve());
@@ -119,7 +119,7 @@ TopoDS_Wire BRepAlgo::ConvertWire(const TopoDS_Wire&  theWire,
     {
       for (Standard_Integer iCrv = 1; iCrv <= aResultApprox.Length(); iCrv++)
       {
-        const Handle(Geom2d_Curve)& aCrv = aResultApprox(iCrv);
+        const Handle(GeomCurve2d)& aCrv = aResultApprox(iCrv);
         if (aCrv.IsNull() == Standard_False)
         {
           OrientedCurve& anOCurve = vecCurve.Append(OrientedCurve());
@@ -133,7 +133,7 @@ TopoDS_Wire BRepAlgo::ConvertWire(const TopoDS_Wire&  theWire,
   if (vecCurve.Length() > 0)
   {
     // Build the first vertex
-    BRep_Builder  aVBuilder;
+    ShapeBuilder  aVBuilder;
     gp_Pnt2d      aPnt[2] = {vecCurve(0).Point(Standard_False),
                              vecCurve(vecCurve.Length() - 1).Point(Standard_True)};
     Standard_Real aDist   = aPnt[0].Distance(aPnt[1]);
@@ -146,17 +146,17 @@ TopoDS_Wire BRepAlgo::ConvertWire(const TopoDS_Wire&  theWire,
     }
     Point3d aPnt3d;
     aSurf->D0(aPnt[0].X(), aPnt[0].Y(), aPnt3d);
-    TopoDS_Vertex aFirstVertex;
+    TopoVertex aFirstVertex;
     aVBuilder.MakeVertex(aFirstVertex, aPnt3d, aDist);
 
     // Loop creating edges
     BRepBuilderAPI_MakeWire aMkWire;
-    TopoDS_Edge             anEdgeRes;
-    TopoDS_Vertex           aVertex = aFirstVertex;
+    TopoEdge             anEdgeRes;
+    TopoVertex           aVertex = aFirstVertex;
     for (Standard_Integer iCrv = 0; iCrv < vecCurve.Length(); iCrv++)
     {
       const OrientedCurve& anOCurve = vecCurve(iCrv);
-      TopoDS_Vertex        aNextVertex;
+      TopoVertex        aNextVertex;
       aPnt[0] = anOCurve.Point(Standard_True);
       if (iCrv == vecCurve.Length() - 1)
       {
@@ -184,7 +184,7 @@ TopoDS_Wire BRepAlgo::ConvertWire(const TopoDS_Wire&  theWire,
                                        anOCurve.Curve->LastParameter()};
       if (anOCurve.IsReverse)
       {
-        BRepBuilderAPI_MakeEdge aMkEdge(anOCurve.Curve,
+        EdgeMaker aMkEdge(anOCurve.Curve,
                                         aSurf,
                                         aNextVertex,
                                         aVertex,
@@ -195,7 +195,7 @@ TopoDS_Wire BRepAlgo::ConvertWire(const TopoDS_Wire&  theWire,
       }
       else
       {
-        BRepBuilderAPI_MakeEdge aMkEdge(anOCurve.Curve,
+        EdgeMaker aMkEdge(anOCurve.Curve,
                                         aSurf,
                                         aVertex,
                                         aNextVertex,
@@ -215,17 +215,17 @@ TopoDS_Wire BRepAlgo::ConvertWire(const TopoDS_Wire&  theWire,
 
 //=================================================================================================
 
-TopoDS_Face BRepAlgo::ConvertFace(const TopoDS_Face& theFace, const Standard_Real theAngleTolerance)
+TopoFace BRepAlgo1::ConvertFace(const TopoFace& theFace, const Standard_Real theAngleTolerance)
 {
-  TopoDS_Face                aResult;
-  const Handle(Geom_Surface) aSurf = BRep_Tool::Surface(theFace);
-  BRepBuilderAPI_MakeFace    aMkFace(aSurf, Precision::Confusion());
+  TopoFace                aResult;
+  const Handle(GeomSurface) aSurf = BRepInspector::Surface(theFace);
+  FaceMaker    aMkFace(aSurf, Precision::Confusion());
 
-  TopExp_Explorer anExp(theFace, TopAbs_WIRE);
+  ShapeExplorer anExp(theFace, TopAbs_WIRE);
   for (; anExp.More(); anExp.Next())
   {
-    const TopoDS_Wire& aWire    = TopoDS::Wire(anExp.Current());
-    const TopoDS_Wire  aNewWire = ConvertWire(aWire, theAngleTolerance, theFace);
+    const TopoWire& aWire    = TopoDS::Wire(anExp.Current());
+    const TopoWire  aNewWire = ConvertWire(aWire, theAngleTolerance, theFace);
     aMkFace.Add(aNewWire);
   }
   if (aMkFace.IsDone())
@@ -237,7 +237,7 @@ TopoDS_Face BRepAlgo::ConvertFace(const TopoDS_Face& theFace, const Standard_Rea
 
 //=================================================================================================
 
-TopoDS_Wire BRepAlgo::ConcatenateWire(const TopoDS_Wire&  W,
+TopoWire BRepAlgo1::ConcatenateWire(const TopoWire&  W,
                                       const GeomAbs_Shape Option,
                                       const Standard_Real TolAngular)
 {
@@ -245,11 +245,11 @@ TopoDS_Wire BRepAlgo::ConcatenateWire(const TopoDS_Wire&  W,
   Standard_Integer nb_curve, // number of curves in the Wire
     index;
   BRepTools_WireExplorer WExp(W);
-  TopoDS_Edge            edge;
+  TopoEdge            edge;
   TopLoc_Location        L;
   Standard_Real          First = 0., Last = 0., // extremal values for the curve
     First0 = 0., toler = 0., tolleft, tolright; // Vertex tolerances
-  TopoDS_Vertex Vfirst, Vlast;                  // Vertex of the Wire
+  TopoVertex Vfirst, Vlast;                  // Vertex of the Wire
   Point3d        Pfirst, Plast;                  //, Pint;  corresponding points
 
   BRepLib_MakeWire MakeResult;
@@ -274,7 +274,7 @@ TopoDS_Wire BRepAlgo::ConcatenateWire(const TopoDS_Wire&  W,
     for (index = 0; index < nb_curve; index++)
     { // main loop
       edge                               = WExp.Current();
-      const Handle(Geom_Curve)& aCurve   = BRep_Tool::Curve(edge, L, First, Last);
+      const Handle(GeomCurve3d)& aCurve   = BRepInspector::Curve(edge, L, First, Last);
       Handle(Geom_TrimmedCurve) aTrCurve = new Geom_TrimmedCurve(aCurve, First, Last);
       tab(index) = GeomConvert::CurveToBSplineCurve(aTrCurve); // storage in a array
       tab(index)->Transform(L.Transformation());
@@ -284,8 +284,8 @@ TopoDS_Wire BRepAlgo::ConcatenateWire(const TopoDS_Wire&  W,
       { // continuity test loop
         if (edge.Orientation() == TopAbs_REVERSED)
           tab(index)->Reverse();
-        tolleft                 = BRep_Tool::Tolerance(TopExp::LastVertex(edge));
-        tolright                = BRep_Tool::Tolerance(TopExp::FirstVertex(edge));
+        tolleft                 = BRepInspector::Tolerance(TopExp1::LastVertex(edge));
+        tolright                = BRepInspector::Tolerance(TopExp1::FirstVertex(edge));
         tabtolvertex(index - 1) = Max(tolleft, tolright);
       }
 
@@ -294,34 +294,34 @@ TopoDS_Wire BRepAlgo::ConcatenateWire(const TopoDS_Wire&  W,
         First0 = First;
         if (edge.Orientation() == TopAbs_REVERSED)
         { //(useful for the closed wire)
-          Vfirst = TopExp::LastVertex(edge);
+          Vfirst = TopExp1::LastVertex(edge);
           tab(index)->Reverse();
         }
         else
-          Vfirst = TopExp::FirstVertex(edge);
+          Vfirst = TopExp1::FirstVertex(edge);
       }
 
       if (index == nb_curve - 1)
       { // storage of the last edge features
         if (edge.Orientation() == TopAbs_REVERSED)
-          Vlast = TopExp::FirstVertex(edge);
+          Vlast = TopExp1::FirstVertex(edge);
         else
-          Vlast = TopExp::LastVertex(edge);
+          Vlast = TopExp1::LastVertex(edge);
       }
       WExp.Next();
     }
 
-    if (BRep_Tool::Tolerance(Vfirst)
-        > BRep_Tool::Tolerance(Vlast)) // computation of the closing tolerance
-      toler = BRep_Tool::Tolerance(Vfirst);
+    if (BRepInspector::Tolerance(Vfirst)
+        > BRepInspector::Tolerance(Vlast)) // computation of the closing tolerance
+      toler = BRepInspector::Tolerance(Vfirst);
     else
-      toler = BRep_Tool::Tolerance(Vlast);
+      toler = BRepInspector::Tolerance(Vlast);
 
-    Pfirst = BRep_Tool::Pnt(Vfirst);
-    Plast  = BRep_Tool::Pnt(Vlast);
+    Pfirst = BRepInspector::Pnt(Vfirst);
+    Plast  = BRepInspector::Pnt(Vlast);
 
     if ((Pfirst.Distance(Plast) <= toler) && // C0 continuity test at the closing point
-        (GeomLProp::Continuity(tab(nb_curve - 1),
+        (GeomLProp1::Continuity(tab(nb_curve - 1),
                                tab(0),
                                Last,
                                First0,
@@ -365,8 +365,8 @@ TopoDS_Wire BRepAlgo::ConcatenateWire(const TopoDS_Wire&  W,
     WExp.Init(W);
 
     edge                         = WExp.Current();
-    const Handle(Geom_Curve)& aC = BRep_Tool::Curve(edge, L, First, Last);
-    Handle(Geom_BSplineCurve) aBS =
+    const Handle(GeomCurve3d)& aC = BRepInspector::Curve(edge, L, First, Last);
+    Handle(BSplineCurve3d) aBS =
       GeomConvert::CurveToBSplineCurve(new Geom_TrimmedCurve(aC, First, Last));
     aBS->Transform(L.Transformation());
     GeomConvert::C0BSplineToC1BSplineCurve(aBS, Precision::Confusion());
@@ -384,14 +384,14 @@ TopoDS_Wire BRepAlgo::ConcatenateWire(const TopoDS_Wire&  W,
 
 //=================================================================================================
 
-TopoDS_Edge BRepAlgo::ConcatenateWireC0(const TopoDS_Wire& aWire)
+TopoEdge BRepAlgo1::ConcatenateWireC0(const TopoWire& aWire)
 {
   Standard_Real LinTol = Precision::Confusion();
   Standard_Real AngTol = Precision::Angular();
 
-  TopoDS_Edge ResEdge;
+  TopoEdge ResEdge;
 
-  TopoDS_Wire theWire = aWire;
+  TopoWire theWire = aWire;
   BRepLib::BuildCurves3d(theWire);
   Handle(ShapeFix_Shape) Fixer = new ShapeFix_Shape(theWire);
   Fixer->SetPrecision(LinTol);
@@ -405,22 +405,22 @@ TopoDS_Edge BRepAlgo::ConcatenateWireC0(const TopoDS_Wire& aWire)
   TColStd_SequenceOfReal    TolSeq;
   TColStd_SequenceOfBoolean IsFwdSeq;
   GeomAbs_CurveType         CurType = GeomAbs_OtherCurve;
-  TopoDS_Vertex             FirstVertex, LastVertex;
+  TopoVertex             FirstVertex, LastVertex;
 
   BRepTools_WireExplorer wexp(theWire);
 
   for (; wexp.More(); wexp.Next())
   {
-    const TopoDS_Edge& anEdge = wexp.Current();
+    const TopoEdge& anEdge = wexp.Current();
     Standard_Real      fpar, lpar;
-    Handle(Geom_Curve) aCurve = BRep_Tool::Curve(anEdge, fpar, lpar);
+    Handle(GeomCurve3d) aCurve = BRepInspector::Curve(anEdge, fpar, lpar);
 
     if (aCurve.IsNull())
       continue;
 
     GeomAdaptor_Curve         aGACurve(aCurve);
     GeomAbs_CurveType         aType       = aGACurve.GetType();
-    const Handle(Geom_Curve)& aBasisCurve = aGACurve.Curve();
+    const Handle(GeomCurve3d)& aBasisCurve = aGACurve.Curve();
     Standard_Boolean          isFwd       = (wexp.Orientation() != TopAbs_REVERSED);
 
     if (aBasisCurve->IsPeriodic())
@@ -630,14 +630,14 @@ TopoDS_Edge BRepAlgo::ConcatenateWireC0(const TopoDS_Wire& aWire)
         FparSeq.Append(fpar);
         LparSeq.Append(lpar);
         IsFwdSeq.Append(isFwd);
-        TolSeq.Append(BRep_Tool::Tolerance(wexp.CurrentVertex()));
+        TolSeq.Append(BRepInspector::Tolerance(wexp.CurrentVertex()));
         CurType = aType;
       }
     }
   }
 
   LastVertex = wexp.CurrentVertex();
-  TolSeq.Append(BRep_Tool::Tolerance(LastVertex));
+  TolSeq.Append(BRepInspector::Tolerance(LastVertex));
 
   Standard_Boolean isReverse = Standard_False;
 
@@ -646,7 +646,7 @@ TopoDS_Edge BRepAlgo::ConcatenateWireC0(const TopoDS_Wire& aWire)
     isReverse = !IsFwdSeq(1);
   }
 
-  TopoDS_Vertex FirstVtx_final, LastVtx_final;
+  TopoVertex FirstVtx_final, LastVtx_final;
   if (isReverse)
   {
     FirstVtx_final = LastVertex;
@@ -689,7 +689,7 @@ TopoDS_Edge BRepAlgo::ConcatenateWireC0(const TopoDS_Wire& aWire)
       // Temporary
       // char* name = new char[100];
       // sprintf(name, "c%d", i);
-      // DrawTrSurf::Set(name, tab(i-1));
+      // DrawTrSurf1::Set(name, tab(i-1));
 
       if (i > 1)
         tabtolvertex(i - 2) = TolSeq(i - 1) * 5.;
@@ -699,7 +699,7 @@ TopoDS_Edge BRepAlgo::ConcatenateWireC0(const TopoDS_Wire& aWire)
     Standard_Boolean closed_flag      = Standard_False;
     Standard_Real    closed_tolerance = 0.;
     if (FirstVertex.IsSame(LastVertex)
-        && GeomLProp::Continuity(tab(0),
+        && GeomLProp1::Continuity(tab(0),
                                  tab(nb_curve - 1),
                                  tab(0)->FirstParameter(),
                                  tab(nb_curve - 1)->LastParameter(),
@@ -710,7 +710,7 @@ TopoDS_Edge BRepAlgo::ConcatenateWireC0(const TopoDS_Wire& aWire)
              >= GeomAbs_G1)
     {
       closed_flag      = Standard_True;
-      closed_tolerance = BRep_Tool::Tolerance(FirstVertex);
+      closed_tolerance = BRepInspector::Tolerance(FirstVertex);
     }
 
     Handle(TColGeom_HArray1OfBSplineCurve) concatcurve;    // array of the concatenated curves
@@ -753,7 +753,7 @@ TopoDS_Edge BRepAlgo::ConcatenateWireC0(const TopoDS_Wire& aWire)
     if (CurveSeq(1)->IsInstance(STANDARD_TYPE(Geom_TrimmedCurve)))
       CurveSeq(1) = (*((Handle(Geom_TrimmedCurve)*)&(CurveSeq(1))))->BasisCurve();
 
-    Handle(Geom_Curve) aCopyCurve = Handle(Geom_Curve)::DownCast(CurveSeq(1)->Copy());
+    Handle(GeomCurve3d) aCopyCurve = Handle(GeomCurve3d)::DownCast(CurveSeq(1)->Copy());
 
     ResEdge = BRepLib_MakeEdge(aCopyCurve, FirstVtx_final, LastVtx_final, FparSeq(1), LparSeq(1));
   }

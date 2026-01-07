@@ -25,8 +25,8 @@
 #include <HLRBRep_ListOfBPoint.hxx>
 #include <TopoDS_Shape.hxx>
 #include <Standard_Boolean.hxx>
-class Draw_Display;
-class Draw_Color;
+class DrawDisplay;
+class DrawColor;
 
 //! This  class stores all the information  concerning
 //! hidden lines on a view.
@@ -54,7 +54,7 @@ public:
   Standard_EXPORT void Set(const Standard_Integer ViewId,
                            const Transform3d&         TProj,
                            const Standard_Real    Focal,
-                           const TopoDS_Shape&    S,
+                           const TopoShape&    S,
                            const Standard_Real    ang);
 
   Standard_Integer ViewId() const { return myView; }
@@ -64,15 +64,15 @@ public:
   //! Returns True if the projection is the same
   Standard_EXPORT Standard_Boolean IsSame(const Transform3d& TProj, const Standard_Real Focla) const;
 
-  Standard_EXPORT void DrawOn(Draw_Display&          D,
+  Standard_EXPORT void DrawOn(DrawDisplay&          D,
                               const Standard_Boolean withRg1,
                               const Standard_Boolean withRgN,
                               const Standard_Boolean withHid,
-                              const Draw_Color&      VisCol,
-                              const Draw_Color&      HidCol);
+                              const DrawColor&      VisCol,
+                              const DrawColor&      HidCol);
 
   //! Returns the subshape touched by the last pick.
-  Standard_EXPORT const TopoDS_Shape& LastPick() const;
+  Standard_EXPORT const TopoShape& LastPick() const;
 
 private:
   Standard_Integer     myView;
@@ -80,7 +80,7 @@ private:
   Standard_Real        myFocal;
   HLRBRep_ListOfBPoint myBiPntVis;
   HLRBRep_ListOfBPoint myBiPntHid;
-  TopoDS_Shape         myPickShap;
+  TopoShape         myPickShap;
   Standard_Real        myAngle;
 };
 

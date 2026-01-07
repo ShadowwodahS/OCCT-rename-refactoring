@@ -26,8 +26,8 @@
 #include <TColStd_HSequenceOfHAsciiString.hxx>
 class TCollection_HAsciiString;
 
-class Interface_Static;
-DEFINE_STANDARD_HANDLE(Interface_Static, Interface_TypedValue)
+class ExchangeConfig;
+DEFINE_STANDARD_HANDLE(ExchangeConfig, Interface_TypedValue)
 
 //! This class gives a way to manage meaningful static variables,
 //! used as "global" parameters in various procedures.
@@ -52,7 +52,7 @@ DEFINE_STANDARD_HANDLE(Interface_Static, Interface_TypedValue)
 //!
 //! Statics are named and recorded then accessed in an alphabetic
 //! dictionary
-class Interface_Static : public Interface_TypedValue
+class ExchangeConfig : public Interface_TypedValue
 {
 
 public:
@@ -67,16 +67,16 @@ public:
   //!
   //! init gives an initial value. If it is not given, the Static
   //! begin as "not set", its value is empty
-  Standard_EXPORT Interface_Static(const Standard_CString    family,
+  Standard_EXPORT ExchangeConfig(const Standard_CString    family,
                                    const Standard_CString    name,
                                    const Interface_ParamType type = Interface_ParamText,
                                    const Standard_CString    init = "");
 
   //! Creates a new Static with same definition as another one
   //! (value is copied, except for Entity : it remains null)
-  Standard_EXPORT Interface_Static(const Standard_CString          family,
+  Standard_EXPORT ExchangeConfig(const Standard_CString          family,
                                    const Standard_CString          name,
-                                   const Handle(Interface_Static)& other);
+                                   const Handle(ExchangeConfig)& other);
 
   //! Writes the properties of a
   //! parameter in the diagnostic file. These include:
@@ -95,10 +95,10 @@ public:
 
   //! Sets a "wild-card" static : its value will be considered
   //! if <me> is not properly set. (reset by set a null one)
-  Standard_EXPORT void SetWild(const Handle(Interface_Static)& wildcard);
+  Standard_EXPORT void SetWild(const Handle(ExchangeConfig)& wildcard);
 
   //! Returns the wildcard static, which can be (is most often) null
-  Standard_EXPORT Handle(Interface_Static) Wild() const;
+  Standard_EXPORT Handle(ExchangeConfig) Wild() const;
 
   //! Records a Static has "uptodate", i.e. its value has been taken
   //! into account by a reinitialisation procedure
@@ -128,7 +128,7 @@ public:
                                                const Standard_CString   init = "");
 
   //! Returns a Static from its name. Null Handle if not present
-  Standard_EXPORT static Handle(Interface_Static) Static(const Standard_CString name);
+  Standard_EXPORT static Handle(ExchangeConfig) Static(const Standard_CString name);
 
   //! Returns True if a Static named <name> is present, False else
   Standard_EXPORT static Standard_Boolean IsPresent(const Standard_CString name);
@@ -182,7 +182,7 @@ public:
   //! If the specified parameter does not exist, an empty
   //! string is returned.
   //! Example
-  //! Interface_Static::CVal("write.step.schema");
+  //! ExchangeConfig::CVal("write.step.schema");
   //! which could return:
   //! "AP214"
   Standard_EXPORT static Standard_CString CVal(const Standard_CString name);
@@ -191,7 +191,7 @@ public:
   //! the translation parameter identified by the string name.
   //! Returns the value 0 if the parameter does not exist.
   //! Example
-  //! Interface_Static::IVal("write.step.schema");
+  //! ExchangeConfig::IVal("write.step.schema");
   //! which could return: 3
   Standard_EXPORT static Standard_Integer IVal(const Standard_CString name);
 
@@ -204,7 +204,7 @@ public:
   //! parameter identified by name. The modification is specified
   //! by the string val. false is returned if the parameter does not exist.
   //! Example
-  //! Interface_Static::SetCVal
+  //! ExchangeConfig::SetCVal
   //! ("write.step.schema","AP203")
   //! This syntax specifies a switch from the default STEP 214 mode to STEP 203 mode.
   Standard_EXPORT static Standard_Boolean SetCVal(const Standard_CString name,
@@ -215,7 +215,7 @@ public:
   //! by the integer value val. false is returned if the
   //! parameter does not exist.
   //! Example
-  //! Interface_Static::SetIVal
+  //! ExchangeConfig::SetIVal
   //! ("write.step.schema", 3)
   //! This syntax specifies a switch from the default STEP 214 mode to STEP 203 mode.S
   Standard_EXPORT static Standard_Boolean SetIVal(const Standard_CString name,
@@ -264,28 +264,28 @@ public:
 
   //! Fills given string-to-string map with all static data
   Standard_EXPORT static void FillMap(
-    NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString>& theMap);
+    NCollection_DataMap<AsciiString1, AsciiString1>& theMap);
 
-  DEFINE_STANDARD_RTTIEXT(Interface_Static, Interface_TypedValue)
+  DEFINE_STANDARD_RTTIEXT(ExchangeConfig, Interface_TypedValue)
 
 protected:
 private:
-  TCollection_AsciiString                                        thefamily;
-  TCollection_AsciiString                                        thename;
-  TCollection_AsciiString                                        thelabel;
+  AsciiString1                                        thefamily;
+  AsciiString1                                        thename;
+  AsciiString1                                        thelabel;
   Interface_ParamType                                            thetype;
   Handle(TypeInfo)                                          theotyp;
-  Handle(Interface_Static)                                       thewild;
+  Handle(ExchangeConfig)                                       thewild;
   Standard_Integer                                               thelims;
   Standard_Integer                                               theintlow;
   Standard_Integer                                               theintup;
   Standard_Real                                                  therealow;
   Standard_Real                                                  therealup;
-  TCollection_AsciiString                                        theunidef;
+  AsciiString1                                        theunidef;
   Handle(TColStd_HArray1OfAsciiString)                           theenums;
-  NCollection_DataMap<TCollection_AsciiString, Standard_Integer> theeadds;
+  NCollection_DataMap<AsciiString1, Standard_Integer> theeadds;
   Interface_StaticSatisfies                                      thesatisf;
-  TCollection_AsciiString                                        thesatisn;
+  AsciiString1                                        thesatisn;
   Standard_Boolean                                               theupdate;
   Standard_Integer                                               theival;
   Handle(TCollection_HAsciiString)                               thehval;

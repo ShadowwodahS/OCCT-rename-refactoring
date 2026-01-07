@@ -35,24 +35,24 @@ class DrawTrSurf_Drawable : public Draw_Drawable3D
 {
   DEFINE_STANDARD_RTTIEXT(DrawTrSurf_Drawable, Draw_Drawable3D)
 public:
-  //! Draw a polygon of the curve on the Display
-  Standard_EXPORT void DrawCurve2dOn(Adaptor2d_Curve2d& C, Draw_Display& D) const;
+  //! Draw1 a polygon of the curve on the Display
+  Standard_EXPORT void DrawCurve2dOn(Adaptor2d_Curve2d& C, DrawDisplay& D) const;
 
-  //! Draw a polygon of the curve on the Display
-  Standard_EXPORT void DrawCurveOn(Adaptor3d_Curve& C, Draw_Display& D) const;
+  //! Draw1 a polygon of the curve on the Display
+  Standard_EXPORT void DrawCurveOn(Adaptor3d_Curve& C, DrawDisplay& D) const;
 
-  //! Load C  with the specified iso  and Draw a polygon
+  //! Load C  with the specified iso  and Draw1 a polygon
   //! of the curve on the Display
   Standard_EXPORT void DrawIsoCurveOn(Adaptor3d_IsoCurve&   C,
                                       const GeomAbs_IsoType T,
                                       const Standard_Real   P,
                                       const Standard_Real   F,
                                       const Standard_Real   L,
-                                      Draw_Display&         D) const;
+                                      DrawDisplay&         D) const;
 
   //! this is defined only to tell C++ not to complain
   //! about inheriting a pure virtual method.
-  Standard_EXPORT virtual void DrawOn(Draw_Display& dis) const Standard_OVERRIDE = 0;
+  Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE = 0;
 
   void SetDiscretisation(const Standard_Integer theDiscret) { myDiscret = theDiscret; }
 

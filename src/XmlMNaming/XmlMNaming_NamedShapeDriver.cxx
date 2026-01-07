@@ -37,8 +37,8 @@ IMPLEMENT_STANDARD_RTTIEXT(XmlMNaming_NamedShapeDriver, XmlMDF_ADriver)
 
 static TNaming_Evolution          EvolutionEnum(const XmlObjMgt_DOMString&);
 static const XmlObjMgt_DOMString& EvolutionString(const TNaming_Evolution);
-static void doTranslate(const TopoDS_Shape&, XmlMNaming_Shape1&, BRepTools_ShapeSet&);
-static int  doTranslate(const XmlMNaming_Shape1&, TopoDS_Shape&, BRepTools_ShapeSet&);
+static void doTranslate(const TopoShape&, XmlMNaming_Shape1&, BRepTools_ShapeSet&);
+static int  doTranslate(const XmlMNaming_Shape1&, TopoShape&, BRepTools_ShapeSet&);
 
 IMPLEMENT_DOMSTRING(OldsString, "olds")
 IMPLEMENT_DOMSTRING(NewsString, "news")
@@ -66,20 +66,20 @@ XmlMNaming_NamedShapeDriver::XmlMNaming_NamedShapeDriver(
 
 Handle(TDF_Attribute) XmlMNaming_NamedShapeDriver::NewEmpty() const
 {
-  return (new TNaming_NamedShape());
+  return (new ShapeAttribute());
 }
 
 //=======================================================================
 // function : Paste()
-// purpose  : retrieval of TNaming_NamedShape
+// purpose  : retrieval of ShapeAttribute
 //=======================================================================
 
 Standard_Boolean XmlMNaming_NamedShapeDriver::Paste(const XmlObjMgt_Persistent&  theSource,
                                                     const Handle(TDF_Attribute)& theTarget,
                                                     XmlObjMgt_RRelocationTable&) const
 {
-  Handle(TNaming_NamedShape) aTarget = Handle(TNaming_NamedShape)::DownCast(theTarget);
-  TDF_Label                  Label   = aTarget->Label();
+  Handle(ShapeAttribute) aTarget = Handle(ShapeAttribute)::DownCast(theTarget);
+  DataLabel                  Label   = aTarget->Label();
   TNaming_Builder            aBld(Label);
 
   //    Get Version
@@ -100,8 +100,8 @@ Standard_Boolean XmlMNaming_NamedShapeDriver::Paste(const XmlObjMgt_Persistent& 
   if (NewPShapes.Length() == 0 && OldPShapes.Length() == 0)
     return Standard_True;
 
-  TopoDS_Shape        anOldShape;
-  TopoDS_Shape        aNewShape;
+  TopoShape        anOldShape;
+  TopoShape        aNewShape;
   BRepTools_ShapeSet& aShapeSet = (BRepTools_ShapeSet&)myShapeSet;
 
   Standard_Integer lower = NewPShapes.Lower();
@@ -169,7 +169,7 @@ Standard_Boolean XmlMNaming_NamedShapeDriver::Paste(const XmlObjMgt_Persistent& 
 
 //=======================================================================
 // function : Paste()
-// purpose  : storage of TNaming_NamedShape
+// purpose  : storage of ShapeAttribute
 //=======================================================================
 
 void XmlMNaming_NamedShapeDriver::Paste(const Handle(TDF_Attribute)& theSource,
@@ -180,31 +180,31 @@ void XmlMNaming_NamedShapeDriver::Paste(const Handle(TDF_Attribute)& theSource,
   // AGV    (XmlObjMgt_Document&) theTarget.Element().getOwnerDocument();
   XmlObjMgt_Document aDoc = XmlObjMgt_Document(theTarget.Element().getOwnerDocument());
 
-  Handle(TNaming_NamedShape) aNamedShape = Handle(TNaming_NamedShape)::DownCast(theSource);
+  Handle(ShapeAttribute) aNamedShape = Handle(ShapeAttribute)::DownCast(theSource);
   TNaming_Evolution          evol        = aNamedShape->Evolution();
 
   //    Create arrays
-  Standard_Integer NbShapes = 0;
-  TNaming_Iterator SItr(aNamedShape);
+  Standard_Integer NbShapes1 = 0;
+  Iterator1 SItr(aNamedShape);
   while (SItr.More())
   {
-    NbShapes++;
+    NbShapes1++;
     SItr.Next();
   }
 
   BRepTools_ShapeSet& aShapeSet = (BRepTools_ShapeSet&)myShapeSet;
-  XmlObjMgt_Array1    OldPShapes(1, NbShapes), NewPShapes(1, NbShapes);
+  XmlObjMgt_Array1    OldPShapes(1, NbShapes1), NewPShapes(1, NbShapes1);
 
   OldPShapes.CreateArrayElement(theTarget, ::OldsString());
   NewPShapes.CreateArrayElement(theTarget, ::NewsString());
 
   //    Fill arrays
   Standard_Integer i = 1;
-  TNaming_Iterator SIterator(aNamedShape);
+  Iterator1 SIterator(aNamedShape);
   while (SIterator.More())
   {
-    const TopoDS_Shape& OldShape = SIterator.OldShape();
-    const TopoDS_Shape& NewShape = SIterator.NewShape();
+    const TopoShape& OldShape = SIterator.OldShape();
+    const TopoShape& NewShape = SIterator.NewShape();
 
     if (evol != TNaming_PRIMITIVE)
     {
@@ -281,7 +281,7 @@ static TNaming_Evolution EvolutionEnum(const XmlObjMgt_DOMString& theString)
 // purpose  : shape storage to XML
 //=======================================================================
 
-static void doTranslate(const TopoDS_Shape& theShape,
+static void doTranslate(const TopoShape& theShape,
                         XmlMNaming_Shape1&  theResult,
                         BRepTools_ShapeSet& theShapeSet)
 {
@@ -308,13 +308,13 @@ static void doTranslate(const TopoDS_Shape& theShape,
 //=======================================================================
 
 static int doTranslate(const XmlMNaming_Shape1& thePShape,
-                       TopoDS_Shape&            theResult,
+                       TopoShape&            theResult,
                        BRepTools_ShapeSet&      theShapeSet)
 {
   const Standard_Integer aShapeId = thePShape.TShapeId();
 
   // Read TShape and Orientation
-  if (aShapeId <= 0 || aShapeId > theShapeSet.NbShapes())
+  if (aShapeId <= 0 || aShapeId > theShapeSet.NbShapes1())
     return 1;
   theResult.TShape(theShapeSet.Shape(aShapeId).TShape());
   theResult.Orientation(thePShape.Orientation());
@@ -358,7 +358,7 @@ void XmlMNaming_NamedShapeDriver::WriteShapeSection(XmlObjMgt_Element&    theEle
   theElement.appendChild(anElement);
 
   //  Add text to the "shapes" element
-  if (myShapeSet.NbShapes() > 0)
+  if (myShapeSet.NbShapes1() > 0)
   {
     if (theStorageFormatVersion >= TDocStd_FormatVersion_VERSION_11)
     {

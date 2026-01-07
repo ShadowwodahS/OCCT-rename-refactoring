@@ -55,7 +55,7 @@ protected:
     {
       Handle(TopoDS_TShape) aTShape = createTShape();
 
-      TopoDS_Shape aWrapperShape;
+      TopoShape aWrapperShape;
       aWrapperShape.TShape(aTShape);
       addShapes(aWrapperShape);
 
@@ -67,13 +67,13 @@ protected:
   private:
     virtual Handle(TopoDS_TShape) createTShape() const = 0;
 
-    virtual void addShapes(TopoDS_Shape& theParent) const = 0;
+    virtual void addShapes(TopoShape& theParent) const = 0;
 
     void setFlags(const Handle(TopoDS_TShape)& theTShape) const;
 
   protected:
     template <class ShapesArray>
-    void addShapesT(TopoDS_Shape& theParent) const;
+    void addShapesT(TopoShape& theParent) const;
   };
 
 private:
@@ -89,7 +89,7 @@ private:
   template <class Persistent, class ShapesArray>
   class pTObject : public Persistent
   {
-    virtual void addShapes(TopoDS_Shape& theParent) const
+    virtual void addShapes(TopoShape& theParent) const
     {
       pTBase::addShapesT<ShapesArray>(theParent);
     }
@@ -128,7 +128,7 @@ public:
 
 public:
   //! Create a persistent object for a shape
-  Standard_EXPORT static Handle(HShape) Translate(const TopoDS_Shape&               theShape,
+  Standard_EXPORT static Handle(HShape) Translate(const TopoShape&               theShape,
                                                   StdObjMgt_TransientPersistentMap& theMap,
                                                   ShapePersistent_TriangleMode theTriangleMode);
 };

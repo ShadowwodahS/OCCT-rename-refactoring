@@ -35,12 +35,12 @@
 #include <StdPrs_ToolTriangulatedShape.hxx>
 #include <StdPrs_WFShape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_TexturedShape, AIS_Shape)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_TexturedShape, VisualShape)
 
 //=================================================================================================
 
-AIS_TexturedShape::AIS_TexturedShape(const TopoDS_Shape& theShape)
-    : AIS_Shape(theShape),
+AIS_TexturedShape::AIS_TexturedShape(const TopoShape& theShape)
+    : VisualShape(theShape),
       myPredefTexture(Graphic3d_NameOfTexture2D(0)),
       myToMapTexture(Standard_True),
       myModulate(Standard_True),
@@ -53,7 +53,7 @@ AIS_TexturedShape::AIS_TexturedShape(const TopoDS_Shape& theShape)
 
 //=================================================================================================
 
-void AIS_TexturedShape::SetTextureFileName(const TCollection_AsciiString& theTextureFileName)
+void AIS_TexturedShape::SetTextureFileName(const AsciiString1& theTextureFileName)
 {
   myTexturePixMap.Nullify();
 
@@ -66,7 +66,7 @@ void AIS_TexturedShape::SetTextureFileName(const TCollection_AsciiString& theTex
     }
     else
     {
-      Message::SendFail(TCollection_AsciiString("Error: texture with ID ") + theTextureFileName
+      Message::SendFail(AsciiString1("Error: texture with ID ") + theTextureFileName
                         + " is undefined. Texture 0 will be used instead.");
       myPredefTexture = Graphic3d_NameOfTexture2D(0);
     }
@@ -157,7 +157,7 @@ void AIS_TexturedShape::DisableTextureModulate()
 
 void AIS_TexturedShape::SetColor(const Quantity_Color& theColor)
 {
-  AIS_Shape::SetColor(theColor);
+  VisualShape::SetColor(theColor);
 
   for (PrsMgr_Presentations::Iterator aPrsIter(Presentations()); aPrsIter.More(); aPrsIter.Next())
   {
@@ -172,14 +172,14 @@ void AIS_TexturedShape::SetColor(const Quantity_Color& theColor)
 
 void AIS_TexturedShape::UnsetColor()
 {
-  AIS_Shape::UnsetColor();
+  VisualShape::UnsetColor();
 }
 
 //=================================================================================================
 
 void AIS_TexturedShape::SetMaterial(const Graphic3d_MaterialAspect& theMat)
 {
-  AIS_Shape::SetMaterial(theMat);
+  VisualShape::SetMaterial(theMat);
   for (PrsMgr_Presentations::Iterator aPrsIter(Presentations()); aPrsIter.More(); aPrsIter.Next())
   {
     if (aPrsIter.Value()->Mode() == 3)
@@ -193,7 +193,7 @@ void AIS_TexturedShape::SetMaterial(const Graphic3d_MaterialAspect& theMat)
 
 void AIS_TexturedShape::UnsetMaterial()
 {
-  AIS_Shape::UnsetMaterial();
+  VisualShape::UnsetMaterial();
   for (PrsMgr_Presentations::Iterator aPrsIter(Presentations()); aPrsIter.More(); aPrsIter.Next())
   {
     if (aPrsIter.Value()->Mode() == 3)
@@ -226,7 +226,7 @@ void AIS_TexturedShape::updateAttributes(const Handle(Prs3d_Presentation)& thePr
   Standard_Boolean hasTexture = Standard_False;
   if (myToMapTexture)
   {
-    TCollection_AsciiString aTextureDesc;
+    AsciiString1 aTextureDesc;
     if (!myTexturePixMap.IsNull())
     {
       myTexture    = new Graphic3d_Texture2D(myTexturePixMap);
@@ -235,12 +235,12 @@ void AIS_TexturedShape::updateAttributes(const Handle(Prs3d_Presentation)& thePr
     else if (myPredefTexture != Graphic3d_NOT_2D_UNKNOWN)
     {
       myTexture    = new Graphic3d_Texture2D(myPredefTexture);
-      aTextureDesc = TCollection_AsciiString(" (predefined texture ") + myTexture->GetId() + ")";
+      aTextureDesc = AsciiString1(" (predefined texture ") + myTexture->GetId() + ")";
     }
     else
     {
       myTexture    = new Graphic3d_Texture2D(myTextureFile.ToCString());
-      aTextureDesc = TCollection_AsciiString(" (") + myTextureFile + ")";
+      aTextureDesc = AsciiString1(" (") + myTextureFile + ")";
     }
 
     if (myModulate)
@@ -258,7 +258,7 @@ void AIS_TexturedShape::updateAttributes(const Handle(Prs3d_Presentation)& thePr
     }
     else
     {
-      Message::SendFail(TCollection_AsciiString("Error: texture can not be loaded ")
+      Message::SendFail(AsciiString1("Error: texture can not be loaded ")
                         + aTextureDesc);
     }
   }

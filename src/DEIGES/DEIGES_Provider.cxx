@@ -40,13 +40,13 @@ DEIGES_Provider::DEIGES_Provider(const Handle(DE_ConfigurationNode)& theNode)
 
 //=================================================================================================
 
-void DEIGES_Provider::personizeWS(Handle(XSControl_WorkSession)& theWS)
+void DEIGES_Provider::personizeWS(Handle(ExchangeSession)& theWS)
 {
   if (theWS.IsNull())
   {
     Message::SendWarning() << "Warning: DEIGES_Provider :"
                            << " Null work session, use internal temporary session";
-    theWS = new XSControl_WorkSession();
+    theWS = new ExchangeSession();
   }
   Handle(IGESControl_Controller) aCntrl =
     Handle(IGESControl_Controller)::DownCast(theWS->NormAdaptor());
@@ -62,52 +62,52 @@ void DEIGES_Provider::personizeWS(Handle(XSControl_WorkSession)& theWS)
 void DEIGES_Provider::initStatic(const Handle(DE_ConfigurationNode)& theNode)
 {
   Handle(DEIGES_ConfigurationNode) aNode = Handle(DEIGES_ConfigurationNode)::DownCast(theNode);
-  IGESData::Init();
+  IGESData1::Init();
 
   // Get previous values
   myOldValues.ReadBSplineContinuity =
-    (DEIGES_Parameters::ReadMode_BSplineContinuity)Interface_Static::IVal(
+    (DEIGES_Parameters::ReadMode_BSplineContinuity)ExchangeConfig::IVal(
       "read.iges.bspline.continuity");
   myOldValues.ReadPrecisionMode =
-    (DEIGES_Parameters::ReadMode_Precision)Interface_Static::IVal("read.precision.mode");
-  myOldValues.ReadPrecisionVal = Interface_Static::RVal("read.precision.val");
+    (DEIGES_Parameters::ReadMode_Precision)ExchangeConfig::IVal("read.precision.mode");
+  myOldValues.ReadPrecisionVal = ExchangeConfig::RVal("read.precision.val");
   myOldValues.ReadMaxPrecisionMode =
-    (DEIGES_Parameters::ReadMode_MaxPrecision)Interface_Static::IVal("read.maxprecision.mode");
-  myOldValues.ReadMaxPrecisionVal = Interface_Static::RVal("read.maxprecision.val");
-  myOldValues.ReadSameParamMode   = Interface_Static::IVal("read.stdsameparameter.mode") == 1;
+    (DEIGES_Parameters::ReadMode_MaxPrecision)ExchangeConfig::IVal("read.maxprecision.mode");
+  myOldValues.ReadMaxPrecisionVal = ExchangeConfig::RVal("read.maxprecision.val");
+  myOldValues.ReadSameParamMode   = ExchangeConfig::IVal("read.stdsameparameter.mode") == 1;
   myOldValues.ReadSurfaceCurveMode =
-    (DEIGES_Parameters::ReadMode_SurfaceCurve)Interface_Static::IVal("read.surfacecurve.mode");
-  myOldValues.EncodeRegAngle = Interface_Static::RVal("read.encoderegularity.angle") * 180.0 / M_PI;
+    (DEIGES_Parameters::ReadMode_SurfaceCurve)ExchangeConfig::IVal("read.surfacecurve.mode");
+  myOldValues.EncodeRegAngle = ExchangeConfig::RVal("read.encoderegularity.angle") * 180.0 / M_PI;
 
-  myOldValues.ReadApproxd1       = Interface_Static::IVal("read.iges.bspline.approxd1.mode") == 1;
-  myOldValues.ReadFaultyEntities = Interface_Static::IVal("read.iges.faulty.entities") == 1;
-  myOldValues.ReadOnlyVisible    = Interface_Static::IVal("read.iges.onlyvisible") == 1;
+  myOldValues.ReadApproxd1       = ExchangeConfig::IVal("read.iges.bspline.approxd1.mode") == 1;
+  myOldValues.ReadFaultyEntities = ExchangeConfig::IVal("read.iges.faulty.entities") == 1;
+  myOldValues.ReadOnlyVisible    = ExchangeConfig::IVal("read.iges.onlyvisible") == 1;
 
   myOldValues.WriteBRepMode =
-    (DEIGES_Parameters::WriteMode_BRep)Interface_Static::IVal("write.iges.brep.mode");
+    (DEIGES_Parameters::WriteMode_BRep)ExchangeConfig::IVal("write.iges.brep.mode");
   myOldValues.WriteConvertSurfaceMode =
-    (DEIGES_Parameters::WriteMode_ConvertSurface)Interface_Static::IVal(
+    (DEIGES_Parameters::WriteMode_ConvertSurface)ExchangeConfig::IVal(
       "write.convertsurface.mode");
-  myOldValues.WriteHeaderAuthor   = Interface_Static::CVal("write.iges.header.author");
-  myOldValues.WriteHeaderCompany  = Interface_Static::CVal("write.iges.header.company");
-  myOldValues.WriteHeaderProduct  = Interface_Static::CVal("write.iges.header.product");
-  myOldValues.WriteHeaderReciever = Interface_Static::CVal("write.iges.header.receiver");
+  myOldValues.WriteHeaderAuthor   = ExchangeConfig::CVal("write.iges.header.author");
+  myOldValues.WriteHeaderCompany  = ExchangeConfig::CVal("write.iges.header.company");
+  myOldValues.WriteHeaderProduct  = ExchangeConfig::CVal("write.iges.header.product");
+  myOldValues.WriteHeaderReciever = ExchangeConfig::CVal("write.iges.header.receiver");
   myOldValues.WritePrecisionMode =
-    (DEIGES_Parameters::WriteMode_PrecisionMode)Interface_Static::IVal("write.precision.mode");
-  myOldValues.WritePrecisionVal = Interface_Static::RVal("write.precision.val");
+    (DEIGES_Parameters::WriteMode_PrecisionMode)ExchangeConfig::IVal("write.precision.mode");
+  myOldValues.WritePrecisionVal = ExchangeConfig::RVal("write.precision.val");
   myOldValues.WritePlaneMode =
-    (DEIGES_Parameters::WriteMode_PlaneMode)Interface_Static::IVal("write.iges.plane.mode");
-  myOldValues.WriteOffsetMode = Interface_Static::IVal("write.iges.offset.mode") == 1;
+    (DEIGES_Parameters::WriteMode_PlaneMode)ExchangeConfig::IVal("write.iges.plane.mode");
+  myOldValues.WriteOffsetMode = ExchangeConfig::IVal("write.iges.offset.mode") == 1;
 
-  myOldLengthUnit = Interface_Static::IVal("xstep.cascade.unit");
+  myOldLengthUnit = ExchangeConfig::IVal("xstep.cascade.unit");
 
   // Set new values
   UnitsMethods::SetCasCadeLengthUnit(aNode->GlobalParameters.LengthUnit,
                                      UnitsMethods_LengthUnit_Millimeter);
-  TCollection_AsciiString aStrUnit(
+  AsciiString1 aStrUnit(
     UnitsMethods::DumpLengthUnit(aNode->GlobalParameters.LengthUnit));
   aStrUnit.UpperCase();
-  Interface_Static::SetCVal("xstep.cascade.unit", aStrUnit.ToCString());
+  ExchangeConfig::SetCVal("xstep.cascade.unit", aStrUnit.ToCString());
   setStatic(aNode->InternalParameters);
 }
 
@@ -115,49 +115,49 @@ void DEIGES_Provider::initStatic(const Handle(DE_ConfigurationNode)& theNode)
 
 void DEIGES_Provider::setStatic(const DEIGES_Parameters& theParameter)
 {
-  Interface_Static::SetIVal("read.iges.bspline.continuity", theParameter.ReadBSplineContinuity);
-  Interface_Static::SetIVal("read.precision.mode", theParameter.ReadPrecisionMode);
-  Interface_Static::SetRVal("read.precision.val", theParameter.ReadPrecisionVal);
-  Interface_Static::SetIVal("read.maxprecision.mode", theParameter.ReadMaxPrecisionMode);
-  Interface_Static::SetRVal("read.maxprecision.val", theParameter.ReadMaxPrecisionVal);
-  Interface_Static::SetIVal("read.stdsameparameter.mode", theParameter.ReadSameParamMode);
-  Interface_Static::SetIVal("read.surfacecurve.mode", theParameter.ReadSurfaceCurveMode);
-  Interface_Static::SetRVal("read.encoderegularity.angle",
+  ExchangeConfig::SetIVal("read.iges.bspline.continuity", theParameter.ReadBSplineContinuity);
+  ExchangeConfig::SetIVal("read.precision.mode", theParameter.ReadPrecisionMode);
+  ExchangeConfig::SetRVal("read.precision.val", theParameter.ReadPrecisionVal);
+  ExchangeConfig::SetIVal("read.maxprecision.mode", theParameter.ReadMaxPrecisionMode);
+  ExchangeConfig::SetRVal("read.maxprecision.val", theParameter.ReadMaxPrecisionVal);
+  ExchangeConfig::SetIVal("read.stdsameparameter.mode", theParameter.ReadSameParamMode);
+  ExchangeConfig::SetIVal("read.surfacecurve.mode", theParameter.ReadSurfaceCurveMode);
+  ExchangeConfig::SetRVal("read.encoderegularity.angle",
                             theParameter.EncodeRegAngle * M_PI / 180.0);
 
-  Interface_Static::SetIVal("read.iges.bspline.approxd1.mode", theParameter.ReadApproxd1);
-  Interface_Static::SetIVal("read.iges.faulty.entities", theParameter.ReadFaultyEntities);
-  Interface_Static::SetIVal("read.iges.onlyvisible", theParameter.ReadOnlyVisible);
+  ExchangeConfig::SetIVal("read.iges.bspline.approxd1.mode", theParameter.ReadApproxd1);
+  ExchangeConfig::SetIVal("read.iges.faulty.entities", theParameter.ReadFaultyEntities);
+  ExchangeConfig::SetIVal("read.iges.onlyvisible", theParameter.ReadOnlyVisible);
 
-  Interface_Static::SetIVal("write.iges.brep.mode", theParameter.WriteBRepMode);
-  Interface_Static::SetIVal("write.convertsurface.mode", theParameter.WriteConvertSurfaceMode);
-  Interface_Static::SetCVal("write.iges.header.author", theParameter.WriteHeaderAuthor.ToCString());
-  Interface_Static::SetCVal("write.iges.header.company",
+  ExchangeConfig::SetIVal("write.iges.brep.mode", theParameter.WriteBRepMode);
+  ExchangeConfig::SetIVal("write.convertsurface.mode", theParameter.WriteConvertSurfaceMode);
+  ExchangeConfig::SetCVal("write.iges.header.author", theParameter.WriteHeaderAuthor.ToCString());
+  ExchangeConfig::SetCVal("write.iges.header.company",
                             theParameter.WriteHeaderCompany.ToCString());
-  Interface_Static::SetCVal("write.iges.header.product",
+  ExchangeConfig::SetCVal("write.iges.header.product",
                             theParameter.WriteHeaderProduct.ToCString());
-  Interface_Static::SetCVal("write.iges.header.receiver",
+  ExchangeConfig::SetCVal("write.iges.header.receiver",
                             theParameter.WriteHeaderReciever.ToCString());
-  Interface_Static::SetIVal("write.precision.mode", theParameter.WritePrecisionMode);
-  Interface_Static::SetRVal("write.precision.val", theParameter.WritePrecisionVal);
-  Interface_Static::SetIVal("write.iges.plane.mode", theParameter.WritePlaneMode);
-  Interface_Static::SetIVal("write.iges.offset.mode", theParameter.WriteOffsetMode);
+  ExchangeConfig::SetIVal("write.precision.mode", theParameter.WritePrecisionMode);
+  ExchangeConfig::SetRVal("write.precision.val", theParameter.WritePrecisionVal);
+  ExchangeConfig::SetIVal("write.iges.plane.mode", theParameter.WritePlaneMode);
+  ExchangeConfig::SetIVal("write.iges.offset.mode", theParameter.WriteOffsetMode);
 }
 
 //=================================================================================================
 
 void DEIGES_Provider::resetStatic()
 {
-  Interface_Static::SetIVal("xstep.cascade.unit", myOldLengthUnit);
+  ExchangeConfig::SetIVal("xstep.cascade.unit", myOldLengthUnit);
   UnitsMethods::SetCasCadeLengthUnit(myOldLengthUnit);
   setStatic(myOldValues);
 }
 
 //=================================================================================================
 
-bool DEIGES_Provider::Read(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
-                           Handle(XSControl_WorkSession)&  theWS,
+bool DEIGES_Provider::Read(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
+                           Handle(ExchangeSession)&  theWS,
                            const Message_ProgressRange&    theProgress)
 {
   if (theDocument.IsNull())
@@ -210,9 +210,9 @@ bool DEIGES_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEIGES_Provider::Write(const TCollection_AsciiString&  thePath,
-                            const Handle(TDocStd_Document)& theDocument,
-                            Handle(XSControl_WorkSession)&  theWS,
+bool DEIGES_Provider::Write(const AsciiString1&  thePath,
+                            const Handle(AppDocument)& theDocument,
+                            Handle(ExchangeSession)&  theWS,
                             const Message_ProgressRange&    theProgress)
 {
   if (!GetNode()->IsKind(STANDARD_TYPE(DEIGES_ConfigurationNode)))
@@ -273,29 +273,29 @@ bool DEIGES_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEIGES_Provider::Read(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
+bool DEIGES_Provider::Read(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
                            const Message_ProgressRange&    theProgress)
 {
-  Handle(XSControl_WorkSession) aWS = new XSControl_WorkSession();
+  Handle(ExchangeSession) aWS = new ExchangeSession();
   return Read(thePath, theDocument, aWS, theProgress);
 }
 
 //=================================================================================================
 
-bool DEIGES_Provider::Write(const TCollection_AsciiString&  thePath,
-                            const Handle(TDocStd_Document)& theDocument,
+bool DEIGES_Provider::Write(const AsciiString1&  thePath,
+                            const Handle(AppDocument)& theDocument,
                             const Message_ProgressRange&    theProgress)
 {
-  Handle(XSControl_WorkSession) aWS = new XSControl_WorkSession();
+  Handle(ExchangeSession) aWS = new ExchangeSession();
   return Write(thePath, theDocument, aWS, theProgress);
 }
 
 //=================================================================================================
 
-bool DEIGES_Provider::Read(const TCollection_AsciiString& thePath,
-                           TopoDS_Shape&                  theShape,
-                           Handle(XSControl_WorkSession)& theWS,
+bool DEIGES_Provider::Read(const AsciiString1& thePath,
+                           TopoShape&                  theShape,
+                           Handle(ExchangeSession)& theWS,
                            const Message_ProgressRange&   theProgress)
 {
   (void)theProgress;
@@ -308,7 +308,7 @@ bool DEIGES_Provider::Read(const TCollection_AsciiString& thePath,
   Handle(DEIGES_ConfigurationNode) aNode = Handle(DEIGES_ConfigurationNode)::DownCast(GetNode());
   initStatic(aNode);
   personizeWS(theWS);
-  IGESControl_Reader aReader;
+  IgesFileReader aReader;
   aReader.SetWS(theWS);
   aReader.SetReadVisible(aNode->InternalParameters.ReadOnlyVisible);
   aReader.SetShapeFixParameters(aNode->ShapeFixParameters);
@@ -336,9 +336,9 @@ bool DEIGES_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEIGES_Provider::Write(const TCollection_AsciiString& thePath,
-                            const TopoDS_Shape&            theShape,
-                            Handle(XSControl_WorkSession)& theWS,
+bool DEIGES_Provider::Write(const AsciiString1& thePath,
+                            const TopoShape&            theShape,
+                            Handle(ExchangeSession)& theWS,
                             const Message_ProgressRange&   theProgress)
 {
   (void)theWS;
@@ -352,7 +352,7 @@ bool DEIGES_Provider::Write(const TCollection_AsciiString& thePath,
   Handle(DEIGES_ConfigurationNode) aNode = Handle(DEIGES_ConfigurationNode)::DownCast(GetNode());
   initStatic(aNode);
   Standard_Integer aFlag = IGESData_BasicEditor::GetFlagByValue(aNode->GlobalParameters.LengthUnit);
-  IGESControl_Writer aWriter((aFlag > 0) ? IGESData_BasicEditor::UnitFlagName(aFlag) : "MM",
+  IgesFileWriter aWriter((aFlag > 0) ? IGESData_BasicEditor::UnitFlagName(aFlag) : "MM",
                              aNode->InternalParameters.WriteBRepMode);
   IGESData_GlobalSection aGS = aWriter.Model()->GlobalSection();
   aGS.SetCascadeUnit(aNode->GlobalParameters.SystemUnit);
@@ -382,34 +382,34 @@ bool DEIGES_Provider::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEIGES_Provider::Read(const TCollection_AsciiString& thePath,
-                           TopoDS_Shape&                  theShape,
+bool DEIGES_Provider::Read(const AsciiString1& thePath,
+                           TopoShape&                  theShape,
                            const Message_ProgressRange&   theProgress)
 {
-  Handle(XSControl_WorkSession) aWS = new XSControl_WorkSession();
+  Handle(ExchangeSession) aWS = new ExchangeSession();
   return Read(thePath, theShape, aWS, theProgress);
 }
 
 //=================================================================================================
 
-bool DEIGES_Provider::Write(const TCollection_AsciiString& thePath,
-                            const TopoDS_Shape&            theShape,
+bool DEIGES_Provider::Write(const AsciiString1& thePath,
+                            const TopoShape&            theShape,
                             const Message_ProgressRange&   theProgress)
 {
-  Handle(XSControl_WorkSession) aWS = new XSControl_WorkSession();
+  Handle(ExchangeSession) aWS = new ExchangeSession();
   return Write(thePath, theShape, aWS, theProgress);
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DEIGES_Provider::GetFormat() const
+AsciiString1 DEIGES_Provider::GetFormat() const
 {
-  return TCollection_AsciiString("IGES");
+  return AsciiString1("IGES");
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DEIGES_Provider::GetVendor() const
+AsciiString1 DEIGES_Provider::GetVendor() const
 {
-  return TCollection_AsciiString("OCC");
+  return AsciiString1("OCC");
 }

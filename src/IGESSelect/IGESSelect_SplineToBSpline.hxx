@@ -27,7 +27,7 @@ class Interface_Protocol;
 class Interface_CheckIterator;
 class Interface_InterfaceModel;
 class RefObject;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IGESSelect_SplineToBSpline;
 DEFINE_STANDARD_HANDLE(IGESSelect_SplineToBSpline, IFSelect_Transformer)
@@ -78,7 +78,7 @@ public:
   //! Returns a text which defines the way a Transformer works :
   //! "Conversion Spline to BSpline" and as opted,
   //! " trying to upgrade continuity"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_SplineToBSpline, IFSelect_Transformer)
 

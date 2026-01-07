@@ -24,19 +24,19 @@
 #include <TopTools_ListOfShape.hxx>
 #include <Standard_Boolean.hxx>
 
-class TopOpeBRepBuild_FuseFace
+class FaceFusionBuilder
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  TopOpeBRepBuild_FuseFace();
+  FaceFusionBuilder();
 
-  TopOpeBRepBuild_FuseFace(const TopTools_ListOfShape& LIF,
-                           const TopTools_ListOfShape& LRF,
+  FaceFusionBuilder(const ShapeList& LIF,
+                           const ShapeList& LRF,
                            const Standard_Integer      CXM);
 
-  Standard_EXPORT void Init(const TopTools_ListOfShape& LIF,
-                            const TopTools_ListOfShape& LRF,
+  Standard_EXPORT void Init(const ShapeList& LIF,
+                            const ShapeList& LRF,
                             const Standard_Integer      CXM);
 
   Standard_EXPORT void PerformFace();
@@ -51,32 +51,32 @@ public:
 
   Standard_Boolean IsModified() const;
 
-  const TopTools_ListOfShape& LFuseFace() const;
+  const ShapeList& LFuseFace() const;
 
-  const TopTools_ListOfShape& LInternEdge() const;
+  const ShapeList& LInternEdge() const;
 
-  const TopTools_ListOfShape& LExternEdge() const;
+  const ShapeList& LExternEdge() const;
 
-  const TopTools_ListOfShape& LModifEdge() const;
+  const ShapeList& LModifEdge() const;
 
-  const TopTools_ListOfShape& LInternVertex() const;
+  const ShapeList& LInternVertex() const;
 
-  const TopTools_ListOfShape& LExternVertex() const;
+  const ShapeList& LExternVertex() const;
 
-  const TopTools_ListOfShape& LModifVertex() const;
+  const ShapeList& LModifVertex() const;
 
 protected:
-  TopTools_ListOfShape myLIE;
-  TopTools_ListOfShape myLEE;
-  TopTools_ListOfShape myLME;
-  TopTools_ListOfShape myLIV;
-  TopTools_ListOfShape myLEV;
-  TopTools_ListOfShape myLMV;
+  ShapeList myLIE;
+  ShapeList myLEE;
+  ShapeList myLME;
+  ShapeList myLIV;
+  ShapeList myLEV;
+  ShapeList myLMV;
 
 private:
-  TopTools_ListOfShape myLIF;
-  TopTools_ListOfShape myLRF;
-  TopTools_ListOfShape myLFF;
+  ShapeList myLIF;
+  ShapeList myLRF;
+  ShapeList myLFF;
   Standard_Boolean     myInternal;
   Standard_Boolean     myModified;
   Standard_Boolean     myDone;

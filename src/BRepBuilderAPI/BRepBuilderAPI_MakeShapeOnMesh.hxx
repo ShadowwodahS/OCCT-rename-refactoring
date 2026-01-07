@@ -28,8 +28,8 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Ctor. Sets mesh to process.
-  //! @param[in] theMesh  - Mesh to construct shape for.
-  BRepBuilderAPI_MakeShapeOnMesh(const Handle(Poly_Triangulation)& theMesh)
+  //! @param[in] theMesh  - Mesh1 to construct shape for.
+  BRepBuilderAPI_MakeShapeOnMesh(const Handle(MeshTriangulation)& theMesh)
       : myMesh(theMesh)
   {
   }
@@ -39,7 +39,7 @@ public:
     const Message_ProgressRange& theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
 private:
-  Handle(Poly_Triangulation) myMesh;
+  Handle(MeshTriangulation) myMesh;
 };
 
 #endif // _BRepBuilderAPI_MakeShapeOnMesh_HeaderFile

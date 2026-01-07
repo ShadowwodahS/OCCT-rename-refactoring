@@ -24,7 +24,7 @@ class DsgPrs_DatumPrs : public Prs3d_Root
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Draw XYZ axes at specified location with attributes defined by the attribute manager
+  //! Draw1 XYZ axes at specified location with attributes defined by the attribute manager
   //! theDrawer:
   //! - Prs3d_DatumAspect defines arrow, line and length trihedron axis parameters,
   //! - Prs3d_TextAspect defines displayed text.
@@ -36,6 +36,6 @@ public:
   //! @param[in] theDrawer  the provider of display attributes
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& thePresentation,
                                   const Frame3d&                     theDatum,
-                                  const Handle(Prs3d_Drawer)&       theDrawer);
+                                  const Handle(StyleDrawer)&       theDrawer);
 };
 #endif

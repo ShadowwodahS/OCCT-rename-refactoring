@@ -80,14 +80,14 @@ Handle(TCollection_HExtendedString) CDF_Store::Name() const
 
 Standard_Boolean CDF_Store::SetFolder(const Standard_ExtString aFolder)
 {
-  TCollection_ExtendedString f(aFolder);
+  UtfString f(aFolder);
   return SetFolder(f);
 }
 
-Standard_Boolean CDF_Store::SetFolder(const TCollection_ExtendedString& aFolder)
+Standard_Boolean CDF_Store::SetFolder(const UtfString& aFolder)
 {
 
-  TCollection_ExtendedString theFolder(aFolder);
+  UtfString theFolder(aFolder);
   Standard_Integer           aLen = theFolder.Length();
 
   // if the last character is the folder separator, remove it.
@@ -107,9 +107,9 @@ CDF_StoreSetNameStatus CDF_Store::RecheckName()
   return SetName(myCurrentDocument->RequestedName());
 }
 
-CDF_StoreSetNameStatus CDF_Store::SetName(const TCollection_ExtendedString& aName)
+CDF_StoreSetNameStatus CDF_Store::SetName(const UtfString& aName)
 {
-  TCollection_ExtendedString theName = theMetaDataDriver->SetName(myCurrentDocument, aName);
+  UtfString theName = theMetaDataDriver->SetName(myCurrentDocument, aName);
 
   if (myCurrentDocument->IsStored())
   {
@@ -137,7 +137,7 @@ CDF_StoreSetNameStatus CDF_Store::SetName(const TCollection_ExtendedString& aNam
 
 CDF_StoreSetNameStatus CDF_Store::SetName(const Standard_ExtString aName)
 {
-  TCollection_ExtendedString theName(aName);
+  UtfString theName(aName);
   return SetName(theName);
 }
 

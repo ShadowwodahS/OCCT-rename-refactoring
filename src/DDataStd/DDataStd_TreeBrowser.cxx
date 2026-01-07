@@ -44,14 +44,14 @@ IMPLEMENT_STANDARD_RTTIEXT(DDataStd_TreeBrowser, Draw_Drawable3D)
 
 //=================================================================================================
 
-DDataStd_TreeBrowser::DDataStd_TreeBrowser(const TDF_Label& aLabel)
+DDataStd_TreeBrowser::DDataStd_TreeBrowser(const DataLabel& aLabel)
     : myRoot(aLabel)
 {
 }
 
 //=================================================================================================
 
-void DDataStd_TreeBrowser::DrawOn(Draw_Display& /*dis*/) const
+void DDataStd_TreeBrowser::DrawOn(DrawDisplay& /*dis*/) const
 {
   std::cout << "DDataStd_TreeBrowser" << std::endl;
 }
@@ -73,30 +73,30 @@ void DDataStd_TreeBrowser::Dump(Standard_OStream& S) const
 
 //=================================================================================================
 
-void DDataStd_TreeBrowser::Whatis(Draw_Interpretor& I) const
+void DDataStd_TreeBrowser::Whatis(DrawInterpreter& I) const
 {
   I << "function browser";
 }
 
 //=================================================================================================
 
-void DDataStd_TreeBrowser::Label(const TDF_Label& aLabel)
+void DDataStd_TreeBrowser::Label(const DataLabel& aLabel)
 {
   myRoot = aLabel;
 }
 
 //=================================================================================================
 
-TDF_Label DDataStd_TreeBrowser::Label() const
+DataLabel DDataStd_TreeBrowser::Label() const
 {
   return myRoot;
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DDataStd_TreeBrowser::OpenRoot() const
+AsciiString1 DDataStd_TreeBrowser::OpenRoot() const
 {
-  TCollection_AsciiString   list;
+  AsciiString1   list;
   Handle(TDataStd_TreeNode) TN;
   if (myRoot.FindAttribute(TDataStd_TreeNode::GetDefaultTreeID(), TN))
   {
@@ -111,9 +111,9 @@ TCollection_AsciiString DDataStd_TreeBrowser::OpenRoot() const
 // the items are separated by "\\".
 //=======================================================================
 
-TCollection_AsciiString DDataStd_TreeBrowser::OpenNode(const TDF_Label& aLabel) const
+AsciiString1 DDataStd_TreeBrowser::OpenNode(const DataLabel& aLabel) const
 {
-  TCollection_AsciiString   list;
+  AsciiString1   list;
   Handle(TDataStd_TreeNode) nodeToOpen;
   if (aLabel.FindAttribute(TDataStd_TreeNode::GetDefaultTreeID(), nodeToOpen))
   {
@@ -140,24 +140,24 @@ TCollection_AsciiString DDataStd_TreeBrowser::OpenNode(const TDF_Label& aLabel) 
 //=======================================================================
 
 void DDataStd_TreeBrowser::OpenNode(const Handle(TDataStd_TreeNode)& aTreeNode,
-                                    TCollection_AsciiString&         aList) const
+                                    AsciiString1&         aList) const
 {
   // Label entry. -0
-  TCollection_AsciiString tmp;
+  AsciiString1 tmp;
   TDF_Tool::Entry(aTreeNode->Label(), tmp);
   aList.AssignCat(tmp);
   // Name         -1
   aList.AssignCat(TDF_BrowserSeparator2);
-  Handle(TDataStd_Name) name;
+  Handle(NameAttribute) name;
   aList.AssignCat("\"");
-  if (aTreeNode->Label().FindAttribute(TDataStd_Name::GetID(), name))
+  if (aTreeNode->Label().FindAttribute(NameAttribute::GetID(), name))
   {
     aList.AssignCat(name->Get());
   }
   aList.AssignCat("\"");
   // Dynamic type.      -2
   aList.AssignCat(TDF_BrowserSeparator2);
-  TCollection_ExtendedString ext;
+  UtfString ext;
   if (TDF::ProgIDFromGUID(aTreeNode->ID(), ext))
     aList.AssignCat(ext);
   else

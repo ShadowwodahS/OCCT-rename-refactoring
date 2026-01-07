@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-void TopTools::Dump(const TopoDS_Shape& Sh, Standard_OStream& S)
+void TopTools1::Dump(const TopoShape& Sh, Standard_OStream& S)
 {
   TopTools_ShapeSet SSet;
   SSet.Add(Sh);
@@ -28,4 +28,4 @@ void TopTools::Dump(const TopoDS_Shape& Sh, Standard_OStream& S)
   SSet.Dump(S);
 }
 
-void TopTools::Dummy(const Standard_Integer) {}
+void TopTools1::Dummy(const Standard_Integer) {}

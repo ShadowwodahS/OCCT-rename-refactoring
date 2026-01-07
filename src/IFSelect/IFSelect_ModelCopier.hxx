@@ -28,7 +28,7 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Integer.hxx>
 class IFSelect_ShareOut;
-class TCollection_AsciiString;
+class AsciiString1;
 class Interface_InterfaceModel;
 class IFSelect_AppliedModifiers;
 class Interface_CheckIterator;
@@ -95,7 +95,7 @@ public:
   //! (Name as AsciiString, Content as InterfaceModel)
   //! Returns True if Done, False if <filename> is already attached
   //! to another File
-  Standard_EXPORT Standard_Boolean AddFile(const TCollection_AsciiString&          filename,
+  Standard_EXPORT Standard_Boolean AddFile(const AsciiString1&          filename,
                                            const Handle(Interface_InterfaceModel)& content);
 
   //! Changes the Name attached to a File which was formerly defined
@@ -104,7 +104,7 @@ public:
   //! the new <filename> is already attached to another File
   //! Remark : Giving an empty File Name is equivalent to ClearFile
   Standard_EXPORT Standard_Boolean NameFile(const Standard_Integer         num,
-                                            const TCollection_AsciiString& filename);
+                                            const AsciiString1& filename);
 
   //! Clears the Name attached to a File which was formerly defined
   //! by a call to AddFile. This Clearing can be undone by a call to
@@ -190,7 +190,7 @@ public:
 
   //! Returns the File Name for a file given its rank
   //! It is empty after a call to ClearFile on same <num>
-  Standard_EXPORT TCollection_AsciiString FileName(const Standard_Integer num) const;
+  Standard_EXPORT AsciiString1 FileName(const Standard_Integer num) const;
 
   //! Returns the content of a file before sending, under the form
   //! of an InterfaceModel, given its rank
@@ -273,7 +273,7 @@ protected:
                                    const Handle(IFSelect_WorkLibrary)& WL,
                                    const Handle(Interface_Protocol)&   protocol,
                                    const Interface_EntityIterator&     topcopy,
-                                   const TCollection_AsciiString&      filename,
+                                   const AsciiString1&      filename,
                                    const Standard_Integer              dispnum,
                                    const Standard_Integer              numod,
                                    Interface_CopyTool&                 TC,

@@ -174,14 +174,14 @@ static void DrawCurve(const Adaptor3d_Curve&              aCurve,
   //      std::cout << HAI1->Value(i) << std::endl;
   //       }
 
-  // creation of Vrml objects
+  // creation of Vrml1 objects
   Handle(VrmlConverter_LineAspect) LA = new VrmlConverter_LineAspect;
   LA                                  = aDrawer->LineAspect();
 
   //     std::cout << "LA->HasMaterial() = " << LA->HasMaterial()  << std::endl;
 
   // Separator 1 {
-  Vrml_Separator SE1;
+  Separator SE1;
   SE1.Print(anOStream);
   // Material
 
@@ -206,7 +206,7 @@ static void DrawCurve(const Adaptor3d_Curve&              aCurve,
 
 //=================================================================================================
 
-void VrmlConverter_Curve::Add(const Adaptor3d_Curve&              aCurve,
+void CurveConverter::Add(const Adaptor3d_Curve&              aCurve,
                               const Handle(VrmlConverter_Drawer)& aDrawer,
                               Standard_OStream&                   anOStream)
 {
@@ -226,7 +226,7 @@ void VrmlConverter_Curve::Add(const Adaptor3d_Curve&              aCurve,
 
 //=================================================================================================
 
-void VrmlConverter_Curve::Add(const Adaptor3d_Curve&              aCurve,
+void CurveConverter::Add(const Adaptor3d_Curve&              aCurve,
                               const Standard_Real                 U1,
                               const Standard_Real                 U2,
                               const Handle(VrmlConverter_Drawer)& aDrawer,
@@ -251,7 +251,7 @@ void VrmlConverter_Curve::Add(const Adaptor3d_Curve&              aCurve,
 
 //=================================================================================================
 
-void VrmlConverter_Curve::Add(const Adaptor3d_Curve& aCurve,
+void CurveConverter::Add(const Adaptor3d_Curve& aCurve,
                               const Standard_Real    U1,
                               const Standard_Real    U2,
                               Standard_OStream&      anOStream,

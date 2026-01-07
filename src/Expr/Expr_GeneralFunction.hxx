@@ -26,7 +26,7 @@
 #include <Expr_Array1OfNamedUnknown.hxx>
 #include <TColStd_Array1OfReal.hxx>
 class Expr_NamedUnknown;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class Expr_GeneralFunction;
 DEFINE_STANDARD_HANDLE(Expr_GeneralFunction, RefObject)
@@ -72,7 +72,7 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsLinearOnVariable(
     const Standard_Integer index) const = 0;
 
-  Standard_EXPORT virtual TCollection_AsciiString GetStringName() const = 0;
+  Standard_EXPORT virtual AsciiString1 GetStringName() const = 0;
 
   DEFINE_STANDARD_RTTIEXT(Expr_GeneralFunction, RefObject)
 

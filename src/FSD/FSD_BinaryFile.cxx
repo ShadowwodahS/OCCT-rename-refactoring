@@ -59,7 +59,7 @@ FSD_BinaryFile::FSD_BinaryFile()
 //           write
 //=======================================================================
 
-Storage_Error FSD_BinaryFile::IsGoodFileType(const TCollection_AsciiString& aName)
+Storage_Error FSD_BinaryFile::IsGoodFileType(const AsciiString1& aName)
 {
   FSD_BinaryFile f;
   Storage_Error  s;
@@ -68,7 +68,7 @@ Storage_Error FSD_BinaryFile::IsGoodFileType(const TCollection_AsciiString& aNam
 
   if (s == Storage_VSOk)
   {
-    TCollection_AsciiString l;
+    AsciiString1 l;
     Standard_Size           len = strlen(FSD_BinaryFile::MagicNumber());
 
     f.ReadChar(l, len);
@@ -86,7 +86,7 @@ Storage_Error FSD_BinaryFile::IsGoodFileType(const TCollection_AsciiString& aNam
 
 //=================================================================================================
 
-Storage_Error FSD_BinaryFile::Open(const TCollection_AsciiString& aName,
+Storage_Error FSD_BinaryFile::Open(const AsciiString1& aName,
                                    const Storage_OpenMode         aMode)
 {
   Storage_Error result = Storage_VSOk;
@@ -166,7 +166,7 @@ Standard_CString FSD_BinaryFile::MagicNumber()
 // purpose  : read <rsize> character from the current position.
 //=======================================================================
 
-void FSD_BinaryFile::ReadChar(TCollection_AsciiString& buffer, const Standard_Size rsize)
+void FSD_BinaryFile::ReadChar(AsciiString1& buffer, const Standard_Size rsize)
 {
   char          c;
   Standard_Size ccount = 0;
@@ -477,13 +477,13 @@ Storage_Error FSD_BinaryFile::BeginWriteInfoSection()
 //=================================================================================================
 
 void FSD_BinaryFile::WriteInfo(const Standard_Integer               nbObj,
-                               const TCollection_AsciiString&       dbVersion,
-                               const TCollection_AsciiString&       date,
-                               const TCollection_AsciiString&       schemaName,
-                               const TCollection_AsciiString&       schemaVersion,
-                               const TCollection_ExtendedString&    appName,
-                               const TCollection_AsciiString&       appVersion,
-                               const TCollection_ExtendedString&    dataType,
+                               const AsciiString1&       dbVersion,
+                               const AsciiString1&       date,
+                               const AsciiString1&       schemaName,
+                               const AsciiString1&       schemaVersion,
+                               const UtfString&    appName,
+                               const AsciiString1&       appVersion,
+                               const UtfString&    dataType,
                                const TColStd_SequenceOfAsciiString& userInfo)
 {
   Standard_Integer i;
@@ -509,13 +509,13 @@ void FSD_BinaryFile::WriteInfo(const Standard_Integer               nbObj,
 
 Standard_Integer FSD_BinaryFile::WriteInfo(Standard_OStream&                    theOStream,
                                            const Standard_Integer               theObjNb,
-                                           const TCollection_AsciiString&       theStoreVer,
-                                           const TCollection_AsciiString&       theCreationDate,
-                                           const TCollection_AsciiString&       theSchemaName,
-                                           const TCollection_AsciiString&       theSchemaVersion,
-                                           const TCollection_ExtendedString&    theAppName,
-                                           const TCollection_AsciiString&       theAppVer,
-                                           const TCollection_ExtendedString&    theDataType,
+                                           const AsciiString1&       theStoreVer,
+                                           const AsciiString1&       theCreationDate,
+                                           const AsciiString1&       theSchemaName,
+                                           const AsciiString1&       theSchemaVersion,
+                                           const UtfString&    theAppName,
+                                           const AsciiString1&       theAppVer,
+                                           const UtfString&    theDataType,
                                            const TColStd_SequenceOfAsciiString& theUserInfo,
                                            const Standard_Boolean               theOnlyCount)
 {
@@ -562,7 +562,7 @@ Storage_Error FSD_BinaryFile::EndWriteInfoSection(Standard_OStream& theOStream)
 Storage_Error FSD_BinaryFile::BeginReadInfoSection()
 {
   Storage_Error           s = Storage_VSOk;
-  TCollection_AsciiString l;
+  AsciiString1 l;
   Standard_Size           len = strlen(FSD_BinaryFile::MagicNumber());
 
   ReadChar(l, len);
@@ -585,13 +585,13 @@ Storage_Error FSD_BinaryFile::BeginReadInfoSection()
 //=======================================================================
 
 void FSD_BinaryFile::ReadInfo(Standard_Integer&              nbObj,
-                              TCollection_AsciiString&       dbVersion,
-                              TCollection_AsciiString&       date,
-                              TCollection_AsciiString&       schemaName,
-                              TCollection_AsciiString&       schemaVersion,
-                              TCollection_ExtendedString&    appName,
-                              TCollection_AsciiString&       appVersion,
-                              TCollection_ExtendedString&    dataType,
+                              AsciiString1&       dbVersion,
+                              AsciiString1&       date,
+                              AsciiString1&       schemaName,
+                              AsciiString1&       schemaVersion,
+                              UtfString&    appName,
+                              AsciiString1&       appVersion,
+                              UtfString&    dataType,
                               TColStd_SequenceOfAsciiString& userInfo)
 {
   GetInteger(nbObj);
@@ -606,7 +606,7 @@ void FSD_BinaryFile::ReadInfo(Standard_Integer&              nbObj,
   Standard_Integer i, len = 0;
 
   GetInteger(len);
-  TCollection_AsciiString line;
+  AsciiString1 line;
 
   for (i = 1; i <= len && !IsEnd(); i++)
   {
@@ -661,7 +661,7 @@ void FSD_BinaryFile::ReadCompleteInfo(Standard_IStream& theIStream, Handle(Stora
       Standard_Integer aTypeSectionSize = TypeSectionSize(theIStream);
       theCallBack                       = new Storage_HArrayOfCallBack(1, aTypeSectionSize);
 
-      TCollection_AsciiString aTypeName;
+      AsciiString1 aTypeName;
       Standard_Integer        aTypeNum;
 
       for (Standard_Integer i = 1; i <= aTypeSectionSize; i++)
@@ -677,7 +677,7 @@ void FSD_BinaryFile::ReadCompleteInfo(Standard_IStream& theIStream, Handle(Stora
       Standard_Integer aRootSectionSize = RootSectionSize(theIStream);
 
       Standard_Integer            aRef;
-      TCollection_AsciiString     aRootName, aTypeName;
+      AsciiString1     aRootName, aTypeName;
       Handle(Storage_Root)        aRoot;
       Handle(DbObject) aPer;
 
@@ -825,7 +825,7 @@ Storage_Error FSD_BinaryFile::BeginReadCommentSection()
 
 void FSD_BinaryFile::ReadComment(TColStd_SequenceOfExtendedString& aCom)
 {
-  TCollection_ExtendedString line;
+  UtfString line;
   Standard_Integer           len, i;
 
   GetInteger(len);
@@ -841,7 +841,7 @@ void FSD_BinaryFile::ReadComment(TColStd_SequenceOfExtendedString& aCom)
 void FSD_BinaryFile::ReadComment(Standard_IStream&                 theIStream,
                                  TColStd_SequenceOfExtendedString& aCom)
 {
-  TCollection_ExtendedString line;
+  UtfString line;
   Standard_Integer           len, i;
 
   GetInteger(theIStream, len);
@@ -883,7 +883,7 @@ void FSD_BinaryFile::SetTypeSectionSize(const Standard_Integer aSize)
 //=================================================================================================
 
 void FSD_BinaryFile::WriteTypeInformations(const Standard_Integer         typeNum,
-                                           const TCollection_AsciiString& typeName)
+                                           const AsciiString1& typeName)
 {
   PutInteger(typeNum);
   WriteString(typeName);
@@ -933,7 +933,7 @@ Standard_Integer FSD_BinaryFile::TypeSectionSize(Standard_IStream& theIStream)
 //=================================================================================================
 
 void FSD_BinaryFile::ReadTypeInformations(Standard_Integer&        typeNum,
-                                          TCollection_AsciiString& typeName)
+                                          AsciiString1& typeName)
 {
   GetInteger(typeNum);
   ReadString(typeName);
@@ -943,7 +943,7 @@ void FSD_BinaryFile::ReadTypeInformations(Standard_Integer&        typeNum,
 
 void FSD_BinaryFile::ReadTypeInformations(Standard_IStream&        theIStream,
                                           Standard_Integer&        typeNum,
-                                          TCollection_AsciiString& typeName)
+                                          AsciiString1& typeName)
 {
   GetInteger(theIStream, typeNum);
   ReadString(theIStream, typeName);
@@ -983,9 +983,9 @@ void FSD_BinaryFile::SetRootSectionSize(const Standard_Integer aSize)
 
 //=================================================================================================
 
-void FSD_BinaryFile::WriteRoot(const TCollection_AsciiString& rootName,
+void FSD_BinaryFile::WriteRoot(const AsciiString1& rootName,
                                const Standard_Integer         aRef,
-                               const TCollection_AsciiString& rootType)
+                               const AsciiString1& rootType)
 {
   PutReference(aRef);
   WriteString(rootName);
@@ -1035,9 +1035,9 @@ Standard_Integer FSD_BinaryFile::RootSectionSize(Standard_IStream& theIStream)
 
 //=================================================================================================
 
-void FSD_BinaryFile::ReadRoot(TCollection_AsciiString& rootName,
+void FSD_BinaryFile::ReadRoot(AsciiString1& rootName,
                               Standard_Integer&        aRef,
-                              TCollection_AsciiString& rootType)
+                              AsciiString1& rootType)
 {
   GetReference(aRef);
   ReadString(rootName);
@@ -1047,9 +1047,9 @@ void FSD_BinaryFile::ReadRoot(TCollection_AsciiString& rootName,
 //=================================================================================================
 
 void FSD_BinaryFile::ReadRoot(Standard_IStream&        theIStream,
-                              TCollection_AsciiString& rootName,
+                              AsciiString1& rootName,
                               Standard_Integer&        aRef,
-                              TCollection_AsciiString& rootType)
+                              AsciiString1& rootType)
 {
   GetReference(theIStream, aRef);
   ReadString(theIStream, rootName);
@@ -1269,7 +1269,7 @@ Storage_Error FSD_BinaryFile::EndReadDataSection()
 // purpose  : write string at the current position.
 //=======================================================================
 
-void FSD_BinaryFile::WriteString(const TCollection_AsciiString& aString)
+void FSD_BinaryFile::WriteString(const AsciiString1& aString)
 {
   Standard_Integer size;
 
@@ -1289,7 +1289,7 @@ void FSD_BinaryFile::WriteString(const TCollection_AsciiString& aString)
 // purpose  : write string at the current position.
 //=======================================================================
 Standard_Integer FSD_BinaryFile::WriteString(Standard_OStream&              theOStream,
-                                             const TCollection_AsciiString& theString,
+                                             const AsciiString1& theString,
                                              const Standard_Boolean         theOnlyCount)
 {
   Standard_Integer aNumAndStrLen, anAsciiStrLen;
@@ -1315,7 +1315,7 @@ Standard_Integer FSD_BinaryFile::WriteString(Standard_OStream&              theO
 // purpose  : read string from the current position.
 //=======================================================================
 
-void FSD_BinaryFile::ReadString(TCollection_AsciiString& aString)
+void FSD_BinaryFile::ReadString(AsciiString1& aString)
 {
   Standard_Integer size = 0;
 
@@ -1340,7 +1340,7 @@ void FSD_BinaryFile::ReadString(TCollection_AsciiString& aString)
 // function : ReadString
 // purpose  : read string from the current position.
 //=======================================================================
-void FSD_BinaryFile::ReadString(Standard_IStream& theIStream, TCollection_AsciiString& aString)
+void FSD_BinaryFile::ReadString(Standard_IStream& theIStream, AsciiString1& aString)
 {
   Standard_Integer size = 0;
 
@@ -1380,7 +1380,7 @@ void FSD_BinaryFile::ReadString(Standard_IStream& theIStream, TCollection_AsciiS
 // purpose  : write string at the current position.
 //=======================================================================
 
-void FSD_BinaryFile::WriteExtendedString(const TCollection_ExtendedString& aString)
+void FSD_BinaryFile::WriteExtendedString(const UtfString& aString)
 {
   Standard_Integer size;
 
@@ -1392,7 +1392,7 @@ void FSD_BinaryFile::WriteExtendedString(const TCollection_ExtendedString& aStri
   {
     Standard_ExtString anExtStr;
 #if OCCT_BINARY_FILE_DO_INVERSE
-    TCollection_ExtendedString aCopy = aString;
+    UtfString aCopy = aString;
     anExtStr                         = aCopy.ToExtString();
 
     Standard_PExtCharacter pChar;
@@ -1414,7 +1414,7 @@ void FSD_BinaryFile::WriteExtendedString(const TCollection_ExtendedString& aStri
 // purpose  : write string at the current position.
 //=======================================================================
 Standard_Integer FSD_BinaryFile::WriteExtendedString(Standard_OStream&                 theOStream,
-                                                     const TCollection_ExtendedString& theString,
+                                                     const UtfString& theString,
                                                      const Standard_Boolean            theOnlyCount)
 {
   Standard_Integer aNumAndStrLen, anExtStrLen;
@@ -1427,7 +1427,7 @@ Standard_Integer FSD_BinaryFile::WriteExtendedString(Standard_OStream&          
   {
     Standard_ExtString anExtStr;
 #if OCCT_BINARY_FILE_DO_INVERSE
-    TCollection_ExtendedString aCopy = theString;
+    UtfString aCopy = theString;
     anExtStr                         = aCopy.ToExtString();
 
     Standard_PExtCharacter pChar;
@@ -1457,7 +1457,7 @@ Standard_Integer FSD_BinaryFile::WriteExtendedString(Standard_OStream&          
 // purpose  : read string from the current position.
 //=======================================================================
 
-void FSD_BinaryFile::ReadExtendedString(TCollection_ExtendedString& aString)
+void FSD_BinaryFile::ReadExtendedString(UtfString& aString)
 {
   Standard_Integer size = 0;
 
@@ -1487,7 +1487,7 @@ void FSD_BinaryFile::ReadExtendedString(TCollection_ExtendedString& aString)
 // purpose  : read string from the current position.
 //=======================================================================
 void FSD_BinaryFile::ReadExtendedString(Standard_IStream&           theIStream,
-                                        TCollection_ExtendedString& aString)
+                                        UtfString& aString)
 {
   Standard_Integer size = 0;
 
@@ -1615,9 +1615,9 @@ void FSD_BinaryFile::ReadHeaderData(Standard_IStream&                 theIStream
                                     const Handle(Storage_HeaderData)& theHeaderData)
 {
   // read info
-  TCollection_AsciiString uinfo, mStorageVersion, mDate, mSchemaName, mSchemaVersion,
+  AsciiString1 uinfo, mStorageVersion, mDate, mSchemaName, mSchemaVersion,
     mApplicationVersion;
-  TCollection_ExtendedString    mApplicationName, mDataType;
+  UtfString    mApplicationName, mDataType;
   TColStd_SequenceOfAsciiString mUserInfo;
   Standard_Integer              mNBObj;
 
@@ -1631,7 +1631,7 @@ void FSD_BinaryFile::ReadHeaderData(Standard_IStream&                 theIStream
   FSD_BinaryFile::ReadExtendedString(theIStream, mDataType);
 
   Standard_Integer        len = 0;
-  TCollection_AsciiString line;
+  AsciiString1 line;
 
   FSD_BinaryFile::GetInteger(theIStream, len);
 

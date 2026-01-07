@@ -29,7 +29,7 @@
 #include <gp_Hypr.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-class BRepBlend_HCurveTool
+class HCurveTool1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -120,9 +120,9 @@ public:
 
   static gp_Parab Parabola(const Handle(Adaptor3d_Curve)& C);
 
-  static Handle(Geom_BezierCurve) Bezier(const Handle(Adaptor3d_Curve)& C);
+  static Handle(BezierCurve3d) Bezier(const Handle(Adaptor3d_Curve)& C);
 
-  static Handle(Geom_BSplineCurve) BSpline(const Handle(Adaptor3d_Curve)& C);
+  static Handle(BSplineCurve3d) BSpline(const Handle(Adaptor3d_Curve)& C);
 
   Standard_EXPORT static Standard_Integer NbSamples(const Handle(Adaptor3d_Curve)& C,
                                                     const Standard_Real            U0,

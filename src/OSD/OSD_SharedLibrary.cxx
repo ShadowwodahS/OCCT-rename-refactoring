@@ -258,8 +258,8 @@ OSD_SharedLibrary ::OSD_SharedLibrary(const Standard_CString aFilename)
 void OSD_SharedLibrary ::SetName(const Standard_CString aName)
 {
 
-  OSD_Path                path(aName);
-  TCollection_AsciiString name(aName);
+  SystemPath                path(aName);
+  AsciiString1 name(aName);
 
   if (myName != NULL)
 
@@ -272,7 +272,7 @@ void OSD_SharedLibrary ::SetName(const Standard_CString aName)
   name = path.Name();
   name.AssignCat(path.Extension());
 
-  TCollection_ExtendedString nameW(name);
+  UtfString nameW(name);
   #ifndef OCCT_UWP
   myHandle = GetModuleHandleW(nameW.ToWideString());
   #else
@@ -296,7 +296,7 @@ Standard_Boolean OSD_SharedLibrary ::DlOpen(const OSD_LoadMode /*Mode*/)
 
   if (myHandle == NULL)
   {
-    TCollection_ExtendedString myNameW(myName);
+    UtfString myNameW(myName);
   #ifndef OCCT_UWP
     myHandle =
       (HINSTANCE)LoadLibraryExW(myNameW.ToWideString(), NULL, LOAD_WITH_ALTERED_SEARCH_PATH);

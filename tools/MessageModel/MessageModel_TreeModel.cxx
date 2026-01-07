@@ -144,7 +144,7 @@ Standard_Boolean MessageModel_TreeModel::HasReport(const Handle(Message_Report)&
 // purpose :
 // =======================================================================
 void MessageModel_TreeModel::AddReport(const Handle(Message_Report)&  theReport,
-                                       const TCollection_AsciiString& theReportDescription)
+                                       const AsciiString1& theReportDescription)
 {
   for (int aColId = 0, aNbColumns = columnCount(); aColId < aNbColumns; aColId++)
   {
@@ -164,7 +164,7 @@ void MessageModel_TreeModel::AddReport(const Handle(Message_Report)&  theReport,
 // =======================================================================
 void MessageModel_TreeModel::SetReport(const int                      theRowId,
                                        const Handle(Message_Report)&  theReport,
-                                       const TCollection_AsciiString& theReportDescription)
+                                       const AsciiString1& theReportDescription)
 {
   for (int aColId = 0, aNbColumns = columnCount(); aColId < aNbColumns; aColId++)
   {
@@ -191,7 +191,7 @@ const NCollection_List<MessageModel_ReportInformation>& MessageModel_TreeModel::
 // function : UpdateTreeModel
 // purpose :
 // =======================================================================
-void MessageModel_TreeModel::SetRootItemName(const TCollection_AsciiString& theName)
+void MessageModel_TreeModel::SetRootItemName(const AsciiString1& theName)
 {
   MessageModel_ItemRootPtr aRootItem = itemDynamicCast<MessageModel_ItemRoot>(RootItem(0));
   if (aRootItem)

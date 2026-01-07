@@ -21,7 +21,7 @@
 #include <Geom2d_Curve.hxx>
 
 class Geom2d_Conic;
-DEFINE_STANDARD_HANDLE(Geom2d_Conic, Geom2d_Curve)
+DEFINE_STANDARD_HANDLE(Geom2d_Conic, GeomCurve2d)
 
 //! The abstract class Conic describes the common
 //! behavior of conic curves in 2D space and, in
@@ -38,7 +38,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_Conic, Geom2d_Curve)
 //! parameter increases along the conic. The "X Axis" of
 //! the local coordinate system also defines the origin of
 //! the parameter of the conic.
-class Geom2d_Conic : public Geom2d_Curve
+class Geom2d_Conic : public GeomCurve2d
 {
 public:
   //! Modifies this conic, redefining its local coordinate system
@@ -110,7 +110,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom2d_Conic, Geom2d_Curve)
+  DEFINE_STANDARD_RTTIEXT(Geom2d_Conic, GeomCurve2d)
 
 protected:
   gp_Ax22d pos;

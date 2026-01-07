@@ -24,7 +24,7 @@
 #include <ShapeUpgrade_Tool.hxx>
 class ShapeUpgrade_SplitCurve3d;
 class ShapeUpgrade_SplitCurve2d;
-class TopoDS_Edge;
+class TopoEdge;
 
 class ShapeUpgrade_EdgeDivide;
 DEFINE_STANDARD_HANDLE(ShapeUpgrade_EdgeDivide, ShapeUpgrade_Tool)
@@ -39,9 +39,9 @@ public:
   Standard_EXPORT void Clear();
 
   //! Sets supporting surface by face
-  void SetFace(const TopoDS_Face& F);
+  void SetFace(const TopoFace& F);
 
-  Standard_EXPORT virtual Standard_Boolean Compute(const TopoDS_Edge& E);
+  Standard_EXPORT virtual Standard_Boolean Compute(const TopoEdge& E);
 
   Standard_Boolean HasCurve2d() const;
 
@@ -68,7 +68,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_EdgeDivide, ShapeUpgrade_Tool)
 
 protected:
-  TopoDS_Face                     myFace;
+  TopoFace                     myFace;
   Standard_Boolean                myHasCurve2d;
   Standard_Boolean                myHasCurve3d;
   Handle(TColStd_HSequenceOfReal) myKnots2d;

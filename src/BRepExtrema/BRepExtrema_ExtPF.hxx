@@ -21,8 +21,8 @@
 #include <Extrema_ExtFlag.hxx>
 #include <Extrema_ExtAlgo.hxx>
 
-class TopoDS_Vertex;
-class TopoDS_Face;
+class TopoVertex;
+class TopoFace;
 
 class BRepExtrema_ExtPF
 {
@@ -32,18 +32,18 @@ public:
   BRepExtrema_ExtPF() {}
 
   //! It calculates all the distances. <br>
-  Standard_EXPORT BRepExtrema_ExtPF(const TopoDS_Vertex&  TheVertex,
-                                    const TopoDS_Face&    TheFace,
+  Standard_EXPORT BRepExtrema_ExtPF(const TopoVertex&  TheVertex,
+                                    const TopoFace&    TheFace,
                                     const Extrema_ExtFlag TheFlag = Extrema_ExtFlag_MINMAX,
                                     const Extrema_ExtAlgo TheAlgo = Extrema_ExtAlgo_Grad);
 
-  Standard_EXPORT void Initialize(const TopoDS_Face&    TheFace,
+  Standard_EXPORT void Initialize(const TopoFace&    TheFace,
                                   const Extrema_ExtFlag TheFlag = Extrema_ExtFlag_MINMAX,
                                   const Extrema_ExtAlgo TheAlgo = Extrema_ExtAlgo_Grad);
 
   //! An exception is raised if the fields have not been initialized. <br>
   //! Be careful: this method uses the Face only for classify not for the fields. <br>
-  Standard_EXPORT void Perform(const TopoDS_Vertex& TheVertex, const TopoDS_Face& TheFace);
+  Standard_EXPORT void Perform(const TopoVertex& TheVertex, const TopoFace& TheFace);
 
   //! True if the distances are found. <br>
   Standard_Boolean IsDone() const { return myExtPS.IsDone(); }

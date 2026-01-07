@@ -25,8 +25,8 @@
 #include <Standard_Boolean.hxx>
 
 //! This class implements the common services for
-//! all classes of TopoDSToStep which report error.
-class TopoDSToStep_Root
+//! all classes of TopoDSToStep1 which report error.
+class Root3
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -38,7 +38,7 @@ public:
   Standard_EXPORT Standard_Boolean IsDone() const;
 
 protected:
-  Standard_EXPORT TopoDSToStep_Root();
+  Standard_EXPORT Root3();
 
   Standard_Real    toler;
   Standard_Boolean done;

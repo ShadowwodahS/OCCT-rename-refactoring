@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <TopTools_ListIteratorOfListOfShape.hxx>
-class TopoDS_Edge;
+class TopoEdge;
 
 class LocOpe_FindEdges
 {
@@ -30,26 +30,26 @@ public:
 
   LocOpe_FindEdges();
 
-  LocOpe_FindEdges(const TopoDS_Shape& FFrom, const TopoDS_Shape& FTo);
+  LocOpe_FindEdges(const TopoShape& FFrom, const TopoShape& FTo);
 
-  Standard_EXPORT void Set(const TopoDS_Shape& FFrom, const TopoDS_Shape& FTo);
+  Standard_EXPORT void Set(const TopoShape& FFrom, const TopoShape& FTo);
 
   void InitIterator();
 
   Standard_Boolean More() const;
 
-  const TopoDS_Edge& EdgeFrom() const;
+  const TopoEdge& EdgeFrom() const;
 
-  const TopoDS_Edge& EdgeTo() const;
+  const TopoEdge& EdgeTo() const;
 
   void Next();
 
 protected:
 private:
-  TopoDS_Shape                       myFFrom;
-  TopoDS_Shape                       myFTo;
-  TopTools_ListOfShape               myLFrom;
-  TopTools_ListOfShape               myLTo;
+  TopoShape                       myFFrom;
+  TopoShape                       myFTo;
+  ShapeList               myLFrom;
+  ShapeList               myLTo;
   TopTools_ListIteratorOfListOfShape myItFrom;
   TopTools_ListIteratorOfListOfShape myItTo;
 };

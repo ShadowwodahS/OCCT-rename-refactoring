@@ -36,7 +36,7 @@ void DFBrowserPane_TDFReference::GetValues(const Handle(TDF_Attribute)& theAttri
   if (anAttribute.IsNull())
     return;
 
-  TDF_Label aLabel = anAttribute->Get();
+  DataLabel aLabel = anAttribute->Get();
   theValues.append("Get");
   theValues.append(DFBrowserPane_Tools::GetEntry(aLabel).ToCString());
 }
@@ -46,7 +46,7 @@ void DFBrowserPane_TDFReference::GetValues(const Handle(TDF_Attribute)& theAttri
 // purpose :
 // =======================================================================
 void DFBrowserPane_TDFReference::GetReferences(const Handle(TDF_Attribute)& theAttribute,
-                                               NCollection_List<TDF_Label>& theRefLabels,
+                                               NCollection_List<DataLabel>& theRefLabels,
                                                Handle(RefObject)& /*theRefPresentation*/)
 {
   Handle(TDF_Reference) anAttribute = Handle(TDF_Reference)::DownCast(theAttribute);

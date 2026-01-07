@@ -119,7 +119,7 @@ public:
   /**
    * Fill the Node internal data from the given input stream.
    */
-  Standard_EXPORT virtual VrmlData_ErrorStatus Read(VrmlData_InBuffer& theBuffer) Standard_OVERRIDE;
+  Standard_EXPORT virtual VrmlData_ErrorStatus Read(InputBuffer& theBuffer) Standard_OVERRIDE;
 
   /**
    * Write the Node to output stream.

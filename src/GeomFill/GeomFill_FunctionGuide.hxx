@@ -29,8 +29,8 @@
 
 class Adaptor3d_Curve;
 class GeomFill_SectionLaw;
-class Geom_Curve;
-class Geom_Surface;
+class GeomCurve3d;
+class GeomSurface;
 class Point3d;
 class math_Matrix;
 class Vector3d;
@@ -108,9 +108,9 @@ private:
   Handle(Adaptor3d_Curve)     TheGuide;
   Handle(GeomFill_SectionLaw) TheLaw;
   Standard_Boolean            isconst;
-  Handle(Geom_Curve)          TheCurve;
-  Handle(Geom_Curve)          TheConst;
-  Handle(Geom_Surface)        TheSurface;
+  Handle(GeomCurve3d)          TheCurve;
+  Handle(GeomCurve3d)          TheConst;
+  Handle(GeomSurface)        TheSurface;
   Standard_Real               First;
   Standard_Real               Last;
   Standard_Real               TheUonS;

@@ -43,28 +43,28 @@ ShapeFix_SplitTool::ShapeFix_SplitTool() {}
 
 //=================================================================================================
 
-Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&   edge,
+Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoEdge&   edge,
                                                const Standard_Real  param,
-                                               const TopoDS_Vertex& vert,
-                                               const TopoDS_Face&   face,
-                                               TopoDS_Edge&         newE1,
-                                               TopoDS_Edge&         newE2,
+                                               const TopoVertex& vert,
+                                               const TopoFace&   face,
+                                               TopoEdge&         newE1,
+                                               TopoEdge&         newE2,
                                                const Standard_Real  tol3d,
                                                const Standard_Real  tol2d) const
 {
   Standard_Real        a, b;
   ShapeAnalysis_Edge   sae;
-  Handle(Geom2d_Curve) c2d;
+  Handle(GeomCurve2d) c2d;
   sae.PCurve(edge, face, c2d, a, b, Standard_True);
   if (Abs(a - param) < tol2d || Abs(b - param) < tol2d)
     return Standard_False;
   // check distance between edge and new vertex
   Point3d          P1;
   TopLoc_Location L;
-  if (BRep_Tool::SameParameter(edge))
+  if (BRepInspector::SameParameter(edge))
   {
     Standard_Real            f, l;
-    const Handle(Geom_Curve) c3d = BRep_Tool::Curve(edge, L, f, l);
+    const Handle(GeomCurve3d) c3d = BRepInspector::Curve(edge, L, f, l);
     if (c3d.IsNull())
       return Standard_False;
     P1 = c3d->Value(param);
@@ -73,17 +73,17 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&   edge,
   }
   else
   {
-    Handle(Geom_Surface)          surf = BRep_Tool::Surface(face, L);
+    Handle(GeomSurface)          surf = BRepInspector::Surface(face, L);
     Handle(ShapeAnalysis_Surface) sas  = new ShapeAnalysis_Surface(surf);
     P1                                 = sas->Value(c2d->Value(param));
     if (!L.IsIdentity())
       P1 = P1.Transformed(L.Transformation());
   }
-  Point3d P2 = BRep_Tool::Pnt(vert);
+  Point3d P2 = BRepInspector::Pnt(vert);
   if (P1.Distance(P2) > tol3d)
   {
     // return Standard_False;
-    BRep_Builder B;
+    ShapeBuilder B;
     B.UpdateVertex(vert, P1.Distance(P2));
   }
 
@@ -106,10 +106,10 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&   edge,
   ShapeBuild_Edge       sbe;
   Handle(ShapeFix_Edge) sfe    = new ShapeFix_Edge;
   TopAbs_Orientation    orient = edge.Orientation();
-  BRep_Builder          B;
-  TopoDS_Edge           wE = edge;
+  ShapeBuilder          B;
+  TopoEdge           wE = edge;
   wE.Orientation(TopAbs_FORWARD);
-  TopoDS_Shape aTmpShape = vert.Oriented(TopAbs_REVERSED); // for porting
+  TopoShape aTmpShape = vert.Oriented(TopAbs_REVERSED); // for porting
   newE1 = sbe.CopyReplaceVertices(wE, sae.FirstVertex(wE), TopoDS::Vertex(aTmpShape));
   sbe.CopyPCurves(newE1, wE);
   transferParameters->TransferRange(newE1, first, param, Standard_True);
@@ -128,7 +128,7 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&   edge,
   newE2.Orientation(orient);
   if (orient == TopAbs_REVERSED)
   {
-    TopoDS_Edge tmp = newE2;
+    TopoEdge tmp = newE2;
     newE2           = newE1;
     newE1           = tmp;
   }
@@ -138,13 +138,13 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&   edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&   edge,
+Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoEdge&   edge,
                                                const Standard_Real  param1,
                                                const Standard_Real  param2,
-                                               const TopoDS_Vertex& vert,
-                                               const TopoDS_Face&   face,
-                                               TopoDS_Edge&         newE1,
-                                               TopoDS_Edge&         newE2,
+                                               const TopoVertex& vert,
+                                               const TopoFace&   face,
+                                               TopoEdge&         newE1,
+                                               TopoEdge&         newE2,
                                                const Standard_Real  tol3d,
                                                const Standard_Real  tol2d) const
 {
@@ -153,7 +153,7 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&   edge,
   {
     // cut new edges by param1 and param2
     Standard_Boolean     IsCutLine;
-    Handle(Geom2d_Curve) Crv1, Crv2;
+    Handle(GeomCurve2d) Crv1, Crv2;
     Standard_Real        fp1, lp1, fp2, lp2;
     ShapeAnalysis_Edge   sae;
     if (sae.PCurve(newE1, face, Crv1, fp1, lp1, Standard_False))
@@ -195,26 +195,26 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&   edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeFix_SplitTool::CutEdge(const TopoDS_Edge&  edge,
+Standard_Boolean ShapeFix_SplitTool::CutEdge(const TopoEdge&  edge,
                                              const Standard_Real pend,
                                              const Standard_Real cut,
-                                             const TopoDS_Face&  face,
+                                             const TopoFace&  face,
                                              Standard_Boolean&   iscutline) const
 {
   if (Abs(cut - pend) < 10. * Precision::PConfusion())
     return Standard_False;
   Standard_Real aRange = Abs(cut - pend);
   Standard_Real a, b;
-  BRep_Tool::Range(edge, a, b);
+  BRepInspector::Range(edge, a, b);
   iscutline = Standard_False;
   if (aRange < 10. * Precision::PConfusion())
     return Standard_False;
 
   // case pcurve is trimm of line
-  if (!BRep_Tool::SameParameter(edge))
+  if (!BRepInspector::SameParameter(edge))
   {
     ShapeAnalysis_Edge   sae;
-    Handle(Geom2d_Curve) Crv;
+    Handle(GeomCurve2d) Crv;
     Standard_Real        fp, lp;
     if (sae.PCurve(edge, face, Crv, fp, lp, Standard_False))
     {
@@ -223,7 +223,7 @@ Standard_Boolean ShapeFix_SplitTool::CutEdge(const TopoDS_Edge&  edge,
         Handle(Geom2d_TrimmedCurve) tc = Handle(Geom2d_TrimmedCurve)::DownCast(Crv);
         if (tc->BasisCurve()->IsKind(STANDARD_TYPE(Geom2d_Line)))
         {
-          BRep_Builder B;
+          ShapeBuilder B;
           B.Range(edge, Min(pend, cut), Max(pend, cut));
           if (Abs(pend - lp) < Precision::PConfusion())
           { // cut from the beginning
@@ -253,14 +253,14 @@ Standard_Boolean ShapeFix_SplitTool::CutEdge(const TopoDS_Edge&  edge,
   if (aRange < 10. * Precision::PConfusion())
     return Standard_False;
 
-  Handle(Geom_Curve)  c = BRep_Tool::Curve(edge, a, b);
+  Handle(GeomCurve3d)  c = BRepInspector::Curve(edge, a, b);
   ShapeAnalysis_Curve sac;
   a                = Min(pend, cut);
   b                = Max(pend, cut);
   Standard_Real na = a, nb = b;
 
-  BRep_Builder B;
-  if (!BRep_Tool::Degenerated(edge) && !c.IsNull()
+  ShapeBuilder B;
+  if (!BRepInspector::Degenerated(edge) && !c.IsNull()
       && sac.ValidateRange(c, na, nb, Precision::PConfusion()) && (na != a || nb != b))
   {
     B.Range(edge, na, nb, Standard_True);
@@ -283,12 +283,12 @@ Standard_Boolean ShapeFix_SplitTool::CutEdge(const TopoDS_Edge&  edge,
 
 //=================================================================================================
 
-Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&                edge,
+Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoEdge&                edge,
                                                const Standard_Real               fp,
-                                               const TopoDS_Vertex&              V1,
+                                               const TopoVertex&              V1,
                                                const Standard_Real               lp,
-                                               const TopoDS_Vertex&              V2,
-                                               const TopoDS_Face&                face,
+                                               const TopoVertex&              V2,
+                                               const TopoFace&                face,
                                                TopTools_SequenceOfShape&         SeqE,
                                                Standard_Integer&                 aNum,
                                                const Handle(ShapeBuild_ReShape)& context,
@@ -299,21 +299,21 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&               
     return Standard_False;
   aNum = 0;
   SeqE.Clear();
-  BRep_Builder         B;
+  ShapeBuilder         B;
   Standard_Real        a, b;
   ShapeAnalysis_Edge   sae;
-  Handle(Geom2d_Curve) c2d;
+  Handle(GeomCurve2d) c2d;
   sae.PCurve(edge, face, c2d, a, b, Standard_True);
-  TopoDS_Vertex VF    = sae.FirstVertex(edge);
-  TopoDS_Vertex VL    = sae.LastVertex(edge);
-  Standard_Real tolVF = BRep_Tool::Tolerance(VF);
-  Standard_Real tolVL = BRep_Tool::Tolerance(VL);
-  Standard_Real tolV1 = BRep_Tool::Tolerance(V1);
-  Standard_Real tolV2 = BRep_Tool::Tolerance(V2);
-  Point3d        PVF   = BRep_Tool::Pnt(VF);
-  Point3d        PVL   = BRep_Tool::Pnt(VL);
-  Point3d        PV1   = BRep_Tool::Pnt(V1);
-  Point3d        PV2   = BRep_Tool::Pnt(V2);
+  TopoVertex VF    = sae.FirstVertex(edge);
+  TopoVertex VL    = sae.LastVertex(edge);
+  Standard_Real tolVF = BRepInspector::Tolerance(VF);
+  Standard_Real tolVL = BRepInspector::Tolerance(VL);
+  Standard_Real tolV1 = BRepInspector::Tolerance(V1);
+  Standard_Real tolV2 = BRepInspector::Tolerance(V2);
+  Point3d        PVF   = BRepInspector::Pnt(VF);
+  Point3d        PVL   = BRepInspector::Pnt(VL);
+  Point3d        PV1   = BRepInspector::Pnt(V1);
+  Point3d        PV2   = BRepInspector::Pnt(V2);
 
   Standard_Real    par1, par2;
   Standard_Boolean IsReverse = Standard_False;
@@ -395,7 +395,7 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&               
 
   if (fabs(a - par1) <= tol2d && fabs(b - par2) > tol2d)
   {
-    TopoDS_Edge newE1, newE2;
+    TopoEdge newE1, newE2;
     if (IsReverse)
     {
       if (!SplitEdge(edge, par2, V1, face, newE1, newE2, tol3d, tol2d))
@@ -439,7 +439,7 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&               
 
   if (fabs(a - par1) > tol2d && fabs(b - par2) <= tol2d)
   {
-    TopoDS_Edge newE1, newE2;
+    TopoEdge newE1, newE2;
     if (IsReverse)
     {
       if (!SplitEdge(edge, par1, V2, face, newE1, newE2, tol3d, tol2d))
@@ -483,7 +483,7 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&               
 
   if (fabs(a - par1) > tol2d && fabs(b - par2) > tol2d)
   {
-    TopoDS_Edge newE1, newE2, newE3, newE4;
+    TopoEdge newE1, newE2, newE3, newE4;
     if (IsReverse)
     {
       if (!SplitEdge(edge, par1, V2, face, newE1, newE2, tol3d, tol2d))
@@ -513,10 +513,10 @@ Standard_Boolean ShapeFix_SplitTool::SplitEdge(const TopoDS_Edge&               
     sewd->Add(SeqE.Value(i));
   }
   context->Replace(edge, sewd->Wire());
-  for (TopExp_Explorer exp(sewd->Wire(), TopAbs_EDGE); exp.More(); exp.Next())
+  for (ShapeExplorer exp(sewd->Wire(), TopAbs_EDGE); exp.More(); exp.Next())
   {
-    TopoDS_Edge E = TopoDS::Edge(exp.Current());
-    BRepTools::Update(E);
+    TopoEdge E = TopoDS::Edge(exp.Current());
+    BRepTools1::Update(E);
   }
 
   return Standard_True;

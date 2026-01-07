@@ -29,17 +29,17 @@ public:
 
   Standard_EXPORT XmlLDrivers_NamespaceDef();
 
-  Standard_EXPORT XmlLDrivers_NamespaceDef(const TCollection_AsciiString& thePrefix,
-                                           const TCollection_AsciiString& theURI);
+  Standard_EXPORT XmlLDrivers_NamespaceDef(const AsciiString1& thePrefix,
+                                           const AsciiString1& theURI);
 
-  Standard_EXPORT const TCollection_AsciiString& Prefix() const;
+  Standard_EXPORT const AsciiString1& Prefix() const;
 
-  Standard_EXPORT const TCollection_AsciiString& URI() const;
+  Standard_EXPORT const AsciiString1& URI() const;
 
 protected:
 private:
-  TCollection_AsciiString myPrefix;
-  TCollection_AsciiString myURI;
+  AsciiString1 myPrefix;
+  AsciiString1 myURI;
 };
 
 #endif // _XmlLDrivers_NamespaceDef_HeaderFile

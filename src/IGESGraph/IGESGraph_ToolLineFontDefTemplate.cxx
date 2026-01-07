@@ -31,9 +31,9 @@
 #include <Interface_ShareTool.hxx>
 #include <Message_Messenger.hxx>
 
-IGESGraph_ToolLineFontDefTemplate::IGESGraph_ToolLineFontDefTemplate() {}
+LineFontDefTemplateTool::LineFontDefTemplateTool() {}
 
-void IGESGraph_ToolLineFontDefTemplate::ReadOwnParams(
+void LineFontDefTemplateTool::ReadOwnParams(
   const Handle(IGESGraph_LineFontDefTemplate)& ent,
   const Handle(IGESData_IGESReaderData)&       IR,
   IGESData_ParamReader&                        PR) const
@@ -61,7 +61,7 @@ void IGESGraph_ToolLineFontDefTemplate::ReadOwnParams(
   ent->Init(tempOrientation, tempTemplateEntity, tempDistance, tempScale);
 }
 
-void IGESGraph_ToolLineFontDefTemplate::WriteOwnParams(
+void LineFontDefTemplateTool::WriteOwnParams(
   const Handle(IGESGraph_LineFontDefTemplate)& ent,
   IGESData_IGESWriter&                         IW) const
 {
@@ -71,13 +71,13 @@ void IGESGraph_ToolLineFontDefTemplate::WriteOwnParams(
   IW.Send(ent->Scale());
 }
 
-void IGESGraph_ToolLineFontDefTemplate::OwnShared(const Handle(IGESGraph_LineFontDefTemplate)& ent,
+void LineFontDefTemplateTool::OwnShared(const Handle(IGESGraph_LineFontDefTemplate)& ent,
                                                   Interface_EntityIterator& iter) const
 {
   iter.GetOneItem(ent->TemplateEntity());
 }
 
-void IGESGraph_ToolLineFontDefTemplate::OwnCopy(
+void LineFontDefTemplateTool::OwnCopy(
   const Handle(IGESGraph_LineFontDefTemplate)& another,
   const Handle(IGESGraph_LineFontDefTemplate)& ent,
   Interface_CopyTool&                          TC) const
@@ -92,10 +92,10 @@ void IGESGraph_ToolLineFontDefTemplate::OwnCopy(
   ent->Init(tempOrientation, tempTemplateSubfigure, tempDistance, tempScale);
 }
 
-IGESData_DirChecker IGESGraph_ToolLineFontDefTemplate::DirChecker(
+DirectoryChecker LineFontDefTemplateTool::DirChecker(
   const Handle(IGESGraph_LineFontDefTemplate)& /*ent*/) const
 {
-  IGESData_DirChecker DC(304, 1);
+  DirectoryChecker DC(304, 1);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefValue);
   DC.LineWeight(IGESData_DefVoid);
@@ -108,7 +108,7 @@ IGESData_DirChecker IGESGraph_ToolLineFontDefTemplate::DirChecker(
   return DC;
 }
 
-void IGESGraph_ToolLineFontDefTemplate::OwnCheck(const Handle(IGESGraph_LineFontDefTemplate)& ent,
+void LineFontDefTemplateTool::OwnCheck(const Handle(IGESGraph_LineFontDefTemplate)& ent,
                                                  const Interface_ShareTool&,
                                                  Handle(Interface_Check)& ach) const
 {
@@ -118,7 +118,7 @@ void IGESGraph_ToolLineFontDefTemplate::OwnCheck(const Handle(IGESGraph_LineFont
     ach->AddWarning("Invalid Value As Line Font Rank");
 }
 
-void IGESGraph_ToolLineFontDefTemplate::OwnDump(const Handle(IGESGraph_LineFontDefTemplate)& ent,
+void LineFontDefTemplateTool::OwnDump(const Handle(IGESGraph_LineFontDefTemplate)& ent,
                                                 const IGESData_IGESDumper&                   dumper,
                                                 Standard_OStream&                            S,
                                                 const Standard_Integer level) const

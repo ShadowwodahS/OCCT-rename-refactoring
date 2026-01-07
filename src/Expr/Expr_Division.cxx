@@ -36,7 +36,7 @@ Expr_Division::Expr_Division(const Handle(Expr_GeneralExpression)& exp1,
 
 Handle(Expr_GeneralExpression) Expr_Division::Copy() const
 {
-  return Expr::CopyShare(FirstOperand()) / Expr::CopyShare(SecondOperand());
+  return Expr1::CopyShare(FirstOperand()) / Expr1::CopyShare(SecondOperand());
 }
 
 Standard_Boolean Expr_Division::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -80,17 +80,17 @@ Handle(Expr_GeneralExpression) Expr_Division::Derivative(const Handle(Expr_Named
   Handle(Expr_GeneralExpression) mysder   = mysecond->Derivative(X);
 
   // "u'v"
-  Handle(Expr_Product) firstprod = myfder * Expr::CopyShare(mysecond);
+  Handle(Expr_Product) firstprod = myfder * Expr1::CopyShare(mysecond);
 
   Handle(Expr_GeneralExpression) firstsimp = firstprod->ShallowSimplified();
   // "uv'"
-  Handle(Expr_Product)           secondprod = Expr::CopyShare(myfirst) * mysder;
+  Handle(Expr_Product)           secondprod = Expr1::CopyShare(myfirst) * mysder;
   Handle(Expr_GeneralExpression) secondsimp = secondprod->ShallowSimplified();
   // "u'v - uv'"
   Handle(Expr_Difference) mynumer = firstsimp - secondsimp;
 
   // " v2"
-  Handle(Expr_Square) mydenom = new Expr_Square(Expr::CopyShare(mysecond));
+  Handle(Expr_Square) mydenom = new Expr_Square(Expr1::CopyShare(mysecond));
 
   // result = "u'v-uv' / v2"
 
@@ -145,11 +145,11 @@ Standard_Real Expr_Division::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return res / SecondOperand()->Evaluate(vars, vals);
 }
 
-TCollection_AsciiString Expr_Division::String() const
+AsciiString1 Expr_Division::String() const
 {
   Handle(Expr_GeneralExpression) op1 = FirstOperand();
   Handle(Expr_GeneralExpression) op2 = SecondOperand();
-  TCollection_AsciiString        str;
+  AsciiString1        str;
   if (op1->NbSubExpressions() > 1)
   {
     str = "(";

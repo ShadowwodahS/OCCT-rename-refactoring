@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-Standard_OStream& TopOpeBRepTool::Print(const TopOpeBRepTool_OutCurveType t, Standard_OStream& OS)
+Standard_OStream& TopOpeBRepTool1::Print(const TopOpeBRepTool_OutCurveType t, Standard_OStream& OS)
 {
   // #ifdef OCCT_DEBUG
   switch (t)

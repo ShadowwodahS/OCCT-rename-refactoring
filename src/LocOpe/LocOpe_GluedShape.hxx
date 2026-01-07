@@ -23,9 +23,9 @@
 #include <TopTools_DataMapOfShapeShape.hxx>
 #include <LocOpe_GeneratedShape.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Face;
-class TopoDS_Edge;
-class TopoDS_Vertex;
+class TopoFace;
+class TopoEdge;
+class TopoVertex;
 
 class LocOpe_GluedShape;
 DEFINE_STANDARD_HANDLE(LocOpe_GluedShape, LocOpe_GeneratedShape)
@@ -36,25 +36,25 @@ class LocOpe_GluedShape : public LocOpe_GeneratedShape
 public:
   Standard_EXPORT LocOpe_GluedShape();
 
-  Standard_EXPORT LocOpe_GluedShape(const TopoDS_Shape& S);
+  Standard_EXPORT LocOpe_GluedShape(const TopoShape& S);
 
-  Standard_EXPORT void Init(const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const TopoShape& S);
 
-  Standard_EXPORT void GlueOnFace(const TopoDS_Face& F);
+  Standard_EXPORT void GlueOnFace(const TopoFace& F);
 
-  Standard_EXPORT const TopTools_ListOfShape& GeneratingEdges() Standard_OVERRIDE;
+  Standard_EXPORT const ShapeList& GeneratingEdges() Standard_OVERRIDE;
 
   //! Returns the  edge  created by  the  vertex <V>. If
   //! none, must return a null shape.
-  Standard_EXPORT TopoDS_Edge Generated(const TopoDS_Vertex& V) Standard_OVERRIDE;
+  Standard_EXPORT TopoEdge Generated(const TopoVertex& V) Standard_OVERRIDE;
 
   //! Returns the face created by the edge <E>. If none,
   //! must return a null shape.
-  Standard_EXPORT TopoDS_Face Generated(const TopoDS_Edge& E) Standard_OVERRIDE;
+  Standard_EXPORT TopoFace Generated(const TopoEdge& E) Standard_OVERRIDE;
 
   //! Returns  the  list of correctly oriented generated
   //! faces.
-  Standard_EXPORT const TopTools_ListOfShape& OrientedFaces() Standard_OVERRIDE;
+  Standard_EXPORT const ShapeList& OrientedFaces() Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(LocOpe_GluedShape, LocOpe_GeneratedShape)
 
@@ -62,7 +62,7 @@ protected:
 private:
   Standard_EXPORT void MapEdgeAndVertices();
 
-  TopoDS_Shape                 myShape;
+  TopoShape                 myShape;
   TopTools_MapOfShape          myMap;
   TopTools_DataMapOfShapeShape myGShape;
 };

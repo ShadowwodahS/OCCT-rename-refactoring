@@ -25,7 +25,7 @@
 // purpose  :
 //=======================================================================
 
-inline TCollection_AsciiString Units_Unit::Name() const
+inline AsciiString1 Units_Unit::Name() const
 {
   return thename->String();
 }

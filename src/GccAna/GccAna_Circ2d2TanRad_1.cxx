@@ -40,7 +40,7 @@
 // Create the solution and add it to already found ones.                 +
 // Fill the fields.                                                      +
 //========================================================================
-GccAna_Circ2d2TanRad::GccAna_Circ2d2TanRad(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dTwoTangentRadius::Circle2dTwoTangentRadius(const GccEnt_QualifiedCirc& Qualified1,
                                            const GccEnt_QualifiedLin&  Qualified2,
                                            const Standard_Real         Radius,
                                            const Standard_Real         Tolerance)
@@ -554,7 +554,7 @@ GccAna_Circ2d2TanRad::GccAna_Circ2d2TanRad(const GccEnt_QualifiedCirc& Qualified
                     gp_Pnt2d(Center.XY() - Radius * (gp_Dir2d(Center.XY() - center1.XY()).XY()));
                 }
                 pnttg2sol(NbrSol) =
-                  gp_Pnt2d(Center.XY() + cote2(jcote2) * Radius * gp_XY(ydir, -xdir));
+                  gp_Pnt2d(Center.XY() + cote2(jcote2) * Radius * Coords2d(ydir, -xdir));
               }
             }
             WellDone = Standard_True;
@@ -564,7 +564,7 @@ GccAna_Circ2d2TanRad::GccAna_Circ2d2TanRad(const GccEnt_QualifiedCirc& Qualified
     }
     else if (nbsol == 2)
     {
-      gp_Pnt2d Cen(center1.XY() + cote * (R1 + Radius) * gp_XY(-ydir, xdir));
+      gp_Pnt2d Cen(center1.XY() + cote * (R1 + Radius) * Coords2d(-ydir, xdir));
       gp_Ax2d  axe(Cen, dirx);
       cirsol(1) = gp_Circ2d(axe, Radius);
       //    =================================
@@ -573,23 +573,23 @@ GccAna_Circ2d2TanRad::GccAna_Circ2d2TanRad(const GccEnt_QualifiedCirc& Qualified
       TheSame1(1)   = 0;
       qualifier1(1) = Qualified1.Qualifier();
       qualifier2(1) = Qualified2.Qualifier();
-      pnttg1sol(1)  = gp_Pnt2d(Cen.XY() + cote * Radius * gp_XY(ydir, -xdir));
-      pnttg2sol(1)  = gp_Pnt2d(Cen.XY() + Radius * gp_XY(ydir, -xdir));
+      pnttg1sol(1)  = gp_Pnt2d(Cen.XY() + cote * Radius * Coords2d(ydir, -xdir));
+      pnttg2sol(1)  = gp_Pnt2d(Cen.XY() + Radius * Coords2d(ydir, -xdir));
     }
     else if (nbsol == 3)
     {
       WellDone = Standard_True;
       NbrSol   = 1;
-      gp_Pnt2d Cen(center1.XY() + cote * (R1 - Radius) * gp_XY(ydir, -xdir));
+      gp_Pnt2d Cen(center1.XY() + cote * (R1 - Radius) * Coords2d(ydir, -xdir));
       gp_Ax2d  axe(Cen, dirx);
       cirsol(1) = gp_Circ2d(axe, Radius);
       //    =================================
       qualifier1(1) = Qualified1.Qualifier();
       qualifier2(1) = Qualified2.Qualifier();
-      pnttg2sol(1)  = gp_Pnt2d(Cen.XY() + cote * Radius * gp_XY(ydir, -xdir));
+      pnttg2sol(1)  = gp_Pnt2d(Cen.XY() + cote * Radius * Coords2d(ydir, -xdir));
       if (Abs(R1 - Radius) > 0.0)
       {
-        pnttg1sol(1) = gp_Pnt2d(Cen.XY() + ccote * Radius * gp_XY(ydir, -xdir));
+        pnttg1sol(1) = gp_Pnt2d(Cen.XY() + ccote * Radius * Coords2d(ydir, -xdir));
       }
       else
       {
@@ -598,7 +598,7 @@ GccAna_Circ2d2TanRad::GccAna_Circ2d2TanRad(const GccEnt_QualifiedCirc& Qualified
     }
     else if (nbsol == 4)
     {
-      gp_Pnt2d Cent(center1.XY() + cote * (R1 + Radius) * gp_XY(-ydir, xdir));
+      gp_Pnt2d Cent(center1.XY() + cote * (R1 + Radius) * Coords2d(-ydir, xdir));
       gp_Ax2d  axe(Cent, dirx);
       cirsol(1) = gp_Circ2d(axe, Radius);
       //    =================================
@@ -607,8 +607,8 @@ GccAna_Circ2d2TanRad::GccAna_Circ2d2TanRad(const GccEnt_QualifiedCirc& Qualified
       WellDone      = Standard_True;
       NbrSol        = 1;
       TheSame1(1)   = 0;
-      pnttg1sol(1)  = gp_Pnt2d(Cent.XY() + cote * Radius * gp_XY(ydir, -xdir));
-      pnttg2sol(1)  = gp_Pnt2d(Cent.XY() + cote * Radius * gp_XY(-ydir, xdir));
+      pnttg1sol(1)  = gp_Pnt2d(Cent.XY() + cote * Radius * Coords2d(ydir, -xdir));
+      pnttg2sol(1)  = gp_Pnt2d(Cent.XY() + cote * Radius * Coords2d(-ydir, xdir));
     }
   }
   for (i = 1; i <= NbrSol; i++)

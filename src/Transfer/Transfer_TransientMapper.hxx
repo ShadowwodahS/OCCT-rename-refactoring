@@ -33,7 +33,7 @@ class Transfer_TransientMapper : public Transfer_Finder
 
 public:
   //! Creates a Mapper with a Value. This Value can then not be
-  //! changed. It is used by the Hasher to compute the HashCode,
+  //! changed. It is used by the Hasher1 to compute the HashCode,
   //! which will then be stored for an immediate reading.
   Standard_EXPORT Transfer_TransientMapper(const Handle(RefObject)& akey);
 

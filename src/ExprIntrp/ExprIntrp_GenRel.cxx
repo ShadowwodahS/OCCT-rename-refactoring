@@ -34,11 +34,11 @@ Handle(ExprIntrp_GenRel) ExprIntrp_GenRel::Create()
   return new ExprIntrp_GenRel();
 }
 
-void ExprIntrp_GenRel::Process(const TCollection_AsciiString& str)
+void ExprIntrp_GenRel::Process(const AsciiString1& str)
 {
   Handle(ExprIntrp_GenRel) me = this;
   done                        = Standard_False;
-  if (ExprIntrp::Parse(me, str))
+  if (ExprIntrp1::Parse(me, str))
   {
     if (!ExprIntrp_Recept.IsRelStackEmpty())
     {

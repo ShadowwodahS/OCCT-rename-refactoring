@@ -26,8 +26,8 @@
 #include <Standard_Integer.hxx>
 #include <TopTools_MapOfShape.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Face;
-class TopoDS_Edge;
+class TopoFace;
+class TopoEdge;
 
 class TopOpeBRepTool_REGUS
 {
@@ -36,18 +36,18 @@ public:
 
   Standard_EXPORT TopOpeBRepTool_REGUS();
 
-  Standard_EXPORT void Init(const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const TopoShape& S);
 
-  Standard_EXPORT const TopoDS_Shape& S() const;
+  Standard_EXPORT const TopoShape& S() const;
 
   Standard_EXPORT Standard_Boolean MapS();
 
-  Standard_EXPORT static Standard_Boolean WireToFace(const TopoDS_Face&          Fanc,
-                                                     const TopTools_ListOfShape& nWs,
-                                                     TopTools_ListOfShape&       nFs);
+  Standard_EXPORT static Standard_Boolean WireToFace(const TopoFace&          Fanc,
+                                                     const ShapeList& nWs,
+                                                     ShapeList&       nFs);
 
-  Standard_EXPORT static Standard_Boolean SplitF(const TopoDS_Face&    Fanc,
-                                                 TopTools_ListOfShape& FSplits);
+  Standard_EXPORT static Standard_Boolean SplitF(const TopoFace&    Fanc,
+                                                 ShapeList& FSplits);
 
   Standard_EXPORT Standard_Boolean SplitFaces();
 
@@ -65,24 +65,24 @@ public:
 
   Standard_EXPORT Standard_Boolean NextinBlock();
 
-  Standard_EXPORT Standard_Boolean NearestF(const TopoDS_Edge&          e,
-                                            const TopTools_ListOfShape& lof,
-                                            TopoDS_Face&                ffound) const;
+  Standard_EXPORT Standard_Boolean NearestF(const TopoEdge&          e,
+                                            const ShapeList& lof,
+                                            TopoFace&                ffound) const;
 
 protected:
 private:
   Standard_Boolean                   hasnewsplits;
   TopTools_DataMapOfShapeListOfShape myFsplits;
   TopTools_DataMapOfShapeListOfShape myOshNsh;
-  TopoDS_Shape                       myS;
+  TopoShape                       myS;
   TopTools_DataMapOfShapeListOfShape mymapeFsstatic;
   TopTools_DataMapOfShapeListOfShape mymapeFs;
   TopTools_IndexedMapOfShape         mymapemult;
   Standard_Integer                   mynF;
   Standard_Integer                   myoldnF;
-  TopoDS_Shape                       myf;
+  TopoShape                       myf;
   TopTools_MapOfShape                myedstoconnect;
-  TopTools_ListOfShape               mylFinBlock;
+  ShapeList               mylFinBlock;
 };
 
 #endif // _TopOpeBRepTool_REGUS_HeaderFile

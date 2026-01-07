@@ -39,7 +39,7 @@ class Plate_SampledCurveConstraint;
 class Plate_GtoCConstraint;
 class Plate_FreeGtoCConstraint;
 class gp_XYZ;
-class gp_XY;
+class Coords2d;
 class math_Matrix;
 
 //! This class implement a variational spline algorithm able
@@ -91,9 +91,9 @@ public:
   //! ( same as after Create())
   Standard_EXPORT void Init();
 
-  Standard_EXPORT gp_XYZ Evaluate(const gp_XY& point2d) const;
+  Standard_EXPORT gp_XYZ Evaluate(const Coords2d& point2d) const;
 
-  Standard_EXPORT gp_XYZ EvaluateDerivative(const gp_XY&           point2d,
+  Standard_EXPORT gp_XYZ EvaluateDerivative(const Coords2d&           point2d,
                                             const Standard_Integer iu,
                                             const Standard_Integer iv) const;
 
@@ -112,11 +112,11 @@ public:
 
 protected:
 private:
-  Standard_EXPORT Standard_Real SolEm(const gp_XY&           point2d,
+  Standard_EXPORT Standard_Real SolEm(const Coords2d&           point2d,
                                       const Standard_Integer iu,
                                       const Standard_Integer iv) const;
 
-  Standard_Real Polm(const gp_XY&           point2d,
+  Standard_Real Polm(const Coords2d&           point2d,
                      const Standard_Integer iu,
                      const Standard_Integer iv,
                      const Standard_Integer idu,
@@ -128,7 +128,7 @@ private:
 
   gp_XYZ& Solution(const Standard_Integer index) const;
 
-  gp_XY& Points(const Standard_Integer index) const;
+  Coords2d& Points(const Standard_Integer index) const;
 
   Standard_EXPORT void SolveTI1(const Standard_Integer       IterationNumber,
                                 const Message_ProgressRange& theProgress = Message_ProgressRange());

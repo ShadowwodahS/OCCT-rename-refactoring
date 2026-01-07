@@ -166,17 +166,17 @@ Standard_Integer Expr_SystemRelation::NbOfSingleRelations() const
   return nbsing;
 }
 
-TCollection_AsciiString Expr_SystemRelation::String() const
+AsciiString1 Expr_SystemRelation::String() const
 {
   Standard_Integer             nbrel = myRelations.Length();
   Handle(Expr_GeneralRelation) subrel;
-  TCollection_AsciiString      res;
+  AsciiString1      res;
   for (Standard_Integer i = 1; i <= nbrel; i++)
   {
     res += myRelations(i)->String();
     if (i != nbrel)
     {
-      res += TCollection_AsciiString('\n');
+      res += AsciiString1('\n');
     }
   }
   return res;

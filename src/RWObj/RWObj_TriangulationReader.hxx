@@ -21,20 +21,20 @@
 #include <TopoDS_Compound.hxx>
 
 //! Interface to store shape attributes into document.
-class RWObj_IShapeReceiver
+class ShapeReceiver
 {
 public:
   //! @param theShape       shape to register
   //! @param theName        shape name
   //! @param theMaterial    shape material
   //! @param theIsRootShape indicates that this is a root object (free shape)
-  virtual void BindNamedShape(const TopoDS_Shape&            theShape,
-                              const TCollection_AsciiString& theName,
+  virtual void BindNamedShape(const TopoShape&            theShape,
+                              const AsciiString1& theName,
                               const RWObj_Material*          theMaterial,
                               const Standard_Boolean         theIsRootShape) = 0;
 };
 
-//! RWObj_Reader implementation dumping OBJ file into Poly_Triangulation.
+//! RWObj_Reader implementation dumping OBJ file into MeshTriangulation.
 class RWObj_TriangulationReader : public RWObj_Reader
 {
   DEFINE_STANDARD_RTTIEXT(RWObj_TriangulationReader, RWObj_Reader)
@@ -50,13 +50,13 @@ public:
   void SetCreateShapes(Standard_Boolean theToCreateShapes) { myToCreateShapes = theToCreateShapes; }
 
   //! Set shape receiver callback.
-  void SetShapeReceiver(RWObj_IShapeReceiver* theReceiver) { myShapeReceiver = theReceiver; }
+  void SetShapeReceiver(ShapeReceiver* theReceiver) { myShapeReceiver = theReceiver; }
 
-  //! Create Poly_Triangulation from collected data
-  Standard_EXPORT virtual Handle(Poly_Triangulation) GetTriangulation();
+  //! Create MeshTriangulation from collected data
+  Standard_EXPORT virtual Handle(MeshTriangulation) GetTriangulation();
 
   //! Return result shape.
-  Standard_EXPORT TopoDS_Shape ResultShape();
+  Standard_EXPORT TopoShape ResultShape();
 
 protected:
   //! Flush active sub-mesh.
@@ -106,8 +106,8 @@ protected:
 
 protected:
   //! Add sub-shape into specified shape
-  Standard_EXPORT Standard_Boolean addSubShape(TopoDS_Shape&          theParent,
-                                               const TopoDS_Shape&    theSubShape,
+  Standard_EXPORT Standard_Boolean addSubShape(TopoShape&          theParent,
+                                               const TopoShape&    theSubShape,
                                                const Standard_Boolean theToExpandCompound);
 
 protected:
@@ -116,14 +116,14 @@ protected:
   NCollection_Vector<Graphic3d_Vec2> myNodesUV;   //!< UVs     of currently filled triangulation
   NCollection_Vector<Poly_Triangle>  myTriangles; //!< indexes of currently filled triangulation
 
-  RWObj_IShapeReceiver* myShapeReceiver;      //!< optional shape receiver
-  TopoDS_Compound       myResultShape;        //!< result shape as Compound of objects
-  TopoDS_Compound       myLastObjectShape;    //!< Compound containing current object groups
+  ShapeReceiver* myShapeReceiver;      //!< optional shape receiver
+  TopoCompound       myResultShape;        //!< result shape as Compound of objects
+  TopoCompound       myLastObjectShape;    //!< Compound containing current object groups
                                               // clang-format off
-  TopoDS_Shape            myLastGroupShape;  //!< current group shape - either a single Face or Compound of Faces
+  TopoShape            myLastGroupShape;  //!< current group shape - either a single Face or Compound of Faces
                                               // clang-format on
-  TCollection_AsciiString myLastGroupName;    //!< current group name
-  TCollection_AsciiString myLastFaceMaterial; //!< last face material name
+  AsciiString1 myLastGroupName;    //!< current group name
+  AsciiString1 myLastFaceMaterial; //!< last face material name
   Standard_Boolean        myToCreateShapes;   //!< create a single triangulation
 };
 

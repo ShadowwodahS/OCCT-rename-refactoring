@@ -51,7 +51,7 @@ Express_Item::Express_Item(const Handle(TCollection_HAsciiString)& theName)
 
 //=================================================================================================
 
-const TCollection_AsciiString& Express_Item::Name() const
+const AsciiString1& Express_Item::Name() const
 {
   return myName->String();
 }
@@ -65,9 +65,9 @@ Handle(TCollection_HAsciiString) Express_Item::HName() const
 
 //=================================================================================================
 
-const TCollection_AsciiString Express_Item::CPPName() const
+const AsciiString1 Express_Item::CPPName() const
 {
-  TCollection_AsciiString aName = GetPackageName();
+  AsciiString1 aName = GetPackageName();
   aName += "_";
   aName += Name();
   return aName;
@@ -75,14 +75,14 @@ const TCollection_AsciiString Express_Item::CPPName() const
 
 //=================================================================================================
 
-void Express_Item::SetPackageName(const TCollection_AsciiString& thePack)
+void Express_Item::SetPackageName(const AsciiString1& thePack)
 {
   myPack = new TCollection_HAsciiString(thePack);
 }
 
 //=================================================================================================
 
-const TCollection_AsciiString& Express_Item::GetPackageName() const
+const AsciiString1& Express_Item::GetPackageName() const
 {
   if (myPack.IsNull())
   {
@@ -102,9 +102,9 @@ Standard_Boolean Express_Item::IsPackageNameSet() const
 
 //=================================================================================================
 
-TCollection_AsciiString& Express_Item::GetUnknownPackageName()
+AsciiString1& Express_Item::GetUnknownPackageName()
 {
-  static TCollection_AsciiString aUnknownPackageName = "StepStep";
+  static AsciiString1 aUnknownPackageName = "StepStep";
 
   return aUnknownPackageName;
 }
@@ -171,8 +171,8 @@ Standard_Boolean Express_Item::Use()
 
 //=================================================================================================
 
-void Express_Item::Use2(const TCollection_AsciiString& theRefName,
-                        const TCollection_AsciiString& theRefPack)
+void Express_Item::Use2(const AsciiString1& theRefName,
+                        const AsciiString1& theRefPack)
 {
   if (myLoopFlag)
   {
@@ -202,7 +202,7 @@ void Express_Item::SetCategory(const Handle(TCollection_HAsciiString)& theCateg)
 
 //=================================================================================================
 
-const TCollection_AsciiString& Express_Item::Category() const
+const AsciiString1& Express_Item::Category() const
 {
   return myCategory->String();
 }

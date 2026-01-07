@@ -50,7 +50,7 @@ size_t OpenGl_Buffer::sizeOfGlType(unsigned int theType)
 
 //=================================================================================================
 
-TCollection_AsciiString OpenGl_Buffer::FormatTarget(unsigned int theTarget)
+AsciiString1 OpenGl_Buffer::FormatTarget(unsigned int theTarget)
 {
   switch (theTarget)
   {
@@ -253,7 +253,7 @@ bool OpenGl_Buffer::init(const Handle(OpenGl_Context)& theGlCtx,
                           GL_DEBUG_TYPE_ERROR,
                           0,
                           GL_DEBUG_SEVERITY_HIGH,
-                          TCollection_AsciiString("Error: glBufferData (")
+                          AsciiString1("Error: glBufferData (")
                             + FormatTarget(GetTarget()) + ","
                             + OpenGl_Context::FormatSize(GLsizeiptr(myElemsNb) * theStride) + ","
                             + OpenGl_Context::FormatPointer(theData) + ") Id: " + (int)myBufferId
@@ -332,7 +332,7 @@ bool OpenGl_Buffer::subData(const Handle(OpenGl_Context)& theGlCtx,
       GL_DEBUG_TYPE_ERROR,
       0,
       GL_DEBUG_SEVERITY_HIGH,
-      TCollection_AsciiString("Error: glBufferSubData (") + FormatTarget(GetTarget()) + ","
+      AsciiString1("Error: glBufferSubData (") + FormatTarget(GetTarget()) + ","
         + OpenGl_Context::FormatSize(GLintptr(theElemFrom) * GLintptr(myComponentsNb) * aDataSize)
         + ","
         + OpenGl_Context::FormatSize(GLsizeiptr(theElemsNb) * GLsizeiptr(myComponentsNb)

@@ -32,14 +32,14 @@
 #include <GeomAbs_CurveType.hxx>
 class ChFiDS_SurfData;
 class Axis3d;
-class Geom_Curve;
+class GeomCurve3d;
 class gp_Lin;
 class gp_Circ;
 class gp_Elips;
 class gp_Hypr;
 class gp_Parab;
-class Geom_BezierCurve;
-class Geom_BSplineCurve;
+class BezierCurve3d;
+class BSplineCurve3d;
 
 DEFINE_STANDARD_HANDLE(ChFiDS_ElSpine, Adaptor3d_Curve)
 
@@ -129,7 +129,7 @@ public:
 
   Standard_EXPORT void AddVertexWithTangent(const Axis3d& anAx1);
 
-  Standard_EXPORT void SetCurve(const Handle(Geom_Curve)& C);
+  Standard_EXPORT void SetCurve(const Handle(GeomCurve3d)& C);
 
   Standard_EXPORT const Handle(ChFiDS_SurfData)& Previous() const;
 
@@ -149,9 +149,9 @@ public:
 
   Standard_EXPORT gp_Parab Parabola() const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Geom_BezierCurve) Bezier() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BezierCurve3d) Bezier() const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Geom_BSplineCurve) BSpline() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BSplineCurve3d) BSpline() const Standard_OVERRIDE;
 
 private:
   GeomAdaptor_Curve       curve;

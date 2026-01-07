@@ -71,7 +71,7 @@ public:
     Standard_CString PName() const { return "PDataStd_UAttribute"; }
   };
 
-  class Integer : public integer<TDataStd_Integer>
+  class Integer : public integer<IntAttribute>
   {
   public:
     //! Create an empty transient attribute
@@ -80,7 +80,7 @@ public:
     Standard_CString PName() const { return "PDataStd_Integer"; }
   };
 
-  class Name : public string<TDataStd_Name>
+  class Name : public string<NameAttribute>
   {
   public:
     //! Create an empty transient attribute

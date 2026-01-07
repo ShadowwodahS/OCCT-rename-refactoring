@@ -64,7 +64,7 @@ static bool hasDepthStencilAttach(const Handle(OpenGl_Context)& theCtx)
 
 //=================================================================================================
 
-OpenGl_FrameBuffer::OpenGl_FrameBuffer(const TCollection_AsciiString& theResourceId)
+OpenGl_FrameBuffer::OpenGl_FrameBuffer(const AsciiString1& theResourceId)
     : OpenGl_NamedResource(theResourceId),
       myInitVPSizeX(0),
       myInitVPSizeY(0),
@@ -481,7 +481,7 @@ Standard_Boolean OpenGl_FrameBuffer::Init(const Handle(OpenGl_Context)& theGlCon
           GL_DEBUG_TYPE_ERROR,
           0,
           GL_DEBUG_SEVERITY_HIGH,
-          TCollection_AsciiString("Error: FBO depth render buffer ") + aSizeX + "x" + aSizeY
+          AsciiString1("Error: FBO depth render buffer ") + aSizeX + "x" + aSizeY
             + " IF: " + OpenGl_TextureFormat::FormatFormat(aDepthStencilFormat)
             + " can not be created with error " + OpenGl_Context::FormatGlError(aRendImgErr) + ".");
         Release(theGlContext.get());
@@ -656,7 +656,7 @@ Standard_Boolean OpenGl_FrameBuffer::initRenderBuffer(const Handle(OpenGl_Contex
                           GL_DEBUG_TYPE_ERROR,
                           0,
                           GL_DEBUG_SEVERITY_HIGH,
-                          TCollection_AsciiString("Error: FBO creation failed - MSAA")
+                          AsciiString1("Error: FBO creation failed - MSAA")
                             + theNbSamples + " render buffer exceeds samples limit: "
                             + theGlCtx->MaxMsaaSamples() + ").");
     return Standard_False;
@@ -721,7 +721,7 @@ Standard_Boolean OpenGl_FrameBuffer::initRenderBuffer(const Handle(OpenGl_Contex
         GL_DEBUG_TYPE_ERROR,
         0,
         GL_DEBUG_SEVERITY_HIGH,
-        TCollection_AsciiString("Error: FBO color render buffer ") + aSizeX + "x" + aSizeY + "@"
+        AsciiString1("Error: FBO color render buffer ") + aSizeX + "x" + aSizeY + "@"
           + theNbSamples + " IF: " + OpenGl_TextureFormat::FormatFormat(aFormat.InternalFormat())
           + " can not be created with error " + OpenGl_Context::FormatGlError(aRendImgErr) + ".");
       Release(theGlCtx.get());
@@ -760,7 +760,7 @@ Standard_Boolean OpenGl_FrameBuffer::initRenderBuffer(const Handle(OpenGl_Contex
         GL_DEBUG_TYPE_ERROR,
         0,
         GL_DEBUG_SEVERITY_HIGH,
-        TCollection_AsciiString("Error: FBO depth render buffer ") + aSizeX + "x" + aSizeY + "@"
+        AsciiString1("Error: FBO depth render buffer ") + aSizeX + "x" + aSizeY + "@"
           + theNbSamples + " IF: " + OpenGl_TextureFormat::FormatFormat(myDepthFormat)
           + " can not be created with error " + OpenGl_Context::FormatGlError(aRendImgErr) + ".");
       Release(theGlCtx.get());

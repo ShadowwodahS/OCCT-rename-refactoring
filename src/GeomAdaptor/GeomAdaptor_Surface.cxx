@@ -139,7 +139,7 @@ Handle(Adaptor3d_Surface) GeomAdaptor_Surface::ShallowCopy() const
 
 //=================================================================================================
 
-void GeomAdaptor_Surface::load(const Handle(Geom_Surface)& S,
+void GeomAdaptor_Surface::load(const Handle(GeomSurface)& S,
                                const Standard_Real         UFirst,
                                const Standard_Real         ULast,
                                const Standard_Real         VFirst,
@@ -170,7 +170,7 @@ void GeomAdaptor_Surface::load(const Handle(Geom_Surface)& S,
            VFirst,
            VLast);
     }
-    else if (TheType == STANDARD_TYPE(Geom_Plane))
+    else if (TheType == STANDARD_TYPE(GeomPlane))
       mySurfaceType = GeomAbs_Plane;
     else if (TheType == STANDARD_TYPE(Geom_CylindricalSurface))
       mySurfaceType = GeomAbs_Cylinder;
@@ -186,7 +186,7 @@ void GeomAdaptor_Surface::load(const Handle(Geom_Surface)& S,
       Handle(Geom_SurfaceOfRevolution) myRevSurf =
         Handle(Geom_SurfaceOfRevolution)::DownCast(mySurface);
       // Create nested adaptor for base curve
-      Handle(Geom_Curve)      aBaseCurve   = myRevSurf->BasisCurve();
+      Handle(GeomCurve3d)      aBaseCurve   = myRevSurf->BasisCurve();
       Handle(Adaptor3d_Curve) aBaseAdaptor = new GeomAdaptor_Curve(aBaseCurve);
       // Create corresponding evaluator
       myNestedEvaluator = new GeomEvaluator_SurfaceOfRevolution(aBaseAdaptor,
@@ -199,7 +199,7 @@ void GeomAdaptor_Surface::load(const Handle(Geom_Surface)& S,
       Handle(Geom_SurfaceOfLinearExtrusion) myExtSurf =
         Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(mySurface);
       // Create nested adaptor for base curve
-      Handle(Geom_Curve)      aBaseCurve   = myExtSurf->BasisCurve();
+      Handle(GeomCurve3d)      aBaseCurve   = myExtSurf->BasisCurve();
       Handle(Adaptor3d_Curve) aBaseAdaptor = new GeomAdaptor_Curve(aBaseCurve);
       // Create corresponding evaluator
       myNestedEvaluator =
@@ -219,7 +219,7 @@ void GeomAdaptor_Surface::load(const Handle(Geom_Surface)& S,
       mySurfaceType                        = GeomAbs_OffsetSurface;
       Handle(Geom_OffsetSurface) myOffSurf = Handle(Geom_OffsetSurface)::DownCast(mySurface);
       // Create nested adaptor for base surface
-      Handle(Geom_Surface)        aBaseSurf = myOffSurf->BasisSurface();
+      Handle(GeomSurface)        aBaseSurf = myOffSurf->BasisSurface();
       Handle(GeomAdaptor_Surface) aBaseAdaptor =
         new GeomAdaptor_Surface(aBaseSurf, myUFirst, myULast, myVFirst, myVLast, myTolU, myTolV);
       myNestedEvaluator = new GeomEvaluator_OffsetSurface(aBaseAdaptor,
@@ -1072,10 +1072,10 @@ Standard_Real GeomAdaptor_Surface::UResolution(const Standard_Real R3d) const
         return Precision::Parametric(R3d);
       }
       Handle(Geom_ConicalSurface) S(Handle(Geom_ConicalSurface)::DownCast(mySurface));
-      Handle(Geom_Curve)          C      = S->VIso(myVLast);
-      const Standard_Real         Rayon1 = Handle(Geom_Circle)::DownCast(C)->Radius();
+      Handle(GeomCurve3d)          C      = S->VIso(myVLast);
+      const Standard_Real         Rayon1 = Handle(GeomCircle)::DownCast(C)->Radius();
       C                                  = S->VIso(myVFirst);
-      const Standard_Real Rayon2         = Handle(Geom_Circle)::DownCast(C)->Radius();
+      const Standard_Real Rayon2         = Handle(GeomCircle)::DownCast(C)->Radius();
       const Standard_Real R              = (Rayon1 > Rayon2) ? Rayon1 : Rayon2;
       return (R > Precision::Confusion() ? (R3d / R) : 0.);
     }
@@ -1093,7 +1093,7 @@ Standard_Real GeomAdaptor_Surface::UResolution(const Standard_Real R3d) const
       return Ures;
     }
     case GeomAbs_OffsetSurface: {
-      Handle(Geom_Surface) base = Handle(Geom_OffsetSurface)::DownCast(mySurface)->BasisSurface();
+      Handle(GeomSurface) base = Handle(Geom_OffsetSurface)::DownCast(mySurface)->BasisSurface();
       GeomAdaptor_Surface  gabase(base, myUFirst, myULast, myVFirst, myVLast);
       return gabase.UResolution(R3d);
     }
@@ -1153,7 +1153,7 @@ Standard_Real GeomAdaptor_Surface::VResolution(const Standard_Real R3d) const
       return Vres;
     }
     case GeomAbs_OffsetSurface: {
-      Handle(Geom_Surface) base = Handle(Geom_OffsetSurface)::DownCast(mySurface)->BasisSurface();
+      Handle(GeomSurface) base = Handle(Geom_OffsetSurface)::DownCast(mySurface)->BasisSurface();
       GeomAdaptor_Surface  gabase(base, myUFirst, myULast, myVFirst, myVLast);
       return gabase.VResolution(R3d);
     }
@@ -1173,7 +1173,7 @@ gp_Pln GeomAdaptor_Surface::Plane() const
 {
   if (mySurfaceType != GeomAbs_Plane)
     throw Standard_NoSuchObject("GeomAdaptor_Surface::Plane");
-  return Handle(Geom_Plane)::DownCast(mySurface)->Pln();
+  return Handle(GeomPlane)::DownCast(mySurface)->Pln();
 }
 
 //=================================================================================================
@@ -1376,7 +1376,7 @@ Dir3d GeomAdaptor_Surface::Direction() const
 
 Handle(Adaptor3d_Curve) GeomAdaptor_Surface::BasisCurve() const
 {
-  Handle(Geom_Curve) C;
+  Handle(GeomCurve3d) C;
   if (mySurfaceType == GeomAbs_SurfaceOfExtrusion)
     C = Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(mySurface)->BasisCurve();
   else if (mySurfaceType == GeomAbs_SurfaceOfRevolution)

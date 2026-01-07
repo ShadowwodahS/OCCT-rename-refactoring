@@ -21,7 +21,7 @@
 
 #include <XmlLDrivers_DocumentStorageDriver.hxx>
 #include <XmlObjMgt_Element.hxx>
-class TCollection_ExtendedString;
+class UtfString;
 class XmlMDF_ADriverTable;
 class Message_Messenger;
 
@@ -31,7 +31,7 @@ DEFINE_STANDARD_HANDLE(XmlDrivers_DocumentStorageDriver, XmlLDrivers_DocumentSto
 class XmlDrivers_DocumentStorageDriver : public XmlLDrivers_DocumentStorageDriver
 {
 public:
-  Standard_EXPORT XmlDrivers_DocumentStorageDriver(const TCollection_ExtendedString& theCopyright);
+  Standard_EXPORT XmlDrivers_DocumentStorageDriver(const UtfString& theCopyright);
 
   Standard_EXPORT virtual Handle(XmlMDF_ADriverTable) AttributeDrivers(
     const Handle(Message_Messenger)& theMsgDriver) Standard_OVERRIDE;

@@ -26,7 +26,7 @@
 #include <TopTools_DataMapOfShapeShape.hxx>
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Edge;
+class TopoEdge;
 class Adaptor3d_Curve;
 
 //! This class makes the projection  of a wire on a
@@ -38,12 +38,12 @@ public:
 
   Standard_EXPORT BRepAlgo_NormalProjection();
 
-  Standard_EXPORT BRepAlgo_NormalProjection(const TopoDS_Shape& S);
+  Standard_EXPORT BRepAlgo_NormalProjection(const TopoShape& S);
 
-  Standard_EXPORT void Init(const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const TopoShape& S);
 
   //! Add an edge or a wire to the list of shape to project
-  Standard_EXPORT void Add(const TopoDS_Shape& ToProj);
+  Standard_EXPORT void Add(const TopoShape& ToProj);
 
   //! Set the parameters  used  for computation
   //! Tol3d is the required  tolerance between the  3d projected
@@ -81,27 +81,27 @@ public:
   Standard_EXPORT Standard_Boolean IsDone() const;
 
   //! returns the result
-  Standard_EXPORT const TopoDS_Shape& Projection() const;
+  Standard_EXPORT const TopoShape& Projection() const;
 
   //! For a resulting edge, returns the corresponding initial edge.
-  Standard_EXPORT const TopoDS_Shape& Ancestor(const TopoDS_Edge& E) const;
+  Standard_EXPORT const TopoShape& Ancestor(const TopoEdge& E) const;
 
   //! For a projected edge, returns the corresponding initial face.
-  Standard_EXPORT const TopoDS_Shape& Couple(const TopoDS_Edge& E) const;
+  Standard_EXPORT const TopoShape& Couple(const TopoEdge& E) const;
 
   //! Returns the  list   of shapes generated   from the
   //! shape <S>.
-  Standard_EXPORT const TopTools_ListOfShape& Generated(const TopoDS_Shape& S);
+  Standard_EXPORT const ShapeList& Generated(const TopoShape& S);
 
   Standard_EXPORT Standard_Boolean IsElementary(const Adaptor3d_Curve& C) const;
 
   //! build the result as a list of wire if possible in --
   //! a first returns a wire only if there is only a wire.
-  Standard_EXPORT Standard_Boolean BuildWire(TopTools_ListOfShape& Liste) const;
+  Standard_EXPORT Standard_Boolean BuildWire(ShapeList& Liste) const;
 
 protected:
 private:
-  TopoDS_Shape                       myShape;
+  TopoShape                       myShape;
   Standard_Boolean                   myIsDone;
   Standard_Real                      myTol3d;
   Standard_Real                      myTol2d;
@@ -111,11 +111,11 @@ private:
   Standard_Integer                   myMaxDegree;
   Standard_Integer                   myMaxSeg;
   Standard_Boolean                   myFaceBounds;
-  TopoDS_Shape                       myToProj;
+  TopoShape                       myToProj;
   TopTools_DataMapOfShapeShape       myAncestorMap;
   TopTools_DataMapOfShapeShape       myCorresp;
   TopTools_DataMapOfShapeListOfShape myDescendants;
-  TopoDS_Shape                       myRes;
+  TopoShape                       myRes;
 };
 
 #endif // _BRepAlgo_NormalProjection_HeaderFile

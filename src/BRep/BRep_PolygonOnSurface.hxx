@@ -22,7 +22,7 @@
 
 #include <BRep_CurveRepresentation.hxx>
 class Poly_Polygon2D;
-class Geom_Surface;
+class GeomSurface;
 class TopLoc_Location;
 
 class BRep_PolygonOnSurface;
@@ -35,7 +35,7 @@ class BRep_PolygonOnSurface : public BRep_CurveRepresentation
 
 public:
   Standard_EXPORT BRep_PolygonOnSurface(const Handle(Poly_Polygon2D)& P,
-                                        const Handle(Geom_Surface)&   S,
+                                        const Handle(GeomSurface)&   S,
                                         const TopLoc_Location&        L);
 
   //! A   2D polygon  representation  in the  parametric
@@ -44,11 +44,11 @@ public:
 
   //! A   2D polygon  representation  in the  parametric
   //! space of a surface.
-  Standard_EXPORT virtual Standard_Boolean IsPolygonOnSurface(const Handle(Geom_Surface)& S,
+  Standard_EXPORT virtual Standard_Boolean IsPolygonOnSurface(const Handle(GeomSurface)& S,
                                                               const TopLoc_Location&      L) const
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const Handle(Geom_Surface)& Surface() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(GeomSurface)& Surface() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual const Handle(Poly_Polygon2D)& Polygon() const Standard_OVERRIDE;
 
@@ -66,7 +66,7 @@ public:
 protected:
 private:
   Handle(Poly_Polygon2D) myPolygon2D;
-  Handle(Geom_Surface)   mySurface;
+  Handle(GeomSurface)   mySurface;
 };
 
 #endif // _BRep_PolygonOnSurface_HeaderFile

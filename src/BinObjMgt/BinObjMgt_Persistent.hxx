@@ -32,9 +32,9 @@
 #include <BinObjMgt_Position.hxx>
 #include <Standard_OStream.hxx>
 #include <Standard_IStream.hxx>
-class TCollection_AsciiString;
-class TCollection_ExtendedString;
-class TDF_Label;
+class AsciiString1;
+class UtfString;
+class DataLabel;
 class Standard_GUID;
 class TDF_Data;
 
@@ -95,25 +95,25 @@ public:
   BinObjMgt_Persistent& operator<<(const Standard_CString theValue) { return PutCString(theValue); }
 
   //! Offset in output buffer is word-aligned
-  Standard_EXPORT BinObjMgt_Persistent& PutAsciiString(const TCollection_AsciiString& theValue);
+  Standard_EXPORT BinObjMgt_Persistent& PutAsciiString(const AsciiString1& theValue);
 
-  BinObjMgt_Persistent& operator<<(const TCollection_AsciiString& theValue)
+  BinObjMgt_Persistent& operator<<(const AsciiString1& theValue)
   {
     return PutAsciiString(theValue);
   }
 
   //! Offset in output buffer is word-aligned
   Standard_EXPORT BinObjMgt_Persistent& PutExtendedString(
-    const TCollection_ExtendedString& theValue);
+    const UtfString& theValue);
 
-  BinObjMgt_Persistent& operator<<(const TCollection_ExtendedString& theValue)
+  BinObjMgt_Persistent& operator<<(const UtfString& theValue)
   {
     return PutExtendedString(theValue);
   }
 
-  Standard_EXPORT BinObjMgt_Persistent& PutLabel(const TDF_Label& theValue);
+  Standard_EXPORT BinObjMgt_Persistent& PutLabel(const DataLabel& theValue);
 
-  BinObjMgt_Persistent& operator<<(const TDF_Label& theValue) { return PutLabel(theValue); }
+  BinObjMgt_Persistent& operator<<(const DataLabel& theValue) { return PutLabel(theValue); }
 
   Standard_EXPORT BinObjMgt_Persistent& PutGUID(const Standard_GUID& theValue);
 
@@ -194,23 +194,23 @@ public:
   }
 
   Standard_EXPORT const BinObjMgt_Persistent& GetAsciiString(
-    TCollection_AsciiString& theValue) const;
+    AsciiString1& theValue) const;
 
-  const BinObjMgt_Persistent& operator>>(TCollection_AsciiString& theValue) const
+  const BinObjMgt_Persistent& operator>>(AsciiString1& theValue) const
   {
     return GetAsciiString(theValue);
   }
 
   Standard_EXPORT const BinObjMgt_Persistent& GetExtendedString(
-    TCollection_ExtendedString& theValue) const;
+    UtfString& theValue) const;
 
-  const BinObjMgt_Persistent& operator>>(TCollection_ExtendedString& theValue) const
+  const BinObjMgt_Persistent& operator>>(UtfString& theValue) const
   {
     return GetExtendedString(theValue);
   }
 
   Standard_EXPORT const BinObjMgt_Persistent& GetLabel(const Handle(TDF_Data)& theDS,
-                                                       TDF_Label&              theValue) const;
+                                                       DataLabel&              theValue) const;
 
   Standard_EXPORT const BinObjMgt_Persistent& GetGUID(Standard_GUID& theValue) const;
 

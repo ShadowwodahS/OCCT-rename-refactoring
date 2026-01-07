@@ -26,7 +26,7 @@ class IGESGraph_Protocol;
 //! This package contains the group of classes necessary
 //! to define Graphic data among Structure Entities.
 //! (e.g., Fonts, Colors, Screen management ...)
-class IGESGraph
+class IGESGraph1
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -47,8 +47,8 @@ public:
 
   //! puts The same drawer in every BRepOwner Of SensitivePrimitive
   //! Used Only for hilight Of BRepOwner...
-  Standard_EXPORT static void SetDrawerForBRepOwner(const Handle(SelectMgr_Selection)& aSelection,
-                                                    const Handle(Prs3d_Drawer)&        aDrawer);
+  Standard_EXPORT static void SetDrawerForBRepOwner(const Handle(SelectionContainer)& aSelection,
+                                                    const Handle(StyleDrawer)&        aDrawer);
 };
 
 #endif // _StdSelect_HeaderFile

@@ -31,40 +31,40 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! defines all geometric commands.
-  Standard_EXPORT static void AllCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void AllCommands(DrawInterpreter& I);
 
   //! defines curve commands.
-  Standard_EXPORT static void CurveCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void CurveCommands(DrawInterpreter& I);
 
   //! defines tangent curve commands.
-  Standard_EXPORT static void CurveTanCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void CurveTanCommands(DrawInterpreter& I);
 
   //! defines fair curve commands.
-  Standard_EXPORT static void FairCurveCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void FairCurveCommands(DrawInterpreter& I);
 
   //! defines surface commands.
-  Standard_EXPORT static void SurfaceCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void SurfaceCommands(DrawInterpreter& I);
 
   //! defines constrained curves commands.
-  Standard_EXPORT static void ConstraintCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void ConstraintCommands(DrawInterpreter& I);
 
   //! defines commands to test the GeomAPI
   //! - Intersection
   //! - Extrema
   //! - Projection
   //! - Approximation, interpolation
-  Standard_EXPORT static void APICommands(Draw_Interpretor& I);
+  Standard_EXPORT static void APICommands(DrawInterpreter& I);
 
   //! defines commands to check local
   //! continuity between curves or surfaces
-  Standard_EXPORT static void ContinuityCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void ContinuityCommands(DrawInterpreter& I);
 
   //! defines     command  to    test  the    polyhedral
   //! triangulations and the polygons from the Poly package.
-  Standard_EXPORT static void PolyCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void PolyCommands(DrawInterpreter& I);
 
   //! defines commands to test projection of geometric objects
-  Standard_EXPORT static void TestProjCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void TestProjCommands(DrawInterpreter& I);
 };
 
 #endif // _GeometryTest_HeaderFile

@@ -24,9 +24,9 @@
 #include <BRepLib_MakePolygon.hxx>
 #include <BRepBuilderAPI_MakeShape.hxx>
 class Point3d;
-class TopoDS_Vertex;
-class TopoDS_Edge;
-class TopoDS_Wire;
+class TopoVertex;
+class TopoEdge;
+class TopoWire;
 
 //! Describes functions to build polygonal wires. A
 //! polygonal wire can be built from any number of points
@@ -70,7 +70,7 @@ public:
   //! construction can be consulted at any time by using the Wire function.
   //! Example
   //! //an open polygon from four points
-  //! TopoDS_Wire W = BRepBuilderAPI_MakePolygon(P1,P2,P3,P4);
+  //! TopoWire W = BRepBuilderAPI_MakePolygon(P1,P2,P3,P4);
   //! Warning: The process is equivalent to:
   //! - initializing an empty polygonal wire,
   //! - and adding the given points in sequence.
@@ -84,11 +84,11 @@ public:
                                              const Point3d&          P4,
                                              const Standard_Boolean Close = Standard_False);
 
-  Standard_EXPORT BRepBuilderAPI_MakePolygon(const TopoDS_Vertex& V1, const TopoDS_Vertex& V2);
+  Standard_EXPORT BRepBuilderAPI_MakePolygon(const TopoVertex& V1, const TopoVertex& V2);
 
-  Standard_EXPORT BRepBuilderAPI_MakePolygon(const TopoDS_Vertex&   V1,
-                                             const TopoDS_Vertex&   V2,
-                                             const TopoDS_Vertex&   V3,
+  Standard_EXPORT BRepBuilderAPI_MakePolygon(const TopoVertex&   V1,
+                                             const TopoVertex&   V2,
+                                             const TopoVertex&   V3,
                                              const Standard_Boolean Close = Standard_False);
 
   //! Constructs a polygonal wire from
@@ -98,7 +98,7 @@ public:
   //! construction can be consulted at any time by using the Wire function.
   //! Example
   //! //a closed triangle from three vertices
-  //! TopoDS_Wire W = BRepBuilderAPI_MakePolygon(V1,V2,V3,Standard_True);
+  //! TopoWire W = BRepBuilderAPI_MakePolygon(V1,V2,V3,Standard_True);
   //! Warning
   //! The process is equivalent to:
   //! -      initializing an empty polygonal wire,
@@ -107,10 +107,10 @@ public:
   //! polygonal wire with two consecutive coincident edges if
   //! the sequence of vertices v1 - v2 - v1 is found among the
   //! constructor's arguments.
-  Standard_EXPORT BRepBuilderAPI_MakePolygon(const TopoDS_Vertex&   V1,
-                                             const TopoDS_Vertex&   V2,
-                                             const TopoDS_Vertex&   V3,
-                                             const TopoDS_Vertex&   V4,
+  Standard_EXPORT BRepBuilderAPI_MakePolygon(const TopoVertex&   V1,
+                                             const TopoVertex&   V2,
+                                             const TopoVertex&   V3,
+                                             const TopoVertex&   V4,
                                              const Standard_Boolean Close = Standard_False);
 
   Standard_EXPORT void Add(const Point3d& P);
@@ -139,7 +139,7 @@ public:
   //! Consequently, be careful when using this function: you might create:
   //! -   a polygonal wire with two consecutive coincident edges, or
   //! -   a non-manifold polygonal wire.
-  Standard_EXPORT void Add(const TopoDS_Vertex& V);
+  Standard_EXPORT void Add(const TopoVertex& V);
 
   //! Returns true if the last vertex added to the constructed
   //! polygonal wire is not coincident with the previous one.
@@ -150,11 +150,11 @@ public:
   //! wire under construction.
   Standard_EXPORT void Close();
 
-  Standard_EXPORT const TopoDS_Vertex& FirstVertex() const;
+  Standard_EXPORT const TopoVertex& FirstVertex() const;
 
   //! Returns the first or the last vertex of the polygonal wire under construction.
   //! If the constructed polygonal wire is closed, the first and the last vertices are identical.
-  Standard_EXPORT const TopoDS_Vertex& LastVertex() const;
+  Standard_EXPORT const TopoVertex& LastVertex() const;
 
   //! Returns true if this algorithm contains a valid polygonal
   //! wire (i.e. if there is at least one edge).
@@ -166,16 +166,16 @@ public:
   //! vertices added to the constructed polygonal wire under construction.
   //! Warning
   //! If there is only one vertex in the polygonal wire, the result is a null edge.
-  Standard_EXPORT const TopoDS_Edge& Edge() const;
-  Standard_EXPORT                    operator TopoDS_Edge() const;
+  Standard_EXPORT const TopoEdge& Edge() const;
+  Standard_EXPORT                    operator TopoEdge() const;
 
   //! Returns the constructed polygonal wire, or the already
   //! built part of the polygonal wire under construction.
   //! Exceptions
   //! StdFail_NotDone if the wire is not built, i.e. if fewer than
   //! two vertices have been chained together by this construction algorithm.
-  Standard_EXPORT const TopoDS_Wire& Wire();
-  Standard_EXPORT                    operator TopoDS_Wire();
+  Standard_EXPORT const TopoWire& Wire();
+  Standard_EXPORT                    operator TopoWire();
 
 protected:
 private:

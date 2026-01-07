@@ -79,7 +79,7 @@ Standard_Boolean BinMXCAFDoc_LocationDriver::Translate(const BinObjMgt_Persisten
 {
   if (!myNSDriver.IsNull() && myNSDriver->IsQuickPart())
   {
-    BinTools_IStream aDirectStream(*(const_cast<BinObjMgt_Persistent*>(&theSource)->GetIStream()));
+    BinaryInputStream aDirectStream(*(const_cast<BinObjMgt_Persistent*>(&theSource)->GetIStream()));
     BinTools_ShapeReader* aReader =
       static_cast<BinTools_ShapeReader*>(myNSDriver->ShapeSet(Standard_True));
     theLoc = *(aReader->ReadLocation(aDirectStream));
@@ -185,7 +185,7 @@ void BinMXCAFDoc_LocationDriver::Translate(const TopLoc_Location&      theLoc,
     Standard_OStream*     aDirectStream = theTarget.GetOStream();
     BinTools_ShapeWriter* aWriter =
       static_cast<BinTools_ShapeWriter*>(myNSDriver->ShapeSet(Standard_False));
-    BinTools_OStream aStream(*aDirectStream);
+    BinaryOutputStream aStream(*aDirectStream);
     aWriter->WriteLocation(aStream, theLoc);
     return;
   }

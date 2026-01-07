@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <TopAbs_ShapeEnum.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! Modifies tolerances of sub-shapes (vertices, edges, faces)
 class ShapeFix_ShapeTolerance
@@ -44,7 +44,7 @@ public:
   //! styp = other value : all (vertices,edges,faces) are set
   //! Returns True if at least one tolerance of the sub-shape has
   //! been modified
-  Standard_EXPORT Standard_Boolean LimitTolerance(const TopoDS_Shape&    shape,
+  Standard_EXPORT Standard_Boolean LimitTolerance(const TopoShape&    shape,
                                                   const Standard_Real    tmin,
                                                   const Standard_Real    tmax = 0.0,
                                                   const TopAbs_ShapeEnum styp = TopAbs_SHAPE) const;
@@ -55,7 +55,7 @@ public:
   //! styp = FACE   : only faces are set
   //! styp = WIRE   : to have edges and their vertices set
   //! styp = other value : all (vertices,edges,faces) are set
-  Standard_EXPORT void SetTolerance(const TopoDS_Shape&    shape,
+  Standard_EXPORT void SetTolerance(const TopoShape&    shape,
                                     const Standard_Real    preci,
                                     const TopAbs_ShapeEnum styp = TopAbs_SHAPE) const;
 

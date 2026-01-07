@@ -28,7 +28,7 @@ class IGESDefs_MacroDef;
 DEFINE_STANDARD_HANDLE(IGESDefs_MacroDef, IGESData_IGESEntity)
 
 //! defines IGES Macro Definition Entity, Type <306> Form <0>
-//! in package IGESDefs
+//! in package IGESDefs1
 //! This Class specifies the action of a specific MACRO.
 //! After specification MACRO can be used as necessary
 //! by means of MACRO class instance entity.

@@ -25,10 +25,10 @@ class PCDM_DOMHeaderParser : public LDOMParser
 public:
   // ---------- PUBLIC METHODS ----------
 
-  void SetStartElementName(const TCollection_AsciiString& aStartElementName);
+  void SetStartElementName(const AsciiString1& aStartElementName);
   //    set the name of the element which would stop parsing when detected
 
-  void SetEndElementName(const TCollection_AsciiString& anEndElementName);
+  void SetEndElementName(const AsciiString1& anEndElementName);
   //    set the name of the element which would stop parsing when parsed
 
   Standard_Boolean startElement();

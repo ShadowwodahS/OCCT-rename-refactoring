@@ -25,7 +25,7 @@
 // purpose  :
 //=======================================================================
 
-inline TCollection_AsciiString Units_Token::Word() const
+inline AsciiString1 Units_Token::Word() const
 {
   return theword;
 }
@@ -35,7 +35,7 @@ inline TCollection_AsciiString Units_Token::Word() const
 // purpose  :
 //=======================================================================
 
-inline TCollection_AsciiString Units_Token::Mean() const
+inline AsciiString1 Units_Token::Mean() const
 {
   return themean;
 }
@@ -97,7 +97,7 @@ inline void Units_Token::Value(const Standard_Real avalue)
 
 inline Standard_Boolean Units_Token::IsNotEqual(const Standard_CString astring) const
 {
-  TCollection_AsciiString string = Word();
+  AsciiString1 string = Word();
   Standard_Integer        length = string.Length();
   if (strlen(astring) == (unsigned int)length)
     return (strncmp(string.ToCString(), astring, unsigned(length)) != 0) ? Standard_True
@@ -113,8 +113,8 @@ inline Standard_Boolean Units_Token::IsNotEqual(const Standard_CString astring) 
 
 inline Standard_Boolean Units_Token::IsNotEqual(const Handle(Units_Token)& atoken) const
 {
-  TCollection_AsciiString string1 = Word();
-  TCollection_AsciiString string2 = atoken->Word();
+  AsciiString1 string1 = Word();
+  AsciiString1 string2 = atoken->Word();
   Standard_Integer        length  = string1.Length();
   if (length == atoken->Length())
     return (strcmp(string1.ToCString(), string2.ToCString()) != 0) ? Standard_True : Standard_False;
@@ -129,7 +129,7 @@ inline Standard_Boolean Units_Token::IsNotEqual(const Handle(Units_Token)& atoke
 
 inline Standard_Boolean Units_Token::IsLessOrEqual(const Standard_CString astring) const
 {
-  TCollection_AsciiString string = Word();
+  AsciiString1 string = Word();
   Standard_Integer        length = string.Length();
   if (strlen(astring) >= (unsigned int)length)
     return (strncmp(string.ToCString(), astring, unsigned(length)) == 0) ? Standard_True
@@ -145,7 +145,7 @@ inline Standard_Boolean Units_Token::IsLessOrEqual(const Standard_CString astrin
 
 inline Standard_Boolean Units_Token::IsGreater(const Standard_CString astring) const
 {
-  TCollection_AsciiString string = Word();
+  AsciiString1 string = Word();
   Standard_Integer        length = string.Length();
   return (strncmp(string.ToCString(), astring, unsigned(length)) > 0) ? Standard_True
                                                                       : Standard_False;
@@ -158,8 +158,8 @@ inline Standard_Boolean Units_Token::IsGreater(const Standard_CString astring) c
 
 inline Standard_Boolean Units_Token::IsGreater(const Handle(Units_Token)& atoken) const
 {
-  TCollection_AsciiString string1 = Word();
-  TCollection_AsciiString string2 = atoken->Word();
+  AsciiString1 string1 = Word();
+  AsciiString1 string2 = atoken->Word();
   Standard_Integer        length  = string1.Length();
   return (strncmp(string1.ToCString(), string2.ToCString(), unsigned(length)) > 0) ? Standard_True
                                                                                    : Standard_False;
@@ -172,8 +172,8 @@ inline Standard_Boolean Units_Token::IsGreater(const Handle(Units_Token)& atoken
 
 inline Standard_Boolean Units_Token::IsGreaterOrEqual(const Handle(Units_Token)& atoken) const
 {
-  TCollection_AsciiString string1 = Word();
-  TCollection_AsciiString string2 = atoken->Word();
+  AsciiString1 string1 = Word();
+  AsciiString1 string2 = atoken->Word();
   Standard_Integer        length  = string1.Length();
   return (strncmp(string1.ToCString(), string2.ToCString(), unsigned(length)) >= 0)
            ? Standard_True

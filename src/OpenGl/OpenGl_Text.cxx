@@ -31,7 +31,7 @@ namespace
 {
 static const OpenGl_Mat4d THE_IDENTITY_MATRIX;
 
-static const TCollection_AsciiString THE_DEFAULT_FONT(Font_NOF_ASCII_MONO);
+static const AsciiString1 THE_DEFAULT_FONT(Font_NOF_ASCII_MONO);
 
 //! Auxiliary tool for setting polygon offset temporarily.
 struct BackPolygonOffsetSentry
@@ -176,7 +176,7 @@ void OpenGl_Text::Release(OpenGl_Context* theCtx)
   releaseVbos(theCtx);
   if (!myFont.IsNull())
   {
-    const TCollection_AsciiString aKey = myFont->ResourceKey();
+    const AsciiString1 aKey = myFont->ResourceKey();
     myFont.Nullify();
     if (theCtx != NULL)
     {
@@ -242,7 +242,7 @@ void OpenGl_Text::StringSize(const Handle(OpenGl_Context)& theCtx,
   theWidth   = 0.0f;
   theAscent  = 0.0f;
   theDescent = 0.0f;
-  const TCollection_AsciiString aFontKey =
+  const AsciiString1 aFontKey =
     FontKey(theTextAspect, (Standard_Integer)theHeight, theResolution, theFontHinting);
   Handle(OpenGl_Font) aFont = FindFont(theCtx,
                                        theTextAspect,
@@ -530,7 +530,7 @@ void OpenGl_Text::drawText(const Handle(OpenGl_Context)& theCtx,
 
 //=================================================================================================
 
-TCollection_AsciiString OpenGl_Text::FontKey(const OpenGl_Aspects& theAspect,
+AsciiString1 OpenGl_Text::FontKey(const OpenGl_Aspects& theAspect,
                                              Standard_Integer      theHeight,
                                              unsigned int          theResolution,
                                              Font_Hinting          theFontHinting)
@@ -538,7 +538,7 @@ TCollection_AsciiString OpenGl_Text::FontKey(const OpenGl_Aspects& theAspect,
   const Font_FontAspect anAspect       = theAspect.Aspect()->TextFontAspect() != Font_FA_Undefined
                                            ? theAspect.Aspect()->TextFontAspect()
                                            : Font_FA_Regular;
-  const TCollection_AsciiString& aFont = !theAspect.Aspect()->TextFont().IsNull()
+  const AsciiString1& aFont = !theAspect.Aspect()->TextFont().IsNull()
                                            ? theAspect.Aspect()->TextFont()->String()
                                            : THE_DEFAULT_FONT;
 
@@ -559,7 +559,7 @@ Handle(OpenGl_Font) OpenGl_Text::FindFont(const Handle(OpenGl_Context)&  theCtx,
                                           Standard_Integer               theHeight,
                                           unsigned int                   theResolution,
                                           Font_Hinting                   theFontHinting,
-                                          const TCollection_AsciiString& theKey)
+                                          const AsciiString1& theKey)
 {
   Handle(OpenGl_Font) aFont;
   if (theHeight < 2)
@@ -570,7 +570,7 @@ Handle(OpenGl_Font) OpenGl_Text::FindFont(const Handle(OpenGl_Context)&  theCtx,
   if (!theCtx->GetResource(theKey, aFont))
   {
     Handle(Font_FontMgr)           aFontMgr  = Font_FontMgr::GetInstance();
-    const TCollection_AsciiString& aFontName = !theAspect.Aspect()->TextFont().IsNull()
+    const AsciiString1& aFontName = !theAspect.Aspect()->TextFont().IsNull()
                                                  ? theAspect.Aspect()->TextFont()->String()
                                                  : THE_DEFAULT_FONT;
     Font_FontAspect   anAspect = theAspect.Aspect()->TextFontAspect() != Font_FA_Undefined
@@ -590,7 +590,7 @@ Handle(OpenGl_Font) OpenGl_Text::FindFont(const Handle(OpenGl_Context)&  theCtx,
                             GL_DEBUG_TYPE_ERROR,
                             0,
                             GL_DEBUG_SEVERITY_HIGH,
-                            TCollection_AsciiString("Font '") + aFontName
+                            AsciiString1("Font '") + aFontName
                               + "' - initialization of GL resources has failed!");
         aFontFt.Nullify();
         aFont->Release(theCtx.get());
@@ -603,7 +603,7 @@ Handle(OpenGl_Font) OpenGl_Text::FindFont(const Handle(OpenGl_Context)&  theCtx,
                           GL_DEBUG_TYPE_ERROR,
                           0,
                           GL_DEBUG_SEVERITY_HIGH,
-                          TCollection_AsciiString("Font '") + aFontName
+                          AsciiString1("Font '") + aFontName
                             + "' is not found in the system!");
       aFont = new OpenGl_Font(aFontFt, theKey);
     }
@@ -676,7 +676,7 @@ void OpenGl_Text::render(const Handle(OpenGl_Context)& theCtx,
 
   // Note that using difference resolution in different Views in same Viewer
   // will lead to performance regression (for example, text will be recreated every time).
-  const TCollection_AsciiString aFontKey =
+  const AsciiString1 aFontKey =
     FontKey(theTextAspect, (Standard_Integer)myText->Height(), theResolution, theFontHinting);
   if (!myFont.IsNull() && !myFont->ResourceKey().IsEqual(aFontKey))
   {

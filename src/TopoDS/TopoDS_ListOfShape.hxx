@@ -19,8 +19,8 @@
 
 #include <NCollection_List.hxx>
 
-class TopoDS_Shape;
-typedef NCollection_List<TopoDS_Shape>           TopoDS_ListOfShape;
-typedef NCollection_List<TopoDS_Shape>::Iterator TopoDS_ListIteratorOfListOfShape;
+class TopoShape;
+typedef NCollection_List<TopoShape>           TopoDS_ListOfShape;
+typedef NCollection_List<TopoShape>::Iterator TopoDS_ListIteratorOfListOfShape;
 
 #endif

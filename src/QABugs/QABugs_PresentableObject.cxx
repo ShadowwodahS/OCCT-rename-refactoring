@@ -18,11 +18,11 @@
 #include <QABugs_PresentableObject.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(QABugs_PresentableObject, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(QABugs_PresentableObject, VisualEntity)
 
 QABugs_PresentableObject::QABugs_PresentableObject(
   const PrsMgr_TypeOfPresentation3d theTypeOfPresentation3d)
-    : AIS_InteractiveObject(theTypeOfPresentation3d)
+    : VisualEntity(theTypeOfPresentation3d)
 {
 }
 
@@ -85,7 +85,7 @@ void QABugs_PresentableObject::Compute(const Handle(PrsMgr_PresentationManager)&
   aGroup->AddPrimitiveArray(aPrims);
 }
 
-void QABugs_PresentableObject::ComputeSelection(const Handle(SelectMgr_Selection)&,
+void QABugs_PresentableObject::ComputeSelection(const Handle(SelectionContainer)&,
                                                 const Standard_Integer)
 {
 }

@@ -31,7 +31,7 @@ class gp_Trsf2d;
 class Geom2d_Geometry;
 
 class Geom2d_OffsetCurve;
-DEFINE_STANDARD_HANDLE(Geom2d_OffsetCurve, Geom2d_Curve)
+DEFINE_STANDARD_HANDLE(Geom2d_OffsetCurve, GeomCurve2d)
 
 //! This class implements the basis services for the creation,
 //! edition, modification and evaluation of planar offset curve.
@@ -70,7 +70,7 @@ DEFINE_STANDARD_HANDLE(Geom2d_OffsetCurve, Geom2d_Curve)
 //! are the same (The distance between these two points is lower or
 //! equal to the Resolution sea package gp) . The OffsetCurve can be
 //! closed even if the basis curve is not closed.
-class Geom2d_OffsetCurve : public Geom2d_Curve
+class Geom2d_OffsetCurve : public GeomCurve2d
 {
 
 public:
@@ -94,7 +94,7 @@ public:
   //! Warning!  if isNotCheckC0 = false,
   //! ConstructionError  raised if the basis curve C is not at least C1.
   //! No check is done to know if ||V^Z|| != 0.0 at any point.
-  Standard_EXPORT Geom2d_OffsetCurve(const Handle(Geom2d_Curve)& C,
+  Standard_EXPORT Geom2d_OffsetCurve(const Handle(GeomCurve2d)& C,
                                      const Standard_Real         Offset,
                                      const Standard_Boolean      isNotCheckC0 = Standard_False);
 
@@ -119,14 +119,14 @@ public:
   //! Exceptions
   //! if isNotCheckC0 = false,
   //! Standard_ConstructionError if the curve C is not at least "C1" continuous.
-  Standard_EXPORT void SetBasisCurve(const Handle(Geom2d_Curve)& C,
+  Standard_EXPORT void SetBasisCurve(const Handle(GeomCurve2d)& C,
                                      const Standard_Boolean      isNotCheckC0 = Standard_False);
 
   //! Changes this offset curve by assigning D as the offset value.
   Standard_EXPORT void SetOffsetValue(const Standard_Real D);
 
   //! Returns the basis curve of this offset curve. The basis curve can be an offset curve.
-  Standard_EXPORT Handle(Geom2d_Curve) BasisCurve() const;
+  Standard_EXPORT Handle(GeomCurve2d) BasisCurve() const;
 
   //! Continuity of the Offset curve :
   //! C0 : only geometric continuity,
@@ -288,11 +288,11 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom2d_OffsetCurve, Geom2d_Curve)
+  DEFINE_STANDARD_RTTIEXT(Geom2d_OffsetCurve, GeomCurve2d)
 
 protected:
 private:
-  Handle(Geom2d_Curve)                basisCurve;
+  Handle(GeomCurve2d)                basisCurve;
   Standard_Real                       offsetValue;
   GeomAbs_Shape                       myBasisCurveContinuity;
   Handle(Geom2dEvaluator_OffsetCurve) myEvaluator;

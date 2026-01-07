@@ -32,13 +32,13 @@ class DrawTrSurf_Point : public Draw_Drawable3D
   Draw_Drawable3D_FACTORY public :
 
       Standard_EXPORT
-      DrawTrSurf_Point(const Point3d& P, const Draw_MarkerShape Shape, const Draw_Color& Col);
+      DrawTrSurf_Point(const Point3d& P, const Draw_MarkerShape Shape, const DrawColor& Col);
 
   Standard_EXPORT DrawTrSurf_Point(const gp_Pnt2d&        P,
                                    const Draw_MarkerShape Shape,
-                                   const Draw_Color&      Col);
+                                   const DrawColor&      Col);
 
-  Standard_EXPORT virtual void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   //! Is a 3D object. (Default True).
   Standard_EXPORT virtual Standard_Boolean Is3D() const Standard_OVERRIDE;
@@ -51,9 +51,9 @@ class DrawTrSurf_Point : public Draw_Drawable3D
 
   Standard_EXPORT void Point2d(const gp_Pnt2d& P);
 
-  void Color(const Draw_Color& theColor) { myColor = theColor; }
+  void Color(const DrawColor& theColor) { myColor = theColor; }
 
-  Draw_Color Color() const { return myColor; }
+  DrawColor Color() const { return myColor; }
 
   void Shape(const Draw_MarkerShape theS) { myShape = theS; }
 
@@ -69,13 +69,13 @@ class DrawTrSurf_Point : public Draw_Drawable3D
   Standard_EXPORT virtual void Save(Standard_OStream& theStream) const Standard_OVERRIDE;
 
   //! For variable whatis command.
-  Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
 private:
   Point3d           myPoint;
   Standard_Boolean is3D;
   Draw_MarkerShape myShape;
-  Draw_Color       myColor;
+  DrawColor       myColor;
 };
 
 #endif // _DrawTrSurf_Point_HeaderFile

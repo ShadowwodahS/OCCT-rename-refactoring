@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline const Extrema_ExtPS& GeomAPI_ProjectPointOnSurf::Extrema() const
+inline const Extrema_ExtPS& PointOnSurfProjector::Extrema() const
 {
   return myExtPS;
 }

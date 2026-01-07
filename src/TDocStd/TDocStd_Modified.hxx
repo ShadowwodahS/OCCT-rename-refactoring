@@ -23,7 +23,7 @@
 #include <TDF_Attribute.hxx>
 #include <Standard_Boolean.hxx>
 #include <Standard_OStream.hxx>
-class TDF_Label;
+class DataLabel;
 class Standard_GUID;
 class TDF_RelocationTable;
 
@@ -38,19 +38,19 @@ class TDocStd_Modified : public TDF_Attribute
 public:
   //! API class methods
   //! =================
-  Standard_EXPORT static Standard_Boolean IsEmpty(const TDF_Label& access);
+  Standard_EXPORT static Standard_Boolean IsEmpty(const DataLabel& access);
 
-  Standard_EXPORT static Standard_Boolean Add(const TDF_Label& alabel);
+  Standard_EXPORT static Standard_Boolean Add(const DataLabel& alabel);
 
-  Standard_EXPORT static Standard_Boolean Remove(const TDF_Label& alabel);
+  Standard_EXPORT static Standard_Boolean Remove(const DataLabel& alabel);
 
-  Standard_EXPORT static Standard_Boolean Contains(const TDF_Label& alabel);
+  Standard_EXPORT static Standard_Boolean Contains(const DataLabel& alabel);
 
   //! if <IsEmpty> raise an exception.
-  Standard_EXPORT static const TDF_LabelMap& Get(const TDF_Label& access);
+  Standard_EXPORT static const TDF_LabelMap& Get(const DataLabel& access);
 
   //! remove all modified labels. becomes empty
-  Standard_EXPORT static void Clear(const TDF_Label& access);
+  Standard_EXPORT static void Clear(const DataLabel& access);
 
   //! Modified methods
   //! ================
@@ -63,10 +63,10 @@ public:
   Standard_EXPORT void Clear();
 
   //! add <L> as modified
-  Standard_EXPORT Standard_Boolean AddLabel(const TDF_Label& L);
+  Standard_EXPORT Standard_Boolean AddLabel(const DataLabel& L);
 
   //! remove  <L> as modified
-  Standard_EXPORT Standard_Boolean RemoveLabel(const TDF_Label& L);
+  Standard_EXPORT Standard_Boolean RemoveLabel(const DataLabel& L);
 
   //! returns modified label map
   Standard_EXPORT const TDF_LabelMap& Get() const;

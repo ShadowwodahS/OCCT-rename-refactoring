@@ -28,8 +28,8 @@ BRepOffsetAPI_MakeThickSolid::BRepOffsetAPI_MakeThickSolid()
 
 //=================================================================================================
 
-void BRepOffsetAPI_MakeThickSolid::MakeThickSolidByJoin(const TopoDS_Shape&          S,
-                                                        const TopTools_ListOfShape&  ClosingFaces,
+void BRepOffsetAPI_MakeThickSolid::MakeThickSolidByJoin(const TopoShape&          S,
+                                                        const ShapeList&  ClosingFaces,
                                                         const Standard_Real          Offset,
                                                         const Standard_Real          Tol,
                                                         const BRepOffset_Mode        Mode,
@@ -65,7 +65,7 @@ void BRepOffsetAPI_MakeThickSolid::MakeThickSolidByJoin(const TopoDS_Shape&     
 
 //=================================================================================================
 
-void BRepOffsetAPI_MakeThickSolid::MakeThickSolidBySimple(const TopoDS_Shape& theS,
+void BRepOffsetAPI_MakeThickSolid::MakeThickSolidBySimple(const TopoShape& theS,
                                                           const Standard_Real theOffsetValue)
 {
   NotDone();
@@ -87,7 +87,7 @@ void BRepOffsetAPI_MakeThickSolid::Build(const Message_ProgressRange& /*theRange
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepOffsetAPI_MakeThickSolid::Modified(const TopoDS_Shape& F)
+const ShapeList& BRepOffsetAPI_MakeThickSolid::Modified(const TopoShape& F)
 {
   myGenerated.Clear();
 
@@ -106,7 +106,7 @@ const TopTools_ListOfShape& BRepOffsetAPI_MakeThickSolid::Modified(const TopoDS_
   }
   else if (myLastUsedAlgo == OffsetAlgo_SIMPLE)
   {
-    TopoDS_Shape aModShape = mySimpleOffsetShape.Modified(F);
+    TopoShape aModShape = mySimpleOffsetShape.Modified(F);
     if (!aModShape.IsNull())
       myGenerated.Append(aModShape);
   }

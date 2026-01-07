@@ -31,12 +31,12 @@ class Draw_ProgressIndicator : public Message_ProgressIndicator
 {
 
 public:
-  //! Creates a progress indicator and remembers pointer to Draw_Interpretor
+  //! Creates a progress indicator and remembers pointer to DrawInterpreter
   //!
   //! @param theUpdateThreshold defines minimal progress (in percents) between
   //! updates of the indicator (non-forced updates of the progress bar will be
   //! disabled until that progress is reached since last update).
-  Standard_EXPORT Draw_ProgressIndicator(const Draw_Interpretor& di,
+  Standard_EXPORT Draw_ProgressIndicator(const DrawInterpreter& di,
                                          Standard_Real           theUpdateThreshold = 1.);
 
   //! Destructor; calls Reset()
@@ -91,7 +91,7 @@ private:
   Standard_Boolean  myTclMode;
   Standard_Boolean  myConsoleMode;
   Standard_Boolean  myGraphMode;
-  Draw_Interpretor* myDraw;
+  DrawInterpreter* myDraw;
   Standard_Boolean  myShown;
   Standard_Boolean  myBreak;
   Standard_Real     myUpdateThreshold;

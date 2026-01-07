@@ -26,7 +26,7 @@ class IGESBasic_ExternalRefFile;
 DEFINE_STANDARD_HANDLE(IGESBasic_ExternalRefFile, IGESData_IGESEntity)
 
 //! defines ExternalRefFile, Type <416> Form <1>
-//! in package IGESBasic
+//! in package IGESBasic1
 //! Used when entire reference file is to be instanced
 class IGESBasic_ExternalRefFile : public IGESData_IGESEntity
 {

@@ -174,7 +174,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   if (UOnFillet > M_PI)
     UOnFillet = 0.;
   gp_Lin2d            LOnFillet(gp_Pnt2d(UOnFillet, V), gp::DY2d());
-  Handle(Geom_Line)   L3d  = new Geom_Line(C3d);
+  Handle(GeomLine)   L3d  = new GeomLine(C3d);
   Handle(Geom2d_Line) LFac = new Geom2d_Line(Lin2dPln);
   Handle(Geom2d_Line) LFil = new Geom2d_Line(LOnFillet);
   Point3d              P;
@@ -185,7 +185,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   // It is checked if the orientation of the cylinder is the same as of the plane.
   if (toreverse)
   {
-    Data->ChangeOrientation() = TopAbs::Reverse(Ofpl);
+    Data->ChangeOrientation() = TopAbs1::Reverse(Ofpl);
   }
   else
   {
@@ -224,7 +224,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   if (UOnFillet > M_PI)
     UOnFillet = 0.;
   LOnFillet = gp_Lin2d(gp_Pnt2d(UOnFillet, V), gp::DY2d());
-  L3d       = new Geom_Line(C3d);
+  L3d       = new GeomLine(C3d);
   LFac      = new Geom2d_Line(Lin2dCyl);
   LFil      = new Geom2d_Line(LOnFillet);
 
@@ -426,7 +426,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
 
   // The plane face.
   Handle(Geom2d_Circle) GCirc2dPln;
-  Handle(Geom_Circle)   GCircPln;
+  Handle(GeomCircle)   GCircPln;
   Frame3d                circAx2 = FilAx3.Ax2();
   if (!c1sphere)
   {
@@ -438,7 +438,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
     GCirc2dPln = new Geom2d_Circle(circ2dPln);
     circAx2.SetLocation(cPln);
     gp_Circ circPln(circAx2, Rad);
-    GCircPln = new Geom_Circle(circPln);
+    GCircPln = new GeomCircle(circPln);
   }
   else
   {
@@ -537,7 +537,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   Handle(Geom2d_Line) GLin2dCyl = new Geom2d_Line(lin2dCyl);
   circAx2.SetLocation(Or);
   gp_Circ             circCyl(circAx2, cylrad);
-  Handle(Geom_Circle) GCircCyl = new Geom_Circle(circCyl);
+  Handle(GeomCircle) GCircCyl = new GeomCircle(circCyl);
   toreverse                    = (norFil.Dot(norcyl) <= 0.);
   if ((toreverse && plandab) || (!toreverse && !plandab))
   {

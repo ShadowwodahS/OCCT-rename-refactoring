@@ -26,7 +26,7 @@ class IGESGraph_HighLight;
 DEFINE_STANDARD_HANDLE(IGESGraph_HighLight, IGESData_IGESEntity)
 
 //! defines IGESHighLight, Type <406> Form <20>
-//! in package IGESGraph
+//! in package IGESGraph1
 //!
 //! Attaches information that an entity is to be
 //! displayed in some system dependent manner

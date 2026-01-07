@@ -18,12 +18,12 @@
 #include <StdPrs_ToolVertex.hxx>
 #include <TopoDS_Vertex.hxx>
 
-void StdPrs_ToolVertex::Coord(const TopoDS_Vertex& aVertex,
+void StdPrs_ToolVertex::Coord(const TopoVertex& aVertex,
                               Standard_Real&       X,
                               Standard_Real&       Y,
                               Standard_Real&       Z)
 {
-  Point3d P = BRep_Tool::Pnt(aVertex);
+  Point3d P = BRepInspector::Pnt(aVertex);
   X        = P.X();
   Y        = P.Y();
   Z        = P.Z();

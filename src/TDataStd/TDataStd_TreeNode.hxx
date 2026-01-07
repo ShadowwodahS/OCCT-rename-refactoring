@@ -24,7 +24,7 @@
 #include <TDF_Attribute.hxx>
 #include <Standard_Integer.hxx>
 #include <Standard_OStream.hxx>
-class TDF_Label;
+class DataLabel;
 class TDF_AttributeDelta;
 class TDF_RelocationTable;
 class TDF_DataSet;
@@ -47,19 +47,19 @@ public:
   //! ===================================
   //! Returns true if the tree node T is found on the label L.
   //! Otherwise, false is returned.
-  Standard_EXPORT static Standard_Boolean Find(const TDF_Label& L, Handle(TDataStd_TreeNode)& T);
+  Standard_EXPORT static Standard_Boolean Find(const DataLabel& L, Handle(TDataStd_TreeNode)& T);
 
   //! Finds or Creates a TreeNode attribute on the label <L>
   //! with  the  default tree  ID,   returned by the method
   //! <GetDefaultTreeID>.  Returns the created/found     TreeNode
   //! attribute.
-  Standard_EXPORT static Handle(TDataStd_TreeNode) Set(const TDF_Label& L);
+  Standard_EXPORT static Handle(TDataStd_TreeNode) Set(const DataLabel& L);
 
   //! Finds  or Creates a   TreeNode attribute on  the label
   //! <L>, with an   explicit tree ID.  <ExplicitTreeID>  is
   //! the  ID   returned by    <TDF_Attribute::ID>   method.
   //! Returns the found/created TreeNode attribute.
-  Standard_EXPORT static Handle(TDataStd_TreeNode) Set(const TDF_Label&     L,
+  Standard_EXPORT static Handle(TDataStd_TreeNode) Set(const DataLabel&     L,
                                                        const Standard_GUID& ExplicitTreeID);
 
   //! returns a default  tree ID.  this  ID is  used by the

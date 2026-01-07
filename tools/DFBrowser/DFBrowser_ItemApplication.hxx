@@ -40,14 +40,14 @@ public:
 
   //! Sets the item label
   //! \param theLabel an object where the child items structure is found
-  void SetApplication(const Handle(TDocStd_Application)& theApplication)
+  void SetApplication(const Handle(AppManager)& theApplication)
   {
     myApplication = theApplication;
   }
 
   //! Returns the current label
   //! \return a label
-  const Handle(TDocStd_Application)& GetApplication() const { return myApplication; }
+  const Handle(AppManager)& GetApplication() const { return myApplication; }
 
 protected:
   //! Returns number of documents if the application is not NULL
@@ -75,7 +75,7 @@ private:
   }
 
 private:
-  Handle(TDocStd_Application) myApplication; //!<! OCAF application
+  Handle(AppManager) myApplication; //!<! OCAF application
 };
 
 #endif

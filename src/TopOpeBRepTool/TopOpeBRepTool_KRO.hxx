@@ -25,7 +25,7 @@
 class TOPKRO : public OSD_Chronometer
 {
 public:
-  TOPKRO(const TCollection_AsciiString& n)
+  TOPKRO(const AsciiString1& n)
       : myname(n),
         mystart(0),
         mystop(0)
@@ -61,7 +61,7 @@ public:
   }
 
 private:
-  TCollection_AsciiString myname;
+  AsciiString1 myname;
   Standard_Integer        mystart, mystop;
 };
 #endif

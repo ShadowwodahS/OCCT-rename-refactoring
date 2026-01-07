@@ -23,7 +23,7 @@
 
 #include <GeomFill_FillingStyle.hxx>
 class Geom_BezierSurface;
-class Geom_BezierCurve;
+class BezierCurve3d;
 
 //! This class provides an algorithm for constructing a Bezier surface filled from
 //! contiguous Bezier curves which form its boundaries.
@@ -49,38 +49,38 @@ public:
   //! Constructs a framework for building a Bezier surface
   //! from the four contiguous Bezier curves, C1, C2, C3 and C4
   //! Raises Standard_ConstructionError if the curves are not contiguous.
-  Standard_EXPORT GeomFill_BezierCurves(const Handle(Geom_BezierCurve)& C1,
-                                        const Handle(Geom_BezierCurve)& C2,
-                                        const Handle(Geom_BezierCurve)& C3,
-                                        const Handle(Geom_BezierCurve)& C4,
+  Standard_EXPORT GeomFill_BezierCurves(const Handle(BezierCurve3d)& C1,
+                                        const Handle(BezierCurve3d)& C2,
+                                        const Handle(BezierCurve3d)& C3,
+                                        const Handle(BezierCurve3d)& C4,
                                         const GeomFill_FillingStyle     Type);
 
   //! Constructs a framework for building a Bezier surface
   //! from the three contiguous Bezier curves, C1, C2 and C3
   //! Raises Standard_ConstructionError if the curves are not contiguous.
-  Standard_EXPORT GeomFill_BezierCurves(const Handle(Geom_BezierCurve)& C1,
-                                        const Handle(Geom_BezierCurve)& C2,
-                                        const Handle(Geom_BezierCurve)& C3,
+  Standard_EXPORT GeomFill_BezierCurves(const Handle(BezierCurve3d)& C1,
+                                        const Handle(BezierCurve3d)& C2,
+                                        const Handle(BezierCurve3d)& C3,
                                         const GeomFill_FillingStyle     Type);
 
   //! Constructs a framework for building a Bezier surface
   //! from the two contiguous Bezier curves, C1 and C2
   //! Raises Standard_ConstructionError if the curves are not contiguous.
-  Standard_EXPORT GeomFill_BezierCurves(const Handle(Geom_BezierCurve)& C1,
-                                        const Handle(Geom_BezierCurve)& C2,
+  Standard_EXPORT GeomFill_BezierCurves(const Handle(BezierCurve3d)& C1,
+                                        const Handle(BezierCurve3d)& C2,
                                         const GeomFill_FillingStyle     Type);
 
   //! if the curves cannot be joined
-  Standard_EXPORT void Init(const Handle(Geom_BezierCurve)& C1,
-                            const Handle(Geom_BezierCurve)& C2,
-                            const Handle(Geom_BezierCurve)& C3,
-                            const Handle(Geom_BezierCurve)& C4,
+  Standard_EXPORT void Init(const Handle(BezierCurve3d)& C1,
+                            const Handle(BezierCurve3d)& C2,
+                            const Handle(BezierCurve3d)& C3,
+                            const Handle(BezierCurve3d)& C4,
                             const GeomFill_FillingStyle     Type);
 
   //! if the curves cannot be joined
-  Standard_EXPORT void Init(const Handle(Geom_BezierCurve)& C1,
-                            const Handle(Geom_BezierCurve)& C2,
-                            const Handle(Geom_BezierCurve)& C3,
+  Standard_EXPORT void Init(const Handle(BezierCurve3d)& C1,
+                            const Handle(BezierCurve3d)& C2,
+                            const Handle(BezierCurve3d)& C3,
                             const GeomFill_FillingStyle     Type);
 
   //! Initializes or reinitializes this algorithm with two, three,
@@ -92,8 +92,8 @@ public:
   //! -   GeomFill_Curved - the style with the most rounded patch.
   //! Exceptions
   //! Standard_ConstructionError if the curves are not contiguous.
-  Standard_EXPORT void Init(const Handle(Geom_BezierCurve)& C1,
-                            const Handle(Geom_BezierCurve)& C2,
+  Standard_EXPORT void Init(const Handle(BezierCurve3d)& C1,
+                            const Handle(BezierCurve3d)& C2,
                             const GeomFill_FillingStyle     Type);
 
   //! Returns the Bezier surface resulting from the

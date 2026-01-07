@@ -30,10 +30,10 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <TopTools_SequenceOfShape.hxx>
 
-class TopoDS_Edge;
+class TopoEdge;
 class gp_Lin;
 class gp_Circ;
-class TopoDS_Vertex;
+class TopoVertex;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -75,22 +75,22 @@ public:
   Standard_EXPORT ChFiDS_Spine(const Standard_Real Tol);
 
   //! store edges composing the guideline
-  void SetEdges(const TopoDS_Edge& E);
+  void SetEdges(const TopoEdge& E);
 
   //! store offset edges composing the offset guideline
-  void SetOffsetEdges(const TopoDS_Edge& E);
+  void SetOffsetEdges(const TopoEdge& E);
 
   //! store the edge at the first position before all others
-  void PutInFirst(const TopoDS_Edge& E);
+  void PutInFirst(const TopoEdge& E);
 
   //! store the offset edge at the first position before all others
-  void PutInFirstOffset(const TopoDS_Edge& E);
+  void PutInFirstOffset(const TopoEdge& E);
 
   Standard_Integer NbEdges() const;
 
-  const TopoDS_Edge& Edges(const Standard_Integer I) const;
+  const TopoEdge& Edges(const Standard_Integer I) const;
 
-  const TopoDS_Edge& OffsetEdges(const Standard_Integer I) const;
+  const TopoEdge& OffsetEdges(const Standard_Integer I) const;
 
   //! stores if the start of a set of edges starts on a
   //! section of free border or forms  a closed contour
@@ -106,7 +106,7 @@ public:
 
   Standard_EXPORT Handle(ChFiDS_ElSpine) ElSpine(const Standard_Integer IE) const;
 
-  Standard_EXPORT Handle(ChFiDS_ElSpine) ElSpine(const TopoDS_Edge& E) const;
+  Standard_EXPORT Handle(ChFiDS_ElSpine) ElSpine(const TopoEdge& E) const;
 
   Standard_EXPORT Handle(ChFiDS_ElSpine) ElSpine(const Standard_Real W) const;
 
@@ -213,11 +213,11 @@ public:
 
   void SetTangencyExtremity(const Standard_Boolean IsTangency, const Standard_Boolean IsFirst);
 
-  Standard_EXPORT Standard_Real Absc(const TopoDS_Vertex& V) const;
+  Standard_EXPORT Standard_Real Absc(const TopoVertex& V) const;
 
-  Standard_EXPORT TopoDS_Vertex FirstVertex() const;
+  Standard_EXPORT TopoVertex FirstVertex() const;
 
-  Standard_EXPORT TopoDS_Vertex LastVertex() const;
+  Standard_EXPORT TopoVertex LastVertex() const;
 
   Standard_EXPORT void SetFirstTgt(const Standard_Real W);
 
@@ -237,7 +237,7 @@ public:
   Standard_EXPORT Standard_Integer Index(const Standard_Real    W,
                                          const Standard_Boolean Forward = Standard_True) const;
 
-  Standard_EXPORT Standard_Integer Index(const TopoDS_Edge& E) const;
+  Standard_EXPORT Standard_Integer Index(const TopoEdge& E) const;
 
   Standard_EXPORT void UnsetReference();
 

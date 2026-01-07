@@ -150,7 +150,7 @@ public:
   Standard_Boolean HasPointText() const { return myHasPntText; }
 
   //! Set graphical presentation for object.
-  void SetPresentation(const TopoDS_Shape&                     thePresentation,
+  void SetPresentation(const TopoShape&                     thePresentation,
                        const Handle(TCollection_HAsciiString)& thePresentationName)
   {
     myPresentation     = thePresentation;
@@ -158,7 +158,7 @@ public:
   }
 
   //! Returns graphical presentation of the object.
-  TopoDS_Shape GetPresentation() const { return myPresentation; }
+  TopoShape GetPresentation() const { return myPresentation; }
 
   //! Returns graphical presentation of the object.
   Handle(TCollection_HAsciiString) GetPresentationName() const { return myPresentationName; }
@@ -217,7 +217,7 @@ private:
   Standard_Boolean                                 myHasPlane;
   Standard_Boolean                                 myHasPnt;
   Standard_Boolean                                 myHasPntText;
-  TopoDS_Shape                                     myPresentation;
+  TopoShape                                     myPresentation;
   Handle(TCollection_HAsciiString)                 mySemanticName;
   Handle(TCollection_HAsciiString)                 myPresentationName;
   XCAFDimTolObjects_ToleranceZoneAffectedPlane     myAffectedPlaneType;

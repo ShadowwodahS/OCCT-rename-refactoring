@@ -28,8 +28,8 @@ namespace
 static XCAFPrs_Style mergedStyle(const Handle(XCAFDoc_ColorTool)&       theColorTool,
                                  const Handle(XCAFDoc_VisMaterialTool)& theVisMatTool,
                                  const XCAFPrs_Style&                   theParenStyle,
-                                 const TDF_Label&                       theLabel,
-                                 const TDF_Label&                       theRefLabel)
+                                 const DataLabel&                       theLabel,
+                                 const DataLabel&                       theRefLabel)
 {
   if (theColorTool.IsNull())
   {
@@ -84,34 +84,34 @@ static XCAFPrs_Style mergedStyle(const Handle(XCAFDoc_ColorTool)&       theColor
 
 //=================================================================================================
 
-TCollection_AsciiString XCAFPrs_DocumentExplorer::DefineChildId(
-  const TDF_Label&               theLabel,
-  const TCollection_AsciiString& theParentId)
+AsciiString1 XCAFPrs_DocumentExplorer::DefineChildId(
+  const DataLabel&               theLabel,
+  const AsciiString1& theParentId)
 {
-  TCollection_AsciiString anEntryId;
+  AsciiString1 anEntryId;
   TDF_Tool::Entry(theLabel, anEntryId);
   return !theParentId.IsEmpty() ? theParentId + "/" + anEntryId + "." : anEntryId + ".";
 }
 
 //=================================================================================================
 
-TDF_Label XCAFPrs_DocumentExplorer::FindLabelFromPathId(const Handle(TDocStd_Document)& theDocument,
-                                                        const TCollection_AsciiString&  theId,
+DataLabel XCAFPrs_DocumentExplorer::FindLabelFromPathId(const Handle(AppDocument)& theDocument,
+                                                        const AsciiString1&  theId,
                                                         TopLoc_Location& theParentLocation,
                                                         TopLoc_Location& theLocation)
 {
   theParentLocation = TopLoc_Location();
   theLocation       = TopLoc_Location();
-  TDF_Label anInstanceLabel;
+  DataLabel anInstanceLabel;
   for (XCAFPrs_DocumentIdIterator anPathIter(theId); anPathIter.More();)
   {
-    TDF_Label aSubLabel;
+    DataLabel aSubLabel;
     {
-      const TCollection_AsciiString& anOcafId = anPathIter.Value();
+      const AsciiString1& anOcafId = anPathIter.Value();
       TDF_Tool::Label(theDocument->Main().Data(), anOcafId, aSubLabel);
       if (aSubLabel.IsNull())
       {
-        return TDF_Label();
+        return DataLabel();
       }
     }
 
@@ -130,28 +130,28 @@ TDF_Label XCAFPrs_DocumentExplorer::FindLabelFromPathId(const Handle(TDocStd_Doc
 
 //=================================================================================================
 
-TopoDS_Shape XCAFPrs_DocumentExplorer::FindShapeFromPathId(
-  const Handle(TDocStd_Document)& theDocument,
-  const TCollection_AsciiString&  theId)
+TopoShape XCAFPrs_DocumentExplorer::FindShapeFromPathId(
+  const Handle(AppDocument)& theDocument,
+  const AsciiString1&  theId)
 {
   TopLoc_Location aLocation;
-  TDF_Label       anInstanceLabel = FindLabelFromPathId(theDocument, theId, aLocation);
+  DataLabel       anInstanceLabel = FindLabelFromPathId(theDocument, theId, aLocation);
   if (anInstanceLabel.IsNull())
   {
-    return TopoDS_Shape();
+    return TopoShape();
   }
 
-  TDF_Label aRefLabel = anInstanceLabel;
+  DataLabel aRefLabel = anInstanceLabel;
   XCAFDoc_ShapeTool::GetReferredShape(anInstanceLabel, aRefLabel);
   if (aRefLabel.IsNull())
   {
-    return TopoDS_Shape();
+    return TopoShape();
   }
 
-  TopoDS_Shape aShape = XCAFDoc_ShapeTool::GetShape(aRefLabel);
+  TopoShape aShape = XCAFDoc_ShapeTool::GetShape(aRefLabel);
   if (aShape.IsNull())
   {
-    return TopoDS_Shape();
+    return TopoShape();
   }
 
   aShape.Location(aLocation);
@@ -170,7 +170,7 @@ XCAFPrs_DocumentExplorer::XCAFPrs_DocumentExplorer()
 
 //=================================================================================================
 
-XCAFPrs_DocumentExplorer::XCAFPrs_DocumentExplorer(const Handle(TDocStd_Document)&     theDocument,
+XCAFPrs_DocumentExplorer::XCAFPrs_DocumentExplorer(const Handle(AppDocument)&     theDocument,
                                                    const XCAFPrs_DocumentExplorerFlags theFlags,
                                                    const XCAFPrs_Style&                theDefStyle)
     : myTop(-1),
@@ -185,7 +185,7 @@ XCAFPrs_DocumentExplorer::XCAFPrs_DocumentExplorer(const Handle(TDocStd_Document
 
 //=================================================================================================
 
-XCAFPrs_DocumentExplorer::XCAFPrs_DocumentExplorer(const Handle(TDocStd_Document)&     theDocument,
+XCAFPrs_DocumentExplorer::XCAFPrs_DocumentExplorer(const Handle(AppDocument)&     theDocument,
                                                    const TDF_LabelSequence&            theRoots,
                                                    const XCAFPrs_DocumentExplorerFlags theFlags,
                                                    const XCAFPrs_Style&                theDefStyle)
@@ -198,8 +198,8 @@ XCAFPrs_DocumentExplorer::XCAFPrs_DocumentExplorer(const Handle(TDocStd_Document
 
 //=================================================================================================
 
-void XCAFPrs_DocumentExplorer::Init(const Handle(TDocStd_Document)&     theDocument,
-                                    const TDF_Label&                    theRoot,
+void XCAFPrs_DocumentExplorer::Init(const Handle(AppDocument)&     theDocument,
+                                    const DataLabel&                    theRoot,
                                     const XCAFPrs_DocumentExplorerFlags theFlags,
                                     const XCAFPrs_Style&                theDefStyle)
 {
@@ -210,7 +210,7 @@ void XCAFPrs_DocumentExplorer::Init(const Handle(TDocStd_Document)&     theDocum
 
 //=================================================================================================
 
-void XCAFPrs_DocumentExplorer::Init(const Handle(TDocStd_Document)&     theDocument,
+void XCAFPrs_DocumentExplorer::Init(const Handle(AppDocument)&     theDocument,
                                     const TDF_LabelSequence&            theRoots,
                                     const XCAFPrs_DocumentExplorerFlags theFlags,
                                     const XCAFPrs_Style&                theDefStyle)
@@ -252,7 +252,7 @@ void XCAFPrs_DocumentExplorer::initRoot()
       return;
     }
 
-    const TDF_Label& aRootLab = myRootIter.Value();
+    const DataLabel& aRootLab = myRootIter.Value();
     if (aRootLab.IsNull())
     {
       // assert - invalid input
@@ -262,7 +262,7 @@ void XCAFPrs_DocumentExplorer::initRoot()
     }
 
     myHasMore           = Standard_True;
-    TDF_Label aRefLabel = aRootLab;
+    DataLabel aRefLabel = aRootLab;
     XCAFDoc_ShapeTool::GetReferredShape(aRootLab, aRefLabel);
     if (XCAFDoc_ShapeTool::IsAssembly(aRefLabel))
     {
@@ -303,7 +303,7 @@ void XCAFPrs_DocumentExplorer::initCurrent(Standard_Boolean theIsAssembly)
     myCurrent.Location  = myCurrent.LocalTrsf;
     myCurrent.Style =
       mergedStyle(myColorTool, myVisMatTool, myDefStyle, myCurrent.Label, myCurrent.RefLabel);
-    myCurrent.Id = DefineChildId(myCurrent.Label, TCollection_AsciiString());
+    myCurrent.Id = DefineChildId(myCurrent.Label, AsciiString1());
   }
   else
   {
@@ -334,8 +334,8 @@ void XCAFPrs_DocumentExplorer::Next()
 
   if (myTop < 0)
   {
-    const TDF_Label& aRootLab  = myRootIter.Value();
-    TDF_Label        aRefLabel = aRootLab;
+    const DataLabel& aRootLab  = myRootIter.Value();
+    DataLabel        aRefLabel = aRootLab;
     XCAFDoc_ShapeTool::GetReferredShape(aRootLab, aRefLabel);
     if (!XCAFDoc_ShapeTool::IsAssembly(aRefLabel))
     {
@@ -356,7 +356,7 @@ void XCAFPrs_DocumentExplorer::Next()
     aNodeInStack.Location   = aNodeInStack.LocalTrsf;
     aNodeInStack.Style =
       mergedStyle(myColorTool, myVisMatTool, myDefStyle, aNodeInStack.Label, aNodeInStack.RefLabel);
-    aNodeInStack.Id = DefineChildId(aNodeInStack.Label, TCollection_AsciiString());
+    aNodeInStack.Id = DefineChildId(aNodeInStack.Label, AsciiString1());
     myNodeStack.SetValue(0, aNodeInStack);
     if ((myFlags & XCAFPrs_DocumentExplorerFlags_OnlyLeafNodes) == 0)
     {
@@ -376,14 +376,14 @@ void XCAFPrs_DocumentExplorer::Next()
   {
     if (myNodeStack.Value(myTop).ChildIter.More())
     {
-      const TDF_Label& aNodeTop = myNodeStack.Value(myTop).ChildIter.Value();
+      const DataLabel& aNodeTop = myNodeStack.Value(myTop).ChildIter.Value();
       if (aNodeTop.IsNull() || (!aNodeTop.HasChild() && !aNodeTop.HasAttribute()))
       {
         myNodeStack.ChangeValue(myTop).ChildIter.Next();
         continue;
       }
 
-      TDF_Label aRefLabel = aNodeTop;
+      DataLabel aRefLabel = aNodeTop;
       XCAFDoc_ShapeTool::GetReferredShape(aNodeTop, aRefLabel);
       if (!XCAFDoc_ShapeTool::IsAssembly(aRefLabel))
       {

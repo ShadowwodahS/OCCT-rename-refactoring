@@ -28,7 +28,7 @@ TopOpeBRepDS_Surface::TopOpeBRepDS_Surface()
 
 //=================================================================================================
 
-TopOpeBRepDS_Surface::TopOpeBRepDS_Surface(const Handle(Geom_Surface)& theSurface,
+TopOpeBRepDS_Surface::TopOpeBRepDS_Surface(const Handle(GeomSurface)& theSurface,
                                            const Standard_Real         theTolerance)
     : mySurface(theSurface),
       myTolerance(theTolerance),

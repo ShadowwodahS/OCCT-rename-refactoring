@@ -30,11 +30,11 @@ const Standard_Integer MAXVIEW = 30;
 
 class Draw_View;
 
-class Draw_Viewer
+class DrawViewer
 {
 
 public:
-  Standard_EXPORT                  Draw_Viewer();
+  Standard_EXPORT                  DrawViewer();
   Standard_EXPORT Standard_Boolean DefineColor(const Standard_Integer i, const char* colname);
   Standard_EXPORT void             MakeView(const Standard_Integer id,
                                             const char*            typ,
@@ -131,7 +131,7 @@ public:
                                                const Draw_ColorKind           C = Draw_blanc) const;
   Standard_EXPORT void         AddDrawable(const Handle(Draw_Drawable3D)& D);
   Standard_EXPORT void         RemoveDrawable(const Handle(Draw_Drawable3D)& D);
-  Standard_EXPORT Draw_Display MakeDisplay(const Standard_Integer id) const;
+  Standard_EXPORT DrawDisplay MakeDisplay(const Standard_Integer id) const;
 
   Standard_EXPORT void Select(Standard_Integer& id, // View, -1 if none
                               Standard_Integer& X,  // Pick coordinates
@@ -150,8 +150,8 @@ public:
   Standard_EXPORT void LastPick(Point3d& P1, Point3d& P2, Standard_Real& Param);
   // returns the extremities and parameter of the last picked segment
 
-  Standard_EXPORT ~Draw_Viewer();
-  Standard_EXPORT Draw_Viewer&                     operator<<(const Handle(Draw_Drawable3D)&);
+  Standard_EXPORT ~DrawViewer();
+  Standard_EXPORT DrawViewer&                     operator<<(const Handle(Draw_Drawable3D)&);
   Standard_EXPORT const Draw_SequenceOfDrawable3D& GetDrawables();
 
 private:

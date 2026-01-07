@@ -20,9 +20,9 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_IndexedDataMap.hxx>
 
-typedef NCollection_IndexedDataMap<TopoDS_Shape, XCAFPrs_Style, TopTools_ShapeMapHasher>
+typedef NCollection_IndexedDataMap<TopoShape, XCAFPrs_Style, ShapeHasher>
   XCAFPrs_IndexedDataMapOfShapeStyle;
-typedef NCollection_IndexedDataMap<TopoDS_Shape, XCAFPrs_Style, TopTools_ShapeMapHasher>::Iterator
+typedef NCollection_IndexedDataMap<TopoShape, XCAFPrs_Style, ShapeHasher>::Iterator
   XCAFPrs_DataMapIteratorOfIndexedDataMapOfShapeStyle;
 
 #endif

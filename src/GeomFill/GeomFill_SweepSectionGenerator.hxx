@@ -27,8 +27,8 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColgp_Array1OfVec2d.hxx>
 
-class Geom_BSplineCurve;
-class Geom_Curve;
+class BSplineCurve3d;
+class GeomCurve3d;
 class Transform3d;
 
 //! class for instantiation of AppBlend.
@@ -41,24 +41,24 @@ public:
   Standard_EXPORT GeomFill_SweepSectionGenerator();
 
   //! Create a sweept surface with a constant radius.
-  Standard_EXPORT GeomFill_SweepSectionGenerator(const Handle(Geom_Curve)& Path,
+  Standard_EXPORT GeomFill_SweepSectionGenerator(const Handle(GeomCurve3d)& Path,
                                                  const Standard_Real       Radius);
 
   //! Create a sweept surface with a constant section
-  Standard_EXPORT GeomFill_SweepSectionGenerator(const Handle(Geom_Curve)& Path,
-                                                 const Handle(Geom_Curve)& FirstSect);
+  Standard_EXPORT GeomFill_SweepSectionGenerator(const Handle(GeomCurve3d)& Path,
+                                                 const Handle(GeomCurve3d)& FirstSect);
 
   //! Create a sweept surface with an evolving section
   //! The section evaluate from First to Last Section
-  Standard_EXPORT GeomFill_SweepSectionGenerator(const Handle(Geom_Curve)& Path,
-                                                 const Handle(Geom_Curve)& FirstSect,
-                                                 const Handle(Geom_Curve)& LastSect);
+  Standard_EXPORT GeomFill_SweepSectionGenerator(const Handle(GeomCurve3d)& Path,
+                                                 const Handle(GeomCurve3d)& FirstSect,
+                                                 const Handle(GeomCurve3d)& LastSect);
 
   //! Create  a pipe  with  a constant  radius with  2
   //! guide-line.
-  Standard_EXPORT GeomFill_SweepSectionGenerator(const Handle(Geom_Curve)& Path,
-                                                 const Handle(Geom_Curve)& Curve1,
-                                                 const Handle(Geom_Curve)& Curve2,
+  Standard_EXPORT GeomFill_SweepSectionGenerator(const Handle(GeomCurve3d)& Path,
+                                                 const Handle(GeomCurve3d)& Curve1,
+                                                 const Handle(GeomCurve3d)& Curve2,
                                                  const Standard_Real       Radius);
 
   //! Create  a pipe  with  a constant  radius with  2
@@ -68,17 +68,17 @@ public:
                                                  const Handle(Adaptor3d_Curve)& Curve2,
                                                  const Standard_Real            Radius);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& Path, const Standard_Real Radius);
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& Path, const Standard_Real Radius);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& Path, const Handle(Geom_Curve)& FirstSect);
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& Path, const Handle(GeomCurve3d)& FirstSect);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& Path,
-                            const Handle(Geom_Curve)& FirstSect,
-                            const Handle(Geom_Curve)& LastSect);
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& Path,
+                            const Handle(GeomCurve3d)& FirstSect,
+                            const Handle(GeomCurve3d)& LastSect);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& Path,
-                            const Handle(Geom_Curve)& Curve1,
-                            const Handle(Geom_Curve)& Curve2,
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& Path,
+                            const Handle(GeomCurve3d)& Curve1,
+                            const Handle(GeomCurve3d)& Curve2,
                             const Standard_Real       Radius);
 
   Standard_EXPORT void Init(const Handle(Adaptor3d_Curve)& Path,
@@ -124,9 +124,9 @@ public:
 
 protected:
 private:
-  Handle(Geom_BSplineCurve) myPath;
-  Handle(Geom_BSplineCurve) myFirstSect;
-  Handle(Geom_BSplineCurve) myLastSect;
+  Handle(BSplineCurve3d) myPath;
+  Handle(BSplineCurve3d) myFirstSect;
+  Handle(BSplineCurve3d) myLastSect;
   Handle(Adaptor3d_Curve)   myAdpPath;
   Handle(Adaptor3d_Curve)   myAdpFirstSect;
   Handle(Adaptor3d_Curve)   myAdpLastSect;

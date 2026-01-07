@@ -24,14 +24,14 @@
 #include <TopoDSToStep_MakeEdgeError.hxx>
 #include <TopoDSToStep_Root.hxx>
 class StepShape_TopologicalRepresentationItem;
-class TopoDS_Edge;
+class TopoEdge;
 class TopoDSToStep_Tool;
 class Transfer_FinderProcess;
 
 //! This class implements the mapping between classes
 //! Edge from TopoDS and TopologicalRepresentationItem from
 //! StepShape.
-class TopoDSToStep_MakeStepEdge : public TopoDSToStep_Root
+class TopoDSToStep_MakeStepEdge : public Root3
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -39,15 +39,15 @@ public:
   Standard_EXPORT TopoDSToStep_MakeStepEdge();
 
   Standard_EXPORT TopoDSToStep_MakeStepEdge(
-    const TopoDS_Edge&                    E,
+    const TopoEdge&                    E,
     TopoDSToStep_Tool&                    T,
     const Handle(Transfer_FinderProcess)& FP,
-    const StepData_Factors&               theLocalFactors = StepData_Factors());
+    const ConversionFactors&               theLocalFactors = ConversionFactors());
 
-  Standard_EXPORT void Init(const TopoDS_Edge&                    E,
+  Standard_EXPORT void Init(const TopoEdge&                    E,
                             TopoDSToStep_Tool&                    T,
                             const Handle(Transfer_FinderProcess)& FP,
-                            const StepData_Factors& theLocalFactors = StepData_Factors());
+                            const ConversionFactors& theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepShape_TopologicalRepresentationItem)& Value() const;
 

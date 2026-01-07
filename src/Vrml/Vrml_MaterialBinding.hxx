@@ -32,14 +32,14 @@
 //! material in the material node, no matter what the current MaterialBinding, while a Cube
 //! node may use six different materials to draw each of its six faces, depending on the
 //! MaterialBinding.
-class Vrml_MaterialBinding
+class MaterialBinding
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_MaterialBinding(const Vrml_MaterialBindingAndNormalBinding aValue);
+  Standard_EXPORT MaterialBinding(const Vrml_MaterialBindingAndNormalBinding aValue);
 
-  Standard_EXPORT Vrml_MaterialBinding();
+  Standard_EXPORT MaterialBinding();
 
   Standard_EXPORT void SetValue(const Vrml_MaterialBindingAndNormalBinding aValue);
 

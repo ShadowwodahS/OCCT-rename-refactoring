@@ -32,7 +32,7 @@ class Geom2d_Direction;
 //! Direction from Geom, Geom2d and Dir, Dir2d from gp, and the
 //! class Direction from StepGeom which describes a direction
 //! from Prostep.
-class GeomToStep_MakeDirection : public GeomToStep_Root
+class GeomToStep_MakeDirection : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC

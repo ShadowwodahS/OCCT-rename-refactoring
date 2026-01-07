@@ -24,12 +24,12 @@
 #include <Standard_Boolean.hxx>
 
 //! Storage of  a curve  and its 2 faces or surfaces of  support.
-class ChFiDS_Regul
+class Regularity
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT ChFiDS_Regul();
+  Standard_EXPORT Regularity();
 
   Standard_EXPORT void SetCurve(const Standard_Integer IC);
 

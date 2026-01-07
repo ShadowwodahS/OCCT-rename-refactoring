@@ -217,12 +217,12 @@ void MessageModel_Actions::OnClearReport()
 // =======================================================================
 void MessageModel_Actions::OnExportToShapeView()
 {
-  TCollection_AsciiString aPluginName("TKShapeView");
+  AsciiString1 aPluginName("TKShapeView");
 
   NCollection_List<Handle(RefObject)> aPluginParameters;
   if (myParameters->FindParameters(aPluginName))
     aPluginParameters = myParameters->Parameters(aPluginName);
-  NCollection_List<TCollection_AsciiString> anItemNames;
+  NCollection_List<AsciiString1> anItemNames;
   if (myParameters->FindSelectedNames(aPluginName))
     anItemNames = myParameters->GetSelectedNames(aPluginName);
 
@@ -259,7 +259,7 @@ void MessageModel_Actions::OnExportToShapeView()
     if (!anAttribute->IsKind(STANDARD_TYPE(TopoDS_AlertAttribute)))
       continue;
 
-    const TopoDS_Shape aShape = Handle(TopoDS_AlertAttribute)::DownCast(anAttribute)->GetShape();
+    const TopoShape aShape = Handle(TopoDS_AlertAttribute)::DownCast(anAttribute)->GetShape();
     if (aShape.IsNull())
       continue;
     aPluginParameters.Append(aShape.TShape());

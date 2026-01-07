@@ -119,17 +119,17 @@ void DFBrowserPane_TNamingNaming::GetValues(const Handle(TDF_Attribute)& theAttr
   theValues.append(DFBrowserPane_Tools::ToName(DB_NAMING_TYPE, aNamingName.Type()).ToCString());
   theValues.append("ShapeType");
   theValues.append(DFBrowserPane_Tools::ToName(DB_SHAPE_TYPE, aNamingName.ShapeType()).ToCString());
-  Handle(TNaming_NamedShape) aStopShape = aNamingName.StopNamedShape();
+  Handle(ShapeAttribute) aStopShape = aNamingName.StopNamedShape();
   theValues.append("StopNamedShape");
   theValues.append(
     !aStopShape.IsNull() ? DFBrowserPane_Tools::GetEntry(aStopShape->Label()).ToCString() : "");
   theValues.append("Index");
   theValues.append(QString::number(aNamingName.Index()));
-  TopoDS_Shape aShape = aNamingName.Shape();
+  TopoShape aShape = aNamingName.Shape();
   theValues.append("Shape(TShape)");
   theValues.append(
     !aShape.IsNull() ? Standard_Dump::GetPointerInfo(aShape.TShape()->This()).ToCString() : "");
-  TDF_Label aContextLabel = aNamingName.ContextLabel();
+  DataLabel aContextLabel = aNamingName.ContextLabel();
   theValues.append("ContextLabel");
   theValues.append(
     !aContextLabel.IsNull() ? DFBrowserPane_Tools::GetEntry(aContextLabel).ToCString() : "");
@@ -167,26 +167,26 @@ Handle(RefObject) DFBrowserPane_TNamingNaming::GetPresentation(
     DFBrowserPane_TableView::GetSelectedColumnValues(aTableView->GetTableView(), 1);
   TNaming_Name aNamingName = anAttribute->GetName();
 
-  BRep_Builder    aBuilder;
-  TopoDS_Compound aComp;
+  ShapeBuilder    aBuilder;
+  TopoCompound aComp;
   aBuilder.MakeCompound(aComp);
   bool aHasShapes = false;
   for (TNaming_ListIteratorOfListOfNamedShape aNamingIt(aNamingName.Arguments()); aNamingIt.More();
        aNamingIt.Next())
   {
-    Handle(TNaming_NamedShape) aShapeAttr = aNamingIt.Value();
+    Handle(ShapeAttribute) aShapeAttr = aNamingIt.Value();
     if (aShapeAttr.IsNull())
       continue;
-    TDF_Label aLabel = aShapeAttr->Label();
+    DataLabel aLabel = aShapeAttr->Label();
     if (!aSelectedEntries.contains(DFBrowserPane_Tools::GetEntry(aLabel).ToCString()))
       continue;
     aBuilder.Add(aComp, aShapeAttr->Get());
     aHasShapes = true;
   }
-  TopoDS_Shape aShape = aComp;
+  TopoShape aShape = aComp;
   if (!aShape.IsNull() && aHasShapes)
   {
-    Handle(AIS_Shape) aPrs = new AIS_Shape(aShape);
+    Handle(VisualShape) aPrs = new VisualShape(aShape);
     aPrs->Attributes()->SetAutoTriangulation(Standard_False);
     aPresentation = aPrs;
   }
@@ -198,7 +198,7 @@ Handle(RefObject) DFBrowserPane_TNamingNaming::GetPresentation(
 // purpose :
 // =======================================================================
 void DFBrowserPane_TNamingNaming::GetReferences(const Handle(TDF_Attribute)& theAttribute,
-                                                NCollection_List<TDF_Label>& theRefLabels,
+                                                NCollection_List<DataLabel>& theRefLabels,
                                                 Handle(RefObject)&)
 {
   Handle(TNaming_Naming) anAttribute = Handle(TNaming_Naming)::DownCast(theAttribute);
@@ -211,10 +211,10 @@ void DFBrowserPane_TNamingNaming::GetReferences(const Handle(TDF_Attribute)& the
        aNamingIt.More();
        aNamingIt.Next())
   {
-    Handle(TNaming_NamedShape) aShapeAttr = aNamingIt.Value();
+    Handle(ShapeAttribute) aShapeAttr = aNamingIt.Value();
     if (aShapeAttr.IsNull())
       continue;
-    TDF_Label aLabel = aShapeAttr->Label();
+    DataLabel aLabel = aShapeAttr->Label();
     if (aSelectedEntries.contains(DFBrowserPane_Tools::GetEntry(aLabel).ToCString()))
       theRefLabels.Append(aLabel);
   }

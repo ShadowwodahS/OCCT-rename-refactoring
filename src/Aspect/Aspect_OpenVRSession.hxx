@@ -78,7 +78,7 @@ public:
                                          Aspect_Eye             theEye) Standard_OVERRIDE;
 
   //! Query information.
-  Standard_EXPORT virtual TCollection_AsciiString GetString(InfoString theInfo) const
+  Standard_EXPORT virtual AsciiString1 GetString(InfoString theInfo) const
     Standard_OVERRIDE;
 
   //! Return index of tracked device of known role.
@@ -104,7 +104,7 @@ public:
 protected:
   //! Find location of default actions manifest file (based on CSF_OCCTResourcePath or CASROOT
   //! variables).
-  Standard_EXPORT TCollection_AsciiString defaultActionsManifest();
+  Standard_EXPORT AsciiString1 defaultActionsManifest();
 
   //! Release OpenVR device.
   Standard_EXPORT void closeVR();
@@ -147,7 +147,7 @@ private:
 
 protected:
   VRContext*              myContext;
-  TCollection_AsciiString myActionsManifest;
+  AsciiString1 myActionsManifest;
 };
 
 #endif // _Aspect_OpenVRSession_HeaderFile

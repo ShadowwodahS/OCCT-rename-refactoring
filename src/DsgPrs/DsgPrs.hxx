@@ -22,8 +22,8 @@
 #include <gp_Elips.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class Geom_Curve;
-class Geom_Surface;
+class GeomCurve3d;
+class GeomSurface;
 class Prs3d_DimensionAspect;
 
 //! Describes Standard Presentations for DsgIHM objects
@@ -58,14 +58,14 @@ public:
   Standard_EXPORT static void ComputeCurvilinearFacesLengthPresentation(
     const Standard_Real         FirstArrowLength,
     const Standard_Real         SecondArrowLength,
-    const Handle(Geom_Surface)& SecondSurf,
+    const Handle(GeomSurface)& SecondSurf,
     const Point3d&               AttachmentPoint1,
     const Point3d&               AttachmentPoint2,
     const Dir3d&               DirAttach,
     Point3d&                     EndOfArrow2,
     Dir3d&                     DirOfArrow1,
-    Handle(Geom_Curve)&         VCurve,
-    Handle(Geom_Curve)&         UCurve,
+    Handle(GeomCurve3d)&         VCurve,
+    Handle(GeomCurve3d)&         UCurve,
     Standard_Real&              FirstU,
     Standard_Real&              deltaU,
     Standard_Real&              FirstV,

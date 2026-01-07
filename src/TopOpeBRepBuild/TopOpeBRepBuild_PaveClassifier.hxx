@@ -26,7 +26,7 @@
 #include <Standard_Integer.hxx>
 #include <TopOpeBRepBuild_LoopClassifier.hxx>
 #include <TopAbs_State.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class TopOpeBRepBuild_Loop;
 
 //! This class compares vertices on an edge.
@@ -38,13 +38,13 @@ class TopOpeBRepBuild_Loop;
 //! If V2 is REVERSED V1 must be before V2 on the curve.
 //! If V2 is INTERNAL V1 is always inside.
 //! If V2 is EXTERNAL V1 is never inside.
-class TopOpeBRepBuild_PaveClassifier : public TopOpeBRepBuild_LoopClassifier
+class TopOpeBRepBuild_PaveClassifier : public LoopClassifier
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Create a Pave classifier to compare vertices on edge <E>.
-  Standard_EXPORT TopOpeBRepBuild_PaveClassifier(const TopoDS_Shape& E);
+  Standard_EXPORT TopOpeBRepBuild_PaveClassifier(const TopoShape& E);
 
   //! Returns state of vertex <L1> compared with <L2>.
   Standard_EXPORT TopAbs_State Compare(const Handle(TopOpeBRepBuild_Loop)& L1,
@@ -71,7 +71,7 @@ private:
 
   Standard_EXPORT Standard_Boolean ToAdjustOnPeriodic() const;
 
-  TopoDS_Edge        myEdge;
+  TopoEdge        myEdge;
   Standard_Boolean   myEdgePeriodic;
   Standard_Real      myFirst;
   Standard_Real      myPeriod;

@@ -48,7 +48,7 @@ public:
   //! @param theStrictLevel search strict level for using aliases and fallback
   //! @return true on success
   Standard_EXPORT static Handle(StdPrs_BRepFont) FindAndCreate(
-    const TCollection_AsciiString& theFontName,
+    const AsciiString1& theFontName,
     const Font_FontAspect          theFontAspect,
     const Standard_Real            theSize,
     const Font_StrictLevel         theStrictLevel = Font_StrictLevel_Any);
@@ -96,7 +96,7 @@ public:
   //! @param theSize       the face size in model units
   //! @param theStrictLevel search strict level for using aliases and fallback
   //! @return true on success
-  Standard_EXPORT bool FindAndInit(const TCollection_AsciiString& theFontName,
+  Standard_EXPORT bool FindAndInit(const AsciiString1& theFontName,
                                    const Font_FontAspect          theFontAspect,
                                    const Standard_Real            theSize,
                                    const Font_StrictLevel theStrictLevel = Font_StrictLevel_Any);
@@ -104,13 +104,13 @@ public:
   //! Return wrapper over FreeType font.
   const Handle(Font_FTFont)& FTFont() const { return myFTFont; }
 
-  //! Render single glyph as TopoDS_Shape.
+  //! Render single glyph as TopoShape.
   //! @param theChar glyph identifier
   //! @return rendered glyph within cache, might be NULL shape
-  Standard_EXPORT TopoDS_Shape RenderGlyph(const Standard_Utf32Char& theChar);
+  Standard_EXPORT TopoShape RenderGlyph(const Standard_Utf32Char& theChar);
 
   //! Setup glyph geometry construction mode.
-  //! By default algorithm creates independent TopoDS_Edge
+  //! By default algorithm creates independent TopoEdge
   //! for each original curve in the glyph (line segment or Bezie curve).
   //! Algorithm might optionally create composite BSpline curve for each contour
   //! which reduces memory footprint but limits curve class to C0.
@@ -182,32 +182,32 @@ public:
   }
 
 protected:
-  //! Render single glyph as TopoDS_Shape. This method does not lock the mutex.
+  //! Render single glyph as TopoShape. This method does not lock the mutex.
   //! @param theChar  glyph identifier
   //! @param theShape rendered glyph within cache, might be NULL shape
   //! @return true if glyph's geometry is available
   Standard_EXPORT Standard_Boolean renderGlyph(const Standard_Utf32Char theChar,
-                                               TopoDS_Shape&            theShape);
+                                               TopoShape&            theShape);
 
 private:
   //! Initialize class fields
   void init();
 
   //! Auxiliary method to create 3D curve
-  bool to3d(const Handle(Geom2d_Curve)& theCurve2d,
+  bool to3d(const Handle(GeomCurve2d)& theCurve2d,
             const GeomAbs_Shape         theContinuity,
-            Handle(Geom_Curve)&         theCurve3d);
+            Handle(GeomCurve3d)&         theCurve3d);
 
   //! Auxiliary method for creation faces from sequence of wires.
   //! Splits to few faces (if it is needed) and updates orientation of wires.
-  Standard_Boolean buildFaces(const NCollection_Sequence<TopoDS_Wire>& theWires,
-                              TopoDS_Shape&                            theRes);
+  Standard_Boolean buildFaces(const NCollection_Sequence<TopoWire>& theWires,
+                              TopoShape&                            theRes);
 
 protected:                                                        //! @name Protected fields
   Handle(Font_FTFont)                                   myFTFont; //!< wrapper over FreeType font
-  NCollection_DataMap<Standard_Utf32Char, TopoDS_Shape> myCache;  //!< glyphs cache
+  NCollection_DataMap<Standard_Utf32Char, TopoShape> myCache;  //!< glyphs cache
   Standard_Mutex                                        myMutex;  //!< lock for thread-safety
-  Handle(Geom_Surface) mySurface;                                 //!< surface to place glyphs on to
+  Handle(GeomSurface) mySurface;                                 //!< surface to place glyphs on to
   Standard_Real        myPrecision;                               //!< algorithm precision
   Standard_Real        myScaleUnits; //!< scale font rendering units into model units
   // clang-format off
@@ -220,7 +220,7 @@ protected: //! @name Shared temporary variables for glyph construction
   Geom2dConvert_CompCurveToBSplineCurve myConcatMaker;
   TColgp_Array1OfPnt2d                  my3Poles;
   TColgp_Array1OfPnt2d                  my4Poles;
-  BRep_Builder                          myBuilder;
+  ShapeBuilder                          myBuilder;
 };
 
 #endif // _StdPrs_BRepFont_H__

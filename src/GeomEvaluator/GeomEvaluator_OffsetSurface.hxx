@@ -26,7 +26,7 @@ class GeomEvaluator_OffsetSurface : public GeomEvaluator_Surface
 public:
   //! Initialize evaluator by surface
   Standard_EXPORT GeomEvaluator_OffsetSurface(
-    const Handle(Geom_Surface)&           theBase,
+    const Handle(GeomSurface)&           theBase,
     const Standard_Real                   theOffset,
     const Handle(Geom_OsculatingSurface)& theOscSurf = Handle(Geom_OsculatingSurface)());
   //! Initialize evaluator by surface adaptor
@@ -178,7 +178,7 @@ private:
                                      const Standard_Real theSquareTol) const;
 
 private:
-  Handle(Geom_Surface)        myBaseSurf;
+  Handle(GeomSurface)        myBaseSurf;
   Handle(GeomAdaptor_Surface) myBaseAdaptor;
 
   Standard_Real                  myOffset;  ///< offset value

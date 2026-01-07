@@ -21,7 +21,7 @@
 #include <XCAFDoc_DocumentTool.hxx>
 #include <XCAFPrs_Driver.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XCAFApp_Application, TDocStd_Application)
+IMPLEMENT_STANDARD_RTTIEXT(XCAFApp_Application, AppManager)
 
 //=================================================================================================
 
@@ -54,7 +54,7 @@ Standard_CString XCAFApp_Application::ResourcesName()
 
 void XCAFApp_Application::InitDocument(const Handle(CDM_Document)& aDoc) const
 {
-  XCAFDoc_DocumentTool::Set(Handle(TDocStd_Document)::DownCast(aDoc)->Main());
+  XCAFDoc_DocumentTool::Set(Handle(AppDocument)::DownCast(aDoc)->Main());
 }
 
 //=================================================================================================
@@ -63,5 +63,5 @@ void XCAFApp_Application::DumpJson(Standard_OStream& theOStream, Standard_Intege
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, TDocStd_Application)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, AppManager)
 }

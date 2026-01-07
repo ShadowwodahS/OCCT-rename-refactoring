@@ -104,7 +104,7 @@ void IGESData_IGESModel::DumpHeader(Standard_OStream& S, const Standard_Integer)
     S << "[12]  Receiver              : " << str->ToCString() << "\n";
   S << "[13]  Scale                 : " << theheader.Scale() << "\n";
   S << "[14]  Unit  Flag            : " << theheader.UnitFlag();
-  //  if (Interface_Static::IVal("read.scale.unit") == 1)
+  //  if (ExchangeConfig::IVal("read.scale.unit") == 1)
   // #73 rln 10.03.99 S4135: "read.scale.unit" does not affect GlobalSection
   //    S << "    -> Value (in Meter) = " << theheader.UnitValue() / 1000 <<"\n";
   //  else S << "    -> Value (in Millimeter) = " << theheader.UnitValue()<<"\n";
@@ -242,21 +242,21 @@ Standard_Boolean IGESData_IGESModel::ApplyStatic(const Standard_CString param)
   Standard_CString val;
   if (param[0] == 'r')
   {
-    val = Interface_Static::CVal("write.iges.header.receiver");
+    val = ExchangeConfig::CVal("write.iges.header.receiver");
     if (!val || val[0] == '\0')
       return Standard_False;
     theheader.SetReceiveName(new TCollection_HAsciiString(val));
   }
   if (param[0] == 'a')
   {
-    val = Interface_Static::CVal("write.iges.header.author");
+    val = ExchangeConfig::CVal("write.iges.header.author");
     if (!val || val[0] == '\0')
       return Standard_False;
     theheader.SetAuthorName(new TCollection_HAsciiString(val));
   }
   if (param[0] == 'c')
   {
-    val = Interface_Static::CVal("write.iges.header.company");
+    val = ExchangeConfig::CVal("write.iges.header.company");
     if (!val || val[0] == '\0')
       return Standard_False;
     theheader.SetCompanyName(new TCollection_HAsciiString(val));

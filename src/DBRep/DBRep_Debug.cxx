@@ -36,7 +36,7 @@ Standard_EXPORT const char* DBRep_Set(const char* theNameStr, void* theShapePtr)
   }
   try
   {
-    DBRep::Set(theNameStr, *(TopoDS_Shape*)theShapePtr);
+    DBRep1::Set(theNameStr, *(TopoShape*)theShapePtr);
     return theNameStr;
   }
   catch (ExceptionBase const& anException)
@@ -50,14 +50,14 @@ Standard_EXPORT const char* DBRep_Set(const char* theNameStr, void* theShapePtr)
 // purpose  : static function to copy shapes from container into compound
 //=======================================================================
 template <class T>
-static Standard_Boolean fromContainer(void* theContainer, TopoDS_Compound& theShape)
+static Standard_Boolean fromContainer(void* theContainer, TopoCompound& theShape)
 {
   try
   {
     T* pContainer = (T*)theContainer;
     for (typename T::Iterator it(*pContainer); it.More(); it.Next())
     {
-      BRep_Builder().Add(theShape, it.Value());
+      ShapeBuilder().Add(theShape, it.Value());
     }
     return true;
   }
@@ -78,17 +78,17 @@ Standard_EXPORT const char* DBRep_SetComp(const char* theNameStr, void* theListP
     return "Error: name or list of shapes is null";
   }
 
-  TopoDS_Compound aC;
-  BRep_Builder().MakeCompound(aC);
+  TopoCompound aC;
+  ShapeBuilder().MakeCompound(aC);
 
-  if (fromContainer<TopTools_ListOfShape>(theListPtr, aC)
+  if (fromContainer<ShapeList>(theListPtr, aC)
       || fromContainer<TopTools_MapOfShape>(theListPtr, aC)
       || fromContainer<TopTools_IndexedMapOfShape>(theListPtr, aC)
       || fromContainer<TopTools_SequenceOfShape>(theListPtr, aC)
       || fromContainer<TopTools_Array1OfShape>(theListPtr, aC)
-      || fromContainer<NCollection_Vector<TopoDS_Shape>>(theListPtr, aC))
+      || fromContainer<NCollection_Vector<TopoShape>>(theListPtr, aC))
   {
-    DBRep::Set(theNameStr, aC);
+    DBRep1::Set(theNameStr, aC);
     return theNameStr;
   }
   else
@@ -103,7 +103,7 @@ Standard_EXPORT const char* DBRep_SetComp(const char* theNameStr, void* theListP
 // work with them (DBX could, on SUN Solaris).
 #ifndef _MSC_VER
 
-const char* DBRep_Set(char* theName, const TopoDS_Shape& theShape)
+const char* DBRep_Set(char* theName, const TopoShape& theShape)
 {
   return DBRep_Set(theName, (void*)&theShape);
 }
@@ -112,12 +112,12 @@ const char* DBRep_Set(char* theName, const TopoDS_Shape& theShape)
 
 // old function, perhaps too dangerous to be used
 /*
-void DBRep_Get(char* name, TopoDS_Shape& S)
+void DBRep_Get(char* name, TopoShape& S)
 {
   char n[255];
   strcpy(n,name);
   Standard_CString cs = (Standard_CString)n;
-  S = DBRep::Get(cs);
+  S = DBRep1::Get(cs);
   if (*name == '.')
     std::cout << "Name : " << n << std::endl;
 }

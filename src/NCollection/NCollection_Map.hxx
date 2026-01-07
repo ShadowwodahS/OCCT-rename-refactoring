@@ -53,13 +53,13 @@
  *              optimisation issues.
  */
 
-template <class TheKeyType, class Hasher = NCollection_DefaultHasher<TheKeyType>>
+template <class TheKeyType, class Hasher1 = NCollection_DefaultHasher<TheKeyType>>
 class NCollection_Map : public NCollection_BaseMap
 {
 public:
   //! STL-compliant typedef for key type
   typedef TheKeyType key_type;
-  typedef Hasher     hasher;
+  typedef Hasher1     hasher;
 
 public:
   //!   Adaptation of the TListNode to the map notations
@@ -534,7 +534,7 @@ protected:
   }
 
 protected:
-  Hasher myHasher;
+  Hasher1 myHasher;
 };
 
 #endif

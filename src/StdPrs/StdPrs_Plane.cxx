@@ -29,13 +29,13 @@
 
 void StdPrs_Plane::Add(const Handle(Prs3d_Presentation)& aPresentation,
                        const Adaptor3d_Surface&          aPlane,
-                       const Handle(Prs3d_Drawer)&       aDrawer)
+                       const Handle(StyleDrawer)&       aDrawer)
 {
   //  aPresentation->NewGroup();
   Handle(Graphic3d_Group) TheGroup = aPresentation->CurrentGroup();
   if (aPlane.GetType() != GeomAbs_Plane)
     return;
-  Handle(Geom_Plane) thegeom = new Geom_Plane(aPlane.Plane());
+  Handle(GeomPlane) thegeom = new GeomPlane(aPlane.Plane());
 
   Handle(Prs3d_PlaneAspect) theaspect = aDrawer->PlaneAspect();
 
@@ -96,7 +96,7 @@ void StdPrs_Plane::Add(const Handle(Prs3d_Presentation)& aPresentation,
     aPrims->AddVertex(loc);
     aPrims->AddVertex(p1);
     TheGroup->AddPrimitiveArray(aPrims);
-    Prs3d_Arrow::Draw(aPresentation->CurrentGroup(), p1, norm, ang, len);
+    Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(), p1, norm, ang, len);
   }
   if (theaspect->DisplayEdgesArrows())
   {
@@ -106,25 +106,25 @@ void StdPrs_Plane::Add(const Handle(Prs3d_Presentation)& aPresentation,
     p1 = loc.Translated(trans);
     aPrims->AddVertex(loc);
     aPrims->AddVertex(p1);
-    Prs3d_Arrow::Draw(aPresentation->CurrentGroup(), p1, norm, ang, len);
+    Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(), p1, norm, ang, len);
     //
     thegeom->D0(-Xmax, Ymax, loc);
     p1 = loc.Translated(trans);
     aPrims->AddVertex(loc);
     aPrims->AddVertex(p1);
-    Prs3d_Arrow::Draw(aPresentation->CurrentGroup(), p1, norm, ang, len);
+    Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(), p1, norm, ang, len);
     //
     thegeom->D0(Xmax, Ymax, loc);
     p1 = loc.Translated(trans);
     aPrims->AddVertex(loc);
     aPrims->AddVertex(p1);
-    Prs3d_Arrow::Draw(aPresentation->CurrentGroup(), p1, norm, ang, len);
+    Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(), p1, norm, ang, len);
     //
     thegeom->D0(Xmax, -Ymax, loc);
     p1 = loc.Translated(trans);
     aPrims->AddVertex(loc);
     aPrims->AddVertex(p1);
-    Prs3d_Arrow::Draw(aPresentation->CurrentGroup(), p1, norm, ang, len);
+    Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(), p1, norm, ang, len);
     //
     TheGroup->AddPrimitiveArray(aPrims);
   }
@@ -135,7 +135,7 @@ Standard_Boolean StdPrs_Plane::Match(const Standard_Real      X,
                                      const Standard_Real      Z,
                                      const Standard_Real      aDistance,
                                      const Adaptor3d_Surface& aPlane,
-                                     const Handle(Prs3d_Drawer)&)
+                                     const Handle(StyleDrawer)&)
 {
   if (aPlane.GetType() == GeomAbs_Plane)
   {

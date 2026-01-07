@@ -41,7 +41,7 @@ public:
   Standard_EXPORT XmlLDrivers_DocumentRetrievalDriver();
 
   Standard_EXPORT virtual void Read(
-    const TCollection_ExtendedString& theFileName,
+    const UtfString& theFileName,
     const Handle(CDM_Document)&       theNewDocument,
     const Handle(CDM_Application)&    theApplication,
     const Handle(PCDM_ReaderFilter)&  theFilter = Handle(PCDM_ReaderFilter)(),
@@ -81,7 +81,7 @@ protected:
 
   Handle(XmlMDF_ADriverTable) myDrivers;
   XmlObjMgt_RRelocationTable  myRelocTable;
-  TCollection_ExtendedString  myFileName;
+  UtfString  myFileName;
 
 private:
 };

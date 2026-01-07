@@ -24,25 +24,25 @@
 
 //=================================================================================================
 
-BRepFill_OffsetAncestors::BRepFill_OffsetAncestors()
+OffsetAncestors::OffsetAncestors()
     : myIsPerform(Standard_False)
 {
 }
 
 //=================================================================================================
 
-BRepFill_OffsetAncestors::BRepFill_OffsetAncestors(BRepFill_OffsetWire& Paral)
+OffsetAncestors::OffsetAncestors(BRepFill_OffsetWire& Paral)
 {
   Perform(Paral);
 }
 
 //=================================================================================================
 
-void BRepFill_OffsetAncestors::Perform(BRepFill_OffsetWire& Paral)
+void OffsetAncestors::Perform(BRepFill_OffsetWire& Paral)
 {
-  TopoDS_Face Spine = Paral.Spine();
+  TopoFace Spine = Paral.Spine();
 
-  TopExp_Explorer                    Exp;
+  ShapeExplorer                    Exp;
   TopTools_ListIteratorOfListOfShape it;
 
   // on itere sur les edges.
@@ -68,27 +68,27 @@ void BRepFill_OffsetAncestors::Perform(BRepFill_OffsetWire& Paral)
 
 //=================================================================================================
 
-Standard_Boolean BRepFill_OffsetAncestors::IsDone() const
+Standard_Boolean OffsetAncestors::IsDone() const
 {
   return myIsPerform;
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepFill_OffsetAncestors::HasAncestor(const TopoDS_Edge& S1) const
+Standard_Boolean OffsetAncestors::HasAncestor(const TopoEdge& S1) const
 {
   return myMap.IsBound(S1);
 }
 
 //=======================================================================
-// function : TopoDS_Shape&
+// function : TopoShape&
 // purpose  :
 //=======================================================================
 
-const TopoDS_Shape& BRepFill_OffsetAncestors::Ancestor(const TopoDS_Edge& S1) const
+const TopoShape& OffsetAncestors::Ancestor(const TopoEdge& S1) const
 {
   StdFail_NotDone_Raise_if(
     !myIsPerform,
-    "BRepFill_OffsetAncestors::Ancestor() - Perform() should be called before accessing results");
+    "OffsetAncestors::Ancestor() - Perform() should be called before accessing results");
   return myMap(S1);
 }

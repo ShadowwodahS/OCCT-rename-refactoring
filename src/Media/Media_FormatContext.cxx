@@ -45,7 +45,7 @@ static const AVRational ST_AV_TIME_BASE_Q = {1, AV_TIME_BASE};
 static const double     ST_AV_TIME_BASE_D = av_q2d(ST_AV_TIME_BASE_Q);
 
 //! Format framerate value.
-static TCollection_AsciiString formatFps(double theVal)
+static AsciiString1 formatFps(double theVal)
 {
   const uint64_t aVal = uint64_t(theVal * 100.0 + 0.5);
   char           aBuff[256];
@@ -72,14 +72,14 @@ static TCollection_AsciiString formatFps(double theVal)
 
 //=================================================================================================
 
-TCollection_AsciiString Media_FormatContext::FormatAVErrorDescription(int theErrCodeAV)
+AsciiString1 Media_FormatContext::FormatAVErrorDescription(int theErrCodeAV)
 {
 #ifdef HAVE_FFMPEG
   char aBuff[4096];
   memset(aBuff, 0, sizeof(aBuff));
   if (av_strerror(theErrCodeAV, aBuff, 4096) != -1)
   {
-    return TCollection_AsciiString(aBuff);
+    return AsciiString1(aBuff);
   }
 
   #ifdef _MSC_VER
@@ -87,19 +87,19 @@ TCollection_AsciiString Media_FormatContext::FormatAVErrorDescription(int theErr
   memset(aBuffW, 0, sizeof(aBuffW));
   if (_wcserror_s(aBuffW, 4096, AVUNERROR(theErrCodeAV)) == 0)
   {
-    return TCollection_AsciiString(aBuffW);
+    return AsciiString1(aBuffW);
   }
   #elif defined(_WIN32)
   // MinGW has only thread-unsafe variant
   char* anErrDesc = strerror(AVUNERROR(theErrCodeAV));
   if (anErrDesc != NULL)
   {
-    return TCollection_AsciiString(anErrDesc);
+    return AsciiString1(anErrDesc);
   }
   #endif
-  return TCollection_AsciiString(aBuff);
+  return AsciiString1(aBuff);
 #else
-  return TCollection_AsciiString("AVError #") + theErrCodeAV;
+  return AsciiString1("AVError #") + theErrCodeAV;
 #endif
 }
 
@@ -221,13 +221,13 @@ const AVStream& Media_FormatContext::Stream(unsigned int theIndex) const
 
 //=================================================================================================
 
-bool Media_FormatContext::OpenInput(const TCollection_AsciiString& theInput)
+bool Media_FormatContext::OpenInput(const AsciiString1& theInput)
 {
 #ifdef HAVE_FFMPEG
   const int avErrCode = avformat_open_input(&myFormatCtx, theInput.ToCString(), NULL, NULL);
   if (avErrCode != 0)
   {
-    Message::SendFail(TCollection_AsciiString("FFmpeg: Couldn't open video file '") + theInput
+    Message::SendFail(AsciiString1("FFmpeg: Couldn't open video file '") + theInput
                       + "'\nError: " + FormatAVErrorDescription(avErrCode));
     Close();
     return false;
@@ -236,7 +236,7 @@ bool Media_FormatContext::OpenInput(const TCollection_AsciiString& theInput)
   // retrieve stream information
   if (avformat_find_stream_info(myFormatCtx, NULL) < 0)
   {
-    Message::SendFail(TCollection_AsciiString("FFmpeg: Couldn't find stream information in '")
+    Message::SendFail(AsciiString1("FFmpeg: Couldn't find stream information in '")
                       + theInput + "'");
     Close();
     return false;
@@ -249,7 +249,7 @@ bool Media_FormatContext::OpenInput(const TCollection_AsciiString& theInput)
   myDuration     = 0.0;
   myPtsStartBase = 0.0;
 
-  TCollection_AsciiString anExt = theInput;
+  AsciiString1 anExt = theInput;
   anExt.LowerCase();
   if (anExt.EndsWith(".png") || anExt.EndsWith(".jpg") || anExt.EndsWith(".jpeg")
       || anExt.EndsWith(".mpo") || anExt.EndsWith(".bmp") || anExt.EndsWith(".tif")
@@ -294,7 +294,7 @@ void Media_FormatContext::Close()
 
 //=================================================================================================
 
-TCollection_AsciiString Media_FormatContext::FormatTime(double theSeconds)
+AsciiString1 Media_FormatContext::FormatTime(double theSeconds)
 {
   double       aSecIn = theSeconds;
   unsigned int aHours = (unsigned int)(aSecIn * THE_SECOND_IN_HOUR);
@@ -322,12 +322,12 @@ TCollection_AsciiString Media_FormatContext::FormatTime(double theSeconds)
     return aBuffer;
   }
 
-  return TCollection_AsciiString(aMilliSeconds) + " ms";
+  return AsciiString1(aMilliSeconds) + " ms";
 }
 
 //=================================================================================================
 
-TCollection_AsciiString Media_FormatContext::FormatTimeProgress(double theProgress,
+AsciiString1 Media_FormatContext::FormatTimeProgress(double theProgress,
                                                                 double theDuration)
 {
   double       aSecIn1 = theProgress;
@@ -365,7 +365,7 @@ TCollection_AsciiString Media_FormatContext::FormatTimeProgress(double theProgre
 
 //=================================================================================================
 
-TCollection_AsciiString Media_FormatContext::StreamInfo(unsigned int    theIndex,
+AsciiString1 Media_FormatContext::StreamInfo(unsigned int    theIndex,
                                                         AVCodecContext* theCodecCtx) const
 {
 #ifdef HAVE_FFMPEG
@@ -380,7 +380,7 @@ TCollection_AsciiString Media_FormatContext::StreamInfo(unsigned int    theIndex
 
   char aFrmtBuff[4096] = {};
   avcodec_string(aFrmtBuff, sizeof(aFrmtBuff), aCodecCtx, 0);
-  TCollection_AsciiString aStreamInfo(aFrmtBuff);
+  AsciiString1 aStreamInfo(aFrmtBuff);
 
   if (aStream.sample_aspect_ratio.num
       && av_cmp_q(aStream.sample_aspect_ratio, aStream.codecpar->sample_aspect_ratio))
@@ -401,33 +401,33 @@ TCollection_AsciiString Media_FormatContext::StreamInfo(unsigned int    theIndex
     if (aStream.avg_frame_rate.den != 0 && aStream.avg_frame_rate.num != 0)
     {
       aStreamInfo +=
-        TCollection_AsciiString(", ") + formatFps(av_q2d(aStream.avg_frame_rate)) + " fps";
+        AsciiString1(", ") + formatFps(av_q2d(aStream.avg_frame_rate)) + " fps";
     }
     if (aStream.r_frame_rate.den != 0 && aStream.r_frame_rate.num != 0)
     {
       aStreamInfo +=
-        TCollection_AsciiString(", ") + formatFps(av_q2d(aStream.r_frame_rate)) + " tbr";
+        AsciiString1(", ") + formatFps(av_q2d(aStream.r_frame_rate)) + " tbr";
     }
     if (aStream.time_base.den != 0 && aStream.time_base.num != 0)
     {
       aStreamInfo +=
-        TCollection_AsciiString(", ") + formatFps(1 / av_q2d(aStream.time_base)) + " tbn";
+        AsciiString1(", ") + formatFps(1 / av_q2d(aStream.time_base)) + " tbn";
     }
     if (aCodecCtx->time_base.den != 0 && aCodecCtx->time_base.num != 0)
     {
       aStreamInfo +=
-        TCollection_AsciiString(", ") + formatFps(1 / av_q2d(aCodecCtx->time_base)) + " tbc";
+        AsciiString1(", ") + formatFps(1 / av_q2d(aCodecCtx->time_base)) + " tbc";
     }
   }
   if (myDuration > 0.0)
   {
-    aStreamInfo += TCollection_AsciiString(", duration: ") + FormatTime(myDuration);
+    aStreamInfo += AsciiString1(", duration: ") + FormatTime(myDuration);
   }
   return aStreamInfo;
 #else
   (void)theIndex;
   (void)theCodecCtx;
-  return TCollection_AsciiString();
+  return AsciiString1();
 #endif
 }
 
@@ -479,12 +479,12 @@ bool Media_FormatContext::SeekStream(unsigned int theStreamId,
     return true;
   }
 
-  TCollection_AsciiString aStreamType =
+  AsciiString1 aStreamType =
     aStream.codecpar->codec_type == AVMEDIA_TYPE_VIDEO
       ? "Video"
       : (aStream.codecpar->codec_type == AVMEDIA_TYPE_AUDIO ? "Audio" : "");
   Message::SendWarning(
-    TCollection_AsciiString("Error while seeking ") + aStreamType + " stream to " + theSeekPts
+    AsciiString1("Error while seeking ") + aStreamType + " stream to " + theSeekPts
     + " sec (" + (theSeekPts + StreamUnitsToSeconds(aStream, aStream.start_time)) + " sec)");
   return false;
 #else
@@ -514,7 +514,7 @@ bool Media_FormatContext::Seek(double theSeekPts, bool theToSeekBack)
     myFormatCtx->filename;
   #endif
 
-  Message::SendWarning(TCollection_AsciiString("Disaster! Seeking to ") + theSeekPts + " ["
+  Message::SendWarning(AsciiString1("Disaster! Seeking to ") + theSeekPts + " ["
                        + aFileName + "] has failed.");
   return false;
 #else

@@ -22,25 +22,25 @@
 
 //=================================================================================================
 
-TopOpeBRepBuild_ShellToSolid::TopOpeBRepBuild_ShellToSolid() {}
+ShellToSolidBuilder::ShellToSolidBuilder() {}
 
 //=================================================================================================
 
-void TopOpeBRepBuild_ShellToSolid::Init()
+void ShellToSolidBuilder::Init()
 {
   myLSh.Clear();
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_ShellToSolid::AddShell(const TopoDS_Shell& Sh)
+void ShellToSolidBuilder::AddShell(const TopoShell& Sh)
 {
   myLSh.Append(Sh);
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_ShellToSolid::MakeSolids(const TopoDS_Solid& So, TopTools_ListOfShape& LSo)
+void ShellToSolidBuilder::MakeSolids(const TopoSolid& So, ShapeList& LSo)
 {
   LSo.Clear();
 

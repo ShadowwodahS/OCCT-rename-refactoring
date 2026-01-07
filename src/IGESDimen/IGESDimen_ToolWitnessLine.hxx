@@ -27,7 +27,7 @@ class IGESData_IGESReaderData;
 class IGESData_ParamReader;
 class IGESData_IGESWriter;
 class Interface_EntityIterator;
-class IGESData_DirChecker;
+class DirectoryChecker;
 class Interface_ShareTool;
 class Interface_Check;
 class Interface_CopyTool;
@@ -35,13 +35,13 @@ class IGESData_IGESDumper;
 
 //! Tool to work on a WitnessLine. Called by various Modules
 //! (ReadWriteModule, GeneralModule, SpecificModule)
-class IGESDimen_ToolWitnessLine
+class WitnessLineTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns a ToolWitnessLine, ready to work
-  Standard_EXPORT IGESDimen_ToolWitnessLine();
+  Standard_EXPORT WitnessLineTool();
 
   //! Reads own parameters from file. <PR> gives access to them,
   //! <IR> detains parameter types and values
@@ -63,7 +63,7 @@ public:
   Standard_EXPORT Standard_Boolean OwnCorrect(const Handle(IGESDimen_WitnessLine)& ent) const;
 
   //! Returns specific DirChecker
-  Standard_EXPORT IGESData_DirChecker DirChecker(const Handle(IGESDimen_WitnessLine)& ent) const;
+  Standard_EXPORT DirectoryChecker DirChecker(const Handle(IGESDimen_WitnessLine)& ent) const;
 
   //! Performs Specific Semantic Check
   Standard_EXPORT void OwnCheck(const Handle(IGESDimen_WitnessLine)& ent,

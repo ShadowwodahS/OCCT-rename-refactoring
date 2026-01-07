@@ -40,7 +40,7 @@ Geom2dGcc_Circ2dTanCen::Geom2dGcc_Circ2dTanCen(const Geom2dGcc_QualifiedCurve& Q
       pararg1(1, 2)
 {
   Geom2dAdaptor_Curve         C1    = Qualified1.Qualified();
-  const Handle(Geom2d_Curve)& CC1   = C1.Curve();
+  const Handle(GeomCurve2d)& CC1   = C1.Curve();
   GeomAbs_CurveType           Type1 = C1.GetType();
 
   //=============================================================================
@@ -56,7 +56,7 @@ Geom2dGcc_Circ2dTanCen::Geom2dGcc_Circ2dTanCen(const Geom2dGcc_QualifiedCurve& Q
       Handle(Geom2d_Circle) CCC1 = Handle(Geom2d_Circle)::DownCast(CC1);
       gp_Circ2d             c1(CCC1->Circ2d());
       GccEnt_QualifiedCirc  Qc1(c1, Qualified1.Qualifier());
-      GccAna_Circ2dTanCen   Circ(Qc1, pcenter, Tolerance);
+      Circle2dTangentCenter   Circ(Qc1, pcenter, Tolerance);
       WellDone = Circ.IsDone();
       NbrSol   = Circ.NbSolutions();
       for (Standard_Integer j = 1; j <= NbrSol; j++)
@@ -78,7 +78,7 @@ Geom2dGcc_Circ2dTanCen::Geom2dGcc_Circ2dTanCen(const Geom2dGcc_QualifiedCurve& Q
     {
       Handle(Geom2d_Line) LL1 = Handle(Geom2d_Line)::DownCast(CC1);
       gp_Lin2d            l1(LL1->Lin2d());
-      GccAna_Circ2dTanCen Circ(l1, pcenter);
+      Circle2dTangentCenter Circ(l1, pcenter);
       WellDone = Circ.IsDone();
       NbrSol   = Circ.NbSolutions();
       for (Standard_Integer j = 1; j <= NbrSol; j++)

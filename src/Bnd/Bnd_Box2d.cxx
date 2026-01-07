@@ -302,8 +302,8 @@ Standard_Boolean Bnd_Box2d::IsOut(const gp_Lin2d& theL) const
   Standard_Real aXMin, aXMax, aYMin, aYMax;
   Get(aXMin, aYMin, aXMax, aYMax);
 
-  gp_XY aCenter((aXMin + aXMax) / 2, (aYMin + aYMax) / 2);
-  gp_XY aHeigh(Abs(aXMax - aCenter.X()), Abs(aYMax - aCenter.Y()));
+  Coords2d aCenter((aXMin + aXMax) / 2, (aYMin + aYMax) / 2);
+  Coords2d aHeigh(Abs(aXMax - aCenter.X()), Abs(aYMax - aCenter.Y()));
 
   const Standard_Real aProd[3] = {theL.Direction().XY() ^ (aCenter - theL.Location().XY()),
                                   theL.Direction().X() * aHeigh.Y(),
@@ -330,10 +330,10 @@ Standard_Boolean Bnd_Box2d::IsOut(const gp_Pnt2d& theP0, const gp_Pnt2d& theP1) 
   Get(aLocXMin, aLocYMin, aLocXMax, aLocYMax);
 
   //// Intersect the line containing the segment.
-  const gp_XY aSegDelta(theP1.XY() - theP0.XY());
+  const Coords2d aSegDelta(theP1.XY() - theP0.XY());
 
-  gp_XY aCenter((aLocXMin + aLocXMax) / 2, (aLocYMin + aLocYMax) / 2);
-  gp_XY aHeigh(Abs(aLocXMax - aCenter.X()), Abs(aLocYMax - aCenter.Y()));
+  Coords2d aCenter((aLocXMin + aLocXMax) / 2, (aLocYMin + aLocYMax) / 2);
+  Coords2d aHeigh(Abs(aLocXMax - aCenter.X()), Abs(aLocYMax - aCenter.Y()));
 
   const Standard_Real aProd[3] = {aSegDelta ^ (aCenter - theP0.XY()),
                                   aSegDelta.X() * aHeigh.Y(),
@@ -342,8 +342,8 @@ Standard_Boolean Bnd_Box2d::IsOut(const gp_Pnt2d& theP0, const gp_Pnt2d& theP1) 
   if ((Abs(aProd[0]) <= (Abs(aProd[1]) + Abs(aProd[2]))))
   {
     // Intersection with line detected; check the segment as bounding box
-    const gp_XY aHSeg(0.5 * aSegDelta.X(), 0.5 * aSegDelta.Y());
-    const gp_XY aHSegAbs(Abs(aHSeg.X()), Abs(aHSeg.Y()));
+    const Coords2d aHSeg(0.5 * aSegDelta.X(), 0.5 * aSegDelta.Y());
+    const Coords2d aHSegAbs(Abs(aHSeg.X()), Abs(aHSeg.Y()));
     aStatus = ((Abs((theP0.XY() + aHSeg - aCenter).X()) > (aHeigh + aHSegAbs).X())
                || (Abs((theP0.XY() + aHSeg - aCenter).Y()) > (aHeigh + aHSegAbs).Y()));
   }

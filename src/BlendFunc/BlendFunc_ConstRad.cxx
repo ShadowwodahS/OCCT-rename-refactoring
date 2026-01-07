@@ -257,18 +257,18 @@ Standard_Boolean BlendFunc_ConstRad::ComputeValues(const math_Vector&     X,
       // Vector3d normal;
       gp_Pnt2d P(X(1), X(2));
       if (Order == 0)
-        BlendFunc::ComputeNormal(surf1, P, nsurf1);
+        BlendFunc1::ComputeNormal(surf1, P, nsurf1);
       else
-        BlendFunc::ComputeDNormal(surf1, P, nsurf1, dns1u1, dns1v1);
+        BlendFunc1::ComputeDNormal(surf1, P, nsurf1, dns1u1, dns1v1);
     }
     if (nsurf2.Magnitude() < Eps)
     {
       // Vector3d normal;
       gp_Pnt2d P(X(3), X(4));
       if (Order == 0)
-        BlendFunc::ComputeNormal(surf2, P, nsurf2);
+        BlendFunc1::ComputeNormal(surf2, P, nsurf2);
       else
-        BlendFunc::ComputeDNormal(surf2, P, nsurf2, dns1u2, dns1v2);
+        BlendFunc1::ComputeDNormal(surf2, P, nsurf2, dns1u2, dns1v2);
     }
   }
 
@@ -1182,7 +1182,7 @@ Standard_Real BlendFunc_ConstRad::GetSectionSize() const
 
 void BlendFunc_ConstRad::GetMinimalWeight(TColStd_Array1OfReal& Weigths) const
 {
-  BlendFunc::GetMinimalWeights(mySShape, myTConv, minang, maxang, Weigths);
+  BlendFunc1::GetMinimalWeights(mySShape, myTConv, minang, maxang, Weigths);
   // It is supposed that it does not depend on the Radius!
 }
 
@@ -1190,14 +1190,14 @@ void BlendFunc_ConstRad::GetMinimalWeight(TColStd_Array1OfReal& Weigths) const
 
 Standard_Integer BlendFunc_ConstRad::NbIntervals(const GeomAbs_Shape S) const
 {
-  return curv->NbIntervals(BlendFunc::NextShape(S));
+  return curv->NbIntervals(BlendFunc1::NextShape(S));
 }
 
 //=================================================================================================
 
 void BlendFunc_ConstRad::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) const
 {
-  curv->Intervals(T, BlendFunc::NextShape(S));
+  curv->Intervals(T, BlendFunc1::NextShape(S));
 }
 
 //=================================================================================================
@@ -1208,7 +1208,7 @@ void BlendFunc_ConstRad::GetShape(Standard_Integer& NbPoles,
                                   Standard_Integer& NbPoles2d)
 {
   NbPoles2d = 2;
-  BlendFunc::GetShape(mySShape, maxang, NbPoles, NbKnots, Degree, myTConv);
+  BlendFunc1::GetShape(mySShape, maxang, NbPoles, NbKnots, Degree, myTConv);
 }
 
 //=======================================================================
@@ -1246,7 +1246,7 @@ void BlendFunc_ConstRad::Mults(TColStd_Array1OfInteger& TMults)
 
 //=================================================================================================
 
-void BlendFunc_ConstRad::Section(const Blend_Point&    P,
+void BlendFunc_ConstRad::Section(const Point2&    P,
                                  TColgp_Array1OfPnt&   Poles,
                                  TColgp_Array1OfPnt2d& Poles2d,
                                  TColStd_Array1OfReal& Weights)
@@ -1321,7 +1321,7 @@ void BlendFunc_ConstRad::Section(const Blend_Point&    P,
 
 //=================================================================================================
 
-Standard_Boolean BlendFunc_ConstRad::Section(const Blend_Point&    P,
+Standard_Boolean BlendFunc_ConstRad::Section(const Point2&    P,
                                              TColgp_Array1OfPnt&   Poles,
                                              TColgp_Array1OfVec&   DPoles,
                                              TColgp_Array1OfPnt2d& Poles2d,
@@ -1494,7 +1494,7 @@ Standard_Boolean BlendFunc_ConstRad::Section(const Blend_Point&    P,
 
 //=================================================================================================
 
-Standard_Boolean BlendFunc_ConstRad::Section(const Blend_Point&    P,
+Standard_Boolean BlendFunc_ConstRad::Section(const Point2&    P,
                                              TColgp_Array1OfPnt&   Poles,
                                              TColgp_Array1OfVec&   DPoles,
                                              TColgp_Array1OfVec&   D2Poles,

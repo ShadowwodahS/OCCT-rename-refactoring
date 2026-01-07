@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepDS_SolidSurfaceInterference, TopOpeBRepDS_I
 //=================================================================================================
 
 TopOpeBRepDS_SolidSurfaceInterference::TopOpeBRepDS_SolidSurfaceInterference(
-  const TopOpeBRepDS_Transition& T,
+  const StateTransition& T,
   const TopOpeBRepDS_Kind        ST,
   const Standard_Integer         S,
   const TopOpeBRepDS_Kind        GT,

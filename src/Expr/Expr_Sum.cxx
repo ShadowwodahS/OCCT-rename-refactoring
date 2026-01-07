@@ -55,7 +55,7 @@ Handle(Expr_GeneralExpression) Expr_Sum::Copy() const
   Standard_Integer                 max = NbOperands();
   for (i = 1; i <= max; i++)
   {
-    ops.Append(Expr::CopyShare(Operand(i)));
+    ops.Append(Expr1::CopyShare(Operand(i)));
   }
   return new Expr_Sum(ops);
 }
@@ -252,12 +252,12 @@ Standard_Real Expr_Sum::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return res;
 }
 
-TCollection_AsciiString Expr_Sum::String() const
+AsciiString1 Expr_Sum::String() const
 {
   Handle(Expr_GeneralExpression) op;
   Standard_Integer               nbop = NbOperands();
   op                                  = Operand(1);
-  TCollection_AsciiString str;
+  AsciiString1 str;
   if (op->NbSubExpressions() > 1)
   {
     str = "(";

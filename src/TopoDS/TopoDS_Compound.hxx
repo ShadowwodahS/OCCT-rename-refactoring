@@ -28,23 +28,23 @@
 //! terms of its geometry (as opposed to orientation in
 //! relation to other shapes).
 //! Casts shape S to the more specialized return type, Compound.
-class TopoDS_Compound : public TopoDS_Shape
+class TopoCompound : public TopoShape
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs an Undefined Compound.
-  TopoDS_Compound() {}
+  TopoCompound() {}
 };
 
 namespace std
 {
 template <>
-struct hash<TopoDS_Compound>
+struct hash<TopoCompound>
 {
-  size_t operator()(const TopoDS_Compound& theShape) const
+  size_t operator()(const TopoCompound& theShape) const
   {
-    return std::hash<TopoDS_Shape>{}(theShape);
+    return std::hash<TopoShape>{}(theShape);
   }
 };
 } // namespace std

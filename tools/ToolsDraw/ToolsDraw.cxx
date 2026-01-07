@@ -53,10 +53,10 @@ TInspector_Communicator* ToolsDraw::Communicator()
 // function : convertToPluginName
 // purpose  : defines plugin library name by the command argument
 // =======================================================================
-Standard_Boolean convertToPluginName(const TCollection_AsciiString& theArgument,
-                                     TCollection_AsciiString&       thePluginName)
+Standard_Boolean convertToPluginName(const AsciiString1& theArgument,
+                                     AsciiString1&       thePluginName)
 {
-  TCollection_AsciiString anArgument = theArgument;
+  AsciiString1 anArgument = theArgument;
   anArgument.LowerCase();
 
   if (anArgument == "dfbrowser")
@@ -90,11 +90,11 @@ Standard_Boolean convertToPluginName(const TCollection_AsciiString& theArgument,
 void getArgumentPlugins(Standard_Integer                           theArgsNb,
                         const char**                               theArgs,
                         Standard_Integer&                          theIt,
-                        NCollection_List<TCollection_AsciiString>& thePlugins)
+                        NCollection_List<AsciiString1>& thePlugins)
 {
   while (theIt != theArgsNb)
   {
-    TCollection_AsciiString aPluginName;
+    AsciiString1 aPluginName;
     if (convertToPluginName(theArgs[theIt], aPluginName))
     {
       if (!thePlugins.Contains(aPluginName))
@@ -113,7 +113,7 @@ void getArgumentPlugins(Standard_Integer                           theArgsNb,
 // function : tinspector
 // purpose  :
 // =======================================================================
-static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const char** theArgs)
+static int tinspector(DrawInterpreter& di, Standard_Integer theArgsNb, const char** theArgs)
 {
   if (theArgsNb < 1)
   {
@@ -122,25 +122,25 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
   }
 
   // parse command arguments
-  NCollection_List<TCollection_AsciiString> aPlugins;
-  NCollection_DataMap<TCollection_AsciiString, NCollection_List<Handle(RefObject)>>
+  NCollection_List<AsciiString1> aPlugins;
+  NCollection_DataMap<AsciiString1, NCollection_List<Handle(RefObject)>>
                                                                         aParameters;
-  NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString> anOpenFileParameters;
-  TCollection_AsciiString                                               aPluginNameToActivate;
+  NCollection_DataMap<AsciiString1, AsciiString1> anOpenFileParameters;
+  AsciiString1                                               aPluginNameToActivate;
   Standard_Boolean aNeedToUpdateContent = Standard_False, aNeedToHideInspector = Standard_False,
                    aNeedToShowInspector = Standard_False, aNeedToPrintState = Standard_False,
                    aNeedDirectory = Standard_False;
-  TCollection_AsciiString aTemporaryDirectory;
+  AsciiString1 aTemporaryDirectory;
 
   NCollection_List<Handle(RefObject)> aDefaultParameters;
-  TCollection_AsciiString                      aDefaultOpenFileParameter;
+  AsciiString1                      aDefaultOpenFileParameter;
 
   NCollection_List<Handle(RefObject)> anObjectsToSelect;
-  NCollection_List<TCollection_AsciiString>    anItemNamesToSelect;
+  NCollection_List<AsciiString1>    anItemNamesToSelect;
 
   for (Standard_Integer anIt = 1; anIt < theArgsNb; ++anIt)
   {
-    TCollection_AsciiString aParam(theArgs[anIt]);
+    AsciiString1 aParam(theArgs[anIt]);
     aParam.LowerCase();
 
     if (aParam.IsEqual("-plugins")) // [-plugins {name1 [name2] ... [name3] | all}]
@@ -156,7 +156,7 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
         std::cout << "Empty argument of '" << aParam << "'.\n";
         return 1;
       }
-      TCollection_AsciiString aPluginName;
+      AsciiString1 aPluginName;
       if (convertToPluginName(theArgs[anIt], aPluginName))
         aPluginNameToActivate = aPluginName;
     }
@@ -168,14 +168,14 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
         std::cout << "Empty argument of '" << aParam << "'.\n";
         return 1;
       }
-      TopoDS_Shape aShape = DBRep::Get(theArgs[anIt]);
+      TopoShape aShape = DBRep1::Get(theArgs[anIt]);
       anIt++;
       if (aShape.IsNull())
       {
         std::cout << "Wrong shape name: " << aParam << ".\n";
         return 1;
       }
-      NCollection_List<TCollection_AsciiString> anArgPlugins;
+      NCollection_List<AsciiString1> anArgPlugins;
       getArgumentPlugins(theArgsNb, theArgs, anIt, anArgPlugins);
 
       if (anArgPlugins.IsEmpty())
@@ -185,7 +185,7 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
       }
       else
       {
-        for (NCollection_List<TCollection_AsciiString>::Iterator anArgIt(anArgPlugins);
+        for (NCollection_List<AsciiString1>::Iterator anArgIt(anArgPlugins);
              anArgIt.More();
              anArgIt.Next())
         {
@@ -205,16 +205,16 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
         std::cout << "Empty argument of '" << aParam << "'.\n";
         return 1;
       }
-      TCollection_AsciiString aFileName(theArgs[anIt]);
+      AsciiString1 aFileName(theArgs[anIt]);
       anIt++;
 
-      NCollection_List<TCollection_AsciiString> anArgPlugins;
+      NCollection_List<AsciiString1> anArgPlugins;
       getArgumentPlugins(theArgsNb, theArgs, anIt, anArgPlugins);
       if (anArgPlugins.IsEmpty())
         aDefaultOpenFileParameter = aFileName;
       else
       {
-        for (NCollection_List<TCollection_AsciiString>::Iterator anArgIt(anArgPlugins);
+        for (NCollection_List<AsciiString1>::Iterator anArgIt(anArgPlugins);
              anArgIt.More();
              anArgIt.Next())
         {
@@ -253,21 +253,21 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
         return 1;
       }
       // search shape with given name
-      TopoDS_Shape aShape = DBRep::Get(theArgs[anIt]);
+      TopoShape aShape = DBRep1::Get(theArgs[anIt]);
       if (!aShape.IsNull())
       {
         anObjectsToSelect.Append(aShape.TShape());
         anItemNamesToSelect.Append(TInspectorAPI_PluginParameters::ParametersToString(aShape));
       }
       // search prsentations with given name
-      Handle(AIS_InteractiveObject) anIO;
+      Handle(VisualEntity) anIO;
       GetMapOfAIS().Find2(theArgs[anIt], anIO);
       if (!anIO.IsNull())
       {
         anObjectsToSelect.Append(anIO);
       }
       // give parameters as a container of names
-      aParam = TCollection_AsciiString(theArgs[anIt]);
+      aParam = AsciiString1(theArgs[anIt]);
       while (!aParam.StartsWith("-"))
       {
         anItemNamesToSelect.Append(aParam);
@@ -286,8 +286,8 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
         std::cout << "Empty argument of '" << aParam << "'.\n";
         return 1;
       }
-      aNeedToHideInspector = Draw::Atoi(theArgs[anIt]) == 0;
-      aNeedToShowInspector = Draw::Atoi(theArgs[anIt]) > 0;
+      aNeedToHideInspector = Draw1::Atoi(theArgs[anIt]) == 0;
+      aNeedToShowInspector = Draw1::Atoi(theArgs[anIt]) > 0;
     }
     else
     {
@@ -301,12 +301,12 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
   if (!MyCommunicator)
     MyCommunicator = new TInspector_Communicator();
 
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (!aContext.IsNull())
     aDefaultParameters.Append(aContext);
 
   // Sets OCAF application into DFBrowser
-  const Handle(TDocStd_Application)& anApplication = DDocStd::GetApplication();
+  const Handle(AppManager)& anApplication = DDocStd1::GetApplication();
   // Initialize standard document formats at creation - they should
   // be available even if this DRAW plugin is not loaded by pload command
   if (!anApplication.IsNull())
@@ -332,19 +332,19 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
   }
 
   // register plugin from parameters
-  for (NCollection_List<TCollection_AsciiString>::Iterator aPluginNameIt(aPlugins);
+  for (NCollection_List<AsciiString1>::Iterator aPluginNameIt(aPlugins);
        aPluginNameIt.More();
        aPluginNameIt.Next())
     MyCommunicator->RegisterPlugin(aPluginNameIt.Value());
 
   // init all registered plugins with the default and parameters values
-  NCollection_List<TCollection_AsciiString> aRegisteredPlugins =
+  NCollection_List<AsciiString1> aRegisteredPlugins =
     MyCommunicator->RegisteredPlugins();
-  for (NCollection_List<TCollection_AsciiString>::Iterator anIterator(aRegisteredPlugins);
+  for (NCollection_List<AsciiString1>::Iterator anIterator(aRegisteredPlugins);
        anIterator.More();
        anIterator.Next())
   {
-    TCollection_AsciiString                      aPluginName = anIterator.Value();
+    AsciiString1                      aPluginName = anIterator.Value();
     NCollection_List<Handle(RefObject)> aParameterValues;
     aParameters.Find(aPluginName, aParameterValues);
 
@@ -361,7 +361,7 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
 
   if (!anOpenFileParameters.IsEmpty())
   {
-    for (NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString>::Iterator anOpenIt(
+    for (NCollection_DataMap<AsciiString1, AsciiString1>::Iterator anOpenIt(
            anOpenFileParameters);
          anOpenIt.More();
          anOpenIt.Next())
@@ -402,7 +402,7 @@ static int tinspector(Draw_Interpretor& di, Standard_Integer theArgsNb, const ch
 // function : Commands
 // purpose  :
 // =======================================================================
-void ToolsDraw::Commands(Draw_Interpretor& theCommands)
+void ToolsDraw::Commands(DrawInterpreter& theCommands)
 {
   const char* group = "Tools";
 
@@ -435,10 +435,10 @@ void ToolsDraw::Commands(Draw_Interpretor& theCommands)
     "\n\t\t:  -update updates content of the active plugin;"
     "\n\t\t:  -select sets the parameter that should be selected in an active tool view."
     "\n\t\t:          Depending on active tool the parameter is:"
-    "\n\t\t:          ShapeView: 'object' is an instance of TopoDS_Shape TShape,"
-    "\n\t\t:          DFBrowser: 'name' is an entry of TDF_Label and name2(optionally) for "
+    "\n\t\t:          ShapeView: 'object' is an instance of TopoShape TShape,"
+    "\n\t\t:          DFBrowser: 'name' is an entry of DataLabel and name2(optionally) for "
     "TDF_Attribute type name,"
-    "\n\t\t:          VInspector: 'object' is an instance of AIS_InteractiveObject;"
+    "\n\t\t:          VInspector: 'object' is an instance of VisualEntity;"
     "\n\t\t:  -show sets Inspector view visible or hidden. The first call of this command will "
     "show it."
     "\n\t\t:  -directory sets Inspector temporary directory. Preferences file is stored there."
@@ -453,13 +453,13 @@ void ToolsDraw::Commands(Draw_Interpretor& theCommands)
 // function : Factory
 // purpose  :
 // =======================================================================
-void ToolsDraw::Factory(Draw_Interpretor& theDI)
+void ToolsDraw::Factory(DrawInterpreter& theDI)
 {
   // definition of Tools Command
   ToolsDraw::Commands(theDI);
 
 #ifdef OCCT_DEBUG
-  theDI << "Draw Plugin : OCC Tools commands are loaded\n";
+  theDI << "Draw1 Plugin : OCC Tools commands are loaded\n";
 #endif
 }
 

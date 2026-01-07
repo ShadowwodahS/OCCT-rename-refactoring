@@ -39,9 +39,9 @@ IMPLEMENT_STANDARD_RTTIEXT(IVtkDraw_HighlightAndSelectionPipeline, RefObject)
 //=================================================================================================
 
 IVtkDraw_HighlightAndSelectionPipeline::IVtkDraw_HighlightAndSelectionPipeline(
-  const TopoDS_Shape&         theShape,
+  const TopoShape&         theShape,
   const Standard_Integer      theShapeID,
-  const Handle(Prs3d_Drawer)& theDrawerLink)
+  const Handle(StyleDrawer)& theDrawerLink)
     : RefObject()
 {
   /* ===========================

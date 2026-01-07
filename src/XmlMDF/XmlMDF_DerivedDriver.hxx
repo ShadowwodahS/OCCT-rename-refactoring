@@ -42,9 +42,9 @@ public:
   }
 
   //! Returns the full XML tag name (including NS prefix)
-  const TCollection_AsciiString& TypeName() const
+  const AsciiString1& TypeName() const
   {
-    const TCollection_AsciiString& aRegistered =
+    const AsciiString1& aRegistered =
       TDF_DerivedAttribute::TypeName(myDerivative->DynamicType()->Name());
     if (aRegistered.IsEmpty())
     {

@@ -28,7 +28,7 @@ static volatile Standard_Integer THE_LIGHT_COUNTER = 0;
 
 void Graphic3d_CLight::makeId()
 {
-  TCollection_AsciiString aTypeSuffix;
+  AsciiString1 aTypeSuffix;
   switch (myType)
   {
     case Graphic3d_TypeOfLightSource_Ambient:
@@ -45,8 +45,8 @@ void Graphic3d_CLight::makeId()
       break;
   }
 
-  myId = TCollection_AsciiString("Graphic3d_CLight_") + aTypeSuffix
-         + TCollection_AsciiString(Standard_Atomic_Increment(&THE_LIGHT_COUNTER));
+  myId = AsciiString1("Graphic3d_CLight_") + aTypeSuffix
+         + AsciiString1(Standard_Atomic_Increment(&THE_LIGHT_COUNTER));
 }
 
 //=================================================================================================

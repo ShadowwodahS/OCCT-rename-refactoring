@@ -74,12 +74,12 @@
 
 //  Decomposition of a file name in its parts : prefix, root, suffix
 static void SplitFileName(const Standard_CString   filename,
-                          TCollection_AsciiString& prefix,
-                          TCollection_AsciiString& fileroot,
-                          TCollection_AsciiString& suffix)
+                          AsciiString1& prefix,
+                          AsciiString1& fileroot,
+                          AsciiString1& suffix)
 {
   Standard_Integer        nomdeb, nomfin, nomlon;
-  TCollection_AsciiString resfile(filename);
+  AsciiString1 resfile(filename);
   nomlon = resfile.Length();
   nomdeb = resfile.SearchFromEnd("/");
   if (nomdeb <= 0)
@@ -996,7 +996,7 @@ static IFSelect_ReturnStatus fun24(const Handle(IFSelect_SessionPilot)& pilot)
   Standard_Integer             argc = pilot->NbWords();
   //        ****    Item Label         ****
   Message_Messenger::StreamBuffer sout = Message::SendInfo();
-  TCollection_AsciiString         label;
+  AsciiString1         label;
   if (argc < 2)
   {
     sout << " Give  label to search" << std::endl;
@@ -1086,7 +1086,7 @@ static IFSelect_ReturnStatus fun27(const Handle(IFSelect_SessionPilot)& pilot)
   Message_Messenger::StreamBuffer sout = Message::SendInfo();
   if (argc < 2 || (argc == 3 && strcmp(arg1, "-p") == 0))
   {
-    Handle(TColStd_HSequenceOfHAsciiString) li = Interface_Static::Items();
+    Handle(TColStd_HSequenceOfHAsciiString) li = ExchangeConfig::Items();
     Standard_Integer                        i, nb = li->Length(), aPatternNb = 0;
     size_t                                  aPatternLen = strlen(arg2);
     if (argc == 3)
@@ -1111,7 +1111,7 @@ static IFSelect_ReturnStatus fun27(const Handle(IFSelect_SessionPilot)& pilot)
         continue;
       }
       sout << li->Value(i)->String();
-      sout << " : " << Interface_Static::CVal(li->Value(i)->ToCString()) << std::endl;
+      sout << " : " << ExchangeConfig::CVal(li->Value(i)->ToCString()) << std::endl;
     }
     return IFSelect_RetVoid;
   }
@@ -1126,17 +1126,17 @@ static IFSelect_ReturnStatus fun27(const Handle(IFSelect_SessionPilot)& pilot)
       sout << "     FORMER STATUS of Static Parameter " << arg1 << std::endl;
     else
       sout << "     ACTUAL STATUS of Static Parameter " << arg1 << std::endl;
-    if (!Interface_Static::IsPresent(arg1))
+    if (!ExchangeConfig::IsPresent(arg1))
     {
       sout << " Parameter " << arg1 << " undefined" << std::endl;
       return IFSelect_RetError;
     }
-    if (!Interface_Static::IsSet(arg1))
+    if (!ExchangeConfig::IsSet(arg1))
       sout << " Parameter " << arg1 << " not valued" << std::endl;
     else if (argc == 2)
-      Interface_Static::Static(arg1)->Print(sout);
+      ExchangeConfig::Static(arg1)->Print(sout);
     else
-      sout << " Value : " << Interface_Static::CVal(arg1) << std::endl;
+      sout << " Value : " << ExchangeConfig::CVal(arg1) << std::endl;
 
     if (argc == 2)
       sout << "To modify, param name_param new_val" << std::endl;
@@ -1150,7 +1150,7 @@ static IFSelect_ReturnStatus fun27(const Handle(IFSelect_SessionPilot)& pilot)
       {
         sout << " New demanded value : not valued";
       }
-      if (Interface_Static::SetCVal(arg1, arg2))
+      if (ExchangeConfig::SetCVal(arg1, arg2))
       {
         sout << "   OK" << std::endl;
         return IFSelect_RetDone;
@@ -1293,7 +1293,7 @@ static IFSelect_ReturnStatus fun34(const Handle(IFSelect_SessionPilot)& pilot)
       sout << "Modele " << i << " Model non genere ..." << std::endl;
       continue;
     }
-    TCollection_AsciiString name = WS->FileName(i);
+    AsciiString1 name = WS->FileName(i);
     sout << "Fichier n0 " << i << " Nb Entites : " << mod->NbEntities() << "  Nom: ";
     sout << name << std::endl;
   }
@@ -1893,7 +1893,7 @@ static IFSelect_ReturnStatus fun_writedisp(const Handle(IFSelect_SessionPilot)& 
          << "See also : evaladisp" << std::endl;
     return IFSelect_RetVoid;
   }
-  TCollection_AsciiString prefix, rootname, suffix;
+  AsciiString1 prefix, rootname, suffix;
   SplitFileName(arg1, prefix, rootname, suffix);
   if (rootname.Length() == 0 || suffix.Length() == 0)
   {
@@ -2537,7 +2537,7 @@ static IFSelect_ReturnStatus fun91(const Handle(IFSelect_SessionPilot)& pilot)
 
   for (Standard_Integer ia = 2; ia < argc; ia++)
   {
-    const TCollection_AsciiString argi = pilot->Word(ia);
+    const AsciiString1 argi = pilot->Word(ia);
     Standard_Integer              id   = pilot->Number(&(argi.ToCString())[1]);
     if (id == 0)
     {
@@ -3075,7 +3075,7 @@ Handle(IFSelect_Dispatch) IFSelect_Functions::GiveDispatch(const Handle(IFSelect
     return disp; // OK as it is given
 
   //   Else, let s try special cases
-  TCollection_AsciiString nam(name);
+  AsciiString1 nam(name);
   Standard_Integer        paro = nam.Location(1, '(', 1, nam.Length());
   Standard_Integer        parf = nam.Location(1, ')', 1, nam.Length());
   nam.SetValue(paro, '\0');

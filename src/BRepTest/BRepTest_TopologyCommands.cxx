@@ -25,18 +25,18 @@
 #include <TopOpeBRepBuild_HBuilder.hxx>
 #include <TopOpeBRepDS_HDataStructure.hxx>
 
-static Standard_Integer halfspace(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer halfspace(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 6)
     return 1;
 
   // Le point indiquant le cote "matiere".
-  Point3d RefPnt = Point3d(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
+  Point3d RefPnt = Point3d(Draw1::Atof(a[3]), Draw1::Atof(a[4]), Draw1::Atof(a[5]));
 
-  TopoDS_Shape Face = DBRep::Get(a[2], TopAbs_FACE);
+  TopoShape Face = DBRep1::Get(a[2], TopAbs_FACE);
   if (Face.IsNull())
   {
-    TopoDS_Shape Shell = DBRep::Get(a[2], TopAbs_SHELL);
+    TopoShape Shell = DBRep1::Get(a[2], TopAbs_SHELL);
     if (Shell.IsNull())
     {
       di << a[2] << " must be a face or a shell\n";
@@ -47,7 +47,7 @@ static Standard_Integer halfspace(Draw_Interpretor& di, Standard_Integer n, cons
       BRepPrimAPI_MakeHalfSpace Half(TopoDS::Shell(Shell), RefPnt);
       if (Half.IsDone())
       {
-        DBRep::Set(a[1], Half.Solid());
+        DBRep1::Set(a[1], Half.Solid());
       }
       else
       {
@@ -61,7 +61,7 @@ static Standard_Integer halfspace(Draw_Interpretor& di, Standard_Integer n, cons
     BRepPrimAPI_MakeHalfSpace Half(TopoDS::Face(Face), RefPnt);
     if (Half.IsDone())
     {
-      DBRep::Set(a[1], Half.Solid());
+      DBRep1::Set(a[1], Half.Solid());
     }
     else
     {
@@ -74,49 +74,49 @@ static Standard_Integer halfspace(Draw_Interpretor& di, Standard_Integer n, cons
 
 //=================================================================================================
 
-static Standard_Integer buildfaces(Draw_Interpretor&, Standard_Integer narg, const char** a)
+static Standard_Integer buildfaces(DrawInterpreter&, Standard_Integer narg, const char** a)
 {
   if (narg < 4)
     return 1;
 
-  TopoDS_Shape            InputShape(DBRep::Get(a[2], TopAbs_FACE));
-  TopoDS_Face             F = TopoDS::Face(InputShape);
+  TopoShape            InputShape(DBRep1::Get(a[2], TopAbs_FACE));
+  TopoFace             F = TopoDS::Face(InputShape);
   BRepAlgo_FaceRestrictor FR;
   FR.Init(F);
 
   for (Standard_Integer i = 3; i < narg; i++)
   {
-    TopoDS_Shape InputWire(DBRep::Get(a[i], TopAbs_WIRE));
-    TopoDS_Wire  W = TopoDS::Wire(InputWire);
+    TopoShape InputWire(DBRep1::Get(a[i], TopAbs_WIRE));
+    TopoWire  W = TopoDS::Wire(InputWire);
     FR.Add(W);
   }
   FR.Perform();
   if (!FR.IsDone())
     return 1;
 
-  TopoDS_Compound Res;
-  BRep_Builder    BB;
+  TopoCompound Res;
+  ShapeBuilder    BB;
   BB.MakeCompound(Res);
 
   for (; FR.More(); FR.Next())
   {
-    TopoDS_Face FF = FR.Current();
+    TopoFace FF = FR.Current();
     BB.Add(Res, FF);
-    DBRep::Set(a[1], Res);
+    DBRep1::Set(a[1], Res);
   }
   return 0;
 }
 
 //=================================================================================================
 
-void BRepTest::TopologyCommands(Draw_Interpretor& theCommands)
+void BRepTest::TopologyCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
 
-  DBRep::BasicCommands(theCommands);
+  DBRep1::BasicCommands(theCommands);
 
   const char* g = "TOPOLOGY Topological operation commands";
 

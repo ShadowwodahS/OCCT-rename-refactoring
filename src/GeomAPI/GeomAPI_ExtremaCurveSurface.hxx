@@ -23,8 +23,8 @@
 
 #include <Standard_Integer.hxx>
 #include <Extrema_ExtCS.hxx>
-class Geom_Curve;
-class Geom_Surface;
+class GeomCurve3d;
+class GeomSurface;
 class Point3d;
 
 //! Describes functions for computing all the extrema
@@ -64,8 +64,8 @@ public:
 
   //! Computes  the  extrema  distances  between  the
   //! curve <C> and the surface  <S>.
-  Standard_EXPORT GeomAPI_ExtremaCurveSurface(const Handle(Geom_Curve)&   Curve,
-                                              const Handle(Geom_Surface)& Surface);
+  Standard_EXPORT GeomAPI_ExtremaCurveSurface(const Handle(GeomCurve3d)&   Curve,
+                                              const Handle(GeomSurface)& Surface);
 
   //! Computes  the  extrema  distances  between  the
   //! curve <C>  and the  surface  <S>.  The solution
@@ -75,8 +75,8 @@ public:
   //! Warning
   //! Use the function NbExtrema to obtain the number
   //! of solutions. If this algorithm fails, NbExtrema returns 0.
-  Standard_EXPORT GeomAPI_ExtremaCurveSurface(const Handle(Geom_Curve)&   Curve,
-                                              const Handle(Geom_Surface)& Surface,
+  Standard_EXPORT GeomAPI_ExtremaCurveSurface(const Handle(GeomCurve3d)&   Curve,
+                                              const Handle(GeomSurface)& Surface,
                                               const Standard_Real         Wmin,
                                               const Standard_Real         Wmax,
                                               const Standard_Real         Umin,
@@ -86,7 +86,7 @@ public:
 
   //! Computes  the  extrema  distances  between  the
   //! curve <C> and the surface  <S>.
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& Curve, const Handle(Geom_Surface)& Surface);
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& Curve, const Handle(GeomSurface)& Surface);
 
   //! Computes  the  extrema  distances  between  the
   //! curve <C>  and the  surface  <S>.  The solution
@@ -96,8 +96,8 @@ public:
   //! Warning
   //! Use the function NbExtrema to obtain the number
   //! of solutions. If this algorithm fails, NbExtrema returns 0.
-  Standard_EXPORT void Init(const Handle(Geom_Curve)&   Curve,
-                            const Handle(Geom_Surface)& Surface,
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)&   Curve,
+                            const Handle(GeomSurface)& Surface,
                             const Standard_Real         Wmin,
                             const Standard_Real         Wmax,
                             const Standard_Real         Umin,

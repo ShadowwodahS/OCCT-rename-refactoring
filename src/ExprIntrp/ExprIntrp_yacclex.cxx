@@ -17,7 +17,7 @@
 #include <string.h>
 #include <ExprIntrp_yaccintrf.hxx>
 
-static TCollection_AsciiString ExprIntrp_curres;
+static AsciiString1 ExprIntrp_curres;
 static int                     ExprIntrp_degree;
 
 #ifndef _WIN32
@@ -41,7 +41,7 @@ int ExprIntrp_GetDegree()
   return ExprIntrp_degree;
 }
 
-const TCollection_AsciiString& ExprIntrp_GetResult()
+const AsciiString1& ExprIntrp_GetResult()
 {
   return ExprIntrp_curres;
 }

@@ -27,14 +27,14 @@
 #include <Standard_Boolean.hxx>
 class TopOpeBRepBuild_Loop;
 
-class TopOpeBRepBuild_LoopSet
+class LoopSet
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepBuild_LoopSet();
+  Standard_EXPORT LoopSet();
 
-  Standard_EXPORT virtual ~TopOpeBRepBuild_LoopSet();
+  Standard_EXPORT virtual ~LoopSet();
 
   Standard_EXPORT TopOpeBRepBuild_ListOfLoop& ChangeListOfLoop();
 

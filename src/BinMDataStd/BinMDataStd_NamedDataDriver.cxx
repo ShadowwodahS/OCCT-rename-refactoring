@@ -61,7 +61,7 @@ Standard_Boolean BinMDataStd_NamedDataDriver::Paste(const BinObjMgt_Persistent& 
     TColStd_DataMapOfStringInteger anIntegers;
     for (i = aLower; i <= anUpper; i++)
     {
-      TCollection_ExtendedString aKey;
+      UtfString aKey;
       Standard_Integer           aValue;
       if (!(theSource >> aKey >> aValue))
         return Standard_False;
@@ -79,7 +79,7 @@ Standard_Boolean BinMDataStd_NamedDataDriver::Paste(const BinObjMgt_Persistent& 
     TDataStd_DataMapOfStringReal aReals;
     for (i = aLower; i <= anUpper; i++)
     {
-      TCollection_ExtendedString aKey;
+      UtfString aKey;
       Standard_Real              aValue;
       if (!(theSource >> aKey >> aValue))
         return Standard_False;
@@ -98,8 +98,8 @@ Standard_Boolean BinMDataStd_NamedDataDriver::Paste(const BinObjMgt_Persistent& 
     TDataStd_DataMapOfStringString aStrings;
     for (i = aLower; i <= anUpper; i++)
     {
-      TCollection_ExtendedString aKey;
-      TCollection_ExtendedString aValue;
+      UtfString aKey;
+      UtfString aValue;
       if (!(theSource >> aKey >> aValue))
         return Standard_False;
       aStrings.Bind(aKey, aValue);
@@ -117,7 +117,7 @@ Standard_Boolean BinMDataStd_NamedDataDriver::Paste(const BinObjMgt_Persistent& 
     TDataStd_DataMapOfStringByte aBytes;
     for (i = aLower; i <= anUpper; i++)
     {
-      TCollection_ExtendedString aKey;
+      UtfString aKey;
       Standard_Byte              aValue;
       if (!(theSource >> aKey >> aValue))
         return Standard_False;
@@ -137,7 +137,7 @@ Standard_Boolean BinMDataStd_NamedDataDriver::Paste(const BinObjMgt_Persistent& 
     TDataStd_DataMapOfStringHArray1OfInteger anIntArrays;
     for (i = aLower; i <= anUpper; i++)
     {
-      TCollection_ExtendedString aKey;
+      UtfString aKey;
       if (!(theSource >> aKey))
         return Standard_False;
       Standard_Integer low, up;
@@ -170,7 +170,7 @@ Standard_Boolean BinMDataStd_NamedDataDriver::Paste(const BinObjMgt_Persistent& 
     TDataStd_DataMapOfStringHArray1OfReal aRealArrays;
     for (i = aLower; i <= anUpper; i++)
     {
-      TCollection_ExtendedString aKey;
+      UtfString aKey;
       if (!(theSource >> aKey))
         return Standard_False;
       Standard_Integer low, up;

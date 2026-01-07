@@ -25,10 +25,10 @@
 #include <Standard_Real.hxx>
 #include <Standard_Integer.hxx>
 #include <Standard_OStream.hxx>
-class TDF_Label;
+class DataLabel;
 class Standard_GUID;
 class TDataStd_Real;
-class TDataStd_Integer;
+class IntAttribute;
 
 class TDataStd_NoteBook;
 DEFINE_STANDARD_HANDLE(TDataStd_NoteBook, TDataStd_GenericEmpty)
@@ -43,12 +43,12 @@ public:
   //! try to retrieve a NoteBook attribute at <current> label
   //! or in  fathers  label of  <current>. Returns True  if
   //! found and set <N>.
-  Standard_EXPORT static Standard_Boolean Find(const TDF_Label&           current,
+  Standard_EXPORT static Standard_Boolean Find(const DataLabel&           current,
                                                Handle(TDataStd_NoteBook)& N);
 
   //! Create  an  enpty   NoteBook attribute,  located  at
   //! <label>. Raises if <label> has attribute
-  Standard_EXPORT static Handle(TDataStd_NoteBook) New(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataStd_NoteBook) New(const DataLabel& label);
 
   //! NoteBook methods
   //! ===============
@@ -65,7 +65,7 @@ public:
   //! Tool to Create  an Real attribute from <value>, Insert
   //! it  in a new son label  of <me>. The Integer attribute
   //! is returned.
-  Standard_EXPORT Handle(TDataStd_Integer) Append(
+  Standard_EXPORT Handle(IntAttribute) Append(
     const Standard_Integer value,
     const Standard_Boolean isExported = Standard_False);
 

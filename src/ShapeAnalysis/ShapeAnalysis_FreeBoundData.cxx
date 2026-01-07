@@ -34,10 +34,10 @@ ShapeAnalysis_FreeBoundData::ShapeAnalysis_FreeBoundData()
 
 //=======================================================================
 // function : ShapeAnalysis_FreeBoundData
-// purpose  : Creates object with contour given in the form of TopoDS_Wire
+// purpose  : Creates object with contour given in the form of TopoWire
 //=======================================================================
 
-ShapeAnalysis_FreeBoundData::ShapeAnalysis_FreeBoundData(const TopoDS_Wire& freebound)
+ShapeAnalysis_FreeBoundData::ShapeAnalysis_FreeBoundData(const TopoWire& freebound)
 {
   myNotches = new TopTools_HSequenceOfShape();
   Clear();
@@ -64,7 +64,7 @@ void ShapeAnalysis_FreeBoundData::Clear()
 // purpose  : Adds notch on free bound with its maximum width
 //=======================================================================
 
-void ShapeAnalysis_FreeBoundData::AddNotch(const TopoDS_Wire& notch, const Standard_Real width)
+void ShapeAnalysis_FreeBoundData::AddNotch(const TopoWire& notch, const Standard_Real width)
 {
   if (myNotchesParams.IsBound(notch))
     return;
@@ -80,17 +80,17 @@ void ShapeAnalysis_FreeBoundData::AddNotch(const TopoDS_Wire& notch, const Stand
 
 Standard_Real ShapeAnalysis_FreeBoundData::NotchWidth(const Standard_Integer index) const
 {
-  TopoDS_Wire wire = TopoDS::Wire(myNotches->Value(index));
+  TopoWire wire = TopoDS::Wire(myNotches->Value(index));
   return myNotchesParams.Find(wire);
 }
 
 //=======================================================================
 // function : NotchWidth
-// purpose  : Returns maximum width of notch specified as TopoDS_Wire
+// purpose  : Returns maximum width of notch specified as TopoWire
 //    	     on the contour
 //=======================================================================
 
-Standard_Real ShapeAnalysis_FreeBoundData::NotchWidth(const TopoDS_Wire& notch) const
+Standard_Real ShapeAnalysis_FreeBoundData::NotchWidth(const TopoWire& notch) const
 {
   return myNotchesParams.Find(notch);
 }

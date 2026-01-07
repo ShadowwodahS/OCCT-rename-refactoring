@@ -23,7 +23,7 @@
 #include <Standard_Integer.hxx>
 class IGESData_IGESEntity;
 class Interface_EntityIterator;
-class IGESData_DirChecker;
+class DirectoryChecker;
 class Interface_ShareTool;
 class Interface_Check;
 class RefObject;
@@ -32,14 +32,14 @@ class Interface_CopyTool;
 class IGESData_DefaultGeneral;
 DEFINE_STANDARD_HANDLE(IGESData_DefaultGeneral, IGESData_GeneralModule)
 
-//! Processes the specific case of UndefinedEntity from IGESData
+//! Processes the specific case of UndefinedEntity from IGESData1
 //! (Case Number 1)
 class IGESData_DefaultGeneral : public IGESData_GeneralModule
 {
 
 public:
   //! Creates a DefaultGeneral and puts it into GeneralLib,
-  //! bound with a Protocol from IGESData
+  //! bound with a Protocol from IGESData1
   Standard_EXPORT IGESData_DefaultGeneral();
 
   //! Lists the Entities shared by an IGESEntity, which must be
@@ -50,7 +50,7 @@ public:
 
   //! Returns a DirChecker, specific for each type of Entity
   //! Here, Returns an empty DirChecker (no constraint to check)
-  Standard_EXPORT IGESData_DirChecker
+  Standard_EXPORT DirectoryChecker
     DirChecker(const Standard_Integer             CN,
                const Handle(IGESData_IGESEntity)& ent) const Standard_OVERRIDE;
 

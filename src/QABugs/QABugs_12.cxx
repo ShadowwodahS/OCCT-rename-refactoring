@@ -37,7 +37,7 @@
 //=======================================================================
 //  OCC895
 //=======================================================================
-static Standard_Integer OCC895(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC895(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 2 || argc > 5)
   {
@@ -46,9 +46,9 @@ static Standard_Integer OCC895(Draw_Interpretor& di, Standard_Integer argc, cons
   }
 
   const Standard_Real    rad     = 1.0;
-  const Standard_Real    angle   = (argc > 2) ? Draw::Atof(argv[2]) : 0.0;
-  const Standard_Integer reverse = (argc > 3) ? Draw::Atoi(argv[3]) : 0;
-  const Standard_Integer order   = (argc > 4) ? Draw::Atoi(argv[4]) : 0;
+  const Standard_Real    angle   = (argc > 2) ? Draw1::Atof(argv[2]) : 0.0;
+  const Standard_Integer reverse = (argc > 3) ? Draw1::Atoi(argv[3]) : 0;
+  const Standard_Integer order   = (argc > 4) ? Draw1::Atoi(argv[4]) : 0;
 
   // Make a wire from the first arc for ThruSections.
   //
@@ -71,15 +71,15 @@ static Standard_Integer OCC895(Draw_Interpretor& di, Standard_Integer argc, cons
   Handle(Geom_TrimmedCurve) arc1 = makeArc1.Value();
 
   // Create wire 1
-  BRepBuilderAPI_MakeEdge makeEdge1(arc1, arc1->StartPoint(), arc1->EndPoint());
+  EdgeMaker makeEdge1(arc1, arc1->StartPoint(), arc1->EndPoint());
   if (!makeEdge1.IsDone())
     return 1;
-  TopoDS_Edge             edge1 = makeEdge1.Edge();
+  TopoEdge             edge1 = makeEdge1.Edge();
   BRepBuilderAPI_MakeWire makeWire1;
   makeWire1.Add(edge1);
   if (!makeWire1.IsDone())
     return 1;
-  TopoDS_Wire wire1 = makeWire1.Wire();
+  TopoWire wire1 = makeWire1.Wire();
 
   // Make a wire from the second arc for ThruSections.
   Point3d center2(10, 0, 0);
@@ -95,15 +95,15 @@ static Standard_Integer OCC895(Draw_Interpretor& di, Standard_Integer argc, cons
   Handle(Geom_TrimmedCurve) arc2 = makeArc2.Value();
 
   // Create wire 2
-  BRepBuilderAPI_MakeEdge makeEdge2(arc2, arc2->StartPoint(), arc2->EndPoint());
+  EdgeMaker makeEdge2(arc2, arc2->StartPoint(), arc2->EndPoint());
   if (!makeEdge2.IsDone())
     return 1;
-  TopoDS_Edge             edge2 = makeEdge2.Edge();
+  TopoEdge             edge2 = makeEdge2.Edge();
   BRepBuilderAPI_MakeWire makeWire2;
   makeWire2.Add(edge2);
   if (!makeWire2.IsDone())
     return 1;
-  TopoDS_Wire wire2 = makeWire2.Wire();
+  TopoWire wire2 = makeWire2.Wire();
 
   BRepOffsetAPI_ThruSections thruSect(Standard_False, Standard_True);
   if (order)
@@ -119,14 +119,14 @@ static Standard_Integer OCC895(Draw_Interpretor& di, Standard_Integer argc, cons
   thruSect.Build();
   if (!thruSect.IsDone())
     return 1;
-  TopoDS_Shape myShape = thruSect.Shape();
+  TopoShape myShape = thruSect.Shape();
 
-  DBRep::Set(argv[1], myShape);
+  DBRep1::Set(argv[1], myShape);
 
   return 0;
 }
 
-void QABugs::Commands_12(Draw_Interpretor& theCommands)
+void QABugs::Commands_12(DrawInterpreter& theCommands)
 {
   const char* group = "QABugs";
 

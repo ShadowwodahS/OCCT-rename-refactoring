@@ -149,10 +149,10 @@ void XmlMNaming_Shape1::SetShape(const Standard_Integer   theID,
 
 //=================================================================================================
 
-void XmlMNaming_Shape1::SetVertex(const TopoDS_Shape& theVertex)
+void XmlMNaming_Shape1::SetVertex(const TopoShape& theVertex)
 {
-  TopoDS_Vertex aV   = TopoDS::Vertex(theVertex);
-  Point3d        aPos = BRep_Tool::Pnt(aV);
+  TopoVertex aV   = TopoDS::Vertex(theVertex);
+  Point3d        aPos = BRepInspector::Pnt(aV);
 
   char buf[16];
   Sprintf(buf, "%.8g", aPos.X());

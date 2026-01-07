@@ -44,11 +44,11 @@ public:
 
   //! Modifier
   //! Sets the shape <theS>
-  void SetShape(const TopoDS_Shape& theS);
+  void SetShape(const TopoShape& theS);
 
   //! Selector
   //! Returns the shape
-  const TopoDS_Shape& Shape() const;
+  const TopoShape& Shape() const;
 
   //! Modifier
   //! Sets the type of shape theType
@@ -122,7 +122,7 @@ public:
   Standard_EXPORT void Dump() const;
 
 protected:
-  TopoDS_Shape          myShape;
+  TopoShape          myShape;
   TopAbs_ShapeEnum      myType;
   Bnd_Box               myBox;
   TColStd_ListOfInteger mySubShapes;

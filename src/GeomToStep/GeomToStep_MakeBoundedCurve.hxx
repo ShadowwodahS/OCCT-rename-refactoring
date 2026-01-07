@@ -32,18 +32,18 @@ class Geom2d_BoundedCurve;
 //! StepGeom which describes a BoundedCurve from prostep.
 //! As BoundedCurve is an abstract BoundedCurve this class
 //! is an access to the sub-class required.
-class GeomToStep_MakeBoundedCurve : public GeomToStep_Root
+class GeomToStep_MakeBoundedCurve : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeBoundedCurve(
     const Handle(Geom_BoundedCurve)& C,
-    const StepData_Factors&          theLocalFactors = StepData_Factors());
+    const ConversionFactors&          theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeBoundedCurve(
     const Handle(Geom2d_BoundedCurve)& C,
-    const StepData_Factors&            theLocalFactors = StepData_Factors());
+    const ConversionFactors&            theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_BoundedCurve)& Value() const;
 

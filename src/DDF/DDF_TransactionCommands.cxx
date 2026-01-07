@@ -40,13 +40,13 @@ static Handle(TDF_Delta)    DDF_LastDelta;
 // purpose  : Opens a transaction
 //=======================================================================
 
-static Standard_Integer OpenTran(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer OpenTran(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
 
   Handle(TDF_Data) DF;
-  if (DDF::GetDF(a[1], DF))
+  if (DDF1::GetDF(a[1], DF))
   {
     Handle(DDF_Transaction) tr = new DDF_Transaction(DF);
     di << "Open transaction # " << tr->Open() << " # " << DF->Transaction() << "\n";
@@ -60,13 +60,13 @@ static Standard_Integer OpenTran(Draw_Interpretor& di, Standard_Integer n, const
 // purpose  : Aborts a transaction
 //=======================================================================
 
-static Standard_Integer AbortTran(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer AbortTran(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
 
   Handle(TDF_Data) DF;
-  if (DDF::GetDF(a[1], DF))
+  if (DDF1::GetDF(a[1], DF))
   {
     if (DF->Transaction() > 0)
     {
@@ -88,13 +88,13 @@ static Standard_Integer AbortTran(Draw_Interpretor& di, Standard_Integer n, cons
 // purpose  : Commits a transaction
 //=======================================================================
 
-static Standard_Integer CommitTran(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer CommitTran(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
 
   Handle(TDF_Data) DF;
-  if (DDF::GetDF(a[1], DF))
+  if (DDF1::GetDF(a[1], DF))
   {
     if (DF->Transaction() > 0)
     {
@@ -102,7 +102,7 @@ static Standard_Integer CommitTran(Draw_Interpretor& di, Standard_Integer n, con
       di << "Commit transaction # " << tr->Transaction() << " # " << DF->Transaction() << "\n";
       Standard_Boolean withDelta = Standard_False;
       if (n > 2)
-        withDelta = (Draw::Atoi(a[2]) != 0);
+        withDelta = (Draw1::Atoi(a[2]) != 0);
       DDF_LastDelta = tr->Commit(withDelta);
       DDF_TStack.RemoveFirst();
     }
@@ -119,13 +119,13 @@ static Standard_Integer CommitTran(Draw_Interpretor& di, Standard_Integer n, con
 // purpose  : Current transaction number.
 //=======================================================================
 
-static Standard_Integer CurrentTran(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer CurrentTran(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
 
   Handle(TDF_Data) DF;
-  if (DDF::GetDF(a[1], DF))
+  if (DDF1::GetDF(a[1], DF))
   {
     di << "# " << DF->Transaction() << "\n";
     if (!DDF_TStack.IsEmpty())
@@ -141,17 +141,17 @@ static Standard_Integer CurrentTran(Draw_Interpretor& di, Standard_Integer n, co
 
 //=================================================================================================
 
-static Standard_Integer Undo(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer Undo(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
 
   Handle(TDF_Data) DF;
-  if (DDF::GetDF(a[1], DF))
+  if (DDF1::GetDF(a[1], DF))
   {
     Standard_Boolean withDelta = Standard_False;
     if (n > 2)
-      withDelta = (Draw::Atoi(a[2]) != 0);
+      withDelta = (Draw1::Atoi(a[2]) != 0);
     if (!DDF_LastDelta.IsNull())
     {
       if (DF->IsApplicable(DDF_LastDelta))
@@ -183,7 +183,7 @@ static Standard_Integer Undo(Draw_Interpretor& di, Standard_Integer n, const cha
 
 //=================================================================================================
 
-void DDF::TransactionCommands(Draw_Interpretor& theCommands)
+void DDF1::TransactionCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

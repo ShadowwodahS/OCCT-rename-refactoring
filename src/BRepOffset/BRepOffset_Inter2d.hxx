@@ -24,11 +24,11 @@
 #include <Message_ProgressRange.hxx>
 
 class BRepAlgo_AsDes;
-class BRepAlgo_Image;
+class ShapeImage;
 class BRepOffset_Analyse;
 class BRepOffset_Offset;
-class TopoDS_Edge;
-class TopoDS_Face;
+class TopoEdge;
+class TopoFace;
 
 //! Computes the intersections between edges on a face
 //! stores result is SD as AsDes from BRepOffset.
@@ -44,7 +44,7 @@ public:
   //! vertices have to be fused using the FuseVertices method.
   //! theDMVV contains the vertices that should be fused
   Standard_EXPORT static void Compute(const Handle(BRepAlgo_AsDes)&              AsDes,
-                                      const TopoDS_Face&                         F,
+                                      const TopoFace&                         F,
                                       const TopTools_IndexedMapOfShape&          NewEdges,
                                       const Standard_Real                        Tol,
                                       const TopTools_DataMapOfShapeListOfShape&  theEdgeIntEdges,
@@ -57,7 +57,7 @@ public:
   //! have to be fused using the FuseVertices method.
   //! theDMVV contains the vertices that should be fused.
   Standard_EXPORT static Standard_Boolean ConnexIntByInt(
-    const TopoDS_Face&                         FI,
+    const TopoFace&                         FI,
     BRepOffset_Offset&                         OFI,
     TopTools_DataMapOfShapeShape&              MES,
     const TopTools_DataMapOfShapeShape&        Build,
@@ -67,7 +67,7 @@ public:
     const Standard_Real                        Tol,
     const BRepOffset_Analyse&                  Analyse,
     TopTools_IndexedMapOfShape&                FacesWithVerts,
-    BRepAlgo_Image&                            theImageVV,
+    ShapeImage&                            theImageVV,
     TopTools_DataMapOfShapeListOfShape&        theEdgeIntEdges,
     TopTools_IndexedDataMapOfShapeListOfShape& theDMVV,
     const Message_ProgressRange&               theRange);
@@ -79,7 +79,7 @@ public:
   //! have to be fused using the FuseVertices method.
   //! theDMVV contains the vertices that should be fused.
   Standard_EXPORT static void ConnexIntByIntInVert(
-    const TopoDS_Face&                         FI,
+    const TopoFace&                         FI,
     BRepOffset_Offset&                         OFI,
     TopTools_DataMapOfShapeShape&              MES,
     const TopTools_DataMapOfShapeShape&        Build,
@@ -96,11 +96,11 @@ public:
   Standard_EXPORT static Standard_Boolean FuseVertices(
     const TopTools_IndexedDataMapOfShapeListOfShape& theDMVV,
     const Handle(BRepAlgo_AsDes)&                    theAsDes,
-    BRepAlgo_Image&                                  theImageVV);
+    ShapeImage&                                  theImageVV);
 
   //! extents the edge
-  Standard_EXPORT static Standard_Boolean ExtentEdge(const TopoDS_Edge&  E,
-                                                     TopoDS_Edge&        NE,
+  Standard_EXPORT static Standard_Boolean ExtentEdge(const TopoEdge&  E,
+                                                     TopoEdge&        NE,
                                                      const Standard_Real theOffset);
 };
 

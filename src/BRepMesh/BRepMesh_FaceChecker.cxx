@@ -160,13 +160,13 @@ public:
 
       if (mySelfSegmentIndex != -1)
       {
-        gp_XY         aPrevVec;
+        Coords2d         aPrevVec;
         Standard_Real aSumS   = 0.;
-        const gp_XY&  aRefPnt = aIntPnt.Coord();
+        const Coords2d&  aRefPnt = aIntPnt.Coord();
         for (Standard_Integer i = mySelfSegmentIndex; i < theSegmentIndex; ++i)
         {
           const BRepMesh_FaceChecker::Segment& aCurrSegment = mySegments->Value(i);
-          gp_XY                                aCurVec      = aCurrSegment.Point2->XY() - aRefPnt;
+          Coords2d                                aCurVec      = aCurrSegment.Point2->XY() - aRefPnt;
 
           if (aCurVec.SquareModulus() < gp::Resolution())
             continue;

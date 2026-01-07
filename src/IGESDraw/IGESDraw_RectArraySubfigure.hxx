@@ -30,7 +30,7 @@ class IGESDraw_RectArraySubfigure;
 DEFINE_STANDARD_HANDLE(IGESDraw_RectArraySubfigure, IGESData_IGESEntity)
 
 //! Defines IGES Rectangular Array Subfigure Instance Entity,
-//! Type <412> Form Number <0> in package IGESDraw
+//! Type <412> Form Number <0> in package IGESDraw1
 //! Used to produce copies of object called the base entity,
 //! arranging them in equally spaced rows and columns
 class IGESDraw_RectArraySubfigure : public IGESData_IGESEntity

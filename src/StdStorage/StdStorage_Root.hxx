@@ -36,14 +36,14 @@ public:
   Standard_EXPORT StdStorage_Root();
 
   //! Creates a root for writing
-  Standard_EXPORT StdStorage_Root(const TCollection_AsciiString&      theName,
+  Standard_EXPORT StdStorage_Root(const AsciiString1&      theName,
                                   const Handle(StdObjMgt_Persistent)& theObject);
 
   //! Returns a name of the root
-  Standard_EXPORT TCollection_AsciiString Name() const;
+  Standard_EXPORT AsciiString1 Name() const;
 
   //! Sets a name to the root object
-  Standard_EXPORT void SetName(const TCollection_AsciiString& theName);
+  Standard_EXPORT void SetName(const AsciiString1& theName);
 
   //! Returns a root's persistent object
   Standard_EXPORT Handle(StdObjMgt_Persistent) Object() const;
@@ -52,23 +52,23 @@ public:
   Standard_EXPORT void SetObject(const Handle(StdObjMgt_Persistent)& anObject);
 
   //! Returns a root's persistent type
-  Standard_EXPORT TCollection_AsciiString Type() const;
+  Standard_EXPORT AsciiString1 Type() const;
 
   //! Sets a root's persistent type
-  Standard_EXPORT void SetType(const TCollection_AsciiString& aType);
+  Standard_EXPORT void SetType(const AsciiString1& aType);
 
   //! Returns root's position in the root data section
   Standard_EXPORT Standard_Integer Reference() const;
 
 private:
-  Standard_EXPORT StdStorage_Root(const TCollection_AsciiString& theName,
+  Standard_EXPORT StdStorage_Root(const AsciiString1& theName,
                                   const Standard_Integer         theRef,
-                                  const TCollection_AsciiString& theType);
+                                  const AsciiString1& theType);
 
   Standard_EXPORT void SetReference(const Standard_Integer aRef);
 
-  TCollection_AsciiString      myName;
-  TCollection_AsciiString      myType;
+  AsciiString1      myName;
+  AsciiString1      myType;
   Handle(StdObjMgt_Persistent) myObject;
   Standard_Integer             myRef;
 };

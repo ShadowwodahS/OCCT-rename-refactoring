@@ -26,16 +26,16 @@ IMPLEMENT_STANDARD_RTTIEXT(TNaming_DeltaOnModification, TDF_DeltaOnModification)
 
 //=================================================================================================
 
-TNaming_DeltaOnModification::TNaming_DeltaOnModification(const Handle(TNaming_NamedShape)& NS)
+TNaming_DeltaOnModification::TNaming_DeltaOnModification(const Handle(ShapeAttribute)& NS)
     : TDF_DeltaOnModification(NS)
 {
-  Standard_Integer NbShapes = 0;
-  for (TNaming_Iterator it(NS); it.More(); it.Next())
+  Standard_Integer NbShapes1 = 0;
+  for (Iterator1 it(NS); it.More(); it.Next())
   {
-    NbShapes++;
+    NbShapes1++;
   }
 
-  if (NbShapes == 0)
+  if (NbShapes1 == 0)
     return;
 
   TNaming_Evolution Evol = NS->Evolution();
@@ -43,26 +43,26 @@ TNaming_DeltaOnModification::TNaming_DeltaOnModification(const Handle(TNaming_Na
 
   if (Evol == TNaming_PRIMITIVE)
   {
-    myNew = new TopTools_HArray1OfShape(1, NbShapes);
-    for (TNaming_Iterator it2(NS); it2.More(); it2.Next(), i++)
+    myNew = new TopTools_HArray1OfShape(1, NbShapes1);
+    for (Iterator1 it2(NS); it2.More(); it2.Next(), i++)
     {
       myNew->SetValue(i, it2.NewShape());
     }
   }
   else if (Evol == TNaming_DELETE)
   {
-    myOld = new TopTools_HArray1OfShape(1, NbShapes);
-    for (TNaming_Iterator it2(NS); it2.More(); it2.Next(), i++)
+    myOld = new TopTools_HArray1OfShape(1, NbShapes1);
+    for (Iterator1 it2(NS); it2.More(); it2.Next(), i++)
     {
       myOld->SetValue(i, it2.OldShape());
     }
   }
   else
   {
-    myOld = new TopTools_HArray1OfShape(1, NbShapes);
-    myNew = new TopTools_HArray1OfShape(1, NbShapes);
+    myOld = new TopTools_HArray1OfShape(1, NbShapes1);
+    myNew = new TopTools_HArray1OfShape(1, NbShapes1);
 
-    for (TNaming_Iterator it2(NS); it2.More(); it2.Next(), i++)
+    for (Iterator1 it2(NS); it2.More(); it2.Next(), i++)
     {
       myNew->SetValue(i, it2.NewShape());
       myOld->SetValue(i, it2.OldShape());
@@ -74,8 +74,8 @@ TNaming_DeltaOnModification::TNaming_DeltaOnModification(const Handle(TNaming_Na
 
 static void LoadNamedShape(TNaming_Builder&    B,
                            TNaming_Evolution   Evol,
-                           const TopoDS_Shape& OS,
-                           const TopoDS_Shape& NS)
+                           const TopoShape& OS,
+                           const TopoShape& NS)
 {
   switch (Evol)
   {
@@ -109,7 +109,7 @@ void TNaming_DeltaOnModification::Apply()
 {
 
   Handle(TDF_Attribute)      TDFAttribute = Attribute();
-  Handle(TNaming_NamedShape) NS           = Handle(TNaming_NamedShape)::DownCast(TDFAttribute);
+  Handle(ShapeAttribute) NS           = Handle(ShapeAttribute)::DownCast(TDFAttribute);
 
   // If there is no attribute, reinsert the previous. Otherwise a new one
   // is created automatically, and all referencing the previous are incorrect! FID 24/12/97
@@ -127,7 +127,7 @@ void TNaming_DeltaOnModification::Apply()
   {
     // TNaming_Builder B(Ins);
     TNaming_Builder B(Label());
-    TopoDS_Shape    Old;
+    TopoShape    Old;
     for (Standard_Integer i = 1; i <= myNew->Upper(); i++)
     {
       LoadNamedShape(B, NS->Evolution(), Old, myNew->Value(i));
@@ -137,7 +137,7 @@ void TNaming_DeltaOnModification::Apply()
   {
     // TNaming_Builder B(Ins);
     TNaming_Builder B(Label());
-    TopoDS_Shape    New;
+    TopoShape    New;
     for (Standard_Integer i = 1; i <= myOld->Upper(); i++)
     {
       LoadNamedShape(B, NS->Evolution(), myOld->Value(i), New);

@@ -110,7 +110,7 @@ Standard_Boolean IGESSelect_SelectFaces::Explore(const Standard_Integer /*level*
   return Standard_False;
 }
 
-TCollection_AsciiString IGESSelect_SelectFaces::ExploreLabel() const
+AsciiString1 IGESSelect_SelectFaces::ExploreLabel() const
 {
-  return TCollection_AsciiString("Faces");
+  return AsciiString1("Faces");
 }

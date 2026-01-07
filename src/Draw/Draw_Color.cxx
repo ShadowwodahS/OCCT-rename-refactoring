@@ -16,17 +16,17 @@
 
 #include <Draw_Color.hxx>
 
-Draw_Color::Draw_Color()
+DrawColor::DrawColor()
     : myKind(Draw_blanc)
 {
 }
 
-Draw_Color::Draw_Color(const Draw_ColorKind c)
+DrawColor::DrawColor(const Draw_ColorKind c)
     : myKind(c)
 {
 }
 
-Draw_ColorKind Draw_Color::ID() const
+Draw_ColorKind DrawColor::ID() const
 {
   return myKind;
 }

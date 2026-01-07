@@ -42,11 +42,11 @@
 // MGE 30/07/98
 //=================================================================================================
 
-IGESGeom_ToolBoundary::IGESGeom_ToolBoundary() {}
+BoundaryTool::BoundaryTool() {}
 
 //=================================================================================================
 
-void IGESGeom_ToolBoundary::ReadOwnParams(const Handle(IGESGeom_Boundary)&       ent,
+void BoundaryTool::ReadOwnParams(const Handle(IGESGeom_Boundary)&       ent,
                                           const Handle(IGESData_IGESReaderData)& IR,
                                           IGESData_ParamReader&                  PR) const
 {
@@ -209,7 +209,7 @@ void IGESGeom_ToolBoundary::ReadOwnParams(const Handle(IGESGeom_Boundary)&      
 
 //=================================================================================================
 
-void IGESGeom_ToolBoundary::WriteOwnParams(const Handle(IGESGeom_Boundary)& ent,
+void BoundaryTool::WriteOwnParams(const Handle(IGESGeom_Boundary)& ent,
                                            IGESData_IGESWriter&             IW) const
 {
   Standard_Integer i, j, num1;
@@ -234,7 +234,7 @@ void IGESGeom_ToolBoundary::WriteOwnParams(const Handle(IGESGeom_Boundary)& ent,
 
 //=================================================================================================
 
-void IGESGeom_ToolBoundary::OwnShared(const Handle(IGESGeom_Boundary)& ent,
+void BoundaryTool::OwnShared(const Handle(IGESGeom_Boundary)& ent,
                                       Interface_EntityIterator&        iter) const
 {
   Standard_Integer i, j, num1;
@@ -254,7 +254,7 @@ void IGESGeom_ToolBoundary::OwnShared(const Handle(IGESGeom_Boundary)& ent,
 
 //=================================================================================================
 
-void IGESGeom_ToolBoundary::OwnCopy(const Handle(IGESGeom_Boundary)& another,
+void BoundaryTool::OwnCopy(const Handle(IGESGeom_Boundary)& another,
                                     const Handle(IGESGeom_Boundary)& ent,
                                     Interface_CopyTool&              TC) const
 {
@@ -293,7 +293,7 @@ void IGESGeom_ToolBoundary::OwnCopy(const Handle(IGESGeom_Boundary)& another,
 
 //=================================================================================================
 
-Standard_Boolean IGESGeom_ToolBoundary::OwnCorrect(const Handle(IGESGeom_Boundary)& ent) const
+Standard_Boolean BoundaryTool::OwnCorrect(const Handle(IGESGeom_Boundary)& ent) const
 {
   //  Standard_Boolean t0 = (ent->BoundaryType() == 0);
   Standard_Boolean res = Standard_False;
@@ -343,10 +343,10 @@ Standard_Boolean IGESGeom_ToolBoundary::OwnCorrect(const Handle(IGESGeom_Boundar
 
 //=================================================================================================
 
-IGESData_DirChecker IGESGeom_ToolBoundary::DirChecker(
+DirectoryChecker BoundaryTool::DirChecker(
   const Handle(IGESGeom_Boundary)& /* ent */) const
 {
-  IGESData_DirChecker DC(141, 0);
+  DirectoryChecker DC(141, 0);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefAny);
@@ -359,7 +359,7 @@ IGESData_DirChecker IGESGeom_ToolBoundary::DirChecker(
 
 //=================================================================================================
 
-void IGESGeom_ToolBoundary::OwnCheck(const Handle(IGESGeom_Boundary)& ent,
+void BoundaryTool::OwnCheck(const Handle(IGESGeom_Boundary)& ent,
                                      const Interface_ShareTool&,
                                      Handle(Interface_Check)& ach) const
 {
@@ -415,7 +415,7 @@ void IGESGeom_ToolBoundary::OwnCheck(const Handle(IGESGeom_Boundary)& ent,
 
 //=================================================================================================
 
-void IGESGeom_ToolBoundary::OwnDump(const Handle(IGESGeom_Boundary)& ent,
+void BoundaryTool::OwnDump(const Handle(IGESGeom_Boundary)& ent,
                                     const IGESData_IGESDumper&       dumper,
                                     Standard_OStream&                S,
                                     const Standard_Integer           level) const

@@ -31,8 +31,8 @@ TPrsStd_PointDriver::TPrsStd_PointDriver() {}
 
 //=================================================================================================
 
-Standard_Boolean TPrsStd_PointDriver::Update(const TDF_Label&               aLabel,
-                                             Handle(AIS_InteractiveObject)& anAISObject)
+Standard_Boolean TPrsStd_PointDriver::Update(const DataLabel&               aLabel,
+                                             Handle(VisualEntity)& anAISObject)
 {
   Handle(TDataXtd_Point) appoint;
 
@@ -49,14 +49,14 @@ Standard_Boolean TPrsStd_PointDriver::Update(const TDF_Label&               aLab
   Handle(Geom_CartesianPoint) apt = new Geom_CartesianPoint(pnt);
 
   //  Update de l'AIS
-  Handle(AIS_Point) aistrihed;
+  Handle(VisualPoint) aistrihed;
   if (anAISObject.IsNull())
-    aistrihed = new AIS_Point(apt);
+    aistrihed = new VisualPoint(apt);
   else
   {
-    aistrihed = Handle(AIS_Point)::DownCast(anAISObject);
+    aistrihed = Handle(VisualPoint)::DownCast(anAISObject);
     if (aistrihed.IsNull())
-      aistrihed = new AIS_Point(apt);
+      aistrihed = new VisualPoint(apt);
     else
     {
       aistrihed->SetComponent(apt);

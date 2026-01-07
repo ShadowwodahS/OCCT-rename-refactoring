@@ -118,7 +118,7 @@ static TopAbs_Orientation CharToOrientation(const Standard_Character theCharOrie
 }
 
 //=======================================================================
-static void TranslateTo(const TopoDS_Shape&   theShape,
+static void TranslateTo(const TopoShape&   theShape,
                         BinObjMgt_Persistent& theResult,
                         BinTools_ShapeSet*    theShapeSet)
 {
@@ -142,7 +142,7 @@ static void TranslateTo(const TopoDS_Shape&   theShape,
 
 //=======================================================================
 static int TranslateFrom(const BinObjMgt_Persistent& theSource,
-                         TopoDS_Shape&               theResult,
+                         TopoShape&               theResult,
                          BinTools_ShapeSet*          theShapeSet)
 {
   Standard_Integer   aShapeID, aLocID;
@@ -151,7 +151,7 @@ static int TranslateFrom(const BinObjMgt_Persistent& theSource,
   if (!Ok)
     return 1;
   // Read TShape and Orientation
-  if (aShapeID <= 0 || aShapeID > theShapeSet->NbShapes())
+  if (aShapeID <= 0 || aShapeID > theShapeSet->NbShapes1())
     return 1;
   Ok = theSource >> aLocID;
   if (!Ok)
@@ -171,7 +171,7 @@ static int TranslateFrom(const BinObjMgt_Persistent& theSource,
 
 BinMNaming_NamedShapeDriver::BinMNaming_NamedShapeDriver(
   const Handle(Message_Messenger)& theMsgDriver)
-    : BinMDF_ADriver(theMsgDriver, STANDARD_TYPE(TNaming_NamedShape)->Name()),
+    : BinMDF_ADriver(theMsgDriver, STANDARD_TYPE(ShapeAttribute)->Name()),
       myShapeSet(NULL),
       myWithTriangles(Standard_False),
       myWithNormals(Standard_False),
@@ -183,7 +183,7 @@ BinMNaming_NamedShapeDriver::BinMNaming_NamedShapeDriver(
 
 Handle(TDF_Attribute) BinMNaming_NamedShapeDriver::NewEmpty() const
 {
-  return new TNaming_NamedShape();
+  return new ShapeAttribute();
 }
 
 //=======================================================================
@@ -195,10 +195,10 @@ Standard_Boolean BinMNaming_NamedShapeDriver::Paste(const BinObjMgt_Persistent& 
                                                     const Handle(TDF_Attribute)& theTarget,
                                                     BinObjMgt_RRelocationTable&) const
 {
-  Handle(TNaming_NamedShape) aTAtt = Handle(TNaming_NamedShape)::DownCast(theTarget);
+  Handle(ShapeAttribute) aTAtt = Handle(ShapeAttribute)::DownCast(theTarget);
   Standard_Integer           aNbShapes;
   theSource >> aNbShapes;
-  TDF_Label        aLabel = theTarget->Label();
+  DataLabel        aLabel = theTarget->Label();
   TNaming_Builder  aBuilder(aLabel);
   Standard_Integer aVer;
   Standard_Boolean ok = theSource >> aVer;
@@ -212,16 +212,16 @@ Standard_Boolean BinMNaming_NamedShapeDriver::Paste(const BinObjMgt_Persistent& 
   TNaming_Evolution anEvol = EvolutionToEnum(aCharEvol); // Evolution
   aTAtt->SetVersion(anEvol);
 
-  BinTools_ShapeSetBase* aShapeSet =
+  ShapeSetBase* aShapeSet =
     const_cast<BinMNaming_NamedShapeDriver*>(this)->ShapeSet(Standard_True);
   Standard_IStream* aDirectStream = NULL;
   if (myIsQuickPart) // enables direct reading of shapes from the stream
     aDirectStream = const_cast<BinObjMgt_Persistent*>(&theSource)->GetIStream();
 
-  NCollection_List<TopoDS_Shape> anOldShapes, aNewShapes;
+  NCollection_List<TopoShape> anOldShapes, aNewShapes;
   for (Standard_Integer i = 1; i <= aNbShapes; i++)
   {
-    TopoDS_Shape anOldShape, aNewShape;
+    TopoShape anOldShape, aNewShape;
 
     if (anEvol != TNaming_PRIMITIVE)
     {
@@ -244,7 +244,7 @@ Standard_Boolean BinMNaming_NamedShapeDriver::Paste(const BinObjMgt_Persistent& 
     aNewShapes.Prepend(aNewShape);
   }
 
-  for (NCollection_List<TopoDS_Shape>::Iterator anOldIt(anOldShapes), aNewIt(aNewShapes);
+  for (NCollection_List<TopoShape>::Iterator anOldIt(anOldShapes), aNewIt(aNewShapes);
        anOldIt.More() && aNewIt.More();
        anOldIt.Next(), aNewIt.Next())
   {
@@ -286,19 +286,19 @@ void BinMNaming_NamedShapeDriver::Paste(const Handle(TDF_Attribute)& theSource,
                                         BinObjMgt_Persistent&        theTarget,
                                         BinObjMgt_SRelocationTable&) const
 {
-  Handle(TNaming_NamedShape) aSAtt = Handle(TNaming_NamedShape)::DownCast(theSource);
+  Handle(ShapeAttribute) aSAtt = Handle(ShapeAttribute)::DownCast(theSource);
 
   //--------------------------------------------------------------
-  Standard_Integer NbShapes = 0;
-  for (TNaming_Iterator SItr(aSAtt); SItr.More(); SItr.Next())
-    NbShapes++;
+  Standard_Integer NbShapes1 = 0;
+  for (Iterator1 SItr(aSAtt); SItr.More(); SItr.Next())
+    NbShapes1++;
   //--------------------------------------------------------------
 
-  BinTools_ShapeSetBase* aShapeSet =
+  ShapeSetBase* aShapeSet =
     const_cast<BinMNaming_NamedShapeDriver*>(this)->ShapeSet(Standard_False);
   TNaming_Evolution anEvol = aSAtt->Evolution();
 
-  theTarget << NbShapes;
+  theTarget << NbShapes1;
   theTarget << aSAtt->Version();
   theTarget << EvolutionToChar(anEvol);
 
@@ -306,10 +306,10 @@ void BinMNaming_NamedShapeDriver::Paste(const Handle(TDF_Attribute)& theSource,
   if (myIsQuickPart) // enables direct writing of shapes to the stream
     aDirectStream = theTarget.GetOStream();
 
-  for (TNaming_Iterator SIterator(aSAtt); SIterator.More(); SIterator.Next())
+  for (Iterator1 SIterator(aSAtt); SIterator.More(); SIterator.Next())
   {
-    const TopoDS_Shape& anOldShape = SIterator.OldShape();
-    const TopoDS_Shape& aNewShape  = SIterator.NewShape();
+    const TopoShape& anOldShape = SIterator.OldShape();
+    const TopoShape& aNewShape  = SIterator.NewShape();
 
     if (anEvol != TNaming_PRIMITIVE)
     {
@@ -370,11 +370,11 @@ void BinMNaming_NamedShapeDriver::ReadShapeSection(Standard_IStream&            
   // check section title string; note that some versions of OCCT (up to 6.3.1)
   // might avoid writing shape section if it is empty
   std::streamoff          aPos = theIS.tellg();
-  TCollection_AsciiString aSectionTitle;
+  AsciiString1 aSectionTitle;
   theIS >> aSectionTitle;
   if (aSectionTitle.Length() > 0 && aSectionTitle == SHAPESET)
   {
-    BinTools_ShapeSetBase* aShapeSet = ShapeSet(Standard_True);
+    ShapeSetBase* aShapeSet = ShapeSet(Standard_True);
     aShapeSet->Clear();
     aShapeSet->Read(theIS, theRange);
   }
@@ -384,7 +384,7 @@ void BinMNaming_NamedShapeDriver::ReadShapeSection(Standard_IStream&            
 
 //=================================================================================================
 
-BinTools_ShapeSetBase* BinMNaming_NamedShapeDriver::ShapeSet(const Standard_Boolean theReading)
+ShapeSetBase* BinMNaming_NamedShapeDriver::ShapeSet(const Standard_Boolean theReading)
 {
   if (!myShapeSet)
   {
@@ -405,9 +405,9 @@ BinTools_ShapeSetBase* BinMNaming_NamedShapeDriver::ShapeSet(const Standard_Bool
 
 //=================================================================================================
 
-BinTools_LocationSet& BinMNaming_NamedShapeDriver::GetShapesLocations() const
+LocationBinarySet& BinMNaming_NamedShapeDriver::GetShapesLocations() const
 {
-  BinTools_ShapeSetBase* aShapeSet =
+  ShapeSetBase* aShapeSet =
     const_cast<BinMNaming_NamedShapeDriver*>(this)->ShapeSet(Standard_False);
   return static_cast<BinTools_ShapeSet*>(aShapeSet)->ChangeLocations();
 }

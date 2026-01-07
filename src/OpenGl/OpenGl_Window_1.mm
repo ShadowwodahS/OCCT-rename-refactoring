@@ -113,7 +113,7 @@ void OpenGl_Window::Init (const Handle(OpenGl_GraphicDriver)& theDriver,
       if (aGLContext == NULL
       || ![EAGLContext setCurrentContext: aGLContext])
       {
-        TCollection_AsciiString aMsg ("OpenGl_Window::CreateWindow: EAGLContext creation failed");
+        AsciiString1 aMsg ("OpenGl_Window::CreateWindow: EAGLContext creation failed");
         throw Aspect_GraphicDeviceDefinitionError(aMsg.ToCString());
       }
     }
@@ -124,7 +124,7 @@ void OpenGl_Window::Init (const Handle(OpenGl_GraphicDriver)& theDriver,
   {
     if (![EAGLContext setCurrentContext: aGLContext])
     {
-      TCollection_AsciiString aMsg ("OpenGl_Window::CreateWindow: EAGLContext can not be assigned");
+      AsciiString1 aMsg ("OpenGl_Window::CreateWindow: EAGLContext can not be assigned");
       throw Aspect_GraphicDeviceDefinitionError(aMsg.ToCString());
     }
 
@@ -208,20 +208,20 @@ void OpenGl_Window::Init (const Handle(OpenGl_GraphicDriver)& theDriver,
 
     if (aGLContext == NULL)
     {
-      TCollection_AsciiString aMsg ("OpenGl_Window::CreateWindow: NSOpenGLContext creation failed");
+      AsciiString1 aMsg ("OpenGl_Window::CreateWindow: NSOpenGLContext creation failed");
       throw Aspect_GraphicDeviceDefinitionError(aMsg.ToCString());
     }
 
     if (aTryStereo == 0
      && theCaps->contextStereo)
     {
-      TCollection_ExtendedString aMsg("OpenGl_Window::CreateWindow: QuadBuffer is unavailable!");
+      UtfString aMsg("OpenGl_Window::CreateWindow: QuadBuffer is unavailable!");
       myGlContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_OTHER, 0, GL_DEBUG_SEVERITY_LOW, aMsg);
     }
     if (aTryCore == 0
     && !theCaps->contextCompatible)
     {
-      TCollection_ExtendedString aMsg("OpenGl_Window::CreateWindow: core profile creation failed.");
+      UtfString aMsg("OpenGl_Window::CreateWindow: core profile creation failed.");
       myGlContext->PushMessage (GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_PORTABILITY, 0, GL_DEBUG_SEVERITY_LOW, aMsg);
     }
 
@@ -351,7 +351,7 @@ void OpenGl_Window::init()
 
     if (!aDefFbo->InitWithRB (myGlContext, mySize, GL_RGBA8, GL_DEPTH24_STENCIL8, aWinRBColor))
     {
-      TCollection_AsciiString aMsg ("OpenGl_Window::CreateWindow: default FBO creation failed");
+      AsciiString1 aMsg ("OpenGl_Window::CreateWindow: default FBO creation failed");
       throw Aspect_GraphicDeviceDefinitionError(aMsg.ToCString());
       return;
     }
@@ -360,7 +360,7 @@ void OpenGl_Window::init()
   {
     if (!aDefFbo->InitWrapper (myGlContext))
     {
-      TCollection_AsciiString aMsg ("OpenGl_Window::CreateWindow: default FBO wrapper creation failed");
+      AsciiString1 aMsg ("OpenGl_Window::CreateWindow: default FBO wrapper creation failed");
       throw Aspect_GraphicDeviceDefinitionError(aMsg.ToCString());
       return;
     }

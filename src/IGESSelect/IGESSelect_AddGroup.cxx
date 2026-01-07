@@ -64,7 +64,7 @@ void IGESSelect_AddGroup::Performing(IFSelect_ContextModif&            ctx,
   target->AddEntity(gr);
 }
 
-TCollection_AsciiString IGESSelect_AddGroup::Label() const
+AsciiString1 IGESSelect_AddGroup::Label() const
 {
-  return TCollection_AsciiString("Add Group");
+  return AsciiString1("Add Group");
 }

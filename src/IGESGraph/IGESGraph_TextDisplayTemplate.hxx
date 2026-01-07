@@ -30,7 +30,7 @@ class IGESGraph_TextDisplayTemplate;
 DEFINE_STANDARD_HANDLE(IGESGraph_TextDisplayTemplate, IGESData_IGESEntity)
 
 //! defines IGES TextDisplayTemplate Entity,
-//! Type <312>, form <0, 1> in package IGESGraph
+//! Type <312>, form <0, 1> in package IGESGraph1
 //!
 //! Used to set parameters for display of information
 //! which has been logically included in another entity

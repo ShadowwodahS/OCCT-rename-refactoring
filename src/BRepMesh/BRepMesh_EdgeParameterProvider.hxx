@@ -28,8 +28,8 @@
 #include <Geom2dAdaptor_Curve.hxx>
 
 class Point3d;
-class TopoDS_Edge;
-class TopoDS_Face;
+class TopoEdge;
+class TopoFace;
 
 //! Auxiliary class provides correct parameters
 //! on curve regarding SameParameter flag.
@@ -73,7 +73,7 @@ public:
     myScale       = 1.;
 
     // Extract actual parametric values
-    const TopoDS_Edge aEdge = TopoDS::Edge(theEdge->GetEdge().Oriented(theOrientation));
+    const TopoEdge aEdge = TopoDS::Edge(theEdge->GetEdge().Oriented(theOrientation));
 
     myCurveAdaptor.Initialize(aEdge, theFace->GetFace());
     if (myIsSameParam)

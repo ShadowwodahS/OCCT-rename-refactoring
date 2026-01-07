@@ -21,7 +21,7 @@
 #include <NCollection_DefineHasher.hxx>
 
 /**
- * Purpose:     The  DefaultHasher  is a  Hasher  that is used by
+ * Purpose:     The  DefaultHasher  is a  Hasher1  that is used by
  *              default in NCollection maps.
  *              To compute the  hash code of the key  is used the
  *              global function HashCode.

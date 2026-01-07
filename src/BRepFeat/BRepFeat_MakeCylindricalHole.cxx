@@ -34,9 +34,9 @@
 #include <BRepAdaptor_Surface.hxx>
 #include <CSLib.hxx>
 
-static void Baryc(const TopoDS_Shape&, Point3d&);
+static void Baryc(const TopoShape&, Point3d&);
 
-static void BoxParameters(const TopoDS_Shape&, const Axis3d&, Standard_Real&, Standard_Real&);
+static void BoxParameters(const TopoShape&, const Axis3d&, Standard_Real&, Standard_Real&);
 
 static Standard_Boolean GetOffset(const LocOpe_PntFace& PntInfo,
                                   const Standard_Real   Radius,
@@ -47,15 +47,15 @@ static void CreateCyl(const LocOpe_PntFace& PntInfoFirst,
                       const LocOpe_PntFace& PntInfoLast,
                       const Standard_Real   Radius,
                       const Axis3d&         Axis,
-                      TopoDS_Shell&         Cyl,
-                      TopoDS_Face&          CylTopF,
-                      TopoDS_Face&          CylBottF);
+                      TopoShell&         Cyl,
+                      TopoFace&          CylTopF,
+                      TopoFace&          CylBottF);
 
 //=================================================================================================
 
 void BRepFeat_MakeCylindricalHole::Perform(const Standard_Real Radius)
 {
-  const TopoDS_Shape& aObject = myArguments.First();
+  const TopoShape& aObject = myArguments.First();
   if (aObject.IsNull() || !myAxDef)
   {
     throw Standard_ConstructionError();
@@ -64,7 +64,7 @@ void BRepFeat_MakeCylindricalHole::Perform(const Standard_Real Radius)
   myIsBlind = Standard_False;
   myStatus  = BRepFeat_NoError;
 
-  LocOpe_CurveShapeIntersector theASI(myAxis, aObject);
+  CurveShapeIntersector theASI(myAxis, aObject);
   if (!theASI.IsDone() || theASI.NbPoints() <= 0)
   {
     myStatus = BRepFeat_InvalidPlacement;
@@ -83,8 +83,8 @@ void BRepFeat_MakeCylindricalHole::Perform(const Standard_Real Radius)
 
   // Probably it is better to make cut directly
 
-  BRep_Builder B;
-  TopoDS_Solid theTool;
+  ShapeBuilder B;
+  TopoSolid theTool;
   B.MakeSolid(theTool);
   B.Add(theTool, theCylinder.Shell());
 
@@ -92,7 +92,7 @@ void BRepFeat_MakeCylindricalHole::Perform(const Standard_Real Radius)
   myBotFace  = theCylinder.BottomFace();
   myValidate = Standard_False;
 
-  //  BRepTools::Dump(theTool,std::cout);
+  //  BRepTools1::Dump(theTool,std::cout);
   Standard_Boolean Fuse = Standard_False;
   //
   AddTool(theTool);
@@ -106,7 +106,7 @@ void BRepFeat_MakeCylindricalHole::PerformThruNext(const Standard_Real    Radius
                                                    const Standard_Boolean Cont)
 {
   //
-  const TopoDS_Shape& aObject = myArguments.First();
+  const TopoShape& aObject = myArguments.First();
   if (aObject.IsNull() || !myAxDef)
   {
     throw Standard_ConstructionError();
@@ -116,7 +116,7 @@ void BRepFeat_MakeCylindricalHole::PerformThruNext(const Standard_Real    Radius
   myValidate = Cont;
   myStatus   = BRepFeat_NoError;
 
-  LocOpe_CurveShapeIntersector theASI(myAxis, aObject);
+  CurveShapeIntersector theASI(myAxis, aObject);
   if (!theASI.IsDone())
   {
     myStatus = BRepFeat_InvalidPlacement;
@@ -168,11 +168,11 @@ void BRepFeat_MakeCylindricalHole::PerformThruNext(const Standard_Real    Radius
     return;
   }
 
-  TopoDS_Shell Cyl;
+  TopoShell Cyl;
   CreateCyl(PntInfoFirst, PntInfoLast, Radius, myAxis, Cyl, myTopFace, myBotFace);
 
-  BRep_Builder B;
-  TopoDS_Solid theTool;
+  ShapeBuilder B;
+  TopoSolid theTool;
   B.MakeSolid(theTool);
   B.Add(theTool, Cyl);
 
@@ -180,7 +180,7 @@ void BRepFeat_MakeCylindricalHole::PerformThruNext(const Standard_Real    Radius
   AddTool(theTool);
   SetOperation(Fuse);
   BOPAlgo_BOP::Perform();
-  TopTools_ListOfShape parts;
+  ShapeList parts;
   PartsOfTool(parts);
 
   Standard_Integer                   nbparts = 0;
@@ -201,7 +201,7 @@ void BRepFeat_MakeCylindricalHole::PerformThruNext(const Standard_Real    Radius
 
     Standard_Real First = PntInfoFirst.Parameter();
     Standard_Real Last  = PntInfoLast.Parameter();
-    TopoDS_Shape  tokeep;
+    TopoShape  tokeep;
     Standard_Real parbar, parmin = Last;
     Point3d        Barycentre;
     for (its.Initialize(parts); its.More(); its.Next())
@@ -258,7 +258,7 @@ void BRepFeat_MakeCylindricalHole::PerformUntilEnd(const Standard_Real    Radius
                                                    const Standard_Boolean Cont)
 {
   //
-  const TopoDS_Shape& aObject = myArguments.First();
+  const TopoShape& aObject = myArguments.First();
   if (aObject.IsNull() || !myAxDef)
   {
     throw Standard_ConstructionError();
@@ -268,7 +268,7 @@ void BRepFeat_MakeCylindricalHole::PerformUntilEnd(const Standard_Real    Radius
   myValidate = Cont;
   myStatus   = BRepFeat_NoError;
 
-  LocOpe_CurveShapeIntersector theASI(myAxis, aObject);
+  CurveShapeIntersector theASI(myAxis, aObject);
   if (!theASI.IsDone())
   {
     myStatus = BRepFeat_InvalidPlacement;
@@ -310,11 +310,11 @@ void BRepFeat_MakeCylindricalHole::PerformUntilEnd(const Standard_Real    Radius
     return;
   }
 
-  TopoDS_Shell Cyl;
+  TopoShell Cyl;
   CreateCyl(PntInfoFirst, PntInfoLast, Radius, myAxis, Cyl, myTopFace, myBotFace);
 
-  BRep_Builder B;
-  TopoDS_Solid theTool;
+  ShapeBuilder B;
+  TopoSolid theTool;
   B.MakeSolid(theTool);
   B.Add(theTool, Cyl);
 
@@ -322,7 +322,7 @@ void BRepFeat_MakeCylindricalHole::PerformUntilEnd(const Standard_Real    Radius
   AddTool(theTool);
   SetOperation(Fuse);
   BOPAlgo_BOP::Perform();
-  TopTools_ListOfShape parts;
+  ShapeList parts;
   PartsOfTool(parts);
 
   Standard_Integer                   nbparts = 0;
@@ -361,7 +361,7 @@ void BRepFeat_MakeCylindricalHole::Perform(const Standard_Real    Radius,
                                            const Standard_Boolean Cont)
 {
   //
-  const TopoDS_Shape& aObject = myArguments.First();
+  const TopoShape& aObject = myArguments.First();
   if (aObject.IsNull() || !myAxDef)
   {
     throw Standard_ConstructionError();
@@ -371,7 +371,7 @@ void BRepFeat_MakeCylindricalHole::Perform(const Standard_Real    Radius,
   myValidate = Cont;
   myStatus   = BRepFeat_NoError;
 
-  LocOpe_CurveShapeIntersector theASI(myAxis, aObject);
+  CurveShapeIntersector theASI(myAxis, aObject);
   if (!theASI.IsDone())
   {
     myStatus = BRepFeat_InvalidPlacement;
@@ -426,11 +426,11 @@ void BRepFeat_MakeCylindricalHole::Perform(const Standard_Real    Radius,
     return;
   }
 
-  TopoDS_Shell Cyl;
+  TopoShell Cyl;
   CreateCyl(PntInfoFirst, PntInfoLast, Radius, myAxis, Cyl, myTopFace, myBotFace);
 
-  BRep_Builder B;
-  TopoDS_Solid theTool;
+  ShapeBuilder B;
+  TopoSolid theTool;
   B.MakeSolid(theTool);
   B.Add(theTool, Cyl);
 
@@ -438,7 +438,7 @@ void BRepFeat_MakeCylindricalHole::Perform(const Standard_Real    Radius,
   AddTool(theTool);
   SetOperation(Fuse);
   BOPAlgo_BOP::Perform();
-  TopTools_ListOfShape parts;
+  ShapeList parts;
   PartsOfTool(parts);
 
   Standard_Integer                   nbparts = 0;
@@ -456,7 +456,7 @@ void BRepFeat_MakeCylindricalHole::Perform(const Standard_Real    Radius,
   if (nbparts >= 2)
   { // preserve parts between First and Last
 
-    TopoDS_Shape  tokeep;
+    TopoShape  tokeep;
     Standard_Real parbar;
     Point3d        Barycentre;
     for (its.Initialize(parts); its.More(); its.Next())
@@ -478,7 +478,7 @@ void BRepFeat_MakeCylindricalHole::PerformBlind(const Standard_Real    Radius,
                                                 const Standard_Boolean Cont)
 {
   //
-  const TopoDS_Shape& aObject = myArguments.First();
+  const TopoShape& aObject = myArguments.First();
   if (aObject.IsNull() || !myAxDef || Length <= 0.)
   {
     throw Standard_ConstructionError();
@@ -488,7 +488,7 @@ void BRepFeat_MakeCylindricalHole::PerformBlind(const Standard_Real    Radius,
   myValidate = Cont;
   myStatus   = BRepFeat_NoError;
 
-  LocOpe_CurveShapeIntersector theASI(myAxis, aObject);
+  CurveShapeIntersector theASI(myAxis, aObject);
   if (!theASI.IsDone())
   {
     myStatus = BRepFeat_InvalidPlacement;
@@ -529,7 +529,7 @@ void BRepFeat_MakeCylindricalHole::PerformBlind(const Standard_Real    Radius,
     return;
   }
 
-  TopTools_ListOfShape theList;
+  ShapeList theList;
 
   // version for advanced control
   for (Standard_Integer i = IndFrom; i <= ITNext; i++)
@@ -555,22 +555,22 @@ void BRepFeat_MakeCylindricalHole::PerformBlind(const Standard_Real    Radius,
   Frame3d            a5_ao1(p5_ao1, myAxis.Direction());
   BRepPrim_Cylinder theCylinder(a5_ao1, Radius, Heigth);
 
-  BRep_Builder B;
-  TopoDS_Solid theTool;
+  ShapeBuilder B;
+  TopoSolid theTool;
   B.MakeSolid(theTool);
   B.Add(theTool, theCylinder.Shell());
 
   myTopFace = theCylinder.TopFace();
   myBotFace.Nullify();
 
-  //  BRepTools::Dump(theTool,std::cout);
+  //  BRepTools1::Dump(theTool,std::cout);
   Standard_Boolean Fuse = Standard_False;
   // myBuilder.Perform(theTool,theList,Fuse);
   // myBuilder.BuildPartsOfTool();
   AddTool(theTool);
   SetOperation(Fuse);
   BOPAlgo_BOP::Perform();
-  TopTools_ListOfShape parts;
+  ShapeList parts;
   PartsOfTool(parts);
 
   Standard_Integer                   nbparts = 0;
@@ -587,7 +587,7 @@ void BRepFeat_MakeCylindricalHole::PerformBlind(const Standard_Real    Radius,
 
   if (nbparts >= 2)
   { // preserve the smallest as parameter along the axis
-    TopoDS_Shape  tokeep;
+    TopoShape  tokeep;
     Standard_Real parbar, parmin = RealLast();
     Point3d        Barycentre;
     for (its.Initialize(parts); its.More(); its.Next())
@@ -654,7 +654,7 @@ void BRepFeat_MakeCylindricalHole::Build()
 BRepFeat_Status BRepFeat_MakeCylindricalHole::Validate()
 {
   BRepFeat_Status thestat = BRepFeat_NoError;
-  TopExp_Explorer ex(Shape(), TopAbs_FACE);
+  ShapeExplorer ex(Shape(), TopAbs_FACE);
   if (myIsBlind)
   { // limit of the hole
     for (; ex.More(); ex.Next())
@@ -689,23 +689,23 @@ BRepFeat_Status BRepFeat_MakeCylindricalHole::Validate()
   return thestat;
 }
 
-void Baryc(const TopoDS_Shape& S, Point3d& B)
+void Baryc(const TopoShape& S, Point3d& B)
 {
-  TopExp_Explorer    exp(S, TopAbs_EDGE);
+  ShapeExplorer    exp(S, TopAbs_EDGE);
   gp_XYZ             Bar(0., 0., 0.);
   TopLoc_Location    L;
-  Handle(Geom_Curve) C;
+  Handle(GeomCurve3d) C;
   Standard_Real      prm, First, Last;
 
   Standard_Integer i, nbp = 0;
   for (; exp.More(); exp.Next())
   {
     // Calculate points by non-degenerated edges
-    const TopoDS_Edge& E = TopoDS::Edge(exp.Current());
-    if (!BRep_Tool::Degenerated(E))
+    const TopoEdge& E = TopoDS::Edge(exp.Current());
+    if (!BRepInspector::Degenerated(E))
     {
-      C = BRep_Tool::Curve(E, L, First, Last);
-      C = Handle(Geom_Curve)::DownCast(C->Transformed(L.Transformation()));
+      C = BRepInspector::Curve(E, L, First, Last);
+      C = Handle(GeomCurve3d)::DownCast(C->Transformed(L.Transformation()));
       for (i = 1; i <= 11; i++)
       {
         prm = ((11 - i) * First + (i - 1) * Last) / 10.;
@@ -718,7 +718,7 @@ void Baryc(const TopoDS_Shape& S, Point3d& B)
   B.SetXYZ(Bar);
 }
 
-void BoxParameters(const TopoDS_Shape& S,
+void BoxParameters(const TopoShape& S,
                    const Axis3d&       Axis,
                    Standard_Real&      parmin,
                    Standard_Real&      parmax)
@@ -756,7 +756,7 @@ Standard_Boolean GetOffset(const LocOpe_PntFace& PntInfo,
                            const Axis3d&         Axis,
                            Standard_Real&        outOff)
 {
-  const TopoDS_Face&  FF = PntInfo.Face();
+  const TopoFace&  FF = PntInfo.Face();
   BRepAdaptor_Surface FFA(FF);
 
   Standard_Real Up = PntInfo.UParameter();
@@ -780,9 +780,9 @@ void CreateCyl(const LocOpe_PntFace& PntInfoFirst,
                const LocOpe_PntFace& PntInfoLast,
                const Standard_Real   Radius,
                const Axis3d&         Axis,
-               TopoDS_Shell&         Cyl,
-               TopoDS_Face&          CylTopF,
-               TopoDS_Face&          CylBottF)
+               TopoShell&         Cyl,
+               TopoFace&          CylTopF,
+               TopoFace&          CylBottF)
 {
   Standard_Real First = 0, Last = 0;
   double        offF = 0., offL = 0.;

@@ -53,7 +53,7 @@ void Units_UnitSentence::Analyse()
     return;
 
   Standard_Integer             index;
-  TCollection_AsciiString      s;
+  AsciiString1      s;
   Handle(Units_Token)          token;
   Handle(Units_Token)          previoustoken;
   Handle(Units_Token)          currenttoken;
@@ -180,7 +180,7 @@ void Units_UnitSentence::SetUnits(const Handle(Units_QuantitiesSequence)& aquant
   Handle(Units_Token)          currenttoken;
   Handle(Units_UnitsSequence)  unitssequence;
   Handle(Units_Unit)           unit;
-  TCollection_AsciiString      symbol;
+  AsciiString1      symbol;
 
   for (index = 1; index <= aquantitiessequence->Length(); index++)
   {

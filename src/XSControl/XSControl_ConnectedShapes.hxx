@@ -28,14 +28,14 @@ class XSControl_TransferReader;
 class RefObject;
 class Interface_Graph;
 class Interface_EntityIterator;
-class TCollection_AsciiString;
-class TopoDS_Shape;
+class AsciiString1;
+class TopoShape;
 class Transfer_TransientProcess;
 
 class XSControl_ConnectedShapes;
 DEFINE_STANDARD_HANDLE(XSControl_ConnectedShapes, IFSelect_SelectExplore)
 
-//! From a TopoDS_Shape, or from the entity which has produced it,
+//! From a TopoShape, or from the entity which has produced it,
 //! searches for the shapes, and the entities which have produced
 //! them in last transfer, which are adjacent to it by VERTICES
 class XSControl_ConnectedShapes : public IFSelect_SelectExplore
@@ -64,12 +64,12 @@ public:
 
   //! Returns a text defining the criterium.
   //! "Connected Entities through produced Shapes"
-  Standard_EXPORT TCollection_AsciiString ExploreLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExploreLabel() const Standard_OVERRIDE;
 
   //! This functions considers a shape from a transfer and performs
   //! the search function explained above
   Standard_EXPORT static Handle(TColStd_HSequenceOfTransient) AdjacentEntities(
-    const TopoDS_Shape&                      ashape,
+    const TopoShape&                      ashape,
     const Handle(Transfer_TransientProcess)& TP,
     const TopAbs_ShapeEnum                   type);
 

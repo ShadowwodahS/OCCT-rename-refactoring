@@ -22,7 +22,7 @@
 
 #include <BRep_CurveRepresentation.hxx>
 class Poly_PolygonOnTriangulation;
-class Poly_Triangulation;
+class MeshTriangulation;
 class TopLoc_Location;
 
 class BRep_PolygonOnTriangulation;
@@ -35,7 +35,7 @@ class BRep_PolygonOnTriangulation : public BRep_CurveRepresentation
 
 public:
   Standard_EXPORT BRep_PolygonOnTriangulation(const Handle(Poly_PolygonOnTriangulation)& P,
-                                              const Handle(Poly_Triangulation)&          T,
+                                              const Handle(MeshTriangulation)&          T,
                                               const TopLoc_Location&                     L);
 
   //! returns True.
@@ -44,14 +44,14 @@ public:
   //! Is it a polygon in the definition of <T> with
   //! location <L>.
   Standard_EXPORT virtual Standard_Boolean IsPolygonOnTriangulation(
-    const Handle(Poly_Triangulation)& T,
+    const Handle(MeshTriangulation)& T,
     const TopLoc_Location&            L) const Standard_OVERRIDE;
 
   //! returns True.
   Standard_EXPORT virtual void PolygonOnTriangulation(const Handle(Poly_PolygonOnTriangulation)& P)
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const Handle(Poly_Triangulation)& Triangulation() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(MeshTriangulation)& Triangulation() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual const Handle(Poly_PolygonOnTriangulation)& PolygonOnTriangulation() const
     Standard_OVERRIDE;
@@ -68,7 +68,7 @@ public:
 protected:
 private:
   Handle(Poly_PolygonOnTriangulation) myPolygon;
-  Handle(Poly_Triangulation)          myTriangulation;
+  Handle(MeshTriangulation)          myTriangulation;
 };
 
 #endif // _BRep_PolygonOnTriangulation_HeaderFile

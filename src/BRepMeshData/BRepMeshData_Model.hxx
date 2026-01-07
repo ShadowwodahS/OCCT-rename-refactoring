@@ -27,7 +27,7 @@ class BRepMeshData_Model : public IMeshData_Model
 public:
   //! Constructor.
   //! Initializes empty model.
-  Standard_EXPORT BRepMeshData_Model(const TopoDS_Shape& theShape);
+  Standard_EXPORT BRepMeshData_Model(const TopoShape& theShape);
 
   //! Destructor.
   Standard_EXPORT virtual ~BRepMeshData_Model();
@@ -45,7 +45,7 @@ public: //! @name discrete faces
   Standard_EXPORT virtual Standard_Integer FacesNb() const Standard_OVERRIDE;
 
   //! Adds new face to shape model.
-  Standard_EXPORT virtual const IMeshData::IFaceHandle& AddFace(const TopoDS_Face& theFace)
+  Standard_EXPORT virtual const IMeshData::IFaceHandle& AddFace(const TopoFace& theFace)
     Standard_OVERRIDE;
 
   //! Gets model's face with the given index.
@@ -57,7 +57,7 @@ public: //! @name discrete edges
   Standard_EXPORT virtual Standard_Integer EdgesNb() const Standard_OVERRIDE;
 
   //! Adds new edge to shape model.
-  Standard_EXPORT virtual const IMeshData::IEdgeHandle& AddEdge(const TopoDS_Edge& theEdge)
+  Standard_EXPORT virtual const IMeshData::IEdgeHandle& AddEdge(const TopoEdge& theEdge)
     Standard_OVERRIDE;
 
   //! Gets model's edge with the given index.

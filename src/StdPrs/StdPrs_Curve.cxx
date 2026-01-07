@@ -211,7 +211,7 @@ static Standard_Boolean MatchCurve(const Standard_Real    X,
 
 void StdPrs_Curve::Add(const Handle(Prs3d_Presentation)& aPresentation,
                        const Adaptor3d_Curve&            aCurve,
-                       const Handle(Prs3d_Drawer)&       aDrawer,
+                       const Handle(StyleDrawer)&       aDrawer,
                        const Standard_Boolean            drawCurve)
 {
   aPresentation->CurrentGroup()->SetPrimitivesAspect(aDrawer->LineAspect()->Aspect());
@@ -228,7 +228,7 @@ void StdPrs_Curve::Add(const Handle(Prs3d_Presentation)& aPresentation,
     Point3d Location;
     Vector3d Direction;
     aCurve.D1(aCurve.LastParameter(), Location, Direction);
-    Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+    Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                       Location,
                       Dir3d(Direction),
                       aDrawer->ArrowAspect()->Angle(),
@@ -240,7 +240,7 @@ void StdPrs_Curve::Add(const Handle(Prs3d_Presentation)& aPresentation,
 
 void StdPrs_Curve::Add(const Handle(Prs3d_Presentation)& aPresentation,
                        const Adaptor3d_Curve&            aCurve,
-                       const Handle(Prs3d_Drawer)&       aDrawer,
+                       const Handle(StyleDrawer)&       aDrawer,
                        TColgp_SequenceOfPnt&             Points,
                        const Standard_Boolean            drawCurve)
 {
@@ -270,7 +270,7 @@ void StdPrs_Curve::Add(const Handle(Prs3d_Presentation)& aPresentation,
                        const Adaptor3d_Curve&            aCurve,
                        const Standard_Real               U1,
                        const Standard_Real               U2,
-                       const Handle(Prs3d_Drawer)&       aDrawer,
+                       const Handle(StyleDrawer)&       aDrawer,
                        const Standard_Boolean            drawCurve)
 {
   aPresentation->CurrentGroup()->SetPrimitivesAspect(aDrawer->LineAspect()->Aspect());
@@ -292,7 +292,7 @@ void StdPrs_Curve::Add(const Handle(Prs3d_Presentation)& aPresentation,
     Point3d Location;
     Vector3d Direction;
     aCurve.D1(aCurve.LastParameter(), Location, Direction);
-    Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+    Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                       Location,
                       Dir3d(Direction),
                       aDrawer->ArrowAspect()->Angle(),
@@ -307,7 +307,7 @@ Standard_Boolean StdPrs_Curve::Match(const Standard_Real         X,
                                      const Standard_Real         Z,
                                      const Standard_Real         aDistance,
                                      const Adaptor3d_Curve&      aCurve,
-                                     const Handle(Prs3d_Drawer)& aDrawer)
+                                     const Handle(StyleDrawer)& aDrawer)
 {
   Standard_Real V1, V2;
   FindLimits(aCurve, aDrawer->MaximalParameterValue(), V1, V2);
@@ -350,7 +350,7 @@ Standard_Boolean StdPrs_Curve::Match(const Standard_Real         X,
                                      const Adaptor3d_Curve&      aCurve,
                                      const Standard_Real         U1,
                                      const Standard_Real         U2,
-                                     const Handle(Prs3d_Drawer)& aDrawer)
+                                     const Handle(StyleDrawer)& aDrawer)
 {
   Standard_Real V1 = U1;
   Standard_Real V2 = U2;

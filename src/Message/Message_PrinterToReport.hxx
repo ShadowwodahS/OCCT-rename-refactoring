@@ -22,9 +22,9 @@ class Message_Report;
 //! Implementation of a message printer associated with Message_Report
 //! Send will create a new alert of the report. If string is sent, an alert is created by Eol only.
 //! The alerts are sent into set report or default report of Message.
-class Message_PrinterToReport : public Message_Printer
+class Message_PrinterToReport : public LogPrinter
 {
-  DEFINE_STANDARD_RTTIEXT(Message_PrinterToReport, Message_Printer)
+  DEFINE_STANDARD_RTTIEXT(Message_PrinterToReport, LogPrinter)
 public:
   //! Create printer for redirecting messages into report.
   Message_PrinterToReport() {}
@@ -56,18 +56,18 @@ public:
 protected:
   //! Send a string message with specified trace level.
   //! This method must be redefined in descendant.
-  Standard_EXPORT virtual void send(const TCollection_AsciiString& theString,
+  Standard_EXPORT virtual void send(const AsciiString1& theString,
                                     const Message_Gravity theGravity) const Standard_OVERRIDE;
 
   //! Send an alert with metrics active in the current report
-  Standard_EXPORT void sendMetricAlert(const TCollection_AsciiString& theValue,
+  Standard_EXPORT void sendMetricAlert(const AsciiString1& theValue,
                                        const Message_Gravity          theGravity) const;
 
 private:
-  mutable TCollection_AsciiString myName;
+  mutable AsciiString1 myName;
   Handle(Message_Report)          myReport; //!< the report for sending alerts
 };
 
-DEFINE_STANDARD_HANDLE(Message_PrinterToReport, Message_Printer)
+DEFINE_STANDARD_HANDLE(Message_PrinterToReport, LogPrinter)
 
 #endif // _Message_PrinterToReport_HeaderFile

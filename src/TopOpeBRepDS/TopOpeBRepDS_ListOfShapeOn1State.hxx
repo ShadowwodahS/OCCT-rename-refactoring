@@ -25,16 +25,16 @@
 #include <Standard_Boolean.hxx>
 
 //! represent a list of shape
-class TopOpeBRepDS_ListOfShapeOn1State
+class ShapeListOnState
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepDS_ListOfShapeOn1State();
+  Standard_EXPORT ShapeListOnState();
 
-  Standard_EXPORT const TopTools_ListOfShape& ListOnState() const;
+  Standard_EXPORT const ShapeList& ListOnState() const;
 
-  Standard_EXPORT TopTools_ListOfShape& ChangeListOnState();
+  Standard_EXPORT ShapeList& ChangeListOnState();
 
   Standard_EXPORT Standard_Boolean IsSplit() const;
 
@@ -44,7 +44,7 @@ public:
 
 protected:
 private:
-  TopTools_ListOfShape myList;
+  ShapeList myList;
   Standard_Integer     mySplits;
 };
 

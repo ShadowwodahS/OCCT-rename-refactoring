@@ -38,7 +38,7 @@
 
 //! Camera class provides object-oriented approach to setting up projection
 //! and orientation properties of 3D view.
-class Graphic3d_Camera : public RefObject
+class CameraOn3d : public RefObject
 {
 private:
   //! Template container for cached matrices or Real/ShortReal types.
@@ -171,10 +171,10 @@ public:
   //! @param[in] theEnd     final   camera position
   //! @param[in] theT       step between initial and final positions within [0,1] range
   //! @param[out] theCamera  interpolation result
-  Standard_EXPORT static void Interpolate(const Handle(Graphic3d_Camera)& theStart,
-                                          const Handle(Graphic3d_Camera)& theEnd,
+  Standard_EXPORT static void Interpolate(const Handle(CameraOn3d)& theStart,
+                                          const Handle(CameraOn3d)& theEnd,
                                           const double                    theT,
-                                          Handle(Graphic3d_Camera)&       theCamera);
+                                          Handle(CameraOn3d)&       theCamera);
 
 public:
   //! Default constructor.
@@ -183,21 +183,21 @@ public:
   //! Type (Orthographic); FOVy (45); Scale (1000); IsStereo(false);
   //! ZNear (0.001); ZFar (3000.0); Aspect(1);
   //! ZFocus(1.0); ZFocusType(Relative); IOD(0.05); IODType(Relative)
-  Standard_EXPORT Graphic3d_Camera();
+  Standard_EXPORT CameraOn3d();
 
   //! Copy constructor.
   //! @param[in] theOther  the camera to copy from.
-  Standard_EXPORT Graphic3d_Camera(const Handle(Graphic3d_Camera)& theOther);
+  Standard_EXPORT CameraOn3d(const Handle(CameraOn3d)& theOther);
 
   //! Initialize mapping related parameters from other camera handle.
-  Standard_EXPORT void CopyMappingData(const Handle(Graphic3d_Camera)& theOtherCamera);
+  Standard_EXPORT void CopyMappingData(const Handle(CameraOn3d)& theOtherCamera);
 
   //! Initialize orientation related parameters from other camera handle.
-  Standard_EXPORT void CopyOrientationData(const Handle(Graphic3d_Camera)& theOtherCamera);
+  Standard_EXPORT void CopyOrientationData(const Handle(CameraOn3d)& theOtherCamera);
 
   //! Copy properties of another camera.
   //! @param[in] theOther  the camera to copy from.
-  Standard_EXPORT void Copy(const Handle(Graphic3d_Camera)& theOther);
+  Standard_EXPORT void Copy(const Handle(CameraOn3d)& theOther);
 
   //! @name Public camera properties
 public:
@@ -822,27 +822,27 @@ private:
   mutable Graphic3d_WorldViewProjState myWorldViewProjState;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Graphic3d_Camera, RefObject)
+  DEFINE_STANDARD_RTTIEXT(CameraOn3d, RefObject)
 };
 
-DEFINE_STANDARD_HANDLE(Graphic3d_Camera, RefObject)
+DEFINE_STANDARD_HANDLE(CameraOn3d, RefObject)
 
 //! Linear interpolation tool for camera orientation and position.
 //! This tool interpolates camera parameters scale, eye, center, rotation (up and direction vectors)
 //! independently.
-//! @sa Graphic3d_Camera::Interpolate()
+//! @sa CameraOn3d::Interpolate()
 template <>
-inline void NCollection_Lerp<Handle(Graphic3d_Camera)>::Interpolate(
+inline void NCollection_Lerp<Handle(CameraOn3d)>::Interpolate(
   const double              theT,
-  Handle(Graphic3d_Camera)& theResult) const
+  Handle(CameraOn3d)& theResult) const
 {
-  Graphic3d_Camera::Interpolate(myStart, myEnd, theT, theResult);
+  CameraOn3d::Interpolate(myStart, myEnd, theT, theResult);
 }
 
 //! Linear interpolation tool for camera orientation and position.
 //! This tool interpolates camera parameters scale, eye, center, rotation (up and direction vectors)
 //! independently.
-//! @sa Graphic3d_Camera::Interpolate()
-typedef NCollection_Lerp<Handle(Graphic3d_Camera)> Graphic3d_CameraLerp;
+//! @sa CameraOn3d::Interpolate()
+typedef NCollection_Lerp<Handle(CameraOn3d)> Graphic3d_CameraLerp;
 
 #endif

@@ -25,8 +25,8 @@
 #include <XmlObjMgt_Element.hxx>
 #include <Standard_CString.hxx>
 #include <Standard_Real.hxx>
-class TCollection_ExtendedString;
-class TCollection_AsciiString;
+class UtfString;
+class AsciiString1;
 
 //! This package defines services to manage the storage
 //! grain of data produced by applications and those classes
@@ -42,11 +42,11 @@ public:
   //! Add attribute <theElement extstring="theString" ...>
   Standard_EXPORT static Standard_Boolean SetExtendedString(
     XmlObjMgt_Element&                theElement,
-    const TCollection_ExtendedString& theString);
+    const UtfString& theString);
 
   //! Get attribute <theElement extstring="theString" ...>
   Standard_EXPORT static Standard_Boolean GetExtendedString(const XmlObjMgt_Element&    theElement,
-                                                            TCollection_ExtendedString& theString);
+                                                            UtfString& theString);
 
   //! Returns the first child text node
   Standard_EXPORT static XmlObjMgt_DOMString GetStringValue(const XmlObjMgt_Element& theElement);
@@ -62,12 +62,12 @@ public:
   //! Convert XPath expression (DOMString) into TagEntry string
   //! returns False on Error
   Standard_EXPORT static Standard_Boolean GetTagEntryString(const XmlObjMgt_DOMString& theTarget,
-                                                            TCollection_AsciiString&   theTagEntry);
+                                                            AsciiString1&   theTagEntry);
 
   //! Convert XPath expression (DOMString) into TagEntry string
   //! returns False on Error
   Standard_EXPORT static void SetTagEntryString(XmlObjMgt_DOMString&           theSource,
-                                                const TCollection_AsciiString& theTagEntry);
+                                                const AsciiString1& theTagEntry);
 
   Standard_EXPORT static XmlObjMgt_Element FindChildElement(const XmlObjMgt_Element& theSource,
                                                             const Standard_Integer   theObjId);

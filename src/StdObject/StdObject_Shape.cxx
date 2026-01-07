@@ -17,9 +17,9 @@
 // function : Import
 // purpose  : Import transient object from the persistent data
 //=======================================================================
-TopoDS_Shape StdObject_Shape::Import() const
+TopoShape StdObject_Shape::Import() const
 {
-  TopoDS_Shape aShape;
+  TopoShape aShape;
 
   if (myTShape)
     aShape.TShape(myTShape->Import());

@@ -41,10 +41,10 @@ struct Graphic3d_ZLayerSettings
   }
 
   //! Return user-provided name.
-  const TCollection_AsciiString& Name() const { return myName; }
+  const AsciiString1& Name() const { return myName; }
 
   //! Set custom name.
-  void SetName(const TCollection_AsciiString& theName) { myName = theName; }
+  void SetName(const AsciiString1& theName) { myName = theName; }
 
   //! Return lights list to be used for rendering presentations within this Z-Layer; NULL by
   //! default. NULL list (but not empty list!) means that default lights assigned to the View should
@@ -205,7 +205,7 @@ struct Graphic3d_ZLayerSettings
   }
 
 protected:
-  TCollection_AsciiString    myName;       //!< user-provided name
+  AsciiString1    myName;       //!< user-provided name
   Handle(Graphic3d_LightSet) myLights;     //!< lights list
   Handle(TopLoc_Datum3D)     myOriginTrsf; //!< transformation to the origin
   // clang-format off

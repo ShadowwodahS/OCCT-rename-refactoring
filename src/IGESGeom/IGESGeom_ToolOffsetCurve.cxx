@@ -40,11 +40,11 @@
 // MGE 30/07/98
 //=================================================================================================
 
-IGESGeom_ToolOffsetCurve::IGESGeom_ToolOffsetCurve() {}
+OffsetCurveTool::OffsetCurveTool() {}
 
 //=================================================================================================
 
-void IGESGeom_ToolOffsetCurve::ReadOwnParams(const Handle(IGESGeom_OffsetCurve)&    ent,
+void OffsetCurveTool::ReadOwnParams(const Handle(IGESGeom_OffsetCurve)&    ent,
                                              const Handle(IGESData_IGESReaderData)& IR,
                                              IGESData_ParamReader&                  PR) const
 {
@@ -211,7 +211,7 @@ void IGESGeom_ToolOffsetCurve::ReadOwnParams(const Handle(IGESGeom_OffsetCurve)&
 
 //=================================================================================================
 
-void IGESGeom_ToolOffsetCurve::WriteOwnParams(const Handle(IGESGeom_OffsetCurve)& ent,
+void OffsetCurveTool::WriteOwnParams(const Handle(IGESGeom_OffsetCurve)& ent,
                                               IGESData_IGESWriter&                IW) const
 {
   IW.Send(ent->BaseCurve());
@@ -234,7 +234,7 @@ void IGESGeom_ToolOffsetCurve::WriteOwnParams(const Handle(IGESGeom_OffsetCurve)
 
 //=================================================================================================
 
-void IGESGeom_ToolOffsetCurve::OwnShared(const Handle(IGESGeom_OffsetCurve)& ent,
+void OffsetCurveTool::OwnShared(const Handle(IGESGeom_OffsetCurve)& ent,
                                          Interface_EntityIterator&           iter) const
 {
   iter.GetOneItem(ent->BaseCurve());
@@ -243,7 +243,7 @@ void IGESGeom_ToolOffsetCurve::OwnShared(const Handle(IGESGeom_OffsetCurve)& ent
 
 //=================================================================================================
 
-void IGESGeom_ToolOffsetCurve::OwnCopy(const Handle(IGESGeom_OffsetCurve)& another,
+void OffsetCurveTool::OwnCopy(const Handle(IGESGeom_OffsetCurve)& another,
                                        const Handle(IGESGeom_OffsetCurve)& ent,
                                        Interface_CopyTool&                 TC) const
 {
@@ -280,7 +280,7 @@ void IGESGeom_ToolOffsetCurve::OwnCopy(const Handle(IGESGeom_OffsetCurve)& anoth
 
 //=================================================================================================
 
-Standard_Boolean IGESGeom_ToolOffsetCurve::OwnCorrect(const Handle(IGESGeom_OffsetCurve)& ent) const
+Standard_Boolean OffsetCurveTool::OwnCorrect(const Handle(IGESGeom_OffsetCurve)& ent) const
 {
   if (ent->OffsetType() == 3)
     return Standard_False;
@@ -306,10 +306,10 @@ Standard_Boolean IGESGeom_ToolOffsetCurve::OwnCorrect(const Handle(IGESGeom_Offs
 
 //=================================================================================================
 
-IGESData_DirChecker IGESGeom_ToolOffsetCurve::DirChecker(
+DirectoryChecker OffsetCurveTool::DirChecker(
   const Handle(IGESGeom_OffsetCurve)& /* ent */) const
 {
-  IGESData_DirChecker DC(130, 0);
+  DirectoryChecker DC(130, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   //  DC.LineWeight(IGESData_DefValue);
@@ -320,7 +320,7 @@ IGESData_DirChecker IGESGeom_ToolOffsetCurve::DirChecker(
 
 //=================================================================================================
 
-void IGESGeom_ToolOffsetCurve::OwnCheck(const Handle(IGESGeom_OffsetCurve)& ent,
+void OffsetCurveTool::OwnCheck(const Handle(IGESGeom_OffsetCurve)& ent,
                                         const Interface_ShareTool&,
                                         Handle(Interface_Check)& ach) const
 {
@@ -352,7 +352,7 @@ void IGESGeom_ToolOffsetCurve::OwnCheck(const Handle(IGESGeom_OffsetCurve)& ent,
 
 //=================================================================================================
 
-void IGESGeom_ToolOffsetCurve::OwnDump(const Handle(IGESGeom_OffsetCurve)& ent,
+void OffsetCurveTool::OwnDump(const Handle(IGESGeom_OffsetCurve)& ent,
                                        const IGESData_IGESDumper&          dumper,
                                        Standard_OStream&                   S,
                                        const Standard_Integer              level) const

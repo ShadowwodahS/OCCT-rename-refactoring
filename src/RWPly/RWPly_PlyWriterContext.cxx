@@ -19,8 +19,8 @@
 
 //=================================================================================================
 
-static void splitLines(const TCollection_AsciiString&                   theString,
-                       NCollection_IndexedMap<TCollection_AsciiString>& theLines)
+static void splitLines(const AsciiString1&                   theString,
+                       NCollection_IndexedMap<AsciiString1>& theLines)
 {
   if (theString.IsEmpty())
   {
@@ -38,7 +38,7 @@ static void splitLines(const TCollection_AsciiString&                   theStrin
 
     if (aLineFrom != aCharIter)
     {
-      TCollection_AsciiString aLine = theString.SubString(aLineFrom, aCharIter);
+      AsciiString1 aLine = theString.SubString(aLineFrom, aCharIter);
       aLine.RightAdjust();
       theLines.Add(aLine);
     }
@@ -83,7 +83,7 @@ RWPly_PlyWriterContext::~RWPly_PlyWriterContext()
 
 //=================================================================================================
 
-bool RWPly_PlyWriterContext::Open(const TCollection_AsciiString&       theName,
+bool RWPly_PlyWriterContext::Open(const AsciiString1&       theName,
                                   const std::shared_ptr<std::ostream>& theStream)
 {
   myName          = theName;
@@ -158,18 +158,18 @@ bool RWPly_PlyWriterContext::WriteHeader(const Standard_Integer                 
        aKeyValueIter.More();
        aKeyValueIter.Next())
   {
-    NCollection_IndexedMap<TCollection_AsciiString> aKeyLines, aValLines;
+    NCollection_IndexedMap<AsciiString1> aKeyLines, aValLines;
     splitLines(aKeyValueIter.Key(), aKeyLines);
     splitLines(aKeyValueIter.Value(), aValLines);
     for (Standard_Integer aLineIter = 1; aLineIter <= aKeyLines.Extent(); ++aLineIter)
     {
-      const TCollection_AsciiString& aLine = aKeyLines.FindKey(aLineIter);
+      const AsciiString1& aLine = aKeyLines.FindKey(aLineIter);
       *myStream << (aLineIter > 1 ? "\n" : "") << "comment " << aLine;
     }
     *myStream << (!aKeyLines.IsEmpty() ? ":" : "comment ");
     for (Standard_Integer aLineIter = 1; aLineIter <= aValLines.Extent(); ++aLineIter)
     {
-      const TCollection_AsciiString& aLine = aValLines.FindKey(aLineIter);
+      const AsciiString1& aLine = aValLines.FindKey(aLineIter);
       *myStream << (aLineIter > 1 ? "\n" : "") << "comment " << aLine;
     }
     *myStream << "\n";

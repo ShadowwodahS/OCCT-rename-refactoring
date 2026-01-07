@@ -62,9 +62,9 @@ Standard_Boolean XSControl_SelectForTransfer::Sort(
   return Standard_False;
 }
 
-TCollection_AsciiString XSControl_SelectForTransfer::ExtractLabel() const
+AsciiString1 XSControl_SelectForTransfer::ExtractLabel() const
 {
   if (!theTR.IsNull())
-    return TCollection_AsciiString("Recognized for Transfer (current actor)");
-  return TCollection_AsciiString("Recognized for Transfer");
+    return AsciiString1("Recognized for Transfer (current actor)");
+  return AsciiString1("Recognized for Transfer");
 }

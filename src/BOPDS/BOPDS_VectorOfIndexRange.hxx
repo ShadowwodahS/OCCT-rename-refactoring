@@ -18,6 +18,6 @@
 #include <NCollection_Vector.hxx>
 #include <BOPDS_IndexRange.hxx>
 
-typedef NCollection_Vector<BOPDS_IndexRange> BOPDS_VectorOfIndexRange;
+typedef NCollection_Vector<IndexRange> BOPDS_VectorOfIndexRange;
 
 #endif

@@ -20,7 +20,7 @@
 #include <SWDRAW_ShapeExtend.hxx>
 #include <TopoDS_Shape.hxx>
 
-static Standard_Integer sortcompound(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer sortcompound(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   Standard_CString arg1 = argv[1];
   if (argc < 2)
@@ -31,7 +31,7 @@ static Standard_Integer sortcompound(Draw_Interpretor& di, Standard_Integer argc
     di << " Mode : n (normal, by default)  e (explore)  c (compound)  x (explore+comp)\n";
     return 0;
   }
-  TopoDS_Shape Shape = DBRep::Get(arg1);
+  TopoShape Shape = DBRep1::Get(arg1);
   if (Shape.IsNull())
   {
     di << "Shape unknown : " << arg1 << "\n";
@@ -138,14 +138,14 @@ static Standard_Integer sortcompound(Draw_Interpretor& di, Standard_Integer argc
       di << "Empty result\n";
       return 0;
     }
-    DBRep::Set(argv[2], Shape);
+    DBRep1::Set(argv[2], Shape);
   }
   return 0; // Done
 }
 
 //=================================================================================================
 
-void SWDRAW_ShapeExtend::InitCommands(Draw_Interpretor& theCommands)
+void SWDRAW_ShapeExtend::InitCommands(DrawInterpreter& theCommands)
 {
   static Standard_Integer initactor = 0;
   if (initactor)

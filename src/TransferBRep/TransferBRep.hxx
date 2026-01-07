@@ -28,13 +28,13 @@
 #include <TransferBRep_HSequenceOfTransferResultInfo.hxx>
 #include <TColStd_HSequenceOfInteger.hxx>
 #include <Standard_Integer.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class Transfer_Binder;
 class Transfer_TransientProcess;
 class RefObject;
 class Transfer_FinderProcess;
 class TransferBRep_ShapeMapper;
-class Message_Printer;
+class LogPrinter;
 class Message_Msg;
 class TransferBRep_TransferResultInfo;
 class Interface_CheckIterator;
@@ -50,12 +50,12 @@ public:
 
   //! Get the Shape recorded in a Binder
   //! If the Binder brings a multiple result, search for the Shape
-  Standard_EXPORT static TopoDS_Shape ShapeResult(const Handle(Transfer_Binder)& binder);
+  Standard_EXPORT static TopoShape ShapeResult(const Handle(Transfer_Binder)& binder);
 
   //! Get the Shape recorded in a TransientProcess as result of the
   //! Transfer of an entity. I.E. in the binder bound to that Entity
   //! If no result or result not a single Shape, returns a Null Shape
-  Standard_EXPORT static TopoDS_Shape ShapeResult(const Handle(Transfer_TransientProcess)& TP,
+  Standard_EXPORT static TopoShape ShapeResult(const Handle(Transfer_TransientProcess)& TP,
                                                   const Handle(RefObject)&        ent);
 
   //! Sets a Shape as a result for a starting entity <ent>
@@ -63,7 +63,7 @@ public:
   //! It simply creates a ShapeBinder then binds it to the entity
   Standard_EXPORT static void SetShapeResult(const Handle(Transfer_TransientProcess)& TP,
                                              const Handle(RefObject)&        ent,
-                                             const TopoDS_Shape&                      result);
+                                             const TopoShape&                      result);
 
   //! Gets the Shapes recorded in a TransientProcess as result of a
   //! Transfer, considers roots only or all results according
@@ -85,24 +85,24 @@ public:
   //! - EXTERNAL means NOT BOUND
   //! - INTERNAL is not used
   Standard_EXPORT static TopAbs_Orientation ShapeState(const Handle(Transfer_FinderProcess)& FP,
-                                                       const TopoDS_Shape&                   shape);
+                                                       const TopoShape&                   shape);
 
   //! Returns the result (as a Binder) attached to a given Shape
   //! Null if none
   Standard_EXPORT static Handle(Transfer_Binder) ResultFromShape(
     const Handle(Transfer_FinderProcess)& FP,
-    const TopoDS_Shape&                   shape);
+    const TopoShape&                   shape);
 
   //! Returns the result as pure Transient attached to a Shape
   //! first one if multiple result
   Standard_EXPORT static Handle(RefObject) TransientFromShape(
     const Handle(Transfer_FinderProcess)& FP,
-    const TopoDS_Shape&                   shape);
+    const TopoShape&                   shape);
 
   //! Binds a Transient Result to a Shape in a FinderProcess
   //! (as first result if multiple : does not add it to existing one)
   Standard_EXPORT static void SetTransientFromShape(const Handle(Transfer_FinderProcess)& FP,
-                                                    const TopoDS_Shape&                   shape,
+                                                    const TopoShape&                   shape,
                                                     const Handle(RefObject)&     result);
 
   //! Returns a ShapeMapper for a given Shape (location included)
@@ -111,7 +111,7 @@ public:
   //! it is not mapped here (use Bind or FindElseBind to do this)
   Standard_EXPORT static Handle(TransferBRep_ShapeMapper) ShapeMapper(
     const Handle(Transfer_FinderProcess)& FP,
-    const TopoDS_Shape&                   shape);
+    const TopoShape&                   shape);
 
   //! Fills sequence of TransferResultInfo for each type of entity
   //! given in the EntityTypes (entity are given as objects).
@@ -134,7 +134,7 @@ public:
 
   //! Prints the results of transfer to given priner with given header.
   Standard_EXPORT static void PrintResultInfo(
-    const Handle(Message_Printer)&                 Printer,
+    const Handle(LogPrinter)&                 Printer,
     const Message_Msg&                             Header,
     const Handle(TransferBRep_TransferResultInfo)& ResultInfo,
     const Standard_Boolean                         printEmpty = Standard_True);
@@ -148,7 +148,7 @@ public:
   //! 1(D) + Curves/Surfaces not C0  ;  2 + SameParameter on Edges
   //! Warning : entities to which checks are bound are the Shapes themselves,
   //! embedded in ShapeMapper
-  Standard_EXPORT static Interface_CheckIterator BRepCheck(const TopoDS_Shape&    shape,
+  Standard_EXPORT static Interface_CheckIterator BRepCheck(const TopoShape&    shape,
                                                            const Standard_Integer lev = 1);
 
   //! Takes a starting CheckIterator which brings checks bound with

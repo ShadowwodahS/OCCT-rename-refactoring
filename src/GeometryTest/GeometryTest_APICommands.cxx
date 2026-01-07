@@ -40,12 +40,12 @@
 #include <stdio.h>
 
 #ifdef _WIN32
-Standard_IMPORT Draw_Viewer dout;
+Standard_IMPORT DrawViewer dout;
 #endif
 
 //=================================================================================================
 
-static void showProjSolution(Draw_Interpretor&      di,
+static void showProjSolution(DrawInterpreter&      di,
                              const Standard_Integer i,
                              const Point3d&          P,
                              const Point3d&          P1,
@@ -59,13 +59,13 @@ static void showProjSolution(Draw_Interpretor&      di,
   char* temp = name; // portage WNT
   if (P.Distance(P1) > Precision::Confusion())
   {
-    Handle(Geom_Line)         L  = new Geom_Line(P, Vector3d(P, P1));
+    Handle(GeomLine)         L  = new GeomLine(P, Vector3d(P, P1));
     Handle(Geom_TrimmedCurve) CT = new Geom_TrimmedCurve(L, 0., P.Distance(P1));
-    DrawTrSurf::Set(temp, CT);
+    DrawTrSurf1::Set(temp, CT);
   }
   else
   {
-    DrawTrSurf::Set(temp, P1);
+    DrawTrSurf1::Set(temp, P1);
     if (isSurface)
       di << " Point on surface ";
     else
@@ -79,7 +79,7 @@ static void showProjSolution(Draw_Interpretor&      di,
 
 //=================================================================================================
 
-static Standard_Integer proj(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer proj(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 5)
   {
@@ -87,10 +87,10 @@ static Standard_Integer proj(Draw_Interpretor& di, Standard_Integer n, const cha
     return 1;
   }
 
-  Point3d P(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
+  Point3d P(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4]));
 
-  Handle(Geom_Curve)   GC = DrawTrSurf::GetCurve(a[1]);
-  Handle(Geom_Surface) GS;
+  Handle(GeomCurve3d)   GC = DrawTrSurf1::GetCurve(a[1]);
+  Handle(GeomSurface) GS;
   Extrema_ExtAlgo      aProjAlgo = Extrema_ExtAlgo_Grad;
 
   if (n == 6 && a[5][0] == 't')
@@ -98,7 +98,7 @@ static Standard_Integer proj(Draw_Interpretor& di, Standard_Integer n, const cha
 
   if (GC.IsNull())
   {
-    GS = DrawTrSurf::GetSurface(a[1]);
+    GS = DrawTrSurf1::GetSurface(a[1]);
 
     if (GS.IsNull())
       return 1;
@@ -108,7 +108,7 @@ static Standard_Integer proj(Draw_Interpretor& di, Standard_Integer n, const cha
       Standard_Real U1, U2, V1, V2;
       GS->Bounds(U1, U2, V1, V2);
 
-      GeomAPI_ProjectPointOnSurf proj(P, GS, U1, U2, V1, V2, aProjAlgo);
+      PointOnSurfProjector proj(P, GS, U1, U2, V1, V2, aProjAlgo);
       if (!proj.IsDone())
       {
         di << "projection failed.";
@@ -125,7 +125,7 @@ static Standard_Integer proj(Draw_Interpretor& di, Standard_Integer n, const cha
     }
     else if (n == 7)
     {
-      const gp_XY            aP2d(Draw::Atof(a[5]), Draw::Atof(a[6]));
+      const Coords2d            aP2d(Draw1::Atof(a[5]), Draw1::Atof(a[6]));
       GeomAdaptor_Surface    aGAS(GS);
       Extrema_GenLocateExtPS aProjector(aGAS, Precision::PConfusion(), Precision::PConfusion());
       aProjector.Perform(P, aP2d.X(), aP2d.Y(), Standard_False);
@@ -164,13 +164,13 @@ static Standard_Integer proj(Draw_Interpretor& di, Standard_Integer n, const cha
 
 //=================================================================================================
 
-static Standard_Integer appro(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer appro(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
 
-  Handle(Geom_Curve) GC;
-  Standard_Integer   Nb = Draw::Atoi(a[2]);
+  Handle(GeomCurve3d) GC;
+  Standard_Integer   Nb = Draw1::Atoi(a[2]);
 
   TColgp_Array1OfPnt Points(1, Nb);
 
@@ -178,7 +178,7 @@ static Standard_Integer appro(Draw_Interpretor& di, Standard_Integer n, const ch
 
   if (n == 4)
   {
-    GC = DrawTrSurf::GetCurve(a[3]);
+    GC = DrawTrSurf1::GetCurve(a[3]);
     if (GC.IsNull())
       return 1;
 
@@ -219,11 +219,11 @@ static Standard_Integer appro(Draw_Interpretor& di, Standard_Integer n, const ch
   Standard_Integer Dmax  = 8;
   Standard_Real    Tol3d = 1.e-3;
 
-  Handle(Geom_BSplineCurve) TheCurve;
+  Handle(BSplineCurve3d) TheCurve;
   GeomAPI_PointsToBSpline   aPointToBSpline(Points, Dmin, Dmax, GeomAbs_C2, Tol3d);
   TheCurve = aPointToBSpline.Curve();
 
-  DrawTrSurf::Set(a[1], TheCurve);
+  DrawTrSurf1::Set(a[1], TheCurve);
   di << a[1];
 
   return 0;
@@ -231,20 +231,20 @@ static Standard_Integer appro(Draw_Interpretor& di, Standard_Integer n, const ch
 
 //=================================================================================================
 
-static Standard_Integer grilapp(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer grilapp(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 12)
     return 1;
 
   Standard_Integer     i, j;
-  Standard_Integer     Nu = Draw::Atoi(a[2]);
-  Standard_Integer     Nv = Draw::Atoi(a[3]);
+  Standard_Integer     Nu = Draw1::Atoi(a[2]);
+  Standard_Integer     Nv = Draw1::Atoi(a[3]);
   TColStd_Array2OfReal ZPoints(1, Nu, 1, Nv);
 
-  Standard_Real X0 = Draw::Atof(a[4]);
-  Standard_Real dX = Draw::Atof(a[5]);
-  Standard_Real Y0 = Draw::Atof(a[6]);
-  Standard_Real dY = Draw::Atof(a[7]);
+  Standard_Real X0 = Draw1::Atof(a[4]);
+  Standard_Real dX = Draw1::Atof(a[5]);
+  Standard_Real Y0 = Draw1::Atof(a[6]);
+  Standard_Real dY = Draw1::Atof(a[7]);
 
   Standard_Integer Count = 8;
   for (j = 1; j <= Nv; j++)
@@ -253,13 +253,13 @@ static Standard_Integer grilapp(Draw_Interpretor& di, Standard_Integer n, const 
     {
       if (Count > n)
         return 1;
-      ZPoints(i, j) = Draw::Atof(a[Count]);
+      ZPoints(i, j) = Draw1::Atof(a[Count]);
       Count++;
     }
   }
 
   Handle(Geom_BSplineSurface) S = GeomAPI_PointsToBSplineSurface(ZPoints, X0, dX, Y0, dY);
-  DrawTrSurf::Set(a[1], S);
+  DrawTrSurf1::Set(a[1], S);
 
   di << a[1];
 
@@ -268,21 +268,21 @@ static Standard_Integer grilapp(Draw_Interpretor& di, Standard_Integer n, const 
 
 //=================================================================================================
 
-static Standard_Integer surfapp(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer surfapp(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 5)
     return 1;
 
   Standard_Integer   i, j;
-  Standard_Integer   Nu = Draw::Atoi(a[2]);
-  Standard_Integer   Nv = Draw::Atoi(a[3]);
+  Standard_Integer   Nu = Draw1::Atoi(a[2]);
+  Standard_Integer   Nv = Draw1::Atoi(a[3]);
   TColgp_Array2OfPnt Points(1, Nu, 1, Nv);
   Standard_Boolean   IsPeriodic = Standard_False;
   Standard_Boolean   RemoveLast = Standard_False;
 
   if (n >= 5 && n <= 6)
   {
-    Handle(Geom_Surface) Surf = DrawTrSurf::GetSurface(a[4]);
+    Handle(GeomSurface) Surf = DrawTrSurf1::GetSurface(a[4]);
     if (Surf.IsNull())
       return 1;
 
@@ -299,7 +299,7 @@ static Standard_Integer surfapp(Draw_Interpretor& di, Standard_Integer n, const 
     }
     if (n == 6)
     {
-      Standard_Integer ip = Draw::Atoi(a[5]);
+      Standard_Integer ip = Draw1::Atoi(a[5]);
       if (ip > 0)
         IsPeriodic = Standard_True;
     }
@@ -326,7 +326,7 @@ static Standard_Integer surfapp(Draw_Interpretor& di, Standard_Integer n, const 
         if (Count > n)
           return 1;
         Points(i, j) =
-          Point3d(Draw::Atof(a[Count]), Draw::Atof(a[Count + 1]), Draw::Atof(a[Count + 2]));
+          Point3d(Draw1::Atof(a[Count]), Draw1::Atof(a[Count + 1]), Draw1::Atof(a[Count + 2]));
         Count += 3;
       }
     }
@@ -339,7 +339,7 @@ static Standard_Integer surfapp(Draw_Interpretor& di, Standard_Integer n, const 
     {
       Sprintf(name, "point_%d", Count++);
       char* temp = name; // portage WNT
-      DrawTrSurf::Set(temp, Points(i, j));
+      DrawTrSurf1::Set(temp, Points(i, j));
     }
   }
 
@@ -364,7 +364,7 @@ static Standard_Integer surfapp(Draw_Interpretor& di, Standard_Integer n, const 
   if (anApprox.IsDone())
   {
     const Handle(Geom_BSplineSurface)& S = anApprox.Surface();
-    DrawTrSurf::Set(a[1], S);
+    DrawTrSurf1::Set(a[1], S);
     di << a[1];
   }
 
@@ -373,17 +373,17 @@ static Standard_Integer surfapp(Draw_Interpretor& di, Standard_Integer n, const 
 
 //=================================================================================================
 
-static Standard_Integer surfint(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer surfint(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 5)
     return 1;
 
-  Handle(Geom_Surface) Surf = DrawTrSurf::GetSurface(a[2]);
+  Handle(GeomSurface) Surf = DrawTrSurf1::GetSurface(a[2]);
   if (Surf.IsNull())
     return 1;
   Standard_Integer   i, j;
-  Standard_Integer   Nu = Draw::Atoi(a[3]);
-  Standard_Integer   Nv = Draw::Atoi(a[4]);
+  Standard_Integer   Nu = Draw1::Atoi(a[3]);
+  Standard_Integer   Nv = Draw1::Atoi(a[4]);
   TColgp_Array2OfPnt Points(1, Nu, 1, Nv);
 
   Standard_Real U, V, U1, V1, U2, V2;
@@ -406,14 +406,14 @@ static Standard_Integer surfint(Draw_Interpretor& di, Standard_Integer n, const 
     {
       Sprintf(name, "point_%d", Count++);
       char* temp = name; // portage WNT
-      DrawTrSurf::Set(temp, Points(i, j));
+      DrawTrSurf1::Set(temp, Points(i, j));
     }
   }
 
   Standard_Boolean IsPeriodic = Standard_False;
   if (n > 5)
   {
-    Standard_Integer ip = Draw::Atoi(a[5]);
+    Standard_Integer ip = Draw1::Atoi(a[5]);
     if (ip > 0)
       IsPeriodic = Standard_True;
   }
@@ -451,7 +451,7 @@ static Standard_Integer surfint(Draw_Interpretor& di, Standard_Integer n, const 
   if (anApprox.IsDone())
   {
     const Handle(Geom_BSplineSurface)& S = anApprox.Surface();
-    DrawTrSurf::Set(a[1], S);
+    DrawTrSurf1::Set(a[1], S);
     di << a[1];
   }
   else
@@ -464,25 +464,25 @@ static Standard_Integer surfint(Draw_Interpretor& di, Standard_Integer n, const 
 
 //=================================================================================================
 
-static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer extrema(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
   {
     return 1;
   }
 
-  Handle(Geom_Curve)   GC1, GC2;
-  Handle(Geom_Surface) GS1, GS2;
+  Handle(GeomCurve3d)   GC1, GC2;
+  Handle(GeomSurface) GS1, GS2;
 
   Standard_Boolean isInfinitySolutions = Standard_False;
   Standard_Real    aMinDist            = RealLast();
 
   Standard_Real U1f, U1l, U2f, U2l, V1f = 0., V1l = 0., V2f = 0., V2l = 0.;
 
-  GC1 = DrawTrSurf::GetCurve(a[1]);
+  GC1 = DrawTrSurf1::GetCurve(a[1]);
   if (GC1.IsNull())
   {
-    GS1 = DrawTrSurf::GetSurface(a[1]);
+    GS1 = DrawTrSurf1::GetSurface(a[1]);
     if (GS1.IsNull())
       return 1;
 
@@ -494,10 +494,10 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
     U1l = GC1->LastParameter();
   }
 
-  GC2 = DrawTrSurf::GetCurve(a[2]);
+  GC2 = DrawTrSurf1::GetCurve(a[2]);
   if (GC2.IsNull())
   {
-    GS2 = DrawTrSurf::GetSurface(a[2]);
+    GS2 = DrawTrSurf1::GetSurface(a[2]);
     if (GS2.IsNull())
       return 1;
     GS2->Bounds(U2f, U2l, V2f, V2l);
@@ -641,10 +641,10 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
       continue;
     }
 
-    Handle(Geom_Line)         aL  = new Geom_Line(aP1, Vector3d(aP1, aP2));
+    Handle(GeomLine)         aL  = new GeomLine(aP1, Vector3d(aP1, aP2));
     Handle(Geom_TrimmedCurve) aCT = new Geom_TrimmedCurve(aL, 0., aP1.Distance(aP2));
     Sprintf(aName, "%s%d", "ext_", aJ);
-    DrawTrSurf::Set(aName2, aCT);
+    DrawTrSurf1::Set(aName2, aCT);
     di << aName << " ";
   }
 
@@ -655,10 +655,10 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
     {
       Point3d aP1 = aPnts1(aJ - 1), aP2 = aPnts2(aJ - 1);
       Sprintf(aName, "%s%d%s", "ext_", aJ, "_2");
-      DrawTrSurf::Set(aName2, aP1);
+      DrawTrSurf1::Set(aName2, aP1);
       di << aName << " ";
       Sprintf(aName, "%s%d%s", "ext_", aJ, "_3");
-      DrawTrSurf::Set(aName2, aP2);
+      DrawTrSurf1::Set(aName2, aP2);
       di << aName << " ";
     }
 
@@ -669,7 +669,7 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
       {
         Standard_Real aP = aPrms[aJ](aK);
         Sprintf(aName, "%s%d%s%d", "prm_", aJ + 1, "_", aK + 1);
-        Draw::Set(aName2, aP);
+        Draw1::Set(aName2, aP);
         di << aName << " ";
       }
     }
@@ -680,16 +680,16 @@ static Standard_Integer extrema(Draw_Interpretor& di, Standard_Integer n, const 
 
 //=================================================================================================
 
-static Standard_Integer totalextcc(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer totalextcc(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
 
-  Handle(Geom_Curve) GC1, GC2;
+  Handle(GeomCurve3d) GC1, GC2;
 
   Standard_Real U1f, U1l, U2f, U2l;
 
-  GC1 = DrawTrSurf::GetCurve(a[1]);
+  GC1 = DrawTrSurf1::GetCurve(a[1]);
   if (GC1.IsNull())
   {
     return 1;
@@ -700,7 +700,7 @@ static Standard_Integer totalextcc(Draw_Interpretor& di, Standard_Integer n, con
     U1l = GC1->LastParameter();
   }
 
-  GC2 = DrawTrSurf::GetCurve(a[2]);
+  GC2 = DrawTrSurf1::GetCurve(a[2]);
   if (GC2.IsNull())
   {
     return 1;
@@ -723,11 +723,11 @@ static Standard_Integer totalextcc(Draw_Interpretor& di, Standard_Integer n, con
     else
     {
       di << "Extrema is segment of line\n";
-      Handle(Geom_Line)         L  = new Geom_Line(P1, Vector3d(P1, P2));
+      Handle(GeomLine)         L  = new GeomLine(P1, Vector3d(P1, P2));
       Handle(Geom_TrimmedCurve) CT = new Geom_TrimmedCurve(L, 0., P1.Distance(P2));
       Sprintf(name, "%s%d", "ext_", 1);
       char* temp = name; // portage WNT
-      DrawTrSurf::Set(temp, CT);
+      DrawTrSurf1::Set(temp, CT);
       di << name << " ";
     }
 
@@ -746,7 +746,7 @@ static Standard_Integer totalextcc(Draw_Interpretor& di, Standard_Integer n, con
   return 0;
 }
 
-void GeometryTest::APICommands(Draw_Interpretor& theCommands)
+void GeometryTest::APICommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

@@ -25,7 +25,7 @@ Express_Boolean::Express_Boolean() {}
 
 //=================================================================================================
 
-const TCollection_AsciiString Express_Boolean::CPPName() const
+const AsciiString1 Express_Boolean::CPPName() const
 {
   return "Standard_Boolean";
 }

@@ -22,7 +22,7 @@
 #include <Standard_OStream.hxx>
 
 class Geom2d_BSplineCurve;
-class Geom2d_Curve;
+class GeomCurve2d;
 
 //! A framework to convert a 2D curve to a BSpline.
 //! This is done by approximation within a given tolerance.
@@ -38,7 +38,7 @@ public:
   //! -   the maximum number of segments allowed MaxSegments
   //! -   the highest degree MaxDegree which the
   //! polynomial defining the BSpline is allowed to have.
-  Standard_EXPORT Geom2dConvert_ApproxCurve(const Handle(Geom2d_Curve)& Curve,
+  Standard_EXPORT Geom2dConvert_ApproxCurve(const Handle(GeomCurve2d)& Curve,
                                             const Standard_Real         Tol2d,
                                             const GeomAbs_Shape         Order,
                                             const Standard_Integer      MaxSegments,

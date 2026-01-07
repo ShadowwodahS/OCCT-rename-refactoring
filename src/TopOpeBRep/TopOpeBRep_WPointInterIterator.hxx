@@ -22,16 +22,16 @@
 
 #include <TopOpeBRep_PLineInter.hxx>
 #include <Standard_Integer.hxx>
-class TopOpeBRep_WPointInter;
+class WPointIntersection;
 
-class TopOpeBRep_WPointInterIterator
+class WPointIntersectionIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRep_WPointInterIterator();
+  Standard_EXPORT WPointIntersectionIterator();
 
-  Standard_EXPORT TopOpeBRep_WPointInterIterator(const TopOpeBRep_LineInter& LI);
+  Standard_EXPORT WPointIntersectionIterator(const TopOpeBRep_LineInter& LI);
 
   Standard_EXPORT void Init(const TopOpeBRep_LineInter& LI);
 
@@ -41,7 +41,7 @@ public:
 
   Standard_EXPORT void Next();
 
-  Standard_EXPORT const TopOpeBRep_WPointInter& CurrentWP();
+  Standard_EXPORT const WPointIntersection& CurrentWP();
 
   Standard_EXPORT TopOpeBRep_PLineInter PLineInterDummy() const;
 

@@ -38,7 +38,7 @@ TopOpeBRep_Hctxff2d::TopOpeBRep_Hctxff2d()
 
 //=================================================================================================
 
-void TopOpeBRep_Hctxff2d::SetFaces(const TopoDS_Face& F1, const TopoDS_Face& F2)
+void TopOpeBRep_Hctxff2d::SetFaces(const TopoFace& F1, const TopoFace& F2)
 {
   Standard_Boolean newf1    = !F1.IsEqual(myFace1);
   Standard_Boolean newf2    = !F2.IsEqual(myFace2);
@@ -101,15 +101,15 @@ void TopOpeBRep_Hctxff2d::SetHSurfacesPrivate()
   Standard_Boolean so21   = Standard_True;
   myf2surf1F_sameoriented = so21;
 
-  TopoDS_Face face1forward = myFace1;
+  TopoFace face1forward = myFace1;
   face1forward.Orientation(TopAbs_FORWARD);
-  so11                    = TopOpeBRepTool_ShapeTool::FacesSameOriented(face1forward, myFace1);
+  so11                    = ShapeTool::FacesSameOriented(face1forward, myFace1);
   myf1surf1F_sameoriented = so11;
-  so21                    = TopOpeBRepTool_ShapeTool::FacesSameOriented(face1forward, myFace2);
+  so21                    = ShapeTool::FacesSameOriented(face1forward, myFace2);
   myf2surf1F_sameoriented = so21;
 
-  mySurfacesSameOriented = TopOpeBRepTool_ShapeTool::SurfacesSameOriented(S1, S2);
-  myFacesSameOriented    = TopOpeBRepTool_ShapeTool::FacesSameOriented(myFace1, myFace2);
+  mySurfacesSameOriented = ShapeTool::SurfacesSameOriented(S1, S2);
+  myFacesSameOriented    = ShapeTool::FacesSameOriented(myFace1, myFace2);
 
 #ifdef OCCT_DEBUG
   Standard_Integer DEBi = 0;
@@ -117,7 +117,7 @@ void TopOpeBRep_Hctxff2d::SetHSurfacesPrivate()
   {
     std::cout << "TopOpeBRep_Hctxff2d::SetSurfacesPrivate : ";
     std::cout << "f1 ";
-    TopAbs::Print(myFace1.Orientation(), std::cout);
+    TopAbs1::Print(myFace1.Orientation(), std::cout);
     std::cout << " / f1F : ";
     if (so11)
       std::cout << "sameoriented";
@@ -126,7 +126,7 @@ void TopOpeBRep_Hctxff2d::SetHSurfacesPrivate()
     std::cout << std::endl;
     std::cout << "  ";
     std::cout << "f2 ";
-    TopAbs::Print(myFace2.Orientation(), std::cout);
+    TopAbs1::Print(myFace2.Orientation(), std::cout);
     std::cout << " / f1F : ";
     if (so21)
       std::cout << "sameoriented";
@@ -163,7 +163,7 @@ Standard_Real TopOpeBRep_Hctxff2d::GetMaxTolerance() const
 
 //=================================================================================================
 
-const TopoDS_Face& TopOpeBRep_Hctxff2d::Face(const Standard_Integer Index) const
+const TopoFace& TopOpeBRep_Hctxff2d::Face(const Standard_Integer Index) const
 {
   if (Index == 1)
     return myFace1;

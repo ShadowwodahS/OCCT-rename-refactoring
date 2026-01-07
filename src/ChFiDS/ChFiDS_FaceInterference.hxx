@@ -25,7 +25,7 @@
 #include <Standard_Integer.hxx>
 #include <TopAbs_Orientation.hxx>
 #include <Standard_Boolean.hxx>
-class Geom2d_Curve;
+class GeomCurve2d;
 
 //! interference face/fillet
 class ChFiDS_FaceInterference
@@ -37,8 +37,8 @@ public:
 
   void SetInterference(const Standard_Integer      LineIndex,
                        const TopAbs_Orientation    Trans,
-                       const Handle(Geom2d_Curve)& PCurv1,
-                       const Handle(Geom2d_Curve)& PCurv2);
+                       const Handle(GeomCurve2d)& PCurv1,
+                       const Handle(GeomCurve2d)& PCurv2);
 
   Standard_EXPORT void SetTransition(const TopAbs_Orientation Trans);
 
@@ -54,13 +54,13 @@ public:
 
   TopAbs_Orientation Transition() const;
 
-  const Handle(Geom2d_Curve)& PCurveOnFace() const;
+  const Handle(GeomCurve2d)& PCurveOnFace() const;
 
-  const Handle(Geom2d_Curve)& PCurveOnSurf() const;
+  const Handle(GeomCurve2d)& PCurveOnSurf() const;
 
-  Handle(Geom2d_Curve)& ChangePCurveOnFace();
+  Handle(GeomCurve2d)& ChangePCurveOnFace();
 
-  Handle(Geom2d_Curve)& ChangePCurveOnSurf();
+  Handle(GeomCurve2d)& ChangePCurveOnSurf();
 
   Standard_Real FirstParameter() const;
 
@@ -72,8 +72,8 @@ protected:
 private:
   Standard_Real        firstParam;
   Standard_Real        lastParam;
-  Handle(Geom2d_Curve) pCurveOnFace;
-  Handle(Geom2d_Curve) pCurveOnSurf;
+  Handle(GeomCurve2d) pCurveOnFace;
+  Handle(GeomCurve2d) pCurveOnSurf;
   Standard_Integer     lineindex;
   TopAbs_Orientation   LineTransition;
 };

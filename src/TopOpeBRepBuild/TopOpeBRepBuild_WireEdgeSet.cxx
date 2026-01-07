@@ -16,7 +16,7 @@
 
 #ifdef DRAW
   #include <DBRep.hxx>
-static TCollection_AsciiString PRODINS("dins ");
+static AsciiString1 PRODINS("dins ");
 #endif
 
 #include <BRepAdaptor_Curve.hxx>
@@ -53,7 +53,7 @@ void debwesclo(const Standard_Integer) {}
 
 //=================================================================================================
 
-TopOpeBRepBuild_WireEdgeSet::TopOpeBRepBuild_WireEdgeSet(const TopoDS_Shape& F,
+TopOpeBRepBuild_WireEdgeSet::TopOpeBRepBuild_WireEdgeSet(const TopoShape& F,
                                                          const Standard_Address /*A*/)
     : TopOpeBRepBuild_ShapeSet(TopAbs_VERTEX)
 {
@@ -88,7 +88,7 @@ TopOpeBRepBuild_WireEdgeSet::TopOpeBRepBuild_WireEdgeSet(const TopoDS_Shape& F,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_WireEdgeSet::AddShape(const TopoDS_Shape& S)
+void TopOpeBRepBuild_WireEdgeSet::AddShape(const TopoShape& S)
 {
   Standard_Boolean tocheck = Standard_True;
   Standard_Boolean iswire  = (S.ShapeType() == TopAbs_WIRE);
@@ -121,7 +121,7 @@ void TopOpeBRepBuild_WireEdgeSet::AddShape(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_WireEdgeSet::AddStartElement(const TopoDS_Shape& S)
+void TopOpeBRepBuild_WireEdgeSet::AddStartElement(const TopoShape& S)
 {
 #ifdef OCCT_DEBUG
 
@@ -146,21 +146,21 @@ void TopOpeBRepBuild_WireEdgeSet::AddStartElement(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_WireEdgeSet::AddElement(const TopoDS_Shape& S)
+void TopOpeBRepBuild_WireEdgeSet::AddElement(const TopoShape& S)
 {
   TopOpeBRepBuild_ShapeSet::AddElement(S);
 }
 
 //=================================================================================================
 
-const TopoDS_Face& TopOpeBRepBuild_WireEdgeSet::Face() const
+const TopoFace& TopOpeBRepBuild_WireEdgeSet::Face() const
 {
   return myFace;
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_WireEdgeSet::InitNeighbours(const TopoDS_Shape& E)
+void TopOpeBRepBuild_WireEdgeSet::InitNeighbours(const TopoShape& E)
 {
 
 #ifdef DRAW
@@ -170,7 +170,7 @@ void TopOpeBRepBuild_WireEdgeSet::InitNeighbours(const TopoDS_Shape& E)
 
   if (traceSS || tsh)
   {
-    TCollection_AsciiString str("#**** InitNeighbours");
+    AsciiString1 str("#**** InitNeighbours");
     if (tsh)
       str = str + " on WES edge " + SNameori(E);
     str = str + " #****";
@@ -195,8 +195,8 @@ void TopOpeBRepBuild_WireEdgeSet::FindNeighbours()
     // l = list of edges neighbour of edge myCurrentShape through
     // the vertex mySubShapeExplorer.Current(), which is a vertex of the
     // edge myCurrentShape.
-    const TopoDS_Shape&         V = mySubShapeExplorer.Current();
-    const TopTools_ListOfShape& l = MakeNeighboursList(myCurrentShape, V);
+    const TopoShape&         V = mySubShapeExplorer.Current();
+    const ShapeList& l = MakeNeighboursList(myCurrentShape, V);
 
     // myIncidentShapesIter iterates on the neighbour edges of the edge
     // given as InitNeighbours() argument (this edge has been stored
@@ -214,13 +214,13 @@ void TopOpeBRepBuild_WireEdgeSet::FindNeighbours()
 // function : MakeNeighboursList
 // purpose  : recherche des edges connexes a Earg par Varg
 //=======================================================================
-const TopTools_ListOfShape& TopOpeBRepBuild_WireEdgeSet::MakeNeighboursList(
-  const TopoDS_Shape& Earg,
-  const TopoDS_Shape& Varg)
+const ShapeList& TopOpeBRepBuild_WireEdgeSet::MakeNeighboursList(
+  const TopoShape& Earg,
+  const TopoShape& Varg)
 {
-  const TopoDS_Edge&          E = TopoDS::Edge(Earg);
-  const TopoDS_Vertex&        V = TopoDS::Vertex(Varg);
-  const TopTools_ListOfShape& l = mySubShapeMap.FindFromKey(V);
+  const TopoEdge&          E = TopoDS::Edge(Earg);
+  const TopoVertex&        V = TopoDS::Vertex(Varg);
+  const ShapeList& l = mySubShapeMap.FindFromKey(V);
 
   Standard_Integer nclosing = NbClosingShapes(l);
 
@@ -228,7 +228,7 @@ const TopTools_ListOfShape& TopOpeBRepBuild_WireEdgeSet::MakeNeighboursList(
   Standard_Boolean traceSS = TopOpeBRepBuild_GettraceSS();
   if (traceSS)
   {
-    TCollection_AsciiString svel = SNameVEL(V, E, l);
+    AsciiString1 svel = SNameVEL(V, E, l);
     std::cout << PRODINS << svel << "; #---- WES MNL" << std::endl;
   }
 #endif
@@ -247,7 +247,7 @@ const TopTools_ListOfShape& TopOpeBRepBuild_WireEdgeSet::MakeNeighboursList(
 #ifdef DRAW
       iapp++;
 #endif
-      const TopoDS_Shape& curn = it.Value(); // current neighbour
+      const TopoShape& curn = it.Value(); // current neighbour
       Standard_Boolean    k    = VertexConnectsEdgesClosing(V, E, curn);
       if (k)
       {
@@ -257,9 +257,9 @@ const TopTools_ListOfShape& TopOpeBRepBuild_WireEdgeSet::MakeNeighboursList(
         if (traceSS)
         {
           Standard_Integer   rang = myCurrentShapeNeighbours.Extent();
-          const TopoDS_Edge& EE   = TopoDS::Edge(curn);
+          const TopoEdge& EE   = TopoDS::Edge(curn);
           std::cout << "+ EE " << iapp << " , rang " << rang << " ";
-          TCollection_AsciiString svee = SNameVEE(V, E, EE);
+          AsciiString1 svee = SNameVEE(V, E, EE);
           std::cout << svee << std::endl;
         }
 #endif
@@ -271,7 +271,7 @@ const TopTools_ListOfShape& TopOpeBRepBuild_WireEdgeSet::MakeNeighboursList(
     if (traceSS)
     {
       std::cout << "#~~~~connexes apres VertexConnectsEdgesClosing : ";
-      TCollection_AsciiString svel = SNameVEL(V, E, myCurrentShapeNeighbours);
+      AsciiString1 svel = SNameVEL(V, E, myCurrentShapeNeighbours);
       std::cout << svel << std::endl;
     }
 #endif
@@ -279,7 +279,7 @@ const TopTools_ListOfShape& TopOpeBRepBuild_WireEdgeSet::MakeNeighboursList(
     if (newn >= 2)
     {
 
-      const TopoDS_Face& F = myFace;
+      const TopoFace& F = myFace;
 
       // plusieurs aretes de couture connexes a E par V et telles que :
       // orientation de V dans E # orientation de V dans ces aretes.
@@ -288,10 +288,10 @@ const TopTools_ListOfShape& TopOpeBRepBuild_WireEdgeSet::MakeNeighboursList(
 
       gp_Vec2d             d1E;
       gp_Pnt2d             pE;
-      Standard_Real        parE = BRep_Tool::Parameter(V, E);
+      Standard_Real        parE = BRepInspector::Parameter(V, E);
       Standard_Real        fiE, laE, tolpc;
       Standard_Boolean     trim3d = Standard_True;
-      Handle(Geom2d_Curve) PCE    = FC2D_CurveOnSurface(E, F, fiE, laE, tolpc, trim3d);
+      Handle(GeomCurve2d) PCE    = FC2D_CurveOnSurface(E, F, fiE, laE, tolpc, trim3d);
 
       if (!PCE.IsNull())
         PCE->D1(parE, pE, d1E);
@@ -317,12 +317,12 @@ const TopTools_ListOfShape& TopOpeBRepBuild_WireEdgeSet::MakeNeighboursList(
           continue;
         }
 
-        const TopoDS_Edge&   EE = TopoDS::Edge(lclo.Value());
+        const TopoEdge&   EE = TopoDS::Edge(lclo.Value());
         gp_Vec2d             d1EE;
         gp_Pnt2d             pEE;
-        Standard_Real        parEE = BRep_Tool::Parameter(V, EE);
+        Standard_Real        parEE = BRepInspector::Parameter(V, EE);
         Standard_Real        fiEE, laEE, tolpc1;
-        Handle(Geom2d_Curve) PCEE = FC2D_CurveOnSurface(EE, F, fiEE, laEE, tolpc1, trim3d);
+        Handle(GeomCurve2d) PCEE = FC2D_CurveOnSurface(EE, F, fiEE, laEE, tolpc1, trim3d);
 
         if (!PCEE.IsNull())
           PCEE->D1(parEE, pEE, d1EE);
@@ -344,7 +344,7 @@ const TopTools_ListOfShape& TopOpeBRepBuild_WireEdgeSet::MakeNeighboursList(
         if (traceSS)
         {
           std::cout << "#-------- rang " << rang << std::endl;
-          TCollection_AsciiString svee = SNameVEE(V, E, EE);
+          AsciiString1 svee = SNameVEE(V, E, EE);
           std::cout << svee << std::endl;
 
           std::cout << "  fiE,laE : " << fiE << " " << laE << std::endl;
@@ -381,7 +381,7 @@ const TopTools_ListOfShape& TopOpeBRepBuild_WireEdgeSet::MakeNeighboursList(
       if (traceSS)
       {
         std::cout << "#~~~~connexes apres filtre geom : ";
-        TCollection_AsciiString svel = SNameVEL(Varg, Earg, myCurrentShapeNeighbours);
+        AsciiString1 svel = SNameVEL(Varg, Earg, myCurrentShapeNeighbours);
         std::cout << svel << std::endl;
       }
 #endif
@@ -397,9 +397,9 @@ const TopTools_ListOfShape& TopOpeBRepBuild_WireEdgeSet::MakeNeighboursList(
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_WireEdgeSet::VertexConnectsEdges(const TopoDS_Shape& V,
-                                                                  const TopoDS_Shape& E1,
-                                                                  const TopoDS_Shape& E2,
+Standard_Boolean TopOpeBRepBuild_WireEdgeSet::VertexConnectsEdges(const TopoShape& V,
+                                                                  const TopoShape& E1,
+                                                                  const TopoShape& E2,
                                                                   TopAbs_Orientation& o1,
                                                                   TopAbs_Orientation& o2) const
 {
@@ -426,9 +426,9 @@ Standard_Boolean TopOpeBRepBuild_WireEdgeSet::VertexConnectsEdges(const TopoDS_S
 //=================================================================================================
 
 Standard_Boolean TopOpeBRepBuild_WireEdgeSet::VertexConnectsEdgesClosing(
-  const TopoDS_Shape& V,
-  const TopoDS_Shape& E1,
-  const TopoDS_Shape& E2) const
+  const TopoShape& V,
+  const TopoShape& E1,
+  const TopoShape& E2) const
 {
 
   //-----------------------------------------------------------------------
@@ -505,12 +505,12 @@ Standard_Boolean TopOpeBRepBuild_WireEdgeSet::VertexConnectsEdgesClosing(
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepBuild_WireEdgeSet::NbClosingShapes(const TopTools_ListOfShape& L) const
+Standard_Integer TopOpeBRepBuild_WireEdgeSet::NbClosingShapes(const ShapeList& L) const
 {
   Standard_Integer n = 0;
   for (TopTools_ListIteratorOfListOfShape it(L); it.More(); it.Next())
   {
-    const TopoDS_Shape& S = it.Value();
+    const TopoShape& S = it.Value();
     if (IsClosed(S))
       n++;
   }
@@ -519,28 +519,28 @@ Standard_Integer TopOpeBRepBuild_WireEdgeSet::NbClosingShapes(const TopTools_Lis
 
 //=================================================================================================
 
-void TopOpeBRepBuild_WireEdgeSet::LocalD1(const TopoDS_Shape& SF,
-                                          const TopoDS_Shape& SE,
-                                          const TopoDS_Shape& SV,
+void TopOpeBRepBuild_WireEdgeSet::LocalD1(const TopoShape& SF,
+                                          const TopoShape& SE,
+                                          const TopoShape& SV,
                                           gp_Pnt2d&           pE,
                                           gp_Vec2d&           d1E) const
 {
-  const TopoDS_Face&   F    = TopoDS::Face(SF);
-  const TopoDS_Edge&   E    = TopoDS::Edge(SE);
-  const TopoDS_Vertex& V    = TopoDS::Vertex(SV);
-  Standard_Real        parE = BRep_Tool::Parameter(V, E);
+  const TopoFace&   F    = TopoDS::Face(SF);
+  const TopoEdge&   E    = TopoDS::Edge(SE);
+  const TopoVertex& V    = TopoDS::Vertex(SV);
+  Standard_Real        parE = BRepInspector::Parameter(V, E);
 
   TopLoc_Location    Loc;
   Standard_Real      fiE, laE;
-  Handle(Geom_Curve) CE = BRep_Tool::Curve(E, Loc, fiE, laE);
-  CE                    = Handle(Geom_Curve)::DownCast(CE->Transformed(Loc.Transformation()));
+  Handle(GeomCurve3d) CE = BRepInspector::Curve(E, Loc, fiE, laE);
+  CE                    = Handle(GeomCurve3d)::DownCast(CE->Transformed(Loc.Transformation()));
 
   Point3d p3dE;
   Vector3d d3dE;
   CE->D1(parE, p3dE, d3dE);
 
-  Handle(Geom_Surface)       S = BRep_Tool::Surface(F);
-  GeomAPI_ProjectPointOnSurf proj(p3dE, S);
+  Handle(GeomSurface)       S = BRepInspector::Surface(F);
+  PointOnSurfProjector proj(p3dE, S);
   Standard_Real              u, v;
   proj.LowerDistanceParameters(u, v);
   pE.SetCoord(u, v);
@@ -554,7 +554,7 @@ void TopOpeBRepBuild_WireEdgeSet::LocalD1(const TopoDS_Shape& SF,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_WireEdgeSet::IsClosed(const TopoDS_Shape& E) const
+Standard_Boolean TopOpeBRepBuild_WireEdgeSet::IsClosed(const TopoShape& E) const
 {
 #ifdef OCCT_DEBUG
   Standard_Integer ista = myOMSS.FindIndex(E);
@@ -563,8 +563,8 @@ Standard_Boolean TopOpeBRepBuild_WireEdgeSet::IsClosed(const TopoDS_Shape& E) co
     debwesclo(ista);
 #endif
 
-  const TopoDS_Edge& EE     = TopoDS::Edge(E);
-  Standard_Boolean   closed = BRep_Tool::IsClosed(EE, myFace);
+  const TopoEdge& EE     = TopoDS::Edge(E);
+  Standard_Boolean   closed = BRepInspector::IsClosed(EE, myFace);
   if (closed)
     return Standard_True;
 
@@ -573,14 +573,14 @@ Standard_Boolean TopOpeBRepBuild_WireEdgeSet::IsClosed(const TopoDS_Shape& E) co
 
 //=================================================================================================
 
-void TopOpeBRepBuild_WireEdgeSet::IsUVISO(const TopoDS_Edge& E,
-                                          const TopoDS_Face& F,
+void TopOpeBRepBuild_WireEdgeSet::IsUVISO(const TopoEdge& E,
+                                          const TopoFace& F,
                                           Standard_Boolean&  uiso,
                                           Standard_Boolean&  viso)
 {
   uiso = viso = Standard_False;
   Standard_Real        fE, lE, tolpc;
-  Handle(Geom2d_Curve) PC;
+  Handle(GeomCurve2d) PC;
   Standard_Boolean     trim3d = Standard_True;
   PC                          = FC2D_CurveOnSurface(E, F, fE, lE, tolpc, trim3d);
   if (PC.IsNull())
@@ -602,9 +602,9 @@ void TopOpeBRepBuild_WireEdgeSet::IsUVISO(const TopoDS_Edge& E,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_WireEdgeSet::IsUClosed(const TopoDS_Shape& E) const
+Standard_Boolean TopOpeBRepBuild_WireEdgeSet::IsUClosed(const TopoShape& E) const
 {
-  const TopoDS_Edge& EE = TopoDS::Edge(E);
+  const TopoEdge& EE = TopoDS::Edge(E);
   Standard_Boolean   bid, closed;
   IsUVISO(EE, myFace, closed, bid);
   return closed;
@@ -612,9 +612,9 @@ Standard_Boolean TopOpeBRepBuild_WireEdgeSet::IsUClosed(const TopoDS_Shape& E) c
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_WireEdgeSet::IsVClosed(const TopoDS_Shape& E) const
+Standard_Boolean TopOpeBRepBuild_WireEdgeSet::IsVClosed(const TopoShape& E) const
 {
-  const TopoDS_Edge& EE = TopoDS::Edge(E);
+  const TopoEdge& EE = TopoDS::Edge(E);
   Standard_Boolean   bid, closed;
   IsUVISO(EE, myFace, bid, closed);
   return closed;
@@ -623,31 +623,31 @@ Standard_Boolean TopOpeBRepBuild_WireEdgeSet::IsVClosed(const TopoDS_Shape& E) c
 //=================================================================================================
 
 #ifdef DRAW
-TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SNameVEE(const TopoDS_Shape& VV,
-                                                              const TopoDS_Shape& EE1,
-                                                              const TopoDS_Shape& EE2) const
+AsciiString1 TopOpeBRepBuild_WireEdgeSet::SNameVEE(const TopoShape& VV,
+                                                              const TopoShape& EE1,
+                                                              const TopoShape& EE2) const
 {
-  TCollection_AsciiString str;
-  const TopoDS_Vertex&    V  = TopoDS::Vertex(VV);
-  const TopoDS_Shape&     E1 = TopoDS::Edge(EE1);
-  const TopoDS_Shape&     E2 = TopoDS::Edge(EE2);
+  AsciiString1 str;
+  const TopoVertex&    V  = TopoDS::Vertex(VV);
+  const TopoShape&     E1 = TopoDS::Edge(EE1);
+  const TopoShape&     E2 = TopoDS::Edge(EE2);
   TopAbs_Orientation      oVE1, oVE2;
   Standard_Boolean        conn = VertexConnectsEdges(V, E1, E2, oVE1, oVE2);
   str                          = SName(VV) + " ";
   str                          = str + SNameori(E1) + " V/E1 : ";
-  TCollection_AsciiString so1  = TopAbs::ShapeOrientationToString(oVE1);
+  AsciiString1 so1  = TopAbs1::ShapeOrientationToString(oVE1);
   str                          = str + so1.SubString(1, 1) + " ";
   str                          = str + SNameori(E2) + " V/E2 : ";
-  TCollection_AsciiString so2  = TopAbs::ShapeOrientationToString(oVE2);
+  AsciiString1 so2  = TopAbs1::ShapeOrientationToString(oVE2);
   str                          = str + so2.SubString(1, 1) + " ";
   return str;
 }
 #else
-TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SNameVEE(const TopoDS_Shape&,
-                                                              const TopoDS_Shape&,
-                                                              const TopoDS_Shape&) const
+AsciiString1 TopOpeBRepBuild_WireEdgeSet::SNameVEE(const TopoShape&,
+                                                              const TopoShape&,
+                                                              const TopoShape&) const
 {
-  TCollection_AsciiString str;
+  AsciiString1 str;
   return str;
 }
 #endif
@@ -655,16 +655,16 @@ TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SNameVEE(const TopoDS_Shape
 //=================================================================================================
 
 #ifdef DRAW
-TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SNameVEL(const TopoDS_Shape&         V,
-                                                              const TopoDS_Shape&         E,
-                                                              const TopTools_ListOfShape& L) const
+AsciiString1 TopOpeBRepBuild_WireEdgeSet::SNameVEL(const TopoShape&         V,
+                                                              const TopoShape&         E,
+                                                              const ShapeList& L) const
 #else
-TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SNameVEL(const TopoDS_Shape&,
-                                                              const TopoDS_Shape&,
-                                                              const TopTools_ListOfShape&) const
+AsciiString1 TopOpeBRepBuild_WireEdgeSet::SNameVEL(const TopoShape&,
+                                                              const TopoShape&,
+                                                              const ShapeList&) const
 #endif
 {
-  TCollection_AsciiString str;
+  AsciiString1 str;
 #ifdef DRAW
   Standard_Integer nc = NbClosingShapes(L), nl = L.Extent();
   str = SNameori(E) + " " + SName(V) + " " + SNameori(L);
@@ -684,20 +684,20 @@ void TopOpeBRepBuild_WireEdgeSet::DumpSS()
 //=================================================================================================
 
 #ifdef DRAW
-TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SName(const TopoDS_Shape&            S,
-                                                           const TCollection_AsciiString& sb,
-                                                           const TCollection_AsciiString& sa) const
+AsciiString1 TopOpeBRepBuild_WireEdgeSet::SName(const TopoShape&            S,
+                                                           const AsciiString1& sb,
+                                                           const AsciiString1& sa) const
 #else
-TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SName(const TopoDS_Shape&,
-                                                           const TCollection_AsciiString& sb,
-                                                           const TCollection_AsciiString&) const
+AsciiString1 TopOpeBRepBuild_WireEdgeSet::SName(const TopoShape&,
+                                                           const AsciiString1& sb,
+                                                           const AsciiString1&) const
 #endif
 {
-  TCollection_AsciiString str = sb;
+  AsciiString1 str = sb;
 #ifdef DRAW
   str = str + TopOpeBRepBuild_ShapeSet::SName(S);
   str = str + sa;
-  DBRep::Set(str.ToCString(), S);
+  DBRep1::Set(str.ToCString(), S);
 #endif
   return str;
 }
@@ -705,22 +705,22 @@ TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SName(const TopoDS_Shape&,
 //=================================================================================================
 
 #ifdef DRAW
-TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SNameori(
-  const TopoDS_Shape&            S,
-  const TCollection_AsciiString& sb,
-  const TCollection_AsciiString& sa) const
+AsciiString1 TopOpeBRepBuild_WireEdgeSet::SNameori(
+  const TopoShape&            S,
+  const AsciiString1& sb,
+  const AsciiString1& sa) const
 #else
-TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SNameori(const TopoDS_Shape&,
-                                                              const TCollection_AsciiString& sb,
-                                                              const TCollection_AsciiString&) const
+AsciiString1 TopOpeBRepBuild_WireEdgeSet::SNameori(const TopoShape&,
+                                                              const AsciiString1& sb,
+                                                              const AsciiString1&) const
 #endif
 {
-  TCollection_AsciiString str = sb;
+  AsciiString1 str = sb;
 #ifdef DRAW
   str = str + TopOpeBRepBuild_ShapeSet::SNameori(S);
   if (S.ShapeType() == TopAbs_EDGE)
   {
-    const TopoDS_Shape& E = TopoDS::Edge(S);
+    const TopoShape& E = TopoDS::Edge(S);
     Standard_Boolean    c = IsClosed(E), u = IsUClosed(E), v = IsVClosed(E);
     if (c)
       str = str + "c";
@@ -729,7 +729,7 @@ TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SNameori(const TopoDS_Shape
     if (v)
       str = str + "v";
     str = str + sa;
-    DBRep::Set(str.ToCString(), S);
+    DBRep1::Set(str.ToCString(), S);
   }
 #endif
   return str;
@@ -738,16 +738,16 @@ TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SNameori(const TopoDS_Shape
 //=================================================================================================
 
 #ifdef DRAW
-TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SName(const TopTools_ListOfShape&    L,
-                                                           const TCollection_AsciiString& sb,
-                                                           const TCollection_AsciiString& sa) const
+AsciiString1 TopOpeBRepBuild_WireEdgeSet::SName(const ShapeList&    L,
+                                                           const AsciiString1& sb,
+                                                           const AsciiString1& sa) const
 #else
-TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SName(const TopTools_ListOfShape&,
-                                                           const TCollection_AsciiString&,
-                                                           const TCollection_AsciiString&) const
+AsciiString1 TopOpeBRepBuild_WireEdgeSet::SName(const ShapeList&,
+                                                           const AsciiString1&,
+                                                           const AsciiString1&) const
 #endif
 {
-  TCollection_AsciiString str;
+  AsciiString1 str;
 #ifdef DRAW
   for (TopTools_ListIteratorOfListOfShape it(L); it.More(); it.Next())
     str = str + sb + SName(it.Value()) + sa + " ";
@@ -758,17 +758,17 @@ TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SName(const TopTools_ListOf
 //=================================================================================================
 
 #ifdef DRAW
-TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SNameori(
-  const TopTools_ListOfShape&    L,
-  const TCollection_AsciiString& sb,
-  const TCollection_AsciiString& sa) const
+AsciiString1 TopOpeBRepBuild_WireEdgeSet::SNameori(
+  const ShapeList&    L,
+  const AsciiString1& sb,
+  const AsciiString1& sa) const
 #else
-TCollection_AsciiString TopOpeBRepBuild_WireEdgeSet::SNameori(const TopTools_ListOfShape&,
-                                                              const TCollection_AsciiString&,
-                                                              const TCollection_AsciiString&) const
+AsciiString1 TopOpeBRepBuild_WireEdgeSet::SNameori(const ShapeList&,
+                                                              const AsciiString1&,
+                                                              const AsciiString1&) const
 #endif
 {
-  TCollection_AsciiString str;
+  AsciiString1 str;
 #ifdef DRAW
   for (TopTools_ListIteratorOfListOfShape it(L); it.More(); it.Next())
     str = str + sb + SNameori(it.Value()) + sa + " ";

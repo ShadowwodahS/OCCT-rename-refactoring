@@ -29,18 +29,18 @@ class Geom_Hyperbola;
 //! This class implements the mapping between the class
 //! Hyperbola from Geom and the class Hyperbola from
 //! StepGeom which describes a Hyperbola from ProSTEP
-class GeomToStep_MakeHyperbola : public GeomToStep_Root
+class GeomToStep_MakeHyperbola : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeHyperbola(
     const Handle(Geom2d_Hyperbola)& C,
-    const StepData_Factors&         theLocalFactors = StepData_Factors());
+    const ConversionFactors&         theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeHyperbola(
     const Handle(Geom_Hyperbola)& C,
-    const StepData_Factors&       theLocalFactors = StepData_Factors());
+    const ConversionFactors&       theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_Hyperbola)& Value() const;
 

@@ -25,7 +25,7 @@
 class IFSelect_IntParam;
 class RefObject;
 class Interface_InterfaceModel;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IGESSelect_SelectLevelNumber;
 DEFINE_STANDARD_HANDLE(IGESSelect_SelectLevelNumber, IFSelect_SelectExtract)
@@ -64,7 +64,7 @@ public:
   //! Returns the Selection criterium :
   //! "IGES Entity, Level Number admits <nn>" (if nn > 0) or
   //! "IGES Entity attached to no Level" (if nn = 0)
-  Standard_EXPORT TCollection_AsciiString ExtractLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExtractLabel() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_SelectLevelNumber, IFSelect_SelectExtract)
 

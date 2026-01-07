@@ -24,19 +24,19 @@
 #include <TopoDS_Edge.hxx>
 #include <TopOpeBRepBuild_ListIteratorOfListOfPave.hxx>
 #include <TopOpeBRepBuild_LoopSet.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class TopOpeBRepBuild_Pave;
 class TopOpeBRepBuild_Loop;
 
 //! class providing an exploration of a set of vertices to build edges.
 //! It is similar to LoopSet from TopOpeBRepBuild where Loop is Pave.
-class TopOpeBRepBuild_PaveSet : public TopOpeBRepBuild_LoopSet
+class TopOpeBRepBuild_PaveSet : public LoopSet
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Create a Pave set on edge <E>. It contains <E> vertices.
-  Standard_EXPORT TopOpeBRepBuild_PaveSet(const TopoDS_Shape& E);
+  Standard_EXPORT TopOpeBRepBuild_PaveSet(const TopoShape& E);
 
   Standard_EXPORT void RemovePV(const Standard_Boolean B);
 
@@ -51,7 +51,7 @@ public:
 
   Standard_EXPORT virtual Handle(TopOpeBRepBuild_Loop) Loop() const Standard_OVERRIDE;
 
-  Standard_EXPORT const TopoDS_Edge& Edge() const;
+  Standard_EXPORT const TopoEdge& Edge() const;
 
   Standard_EXPORT Standard_Boolean HasEqualParameters();
 
@@ -66,7 +66,7 @@ protected:
 private:
   Standard_EXPORT void Prepare();
 
-  TopoDS_Edge                              myEdge;
+  TopoEdge                              myEdge;
   TopOpeBRepBuild_ListOfPave               myVertices;
   TopOpeBRepBuild_ListIteratorOfListOfPave myVerticesIt;
   Standard_Boolean                         myHasEqualParameters;

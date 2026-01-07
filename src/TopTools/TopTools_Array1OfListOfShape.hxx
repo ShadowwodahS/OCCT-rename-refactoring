@@ -20,6 +20,6 @@
 #include <TopTools_ListOfShape.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<TopTools_ListOfShape> TopTools_Array1OfListOfShape;
+typedef NCollection_Array1<ShapeList> TopTools_Array1OfListOfShape;
 
 #endif

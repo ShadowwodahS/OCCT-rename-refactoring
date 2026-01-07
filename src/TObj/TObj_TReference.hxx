@@ -50,9 +50,9 @@ public:
 public:
   //! Method for create TObj_TReference object
 
-  //! Creates reference on TDF_Label <theLabel> to the object <theObject> and
+  //! Creates reference on DataLabel <theLabel> to the object <theObject> and
   //! creates backreference from the object <theObject> to <theMaster> one.
-  static Standard_EXPORT Handle(TObj_TReference) Set(const TDF_Label&           theLabel,
+  static Standard_EXPORT Handle(TObj_TReference) Set(const DataLabel&           theLabel,
                                                      const Handle(TObj_Object)& theObject,
                                                      const Handle(TObj_Object)& theMaster);
 
@@ -60,20 +60,20 @@ public:
   //! Methods for setting and obtaining referenced object
 
   //! Sets the reference to the theObject
-  Standard_EXPORT void Set(const Handle(TObj_Object)& theObject, const TDF_Label& theMasterLabel);
+  Standard_EXPORT void Set(const Handle(TObj_Object)& theObject, const DataLabel& theMasterLabel);
 
   //! Sets the reference to the theObject at indicated Label.
   //! It is method for persistent only. Don`t use anywhere else.
-  Standard_EXPORT void Set(const TDF_Label& theLabel, const TDF_Label& theMasterLabel);
+  Standard_EXPORT void Set(const DataLabel& theLabel, const DataLabel& theMasterLabel);
 
   //! Returns the referenced theObject
   Standard_EXPORT Handle(TObj_Object) Get() const;
 
   //! Returns the Label of master object.
-  TDF_Label GetMasterLabel() const { return myMasterLabel; }
+  DataLabel GetMasterLabel() const { return myMasterLabel; }
 
   //! Returns the referred label.
-  TDF_Label GetLabel() const { return myLabel; }
+  DataLabel GetLabel() const { return myLabel; }
 
 public:
   //! Redefined OCAF abstract methods
@@ -113,8 +113,8 @@ public:
 
 private:
   //! Fields
-  TDF_Label myLabel;       //!< Label that indicate referenced object
-  TDF_Label myMasterLabel; //!< Label of object that have this reference.
+  DataLabel myLabel;       //!< Label that indicate referenced object
+  DataLabel myMasterLabel; //!< Label of object that have this reference.
 
 public:
   //! CASCADE RTTI

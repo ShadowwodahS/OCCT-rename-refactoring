@@ -32,8 +32,8 @@ TPrsStd_AxisDriver::TPrsStd_AxisDriver() {}
 
 //=================================================================================================
 
-Standard_Boolean TPrsStd_AxisDriver::Update(const TDF_Label&               aLabel,
-                                            Handle(AIS_InteractiveObject)& anAISObject)
+Standard_Boolean TPrsStd_AxisDriver::Update(const DataLabel&               aLabel,
+                                            Handle(VisualEntity)& anAISObject)
 {
 
   Handle(TDataXtd_Axis) apAxis;
@@ -43,28 +43,28 @@ Standard_Boolean TPrsStd_AxisDriver::Update(const TDF_Label&               aLabe
   }
 
   gp_Lin                     lin;
-  Handle(TNaming_NamedShape) NS;
-  if (aLabel.FindAttribute(TNaming_NamedShape::GetID(), NS))
+  Handle(ShapeAttribute) NS;
+  if (aLabel.FindAttribute(ShapeAttribute::GetID(), NS))
   {
-    if (TNaming_Tool::GetShape(NS).IsNull())
+    if (Tool11::GetShape(NS).IsNull())
     {
       return Standard_False;
     }
   }
 
-  Handle(AIS_Axis) aistrihed;
+  Handle(VisualAxis) aistrihed;
   if (TDataXtd_Geometry::Line(aLabel, lin))
   {
-    Handle(Geom_Line) apt = new Geom_Line(lin);
+    Handle(GeomLine) apt = new GeomLine(lin);
 
     //  Update de l'AIS
     if (anAISObject.IsNull())
-      aistrihed = new AIS_Axis(apt);
+      aistrihed = new VisualAxis(apt);
     else
     {
-      aistrihed = Handle(AIS_Axis)::DownCast(anAISObject);
+      aistrihed = Handle(VisualAxis)::DownCast(anAISObject);
       if (aistrihed.IsNull())
-        aistrihed = new AIS_Axis(apt);
+        aistrihed = new VisualAxis(apt);
       else
       {
         aistrihed->SetComponent(apt);

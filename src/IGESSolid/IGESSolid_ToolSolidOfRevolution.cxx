@@ -35,9 +35,9 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESSolid_ToolSolidOfRevolution::IGESSolid_ToolSolidOfRevolution() {}
+SolidOfRevolutionTool::SolidOfRevolutionTool() {}
 
-void IGESSolid_ToolSolidOfRevolution::ReadOwnParams(const Handle(IGESSolid_SolidOfRevolution)& ent,
+void SolidOfRevolutionTool::ReadOwnParams(const Handle(IGESSolid_SolidOfRevolution)& ent,
                                                     const Handle(IGESData_IGESReaderData)&     IR,
                                                     IGESData_ParamReader& PR) const
 {
@@ -120,7 +120,7 @@ void IGESSolid_ToolSolidOfRevolution::ReadOwnParams(const Handle(IGESSolid_Solid
     PR.AddWarning("Axis poorly unitary, normalized");
 }
 
-void IGESSolid_ToolSolidOfRevolution::WriteOwnParams(const Handle(IGESSolid_SolidOfRevolution)& ent,
+void SolidOfRevolutionTool::WriteOwnParams(const Handle(IGESSolid_SolidOfRevolution)& ent,
                                                      IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->Curve());
@@ -133,13 +133,13 @@ void IGESSolid_ToolSolidOfRevolution::WriteOwnParams(const Handle(IGESSolid_Soli
   IW.Send(ent->Axis().Z());
 }
 
-void IGESSolid_ToolSolidOfRevolution::OwnShared(const Handle(IGESSolid_SolidOfRevolution)& ent,
+void SolidOfRevolutionTool::OwnShared(const Handle(IGESSolid_SolidOfRevolution)& ent,
                                                 Interface_EntityIterator& iter) const
 {
   iter.GetOneItem(ent->Curve());
 }
 
-void IGESSolid_ToolSolidOfRevolution::OwnCopy(const Handle(IGESSolid_SolidOfRevolution)& another,
+void SolidOfRevolutionTool::OwnCopy(const Handle(IGESSolid_SolidOfRevolution)& another,
                                               const Handle(IGESSolid_SolidOfRevolution)& ent,
                                               Interface_CopyTool&                        TC) const
 {
@@ -150,10 +150,10 @@ void IGESSolid_ToolSolidOfRevolution::OwnCopy(const Handle(IGESSolid_SolidOfRevo
   ent->Init(tempEntity, tempFraction, tempAxisPoint, tempAxis);
 }
 
-IGESData_DirChecker IGESSolid_ToolSolidOfRevolution::DirChecker(
+DirectoryChecker SolidOfRevolutionTool::DirChecker(
   const Handle(IGESSolid_SolidOfRevolution)& /* ent */) const
 {
-  IGESData_DirChecker DC(162, 0, 1);
+  DirectoryChecker DC(162, 0, 1);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
@@ -164,7 +164,7 @@ IGESData_DirChecker IGESSolid_ToolSolidOfRevolution::DirChecker(
   return DC;
 }
 
-void IGESSolid_ToolSolidOfRevolution::OwnCheck(const Handle(IGESSolid_SolidOfRevolution)& ent,
+void SolidOfRevolutionTool::OwnCheck(const Handle(IGESSolid_SolidOfRevolution)& ent,
                                                const Interface_ShareTool&,
                                                Handle(Interface_Check)& ach) const
 {
@@ -172,7 +172,7 @@ void IGESSolid_ToolSolidOfRevolution::OwnCheck(const Handle(IGESSolid_SolidOfRev
     ach->AddFail("Fraction of rotation : Incorrect value");
 }
 
-void IGESSolid_ToolSolidOfRevolution::OwnDump(const Handle(IGESSolid_SolidOfRevolution)& ent,
+void SolidOfRevolutionTool::OwnDump(const Handle(IGESSolid_SolidOfRevolution)& ent,
                                               const IGESData_IGESDumper&                 dumper,
                                               Standard_OStream&                          S,
                                               const Standard_Integer level) const

@@ -39,7 +39,7 @@ private:
 public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& thePrs,
                                   const AnyPoint&                   thePoint,
-                                  const Handle(Prs3d_Drawer)&       theDrawer)
+                                  const Handle(StyleDrawer)&       theDrawer)
   {
     Handle(Graphic3d_Group) aGroup = thePrs->CurrentGroup();
     aGroup->SetPrimitivesAspect(theDrawer->PointAspect()->Aspect());

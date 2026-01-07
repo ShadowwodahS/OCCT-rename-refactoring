@@ -33,7 +33,7 @@ extern Standard_Boolean TopOpeBRepTool_GettraceVC();
 
 //=================================================================================================
 
-TopOpeBRepBuild_PaveSet::TopOpeBRepBuild_PaveSet(const TopoDS_Shape& E)
+TopOpeBRepBuild_PaveSet::TopOpeBRepBuild_PaveSet(const TopoShape& E)
     : myEdge(TopoDS::Edge(E)),
       myHasEqualParameters(Standard_False),
       myClosed(Standard_False),
@@ -124,12 +124,12 @@ void TopOpeBRepBuild_PaveSet::SortPave(const TopOpeBRepBuild_ListOfPave& List,
   SortedList.Append(L2);
 }
 
-static Standard_Boolean FUN_islook(const TopoDS_Edge& e)
+static Standard_Boolean FUN_islook(const TopoEdge& e)
 {
-  TopoDS_Vertex v1, v2;
-  TopExp::Vertices(e, v1, v2);
-  Point3d           p1     = BRep_Tool::Pnt(v1);
-  Point3d           p2     = BRep_Tool::Pnt(v2);
+  TopoVertex v1, v2;
+  TopExp1::Vertices(e, v1, v2);
+  Point3d           p1     = BRepInspector::Pnt(v1);
+  Point3d           p2     = BRepInspector::Pnt(v2);
   Standard_Real    dp1p2  = p1.Distance(p2);
   Standard_Boolean islook = (Abs(dp1p2) > 1.e-8) ? Standard_True : Standard_False;
   return islook;
@@ -162,31 +162,31 @@ void TopOpeBRepBuild_PaveSet::Prepare()
     for (; itd.More(); itd.Next())
     {
       const Handle(TopOpeBRepBuild_Pave)& PV     = itd.Value();
-      TopoDS_Vertex&                      VI     = TopoDS::Vertex(PV->ChangeVertex());
+      TopoVertex&                      VI     = TopoDS::Vertex(PV->ChangeVertex());
       Standard_Boolean                    hasVSD = PV->HasSameDomain();
-      TopoDS_Vertex                       VSD;
+      TopoVertex                       VSD;
       if (hasVSD)
         VSD = TopoDS::Vertex(PV->SameDomain());
       TopAbs_Orientation VIori = VI.Orientation();
       Standard_Real      p     = PV->Parameter();
       std::cout << "pvs : v " << ++iv << " par " << p << " ";
-      TopAbs::Print(VIori, std::cout);
+      TopAbs1::Print(VIori, std::cout);
       std::cout << std::endl;
     }
   }
 #endif
 
-  Standard_Boolean isEd            = BRep_Tool::Degenerated(myEdge);
+  Standard_Boolean isEd            = BRepInspector::Degenerated(myEdge);
   Standard_Integer EdgeVertexCount = 0;
 
   if (myRemovePV)
   { // jyl + 980217
-    TopExp_Explorer EVexp(myEdge, TopAbs_VERTEX);
+    ShapeExplorer EVexp(myEdge, TopAbs_VERTEX);
     for (; EVexp.More(); EVexp.Next())
     {
 
       // VE = edge vertex
-      const TopoDS_Vertex& VE      = TopoDS::Vertex(EVexp.Current());
+      const TopoVertex& VE      = TopoDS::Vertex(EVexp.Current());
       TopAbs_Orientation   VEori   = VE.Orientation();
       Standard_Boolean     VEbound = (VEori == TopAbs_FORWARD) || (VEori == TopAbs_REVERSED);
 
@@ -204,9 +204,9 @@ void TopOpeBRepBuild_PaveSet::Prepare()
 
         // PV = Parametrized vertex, VI = interference vertex
         const Handle(TopOpeBRepBuild_Pave)& PV     = it.Value();
-        TopoDS_Vertex&                      VI     = TopoDS::Vertex(PV->ChangeVertex());
+        TopoVertex&                      VI     = TopoDS::Vertex(PV->ChangeVertex());
         Standard_Boolean                    hasVSD = PV->HasSameDomain();
-        TopoDS_Vertex                       VSD;
+        TopoVertex                       VSD;
         if (hasVSD)
           VSD = TopoDS::Vertex(PV->SameDomain());
 
@@ -256,7 +256,7 @@ void TopOpeBRepBuild_PaveSet::Prepare()
       // if VE not found in the list, add it
       if (addVE)
       {
-        Standard_Real                parVE = BRep_Tool::Parameter(VE, myEdge);
+        Standard_Real                parVE = BRepInspector::Parameter(VE, myEdge);
         Handle(TopOpeBRepBuild_Pave) newPV = new TopOpeBRepBuild_Pave(VE, parVE, Standard_True);
         myVertices.Prepend(newPV);
 
@@ -290,10 +290,10 @@ void TopOpeBRepBuild_PaveSet::Prepare()
     for (; MoreLoop(); NextLoop())
     {
       Handle(TopOpeBRepBuild_Pave) PV = Handle(TopOpeBRepBuild_Pave)::DownCast(Loop());
-      const TopoDS_Vertex&         v  = TopoDS::Vertex(PV->Vertex());
+      const TopoVertex&         v  = TopoDS::Vertex(PV->Vertex());
       Standard_Real                p  = PV->Parameter();
       Standard_Boolean             b  = PV->IsShape();
-      TopOpeBRepBuild_Builder::GdumpORIPARPNT(v.Orientation(), p, BRep_Tool::Pnt(v));
+      TopOpeBRepBuild_Builder::GdumpORIPARPNT(v.Orientation(), p, BRepInspector::Pnt(v));
       if (b)
         std::cout << " is bound";
       else
@@ -340,7 +340,7 @@ Handle(TopOpeBRepBuild_Loop) TopOpeBRepBuild_PaveSet::Loop() const
 
 //=================================================================================================
 
-const TopoDS_Edge& TopOpeBRepBuild_PaveSet::Edge() const
+const TopoEdge& TopOpeBRepBuild_PaveSet::Edge() const
 {
   return myEdge;
 }
@@ -355,12 +355,12 @@ Standard_Boolean TopOpeBRepBuild_PaveSet::HasEqualParameters()
 
   for (it1.Initialize(myVertices); (!myHasEqualParameters) && it1.More(); it1.Next())
   {
-    const TopoDS_Shape& v1 = it1.Value()->Vertex();
+    const TopoShape& v1 = it1.Value()->Vertex();
     p1                     = it1.Value()->Parameter();
 
     for (it2.Initialize(myVertices); (!myHasEqualParameters) && it2.More(); it2.Next())
     {
-      const TopoDS_Shape& v2 = it2.Value()->Vertex();
+      const TopoShape& v2 = it2.Value()->Vertex();
       if (v2.IsEqual(v1))
         continue;
 
@@ -387,7 +387,7 @@ Standard_Boolean TopOpeBRepBuild_PaveSet::HasEqualParameters()
     {
       TopLoc_Location    loc;
       Standard_Real      ff, ll;
-      Handle(Geom_Curve) CmyEdge = BRep_Tool::Curve(myEdge, loc, ff, ll);
+      Handle(GeomCurve3d) CmyEdge = BRepInspector::Curve(myEdge, loc, ff, ll);
       if (CmyEdge.IsNull())
         rd = Standard_False;
       else
@@ -401,7 +401,7 @@ Standard_Boolean TopOpeBRepBuild_PaveSet::HasEqualParameters()
       for (it1.Initialize(myVertices); (!myHasEqualParameters) && it1.More(); it1.Next())
       {
 #ifdef OCCT_DEBUG
-//	const TopoDS_Shape& v1 = it1.Value()->Vertex();
+//	const TopoShape& v1 = it1.Value()->Vertex();
 #endif
         p1              = it1.Value()->Parameter();
         Standard_Real d = Abs(p1 - f);
@@ -447,11 +447,11 @@ Standard_Boolean TopOpeBRepBuild_PaveSet::ClosedVertices()
   if (myVertices.IsEmpty())
     return Standard_False;
 
-  TopoDS_Shape  Vmin, Vmax;
+  TopoShape  Vmin, Vmax;
   Standard_Real parmin = RealLast(), parmax = RealFirst();
   for (TopOpeBRepBuild_ListIteratorOfListOfPave it(myVertices); it.More(); it.Next())
   {
-    const TopoDS_Shape& V   = it.Value()->Vertex();
+    const TopoShape& V   = it.Value()->Vertex();
     Standard_Real       par = it.Value()->Parameter();
     if (par > parmax)
     {

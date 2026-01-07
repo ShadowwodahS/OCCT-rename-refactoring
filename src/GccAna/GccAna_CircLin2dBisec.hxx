@@ -37,13 +37,13 @@ class GccInt_Bisec;
 //! -   defining the construction of the bisecting curves,
 //! -   implementing the construction algorithm, and
 //! -   consulting the result.
-class GccAna_CircLin2dBisec
+class CircleLine2dBisector
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs bisecting curves between the circle Circle and the line Line.
-  Standard_EXPORT GccAna_CircLin2dBisec(const gp_Circ2d& Circle, const gp_Lin2d& Line);
+  Standard_EXPORT CircleLine2dBisector(const gp_Circ2d& Circle, const gp_Lin2d& Line);
 
   //! Returns true (this construction algorithm never fails).
   Standard_EXPORT Standard_Boolean IsDone() const;

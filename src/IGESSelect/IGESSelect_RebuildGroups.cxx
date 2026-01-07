@@ -152,7 +152,7 @@ void IGESSelect_RebuildGroups::Performing(IFSelect_ContextModif&            ctx,
   }
 }
 
-TCollection_AsciiString IGESSelect_RebuildGroups::Label() const
+AsciiString1 IGESSelect_RebuildGroups::Label() const
 {
-  return TCollection_AsciiString("Rebuild Groups");
+  return AsciiString1("Rebuild Groups");
 }

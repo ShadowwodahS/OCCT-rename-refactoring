@@ -58,7 +58,7 @@ Standard_Boolean StdSelect_EdgeFilter::IsOk(const Handle(SelectMgr_EntityOwner)&
   if (aBO.IsNull())
     return Standard_False;
 
-  const TopoDS_Shape& sh = aBO->Shape();
+  const TopoShape& sh = aBO->Shape();
   if (sh.ShapeType() != TopAbs_EDGE)
     return Standard_False;
 

@@ -28,14 +28,14 @@ IMPLEMENT_STANDARD_RTTIEXT(DDF_Transaction, RefObject)
 //=================================================================================================
 
 DDF_Transaction::DDF_Transaction()
-    : myTransaction(TCollection_AsciiString())
+    : myTransaction(AsciiString1())
 {
 }
 
 //=================================================================================================
 
 DDF_Transaction::DDF_Transaction(const Handle(TDF_Data)& aDF)
-    : myTransaction(TCollection_AsciiString())
+    : myTransaction(AsciiString1())
 {
   myTransaction.Initialize(aDF);
 }

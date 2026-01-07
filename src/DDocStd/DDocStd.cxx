@@ -34,20 +34,20 @@
 
 //=================================================================================================
 
-const Handle(TDocStd_Application)& DDocStd::GetApplication()
+const Handle(AppManager)& DDocStd1::GetApplication()
 {
-  static Handle(TDocStd_Application) anApp;
+  static Handle(AppManager) anApp;
   if (anApp.IsNull())
   {
-    anApp = new TDocStd_Application;
+    anApp = new AppManager;
 
     // Initialize standard document formats at creation - they should
     // be available even if this DRAW plugin is not loaded by pload command
     StdLDrivers::DefineFormat(anApp);
-    BinLDrivers::DefineFormat(anApp);
+    BinLDrivers1::DefineFormat(anApp);
     XmlLDrivers::DefineFormat(anApp);
     StdDrivers::DefineFormat(anApp);
-    BinDrivers::DefineFormat(anApp);
+    BinDrivers1::DefineFormat(anApp);
     XmlDrivers::DefineFormat(anApp);
   }
   return anApp;
@@ -55,18 +55,18 @@ const Handle(TDocStd_Application)& DDocStd::GetApplication()
 
 //=================================================================================================
 
-Standard_Boolean DDocStd::GetDocument(Standard_CString&         Name,
-                                      Handle(TDocStd_Document)& DOC,
+Standard_Boolean DDocStd1::GetDocument(Standard_CString&         Name,
+                                      Handle(AppDocument)& DOC,
                                       const Standard_Boolean    Complain)
 {
-  Handle(DDocStd_DrawDocument) DD = Handle(DDocStd_DrawDocument)::DownCast(Draw::GetExisting(Name));
+  Handle(DDocStd_DrawDocument) DD = Handle(DDocStd_DrawDocument)::DownCast(Draw1::GetExisting(Name));
   if (DD.IsNull())
   {
     if (Complain)
       std::cout << Name << " is not a Document" << std::endl;
     return Standard_False;
   }
-  Handle(TDocStd_Document) STDDOC = DD->GetDocument();
+  Handle(AppDocument) STDDOC = DD->GetDocument();
   if (!STDDOC.IsNull())
   {
     DOC = STDDOC;
@@ -82,9 +82,9 @@ Standard_Boolean DDocStd::GetDocument(Standard_CString&         Name,
 // purpose  : try to retrieve a label
 //=======================================================================
 
-Standard_Boolean DDocStd::Find(const Handle(TDocStd_Document)& D,
+Standard_Boolean DDocStd1::Find(const Handle(AppDocument)& D,
                                const Standard_CString          Entry,
-                               TDF_Label&                      Label,
+                               DataLabel&                      Label,
                                const Standard_Boolean          Complain)
 {
   Label.Nullify();
@@ -99,13 +99,13 @@ Standard_Boolean DDocStd::Find(const Handle(TDocStd_Document)& D,
 // purpose  : Try to retrieve an attribute.
 //=======================================================================
 
-Standard_Boolean DDocStd::Find(const Handle(TDocStd_Document)& D,
+Standard_Boolean DDocStd1::Find(const Handle(AppDocument)& D,
                                const Standard_CString          Entry,
                                const Standard_GUID&            ID,
                                Handle(TDF_Attribute)&          A,
                                const Standard_Boolean          Complain)
 {
-  TDF_Label L;
+  DataLabel L;
   if (Find(D, Entry, L, Complain))
   {
     if (L.FindAttribute(ID, A))
@@ -118,9 +118,9 @@ Standard_Boolean DDocStd::Find(const Handle(TDocStd_Document)& D,
 
 //=================================================================================================
 
-Draw_Interpretor& DDocStd::ReturnLabel(Draw_Interpretor& di, const TDF_Label& L)
+DrawInterpreter& DDocStd1::ReturnLabel(DrawInterpreter& di, const DataLabel& L)
 {
-  TCollection_AsciiString S;
+  AsciiString1 S;
   TDF_Tool::Entry(L, S);
   di << S.ToCString();
   return di;
@@ -128,7 +128,7 @@ Draw_Interpretor& DDocStd::ReturnLabel(Draw_Interpretor& di, const TDF_Label& L)
 
 //=================================================================================================
 
-void DDocStd::AllCommands(Draw_Interpretor& theCommands)
+void DDocStd1::AllCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -136,9 +136,9 @@ void DDocStd::AllCommands(Draw_Interpretor& theCommands)
   done = Standard_True;
 
   // define commands
-  DDocStd::ApplicationCommands(theCommands);
-  DDocStd::DocumentCommands(theCommands);
-  DDocStd::ToolsCommands(theCommands);
-  DDocStd::MTMCommands(theCommands);
-  DDocStd::ShapeSchemaCommands(theCommands);
+  DDocStd1::ApplicationCommands(theCommands);
+  DDocStd1::DocumentCommands(theCommands);
+  DDocStd1::ToolsCommands(theCommands);
+  DDocStd1::MTMCommands(theCommands);
+  DDocStd1::ShapeSchemaCommands(theCommands);
 }

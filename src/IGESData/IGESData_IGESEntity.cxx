@@ -94,9 +94,9 @@ void IGESData_IGESEntity::Clear()
 //  #########################################################################
 //  ....                Definition IGES : Directory Entry                ....
 
-IGESData_IGESType IGESData_IGESEntity::IGESType() const
+IGESType IGESData_IGESEntity::GetIGESType() const
 {
-  return IGESData_IGESType(theType, theForm);
+  return IGESType(theType, theForm);
 }
 
 Standard_Integer IGESData_IGESEntity::TypeNumber() const

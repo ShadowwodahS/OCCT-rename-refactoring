@@ -26,7 +26,7 @@
 #include <BRepOffset_Mode.hxx>
 #include <Standard_Boolean.hxx>
 #include <GeomAbs_JoinType.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! Describes functions to build hollowed solids.
 //! A hollowed solid is built from an initial solid and a set of
@@ -56,7 +56,7 @@ public:
   //! This algorithm does not support faces removing. It is caused by fact that
   //! intersections are not computed during offset creation.
   //! Non-closed shell or face is expected as input.
-  Standard_EXPORT void MakeThickSolidBySimple(const TopoDS_Shape& theS,
+  Standard_EXPORT void MakeThickSolidBySimple(const TopoShape& theS,
                                               const Standard_Real theOffsetValue);
 
   //! Constructs a hollowed solid from
@@ -100,8 +100,8 @@ public:
   //! MakeOffsetShape algorithm, the warnings are the same as for
   //! MakeOffsetShape.
   Standard_EXPORT void MakeThickSolidByJoin(
-    const TopoDS_Shape&          S,
-    const TopTools_ListOfShape&  ClosingFaces,
+    const TopoShape&          S,
+    const ShapeList&  ClosingFaces,
     const Standard_Real          Offset,
     const Standard_Real          Tol,
     const BRepOffset_Mode        Mode           = BRepOffset_Skin,
@@ -117,7 +117,7 @@ public:
 
   //! Returns the list  of shapes modified from the shape
   //! <S>.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Modified(const TopoDS_Shape& S)
+  Standard_EXPORT virtual const ShapeList& Modified(const TopoShape& S)
     Standard_OVERRIDE;
 };
 

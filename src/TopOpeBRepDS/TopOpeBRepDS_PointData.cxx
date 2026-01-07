@@ -28,7 +28,7 @@ TopOpeBRepDS_PointData::TopOpeBRepDS_PointData()
 
 //=================================================================================================
 
-TopOpeBRepDS_PointData::TopOpeBRepDS_PointData(const TopOpeBRepDS_Point& P)
+TopOpeBRepDS_PointData::TopOpeBRepDS_PointData(const Point1& P)
     : myPoint(P),
       myS1(0),
       myS2(0)
@@ -37,7 +37,7 @@ TopOpeBRepDS_PointData::TopOpeBRepDS_PointData(const TopOpeBRepDS_Point& P)
 
 //=================================================================================================
 
-TopOpeBRepDS_PointData::TopOpeBRepDS_PointData(const TopOpeBRepDS_Point& P,
+TopOpeBRepDS_PointData::TopOpeBRepDS_PointData(const Point1& P,
                                                const Standard_Integer    I1,
                                                const Standard_Integer    I2)
     : myPoint(P),

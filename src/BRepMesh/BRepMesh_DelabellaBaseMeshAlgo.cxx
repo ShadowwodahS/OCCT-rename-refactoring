@@ -86,8 +86,8 @@ void BRepMesh_DelabellaBaseMeshAlgo::buildBaseTriangulation()
   }
 
   aBox.Enlarge(0.1 * (aBox.CornerMax() - aBox.CornerMin()).Modulus());
-  const gp_XY aMin = aBox.CornerMin();
-  const gp_XY aMax = aBox.CornerMax();
+  const Coords2d aMin = aBox.CornerMin();
+  const Coords2d aMax = aBox.CornerMax();
 
   aPoints[2 * aNodesNb + 0] = aMin.X();
   aPoints[2 * aNodesNb + 1] = aMin.Y();

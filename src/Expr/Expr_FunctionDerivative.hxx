@@ -27,7 +27,7 @@
 #include <TColStd_Array1OfReal.hxx>
 class Expr_GeneralExpression;
 class Expr_NamedUnknown;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class Expr_FunctionDerivative;
 DEFINE_STANDARD_HANDLE(Expr_FunctionDerivative, Expr_GeneralFunction)
@@ -90,7 +90,7 @@ public:
   //! Returns the derivation variable of <me>.
   Standard_EXPORT Handle(Expr_NamedUnknown) DerivVariable() const;
 
-  Standard_EXPORT TCollection_AsciiString GetStringName() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 GetStringName() const Standard_OVERRIDE;
 
   Standard_EXPORT Handle(Expr_GeneralExpression) Expression() const;
 

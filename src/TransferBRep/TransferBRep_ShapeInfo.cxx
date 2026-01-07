@@ -15,35 +15,35 @@
 #include <TopoDS_TShape.hxx>
 #include <TransferBRep_ShapeInfo.hxx>
 
-Handle(TypeInfo) TransferBRep_ShapeInfo::Type(const TopoDS_Shape& /*ent*/)
+Handle(TypeInfo) TransferBRep_ShapeInfo::Type(const TopoShape& /*ent*/)
 {
   return STANDARD_TYPE(TopoDS_TShape);
 }
 
-Standard_CString TransferBRep_ShapeInfo::TypeName(const TopoDS_Shape& ent)
+Standard_CString TransferBRep_ShapeInfo::TypeName(const TopoShape& ent)
 {
   if (ent.IsNull())
-    return "TopoDS_Shape";
+    return "TopoShape";
   switch (ent.ShapeType())
   {
     case TopAbs_VERTEX:
-      return "TopoDS_Vertex";
+      return "TopoVertex";
     case TopAbs_EDGE:
-      return "TopoDS_Edge";
+      return "TopoEdge";
     case TopAbs_WIRE:
-      return "TopoDS_Wire";
+      return "TopoWire";
     case TopAbs_FACE:
-      return "TopoDS_Face";
+      return "TopoFace";
     case TopAbs_SHELL:
-      return "TopoDS_Shell";
+      return "TopoShell";
     case TopAbs_SOLID:
-      return "TopoDS_Solid";
+      return "TopoSolid";
     case TopAbs_COMPSOLID:
       return "TopoDS_CompSolid";
     case TopAbs_COMPOUND:
-      return "TopoDS_Compound";
+      return "TopoCompound";
     default:
       break;
   }
-  return "TopoDS_Shape";
+  return "TopoShape";
 }

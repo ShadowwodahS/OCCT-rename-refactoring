@@ -29,9 +29,9 @@
 #include <Interface_EntityIterator.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESAppli_ToolLineWidening::IGESAppli_ToolLineWidening() {}
+LineWideningTool::LineWideningTool() {}
 
-void IGESAppli_ToolLineWidening::ReadOwnParams(const Handle(IGESAppli_LineWidening)& ent,
+void LineWideningTool::ReadOwnParams(const Handle(IGESAppli_LineWidening)& ent,
                                                const Handle(IGESData_IGESReaderData)& /*IR*/,
                                                IGESData_ParamReader& PR) const
 {
@@ -63,7 +63,7 @@ void IGESAppli_ToolLineWidening::ReadOwnParams(const Handle(IGESAppli_LineWideni
             tempExtensionValue);
 }
 
-void IGESAppli_ToolLineWidening::WriteOwnParams(const Handle(IGESAppli_LineWidening)& ent,
+void LineWideningTool::WriteOwnParams(const Handle(IGESAppli_LineWidening)& ent,
                                                 IGESData_IGESWriter&                  IW) const
 {
   IW.Send(ent->NbPropertyValues());
@@ -74,12 +74,12 @@ void IGESAppli_ToolLineWidening::WriteOwnParams(const Handle(IGESAppli_LineWiden
   IW.Send(ent->ExtensionValue());
 }
 
-void IGESAppli_ToolLineWidening::OwnShared(const Handle(IGESAppli_LineWidening)& /*ent*/,
+void LineWideningTool::OwnShared(const Handle(IGESAppli_LineWidening)& /*ent*/,
                                            Interface_EntityIterator& /*iter*/) const
 {
 }
 
-void IGESAppli_ToolLineWidening::OwnCopy(const Handle(IGESAppli_LineWidening)& another,
+void LineWideningTool::OwnCopy(const Handle(IGESAppli_LineWidening)& another,
                                          const Handle(IGESAppli_LineWidening)& ent,
                                          Interface_CopyTool& /*TC*/) const
 {
@@ -91,7 +91,7 @@ void IGESAppli_ToolLineWidening::OwnCopy(const Handle(IGESAppli_LineWidening)& a
             another->ExtensionValue());
 }
 
-Standard_Boolean IGESAppli_ToolLineWidening::OwnCorrect(
+Standard_Boolean LineWideningTool::OwnCorrect(
   const Handle(IGESAppli_LineWidening)& ent) const
 {
   Standard_Boolean res = (ent->NbPropertyValues() != 5);
@@ -111,10 +111,10 @@ Standard_Boolean IGESAppli_ToolLineWidening::OwnCorrect(
   return res; // nbpropertyvalues = 5 + RAZ level selon subordinate
 }
 
-IGESData_DirChecker IGESAppli_ToolLineWidening::DirChecker(
+DirectoryChecker LineWideningTool::DirChecker(
   const Handle(IGESAppli_LineWidening)& /*ent*/) const
 {
-  IGESData_DirChecker DC(406, 5); // Form no = 5 & Type = 406
+  DirectoryChecker DC(406, 5); // Form no = 5 & Type = 406
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.BlankStatusIgnored();
@@ -123,7 +123,7 @@ IGESData_DirChecker IGESAppli_ToolLineWidening::DirChecker(
   return DC;
 }
 
-void IGESAppli_ToolLineWidening::OwnCheck(const Handle(IGESAppli_LineWidening)& ent,
+void LineWideningTool::OwnCheck(const Handle(IGESAppli_LineWidening)& ent,
                                           const Interface_ShareTool&,
                                           Handle(Interface_Check)& ach) const
 {
@@ -140,7 +140,7 @@ void IGESAppli_ToolLineWidening::OwnCheck(const Handle(IGESAppli_LineWidening)& 
     ach->AddFail("Justification Flag value incorrect");
 }
 
-void IGESAppli_ToolLineWidening::OwnDump(const Handle(IGESAppli_LineWidening)& ent,
+void LineWideningTool::OwnDump(const Handle(IGESAppli_LineWidening)& ent,
                                          const IGESData_IGESDumper& /*dumper*/,
                                          Standard_OStream& S,
                                          const Standard_Integer /*level*/) const

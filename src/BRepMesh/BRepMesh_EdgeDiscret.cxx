@@ -144,7 +144,7 @@ void BRepMesh_EdgeDiscret::process(const Standard_Integer theEdgeIndex) const
     else
     {
       TopLoc_Location               aLoc;
-      const Handle(Poly_Polygon3D)& aPoly3D = BRep_Tool::Polygon3D(aDEdge->GetEdge(), aLoc);
+      const Handle(Poly_Polygon3D)& aPoly3D = BRepInspector::Polygon3D(aDEdge->GetEdge(), aLoc);
       if (!aPoly3D.IsNull())
       {
         if (aPoly3D->HasParameters()
@@ -183,11 +183,11 @@ Standard_Real BRepMesh_EdgeDiscret::checkExistingPolygonAndUpdateStatus(
   const IMeshData::IEdgeHandle&   theDEdge,
   const IMeshData::IPCurveHandle& thePCurve) const
 {
-  const TopoDS_Edge& aEdge = theDEdge->GetEdge();
-  const TopoDS_Face& aFace = thePCurve->GetFace()->GetFace();
+  const TopoEdge& aEdge = theDEdge->GetEdge();
+  const TopoFace& aFace = thePCurve->GetFace()->GetFace();
 
   TopLoc_Location                   aLoc;
-  const Handle(Poly_Triangulation)& aFaceTriangulation = BRep_Tool::Triangulation(aFace, aLoc);
+  const Handle(MeshTriangulation)& aFaceTriangulation = BRepInspector::Triangulation(aFace, aLoc);
 
   Standard_Real aDeflection = RealLast();
   if (aFaceTriangulation.IsNull())
@@ -196,7 +196,7 @@ Standard_Real BRepMesh_EdgeDiscret::checkExistingPolygonAndUpdateStatus(
   }
 
   const Handle(Poly_PolygonOnTriangulation)& aPolygon =
-    BRep_Tool::PolygonOnTriangulation(aEdge, aFaceTriangulation, aLoc);
+    BRepInspector::PolygonOnTriangulation(aEdge, aFaceTriangulation, aLoc);
 
   if (!aPolygon.IsNull())
   {
@@ -230,9 +230,9 @@ void BRepMesh_EdgeDiscret::Tessellate3d(const IMeshData::IEdgeHandle&           
   // Create 3d polygon.
   const IMeshData::ICurveHandle& aCurve = theDEdge->GetCurve();
 
-  const TopoDS_Edge& aEdge = theDEdge->GetEdge();
-  TopoDS_Vertex      aFirstVertex, aLastVertex;
-  TopExp::Vertices(aEdge, aFirstVertex, aLastVertex);
+  const TopoEdge& aEdge = theDEdge->GetEdge();
+  TopoVertex      aFirstVertex, aLastVertex;
+  TopExp1::Vertices(aEdge, aFirstVertex, aLastVertex);
 
   if (aFirstVertex.IsNull() || aLastVertex.IsNull())
     return;
@@ -242,7 +242,7 @@ void BRepMesh_EdgeDiscret::Tessellate3d(const IMeshData::IEdgeHandle&           
     Point3d        aPoint;
     Standard_Real aParam;
     theTessellator->Value(1, aPoint, aParam);
-    aCurve->AddPoint(BRep_Tool::Pnt(aFirstVertex), aParam);
+    aCurve->AddPoint(BRepInspector::Pnt(aFirstVertex), aParam);
   }
 
   if (!theDEdge->GetDegenerated())
@@ -270,7 +270,7 @@ void BRepMesh_EdgeDiscret::Tessellate3d(const IMeshData::IEdgeHandle&           
     Point3d        aPoint;
     Standard_Real aParam;
     theTessellator->Value(theTessellator->PointsNb(), aPoint, aParam);
-    aCurve->AddPoint(BRep_Tool::Pnt(aLastVertex), aParam);
+    aCurve->AddPoint(BRepInspector::Pnt(aLastVertex), aParam);
   }
 }
 

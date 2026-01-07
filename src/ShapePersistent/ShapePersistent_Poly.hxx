@@ -21,7 +21,7 @@
 class Poly_Polygon2D;
 class Poly_Polygon3D;
 class Poly_PolygonOnTriangulation;
-class Poly_Triangulation;
+class MeshTriangulation;
 
 class ShapePersistent_Poly : private StdObjMgt_SharedObject
 {
@@ -136,7 +136,7 @@ class ShapePersistent_Poly : private StdObjMgt_SharedObject
 
     inline Standard_CString PName() const { return "PPoly_Triangulation"; }
 
-    Handle(Poly_Triangulation) Import() const;
+    Handle(MeshTriangulation) Import() const;
 
   private:
     Standard_Real                             myDeflection;
@@ -154,7 +154,7 @@ public:
   typedef instance<pPolygon2D, Poly_Polygon2D>                           Polygon2D;
   typedef instance<pPolygon3D, Poly_Polygon3D>                           Polygon3D;
   typedef instance<pPolygonOnTriangulation, Poly_PolygonOnTriangulation> PolygonOnTriangulation;
-  typedef instance<pTriangulation, Poly_Triangulation>                   Triangulation;
+  typedef instance<pTriangulation, MeshTriangulation>                   Triangulation;
 
 public:
   //! Create a persistent object for a 2D polygon
@@ -169,7 +169,7 @@ public:
     StdObjMgt_TransientPersistentMap&          theMap);
   //! Create a persistent object for a polygon on triangulation
   Standard_EXPORT static Handle(Triangulation) Translate(
-    const Handle(Poly_Triangulation)& thePolyTriang,
+    const Handle(MeshTriangulation)& thePolyTriang,
     StdObjMgt_TransientPersistentMap& theMap);
 };
 

@@ -1426,7 +1426,7 @@ parser::symbol_kind_type parser::yytranslate_(int t)
 static Express_Schema* mkschema(char* name, Express_HSequenceOfItem* ilist)
 {
   Express_Schema* sch = new Express_Schema(name, ilist);
-  Express::Schema()   = sch;
+  Express1::Schema()   = sch;
   return sch;
 }
 

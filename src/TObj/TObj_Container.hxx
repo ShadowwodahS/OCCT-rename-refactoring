@@ -25,11 +25,11 @@
 
 #include <TObj_SequenceOfObject.hxx>
 
-typedef NCollection_DataMap<Handle(TCollection_HExtendedString), TDF_Label> TObj_DataMapOfNameLabel;
+typedef NCollection_DataMap<Handle(TCollection_HExtendedString), DataLabel> TObj_DataMapOfNameLabel;
 
 typedef NCollection_DataMap<Handle(TObj_Object), Handle(TObj_HSequenceOfObject)>
   TObj_DataMapOfObjectHSequenceOcafObjects;
 
-typedef NCollection_DataMap<TCollection_AsciiString, Standard_Address> TObj_DataMapOfStringPointer;
+typedef NCollection_DataMap<AsciiString1, Standard_Address> TObj_DataMapOfStringPointer;
 
 #endif

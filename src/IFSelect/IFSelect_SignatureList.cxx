@@ -89,8 +89,8 @@ Standard_CString IFSelect_SignatureList::LastValue() const
 
 void IFSelect_SignatureList::Init(
   const Standard_CString                                                                 name,
-  const NCollection_IndexedDataMap<TCollection_AsciiString, Standard_Integer>&           theCount,
-  const NCollection_IndexedDataMap<TCollection_AsciiString, Handle(RefObject)>& list,
+  const NCollection_IndexedDataMap<AsciiString1, Standard_Integer>&           theCount,
+  const NCollection_IndexedDataMap<AsciiString1, Handle(RefObject)>& list,
   const Standard_Integer                                                                 nbnuls)
 {
   thelastval.Clear();
@@ -106,7 +106,7 @@ Handle(TColStd_HSequenceOfHAsciiString) IFSelect_SignatureList::List(
   const Standard_CString root) const
 {
   Handle(TColStd_HSequenceOfHAsciiString) list = new TColStd_HSequenceOfHAsciiString();
-  NCollection_IndexedDataMap<TCollection_AsciiString, Standard_Integer>::Iterator iter(thedicount);
+  NCollection_IndexedDataMap<AsciiString1, Standard_Integer>::Iterator iter(thedicount);
   for (; iter.More(); iter.Next())
   {
     if (!iter.Key().StartsWith(root))
@@ -162,7 +162,7 @@ Standard_CString IFSelect_SignatureList::Name() const
 void IFSelect_SignatureList::PrintCount(Standard_OStream& S) const
 {
   Standard_Integer nbtot = 0, nbsign = 0;
-  NCollection_IndexedDataMap<TCollection_AsciiString, Standard_Integer>::Iterator iter(thedicount);
+  NCollection_IndexedDataMap<AsciiString1, Standard_Integer>::Iterator iter(thedicount);
   S << " Count	" << thename->ToCString() << "\n -----	-----------" << std::endl;
   for (; iter.More(); iter.Next())
   {
@@ -199,7 +199,7 @@ void IFSelect_SignatureList::PrintList(Standard_OStream&                       S
     return;
   }
   Standard_Integer nbtot = 0, nbsign = 0;
-  NCollection_IndexedDataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(
+  NCollection_IndexedDataMap<AsciiString1, Handle(RefObject)>::Iterator iter(
     thediclist);
   for (; iter.More(); iter.Next())
   {
@@ -248,7 +248,7 @@ void IFSelect_SignatureList::PrintList(Standard_OStream&                       S
 
 void IFSelect_SignatureList::PrintSum(Standard_OStream& S) const
 {
-  NCollection_IndexedDataMap<TCollection_AsciiString, Standard_Integer>::Iterator iter(thedicount);
+  NCollection_IndexedDataMap<AsciiString1, Standard_Integer>::Iterator iter(thedicount);
   S << " Summary " << thename->ToCString() << "\n -----	-----------" << std::endl;
   Standard_Integer nbtot = 0, nbsign = 0, maxent = 0, nbval = 0, nbve = 0, minval = 0, maxval = 0,
                    totval = 0;
@@ -259,7 +259,7 @@ void IFSelect_SignatureList::PrintSum(Standard_OStream& S) const
     nbsign++;
     if (nbent > maxent)
       maxent = nbent;
-    const TCollection_AsciiString& name = iter.Key();
+    const AsciiString1& name = iter.Key();
     //    if (!name.IsIntegerValue()) continue;  pas bien fiable
     Standard_Integer ic, nc = name.Length();
     Standard_Boolean iaint = Standard_True;

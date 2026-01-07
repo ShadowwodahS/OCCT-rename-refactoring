@@ -49,15 +49,15 @@
 #include <TopoDS_Vertex.hxx>
 #include <BRep_Tool.hxx>
 
-static Standard_Integer DumpDGTs(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer DumpDGTs(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XDumpDGTs Doc shape/label/all\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -66,7 +66,7 @@ static Standard_Integer DumpDGTs(Draw_Interpretor& di, Standard_Integer argc, co
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TCollection_AsciiString name = argv[2];
+  AsciiString1 name = argv[2];
   TDF_LabelSequence       aLabels;
   if (name.IsEqual("all"))
   {
@@ -78,7 +78,7 @@ static Standard_Integer DumpDGTs(Draw_Interpretor& di, Standard_Integer argc, co
   }
   else
   {
-    TDF_Label aLabel;
+    DataLabel aLabel;
     TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
     if (!aLabel.IsNull())
     {
@@ -87,7 +87,7 @@ static Standard_Integer DumpDGTs(Draw_Interpretor& di, Standard_Integer argc, co
     }
     else
     {
-      TopoDS_Shape aShape = DBRep::Get(argv[2]);
+      TopoShape aShape = DBRep1::Get(argv[2]);
       if (!aShape.IsNull())
       {
         aShapeTool->Search(aShape, aLabel);
@@ -118,12 +118,12 @@ static Standard_Integer DumpDGTs(Draw_Interpretor& di, Standard_Integer argc, co
         Handle(XCAFDimTolObjects_DimensionObject) aDimTolObj = aDimTol->GetObject();
         if (flag)
         {
-          TCollection_AsciiString Entry;
+          AsciiString1 Entry;
           TDF_Tool::Entry(aLabels.Value(i), Entry);
           di << "\n " << Entry << " Shape." << i;
           flag = Standard_False;
         }
-        TCollection_AsciiString Entry;
+        AsciiString1 Entry;
         TDF_Tool::Entry(aGDTs.Value(j), Entry);
         di << "\n \t " << Entry;
         flag = Standard_False;
@@ -193,12 +193,12 @@ static Standard_Integer DumpDGTs(Draw_Interpretor& di, Standard_Integer argc, co
         Handle(XCAFDimTolObjects_GeomToleranceObject) aDimTolObj = aDimTol->GetObject();
         if (flag)
         {
-          TCollection_AsciiString Entry;
+          AsciiString1 Entry;
           TDF_Tool::Entry(aLabels.Value(i), Entry);
           di << "\n " << Entry << " Shape." << i;
           flag = Standard_False;
         }
-        TCollection_AsciiString Entry;
+        AsciiString1 Entry;
         TDF_Tool::Entry(aGDTs.Value(j), Entry);
         di << "\n \t " << Entry;
         flag = Standard_False;
@@ -261,7 +261,7 @@ static Standard_Integer DumpDGTs(Draw_Interpretor& di, Standard_Integer argc, co
             if (aNode->GetChild(k)->Label().FindAttribute(XCAFDoc_Datum::GetID(), aDatum))
             {
               Handle(XCAFDimTolObjects_DatumObject) aDatumObj = aDatum->GetObject();
-              TCollection_AsciiString               anEntry;
+              AsciiString1               anEntry;
               TDF_Tool::Entry(aNode->GetChild(k)->Label(), anEntry);
               di << "\n \t \t " << anEntry;
               di << " Datum." << i << "." << j << "." << k;
@@ -307,12 +307,12 @@ static Standard_Integer DumpDGTs(Draw_Interpretor& di, Standard_Integer argc, co
           Handle(XCAFDimTolObjects_DatumObject) aDatumObj = aDatum->GetObject();
           if (flag)
           {
-            TCollection_AsciiString Entry;
+            AsciiString1 Entry;
             TDF_Tool::Entry(aLabels.Value(i), Entry);
             di << "\n " << Entry << " Shape." << i;
             flag = Standard_False;
           }
-          TCollection_AsciiString Entry;
+          AsciiString1 Entry;
           TDF_Tool::Entry(aDatumL.First(), Entry);
           di << "\n \t " << Entry;
           flag = Standard_False;
@@ -351,7 +351,7 @@ static Standard_Integer DumpDGTs(Draw_Interpretor& di, Standard_Integer argc, co
   return 0;
 }
 
-static Standard_Integer DumpNbDGTs(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer DumpNbDGTs(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 2)
   {
@@ -366,8 +366,8 @@ static Standard_Integer DumpNbDGTs(Draw_Interpretor& di, Standard_Integer argc, 
     if (aChar == 'f')
       isFull = Standard_True;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -402,7 +402,7 @@ static Standard_Integer DumpNbDGTs(Draw_Interpretor& di, Standard_Integer argc, 
       {
         nbCommon++;
       }
-      else if (STEPCAFControl_GDTProperty::IsDimensionalLocation(aDimType))
+      else if (GeometricToleranceProperty::IsDimensionalLocation(aDimType))
       {
         nbLocation++;
       }
@@ -416,7 +416,7 @@ static Standard_Integer DumpNbDGTs(Draw_Interpretor& di, Standard_Integer argc, 
         nbLocation++;
         nbWithPath++;
       }
-      else if (STEPCAFControl_GDTProperty::IsDimensionalSize(aDimType))
+      else if (GeometricToleranceProperty::IsDimensionalSize(aDimType))
       {
         nbSize++;
       }
@@ -523,15 +523,15 @@ static Standard_Integer DumpNbDGTs(Draw_Interpretor& di, Standard_Integer argc, 
   return 0;
 }
 
-static Standard_Integer addDim(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer addDim(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XAddDimension Doc shape/label [shape/label]\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -540,11 +540,11 @@ static Standard_Integer addDim(Draw_Interpretor& di, Standard_Integer argc, cons
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
-    TopoDS_Shape aShape = DBRep::Get(argv[2]);
+    TopoShape aShape = DBRep1::Get(argv[2]);
     if (!aShape.IsNull())
     {
       aShapeTool->Search(aShape, aLabel);
@@ -555,13 +555,13 @@ static Standard_Integer addDim(Draw_Interpretor& di, Standard_Integer argc, cons
       }
     }
   }
-  TDF_Label aLabel1;
+  DataLabel aLabel1;
   if (argc == 4)
   {
     TDF_Tool::Label(Doc->GetData(), argv[3], aLabel1);
     if (aLabel1.IsNull())
     {
-      TopoDS_Shape aShape = DBRep::Get(argv[3]);
+      TopoShape aShape = DBRep1::Get(argv[3]);
       if (!aShape.IsNull())
       {
         aShapeTool->Search(aShape, aLabel1);
@@ -574,26 +574,26 @@ static Standard_Integer addDim(Draw_Interpretor& di, Standard_Integer argc, cons
     }
   }
 
-  TDF_Label aDimL = aDimTolTool->AddDimension();
+  DataLabel aDimL = aDimTolTool->AddDimension();
   if (aLabel1.IsNull())
     aDimTolTool->SetDimension(aLabel, aDimL);
   else
     aDimTolTool->SetDimension(aLabel, aLabel1, aDimL);
-  TCollection_AsciiString Entry;
+  AsciiString1 Entry;
   TDF_Tool::Entry(aDimL, Entry);
   di << Entry;
   return 0;
 }
 
-static Standard_Integer addGTol(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer addGTol(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XAddGeomTolerance Doc shape/label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -602,11 +602,11 @@ static Standard_Integer addGTol(Draw_Interpretor& di, Standard_Integer argc, con
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
-    TopoDS_Shape aShape = DBRep::Get(argv[2]);
+    TopoShape aShape = DBRep1::Get(argv[2]);
     if (!aShape.IsNull())
     {
       aShapeTool->Search(aShape, aLabel);
@@ -618,23 +618,23 @@ static Standard_Integer addGTol(Draw_Interpretor& di, Standard_Integer argc, con
     }
   }
 
-  TDF_Label aTolL = aDimTolTool->AddGeomTolerance();
+  DataLabel aTolL = aDimTolTool->AddGeomTolerance();
   aDimTolTool->SetGeomTolerance(aLabel, aTolL);
-  TCollection_AsciiString Entry;
+  AsciiString1 Entry;
   TDF_Tool::Entry(aTolL, Entry);
   di << Entry;
   return 0;
 }
 
-static Standard_Integer addDatum(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer addDatum(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XAddDatum Doc shape1/label1 ... shapeN/labelN\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -646,11 +646,11 @@ static Standard_Integer addDatum(Draw_Interpretor& di, Standard_Integer argc, co
   TDF_LabelSequence aLabelSeq;
   for (Standard_Integer i = 2; i < argc; i++)
   {
-    TDF_Label aLabel;
+    DataLabel aLabel;
     TDF_Tool::Label(Doc->GetData(), argv[i], aLabel);
     if (aLabel.IsNull())
     {
-      TopoDS_Shape aShape = DBRep::Get(argv[i]);
+      TopoShape aShape = DBRep1::Get(argv[i]);
       if (!aShape.IsNull())
         aShapeTool->Search(aShape, aLabel);
       if (aLabel.IsNull())
@@ -659,23 +659,23 @@ static Standard_Integer addDatum(Draw_Interpretor& di, Standard_Integer argc, co
     aLabelSeq.Append(aLabel);
   }
 
-  TDF_Label aDatumL = aDimTolTool->AddDatum();
+  DataLabel aDatumL = aDimTolTool->AddDatum();
   aDimTolTool->SetDatum(aLabelSeq, aDatumL);
-  TCollection_AsciiString Entry;
+  AsciiString1 Entry;
   TDF_Tool::Entry(aDatumL, Entry);
   di << Entry;
   return 0;
 }
 
-static Standard_Integer setDatum(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setDatum(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XSetDatum Doc Datum_Label GeomTol_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -684,7 +684,7 @@ static Standard_Integer setDatum(Draw_Interpretor& di, Standard_Integer argc, co
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -692,7 +692,7 @@ static Standard_Integer setDatum(Draw_Interpretor& di, Standard_Integer argc, co
     return 1;
   }
 
-  TDF_Label aTol;
+  DataLabel aTol;
   TDF_Tool::Label(Doc->GetData(), argv[3], aTol);
   if (aTol.IsNull())
   {
@@ -724,7 +724,7 @@ static Standard_Integer setDatum(Draw_Interpretor& di, Standard_Integer argc, co
   return 0;
 }
 
-static Standard_Integer setDatumPosition(Draw_Interpretor& di,
+static Standard_Integer setDatumPosition(DrawInterpreter& di,
                                          Standard_Integer  argc,
                                          const char**      argv)
 {
@@ -734,14 +734,14 @@ static Standard_Integer setDatumPosition(Draw_Interpretor& di,
     return 1;
   }
 
-  if (Draw::Atoi(argv[3]) < 1 || Draw::Atoi(argv[3]) > 3)
+  if (Draw1::Atoi(argv[3]) < 1 || Draw1::Atoi(argv[3]) > 3)
   {
     di << "Datum position should be 1, 2 or 3\n";
     return 1;
   }
 
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -750,7 +750,7 @@ static Standard_Integer setDatumPosition(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -761,13 +761,13 @@ static Standard_Integer setDatumPosition(Draw_Interpretor& di,
   if (aLabel.FindAttribute(XCAFDoc_Datum::GetID(), aDatum))
   {
     Handle(XCAFDimTolObjects_DatumObject) anObj = aDatum->GetObject();
-    anObj->SetPosition(Draw::Atoi(argv[3]));
+    anObj->SetPosition(Draw1::Atoi(argv[3]));
     aDatum->SetObject(anObj);
   }
   return 0;
 }
 
-static Standard_Integer getDatumPosition(Draw_Interpretor& di,
+static Standard_Integer getDatumPosition(DrawInterpreter& di,
                                          Standard_Integer  argc,
                                          const char**      argv)
 {
@@ -776,8 +776,8 @@ static Standard_Integer getDatumPosition(Draw_Interpretor& di,
     di << "Use: XGetDatumPosition Doc Datum_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -786,7 +786,7 @@ static Standard_Integer getDatumPosition(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -801,15 +801,15 @@ static Standard_Integer getDatumPosition(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer getDatum(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getDatum(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetDatum Doc GeomTol_Label/Shape_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -818,7 +818,7 @@ static Standard_Integer getDatum(Draw_Interpretor& di, Standard_Integer argc, co
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -835,14 +835,14 @@ static Standard_Integer getDatum(Draw_Interpretor& di, Standard_Integer argc, co
   {
     if (i > 1)
       di << ", ";
-    TCollection_AsciiString Entry;
+    AsciiString1 Entry;
     TDF_Tool::Entry(aD.Value(i), Entry);
     di << Entry;
   }
   return 0;
 }
 
-static Standard_Integer addDatumModif(Draw_Interpretor& di,
+static Standard_Integer addDatumModif(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -851,8 +851,8 @@ static Standard_Integer addDatumModif(Draw_Interpretor& di,
     di << "Use: XAddDatumModifier Doc Datum_Label mod1 mod2 ...\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -861,7 +861,7 @@ static Standard_Integer addDatumModif(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -873,10 +873,10 @@ static Standard_Integer addDatumModif(Draw_Interpretor& di,
   {
     for (Standard_Integer i = 3; i < argc; i++)
     {
-      if (Draw::Atoi(argv[i]) < 22 && Draw::Atoi(argv[i]) > -1)
+      if (Draw1::Atoi(argv[i]) < 22 && Draw1::Atoi(argv[i]) > -1)
       {
         Handle(XCAFDimTolObjects_DatumObject) anObj = aDatum->GetObject();
-        anObj->AddModifier((XCAFDimTolObjects_DatumSingleModif)Draw::Atoi(argv[i]));
+        anObj->AddModifier((XCAFDimTolObjects_DatumSingleModif)Draw1::Atoi(argv[i]));
         aDatum->SetObject(anObj);
       }
     }
@@ -884,7 +884,7 @@ static Standard_Integer addDatumModif(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer getDatumModif(Draw_Interpretor& di,
+static Standard_Integer getDatumModif(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -893,8 +893,8 @@ static Standard_Integer getDatumModif(Draw_Interpretor& di,
     di << "Use: XGetDatumModifiers Doc Datum_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -903,7 +903,7 @@ static Standard_Integer getDatumModif(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -994,15 +994,15 @@ static Standard_Integer getDatumModif(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer setDatumName(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setDatumName(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XSetDatumName Doc Datum_Label name\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1011,7 +1011,7 @@ static Standard_Integer setDatumName(Draw_Interpretor& di, Standard_Integer argc
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1028,15 +1028,15 @@ static Standard_Integer setDatumName(Draw_Interpretor& di, Standard_Integer argc
   return 0;
 }
 
-static Standard_Integer getDatumName(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getDatumName(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetDatumName Doc Datum_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1045,7 +1045,7 @@ static Standard_Integer getDatumName(Draw_Interpretor& di, Standard_Integer argc
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1060,15 +1060,15 @@ static Standard_Integer getDatumName(Draw_Interpretor& di, Standard_Integer argc
   return 0;
 }
 
-static Standard_Integer setTypeOfTol(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setTypeOfTol(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XSetTypeOfTolerance Doc GTol_Label type\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1077,7 +1077,7 @@ static Standard_Integer setTypeOfTol(Draw_Interpretor& di, Standard_Integer argc
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1087,25 +1087,25 @@ static Standard_Integer setTypeOfTol(Draw_Interpretor& di, Standard_Integer argc
   Handle(XCAFDoc_GeomTolerance) aGeomTolerance;
   if (aLabel.FindAttribute(XCAFDoc_GeomTolerance::GetID(), aGeomTolerance))
   {
-    if (Draw::Atoi(argv[3]) > -1 && Draw::Atoi(argv[3]) < 16)
+    if (Draw1::Atoi(argv[3]) > -1 && Draw1::Atoi(argv[3]) < 16)
     {
       Handle(XCAFDimTolObjects_GeomToleranceObject) anObj = aGeomTolerance->GetObject();
-      anObj->SetType((XCAFDimTolObjects_GeomToleranceType)Draw::Atoi(argv[3]));
+      anObj->SetType((XCAFDimTolObjects_GeomToleranceType)Draw1::Atoi(argv[3]));
       aGeomTolerance->SetObject(anObj);
     }
   }
   return 0;
 }
 
-static Standard_Integer getTypeOfTol(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getTypeOfTol(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetTypeOfTolerance Doc GTol_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1114,7 +1114,7 @@ static Standard_Integer getTypeOfTol(Draw_Interpretor& di, Standard_Integer argc
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1181,7 +1181,7 @@ static Standard_Integer getTypeOfTol(Draw_Interpretor& di, Standard_Integer argc
   return 0;
 }
 
-static Standard_Integer setTypeOfTolVal(Draw_Interpretor& di,
+static Standard_Integer setTypeOfTolVal(DrawInterpreter& di,
                                         Standard_Integer  argc,
                                         const char**      argv)
 {
@@ -1190,8 +1190,8 @@ static Standard_Integer setTypeOfTolVal(Draw_Interpretor& di,
     di << "Use: XSetTypeOfToleranceValue Doc GTol_Label type\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1200,7 +1200,7 @@ static Standard_Integer setTypeOfTolVal(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1210,17 +1210,17 @@ static Standard_Integer setTypeOfTolVal(Draw_Interpretor& di,
   Handle(XCAFDoc_GeomTolerance) aGeomTolerance;
   if (aLabel.FindAttribute(XCAFDoc_GeomTolerance::GetID(), aGeomTolerance))
   {
-    if (Draw::Atoi(argv[3]) > -1 && Draw::Atoi(argv[3]) < 3)
+    if (Draw1::Atoi(argv[3]) > -1 && Draw1::Atoi(argv[3]) < 3)
     {
       Handle(XCAFDimTolObjects_GeomToleranceObject) anObj = aGeomTolerance->GetObject();
-      anObj->SetTypeOfValue((XCAFDimTolObjects_GeomToleranceTypeValue)Draw::Atoi(argv[3]));
+      anObj->SetTypeOfValue((XCAFDimTolObjects_GeomToleranceTypeValue)Draw1::Atoi(argv[3]));
       aGeomTolerance->SetObject(anObj);
     }
   }
   return 0;
 }
 
-static Standard_Integer getTypeOfTolVal(Draw_Interpretor& di,
+static Standard_Integer getTypeOfTolVal(DrawInterpreter& di,
                                         Standard_Integer  argc,
                                         const char**      argv)
 {
@@ -1229,8 +1229,8 @@ static Standard_Integer getTypeOfTolVal(Draw_Interpretor& di,
     di << "Use: XGetTypeOfToleranceValue Doc GTol_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1239,7 +1239,7 @@ static Standard_Integer getTypeOfTolVal(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1267,15 +1267,15 @@ static Standard_Integer getTypeOfTolVal(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer setTolVal(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setTolVal(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XSetToleranceValue Doc GTol_Label value\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1284,7 +1284,7 @@ static Standard_Integer setTolVal(Draw_Interpretor& di, Standard_Integer argc, c
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1295,21 +1295,21 @@ static Standard_Integer setTolVal(Draw_Interpretor& di, Standard_Integer argc, c
   if (aLabel.FindAttribute(XCAFDoc_GeomTolerance::GetID(), aGeomTolerance))
   {
     Handle(XCAFDimTolObjects_GeomToleranceObject) anObj = aGeomTolerance->GetObject();
-    anObj->SetValue(Draw::Atof(argv[3]));
+    anObj->SetValue(Draw1::Atof(argv[3]));
     aGeomTolerance->SetObject(anObj);
   }
   return 0;
 }
 
-static Standard_Integer getTolVal(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getTolVal(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetToleranceValue Doc GTol_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1318,7 +1318,7 @@ static Standard_Integer getTolVal(Draw_Interpretor& di, Standard_Integer argc, c
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1333,15 +1333,15 @@ static Standard_Integer getTolVal(Draw_Interpretor& di, Standard_Integer argc, c
   return 0;
 }
 
-static Standard_Integer setMatReq(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setMatReq(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XSetTolMaterialReq Doc GTol_Label mod\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1350,7 +1350,7 @@ static Standard_Integer setMatReq(Draw_Interpretor& di, Standard_Integer argc, c
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1360,26 +1360,26 @@ static Standard_Integer setMatReq(Draw_Interpretor& di, Standard_Integer argc, c
   Handle(XCAFDoc_GeomTolerance) aGeomTolerance;
   if (aLabel.FindAttribute(XCAFDoc_GeomTolerance::GetID(), aGeomTolerance))
   {
-    if (Draw::Atoi(argv[3]) > -1 && Draw::Atoi(argv[3]) < 3)
+    if (Draw1::Atoi(argv[3]) > -1 && Draw1::Atoi(argv[3]) < 3)
     {
       Handle(XCAFDimTolObjects_GeomToleranceObject) anObj = aGeomTolerance->GetObject();
       anObj->SetMaterialRequirementModifier(
-        (XCAFDimTolObjects_GeomToleranceMatReqModif)Draw::Atoi(argv[3]));
+        (XCAFDimTolObjects_GeomToleranceMatReqModif)Draw1::Atoi(argv[3]));
       aGeomTolerance->SetObject(anObj);
     }
   }
   return 0;
 }
 
-static Standard_Integer getMatReq(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getMatReq(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetTolMaterialReq Doc GTol_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1388,7 +1388,7 @@ static Standard_Integer getMatReq(Draw_Interpretor& di, Standard_Integer argc, c
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1416,15 +1416,15 @@ static Standard_Integer getMatReq(Draw_Interpretor& di, Standard_Integer argc, c
   return 0;
 }
 
-static Standard_Integer setZoneMod(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setZoneMod(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XSetTolZoneMod Doc GTol_Label mod\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1433,7 +1433,7 @@ static Standard_Integer setZoneMod(Draw_Interpretor& di, Standard_Integer argc, 
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1443,25 +1443,25 @@ static Standard_Integer setZoneMod(Draw_Interpretor& di, Standard_Integer argc, 
   Handle(XCAFDoc_GeomTolerance) aGeomTolerance;
   if (aLabel.FindAttribute(XCAFDoc_GeomTolerance::GetID(), aGeomTolerance))
   {
-    if (Draw::Atoi(argv[3]) > -1 && Draw::Atoi(argv[3]) < 3)
+    if (Draw1::Atoi(argv[3]) > -1 && Draw1::Atoi(argv[3]) < 3)
     {
       Handle(XCAFDimTolObjects_GeomToleranceObject) anObj = aGeomTolerance->GetObject();
-      anObj->SetZoneModifier((XCAFDimTolObjects_GeomToleranceZoneModif)Draw::Atoi(argv[3]));
+      anObj->SetZoneModifier((XCAFDimTolObjects_GeomToleranceZoneModif)Draw1::Atoi(argv[3]));
       aGeomTolerance->SetObject(anObj);
     }
   }
   return 0;
 }
 
-static Standard_Integer getZoneMod(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getZoneMod(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetTolZoneMod Doc GTol_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1470,7 +1470,7 @@ static Standard_Integer getZoneMod(Draw_Interpretor& di, Standard_Integer argc, 
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1498,7 +1498,7 @@ static Standard_Integer getZoneMod(Draw_Interpretor& di, Standard_Integer argc, 
   return 0;
 }
 
-static Standard_Integer setZoneModVal(Draw_Interpretor& di,
+static Standard_Integer setZoneModVal(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -1507,8 +1507,8 @@ static Standard_Integer setZoneModVal(Draw_Interpretor& di,
     di << "Use: XSetTolZoneModValue Doc GTol_Label val\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1517,7 +1517,7 @@ static Standard_Integer setZoneModVal(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1528,13 +1528,13 @@ static Standard_Integer setZoneModVal(Draw_Interpretor& di,
   if (aLabel.FindAttribute(XCAFDoc_GeomTolerance::GetID(), aGeomTolerance))
   {
     Handle(XCAFDimTolObjects_GeomToleranceObject) anObj = aGeomTolerance->GetObject();
-    anObj->SetValueOfZoneModifier(Draw::Atof(argv[3]));
+    anObj->SetValueOfZoneModifier(Draw1::Atof(argv[3]));
     aGeomTolerance->SetObject(anObj);
   }
   return 0;
 }
 
-static Standard_Integer getZoneModVal(Draw_Interpretor& di,
+static Standard_Integer getZoneModVal(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -1543,8 +1543,8 @@ static Standard_Integer getZoneModVal(Draw_Interpretor& di,
     di << "Use: XGetTolZoneModValue Doc GTol_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1553,7 +1553,7 @@ static Standard_Integer getZoneModVal(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1568,15 +1568,15 @@ static Standard_Integer getZoneModVal(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer addTolModif(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer addTolModif(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XAddTolModifier Doc Tol_Label mod1 mod2 ...\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1585,7 +1585,7 @@ static Standard_Integer addTolModif(Draw_Interpretor& di, Standard_Integer argc,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1597,10 +1597,10 @@ static Standard_Integer addTolModif(Draw_Interpretor& di, Standard_Integer argc,
   {
     for (Standard_Integer i = 3; i < argc; i++)
     {
-      if (Draw::Atoi(argv[i]) > -1 && Draw::Atoi(argv[i]) < 17)
+      if (Draw1::Atoi(argv[i]) > -1 && Draw1::Atoi(argv[i]) < 17)
       {
         Handle(XCAFDimTolObjects_GeomToleranceObject) anObj = aGeomTolerance->GetObject();
-        anObj->AddModifier((XCAFDimTolObjects_GeomToleranceModif)Draw::Atoi(argv[i]));
+        anObj->AddModifier((XCAFDimTolObjects_GeomToleranceModif)Draw1::Atoi(argv[i]));
         aGeomTolerance->SetObject(anObj);
       }
     }
@@ -1608,15 +1608,15 @@ static Standard_Integer addTolModif(Draw_Interpretor& di, Standard_Integer argc,
   return 0;
 }
 
-static Standard_Integer getTolModif(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getTolModif(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetTolModifiers Doc Tol_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1625,7 +1625,7 @@ static Standard_Integer getTolModif(Draw_Interpretor& di, Standard_Integer argc,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1696,15 +1696,15 @@ static Standard_Integer getTolModif(Draw_Interpretor& di, Standard_Integer argc,
   return 0;
 }
 
-static Standard_Integer setTolMaxVal(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setTolMaxVal(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XSetTolMaxValue Doc Dim_Label val\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1713,7 +1713,7 @@ static Standard_Integer setTolMaxVal(Draw_Interpretor& di, Standard_Integer argc
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1724,21 +1724,21 @@ static Standard_Integer setTolMaxVal(Draw_Interpretor& di, Standard_Integer argc
   if (aLabel.FindAttribute(XCAFDoc_GeomTolerance::GetID(), aGeomTolerance))
   {
     Handle(XCAFDimTolObjects_GeomToleranceObject) anObj = aGeomTolerance->GetObject();
-    anObj->SetMaxValueModifier(Draw::Atof(argv[3]));
+    anObj->SetMaxValueModifier(Draw1::Atof(argv[3]));
     aGeomTolerance->SetObject(anObj);
   }
   return 0;
 }
 
-static Standard_Integer getTolMaxVal(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getTolMaxVal(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetTolMaxValue Doc Dim_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1747,7 +1747,7 @@ static Standard_Integer getTolMaxVal(Draw_Interpretor& di, Standard_Integer argc
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1762,15 +1762,15 @@ static Standard_Integer getTolMaxVal(Draw_Interpretor& di, Standard_Integer argc
   return 0;
 }
 
-static Standard_Integer setDimType(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setDimType(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XSetDimensionType Doc Dim_Label type\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1779,7 +1779,7 @@ static Standard_Integer setDimType(Draw_Interpretor& di, Standard_Integer argc, 
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1789,25 +1789,25 @@ static Standard_Integer setDimType(Draw_Interpretor& di, Standard_Integer argc, 
   Handle(XCAFDoc_Dimension) aDimension;
   if (aLabel.FindAttribute(XCAFDoc_Dimension::GetID(), aDimension))
   {
-    if (Draw::Atoi(argv[3]) > -1 && Draw::Atoi(argv[3]) < 30)
+    if (Draw1::Atoi(argv[3]) > -1 && Draw1::Atoi(argv[3]) < 30)
     {
       Handle(XCAFDimTolObjects_DimensionObject) anObj = aDimension->GetObject();
-      anObj->SetType((XCAFDimTolObjects_DimensionType)Draw::Atoi(argv[3]));
+      anObj->SetType((XCAFDimTolObjects_DimensionType)Draw1::Atoi(argv[3]));
       aDimension->SetObject(anObj);
     }
   }
   return 0;
 }
 
-static Standard_Integer getDimType(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getDimType(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetDimensionType Doc Dim_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1816,7 +1816,7 @@ static Standard_Integer getDimType(Draw_Interpretor& di, Standard_Integer argc, 
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1925,15 +1925,15 @@ static Standard_Integer getDimType(Draw_Interpretor& di, Standard_Integer argc, 
   return 0;
 }
 
-static Standard_Integer setDimVal(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setDimVal(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XSetDimensionValue Doc Dim_Label val\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1942,7 +1942,7 @@ static Standard_Integer setDimVal(Draw_Interpretor& di, Standard_Integer argc, c
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1953,21 +1953,21 @@ static Standard_Integer setDimVal(Draw_Interpretor& di, Standard_Integer argc, c
   if (aLabel.FindAttribute(XCAFDoc_Dimension::GetID(), aDimension))
   {
     Handle(XCAFDimTolObjects_DimensionObject) anObj = aDimension->GetObject();
-    anObj->SetValue(Draw::Atof(argv[3]));
+    anObj->SetValue(Draw1::Atof(argv[3]));
     aDimension->SetObject(anObj);
   }
   return 0;
 }
 
-static Standard_Integer getDimVal(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getDimVal(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetDimensionValue Doc Dim_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1976,7 +1976,7 @@ static Standard_Integer getDimVal(Draw_Interpretor& di, Standard_Integer argc, c
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1991,15 +1991,15 @@ static Standard_Integer getDimVal(Draw_Interpretor& di, Standard_Integer argc, c
   return 0;
 }
 
-static Standard_Integer setDimQalif(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setDimQalif(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XSetDimensionQualifier Doc Dim_Label val\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2008,7 +2008,7 @@ static Standard_Integer setDimQalif(Draw_Interpretor& di, Standard_Integer argc,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2018,25 +2018,25 @@ static Standard_Integer setDimQalif(Draw_Interpretor& di, Standard_Integer argc,
   Handle(XCAFDoc_Dimension) aDimension;
   if (aLabel.FindAttribute(XCAFDoc_Dimension::GetID(), aDimension))
   {
-    if (Draw::Atoi(argv[3]) > -1 && Draw::Atoi(argv[3]) < 4)
+    if (Draw1::Atoi(argv[3]) > -1 && Draw1::Atoi(argv[3]) < 4)
     {
       Handle(XCAFDimTolObjects_DimensionObject) anObj = aDimension->GetObject();
-      anObj->SetQualifier((XCAFDimTolObjects_DimensionQualifier)Draw::Atoi(argv[3]));
+      anObj->SetQualifier((XCAFDimTolObjects_DimensionQualifier)Draw1::Atoi(argv[3]));
       aDimension->SetObject(anObj);
     }
   }
   return 0;
 }
 
-static Standard_Integer getDimQalif(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getDimQalif(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetDimensionQualifier Doc Dim_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2045,7 +2045,7 @@ static Standard_Integer getDimQalif(Draw_Interpretor& di, Standard_Integer argc,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2077,15 +2077,15 @@ static Standard_Integer getDimQalif(Draw_Interpretor& di, Standard_Integer argc,
   return 0;
 }
 
-static Standard_Integer setDimRange(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setDimRange(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 5)
   {
     di << "Use: XSetDimensionRange Doc Dim_Label low_val up_val\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2094,7 +2094,7 @@ static Standard_Integer setDimRange(Draw_Interpretor& di, Standard_Integer argc,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2104,26 +2104,26 @@ static Standard_Integer setDimRange(Draw_Interpretor& di, Standard_Integer argc,
   Handle(XCAFDoc_Dimension) aDimension;
   if (aLabel.FindAttribute(XCAFDoc_Dimension::GetID(), aDimension))
   {
-    if (Draw::Atof(argv[3]) < Draw::Atof(argv[4]))
+    if (Draw1::Atof(argv[3]) < Draw1::Atof(argv[4]))
     {
       Handle(XCAFDimTolObjects_DimensionObject) anObj = aDimension->GetObject();
-      anObj->SetLowerBound(Draw::Atof(argv[3]));
-      anObj->SetUpperBound(Draw::Atof(argv[4]));
+      anObj->SetLowerBound(Draw1::Atof(argv[3]));
+      anObj->SetUpperBound(Draw1::Atof(argv[4]));
       aDimension->SetObject(anObj);
     }
   }
   return 0;
 }
 
-static Standard_Integer getDimRange(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getDimRange(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetDimensionRange Doc Dim_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2132,7 +2132,7 @@ static Standard_Integer getDimRange(Draw_Interpretor& di, Standard_Integer argc,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2148,7 +2148,7 @@ static Standard_Integer getDimRange(Draw_Interpretor& di, Standard_Integer argc,
   return 0;
 }
 
-static Standard_Integer setDimPlusMinusTol(Draw_Interpretor& di,
+static Standard_Integer setDimPlusMinusTol(DrawInterpreter& di,
                                            Standard_Integer  argc,
                                            const char**      argv)
 {
@@ -2157,8 +2157,8 @@ static Standard_Integer setDimPlusMinusTol(Draw_Interpretor& di,
     di << "Use: XSetDimensionPlusMinusTol Doc Dim_Label low_val up_val\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2167,7 +2167,7 @@ static Standard_Integer setDimPlusMinusTol(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2177,18 +2177,18 @@ static Standard_Integer setDimPlusMinusTol(Draw_Interpretor& di,
   Handle(XCAFDoc_Dimension) aDimension;
   if (aLabel.FindAttribute(XCAFDoc_Dimension::GetID(), aDimension))
   {
-    if (Draw::Atof(argv[3]) < Draw::Atof(argv[4]))
+    if (Draw1::Atof(argv[3]) < Draw1::Atof(argv[4]))
     {
       Handle(XCAFDimTolObjects_DimensionObject) anObj = aDimension->GetObject();
-      anObj->SetLowerTolValue(Draw::Atof(argv[3]));
-      anObj->SetUpperTolValue(Draw::Atof(argv[4]));
+      anObj->SetLowerTolValue(Draw1::Atof(argv[3]));
+      anObj->SetUpperTolValue(Draw1::Atof(argv[4]));
       aDimension->SetObject(anObj);
     }
   }
   return 0;
 }
 
-static Standard_Integer getDimPlusMinusTol(Draw_Interpretor& di,
+static Standard_Integer getDimPlusMinusTol(DrawInterpreter& di,
                                            Standard_Integer  argc,
                                            const char**      argv)
 {
@@ -2197,8 +2197,8 @@ static Standard_Integer getDimPlusMinusTol(Draw_Interpretor& di,
     di << "Use: XGetDimensionPlusMinusTol Doc Dim_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2207,7 +2207,7 @@ static Standard_Integer getDimPlusMinusTol(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2223,7 +2223,7 @@ static Standard_Integer getDimPlusMinusTol(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer setDimClassTol(Draw_Interpretor& di,
+static Standard_Integer setDimClassTol(DrawInterpreter& di,
                                        Standard_Integer  argc,
                                        const char**      argv)
 {
@@ -2232,8 +2232,8 @@ static Standard_Integer setDimClassTol(Draw_Interpretor& di,
     di << "Use: XSetDimensionClassOfTol Doc Dim_Label ishole[1/0] formVar grade\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2242,7 +2242,7 @@ static Standard_Integer setDimClassTol(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2252,20 +2252,20 @@ static Standard_Integer setDimClassTol(Draw_Interpretor& di,
   Handle(XCAFDoc_Dimension) aDimension;
   if (aLabel.FindAttribute(XCAFDoc_Dimension::GetID(), aDimension))
   {
-    if (Draw::Atoi(argv[4]) > 0 && Draw::Atoi(argv[4]) < 29 && Draw::Atoi(argv[5]) > -1
-        && Draw::Atoi(argv[5]) < 20)
+    if (Draw1::Atoi(argv[4]) > 0 && Draw1::Atoi(argv[4]) < 29 && Draw1::Atoi(argv[5]) > -1
+        && Draw1::Atoi(argv[5]) < 20)
     {
       Handle(XCAFDimTolObjects_DimensionObject) anObj = aDimension->GetObject();
-      anObj->SetClassOfTolerance((Draw::Atoi(argv[3]) != 0),
-                                 (XCAFDimTolObjects_DimensionFormVariance)Draw::Atoi(argv[4]),
-                                 (XCAFDimTolObjects_DimensionGrade)Draw::Atoi(argv[5]));
+      anObj->SetClassOfTolerance((Draw1::Atoi(argv[3]) != 0),
+                                 (XCAFDimTolObjects_DimensionFormVariance)Draw1::Atoi(argv[4]),
+                                 (XCAFDimTolObjects_DimensionGrade)Draw1::Atoi(argv[5]));
       aDimension->SetObject(anObj);
     }
   }
   return 0;
 }
 
-static Standard_Integer getDimClassTol(Draw_Interpretor& di,
+static Standard_Integer getDimClassTol(DrawInterpreter& di,
                                        Standard_Integer  argc,
                                        const char**      argv)
 {
@@ -2274,8 +2274,8 @@ static Standard_Integer getDimClassTol(Draw_Interpretor& di,
     di << "Use: XGetDimensionClassOfTol Doc Dim_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2284,7 +2284,7 @@ static Standard_Integer getDimClassTol(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2553,7 +2553,7 @@ static Standard_Integer getDimClassTol(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer setDimNbOfDecimalPlaces(Draw_Interpretor& di,
+static Standard_Integer setDimNbOfDecimalPlaces(DrawInterpreter& di,
                                                 Standard_Integer  argc,
                                                 const char**      argv)
 {
@@ -2562,8 +2562,8 @@ static Standard_Integer setDimNbOfDecimalPlaces(Draw_Interpretor& di,
     di << "Use: XSetDimensionNbOfDecimalPlaces Doc Dim_Label l_val r_val\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2572,7 +2572,7 @@ static Standard_Integer setDimNbOfDecimalPlaces(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2583,13 +2583,13 @@ static Standard_Integer setDimNbOfDecimalPlaces(Draw_Interpretor& di,
   if (aLabel.FindAttribute(XCAFDoc_Dimension::GetID(), aDimension))
   {
     Handle(XCAFDimTolObjects_DimensionObject) anObj = aDimension->GetObject();
-    anObj->SetNbOfDecimalPlaces(Draw::Atoi(argv[3]), Draw::Atoi(argv[4]));
+    anObj->SetNbOfDecimalPlaces(Draw1::Atoi(argv[3]), Draw1::Atoi(argv[4]));
     aDimension->SetObject(anObj);
   }
   return 0;
 }
 
-static Standard_Integer getDimNbOfDecimalPlaces(Draw_Interpretor& di,
+static Standard_Integer getDimNbOfDecimalPlaces(DrawInterpreter& di,
                                                 Standard_Integer  argc,
                                                 const char**      argv)
 {
@@ -2598,8 +2598,8 @@ static Standard_Integer getDimNbOfDecimalPlaces(Draw_Interpretor& di,
     di << "Use: XGetDimensionNbOfDecimalPlaces Doc Dim_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2608,7 +2608,7 @@ static Standard_Integer getDimNbOfDecimalPlaces(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2625,7 +2625,7 @@ static Standard_Integer getDimNbOfDecimalPlaces(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer addDimModifier(Draw_Interpretor& di,
+static Standard_Integer addDimModifier(DrawInterpreter& di,
                                        Standard_Integer  argc,
                                        const char**      argv)
 {
@@ -2634,8 +2634,8 @@ static Standard_Integer addDimModifier(Draw_Interpretor& di,
     di << "Use: XAddDimensionModifiers Doc Dim_Label mod1 mod2 ...\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2644,7 +2644,7 @@ static Standard_Integer addDimModifier(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2656,10 +2656,10 @@ static Standard_Integer addDimModifier(Draw_Interpretor& di,
   {
     for (Standard_Integer i = 3; i < argc; i++)
     {
-      if (Draw::Atoi(argv[i]) > -1 && Draw::Atoi(argv[i]) < 24)
+      if (Draw1::Atoi(argv[i]) > -1 && Draw1::Atoi(argv[i]) < 24)
       {
         Handle(XCAFDimTolObjects_DimensionObject) anObj = aDimension->GetObject();
-        anObj->AddModifier((XCAFDimTolObjects_DimensionModif)Draw::Atoi(argv[i]));
+        anObj->AddModifier((XCAFDimTolObjects_DimensionModif)Draw1::Atoi(argv[i]));
         aDimension->SetObject(anObj);
       }
     }
@@ -2667,7 +2667,7 @@ static Standard_Integer addDimModifier(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer getDimModifier(Draw_Interpretor& di,
+static Standard_Integer getDimModifier(DrawInterpreter& di,
                                        Standard_Integer  argc,
                                        const char**      argv)
 {
@@ -2676,8 +2676,8 @@ static Standard_Integer getDimModifier(Draw_Interpretor& di,
     di << "Use: XGetDimensionModifiers Doc Dim_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2686,7 +2686,7 @@ static Standard_Integer getDimModifier(Draw_Interpretor& di,
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2783,15 +2783,15 @@ static Standard_Integer getDimModifier(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer addDimPath(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer addDimPath(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XSetDimensionPath Doc Dim_Label path(edge)\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2800,7 +2800,7 @@ static Standard_Integer addDimPath(Draw_Interpretor& di, Standard_Integer argc, 
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2810,7 +2810,7 @@ static Standard_Integer addDimPath(Draw_Interpretor& di, Standard_Integer argc, 
   Handle(XCAFDoc_Dimension) aDimension;
   if (aLabel.FindAttribute(XCAFDoc_Dimension::GetID(), aDimension))
   {
-    TopoDS_Edge aE = TopoDS::Edge(DBRep::Get(argv[3], TopAbs_EDGE));
+    TopoEdge aE = TopoDS::Edge(DBRep1::Get(argv[3], TopAbs_EDGE));
     if (!aE.IsNull())
     {
       Handle(XCAFDimTolObjects_DimensionObject) anObj = aDimension->GetObject();
@@ -2821,15 +2821,15 @@ static Standard_Integer addDimPath(Draw_Interpretor& di, Standard_Integer argc, 
   return 0;
 }
 
-static Standard_Integer addDimPoints(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer addDimPoints(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XSetDimensionPoints Doc Dim_Label v1 [v2]\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2838,7 +2838,7 @@ static Standard_Integer addDimPoints(Draw_Interpretor& di, Standard_Integer argc
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2850,17 +2850,17 @@ static Standard_Integer addDimPoints(Draw_Interpretor& di, Standard_Integer argc
   {
     Handle(XCAFDimTolObjects_DimensionObject) anObj = aDimension->GetObject();
 
-    TopoDS_Vertex aV1 = TopoDS::Vertex(DBRep::Get(argv[3], TopAbs_VERTEX));
+    TopoVertex aV1 = TopoDS::Vertex(DBRep1::Get(argv[3], TopAbs_VERTEX));
     if (!aV1.IsNull())
     {
-      anObj->SetPoint(BRep_Tool::Pnt(aV1));
+      anObj->SetPoint(BRepInspector::Pnt(aV1));
     }
     if (argc == 5)
     {
-      TopoDS_Vertex aV2 = TopoDS::Vertex(DBRep::Get(argv[4], TopAbs_VERTEX));
+      TopoVertex aV2 = TopoDS::Vertex(DBRep1::Get(argv[4], TopAbs_VERTEX));
       if (!aV2.IsNull())
       {
-        anObj->SetPoint2(BRep_Tool::Pnt(aV2));
+        anObj->SetPoint2(BRepInspector::Pnt(aV2));
       }
     }
     aDimension->SetObject(anObj);
@@ -2868,15 +2868,15 @@ static Standard_Integer addDimPoints(Draw_Interpretor& di, Standard_Integer argc
   return 0;
 }
 
-static Standard_Integer getDimPoints(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getDimPoints(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetDimensionPoints Doc Dim_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2885,7 +2885,7 @@ static Standard_Integer getDimPoints(Draw_Interpretor& di, Standard_Integer argc
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2910,15 +2910,15 @@ static Standard_Integer getDimPoints(Draw_Interpretor& di, Standard_Integer argc
   return 0;
 }
 
-static Standard_Integer addDimDir(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer addDimDir(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 6)
   {
     di << "Use: XSetDimensionDir Doc Dim_Label x y z\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2927,7 +2927,7 @@ static Standard_Integer addDimDir(Draw_Interpretor& di, Standard_Integer argc, c
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2938,21 +2938,21 @@ static Standard_Integer addDimDir(Draw_Interpretor& di, Standard_Integer argc, c
   if (aLabel.FindAttribute(XCAFDoc_Dimension::GetID(), aDimension))
   {
     Handle(XCAFDimTolObjects_DimensionObject) anObj = aDimension->GetObject();
-    anObj->SetDirection(Dir3d(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5])));
+    anObj->SetDirection(Dir3d(Draw1::Atof(argv[3]), Draw1::Atof(argv[4]), Draw1::Atof(argv[5])));
     aDimension->SetObject(anObj);
   }
   return 0;
 }
 
-static Standard_Integer getDimDir(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getDimDir(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetDimensionDir Doc Dim_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -2961,7 +2961,7 @@ static Standard_Integer getDimDir(Draw_Interpretor& di, Standard_Integer argc, c
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2980,22 +2980,22 @@ static Standard_Integer getDimDir(Draw_Interpretor& di, Standard_Integer argc, c
   return 0;
 }
 
-static Standard_Integer addDimDescr(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer addDimDescr(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XAddDimensionDescr Doc Dim_Label Description [DescriptionName]\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
     return 1;
   }
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -3015,22 +3015,22 @@ static Standard_Integer addDimDescr(Draw_Interpretor& di, Standard_Integer argc,
   return 0;
 }
 
-static Standard_Integer getDimDescr(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getDimDescr(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetDimensionDescr Doc Dim_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
     return 1;
   }
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -3052,7 +3052,7 @@ static Standard_Integer getDimDescr(Draw_Interpretor& di, Standard_Integer argc,
   return 0;
 }
 
-static Standard_Integer addGDTPosition(Draw_Interpretor& di,
+static Standard_Integer addGDTPosition(DrawInterpreter& di,
                                        Standard_Integer  argc,
                                        const char**      argv)
 {
@@ -3062,15 +3062,15 @@ static Standard_Integer addGDTPosition(Draw_Interpretor& di,
           "xdir_y xdir_z\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
     return 1;
   }
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -3078,9 +3078,9 @@ static Standard_Integer addGDTPosition(Draw_Interpretor& di,
     return 1;
   }
 
-  Point3d aPoint(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5]));
-  Dir3d aNormal(Draw::Atof(argv[6]), Draw::Atof(argv[7]), Draw::Atof(argv[8]));
-  Dir3d aDir(Draw::Atof(argv[9]), Draw::Atof(argv[10]), Draw::Atof(argv[11]));
+  Point3d aPoint(Draw1::Atof(argv[3]), Draw1::Atof(argv[4]), Draw1::Atof(argv[5]));
+  Dir3d aNormal(Draw1::Atof(argv[6]), Draw1::Atof(argv[7]), Draw1::Atof(argv[8]));
+  Dir3d aDir(Draw1::Atof(argv[9]), Draw1::Atof(argv[10]), Draw1::Atof(argv[11]));
   Frame3d aPlane(aPoint, aNormal, aDir);
   // Dimension
   Handle(XCAFDoc_Dimension) aDimension;
@@ -3112,7 +3112,7 @@ static Standard_Integer addGDTPosition(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer getGDTPosition(Draw_Interpretor& di,
+static Standard_Integer getGDTPosition(DrawInterpreter& di,
                                        Standard_Integer  argc,
                                        const char**      argv)
 {
@@ -3121,15 +3121,15 @@ static Standard_Integer getGDTPosition(Draw_Interpretor& di,
     di << "Use: XGetGDTPosition Doc GDT_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
     return 1;
   }
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -3172,7 +3172,7 @@ static Standard_Integer getGDTPosition(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer addGDTPresentation(Draw_Interpretor& di,
+static Standard_Integer addGDTPresentation(DrawInterpreter& di,
                                            Standard_Integer  argc,
                                            const char**      argv)
 {
@@ -3181,15 +3181,15 @@ static Standard_Integer addGDTPresentation(Draw_Interpretor& di,
     di << "Use: XSetGDTPresentation Doc GDT_Label Shape Name\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
     return 1;
   }
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -3197,7 +3197,7 @@ static Standard_Integer addGDTPresentation(Draw_Interpretor& di,
     return 1;
   }
 
-  TopoDS_Shape                     aPresentation = DBRep::Get(argv[3]);
+  TopoShape                     aPresentation = DBRep1::Get(argv[3]);
   Handle(TCollection_HAsciiString) aName         = new TCollection_HAsciiString(argv[4]);
   // Dimension
   Handle(XCAFDoc_Dimension) aDimension;
@@ -3226,7 +3226,7 @@ static Standard_Integer addGDTPresentation(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer getGDTPresentation(Draw_Interpretor& di,
+static Standard_Integer getGDTPresentation(DrawInterpreter& di,
                                            Standard_Integer  argc,
                                            const char**      argv)
 {
@@ -3235,22 +3235,22 @@ static Standard_Integer getGDTPresentation(Draw_Interpretor& di,
     di << "Use: XGetGDTPresentation Doc GDT_Label Shape\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
     return 1;
   }
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
     di << "GDT " << argv[2] << " is absent in " << argv[1] << "\n";
     return 1;
   }
-  TopoDS_Shape aPresentation;
+  TopoShape aPresentation;
   // Dimension
   Handle(XCAFDoc_Dimension) aDimension;
   if (aLabel.FindAttribute(XCAFDoc_Dimension::GetID(), aDimension))
@@ -3273,11 +3273,11 @@ static Standard_Integer getGDTPresentation(Draw_Interpretor& di,
     aPresentation                               = anObj->GetPresentation();
   }
 
-  DBRep::Set(argv[3], aPresentation);
+  DBRep1::Set(argv[3], aPresentation);
   return 0;
 }
 
-static Standard_Integer addGDTAffectedPlane(Draw_Interpretor& di,
+static Standard_Integer addGDTAffectedPlane(DrawInterpreter& di,
                                             Standard_Integer  argc,
                                             const char**      argv)
 {
@@ -3286,15 +3286,15 @@ static Standard_Integer addGDTAffectedPlane(Draw_Interpretor& di,
     di << "Use: XSetGDTAffectedPlane Doc GDT_Label plane type[1 - intersection/ 2 - orientation]\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
     return 1;
   }
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -3302,14 +3302,14 @@ static Standard_Integer addGDTAffectedPlane(Draw_Interpretor& di,
     return 1;
   }
 
-  Handle(Geom_Surface) aSurf  = DrawTrSurf::GetSurface(argv[3]);
-  Handle(Geom_Plane)   aPlane = Handle(Geom_Plane)::DownCast(aSurf);
+  Handle(GeomSurface) aSurf  = DrawTrSurf1::GetSurface(argv[3]);
+  Handle(GeomPlane)   aPlane = Handle(GeomPlane)::DownCast(aSurf);
   if (aPlane.IsNull())
   {
     di << "Invalid plane\n";
     return 1;
   }
-  Standard_Integer aType = Draw::Atoi(argv[4]);
+  Standard_Integer aType = Draw1::Atoi(argv[4]);
 
   // Geometric Tolerance
   Handle(XCAFDoc_GeomTolerance) aGeomTolerance;
@@ -3325,7 +3325,7 @@ static Standard_Integer addGDTAffectedPlane(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer getGDTAffectedPlane(Draw_Interpretor& di,
+static Standard_Integer getGDTAffectedPlane(DrawInterpreter& di,
                                             Standard_Integer  argc,
                                             const char**      argv)
 {
@@ -3334,15 +3334,15 @@ static Standard_Integer getGDTAffectedPlane(Draw_Interpretor& di,
     di << "Use: XGetGDTAffectedPlane Doc GDT_Label Plane\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
     return 1;
   }
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -3352,7 +3352,7 @@ static Standard_Integer getGDTAffectedPlane(Draw_Interpretor& di,
 
   // Geometric Tolerance
   Handle(XCAFDoc_GeomTolerance) aGeomTolerance;
-  Handle(Geom_Plane)            aPlane;
+  Handle(GeomPlane)            aPlane;
   if (aLabel.FindAttribute(XCAFDoc_GeomTolerance::GetID(), aGeomTolerance))
   {
     Handle(XCAFDimTolObjects_GeomToleranceObject) anObj = aGeomTolerance->GetObject();
@@ -3362,18 +3362,18 @@ static Standard_Integer getGDTAffectedPlane(Draw_Interpretor& di,
       return 0;
     }
     gp_Pln aPln = anObj->GetAffectedPlane();
-    aPlane      = new Geom_Plane(aPln);
+    aPlane      = new GeomPlane(aPln);
     if (anObj->GetAffectedPlaneType() == XCAFDimTolObjects_ToleranceZoneAffectedPlane_Intersection)
       di << "intersection plane\n";
     if (anObj->GetAffectedPlaneType() == XCAFDimTolObjects_ToleranceZoneAffectedPlane_Orientation)
       di << "orientation plane\n";
-    DrawTrSurf::Set(argv[3], aPlane);
+    DrawTrSurf1::Set(argv[3], aPlane);
   }
 
   return 0;
 }
 
-static Standard_Integer getGDTSemanticName(Draw_Interpretor& di,
+static Standard_Integer getGDTSemanticName(DrawInterpreter& di,
                                            Standard_Integer  argc,
                                            const char**      argv)
 {
@@ -3382,15 +3382,15 @@ static Standard_Integer getGDTSemanticName(Draw_Interpretor& di,
     di << "Use: XGetGDTSemanticName Doc GDT_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
     return 1;
   }
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -3426,7 +3426,7 @@ static Standard_Integer getGDTSemanticName(Draw_Interpretor& di,
   return 0;
 }
 
-static Standard_Integer setGDTSemanticName(Draw_Interpretor& di,
+static Standard_Integer setGDTSemanticName(DrawInterpreter& di,
                                            Standard_Integer  argc,
                                            const char**      argv)
 {
@@ -3435,15 +3435,15 @@ static Standard_Integer setGDTSemanticName(Draw_Interpretor& di,
     di << "Use: XSetGDTSemanticName Doc GDT_Label Name\n";
     return 1;
   }
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(argv[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(argv[1], Doc);
   if (Doc.IsNull())
   {
     di << argv[1] << " is not a document\n";
     return 1;
   }
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(Doc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -3480,7 +3480,7 @@ static Standard_Integer setGDTSemanticName(Draw_Interpretor& di,
 
 //=================================================================================================
 
-void XDEDRAW_GDTs::InitCommands(Draw_Interpretor& di)
+void XDEDRAW_GDTs::InitCommands(DrawInterpreter& di)
 {
   static Standard_Boolean initactor = Standard_False;
   if (initactor)

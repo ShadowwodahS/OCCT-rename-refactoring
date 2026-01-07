@@ -35,9 +35,9 @@
 #include <TColStd_HArray1OfInteger.hxx>
 
 // MGE 31/07/98
-IGESSolid_ToolManifoldSolid::IGESSolid_ToolManifoldSolid() {}
+ManifoldSolidTool::ManifoldSolidTool() {}
 
-void IGESSolid_ToolManifoldSolid::ReadOwnParams(const Handle(IGESSolid_ManifoldSolid)& ent,
+void ManifoldSolidTool::ReadOwnParams(const Handle(IGESSolid_ManifoldSolid)& ent,
                                                 const Handle(IGESData_IGESReaderData)& IR,
                                                 IGESData_ParamReader&                  PR) const
 {
@@ -142,7 +142,7 @@ void IGESSolid_ToolManifoldSolid::ReadOwnParams(const Handle(IGESSolid_ManifoldS
   ent->Init(Handle(IGESSolid_Shell)::DownCast(shell), shellFlag, voidShells, voidShellFlags);
 }
 
-void IGESSolid_ToolManifoldSolid::WriteOwnParams(const Handle(IGESSolid_ManifoldSolid)& ent,
+void ManifoldSolidTool::WriteOwnParams(const Handle(IGESSolid_ManifoldSolid)& ent,
                                                  IGESData_IGESWriter&                   IW) const
 {
   Standard_Integer i;
@@ -158,7 +158,7 @@ void IGESSolid_ToolManifoldSolid::WriteOwnParams(const Handle(IGESSolid_Manifold
   }
 }
 
-void IGESSolid_ToolManifoldSolid::OwnShared(const Handle(IGESSolid_ManifoldSolid)& ent,
+void ManifoldSolidTool::OwnShared(const Handle(IGESSolid_ManifoldSolid)& ent,
                                             Interface_EntityIterator&              iter) const
 {
   Standard_Integer i;
@@ -169,7 +169,7 @@ void IGESSolid_ToolManifoldSolid::OwnShared(const Handle(IGESSolid_ManifoldSolid
     iter.GetOneItem(ent->VoidShell(i));
 }
 
-void IGESSolid_ToolManifoldSolid::OwnCopy(const Handle(IGESSolid_ManifoldSolid)& another,
+void ManifoldSolidTool::OwnCopy(const Handle(IGESSolid_ManifoldSolid)& another,
                                           const Handle(IGESSolid_ManifoldSolid)& ent,
                                           Interface_CopyTool&                    TC) const
 {
@@ -193,10 +193,10 @@ void IGESSolid_ToolManifoldSolid::OwnCopy(const Handle(IGESSolid_ManifoldSolid)&
   ent->Init(shell, shellFlag, voidShells, voidFlags);
 }
 
-IGESData_DirChecker IGESSolid_ToolManifoldSolid::DirChecker(
+DirectoryChecker ManifoldSolidTool::DirChecker(
   const Handle(IGESSolid_ManifoldSolid)& /* ent */) const
 {
-  IGESData_DirChecker DC(186, 0);
+  DirectoryChecker DC(186, 0);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
@@ -206,13 +206,13 @@ IGESData_DirChecker IGESSolid_ToolManifoldSolid::DirChecker(
   return DC;
 }
 
-void IGESSolid_ToolManifoldSolid::OwnCheck(const Handle(IGESSolid_ManifoldSolid)& /* ent */,
+void ManifoldSolidTool::OwnCheck(const Handle(IGESSolid_ManifoldSolid)& /* ent */,
                                            const Interface_ShareTool&,
                                            Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESSolid_ToolManifoldSolid::OwnDump(const Handle(IGESSolid_ManifoldSolid)& ent,
+void ManifoldSolidTool::OwnDump(const Handle(IGESSolid_ManifoldSolid)& ent,
                                           const IGESData_IGESDumper&             dumper,
                                           Standard_OStream&                      S,
                                           const Standard_Integer                 level) const

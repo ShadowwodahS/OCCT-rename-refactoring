@@ -46,7 +46,7 @@ static const char* NameOfTexture2d_to_FileName[] = {"2d_MatraDatavision.rgb",
 
 //=================================================================================================
 
-Graphic3d_Texture2D::Graphic3d_Texture2D(const TCollection_AsciiString& theFileName)
+Graphic3d_Texture2D::Graphic3d_Texture2D(const AsciiString1& theFileName)
     : Graphic3d_TextureMap(theFileName, Graphic3d_TypeOfTexture_2D),
       myName(Graphic3d_NOT_2D_UNKNOWN)
 {
@@ -58,7 +58,7 @@ Graphic3d_Texture2D::Graphic3d_Texture2D(const TCollection_AsciiString& theFileN
 
 //=================================================================================================
 
-Graphic3d_Texture2D::Graphic3d_Texture2D(const TCollection_AsciiString& theFileName,
+Graphic3d_Texture2D::Graphic3d_Texture2D(const AsciiString1& theFileName,
                                          const Graphic3d_TypeOfTexture  theType)
     : Graphic3d_TextureMap(theFileName, theType),
       myName(Graphic3d_NOT_2D_UNKNOWN)
@@ -73,7 +73,7 @@ Graphic3d_Texture2D::Graphic3d_Texture2D(const Graphic3d_NameOfTexture2D theNOT)
       myName(theNOT)
 {
   myPath.SetTrek(Graphic3d_TextureRoot::TexturesFolder());
-  myTexId = TCollection_AsciiString("Graphic3d_Texture2D_") + NameOfTexture2d_to_FileName[theNOT];
+  myTexId = AsciiString1("Graphic3d_Texture2D_") + NameOfTexture2d_to_FileName[theNOT];
 
   myHasMipmaps = true;
   myParams->SetModulate(true);
@@ -89,7 +89,7 @@ Graphic3d_Texture2D::Graphic3d_Texture2D(const Graphic3d_NameOfTexture2D theNOT,
       myName(theNOT)
 {
   myPath.SetTrek(Graphic3d_TextureRoot::TexturesFolder());
-  myTexId = TCollection_AsciiString("Graphic3d_Texture2D_") + NameOfTexture2d_to_FileName[theNOT];
+  myTexId = AsciiString1("Graphic3d_Texture2D_") + NameOfTexture2d_to_FileName[theNOT];
 }
 
 //=================================================================================================
@@ -130,14 +130,14 @@ Graphic3d_NameOfTexture2D Graphic3d_Texture2D::Name() const
 
 //=================================================================================================
 
-TCollection_AsciiString Graphic3d_Texture2D::TextureName(const Standard_Integer theRank)
+AsciiString1 Graphic3d_Texture2D::TextureName(const Standard_Integer theRank)
 {
   if (theRank < 1 || theRank > NumberOfTextures())
   {
     throw Standard_OutOfRange("BAD index of texture");
   }
 
-  TCollection_AsciiString aFileName(NameOfTexture2d_to_FileName[theRank - 1]);
+  AsciiString1 aFileName(NameOfTexture2d_to_FileName[theRank - 1]);
   Standard_Integer        i = aFileName.SearchFromEnd(".");
   return aFileName.SubString(4, i - 1);
 }
@@ -147,6 +147,6 @@ TCollection_AsciiString Graphic3d_Texture2D::TextureName(const Standard_Integer 
 void Graphic3d_Texture2D::SetImage(const Handle(Image_PixMap)& thePixMap)
 {
   myPixMap = thePixMap;
-  myPath   = OSD_Path();
+  myPath   = SystemPath();
   myName   = Graphic3d_NOT_2D_UNKNOWN;
 }

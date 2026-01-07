@@ -186,7 +186,7 @@ void Message_Algorithm::SendStatusMessages(const Message_ExecStatus& theStatus,
     }
 
     // construct message suffix
-    TCollection_AsciiString aSuffix;
+    AsciiString1 aSuffix;
     switch (Message_ExecStatus::TypeOfStatus(stat))
     {
       case Message_DONE:
@@ -207,7 +207,7 @@ void Message_Algorithm::SendStatusMessages(const Message_ExecStatus& theStatus,
     aSuffix.AssignCat(Message_ExecStatus::LocalStatusIndex(stat));
 
     // find message, prefixed by class type name, iterating by base classes if necessary
-    TCollection_AsciiString aMsgName;
+    AsciiString1 aMsgName;
     for (Handle(TypeInfo) aType = DynamicType(); !aType.IsNull(); aType = aType->Parent())
     {
       aMsgName = aType->Name();
@@ -344,11 +344,11 @@ Handle(TColStd_HSequenceOfHExtendedString) Message_Algorithm::GetMessageStrings(
 // purpose  : static method
 //=======================================================================
 
-TCollection_ExtendedString Message_Algorithm::PrepareReport(
+UtfString Message_Algorithm::PrepareReport(
   const Handle(TColStd_HPackedMapOfInteger)& theMapError,
   const Standard_Integer                     theMaxCount)
 {
-  TCollection_ExtendedString              aNewReport;
+  UtfString              aNewReport;
   TColStd_MapIteratorOfPackedMapOfInteger anIt(theMapError->Map());
   Standard_Integer                        nb = 1;
   for (; anIt.More() && nb <= theMaxCount; anIt.Next(), nb++)
@@ -372,11 +372,11 @@ TCollection_ExtendedString Message_Algorithm::PrepareReport(
 // purpose  : static method
 //=======================================================================
 
-TCollection_ExtendedString Message_Algorithm::PrepareReport(
+UtfString Message_Algorithm::PrepareReport(
   const TColStd_SequenceOfHExtendedString& theReportSeq,
   const Standard_Integer                   theMaxCount)
 {
-  TCollection_ExtendedString aNewReport;
+  UtfString aNewReport;
   Standard_Integer           nb = 1;
   for (; nb <= theReportSeq.Length() && nb <= theMaxCount; nb++)
   {

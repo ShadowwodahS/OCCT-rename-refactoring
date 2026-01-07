@@ -356,9 +356,9 @@ Graphic3d_Vec3 ViewerTest_CmdParser::ArgVec3f(const std::string& theOptionName,
                                               Standard_Integer   theArgumentIndex) const
 {
   return Graphic3d_Vec3(
-    static_cast<Standard_ShortReal>(Draw::Atof(Arg(theOptionName, theArgumentIndex).c_str())),
-    static_cast<Standard_ShortReal>(Draw::Atof(Arg(theOptionName, theArgumentIndex + 1).c_str())),
-    static_cast<Standard_ShortReal>(Draw::Atof(Arg(theOptionName, theArgumentIndex + 2).c_str())));
+    static_cast<Standard_ShortReal>(Draw1::Atof(Arg(theOptionName, theArgumentIndex).c_str())),
+    static_cast<Standard_ShortReal>(Draw1::Atof(Arg(theOptionName, theArgumentIndex + 1).c_str())),
+    static_cast<Standard_ShortReal>(Draw1::Atof(Arg(theOptionName, theArgumentIndex + 2).c_str())));
 }
 
 //=================================================================================================
@@ -366,9 +366,9 @@ Graphic3d_Vec3 ViewerTest_CmdParser::ArgVec3f(const std::string& theOptionName,
 Graphic3d_Vec3d ViewerTest_CmdParser::ArgVec3d(const std::string& theOptionName,
                                                Standard_Integer   theArgumentIndex) const
 {
-  return Graphic3d_Vec3d(Draw::Atof(Arg(theOptionName, theArgumentIndex).c_str()),
-                         Draw::Atof(Arg(theOptionName, theArgumentIndex + 1).c_str()),
-                         Draw::Atof(Arg(theOptionName, theArgumentIndex + 2).c_str()));
+  return Graphic3d_Vec3d(Draw1::Atof(Arg(theOptionName, theArgumentIndex).c_str()),
+                         Draw1::Atof(Arg(theOptionName, theArgumentIndex + 1).c_str()),
+                         Draw1::Atof(Arg(theOptionName, theArgumentIndex + 2).c_str()));
 }
 
 //=================================================================================================
@@ -376,9 +376,9 @@ Graphic3d_Vec3d ViewerTest_CmdParser::ArgVec3d(const std::string& theOptionName,
 Vector3d ViewerTest_CmdParser::ArgVec(const std::string& theOptionName,
                                     Standard_Integer   theArgumentIndex) const
 {
-  return Vector3d(Draw::Atof(Arg(theOptionName, theArgumentIndex).c_str()),
-                Draw::Atof(Arg(theOptionName, theArgumentIndex + 1).c_str()),
-                Draw::Atof(Arg(theOptionName, theArgumentIndex + 2).c_str()));
+  return Vector3d(Draw1::Atof(Arg(theOptionName, theArgumentIndex).c_str()),
+                Draw1::Atof(Arg(theOptionName, theArgumentIndex + 1).c_str()),
+                Draw1::Atof(Arg(theOptionName, theArgumentIndex + 2).c_str()));
 }
 
 //=================================================================================================
@@ -386,9 +386,9 @@ Vector3d ViewerTest_CmdParser::ArgVec(const std::string& theOptionName,
 Point3d ViewerTest_CmdParser::ArgPnt(const std::string& theOptionName,
                                     Standard_Integer   theArgumentIndex) const
 {
-  return Point3d(Draw::Atof(Arg(theOptionName, theArgumentIndex).c_str()),
-                Draw::Atof(Arg(theOptionName, theArgumentIndex + 1).c_str()),
-                Draw::Atof(Arg(theOptionName, theArgumentIndex + 2).c_str()));
+  return Point3d(Draw1::Atof(Arg(theOptionName, theArgumentIndex).c_str()),
+                Draw1::Atof(Arg(theOptionName, theArgumentIndex + 1).c_str()),
+                Draw1::Atof(Arg(theOptionName, theArgumentIndex + 2).c_str()));
 }
 
 //=================================================================================================
@@ -396,7 +396,7 @@ Point3d ViewerTest_CmdParser::ArgPnt(const std::string& theOptionName,
 Standard_Real ViewerTest_CmdParser::ArgDouble(const std::string& theOptionName,
                                               Standard_Integer   theArgumentIndex) const
 {
-  return Draw::Atof(Arg(theOptionName, theArgumentIndex).c_str());
+  return Draw1::Atof(Arg(theOptionName, theArgumentIndex).c_str());
 }
 
 //=================================================================================================
@@ -404,7 +404,7 @@ Standard_Real ViewerTest_CmdParser::ArgDouble(const std::string& theOptionName,
 Standard_ShortReal ViewerTest_CmdParser::ArgFloat(const std::string& theOptionName,
                                                   Standard_Integer   theArgumentIndex) const
 {
-  return static_cast<Standard_ShortReal>(Draw::Atof(Arg(theOptionName, theArgumentIndex).c_str()));
+  return static_cast<Standard_ShortReal>(Draw1::Atof(Arg(theOptionName, theArgumentIndex).c_str()));
 }
 
 //=================================================================================================
@@ -412,7 +412,7 @@ Standard_ShortReal ViewerTest_CmdParser::ArgFloat(const std::string& theOptionNa
 Standard_Integer ViewerTest_CmdParser::ArgInt(const std::string&     theOptionName,
                                               const Standard_Integer theArgumentIndex) const
 {
-  return static_cast<Standard_Integer>(Draw::Atoi(Arg(theOptionName, theArgumentIndex).c_str()));
+  return static_cast<Standard_Integer>(Draw1::Atoi(Arg(theOptionName, theArgumentIndex).c_str()));
 }
 
 //=================================================================================================
@@ -420,7 +420,7 @@ Standard_Integer ViewerTest_CmdParser::ArgInt(const std::string&     theOptionNa
 bool ViewerTest_CmdParser::ArgBool(const std::string&     theOptionName,
                                    const Standard_Integer theArgumentIndex) const
 {
-  return Draw::Atoi(Arg(theOptionName, theArgumentIndex).c_str()) != 0;
+  return Draw1::Atoi(Arg(theOptionName, theArgumentIndex).c_str()) != 0;
 }
 
 //=================================================================================================
@@ -470,7 +470,7 @@ bool ViewerTest_CmdParser::ArgColor(const ViewerTest_CommandOptionKey theOptionK
   const Standard_Integer aNumberOfAvailableArguments = aNumberOfArguments - theArgumentIndex;
   TheColor               aColor;
   const Standard_Integer aNumberOfParsedArguments =
-    Draw::ParseColor(aNumberOfAvailableArguments, &aRawStringArguments[theArgumentIndex], aColor);
+    Draw1::ParseColor(aNumberOfAvailableArguments, &aRawStringArguments[theArgumentIndex], aColor);
   if (aNumberOfParsedArguments == 0)
   {
     return false;

@@ -24,14 +24,14 @@
 #include <TopoDSToStep_MakeVertexError.hxx>
 #include <TopoDSToStep_Root.hxx>
 class StepShape_TopologicalRepresentationItem;
-class TopoDS_Vertex;
+class TopoVertex;
 class TopoDSToStep_Tool;
 class Transfer_FinderProcess;
 
 //! This class implements the mapping between classes
 //! Vertex from TopoDS and TopologicalRepresentationItem from
 //! StepShape.
-class TopoDSToStep_MakeStepVertex : public TopoDSToStep_Root
+class TopoDSToStep_MakeStepVertex : public Root3
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -39,15 +39,15 @@ public:
   Standard_EXPORT TopoDSToStep_MakeStepVertex();
 
   Standard_EXPORT TopoDSToStep_MakeStepVertex(
-    const TopoDS_Vertex&                  V,
+    const TopoVertex&                  V,
     TopoDSToStep_Tool&                    T,
     const Handle(Transfer_FinderProcess)& FP,
-    const StepData_Factors&               theLocalFactors = StepData_Factors());
+    const ConversionFactors&               theLocalFactors = ConversionFactors());
 
-  Standard_EXPORT void Init(const TopoDS_Vertex&                  V,
+  Standard_EXPORT void Init(const TopoVertex&                  V,
                             TopoDSToStep_Tool&                    T,
                             const Handle(Transfer_FinderProcess)& FP,
-                            const StepData_Factors& theLocalFactors = StepData_Factors());
+                            const ConversionFactors& theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepShape_TopologicalRepresentationItem)& Value() const;
 

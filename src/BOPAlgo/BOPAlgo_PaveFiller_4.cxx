@@ -67,16 +67,16 @@ public:
   }
 
   //
-  void SetVertex(const TopoDS_Vertex& aV) { myV = aV; }
+  void SetVertex(const TopoVertex& aV) { myV = aV; }
 
   //
-  const TopoDS_Vertex& Vertex() const { return myV; }
+  const TopoVertex& Vertex() const { return myV; }
 
   //
-  void SetFace(const TopoDS_Face& aF) { myF = aF; }
+  void SetFace(const TopoFace& aF) { myF = aF; }
 
   //
-  const TopoDS_Face& Face() const { return myF; }
+  const TopoFace& Face() const { return myF; }
 
   //
   Standard_Integer Flag() const { return myFlag; }
@@ -125,8 +125,8 @@ protected:
   Standard_Real            myT1;
   Standard_Real            myT2;
   Standard_Real            myTolVNew;
-  TopoDS_Vertex            myV;
-  TopoDS_Face              myF;
+  TopoVertex            myV;
+  TopoFace              myF;
   Handle(IntTools_Context) myContext;
 };
 
@@ -135,7 +135,7 @@ typedef NCollection_Vector<BOPAlgo_VertexFace> BOPAlgo_VectorOfVertexFace;
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::PerformVF(const Message_ProgressRange& theRange)
+void BooleanPaveFiller::PerformVF(const Message_ProgressRange& theRange)
 {
   myIterator->Initialize(TopAbs_VERTEX, TopAbs_FACE);
   Standard_Integer iSize = myIterator->ExpectedLength();
@@ -176,7 +176,7 @@ void BOPAlgo_PaveFiller::PerformVF(const Message_ProgressRange& theRange)
   //
   // Avoid repeated intersection of the same vertex with face in case
   // the group of vertices formed a single SD vertex
-  NCollection_DataMap<BOPDS_Pair, TColStd_MapOfInteger> aMVFPairs;
+  NCollection_DataMap<IndexPair, TColStd_MapOfInteger> aMVFPairs;
   for (; myIterator->More(); myIterator->Next())
   {
     if (UserBreak(aPSOuter))
@@ -207,7 +207,7 @@ void BOPAlgo_PaveFiller::PerformVF(const Message_ProgressRange& theRange)
       nVx = nVSD;
     }
     //
-    BOPDS_Pair            aVFPair(nVx, nF);
+    IndexPair            aVFPair(nVx, nF);
     TColStd_MapOfInteger* pMV = aMVFPairs.ChangeSeek(aVFPair);
     if (pMV)
     {
@@ -218,8 +218,8 @@ void BOPAlgo_PaveFiller::PerformVF(const Message_ProgressRange& theRange)
     pMV = aMVFPairs.Bound(aVFPair, TColStd_MapOfInteger());
     pMV->Add(nV);
 
-    const TopoDS_Vertex& aV = (*(TopoDS_Vertex*)(&myDS->Shape(nVx)));
-    const TopoDS_Face&   aF = (*(TopoDS_Face*)(&myDS->Shape(nF)));
+    const TopoVertex& aV = (*(TopoVertex*)(&myDS->Shape(nVx)));
+    const TopoFace&   aF = (*(TopoFace*)(&myDS->Shape(nF)));
     //
     BOPAlgo_VertexFace& aVertexFace = aVVF.Appended();
     //
@@ -238,7 +238,7 @@ void BOPAlgo_PaveFiller::PerformVF(const Message_ProgressRange& theRange)
     aVertexFace.SetProgressRange(aPS.Next());
   }
   //================================================================
-  BOPTools_Parallel::Perform(myRunParallel, aVVF, myContext);
+  BooleanParallelTools::Perform(myRunParallel, aVVF, myContext);
   //================================================================
   if (UserBreak(aPSOuter))
   {
@@ -268,7 +268,7 @@ void BOPAlgo_PaveFiller::PerformVF(const Message_ProgressRange& theRange)
     aVertexFace.Parameters(aT1, aT2);
     Standard_Real aTolVNew = aVertexFace.VertexNewTolerance();
 
-    BOPDS_Pair                        aVFPair(nVx, nF);
+    IndexPair                        aVFPair(nVx, nF);
     const TColStd_MapOfInteger&       aMV = aMVFPairs.Find(aVFPair);
     TColStd_MapIteratorOfMapOfInteger itMV(aMV);
     for (; itMV.More(); itMV.Next())
@@ -301,7 +301,7 @@ void BOPAlgo_PaveFiller::PerformVF(const Message_ProgressRange& theRange)
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::TreatVerticesEE()
+void BooleanPaveFiller::TreatVerticesEE()
 {
   Standard_Integer                    i, aNbS, aNbEEs, nF, nV, iFlag;
   Standard_Real                       aT1, aT2, dummy;
@@ -368,8 +368,8 @@ void BOPAlgo_PaveFiller::TreatVerticesEE()
     //
     if (!aMVOn.Contains(nV))
     {
-      const TopoDS_Vertex& aV = (*(TopoDS_Vertex*)(&myDS->Shape(nV)));
-      const TopoDS_Face&   aF = (*(TopoDS_Face*)(&myDS->Shape(nF)));
+      const TopoVertex& aV = (*(TopoVertex*)(&myDS->Shape(nV)));
+      const TopoFace&   aF = (*(TopoFace*)(&myDS->Shape(nF)));
       iFlag                   = myContext->ComputeVF(aV, aF, aT1, aT2, dummy, myFuzzyValue);
       if (!iFlag)
       {

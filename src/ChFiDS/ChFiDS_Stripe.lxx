@@ -203,7 +203,7 @@ inline void ChFiDS_Stripe::ChangeLastCurve(const Standard_Integer Index)
 // purpose  :
 //=======================================================================
 
-inline const Handle(Geom2d_Curve)& ChFiDS_Stripe::FirstPCurve() const
+inline const Handle(GeomCurve2d)& ChFiDS_Stripe::FirstPCurve() const
 {
   return pcrv1;
 }
@@ -213,7 +213,7 @@ inline const Handle(Geom2d_Curve)& ChFiDS_Stripe::FirstPCurve() const
 // purpose  :
 //=======================================================================
 
-inline const Handle(Geom2d_Curve)& ChFiDS_Stripe::LastPCurve() const
+inline const Handle(GeomCurve2d)& ChFiDS_Stripe::LastPCurve() const
 {
   return pcrv2;
 }
@@ -223,7 +223,7 @@ inline const Handle(Geom2d_Curve)& ChFiDS_Stripe::LastPCurve() const
 // purpose  :
 //=======================================================================
 
-inline Handle(Geom2d_Curve)& ChFiDS_Stripe::ChangeFirstPCurve()
+inline Handle(GeomCurve2d)& ChFiDS_Stripe::ChangeFirstPCurve()
 {
   return pcrv1;
 }
@@ -233,7 +233,7 @@ inline Handle(Geom2d_Curve)& ChFiDS_Stripe::ChangeFirstPCurve()
 // purpose  :
 //=======================================================================
 
-inline Handle(Geom2d_Curve)& ChFiDS_Stripe::ChangeLastPCurve()
+inline Handle(GeomCurve2d)& ChFiDS_Stripe::ChangeLastPCurve()
 {
   return pcrv2;
 }

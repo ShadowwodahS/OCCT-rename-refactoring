@@ -22,8 +22,8 @@
 #include <Standard_Handle.hxx>
 
 #include <TopLoc_Location.hxx>
-class Geom_Surface;
-class TopoDS_Shape;
+class GeomSurface;
+class TopoShape;
 
 //! Provides an  algorithm to find  a Surface  through a
 //! set of edges.
@@ -60,7 +60,7 @@ public:
   //! If <OnlyClosed> is true,  then  S  should be a wire
   //! and the existing surface,  on  which wire S is not
   //! closed in 2D, will be ignored.
-  Standard_EXPORT BRepLib_FindSurface(const TopoDS_Shape&    S,
+  Standard_EXPORT BRepLib_FindSurface(const TopoShape&    S,
                                       const Standard_Real    Tol        = -1,
                                       const Standard_Boolean OnlyPlane  = Standard_False,
                                       const Standard_Boolean OnlyClosed = Standard_False);
@@ -73,14 +73,14 @@ public:
   //! If <OnlyClosed> is true,  then  S  should be a wire
   //! and the existing surface,  on  which wire S is not
   //! closed in 2D, will be ignored.
-  Standard_EXPORT void Init(const TopoDS_Shape&    S,
+  Standard_EXPORT void Init(const TopoShape&    S,
                             const Standard_Real    Tol        = -1,
                             const Standard_Boolean OnlyPlane  = Standard_False,
                             const Standard_Boolean OnlyClosed = Standard_False);
 
   Standard_EXPORT Standard_Boolean Found() const;
 
-  Standard_EXPORT Handle(Geom_Surface) Surface() const;
+  Standard_EXPORT Handle(GeomSurface) Surface() const;
 
   Standard_EXPORT Standard_Real Tolerance() const;
 
@@ -92,7 +92,7 @@ public:
 
 protected:
 private:
-  Handle(Geom_Surface) mySurface;
+  Handle(GeomSurface) mySurface;
   Standard_Real        myTolerance;
   Standard_Real        myTolReached;
   Standard_Boolean     isExisted;

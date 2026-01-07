@@ -20,7 +20,7 @@
 #include <GProp_PrincipalProps.hxx>
 #include <Standard_NoSuchObject.hxx>
 
-GProp_PEquation::GProp_PEquation(const TColgp_Array1OfPnt& Pnts, const Standard_Real Tol)
+PrincipalEquation::PrincipalEquation(const TColgp_Array1OfPnt& Pnts, const Standard_Real Tol)
     : type(GProp_None)
 {
   GProp_PGProps Pmat(Pnts);
@@ -118,7 +118,7 @@ GProp_PEquation::GProp_PEquation(const TColgp_Array1OfPnt& Pnts, const Standard_
   }
 }
 
-Standard_Boolean GProp_PEquation::IsPlanar() const
+Standard_Boolean PrincipalEquation::IsPlanar() const
 {
 
   if (type == GProp_Plane)
@@ -127,7 +127,7 @@ Standard_Boolean GProp_PEquation::IsPlanar() const
     return Standard_False;
 }
 
-Standard_Boolean GProp_PEquation::IsLinear() const
+Standard_Boolean PrincipalEquation::IsLinear() const
 {
 
   if (type == GProp_Line)
@@ -136,7 +136,7 @@ Standard_Boolean GProp_PEquation::IsLinear() const
     return Standard_False;
 }
 
-Standard_Boolean GProp_PEquation::IsPoint() const
+Standard_Boolean PrincipalEquation::IsPoint() const
 {
 
   if (type == GProp_Point)
@@ -145,7 +145,7 @@ Standard_Boolean GProp_PEquation::IsPoint() const
     return Standard_False;
 }
 
-Standard_Boolean GProp_PEquation::IsSpace() const
+Standard_Boolean PrincipalEquation::IsSpace() const
 {
   if (type == GProp_Space)
     return Standard_True;
@@ -153,28 +153,28 @@ Standard_Boolean GProp_PEquation::IsSpace() const
     return Standard_False;
 }
 
-gp_Pln GProp_PEquation::Plane() const
+gp_Pln PrincipalEquation::Plane() const
 {
   if (!IsPlanar())
     throw Standard_NoSuchObject();
   return gp_Pln(g, v1);
 }
 
-gp_Lin GProp_PEquation::Line() const
+gp_Lin PrincipalEquation::Line() const
 {
   if (!IsLinear())
     throw Standard_NoSuchObject();
   return gp_Lin(g, Dir3d(v1));
 }
 
-Point3d GProp_PEquation::Point() const
+Point3d PrincipalEquation::Point() const
 {
   if (!IsPoint())
     throw Standard_NoSuchObject();
   return g;
 }
 
-void GProp_PEquation::Box(Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3) const
+void PrincipalEquation::Box(Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3) const
 {
   if (!IsSpace())
     throw Standard_NoSuchObject();

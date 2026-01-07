@@ -87,7 +87,7 @@ void MeshVS_Drawer::SetMaterial(const Standard_Integer Key, const Graphic3d_Mate
 
 //=================================================================================================
 
-void MeshVS_Drawer::SetAsciiString(const Standard_Integer Key, const TCollection_AsciiString& Value)
+void MeshVS_Drawer::SetAsciiString(const Standard_Integer Key, const AsciiString1& Value)
 {
   if (myAsciiString.IsBound(Key))
     myAsciiString.ChangeFind(Key) = Value;
@@ -151,7 +151,7 @@ Standard_Boolean MeshVS_Drawer::GetMaterial(const Standard_Integer    Key,
 //=================================================================================================
 
 Standard_Boolean MeshVS_Drawer::GetAsciiString(const Standard_Integer   Key,
-                                               TCollection_AsciiString& Value) const
+                                               AsciiString1& Value) const
 {
   Standard_Boolean aRes = myAsciiString.IsBound(Key);
   if (aRes)

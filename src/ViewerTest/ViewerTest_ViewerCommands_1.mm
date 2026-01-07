@@ -41,10 +41,10 @@
 @interface Cocoa_WindowController : NSObject <NSWindowDelegate>
 @end
 
-extern void ActivateView (const TCollection_AsciiString& theViewName,
+extern void ActivateView (const AsciiString1& theViewName,
                           Standard_Boolean theToUpdate = Standard_True);
 
-extern NCollection_DoubleMap <TCollection_AsciiString, Handle(V3d_View)> ViewerTest_myViews;
+extern NCollection_DoubleMap <AsciiString1, Handle(ViewWindow)> ViewerTest_myViews;
 
 // =======================================================================
 // function : GetCocoaScreenResolution
@@ -61,10 +61,10 @@ void GetCocoaScreenResolution (Standard_Integer& theWidth, Standard_Integer& the
 // function : FindViewId
 // purpose  :
 // =======================================================================
-TCollection_AsciiString FindViewId (const NSWindow* theWindow)
+AsciiString1 FindViewId (const NSWindow* theWindow)
 {
-  TCollection_AsciiString aViewId = "";
-  NCollection_DoubleMap<TCollection_AsciiString, Handle(V3d_View)>::Iterator anIter(ViewerTest_myViews);
+  AsciiString1 aViewId = "";
+  NCollection_DoubleMap<AsciiString1, Handle(ViewWindow)>::Iterator anIter(ViewerTest_myViews);
   for (;anIter.More();anIter.Next())
   {
     NSView* aView = Handle(Cocoa_Window)::DownCast
@@ -84,7 +84,7 @@ TCollection_AsciiString FindViewId (const NSWindow* theWindow)
 - (void )windowWillClose: (NSNotification* )theNotification
 {
   (void )theNotification;
-  TCollection_AsciiString aViewId = "";
+  AsciiString1 aViewId = "";
   if (ViewerTest_myViews.IsBound2 (ViewerTest::CurrentView()))
   {
     aViewId = ViewerTest_myViews.Find2 (ViewerTest::CurrentView());

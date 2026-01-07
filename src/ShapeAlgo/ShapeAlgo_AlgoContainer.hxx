@@ -29,14 +29,14 @@
 class ShapeAlgo_ToolContainer;
 class ShapeAnalysis_Wire;
 class ShapeExtend_WireData;
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 class Geom2d_BSplineCurve;
-class TopoDS_Shape;
+class TopoShape;
 class Geom_BSplineSurface;
-class Geom_Surface;
-class TopoDS_Wire;
-class TopoDS_Face;
-class Geom_Curve;
+class GeomSurface;
+class TopoWire;
+class TopoFace;
+class GeomCurve3d;
 
 class ShapeAlgo_AlgoContainer;
 DEFINE_STANDARD_HANDLE(ShapeAlgo_AlgoContainer, RefObject)
@@ -72,14 +72,14 @@ public:
     Standard_Boolean&                   revsewd,
     Standard_Boolean&                   revnextsewd) const;
 
-  Standard_EXPORT virtual void ApproxBSplineCurve(const Handle(Geom_BSplineCurve)& bspline,
+  Standard_EXPORT virtual void ApproxBSplineCurve(const Handle(BSplineCurve3d)& bspline,
                                                   TColGeom_SequenceOfCurve&        seq) const;
 
   Standard_EXPORT virtual void ApproxBSplineCurve(const Handle(Geom2d_BSplineCurve)& bspline,
                                                   TColGeom2d_SequenceOfCurve&        seq) const;
 
   Standard_EXPORT virtual Standard_Boolean C0BSplineToSequenceOfC1BSplineCurve(
-    const Handle(Geom_BSplineCurve)&          BS,
+    const Handle(BSplineCurve3d)&          BS,
     Handle(TColGeom_HSequenceOfBoundedCurve)& seqBS) const;
 
   //! Converts C0 B-Spline curve into sequence of C1 B-Spline curves.
@@ -89,13 +89,13 @@ public:
     Handle(TColGeom2d_HSequenceOfBoundedCurve)& seqBS) const;
 
   //! Converts a shape on C0 geometry into the shape on C1 geometry.
-  Standard_EXPORT virtual TopoDS_Shape C0ShapeToC1Shape(const TopoDS_Shape& shape,
+  Standard_EXPORT virtual TopoShape C0ShapeToC1Shape(const TopoShape& shape,
                                                         const Standard_Real tol) const;
 
   //! Converts a surface to B-Spline.
   //! Uses ShapeConstruct.
   Standard_EXPORT virtual Handle(Geom_BSplineSurface) ConvertSurfaceToBSpline(
-    const Handle(Geom_Surface)& surf,
+    const Handle(GeomSurface)& surf,
     const Standard_Real         UF,
     const Standard_Real         UL,
     const Standard_Real         VF,
@@ -104,30 +104,30 @@ public:
   //! Return 2 wires with the same number of edges. The both Edges
   //! number i of these wires have got the same ratio between
   //! theirs parameter lengths and their wire parameter lengths.
-  Standard_EXPORT virtual Standard_Boolean HomoWires(const TopoDS_Wire&     wireIn1,
-                                                     const TopoDS_Wire&     wireIn2,
-                                                     TopoDS_Wire&           wireOut1,
-                                                     TopoDS_Wire&           wireOut2,
+  Standard_EXPORT virtual Standard_Boolean HomoWires(const TopoWire&     wireIn1,
+                                                     const TopoWire&     wireIn2,
+                                                     TopoWire&           wireOut1,
+                                                     TopoWire&           wireOut2,
                                                      const Standard_Boolean byParam) const;
 
   //! Returns the outer wire on the face <Face>.
-  Standard_EXPORT virtual TopoDS_Wire OuterWire(const TopoDS_Face& face) const;
+  Standard_EXPORT virtual TopoWire OuterWire(const TopoFace& face) const;
 
   //! Converts surface to periodic form.
   //! Calls ShapeCustom_Surface.
-  Standard_EXPORT virtual Handle(Geom_Surface) ConvertToPeriodic(
-    const Handle(Geom_Surface)& surf) const;
+  Standard_EXPORT virtual Handle(GeomSurface) ConvertToPeriodic(
+    const Handle(GeomSurface)& surf) const;
 
   //! Computes exact UV bounds of all wires on the face
-  Standard_EXPORT virtual void GetFaceUVBounds(const TopoDS_Face& F,
+  Standard_EXPORT virtual void GetFaceUVBounds(const TopoFace& F,
                                                Standard_Real&     Umin,
                                                Standard_Real&     Umax,
                                                Standard_Real&     Vmin,
                                                Standard_Real&     Vmax) const;
 
-  //! Convert Geom_Curve to Geom_BSplineCurve
-  Standard_EXPORT virtual Handle(Geom_BSplineCurve) ConvertCurveToBSpline(
-    const Handle(Geom_Curve)& C3D,
+  //! Convert GeomCurve3d to BSplineCurve3d
+  Standard_EXPORT virtual Handle(BSplineCurve3d) ConvertCurveToBSpline(
+    const Handle(GeomCurve3d)& C3D,
     const Standard_Real       First,
     const Standard_Real       Last,
     const Standard_Real       Tol3d,

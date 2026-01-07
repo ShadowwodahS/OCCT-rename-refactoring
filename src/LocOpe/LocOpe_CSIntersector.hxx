@@ -42,10 +42,10 @@ public:
 
   //! Creates  and performs the intersection     between
   //! <Ax1> and <S>.
-  LocOpe_CSIntersector(const TopoDS_Shape& S);
+  LocOpe_CSIntersector(const TopoShape& S);
 
   //! Performs the intersection between <Ax1 and <S>.
-  Standard_EXPORT void Init(const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const TopoShape& S);
 
   Standard_EXPORT void Perform(const LocOpe_SequenceOfLin& Slin);
 
@@ -148,7 +148,7 @@ public:
 protected:
 private:
   Standard_Boolean myDone;
-  TopoDS_Shape     myShape;
+  TopoShape     myShape;
   Standard_Address myPoints;
   Standard_Integer myNbelem;
 };

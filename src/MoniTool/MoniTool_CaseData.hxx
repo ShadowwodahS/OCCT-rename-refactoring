@@ -26,9 +26,9 @@
 #include <TColStd_SequenceOfInteger.hxx>
 #include <TColStd_SequenceOfAsciiString.hxx>
 #include <Standard_Transient.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class gp_XYZ;
-class gp_XY;
+class Coords2d;
 class Message_Msg;
 
 class MoniTool_CaseData;
@@ -126,13 +126,13 @@ public:
                                  const Standard_CString          name = "");
 
   //! Adds a Shape (recorded as a HShape)
-  Standard_EXPORT void AddShape(const TopoDS_Shape& sh, const Standard_CString name = "");
+  Standard_EXPORT void AddShape(const TopoShape& sh, const Standard_CString name = "");
 
   //! Adds a XYZ
   Standard_EXPORT void AddXYZ(const gp_XYZ& aXYZ, const Standard_CString name = "");
 
   //! Adds a XY
-  Standard_EXPORT void AddXY(const gp_XY& aXY, const Standard_CString name = "");
+  Standard_EXPORT void AddXY(const Coords2d& aXY, const Standard_CString name = "");
 
   //! Adds a Real
   Standard_EXPORT void AddReal(const Standard_Real val, const Standard_CString name = "");
@@ -222,7 +222,7 @@ public:
 
   //! Returns the name of a data. If it has no name, the string is
   //! empty (length = 0)
-  Standard_EXPORT const TCollection_AsciiString& Name(const Standard_Integer nd) const;
+  Standard_EXPORT const AsciiString1& Name(const Standard_Integer nd) const;
 
   //! Returns the first suitable data rank for a given name
   //! Exact matching (exact case, no completion) is required
@@ -234,7 +234,7 @@ public:
   Standard_EXPORT Standard_Integer NameNum(const Standard_CString name) const;
 
   //! Returns a data as a shape, Null if not a shape
-  Standard_EXPORT TopoDS_Shape Shape(const Standard_Integer nd) const;
+  Standard_EXPORT TopoShape Shape(const Standard_Integer nd) const;
 
   //! Returns a data as a XYZ (i.e. Geom_CartesianPoint)
   //! Returns False if not the good type
@@ -242,7 +242,7 @@ public:
 
   //! Returns a data as a XY  (i.e. Geom2d_CartesianPoint)
   //! Returns False if not the good type
-  Standard_EXPORT Standard_Boolean XY(const Standard_Integer nd, gp_XY& val) const;
+  Standard_EXPORT Standard_Boolean XY(const Standard_Integer nd, Coords2d& val) const;
 
   //! Returns a couple of reals  (stored in Geom2d_CartesianPoint)
   Standard_EXPORT Standard_Boolean Reals(const Standard_Integer nd,
@@ -298,8 +298,8 @@ protected:
 private:
   Standard_Integer              thecheck;
   Standard_Integer              thesubst;
-  TCollection_AsciiString       thecase;
-  TCollection_AsciiString       thename;
+  AsciiString1       thecase;
+  AsciiString1       thename;
   TColStd_SequenceOfTransient   thedata;
   TColStd_SequenceOfInteger     thekind;
   TColStd_SequenceOfAsciiString thednam;

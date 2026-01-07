@@ -39,7 +39,7 @@ IFSelect_SignCounter::IFSelect_SignCounter(const Handle(IFSelect_Signature)& mat
 {
   themapstat = withmap;
   thenbcomp1 = thenbcomp2 = theselmode = 0;
-  TCollection_AsciiString sign         = thematcher->Name();
+  AsciiString1 sign         = thematcher->Name();
   SetName(sign.ToCString());
 }
 

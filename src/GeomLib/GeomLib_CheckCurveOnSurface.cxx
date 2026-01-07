@@ -454,7 +454,7 @@ Standard_Integer FillSubIntervals(const Handle(Adaptor3d_Curve)&   theCurve3d,
 
   theNbParticles = 3;
   Handle(Geom2d_BSplineCurve) aBS2DCurv;
-  Handle(Geom_BSplineCurve)   aBS3DCurv;
+  Handle(BSplineCurve3d)   aBS3DCurv;
   Standard_Boolean            isTrimmed3D = Standard_False, isTrimmed2D = Standard_False;
 
   //

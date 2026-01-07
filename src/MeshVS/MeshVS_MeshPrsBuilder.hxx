@@ -115,7 +115,7 @@ protected:
                                        const Standard_Real                       theShrinkCoef,
                                        const Standard_Boolean theIsMeshSmoothShading) const;
 
-  //! Draw array of polygons and polylines in the certain order according to transparency
+  //! Draw1 array of polygons and polylines in the certain order according to transparency
   Standard_EXPORT void DrawArrays(const Handle(Prs3d_Presentation)&          Prs,
                                   const Handle(Graphic3d_ArrayOfPrimitives)& thePolygons,
                                   const Handle(Graphic3d_ArrayOfPrimitives)& theLines,

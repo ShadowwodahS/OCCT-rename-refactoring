@@ -46,7 +46,7 @@ enum BRepOffsetSimple_Status
 //! used
 //!    to store this information. An image of a shared edge can be constructed from the
 //!    corresponding edge of the first iterated face.
-//! 2. Run BRepTools_Modifier to obtain offset shape.
+//! 2. Run ShapeModifier to obtain offset shape.
 //  3. Ensure topological integrity of the output shape.
 //!
 //! Limitations:
@@ -65,18 +65,18 @@ public:
   Standard_EXPORT BRepOffset_MakeSimpleOffset();
 
   //! Constructor.
-  Standard_EXPORT BRepOffset_MakeSimpleOffset(const TopoDS_Shape& theInputShape,
+  Standard_EXPORT BRepOffset_MakeSimpleOffset(const TopoShape& theInputShape,
                                               const Standard_Real theOffsetValue);
 
   //! Initialise shape for modifications.
-  Standard_EXPORT void Initialize(const TopoDS_Shape& theInputShape,
+  Standard_EXPORT void Initialize(const TopoShape& theInputShape,
                                   const Standard_Real theOffsetValue);
 
   //! Computes offset shape.
   Standard_EXPORT void Perform();
 
   //! Gets error message.
-  Standard_EXPORT TCollection_AsciiString GetErrorMessage() const;
+  Standard_EXPORT AsciiString1 GetErrorMessage() const;
 
   //! Gets error code.
   BRepOffsetSimple_Status GetError() const { return myError; }
@@ -104,16 +104,16 @@ public:
   Standard_Boolean IsDone() const { return myIsDone; }
 
   //! Returns result shape.
-  const TopoDS_Shape& GetResultShape() const { return myResShape; }
+  const TopoShape& GetResultShape() const { return myResShape; }
 
   //! Computes max safe offset value for the given tolerance.
   Standard_Real GetSafeOffset(const Standard_Real theExpectedToler);
 
   //! Returns result shape for the given one (if exists).
-  Standard_EXPORT const TopoDS_Shape Generated(const TopoDS_Shape& theShape) const;
+  Standard_EXPORT const TopoShape Generated(const TopoShape& theShape) const;
 
   //! Returns modified shape for the given one (if exists).
-  Standard_EXPORT const TopoDS_Shape Modified(const TopoDS_Shape& theShape) const;
+  Standard_EXPORT const TopoShape Modified(const TopoShape& theShape) const;
 
 protected:
   //! Computes max angle in faces junction.
@@ -124,7 +124,7 @@ protected:
 
 private:
   //! Builds face on specified wall.
-  TopoDS_Face BuildWallFace(const TopoDS_Edge& theOrigEdge);
+  TopoFace BuildWallFace(const TopoEdge& theOrigEdge);
 
   //! Builds missing walls.
   Standard_Boolean BuildMissingWalls();
@@ -132,7 +132,7 @@ private:
   // Input data.
 
   //! Input shape.
-  TopoDS_Shape myInputShape;
+  TopoShape myInputShape;
 
   //! Offset value.
   Standard_Real myOffsetValue;
@@ -156,10 +156,10 @@ private:
 
   //! Map of vertex - wall edge.
   //! Used to build shared edge between adjacent wall faces.
-  NCollection_DataMap<TopoDS_Vertex, TopoDS_Edge> myMapVE;
+  NCollection_DataMap<TopoVertex, TopoEdge> myMapVE;
 
   //! Used for histrory support.
-  BRepTools_Modifier myBuilder;
+  ShapeModifier myBuilder;
 
   //! Used for history support.
   Handle(ShapeBuild_ReShape) myReShape;
@@ -167,7 +167,7 @@ private:
   // Output data.
 
   //! Result shape.
-  TopoDS_Shape myResShape;
+  TopoShape myResShape;
 };
 
 #endif // _BRepOffset_MakeSimpleOffset_HeaderFile

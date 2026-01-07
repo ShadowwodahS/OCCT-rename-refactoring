@@ -27,7 +27,7 @@
 // function : MakeShape
 // purpose  : Make a Shape from a TShape
 //=======================================================================
-void TopoDS_Builder::MakeShape(TopoDS_Shape& S, const Handle(TopoDS_TShape)& T) const
+void TopoBuilder::MakeShape(TopoShape& S, const Handle(TopoDS_TShape)& T) const
 {
   S.TShape(T);
   S.Location(TopLoc_Location());
@@ -39,7 +39,7 @@ void TopoDS_Builder::MakeShape(TopoDS_Shape& S, const Handle(TopoDS_TShape)& T) 
 // purpose  : insert aComponent in aShape
 //=======================================================================
 
-void TopoDS_Builder::Add(TopoDS_Shape& aShape, const TopoDS_Shape& aComponent) const
+void TopoBuilder::Add(TopoShape& aShape, const TopoShape& aComponent) const
 {
   // From now the Component cannot be edited
   aComponent.TShape()->Free(Standard_False);
@@ -78,7 +78,7 @@ void TopoDS_Builder::Add(TopoDS_Shape& aShape, const TopoDS_Shape& aComponent) c
     {
       TopoDS_ListOfShape& L = aShape.TShape()->myShapes;
       L.Append(aComponent);
-      TopoDS_Shape& S = L.Last();
+      TopoShape& S = L.Last();
       //
       // compute the relative Orientation
       if (aShape.Orientation() == TopAbs_REVERSED)
@@ -94,12 +94,12 @@ void TopoDS_Builder::Add(TopoDS_Shape& aShape, const TopoDS_Shape& aComponent) c
     }
     else
     {
-      throw TopoDS_UnCompatibleShapes("TopoDS_Builder::Add");
+      throw TopoDS_UnCompatibleShapes("TopoBuilder::Add");
     }
   }
   else
   {
-    throw TopoDS_FrozenShape("TopoDS_Builder::Add");
+    throw TopoDS_FrozenShape("TopoBuilder::Add");
   }
 }
 
@@ -108,13 +108,13 @@ void TopoDS_Builder::Add(TopoDS_Shape& aShape, const TopoDS_Shape& aComponent) c
 // purpose  : Remove a Shape from an other one
 //=======================================================================
 
-void TopoDS_Builder::Remove(TopoDS_Shape& aShape, const TopoDS_Shape& aComponent) const
+void TopoBuilder::Remove(TopoShape& aShape, const TopoShape& aComponent) const
 {
   // check  if aShape  is  not Frozen
-  TopoDS_FrozenShape_Raise_if(!aShape.Free(), "TopoDS_Builder::Remove");
+  TopoDS_FrozenShape_Raise_if(!aShape.Free(), "TopoBuilder::Remove");
 
   // compute the relative Orientation and Location of aComponent
-  TopoDS_Shape S = aComponent;
+  TopoShape S = aComponent;
   if (aShape.Orientation() == TopAbs_REVERSED)
     S.Reverse();
   S.Location(S.Location().Predivided(aShape.Location()), Standard_False);

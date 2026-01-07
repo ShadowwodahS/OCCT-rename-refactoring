@@ -23,7 +23,7 @@
 
 #include <Standard_Integer.hxx>
 #include <Extrema_ExtSS.hxx>
-class Geom_Surface;
+class GeomSurface;
 class Point3d;
 
 //! Describes functions for computing all the extrema
@@ -58,8 +58,8 @@ public:
 
   //! Computes  the  extrema  distances  between  the
   //! surfaces <S1>  and <S2>
-  Standard_EXPORT GeomAPI_ExtremaSurfaceSurface(const Handle(Geom_Surface)& S1,
-                                                const Handle(Geom_Surface)& S2);
+  Standard_EXPORT GeomAPI_ExtremaSurfaceSurface(const Handle(GeomSurface)& S1,
+                                                const Handle(GeomSurface)& S2);
 
   //! Computes  the  extrema  distances  between
   //! the portion of the surface S1 limited by the
@@ -72,8 +72,8 @@ public:
   //! the u parametric direction, and by the two
   //! values of parameter (V2min,V2max) in the v
   //! parametric direction.
-  Standard_EXPORT GeomAPI_ExtremaSurfaceSurface(const Handle(Geom_Surface)& S1,
-                                                const Handle(Geom_Surface)& S2,
+  Standard_EXPORT GeomAPI_ExtremaSurfaceSurface(const Handle(GeomSurface)& S1,
+                                                const Handle(GeomSurface)& S2,
                                                 const Standard_Real         U1min,
                                                 const Standard_Real         U1max,
                                                 const Standard_Real         V1min,
@@ -86,7 +86,7 @@ public:
   //! Initializes this algorithm with the given arguments
   //! and computes  the  extrema  distances  between  the
   //! surfaces <S1>  and <S2>
-  Standard_EXPORT void Init(const Handle(Geom_Surface)& S1, const Handle(Geom_Surface)& S2);
+  Standard_EXPORT void Init(const Handle(GeomSurface)& S1, const Handle(GeomSurface)& S2);
 
   //! Initializes this algorithm with the given arguments
   //! and computes  the  extrema  distances  between -
@@ -98,8 +98,8 @@ public:
   //! values of parameter (U2min,U2max) in the u
   //! parametric direction, and by the two values of
   //! parameter (V2min,V2max) in the v parametric direction.
-  Standard_EXPORT void Init(const Handle(Geom_Surface)& S1,
-                            const Handle(Geom_Surface)& S2,
+  Standard_EXPORT void Init(const Handle(GeomSurface)& S1,
+                            const Handle(GeomSurface)& S2,
                             const Standard_Real         U1min,
                             const Standard_Real         U1max,
                             const Standard_Real         V1min,

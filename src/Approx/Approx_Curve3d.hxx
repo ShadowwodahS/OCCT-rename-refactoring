@@ -34,7 +34,7 @@ public:
                                  const Standard_Integer         MaxSegments,
                                  const Standard_Integer         MaxDegree);
 
-  Standard_EXPORT Handle(Geom_BSplineCurve) Curve() const;
+  Standard_EXPORT Handle(BSplineCurve3d) Curve() const;
 
   //! returns  Standard_True  if  the  approximation  has
   //! been  done  within  required tolerance
@@ -55,7 +55,7 @@ public:
 private:
   Standard_Boolean          myIsDone;
   Standard_Boolean          myHasResult;
-  Handle(Geom_BSplineCurve) myBSplCurve;
+  Handle(BSplineCurve3d) myBSplCurve;
   Standard_Real             myMaxError;
 };
 

@@ -23,11 +23,11 @@
 
 #include <Standard_Real.hxx>
 #include <Standard_Boolean.hxx>
-class TopoDS_Wire;
-class TopoDS_Face;
+class TopoWire;
+class TopoFace;
 class ShapeExtend_WireData;
-class TopoDS_Shape;
-class TopoDS_Vertex;
+class TopoShape;
+class TopoVertex;
 
 //! This package is intended to analyze geometrical objects
 //! and topological shapes. Analysis domain includes both
@@ -50,17 +50,17 @@ public:
 
   //! Returns positively oriented wire in the face.
   //! If there is no such wire - returns the last wire of the face.
-  Standard_EXPORT static TopoDS_Wire OuterWire(const TopoDS_Face& theFace);
+  Standard_EXPORT static TopoWire OuterWire(const TopoFace& theFace);
 
   //! Returns a total area of 2d wire
   Standard_EXPORT static Standard_Real TotCross2D(const Handle(ShapeExtend_WireData)& sewd,
-                                                  const TopoDS_Face&                  aFace);
+                                                  const TopoFace&                  aFace);
 
   //! Returns a total area of 3d wire
-  Standard_EXPORT static Standard_Real ContourArea(const TopoDS_Wire& theWire);
+  Standard_EXPORT static Standard_Real ContourArea(const TopoWire& theWire);
 
   //! Returns True if <F> has outer bound.
-  Standard_EXPORT static Standard_Boolean IsOuterBound(const TopoDS_Face& face);
+  Standard_EXPORT static Standard_Boolean IsOuterBound(const TopoFace& face);
 
   //! Returns a shift required to move point
   //! <Val> to the range [ToVal-Period/2,ToVal+Period/2].
@@ -88,12 +88,12 @@ public:
   //! of the last edge (also see ShapeAnalysis_Edge).
   //! If wire contains no edges V1 and V2 are nullified
   //! If none of the above V1 and V2 are nullified
-  Standard_EXPORT static void FindBounds(const TopoDS_Shape& shape,
-                                         TopoDS_Vertex&      V1,
-                                         TopoDS_Vertex&      V2);
+  Standard_EXPORT static void FindBounds(const TopoShape& shape,
+                                         TopoVertex&      V1,
+                                         TopoVertex&      V2);
 
   //! Computes exact UV bounds of all wires on the face
-  Standard_EXPORT static void GetFaceUVBounds(const TopoDS_Face& F,
+  Standard_EXPORT static void GetFaceUVBounds(const TopoFace& F,
                                               Standard_Real&     Umin,
                                               Standard_Real&     Umax,
                                               Standard_Real&     Vmin,

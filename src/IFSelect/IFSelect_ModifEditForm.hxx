@@ -26,7 +26,7 @@ class IFSelect_ContextModif;
 class Interface_InterfaceModel;
 class Interface_Protocol;
 class Interface_CopyTool;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_ModifEditForm;
 DEFINE_STANDARD_HANDLE(IFSelect_ModifEditForm, IFSelect_Modifier)
@@ -49,7 +49,7 @@ public:
                                Interface_CopyTool&                     TC) const Standard_OVERRIDE;
 
   //! Returns Label as "Apply EditForm <+ label of EditForm>"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_ModifEditForm, IFSelect_Modifier)
 

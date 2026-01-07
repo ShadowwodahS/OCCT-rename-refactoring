@@ -65,7 +65,7 @@
 static Standard_Integer GetNbPars(const GeomAbs_CurveType theTarget);
 static Standard_Integer GetNbPars(const GeomAbs_SurfaceType theTarget);
 static Standard_Boolean SetConicParameters(const GeomAbs_CurveType   theTarget,
-                                           const Handle(Geom_Curve)& theConic,
+                                           const Handle(GeomCurve3d)& theConic,
                                            Frame3d&                   thePos,
                                            TColStd_Array1OfReal&     theParams);
 static Standard_Boolean CompareConicParams(const GeomAbs_CurveType     theTarget,
@@ -75,7 +75,7 @@ static Standard_Boolean CompareConicParams(const GeomAbs_CurveType     theTarget
                                            const Frame3d&               thePos,
                                            const TColStd_Array1OfReal& theParams);
 static Standard_Boolean SetSurfParams(const GeomAbs_SurfaceType   theTarget,
-                                      const Handle(Geom_Surface)& theElemSurf,
+                                      const Handle(GeomSurface)& theElemSurf,
                                       gp_Ax3&                     thePos,
                                       TColStd_Array1OfReal&       theParams);
 static Standard_Boolean CompareSurfParams(const GeomAbs_SurfaceType   theTarget,
@@ -89,7 +89,7 @@ static Standard_Real    DeviationSurfParams(const GeomAbs_SurfaceType   theTarge
                                             const TColStd_Array1OfReal& theRefParams,
                                             const gp_Ax3&               thePos,
                                             const TColStd_Array1OfReal& theParams);
-static Standard_Boolean GetSamplePoints(const TopoDS_Wire&           theWire,
+static Standard_Boolean GetSamplePoints(const TopoWire&           theWire,
                                         const Standard_Real          theTol,
                                         const Standard_Integer       theMaxNbInt,
                                         Handle(TColgp_HArray1OfXYZ)& thePoints);
@@ -118,7 +118,7 @@ ShapeAnalysis_CanonicalRecognition::ShapeAnalysis_CanonicalRecognition()
 {
 }
 
-ShapeAnalysis_CanonicalRecognition::ShapeAnalysis_CanonicalRecognition(const TopoDS_Shape& theShape)
+ShapeAnalysis_CanonicalRecognition::ShapeAnalysis_CanonicalRecognition(const TopoShape& theShape)
     : mySType(TopAbs_SHAPE),
       myGap(-1.),
       myStatus(-1)
@@ -126,14 +126,14 @@ ShapeAnalysis_CanonicalRecognition::ShapeAnalysis_CanonicalRecognition(const Top
   Init(theShape);
 }
 
-void ShapeAnalysis_CanonicalRecognition::SetShape(const TopoDS_Shape& theShape)
+void ShapeAnalysis_CanonicalRecognition::SetShape(const TopoShape& theShape)
 {
   Init(theShape);
 }
 
 //=================================================================================================
 
-void ShapeAnalysis_CanonicalRecognition::Init(const TopoDS_Shape& theShape)
+void ShapeAnalysis_CanonicalRecognition::Init(const TopoShape& theShape)
 {
   TopAbs_ShapeEnum aT = theShape.ShapeType();
   switch (aT)
@@ -165,7 +165,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsElementarySurf(
   //
   if (mySType == TopAbs_FACE)
   {
-    Handle(Geom_Surface) anElemSurf =
+    Handle(GeomSurface) anElemSurf =
       GetSurface(TopoDS::Face(myShape), theTol, GeomConvert_Target, theTarget, myGap, myStatus);
     if (anElemSurf.IsNull())
       return Standard_False;
@@ -180,7 +180,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsElementarySurf(
   }
   else if (mySType == TopAbs_SHELL)
   {
-    Handle(Geom_Surface) anElemSurf =
+    Handle(GeomSurface) anElemSurf =
       GetSurface(TopoDS::Shell(myShape), theTol, GeomConvert_Target, theTarget, myGap, myStatus);
     if (anElemSurf.IsNull())
     {
@@ -196,7 +196,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsElementarySurf(
   }
   else if (mySType == TopAbs_EDGE)
   {
-    Handle(Geom_Surface) anElemSurf = GetSurface(TopoDS::Edge(myShape),
+    Handle(GeomSurface) anElemSurf = GetSurface(TopoDS::Edge(myShape),
                                                  theTol,
                                                  GeomConvert_Target,
                                                  theTarget,
@@ -215,7 +215,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsElementarySurf(
   }
   else if (mySType == TopAbs_WIRE)
   {
-    Handle(Geom_Surface) anElemSurf = GetSurface(TopoDS::Wire(myShape),
+    Handle(GeomSurface) anElemSurf = GetSurface(TopoDS::Wire(myShape),
                                                  theTol,
                                                  GeomConvert_Target,
                                                  theTarget,
@@ -255,7 +255,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsPlane(const Standard_Real
     BRepLib_FindSurface aFndSurf(myShape, theTol, Standard_True, Standard_False);
     if (aFndSurf.Found())
     {
-      Handle(Geom_Plane) aPlane = Handle(Geom_Plane)::DownCast(aFndSurf.Surface());
+      Handle(GeomPlane) aPlane = Handle(GeomPlane)::DownCast(aFndSurf.Surface());
       thePln                    = aPlane->Pln();
       myGap                     = aFndSurf.ToleranceReached();
       myStatus                  = 0;
@@ -292,10 +292,10 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsCylinder(const Standard_R
   if (myShape.ShapeType() == TopAbs_EDGE || myShape.ShapeType() == TopAbs_WIRE)
   {
     // Try to build surface by least square method;
-    TopoDS_Wire aWire;
+    TopoWire aWire;
     if (myShape.ShapeType() == TopAbs_EDGE)
     {
-      BRep_Builder aBB;
+      ShapeBuilder aBB;
       aBB.MakeWire(aWire);
       aBB.Add(aWire, myShape);
     }
@@ -342,10 +342,10 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsCone(const Standard_Real 
   if (myShape.ShapeType() == TopAbs_EDGE || myShape.ShapeType() == TopAbs_WIRE)
   {
     // Try to build surface by least square method;
-    TopoDS_Wire aWire;
+    TopoWire aWire;
     if (myShape.ShapeType() == TopAbs_EDGE)
     {
-      BRep_Builder aBB;
+      ShapeBuilder aBB;
       aBB.MakeWire(aWire);
       aBB.Add(aWire, myShape);
     }
@@ -391,10 +391,10 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsSphere(const Standard_Rea
   if (myShape.ShapeType() == TopAbs_EDGE || myShape.ShapeType() == TopAbs_WIRE)
   {
     // Try to build surface by least square method;
-    TopoDS_Wire aWire;
+    TopoWire aWire;
     if (myShape.ShapeType() == TopAbs_EDGE)
     {
-      BRep_Builder aBB;
+      ShapeBuilder aBB;
       aBB.MakeWire(aWire);
       aBB.Add(aWire, myShape);
     }
@@ -426,7 +426,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsConic(const GeomAbs_Curve
 
   if (mySType == TopAbs_EDGE)
   {
-    Handle(Geom_Curve) aConic =
+    Handle(GeomCurve3d) aConic =
       GetCurve(TopoDS::Edge(myShape), theTol, GeomConvert_Target, theTarget, myGap, myStatus);
 
     if (aConic.IsNull())
@@ -451,9 +451,9 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsConic(const GeomAbs_Curve
     }
     Frame3d               aPos;
     TColStd_Array1OfReal aParams(1, theParams.Length());
-    const TopoDS_Shape&  anEdge = anIter.Value();
+    const TopoShape&  anEdge = anIter.Value();
 
-    Handle(Geom_Curve) aConic =
+    Handle(GeomCurve3d) aConic =
       GetCurve(TopoDS::Edge(anEdge), theTol, GeomConvert_Target, theTarget, myGap, myStatus);
     if (aConic.IsNull())
     {
@@ -555,8 +555,8 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::IsEllipse(const Standard_Re
 
 //=================================================================================================
 
-Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
-  const TopoDS_Face&         theFace,
+Handle(GeomSurface) ShapeAnalysis_CanonicalRecognition::GetSurface(
+  const TopoFace&         theFace,
   const Standard_Real        theTol,
   const GeomConvert_ConvType theType,
   const GeomAbs_SurfaceType  theTarget,
@@ -565,7 +565,7 @@ Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
 {
   theStatus = 0;
   TopLoc_Location             aLoc;
-  const Handle(Geom_Surface)& aSurf = BRep_Tool::Surface(theFace, aLoc);
+  const Handle(GeomSurface)& aSurf = BRepInspector::Surface(theFace, aLoc);
   if (aSurf.IsNull())
   {
     theStatus = 1;
@@ -574,7 +574,7 @@ Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
   GeomConvert_SurfToAnaSurf aConv(aSurf);
   aConv.SetConvType(theType);
   aConv.SetTarget(theTarget);
-  Handle(Geom_Surface) anAnaSurf = aConv.ConvertToAnalytical(theTol);
+  Handle(GeomSurface) anAnaSurf = aConv.ConvertToAnalytical(theTol);
   if (anAnaSurf.IsNull())
     return anAnaSurf;
   //
@@ -587,15 +587,15 @@ Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
 
 //=================================================================================================
 
-Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
-  const TopoDS_Shell&        theShell,
+Handle(GeomSurface) ShapeAnalysis_CanonicalRecognition::GetSurface(
+  const TopoShell&        theShell,
   const Standard_Real        theTol,
   const GeomConvert_ConvType theType,
   const GeomAbs_SurfaceType  theTarget,
   Standard_Real&             theGap,
   Standard_Integer&          theStatus)
 {
-  Handle(Geom_Surface) anElemSurf;
+  Handle(GeomSurface) anElemSurf;
   TopoDS_Iterator      anIter(theShell);
   if (!anIter.More())
   {
@@ -604,7 +604,7 @@ Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
   }
   gp_Ax3               aPos1;
   TColStd_Array1OfReal aParams1(1, Max(1, GetNbPars(theTarget)));
-  const TopoDS_Shape&  aFace = anIter.Value();
+  const TopoShape&  aFace = anIter.Value();
 
   anElemSurf = GetSurface(TopoDS::Face(aFace), theTol, theType, theTarget, theGap, theStatus);
   if (anElemSurf.IsNull())
@@ -625,7 +625,7 @@ Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
   Standard_Boolean     isOK;
   for (; anIter.More(); anIter.Next())
   {
-    Handle(Geom_Surface) anElemSurf1 =
+    Handle(GeomSurface) anElemSurf1 =
       GetSurface(TopoDS::Face(anIter.Value()), theTol, theType, theTarget, theGap, theStatus);
     if (anElemSurf1.IsNull())
     {
@@ -645,8 +645,8 @@ Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
 
 //=================================================================================================
 
-Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
-  const TopoDS_Edge&         theEdge,
+Handle(GeomSurface) ShapeAnalysis_CanonicalRecognition::GetSurface(
+  const TopoEdge&         theEdge,
   const Standard_Real        theTol,
   const GeomConvert_ConvType theType,
   const GeomAbs_SurfaceType  theTarget,
@@ -656,17 +656,17 @@ Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
   Standard_Integer&          theStatus)
 {
   // Get surface list
-  NCollection_Vector<Handle(Geom_Surface)> aSurfs;
+  NCollection_Vector<Handle(GeomSurface)> aSurfs;
   NCollection_Vector<Standard_Real>        aGaps;
   Standard_Integer                         j = 0;
   for (;;)
   {
     j++;
-    Handle(Geom_Surface) aSurf;
+    Handle(GeomSurface) aSurf;
     TopLoc_Location      aLoc;
-    Handle(Geom2d_Curve) aPCurve;
+    Handle(GeomCurve2d) aPCurve;
     Standard_Real        ff, ll;
-    BRep_Tool::CurveOnSurface(theEdge, aPCurve, aSurf, aLoc, ff, ll, j);
+    BRepInspector::CurveOnSurface(theEdge, aPCurve, aSurf, aLoc, ff, ll, j);
     if (aSurf.IsNull())
     {
       break;
@@ -674,7 +674,7 @@ Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
     GeomConvert_SurfToAnaSurf aConv(aSurf);
     aConv.SetConvType(theType);
     aConv.SetTarget(theTarget);
-    Handle(Geom_Surface) anAnaSurf = aConv.ConvertToAnalytical(theTol);
+    Handle(GeomSurface) anAnaSurf = aConv.ConvertToAnalytical(theTol);
     if (anAnaSurf.IsNull())
       continue;
     //
@@ -729,8 +729,8 @@ Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
 
 //=================================================================================================
 
-Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
-  const TopoDS_Wire&         theWire,
+Handle(GeomSurface) ShapeAnalysis_CanonicalRecognition::GetSurface(
+  const TopoWire&         theWire,
   const Standard_Real        theTol,
   const GeomConvert_ConvType theType,
   const GeomAbs_SurfaceType  theTarget,
@@ -740,7 +740,7 @@ Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
   Standard_Integer&          theStatus)
 {
   // Get surface list
-  NCollection_Vector<Handle(Geom_Surface)> aSurfs;
+  NCollection_Vector<Handle(GeomSurface)> aSurfs;
   NCollection_Vector<Standard_Real>        aGaps;
 
   TopoDS_Iterator anIter(theWire);
@@ -751,7 +751,7 @@ Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
     return NULL;
   }
   // First edge
-  const TopoDS_Edge&   anEdge1 = TopoDS::Edge(anIter.Value());
+  const TopoEdge&   anEdge1 = TopoDS::Edge(anIter.Value());
   gp_Ax3               aPos1   = thePos;
   Standard_Integer     aNbPars = GetNbPars(theTarget);
   TColStd_Array1OfReal aParams1(1, Max(1, aNbPars));
@@ -761,7 +761,7 @@ Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
   {
     aParams1(i) = theParams(i);
   }
-  Handle(Geom_Surface) anElemSurf1 =
+  Handle(GeomSurface) anElemSurf1 =
     GetSurface(anEdge1, theTol, theType, theTarget, aPos1, aParams1, aGap1, theStatus);
   if (theStatus != 0 || anElemSurf1.IsNull())
   {
@@ -778,8 +778,8 @@ Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
       aParams(i) = aParams1(i);
     }
     Standard_Real        aGap;
-    const TopoDS_Edge&   anEdge = TopoDS::Edge(anIter.Value());
-    Handle(Geom_Surface) anElemSurf =
+    const TopoEdge&   anEdge = TopoDS::Edge(anIter.Value());
+    Handle(GeomSurface) anElemSurf =
       GetSurface(anEdge, theTol, theType, theTarget, aPos, aParams, aGap, theStatus);
     if (theStatus != 0 || anElemSurf.IsNull())
     {
@@ -800,7 +800,7 @@ Handle(Geom_Surface) ShapeAnalysis_CanonicalRecognition::GetSurface(
 //=================================================================================================
 
 Standard_Boolean ShapeAnalysis_CanonicalRecognition::GetSurfaceByLS(
-  const TopoDS_Wire&        theWire,
+  const TopoWire&        theWire,
   const Standard_Real       theTol,
   const GeomAbs_SurfaceType theTarget,
   gp_Ax3&                   thePos,
@@ -922,7 +922,7 @@ Standard_Boolean ShapeAnalysis_CanonicalRecognition::GetSurfaceByLS(
 
 //=================================================================================================
 
-Handle(Geom_Curve) ShapeAnalysis_CanonicalRecognition::GetCurve(const TopoDS_Edge&         theEdge,
+Handle(GeomCurve3d) ShapeAnalysis_CanonicalRecognition::GetCurve(const TopoEdge&         theEdge,
                                                                 const Standard_Real        theTol,
                                                                 const GeomConvert_ConvType theType,
                                                                 const GeomAbs_CurveType theTarget,
@@ -932,7 +932,7 @@ Handle(Geom_Curve) ShapeAnalysis_CanonicalRecognition::GetCurve(const TopoDS_Edg
   theStatus = 0;
   TopLoc_Location           aLoc;
   Standard_Real             f, l, nf, nl;
-  const Handle(Geom_Curve)& aCurv = BRep_Tool::Curve(theEdge, aLoc, f, l);
+  const Handle(GeomCurve3d)& aCurv = BRepInspector::Curve(theEdge, aLoc, f, l);
   if (aCurv.IsNull())
   {
     theStatus = 1;
@@ -941,7 +941,7 @@ Handle(Geom_Curve) ShapeAnalysis_CanonicalRecognition::GetCurve(const TopoDS_Edg
   GeomConvert_CurveToAnaCurve aConv(aCurv);
   aConv.SetConvType(theType);
   aConv.SetTarget(theTarget);
-  Handle(Geom_Curve) anAnaCurv;
+  Handle(GeomCurve3d) anAnaCurv;
   aConv.ConvertToAnalytical(theTol, anAnaCurv, f, l, nf, nl);
   if (anAnaCurv.IsNull())
     return anAnaCurv;
@@ -1006,7 +1006,7 @@ Standard_Integer GetNbPars(const GeomAbs_SurfaceType theTarget)
 //=================================================================================================
 
 Standard_Boolean SetConicParameters(const GeomAbs_CurveType   theTarget,
-                                    const Handle(Geom_Curve)& theConic,
+                                    const Handle(GeomCurve3d)& theConic,
                                     Frame3d&                   thePos,
                                     TColStd_Array1OfReal&     theParams)
 {
@@ -1075,7 +1075,7 @@ Standard_Boolean CompareConicParams(const GeomAbs_CurveType     theTarget,
 //=================================================================================================
 
 Standard_Boolean SetSurfParams(const GeomAbs_SurfaceType   theTarget,
-                               const Handle(Geom_Surface)& theElemSurf,
+                               const Handle(GeomSurface)& theElemSurf,
                                gp_Ax3&                     thePos,
                                TColStd_Array1OfReal&       theParams)
 {
@@ -1211,7 +1211,7 @@ Standard_Real DeviationSurfParams(const GeomAbs_SurfaceType   theTarget,
 
 //=================================================================================================
 
-Standard_Boolean GetSamplePoints(const TopoDS_Wire&           theWire,
+Standard_Boolean GetSamplePoints(const TopoWire&           theWire,
                                  const Standard_Real          theTol,
                                  const Standard_Integer       theMaxNbInt,
                                  Handle(TColgp_HArray1OfXYZ)& thePoints)
@@ -1224,8 +1224,8 @@ Standard_Boolean GetSamplePoints(const TopoDS_Wire&           theWire,
   TopoDS_Iterator                       anEIter(theWire);
   for (; anEIter.More(); anEIter.Next())
   {
-    const TopoDS_Edge& anE = TopoDS::Edge(anEIter.Value());
-    if (BRep_Tool::Degenerated(anE))
+    const TopoEdge& anE = TopoDS::Edge(anEIter.Value());
+    if (BRepInspector::Degenerated(anE))
       continue;
     BRepAdaptor_Curve aBAC(anE);
     Standard_Real     aClength = GCPnts_AbscissaPoint::Length(aBAC, aTol);

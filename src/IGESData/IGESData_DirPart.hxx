@@ -21,16 +21,16 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class IGESData_IGESType;
+class IGESType;
 
 //! literal/numeric description of an entity's directory section, taken from file
-class IGESData_DirPart
+class DirectoryPart
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! creates an empty DirPart, ready to be filled by Init
-  Standard_EXPORT IGESData_DirPart();
+  Standard_EXPORT DirectoryPart();
 
   //! fills DirPart with consistent data read from file
   Standard_EXPORT void Init(const Standard_Integer i1,
@@ -80,7 +80,7 @@ public:
                               const Standard_CString subscript) const;
 
   //! returns "type" and "form" info, used to recognize the entity
-  Standard_EXPORT IGESData_IGESType Type() const;
+  Standard_EXPORT IGESType Type() const;
 
 private:
   Standard_Integer   thevals[17];

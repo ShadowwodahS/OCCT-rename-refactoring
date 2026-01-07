@@ -27,7 +27,7 @@ OSD_CachedFileSystem::OSD_CachedFileSystem(const Handle(OSD_FileSystem)& theLink
 
 //=================================================================================================
 
-Standard_Boolean OSD_CachedFileSystem::IsSupportedPath(const TCollection_AsciiString& theUrl) const
+Standard_Boolean OSD_CachedFileSystem::IsSupportedPath(const AsciiString1& theUrl) const
 {
   return myLinkedFS->IsSupportedPath(theUrl);
 }
@@ -51,7 +51,7 @@ Standard_Boolean OSD_CachedFileSystem::IsOpenOStream(
 //=================================================================================================
 
 std::shared_ptr<std::istream> OSD_CachedFileSystem::OpenIStream(
-  const TCollection_AsciiString& theUrl,
+  const AsciiString1& theUrl,
   const std::ios_base::openmode  theParams,
   const int64_t                  theOffset,
   const std::shared_ptr<std::istream>& /*theOldStream*/)
@@ -68,7 +68,7 @@ std::shared_ptr<std::istream> OSD_CachedFileSystem::OpenIStream(
 //=================================================================================================
 
 std::shared_ptr<std::ostream> OSD_CachedFileSystem::OpenOStream(
-  const TCollection_AsciiString& theUrl,
+  const AsciiString1& theUrl,
   const std::ios_base::openmode  theMode)
 {
   return myLinkedFS->OpenOStream(theUrl, theMode);
@@ -77,7 +77,7 @@ std::shared_ptr<std::ostream> OSD_CachedFileSystem::OpenOStream(
 //=================================================================================================
 
 std::shared_ptr<std::streambuf> OSD_CachedFileSystem::OpenStreamBuffer(
-  const TCollection_AsciiString& theUrl,
+  const AsciiString1& theUrl,
   const std::ios_base::openmode  theMode,
   const int64_t                  theOffset,
   int64_t*                       theOutBufSize)

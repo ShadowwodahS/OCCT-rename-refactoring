@@ -41,7 +41,7 @@ public:
   //! Constructor
   Standard_EXPORT View_Window(
     QWidget*                              theParent,
-    const Handle(AIS_InteractiveContext)& theContext     = Handle(AIS_InteractiveContext)(),
+    const Handle(VisualContext)& theContext     = Handle(VisualContext)(),
     const bool                            isUseKeepView  = true,
     const bool                            isFitAllActive = true);
 
@@ -64,7 +64,7 @@ public:
   //! \param theType a type of context, will be selected in the tool bar combo box
   //! \param theContext an AIS context
   Standard_EXPORT void SetContext(View_ContextType                      theType,
-                                  const Handle(AIS_InteractiveContext)& theContext);
+                                  const Handle(VisualContext)& theContext);
 
   //! Sets default size that is used in sizeHint when the widget is firstly show
   Standard_EXPORT void SetPredefinedSize(int theDefaultWidth, int theDefaultHeight);
@@ -78,7 +78,7 @@ public:
                                    const Standard_Real theVz);
 
   //! Returns an active view
-  Standard_EXPORT Handle(V3d_View) View() const;
+  Standard_EXPORT Handle(ViewWindow) View() const;
 
   //! Saves state of view window in a container in form: key, value. It saves:
   //! - visibility of columns,

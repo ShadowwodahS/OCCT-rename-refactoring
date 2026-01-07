@@ -118,7 +118,7 @@ public:
   DEFINE_STANDARD_ALLOC
 private:
   ErrorsPage*             myNext;  //!< Chaining of records pages
-  TCollection_AsciiString myError; //!< Own error message
+  AsciiString1 myError; //!< Own error message
 };
 
 //=================================================================================================

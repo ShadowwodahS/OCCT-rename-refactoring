@@ -39,7 +39,7 @@ DDF_Data::DDF_Data(const Handle(TDF_Data)& aDF)
 
 //=================================================================================================
 
-void DDF_Data::DrawOn(Draw_Display& /*dis*/) const
+void DDF_Data::DrawOn(DrawDisplay& /*dis*/) const
 
 {
   std::cout << "DDF_Data" << std::endl;
@@ -77,7 +77,7 @@ void DDF_Data::DataFramework(const Handle(TDF_Data)& aDF)
 
 //=================================================================================================
 
-void DDF_Data::Whatis(Draw_Interpretor& I) const
+void DDF_Data::Whatis(DrawInterpreter& I) const
 
 {
   I << "Data Framework";

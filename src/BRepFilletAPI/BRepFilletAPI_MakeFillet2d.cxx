@@ -26,28 +26,28 @@ BRepFilletAPI_MakeFillet2d::BRepFilletAPI_MakeFillet2d() {}
 
 //=================================================================================================
 
-BRepFilletAPI_MakeFillet2d::BRepFilletAPI_MakeFillet2d(const TopoDS_Face& F)
+BRepFilletAPI_MakeFillet2d::BRepFilletAPI_MakeFillet2d(const TopoFace& F)
 {
   myMakeChFi2d.Init(F);
 }
 
 //=================================================================================================
 
-void BRepFilletAPI_MakeFillet2d::Init(const TopoDS_Face& F)
+void BRepFilletAPI_MakeFillet2d::Init(const TopoFace& F)
 {
   myMakeChFi2d.Init(F);
 }
 
 //=================================================================================================
 
-void BRepFilletAPI_MakeFillet2d::Init(const TopoDS_Face& RefFace, const TopoDS_Face& ModFace)
+void BRepFilletAPI_MakeFillet2d::Init(const TopoFace& RefFace, const TopoFace& ModFace)
 {
   myMakeChFi2d.Init(RefFace, ModFace);
 }
 
 //=================================================================================================
 
-TopoDS_Edge BRepFilletAPI_MakeFillet2d::AddFillet(const TopoDS_Vertex& V,
+TopoEdge BRepFilletAPI_MakeFillet2d::AddFillet(const TopoVertex& V,
                                                   const Standard_Real  Radius)
 {
   return myMakeChFi2d.AddFillet(V, Radius);
@@ -55,7 +55,7 @@ TopoDS_Edge BRepFilletAPI_MakeFillet2d::AddFillet(const TopoDS_Vertex& V,
 
 //=================================================================================================
 
-TopoDS_Edge BRepFilletAPI_MakeFillet2d::ModifyFillet(const TopoDS_Edge&  Fillet,
+TopoEdge BRepFilletAPI_MakeFillet2d::ModifyFillet(const TopoEdge&  Fillet,
                                                      const Standard_Real Radius)
 {
   return myMakeChFi2d.ModifyFillet(Fillet, Radius);
@@ -63,15 +63,15 @@ TopoDS_Edge BRepFilletAPI_MakeFillet2d::ModifyFillet(const TopoDS_Edge&  Fillet,
 
 //=================================================================================================
 
-TopoDS_Vertex BRepFilletAPI_MakeFillet2d::RemoveFillet(const TopoDS_Edge& Fillet)
+TopoVertex BRepFilletAPI_MakeFillet2d::RemoveFillet(const TopoEdge& Fillet)
 {
   return myMakeChFi2d.RemoveFillet(Fillet);
 }
 
 //=================================================================================================
 
-TopoDS_Edge BRepFilletAPI_MakeFillet2d::AddChamfer(const TopoDS_Edge&  E1,
-                                                   const TopoDS_Edge&  E2,
+TopoEdge BRepFilletAPI_MakeFillet2d::AddChamfer(const TopoEdge&  E1,
+                                                   const TopoEdge&  E2,
                                                    const Standard_Real D1,
                                                    const Standard_Real D2)
 {
@@ -80,8 +80,8 @@ TopoDS_Edge BRepFilletAPI_MakeFillet2d::AddChamfer(const TopoDS_Edge&  E1,
 
 //=================================================================================================
 
-TopoDS_Edge BRepFilletAPI_MakeFillet2d::AddChamfer(const TopoDS_Edge&   E,
-                                                   const TopoDS_Vertex& V,
+TopoEdge BRepFilletAPI_MakeFillet2d::AddChamfer(const TopoEdge&   E,
+                                                   const TopoVertex& V,
                                                    const Standard_Real  D,
                                                    const Standard_Real  Ang)
 {
@@ -90,9 +90,9 @@ TopoDS_Edge BRepFilletAPI_MakeFillet2d::AddChamfer(const TopoDS_Edge&   E,
 
 //=================================================================================================
 
-TopoDS_Edge BRepFilletAPI_MakeFillet2d::ModifyChamfer(const TopoDS_Edge&  Chamfer,
-                                                      const TopoDS_Edge&  E1,
-                                                      const TopoDS_Edge&  E2,
+TopoEdge BRepFilletAPI_MakeFillet2d::ModifyChamfer(const TopoEdge&  Chamfer,
+                                                      const TopoEdge&  E1,
+                                                      const TopoEdge&  E2,
                                                       const Standard_Real D1,
                                                       const Standard_Real D2)
 {
@@ -101,8 +101,8 @@ TopoDS_Edge BRepFilletAPI_MakeFillet2d::ModifyChamfer(const TopoDS_Edge&  Chamfe
 
 //=================================================================================================
 
-TopoDS_Edge BRepFilletAPI_MakeFillet2d::ModifyChamfer(const TopoDS_Edge&  Chamfer,
-                                                      const TopoDS_Edge&  E,
+TopoEdge BRepFilletAPI_MakeFillet2d::ModifyChamfer(const TopoEdge&  Chamfer,
+                                                      const TopoEdge&  E,
                                                       const Standard_Real D,
                                                       const Standard_Real Ang)
 {
@@ -111,14 +111,14 @@ TopoDS_Edge BRepFilletAPI_MakeFillet2d::ModifyChamfer(const TopoDS_Edge&  Chamfe
 
 //=================================================================================================
 
-TopoDS_Vertex BRepFilletAPI_MakeFillet2d::RemoveChamfer(const TopoDS_Edge& Chamfer)
+TopoVertex BRepFilletAPI_MakeFillet2d::RemoveChamfer(const TopoEdge& Chamfer)
 {
   return myMakeChFi2d.RemoveChamfer(Chamfer);
 }
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepFilletAPI_MakeFillet2d::BasisEdge(const TopoDS_Edge& E) const
+const TopoEdge& BRepFilletAPI_MakeFillet2d::BasisEdge(const TopoEdge& E) const
 {
   return myMakeChFi2d.BasisEdge(E);
 }
@@ -139,7 +139,7 @@ void BRepFilletAPI_MakeFillet2d::Build(const Message_ProgressRange& /*theRange*/
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepFilletAPI_MakeFillet2d::Modified(const TopoDS_Shape& E)
+const ShapeList& BRepFilletAPI_MakeFillet2d::Modified(const TopoShape& E)
 {
   myGenerated.Clear();
   myGenerated.Append(DescendantEdge(TopoDS::Edge(E)));
@@ -155,7 +155,7 @@ Standard_Integer BRepFilletAPI_MakeFillet2d::NbCurves() const
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepFilletAPI_MakeFillet2d::NewEdges(const Standard_Integer I)
+const ShapeList& BRepFilletAPI_MakeFillet2d::NewEdges(const Standard_Integer I)
 {
   myGenerated.Clear();
   if (I <= NbFillet())

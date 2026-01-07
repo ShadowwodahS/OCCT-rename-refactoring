@@ -24,11 +24,11 @@ TopOpeBRepTool_C2DF::TopOpeBRepTool_C2DF() {}
 
 //=================================================================================================
 
-TopOpeBRepTool_C2DF::TopOpeBRepTool_C2DF(const Handle(Geom2d_Curve)& PC,
+TopOpeBRepTool_C2DF::TopOpeBRepTool_C2DF(const Handle(GeomCurve2d)& PC,
                                          const Standard_Real         f2d,
                                          const Standard_Real         l2d,
                                          const Standard_Real         tol,
-                                         const TopoDS_Face&          F)
+                                         const TopoFace&          F)
 {
   myPC   = PC;
   myf2d  = f2d;
@@ -39,7 +39,7 @@ TopOpeBRepTool_C2DF::TopOpeBRepTool_C2DF(const Handle(Geom2d_Curve)& PC,
 
 //=================================================================================================
 
-void TopOpeBRepTool_C2DF::SetPC(const Handle(Geom2d_Curve)& PC,
+void TopOpeBRepTool_C2DF::SetPC(const Handle(GeomCurve2d)& PC,
                                 const Standard_Real         f2d,
                                 const Standard_Real         l2d,
                                 const Standard_Real         tol)
@@ -52,14 +52,14 @@ void TopOpeBRepTool_C2DF::SetPC(const Handle(Geom2d_Curve)& PC,
 
 //=================================================================================================
 
-void TopOpeBRepTool_C2DF::SetFace(const TopoDS_Face& F)
+void TopOpeBRepTool_C2DF::SetFace(const TopoFace& F)
 {
   myFace = F;
 }
 
 //=================================================================================================
 
-const Handle(Geom2d_Curve)& TopOpeBRepTool_C2DF::PC(Standard_Real& f2d,
+const Handle(GeomCurve2d)& TopOpeBRepTool_C2DF::PC(Standard_Real& f2d,
                                                     Standard_Real& l2d,
                                                     Standard_Real& tol) const
 {
@@ -71,14 +71,14 @@ const Handle(Geom2d_Curve)& TopOpeBRepTool_C2DF::PC(Standard_Real& f2d,
 
 //=================================================================================================
 
-const TopoDS_Face& TopOpeBRepTool_C2DF::Face() const
+const TopoFace& TopOpeBRepTool_C2DF::Face() const
 {
   return myFace;
 }
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_C2DF::IsPC(const Handle(Geom2d_Curve)& PC) const
+Standard_Boolean TopOpeBRepTool_C2DF::IsPC(const Handle(GeomCurve2d)& PC) const
 {
   Standard_Boolean b = (PC == myPC);
   return b;
@@ -86,7 +86,7 @@ Standard_Boolean TopOpeBRepTool_C2DF::IsPC(const Handle(Geom2d_Curve)& PC) const
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_C2DF::IsFace(const TopoDS_Face& F) const
+Standard_Boolean TopOpeBRepTool_C2DF::IsFace(const TopoFace& F) const
 {
   Standard_Boolean b = (F.IsEqual(myFace));
   return b;

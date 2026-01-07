@@ -24,17 +24,17 @@
 
 void _osd_wnt_set_error(OSD_Error&, Standard_Integer, ...);
 
-static TCollection_AsciiString _osd_wnt_set_disk_name(const OSD_Path& thePath)
+static AsciiString1 _osd_wnt_set_disk_name(const SystemPath& thePath)
 {
   {
-    TCollection_AsciiString aDisk = thePath.Disk();
+    AsciiString1 aDisk = thePath.Disk();
     if (aDisk.UsefullLength() != 0)
     {
       return aDisk + '/';
     }
   }
 
-  TCollection_AsciiString aDir = thePath.Trek();
+  AsciiString1 aDir = thePath.Trek();
   const int               j    = aDir.UsefullLength();
   if (j < 3 || aDir.Value(1) != '|' || aDir.Value(2) != '|')
   {
@@ -109,14 +109,14 @@ OSD_Disk::OSD_Disk()
   if (aBuffLen > 3 && aBuff.First() != L'\\')
   {
     aBuff.ChangeValue(3) = L'\0';
-    myDiskName           = TCollection_AsciiString(&aBuff.ChangeFirst());
+    myDiskName           = AsciiString1(&aBuff.ChangeFirst());
   }
 #endif
 }
 
 //=================================================================================================
 
-OSD_Disk::OSD_Disk(const OSD_Path& theName)
+OSD_Disk::OSD_Disk(const SystemPath& theName)
     : myDiskName(theName.Disk())
 {
 #ifdef _WIN32
@@ -128,26 +128,26 @@ OSD_Disk::OSD_Disk(const Standard_CString theName)
     : myDiskName(theName)
 {
 #ifdef _WIN32
-  OSD_Path aPath(theName);
+  SystemPath aPath(theName);
   myDiskName = _osd_wnt_set_disk_name(aPath);
 #endif
 }
 
 //=================================================================================================
 
-void OSD_Disk::SetName(const OSD_Path& theName)
+void OSD_Disk::SetName(const SystemPath& theName)
 {
   myDiskName = theName.Disk();
 }
 
 //=================================================================================================
 
-OSD_Path OSD_Disk::Name() const
+SystemPath OSD_Disk::Name() const
 {
 #ifdef _WIN32
   return myDiskName;
 #else
-  OSD_Path aPath;
+  SystemPath aPath;
   aPath.SetDisk(myDiskName);
   return aPath;
 #endif
@@ -159,7 +159,7 @@ Standard_Integer OSD_Disk::DiskSize()
 {
 #ifdef _WIN32
   ULARGE_INTEGER                   aNbFreeAvailableBytes, aNbTotalBytes, aNbTotalFreeBytes;
-  const TCollection_ExtendedString aDiskNameW(myDiskName);
+  const UtfString aDiskNameW(myDiskName);
   if (!GetDiskFreeSpaceExW(aDiskNameW.ToWideString(),
                            &aNbFreeAvailableBytes,
                            &aNbTotalBytes,
@@ -189,7 +189,7 @@ Standard_Integer OSD_Disk::DiskFree()
 {
 #ifdef _WIN32
   ULARGE_INTEGER                   aNbFreeAvailableBytes, aNbTotalBytes, aNbTotalFreeBytes;
-  const TCollection_ExtendedString aDiskNameW(myDiskName);
+  const UtfString aDiskNameW(myDiskName);
   if (!GetDiskFreeSpaceExW(aDiskNameW.ToWideString(),
                            &aNbFreeAvailableBytes,
                            &aNbTotalBytes,

@@ -55,10 +55,10 @@ Standard_Boolean XmlTObjDrivers_ObjectDriver::Paste(
   const Handle(TDF_Attribute)& Target,
   XmlObjMgt_RRelocationTable& /*RelocTable*/) const
 {
-  TCollection_ExtendedString aString;
+  UtfString aString;
   if (XmlObjMgt::GetExtendedString(Source, aString))
   {
-    TCollection_AsciiString anAscii(aString);
+    AsciiString1 anAscii(aString);
     Handle(TObj_Object)     anObject =
       TObj_Persistence::CreateNewObject(anAscii.ToCString(), Target->Label());
     Handle(TObj_TObject)::DownCast(Target)->Set(anObject);

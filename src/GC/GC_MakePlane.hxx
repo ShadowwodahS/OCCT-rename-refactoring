@@ -85,12 +85,12 @@ public:
 
   //! Returns the constructed plane.
   //! Exceptions StdFail_NotDone if no plane is constructed.
-  Standard_EXPORT const Handle(Geom_Plane)& Value() const;
+  Standard_EXPORT const Handle(GeomPlane)& Value() const;
 
-  operator const Handle(Geom_Plane) & () const { return Value(); }
+  operator const Handle(GeomPlane) & () const { return Value(); }
 
 private:
-  Handle(Geom_Plane) ThePlane;
+  Handle(GeomPlane) ThePlane;
 };
 
 #endif // _GC_MakePlane_HeaderFile

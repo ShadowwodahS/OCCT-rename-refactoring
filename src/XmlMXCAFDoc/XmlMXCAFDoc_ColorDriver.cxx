@@ -49,8 +49,8 @@ Standard_Boolean XmlMXCAFDoc_ColorDriver::Paste(const XmlObjMgt_Persistent&  the
 
   if (anIntStr.GetInteger(aValue) == Standard_False)
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve Color attribute from \"") + anIntStr + "\"";
+    UtfString aMessageString =
+      UtfString("Cannot retrieve Color attribute from \"") + anIntStr + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
   }

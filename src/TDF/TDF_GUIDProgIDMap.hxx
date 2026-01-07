@@ -20,8 +20,8 @@
 #include <TCollection_ExtendedString.hxx>
 #include <NCollection_DoubleMap.hxx>
 
-typedef NCollection_DoubleMap<Standard_GUID, TCollection_ExtendedString> TDF_GUIDProgIDMap;
-typedef NCollection_DoubleMap<Standard_GUID, TCollection_ExtendedString>::Iterator
+typedef NCollection_DoubleMap<Standard_GUID, UtfString> TDF_GUIDProgIDMap;
+typedef NCollection_DoubleMap<Standard_GUID, UtfString>::Iterator
   TDF_DoubleMapIteratorOfGUIDProgIDMap;
 
 #endif

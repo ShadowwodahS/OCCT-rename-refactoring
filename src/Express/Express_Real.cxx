@@ -25,7 +25,7 @@ Express_Real::Express_Real() {}
 
 //=================================================================================================
 
-const TCollection_AsciiString Express_Real::CPPName() const
+const AsciiString1 Express_Real::CPPName() const
 {
   return "Standard_Real";
 }

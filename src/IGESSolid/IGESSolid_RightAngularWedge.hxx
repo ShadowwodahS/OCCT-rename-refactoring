@@ -29,7 +29,7 @@ class IGESSolid_RightAngularWedge;
 DEFINE_STANDARD_HANDLE(IGESSolid_RightAngularWedge, IGESData_IGESEntity)
 
 //! defines RightAngularWedge, Type <152> Form Number <0>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! A right angular wedge is a triangular/trapezoidal prism
 class IGESSolid_RightAngularWedge : public IGESData_IGESEntity
 {

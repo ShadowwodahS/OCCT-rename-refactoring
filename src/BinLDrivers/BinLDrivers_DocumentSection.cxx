@@ -31,7 +31,7 @@ BinLDrivers_DocumentSection::BinLDrivers_DocumentSection()
 
 //=================================================================================================
 
-BinLDrivers_DocumentSection::BinLDrivers_DocumentSection(const TCollection_AsciiString& theName,
+BinLDrivers_DocumentSection::BinLDrivers_DocumentSection(const AsciiString1& theName,
                                                          const Standard_Boolean         isPostRead)
     : myName(theName),
       myIsPostRead(isPostRead)
@@ -42,7 +42,7 @@ BinLDrivers_DocumentSection::BinLDrivers_DocumentSection(const TCollection_Ascii
 
 //=================================================================================================
 
-const TCollection_AsciiString& BinLDrivers_DocumentSection::Name() const
+const AsciiString1& BinLDrivers_DocumentSection::Name() const
 {
   return myName;
 }

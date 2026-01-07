@@ -61,7 +61,7 @@ void GeomFill_Generator::Perform(const Standard_Real PTol)
   TColStd_Array1OfReal Weight(1, NbUPoles);
   for (j = 1; j <= NbVPoles; j++)
   {
-    Handle(Geom_BSplineCurve) Cj = Handle(Geom_BSplineCurve)::DownCast(mySequence(j));
+    Handle(BSplineCurve3d) Cj = Handle(BSplineCurve3d)::DownCast(mySequence(j));
     Cj->Poles(Pole);
     Cj->Weights(Weight);
     VKnots(j) = (Standard_Real)(j - 1);

@@ -27,17 +27,17 @@
 
 #include <Draw_ProgressIndicator.hxx>
 
-static Standard_Integer bcbuild(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bcaddall(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bcremoveall(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bcadd(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bcremove(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bcremoveint(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bcmakecontainers(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer bcbuild(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bcaddall(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bcremoveall(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bcadd(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bcremove(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bcremoveint(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bcmakecontainers(DrawInterpreter&, Standard_Integer, const char**);
 
 //=================================================================================================
 
-void BOPTest::CellsCommands(Draw_Interpretor& theCommands)
+void BOPTest::CellsCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -82,7 +82,7 @@ void BOPTest::CellsCommands(Draw_Interpretor& theCommands)
 
 //=================================================================================================
 
-Standard_Integer bcbuild(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bcbuild(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -99,24 +99,24 @@ Standard_Integer bcbuild(Draw_Interpretor& di, Standard_Integer n, const char** 
   //
   TopTools_ListIteratorOfListOfShape aIt;
   //
-  BOPAlgo_PaveFiller& aPF = BOPTest_Objects::PaveFiller();
+  BooleanPaveFiller& aPF = BOPTest_Objects::PaveFiller();
   //
   BOPAlgo_CellsBuilder& aCBuilder = BOPTest_Objects::CellsBuilder();
   aCBuilder.Clear();
   //
-  TopTools_ListOfShape& aLSObj = BOPTest_Objects::Shapes();
+  ShapeList& aLSObj = BOPTest_Objects::Shapes();
   aIt.Initialize(aLSObj);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aS = aIt.Value();
+    const TopoShape& aS = aIt.Value();
     aCBuilder.AddArgument(aS);
   }
   //
-  TopTools_ListOfShape& aLSTool = BOPTest_Objects::Tools();
+  ShapeList& aLSTool = BOPTest_Objects::Tools();
   aIt.Initialize(aLSTool);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aS = aIt.Value();
+    const TopoShape& aS = aIt.Value();
     aCBuilder.AddArgument(aS);
   }
   //
@@ -148,20 +148,20 @@ Standard_Integer bcbuild(Draw_Interpretor& di, Standard_Integer n, const char** 
   //
   BOPTest_Objects::SetBuilder(&aCBuilder);
   //
-  const TopoDS_Shape& aR = aCBuilder.GetAllParts();
+  const TopoShape& aR = aCBuilder.GetAllParts();
   if (aR.IsNull())
   {
     di << "no parts were built\n";
     return 0;
   }
   //
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bcaddall(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bcaddall(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2 || n > 5)
   {
@@ -176,7 +176,7 @@ Standard_Integer bcaddall(Draw_Interpretor& di, Standard_Integer n, const char**
   {
     if (!strcmp(a[2], "-m"))
     {
-      iMaterial = Draw::Atoi(a[3]);
+      iMaterial = Draw1::Atoi(a[3]);
     }
     //
     if (n == 5)
@@ -191,19 +191,19 @@ Standard_Integer bcaddall(Draw_Interpretor& di, Standard_Integer n, const char**
   aCBuilder.AddAllToResult(iMaterial, bUpdate);
   BOPTest::ReportAlerts(aCBuilder.GetReport());
   //
-  const TopoDS_Shape& aR = aCBuilder.Shape();
+  const TopoShape& aR = aCBuilder.Shape();
 
   // Update the history of the Cells Builder
   if (BRepTest_Objects::IsHistoryNeeded())
     BRepTest_Objects::SetHistory(aCBuilder.Arguments(), aCBuilder);
 
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bcremoveall(Draw_Interpretor& di, Standard_Integer n, const char**)
+Standard_Integer bcremoveall(DrawInterpreter& di, Standard_Integer n, const char**)
 {
   if (n != 1)
   {
@@ -224,7 +224,7 @@ Standard_Integer bcremoveall(Draw_Interpretor& di, Standard_Integer n, const cha
 
 //=================================================================================================
 
-Standard_Integer bcadd(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bcadd(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 4)
   {
@@ -232,7 +232,7 @@ Standard_Integer bcadd(Draw_Interpretor& di, Standard_Integer n, const char** a)
     return 1;
   }
   //
-  TopTools_ListOfShape aLSToTake, aLSToAvoid;
+  ShapeList aLSToTake, aLSToAvoid;
   Standard_Integer     i, iMaterial, iTake, n1;
   Standard_Boolean     bUpdate;
   //
@@ -242,25 +242,25 @@ Standard_Integer bcadd(Draw_Interpretor& di, Standard_Integer n, const char** a)
   //
   if (!strcmp(a[n - 3], "-m"))
   {
-    iMaterial = Draw::Atoi(a[n - 2]);
+    iMaterial = Draw1::Atoi(a[n - 2]);
     bUpdate   = !strcmp(a[n - 1], "-u");
     n1        = n - 3;
   }
   else if (!strcmp(a[n - 2], "-m"))
   {
-    iMaterial = Draw::Atoi(a[n - 1]);
+    iMaterial = Draw1::Atoi(a[n - 1]);
     n1        = n - 2;
   }
   //
   for (i = 2; i < n1; i += 2)
   {
-    const TopoDS_Shape& aS = DBRep::Get(a[i]);
+    const TopoShape& aS = DBRep1::Get(a[i]);
     if (aS.IsNull())
     {
       di << a[i] << " is a null shape\n";
       continue;
     }
-    iTake = Draw::Atoi(a[i + 1]);
+    iTake = Draw1::Atoi(a[i + 1]);
     //
     if (iTake)
     {
@@ -284,19 +284,19 @@ Standard_Integer bcadd(Draw_Interpretor& di, Standard_Integer n, const char** a)
   aCBuilder.AddToResult(aLSToTake, aLSToAvoid, iMaterial, bUpdate);
   BOPTest::ReportAlerts(aCBuilder.GetReport());
   //
-  const TopoDS_Shape& aR = aCBuilder.Shape();
+  const TopoShape& aR = aCBuilder.Shape();
 
   // Update the history of the Cells Builder
   if (BRepTest_Objects::IsHistoryNeeded())
     BRepTest_Objects::SetHistory(aCBuilder.Arguments(), aCBuilder);
 
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bcremove(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bcremove(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 4 || ((n % 2) != 0))
   {
@@ -304,18 +304,18 @@ Standard_Integer bcremove(Draw_Interpretor& di, Standard_Integer n, const char**
     return 1;
   }
   //
-  TopTools_ListOfShape aLSToTake, aLSToAvoid;
+  ShapeList aLSToTake, aLSToAvoid;
   Standard_Integer     i, iTake;
   //
   for (i = 2; i < n; i += 2)
   {
-    const TopoDS_Shape& aS = DBRep::Get(a[i]);
+    const TopoShape& aS = DBRep1::Get(a[i]);
     if (aS.IsNull())
     {
       di << a[i] << " is a null shape\n";
       return 1;
     }
-    iTake = Draw::Atoi(a[i + 1]);
+    iTake = Draw1::Atoi(a[i + 1]);
     //
     if (iTake)
     {
@@ -336,19 +336,19 @@ Standard_Integer bcremove(Draw_Interpretor& di, Standard_Integer n, const char**
   BOPAlgo_CellsBuilder& aCBuilder = BOPTest_Objects::CellsBuilder();
   aCBuilder.RemoveFromResult(aLSToTake, aLSToAvoid);
   //
-  const TopoDS_Shape& aR = aCBuilder.Shape();
+  const TopoShape& aR = aCBuilder.Shape();
 
   // Update the history of the Cells Builder
   if (BRepTest_Objects::IsHistoryNeeded())
     BRepTest_Objects::SetHistory(aCBuilder.Arguments(), aCBuilder);
 
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bcremoveint(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bcremoveint(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -362,19 +362,19 @@ Standard_Integer bcremoveint(Draw_Interpretor& di, Standard_Integer n, const cha
   aCBuilder.RemoveInternalBoundaries();
   BOPTest::ReportAlerts(aCBuilder.GetReport());
   //
-  const TopoDS_Shape& aR = aCBuilder.Shape();
+  const TopoShape& aR = aCBuilder.Shape();
 
   // Update the history of the Cells Builder
   if (BRepTest_Objects::IsHistoryNeeded())
     BRepTest_Objects::SetHistory(aCBuilder.Arguments(), aCBuilder);
 
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bcmakecontainers(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bcmakecontainers(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -385,8 +385,8 @@ Standard_Integer bcmakecontainers(Draw_Interpretor& di, Standard_Integer n, cons
   BOPAlgo_CellsBuilder& aCBuilder = BOPTest_Objects::CellsBuilder();
   aCBuilder.MakeContainers();
   //
-  const TopoDS_Shape& aR = aCBuilder.Shape();
+  const TopoShape& aR = aCBuilder.Shape();
   //
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }

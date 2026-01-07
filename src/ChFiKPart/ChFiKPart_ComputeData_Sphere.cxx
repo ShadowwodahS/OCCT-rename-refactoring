@@ -132,11 +132,11 @@ Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
 
   // Pointed side.
 
-  Handle(Geom_Curve)   C;
-  Handle(Geom2d_Curve) C2d;
+  Handle(GeomCurve3d)   C;
+  Handle(GeomCurve2d) C2d;
   gp_Pnt2d             p2dFil(0., -M_PI / 2.);
   gp_Lin2d             lin2dFil(p2dFil, gp::DX2d());
-  Handle(Geom2d_Curve) C2dFil = new Geom2d_Line(lin2dFil);
+  Handle(GeomCurve2d) C2dFil = new Geom2d_Line(lin2dFil);
   toreverse                   = (ddz.Dot(dnat1) <= 0.);
   TopAbs_Orientation trans    = TopAbs_REVERSED;
   if (toreverse)
@@ -152,7 +152,7 @@ Standard_Boolean ChFiKPart_Sphere(TopOpeBRepDS_DataStructure&      DStr,
   Dir3d        dci = ddx.Crossed(ddy);
   Frame3d        axci(cen, dci, ddx);
   gp_Circ       ci2(axci, Rad);
-  C = new Geom_Circle(ci2);
+  C = new GeomCircle(ci2);
   GeomAdaptor_Surface AS(gsph);
   GeomAdaptor_Curve   AC(C, 0., ang);
   ChFiKPart_ProjPC(AC, AS, C2dFil);

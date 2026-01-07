@@ -70,7 +70,7 @@ public:
 
   Standard_EXPORT HLRBRep_SeqOfShapeBounds& SeqOfShapeBounds();
 
-  Standard_EXPORT Standard_Integer NbShapes() const;
+  Standard_EXPORT Standard_Integer NbShapes1() const;
 
   Standard_EXPORT HLRBRep_ShapeBounds& ShapeBounds(const Standard_Integer I);
 

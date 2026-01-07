@@ -20,9 +20,9 @@
 #include <TCollection_AsciiString.hxx>
 
 // --- Enum : BooleanOperator ---
-static TCollection_AsciiString boDifference(".DIFFERENCE.");
-static TCollection_AsciiString boIntersection(".INTERSECTION.");
-static TCollection_AsciiString boUnion(".UNION.");
+static AsciiString1 boDifference(".DIFFERENCE.");
+static AsciiString1 boIntersection(".INTERSECTION.");
+static AsciiString1 boUnion(".UNION.");
 
 RWStepShape_RWBooleanResult::RWStepShape_RWBooleanResult() {}
 

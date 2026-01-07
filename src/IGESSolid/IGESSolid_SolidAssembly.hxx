@@ -29,7 +29,7 @@ class IGESSolid_SolidAssembly;
 DEFINE_STANDARD_HANDLE(IGESSolid_SolidAssembly, IGESData_IGESEntity)
 
 //! defines SolidAssembly, Type <184> Form <0>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! Solid assembly is a collection of items which possess a
 //! shared fixed geometric relationship.
 //!

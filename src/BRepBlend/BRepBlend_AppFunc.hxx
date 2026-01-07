@@ -25,7 +25,7 @@
 class BRepBlend_Line;
 class Blend_Function;
 class Blend_AppFunction;
-class Blend_Point;
+class Point2;
 
 class BRepBlend_AppFunc;
 DEFINE_STANDARD_HANDLE(BRepBlend_AppFunc, BRepBlend_AppFuncRoot)
@@ -44,9 +44,9 @@ public:
   Standard_EXPORT void Point(const Blend_AppFunction& Func,
                              const Standard_Real      Param,
                              const math_Vector&       Sol,
-                             Blend_Point&             Pnt) const Standard_OVERRIDE;
+                             Point2&             Pnt) const Standard_OVERRIDE;
 
-  Standard_EXPORT void Vec(math_Vector& Sol, const Blend_Point& Pnt) const Standard_OVERRIDE;
+  Standard_EXPORT void Vec(math_Vector& Sol, const Point2& Pnt) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(BRepBlend_AppFunc, BRepBlend_AppFuncRoot)
 

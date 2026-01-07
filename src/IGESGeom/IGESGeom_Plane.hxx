@@ -29,7 +29,7 @@ class IGESGeom_Plane;
 DEFINE_STANDARD_HANDLE(IGESGeom_Plane, IGESData_IGESEntity)
 
 //! defines IGESPlane, Type <108> Form <-1,0,1>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A plane entity can be used to represent unbounded plane,
 //! as well as bounded portion of a plane. In either of the
 //! above cases the plane is defined within definition space

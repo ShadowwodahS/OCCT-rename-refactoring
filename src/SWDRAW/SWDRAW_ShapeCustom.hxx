@@ -32,7 +32,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Loads commands defined in ShapeCustom
-  Standard_EXPORT static void InitCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void InitCommands(DrawInterpreter& theCommands);
 
 protected:
 private:

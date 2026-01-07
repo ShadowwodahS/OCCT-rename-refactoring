@@ -1952,7 +1952,7 @@ static Standard_Boolean IsRLineGood(const IntSurf_Quadric&       Quad1,
 
   Extrema_ExtPC      anExtr;
   GeomAdaptor_Curve  anAC;
-  Handle(Geom_Curve) aCurv;
+  Handle(GeomCurve3d) aCurv;
 
   if (aGType == IntPatch_Ellipse)
     aCurv = new Geom_Ellipse(theGLine->Ellipse());

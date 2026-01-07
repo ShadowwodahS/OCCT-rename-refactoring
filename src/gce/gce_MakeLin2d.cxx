@@ -96,7 +96,7 @@ gce_MakeLin2d::gce_MakeLin2d(const gp_Lin2d& Line, const gp_Pnt2d& Point)
 
 gce_MakeLin2d::gce_MakeLin2d(const gp_Lin2d& Line, const Standard_Real Dist)
 {
-  gp_Pnt2d Point(Line.Location().XY() + Dist * gp_XY(-Line.Direction().Y(), Line.Direction().X()));
+  gp_Pnt2d Point(Line.Location().XY() + Dist * Coords2d(-Line.Direction().Y(), Line.Direction().X()));
   TheLin2d = gp_Lin2d(Point, Line.Direction());
   TheError = gce_Done;
 }

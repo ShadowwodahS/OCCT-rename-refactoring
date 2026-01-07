@@ -19,7 +19,7 @@
 #include <TDataStd_GenericEmpty.hxx>
 #include <Standard_OStream.hxx>
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 
 class TDataStd_Tick;
 DEFINE_STANDARD_HANDLE(TDataStd_Tick, TDataStd_GenericEmpty)
@@ -38,7 +38,7 @@ public:
   //! Find, or create, a Tick attribute.
   //! Tick methods
   //! ============
-  Standard_EXPORT static Handle(TDataStd_Tick) Set(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataStd_Tick) Set(const DataLabel& label);
 
   Standard_EXPORT TDataStd_Tick();
 

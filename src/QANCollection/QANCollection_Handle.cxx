@@ -48,13 +48,13 @@
 //=======================================================================
 
 // set of overloaded functions for checking resolution of arguments
-inline void f(const Handle(Geom_Curve)&) {}
+inline void f(const Handle(GeomCurve3d)&) {}
 
-inline void func(const Handle(Geom_Curve)&) {}
+inline void func(const Handle(GeomCurve3d)&) {}
 
-inline void func(const Handle(Geom_BSplineCurve)&) {}
+inline void func(const Handle(BSplineCurve3d)&) {}
 
-inline void func(const Handle(Geom_Surface)&) {}
+inline void func(const Handle(GeomSurface)&) {}
 
 inline void func(const Handle(Point3d)&) {}
 
@@ -62,7 +62,7 @@ inline void func(const Handle(gp_XYZ)&) {}
 
 inline void func(const Handle(Transform3d)&) {}
 
-static Standard_Integer QAHandleOps(Draw_Interpretor& theDI,
+static Standard_Integer QAHandleOps(DrawInterpreter& theDI,
                                     Standard_Integer /*theArgNb*/,
                                     const char** /*theArgVec*/)
 {
@@ -70,20 +70,20 @@ static Standard_Integer QAHandleOps(Draw_Interpretor& theDI,
   // Part 1: classes inheriting transient
   // ===============================================================
 
-  Handle(Geom_Line) aLine = new Geom_Line(gp::Origin(), gp::DZ());
+  Handle(GeomLine) aLine = new GeomLine(gp::Origin(), gp::DZ());
   CHECK(theDI, !aLine.IsNull(), "handle for non-null");
 
-  const Handle(Geom_Line)&  cLine  = aLine; // cast to self const ref
-  const Handle(Geom_Curve)& cCurve = aLine; // cast to base const ref
-  Geom_Line*                pLine  = aLine.get();
-  const Geom_Line*          cpLine = aLine.get();
-  Geom_Line&                rLine  = *aLine;
-  const Geom_Line&          crLine = *cLine;
-  Handle(Geom_Curve)        aCurve = aLine; // copy from handle to derived type
+  const Handle(GeomLine)&  cLine  = aLine; // cast to self const ref
+  const Handle(GeomCurve3d)& cCurve = aLine; // cast to base const ref
+  GeomLine*                pLine  = aLine.get();
+  const GeomLine*          cpLine = aLine.get();
+  GeomLine&                rLine  = *aLine;
+  const GeomLine&          crLine = *cLine;
+  Handle(GeomCurve3d)        aCurve = aLine; // copy from handle to derived type
   aCurve                           = cLine; // assignment to handle of derived type
-  Handle(Geom_Line) dLine(cpLine);          // copy from handle to derived type
+  Handle(GeomLine) dLine(cpLine);          // copy from handle to derived type
 
-  aLine = Handle(Geom_Line)::DownCast(cCurve);
+  aLine = Handle(GeomLine)::DownCast(cCurve);
   CHECK(theDI, !aLine.IsNull(), "down cast");
 
   // comparison operators
@@ -99,7 +99,7 @@ static Standard_Integer QAHandleOps(Draw_Interpretor& theDI,
   CHECK(theDI, &crLine == aLine, "equality of reference and handle");
   CHECK(theDI, aLine, "cast to bool");
 
-  Handle(Geom_Line) aLin2;
+  Handle(GeomLine) aLin2;
   CHECK(theDI, aLine != aLin2, "inequality of handle to the same type handle");
   CHECK(theDI, aLin2 != cLine, "inequality of const and non-const handle");
   CHECK(theDI, aLin2 != cCurve, "inequality of handle and base handle");
@@ -108,7 +108,7 @@ static Standard_Integer QAHandleOps(Draw_Interpretor& theDI,
   CHECK(theDI, aLin2 != cpLine, "inequality of handle and const pointer");
   CHECK(theDI, cpLine != aLin2, "inequality of const pointer and handle");
 
-  Handle(Geom_Curve) aCur2;
+  Handle(GeomCurve3d) aCur2;
   CHECK(theDI, aLine != aCur2, "inequality of handles of different types");
   CHECK(theDI, aCur2 != cLine, "inequality of const and non-const handle");
   CHECK(theDI, aCur2 != cCurve, "inequality of handle and base handle");
@@ -128,13 +128,13 @@ static Standard_Integer QAHandleOps(Draw_Interpretor& theDI,
   func(cLine);
 #endif
 
-  const Handle(Geom_Curve)& aCurve2 = aLine; // cast to base const ref
+  const Handle(GeomCurve3d)& aCurve2 = aLine; // cast to base const ref
   CHECK(theDI, !aCurve2.IsNull(), "cast to base class const reference");
 
-  Handle(Geom_Line) qLine = cpLine; // constructor from const pointer -- could be made explicit...
+  Handle(GeomLine) qLine = cpLine; // constructor from const pointer -- could be made explicit...
 
   // check that compiler keeps temporary object referenced by local variable
-  const Handle(Geom_Line)& aTmpRef(Handle(Geom_Line)::DownCast(aCurve2));
+  const Handle(GeomLine)& aTmpRef(Handle(GeomLine)::DownCast(aCurve2));
   // note that here and in similar checks below we use comparison of pointers instead
   // of checking handle for Null, since such check may fail if temporary object is
   // destroyed prematurely and its location is used for other object.
@@ -148,7 +148,7 @@ static Standard_Integer QAHandleOps(Draw_Interpretor& theDI,
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wdangling-reference"
 #endif
-  const Handle(Geom_Curve)& aTmpRefBase(Handle(Geom_Line)::DownCast(aCurve2));
+  const Handle(GeomCurve3d)& aTmpRefBase(Handle(GeomLine)::DownCast(aCurve2));
   CHECK(theDI,
         aTmpRefBase.get() != aCurve2.get(),
         "local reference to temporary handle object (base type)");
@@ -157,17 +157,17 @@ static Standard_Integer QAHandleOps(Draw_Interpretor& theDI,
 #endif
 
   // check operations with Handle_* classes
-  Handle(Geom_Line) hLine = aLine;
+  Handle(GeomLine) hLine = aLine;
   CHECK(theDI, !hLine.IsNull(), "hhandle for non-null");
 #include <Standard_WarningsDisable.hxx>
-  const Handle_Geom_Line&  chLine  = aLine;     // cast to self const ref
-  const Handle_Geom_Curve& chCurve = aLine;     // cast to base const ref
-  const Handle_Geom_Line&  hhLine  = hLine;     // cast to self const ref
-  const Handle_Geom_Curve& hhCurve = hLine;     // cast to base const ref
-  Handle_Geom_Curve        hCurve  = aLine;     // copy from handle to derived type
-  Handle_Geom_Line         phLine(aLine.get()); // construct from pointer
+  const Handle_GeomLine&  chLine  = aLine;     // cast to self const ref
+  const Handle_GeomCurve3d& chCurve = aLine;     // cast to base const ref
+  const Handle_GeomLine&  hhLine  = hLine;     // cast to self const ref
+  const Handle_GeomCurve3d& hhCurve = hLine;     // cast to base const ref
+  Handle_GeomCurve3d        hCurve  = aLine;     // copy from handle to derived type
+  Handle_GeomLine         phLine(aLine.get()); // construct from pointer
 
-  hLine = Handle_Geom_Line::DownCast(cCurve); // inheritance of downcast
+  hLine = Handle_GeomLine::DownCast(cCurve); // inheritance of downcast
   CHECK(theDI, !hLine.IsNull(), "down cast");
 
   // comparison operators
@@ -190,18 +190,18 @@ static Standard_Integer QAHandleOps(Draw_Interpretor& theDI,
   func(chLine);
 #endif
 
-  Handle_Geom_Line qhLine = cpLine; // constructor from const pointer -- could be made explicit...
+  Handle_GeomLine qhLine = cpLine; // constructor from const pointer -- could be made explicit...
 
   // check that compiler keeps temporary object referenced by local variable
 #if defined(__GNUC__) && (__GNUC__ > 12)
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wdangling-reference"
 #endif
-  const Handle_Geom_Line& hTmpRef(Handle(Geom_Line)::DownCast(aCurve2));
+  const Handle_GeomLine& hTmpRef(Handle(GeomLine)::DownCast(aCurve2));
   CHECK(theDI, hTmpRef.get() == aCurve2.get(), "local reference to temporary object (Handle_)");
 
   // check lifetime of temporary object referenced by local variable (base type)
-  const Handle_Geom_Curve& hTmpRefBase(Handle(Geom_Line)::DownCast(aCurve2));
+  const Handle_GeomCurve3d& hTmpRefBase(Handle(GeomLine)::DownCast(aCurve2));
 #if defined(__GNUC__) && (__GNUC__ > 11)
   #pragma GCC diagnostic pop
 #endif
@@ -220,16 +220,16 @@ static Standard_Integer QAHandleOps(Draw_Interpretor& theDI,
         "local reference to temporary handle object (Handle_ to base type)");
 #endif
 #include <Standard_WarningsRestore.hxx>
-  Handle(Geom_Surface) aSurf;
+  Handle(GeomSurface) aSurf;
   (void)aSurf;
 
 #if 0
   // each test in this section must cause compiler error
   gunc (cLine); // passing const handle as non-const reference to base type
   pLine = cLine.get(); // getting non-const pointer to contained object from const handle 
-  Handle(Geom_Line) xLine = cCurve; // copy from handle to base type
+  Handle(GeomLine) xLine = cCurve; // copy from handle to base type
 // clang-format off
-  Handle(Geom_BSplineCurve) aBSpl (new Geom_Line (gp::Origin(), gp::DX())); // construction from pointer to incompatible type
+  Handle(BSplineCurve3d) aBSpl (new GeomLine (gp::Origin(), gp::DX())); // construction from pointer to incompatible type
 // clang-format on
 
   CHECK(theDI, aLine == aSurf,  "equality of handles of incompatible types");
@@ -309,7 +309,7 @@ static Standard_Integer QAHandleOps(Draw_Interpretor& theDI,
 // function : QAHandleBool
 // purpose  : Test Handle -> bool conversion
 //=======================================================================
-static Standard_Integer QAHandleBool(Draw_Interpretor& theDI,
+static Standard_Integer QAHandleBool(DrawInterpreter& theDI,
                                      Standard_Integer /*theArgNb*/,
                                      const char** /*theArgVec*/)
 {
@@ -418,7 +418,7 @@ public:
 
 public:
   //! Main constructor - automatically starts the timer.
-  QATimer(Draw_Interpretor&      theDI,
+  QATimer(DrawInterpreter&      theDI,
           Standard_CString       theTitle,
           const TimeFormat       theFormat,
           const Standard_Integer theNbIters       = 1,
@@ -474,7 +474,7 @@ public:
   }
 
 private:
-  Draw_Interpretor* myDI;
+  DrawInterpreter* myDI;
   Standard_CString  myTitle;         //!< timer description
   TimeFormat        myFormat;        //!< time format
   Standard_Integer  myNbIters;       //!< iterations number
@@ -486,7 +486,7 @@ private:
 // function : QAHandleInc
 // purpose  : Estimate the smart-pointer counter incrementing time
 //=======================================================================
-static Standard_Integer QAHandleInc(Draw_Interpretor& theDI,
+static Standard_Integer QAHandleInc(DrawInterpreter& theDI,
                                     Standard_Integer  theArgNb,
                                     const char**      theArgVec)
 {
@@ -496,7 +496,7 @@ static Standard_Integer QAHandleInc(Draw_Interpretor& theDI,
     theDI.PrintHelp(theArgVec[0]);
     return 1;
   }
-  const Standard_Integer aNbIters = (theArgNb > 1) ? Draw::Atoi(theArgVec[1]) : 10000000;
+  const Standard_Integer aNbIters = (theArgNb > 1) ? Draw1::Atoi(theArgVec[1]) : 10000000;
   if (aNbIters < 1)
   {
     std::cout << "Error: number of iterations should be positive!\n";
@@ -534,7 +534,7 @@ static Standard_Integer QAHandleInc(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer QAHandleKind(Draw_Interpretor& /*theDI*/,
+static Standard_Integer QAHandleKind(DrawInterpreter& /*theDI*/,
                                      Standard_Integer /*theArgNb*/,
                                      const char** /*theArgVec*/)
 {
@@ -562,7 +562,7 @@ static Standard_Integer QAHandleKind(Draw_Interpretor& /*theDI*/,
   }
 
   QA_CHECK("Name == qaclass40_50       : ",
-           TCollection_AsciiString("qaclass40_50") == aHandle->DynamicType()->Name(),
+           AsciiString1("qaclass40_50") == aHandle->DynamicType()->Name(),
            true);
 
   QA_CHECK("IsKind     (aType00)       : ", aHandle->IsKind(aType00), true);
@@ -638,7 +638,7 @@ static Standard_Integer QAHandleKind(Draw_Interpretor& /*theDI*/,
   return 0;
 }
 
-void QANCollection::CommandsHandle(Draw_Interpretor& theCommands)
+void QANCollection::CommandsHandle(DrawInterpreter& theCommands)
 {
   const char* THE_GROUP = "QANCollection";
   theCommands.Add("QAHandleBool",

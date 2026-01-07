@@ -56,7 +56,7 @@ public:
   //! returns True if the normals are calculating
   Standard_EXPORT Standard_Boolean HasNormals() const;
 
-  //! defines necessary of writing  Material from Vrml into  output  OStream.
+  //! defines necessary of writing  Material from Vrml1 into  output  OStream.
   //! By default False  -  the material is not writing into OStream,
   //! True  -  the material is writing.
   Standard_EXPORT void SetHasMaterial(const Standard_Boolean OnOff);

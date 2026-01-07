@@ -22,8 +22,8 @@
 #include <TDataXtd_GeometryEnum.hxx>
 #include <TDF_Attribute.hxx>
 #include <Standard_OStream.hxx>
-class TDF_Label;
-class TNaming_NamedShape;
+class DataLabel;
+class ShapeAttribute;
 class Point3d;
 class Axis3d;
 class gp_Lin;
@@ -55,60 +55,60 @@ public:
   //! ANY_GEOM of the enumeration TDataXtd_GeometryEnum.
   //! To specify another value of this enumeration, use
   //! the function SetType.
-  Standard_EXPORT static Handle(TDataXtd_Geometry) Set(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataXtd_Geometry) Set(const DataLabel& label);
 
   //! Returns the label L used to define the type of
   //! geometric construction for the geometry attribute.
-  Standard_EXPORT static TDataXtd_GeometryEnum Type(const TDF_Label& L);
+  Standard_EXPORT static TDataXtd_GeometryEnum Type(const DataLabel& L);
 
   //! Returns the topological attribute S used to define
   //! the type of geometric construction for the geometry attribute.
-  Standard_EXPORT static TDataXtd_GeometryEnum Type(const Handle(TNaming_NamedShape)& S);
+  Standard_EXPORT static TDataXtd_GeometryEnum Type(const Handle(ShapeAttribute)& S);
 
   //! Returns the point attribute defined by the label L and the point G.
-  Standard_EXPORT static Standard_Boolean Point(const TDF_Label& L, Point3d& G);
+  Standard_EXPORT static Standard_Boolean Point(const DataLabel& L, Point3d& G);
 
   //! Returns the point attribute defined by the topological attribute S and the point G.
-  Standard_EXPORT static Standard_Boolean Point(const Handle(TNaming_NamedShape)& S, Point3d& G);
+  Standard_EXPORT static Standard_Boolean Point(const Handle(ShapeAttribute)& S, Point3d& G);
 
   //! Returns the axis attribute defined by the label L and the axis G.
-  Standard_EXPORT static Standard_Boolean Axis(const TDF_Label& L, Axis3d& G);
+  Standard_EXPORT static Standard_Boolean Axis(const DataLabel& L, Axis3d& G);
 
   //! Returns the axis attribute defined by the topological attribute S and the axis G.
-  Standard_EXPORT static Standard_Boolean Axis(const Handle(TNaming_NamedShape)& S, Axis3d& G);
+  Standard_EXPORT static Standard_Boolean Axis(const Handle(ShapeAttribute)& S, Axis3d& G);
 
   //! Returns the line attribute defined by the label L and the line G.
-  Standard_EXPORT static Standard_Boolean Line(const TDF_Label& L, gp_Lin& G);
+  Standard_EXPORT static Standard_Boolean Line(const DataLabel& L, gp_Lin& G);
 
   //! Returns the line attribute defined by the topological attribute S and the line G.
-  Standard_EXPORT static Standard_Boolean Line(const Handle(TNaming_NamedShape)& S, gp_Lin& G);
+  Standard_EXPORT static Standard_Boolean Line(const Handle(ShapeAttribute)& S, gp_Lin& G);
 
   //! Returns the circle attribute defined by the label L and the circle G.
-  Standard_EXPORT static Standard_Boolean Circle(const TDF_Label& L, gp_Circ& G);
+  Standard_EXPORT static Standard_Boolean Circle(const DataLabel& L, gp_Circ& G);
 
   //! Returns the circle attribute defined by the topological attribute S and the circle G.
-  Standard_EXPORT static Standard_Boolean Circle(const Handle(TNaming_NamedShape)& S, gp_Circ& G);
+  Standard_EXPORT static Standard_Boolean Circle(const Handle(ShapeAttribute)& S, gp_Circ& G);
 
   //! Returns the ellipse attribute defined by the label L and the ellipse G.
-  Standard_EXPORT static Standard_Boolean Ellipse(const TDF_Label& L, gp_Elips& G);
+  Standard_EXPORT static Standard_Boolean Ellipse(const DataLabel& L, gp_Elips& G);
 
   //! Returns the ellipse attribute defined by the
   //! topological attribute S and the ellipse G.
-  Standard_EXPORT static Standard_Boolean Ellipse(const Handle(TNaming_NamedShape)& S, gp_Elips& G);
+  Standard_EXPORT static Standard_Boolean Ellipse(const Handle(ShapeAttribute)& S, gp_Elips& G);
 
   //! Returns the plane attribute defined by the label L and the plane G.
-  Standard_EXPORT static Standard_Boolean Plane(const TDF_Label& L, gp_Pln& G);
+  Standard_EXPORT static Standard_Boolean Plane(const DataLabel& L, gp_Pln& G);
 
   //! Returns the plane attribute defined by the
   //! topological attribute S and the plane G.
-  Standard_EXPORT static Standard_Boolean Plane(const Handle(TNaming_NamedShape)& S, gp_Pln& G);
+  Standard_EXPORT static Standard_Boolean Plane(const Handle(ShapeAttribute)& S, gp_Pln& G);
 
   //! Returns the cylinder attribute defined by the label L and the cylinder G.
-  Standard_EXPORT static Standard_Boolean Cylinder(const TDF_Label& L, gp_Cylinder& G);
+  Standard_EXPORT static Standard_Boolean Cylinder(const DataLabel& L, gp_Cylinder& G);
 
   //! Returns the cylinder attribute defined by the
   //! topological attribute S and the cylinder G.
-  Standard_EXPORT static Standard_Boolean Cylinder(const Handle(TNaming_NamedShape)& S,
+  Standard_EXPORT static Standard_Boolean Cylinder(const Handle(ShapeAttribute)& S,
                                                    gp_Cylinder&                      G);
 
   //! Returns the GUID for geometry attributes.

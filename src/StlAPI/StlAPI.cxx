@@ -19,19 +19,19 @@
 
 //=================================================================================================
 
-Standard_Boolean StlAPI::Write(const TopoDS_Shape&    theShape,
+Standard_Boolean StlAPI1::Write(const TopoShape&    theShape,
                                const Standard_CString theFile,
                                const Standard_Boolean theAsciiMode)
 {
-  StlAPI_Writer aWriter;
+  StlWriter aWriter;
   aWriter.ASCIIMode() = theAsciiMode;
   return aWriter.Write(theShape, theFile);
 }
 
 //=================================================================================================
 
-Standard_Boolean StlAPI::Read(TopoDS_Shape& theShape, const Standard_CString theFile)
+Standard_Boolean StlAPI1::Read(TopoShape& theShape, const Standard_CString theFile)
 {
-  StlAPI_Reader aReader;
+  StlReader aReader;
   return aReader.Read(theShape, theFile);
 }

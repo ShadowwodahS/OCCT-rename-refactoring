@@ -24,7 +24,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(PCDM_RetrievalDriver, PCDM_Reader)
 
-void PCDM_RetrievalDriver::References(const TCollection_ExtendedString& aFileName,
+void PCDM_RetrievalDriver::References(const UtfString& aFileName,
                                       PCDM_SequenceOfReference&         theReferences,
                                       const Handle(Message_Messenger)&  theMsgDriver)
 {
@@ -32,25 +32,25 @@ void PCDM_RetrievalDriver::References(const TCollection_ExtendedString& aFileNam
 }
 
 Standard_Integer PCDM_RetrievalDriver::DocumentVersion(
-  const TCollection_ExtendedString& aFileName,
+  const UtfString& aFileName,
   const Handle(Message_Messenger)&  theMsgDriver)
 {
   return PCDM_ReadWriter::Reader(aFileName)->ReadDocumentVersion(aFileName, theMsgDriver);
 }
 
 Standard_Integer PCDM_RetrievalDriver::ReferenceCounter(
-  const TCollection_ExtendedString& aFileName,
+  const UtfString& aFileName,
   const Handle(Message_Messenger)&  theMsgDriver)
 {
   return PCDM_ReadWriter::Reader(aFileName)->ReadReferenceCounter(aFileName, theMsgDriver);
 }
 
-void PCDM_RetrievalDriver::SetFormat(const TCollection_ExtendedString& aformat)
+void PCDM_RetrievalDriver::SetFormat(const UtfString& aformat)
 {
   myFormat = aformat;
 }
 
-TCollection_ExtendedString PCDM_RetrievalDriver::GetFormat() const
+UtfString PCDM_RetrievalDriver::GetFormat() const
 {
   return myFormat;
 }

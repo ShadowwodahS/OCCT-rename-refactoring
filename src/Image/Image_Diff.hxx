@@ -74,8 +74,8 @@ public:
 
   //! Initialize algorithm by two images (will be loaded from files).
   //! @return false if images couldn't be opened or their format is unsupported.
-  Standard_EXPORT Standard_Boolean Init(const TCollection_AsciiString& theImgPathRef,
-                                        const TCollection_AsciiString& theImgPathNew,
+  Standard_EXPORT Standard_Boolean Init(const AsciiString1& theImgPathRef,
+                                        const AsciiString1& theImgPathNew,
                                         const Standard_Boolean theToBlackWhite = Standard_False);
 
   //! Color tolerance for equality check. Should be within range 0..1:
@@ -106,7 +106,7 @@ public:
   Standard_EXPORT Standard_Boolean SaveDiffImage(Image_PixMap& theDiffImage) const;
 
   //! Saves a difference between two images as white pixels on black background.
-  Standard_EXPORT Standard_Boolean SaveDiffImage(const TCollection_AsciiString& theDiffPath) const;
+  Standard_EXPORT Standard_Boolean SaveDiffImage(const AsciiString1& theDiffPath) const;
 
 protected:
   //! Perform border filter algorithm.

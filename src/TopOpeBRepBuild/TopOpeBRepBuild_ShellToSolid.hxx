@@ -21,26 +21,26 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Shell;
-class TopoDS_Solid;
+class TopoShell;
+class TopoSolid;
 
 //! This class builds solids from a set of shells SSh and a solid F.
-class TopOpeBRepBuild_ShellToSolid
+class ShellToSolidBuilder
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepBuild_ShellToSolid();
+  Standard_EXPORT ShellToSolidBuilder();
 
   Standard_EXPORT void Init();
 
-  Standard_EXPORT void AddShell(const TopoDS_Shell& Sh);
+  Standard_EXPORT void AddShell(const TopoShell& Sh);
 
-  Standard_EXPORT void MakeSolids(const TopoDS_Solid& So, TopTools_ListOfShape& LSo);
+  Standard_EXPORT void MakeSolids(const TopoSolid& So, ShapeList& LSo);
 
 protected:
 private:
-  TopTools_ListOfShape myLSh;
+  ShapeList myLSh;
 };
 
 #endif // _TopOpeBRepBuild_ShellToSolid_HeaderFile

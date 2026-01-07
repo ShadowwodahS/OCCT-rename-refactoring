@@ -77,7 +77,7 @@ void STEPConstruct_ContextTool::SetModel(const Handle(StepData_StepModel)& aStep
 
 //=================================================================================================
 
-void STEPConstruct_ContextTool::SetGlobalFactor(const StepData_Factors& theGlobalFactor)
+void STEPConstruct_ContextTool::SetGlobalFactor(const ConversionFactors& theGlobalFactor)
 {
   myGlobalFactor = theGlobalFactor;
 }
@@ -164,7 +164,7 @@ Standard_Boolean STEPConstruct_ContextTool::IsAP203() const
   Handle(TCollection_HAsciiString) schema = theAPD->ApplicationInterpretedModelSchemaName();
   if (schema.IsNull())
     return Standard_False;
-  TCollection_AsciiString sch = schema->String();
+  AsciiString1 sch = schema->String();
   sch.LowerCase();
   return sch == "config_control_design";
 }
@@ -178,7 +178,7 @@ Standard_Boolean STEPConstruct_ContextTool::IsAP214() const
   Handle(TCollection_HAsciiString) schema = theAPD->ApplicationInterpretedModelSchemaName();
   if (schema.IsNull())
     return Standard_False;
-  TCollection_AsciiString sch = schema->String();
+  AsciiString1 sch = schema->String();
   sch.LowerCase();
   return sch == "automotive_design";
 }
@@ -192,7 +192,7 @@ Standard_Boolean STEPConstruct_ContextTool::IsAP242() const
   Handle(TCollection_HAsciiString) schema = theAPD->ApplicationInterpretedModelSchemaName();
   if (schema.IsNull())
     return Standard_False;
-  TCollection_AsciiString sch = schema->String();
+  AsciiString1 sch = schema->String();
   sch.LowerCase();
   return sch == "ap242_managed_model_based_3d_engineering";
 }

@@ -27,7 +27,7 @@
 #include <IntAna2d_AnaIntersection.hxx>
 #include <IntAna2d_IntPoint.hxx>
 
-GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const GccEnt_QualifiedLin& Qualified1,
                                          const GccEnt_QualifiedLin& Qualified2,
                                          const gp_Lin2d&            OnLine,
                                          const Standard_Real        Tolerance)
@@ -66,7 +66,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
   gp_Lin2d          L2(Qualified2.Qualified());
   gp_Pnt2d          originL1(L1.Location());
   gp_Pnt2d          originL2(L2.Location());
-  GccAna_Lin2dBisec Bis(L1, L2);
+  Line2dBisector Bis(L1, L2);
 
   if (Bis.IsDone())
   {
@@ -133,13 +133,13 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
     if (ok)
     {
       // solution to be preserved
-      dc1          = gp_Dir2d(sign1 * gp_XY(-L1.Direction().Y(), L1.Direction().X()));
+      dc1          = gp_Dir2d(sign1 * Coords2d(-L1.Direction().Y(), L1.Direction().X()));
       pnttg1sol(i) = gp_Pnt2d(pbid.XY() + Radius * dc1.XY());
       if (sign1 > 0.0)
         qualifier1(i) = GccEnt_outside;
       else
         qualifier1(i) = GccEnt_enclosed;
-      dc2          = gp_Dir2d(sign2 * gp_XY(-L2.Direction().Y(), L2.Direction().X()));
+      dc2          = gp_Dir2d(sign2 * Coords2d(-L2.Direction().Y(), L2.Direction().X()));
       pnttg2sol(i) = gp_Pnt2d(pbid.XY() + Radius * dc2.XY());
       if (sign2 > 0.0)
         qualifier2(i) = GccEnt_outside;

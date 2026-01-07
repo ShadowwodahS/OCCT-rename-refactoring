@@ -261,12 +261,12 @@ Standard_Boolean BRepExtrema_TriangleSet::Init(const BRepExtrema_ShapeList& theS
 // function : initFace
 // purpose  : Initializes triangle set
 //=======================================================================
-Standard_Boolean BRepExtrema_TriangleSet::initFace(const TopoDS_Face&     theFace,
+Standard_Boolean BRepExtrema_TriangleSet::initFace(const TopoFace&     theFace,
                                                    const Standard_Integer theIndex)
 {
   TopLoc_Location aLocation;
 
-  Handle(Poly_Triangulation) aTriangulation = BRep_Tool::Triangulation(theFace, aLocation);
+  Handle(MeshTriangulation) aTriangulation = BRepInspector::Triangulation(theFace, aLocation);
   if (aTriangulation.IsNull())
   {
     return Standard_False;
@@ -297,12 +297,12 @@ Standard_Boolean BRepExtrema_TriangleSet::initFace(const TopoDS_Face&     theFac
 // function : initEdge
 // purpose  : Initializes triangle set
 //=======================================================================
-Standard_Boolean BRepExtrema_TriangleSet::initEdge(const TopoDS_Edge&     theEdge,
+Standard_Boolean BRepExtrema_TriangleSet::initEdge(const TopoEdge&     theEdge,
                                                    const Standard_Integer theIndex)
 {
   TopLoc_Location aLocation;
 
-  Handle(Poly_Polygon3D) aPolygon = BRep_Tool::Polygon3D(theEdge, aLocation);
+  Handle(Poly_Polygon3D) aPolygon = BRepInspector::Polygon3D(theEdge, aLocation);
   if (aPolygon.IsNull())
   {
     return Standard_False;

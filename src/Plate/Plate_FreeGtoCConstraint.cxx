@@ -34,7 +34,7 @@ static const Standard_Real COSMIN = 1.e-2;
 
 // G1 Constraints
 
-Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const gp_XY&           point2d,
+Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           point2d,
                                                    const Plate_D1&        D1S,
                                                    const Plate_D1&        D1T,
                                                    const Standard_Real    IncrementalLoad,
@@ -94,7 +94,7 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const gp_XY&           point2
 
 // G1 + G2 Constraints
 
-Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const gp_XY&           point2d,
+Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           point2d,
                                                    const Plate_D1&        D1S,
                                                    const Plate_D1&        D1T0,
                                                    const Plate_D2&        D2S,
@@ -234,7 +234,7 @@ Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const gp_XY&           point2
 
 // G1 + G2 + G3 Constraints
 
-Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const gp_XY&           point2d,
+Plate_FreeGtoCConstraint::Plate_FreeGtoCConstraint(const Coords2d&           point2d,
                                                    const Plate_D1&        D1S,
                                                    const Plate_D1&        D1T0,
                                                    const Plate_D2&        D2S,

@@ -24,14 +24,14 @@
 #include <Standard_Boolean.hxx>
 
 //! Iterator on the elements of a block.
-class TopOpeBRepBuild_BlockIterator
+class TopOpeBRepBuildBlockIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepBuild_BlockIterator();
+  Standard_EXPORT TopOpeBRepBuildBlockIterator();
 
-  Standard_EXPORT TopOpeBRepBuild_BlockIterator(const Standard_Integer Lower,
+  Standard_EXPORT TopOpeBRepBuildBlockIterator(const Standard_Integer Lower,
                                                 const Standard_Integer Upper);
 
   void Initialize();

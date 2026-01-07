@@ -151,9 +151,9 @@ APIHeaderSection_EditHeader::APIHeaderSection_EditHeader()
   SetValue(10, fd_level, "level");
 }
 
-TCollection_AsciiString APIHeaderSection_EditHeader::Label() const
+AsciiString1 APIHeaderSection_EditHeader::Label() const
 {
-  return TCollection_AsciiString("Step Header");
+  return AsciiString1("Step Header");
 }
 
 Standard_Boolean APIHeaderSection_EditHeader::Recognize(

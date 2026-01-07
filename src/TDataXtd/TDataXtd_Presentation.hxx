@@ -24,7 +24,7 @@
 #include <Quantity_NameOfColor.hxx>
 #include <TColStd_ListOfInteger.hxx>
 
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 
 class TDataXtd_Presentation;
@@ -42,11 +42,11 @@ public:
   Standard_EXPORT TDataXtd_Presentation();
 
   //! Create if not found the TDataXtd_Presentation attribute and set its driver GUID
-  Standard_EXPORT static Handle(TDataXtd_Presentation) Set(const TDF_Label&     theLabel,
+  Standard_EXPORT static Handle(TDataXtd_Presentation) Set(const DataLabel&     theLabel,
                                                            const Standard_GUID& theDriverId);
 
   //! Remove attribute of this type from the label
-  Standard_EXPORT static void Unset(const TDF_Label& theLabel);
+  Standard_EXPORT static void Unset(const DataLabel& theLabel);
 
   //! Returns the ID of the attribute.
   Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;

@@ -30,7 +30,7 @@ Standard_Boolean RWObj_TriangulationReader::addMesh(const RWObj_SubMesh&      th
     return Standard_False;
   }
 
-  if (Handle(Poly_Triangulation) aTris = GetTriangulation())
+  if (Handle(MeshTriangulation) aTris = GetTriangulation())
   {
     myNodes.Clear();
     myNodesUV.Clear();
@@ -53,12 +53,12 @@ Standard_Boolean RWObj_TriangulationReader::addMesh(const RWObj_SubMesh&      th
                                           Standard_False);
         }
       }
-      myLastGroupShape = TopoDS_Shape();
+      myLastGroupShape = TopoShape();
       myLastGroupName  = theMesh.Group;
     }
 
-    TopoDS_Face  aNewFace;
-    BRep_Builder aBuilder;
+    TopoFace  aNewFace;
+    ShapeBuilder aBuilder;
     aBuilder.MakeFace(aNewFace, aTris);
     addSubShape(myLastGroupShape, aNewFace, Standard_True);
     myLastFaceMaterial = theMesh.Material;
@@ -86,7 +86,7 @@ Standard_Boolean RWObj_TriangulationReader::addMesh(const RWObj_SubMesh&      th
                                         Standard_False);
       }
     }
-    myLastGroupShape = TopoDS_Shape();
+    myLastGroupShape = TopoShape();
     myLastGroupName.Clear();
 
     if (addSubShape(myResultShape, myLastObjectShape, Standard_False))
@@ -96,15 +96,15 @@ Standard_Boolean RWObj_TriangulationReader::addMesh(const RWObj_SubMesh&      th
         myShapeReceiver->BindNamedShape(myLastObjectShape, theMesh.Object, NULL, Standard_True);
       }
     }
-    myLastObjectShape = TopoDS_Compound();
+    myLastObjectShape = TopoCompound();
   }
   return Standard_True;
 }
 
 //=================================================================================================
 
-Standard_Boolean RWObj_TriangulationReader::addSubShape(TopoDS_Shape&          theParent,
-                                                        const TopoDS_Shape&    theSubShape,
+Standard_Boolean RWObj_TriangulationReader::addSubShape(TopoShape&          theParent,
+                                                        const TopoShape&    theSubShape,
                                                         const Standard_Boolean theToExpandCompound)
 {
   if (theSubShape.IsNull())
@@ -112,14 +112,14 @@ Standard_Boolean RWObj_TriangulationReader::addSubShape(TopoDS_Shape&          t
     return Standard_False;
   }
 
-  BRep_Builder aBuilder;
+  ShapeBuilder aBuilder;
   if (theParent.IsNull() && theToExpandCompound)
   {
     theParent = theSubShape;
     return Standard_True;
   }
 
-  TopoDS_Compound aComp;
+  TopoCompound aComp;
   if (!theParent.IsNull() && theParent.ShapeType() == TopAbs_COMPOUND)
   {
     aComp = TopoDS::Compound(theParent);
@@ -139,18 +139,18 @@ Standard_Boolean RWObj_TriangulationReader::addSubShape(TopoDS_Shape&          t
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) RWObj_TriangulationReader::GetTriangulation()
+Handle(MeshTriangulation) RWObj_TriangulationReader::GetTriangulation()
 {
   if (myTriangles.IsEmpty())
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
 
   const Standard_Boolean hasNormals = myNodes.Length() == myNormals.Length();
   const Standard_Boolean hasUV      = myNodes.Length() == myNodesUV.Length();
 
-  Handle(Poly_Triangulation) aPoly =
-    new Poly_Triangulation(myNodes.Length(), myTriangles.Length(), hasUV);
+  Handle(MeshTriangulation) aPoly =
+    new MeshTriangulation(myNodes.Length(), myTriangles.Length(), hasUV);
   for (Standard_Integer aNodeIter = 0; aNodeIter < myNodes.Size(); ++aNodeIter)
   {
     const Point3d& aNode = myNodes.Value(aNodeIter);
@@ -198,18 +198,18 @@ Handle(Poly_Triangulation) RWObj_TriangulationReader::GetTriangulation()
 
 //=================================================================================================
 
-TopoDS_Shape RWObj_TriangulationReader::ResultShape()
+TopoShape RWObj_TriangulationReader::ResultShape()
 {
   if (!myToCreateShapes)
   {
-    if (Handle(Poly_Triangulation) aTris = GetTriangulation())
+    if (Handle(MeshTriangulation) aTris = GetTriangulation())
     {
-      TopoDS_Face  aFace;
-      BRep_Builder aBuilder;
+      TopoFace  aFace;
+      ShapeBuilder aBuilder;
       aBuilder.MakeFace(aFace, aTris);
       return aFace;
     }
-    return TopoDS_Shape();
+    return TopoShape();
   }
 
   if (!myResultShape.IsNull() && myResultShape.ShapeType() == TopAbs_COMPOUND

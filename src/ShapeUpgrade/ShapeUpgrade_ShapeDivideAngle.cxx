@@ -30,7 +30,7 @@ ShapeUpgrade_ShapeDivideAngle::ShapeUpgrade_ShapeDivideAngle(const Standard_Real
 //=================================================================================================
 
 ShapeUpgrade_ShapeDivideAngle::ShapeUpgrade_ShapeDivideAngle(const Standard_Real MaxAngle,
-                                                             const TopoDS_Shape& S)
+                                                             const TopoShape& S)
     : ShapeUpgrade_ShapeDivide(S)
 {
   InitTool(MaxAngle);

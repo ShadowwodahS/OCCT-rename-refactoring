@@ -35,7 +35,7 @@ Handle(RefObject) Plugin::Load(const Standard_GUID&   aGUID,
 {
 
   aGUID.ToCString(thePluginId);
-  TCollection_AsciiString      pid(thePluginId);
+  AsciiString1      pid(thePluginId);
   static Plugin_MapOfFunctions theMapOfFunctions;
   OSD_Function                 f;
 
@@ -43,7 +43,7 @@ Handle(RefObject) Plugin::Load(const Standard_GUID&   aGUID,
   {
 
     Handle(Resource_Manager) PluginResource = new Resource_Manager("Plugin");
-    TCollection_AsciiString  theResource(thePluginId);
+    AsciiString1  theResource(thePluginId);
     theResource += ".Location";
 
     if (!PluginResource->Find(theResource.ToCString()))
@@ -56,7 +56,7 @@ Handle(RefObject) Plugin::Load(const Standard_GUID&   aGUID,
       throw Plugin_Failure(aMsg.str().c_str());
     }
 
-    TCollection_AsciiString thePluginLibrary("");
+    AsciiString1 thePluginLibrary("");
 #ifndef _WIN32
     thePluginLibrary += "lib";
 #endif
@@ -73,7 +73,7 @@ Handle(RefObject) Plugin::Load(const Standard_GUID&   aGUID,
     OSD_SharedLibrary theSharedLibrary(thePluginLibrary.ToCString());
     if (!theSharedLibrary.DlOpen(OSD_RTLD_LAZY))
     {
-      TCollection_AsciiString error(theSharedLibrary.DlError());
+      AsciiString1 error(theSharedLibrary.DlError());
       Standard_SStream        aMsg;
       aMsg << "could not open:";
       aMsg << PluginResource->Value(theResource.ToCString());
@@ -87,7 +87,7 @@ Handle(RefObject) Plugin::Load(const Standard_GUID&   aGUID,
     f = theSharedLibrary.DlSymb("PLUGINFACTORY");
     if (f == NULL)
     {
-      TCollection_AsciiString error(theSharedLibrary.DlError());
+      AsciiString1 error(theSharedLibrary.DlError());
       Standard_SStream        aMsg;
       aMsg << "could not find the factory in:";
       aMsg << PluginResource->Value(theResource.ToCString());

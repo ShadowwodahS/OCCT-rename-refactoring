@@ -33,9 +33,9 @@
 #include <Standard_DomainError.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 
-IGESDefs_ToolAssociativityDef::IGESDefs_ToolAssociativityDef() {}
+AssociativityDefTool::AssociativityDefTool() {}
 
-void IGESDefs_ToolAssociativityDef::ReadOwnParams(const Handle(IGESDefs_AssociativityDef)& ent,
+void AssociativityDefTool::ReadOwnParams(const Handle(IGESDefs_AssociativityDef)& ent,
                                                   const Handle(IGESData_IGESReaderData)& /* IR */,
                                                   IGESData_ParamReader& PR) const
 {
@@ -97,7 +97,7 @@ void IGESDefs_ToolAssociativityDef::ReadOwnParams(const Handle(IGESDefs_Associat
   ent->Init(requirements, orders, numItems, items);
 }
 
-void IGESDefs_ToolAssociativityDef::WriteOwnParams(const Handle(IGESDefs_AssociativityDef)& ent,
+void AssociativityDefTool::WriteOwnParams(const Handle(IGESDefs_AssociativityDef)& ent,
                                                    IGESData_IGESWriter& IW) const
 {
   Standard_Integer upper = ent->NbClassDefs();
@@ -113,12 +113,12 @@ void IGESDefs_ToolAssociativityDef::WriteOwnParams(const Handle(IGESDefs_Associa
   }
 }
 
-void IGESDefs_ToolAssociativityDef::OwnShared(const Handle(IGESDefs_AssociativityDef)& /* ent */,
+void AssociativityDefTool::OwnShared(const Handle(IGESDefs_AssociativityDef)& /* ent */,
                                               Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESDefs_ToolAssociativityDef::OwnCopy(const Handle(IGESDefs_AssociativityDef)& another,
+void AssociativityDefTool::OwnCopy(const Handle(IGESDefs_AssociativityDef)& another,
                                             const Handle(IGESDefs_AssociativityDef)& ent,
                                             Interface_CopyTool& /* TC */) const
 {
@@ -157,10 +157,10 @@ void IGESDefs_ToolAssociativityDef::OwnCopy(const Handle(IGESDefs_AssociativityD
   ent->SetFormNumber(another->FormNumber());
 }
 
-IGESData_DirChecker IGESDefs_ToolAssociativityDef::DirChecker(
+DirectoryChecker AssociativityDefTool::DirChecker(
   const Handle(IGESDefs_AssociativityDef)& /* ent */) const
 {
-  IGESData_DirChecker DC(302, 5001, 9999);
+  DirectoryChecker DC(302, 5001, 9999);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -172,13 +172,13 @@ IGESData_DirChecker IGESDefs_ToolAssociativityDef::DirChecker(
   return DC;
 }
 
-void IGESDefs_ToolAssociativityDef::OwnCheck(const Handle(IGESDefs_AssociativityDef)& /* ent */,
+void AssociativityDefTool::OwnCheck(const Handle(IGESDefs_AssociativityDef)& /* ent */,
                                              const Interface_ShareTool&,
                                              Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESDefs_ToolAssociativityDef::OwnDump(const Handle(IGESDefs_AssociativityDef)& ent,
+void AssociativityDefTool::OwnDump(const Handle(IGESDefs_AssociativityDef)& ent,
                                             const IGESData_IGESDumper& /* dumper */,
                                             Standard_OStream&      S,
                                             const Standard_Integer level) const

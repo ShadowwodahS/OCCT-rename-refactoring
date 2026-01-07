@@ -44,10 +44,10 @@ public:
   Standard_EXPORT ShapeUpgrade_ShapeDivide();
 
   //! Initialize by a Shape.
-  Standard_EXPORT ShapeUpgrade_ShapeDivide(const TopoDS_Shape& S);
+  Standard_EXPORT ShapeUpgrade_ShapeDivide(const TopoShape& S);
 
   //! Initialize by a Shape.
-  Standard_EXPORT void Init(const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const TopoShape& S);
 
   Standard_EXPORT virtual ~ShapeUpgrade_ShapeDivide();
 
@@ -72,7 +72,7 @@ public:
     const Standard_Boolean newContext = Standard_True);
 
   //! Gives the resulting Shape, or Null shape if not done.
-  Standard_EXPORT TopoDS_Shape Result() const;
+  Standard_EXPORT TopoShape Result() const;
 
   //! Returns context with all the modifications made during
   //! last call(s) to Perform() recorded
@@ -91,7 +91,7 @@ public:
 
   //! Sends a message to be attached to the shape.
   //! Calls corresponding message of message registrator.
-  Standard_EXPORT void SendMsg(const TopoDS_Shape&   shape,
+  Standard_EXPORT void SendMsg(const TopoShape&   shape,
                                const Message_Msg&    message,
                                const Message_Gravity gravity = Message_Info) const;
 
@@ -124,8 +124,8 @@ protected:
 
   Handle(ShapeBuild_ReShape)              myContext;
   Handle(ShapeExtend_BasicMsgRegistrator) myMsgReg;
-  TopoDS_Shape                            myShape;
-  TopoDS_Shape                            myResult;
+  TopoShape                            myShape;
+  TopoShape                            myResult;
   Standard_Real                           myPrecision;
   Standard_Real                           myMinTol;
   Standard_Real                           myMaxTol;

@@ -33,7 +33,7 @@ static const Standard_Real Probing_Step  = 0.2111;
 
 //=================================================================================================
 
-BRepClass_FaceExplorer::BRepClass_FaceExplorer(const TopoDS_Face& F)
+BRepClass_FaceExplorer::BRepClass_FaceExplorer(const TopoFace& F)
     : myFace(F),
       myCurEdgeInd(1),
       myCurEdgePar(Probing_Start),
@@ -53,12 +53,12 @@ BRepClass_FaceExplorer::BRepClass_FaceExplorer(const TopoDS_Face& F)
 void BRepClass_FaceExplorer::ComputeFaceBounds()
 {
   TopLoc_Location             aLocation;
-  const Handle(Geom_Surface)& aSurface = BRep_Tool::Surface(myFace, aLocation);
+  const Handle(GeomSurface)& aSurface = BRepInspector::Surface(myFace, aLocation);
   aSurface->Bounds(myUMin, myUMax, myVMin, myVMax);
   if (Precision::IsInfinite(myUMin) || Precision::IsInfinite(myUMax)
       || Precision::IsInfinite(myVMin) || Precision::IsInfinite(myVMax))
   {
-    BRepTools::UVBounds(myFace, myUMin, myUMax, myVMin, myVMax);
+    BRepTools1::UVBounds(myFace, myUMin, myUMax, myVMin, myVMax);
   }
 }
 
@@ -122,11 +122,11 @@ Standard_Boolean BRepClass_FaceExplorer::OtherSegment(const gp_Pnt2d& P,
                                                       gp_Lin2d&       L,
                                                       Standard_Real&  Par)
 {
-  TopExp_Explorer         anExpF(myFace, TopAbs_EDGE);
+  ShapeExplorer         anExpF(myFace, TopAbs_EDGE);
   Standard_Integer        i;
   Standard_Real           aFPar;
   Standard_Real           aLPar;
-  Handle(Geom2d_Curve)    aC2d;
+  Handle(GeomCurve2d)    aC2d;
   constexpr Standard_Real aTolParConf2 = Precision::PConfusion() * Precision::PConfusion();
   gp_Pnt2d                aPOnC;
   Standard_Real           aParamIn;
@@ -136,14 +136,14 @@ Standard_Boolean BRepClass_FaceExplorer::OtherSegment(const gp_Pnt2d& P,
     if (i != myCurEdgeInd)
       continue;
 
-    const TopoDS_Shape&      aLocalShape   = anExpF.Current();
+    const TopoShape&      aLocalShape   = anExpF.Current();
     const TopAbs_Orientation anOrientation = aLocalShape.Orientation();
 
     if (anOrientation == TopAbs_FORWARD || anOrientation == TopAbs_REVERSED)
     {
-      const TopoDS_Edge& anEdge = TopoDS::Edge(aLocalShape);
+      const TopoEdge& anEdge = TopoDS::Edge(aLocalShape);
 
-      aC2d = BRep_Tool::CurveOnSurface(anEdge, myFace, aFPar, aLPar);
+      aC2d = BRepInspector::CurveOnSurface(anEdge, myFace, aFPar, aLPar);
 
       if (!aC2d.IsNull())
       {
@@ -293,7 +293,7 @@ void BRepClass_FaceExplorer::InitEdges()
 {
   myEExplorer.Init(myWExplorer.Current(), TopAbs_EDGE);
   myMapVE.Clear();
-  TopExp::MapShapesAndAncestors(myWExplorer.Current(), TopAbs_VERTEX, TopAbs_EDGE, myMapVE);
+  TopExp1::MapShapesAndAncestors(myWExplorer.Current(), TopAbs_VERTEX, TopAbs_EDGE, myMapVE);
 }
 
 //=================================================================================================

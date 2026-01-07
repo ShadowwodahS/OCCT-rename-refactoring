@@ -25,7 +25,7 @@
 #include <Standard_OStream.hxx>
 #include <Standard_GUID.hxx>
 
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 
 class TDataStd_Real;
@@ -46,14 +46,14 @@ public:
   //! Use SetDimension to overwrite.
   //! Real methods
   //! ============
-  Standard_EXPORT static Handle(TDataStd_Real) Set(const TDF_Label&    label,
+  Standard_EXPORT static Handle(TDataStd_Real) Set(const DataLabel&    label,
                                                    const Standard_Real value);
 
   //! Finds, or creates, a Real attribute with explicit GUID and sets <value>.
   //! The Real attribute  is  returned.
   //! Real methods
   //! ============
-  Standard_EXPORT static Handle(TDataStd_Real) Set(const TDF_Label&     label,
+  Standard_EXPORT static Handle(TDataStd_Real) Set(const DataLabel&     label,
                                                    const Standard_GUID& guid,
                                                    const Standard_Real  value);
 

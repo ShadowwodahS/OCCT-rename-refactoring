@@ -25,12 +25,12 @@
 class TopOpeBRepBuild_Loop;
 
 //! classify loops in order to build Areas
-class TopOpeBRepBuild_LoopClassifier
+class LoopClassifier
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT virtual ~TopOpeBRepBuild_LoopClassifier();
+  Standard_EXPORT virtual ~LoopClassifier();
 
   //! Returns the state of loop <L1> compared with loop <L2>.
   Standard_EXPORT virtual TopAbs_State Compare(const Handle(TopOpeBRepBuild_Loop)& L1,

@@ -22,35 +22,35 @@
 
 #include <stdio.h> /* EOF */
 
-//! Class LDOM_SBuffer inherits std::streambuf and
+//! Class StringBuffer inherits std::streambuf and
 //! redefines some virtual methods of it (overflow() and xsputn()).
 //! This class contains pointers on first and current element
 //! of sequence, also it has methods for the sequence management.
-class LDOM_SBuffer : public std::streambuf
+class StringBuffer : public std::streambuf
 {
   //! One element of sequence.
   //! Can only be allocated by the allocator and assumes
   //! it is IncAllocator, so destructor isn't required.
-  struct LDOM_StringElem
+  struct StringElement
   {
     char*            buf;  //!< pointer on data string
     int              len;  //!< quantity of really written data
-    LDOM_StringElem* next; //!< pointer on the next element of a sequence
+    StringElement* next; //!< pointer on the next element of a sequence
 
     DEFINE_NCOLLECTION_ALLOC
 
-    LDOM_StringElem(const int, const Handle(NCollection_BaseAllocator)&);
-    ~LDOM_StringElem();
+    StringElement(const int, const Handle(NCollection_BaseAllocator)&);
+    ~StringElement();
 
   private:
-    LDOM_StringElem(const LDOM_StringElem&);
-    LDOM_StringElem& operator=(const LDOM_StringElem&);
+    StringElement(const StringElement&);
+    StringElement& operator=(const StringElement&);
   };
 
 public:
   //! Constructor. Sets a default value for the
   //!              length of each sequence element.
-  Standard_EXPORT LDOM_SBuffer(const Standard_Integer theMaxBuf);
+  Standard_EXPORT StringBuffer(const Standard_Integer theMaxBuf);
 
   //! Concatenates strings of all sequence elements
   //! into one string. Space for output string is allocated
@@ -76,14 +76,14 @@ public:
   // virtual int xsgetn(char* s, int n);
   // virtual int sync();
 
-  Standard_EXPORT ~LDOM_SBuffer();
+  Standard_EXPORT ~StringBuffer();
   // Destructor
 
 private:
   Standard_Integer                  myMaxBuf;      // default length of one element
   Standard_Integer                  myLength;      // full length of contained data
-  LDOM_StringElem*                  myFirstString; // the head of the sequence
-  LDOM_StringElem*                  myCurString;   // current element of the sequence
+  StringElement*                  myFirstString; // the head of the sequence
+  StringElement*                  myCurString;   // current element of the sequence
   Handle(NCollection_BaseAllocator) myAlloc;       // allocator for chunks
 };
 
@@ -109,7 +109,7 @@ public:
   void Clear() { myBuffer.Clear(); }
 
 private:
-  LDOM_SBuffer myBuffer;
+  StringBuffer myBuffer;
 
 public:
   // byte order mark defined at the start of a stream

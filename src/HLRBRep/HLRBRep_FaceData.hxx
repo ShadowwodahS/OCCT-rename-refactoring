@@ -25,7 +25,7 @@
 #include <TopAbs_Orientation.hxx>
 #include <Standard_Integer.hxx>
 class HLRAlgo_WiresBlock;
-class TopoDS_Face;
+class TopoFace;
 
 class HLRBRep_FaceData
 {
@@ -38,7 +38,7 @@ public:
   //! if the face  belongs to a  closed  volume. <NW> is
   //! the number of wires ( or block  of  edges ) of the
   //! face.
-  Standard_EXPORT void Set(const TopoDS_Face&       FG,
+  Standard_EXPORT void Set(const TopoFace&       FG,
                            const TopAbs_Orientation Or,
                            const Standard_Boolean   Cl,
                            const Standard_Integer   NW);

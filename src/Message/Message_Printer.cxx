@@ -19,39 +19,39 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Message_Printer, RefObject)
+IMPLEMENT_STANDARD_RTTIEXT(LogPrinter, RefObject)
 
 //=================================================================================================
 
-Message_Printer::Message_Printer()
+LogPrinter::LogPrinter()
     : myTraceLevel(Message_Info)
 {
 }
 
 //=================================================================================================
 
-void Message_Printer::Send(const Standard_CString theString, const Message_Gravity theGravity) const
+void LogPrinter::Send(const Standard_CString theString, const Message_Gravity theGravity) const
 {
   if (theGravity >= myTraceLevel)
   {
-    send(TCollection_AsciiString(theString), theGravity);
+    send(AsciiString1(theString), theGravity);
   }
 }
 
 //=================================================================================================
 
-void Message_Printer::Send(const TCollection_ExtendedString& theString,
+void LogPrinter::Send(const UtfString& theString,
                            const Message_Gravity             theGravity) const
 {
   if (theGravity >= myTraceLevel)
   {
-    send(TCollection_AsciiString(theString), theGravity);
+    send(AsciiString1(theString), theGravity);
   }
 }
 
 //=================================================================================================
 
-void Message_Printer::Send(const TCollection_AsciiString& theString,
+void LogPrinter::Send(const AsciiString1& theString,
                            const Message_Gravity          theGravity) const
 {
   if (theGravity >= myTraceLevel)
@@ -62,7 +62,7 @@ void Message_Printer::Send(const TCollection_AsciiString& theString,
 
 //=================================================================================================
 
-void Message_Printer::SendStringStream(const Standard_SStream& theStream,
+void LogPrinter::SendStringStream(const Standard_SStream& theStream,
                                        const Message_Gravity   theGravity) const
 {
   if (theGravity >= myTraceLevel)
@@ -73,12 +73,12 @@ void Message_Printer::SendStringStream(const Standard_SStream& theStream,
 
 //=================================================================================================
 
-void Message_Printer::SendObject(const Handle(RefObject)& theObject,
+void LogPrinter::SendObject(const Handle(RefObject)& theObject,
                                  const Message_Gravity             theGravity) const
 {
   if (!theObject.IsNull() && theGravity >= myTraceLevel)
   {
-    send(TCollection_AsciiString(theObject->DynamicType()->Name()) + ": "
+    send(AsciiString1(theObject->DynamicType()->Name()) + ": "
            + Standard_Dump::GetPointerInfo(theObject),
          theGravity);
   }

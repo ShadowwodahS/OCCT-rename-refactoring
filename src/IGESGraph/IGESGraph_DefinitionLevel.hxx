@@ -27,7 +27,7 @@ class IGESGraph_DefinitionLevel;
 DEFINE_STANDARD_HANDLE(IGESGraph_DefinitionLevel, IGESData_LevelListEntity)
 
 //! defines IGESDefinitionLevel, Type <406> Form <1>
-//! in package IGESGraph
+//! in package IGESGraph1
 //!
 //! Indicates the no. of levels on which an entity is
 //! defined

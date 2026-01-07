@@ -14,7 +14,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-//: n3 abv 8 Feb 99: PRO17820: BRepTools::OuterWire() -> ShapeAnalysis::OuterWire
+//: n3 abv 8 Feb 99: PRO17820: BRepTools1::OuterWire() -> ShapeAnalysis::OuterWire
 // szv#4 S4163
 
 #include <BRep_Builder.hxx>
@@ -73,7 +73,7 @@ BRepToIGES_BRShell::BRepToIGES_BRShell(const BRepToIGES_BREntity& BR)
 //=============================================================================
 
 Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferShell(
-  const TopoDS_Shape&          start,
+  const TopoShape&          start,
   const Message_ProgressRange& theProgress)
 {
   Handle(IGESData_IGESEntity) res;
@@ -83,12 +83,12 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferShell(
 
   if (start.ShapeType() == TopAbs_FACE)
   {
-    TopoDS_Face F = TopoDS::Face(start);
+    TopoFace F = TopoDS::Face(start);
     res           = TransferFace(F, theProgress);
   }
   else if (start.ShapeType() == TopAbs_SHELL)
   {
-    TopoDS_Shell S = TopoDS::Shell(start);
+    TopoShell S = TopoDS::Shell(start);
     res            = TransferShell(S, theProgress);
   }
   else
@@ -103,7 +103,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferShell(
 //
 //=============================================================================
 
-Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoDS_Face& start,
+Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoFace& start,
                                                               const Message_ProgressRange&)
 {
   Handle(IGESData_IGESEntity) res;
@@ -114,7 +114,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoDS_Face&
   }
 
   // pour explorer la face , il faut la mettre fORWARD.
-  TopoDS_Face aFace = start;
+  TopoFace aFace = start;
   // Associates the input face (start) and its sub-shapes with the reversed variant,
   // if the input face has a Reversed orientation
   TopTools_DataMapOfShapeShape aShapeShapeMap;
@@ -124,9 +124,9 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoDS_Face&
     aCopy.Perform(aFace);
 
     // create face with redirected surface
-    BRep_Builder         B;
+    ShapeBuilder         B;
     TopLoc_Location      aLoc;
-    Handle(Geom_Surface) aSurf = BRep_Tool::Surface(start, aLoc);
+    Handle(GeomSurface) aSurf = BRepInspector::Surface(start, aLoc);
     while (aSurf->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
     {
       // take basis surface, because pcurves will be transformed, so trim will be shifted,
@@ -136,17 +136,17 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoDS_Face&
       aSurf = aTrimmedSurf->BasisSurface();
     }
     aSurf              = aSurf->UReversed();
-    Standard_Real aTol = BRep_Tool::Tolerance(start);
+    Standard_Real aTol = BRepInspector::Tolerance(start);
     B.MakeFace(aFace, aSurf, aLoc, aTol);
     // set specifics flags of a Face
-    B.NaturalRestriction(aFace, BRep_Tool::NaturalRestriction(start));
+    B.NaturalRestriction(aFace, BRepInspector::NaturalRestriction(start));
     // add wires
-    TopoDS_Wire     anOuter = TopoDS::Wire(ShapeAlgo::AlgoContainer()->OuterWire(start));
-    TopExp_Explorer ex;
+    TopoWire     anOuter = TopoDS::Wire(ShapeAlgo::AlgoContainer()->OuterWire(start));
+    ShapeExplorer ex;
     for (ex.Init(start, TopAbs_WIRE); ex.More(); ex.Next())
     {
-      TopoDS_Wire W         = TopoDS::Wire(ex.Current());
-      TopoDS_Wire aCopyWire = TopoDS::Wire(aCopy.ModifiedShape(W));
+      TopoWire W         = TopoDS::Wire(ex.Current());
+      TopoWire aCopyWire = TopoDS::Wire(aCopy.ModifiedShape(W));
       aCopyWire             = TopoDS::Wire(aCopyWire.Oriented(W.Orientation()));
       if (!W.IsNull() && W.IsSame(anOuter))
       {
@@ -157,8 +157,8 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoDS_Face&
     }
     for (ex.Init(start, TopAbs_WIRE); ex.More(); ex.Next())
     {
-      TopoDS_Wire W         = TopoDS::Wire(ex.Current());
-      TopoDS_Wire aCopyWire = TopoDS::Wire(aCopy.ModifiedShape(W));
+      TopoWire W         = TopoDS::Wire(ex.Current());
+      TopoWire aCopyWire = TopoDS::Wire(aCopy.ModifiedShape(W));
       aCopyWire             = TopoDS::Wire(aCopyWire.Oriented(W.Orientation()));
       if (!W.IsNull() && !W.IsSame(anOuter))
       {
@@ -174,31 +174,31 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoDS_Face&
     gp_Trsf2d     T;
     gp_Ax2d       axis(gp_Pnt2d(aCenter, V1), gp_Dir2d(0., 1.));
     T.SetMirror(axis);
-    NCollection_Map<TopoDS_Shape, TopTools_ShapeMapHasher> aMap(101, new NCollection_IncAllocator);
+    NCollection_Map<TopoShape, ShapeHasher> aMap(101, new NCollection_IncAllocator);
     for (ex.Init(start, TopAbs_EDGE); ex.More(); ex.Next())
     {
-      TopoDS_Edge anOrigEdge = TopoDS::Edge(ex.Current());
-      TopoDS_Edge aCopyEdge  = TopoDS::Edge(aCopy.ModifiedShape(anOrigEdge));
+      TopoEdge anOrigEdge = TopoDS::Edge(ex.Current());
+      TopoEdge aCopyEdge  = TopoDS::Edge(aCopy.ModifiedShape(anOrigEdge));
       aCopyEdge              = TopoDS::Edge(aCopyEdge.Oriented(anOrigEdge.Orientation()));
       if (!aMap.Add(aCopyEdge))
         // seam edge has been already updated
         continue;
       Standard_Real        f, l;
-      Handle(Geom2d_Curve) aCurve1, aCurve2;
+      Handle(GeomCurve2d) aCurve1, aCurve2;
       aCurve1 =
-        BRep_Tool::CurveOnSurface(aCopyEdge, TopoDS::Face(aCopy.ModifiedShape(start)), f, l);
-      aTol = BRep_Tool::Tolerance(aCopyEdge);
+        BRepInspector::CurveOnSurface(aCopyEdge, TopoDS::Face(aCopy.ModifiedShape(start)), f, l);
+      aTol = BRepInspector::Tolerance(aCopyEdge);
       if (!aCurve1.IsNull())
       {
-        aCurve1 = Handle(Geom2d_Curve)::DownCast(aCurve1->Transformed(T));
-        if (BRepTools::IsReallyClosed(aCopyEdge, TopoDS::Face(aCopy.ModifiedShape(start))))
+        aCurve1 = Handle(GeomCurve2d)::DownCast(aCurve1->Transformed(T));
+        if (BRepTools1::IsReallyClosed(aCopyEdge, TopoDS::Face(aCopy.ModifiedShape(start))))
         {
-          TopoDS_Edge revEdge = TopoDS::Edge(aCopyEdge.Reversed());
+          TopoEdge revEdge = TopoDS::Edge(aCopyEdge.Reversed());
           aCurve2 =
-            BRep_Tool::CurveOnSurface(revEdge, TopoDS::Face(aCopy.ModifiedShape(start)), f, l);
+            BRepInspector::CurveOnSurface(revEdge, TopoDS::Face(aCopy.ModifiedShape(start)), f, l);
           if (!aCurve2.IsNull())
           {
-            aCurve2 = Handle(Geom2d_Curve)::DownCast(aCurve2->Transformed(T));
+            aCurve2 = Handle(GeomCurve2d)::DownCast(aCurve2->Transformed(T));
             if (aCopyEdge.Orientation() == TopAbs_FORWARD)
             {
               B.UpdateEdge(aCopyEdge, aCurve1, aCurve2, aFace, aTol);
@@ -218,7 +218,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoDS_Face&
           B.UpdateEdge(aCopyEdge, aCurve1, aFace, aTol);
         }
         // set range for degenerated edges
-        if (BRep_Tool::Degenerated(aCopyEdge))
+        if (BRepInspector::Degenerated(aCopyEdge))
         {
           B.Range(aCopyEdge, aFace, f, l);
         }
@@ -237,13 +237,13 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoDS_Face&
   // returns the face surface
   // ------------------------
 
-  Handle(Geom_Surface) Surf = BRep_Tool::Surface(aFace);
+  Handle(GeomSurface) Surf = BRepInspector::Surface(aFace);
 
   if (!Surf.IsNull())
   {
     Standard_Real U1, U2, V1, V2;
     // pour limiter les surfaces de base
-    BRepTools::UVBounds(aFace, U1, U2, V1, V2);
+    BRepTools1::UVBounds(aFace, U1, U2, V1, V2);
     GeomToIGES_GeomSurface GS;
     GS.SetModel(GetModel());
     ISurf = GS.TransferSurface(Surf, U1, U2, V1, V2);
@@ -264,8 +264,8 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoDS_Face&
   Handle(IGESData_IGESEntity) ICurve2d;
 
   // outer wire
-  //: n3  TopoDS_Wire Outer = BRepTools::OuterWire(myface);
-  TopoDS_Wire                     Outer  = ShapeAlgo::AlgoContainer()->OuterWire(aFace); //: n3
+  //: n3  TopoWire Outer = BRepTools1::OuterWire(myface);
+  TopoWire                     Outer  = ShapeAlgo::AlgoContainer()->OuterWire(aFace); //: n3
   Handle(IGESGeom_CurveOnSurface) IOuter = new IGESGeom_CurveOnSurface;
   if (!Outer.IsNull())
   {
@@ -281,12 +281,12 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoDS_Face&
   }
 
   // inners wires
-  TopExp_Explorer                      Ex;
+  ShapeExplorer                      Ex;
   Handle(TColStd_HSequenceOfTransient) Seq = new TColStd_HSequenceOfTransient();
 
   for (Ex.Init(aFace, TopAbs_WIRE); Ex.More(); Ex.Next())
   {
-    TopoDS_Wire                     W     = TopoDS::Wire(Ex.Current());
+    TopoWire                     W     = TopoDS::Wire(Ex.Current());
     Handle(IGESGeom_CurveOnSurface) Curve = new IGESGeom_CurveOnSurface;
     if (W.IsNull())
     {
@@ -311,7 +311,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoDS_Face&
   // all inners edges not in a wire
   for (Ex.Init(aFace, TopAbs_EDGE, TopAbs_WIRE); Ex.More(); Ex.Next())
   {
-    TopoDS_Edge                     E     = TopoDS::Edge(Ex.Current());
+    TopoEdge                     E     = TopoDS::Edge(Ex.Current());
     Handle(IGESGeom_CurveOnSurface) Curve = new IGESGeom_CurveOnSurface;
     if (E.IsNull())
     {
@@ -347,8 +347,8 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoDS_Face&
   }
 
   // protection against faces on infinite surfaces with mistaken natural restriction flag
-  Standard_Boolean isWholeSurface = BRep_Tool::NaturalRestriction(start);
-  if ((Surf->IsKind(STANDARD_TYPE(Geom_Plane))
+  Standard_Boolean isWholeSurface = BRepInspector::NaturalRestriction(start);
+  if ((Surf->IsKind(STANDARD_TYPE(GeomPlane))
        || Surf->IsKind(STANDARD_TYPE(Geom_CylindricalSurface))
        || Surf->IsKind(STANDARD_TYPE(Geom_ConicalSurface)))
       && !IOuter.IsNull())
@@ -374,14 +374,14 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell ::TransferFace(const TopoDS_Face&
 //=============================================================================
 
 Handle(IGESData_IGESEntity) BRepToIGES_BRShell::TransferShell(
-  const TopoDS_Shell&          start,
+  const TopoShell&          start,
   const Message_ProgressRange& theProgress)
 {
   Handle(IGESData_IGESEntity) res;
   if (start.IsNull())
     return res;
 
-  TopExp_Explorer                      Ex;
+  ShapeExplorer                      Ex;
   Handle(IGESBasic_Group)              IGroup = new IGESBasic_Group;
   Handle(TColStd_HSequenceOfTransient) Seq    = new TColStd_HSequenceOfTransient();
   Handle(IGESData_IGESEntity)          IFace;
@@ -393,7 +393,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRShell::TransferShell(
   for (Ex.Init(start, TopAbs_FACE); Ex.More() && aPS.More(); Ex.Next())
   {
     Message_ProgressRange aRange = aPS.Next();
-    TopoDS_Face           F      = TopoDS::Face(Ex.Current());
+    TopoFace           F      = TopoDS::Face(Ex.Current());
     if (F.IsNull())
     {
       AddWarning(start, " a Face is a null entity");

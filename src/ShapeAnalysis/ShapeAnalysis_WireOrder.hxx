@@ -26,7 +26,7 @@
 #include <TColgp_HSequenceOfXYZ.hxx>
 #include <Standard_Integer.hxx>
 class gp_XYZ;
-class gp_XY;
+class Coords2d;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -79,13 +79,13 @@ public:
   Standard_EXPORT void Add(const gp_XYZ& theStart3d, const gp_XYZ& theEnd3d);
 
   //! Adds a couple of points 2D (start, end)
-  Standard_EXPORT void Add(const gp_XY& theStart2d, const gp_XY& theEnd2d);
+  Standard_EXPORT void Add(const Coords2d& theStart2d, const Coords2d& theEnd2d);
 
   //! Adds a couple of points 3D and 2D (start, end)
   Standard_EXPORT void Add(const gp_XYZ& theStart3d,
                            const gp_XYZ& theEnd3d,
-                           const gp_XY&  theStart2d,
-                           const gp_XY&  theEnd2d);
+                           const Coords2d&  theStart2d,
+                           const Coords2d&  theEnd2d);
 
   //! Returns the count of added couples of points (one per edges)
   Standard_EXPORT Standard_Integer NbEdges() const;
@@ -125,7 +125,7 @@ public:
                            gp_XYZ&                theEnd3D) const;
 
   //! Returns the values of the couple <num>, as 2D values
-  Standard_EXPORT void XY(const Standard_Integer theIdx, gp_XY& theStart2D, gp_XY& theEnd2D) const;
+  Standard_EXPORT void XY(const Standard_Integer theIdx, Coords2d& theStart2D, Coords2d& theEnd2D) const;
 
   //! Returns the gap between a couple and its preceding
   //! <num> is considered ordered

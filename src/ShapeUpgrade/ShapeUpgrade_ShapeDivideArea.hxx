@@ -21,7 +21,7 @@
 #include <Standard_Handle.hxx>
 
 #include <ShapeUpgrade_ShapeDivide.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class ShapeUpgrade_FaceDivide;
 
 //! Divides faces from sprcified shape  by max area criterium.
@@ -33,7 +33,7 @@ public:
   Standard_EXPORT ShapeUpgrade_ShapeDivideArea();
 
   //! Initialize by a Shape.
-  Standard_EXPORT ShapeUpgrade_ShapeDivideArea(const TopoDS_Shape& S);
+  Standard_EXPORT ShapeUpgrade_ShapeDivideArea(const TopoShape& S);
 
   //! Set max area allowed for faces
   Standard_Real& MaxArea();

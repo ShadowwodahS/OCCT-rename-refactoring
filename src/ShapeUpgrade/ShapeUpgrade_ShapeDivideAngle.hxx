@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <ShapeUpgrade_ShapeDivide.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! Splits all surfaces of revolution, cylindrical, toroidal,
 //! conical, spherical surfaces in the given shape so that
@@ -37,7 +37,7 @@ public:
 
   //! Initialize by a Shape.
   Standard_EXPORT ShapeUpgrade_ShapeDivideAngle(const Standard_Real MaxAngle,
-                                                const TopoDS_Shape& S);
+                                                const TopoShape& S);
 
   //! Resets tool for splitting face with given angle
   Standard_EXPORT void InitTool(const Standard_Real MaxAngle);

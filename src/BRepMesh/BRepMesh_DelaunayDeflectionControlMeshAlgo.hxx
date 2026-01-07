@@ -131,7 +131,7 @@ private:
     {
     }
 
-    gp_XY            Point2d;
+    Coords2d            Point2d;
     gp_XYZ           Point;
     Standard_Boolean isFrontierLink;
   };
@@ -221,7 +221,7 @@ private:
       {
         myIsAllDegenerated = Standard_False;
 
-        const gp_XY aCenter2d =
+        const Coords2d aCenter2d =
           (aNodesInfo[0].Point2d + aNodesInfo[1].Point2d + aNodesInfo[2].Point2d) / 3.;
 
         usePoint(aCenter2d, NormalDeviation(aNodesInfo[0].Point, aNormal));
@@ -323,7 +323,7 @@ private:
 
       if (myCouplesMap->Add(BRepMesh_OrientedEdge(aFirstVertex, aLastVertex)))
       {
-        const gp_XY aMidPnt2d = (theNodesInfo[i].Point2d + theNodesInfo[j].Point2d) / 2.;
+        const Coords2d aMidPnt2d = (theNodesInfo[i].Point2d + theNodesInfo[j].Point2d) / 2.;
 
         if (!usePoint(aMidPnt2d, LineDeviation(theNodesInfo[i].Point, theNodesInfo[j].Point)))
         {
@@ -343,7 +343,7 @@ private:
   //! the given link by the middle point fit MinSize requirement.
   Standard_Boolean rejectSplitLinksForMinSize(const TriangleNodeInfo& theNodeInfo1,
                                               const TriangleNodeInfo& theNodeInfo2,
-                                              const gp_XY&            theMidPoint)
+                                              const Coords2d&            theMidPoint)
   {
     const Point3d aPnt = getPoint3d(theMidPoint);
     return ((theNodeInfo1.Point - aPnt.XYZ()).SquareModulus() < mySqMinSize
@@ -354,10 +354,10 @@ private:
   //! for specified angular deviation.
   Standard_Boolean checkLinkEndsForAngularDeviation(const TriangleNodeInfo& theNodeInfo1,
                                                     const TriangleNodeInfo& theNodeInfo2,
-                                                    const gp_XY& /*theMidPoint*/)
+                                                    const Coords2d& /*theMidPoint*/)
   {
     Dir3d                      aNorm1, aNorm2;
-    const Handle(Geom_Surface)& aSurf = this->getDFace()->GetSurface()->Surface().Surface();
+    const Handle(GeomSurface)& aSurf = this->getDFace()->GetSurface()->Surface().Surface();
 
     if ((GeomLib::NormEstim(aSurf, theNodeInfo1.Point2d, Precision::Confusion(), aNorm1) == 0)
         && (GeomLib::NormEstim(aSurf, theNodeInfo2.Point2d, Precision::Confusion(), aNorm2) == 0))
@@ -383,7 +383,7 @@ private:
   }
 
   //! Returns 3d point corresponding to the given one in 2d space.
-  Point3d getPoint3d(const gp_XY& thePnt2d)
+  Point3d getPoint3d(const Coords2d& thePnt2d)
   {
     Point3d aPnt;
     this->getDFace()->GetSurface()->D0(thePnt2d.X(), thePnt2d.Y(), aPnt);
@@ -394,7 +394,7 @@ private:
   //! insertion in case if it overflows deflection.
   //! @return True if point has been cached for insertion.
   template <class DeflectionFunctor>
-  Standard_Boolean usePoint(const gp_XY& thePnt2d, const DeflectionFunctor& theDeflectionFunctor)
+  Standard_Boolean usePoint(const Coords2d& thePnt2d, const DeflectionFunctor& theDeflectionFunctor)
   {
     const Point3d aPnt = getPoint3d(thePnt2d);
     if (!checkDeflectionOfPointAndUpdateCache(thePnt2d,
@@ -410,7 +410,7 @@ private:
 
   //! Checks the given point for specified linear deflection.
   //! Updates value of total mesh defleciton.
-  Standard_Boolean checkDeflectionOfPointAndUpdateCache(const gp_XY&        thePnt2d,
+  Standard_Boolean checkDeflectionOfPointAndUpdateCache(const Coords2d&        thePnt2d,
                                                         const Point3d&       thePnt3d,
                                                         const Standard_Real theSqDeflection)
   {
@@ -433,7 +433,7 @@ private:
   //! shot by it for MinSize criteria.
   //! This check is expected to roughly estimate and prevent
   //! generation of triangles with sides smaller than MinSize.
-  Standard_Boolean rejectByMinSize(const gp_XY& thePnt2d, const Point3d& thePnt3d)
+  Standard_Boolean rejectByMinSize(const Coords2d& thePnt2d, const Point3d& thePnt3d)
   {
     IMeshData::MapOfInteger   aUsedNodes;
     IMeshData::ListOfInteger& aCirclesList =

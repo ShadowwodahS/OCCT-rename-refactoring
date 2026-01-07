@@ -36,7 +36,7 @@ extern Standard_Boolean Draw_Bounds;
 
 //=================================================================================================
 
-DrawTrSurf_Curve::DrawTrSurf_Curve(const Handle(Geom_Curve)& C, const Standard_Boolean DispOrigin)
+DrawTrSurf_Curve::DrawTrSurf_Curve(const Handle(GeomCurve3d)& C, const Standard_Boolean DispOrigin)
     : DrawTrSurf_Drawable(16, 0.01, 1),
       curv(C),
       look(Draw_vert),
@@ -50,8 +50,8 @@ DrawTrSurf_Curve::DrawTrSurf_Curve(const Handle(Geom_Curve)& C, const Standard_B
 
 //=================================================================================================
 
-DrawTrSurf_Curve::DrawTrSurf_Curve(const Handle(Geom_Curve)& C,
-                                   const Draw_Color&         aColor,
+DrawTrSurf_Curve::DrawTrSurf_Curve(const Handle(GeomCurve3d)& C,
+                                   const DrawColor&         aColor,
                                    const Standard_Integer    Discret,
                                    const Standard_Real       Deflection,
                                    const Standard_Integer    DrawMode,
@@ -72,7 +72,7 @@ DrawTrSurf_Curve::DrawTrSurf_Curve(const Handle(Geom_Curve)& C,
 
 //=================================================================================================
 
-void DrawTrSurf_Curve::DrawOn(Draw_Display& dis) const
+void DrawTrSurf_Curve::DrawOn(DrawDisplay& dis) const
 {
   Standard_Real    First    = curv->FirstParameter();
   Standard_Real    Last     = curv->LastParameter();
@@ -145,7 +145,7 @@ void DrawTrSurf_Curve::DrawOn(Draw_Display& dis) const
     }
     Draw_Bounds = Standard_True;
   }
-  // Draw the curvature Radius
+  // Draw1 the curvature Radius
   if (dispcurvradius && (C.GetType() != GeomAbs_Line))
   {
     Standard_Integer     ii;
@@ -189,7 +189,7 @@ void DrawTrSurf_Curve::DrawOn(Draw_Display& dis) const
 
 Handle(Draw_Drawable3D) DrawTrSurf_Curve::Copy() const
 {
-  Handle(DrawTrSurf_Curve) DC = new DrawTrSurf_Curve(Handle(Geom_Curve)::DownCast(curv->Copy()),
+  Handle(DrawTrSurf_Curve) DC = new DrawTrSurf_Curve(Handle(GeomCurve3d)::DownCast(curv->Copy()),
                                                      look,
                                                      GetDiscretisation(),
                                                      GetDeflection(),
@@ -216,8 +216,8 @@ void DrawTrSurf_Curve::Save(Standard_OStream& theOs) const
 
 Handle(Draw_Drawable3D) DrawTrSurf_Curve::Restore(Standard_IStream& theStream)
 {
-  const DrawTrSurf_Params& aParams    = DrawTrSurf::Parameters();
-  Handle(Geom_Curve)       aGeomCurve = GeomTools_CurveSet::ReadCurve(theStream);
+  const DrawTrSurf_Params& aParams    = DrawTrSurf1::Parameters();
+  Handle(GeomCurve3d)       aGeomCurve = GeomTools_CurveSet::ReadCurve(theStream);
   Handle(DrawTrSurf_Curve) aDrawCurve = new DrawTrSurf_Curve(aGeomCurve,
                                                              aParams.CurvColor,
                                                              aParams.Discret,
@@ -228,7 +228,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_Curve::Restore(Standard_IStream& theStream)
 
 //=================================================================================================
 
-void DrawTrSurf_Curve::Whatis(Draw_Interpretor& S) const
+void DrawTrSurf_Curve::Whatis(DrawInterpreter& S) const
 {
   S << " a 3d curve";
 }

@@ -25,7 +25,7 @@
 
 //=======================================================================
 // function : MeshTest_DrawLinks
-// purpose  : Draw links from mesh data structure of type BRepMesh_FaceAttribute
+// purpose  : Draw1 links from mesh data structure of type BRepMesh_FaceAttribute
 //=======================================================================
 Standard_EXPORT const char* MeshTest_DrawLinks(const char* theNameStr, void* theDataStruct)
 {
@@ -41,7 +41,7 @@ Standard_EXPORT const char* MeshTest_DrawLinks(const char* theNameStr, void* the
       return "Null mesh data structure";
     Standard_Integer nbLinks = aMeshData->NbLinks();
     std::cout << "nblink=" << nbLinks << std::endl;
-    TCollection_AsciiString aName(theNameStr);
+    AsciiString1 aName(theNameStr);
     for (Standard_Integer i = 1; i <= nbLinks; i++)
     {
       const BRepMesh_Edge& aLink = aMeshData->GetLink(i);
@@ -54,7 +54,7 @@ Standard_EXPORT const char* MeshTest_DrawLinks(const char* theNameStr, void* the
       Handle(Draw_Segment3D) aSeg = new Draw_Segment3D(Point3d(aV1.Coord().X(), aV1.Coord().Y(), 0),
                                                        Point3d(aV2.Coord().X(), aV2.Coord().Y(), 0),
                                                        Draw_bleu);
-      Draw::Set((aName + "_" + i).ToCString(), aSeg);
+      Draw1::Set((aName + "_" + i).ToCString(), aSeg);
     }
     return theNameStr;
   }
@@ -66,7 +66,7 @@ Standard_EXPORT const char* MeshTest_DrawLinks(const char* theNameStr, void* the
 
 //=======================================================================
 // function : MeshTest_DrawTriangles
-// purpose  : Draw triangles from mesh data structure of type BRepMesh_FaceAttribute
+// purpose  : Draw1 triangles from mesh data structure of type BRepMesh_FaceAttribute
 //=======================================================================
 Standard_EXPORT const char* MeshTest_DrawTriangles(const char* theNameStr, void* theDataStruct)
 {
@@ -83,7 +83,7 @@ Standard_EXPORT const char* MeshTest_DrawTriangles(const char* theNameStr, void*
       return "Null mesh data structure";
     Standard_Integer nbElem = aMeshData->NbElements();
     std::cout << "nbelem=" << nbElem << std::endl;
-    TCollection_AsciiString aName(theNameStr);
+    AsciiString1 aName(theNameStr);
     for (Standard_Integer i = 1; i <= nbElem; i++)
     {
       const BRepMesh_Triangle& aTri = aMeshData->GetElement(i);
@@ -101,7 +101,7 @@ Standard_EXPORT const char* MeshTest_DrawTriangles(const char* theNameStr, void*
       TColgp_Array1OfPnt           aPnts(aP[0], 1, 4);
       Handle(Poly_Polygon3D)       aPoly  = new Poly_Polygon3D(aPnts);
       Handle(DrawTrSurf_Polygon3D) aDPoly = new DrawTrSurf_Polygon3D(aPoly);
-      Draw::Set((aName + "_" + i).ToCString(), aDPoly);
+      Draw1::Set((aName + "_" + i).ToCString(), aDPoly);
     }
     return theNameStr;
   }

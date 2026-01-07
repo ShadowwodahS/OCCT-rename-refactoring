@@ -23,13 +23,13 @@
 #include <IFSelect_SessionDumper.hxx>
 class IFSelect_SessionFile;
 class RefObject;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IGESSelect_Dumper;
 DEFINE_STANDARD_HANDLE(IGESSelect_Dumper, IFSelect_SessionDumper)
 
-//! Dumper from IGESSelect takes into account, for SessionFile, the
-//! classes defined in the package IGESSelect : Selections,
+//! Dumper from IGESSelect1 takes into account, for SessionFile, the
+//! classes defined in the package IGESSelect1 : Selections,
 //! Dispatches, Modifiers
 class IGESSelect_Dumper : public IFSelect_SessionDumper
 {
@@ -38,17 +38,17 @@ public:
   //! Creates a Dumper and puts it into the Library of Dumper
   Standard_EXPORT IGESSelect_Dumper();
 
-  //! Write the Own Parameters of Types defined in package IGESSelect
+  //! Write the Own Parameters of Types defined in package IGESSelect1
   //! Returns True if <item> has been processed, False else
   Standard_EXPORT Standard_Boolean
     WriteOwn(IFSelect_SessionFile&             file,
              const Handle(RefObject)& item) const Standard_OVERRIDE;
 
   //! Recognizes and Read Own Parameters for Types of package
-  //! IGESSelect. Returns True if done and <item> created, False else
+  //! IGESSelect1. Returns True if done and <item> created, False else
   Standard_EXPORT Standard_Boolean
     ReadOwn(IFSelect_SessionFile&          file,
-            const TCollection_AsciiString& type,
+            const AsciiString1& type,
             Handle(RefObject)&    item) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_Dumper, IFSelect_SessionDumper)

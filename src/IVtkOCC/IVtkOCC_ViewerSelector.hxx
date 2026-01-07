@@ -52,13 +52,13 @@ public:
   void Pick(double** thePoly, const int theNbPoints, const IVtk_IView::Handle& theView);
 
   //! Activates the given selection
-  void Activate(const Handle(SelectMgr_Selection)& theSelection);
+  void Activate(const Handle(SelectionContainer)& theSelection);
 
   //! Deactivate the given selection
-  void Deactivate(const Handle(SelectMgr_Selection)& theSelection);
+  void Deactivate(const Handle(SelectionContainer)& theSelection);
 
   //! Converts VTK camera defined for input view to OCC camera
-  static Handle(Graphic3d_Camera) ConvertVtkToOccCamera(const IVtk_IView::Handle& theView);
+  static Handle(CameraOn3d) ConvertVtkToOccCamera(const IVtk_IView::Handle& theView);
 
   DEFINE_STANDARD_RTTIEXT(IVtkOCC_ViewerSelector, SelectMgr_ViewerSelector)
 

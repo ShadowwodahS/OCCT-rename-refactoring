@@ -35,19 +35,19 @@
 //            required edge
 //===============================================================================
 
-static Standard_Integer chamf_throat_with_penetration(Draw_Interpretor& di,
+static Standard_Integer chamf_throat_with_penetration(DrawInterpreter& di,
                                                       Standard_Integer  narg,
                                                       const char**      a)
 {
   if (narg < 7)
     return 1;
 
-  TopoDS_Shape S = DBRep::Get(a[2]);
+  TopoShape S = DBRep1::Get(a[2]);
   if (S.IsNull())
     return 1;
 
-  TopoDS_Edge      E;
-  TopoDS_Face      F;
+  TopoEdge      E;
+  TopoFace      F;
   Standard_Real    offset, throat;
   Standard_Integer i     = 3;
   Standard_Integer NbArg = 4;
@@ -57,16 +57,16 @@ static Standard_Integer chamf_throat_with_penetration(Draw_Interpretor& di,
 
   while (i + NbArg <= narg)
   {
-    TopoDS_Shape aLocalEdge(DBRep::Get(a[i], TopAbs_EDGE));
+    TopoShape aLocalEdge(DBRep1::Get(a[i], TopAbs_EDGE));
     E = TopoDS::Edge(aLocalEdge);
-    TopoDS_Shape aLocalFace(DBRep::Get(a[i + 1], TopAbs_FACE));
+    TopoShape aLocalFace(DBRep1::Get(a[i + 1], TopAbs_FACE));
     F = TopoDS::Face(aLocalFace);
-    //      E = TopoDS::Edge(DBRep::Get(a[i], TopAbs_EDGE));
-    //      F = TopoDS::Face(DBRep::Get(a[i + 1], TopAbs_FACE));
+    //      E = TopoDS::Edge(DBRep1::Get(a[i], TopAbs_EDGE));
+    //      F = TopoDS::Face(DBRep1::Get(a[i + 1], TopAbs_FACE));
     if (!E.IsNull() && !F.IsNull() && (aMCh.Contour(E) == 0))
     {
-      offset = Draw::Atof(a[i + 2]);
-      throat = Draw::Atof(a[i + 3]);
+      offset = Draw1::Atof(a[i + 2]);
+      throat = Draw1::Atof(a[i + 3]);
 
       if (offset > Precision::Confusion() && throat > offset)
         aMCh.Add(offset, throat, E, F);
@@ -86,7 +86,7 @@ static Standard_Integer chamf_throat_with_penetration(Draw_Interpretor& di,
 
   if (aMCh.IsDone())
   {
-    DBRep::Set(a[1], aMCh);
+    DBRep1::Set(a[1], aMCh);
     return 0;
   }
   else
@@ -104,16 +104,16 @@ static Standard_Integer chamf_throat_with_penetration(Draw_Interpretor& di,
 //            required edge
 //===============================================================================
 
-static Standard_Integer chamf_throat(Draw_Interpretor& di, Standard_Integer narg, const char** a)
+static Standard_Integer chamf_throat(DrawInterpreter& di, Standard_Integer narg, const char** a)
 {
   if (narg < 5)
     return 1;
 
-  TopoDS_Shape S = DBRep::Get(a[2]);
+  TopoShape S = DBRep1::Get(a[2]);
   if (S.IsNull())
     return 1;
 
-  TopoDS_Edge      E;
+  TopoEdge      E;
   Standard_Real    throat;
   Standard_Integer i = 3;
 
@@ -122,11 +122,11 @@ static Standard_Integer chamf_throat(Draw_Interpretor& di, Standard_Integer narg
 
   while (i + 1 < narg)
   {
-    TopoDS_Shape aLocalEdge(DBRep::Get(a[i], TopAbs_EDGE));
+    TopoShape aLocalEdge(DBRep1::Get(a[i], TopAbs_EDGE));
     E = TopoDS::Edge(aLocalEdge);
     if (!E.IsNull() && (aMCh.Contour(E) == 0))
     {
-      throat = Draw::Atof(a[i + 1]);
+      throat = Draw1::Atof(a[i + 1]);
 
       if (throat > Precision::Confusion())
         aMCh.Add(throat, E);
@@ -146,7 +146,7 @@ static Standard_Integer chamf_throat(Draw_Interpretor& di, Standard_Integer narg
 
   if (aMCh.IsDone())
   {
-    DBRep::Set(a[1], aMCh);
+    DBRep1::Set(a[1], aMCh);
     return 0;
   }
   else
@@ -164,7 +164,7 @@ static Standard_Integer chamf_throat(Draw_Interpretor& di, Standard_Integer narg
 //            required edge
 //=========================================================================
 
-static Standard_Integer chamfer(Draw_Interpretor& di, Standard_Integer narg, const char** a)
+static Standard_Integer chamfer(DrawInterpreter& di, Standard_Integer narg, const char** a)
 {
   // check the argument number of the command
   if (narg == 1)
@@ -182,12 +182,12 @@ static Standard_Integer chamfer(Draw_Interpretor& di, Standard_Integer narg, con
     if (narg < 5)
       return 1;
 
-    TopoDS_Shape S = DBRep::Get(a[2]);
+    TopoShape S = DBRep1::Get(a[2]);
     if (S.IsNull())
       return 1;
 
-    TopoDS_Edge      E;
-    TopoDS_Face      F;
+    TopoEdge      E;
+    TopoFace      F;
     Standard_Real    d1, d2, angle;
     Standard_Integer i = 3;
 
@@ -195,11 +195,11 @@ static Standard_Integer chamfer(Draw_Interpretor& di, Standard_Integer narg, con
 
     while (i + 1 < narg)
     {
-      TopoDS_Shape aLocalEdge(DBRep::Get(a[i], TopAbs_EDGE));
+      TopoShape aLocalEdge(DBRep1::Get(a[i], TopAbs_EDGE));
       if (aLocalEdge.IsNull())
         return 1;
       E = TopoDS::Edge(aLocalEdge);
-      TopoDS_Shape aLocalFace(DBRep::Get(a[i + 1], TopAbs_FACE));
+      TopoShape aLocalFace(DBRep1::Get(a[i + 1], TopAbs_FACE));
       if (aLocalFace.IsNull())
       {
         // symmetric chamfer (one distance)
@@ -217,8 +217,8 @@ static Standard_Integer chamfer(Draw_Interpretor& di, Standard_Integer narg, con
           if (!strcasecmp(a[i + 2], "A") && i + 4 < narg)
           {
             // chamfer with distance and angle
-            d1    = Draw::Atof(a[i + 3]);
-            angle = Draw::Atof(a[i + 4]);
+            d1    = Draw1::Atof(a[i + 3]);
+            angle = Draw1::Atof(a[i + 4]);
             angle *= M_PI / 180.;
             if (aMCh.Contour(E) == 0 && d1 > Precision::Confusion()
                 && angle > Precision::Confusion() && M_PI / 2 - angle > Precision::Confusion())
@@ -228,8 +228,8 @@ static Standard_Integer chamfer(Draw_Interpretor& di, Standard_Integer narg, con
           else
           {
             // chamfer with two distances
-            d1 = Draw::Atof(a[i + 2]);
-            d2 = Draw::Atof(a[i + 3]);
+            d1 = Draw1::Atof(a[i + 2]);
+            d2 = Draw1::Atof(a[i + 3]);
             if (aMCh.Contour(E) == 0 && d1 > Precision::Confusion() && d2 > Precision::Confusion())
               aMCh.Add(d1, d2, E, F);
             i += 4;
@@ -250,7 +250,7 @@ static Standard_Integer chamfer(Draw_Interpretor& di, Standard_Integer narg, con
 
     if (aMCh.IsDone())
     {
-      DBRep::Set(a[1], aMCh);
+      DBRep1::Set(a[1], aMCh);
       return 0;
     }
     else
@@ -266,14 +266,14 @@ static Standard_Integer chamfer(Draw_Interpretor& di, Standard_Integer narg, con
 
 //=================================================================================================
 
-void BRepTest::ChamferCommands(Draw_Interpretor& theCommands)
+void BRepTest::ChamferCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
 
-  DBRep::BasicCommands(theCommands);
+  DBRep1::BasicCommands(theCommands);
 
   const char* g = "TOPOLOGY Fillet construction commands";
 

@@ -34,9 +34,9 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESBasic_ToolOrderedGroupWithoutBackP::IGESBasic_ToolOrderedGroupWithoutBackP() {}
+OrderedGroupWithoutBackPTool::OrderedGroupWithoutBackPTool() {}
 
-void IGESBasic_ToolOrderedGroupWithoutBackP::ReadOwnParams(
+void OrderedGroupWithoutBackPTool::ReadOwnParams(
   const Handle(IGESBasic_OrderedGroupWithoutBackP)& ent,
   const Handle(IGESData_IGESReaderData)&            IR,
   IGESData_ParamReader&                             PR) const
@@ -64,7 +64,7 @@ void IGESBasic_ToolOrderedGroupWithoutBackP::ReadOwnParams(
   ent->Init(EntArray);
 }
 
-void IGESBasic_ToolOrderedGroupWithoutBackP::WriteOwnParams(
+void OrderedGroupWithoutBackPTool::WriteOwnParams(
   const Handle(IGESBasic_OrderedGroupWithoutBackP)& ent,
   IGESData_IGESWriter&                              IW) const
 {
@@ -74,7 +74,7 @@ void IGESBasic_ToolOrderedGroupWithoutBackP::WriteOwnParams(
     IW.Send(ent->Entity(i));
 }
 
-void IGESBasic_ToolOrderedGroupWithoutBackP::OwnShared(
+void OrderedGroupWithoutBackPTool::OwnShared(
   const Handle(IGESBasic_OrderedGroupWithoutBackP)& ent,
   Interface_EntityIterator&                         iter) const
 {
@@ -83,7 +83,7 @@ void IGESBasic_ToolOrderedGroupWithoutBackP::OwnShared(
     iter.GetOneItem(ent->Entity(i));
 }
 
-void IGESBasic_ToolOrderedGroupWithoutBackP::OwnCopy(
+void OrderedGroupWithoutBackPTool::OwnCopy(
   const Handle(IGESBasic_OrderedGroupWithoutBackP)& another,
   const Handle(IGESBasic_OrderedGroupWithoutBackP)& ent,
   Interface_CopyTool&                               TC) const
@@ -100,7 +100,7 @@ void IGESBasic_ToolOrderedGroupWithoutBackP::OwnCopy(
   ent->Init(EntArray);
 }
 
-Standard_Boolean IGESBasic_ToolOrderedGroupWithoutBackP::OwnCorrect(
+Standard_Boolean OrderedGroupWithoutBackPTool::OwnCorrect(
   const Handle(IGESBasic_OrderedGroupWithoutBackP)& ent) const
 {
   Standard_Integer ianul = 0;
@@ -132,10 +132,10 @@ Standard_Boolean IGESBasic_ToolOrderedGroupWithoutBackP::OwnCorrect(
   return Standard_True;
 }
 
-IGESData_DirChecker IGESBasic_ToolOrderedGroupWithoutBackP::DirChecker(
+DirectoryChecker OrderedGroupWithoutBackPTool::DirChecker(
   const Handle(IGESBasic_OrderedGroupWithoutBackP)& /* ent */) const
 {
-  IGESData_DirChecker DC(402, 15); // TypeNo. 402, Form no. 15
+  DirectoryChecker DC(402, 15); // TypeNo. 402, Form no. 15
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.BlankStatusIgnored();
@@ -143,7 +143,7 @@ IGESData_DirChecker IGESBasic_ToolOrderedGroupWithoutBackP::DirChecker(
   return DC;
 }
 
-void IGESBasic_ToolOrderedGroupWithoutBackP::OwnCheck(
+void OrderedGroupWithoutBackPTool::OwnCheck(
   const Handle(IGESBasic_OrderedGroupWithoutBackP)& ent,
   const Interface_ShareTool&,
   Handle(Interface_Check)& ach) const
@@ -165,7 +165,7 @@ void IGESBasic_ToolOrderedGroupWithoutBackP::OwnCheck(
   }
 }
 
-void IGESBasic_ToolOrderedGroupWithoutBackP::OwnDump(
+void OrderedGroupWithoutBackPTool::OwnDump(
   const Handle(IGESBasic_OrderedGroupWithoutBackP)& ent,
   const IGESData_IGESDumper&                        dumper,
   Standard_OStream&                                 S,

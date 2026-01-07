@@ -33,12 +33,12 @@
 
 //=================================================================================================
 
-static Standard_Integer DumpConfiguration(Draw_Interpretor& theDI,
+static Standard_Integer DumpConfiguration(DrawInterpreter& theDI,
                                           Standard_Integer  theNbArgs,
                                           const char**      theArgVec)
 {
   Handle(DE_Wrapper)        aConf = DE_Wrapper::GlobalWrapper();
-  TCollection_AsciiString   aPath;
+  AsciiString1   aPath;
   Standard_Boolean          aIsRecursive    = Standard_True;
   Standard_Boolean          isHandleFormat  = Standard_False;
   Standard_Boolean          isHandleVendors = Standard_False;
@@ -46,7 +46,7 @@ static Standard_Integer DumpConfiguration(Draw_Interpretor& theDI,
   TColStd_ListOfAsciiString aVendors;
   for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     if ((anArg == "-path") && (anArgIter + 1 < theNbArgs))
     {
@@ -54,7 +54,7 @@ static Standard_Integer DumpConfiguration(Draw_Interpretor& theDI,
       aPath = theArgVec[anArgIter];
     }
     else if ((anArg == "-recursive") && (anArgIter + 1 < theNbArgs)
-             && Draw::ParseOnOff(theArgVec[anArgIter + 1], aIsRecursive))
+             && Draw1::ParseOnOff(theArgVec[anArgIter + 1], aIsRecursive))
     {
       ++anArgIter;
     }
@@ -100,7 +100,7 @@ static Standard_Integer DumpConfiguration(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer CompareConfiguration(Draw_Interpretor& theDI,
+static Standard_Integer CompareConfiguration(DrawInterpreter& theDI,
                                              Standard_Integer  theNbArgs,
                                              const char**      theArgVec)
 {
@@ -126,9 +126,9 @@ static Standard_Integer CompareConfiguration(Draw_Interpretor& theDI,
   Standard_Integer      anDiffers          = 0;
   for (DE_ResourceMap::Iterator anOrigIt(aResourceMapFirst); anOrigIt.More(); anOrigIt.Next())
   {
-    const TCollection_AsciiString& anOrigValue = anOrigIt.Value();
-    const TCollection_AsciiString& anOrigKey   = anOrigIt.Key();
-    TCollection_AsciiString        aCompValue;
+    const AsciiString1& anOrigValue = anOrigIt.Value();
+    const AsciiString1& anOrigKey   = anOrigIt.Key();
+    AsciiString1        aCompValue;
     if (!aResourceMapSecond.Find(anOrigKey, aCompValue))
     {
       Message::SendWarning() << "Second configuration don't have the next scope : " << anOrigKey;
@@ -142,7 +142,7 @@ static Standard_Integer CompareConfiguration(Draw_Interpretor& theDI,
       anDiffers++;
     }
   }
-  TCollection_AsciiString aMessage;
+  AsciiString1 aMessage;
   if (aResourceMapFirst.Extent() != aResourceMapSecond.Extent() || anDiffers > 0)
   {
     theDI << "Error: Configurations are not same : " << " Differs count : " << anDiffers
@@ -155,7 +155,7 @@ static Standard_Integer CompareConfiguration(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer LoadConfiguration(Draw_Interpretor& theDI,
+static Standard_Integer LoadConfiguration(DrawInterpreter& theDI,
                                           Standard_Integer  theNbArgs,
                                           const char**      theArgVec)
 {
@@ -165,13 +165,13 @@ static Standard_Integer LoadConfiguration(Draw_Interpretor& theDI,
     return 1;
   }
   Handle(DE_Wrapper)      aConf        = DE_Wrapper::GlobalWrapper();
-  TCollection_AsciiString aString      = theArgVec[1];
+  AsciiString1 aString      = theArgVec[1];
   Standard_Boolean        aIsRecursive = Standard_True;
   if (theNbArgs == 4)
   {
-    TCollection_AsciiString anArg = theArgVec[2];
+    AsciiString1 anArg = theArgVec[2];
     anArg.LowerCase();
-    if (!(anArg == "-recursive") || !Draw::ParseOnOff(theArgVec[3], aIsRecursive))
+    if (!(anArg == "-recursive") || !Draw1::ParseOnOff(theArgVec[3], aIsRecursive))
     {
       theDI << "Syntax error at argument '" << theArgVec[3] << "'\n";
       return 1;
@@ -187,7 +187,7 @@ static Standard_Integer LoadConfiguration(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer ReadFile(Draw_Interpretor& theDI,
+static Standard_Integer ReadFile(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
@@ -196,15 +196,15 @@ static Standard_Integer ReadFile(Draw_Interpretor& theDI,
     theDI.PrintHelp(theArgVec[0]);
     return 1;
   }
-  TCollection_AsciiString     aDocShapeName;
-  TCollection_AsciiString     aFilePath;
-  Handle(TDocStd_Document)    aDoc;
-  Handle(TDocStd_Application) anApp = DDocStd::GetApplication();
-  TCollection_AsciiString     aConfString;
-  Standard_Boolean            isNoDoc = (TCollection_AsciiString(theArgVec[0]) == "readfile");
+  AsciiString1     aDocShapeName;
+  AsciiString1     aFilePath;
+  Handle(AppDocument)    aDoc;
+  Handle(AppManager) anApp = DDocStd1::GetApplication();
+  AsciiString1     aConfString;
+  Standard_Boolean            isNoDoc = (AsciiString1(theArgVec[0]) == "readfile");
   for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     if ((anArg == "-conf") && (anArgIter + 1 < theNbArgs))
     {
@@ -217,7 +217,7 @@ static Standard_Integer ReadFile(Draw_Interpretor& theDI,
       Standard_CString aNameVar = aDocShapeName.ToCString();
       if (!isNoDoc)
       {
-        DDocStd::GetDocument(aNameVar, aDoc, Standard_False);
+        DDocStd1::GetDocument(aNameVar, aDoc, Standard_False);
       }
     }
     else if (aFilePath.IsEmpty())
@@ -237,14 +237,14 @@ static Standard_Integer ReadFile(Draw_Interpretor& theDI,
   }
   if (aDoc.IsNull() && !isNoDoc)
   {
-    anApp->NewDocument(TCollection_ExtendedString("BinXCAF"), aDoc);
+    anApp->NewDocument(UtfString("BinXCAF"), aDoc);
     Handle(DDocStd_DrawDocument) aDrawDoc = new DDocStd_DrawDocument(aDoc);
-    TDataStd_Name::Set(aDoc->GetData()->Root(), theArgVec[1]);
-    Draw::Set(theArgVec[1], aDrawDoc);
+    NameAttribute::Set(aDoc->GetData()->Root(), theArgVec[1]);
+    Draw1::Set(theArgVec[1], aDrawDoc);
   }
 
   Handle(DE_Wrapper)            aConf = DE_Wrapper::GlobalWrapper()->Copy();
-  Handle(XSControl_WorkSession) aWS   = XSDRAW::Session();
+  Handle(ExchangeSession) aWS   = XSDRAW::Session();
   Standard_Boolean              aStat = Standard_True;
   if (!aConfString.IsEmpty())
   {
@@ -252,11 +252,11 @@ static Standard_Integer ReadFile(Draw_Interpretor& theDI,
   }
   if (aStat)
   {
-    TopoDS_Shape aShape;
+    TopoShape aShape;
     aStat = isNoDoc ? aConf->Read(aFilePath, aShape, aWS) : aConf->Read(aFilePath, aDoc, aWS);
     if (isNoDoc && aStat)
     {
-      DBRep::Set(aDocShapeName.ToCString(), aShape);
+      DBRep1::Set(aDocShapeName.ToCString(), aShape);
     }
   }
   if (!aStat)
@@ -269,7 +269,7 @@ static Standard_Integer ReadFile(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer WriteFile(Draw_Interpretor& theDI,
+static Standard_Integer WriteFile(DrawInterpreter& theDI,
                                   Standard_Integer  theNbArgs,
                                   const char**      theArgVec)
 {
@@ -278,14 +278,14 @@ static Standard_Integer WriteFile(Draw_Interpretor& theDI,
     theDI.PrintHelp(theArgVec[0]);
     return 1;
   }
-  TCollection_AsciiString  aDocShapeName;
-  TCollection_AsciiString  aFilePath;
-  Handle(TDocStd_Document) aDoc;
-  TCollection_AsciiString  aConfString;
-  Standard_Boolean         isNoDoc = (TCollection_AsciiString(theArgVec[0]) == "writefile");
+  AsciiString1  aDocShapeName;
+  AsciiString1  aFilePath;
+  Handle(AppDocument) aDoc;
+  AsciiString1  aConfString;
+  Standard_Boolean         isNoDoc = (AsciiString1(theArgVec[0]) == "writefile");
   for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     if ((anArg == "-conf") && (anArgIter + 1 < theNbArgs))
     {
@@ -298,7 +298,7 @@ static Standard_Integer WriteFile(Draw_Interpretor& theDI,
       Standard_CString aNameVar = aDocShapeName.ToCString();
       if (!isNoDoc)
       {
-        DDocStd::GetDocument(aNameVar, aDoc, Standard_False);
+        DDocStd1::GetDocument(aNameVar, aDoc, Standard_False);
       }
     }
     else if (aFilePath.IsEmpty())
@@ -322,7 +322,7 @@ static Standard_Integer WriteFile(Draw_Interpretor& theDI,
     return 1;
   }
   Handle(DE_Wrapper)            aConf = DE_Wrapper::GlobalWrapper()->Copy();
-  Handle(XSControl_WorkSession) aWS   = XSDRAW::Session();
+  Handle(ExchangeSession) aWS   = XSDRAW::Session();
   Standard_Boolean              aStat = Standard_True;
   if (!aConfString.IsEmpty())
   {
@@ -332,7 +332,7 @@ static Standard_Integer WriteFile(Draw_Interpretor& theDI,
   {
     if (isNoDoc)
     {
-      TopoDS_Shape aShape = DBRep::Get(aDocShapeName);
+      TopoShape aShape = DBRep1::Get(aDocShapeName);
       if (aShape.IsNull())
       {
         theDI << "Error: incorrect shape " << aDocShapeName << "\n";
@@ -355,7 +355,7 @@ static Standard_Integer WriteFile(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-void XSDRAWDE::Factory(Draw_Interpretor& theDI)
+void XSDRAWDE::Factory(DrawInterpreter& theDI)
 {
   static Standard_Boolean aIsActivated = Standard_False;
   if (aIsActivated)

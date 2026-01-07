@@ -84,8 +84,8 @@ public:
                          const Standard_Integer theLower,
                          const Standard_Integer theUpper);
 
-  //! Constructor for converting gp_XY to math_VectorBase
-  inline math_VectorBase(const gp_XY& Other);
+  //! Constructor for converting Coords2d to math_VectorBase
+  inline math_VectorBase(const Coords2d& Other);
 
   //! Constructor for converting gp_XYZ to math_VectorBase
   inline math_VectorBase(const gp_XYZ& Other);

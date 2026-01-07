@@ -20,7 +20,7 @@
 #include <Adaptor3d_Surface.hxx>
 #include <IntCurveSurface_TheCSFunctionOfHInter.hxx>
 
-class Adaptor3d_HSurfaceTool;
+class HSurfaceTool;
 class IntCurveSurface_TheHCurveTool;
 class IntCurveSurface_TheCSFunctionOfHInter;
 class math_FunctionSetRoot;

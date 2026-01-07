@@ -79,11 +79,11 @@ public:
   //! @param[out] theProgram   OpenGL program
   //! @return true on success
   Standard_EXPORT Standard_Boolean Create(const Handle(Graphic3d_ShaderProgram)& theProxy,
-                                          TCollection_AsciiString&               theShareKey,
+                                          AsciiString1&               theShareKey,
                                           Handle(OpenGl_ShaderProgram)&          theProgram);
 
   //! Unregisters specified shader program.
-  Standard_EXPORT void Unregister(TCollection_AsciiString&      theShareKey,
+  Standard_EXPORT void Unregister(AsciiString1&      theShareKey,
                                   Handle(OpenGl_ShaderProgram)& theProgram);
 
   //! Returns list of registered shader programs.

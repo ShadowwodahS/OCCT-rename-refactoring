@@ -23,7 +23,7 @@
 #include <Units_QuantitiesSequence.hxx>
 #include <TColStd_HSequenceOfInteger.hxx>
 #include <Standard_Transient.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 
 class Units_UnitsSystem;
 DEFINE_STANDARD_HANDLE(Units_UnitsSystem, RefObject)
@@ -72,7 +72,7 @@ public:
   Standard_EXPORT void Activates();
 
   //! Returns for <aquantity> the active unit.
-  Standard_EXPORT TCollection_AsciiString ActiveUnit(const Standard_CString aquantity) const;
+  Standard_EXPORT AsciiString1 ActiveUnit(const Standard_CString aquantity) const;
 
   //! Converts a real value <avalue> from the unit <aunit>
   //! belonging to the physical dimensions <aquantity> to

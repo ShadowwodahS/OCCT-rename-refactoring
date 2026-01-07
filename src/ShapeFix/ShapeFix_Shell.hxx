@@ -45,10 +45,10 @@ public:
   Standard_EXPORT ShapeFix_Shell();
 
   //! Initializes by shell.
-  Standard_EXPORT ShapeFix_Shell(const TopoDS_Shell& shape);
+  Standard_EXPORT ShapeFix_Shell(const TopoShell& shape);
 
   //! Initializes by shell.
-  Standard_EXPORT void Init(const TopoDS_Shell& shell);
+  Standard_EXPORT void Init(const TopoShell& shell);
 
   //! Iterates on subshapes and performs fixes
   //! (for each face calls ShapeFix_Face::Perform and
@@ -73,22 +73,22 @@ public:
   //! contains multishared edges. Else if this mode is equal to Standard_False only
   //! manifold shells will be created. By default - Standard_False.
   Standard_EXPORT Standard_Boolean
-    FixFaceOrientation(const TopoDS_Shell&    shell,
+    FixFaceOrientation(const TopoShell&    shell,
                        const Standard_Boolean isAccountMultiConex = Standard_True,
                        const Standard_Boolean NonManifold         = Standard_False);
 
   //! Returns fixed shell (or subset of oriented faces).
-  Standard_EXPORT TopoDS_Shell Shell();
+  Standard_EXPORT TopoShell Shell();
 
   //! In case of multiconnexity returns compound of fixed shells
   //! else returns one shell..
-  Standard_EXPORT TopoDS_Shape Shape();
+  Standard_EXPORT TopoShape Shape();
 
   //! Returns Number of obtainrd shells;
   Standard_EXPORT Standard_Integer NbShells() const;
 
   //! Returns not oriented subset of faces.
-  Standard_EXPORT TopoDS_Compound ErrorFaces() const;
+  Standard_EXPORT TopoCompound ErrorFaces() const;
 
   //! Returns the status of the last Fix.
   Standard_EXPORT Standard_Boolean Status(const ShapeExtend_Status status) const;
@@ -123,8 +123,8 @@ public:
   DEFINE_STANDARD_RTTIEXT(ShapeFix_Shell, ShapeFix_Root)
 
 protected:
-  TopoDS_Shell          myShell;
-  TopoDS_Compound       myErrFaces;
+  TopoShell          myShell;
+  TopoCompound       myErrFaces;
   Standard_Integer      myStatus;
   Handle(ShapeFix_Face) myFixFace;
   Standard_Integer      myFixFaceMode;

@@ -68,14 +68,14 @@ public: //! @name Constructors
   Standard_EXPORT virtual ~BRepAlgoAPI_BuilderAlgo();
 
   //! Constructor with prepared Filler object
-  Standard_EXPORT BRepAlgoAPI_BuilderAlgo(const BOPAlgo_PaveFiller& thePF);
+  Standard_EXPORT BRepAlgoAPI_BuilderAlgo(const BooleanPaveFiller& thePF);
 
 public: //! @name Setting/Getting data for the algorithm
   //! Sets the arguments
-  void SetArguments(const TopTools_ListOfShape& theLS) { myArguments = theLS; }
+  void SetArguments(const ShapeList& theLS) { myArguments = theLS; }
 
   //! Gets the arguments
-  const TopTools_ListOfShape& Arguments() const { return myArguments; }
+  const ShapeList& Arguments() const { return myArguments; }
 
 public: //! @name Setting options
   //! Sets the flag that defines the mode of treatment.
@@ -140,7 +140,7 @@ public: //! @name History support
   //! Returns the shapes modified from the shape <theS>.
   //! If any, the list will contain only those splits of the
   //! given shape, contained in the result.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Modified(const TopoDS_Shape& theS)
+  Standard_EXPORT virtual const ShapeList& Modified(const TopoShape& theS)
     Standard_OVERRIDE;
 
   //! Returns the list  of shapes generated from the shape <theS>.
@@ -149,13 +149,13 @@ public: //! @name History support
   //! during intersection:
   //! - Edges can generate new vertices;
   //! - Faces can generate new edges and vertices.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Generated(const TopoDS_Shape& theS)
+  Standard_EXPORT virtual const ShapeList& Generated(const TopoShape& theS)
     Standard_OVERRIDE;
 
   //! Checks if the shape <theS> has been completely removed from the result,
   //! i.e. the result does not contain the shape itself and any of its splits.
   //! Returns TRUE if the shape has been deleted.
-  Standard_EXPORT virtual Standard_Boolean IsDeleted(const TopoDS_Shape& aS) Standard_OVERRIDE;
+  Standard_EXPORT virtual Standard_Boolean IsDeleted(const TopoShape& aS) Standard_OVERRIDE;
 
   //! Returns true if any of the input shapes has been modified during operation.
   Standard_EXPORT virtual Standard_Boolean HasModified() const;
@@ -178,7 +178,7 @@ public: //! @name Enabling/Disabling the history collection.
 public: //! @name Getting the section edges
   //! Returns a list of section edges.
   //! The edges represent the result of intersection between arguments of operation.
-  Standard_EXPORT const TopTools_ListOfShape& SectionEdges();
+  Standard_EXPORT const ShapeList& SectionEdges();
 
 public: //! @name Getting tools performing the job
   //! Returns the Intersection tool
@@ -197,7 +197,7 @@ protected: //! @name Setting options to the Intersection tool
 
 protected: //! @name Protected methods for shapes intersection and building result
   //! Intersects the given shapes with the intersection tool
-  Standard_EXPORT void IntersectShapes(const TopTools_ListOfShape&  theArgs,
+  Standard_EXPORT void IntersectShapes(const ShapeList&  theArgs,
                                        const Message_ProgressRange& theRange);
 
   //! Builds the resulting shape
@@ -209,7 +209,7 @@ protected: //! @name Clearing the contents of the algorithm
 
 protected: //! @name Fields
   // Inputs
-  TopTools_ListOfShape myArguments; //!< Arguments of the operation
+  ShapeList myArguments; //!< Arguments of the operation
 
   // Options
   Standard_Boolean myNonDestructive; //!< Non-destructive mode management

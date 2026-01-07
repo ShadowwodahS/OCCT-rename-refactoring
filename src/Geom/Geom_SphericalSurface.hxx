@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class gp_Ax3;
 class gp_Sphere;
-class Geom_Curve;
+class GeomCurve3d;
 class Point3d;
 class Vector3d;
 class Transform3d;
@@ -174,7 +174,7 @@ public:
   //! defines the origin of parametrization u.
   //! For a SphericalSurface the UIso curve is a Circle.
   //! Warnings : The radius of this circle can be zero.
-  Standard_EXPORT Handle(Geom_Curve) UIso(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) UIso(const Standard_Real U) const Standard_OVERRIDE;
 
   //! Computes the V isoparametric curve.
   //! The V isoparametric curves of the surface  are defined by
@@ -186,7 +186,7 @@ public:
   //! create circle with radius = 0.0
   //! For a SphericalSurface the VIso curve is a Circle.
   //! Warnings : The radius of this circle can be zero.
-  Standard_EXPORT Handle(Geom_Curve) VIso(const Standard_Real V) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) VIso(const Standard_Real V) const Standard_OVERRIDE;
 
   //! Computes the  point P (U, V) on the surface.
   //! P (U, V) = Loc + Radius * Sin (V) * Zdir +

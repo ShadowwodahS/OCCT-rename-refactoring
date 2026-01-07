@@ -62,7 +62,7 @@ void BOPDS_SubIterator::Value(Standard_Integer& theI1, Standard_Integer& theI2) 
 {
   Standard_Integer iT1, iT2, n1, n2;
   //
-  const BOPDS_Pair& aPKB = myIterator.Value();
+  const IndexPair& aPKB = myIterator.Value();
   aPKB.Indices(n1, n2);
   //
   iT1 = (Standard_Integer)(myDS->ShapeInfo(n1).ShapeType());
@@ -140,7 +140,7 @@ void BOPDS_SubIterator::Intersect()
     if (aPair.ID1 == aPair.ID2)
       continue;
 
-    BOPDS_Pair aDSPair(Min(aPair.ID1, aPair.ID2), Max(aPair.ID1, aPair.ID2));
+    IndexPair aDSPair(Min(aPair.ID1, aPair.ID2), Max(aPair.ID1, aPair.ID2));
     if (!aMPKFence.Add(aDSPair))
       continue;
 
@@ -150,8 +150,8 @@ void BOPDS_SubIterator::Intersect()
     const TopAbs_ShapeEnum aType1 = aSI1.ShapeType();
     const TopAbs_ShapeEnum aType2 = aSI2.ShapeType();
 
-    Standard_Integer iType1 = BOPDS_Tools::TypeToInteger(aType1);
-    Standard_Integer iType2 = BOPDS_Tools::TypeToInteger(aType2);
+    Standard_Integer iType1 = Tools1::TypeToInteger(aType1);
+    Standard_Integer iType2 = Tools1::TypeToInteger(aType2);
 
     // avoid interfering of the shape with its sub-shapes
     if (((iType1 < iType2) && aSI1.HasSubShape(aPair.ID2))

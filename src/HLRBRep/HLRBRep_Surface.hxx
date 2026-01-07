@@ -32,7 +32,7 @@
 #include <gp_Sphere.hxx>
 #include <gp_Torus.hxx>
 #include <gp_Ax1.hxx>
-class TopoDS_Face;
+class TopoFace;
 class Point3d;
 class Vector3d;
 class gp_Pln;
@@ -51,7 +51,7 @@ public:
   BRepAdaptor_Surface& Surface();
 
   //! Sets the 3D Surface to be projected.
-  Standard_EXPORT void Surface(const TopoDS_Face& F);
+  Standard_EXPORT void Surface(const TopoFace& F);
 
   //! returns true if it is a side face
   Standard_EXPORT Standard_Boolean IsSide(const Standard_Real tolf,

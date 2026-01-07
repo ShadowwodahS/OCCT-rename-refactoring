@@ -27,7 +27,7 @@
 IMPLEMENT_STANDARD_RTTIEXT(StepData_Protocol, Interface_Protocol)
 
 //  Le Protocol de base reconnait UnknownEntity
-// static TCollection_AsciiString  thename("(DEFAULT)");
+// static AsciiString1  thename("(DEFAULT)");
 static Standard_CString thename = "(DEFAULT)";
 
 StepData_Protocol::StepData_Protocol() {}

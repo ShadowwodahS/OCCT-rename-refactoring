@@ -64,9 +64,9 @@ public:
     gp_XYZ PntP1;
     gp_XYZ PntP2;
 
-    gp_XY PntP12D() const { return gp_XY(PntP1.X(), PntP1.Y()); }
+    Coords2d PntP12D() const { return Coords2d(PntP1.X(), PntP1.Y()); }
 
-    gp_XY PntP22D() const { return gp_XY(PntP2.X(), PntP2.Y()); }
+    Coords2d PntP22D() const { return Coords2d(PntP2.X(), PntP2.Y()); }
   };
 
   DEFINE_STANDARD_ALLOC

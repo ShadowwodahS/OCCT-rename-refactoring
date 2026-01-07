@@ -23,13 +23,13 @@
 
 #include <Standard_Integer.hxx>
 class TopOpeBRep_LineInter;
-class TopoDS_Shape;
+class TopoShape;
 class TopOpeBRepDS_Curve;
-class Geom2d_Curve;
-class Geom_Curve;
+class GeomCurve2d;
+class GeomCurve3d;
 
 //! Provide services needed by the DSFiller
-class TopOpeBRep_GeomTool
+class GeometryTool
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -39,21 +39,21 @@ public:
   Standard_EXPORT static void MakeCurves(const Standard_Real         min,
                                          const Standard_Real         max,
                                          const TopOpeBRep_LineInter& L,
-                                         const TopoDS_Shape&         S1,
-                                         const TopoDS_Shape&         S2,
+                                         const TopoShape&         S1,
+                                         const TopoShape&         S2,
                                          TopOpeBRepDS_Curve&         C,
-                                         Handle(Geom2d_Curve)&       PC1,
-                                         Handle(Geom2d_Curve)&       PC2);
+                                         Handle(GeomCurve2d)&       PC1,
+                                         Handle(GeomCurve2d)&       PC2);
 
   Standard_EXPORT static void MakeCurve(const Standard_Real         min,
                                         const Standard_Real         max,
                                         const TopOpeBRep_LineInter& L,
-                                        Handle(Geom_Curve)&         C);
+                                        Handle(GeomCurve3d)&         C);
 
-  Standard_EXPORT static Handle(Geom_Curve) MakeBSpline1fromWALKING3d(
+  Standard_EXPORT static Handle(GeomCurve3d) MakeBSpline1fromWALKING3d(
     const TopOpeBRep_LineInter& L);
 
-  Standard_EXPORT static Handle(Geom2d_Curve) MakeBSpline1fromWALKING2d(
+  Standard_EXPORT static Handle(GeomCurve2d) MakeBSpline1fromWALKING2d(
     const TopOpeBRep_LineInter& L,
     const Standard_Integer      SI);
 

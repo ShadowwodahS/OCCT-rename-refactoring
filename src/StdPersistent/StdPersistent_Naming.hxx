@@ -27,7 +27,7 @@ class TNaming_Name;
 class StdPersistent_Naming
 {
 public:
-  class NamedShape : public StdObjMgt_Attribute<TNaming_NamedShape>
+  class NamedShape : public StdObjMgt_Attribute<ShapeAttribute>
   {
   public:
     //! Read persistent data from a file.
@@ -55,7 +55,7 @@ public:
     inline Standard_CString PName() const { return "PNaming_NamedShape"; }
 
     //! Import transient attribute from the persistent data.
-    void Import(const Handle(TNaming_NamedShape)& theAttribute) const;
+    void Import(const Handle(ShapeAttribute)& theAttribute) const;
 
   private:
     Handle(StdPersistent_HArray1::Shape1) myOldShapes;

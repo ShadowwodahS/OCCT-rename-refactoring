@@ -196,7 +196,7 @@ public:
   }
 
   //! Returns the new Structure defined for the new visualization
-  virtual void computeHLR(const Handle(Graphic3d_Camera)& theProjector,
+  virtual void computeHLR(const Handle(CameraOn3d)& theProjector,
                           Handle(Graphic3d_Structure)&    theStructure)
   {
     (void)theProjector;
@@ -204,7 +204,7 @@ public:
   }
 
   //! Calculates structure transformation for specific camera position
-  virtual void RecomputeTransformation(const Handle(Graphic3d_Camera)& theProjector)
+  virtual void RecomputeTransformation(const Handle(CameraOn3d)& theProjector)
   {
     (void)theProjector;
   }

@@ -33,7 +33,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(BRepFill_ACRLaw, BRepFill_LocationLaw)
 
-BRepFill_ACRLaw::BRepFill_ACRLaw(const TopoDS_Wire&                    Path,
+BRepFill_ACRLaw::BRepFill_ACRLaw(const TopoWire&                    Path,
                                  const Handle(GeomFill_LocationGuide)& theLaw)
 {
   Init(Path);
@@ -47,14 +47,14 @@ BRepFill_ACRLaw::BRepFill_ACRLaw(const TopoDS_Wire&                    Path,
   // tab to memorize ACR for each edge
   OrigParam = new (TColStd_HArray1OfReal)(0, NbEdge);
   TColStd_Array1OfReal Orig(0, NbEdge);
-  BRepFill::ComputeACR(Path, Orig);
+  BRepFill1::ComputeACR(Path, Orig);
 
   Standard_Integer   ipath;
   TopAbs_Orientation Or;
-  // Class BRep_Tool without fields and without Constructor :
-  //  BRep_Tool B;
-  TopoDS_Edge               E;
-  Handle(Geom_Curve)        C;
+  // Class BRepInspector without fields and without Constructor :
+  //  BRepInspector B;
+  TopoEdge               E;
+  Handle(GeomCurve3d)        C;
   Handle(GeomAdaptor_Curve) AC;
   Standard_Real             First, Last;
 
@@ -68,11 +68,11 @@ BRepFill_ACRLaw::BRepFill_ACRLaw(const TopoDS_Wire&                    Path,
   {
     E = wexp.Current();
     //    if (!B.Degenerated(E)) {
-    if (!BRep_Tool::Degenerated(E))
+    if (!BRepInspector::Degenerated(E))
     {
       ipath++;
       myEdges->SetValue(ipath, E);
-      C  = BRep_Tool::Curve(E, First, Last);
+      C  = BRepInspector::Curve(E, First, Last);
       Or = E.Orientation();
       if (Or == TopAbs_REVERSED)
       {

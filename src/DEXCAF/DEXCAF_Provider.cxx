@@ -46,9 +46,9 @@ DEXCAF_Provider::DEXCAF_Provider(const Handle(DE_ConfigurationNode)& theNode)
 
 //=================================================================================================
 
-bool DEXCAF_Provider::Read(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
-                           Handle(XSControl_WorkSession)&  theWS,
+bool DEXCAF_Provider::Read(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
+                           Handle(ExchangeSession)&  theWS,
                            const Message_ProgressRange&    theProgress)
 {
   (void)theWS;
@@ -57,9 +57,9 @@ bool DEXCAF_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEXCAF_Provider::Write(const TCollection_AsciiString&  thePath,
-                            const Handle(TDocStd_Document)& theDocument,
-                            Handle(XSControl_WorkSession)&  theWS,
+bool DEXCAF_Provider::Write(const AsciiString1&  thePath,
+                            const Handle(AppDocument)& theDocument,
+                            Handle(ExchangeSession)&  theWS,
                             const Message_ProgressRange&    theProgress)
 {
   (void)theWS;
@@ -68,8 +68,8 @@ bool DEXCAF_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEXCAF_Provider::Read(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
+bool DEXCAF_Provider::Read(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
                            const Message_ProgressRange&    theProgress)
 {
   if (theDocument.IsNull())
@@ -85,12 +85,12 @@ bool DEXCAF_Provider::Read(const TCollection_AsciiString&  thePath,
     return false;
   }
   Handle(DEXCAF_ConfigurationNode) aNode = Handle(DEXCAF_ConfigurationNode)::DownCast(GetNode());
-  Handle(TDocStd_Document)         aDocument;
-  Handle(TDocStd_Application)      anApp = new TDocStd_Application();
-  BinDrivers::DefineFormat(anApp);
-  BinLDrivers::DefineFormat(anApp);
-  BinTObjDrivers::DefineFormat(anApp);
-  BinXCAFDrivers::DefineFormat(anApp);
+  Handle(AppDocument)         aDocument;
+  Handle(AppManager)      anApp = new AppManager();
+  BinDrivers1::DefineFormat(anApp);
+  BinLDrivers1::DefineFormat(anApp);
+  BinTObjDrivers1::DefineFormat(anApp);
+  BinXCAFDrivers1::DefineFormat(anApp);
   StdDrivers::DefineFormat(anApp);
   StdLDrivers::DefineFormat(anApp);
   XmlDrivers::DefineFormat(anApp);
@@ -130,12 +130,12 @@ bool DEXCAF_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEXCAF_Provider::Write(const TCollection_AsciiString&  thePath,
-                            const Handle(TDocStd_Document)& theDocument,
+bool DEXCAF_Provider::Write(const AsciiString1&  thePath,
+                            const Handle(AppDocument)& theDocument,
                             const Message_ProgressRange&    theProgress)
 {
-  Handle(TDocStd_Application) anApp = new TDocStd_Application();
-  BinXCAFDrivers::DefineFormat(anApp);
+  Handle(AppManager) anApp = new AppManager();
+  BinXCAFDrivers1::DefineFormat(anApp);
 
   Handle(DEXCAF_ConfigurationNode) aNode = Handle(DEXCAF_ConfigurationNode)::DownCast(GetNode());
   if (aNode->GlobalParameters.LengthUnit != 1.0)
@@ -204,9 +204,9 @@ bool DEXCAF_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEXCAF_Provider::Read(const TCollection_AsciiString& thePath,
-                           TopoDS_Shape&                  theShape,
-                           Handle(XSControl_WorkSession)& theWS,
+bool DEXCAF_Provider::Read(const AsciiString1& thePath,
+                           TopoShape&                  theShape,
+                           Handle(ExchangeSession)& theWS,
                            const Message_ProgressRange&   theProgress)
 {
   (void)theWS;
@@ -215,9 +215,9 @@ bool DEXCAF_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEXCAF_Provider::Write(const TCollection_AsciiString& thePath,
-                            const TopoDS_Shape&            theShape,
-                            Handle(XSControl_WorkSession)& theWS,
+bool DEXCAF_Provider::Write(const AsciiString1& thePath,
+                            const TopoShape&            theShape,
+                            Handle(ExchangeSession)& theWS,
                             const Message_ProgressRange&   theProgress)
 {
   (void)theWS;
@@ -226,8 +226,8 @@ bool DEXCAF_Provider::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEXCAF_Provider::Read(const TCollection_AsciiString& thePath,
-                           TopoDS_Shape&                  theShape,
+bool DEXCAF_Provider::Read(const AsciiString1& thePath,
+                           TopoShape&                  theShape,
                            const Message_ProgressRange&   theProgress)
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEXCAF_ConfigurationNode)))
@@ -236,9 +236,9 @@ bool DEXCAF_Provider::Read(const TCollection_AsciiString& thePath,
                         << "\t: Incorrect or empty Configuration Node";
     return false;
   }
-  Handle(TDocStd_Document)    aDocument;
-  Handle(TDocStd_Application) anApp = new TDocStd_Application();
-  BinXCAFDrivers::DefineFormat(anApp);
+  Handle(AppDocument)    aDocument;
+  Handle(AppManager) anApp = new AppManager();
+  BinXCAFDrivers1::DefineFormat(anApp);
   anApp->NewDocument("BinXCAF", aDocument);
   Read(thePath, aDocument, theProgress);
   TDF_LabelSequence         aLabels;
@@ -257,12 +257,12 @@ bool DEXCAF_Provider::Read(const TCollection_AsciiString& thePath,
   }
   else
   {
-    TopoDS_Compound aComp;
-    BRep_Builder    aBuilder;
+    TopoCompound aComp;
+    ShapeBuilder    aBuilder;
     aBuilder.MakeCompound(aComp);
     for (Standard_Integer anIndex = 1; anIndex <= aLabels.Length(); anIndex++)
     {
-      TopoDS_Shape aS = aSTool->GetShape(aLabels.Value(anIndex));
+      TopoShape aS = aSTool->GetShape(aLabels.Value(anIndex));
       aBuilder.Add(aComp, aS);
     }
     theShape = aComp;
@@ -272,11 +272,11 @@ bool DEXCAF_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEXCAF_Provider::Write(const TCollection_AsciiString& thePath,
-                            const TopoDS_Shape&            theShape,
+bool DEXCAF_Provider::Write(const AsciiString1& thePath,
+                            const TopoShape&            theShape,
                             const Message_ProgressRange&   theProgress)
 {
-  Handle(TDocStd_Document)  aDoc    = new TDocStd_Document("BinXCAF");
+  Handle(AppDocument)  aDoc    = new AppDocument("BinXCAF");
   Handle(XCAFDoc_ShapeTool) aShTool = XCAFDoc_DocumentTool::ShapeTool(aDoc->Main());
   aShTool->AddShape(theShape);
   return Write(thePath, aDoc, theProgress);
@@ -284,14 +284,14 @@ bool DEXCAF_Provider::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-TCollection_AsciiString DEXCAF_Provider::GetFormat() const
+AsciiString1 DEXCAF_Provider::GetFormat() const
 {
-  return TCollection_AsciiString("XCAF");
+  return AsciiString1("XCAF");
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DEXCAF_Provider::GetVendor() const
+AsciiString1 DEXCAF_Provider::GetVendor() const
 {
-  return TCollection_AsciiString("OCC");
+  return AsciiString1("OCC");
 }

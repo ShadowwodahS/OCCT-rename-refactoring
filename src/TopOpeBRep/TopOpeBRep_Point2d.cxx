@@ -46,7 +46,7 @@ TopOpeBRep_Point2d::TopOpeBRep_Point2d()
 
 //=================================================================================================
 
-const TopoDS_Vertex& TopOpeBRep_Point2d::Vertex(const Standard_Integer Index) const
+const TopoVertex& TopOpeBRep_Point2d::Vertex(const Standard_Integer Index) const
 {
   if (!IsVertex(Index))
     throw ExceptionBase("TopOpeBRep_Point2d::Vertex");
@@ -60,7 +60,7 @@ const TopoDS_Vertex& TopOpeBRep_Point2d::Vertex(const Standard_Integer Index) co
 
 //=================================================================================================
 
-const TopOpeBRepDS_Transition& TopOpeBRep_Point2d::Transition(const Standard_Integer Index) const
+const StateTransition& TopOpeBRep_Point2d::Transition(const Standard_Integer Index) const
 {
   if (Index == 1)
     return mytransition1;
@@ -72,7 +72,7 @@ const TopOpeBRepDS_Transition& TopOpeBRep_Point2d::Transition(const Standard_Int
 
 //=================================================================================================
 
-TopOpeBRepDS_Transition& TopOpeBRep_Point2d::ChangeTransition(const Standard_Integer Index)
+StateTransition& TopOpeBRep_Point2d::ChangeTransition(const Standard_Integer Index)
 {
   if (Index == 1)
     return mytransition1;
@@ -96,11 +96,11 @@ void TopOpeBRep_Point2d::Dump(const Standard_Integer E1index, const Standard_Int
   Standard_Boolean pos   = IsPointOfSegment();
 
   Standard_Boolean isvertex1 = IsVertex(1);
-  TopoDS_Vertex    V1;
+  TopoVertex    V1;
   if (isvertex1)
     V1 = Vertex(1);
   Standard_Boolean isvertex2 = IsVertex(2);
-  TopoDS_Vertex    V2;
+  TopoVertex    V2;
   if (isvertex2)
     V2 = Vertex(2);
 
@@ -127,7 +127,7 @@ void TopOpeBRep_Point2d::Dump(const Standard_Integer E1index, const Standard_Int
       break;
   } // switch
   std::cout << " cfg=";
-  TopOpeBRepDS::Print(myedgesconfig, std::cout);
+  TopOpeBRepDS1::Print(myedgesconfig, std::cout);
   std::cout << std::endl;
 
   Point3d P3D = Value();
@@ -142,7 +142,7 @@ void TopOpeBRep_Point2d::Dump(const Standard_Integer E1index, const Standard_Int
   std::cout << " par(1) = " << par1;
   if (isvertex1)
   {
-    P3D = BRep_Tool::Pnt(V1);
+    P3D = BRepInspector::Pnt(V1);
     std::cout << " PV(1) : " << P3D.X() << " " << P3D.Y() << " " << P3D.Z();
   }
   std::cout << std::endl;
@@ -154,7 +154,7 @@ void TopOpeBRep_Point2d::Dump(const Standard_Integer E1index, const Standard_Int
   std::cout << " par(2) = " << par2;
   if (isvertex2)
   {
-    P3D = BRep_Tool::Pnt(V2);
+    P3D = BRepInspector::Pnt(V2);
     std::cout << " PV(2) : " << P3D.X() << " " << P3D.Y() << " " << P3D.Z();
   }
   std::cout << std::endl;

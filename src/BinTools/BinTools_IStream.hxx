@@ -22,11 +22,11 @@
 
 //! Substitution of IStream for shape reader for fast management of position in the file (get and
 //! go) and operation on all reading types.
-class BinTools_IStream
+class BinaryInputStream
 {
 public:
   //! Creates IStream using the current stream IStream.
-  Standard_EXPORT BinTools_IStream(Standard_IStream& theStream);
+  Standard_EXPORT BinaryInputStream(Standard_IStream& theStream);
 
   //! Reads and returns the type.
   Standard_EXPORT BinTools_ObjectType ReadType();
@@ -67,7 +67,7 @@ public:
     return aValue;
   }
 
-  Standard_EXPORT BinTools_IStream& operator>>(Standard_Real& theValue);
+  Standard_EXPORT BinaryInputStream& operator>>(Standard_Real& theValue);
 
   //! Reads integer value from the stream.
   Standard_EXPORT Standard_Integer ReadInteger()
@@ -77,7 +77,7 @@ public:
     return aValue;
   }
 
-  Standard_EXPORT BinTools_IStream& operator>>(Standard_Integer& theValue);
+  Standard_EXPORT BinaryInputStream& operator>>(Standard_Integer& theValue);
 
   //! Reads point coordinates value from the stream.
   Standard_EXPORT Point3d ReadPnt()
@@ -87,7 +87,7 @@ public:
     return aValue;
   }
 
-  Standard_EXPORT BinTools_IStream& operator>>(Point3d& theValue);
+  Standard_EXPORT BinaryInputStream& operator>>(Point3d& theValue);
 
   //! Reads byte value from the stream.
   Standard_EXPORT Standard_Byte ReadByte()
@@ -97,12 +97,12 @@ public:
     return aValue;
   }
 
-  Standard_EXPORT BinTools_IStream& operator>>(Standard_Byte& theValue);
+  Standard_EXPORT BinaryInputStream& operator>>(Standard_Byte& theValue);
 
   //! Reads boolean value from the stream (stored as one byte).
   Standard_EXPORT Standard_Boolean ReadBool() { return ReadByte() != 0; }
 
-  Standard_EXPORT BinTools_IStream& operator>>(Standard_Boolean& theValue)
+  Standard_EXPORT BinaryInputStream& operator>>(Standard_Boolean& theValue)
   {
     theValue = ReadByte() != 0;
     return *this;
@@ -116,9 +116,9 @@ public:
     return aValue;
   }
 
-  Standard_EXPORT BinTools_IStream& operator>>(Standard_ShortReal& theValue);
+  Standard_EXPORT BinaryInputStream& operator>>(Standard_ShortReal& theValue);
   //! Reads transformation value from the stream.
-  Standard_EXPORT BinTools_IStream& operator>>(Transform3d& theValue);
+  Standard_EXPORT BinaryInputStream& operator>>(Transform3d& theValue);
   //! Reads 3 boolean values from one byte
   Standard_EXPORT void ReadBools(Standard_Boolean& theBool1,
                                  Standard_Boolean& theBool2,

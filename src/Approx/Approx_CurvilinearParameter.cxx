@@ -64,7 +64,7 @@ Standard_IMPORT Standard_Real    t_uparam;
 
 //=================================================================================================
 
-class Approx_CurvilinearParameter_EvalCurv : public AdvApprox_EvaluatorFunction
+class Approx_CurvilinearParameter_EvalCurv : public EvaluatorFunction
 {
 public:
   Approx_CurvilinearParameter_EvalCurv(const Handle(Approx_CurvlinFunc)& theFunc,
@@ -200,7 +200,7 @@ Approx_CurvilinearParameter::Approx_CurvilinearParameter(const Handle(Adaptor3d_
     Handle(TColStd_HArray1OfReal)    Knots  = aApprox.Knots();
     Handle(TColStd_HArray1OfInteger) Mults  = aApprox.Multiplicities();
     Standard_Integer                 Degree = aApprox.Degree();
-    myCurve3d = new Geom_BSplineCurve(Poles, Knots->Array1(), Mults->Array1(), Degree);
+    myCurve3d = new BSplineCurve3d(Poles, Knots->Array1(), Mults->Array1(), Degree);
   }
   myMaxError3d = aApprox.MaxError(3, 1);
 
@@ -217,7 +217,7 @@ Approx_CurvilinearParameter::Approx_CurvilinearParameter(const Handle(Adaptor3d_
 
 //=================================================================================================
 
-class Approx_CurvilinearParameter_EvalCurvOnSurf : public AdvApprox_EvaluatorFunction
+class Approx_CurvilinearParameter_EvalCurvOnSurf : public EvaluatorFunction
 {
 public:
   Approx_CurvilinearParameter_EvalCurvOnSurf(const Handle(Approx_CurvlinFunc)& theFunc,
@@ -373,7 +373,7 @@ Approx_CurvilinearParameter::Approx_CurvilinearParameter(const Handle(Adaptor2d_
     Handle(TColStd_HArray1OfReal)    Knots  = aApprox.Knots();
     Handle(TColStd_HArray1OfInteger) Mults  = aApprox.Multiplicities();
     Standard_Integer                 Degree = aApprox.Degree();
-    myCurve3d  = new Geom_BSplineCurve(Poles, Knots->Array1(), Mults->Array1(), Degree);
+    myCurve3d  = new BSplineCurve3d(Poles, Knots->Array1(), Mults->Array1(), Degree);
     myCurve2d1 = new Geom2d_BSplineCurve(Poles2d, Knots->Array1(), Mults->Array1(), Degree);
   }
   myMaxError2d1 = Max(aApprox.MaxError(1, 1), aApprox.MaxError(1, 2));
@@ -392,7 +392,7 @@ Approx_CurvilinearParameter::Approx_CurvilinearParameter(const Handle(Adaptor2d_
 
 //=================================================================================================
 
-class Approx_CurvilinearParameter_EvalCurvOn2Surf : public AdvApprox_EvaluatorFunction
+class Approx_CurvilinearParameter_EvalCurvOn2Surf : public EvaluatorFunction
 {
 public:
   Approx_CurvilinearParameter_EvalCurvOn2Surf(const Handle(Approx_CurvlinFunc)& theFunc,
@@ -552,7 +552,7 @@ Approx_CurvilinearParameter::Approx_CurvilinearParameter(const Handle(Adaptor2d_
     Handle(TColStd_HArray1OfReal)    Knots  = aApprox.Knots();
     Handle(TColStd_HArray1OfInteger) Mults  = aApprox.Multiplicities();
     Standard_Integer                 Degree = aApprox.Degree();
-    myCurve3d  = new Geom_BSplineCurve(Poles, Knots->Array1(), Mults->Array1(), Degree);
+    myCurve3d  = new BSplineCurve3d(Poles, Knots->Array1(), Mults->Array1(), Degree);
     myCurve2d1 = new Geom2d_BSplineCurve(Poles2d, Knots->Array1(), Mults->Array1(), Degree);
     aApprox.Poles1d(3, Poles1d);
     for (i = 1; i <= NbPoles; i++)
@@ -593,7 +593,7 @@ Standard_Boolean Approx_CurvilinearParameter::HasResult() const
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) Approx_CurvilinearParameter::Curve3d() const
+Handle(BSplineCurve3d) Approx_CurvilinearParameter::Curve3d() const
 {
   return myCurve3d;
 }

@@ -69,7 +69,7 @@ void Units_Unit::Symbol(const Standard_CString asymbol)
 
 Handle(Units_Token) Units_Unit::Token() const
 {
-  TCollection_AsciiString string = thesymbolssequence->Value(1)->String();
+  AsciiString1 string = thesymbolssequence->Value(1)->String();
   return new Units_Token(string.ToCString(), " ", thevalue, thequantity->Dimensions());
 }
 
@@ -78,7 +78,7 @@ Handle(Units_Token) Units_Unit::Token() const
 Standard_Boolean Units_Unit::IsEqual(const Standard_CString astring) const
 {
   Standard_Integer        index;
-  TCollection_AsciiString symbol;
+  AsciiString1 symbol;
 
   for (index = 1; index <= thesymbolssequence->Length(); index++)
   {
@@ -95,7 +95,7 @@ Standard_Boolean Units_Unit::IsEqual(const Standard_CString astring) const
 void Units_Unit::Dump(const Standard_Integer /*ashift*/, const Standard_Integer) const
 {
   Standard_Integer        index;
-  TCollection_AsciiString string;
+  AsciiString1 string;
 
   //  int i;
   //  for(i=0; i<ashift; i++)std::cout<<"  ";

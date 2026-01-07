@@ -27,9 +27,9 @@
 #include <GeomAbs_Shape.hxx>
 #include <Message_ProgressRange.hxx>
 
-class TopoDS_Shape;
+class TopoShape;
 class BRepTools_Modification;
-class BRepTools_Modifier;
+class ShapeModifier;
 class ShapeBuild_ReShape;
 class ShapeCustom_RestrictionParameters;
 
@@ -52,19 +52,19 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Applies modifier to shape and checks sharing in the case assemblies.
-  Standard_EXPORT static TopoDS_Shape ApplyModifier(
-    const TopoDS_Shape&                   S,
+  Standard_EXPORT static TopoShape ApplyModifier(
+    const TopoShape&                   S,
     const Handle(BRepTools_Modification)& M,
     TopTools_DataMapOfShapeShape&         context,
-    BRepTools_Modifier&                   MD,
+    ShapeModifier&                   MD,
     const Message_ProgressRange&          theProgress = Message_ProgressRange(),
     const Handle(ShapeBuild_ReShape)&     aReShape    = NULL);
 
   //! Returns a new shape without indirect surfaces.
-  Standard_EXPORT static TopoDS_Shape DirectFaces(const TopoDS_Shape& S);
+  Standard_EXPORT static TopoShape DirectFaces(const TopoShape& S);
 
   //! Returns a new shape which is scaled original
-  Standard_EXPORT static TopoDS_Shape ScaleShape(const TopoDS_Shape& S, const Standard_Real scale);
+  Standard_EXPORT static TopoShape ScaleShape(const TopoShape& S, const Standard_Real scale);
 
   //! Returns a new shape with all surfaces, curves and pcurves
   //! which type is BSpline/Bezier or based on them converted
@@ -82,8 +82,8 @@ public:
   //! If flags ConvOffSurf,ConvOffCurve3d,ConvOffCurve2d are Standard_True there are means
   //! that Offset surfaces , Offset curves 3d and Offset curves 2d are converted to BSPline
   //! correspondingly.
-  Standard_EXPORT static TopoDS_Shape BSplineRestriction(
-    const TopoDS_Shape&                              S,
+  Standard_EXPORT static TopoShape BSplineRestriction(
+    const TopoShape&                              S,
     const Standard_Real                              Tol3d,
     const Standard_Real                              Tol2d,
     const Standard_Integer                           MaxDegree,
@@ -96,17 +96,17 @@ public:
 
   //! Returns a new shape with all elementary periodic surfaces converted
   //! to Geom_SurfaceOfRevolution
-  Standard_EXPORT static TopoDS_Shape ConvertToRevolution(const TopoDS_Shape& S);
+  Standard_EXPORT static TopoShape ConvertToRevolution(const TopoShape& S);
 
   //! Returns a new shape with all surfaces of revolution and linear extrusion
   //! convert to elementary periodic surfaces
-  Standard_EXPORT static TopoDS_Shape SweptToElementary(const TopoDS_Shape& S);
+  Standard_EXPORT static TopoShape SweptToElementary(const TopoShape& S);
 
   //! Returns a new shape with all surfaces of linear extrusion, revolution,
   //! offset, and planar surfaces converted according to flags to
   //! Geom_BSplineSurface (with same parameterisation).
-  Standard_EXPORT static TopoDS_Shape ConvertToBSpline(
-    const TopoDS_Shape&    S,
+  Standard_EXPORT static TopoShape ConvertToBSpline(
+    const TopoShape&    S,
     const Standard_Boolean extrMode,
     const Standard_Boolean revolMode,
     const Standard_Boolean offsetMode,

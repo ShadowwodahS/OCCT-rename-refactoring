@@ -23,7 +23,7 @@
 
 #include <GeomAbs_Shape.hxx>
 #include <ShapeUpgrade_ShapeDivide.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class ShapeUpgrade_FaceDivide;
 
 //! API Tool for converting shapes with C0 geometry into C1 ones
@@ -35,7 +35,7 @@ public:
   Standard_EXPORT ShapeUpgrade_ShapeDivideContinuity();
 
   //! Initialize by a Shape.
-  Standard_EXPORT ShapeUpgrade_ShapeDivideContinuity(const TopoDS_Shape& S);
+  Standard_EXPORT ShapeUpgrade_ShapeDivideContinuity(const TopoShape& S);
 
   //! Sets tolerance.
   Standard_EXPORT void SetTolerance(const Standard_Real Tol);

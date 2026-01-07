@@ -75,7 +75,7 @@ extern void ChFi3d_ResultChron(OSD_Chronometer& ch, Standard_Real& time);
 
 static Standard_Real MaxRad(const Handle(ChFiDS_FilSpine)& fsp,
 
-                            const TopoDS_Edge& E)
+                            const TopoEdge& E)
 {
   Standard_Integer IE = fsp->Index(E);
 
@@ -135,7 +135,7 @@ static void SimulParams(const Handle(ChFiDS_ElSpine)&  HGuide,
 
 //=================================================================================================
 
-ChFi3d_FilBuilder::ChFi3d_FilBuilder(const TopoDS_Shape&      S,
+ChFi3d_FilBuilder::ChFi3d_FilBuilder(const TopoShape&      S,
                                      const ChFi3d_FilletShape FShape,
                                      const Standard_Real      Ta)
     : ChFi3d_Builder(S, Ta)
@@ -185,9 +185,9 @@ ChFi3d_FilletShape ChFi3d_FilBuilder::GetFilletShape() const
 
 //=================================================================================================
 
-void ChFi3d_FilBuilder::Add(const TopoDS_Edge& E)
+void ChFi3d_FilBuilder::Add(const TopoEdge& E)
 {
-  TopoDS_Face dummy;
+  TopoFace dummy;
 
   if (!Contains(E) && myEFMap.Contains(E))
   {
@@ -196,7 +196,7 @@ void ChFi3d_FilBuilder::Add(const TopoDS_Edge& E)
     Sp                            = new ChFiDS_FilSpine(tolesp);
     Handle(ChFiDS_FilSpine) Spine = Handle(ChFiDS_FilSpine)::DownCast(Sp);
 
-    TopoDS_Edge E_wnt = E;
+    TopoEdge E_wnt = E;
     E_wnt.Orientation(TopAbs_FORWARD);
     Spine->SetEdges(E_wnt);
     if (PerformElement(Spine, -1, dummy))
@@ -210,7 +210,7 @@ void ChFi3d_FilBuilder::Add(const TopoDS_Edge& E)
 
 //=================================================================================================
 
-void ChFi3d_FilBuilder::Add(const Standard_Real Radius, const TopoDS_Edge& E)
+void ChFi3d_FilBuilder::Add(const Standard_Real Radius, const TopoEdge& E)
 {
   Add(E);
   Standard_Integer IC = Contains(E);
@@ -270,7 +270,7 @@ void ChFi3d_FilBuilder::ResetContour(const Standard_Integer IC)
 
 void ChFi3d_FilBuilder::SetRadius(const Standard_Real    Radius,
                                   const Standard_Integer IC,
-                                  const TopoDS_Edge&     E)
+                                  const TopoEdge&     E)
 {
   if (IC <= NbElements())
   {
@@ -281,7 +281,7 @@ void ChFi3d_FilBuilder::SetRadius(const Standard_Real    Radius,
 
 //=================================================================================================
 
-void ChFi3d_FilBuilder::UnSet(const Standard_Integer IC, const TopoDS_Edge& E)
+void ChFi3d_FilBuilder::UnSet(const Standard_Integer IC, const TopoEdge& E)
 {
   if (IC <= NbElements())
   {
@@ -294,7 +294,7 @@ void ChFi3d_FilBuilder::UnSet(const Standard_Integer IC, const TopoDS_Edge& E)
 
 void ChFi3d_FilBuilder::SetRadius(const Standard_Real    Radius,
                                   const Standard_Integer IC,
-                                  const TopoDS_Vertex&   V)
+                                  const TopoVertex&   V)
 {
   if (IC <= NbElements())
   {
@@ -305,7 +305,7 @@ void ChFi3d_FilBuilder::SetRadius(const Standard_Real    Radius,
 
 //=================================================================================================
 
-void ChFi3d_FilBuilder::UnSet(const Standard_Integer IC, const TopoDS_Vertex& V)
+void ChFi3d_FilBuilder::UnSet(const Standard_Integer IC, const TopoVertex& V)
 {
   if (IC <= NbElements())
   {
@@ -316,7 +316,7 @@ void ChFi3d_FilBuilder::UnSet(const Standard_Integer IC, const TopoDS_Vertex& V)
 
 //=================================================================================================
 
-void ChFi3d_FilBuilder::SetRadius(const gp_XY&           UandR,
+void ChFi3d_FilBuilder::SetRadius(const Coords2d&           UandR,
                                   const Standard_Integer IC,
                                   const Standard_Integer IinC)
 {
@@ -329,7 +329,7 @@ void ChFi3d_FilBuilder::SetRadius(const gp_XY&           UandR,
 
 //=================================================================================================
 
-Standard_Boolean ChFi3d_FilBuilder::IsConstant(const Standard_Integer IC, const TopoDS_Edge& E)
+Standard_Boolean ChFi3d_FilBuilder::IsConstant(const Standard_Integer IC, const TopoEdge& E)
 {
   if (IC <= NbElements())
   {
@@ -341,7 +341,7 @@ Standard_Boolean ChFi3d_FilBuilder::IsConstant(const Standard_Integer IC, const 
 
 //=================================================================================================
 
-Standard_Real ChFi3d_FilBuilder::Radius(const Standard_Integer IC, const TopoDS_Edge& E)
+Standard_Real ChFi3d_FilBuilder::Radius(const Standard_Integer IC, const TopoEdge& E)
 {
   if (IC <= NbElements())
   {
@@ -354,7 +354,7 @@ Standard_Real ChFi3d_FilBuilder::Radius(const Standard_Integer IC, const TopoDS_
 //=================================================================================================
 
 Standard_Boolean ChFi3d_FilBuilder::GetBounds(const Standard_Integer IC,
-                                              const TopoDS_Edge&     E,
+                                              const TopoEdge&     E,
                                               Standard_Real&         F,
                                               Standard_Real&         L)
 {
@@ -373,7 +373,7 @@ Standard_Boolean ChFi3d_FilBuilder::GetBounds(const Standard_Integer IC,
 
 //=================================================================================================
 
-Handle(Law_Function) ChFi3d_FilBuilder::GetLaw(const Standard_Integer IC, const TopoDS_Edge& E)
+Handle(Law_Function) ChFi3d_FilBuilder::GetLaw(const Standard_Integer IC, const TopoEdge& E)
 {
   if (IC <= NbElements())
   {
@@ -386,7 +386,7 @@ Handle(Law_Function) ChFi3d_FilBuilder::GetLaw(const Standard_Integer IC, const 
 //=================================================================================================
 
 void ChFi3d_FilBuilder::SetLaw(const Standard_Integer      IC,
-                               const TopoDS_Edge&          E,
+                               const TopoEdge&          E,
                                const Handle(Law_Function)& L)
 {
   // Check if it is necessary to check borders!
@@ -475,7 +475,7 @@ Handle(ChFiDS_SecHArray1) ChFi3d_FilBuilder::Sect(const Standard_Integer IC,
 void ChFi3d_FilBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
 {
   TopOpeBRepDS_DataStructure& DStr = myDS->ChangeDS();
-  Handle(Geom_Surface)        S    = DStr.Surface(SD->Surf()).Surface();
+  Handle(GeomSurface)        S    = DStr.Surface(SD->Surf()).Surface();
   gp_Pnt2d                    p1f =
     SD->InterferenceOnS1().PCurveOnSurf()->Value(SD->InterferenceOnS1().FirstParameter());
   gp_Pnt2d p1l =
@@ -497,8 +497,8 @@ void ChFi3d_FilBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       v2                       = Min(p1l.Y(), p2l.Y());
       sec                      = new ChFiDS_SecHArray1(1, 2);
       gp_Cylinder         Cy   = AS.Cylinder();
-      ChFiDS_CircSection& sec1 = sec->ChangeValue(1);
-      ChFiDS_CircSection& sec2 = sec->ChangeValue(2);
+      CircularSection& sec1 = sec->ChangeValue(1);
+      CircularSection& sec2 = sec->ChangeValue(2);
       sec1.Set(ElSLib::CylinderVIso(Cy.Position(), Cy.Radius(), v1), u1, u2);
       sec2.Set(ElSLib::CylinderVIso(Cy.Position(), Cy.Radius(), v2), u1, u2);
     }
@@ -517,7 +517,7 @@ void ChFi3d_FilBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       sec = new ChFiDS_SecHArray1(1, n);
       for (Standard_Integer i = 1; i <= n; i++)
       {
-        ChFiDS_CircSection& isec = sec->ChangeValue(i);
+        CircularSection& isec = sec->ChangeValue(i);
         Standard_Real       u    = u1 + (i - 1) * (u2 - u1) / (n - 1);
         isec.Set(ElSLib::TorusUIso(To.Position(), majr, minr, u), v1, v2);
       }
@@ -537,7 +537,7 @@ void ChFi3d_FilBuilder::SimulKPart(const Handle(ChFiDS_SurfData)& SD) const
       sec = new ChFiDS_SecHArray1(1, n);
       for (Standard_Integer i = 1; i <= n; i++)
       {
-        ChFiDS_CircSection& isec = sec->ChangeValue(i);
+        CircularSection& isec = sec->ChangeValue(i);
         Standard_Real       u    = u1 + (i - 1) * (u2 - u1) / (n - 1);
         isec.Set(ElSLib::SphereUIso(Sp.Position(), rad, u), v1, v2);
       }
@@ -627,10 +627,10 @@ Standard_Boolean ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&          
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
-      ChFiDS_CircSection& isec = sec->ChangeValue(i);
+      CircularSection& isec = sec->ChangeValue(i);
       Standard_Real       u1, v1, u2, v2, w, p1, p2;
       gp_Circ             ci;
-      const Blend_Point&  p = lin->Point(i);
+      const Point2&  p = lin->Point(i);
       p.ParametersOnS1(u1, v1);
       p.ParametersOnS2(u2, v2);
       w = p.Parameter();
@@ -684,10 +684,10 @@ Standard_Boolean ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&          
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
-      ChFiDS_CircSection& isec = sec->ChangeValue(i);
+      CircularSection& isec = sec->ChangeValue(i);
       Standard_Real       u1, v1, u2, v2, w, p1, p2;
       gp_Circ             ci;
-      const Blend_Point&  p = lin->Point(i);
+      const Point2&  p = lin->Point(i);
       p.ParametersOnS1(u1, v1);
       p.ParametersOnS2(u2, v2);
       w = p.Parameter();
@@ -734,16 +734,16 @@ Standard_Boolean ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&          
     const ChFiDS_CommonPoint& cp1 = Data->VertexFirstOnS1();
     if (cp1.IsOnArc())
     {
-      TopoDS_Face F1 = S1->Face();
-      TopoDS_Face bid;
+      TopoFace F1 = S1->Face();
+      TopoFace bid;
       intf = !SearchFace(Spine, cp1, F1, bid);
       ok   = intf != 0;
     }
     const ChFiDS_CommonPoint& cp2 = Data->VertexFirstOnS2();
     if (cp2.IsOnArc() && !ok)
     {
-      TopoDS_Face F2 = S2->Face();
-      TopoDS_Face bid;
+      TopoFace F2 = S2->Face();
+      TopoFace bid;
       intf = !SearchFace(Spine, cp2, F2, bid);
     }
   }
@@ -753,16 +753,16 @@ Standard_Boolean ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&          
     const ChFiDS_CommonPoint& cp1 = Data->VertexLastOnS1();
     if (cp1.IsOnArc())
     {
-      TopoDS_Face F1 = S1->Face();
-      TopoDS_Face bid;
+      TopoFace F1 = S1->Face();
+      TopoFace bid;
       intl = !SearchFace(Spine, cp1, F1, bid);
       ok   = intl != 0;
     }
     const ChFiDS_CommonPoint& cp2 = Data->VertexLastOnS2();
     if (cp2.IsOnArc() && !ok)
     {
-      TopoDS_Face F2 = S2->Face();
-      TopoDS_Face bid;
+      TopoFace F2 = S2->Face();
+      TopoFace bid;
       intl = !SearchFace(Spine, cp2, F2, bid);
     }
   }
@@ -866,10 +866,10 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
-      ChFiDS_CircSection& isec = sec->ChangeValue(i);
+      CircularSection& isec = sec->ChangeValue(i);
       Standard_Real       u, v, w, param, p1, p2;
       gp_Circ             ci;
-      const Blend_Point&  p = lin->Point(i);
+      const Point2&  p = lin->Point(i);
       p.ParametersOnS(u, v);
       w     = p.ParameterOnC();
       param = p.Parameter();
@@ -941,10 +941,10 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
-      ChFiDS_CircSection& isec = sec->ChangeValue(i);
+      CircularSection& isec = sec->ChangeValue(i);
       Standard_Real       u, v, w, param, p1, p2;
       gp_Circ             ci;
-      const Blend_Point&  p = lin->Point(i);
+      const Point2&  p = lin->Point(i);
       p.ParametersOnS(u, v);
       w     = p.ParameterOnC();
       param = p.Parameter();
@@ -1084,10 +1084,10 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
-      ChFiDS_CircSection& isec = sec->ChangeValue(i);
+      CircularSection& isec = sec->ChangeValue(i);
       Standard_Real       u, v, w, param, p1, p2;
       gp_Circ             ci;
-      const Blend_Point&  p = lin->Point(i);
+      const Point2&  p = lin->Point(i);
       p.ParametersOnS(u, v);
       w     = p.ParameterOnC();
       param = p.Parameter();
@@ -1159,10 +1159,10 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
-      ChFiDS_CircSection& isec = sec->ChangeValue(i);
+      CircularSection& isec = sec->ChangeValue(i);
       Standard_Real       u, v, w, param, p1, p2;
       gp_Circ             ci;
-      const Blend_Point&  p = lin->Point(i);
+      const Point2&  p = lin->Point(i);
       p.ParametersOnS(u, v);
       w     = p.ParameterOnC();
       param = p.Parameter();
@@ -1320,10 +1320,10 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
-      ChFiDS_CircSection& isec = sec->ChangeValue(i);
+      CircularSection& isec = sec->ChangeValue(i);
       Standard_Real       u, v, param, p1, p2;
       gp_Circ             ci;
-      const Blend_Point&  p = lin->Point(i);
+      const Point2&  p = lin->Point(i);
       u                     = p.ParameterOnC1();
       v                     = p.ParameterOnC2();
       param                 = p.Parameter();
@@ -1402,10 +1402,10 @@ void ChFi3d_FilBuilder::SimulSurf(Handle(ChFiDS_SurfData)&           Data,
     sec                  = new ChFiDS_SecHArray1(1, nbp);
     for (Standard_Integer i = 1; i <= nbp; i++)
     {
-      ChFiDS_CircSection& isec = sec->ChangeValue(i);
+      CircularSection& isec = sec->ChangeValue(i);
       Standard_Real       u, v, param, p1, p2;
       gp_Circ             ci;
-      const Blend_Point&  p = lin->Point(i);
+      const Point2&  p = lin->Point(i);
       u                     = p.ParameterOnC1();
       v                     = p.ParameterOnC2();
       param                 = p.Parameter();
@@ -2161,13 +2161,13 @@ void ChFi3d_FilBuilder::SplitSurf(ChFiDS_SequenceOfSurfData&    SeqData,
   TopOpeBRepDS_DataStructure& DStr = myDS->ChangeDS();
   Standard_Integer            ISurf;
   Handle(ChFiDS_SurfData)     ref = SeqData(1);
-  Blend_Point                 P;
+  Point2                 P;
 
   ISurf                     = ref->Surf();
-  Handle(Geom_Surface) Surf = DStr.Surface(ISurf).Surface();
+  Handle(GeomSurface) Surf = DStr.Surface(ISurf).Surface();
   Surf->Bounds(UFirst, ULast, VFirst, VLast);
-  Handle(Geom_Curve) Courbe1 = Surf->UIso(UFirst);
-  Handle(Geom_Curve) Courbe2 = Surf->UIso(ULast);
+  Handle(GeomCurve3d) Courbe1 = Surf->UIso(UFirst);
+  Handle(GeomCurve3d) Courbe2 = Surf->UIso(ULast);
   ChFi3d_SearchSing  Fonc(Courbe1, Courbe2);
 
   TColStd_SequenceOfReal LesVi;
@@ -2201,7 +2201,7 @@ void ChFi3d_FilBuilder::SplitSurf(ChFiDS_SequenceOfSurfData&    SeqData,
     {
     }
 
-    const Blend_Point& pnt = Line->Point(ii);
+    const Point2& pnt = Line->Point(ii);
     c                      = pnt.Parameter();
     suivant                = pnt.PointOnS1().Distance(pnt.PointOnS2());
     if ((courant < precedant) && (courant < suivant))
@@ -2311,7 +2311,7 @@ void ChFi3d_FilBuilder::SplitSurf(ChFiDS_SequenceOfSurfData&    SeqData,
 
 //=================================================================================================
 
-void ChFi3d_FilBuilder::ExtentOneCorner(const TopoDS_Vertex& V, const Handle(ChFiDS_Stripe)& S)
+void ChFi3d_FilBuilder::ExtentOneCorner(const TopoVertex& V, const Handle(ChFiDS_Stripe)& S)
 {
   // review by using the data at end of fillets (point, radius, normal
   // to the faces and tangents of the guideline).
@@ -2342,7 +2342,7 @@ void ChFi3d_FilBuilder::ExtentOneCorner(const TopoDS_Vertex& V, const Handle(ChF
 
 //=================================================================================================
 
-void ChFi3d_FilBuilder::ExtentTwoCorner(const TopoDS_Vertex& V, const ChFiDS_ListOfStripe& LS)
+void ChFi3d_FilBuilder::ExtentTwoCorner(const TopoVertex& V, const ChFiDS_ListOfStripe& LS)
 {
   // Review by using the data at end of fillets (point, radius, normal
   // to faces and tangents to the guideline.
@@ -2364,7 +2364,7 @@ void ChFi3d_FilBuilder::ExtentTwoCorner(const TopoDS_Vertex& V, const ChFiDS_Lis
       rad = fsp->Radius();
     else
     {
-      TopoDS_Edge E = ChFi3d_EdgeFromV1(V, itel.Value(), Sens);
+      TopoEdge E = ChFi3d_EdgeFromV1(V, itel.Value(), Sens);
       rad           = MaxRad(fsp, E);
       /*
       IE = ChFi3d_IndexOfSurfData(V,itel.Value(),Sens);
@@ -2406,7 +2406,7 @@ void ChFi3d_FilBuilder::ExtentTwoCorner(const TopoDS_Vertex& V, const ChFiDS_Lis
 
 //=================================================================================================
 
-void ChFi3d_FilBuilder::ExtentThreeCorner(const TopoDS_Vertex& V, const ChFiDS_ListOfStripe& LS)
+void ChFi3d_FilBuilder::ExtentThreeCorner(const TopoVertex& V, const ChFiDS_ListOfStripe& LS)
 {
   // Review by using the data at end of fillets (point, radius, normal
   // to faces and tangents to the guideline.
@@ -2459,14 +2459,14 @@ void ChFi3d_FilBuilder::SetRegul()
   TopTools_ListIteratorOfListOfShape itc;
   TopTools_ListIteratorOfListOfShape its1;
   TopTools_ListIteratorOfListOfShape its2;
-  BRep_Builder                       B;
+  ShapeBuilder                       B;
   for (it.Initialize(myRegul); it.More(); it.Next())
   {
-    const ChFiDS_Regul& reg = it.Value();
+    const Regularity& reg = it.Value();
     itc.Initialize(myCoup->NewEdges(reg.Curve()));
     if (itc.More())
     {
-      TopoDS_Edge E = TopoDS::Edge(itc.Value());
+      TopoEdge E = TopoDS::Edge(itc.Value());
       if (reg.IsSurface1())
         its1.Initialize(myCoup->NewFaces(reg.S1()));
       else
@@ -2477,8 +2477,8 @@ void ChFi3d_FilBuilder::SetRegul()
         its2.Initialize(myCoup->Merged(myDS->Shape(reg.S2()), TopAbs_IN));
       if (its1.More() && its2.More())
       {
-        TopoDS_Face   F1   = TopoDS::Face(its1.Value());
-        TopoDS_Face   F2   = TopoDS::Face(its2.Value());
+        TopoFace   F1   = TopoDS::Face(its1.Value());
+        TopoFace   F2   = TopoDS::Face(its2.Value());
         GeomAbs_Shape cont = ChFi3d_evalconti(E, F1, F2);
         B.Continuity(E, F1, F2, cont);
       }

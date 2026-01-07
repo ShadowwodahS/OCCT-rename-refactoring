@@ -40,8 +40,8 @@ class Standard_NoSuchObject;
 class Standard_DomainError;
 class Point3d;
 class Vector3d;
-class Geom_BezierCurve;
-class Geom_BSplineCurve;
+class BezierCurve3d;
+class BSplineCurve3d;
 
 //! The  LineTool  class  provides  class  methods to
 //! access the methodes of the Line.
@@ -135,9 +135,9 @@ public:
 
   static gp_Parab Parabola(const gp_Lin& C);
 
-  static Handle(Geom_BezierCurve) Bezier(const gp_Lin& C);
+  static Handle(BezierCurve3d) Bezier(const gp_Lin& C);
 
-  static Handle(Geom_BSplineCurve) BSpline(const gp_Lin& C);
+  static Handle(BSplineCurve3d) BSpline(const gp_Lin& C);
 
   static Standard_Integer Degree(const gp_Lin& C);
 

@@ -150,7 +150,7 @@ Handle(Geom2d_BSplineCurve) GeomLib_MakeCurvefromApprox::Curve2dFromTwo1d(
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) GeomLib_MakeCurvefromApprox::Curve(const Standard_Integer Index3d) const
+Handle(BSplineCurve3d) GeomLib_MakeCurvefromApprox::Curve(const Standard_Integer Index3d) const
 {
   Standard_OutOfRange_Raise_if(Index3d < 0 || Index3d > Nb3DSpaces(),
                                " GeomLib_MakeCurvefromApprox : Curve");
@@ -165,14 +165,14 @@ Handle(Geom_BSplineCurve) GeomLib_MakeCurvefromApprox::Curve(const Standard_Inte
   Knots = myApprox.Knots()->Array1();
   Mults = myApprox.Multiplicities()->Array1();
 
-  Handle(Geom_BSplineCurve) C = new Geom_BSplineCurve(Poles, Knots, Mults, myApprox.Degree());
+  Handle(BSplineCurve3d) C = new BSplineCurve3d(Poles, Knots, Mults, myApprox.Degree());
 
   return C;
 }
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) GeomLib_MakeCurvefromApprox::Curve(const Standard_Integer Index1d,
+Handle(BSplineCurve3d) GeomLib_MakeCurvefromApprox::Curve(const Standard_Integer Index1d,
                                                              const Standard_Integer Index3d) const
 {
   Standard_OutOfRange_Raise_if(Index1d < 0 || Index1d > Nb1DSpaces() || Index3d < 0
@@ -198,7 +198,7 @@ Handle(Geom_BSplineCurve) GeomLib_MakeCurvefromApprox::Curve(const Standard_Inte
     Poles(i).SetCoord(X / W, Y / W, Z / W);
   }
 
-  Handle(Geom_BSplineCurve) C = new Geom_BSplineCurve(Poles, Knots, Mults, myApprox.Degree());
+  Handle(BSplineCurve3d) C = new BSplineCurve3d(Poles, Knots, Mults, myApprox.Degree());
 
   return C;
 }

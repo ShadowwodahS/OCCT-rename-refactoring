@@ -27,7 +27,7 @@ class IGESBasic_AssocGroupType;
 DEFINE_STANDARD_HANDLE(IGESBasic_AssocGroupType, IGESData_IGESEntity)
 
 //! defines AssocGroupType, Type <406> Form <23>
-//! in package IGESBasic
+//! in package IGESBasic1
 //! Used to assign an unambiguous identification to a Group
 //! Associativity.
 class IGESBasic_AssocGroupType : public IGESData_IGESEntity

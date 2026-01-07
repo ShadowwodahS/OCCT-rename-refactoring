@@ -39,7 +39,7 @@
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::PerformVV(const Message_ProgressRange& theRange)
+void BooleanPaveFiller::PerformVV(const Message_ProgressRange& theRange)
 {
   Standard_Integer                  n1, n2, iFlag, aSize;
   Handle(NCollection_BaseAllocator) aAllocator;
@@ -73,7 +73,7 @@ void BOPAlgo_PaveFiller::PerformVV(const Message_ProgressRange& theRange)
     //
     if (myDS->HasInterf(n1, n2))
     {
-      BOPAlgo_Tools::FillMap(n1, n2, aMILI, aAllocator);
+      BooleanTools::FillMap(n1, n2, aMILI, aAllocator);
       continue;
     }
 
@@ -84,18 +84,18 @@ void BOPAlgo_PaveFiller::PerformVV(const Message_ProgressRange& theRange)
     Standard_Integer n2SD = n2;
     myDS->HasShapeSD(n2, n2SD);
 
-    const TopoDS_Vertex& aV1 = (*(TopoDS_Vertex*)(&myDS->Shape(n1SD)));
-    const TopoDS_Vertex& aV2 = (*(TopoDS_Vertex*)(&myDS->Shape(n2SD)));
+    const TopoVertex& aV1 = (*(TopoVertex*)(&myDS->Shape(n1SD)));
+    const TopoVertex& aV2 = (*(TopoVertex*)(&myDS->Shape(n2SD)));
 
-    iFlag = BOPTools_AlgoTools::ComputeVV(aV1, aV2, myFuzzyValue);
+    iFlag = AlgoTools::ComputeVV(aV1, aV2, myFuzzyValue);
     if (!iFlag)
     {
-      BOPAlgo_Tools::FillMap(n1, n2, aMILI, aAllocator);
+      BooleanTools::FillMap(n1, n2, aMILI, aAllocator);
     }
   }
   //
   // 2. Make blocks
-  BOPAlgo_Tools::MakeBlocks(aMILI, aMBlocks, aAllocator);
+  BooleanTools::MakeBlocks(aMILI, aMBlocks, aAllocator);
   //
   // 3. Make vertices
   NCollection_List<TColStd_ListOfInteger>::Iterator aItB(aMBlocks);
@@ -130,19 +130,19 @@ void BOPAlgo_PaveFiller::PerformVV(const Message_ProgressRange& theRange)
 
 //=================================================================================================
 
-Standard_Integer BOPAlgo_PaveFiller::MakeSDVertices(const TColStd_ListOfInteger& theVertIndices,
+Standard_Integer BooleanPaveFiller::MakeSDVertices(const TColStd_ListOfInteger& theVertIndices,
                                                     const Standard_Boolean       theAddInterfs)
 {
-  TopoDS_Vertex                       aVSD, aVn;
+  TopoVertex                       aVSD, aVn;
   Standard_Integer                    nSD = -1;
   TColStd_ListIteratorOfListOfInteger aItLI(theVertIndices);
-  TopTools_ListOfShape                aLV;
+  ShapeList                aLV;
   for (; aItLI.More(); aItLI.Next())
   {
     Standard_Integer nX = aItLI.Value(), nSD1;
     if (myDS->HasShapeSD(nX, nSD1))
     {
-      const TopoDS_Shape& aVSD1 = myDS->Shape(nSD1);
+      const TopoShape& aVSD1 = myDS->Shape(nSD1);
       if (nSD == -1)
       {
         aVSD = TopoDS::Vertex(aVSD1);
@@ -153,17 +153,17 @@ Standard_Integer BOPAlgo_PaveFiller::MakeSDVertices(const TColStd_ListOfInteger&
         aLV.Append(aVSD1);
       }
     }
-    const TopoDS_Shape& aV = myDS->Shape(nX);
+    const TopoShape& aV = myDS->Shape(nX);
     aLV.Append(aV);
   }
-  BOPTools_AlgoTools::MakeVertex(aLV, aVn);
+  AlgoTools::MakeVertex(aLV, aVn);
   Standard_Integer nV;
   if (nSD != -1)
   {
     // update old SD vertex with new value
     BRep_TVertex* aTVertex = static_cast<BRep_TVertex*>(aVSD.TShape().get());
-    aTVertex->Pnt(BRep_Tool::Pnt(aVn));
-    aTVertex->Tolerance(BRep_Tool::Tolerance(aVn));
+    aTVertex->Pnt(BRepInspector::Pnt(aVn));
+    aTVertex->Tolerance(BRepInspector::Tolerance(aVn));
     aVn = aVSD;
     nV  = nSD;
   }
@@ -177,8 +177,8 @@ Standard_Integer BOPAlgo_PaveFiller::MakeSDVertices(const TColStd_ListOfInteger&
   }
   BOPDS_ShapeInfo& aSIDS = myDS->ChangeShapeInfo(nV);
   Bnd_Box&         aBox  = aSIDS.ChangeBox();
-  aBox.Add(BRep_Tool::Pnt(aVn));
-  aBox.SetGap(BRep_Tool::Tolerance(aVn) + Precision::Confusion());
+  aBox.Add(BRepInspector::Pnt(aVn));
+  aBox.SetGap(BRepInspector::Tolerance(aVn) + Precision::Confusion());
   //
   // Fill ShapesSD
   BOPDS_VectorOfInterfVV& aVVs = myDS->InterfVV();
@@ -192,7 +192,7 @@ Standard_Integer BOPAlgo_PaveFiller::MakeSDVertices(const TColStd_ListOfInteger&
     myDS->AddShapeSD(n1, nV);
     //
     Standard_Integer    iR1 = myDS->Rank(n1);
-    const TopoDS_Shape& aV1 = myDS->Shape(n1);
+    const TopoShape& aV1 = myDS->Shape(n1);
     //
     TColStd_ListIteratorOfListOfInteger aItLI2 = aItLI;
     aItLI2.Next();
@@ -203,12 +203,12 @@ Standard_Integer BOPAlgo_PaveFiller::MakeSDVertices(const TColStd_ListOfInteger&
       if (iR1 >= 0 && iR1 == myDS->Rank(n2))
       {
         // add warning status
-        const TopoDS_Shape& aV2 = myDS->Shape(n2);
+        const TopoShape& aV2 = myDS->Shape(n2);
         //
-        TopoDS_Compound aWC;
-        BRep_Builder().MakeCompound(aWC);
-        BRep_Builder().Add(aWC, aV1);
-        BRep_Builder().Add(aWC, aV2);
+        TopoCompound aWC;
+        ShapeBuilder().MakeCompound(aWC);
+        ShapeBuilder().Add(aWC, aV1);
+        ShapeBuilder().Add(aWC, aV2);
         //
         AddWarning(new BOPAlgo_AlertSelfInterferingShape(aWC));
       }

@@ -95,8 +95,8 @@ void VInspector_ItemGraphic3dCLight::Init()
       itemDynamicCast<VInspector_ItemContext>(aParentItem->Parent());
     if (aParentContextItem)
     {
-      Handle(AIS_InteractiveContext) aContext = aParentContextItem->GetContext();
-      Handle(V3d_Viewer)             aViewer  = aContext->CurrentViewer();
+      Handle(VisualContext) aContext = aParentContextItem->GetContext();
+      Handle(ViewManager)             aViewer  = aContext->CurrentViewer();
       if (!aViewer.IsNull())
       {
         int aLightId   = Row() - 2 /*in parent*/;

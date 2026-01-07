@@ -28,29 +28,29 @@
 #include <Message_ProgressRange.hxx>
 #include <BinTools_OStream.hxx>
 
-class Geom_Surface;
+class GeomSurface;
 
 //! Stores a set of Surfaces from Geom in binary format.
-class BinTools_SurfaceSet
+class SurfaceBinarySet
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns an empty set of Surfaces.
-  Standard_EXPORT BinTools_SurfaceSet();
+  Standard_EXPORT SurfaceBinarySet();
 
   //! Clears the content of the set.
   Standard_EXPORT void Clear();
 
   //! Incorporate a new Surface in the  set and returns
   //! its index.
-  Standard_EXPORT Standard_Integer Add(const Handle(Geom_Surface)& S);
+  Standard_EXPORT Standard_Integer Add(const Handle(GeomSurface)& S);
 
   //! Returns the Surface of index <I>.
-  Standard_EXPORT Handle(Geom_Surface) Surface(const Standard_Integer I) const;
+  Standard_EXPORT Handle(GeomSurface) Surface(const Standard_Integer I) const;
 
   //! Returns the index of <L>.
-  Standard_EXPORT Standard_Integer Index(const Handle(Geom_Surface)& S) const;
+  Standard_EXPORT Standard_Integer Index(const Handle(GeomSurface)& S) const;
 
   //! Writes the content of  me  on the stream <OS> in
   //! binary format that can be read back by Read.
@@ -64,13 +64,13 @@ public:
 
   //! Dumps the surface on the stream in binary
   //! format that can be read back.
-  Standard_EXPORT static void WriteSurface(const Handle(Geom_Surface)& S, BinTools_OStream& OS);
+  Standard_EXPORT static void WriteSurface(const Handle(GeomSurface)& S, BinaryOutputStream& OS);
 
   //! Reads the surface  from  the stream.  The  surface  is
   //! assumed   to have  been  written  with  the Write
   //! method.
   Standard_EXPORT static Standard_IStream& ReadSurface(Standard_IStream&     IS,
-                                                       Handle(Geom_Surface)& S);
+                                                       Handle(GeomSurface)& S);
 
 private:
   TColStd_IndexedMapOfTransient myMap;

@@ -39,7 +39,7 @@ Geom_OsculatingSurface::Geom_OsculatingSurface()
 
 //=================================================================================================
 
-Geom_OsculatingSurface::Geom_OsculatingSurface(const Handle(Geom_Surface)& BS,
+Geom_OsculatingSurface::Geom_OsculatingSurface(const Handle(GeomSurface)& BS,
                                                const Standard_Real         Tol)
     : myAlong(1, 4)
 {
@@ -48,14 +48,14 @@ Geom_OsculatingSurface::Geom_OsculatingSurface(const Handle(Geom_Surface)& BS,
 
 //=================================================================================================
 
-void Geom_OsculatingSurface::Init(const Handle(Geom_Surface)& BS, const Standard_Real Tol)
+void Geom_OsculatingSurface::Init(const Handle(GeomSurface)& BS, const Standard_Real Tol)
 {
   ClearOsculFlags();
   myTol                = Tol;
   Standard_Real TolMin = 0.; // consider all singularities below Tol, not just above 1.e-12
                              // (id23943)
   Standard_Boolean OsculSurf = Standard_True;
-  myBasisSurf                = Handle(Geom_Surface)::DownCast(BS->Copy());
+  myBasisSurf                = Handle(GeomSurface)::DownCast(BS->Copy());
   myOsculSurf1               = new Geom_HSequenceOfBSplineSurface();
   myOsculSurf2               = new Geom_HSequenceOfBSplineSurface();
   if ((BS->IsKind(STANDARD_TYPE(Geom_BSplineSurface)))
@@ -314,7 +314,7 @@ void Geom_OsculatingSurface::Init(const Handle(Geom_Surface)& BS, const Standard
 
 //=================================================================================================
 
-Handle(Geom_Surface) Geom_OsculatingSurface::BasisSurface() const
+Handle(GeomSurface) Geom_OsculatingSurface::BasisSurface() const
 {
   return myBasisSurf;
 }
@@ -691,7 +691,7 @@ Standard_Boolean Geom_OsculatingSurface::BuildOsculatingSurface(
 
 //=================================================================================================
 
-Standard_Boolean Geom_OsculatingSurface::IsQPunctual(const Handle(Geom_Surface)& S,
+Standard_Boolean Geom_OsculatingSurface::IsQPunctual(const Handle(GeomSurface)& S,
                                                      const Standard_Real         Param,
                                                      const GeomAbs_IsoType       IT,
                                                      const Standard_Real         TolMin,

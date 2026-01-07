@@ -35,70 +35,70 @@
   #include <TopExp_Explorer.hxx>
   #include <Precision.hxx>
 
-Standard_EXPORT void FUN_draw(const TopoDS_Shape& s)
+Standard_EXPORT void FUN_draw(const TopoShape& s)
 {
-  char* nnn = TCollection_AsciiString("name").ToCString();
+  char* nnn = AsciiString1("name").ToCString();
   if (s.IsNull())
     std::cout << "nullshape" << std::endl;
-  DBRep::Set(nnn, s);
+  DBRep1::Set(nnn, s);
 }
 
 Standard_EXPORT void FUN_draw(const Point3d& p)
 {
-  char* nnn = TCollection_AsciiString("name").ToCString();
-  DrawTrSurf::Set(nnn, p);
+  char* nnn = AsciiString1("name").ToCString();
+  DrawTrSurf1::Set(nnn, p);
 }
 
 Standard_EXPORT void FUN_draw(const gp_Pnt2d& p)
 {
-  char* nnn = TCollection_AsciiString("name").ToCString();
-  DrawTrSurf::Set(nnn, p);
+  char* nnn = AsciiString1("name").ToCString();
+  DrawTrSurf1::Set(nnn, p);
 }
 
-Standard_EXPORT void FUN_draw(const Handle(Geom2d_Curve) c, const Standard_Real dpar)
+Standard_EXPORT void FUN_draw(const Handle(GeomCurve2d) c, const Standard_Real dpar)
 {
-  char* nnn = TCollection_AsciiString("c2d").ToCString();
+  char* nnn = AsciiString1("c2d").ToCString();
   if (dpar <= Precision::Confusion())
   {
-    DrawTrSurf::Set(nnn, c);
+    DrawTrSurf1::Set(nnn, c);
     return;
   }
   Handle(Geom2d_TrimmedCurve) tC = new Geom2d_TrimmedCurve(c, 0., dpar);
-  DrawTrSurf::Set(nnn, tC);
+  DrawTrSurf1::Set(nnn, tC);
 }
 
 Standard_EXPORT void FUN_draw(const Point3d& p, const Dir3d& d)
 {
-  TCollection_AsciiString aa("dir");
+  AsciiString1 aa("dir");
   FUN_tool_draw(aa, p, d);
 }
 
-Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa, const Point3d& p)
+Standard_EXPORT void FUN_brep_draw(const AsciiString1& aa, const Point3d& p)
 {
   FUN_tool_draw(aa, p);
 }
 
-Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa,
+Standard_EXPORT void FUN_brep_draw(const AsciiString1& aa,
                                    const Point3d&                  p,
                                    const Dir3d&                  d)
 {
   FUN_tool_draw(aa, p, d);
 }
 
-Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa, const TopoDS_Shape& s)
+Standard_EXPORT void FUN_brep_draw(const AsciiString1& aa, const TopoShape& s)
 {
   FUN_tool_draw(aa, s);
 }
 
-Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa,
-                                   const Handle(Geom_Curve)&      C,
+Standard_EXPORT void FUN_brep_draw(const AsciiString1& aa,
+                                   const Handle(GeomCurve3d)&      C,
                                    const Standard_Real&           f,
                                    const Standard_Real&           l)
 {
   FUN_tool_draw(aa, C, f, l);
 }
 
-Standard_EXPORT void FUN_brep_draw(const TCollection_AsciiString& aa, const Handle(Geom_Curve)& C)
+Standard_EXPORT void FUN_brep_draw(const AsciiString1& aa, const Handle(GeomCurve3d)& C)
 {
   FUN_tool_draw(aa, C);
 }
@@ -108,15 +108,15 @@ Standard_EXPORT void FUN_DrawMap(const TopTools_DataMapOfShapeListOfShape& Dataf
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itemap(DataforDegenEd);
   for (; itemap.More(); itemap.Next())
   {
-    TopoDS_Shape                       v = itemap.Key();
+    TopoShape                       v = itemap.Key();
     TopTools_ListIteratorOfListOfShape itoflos(itemap.Value());
     if (!itoflos.More())
       continue;
-    TopoDS_Shape Ec = itoflos.Value();
+    TopoShape Ec = itoflos.Value();
     if (!itoflos.More())
       continue;
     itoflos.Next();
-    TopoDS_Shape Ed = itoflos.Value();
+    TopoShape Ed = itoflos.Value();
 
     Standard_Boolean tr = Standard_False;
     if (tr)
@@ -128,10 +128,10 @@ Standard_EXPORT void FUN_DrawMap(const TopTools_DataMapOfShapeListOfShape& Dataf
   }
 }
 
-static Standard_Boolean FUN_hascurveonsurf(const TopoDS_Edge& edge, const TopoDS_Face& face)
+static Standard_Boolean FUN_hascurveonsurf(const TopoEdge& edge, const TopoFace& face)
 {
   TopLoc_Location      L;
-  Handle(Geom_Surface) S = BRep_Tool::Surface(face, L);
+  Handle(GeomSurface) S = BRepInspector::Surface(face, L);
 
   Handle(BRep_TEdge)&                          TE  = *((Handle(BRep_TEdge)*)&edge.TShape());
   const BRep_ListOfCurveRepresentation&        lcr = TE->Curves();
@@ -151,38 +151,38 @@ static Standard_Boolean FUN_hascurveonsurf(const TopoDS_Edge& edge, const TopoDS
   return iscurveonS;
 }
 
-Standard_EXPORT void FUN_draw2de(const TopoDS_Shape& ed, const TopoDS_Shape& fa)
+Standard_EXPORT void FUN_draw2de(const TopoShape& ed, const TopoShape& fa)
 {
-  char*         nnn = TCollection_AsciiString("name").ToCString();
+  char*         nnn = AsciiString1("name").ToCString();
   Standard_Real f, l;
   if (ed.IsNull())
     return;
   if (fa.IsNull())
     return;
-  TopoDS_Edge      edge    = TopoDS::Edge(ed);
-  TopoDS_Face      face    = TopoDS::Face(fa);
+  TopoEdge      edge    = TopoDS::Edge(ed);
+  TopoFace      face    = TopoDS::Face(fa);
   Standard_Boolean hascons = FUN_hascurveonsurf(edge, face);
   if (!hascons)
     return;
 
   TopAbs_Orientation   ori   = edge.Orientation();
   Standard_Boolean     sense = (ori == TopAbs_FORWARD) ? Standard_True : Standard_False;
-  Handle(Geom2d_Curve) C2d   = BRep_Tool::CurveOnSurface(edge, face, f, l);
+  Handle(GeomCurve2d) C2d   = BRepInspector::CurveOnSurface(edge, face, f, l);
 
   Handle(Geom2d_TrimmedCurve) tC2d = new Geom2d_TrimmedCurve(C2d, f, l, sense);
-  DrawTrSurf::Set(nnn, tC2d);
+  DrawTrSurf1::Set(nnn, tC2d);
 } // FUN_draw2de
 
 Standard_EXPORT void FUN_draw2d(const Standard_Real& par,
-                                const TopoDS_Edge&   E,
-                                const TopoDS_Edge&   Eref,
-                                const TopoDS_Face&   Fref)
+                                const TopoEdge&   E,
+                                const TopoEdge&   Eref,
+                                const TopoFace&   Fref)
 {
   TopAbs_Orientation oriE       = E.Orientation();
   TopAbs_Orientation oriEref    = Eref.Orientation();
   Standard_Boolean   ErefonFref = Standard_False;
   Standard_Boolean   EonFref    = Standard_False;
-  TopExp_Explorer    ex;
+  ShapeExplorer    ex;
   Standard_Integer   ne = 0;
   for (ex.Init(Fref, TopAbs_EDGE); ex.More(); ex.Next())
     ne++;
@@ -190,7 +190,7 @@ Standard_EXPORT void FUN_draw2d(const Standard_Real& par,
     return;
   for (ex.Init(Fref, TopAbs_EDGE); ex.More(); ex.Next())
   {
-    const TopoDS_Edge ed = TopoDS::Edge(ex.Current());
+    const TopoEdge ed = TopoDS::Edge(ex.Current());
     if (ed.IsSame(Eref))
     {
       ErefonFref = Standard_True;
@@ -206,15 +206,15 @@ Standard_EXPORT void FUN_draw2d(const Standard_Real& par,
   if (ErefonFref || EonFref)
   {
     Standard_Real        f, l;
-    Handle(Geom2d_Curve) C2d;
+    Handle(GeomCurve2d) C2d;
     if (ErefonFref)
     {
-      C2d = BRep_Tool::CurveOnSurface(Eref, Fref, f, l);
+      C2d = BRepInspector::CurveOnSurface(Eref, Fref, f, l);
       FUN_draw2de(Eref, Fref);
     }
     if (EonFref)
     {
-      C2d = BRep_Tool::CurveOnSurface(E, Fref, f, l);
+      C2d = BRepInspector::CurveOnSurface(E, Fref, f, l);
       FUN_draw2de(E, Fref);
     }
     C2d->D0(par, p2d);
@@ -222,11 +222,11 @@ Standard_EXPORT void FUN_draw2d(const Standard_Real& par,
   else
   {
     Standard_Real      f, l;
-    Handle(Geom_Curve) C3d = BRep_Tool::Curve(Eref, f, l);
+    Handle(GeomCurve3d) C3d = BRepInspector::Curve(Eref, f, l);
     Point3d             P;
     C3d->D0(par, P);
-    Handle(Geom_Surface)       S = BRep_Tool::Surface(Fref);
-    GeomAPI_ProjectPointOnSurf PonS(P, S);
+    Handle(GeomSurface)       S = BRepInspector::Surface(Fref);
+    PointOnSurfProjector PonS(P, S);
     if (!PonS.Extrema().IsDone())
       return;
     if (PonS.NbPoints() == 0)

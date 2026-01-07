@@ -26,7 +26,7 @@
 #include <TopTools_DataMapOfShapeShape.hxx>
 #include <TopTools_ListOfShape.hxx>
 class BRepAlgo_AsDes;
-class BRepAlgo_Image;
+class ShapeImage;
 class BRepOffset_Analyse;
 
 class BRepOffset_MakeLoops
@@ -36,22 +36,22 @@ public:
 
   Standard_EXPORT BRepOffset_MakeLoops();
 
-  Standard_EXPORT void Build(const TopTools_ListOfShape&   LF,
+  Standard_EXPORT void Build(const ShapeList&   LF,
                              const Handle(BRepAlgo_AsDes)& AsDes,
-                             BRepAlgo_Image&               Image,
-                             BRepAlgo_Image&               theImageVV,
+                             ShapeImage&               Image,
+                             ShapeImage&               theImageVV,
                              const Message_ProgressRange&  theRange);
 
-  Standard_EXPORT void BuildOnContext(const TopTools_ListOfShape&   LContext,
+  Standard_EXPORT void BuildOnContext(const ShapeList&   LContext,
                                       const BRepOffset_Analyse&     Analyse,
                                       const Handle(BRepAlgo_AsDes)& AsDes,
-                                      BRepAlgo_Image&               Image,
+                                      ShapeImage&               Image,
                                       const Standard_Boolean        InSide,
                                       const Message_ProgressRange&  theRange);
 
-  Standard_EXPORT void BuildFaces(const TopTools_ListOfShape&   LF,
+  Standard_EXPORT void BuildFaces(const ShapeList&   LF,
                                   const Handle(BRepAlgo_AsDes)& AsDes,
-                                  BRepAlgo_Image&               Image,
+                                  ShapeImage&               Image,
                                   const Message_ProgressRange&  theRange);
 
 protected:

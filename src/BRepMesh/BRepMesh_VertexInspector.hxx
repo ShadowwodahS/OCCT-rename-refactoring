@@ -98,7 +98,7 @@ public:
   }
 
   //! Set reference point to be checked.
-  void SetPoint(const gp_XY& thePoint)
+  void SetPoint(const Coords2d& thePoint)
   {
     myIndex     = 0;
     myMinSqDist = RealLast();
@@ -136,7 +136,7 @@ private:
   Standard_Real                     myTolerance[2];
   Handle(IMeshData::VectorOfVertex) myVertices;
   IMeshData::ListOfInteger          myDelNodes;
-  gp_XY                             myPoint;
+  Coords2d                             myPoint;
 };
 
 #endif

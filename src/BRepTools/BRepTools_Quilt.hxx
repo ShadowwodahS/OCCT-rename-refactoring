@@ -21,9 +21,9 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <TopTools_IndexedDataMapOfShapeShape.hxx>
-class TopoDS_Edge;
-class TopoDS_Vertex;
-class TopoDS_Shape;
+class TopoEdge;
+class TopoVertex;
+class TopoShape;
 
 //! A Tool to glue faces at common edges and reconstruct shells.
 //!
@@ -40,12 +40,12 @@ class TopoDS_Shape;
 //!
 //! If no binding is made this class can be used to make shell from faces already sharing their
 //! edges.
-class BRepTools_Quilt
+class ShapeQuilt
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepTools_Quilt();
+  Standard_EXPORT ShapeQuilt();
 
   //! Binds <Enew> to   be  the  new edge  instead   of
   //! <Eold>.
@@ -63,29 +63,29 @@ public:
   //!
   //! <Eold> must belong to the next added shape, <Enew> must belong
   //! to a Shape added before.
-  Standard_EXPORT void Bind(const TopoDS_Edge& Eold, const TopoDS_Edge& Enew);
+  Standard_EXPORT void Bind(const TopoEdge& Eold, const TopoEdge& Enew);
 
   //! Binds <VNew> to be a new vertex instead of <Vold>.
   //!
   //! The faces  of  the added  shape containing  <Vold>
   //! will be copied to substitute <Vold> by <Vnew>.
-  Standard_EXPORT void Bind(const TopoDS_Vertex& Vold, const TopoDS_Vertex& Vnew);
+  Standard_EXPORT void Bind(const TopoVertex& Vold, const TopoVertex& Vnew);
 
   //! Add   the faces of  <S>  to  the Quilt,  the faces
   //! containing bounded edges are copied.
-  Standard_EXPORT void Add(const TopoDS_Shape& S);
+  Standard_EXPORT void Add(const TopoShape& S);
 
   //! Returns   True if <S> has   been  copied (<S> is a
   //! vertex, an edge or a face)
-  Standard_EXPORT Standard_Boolean IsCopied(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Boolean IsCopied(const TopoShape& S) const;
 
   //! Returns the shape substituted to <S> in the Quilt.
-  Standard_EXPORT const TopoDS_Shape& Copy(const TopoDS_Shape& S) const;
+  Standard_EXPORT const TopoShape& Copy(const TopoShape& S) const;
 
   //! Returns a Compound of shells made from the current
   //! set of faces. The shells will be flagged as closed
   //! or not closed.
-  Standard_EXPORT TopoDS_Shape Shells() const;
+  Standard_EXPORT TopoShape Shells() const;
 
 protected:
 private:

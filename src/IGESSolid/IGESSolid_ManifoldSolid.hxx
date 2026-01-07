@@ -29,7 +29,7 @@ class IGESSolid_ManifoldSolid;
 DEFINE_STANDARD_HANDLE(IGESSolid_ManifoldSolid, IGESData_IGESEntity)
 
 //! defines ManifoldSolid, Type <186> Form Number <0>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! A manifold solid is a bounded, closed, and finite volume
 //! in three dimensional Euclidean space
 class IGESSolid_ManifoldSolid : public IGESData_IGESEntity

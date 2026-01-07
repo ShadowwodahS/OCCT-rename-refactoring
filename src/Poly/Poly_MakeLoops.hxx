@@ -76,7 +76,7 @@ public:
     }
   };
 
-  struct Hasher
+  struct Hasher1
   {
     size_t operator()(const Poly_MakeLoops::Link& theLink) const noexcept
     {
@@ -256,7 +256,7 @@ private:
   // FIELDS
   const Helper*                        myHelper;
   Handle(NCollection_BaseAllocator)    myAlloc;
-  NCollection_IndexedMap<Link, Hasher> myMapLink;
+  NCollection_IndexedMap<Link, Hasher1> myMapLink;
   NCollection_Sequence<Loop>           myLoops;
   HeapOfInteger                        myStartIndices;
   TColStd_PackedMapOfInteger           myHangIndices;
@@ -355,7 +355,7 @@ struct hash<Poly_MakeLoops::Link>
 {
   size_t operator()(const Poly_MakeLoops::Link& theLink) const noexcept
   {
-    return Poly_MakeLoops::Hasher{}(theLink);
+    return Poly_MakeLoops::Hasher1{}(theLink);
   }
 };
 

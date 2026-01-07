@@ -24,7 +24,7 @@
 #include <BRepPrim_Revolution.hxx>
 class Point3d;
 class Frame3d;
-class TopoDS_Face;
+class TopoFace;
 
 //! Implements the sphere primitive
 class BRepPrim_Sphere : public BRepPrim_Revolution
@@ -47,7 +47,7 @@ public:
 
   //! The surface normal should be directed  towards the
   //! outside.
-  Standard_EXPORT virtual TopoDS_Face MakeEmptyLateralFace() const Standard_OVERRIDE;
+  Standard_EXPORT virtual TopoFace MakeEmptyLateralFace() const Standard_OVERRIDE;
 
 protected:
 private:

@@ -31,9 +31,9 @@
 #include <Message_Messenger.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESGraph_ToolColor::IGESGraph_ToolColor() {}
+ColorTool1::ColorTool1() {}
 
-void IGESGraph_ToolColor::ReadOwnParams(const Handle(IGESGraph_Color)& ent,
+void ColorTool1::ReadOwnParams(const Handle(IGESGraph_Color)& ent,
                                         const Handle(IGESData_IGESReaderData)& /*IR*/,
                                         IGESData_ParamReader& PR) const
 {
@@ -54,7 +54,7 @@ void IGESGraph_ToolColor::ReadOwnParams(const Handle(IGESGraph_Color)& ent,
   ent->Init(tempRed, tempGreen, tempBlue, tempColorName);
 }
 
-void IGESGraph_ToolColor::WriteOwnParams(const Handle(IGESGraph_Color)& ent,
+void ColorTool1::WriteOwnParams(const Handle(IGESGraph_Color)& ent,
                                          IGESData_IGESWriter&           IW) const
 {
   Standard_Real Red, Green, Blue;
@@ -69,12 +69,12 @@ void IGESGraph_ToolColor::WriteOwnParams(const Handle(IGESGraph_Color)& ent,
     IW.SendVoid(); // placekeeper to be reserved for additional pointers
 }
 
-void IGESGraph_ToolColor::OwnShared(const Handle(IGESGraph_Color)& /*ent*/,
+void ColorTool1::OwnShared(const Handle(IGESGraph_Color)& /*ent*/,
                                     Interface_EntityIterator& /*iter*/) const
 {
 }
 
-void IGESGraph_ToolColor::OwnCopy(const Handle(IGESGraph_Color)& another,
+void ColorTool1::OwnCopy(const Handle(IGESGraph_Color)& another,
                                   const Handle(IGESGraph_Color)& ent,
                                   Interface_CopyTool& /*TC*/) const
 {
@@ -87,9 +87,9 @@ void IGESGraph_ToolColor::OwnCopy(const Handle(IGESGraph_Color)& another,
   ent->Init(tempRed, tempGreen, tempBlue, tempColorName);
 }
 
-IGESData_DirChecker IGESGraph_ToolColor::DirChecker(const Handle(IGESGraph_Color)& /*ent*/) const
+DirectoryChecker ColorTool1::DirChecker(const Handle(IGESGraph_Color)& /*ent*/) const
 {
-  IGESData_DirChecker DC(314, 0);
+  DirectoryChecker DC(314, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -102,7 +102,7 @@ IGESData_DirChecker IGESGraph_ToolColor::DirChecker(const Handle(IGESGraph_Color
   return DC;
 }
 
-void IGESGraph_ToolColor::OwnCheck(const Handle(IGESGraph_Color)& /*ent*/,
+void ColorTool1::OwnCheck(const Handle(IGESGraph_Color)& /*ent*/,
                                    const Interface_ShareTool&,
                                    Handle(Interface_Check)& /*ach*/) const
 {
@@ -112,7 +112,7 @@ void IGESGraph_ToolColor::OwnCheck(const Handle(IGESGraph_Color)& /*ent*/,
   //    ach.AddFail("Color Rank not between 1 to 8");
 }
 
-void IGESGraph_ToolColor::OwnDump(const Handle(IGESGraph_Color)& ent,
+void ColorTool1::OwnDump(const Handle(IGESGraph_Color)& ent,
                                   const IGESData_IGESDumper& /*dumper*/,
                                   Standard_OStream& S,
                                   const Standard_Integer /*level*/) const

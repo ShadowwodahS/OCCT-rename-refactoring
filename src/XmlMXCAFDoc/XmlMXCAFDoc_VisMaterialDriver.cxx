@@ -99,7 +99,7 @@ static void writeReal(XmlObjMgt_Persistent&      theTarget,
                       const XmlObjMgt_DOMString& theName,
                       const Standard_ShortReal   theValue)
 {
-  theTarget.Element().setAttribute(theName, TCollection_AsciiString(theValue).ToCString());
+  theTarget.Element().setAttribute(theName, AsciiString1(theValue).ToCString());
 }
 
 //! Encode short real value.
@@ -121,8 +121,8 @@ static void writeVec3(XmlObjMgt_Persistent&      theTarget,
                       const XmlObjMgt_DOMString& theName,
                       const Graphic3d_Vec3&      theVec3)
 {
-  TCollection_AsciiString aString =
-    TCollection_AsciiString() + theVec3[0] + " " + theVec3[1] + " " + theVec3[2];
+  AsciiString1 aString =
+    AsciiString1() + theVec3[0] + " " + theVec3[1] + " " + theVec3[2];
   theTarget.Element().setAttribute(theName, aString.ToCString());
 }
 
@@ -167,8 +167,8 @@ static void writeVec4(XmlObjMgt_Persistent&      theTarget,
                       const XmlObjMgt_DOMString& theName,
                       const Graphic3d_Vec4&      theVec4)
 {
-  TCollection_AsciiString aString =
-    TCollection_AsciiString() + theVec4[0] + " " + theVec4[1] + " " + theVec4[2] + " " + theVec4[3];
+  AsciiString1 aString =
+    AsciiString1() + theVec4[0] + " " + theVec4[1] + " " + theVec4[2] + " " + theVec4[3];
   theTarget.Element().setAttribute(theName, aString.ToCString());
 }
 
@@ -244,7 +244,7 @@ static void readTexture(const XmlObjMgt_Element&   theElement,
                         const XmlObjMgt_DOMString& theName,
                         Handle(Image_Texture)&     theImage)
 {
-  TCollection_AsciiString aStr(theElement.getAttribute(theName).GetString());
+  AsciiString1 aStr(theElement.getAttribute(theName).GetString());
   if (!aStr.IsEmpty())
   {
     theImage = new Image_Texture(aStr);
@@ -255,8 +255,8 @@ static void readTexture(const XmlObjMgt_Element&   theElement,
   {
     return;
   }
-  TCollection_AsciiString aFilePath(anElement.getAttribute(::FilePath()).GetString());
-  TCollection_AsciiString anId(anElement.getAttribute(::TextureId()).GetString());
+  AsciiString1 aFilePath(anElement.getAttribute(::FilePath()).GetString());
+  AsciiString1 anId(anElement.getAttribute(::TextureId()).GetString());
   Standard_Integer        anOffset = -1, aLength = -1;
   if (!aFilePath.IsEmpty())
   {

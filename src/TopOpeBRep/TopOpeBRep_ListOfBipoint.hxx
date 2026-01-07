@@ -20,7 +20,7 @@
 #include <TopOpeBRep_Bipoint.hxx>
 #include <NCollection_List.hxx>
 
-typedef NCollection_List<TopOpeBRep_Bipoint>           TopOpeBRep_ListOfBipoint;
-typedef NCollection_List<TopOpeBRep_Bipoint>::Iterator TopOpeBRep_ListIteratorOfListOfBipoint;
+typedef NCollection_List<Bipoint>           TopOpeBRep_ListOfBipoint;
+typedef NCollection_List<Bipoint>::Iterator TopOpeBRep_ListIteratorOfListOfBipoint;
 
 #endif

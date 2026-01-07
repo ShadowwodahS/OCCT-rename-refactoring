@@ -129,7 +129,7 @@ private:
 Handle(OpenGl_PBREnvironment) OpenGl_PBREnvironment::Create(const Handle(OpenGl_Context)& theCtx,
                                                             unsigned int thePow2Size,
                                                             unsigned int theLevelsNumber,
-                                                            const TCollection_AsciiString& theId)
+                                                            const AsciiString1& theId)
 {
   if (theCtx->arbFBO == NULL)
   {
@@ -158,7 +158,7 @@ Handle(OpenGl_PBREnvironment) OpenGl_PBREnvironment::Create(const Handle(OpenGl_
 OpenGl_PBREnvironment::OpenGl_PBREnvironment(const Handle(OpenGl_Context)&  theCtx,
                                              unsigned int                   thePowOf2Size,
                                              unsigned int                   theSpecMapLevelsNumber,
-                                             const TCollection_AsciiString& theId)
+                                             const AsciiString1& theId)
     : OpenGl_NamedResource(theId),
       myPow2Size(std::max(1u, thePowOf2Size)),
       mySpecMapLevelsNumber(
@@ -398,7 +398,7 @@ bool OpenGl_PBREnvironment::processDiffIBLMap(const Handle(OpenGl_Context)& theC
           GL_DEBUG_TYPE_ERROR,
           0,
           GL_DEBUG_SEVERITY_HIGH,
-          TCollection_AsciiString("Unable to read PBR baking diffuse texture. Error ")
+          AsciiString1("Unable to read PBR baking diffuse texture. Error ")
             + OpenGl_Context::FormatGlError(anErr));
       }
       for (Standard_Size aValIter = 0; aValIter < anImageIn.SizeX(); ++aValIter)
@@ -545,7 +545,7 @@ bool OpenGl_PBREnvironment::processSpecIBLMap(const Handle(OpenGl_Context)& theC
                               GL_DEBUG_TYPE_ERROR,
                               0,
                               GL_DEBUG_SEVERITY_HIGH,
-                              TCollection_AsciiString("Unable to copy cubemap mipmap level. Error ")
+                              AsciiString1("Unable to copy cubemap mipmap level. Error ")
                                 + OpenGl_Context::FormatGlError(anErr));
         }
       }
@@ -648,7 +648,7 @@ void OpenGl_PBREnvironment::bake(const Handle(OpenGl_Context)& theCtx,
   aDrawParams.IsTopDown     = theIsTopDown;
   if (processSpecIBLMap(theCtx, &aDrawParams) && processDiffIBLMap(theCtx, &aDrawParams))
   {
-    Message::SendTrace(TCollection_AsciiString() + "IBL "
+    Message::SendTrace(AsciiString1() + "IBL "
                        + myIBLMaps[OpenGl_TypeOfIBLMap_Specular].SizeX() + "x"
                        + myIBLMaps[OpenGl_TypeOfIBLMap_Specular].SizeY() + " is baked in "
                        + aTimer.ElapsedTime() + " s");
@@ -659,7 +659,7 @@ void OpenGl_PBREnvironment::bake(const Handle(OpenGl_Context)& theCtx,
                         GL_DEBUG_TYPE_PERFORMANCE,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString("Error: baking PBR environment ")
+                        AsciiString1("Error: baking PBR environment ")
                           + myIBLMaps[OpenGl_TypeOfIBLMap_Specular].SizeX() + "x"
                           + myIBLMaps[OpenGl_TypeOfIBLMap_Specular].SizeY()
                           + " takes too much time!.");

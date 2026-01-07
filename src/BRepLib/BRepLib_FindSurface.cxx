@@ -49,7 +49,7 @@
 //=================================================================================================
 
 static Standard_Real Controle(const TColgp_SequenceOfPnt& thePoints,
-                              const Handle(Geom_Plane)&   thePlane)
+                              const Handle(GeomPlane)&   thePlane)
 {
   Standard_Real    dfMaxDist = 0.;
   Standard_Real    a, b, c, d, dist;
@@ -71,26 +71,26 @@ static Standard_Real Controle(const TColgp_SequenceOfPnt& thePoints,
 // purpose  : Return true if the last vertex of theEdge1 coincides with
 //           the first vertex of theEdge2 in parametric space of theFace
 //=======================================================================
-inline static Standard_Boolean Is2DConnected(const TopoDS_Edge&          theEdge1,
-                                             const TopoDS_Edge&          theEdge2,
-                                             const Handle(Geom_Surface)& theSurface,
+inline static Standard_Boolean Is2DConnected(const TopoEdge&          theEdge1,
+                                             const TopoEdge&          theEdge2,
+                                             const Handle(GeomSurface)& theSurface,
                                              const TopLoc_Location&      theLocation)
 {
   Standard_Real f, l;
   // TopLoc_Location aLoc;
-  Handle(Geom2d_Curve) aCurve;
+  Handle(GeomCurve2d) aCurve;
   gp_Pnt2d             p1, p2;
 
   // get 2D points
-  aCurve = BRep_Tool::CurveOnSurface(theEdge1, theSurface, theLocation, f, l);
+  aCurve = BRepInspector::CurveOnSurface(theEdge1, theSurface, theLocation, f, l);
   p1     = aCurve->Value(theEdge1.Orientation() == TopAbs_FORWARD ? l : f);
-  aCurve = BRep_Tool::CurveOnSurface(theEdge2, theSurface, theLocation, f, l);
+  aCurve = BRepInspector::CurveOnSurface(theEdge2, theSurface, theLocation, f, l);
   p2     = aCurve->Value(theEdge2.Orientation() == TopAbs_FORWARD ? f : l);
 
   // compare 2D points
   GeomAdaptor_Surface aSurface(theSurface);
-  TopoDS_Vertex       aV    = TopExp::FirstVertex(theEdge2, Standard_True);
-  Standard_Real       tol3D = BRep_Tool::Tolerance(aV);
+  TopoVertex       aV    = TopExp1::FirstVertex(theEdge2, Standard_True);
+  Standard_Real       tol3D = BRepInspector::Tolerance(aV);
   Standard_Real       tol2D = aSurface.UResolution(tol3D) + aSurface.VResolution(tol3D);
   Standard_Real       dist2 = p1.SquareDistance(p2);
   return dist2 < tol2D * tol2D;
@@ -102,22 +102,22 @@ inline static Standard_Boolean Is2DConnected(const TopoDS_Edge&          theEdge
 //           parametric space of theSurface
 //=======================================================================
 
-static Standard_Boolean Is2DClosed(const TopoDS_Shape&         theShape,
-                                   const Handle(Geom_Surface)& theSurface,
+static Standard_Boolean Is2DClosed(const TopoShape&         theShape,
+                                   const Handle(GeomSurface)& theSurface,
                                    const TopLoc_Location&      theLocation)
 {
   try
   {
     OCC_CATCH_SIGNALS
     // get a wire theShape
-    TopExp_Explorer aWireExp(theShape, TopAbs_WIRE);
+    ShapeExplorer aWireExp(theShape, TopAbs_WIRE);
     if (!aWireExp.More())
     {
       return Standard_False;
     }
-    TopoDS_Wire aWire = TopoDS::Wire(aWireExp.Current());
+    TopoWire aWire = TopoDS::Wire(aWireExp.Current());
     // a tmp face
-    TopoDS_Face aTmpFace = BRepLib_MakeFace(theSurface, Precision::PConfusion());
+    TopoFace aTmpFace = BRepLib_MakeFace(theSurface, Precision::PConfusion());
 
     // check topological closeness using wire explorer, if the wire is not closed
     // the 1st and the last vertices of wire are different
@@ -127,10 +127,10 @@ static Standard_Boolean Is2DClosed(const TopoDS_Shape&         theShape,
       return Standard_False;
     }
     // remember the 1st and the last edges of aWire
-    TopoDS_Edge aFisrtEdge = aWireExplorer.Current(), aLastEdge = aFisrtEdge;
+    TopoEdge aFisrtEdge = aWireExplorer.Current(), aLastEdge = aFisrtEdge;
     // check if edges connected topologically (that is assured by BRepTools_WireExplorer)
     // are connected in 2D
-    TopoDS_Edge aPrevEdge = aFisrtEdge;
+    TopoEdge aPrevEdge = aFisrtEdge;
     for (aWireExplorer.Next(); aWireExplorer.More(); aWireExplorer.Next())
     {
       aLastEdge = aWireExplorer.Current();
@@ -142,8 +142,8 @@ static Standard_Boolean Is2DClosed(const TopoDS_Shape&         theShape,
     }
     // wire is closed if ( 1st vertex of aFisrtEdge ) ==
     // ( last vertex of aLastEdge ) in 2D
-    TopoDS_Vertex aV1 = TopExp::FirstVertex(aFisrtEdge, Standard_True);
-    TopoDS_Vertex aV2 = TopExp::LastVertex(aLastEdge, Standard_True);
+    TopoVertex aV1 = TopExp1::FirstVertex(aFisrtEdge, Standard_True);
+    TopoVertex aV2 = TopExp1::LastVertex(aLastEdge, Standard_True);
     return (aV1.IsSame(aV2) && Is2DConnected(aLastEdge, aFisrtEdge, theSurface, theLocation));
   }
   catch (ExceptionBase const&)
@@ -163,7 +163,7 @@ BRepLib_FindSurface::BRepLib_FindSurface()
 
 //=================================================================================================
 
-BRepLib_FindSurface::BRepLib_FindSurface(const TopoDS_Shape&    S,
+BRepLib_FindSurface::BRepLib_FindSurface(const TopoShape&    S,
                                          const Standard_Real    Tol,
                                          const Standard_Boolean OnlyPlane,
                                          const Standard_Boolean OnlyClosed)
@@ -238,7 +238,7 @@ static void fillPoints(const BRepAdaptor_Curve&                 theCurve,
 
 //=================================================================================================
 
-void BRepLib_FindSurface::Init(const TopoDS_Shape&    S,
+void BRepLib_FindSurface::Init(const TopoShape&    S,
                                const Standard_Real    Tol,
                                const Standard_Boolean OnlyPlane,
                                const Standard_Boolean OnlyClosed)
@@ -250,11 +250,11 @@ void BRepLib_FindSurface::Init(const TopoDS_Shape&    S,
   mySurface.Nullify();
 
   // compute the tolerance
-  TopExp_Explorer ex;
+  ShapeExplorer ex;
 
   for (ex.Init(S, TopAbs_EDGE); ex.More(); ex.Next())
   {
-    Standard_Real t = BRep_Tool::Tolerance(TopoDS::Edge(ex.Current()));
+    Standard_Real t = BRepInspector::Tolerance(TopoDS::Edge(ex.Current()));
     if (t > myTolerance)
       myTolerance = t;
   }
@@ -264,10 +264,10 @@ void BRepLib_FindSurface::Init(const TopoDS_Shape&    S,
   if (!ex.More())
     return; // no edges ....
 
-  TopoDS_Edge          E = TopoDS::Edge(ex.Current());
+  TopoEdge          E = TopoDS::Edge(ex.Current());
   Standard_Real        f, l, ff, ll;
-  Handle(Geom2d_Curve) PC, aPPC;
-  Handle(Geom_Surface) SS;
+  Handle(GeomCurve2d) PC, aPPC;
+  Handle(GeomSurface) SS;
   TopLoc_Location      L;
   Standard_Integer     i = 0, j;
 
@@ -275,7 +275,7 @@ void BRepLib_FindSurface::Init(const TopoDS_Shape&    S,
   for (;;)
   {
     i++;
-    BRep_Tool::CurveOnSurface(E, PC, mySurface, myLocation, f, l, i);
+    BRepInspector::CurveOnSurface(E, PC, mySurface, myLocation, f, l, i);
     if (mySurface.IsNull())
     {
       break;
@@ -289,7 +289,7 @@ void BRepLib_FindSurface::Init(const TopoDS_Shape&    S,
         for (;;)
         {
           j++;
-          BRep_Tool::CurveOnSurface(TopoDS::Edge(ex.Current()), aPPC, SS, L, ff, ll, j);
+          BRepInspector::CurveOnSurface(TopoDS::Edge(ex.Current()), aPPC, SS, L, ff, ll, j);
           if (SS.IsNull())
           {
             break;
@@ -314,7 +314,7 @@ void BRepLib_FindSurface::Init(const TopoDS_Shape&    S,
     {
       if (mySurface->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
         mySurface = Handle(Geom_RectangularTrimmedSurface)::DownCast(mySurface)->BasisSurface();
-      mySurface = Handle(Geom_Plane)::DownCast(mySurface);
+      mySurface = Handle(GeomPlane)::DownCast(mySurface);
     }
 
     if (!mySurface.IsNull())
@@ -360,7 +360,7 @@ void BRepLib_FindSurface::Init(const TopoDS_Shape&    S,
     switch (c.GetType())
     {
       case GeomAbs_BezierCurve: {
-        Handle(Geom_BezierCurve) GC = c.Bezier();
+        Handle(BezierCurve3d) GC = c.Bezier();
         TColStd_Array1OfReal     aKnots(1, 2);
         aKnots.SetValue(1, GC->FirstParameter());
         aKnots.SetValue(2, GC->LastParameter());
@@ -369,7 +369,7 @@ void BRepLib_FindSurface::Init(const TopoDS_Shape&    S,
         break;
       }
       case GeomAbs_BSplineCurve: {
-        Handle(Geom_BSplineCurve) GC = c.BSpline();
+        Handle(BSplineCurve3d) GC = c.BSpline();
         fillParams(GC->Knots(), GC->Degree(), dfUf, dfUl, aParams);
         break;
       }
@@ -531,7 +531,7 @@ void BRepLib_FindSurface::Init(const TopoDS_Shape&    S,
       aVec(i) = 0.;
   }
   Vector3d             aN(aVec(1), aVec(2), aVec(3));
-  Handle(Geom_Plane) aPlane     = new Geom_Plane(aBaryCenter, aN);
+  Handle(GeomPlane) aPlane     = new GeomPlane(aBaryCenter, aN);
   myTolReached                  = Controle(aPoints, aPlane);
   const Standard_Real aWeakness = 5.0;
   if (myTolReached <= myTolerance || (Tol < 0 && myTolReached < myTolerance * aWeakness))
@@ -540,16 +540,16 @@ void BRepLib_FindSurface::Init(const TopoDS_Shape&    S,
     // If S is wire, try to orient surface according to orientation of wire.
     if (S.ShapeType() == TopAbs_WIRE && S.Closed())
     {
-      TopoDS_Wire  aW       = TopoDS::Wire(S);
-      TopoDS_Face  aTmpFace = BRepLib_MakeFace(mySurface, Precision::Confusion());
-      BRep_Builder BB;
+      TopoWire  aW       = TopoDS::Wire(S);
+      TopoFace  aTmpFace = BRepLib_MakeFace(mySurface, Precision::Confusion());
+      ShapeBuilder BB;
       BB.Add(aTmpFace, aW);
       BRepTopAdaptor_FClass2d FClass(aTmpFace, 0.);
       if (FClass.PerformInfinitePoint() == TopAbs_IN)
       {
         Dir3d aNorm = aPlane->Position().Direction();
         aNorm.Reverse();
-        mySurface = new Geom_Plane(aPlane->Position().Location(), aNorm);
+        mySurface = new GeomPlane(aPlane->Position().Location(), aNorm);
       }
     }
   }
@@ -564,7 +564,7 @@ Standard_Boolean BRepLib_FindSurface::Found() const
 
 //=================================================================================================
 
-Handle(Geom_Surface) BRepLib_FindSurface::Surface() const
+Handle(GeomSurface) BRepLib_FindSurface::Surface() const
 {
   return mySurface;
 }

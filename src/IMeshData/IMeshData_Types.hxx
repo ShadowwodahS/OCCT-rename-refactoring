@@ -126,7 +126,7 @@ typedef NCollection_CellFilter<BRepMesh_CircleInspector> CircleCellFilter;
 typedef NCollection_CellFilter<BRepMesh_VertexInspector> VertexCellFilter;
 
 typedef NCollection_Shared<
-  NCollection_DataMap<TopoDS_Shape, Standard_Integer, TopTools_ShapeMapHasher>>
+  NCollection_DataMap<TopoShape, Standard_Integer, ShapeHasher>>
   DMapOfShapeInteger;
 typedef NCollection_Shared<NCollection_DataMap<IFacePtr, ListOfInteger>>
                                                                    DMapOfIFacePtrsListOfInteger;

@@ -184,7 +184,7 @@ static void Calcul_P2dOnSurf(const Handle(ChFiDS_Stripe)& stripe,
 static void Calcul_C2dOnFace(const Handle(ChFiDS_Stripe)& stripe,
                              const Standard_Integer       jfposit,
                              const Standard_Integer       indice,
-                             Handle(Geom2d_Curve)&        c2d)
+                             Handle(GeomCurve2d)&        c2d)
 
 {
   if (jfposit == 1)
@@ -226,24 +226,24 @@ static void RemoveSD(Handle(ChFiDS_Stripe)& Stripe,
 // purpose  : find common edge of faces F1 and F2
 //=======================================================================
 
-static void cherche_edge1(const TopoDS_Face& F1, const TopoDS_Face& F2, TopoDS_Edge& Edge)
+static void cherche_edge1(const TopoFace& F1, const TopoFace& F2, TopoEdge& Edge)
 {
   Standard_Integer           i, j;
-  TopoDS_Edge                Ecur1, Ecur2;
+  TopoEdge                Ecur1, Ecur2;
   Standard_Boolean           trouve = Standard_False;
   TopTools_IndexedMapOfShape MapE1, MapE2;
-  TopExp::MapShapes(F1, TopAbs_EDGE, MapE1);
-  TopExp::MapShapes(F2, TopAbs_EDGE, MapE2);
+  TopExp1::MapShapes(F1, TopAbs_EDGE, MapE1);
+  TopExp1::MapShapes(F2, TopAbs_EDGE, MapE2);
   for (i = 1; i <= MapE1.Extent() && !trouve; i++)
   {
-    TopoDS_Shape aLocalShape = TopoDS_Shape(MapE1(i));
+    TopoShape aLocalShape = TopoShape(MapE1(i));
     Ecur1                    = TopoDS::Edge(aLocalShape);
-    //  Ecur1=TopoDS::Edge(TopoDS_Shape (MapE1(i)));
+    //  Ecur1=TopoDS::Edge(TopoShape (MapE1(i)));
     for (j = 1; j <= MapE2.Extent() && !trouve; j++)
     {
-      aLocalShape = TopoDS_Shape(MapE2(j));
+      aLocalShape = TopoShape(MapE2(j));
       Ecur2       = TopoDS::Edge(aLocalShape);
-      //              Ecur2=TopoDS::Edge(TopoDS_Shape (MapE2(j)));
+      //              Ecur2=TopoDS::Edge(TopoShape (MapE2(j)));
       if (Ecur2.IsSame(Ecur1))
       {
         Edge   = Ecur1;
@@ -271,14 +271,14 @@ static void CurveHermite(const TopOpeBRepDS_DataStructure& DStr,
                          const Standard_Real               picmoins,
                          const Standard_Integer            sensicmoins,
                          const Standard_Boolean            sharpicmoins,
-                         const TopoDS_Edge&                Eviveicmoins,
+                         const TopoEdge&                Eviveicmoins,
                          const Handle(ChFiDS_Stripe)&      CDicplus,
                          const Standard_Integer            jficplus,
                          const Standard_Integer            icplus,
                          const Standard_Real               picplus,
                          const Standard_Integer            sensicplus,
                          const Standard_Boolean            sharpicplus,
-                         const TopoDS_Edge&                Eviveicplus,
+                         const TopoEdge&                Eviveicplus,
                          const Standard_Integer            nbface,
                          TopTools_SequenceOfShape&         Ecom,
                          const TopTools_SequenceOfShape&   Face,
@@ -293,10 +293,10 @@ static void CurveHermite(const TopOpeBRepDS_DataStructure& DStr,
   Standard_Integer   ii, jj;
   Standard_Real      up1, up2;
   Standard_Integer   ilin, jfp;
-  Handle(Geom_Curve) c1, c2;
+  Handle(GeomCurve3d) c1, c2;
   if (sharpicmoins)
   {
-    c1 = BRep_Tool::Curve(Eviveicmoins, up1, up2);
+    c1 = BRepInspector::Curve(Eviveicmoins, up1, up2);
   }
   else
   {
@@ -308,7 +308,7 @@ static void CurveHermite(const TopOpeBRepDS_DataStructure& DStr,
   }
   if (sharpicplus)
   {
-    c2 = BRep_Tool::Curve(Eviveicplus, up1, up2);
+    c2 = BRepInspector::Curve(Eviveicplus, up1, up2);
   }
   else
   {
@@ -354,19 +354,19 @@ static void CurveHermite(const TopOpeBRepDS_DataStructure& DStr,
     }
   }
   PLib::CoefficientsPoles(ExtraCoeffs, PLib::NoWeights(), ExtrapPoles, PLib::NoWeights());
-  Handle(Geom_BezierCurve) Bezier = new (Geom_BezierCurve)(ExtrapPoles);
+  Handle(BezierCurve3d) Bezier = new (BezierCurve3d)(ExtrapPoles);
   BRepLib_MakeEdge         Bedge(Bezier);
-  TopoDS_Edge              edg = Bedge.Edge();
-  TopoDS_Face              F;
+  TopoEdge              edg = Bedge.Edge();
+  TopoFace              F;
   error = 1.e-30;
   Standard_Integer nb;
   for (nb = 1; nb <= nbface; nb++)
   {
     F = TopoDS::Face(Face.Value(nb));
     TopTools_IndexedMapOfShape MapE1;
-    TopoDS_Edge                E1;
-    Handle(Geom2d_Curve)       proj1;
-    Handle(Geom_Curve)         proj1c, proj2c;
+    TopoEdge                E1;
+    Handle(GeomCurve2d)       proj1;
+    Handle(GeomCurve3d)         proj1c, proj2c;
     BRepAlgo_NormalProjection  OrtProj;
     OrtProj.Init(F);
     OrtProj.Add(edg);
@@ -374,41 +374,41 @@ static void CurveHermite(const TopOpeBRepDS_DataStructure& DStr,
     OrtProj.Build();
     if (OrtProj.IsDone())
     {
-      TopExp::MapShapes(OrtProj.Projection(), TopAbs_EDGE, MapE1);
+      TopExp1::MapShapes(OrtProj.Projection(), TopAbs_EDGE, MapE1);
       if (MapE1.Extent() != 0)
       {
         if (MapE1.Extent() != 1)
         {
-          BRepLib_MakeFace Bface(BRep_Tool::Surface(F), Precision::Confusion());
+          BRepLib_MakeFace Bface(BRepInspector::Surface(F), Precision::Confusion());
           F = Bface.Face();
           OrtProj.Init(F);
           OrtProj.Build();
           MapE1.Clear();
           if (OrtProj.IsDone())
-            TopExp::MapShapes(OrtProj.Projection(), TopAbs_EDGE, MapE1);
+            TopExp1::MapShapes(OrtProj.Projection(), TopAbs_EDGE, MapE1);
         }
         if (MapE1.Extent() != 0)
         {
           Standard_Boolean trouve = Standard_False;
           for (Standard_Integer ind = 1; ind <= MapE1.Extent() && !trouve; ind++)
           {
-            TopoDS_Shape aLocalShape = TopoDS_Shape(MapE1(ind));
+            TopoShape aLocalShape = TopoShape(MapE1(ind));
             E1                       = TopoDS::Edge(aLocalShape);
-            //           E1=TopoDS::Edge( TopoDS_Shape (MapE1(ind)));
-            if (!BRep_Tool::Degenerated(E1))
+            //           E1=TopoDS::Edge( TopoShape (MapE1(ind)));
+            if (!BRepInspector::Degenerated(E1))
               trouve = Standard_True;
           }
           Eproj.Append(E1);
-          proj1 = BRep_Tool::CurveOnSurface(E1, F, up1, up2);
+          proj1 = BRepInspector::CurveOnSurface(E1, F, up1, up2);
           if (proj1.IsNull())
             throw Standard_ConstructionError("Failed to get p-curve of edge");
           proj2d.Append(new Geom2d_TrimmedCurve(proj1, up1, up2));
-          proj1c = BRep_Tool::Curve(E1, up1, up2);
+          proj1c = BRepInspector::Curve(E1, up1, up2);
           if (proj1c.IsNull())
             throw Standard_ConstructionError("Failed to get 3D curve of edge");
           cproj.Append(new Geom_TrimmedCurve(proj1c, up1, up2));
-          if (error > BRep_Tool::Tolerance(E1))
-            error = BRep_Tool::Tolerance(E1);
+          if (error > BRepInspector::Tolerance(E1))
+            error = BRepInspector::Tolerance(E1);
         }
         else
         {
@@ -486,7 +486,7 @@ static void CurveHermite(const TopOpeBRepDS_DataStructure& DStr,
 static void CalculDroite(const gp_Pnt2d&       p2d1,
                          const Standard_Real   xdir,
                          const Standard_Real   ydir,
-                         Handle(Geom2d_Curve)& pcurve)
+                         Handle(GeomCurve2d)& pcurve)
 {
   gp_Dir2d            dir1(xdir, ydir);
   Handle(Geom2d_Line) l  = new Geom2d_Line(p2d1, dir1);
@@ -500,20 +500,20 @@ static void CalculDroite(const gp_Pnt2d&       p2d1,
 //=======================================================================
 
 static void CalculBatten(const Handle(GeomAdaptor_Surface)& ASurf,
-                         const TopoDS_Face&                 Face,
+                         const TopoFace&                 Face,
                          const Standard_Real                xdir,
                          const Standard_Real                ydir,
                          const gp_Pnt2d&                    p2d1,
                          const gp_Pnt2d&                    p2d2,
                          const Standard_Boolean             contraint1,
                          const Standard_Boolean             contraint2,
-                         Handle(Geom2d_Curve)&              curv2d1,
-                         Handle(Geom2d_Curve)&              curv2d2,
+                         Handle(GeomCurve2d)&              curv2d1,
+                         Handle(GeomCurve2d)&              curv2d2,
                          const Standard_Real                picicplus,
                          const Standard_Real                picplusic,
                          const Standard_Boolean             inverseic,
                          const Standard_Boolean             inverseicplus,
-                         Handle(Geom2d_Curve)&              pcurve)
+                         Handle(GeomCurve2d)&              pcurve)
 {
   Standard_Boolean isplane;
   Standard_Boolean anglebig = Standard_False;
@@ -573,7 +573,7 @@ static void CalculBatten(const Handle(GeomAdaptor_Surface)& ASurf,
     {
       pcurve = Bat.Curve();
       Standard_Real umin, vmin, umax, vmax;
-      BRepTools::UVBounds(Face, umin, umax, vmin, vmax);
+      BRepTools1::UVBounds(Face, umin, umax, vmin, vmax);
       Bnd_Box2d           bf, bc;
       Geom2dAdaptor_Curve acur(pcurve);
       BndLib_Add2dCurve::Add(acur, 0, bc);
@@ -661,16 +661,16 @@ static void OrientationIcplusNonVive(const Handle(ChFiDS_Stripe)& CDicplus,
 //           where ic and icplus are consecutively living
 //=======================================================================
 
-static void OrientationAreteViveConsecutive(const TopoDS_Shape&  Fviveicicplus,
-                                            const TopoDS_Shape&  Eviveic,
-                                            const TopoDS_Vertex& V1,
+static void OrientationAreteViveConsecutive(const TopoShape&  Fviveicicplus,
+                                            const TopoShape&  Eviveic,
+                                            const TopoVertex& V1,
                                             TopAbs_Orientation&  orien)
 
 { // orinterf is orientation of edge ic corresponding to face Fviveicicplus taken FORWARD
   TopAbs_Orientation orinterf = TopAbs_FORWARD;
-  TopoDS_Face        F        = TopoDS::Face(Fviveicicplus);
-  TopoDS_Edge        E        = TopoDS::Edge(Eviveic);
-  TopExp_Explorer    ex;
+  TopoFace        F        = TopoDS::Face(Fviveicicplus);
+  TopoEdge        E        = TopoDS::Edge(Eviveic);
+  ShapeExplorer    ex;
   for (ex.Init(F.Oriented(TopAbs_FORWARD), TopAbs_EDGE); ex.More(); ex.Next())
   {
     if (E.IsSame(ex.Current()))
@@ -681,8 +681,8 @@ static void OrientationAreteViveConsecutive(const TopoDS_Shape&  Fviveicicplus,
   }
   // if V1 is vertex REVERSED of edge ic the curve
   // has the same orientation as ic
-  TopoDS_Vertex vl;
-  vl = TopExp::LastVertex(E);
+  TopoVertex vl;
+  vl = TopExp1::LastVertex(E);
   if (vl.IsSame(V1))
   {
     if (orinterf == TopAbs_FORWARD)
@@ -722,8 +722,8 @@ static void PerformTwoCornerSameExt(TopOpeBRepDS_DataStructure&  DStr,
   Standard_Real                                 tol;
   Point3d                                        P1, P2, P3, P4;
   gp_Pnt2d                                      p2d;
-  Handle(Geom_Curve)                            cint;
-  Handle(Geom2d_Curve)                          C2dint1, C2dint2;
+  Handle(GeomCurve3d)                            cint;
+  Handle(GeomCurve2d)                          C2dint1, C2dint2;
   isfirst                   = sens1 == 1;
   ChFiDS_CommonPoint& Com11 = stripe1->SetOfSurfData()->Value(index1)->ChangeVertex(isfirst, 1);
   ChFiDS_CommonPoint& Com12 = stripe1->SetOfSurfData()->Value(index1)->ChangeVertex(isfirst, 2);
@@ -802,23 +802,23 @@ static void PerformTwoCornerSameExt(TopOpeBRepDS_DataStructure&  DStr,
 
     orsurf1 = Fd1->Orientation();
     trafil1 = DStr.Shape(Fd1->IndexOfS1()).Orientation();
-    trafil1 = TopAbs::Compose(trafil1, Fd1->Orientation());
-    trafil1 = TopAbs::Compose(TopAbs::Reverse(Fi11.Transition()), trafil1);
+    trafil1 = TopAbs1::Compose(trafil1, Fd1->Orientation());
+    trafil1 = TopAbs1::Compose(TopAbs1::Reverse(Fi11.Transition()), trafil1);
     orsurf2 = Fd2->Orientation();
     TopOpeBRepDS_Curve tcurv3d(cint, tol);
     indcurve = DStr.AddCurve(tcurv3d);
     cint->D0(cint->FirstParameter(), P1);
     cint->D0(cint->LastParameter(), P2);
     Fi11.PCurveOnFace()->D0(Fi11.LastParameter(), p2d);
-    const Handle(Geom_Surface) Stemp =
-      BRep_Tool::Surface(TopoDS::Face(DStr.Shape(Fd1->IndexOfS1())));
+    const Handle(GeomSurface) Stemp =
+      BRepInspector::Surface(TopoDS::Face(DStr.Shape(Fd1->IndexOfS1())));
     Stemp->D0(p2d.X(), p2d.Y(), P4);
     Fi11.PCurveOnFace()->D0(Fi11.FirstParameter(), p2d);
     Stemp->D0(p2d.X(), p2d.Y(), P3);
     if (P1.Distance(P4) < 1.e-4 || P2.Distance(P3) < 1.e-4)
       orpcurve = trafil1;
     else
-      orpcurve = TopAbs::Reverse(trafil1);
+      orpcurve = TopAbs1::Reverse(trafil1);
     if (Com11.Point().Distance(P1) > 1.e-4)
     {
       ind       = indpoint1;
@@ -832,7 +832,7 @@ static void PerformTwoCornerSameExt(TopOpeBRepDS_DataStructure&  DStr,
     Interfc = ChFi3d_FilCurveInDS(indcurve, indic1, C2dint1, orpcurve);
     DStr.ChangeSurfaceInterferences(indic1).Append(Interfc);
     if (orsurf1 == orsurf2)
-      orpcurve = TopAbs::Reverse(orpcurve);
+      orpcurve = TopAbs1::Reverse(orpcurve);
     Interfc = ChFi3d_FilCurveInDS(indcurve, indic2, C2dint2, orpcurve);
     DStr.ChangeSurfaceInterferences(indic2).Append(Interfc);
   }
@@ -846,8 +846,8 @@ static void PerformTwoCornerSameExt(TopOpeBRepDS_DataStructure&  DStr,
 static void CpOnEdge(const Handle(ChFiDS_Stripe)& stripe,
                      Standard_Integer             num,
                      Standard_Boolean             isfirst,
-                     const TopoDS_Edge&           Eadj1,
-                     const TopoDS_Edge&           Eadj2,
+                     const TopoEdge&           Eadj1,
+                     const TopoEdge&           Eadj2,
                      Standard_Boolean&            compoint)
 
 {
@@ -872,17 +872,17 @@ static void CpOnEdge(const Handle(ChFiDS_Stripe)& stripe,
 // purpose  : for each stripe removal of unused surfdatas
 //=======================================================================
 
-static void RemoveSurfData(const ChFiDS_StripeMap& myVDataMap,
+static void RemoveSurfData(const StripeMap& myVDataMap,
                            const ChFiDS_Map&       myEFMap,
-                           const TopoDS_Edge&      edgecouture,
-                           const TopoDS_Face&      facecouture,
-                           const TopoDS_Vertex&    V1)
+                           const TopoEdge&      edgecouture,
+                           const TopoFace&      facecouture,
+                           const TopoVertex&    V1)
 {
   ChFiDS_ListIteratorOfListOfStripe It;
   Standard_Boolean                  isfirst;
-  TopoDS_Edge                       Ecur, Eadj1, Eadj2;
-  TopoDS_Face                       Fg, Fd, F1, F2;
-  TopoDS_Vertex                     Vbid;
+  TopoEdge                       Ecur, Eadj1, Eadj2;
+  TopoFace                       Fg, Fd, F1, F2;
+  TopoVertex                     Vbid;
   Standard_Integer                  nbsurf, nbedge, sense, num;
   for (It.Initialize(myVDataMap(V1)); It.More(); It.Next())
   {
@@ -947,7 +947,7 @@ static void RemoveSurfData(const ChFiDS_StripeMap& myVDataMap,
 
 static void ParametrePlate(const Standard_Integer             n3d,
                            const GeomPlate_BuildPlateSurface& PSurf,
-                           const Handle(Geom_Surface)&        Surf,
+                           const Handle(GeomSurface)&        Surf,
                            const Point3d&                      point,
                            const Standard_Real                apperror,
                            gp_Pnt2d&                          uv)
@@ -974,19 +974,19 @@ static void ParametrePlate(const Standard_Integer             n3d,
 
 //=================================================================================================
 
-static void SummarizeNormal(const TopoDS_Vertex& V1,
-                            const TopoDS_Face&   Fcur,
-                            const TopoDS_Edge&   Ecur,
+static void SummarizeNormal(const TopoVertex& V1,
+                            const TopoFace&   Fcur,
+                            const TopoEdge&   Ecur,
                             Vector3d&              SumFaceNormalAtV1)
 {
   gp_Pnt2d uv1, uv2;
-  BRep_Tool::UVPoints(Ecur, Fcur, uv1, uv2);
-  if (!V1.IsSame(TopExp::FirstVertex(Ecur)))
+  BRepInspector::UVPoints(Ecur, Fcur, uv1, uv2);
+  if (!V1.IsSame(TopExp1::FirstVertex(Ecur)))
     uv1 = uv2;
 
   Point3d P;
   Vector3d d1U, d1V;
-  BRep_Tool::Surface(Fcur)->D1(uv1.X(), uv1.Y(), P, d1U, d1V);
+  BRepInspector::Surface(Fcur)->D1(uv1.X(), uv1.Y(), P, d1U, d1V);
   Vector3d N = d1U.Crossed(d1V);
   if (Fcur.Orientation() == TopAbs_REVERSED)
     N.Reverse();
@@ -1035,7 +1035,7 @@ static Standard_Integer SurfIndex(const ChFiDS_StripeArray1& StripeArray1,
 //           can be even twisted (grid tests cfi900 B1)
 //=======================================================================
 
-static TopAbs_Orientation PlateOrientation(const Handle(Geom_Surface)&              thePlateSurf,
+static TopAbs_Orientation PlateOrientation(const Handle(GeomSurface)&              thePlateSurf,
                                            const Handle(TColGeom2d_HArray1OfCurve)& thePCArr,
                                            const Vector3d&                            theRefDir)
 {
@@ -1046,7 +1046,7 @@ static TopAbs_Orientation PlateOrientation(const Handle(Geom_Surface)&          
   Standard_Real SumScal1 = 0, SumScal2 = 0;
 
   Standard_Integer     i, nb = thePCArr->Upper();
-  Handle(Geom2d_Curve) aPC = thePCArr->Value(nb);
+  Handle(GeomCurve2d) aPC = thePCArr->Value(nb);
   fpar                     = aPC->FirstParameter();
   lpar                     = aPC->LastParameter();
   aPC->D0((fpar + lpar) / 2., uv);
@@ -1097,10 +1097,10 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
   OSD_Chronometer ch;
 #endif
   TopOpeBRepDS_DataStructure& DStr = myDS->ChangeDS();
-  const TopoDS_Vertex&        V1   = myVDataMap.FindKey(Jndex);
+  const TopoVertex&        V1   = myVDataMap.FindKey(Jndex);
   Standard_Integer            nedge;
   Standard_Boolean            bordlibre;
-  TopoDS_Edge                 edgelibre1, edgelibre2;
+  TopoEdge                 edgelibre1, edgelibre2;
   //  TopTools_ListIteratorOfListOfShape ItE;
   nedge = ChFi3d_NbNotDegeneratedEdges(V1, myVEMap);
   ChFi3d_ChercheBordsLibres(myVEMap, V1, bordlibre, edgelibre1, edgelibre2);
@@ -1156,7 +1156,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
   }
   ChFiDS_ListIteratorOfListOfStripe It;
   Handle(ChFiDS_Stripe)             cd2, cdbid, cnext;
-  TopoDS_Face                       face;
+  TopoFace                       face;
   Standard_Integer                  jfp = 0, ii;
   Standard_Integer ic, icplus, icmoins, icplus2, sense, index = 0, indice, isurf1, isurf2;
   Standard_Integer n3d = 0, IVtx = 0, nb;
@@ -1165,25 +1165,25 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
   Standard_Real    tolapp = 1.e-4, maxapp = 0., maxapp1 = 0., avedev;
   Handle(TopOpeBRepDS_CurvePointInterference)   Interfp1, Interfp2;
   Handle(TopOpeBRepDS_SurfaceCurveInterference) Interfc;
-  Handle(Geom_Curve)                            Curv3d;
-  ChFiDS_Regul                                  regular;
+  Handle(GeomCurve3d)                            Curv3d;
+  Regularity                                  regular;
   TopTools_SequenceOfShape                      Fproj;
   Standard_Integer                              num;
-  TopoDS_Edge                                   Ecur;
+  TopoEdge                                   Ecur;
   TopTools_ListIteratorOfListOfShape            ItF;
 #ifdef OCCT_DEBUG
 //  Standard_Integer nface=ChFi3d_nbface(myVFMap(V1));
 #endif
-  TopoDS_Face F1, F2;
+  TopoFace F1, F2;
   Vector3d      SumFaceNormalAtV1(0, 0, 0); // is used to define Plate orientation
 
   // it is determined if there is a sewing edge
   Standard_Boolean couture = Standard_False;
-  TopoDS_Face      facecouture;
-  TopoDS_Edge      edgecouture;
+  TopoFace      facecouture;
+  TopoEdge      edgecouture;
   for (ItF.Initialize(myVFMap(V1)); ItF.More() && !couture; ItF.Next())
   {
-    TopoDS_Face fcur = TopoDS::Face(ItF.Value());
+    TopoFace fcur = TopoDS::Face(ItF.Value());
     ChFi3d_CoutureOnVertex(fcur, V1, couture, edgecouture);
     if (couture)
       facecouture = fcur;
@@ -1194,9 +1194,9 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
 
   // parse edges and faces
   trouve = Standard_False;
-  TopoDS_Edge   Enext;
-  TopoDS_Vertex VV;
-  TopoDS_Face   Fcur, Fnext;
+  TopoEdge   Enext;
+  TopoVertex VV;
+  TopoFace   Fcur, Fnext;
   for (It.Initialize(myVDataMap(Jndex)); It.More() && !trouve; It.Next())
   {
     cnext = It.Value();
@@ -1238,8 +1238,8 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
       CD.SetValue(ii, cdbid);
       Index.SetValue(ii, 0);
       sens.SetValue(ii, -1);
-      TopoDS_Vertex Vref;
-      Vref = TopExp::FirstVertex(Enext);
+      TopoVertex Vref;
+      Vref = TopExp1::FirstVertex(Enext);
       if (Vref.IsSame(V1))
         sens.SetValue(ii, 1);
       sharp.SetValue(ii, Standard_True);
@@ -1264,7 +1264,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
       CD.SetValue(ii, cdbid);
       Index.SetValue(ii, 0);
       sens.SetValue(ii, -1);
-      Vref = TopExp::FirstVertex(Ecur);
+      Vref = TopExp1::FirstVertex(Ecur);
       if (Vref.IsSame(V1))
         sens.SetValue(ii, 1);
       sharp.SetValue(ii, Standard_True);
@@ -1274,7 +1274,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
     else
     {
       // it is found if Enext is in the map of stripes
-      TopoDS_Edge EE;
+      TopoEdge EE;
       /*Standard_Boolean */ trouve = Standard_False;
       for (It.Initialize(myVDataMap(Jndex)); It.More() && !trouve; It.Next())
       {
@@ -1303,8 +1303,8 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
         CD.SetValue(ii, cdbid);
         Index.SetValue(ii, 0);
         sens.SetValue(ii, -1);
-        TopoDS_Vertex Vref;
-        Vref = TopExp::FirstVertex(Enext);
+        TopoVertex Vref;
+        Vref = TopExp1::FirstVertex(Enext);
         if (Vref.IsSame(V1))
           sens.SetValue(ii, 1);
         sharp.SetValue(ii, Standard_True);
@@ -1372,9 +1372,9 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
       {
         ChFi3d_edge_common_faces(myEFMap(Ecur), F1, F2);
         //  Modified by Sergey KHROMOV - Fri Dec 21 18:11:02 2001 Begin
-        // 	regul.SetValue(ic,BRep_Tool::Continuity(TopoDS::Edge(Evive.Value(ic)),F1,F2)
+        // 	regul.SetValue(ic,BRepInspector::Continuity(TopoDS::Edge(Evive.Value(ic)),F1,F2)
         // 		     !=GeomAbs_C0);
-        regul.SetValue(ic, ChFi3d::IsTangentFaces(TopoDS::Edge(Evive.Value(ic)), F1, F2));
+        regul.SetValue(ic, ChFi3d1::IsTangentFaces(TopoDS::Edge(Evive.Value(ic)), F1, F2));
         //  Modified by Sergey KHROMOV - Fri Dec 21 18:11:07 2001 End
       }
     }
@@ -1386,12 +1386,12 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
     if (regul.Value(ic))
     {
       trouve           = Standard_False;
-      TopoDS_Edge ereg = TopoDS::Edge(Evive.Value(ic));
+      TopoEdge ereg = TopoDS::Edge(Evive.Value(ic));
       for (ind = 0; ind < nedge && !trouve; ind++)
       {
         if (ind != ic)
         {
-          TopoDS_Edge   ecur = TopoDS::Edge(Evive.Value(ind));
+          TopoEdge   ecur = TopoDS::Edge(Evive.Value(ind));
           Standard_Real ang  = Abs(ChFi3d_AngleEdge(V1, ecur, ereg));
           if (ang < 0.01 || Abs(ang - M_PI) < 0.01)
           {
@@ -1413,7 +1413,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
   trouve     = Standard_False;
   if (nconges == 2)
   {
-    TopoDS_Edge E1, E2;
+    TopoEdge E1, E2;
     for (ic = 0; ic < nedge && !trouve; ic++)
     {
       Indices(nedge, ic, icplus, icmoins);
@@ -1431,7 +1431,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
   // two fillets and if two other living edges are tangent (cts60072)
   if (nconges == 2 && nedge == 4)
   {
-    TopoDS_Edge E1, E2;
+    TopoEdge E1, E2;
     for (ic = 0; ic < nedge && !deuxconges; ic++)
     {
       Indices(nedge, ic, icplus, icmoins);
@@ -1499,10 +1499,10 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
       if (sharp.Value(ic))
       {
         Indices(nedge, ic, icplus, icmoins);
-        TopoDS_Edge        Arc = TopoDS::Edge(Evive.Value(ic));
+        TopoEdge        Arc = TopoDS::Edge(Evive.Value(ic));
         ChFiDS_CommonPoint cp1, cp2;
         Standard_Real      angedg = M_PI;
-        TopoDS_Vertex      Vcom;
+        TopoVertex      Vcom;
         if (!sharp.Value(icplus))
         {
           isfirst = (sens.Value(icplus) == 1);
@@ -1592,7 +1592,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
   trouve = Standard_False;
   for (ic = 0; ic < nedge && !trouve; ic++)
   {
-    TopoDS_Edge ecom;
+    TopoEdge ecom;
     ecom = TopoDS::Edge(Evive.Value(ic));
     if (ecom.IsSame(edgelibre1) || ecom.IsSame(edgelibre2))
     {
@@ -1603,10 +1603,10 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
 
   // determine the minimum recoil distance that can't be exceeded
   Standard_Boolean distmini = Standard_False;
-  Point3d           som      = BRep_Tool::Pnt(V1), pic;
+  Point3d           som      = BRepInspector::Pnt(V1), pic;
   gp_Pnt2d         p2;
-  TopoDS_Edge      edgemin;
-  TopoDS_Vertex    V, V2;
+  TopoEdge      edgemin;
+  TopoVertex    V, V2;
   Standard_Real    dst, distmin;
   distmin = 1.e30;
   for (ic = 0; ic < nedge; ic++)
@@ -1620,9 +1620,9 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
       else
         edgemin = CD.Value(ic)->Spine()->Edges(CD.Value(ic)->Spine()->NbEdges());
     }
-    V   = TopExp::FirstVertex(edgemin);
-    V2  = TopExp::LastVertex(edgemin);
-    dst = (BRep_Tool::Pnt(V)).Distance(BRep_Tool::Pnt(V2)) / 1.5;
+    V   = TopExp1::FirstVertex(edgemin);
+    V2  = TopExp1::LastVertex(edgemin);
+    dst = (BRepInspector::Pnt(V)).Distance(BRepInspector::Pnt(V2)) / 1.5;
     if (dst < distmin)
       distmin = dst;
   }
@@ -1788,7 +1788,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
         {
           if (!samedge.Value(ic))
           {
-            para = BRep_Tool::Parameter(V1, TopoDS::Edge(Evive.Value(ic)));
+            para = BRepInspector::Parameter(V1, TopoDS::Edge(Evive.Value(ic)));
             p.SetValue(ic, icplus, para);
             i.SetValue(ic, icplus, 1);
           }
@@ -1812,7 +1812,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
         {
           if (!samedge.Value(icplus))
           {
-            para = BRep_Tool::Parameter(V1, TopoDS::Edge(Evive.Value(icplus)));
+            para = BRepInspector::Parameter(V1, TopoDS::Edge(Evive.Value(icplus)));
             p.SetValue(icplus, ic, para);
             i.SetValue(icplus, ic, 1);
           }
@@ -1840,7 +1840,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
     TColStd_Array1OfReal dist1(0, size);
     TColStd_Array1OfReal dist2(0, size);
     Standard_Real        distance = 0.;
-    Point3d               sommet   = BRep_Tool::Pnt(V1);
+    Point3d               sommet   = BRepInspector::Pnt(V1);
     if (!deuxconges)
       for (ic = 0; ic < nedge; ic++)
       {
@@ -1889,7 +1889,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
             ec = distance * 100 * C.Resolution(0.01);
           else
             ec = 0.0;
-          if (TopExp::FirstVertex(TopoDS::Edge(Evive.Value(ic))).IsSame(V1))
+          if (TopExp1::FirstVertex(TopoDS::Edge(Evive.Value(ic))).IsSame(V1))
           {
             para = p.Value(ic, icmoins) + ec;
             p.SetValue(ic, icmoins, para);
@@ -1957,7 +1957,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
   //
 
   Standard_Real tolcp = 0;
-  Point3d        PE, sommet = BRep_Tool::Pnt(V1);
+  Point3d        PE, sommet = BRepInspector::Pnt(V1);
   if (!deuxconges)
     for (ic = 0; ic < nedge; ic++)
     {
@@ -2254,8 +2254,8 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
     for (ic = 0; ic < nedge; ic++)
     {
       Standard_Integer           iface1, iface2;
-      TopoDS_Face                face1, face2;
-      TopoDS_Edge                edge;
+      TopoFace                face1, face2;
+      TopoEdge                edge;
       TColGeom_SequenceOfCurve   cr;
       TColGeom2d_SequenceOfCurve pr;
       Indices(nedge, ic, icplus, icmoins);
@@ -2303,7 +2303,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
           {
             cherche_edge1(TopoDS::Face(Fproj.Value(nb)), TopoDS::Face(Fproj.Value(nb + 1)), edge);
             Ecom.Append(edge);
-            para = BRep_Tool::Parameter(TopExp::FirstVertex(edge), edge);
+            para = BRepInspector::Parameter(TopExp1::FirstVertex(edge), edge);
             parcom.Append(para);
           }
           CurveHermite(DStr,
@@ -2427,7 +2427,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
       Standard_Real                    l0 = sqrt(xdir * xdir + ydir * ydir);
       gp_Dir2d                         dir(xdir, ydir);
       Handle(Geom2d_Line)              l      = new Geom2d_Line(p2d1, dir);
-      Handle(Geom2d_Curve)             pcurve = new Geom2d_TrimmedCurve(l, 0, l0);
+      Handle(GeomCurve2d)             pcurve = new Geom2d_TrimmedCurve(l, 0, l0);
       Handle(Geom2dAdaptor_Curve)      Acurv  = new Geom2dAdaptor_Curve(pcurve);
       Adaptor3d_CurveOnSurface         CurvOnS(Acurv, Asurf);
       Handle(Adaptor3d_CurveOnSurface) HCons = new Adaptor3d_CurveOnSurface(CurvOnS);
@@ -2452,8 +2452,8 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
       point1 = CurvOnS.Value(CurvOnS.FirstParameter());
       point2 = CurvOnS.Value(CurvOnS.LastParameter());
 
-      TopOpeBRepDS_Point tpoint1(point1, maxapp);
-      TopOpeBRepDS_Point tpoint2(point2, maxapp);
+      Point1 tpoint1(point1, maxapp);
+      Point1 tpoint2(point2, maxapp);
       errapp.SetValue(ic, maxapp);
       if (ic == 0)
       {
@@ -2470,7 +2470,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
         {
           if (!sharp.Value(ii))
           {
-            TopOpeBRepDS_Point& tpt = DStr.ChangePoint(indpoint.Value(ii, 1));
+            Point1& tpt = DStr.ChangePoint(indpoint.Value(ii, 1));
             if (point1.Distance(tpt.Point()) < 1.e-4)
               trouve = Standard_True;
           }
@@ -2485,7 +2485,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
         {
           if (!sharp.Value(ii))
           {
-            TopOpeBRepDS_Point& tpt = DStr.ChangePoint(indpoint.Value(ii, 0));
+            Point1& tpt = DStr.ChangePoint(indpoint.Value(ii, 0));
             if (point2.Distance(tpt.Point()) < 1.e-4)
               trouve = Standard_True;
           }
@@ -2535,7 +2535,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
       Indices(nedge, ic, icplus, icmoins);
       BRepAdaptor_Curve C(TopoDS::Edge(Evive.Value(ic)));
       /*Point3d*/ PE = C.Value(p.Value(ic, icplus));
-      TopOpeBRepDS_Point TPE(PE, BRep_Tool::Tolerance(TopoDS::Edge(Evive.Value(ic))));
+      Point1 TPE(PE, BRepInspector::Tolerance(TopoDS::Edge(Evive.Value(ic))));
       ChFiDS_CommonPoint cp;
       if (deuxconges)
       {
@@ -2603,16 +2603,16 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
         }
         n3d++;
         gp_Pnt2d                    p2d1, p2d2;
-        Handle(Geom2d_Curve)        curv2d1, curv2d2;
-        Handle(Geom2d_Curve)        pcurve;
-        Handle(Geom_Curve)          curveint;
+        Handle(GeomCurve2d)        curv2d1, curv2d2;
+        Handle(GeomCurve2d)        pcurve;
+        Handle(GeomCurve3d)          curveint;
         Handle(GeomAdaptor_Surface) Asurf;
         Standard_Real               u1bid, u2bid;
 
         // return the 1st curve 2d
         // and the 1st connection point
         if (sharp.Value(ic))
-          curv2d1 = BRep_Tool::CurveOnSurface(TopoDS::Edge(Evive.Value(ic)),
+          curv2d1 = BRepInspector::CurveOnSurface(TopoDS::Edge(Evive.Value(ic)),
                                               TopoDS::Face(Fvive.Value(ic, icplus)),
                                               u1bid,
                                               u2bid);
@@ -2626,7 +2626,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
         // recuperation de la deuxieme courbe 2d
         // et du deuxieme point de raccordement
         if (sharp.Value(icplus))
-          curv2d2 = BRep_Tool::CurveOnSurface(TopoDS::Edge(Evive.Value(icplus)),
+          curv2d2 = BRepInspector::CurveOnSurface(TopoDS::Edge(Evive.Value(icplus)),
                                               TopoDS::Face(Fvive.Value(ic, icplus)),
                                               u1bid,
                                               u2bid);
@@ -2639,7 +2639,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
           throw Standard_ConstructionError("Failed to get p-curve of edge");
         p2d2 = curv2d2->Value(p.Value(icplus, ic));
 
-        Asurf = new GeomAdaptor_Surface(BRep_Tool::Surface(TopoDS::Face(Fvive.Value(ic, icplus))));
+        Asurf = new GeomAdaptor_Surface(BRepInspector::Surface(TopoDS::Face(Fvive.Value(ic, icplus))));
         Standard_Real tolu, tolv, ratio;
         tolu = Asurf->UResolution(1.e-3);
         tolv = Asurf->VResolution(1.e-3);
@@ -2745,7 +2745,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
             Standard_Boolean inverseic, inverseicplus;
             if (sharp.Value(ic))
             {
-              inverseic = TopExp::FirstVertex(TopoDS::Edge(Evive.Value(ic))).IsSame(V1);
+              inverseic = TopExp1::FirstVertex(TopoDS::Edge(Evive.Value(ic))).IsSame(V1);
             }
             else
             {
@@ -2753,7 +2753,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
             }
             if (sharp.Value(icplus))
             {
-              inverseicplus = TopExp::FirstVertex(TopoDS::Edge(Evive.Value(icplus))).IsSame(V1);
+              inverseicplus = TopExp1::FirstVertex(TopoDS::Edge(Evive.Value(icplus))).IsSame(V1);
             }
             else
             {
@@ -2832,7 +2832,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
             // it is necessary to initialize indpoint[icplus][0] and indpoint[icplus][1]
             Point3d point2;
             point2 = curveint->Value(parfin);
-            TopOpeBRepDS_Point tpoint2(point2, maxapp);
+            Point1 tpoint2(point2, maxapp);
             indpoint.SetValue(icplus, 0, DStr.AddPoint(tpoint2));
             indpoint.SetValue(icplus, 1, indpoint.Value(icplus, 0));
           }
@@ -2857,12 +2857,12 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
           DStr.ChangeCurveInterferences(indcurve3d.Value(n3d)).Append(Interfp2);
           if (!IsVt1)
           {
-            TopOpeBRepDS_Point& tpt1 = DStr.ChangePoint(indpoint(ic, 1));
+            Point1& tpt1 = DStr.ChangePoint(indpoint(ic, 1));
             tpt1.Tolerance(tpt1.Tolerance() + maxapp1);
           }
           if (!IsVt2)
           {
-            TopOpeBRepDS_Point& tpt2 = DStr.ChangePoint(indpoint(icplus, 0));
+            Point1& tpt2 = DStr.ChangePoint(indpoint(icplus, 0));
             tpt2.Tolerance(tpt2.Tolerance() + maxapp1);
           }
 
@@ -2901,7 +2901,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
   {
     if (moresurf.Value(ic))
     {
-      TopoDS_Vertex Vf, Vl;
+      TopoVertex Vf, Vl;
       Point3d        Pf, Pl, P1, P2, Pcom;
       ind = 0; // must be initialized because of possible use, see L2249
       Standard_Real      up1, up2;
@@ -2909,34 +2909,34 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
       TopAbs_Orientation oredge = TopAbs_FORWARD;
       Standard_Integer   indpoint1, indpoint2;
       Indices(nedge, ic, icplus, icmoins);
-      Handle(Geom2d_Curve) proj, proj2d;
-      Handle(Geom_Curve)   projc, cproj;
-      TopOpeBRepDS_Point&  tpt1 = DStr.ChangePoint(indpoint(ic, 1));
-      TopOpeBRepDS_Point&  tpt2 = DStr.ChangePoint(indpoint(icplus, 0));
+      Handle(GeomCurve2d) proj, proj2d;
+      Handle(GeomCurve3d)   projc, cproj;
+      Point1&  tpt1 = DStr.ChangePoint(indpoint(ic, 1));
+      Point1&  tpt2 = DStr.ChangePoint(indpoint(icplus, 0));
       tpt1.Tolerance(tpt1.Tolerance() + error);
       tpt2.Tolerance(tpt1.Tolerance() + error);
       for (nb = 1; nb <= nbface; nb++)
       {
         orvt = TopAbs_REVERSED;
-        Vf   = TopExp::FirstVertex(TopoDS::Edge(Ecom.Value(nb)));
-        Vl   = TopExp::LastVertex(TopoDS::Edge(Ecom.Value(nb)));
-        Pf   = BRep_Tool::Pnt(Vf);
-        Pl   = BRep_Tool::Pnt(Vl);
+        Vf   = TopExp1::FirstVertex(TopoDS::Edge(Ecom.Value(nb)));
+        Vl   = TopExp1::LastVertex(TopoDS::Edge(Ecom.Value(nb)));
+        Pf   = BRepInspector::Pnt(Vf);
+        Pl   = BRepInspector::Pnt(Vl);
         para = parcom.Value(nb);
-        Pcom = BRep_Tool::Curve(TopoDS::Edge(Ecom.Value(nb)), up1, up2)->Value(para);
-        if (Pf.Distance(BRep_Tool::Pnt(V1)) < Pl.Distance(BRep_Tool::Pnt(V1)))
+        Pcom = BRepInspector::Curve(TopoDS::Edge(Ecom.Value(nb)), up1, up2)->Value(para);
+        if (Pf.Distance(BRepInspector::Pnt(V1)) < Pl.Distance(BRepInspector::Pnt(V1)))
           orvt = TopAbs_FORWARD;
         if (!Eproj.Value(nb).IsNull())
         {
           n3d++;
-          proj = BRep_Tool::CurveOnSurface(TopoDS::Edge(Eproj.Value(nb)),
+          proj = BRepInspector::CurveOnSurface(TopoDS::Edge(Eproj.Value(nb)),
                                            TopoDS::Face(Fproj.Value(nb)),
                                            up1,
                                            up2);
           if (proj.IsNull())
             throw Standard_ConstructionError("Failed to get p-curve of edge");
           proj2d = new Geom2d_TrimmedCurve(proj, up1, up2);
-          projc  = BRep_Tool::Curve(TopoDS::Edge(Eproj.Value(nb)), up1, up2);
+          projc  = BRepInspector::Curve(TopoDS::Edge(Eproj.Value(nb)), up1, up2);
           if (projc.IsNull())
             throw Standard_ConstructionError("Failed to get 3D curve of edge");
           cproj  = new Geom_TrimmedCurve(projc, up1, up2);
@@ -2952,12 +2952,12 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
             indpoint2 = indpoint(icplus, 0);
           else
           {
-            TopOpeBRepDS_Point tpoint2(P2, error);
+            Point1 tpoint2(P2, error);
             indpoint2 = DStr.AddPoint(tpoint2);
             ind       = indpoint2;
           }
           Handle(GeomAdaptor_Surface) Asurf;
-          Asurf = new GeomAdaptor_Surface(BRep_Tool::Surface(TopoDS::Face(Fproj.Value(nb))));
+          Asurf = new GeomAdaptor_Surface(BRepInspector::Surface(TopoDS::Face(Fproj.Value(nb))));
           Handle(Geom2dAdaptor_Curve)      Acurv = new Geom2dAdaptor_Curve(proj2d);
           Adaptor3d_CurveOnSurface         CurvOnS(Acurv, Asurf);
           Handle(Adaptor3d_CurveOnSurface) HCons = new Adaptor3d_CurveOnSurface(CurvOnS);
@@ -2972,7 +2972,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
           DStr.ChangeCurveInterferences(indcurve3d.Value(n3d)).Append(Interfp1);
           DStr.ChangeCurveInterferences(indcurve3d.Value(n3d)).Append(Interfp2);
           num = DStr.AddShape(Fproj.Value(nb));
-          TopExp_Explorer ex;
+          ShapeExplorer ex;
           for (ex.Init(Fproj.Value(nb).Oriented(TopAbs_FORWARD), TopAbs_EDGE); ex.More(); ex.Next())
           {
             if (Ecom.Value(nb).IsSame(ex.Current()))
@@ -2992,14 +2992,14 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
             }
             else
             {
-              orinterf = TopAbs::Reverse(oredge);
+              orinterf = TopAbs1::Reverse(oredge);
             }
           }
           else
           {
             if (orvt == TopAbs_FORWARD)
             {
-              orinterf = TopAbs::Reverse(oredge);
+              orinterf = TopAbs1::Reverse(oredge);
             }
             else
             {
@@ -3029,22 +3029,22 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
   if (droit)
     for (ic = 0; ic < nedge; ic++)
     {
-      Handle(Geom_Curve)   curve, ctrim, rcurve;
-      Handle(Geom2d_Curve) curve2d, ctrim2d, rcurve2d;
+      Handle(GeomCurve3d)   curve, ctrim, rcurve;
+      Handle(GeomCurve2d) curve2d, ctrim2d, rcurve2d;
       Standard_Real        ufirst, ulast;
       Indices(nedge, ic, icplus, icmoins);
       Standard_Integer indpoint1, indpoint2;
       Standard_Boolean isvt1 = Standard_False, isvt2 = Standard_False;
-      TopoDS_Edge      ecur = TopoDS::Edge(Evive.Value(ic));
+      TopoEdge      ecur = TopoDS::Edge(Evive.Value(ic));
       if (ecur.IsSame(edgelibre1) || ecur.IsSame(edgelibre2))
       {
         n3d++;
-        curve2d = BRep_Tool::CurveOnSurface(TopoDS::Edge(Evive.Value(ic)),
+        curve2d = BRepInspector::CurveOnSurface(TopoDS::Edge(Evive.Value(ic)),
                                             TopoDS::Face(Fvive.Value(ic, icplus)),
                                             ufirst,
                                             ulast);
-        curve   = BRep_Tool::Curve(TopoDS::Edge(Evive.Value(ic)), ufirst, ulast);
-        if (TopExp::FirstVertex((TopoDS::Edge(Evive.Value(ic)))).IsSame(V1))
+        curve   = BRepInspector::Curve(TopoDS::Edge(Evive.Value(ic)), ufirst, ulast);
+        if (TopExp1::FirstVertex((TopoDS::Edge(Evive.Value(ic)))).IsSame(V1))
         {
           ctrim     = new Geom_TrimmedCurve(curve, ufirst, p.Value(ic, icmoins));
           ctrim2d   = new Geom2d_TrimmedCurve(curve2d, ufirst, p.Value(ic, icmoins));
@@ -3062,7 +3062,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
         }
         if (libre.Value(ic))
         {
-          if (TopExp::FirstVertex((TopoDS::Edge(Evive.Value(ic)))).IsSame(V1))
+          if (TopExp1::FirstVertex((TopoDS::Edge(Evive.Value(ic)))).IsSame(V1))
           {
             ctrim->Reverse();
             ctrim2d->Reverse();
@@ -3074,7 +3074,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
         }
         else
         {
-          if (TopExp::LastVertex((TopoDS::Edge(Evive.Value(ic)))).IsSame(V1))
+          if (TopExp1::LastVertex((TopoDS::Edge(Evive.Value(ic)))).IsSame(V1))
           {
             ctrim->Reverse();
             ctrim2d->Reverse();
@@ -3087,7 +3087,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
         ufirst = ctrim->FirstParameter();
         ulast  = ctrim->LastParameter();
         Handle(GeomAdaptor_Surface) Asurf;
-        Asurf = new GeomAdaptor_Surface(BRep_Tool::Surface(TopoDS::Face(Fvive.Value(ic, icplus))));
+        Asurf = new GeomAdaptor_Surface(BRepInspector::Surface(TopoDS::Face(Fvive.Value(ic, icplus))));
         Handle(Geom2dAdaptor_Curve)      Acurv = new Geom2dAdaptor_Curve(ctrim2d);
         Adaptor3d_CurveOnSurface         CurvOnS(Acurv, Asurf);
         Handle(Adaptor3d_CurveOnSurface) HCons = new Adaptor3d_CurveOnSurface(CurvOnS);
@@ -3137,7 +3137,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
     seuil = Max(tolapp, 10 * PSurf.G0Error());
     GeomPlate_PlateG0Criterion critere(S2d, S3d, seuil);
     GeomPlate_MakeApprox       Mapp(gpPlate, critere, tolapp, nbcarreau, degmax);
-    Handle(Geom_Surface)       Surf(Mapp.Surface());
+    Handle(GeomSurface)       Surf(Mapp.Surface());
     Standard_Real              coef = 1.1, apperror;
     apperror                        = Mapp.CriterionError() * coef;
 
@@ -3174,14 +3174,14 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
     // alive edges that arrive at the top should be removed from the DS.
     // For this they are stored in the DS with their inverted orientation
     Standard_Integer nbedge;
-    TopExp_Explorer  ex;
+    ShapeExplorer  ex;
     if (deuxconges)
       for (ic = 0; ic < nedge; ic++)
       {
         if (!sharp.Value(ic))
         {
           nbedge = CD.Value(ic)->Spine()->NbEdges();
-          TopoDS_Edge Arcspine;
+          TopoEdge Arcspine;
           if (sens.Value(ic) == 1)
             Arcspine = CD.Value(ic)->Spine()->Edges(1);
           else
@@ -3196,8 +3196,8 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
               break;
             }
           }
-          OVtx                                               = TopAbs::Reverse(OVtx);
-          Standard_Real                               parVtx = BRep_Tool::Parameter(V1, Arcspine);
+          OVtx                                               = TopAbs1::Reverse(OVtx);
+          Standard_Real                               parVtx = BRepInspector::Parameter(V1, Arcspine);
           Handle(TopOpeBRepDS_CurvePointInterference) interfv =
             ChFi3d_FilVertexInDS(OVtx, IArcspine, IVtx, parVtx);
           DStr.ChangeShapeInterferences(IArcspine).Append(interfv);
@@ -3210,7 +3210,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
     isfirst                           = (sens.Value(0) == 1);
     const Handle(ChFiDS_SurfData)& Fd = CD.Value(0)->SetOfSurfData()->Value(i.Value(0, icmoins));
     indice                            = Fd->Surf();
-    //    Handle (Geom_Surface) surfdata  = DStr.Surface(indice).Surface();
+    //    Handle (GeomSurface) surfdata  = DStr.Surface(indice).Surface();
     //     tpar= (CD.Value(0)->PCurve(isfirst)->FirstParameter()+
     // 	 CD.Value(0)->PCurve(isfirst)->LastParameter())/2 ;
     //     CD.Value(0)->PCurve(isfirst)->D0(tpar,uv);
@@ -3224,12 +3224,12 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
     //     scal= n1.Dot(n2);
     orsurfdata = Fd->Orientation();
     //     if (scal>0) orplate=orsurfdata;
-    //     else  orplate=TopAbs::Reverse(orsurfdata);
+    //     else  orplate=TopAbs1::Reverse(orsurfdata);
     orplate = PlateOrientation(Surf, PSurf.Curves2d(), SumFaceNormalAtV1);
 
     //  creation of solidinterderence for Plate
     Handle(TopOpeBRepDS_SolidSurfaceInterference) SSI =
-      new TopOpeBRepDS_SolidSurfaceInterference(TopOpeBRepDS_Transition(orplate),
+      new TopOpeBRepDS_SolidSurfaceInterference(StateTransition(orplate),
                                                 TopOpeBRepDS_SOLID,
                                                 SolInd,
                                                 TopOpeBRepDS_SURFACE,
@@ -3251,9 +3251,9 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
       {
         trafil1 = DStr.Shape(Ishape1).Orientation();
       }
-      trafil1 = TopAbs::Compose(trafil1, Fd->Orientation());
-      trafil1 = TopAbs::Compose(TopAbs::Reverse(Fi1.Transition()), trafil1);
-      trafil2 = TopAbs::Reverse(trafil1);
+      trafil1 = TopAbs1::Compose(trafil1, Fd->Orientation());
+      trafil1 = TopAbs1::Compose(TopAbs1::Reverse(Fi1.Transition()), trafil1);
+      trafil2 = TopAbs1::Reverse(trafil1);
     }
     else
     {
@@ -3261,22 +3261,22 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
       {
         trafil2 = DStr.Shape(Ishape2).Orientation();
       }
-      trafil2 = TopAbs::Compose(trafil2, Fd->Orientation());
-      trafil2 = TopAbs::Compose(TopAbs::Reverse(Fi2.Transition()), trafil2);
-      trafil1 = TopAbs::Reverse(trafil2);
+      trafil2 = TopAbs1::Compose(trafil2, Fd->Orientation());
+      trafil2 = TopAbs1::Compose(TopAbs1::Reverse(Fi2.Transition()), trafil2);
+      trafil1 = TopAbs1::Reverse(trafil2);
     }
     if (isfirst)
     {
-      orpcurve = TopAbs::Reverse(trafil1);
-      orpcurve = TopAbs::Compose(orpcurve, CD.Value(0)->FirstPCurveOrientation());
+      orpcurve = TopAbs1::Reverse(trafil1);
+      orpcurve = TopAbs1::Compose(orpcurve, CD.Value(0)->FirstPCurveOrientation());
     }
     else
     {
       orpcurve = trafil1;
-      orpcurve = TopAbs::Compose(orpcurve, CD.Value(0)->LastPCurveOrientation());
+      orpcurve = TopAbs1::Compose(orpcurve, CD.Value(0)->LastPCurveOrientation());
     }
     if (orsurfdata == orplate)
-      orien = TopAbs::Reverse(orpcurve);
+      orien = TopAbs1::Reverse(orpcurve);
     else
       orien = orpcurve;
 
@@ -3289,8 +3289,8 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
           Indices(nedge, ic, icplus, icmoins);
           Indices(nedge, icplus, icplus21, ic);
           gp_Pnt2d             UV1, UV2;
-          Handle(Geom_Curve)   C3d;
-          Handle(Geom2d_Curve) C2d, curv2d;
+          Handle(GeomCurve3d)   C3d;
+          Handle(GeomCurve2d) C2d, curv2d;
           Point3d               ptic, pticplus;
           BRepAdaptor_Curve    BCurv1(TopoDS::Edge(Evive.Value(ic)));
           BRepAdaptor_Curve    BCurv2(TopoDS::Edge(Evive.Value(icplus)));
@@ -3361,8 +3361,8 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
         TopOpeBRepDS_Curve& tcourb = DStr.ChangeCurve(indcurve3d.Value(n3d));
 
         tcourb.Tolerance(errapp.Value(ic) + apperror);
-        TopOpeBRepDS_Point& tpt1 = DStr.ChangePoint(indpoint(ic, 0));
-        TopOpeBRepDS_Point& tpt2 = DStr.ChangePoint(indpoint(ic, 1));
+        Point1& tpt1 = DStr.ChangePoint(indpoint(ic, 0));
+        Point1& tpt2 = DStr.ChangePoint(indpoint(ic, 1));
         tpt1.Tolerance(tpt1.Tolerance() + apperror);
         tpt2.Tolerance(tpt2.Tolerance() + apperror);
 
@@ -3390,11 +3390,11 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
           // limitation of the alive edge
           TopAbs_Orientation ori;
           Point3d             Pf, Pl, sommet1;
-          TopoDS_Vertex      Vd = TopExp::FirstVertex(TopoDS::Edge(Evive.Value(ic)));
-          TopoDS_Vertex      Vf = TopExp::LastVertex(TopoDS::Edge(Evive.Value(ic)));
-          Pf                    = BRep_Tool::Pnt(Vd);
-          Pl                    = BRep_Tool::Pnt(Vf);
-          sommet1               = BRep_Tool::Pnt(V1);
+          TopoVertex      Vd = TopExp1::FirstVertex(TopoDS::Edge(Evive.Value(ic)));
+          TopoVertex      Vf = TopExp1::LastVertex(TopoDS::Edge(Evive.Value(ic)));
+          Pf                    = BRepInspector::Pnt(Vd);
+          Pl                    = BRepInspector::Pnt(Vf);
+          sommet1               = BRepInspector::Pnt(V1);
           if (Pf.Distance(sommet1) < Pl.Distance(sommet1))
             ori = TopAbs_FORWARD;
           else
@@ -3414,8 +3414,8 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
             tcourb1.Tolerance(tcourb1.Tolerance() + apperror);
             if (!deuxconges)
             {
-              TopOpeBRepDS_Point& tpt11 = DStr.ChangePoint(indpoint(ic, 1));
-              TopOpeBRepDS_Point& tpt21 = DStr.ChangePoint(indpoint(icplus, 0));
+              Point1& tpt11 = DStr.ChangePoint(indpoint(ic, 1));
+              Point1& tpt21 = DStr.ChangePoint(indpoint(icplus, 0));
               tpt11.Tolerance(tpt11.Tolerance() + apperror);
               tpt21.Tolerance(tpt21.Tolerance() + apperror);
             }
@@ -3450,7 +3450,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
             tcourb1.Tolerance(tcourb1.Tolerance() + apperror);
             if (Indice.Value(n3d) != 0)
             {
-              TopOpeBRepDS_Point& tpt11 = DStr.ChangePoint(Indice.Value(n3d));
+              Point1& tpt11 = DStr.ChangePoint(Indice.Value(n3d));
               tpt11.Tolerance(tpt11.Tolerance() + apperror);
             }
             Interfc = ChFi3d_FilCurveInDS(indcurve3d.Value(n3d),
@@ -3474,7 +3474,7 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
       for (ic = 0; ic < nedge; ic++)
       {
         Indices(nedge, ic, icplus, icmoins);
-        TopoDS_Edge ecom;
+        TopoEdge ecom;
         ecom = TopoDS::Edge(Evive.Value(ic));
         if (ecom.IsSame(edgelibre1) || ecom.IsSame(edgelibre2))
         {
@@ -3501,11 +3501,11 @@ void ChFi3d_Builder::PerformMoreThreeCorner(const Standard_Integer Jndex,
           // limitation of the alive edge
           TopAbs_Orientation ori;
           Point3d             Pf, Pl, sommet1;
-          TopoDS_Vertex      Vd = TopExp::FirstVertex(TopoDS::Edge(Evive.Value(ic)));
-          TopoDS_Vertex      Vf = TopExp::LastVertex(TopoDS::Edge(Evive.Value(ic)));
-          Pf                    = BRep_Tool::Pnt(Vd);
-          Pl                    = BRep_Tool::Pnt(Vf);
-          sommet1               = BRep_Tool::Pnt(V1);
+          TopoVertex      Vd = TopExp1::FirstVertex(TopoDS::Edge(Evive.Value(ic)));
+          TopoVertex      Vf = TopExp1::LastVertex(TopoDS::Edge(Evive.Value(ic)));
+          Pf                    = BRepInspector::Pnt(Vd);
+          Pl                    = BRepInspector::Pnt(Vf);
+          sommet1               = BRepInspector::Pnt(V1);
           if (Pf.Distance(sommet1) < Pl.Distance(sommet1))
             ori = TopAbs_FORWARD;
           else

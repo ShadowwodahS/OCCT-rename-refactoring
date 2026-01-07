@@ -59,7 +59,7 @@ BOOL RegisterAppClass(HINSTANCE theInstance)
   // Enregistrement de la fenetre DrawWindow
   //------
   wndClass.cbWndExtra    = sizeof(void*); // Extra Memory
-  wndClass.lpfnWndProc   = (WNDPROC)Draw_Window::DrawProc;
+  wndClass.lpfnWndProc   = (WNDPROC)DrawWindow::DrawProc;
   wndClass.hIcon         = 0;
   wndClass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
   wndClass.lpszMenuName  = NULL;

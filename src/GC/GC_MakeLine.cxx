@@ -29,19 +29,19 @@
 GC_MakeLine::GC_MakeLine(const Point3d& P, const Dir3d& V)
 {
   TheError = gce_Done;
-  TheLine  = new Geom_Line(P, V);
+  TheLine  = new GeomLine(P, V);
 }
 
 GC_MakeLine::GC_MakeLine(const Axis3d& A1)
 {
   TheError = gce_Done;
-  TheLine  = new Geom_Line(A1);
+  TheLine  = new GeomLine(A1);
 }
 
 GC_MakeLine::GC_MakeLine(const gp_Lin& L)
 {
   TheError = gce_Done;
-  TheLine  = new Geom_Line(L);
+  TheLine  = new GeomLine(L);
 }
 
 GC_MakeLine::GC_MakeLine(const Point3d& P1, const Point3d& P2)
@@ -50,7 +50,7 @@ GC_MakeLine::GC_MakeLine(const Point3d& P1, const Point3d& P2)
   TheError = L.Status();
   if (TheError == gce_Done)
   {
-    TheLine = new Geom_Line(L.Value());
+    TheLine = new GeomLine(L.Value());
   }
 }
 
@@ -60,11 +60,11 @@ GC_MakeLine::GC_MakeLine(const gp_Lin& Lin, const Point3d& Point)
   TheError = L.Status();
   if (TheError == gce_Done)
   {
-    TheLine = new Geom_Line(L.Value());
+    TheLine = new GeomLine(L.Value());
   }
 }
 
-const Handle(Geom_Line)& GC_MakeLine::Value() const
+const Handle(GeomLine)& GC_MakeLine::Value() const
 {
   StdFail_NotDone_Raise_if(TheError != gce_Done, "GC_MakeLine::Value() - no result");
   return TheLine;

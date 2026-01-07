@@ -31,7 +31,7 @@
 
 #include <BRepPrimAPI_MakeBox.hxx>
 
-static Standard_Integer OCC162(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC162(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 2)
   {
@@ -39,7 +39,7 @@ static Standard_Integer OCC162(Draw_Interpretor& di, Standard_Integer argc, cons
     return 1;
   }
 
-  TopoDS_Shape aShape = DBRep::Get(argv[1]);
+  TopoShape aShape = DBRep1::Get(argv[1]);
   if (aShape.IsNull())
     return 0;
 
@@ -47,14 +47,14 @@ static Standard_Integer OCC162(Draw_Interpretor& di, Standard_Integer argc, cons
   BRepOffsetAPI_Sewing sew(tolValue);
   sew.Add(aShape);
   sew.Perform();
-  TopoDS_Shape aSewed = sew.SewedShape();
+  TopoShape aSewed = sew.SewedShape();
 
   return 0;
 }
 
-static Standard_Integer OCC172(Draw_Interpretor& di, Standard_Integer /*argc*/, const char** argv)
+static Standard_Integer OCC172(DrawInterpreter& di, Standard_Integer /*argc*/, const char** argv)
 {
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
@@ -72,7 +72,7 @@ static Standard_Integer OCC172(Draw_Interpretor& di, Standard_Integer /*argc*/, 
   return 0;
 }
 
-static Standard_Integer OCC204(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC204(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 2)
   {
@@ -80,27 +80,27 @@ static Standard_Integer OCC204(Draw_Interpretor& di, Standard_Integer argc, cons
     return 1;
   }
 
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
     di << "use 'vinit' command before " << argv[0] << "\n";
     return 1;
   }
   Standard_Boolean UpdateViewer        = Standard_True;
-  Standard_Integer IntegerUpdateViewer = Draw::Atoi(argv[1]);
+  Standard_Integer IntegerUpdateViewer = Draw1::Atoi(argv[1]);
   if (IntegerUpdateViewer == 0)
   {
     UpdateViewer = Standard_False;
   }
 
   Standard_Integer    deltaY = -500;
-  BRepPrimAPI_MakeBox box1(Point3d(0, 0 + deltaY, 0), Point3d(100, 100 + deltaY, 100));
-  BRepPrimAPI_MakeBox box2(Point3d(120, 120 + deltaY, 120), Point3d(300, 300 + deltaY, 300));
-  BRepPrimAPI_MakeBox box3(Point3d(320, 320 + deltaY, 320), Point3d(500, 500 + deltaY, 500));
+  BoxMaker box1(Point3d(0, 0 + deltaY, 0), Point3d(100, 100 + deltaY, 100));
+  BoxMaker box2(Point3d(120, 120 + deltaY, 120), Point3d(300, 300 + deltaY, 300));
+  BoxMaker box3(Point3d(320, 320 + deltaY, 320), Point3d(500, 500 + deltaY, 500));
 
-  Handle(AIS_InteractiveObject) ais1 = new AIS_Shape(box1.Shape());
-  Handle(AIS_InteractiveObject) ais2 = new AIS_Shape(box2.Shape());
-  Handle(AIS_InteractiveObject) ais3 = new AIS_Shape(box3.Shape());
+  Handle(VisualEntity) ais1 = new VisualShape(box1.Shape());
+  Handle(VisualEntity) ais2 = new VisualShape(box2.Shape());
+  Handle(VisualEntity) ais3 = new VisualShape(box3.Shape());
 
   aContext->Display(ais1, Standard_False);
   aContext->Display(ais2, Standard_False);
@@ -120,7 +120,7 @@ static Standard_Integer OCC204(Draw_Interpretor& di, Standard_Integer argc, cons
   while (aContext->MoreSelected())
   {
     // printf("\n count is = %d",  count++);
-    Handle(AIS_InteractiveObject) ais = aContext->SelectedInteractive();
+    Handle(VisualEntity) ais = aContext->SelectedInteractive();
     aContext->Remove(ais, UpdateViewer);
     aContext->InitSelected();
   }
@@ -132,7 +132,7 @@ static Standard_Integer OCC204(Draw_Interpretor& di, Standard_Integer argc, cons
 #include <BRepClass3d_Intersector3d.hxx>
 #include <TopoDS.hxx>
 
-static Standard_Integer OCC1651(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC1651(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 8)
   {
@@ -140,12 +140,12 @@ static Standard_Integer OCC1651(Draw_Interpretor& di, Standard_Integer argc, con
     return 1;
   }
 
-  TopoDS_Shape aShape = DBRep::Get(argv[1]);
+  TopoShape aShape = DBRep1::Get(argv[1]);
   if (aShape.IsNull())
     return 0;
 
-  Point3d                    aP1(Draw::Atof(argv[2]), Draw::Atof(argv[3]), Draw::Atof(argv[4]));
-  Dir3d                    aD1(Draw::Atof(argv[5]), Draw::Atof(argv[6]), Draw::Atof(argv[7]));
+  Point3d                    aP1(Draw1::Atof(argv[2]), Draw1::Atof(argv[3]), Draw1::Atof(argv[4]));
+  Dir3d                    aD1(Draw1::Atof(argv[5]), Draw1::Atof(argv[6]), Draw1::Atof(argv[7]));
   gp_Lin                    aL1(aP1, aD1);
   BRepClass3d_Intersector3d aI1;
   aI1.Perform(aL1, -250, 1e-7, TopoDS::Face(aShape));
@@ -158,7 +158,7 @@ static Standard_Integer OCC1651(Draw_Interpretor& di, Standard_Integer argc, con
   return 0;
 }
 
-void QABugs::Commands_8(Draw_Interpretor& theCommands)
+void QABugs::Commands_8(DrawInterpreter& theCommands)
 {
   const char* group = "QABugs";
 

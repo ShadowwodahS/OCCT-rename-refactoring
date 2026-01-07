@@ -32,7 +32,7 @@ ChFi2d_ChamferAPI::ChFi2d_ChamferAPI()
 }
 
 // A constructor accepting a wire consisting of two linear edges.
-ChFi2d_ChamferAPI::ChFi2d_ChamferAPI(const TopoDS_Wire& theWire)
+ChFi2d_ChamferAPI::ChFi2d_ChamferAPI(const TopoWire& theWire)
     : myStart1(0.0),
       myEnd1(0.0),
       myStart2(0.0),
@@ -44,7 +44,7 @@ ChFi2d_ChamferAPI::ChFi2d_ChamferAPI(const TopoDS_Wire& theWire)
 }
 
 // A constructor accepting two linear edges.
-ChFi2d_ChamferAPI::ChFi2d_ChamferAPI(const TopoDS_Edge& theEdge1, const TopoDS_Edge& theEdge2)
+ChFi2d_ChamferAPI::ChFi2d_ChamferAPI(const TopoEdge& theEdge1, const TopoEdge& theEdge2)
     : myEdge1(theEdge1),
       myEdge2(theEdge2),
       myStart1(0.0),
@@ -57,9 +57,9 @@ ChFi2d_ChamferAPI::ChFi2d_ChamferAPI(const TopoDS_Edge& theEdge1, const TopoDS_E
 }
 
 // Initializes the class by a wire consisting of two libear edges.
-void ChFi2d_ChamferAPI::Init(const TopoDS_Wire& theWire)
+void ChFi2d_ChamferAPI::Init(const TopoWire& theWire)
 {
-  TopoDS_Edge     E1, E2;
+  TopoEdge     E1, E2;
   TopoDS_Iterator itr(theWire);
   for (; itr.More(); itr.Next())
   {
@@ -74,7 +74,7 @@ void ChFi2d_ChamferAPI::Init(const TopoDS_Wire& theWire)
 }
 
 // Initializes the class by two linear edges.
-void ChFi2d_ChamferAPI::Init(const TopoDS_Edge& theEdge1, const TopoDS_Edge& theEdge2)
+void ChFi2d_ChamferAPI::Init(const TopoEdge& theEdge1, const TopoEdge& theEdge2)
 {
   myEdge1 = theEdge1;
   myEdge2 = theEdge2;
@@ -84,8 +84,8 @@ void ChFi2d_ChamferAPI::Init(const TopoDS_Edge& theEdge1, const TopoDS_Edge& the
 // Returns true if the edge is constructed.
 Standard_Boolean ChFi2d_ChamferAPI::Perform()
 {
-  myCurve1 = BRep_Tool::Curve(myEdge1, myStart1, myEnd1);
-  myCurve2 = BRep_Tool::Curve(myEdge2, myStart2, myEnd2);
+  myCurve1 = BRepInspector::Curve(myEdge1, myStart1, myEnd1);
+  myCurve2 = BRepInspector::Curve(myEdge2, myStart2, myEnd2);
   // searching for common points
   if (myCurve1->Value(myStart1).IsEqual(myCurve2->Value(myEnd2), Precision::Confusion()))
   {
@@ -117,12 +117,12 @@ Standard_Boolean ChFi2d_ChamferAPI::Perform()
 }
 
 // Returns the result (chamfer edge, modified edge1, modified edge2).
-TopoDS_Edge ChFi2d_ChamferAPI::Result(TopoDS_Edge&        theEdge1,
-                                      TopoDS_Edge&        theEdge2,
+TopoEdge ChFi2d_ChamferAPI::Result(TopoEdge&        theEdge1,
+                                      TopoEdge&        theEdge2,
                                       const Standard_Real theLength1,
                                       const Standard_Real theLength2)
 {
-  TopoDS_Edge aResult;
+  TopoEdge aResult;
   if (Abs(myEnd1 - myStart1) < theLength1)
     return aResult;
   if (Abs(myEnd2 - myStart2) < theLength2)
@@ -135,15 +135,15 @@ TopoDS_Edge ChFi2d_ChamferAPI::Result(TopoDS_Edge&        theEdge1,
 
   // make chamfer edge
   GC_MakeLine             aML(myCurve1->Value(aCommon1), myCurve2->Value(aCommon2));
-  BRepBuilderAPI_MakeEdge aBuilder(aML.Value(),
+  EdgeMaker aBuilder(aML.Value(),
                                    myCurve1->Value(aCommon1),
                                    myCurve2->Value(aCommon2));
   aResult = aBuilder.Edge();
   // divide first edge
-  BRepBuilderAPI_MakeEdge aDivider1(myCurve1, aCommon1, (myCommonStart1 ? myEnd1 : myStart1));
+  EdgeMaker aDivider1(myCurve1, aCommon1, (myCommonStart1 ? myEnd1 : myStart1));
   theEdge1 = aDivider1.Edge();
   // divide second edge
-  BRepBuilderAPI_MakeEdge aDivider2(myCurve2, aCommon2, (myCommonStart2 ? myEnd2 : myStart2));
+  EdgeMaker aDivider2(myCurve2, aCommon2, (myCommonStart2 ? myEnd2 : myStart2));
   theEdge2 = aDivider2.Edge();
 
   return aResult;

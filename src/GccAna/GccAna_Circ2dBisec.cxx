@@ -34,7 +34,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=========================================================================
-GccAna_Circ2dBisec::GccAna_Circ2dBisec(const gp_Circ2d& Circ1, const gp_Circ2d& Circ2)
+Circle2dBisector::Circle2dBisector(const gp_Circ2d& Circ1, const gp_Circ2d& Circ2)
 {
 
   //=========================================================================
@@ -146,7 +146,7 @@ GccAna_Circ2dBisec::GccAna_Circ2dBisec(const gp_Circ2d& Circ1, const gp_Circ2d& 
 //  Also return the radiuses of two circles R1 and R2.                    +
 //=========================================================================
 
-Handle(GccInt_Bisec) GccAna_Circ2dBisec::ThisSolution(const Standard_Integer Index) const
+Handle(GccInt_Bisec) Circle2dBisector::ThisSolution(const Standard_Integer Index) const
 {
 
   Standard_Real        Tol = 1.e-14;
@@ -385,12 +385,12 @@ Handle(GccInt_Bisec) GccAna_Circ2dBisec::ThisSolution(const Standard_Integer Ind
 
 //=========================================================================
 
-Standard_Boolean GccAna_Circ2dBisec::IsDone() const
+Standard_Boolean Circle2dBisector::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer GccAna_Circ2dBisec::NbSolutions() const
+Standard_Integer Circle2dBisector::NbSolutions() const
 {
   if (!WellDone)
     throw StdFail_NotDone();

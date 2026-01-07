@@ -63,10 +63,10 @@ public:
   const TDF_AttributeDeltaList& AttributeDeltas() const;
 
   //! Returns a name associated with this delta.
-  TCollection_ExtendedString Name() const;
+  UtfString Name() const;
 
   //! Associates a name <theName> with this delta
-  void SetName(const TCollection_ExtendedString& theName);
+  void SetName(const UtfString& theName);
 
   Standard_EXPORT void Dump(Standard_OStream& OS) const;
 
@@ -99,7 +99,7 @@ private:
   Standard_Integer           myBeginTime;
   Standard_Integer           myEndTime;
   TDF_AttributeDeltaList     myAttDeltaList;
-  TCollection_ExtendedString myName;
+  UtfString myName;
 };
 
 #include <TDF_Delta.lxx>

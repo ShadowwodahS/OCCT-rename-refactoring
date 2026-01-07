@@ -33,87 +33,87 @@
 
 //=================================================================================================
 
-void BOPTools_AlgoTools::UpdateVertex(const TopoDS_Vertex& aVF, const TopoDS_Vertex& aNewVertex)
+void AlgoTools::UpdateVertex(const TopoVertex& aVF, const TopoVertex& aNewVertex)
 {
   Standard_Real aTolVF, aTolNewVertex, aDist, aNewTol;
   //
-  Point3d aPVF        = BRep_Tool::Pnt(aVF);
-  Point3d aPNewVertex = BRep_Tool::Pnt(aNewVertex);
-  aTolVF             = BRep_Tool::Tolerance(aVF);
-  aTolNewVertex      = BRep_Tool::Tolerance(aNewVertex);
+  Point3d aPVF        = BRepInspector::Pnt(aVF);
+  Point3d aPNewVertex = BRepInspector::Pnt(aNewVertex);
+  aTolVF             = BRepInspector::Tolerance(aVF);
+  aTolNewVertex      = BRepInspector::Tolerance(aNewVertex);
 
   aDist   = aPVF.Distance(aPNewVertex);
   aNewTol = aDist + aTolNewVertex;
 
   if (aNewTol > aTolVF)
   {
-    BRep_Builder BB;
-    BB.UpdateVertex(aVF, aNewTol + BOPTools_AlgoTools::DTolerance());
+    ShapeBuilder BB;
+    BB.UpdateVertex(aVF, aNewTol + AlgoTools::DTolerance());
   }
 }
 
 //=================================================================================================
 
-void BOPTools_AlgoTools::UpdateVertex(const TopoDS_Edge&   aE,
+void AlgoTools::UpdateVertex(const TopoEdge&   aE,
                                       const Standard_Real  aT,
-                                      const TopoDS_Vertex& aV)
+                                      const TopoVertex& aV)
 {
   Standard_Real aTolV, aDist, aFirst, aLast;
   Point3d        aPc;
 
-  Point3d aPv = BRep_Tool::Pnt(aV);
-  aTolV      = BRep_Tool::Tolerance(aV);
+  Point3d aPv = BRepInspector::Pnt(aV);
+  aTolV      = BRepInspector::Tolerance(aV);
 
-  GeomAdaptor_Curve aCA(BRep_Tool::Curve(aE, aFirst, aLast));
+  GeomAdaptor_Curve aCA(BRepInspector::Curve(aE, aFirst, aLast));
   aCA.D0(aT, aPc);
   aDist = aPv.Distance(aPc);
   if (aDist > aTolV)
   {
-    BRep_Builder BB;
-    BB.UpdateVertex(aV, aDist + BOPTools_AlgoTools::DTolerance());
+    ShapeBuilder BB;
+    BB.UpdateVertex(aV, aDist + AlgoTools::DTolerance());
   }
 }
 
 //
 //=================================================================================================
 
-void BOPTools_AlgoTools::UpdateVertex(const IntTools_Curve& aC,
+void AlgoTools::UpdateVertex(const IntTools_Curve& aC,
                                       const Standard_Real   aT,
-                                      const TopoDS_Vertex&  aV)
+                                      const TopoVertex&  aV)
 {
   Standard_Real aTolV, aDist;
   Point3d        aPc;
 
-  Point3d aPv = BRep_Tool::Pnt(aV);
-  aTolV      = BRep_Tool::Tolerance(aV);
+  Point3d aPv = BRepInspector::Pnt(aV);
+  aTolV      = BRepInspector::Tolerance(aV);
 
   GeomAdaptor_Curve aCA(aC.Curve());
   aCA.D0(aT, aPc);
   aDist = aPv.Distance(aPc);
   if (aDist > aTolV)
   {
-    BRep_Builder BB;
-    BB.UpdateVertex(aV, aDist + BOPTools_AlgoTools::DTolerance());
+    ShapeBuilder BB;
+    BB.UpdateVertex(aV, aDist + AlgoTools::DTolerance());
   }
 }
 
 //=================================================================================================
 
-void BOPTools_AlgoTools::MakeSectEdge(const IntTools_Curve& aIC,
-                                      const TopoDS_Vertex&  aV1,
+void AlgoTools::MakeSectEdge(const IntTools_Curve& aIC,
+                                      const TopoVertex&  aV1,
                                       const Standard_Real   aP1,
-                                      const TopoDS_Vertex&  aV2,
+                                      const TopoVertex&  aV2,
                                       const Standard_Real   aP2,
-                                      TopoDS_Edge&          aNewEdge)
+                                      TopoEdge&          aNewEdge)
 {
-  const Handle(Geom_Curve)& aC = aIC.Curve();
+  const Handle(GeomCurve3d)& aC = aIC.Curve();
 
-  BRepBuilderAPI_MakeEdge aMakeEdge(aC, aV1, aV2, aP1, aP2);
+  EdgeMaker aMakeEdge(aC, aV1, aV2, aP1, aP2);
 
-  const TopoDS_Edge& aE = TopoDS::Edge(aMakeEdge.Shape());
+  const TopoEdge& aE = TopoDS::Edge(aMakeEdge.Shape());
   //
   // Range must be as it was !
-  BRep_Builder aBB;
+  ShapeBuilder aBB;
   aBB.Range(aE, aP1, aP2);
   //
   aNewEdge = aE;
@@ -121,29 +121,29 @@ void BOPTools_AlgoTools::MakeSectEdge(const IntTools_Curve& aIC,
 
 //=================================================================================================
 
-TopoDS_Edge BOPTools_AlgoTools::CopyEdge(const TopoDS_Edge& theEdge)
+TopoEdge AlgoTools::CopyEdge(const TopoEdge& theEdge)
 {
-  TopoDS_Edge aNewEdge = TopoDS::Edge(theEdge.Oriented(TopAbs_FORWARD));
+  TopoEdge aNewEdge = TopoDS::Edge(theEdge.Oriented(TopAbs_FORWARD));
   aNewEdge.EmptyCopy();
   for (TopoDS_Iterator it(theEdge, Standard_False); it.More(); it.Next())
-    BRep_Builder().Add(aNewEdge, it.Value());
+    ShapeBuilder().Add(aNewEdge, it.Value());
   aNewEdge.Orientation(theEdge.Orientation());
   return aNewEdge;
 }
 
 //=================================================================================================
 
-void BOPTools_AlgoTools::MakeSplitEdge(const TopoDS_Edge&   aE,
-                                       const TopoDS_Vertex& aV1,
+void AlgoTools::MakeSplitEdge(const TopoEdge&   aE,
+                                       const TopoVertex& aV1,
                                        const Standard_Real  aP1,
-                                       const TopoDS_Vertex& aV2,
+                                       const TopoVertex& aV2,
                                        const Standard_Real  aP2,
-                                       TopoDS_Edge&         aNewEdge)
+                                       TopoEdge&         aNewEdge)
 {
-  TopoDS_Edge E = TopoDS::Edge(aE.Oriented(TopAbs_FORWARD));
+  TopoEdge E = TopoDS::Edge(aE.Oriented(TopAbs_FORWARD));
   E.EmptyCopy();
   //
-  BRep_Builder BB;
+  ShapeBuilder BB;
   if (!aV1.IsNull())
   {
     if (aP1 < aP2)
@@ -182,15 +182,15 @@ void BOPTools_AlgoTools::MakeSplitEdge(const TopoDS_Edge&   aE,
 
 //=================================================================================================
 
-void BOPTools_AlgoTools::MakeNewVertex(const TopoDS_Vertex& aV1,
-                                       const TopoDS_Vertex& aV2,
-                                       TopoDS_Vertex&       aNewVertex)
+void AlgoTools::MakeNewVertex(const TopoVertex& aV1,
+                                       const TopoVertex& aV2,
+                                       TopoVertex&       aNewVertex)
 {
-  Point3d        aPnt1 = BRep_Tool::Pnt(aV1);
-  Standard_Real aTol1 = BRep_Tool::Tolerance(aV1);
+  Point3d        aPnt1 = BRepInspector::Pnt(aV1);
+  Standard_Real aTol1 = BRepInspector::Tolerance(aV1);
 
-  Point3d        aPnt2 = BRep_Tool::Pnt(aV2);
-  Standard_Real aTol2 = BRep_Tool::Tolerance(aV2);
+  Point3d        aPnt2 = BRepInspector::Pnt(aV2);
+  Standard_Real aTol2 = BRepInspector::Tolerance(aV2);
 
   Standard_Real aMaxTol, aDist;
 
@@ -203,27 +203,27 @@ void BOPTools_AlgoTools::MakeNewVertex(const TopoDS_Vertex& aV1,
   gp_XYZ        aNewXYZ = 0.5 * (aXYZ1 + aXYZ2);
 
   Point3d       aNewPnt(aNewXYZ);
-  BRep_Builder aBB;
+  ShapeBuilder aBB;
   aBB.MakeVertex(aNewVertex, aNewPnt, aMaxTol);
 }
 
 //=================================================================================================
 
-void BOPTools_AlgoTools::MakeNewVertex(const Point3d&       aP,
+void AlgoTools::MakeNewVertex(const Point3d&       aP,
                                        const Standard_Real aTol,
-                                       TopoDS_Vertex&      aNewVertex)
+                                       TopoVertex&      aNewVertex)
 {
-  BRep_Builder aBB;
+  ShapeBuilder aBB;
   aBB.MakeVertex(aNewVertex, aP, aTol);
 }
 
 //=================================================================================================
 
-void BOPTools_AlgoTools::MakeNewVertex(const TopoDS_Edge&  aE1,
+void AlgoTools::MakeNewVertex(const TopoEdge&  aE1,
                                        const Standard_Real aParm1,
-                                       const TopoDS_Edge&  aE2,
+                                       const TopoEdge&  aE2,
                                        const Standard_Real aParm2,
-                                       TopoDS_Vertex&      aNewVertex)
+                                       TopoVertex&      aNewVertex)
 {
   Standard_Real aTol1, aTol2, aMaxTol, aDist;
   Point3d        aPnt1, aPnt2;
@@ -231,8 +231,8 @@ void BOPTools_AlgoTools::MakeNewVertex(const TopoDS_Edge&  aE1,
   PointOnEdge(aE1, aParm1, aPnt1);
   PointOnEdge(aE2, aParm2, aPnt2);
 
-  aTol1 = BRep_Tool::Tolerance(aE1);
-  aTol2 = BRep_Tool::Tolerance(aE2);
+  aTol1 = BRepInspector::Tolerance(aE1);
+  aTol2 = BRepInspector::Tolerance(aE2);
 
   aDist   = aPnt1.Distance(aPnt2);
   aMaxTol = (aTol1 > aTol2) ? aTol1 : aTol2;
@@ -243,46 +243,46 @@ void BOPTools_AlgoTools::MakeNewVertex(const TopoDS_Edge&  aE1,
   gp_XYZ        aNewXYZ = 0.5 * (aXYZ1 + aXYZ2);
 
   Point3d       aNewPnt(aNewXYZ);
-  BRep_Builder aBB;
+  ShapeBuilder aBB;
   aBB.MakeVertex(aNewVertex, aNewPnt, aMaxTol);
 }
 
 //=================================================================================================
 
-void BOPTools_AlgoTools::MakeNewVertex(const TopoDS_Edge&  aE1,
+void AlgoTools::MakeNewVertex(const TopoEdge&  aE1,
                                        const Standard_Real aParm1,
-                                       const TopoDS_Face&  aF1,
-                                       TopoDS_Vertex&      aNewVertex)
+                                       const TopoFace&  aF1,
+                                       TopoVertex&      aNewVertex)
 {
   Standard_Real aTol1, aTol2, aMaxTol;
   Point3d        aPnt;
 
   PointOnEdge(aE1, aParm1, aPnt);
 
-  aTol1 = BRep_Tool::Tolerance(aE1);
-  aTol2 = BRep_Tool::Tolerance(aF1);
+  aTol1 = BRepInspector::Tolerance(aE1);
+  aTol2 = BRepInspector::Tolerance(aF1);
   //
-  aMaxTol = aTol1 + aTol2 + BOPTools_AlgoTools::DTolerance();
+  aMaxTol = aTol1 + aTol2 + AlgoTools::DTolerance();
   //
-  BRep_Builder aBB;
+  ShapeBuilder aBB;
   aBB.MakeVertex(aNewVertex, aPnt, aMaxTol);
 }
 
 //=================================================================================================
 
-void BOPTools_AlgoTools::PointOnEdge(const TopoDS_Edge& aE, const Standard_Real aParm, Point3d& aPnt)
+void AlgoTools::PointOnEdge(const TopoEdge& aE, const Standard_Real aParm, Point3d& aPnt)
 {
   Standard_Real      f, l;
-  Handle(Geom_Curve) C1 = BRep_Tool::Curve(aE, f, l);
+  Handle(GeomCurve3d) C1 = BRepInspector::Curve(aE, f, l);
   C1->D0(aParm, aPnt);
 }
 
 //=================================================================================================
 
-void BOPTools_AlgoTools::CorrectRange(const TopoDS_Edge&    aE1,
-                                      const TopoDS_Edge&    aE2,
-                                      const IntTools_Range& aSR,
-                                      IntTools_Range&       aNewSR)
+void AlgoTools::CorrectRange(const TopoEdge&    aE1,
+                                      const TopoEdge&    aE2,
+                                      const IntToolsRange& aSR,
+                                      IntToolsRange&       aNewSR)
 {
   Standard_Integer  i;
   Standard_Real     aRes, aTolE1, aTolE2, aTF, aTL, dT;
@@ -304,8 +304,8 @@ void BOPTools_AlgoTools::CorrectRange(const TopoDS_Edge&    aE1,
   aTF = aSR.First();
   aTL = aSR.Last();
   //
-  aTolE1 = BRep_Tool::Tolerance(aE1);
-  aTolE2 = BRep_Tool::Tolerance(aE2);
+  aTolE1 = BRepInspector::Tolerance(aE1);
+  aTolE2 = BRepInspector::Tolerance(aE2);
   //
   for (i = 0; i < 2; ++i)
   {
@@ -359,10 +359,10 @@ void BOPTools_AlgoTools::CorrectRange(const TopoDS_Edge&    aE1,
 
 //=================================================================================================
 
-void BOPTools_AlgoTools::CorrectRange(const TopoDS_Edge&    aE,
-                                      const TopoDS_Face&    aF,
-                                      const IntTools_Range& aSR,
-                                      IntTools_Range&       aNewSR)
+void AlgoTools::CorrectRange(const TopoEdge&    aE,
+                                      const TopoFace&    aF,
+                                      const IntToolsRange& aSR,
+                                      IntToolsRange&       aNewSR)
 {
   Standard_Integer  i;
   Standard_Real     aRes, aTolF, aTF, aTL, dT;
@@ -380,7 +380,7 @@ void BOPTools_AlgoTools::CorrectRange(const TopoDS_Edge&    aE,
   aBC.Initialize(aE);
   aCT = aBC.GetType();
   //
-  aTolF = BRep_Tool::Tolerance(aF);
+  aTolF = BRepInspector::Tolerance(aF);
   //
   for (i = 0; i < 2; ++i)
   {
@@ -438,7 +438,7 @@ namespace
 // function : dimension
 // purpose  : returns dimension of elementary shape
 //=======================================================================
-static Standard_Integer dimension(const TopoDS_Shape& theS)
+static Standard_Integer dimension(const TopoShape& theS)
 {
   switch (theS.ShapeType())
   {
@@ -462,7 +462,7 @@ static Standard_Integer dimension(const TopoDS_Shape& theS)
 
 //=================================================================================================
 
-void BOPTools_AlgoTools::Dimensions(const TopoDS_Shape& theS,
+void AlgoTools::Dimensions(const TopoShape& theS,
                                     Standard_Integer&   theDMin,
                                     Standard_Integer&   theDMax)
 {
@@ -470,7 +470,7 @@ void BOPTools_AlgoTools::Dimensions(const TopoDS_Shape& theS,
   if (theDMax >= 0)
     return;
 
-  TopTools_ListOfShape aLS;
+  ShapeList aLS;
   TopTools_MapOfShape  aMFence;
   TreatCompound(theS, aLS, &aMFence);
   if (aLS.IsEmpty())
@@ -482,7 +482,7 @@ void BOPTools_AlgoTools::Dimensions(const TopoDS_Shape& theS,
 
   theDMin = 3;
   theDMax = 0;
-  for (TopTools_ListOfShape::Iterator it(aLS); it.More(); it.Next())
+  for (ShapeList::Iterator it(aLS); it.More(); it.Next())
   {
     Standard_Integer aDim = dimension(it.Value());
     if (aDim < theDMin)
@@ -494,7 +494,7 @@ void BOPTools_AlgoTools::Dimensions(const TopoDS_Shape& theS,
 
 //=================================================================================================
 
-Standard_Integer BOPTools_AlgoTools::Dimension(const TopoDS_Shape& theS)
+Standard_Integer AlgoTools::Dimension(const TopoShape& theS)
 {
   Standard_Integer aDMin, aDMax;
   Dimensions(theS, aDMin, aDMax);
@@ -503,8 +503,8 @@ Standard_Integer BOPTools_AlgoTools::Dimension(const TopoDS_Shape& theS)
 
 //=================================================================================================
 
-void BOPTools_AlgoTools::TreatCompound(const TopoDS_Shape&   theS,
-                                       TopTools_ListOfShape& theLS,
+void AlgoTools::TreatCompound(const TopoShape&   theS,
+                                       ShapeList& theLS,
                                        TopTools_MapOfShape*  theMFence)
 {
   TopAbs_ShapeEnum aType = theS.ShapeType();

@@ -24,7 +24,7 @@
 #include <TDF_Attribute.hxx>
 #include <Standard_Integer.hxx>
 #include <Standard_OStream.hxx>
-class TDF_Label;
+class DataLabel;
 class Standard_GUID;
 class TDF_RelocationTable;
 class TDF_DataSet;
@@ -41,7 +41,7 @@ public:
   //! ==============
   //! Finds or Creates a graph node attribute at the label <L>.
   //! Returns the attribute.
-  Standard_EXPORT static Handle(TFunction_GraphNode) Set(const TDF_Label& L);
+  Standard_EXPORT static Handle(TFunction_GraphNode) Set(const DataLabel& L);
 
   //! Returns the GUID for GraphNode attribute.
   //! Instant methods
@@ -55,13 +55,13 @@ public:
   Standard_EXPORT Standard_Boolean AddPrevious(const Standard_Integer funcID);
 
   //! Defines a reference to the function as a previous one.
-  Standard_EXPORT Standard_Boolean AddPrevious(const TDF_Label& func);
+  Standard_EXPORT Standard_Boolean AddPrevious(const DataLabel& func);
 
   //! Removes a reference to the function as a previous one.
   Standard_EXPORT Standard_Boolean RemovePrevious(const Standard_Integer funcID);
 
   //! Removes a reference to the function as a previous one.
-  Standard_EXPORT Standard_Boolean RemovePrevious(const TDF_Label& func);
+  Standard_EXPORT Standard_Boolean RemovePrevious(const DataLabel& func);
 
   //! Returns a map of previous functions.
   Standard_EXPORT const TColStd_MapOfInteger& GetPrevious() const;
@@ -73,13 +73,13 @@ public:
   Standard_EXPORT Standard_Boolean AddNext(const Standard_Integer funcID);
 
   //! Defines a reference to the function as a next one.
-  Standard_EXPORT Standard_Boolean AddNext(const TDF_Label& func);
+  Standard_EXPORT Standard_Boolean AddNext(const DataLabel& func);
 
   //! Removes a reference to the function as a next one.
   Standard_EXPORT Standard_Boolean RemoveNext(const Standard_Integer funcID);
 
   //! Removes a reference to the function as a next one.
-  Standard_EXPORT Standard_Boolean RemoveNext(const TDF_Label& func);
+  Standard_EXPORT Standard_Boolean RemoveNext(const DataLabel& func);
 
   //! Returns a map of next functions.
   Standard_EXPORT const TColStd_MapOfInteger& GetNext() const;

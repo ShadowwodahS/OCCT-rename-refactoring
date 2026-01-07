@@ -35,18 +35,18 @@ public:
 
   Standard_EXPORT BRepClass_Edge();
 
-  Standard_EXPORT BRepClass_Edge(const TopoDS_Edge& E, const TopoDS_Face& F);
+  Standard_EXPORT BRepClass_Edge(const TopoEdge& E, const TopoFace& F);
 
   //! Returns the current Edge
-  TopoDS_Edge&       Edge();
-  const TopoDS_Edge& Edge() const;
+  TopoEdge&       Edge();
+  const TopoEdge& Edge() const;
 
   //! Returns the Face for the current Edge
-  TopoDS_Face&       Face();
-  const TopoDS_Face& Face() const;
+  TopoFace&       Face();
+  const TopoFace& Face() const;
 
   //! Returns the next Edge
-  const TopoDS_Edge& NextEdge() const { return myNextEdge; }
+  const TopoEdge& NextEdge() const { return myNextEdge; }
 
   //! Finds and sets the next Edge for the current
   Standard_EXPORT void SetNextEdge(const TopTools_IndexedDataMapOfShapeListOfShape& theMapVE);
@@ -68,9 +68,9 @@ public:
 
 protected:
 private:
-  TopoDS_Edge      myEdge;
-  TopoDS_Face      myFace;
-  TopoDS_Edge      myNextEdge;
+  TopoEdge      myEdge;
+  TopoFace      myFace;
+  TopoEdge      myNextEdge;
   Standard_Real    myMaxTolerance;
   Standard_Boolean myUseBndBox;
 };

@@ -23,9 +23,9 @@ class Graphic3d_ArrayOfTriangles;
 
 //! Presentation for drawing camera frustum.
 //! Default configuration is built with filling and some transparency.
-class AIS_CameraFrustum : public AIS_InteractiveObject
+class AIS_CameraFrustum : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_CameraFrustum, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_CameraFrustum, VisualEntity)
 public:
   //! Selection modes supported by this object
   enum SelectionMode
@@ -39,7 +39,7 @@ public:
   Standard_EXPORT AIS_CameraFrustum();
 
   //! Sets camera frustum.
-  Standard_EXPORT void SetCameraFrustum(const Handle(Graphic3d_Camera)& theCamera);
+  Standard_EXPORT void SetCameraFrustum(const Handle(CameraOn3d)& theCamera);
 
   //! Setup custom color.
   Standard_EXPORT virtual void SetColor(const Quantity_Color& theColor) Standard_OVERRIDE;
@@ -61,7 +61,7 @@ protected:
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Compute selection.
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
 private:

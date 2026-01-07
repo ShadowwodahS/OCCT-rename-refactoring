@@ -48,7 +48,7 @@ ShapeCustom_Surface::ShapeCustom_Surface()
 
 //=================================================================================================
 
-ShapeCustom_Surface::ShapeCustom_Surface(const Handle(Geom_Surface)& S)
+ShapeCustom_Surface::ShapeCustom_Surface(const Handle(GeomSurface)& S)
     : myGap(0)
 {
   Init(S);
@@ -56,21 +56,21 @@ ShapeCustom_Surface::ShapeCustom_Surface(const Handle(Geom_Surface)& S)
 
 //=================================================================================================
 
-void ShapeCustom_Surface::Init(const Handle(Geom_Surface)& S)
+void ShapeCustom_Surface::Init(const Handle(GeomSurface)& S)
 {
   mySurf = S;
 }
 
 //=================================================================================================
 
-Handle(Geom_Surface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Real    tol,
+Handle(GeomSurface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Real    tol,
                                                               const Standard_Boolean substitute)
 {
-  Handle(Geom_Surface) newSurf;
+  Handle(GeomSurface) newSurf;
 
   Standard_Integer   nUP, nVP, nCP, i, j, UDeg, VDeg;
   Standard_Real      U1, U2, V1, V2, C1, C2, DU, DV, U = 0, V = 0;
-  Handle(Geom_Curve) iso;
+  Handle(GeomCurve3d) iso;
   Standard_Boolean   uClosed = Standard_True;
 
   // seuls cas traites : BSpline et Bezier
@@ -147,7 +147,7 @@ Handle(Geom_Surface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Rea
     //    On regarde sur chaque surface les vecteurs P(U0->U1),P(V0->V1)
     //    On prend la normale : les deux normales doivent etre dans le meme sens
     //    Sinon, inverser la normale (pas le Pln entier !) et refaire la Plane
-    newSurf = new Geom_Plane(aPln);
+    newSurf = new GeomPlane(aPln);
     Vector3d uold(Pnts(1), Pnts(2));
     Vector3d vold(Pnts(1), Pnts(3));
     Vector3d nold = uold.Crossed(vold);
@@ -160,7 +160,7 @@ Handle(Geom_Surface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Rea
       ax3.ZReverse();
       ax3.XReverse();
       aPln    = gp_Pln(ax3);
-      newSurf = new Geom_Plane(aPln);
+      newSurf = new GeomPlane(aPln);
     }
 
     if (substitute)
@@ -431,10 +431,10 @@ Handle(Geom_Surface) ShapeCustom_Surface::ConvertToAnalytical(const Standard_Rea
 
 //%pdn 30 Nov 98: converting bspline surfaces with degree+1 at ends to periodic
 // UKI60591, entity 48720
-Handle(Geom_Surface) ShapeCustom_Surface::ConvertToPeriodic(const Standard_Boolean substitute,
+Handle(GeomSurface) ShapeCustom_Surface::ConvertToPeriodic(const Standard_Boolean substitute,
                                                             const Standard_Real    preci)
 {
-  Handle(Geom_Surface)        newSurf;
+  Handle(GeomSurface)        newSurf;
   Handle(Geom_BSplineSurface) BSpl = Handle(Geom_BSplineSurface)::DownCast(mySurf);
   if (BSpl.IsNull())
     return newSurf;

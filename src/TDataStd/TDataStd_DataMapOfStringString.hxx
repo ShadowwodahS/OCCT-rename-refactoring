@@ -20,9 +20,9 @@
 #include <TCollection_ExtendedString.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TCollection_ExtendedString, TCollection_ExtendedString>
+typedef NCollection_DataMap<UtfString, UtfString>
   TDataStd_DataMapOfStringString;
-typedef NCollection_DataMap<TCollection_ExtendedString, TCollection_ExtendedString>::Iterator
+typedef NCollection_DataMap<UtfString, UtfString>::Iterator
   TDataStd_DataMapIteratorOfDataMapOfStringString;
 
 #endif

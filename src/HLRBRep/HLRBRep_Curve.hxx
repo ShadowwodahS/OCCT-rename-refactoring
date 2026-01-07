@@ -29,7 +29,7 @@
 #include <TColStd_Array1OfInteger.hxx>
 #include <TColStd_Array1OfReal.hxx>
 
-class TopoDS_Edge;
+class TopoEdge;
 class Point3d;
 class Vector3d;
 class gp_Pnt2d;
@@ -40,7 +40,7 @@ class gp_Circ2d;
 class gp_Elips2d;
 class gp_Hypr2d;
 class gp_Parab2d;
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 class HLRAlgo_Projector;
 
 //! Defines a 2d curve by projection of  a 3D curve on
@@ -60,7 +60,7 @@ public:
   BRepAdaptor_Curve& Curve();
 
   //! Sets the 3D curve to be projected.
-  Standard_EXPORT void Curve(const TopoDS_Edge& E);
+  Standard_EXPORT void Curve(const TopoEdge& E);
 
   //! Returns the 3D curve.
   const BRepAdaptor_Curve& GetCurve() const;
@@ -185,12 +185,12 @@ public:
 
   Standard_EXPORT void Poles(TColgp_Array1OfPnt2d& TP) const;
 
-  Standard_EXPORT void Poles(const Handle(Geom_BSplineCurve)& aCurve,
+  Standard_EXPORT void Poles(const Handle(BSplineCurve3d)& aCurve,
                              TColgp_Array1OfPnt2d&            TP) const;
 
   Standard_EXPORT void PolesAndWeights(TColgp_Array1OfPnt2d& TP, TColStd_Array1OfReal& TW) const;
 
-  Standard_EXPORT void PolesAndWeights(const Handle(Geom_BSplineCurve)& aCurve,
+  Standard_EXPORT void PolesAndWeights(const Handle(BSplineCurve3d)& aCurve,
                                        TColgp_Array1OfPnt2d&            TP,
                                        TColStd_Array1OfReal&            TW) const;
 

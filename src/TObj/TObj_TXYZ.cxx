@@ -42,7 +42,7 @@ const Standard_GUID& TObj_TXYZ::ID() const
 
 //=================================================================================================
 
-Handle(TObj_TXYZ) TObj_TXYZ::Set(const TDF_Label& theLabel, const gp_XYZ& theXYZ)
+Handle(TObj_TXYZ) TObj_TXYZ::Set(const DataLabel& theLabel, const gp_XYZ& theXYZ)
 {
   Handle(TObj_TXYZ) A;
   if (!theLabel.FindAttribute(TObj_TXYZ::GetID(), A))

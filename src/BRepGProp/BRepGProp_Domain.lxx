@@ -29,7 +29,7 @@ inline BRepGProp_Domain::BRepGProp_Domain() {}
 // purpose  : Constructor. Initializes the domain with the face.
 //=======================================================================
 
-inline BRepGProp_Domain::BRepGProp_Domain(const TopoDS_Face& F)
+inline BRepGProp_Domain::BRepGProp_Domain(const TopoFace& F)
     : myExplorer(F.Oriented(TopAbs_FORWARD), TopAbs_EDGE)
 {
 }
@@ -39,7 +39,7 @@ inline BRepGProp_Domain::BRepGProp_Domain(const TopoDS_Face& F)
 // purpose  : Initializes the domain with the face.
 //=======================================================================
 
-inline void BRepGProp_Domain::Init(const TopoDS_Face& F)
+inline void BRepGProp_Domain::Init(const TopoFace& F)
 {
   myExplorer.Init(F.Oriented(TopAbs_FORWARD), TopAbs_EDGE);
 }
@@ -69,7 +69,7 @@ inline void BRepGProp_Domain::Init()
 // purpose  : Returns the current edge.
 //=======================================================================
 
-inline const TopoDS_Edge& BRepGProp_Domain::Value()
+inline const TopoEdge& BRepGProp_Domain::Value()
 {
   return TopoDS::Edge(myExplorer.Current());
 }

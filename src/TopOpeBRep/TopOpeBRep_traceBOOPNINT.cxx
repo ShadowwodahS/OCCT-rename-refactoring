@@ -22,7 +22,7 @@
   #include <TColStd_ListIteratorOfListOfInteger.hxx>
   #include <TopOpeBRepTool_define.hxx>
 
-  #define AS(x) (Standard_PCharacter) TCollection_AsciiString((x)).ToCString();
+  #define AS(x) (Standard_PCharacter) AsciiString1((x)).ToCString();
   #define I 10
   #define J 10
   #define OK(x, y) (x) < I && (y) < J

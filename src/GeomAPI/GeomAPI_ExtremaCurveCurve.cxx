@@ -37,16 +37,16 @@ GeomAPI_ExtremaCurveCurve::GeomAPI_ExtremaCurveCurve()
 
 //=================================================================================================
 
-GeomAPI_ExtremaCurveCurve::GeomAPI_ExtremaCurveCurve(const Handle(Geom_Curve)& C1,
-                                                     const Handle(Geom_Curve)& C2)
+GeomAPI_ExtremaCurveCurve::GeomAPI_ExtremaCurveCurve(const Handle(GeomCurve3d)& C1,
+                                                     const Handle(GeomCurve3d)& C2)
 {
   Init(C1, C2);
 }
 
 //=================================================================================================
 
-GeomAPI_ExtremaCurveCurve::GeomAPI_ExtremaCurveCurve(const Handle(Geom_Curve)& C1,
-                                                     const Handle(Geom_Curve)& C2,
+GeomAPI_ExtremaCurveCurve::GeomAPI_ExtremaCurveCurve(const Handle(GeomCurve3d)& C1,
+                                                     const Handle(GeomCurve3d)& C2,
                                                      const Standard_Real       U1min,
                                                      const Standard_Real       U1max,
                                                      const Standard_Real       U2min,
@@ -57,7 +57,7 @@ GeomAPI_ExtremaCurveCurve::GeomAPI_ExtremaCurveCurve(const Handle(Geom_Curve)& C
 
 //=================================================================================================
 
-void GeomAPI_ExtremaCurveCurve::Init(const Handle(Geom_Curve)& C1, const Handle(Geom_Curve)& C2)
+void GeomAPI_ExtremaCurveCurve::Init(const Handle(GeomCurve3d)& C1, const Handle(GeomCurve3d)& C2)
 {
 
   myTotalExt = Standard_False;
@@ -92,8 +92,8 @@ void GeomAPI_ExtremaCurveCurve::Init(const Handle(Geom_Curve)& C1, const Handle(
 
 //=================================================================================================
 
-void GeomAPI_ExtremaCurveCurve::Init(const Handle(Geom_Curve)& C1,
-                                     const Handle(Geom_Curve)& C2,
+void GeomAPI_ExtremaCurveCurve::Init(const Handle(GeomCurve3d)& C1,
+                                     const Handle(GeomCurve3d)& C2,
                                      const Standard_Real       U1min,
                                      const Standard_Real       U1max,
                                      const Standard_Real       U2min,

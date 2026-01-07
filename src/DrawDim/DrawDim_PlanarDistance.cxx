@@ -34,18 +34,18 @@ IMPLEMENT_STANDARD_RTTIEXT(DrawDim_PlanarDistance, DrawDim_PlanarDimension)
 
 //=================================================================================================
 
-void DrawDim_PlanarDistance::Draw(const Point3d&      point,
-                                  const TopoDS_Edge& edge,
-                                  Draw_Display&      dis) const
+void DrawDim_PlanarDistance::Draw1(const Point3d&      point,
+                                  const TopoEdge& edge,
+                                  DrawDisplay&      dis) const
 {
   Standard_Real               f, l;
-  Handle(Geom_Curve)          line = BRep_Tool::Curve(edge, f, l);
+  Handle(GeomCurve3d)          line = BRepInspector::Curve(edge, f, l);
   GeomAPI_ProjectPointOnCurve pj(point, line);
   if (pj.NbPoints() == 1)
   {
     Point3d first = point;
     Point3d last  = pj.Point(1);
-    dis.Draw(first, last);
+    dis.Draw1(first, last);
 
     Point3d p((first.X() + last.X()) / 2, (first.Y() + last.Y()) / 2, (first.Z() + last.Z()) / 2);
     DrawText(p, dis);
@@ -54,9 +54,9 @@ void DrawDim_PlanarDistance::Draw(const Point3d&      point,
 
 //=================================================================================================
 
-DrawDim_PlanarDistance::DrawDim_PlanarDistance(const TopoDS_Face&  face,
-                                               const TopoDS_Shape& geom1,
-                                               const TopoDS_Shape& geom2)
+DrawDim_PlanarDistance::DrawDim_PlanarDistance(const TopoFace&  face,
+                                               const TopoShape& geom1,
+                                               const TopoShape& geom2)
 {
   myPlane = face;
   myGeom1 = geom1;
@@ -65,7 +65,7 @@ DrawDim_PlanarDistance::DrawDim_PlanarDistance(const TopoDS_Face&  face,
 
 //=================================================================================================
 
-DrawDim_PlanarDistance::DrawDim_PlanarDistance(const TopoDS_Shape& geom1, const TopoDS_Shape& geom2)
+DrawDim_PlanarDistance::DrawDim_PlanarDistance(const TopoShape& geom1, const TopoShape& geom2)
 {
   myGeom1 = geom1;
   myGeom2 = geom2;
@@ -73,13 +73,13 @@ DrawDim_PlanarDistance::DrawDim_PlanarDistance(const TopoDS_Shape& geom1, const 
 
 //=================================================================================================
 
-void DrawDim_PlanarDistance::DrawOn(Draw_Display& dis) const
+void DrawDim_PlanarDistance::DrawOn(DrawDisplay& dis) const
 {
   if (myGeom1.ShapeType() == TopAbs_VERTEX && myGeom2.ShapeType() == TopAbs_VERTEX)
   {
-    Point3d first = BRep_Tool::Pnt(TopoDS::Vertex(myGeom1));
-    Point3d last  = BRep_Tool::Pnt(TopoDS::Vertex(myGeom2));
-    dis.Draw(first, last);
+    Point3d first = BRepInspector::Pnt(TopoDS::Vertex(myGeom1));
+    Point3d last  = BRepInspector::Pnt(TopoDS::Vertex(myGeom2));
+    dis.Draw1(first, last);
 
     Point3d p((first.X() + last.X()) / 2, (first.Y() + last.Y()) / 2, (first.Z() + last.Z()) / 2);
     DrawText(p, dis);
@@ -88,30 +88,30 @@ void DrawDim_PlanarDistance::DrawOn(Draw_Display& dis) const
 
   else if (myGeom1.ShapeType() == TopAbs_VERTEX && myGeom2.ShapeType() == TopAbs_EDGE)
   {
-    Point3d point = BRep_Tool::Pnt(TopoDS::Vertex(myGeom1));
-    Draw(point, TopoDS::Edge(myGeom2), dis);
+    Point3d point = BRepInspector::Pnt(TopoDS::Vertex(myGeom1));
+    Draw1(point, TopoDS::Edge(myGeom2), dis);
     return;
   }
 
   else if (myGeom1.ShapeType() == TopAbs_EDGE && myGeom2.ShapeType() == TopAbs_VERTEX)
   {
-    Point3d point = BRep_Tool::Pnt(TopoDS::Vertex(myGeom2));
-    Draw(point, TopoDS::Edge(myGeom1), dis);
+    Point3d point = BRepInspector::Pnt(TopoDS::Vertex(myGeom2));
+    Draw1(point, TopoDS::Edge(myGeom1), dis);
     return;
   }
 
   else if (myGeom1.ShapeType() == TopAbs_EDGE && myGeom2.ShapeType() == TopAbs_EDGE)
   {
     Standard_Real      f, l;
-    Handle(Geom_Curve) C = BRep_Tool::Curve(TopoDS::Edge(myGeom1), f, l);
+    Handle(GeomCurve3d) C = BRepInspector::Curve(TopoDS::Edge(myGeom1), f, l);
     if (!C.IsNull())
     {
-      Handle(Geom_Line) L = Handle(Geom_Line)::DownCast(C);
+      Handle(GeomLine) L = Handle(GeomLine)::DownCast(C);
       if (!L.IsNull())
       {
         Point3d      point = L->Lin().Location();
-        TopoDS_Edge edge  = TopoDS::Edge(myGeom2);
-        Draw(point, edge, dis);
+        TopoEdge edge  = TopoDS::Edge(myGeom2);
+        Draw1(point, edge, dis);
         return;
       }
     }

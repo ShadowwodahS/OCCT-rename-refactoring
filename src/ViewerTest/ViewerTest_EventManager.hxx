@@ -20,9 +20,9 @@
 #include <AIS_ViewController.hxx>
 #include <TCollection_AsciiString.hxx>
 
-class AIS_InteractiveContext;
+class VisualContext;
 class Aspect_Window;
-class V3d_View;
+class ViewWindow;
 
 DEFINE_STANDARD_HANDLE(ViewerTest_EventManager, RefObject)
 
@@ -39,7 +39,7 @@ public:
     return Draw_ToCloseViewOnEsc;
   }
 
-  //! Return TRUE if Draw Harness should exit on closing View.
+  //! Return TRUE if Draw1 Harness should exit on closing View.
   static Standard_Boolean& ToExitOnCloseView()
   {
     static Standard_Boolean Draw_ToExitOnCloseView = Standard_False;
@@ -51,8 +51,8 @@ public:
 
 public:
   //! Main constructor.
-  Standard_EXPORT ViewerTest_EventManager(const Handle(V3d_View)&               aView,
-                                          const Handle(AIS_InteractiveContext)& aCtx);
+  Standard_EXPORT ViewerTest_EventManager(const Handle(ViewWindow)&               aView,
+                                          const Handle(VisualContext)& aCtx);
 
   //! Destructor.
   Standard_EXPORT virtual ~ViewerTest_EventManager();
@@ -61,7 +61,7 @@ public:
   Standard_EXPORT static void SetupWindowCallbacks(const Handle(Aspect_Window)& theWin);
 
   //! Return interactive context.
-  const Handle(AIS_InteractiveContext)& Context() const { return myCtx; }
+  const Handle(VisualContext)& Context() const { return myCtx; }
 
   //! Returns TRUE if picking point mode has been enabled (for VPick command).
   Standard_Boolean ToPickPoint() const { return myToPickPnt; }
@@ -103,8 +103,8 @@ public:
   Standard_EXPORT virtual void ProcessExpose() Standard_OVERRIDE;
 
   //! Handle redraw.
-  Standard_EXPORT virtual void handleViewRedraw(const Handle(AIS_InteractiveContext)& theCtx,
-                                                const Handle(V3d_View)& theView) Standard_OVERRIDE;
+  Standard_EXPORT virtual void handleViewRedraw(const Handle(VisualContext)& theCtx,
+                                                const Handle(ViewWindow)& theView) Standard_OVERRIDE;
 
   //! Resize View.
   Standard_EXPORT virtual void ProcessConfigure(bool theIsResized = true) Standard_OVERRIDE;
@@ -117,9 +117,9 @@ public:
 
   //! Callback called on Selection of another (sub)view.
   //! This method is expected to be called from rendering thread.
-  Standard_EXPORT virtual void OnSubviewChanged(const Handle(AIS_InteractiveContext)& theCtx,
-                                                const Handle(V3d_View)&               theOldView,
-                                                const Handle(V3d_View)&               theNewView)
+  Standard_EXPORT virtual void OnSubviewChanged(const Handle(VisualContext)& theCtx,
+                                                const Handle(ViewWindow)&               theOldView,
+                                                const Handle(ViewWindow)&               theNewView)
     Standard_OVERRIDE;
 
 protected:
@@ -165,13 +165,13 @@ private:
 #endif
 
 private:
-  Handle(AIS_InteractiveContext) myCtx;
-  Handle(V3d_View)               myView;
+  Handle(VisualContext) myCtx;
+  Handle(ViewWindow)               myView;
   // clang-format off
   NCollection_DataMap<unsigned int, Aspect_VKey> myNavKeyMap; //!< map of Hot-Key (key+modifiers) to Action
   // clang-format on
 
-  TCollection_AsciiString myPickPntArgVec[3];
+  AsciiString1 myPickPntArgVec[3];
   Standard_Boolean        myToPickPnt;
   Standard_Boolean        myIsTmpContRedraw;
 

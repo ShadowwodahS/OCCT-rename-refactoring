@@ -498,7 +498,7 @@ void BlendFunc_CSConstRad::Section(const Standard_Real Param,
   Pfin = ElCLib::Parameter(C, ptc);
 }
 
-Standard_Boolean BlendFunc_CSConstRad::Section(const Blend_Point&,
+Standard_Boolean BlendFunc_CSConstRad::Section(const Point2&,
                                                TColgp_Array1OfPnt&,
                                                TColgp_Array1OfVec&,
                                                TColgp_Array1OfVec&,
@@ -681,7 +681,7 @@ Standard_Real BlendFunc_CSConstRad::GetSectionSize() const
 
 void BlendFunc_CSConstRad::GetMinimalWeight(TColStd_Array1OfReal& Weights) const
 {
-  BlendFunc::GetMinimalWeights(mySShape, myTConv, minang, maxang, Weights);
+  BlendFunc1::GetMinimalWeights(mySShape, myTConv, minang, maxang, Weights);
   // On suppose que cela ne depend pas du Rayon!
 }
 
@@ -689,14 +689,14 @@ void BlendFunc_CSConstRad::GetMinimalWeight(TColStd_Array1OfReal& Weights) const
 
 Standard_Integer BlendFunc_CSConstRad::NbIntervals(const GeomAbs_Shape S) const
 {
-  return curv->NbIntervals(BlendFunc::NextShape(S));
+  return curv->NbIntervals(BlendFunc1::NextShape(S));
 }
 
 //=================================================================================================
 
 void BlendFunc_CSConstRad::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) const
 {
-  curv->Intervals(T, BlendFunc::NextShape(S));
+  curv->Intervals(T, BlendFunc1::NextShape(S));
 }
 
 //=================================================================================================
@@ -707,7 +707,7 @@ void BlendFunc_CSConstRad::GetShape(Standard_Integer& NbPoles,
                                     Standard_Integer& NbPoles2d)
 {
   NbPoles2d = 1;
-  BlendFunc::GetShape(mySShape, maxang, NbPoles, NbKnots, Degree, myTConv);
+  BlendFunc1::GetShape(mySShape, maxang, NbPoles, NbKnots, Degree, myTConv);
 }
 
 //=======================================================================
@@ -745,7 +745,7 @@ void BlendFunc_CSConstRad::Mults(TColStd_Array1OfInteger& TMults)
 
 //=================================================================================================
 
-void BlendFunc_CSConstRad::Section(const Blend_Point&    P,
+void BlendFunc_CSConstRad::Section(const Point2&    P,
                                    TColgp_Array1OfPnt&   Poles,
                                    TColgp_Array1OfPnt2d& Poles2d,
                                    TColStd_Array1OfReal& Weights)
@@ -800,7 +800,7 @@ void BlendFunc_CSConstRad::Section(const Blend_Point&    P,
 
 //=================================================================================================
 
-Standard_Boolean BlendFunc_CSConstRad::Section(const Blend_Point&    P,
+Standard_Boolean BlendFunc_CSConstRad::Section(const Point2&    P,
                                                TColgp_Array1OfPnt&   Poles,
                                                TColgp_Array1OfVec&   DPoles,
                                                TColgp_Array1OfPnt2d& Poles2d,

@@ -57,7 +57,7 @@ extern Standard_Boolean BRepFeat_GettraceFEAT();
 
 //=================================================================================================
 
-LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
+LocOpe_DPrism::LocOpe_DPrism(const TopoFace&  Spine,
                              const Standard_Real Height1,
                              const Standard_Real Height2,
                              const Standard_Real Angle)
@@ -69,12 +69,12 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
   Standard_Real y = Height1 * sin(Angle);
   Standard_Real z = Height1 * cos(Angle);
 
-  TopoDS_Vertex Vert2 = BRepLib_MakeVertex(Point3d(0, y, z));
+  TopoVertex Vert2 = BRepLib_MakeVertex(Point3d(0, y, z));
 
   Standard_Real y1 = -Height2 * sin(Angle);
   Standard_Real z1 = -Height2 * cos(Angle);
 
-  TopoDS_Vertex Vert1 = BRepLib_MakeVertex(Point3d(0, y1, z1));
+  TopoVertex Vert1 = BRepLib_MakeVertex(Point3d(0, y1, z1));
 
   myProfile2 = BRepLib_MakeEdge(Vert1, Vert2);
 
@@ -84,11 +84,11 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
   Vmin = 0.;
   Vmax = 0.;
 
-  BRepTools::UVBounds(Spine, Umin, Umax, Vmin, Vmax);
+  BRepTools1::UVBounds(Spine, Umin, Umax, Vmin, Vmax);
   Standard_Real Deltay = Max(Umax - Umin, Vmax - Vmin) + Abs(y);
   Deltay *= 2;
 
-  TopoDS_Vertex Vert3 = BRepLib_MakeVertex(Point3d(0, y + Deltay, z));
+  TopoVertex Vert3 = BRepLib_MakeVertex(Point3d(0, y + Deltay, z));
   myProfile3          = BRepLib_MakeEdge(Vert2, Vert3);
 
   Umax = 0.;
@@ -96,11 +96,11 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
   Vmin = 0.;
   Vmax = 0.;
 
-  BRepTools::UVBounds(Spine, Umin, Umax, Vmin, Vmax);
+  BRepTools1::UVBounds(Spine, Umin, Umax, Vmin, Vmax);
   Standard_Real Deltay1 = Max(Umax - Umin, Vmax - Vmin) + Abs(y1);
   Deltay1 *= 2;
 
-  TopoDS_Vertex Vert4 = BRepLib_MakeVertex(Point3d(0, y1 + Deltay1, z1));
+  TopoVertex Vert4 = BRepLib_MakeVertex(Point3d(0, y1 + Deltay1, z1));
   myProfile1          = BRepLib_MakeEdge(Vert4, Vert1);
 
   myProfile = BRepLib_MakeWire(myProfile1, myProfile2, myProfile3);
@@ -110,19 +110,19 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
   if (myDPrism.IsDone())
   {
     LocOpe_BuildShape    BS;
-    BRep_Builder         B;
-    TopoDS_Compound      C;
-    TopoDS_Compound      D;
-    TopTools_ListOfShape lfaces, lcomplete;
+    ShapeBuilder         B;
+    TopoCompound      C;
+    TopoCompound      D;
+    ShapeList lfaces, lcomplete;
 
     B.MakeCompound(C);
     TopTools_ListIteratorOfListOfShape it;
-    TopExp_Explorer                    ExpS(mySpine, TopAbs_EDGE);
+    ShapeExplorer                    ExpS(mySpine, TopAbs_EDGE);
     TopTools_MapOfShape                View;
     for (; ExpS.More(); ExpS.Next())
     {
-      const TopoDS_Shape&         ES   = ExpS.Current();
-      const TopTools_ListOfShape& lffs = myDPrism.GeneratedShapes(ES, myProfile1);
+      const TopoShape&         ES   = ExpS.Current();
+      const ShapeList& lffs = myDPrism.GeneratedShapes(ES, myProfile1);
       for (it.Initialize(lffs); it.More(); it.Next())
       {
         if (View.Add(it.Value()))
@@ -131,25 +131,25 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
     }
 
     TopTools_IndexedDataMapOfShapeListOfShape theMapEF;
-    TopExp::MapShapesAndAncestors(C, TopAbs_EDGE, TopAbs_FACE, theMapEF);
+    TopExp1::MapShapesAndAncestors(C, TopAbs_EDGE, TopAbs_FACE, theMapEF);
     View.Clear();
 
     for (i = 1; i <= theMapEF.Extent(); i++)
     {
       if (theMapEF(i).Extent() == 1)
       {
-        const TopoDS_Edge& edg = TopoDS::Edge(theMapEF.FindKey(i));
-        const TopoDS_Face& fac = TopoDS::Face(theMapEF(i).First());
+        const TopoEdge& edg = TopoDS::Edge(theMapEF.FindKey(i));
+        const TopoFace& fac = TopoDS::Face(theMapEF(i).First());
         if (View.Add(fac))
         {
-          TopoDS_Shape aLocalShape = fac.EmptyCopied();
-          TopoDS_Face  newFace(TopoDS::Face(aLocalShape));
-          //	  TopoDS_Face newFace(TopoDS::Face(fac.EmptyCopied()));
-          TopExp_Explorer exp;
+          TopoShape aLocalShape = fac.EmptyCopied();
+          TopoFace  newFace(TopoDS::Face(aLocalShape));
+          //	  TopoFace newFace(TopoDS::Face(fac.EmptyCopied()));
+          ShapeExplorer exp;
           for (exp.Init(fac.Oriented(TopAbs_FORWARD), TopAbs_WIRE); exp.More(); exp.Next())
           {
-            //	    for (TopExp_Explorer exp2(exp.Current(),TopAbs_EDGE);
-            TopExp_Explorer exp2(exp.Current(), TopAbs_EDGE);
+            //	    for (ShapeExplorer exp2(exp.Current(),TopAbs_EDGE);
+            ShapeExplorer exp2(exp.Current(), TopAbs_EDGE);
             for (; exp2.More(); exp2.Next())
             {
               if (exp2.Current().IsSame(edg))
@@ -179,8 +179,8 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
 
     for (; ExpS.More(); ExpS.Next())
     {
-      const TopoDS_Shape&         ES   = ExpS.Current();
-      const TopTools_ListOfShape& lfls = myDPrism.GeneratedShapes(ES, myProfile3);
+      const TopoShape&         ES   = ExpS.Current();
+      const ShapeList& lfls = myDPrism.GeneratedShapes(ES, myProfile3);
       for (it.Initialize(lfls); it.More(); it.Next())
       {
         if (View.Add(it.Value()))
@@ -190,25 +190,25 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
 
     lfaces.Clear();
     theMapEF.Clear();
-    TopExp::MapShapesAndAncestors(D, TopAbs_EDGE, TopAbs_FACE, theMapEF);
+    TopExp1::MapShapesAndAncestors(D, TopAbs_EDGE, TopAbs_FACE, theMapEF);
     View.Clear();
 
     for (i = 1; i <= theMapEF.Extent(); i++)
     {
       if (theMapEF(i).Extent() == 1)
       {
-        const TopoDS_Edge& edg = TopoDS::Edge(theMapEF.FindKey(i));
-        const TopoDS_Face& fac = TopoDS::Face(theMapEF(i).First());
+        const TopoEdge& edg = TopoDS::Edge(theMapEF.FindKey(i));
+        const TopoFace& fac = TopoDS::Face(theMapEF(i).First());
         if (View.Add(fac))
         {
-          TopoDS_Shape aLocalShape = fac.EmptyCopied();
-          TopoDS_Face  newFace(TopoDS::Face(aLocalShape));
-          //	  TopoDS_Face newFace(TopoDS::Face(fac.EmptyCopied()));
-          TopExp_Explorer exp;
+          TopoShape aLocalShape = fac.EmptyCopied();
+          TopoFace  newFace(TopoDS::Face(aLocalShape));
+          //	  TopoFace newFace(TopoDS::Face(fac.EmptyCopied()));
+          ShapeExplorer exp;
           for (exp.Init(fac.Oriented(TopAbs_FORWARD), TopAbs_WIRE); exp.More(); exp.Next())
           {
-            //	    for (TopExp_Explorer exp2(exp.Current(),TopAbs_EDGE);
-            TopExp_Explorer exp2(exp.Current(), TopAbs_EDGE);
+            //	    for (ShapeExplorer exp2(exp.Current(),TopAbs_EDGE);
+            ShapeExplorer exp2(exp.Current(), TopAbs_EDGE);
             for (; exp2.More(); exp2.Next())
             {
               if (exp2.Current().IsSame(edg))
@@ -234,8 +234,8 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
 
     for (ExpS.ReInit(); ExpS.More(); ExpS.Next())
     {
-      const TopoDS_Shape&         ES   = ExpS.Current();
-      const TopTools_ListOfShape& lffs = myDPrism.GeneratedShapes(ES, myProfile2);
+      const TopoShape&         ES   = ExpS.Current();
+      const ShapeList& lffs = myDPrism.GeneratedShapes(ES, myProfile2);
 
       for (it.Initialize(lffs); it.More(); it.Next())
       {
@@ -246,31 +246,31 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
       }
       if (it.More())
       {
-        TopoDS_Shape RemovedEdge = it.Value();
-        TopoDS_Face  NewFace;
-        TopoDS_Wire  NewWire;
+        TopoShape RemovedEdge = it.Value();
+        TopoFace  NewFace;
+        TopoWire  NewWire;
         B.MakeWire(NewWire);
         TopAbs_Orientation Orref = TopAbs_FORWARD;
-        TopExp_Explorer    exp;
+        ShapeExplorer    exp;
         for (it.Initialize(lffs); it.More(); it.Next())
         {
           if (it.Value().ShapeType() == TopAbs_FACE)
           {
             exp.Init(it.Value().Oriented(TopAbs_FORWARD), TopAbs_WIRE);
-            const TopoDS_Shape theWire = exp.Current();
+            const TopoShape theWire = exp.Current();
             if (NewFace.IsNull())
             {
-              Handle(Geom_Surface) S = BRep_Tool::Surface(TopoDS::Face(it.Value()));
+              Handle(GeomSurface) S = BRepInspector::Surface(TopoDS::Face(it.Value()));
               if (S->DynamicType() == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
               {
                 S = Handle(Geom_RectangularTrimmedSurface)::DownCast(S)->BasisSurface();
               }
-              if (S->DynamicType() != STANDARD_TYPE(Geom_Plane))
+              if (S->DynamicType() != STANDARD_TYPE(GeomPlane))
               {
                 break;
               }
 
-              B.MakeFace(NewFace, S, BRep_Tool::Tolerance(TopoDS::Face(it.Value())));
+              B.MakeFace(NewFace, S, BRepInspector::Tolerance(TopoDS::Face(it.Value())));
               NewFace.Orientation(TopAbs_FORWARD);
               Orref = theWire.Orientation();
               for (exp.Init(theWire.Oriented(TopAbs_FORWARD), TopAbs_EDGE); exp.More(); exp.Next())
@@ -304,7 +304,7 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
         {
           B.Add(NewFace, NewWire.Oriented(Orref));
           lcomplete.Append(NewFace);
-          TopTools_ListOfShape thelist;
+          ShapeList thelist;
           myMap.Bind(ES, thelist);
           myMap(ES).Append(NewFace);
         }
@@ -330,10 +330,10 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
         }
       }
 
-      TopExp_Explorer ExpS2;
+      ShapeExplorer ExpS2;
       for (ExpS2.Init(ES, TopAbs_VERTEX); ExpS2.More(); ExpS2.Next())
       {
-        const TopTools_ListOfShape& ls2 = myDPrism.GeneratedShapes(ExpS2.Current(), myProfile2);
+        const ShapeList& ls2 = myDPrism.GeneratedShapes(ExpS2.Current(), myProfile2);
         for (it.Initialize(ls2); it.More(); it.Next())
         {
           if (View.Add(it.Value()) && it.Value().ShapeType() == TopAbs_FACE)
@@ -352,7 +352,7 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
 
 //=================================================================================================
 
-LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
+LocOpe_DPrism::LocOpe_DPrism(const TopoFace&  Spine,
                              const Standard_Real Height,
                              const Standard_Real Angle)
     : mySpine(Spine)
@@ -362,19 +362,19 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
   Standard_Real y = Height * sin(Angle);
   Standard_Real z = Height * cos(Angle);
 
-  TopoDS_Vertex Vert1 = BRepLib_MakeVertex(Point3d(0, 0, 0));
-  TopoDS_Vertex Vert2 = BRepLib_MakeVertex(Point3d(0, y, z));
+  TopoVertex Vert1 = BRepLib_MakeVertex(Point3d(0, 0, 0));
+  TopoVertex Vert2 = BRepLib_MakeVertex(Point3d(0, y, z));
   myProfile2          = BRepLib_MakeEdge(Vert1, Vert2);
 
   Standard_Real Umin, Umax, Vmin, Vmax;
-  BRepTools::UVBounds(Spine, Umin, Umax, Vmin, Vmax);
+  BRepTools1::UVBounds(Spine, Umin, Umax, Vmin, Vmax);
   Standard_Real Deltay = Max(Umax - Umin, Vmax - Vmin) + Abs(y);
   Deltay *= 2;
 
-  TopoDS_Vertex Vert3 = BRepLib_MakeVertex(Point3d(0, y + Deltay, z));
+  TopoVertex Vert3 = BRepLib_MakeVertex(Point3d(0, y + Deltay, z));
   myProfile3          = BRepLib_MakeEdge(Vert2, Vert3);
 
-  TopoDS_Vertex Vert4 = BRepLib_MakeVertex(Point3d(0, Deltay, 0));
+  TopoVertex Vert4 = BRepLib_MakeVertex(Point3d(0, Deltay, 0));
   myProfile1          = BRepLib_MakeEdge(Vert4, Vert1);
 
   myProfile = BRepLib_MakeWire(myProfile1, myProfile2, myProfile3);
@@ -383,19 +383,19 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
   if (myDPrism.IsDone())
   {
     LocOpe_BuildShape    BS;
-    BRep_Builder         B;
-    TopoDS_Compound      C;
-    TopoDS_Compound      D;
-    TopTools_ListOfShape lfaces, lcomplete;
+    ShapeBuilder         B;
+    TopoCompound      C;
+    TopoCompound      D;
+    ShapeList lfaces, lcomplete;
 
     B.MakeCompound(C);
     TopTools_ListIteratorOfListOfShape it;
-    TopExp_Explorer                    ExpS(mySpine, TopAbs_EDGE);
+    ShapeExplorer                    ExpS(mySpine, TopAbs_EDGE);
     TopTools_MapOfShape                View;
     for (; ExpS.More(); ExpS.Next())
     {
-      const TopoDS_Shape&         ES   = ExpS.Current();
-      const TopTools_ListOfShape& lffs = myDPrism.GeneratedShapes(ES, myProfile1);
+      const TopoShape&         ES   = ExpS.Current();
+      const ShapeList& lffs = myDPrism.GeneratedShapes(ES, myProfile1);
       for (it.Initialize(lffs); it.More(); it.Next())
       {
         if (View.Add(it.Value()))
@@ -404,25 +404,25 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
     }
 
     TopTools_IndexedDataMapOfShapeListOfShape theMapEF;
-    TopExp::MapShapesAndAncestors(C, TopAbs_EDGE, TopAbs_FACE, theMapEF);
+    TopExp1::MapShapesAndAncestors(C, TopAbs_EDGE, TopAbs_FACE, theMapEF);
     View.Clear();
 
     for (i = 1; i <= theMapEF.Extent(); i++)
     {
       if (theMapEF(i).Extent() == 1)
       {
-        const TopoDS_Edge& edg = TopoDS::Edge(theMapEF.FindKey(i));
-        const TopoDS_Face& fac = TopoDS::Face(theMapEF(i).First());
+        const TopoEdge& edg = TopoDS::Edge(theMapEF.FindKey(i));
+        const TopoFace& fac = TopoDS::Face(theMapEF(i).First());
         if (View.Add(fac))
         {
-          TopoDS_Shape aLocalShape = fac.EmptyCopied();
-          TopoDS_Face  newFace(TopoDS::Face(aLocalShape));
-          //	  TopoDS_Face newFace(TopoDS::Face(fac.EmptyCopied()));
-          TopExp_Explorer exp;
+          TopoShape aLocalShape = fac.EmptyCopied();
+          TopoFace  newFace(TopoDS::Face(aLocalShape));
+          //	  TopoFace newFace(TopoDS::Face(fac.EmptyCopied()));
+          ShapeExplorer exp;
           for (exp.Init(fac.Oriented(TopAbs_FORWARD), TopAbs_WIRE); exp.More(); exp.Next())
           {
-            //	    for (TopExp_Explorer exp2(exp.Current(),TopAbs_EDGE);
-            TopExp_Explorer exp2(exp.Current(), TopAbs_EDGE);
+            //	    for (ShapeExplorer exp2(exp.Current(),TopAbs_EDGE);
+            ShapeExplorer exp2(exp.Current(), TopAbs_EDGE);
             for (; exp2.More(); exp2.Next())
             {
               if (exp2.Current().IsSame(edg))
@@ -452,8 +452,8 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
 
     for (; ExpS.More(); ExpS.Next())
     {
-      const TopoDS_Shape&         ES   = ExpS.Current();
-      const TopTools_ListOfShape& lfls = myDPrism.GeneratedShapes(ES, myProfile3);
+      const TopoShape&         ES   = ExpS.Current();
+      const ShapeList& lfls = myDPrism.GeneratedShapes(ES, myProfile3);
       for (it.Initialize(lfls); it.More(); it.Next())
       {
         if (View.Add(it.Value()))
@@ -463,25 +463,25 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
 
     lfaces.Clear();
     theMapEF.Clear();
-    TopExp::MapShapesAndAncestors(D, TopAbs_EDGE, TopAbs_FACE, theMapEF);
+    TopExp1::MapShapesAndAncestors(D, TopAbs_EDGE, TopAbs_FACE, theMapEF);
     View.Clear();
 
     for (i = 1; i <= theMapEF.Extent(); i++)
     {
       if (theMapEF(i).Extent() == 1)
       {
-        const TopoDS_Edge& edg = TopoDS::Edge(theMapEF.FindKey(i));
-        const TopoDS_Face& fac = TopoDS::Face(theMapEF(i).First());
+        const TopoEdge& edg = TopoDS::Edge(theMapEF.FindKey(i));
+        const TopoFace& fac = TopoDS::Face(theMapEF(i).First());
         if (View.Add(fac))
         {
-          TopoDS_Shape aLocalShape = fac.EmptyCopied();
-          TopoDS_Face  newFace(TopoDS::Face(aLocalShape));
-          //	  TopoDS_Face newFace(TopoDS::Face(fac.EmptyCopied()));
-          TopExp_Explorer exp;
+          TopoShape aLocalShape = fac.EmptyCopied();
+          TopoFace  newFace(TopoDS::Face(aLocalShape));
+          //	  TopoFace newFace(TopoDS::Face(fac.EmptyCopied()));
+          ShapeExplorer exp;
           for (exp.Init(fac.Oriented(TopAbs_FORWARD), TopAbs_WIRE); exp.More(); exp.Next())
           {
-            //	    for (TopExp_Explorer exp2(exp.Current(),TopAbs_EDGE);
-            TopExp_Explorer exp2(exp.Current(), TopAbs_EDGE);
+            //	    for (ShapeExplorer exp2(exp.Current(),TopAbs_EDGE);
+            ShapeExplorer exp2(exp.Current(), TopAbs_EDGE);
             for (; exp2.More(); exp2.Next())
             {
               if (exp2.Current().IsSame(edg))
@@ -506,8 +506,8 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
     View.Clear();
     for (ExpS.ReInit(); ExpS.More(); ExpS.Next())
     {
-      const TopoDS_Shape&         ES = ExpS.Current();
-      const TopTools_ListOfShape& ls = myDPrism.GeneratedShapes(ES, myProfile2);
+      const TopoShape&         ES = ExpS.Current();
+      const ShapeList& ls = myDPrism.GeneratedShapes(ES, myProfile2);
       for (it.Initialize(ls); it.More(); it.Next())
       {
         if (View.Add(it.Value()))
@@ -515,10 +515,10 @@ LocOpe_DPrism::LocOpe_DPrism(const TopoDS_Face&  Spine,
           lcomplete.Append(it.Value());
         }
       }
-      TopExp_Explorer ExpS2;
+      ShapeExplorer ExpS2;
       for (ExpS2.Init(ES, TopAbs_VERTEX); ExpS2.More(); ExpS2.Next())
       {
-        const TopTools_ListOfShape& ls2 = myDPrism.GeneratedShapes(ExpS2.Current(), myProfile2);
+        const ShapeList& ls2 = myDPrism.GeneratedShapes(ExpS2.Current(), myProfile2);
         for (it.Initialize(ls2); it.More(); it.Next())
         {
           if (View.Add(it.Value()) && it.Value().ShapeType() == TopAbs_FACE)
@@ -544,7 +544,7 @@ Standard_Boolean LocOpe_DPrism::IsDone() const
 
 //=================================================================================================
 
-const TopoDS_Shape& LocOpe_DPrism::Shape() const
+const TopoShape& LocOpe_DPrism::Shape() const
 {
   if (!myDPrism.IsDone())
   {
@@ -555,35 +555,35 @@ const TopoDS_Shape& LocOpe_DPrism::Shape() const
 
 //=================================================================================================
 
-const TopoDS_Shape& LocOpe_DPrism::Spine() const
+const TopoShape& LocOpe_DPrism::Spine() const
 {
   return mySpine;
 }
 
 //=================================================================================================
 
-const TopoDS_Shape& LocOpe_DPrism::Profile() const
+const TopoShape& LocOpe_DPrism::Profile() const
 {
   return myProfile;
 }
 
 //=================================================================================================
 
-const TopoDS_Shape& LocOpe_DPrism::FirstShape() const
+const TopoShape& LocOpe_DPrism::FirstShape() const
 {
   return myFirstShape;
 }
 
 //=================================================================================================
 
-const TopoDS_Shape& LocOpe_DPrism::LastShape() const
+const TopoShape& LocOpe_DPrism::LastShape() const
 {
   return myLastShape;
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& LocOpe_DPrism::Shapes(const TopoDS_Shape& S) const
+const ShapeList& LocOpe_DPrism::Shapes(const TopoShape& S) const
 {
   if (!myDPrism.IsDone())
   {
@@ -604,20 +604,20 @@ const TopTools_ListOfShape& LocOpe_DPrism::Shapes(const TopoDS_Shape& S) const
 void LocOpe_DPrism::Curves(TColGeom_SequenceOfCurve& Scurves) const
 {
   // Retrieves dy and dz with myProfile2
-  TopoDS_Vertex V1, V2;
-  TopExp::Vertices(myProfile2, V1, V2);
-  Point3d        P1 = BRep_Tool::Pnt(V1);
-  Point3d        P2 = BRep_Tool::Pnt(V2);
+  TopoVertex V1, V2;
+  TopExp1::Vertices(myProfile2, V1, V2);
+  Point3d        P1 = BRepInspector::Pnt(V1);
+  Point3d        P2 = BRepInspector::Pnt(V2);
   Standard_Real dy = P2.Y() - P1.Y();
   Standard_Real dz = P2.Z() - P1.Z();
   Scurves.Clear();
-  Handle(Geom_Surface) S = BRep_Tool::Surface(mySpine);
+  Handle(GeomSurface) S = BRepInspector::Surface(mySpine);
   if (S->DynamicType() == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
   {
     S = Handle(Geom_RectangularTrimmedSurface)::DownCast(S)->BasisSurface();
   }
 
-  Handle(Geom_Plane) PP = Handle(Geom_Plane)::DownCast(S);
+  Handle(GeomPlane) PP = Handle(GeomPlane)::DownCast(S);
   if (PP.IsNull())
   {
     throw Standard_ConstructionError();
@@ -631,23 +631,23 @@ void LocOpe_DPrism::Curves(TColGeom_SequenceOfCurve& Scurves) const
   }
 
   TopTools_MapOfShape theMap;
-  TopExp_Explorer     exp(mySpine.Oriented(TopAbs_FORWARD), TopAbs_EDGE);
+  ShapeExplorer     exp(mySpine.Oriented(TopAbs_FORWARD), TopAbs_EDGE);
   TopLoc_Location     Loc;
-  Handle(Geom_Curve)  C;
+  Handle(GeomCurve3d)  C;
   Standard_Real       f, l, prm;
   Standard_Integer    i;
 
   for (; exp.More(); exp.Next())
   {
-    const TopoDS_Edge& edg = TopoDS::Edge(exp.Current());
+    const TopoEdge& edg = TopoDS::Edge(exp.Current());
     if (!theMap.Add(edg))
     {
       continue;
     }
-    if (!BRep_Tool::Degenerated(edg))
+    if (!BRepInspector::Degenerated(edg))
     {
-      C                = BRep_Tool::Curve(edg, Loc, f, l);
-      C                = Handle(Geom_Curve)::DownCast(C->Transformed(Loc.Transformation()));
+      C                = BRepInspector::Curve(edg, Loc, f, l);
+      C                = Handle(GeomCurve3d)::DownCast(C->Transformed(Loc.Transformation()));
       Standard_Real u1 = -2 * Abs(myHeight);
       Standard_Real u2 = 2 * Abs(myHeight);
 
@@ -665,7 +665,7 @@ void LocOpe_DPrism::Curves(TColGeom_SequenceOfCurve& Scurves) const
         Dir3d                    locy = Normale.Crossed(d1);
         Vector3d                    ldir = dy * locy.XYZ() + dz * Normale.XYZ();
         gp_Lin                    lin(pt, ldir);
-        Handle(Geom_Line)         Lin   = new Geom_Line(lin);
+        Handle(GeomLine)         Lin   = new GeomLine(lin);
         Handle(Geom_TrimmedCurve) trlin = new Geom_TrimmedCurve(Lin, u1, u2, Standard_True);
         Scurves.Append(trlin);
       }
@@ -675,21 +675,21 @@ void LocOpe_DPrism::Curves(TColGeom_SequenceOfCurve& Scurves) const
 
 //=================================================================================================
 
-Handle(Geom_Curve) LocOpe_DPrism::BarycCurve() const
+Handle(GeomCurve3d) LocOpe_DPrism::BarycCurve() const
 {
-  TopoDS_Vertex V1, V2;
-  TopExp::Vertices(myProfile2, V1, V2);
-  Point3d        P1 = BRep_Tool::Pnt(V1);
-  Point3d        P2 = BRep_Tool::Pnt(V2);
+  TopoVertex V1, V2;
+  TopExp1::Vertices(myProfile2, V1, V2);
+  Point3d        P1 = BRepInspector::Pnt(V1);
+  Point3d        P2 = BRepInspector::Pnt(V2);
   Standard_Real dz = P2.Z() - P1.Z();
 
-  Handle(Geom_Surface) S = BRep_Tool::Surface(mySpine);
+  Handle(GeomSurface) S = BRepInspector::Surface(mySpine);
   if (S->DynamicType() == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
   {
     S = Handle(Geom_RectangularTrimmedSurface)::DownCast(S)->BasisSurface();
   }
 
-  Handle(Geom_Plane) PP = Handle(Geom_Plane)::DownCast(S);
+  Handle(GeomPlane) PP = Handle(GeomPlane)::DownCast(S);
   if (PP.IsNull())
   {
     throw Standard_ConstructionError();
@@ -719,11 +719,11 @@ Handle(Geom_Curve) LocOpe_DPrism::BarycCurve() const
   TColgp_SequenceOfPnt spt;
   if (!myFirstShape.IsNull())
   {
-    LocOpe::SampleEdges(myFirstShape, spt);
+    LocOpe1::SampleEdges(myFirstShape, spt);
   }
   else
   {
-    LocOpe::SampleEdges(mySpine, spt);
+    LocOpe1::SampleEdges(mySpine, spt);
   }
   for (Standard_Integer jj = 1; jj <= spt.Length(); jj++)
   {
@@ -732,6 +732,6 @@ Handle(Geom_Curve) LocOpe_DPrism::BarycCurve() const
   }
   bar.ChangeCoord().Divide(spt.Length());
   Axis3d            newAx(bar, Vec);
-  Handle(Geom_Line) theLin = new Geom_Line(newAx);
+  Handle(GeomLine) theLin = new GeomLine(newAx);
   return theLin;
 }

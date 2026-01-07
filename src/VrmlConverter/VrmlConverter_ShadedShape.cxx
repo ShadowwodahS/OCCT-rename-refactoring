@@ -41,17 +41,17 @@
 
 //=================================================================================================
 
-void VrmlConverter_ShadedShape::Add(Standard_OStream&                   anOStream,
-                                    const TopoDS_Shape&                 aShape,
+void ShadedShapeConverter::Add(Standard_OStream&                   anOStream,
+                                    const TopoShape&                 aShape,
                                     const Handle(VrmlConverter_Drawer)& aDrawer)
 {
-  Handle(Poly_Triangulation) T;
+  Handle(MeshTriangulation) T;
   TopLoc_Location            theLocation;
   Standard_Integer           i, j, k, decal, nnv, EI;
 
   Standard_Integer t[3], n[3];
   Point3d           p;
-  TopExp_Explorer  ex;
+  ShapeExplorer  ex;
 
   // counting phase. This phase will count the valid triangle
   // and the vertices to allocate the correct size for the arrays:
@@ -64,9 +64,9 @@ void VrmlConverter_ShadedShape::Add(Standard_OStream&                   anOStrea
   for (ex.Init(aShape, TopAbs_FACE); ex.More(); ex.Next())
   {
     // getting the face:
-    const TopoDS_Face& F = TopoDS::Face(ex.Current());
+    const TopoFace& F = TopoDS::Face(ex.Current());
     // getting the triangulation of the face. The triangulation may not exist:
-    T = BRep_Tool::Triangulation(F, theLocation);
+    T = BRepInspector::Triangulation(F, theLocation);
     // number of triangles:
     if (T.IsNull())
       continue; // smh
@@ -143,8 +143,8 @@ void VrmlConverter_ShadedShape::Add(Standard_OStream&                   anOStrea
 
     for (ex.Init(aShape, TopAbs_FACE); ex.More(); ex.Next())
     {
-      const TopoDS_Face& F = TopoDS::Face(ex.Current());
-      T                    = BRep_Tool::Triangulation(F, theLocation);
+      const TopoFace& F = TopoDS::Face(ex.Current());
+      T                    = BRepInspector::Triangulation(F, theLocation);
       if (!T.IsNull())
       {
         Poly_Connect pc(T);
@@ -285,7 +285,7 @@ void VrmlConverter_ShadedShape::Add(Standard_OStream&                   anOStrea
     */
     //----------------------------
 
-    // creation of Vrml objects
+    // creation of Vrml1 objects
 
     Vrml_ShapeHints SH;
     SH = SA->ShapeHints();
@@ -293,7 +293,7 @@ void VrmlConverter_ShadedShape::Add(Standard_OStream&                   anOStrea
     if (SA->HasNormals())
     {
       // Separator 1 {
-      Vrml_Separator SE1;
+      Separator SE1;
       SE1.Print(anOStream);
       // Material
       if (SA->HasMaterial())
@@ -312,10 +312,10 @@ void VrmlConverter_ShadedShape::Add(Standard_OStream&                   anOStrea
       SH.Print(anOStream);
       // NormalBinding
       Vrml_MaterialBindingAndNormalBinding MBNB1 = Vrml_PER_VERTEX_INDEXED;
-      Vrml_NormalBinding                   NB(MBNB1);
+      NormalBinding                   NB(MBNB1);
       NB.Print(anOStream);
       // Separator 2 {
-      Vrml_Separator SE2;
+      Separator SE2;
       SE2.Print(anOStream);
       // Normal
       Vrml_Normal N(HAV2);
@@ -333,7 +333,7 @@ void VrmlConverter_ShadedShape::Add(Standard_OStream&                   anOStrea
     else
     {
       // Separator 1 {
-      Vrml_Separator SE1;
+      Separator SE1;
       SE1.Print(anOStream);
       // Material
       if (SA->HasMaterial())
@@ -370,16 +370,16 @@ void VrmlConverter_ShadedShape::Add(Standard_OStream&                   anOStrea
 // Computing the normal
 //-----------------------------
 
-void VrmlConverter_ShadedShape::ComputeNormal(const TopoDS_Face&  aFace,
+void ShadedShapeConverter::ComputeNormal(const TopoFace&  aFace,
                                               Poly_Connect&       pc,
                                               TColgp_Array1OfDir& Nor)
 {
-  const Handle(Poly_Triangulation)& T = pc.Triangulation();
+  const Handle(MeshTriangulation)& T = pc.Triangulation();
   BRepAdaptor_Surface               S;
   Standard_Boolean                  hasUV = T->HasUVNodes();
   Standard_Integer                  i;
   TopLoc_Location                   l;
-  Handle(Geom_Surface)              GS = BRep_Tool::Surface(aFace, l);
+  Handle(GeomSurface)              GS = BRepInspector::Surface(aFace, l);
 
   if (hasUV && !GS.IsNull())
   {

@@ -28,7 +28,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Select3D_SensitiveTriangulation, Select3D_SensitiveSe
 
 namespace
 {
-static Standard_Integer NbOfFreeEdges(const Handle(Poly_Triangulation)& theTriangulation)
+static Standard_Integer NbOfFreeEdges(const Handle(MeshTriangulation)& theTriangulation)
 {
   Standard_Integer aNbFree = 0;
   Poly_Connect     aPoly(theTriangulation);
@@ -52,7 +52,7 @@ static Standard_Integer NbOfFreeEdges(const Handle(Poly_Triangulation)& theTrian
 
 Select3D_SensitiveTriangulation::Select3D_SensitiveTriangulation(
   const Handle(SelectMgr_EntityOwner)& theOwnerId,
-  const Handle(Poly_Triangulation)&    theTrg,
+  const Handle(MeshTriangulation)&    theTrg,
   const TopLoc_Location&               theInitLoc,
   const Standard_Boolean               theIsInterior)
     : Select3D_SensitiveSet(theOwnerId),
@@ -151,7 +151,7 @@ Select3D_SensitiveTriangulation::Select3D_SensitiveTriangulation(
 
 Select3D_SensitiveTriangulation::Select3D_SensitiveTriangulation(
   const Handle(SelectMgr_EntityOwner)&    theOwnerId,
-  const Handle(Poly_Triangulation)&       theTrg,
+  const Handle(MeshTriangulation)&       theTrg,
   const TopLoc_Location&                  theInitLoc,
   const Handle(TColStd_HArray1OfInteger)& theFreeEdges,
   const Point3d&                           theCOG,

@@ -33,7 +33,7 @@ public:
       for (SelectMgr_SequenceOfSelection::Iterator aSelIter(anObj->Selections()); aSelIter.More();
            aSelIter.Next())
       {
-        const Handle(SelectMgr_Selection)& aSel = aSelIter.Value();
+        const Handle(SelectionContainer)& aSel = aSelIter.Value();
         for (NCollection_Vector<Handle(SelectMgr_SensitiveEntity)>::Iterator aSelEntIter(
                aSel->Entities());
              aSelEntIter.More();
@@ -87,7 +87,7 @@ public:
       for (SelectMgr_SequenceOfSelection::Iterator aSelIter(anObj->Selections()); aSelIter.More();
            aSelIter.Next())
       {
-        const Handle(SelectMgr_Selection)& aSel = aSelIter.Value();
+        const Handle(SelectionContainer)& aSel = aSelIter.Value();
         for (NCollection_Vector<Handle(SelectMgr_SensitiveEntity)>::Iterator aSelEntIter(
                aSel->Entities());
              aSelEntIter.More();
@@ -251,7 +251,7 @@ public:
       for (SelectMgr_SequenceOfSelection::Iterator aSelIter(anObj->Selections()); aSelIter.More();
            aSelIter.Next())
       {
-        const Handle(SelectMgr_Selection)& aSel = aSelIter.Value();
+        const Handle(SelectionContainer)& aSel = aSelIter.Value();
         for (NCollection_Vector<Handle(SelectMgr_SensitiveEntity)>::Iterator aSelEntIter(
                aSel->Entities());
              aSelEntIter.More();
@@ -333,7 +333,7 @@ public:
          aSelIter.More();
          aSelIter.Next())
     {
-      const Handle(SelectMgr_Selection)& aSelection = aSelIter.Value();
+      const Handle(SelectionContainer)& aSelection = aSelIter.Value();
       for (NCollection_Vector<Handle(SelectMgr_SensitiveEntity)>::Iterator aSelEntIter(
              aSelection->Entities());
            aSelEntIter.More();

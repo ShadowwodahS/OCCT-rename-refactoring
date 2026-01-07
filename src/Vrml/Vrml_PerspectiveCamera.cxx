@@ -22,12 +22,12 @@ Vrml_PerspectiveCamera::Vrml_PerspectiveCamera()
   Vector3d tmpVec(0, 0, 1);
   myPosition = tmpVec;
 
-  Vrml_SFRotation tmpSFR(0, 0, 1, 0);
+  SFRotation tmpSFR(0, 0, 1, 0);
   myOrientation = tmpSFR;
 }
 
 Vrml_PerspectiveCamera::Vrml_PerspectiveCamera(const Vector3d&          aPosition,
-                                               const Vrml_SFRotation& aOrientation,
+                                               const SFRotation& aOrientation,
                                                const Standard_Real    aFocalDistance,
                                                const Standard_Real    aHeightAngle)
 {
@@ -47,12 +47,12 @@ Vector3d Vrml_PerspectiveCamera::Position() const
   return myPosition;
 }
 
-void Vrml_PerspectiveCamera::SetOrientation(const Vrml_SFRotation& aOrientation)
+void Vrml_PerspectiveCamera::SetOrientation(const SFRotation& aOrientation)
 {
   myOrientation = aOrientation;
 }
 
-Vrml_SFRotation Vrml_PerspectiveCamera::Orientation() const
+SFRotation Vrml_PerspectiveCamera::Orientation() const
 {
   return myOrientation;
 }

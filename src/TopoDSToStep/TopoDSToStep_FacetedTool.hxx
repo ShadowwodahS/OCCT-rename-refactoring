@@ -21,16 +21,16 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <TopoDSToStep_FacetedError.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! This Tool Class provides Information about Faceted Shapes
 //! to be mapped to STEP.
-class TopoDSToStep_FacetedTool
+class FacetedTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static TopoDSToStep_FacetedError CheckTopoDSShape(const TopoDS_Shape& SH);
+  Standard_EXPORT static TopoDSToStep_FacetedError CheckTopoDSShape(const TopoShape& SH);
 
 protected:
 private:

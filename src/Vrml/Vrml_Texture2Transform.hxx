@@ -38,14 +38,14 @@
 //! myRotation (0)
 //! myScaleFactor (1 1)
 //! myCenter (0 0)
-class Vrml_Texture2Transform
+class Texture2Transform
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_Texture2Transform();
+  Standard_EXPORT Texture2Transform();
 
-  Standard_EXPORT Vrml_Texture2Transform(const gp_Vec2d&     aTranslation,
+  Standard_EXPORT Texture2Transform(const gp_Vec2d&     aTranslation,
                                          const Standard_Real aRotation,
                                          const gp_Vec2d&     aScaleFactor,
                                          const gp_Vec2d&     aCenter);

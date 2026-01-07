@@ -22,9 +22,9 @@ IMPLEMENT_STANDARD_RTTIEXT(DEBREP_ConfigurationNode, DE_ConfigurationNode)
 
 namespace
 {
-static const TCollection_AsciiString& THE_CONFIGURATION_SCOPE()
+static const AsciiString1& THE_CONFIGURATION_SCOPE()
 {
-  static const TCollection_AsciiString aScope = "provider";
+  static const AsciiString1 aScope = "provider";
   return aScope;
 }
 
@@ -51,7 +51,7 @@ DEBREP_ConfigurationNode::DEBREP_ConfigurationNode(const Handle(DEBREP_Configura
 
 bool DEBREP_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
 {
-  TCollection_AsciiString aScope =
+  AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor();
 
   InternalParameters.WriteBinary =
@@ -73,13 +73,13 @@ bool DEBREP_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theRe
 
 //=================================================================================================
 
-TCollection_AsciiString DEBREP_ConfigurationNode::Save() const
+AsciiString1 DEBREP_ConfigurationNode::Save() const
 {
-  TCollection_AsciiString aResult;
+  AsciiString1 aResult;
   aResult += "!*****************************************************************************\n";
   aResult =
     aResult + "!Configuration Node " + " Vendor: " + GetVendor() + " Format: " + GetFormat() + "\n";
-  TCollection_AsciiString aScope =
+  AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor() + ".";
 
   aResult += "!\n";
@@ -150,16 +150,16 @@ bool DEBREP_ConfigurationNode::IsExportSupported() const
 
 //=================================================================================================
 
-TCollection_AsciiString DEBREP_ConfigurationNode::GetFormat() const
+AsciiString1 DEBREP_ConfigurationNode::GetFormat() const
 {
-  return TCollection_AsciiString("BREP");
+  return AsciiString1("BREP");
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DEBREP_ConfigurationNode::GetVendor() const
+AsciiString1 DEBREP_ConfigurationNode::GetVendor() const
 {
-  return TCollection_AsciiString("OCC");
+  return AsciiString1("OCC");
 }
 
 //=================================================================================================

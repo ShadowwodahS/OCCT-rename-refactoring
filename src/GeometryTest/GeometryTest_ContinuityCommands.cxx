@@ -66,7 +66,7 @@ void InitEpsCurv(Standard_Real& epsnl,
 
 /*********************************************************************************/
 
-static Standard_Integer surfaceCcontinuity(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer surfaceCcontinuity(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   Standard_Real    U1, U2, V1, V2, u1, u2, v1, v2;
   GeomAbs_Shape    TypeCont;
@@ -78,20 +78,20 @@ static Standard_Integer surfaceCcontinuity(Draw_Interpretor& di, Standard_Intege
 
   InitEpsSurf(epsnl, epsC0, epsC1, epsC2, epsG1, perce, maxlen);
 
-  Handle(Geom_Surface) surf1 = DrawTrSurf::GetSurface(a[2]);
+  Handle(GeomSurface) surf1 = DrawTrSurf1::GetSurface(a[2]);
   if (surf1.IsNull())
     return 1;
 
-  Handle(Geom_Surface) surf2 = DrawTrSurf::GetSurface(a[5]);
+  Handle(GeomSurface) surf2 = DrawTrSurf1::GetSurface(a[5]);
   if (surf2.IsNull())
     return 1;
 
-  U1 = Draw::Atof(a[3]);
-  U2 = Draw::Atof(a[6]);
-  V1 = Draw::Atof(a[4]);
-  V2 = Draw::Atof(a[7]);
+  U1 = Draw1::Atof(a[3]);
+  U2 = Draw1::Atof(a[6]);
+  V1 = Draw1::Atof(a[4]);
+  V2 = Draw1::Atof(a[7]);
 
-  ord = Draw::Atoi(a[1]);
+  ord = Draw1::Atoi(a[1]);
 
   surf1->Bounds(u1, u2, v1, v2);
   b1 = ((((U1 >= u1) && (U1 <= u2)) || ((U1 <= u1) && (U1 >= u2))));
@@ -111,10 +111,10 @@ static Standard_Integer surfaceCcontinuity(Draw_Interpretor& di, Standard_Intege
       switch (n)
       {
         case 10:
-          epsC0 = Draw::Atof(a[9]);
+          epsC0 = Draw1::Atof(a[9]);
           Standard_FALLTHROUGH
         case 9:
-          epsnl = Draw::Atof(a[8]);
+          epsnl = Draw1::Atof(a[8]);
           Standard_FALLTHROUGH
         case 8:
           break;
@@ -131,13 +131,13 @@ static Standard_Integer surfaceCcontinuity(Draw_Interpretor& di, Standard_Intege
       switch (n)
       {
         case 11:
-          epsC1 = Draw::Atof(a[10]);
+          epsC1 = Draw1::Atof(a[10]);
           Standard_FALLTHROUGH
         case 10:
-          epsC0 = Draw::Atof(a[9]);
+          epsC0 = Draw1::Atof(a[9]);
           Standard_FALLTHROUGH
         case 9:
-          epsnl = Draw::Atof(a[8]);
+          epsnl = Draw1::Atof(a[8]);
           Standard_FALLTHROUGH
         case 8:
           break;
@@ -154,16 +154,16 @@ static Standard_Integer surfaceCcontinuity(Draw_Interpretor& di, Standard_Intege
       switch (n)
       {
         case 12:
-          epsC2 = Draw::Atof(a[11]);
+          epsC2 = Draw1::Atof(a[11]);
           Standard_FALLTHROUGH
         case 11:
-          epsC1 = Draw::Atof(a[10]);
+          epsC1 = Draw1::Atof(a[10]);
           Standard_FALLTHROUGH
         case 10:
-          epsC0 = Draw::Atof(a[9]);
+          epsC0 = Draw1::Atof(a[9]);
           Standard_FALLTHROUGH
         case 9:
-          epsnl = Draw::Atof(a[8]);
+          epsnl = Draw1::Atof(a[8]);
           Standard_FALLTHROUGH
         case 8:
           break;
@@ -191,7 +191,7 @@ static Standard_Integer surfaceCcontinuity(Draw_Interpretor& di, Standard_Intege
 
 /*********************************************************************************/
 
-static Standard_Integer surfaceGcontinuity(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer surfaceGcontinuity(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   Standard_Real    U1, U2, V1, V2, u1, u2, v1, v2;
   GeomAbs_Shape    TypeCont;
@@ -203,20 +203,20 @@ static Standard_Integer surfaceGcontinuity(Draw_Interpretor& di, Standard_Intege
     return 1;
   InitEpsSurf(epsnl, epsC0, epsC1, epsC2, epsG1, perce, maxlen);
 
-  Handle(Geom_Surface) surf1 = DrawTrSurf::GetSurface(a[2]);
+  Handle(GeomSurface) surf1 = DrawTrSurf1::GetSurface(a[2]);
   if (surf1.IsNull())
     return 1;
 
-  Handle(Geom_Surface) surf2 = DrawTrSurf::GetSurface(a[5]);
+  Handle(GeomSurface) surf2 = DrawTrSurf1::GetSurface(a[5]);
   if (surf2.IsNull())
     return 1;
 
-  U1 = Draw::Atof(a[3]);
-  U2 = Draw::Atof(a[6]);
-  V1 = Draw::Atof(a[4]);
-  V2 = Draw::Atof(a[7]);
+  U1 = Draw1::Atof(a[3]);
+  U2 = Draw1::Atof(a[6]);
+  V1 = Draw1::Atof(a[4]);
+  V2 = Draw1::Atof(a[7]);
 
-  ord = Draw::Atoi(a[1]);
+  ord = Draw1::Atoi(a[1]);
 
   surf1->Bounds(u1, u2, v1, v2);
   b1 = ((((U1 >= u1) && (U1 <= u2)) || ((U1 <= u1) && (U1 >= u2))));
@@ -236,13 +236,13 @@ static Standard_Integer surfaceGcontinuity(Draw_Interpretor& di, Standard_Intege
       switch (n)
       {
         case 11:
-          epsG1 = Draw::Atof(a[10]);
+          epsG1 = Draw1::Atof(a[10]);
           Standard_FALLTHROUGH
         case 10:
-          epsC0 = Draw::Atof(a[9]);
+          epsC0 = Draw1::Atof(a[9]);
           Standard_FALLTHROUGH
         case 9:
-          epsnl = Draw::Atof(a[8]);
+          epsnl = Draw1::Atof(a[8]);
           Standard_FALLTHROUGH
         case 8:
           break;
@@ -259,19 +259,19 @@ static Standard_Integer surfaceGcontinuity(Draw_Interpretor& di, Standard_Intege
       switch (n)
       {
         case 13:
-          maxlen = Draw::Atof(a[12]);
+          maxlen = Draw1::Atof(a[12]);
           Standard_FALLTHROUGH
         case 12:
-          perce = Draw::Atof(a[11]);
+          perce = Draw1::Atof(a[11]);
           Standard_FALLTHROUGH
         case 11:
-          epsG1 = Draw::Atof(a[10]);
+          epsG1 = Draw1::Atof(a[10]);
           Standard_FALLTHROUGH
         case 10:
-          epsC0 = Draw::Atof(a[9]);
+          epsC0 = Draw1::Atof(a[9]);
           Standard_FALLTHROUGH
         case 9:
-          epsnl = Draw::Atof(a[8]);
+          epsnl = Draw1::Atof(a[8]);
           Standard_FALLTHROUGH
         case 8:
           break;
@@ -299,7 +299,7 @@ static Standard_Integer surfaceGcontinuity(Draw_Interpretor& di, Standard_Intege
 
 /*********************************************************************************/
 
-static Standard_Integer curveGcontinuity(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer curveGcontinuity(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   Standard_Real    U1, U2, u1, u2;
   GeomAbs_Shape    TypeCont;
@@ -309,17 +309,17 @@ static Standard_Integer curveGcontinuity(Draw_Interpretor& di, Standard_Integer 
   if (n < 6)
     return 1;
 
-  Handle(Geom_Curve) curv1 = DrawTrSurf::GetCurve(a[2]);
+  Handle(GeomCurve3d) curv1 = DrawTrSurf1::GetCurve(a[2]);
   if (curv1.IsNull())
     return 1;
-  Handle(Geom_Curve) curv2 = DrawTrSurf::GetCurve(a[4]);
+  Handle(GeomCurve3d) curv2 = DrawTrSurf1::GetCurve(a[4]);
   if (curv2.IsNull())
     return 1;
 
-  U1 = Draw::Atof(a[3]);
-  U2 = Draw::Atof(a[5]);
+  U1 = Draw1::Atof(a[3]);
+  U2 = Draw1::Atof(a[5]);
 
-  ord = Draw::Atoi(a[1]);
+  ord = Draw1::Atoi(a[1]);
 
   u1 = curv1->FirstParameter();
   u2 = curv1->LastParameter();
@@ -340,13 +340,13 @@ static Standard_Integer curveGcontinuity(Draw_Interpretor& di, Standard_Integer 
       switch (n)
       {
         case 9:
-          epsG1 = Draw::Atof(a[8]);
+          epsG1 = Draw1::Atof(a[8]);
           Standard_FALLTHROUGH
         case 8:
-          epsC0 = Draw::Atof(a[7]);
+          epsC0 = Draw1::Atof(a[7]);
           Standard_FALLTHROUGH
         case 7:
-          epsnl = Draw::Atof(a[6]);
+          epsnl = Draw1::Atof(a[6]);
           Standard_FALLTHROUGH
         case 6:
           break;
@@ -362,22 +362,22 @@ static Standard_Integer curveGcontinuity(Draw_Interpretor& di, Standard_Integer 
       switch (n)
       {
         case 12:
-          maxlen = Draw::Atof(a[11]);
+          maxlen = Draw1::Atof(a[11]);
           Standard_FALLTHROUGH
         case 11:
-          percent = Draw::Atof(a[10]);
+          percent = Draw1::Atof(a[10]);
           Standard_FALLTHROUGH
         case 10:
-          epsG2 = Draw::Atof(a[9]);
+          epsG2 = Draw1::Atof(a[9]);
           Standard_FALLTHROUGH
         case 9:
-          epsG1 = Draw::Atof(a[8]);
+          epsG1 = Draw1::Atof(a[8]);
           Standard_FALLTHROUGH
         case 8:
-          epsC0 = Draw::Atof(a[7]);
+          epsC0 = Draw1::Atof(a[7]);
           Standard_FALLTHROUGH
         case 7:
-          epsnl = Draw::Atof(a[6]);
+          epsnl = Draw1::Atof(a[6]);
           Standard_FALLTHROUGH
         case 6:
           break;
@@ -406,7 +406,7 @@ static Standard_Integer curveGcontinuity(Draw_Interpretor& di, Standard_Integer 
 
 /*********************************************************************************/
 
-static Standard_Integer curveCcontinuity(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer curveCcontinuity(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   Standard_Real    U1, U2, u1, u2;
   GeomAbs_Shape    TypeCont;
@@ -416,17 +416,17 @@ static Standard_Integer curveCcontinuity(Draw_Interpretor& di, Standard_Integer 
   if (n < 6)
     return 1;
 
-  Handle(Geom_Curve) curv1 = DrawTrSurf::GetCurve(a[2]);
+  Handle(GeomCurve3d) curv1 = DrawTrSurf1::GetCurve(a[2]);
   if (curv1.IsNull())
     return 1;
-  Handle(Geom_Curve) curv2 = DrawTrSurf::GetCurve(a[4]);
+  Handle(GeomCurve3d) curv2 = DrawTrSurf1::GetCurve(a[4]);
   if (curv2.IsNull())
     return 1;
 
-  U1 = Draw::Atof(a[3]);
-  U2 = Draw::Atof(a[5]);
+  U1 = Draw1::Atof(a[3]);
+  U2 = Draw1::Atof(a[5]);
 
-  ord = Draw::Atoi(a[1]);
+  ord = Draw1::Atoi(a[1]);
 
   u1 = curv1->FirstParameter();
   u2 = curv1->LastParameter();
@@ -447,10 +447,10 @@ static Standard_Integer curveCcontinuity(Draw_Interpretor& di, Standard_Integer 
       switch (n)
       {
         case 8:
-          epsC0 = Draw::Atof(a[7]);
+          epsC0 = Draw1::Atof(a[7]);
           Standard_FALLTHROUGH
         case 7:
-          epsnl = Draw::Atof(a[6]);
+          epsnl = Draw1::Atof(a[6]);
           Standard_FALLTHROUGH
         case 6:
           break;
@@ -466,13 +466,13 @@ static Standard_Integer curveCcontinuity(Draw_Interpretor& di, Standard_Integer 
       switch (n)
       {
         case 9:
-          epsC1 = Draw::Atof(a[8]);
+          epsC1 = Draw1::Atof(a[8]);
           Standard_FALLTHROUGH
         case 8:
-          epsC0 = Draw::Atof(a[7]);
+          epsC0 = Draw1::Atof(a[7]);
           Standard_FALLTHROUGH
         case 7:
-          epsnl = Draw::Atof(a[6]);
+          epsnl = Draw1::Atof(a[6]);
           Standard_FALLTHROUGH
         case 6:
           break;
@@ -489,16 +489,16 @@ static Standard_Integer curveCcontinuity(Draw_Interpretor& di, Standard_Integer 
       switch (n)
       {
         case 10:
-          epsC2 = Draw::Atof(a[9]);
+          epsC2 = Draw1::Atof(a[9]);
           Standard_FALLTHROUGH
         case 9:
-          epsC1 = Draw::Atof(a[8]);
+          epsC1 = Draw1::Atof(a[8]);
           Standard_FALLTHROUGH
         case 8:
-          epsC0 = Draw::Atof(a[7]);
+          epsC0 = Draw1::Atof(a[7]);
           Standard_FALLTHROUGH
         case 7:
-          epsnl = Draw::Atof(a[6]);
+          epsnl = Draw1::Atof(a[6]);
           Standard_FALLTHROUGH
         case 6:
           break;
@@ -526,14 +526,14 @@ static Standard_Integer curveCcontinuity(Draw_Interpretor& di, Standard_Integer 
 }
 
 /***************************************************************************/
-void GeometryTest::ContinuityCommands(Draw_Interpretor& theCommands)
+void GeometryTest::ContinuityCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean loaded = Standard_False;
   if (loaded)
     return;
   loaded = Standard_True;
 
-  DrawTrSurf::BasicCommands(theCommands);
+  DrawTrSurf1::BasicCommands(theCommands);
   const char* g;
 
   g = "GEOMETRY curves and surfaces continuity analysis ";

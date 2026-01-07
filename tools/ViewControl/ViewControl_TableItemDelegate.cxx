@@ -171,7 +171,7 @@ void ViewControl_TableItemDelegate::setEditorValue(QWidget*                   th
       if (!myModelValues)
         break;
 
-      const TCollection_AsciiString& aStreamValue = myModelValues->Properties()->StreamValue();
+      const AsciiString1& aStreamValue = myModelValues->Properties()->StreamValue();
       (qobject_cast<ViewControl_ColorSelector*>(theEditor))
         ->SetStreamValue(aStreamValue.ToCString());
       break;

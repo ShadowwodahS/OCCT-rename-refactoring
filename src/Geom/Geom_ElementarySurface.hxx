@@ -21,7 +21,7 @@
 #include <Geom_Surface.hxx>
 
 class Geom_ElementarySurface;
-DEFINE_STANDARD_HANDLE(Geom_ElementarySurface, Geom_Surface)
+DEFINE_STANDARD_HANDLE(Geom_ElementarySurface, GeomSurface)
 
 //! Describes the common behavior of surfaces which
 //! have a simple parametric equation in a local
@@ -31,7 +31,7 @@ DEFINE_STANDARD_HANDLE(Geom_ElementarySurface, Geom_Surface)
 //! - four simple surfaces of revolution: the cylinder, the
 //! cone, the sphere and the torus.
 //! An elementary surface inherits the common behavior
-//! of Geom_Surface surfaces. Furthermore, it is located
+//! of GeomSurface surfaces. Furthermore, it is located
 //! in 3D space by a coordinate system (a gp_Ax3
 //! object) which is also its local coordinate system.
 //! Any elementary surface is oriented, i.e. the normal
@@ -60,7 +60,7 @@ DEFINE_STANDARD_HANDLE(Geom_ElementarySurface, Geom_Surface)
 //! - if it is indirect, the two definitions of trigonometric
 //! sense are opposite:
 //! "main Direction" = - "X Direction" ^ "Y Direction"
-class Geom_ElementarySurface : public Geom_Surface
+class Geom_ElementarySurface : public GeomSurface
 {
 public:
   //! Changes the main axis (ZAxis) of the elementary surface.
@@ -123,7 +123,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_ElementarySurface, Geom_Surface)
+  DEFINE_STANDARD_RTTIEXT(Geom_ElementarySurface, GeomSurface)
 
 protected:
   gp_Ax3 pos;

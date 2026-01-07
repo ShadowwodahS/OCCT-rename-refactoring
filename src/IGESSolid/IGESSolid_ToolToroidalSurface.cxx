@@ -31,9 +31,9 @@
 #include <Interface_Macros.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESSolid_ToolToroidalSurface::IGESSolid_ToolToroidalSurface() {}
+ToroidalSurfaceTool::ToroidalSurfaceTool() {}
 
-void IGESSolid_ToolToroidalSurface::ReadOwnParams(const Handle(IGESSolid_ToroidalSurface)& ent,
+void ToroidalSurfaceTool::ReadOwnParams(const Handle(IGESSolid_ToroidalSurface)& ent,
                                                   const Handle(IGESData_IGESReaderData)&   IR,
                                                   IGESData_ParamReader&                    PR) const
 {
@@ -68,7 +68,7 @@ void IGESSolid_ToolToroidalSurface::ReadOwnParams(const Handle(IGESSolid_Toroida
   ent->Init(tempCenter, tempAxis, majRad, minRad, Handle(IGESGeom_Direction)::DownCast(tempRefdir));
 }
 
-void IGESSolid_ToolToroidalSurface::WriteOwnParams(const Handle(IGESSolid_ToroidalSurface)& ent,
+void ToroidalSurfaceTool::WriteOwnParams(const Handle(IGESSolid_ToroidalSurface)& ent,
                                                    IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->Center());
@@ -79,7 +79,7 @@ void IGESSolid_ToolToroidalSurface::WriteOwnParams(const Handle(IGESSolid_Toroid
     IW.Send(ent->ReferenceDir());
 }
 
-void IGESSolid_ToolToroidalSurface::OwnShared(const Handle(IGESSolid_ToroidalSurface)& ent,
+void ToroidalSurfaceTool::OwnShared(const Handle(IGESSolid_ToroidalSurface)& ent,
                                               Interface_EntityIterator&                iter) const
 {
   iter.GetOneItem(ent->Center());
@@ -87,7 +87,7 @@ void IGESSolid_ToolToroidalSurface::OwnShared(const Handle(IGESSolid_ToroidalSur
   iter.GetOneItem(ent->ReferenceDir());
 }
 
-void IGESSolid_ToolToroidalSurface::OwnCopy(const Handle(IGESSolid_ToroidalSurface)& another,
+void ToroidalSurfaceTool::OwnCopy(const Handle(IGESSolid_ToroidalSurface)& another,
                                             const Handle(IGESSolid_ToroidalSurface)& ent,
                                             Interface_CopyTool&                      TC) const
 {
@@ -107,10 +107,10 @@ void IGESSolid_ToolToroidalSurface::OwnCopy(const Handle(IGESSolid_ToroidalSurfa
   }
 }
 
-IGESData_DirChecker IGESSolid_ToolToroidalSurface::DirChecker(
+DirectoryChecker ToroidalSurfaceTool::DirChecker(
   const Handle(IGESSolid_ToroidalSurface)& /*ent*/) const
 {
-  IGESData_DirChecker DC(198, 0, 1);
+  DirectoryChecker DC(198, 0, 1);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
@@ -122,7 +122,7 @@ IGESData_DirChecker IGESSolid_ToolToroidalSurface::DirChecker(
   return DC;
 }
 
-void IGESSolid_ToolToroidalSurface::OwnCheck(const Handle(IGESSolid_ToroidalSurface)& ent,
+void ToroidalSurfaceTool::OwnCheck(const Handle(IGESSolid_ToroidalSurface)& ent,
                                              const Interface_ShareTool&,
                                              Handle(Interface_Check)& ach) const
 {
@@ -139,7 +139,7 @@ void IGESSolid_ToolToroidalSurface::OwnCheck(const Handle(IGESSolid_ToroidalSurf
     ach->AddFail("Parametrised Status Mismatches with Form Number");
 }
 
-void IGESSolid_ToolToroidalSurface::OwnDump(const Handle(IGESSolid_ToroidalSurface)& ent,
+void ToroidalSurfaceTool::OwnDump(const Handle(IGESSolid_ToroidalSurface)& ent,
                                             const IGESData_IGESDumper&               dumper,
                                             Standard_OStream&                        S,
                                             const Standard_Integer                   level) const

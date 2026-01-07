@@ -45,7 +45,7 @@ Handle(Expr_GeneralExpression) Expr_LogOf10::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_LogOf10::Copy() const
 {
-  return new Expr_LogOf10(Expr::CopyShare(Operand()));
+  return new Expr_LogOf10(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_LogOf10::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -73,7 +73,7 @@ Handle(Expr_GeneralExpression) Expr_LogOf10::Derivative(const Handle(Expr_NamedU
   Handle(Expr_GeneralExpression) myder   = myexp->Derivative(X);
   Standard_Real                  vlog    = Log(10.0);
   Handle(Expr_NumericValue)      vallog  = new Expr_NumericValue(vlog);
-  Handle(Expr_Product)           theprod = Expr::CopyShare(myexp) * vallog;
+  Handle(Expr_Product)           theprod = Expr1::CopyShare(myexp) * vallog;
   Handle(Expr_Division)          thediv  = myder / theprod->ShallowSimplified();
   return thediv->ShallowSimplified();
 }
@@ -84,9 +84,9 @@ Standard_Real Expr_LogOf10::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return ::Log10(Operand()->Evaluate(vars, vals));
 }
 
-TCollection_AsciiString Expr_LogOf10::String() const
+AsciiString1 Expr_LogOf10::String() const
 {
-  TCollection_AsciiString str("log(");
+  AsciiString1 str("log(");
   str += Operand()->String();
   str += ")";
   return str;

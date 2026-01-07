@@ -21,8 +21,8 @@
 
 BRepFill_EdgeFaceAndOrder::BRepFill_EdgeFaceAndOrder() {}
 
-BRepFill_EdgeFaceAndOrder::BRepFill_EdgeFaceAndOrder(const TopoDS_Edge&  anEdge,
-                                                     const TopoDS_Face&  aFace,
+BRepFill_EdgeFaceAndOrder::BRepFill_EdgeFaceAndOrder(const TopoEdge&  anEdge,
+                                                     const TopoFace&  aFace,
                                                      const GeomAbs_Shape anOrder)
 {
   myEdge  = anEdge;

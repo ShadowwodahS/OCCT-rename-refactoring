@@ -25,20 +25,20 @@
 #include <Standard_Boolean.hxx>
 class Standard_NoMoreObject;
 class Standard_NoSuchObject;
-class TNaming_ShapesSet;
-class TopoDS_Shape;
+class ShapesSet;
+class TopoShape;
 
-class TNaming_IteratorOnShapesSet
+class ShapesSetIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  TNaming_IteratorOnShapesSet();
+  ShapesSetIterator();
 
-  TNaming_IteratorOnShapesSet(const TNaming_ShapesSet& S);
+  ShapesSetIterator(const ShapesSet& S);
 
   //! Initialize the iteration
-  void Init(const TNaming_ShapesSet& S);
+  void Init(const ShapesSet& S);
 
   //! Returns True if there is a current Item in
   //! the iteration.
@@ -47,7 +47,7 @@ public:
   //! Move to the next Item
   void Next();
 
-  const TopoDS_Shape& Value() const;
+  const TopoShape& Value() const;
 
 protected:
 private:

@@ -44,14 +44,14 @@ public:
 
   //! Appends new shape
   //! \param theShape a shape instance
-  void AddShape(const TopoDS_Shape& theShape) { myShapes.Append(theShape); }
+  void AddShape(const TopoShape& theShape) { myShapes.Append(theShape); }
 
   //! Clears internal container of added shapes
   void RemoveAllShapes() { myShapes.Clear(); }
 
   //! Returns shape by the number
   //! \param theRowId an index of the shape in the internal container.
-  Standard_EXPORT const TopoDS_Shape& Shape(const int theRowId);
+  Standard_EXPORT const TopoShape& Shape(const int theRowId);
 
 protected:
   //! Returns data value for the role.
@@ -77,7 +77,7 @@ private:
   }
 
 private:
-  NCollection_List<TopoDS_Shape> myShapes; //!< shapes presented in tree view
+  NCollection_List<TopoShape> myShapes; //!< shapes presented in tree view
 };
 
 #endif

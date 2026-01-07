@@ -26,7 +26,7 @@
 class Point3d;
 class Vector3d;
 
-class LProp3d_CurveTool
+class CurveTool2
 {
 public:
   DEFINE_STANDARD_ALLOC

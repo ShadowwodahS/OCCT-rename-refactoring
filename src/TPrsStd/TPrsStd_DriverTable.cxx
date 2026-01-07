@@ -78,7 +78,7 @@ void TPrsStd_DriverTable::InitStandardDrivers()
   myDrivers.Bind(TDataXtd_Axis::GetID(), axisdrv);
   myDrivers.Bind(TDataXtd_Constraint::GetID(), cnstrdrv);
   myDrivers.Bind(TDataXtd_Geometry::GetID(), geomdrv);
-  myDrivers.Bind(TNaming_NamedShape::GetID(), nshapedrv);
+  myDrivers.Bind(ShapeAttribute::GetID(), nshapedrv);
   myDrivers.Bind(TDataXtd_Plane::GetID(), planedrv);
   myDrivers.Bind(TDataXtd_Point::GetID(), pointdrv);
 }

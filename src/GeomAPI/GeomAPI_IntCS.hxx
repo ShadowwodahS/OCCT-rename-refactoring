@@ -23,8 +23,8 @@
 
 #include <IntCurveSurface_HInter.hxx>
 #include <Standard_Integer.hxx>
-class Geom_Curve;
-class Geom_Surface;
+class GeomCurve3d;
+class GeomSurface;
 class Point3d;
 
 //! This class implements methods for
@@ -43,13 +43,13 @@ public:
   //! the curve C and the surface S.
   //! Warning
   //! Use function IsDone to verify that the intersections are computed successfully.
-  Standard_EXPORT GeomAPI_IntCS(const Handle(Geom_Curve)& C, const Handle(Geom_Surface)& S);
+  Standard_EXPORT GeomAPI_IntCS(const Handle(GeomCurve3d)& C, const Handle(GeomSurface)& S);
 
   //! This function Initializes an algorithm with the curve C and the
   //! surface S and computes the intersections between C and S.
   //! Warning
   //! Use function IsDone to verify that the intersections are computed successfully.
-  Standard_EXPORT void Perform(const Handle(Geom_Curve)& C, const Handle(Geom_Surface)& S);
+  Standard_EXPORT void Perform(const Handle(GeomCurve3d)& C, const Handle(GeomSurface)& S);
 
   //! Returns true if the intersections are successfully computed.
   Standard_EXPORT Standard_Boolean IsDone() const;
@@ -90,7 +90,7 @@ public:
   //! StdFail_NotDone if intersection algorithm fails or is not initialized.
   //! Standard_OutOfRange if Index is not in the range [ 1,NbSegments ],
   //! where NbSegments is the number of computed intersection segments.
-  Standard_EXPORT Handle(Geom_Curve) Segment(const Standard_Integer Index) const;
+  Standard_EXPORT Handle(GeomCurve3d) Segment(const Standard_Integer Index) const;
 
   //! Returns the parameters of the first (U1,V1) and the last (U2,V2) points
   //! of curve's segment on the surface in case of tangential intersection.
@@ -107,7 +107,7 @@ public:
 
 protected:
 private:
-  Handle(Geom_Curve)     myCurve;
+  Handle(GeomCurve3d)     myCurve;
   IntCurveSurface_HInter myIntCS;
 };
 

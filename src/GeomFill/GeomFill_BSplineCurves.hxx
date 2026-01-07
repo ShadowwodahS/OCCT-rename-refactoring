@@ -23,7 +23,7 @@
 
 #include <GeomFill_FillingStyle.hxx>
 class Geom_BSplineSurface;
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 
 //! An algorithm for constructing a BSpline surface filled
 //! from contiguous BSpline curves which form its boundaries.
@@ -45,15 +45,15 @@ public:
   //! Constructs a default BSpline surface framework.
   Standard_EXPORT GeomFill_BSplineCurves();
 
-  Standard_EXPORT GeomFill_BSplineCurves(const Handle(Geom_BSplineCurve)& C1,
-                                         const Handle(Geom_BSplineCurve)& C2,
-                                         const Handle(Geom_BSplineCurve)& C3,
-                                         const Handle(Geom_BSplineCurve)& C4,
+  Standard_EXPORT GeomFill_BSplineCurves(const Handle(BSplineCurve3d)& C1,
+                                         const Handle(BSplineCurve3d)& C2,
+                                         const Handle(BSplineCurve3d)& C3,
+                                         const Handle(BSplineCurve3d)& C4,
                                          const GeomFill_FillingStyle      Type);
 
-  Standard_EXPORT GeomFill_BSplineCurves(const Handle(Geom_BSplineCurve)& C1,
-                                         const Handle(Geom_BSplineCurve)& C2,
-                                         const Handle(Geom_BSplineCurve)& C3,
+  Standard_EXPORT GeomFill_BSplineCurves(const Handle(BSplineCurve3d)& C1,
+                                         const Handle(BSplineCurve3d)& C2,
+                                         const Handle(BSplineCurve3d)& C3,
                                          const GeomFill_FillingStyle      Type);
 
   //! Constructs a framework for building a BSpline surface from either
@@ -69,21 +69,21 @@ public:
   //! surface common to the two BSpline curves, C1 and C2.
   //! Exceptions
   //! Standard_ConstructionError if the curves are not contiguous.
-  Standard_EXPORT GeomFill_BSplineCurves(const Handle(Geom_BSplineCurve)& C1,
-                                         const Handle(Geom_BSplineCurve)& C2,
+  Standard_EXPORT GeomFill_BSplineCurves(const Handle(BSplineCurve3d)& C1,
+                                         const Handle(BSplineCurve3d)& C2,
                                          const GeomFill_FillingStyle      Type);
 
   //! if the curves cannot be joined
-  Standard_EXPORT void Init(const Handle(Geom_BSplineCurve)& C1,
-                            const Handle(Geom_BSplineCurve)& C2,
-                            const Handle(Geom_BSplineCurve)& C3,
-                            const Handle(Geom_BSplineCurve)& C4,
+  Standard_EXPORT void Init(const Handle(BSplineCurve3d)& C1,
+                            const Handle(BSplineCurve3d)& C2,
+                            const Handle(BSplineCurve3d)& C3,
+                            const Handle(BSplineCurve3d)& C4,
                             const GeomFill_FillingStyle      Type);
 
   //! if the curves cannot be joined
-  Standard_EXPORT void Init(const Handle(Geom_BSplineCurve)& C1,
-                            const Handle(Geom_BSplineCurve)& C2,
-                            const Handle(Geom_BSplineCurve)& C3,
+  Standard_EXPORT void Init(const Handle(BSplineCurve3d)& C1,
+                            const Handle(BSplineCurve3d)& C2,
+                            const Handle(BSplineCurve3d)& C3,
                             const GeomFill_FillingStyle      Type);
 
   //! Initializes or reinitializes this algorithm with two, three,
@@ -95,8 +95,8 @@ public:
   //! -   GeomFill_Curved - the style with the most rounded patch.
   //! Exceptions
   //! Standard_ConstructionError if the curves are not contiguous.
-  Standard_EXPORT void Init(const Handle(Geom_BSplineCurve)& C1,
-                            const Handle(Geom_BSplineCurve)& C2,
+  Standard_EXPORT void Init(const Handle(BSplineCurve3d)& C1,
+                            const Handle(BSplineCurve3d)& C2,
                             const GeomFill_FillingStyle      Type);
 
   //! Returns the BSpline surface Surface resulting from

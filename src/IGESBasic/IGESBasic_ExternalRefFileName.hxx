@@ -26,7 +26,7 @@ class IGESBasic_ExternalRefFileName;
 DEFINE_STANDARD_HANDLE(IGESBasic_ExternalRefFileName, IGESData_IGESEntity)
 
 //! defines ExternalRefFileName, Type <416> Form <0-2>
-//! in package IGESBasic
+//! in package IGESBasic1
 //! Used when single definition from the reference file is
 //! required or for external logical references where an
 //! entity in one file relates to an entity in another file

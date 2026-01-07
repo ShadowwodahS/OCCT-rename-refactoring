@@ -71,9 +71,9 @@ static Standard_Boolean InDomain(const Standard_Real fpar,
 // purpose  : vertex Fix Relation
 //=======================================================================
 
-PrsDim_FixRelation::PrsDim_FixRelation(const TopoDS_Shape&       aShape,
-                                       const Handle(Geom_Plane)& aPlane,
-                                       const TopoDS_Wire&        aWire)
+PrsDim_FixRelation::PrsDim_FixRelation(const TopoShape&       aShape,
+                                       const Handle(GeomPlane)& aPlane,
+                                       const TopoWire&        aWire)
     : PrsDim_Relation(),
       myWire(aWire)
 {
@@ -88,9 +88,9 @@ PrsDim_FixRelation::PrsDim_FixRelation(const TopoDS_Shape&       aShape,
 // purpose  : vertex Fix Relation
 //=======================================================================
 
-PrsDim_FixRelation::PrsDim_FixRelation(const TopoDS_Shape&       aShape,
-                                       const Handle(Geom_Plane)& aPlane,
-                                       const TopoDS_Wire&        aWire,
+PrsDim_FixRelation::PrsDim_FixRelation(const TopoShape&       aShape,
+                                       const Handle(GeomPlane)& aPlane,
+                                       const TopoWire&        aWire,
                                        const Point3d&             aPosition,
                                        const Standard_Real       anArrowSize)
     : PrsDim_Relation(),
@@ -108,7 +108,7 @@ PrsDim_FixRelation::PrsDim_FixRelation(const TopoDS_Shape&       aShape,
 // purpose  : edge (line or circle) Fix Relation
 //=======================================================================
 
-PrsDim_FixRelation::PrsDim_FixRelation(const TopoDS_Shape& aShape, const Handle(Geom_Plane)& aPlane)
+PrsDim_FixRelation::PrsDim_FixRelation(const TopoShape& aShape, const Handle(GeomPlane)& aPlane)
 {
   myFShape            = aShape;
   myPlane             = aPlane;
@@ -121,8 +121,8 @@ PrsDim_FixRelation::PrsDim_FixRelation(const TopoDS_Shape& aShape, const Handle(
 // purpose  : edge (line or circle) Fix Relation
 //=======================================================================
 
-PrsDim_FixRelation::PrsDim_FixRelation(const TopoDS_Shape&       aShape,
-                                       const Handle(Geom_Plane)& aPlane,
+PrsDim_FixRelation::PrsDim_FixRelation(const TopoShape&       aShape,
+                                       const Handle(GeomPlane)& aPlane,
                                        const Point3d&             aPosition,
                                        const Standard_Real       anArrowSize)
 {
@@ -160,7 +160,7 @@ void PrsDim_FixRelation::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void PrsDim_FixRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+void PrsDim_FixRelation::ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                           const Standard_Integer)
 {
   Handle(SelectMgr_EntityOwner) own = new SelectMgr_EntityOwner(this, 7);
@@ -214,9 +214,9 @@ void PrsDim_FixRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSe
 //           when you fix a vertex
 //=======================================================================
 
-void PrsDim_FixRelation::ComputeVertex(const TopoDS_Vertex& /*FixVertex*/, Point3d& curpos)
+void PrsDim_FixRelation::ComputeVertex(const TopoVertex& /*FixVertex*/, Point3d& curpos)
 {
-  myPntAttach = BRep_Tool::Pnt(TopoDS::Vertex(myFShape));
+  myPntAttach = BRepInspector::Pnt(TopoDS::Vertex(myFShape));
   curpos      = myPosition;
   if (myAutomaticPosition)
   {
@@ -231,8 +231,8 @@ void PrsDim_FixRelation::ComputeVertex(const TopoDS_Vertex& /*FixVertex*/, Point
 
 //=================================================================================================
 
-Point3d PrsDim_FixRelation::ComputePosition(const Handle(Geom_Curve)& curv1,
-                                           const Handle(Geom_Curve)& curv2,
+Point3d PrsDim_FixRelation::ComputePosition(const Handle(GeomCurve3d)& curv1,
+                                           const Handle(GeomCurve3d)& curv2,
                                            const Point3d&             firstp1,
                                            const Point3d&             lastp1,
                                            const Point3d&             firstp2,
@@ -243,12 +243,12 @@ Point3d PrsDim_FixRelation::ComputePosition(const Handle(Geom_Curve)& curv1,
   //---------------------------------------------------------
   Point3d curpos;
 
-  if (curv1->IsInstance(STANDARD_TYPE(Geom_Circle))
-      || curv2->IsInstance(STANDARD_TYPE(Geom_Circle)))
+  if (curv1->IsInstance(STANDARD_TYPE(GeomCircle))
+      || curv2->IsInstance(STANDARD_TYPE(GeomCircle)))
   {
-    Handle(Geom_Circle) gcirc = Handle(Geom_Circle)::DownCast(curv1);
+    Handle(GeomCircle) gcirc = Handle(GeomCircle)::DownCast(curv1);
     if (gcirc.IsNull())
-      gcirc = Handle(Geom_Circle)::DownCast(curv2);
+      gcirc = Handle(GeomCircle)::DownCast(curv2);
     Dir3d dir(gcirc->Location().XYZ() + myPntAttach.XYZ());
     Vector3d transvec = Vector3d(dir) * myArrowSize;
     curpos          = myPntAttach.Translated(transvec);
@@ -290,7 +290,7 @@ Point3d PrsDim_FixRelation::ComputePosition(const Handle(Geom_Curve)& curv1,
 //           The "dimension" is in the "middle" of the two edges.
 //=======================================================================
 
-Point3d PrsDim_FixRelation::ComputePosition(const Handle(Geom_Curve)& curv,
+Point3d PrsDim_FixRelation::ComputePosition(const Handle(GeomCurve3d)& curv,
                                            const Point3d&             firstp,
                                            const Point3d&             lastp) const
 {
@@ -299,15 +299,15 @@ Point3d PrsDim_FixRelation::ComputePosition(const Handle(Geom_Curve)& curv,
   //---------------------------------------------------------
   Point3d curpos;
 
-  if (curv->IsKind(STANDARD_TYPE(Geom_Circle)))
+  if (curv->IsKind(STANDARD_TYPE(GeomCircle)))
   {
 
-    Handle(Geom_Circle) gcirc = Handle(Geom_Circle)::DownCast(curv);
+    Handle(GeomCircle) gcirc = Handle(GeomCircle)::DownCast(curv);
     Dir3d              dir(gcirc->Location().XYZ() + myPntAttach.XYZ());
     Vector3d              transvec = Vector3d(dir) * myArrowSize;
     curpos                       = myPntAttach.Translated(transvec);
 
-  } // if (curv->IsKind(STANDARD_TYPE(Geom_Circle))
+  } // if (curv->IsKind(STANDARD_TYPE(GeomCircle))
 
   else
   {
@@ -332,9 +332,9 @@ Point3d PrsDim_FixRelation::ComputePosition(const Handle(Geom_Curve)& curv,
 //           when you fix an edge
 //=======================================================================
 
-void PrsDim_FixRelation::ComputeEdge(const TopoDS_Edge& FixEdge, Point3d& curpos)
+void PrsDim_FixRelation::ComputeEdge(const TopoEdge& FixEdge, Point3d& curpos)
 {
-  Handle(Geom_Curve) curEdge;
+  Handle(GeomCurve3d) curEdge;
   Point3d             ptbeg, ptend;
   if (!PrsDim::ComputeGeometry(FixEdge, curEdge, ptbeg, ptend))
     return;
@@ -343,18 +343,18 @@ void PrsDim_FixRelation::ComputeEdge(const TopoDS_Edge& FixEdge, Point3d& curpos
   // calcul du point de positionnement du symbole 'fix'
   //---------------------------------------------------------
   //--> In case of a straight line
-  if (curEdge->IsKind(STANDARD_TYPE(Geom_Line)))
+  if (curEdge->IsKind(STANDARD_TYPE(GeomLine)))
   {
-    gp_Lin        glin = Handle(Geom_Line)::DownCast(curEdge)->Lin();
+    gp_Lin        glin = Handle(GeomLine)::DownCast(curEdge)->Lin();
     Standard_Real pfirst(ElCLib::Parameter(glin, ptbeg));
     Standard_Real plast(ElCLib::Parameter(glin, ptend));
     ComputeLinePosition(glin, curpos, pfirst, plast);
   }
 
   //--> In case of a circle
-  else if (curEdge->IsKind(STANDARD_TYPE(Geom_Circle)))
+  else if (curEdge->IsKind(STANDARD_TYPE(GeomCircle)))
   {
-    gp_Circ           gcirc = Handle(Geom_Circle)::DownCast(curEdge)->Circ();
+    gp_Circ           gcirc = Handle(GeomCircle)::DownCast(curEdge)->Circ();
     Standard_Real     pfirst, plast;
     BRepAdaptor_Curve cu(FixEdge);
     pfirst = cu.FirstParameter();
@@ -490,16 +490,16 @@ void PrsDim_FixRelation::ComputeCirclePosition(const gp_Circ& gcirc,
 
 //=================================================================================================
 
-Standard_Boolean PrsDim_FixRelation::ConnectedEdges(const TopoDS_Wire&   WIRE,
-                                                    const TopoDS_Vertex& V,
-                                                    TopoDS_Edge&         E1,
-                                                    TopoDS_Edge&         E2)
+Standard_Boolean PrsDim_FixRelation::ConnectedEdges(const TopoWire&   WIRE,
+                                                    const TopoVertex& V,
+                                                    TopoEdge&         E1,
+                                                    TopoEdge&         E2)
 {
   TopTools_IndexedDataMapOfShapeListOfShape vertexMap;
-  TopExp::MapShapesAndAncestors(WIRE, TopAbs_VERTEX, TopAbs_EDGE, vertexMap);
+  TopExp1::MapShapesAndAncestors(WIRE, TopAbs_VERTEX, TopAbs_EDGE, vertexMap);
 
   Standard_Boolean found(Standard_False);
-  TopoDS_Vertex    theVertex;
+  TopoVertex    theVertex;
   for (Standard_Integer i = 1; i <= vertexMap.Extent() && !found; i++)
   {
     if (vertexMap.FindKey(i).IsSame(V))

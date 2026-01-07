@@ -34,9 +34,9 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESSolid_ToolEllipsoid::IGESSolid_ToolEllipsoid() {}
+EllipsoidTool::EllipsoidTool() {}
 
-void IGESSolid_ToolEllipsoid::ReadOwnParams(const Handle(IGESSolid_Ellipsoid)& ent,
+void EllipsoidTool::ReadOwnParams(const Handle(IGESSolid_Ellipsoid)& ent,
                                             const Handle(IGESData_IGESReaderData)& /* IR */,
                                             IGESData_ParamReader& PR) const
 {
@@ -145,7 +145,7 @@ void IGESSolid_ToolEllipsoid::ReadOwnParams(const Handle(IGESSolid_Ellipsoid)& e
     PR.AddWarning("ZAxis poorly unitary, normalized");
 }
 
-void IGESSolid_ToolEllipsoid::WriteOwnParams(const Handle(IGESSolid_Ellipsoid)& ent,
+void EllipsoidTool::WriteOwnParams(const Handle(IGESSolid_Ellipsoid)& ent,
                                              IGESData_IGESWriter&               IW) const
 {
   IW.Send(ent->Size().X());
@@ -162,12 +162,12 @@ void IGESSolid_ToolEllipsoid::WriteOwnParams(const Handle(IGESSolid_Ellipsoid)& 
   IW.Send(ent->ZAxis().Z());
 }
 
-void IGESSolid_ToolEllipsoid::OwnShared(const Handle(IGESSolid_Ellipsoid)& /* ent */,
+void EllipsoidTool::OwnShared(const Handle(IGESSolid_Ellipsoid)& /* ent */,
                                         Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESSolid_ToolEllipsoid::OwnCopy(const Handle(IGESSolid_Ellipsoid)& another,
+void EllipsoidTool::OwnCopy(const Handle(IGESSolid_Ellipsoid)& another,
                                       const Handle(IGESSolid_Ellipsoid)& ent,
                                       Interface_CopyTool& /* TC */) const
 {
@@ -177,10 +177,10 @@ void IGESSolid_ToolEllipsoid::OwnCopy(const Handle(IGESSolid_Ellipsoid)& another
             another->ZAxis().XYZ());
 }
 
-IGESData_DirChecker IGESSolid_ToolEllipsoid::DirChecker(
+DirectoryChecker EllipsoidTool::DirChecker(
   const Handle(IGESSolid_Ellipsoid)& /* ent */) const
 {
-  IGESData_DirChecker DC(168, 0);
+  DirectoryChecker DC(168, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.Color(IGESData_DefAny);
@@ -190,7 +190,7 @@ IGESData_DirChecker IGESSolid_ToolEllipsoid::DirChecker(
   return DC;
 }
 
-void IGESSolid_ToolEllipsoid::OwnCheck(const Handle(IGESSolid_Ellipsoid)& ent,
+void EllipsoidTool::OwnCheck(const Handle(IGESSolid_Ellipsoid)& ent,
                                        const Interface_ShareTool&,
                                        Handle(Interface_Check)& ach) const
 {
@@ -203,7 +203,7 @@ void IGESSolid_ToolEllipsoid::OwnCheck(const Handle(IGESSolid_Ellipsoid)& ent,
     ach->AddFail("Size : The values does not satisfy LX >= LY >= LZ > 0");
 }
 
-void IGESSolid_ToolEllipsoid::OwnDump(const Handle(IGESSolid_Ellipsoid)& ent,
+void EllipsoidTool::OwnDump(const Handle(IGESSolid_Ellipsoid)& ent,
                                       const IGESData_IGESDumper& /* dumper */,
                                       Standard_OStream&      S,
                                       const Standard_Integer level) const

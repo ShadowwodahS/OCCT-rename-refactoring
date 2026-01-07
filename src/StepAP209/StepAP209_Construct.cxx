@@ -112,14 +112,14 @@ StepAP209_Construct::StepAP209_Construct() {}
 
 //=================================================================================================
 
-StepAP209_Construct::StepAP209_Construct(const Handle(XSControl_WorkSession)& WS)
+StepAP209_Construct::StepAP209_Construct(const Handle(ExchangeSession)& WS)
     : STEPConstruct_Tool(WS)
 {
 }
 
 //=================================================================================================
 
-Standard_Boolean StepAP209_Construct::Init(const Handle(XSControl_WorkSession)& WS)
+Standard_Boolean StepAP209_Construct::Init(const Handle(ExchangeSession)& WS)
 {
   return SetWS(WS);
 }
@@ -1392,7 +1392,7 @@ Handle(StepData_StepModel) StepAP209_Construct::CreateAP203Structure() const
   DimExp->Init(0., 0., 0., 0., 0., 0., 0.);
   nmodel->AddWithRefs(DimExp);
 
-  // writing HeaderSection
+  // writing HeaderSection1
   nmodel->ClearHeader();
   Handle(HeaderSection_FileName) FN = Handle(HeaderSection_FileName)::DownCast(
     smodel->HeaderEntity(STANDARD_TYPE(HeaderSection_FileName)));

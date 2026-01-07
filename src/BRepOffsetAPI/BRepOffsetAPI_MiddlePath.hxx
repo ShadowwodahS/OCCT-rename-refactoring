@@ -35,18 +35,18 @@ public:
   //! General constructor.
   //! StartShape and EndShape may be
   //! a wire or a face
-  Standard_EXPORT BRepOffsetAPI_MiddlePath(const TopoDS_Shape& aShape,
-                                           const TopoDS_Shape& StartShape,
-                                           const TopoDS_Shape& EndShape);
+  Standard_EXPORT BRepOffsetAPI_MiddlePath(const TopoShape& aShape,
+                                           const TopoShape& StartShape,
+                                           const TopoShape& EndShape);
 
   Standard_EXPORT virtual void Build(
     const Message_ProgressRange& theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
 protected:
 private:
-  TopoDS_Shape                            myInitialShape;
-  TopoDS_Wire                             myStartWire;
-  TopoDS_Wire                             myEndWire;
+  TopoShape                            myInitialShape;
+  TopoWire                             myStartWire;
+  TopoWire                             myEndWire;
   Standard_Boolean                        myClosedSection;
   Standard_Boolean                        myClosedRing;
   TopTools_MapOfShape                     myStartWireEdges;

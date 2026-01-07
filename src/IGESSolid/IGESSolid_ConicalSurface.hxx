@@ -28,7 +28,7 @@ class IGESSolid_ConicalSurface;
 DEFINE_STANDARD_HANDLE(IGESSolid_ConicalSurface, IGESData_IGESEntity)
 
 //! defines ConicalSurface, Type <194> Form Number <0,1>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! The right circular conical surface is defined by a
 //! point on the axis on the cone, the direction of the axis
 //! of the cone, the radius of the cone at the axis point and

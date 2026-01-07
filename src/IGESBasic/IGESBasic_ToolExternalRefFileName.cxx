@@ -30,9 +30,9 @@
 #include <Interface_ShareTool.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESBasic_ToolExternalRefFileName::IGESBasic_ToolExternalRefFileName() {}
+ExternalRefFileNameTool::ExternalRefFileNameTool() {}
 
-void IGESBasic_ToolExternalRefFileName::ReadOwnParams(
+void ExternalRefFileNameTool::ReadOwnParams(
   const Handle(IGESBasic_ExternalRefFileName)& ent,
   const Handle(IGESData_IGESReaderData)& /* IR */,
   IGESData_ParamReader& PR) const
@@ -51,7 +51,7 @@ void IGESBasic_ToolExternalRefFileName::ReadOwnParams(
   ent->Init(tempExtRefFileIdentifier, tempExtRefEntitySymbName);
 }
 
-void IGESBasic_ToolExternalRefFileName::WriteOwnParams(
+void ExternalRefFileNameTool::WriteOwnParams(
   const Handle(IGESBasic_ExternalRefFileName)& ent,
   IGESData_IGESWriter&                         IW) const
 {
@@ -59,13 +59,13 @@ void IGESBasic_ToolExternalRefFileName::WriteOwnParams(
   IW.Send(ent->ReferenceName());
 }
 
-void IGESBasic_ToolExternalRefFileName::OwnShared(
+void ExternalRefFileNameTool::OwnShared(
   const Handle(IGESBasic_ExternalRefFileName)& /* ent */,
   Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESBasic_ToolExternalRefFileName::OwnCopy(
+void ExternalRefFileNameTool::OwnCopy(
   const Handle(IGESBasic_ExternalRefFileName)& another,
   const Handle(IGESBasic_ExternalRefFileName)& ent,
   Interface_CopyTool& /* TC */) const
@@ -76,10 +76,10 @@ void IGESBasic_ToolExternalRefFileName::OwnCopy(
   ent->Init(tempFileId, tempRefName);
 }
 
-IGESData_DirChecker IGESBasic_ToolExternalRefFileName::DirChecker(
+DirectoryChecker ExternalRefFileNameTool::DirChecker(
   const Handle(IGESBasic_ExternalRefFileName)& /* ent */) const
 {
-  IGESData_DirChecker DC(416, 0, 2);
+  DirectoryChecker DC(416, 0, 2);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -90,7 +90,7 @@ IGESData_DirChecker IGESBasic_ToolExternalRefFileName::DirChecker(
   return DC;
 }
 
-void IGESBasic_ToolExternalRefFileName::OwnCheck(const Handle(IGESBasic_ExternalRefFileName)& ent,
+void ExternalRefFileNameTool::OwnCheck(const Handle(IGESBasic_ExternalRefFileName)& ent,
                                                  const Interface_ShareTool&,
                                                  Handle(Interface_Check)& ach) const
 {
@@ -98,7 +98,7 @@ void IGESBasic_ToolExternalRefFileName::OwnCheck(const Handle(IGESBasic_External
     ach->AddFail("Invalid Form Number");
 }
 
-void IGESBasic_ToolExternalRefFileName::OwnDump(const Handle(IGESBasic_ExternalRefFileName)& ent,
+void ExternalRefFileNameTool::OwnDump(const Handle(IGESBasic_ExternalRefFileName)& ent,
                                                 const IGESData_IGESDumper& /* dumper */,
                                                 Standard_OStream& S,
                                                 const Standard_Integer /* level */) const

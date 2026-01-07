@@ -24,8 +24,8 @@
 class BinMDF_ADriverTable;
 class Message_Messenger;
 
-//! Storage/Retrieval drivers for TNaming attributes
-class BinMNaming
+//! Storage/Retrieval drivers for TNaming1 attributes
+class BinMNaming1
 {
 public:
   DEFINE_STANDARD_ALLOC

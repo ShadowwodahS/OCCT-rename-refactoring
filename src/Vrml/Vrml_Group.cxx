@@ -13,12 +13,12 @@
 
 #include <Vrml_Group.hxx>
 
-Vrml_Group::Vrml_Group()
+Group::Group()
 {
   myFlagPrint = 0;
 }
 
-Standard_OStream& Vrml_Group::Print(Standard_OStream& anOStream)
+Standard_OStream& Group::Print(Standard_OStream& anOStream)
 {
   if (myFlagPrint == 0)
   {

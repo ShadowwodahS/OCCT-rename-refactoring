@@ -58,8 +58,8 @@ public:
   Standard_EXPORT QPushButton* StartButton();
 
   //! Sets the default directory of plugin.
-  void SetPluginDir(const TCollection_AsciiString& thePluginName,
-                    const TCollection_AsciiString& theDefaultDir)
+  void SetPluginDir(const AsciiString1& thePluginName,
+                    const AsciiString1& theDefaultDir)
   {
     myDefaultDirs[thePluginName] = theDefaultDir;
   }
@@ -78,7 +78,7 @@ signals:
 
 private:
   QPushButton* myStartButton; //!< processed button
-  std::map<TCollection_AsciiString, TCollection_AsciiString>
+  std::map<AsciiString1, AsciiString1>
     myDefaultDirs; //!< plugins default directories
 };
 

@@ -32,12 +32,12 @@
 #include <TopTools_ListOfShape.hxx>
 #include <ChFiDS_SecHArray1.hxx>
 #include <ChFiDS_ErrorStatus.hxx>
-class TopoDS_Shape;
-class TopoDS_Edge;
+class TopoShape;
+class TopoEdge;
 class Law_Function;
-class TopoDS_Vertex;
+class TopoVertex;
 class TopOpeBRepBuild_HBuilder;
-class Geom_Surface;
+class GeomSurface;
 
 //! Describes functions to build fillets on the broken edges of a shell or solid.
 //! A MakeFillet object provides a framework for:
@@ -58,7 +58,7 @@ public:
   //! which   parameterisation matches  the  circle one.
   //! ChFi3d_Polynomial  corresponds to  a    polynomial
   //! representation of circles.
-  Standard_EXPORT BRepFilletAPI_MakeFillet(const TopoDS_Shape&      S,
+  Standard_EXPORT BRepFilletAPI_MakeFillet(const TopoShape&      S,
                                            const ChFi3d_FilletShape FShape = ChFi3d_Rational);
 
   Standard_EXPORT void SetParams(const Standard_Real Tang,
@@ -80,23 +80,23 @@ public:
   //! Adds a  fillet contour in  the  builder  (builds a
   //! contour  of tangent edges).
   //! The Radius must be set after.
-  Standard_EXPORT void Add(const TopoDS_Edge& E) Standard_OVERRIDE;
+  Standard_EXPORT void Add(const TopoEdge& E) Standard_OVERRIDE;
 
   //! Adds a  fillet description in  the  builder
   //! - builds a contour  of tangent edges,
   //! - sets the radius.
-  Standard_EXPORT void Add(const Standard_Real Radius, const TopoDS_Edge& E);
+  Standard_EXPORT void Add(const Standard_Real Radius, const TopoEdge& E);
 
   //! Adds a  fillet description in  the  builder
   //! - builds a contour  of tangent edges,
   //! - sets a linear radius evolution law between
   //! the first and last vertex of the spine.
-  Standard_EXPORT void Add(const Standard_Real R1, const Standard_Real R2, const TopoDS_Edge& E);
+  Standard_EXPORT void Add(const Standard_Real R1, const Standard_Real R2, const TopoEdge& E);
 
   //! Adds a  fillet description in  the  builder
   //! - builds a contour  of tangent edges,
   //! - sest the radius evolution law.
-  Standard_EXPORT void Add(const Handle(Law_Function)& L, const TopoDS_Edge& E);
+  Standard_EXPORT void Add(const Handle(Law_Function)& L, const TopoEdge& E);
 
   //! Adds a  fillet description in  the  builder
   //! - builds a contour  of tangent edges,
@@ -105,7 +105,7 @@ public:
   //!
   //! p2d.X() = relative parameter on the spine [0,1]
   //! p2d.Y() = value of the radius.
-  Standard_EXPORT void Add(const TColgp_Array1OfPnt2d& UandR, const TopoDS_Edge& E);
+  Standard_EXPORT void Add(const TColgp_Array1OfPnt2d& UandR, const TopoEdge& E);
 
   //! Sets the parameters of the fillet
   //! along the contour of index IC generated using the Add function
@@ -177,7 +177,7 @@ public:
   //! Warning
   //! False is returned if IC is outside the bounds of the table
   //! of contours or if E does not belong to the contour of index IC.
-  Standard_EXPORT Standard_Boolean IsConstant(const Standard_Integer IC, const TopoDS_Edge& E);
+  Standard_EXPORT Standard_Boolean IsConstant(const Standard_Integer IC, const TopoEdge& E);
 
   //! Returns the radius of the fillet along the edge E of the contour of index
   //! IC in the internal data structure of this algorithm.
@@ -185,26 +185,26 @@ public:
   //! -   Use this function only if the radius is constant.
   //! -   -1 is returned if IC is outside the bounds of the
   //! table of contours or if E does not belong to the contour of index IC.
-  Standard_EXPORT Standard_Real Radius(const Standard_Integer IC, const TopoDS_Edge& E);
+  Standard_EXPORT Standard_Real Radius(const Standard_Integer IC, const TopoEdge& E);
 
   //! Assigns Radius as the radius of the fillet on the edge E
   Standard_EXPORT void SetRadius(const Standard_Real    Radius,
                                  const Standard_Integer IC,
-                                 const TopoDS_Edge&     E);
+                                 const TopoEdge&     E);
 
   Standard_EXPORT void SetRadius(const Standard_Real    Radius,
                                  const Standard_Integer IC,
-                                 const TopoDS_Vertex&   V);
+                                 const TopoVertex&   V);
 
   Standard_EXPORT Standard_Boolean GetBounds(const Standard_Integer IC,
-                                             const TopoDS_Edge&     E,
+                                             const TopoEdge&     E,
                                              Standard_Real&         F,
                                              Standard_Real&         L);
 
-  Standard_EXPORT Handle(Law_Function) GetLaw(const Standard_Integer IC, const TopoDS_Edge& E);
+  Standard_EXPORT Handle(Law_Function) GetLaw(const Standard_Integer IC, const TopoEdge& E);
 
   Standard_EXPORT void SetLaw(const Standard_Integer      IC,
-                              const TopoDS_Edge&          E,
+                              const TopoEdge&          E,
                               const Handle(Law_Function)& L);
 
   //! Assigns FShape as the type of fillet shape built by this algorithm.
@@ -223,7 +223,7 @@ public:
   //! Warning
   //! This index can change if a contour is removed from the
   //! internal data structure of this algorithm using the function Remove.
-  Standard_EXPORT Standard_Integer Contour(const TopoDS_Edge& E) const Standard_OVERRIDE;
+  Standard_EXPORT Standard_Integer Contour(const TopoEdge& E) const Standard_OVERRIDE;
 
   //! Returns the number of edges in the contour of index I in
   //! the internal data structure of this algorithm.
@@ -237,7 +237,7 @@ public:
   //! Returns a null shape if:
   //! -   I is outside the bounds of the table of contours, or
   //! -   J is outside the bounds of the table of edges of the index I contour.
-  Standard_EXPORT const TopoDS_Edge& Edge(const Standard_Integer I,
+  Standard_EXPORT const TopoEdge& Edge(const Standard_Integer I,
                                           const Standard_Integer J) const Standard_OVERRIDE;
 
   //! Removes the contour in the internal data structure of
@@ -245,7 +245,7 @@ public:
   //! Warning
   //! Nothing is done if the edge E does not belong to the
   //! contour in the internal data structure of this algorithm.
-  Standard_EXPORT void Remove(const TopoDS_Edge& E) Standard_OVERRIDE;
+  Standard_EXPORT void Remove(const TopoEdge& E) Standard_OVERRIDE;
 
   //! Returns the length of the contour of index IC in the
   //! internal data structure of this algorithm.
@@ -257,13 +257,13 @@ public:
   //! in the internal data structure of this algorithm.
   //! Warning
   //! Returns a null shape if IC is outside the bounds of the table of contours.
-  Standard_EXPORT TopoDS_Vertex FirstVertex(const Standard_Integer IC) const Standard_OVERRIDE;
+  Standard_EXPORT TopoVertex FirstVertex(const Standard_Integer IC) const Standard_OVERRIDE;
 
   //! Returns the  last vertex of the contour of index IC
   //! in the internal data structure of this algorithm.
   //! Warning
   //! Returns a null shape if IC is outside the bounds of the table of contours.
-  Standard_EXPORT TopoDS_Vertex LastVertex(const Standard_Integer IC) const Standard_OVERRIDE;
+  Standard_EXPORT TopoVertex LastVertex(const Standard_Integer IC) const Standard_OVERRIDE;
 
   //! Returns the curvilinear abscissa of the vertex V on the
   //! contour of index IC in the internal data structure of this algorithm.
@@ -272,7 +272,7 @@ public:
   //! -   IC is outside the bounds of the table of contours, or
   //! -   V is not on the contour of index IC.
   Standard_EXPORT Standard_Real Abscissa(const Standard_Integer IC,
-                                         const TopoDS_Vertex&   V) const Standard_OVERRIDE;
+                                         const TopoVertex&   V) const Standard_OVERRIDE;
 
   //! Returns the relative curvilinear abscissa (i.e. between 0
   //! and 1) of the vertex V on the contour of index IC in the
@@ -282,7 +282,7 @@ public:
   //! -   IC is outside the bounds of the table of contours, or
   //! -   V is not on the contour of index IC.
   Standard_EXPORT Standard_Real RelativeAbscissa(const Standard_Integer IC,
-                                                 const TopoDS_Vertex&   V) const Standard_OVERRIDE;
+                                                 const TopoVertex&   V) const Standard_OVERRIDE;
 
   //! Returns true if the contour of index IC in the internal
   //! data structure of this algorithm is closed and tangential
@@ -329,22 +329,22 @@ public:
 
   //! Returns the  list   of shapes generated   from the
   //! shape <EorV>.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Generated(const TopoDS_Shape& EorV)
+  Standard_EXPORT virtual const ShapeList& Generated(const TopoShape& EorV)
     Standard_OVERRIDE;
 
   //! Returns the list  of shapes modified from the shape
   //! <F>.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Modified(const TopoDS_Shape& F)
+  Standard_EXPORT virtual const ShapeList& Modified(const TopoShape& F)
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Standard_Boolean IsDeleted(const TopoDS_Shape& F) Standard_OVERRIDE;
+  Standard_EXPORT virtual Standard_Boolean IsDeleted(const TopoShape& F) Standard_OVERRIDE;
 
   //! returns the number of surfaces
   //! after the shape creation.
   Standard_EXPORT Standard_Integer NbSurfaces() const;
 
   //! Return the faces created for surface <I>.
-  Standard_EXPORT const TopTools_ListOfShape& NewFaces(const Standard_Integer I);
+  Standard_EXPORT const ShapeList& NewFaces(const Standard_Integer I);
 
   Standard_EXPORT void Simulate(const Standard_Integer IC) Standard_OVERRIDE;
 
@@ -368,21 +368,21 @@ public:
   Standard_EXPORT Standard_Integer NbComputedSurfaces(const Standard_Integer IC) const;
 
   //! returns the surface number IS concerning the contour IC
-  Standard_EXPORT Handle(Geom_Surface) ComputedSurface(const Standard_Integer IC,
+  Standard_EXPORT Handle(GeomSurface) ComputedSurface(const Standard_Integer IC,
                                                        const Standard_Integer IS) const;
 
   //! returns the number of vertices where the computation failed
   Standard_EXPORT Standard_Integer NbFaultyVertices() const;
 
   //! returns the vertex where the computation failed
-  Standard_EXPORT TopoDS_Vertex FaultyVertex(const Standard_Integer IV) const;
+  Standard_EXPORT TopoVertex FaultyVertex(const Standard_Integer IV) const;
 
   //! returns true if a part of the result has been computed
   //! if the filling in a corner failed a shape with a hole is returned
   Standard_EXPORT Standard_Boolean HasResult() const;
 
   //! if (HasResult()) returns the partial result
-  Standard_EXPORT TopoDS_Shape BadShape() const;
+  Standard_EXPORT TopoShape BadShape() const;
 
   //! returns the status concerning the contour IC in case of error
   //! ChFiDS_Ok : the computation is Ok

@@ -59,9 +59,9 @@ DEGLTF_Provider::DEGLTF_Provider(const Handle(DE_ConfigurationNode)& theNode)
 
 //=================================================================================================
 
-bool DEGLTF_Provider::Read(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
-                           Handle(XSControl_WorkSession)&  theWS,
+bool DEGLTF_Provider::Read(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
+                           Handle(ExchangeSession)&  theWS,
                            const Message_ProgressRange&    theProgress)
 {
   (void)theWS;
@@ -70,9 +70,9 @@ bool DEGLTF_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEGLTF_Provider::Write(const TCollection_AsciiString&  thePath,
-                            const Handle(TDocStd_Document)& theDocument,
-                            Handle(XSControl_WorkSession)&  theWS,
+bool DEGLTF_Provider::Write(const AsciiString1&  thePath,
+                            const Handle(AppDocument)& theDocument,
+                            Handle(ExchangeSession)&  theWS,
                             const Message_ProgressRange&    theProgress)
 {
   (void)theWS;
@@ -81,8 +81,8 @@ bool DEGLTF_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEGLTF_Provider::Read(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
+bool DEGLTF_Provider::Read(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
                            const Message_ProgressRange&    theProgress)
 {
   if (theDocument.IsNull())
@@ -116,8 +116,8 @@ bool DEGLTF_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEGLTF_Provider::Write(const TCollection_AsciiString&  thePath,
-                            const Handle(TDocStd_Document)& theDocument,
+bool DEGLTF_Provider::Write(const AsciiString1&  thePath,
+                            const Handle(AppDocument)& theDocument,
                             const Message_ProgressRange&    theProgress)
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEGLTF_ConfigurationNode)))
@@ -157,7 +157,7 @@ bool DEGLTF_Provider::Write(const TCollection_AsciiString&  thePath,
     aFileInfo.Add("Comments", aNode->InternalParameters.WriteComment);
   }
 
-  TCollection_AsciiString anExt = thePath;
+  AsciiString1 anExt = thePath;
   anExt.LowerCase();
   RWGltf_CafWriter aWriter(thePath, anExt.EndsWith(".glb"));
   aWriter.SetCoordinateSystemConverter(aConverter);
@@ -178,9 +178,9 @@ bool DEGLTF_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEGLTF_Provider::Read(const TCollection_AsciiString& thePath,
-                           TopoDS_Shape&                  theShape,
-                           Handle(XSControl_WorkSession)& theWS,
+bool DEGLTF_Provider::Read(const AsciiString1& thePath,
+                           TopoShape&                  theShape,
+                           Handle(ExchangeSession)& theWS,
                            const Message_ProgressRange&   theProgress)
 {
   (void)theWS;
@@ -189,9 +189,9 @@ bool DEGLTF_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEGLTF_Provider::Write(const TCollection_AsciiString& thePath,
-                            const TopoDS_Shape&            theShape,
-                            Handle(XSControl_WorkSession)& theWS,
+bool DEGLTF_Provider::Write(const AsciiString1& thePath,
+                            const TopoShape&            theShape,
+                            Handle(ExchangeSession)& theWS,
                             const Message_ProgressRange&   theProgress)
 {
   (void)theWS;
@@ -200,8 +200,8 @@ bool DEGLTF_Provider::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEGLTF_Provider::Read(const TCollection_AsciiString& thePath,
-                           TopoDS_Shape&                  theShape,
+bool DEGLTF_Provider::Read(const AsciiString1& thePath,
+                           TopoShape&                  theShape,
                            const Message_ProgressRange&   theProgress)
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEGLTF_ConfigurationNode)))
@@ -224,11 +224,11 @@ bool DEGLTF_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEGLTF_Provider::Write(const TCollection_AsciiString& thePath,
-                            const TopoDS_Shape&            theShape,
+bool DEGLTF_Provider::Write(const AsciiString1& thePath,
+                            const TopoShape&            theShape,
                             const Message_ProgressRange&   theProgress)
 {
-  Handle(TDocStd_Document)  aDoc    = new TDocStd_Document("BinXCAF");
+  Handle(AppDocument)  aDoc    = new AppDocument("BinXCAF");
   Handle(XCAFDoc_ShapeTool) aShTool = XCAFDoc_DocumentTool::ShapeTool(aDoc->Main());
   aShTool->AddShape(theShape);
   return Write(thePath, aDoc, theProgress);
@@ -236,14 +236,14 @@ bool DEGLTF_Provider::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-TCollection_AsciiString DEGLTF_Provider::GetFormat() const
+AsciiString1 DEGLTF_Provider::GetFormat() const
 {
-  return TCollection_AsciiString("GLTF");
+  return AsciiString1("GLTF");
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DEGLTF_Provider::GetVendor() const
+AsciiString1 DEGLTF_Provider::GetVendor() const
 {
-  return TCollection_AsciiString("OCC");
+  return AsciiString1("OCC");
 }

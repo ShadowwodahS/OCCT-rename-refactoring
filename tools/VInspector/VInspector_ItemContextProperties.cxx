@@ -50,19 +50,19 @@ int VInspector_ItemContextProperties::initRowCount() const
   VInspector_ItemContextPtr aParentContextItem = itemDynamicCast<VInspector_ItemContext>(Parent());
   if (aParentContextItem)
   {
-    Handle(AIS_InteractiveContext) aContext = aParentContextItem->GetContext();
-    Handle(V3d_Viewer)             aViewer  = aContext->CurrentViewer();
+    Handle(VisualContext) aContext = aParentContextItem->GetContext();
+    Handle(ViewManager)             aViewer  = aContext->CurrentViewer();
     if (!aViewer.IsNull())
     {
       if (!aViewer->ActiveViews().IsEmpty())
       {
-        Handle(V3d_View) aView = aViewer->ActiveViews().First();
+        Handle(ViewWindow) aView = aViewer->ActiveViews().First();
         if (!aView.IsNull())
           aLightsCount = aView->ActiveLights().Extent();
       }
     }
   }
-  return 2 + aLightsCount; // V3d_Viewer, SelectMgr_ViewerSelector
+  return 2 + aLightsCount; // ViewManager, SelectMgr_ViewerSelector
 }
 
 // =======================================================================

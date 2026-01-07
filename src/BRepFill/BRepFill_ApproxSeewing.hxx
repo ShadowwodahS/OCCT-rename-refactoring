@@ -22,10 +22,10 @@
 #include <Standard_Handle.hxx>
 
 #include <BRepFill_MultiLine.hxx>
-class Geom_Curve;
-class Geom2d_Curve;
+class GeomCurve3d;
+class GeomCurve2d;
 
-//! Evaluate the 3dCurve and the PCurves described in a MultiLine from BRepFill.
+//! Evaluate the 3dCurve and the PCurves described in a MultiLine from BRepFill1.
 //! The parametrization of those curves is not imposed by the Bissectrice.
 //! The parametrization is given approximately by the abscissa of the curve3d.
 class BRepFill_ApproxSeewing
@@ -42,22 +42,22 @@ public:
   Standard_EXPORT Standard_Boolean IsDone() const;
 
   //! returns the approximation of the 3d Curve
-  Standard_EXPORT const Handle(Geom_Curve)& Curve() const;
+  Standard_EXPORT const Handle(GeomCurve3d)& Curve() const;
 
   //! returns the  approximation  of the  PCurve  on the
   //! first face of the MultiLine
-  Standard_EXPORT const Handle(Geom2d_Curve)& CurveOnF1() const;
+  Standard_EXPORT const Handle(GeomCurve2d)& CurveOnF1() const;
 
   //! returns the  approximation  of the  PCurve  on the
   //! first face of the MultiLine
-  Standard_EXPORT const Handle(Geom2d_Curve)& CurveOnF2() const;
+  Standard_EXPORT const Handle(GeomCurve2d)& CurveOnF2() const;
 
 private:
   BRepFill_MultiLine   myML;
   Standard_Boolean     myIsDone;
-  Handle(Geom_Curve)   myCurve;
-  Handle(Geom2d_Curve) myPCurve1;
-  Handle(Geom2d_Curve) myPCurve2;
+  Handle(GeomCurve3d)   myCurve;
+  Handle(GeomCurve2d) myPCurve1;
+  Handle(GeomCurve2d) myPCurve2;
 };
 
 #endif // _BRepFill_ApproxSeewing_HeaderFile

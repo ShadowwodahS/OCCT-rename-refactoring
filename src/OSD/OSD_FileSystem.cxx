@@ -64,7 +64,7 @@ void OSD_FileSystem::RemoveDefaultProtocol(const Handle(OSD_FileSystem)& theFile
 //=================================================================================================
 
 std::shared_ptr<std::istream> OSD_FileSystem::OpenIStream(
-  const TCollection_AsciiString&       theUrl,
+  const AsciiString1&       theUrl,
   const std::ios_base::openmode        theMode,
   const int64_t                        theOffset,
   const std::shared_ptr<std::istream>& theOldStream)
@@ -109,7 +109,7 @@ std::shared_ptr<std::istream> OSD_FileSystem::OpenIStream(
 
 //=================================================================================================
 
-std::shared_ptr<std::ostream> OSD_FileSystem::OpenOStream(const TCollection_AsciiString& theUrl,
+std::shared_ptr<std::ostream> OSD_FileSystem::OpenOStream(const AsciiString1& theUrl,
                                                           const std::ios_base::openmode  theMode)
 {
   std::shared_ptr<std::ostream>   aNewStream;

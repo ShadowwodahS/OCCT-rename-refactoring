@@ -24,7 +24,7 @@ class BinMDF_ADriverTable;
 class Message_Messenger;
 
 //! Storage and Retrieval drivers for TDocStd modelling attributes.
-class BinMDocStd
+class BinMDocStd1
 {
 public:
   DEFINE_STANDARD_ALLOC

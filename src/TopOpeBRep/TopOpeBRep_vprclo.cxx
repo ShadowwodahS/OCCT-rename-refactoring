@@ -40,14 +40,14 @@ Standard_EXPORT void debooarc(const Standard_Integer i);
 #endif
 
 Standard_EXPORT Handle(TopOpeBRepDS_Interference) MakeEPVInterference(
-  const TopOpeBRepDS_Transition& T, // transition
+  const StateTransition& T, // transition
   const Standard_Integer         S, // curve/edge index
   const Standard_Integer         G, // point/vertex index
   const Standard_Real            P, // parameter of G on S
   const TopOpeBRepDS_Kind        GK,
   const Standard_Boolean         B); // G is a vertex (or not) of the interference master
 Standard_EXPORT Handle(TopOpeBRepDS_Interference) MakeEPVInterference(
-  const TopOpeBRepDS_Transition& T,  // transition
+  const StateTransition& T,  // transition
   const Standard_Integer         S,  // curve/edge index
   const Standard_Integer         G,  // point/vertex index
   const Standard_Real            P,  // parameter of G on S
@@ -55,7 +55,7 @@ Standard_EXPORT Handle(TopOpeBRepDS_Interference) MakeEPVInterference(
   const TopOpeBRepDS_Kind        SK,
   const Standard_Boolean         B); // G is a vertex (or not) of the interference master
 
-static Standard_Boolean FUN_INlos(const TopoDS_Shape& S, const TopTools_ListOfShape& loS)
+static Standard_Boolean FUN_INlos(const TopoShape& S, const ShapeList& loS)
 {
   TopTools_ListIteratorOfListOfShape it(loS);
   for (; it.More(); it.Next())
@@ -70,11 +70,11 @@ static Standard_Boolean FUN_INlos(const TopoDS_Shape& S, const TopTools_ListOfSh
 //           Computes FORWARD or REVERSED transitions,
 //           returns transition UNKNOWN elsewhere.
 //=======================================================================
-TopOpeBRepDS_Transition TopOpeBRep_FacesFiller::GetEdgeTrans(const TopOpeBRep_VPointInter& VP,
+StateTransition TopOpeBRep_FacesFiller::GetEdgeTrans(const TopOpeBRep_VPointInter& VP,
                                                              const TopOpeBRepDS_Kind       PVKind,
                                                              const Standard_Integer        PVIndex,
                                                              const Standard_Integer ShapeIndex,
-                                                             const TopoDS_Face&     F)
+                                                             const TopoFace&     F)
 {
   // VP is on couture <Ec> of rank <sind>
   //       on face <F> of rank <oosind>.
@@ -85,10 +85,10 @@ TopOpeBRepDS_Transition TopOpeBRep_FacesFiller::GetEdgeTrans(const TopOpeBRep_VP
   if (!isvalid)
     throw ExceptionBase("TopOpeBRep_FacesFiller::GetEdgeTrans");
 
-  const TopoDS_Edge& edge    = TopoDS::Edge(VP.Edge(ShapeIndex));
+  const TopoEdge& edge    = TopoDS::Edge(VP.Edge(ShapeIndex));
   Standard_Real      paredge = VP.EdgeParameter(ShapeIndex);
 
-  TopoDS_Edge OOedge;
+  TopoEdge OOedge;
 
   Standard_Real OOparedge = 0.;
 
@@ -100,7 +100,7 @@ TopOpeBRepDS_Transition TopOpeBRep_FacesFiller::GetEdgeTrans(const TopOpeBRep_VP
       OOparedge = VP.EdgeParameter(OOShapeIndex);
     else
       OOparedge = VP.EdgeONParameter(OOShapeIndex);
-    TopoDS_Shape OOe;
+    TopoShape OOe;
     if (on2edges)
       OOe = VP.Edge(OOShapeIndex);
     else
@@ -128,7 +128,7 @@ TopOpeBRepDS_Transition TopOpeBRep_FacesFiller::GetEdgeTrans(const TopOpeBRep_VP
   else
     FUN_tool_bounds(edge, par1, par2);
 
-  TopOpeBRepDS_Transition T;
+  StateTransition T;
   // xpu : 16-01-98
   //       <Tr> relative to 3d <OOface> matter,
   //       we take into account <Tr> / 2d <OOface> only if <edge> is normal to <OOface>
@@ -166,10 +166,10 @@ TopOpeBRepDS_Transition TopOpeBRep_FacesFiller::GetEdgeTrans(const TopOpeBRep_VP
 //=======================================================================
 void TopOpeBRep_FacesFiller::ProcessVPonclosingR(
   const TopOpeBRep_VPointInter& VP,
-  //                                const TopoDS_Shape& GFace,
-  const TopoDS_Shape&,
+  //                                const TopoShape& GFace,
+  const TopoShape&,
   const Standard_Integer         ShapeIndex,
-  const TopOpeBRepDS_Transition& transEdge,
+  const StateTransition& transEdge,
   const TopOpeBRepDS_Kind        PVKind,
   const Standard_Integer         PVIndex,
   //				const Standard_Boolean EPIfound,
@@ -185,14 +185,14 @@ void TopOpeBRep_FacesFiller::ProcessVPonclosingR(
   Standard_Boolean hasONedge    = (VP.State(OOShapeIndex) == TopAbs_ON);
   Standard_Boolean hasOOedge    = (on2edges) ? Standard_True : hasONedge;
 
-  TopoDS_Face      Face    = (*this).Face(ShapeIndex);
-  TopoDS_Face      OOFace  = (*this).Face(OOShapeIndex);
+  TopoFace      Face    = (*this).Face(ShapeIndex);
+  TopoFace      OOFace  = (*this).Face(OOShapeIndex);
   Standard_Integer iOOFace = myDS->Shape(OOFace);
   if (iOOFace == 0)
     iOOFace = myDS->AddShape(OOFace, OOShapeIndex);
 
   // current VPoint is on <edge>
-  const TopoDS_Edge& edge = TopoDS::Edge(VP.Edge(ShapeIndex));
+  const TopoEdge& edge = TopoDS::Edge(VP.Edge(ShapeIndex));
   if (!myDS->HasShape(edge))
     myDS->AddShape(edge, ShapeIndex);
 
@@ -200,10 +200,10 @@ void TopOpeBRep_FacesFiller::ProcessVPonclosingR(
 
   // dummy if !<hasOOedge>
   Standard_Integer OOedgeIndex = 0;
-  TopoDS_Edge      OOedge;
+  TopoEdge      OOedge;
   if (hasOOedge)
   {
-    TopoDS_Shape OOe;
+    TopoShape OOe;
     if (on2edges)
       OOe = VP.Edge(OOShapeIndex);
     else
@@ -225,7 +225,7 @@ void TopOpeBRep_FacesFiller::ProcessVPonclosingR(
   //  transEdge should be INTERNAL/EXTERNAL.
 
   Standard_Boolean        Tunk = transEdge.IsUnknown();
-  TopOpeBRepDS_Transition transAdd;
+  StateTransition transAdd;
   Standard_Boolean        newtransEdge = Tunk;
   if (newtransEdge)
     transAdd = GetEdgeTrans(VP, PVKind, PVIndex, ShapeIndex, OOFace);
@@ -236,7 +236,7 @@ void TopOpeBRep_FacesFiller::ProcessVPonclosingR(
   // hasOOedge  : <VP> is ON edge <edge> and ON <OOFace>
   // !hasOOedge : <VP> is ON edge <edge> and IN <OOFace>
   {
-    TopOpeBRepDS_Transition T = transAdd;
+    StateTransition T = transAdd;
     T.Index(iOOFace);
     Handle(TopOpeBRepDS_Interference) EPI =
       ::MakeEPVInterference(T, iOOFace, PVIndex, paredge, PVKind, TopOpeBRepDS_FACE, isvertex);
@@ -244,7 +244,7 @@ void TopOpeBRep_FacesFiller::ProcessVPonclosingR(
   }
   if (hasOOedge)
   {
-    TopOpeBRepDS_Transition T = transAdd;
+    StateTransition T = transAdd;
     T.Index(iOOFace);
     Handle(TopOpeBRepDS_Interference) EPI =
       ::MakeEPVInterference(T, OOedgeIndex, PVIndex, paredge, PVKind, isvertex);

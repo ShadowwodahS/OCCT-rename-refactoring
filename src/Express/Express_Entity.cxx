@@ -100,14 +100,14 @@ Standard_Integer Express_Entity::NbFields(const Standard_Boolean theInherited) c
 //=================================================================================================
 
 static void writeGetMethod(Standard_OStream&              theOS,
-                           const TCollection_AsciiString& theName,
-                           const TCollection_AsciiString& theField,
-                           const TCollection_AsciiString& theType,
+                           const AsciiString1& theName,
+                           const AsciiString1& theField,
+                           const AsciiString1& theType,
                            const Standard_Boolean         isHandle,
                            const Standard_Boolean /*isSimple*/)
 {
-  const TCollection_AsciiString& aMethod = theField;
-  Express::WriteMethodStamp(theOS, aMethod);
+  const AsciiString1& aMethod = theField;
+  Express1::WriteMethodStamp(theOS, aMethod);
   theOS << (isHandle ? "Handle(" : "") << theType << (isHandle ? ") " : " ") << theName
         << "::" << aMethod
         << "() const\n"
@@ -121,15 +121,15 @@ static void writeGetMethod(Standard_OStream&              theOS,
 //=================================================================================================
 
 static void writeSetMethod(Standard_OStream&              theOS,
-                           const TCollection_AsciiString& theName,
-                           const TCollection_AsciiString& theField,
-                           const TCollection_AsciiString& theType,
+                           const AsciiString1& theName,
+                           const AsciiString1& theField,
+                           const AsciiString1& theType,
                            const Standard_Boolean         isHandle,
                            const Standard_Boolean         isSimple)
 {
-  TCollection_AsciiString aMethod = "Set";
+  AsciiString1 aMethod = "Set";
   aMethod += theField;
-  Express::WriteMethodStamp(theOS, aMethod);
+  Express1::WriteMethodStamp(theOS, aMethod);
   theOS << "void " << theName << "::" << aMethod << " (const " << (isHandle ? "Handle(" : "")
         << theType << (isHandle ? ")" : "") << (isSimple ? "" : "&") << " the" << theField
         << ")\n"
@@ -152,13 +152,13 @@ static inline void writeSpaces(Standard_OStream& theOS, Standard_Integer theNum)
 
 Standard_Boolean Express_Entity::GenerateClass() const
 {
-  const TCollection_AsciiString aCPPName = CPPName();
+  const AsciiString1 aCPPName = CPPName();
   Message::SendInfo() << "Generating ENTITY " << aCPPName;
 
   // create a package directory (if not yet exist)
   OSD_Protection          aProt(OSD_RWXD, OSD_RWXD, OSD_RX, OSD_RX);
-  TCollection_AsciiString aPack = GetPackageName();
-  OSD_Path                aPath(aPack);
+  AsciiString1 aPack = GetPackageName();
+  SystemPath                aPath(aPack);
   OSD_Directory           aDir(aPath);
   aDir.Build(aProt);
   aPack += "/";
@@ -167,7 +167,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
 
   //===============================
   // Step 1: generating HXX
-  TCollection_AsciiString anInheritName;
+  AsciiString1 anInheritName;
   {
     // Open HXX file
     std::shared_ptr<std::ostream> aStreamPtr =
@@ -175,7 +175,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     Standard_OStream& anOS = *aStreamPtr;
 
     // write header
-    Express::WriteFileStamp(anOS);
+    Express1::WriteFileStamp(anOS);
 
     // write include protection and "standard" includes
     anOS << "#ifndef _" << aCPPName
@@ -247,8 +247,8 @@ Standard_Boolean Express_Entity::GenerateClass() const
     for (Standard_Integer i = 2; i <= myInherit->Length(); i++)
     {
       Handle(Express_Entity)         anEntity        = myInherit->Value(i);
-      const TCollection_AsciiString& aName           = anEntity->Name();
-      const TCollection_AsciiString& anEntityCPPName = anEntity->CPPName();
+      const AsciiString1& aName           = anEntity->Name();
+      const AsciiString1& anEntityCPPName = anEntity->CPPName();
       anOS << "  //! Returns data for supertype " << aName
            << "\n"
               "  Standard_EXPORT Handle("
@@ -266,7 +266,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     {
       Handle(Express_Field)   aField        = myFields->Value(i);
       Handle(Express_Type)    aFieldType    = aField->Type();
-      TCollection_AsciiString aFieldCPPName = aFieldType->CPPName();
+      AsciiString1 aFieldCPPName = aFieldType->CPPName();
       anOS << "  //! Returns field " << aField->Name() << "\n";
       if (aFieldType->IsHandle())
       {
@@ -306,8 +306,8 @@ Standard_Boolean Express_Entity::GenerateClass() const
       Standard_Integer aFindPos = aFieldCPPName.Search("_HArray");
       if (aFindPos > -1)
       {
-        TCollection_AsciiString aNamePack = aFieldCPPName.SubString(1, aFindPos);
-        TCollection_AsciiString aNameClass;
+        AsciiString1 aNamePack = aFieldCPPName.SubString(1, aFindPos);
+        AsciiString1 aNameClass;
         if (aNamePack.IsEqual("TColStd_"))
         {
           Standard_Integer aFindPos2 = aFieldCPPName.Search("Integer");
@@ -422,7 +422,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     Standard_OStream& anOS = *aStreamPtr;
 
     // write header
-    Express::WriteFileStamp(anOS);
+    Express1::WriteFileStamp(anOS);
 
     // write include section
     anOS << "#include <" << aCPPName
@@ -432,7 +432,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
          << aCPPName << ", " << anInheritName << ")\n";
 
     // write constructor
-    Express::WriteMethodStamp(anOS, aCPPName);
+    Express1::WriteMethodStamp(anOS, aCPPName);
     anOS << aCPPName << "::" << aCPPName
          << "()\n"
             "{\n";
@@ -447,7 +447,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     // write method Init()
     if (myInherit->Length() > 1 || myFields->Length() > 0)
     {
-      Express::WriteMethodStamp(anOS, "Init");
+      Express1::WriteMethodStamp(anOS, "Init");
       anOS << "void " << aCPPName << "::Init (";
       makeInit(anOS, 13 + aCPPName.Length(), Standard_True, 1);
       anOS << ")\n"
@@ -461,7 +461,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     for (Standard_Integer i = 2; i <= myInherit->Length(); i++)
     {
       Handle(Express_Entity)         anEntity        = myInherit->Value(i);
-      const TCollection_AsciiString& anEntityCPPName = anEntity->CPPName();
+      const AsciiString1& anEntityCPPName = anEntity->CPPName();
       writeGetMethod(anOS,
                      aCPPName,
                      anEntity->Name(),
@@ -479,7 +479,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     {
       Handle(Express_Field)   aField        = myFields->Value(i);
       Handle(Express_Type)    aFieldType    = aField->Type();
-      TCollection_AsciiString aFieldCPPName = aFieldType->CPPName();
+      AsciiString1 aFieldCPPName = aFieldType->CPPName();
       writeGetMethod(anOS,
                      aCPPName,
                      aField->Name(),
@@ -494,9 +494,9 @@ Standard_Boolean Express_Entity::GenerateClass() const
                      aFieldType->IsSimple());
       if (aField->IsOptional())
       {
-        TCollection_AsciiString aMethod = "Has";
+        AsciiString1 aMethod = "Has";
         aMethod += aField->Name();
-        Express::WriteMethodStamp(anOS, aMethod);
+        Express1::WriteMethodStamp(anOS, aMethod);
         anOS << "Standard_Boolean " << aCPPName << "::" << aMethod
              << "() const\n"
                 "{\n"
@@ -510,8 +510,8 @@ Standard_Boolean Express_Entity::GenerateClass() const
       Standard_Integer aFindPos = aFieldCPPName.Search("_HArray1");
       if (aFindPos > -1)
       {
-        TCollection_AsciiString aNamePack = aFieldCPPName.SubString(1, aFindPos);
-        TCollection_AsciiString aNameClass("");
+        AsciiString1 aNamePack = aFieldCPPName.SubString(1, aFindPos);
+        AsciiString1 aNameClass("");
         if (aNamePack.IsEqual("TColStd_"))
         {
           Standard_Integer aFindPos2 = aFieldCPPName.Search("Integer");
@@ -548,9 +548,9 @@ Standard_Boolean Express_Entity::GenerateClass() const
         }
         // write method ::NbField()
         anOS << "\n";
-        TCollection_AsciiString aMethodName = "Nb";
+        AsciiString1 aMethodName = "Nb";
         aMethodName += aField->Name();
-        Express::WriteMethodStamp(anOS, aMethodName);
+        Express1::WriteMethodStamp(anOS, aMethodName);
         anOS << "Standard_Integer " << aCPPName << "::Nb" << aField->Name()
              << "() const;\n"
                 "{\n"
@@ -568,7 +568,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
         anOS << "\n";
         aMethodName = aField->Name();
         aMethodName += "Value";
-        Express::WriteMethodStamp(anOS, aMethodName);
+        Express1::WriteMethodStamp(anOS, aMethodName);
         anOS << aNameClass << " " << aCPPName << "::" << aField->Name()
              << "Value (const Standard_Integer theNum) const;\n"
                 "{\n"
@@ -590,7 +590,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
   }
   //===============================
   // Step 3: generating HXX for Reader/Writer class
-  TCollection_AsciiString aRWCPPName;
+  AsciiString1 aRWCPPName;
   {
     // Open HXX file
     aRWCPPName = "RW";
@@ -600,7 +600,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
 
     aPack = "RW";
     aPack += GetPackageName();
-    OSD_Path      aRWPath(aPack);
+    SystemPath      aRWPath(aPack);
     OSD_Directory aRWDir(aRWPath);
     aRWDir.Build(aProt);
     aPack += "/";
@@ -611,7 +611,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     Standard_OStream& anOS = *aStreamPtr;
 
     // write header
-    Express::WriteFileStamp(anOS);
+    Express1::WriteFileStamp(anOS);
 
     anOS << "#ifndef _" << aRWCPPName
          << "_HeaderFile_\n"
@@ -690,7 +690,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     Standard_OStream& anOS = *aStreamPtr;
 
     // write header
-    Express::WriteFileStamp(anOS);
+    Express1::WriteFileStamp(anOS);
 
     // write include section
     anOS << "#include <" << aRWCPPName << ".hxx>\n";
@@ -699,13 +699,13 @@ Standard_Boolean Express_Entity::GenerateClass() const
             "#include <StepData_StepReaderData.hxx>\n"
             "#include <StepData_StepWriter.hxx>\n";
     // write constructor
-    Express::WriteMethodStamp(anOS, aRWCPPName);
+    Express1::WriteMethodStamp(anOS, aRWCPPName);
     anOS << aRWCPPName << "::" << aRWCPPName
          << "() {}\n"
             "\n";
 
     // write method ReadStep
-    Express::WriteMethodStamp(anOS, "ReadStep");
+    Express1::WriteMethodStamp(anOS, "ReadStep");
     if (aRWCPPName.Length() < 40)
     {
       anOS << "void " << aRWCPPName
@@ -732,7 +732,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
 
     anOS << "  // Check number of parameters\n"
             "  if (!theData->CheckNbParams (theNum, "
-         << aNbFields << ", theCheck, \"" << Express::ToStepName(Name())
+         << aNbFields << ", theCheck, \"" << Express1::ToStepName(Name())
          << "\"))\n"
             "  {\n"
             "    return;\n"
@@ -746,7 +746,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
             "}\n";
 
     // write method WriteStep
-    Express::WriteMethodStamp(anOS, "WriteStep");
+    Express1::WriteMethodStamp(anOS, "WriteStep");
     if (aRWCPPName.Length() < 40)
     {
       anOS << "void " << aRWCPPName << "::WriteStep (StepData_StepWriter& theSW,\n";
@@ -767,7 +767,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     anOS << "}\n";
 
     // write method Share
-    Express::WriteMethodStamp(anOS, "Share");
+    Express1::WriteMethodStamp(anOS, "Share");
     std::ostringstream aStringOS;
     // clang-format off
     Standard_Integer aNnFileds2 = writeRWShareCode (aStringOS, 1, Standard_True); // write code for filling graph of references
@@ -809,7 +809,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     anOS << "}\n";
     if (CheckFlag())
     {
-      Express::WriteMethodStamp(anOS, "Check");
+      Express1::WriteMethodStamp(anOS, "Check");
       anOS << "void " << aRWCPPName << "::Check (const Handle(RefObject)& entt,\n";
       writeSpaces(anOS, 18 + aRWCPPName.Length());
       anOS << "const Interface_ShareTool& shares,\n";
@@ -823,7 +823,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     }
     if (FillSharedFlag())
     {
-      Express::WriteMethodStamp(anOS, "FillShared");
+      Express1::WriteMethodStamp(anOS, "FillShared");
       anOS << "void " << aRWCPPName << "::Share(const Handle(Interface_InterfaceModel)& model,\n";
       writeSpaces(anOS, 18 + aRWCPPName.Length());
       anOS << "const Handle(RefObject)& entt,\n";
@@ -843,15 +843,15 @@ Standard_Boolean Express_Entity::GenerateClass() const
   // Step 5: adding method for registration of entities and include
   {
     Standard_Integer        anIndex = Express_Item::Index();
-    TCollection_AsciiString aRegDir = "Registration";
-    OSD_Path                aPathReg(aRegDir);
+    AsciiString1 aRegDir = "Registration";
+    SystemPath                aPathReg(aRegDir);
     OSD_Directory           aDirReg(aRegDir);
     aDirReg.Build(aProt);
     aRegDir += "/";
 
     // write file with includes
     {
-      TCollection_AsciiString       aPackNameInc = "inc.txt";
+      AsciiString1       aPackNameInc = "inc.txt";
       std::shared_ptr<std::ostream> aStreamPtr =
         aFileSystem->OpenOStream(aRegDir.Cat(aPackNameInc),
                                  std::ios::out | std::ios::binary | std::ios::app);
@@ -861,7 +861,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     }
     // write file with RW includes
     {
-      TCollection_AsciiString       aPackNameRWInc = "rwinc.txt";
+      AsciiString1       aPackNameRWInc = "rwinc.txt";
       std::shared_ptr<std::ostream> aStreamPtr =
         aFileSystem->OpenOStream(aRegDir.Cat(aPackNameRWInc),
                                  std::ios::out | std::ios::binary | std::ios::app);
@@ -875,7 +875,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
     {
       // StepAP214_Protocol.cxx
       {
-        TCollection_AsciiString       aPackNameProtocol = "protocol.txt";
+        AsciiString1       aPackNameProtocol = "protocol.txt";
         std::shared_ptr<std::ostream> aStreamPtr =
           aFileSystem->OpenOStream(aRegDir.Cat(aPackNameProtocol),
                                    std::ios::out | std::ios::binary | std::ios::app);
@@ -886,7 +886,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
       // RWStepAP214_GeneralModule.cxx
       // FillSharedCase
       {
-        TCollection_AsciiString       aPackNameFillShared = "fillshared.txt";
+        AsciiString1       aPackNameFillShared = "fillshared.txt";
         std::shared_ptr<std::ostream> aStreamPtr =
           aFileSystem->OpenOStream(aRegDir.Cat(aPackNameFillShared),
                                    std::ios::out | std::ios::binary | std::ios::app);
@@ -907,7 +907,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
       }
       // NewVoid
       {
-        TCollection_AsciiString       aPackNameNewVoid = "newvoid.txt";
+        AsciiString1       aPackNameNewVoid = "newvoid.txt";
         std::shared_ptr<std::ostream> aStreamPtr =
           aFileSystem->OpenOStream(aRegDir.Cat(aPackNameNewVoid),
                                    std::ios::out | std::ios::binary | std::ios::app);
@@ -922,7 +922,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
       }
       // CategoryNumber
       {
-        TCollection_AsciiString       aPackNameCategory = "category.txt";
+        AsciiString1       aPackNameCategory = "category.txt";
         std::shared_ptr<std::ostream> aStreamPtr =
           aFileSystem->OpenOStream(aRegDir.Cat(aPackNameCategory),
                                    std::ios::out | std::ios::binary | std::ios::app);
@@ -933,20 +933,20 @@ Standard_Boolean Express_Entity::GenerateClass() const
       // RWStepAP214_ReadWriteModule.cxx
       // Reco
       {
-        TCollection_AsciiString aRecoName = Express::ToStepName(Name());
+        AsciiString1 aRecoName = Express1::ToStepName(Name());
         aRecoName.UpperCase();
-        TCollection_AsciiString       aPackNameReco = "reco.txt";
+        AsciiString1       aPackNameReco = "reco.txt";
         std::shared_ptr<std::ostream> aStreamPtr =
           aFileSystem->OpenOStream(aRegDir.Cat(aPackNameReco),
                                    std::ios::out | std::ios::binary | std::ios::app);
         Standard_OStream& anOS = *aStreamPtr;
-        anOS << "  static TCollection_AsciiString Reco_" << Name() << " (\"" << aRecoName
+        anOS << "  static AsciiString1 Reco_" << Name() << " (\"" << aRecoName
              << "\");\n";
         aStreamPtr.reset();
       }
       // type bind
       {
-        TCollection_AsciiString       aPackNameTypeBind = "typebind.txt";
+        AsciiString1       aPackNameTypeBind = "typebind.txt";
         std::shared_ptr<std::ostream> aStreamPtr =
           aFileSystem->OpenOStream(aRegDir.Cat(aPackNameTypeBind),
                                    std::ios::out | std::ios::binary | std::ios::app);
@@ -956,7 +956,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
       }
       // StepType
       {
-        TCollection_AsciiString       aPackNameStepType = "steptype.txt";
+        AsciiString1       aPackNameStepType = "steptype.txt";
         std::shared_ptr<std::ostream> aStreamPtr =
           aFileSystem->OpenOStream(aRegDir.Cat(aPackNameStepType),
                                    std::ios::out | std::ios::binary | std::ios::app);
@@ -966,7 +966,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
       }
       // ReadStep
       {
-        TCollection_AsciiString       aPackNameReadStep = "readstep.txt";
+        AsciiString1       aPackNameReadStep = "readstep.txt";
         std::shared_ptr<std::ostream> aStreamPtr =
           aFileSystem->OpenOStream(aRegDir.Cat(aPackNameReadStep),
                                    std::ios::out | std::ios::binary | std::ios::app);
@@ -987,7 +987,7 @@ Standard_Boolean Express_Entity::GenerateClass() const
       }
       // WriteStep
       {
-        TCollection_AsciiString       aPackNameWriteStep = "writestep.txt";
+        AsciiString1       aPackNameWriteStep = "writestep.txt";
         std::shared_ptr<std::ostream> aStreamPtr =
           aFileSystem->OpenOStream(aRegDir.Cat(aPackNameWriteStep),
                                    std::ios::out | std::ios::binary | std::ios::app);
@@ -1016,8 +1016,8 @@ Standard_Boolean Express_Entity::GenerateClass() const
 
 void Express_Entity::PropagateUse() const
 {
-  const TCollection_AsciiString& aPack = GetPackageName();
-  const TCollection_AsciiString& aName = Name();
+  const AsciiString1& aPack = GetPackageName();
+  const AsciiString1& aName = Name();
 
   for (Standard_Integer i = 1; i <= myInherit->Length(); i++)
   {
@@ -1041,7 +1041,7 @@ Standard_Boolean Express_Entity::writeIncludes(Standard_OStream& theOS) const
   {
     Handle(Express_Entity) anEntity = myInherit->Value(i);
     anEntity->Use();
-    const TCollection_AsciiString& anEntityCPPName = anEntity->CPPName();
+    const AsciiString1& anEntityCPPName = anEntity->CPPName();
     if (aDict.IsBound(anEntityCPPName))
     {
       continue; // avoid duplicating
@@ -1054,7 +1054,7 @@ Standard_Boolean Express_Entity::writeIncludes(Standard_OStream& theOS) const
   {
     Handle(Express_Type) aType = myFields->Value(i)->Type();
     aType->Use();
-    const TCollection_AsciiString aTypeCPPName = aType->CPPName();
+    const AsciiString1 aTypeCPPName = aType->CPPName();
     if (aDict.IsBound(aTypeCPPName))
     {
       continue; // avoid duplicating
@@ -1065,36 +1065,36 @@ Standard_Boolean Express_Entity::writeIncludes(Standard_OStream& theOS) const
       continue;
     }
     theOS << "#include <" << aTypeCPPName << ".hxx>\n";
-    const TCollection_AsciiString& aPack = GetPackageName();
+    const AsciiString1& aPack = GetPackageName();
     // check that last include is for array
-    TCollection_AsciiString aStrForSearch = aPack;
+    AsciiString1 aStrForSearch = aPack;
     aStrForSearch += "_HArray";
     Standard_Integer aFindPos = aTypeCPPName.Search(aStrForSearch.ToCString());
     if (aFindPos > -1)
     {
       // prepare file names
       aFindPos                               = aPack.Length();
-      const TCollection_AsciiString& aNameHA = aTypeCPPName;
-      TCollection_AsciiString        aNameA  = aNameHA.SubString(1, aFindPos + 1);
+      const AsciiString1& aNameHA = aTypeCPPName;
+      AsciiString1        aNameA  = aNameHA.SubString(1, aFindPos + 1);
       aNameA += aNameHA.SubString(aFindPos + 3, aNameHA.Length());
-      TCollection_AsciiString       aNameClass = aNameHA.SubString(aFindPos + 11, aNameHA.Length());
+      AsciiString1       aNameClass = aNameHA.SubString(aFindPos + 11, aNameHA.Length());
       const Handle(OSD_FileSystem)& aFileSystem = OSD_FileSystem::DefaultFileSystem();
       // create a package directory (if not yet exist)
       OSD_Protection aProt(OSD_RWXD, OSD_RWXD, OSD_RX, OSD_RX);
-      OSD_Path       aPath(aPack);
+      SystemPath       aPath(aPack);
       OSD_Directory  aDir(aPath);
       aDir.Build(aProt);
       // create hxx files for Array1
       {
         // Open HXX file
-        TCollection_AsciiString aFileName = aPack;
+        AsciiString1 aFileName = aPack;
         aFileName += "/";
         aFileName += aNameA;
         std::shared_ptr<std::ostream> aStreamPtr =
           aFileSystem->OpenOStream(aFileName.Cat(".hxx"), std::ios::out | std::ios::binary);
         Standard_OStream& anOS = *aStreamPtr;
         // write header
-        Express::WriteFileStamp(anOS);
+        Express1::WriteFileStamp(anOS);
         anOS << "\n"
                 "#ifndef "
              << aNameA
@@ -1121,14 +1121,14 @@ Standard_Boolean Express_Entity::writeIncludes(Standard_OStream& theOS) const
       // create hxx files for HArray1
       {
         // Open HXX file
-        TCollection_AsciiString aFileName = aPack;
+        AsciiString1 aFileName = aPack;
         aFileName += "/";
         aFileName += aNameHA;
         std::shared_ptr<std::ostream> aStreamPtr =
           aFileSystem->OpenOStream(aFileName.Cat(".hxx"), std::ios::out | std::ios::binary);
         Standard_OStream& anOS = *aStreamPtr;
         // write header
-        Express::WriteFileStamp(anOS);
+        Express1::WriteFileStamp(anOS);
         anOS << "\n"
                 "#ifndef "
              << aNameHA
@@ -1162,29 +1162,29 @@ Standard_Boolean Express_Entity::writeIncludes(Standard_OStream& theOS) const
 // purpose  : auxiliary for WriteRWReadField
 //=======================================================================
 
-static TCollection_AsciiString typeToSTEPName(const Handle(Express_Type)& theType)
+static AsciiString1 typeToSTEPName(const Handle(Express_Type)& theType)
 {
-  TCollection_AsciiString aCPPName = theType->CPPName();
-  TCollection_AsciiString aCls     = aCPPName.Token("_", 2);
+  AsciiString1 aCPPName = theType->CPPName();
+  AsciiString1 aCls     = aCPPName.Token("_", 2);
   if (aCls.Length() < 1)
   {
     aCls = aCPPName;
   }
-  return Express::ToStepName(aCls);
+  return Express1::ToStepName(aCls);
 }
 
 //=================================================================================================
 
 static void writeRWReadField(Standard_OStream&              theOS,
-                             const TCollection_AsciiString& theIndex,
-                             const TCollection_AsciiString& theSTEPName,
-                             const TCollection_AsciiString& theVarName,
+                             const AsciiString1& theIndex,
+                             const AsciiString1& theSTEPName,
+                             const AsciiString1& theVarName,
                              const Handle(Express_Type)&    theVarType,
                              const Standard_Integer         theLevel,
                              const Standard_Boolean         isOptional)
 {
   // indent
-  TCollection_AsciiString anIdent("  ");
+  AsciiString1 anIdent("  ");
   Standard_Integer        aLevel = 0;
   for (; aLevel < theLevel; aLevel++)
   {
@@ -1193,16 +1193,16 @@ static void writeRWReadField(Standard_OStream&              theOS,
   aLevel += 2;
 
   // name of variable identifying number of parameter in data
-  TCollection_AsciiString aParam("theNum");
+  AsciiString1 aParam("theNum");
   if (theLevel > 0)
   {
-    aParam = TCollection_AsciiString("aNum");
-    aParam += TCollection_AsciiString(theLevel);
+    aParam = AsciiString1("aNum");
+    aParam += AsciiString1(theLevel);
   }
 
   // decode aliased types
   Handle(Express_Type)          aType        = theVarType;
-  const TCollection_AsciiString aTypeCPPName = aType->CPPName();
+  const AsciiString1 aTypeCPPName = aType->CPPName();
   while (aType->IsKind(STANDARD_TYPE(Express_NamedType)))
   {
     Handle(Express_NamedType) aNamedType = Handle(Express_NamedType)::DownCast(aType);
@@ -1258,12 +1258,12 @@ static void writeRWReadField(Standard_OStream&              theOS,
             << anIdent << "  Standard_CString text = theData->ParamCValue(" << aParam << ", "
             << theIndex << ");\n";
       Handle(Express_Enum)    anEnum  = Handle(Express_Enum)::DownCast(aNamedType->Item());
-      TCollection_AsciiString aPrefix = Express::EnumPrefix(anEnum->Name());
+      AsciiString1 aPrefix = Express1::EnumPrefix(anEnum->Name());
       Handle(TColStd_HSequenceOfHAsciiString) aNames     = anEnum->Names();
-      TCollection_AsciiString                 anEnumPack = anEnum->GetPackageName();
+      AsciiString1                 anEnumPack = anEnum->GetPackageName();
       for (Standard_Integer i = 1; i <= aNames->Length(); i++)
       {
-        TCollection_AsciiString anEnumName = Express::ToStepName(aNames->Value(i)->String());
+        AsciiString1 anEnumName = Express1::ToStepName(aNames->Value(i)->String());
         anEnumName.UpperCase();
         theOS << anIdent << (i == 1 ? "  if     " : "  else if") << " (strcmp (text, \"."
               << anEnumName << ".\")) a" << theVarName << " = " << anEnumPack << "_" << aPrefix
@@ -1291,16 +1291,16 @@ static void writeRWReadField(Standard_OStream&              theOS,
           << anIdent << "{\n"
           << anIdent << "  Standard_Integer aNb" << theLevel << " = theData->NbParams (aSub"
           << theIndex << ");\n";
-    TCollection_AsciiString anIterI = theLevel;
+    AsciiString1 anIterI = theLevel;
     anIterI.Prepend("i");
-    TCollection_AsciiString aVar = theLevel;
+    AsciiString1 aVar = theLevel;
     aVar.Prepend("nIt");
     if (aComplex->Type()->IsKind(STANDARD_TYPE(Express_ComplexType)))
     {
       // array 2
       Handle(Express_ComplexType) aComplex2 =
         Handle(Express_ComplexType)::DownCast(aComplex->Type());
-      TCollection_AsciiString anIterJ = theLevel;
+      AsciiString1 anIterJ = theLevel;
       anIterJ.Prepend("j");
       theOS << anIdent << "  Standard_Integer nbj" << theLevel
             << " = theData->NbParams (theData->ParamNumber (aSub" << theIndex << ", 1));\n"
@@ -1317,7 +1317,7 @@ static void writeRWReadField(Standard_OStream&              theOS,
             << anIdent << "      for (Standard_Integer " << anIterJ << " = 1; " << anIterJ
             << " <= nbj" << theLevel << "; " << anIterJ << "++)\n"
             << anIdent << "      {\n";
-      TCollection_AsciiString aSubName = typeToSTEPName(aComplex2->Type());
+      AsciiString1 aSubName = typeToSTEPName(aComplex2->Type());
       writeRWReadField(theOS,
                        anIterJ,
                        aSubName,
@@ -1339,7 +1339,7 @@ static void writeRWReadField(Standard_OStream&              theOS,
             << anIdent << "  for (Standard_Integer " << anIterI << " = 1; " << anIterI << " <= aNb"
             << theLevel << "; " << anIterI << "++)\n"
             << anIdent << "  {\n";
-      TCollection_AsciiString aSubName = typeToSTEPName(aComplex->Type());
+      AsciiString1 aSubName = typeToSTEPName(aComplex->Type());
       writeRWReadField(theOS, anIterI, aSubName, aVar, aComplex->Type(), aLevel, Standard_False);
       theOS << anIdent << "    a" << theVarName << "->SetValue(" << anIterI << ", a" << aVar
             << ");\n";
@@ -1432,19 +1432,19 @@ Standard_Integer Express_Entity::writeRWReadCode(Standard_OStream&      theOS,
   for (Standard_Integer i = 1; i <= myFields->Length(); i++)
   {
     Handle(Express_Field)   aField    = myFields->Value(i);
-    TCollection_AsciiString aSTEPName = Express::ToStepName(aField->Name());
+    AsciiString1 aSTEPName = Express1::ToStepName(aField->Name());
     if (!theOwn)
     {
-      aSTEPName.Prepend(Express::ToStepName(Name().Cat(".")));
+      aSTEPName.Prepend(Express1::ToStepName(Name().Cat(".")));
     }
-    TCollection_AsciiString aVarName(aField->Name());
+    AsciiString1 aVarName(aField->Name());
     if (!theOwn)
     {
       aVarName.Prepend(Name().Cat("_"));
     }
     theOS << "\n";
     writeRWReadField(theOS,
-                     TCollection_AsciiString(aNum),
+                     AsciiString1(aNum),
                      aSTEPName,
                      aVarName,
                      aField->Type(),
@@ -1459,13 +1459,13 @@ Standard_Integer Express_Entity::writeRWReadCode(Standard_OStream&      theOS,
 //=================================================================================================
 
 static void writeRWWriteField(Standard_OStream&              theOS,
-                              const TCollection_AsciiString& theVarName,
+                              const AsciiString1& theVarName,
                               const Handle(Express_Type)&    theVarType,
                               const Standard_Integer         theIndex,
                               const Standard_Integer         theLevel)
 {
   // indent
-  TCollection_AsciiString anIdent("  ");
+  AsciiString1 anIdent("  ");
   Standard_Integer        aLevel = 0;
   for (; aLevel < theLevel; aLevel++)
   {
@@ -1491,7 +1491,7 @@ static void writeRWWriteField(Standard_OStream&              theOS,
   {
     Handle(Express_ComplexType) aComplex = Handle(Express_ComplexType)::DownCast(aType);
     aType                                = aComplex->Type();
-    TCollection_AsciiString aVar(theLevel);
+    AsciiString1 aVar(theLevel);
     aVar.Prepend("aVar");
     theOS << anIdent << "theSW.OpenSub();\n"
           << anIdent << "for (Standard_Integer i" << theIndex << " = 1; i" << theIndex << " <= ";
@@ -1539,14 +1539,14 @@ static void writeRWWriteField(Standard_OStream&              theOS,
     if (!aNamedType.IsNull() && aNamedType->Item()->IsKind(STANDARD_TYPE(Express_Enum)))
     {
       Handle(Express_Enum)    anEnum  = Handle(Express_Enum)::DownCast(aNamedType->Item());
-      TCollection_AsciiString aPrefix = Express::EnumPrefix(anEnum->Name());
+      AsciiString1 aPrefix = Express1::EnumPrefix(anEnum->Name());
       Handle(TColStd_HSequenceOfHAsciiString) aNames     = anEnum->Names();
-      TCollection_AsciiString                 anEnumPack = anEnum->GetPackageName();
+      AsciiString1                 anEnumPack = anEnum->GetPackageName();
       theOS << anIdent << "switch (" << theVarName << ")\n";
       theOS << anIdent << "{\n";
       for (Standard_Integer i = 1; i <= aNames->Length(); i++)
       {
-        TCollection_AsciiString anEnumName = Express::ToStepName(aNames->Value(i)->String());
+        AsciiString1 anEnumName = Express1::ToStepName(aNames->Value(i)->String());
         anEnumName.UpperCase();
         theOS << anIdent << "  case " << anEnumPack << "_" << aPrefix << aNames->Value(i)->String()
               << ": theSW.SendEnum (\"." << anEnumName << ".\"); break;\n";
@@ -1590,7 +1590,7 @@ Standard_Integer Express_Entity::writeRWWriteCode(Standard_OStream&      theOS,
   for (Standard_Integer i = 1; i <= myFields->Length(); i++)
   {
     Handle(Express_Field)   aField = myFields->Value(i);
-    TCollection_AsciiString aVarName(aField->Name());
+    AsciiString1 aVarName(aField->Name());
     if (!theOwn)
     {
       aVarName.Prepend(CPPName().Cat("::"));
@@ -1636,13 +1636,13 @@ Standard_Integer Express_Entity::writeRWWriteCode(Standard_OStream&      theOS,
 //=================================================================================================
 
 static Standard_Boolean writeRWShareField(Standard_OStream&              theOS,
-                                          const TCollection_AsciiString& theVarName,
+                                          const AsciiString1& theVarName,
                                           const Handle(Express_Type)&    theVarType,
                                           const Standard_Integer         theIndex,
                                           const Standard_Integer         theLevel)
 {
   // indent
-  TCollection_AsciiString anIdent("  ");
+  AsciiString1 anIdent("  ");
   Standard_Integer        aLevel = 0;
   for (; aLevel < theLevel; aLevel++)
   {
@@ -1668,7 +1668,7 @@ static Standard_Boolean writeRWShareField(Standard_OStream&              theOS,
   {
     Handle(Express_ComplexType) aComplex = Handle(Express_ComplexType)::DownCast(aType);
     aType                                = aComplex->Type();
-    TCollection_AsciiString aVar(theLevel);
+    AsciiString1 aVar(theLevel);
     aVar.Prepend("aVar");
     std::ostringstream aStringOS;
     if (!writeRWShareField(aStringOS, aVar, aType, theIndex + 1, aLevel))
@@ -1728,7 +1728,7 @@ Standard_Integer Express_Entity::writeRWShareCode(Standard_OStream&      theOS,
   for (Standard_Integer i = 1; i <= myFields->Length(); i++)
   {
     Handle(Express_Field)   aField = myFields->Value(i);
-    TCollection_AsciiString aVarName(aField->Name());
+    AsciiString1 aVarName(aField->Name());
     if (!theOwn)
     {
       aVarName.Prepend(CPPName().Cat("::"));
@@ -1786,7 +1786,7 @@ Standard_Integer Express_Entity::makeInit(Standard_OStream&      theOS,
   for (Standard_Integer i = 1; i <= myInherit->Length(); i++)
   {
     Handle(Express_Entity)         anEntity        = myInherit->Value(i);
-    const TCollection_AsciiString& anEntityCPPName = anEntity->CPPName();
+    const AsciiString1& anEntityCPPName = anEntity->CPPName();
     if (theMode == 3)
     {
       Standard_Integer aShift2 = 0;
@@ -1817,14 +1817,14 @@ Standard_Integer Express_Entity::makeInit(Standard_OStream&      theOS,
   {
     Handle(Express_Field)   aField     = myFields->Value(i);
     Handle(Express_Type)    aFieldType = aField->Type();
-    TCollection_AsciiString aVarName(aField->Name());
+    AsciiString1 aVarName(aField->Name());
     if (theOwn != 1)
     {
       aVarName.Prepend(Name().Cat("_"));
     }
 
     // make CR and indent
-    TCollection_AsciiString aSpaces = "";
+    AsciiString1 aSpaces = "";
     for (Standard_Integer aSpaceNum = 0; aSpaceNum < abs(aShift); aSpaceNum++)
     {
       aSpaces += " ";

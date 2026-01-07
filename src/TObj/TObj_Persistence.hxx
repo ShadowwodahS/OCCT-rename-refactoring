@@ -20,7 +20,7 @@
 
 #include <TObj_Container.hxx>
 
-class TDF_Label;
+class DataLabel;
 
 /** This class is intended to be a root of tools (one per class)
  *   to manage persistence of objects inherited from TObj_Object
@@ -42,7 +42,7 @@ public:
   //! Creates and returns a new object of the registered type
   //! If the type is not registered, returns Null handle
   static Standard_EXPORT Handle(TObj_Object) CreateNewObject(const Standard_CString theType,
-                                                             const TDF_Label&       theLabel);
+                                                             const DataLabel&       theLabel);
 
   //! Dumps names of all the types registered for persistence to the
   //! specified stream
@@ -61,7 +61,7 @@ protected:
 
   //! The method must be redefined in the derived class and return
   //! new object of the proper type
-  virtual Standard_EXPORT Handle(TObj_Object) New(const TDF_Label& theLabel) const = 0;
+  virtual Standard_EXPORT Handle(TObj_Object) New(const DataLabel& theLabel) const = 0;
 
   //! Dictionary storing all the registered types. It is implemented as static
   //! variable inside member function in order to ensure initialization
@@ -82,7 +82,7 @@ private:
   #define _TOBJOCAF_PERSISTENCE_ACCESS_
 #endif
 #define DECLARE_TOBJOCAF_PERSISTENCE(name, ancestor)                                               \
-  name(const TObj_Persistence* p, const TDF_Label& aLabel)                                         \
+  name(const TObj_Persistence* p, const DataLabel& aLabel)                                         \
       : ancestor(p, aLabel)                                                                        \
   {                                                                                                \
     initFields();                                                                                  \
@@ -99,7 +99,7 @@ private:
         : TObj_Persistence(#name)                                                                  \
     {                                                                                              \
     } /* register the tool */                                                                      \
-    virtual Handle(TObj_Object) New(const TDF_Label& aLabel) const;                                \
+    virtual Handle(TObj_Object) New(const DataLabel& aLabel) const;                                \
     /* Creates an object of a proper type */                                                       \
   };                                                                                               \
   friend class Persistence_;                                                                       \
@@ -109,7 +109,7 @@ private:
 //! This should not be used for abstract classes (while DECLARE should)
 #define IMPLEMENT_TOBJOCAF_PERSISTENCE(name)                                                       \
   name::Persistence_  name::myPersistence_;                                                        \
-  Handle(TObj_Object) name::Persistence_::New(const TDF_Label& aLabel) const                       \
+  Handle(TObj_Object) name::Persistence_::New(const DataLabel& aLabel) const                       \
   {                                                                                                \
     return new name((const TObj_Persistence*)0, aLabel);                                           \
   }

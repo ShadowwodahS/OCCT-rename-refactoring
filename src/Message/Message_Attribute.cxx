@@ -19,7 +19,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Message_Attribute, RefObject)
 
 //=================================================================================================
 
-Message_Attribute::Message_Attribute(const TCollection_AsciiString& theName)
+Message_Attribute::Message_Attribute(const AsciiString1& theName)
     : myName(theName)
 {
 }

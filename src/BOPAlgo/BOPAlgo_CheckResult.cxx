@@ -27,42 +27,42 @@ BOPAlgo_CheckResult::BOPAlgo_CheckResult()
 {
 }
 
-void BOPAlgo_CheckResult::SetShape1(const TopoDS_Shape& TheShape)
+void BOPAlgo_CheckResult::SetShape1(const TopoShape& TheShape)
 {
   myShape1 = TheShape;
 }
 
-void BOPAlgo_CheckResult::AddFaultyShape1(const TopoDS_Shape& TheShape)
+void BOPAlgo_CheckResult::AddFaultyShape1(const TopoShape& TheShape)
 {
   myFaulty1.Append(TheShape);
 }
 
-void BOPAlgo_CheckResult::SetShape2(const TopoDS_Shape& TheShape)
+void BOPAlgo_CheckResult::SetShape2(const TopoShape& TheShape)
 {
   myShape2 = TheShape;
 }
 
-void BOPAlgo_CheckResult::AddFaultyShape2(const TopoDS_Shape& TheShape)
+void BOPAlgo_CheckResult::AddFaultyShape2(const TopoShape& TheShape)
 {
   myFaulty2.Append(TheShape);
 }
 
-const TopoDS_Shape& BOPAlgo_CheckResult::GetShape1() const
+const TopoShape& BOPAlgo_CheckResult::GetShape1() const
 {
   return myShape1;
 }
 
-const TopoDS_Shape& BOPAlgo_CheckResult::GetShape2() const
+const TopoShape& BOPAlgo_CheckResult::GetShape2() const
 {
   return myShape2;
 }
 
-const TopTools_ListOfShape& BOPAlgo_CheckResult::GetFaultyShapes1() const
+const ShapeList& BOPAlgo_CheckResult::GetFaultyShapes1() const
 {
   return myFaulty1;
 }
 
-const TopTools_ListOfShape& BOPAlgo_CheckResult::GetFaultyShapes2() const
+const ShapeList& BOPAlgo_CheckResult::GetFaultyShapes2() const
 {
   return myFaulty2;
 }

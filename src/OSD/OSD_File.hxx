@@ -23,23 +23,23 @@
 #include <OSD_LockType.hxx>
 #include <OSD_OpenMode.hxx>
 
-class OSD_Path;
+class SystemPath;
 class OSD_Protection;
 
 //! Basic tools to manage files
 //! Warning: 'ProgramError' is raised when somebody wants to use the methods
 //! Read, Write, Seek, Close when File is not open.
-class OSD_File : public OSD_FileNode
+class SystemFile : public OSD_FileNode
 {
 public:
   //! Creates File object.
-  Standard_EXPORT OSD_File();
+  Standard_EXPORT SystemFile();
 
   //! Instantiates the object file, storing its name
-  Standard_EXPORT OSD_File(const OSD_Path& Name);
+  Standard_EXPORT SystemFile(const SystemPath& Name);
 
   //! Unlocks and closes a file, deletes a descriptor and destructs a file object.
-  Standard_EXPORT ~OSD_File();
+  Standard_EXPORT ~SystemFile();
 
   //! CREATES a file if it doesn't already exists or empties
   //! an existing file.
@@ -65,7 +65,7 @@ public:
   //! may be less than Nbyte if the number of bytes left in the file
   //! is less than Nbyte bytes. In this case only number of read
   //! bytes will be placed in the buffer.
-  Standard_EXPORT void Read(TCollection_AsciiString& Buffer, const Standard_Integer Nbyte);
+  Standard_EXPORT void Read(AsciiString1& Buffer, const Standard_Integer Nbyte);
 
   //! Reads bytes from the data pointed to by the object file
   //! into the buffer <Buffer>.
@@ -76,7 +76,7 @@ public:
   //! Upon successful completion, Read returns the number of
   //! bytes actually read into <NByteRead> and placed into the
   //! Buffer <Buffer>.
-  Standard_EXPORT void ReadLine(TCollection_AsciiString& Buffer,
+  Standard_EXPORT void ReadLine(AsciiString1& Buffer,
                                 const Standard_Integer   NByte,
                                 Standard_Integer&        NbyteRead);
 
@@ -88,7 +88,7 @@ public:
   //! encountered.
   //! Upon successful completion, Read returns the number of
   //! bytes actually read and placed into the Buffer <Buffer>.
-  inline Standard_Integer ReadLine(TCollection_AsciiString& Buffer, const Standard_Integer NByte)
+  inline Standard_Integer ReadLine(AsciiString1& Buffer, const Standard_Integer NByte)
   {
     Standard_Integer NbyteRead;
     ReadLine(Buffer, NByte, NbyteRead);
@@ -107,7 +107,7 @@ public:
                             Standard_Integer&      Readbyte);
 
   //! Attempts to write theNbBytes bytes from the AsciiString to the file.
-  void Write(const TCollection_AsciiString& theBuffer, const Standard_Integer theNbBytes)
+  void Write(const AsciiString1& theBuffer, const Standard_Integer theNbBytes)
   {
     Write((Standard_Address)theBuffer.ToCString(), theNbBytes);
   }
@@ -174,7 +174,7 @@ public:
   //! waiting aDelay seconds between each read.
   //! If meanwhile the file increases returns the next line, otherwise
   //! returns FALSE.
-  Standard_EXPORT Standard_Boolean ReadLastLine(TCollection_AsciiString& aLine,
+  Standard_EXPORT Standard_Boolean ReadLastLine(AsciiString1& aLine,
                                                 const Standard_Integer   aDelay,
                                                 const Standard_Integer   aNbTries);
 

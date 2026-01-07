@@ -52,7 +52,7 @@ void TObj_TObject::Set(const Handle(TObj_Object)& theElem)
 
 //=================================================================================================
 
-Handle(TObj_TObject) TObj_TObject::Set(const TDF_Label&           theLabel,
+Handle(TObj_TObject) TObj_TObject::Set(const DataLabel&           theLabel,
                                        const Handle(TObj_Object)& theElem)
 {
   Handle(TObj_TObject) A;
@@ -107,11 +107,11 @@ void TObj_TObject::BeforeForget()
   if (!myElem.IsNull())
   {
     // attempt to delete all data from sublabels of object to remove dependences
-    TDF_Label aObjLabel = myElem->myLabel;
+    DataLabel aObjLabel = myElem->myLabel;
     if (!aObjLabel.IsNull())
     {
       TDF_ChildIterator aLI(aObjLabel);
-      TDF_Label         aSubLabel;
+      DataLabel         aSubLabel;
       for (; aLI.More(); aLI.Next())
       {
         aSubLabel = aLI.Value();
@@ -121,7 +121,7 @@ void TObj_TObject::BeforeForget()
     }
     // remove back references before document die
     myElem->RemoveBackReferences(TObj_Forced);
-    TDF_Label aNullLabel;
+    DataLabel aNullLabel;
     myElem->myLabel = aNullLabel;
   }
 }
@@ -137,7 +137,7 @@ Standard_Boolean TObj_TObject::AfterUndo(const Handle(TDF_AttributeDelta)& anAtt
 {
   if (!myElem.IsNull())
   {
-    TDF_Label             aLabel = anAttDelta->Label();
+    DataLabel             aLabel = anAttDelta->Label();
     Handle(TDF_Attribute) anAttr;
     Handle(TObj_TObject)  aTObject;
     Handle(TDF_Attribute) me;
@@ -149,7 +149,7 @@ Standard_Boolean TObj_TObject::AfterUndo(const Handle(TDF_AttributeDelta)& anAtt
       myElem->myLabel = aLabel;
     else
     {
-      TDF_Label aNullLabel;
+      DataLabel aNullLabel;
       myElem->myLabel = aNullLabel;
     }
   }

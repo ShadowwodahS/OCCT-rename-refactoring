@@ -41,7 +41,7 @@ class GccEnt_QualifiedCirc;
 //! A Lin2dTanPar object provides a framework for:
 //! -   defining the construction of 2D line(s),
 //! -   implementing the construction algorithm, and consulting the result(s).
-class GccAna_Lin2dTanPar
+class Line2dTangentParallel
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -49,7 +49,7 @@ public:
   //! This method implements the algorithms used to create a 2d
   //! line passing through a point and parallel to
   //! another line.
-  Standard_EXPORT GccAna_Lin2dTanPar(const gp_Pnt2d& ThePoint, const gp_Lin2d& Lin1);
+  Standard_EXPORT Line2dTangentParallel(const gp_Pnt2d& ThePoint, const gp_Lin2d& Lin1);
 
   //! This method implements the algorithms used to create a 2d
   //! line tangent to a circle and parallel to another line.
@@ -57,7 +57,7 @@ public:
   //! Exceptions
   //! GccEnt_BadQualifier if a qualifier is inconsistent with
   //! the argument it qualifies (for example, enclosed for a circle).
-  Standard_EXPORT GccAna_Lin2dTanPar(const GccEnt_QualifiedCirc& Qualified1, const gp_Lin2d& Lin1);
+  Standard_EXPORT Line2dTangentParallel(const GccEnt_QualifiedCirc& Qualified1, const gp_Lin2d& Lin1);
 
   //! Returns True if the algorithm succeeded.
   Standard_EXPORT Standard_Boolean IsDone() const;

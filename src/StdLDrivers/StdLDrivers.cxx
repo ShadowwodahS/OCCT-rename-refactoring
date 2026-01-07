@@ -49,7 +49,7 @@ Handle(RefObject) StdLDrivers::Factory(const Standard_GUID& aGUID)
 
 //=================================================================================================
 
-void StdLDrivers::DefineFormat(const Handle(TDocStd_Application)& theApp)
+void StdLDrivers::DefineFormat(const Handle(AppManager)& theApp)
 {
   theApp->DefineFormat("OCC-StdLite",
                        "Lite OCAF Document",

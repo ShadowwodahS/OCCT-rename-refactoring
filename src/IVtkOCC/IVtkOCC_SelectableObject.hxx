@@ -56,10 +56,10 @@ public:
 
 private:
   //! Internal method, computes selection data for viewer selector
-  //! Inspired by AIS_Shape::ComputeSelection() from OCCT 6.5.1
+  //! Inspired by VisualShape::ComputeSelection() from OCCT 6.5.1
   //! @param[in]  selection container for sensitive primitives
   //! @param[in]  mode Selection mode
-  virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+  virtual void ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                 const Standard_Integer             theMode) Standard_OVERRIDE;
 
   //! Dummy.

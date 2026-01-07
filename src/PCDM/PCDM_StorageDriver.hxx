@@ -64,7 +64,7 @@ public:
   //! document and the Schema method to write the persistent document.
   Standard_EXPORT virtual void Write(
     const Handle(CDM_Document)&       aDocument,
-    const TCollection_ExtendedString& aFileName,
+    const UtfString& aFileName,
     const Message_ProgressRange&      theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Write <theDocument> to theOStream
@@ -73,9 +73,9 @@ public:
     Standard_OStream&            theOStream,
     const Message_ProgressRange& theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
-  Standard_EXPORT void SetFormat(const TCollection_ExtendedString& aformat);
+  Standard_EXPORT void SetFormat(const UtfString& aformat);
 
-  Standard_EXPORT TCollection_ExtendedString GetFormat() const;
+  Standard_EXPORT UtfString GetFormat() const;
 
   Standard_EXPORT Standard_Boolean IsError() const;
 
@@ -89,7 +89,7 @@ public:
 
 protected:
 private:
-  TCollection_ExtendedString myFormat;
+  UtfString myFormat;
   Standard_Boolean           myIsError;
   PCDM_StoreStatus           myStoreStatus;
 };

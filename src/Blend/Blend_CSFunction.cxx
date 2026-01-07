@@ -32,7 +32,7 @@ const Point3d& Blend_CSFunction::Pnt2() const
   return PointOnS();
 }
 
-Standard_Boolean Blend_CSFunction::Section(const Blend_Point& /*P*/,
+Standard_Boolean Blend_CSFunction::Section(const Point2& /*P*/,
                                            TColgp_Array1OfPnt& /*Poles*/,
                                            TColgp_Array1OfVec& /*DPoles*/,
                                            TColgp_Array1OfVec& /*D2Poles*/,

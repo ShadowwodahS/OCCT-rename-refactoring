@@ -20,7 +20,7 @@
 // purpose  : Sets nested transaction mode if isAllowed == Standard_True
 //=======================================================================
 
-inline void TDocStd_Document::SetNestedTransactionMode(const Standard_Boolean isAllowed)
+inline void AppDocument::SetNestedTransactionMode(const Standard_Boolean isAllowed)
 {
   myIsNestedTransactionMode = isAllowed;
 }
@@ -30,7 +30,7 @@ inline void TDocStd_Document::SetNestedTransactionMode(const Standard_Boolean is
 // purpose  : Sets nested transaction mode if isAllowed == Standard_True
 //=======================================================================
 
-inline Standard_Boolean TDocStd_Document::IsNestedTransactionMode() const
+inline Standard_Boolean AppDocument::IsNestedTransactionMode() const
 {
   return myIsNestedTransactionMode;
 }
@@ -41,7 +41,7 @@ inline Standard_Boolean TDocStd_Document::IsNestedTransactionMode() const
 //           this method have to be called only working in the transaction mode
 //=======================================================================
 
-inline Standard_Boolean TDocStd_Document::IsChanged() const
+inline Standard_Boolean AppDocument::IsChanged() const
 {
   return myData->Time() != mySaveTime;
 }
@@ -51,7 +51,7 @@ inline Standard_Boolean TDocStd_Document::IsChanged() const
 // purpose  : This method have to be called to show document that it has been saved
 //=======================================================================
 
-inline void TDocStd_Document::SetSaved()
+inline void AppDocument::SetSaved()
 {
   mySaveTime = myData->Time();
 }
@@ -61,7 +61,7 @@ inline void TDocStd_Document::SetSaved()
 // purpose  : if theTransactionOnly is True changes is denied outside transactions
 //=======================================================================
 
-inline void TDocStd_Document::SetModificationMode(const Standard_Boolean theTransactionOnly)
+inline void AppDocument::SetModificationMode(const Standard_Boolean theTransactionOnly)
 {
   myOnlyTransactionModification = theTransactionOnly;
 
@@ -81,7 +81,7 @@ inline void TDocStd_Document::SetModificationMode(const Standard_Boolean theTran
 // purpose  : returns True if changes allowed only inside transactions
 //=======================================================================
 
-inline Standard_Boolean TDocStd_Document::ModificationMode() const
+inline Standard_Boolean AppDocument::ModificationMode() const
 {
   return myOnlyTransactionModification;
 }
@@ -90,7 +90,7 @@ inline Standard_Boolean TDocStd_Document::ModificationMode() const
 // function : SetSavedTime
 // purpose  : Say to document what it is not saved. Use value, returned earlier by GetSavedTime().
 //=======================================================================
-inline void TDocStd_Document::SetSavedTime(const Standard_Integer theTime)
+inline void AppDocument::SetSavedTime(const Standard_Integer theTime)
 {
   mySaveTime = theTime;
 }
@@ -99,7 +99,7 @@ inline void TDocStd_Document::SetSavedTime(const Standard_Integer theTime)
 // function : GetSavedTime
 // purpose  : Returns value of <mySavedTime> to be used later in SetSavedTime()
 //=======================================================================
-inline Standard_Integer TDocStd_Document::GetSavedTime() const
+inline Standard_Integer AppDocument::GetSavedTime() const
 {
   return mySaveTime;
 }
@@ -109,7 +109,7 @@ inline Standard_Integer TDocStd_Document::GetSavedTime() const
 // purpose  : Sets saving mode for empty labels. If Standard_True,
 //           empty labels will be saved.
 //=======================================================================
-inline void TDocStd_Document::SetEmptyLabelsSavingMode(const Standard_Boolean isAllowed)
+inline void AppDocument::SetEmptyLabelsSavingMode(const Standard_Boolean isAllowed)
 {
   mySaveEmptyLabels = isAllowed;
 }
@@ -118,7 +118,7 @@ inline void TDocStd_Document::SetEmptyLabelsSavingMode(const Standard_Boolean is
 // function : EmptyLabelsSavingMode
 // purpose  : Returns saving mode for empty labels
 //=======================================================================
-inline Standard_Boolean TDocStd_Document::EmptyLabelsSavingMode() const
+inline Standard_Boolean AppDocument::EmptyLabelsSavingMode() const
 {
   return mySaveEmptyLabels;
 }

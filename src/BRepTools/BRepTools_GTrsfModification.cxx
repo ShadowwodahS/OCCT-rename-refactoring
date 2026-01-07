@@ -68,8 +68,8 @@ gp_GTrsf& BRepTools_GTrsfModification::GTrsf()
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_GTrsfModification::NewSurface(const TopoDS_Face&    F,
-                                                         Handle(Geom_Surface)& S,
+Standard_Boolean BRepTools_GTrsfModification::NewSurface(const TopoFace&    F,
+                                                         Handle(GeomSurface)& S,
                                                          TopLoc_Location&      L,
                                                          Standard_Real&        Tol,
                                                          Standard_Boolean&     RevWires,
@@ -78,19 +78,19 @@ Standard_Boolean BRepTools_GTrsfModification::NewSurface(const TopoDS_Face&    F
   gp_GTrsf gtrsf;
   gtrsf.SetVectorialPart(myGTrsf.VectorialPart());
   gtrsf.SetTranslationPart(myGTrsf.TranslationPart());
-  S = BRep_Tool::Surface(F, L);
+  S = BRepInspector::Surface(F, L);
   if (S.IsNull())
   {
     // processing the case when there is no geometry
     return Standard_False;
   }
-  S = Handle(Geom_Surface)::DownCast(S->Copy());
+  S = Handle(GeomSurface)::DownCast(S->Copy());
 
-  Tol = BRep_Tool::Tolerance(F);
+  Tol = BRepInspector::Tolerance(F);
   Tol *= myGScale;
   RevWires = Standard_False;
   RevFace  = myGTrsf.IsNegative();
-  S        = Handle(Geom_Surface)::DownCast(S->Transformed(L.Transformation()));
+  S        = Handle(GeomSurface)::DownCast(S->Transformed(L.Transformation()));
 
   Handle(TypeInfo) TheTypeS = S->DynamicType();
   if (TheTypeS == STANDARD_TYPE(Geom_BSplineSurface))
@@ -128,8 +128,8 @@ Standard_Boolean BRepTools_GTrsfModification::NewSurface(const TopoDS_Face&    F
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_GTrsfModification::NewCurve(const TopoDS_Edge&  E,
-                                                       Handle(Geom_Curve)& C,
+Standard_Boolean BRepTools_GTrsfModification::NewCurve(const TopoEdge&  E,
+                                                       Handle(GeomCurve3d)& C,
                                                        TopLoc_Location&    L,
                                                        Standard_Real&      Tol)
 {
@@ -137,16 +137,16 @@ Standard_Boolean BRepTools_GTrsfModification::NewCurve(const TopoDS_Edge&  E,
   gp_GTrsf      gtrsf;
   gtrsf.SetVectorialPart(myGTrsf.VectorialPart());
   gtrsf.SetTranslationPart(myGTrsf.TranslationPart());
-  Tol = BRep_Tool::Tolerance(E) * myGScale;
-  C   = BRep_Tool::Curve(E, L, f, l);
+  Tol = BRepInspector::Tolerance(E) * myGScale;
+  C   = BRepInspector::Curve(E, L, f, l);
 
   if (!C.IsNull())
   {
-    C = Handle(Geom_Curve)::DownCast(C->Copy()->Transformed(L.Transformation()));
+    C = Handle(GeomCurve3d)::DownCast(C->Copy()->Transformed(L.Transformation()));
     Handle(TypeInfo) TheTypeC = C->DynamicType();
-    if (TheTypeC == STANDARD_TYPE(Geom_BSplineCurve))
+    if (TheTypeC == STANDARD_TYPE(BSplineCurve3d))
     {
-      Handle(Geom_BSplineCurve) C2 = Handle(Geom_BSplineCurve)::DownCast(C);
+      Handle(BSplineCurve3d) C2 = Handle(BSplineCurve3d)::DownCast(C);
       for (Standard_Integer i = 1; i <= C2->NbPoles(); i++)
       {
         gp_XYZ coor(C2->Pole(i).Coord());
@@ -155,9 +155,9 @@ Standard_Boolean BRepTools_GTrsfModification::NewCurve(const TopoDS_Edge&  E,
         C2->SetPole(i, P);
       }
     }
-    else if (TheTypeC == STANDARD_TYPE(Geom_BezierCurve))
+    else if (TheTypeC == STANDARD_TYPE(BezierCurve3d))
     {
-      Handle(Geom_BezierCurve) C2 = Handle(Geom_BezierCurve)::DownCast(C);
+      Handle(BezierCurve3d) C2 = Handle(BezierCurve3d)::DownCast(C);
       for (Standard_Integer i = 1; i <= C2->NbPoles(); i++)
       {
         gp_XYZ coor(C2->Pole(i).Coord());
@@ -178,12 +178,12 @@ Standard_Boolean BRepTools_GTrsfModification::NewCurve(const TopoDS_Edge&  E,
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_GTrsfModification::NewPoint(const TopoDS_Vertex& V,
+Standard_Boolean BRepTools_GTrsfModification::NewPoint(const TopoVertex& V,
                                                        Point3d&              P,
                                                        Standard_Real&       Tol)
 {
-  Point3d Pnt = BRep_Tool::Pnt(V);
-  Tol        = BRep_Tool::Tolerance(V);
+  Point3d Pnt = BRepInspector::Pnt(V);
+  Tol        = BRepInspector::Tolerance(V);
   Tol *= myGScale;
   gp_XYZ coor(Pnt.Coord());
   myGTrsf.Transforms(coor);
@@ -194,18 +194,18 @@ Standard_Boolean BRepTools_GTrsfModification::NewPoint(const TopoDS_Vertex& V,
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_GTrsfModification::NewCurve2d(const TopoDS_Edge& E,
-                                                         const TopoDS_Face& F,
-                                                         const TopoDS_Edge&,
-                                                         const TopoDS_Face&,
-                                                         Handle(Geom2d_Curve)& C,
+Standard_Boolean BRepTools_GTrsfModification::NewCurve2d(const TopoEdge& E,
+                                                         const TopoFace& F,
+                                                         const TopoEdge&,
+                                                         const TopoFace&,
+                                                         Handle(GeomCurve2d)& C,
                                                          Standard_Real&        Tol)
 {
   TopLoc_Location loc;
-  Tol = BRep_Tool::Tolerance(E);
+  Tol = BRepInspector::Tolerance(E);
   Tol *= myGScale;
   Standard_Real f, l;
-  C = BRep_Tool::CurveOnSurface(E, F, f, l);
+  C = BRepInspector::CurveOnSurface(E, F, f, l);
   if (C.IsNull())
   {
     // processing the case when there is no geometry
@@ -217,37 +217,37 @@ Standard_Boolean BRepTools_GTrsfModification::NewCurve2d(const TopoDS_Edge& E,
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_GTrsfModification::NewParameter(const TopoDS_Vertex& V,
-                                                           const TopoDS_Edge&   E,
+Standard_Boolean BRepTools_GTrsfModification::NewParameter(const TopoVertex& V,
+                                                           const TopoEdge&   E,
                                                            Standard_Real&       P,
                                                            Standard_Real&       Tol)
 {
-  Tol = BRep_Tool::Tolerance(V);
+  Tol = BRepInspector::Tolerance(V);
   Tol *= myGScale;
-  P = BRep_Tool::Parameter(V, E);
+  P = BRepInspector::Parameter(V, E);
   return Standard_True;
 }
 
 //=================================================================================================
 
-GeomAbs_Shape BRepTools_GTrsfModification::Continuity(const TopoDS_Edge& E,
-                                                      const TopoDS_Face& F1,
-                                                      const TopoDS_Face& F2,
-                                                      const TopoDS_Edge&,
-                                                      const TopoDS_Face&,
-                                                      const TopoDS_Face&)
+GeomAbs_Shape BRepTools_GTrsfModification::Continuity(const TopoEdge& E,
+                                                      const TopoFace& F1,
+                                                      const TopoFace& F2,
+                                                      const TopoEdge&,
+                                                      const TopoFace&,
+                                                      const TopoFace&)
 {
-  return BRep_Tool::Continuity(E, F1, F2);
+  return BRepInspector::Continuity(E, F1, F2);
 }
 
 //=================================================================================================
 
 Standard_Boolean BRepTools_GTrsfModification::NewTriangulation(
-  const TopoDS_Face&          theFace,
-  Handle(Poly_Triangulation)& theTriangulation)
+  const TopoFace&          theFace,
+  Handle(MeshTriangulation)& theTriangulation)
 {
   TopLoc_Location aLoc;
-  theTriangulation = BRep_Tool::Triangulation(theFace, aLoc);
+  theTriangulation = BRepInspector::Triangulation(theFace, aLoc);
   if (theTriangulation.IsNull())
   {
     return Standard_False;
@@ -301,11 +301,11 @@ Standard_Boolean BRepTools_GTrsfModification::NewTriangulation(
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_GTrsfModification::NewPolygon(const TopoDS_Edge&      theEdge,
+Standard_Boolean BRepTools_GTrsfModification::NewPolygon(const TopoEdge&      theEdge,
                                                          Handle(Poly_Polygon3D)& thePoly)
 {
   TopLoc_Location aLoc;
-  thePoly = BRep_Tool::Polygon3D(theEdge, aLoc);
+  thePoly = BRepInspector::Polygon3D(theEdge, aLoc);
   if (thePoly.IsNull())
   {
     return Standard_False;
@@ -331,18 +331,18 @@ Standard_Boolean BRepTools_GTrsfModification::NewPolygon(const TopoDS_Edge&     
 //=================================================================================================
 
 Standard_Boolean BRepTools_GTrsfModification::NewPolygonOnTriangulation(
-  const TopoDS_Edge&                   theEdge,
-  const TopoDS_Face&                   theFace,
+  const TopoEdge&                   theEdge,
+  const TopoFace&                   theFace,
   Handle(Poly_PolygonOnTriangulation)& thePoly)
 {
   TopLoc_Location            aLoc;
-  Handle(Poly_Triangulation) aT = BRep_Tool::Triangulation(theFace, aLoc);
+  Handle(MeshTriangulation) aT = BRepInspector::Triangulation(theFace, aLoc);
   if (aT.IsNull())
   {
     return Standard_False;
   }
 
-  thePoly = BRep_Tool::PolygonOnTriangulation(theEdge, aT, aLoc);
+  thePoly = BRepInspector::PolygonOnTriangulation(theEdge, aT, aLoc);
   if (!thePoly.IsNull())
     thePoly = thePoly->Copy();
   return Standard_True;

@@ -31,10 +31,10 @@ extern ViewerTest_DoubleMapOfInteractiveAndName& GetMapOfAIS();
 
 //=================================================================================================
 
-static int VImmediateFront(Draw_Interpretor&, Standard_Integer theArgNb, const char** theArgVec)
+static int VImmediateFront(DrawInterpreter&, Standard_Integer theArgNb, const char** theArgVec)
 {
   // get the context
-  Handle(AIS_InteractiveContext) aContextAIS = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContextAIS = ViewerTest::GetAISContext();
   if (aContextAIS.IsNull())
   {
     Message::SendFail("Error: no active viewer");
@@ -60,25 +60,25 @@ static int VImmediateFront(Draw_Interpretor&, Standard_Integer theArgNb, const c
 }
 
 //! Search the info from the key.
-inline TCollection_AsciiString searchInfo(const TColStd_IndexedDataMapOfStringString& theDict,
-                                          const TCollection_AsciiString&              theKey)
+inline AsciiString1 searchInfo(const TColStd_IndexedDataMapOfStringString& theDict,
+                                          const AsciiString1&              theKey)
 {
   for (TColStd_IndexedDataMapOfStringString::Iterator anIter(theDict); anIter.More(); anIter.Next())
   {
-    if (TCollection_AsciiString::IsSameString(anIter.Key(), theKey, Standard_False))
+    if (AsciiString1::IsSameString(anIter.Key(), theKey, Standard_False))
     {
       return anIter.Value();
     }
   }
-  return TCollection_AsciiString();
+  return AsciiString1();
 }
 
 //=================================================================================================
 
-static int VGlInfo(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theArgVec)
+static int VGlInfo(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
   // get the active view
-  Handle(V3d_View) aView = ViewerTest::CurrentView();
+  Handle(ViewWindow) aView = ViewerTest::CurrentView();
   if (aView.IsNull())
   {
     Message::SendFail("No active viewer");
@@ -87,13 +87,13 @@ static int VGlInfo(Draw_Interpretor& theDI, Standard_Integer theArgNb, const cha
 
   Graphic3d_DiagnosticInfo                      anInfoLevel = Graphic3d_DiagnosticInfo_Basic;
   Standard_Integer                              aLineWidth  = 80;
-  NCollection_Sequence<TCollection_AsciiString> aKeys;
+  NCollection_Sequence<AsciiString1> aKeys;
   TColStd_IndexedDataMapOfStringString          aDict;
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString aName(theArgVec[anArgIter]);
+    AsciiString1 aName(theArgVec[anArgIter]);
     aName.LowerCase();
-    TCollection_AsciiString aValue;
+    AsciiString1 aValue;
     if (aName == "-short")
     {
       anInfoLevel = Graphic3d_DiagnosticInfo_Short;
@@ -109,7 +109,7 @@ static int VGlInfo(Draw_Interpretor& theDI, Standard_Integer theArgNb, const cha
     else if (anArgIter + 1 < theArgNb
              && (aName == "-maxwidth" || aName == "-maxlinewidth" || aName == "-linewidth"))
     {
-      aLineWidth = Draw::Atoi(theArgVec[++anArgIter]);
+      aLineWidth = Draw1::Atoi(theArgVec[++anArgIter]);
       if (aLineWidth < 0)
       {
         aLineWidth = IntegerLast();
@@ -149,7 +149,7 @@ static int VGlInfo(Draw_Interpretor& theDI, Standard_Integer theArgNb, const cha
   if (aKeys.IsEmpty())
   {
     aView->DiagnosticInformation(aDict, anInfoLevel);
-    TCollection_AsciiString aText;
+    AsciiString1 aText;
     for (TColStd_IndexedDataMapOfStringString::Iterator aValueIter(aDict); aValueIter.More();
          aValueIter.Next())
     {
@@ -159,16 +159,16 @@ static int VGlInfo(Draw_Interpretor& theDI, Standard_Integer theArgNb, const cha
       }
       if ((aValueIter.Key().Length() + aValueIter.Value().Length() + 4) <= aLineWidth)
       {
-        aText += TCollection_AsciiString("  ") + aValueIter.Key() + ": " + aValueIter.Value();
+        aText += AsciiString1("  ") + aValueIter.Key() + ": " + aValueIter.Value();
         continue;
       }
 
       // split into lines
-      aText += TCollection_AsciiString("  ") + aValueIter.Key() + ":";
-      TCollection_AsciiString aSubList;
+      aText += AsciiString1("  ") + aValueIter.Key() + ":";
+      AsciiString1 aSubList;
       for (Standard_Integer aTokenIter = 1;; ++aTokenIter)
       {
-        TCollection_AsciiString aToken = aValueIter.Value().Token(" ", aTokenIter);
+        AsciiString1 aToken = aValueIter.Value().Token(" ", aTokenIter);
         if (aToken.IsEmpty())
         {
           break;
@@ -176,7 +176,7 @@ static int VGlInfo(Draw_Interpretor& theDI, Standard_Integer theArgNb, const cha
 
         if (!aSubList.IsEmpty() && (aSubList.Length() + aToken.Length() + 5) > aLineWidth)
         {
-          aText += TCollection_AsciiString("\n    ") + aSubList;
+          aText += AsciiString1("\n    ") + aSubList;
           aSubList = aToken;
         }
         else
@@ -190,7 +190,7 @@ static int VGlInfo(Draw_Interpretor& theDI, Standard_Integer theArgNb, const cha
       }
       if (!aSubList.IsEmpty())
       {
-        aText += TCollection_AsciiString("\n    ") + aSubList;
+        aText += AsciiString1("\n    ") + aSubList;
       }
     }
 
@@ -199,10 +199,10 @@ static int VGlInfo(Draw_Interpretor& theDI, Standard_Integer theArgNb, const cha
   }
 
   aView->DiagnosticInformation(aDict, Graphic3d_DiagnosticInfo_Complete);
-  for (NCollection_Sequence<TCollection_AsciiString>::Iterator aKeyIter(aKeys); aKeyIter.More();
+  for (NCollection_Sequence<AsciiString1>::Iterator aKeyIter(aKeys); aKeyIter.More();
        aKeyIter.Next())
   {
-    TCollection_AsciiString aValue = searchInfo(aDict, aKeyIter.Value());
+    AsciiString1 aValue = searchInfo(aDict, aKeyIter.Value());
     if (aKeys.Length() > 1)
     {
       theDI << "{" << aValue << "} ";
@@ -218,7 +218,7 @@ static int VGlInfo(Draw_Interpretor& theDI, Standard_Integer theArgNb, const cha
 
 //! Parse shader type argument.
 static bool parseShaderTypeArg(Graphic3d_TypeOfShaderObject&  theType,
-                               const TCollection_AsciiString& theArg)
+                               const AsciiString1& theArg)
 {
   if (theArg == "-vertex" || theArg == "-vert")
   {
@@ -257,11 +257,11 @@ static bool parseShaderTypeArg(Graphic3d_TypeOfShaderObject&  theType,
 // function : VShaderProg
 // purpose  : Sets the pair of vertex and fragment shaders for the object
 //==============================================================================
-static Standard_Integer VShaderProg(Draw_Interpretor&,
+static Standard_Integer VShaderProg(DrawInterpreter&,
                                     Standard_Integer theArgNb,
                                     const char**     theArgVec)
 {
-  Handle(AIS_InteractiveContext) aCtx = ViewerTest::GetAISContext();
+  Handle(VisualContext) aCtx = ViewerTest::GetAISContext();
   if (aCtx.IsNull())
   {
     Message::SendFail("Error: no active viewer");
@@ -275,18 +275,18 @@ static Standard_Integer VShaderProg(Draw_Interpretor&,
 
   bool                                                isExplicitShaderType = false;
   Handle(Graphic3d_ShaderProgram)                     aProgram = new Graphic3d_ShaderProgram();
-  NCollection_Sequence<Handle(AIS_InteractiveObject)> aPrsList;
+  NCollection_Sequence<Handle(VisualEntity)> aPrsList;
   Graphic3d_GroupAspect                               aGroupAspect     = Graphic3d_ASPECT_FILL_AREA;
   bool                                                isSetGroupAspect = false;
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     Graphic3d_TypeOfShaderObject aShaderTypeArg = Graphic3d_TypeOfShaderObject(-1);
     if (!aProgram.IsNull() && anArg == "-uniform" && anArgIter + 2 < theArgNb)
     {
-      TCollection_AsciiString aName = theArgVec[++anArgIter];
-      aProgram->PushVariableFloat(aName, float(Draw::Atof(theArgVec[++anArgIter])));
+      AsciiString1 aName = theArgVec[++anArgIter];
+      aProgram->PushVariableFloat(aName, float(Draw1::Atof(theArgVec[++anArgIter])));
     }
     else if (!aProgram.IsNull() && aProgram->ShaderObjects().IsEmpty()
              && (anArg == "-off" || anArg == "off"))
@@ -296,7 +296,7 @@ static Standard_Integer VShaderProg(Draw_Interpretor&,
     else if (!aProgram.IsNull() && aProgram->ShaderObjects().IsEmpty()
              && (anArg == "-phong" || anArg == "phong"))
     {
-      const TCollection_AsciiString& aShadersRoot = Graphic3d_ShaderProgram::ShadersFolder();
+      const AsciiString1& aShadersRoot = Graphic3d_ShaderProgram::ShadersFolder();
       if (aShadersRoot.IsEmpty())
       {
         Message::SendFail(
@@ -305,14 +305,14 @@ static Standard_Integer VShaderProg(Draw_Interpretor&,
         return 1;
       }
 
-      const TCollection_AsciiString aSrcVert = aShadersRoot + "/PhongShading.vs";
-      const TCollection_AsciiString aSrcFrag = aShadersRoot + "/PhongShading.fs";
-      if (!aSrcVert.IsEmpty() && !OSD_File(aSrcVert).Exists())
+      const AsciiString1 aSrcVert = aShadersRoot + "/PhongShading.vs";
+      const AsciiString1 aSrcFrag = aShadersRoot + "/PhongShading.fs";
+      if (!aSrcVert.IsEmpty() && !SystemFile(aSrcVert).Exists())
       {
         Message::SendFail("Error: PhongShading.vs is not found");
         return 1;
       }
-      if (!aSrcFrag.IsEmpty() && !OSD_File(aSrcFrag).Exists())
+      if (!aSrcFrag.IsEmpty() && !SystemFile(aSrcFrag).Exists())
       {
         Message::SendFail("Error: PhongShading.fs is not found");
         return 1;
@@ -332,7 +332,7 @@ static Standard_Integer VShaderProg(Draw_Interpretor&,
                  || anArg == "-aspecttype" || anArg == "-aspect"))
     {
       isSetGroupAspect = true;
-      TCollection_AsciiString aPrimTypeStr(theArgVec[++anArgIter]);
+      AsciiString1 aPrimTypeStr(theArgVec[++anArgIter]);
       aPrimTypeStr.LowerCase();
       if (aPrimTypeStr == "line")
       {
@@ -362,10 +362,10 @@ static Standard_Integer VShaderProg(Draw_Interpretor&,
              && (anArg == "-version" || anArg == "-glslversion" || anArg == "-header"
                  || anArg == "-glslheader"))
     {
-      TCollection_AsciiString aHeader(theArgVec[++anArgIter]);
+      AsciiString1 aHeader(theArgVec[++anArgIter]);
       if (aHeader.IsIntegerValue())
       {
-        aHeader = TCollection_AsciiString("#version ") + aHeader;
+        aHeader = AsciiString1("#version ") + aHeader;
       }
       aProgram->SetHeader(aHeader);
     }
@@ -373,12 +373,12 @@ static Standard_Integer VShaderProg(Draw_Interpretor&,
              && (anArg == "-defaultsampler" || anArg == "-defampler" || anArg == "-nodefaultsampler"
                  || anArg == "-nodefsampler"))
     {
-      bool toUseDefSampler = Draw::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
+      bool toUseDefSampler = Draw1::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter);
       aProgram->SetDefaultSampler(toUseDefSampler);
     }
     else if (!anArg.StartsWith("-") && GetMapOfAIS().IsBound2(theArgVec[anArgIter]))
     {
-      Handle(AIS_InteractiveObject) anIO = GetMapOfAIS().Find2(theArgVec[anArgIter]);
+      Handle(VisualEntity) anIO = GetMapOfAIS().Find2(theArgVec[anArgIter]);
       if (anIO.IsNull())
       {
         Message::SendFail() << "Syntax error: " << theArgVec[anArgIter] << " is not an AIS object";
@@ -390,18 +390,18 @@ static Standard_Integer VShaderProg(Draw_Interpretor&,
              && ((anArgIter + 1 < theArgNb && parseShaderTypeArg(aShaderTypeArg, anArg))
                  || (!isExplicitShaderType && aProgram->ShaderObjects().Size() < 2)))
     {
-      TCollection_AsciiString aShaderPath(theArgVec[anArgIter]);
+      AsciiString1 aShaderPath(theArgVec[anArgIter]);
       if (aShaderTypeArg != Graphic3d_TypeOfShaderObject(-1))
       {
         aShaderPath          = (theArgVec[++anArgIter]);
         isExplicitShaderType = true;
       }
 
-      const bool                     isSrcFile = OSD_File(aShaderPath).Exists();
+      const bool                     isSrcFile = SystemFile(aShaderPath).Exists();
       Handle(Graphic3d_ShaderObject) aShader =
         isSrcFile ? Graphic3d_ShaderObject::CreateFromFile(Graphic3d_TOS_VERTEX, aShaderPath)
                   : Graphic3d_ShaderObject::CreateFromSource(Graphic3d_TOS_VERTEX, aShaderPath);
-      const TCollection_AsciiString& aShaderSrc = aShader->Source();
+      const AsciiString1& aShaderSrc = aShader->Source();
 
       const bool hasVertPos = aShaderSrc.Search("gl_Position") != -1;
       const bool hasFragColor =
@@ -442,11 +442,11 @@ static Standard_Integer VShaderProg(Draw_Interpretor&,
   }
 
   ViewerTest_DoubleMapIteratorOfDoubleMapOfInteractiveAndName   aGlobalPrsIter(GetMapOfAIS());
-  NCollection_Sequence<Handle(AIS_InteractiveObject)>::Iterator aPrsIter(aPrsList);
+  NCollection_Sequence<Handle(VisualEntity)>::Iterator aPrsIter(aPrsList);
   const bool                                                    isGlobalList = aPrsList.IsEmpty();
   for (;;)
   {
-    Handle(AIS_InteractiveObject) anIO;
+    Handle(VisualEntity) anIO;
     if (isGlobalList)
     {
       if (!aGlobalPrsIter.More())
@@ -518,24 +518,24 @@ static const char* fresnelModelString(const Graphic3d_FresnelModel theModel)
 }
 
 //! Create a colored rectangle SVG element.
-static TCollection_AsciiString formatSvgColoredRect(const Quantity_Color& theColor)
+static AsciiString1 formatSvgColoredRect(const Quantity_Color& theColor)
 {
-  return TCollection_AsciiString()
+  return AsciiString1()
          + "<svg width='20px' height='20px'><rect width='20px' height='20px' fill='"
          + Quantity_Color::ColorToHex(theColor) + "' /></svg>";
 }
 
 //=================================================================================================
 
-static Standard_Integer VListMaterials(Draw_Interpretor& theDI,
+static Standard_Integer VListMaterials(DrawInterpreter& theDI,
                                        Standard_Integer  theArgNb,
                                        const char**      theArgVec)
 {
-  TCollection_AsciiString                        aDumpFile;
+  AsciiString1                        aDumpFile;
   NCollection_Sequence<Graphic3d_NameOfMaterial> aMatList;
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     Graphic3d_NameOfMaterial aMat =
       Graphic3d_MaterialAspect::MaterialFromName(theArgVec[anArgIter]);
@@ -605,9 +605,9 @@ static Standard_Integer VListMaterials(Draw_Interpretor& theDI,
   std::shared_ptr<std::ostream> aMatFile, anObjFile, aHtmlFile;
   if (aDumpFile.EndsWith(".obj") || aDumpFile.EndsWith(".mtl"))
   {
-    const TCollection_AsciiString aMatFilePath =
+    const AsciiString1 aMatFilePath =
       aDumpFile.SubString(1, aDumpFile.Length() - 3) + "mtl";
-    const TCollection_AsciiString anObjFilePath =
+    const AsciiString1 anObjFilePath =
       aDumpFile.SubString(1, aDumpFile.Length() - 3) + "obj";
 
     aMatFile = aFileSystem->OpenOStream(aMatFilePath, std::ios::out | std::ios::binary);
@@ -625,8 +625,8 @@ static Standard_Integer VListMaterials(Draw_Interpretor& theDI,
         return 0;
       }
 
-      TCollection_AsciiString anMtlName, aFolder;
-      OSD_Path::FolderAndFileFromPath(aMatFilePath, aFolder, anMtlName);
+      AsciiString1 anMtlName, aFolder;
+      SystemPath::FolderAndFileFromPath(aMatFilePath, aFolder, anMtlName);
       *anObjFile << "mtllib " << anMtlName << "\n";
     }
   }
@@ -705,7 +705,7 @@ static Standard_Integer VListMaterials(Draw_Interpretor& theDI,
        aMatIter.Next(), ++aMatIndex)
   {
     Graphic3d_MaterialAspect       aMat(aMatIter.Value());
-    const TCollection_AsciiString& aMatName   = aMat.StringName();
+    const AsciiString1& aMatName   = aMat.StringName();
     const Graphic3d_Vec3           anAmbient  = (Graphic3d_Vec3)aMat.AmbientColor();
     const Graphic3d_Vec3           aDiffuse   = (Graphic3d_Vec3)aMat.DiffuseColor();
     const Graphic3d_Vec3           aSpecular  = (Graphic3d_Vec3)aMat.SpecularColor();
@@ -821,15 +821,15 @@ static Standard_Integer VListMaterials(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer VListColors(Draw_Interpretor& theDI,
+static Standard_Integer VListColors(DrawInterpreter& theDI,
                                     Standard_Integer  theArgNb,
                                     const char**      theArgVec)
 {
-  TCollection_AsciiString                    aDumpFile;
+  AsciiString1                    aDumpFile;
   NCollection_Sequence<Quantity_NameOfColor> aColList;
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     Quantity_NameOfColor aName;
     if (Quantity_Color::ColorFromName(theArgVec[anArgIter], aName))
@@ -875,10 +875,10 @@ static Standard_Integer VListColors(Draw_Interpretor& theDI,
 
   const Handle(OSD_FileSystem)& aFileSystem = OSD_FileSystem::DefaultFileSystem();
   std::shared_ptr<std::ostream> aHtmlFile;
-  TCollection_AsciiString       aFileNameBase, aFolder;
+  AsciiString1       aFileNameBase, aFolder;
   if (aDumpFile.EndsWith(".htm") || aDumpFile.EndsWith(".html"))
   {
-    OSD_Path::FolderAndFileFromPath(aDumpFile, aFolder, aFileNameBase);
+    SystemPath::FolderAndFileFromPath(aDumpFile, aFolder, aFileNameBase);
     aFileNameBase =
       aFileNameBase.SubString(1, aFileNameBase.Length() - (aDumpFile.EndsWith(".htm") ? 4 : 5));
   }
@@ -894,7 +894,7 @@ static Standard_Integer VListColors(Draw_Interpretor& theDI,
   {
     aMaxNameLen =
       Max(aMaxNameLen,
-          TCollection_AsciiString(Quantity_Color::StringName(aColIter.Value())).Length());
+          AsciiString1(Quantity_Color::StringName(aColIter.Value())).Length());
   }
 
   V3d_ImageDumpOptions anImgParams;
@@ -903,7 +903,7 @@ static Standard_Integer VListColors(Draw_Interpretor& theDI,
   anImgParams.BufferType     = Graphic3d_BT_RGB;
   anImgParams.StereoOptions  = V3d_SDO_MONO;
   anImgParams.ToAdjustAspect = Standard_True;
-  Handle(V3d_View) aView;
+  Handle(ViewWindow) aView;
   if (!aDumpFile.IsEmpty())
   {
     ViewerTest_VinitParams aParams;
@@ -943,12 +943,12 @@ static Standard_Integer VListColors(Draw_Interpretor& theDI,
        aColIter.Next(), ++aColIndex)
   {
     Quantity_Color                aCol(aColIter.Value());
-    const TCollection_AsciiString aColName  = Quantity_Color::StringName(aColIter.Value());
-    const TCollection_AsciiString anSRgbHex = Quantity_Color::ColorToHex(aCol);
+    const AsciiString1 aColName  = Quantity_Color::StringName(aColIter.Value());
+    const AsciiString1 anSRgbHex = Quantity_Color::ColorToHex(aCol);
     const Graphic3d_Vec3i         anSRgbInt((Graphic3d_Vec3)aCol * 255.0f);
     if (aHtmlFile.get() != NULL)
     {
-      const TCollection_AsciiString anImgPath = aFileNameBase + "_" + aColName + ".png";
+      const AsciiString1 anImgPath = aFileNameBase + "_" + aColName + ".png";
       if (!aView.IsNull())
       {
         aView->SetImmediateUpdate(false);
@@ -973,7 +973,7 @@ static Standard_Integer VListColors(Draw_Interpretor& theDI,
     }
     else
     {
-      TCollection_AsciiString aColNameLong(aColName);
+      AsciiString1 aColNameLong(aColName);
       aColNameLong.RightJustify(aMaxNameLen, ' ');
       theDI << aColNameLong << " [" << anSRgbHex << "]: " << aCol.Red() << " " << aCol.Green()
             << " " << aCol.Blue() << "\n";
@@ -1008,18 +1008,18 @@ static std::string envLutWriteToFile(Standard_ShortReal theValue)
 
 //=================================================================================================
 
-static Standard_Integer VGenEnvLUT(Draw_Interpretor&,
+static Standard_Integer VGenEnvLUT(DrawInterpreter&,
                                    Standard_Integer theArgNb,
                                    const char**     theArgVec)
 {
   Standard_Integer        aTableSize = -1;
   Standard_Integer        aNbSamples = -1;
-  TCollection_AsciiString aFilePath =
+  AsciiString1 aFilePath =
     Graphic3d_TextureRoot::TexturesFolder() + "/Textures_EnvLUT.pxx";
 
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
 
     if (anArg == "-size" || anArg == "-s")
@@ -1030,7 +1030,7 @@ static Standard_Integer VGenEnvLUT(Draw_Interpretor&,
         return 1;
       }
 
-      aTableSize = Draw::Atoi(theArgVec[++anArgIter]);
+      aTableSize = Draw1::Atoi(theArgVec[++anArgIter]);
 
       if (aTableSize < 16)
       {
@@ -1048,7 +1048,7 @@ static Standard_Integer VGenEnvLUT(Draw_Interpretor&,
         return 1;
       }
 
-      aNbSamples = Draw::Atoi(theArgVec[++anArgIter]);
+      aNbSamples = Draw1::Atoi(theArgVec[++anArgIter]);
 
       if (aNbSamples < 1)
       {
@@ -1144,12 +1144,12 @@ static Standard_Integer VGenEnvLUT(Draw_Interpretor&,
 
 //=================================================================================================
 
-void ViewerTest::OpenGlCommands(Draw_Interpretor& theCommands)
+void ViewerTest::OpenGlCommands(DrawInterpreter& theCommands)
 {
   const char* aGroup    = "AIS Viewer";
   const char* aFileName = __FILE__;
   auto        addCmd =
-    [&](const char* theName, Draw_Interpretor::CommandFunction theFunc, const char* theHelp) {
+    [&](const char* theName, DrawInterpreter::CommandFunction theFunc, const char* theHelp) {
       theCommands.Add(theName, theHelp, aFileName, theFunc, aGroup);
     };
 

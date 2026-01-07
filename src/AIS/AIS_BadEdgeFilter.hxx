@@ -24,7 +24,7 @@
 #include <SelectMgr_Filter.hxx>
 #include <TopAbs_ShapeEnum.hxx>
 class SelectMgr_EntityOwner;
-class TopoDS_Edge;
+class TopoEdge;
 
 class AIS_BadEdgeFilter;
 DEFINE_STANDARD_HANDLE(AIS_BadEdgeFilter, SelectMgr_Filter)
@@ -49,7 +49,7 @@ public:
 
   //! Adds an  edge  to the list  of non-selectionnable
   //! edges.
-  Standard_EXPORT void AddEdge(const TopoDS_Edge& anEdge, const Standard_Integer Index);
+  Standard_EXPORT void AddEdge(const TopoEdge& anEdge, const Standard_Integer Index);
 
   //! removes from the  list of non-selectionnable edges
   //! all edges in the contour <Index>.

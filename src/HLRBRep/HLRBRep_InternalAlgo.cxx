@@ -240,7 +240,7 @@ HLRBRep_SeqOfShapeBounds& HLRBRep_InternalAlgo::SeqOfShapeBounds()
 
 //=================================================================================================
 
-Standard_Integer HLRBRep_InternalAlgo::NbShapes() const
+Standard_Integer HLRBRep_InternalAlgo::NbShapes1() const
 {
   return myShapes.Length();
 }

@@ -46,11 +46,11 @@ public:
 
   Standard_EXPORT void Clear();
 
-  Standard_EXPORT void AddBoxes(const TopoDS_Shape&    S,
+  Standard_EXPORT void AddBoxes(const TopoShape&    S,
                                 const TopAbs_ShapeEnum TS,
                                 const TopAbs_ShapeEnum TA = TopAbs_SHAPE);
 
-  Standard_EXPORT void MakeHAB(const TopoDS_Shape&    S,
+  Standard_EXPORT void MakeHAB(const TopoShape&    S,
                                const TopAbs_ShapeEnum TS,
                                const TopAbs_ShapeEnum TA = TopAbs_SHAPE);
 
@@ -58,22 +58,22 @@ public:
 
   Standard_EXPORT static void MakeHABCOB(const Handle(Bnd_HArray1OfBox)& HAB, Bnd_Box& COB);
 
-  Standard_EXPORT const TopoDS_Shape& HABShape(const Standard_Integer I) const;
+  Standard_EXPORT const TopoShape& HABShape(const Standard_Integer I) const;
 
-  Standard_EXPORT void MakeCOB(const TopoDS_Shape&    S,
+  Standard_EXPORT void MakeCOB(const TopoShape&    S,
                                const TopAbs_ShapeEnum TS,
                                const TopAbs_ShapeEnum TA = TopAbs_SHAPE);
 
-  Standard_EXPORT void AddBoxesMakeCOB(const TopoDS_Shape&    S,
+  Standard_EXPORT void AddBoxesMakeCOB(const TopoShape&    S,
                                        const TopAbs_ShapeEnum TS,
                                        const TopAbs_ShapeEnum TA = TopAbs_SHAPE);
 
-  Standard_EXPORT const TColStd_ListIteratorOfListOfInteger& Compare(const TopoDS_Shape& S);
+  Standard_EXPORT const TColStd_ListIteratorOfListOfInteger& Compare(const TopoShape& S);
 
-  Standard_EXPORT const TopoDS_Shape& TouchedShape(
+  Standard_EXPORT const TopoShape& TouchedShape(
     const TColStd_ListIteratorOfListOfInteger& I) const;
 
-  Standard_EXPORT const Bnd_Box& Box(const TopoDS_Shape& S) const;
+  Standard_EXPORT const Bnd_Box& Box(const TopoShape& S) const;
 
   Standard_EXPORT ~TopOpeBRepTool_BoxSort();
 
@@ -81,7 +81,7 @@ private:
   Bnd_Box                             myCOB;
   Bnd_BoundSortBox                    myBSB;
   TColStd_ListIteratorOfListOfInteger myIterator;
-  TopoDS_Shape                        myLastCompareShape;
+  TopoShape                        myLastCompareShape;
   Bnd_Box                             myLastCompareShapeBox;
   Handle(TopOpeBRepTool_HBoxTool)     myHBT;
   Handle(Bnd_HArray1OfBox)            myHAB;

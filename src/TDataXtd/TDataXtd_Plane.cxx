@@ -41,7 +41,7 @@ const Standard_GUID& TDataXtd_Plane::GetID()
 
 //=================================================================================================
 
-Handle(TDataXtd_Plane) TDataXtd_Plane::Set(const TDF_Label& L)
+Handle(TDataXtd_Plane) TDataXtd_Plane::Set(const DataLabel& L)
 {
   Handle(TDataXtd_Plane) A;
   if (!L.FindAttribute(TDataXtd_Plane::GetID(), A))
@@ -54,18 +54,18 @@ Handle(TDataXtd_Plane) TDataXtd_Plane::Set(const TDF_Label& L)
 
 //=================================================================================================
 
-Handle(TDataXtd_Plane) TDataXtd_Plane::Set(const TDF_Label& L, const gp_Pln& P)
+Handle(TDataXtd_Plane) TDataXtd_Plane::Set(const DataLabel& L, const gp_Pln& P)
 {
   Handle(TDataXtd_Plane) A = Set(L);
 
-  Handle(TNaming_NamedShape) aNS;
-  if (L.FindAttribute(TNaming_NamedShape::GetID(), aNS))
+  Handle(ShapeAttribute) aNS;
+  if (L.FindAttribute(ShapeAttribute::GetID(), aNS))
   {
     if (!aNS->Get().IsNull())
       if (aNS->Get().ShapeType() == TopAbs_FACE)
       {
-        TopoDS_Face             aFace    = TopoDS::Face(aNS->Get());
-        Handle(Geom_Surface)    aSurface = BRep_Tool::Surface(aFace);
+        TopoFace             aFace    = TopoDS::Face(aNS->Get());
+        Handle(GeomSurface)    aSurface = BRepInspector::Surface(aFace);
         GeomLib_IsPlanarSurface aChecker(aSurface);
         if (aChecker.IsPlanar())
         {
@@ -84,7 +84,7 @@ Handle(TDataXtd_Plane) TDataXtd_Plane::Set(const TDF_Label& L, const gp_Pln& P)
   }
 
   TNaming_Builder B(L);
-  B.Generated(BRepBuilderAPI_MakeFace(P));
+  B.Generated(FaceMaker(P));
   return A;
 }
 

@@ -25,7 +25,7 @@ class IGESBasic_GroupWithoutBackP;
 DEFINE_STANDARD_HANDLE(IGESBasic_GroupWithoutBackP, IGESBasic_Group)
 
 //! defines GroupWithoutBackP, Type <402> Form <7>
-//! in package IGESBasic
+//! in package IGESBasic1
 //! this class defines a Group without back pointers
 //!
 //! It inherits from Group

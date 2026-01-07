@@ -31,9 +31,9 @@
 #include <Message_Messenger.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESGraph_ToolNominalSize::IGESGraph_ToolNominalSize() {}
+NominalSizeTool::NominalSizeTool() {}
 
-void IGESGraph_ToolNominalSize::ReadOwnParams(const Handle(IGESGraph_NominalSize)& ent,
+void NominalSizeTool::ReadOwnParams(const Handle(IGESGraph_NominalSize)& ent,
                                               const Handle(IGESData_IGESReaderData)& /*IR*/,
                                               IGESData_ParamReader& PR) const
 {
@@ -71,7 +71,7 @@ void IGESGraph_ToolNominalSize::ReadOwnParams(const Handle(IGESGraph_NominalSize
   ent->Init(nbPropertyValues, nominalSizeValue, nominalSizeName, standardName);
 }
 
-void IGESGraph_ToolNominalSize::WriteOwnParams(const Handle(IGESGraph_NominalSize)& ent,
+void NominalSizeTool::WriteOwnParams(const Handle(IGESGraph_NominalSize)& ent,
                                                IGESData_IGESWriter&                 IW) const
 {
   IW.Send(ent->NbPropertyValues());
@@ -82,12 +82,12 @@ void IGESGraph_ToolNominalSize::WriteOwnParams(const Handle(IGESGraph_NominalSiz
     IW.Send(ent->StandardName()); // optional
 }
 
-void IGESGraph_ToolNominalSize::OwnShared(const Handle(IGESGraph_NominalSize)& /*ent*/,
+void NominalSizeTool::OwnShared(const Handle(IGESGraph_NominalSize)& /*ent*/,
                                           Interface_EntityIterator& /*iter*/) const
 {
 }
 
-void IGESGraph_ToolNominalSize::OwnCopy(const Handle(IGESGraph_NominalSize)& another,
+void NominalSizeTool::OwnCopy(const Handle(IGESGraph_NominalSize)& another,
                                         const Handle(IGESGraph_NominalSize)& ent,
                                         Interface_CopyTool& /*TC*/) const
 {
@@ -105,7 +105,7 @@ void IGESGraph_ToolNominalSize::OwnCopy(const Handle(IGESGraph_NominalSize)& ano
   ent->Init(nbPropertyValues, nominalSizeValue, nominalSizeName, standardName);
 }
 
-Standard_Boolean IGESGraph_ToolNominalSize::OwnCorrect(
+Standard_Boolean NominalSizeTool::OwnCorrect(
   const Handle(IGESGraph_NominalSize)& ent) const
 {
   Standard_Integer nbp = 2;
@@ -117,10 +117,10 @@ Standard_Boolean IGESGraph_ToolNominalSize::OwnCorrect(
   return res; // nbpropertyvalues=2/3 selon standard
 }
 
-IGESData_DirChecker IGESGraph_ToolNominalSize::DirChecker(
+DirectoryChecker NominalSizeTool::DirChecker(
   const Handle(IGESGraph_NominalSize)& /*ent*/) const
 {
-  IGESData_DirChecker DC(406, 13);
+  DirectoryChecker DC(406, 13);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -131,7 +131,7 @@ IGESData_DirChecker IGESGraph_ToolNominalSize::DirChecker(
   return DC;
 }
 
-void IGESGraph_ToolNominalSize::OwnCheck(const Handle(IGESGraph_NominalSize)& ent,
+void NominalSizeTool::OwnCheck(const Handle(IGESGraph_NominalSize)& ent,
                                          const Interface_ShareTool&,
                                          Handle(Interface_Check)& ach) const
 {
@@ -142,7 +142,7 @@ void IGESGraph_ToolNominalSize::OwnCheck(const Handle(IGESGraph_NominalSize)& en
     ach->AddFail("No. of Property values : Value != 2/3 according Standard Name Status");
 }
 
-void IGESGraph_ToolNominalSize::OwnDump(const Handle(IGESGraph_NominalSize)& ent,
+void NominalSizeTool::OwnDump(const Handle(IGESGraph_NominalSize)& ent,
                                         const IGESData_IGESDumper& /*dumper*/,
                                         Standard_OStream& S,
                                         const Standard_Integer /*level*/) const

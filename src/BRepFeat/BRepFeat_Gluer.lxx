@@ -26,7 +26,7 @@ inline BRepFeat_Gluer::BRepFeat_Gluer() {}
 // purpose  :
 //=======================================================================
 
-inline BRepFeat_Gluer::BRepFeat_Gluer(const TopoDS_Shape& Snew, const TopoDS_Shape& Sbase)
+inline BRepFeat_Gluer::BRepFeat_Gluer(const TopoShape& Snew, const TopoShape& Sbase)
     : myGluer(Sbase, Snew) // Attention a l`inversion
 {
 }
@@ -36,7 +36,7 @@ inline BRepFeat_Gluer::BRepFeat_Gluer(const TopoDS_Shape& Snew, const TopoDS_Sha
 // purpose  :
 //=======================================================================
 
-inline void BRepFeat_Gluer::Init(const TopoDS_Shape& Snew, const TopoDS_Shape& Sbase)
+inline void BRepFeat_Gluer::Init(const TopoShape& Snew, const TopoShape& Sbase)
 {
   myGluer.Init(Sbase, Snew);
 }
@@ -46,7 +46,7 @@ inline void BRepFeat_Gluer::Init(const TopoDS_Shape& Snew, const TopoDS_Shape& S
 // purpose  :
 //=======================================================================
 
-inline void BRepFeat_Gluer::Bind(const TopoDS_Face& Fnew, const TopoDS_Face& Fbase)
+inline void BRepFeat_Gluer::Bind(const TopoFace& Fnew, const TopoFace& Fbase)
 {
   myGluer.Bind(Fnew, Fbase);
 }
@@ -56,7 +56,7 @@ inline void BRepFeat_Gluer::Bind(const TopoDS_Face& Fnew, const TopoDS_Face& Fba
 // purpose  :
 //=======================================================================
 
-inline void BRepFeat_Gluer::Bind(const TopoDS_Edge& Enew, const TopoDS_Edge& Ebase)
+inline void BRepFeat_Gluer::Bind(const TopoEdge& Enew, const TopoEdge& Ebase)
 {
   myGluer.Bind(Enew, Ebase);
 }
@@ -76,7 +76,7 @@ inline LocOpe_Operation BRepFeat_Gluer::OpeType() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& BRepFeat_Gluer::BasisShape() const
+inline const TopoShape& BRepFeat_Gluer::BasisShape() const
 {
   return myGluer.BasisShape();
 }
@@ -86,7 +86,7 @@ inline const TopoDS_Shape& BRepFeat_Gluer::BasisShape() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& BRepFeat_Gluer::GluedShape() const
+inline const TopoShape& BRepFeat_Gluer::GluedShape() const
 {
   return myGluer.GluedShape();
 }

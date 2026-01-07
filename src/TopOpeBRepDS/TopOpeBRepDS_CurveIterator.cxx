@@ -22,7 +22,7 @@
 //=================================================================================================
 
 TopOpeBRepDS_CurveIterator::TopOpeBRepDS_CurveIterator(const TopOpeBRepDS_ListOfInterference& L)
-    : TopOpeBRepDS_InterferenceIterator(L)
+    : InterferenceIterator(L)
 {
   Match();
 }
@@ -51,14 +51,14 @@ Standard_Integer TopOpeBRepDS_CurveIterator::Current() const
 TopAbs_Orientation TopOpeBRepDS_CurveIterator::Orientation(const TopAbs_State S) const
 {
   Handle(TopOpeBRepDS_Interference) I = Value();
-  const TopOpeBRepDS_Transition&    T = I->Transition();
+  const StateTransition&    T = I->Transition();
   TopAbs_Orientation                o = T.Orientation(S);
   return o;
 }
 
 //=================================================================================================
 
-const Handle(Geom2d_Curve)& TopOpeBRepDS_CurveIterator::PCurve() const
+const Handle(GeomCurve2d)& TopOpeBRepDS_CurveIterator::PCurve() const
 {
   return (*((Handle(TopOpeBRepDS_SurfaceCurveInterference)*)&Value()))->PCurve();
 }

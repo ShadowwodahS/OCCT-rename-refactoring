@@ -19,7 +19,7 @@
 IMPLEMENT_STANDARD_RTTIEXT(GeomEvaluator_SurfaceOfExtrusion, GeomEvaluator_Surface)
 
 GeomEvaluator_SurfaceOfExtrusion::GeomEvaluator_SurfaceOfExtrusion(
-  const Handle(Geom_Curve)& theBase,
+  const Handle(GeomCurve3d)& theBase,
   const Dir3d&             theExtrusionDir)
     : GeomEvaluator_Surface(),
       myBaseCurve(theBase),

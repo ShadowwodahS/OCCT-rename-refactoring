@@ -36,9 +36,9 @@
 //=================================================================================================
 
 void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                           const Handle(Prs3d_Drawer)&       aDrawer,
+                                           const Handle(StyleDrawer)&       aDrawer,
                                            const Standard_Real               theval,
-                                           const TCollection_ExtendedString& aText,
+                                           const UtfString& aText,
                                            const Point3d&                     aPosition,
                                            const Point3d&                     anEndOfArrow,
                                            const Point3d&                     aCenter,
@@ -58,9 +58,9 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   // value
-  TCollection_ExtendedString Text(IsMaxRadius ? "a = " : "b = ");
+  UtfString Text(IsMaxRadius ? "a = " : "b = ");
   Text += aText;
-  Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), Text, aPosition);
+  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), Text, aPosition);
 
   // arrows
   Dir3d arrdir(Vector3d(aCenter, anEndOfArrow));
@@ -73,9 +73,9 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
 //=================================================================================================
 
 void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                           const Handle(Prs3d_Drawer)&       aDrawer,
+                                           const Handle(StyleDrawer)&       aDrawer,
                                            const Standard_Real               theval,
-                                           const TCollection_ExtendedString& aText,
+                                           const UtfString& aText,
                                            const gp_Elips&                   anEllipse,
                                            const Point3d&                     aPosition,
                                            const Point3d&                     anEndOfArrow,
@@ -124,9 +124,9 @@ void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPr
 //=======================================================================
 
 void DsgPrs_EllipseRadiusPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                           const Handle(Prs3d_Drawer)&       aDrawer,
+                                           const Handle(StyleDrawer)&       aDrawer,
                                            const Standard_Real               theval,
-                                           const TCollection_ExtendedString& aText,
+                                           const UtfString& aText,
                                            const Handle(Geom_OffsetCurve)&   aCurve,
                                            const Point3d&                     aPosition,
                                            const Point3d&                     anEndOfArrow,

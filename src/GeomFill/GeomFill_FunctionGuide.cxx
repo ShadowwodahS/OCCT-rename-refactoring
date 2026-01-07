@@ -92,7 +92,7 @@ void GeomFill_FunctionGuide::SetParam(const Standard_Real,
 
   if (isconst)
   {
-    TheCurve = new (Geom_TrimmedCurve)(Handle(Geom_Curve)::DownCast(TheConst->Copy()), First, Last);
+    TheCurve = new (Geom_TrimmedCurve)(Handle(GeomCurve3d)::DownCast(TheConst->Copy()), First, Last);
   }
   else
   {
@@ -106,9 +106,9 @@ void GeomFill_FunctionGuide::SetParam(const Standard_Real,
     TColStd_Array1OfReal Weights(1, NbPoles);
     TheLaw->D0(TheUonS, Poles, Weights);
     if (TheLaw->IsRational())
-      TheCurve = new (Geom_BSplineCurve)(Poles, Weights, Knots, Mult, Deg, TheLaw->IsUPeriodic());
+      TheCurve = new (BSplineCurve3d)(Poles, Weights, Knots, Mult, Deg, TheLaw->IsUPeriodic());
     else
-      TheCurve = new (Geom_BSplineCurve)(Poles, Knots, Mult, Deg, TheLaw->IsUPeriodic());
+      TheCurve = new (BSplineCurve3d)(Poles, Knots, Mult, Deg, TheLaw->IsUPeriodic());
   }
 
   Axis3d Axe(C, Dir);

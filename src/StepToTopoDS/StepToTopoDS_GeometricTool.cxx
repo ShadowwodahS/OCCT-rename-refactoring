@@ -46,7 +46,7 @@
 // Purpose : returns true if the surface curve has at least one pcurve lying
 // on the surface
 // ----------------------------------------------------------------------------
-Standard_Integer StepToTopoDS_GeometricTool::PCurve(const Handle(StepGeom_SurfaceCurve)& SurfCurve,
+Standard_Integer GeometricTool::PCurve(const Handle(StepGeom_SurfaceCurve)& SurfCurve,
                                                     const Handle(StepGeom_Surface)&      BasisSurf,
                                                     Handle(StepGeom_Pcurve)&             thePCurve,
                                                     const Standard_Integer               last)
@@ -72,7 +72,7 @@ Standard_Integer StepToTopoDS_GeometricTool::PCurve(const Handle(StepGeom_Surfac
 //           Then the surface_curve is a seam curve
 // ----------------------------------------------------------------------------
 
-Standard_Boolean StepToTopoDS_GeometricTool::IsSeamCurve(
+Standard_Boolean GeometricTool::IsSeamCurve(
   const Handle(StepGeom_SurfaceCurve)& SurfCurve,
   const Handle(StepGeom_Surface)&      Surf,
   const Handle(StepShape_Edge)&        StepEdge,
@@ -119,7 +119,7 @@ Standard_Boolean StepToTopoDS_GeometricTool::IsSeamCurve(
 //           range of gp_Resolution is not identified as closed
 // ----------------------------------------------------------------------------
 
-Standard_Boolean StepToTopoDS_GeometricTool::IsLikeSeam(
+Standard_Boolean GeometricTool::IsLikeSeam(
   const Handle(StepGeom_SurfaceCurve)& SurfCurve,
   const Handle(StepGeom_Surface)&      Surf,
   const Handle(StepShape_Edge)&        StepEdge,
@@ -206,7 +206,7 @@ Standard_Boolean StepToTopoDS_GeometricTool::IsLikeSeam(
 //           This situation occurs when an edge crosses the parametric origin.
 // ----------------------------------------------------------------------------
 
-Standard_Boolean StepToTopoDS_GeometricTool::UpdateParam3d(const Handle(Geom_Curve)& theCurve,
+Standard_Boolean GeometricTool::UpdateParam3d(const Handle(GeomCurve3d)& theCurve,
                                                            Standard_Real&            w1,
                                                            Standard_Real&            w2,
                                                            const Standard_Real       preci)
@@ -306,9 +306,9 @@ Standard_Boolean StepToTopoDS_GeometricTool::UpdateParam3d(const Handle(Geom_Cur
     }
   }
   // The curve is closed within the 3D tolerance
-  else if (theCurve->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  else if (theCurve->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    Handle(Geom_BSplineCurve) aBSpline = Handle(Geom_BSplineCurve)::DownCast(theCurve);
+    Handle(BSplineCurve3d) aBSpline = Handle(BSplineCurve3d)::DownCast(theCurve);
     if (aBSpline->StartPoint().Distance(aBSpline->EndPoint()) <= preci)
     {
       //: S4136	<= BRepAPI::Precision()) {

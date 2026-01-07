@@ -64,8 +64,8 @@ AdvApp2Var_ApproxAFunc2Var::AdvApp2Var_ApproxAFunc2Var(
   const Standard_Integer               MaxDegInV,
   const Standard_Integer               MaxPatch,
   const AdvApp2Var_EvaluatorFunc2Var&  Func,
-  AdvApprox_Cutting&                   UChoice,
-  AdvApprox_Cutting&                   VChoice)
+  CuttingTool&                   UChoice,
+  CuttingTool&                   VChoice)
     : my1DTolerances(OneDTol),
       my2DTolerances(TwoDTol),
       my3DTolerances(ThreeDTol),
@@ -123,8 +123,8 @@ AdvApp2Var_ApproxAFunc2Var::AdvApp2Var_ApproxAFunc2Var(
   const Standard_Integer               MaxPatch,
   const AdvApp2Var_EvaluatorFunc2Var&  Func,
   const AdvApp2Var_Criterion&          Crit,
-  AdvApprox_Cutting&                   UChoice,
-  AdvApprox_Cutting&                   VChoice)
+  CuttingTool&                   UChoice,
+  CuttingTool&                   VChoice)
     : my1DTolerances(OneDTol),
       my2DTolerances(TwoDTol),
       my3DTolerances(ThreeDTol),
@@ -254,13 +254,13 @@ void AdvApp2Var_ApproxAFunc2Var::InitGrid(const Standard_Integer NbInt)
 
   AdvApp2Var_Network Result(Net, TheU, TheV);
 
-  gp_XY                     UV1(myFirstParInU, myFirstParInV);
+  Coords2d                     UV1(myFirstParInU, myFirstParInV);
   Handle(AdvApp2Var_Node)   C1 = new AdvApp2Var_Node(UV1, iu, iv);
-  gp_XY                     UV2(myLastParInU, myFirstParInV);
+  Coords2d                     UV2(myLastParInU, myFirstParInV);
   Handle(AdvApp2Var_Node)   C2 = new AdvApp2Var_Node(UV2, iu, iv);
-  gp_XY                     UV4(myLastParInU, myLastParInV);
+  Coords2d                     UV4(myLastParInU, myLastParInV);
   Handle(AdvApp2Var_Node)   C4 = new AdvApp2Var_Node(UV4, iu, iv);
-  gp_XY                     UV3(myFirstParInU, myLastParInV);
+  Coords2d                     UV3(myFirstParInU, myLastParInV);
   Handle(AdvApp2Var_Node)   C3 = new AdvApp2Var_Node(UV3, iu, iv);
   AdvApp2Var_SequenceOfNode Bag;
   Bag.Append(C1);
@@ -336,8 +336,8 @@ void AdvApp2Var_ApproxAFunc2Var::InitGrid(const Standard_Integer NbInt)
 // purpose  : Computation of the approximation
 //=======================================================================
 
-void AdvApp2Var_ApproxAFunc2Var::Perform(const AdvApprox_Cutting&            UChoice,
-                                         const AdvApprox_Cutting&            VChoice,
+void AdvApp2Var_ApproxAFunc2Var::Perform(const CuttingTool&            UChoice,
+                                         const CuttingTool&            VChoice,
                                          const AdvApp2Var_EvaluatorFunc2Var& Func)
 {
   ComputePatches(UChoice, VChoice, Func);
@@ -350,8 +350,8 @@ void AdvApp2Var_ApproxAFunc2Var::Perform(const AdvApprox_Cutting&            UCh
 // purpose  : Computation of the approximation
 //=======================================================================
 
-void AdvApp2Var_ApproxAFunc2Var::Perform(const AdvApprox_Cutting&            UChoice,
-                                         const AdvApprox_Cutting&            VChoice,
+void AdvApp2Var_ApproxAFunc2Var::Perform(const CuttingTool&            UChoice,
+                                         const CuttingTool&            VChoice,
                                          const AdvApp2Var_EvaluatorFunc2Var& Func,
                                          const AdvApp2Var_Criterion&         Crit)
 {
@@ -366,8 +366,8 @@ void AdvApp2Var_ApproxAFunc2Var::Perform(const AdvApprox_Cutting&            UCh
 // purpose  : Computation of the polynomial approximations
 //=======================================================================
 
-void AdvApp2Var_ApproxAFunc2Var::ComputePatches(const AdvApprox_Cutting&            UChoice,
-                                                const AdvApprox_Cutting&            VChoice,
+void AdvApp2Var_ApproxAFunc2Var::ComputePatches(const CuttingTool&            UChoice,
+                                                const CuttingTool&            VChoice,
                                                 const AdvApp2Var_EvaluatorFunc2Var& Func)
 {
   Standard_Real    Udec, Vdec;
@@ -472,8 +472,8 @@ void AdvApp2Var_ApproxAFunc2Var::ComputePatches(const AdvApprox_Cutting&        
 // purpose  : Computation of the polynomial approximations
 //=======================================================================
 
-void AdvApp2Var_ApproxAFunc2Var::ComputePatches(const AdvApprox_Cutting&            UChoice,
-                                                const AdvApprox_Cutting&            VChoice,
+void AdvApp2Var_ApproxAFunc2Var::ComputePatches(const CuttingTool&            UChoice,
+                                                const CuttingTool&            VChoice,
                                                 const AdvApp2Var_EvaluatorFunc2Var& Func,
                                                 const AdvApp2Var_Criterion&         Crit)
 {
@@ -610,8 +610,8 @@ void AdvApp2Var_ApproxAFunc2Var::ComputePatches(const AdvApprox_Cutting&        
 // purpose  : Approximation of the constraints
 //=======================================================================
 
-void AdvApp2Var_ApproxAFunc2Var::ComputeConstraints(const AdvApprox_Cutting&            UChoice,
-                                                    const AdvApprox_Cutting&            VChoice,
+void AdvApp2Var_ApproxAFunc2Var::ComputeConstraints(const CuttingTool&            UChoice,
+                                                    const CuttingTool&            VChoice,
                                                     const AdvApp2Var_EvaluatorFunc2Var& Func)
 {
   Standard_Real    dec;
@@ -701,8 +701,8 @@ void AdvApp2Var_ApproxAFunc2Var::ComputeConstraints(const AdvApprox_Cutting&    
 // purpose  : Approximation of the constraints
 //=======================================================================
 
-void AdvApp2Var_ApproxAFunc2Var::ComputeConstraints(const AdvApprox_Cutting&            UChoice,
-                                                    const AdvApprox_Cutting&            VChoice,
+void AdvApp2Var_ApproxAFunc2Var::ComputeConstraints(const CuttingTool&            UChoice,
+                                                    const CuttingTool&            VChoice,
                                                     const AdvApp2Var_EvaluatorFunc2Var& Func,
                                                     const AdvApp2Var_Criterion&         Crit)
 {

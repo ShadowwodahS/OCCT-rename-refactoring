@@ -53,14 +53,14 @@ class WNT_WClass : public RefObject
 public:
   //! Creates a Windows NT window class and registers it.
   Standard_EXPORT WNT_WClass(
-    const TCollection_AsciiString& theClassName,
+    const AsciiString1& theClassName,
     const Standard_Address         theWndProc,
     const unsigned int             theStyle,
     const Standard_Integer         theClassExtra  = 0,
     const Standard_Integer         theWindowExtra = 0,
     const Aspect_Handle            theCursor      = NULL,
     const Aspect_Handle            theIcon        = NULL,
-    const TCollection_AsciiString& theMenuName    = TCollection_AsciiString());
+    const AsciiString1& theMenuName    = AsciiString1());
 
   //! Destroys all resources attached to the class
   Standard_EXPORT ~WNT_WClass();
@@ -69,13 +69,13 @@ public:
   Standard_Address WndProc() const { return myWndProc; }
 
   //! Returns a class name.
-  const TCollection_AsciiString& Name() const { return myClassName; }
+  const AsciiString1& Name() const { return myClassName; }
 
   //! Returns a program instance handle.
   Aspect_Handle Instance() const { return myAppInstance; }
 
 protected:
-  TCollection_AsciiString myClassName;
+  AsciiString1 myClassName;
   Aspect_Handle           myAppInstance;
   Standard_Address        myWndProc;
 };

@@ -27,13 +27,13 @@
 // #include <LCTLOFF.h>
 //=================================================================================================
 
-//  Handle(TDocStd_Application) TDocStd::Application
+//  Handle(AppManager) TDocStd::Application
 //  (const Standard_Boolean UseDocAPI)
 //  {
-//    static Handle(TDocStd_Application) theAppli;
-//    if (theAppli.IsNull()) theAppli = new TDocStd_Application(UseDocAPI);
+//    static Handle(AppManager) theAppli;
+//    if (theAppli.IsNull()) theAppli = new AppManager(UseDocAPI);
 //    OSD_Environment CSFLicense("CSF_EngineName");
-//    TCollection_AsciiString LicenseAscii = CSFLicense .Value();
+//    AsciiString1 LicenseAscii = CSFLicense .Value();
 //    Standard_Boolean HasLicense = Standard_False;
 //    if (!LicenseAscii.IsEmpty()) {
 //      if (LicenseAscii=="DsgPEngine")
@@ -47,7 +47,7 @@
 //  }
 //=================================================================================================
 
-//  Handle(TDocStd_Application) TDocStd::InitApplication
+//  Handle(AppManager) TDocStd::InitApplication
 //  (const Standard_Boolean UseDocAPI)
 //  {
 //    // No init yet.

@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class XSControl_WorkSession;
+class ExchangeSession;
 class IFSelect_SessionPilot;
 class XSControl_Vars;
 
@@ -34,7 +34,7 @@ public:
 
   //! Returns the WorkSession of a SessionPilot, but casts it as
   //! from XSControl : it then gives access to Control & Transfers
-  Standard_EXPORT static Handle(XSControl_WorkSession) Session(
+  Standard_EXPORT static Handle(ExchangeSession) Session(
     const Handle(IFSelect_SessionPilot)& pilot);
 
   //! Returns the Vars of a SessionPilot, it is brought by Session

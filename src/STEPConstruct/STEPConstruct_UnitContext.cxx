@@ -60,7 +60,7 @@ STEPConstruct_UnitContext::STEPConstruct_UnitContext()
 
 void STEPConstruct_UnitContext::Init(const Standard_Real               Tol3d,
                                      const Handle(StepData_StepModel)& theModel,
-                                     const StepData_Factors&           theLocalFactors)
+                                     const ConversionFactors&           theLocalFactors)
 {
   done = Standard_True;
 
@@ -275,7 +275,7 @@ Standard_Boolean STEPConstruct_UnitContext::SiUnitNameFactor(
 
 Standard_Integer STEPConstruct_UnitContext::ComputeFactors(
   const Handle(StepRepr_GlobalUnitAssignedContext)& aContext,
-  const StepData_Factors&                           theLocalFactors)
+  const ConversionFactors&                           theLocalFactors)
 {
   Standard_Integer status = 0;
 
@@ -315,7 +315,7 @@ Standard_Integer STEPConstruct_UnitContext::ComputeFactors(
 }
 
 Standard_Integer STEPConstruct_UnitContext::ComputeFactors(const Handle(StepBasic_NamedUnit)& aUnit,
-                                                           const StepData_Factors& theLocalFactors)
+                                                           const ConversionFactors& theLocalFactors)
 {
 
   //: f3 abv 8 Apr 98: ProSTEP TR8 tr8_as_sd_sw: the case of unrecognized entity

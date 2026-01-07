@@ -42,7 +42,7 @@ Standard_Boolean OSD_Error::Failed() const
 
 void OSD_Error::SetValue(const Standard_Integer         errcode,
                          const Standard_Integer         from,
-                         const TCollection_AsciiString& message)
+                         const AsciiString1& message)
 {
   myErrno   = errcode;
   myCode    = (OSD_WhoAmI)from;
@@ -56,7 +56,7 @@ Standard_Integer OSD_Error::Error() const
 
 void OSD_Error::Perror()
 {
-  TCollection_AsciiString buffer;
+  AsciiString1 buffer;
 
   if (myErrno == 0)
     return;
@@ -458,7 +458,7 @@ void OSD_Error::Perror()
       Standard_Character buf[255];
       //
       sprintf(buf, "%sUnknowm error #%d", buffer.ToCString(), myErrno);
-      TCollection_AsciiString interm(buf);
+      AsciiString1 interm(buf);
       buffer  = interm;
       extCode = ERR_UNKNOWN;
     }
@@ -622,7 +622,7 @@ void OSD_Error ::Perror()
       break;
 
     case OSD_WFile:
-      StringCchCatW(buff, _countof(buff), L"OSD_File");
+      StringCchCatW(buff, _countof(buff), L"SystemFile");
       break;
 
     case OSD_WFileNode:
@@ -664,7 +664,7 @@ void OSD_Error ::Perror()
 
 void OSD_Error ::SetValue(const Standard_Integer         Errcode,
                           const Standard_Integer         From,
-                          const TCollection_AsciiString& Message)
+                          const AsciiString1& Message)
 {
 
   int i;

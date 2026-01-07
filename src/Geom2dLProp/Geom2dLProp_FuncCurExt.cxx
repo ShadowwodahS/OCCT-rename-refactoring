@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-Geom2dLProp_FuncCurExt::Geom2dLProp_FuncCurExt(const Handle(Geom2d_Curve)& C,
+Geom2dLProp_FuncCurExt::Geom2dLProp_FuncCurExt(const Handle(GeomCurve2d)& C,
                                                const Standard_Real         Tol)
     : theCurve(C)
 {
@@ -38,7 +38,7 @@ Standard_Boolean Geom2dLProp_FuncCurExt::Value(const Standard_Real X, Standard_R
   gp_Pnt2d P1;
   gp_Vec2d V1, V2, V3;
 
-  Geom2dLProp_Curve2dTool::D3(theCurve, X, P1, V1, V2, V3);
+  Curve2dTool::D3(theCurve, X, P1, V1, V2, V3);
   Standard_Real CPV1V2 = V1.Crossed(V2);
   Standard_Real CPV1V3 = V1.Crossed(V3);
   Standard_Real V1V2   = V1.Dot(V2);
@@ -73,7 +73,7 @@ Standard_Boolean Geom2dLProp_FuncCurExt::Values(const Standard_Real X,
   Standard_Real F2;
   Standard_Real Dx = epsX / 100.;
 
-  if (X + Dx > Geom2dLProp_Curve2dTool::LastParameter(theCurve))
+  if (X + Dx > Curve2dTool::LastParameter(theCurve))
   {
     Dx = -Dx;
   }
@@ -97,7 +97,7 @@ Standard_Boolean Geom2dLProp_FuncCurExt::IsMinKC(const Standard_Real X) const
   Standard_Real Dx = epsX;
   Standard_Real KC, KP;
 
-  Geom2dLProp_Curve2dTool::D3(theCurve, X, P1, V1, V2, V3);
+  Curve2dTool::D3(theCurve, X, P1, V1, V2, V3);
   Standard_Real CPV1V2 = V1.Crossed(V2);
   Standard_Real V1V1   = V1.SquareMagnitude();
   Standard_Real NV1    = Sqrt(V1V1);
@@ -110,12 +110,12 @@ Standard_Boolean Geom2dLProp_FuncCurExt::IsMinKC(const Standard_Real X) const
 
   KC = CPV1V2 / V13;
 
-  if (X + Dx > Geom2dLProp_Curve2dTool::LastParameter(theCurve))
+  if (X + Dx > Curve2dTool::LastParameter(theCurve))
   {
     Dx = -Dx;
   }
 
-  Geom2dLProp_Curve2dTool::D3(theCurve, X + Dx, P1, V1, V2, V3);
+  Curve2dTool::D3(theCurve, X + Dx, P1, V1, V2, V3);
   CPV1V2 = V1.Crossed(V2);
   V1V1   = V1.SquareMagnitude();
   NV1    = Sqrt(V1V1);

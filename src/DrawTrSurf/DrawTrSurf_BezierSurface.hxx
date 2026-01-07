@@ -36,15 +36,15 @@ class DrawTrSurf_BezierSurface : public DrawTrSurf_Surface
   Standard_EXPORT DrawTrSurf_BezierSurface(const Handle(Geom_BezierSurface)& S,
                                            const Standard_Integer            NbUIsos,
                                            const Standard_Integer            NbVIsos,
-                                           const Draw_Color&                 BoundsColor,
-                                           const Draw_Color&                 IsosColor,
-                                           const Draw_Color&                 PolesColor,
+                                           const DrawColor&                 BoundsColor,
+                                           const DrawColor&                 IsosColor,
+                                           const DrawColor&                 PolesColor,
                                            const Standard_Boolean            ShowPoles,
                                            const Standard_Integer            Discret,
                                            const Standard_Real               Deflection,
                                            const Standard_Integer            DrawMode);
 
-  Standard_EXPORT virtual void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   void ShowPoles() { drawPoles = Standard_True; }
 
@@ -52,21 +52,21 @@ class DrawTrSurf_BezierSurface : public DrawTrSurf_Surface
 
   Standard_EXPORT void FindPole(const Standard_Real X,
                                 const Standard_Real Y,
-                                const Draw_Display& D,
+                                const DrawDisplay& D,
                                 const Standard_Real Prec,
                                 Standard_Integer&   UIndex,
                                 Standard_Integer&   VIndex) const;
 
-  void SetPolesColor(const Draw_Color& theColor) { polesLook = theColor; }
+  void SetPolesColor(const DrawColor& theColor) { polesLook = theColor; }
 
-  Draw_Color PolesColor() const { return polesLook; }
+  DrawColor PolesColor() const { return polesLook; }
 
   //! For variable copy.
   Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
 
 private:
   Standard_Boolean drawPoles;
-  Draw_Color       polesLook;
+  DrawColor       polesLook;
 };
 
 #endif // _DrawTrSurf_BezierSurface_HeaderFile

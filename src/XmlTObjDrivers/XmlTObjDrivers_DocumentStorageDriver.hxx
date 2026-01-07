@@ -30,7 +30,7 @@ public:
   // ---------- PUBLIC METHODS ----------
 
   Standard_EXPORT XmlTObjDrivers_DocumentStorageDriver(
-    const TCollection_ExtendedString& theCopyright);
+    const UtfString& theCopyright);
   // Constructor
 
   Standard_EXPORT virtual Handle(XmlMDF_ADriverTable) AttributeDrivers(

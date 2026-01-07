@@ -42,7 +42,7 @@ public:
   {
   }
 
-  void Init(const Handle(Geom_Surface)& Surface,
+  void Init(const Handle(GeomSurface)& Surface,
             const Standard_Real         Umin,
             const Standard_Real         Usup,
             const Standard_Real         Vmin,
@@ -64,7 +64,7 @@ protected:
 
 //=================================================================================================
 
-void ProjectPointOnSurf::Init(const Handle(Geom_Surface)& Surface,
+void ProjectPointOnSurf::Init(const Handle(GeomSurface)& Surface,
                               const Standard_Real         Umin,
                               const Standard_Real         Usup,
                               const Standard_Real         Vmin,
@@ -428,9 +428,9 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
   Handle(NCollection_IncAllocator) anIdxAlloc = new NCollection_IncAllocator();
   ListOfInteger                    aListOfPointIndex(anIdxAlloc);
 
-  // GeomAPI_ProjectPointOnSurf aPrj1, aPrj2;
+  // PointOnSurfProjector aPrj1, aPrj2;
   ProjectPointOnSurf   aPrj1, aPrj2;
-  Handle(Geom_Surface) aSurf1, aSurf2;
+  Handle(GeomSurface) aSurf1, aSurf2;
   //
   aNbParts = theLConstructor.NbParts();
   aNbPnts  = theWLine->NbPnts();
@@ -838,8 +838,8 @@ Standard_Boolean GeomInt_LineTool::DecompositionOfWLine(
           {
             // check point
             // clang-format off
-	    Standard_Real aCriteria =aTolSum;// BRep_Tool::Tolerance(theFace1) + BRep_Tool::Tolerance(theFace2);
-	    //GeomAPI_ProjectPointOnSurf& aProjector = (surfit == 0) ? aPrj2 : aPrj1;
+	    Standard_Real aCriteria =aTolSum;// BRepInspector::Tolerance(theFace1) + BRepInspector::Tolerance(theFace2);
+	    //PointOnSurfProjector& aProjector = (surfit == 0) ? aPrj2 : aPrj1;
             // clang-format on
             ProjectPointOnSurf&         aProjector = (surfit == 0) ? aPrj2 : aPrj1;
             Handle(GeomAdaptor_Surface) aSurface   = (surfit == 0) ? theSurface1 : theSurface2;

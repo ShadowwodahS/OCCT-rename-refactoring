@@ -30,14 +30,14 @@
 #include <Standard_Integer.hxx>
 #include <IntTools_ListOfCurveRangeSample.hxx>
 #include <IntTools_ListOfSurfaceRangeSample.hxx>
-class Geom_Surface;
+class GeomSurface;
 class IntTools_Context;
-class TopoDS_Edge;
-class TopoDS_Face;
+class TopoEdge;
+class TopoFace;
 class IntTools_CurveRangeSample;
 class Bnd_Box;
 class IntTools_SurfaceRangeSample;
-class IntTools_CurveRangeLocalizeData;
+class CurveRangeLocalizeData;
 class IntTools_SurfaceRangeLocalizeData;
 
 //! The class BeanFaceIntersector computes ranges of parameters on
@@ -61,8 +61,8 @@ public:
   //! the surface of the face and belong to
   //! the whole in the face (if there is)
   //! is considered as result
-  Standard_EXPORT IntTools_BeanFaceIntersector(const TopoDS_Edge& theEdge,
-                                               const TopoDS_Face& theFace);
+  Standard_EXPORT IntTools_BeanFaceIntersector(const TopoEdge& theEdge,
+                                               const TopoFace& theFace);
 
   //! Initializes the algorithm
   Standard_EXPORT IntTools_BeanFaceIntersector(const BRepAdaptor_Curve&   theCurve,
@@ -91,7 +91,7 @@ public:
   //! the surface of the face and belong to
   //! the whole in the face (if there is)
   //! is considered as result
-  Standard_EXPORT void Init(const TopoDS_Edge& theEdge, const TopoDS_Face& theFace);
+  Standard_EXPORT void Init(const TopoEdge& theEdge, const TopoFace& theFace);
 
   //! Initializes the algorithm
   Standard_EXPORT void Init(const BRepAdaptor_Curve&   theCurve,
@@ -182,7 +182,7 @@ private:
                       const Bnd_Box&                     theBoxCurve,
                       const IntTools_SurfaceRangeSample& theSurfaceRange,
                       const Bnd_Box&                     theBoxSurface,
-                      IntTools_CurveRangeLocalizeData&   theCurveData,
+                      CurveRangeLocalizeData&   theCurveData,
                       IntTools_SurfaceRangeLocalizeData& theSurfaceData,
                       IntTools_ListOfCurveRangeSample&   theListCurveRange,
                       IntTools_ListOfSurfaceRangeSample& theListSurfaceRange);
@@ -191,7 +191,7 @@ private:
 
   BRepAdaptor_Curve          myCurve;
   BRepAdaptor_Surface        mySurface;
-  Handle(Geom_Surface)       myTrsfSurface;
+  Handle(GeomSurface)       myTrsfSurface;
   Standard_Real              myFirstParameter;
   Standard_Real              myLastParameter;
   Standard_Real              myUMinParameter;
@@ -202,8 +202,8 @@ private:
   Standard_Real              myFaceTolerance;
   Standard_Real              myCurveResolution;
   Standard_Real              myCriteria;
-  GeomAPI_ProjectPointOnSurf myProjector;
-  IntTools_MarkedRangeSet    myRangeManager;
+  PointOnSurfProjector myProjector;
+  MarkedRangeSet    myRangeManager;
   Handle(IntTools_Context)   myContext;
   IntTools_SequenceOfRanges  myResults;
   Standard_Boolean           myIsDone;

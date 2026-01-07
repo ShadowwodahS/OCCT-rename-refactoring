@@ -23,7 +23,7 @@
 
 //=================================================================================================
 
-void BinMFunction::AddDrivers(const Handle(BinMDF_ADriverTable)& theDriverTable,
+void BinMFunction1::AddDrivers(const Handle(BinMDF_ADriverTable)& theDriverTable,
                               const Handle(Message_Messenger)&   theMsgDriver)
 {
   theDriverTable->AddDriver(new BinMFunction_FunctionDriver(theMsgDriver));

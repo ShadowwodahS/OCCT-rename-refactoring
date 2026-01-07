@@ -21,7 +21,7 @@
 #include <TopoDS_Wire.hxx>
 #include <PrsDim_Relation.hxx>
 
-class Geom_Plane;
+class GeomPlane;
 
 DEFINE_STANDARD_HANDLE(PrsDim_FixRelation, PrsDim_Relation)
 
@@ -40,37 +40,37 @@ public:
   //! initializes the vertex aShape, the
   //! plane aPlane and the wire aWire, which connects
   //! the two vertices in a fixed relation.
-  Standard_EXPORT PrsDim_FixRelation(const TopoDS_Shape&       aShape,
-                                     const Handle(Geom_Plane)& aPlane,
-                                     const TopoDS_Wire&        aWire);
+  Standard_EXPORT PrsDim_FixRelation(const TopoShape&       aShape,
+                                     const Handle(GeomPlane)& aPlane,
+                                     const TopoWire&        aWire);
 
   //! initializes the vertex aShape, the
   //! plane aPlane and the wire aWire, the position
   //! aPosition, the arrow size anArrowSize and the
   //! wire aWire, which connects the two vertices in a fixed relation.
-  Standard_EXPORT PrsDim_FixRelation(const TopoDS_Shape&       aShape,
-                                     const Handle(Geom_Plane)& aPlane,
-                                     const TopoDS_Wire&        aWire,
+  Standard_EXPORT PrsDim_FixRelation(const TopoShape&       aShape,
+                                     const Handle(GeomPlane)& aPlane,
+                                     const TopoWire&        aWire,
                                      const Point3d&             aPosition,
                                      const Standard_Real       anArrowSize = 0.01);
 
   //! initializes the edge aShape and the plane aPlane.
-  Standard_EXPORT PrsDim_FixRelation(const TopoDS_Shape& aShape, const Handle(Geom_Plane)& aPlane);
+  Standard_EXPORT PrsDim_FixRelation(const TopoShape& aShape, const Handle(GeomPlane)& aPlane);
 
   //! initializes the edge aShape, the
   //! plane aPlane, the position aPosition and the arrow
   //! size anArrowSize.
-  Standard_EXPORT PrsDim_FixRelation(const TopoDS_Shape&       aShape,
-                                     const Handle(Geom_Plane)& aPlane,
+  Standard_EXPORT PrsDim_FixRelation(const TopoShape&       aShape,
+                                     const Handle(GeomPlane)& aPlane,
                                      const Point3d&             aPosition,
                                      const Standard_Real       anArrowSize = 0.01);
 
   //! Returns the wire which connects vertices in a fixed relation.
-  const TopoDS_Wire& Wire() { return myWire; }
+  const TopoWire& Wire() { return myWire; }
 
   //! Constructs the wire aWire. This connects vertices
   //! which are in a fixed relation.
-  void SetWire(const TopoDS_Wire& aWire) { myWire = aWire; }
+  void SetWire(const TopoWire& aWire) { myWire = aWire; }
 
   //! Returns true if the Interactive Objects in the relation
   //! are movable.
@@ -81,26 +81,26 @@ private:
                                        const Handle(Prs3d_Presentation)&         thePrs,
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! computes the presentation for <myFixShape> if it's a vertex.
-  Standard_EXPORT void ComputeVertex(const TopoDS_Vertex& FixVertex, Point3d& curpos);
+  Standard_EXPORT void ComputeVertex(const TopoVertex& FixVertex, Point3d& curpos);
 
-  Standard_EXPORT Point3d ComputePosition(const Handle(Geom_Curve)& curv1,
-                                         const Handle(Geom_Curve)& curv2,
+  Standard_EXPORT Point3d ComputePosition(const Handle(GeomCurve3d)& curv1,
+                                         const Handle(GeomCurve3d)& curv2,
                                          const Point3d&             firstp1,
                                          const Point3d&             lastp1,
                                          const Point3d&             firstp2,
                                          const Point3d&             lastp2) const;
 
-  Standard_EXPORT Point3d ComputePosition(const Handle(Geom_Curve)& curv,
+  Standard_EXPORT Point3d ComputePosition(const Handle(GeomCurve3d)& curv,
                                          const Point3d&             firstp,
                                          const Point3d&             lastp) const;
 
   //! computes the presentation for <myFixShape> if it's a
   //! edge.
-  Standard_EXPORT void ComputeEdge(const TopoDS_Edge& FixEdge, Point3d& curpos);
+  Standard_EXPORT void ComputeEdge(const TopoEdge& FixEdge, Point3d& curpos);
 
   Standard_EXPORT void ComputeLinePosition(const gp_Lin&  glin,
                                            Point3d&        pos,
@@ -112,13 +112,13 @@ private:
                                              Standard_Real& pfirst,
                                              Standard_Real& plast);
 
-  Standard_EXPORT static Standard_Boolean ConnectedEdges(const TopoDS_Wire&   aWire,
-                                                         const TopoDS_Vertex& aVertex,
-                                                         TopoDS_Edge&         Edge1,
-                                                         TopoDS_Edge&         Edge2);
+  Standard_EXPORT static Standard_Boolean ConnectedEdges(const TopoWire&   aWire,
+                                                         const TopoVertex& aVertex,
+                                                         TopoEdge&         Edge1,
+                                                         TopoEdge&         Edge2);
 
 private:
-  TopoDS_Wire myWire;
+  TopoWire myWire;
   Point3d      myPntAttach;
 };
 

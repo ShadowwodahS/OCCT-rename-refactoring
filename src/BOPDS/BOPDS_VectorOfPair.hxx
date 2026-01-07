@@ -18,6 +18,6 @@
 #include <NCollection_Vector.hxx>
 #include <BOPDS_Pair.hxx>
 
-typedef NCollection_Vector<BOPDS_Pair> BOPDS_VectorOfPair;
+typedef NCollection_Vector<IndexPair> BOPDS_VectorOfPair;
 
 #endif

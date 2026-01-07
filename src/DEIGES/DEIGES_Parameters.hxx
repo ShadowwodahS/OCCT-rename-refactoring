@@ -87,7 +87,7 @@ public:
   Standard_EXPORT void Reset();
 
   //! Returns default shape fix parameters for transferring IGES files.
-  Standard_EXPORT static DE_ShapeFixParameters GetDefaultShapeFixParameters();
+  Standard_EXPORT static ShapeFixParameters GetDefaultShapeFixParameters();
 
 public:
   // Common
@@ -112,10 +112,10 @@ public:
   // Write
   WriteMode_BRep WriteBRepMode = WriteMode_BRep_Faces; //<! Flag to define entities type to write
   WriteMode_ConvertSurface WriteConvertSurfaceMode = WriteMode_ConvertSurface_Off; //<! Flag to convert surface to elementary
-  TCollection_AsciiString WriteHeaderAuthor; //<! Name of the author of the file
-  TCollection_AsciiString WriteHeaderCompany; //<! Name of the sending company
-  TCollection_AsciiString WriteHeaderProduct; //<! Name of the sending product
-  TCollection_AsciiString WriteHeaderReciever; //<! Name of the receiving company
+  AsciiString1 WriteHeaderAuthor; //<! Name of the author of the file
+  AsciiString1 WriteHeaderCompany; //<! Name of the sending company
+  AsciiString1 WriteHeaderProduct; //<! Name of the sending product
+  AsciiString1 WriteHeaderReciever; //<! Name of the receiving company
   WriteMode_PrecisionMode WritePrecisionMode = WriteMode_PrecisionMode_Average; //<! Specifies the mode of writing the resolution value into the IGES file
   double WritePrecisionVal = 0.0001; //<! Resolution value for an IGES file when WriteMode_PrecisionMode is Greatest
   WriteMode_PlaneMode WritePlaneMode = WriteMode_PlaneMode_Plane; //<! Flag to convert plane to the BSline

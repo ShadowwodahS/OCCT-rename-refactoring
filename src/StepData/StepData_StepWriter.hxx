@@ -34,12 +34,12 @@
 class StepData_StepModel;
 class StepData_Protocol;
 class StepData_WriterLib;
-class TCollection_AsciiString;
+class AsciiString1;
 class TCollection_HAsciiString;
 class StepData_Field;
 class StepData_PDescr;
 class StepData_SelectMember;
-class StepData_FieldList;
+class FieldList;
 class StepData_ESDescr;
 class RefObject;
 
@@ -150,13 +150,13 @@ public:
 
   //! sets entity's StepType, opens brackets, starts param no to 0
   //! params are separated by comma
-  //! Remark : for a Multiple Type Entity (see Express ANDOR clause)
+  //! Remark : for a Multiple Type Entity (see Express1 ANDOR clause)
   //! StartComplex must be called before sending components, then
   //! each "Component" must be sent separately (one call to
   //! StartEntity for each one) : the Type which precedes is then
   //! automatically closed. Once all the components have been sent,
   //! EndComplex must be called, then and only then EndEntity
-  Standard_EXPORT void StartEntity(const TCollection_AsciiString& atype);
+  Standard_EXPORT void StartEntity(const AsciiString1& atype);
 
   //! sends the start of a complex entity, which is a simple open
   //! bracket (without increasing bracket level)
@@ -181,7 +181,7 @@ public:
   //! Send the content of an entity as being a FieldList controlled
   //! by its descriptor. This includes start and end brackets but
   //! not the entity type
-  Standard_EXPORT void SendList(const StepData_FieldList&       list,
+  Standard_EXPORT void SendList(const FieldList&       list,
                                 const Handle(StepData_ESDescr)& descr);
 
   //! open a sublist by a '('
@@ -205,7 +205,7 @@ public:
   Standard_EXPORT void Send(const Standard_Real val);
 
   //! sends a text given as string (it will be set between '...')
-  Standard_EXPORT void Send(const TCollection_AsciiString& val);
+  Standard_EXPORT void Send(const AsciiString1& val);
 
   //! sends a reference to an entity (its identifier with '#')
   //! REMARK 1 : a Null <val> is interpreted as "Undefined"
@@ -222,16 +222,16 @@ public:
   Standard_EXPORT void SendLogical(const StepData_Logical val);
 
   //! sends a string exactly as it is given
-  Standard_EXPORT void SendString(const TCollection_AsciiString& val);
+  Standard_EXPORT void SendString(const AsciiString1& val);
 
   //! sends a string exactly as it is given
   Standard_EXPORT void SendString(const Standard_CString val);
 
   //! sends an enum given by String (literal expression)
   //! adds '.' around it if not done
-  //! Remark : val can be computed by class EnumTool from StepData:
+  //! Remark : val can be computed by class EnumTool from StepData1:
   //! StepWriter.SendEnum (myenum.Text(enumval));
-  Standard_EXPORT void SendEnum(const TCollection_AsciiString& val);
+  Standard_EXPORT void SendEnum(const AsciiString1& val);
 
   //! sends an enum given by String (literal expression)
   //! adds '.' around it if not done
@@ -272,7 +272,7 @@ private:
   //! adds a string to current line; first flushes it if full
   //! (72 char); more allows to ask a reserve at end of line : flush
   //! is done if remaining length (to 72) is less than <more>
-  Standard_EXPORT void AddString(const TCollection_AsciiString& str,
+  Standard_EXPORT void AddString(const AsciiString1& str,
                                  const Standard_Integer         more = 0);
 
   //! Same as above, but the string is given by CString + Length

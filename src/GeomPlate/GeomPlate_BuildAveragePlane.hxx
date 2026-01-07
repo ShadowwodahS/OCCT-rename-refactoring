@@ -27,8 +27,8 @@
 #include <Standard_Integer.hxx>
 #include <TColgp_SequenceOfVec.hxx>
 #include <GeomPlate_SequenceOfAij.hxx>
-class Geom_Plane;
-class Geom_Line;
+class GeomPlane;
+class GeomLine;
 
 //! This class computes an average inertial plane with an
 //! array of points.
@@ -56,10 +56,10 @@ public:
                                               const Handle(TColgp_HArray1OfPnt)& Pts);
 
   //! Return the average Plane.
-  Standard_EXPORT Handle(Geom_Plane) Plane() const;
+  Standard_EXPORT Handle(GeomPlane) Plane() const;
 
   //! Return a Line when 2 eigenvalues are null.
-  Standard_EXPORT Handle(Geom_Line) Line() const;
+  Standard_EXPORT Handle(GeomLine) Line() const;
 
   //! return OK if is a plane.
   Standard_EXPORT Standard_Boolean IsPlane() const;
@@ -96,9 +96,9 @@ private:
   Standard_Real               myVmax;
   Standard_Real               myVmin;
   Standard_Real               myUmin;
-  Handle(Geom_Plane)          myPlane;
+  Handle(GeomPlane)          myPlane;
   Standard_Real               myTol;
-  Handle(Geom_Line)           myLine;
+  Handle(GeomLine)           myLine;
   Vector3d                      myOX;
   Vector3d                      myOY;
   Point3d                      myG;

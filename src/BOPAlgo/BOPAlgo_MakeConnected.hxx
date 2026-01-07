@@ -77,7 +77,7 @@
 //!
 //! Here is the example of usage of the algorithm:
 //! ~~~~
-//! TopTools_ListOfShape anArguments = ...;  // Shapes to make connected
+//! ShapeList anArguments = ...;  // Shapes to make connected
 //! Standard_Boolean bRunParallel = ...;     // Parallel processing mode
 //!
 //! BOPAlgo_MakeConnected aMC;               // Tool for making the shapes connected
@@ -99,20 +99,20 @@
 //!   aMC.DumpWarnings(aSStream);
 //! }
 //!
-//! const TopoDS_Shape& aGluedShape = aMC.Shape(); // Connected shape
+//! const TopoShape& aGluedShape = aMC.Shape(); // Connected shape
 //!
 //! // Checking material associations
 //! TopAbs_ShapeEnum anElemType = ...;       // Type of border element
-//! TopExp_Explorer anExp(anArguments.First(), anElemType);
+//! ShapeExplorer anExp(anArguments.First(), anElemType);
 //! for (; anExp.More(); anExp.Next())
 //! {
-//!   const TopoDS_Shape& anElement = anExp.Current();
-//!   const TopTools_ListOfShape& aNegativeM = aMC.MaterialsOnNegativeSide(anElement);
-//!   const TopTools_ListOfShape& aPositiveM = aMC.MaterialsOnPositiveSide(anElement);
+//!   const TopoShape& anElement = anExp.Current();
+//!   const ShapeList& aNegativeM = aMC.MaterialsOnNegativeSide(anElement);
+//!   const ShapeList& aPositiveM = aMC.MaterialsOnPositiveSide(anElement);
 //! }
 //!
 //! // Making the connected shape periodic
-//! BOPAlgo_MakePeriodic::PeriodicityParams aParams = ...; // Options for periodicity of the
+//! BOPAlgo_MakePeriodic::PeriodicityParams1 aParams = ...; // Options for periodicity of the
 //! connected shape aMC.MakePeriodic(aParams);
 //!
 //! // Shape repetition after making it periodic
@@ -125,7 +125,7 @@
 //! // Shape repetition in periodic directions
 //! aMC.RepeatShape(0, 2);
 //!
-//! const TopoDS_Shape& aShape = aMC.PeriodicShape(); // Periodic and repeated shape
+//! const TopoShape& aShape = aMC.PeriodicShape(); // Periodic and repeated shape
 //! ~~~~
 //!
 class BOPAlgo_MakeConnected : public BOPAlgo_Options
@@ -143,14 +143,14 @@ public: //! @name Constructor
 public: //! @name Setters for the shapes to make connected
   //! Sets the shape for making them connected.
   //! @param[in] theArgs  The arguments for the operation.
-  void SetArguments(const TopTools_ListOfShape& theArgs) { myArguments = theArgs; }
+  void SetArguments(const ShapeList& theArgs) { myArguments = theArgs; }
 
   //! Adds the shape to the arguments.
   //! @param[in] theS  One of the argument shapes.
-  void AddArgument(const TopoDS_Shape& theS) { myArguments.Append(theS); }
+  void AddArgument(const TopoShape& theS) { myArguments.Append(theS); }
 
   //! Returns the list of arguments of the operation.
-  const TopTools_ListOfShape& Arguments() const { return myArguments; }
+  const ShapeList& Arguments() const { return myArguments; }
 
 public: //! @name Performing the operations
   //! Performs the operation, i.e. makes the input shapes connected.
@@ -161,7 +161,7 @@ public: //! @name Shape periodicity & repetition
   //! Repeated calls of this method overwrite the previous calls
   //! working with the basis connected shape.
   //! @param[in] theParams  Periodic options.
-  Standard_EXPORT void MakePeriodic(const BOPAlgo_MakePeriodic::PeriodicityParams& theParams);
+  Standard_EXPORT void MakePeriodic(const BOPAlgo_MakePeriodic::PeriodicityParams1& theParams);
 
   //! Performs repetition of the periodic shape in specified direction
   //! required number of times.
@@ -182,18 +182,18 @@ public: //! @name Material transitions
   //! Returns the original shapes which images contain the
   //! the given shape with FORWARD orientation.
   //! @param[in] theS  The shape for which the materials are necessary.
-  const TopTools_ListOfShape& MaterialsOnPositiveSide(const TopoDS_Shape& theS)
+  const ShapeList& MaterialsOnPositiveSide(const TopoShape& theS)
   {
-    const TopTools_ListOfShape* pLM = myMaterials.Seek(theS.Oriented(TopAbs_FORWARD));
+    const ShapeList* pLM = myMaterials.Seek(theS.Oriented(TopAbs_FORWARD));
     return (pLM ? *pLM : EmptyList());
   }
 
   //! Returns the original shapes which images contain the
   //! the given shape with REVERSED orientation.
   //! @param[in] theS  The shape for which the materials are necessary.
-  const TopTools_ListOfShape& MaterialsOnNegativeSide(const TopoDS_Shape& theS)
+  const ShapeList& MaterialsOnNegativeSide(const TopoShape& theS)
   {
-    const TopTools_ListOfShape* pLM = myMaterials.Seek(theS.Oriented(TopAbs_REVERSED));
+    const ShapeList* pLM = myMaterials.Seek(theS.Oriented(TopAbs_REVERSED));
     return (pLM ? *pLM : EmptyList());
   }
 
@@ -203,25 +203,25 @@ public: //! @name History methods
 
   //! Returns the list of shapes modified from the given shape.
   //! @param[in] theS  The shape for which the modified shapes are necessary.
-  const TopTools_ListOfShape& GetModified(const TopoDS_Shape& theS)
+  const ShapeList& GetModified(const TopoShape& theS)
   {
     return (myHistory.IsNull() ? EmptyList() : myHistory->Modified(theS));
   }
 
   //! Returns the list of original shapes from which the current shape has been created.
   //! @param[in] theS  The shape for which the origins are necessary.
-  const TopTools_ListOfShape& GetOrigins(const TopoDS_Shape& theS)
+  const ShapeList& GetOrigins(const TopoShape& theS)
   {
-    const TopTools_ListOfShape* pLOr = myOrigins.Seek(theS);
+    const ShapeList* pLOr = myOrigins.Seek(theS);
     return (pLOr ? *pLOr : EmptyList());
   }
 
 public: //! @name Getting the result shapes
   //! Returns the resulting connected shape
-  const TopoDS_Shape& Shape() const { return myGlued; }
+  const TopoShape& Shape() const { return myGlued; }
 
   //! Returns the resulting periodic & repeated shape
-  const TopoDS_Shape& PeriodicShape() const { return myShape; }
+  const TopoShape& PeriodicShape() const { return myShape; }
 
 public: //! @name Clearing the contents of the algorithm from previous runs
   //! Clears the contents of the algorithm.
@@ -263,23 +263,23 @@ protected: //! @name Protected methods performing the operation
 
 private:
   //! Returns an empty list.
-  const TopTools_ListOfShape& EmptyList()
+  const ShapeList& EmptyList()
   {
-    static const TopTools_ListOfShape anEmptyList;
+    static const ShapeList anEmptyList;
     return anEmptyList;
   }
 
 protected: //! @name Fields
   // Inputs
-  TopTools_ListOfShape       myArguments;    //!< Input shapes for making them connected
+  ShapeList       myArguments;    //!< Input shapes for making them connected
   TopTools_IndexedMapOfShape myAllInputsMap; //!< Map of all BRep sub-elements of the input shapes
 
   // Tools
   BOPAlgo_MakePeriodic myPeriodicityMaker; //!< Tool for making the shape periodic
 
   // Results
-  NCollection_DataMap<TopoDS_Shape,
-                      TopTools_ListOfShape>
+  NCollection_DataMap<TopoShape,
+                      ShapeList>
     myMaterials;                                //!< Map of the materials associations
                                                 //! for the border elements
   TopTools_DataMapOfShapeListOfShape myOrigins; //!< Map of origins
@@ -289,8 +289,8 @@ protected: //! @name Fields
   Handle(BRepTools_History) myHistory;     //!< Final History of shapes modifications
                                            //! (including making the shape periodic and repetitions)
 
-  TopoDS_Shape myGlued; //!< The resulting connected (glued) shape
-  TopoDS_Shape myShape; //!< The resulting shape
+  TopoShape myGlued; //!< The resulting connected (glued) shape
+  TopoShape myShape; //!< The resulting shape
 };
 
 #endif // _BOPAlgo_MakeConnected_HeaderFile

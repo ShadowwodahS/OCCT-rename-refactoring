@@ -42,11 +42,11 @@ public:
 
   //! Adds every entity of selection theSelection to the set and marks
   //! BVH tree for rebuild
-  Standard_EXPORT void Append(const Handle(SelectMgr_Selection)& theSelection);
+  Standard_EXPORT void Append(const Handle(SelectionContainer)& theSelection);
 
   //! Removes every entity of selection theSelection from the set
   //! and marks BVH tree for rebuild
-  Standard_EXPORT void Remove(const Handle(SelectMgr_Selection)& theSelection);
+  Standard_EXPORT void Remove(const Handle(SelectionContainer)& theSelection);
 
   //! Returns bounding box of entity with index theIdx
   Standard_EXPORT virtual Select3D_BndBox3d Box(const Standard_Integer theIndex) const

@@ -21,7 +21,7 @@
 #include <Draw_Drawable3D.hxx>
 #include <Draw_Interpretor.hxx>
 
-class Poly_Triangulation;
+class MeshTriangulation;
 
 DEFINE_STANDARD_HANDLE(DrawTrSurf_Triangulation, Draw_Drawable3D)
 
@@ -36,9 +36,9 @@ class DrawTrSurf_Triangulation : public Draw_Drawable3D
   Draw_Drawable3D_FACTORY public :
 
       Standard_EXPORT
-      DrawTrSurf_Triangulation(const Handle(Poly_Triangulation)& T);
+      DrawTrSurf_Triangulation(const Handle(MeshTriangulation)& T);
 
-  Handle(Poly_Triangulation) Triangulation() const { return myTriangulation; }
+  Handle(MeshTriangulation) Triangulation() const { return myTriangulation; }
 
   void ShowNodes(const Standard_Boolean theB) { myNodes = theB; }
 
@@ -48,7 +48,7 @@ class DrawTrSurf_Triangulation : public Draw_Drawable3D
 
   Standard_Boolean ShowTriangles() const { return myTriangles; }
 
-  Standard_EXPORT virtual void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   //! For variable copy.
   Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
@@ -60,10 +60,10 @@ class DrawTrSurf_Triangulation : public Draw_Drawable3D
   Standard_EXPORT virtual void Save(Standard_OStream& theStream) const Standard_OVERRIDE;
 
   //! For variable whatis command. Set as a result the type of the variable.
-  Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
 private:
-  Handle(Poly_Triangulation)       myTriangulation;
+  Handle(MeshTriangulation)       myTriangulation;
   Handle(TColStd_HArray1OfInteger) myInternals;
   Handle(TColStd_HArray1OfInteger) myFree;
   Standard_Boolean                 myNodes;

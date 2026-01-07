@@ -32,11 +32,11 @@ public:
 
   Standard_EXPORT TopOpeBRepTool_makeTransition();
 
-  Standard_EXPORT Standard_Boolean Initialize(const TopoDS_Edge&  E,
+  Standard_EXPORT Standard_Boolean Initialize(const TopoEdge&  E,
                                               const Standard_Real pbef,
                                               const Standard_Real paft,
                                               const Standard_Real parE,
-                                              const TopoDS_Face&  FS,
+                                              const TopoFace&  FS,
                                               const gp_Pnt2d&     uv,
                                               const Standard_Real factor);
 
@@ -46,7 +46,7 @@ public:
 
   Standard_EXPORT Standard_Boolean IsT2d() const;
 
-  Standard_EXPORT Standard_Boolean SetRest(const TopoDS_Edge& ES, const Standard_Real parES);
+  Standard_EXPORT Standard_Boolean SetRest(const TopoEdge& ES, const Standard_Real parES);
 
   Standard_EXPORT Standard_Boolean HasRest() const;
 
@@ -60,14 +60,14 @@ public:
 
 protected:
 private:
-  TopoDS_Edge      myE;
+  TopoEdge      myE;
   Standard_Real    mypb;
   Standard_Real    mypa;
   Standard_Real    mypE;
-  TopoDS_Face      myFS;
+  TopoFace      myFS;
   gp_Pnt2d         myuv;
   Standard_Boolean hasES;
-  TopoDS_Edge      myES;
+  TopoEdge      myES;
   Standard_Real    mypES;
   Standard_Boolean isT2d;
   Standard_Real    myfactor;

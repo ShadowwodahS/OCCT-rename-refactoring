@@ -21,31 +21,31 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <BRepAlgoAPI_BooleanOperation.hxx>
-class BOPAlgo_PaveFiller;
-class TopoDS_Shape;
+class BooleanPaveFiller;
+class TopoShape;
 
 //! The class Cut provides Boolean cut operation
 //! between arguments and tools (Boolean Subtraction).
-class BRepAlgoAPI_Cut : public BRepAlgoAPI_BooleanOperation
+class BooleanCut : public BRepAlgoAPI_BooleanOperation
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor
-  Standard_EXPORT BRepAlgoAPI_Cut();
-  Standard_EXPORT virtual ~BRepAlgoAPI_Cut();
+  Standard_EXPORT BooleanCut();
+  Standard_EXPORT virtual ~BooleanCut();
 
   //! Empty constructor
   //! <PF> - PaveFiller object that is carried out
-  Standard_EXPORT BRepAlgoAPI_Cut(const BOPAlgo_PaveFiller& PF);
+  Standard_EXPORT BooleanCut(const BooleanPaveFiller& PF);
 
   //! Constructor with two shapes
   //! <S1>  -argument
   //! <S2>  -tool
   //! <anOperation> - the type of the operation
   //! Obsolete
-  Standard_EXPORT BRepAlgoAPI_Cut(const TopoDS_Shape&          S1,
-                                  const TopoDS_Shape&          S2,
+  Standard_EXPORT BooleanCut(const TopoShape&          S1,
+                                  const TopoShape&          S2,
                                   const Message_ProgressRange& theRange = Message_ProgressRange());
 
   //! Constructor with two shapes
@@ -54,9 +54,9 @@ public:
   //! <anOperation> - the type of the operation
   //! <PF> - PaveFiller object that is carried out
   //! Obsolete
-  Standard_EXPORT BRepAlgoAPI_Cut(const TopoDS_Shape&          S1,
-                                  const TopoDS_Shape&          S2,
-                                  const BOPAlgo_PaveFiller&    aDSF,
+  Standard_EXPORT BooleanCut(const TopoShape&          S1,
+                                  const TopoShape&          S2,
+                                  const BooleanPaveFiller&    aDSF,
                                   const Standard_Boolean       bFWD     = Standard_True,
                                   const Message_ProgressRange& theRange = Message_ProgressRange());
 

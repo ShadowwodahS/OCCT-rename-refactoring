@@ -22,8 +22,8 @@
 
 #include <TopTools_IndexedMapOfShape.hxx>
 #include <Standard_Integer.hxx>
-class TopoDS_Shape;
-class TopoDS_Compound;
+class TopoShape;
+class TopoCompound;
 
 //! This class provides operators to analyze edges orientation
 //! in the shell.
@@ -39,7 +39,7 @@ public:
   Standard_EXPORT void Clear();
 
   //! Adds shells contained in the <shape> to the list of loaded shells
-  Standard_EXPORT void LoadShells(const TopoDS_Shape& shape);
+  Standard_EXPORT void LoadShells(const TopoShape& shape);
 
   //! Checks if shells fulfill orientation condition, i.e. if each
   //! edge is, either present once (free edge) or twice (connected
@@ -49,33 +49,33 @@ public:
   //! If <alsofree> is True free edges are considered.
   //! Free edges can be queried but are not bad
   Standard_EXPORT Standard_Boolean
-    CheckOrientedShells(const TopoDS_Shape&    shape,
+    CheckOrientedShells(const TopoShape&    shape,
                         const Standard_Boolean alsofree           = Standard_False,
                         const Standard_Boolean checkinternaledges = Standard_False);
 
   //! Tells if a shape is loaded (only shells are checked)
-  Standard_EXPORT Standard_Boolean IsLoaded(const TopoDS_Shape& shape) const;
+  Standard_EXPORT Standard_Boolean IsLoaded(const TopoShape& shape) const;
 
   //! Returns the actual number of loaded shapes (i.e. shells)
   Standard_EXPORT Standard_Integer NbLoaded() const;
 
   //! Returns a loaded shape specified by its rank number.
   //! Returns null shape if <num> is out of range
-  Standard_EXPORT TopoDS_Shape Loaded(const Standard_Integer num) const;
+  Standard_EXPORT TopoShape Loaded(const Standard_Integer num) const;
 
   //! Tells if at least one edge is recorded as bad
   Standard_EXPORT Standard_Boolean HasBadEdges() const;
 
   //! Returns the list of bad edges as a Compound
   //! It is empty (not null) if no edge are recorded as bad
-  Standard_EXPORT TopoDS_Compound BadEdges() const;
+  Standard_EXPORT TopoCompound BadEdges() const;
 
   //! Tells if at least one edge is recorded as free (not connected)
   Standard_EXPORT Standard_Boolean HasFreeEdges() const;
 
   //! Returns the list of free (not connected) edges as a Compound
   //! It is empty (not null) if no edge are recorded as free
-  Standard_EXPORT TopoDS_Compound FreeEdges() const;
+  Standard_EXPORT TopoCompound FreeEdges() const;
 
   //! Tells if at least one edge is connected (shared twice or more)
   Standard_EXPORT Standard_Boolean HasConnectedEdges() const;

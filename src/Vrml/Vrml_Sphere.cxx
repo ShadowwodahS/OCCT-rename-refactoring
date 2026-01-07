@@ -13,22 +13,22 @@
 
 #include <Vrml_Sphere.hxx>
 
-Vrml_Sphere::Vrml_Sphere(const Standard_Real aRadius)
+Sphere1::Sphere1(const Standard_Real aRadius)
 {
   myRadius = aRadius;
 }
 
-void Vrml_Sphere::SetRadius(const Standard_Real aRadius)
+void Sphere1::SetRadius(const Standard_Real aRadius)
 {
   myRadius = aRadius;
 }
 
-Standard_Real Vrml_Sphere::Radius() const
+Standard_Real Sphere1::Radius() const
 {
   return myRadius;
 }
 
-Standard_OStream& Vrml_Sphere::Print(Standard_OStream& anOStream) const
+Standard_OStream& Sphere1::Print(Standard_OStream& anOStream) const
 {
   anOStream << "Sphere {\n";
 

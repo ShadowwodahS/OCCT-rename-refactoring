@@ -138,14 +138,14 @@ void BlendFunc_GenChamfer::GetMinimalWeight(TColStd_Array1OfReal& Weights) const
 
 Standard_Integer BlendFunc_GenChamfer::NbIntervals(const GeomAbs_Shape S) const
 {
-  return curv->NbIntervals(BlendFunc::NextShape(S));
+  return curv->NbIntervals(BlendFunc1::NextShape(S));
 }
 
 //=================================================================================================
 
 void BlendFunc_GenChamfer::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) const
 {
-  curv->Intervals(T, BlendFunc::NextShape(S));
+  curv->Intervals(T, BlendFunc1::NextShape(S));
 }
 
 //=================================================================================================
@@ -192,7 +192,7 @@ void BlendFunc_GenChamfer::Mults(TColStd_Array1OfInteger& TMults)
 
 //=================================================================================================
 
-Standard_Boolean BlendFunc_GenChamfer::Section(const Blend_Point& /*P*/,
+Standard_Boolean BlendFunc_GenChamfer::Section(const Point2& /*P*/,
                                                TColgp_Array1OfPnt& /*Poles*/,
                                                TColgp_Array1OfVec& /*DPoles*/,
                                                TColgp_Array1OfVec& /*D2Poles*/,
@@ -208,7 +208,7 @@ Standard_Boolean BlendFunc_GenChamfer::Section(const Blend_Point& /*P*/,
 
 //=================================================================================================
 
-Standard_Boolean BlendFunc_GenChamfer::Section(const Blend_Point&    P,
+Standard_Boolean BlendFunc_GenChamfer::Section(const Point2&    P,
                                                TColgp_Array1OfPnt&   Poles,
                                                TColgp_Array1OfVec&   DPoles,
                                                TColgp_Array1OfPnt2d& Poles2d,
@@ -258,7 +258,7 @@ Standard_Boolean BlendFunc_GenChamfer::Section(const Blend_Point&    P,
 
 //=================================================================================================
 
-void BlendFunc_GenChamfer::Section(const Blend_Point&    P,
+void BlendFunc_GenChamfer::Section(const Point2&    P,
                                    TColgp_Array1OfPnt&   Poles,
                                    TColgp_Array1OfPnt2d& Poles2d,
                                    TColStd_Array1OfReal& Weights)

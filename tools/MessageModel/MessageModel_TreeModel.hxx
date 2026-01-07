@@ -68,7 +68,7 @@ public:
   //! \param theReport a report instance
   //! \param theReportDescription an additional report information
   Standard_EXPORT void AddReport(const Handle(Message_Report)&  theReport,
-                                 const TCollection_AsciiString& theReportDescription = "");
+                                 const AsciiString1& theReportDescription = "");
 
   //! Set report, se it into the given row index
   //! \param theRowId a report child row
@@ -76,14 +76,14 @@ public:
   //! \param theReportDescription an additional report information
   Standard_EXPORT void SetReport(const int                      theRowId,
                                  const Handle(Message_Report)&  theReport,
-                                 const TCollection_AsciiString& theReportDescription = "");
+                                 const AsciiString1& theReportDescription = "");
 
   //!< Returns processed reports
   Standard_EXPORT const NCollection_List<MessageModel_ReportInformation>& Reports() const;
 
   //! Sets the text value of the Root item, only "Name" column accepts the parameter value
   //! \theName visualized text of root item
-  Standard_EXPORT void SetRootItemName(const TCollection_AsciiString& theName);
+  Standard_EXPORT void SetRootItemName(const AsciiString1& theName);
 
   //! Updates tree model
   Standard_EXPORT void UpdateTreeModel();

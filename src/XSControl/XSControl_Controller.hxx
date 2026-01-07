@@ -34,10 +34,10 @@ class IFSelect_WorkLibrary;
 class Interface_Protocol;
 class Transfer_ActorOfTransientProcess;
 class Transfer_ActorOfFinderProcess;
-class XSControl_WorkSession;
+class ExchangeSession;
 class Interface_InterfaceModel;
 class Transfer_FinderProcess;
-class TopoDS_Shape;
+class TopoShape;
 
 class XSControl_Controller;
 DEFINE_STANDARD_HANDLE(XSControl_Controller, RefObject)
@@ -175,7 +175,7 @@ public:
   //! Tells if a shape is valid for a transfer to a model
   //! Asks the ActorWrite (through a ShapeMapper)
   Standard_EXPORT virtual Standard_Boolean RecognizeWriteShape(
-    const TopoDS_Shape&    shape,
+    const TopoShape&    shape,
     const Standard_Integer modetrans = 0) const;
 
   //! Takes one Shape and transfers it to an
@@ -185,7 +185,7 @@ public:
   //! Done  OK ,  Void : No Result ,  Fail : Fail (e.g. exception)
   //! Error : bad conditions , bad model or null model
   Standard_EXPORT virtual IFSelect_ReturnStatus TransferWriteShape(
-    const TopoDS_Shape&                     shape,
+    const TopoShape&                     shape,
     const Handle(Transfer_FinderProcess)&   FP,
     const Handle(Interface_InterfaceModel)& model,
     const Standard_Integer                  modetrans   = 0,
@@ -208,9 +208,9 @@ public:
   Standard_EXPORT Handle(RefObject) SessionItem(const Standard_CString theName) const;
 
   //! Customises a WorkSession, by adding to it the recorded items (by AddSessionItem)
-  Standard_EXPORT virtual void Customise(Handle(XSControl_WorkSession)& WS);
+  Standard_EXPORT virtual void Customise(Handle(ExchangeSession)& WS);
 
-  const NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& AdaptorSession()
+  const NCollection_DataMap<AsciiString1, Handle(RefObject)>& AdaptorSession()
     const
   {
     return myAdaptorSession;
@@ -228,14 +228,14 @@ protected:
   //! Records the name of a Static to be traced for a given use
   Standard_EXPORT void TraceStatic(const Standard_CString theName, const Standard_Integer theUse);
 
-  TCollection_AsciiString      myShortName;
-  TCollection_AsciiString      myLongName;
+  AsciiString1      myShortName;
+  AsciiString1      myLongName;
   Handle(IFSelect_WorkLibrary) myAdaptorLibrary;
   Handle(Interface_Protocol)   myAdaptorProtocol;
   // szv:Handle(IFSelect_Signature) mySignType;
   Handle(Transfer_ActorOfTransientProcess)                                 myAdaptorRead;
   Handle(Transfer_ActorOfFinderProcess)                                    myAdaptorWrite;
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> myAdaptorSession;
+  NCollection_DataMap<AsciiString1, Handle(RefObject)> myAdaptorSession;
 
 private:
   TColStd_SequenceOfTransient                    myAdaptorApplied;

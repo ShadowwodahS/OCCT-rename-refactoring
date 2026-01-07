@@ -26,7 +26,7 @@ class IGESBasic_Hierarchy;
 DEFINE_STANDARD_HANDLE(IGESBasic_Hierarchy, IGESData_IGESEntity)
 
 //! defines Hierarchy, Type <406> Form <10>
-//! in package IGESBasic
+//! in package IGESBasic1
 //! Provides ability to control the hierarchy of each
 //! directory entry attribute.
 class IGESBasic_Hierarchy : public IGESData_IGESEntity

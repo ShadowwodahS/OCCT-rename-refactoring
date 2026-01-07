@@ -13,27 +13,27 @@
 
 #include <Vrml_NormalBinding.hxx>
 
-Vrml_NormalBinding::Vrml_NormalBinding(const Vrml_MaterialBindingAndNormalBinding aValue)
+NormalBinding::NormalBinding(const Vrml_MaterialBindingAndNormalBinding aValue)
 {
   myValue = aValue;
 }
 
-Vrml_NormalBinding::Vrml_NormalBinding()
+NormalBinding::NormalBinding()
 {
   myValue = Vrml_DEFAULT;
 }
 
-void Vrml_NormalBinding::SetValue(const Vrml_MaterialBindingAndNormalBinding aValue)
+void NormalBinding::SetValue(const Vrml_MaterialBindingAndNormalBinding aValue)
 {
   myValue = aValue;
 }
 
-Vrml_MaterialBindingAndNormalBinding Vrml_NormalBinding::Value() const
+Vrml_MaterialBindingAndNormalBinding NormalBinding::Value() const
 {
   return myValue;
 }
 
-Standard_OStream& Vrml_NormalBinding::Print(Standard_OStream& anOStream) const
+Standard_OStream& NormalBinding::Print(Standard_OStream& anOStream) const
 {
   anOStream << "NormalBinding {\n";
   switch (myValue)

@@ -90,7 +90,7 @@ void TopOpeBRepDS_PointExplorer::Next()
 
 //=================================================================================================
 
-const TopOpeBRepDS_Point& TopOpeBRepDS_PointExplorer::Point() const
+const Point1& TopOpeBRepDS_PointExplorer::Point() const
 {
   if (myFound)
   {
@@ -122,7 +122,7 @@ Standard_Boolean TopOpeBRepDS_PointExplorer::IsPointKeep(const Standard_Integer 
 
 //=================================================================================================
 
-const TopOpeBRepDS_Point& TopOpeBRepDS_PointExplorer::Point(const Standard_Integer I) const
+const Point1& TopOpeBRepDS_PointExplorer::Point(const Standard_Integer I) const
 {
   if (IsPoint(I))
   {

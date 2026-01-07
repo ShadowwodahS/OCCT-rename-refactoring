@@ -30,9 +30,9 @@
 #include <Interface_ShareTool.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESBasic_ToolExternalRefFile::IGESBasic_ToolExternalRefFile() {}
+ExternalRefFileTool::ExternalRefFileTool() {}
 
-void IGESBasic_ToolExternalRefFile::ReadOwnParams(const Handle(IGESBasic_ExternalRefFile)& ent,
+void ExternalRefFileTool::ReadOwnParams(const Handle(IGESBasic_ExternalRefFile)& ent,
                                                   const Handle(IGESData_IGESReaderData)& /* IR */,
                                                   IGESData_ParamReader& PR) const
 {
@@ -46,18 +46,18 @@ void IGESBasic_ToolExternalRefFile::ReadOwnParams(const Handle(IGESBasic_Externa
   ent->Init(tempExtRefFileIdentifier);
 }
 
-void IGESBasic_ToolExternalRefFile::WriteOwnParams(const Handle(IGESBasic_ExternalRefFile)& ent,
+void ExternalRefFileTool::WriteOwnParams(const Handle(IGESBasic_ExternalRefFile)& ent,
                                                    IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->FileId());
 }
 
-void IGESBasic_ToolExternalRefFile::OwnShared(const Handle(IGESBasic_ExternalRefFile)& /* ent */,
+void ExternalRefFileTool::OwnShared(const Handle(IGESBasic_ExternalRefFile)& /* ent */,
                                               Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESBasic_ToolExternalRefFile::OwnCopy(const Handle(IGESBasic_ExternalRefFile)& another,
+void ExternalRefFileTool::OwnCopy(const Handle(IGESBasic_ExternalRefFile)& another,
                                             const Handle(IGESBasic_ExternalRefFile)& ent,
                                             Interface_CopyTool& /* TC */) const
 {
@@ -65,10 +65,10 @@ void IGESBasic_ToolExternalRefFile::OwnCopy(const Handle(IGESBasic_ExternalRefFi
   ent->Init(tempFileId);
 }
 
-IGESData_DirChecker IGESBasic_ToolExternalRefFile::DirChecker(
+DirectoryChecker ExternalRefFileTool::DirChecker(
   const Handle(IGESBasic_ExternalRefFile)& /* ent */) const
 {
-  IGESData_DirChecker DC(416, 1);
+  DirectoryChecker DC(416, 1);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -79,13 +79,13 @@ IGESData_DirChecker IGESBasic_ToolExternalRefFile::DirChecker(
   return DC;
 }
 
-void IGESBasic_ToolExternalRefFile::OwnCheck(const Handle(IGESBasic_ExternalRefFile)& /* ent */,
+void ExternalRefFileTool::OwnCheck(const Handle(IGESBasic_ExternalRefFile)& /* ent */,
                                              const Interface_ShareTool&,
                                              Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESBasic_ToolExternalRefFile::OwnDump(const Handle(IGESBasic_ExternalRefFile)& ent,
+void ExternalRefFileTool::OwnDump(const Handle(IGESBasic_ExternalRefFile)& ent,
                                             const IGESData_IGESDumper& /* dumper */,
                                             Standard_OStream& S,
                                             const Standard_Integer /* level */) const

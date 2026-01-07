@@ -20,9 +20,9 @@
 #include <TCollection_AsciiString.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString>
+typedef NCollection_DataMap<AsciiString1, AsciiString1>
   Resource_DataMapOfAsciiStringAsciiString;
-typedef NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString>::Iterator
+typedef NCollection_DataMap<AsciiString1, AsciiString1>::Iterator
   Resource_DataMapIteratorOfDataMapOfAsciiStringAsciiString;
 
 #endif

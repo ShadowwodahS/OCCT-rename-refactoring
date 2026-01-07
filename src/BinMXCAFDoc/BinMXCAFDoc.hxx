@@ -23,7 +23,7 @@
 class BinMDF_ADriverTable;
 class Message_Messenger;
 
-class BinMXCAFDoc
+class BinMXCAFDoc1
 {
 public:
   DEFINE_STANDARD_ALLOC

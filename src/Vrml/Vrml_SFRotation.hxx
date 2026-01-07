@@ -26,14 +26,14 @@
 //! defines SFRotation type of VRML field types.
 //! The  4  values  represent  an  axis  of  rotation  followed  by  amount  of
 //! right-handed  rotation  about  the  that  axis, in  radians.
-class Vrml_SFRotation
+class SFRotation
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_SFRotation();
+  Standard_EXPORT SFRotation();
 
-  Standard_EXPORT Vrml_SFRotation(const Standard_Real aRotationX,
+  Standard_EXPORT SFRotation(const Standard_Real aRotationX,
                                   const Standard_Real aRotationY,
                                   const Standard_Real aRotationZ,
                                   const Standard_Real anAngle);

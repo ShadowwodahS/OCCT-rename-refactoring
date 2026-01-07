@@ -30,7 +30,7 @@ class Storage_HeaderData;
 class Storage_RootData;
 class Storage_TypeData;
 class Storage_InternalData;
-class TCollection_ExtendedString;
+class UtfString;
 class DbObject;
 class Storage_Root;
 
@@ -103,46 +103,46 @@ public:
   //! This error status may be read by the function ErrorStatus.
   Standard_EXPORT void ClearErrorStatus();
 
-  Standard_EXPORT TCollection_AsciiString ErrorStatusExtension() const;
+  Standard_EXPORT AsciiString1 ErrorStatusExtension() const;
 
   //! return the creation date
-  Standard_EXPORT TCollection_AsciiString CreationDate() const;
+  Standard_EXPORT AsciiString1 CreationDate() const;
 
   //! return the Storage package version
-  Standard_EXPORT TCollection_AsciiString StorageVersion() const;
+  Standard_EXPORT AsciiString1 StorageVersion() const;
 
   //! get the version of the schema
-  Standard_EXPORT TCollection_AsciiString SchemaVersion() const;
+  Standard_EXPORT AsciiString1 SchemaVersion() const;
 
   //! get the schema's name
-  Standard_EXPORT TCollection_AsciiString SchemaName() const;
+  Standard_EXPORT AsciiString1 SchemaName() const;
 
   //! set the version of the application
-  Standard_EXPORT void SetApplicationVersion(const TCollection_AsciiString& aVersion);
+  Standard_EXPORT void SetApplicationVersion(const AsciiString1& aVersion);
 
   //! get the version of the application
-  Standard_EXPORT TCollection_AsciiString ApplicationVersion() const;
+  Standard_EXPORT AsciiString1 ApplicationVersion() const;
 
   //! set the name of the application
-  Standard_EXPORT void SetApplicationName(const TCollection_ExtendedString& aName);
+  Standard_EXPORT void SetApplicationName(const UtfString& aName);
 
   //! get the name of the application
-  Standard_EXPORT TCollection_ExtendedString ApplicationName() const;
+  Standard_EXPORT UtfString ApplicationName() const;
 
   //! set the data type
-  Standard_EXPORT void SetDataType(const TCollection_ExtendedString& aType);
+  Standard_EXPORT void SetDataType(const UtfString& aType);
 
   //! returns data type
-  Standard_EXPORT TCollection_ExtendedString DataType() const;
+  Standard_EXPORT UtfString DataType() const;
 
   //! add <theUserInfo> to the user information
-  Standard_EXPORT void AddToUserInfo(const TCollection_AsciiString& anInfo);
+  Standard_EXPORT void AddToUserInfo(const AsciiString1& anInfo);
 
   //! return the user information
   Standard_EXPORT const TColStd_SequenceOfAsciiString& UserInfo() const;
 
   //! add <theUserInfo> to the user information
-  Standard_EXPORT void AddToComments(const TCollection_ExtendedString& aComment);
+  Standard_EXPORT void AddToComments(const UtfString& aComment);
 
   //! return the user information
   Standard_EXPORT const TColStd_SequenceOfExtendedString& Comments() const;
@@ -172,14 +172,14 @@ public:
   //! When naming the roots, it is easier to retrieve
   //! objects by significant references rather than by
   //! references without any semantic values.
-  Standard_EXPORT void AddRoot(const TCollection_AsciiString&     aName,
+  Standard_EXPORT void AddRoot(const AsciiString1&     aName,
                                const Handle(DbObject)& anObject) const;
 
   //! Removes from this set of data the root object named aName.
   //! Warning
   //! Nothing is done if there is no root object whose
   //! name is aName in this set of data.
-  Standard_EXPORT void RemoveRoot(const TCollection_AsciiString& aName);
+  Standard_EXPORT void RemoveRoot(const AsciiString1& aName);
 
   //! Returns the roots of this set of data in a sequence.
   //! -   When preparing a storage operation, the
@@ -197,10 +197,10 @@ public:
   //! Warning
   //! A null handle is returned if there is no root object
   //! whose name is aName in this set of data.
-  Standard_EXPORT Handle(Storage_Root) Find(const TCollection_AsciiString& aName) const;
+  Standard_EXPORT Handle(Storage_Root) Find(const AsciiString1& aName) const;
 
   //! returns Standard_True if <me> contains a root named <aName>
-  Standard_EXPORT Standard_Boolean IsRoot(const TCollection_AsciiString& aName) const;
+  Standard_EXPORT Standard_Boolean IsRoot(const AsciiString1& aName) const;
 
   //! Returns the number of types of objects used in this set of data.
   Standard_EXPORT Standard_Integer NumberOfTypes() const;
@@ -209,7 +209,7 @@ public:
   //! Persistent objects from this set of data must
   //! have types which are recognized by the
   //! Storage_Schema algorithm used to store or retrieve them.
-  Standard_EXPORT Standard_Boolean IsType(const TCollection_AsciiString& aName) const;
+  Standard_EXPORT Standard_Boolean IsType(const AsciiString1& aName) const;
 
   //! Gives the list of types of objects used in this set of data in a sequence.
   Standard_EXPORT Handle(TColStd_HSequenceOfAsciiString) Types() const;
@@ -231,14 +231,14 @@ public:
 private:
   Standard_EXPORT void SetErrorStatus(const Storage_Error anError);
 
-  Standard_EXPORT void SetErrorStatusExtension(const TCollection_AsciiString& anErrorExt);
+  Standard_EXPORT void SetErrorStatusExtension(const AsciiString1& anErrorExt);
 
   Handle(Storage_HeaderData)   myHeaderData;
   Handle(Storage_RootData)     myRootData;
   Handle(Storage_TypeData)     myTypeData;
   Handle(Storage_InternalData) myInternal;
   Storage_Error                myErrorStatus;
-  TCollection_AsciiString      myErrorStatusExt;
+  AsciiString1      myErrorStatusExt;
 };
 
 #endif // _Storage_Data_HeaderFile

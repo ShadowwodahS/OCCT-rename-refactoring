@@ -21,7 +21,7 @@
 
 #include <BRep_PointRepresentation.hxx>
 #include <Standard_Real.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 class TopLoc_Location;
 
 class BRep_PointOnCurve;
@@ -33,19 +33,19 @@ class BRep_PointOnCurve : public BRep_PointRepresentation
 
 public:
   Standard_EXPORT BRep_PointOnCurve(const Standard_Real       P,
-                                    const Handle(Geom_Curve)& C,
+                                    const Handle(GeomCurve3d)& C,
                                     const TopLoc_Location&    L);
 
   //! Returns True
   Standard_EXPORT virtual Standard_Boolean IsPointOnCurve() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Standard_Boolean IsPointOnCurve(const Handle(Geom_Curve)& C,
+  Standard_EXPORT virtual Standard_Boolean IsPointOnCurve(const Handle(GeomCurve3d)& C,
                                                           const TopLoc_Location&    L) const
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const Handle(Geom_Curve)& Curve() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(GeomCurve3d)& Curve() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void Curve(const Handle(Geom_Curve)& C) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Curve(const Handle(GeomCurve3d)& C) Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
@@ -55,7 +55,7 @@ public:
 
 protected:
 private:
-  Handle(Geom_Curve) myCurve;
+  Handle(GeomCurve3d) myCurve;
 };
 
 #endif // _BRep_PointOnCurve_HeaderFile

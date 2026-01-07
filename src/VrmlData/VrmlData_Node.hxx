@@ -25,9 +25,9 @@
 
 #define VRMLDATA_LCOMPARE(aa, bb) ((strncmp(aa, bb, sizeof(bb) - 1)) ? 0L : (aa += sizeof(bb) - 1))
 
-struct VrmlData_InBuffer;
+struct InputBuffer;
 class VrmlData_Scene;
-class TCollection_AsciiString;
+class AsciiString1;
 
 /**
  *  Abstract VRML Node
@@ -68,14 +68,14 @@ public:
    *   Otherwise the created node is matched and an error is returned if
    *   no match detected.
    */
-  Standard_EXPORT VrmlData_ErrorStatus ReadNode(VrmlData_InBuffer&           theBuffer,
+  Standard_EXPORT VrmlData_ErrorStatus ReadNode(InputBuffer&           theBuffer,
                                                 Handle(VrmlData_Node)&       theNode,
                                                 const Handle(TypeInfo)& Type = NULL);
 
   /**
    * Read the Node from input stream.
    */
-  Standard_EXPORT virtual VrmlData_ErrorStatus Read(VrmlData_InBuffer& theBuffer) = 0;
+  Standard_EXPORT virtual VrmlData_ErrorStatus Read(InputBuffer& theBuffer) = 0;
 
   /**
    * Write the Node to output stream.
@@ -104,26 +104,26 @@ public:
   /**
    * Read one boolean value (TRUE or FALSE).
    */
-  Standard_EXPORT static VrmlData_ErrorStatus ReadBoolean(VrmlData_InBuffer& theBuffer,
+  Standard_EXPORT static VrmlData_ErrorStatus ReadBoolean(InputBuffer& theBuffer,
                                                           Standard_Boolean&  theResult);
 
   /**
    * Read one quoted string, the quotes are removed.
    */
-  Standard_EXPORT static VrmlData_ErrorStatus ReadString(VrmlData_InBuffer&       theBuffer,
-                                                         TCollection_AsciiString& theRes);
+  Standard_EXPORT static VrmlData_ErrorStatus ReadString(InputBuffer&       theBuffer,
+                                                         AsciiString1& theRes);
 
   /**
    * Read one quoted string, the quotes are removed.
    */
   Standard_EXPORT static VrmlData_ErrorStatus ReadMultiString(
-    VrmlData_InBuffer&                         theBuffer,
-    NCollection_List<TCollection_AsciiString>& theRes);
+    InputBuffer&                         theBuffer,
+    NCollection_List<AsciiString1>& theRes);
 
   /**
    * Read one integer value.
    */
-  Standard_EXPORT static VrmlData_ErrorStatus ReadInteger(VrmlData_InBuffer& theBuffer,
+  Standard_EXPORT static VrmlData_ErrorStatus ReadInteger(InputBuffer& theBuffer,
                                                           long&              theResult);
 
   static inline Standard_Boolean OK(const VrmlData_ErrorStatus theStat)
@@ -155,7 +155,7 @@ protected:
    * If no brace is found, theBuffer stays in untouched and the method returns
    * VrmlFormatError.
    */
-  Standard_EXPORT static VrmlData_ErrorStatus readBrace(VrmlData_InBuffer& theBuffer);
+  Standard_EXPORT static VrmlData_ErrorStatus readBrace(InputBuffer& theBuffer);
 
 private:
   // ---------- PRIVATE METHODS ----------

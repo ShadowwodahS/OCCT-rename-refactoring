@@ -24,9 +24,9 @@
 
 //=================================================================================================
 
-void TopoDS_Shape::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void TopoShape::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
-  OCCT_DUMP_CLASS_BEGIN(theOStream, TopoDS_Shape)
+  OCCT_DUMP_CLASS_BEGIN(theOStream, TopoShape)
 
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, myTShape.get())
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &myLocation)

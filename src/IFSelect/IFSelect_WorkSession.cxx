@@ -73,7 +73,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IFSelect_WorkSession, RefObject)
 //  (Bit Map n0 2)
 
 static Standard_Boolean        errhand; // pb : un seul a la fois, mais ca va si vite
-static TCollection_AsciiString bufstr;
+static AsciiString1 bufstr;
 
 //  #################################################################
 
@@ -962,7 +962,7 @@ Handle(TColStd_HSequenceOfHAsciiString) IFSelect_WorkSession::ItemNames(
   const Handle(TypeInfo)& type) const
 {
   Handle(TColStd_HSequenceOfHAsciiString) list = new TColStd_HSequenceOfHAsciiString();
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator IT(thenames);
+  NCollection_DataMap<AsciiString1, Handle(RefObject)>::Iterator IT(thenames);
   for (; IT.More(); IT.Next())
   {
     if (IT.Value()->IsKind(type))
@@ -1044,7 +1044,7 @@ Handle(RefObject) IFSelect_WorkSession::NewParamFromStatic(const Standard_CStrin
                                                                     const Standard_CString name)
 {
   Handle(RefObject) param;
-  Handle(Interface_Static)   stat = Interface_Static::Static(statname);
+  Handle(ExchangeConfig)   stat = ExchangeConfig::Static(statname);
   if (stat.IsNull())
     return param;
   if (stat->Type() == Interface_ParamInteger)
@@ -1111,13 +1111,13 @@ Handle(TCollection_HAsciiString) IFSelect_WorkSession::TextParam(const Standard_
 
 //=================================================================================================
 
-TCollection_AsciiString IFSelect_WorkSession::TextValue(
+AsciiString1 IFSelect_WorkSession::TextValue(
   const Handle(TCollection_HAsciiString)& par) const
 {
   if (!par.IsNull())
-    return TCollection_AsciiString(par->ToCString());
+    return AsciiString1(par->ToCString());
   else
-    return TCollection_AsciiString();
+    return AsciiString1();
 }
 
 Handle(TCollection_HAsciiString) IFSelect_WorkSession::NewTextParam(const Standard_CString name)
@@ -1810,8 +1810,8 @@ Standard_Boolean IFSelect_WorkSession::SetFileRoot(const Handle(IFSelect_Dispatc
 
 Standard_CString IFSelect_WorkSession::GiveFileRoot(const Standard_CString file) const
 {
-  OSD_Path path(file);
-  if (!path.IsValid(TCollection_AsciiString(file)))
+  SystemPath path(file);
+  if (!path.IsValid(AsciiString1(file)))
     return file; // tant pis ..
   bufstr = path.Name();
   return bufstr.ToCString();
@@ -1928,9 +1928,9 @@ Handle(Interface_InterfaceModel) IFSelect_WorkSession::FileModel(const Standard_
 
 //=================================================================================================
 
-TCollection_AsciiString IFSelect_WorkSession::FileName(const Standard_Integer num) const
+AsciiString1 IFSelect_WorkSession::FileName(const Standard_Integer num) const
 {
-  TCollection_AsciiString name;
+  AsciiString1 name;
   if (num > 0 && num <= NbFiles())
     name = thecopier->FileName(num);
   return name;
@@ -2028,7 +2028,7 @@ Standard_Boolean IFSelect_WorkSession::SendSplit()
         Handle(IFSelect_SelectPointed) sp = new IFSelect_SelectPointed;
         sp->SetList(iter.Content());
         nf++;
-        TCollection_AsciiString filnam(nf);
+        AsciiString1 filnam(nf);
         filnam.Insert(1, "_");
         Handle(TCollection_HAsciiString) filepart;
         filepart = FileRoot(disp);
@@ -2507,7 +2507,7 @@ Standard_Boolean IFSelect_WorkSession::SetSelectPointed(
 //=================================================================================================
 
 static void IFSelect_QueryProp(Interface_IntList&       list,
-                               TCollection_AsciiString& ana,
+                               AsciiString1& ana,
                                const Standard_Integer   num,
                                const int                quoi)
 {
@@ -2569,7 +2569,7 @@ void IFSelect_WorkSession::QueryCheckList(const Interface_CheckIterator& chl)
   if (!IsLoaded())
     return;
   Standard_Integer i, nb = myModel->NbEntities();
-  thecheckana = TCollection_AsciiString(nb + 1, ' ');
+  thecheckana = AsciiString1(nb + 1, ' ');
   for (chl.Start(); chl.More(); chl.Next())
   {
     Standard_Integer               num = chl.Number();

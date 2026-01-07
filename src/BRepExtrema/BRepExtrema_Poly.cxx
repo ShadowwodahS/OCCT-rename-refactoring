@@ -26,8 +26,8 @@
 
 //=================================================================================================
 
-Standard_Boolean BRepExtrema_Poly::Distance(const TopoDS_Shape& S1,
-                                            const TopoDS_Shape& S2,
+Standard_Boolean BRepExtrema_Poly::Distance(const TopoShape& S1,
+                                            const TopoShape& S2,
                                             Point3d&             P1,
                                             Point3d&             P2,
                                             Standard_Real&      dist)
@@ -35,14 +35,14 @@ Standard_Boolean BRepExtrema_Poly::Distance(const TopoDS_Shape& S1,
   dist = Precision::Infinite();
 
   TopLoc_Location            L;
-  Handle(Poly_Triangulation) Tr;
-  TopExp_Explorer            exFace;
+  Handle(MeshTriangulation) Tr;
+  ShapeExplorer            exFace;
 
   Standard_Integer nbn1 = 0;
   for (exFace.Init(S1, TopAbs_FACE); exFace.More(); exFace.Next())
   {
-    const TopoDS_Face& F = TopoDS::Face(exFace.Current());
-    Tr                   = BRep_Tool::Triangulation(F, L);
+    const TopoFace& F = TopoDS::Face(exFace.Current());
+    Tr                   = BRepInspector::Triangulation(F, L);
     if (!Tr.IsNull())
       nbn1 += Tr->NbNodes();
   }
@@ -52,8 +52,8 @@ Standard_Boolean BRepExtrema_Poly::Distance(const TopoDS_Shape& S1,
   Standard_Integer nbn2 = 0;
   for (exFace.Init(S2, TopAbs_FACE); exFace.More(); exFace.Next())
   {
-    const TopoDS_Face& F = TopoDS::Face(exFace.Current());
-    Tr                   = BRep_Tool::Triangulation(F, L);
+    const TopoFace& F = TopoDS::Face(exFace.Current());
+    Tr                   = BRepInspector::Triangulation(F, L);
     if (!Tr.IsNull())
       nbn2 += Tr->NbNodes();
   }
@@ -67,8 +67,8 @@ Standard_Boolean BRepExtrema_Poly::Distance(const TopoDS_Shape& S1,
 
   for (exFace.Init(S1, TopAbs_FACE); exFace.More(); exFace.Next())
   {
-    const TopoDS_Face& F = TopoDS::Face(exFace.Current());
-    Tr                   = BRep_Tool::Triangulation(F, L);
+    const TopoFace& F = TopoDS::Face(exFace.Current());
+    Tr                   = BRepInspector::Triangulation(F, L);
     if (!Tr.IsNull())
     {
       const Transform3d aTrsf = L;
@@ -86,8 +86,8 @@ Standard_Boolean BRepExtrema_Poly::Distance(const TopoDS_Shape& S1,
 
   for (exFace.Init(S2, TopAbs_FACE); exFace.More(); exFace.Next())
   {
-    const TopoDS_Face& F = TopoDS::Face(exFace.Current());
-    Tr                   = BRep_Tool::Triangulation(F, L);
+    const TopoFace& F = TopoDS::Face(exFace.Current());
+    Tr                   = BRepInspector::Triangulation(F, L);
     if (!Tr.IsNull())
     {
       const Transform3d aTrsf = L;

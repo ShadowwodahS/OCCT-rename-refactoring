@@ -23,7 +23,7 @@
 
 #include <Standard_ShortReal.hxx>
 #include <gp_XY.hxx>
-class gp_XY;
+class Coords2d;
 class gp_Pnt2d;
 class gp_Trsf2d;
 class gp_Ax2d;
@@ -37,7 +37,7 @@ public:
   Bnd_B2f();
 
   //! Constructor.
-  Bnd_B2f(const gp_XY& theCenter, const gp_XY& theHSize);
+  Bnd_B2f(const Coords2d& theCenter, const Coords2d& theHSize);
 
   //! Returns True if the box is void (non-initialized).
   Standard_Boolean IsVoid() const;
@@ -46,7 +46,7 @@ public:
   void Clear();
 
   //! Update the box by a point.
-  Standard_EXPORT void Add(const gp_XY& thePnt);
+  Standard_EXPORT void Add(const Coords2d& thePnt);
 
   //! Update the box by a point.
   void Add(const gp_Pnt2d& thePnt);
@@ -57,12 +57,12 @@ public:
   //! Query a box corner: (Center - HSize). You must make sure that
   //! the box is NOT VOID (see IsVoid()), otherwise the method returns
   //! irrelevant result.
-  gp_XY CornerMin() const;
+  Coords2d CornerMin() const;
 
   //! Query a box corner: (Center + HSize). You must make sure that
   //! the box is NOT VOID (see IsVoid()), otherwise the method returns
   //! irrelevant result.
-  gp_XY CornerMax() const;
+  Coords2d CornerMax() const;
 
   //! Query the square diagonal. If the box is VOID (see method IsVoid())
   //! then a very big real value is returned.
@@ -82,12 +82,12 @@ public:
 
   //! Check the given point for the inclusion in the Box.
   //! Returns True if the point is outside.
-  Standard_Boolean IsOut(const gp_XY& thePnt) const;
+  Standard_Boolean IsOut(const Coords2d& thePnt) const;
 
   //! Check a circle for the intersection with the current box.
   //! Returns True if there is no intersection between boxes.
   Standard_EXPORT Standard_Boolean
-    IsOut(const gp_XY&           theCenter,
+    IsOut(const Coords2d&           theCenter,
           const Standard_Real    theRadius,
           const Standard_Boolean isCircleHollow = Standard_False) const;
 
@@ -108,7 +108,7 @@ public:
   //! Check the Segment defined by the couple of input points
   //! for the intersection with the current box.
   //! Returns True if there is no intersection.
-  Standard_EXPORT Standard_Boolean IsOut(const gp_XY& theP0, const gp_XY& theP1) const;
+  Standard_EXPORT Standard_Boolean IsOut(const Coords2d& theP0, const Coords2d& theP1) const;
 
   //! Check that the box 'this' is inside the given box 'theBox'. Returns
   //! True if 'this' box is fully inside 'theBox'.
@@ -120,11 +120,11 @@ public:
   Standard_EXPORT Standard_Boolean IsIn(const Bnd_B2f& theBox, const gp_Trsf2d& theTrsf) const;
 
   //! Set the Center coordinates
-  void SetCenter(const gp_XY& theCenter);
+  void SetCenter(const Coords2d& theCenter);
 
   //! Set the HSize (half-diagonal) coordinates.
   //! All components of theHSize must be non-negative.
-  void SetHSize(const gp_XY& theHSize);
+  void SetHSize(const Coords2d& theHSize);
 
 protected:
   Standard_ShortReal myCenter[2];

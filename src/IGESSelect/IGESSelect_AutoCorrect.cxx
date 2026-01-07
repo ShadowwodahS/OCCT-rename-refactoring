@@ -51,7 +51,7 @@ void IGESSelect_AutoCorrect::Performing(IFSelect_ContextModif&            ctx,
   }
 }
 
-TCollection_AsciiString IGESSelect_AutoCorrect::Label() const
+AsciiString1 IGESSelect_AutoCorrect::Label() const
 {
-  return TCollection_AsciiString("Auto-Correction of IGES Entities");
+  return AsciiString1("Auto-Correction of IGES Entities");
 }

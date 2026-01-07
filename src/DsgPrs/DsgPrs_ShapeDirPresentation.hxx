@@ -24,7 +24,7 @@
 #include <Prs3d_Drawer.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class TopoDS_Shape;
+class TopoShape;
 
 //! A framework to define display of the normal to the
 //! surface of a shape.
@@ -41,8 +41,8 @@ public:
   //! the normal is given to the presentation object. If the
   //! first point: 0; if the last point, 1.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& prs,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TopoDS_Shape&               shape,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const TopoShape&               shape,
                                   const Standard_Integer            mode);
 
 protected:

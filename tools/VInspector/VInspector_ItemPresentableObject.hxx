@@ -29,7 +29,7 @@ typedef QExplicitlySharedDataPointer<VInspector_ItemPresentableObject>
   VInspector_ItemPresentableObjectPtr;
 
 //! \class VInspector_ItemPresentableObject
-//! Item presents information about AIS_InteractiveObject.
+//! Item presents information about VisualEntity.
 //! Parent is item context, children are item selections.
 class VInspector_ItemPresentableObject : public VInspector_ItemBase
 {
@@ -57,9 +57,9 @@ public:
 
   //! Returns the current interactive object, init item if it was not initialized yet
   //! \return interactive object
-  Handle(AIS_InteractiveObject) GetInteractiveObject() const
+  Handle(VisualEntity) GetInteractiveObject() const
   {
-    return Handle(AIS_InteractiveObject)::DownCast(Object());
+    return Handle(VisualEntity)::DownCast(Object());
   }
 
   //! Returns pointer information for the current interactive object, init item if it was not
@@ -97,11 +97,11 @@ protected:
 protected:
   //! Build presentation shape
   //! \return generated shape of the item parameters
-  virtual TopoDS_Shape buildPresentationShape() Standard_OVERRIDE;
+  virtual TopoShape buildPresentationShape() Standard_OVERRIDE;
 
   //! Set interactive object into the current field
   //! \param theIO a presentation
-  void setInteractiveObject(Handle(AIS_InteractiveObject) theIO) { myIO = theIO; }
+  void setInteractiveObject(Handle(VisualEntity) theIO) { myIO = theIO; }
 
 private:
   //! Constructor
@@ -114,7 +114,7 @@ private:
   }
 
 protected:
-  Handle(AIS_InteractiveObject) myIO; //!< the current interactive context
+  Handle(VisualEntity) myIO; //!< the current interactive context
 };
 
 #endif

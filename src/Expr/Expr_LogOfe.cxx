@@ -49,7 +49,7 @@ Handle(Expr_GeneralExpression) Expr_LogOfe::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_LogOfe::Copy() const
 {
-  return new Expr_LogOfe(Expr::CopyShare(Operand()));
+  return new Expr_LogOfe(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_LogOfe::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -75,7 +75,7 @@ Handle(Expr_GeneralExpression) Expr_LogOfe::Derivative(const Handle(Expr_NamedUn
   }
   Handle(Expr_GeneralExpression) myexp  = Operand();
   Handle(Expr_GeneralExpression) myder  = myexp->Derivative(X);
-  Handle(Expr_Division)          thediv = myder / Expr::CopyShare(myexp);
+  Handle(Expr_Division)          thediv = myder / Expr1::CopyShare(myexp);
   return thediv->ShallowSimplified();
 }
 
@@ -85,9 +85,9 @@ Standard_Real Expr_LogOfe::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return ::Log(Operand()->Evaluate(vars, vals));
 }
 
-TCollection_AsciiString Expr_LogOfe::String() const
+AsciiString1 Expr_LogOfe::String() const
 {
-  TCollection_AsciiString str("Ln(");
+  AsciiString1 str("Ln(");
   str += Operand()->String();
   str += ")";
   return str;

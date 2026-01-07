@@ -36,7 +36,7 @@
 //  center points of found solutions.                                     +
 //  Create solutions cirsol.                                              +
 //=========================================================================
-GccAna_Circ2dTanOnRad::GccAna_Circ2dTanOnRad(const GccEnt_QualifiedLin& Qualified1,
+Circle2dTangentOnRadius::Circle2dTangentOnRadius(const GccEnt_QualifiedLin& Qualified1,
                                              const gp_Circ2d&           OnCirc,
                                              const Standard_Real        Radius,
                                              const Standard_Real        Tolerance)
@@ -161,7 +161,7 @@ GccAna_Circ2dTanOnRad::GccAna_Circ2dTanOnRad(const GccEnt_QualifiedLin& Qualifie
               }
               pntcen3(NbrSol)   = cirsol(NbrSol).Location();
               pnttg1sol(NbrSol) = gp_Pnt2d(
-                pntcen3(NbrSol).XY() + gp_XY(sign * Radius * dir1.Y(), -sign * Radius * dir1.X()));
+                pntcen3(NbrSol).XY() + Coords2d(sign * Radius * dir1.Y(), -sign * Radius * dir1.X()));
               pararg1(NbrSol) = ElCLib::Parameter(L1, pnttg1sol(NbrSol));
               par1sol(NbrSol) = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
               parcen3(NbrSol) = ElCLib::Parameter(OnCirc, pntcen3(NbrSol));

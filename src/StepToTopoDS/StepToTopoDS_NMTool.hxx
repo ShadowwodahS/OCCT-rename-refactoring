@@ -25,19 +25,19 @@
 #include <TopTools_ListOfShape.hxx>
 #include <Standard_Boolean.hxx>
 class StepRepr_RepresentationItem;
-class TCollection_AsciiString;
-class TopoDS_Shape;
+class AsciiString1;
+class TopoShape;
 
 //! Provides data to process non-manifold topology when
 //! reading from STEP.
-class StepToTopoDS_NMTool
+class NamingTool2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT StepToTopoDS_NMTool();
+  Standard_EXPORT NamingTool2();
 
-  Standard_EXPORT StepToTopoDS_NMTool(const StepToTopoDS_DataMapOfRI&      MapOfRI,
+  Standard_EXPORT NamingTool2(const StepToTopoDS_DataMapOfRI&      MapOfRI,
                                       const StepToTopoDS_DataMapOfRINames& MapOfRINames);
 
   Standard_EXPORT void Init(const StepToTopoDS_DataMapOfRI&      MapOfRI,
@@ -51,22 +51,22 @@ public:
 
   Standard_EXPORT Standard_Boolean IsBound(const Handle(StepRepr_RepresentationItem)& RI);
 
-  Standard_EXPORT Standard_Boolean IsBound(const TCollection_AsciiString& RIName);
+  Standard_EXPORT Standard_Boolean IsBound(const AsciiString1& RIName);
 
-  Standard_EXPORT void Bind(const Handle(StepRepr_RepresentationItem)& RI, const TopoDS_Shape& S);
+  Standard_EXPORT void Bind(const Handle(StepRepr_RepresentationItem)& RI, const TopoShape& S);
 
-  Standard_EXPORT void Bind(const TCollection_AsciiString& RIName, const TopoDS_Shape& S);
+  Standard_EXPORT void Bind(const AsciiString1& RIName, const TopoShape& S);
 
-  Standard_EXPORT const TopoDS_Shape& Find(const Handle(StepRepr_RepresentationItem)& RI);
+  Standard_EXPORT const TopoShape& Find(const Handle(StepRepr_RepresentationItem)& RI);
 
-  Standard_EXPORT const TopoDS_Shape& Find(const TCollection_AsciiString& RIName);
+  Standard_EXPORT const TopoShape& Find(const AsciiString1& RIName);
 
-  Standard_EXPORT void RegisterNMEdge(const TopoDS_Shape& Edge);
+  Standard_EXPORT void RegisterNMEdge(const TopoShape& Edge);
 
-  Standard_EXPORT Standard_Boolean IsSuspectedAsClosing(const TopoDS_Shape& BaseShell,
-                                                        const TopoDS_Shape& SuspectedShell);
+  Standard_EXPORT Standard_Boolean IsSuspectedAsClosing(const TopoShape& BaseShell,
+                                                        const TopoShape& SuspectedShell);
 
-  Standard_EXPORT Standard_Boolean IsPureNMShell(const TopoDS_Shape& Shell);
+  Standard_EXPORT Standard_Boolean IsPureNMShell(const TopoShape& Shell);
 
   Standard_EXPORT void SetIDEASCase(const Standard_Boolean IDEASCase);
 
@@ -74,14 +74,14 @@ public:
 
 protected:
 private:
-  Standard_EXPORT Standard_Boolean isEdgeRegisteredAsNM(const TopoDS_Shape& Edge);
+  Standard_EXPORT Standard_Boolean isEdgeRegisteredAsNM(const TopoShape& Edge);
 
-  Standard_EXPORT Standard_Boolean isAdjacentShell(const TopoDS_Shape& ShellA,
-                                                   const TopoDS_Shape& ShellB);
+  Standard_EXPORT Standard_Boolean isAdjacentShell(const TopoShape& ShellA,
+                                                   const TopoShape& ShellB);
 
   StepToTopoDS_DataMapOfRI      myRIMap;
   StepToTopoDS_DataMapOfRINames myRINamesMap;
-  TopTools_ListOfShape          myNMEdges;
+  ShapeList          myNMEdges;
   Standard_Boolean              myIDEASCase;
   Standard_Boolean              myActiveFlag;
 };

@@ -30,8 +30,8 @@ class ShapeUpgrade_SplitCurve2d;
 class ShapeUpgrade_EdgeDivide;
 class ShapeAnalysis_TransferParameters;
 class ShapeUpgrade_FixSmallCurves;
-class Geom_Surface;
-class TopoDS_Edge;
+class GeomSurface;
+class TopoEdge;
 class TopLoc_Location;
 
 // resolve name collisions with X11 headers
@@ -61,25 +61,25 @@ public:
   Standard_EXPORT ShapeUpgrade_WireDivide();
 
   //! Initializes by wire and face
-  Standard_EXPORT void Init(const TopoDS_Wire& W, const TopoDS_Face& F);
+  Standard_EXPORT void Init(const TopoWire& W, const TopoFace& F);
 
   //! Initializes by wire and surface
-  Standard_EXPORT void Init(const TopoDS_Wire& W, const Handle(Geom_Surface)& S);
+  Standard_EXPORT void Init(const TopoWire& W, const Handle(GeomSurface)& S);
 
   //! Loads working wire
-  Standard_EXPORT void Load(const TopoDS_Wire& W);
+  Standard_EXPORT void Load(const TopoWire& W);
 
   //! Creates wire of one edge and calls Load for wire
-  Standard_EXPORT void Load(const TopoDS_Edge& E);
+  Standard_EXPORT void Load(const TopoEdge& E);
 
   //! Sets supporting surface by face
-  Standard_EXPORT void SetFace(const TopoDS_Face& F);
+  Standard_EXPORT void SetFace(const TopoFace& F);
 
   //! Sets supporting surface
-  Standard_EXPORT void SetSurface(const Handle(Geom_Surface)& S);
+  Standard_EXPORT void SetSurface(const Handle(GeomSurface)& S);
 
   //! Sets supporting surface with location
-  Standard_EXPORT void SetSurface(const Handle(Geom_Surface)& S, const TopLoc_Location& L);
+  Standard_EXPORT void SetSurface(const Handle(GeomSurface)& S, const TopLoc_Location& L);
 
   //! Computes the resulting wire by splitting all the edges
   //! according to splitting criteria.
@@ -92,7 +92,7 @@ public:
 
   //! Gives the resulting Wire (equal to initial one if not done
   //! or Null if not loaded)
-  Standard_EXPORT const TopoDS_Wire& Wire() const;
+  Standard_EXPORT const TopoWire& Wire() const;
 
   //! Queries status of last call to Perform()
   //! OK - no edges were split, wire left untouched
@@ -144,8 +144,8 @@ protected:
   //! Returns the tool for splitting pcurves.
   Standard_EXPORT virtual Handle(ShapeUpgrade_SplitCurve2d) GetSplitCurve2dTool() const;
 
-  TopoDS_Face      myFace;
-  TopoDS_Wire      myWire;
+  TopoFace      myFace;
+  TopoWire      myWire;
   Standard_Integer myStatus;
   Standard_Integer myEdgeMode;
 

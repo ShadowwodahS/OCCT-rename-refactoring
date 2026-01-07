@@ -26,7 +26,7 @@ class IGESGeom_RuledSurface;
 DEFINE_STANDARD_HANDLE(IGESGeom_RuledSurface, IGESData_IGESEntity)
 
 //! defines IGESRuledSurface, Type <118> Form <0-1>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A ruled surface is formed by moving a line connecting points
 //! of equal relative arc length or equal relative parametric
 //! value on two parametric curves from a start point to a

@@ -66,7 +66,7 @@ static void Reduce(const Standard_Real&         p1,
 {
   GeomAdaptor_Surface&        s1   = *hs1;
   GeomAdaptor_Surface&        s2   = *hs2;
-  const Handle(Geom_Surface)& surf = s1.Surface();
+  const Handle(GeomSurface)& surf = s1.Surface();
   Standard_Real               ud, uf, vd, vf;
   surf->Bounds(ud, uf, vd, vf);
   Standard_Real milmoins = 0.51 * vd + 0.49 * vf, milplus = 0.49 * vd + 0.51 * vf;
@@ -109,7 +109,7 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
 
 {
   done                             = 0;
-  const TopoDS_Vertex&        Vtx  = myVDataMap.FindKey(Index);
+  const TopoVertex&        Vtx  = myVDataMap.FindKey(Index);
   TopOpeBRepDS_DataStructure& DStr = myDS->ChangeDS();
 
   // Information on fillets is extracted
@@ -153,7 +153,7 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
   Standard_Boolean OkinterCC, Okvisavis, SameSide;
   Standard_Integer IFaCo1, IFaCo2;
   Standard_Real    UIntPC1, UIntPC2;
-  TopoDS_Face      FaCo;
+  TopoFace      FaCo;
   OkinterCC = ChFi3d_IsInFront(DStr,
                                Corner1,
                                Corner2,
@@ -244,16 +244,16 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
     return done;
   }
 
-  TopoDS_Edge pivot;
+  TopoEdge pivot;
   pivot                            = CP1.Arc();
   Standard_Real             parCP1 = CP1.ParameterOnArc();
   Standard_Real             parCP2 = CP2.ParameterOnArc();
   Handle(BRepAdaptor_Curve) Hpivot = new BRepAdaptor_Curve(pivot);
   if (!pivot.IsSame(CP2.Arc()))
   {
-    Handle(Geom_Curve) csau;
+    Handle(GeomCurve3d) csau;
     Standard_Real      ubid, vbid;
-    csau                         = BRep_Tool::Curve(pivot, ubid, vbid);
+    csau                         = BRepInspector::Curve(pivot, ubid, vbid);
     Handle(Geom_BoundedCurve) C1 = Handle(Geom_BoundedCurve)::DownCast(csau);
     if (!C1.IsNull())
     {
@@ -268,13 +268,13 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
   Point3d        psp2      = Hpivot->Value(parCP2);
   Standard_Real sameparam = (psp1.Distance(psp2) < 10.0 * tolapp3d);
 
-  TopoDS_Face                        FF1 = TopoDS::Face(DStr.Shape(Fd1->Index(IFaArc1)));
-  TopoDS_Face                        FF2 = TopoDS::Face(DStr.Shape(Fd2->Index(IFaArc2)));
+  TopoFace                        FF1 = TopoDS::Face(DStr.Shape(Fd1->Index(IFaArc1)));
+  TopoFace                        FF2 = TopoDS::Face(DStr.Shape(Fd2->Index(IFaArc2)));
   TopTools_ListIteratorOfListOfShape Kt;
   Standard_Boolean                   ok1 = Standard_False, ok2 = Standard_False;
   for (Kt.Initialize(myEFMap(pivot)); Kt.More(); Kt.Next())
   {
-    TopoDS_Face F = TopoDS::Face(Kt.Value());
+    TopoFace F = TopoDS::Face(Kt.Value());
     if (!ok1 && FF1.IsSame(F))
     {
       ok1 = Standard_True;
@@ -299,8 +299,8 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
 
   TColStd_Array1OfReal Pardeb(1, 4), Parfin(1, 4);
 
-  Handle(Geom2d_Curve) PGc1, PGc2;
-  Handle(Geom_Curve)   Gc;
+  Handle(GeomCurve2d) PGc1, PGc2;
+  Handle(GeomCurve3d)   Gc;
 
   if (sameparam)
   {
@@ -440,7 +440,7 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
     // and finally intersect the big with the face at end
     // between this point and the point on arc.
     Standard_Boolean parcrois = Standard_False;
-    TopExp_Explorer  Expl;
+    ShapeExplorer  Expl;
     for (Expl.Init(pivot.Oriented(TopAbs_FORWARD), TopAbs_VERTEX); Expl.More(); Expl.Next())
     {
       if (Expl.Current().IsSame(Vtx))
@@ -512,7 +512,7 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
 
     // Parfin (parameters of point PMil)
     const ChFiDS_FaceInterference& FiArcSma = SmaFD->Interference(IFaArcSma);
-    Handle(Geom_Curve)             ctg      = DStr.Curve(FiArcSma.LineIndex()).Curve();
+    Handle(GeomCurve3d)             ctg      = DStr.Curve(FiArcSma.LineIndex()).Curve();
     Handle(GeomAdaptor_Curve)      Hctg     = new GeomAdaptor_Curve();
     GeomAdaptor_Curve&             bid      = *Hctg;
     Standard_Real                  temp, wi;
@@ -614,12 +614,12 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
     TopAbs_Orientation tra     = BigFD->InterferenceOnS1().Transition();
     TopAbs_Orientation ofac    = DStr.Shape(BigFD->IndexOfS1()).Orientation();
     TopAbs_Orientation ofil    = BigFD->Orientation();
-    TopAbs_Orientation tracurv = TopAbs::Compose(ofac, ofil);
-    tracurv                    = TopAbs::Compose(tracurv, tra);
+    TopAbs_Orientation tracurv = TopAbs1::Compose(ofac, ofil);
+    tracurv                    = TopAbs1::Compose(tracurv, tra);
     if (!isfirstBig)
-      tracurv = TopAbs::Reverse(tracurv);
+      tracurv = TopAbs1::Reverse(tracurv);
     if (IFaCoBig != 1)
-      tracurv = TopAbs::Reverse(tracurv);
+      tracurv = TopAbs1::Reverse(tracurv);
 
     Handle(TopOpeBRepDS_SurfaceCurveInterference) Interfc;
     Standard_Integer                              ISurf = BigFD->Surf();
@@ -640,12 +640,12 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
     // Pardeb (parameters of PMil)
     // The intersection curve surface is tried again, now with representation
     // pcurve on face of the curve to be sure.
-    TopoDS_Face                 F       = TopoDS::Face(DStr.Shape(SmaFD->Index(IFaArcSma)));
+    TopoFace                 F       = TopoDS::Face(DStr.Shape(SmaFD->Index(IFaArcSma)));
     Handle(BRepAdaptor_Surface) HF      = new BRepAdaptor_Surface(F);
     Standard_Real               fsma    = FiArcSma.FirstParameter();
     Standard_Real               lsma    = FiArcSma.LastParameter();
     Standard_Real               deltSma = 0.05 * (lsma - fsma);
-    Handle(Geom2d_Curve)        pcpc    = SmaFD->Interference(IFaArcSma).PCurveOnFace();
+    Handle(GeomCurve2d)        pcpc    = SmaFD->Interference(IFaArcSma).PCurveOnFace();
     fsma                                = Max(pcpc->FirstParameter(), wi - deltSma);
     lsma                                = Min(pcpc->LastParameter(), wi + deltSma);
     if (lsma < fsma)
@@ -678,8 +678,8 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
     Parfin(3)                 = UVi.X();
     Parfin(4)                 = UVi.Y();
     ChFiDS_CommonPoint& cpend = BigFD->ChangeVertex(isfirstBig, IFaArcBig);
-    TopoDS_Edge         etest = cpend.Arc();
-    if (BRep_Tool::IsClosed(etest, F))
+    TopoEdge         etest = cpend.Arc();
+    if (BRepInspector::IsClosed(etest, F))
       etest.Reverse();
     BRepAdaptor_Curve2d arc(etest, F);
     UVi            = arc.Value(cpend.ParameterOnArc());
@@ -734,16 +734,16 @@ Standard_Boolean ChFi3d_Builder::PerformTwoCornerbyInter(const Standard_Integer 
     Standard_Integer IShape = DStr.AddShape(F);
     if (SmaFD->Surf() == BigFD->Surf())
     {
-      tracurv = TopAbs::Compose(etest.Orientation(), cpend.TransitionOnArc());
+      tracurv = TopAbs1::Compose(etest.Orientation(), cpend.TransitionOnArc());
     }
     else
     {
-      TopExp_Explorer Exp;
+      ShapeExplorer Exp;
       for (Exp.Init(F.Oriented(TopAbs_FORWARD), TopAbs_EDGE); Exp.More(); Exp.Next())
       {
         if (Exp.Current().IsSame(etest))
         {
-          tracurv = TopAbs::Compose(Exp.Current().Orientation(), cpend.TransitionOnArc());
+          tracurv = TopAbs1::Compose(Exp.Current().Orientation(), cpend.TransitionOnArc());
           break;
         }
       }

@@ -27,7 +27,7 @@
 #include <Standard_Real.hxx>
 #include <TColgp_SequenceOfPnt2d.hxx>
 
-class Poly_Triangulation;
+class MeshTriangulation;
 class Poly_Polygon3D;
 class Poly_Polygon2D;
 class Poly_Triangle;
@@ -56,7 +56,7 @@ public:
   //! The new triangulation is just a mechanical sum of input
   //! triangulations, without node sharing. UV coordinates are
   //! dropped in the result.
-  Standard_EXPORT static Handle(Poly_Triangulation) Catenate(
+  Standard_EXPORT static Handle(MeshTriangulation) Catenate(
     const Poly_ListOfTriangulation& lstTri);
 
   //! Writes the content of the triangulation <T> on the
@@ -64,7 +64,7 @@ public:
   //! format  intended  to  be read back   with the Read
   //! method. If compact is False  it is a "Dump" format
   //! intended to be informative.
-  Standard_EXPORT static void Write(const Handle(Poly_Triangulation)& T,
+  Standard_EXPORT static void Write(const Handle(MeshTriangulation)& T,
                                     Standard_OStream&                 OS,
                                     const Standard_Boolean            Compact = Standard_True);
 
@@ -88,7 +88,7 @@ public:
 
   //! Dumps  the triangulation.  This   is a call to  the
   //! previous method with Comapct set to False.
-  Standard_EXPORT static void Dump(const Handle(Poly_Triangulation)& T, Standard_OStream& OS);
+  Standard_EXPORT static void Dump(const Handle(MeshTriangulation)& T, Standard_OStream& OS);
 
   //! Dumps  the  3D  polygon.  This   is a call to  the
   //! previous method with Comapct set to False.
@@ -99,7 +99,7 @@ public:
   Standard_EXPORT static void Dump(const Handle(Poly_Polygon2D)& P, Standard_OStream& OS);
 
   //! Reads a triangulation from the stream <IS>.
-  Standard_EXPORT static Handle(Poly_Triangulation) ReadTriangulation(Standard_IStream& IS);
+  Standard_EXPORT static Handle(MeshTriangulation) ReadTriangulation(Standard_IStream& IS);
 
   //! Reads a 3d polygon from the stream <IS>.
   Standard_EXPORT static Handle(Poly_Polygon3D) ReadPolygon3D(Standard_IStream& IS);
@@ -109,7 +109,7 @@ public:
 
   //! Compute node normals for face triangulation
   //! as mean normal of surrounding triangles
-  Standard_EXPORT static void ComputeNormals(const Handle(Poly_Triangulation)& Tri);
+  Standard_EXPORT static void ComputeNormals(const Handle(MeshTriangulation)& Tri);
 
   //! Computes parameters of the point P on triangle
   //! defined by points P1, P2, and P3, in 2d.
@@ -121,11 +121,11 @@ public:
   //! to closest point, and returned value is square of
   //! the distance from original point to triangle (0 if
   //! point is inside).
-  Standard_EXPORT static Standard_Real PointOnTriangle(const gp_XY& P1,
-                                                       const gp_XY& P2,
-                                                       const gp_XY& P3,
-                                                       const gp_XY& P,
-                                                       gp_XY&       UV);
+  Standard_EXPORT static Standard_Real PointOnTriangle(const Coords2d& P1,
+                                                       const Coords2d& P2,
+                                                       const Coords2d& P3,
+                                                       const Coords2d& P,
+                                                       Coords2d&       UV);
 
   //! Computes the intersection between axis and triangulation.
   //! @param[in] theTri   input triangulation
@@ -135,7 +135,7 @@ public:
   //! @param[out] theTriangle  intersected triangle
   //! @param[out] theDistance  distance along ray to intersection point
   //! @return TRUE if intersection takes place, FALSE otherwise.
-  Standard_EXPORT static Standard_Boolean Intersect(const Handle(Poly_Triangulation)& theTri,
+  Standard_EXPORT static Standard_Boolean Intersect(const Handle(MeshTriangulation)& theTri,
                                                     const Axis3d&                     theAxis,
                                                     const Standard_Boolean            theIsClosest,
                                                     Poly_Triangle&                    theTriangle,
@@ -177,8 +177,8 @@ public:
     }
 
     Standard_Integer aStartIndex = theSeqPnts.Lower();
-    const gp_XY&     aRefPnt     = theSeqPnts.Value(aStartIndex++).XY();
-    gp_XY            aPrevPt     = theSeqPnts.Value(aStartIndex++).XY() - aRefPnt, aCurrPt;
+    const Coords2d&     aRefPnt     = theSeqPnts.Value(aStartIndex++).XY();
+    Coords2d            aPrevPt     = theSeqPnts.Value(aStartIndex++).XY() - aRefPnt, aCurrPt;
 
     theArea      = 0.0;
     thePerimeter = aPrevPt.Modulus();

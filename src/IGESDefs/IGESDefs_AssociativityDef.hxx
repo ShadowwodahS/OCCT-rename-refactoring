@@ -29,7 +29,7 @@ class IGESDefs_AssociativityDef;
 DEFINE_STANDARD_HANDLE(IGESDefs_AssociativityDef, IGESData_IGESEntity)
 
 //! defines IGES Associativity Definition Entity, Type <302>
-//! Form <5001 - 9999> in package IGESDefs.
+//! Form <5001 - 9999> in package IGESDefs1.
 //! This class permits the preprocessor to define an
 //! associativity schema. i.e., by using it preprocessor
 //! defines the type of relationship.

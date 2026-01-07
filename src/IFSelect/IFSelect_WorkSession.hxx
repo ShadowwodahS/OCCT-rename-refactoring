@@ -442,7 +442,7 @@ public:
 
   //! Returns Text Value of a TextParam (a String)
   //! or an empty string if <it> is not in the WorkSession
-  Standard_EXPORT TCollection_AsciiString
+  Standard_EXPORT AsciiString1
     TextValue(const Handle(TCollection_HAsciiString)& par) const;
 
   //! Creates a new (empty) TextParam. A Name can be set (Optional)
@@ -735,7 +735,7 @@ public:
                                                const Standard_CString           name);
 
   //! Extracts File Root Name from a given complete file name
-  //! (uses OSD_Path)
+  //! (uses SystemPath)
   Standard_EXPORT Standard_CString GiveFileRoot(const Standard_CString file) const;
 
   //! Completes a file name as required, with Prefix and Extension
@@ -759,7 +759,7 @@ public:
 
   //! Returns the name of a file corresponding to a produced Model,
   //! given its rank in the Evaluation List
-  Standard_EXPORT TCollection_AsciiString FileName(const Standard_Integer num) const;
+  Standard_EXPORT AsciiString1 FileName(const Standard_Integer num) const;
 
   //! Commands file sending to clear the list of already sent files,
   //! commands to record a new one if <record> is True
@@ -1164,7 +1164,7 @@ protected:
   Handle(Interface_HGraph)                                                 thegraph;
   Interface_CheckIterator                                                  thecheckrun;
   TColStd_IndexedDataMapOfTransientTransient                               theitems;
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> thenames;
+  NCollection_DataMap<AsciiString1, Handle(RefObject)> thenames;
 
 private:
   Standard_Boolean                 theerrhand;
@@ -1172,11 +1172,11 @@ private:
   Handle(IFSelect_WorkLibrary)     thelibrary;
   Handle(Interface_Protocol)       theprotocol;
   Handle(Interface_InterfaceModel) myModel;
-  TCollection_AsciiString          theloaded;
+  AsciiString1          theloaded;
   Handle(Interface_GTool)          thegtool;
   Standard_Boolean                 thecheckdone;
   Interface_CheckIterator          thechecklist;
-  TCollection_AsciiString          thecheckana;
+  AsciiString1          thecheckana;
   Handle(IFSelect_ModelCopier)     thecopier;
   Handle(Interface_InterfaceModel) theoldel;
   Standard_Boolean                 themodelstat;

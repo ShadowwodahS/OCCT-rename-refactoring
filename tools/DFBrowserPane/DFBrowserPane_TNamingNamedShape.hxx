@@ -33,7 +33,7 @@ class DFBrowserPane_TableView;
 class DFBrowserPane_AttributePaneModel;
 
 //! \class DFBrowserPane_TNamingNamedShape
-//! \brief The class to manipulate of TNaming_NamedShape attribute
+//! \brief The class to manipulate of ShapeAttribute attribute
 class DFBrowserPane_TNamingNamedShape : public DFBrowserPane_AttributePane
 {
 public:
@@ -78,14 +78,14 @@ public:
   Standard_EXPORT virtual void GetSelectionParameters(
     QItemSelectionModel*                          theModel,
     NCollection_List<Handle(RefObject)>& theParameters,
-    NCollection_List<TCollection_AsciiString>&    theItemNames) Standard_OVERRIDE;
+    NCollection_List<AsciiString1>&    theItemNames) Standard_OVERRIDE;
 
   //! Returns container of Label references to the attribute
   //! \param theAttribute a current attribute
   //! \param theRefLabels a container of label references, to be selected in tree view
   //! \param theRefPresentation handle of presentation for the references, to be visualized
   Standard_EXPORT virtual void GetReferences(const Handle(TDF_Attribute)& theAttribute,
-                                             NCollection_List<TDF_Label>& theRefLabels,
+                                             NCollection_List<DataLabel>& theRefLabels,
                                              Handle(RefObject)&  theRefPresentation)
     Standard_OVERRIDE;
 
@@ -104,7 +104,7 @@ public:
 protected:
   //! Returns a compound of selected shapes in both, values and evolution tables
   //! \return shape or NULL
-  TopoDS_Shape getSelectedShapes();
+  TopoShape getSelectedShapes();
 
 private:
   DFBrowserPane_TableView*          myEvolutionTableView; //!< table view for evolution shapes

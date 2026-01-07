@@ -19,7 +19,7 @@
 #include <TDF_Label.hxx>
 #include <NCollection_Map.hxx>
 
-typedef NCollection_Map<TDF_Label>           TDF_LabelMap;
-typedef NCollection_Map<TDF_Label>::Iterator TDF_MapIteratorOfLabelMap;
+typedef NCollection_Map<DataLabel>           TDF_LabelMap;
+typedef NCollection_Map<DataLabel>::Iterator TDF_MapIteratorOfLabelMap;
 
 #endif

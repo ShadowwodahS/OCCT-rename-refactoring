@@ -46,13 +46,13 @@
 
 // #include <LocOpe_ProjectedWires.hxx>
 //   Modified by skv - Mon May 31 13:00:30 2004 OCC5865 Begin
-//  static void RebuildWires(TopTools_ListOfShape&);
-static void RebuildWires(TopTools_ListOfShape&, const Handle(LocOpe_WiresOnShape)&);
+//  static void RebuildWires(ShapeList&);
+static void RebuildWires(ShapeList&, const Handle(LocOpe_WiresOnShape)&);
 //  Modified by skv - Mon May 31 13:00:31 2004 OCC5865 End
 
-static void Put(const TopoDS_Shape&, TopTools_DataMapOfShapeListOfShape&);
+static void Put(const TopoShape&, TopTools_DataMapOfShapeListOfShape&);
 
-static void Select(const TopoDS_Edge&, TopTools_ListOfShape&);
+static void Select(const TopoEdge&, ShapeList&);
 
 //=================================================================================================
 
@@ -71,22 +71,22 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
   TopTools_MapOfShape                       mapV, mapE;
   TopTools_DataMapOfShapeShape              EdgOnEdg;
   TopTools_IndexedDataMapOfShapeListOfShape mapFE;
-  TopExp_Explorer                           exp, exp2;
+  ShapeExplorer                           exp, exp2;
 
   // 1ere etape : substitution des vertex
 
-  TopoDS_Vertex          Vb;
-  TopTools_ListOfShape   lsubs;
-  BRepTools_Substitution theSubs;
-  BRep_Builder           BB;
+  TopoVertex          Vb;
+  ShapeList   lsubs;
+  ShapeSubstitution theSubs;
+  ShapeBuilder           BB;
 
   for (PW->InitEdgeIterator(); PW->MoreEdge(); PW->NextEdge())
   {
-    const TopoDS_Edge& edg = PW->Edge();
+    const TopoEdge& edg = PW->Edge();
     mapE.Add(edg);
     for (exp.Init(edg, TopAbs_VERTEX); exp.More(); exp.Next())
     {
-      const TopoDS_Vertex& vtx = TopoDS::Vertex(exp.Current());
+      const TopoVertex& vtx = TopoDS::Vertex(exp.Current());
       if (!mapV.Contains(vtx))
       {
         if (PW->OnVertex(vtx, Vb))
@@ -95,10 +95,10 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
           if (vtx.IsSame(Vb))
             continue;
           lsubs.Clear();
-          TopoDS_Vertex vsub = TopoDS::Vertex(vtx.Oriented(TopAbs_FORWARD));
-          Point3d        p1 = BRep_Tool::Pnt(vsub), p2 = BRep_Tool::Pnt(Vb);
+          TopoVertex vsub = TopoDS::Vertex(vtx.Oriented(TopAbs_FORWARD));
+          Point3d        p1 = BRepInspector::Pnt(vsub), p2 = BRepInspector::Pnt(Vb);
           Standard_Real d = p1.Distance(p2);
-          d               = d + BRep_Tool::Tolerance(Vb);
+          d               = d + BRepInspector::Tolerance(Vb);
           BB.UpdateVertex(vsub, d);
           lsubs.Append(vsub);
           theSubs.Substitute(Vb.Oriented(TopAbs_FORWARD), lsubs);
@@ -117,7 +117,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
     {
       if (theSubs.IsCopied(itdesc.Key()))
       {
-        const TopTools_ListOfShape& lsub = theSubs.Copy(itdesc.Key());
+        const ShapeList& lsub = theSubs.Copy(itdesc.Key());
 #ifdef OCCT_DEBUG
         if (lsub.Extent() != 1)
         {
@@ -135,16 +135,16 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
 
   // Adds every vertices lying on an edge of the shape, and prepares
   // work to rebuild wires on each face
-  TopoDS_Edge   Ed;
+  TopoEdge   Ed;
   Standard_Real prm;
 
   TopTools_MapOfShape theFacesWithSection;
   for (PW->InitEdgeIterator(); PW->MoreEdge(); PW->NextEdge())
   {
-    TopoDS_Edge edg = PW->Edge();
+    TopoEdge edg = PW->Edge();
     for (exp.Init(edg, TopAbs_VERTEX); exp.More(); exp.Next())
     {
-      const TopoDS_Vertex& vtx = TopoDS::Vertex(exp.Current());
+      const TopoVertex& vtx = TopoDS::Vertex(exp.Current());
       if (!mapV.Contains(vtx))
       {
         mapV.Add(vtx);
@@ -158,7 +158,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
         }
       }
     }
-    TopoDS_Edge Ebis;
+    TopoEdge Ebis;
     if (PW->OnEdge(Ebis))
     {
       //	Ebis = TopoDS::Edge(myMap(Ebis).First());
@@ -166,7 +166,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
     }
     else
     {
-      TopoDS_Face fac = PW->OnFace();
+      TopoFace fac = PW->OnFace();
       if (!myMap.IsBound(fac))
         continue;
       Standard_Boolean IsFaceWithSec = PW->IsFaceWithSection(fac);
@@ -175,7 +175,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
         theFacesWithSection.Add(fac);
       if (!mapFE.Contains(fac))
       {
-        TopTools_ListOfShape thelist;
+        ShapeList thelist;
         mapFE.Add(fac, thelist);
       }
       mapFE.ChangeFromKey(fac).Append(edg);
@@ -187,8 +187,8 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
   TopTools_ListIteratorOfListOfShape itl;
   for (Standard_Integer i = 1; i <= mapFE.Extent(); i++)
   {
-    const TopoDS_Face&    fac    = TopoDS::Face(mapFE.FindKey(i));
-    TopTools_ListOfShape& ledges = mapFE(i);
+    const TopoFace&    fac    = TopoDS::Face(mapFE.FindKey(i));
+    ShapeList& ledges = mapFE(i);
     //  Modified by skv - Mon May 31 12:32:54 2004 OCC5865 Begin
     //     RebuildWires(ledges);
     RebuildWires(ledges, PW);
@@ -205,17 +205,17 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
   for (TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itdesc(myMap); itdesc.More();
        itdesc.Next())
   {
-    const TopoDS_Shape& sori = itdesc.Key();
-    const TopoDS_Shape& scib = itdesc.Value().First();
+    const TopoShape& sori = itdesc.Key();
+    const TopoShape& scib = itdesc.Value().First();
     myMap(sori)              = theCFace.DescendantShapes(scib);
   }
 
-  const TopTools_ListOfShape& lres = myMap(myShape);
+  const ShapeList& lres = myMap(myShape);
 
   TopAbs_ShapeEnum typS = myShape.ShapeType();
   if (typS == TopAbs_FACE && lres.Extent() >= 2)
   {
-    BRep_Builder B;
+    ShapeBuilder B;
     myRes.Nullify();
     B.MakeShell(TopoDS::Shell(myRes));
     myRes.Orientation(TopAbs_FORWARD);
@@ -226,7 +226,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
   }
   else if (typS == TopAbs_EDGE && lres.Extent() >= 2)
   {
-    BRep_Builder B;
+    ShapeBuilder B;
     myRes.Nullify();
     B.MakeWire(TopoDS::Wire(myRes));
     myRes.Orientation(TopAbs_FORWARD);
@@ -247,16 +247,16 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
   theSubs.Clear();
   for (TopTools_DataMapIteratorOfDataMapOfShapeShape itee(EdgOnEdg); itee.More(); itee.Next())
   {
-    const TopoDS_Edge& e1 = TopoDS::Edge(itee.Key());
+    const TopoEdge& e1 = TopoDS::Edge(itee.Key());
     // on recherche dans les descendants de e2 l`edge qui correspont a e1
 
-    TopoDS_Vertex vf1, vl1, vf2, vl2;
-    TopExp::Vertices(e1, vf1, vl1);
+    TopoVertex vf1, vl1, vf2, vl2;
+    TopExp1::Vertices(e1, vf1, vl1);
     lsubs.Clear();
     for (itl.Initialize(myMap(itee.Value())); itl.More(); itl.Next())
     {
-      const TopoDS_Edge& e2 = TopoDS::Edge(itl.Value());
-      TopExp::Vertices(e2, vf2, vl2);
+      const TopoEdge& e2 = TopoDS::Edge(itl.Value());
+      TopExp1::Vertices(e2, vf2, vl2);
 
       if (!vl1.IsSame(vf1))
       {
@@ -279,11 +279,11 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
           Standard_Real      f, l;
           Point3d             pbid;
           Vector3d             v1, v2;
-          Handle(Geom_Curve) C = BRep_Tool::Curve(e1, Loc, f, l);
+          Handle(GeomCurve3d) C = BRepInspector::Curve(e1, Loc, f, l);
           C->D1(f, pbid, v1);
           v1.Transform(Loc.Transformation());
 
-          C = BRep_Tool::Curve(e2, Loc, f, l);
+          C = BRepInspector::Curve(e2, Loc, f, l);
           C->D1(f, pbid, v2);
           v2.Transform(Loc.Transformation());
           if (v1.Dot(v2) > 0.)
@@ -303,7 +303,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
     }
     if (lsubs.Extent() == 1)
     {
-      TopoDS_Shape ebase = lsubs.First();
+      TopoShape ebase = lsubs.First();
       lsubs.Clear();
       lsubs.Append(e1.Oriented(ebase.Orientation()));
       theSubs.Substitute(ebase, lsubs);
@@ -321,13 +321,13 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
   for (TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itdesc(myMap); itdesc.More();
        itdesc.Next())
   {
-    TopTools_ListOfShape& ldesc = myMap(itdesc.Key());
-    TopTools_ListOfShape  newdesc;
+    ShapeList& ldesc = myMap(itdesc.Key());
+    ShapeList  newdesc;
     for (itl.Initialize(ldesc); itl.More(); itl.Next())
     {
       if (theSubs.IsCopied(itl.Value()))
       {
-        const TopTools_ListOfShape& lsub = theSubs.Copy(itl.Value());
+        const ShapeList& lsub = theSubs.Copy(itl.Value());
 #ifdef OCCT_DEBUG
         if (lsub.Extent() != 1)
         {
@@ -352,13 +352,13 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
   ////remove superfluous vertices on degenerated edges
   theSubs.Clear();
   TopTools_IndexedMapOfShape Emap;
-  TopExp::MapShapes(myRes, TopAbs_EDGE, Emap);
+  TopExp1::MapShapes(myRes, TopAbs_EDGE, Emap);
   TopTools_SequenceOfShape DegEdges;
   Standard_Integer         i, j;
   for (i = 1; i <= Emap.Extent(); i++)
   {
-    const TopoDS_Edge& anEdge = TopoDS::Edge(Emap(i));
-    if (BRep_Tool::Degenerated(anEdge))
+    const TopoEdge& anEdge = TopoDS::Edge(Emap(i));
+    if (BRepInspector::Degenerated(anEdge))
       DegEdges.Append(anEdge);
   }
 
@@ -367,20 +367,20 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
   {
     if (DegEdges.IsEmpty())
       break;
-    TopoDS_Wire aDegWire;
+    TopoWire aDegWire;
     BB.MakeWire(aDegWire);
     BB.Add(aDegWire, DegEdges(1));
     DegEdges.Remove(1);
-    TopoDS_Vertex Vfirst, Vlast;
+    TopoVertex Vfirst, Vlast;
     for (;;)
     {
-      TopExp::Vertices(aDegWire, Vfirst, Vlast);
+      TopExp1::Vertices(aDegWire, Vfirst, Vlast);
       Standard_Boolean found = Standard_False;
       for (i = 1; i <= DegEdges.Length(); i++)
       {
-        const TopoDS_Edge& anEdge = TopoDS::Edge(DegEdges(i));
-        TopoDS_Vertex      V1, V2;
-        TopExp::Vertices(anEdge, V1, V2);
+        const TopoEdge& anEdge = TopoDS::Edge(DegEdges(i));
+        TopoVertex      V1, V2;
+        TopExp1::Vertices(anEdge, V1, V2);
         if (V1.IsSame(Vfirst) || V1.IsSame(Vlast) || V2.IsSame(Vfirst) || V2.IsSame(Vlast))
         {
           BB.Add(aDegWire, anEdge);
@@ -398,8 +398,8 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
   for (i = 1; i <= DegWires.Length(); i++)
   {
     TopTools_IndexedMapOfShape Vmap;
-    TopExp::MapShapes(DegWires(i), TopAbs_VERTEX, Vmap);
-    TopTools_ListOfShape LV;
+    TopExp1::MapShapes(DegWires(i), TopAbs_VERTEX, Vmap);
+    ShapeList LV;
     LV.Append(Vmap(1).Oriented(TopAbs_FORWARD));
     for (j = 2; j <= Vmap.Extent(); j++)
     {
@@ -420,10 +420,10 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
 
   for (exp.Init(myRes, TopAbs_FACE); exp.More(); exp.Next())
   {
-    const TopoDS_Face& fac = TopoDS::Face(exp.Current());
+    const TopoFace& fac = TopoDS::Face(exp.Current());
     for (exp2.Init(fac, TopAbs_EDGE); exp2.More(); exp2.Next())
     {
-      const TopoDS_Edge& edg = TopoDS::Edge(exp2.Current());
+      const TopoEdge& edg = TopoDS::Edge(exp2.Current());
       for (itms.Initialize(mapE); itms.More(); itms.Next())
       {
         if (itms.Key().IsSame(edg) && edg.Orientation() == itms.Key().Orientation())
@@ -453,11 +453,11 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
     while (!full) {
       full = Standard_True;
       itms.Initialize(mapV);
-      const TopoDS_Face& fac = TopoDS::Face(itms.Key());
+      const TopoFace& fac = TopoDS::Face(itms.Key());
       for (exp.Init(fac,TopAbs_EDGE); exp.More(); exp.Next()) {
         if (!mapE.Contains(exp.Current())) {
       for (itl.Initialize(myLeft); itl.More(); itl.Next()) {
-        const TopoDS_Face& fac2 = TopoDS::Face(itl.Value());
+        const TopoFace& fac2 = TopoDS::Face(itl.Value());
         for (exp2.Init(fac2,TopAbs_EDGE); exp2.More(); exp2.Next()) {
           if (exp2.Current().IsSame(exp.Current())) {
             myLeft.Append(fac);
@@ -497,11 +497,11 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
   while (Mapebord.Extent() != 0)
   {
     itms.Initialize(Mapebord);
-    TopoDS_Shape edg = itms.Key();
+    TopoShape edg = itms.Key();
 
     for (itms.Initialize(mapV); itms.More(); itms.Next())
     {
-      const TopoDS_Shape& fac = itms.Key();
+      const TopoShape& fac = itms.Key();
       for (exp.Init(fac, TopAbs_EDGE); exp.More(); exp.Next())
       {
         if (exp.Current().IsSame(edg))
@@ -516,7 +516,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
     }
     if (itms.More())
     {
-      TopoDS_Shape fac = itms.Key();
+      TopoShape fac = itms.Key();
       for (exp.Init(fac, TopAbs_EDGE); exp.More(); exp.Next())
       {
         if (!Mapebord.Add(exp.Current()))
@@ -538,7 +538,7 @@ void LocOpe_Spliter::Perform(const Handle(LocOpe_WiresOnShape)& PW)
 
 //=================================================================================================
 
-const TopTools_ListOfShape& LocOpe_Spliter::DescendantShapes(const TopoDS_Shape& F)
+const ShapeList& LocOpe_Spliter::DescendantShapes(const TopoShape& F)
 {
   if (!myDone)
   {
@@ -548,14 +548,14 @@ const TopTools_ListOfShape& LocOpe_Spliter::DescendantShapes(const TopoDS_Shape&
     return myMap(F);
   else
   {
-    static TopTools_ListOfShape empty;
+    static ShapeList empty;
     return empty;
   }
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& LocOpe_Spliter::DirectLeft() const
+const ShapeList& LocOpe_Spliter::DirectLeft() const
 {
   if (!myDone)
   {
@@ -566,7 +566,7 @@ const TopTools_ListOfShape& LocOpe_Spliter::DirectLeft() const
 
 //=================================================================================================
 
-const TopTools_ListOfShape& LocOpe_Spliter::Left() const
+const ShapeList& LocOpe_Spliter::Left() const
 {
   if (!myDone)
   {
@@ -578,10 +578,10 @@ const TopTools_ListOfShape& LocOpe_Spliter::Left() const
 //=================================================================================================
 
 //  Modified by skv - Mon May 31 12:31:39 2004 OCC5865 Begin
-// static void RebuildWires(TopTools_ListOfShape& ledge)
-static void RebuildWires(TopTools_ListOfShape& ledge, const Handle(LocOpe_WiresOnShape)& PW)
+// static void RebuildWires(ShapeList& ledge)
+static void RebuildWires(ShapeList& ledge, const Handle(LocOpe_WiresOnShape)& PW)
 {
-  LocOpe_BuildWires theBuild(ledge, PW);
+  WireBuilder theBuild(ledge, PW);
   //  Modified by skv - Mon May 31 12:31:40 2004 OCC5865 End
   if (!theBuild.IsDone())
   {
@@ -592,13 +592,13 @@ static void RebuildWires(TopTools_ListOfShape& ledge, const Handle(LocOpe_WiresO
 
 //=================================================================================================
 
-static void Put(const TopoDS_Shape& S, TopTools_DataMapOfShapeListOfShape& theMap)
+static void Put(const TopoShape& S, TopTools_DataMapOfShapeListOfShape& theMap)
 {
   if (theMap.IsBound(S))
   {
     return;
   }
-  TopTools_ListOfShape thelist;
+  ShapeList thelist;
   theMap.Bind(S, thelist);
   theMap(S).Append(S);
   for (TopoDS_Iterator it(S); it.More(); it.Next())
@@ -609,22 +609,22 @@ static void Put(const TopoDS_Shape& S, TopTools_DataMapOfShapeListOfShape& theMa
 
 //=================================================================================================
 
-static void Select(const TopoDS_Edge& Ebase, TopTools_ListOfShape& lsubs)
+static void Select(const TopoEdge& Ebase, ShapeList& lsubs)
 {
 
   // Choix d`un point
 
-  Handle(Geom_Curve) C;
+  Handle(GeomCurve3d) C;
   TopLoc_Location    Loc;
   Standard_Real      f, l, dmin = RealLast();
   Standard_Integer   i = 0, imin = 0;
 
-  C = BRep_Tool::Curve(Ebase, Loc, f, l);
+  C = BRepInspector::Curve(Ebase, Loc, f, l);
 
   if (!Loc.IsIdentity())
   {
     Handle(Geom_Geometry) GG = C->Transformed(Loc.Transformation());
-    C                        = Handle(Geom_Curve)::DownCast(GG);
+    C                        = Handle(GeomCurve3d)::DownCast(GG);
   }
   Point3d Pt(C->Value((f + l) / 2.));
 
@@ -634,12 +634,12 @@ static void Select(const TopoDS_Edge& Ebase, TopTools_ListOfShape& lsubs)
   for (; itl.More(); itl.Next())
   {
     i++;
-    const TopoDS_Edge& edg = TopoDS::Edge(itl.Value());
-    C                      = BRep_Tool::Curve(edg, Loc, f, l);
+    const TopoEdge& edg = TopoDS::Edge(itl.Value());
+    C                      = BRepInspector::Curve(edg, Loc, f, l);
     if (!Loc.IsIdentity())
     {
       Handle(Geom_Geometry) GG = C->Transformed(Loc.Transformation());
-      C                        = Handle(Geom_Curve)::DownCast(GG);
+      C                        = Handle(GeomCurve3d)::DownCast(GG);
     }
     proj.Init(Pt, C, f, l);
     if (proj.NbPoints() > 0)

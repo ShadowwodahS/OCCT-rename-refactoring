@@ -23,8 +23,8 @@
 
 #include <TopoDS_Face.hxx>
 #include <gp_Pnt.hxx>
-class Geom_Curve;
-class Geom2d_Curve;
+class GeomCurve3d;
+class GeomCurve2d;
 
 class Draft_EdgeInfo
 {
@@ -35,9 +35,9 @@ public:
 
   Standard_EXPORT Draft_EdgeInfo(const Standard_Boolean HasNewGeometry);
 
-  Standard_EXPORT void Add(const TopoDS_Face& F);
+  Standard_EXPORT void Add(const TopoFace& F);
 
-  Standard_EXPORT void RootFace(const TopoDS_Face& F);
+  Standard_EXPORT void RootFace(const TopoFace& F);
 
   Standard_EXPORT void Tangent(const Point3d& P);
 
@@ -47,23 +47,23 @@ public:
 
   Standard_EXPORT void SetNewGeometry(const Standard_Boolean NewGeom);
 
-  Standard_EXPORT const Handle(Geom_Curve)& Geometry() const;
+  Standard_EXPORT const Handle(GeomCurve3d)& Geometry() const;
 
-  Standard_EXPORT const TopoDS_Face& FirstFace() const;
+  Standard_EXPORT const TopoFace& FirstFace() const;
 
-  Standard_EXPORT const TopoDS_Face& SecondFace() const;
+  Standard_EXPORT const TopoFace& SecondFace() const;
 
-  Standard_EXPORT const Handle(Geom2d_Curve)& FirstPC() const;
+  Standard_EXPORT const Handle(GeomCurve2d)& FirstPC() const;
 
-  Standard_EXPORT const Handle(Geom2d_Curve)& SecondPC() const;
+  Standard_EXPORT const Handle(GeomCurve2d)& SecondPC() const;
 
-  Standard_EXPORT Handle(Geom_Curve)& ChangeGeometry();
+  Standard_EXPORT Handle(GeomCurve3d)& ChangeGeometry();
 
-  Standard_EXPORT Handle(Geom2d_Curve)& ChangeFirstPC();
+  Standard_EXPORT Handle(GeomCurve2d)& ChangeFirstPC();
 
-  Standard_EXPORT Handle(Geom2d_Curve)& ChangeSecondPC();
+  Standard_EXPORT Handle(GeomCurve2d)& ChangeSecondPC();
 
-  Standard_EXPORT const TopoDS_Face& RootFace() const;
+  Standard_EXPORT const TopoFace& RootFace() const;
 
   Standard_EXPORT void Tolerance(const Standard_Real tol);
 
@@ -72,12 +72,12 @@ public:
 protected:
 private:
   Standard_Boolean     myNewGeom;
-  Handle(Geom_Curve)   myGeom;
-  TopoDS_Face          myFirstF;
-  TopoDS_Face          mySeconF;
-  Handle(Geom2d_Curve) myFirstPC;
-  Handle(Geom2d_Curve) mySeconPC;
-  TopoDS_Face          myRootFace;
+  Handle(GeomCurve3d)   myGeom;
+  TopoFace          myFirstF;
+  TopoFace          mySeconF;
+  Handle(GeomCurve2d) myFirstPC;
+  Handle(GeomCurve2d) mySeconPC;
+  TopoFace          myRootFace;
   Standard_Boolean     myTgt;
   Point3d               myPt;
   Standard_Real        myTol;

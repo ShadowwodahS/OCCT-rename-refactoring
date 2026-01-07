@@ -30,7 +30,7 @@
 #include <GccEnt_Position.hxx>
 class Geom2dGcc_QualifiedCurve;
 class Geom2d_Point;
-class GccAna_Circ2d2TanRad;
+class Circle2dTwoTangentRadius;
 class Geom2dGcc_Circ2d2TanRadGeo;
 class gp_Circ2d;
 class gp_Pnt2d;
@@ -99,7 +99,7 @@ public:
                                           const Standard_Real         Radius,
                                           const Standard_Real         Tolerance);
 
-  Standard_EXPORT void Results(const GccAna_Circ2d2TanRad& Circ);
+  Standard_EXPORT void Results(const Circle2dTwoTangentRadius& Circ);
 
   Standard_EXPORT void Results(const Geom2dGcc_Circ2d2TanRadGeo& Circ);
 

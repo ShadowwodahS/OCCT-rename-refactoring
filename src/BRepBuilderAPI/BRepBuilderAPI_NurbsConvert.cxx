@@ -34,7 +34,7 @@ BRepBuilderAPI_NurbsConvert::BRepBuilderAPI_NurbsConvert()
 
 //=================================================================================================
 
-BRepBuilderAPI_NurbsConvert::BRepBuilderAPI_NurbsConvert(const TopoDS_Shape&    S,
+BRepBuilderAPI_NurbsConvert::BRepBuilderAPI_NurbsConvert(const TopoShape&    S,
                                                          const Standard_Boolean Copy)
 
 {
@@ -44,7 +44,7 @@ BRepBuilderAPI_NurbsConvert::BRepBuilderAPI_NurbsConvert(const TopoDS_Shape&    
 
 //=================================================================================================
 
-void BRepBuilderAPI_NurbsConvert::Perform(const TopoDS_Shape& S, const Standard_Boolean /*Copy*/)
+void BRepBuilderAPI_NurbsConvert::Perform(const TopoShape& S, const Standard_Boolean /*Copy*/)
 {
   Handle(BRepTools_NurbsConvertModification) theModif =
     Handle(BRepTools_NurbsConvertModification)::DownCast(myModification);
@@ -57,7 +57,7 @@ void BRepBuilderAPI_NurbsConvert::Perform(const TopoDS_Shape& S, const Standard_
 void BRepBuilderAPI_NurbsConvert::CorrectVertexTol()
 {
   TopTools_MapOfShape anInitVertices;
-  TopExp_Explorer     anExp(myInitialShape, TopAbs_VERTEX);
+  ShapeExplorer     anExp(myInitialShape, TopAbs_VERTEX);
   for (; anExp.More(); anExp.Next())
   {
     anInitVertices.Add(anExp.Current());
@@ -66,18 +66,18 @@ void BRepBuilderAPI_NurbsConvert::CorrectVertexTol()
   Handle(BRepTools_NurbsConvertModification) aModif =
     Handle(BRepTools_NurbsConvertModification)::DownCast(myModification);
 
-  BRep_Builder aBB;
+  ShapeBuilder aBB;
   myVtxToReplace.Clear();
   TopTools_ListIteratorOfListOfShape anEIter(aModif->GetUpdatedEdges());
   for (; anEIter.More(); anEIter.Next())
   {
-    const TopoDS_Shape& anE = anEIter.Value();
+    const TopoShape& anE = anEIter.Value();
     //
-    Standard_Real   anETol = BRep_Tool::Tolerance(TopoDS::Edge(anE));
+    Standard_Real   anETol = BRepInspector::Tolerance(TopoDS::Edge(anE));
     TopoDS_Iterator anIter(anE);
     for (; anIter.More(); anIter.Next())
     {
-      const TopoDS_Vertex& aVtx = TopoDS::Vertex(anIter.Value());
+      const TopoVertex& aVtx = TopoDS::Vertex(anIter.Value());
       if (anInitVertices.Contains(aVtx))
       {
         if (myVtxToReplace.IsBound(aVtx))
@@ -86,11 +86,11 @@ void BRepBuilderAPI_NurbsConvert::CorrectVertexTol()
         }
         else
         {
-          Standard_Real aVTol = BRep_Tool::Tolerance(aVtx);
+          Standard_Real aVTol = BRepInspector::Tolerance(aVtx);
           if (aVTol < anETol)
           {
-            TopoDS_Vertex aNewVtx;
-            Point3d        aVPnt = BRep_Tool::Pnt(aVtx);
+            TopoVertex aNewVtx;
+            Point3d        aVPnt = BRepInspector::Pnt(aVtx);
             aBB.MakeVertex(aNewVtx, aVPnt, anETol + Epsilon(anETol));
             aNewVtx.Orientation(aVtx.Orientation());
             myVtxToReplace.Bind(aVtx, aNewVtx);
@@ -122,7 +122,7 @@ void BRepBuilderAPI_NurbsConvert::CorrectVertexTol()
 
 //=================================================================================================
 
-TopoDS_Shape BRepBuilderAPI_NurbsConvert::ModifiedShape(const TopoDS_Shape& S) const
+TopoShape BRepBuilderAPI_NurbsConvert::ModifiedShape(const TopoShape& S) const
 {
   if (S.ShapeType() == TopAbs_VERTEX)
   {
@@ -137,14 +137,14 @@ TopoDS_Shape BRepBuilderAPI_NurbsConvert::ModifiedShape(const TopoDS_Shape& S) c
   }
   else
   {
-    const TopoDS_Shape& aNS = myModifier.ModifiedShape(S);
+    const TopoShape& aNS = myModifier.ModifiedShape(S);
     return mySubs.Value(aNS);
   }
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepBuilderAPI_NurbsConvert::Modified(const TopoDS_Shape& F)
+const ShapeList& BRepBuilderAPI_NurbsConvert::Modified(const TopoShape& F)
 {
   myGenerated.Clear();
   if (F.ShapeType() == TopAbs_VERTEX)
@@ -166,7 +166,7 @@ const TopTools_ListOfShape& BRepBuilderAPI_NurbsConvert::Modified(const TopoDS_S
     }
     else
     {
-      const TopoDS_Shape& aNS = myModifier.ModifiedShape(F);
+      const TopoShape& aNS = myModifier.ModifiedShape(F);
       myGenerated.Append(mySubs.Value(aNS));
     }
   }

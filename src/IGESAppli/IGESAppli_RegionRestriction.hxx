@@ -26,7 +26,7 @@ class IGESAppli_RegionRestriction;
 DEFINE_STANDARD_HANDLE(IGESAppli_RegionRestriction, IGESData_IGESEntity)
 
 //! defines RegionRestriction, Type <406> Form <2>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Defines regions to set an application's restriction
 //! over a region.
 class IGESAppli_RegionRestriction : public IGESData_IGESEntity

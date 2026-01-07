@@ -65,10 +65,10 @@ void Expr_LessThanOrEqual::Simplify()
 
 Handle(Expr_GeneralRelation) Expr_LessThanOrEqual::Copy() const
 {
-  return new Expr_LessThanOrEqual(Expr::CopyShare(FirstMember()), Expr::CopyShare(SecondMember()));
+  return new Expr_LessThanOrEqual(Expr1::CopyShare(FirstMember()), Expr1::CopyShare(SecondMember()));
 }
 
-TCollection_AsciiString Expr_LessThanOrEqual::String() const
+AsciiString1 Expr_LessThanOrEqual::String() const
 {
   return FirstMember()->String() + " <= " + SecondMember()->String();
 }

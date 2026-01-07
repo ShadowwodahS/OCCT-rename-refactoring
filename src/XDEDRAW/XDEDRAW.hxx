@@ -28,10 +28,10 @@ class XDEDRAW
 public:
   //! Provides common commands for work XDE
   //! Initializes all the functions
-  Standard_EXPORT static void Init(Draw_Interpretor& di);
+  Standard_EXPORT static void Init(DrawInterpreter& di);
 
-  //! Loads all Draw commands of  TKXDEDRAW. Used for plugin.
-  Standard_EXPORT static void Factory(Draw_Interpretor& theDI);
+  //! Loads all Draw1 commands of  TKXDEDRAW. Used for plugin.
+  Standard_EXPORT static void Factory(DrawInterpreter& theDI);
 };
 
 #endif // _XDEDRAW_HeaderFile

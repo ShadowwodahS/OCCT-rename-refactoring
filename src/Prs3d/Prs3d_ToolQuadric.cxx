@@ -92,10 +92,10 @@ Handle(Graphic3d_ArrayOfTriangles) Prs3d_ToolQuadric::CreateTriangulation(
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) Prs3d_ToolQuadric::CreatePolyTriangulation(const Transform3d& theTrsf) const
+Handle(MeshTriangulation) Prs3d_ToolQuadric::CreatePolyTriangulation(const Transform3d& theTrsf) const
 {
-  Handle(Poly_Triangulation) aTriangulation =
-    new Poly_Triangulation(VerticesNb(), TrianglesNb(), Standard_False);
+  Handle(MeshTriangulation) aTriangulation =
+    new MeshTriangulation(VerticesNb(), TrianglesNb(), Standard_False);
   Standard_ShortReal aStepU = 1.0f / mySlicesNb;
   Standard_ShortReal aStepV = 1.0f / myStacksNb;
 
@@ -126,7 +126,7 @@ Handle(Poly_Triangulation) Prs3d_ToolQuadric::CreatePolyTriangulation(const Tran
 //=================================================================================================
 
 void Prs3d_ToolQuadric::FillArray(Handle(Graphic3d_ArrayOfTriangles)& theArray,
-                                  Handle(Poly_Triangulation)&         theTriangulation,
+                                  Handle(MeshTriangulation)&         theTriangulation,
                                   const Transform3d&                      theTrsf) const
 {
   theArray         = CreateTriangulation(theTrsf);

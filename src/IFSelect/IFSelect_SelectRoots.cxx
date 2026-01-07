@@ -61,7 +61,7 @@ Standard_Boolean IFSelect_SelectRoots::Sort(const Standard_Integer,
   return Standard_True;
 }
 
-TCollection_AsciiString IFSelect_SelectRoots::ExtractLabel() const
+AsciiString1 IFSelect_SelectRoots::ExtractLabel() const
 {
-  return TCollection_AsciiString("Local Roots");
+  return AsciiString1("Local Roots");
 }

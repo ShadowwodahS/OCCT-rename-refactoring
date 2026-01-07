@@ -34,7 +34,7 @@
 //   Create the straight line with origin ThePoint and                             +
 //                          direction Lin1.Direction().                    +
 //========================================================================
-GccAna_Lin2dTanPar::GccAna_Lin2dTanPar(const gp_Pnt2d& ThePoint, const gp_Lin2d& Lin1)
+Line2dTangentParallel::Line2dTangentParallel(const gp_Pnt2d& ThePoint, const gp_Lin2d& Lin1)
     : linsol(1, 1),
       qualifier1(1, 1),
       pnttg1sol(1, 1),
@@ -63,7 +63,7 @@ GccAna_Lin2dTanPar::GccAna_Lin2dTanPar(const gp_Pnt2d& ThePoint, const gp_Lin2d&
 //          - with direction the direction of Lin1.                         +
 //========================================================================
 
-GccAna_Lin2dTanPar::GccAna_Lin2dTanPar(const GccEnt_QualifiedCirc& Qualified1, const gp_Lin2d& Lin1)
+Line2dTangentParallel::Line2dTangentParallel(const GccEnt_QualifiedCirc& Qualified1, const gp_Lin2d& Lin1)
     : linsol(1, 2),
       qualifier1(1, 2),
       pnttg1sol(1, 2),
@@ -111,7 +111,7 @@ GccAna_Lin2dTanPar::GccAna_Lin2dTanPar(const GccEnt_QualifiedCirc& Qualified1, c
     qualifier1(1) = GccEnt_outside;
     qualifier1(2) = GccEnt_enclosing;
   }
-  gp_XY xy(-C1.Radius() * ydir, C1.Radius() * xdir);
+  Coords2d xy(-C1.Radius() * ydir, C1.Radius() * xdir);
   for (Standard_Integer j = 1; j <= nbsol; j++)
   {
     signe = -signe;
@@ -128,19 +128,19 @@ GccAna_Lin2dTanPar::GccAna_Lin2dTanPar(const GccEnt_QualifiedCirc& Qualified1, c
   }
 }
 
-Standard_Boolean GccAna_Lin2dTanPar::IsDone() const
+Standard_Boolean Line2dTangentParallel::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer GccAna_Lin2dTanPar::NbSolutions() const
+Standard_Integer Line2dTangentParallel::NbSolutions() const
 {
   if (!WellDone)
     throw StdFail_NotDone();
   return NbrSol;
 }
 
-gp_Lin2d GccAna_Lin2dTanPar::ThisSolution(const Standard_Integer Index) const
+gp_Lin2d Line2dTangentParallel::ThisSolution(const Standard_Integer Index) const
 {
   if (!WellDone)
   {
@@ -153,7 +153,7 @@ gp_Lin2d GccAna_Lin2dTanPar::ThisSolution(const Standard_Integer Index) const
   return linsol(Index);
 }
 
-void GccAna_Lin2dTanPar::WhichQualifier(const Standard_Integer Index,
+void Line2dTangentParallel::WhichQualifier(const Standard_Integer Index,
                                         GccEnt_Position&       Qualif1) const
 {
   if (!WellDone)
@@ -170,7 +170,7 @@ void GccAna_Lin2dTanPar::WhichQualifier(const Standard_Integer Index,
   }
 }
 
-void GccAna_Lin2dTanPar::Tangency1(const Standard_Integer Index,
+void Line2dTangentParallel::Tangency1(const Standard_Integer Index,
                                    Standard_Real&         ParSol,
                                    Standard_Real&         ParArg,
                                    gp_Pnt2d&              Pnt) const

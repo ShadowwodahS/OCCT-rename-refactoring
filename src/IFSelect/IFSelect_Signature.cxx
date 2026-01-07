@@ -74,7 +74,7 @@ void IFSelect_Signature::AddCase(const Standard_CString acase)
 {
   if (thecasl.IsNull())
     thecasl = new TColStd_HSequenceOfAsciiString();
-  TCollection_AsciiString scase(acase);
+  AsciiString1 scase(acase);
   thecasl->Append(scase);
 }
 
@@ -88,16 +88,16 @@ Standard_CString IFSelect_Signature::Name() const
   return thename.ToCString();
 }
 
-TCollection_AsciiString IFSelect_Signature::Label() const
+AsciiString1 IFSelect_Signature::Label() const
 {
-  TCollection_AsciiString label("Signature : ");
+  AsciiString1 label("Signature : ");
   label.AssignCat(thename);
   return label;
 }
 
 Standard_Boolean IFSelect_Signature::Matches(const Handle(RefObject)&       ent,
                                              const Handle(Interface_InterfaceModel)& model,
-                                             const TCollection_AsciiString&          text,
+                                             const AsciiString1&          text,
                                              const Standard_Boolean                  exact) const
 
 {
@@ -105,7 +105,7 @@ Standard_Boolean IFSelect_Signature::Matches(const Handle(RefObject)&       ent,
 }
 
 Standard_Boolean IFSelect_Signature::MatchValue(const Standard_CString         val,
-                                                const TCollection_AsciiString& text,
+                                                const AsciiString1& text,
                                                 const Standard_Boolean         exact)
 {
   if (exact)

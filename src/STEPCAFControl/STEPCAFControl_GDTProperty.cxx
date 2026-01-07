@@ -47,7 +47,7 @@ namespace
 //           transformed with theTransformation.
 //=======================================================================
 Handle(StepVisual_CoordinatesList) GenerateCoordinateList(
-  const Handle(Poly_Triangulation)& theTriangulation,
+  const Handle(MeshTriangulation)& theTriangulation,
   const Transform3d&                    theTransformation)
 {
   Handle(TColgp_HArray1OfXYZ) thePoints = new TColgp_HArray1OfXYZ(1, theTriangulation->NbNodes());
@@ -69,16 +69,16 @@ Handle(StepVisual_CoordinatesList) GenerateCoordinateList(
 //           Possible outputs are:
 //           0, if theTriangulation has no normals.
 //           1, if all normals contained in theTriangulation are equal.
-//             Note that Poly_Triangulation supports only 2 options:
+//             Note that MeshTriangulation supports only 2 options:
 //             either no normals or a normal associated with each node.
 //             So when source complex_triangulated_surface_set has just
 //             one normal, it will be just associated with every node in
-//             Poly_Triangulation. Return value of one indicates that
+//             MeshTriangulation. Return value of one indicates that
 //             that's what probably happen during reading.
 //           theTriangulation->NbNodes(), if each vertex has a unique
 //             node associated with it.
 //=======================================================================
-Standard_Integer CountNormals(const Handle(Poly_Triangulation)& theTriangulation)
+Standard_Integer CountNormals(const Handle(MeshTriangulation)& theTriangulation)
 {
   if (!theTriangulation->HasNormals())
   {
@@ -114,7 +114,7 @@ Standard_Integer CountNormals(const Handle(Poly_Triangulation)& theTriangulation
 //           no normals.
 //=======================================================================
 Handle(TColStd_HArray2OfReal) GenerateNormalsArray(
-  const Handle(Poly_Triangulation)& theTriangulation,
+  const Handle(MeshTriangulation)& theTriangulation,
   const Transform3d&                    theTransformation)
 {
   const Standard_Integer aNormalCount = CountNormals(theTriangulation);
@@ -151,19 +151,19 @@ Handle(TColStd_HArray2OfReal) GenerateNormalsArray(
 //=======================================================================
 // function : GenerateTriangleStrips
 // purpose  : Generates an array of triangle strips from theTriangulation.
-//           Since Poly_Triangulation doesn't support triangle strips,
+//           Since MeshTriangulation doesn't support triangle strips,
 //           all triangles from it would just be imported as tringle
 //           strips of one triangle.
 //=======================================================================
 Handle(TColStd_HArray1OfTransient) GenerateTriangleStrips(
-  const Handle(Poly_Triangulation)& theTriangulation)
+  const Handle(MeshTriangulation)& theTriangulation)
 {
   Handle(TColStd_HArray1OfTransient) aTriangleStrips =
     new TColStd_HArray1OfTransient(1, theTriangulation->NbTriangles());
   for (Standard_Integer aTriangleIndex = 1; aTriangleIndex <= theTriangulation->NbTriangles();
        ++aTriangleIndex)
   {
-    // Since Poly_Triangulation doesn't support triangle strips or triangle fans,
+    // Since MeshTriangulation doesn't support triangle strips or triangle fans,
     // we just write each thriangle as triangle strip.
     const Poly_Triangle&             aCurrentTriangle = theTriangulation->Triangle(aTriangleIndex);
     Handle(TColStd_HArray1OfInteger) aTriangleStrip   = new TColStd_HArray1OfInteger(1, 3);
@@ -181,10 +181,10 @@ Handle(TColStd_HArray1OfTransient) GenerateTriangleStrips(
 //           Returns nullptr if face has no triangulation.
 //=======================================================================
 Handle(StepVisual_ComplexTriangulatedSurfaceSet) GenerateComplexTriangulatedSurfaceSet(
-  const TopoDS_Face& theFace)
+  const TopoFace& theFace)
 {
   TopLoc_Location                  aFaceLoc;
-  const Handle(Poly_Triangulation) aTriangulation = BRep_Tool::Triangulation(theFace, aFaceLoc);
+  const Handle(MeshTriangulation) aTriangulation = BRepInspector::Triangulation(theFace, aFaceLoc);
   if (aTriangulation.IsNull())
   {
     return nullptr;
@@ -230,7 +230,7 @@ Handle(StepVisual_ComplexTriangulatedSurfaceSet) GenerateComplexTriangulatedSurf
 // purpose  : Generates tesselated_curve_set from theShape.
 //           If no valid curves were found, return nullptr.
 //=======================================================================
-Handle(StepVisual_TessellatedCurveSet) GenerateTessellatedCurveSet(const TopoDS_Shape& theShape)
+Handle(StepVisual_TessellatedCurveSet) GenerateTessellatedCurveSet(const TopoShape& theShape)
 {
   NCollection_Handle<StepVisual_VectorOfHSequenceOfInteger> aLineStrips =
     new StepVisual_VectorOfHSequenceOfInteger;
@@ -239,30 +239,30 @@ Handle(StepVisual_TessellatedCurveSet) GenerateTessellatedCurveSet(const TopoDS_
   // Currently number of points is unknown, so we will put all the points in a
   // temporary container and then just copy them after all edges will be processed.
   NCollection_Vector<gp_XYZ> aTmpPointsContainer;
-  for (TopExp_Explorer aCurveIt(theShape, TopAbs_EDGE); aCurveIt.More(); aCurveIt.Next())
+  for (ShapeExplorer aCurveIt(theShape, TopAbs_EDGE); aCurveIt.More(); aCurveIt.Next())
   {
     // Find out type of edge curve
     Standard_Real            aFirstParam = 0, aLastParam = 0;
-    const Handle(Geom_Curve) anEdgeCurve =
-      BRep_Tool::Curve(TopoDS::Edge(aCurveIt.Current()), aFirstParam, aLastParam);
+    const Handle(GeomCurve3d) anEdgeCurve =
+      BRepInspector::Curve(TopoDS::Edge(aCurveIt.Current()), aFirstParam, aLastParam);
     if (anEdgeCurve.IsNull())
     {
       continue;
     }
     Handle(TColStd_HSequenceOfInteger) aCurrentCurve = new TColStd_HSequenceOfInteger;
-    if (anEdgeCurve->IsKind(STANDARD_TYPE(Geom_Line))) // Line
+    if (anEdgeCurve->IsKind(STANDARD_TYPE(GeomLine))) // Line
     {
-      for (TopExp_Explorer aVertIt(aCurveIt.Current(), TopAbs_VERTEX); aVertIt.More();
+      for (ShapeExplorer aVertIt(aCurveIt.Current(), TopAbs_VERTEX); aVertIt.More();
            aVertIt.Next())
       {
-        aTmpPointsContainer.Append(BRep_Tool::Pnt(TopoDS::Vertex(aVertIt.Current())).XYZ());
+        aTmpPointsContainer.Append(BRepInspector::Pnt(TopoDS::Vertex(aVertIt.Current())).XYZ());
         aCurrentCurve->Append(aTmpPointsContainer.Size());
       }
     }
     else // BSpline
     {
       ShapeConstruct_Curve      aSCC;
-      Handle(Geom_BSplineCurve) aBSCurve =
+      Handle(BSplineCurve3d) aBSCurve =
         aSCC.ConvertToBSpline(anEdgeCurve, aFirstParam, aLastParam, Precision::Confusion());
       for (Standard_Integer aPoleIndex = 1; aPoleIndex <= aBSCurve->NbPoles(); ++aPoleIndex)
       {
@@ -294,11 +294,11 @@ Handle(StepVisual_TessellatedCurveSet) GenerateTessellatedCurveSet(const TopoDS_
 
 //=================================================================================================
 
-STEPCAFControl_GDTProperty::STEPCAFControl_GDTProperty() {}
+GeometricToleranceProperty::GeometricToleranceProperty() {}
 
 //=================================================================================================
 
-void STEPCAFControl_GDTProperty::GetDimModifiers(
+void GeometricToleranceProperty::GetDimModifiers(
   const Handle(StepRepr_CompoundRepresentationItem)& theCRI,
   XCAFDimTolObjects_DimensionModifiersSequence&      theModifiers)
 {
@@ -309,7 +309,7 @@ void STEPCAFControl_GDTProperty::GetDimModifiers(
     if (aDRI.IsNull())
       continue;
     XCAFDimTolObjects_DimensionModif aModifier = XCAFDimTolObjects_DimensionModif_ControlledRadius;
-    const TCollection_AsciiString    aModifStr = aDRI->Description()->String();
+    const AsciiString1    aModifStr = aDRI->Description()->String();
     Standard_Boolean                 aFound    = Standard_False;
     if (aModifStr.IsEqual("controlled radius"))
     {
@@ -433,7 +433,7 @@ void STEPCAFControl_GDTProperty::GetDimModifiers(
 
 //=================================================================================================
 
-void STEPCAFControl_GDTProperty::GetDimClassOfTolerance(
+void GeometricToleranceProperty::GetDimClassOfTolerance(
   const Handle(StepShape_LimitsAndFits)&   theLAF,
   Standard_Boolean&                        theHolle,
   XCAFDimTolObjects_DimensionFormVariance& theFV,
@@ -661,11 +661,11 @@ void STEPCAFControl_GDTProperty::GetDimClassOfTolerance(
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_GDTProperty::GetDimType(
+Standard_Boolean GeometricToleranceProperty::GetDimType(
   const Handle(TCollection_HAsciiString)& theName,
   XCAFDimTolObjects_DimensionType&        theType)
 {
-  TCollection_AsciiString aName = theName->String();
+  AsciiString1 aName = theName->String();
   aName.LowerCase();
   theType = XCAFDimTolObjects_DimensionType_Location_None;
   if (aName.IsEqual("curve length"))
@@ -775,11 +775,11 @@ Standard_Boolean STEPCAFControl_GDTProperty::GetDimType(
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_GDTProperty::GetDatumTargetType(
+Standard_Boolean GeometricToleranceProperty::GetDatumTargetType(
   const Handle(TCollection_HAsciiString)& theDescription,
   XCAFDimTolObjects_DatumTargetType&      theType)
 {
-  TCollection_AsciiString aName = theDescription->String();
+  AsciiString1 aName = theDescription->String();
   aName.LowerCase();
   if (aName.IsEqual("area"))
   {
@@ -811,11 +811,11 @@ Standard_Boolean STEPCAFControl_GDTProperty::GetDatumTargetType(
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_GDTProperty::GetDimQualifierType(
+Standard_Boolean GeometricToleranceProperty::GetDimQualifierType(
   const Handle(TCollection_HAsciiString)& theDescription,
   XCAFDimTolObjects_DimensionQualifier&   theType)
 {
-  TCollection_AsciiString aName = theDescription->String();
+  AsciiString1 aName = theDescription->String();
   aName.LowerCase();
   theType = XCAFDimTolObjects_DimensionQualifier_None;
   if (aName.IsEqual("maximum"))
@@ -839,11 +839,11 @@ Standard_Boolean STEPCAFControl_GDTProperty::GetDimQualifierType(
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_GDTProperty::GetTolValueType(
+Standard_Boolean GeometricToleranceProperty::GetTolValueType(
   const Handle(TCollection_HAsciiString)&   theDescription,
   XCAFDimTolObjects_GeomToleranceTypeValue& theType)
 {
-  TCollection_AsciiString aName = theDescription->String();
+  AsciiString1 aName = theDescription->String();
   aName.LowerCase();
   theType = XCAFDimTolObjects_GeomToleranceTypeValue_None;
   if (aName.IsEqual("cylindrical or circular"))
@@ -863,7 +863,7 @@ Standard_Boolean STEPCAFControl_GDTProperty::GetTolValueType(
 
 //=================================================================================================
 
-Handle(TCollection_HAsciiString) STEPCAFControl_GDTProperty::GetDimTypeName(
+Handle(TCollection_HAsciiString) GeometricToleranceProperty::GetDimTypeName(
   const XCAFDimTolObjects_DimensionType theType)
 {
   Handle(TCollection_HAsciiString) aName;
@@ -952,7 +952,7 @@ Handle(TCollection_HAsciiString) STEPCAFControl_GDTProperty::GetDimTypeName(
 
 //=================================================================================================
 
-Handle(TCollection_HAsciiString) STEPCAFControl_GDTProperty::GetDimQualifierName(
+Handle(TCollection_HAsciiString) GeometricToleranceProperty::GetDimQualifierName(
   const XCAFDimTolObjects_DimensionQualifier theQualifier)
 {
   Handle(TCollection_HAsciiString) aName;
@@ -975,7 +975,7 @@ Handle(TCollection_HAsciiString) STEPCAFControl_GDTProperty::GetDimQualifierName
 
 //=================================================================================================
 
-Handle(TCollection_HAsciiString) STEPCAFControl_GDTProperty::GetDimModifierName(
+Handle(TCollection_HAsciiString) GeometricToleranceProperty::GetDimModifierName(
   const XCAFDimTolObjects_DimensionModif theModifier)
 {
   Handle(TCollection_HAsciiString) aName;
@@ -1058,7 +1058,7 @@ Handle(TCollection_HAsciiString) STEPCAFControl_GDTProperty::GetDimModifierName(
 
 //=================================================================================================
 
-Handle(StepShape_LimitsAndFits) STEPCAFControl_GDTProperty::GetLimitsAndFits(
+Handle(StepShape_LimitsAndFits) GeometricToleranceProperty::GetLimitsAndFits(
   Standard_Boolean                        theHole,
   XCAFDimTolObjects_DimensionFormVariance theFormVariance,
   XCAFDimTolObjects_DimensionGrade        theGrade)
@@ -1177,7 +1177,7 @@ Handle(StepShape_LimitsAndFits) STEPCAFControl_GDTProperty::GetLimitsAndFits(
 
 //=================================================================================================
 
-Handle(TCollection_HAsciiString) STEPCAFControl_GDTProperty::GetDatumTargetName(
+Handle(TCollection_HAsciiString) GeometricToleranceProperty::GetDatumTargetName(
   const XCAFDimTolObjects_DatumTargetType theDatumType)
 {
   Handle(TCollection_HAsciiString) aName;
@@ -1206,7 +1206,7 @@ Handle(TCollection_HAsciiString) STEPCAFControl_GDTProperty::GetDatumTargetName(
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_GDTProperty::IsDimensionalLocation(
+Standard_Boolean GeometricToleranceProperty::IsDimensionalLocation(
   const XCAFDimTolObjects_DimensionType theType)
 {
   if (theType == XCAFDimTolObjects_DimensionType_Location_None
@@ -1227,7 +1227,7 @@ Standard_Boolean STEPCAFControl_GDTProperty::IsDimensionalLocation(
 
 //=================================================================================================
 
-Standard_Boolean STEPCAFControl_GDTProperty::IsDimensionalSize(
+Standard_Boolean GeometricToleranceProperty::IsDimensionalSize(
   const XCAFDimTolObjects_DimensionType theType)
 {
   if (theType == XCAFDimTolObjects_DimensionType_Size_CurveLength
@@ -1250,7 +1250,7 @@ Standard_Boolean STEPCAFControl_GDTProperty::IsDimensionalSize(
 
 //=================================================================================================
 
-StepDimTol_GeometricToleranceType STEPCAFControl_GDTProperty::GetGeomToleranceType(
+StepDimTol_GeometricToleranceType GeometricToleranceProperty::GetGeomToleranceType(
   const XCAFDimTolObjects_GeomToleranceType theType)
 {
   switch (theType)
@@ -1292,7 +1292,7 @@ StepDimTol_GeometricToleranceType STEPCAFControl_GDTProperty::GetGeomToleranceTy
 
 //=================================================================================================
 
-XCAFDimTolObjects_GeomToleranceType STEPCAFControl_GDTProperty::GetGeomToleranceType(
+XCAFDimTolObjects_GeomToleranceType GeometricToleranceProperty::GetGeomToleranceType(
   const StepDimTol_GeometricToleranceType theType)
 {
   switch (theType)
@@ -1334,7 +1334,7 @@ XCAFDimTolObjects_GeomToleranceType STEPCAFControl_GDTProperty::GetGeomTolerance
 
 //=================================================================================================
 
-Handle(StepDimTol_GeometricTolerance) STEPCAFControl_GDTProperty::GetGeomTolerance(
+Handle(StepDimTol_GeometricTolerance) GeometricToleranceProperty::GetGeomTolerance(
   const XCAFDimTolObjects_GeomToleranceType theType)
 {
   switch (theType)
@@ -1360,7 +1360,7 @@ Handle(StepDimTol_GeometricTolerance) STEPCAFControl_GDTProperty::GetGeomToleran
 
 //=================================================================================================
 
-StepDimTol_GeometricToleranceModifier STEPCAFControl_GDTProperty::GetGeomToleranceModifier(
+StepDimTol_GeometricToleranceModifier GeometricToleranceProperty::GetGeomToleranceModifier(
   const XCAFDimTolObjects_GeomToleranceModif theModifier)
 {
   switch (theModifier)
@@ -1404,7 +1404,7 @@ StepDimTol_GeometricToleranceModifier STEPCAFControl_GDTProperty::GetGeomToleran
 // function : GetDatumRefModifiers
 // purpose  : Note: this function does not add anything to model
 //=======================================================================
-Handle(StepDimTol_HArray1OfDatumReferenceModifier) STEPCAFControl_GDTProperty::GetDatumRefModifiers(
+Handle(StepDimTol_HArray1OfDatumReferenceModifier) GeometricToleranceProperty::GetDatumRefModifiers(
   const XCAFDimTolObjects_DatumModifiersSequence& theModifiers,
   const XCAFDimTolObjects_DatumModifWithValue&    theModifWithVal,
   const Standard_Real                             theValue,
@@ -1537,7 +1537,7 @@ Handle(StepDimTol_HArray1OfDatumReferenceModifier) STEPCAFControl_GDTProperty::G
 
 //=================================================================================================
 
-Handle(TCollection_HAsciiString) STEPCAFControl_GDTProperty::GetTolValueType(
+Handle(TCollection_HAsciiString) GeometricToleranceProperty::GetTolValueType(
   const XCAFDimTolObjects_GeomToleranceTypeValue& theType)
 {
   switch (theType)
@@ -1553,14 +1553,14 @@ Handle(TCollection_HAsciiString) STEPCAFControl_GDTProperty::GetTolValueType(
 
 //=================================================================================================
 
-Handle(StepVisual_TessellatedGeometricSet) STEPCAFControl_GDTProperty::GetTessellation(
-  const TopoDS_Shape& theShape)
+Handle(StepVisual_TessellatedGeometricSet) GeometricToleranceProperty::GetTessellation(
+  const TopoShape& theShape)
 {
   // Build complex_triangulated_surface_set.
   std::vector<Handle(StepVisual_ComplexTriangulatedSurfaceSet)> aCTSSs;
-  for (TopExp_Explorer aFaceIt(theShape, TopAbs_FACE); aFaceIt.More(); aFaceIt.Next())
+  for (ShapeExplorer aFaceIt(theShape, TopAbs_FACE); aFaceIt.More(); aFaceIt.Next())
   {
-    const TopoDS_Face aFace = TopoDS::Face(aFaceIt.Current());
+    const TopoFace aFace = TopoDS::Face(aFaceIt.Current());
     aCTSSs.emplace_back(GenerateComplexTriangulatedSurfaceSet(aFace));
   }
 

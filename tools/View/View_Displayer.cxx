@@ -45,7 +45,7 @@ View_Displayer::View_Displayer()
 // function : SetContext
 // purpose :
 // =======================================================================
-void View_Displayer::SetContext(const Handle(AIS_InteractiveContext)& theContext)
+void View_Displayer::SetContext(const Handle(VisualContext)& theContext)
 {
   NCollection_DataMap<View_PresentationType, NCollection_Shared<AIS_ListOfInteractive>> aDisplayed =
     myDisplayed;
@@ -107,8 +107,8 @@ void View_Displayer::DisplayPresentation(const Handle(RefObject)& thePresentatio
   if (!myIsKeepPresentations)
     ErasePresentations(theType, false);
 
-  Handle(AIS_InteractiveObject) aPresentation =
-    Handle(AIS_InteractiveObject)::DownCast(thePresentation);
+  Handle(VisualEntity) aPresentation =
+    Handle(VisualEntity)::DownCast(thePresentation);
   if (!aPresentation.IsNull() && aPresentation->GetContext().IsNull())
   {
     // one presentation can not be shown in several contexts
@@ -140,8 +140,8 @@ void View_Displayer::DisplayPresentation(const Handle(RefObject)& thePresentatio
 void View_Displayer::RedisplayPresentation(const Handle(RefObject)& thePresentation,
                                            const bool                        theToUpdateViewer)
 {
-  Handle(AIS_InteractiveObject) aPresentation =
-    Handle(AIS_InteractiveObject)::DownCast(thePresentation);
+  Handle(VisualEntity) aPresentation =
+    Handle(VisualEntity)::DownCast(thePresentation);
   if (aPresentation.IsNull() || aPresentation->GetContext().IsNull())
     return;
 
@@ -211,8 +211,8 @@ void View_Displayer::ErasePresentation(const Handle(RefObject)& thePresentation,
   if (GetContext().IsNull())
     return;
 
-  Handle(AIS_InteractiveObject) aPresentation =
-    Handle(AIS_InteractiveObject)::DownCast(thePresentation);
+  Handle(VisualEntity) aPresentation =
+    Handle(VisualEntity)::DownCast(thePresentation);
   if (aPresentation.IsNull())
     return;
 
@@ -273,7 +273,7 @@ void View_Displayer::DisplayViewCube(const Standard_Boolean toDisplay, const boo
 // function : SetVisible
 // purpose :
 // =======================================================================
-void View_Displayer::SetVisible(const TopoDS_Shape&         theShape,
+void View_Displayer::SetVisible(const TopoShape&         theShape,
                                 const bool                  theState,
                                 const View_PresentationType theType)
 {
@@ -284,7 +284,7 @@ void View_Displayer::SetVisible(const TopoDS_Shape&         theShape,
     DisplayPresentation(CreatePresentation(theShape), View_PresentationType_Main, Standard_False);
   else
   {
-    Handle(AIS_InteractiveObject) aPresentation = FindPresentation(theShape, theType);
+    Handle(VisualEntity) aPresentation = FindPresentation(theShape, theType);
     if (!aPresentation.IsNull())
       ErasePresentation(aPresentation, theType, Standard_False);
   }
@@ -296,10 +296,10 @@ void View_Displayer::SetVisible(const TopoDS_Shape&         theShape,
 // function : IsVisible
 // purpose :
 // =======================================================================
-bool View_Displayer::IsVisible(const TopoDS_Shape&         theShape,
+bool View_Displayer::IsVisible(const TopoShape&         theShape,
                                const View_PresentationType theType) const
 {
-  Handle(AIS_InteractiveObject) aPresentation = FindPresentation(theShape, theType);
+  Handle(VisualEntity) aPresentation = FindPresentation(theShape, theType);
   return !aPresentation.IsNull();
 }
 
@@ -353,13 +353,13 @@ void View_Displayer::DisplayedPresentations(
 // function : getView
 // purpose :
 // =======================================================================
-Handle(V3d_View) View_Displayer::GetView() const
+Handle(ViewWindow) View_Displayer::GetView() const
 {
-  Handle(V3d_View) aView;
+  Handle(ViewWindow) aView;
   if (GetContext().IsNull())
     return aView;
 
-  const Handle(V3d_Viewer)& aViewer = GetContext()->CurrentViewer();
+  const Handle(ViewManager)& aViewer = GetContext()->CurrentViewer();
   if (!aViewer.IsNull())
   {
     if (!aViewer->ActiveViews().IsEmpty())
@@ -374,12 +374,12 @@ Handle(V3d_View) View_Displayer::GetView() const
 // function : FindPresentation
 // purpose :
 // =======================================================================
-Handle(AIS_InteractiveObject) View_Displayer::FindPresentation(
-  const TopoDS_Shape&         theShape,
+Handle(VisualEntity) View_Displayer::FindPresentation(
+  const TopoShape&         theShape,
   const View_PresentationType theType) const
 {
   if (theShape.IsNull())
-    return Handle(AIS_InteractiveObject)();
+    return Handle(VisualEntity)();
 
   NCollection_Shared<AIS_ListOfInteractive> aDisplayed;
   DisplayedPresentations(aDisplayed, theType);
@@ -387,21 +387,21 @@ Handle(AIS_InteractiveObject) View_Displayer::FindPresentation(
   for (AIS_ListIteratorOfListOfInteractive aDisplayedIt(aDisplayed); aDisplayedIt.More();
        aDisplayedIt.Next())
   {
-    Handle(AIS_Shape) aPresentation = Handle(AIS_Shape)::DownCast(aDisplayedIt.Value());
+    Handle(VisualShape) aPresentation = Handle(VisualShape)::DownCast(aDisplayedIt.Value());
     if (aPresentation->Shape().IsEqual(theShape))
       return aPresentation;
   }
 
-  return Handle(AIS_InteractiveObject)();
+  return Handle(VisualEntity)();
 }
 
 // =======================================================================
 // function : CreatePresentation
 // purpose :
 // =======================================================================
-Handle(RefObject) View_Displayer::CreatePresentation(const TopoDS_Shape& theShape)
+Handle(RefObject) View_Displayer::CreatePresentation(const TopoShape& theShape)
 {
-  Handle(AIS_Shape) aPresentation = new AIS_Shape(theShape);
+  Handle(VisualShape) aPresentation = new VisualShape(theShape);
   aPresentation->Attributes()->SetAutoTriangulation(Standard_False);
 
   return aPresentation;
@@ -413,7 +413,7 @@ Handle(RefObject) View_Displayer::CreatePresentation(const TopoDS_Shape& theShap
 // =======================================================================
 void View_Displayer::fitAllView()
 {
-  Handle(V3d_View) aView = GetView();
+  Handle(ViewWindow) aView = GetView();
   if (!aView.IsNull())
   {
     aView->FitAll();

@@ -43,7 +43,7 @@ void XSAlgo_AlgoContainer::PrepareForTransfer() const
 
 //=================================================================================================
 
-TopoDS_Shape XSAlgo_AlgoContainer::ProcessShape(const TopoDS_Shape&          theShape,
+TopoShape XSAlgo_AlgoContainer::ProcessShape(const TopoShape&          theShape,
                                                 const Standard_Real          thePrec,
                                                 const Standard_Real          theMaxTol,
                                                 const Standard_CString       thePrscfile,
@@ -61,26 +61,26 @@ TopoDS_Shape XSAlgo_AlgoContainer::ProcessShape(const TopoDS_Shape&          the
   Handle(ShapeProcess_ShapeContext) aContext = Handle(ShapeProcess_ShapeContext)::DownCast(theInfo);
   if (aContext.IsNull())
   {
-    Standard_CString aRscfile = Interface_Static::CVal(thePrscfile);
+    Standard_CString aRscfile = ExchangeConfig::CVal(thePrscfile);
     aContext                  = new ShapeProcess_ShapeContext(theShape, aRscfile);
     if (!aContext->ResourceManager()->IsInitialized())
     {
       // If resource file wasn't found, use static values instead
-      Interface_Static::FillMap(aContext->ResourceManager()->GetMap());
+      ExchangeConfig::FillMap(aContext->ResourceManager()->GetMap());
     }
     aContext->SetDetalisation(theDetailingLevel);
   }
   aContext->SetNonManifold(theNonManifold);
   theInfo = aContext;
 
-  Standard_CString aSeq = Interface_Static::CVal(thePseq);
+  Standard_CString aSeq = ExchangeConfig::CVal(thePseq);
   if (!aSeq)
     aSeq = thePseq;
 
   // if resource file is not loaded or does not define <seq>.exec.op,
   // do default fixes
   Handle(Resource_Manager) aRsc = aContext->ResourceManager();
-  TCollection_AsciiString  aStr(aSeq);
+  AsciiString1  aStr(aSeq);
   aStr += ".exec.op";
   if (!aRsc->Find(aStr.ToCString()))
   {
@@ -100,7 +100,7 @@ TopoDS_Shape XSAlgo_AlgoContainer::ProcessShape(const TopoDS_Shape&          the
         aSfs->FixSolidTool()->CreateOpenSolidMode()                = Standard_False;
         aSfs->Perform(theProgress);
 
-        TopoDS_Shape aShape = aSfs->Shape();
+        TopoShape aShape = aSfs->Shape();
         if (!aShape.IsNull() && aShape != theShape)
         {
           aContext->RecordModification(aSfs->Context(), aMsg);
@@ -132,8 +132,8 @@ TopoDS_Shape XSAlgo_AlgoContainer::ProcessShape(const TopoDS_Shape&          the
 
 //=================================================================================================
 
-Standard_Boolean XSAlgo_AlgoContainer::CheckPCurve(const TopoDS_Edge&     theEdge,
-                                                   const TopoDS_Face&     theFace,
+Standard_Boolean XSAlgo_AlgoContainer::CheckPCurve(const TopoEdge&     theEdge,
+                                                   const TopoFace&     theFace,
                                                    const Standard_Real    thePrecision,
                                                    const Standard_Boolean theIsSeam) const
 {
@@ -163,7 +163,7 @@ void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_TransientProc
     if (sb.IsNull() || sb->Result().IsNull())
       continue;
 
-    TopoDS_Shape orig = sb->Result();
+    TopoShape orig = sb->Result();
 
     if (map.IsBound(orig))
     {
@@ -172,7 +172,7 @@ void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_TransientProc
     else if (!orig.Location().IsIdentity())
     {
       TopLoc_Location aNullLoc;
-      TopoDS_Shape    atmpSh = orig.Located(aNullLoc);
+      TopoShape    atmpSh = orig.Located(aNullLoc);
       if (map.IsBound(atmpSh))
         sb->SetResult(map.Find(atmpSh));
     }
@@ -181,7 +181,7 @@ void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_TransientProc
       // Some of edges may be modified.
       BRepTools_ReShape aReShape;
       Standard_Boolean  hasModifiedEdges = Standard_False;
-      TopExp_Explorer   anExpSE(orig, TopAbs_EDGE);
+      ShapeExplorer   anExpSE(orig, TopAbs_EDGE);
 
       // Remember modifications.
       for (; anExpSE.More(); anExpSE.Next())
@@ -189,7 +189,7 @@ void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_TransientProc
         if (map.IsBound(anExpSE.Current()))
         {
           hasModifiedEdges            = Standard_True;
-          TopoDS_Shape aModifiedShape = map.Find(anExpSE.Current());
+          TopoShape aModifiedShape = map.Find(anExpSE.Current());
           aReShape.Replace(anExpSE.Current(), aModifiedShape);
         }
       }
@@ -197,7 +197,7 @@ void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_TransientProc
       // Apply modifications and store result in binder.
       if (hasModifiedEdges)
       {
-        TopoDS_Shape aRes = aReShape.Apply(orig);
+        TopoShape aRes = aReShape.Apply(orig);
         sb->SetResult(aRes);
       }
     }
@@ -212,8 +212,8 @@ void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_TransientProc
         for (Message_ListIteratorOfListOfMsg iter(msglist); iter.More(); iter.Next())
         {
           const Message_Msg& mess = iter.Value();
-          sb->AddWarning(TCollection_AsciiString(mess.Value()).ToCString(),
-                         TCollection_AsciiString(mess.Original()).ToCString());
+          sb->AddWarning(AsciiString1(mess.Value()).ToCString(),
+                         AsciiString1(mess.Original()).ToCString());
         }
       }
     }
@@ -236,7 +236,7 @@ void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_FinderProcess
   for (; ShapeShapeIterator.More(); ShapeShapeIterator.Next())
   {
 
-    TopoDS_Shape orig = ShapeShapeIterator.Key(), res = ShapeShapeIterator.Value();
+    TopoShape orig = ShapeShapeIterator.Key(), res = ShapeShapeIterator.Value();
     Handle(TransferBRep_ShapeMapper) resMapper = TransferBRep::ShapeMapper(FP, res);
     Handle(Transfer_Binder)          resBinder = FP->Find(resMapper);
 
@@ -247,7 +247,7 @@ void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_FinderProcess
       //  into Transfer_TransientListBinder.
       if (orig.ShapeType() > res.ShapeType())
       {
-        TopoDS_Shape                         sub;
+        TopoShape                         sub;
         Handle(Transfer_TransientListBinder) TransientListBinder = new Transfer_TransientListBinder;
         for (TopoDS_Iterator it(res); it.More(); it.Next())
         {
@@ -291,8 +291,8 @@ void XSAlgo_AlgoContainer::MergeTransferInfo(const Handle(Transfer_FinderProcess
         for (Message_ListIteratorOfListOfMsg iter(msglist); iter.More(); iter.Next())
         {
           const Message_Msg& mess = iter.Value();
-          resBinder->AddWarning(TCollection_AsciiString(mess.Value()).ToCString(),
-                                TCollection_AsciiString(mess.Original()).ToCString());
+          resBinder->AddWarning(AsciiString1(mess.Value()).ToCString(),
+                                AsciiString1(mess.Original()).ToCString());
         }
       }
     }

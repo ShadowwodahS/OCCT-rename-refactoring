@@ -57,10 +57,10 @@ public:
     bool                          theIsColorMap);
 
   //! Format pixel format enumeration.
-  Standard_EXPORT static TCollection_AsciiString FormatFormat(GLint theInternalFormat);
+  Standard_EXPORT static AsciiString1 FormatFormat(GLint theInternalFormat);
 
   //! Format data type enumeration.
-  Standard_EXPORT static TCollection_AsciiString FormatDataType(GLint theDataType);
+  Standard_EXPORT static AsciiString1 FormatDataType(GLint theDataType);
 
 public:
   //! Empty constructor (invalid texture format).

@@ -20,9 +20,9 @@
 // purpose  :
 //=======================================================================
 
-inline const TCollection_AsciiString& BinMDF_ADriver::TypeName() const
+inline const AsciiString1& BinMDF_ADriver::TypeName() const
 {
   if (myTypeName.Length() == 0)
-    (TCollection_AsciiString&)myTypeName += SourceType()->Name();
+    (AsciiString1&)myTypeName += SourceType()->Name();
   return myTypeName;
 }

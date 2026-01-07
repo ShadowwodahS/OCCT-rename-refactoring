@@ -37,11 +37,11 @@
 
 // POP : first Wrong Declaration : now it is correct
 //       second not used
-// extern void DNaming_BuildMap(TDF_LabelMap& Updated, const TDF_Label& Lab);
+// extern void DNaming_BuildMap(TDF_LabelMap& Updated, const DataLabel& Lab);
 
 //=================================================================================================
 
-static Standard_Integer Ascendants(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer Ascendants(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
@@ -51,31 +51,31 @@ static Standard_Integer Ascendants(Draw_Interpretor& di, Standard_Integer n, con
   Handle(TDF_Data) ND;
   //  Handle(TNaming_UsedShapes) US;
 
-  if (!DDF::GetDF(a[1], ND))
+  if (!DDF1::GetDF(a[1], ND))
     return 1;
   //  ND->Root().FindAttribute(TNaming_UsedShapes::GetID(),US);
 
-  TopoDS_Shape S = DBRep::Get(a[2]);
+  TopoShape S = DBRep1::Get(a[2]);
   if (S.IsNull())
     return 1;
 
   Standard_Integer T;
 
   if (n > 3)
-    T = Draw::Atoi(a[3]);
+    T = Draw1::Atoi(a[3]);
   else
     T = ND->Transaction();
 
-  // TNaming_OldShapeIterator it (S, T, US);
-  TNaming_OldShapeIterator it(S, T, ND->Root());
+  // OldShapeIterator it (S, T, US);
+  OldShapeIterator it(S, T, ND->Root());
   Standard_Integer         i = 0;
-  TCollection_AsciiString  entry;
+  AsciiString1  entry;
   for (; it.More(); it.Next())
   {
     S = it.Shape();
     Sprintf(name, "%s_%s_%d", a[2], "old", i++);
-    DBRep::Set(name, it.Shape());
-    TDF_Label Label = it.Label();
+    DBRep1::Set(name, it.Shape());
+    DataLabel Label = it.Label();
     TDF_Tool::Entry(Label, entry);
     di << entry.ToCString() << "\n";
   }
@@ -84,7 +84,7 @@ static Standard_Integer Ascendants(Draw_Interpretor& di, Standard_Integer n, con
 
 //=================================================================================================
 
-static Standard_Integer Descendants(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer Descendants(DrawInterpreter& di, Standard_Integer n, const char** a)
 
 {
   if (n < 3)
@@ -93,30 +93,30 @@ static Standard_Integer Descendants(Draw_Interpretor& di, Standard_Integer n, co
   char             name[100];
   Handle(TDF_Data) ND;
   //  Handle(TNaming_UsedShapes) US;
-  if (!DDF::GetDF(a[1], ND))
+  if (!DDF1::GetDF(a[1], ND))
     return 1;
   //  ND->Root().FindAttribute(TNaming_UsedShapes::GetID(),US);
 
-  TopoDS_Shape S = DBRep::Get(a[2]);
+  TopoShape S = DBRep1::Get(a[2]);
   if (S.IsNull())
     return 1;
 
   Standard_Integer T;
 
   if (n > 3)
-    T = Draw::Atoi(a[3]);
+    T = Draw1::Atoi(a[3]);
   else
     T = ND->Transaction();
 
-  TNaming_NewShapeIterator it(S, T, ND->Root());
+  NewShapeIterator it(S, T, ND->Root());
   Standard_Integer         i = 0;
-  TCollection_AsciiString  entry;
+  AsciiString1  entry;
   for (; it.More(); it.Next())
   {
     S = it.Shape();
     Sprintf(name, "%s_%s_%d", a[2], "new", i++);
-    DBRep::Set(name, it.Shape());
-    TDF_Label Label = it.Label();
+    DBRep1::Set(name, it.Shape());
+    DataLabel Label = it.Label();
     TDF_Tool::Entry(Label, entry);
     di << entry.ToCString() << "\n";
   }
@@ -126,18 +126,18 @@ static Standard_Integer Descendants(Draw_Interpretor& di, Standard_Integer n, co
 
 //=================================================================================================
 
-static Standard_Integer Getentry(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer Getentry(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
   Handle(TDF_Data) ND;
   //  Handle(TNaming_UsedShapes) US;
 
-  if (!DDF::GetDF(a[1], ND))
+  if (!DDF1::GetDF(a[1], ND))
     return 1;
   //  ND->Root().FindAttribute(TNaming_UsedShapes::GetID(),US);
 
-  TopoDS_Shape S = DBRep::Get(a[2]);
+  TopoShape S = DBRep1::Get(a[2]);
   if (S.IsNull())
   {
     di << "No shape selected\n";
@@ -145,7 +145,7 @@ static Standard_Integer Getentry(Draw_Interpretor& di, Standard_Integer n, const
     return 0;
   }
   Standard_Integer        aStatus = 0;
-  TCollection_AsciiString Name    = DNaming::GetEntry(S, ND, aStatus);
+  AsciiString1 Name    = DNaming1::GetEntry(S, ND, aStatus);
   if (aStatus == 0)
   {
     di << "E_NoName";
@@ -165,16 +165,16 @@ static Standard_Integer Getentry(Draw_Interpretor& di, Standard_Integer n, const
 // function : NamedShape
 // purpose  : retrieve label of Primitive or a Generated shape
 //=======================================================================
-static Standard_Integer NamedShape(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer NamedShape(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
   Handle(TDF_Data) ND;
   //  Handle(TNaming_UsedShapes) US;
 
-  if (!DDF::GetDF(a[1], ND))
+  if (!DDF1::GetDF(a[1], ND))
     return 1;
-  TopoDS_Shape SS = DBRep::Get(a[2]);
+  TopoShape SS = DBRep1::Get(a[2]);
   if (SS.IsNull())
   {
     di << "No shape selected\n";
@@ -182,14 +182,14 @@ static Standard_Integer NamedShape(Draw_Interpretor& di, Standard_Integer n, con
     return 0;
   }
 
-  Handle(TNaming_NamedShape) NS = TNaming_Tool::NamedShape(SS, ND->Root());
+  Handle(ShapeAttribute) NS = Tool11::NamedShape(SS, ND->Root());
 
   if (NS.IsNull())
   {
     di << "E_NoName";
     return 0;
   }
-  TCollection_AsciiString Name;
+  AsciiString1 Name;
   TDF_Tool::Entry(NS->Label(), Name);
   di << Name.ToCString();
   return 0;
@@ -197,23 +197,23 @@ static Standard_Integer NamedShape(Draw_Interpretor& di, Standard_Integer n, con
 
 //=================================================================================================
 
-static Standard_Integer Currentshape(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer Currentshape(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
 
   Handle(TDF_Data) ND;
-  if (!DDF::GetDF(a[1], ND))
+  if (!DDF1::GetDF(a[1], ND))
     return 1;
 
   Standard_CString LabelName = a[2];
-  TopoDS_Shape     S         = DNaming::CurrentShape(LabelName, ND);
+  TopoShape     S         = DNaming1::CurrentShape(LabelName, ND);
   if (!S.IsNull())
   {
     if (n == 4)
-      DBRep::Set(a[3], S);
+      DBRep1::Set(a[3], S);
     else
-      DBRep::Set(a[2], S);
+      DBRep1::Set(a[2], S);
     return 0;
   }
   return 0;
@@ -221,29 +221,29 @@ static Standard_Integer Currentshape(Draw_Interpretor&, Standard_Integer n, cons
 
 //=================================================================================================
 
-static Standard_Integer Initialshape(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer Initialshape(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
 
   Handle(TDF_Data) ND;
 
-  if (!DDF::GetDF(a[1], ND))
+  if (!DDF1::GetDF(a[1], ND))
     return 1;
 
-  TopoDS_Shape NS = DBRep::Get(a[2]);
+  TopoShape NS = DBRep1::Get(a[2]);
   if (NS.IsNull())
     return 1;
 
   TDF_LabelList Labels;
-  TopoDS_Shape  S = TNaming_Tool::InitialShape(NS, ND->Root(), Labels);
+  TopoShape  S = Tool11::InitialShape(NS, ND->Root(), Labels);
   if (!S.IsNull())
   {
-    DBRep::Set(a[3], S);
+    DBRep1::Set(a[3], S);
   }
   TDF_ListIteratorOfLabelList itL(Labels);
 
-  TCollection_AsciiString entry;
+  AsciiString1 entry;
   if (itL.More())
   {
     TDF_Tool::Entry(itL.Value(), entry);
@@ -261,7 +261,7 @@ static Standard_Integer Initialshape(Draw_Interpretor& di, Standard_Integer n, c
 
 //=================================================================================================
 
-static Standard_Integer Exploreshape(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer Exploreshape(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   char name[100];
 
@@ -270,48 +270,48 @@ static Standard_Integer Exploreshape(Draw_Interpretor& di, Standard_Integer n, c
   Handle(TDF_Data) ND;
   //  Handle(TNaming_UsedShapes) US;
 
-  if (!DDF::GetDF(a[1], ND))
+  if (!DDF1::GetDF(a[1], ND))
     return 1;
   //  ND->Root().FindAttribute(TNaming_UsedShapes::GetID(),US);
 
   Standard_Integer Trans = ND->Transaction();
   if (n == 5)
   {
-    Trans = (Standard_Integer)Draw::Atof(a[4]);
+    Trans = (Standard_Integer)Draw1::Atof(a[4]);
   }
 
-  TDF_Label Lab;
-  DDF::FindLabel(ND, a[2], Lab);
-  Handle(TNaming_NamedShape) NS;
-  if (!Lab.FindAttribute(TNaming_NamedShape::GetID(), NS))
+  DataLabel Lab;
+  DDF1::FindLabel(ND, a[2], Lab);
+  Handle(ShapeAttribute) NS;
+  if (!Lab.FindAttribute(ShapeAttribute::GetID(), NS))
   {
     di << "No shape\n";
     return 0;
   }
 
-  // TNaming::Print(NS->Evolution(),std::cout);
+  // TNaming1::Print(NS->Evolution(),std::cout);
   Standard_SStream aStream;
-  TNaming::Print(NS->Evolution(), aStream);
+  TNaming1::Print(NS->Evolution(), aStream);
   di << aStream << "\n";
 
-  Standard_Integer NbShapes = 1;
+  Standard_Integer NbShapes1 = 1;
 
-  for (TNaming_Iterator itL(Lab, Trans); itL.More(); itL.Next())
+  for (Iterator1 itL(Lab, Trans); itL.More(); itL.Next())
   {
     if (!itL.OldShape().IsNull())
     {
-      Sprintf(name, "%s%s_%d", "old", a[3], NbShapes);
-      DBRep::Set(name, itL.OldShape());
+      Sprintf(name, "%s%s_%d", "old", a[3], NbShapes1);
+      DBRep1::Set(name, itL.OldShape());
     }
     if (!itL.NewShape().IsNull())
     {
-      Sprintf(name, "%s_%d", a[3], NbShapes);
-      DBRep::Set(name, itL.NewShape());
+      Sprintf(name, "%s_%d", a[3], NbShapes1);
+      DBRep1::Set(name, itL.NewShape());
     }
-    NbShapes++;
+    NbShapes1++;
   }
   di << "\n";
-  if (NbShapes == 0)
+  if (NbShapes1 == 0)
   {
     di << "No shape\n";
   }
@@ -324,26 +324,26 @@ static Standard_Integer Exploreshape(Draw_Interpretor& di, Standard_Integer n, c
 // purpose  : Generatedshape df shape Generationentry [drawname]
 //=======================================================================
 
-static Standard_Integer Generatedshape(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer Generatedshape(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
-  TopoDS_Shape               S;
-  Handle(TNaming_NamedShape) A;
+  TopoShape               S;
+  Handle(ShapeAttribute) A;
   if (nb >= 4)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(arg[1], DF))
+    if (!DDF1::GetDF(arg[1], DF))
       return 1;
-    TopoDS_Shape               Gen = DBRep::Get(arg[2]);
-    Handle(TNaming_NamedShape) Generation;
-    if (!DDF::Find(DF, arg[3], TNaming_NamedShape::GetID(), Generation))
+    TopoShape               Gen = DBRep1::Get(arg[2]);
+    Handle(ShapeAttribute) Generation;
+    if (!DDF1::Find(DF, arg[3], ShapeAttribute::GetID(), Generation))
       return 1;
-    S = TNaming_Tool::GeneratedShape(Gen, Generation);
+    S = Tool11::GeneratedShape(Gen, Generation);
     if (!S.IsNull())
     {
       if (nb == 4)
-        DBRep::Set(arg[4], S);
+        DBRep1::Set(arg[4], S);
       else
-        DBRep::Set(arg[3], S);
+        DBRep1::Set(arg[3], S);
       return 0;
     }
   }
@@ -353,24 +353,24 @@ static Standard_Integer Generatedshape(Draw_Interpretor& di, Standard_Integer nb
 
 //=================================================================================================
 
-static Standard_Integer Getshape(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer Getshape(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
-  TopoDS_Shape               s;
-  Handle(TNaming_NamedShape) A;
+  TopoShape               s;
+  Handle(ShapeAttribute) A;
   if (nb >= 3)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(arg[1], DF))
+    if (!DDF1::GetDF(arg[1], DF))
       return 1;
-    if (!DDF::Find(DF, arg[2], TNaming_NamedShape::GetID(), A))
+    if (!DDF1::Find(DF, arg[2], ShapeAttribute::GetID(), A))
       return 1;
-    s = TNaming_Tool::GetShape(A);
+    s = Tool11::GetShape(A);
     if (!s.IsNull())
     {
       if (nb == 4)
-        DBRep::Set(arg[3], s);
+        DBRep1::Set(arg[3], s);
       else
-        DBRep::Set(arg[2], s);
+        DBRep1::Set(arg[2], s);
       return 0;
     }
   }
@@ -380,27 +380,27 @@ static Standard_Integer Getshape(Draw_Interpretor& di, Standard_Integer nb, cons
 
 //=================================================================================================
 
-static Standard_Integer Collect(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer Collect(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
   TNaming_MapOfNamedShape    MNS;
-  Handle(TNaming_NamedShape) A;
+  Handle(ShapeAttribute) A;
   Standard_Boolean           OnlyModif = 1;
 
   if (nb >= 3)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(arg[1], DF))
+    if (!DDF1::GetDF(arg[1], DF))
       return 1;
-    if (!DDF::Find(DF, arg[2], TNaming_NamedShape::GetID(), A))
+    if (!DDF1::Find(DF, arg[2], ShapeAttribute::GetID(), A))
       return 1;
     if (nb >= 4)
     {
-      OnlyModif = (Draw::Atoi(arg[3]) != 0);
+      OnlyModif = (Draw1::Atoi(arg[3]) != 0);
     }
-    TNaming_Tool::Collect(A, MNS, OnlyModif);
+    Tool11::Collect(A, MNS, OnlyModif);
     for (TNaming_MapIteratorOfMapOfNamedShape it(MNS); it.More(); it.Next())
     {
-      TCollection_AsciiString Name;
+      AsciiString1 Name;
       TDF_Tool::Entry(it.Key()->Label(), Name);
       di << Name.ToCString() << " ";
     }
@@ -412,18 +412,18 @@ static Standard_Integer Collect(Draw_Interpretor& di, Standard_Integer nb, const
 // function : GetCreationEntry
 // purpose  : retrieve label of Primitive or a Generated shape
 //=======================================================================
-static Standard_Integer Getcreationentry(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer Getcreationentry(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
   Handle(TDF_Data) ND;
   //  Handle(TNaming_UsedShapes) US;
 
-  if (!DDF::GetDF(a[1], ND))
+  if (!DDF1::GetDF(a[1], ND))
     return 1;
   //  ND->Root().FindAttribute(TNaming_UsedShapes::GetID(),US);
 
-  TopoDS_Shape SS = DBRep::Get(a[2]);
+  TopoShape SS = DBRep1::Get(a[2]);
 
   if (SS.IsNull())
   {
@@ -433,7 +433,7 @@ static Standard_Integer Getcreationentry(Draw_Interpretor& di, Standard_Integer 
   }
 
   TDF_LabelList Labels;
-  TopoDS_Shape  S = TNaming_Tool::InitialShape(SS, ND->Root(), Labels);
+  TopoShape  S = Tool11::InitialShape(SS, ND->Root(), Labels);
 
   if (S.IsNull())
   {
@@ -441,7 +441,7 @@ static Standard_Integer Getcreationentry(Draw_Interpretor& di, Standard_Integer 
     return 0;
   }
   Standard_Integer        aStatus = 0;
-  TCollection_AsciiString Name    = DNaming::GetEntry(S, ND, aStatus);
+  AsciiString1 Name    = DNaming1::GetEntry(S, ND, aStatus);
   if (aStatus == 0)
   {
     di << "E_NoName";
@@ -462,28 +462,28 @@ static Standard_Integer Getcreationentry(Draw_Interpretor& di, Standard_Integer 
 // purpose  : "ImportShape Doc  entry Shape Name"
 //=======================================================================
 
-static Standard_Integer DNaming_ImportShape(Draw_Interpretor& di,
+static Standard_Integer DNaming_ImportShape(DrawInterpreter& di,
                                             Standard_Integer  nb,
                                             const char**      a)
 {
   if (nb >= 4)
   {
     Handle(TDF_Data) aDF;
-    if (!DDF::GetDF(a[1], aDF))
+    if (!DDF1::GetDF(a[1], aDF))
       return 1;
-    TDF_Label L;
-    DDF::AddLabel(aDF, a[2], L);
-    const TopoDS_Shape& aShape = DBRep::Get(a[3]);
+    DataLabel L;
+    DDF1::AddLabel(aDF, a[2], L);
+    const TopoShape& aShape = DBRep1::Get(a[3]);
     if (aShape.IsNull())
       return 1;
     if (nb == 5)
     {
-      TDataStd_Name::Set(L, TCollection_ExtendedString(a[4], Standard_True));
+      NameAttribute::Set(L, UtfString(a[4], Standard_True));
     }
 
-    DNaming::LoadImportedShape(L, aShape);
+    DNaming1::LoadImportedShape(L, aShape);
 
-    DDF::ReturnLabel(di, L);
+    DDF1::ReturnLabel(di, L);
     return 0;
   }
   di << "DNaming_NewShape : Error";
@@ -495,30 +495,30 @@ static Standard_Integer DNaming_ImportShape(Draw_Interpretor& di,
 // purpose  : "CheckNSIter Doc  entry Shape new/old [1|0]"
 //=======================================================================
 
-static Standard_Integer CheckIter(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer CheckIter(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
   if (nb > 3)
   {
     Handle(TDF_Data) aDF;
     Standard_Boolean aNew(Standard_True);
-    if (!DDF::GetDF(arg[1], aDF))
+    if (!DDF1::GetDF(arg[1], aDF))
       return 1;
-    TDF_Label aLabel;
-    DDF::AddLabel(aDF, arg[2], aLabel);
+    DataLabel aLabel;
+    DDF1::AddLabel(aDF, arg[2], aLabel);
     TNaming_Builder     aNB(aLabel);
-    const TopoDS_Shape& aShape = DBRep::Get(arg[3]);
+    const TopoShape& aShape = DBRep1::Get(arg[3]);
     aNB.Generated(aShape);
-    TNaming_Iterator aNameIter(aLabel);
+    Iterator1 aNameIter(aLabel);
     if (nb == 5)
-      aNew = (Draw::Atoi(arg[4]) != 0);
+      aNew = (Draw1::Atoi(arg[4]) != 0);
     if (aNew)
     {
-      TNaming_NewShapeIterator aNewShapeIter(aNameIter);
+      NewShapeIterator aNewShapeIter(aNameIter);
       di << "DNaming_CheckIterator : New It is OK\n";
     }
     else
     {
-      TNaming_OldShapeIterator oldShapeIter(aNameIter);
+      OldShapeIterator oldShapeIter(aNameIter);
       di << "DNaming_CheckIterator : Old It is OK\n";
     }
     return 0;
@@ -530,7 +530,7 @@ static Standard_Integer CheckIter(Draw_Interpretor& di, Standard_Integer nb, con
 //
 //=================================================================================================
 
-void DNaming::BasicCommands(Draw_Interpretor& theCommands)
+void DNaming1::BasicCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

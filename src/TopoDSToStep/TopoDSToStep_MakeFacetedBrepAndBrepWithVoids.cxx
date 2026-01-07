@@ -46,16 +46,16 @@
 // containing more than one closed shell
 //=============================================================================
 TopoDSToStep_MakeFacetedBrepAndBrepWithVoids::TopoDSToStep_MakeFacetedBrepAndBrepWithVoids(
-  const TopoDS_Solid&                   aSolid,
+  const TopoSolid&                   aSolid,
   const Handle(Transfer_FinderProcess)& FP,
-  const StepData_Factors&               theLocalFactors,
+  const ConversionFactors&               theLocalFactors,
   const Message_ProgressRange&          theProgress)
 {
   done = Standard_False;
   TopoDS_Iterator                  It;
   MoniTool_DataMapOfShapeTransient aMap;
   TColStd_SequenceOfTransient      S;
-  TopoDS_Shell                     aOutShell;
+  TopoShell                     aOutShell;
 
   Handle(StepShape_TopologicalRepresentationItem) aItem;
   Handle(StepShape_ClosedShell)                   aOuter, aCShell;
@@ -81,13 +81,13 @@ TopoDSToStep_MakeFacetedBrepAndBrepWithVoids::TopoDSToStep_MakeFacetedBrepAndBre
       if (It.Value().ShapeType() == TopAbs_SHELL)
       {
         Message_ProgressRange aRange       = aPS.Next();
-        TopoDS_Shell          CurrentShell = TopoDS::Shell(It.Value());
+        TopoShell          CurrentShell = TopoDS::Shell(It.Value());
         if (It.Value().Closed())
         {
 
           aTool.Init(aMap, Standard_False, aStepModel->InternalParameters.WriteSurfaceCurMode);
           StepB.Init(CurrentShell, aTool, FP, Standard_False, theLocalFactors, aRange);
-          TopoDSToStep::AddResult(FP, aTool);
+          TopoDSToStep1::AddResult(FP, aTool);
 
           if (StepB.IsDone())
           {

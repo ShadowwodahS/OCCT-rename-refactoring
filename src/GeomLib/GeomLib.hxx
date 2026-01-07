@@ -24,9 +24,9 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColStd_SequenceOfReal.hxx>
 
-class Geom_Curve;
+class GeomCurve3d;
 class Frame3d;
-class Geom2d_Curve;
+class GeomCurve2d;
 class gp_GTrsf2d;
 class Adaptor3d_CurveOnSurface;
 class Geom_BoundedCurve;
@@ -37,7 +37,7 @@ class Dir3d;
 class Adaptor3d_Curve;
 class Geom_BSplineSurface;
 class Geom_BezierSurface;
-class Geom_Surface;
+class GeomSurface;
 
 typedef class Adaptor2d_Curve2d Adaptor2d_Curve2d;
 
@@ -53,8 +53,8 @@ public:
   //! corresponding to curve 2d  from package Geom2d, on
   //! the plan defined with the local coordinate system
   //! Position.
-  Standard_EXPORT static Handle(Geom_Curve) To3d(const Frame3d&               Position,
-                                                 const Handle(Geom2d_Curve)& Curve2d);
+  Standard_EXPORT static Handle(GeomCurve3d) To3d(const Frame3d&               Position,
+                                                 const Handle(GeomCurve2d)& Curve2d);
 
   //! Computes the    curve    3d  from   package   Geom
   //! corresponding  to the curve  3d from package Geom,
@@ -64,7 +64,7 @@ public:
   //! a curve. It's not implemented when :
   //! 1) the curve is an infinite parabola or hyperbola
   //! 2) the curve is an offsetcurve
-  Standard_EXPORT static Handle(Geom2d_Curve) GTransform(const Handle(Geom2d_Curve)& Curve,
+  Standard_EXPORT static Handle(GeomCurve2d) GTransform(const Handle(GeomCurve2d)& Curve,
                                                          const gp_GTrsf2d&           GTrsf);
 
   //! Make the curve Curve2dPtr have the imposed
@@ -74,18 +74,18 @@ public:
   //! to do that. Otherwise it will produce a Bspline
   //! curve that has the required range
   Standard_EXPORT static void SameRange(const Standard_Real         Tolerance,
-                                        const Handle(Geom2d_Curve)& Curve2dPtr,
+                                        const Handle(GeomCurve2d)& Curve2dPtr,
                                         const Standard_Real         First,
                                         const Standard_Real         Last,
                                         const Standard_Real         RequestedFirst,
                                         const Standard_Real         RequestedLast,
-                                        Handle(Geom2d_Curve)&       NewCurve2dPtr);
+                                        Handle(GeomCurve2d)&       NewCurve2dPtr);
 
   Standard_EXPORT static void BuildCurve3d(const Standard_Real       Tolerance,
                                            Adaptor3d_CurveOnSurface& CurvePtr,
                                            const Standard_Real       FirstParameter,
                                            const Standard_Real       LastParameter,
-                                           Handle(Geom_Curve)&       NewCurvePtr,
+                                           Handle(GeomCurve3d)&       NewCurvePtr,
                                            Standard_Real&            MaxDeviation,
                                            Standard_Real&            AverageDeviation,
                                            const GeomAbs_Shape       Continuity = GeomAbs_C1,
@@ -241,14 +241,14 @@ public:
   //! @return 0 if normal estimated from D1,
   //!         1 if estimated from D2 (quasysingular),
   //!       >=2 in case of failure (undefined or infinite solutions)
-  Standard_EXPORT static Standard_Integer NormEstim(const Handle(Geom_Surface)& theSurf,
+  Standard_EXPORT static Standard_Integer NormEstim(const Handle(GeomSurface)& theSurf,
                                                     const gp_Pnt2d&             theUV,
                                                     const Standard_Real         theTol,
                                                     Dir3d&                     theNorm);
 
   //! This method defines if opposite boundaries of surface
   //! coincide with given tolerance
-  Standard_EXPORT static void IsClosed(const Handle(Geom_Surface)& S,
+  Standard_EXPORT static void IsClosed(const Handle(GeomSurface)& S,
                                        const Standard_Real         Tol,
                                        Standard_Boolean&           isUClosed,
                                        Standard_Boolean&           isVClosed);
@@ -302,7 +302,7 @@ public:
   //! @param theParam Line parameter.
   //! @param theIsForward Flag indicating forward parameterization on a isoline.
   //! @return Standard_True when 3d curve is built and Standard_False otherwise.
-  Standard_EXPORT static Handle(Geom_Curve) buildC3dOnIsoLine(
+  Standard_EXPORT static Handle(GeomCurve3d) buildC3dOnIsoLine(
     const Handle(Adaptor2d_Curve2d)& theC2D,
     const Handle(Adaptor3d_Surface)& theSurf,
     const Standard_Real              theFirst,

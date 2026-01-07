@@ -20,7 +20,7 @@
 #include <Standard_Type.hxx>
 
 #include <ShapeUpgrade_EdgeDivide.hxx>
-class TopoDS_Edge;
+class TopoEdge;
 
 class ShapeUpgrade_ClosedEdgeDivide;
 DEFINE_STANDARD_HANDLE(ShapeUpgrade_ClosedEdgeDivide, ShapeUpgrade_EdgeDivide)
@@ -32,7 +32,7 @@ public:
   //! Empty constructor.
   Standard_EXPORT ShapeUpgrade_ClosedEdgeDivide();
 
-  Standard_EXPORT virtual Standard_Boolean Compute(const TopoDS_Edge& anEdge) Standard_OVERRIDE;
+  Standard_EXPORT virtual Standard_Boolean Compute(const TopoEdge& anEdge) Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_ClosedEdgeDivide, ShapeUpgrade_EdgeDivide)
 

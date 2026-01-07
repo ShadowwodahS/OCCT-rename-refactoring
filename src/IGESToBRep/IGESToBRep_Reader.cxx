@@ -66,9 +66,9 @@ namespace
 // function : EncodeRegul
 // purpose  : INTERNAL to encode regularity on edges
 //=======================================================================
-static Standard_Boolean EncodeRegul(const TopoDS_Shape& theShape)
+static Standard_Boolean EncodeRegul(const TopoShape& theShape)
 {
-  const Standard_Real aToleranceAngle = Interface_Static::RVal("read.encoderegularity.angle");
+  const Standard_Real aToleranceAngle = ExchangeConfig::RVal("read.encoderegularity.angle");
   if (theShape.IsNull())
   {
     return Standard_True;
@@ -94,14 +94,14 @@ static Standard_Boolean EncodeRegul(const TopoDS_Shape& theShape)
 // function : TrimTolerances
 // purpose  : Trims tolerances of the shape according to static parameters
 //=======================================================================
-static void TrimTolerances(const TopoDS_Shape& theShape, const Standard_Real theTolerance)
+static void TrimTolerances(const TopoShape& theShape, const Standard_Real theTolerance)
 {
-  if (Interface_Static::IVal("read.maxprecision.mode") == 1)
+  if (ExchangeConfig::IVal("read.maxprecision.mode") == 1)
   {
     ShapeFix_ShapeTolerance SFST;
     SFST.LimitTolerance(theShape,
                         0,
-                        Max(theTolerance, Interface_Static::RVal("read.maxprecision.val")));
+                        Max(theTolerance, ExchangeConfig::RVal("read.maxprecision.val")));
   }
 }
 } // namespace
@@ -113,11 +113,11 @@ IGESToBRep_Reader::IGESToBRep_Reader()
 {
   if (protocol.IsNull())
   {
-    IGESAppli::Init();
-    IGESSolid::Init();
+    IGESAppli1::Init();
+    IGESSolid1::Init();
     protocol = new IGESData_FileProtocol;
-    protocol->Add(IGESAppli::Protocol());
-    protocol->Add(IGESSolid::Protocol());
+    protocol->Add(IGESAppli1::Protocol());
+    protocol->Add(IGESSolid1::Protocol());
   }
   theActor = new IGESToBRep_Actor;
   theProc  = new Transfer_TransientProcess;
@@ -328,7 +328,7 @@ void IGESToBRep_Reader::TransferRoots(const Standard_Boolean       onlyvisible,
   theProc->SetRootManagement(Standard_True);
   //  PrepareTransfer();  -> protocol, actor
   theActor->SetModel(theModel);
-  Standard_Integer continuity = Interface_Static::IVal("read.iges.bspline.continuity");
+  Standard_Integer continuity = ExchangeConfig::IVal("read.iges.bspline.continuity");
   theActor->SetContinuity(continuity);
   theProc->SetModel(theModel);
   theProc->SetActor(theActor);
@@ -339,25 +339,25 @@ void IGESToBRep_Reader::TransferRoots(const Standard_Boolean       onlyvisible,
   Standard_Integer                 nb = theModel->NbEntities();
   ShapeExtend_Explorer             SBE;
 
-  Standard_Integer precisionMode = Interface_Static::IVal("read.precision.mode");
+  Standard_Integer precisionMode = ExchangeConfig::IVal("read.precision.mode");
   Message_Msg      msg2035("IGES_2035");
   msg2035.Arg(precisionMode);
   TF->Send(msg2035, Message_Info);
   if (precisionMode == 1)
   {
     Message_Msg msg2040("IGES_2040");
-    msg2040.Arg(Interface_Static::RVal("read.precision.val")); // #70 rln 03.03.99
+    msg2040.Arg(ExchangeConfig::RVal("read.precision.val")); // #70 rln 03.03.99
     TF->Send(msg2040, Message_Info);
   }
   Message_Msg msg2045("IGES_2045");
   msg2045.Arg(continuity);
   TF->Send(msg2045, Message_Info);
   Message_Msg msg2050("IGES_2050");
-  msg2050.Arg(Interface_Static::IVal("read.surfacecurve.mode"));
+  msg2050.Arg(ExchangeConfig::IVal("read.surfacecurve.mode"));
   TF->Send(msg2050, Message_Info);
 
   // sln 11.06.2002 OCC448
-  Interface_Static::SetIVal("read.iges.onlyvisible", onlyvisible);
+  ExchangeConfig::SetIVal("read.iges.onlyvisible", onlyvisible);
 
   Message_ProgressScope PS(theProgress, "Root", nb);
   for (Standard_Integer i = 1; i <= nb && PS.More(); i++)
@@ -376,7 +376,7 @@ void IGESToBRep_Reader::TransferRoots(const Standard_Boolean       onlyvisible,
     // on ajoute un traitement pour ne prendre que les entites visibles
     if (!onlyvisible || ent->BlankStatus() == 0)
     {
-      TopoDS_Shape shape;
+      TopoShape shape;
       theDone = Standard_True;
       try
       {
@@ -462,7 +462,7 @@ Standard_Boolean IGESToBRep_Reader::Transfer(const Standard_Integer       num,
   IGESToBRep_CurveAndSurface CAS;
   CAS.SetModel(theModel);
   Standard_Real    eps;
-  Standard_Integer Ival = Interface_Static::IVal("read.precision.mode");
+  Standard_Integer Ival = ExchangeConfig::IVal("read.precision.mode");
   Message_Msg      msg2035("IGES_2035");
   msg2035.Arg(Ival);
   TF->Send(msg2035, Message_Info);
@@ -471,20 +471,20 @@ Standard_Boolean IGESToBRep_Reader::Transfer(const Standard_Integer       num,
   else
   {
     // mjm : modif du 19/12/97 pour prise en compte effective du parametre
-    eps = Interface_Static::RVal("read.precision.val");
+    eps = ExchangeConfig::RVal("read.precision.val");
     Message_Msg msg2040("IGES_2040");
     msg2040.Arg(eps); // #70 rln 03.03.99
     TF->Send(msg2040, Message_Info);
   }
-  Ival = Interface_Static::IVal("read.iges.bspline.approxd1.mode");
+  Ival = ExchangeConfig::IVal("read.iges.bspline.approxd1.mode");
   CAS.SetModeApprox((Ival > 0));
   Message_Msg msg2045("IGES_2045");
-  Ival = Interface_Static::IVal("read.iges.bspline.continuity");
+  Ival = ExchangeConfig::IVal("read.iges.bspline.continuity");
   msg2045.Arg(Ival);
   TF->Send(msg2045, Message_Info);
   CAS.SetContinuity(Ival);
   Message_Msg msg2050("IGES_2050");
-  Ival = Interface_Static::IVal("read.surfacecurve.mode");
+  Ival = ExchangeConfig::IVal("read.surfacecurve.mode");
   msg2050.Arg(Ival);
   TF->Send(msg2050, Message_Info);
   CAS.SetSurfaceCurve(Ival);
@@ -494,7 +494,7 @@ Standard_Boolean IGESToBRep_Reader::Transfer(const Standard_Integer       num,
   CAS.SetTransferProcess(theProc);
 
   Standard_Boolean exceptionRaised = Standard_False;
-  TopoDS_Shape     shape;
+  TopoShape     shape;
   Standard_Integer nbTPitems = theProc->NbMapped();
   {
     try
@@ -579,16 +579,16 @@ Standard_Real IGESToBRep_Reader::UsedTolerance() const
 
 //=============================================================================
 
-Standard_Integer IGESToBRep_Reader::NbShapes() const
+Standard_Integer IGESToBRep_Reader::NbShapes1() const
 {
   return theShapes.Length();
 }
 
 //=============================================================================
 
-TopoDS_Shape IGESToBRep_Reader::Shape(const Standard_Integer num) const
+TopoShape IGESToBRep_Reader::Shape(const Standard_Integer num) const
 {
-  TopoDS_Shape res;
+  TopoShape res;
   if (num > 0 && num <= theShapes.Length())
     res = theShapes.Value(num);
   return res;
@@ -596,9 +596,9 @@ TopoDS_Shape IGESToBRep_Reader::Shape(const Standard_Integer num) const
 
 //=============================================================================
 
-TopoDS_Shape IGESToBRep_Reader::OneShape() const
+TopoShape IGESToBRep_Reader::OneShape() const
 {
-  TopoDS_Shape     res;
+  TopoShape     res;
   Standard_Integer nb = theShapes.Length();
   if (nb == 0)
     return res;
@@ -606,8 +606,8 @@ TopoDS_Shape IGESToBRep_Reader::OneShape() const
     return theShapes.Value(1);
   else
   {
-    TopoDS_Compound C;
-    BRep_Builder    B;
+    TopoCompound C;
+    ShapeBuilder    B;
     B.MakeCompound(C);
     for (Standard_Integer i = 1; i <= nb; i++)
       B.Add(C, theShapes.Value(i));
@@ -633,7 +633,7 @@ void IGESToBRep_Reader::SetShapeFixParameters(XSAlgo_ShapeProcessor::ParameterMa
 //=============================================================================
 
 void IGESToBRep_Reader::SetShapeFixParameters(
-  const DE_ShapeFixParameters&               theParameters,
+  const ShapeFixParameters&               theParameters,
   const XSAlgo_ShapeProcessor::ParameterMap& theAdditionalParameters)
 {
   XSAlgo_ShapeProcessor::SetShapeFixParameters(theParameters,

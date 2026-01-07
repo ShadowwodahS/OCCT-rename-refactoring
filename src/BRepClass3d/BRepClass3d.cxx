@@ -24,18 +24,18 @@
 #include <TopoDS_Shell.hxx>
 #include <TopoDS_Solid.hxx>
 
-static Standard_Boolean IsInternal(const TopoDS_Shell& aSx);
+static Standard_Boolean IsInternal(const TopoShell& aSx);
 
 //=================================================================================================
 
-TopoDS_Shell BRepClass3d::OuterShell(const TopoDS_Solid& aSolid)
+TopoShell BRepClass3d::OuterShell(const TopoSolid& aSolid)
 {
   Standard_Boolean            bFound;
   Standard_Real               aTol;
-  TopoDS_Solid                aSDx;
-  TopoDS_Shell                aShell, aDummy;
+  TopoSolid                aSDx;
+  TopoShell                aShell, aDummy;
   TopoDS_Iterator             aIt;
-  BRep_Builder                aBB;
+  ShapeBuilder                aBB;
   BRepClass3d_SolidClassifier aSC;
   //
   if (aSolid.IsNull())
@@ -50,10 +50,10 @@ TopoDS_Shell BRepClass3d::OuterShell(const TopoDS_Solid& aSolid)
   Standard_Integer aShellCounter = 0;
   for (aIt.Initialize(aSolid); aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aSx = aIt.Value();
+    const TopoShape& aSx = aIt.Value();
     if (aSx.ShapeType() == TopAbs_SHELL)
     {
-      aShell = *((TopoDS_Shell*)&aSx);
+      aShell = *((TopoShell*)&aSx);
       aShellCounter++;
       if (aShellCounter >= 2)
         break;
@@ -70,10 +70,10 @@ TopoDS_Shell BRepClass3d::OuterShell(const TopoDS_Solid& aSolid)
   //
   for (aIt.Initialize(aSolid); aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aSx = aIt.Value();
+    const TopoShape& aSx = aIt.Value();
     if (aSx.ShapeType() == TopAbs_SHELL)
     {
-      aShell = *((TopoDS_Shell*)&aSx);
+      aShell = *((TopoShell*)&aSx);
       if (!IsInternal(aShell))
       {
         aSDx = aSolid;
@@ -101,7 +101,7 @@ TopoDS_Shell BRepClass3d::OuterShell(const TopoDS_Solid& aSolid)
 
 //=================================================================================================
 
-Standard_Boolean IsInternal(const TopoDS_Shell& aSx)
+Standard_Boolean IsInternal(const TopoShell& aSx)
 {
   Standard_Boolean   bInternal;
   TopAbs_Orientation aOr;
@@ -112,7 +112,7 @@ Standard_Boolean IsInternal(const TopoDS_Shell& aSx)
   aIt.Initialize(aSx);
   if (aIt.More())
   {
-    const TopoDS_Shape& aSy = aIt.Value();
+    const TopoShape& aSy = aIt.Value();
     aOr                     = aSy.Orientation();
     bInternal               = (aOr == TopAbs_INTERNAL);
   }

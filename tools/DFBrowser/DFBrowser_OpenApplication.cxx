@@ -38,10 +38,10 @@ namespace DFBrowser_OpenApplication
 // function : OpenApplication
 // purpose :
 // =======================================================================
-Handle(TDocStd_Application) OpenApplication(const TCollection_AsciiString& theFileName,
+Handle(AppManager) OpenApplication(const AsciiString1& theFileName,
                                             bool&                          isSTEPFile)
 {
-  Handle(TDocStd_Application) anApplication = CreateApplicationBySTEPFile(theFileName);
+  Handle(AppManager) anApplication = CreateApplicationBySTEPFile(theFileName);
   if (!anApplication.IsNull())
   {
     isSTEPFile = true;
@@ -51,28 +51,28 @@ Handle(TDocStd_Application) OpenApplication(const TCollection_AsciiString& theFi
   // Load static variables for STEPCAF (ssv; 16.08.2012)
   STEPCAFControl_Controller::Init();
 
-  anApplication = new TDocStd_Application();
+  anApplication = new AppManager();
   // Initialize standard document formats at creation - they should
   // be available even if this DRAW plugin is not loaded by pload command
   StdLDrivers::DefineFormat(anApplication);
-  BinLDrivers::DefineFormat(anApplication);
+  BinLDrivers1::DefineFormat(anApplication);
   XmlLDrivers::DefineFormat(anApplication);
   StdDrivers::DefineFormat(anApplication);
-  BinDrivers::DefineFormat(anApplication);
+  BinDrivers1::DefineFormat(anApplication);
   XmlDrivers::DefineFormat(anApplication);
 
   // Initialize XCAF formats
-  BinXCAFDrivers::DefineFormat(anApplication);
+  BinXCAFDrivers1::DefineFormat(anApplication);
   XmlXCAFDrivers::DefineFormat(anApplication);
 
   // Register driver in global table for displaying XDE documents
   // in 3d viewer using OCAF mechanics
   TPrsStd_DriverTable::Get()->AddDriver(XCAFPrs_Driver::GetID(), new XCAFPrs_Driver);
 
-  Handle(TDocStd_Document) aDocument;
+  Handle(AppDocument) aDocument;
   PCDM_ReaderStatus        aStatus = anApplication->Open(theFileName, aDocument);
   if (aStatus != PCDM_RS_OK)
-    return Handle(TDocStd_Application)();
+    return Handle(AppManager)();
   return anApplication;
 }
 
@@ -80,25 +80,25 @@ Handle(TDocStd_Application) OpenApplication(const TCollection_AsciiString& theFi
 // function : CreateApplicationBySTEPFile
 // purpose :
 // =======================================================================
-Handle(TDocStd_Application) CreateApplicationBySTEPFile(const TCollection_AsciiString& theFileName)
+Handle(AppManager) CreateApplicationBySTEPFile(const AsciiString1& theFileName)
 {
   if (!theFileName.EndsWith(".step") && !theFileName.EndsWith(".stp"))
-    return Handle(TDocStd_Application)();
+    return Handle(AppManager)();
 
-  Handle(TDocStd_Application) aTmpApplication = XCAFApp_Application::GetApplication();
+  Handle(AppManager) aTmpApplication = XCAFApp_Application::GetApplication();
   STEPCAFControl_Reader       aStepReader;
 
-  const TCollection_AsciiString aStr(theFileName);
+  const AsciiString1 aStr(theFileName);
   IFSelect_ReturnStatus         aStatus = aStepReader.ReadFile(aStr.ToCString());
   if (aStatus != IFSelect_RetDone)
-    return Handle(TDocStd_Application)();
+    return Handle(AppManager)();
 
   aStepReader.SetColorMode(Standard_True);
   aStepReader.SetLayerMode(Standard_True);
   aStepReader.SetNameMode(Standard_True);
 
-  Handle(TDocStd_Document) aDocument;
+  Handle(AppDocument) aDocument;
   aTmpApplication->NewDocument("BinOcaf", aDocument);
-  return aStepReader.Transfer(aDocument) ? aTmpApplication : Handle(TDocStd_Application)();
+  return aStepReader.Transfer(aDocument) ? aTmpApplication : Handle(AppManager)();
 }
 } // namespace DFBrowser_OpenApplication

@@ -41,7 +41,7 @@ TreeModel_ItemBasePtr ShapeView_TreeModel::createRootItem(const int theColumnId)
 // function : AddShape
 // purpose :
 // =======================================================================
-void ShapeView_TreeModel::AddShape(const TopoDS_Shape& theShape)
+void ShapeView_TreeModel::AddShape(const TopoShape& theShape)
 {
   for (int aColId = 0, aNbColumns = columnCount(); aColId < aNbColumns; aColId++)
   {
@@ -72,7 +72,7 @@ void ShapeView_TreeModel::RemoveAllShapes()
 // function : FindIndex
 // purpose :
 // =======================================================================
-QModelIndex ShapeView_TreeModel::FindIndex(const TopoDS_Shape& theShape) const
+QModelIndex ShapeView_TreeModel::FindIndex(const TopoShape& theShape) const
 {
   QModelIndex           aParentIndex = index(0, 0);
   TreeModel_ItemBasePtr aParentItem =

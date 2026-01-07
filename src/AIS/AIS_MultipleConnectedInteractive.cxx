@@ -21,27 +21,27 @@
 #include <AIS_InteractiveObject.hxx>
 #include <SelectMgr_EntityOwner.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_MultipleConnectedInteractive, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_MultipleConnectedInteractive, VisualEntity)
 
 //=================================================================================================
 
 AIS_MultipleConnectedInteractive::AIS_MultipleConnectedInteractive()
-    : AIS_InteractiveObject(PrsMgr_TOP_AllView)
+    : VisualEntity(PrsMgr_TOP_AllView)
 {
   myHasOwnPresentations = Standard_False;
 }
 
 //=================================================================================================
 
-Handle(AIS_InteractiveObject) AIS_MultipleConnectedInteractive::connect(
-  const Handle(AIS_InteractiveObject)&   theAnotherObj,
+Handle(VisualEntity) AIS_MultipleConnectedInteractive::connect(
+  const Handle(VisualEntity)&   theAnotherObj,
   const Handle(TopLoc_Datum3D)&          theTrsf,
   const Handle(Graphic3d_TransformPers)& theTrsfPers)
 {
   if (myAssemblyOwner.IsNull())
     myAssemblyOwner = new SelectMgr_EntityOwner(this);
 
-  Handle(AIS_InteractiveObject) anObjectToAdd;
+  Handle(VisualEntity) anObjectToAdd;
 
   Handle(AIS_MultipleConnectedInteractive) aMultiConnected =
     Handle(AIS_MultipleConnectedInteractive)::DownCast(theAnotherObj);
@@ -56,8 +56,8 @@ Handle(AIS_InteractiveObject) AIS_MultipleConnectedInteractive::connect(
     for (PrsMgr_ListOfPresentableObjectsIter anIter(aMultiConnected->Children()); anIter.More();
          anIter.Next())
     {
-      Handle(AIS_InteractiveObject) anInteractive =
-        Handle(AIS_InteractiveObject)::DownCast(anIter.Value());
+      Handle(VisualEntity) anInteractive =
+        Handle(VisualEntity)::DownCast(anIter.Value());
       if (anInteractive.IsNull())
       {
         continue;
@@ -94,7 +94,7 @@ Standard_Boolean AIS_MultipleConnectedInteractive::HasConnection() const
 
 //=================================================================================================
 
-void AIS_MultipleConnectedInteractive::Disconnect(const Handle(AIS_InteractiveObject)& anotherIObj)
+void AIS_MultipleConnectedInteractive::Disconnect(const Handle(VisualEntity)& anotherIObj)
 {
   RemoveChild(anotherIObj);
 }
@@ -116,10 +116,10 @@ void AIS_MultipleConnectedInteractive::Compute(const Handle(PrsMgr_PresentationM
                                                const Handle(Prs3d_Presentation)&,
                                                const Standard_Integer)
 {
-  Handle(AIS_InteractiveContext) aCtx = GetContext();
+  Handle(VisualContext) aCtx = GetContext();
   for (PrsMgr_ListOfPresentableObjectsIter anIter(Children()); anIter.More(); anIter.Next())
   {
-    Handle(AIS_InteractiveObject) aChild = Handle(AIS_InteractiveObject)::DownCast(anIter.Value());
+    Handle(VisualEntity) aChild = Handle(VisualEntity)::DownCast(anIter.Value());
     if (!aChild.IsNull())
     {
       aChild->SetContext(aCtx);
@@ -133,7 +133,7 @@ Standard_Boolean AIS_MultipleConnectedInteractive::AcceptShapeDecomposition() co
 {
   for (PrsMgr_ListOfPresentableObjectsIter anIter(Children()); anIter.More(); anIter.Next())
   {
-    Handle(AIS_InteractiveObject) aChild = Handle(AIS_InteractiveObject)::DownCast(anIter.Value());
+    Handle(VisualEntity) aChild = Handle(VisualEntity)::DownCast(anIter.Value());
     if (aChild.IsNull())
     {
       continue;
@@ -150,7 +150,7 @@ Standard_Boolean AIS_MultipleConnectedInteractive::AcceptShapeDecomposition() co
 //=================================================================================================
 
 void AIS_MultipleConnectedInteractive::ComputeSelection(
-  const Handle(SelectMgr_Selection)& /*theSelection*/,
+  const Handle(SelectionContainer)& /*theSelection*/,
   const Standard_Integer theMode)
 {
   if (theMode == 0)
@@ -160,7 +160,7 @@ void AIS_MultipleConnectedInteractive::ComputeSelection(
 
   for (PrsMgr_ListOfPresentableObjectsIter anIter(Children()); anIter.More(); anIter.Next())
   {
-    Handle(AIS_InteractiveObject) aChild = Handle(AIS_InteractiveObject)::DownCast(anIter.Value());
+    Handle(VisualEntity) aChild = Handle(VisualEntity)::DownCast(anIter.Value());
     if (aChild.IsNull())
     {
       continue;
@@ -171,19 +171,19 @@ void AIS_MultipleConnectedInteractive::ComputeSelection(
       aChild->RecomputePrimitives(theMode);
     }
 
-    Handle(SelectMgr_Selection) aSelection = new SelectMgr_Selection(theMode);
+    Handle(SelectionContainer) aSelection = new SelectionContainer(theMode);
     aChild->ComputeSelection(aSelection, theMode);
   }
 }
 
 //=================================================================================================
 
-void AIS_MultipleConnectedInteractive::SetContext(const Handle(AIS_InteractiveContext)& theCtx)
+void AIS_MultipleConnectedInteractive::SetContext(const Handle(VisualContext)& theCtx)
 {
-  AIS_InteractiveObject::SetContext(theCtx);
+  VisualEntity::SetContext(theCtx);
   for (PrsMgr_ListOfPresentableObjectsIter anIter(Children()); anIter.More(); anIter.Next())
   {
-    Handle(AIS_InteractiveObject) aChild = Handle(AIS_InteractiveObject)::DownCast(anIter.Value());
+    Handle(VisualEntity) aChild = Handle(VisualEntity)::DownCast(anIter.Value());
     if (!aChild.IsNull())
     {
       aChild->SetContext(theCtx);

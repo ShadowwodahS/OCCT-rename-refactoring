@@ -327,17 +327,17 @@ Vec Geom_ConicalSurface::DN(const Standard_Real    U,
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_ConicalSurface::UIso(const Standard_Real U) const
+Handle(GeomCurve3d) Geom_ConicalSurface::UIso(const Standard_Real U) const
 {
-  Handle(Geom_Line) GL = new Geom_Line(ElSLib::ConeUIso(pos, radius, semiAngle, U));
+  Handle(GeomLine) GL = new GeomLine(ElSLib::ConeUIso(pos, radius, semiAngle, U));
   return GL;
 }
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_ConicalSurface::VIso(const Standard_Real V) const
+Handle(GeomCurve3d) Geom_ConicalSurface::VIso(const Standard_Real V) const
 {
-  Handle(Geom_Circle) GC = new Geom_Circle(ElSLib::ConeVIso(pos, radius, semiAngle, V));
+  Handle(GeomCircle) GC = new GeomCircle(ElSLib::ConeVIso(pos, radius, semiAngle, V));
   return GC;
 }
 

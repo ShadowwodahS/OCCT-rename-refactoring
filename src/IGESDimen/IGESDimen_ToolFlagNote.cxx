@@ -35,9 +35,9 @@
 #include <Interface_ShareTool.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESDimen_ToolFlagNote::IGESDimen_ToolFlagNote() {}
+FlagNoteTool::FlagNoteTool() {}
 
-void IGESDimen_ToolFlagNote::ReadOwnParams(const Handle(IGESDimen_FlagNote)&      ent,
+void FlagNoteTool::ReadOwnParams(const Handle(IGESDimen_FlagNote)&      ent,
                                            const Handle(IGESData_IGESReaderData)& IR,
                                            IGESData_ParamReader&                  PR) const
 {
@@ -86,7 +86,7 @@ void IGESDimen_ToolFlagNote::ReadOwnParams(const Handle(IGESDimen_FlagNote)&    
   ent->Init(lowerLeft, angle, note, leaders);
 }
 
-void IGESDimen_ToolFlagNote::WriteOwnParams(const Handle(IGESDimen_FlagNote)& ent,
+void FlagNoteTool::WriteOwnParams(const Handle(IGESDimen_FlagNote)& ent,
                                             IGESData_IGESWriter&              IW) const
 {
   IW.Send(ent->LowerLeftCorner().X());
@@ -100,7 +100,7 @@ void IGESDimen_ToolFlagNote::WriteOwnParams(const Handle(IGESDimen_FlagNote)& en
     IW.Send(ent->Leader(i));
 }
 
-void IGESDimen_ToolFlagNote::OwnShared(const Handle(IGESDimen_FlagNote)& ent,
+void FlagNoteTool::OwnShared(const Handle(IGESDimen_FlagNote)& ent,
                                        Interface_EntityIterator&         iter) const
 {
   iter.GetOneItem(ent->Note());
@@ -109,7 +109,7 @@ void IGESDimen_ToolFlagNote::OwnShared(const Handle(IGESDimen_FlagNote)& ent,
     iter.GetOneItem(ent->Leader(i));
 }
 
-void IGESDimen_ToolFlagNote::OwnCopy(const Handle(IGESDimen_FlagNote)& another,
+void FlagNoteTool::OwnCopy(const Handle(IGESDimen_FlagNote)& another,
                                      const Handle(IGESDimen_FlagNote)& ent,
                                      Interface_CopyTool&               TC) const
 {
@@ -132,10 +132,10 @@ void IGESDimen_ToolFlagNote::OwnCopy(const Handle(IGESDimen_FlagNote)& another,
   ent->Init(lowerLeft, angle, note, leaders);
 }
 
-IGESData_DirChecker IGESDimen_ToolFlagNote::DirChecker(
+DirectoryChecker FlagNoteTool::DirChecker(
   const Handle(IGESDimen_FlagNote)& /* ent */) const
 {
-  IGESData_DirChecker DC(208, 0);
+  DirectoryChecker DC(208, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.LineWeight(IGESData_DefValue);
@@ -144,13 +144,13 @@ IGESData_DirChecker IGESDimen_ToolFlagNote::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolFlagNote::OwnCheck(const Handle(IGESDimen_FlagNote)& /* ent */,
+void FlagNoteTool::OwnCheck(const Handle(IGESDimen_FlagNote)& /* ent */,
                                       const Interface_ShareTool&,
                                       Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESDimen_ToolFlagNote::OwnDump(const Handle(IGESDimen_FlagNote)& ent,
+void FlagNoteTool::OwnDump(const Handle(IGESDimen_FlagNote)& ent,
                                      const IGESData_IGESDumper&        dumper,
                                      Standard_OStream&                 S,
                                      const Standard_Integer            level) const

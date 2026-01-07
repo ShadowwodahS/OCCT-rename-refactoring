@@ -401,7 +401,7 @@ void IntPatch_ALineToWLine::MakeWLine(const Handle(IntPatch_ALine)& theALine,
         std::cout << "vertex v" << ii << " " << aPP.X() << " " << aPP.Y() << " " << aPP.Z() << std::endl;
 
         sprintf(name, "p%d_%d", ii, ind);
-        Draw::Set(name, aPP);
+        Draw1::Set(name, aPP);
       }
       std::cout << " --- DUMP ALine (end) -----" << std::endl;
     }

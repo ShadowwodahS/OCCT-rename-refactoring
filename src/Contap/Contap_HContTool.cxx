@@ -296,14 +296,14 @@ Standard_Boolean Contap_HContTool::Project(const Handle(Adaptor2d_Curve2d)& C,
 Standard_Real Contap_HContTool::Tolerance(const Handle(Adaptor3d_HVertex)& V,
                                           const Handle(Adaptor2d_Curve2d)& C)
 {
-  //  return BRepAdaptor2d_Curve2dTool::Resolution(C,BRep_Tool::Tolerance(V));
+  //  return BRepAdaptor2d_Curve2dTool::Resolution(C,BRepInspector::Tolerance(V));
   return V->Resolution(C);
 }
 
 Standard_Real Contap_HContTool::Parameter(const Handle(Adaptor3d_HVertex)& V,
                                           const Handle(Adaptor2d_Curve2d)& C)
 {
-  //  return BRep_Tool::Parameter(V,C.Edge());
+  //  return BRepInspector::Parameter(V,C.Edge());
   return V->Parameter(C);
 }
 

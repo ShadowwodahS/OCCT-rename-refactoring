@@ -18,7 +18,7 @@
 #include <NCollection_Map.hxx>
 #include <BOPDS_Pair.hxx>
 
-typedef NCollection_Map<BOPDS_Pair> BOPDS_MapOfPair;
+typedef NCollection_Map<IndexPair> BOPDS_MapOfPair;
 typedef BOPDS_MapOfPair::Iterator   BOPDS_MapIteratorOfMapOfPair;
 
 #endif

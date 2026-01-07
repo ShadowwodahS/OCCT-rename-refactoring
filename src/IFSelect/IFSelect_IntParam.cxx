@@ -32,9 +32,9 @@ Standard_Integer IFSelect_IntParam::Value() const
 {
   if (thestn.Length() == 0)
     return theval;
-  if (!Interface_Static::IsSet(thestn.ToCString()))
+  if (!ExchangeConfig::IsSet(thestn.ToCString()))
     return theval;
-  return Interface_Static::IVal(thestn.ToCString());
+  return ExchangeConfig::IVal(thestn.ToCString());
 }
 
 void IFSelect_IntParam::SetValue(const Standard_Integer val)
@@ -42,7 +42,7 @@ void IFSelect_IntParam::SetValue(const Standard_Integer val)
   theval = val;
   if (thestn.Length() == 0)
     return;
-  if (!Interface_Static::IsPresent(thestn.ToCString()))
+  if (!ExchangeConfig::IsPresent(thestn.ToCString()))
     return;
-  Interface_Static::SetIVal(thestn.ToCString(), theval);
+  ExchangeConfig::SetIVal(thestn.ToCString(), theval);
 }

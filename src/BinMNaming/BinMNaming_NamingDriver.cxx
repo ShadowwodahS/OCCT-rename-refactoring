@@ -188,7 +188,7 @@ Standard_Boolean BinMNaming_NamingDriver::Paste(const BinObjMgt_Persistent&  the
     return Standard_False;
 
   TNaming_Name&              aName = anAtt->ChangeName();
-  TCollection_ExtendedString aMsg;
+  UtfString aMsg;
   // 1. NameType
   Standard_Character aValue;
   Standard_Boolean   ok    = theSource >> aValue;
@@ -214,7 +214,7 @@ Standard_Boolean BinMNaming_NamingDriver::Paste(const BinObjMgt_Persistent&  the
       // 3. Args
       Standard_Integer           aNbArgs = 0;
       Standard_Integer           anIndx;
-      Handle(TNaming_NamedShape) aNS;
+      Handle(ShapeAttribute) aNS;
       ok = theSource >> aNbArgs;
       if (ok)
       {
@@ -233,10 +233,10 @@ Standard_Boolean BinMNaming_NamingDriver::Paste(const BinObjMgt_Persistent&  the
             else
             {
               if (theRelocTable.IsBound(anIndx))
-                aNS = Handle(TNaming_NamedShape)::DownCast(theRelocTable.Find(anIndx));
+                aNS = Handle(ShapeAttribute)::DownCast(theRelocTable.Find(anIndx));
               else
               {
-                aNS = new TNaming_NamedShape;
+                aNS = new ShapeAttribute;
                 theRelocTable.Bind(anIndx, aNS);
               }
               aName.Append(aNS);
@@ -256,10 +256,10 @@ Standard_Boolean BinMNaming_NamingDriver::Paste(const BinObjMgt_Persistent&  the
           if (anIndx > 0)
           {
             if (theRelocTable.IsBound(anIndx))
-              aNS = Handle(TNaming_NamedShape)::DownCast(theRelocTable.Find(anIndx));
+              aNS = Handle(ShapeAttribute)::DownCast(theRelocTable.Find(anIndx));
             else
             {
-              aNS = new TNaming_NamedShape;
+              aNS = new ShapeAttribute;
               theRelocTable.Bind(anIndx, aNS);
             }
             aName.StopNamedShape(aNS);
@@ -271,14 +271,14 @@ Standard_Boolean BinMNaming_NamingDriver::Paste(const BinObjMgt_Persistent&  the
             aName.Index(anIndx);
           else
           {
-            aMsg = TCollection_ExtendedString("BinMNaming_NamingDriver: "
+            aMsg = UtfString("BinMNaming_NamingDriver: "
                                               "Cannot retrieve Index of Name");
             myMessageDriver->Send(aMsg, Message_Warning);
           }
         }
         else
         {
-          aMsg = TCollection_ExtendedString("BinMNaming_NamingDriver: "
+          aMsg = UtfString("BinMNaming_NamingDriver: "
                                             "Cannot retrieve reference on "
                                             "StopNamedShape");
           myMessageDriver->Send(aMsg, Message_Warning);
@@ -286,7 +286,7 @@ Standard_Boolean BinMNaming_NamingDriver::Paste(const BinObjMgt_Persistent&  the
       }
       else
       {
-        aMsg = TCollection_ExtendedString("BinMNaming_NamingDriver: "
+        aMsg = UtfString("BinMNaming_NamingDriver: "
                                           "Cannot retrieve reference on "
                                           "Arguments of Name");
         myMessageDriver->Send(aMsg, Message_Warning);
@@ -295,7 +295,7 @@ Standard_Boolean BinMNaming_NamingDriver::Paste(const BinObjMgt_Persistent&  the
       if (theRelocTable.GetHeaderData()->StorageVersion().IntegerValue()
           >= TDocStd_FormatVersion_VERSION_4)
       {
-        TCollection_AsciiString entry;
+        AsciiString1 entry;
         ok = theSource >> entry;
         if (ok)
         {
@@ -305,9 +305,9 @@ Standard_Boolean BinMNaming_NamingDriver::Paste(const BinObjMgt_Persistent&  the
 #endif
 
           // 6. context label
-          if (!entry.IsEmpty() && !entry.IsEqual(TCollection_AsciiString(NULL_ENTRY)))
+          if (!entry.IsEmpty() && !entry.IsEqual(AsciiString1(NULL_ENTRY)))
           {
-            TDF_Label tLab; // Null label.
+            DataLabel tLab; // Null label.
             TDF_Tool::Label(anAtt->Label().Data(), entry, tLab, Standard_True);
             if (!tLab.IsNull())
               aName.ContextLabel(tLab);
@@ -319,14 +319,14 @@ Standard_Boolean BinMNaming_NamingDriver::Paste(const BinObjMgt_Persistent&  the
                  <= TDocStd_FormatVersion_VERSION_6)
         {
           // Orientation processing - converting from old format
-          Handle(TNaming_NamedShape) aNShape;
-          if (anAtt->Label().FindAttribute(TNaming_NamedShape::GetID(), aNShape))
+          Handle(ShapeAttribute) aNShape;
+          if (anAtt->Label().FindAttribute(ShapeAttribute::GetID(), aNShape))
           {
-            // const TDF_Label& aLab = aNS->Label();
-            TNaming_Iterator itL(aNShape);
+            // const DataLabel& aLab = aNS->Label();
+            Iterator1 itL(aNShape);
             for (; itL.More(); itL.Next())
             {
-              const TopoDS_Shape& S = itL.NewShape();
+              const TopoShape& S = itL.NewShape();
               if (S.IsNull())
                 continue;
               if (aNShape->Evolution() == TNaming_SELECTED)
@@ -357,7 +357,7 @@ Standard_Boolean BinMNaming_NamingDriver::Paste(const BinObjMgt_Persistent&  the
           }
           else
           {
-            aMsg = TCollection_ExtendedString("BinMNaming_NamingDriver: "
+            aMsg = UtfString("BinMNaming_NamingDriver: "
                                               "Cannot retrieve Name Orientation ");
             myMessageDriver->Send(aMsg, Message_Warning);
           }
@@ -404,7 +404,7 @@ void BinMNaming_NamingDriver::Paste(const Handle(TDF_Attribute)& theSource,
     // fill array
     for (TNaming_ListIteratorOfListOfNamedShape it(aName.Arguments()); it.More(); it.Next())
     {
-      Handle(TNaming_NamedShape) anArg = it.Value();
+      Handle(ShapeAttribute) anArg = it.Value();
       anIndx                           = 0;
       i++;
       if (!anArg.IsNull())
@@ -420,7 +420,7 @@ void BinMNaming_NamingDriver::Paste(const Handle(TDF_Attribute)& theSource,
   }
 
   // 4. keep StopNS
-  Handle(TNaming_NamedShape) aStopNS = aName.StopNamedShape();
+  Handle(ShapeAttribute) aStopNS = aName.StopNamedShape();
   if (!aStopNS.IsNull())
   {
     anIndx = theRelocTable.FindIndex(aStopNS);
@@ -435,7 +435,7 @@ void BinMNaming_NamingDriver::Paste(const Handle(TDF_Attribute)& theSource,
   theTarget << aName.Index();
 
   // 6. keep context label
-  TCollection_AsciiString entry(NULL_ENTRY);
+  AsciiString1 entry(NULL_ENTRY);
   if (!aName.ContextLabel().IsNull())
     TDF_Tool::Entry(aName.ContextLabel(), entry);
   theTarget << entry;

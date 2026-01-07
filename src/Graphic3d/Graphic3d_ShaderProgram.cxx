@@ -33,10 +33,10 @@ static volatile Standard_Integer THE_PROGRAM_OBJECT_COUNTER = 0;
 
 //=================================================================================================
 
-const TCollection_AsciiString& Graphic3d_ShaderProgram::ShadersFolder()
+const AsciiString1& Graphic3d_ShaderProgram::ShadersFolder()
 {
   static Standard_Boolean        THE_IS_DEFINED = Standard_False;
-  static TCollection_AsciiString THE_SHADERS_FOLDER;
+  static AsciiString1 THE_SHADERS_FOLDER;
   if (!THE_IS_DEFINED)
   {
     THE_IS_DEFINED = Standard_True;
@@ -57,10 +57,10 @@ const TCollection_AsciiString& Graphic3d_ShaderProgram::ShadersFolder()
       return THE_SHADERS_FOLDER;
     }
 
-    const OSD_Path                aDirPath(THE_SHADERS_FOLDER);
+    const SystemPath                aDirPath(THE_SHADERS_FOLDER);
     OSD_Directory                 aDir(aDirPath);
-    const TCollection_AsciiString aProgram = THE_SHADERS_FOLDER + "/Declarations.glsl";
-    OSD_File                      aProgramFile(aProgram);
+    const AsciiString1 aProgram = THE_SHADERS_FOLDER + "/Declarations.glsl";
+    SystemFile                      aProgramFile(aProgram);
     if (!aDir.Exists() || !aProgramFile.Exists())
     {
       std::cerr << "Standard GLSL programs are not found in: " << THE_SHADERS_FOLDER.ToCString()
@@ -86,8 +86,8 @@ Graphic3d_ShaderProgram::Graphic3d_ShaderProgram()
       myHasAlphaTest(false),
       myIsPBR(false)
 {
-  myID = TCollection_AsciiString("Graphic3d_ShaderProgram_")
-         + TCollection_AsciiString(Standard_Atomic_Increment(&THE_PROGRAM_OBJECT_COUNTER));
+  myID = AsciiString1("Graphic3d_ShaderProgram_")
+         + AsciiString1(Standard_Atomic_Increment(&THE_PROGRAM_OBJECT_COUNTER));
 }
 
 // =======================================================================

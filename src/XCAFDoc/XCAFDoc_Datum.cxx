@@ -72,7 +72,7 @@ const Standard_GUID& XCAFDoc_Datum::GetID()
 
 //=================================================================================================
 
-Handle(XCAFDoc_Datum) XCAFDoc_Datum::Set(const TDF_Label&                        theLabel,
+Handle(XCAFDoc_Datum) XCAFDoc_Datum::Set(const DataLabel&                        theLabel,
                                          const Handle(TCollection_HAsciiString)& theName,
                                          const Handle(TCollection_HAsciiString)& theDescription,
                                          const Handle(TCollection_HAsciiString)& theIdentification)
@@ -89,7 +89,7 @@ Handle(XCAFDoc_Datum) XCAFDoc_Datum::Set(const TDF_Label&                       
 
 //=================================================================================================
 
-Handle(XCAFDoc_Datum) XCAFDoc_Datum::Set(const TDF_Label& theLabel)
+Handle(XCAFDoc_Datum) XCAFDoc_Datum::Set(const DataLabel& theLabel)
 {
   Handle(XCAFDoc_Datum) aDatum;
   if (!theLabel.FindAttribute(XCAFDoc_Datum::GetID(), aDatum))
@@ -143,8 +143,8 @@ void XCAFDoc_Datum::SetObject(const Handle(XCAFDimTolObjects_DatumObject)& theOb
 
   if (theObject->GetSemanticName())
   {
-    TCollection_ExtendedString str(theObject->GetSemanticName()->String());
-    TDataStd_Name::Set(Label(), str);
+    UtfString str(theObject->GetSemanticName()->String());
+    NameAttribute::Set(Label(), str);
   }
 
   for (int aChild = ChildLab_Begin; aChild < ChildLab_End; aChild++)
@@ -155,8 +155,8 @@ void XCAFDoc_Datum::SetObject(const Handle(XCAFDimTolObjects_DatumObject)& theOb
     Handle(TDataStd_AsciiString) anAttName =
       TDataStd_AsciiString::Set(Label().FindChild(ChildLab_Name), theObject->GetName()->String());
 
-  Handle(TDataStd_Integer) aPosition =
-    TDataStd_Integer::Set(Label().FindChild(ChildLab_Position), theObject->GetPosition());
+  Handle(IntAttribute) aPosition =
+    IntAttribute::Set(Label().FindChild(ChildLab_Position), theObject->GetPosition());
 
   if (theObject->GetModifiers().Length() > 0)
   {
@@ -177,19 +177,19 @@ void XCAFDoc_Datum::SetObject(const Handle(XCAFDimTolObjects_DatumObject)& theOb
   theObject->GetModifierWithValue(aM, aV);
   if (aM != XCAFDimTolObjects_DatumModifWithValue_None)
   {
-    Handle(TDataStd_Integer) aModifierWithValueM =
-      TDataStd_Integer::Set(Label().FindChild(ChildLab_ModifierWithValue), aM);
+    Handle(IntAttribute) aModifierWithValueM =
+      IntAttribute::Set(Label().FindChild(ChildLab_ModifierWithValue), aM);
 
     Handle(TDataStd_Real) aModifierWithValueV =
       TDataStd_Real::Set(Label().FindChild(ChildLab_ModifierWithValue), aV);
   }
 
-  Handle(TDataStd_Integer) aIsTarget =
-    TDataStd_Integer::Set(Label().FindChild(ChildLab_IsDTarget), theObject->IsDatumTarget());
+  Handle(IntAttribute) aIsTarget =
+    IntAttribute::Set(Label().FindChild(ChildLab_IsDTarget), theObject->IsDatumTarget());
 
   if (theObject->IsDatumTarget())
   {
-    Handle(TDataStd_Integer) aType = TDataStd_Integer::Set(Label().FindChild(ChildLab_DTargetType),
+    Handle(IntAttribute) aType = IntAttribute::Set(Label().FindChild(ChildLab_DTargetType),
                                                            theObject->GetDatumTargetType());
 
     if (theObject->GetDatumTargetType() == XCAFDimTolObjects_DatumTargetType_Area)
@@ -237,7 +237,7 @@ void XCAFDoc_Datum::SetObject(const Handle(XCAFDimTolObjects_DatumObject)& theOb
                                theObject->GetDatumTargetWidth());
       }
     }
-    Handle(TDataStd_Integer) aNum = TDataStd_Integer::Set(Label().FindChild(ChildLab_DTargetNumber),
+    Handle(IntAttribute) aNum = IntAttribute::Set(Label().FindChild(ChildLab_DTargetNumber),
                                                           theObject->GetDatumTargetNumber());
   }
 
@@ -296,17 +296,17 @@ void XCAFDoc_Datum::SetObject(const Handle(XCAFDimTolObjects_DatumObject)& theOb
       aLoc->ChangeArray(aLocArr);
   }
 
-  TopoDS_Shape aPresentation = theObject->GetPresentation();
+  TopoShape aPresentation = theObject->GetPresentation();
   if (!aPresentation.IsNull())
   {
-    TDF_Label       aLPres = Label().FindChild(ChildLab_Presentation);
+    DataLabel       aLPres = Label().FindChild(ChildLab_Presentation);
     TNaming_Builder tnBuild(aLPres);
     tnBuild.Generated(aPresentation);
     Handle(TCollection_HAsciiString) aName = theObject->GetPresentationName();
     if (!aName.IsNull())
     {
-      TCollection_ExtendedString str(aName->String());
-      TDataStd_Name::Set(aLPres, str);
+      UtfString str(aName->String());
+      NameAttribute::Set(aLPres, str);
     }
   }
 }
@@ -317,11 +317,11 @@ Handle(XCAFDimTolObjects_DatumObject) XCAFDoc_Datum::GetObject() const
 {
   Handle(XCAFDimTolObjects_DatumObject) anObj = new XCAFDimTolObjects_DatumObject();
 
-  Handle(TDataStd_Name)            aSemanticNameAttr;
+  Handle(NameAttribute)            aSemanticNameAttr;
   Handle(TCollection_HAsciiString) aSemanticName;
-  if (Label().FindAttribute(TDataStd_Name::GetID(), aSemanticNameAttr))
+  if (Label().FindAttribute(NameAttribute::GetID(), aSemanticNameAttr))
   {
-    const TCollection_ExtendedString& aName = aSemanticNameAttr->Get();
+    const UtfString& aName = aSemanticNameAttr->Get();
     if (!aName.IsEmpty())
       aSemanticName = new TCollection_HAsciiString(aName);
   }
@@ -344,10 +344,10 @@ Handle(XCAFDimTolObjects_DatumObject) XCAFDoc_Datum::GetObject() const
     anObj->SetModifiers(aModifiers);
   }
 
-  Handle(TDataStd_Integer) aModifierWithValueM;
+  Handle(IntAttribute) aModifierWithValueM;
   if (Label()
         .FindChild(ChildLab_ModifierWithValue)
-        .FindAttribute(TDataStd_Integer::GetID(), aModifierWithValueM))
+        .FindAttribute(IntAttribute::GetID(), aModifierWithValueM))
   {
     Handle(TDataStd_Real) aModifierWithValueV;
     if (Label()
@@ -359,8 +359,8 @@ Handle(XCAFDimTolObjects_DatumObject) XCAFDoc_Datum::GetObject() const
     }
   }
 
-  Handle(TDataStd_Integer) aPosition;
-  if (Label().FindChild(ChildLab_Position).FindAttribute(TDataStd_Integer::GetID(), aPosition))
+  Handle(IntAttribute) aPosition;
+  if (Label().FindChild(ChildLab_Position).FindAttribute(IntAttribute::GetID(), aPosition))
   {
     anObj->SetPosition(aPosition->Get());
   }
@@ -402,8 +402,8 @@ Handle(XCAFDimTolObjects_DatumObject) XCAFDoc_Datum::GetObject() const
     anObj->SetPointTextAttach(aP);
   }
 
-  Handle(TDataStd_Integer) aIsDTarget;
-  if (Label().FindChild(ChildLab_IsDTarget).FindAttribute(TDataStd_Integer::GetID(), aIsDTarget))
+  Handle(IntAttribute) aIsDTarget;
+  if (Label().FindChild(ChildLab_IsDTarget).FindAttribute(IntAttribute::GetID(), aIsDTarget))
   {
     anObj->IsDatumTarget((aIsDTarget->Get() != 0));
   }
@@ -414,18 +414,18 @@ Handle(XCAFDimTolObjects_DatumObject) XCAFDoc_Datum::GetObject() const
 
   if (aIsDTarget->Get() != 0)
   {
-    Handle(TDataStd_Integer) aDTargetType;
+    Handle(IntAttribute) aDTargetType;
     if (Label()
           .FindChild(ChildLab_DTargetType)
-          .FindAttribute(TDataStd_Integer::GetID(), aDTargetType))
+          .FindAttribute(IntAttribute::GetID(), aDTargetType))
     {
       anObj->SetDatumTargetType((XCAFDimTolObjects_DatumTargetType)aDTargetType->Get());
       if (anObj->GetDatumTargetType() == XCAFDimTolObjects_DatumTargetType_Area)
       {
-        Handle(TNaming_NamedShape) aDatumTarget;
+        Handle(ShapeAttribute) aDatumTarget;
         if (Label()
               .FindChild(ChildLab_DatumTarget)
-              .FindAttribute(TNaming_NamedShape::GetID(), aDatumTarget))
+              .FindAttribute(ShapeAttribute::GetID(), aDatumTarget))
         {
           anObj->SetDatumTarget(aDatumTarget->Get());
         }
@@ -470,8 +470,8 @@ Handle(XCAFDimTolObjects_DatumObject) XCAFDoc_Datum::GetObject() const
         }
       }
     }
-    Handle(TDataStd_Integer) aNum;
-    if (Label().FindChild(ChildLab_DTargetNumber).FindAttribute(TDataStd_Integer::GetID(), aNum))
+    Handle(IntAttribute) aNum;
+    if (Label().FindChild(ChildLab_DTargetNumber).FindAttribute(IntAttribute::GetID(), aNum))
     {
       anObj->SetDatumTargetNumber(aNum->Get());
     }
@@ -481,19 +481,19 @@ Handle(XCAFDimTolObjects_DatumObject) XCAFDoc_Datum::GetObject() const
     }
   }
 
-  Handle(TNaming_NamedShape) aNS;
-  TDF_Label                  aLPres = Label().FindChild(ChildLab_Presentation);
-  if (aLPres.FindAttribute(TNaming_NamedShape::GetID(), aNS))
+  Handle(ShapeAttribute) aNS;
+  DataLabel                  aLPres = Label().FindChild(ChildLab_Presentation);
+  if (aLPres.FindAttribute(ShapeAttribute::GetID(), aNS))
   {
 
-    TopoDS_Shape aPresentation = TNaming_Tool::GetShape(aNS);
+    TopoShape aPresentation = Tool11::GetShape(aNS);
     if (!aPresentation.IsNull())
     {
-      Handle(TDataStd_Name)            aNameAtrr;
+      Handle(NameAttribute)            aNameAtrr;
       Handle(TCollection_HAsciiString) aPresentName;
-      if (aLPres.FindAttribute(TDataStd_Name::GetID(), aNameAtrr))
+      if (aLPres.FindAttribute(NameAttribute::GetID(), aNameAtrr))
       {
-        const TCollection_ExtendedString& aName = aNameAtrr->Get();
+        const UtfString& aName = aNameAtrr->Get();
 
         if (!aName.IsEmpty())
           aPresentName = new TCollection_HAsciiString(aName);

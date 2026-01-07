@@ -29,7 +29,7 @@
 
 //=================================================================================================
 
-class Approx_Curve3d_Eval : public AdvApprox_EvaluatorFunction
+class Approx_Curve3d_Eval : public EvaluatorFunction
 {
 public:
   Approx_Curve3d_Eval(const Handle(Adaptor3d_Curve)& theFunc,
@@ -158,12 +158,12 @@ Approx_Curve3d::Approx_Curve3d(const Handle(Adaptor3d_Curve)& Curve,
     Handle(TColStd_HArray1OfReal)    Knots  = aApprox.Knots();
     Handle(TColStd_HArray1OfInteger) Mults  = aApprox.Multiplicities();
     Standard_Integer                 Degree = aApprox.Degree();
-    myBSplCurve = new Geom_BSplineCurve(Poles, Knots->Array1(), Mults->Array1(), Degree);
+    myBSplCurve = new BSplineCurve3d(Poles, Knots->Array1(), Mults->Array1(), Degree);
     myMaxError  = aApprox.MaxError(3, 1);
   }
 }
 
-Handle(Geom_BSplineCurve) Approx_Curve3d::Curve() const
+Handle(BSplineCurve3d) Approx_Curve3d::Curve() const
 {
   return myBSplCurve;
 }

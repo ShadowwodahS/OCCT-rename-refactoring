@@ -22,7 +22,7 @@
 #include <IFSelect_SignType.hxx>
 class RefObject;
 class Interface_InterfaceModel;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_SignAncestor;
 DEFINE_STANDARD_HANDLE(IFSelect_SignAncestor, IFSelect_SignType)
@@ -35,7 +35,7 @@ public:
 
   Standard_EXPORT virtual Standard_Boolean Matches(const Handle(RefObject)&       ent,
                                                    const Handle(Interface_InterfaceModel)& model,
-                                                   const TCollection_AsciiString&          text,
+                                                   const AsciiString1&          text,
                                                    const Standard_Boolean exact) const
     Standard_OVERRIDE;
 

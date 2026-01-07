@@ -15,14 +15,14 @@
 
 #include <ViewerTest.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(ViewerTest_V3dView, V3d_View)
+IMPLEMENT_STANDARD_RTTIEXT(ViewerTest_V3dView, ViewWindow)
 
 //=================================================================================================
 
-ViewerTest_V3dView::ViewerTest_V3dView(const Handle(V3d_Viewer)& theViewer,
+ViewerTest_V3dView::ViewerTest_V3dView(const Handle(ViewManager)& theViewer,
                                        const V3d_TypeOfView      theType,
                                        bool                      theIs2dMode)
-    : V3d_View(theViewer, theType),
+    : ViewWindow(theViewer, theType),
       myIs2dMode(theIs2dMode)
 {
   //
@@ -30,9 +30,9 @@ ViewerTest_V3dView::ViewerTest_V3dView(const Handle(V3d_Viewer)& theViewer,
 
 //=================================================================================================
 
-ViewerTest_V3dView::ViewerTest_V3dView(const Handle(V3d_Viewer)& theViewer,
-                                       const Handle(V3d_View)&   theView)
-    : V3d_View(theViewer, theView),
+ViewerTest_V3dView::ViewerTest_V3dView(const Handle(ViewManager)& theViewer,
+                                       const Handle(ViewWindow)&   theView)
+    : ViewWindow(theViewer, theView),
       myIs2dMode(false)
 {
   if (Handle(ViewerTest_V3dView) aV3dView = Handle(ViewerTest_V3dView)::DownCast(theView))

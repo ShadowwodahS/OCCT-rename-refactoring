@@ -55,7 +55,7 @@ Handle(Expr_GeneralExpression) Expr_Product::Copy() const
   Expr_SequenceOfGeneralExpression simps;
   for (i = 1; i <= max; i++)
   {
-    simps.Append(Expr::CopyShare(Operand(i)));
+    simps.Append(Expr1::CopyShare(Operand(i)));
   }
   return new Expr_Product(simps);
 }
@@ -139,19 +139,19 @@ Handle(Expr_GeneralExpression) Expr_Product::Derivative(const Handle(Expr_NamedU
   {
     return new Expr_NumericValue(0.0);
   }
-  Handle(Expr_GeneralExpression) firstop = Expr::CopyShare(Operand(1)); // U
+  Handle(Expr_GeneralExpression) firstop = Expr1::CopyShare(Operand(1)); // U
   Handle(Expr_GeneralExpression) tailop;                                // V
   Standard_Integer               nbop = NbOperands();
   if (nbop == 2)
   {
-    tailop = Expr::CopyShare(Operand(2));
+    tailop = Expr1::CopyShare(Operand(2));
   }
   else
   {
-    Handle(Expr_Product) prodop = Expr::CopyShare(Operand(2)) * Expr::CopyShare(Operand(3));
+    Handle(Expr_Product) prodop = Expr1::CopyShare(Operand(2)) * Expr1::CopyShare(Operand(3));
     for (Standard_Integer i = 4; i <= nbop; i++)
     {
-      prodop->AddOperand(Expr::CopyShare(Operand(i)));
+      prodop->AddOperand(Expr1::CopyShare(Operand(i)));
     }
     tailop = prodop;
   }
@@ -295,12 +295,12 @@ Standard_Real Expr_Product::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return res;
 }
 
-TCollection_AsciiString Expr_Product::String() const
+AsciiString1 Expr_Product::String() const
 {
   Handle(Expr_GeneralExpression) op;
   Standard_Integer               nbop = NbOperands();
   op                                  = Operand(1);
-  TCollection_AsciiString str;
+  AsciiString1 str;
   if (op->NbSubExpressions() > 1)
   {
     str = "(";

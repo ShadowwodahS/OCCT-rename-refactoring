@@ -309,7 +309,7 @@ void GeomConvert_ApproxSurface_Eval::Evaluate(Standard_Integer* Dimension,
 
 //=================================================================================================
 
-GeomConvert_ApproxSurface::GeomConvert_ApproxSurface(const Handle(Geom_Surface)& Surf,
+GeomConvert_ApproxSurface::GeomConvert_ApproxSurface(const Handle(GeomSurface)& Surf,
                                                      const Standard_Real         Tol3d,
                                                      const GeomAbs_Shape         UContinuity,
                                                      const GeomAbs_Shape         VContinuity,

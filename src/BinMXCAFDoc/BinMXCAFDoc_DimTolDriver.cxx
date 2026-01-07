@@ -46,7 +46,7 @@ Standard_Boolean BinMXCAFDoc_DimTolDriver::Paste(
 {
   Handle(XCAFDoc_DimTol)  anAtt = Handle(XCAFDoc_DimTol)::DownCast(theTarget);
   Standard_Integer        aKind, aFirstInd, aLastInd;
-  TCollection_AsciiString aName, aDescr;
+  AsciiString1 aName, aDescr;
   if (!(theSource >> aKind >> aName >> aDescr >> aFirstInd >> aLastInd))
     return Standard_False;
 
@@ -78,11 +78,11 @@ void BinMXCAFDoc_DimTolDriver::Paste(const Handle(TDF_Attribute)& theSource,
   if (!anAtt->GetName().IsNull())
     theTarget << anAtt->GetName()->String();
   else
-    theTarget << TCollection_AsciiString("");
+    theTarget << AsciiString1("");
   if (!anAtt->GetDescription().IsNull())
     theTarget << anAtt->GetDescription()->String();
   else
-    theTarget << TCollection_AsciiString("");
+    theTarget << AsciiString1("");
 
   Handle(TColStd_HArray1OfReal) aHArr     = anAtt->GetVal();
   Standard_Integer              aFirstInd = 1, aLastInd = 0;

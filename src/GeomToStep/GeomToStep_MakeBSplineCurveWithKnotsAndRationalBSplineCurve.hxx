@@ -24,7 +24,7 @@
 #include <GeomToStep_Root.hxx>
 
 class StepGeom_BSplineCurveWithKnotsAndRationalBSplineCurve;
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 class Geom2d_BSplineCurve;
 
 //! This class implements the mapping between classes
@@ -32,18 +32,18 @@ class Geom2d_BSplineCurve;
 //! BSplineCurveWithKnotsAndRationalBSplineCurve from StepGeom
 //! which describes a rational_bspline_curve_with_knots from
 //! Prostep
-class GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve : public GeomToStep_Root
+class GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve(
-    const Handle(Geom_BSplineCurve)& Bsplin,
-    const StepData_Factors&          theLocalFactors = StepData_Factors());
+    const Handle(BSplineCurve3d)& Bsplin,
+    const ConversionFactors&          theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve(
     const Handle(Geom2d_BSplineCurve)& Bsplin,
-    const StepData_Factors&            theLocalFactors = StepData_Factors());
+    const ConversionFactors&            theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_BSplineCurveWithKnotsAndRationalBSplineCurve)& Value()
     const;

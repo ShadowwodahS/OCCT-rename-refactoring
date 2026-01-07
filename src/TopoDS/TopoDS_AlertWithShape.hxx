@@ -24,13 +24,13 @@ class TopoDS_AlertWithShape : public Message_Alert
 {
 public:
   //! Constructor with shape argument
-  Standard_EXPORT TopoDS_AlertWithShape(const TopoDS_Shape& theShape);
+  Standard_EXPORT TopoDS_AlertWithShape(const TopoShape& theShape);
 
   //! Returns contained shape
-  const TopoDS_Shape& GetShape() const { return myShape; }
+  const TopoShape& GetShape() const { return myShape; }
 
   //! Sets the shape
-  void SetShape(const TopoDS_Shape& theShape) { myShape = theShape; }
+  void SetShape(const TopoShape& theShape) { myShape = theShape; }
 
   //! Returns false.
   virtual Standard_EXPORT Standard_Boolean SupportsMerge() const Standard_OVERRIDE;
@@ -43,7 +43,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(TopoDS_AlertWithShape, Message_Alert)
 
 private:
-  TopoDS_Shape myShape;
+  TopoShape myShape;
 };
 
 //! Helper macro allowing to define alert with shape argument in one line of code
@@ -51,7 +51,7 @@ private:
   class Alert : public TopoDS_AlertWithShape                                                       \
   {                                                                                                \
   public:                                                                                          \
-    Alert(const TopoDS_Shape& theShape)                                                            \
+    Alert(const TopoShape& theShape)                                                            \
         : TopoDS_AlertWithShape(theShape)                                                          \
     {                                                                                              \
     }                                                                                              \

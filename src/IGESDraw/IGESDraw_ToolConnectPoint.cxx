@@ -36,9 +36,9 @@
 #include <Standard_DomainError.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESDraw_ToolConnectPoint::IGESDraw_ToolConnectPoint() {}
+ConnectPointTool::ConnectPointTool() {}
 
-void IGESDraw_ToolConnectPoint::ReadOwnParams(const Handle(IGESDraw_ConnectPoint)&   ent,
+void ConnectPointTool::ReadOwnParams(const Handle(IGESDraw_ConnectPoint)&   ent,
                                               const Handle(IGESData_IGESReaderData)& IR,
                                               IGESData_ParamReader&                  PR) const
 {
@@ -121,7 +121,7 @@ void IGESDraw_ToolConnectPoint::ReadOwnParams(const Handle(IGESDraw_ConnectPoint
             tempOwnerSubfigure);
 }
 
-void IGESDraw_ToolConnectPoint::WriteOwnParams(const Handle(IGESDraw_ConnectPoint)& ent,
+void ConnectPointTool::WriteOwnParams(const Handle(IGESDraw_ConnectPoint)& ent,
                                                IGESData_IGESWriter&                 IW) const
 {
   IW.Send(ent->Point().X());
@@ -140,7 +140,7 @@ void IGESDraw_ToolConnectPoint::WriteOwnParams(const Handle(IGESDraw_ConnectPoin
   IW.Send(ent->OwnerSubfigure());
 }
 
-void IGESDraw_ToolConnectPoint::OwnShared(const Handle(IGESDraw_ConnectPoint)& ent,
+void ConnectPointTool::OwnShared(const Handle(IGESDraw_ConnectPoint)& ent,
                                           Interface_EntityIterator&            iter) const
 {
   iter.GetOneItem(ent->DisplaySymbol());
@@ -149,7 +149,7 @@ void IGESDraw_ToolConnectPoint::OwnShared(const Handle(IGESDraw_ConnectPoint)& e
   iter.GetOneItem(ent->OwnerSubfigure());
 }
 
-void IGESDraw_ToolConnectPoint::OwnCopy(const Handle(IGESDraw_ConnectPoint)& another,
+void ConnectPointTool::OwnCopy(const Handle(IGESDraw_ConnectPoint)& another,
                                         const Handle(IGESDraw_ConnectPoint)& ent,
                                         Interface_CopyTool&                  TC) const
 {
@@ -188,10 +188,10 @@ void IGESDraw_ToolConnectPoint::OwnCopy(const Handle(IGESDraw_ConnectPoint)& ano
             tempOwnerSubfigure);
 }
 
-IGESData_DirChecker IGESDraw_ToolConnectPoint::DirChecker(
+DirectoryChecker ConnectPointTool::DirChecker(
   const Handle(IGESDraw_ConnectPoint)& ent) const
 {
-  IGESData_DirChecker DC(132, 0);
+  DirectoryChecker DC(132, 0);
   DC.Structure(IGESData_DefVoid);
   DC.Color(IGESData_DefAny);
   DC.UseFlagRequired(4);
@@ -212,7 +212,7 @@ IGESData_DirChecker IGESDraw_ToolConnectPoint::DirChecker(
   return DC;
 }
 
-void IGESDraw_ToolConnectPoint::OwnCheck(const Handle(IGESDraw_ConnectPoint)& ent,
+void ConnectPointTool::OwnCheck(const Handle(IGESDraw_ConnectPoint)& ent,
                                          const Interface_ShareTool&,
                                          Handle(Interface_Check)& ach) const
 {
@@ -235,7 +235,7 @@ void IGESDraw_ToolConnectPoint::OwnCheck(const Handle(IGESDraw_ConnectPoint)& en
     ach->AddFail("SwapFlag has Invalid value");
 }
 
-void IGESDraw_ToolConnectPoint::OwnDump(const Handle(IGESDraw_ConnectPoint)& ent,
+void ConnectPointTool::OwnDump(const Handle(IGESDraw_ConnectPoint)& ent,
                                         const IGESData_IGESDumper&           dumper,
                                         Standard_OStream&                    S,
                                         const Standard_Integer               level) const

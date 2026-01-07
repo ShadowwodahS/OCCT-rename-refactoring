@@ -155,7 +155,7 @@ void Interface_LineBuffer::Keep()
   }
 }
 
-void Interface_LineBuffer::Move(TCollection_AsciiString& theStr)
+void Interface_LineBuffer::Move(AsciiString1& theStr)
 {
   Prepare();
   theStr.AssignCat(&myLine.First());
@@ -195,7 +195,7 @@ void Interface_LineBuffer::Add(const Standard_CString text, const Standard_Integ
   myLine.SetValue(myLen + 1, '\0');
 }
 
-void Interface_LineBuffer::Add(const TCollection_AsciiString& theText)
+void Interface_LineBuffer::Add(const AsciiString1& theText)
 {
   Add(theText.ToCString(), theText.Length());
 }

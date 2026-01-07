@@ -20,11 +20,11 @@
 #include <Precision.hxx>
 #include <Standard_DefineAlloc.hxx>
 
-class TopoDS_Shape;
+class TopoShape;
 class Bnd_Box;
-class TopoDS_Vertex;
-class TopoDS_Edge;
-class TopoDS_Face;
+class TopoVertex;
+class TopoEdge;
+class TopoFace;
 
 //! This class allows to compute minimum distance between two brep shapes
 //! (face edge vertex) and is used in DistShapeShape class.
@@ -46,8 +46,8 @@ public: //! @name Constructor from two shapes
   //!                     (default is MINMAX, applied only to point-face extrema)
   //! @param theExtAlgo - Specifies which extrema algorithm is to be used
   //!                     (default is Grad algo, applied only to point-face extrema)
-  BRepExtrema_DistanceSS(const TopoDS_Shape&   theS1,
-                         const TopoDS_Shape&   theS2,
+  BRepExtrema_DistanceSS(const TopoShape&   theS1,
+                         const TopoShape&   theS2,
                          const Bnd_Box&        theBox1,
                          const Bnd_Box&        theBox2,
                          const Standard_Real   theDstRef,
@@ -79,44 +79,44 @@ public: //! @name Results
 private: //! @name private methods performing the search
   //! Computes the distance between two Shapes (face edge vertex).
   //! General method to sort out the shape types and call the specific method.
-  Standard_EXPORT void Perform(const TopoDS_Shape& theS1,
-                               const TopoDS_Shape& theS2,
+  Standard_EXPORT void Perform(const TopoShape& theS1,
+                               const TopoShape& theS2,
                                const Bnd_Box&      theBox1,
                                const Bnd_Box&      theBox2);
 
   //! Computes the distance between two vertices.
-  void Perform(const TopoDS_Vertex&       S1,
-               const TopoDS_Vertex&       S2,
+  void Perform(const TopoVertex&       S1,
+               const TopoVertex&       S2,
                BRepExtrema_SeqOfSolution& theSeqSolShape1,
                BRepExtrema_SeqOfSolution& theSeqSolShape2);
 
   //! Computes the minimum distance between a vertex and an edge.
-  void Perform(const TopoDS_Vertex&       theS1,
-               const TopoDS_Edge&         theS2,
+  void Perform(const TopoVertex&       theS1,
+               const TopoEdge&         theS2,
                BRepExtrema_SeqOfSolution& theSeqSolShape1,
                BRepExtrema_SeqOfSolution& theSeqSolShape2);
 
   //! Computes the minimum distance between a vertex and a face.
-  void Perform(const TopoDS_Vertex&       theS1,
-               const TopoDS_Face&         theS2,
+  void Perform(const TopoVertex&       theS1,
+               const TopoFace&         theS2,
                BRepExtrema_SeqOfSolution& theSeqSolShape1,
                BRepExtrema_SeqOfSolution& theSeqSolShape2);
 
   //! Computes the minimum distance between two edges.
-  void Perform(const TopoDS_Edge&         theS1,
-               const TopoDS_Edge&         theS2,
+  void Perform(const TopoEdge&         theS1,
+               const TopoEdge&         theS2,
                BRepExtrema_SeqOfSolution& theSeqSolShape1,
                BRepExtrema_SeqOfSolution& theSeqSolShape2);
 
   //! Computes the minimum distance between an edge and a face.
-  void Perform(const TopoDS_Edge&         theS1,
-               const TopoDS_Face&         theS2,
+  void Perform(const TopoEdge&         theS1,
+               const TopoFace&         theS2,
                BRepExtrema_SeqOfSolution& theSeqSolShape1,
                BRepExtrema_SeqOfSolution& theSeqSolShape2);
 
   //! Computes the minimum distance between two faces.
-  void Perform(const TopoDS_Face&         theS1,
-               const TopoDS_Face&         theS2,
+  void Perform(const TopoFace&         theS1,
+               const TopoFace&         theS2,
                BRepExtrema_SeqOfSolution& theSeqSolShape1,
                BRepExtrema_SeqOfSolution& theSeqSolShape2);
 

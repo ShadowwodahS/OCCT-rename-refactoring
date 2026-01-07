@@ -22,7 +22,7 @@
 
 #include <BRep_PolygonOnTriangulation.hxx>
 class Poly_PolygonOnTriangulation;
-class Poly_Triangulation;
+class MeshTriangulation;
 class TopLoc_Location;
 class BRep_CurveRepresentation;
 
@@ -37,7 +37,7 @@ class BRep_PolygonOnClosedTriangulation : public BRep_PolygonOnTriangulation
 public:
   Standard_EXPORT BRep_PolygonOnClosedTriangulation(const Handle(Poly_PolygonOnTriangulation)& P1,
                                                     const Handle(Poly_PolygonOnTriangulation)& P2,
-                                                    const Handle(Poly_Triangulation)&          Tr,
+                                                    const Handle(MeshTriangulation)&          Tr,
                                                     const TopLoc_Location&                     L);
 
   //! Returns True.

@@ -43,7 +43,7 @@ Standard_Integer IGESGraph_Protocol::NbResources() const
 
 Handle(Interface_Protocol) IGESGraph_Protocol::Resource(const Standard_Integer /*num*/) const
 {
-  Handle(Interface_Protocol) res = IGESBasic::Protocol();
+  Handle(Interface_Protocol) res = IGESBasic1::Protocol();
   return res;
 }
 

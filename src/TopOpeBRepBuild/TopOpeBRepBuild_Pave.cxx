@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepBuild_Pave, TopOpeBRepBuild_Loop)
 
 //=================================================================================================
 
-TopOpeBRepBuild_Pave::TopOpeBRepBuild_Pave(const TopoDS_Shape&    V,
+TopOpeBRepBuild_Pave::TopOpeBRepBuild_Pave(const TopoShape&    V,
                                            const Standard_Real    P,
                                            const Standard_Boolean B)
     : TopOpeBRepBuild_Loop(V),
@@ -41,7 +41,7 @@ void TopOpeBRepBuild_Pave::HasSameDomain(const Standard_Boolean B)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Pave::SameDomain(const TopoDS_Shape& VSD)
+void TopOpeBRepBuild_Pave::SameDomain(const TopoShape& VSD)
 {
   mySameDomain = VSD;
 }
@@ -55,21 +55,21 @@ Standard_Boolean TopOpeBRepBuild_Pave::HasSameDomain() const
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepBuild_Pave::SameDomain() const
+const TopoShape& TopOpeBRepBuild_Pave::SameDomain() const
 {
   return mySameDomain;
 }
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepBuild_Pave::Vertex() const
+const TopoShape& TopOpeBRepBuild_Pave::Vertex() const
 {
   return myVertex;
 }
 
 //=================================================================================================
 
-TopoDS_Shape& TopOpeBRepBuild_Pave::ChangeVertex()
+TopoShape& TopOpeBRepBuild_Pave::ChangeVertex()
 {
   return myVertex;
 }
@@ -98,7 +98,7 @@ Standard_Boolean TopOpeBRepBuild_Pave::IsShape() const
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepBuild_Pave::Shape() const
+const TopoShape& TopOpeBRepBuild_Pave::Shape() const
 {
   return myVertex;
 }
@@ -109,7 +109,7 @@ void TopOpeBRepBuild_Pave::Dump() const
 {
 #ifdef OCCT_DEBUG
   std::cout << Parameter() << " ";
-  TopAbs::Print(Vertex().Orientation(), std::cout);
+  TopAbs1::Print(Vertex().Orientation(), std::cout);
 #endif
 }
 

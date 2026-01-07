@@ -31,9 +31,9 @@
 #include <TCollection_HAsciiString.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 
-IGESAppli_ToolPWBArtworkStackup::IGESAppli_ToolPWBArtworkStackup() {}
+PWBArtworkStackupTool::PWBArtworkStackupTool() {}
 
-void IGESAppli_ToolPWBArtworkStackup::ReadOwnParams(const Handle(IGESAppli_PWBArtworkStackup)& ent,
+void PWBArtworkStackupTool::ReadOwnParams(const Handle(IGESAppli_PWBArtworkStackup)& ent,
                                                     const Handle(IGESData_IGESReaderData)& /* IR */,
                                                     IGESData_ParamReader& PR) const
 {
@@ -58,7 +58,7 @@ void IGESAppli_ToolPWBArtworkStackup::ReadOwnParams(const Handle(IGESAppli_PWBAr
   ent->Init(tempNbPropertyValues, tempArtworkStackupIdent, tempLevelNumbers);
 }
 
-void IGESAppli_ToolPWBArtworkStackup::WriteOwnParams(const Handle(IGESAppli_PWBArtworkStackup)& ent,
+void PWBArtworkStackupTool::WriteOwnParams(const Handle(IGESAppli_PWBArtworkStackup)& ent,
                                                      IGESData_IGESWriter& IW) const
 {
   Standard_Integer i, num;
@@ -69,13 +69,13 @@ void IGESAppli_ToolPWBArtworkStackup::WriteOwnParams(const Handle(IGESAppli_PWBA
     IW.Send(ent->LevelNumber(i));
 }
 
-void IGESAppli_ToolPWBArtworkStackup::OwnShared(
+void PWBArtworkStackupTool::OwnShared(
   const Handle(IGESAppli_PWBArtworkStackup)& /* ent */,
   Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESAppli_ToolPWBArtworkStackup::OwnCopy(const Handle(IGESAppli_PWBArtworkStackup)& another,
+void PWBArtworkStackupTool::OwnCopy(const Handle(IGESAppli_PWBArtworkStackup)& another,
                                               const Handle(IGESAppli_PWBArtworkStackup)& ent,
                                               Interface_CopyTool& /* TC */) const
 {
@@ -89,10 +89,10 @@ void IGESAppli_ToolPWBArtworkStackup::OwnCopy(const Handle(IGESAppli_PWBArtworkS
   ent->Init(tempNbPropertyValues, tempArtworkStackupIdent, tempLevelNumbers);
 }
 
-IGESData_DirChecker IGESAppli_ToolPWBArtworkStackup::DirChecker(
+DirectoryChecker PWBArtworkStackupTool::DirChecker(
   const Handle(IGESAppli_PWBArtworkStackup)& /* ent */) const
 {
-  IGESData_DirChecker DC(406, 25);
+  DirectoryChecker DC(406, 25);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -104,13 +104,13 @@ IGESData_DirChecker IGESAppli_ToolPWBArtworkStackup::DirChecker(
   return DC;
 }
 
-void IGESAppli_ToolPWBArtworkStackup::OwnCheck(const Handle(IGESAppli_PWBArtworkStackup)& /* ent */,
+void PWBArtworkStackupTool::OwnCheck(const Handle(IGESAppli_PWBArtworkStackup)& /* ent */,
                                                const Interface_ShareTool&,
                                                Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESAppli_ToolPWBArtworkStackup::OwnDump(const Handle(IGESAppli_PWBArtworkStackup)& ent,
+void PWBArtworkStackupTool::OwnDump(const Handle(IGESAppli_PWBArtworkStackup)& ent,
                                               const IGESData_IGESDumper& /* dumper */,
                                               Standard_OStream&      S,
                                               const Standard_Integer level) const

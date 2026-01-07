@@ -90,7 +90,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
   gp_Dir2d           dirx(1., 0.);
   gp_Pnt2d           center1(C1.Location());
   gp_Pnt2d           center2(C2.Location());
-  GccAna_Circ2dBisec Bis(C1, C2);
+  Circle2dBisector Bis(C1, C2);
   if (Bis.IsDone())
   {
     Geom2dInt_TheIntConicCurveOfGInter Intp;
@@ -363,7 +363,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
   gp_Dir2d      dir2(L2.Direction());
   gp_Dir2d      normL2(-dir2.Y(), dir2.X());
 
-  GccAna_CircLin2dBisec Bis(C1, L2);
+  CircleLine2dBisector Bis(C1, L2);
   if (Bis.IsDone())
   {
     Standard_Real                      Tol1 = Abs(Tolerance);
@@ -507,7 +507,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
               }
               TheSame2(NbrSol)   = 0;
               Standard_Real sign = dc2.Dot(gp_Dir2d(-dir2.Y(), dir2.X()));
-              dc2                = gp_Dir2d(sign * gp_XY(-dir2.Y(), dir2.X()));
+              dc2                = gp_Dir2d(sign * Coords2d(-dir2.Y(), dir2.X()));
               pnttg2sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc2.XY());
               par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
               pararg2(NbrSol)    = ElCLib::Parameter(L2, pnttg2sol(NbrSol));
@@ -575,7 +575,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedLin& 
   gp_Dir2d          Dnor2(-dir2.Y(), dir2.X());
   gp_Pnt2d          origin1(L1.Location());
   gp_Pnt2d          origin2(L2.Location());
-  GccAna_Lin2dBisec Bis(L1, L2);
+  Line2dBisector Bis(L1, L2);
   if (Bis.IsDone())
   {
     Standard_Real                      Tol1 = Abs(Tolerance);
@@ -684,12 +684,12 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedLin& 
               TheSame1(NbrSol)   = 0;
               TheSame2(NbrSol)   = 0;
               Standard_Real sign = dc1.Dot(Dnor1);
-              dc1                = gp_Dir2d(sign * gp_XY(-dir1.Y(), dir1.X()));
+              dc1                = gp_Dir2d(sign * Coords2d(-dir1.Y(), dir1.X()));
               pnttg1sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc1.XY());
               par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
               pararg1(NbrSol)    = ElCLib::Parameter(L1, pnttg1sol(NbrSol));
               sign               = dc2.Dot(gp_Dir2d(-dir2.Y(), dir2.X()));
-              dc2                = gp_Dir2d(sign * gp_XY(-dir2.Y(), dir2.X()));
+              dc2                = gp_Dir2d(sign * Coords2d(-dir2.Y(), dir2.X()));
               pnttg2sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc2.XY());
               par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
               pararg2(NbrSol)    = ElCLib::Parameter(L2, pnttg2sol(NbrSol));
@@ -752,7 +752,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedCirc&
   gp_Circ2d             C1 = Qualified1.Qualified();
   Standard_Real         R1 = C1.Radius();
   gp_Pnt2d              center1(C1.Location());
-  GccAna_CircPnt2dBisec Bis(C1, Point2);
+  CirclePoint2dBisector Bis(C1, Point2);
   if (Bis.IsDone())
   {
     Standard_Real                      Tol1 = Abs(Tolerance);
@@ -1037,7 +1037,7 @@ Geom2dGcc_Circ2d2TanOnGeo::Geom2dGcc_Circ2d2TanOnGeo(const GccEnt_QualifiedLin& 
             TheSame2(NbrSol) = 0;
             gp_Dir2d      dc1(origin1.XY() - Center.XY());
             Standard_Real sign = dc1.Dot(gp_Dir2d(-dir1.Y(), dir1.X()));
-            dc1                = gp_Dir2d(sign * gp_XY(-dir1.Y(), dir1.X()));
+            dc1                = gp_Dir2d(sign * Coords2d(-dir1.Y(), dir1.X()));
             pnttg1sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc1.XY());
             par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
             pararg1(NbrSol)    = ElCLib::Parameter(L1, pnttg1sol(NbrSol));

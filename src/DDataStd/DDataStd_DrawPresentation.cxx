@@ -32,13 +32,13 @@
 IMPLEMENT_STANDARD_RTTIEXT(DDataStd_DrawPresentation, TDF_Attribute)
 
 #ifndef _WIN32
-extern Draw_Viewer dout;
+extern DrawViewer dout;
 #else
-Standard_IMPORT Draw_Viewer dout;
+Standard_IMPORT DrawViewer dout;
 #endif
 //=================================================================================================
 
-Standard_Boolean DDataStd_DrawPresentation::IsDisplayed(const TDF_Label& L)
+Standard_Boolean DDataStd_DrawPresentation::IsDisplayed(const DataLabel& L)
 {
   Handle(DDataStd_DrawPresentation) P;
   if (L.FindAttribute(DDataStd_DrawPresentation::GetID(), P))
@@ -50,14 +50,14 @@ Standard_Boolean DDataStd_DrawPresentation::IsDisplayed(const TDF_Label& L)
 
 //=================================================================================================
 
-Standard_Boolean DDataStd_DrawPresentation::HasPresentation(const TDF_Label& L)
+Standard_Boolean DDataStd_DrawPresentation::HasPresentation(const DataLabel& L)
 {
   return (L.IsAttribute(DDataStd_DrawPresentation::GetID()));
 }
 
 //=================================================================================================
 
-void DDataStd_DrawPresentation::Display(const TDF_Label& L)
+void DDataStd_DrawPresentation::Display(const DataLabel& L)
 {
   Handle(DDataStd_DrawPresentation) P;
   // set
@@ -77,7 +77,7 @@ void DDataStd_DrawPresentation::Display(const TDF_Label& L)
 
 //=================================================================================================
 
-void DDataStd_DrawPresentation::Erase(const TDF_Label& L)
+void DDataStd_DrawPresentation::Erase(const DataLabel& L)
 {
   Handle(DDataStd_DrawPresentation) P;
   if (L.FindAttribute(DDataStd_DrawPresentation::GetID(), P))
@@ -92,7 +92,7 @@ void DDataStd_DrawPresentation::Erase(const TDF_Label& L)
 
 //=================================================================================================
 
-void DDataStd_DrawPresentation::Update(const TDF_Label& L)
+void DDataStd_DrawPresentation::Update(const DataLabel& L)
 {
   Handle(DDataStd_DrawPresentation) P;
   if (L.FindAttribute(DDataStd_DrawPresentation::GetID(), P))
@@ -107,7 +107,7 @@ void DDataStd_DrawPresentation::Update(const TDF_Label& L)
 
 //=======================================================================
 // function : GetID
-// purpose  : idem GUID DDataStd Display
+// purpose  : idem GUID DDataStd1 Display
 //=======================================================================
 
 const Standard_GUID& DDataStd_DrawPresentation::GetID()
@@ -343,17 +343,17 @@ void DDataStd_DrawPresentation::DrawBuild()
 
 //=================================================================================================
 
-void DDataStd_DrawPresentation::DrawDisplay(const TDF_Label&                         L,
+void DDataStd_DrawPresentation::DrawDisplay(const DataLabel&                         L,
                                             const Handle(DDataStd_DrawPresentation)& P)
 {
   if (!L.IsNull())
   {
     if (!P->GetDrawable().IsNull())
     {
-      TCollection_AsciiString S;
+      AsciiString1 S;
       TDF_Tool::Entry(L, S);
       Standard_CString name = S.ToCString();
-      Draw::Set(name, P->GetDrawable());
+      Draw1::Set(name, P->GetDrawable());
       return;
     }
     else
@@ -367,7 +367,7 @@ void DDataStd_DrawPresentation::DrawDisplay(const TDF_Label&                    
 
 //=================================================================================================
 
-void DDataStd_DrawPresentation::DrawErase(const TDF_Label&                         L,
+void DDataStd_DrawPresentation::DrawErase(const DataLabel&                         L,
                                           const Handle(DDataStd_DrawPresentation)& P)
 {
   if (!L.IsNull())

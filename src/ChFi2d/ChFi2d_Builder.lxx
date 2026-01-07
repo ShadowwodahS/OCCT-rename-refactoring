@@ -26,9 +26,9 @@
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Face ChFi2d_Builder::Result() const
+inline TopoFace ChFi2d_Builder::Result() const
 {
-  TopoDS_Face aFace = newFace;
+  TopoFace aFace = newFace;
   aFace.Orientation(refFace.Orientation());
   return aFace;
 }
@@ -38,7 +38,7 @@ inline TopoDS_Face ChFi2d_Builder::Result() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ChFi2d_Builder::IsModified(const TopoDS_Edge& E) const
+inline Standard_Boolean ChFi2d_Builder::IsModified(const TopoEdge& E) const
 {
   return history.IsBound(E);
 }
@@ -88,7 +88,7 @@ inline Standard_Integer ChFi2d_Builder::NbChamfer() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ChFi2d_Builder::HasDescendant(const TopoDS_Edge& E) const
+inline Standard_Boolean ChFi2d_Builder::HasDescendant(const TopoEdge& E) const
 {
   return history.IsBound(E);
 }
@@ -98,7 +98,7 @@ inline Standard_Boolean ChFi2d_Builder::HasDescendant(const TopoDS_Edge& E) cons
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Edge& ChFi2d_Builder::DescendantEdge(const TopoDS_Edge& E) const
+inline const TopoEdge& ChFi2d_Builder::DescendantEdge(const TopoEdge& E) const
 {
   return TopoDS::Edge(history.Find(E));
 } // DescendantEdge

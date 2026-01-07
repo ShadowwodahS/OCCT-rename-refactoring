@@ -29,8 +29,8 @@
 
 //=================================================================================================
 
-FilletSurf_Builder::FilletSurf_Builder(const TopoDS_Shape&         S,
-                                       const TopTools_ListOfShape& E,
+FilletSurf_Builder::FilletSurf_Builder(const TopoShape&         S,
+                                       const ShapeList& E,
                                        const Standard_Real         R,
                                        const Standard_Real         Ta,
                                        const Standard_Real         Tapp3d,
@@ -115,7 +115,7 @@ Standard_Integer FilletSurf_Builder::NbSurface() const
 // purpose  : gives the NUBS surface of index Index
 //=======================================================================
 
-const Handle(Geom_Surface)& FilletSurf_Builder::SurfaceFillet(const Standard_Integer Index) const
+const Handle(GeomSurface)& FilletSurf_Builder::SurfaceFillet(const Standard_Integer Index) const
 {
   if ((Index < 1) || (Index > NbSurface()))
     throw Standard_OutOfRange("FilletSurf_Builder::SurfaceFillet");
@@ -137,7 +137,7 @@ Standard_Real FilletSurf_Builder::TolApp3d(const Standard_Integer Index) const
 // function : SupportFace1
 // purpose  : gives the first support  face relative to SurfaceFillet(Index)
 //=======================================================================
-const TopoDS_Face& FilletSurf_Builder::SupportFace1(const Standard_Integer Index) const
+const TopoFace& FilletSurf_Builder::SupportFace1(const Standard_Integer Index) const
 {
   if ((Index < 1) || (Index > NbSurface()))
     throw Standard_OutOfRange("FilletSurf_Builder::SupportFace1");
@@ -148,7 +148,7 @@ const TopoDS_Face& FilletSurf_Builder::SupportFace1(const Standard_Integer Index
 // function : SupportFace2
 // purpose  : gives the second support face relative to SurfaceFillet(Index)
 //=======================================================================
-const TopoDS_Face& FilletSurf_Builder::SupportFace2(const Standard_Integer Index) const
+const TopoFace& FilletSurf_Builder::SupportFace2(const Standard_Integer Index) const
 {
   if ((Index < 1) || (Index > NbSurface()))
     throw Standard_OutOfRange("FilletSurf_Builder::SupportFace2");
@@ -159,7 +159,7 @@ const TopoDS_Face& FilletSurf_Builder::SupportFace2(const Standard_Integer Index
 // function : CurveOnFace1
 // purpose  :  gives  the 3d curve  of SurfaceFillet(Index)  on SupportFace1(Index)
 //===============================================================================
-const Handle(Geom_Curve)& FilletSurf_Builder::CurveOnFace1(const Standard_Integer Index) const
+const Handle(GeomCurve3d)& FilletSurf_Builder::CurveOnFace1(const Standard_Integer Index) const
 {
   if ((Index < 1) || (Index > NbSurface()))
     throw Standard_OutOfRange("FilletSurf_Builder::CurveOnFace1");
@@ -170,7 +170,7 @@ const Handle(Geom_Curve)& FilletSurf_Builder::CurveOnFace1(const Standard_Intege
 // function : CurveOnFace2
 // purpose  : gives the 3d  curve of  SurfaceFillet(Index) on SupportFace2(Index
 //=======================================================================
-const Handle(Geom_Curve)& FilletSurf_Builder::CurveOnFace2(const Standard_Integer Index) const
+const Handle(GeomCurve3d)& FilletSurf_Builder::CurveOnFace2(const Standard_Integer Index) const
 {
   if ((Index < 1) || (Index > NbSurface()))
     throw Standard_OutOfRange("FilletSurf_Builder::CurveOnFace2");
@@ -181,7 +181,7 @@ const Handle(Geom_Curve)& FilletSurf_Builder::CurveOnFace2(const Standard_Intege
 // function : PCurveOnFace1
 // purpose  : gives the  PCurve associated to CurveOnFace1(Index)  on the support face
 //=======================================================================
-const Handle(Geom2d_Curve)& FilletSurf_Builder::PCurveOnFace1(const Standard_Integer Index) const
+const Handle(GeomCurve2d)& FilletSurf_Builder::PCurveOnFace1(const Standard_Integer Index) const
 {
   if ((Index < 1) || (Index > NbSurface()))
     throw Standard_OutOfRange("FilletSurf_Builder::PCurveOnFace1");
@@ -192,7 +192,7 @@ const Handle(Geom2d_Curve)& FilletSurf_Builder::PCurveOnFace1(const Standard_Int
 // function : PCurve1OnFillet
 // purpose  : gives the PCurve associated to CurveOnFace1(Index) on the Fillet
 //=======================================================================
-const Handle(Geom2d_Curve)& FilletSurf_Builder::PCurve1OnFillet(const Standard_Integer Index) const
+const Handle(GeomCurve2d)& FilletSurf_Builder::PCurve1OnFillet(const Standard_Integer Index) const
 {
   if ((Index < 1) || (Index > NbSurface()))
     throw Standard_OutOfRange("FilletSurf_Builder::PCurve1OnFillet");
@@ -203,7 +203,7 @@ const Handle(Geom2d_Curve)& FilletSurf_Builder::PCurve1OnFillet(const Standard_I
 // function : PCurveOnFace2
 // purpose  : gives the  PCurve associated to CurveOnFace2(Index)  on the support face
 //=======================================================================
-const Handle(Geom2d_Curve)& FilletSurf_Builder::PCurveOnFace2(const Standard_Integer Index) const
+const Handle(GeomCurve2d)& FilletSurf_Builder::PCurveOnFace2(const Standard_Integer Index) const
 {
   if ((Index < 1) || (Index > NbSurface()))
     throw Standard_OutOfRange("FilletSurf_Builder::PCurveOnFace2");
@@ -214,7 +214,7 @@ const Handle(Geom2d_Curve)& FilletSurf_Builder::PCurveOnFace2(const Standard_Int
 // function : PCurve2OnFillet
 // purpose  : gives the PCurve associated to CurveOnFace2(Index) on the Fillet
 //=======================================================================
-const Handle(Geom2d_Curve)& FilletSurf_Builder::PCurve2OnFillet(const Standard_Integer Index) const
+const Handle(GeomCurve2d)& FilletSurf_Builder::PCurve2OnFillet(const Standard_Integer Index) const
 {
   if ((Index < 1) || (Index > NbSurface()))
     throw Standard_OutOfRange("FilletSurf_Builder::PCurve2OnFillet");
@@ -314,7 +314,7 @@ Standard_Integer FilletSurf_Builder::NbSection(const Standard_Integer IndexSurf)
 // function : Section
 // purpose  :  gives the   arc of circle corresponding    to section number
 // IndexSec  of  SurfaceFillet(IndexSurf)  (The   basis curve  of the
-// trimmed curve is a Geom_Circle)
+// trimmed curve is a GeomCircle)
 //=======================================================================
 void FilletSurf_Builder::Section(const Standard_Integer     IndexSurf,
                                  const Standard_Integer     IndexSec,

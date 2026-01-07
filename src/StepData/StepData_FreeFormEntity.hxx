@@ -95,7 +95,7 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString         thetype;
+  AsciiString1         thetype;
   Handle(StepData_HArray1OfField) thefields;
   Handle(StepData_FreeFormEntity) thenext;
 };

@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(AIS_Animation, RefObject)
 
 //=================================================================================================
 
-AIS_Animation::AIS_Animation(const TCollection_AsciiString& theAnimationName)
+AIS_Animation::AIS_Animation(const AsciiString1& theAnimationName)
     : myName(theAnimationName),
       myState(AnimationState_Stopped),
       myPtsStart(0.0),
@@ -70,7 +70,7 @@ void AIS_Animation::Add(const Handle(AIS_Animation)& theAnimation)
 
 //=================================================================================================
 
-Handle(AIS_Animation) AIS_Animation::Find(const TCollection_AsciiString& theAnimationName) const
+Handle(AIS_Animation) AIS_Animation::Find(const AsciiString1& theAnimationName) const
 {
   for (NCollection_Sequence<Handle(AIS_Animation)>::Iterator anIter(myAnimations); anIter.More();
        anIter.Next())

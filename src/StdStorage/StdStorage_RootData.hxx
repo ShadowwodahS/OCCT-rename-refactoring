@@ -60,19 +60,19 @@ public:
   Standard_EXPORT Handle(StdStorage_HSequenceOfRoots) Roots() const;
 
   //! Finds a root with name <aName>.
-  Standard_EXPORT Handle(StdStorage_Root) Find(const TCollection_AsciiString& aName) const;
+  Standard_EXPORT Handle(StdStorage_Root) Find(const AsciiString1& aName) const;
 
   //! Returns Standard_True if <me> contains a root named <aName>
-  Standard_EXPORT Standard_Boolean IsRoot(const TCollection_AsciiString& aName) const;
+  Standard_EXPORT Standard_Boolean IsRoot(const AsciiString1& aName) const;
 
   //! Removes the root named <aName>.
-  Standard_EXPORT void RemoveRoot(const TCollection_AsciiString& aName);
+  Standard_EXPORT void RemoveRoot(const AsciiString1& aName);
 
   //! Returns a status of the latest call to Read / Write functions
   Standard_EXPORT Storage_Error ErrorStatus() const;
 
   //! Returns an error message if any of the latest call to Read / Write functions
-  Standard_EXPORT TCollection_AsciiString ErrorStatusExtension() const;
+  Standard_EXPORT AsciiString1 ErrorStatusExtension() const;
 
   //! Clears error status
   Standard_EXPORT void ClearErrorStatus();
@@ -85,11 +85,11 @@ private:
 
   Standard_EXPORT void SetErrorStatus(const Storage_Error anError);
 
-  Standard_EXPORT void SetErrorStatusExtension(const TCollection_AsciiString& anErrorExt);
+  Standard_EXPORT void SetErrorStatusExtension(const AsciiString1& anErrorExt);
 
   StdStorage_MapOfRoots   myObjects;
   Storage_Error           myErrorStatus;
-  TCollection_AsciiString myErrorStatusExt;
+  AsciiString1 myErrorStatusExt;
 };
 
 #endif // _StdStorage_RootData_HeaderFile

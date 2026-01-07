@@ -22,18 +22,18 @@
 
 //=================================================================================================
 
-TopTools_LocationSet::TopTools_LocationSet() {}
+LocationSet1::LocationSet1() {}
 
 //=================================================================================================
 
-void TopTools_LocationSet::Clear()
+void LocationSet1::Clear()
 {
   myMap.Clear();
 }
 
 //=================================================================================================
 
-Standard_Integer TopTools_LocationSet::Add(const TopLoc_Location& L)
+Standard_Integer LocationSet1::Add(const TopLoc_Location& L)
 {
   if (L.IsIdentity())
     return 0;
@@ -51,7 +51,7 @@ Standard_Integer TopTools_LocationSet::Add(const TopLoc_Location& L)
 
 //=================================================================================================
 
-const TopLoc_Location& TopTools_LocationSet::Location(const Standard_Integer I) const
+const TopLoc_Location& LocationSet1::Location(const Standard_Integer I) const
 {
   static TopLoc_Location identity;
   if (I <= 0 || I > myMap.Extent())
@@ -61,7 +61,7 @@ const TopLoc_Location& TopTools_LocationSet::Location(const Standard_Integer I) 
 
 //=================================================================================================
 
-Standard_Integer TopTools_LocationSet::Index(const TopLoc_Location& L) const
+Standard_Integer LocationSet1::Index(const TopLoc_Location& L) const
 {
   if (L.IsIdentity())
     return 0;
@@ -106,7 +106,7 @@ static void WriteTrsf(const Transform3d& T, Standard_OStream& OS, const Standard
 
 //=================================================================================================
 
-void TopTools_LocationSet::Dump(Standard_OStream& OS) const
+void LocationSet1::Dump(Standard_OStream& OS) const
 {
   Standard_Integer i, nbLoc = myMap.Extent();
 
@@ -151,7 +151,7 @@ void TopTools_LocationSet::Dump(Standard_OStream& OS) const
 
 //=================================================================================================
 
-void TopTools_LocationSet::Write(Standard_OStream&            OS,
+void LocationSet1::Write(Standard_OStream&            OS,
                                  const Message_ProgressRange& theProgress) const
 {
 
@@ -221,7 +221,7 @@ static void ReadTrsf(Transform3d& T, Standard_IStream& IS)
 
 //=================================================================================================
 
-void TopTools_LocationSet::Read(Standard_IStream& IS, const Message_ProgressRange& theProgress)
+void LocationSet1::Read(Standard_IStream& IS, const Message_ProgressRange& theProgress)
 {
   myMap.Clear();
 

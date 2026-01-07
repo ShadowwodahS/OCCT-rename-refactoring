@@ -53,7 +53,7 @@ Handle(CDF_Application) CDF_Application::Load(const Standard_GUID& aGUID)
 
 //=================================================================================================
 
-void CDF_Application::NewDocument(const TCollection_ExtendedString& /*theFormat*/,
+void CDF_Application::NewDocument(const UtfString& /*theFormat*/,
                                   Handle(CDM_Document)& /*theDoc*/)
 {
 }
@@ -88,21 +88,21 @@ void CDF_Application::Close(const Handle(CDM_Document)& aDocument)
 
 //=================================================================================================
 
-Handle(CDM_Document) CDF_Application::Retrieve(const TCollection_ExtendedString& aFolder,
-                                               const TCollection_ExtendedString& aName,
+Handle(CDM_Document) CDF_Application::Retrieve(const UtfString& aFolder,
+                                               const UtfString& aName,
                                                const Standard_Boolean UseStorageConfiguration,
                                                const Handle(PCDM_ReaderFilter)& theFilter,
                                                const Message_ProgressRange&     theRange)
 {
-  TCollection_ExtendedString nullVersion;
+  UtfString nullVersion;
   return Retrieve(aFolder, aName, nullVersion, UseStorageConfiguration, theFilter, theRange);
 }
 
 //=================================================================================================
 
-Handle(CDM_Document) CDF_Application::Retrieve(const TCollection_ExtendedString& aFolder,
-                                               const TCollection_ExtendedString& aName,
-                                               const TCollection_ExtendedString& aVersion,
+Handle(CDM_Document) CDF_Application::Retrieve(const UtfString& aFolder,
+                                               const UtfString& aName,
+                                               const UtfString& aVersion,
                                                const Standard_Boolean UseStorageConfiguration,
                                                const Handle(PCDM_ReaderFilter)& theFilter,
                                                const Message_ProgressRange&     theRange)
@@ -127,19 +127,19 @@ Handle(CDM_Document) CDF_Application::Retrieve(const TCollection_ExtendedString&
 
 //=================================================================================================
 
-PCDM_ReaderStatus CDF_Application::CanRetrieve(const TCollection_ExtendedString& theFolder,
-                                               const TCollection_ExtendedString& theName,
+PCDM_ReaderStatus CDF_Application::CanRetrieve(const UtfString& theFolder,
+                                               const UtfString& theName,
                                                const bool                        theAppendMode)
 {
-  TCollection_ExtendedString aVersion;
+  UtfString aVersion;
   return CanRetrieve(theFolder, theName, aVersion, theAppendMode);
 }
 
 //=================================================================================================
 
-PCDM_ReaderStatus CDF_Application::CanRetrieve(const TCollection_ExtendedString& theFolder,
-                                               const TCollection_ExtendedString& theName,
-                                               const TCollection_ExtendedString& theVersion,
+PCDM_ReaderStatus CDF_Application::CanRetrieve(const UtfString& theFolder,
+                                               const UtfString& theName,
+                                               const UtfString& theVersion,
                                                const bool                        theAppendMode)
 {
 
@@ -162,15 +162,15 @@ PCDM_ReaderStatus CDF_Application::CanRetrieve(const TCollection_ExtendedString&
     }
     else
     {
-      TCollection_ExtendedString theFileName = theMetaData->FileName();
-      TCollection_ExtendedString theFormat   = PCDM_ReadWriter::FileFormat(theFileName);
+      UtfString theFileName = theMetaData->FileName();
+      UtfString theFormat   = PCDM_ReadWriter::FileFormat(theFileName);
       if (theFormat.Length() == 0)
       {
-        TCollection_ExtendedString ResourceName = UTL::Extension(theFileName);
+        UtfString ResourceName = UTL1::Extension(theFileName);
         ResourceName += ".FileFormat";
-        if (UTL::Find(Resources(), ResourceName))
+        if (UTL1::Find(Resources(), ResourceName))
         {
-          theFormat = UTL::Value(Resources(), ResourceName);
+          theFormat = UTL1::Value(Resources(), ResourceName);
         }
         else
           return PCDM_RS_UnrecognizedFileFormat;
@@ -273,7 +273,7 @@ Handle(CDM_Document) CDF_Application::Retrieve(const Handle(CDM_MetaData)& aMeta
     myRetrievableStatus = PCDM_RS_AlreadyRetrievedAndModified;
   if (!AlreadyRetrieved || Modified || isAppendMode)
   {
-    TCollection_ExtendedString aFormat;
+    UtfString aFormat;
     if (!Format(aMetaData->FileName(), aFormat))
     {
       Standard_SStream aMsg;
@@ -370,7 +370,7 @@ void CDF_Application::Read(Standard_IStream&                theIStream,
 {
   Handle(Storage_Data) dData;
 
-  TCollection_ExtendedString aFormat;
+  UtfString aFormat;
 
   try
   {
@@ -438,7 +438,7 @@ void CDF_Application::Read(Standard_IStream&                theIStream,
 
 //=================================================================================================
 
-Handle(PCDM_Reader) CDF_Application::ReaderFromFormat(const TCollection_ExtendedString& theFormat)
+Handle(PCDM_Reader) CDF_Application::ReaderFromFormat(const UtfString& theFormat)
 {
   // check map of readers
   Handle(PCDM_RetrievalDriver) aReader;
@@ -446,9 +446,9 @@ Handle(PCDM_Reader) CDF_Application::ReaderFromFormat(const TCollection_Extended
     return aReader;
 
   // support of legacy method of loading reader as plugin
-  TCollection_ExtendedString aResourceName = theFormat;
+  UtfString aResourceName = theFormat;
   aResourceName += ".RetrievalPlugin";
-  if (!UTL::Find(Resources(), aResourceName))
+  if (!UTL1::Find(Resources(), aResourceName))
   {
     Standard_SStream aMsg;
     aMsg << "Could not found the item:" << aResourceName << (char)0;
@@ -457,14 +457,14 @@ Handle(PCDM_Reader) CDF_Application::ReaderFromFormat(const TCollection_Extended
   }
 
   // Get GUID as a string.
-  TCollection_ExtendedString strPluginId = UTL::Value(Resources(), aResourceName);
+  UtfString strPluginId = UTL1::Value(Resources(), aResourceName);
 
   // If the GUID (as a string) contains blanks, remove them.
   if (strPluginId.Search(' ') != -1)
     strPluginId.RemoveAll(' ');
 
   // Convert to GUID.
-  Standard_GUID aPluginId = UTL::GUID(strPluginId);
+  Standard_GUID aPluginId = UTL1::GUID(strPluginId);
 
   try
   {
@@ -493,7 +493,7 @@ Handle(PCDM_Reader) CDF_Application::ReaderFromFormat(const TCollection_Extended
 //=================================================================================================
 
 Handle(PCDM_StorageDriver) CDF_Application::WriterFromFormat(
-  const TCollection_ExtendedString& theFormat)
+  const UtfString& theFormat)
 {
   // check map of writers
   Handle(PCDM_StorageDriver) aDriver;
@@ -501,9 +501,9 @@ Handle(PCDM_StorageDriver) CDF_Application::WriterFromFormat(
     return aDriver;
 
   // support of legacy method of loading reader as plugin
-  TCollection_ExtendedString aResourceName = theFormat;
+  UtfString aResourceName = theFormat;
   aResourceName += ".StoragePlugin";
-  if (!UTL::Find(Resources(), aResourceName))
+  if (!UTL1::Find(Resources(), aResourceName))
   {
     myWriters.Add(theFormat, aDriver);
     Standard_SStream aMsg;
@@ -512,14 +512,14 @@ Handle(PCDM_StorageDriver) CDF_Application::WriterFromFormat(
   }
 
   // Get GUID as a string.
-  TCollection_ExtendedString strPluginId = UTL::Value(Resources(), aResourceName);
+  UtfString strPluginId = UTL1::Value(Resources(), aResourceName);
 
   // If the GUID (as a string) contains blanks, remove them.
   if (strPluginId.Search(' ') != -1)
     strPluginId.RemoveAll(' ');
 
   // Convert to GUID.
-  Standard_GUID aPluginId = UTL::GUID(strPluginId);
+  Standard_GUID aPluginId = UTL1::GUID(strPluginId);
 
   try
   {
@@ -548,21 +548,21 @@ Handle(PCDM_StorageDriver) CDF_Application::WriterFromFormat(
 
 //=================================================================================================
 
-Standard_Boolean CDF_Application::Format(const TCollection_ExtendedString& aFileName,
-                                         TCollection_ExtendedString&       theFormat)
+Standard_Boolean CDF_Application::Format(const UtfString& aFileName,
+                                         UtfString&       theFormat)
 {
 
   theFormat = PCDM_ReadWriter::FileFormat(aFileName);
   // It is good if the format is in the file. Otherwise base on the extension.
   if (theFormat.Length() == 0)
   {
-    TCollection_ExtendedString ResourceName;
-    ResourceName = UTL::Extension(aFileName);
+    UtfString ResourceName;
+    ResourceName = UTL1::Extension(aFileName);
     ResourceName += ".FileFormat";
 
-    if (UTL::Find(Resources(), ResourceName))
+    if (UTL1::Find(Resources(), ResourceName))
     {
-      theFormat = UTL::Value(Resources(), ResourceName);
+      theFormat = UTL1::Value(Resources(), ResourceName);
     }
     else
       return Standard_False;

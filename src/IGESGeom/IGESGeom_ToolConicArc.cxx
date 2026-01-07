@@ -41,11 +41,11 @@
 // MGE 28/07/98
 //=================================================================================================
 
-IGESGeom_ToolConicArc::IGESGeom_ToolConicArc() {}
+ConicArcTool::ConicArcTool() {}
 
 //=================================================================================================
 
-void IGESGeom_ToolConicArc::ReadOwnParams(const Handle(IGESGeom_ConicArc)& ent,
+void ConicArcTool::ReadOwnParams(const Handle(IGESGeom_ConicArc)& ent,
                                           const Handle(IGESData_IGESReaderData)& /* IR */,
                                           IGESData_ParamReader& PR) const
 {
@@ -58,7 +58,7 @@ void IGESGeom_ToolConicArc::ReadOwnParams(const Handle(IGESGeom_ConicArc)& ent,
 
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Standard_Real A, B = 0., C = 0., D = 0., E = 0., F = 0., ZT;
-  gp_XY         tempStart, tempEnd;
+  Coords2d         tempStart, tempEnd;
 
   /* PR.ReadReal(PR.Current(), Msg81, A); //szv#4:S4163:12Mar99 `st=` not needed
    PR.ReadReal(PR.Current(), Msg81, B); //szv#4:S4163:12Mar99 `st=` not needed
@@ -100,7 +100,7 @@ void IGESGeom_ToolConicArc::ReadOwnParams(const Handle(IGESGeom_ConicArc)& ent,
 
 //=================================================================================================
 
-void IGESGeom_ToolConicArc::WriteOwnParams(const Handle(IGESGeom_ConicArc)& ent,
+void ConicArcTool::WriteOwnParams(const Handle(IGESGeom_ConicArc)& ent,
                                            IGESData_IGESWriter&             IW) const
 {
   Standard_Real A, B, C, D, E, F;
@@ -120,14 +120,14 @@ void IGESGeom_ToolConicArc::WriteOwnParams(const Handle(IGESGeom_ConicArc)& ent,
 
 //=================================================================================================
 
-void IGESGeom_ToolConicArc::OwnShared(const Handle(IGESGeom_ConicArc)& /* ent */,
+void ConicArcTool::OwnShared(const Handle(IGESGeom_ConicArc)& /* ent */,
                                       Interface_EntityIterator& /* iter */) const
 {
 }
 
 //=================================================================================================
 
-void IGESGeom_ToolConicArc::OwnCopy(const Handle(IGESGeom_ConicArc)& another,
+void ConicArcTool::OwnCopy(const Handle(IGESGeom_ConicArc)& another,
                                     const Handle(IGESGeom_ConicArc)& ent,
                                     Interface_CopyTool& /* TC */) const
 {
@@ -146,17 +146,17 @@ void IGESGeom_ToolConicArc::OwnCopy(const Handle(IGESGeom_ConicArc)& another,
 
 //=================================================================================================
 
-Standard_Boolean IGESGeom_ToolConicArc::OwnCorrect(const Handle(IGESGeom_ConicArc)& ent) const
+Standard_Boolean ConicArcTool::OwnCorrect(const Handle(IGESGeom_ConicArc)& ent) const
 {
   return ent->OwnCorrect(); //  form selon coefs. 1 Ellipse, 2 Hyper, 3 Para
 }
 
 //=================================================================================================
 
-IGESData_DirChecker IGESGeom_ToolConicArc::DirChecker(
+DirectoryChecker ConicArcTool::DirChecker(
   const Handle(IGESGeom_ConicArc)& /* ent */) const
 {
-  IGESData_DirChecker DC(104, 0, 3);
+  DirectoryChecker DC(104, 0, 3);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefAny);
@@ -168,7 +168,7 @@ IGESData_DirChecker IGESGeom_ToolConicArc::DirChecker(
 
 //=================================================================================================
 
-void IGESGeom_ToolConicArc::OwnCheck(const Handle(IGESGeom_ConicArc)& ent,
+void ConicArcTool::OwnCheck(const Handle(IGESGeom_ConicArc)& ent,
                                      const Interface_ShareTool&,
                                      Handle(Interface_Check)& ach) const
 {
@@ -250,7 +250,7 @@ void IGESGeom_ToolConicArc::OwnCheck(const Handle(IGESGeom_ConicArc)& ent,
 
 //=================================================================================================
 
-void IGESGeom_ToolConicArc::OwnDump(const Handle(IGESGeom_ConicArc)& ent,
+void ConicArcTool::OwnDump(const Handle(IGESGeom_ConicArc)& ent,
                                     const IGESData_IGESDumper& /* dumper */,
                                     Standard_OStream&      S,
                                     const Standard_Integer level) const

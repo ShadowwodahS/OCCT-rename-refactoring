@@ -32,7 +32,7 @@
 
 //=================================================================================================
 
-BRepLib_PointCloudShape::BRepLib_PointCloudShape(const TopoDS_Shape& theShape,
+BRepLib_PointCloudShape::BRepLib_PointCloudShape(const TopoShape& theShape,
                                                  const Standard_Real theTol)
     : myShape(theShape),
       myDist(0.0),
@@ -61,7 +61,7 @@ Standard_Integer BRepLib_PointCloudShape::NbPointsByDensity(const Standard_Real 
   }
 
   Standard_Integer aNbPoints = 0;
-  for (TopExp_Explorer aExpF(myShape, TopAbs_FACE); aExpF.More(); aExpF.Next())
+  for (ShapeExplorer aExpF(myShape, TopAbs_FACE); aExpF.More(); aExpF.Next())
   {
     Standard_Real anArea = faceArea(aExpF.Current());
 
@@ -85,7 +85,7 @@ Standard_Boolean BRepLib_PointCloudShape::GeneratePointsByDensity(const Standard
   }
 
   Standard_Integer aNbAdded = 0;
-  for (TopExp_Explorer aExpF(myShape, TopAbs_FACE); aExpF.More(); aExpF.Next())
+  for (ShapeExplorer aExpF(myShape, TopAbs_FACE); aExpF.More(); aExpF.Next())
   {
     if (addDensityPoints(aExpF.Current()))
     {
@@ -102,7 +102,7 @@ Standard_Boolean BRepLib_PointCloudShape::GeneratePointsByTriangulation()
   clear();
 
   Standard_Integer aNbAdded = 0;
-  for (TopExp_Explorer aExpF(myShape, TopAbs_FACE); aExpF.More(); aExpF.Next())
+  for (ShapeExplorer aExpF(myShape, TopAbs_FACE); aExpF.More(); aExpF.Next())
   {
     if (addTriangulationPoints(aExpF.Current()))
     {
@@ -114,7 +114,7 @@ Standard_Boolean BRepLib_PointCloudShape::GeneratePointsByTriangulation()
 
 //=================================================================================================
 
-Standard_Real BRepLib_PointCloudShape::faceArea(const TopoDS_Shape& theShape)
+Standard_Real BRepLib_PointCloudShape::faceArea(const TopoShape& theShape)
 {
   Standard_Real anArea = 0.0;
   if (myFaceArea.Find(theShape, anArea))
@@ -122,7 +122,7 @@ Standard_Real BRepLib_PointCloudShape::faceArea(const TopoDS_Shape& theShape)
     return anArea;
   }
 
-  GProp_GProps aFaceProps;
+  GeometricProperties aFaceProps;
   BRepGProp::SurfaceProperties(theShape, aFaceProps);
   anArea = aFaceProps.Mass();
   myFaceArea.Bind(theShape, anArea);
@@ -135,7 +135,7 @@ Standard_Real BRepLib_PointCloudShape::computeDensity()
 {
   // at first step find the face with smallest area
   Standard_Real anAreaMin = Precision::Infinite();
-  for (TopExp_Explorer aExpF(myShape, TopAbs_FACE); aExpF.More(); aExpF.Next())
+  for (ShapeExplorer aExpF(myShape, TopAbs_FACE); aExpF.More(); aExpF.Next())
   {
     Standard_Real anArea = faceArea(aExpF.Current());
     if (anArea < myTol * myTol)
@@ -157,11 +157,11 @@ Standard_Integer BRepLib_PointCloudShape::NbPointsByTriangulation() const
 {
   // at first step find the face with smallest area
   Standard_Integer aNbPoints = 0;
-  for (TopExp_Explorer aExpF(myShape, TopAbs_FACE); aExpF.More(); aExpF.Next())
+  for (ShapeExplorer aExpF(myShape, TopAbs_FACE); aExpF.More(); aExpF.Next())
   {
     TopLoc_Location            aLoc;
-    Handle(Poly_Triangulation) aTriangulation =
-      BRep_Tool::Triangulation(TopoDS::Face(aExpF.Current()), aLoc);
+    Handle(MeshTriangulation) aTriangulation =
+      BRepInspector::Triangulation(TopoDS::Face(aExpF.Current()), aLoc);
     if (aTriangulation.IsNull())
     {
       continue;
@@ -174,7 +174,7 @@ Standard_Integer BRepLib_PointCloudShape::NbPointsByTriangulation() const
 
 //=================================================================================================
 
-Standard_Boolean BRepLib_PointCloudShape::addDensityPoints(const TopoDS_Shape& theFace)
+Standard_Boolean BRepLib_PointCloudShape::addDensityPoints(const TopoShape& theFace)
 {
   // addition of the points with specified density on the face by random way
   Standard_Integer aNbPnts = (myFacePoints.IsBound(theFace) ? myFacePoints.Find(theFace) : 0);
@@ -183,15 +183,15 @@ Standard_Boolean BRepLib_PointCloudShape::addDensityPoints(const TopoDS_Shape& t
     return Standard_False;
   }
 
-  TopoDS_Face   aFace  = TopoDS::Face(theFace);
+  TopoFace   aFace  = TopoDS::Face(theFace);
   Standard_Real anUMin = 0.0, anUMax = 0.0, aVMin = 0.0, aVMax = 0.0;
-  BRepTools::UVBounds(aFace, anUMin, anUMax, aVMin, aVMax);
+  BRepTools1::UVBounds(aFace, anUMin, anUMax, aVMin, aVMax);
   BRepTopAdaptor_FClass2d aClassifier(aFace, Precision::Confusion());
 
   const TopLoc_Location& aLoc  = theFace.Location();
   const Transform3d&         aTrsf = aLoc.Transformation();
   TopLoc_Location        aLoc1;
-  Handle(Geom_Surface)   aSurf = BRep_Tool::Surface(aFace, aLoc1);
+  Handle(GeomSurface)   aSurf = BRepInspector::Surface(aFace, aLoc1);
   if (aSurf.IsNull())
   {
     return Standard_False;
@@ -245,18 +245,18 @@ Standard_Boolean BRepLib_PointCloudShape::addDensityPoints(const TopoDS_Shape& t
 
 //=================================================================================================
 
-Standard_Boolean BRepLib_PointCloudShape::addTriangulationPoints(const TopoDS_Shape& theFace)
+Standard_Boolean BRepLib_PointCloudShape::addTriangulationPoints(const TopoShape& theFace)
 {
   TopLoc_Location            aLoc;
-  TopoDS_Face                aFace          = TopoDS::Face(theFace);
-  Handle(Poly_Triangulation) aTriangulation = BRep_Tool::Triangulation(aFace, aLoc);
+  TopoFace                aFace          = TopoDS::Face(theFace);
+  Handle(MeshTriangulation) aTriangulation = BRepInspector::Triangulation(aFace, aLoc);
   if (aTriangulation.IsNull())
   {
     return Standard_False;
   }
 
   TopLoc_Location      aLoc1;
-  Handle(Geom_Surface) aSurf = BRep_Tool::Surface(aFace, aLoc1);
+  Handle(GeomSurface) aSurf = BRepInspector::Surface(aFace, aLoc1);
   const Transform3d&       aTrsf = aLoc.Transformation();
 
   BRepLib_ToolTriangulatedShape::ComputeNormals(aFace, aTriangulation);

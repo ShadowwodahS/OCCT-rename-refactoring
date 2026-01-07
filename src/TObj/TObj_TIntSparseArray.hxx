@@ -45,7 +45,7 @@ public:
   Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
 
   //! Creates TObj_TIntSparseArray attribute on given label.
-  static Standard_EXPORT Handle(TObj_TIntSparseArray) Set(const TDF_Label& theLabel);
+  static Standard_EXPORT Handle(TObj_TIntSparseArray) Set(const DataLabel& theLabel);
 
 public:
   //! Methods for access to data

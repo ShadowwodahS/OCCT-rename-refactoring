@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Real.hxx>
-class TopoDS_Face;
+class TopoFace;
 class Dir3d;
 
 class Draft
@@ -37,7 +37,7 @@ public:
   //! of the axis of the surface is colinear with the
   //! direction.
   //! Otherwise, the exception DomainError is raised.
-  Standard_EXPORT static Standard_Real Angle(const TopoDS_Face& F, const Dir3d& Direction);
+  Standard_EXPORT static Standard_Real Angle(const TopoFace& F, const Dir3d& Direction);
 };
 
 #endif // _Draft_HeaderFile

@@ -36,7 +36,7 @@ void TDocStd_ApplicationDelta::Dump(Standard_OStream& anOS) const
   Standard_Integer i;
   for (i = 1; i <= myDocuments.Length(); i++)
   {
-    Handle(TDocStd_Document) aDocAddr = myDocuments.Value(i);
+    Handle(AppDocument) aDocAddr = myDocuments.Value(i);
     anOS << "\"" << aDocAddr.get();
     anOS << "\" ";
   }

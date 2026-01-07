@@ -19,9 +19,9 @@ IMPLEMENT_STANDARD_RTTIEXT(AIS_BaseAnimationObject, AIS_Animation)
 
 //=================================================================================================
 
-AIS_BaseAnimationObject::AIS_BaseAnimationObject(const TCollection_AsciiString& theAnimationName,
-                                                 const Handle(AIS_InteractiveContext)& theContext,
-                                                 const Handle(AIS_InteractiveObject)&  theObject)
+AIS_BaseAnimationObject::AIS_BaseAnimationObject(const AsciiString1& theAnimationName,
+                                                 const Handle(VisualContext)& theContext,
+                                                 const Handle(VisualEntity)&  theObject)
     : AIS_Animation(theAnimationName),
       myContext(theContext),
       myObject(theObject)
@@ -68,7 +68,7 @@ void AIS_BaseAnimationObject::invalidateViewer()
        aDefViewIter.More();
        aDefViewIter.Next())
   {
-    const Handle(V3d_View)& aView       = aDefViewIter.Value();
+    const Handle(ViewWindow)& aView       = aDefViewIter.Value();
     const Bnd_Box           aMinMaxBox  = aView->View()->MinMaxValues(Standard_False);
     const Bnd_Box           aGraphicBox = aView->View()->MinMaxValues(Standard_True);
     Standard_Real           aZNear      = 0.0;

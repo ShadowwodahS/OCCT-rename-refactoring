@@ -192,9 +192,9 @@ void HLRAlgo_PolyData::HideByPolyData(const HLRAlgo_BiPoint::PointsT& thePoints,
               const gp_XYZ&             P1    = Nodes(aTriangle.Node1);
               const gp_XYZ&             P2    = Nodes(aTriangle.Node2);
               const gp_XYZ&             P3    = Nodes(aTriangle.Node3);
-              theTriangle.V1                  = gp_XY(P1.X(), P1.Y());
-              theTriangle.V2                  = gp_XY(P2.X(), P2.Y());
-              theTriangle.V3                  = gp_XY(P3.X(), P3.Y());
+              theTriangle.V1                  = Coords2d(P1.X(), P1.Y());
+              theTriangle.V2                  = Coords2d(P2.X(), P2.Y());
+              theTriangle.V3                  = Coords2d(P3.X(), P3.Y());
               hideByOneTriangle(thePoints, theTriangle, isCrossing, toHideBefore, TFlag, status);
             }
           }
@@ -210,9 +210,9 @@ void HLRAlgo_PolyData::HideByPolyData(const HLRAlgo_BiPoint::PointsT& thePoints,
               const gp_XYZ&             P1    = Nodes(aTriangle.Node1);
               const gp_XYZ&             P2    = Nodes(aTriangle.Node2);
               const gp_XYZ&             P3    = Nodes(aTriangle.Node3);
-              theTriangle.V1                  = gp_XY(P1.X(), P1.Y());
-              theTriangle.V2                  = gp_XY(P2.X(), P2.Y());
-              theTriangle.V3                  = gp_XY(P3.X(), P3.Y());
+              theTriangle.V1                  = Coords2d(P1.X(), P1.Y());
+              theTriangle.V2                  = Coords2d(P2.X(), P2.Y());
+              theTriangle.V3                  = Coords2d(P3.X(), P3.Y());
               hideByOneTriangle(thePoints, theTriangle, isCrossing, toHideBefore, TFlag, status);
             }
             else
@@ -223,9 +223,9 @@ void HLRAlgo_PolyData::HideByPolyData(const HLRAlgo_BiPoint::PointsT& thePoints,
               const gp_XYZ&             P1    = Nodes(aTriangle.Node1);
               const gp_XYZ&             P2    = Nodes(aTriangle.Node2);
               const gp_XYZ&             P3    = Nodes(aTriangle.Node3);
-              theTriangle.V1                  = gp_XY(P1.X(), P1.Y());
-              theTriangle.V2                  = gp_XY(P2.X(), P2.Y());
-              theTriangle.V3                  = gp_XY(P3.X(), P3.Y());
+              theTriangle.V1                  = Coords2d(P1.X(), P1.Y());
+              theTriangle.V2                  = Coords2d(P2.X(), P2.Y());
+              theTriangle.V3                  = Coords2d(P3.X(), P3.Y());
               hideByOneTriangle(thePoints, theTriangle, isCrossing, toHideBefore, TFlag, status);
             }
           }
@@ -237,9 +237,9 @@ void HLRAlgo_PolyData::HideByPolyData(const HLRAlgo_BiPoint::PointsT& thePoints,
             const gp_XYZ&             P1    = Nodes(aTriangle.Node1);
             const gp_XYZ&             P2    = Nodes(aTriangle.Node2);
             const gp_XYZ&             P3    = Nodes(aTriangle.Node3);
-            theTriangle.V1                  = gp_XY(P1.X(), P1.Y());
-            theTriangle.V2                  = gp_XY(P2.X(), P2.Y());
-            theTriangle.V3                  = gp_XY(P3.X(), P3.Y());
+            theTriangle.V1                  = Coords2d(P1.X(), P1.Y());
+            theTriangle.V2                  = Coords2d(P2.X(), P2.Y());
+            theTriangle.V3                  = Coords2d(P3.X(), P3.Y());
             hideByOneTriangle(thePoints, theTriangle, isCrossing, toHideBefore, TFlag, status);
           }
         }
@@ -270,8 +270,8 @@ void HLRAlgo_PolyData::hideByOneTriangle(const HLRAlgo_BiPoint::PointsT& thePoin
   Standard_Integer npiRej = 0;
 
   {
-    const gp_XY         aD   = theTriangle.V2 - theTriangle.V1;
-    const gp_XY         aA   = (1 / aD.Modulus()) * gp_XY(-aD.Y(), aD.X());
+    const Coords2d         aD   = theTriangle.V2 - theTriangle.V1;
+    const Coords2d         aA   = (1 / aD.Modulus()) * Coords2d(-aD.Y(), aD.X());
     const Standard_Real aDot = aA * theTriangle.V1;
     const Standard_Real d1   = aA * thePoints.PntP12D() - aDot;
     const Standard_Real d2   = aA * thePoints.PntP22D() - aDot;
@@ -475,8 +475,8 @@ void HLRAlgo_PolyData::hideByOneTriangle(const HLRAlgo_BiPoint::PointsT& thePoin
   }
 
   {
-    const gp_XY         aD   = theTriangle.V3 - theTriangle.V2;
-    const gp_XY         aA   = (1 / aD.Modulus()) * gp_XY(-aD.Y(), aD.X());
+    const Coords2d         aD   = theTriangle.V3 - theTriangle.V2;
+    const Coords2d         aA   = (1 / aD.Modulus()) * Coords2d(-aD.Y(), aD.X());
     const Standard_Real aDot = aA * theTriangle.V2;
     const Standard_Real d1   = aA * thePoints.PntP12D() - aDot;
     const Standard_Real d2   = aA * thePoints.PntP22D() - aDot;
@@ -679,8 +679,8 @@ void HLRAlgo_PolyData::hideByOneTriangle(const HLRAlgo_BiPoint::PointsT& thePoin
   }
 
   {
-    const gp_XY         aD   = theTriangle.V1 - theTriangle.V3;
-    const gp_XY         aA   = (1 / aD.Modulus()) * gp_XY(-aD.Y(), aD.X());
+    const Coords2d         aD   = theTriangle.V1 - theTriangle.V3;
+    const Coords2d         aA   = (1 / aD.Modulus()) * Coords2d(-aD.Y(), aD.X());
     const Standard_Real aDot = aA * theTriangle.V3;
     const Standard_Real d1   = aA * thePoints.PntP12D() - aDot;
     const Standard_Real d2   = aA * thePoints.PntP22D() - aDot;

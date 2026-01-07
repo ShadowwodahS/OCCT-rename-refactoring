@@ -63,8 +63,8 @@ void XmlMXCAFDoc_NoteDriver::Paste(const Handle(TDF_Attribute)& theSource,
   if (aNote.IsNull())
     return;
 
-  XmlObjMgt_DOMString aUserName(TCollection_AsciiString(aNote->UserName()).ToCString());
-  XmlObjMgt_DOMString aTimeStamp(TCollection_AsciiString(aNote->TimeStamp()).ToCString());
+  XmlObjMgt_DOMString aUserName(AsciiString1(aNote->UserName()).ToCString());
+  XmlObjMgt_DOMString aTimeStamp(AsciiString1(aNote->TimeStamp()).ToCString());
 
   theTarget.Element().setAttribute(::UserName(), aUserName);
   theTarget.Element().setAttribute(::TimeStamp(), aTimeStamp);

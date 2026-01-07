@@ -33,7 +33,7 @@ ShapeFix_WireVertex::ShapeFix_WireVertex() {}
 
 //=================================================================================================
 
-void ShapeFix_WireVertex::Init(const TopoDS_Wire& wire, const Standard_Real preci)
+void ShapeFix_WireVertex::Init(const TopoWire& wire, const Standard_Real preci)
 {
   Handle(ShapeExtend_WireData) sbwd = new ShapeExtend_WireData(wire);
   Init(sbwd, preci);
@@ -71,7 +71,7 @@ const Handle(ShapeExtend_WireData)& ShapeFix_WireVertex::WireData() const
 
 //=================================================================================================
 
-TopoDS_Wire ShapeFix_WireVertex::Wire() const
+TopoWire ShapeFix_WireVertex::Wire() const
 {
   return myAnalyzer.WireData()->Wire();
 }
@@ -86,7 +86,7 @@ Standard_Integer ShapeFix_WireVertex::FixSame()
     return 0;
 
   Standard_Integer nbfix = 0;
-  BRep_Builder     B;
+  ShapeBuilder     B;
 
   Handle(ShapeExtend_WireData) sbwd = myAnalyzer.WireData();
   Standard_Integer             i, nb = sbwd->NbEdges();
@@ -98,12 +98,12 @@ Standard_Integer ShapeFix_WireVertex::FixSame()
     if (stat != 1 && stat != 2)
       continue;
     // Ici on prend un vertex et on le generalise aux deux edges
-    TopoDS_Edge E1 = sbwd->Edge(i);
-    TopoDS_Edge E2 = sbwd->Edge(j);
+    TopoEdge E1 = sbwd->Edge(i);
+    TopoEdge E2 = sbwd->Edge(j);
 
     ShapeAnalysis_Edge sae;
-    TopoDS_Vertex      V1 = sae.LastVertex(E1);
-    TopoDS_Vertex      V2 = sae.FirstVertex(E2);
+    TopoVertex      V1 = sae.LastVertex(E1);
+    TopoVertex      V2 = sae.FirstVertex(E2);
     if (V1 == V2)
     {
       myAnalyzer.SetSameVertex(i);
@@ -112,7 +112,7 @@ Standard_Integer ShapeFix_WireVertex::FixSame()
     if (stat == 2)
     {
       // OK mais en reprenant les tolerances
-      Handle(Geom_Curve) crv;
+      Handle(GeomCurve3d) crv;
       Standard_Real      cf, cl;
       sae.Curve3d(sbwd->Edge(i), crv, cf, cl);
       B.UpdateVertex(V1, cl, E1, myAnalyzer.Precision());
@@ -160,7 +160,7 @@ Standard_Integer ShapeFix_WireVertex::Fix()
   if (nbfix == 0)
     return 0;
 
-  BRep_Builder B;
+  ShapeBuilder B;
 
   Handle(TopTools_HArray1OfShape) VI = new TopTools_HArray1OfShape(1, nb);
   Handle(TopTools_HArray1OfShape) VJ = new TopTools_HArray1OfShape(1, nb);
@@ -175,22 +175,22 @@ Standard_Integer ShapeFix_WireVertex::Fix()
     Standard_Integer stat = myAnalyzer.Status(i);
 
     ShapeAnalysis_Edge sae;
-    TopoDS_Vertex      V1 = sae.LastVertex(sbwd->Edge(i));
-    TopoDS_Vertex      V2 = sae.FirstVertex(sbwd->Edge(j));
+    TopoVertex      V1 = sae.LastVertex(sbwd->Edge(i));
+    TopoVertex      V2 = sae.FirstVertex(sbwd->Edge(j));
     VI->SetValue(i, V1);
     VJ->SetValue(j, V2);
 
-    TopoDS_Edge E = sbwd->Edge(i);
+    TopoEdge E = sbwd->Edge(i);
     //    E.EmptyCopy();   trop d ennuis
     EF->SetValue(i, E);
 
     //    if (stat <= 0) continue;
-    //    TopoDS_Edge   E1 = STW.Edge (i);
-    //    TopoDS_Edge   E2 = STW.Edge (j);
+    //    TopoEdge   E1 = STW.Edge (i);
+    //    TopoEdge   E2 = STW.Edge (j);
     Standard_Real upre = myAnalyzer.UPrevious(i);
     Standard_Real ufol = myAnalyzer.UFollowing(j);
 
-    Handle(Geom_Curve) crv;
+    Handle(GeomCurve3d) crv;
     Standard_Real      cf, cl;
     // szv#4:S4163:12Mar99 optimized
     if (stat < 4)
@@ -219,10 +219,10 @@ Standard_Integer ShapeFix_WireVertex::Fix()
 
   for (i = 1; i <= nb; i++)
   {
-    TopoDS_Edge   E1 = TopoDS::Edge(EF->Value(i));
-    TopoDS_Vertex VA, VB;
+    TopoEdge   E1 = TopoDS::Edge(EF->Value(i));
+    TopoVertex VA, VB;
     E1.Orientation(TopAbs_FORWARD);
-    TopExp::Vertices(E1, VA, VB);
+    TopExp1::Vertices(E1, VA, VB);
     E1.Free(Standard_True);
     B.Remove(E1, VA);
     B.Remove(E1, VB);
@@ -237,10 +237,10 @@ Standard_Integer ShapeFix_WireVertex::Fix()
     Standard_Integer stat = myAnalyzer.Status(i);
     //    if (stat <= 0) continue;
 
-    TopoDS_Vertex V1   = TopoDS::Vertex(VI->Value(i));
-    TopoDS_Vertex V2   = TopoDS::Vertex(VJ->Value(j));
-    TopoDS_Edge   E1   = TopoDS::Edge(EF->Value(i));
-    TopoDS_Edge   E2   = TopoDS::Edge(EF->Value(j));
+    TopoVertex V1   = TopoDS::Vertex(VI->Value(i));
+    TopoVertex V2   = TopoDS::Vertex(VJ->Value(j));
+    TopoEdge   E1   = TopoDS::Edge(EF->Value(i));
+    TopoEdge   E2   = TopoDS::Edge(EF->Value(j));
     Standard_Real upre = UI->Value(i);
     Standard_Real ufol = UJ->Value(j);
 

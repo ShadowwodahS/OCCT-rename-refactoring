@@ -29,12 +29,12 @@
 static void UnifyByInsertingAllKnots(TColGeom_SequenceOfCurve& theCurves, const Standard_Real PTol)
 {
   // inserting in the first curve the knot-vector of all the others.
-  Handle(Geom_BSplineCurve) C = Handle(Geom_BSplineCurve)::DownCast(theCurves(1));
+  Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(theCurves(1));
 
   Standard_Integer i;
   for (i = 2; i <= theCurves.Length(); i++)
   {
-    Handle(Geom_BSplineCurve) Ci = Handle(Geom_BSplineCurve)::DownCast(theCurves(i));
+    Handle(BSplineCurve3d) Ci = Handle(BSplineCurve3d)::DownCast(theCurves(i));
     TColStd_Array1OfReal      Ki(1, Ci->NbKnots());
     Ci->Knots(Ki);
     TColStd_Array1OfInteger Mi(1, Ci->NbKnots());
@@ -49,14 +49,14 @@ static void UnifyByInsertingAllKnots(TColGeom_SequenceOfCurve& theCurves, const 
   C->Multiplicities(NewMults);
   for (i = 2; i <= theCurves.Length(); i++)
   {
-    Handle(Geom_BSplineCurve) Ci = Handle(Geom_BSplineCurve)::DownCast(theCurves(i));
+    Handle(BSplineCurve3d) Ci = Handle(BSplineCurve3d)::DownCast(theCurves(i));
     Ci->InsertKnots(NewKnots, NewMults, PTol, Standard_False);
   }
 
   // essai : tentative mise des poids sur chaque section a une moyenne 1
   for (i = 1; i <= theCurves.Length(); i++)
   {
-    Handle(Geom_BSplineCurve) Ci = Handle(Geom_BSplineCurve)::DownCast(theCurves(i));
+    Handle(BSplineCurve3d) Ci = Handle(BSplineCurve3d)::DownCast(theCurves(i));
     if (Ci->IsRational())
     {
       Standard_Integer np    = Ci->NbPoles();
@@ -82,7 +82,7 @@ static void UnifyBySettingMiddleKnots(TColGeom_SequenceOfCurve& theCurves)
 {
   Standard_Integer i, j;
 
-  Handle(Geom_BSplineCurve) C = Handle(Geom_BSplineCurve)::DownCast(theCurves(1));
+  Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(theCurves(1));
 
   Standard_Integer NbKnots = C->NbKnots();
   Standard_Real    ULast   = C->Knot(C->LastUKnotIndex());
@@ -97,7 +97,7 @@ static void UnifyBySettingMiddleKnots(TColGeom_SequenceOfCurve& theCurves)
     Standard_Real aMidKnot = 0.;
     for (i = 1; i <= theCurves.Length(); i++)
     {
-      Handle(Geom_BSplineCurve) Ctemp = Handle(Geom_BSplineCurve)::DownCast(theCurves(i));
+      Handle(BSplineCurve3d) Ctemp = Handle(BSplineCurve3d)::DownCast(theCurves(i));
       aMidKnot += Ctemp->Knot(j);
     }
     aMidKnot /= theCurves.Length();
@@ -106,7 +106,7 @@ static void UnifyBySettingMiddleKnots(TColGeom_SequenceOfCurve& theCurves)
 
   for (i = 1; i <= theCurves.Length(); i++)
   {
-    Handle(Geom_BSplineCurve) Cres = Handle(Geom_BSplineCurve)::DownCast(theCurves(i));
+    Handle(BSplineCurve3d) Cres = Handle(BSplineCurve3d)::DownCast(theCurves(i));
     Cres->SetKnots(NewKnots);
   }
 }
@@ -125,11 +125,11 @@ GeomFill_Profiler::~GeomFill_Profiler() {}
 
 //=================================================================================================
 
-void GeomFill_Profiler::AddCurve(const Handle(Geom_Curve)& Curve)
+void GeomFill_Profiler::AddCurve(const Handle(GeomCurve3d)& Curve)
 {
-  Handle(Geom_Curve) C;
+  Handle(GeomCurve3d) C;
   //// modified by jgv, 19.01.05 for OCC7354 ////
-  Handle(Geom_Curve) theCurve = Curve;
+  Handle(GeomCurve3d) theCurve = Curve;
   if (theCurve->IsInstance(STANDARD_TYPE(Geom_TrimmedCurve)))
     theCurve = Handle(Geom_TrimmedCurve)::DownCast(theCurve)->BasisCurve();
   if (theCurve->IsKind(STANDARD_TYPE(Geom_Conic)))
@@ -141,8 +141,8 @@ void GeomFill_Profiler::AddCurve(const Handle(Geom_Curve)& Curve)
   if (C.IsNull())
     C = GeomConvert::CurveToBSplineCurve(Curve);
   /*
-  if ( Curve->IsKind(STANDARD_TYPE(Geom_BSplineCurve))) {
-    C = Handle(Geom_Curve)::DownCast(Curve->Copy());
+  if ( Curve->IsKind(STANDARD_TYPE(BSplineCurve3d))) {
+    C = Handle(GeomCurve3d)::DownCast(Curve->Copy());
   }
   else {
     C = GeomConvert::CurveToBSplineCurve(Curve,Convert_QuasiAngular);
@@ -163,13 +163,13 @@ void GeomFill_Profiler::Perform(const Standard_Real PTol)
   Standard_Integer i;
   //  Standard_Integer myDegree = 0, myNbPoles = 0;
   Standard_Integer          myDegree = 0;
-  Handle(Geom_BSplineCurve) C;
+  Handle(BSplineCurve3d) C;
   Standard_Real             U1, U2, UFirst = 0, ULast = 0;
   Standard_Real             EcartMax = 0.;
 
   for (i = 1; i <= mySequence.Length(); i++)
   {
-    C = Handle(Geom_BSplineCurve)::DownCast(mySequence(i));
+    C = Handle(BSplineCurve3d)::DownCast(mySequence(i));
 
     // si non periodique, il faut deperiodiser toutes les courbes
     // on les segmente ensuite pour assurer K(1) et K(n) de multiplicite
@@ -200,7 +200,7 @@ void GeomFill_Profiler::Perform(const Standard_Real PTol)
   // reparametrize them in the range U1, U2.
   for (i = 1; i <= mySequence.Length(); i++)
   {
-    C = Handle(Geom_BSplineCurve)::DownCast(mySequence(i));
+    C = Handle(BSplineCurve3d)::DownCast(mySequence(i));
 
     C->IncreaseDegree(myDegree);
 
@@ -212,14 +212,14 @@ void GeomFill_Profiler::Perform(const Standard_Real PTol)
 
   TColGeom_SequenceOfCurve theCurves;
   for (i = 1; i <= mySequence.Length(); i++)
-    theCurves.Append(Handle(Geom_Curve)::DownCast(mySequence(i)->Copy()));
+    theCurves.Append(Handle(GeomCurve3d)::DownCast(mySequence(i)->Copy()));
 
   UnifyByInsertingAllKnots(theCurves, PTol);
 
   Standard_Boolean Unified    = Standard_True;
-  Standard_Integer theNbKnots = (Handle(Geom_BSplineCurve)::DownCast(theCurves(1)))->NbKnots();
+  Standard_Integer theNbKnots = (Handle(BSplineCurve3d)::DownCast(theCurves(1)))->NbKnots();
   for (i = 2; i <= theCurves.Length(); i++)
-    if ((Handle(Geom_BSplineCurve)::DownCast(theCurves(i)))->NbKnots() != theNbKnots)
+    if ((Handle(BSplineCurve3d)::DownCast(theCurves(i)))->NbKnots() != theNbKnots)
     {
       Unified = Standard_False;
       break;
@@ -240,7 +240,7 @@ Standard_Integer GeomFill_Profiler::Degree() const
   if (!myIsDone)
     throw StdFail_NotDone("GeomFill_Profiler::Degree");
 
-  Handle(Geom_BSplineCurve) C = Handle(Geom_BSplineCurve)::DownCast(mySequence(1));
+  Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(mySequence(1));
   return C->Degree();
 }
 
@@ -251,7 +251,7 @@ Standard_Integer GeomFill_Profiler::NbPoles() const
   if (!myIsDone)
     throw StdFail_NotDone("GeomFill_Profiler::Degree");
 
-  Handle(Geom_BSplineCurve) C = Handle(Geom_BSplineCurve)::DownCast(mySequence(1));
+  Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(mySequence(1));
   return C->NbPoles();
 }
 
@@ -266,7 +266,7 @@ void GeomFill_Profiler::Poles(const Standard_Integer Index, TColgp_Array1OfPnt& 
   Standard_DomainError_Raise_if(Index < 1 || Index > mySequence.Length(),
                                 "GeomFill_Profiler::Poles");
 
-  Handle(Geom_BSplineCurve) C = Handle(Geom_BSplineCurve)::DownCast(mySequence(Index));
+  Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(mySequence(Index));
 
   C->Poles(Poles);
 }
@@ -282,7 +282,7 @@ void GeomFill_Profiler::Weights(const Standard_Integer Index, TColStd_Array1OfRe
   Standard_DomainError_Raise_if(Index < 1 || Index > mySequence.Length(),
                                 "GeomFill_Profiler::Weights");
 
-  Handle(Geom_BSplineCurve) C = Handle(Geom_BSplineCurve)::DownCast(mySequence(Index));
+  Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(mySequence(Index));
 
   C->Weights(Weights);
 }
@@ -294,7 +294,7 @@ Standard_Integer GeomFill_Profiler::NbKnots() const
   if (!myIsDone)
     throw StdFail_NotDone("GeomFill_Profiler::Degree");
 
-  Handle(Geom_BSplineCurve) C = Handle(Geom_BSplineCurve)::DownCast(mySequence(1));
+  Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(mySequence(1));
 
   return C->NbKnots();
 }
@@ -313,7 +313,7 @@ void GeomFill_Profiler::KnotsAndMults(TColStd_Array1OfReal&    Knots,
   Standard_DomainError_Raise_if(Knots.Length() != n || Mults.Length() != n,
                                 "GeomFill_Profiler::KnotsAndMults");
 
-  Handle(Geom_BSplineCurve) C = Handle(Geom_BSplineCurve)::DownCast(mySequence(1));
+  Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(mySequence(1));
 
   C->Knots(Knots);
   C->Multiplicities(Mults);

@@ -25,14 +25,14 @@
 
 //=================================================================================================
 
-void BRepBuilderAPI::Plane(const Handle(Geom_Plane)& P)
+void BRepBuilderAPI::Plane(const Handle(GeomPlane)& P)
 {
   BRepLib::Plane(P);
 }
 
 //=================================================================================================
 
-const Handle(Geom_Plane)& BRepBuilderAPI::Plane()
+const Handle(GeomPlane)& BRepBuilderAPI::Plane()
 {
   return BRepLib::Plane();
 }

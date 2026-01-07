@@ -24,7 +24,7 @@ Express_String::Express_String() {}
 
 //=================================================================================================
 
-const TCollection_AsciiString Express_String::CPPName() const
+const AsciiString1 Express_String::CPPName() const
 {
   return "TCollection_HAsciiString";
 }

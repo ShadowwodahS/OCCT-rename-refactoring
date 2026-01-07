@@ -27,9 +27,9 @@
 #include <TColStd_SequenceOfBoolean.hxx>
 #include <TopTools_IndexedDataMapOfShapeShape.hxx>
 #include <TColGeom2d_SequenceOfCurve.hxx>
-class TopoDS_Face;
-class TopoDS_Wire;
-class Geom2d_Curve;
+class TopoFace;
+class TopoWire;
+class GeomCurve2d;
 
 //! Construct an explorer from wires, face, set of curves
 //! from Geom2d to compute the bisecting Locus.
@@ -40,12 +40,12 @@ public:
 
   Standard_EXPORT BRepMAT2d_Explorer();
 
-  Standard_EXPORT BRepMAT2d_Explorer(const TopoDS_Face& aFace);
+  Standard_EXPORT BRepMAT2d_Explorer(const TopoFace& aFace);
 
   //! Clear the contents of <me>.
   Standard_EXPORT void Clear();
 
-  Standard_EXPORT void Perform(const TopoDS_Face& aFace);
+  Standard_EXPORT void Perform(const TopoFace& aFace);
 
   //! Returns the Number of contours.
   Standard_EXPORT Standard_Integer NumberOfContours() const;
@@ -66,17 +66,17 @@ public:
   Standard_EXPORT void Next();
 
   //! Returns the current curve on the current Contour.
-  Standard_EXPORT Handle(Geom2d_Curve) Value() const;
+  Standard_EXPORT Handle(GeomCurve2d) Value() const;
 
-  Standard_EXPORT TopoDS_Shape Shape() const;
+  Standard_EXPORT TopoShape Shape() const;
 
   Standard_EXPORT const TColGeom2d_SequenceOfCurve& Contour(
     const Standard_Integer IndexContour) const;
 
-  Standard_EXPORT Standard_Boolean IsModified(const TopoDS_Shape& aShape) const;
+  Standard_EXPORT Standard_Boolean IsModified(const TopoShape& aShape) const;
 
   //! If the shape is not modified, returns the shape itself.
-  Standard_EXPORT TopoDS_Shape ModifiedShape(const TopoDS_Shape& aShape) const;
+  Standard_EXPORT TopoShape ModifiedShape(const TopoShape& aShape) const;
 
   Standard_EXPORT const TColStd_SequenceOfBoolean& GetIsClosed() const;
 
@@ -100,19 +100,19 @@ private:
   //!
   //! No  control of this  rules is done in the construction
   //! of the explorer
-  Standard_EXPORT void Add(const TopoDS_Wire& Spine,
-                           const TopoDS_Face& aFace,
-                           TopoDS_Face&       aNewFace);
+  Standard_EXPORT void Add(const TopoWire& Spine,
+                           const TopoFace& aFace,
+                           TopoFace&       aNewFace);
 
   Standard_EXPORT void NewContour();
 
   //! Add the curve <aCurve> at me.
-  Standard_EXPORT void Add(const Handle(Geom2d_Curve)& aCurve);
+  Standard_EXPORT void Add(const Handle(GeomCurve2d)& aCurve);
 
   MAT2d_SequenceOfSequenceOfCurve     theCurves;
   Standard_Integer                    current;
   Standard_Integer                    currentContour;
-  TopoDS_Shape                        myShape;
+  TopoShape                        myShape;
   TColStd_SequenceOfBoolean           myIsClosed;
   TopTools_IndexedDataMapOfShapeShape myModifShapes;
 };

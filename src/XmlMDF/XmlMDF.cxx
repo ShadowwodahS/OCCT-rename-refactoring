@@ -64,7 +64,7 @@ void XmlMDF::FromTo(const Handle(TDF_Data)&            theData,
 
 //=================================================================================================
 
-Standard_Integer XmlMDF::WriteSubTree(const TDF_Label&                   theLabel,
+Standard_Integer XmlMDF::WriteSubTree(const DataLabel&                   theLabel,
                                       XmlObjMgt_Element&                 theElement,
                                       XmlObjMgt_SRelocationTable&        theRelocTable,
                                       const Handle(XmlMDF_ADriverTable)& theDrivers,
@@ -126,7 +126,7 @@ Standard_Integer XmlMDF::WriteSubTree(const TDF_Label&                   theLabe
   Message_ProgressScope aPS(theRange, "Writing sub-tree", child_count, true);
   for (; itr2.More() && aPS.More(); itr2.Next())
   {
-    const TDF_Label& aChildLab = itr2.Value();
+    const DataLabel& aChildLab = itr2.Value();
     count += WriteSubTree(aChildLab, aLabElem, theRelocTable, theDrivers, aPS.Next());
   }
 
@@ -150,7 +150,7 @@ Standard_Boolean XmlMDF::FromTo(const XmlObjMgt_Element&           theElement,
                                 const Handle(XmlMDF_ADriverTable)& theDrivers,
                                 const Message_ProgressRange&       theRange)
 {
-  TDF_Label          aRootLab = theData->Root();
+  DataLabel          aRootLab = theData->Root();
   XmlMDF_MapOfDriver aDriverMap;
   theDrivers->CreateDrvMap(aDriverMap);
 
@@ -182,7 +182,7 @@ Standard_Boolean XmlMDF::FromTo(const XmlObjMgt_Element&           theElement,
 //=================================================================================================
 
 Standard_Integer XmlMDF::ReadSubTree(const XmlObjMgt_Element&     theElement,
-                                     const TDF_Label&             theLabel,
+                                     const DataLabel&             theLabel,
                                      XmlObjMgt_RRelocationTable&  theRelocTable,
                                      const XmlMDF_MapOfDriver&    theDriverMap,
                                      const Message_ProgressRange& theRange)
@@ -205,13 +205,13 @@ Standard_Integer XmlMDF::ReadSubTree(const XmlObjMgt_Element&     theElement,
         XmlObjMgt_DOMString aTag(anElem.getAttribute(::TagString()));
         if (!aTag.GetInteger(tag))
         {
-          TCollection_ExtendedString anErrorMessage =
-            TCollection_ExtendedString("Wrong Tag value for OCAF Label: ") + aTag;
+          UtfString anErrorMessage =
+            UtfString("Wrong Tag value for OCAF Label: ") + aTag;
           theDriverMap.Find("TDF_TagSource")->myMessageDriver->Send(anErrorMessage, Message_Fail);
           return -1;
         }
         // create label
-        TDF_Label aLab = theLabel.FindChild(tag, Standard_True);
+        DataLabel aLab = theLabel.FindChild(tag, Standard_True);
 
         // read sub-tree
         Standard_Integer subcount =
@@ -227,7 +227,7 @@ Standard_Integer XmlMDF::ReadSubTree(const XmlObjMgt_Element&     theElement,
         XmlObjMgt_DOMString aName = anElem.getNodeName();
 
 #ifdef DATATYPE_MIGRATION
-        TCollection_AsciiString newName;
+        AsciiString1 newName;
         if (Storage_Schema::CheckTypeMigration(aName, newName))
         {
   #ifdef OCCT_DEBUG
@@ -248,8 +248,8 @@ Standard_Integer XmlMDF::ReadSubTree(const XmlObjMgt_Element&     theElement,
           Standard_Integer              anID = pAtt.Id();
           if (anID <= 0)
           { // check for ID validity
-            TCollection_ExtendedString anErrorMessage =
-              TCollection_ExtendedString("Wrong ID of OCAF attribute with type ") + aName;
+            UtfString anErrorMessage =
+              UtfString("Wrong ID of OCAF attribute with type ") + aName;
             driver->myMessageDriver->Send(anErrorMessage, Message_Fail);
             return -1;
           }
@@ -268,7 +268,7 @@ Standard_Integer XmlMDF::ReadSubTree(const XmlObjMgt_Element&     theElement,
             }
             catch (const Standard_DomainError&)
             {
-              // For attributes that can have arbitrary GUID (e.g. TDataStd_Integer), exception
+              // For attributes that can have arbitrary GUID (e.g. IntAttribute), exception
               // will be raised in valid case if attribute of that type with default GUID is already
               // present  on the same label; the reason is that actual GUID will be read later.
               // To avoid this, set invalid (null) GUID to the newly added attribute (see #29669)
@@ -278,7 +278,7 @@ Standard_Integer XmlMDF::ReadSubTree(const XmlObjMgt_Element&     theElement,
             }
           }
           else
-            driver->myMessageDriver->Send(TCollection_ExtendedString("XmlDriver warning: ")
+            driver->myMessageDriver->Send(UtfString("XmlDriver warning: ")
                                             + "attempt to attach attribute " + aName
                                             + " to a second label",
                                           Message_Warning);
@@ -286,7 +286,7 @@ Standard_Integer XmlMDF::ReadSubTree(const XmlObjMgt_Element&     theElement,
           if (!driver->Paste(pAtt, tAtt, theRelocTable))
           {
             // error converting persistent to transient
-            driver->myMessageDriver->Send(TCollection_ExtendedString("XmlDriver warning: ")
+            driver->myMessageDriver->Send(UtfString("XmlDriver warning: ")
                                             + "failure reading attribute " + aName,
                                           Message_Warning);
           }
@@ -296,7 +296,7 @@ Standard_Integer XmlMDF::ReadSubTree(const XmlObjMgt_Element&     theElement,
 #ifdef OCCT_DEBUG
         else
         {
-          const TCollection_AsciiString anAsciiName = aName;
+          const AsciiString1 anAsciiName = aName;
           std::cerr << "XmlDriver warning: "
                     << "label contains object of unknown type " << anAsciiName << std::endl;
         }

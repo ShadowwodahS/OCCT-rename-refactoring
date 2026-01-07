@@ -146,7 +146,7 @@ void GeomAPI_PointsToBSpline::Init(const TColgp_Array1OfPnt&        Points,
   TheCurve.Curve(1, Poles);
 
   myCurve =
-    new Geom_BSplineCurve(Poles, TheCurve.Knots(), TheCurve.Multiplicities(), TheCurve.Degree());
+    new BSplineCurve3d(Poles, TheCurve.Knots(), TheCurve.Multiplicities(), TheCurve.Degree());
   myIsDone = Standard_True;
 }
 
@@ -217,7 +217,7 @@ void GeomAPI_PointsToBSpline::Init(const TColgp_Array1OfPnt&   Points,
   Knots = TheCurve.Knots();
   BSplCLib::Reparametrize(Params(Params.Lower()), Params(Params.Upper()), Knots);
 
-  myCurve  = new Geom_BSplineCurve(Poles, Knots, TheCurve.Multiplicities(), TheCurve.Degree());
+  myCurve  = new BSplineCurve3d(Poles, Knots, TheCurve.Multiplicities(), TheCurve.Degree());
   myIsDone = Standard_True;
 }
 
@@ -305,16 +305,16 @@ void GeomAPI_PointsToBSpline::Init(const TColgp_Array1OfPnt& Points,
   TheCurve.Curve(1, Poles);
 
   myCurve =
-    new Geom_BSplineCurve(Poles, TheCurve.Knots(), TheCurve.Multiplicities(), TheCurve.Degree());
+    new BSplineCurve3d(Poles, TheCurve.Knots(), TheCurve.Multiplicities(), TheCurve.Degree());
   myIsDone = Standard_True;
 }
 
 //=======================================================================
-// function : Handle(Geom_BSplineCurve)&
+// function : Handle(BSplineCurve3d)&
 // purpose  :
 //=======================================================================
 
-const Handle(Geom_BSplineCurve)& GeomAPI_PointsToBSpline::Curve() const
+const Handle(BSplineCurve3d)& GeomAPI_PointsToBSpline::Curve() const
 {
   if (!myIsDone)
     throw StdFail_NotDone("GeomAPI_PointsToBSpline::Curve ");
@@ -323,7 +323,7 @@ const Handle(Geom_BSplineCurve)& GeomAPI_PointsToBSpline::Curve() const
 
 //=================================================================================================
 
-GeomAPI_PointsToBSpline::operator Handle(Geom_BSplineCurve)() const
+GeomAPI_PointsToBSpline::operator Handle(BSplineCurve3d)() const
 {
   return myCurve;
 }

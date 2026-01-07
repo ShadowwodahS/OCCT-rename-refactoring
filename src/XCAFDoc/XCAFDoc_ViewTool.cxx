@@ -35,7 +35,7 @@ XCAFDoc_ViewTool::XCAFDoc_ViewTool() {}
 
 //=================================================================================================
 
-Handle(XCAFDoc_ViewTool) XCAFDoc_ViewTool::Set(const TDF_Label& L)
+Handle(XCAFDoc_ViewTool) XCAFDoc_ViewTool::Set(const DataLabel& L)
 {
   Handle(XCAFDoc_ViewTool) A;
   if (!L.FindAttribute(XCAFDoc_ViewTool::GetID(), A))
@@ -56,14 +56,14 @@ const Standard_GUID& XCAFDoc_ViewTool::GetID()
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_ViewTool::BaseLabel() const
+DataLabel XCAFDoc_ViewTool::BaseLabel() const
 {
   return Label();
 }
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ViewTool::IsView(const TDF_Label& theLabel) const
+Standard_Boolean XCAFDoc_ViewTool::IsView(const DataLabel& theLabel) const
 {
   Handle(XCAFDoc_View) aViewAttr;
   if (theLabel.FindAttribute(XCAFDoc_View::GetID(), aViewAttr))
@@ -81,7 +81,7 @@ void XCAFDoc_ViewTool::GetViewLabels(TDF_LabelSequence& theLabels) const
   TDF_ChildIterator aChildIterator(Label());
   for (; aChildIterator.More(); aChildIterator.Next())
   {
-    TDF_Label aLabel = aChildIterator.Value();
+    DataLabel aLabel = aChildIterator.Value();
     if (IsView(aLabel))
       theLabels.Append(aLabel);
   }
@@ -89,14 +89,14 @@ void XCAFDoc_ViewTool::GetViewLabels(TDF_LabelSequence& theLabels) const
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_ViewTool::AddView()
+DataLabel XCAFDoc_ViewTool::AddView()
 {
-  TDF_Label     aViewL;
+  DataLabel     aViewL;
   TDF_TagSource aTag;
   aViewL                        = aTag.NewChild(Label());
   Handle(XCAFDoc_View)    aView = XCAFDoc_View::Set(aViewL);
-  TCollection_AsciiString aStr  = "View";
-  TDataStd_Name::Set(aViewL, aStr);
+  AsciiString1 aStr  = "View";
+  NameAttribute::Set(aViewL, aStr);
   return aViewL;
 }
 
@@ -107,7 +107,7 @@ void XCAFDoc_ViewTool::SetView(const TDF_LabelSequence& theShapes,
                                const TDF_LabelSequence& theClippingPlanes,
                                const TDF_LabelSequence& theNotes,
                                const TDF_LabelSequence& theAnnotations,
-                               const TDF_Label&         theViewL) const
+                               const DataLabel&         theViewL) const
 {
   if (!IsView(theViewL))
     return;
@@ -273,7 +273,7 @@ void XCAFDoc_ViewTool::SetView(const TDF_LabelSequence& theShapes,
 void XCAFDoc_ViewTool::SetView(const TDF_LabelSequence& theShapeLabels,
                                const TDF_LabelSequence& theGDTLabels,
                                const TDF_LabelSequence& theClippingPlaneLabels,
-                               const TDF_Label&         theViewL) const
+                               const DataLabel&         theViewL) const
 {
   if (!IsView(theViewL))
     return;
@@ -378,7 +378,7 @@ void XCAFDoc_ViewTool::SetView(const TDF_LabelSequence& theShapeLabels,
 
 void XCAFDoc_ViewTool::SetView(const TDF_LabelSequence& theShapeLabels,
                                const TDF_LabelSequence& theGDTLabels,
-                               const TDF_Label&         theViewL) const
+                               const DataLabel&         theViewL) const
 {
   if (!IsView(theViewL))
     return;
@@ -450,7 +450,7 @@ void XCAFDoc_ViewTool::SetView(const TDF_LabelSequence& theShapeLabels,
 //=================================================================================================
 
 void XCAFDoc_ViewTool::SetClippingPlanes(const TDF_LabelSequence& theClippingPlaneLabels,
-                                         const TDF_Label&         theViewL) const
+                                         const DataLabel&         theViewL) const
 {
   if (!IsView(theViewL))
     return;
@@ -493,7 +493,7 @@ void XCAFDoc_ViewTool::SetClippingPlanes(const TDF_LabelSequence& theClippingPla
 
 //=================================================================================================
 
-void XCAFDoc_ViewTool::RemoveView(const TDF_Label& theViewL)
+void XCAFDoc_ViewTool::RemoveView(const DataLabel& theViewL)
 {
   if (!IsView(theViewL))
     return;
@@ -538,7 +538,7 @@ void XCAFDoc_ViewTool::RemoveView(const TDF_Label& theViewL)
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ViewTool::GetRefShapeLabel(const TDF_Label&   theViewL,
+Standard_Boolean XCAFDoc_ViewTool::GetRefShapeLabel(const DataLabel&   theViewL,
                                                     TDF_LabelSequence& theShapeLabels) const
 {
   theShapeLabels.Clear();
@@ -562,7 +562,7 @@ Standard_Boolean XCAFDoc_ViewTool::GetRefShapeLabel(const TDF_Label&   theViewL,
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ViewTool::GetRefGDTLabel(const TDF_Label&   theViewL,
+Standard_Boolean XCAFDoc_ViewTool::GetRefGDTLabel(const DataLabel&   theViewL,
                                                   TDF_LabelSequence& theGDTLabels) const
 {
   theGDTLabels.Clear();
@@ -587,7 +587,7 @@ Standard_Boolean XCAFDoc_ViewTool::GetRefGDTLabel(const TDF_Label&   theViewL,
 //=================================================================================================
 
 Standard_Boolean XCAFDoc_ViewTool::GetRefClippingPlaneLabel(
-  const TDF_Label&   theViewL,
+  const DataLabel&   theViewL,
   TDF_LabelSequence& theClippingPlaneLabels) const
 {
   theClippingPlaneLabels.Clear();
@@ -611,7 +611,7 @@ Standard_Boolean XCAFDoc_ViewTool::GetRefClippingPlaneLabel(
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ViewTool::GetRefNoteLabel(const TDF_Label&   theViewL,
+Standard_Boolean XCAFDoc_ViewTool::GetRefNoteLabel(const DataLabel&   theViewL,
                                                    TDF_LabelSequence& theNoteLabels) const
 {
   theNoteLabels.Clear();
@@ -636,7 +636,7 @@ Standard_Boolean XCAFDoc_ViewTool::GetRefNoteLabel(const TDF_Label&   theViewL,
 //=================================================================================================
 
 Standard_Boolean XCAFDoc_ViewTool::GetRefAnnotationLabel(
-  const TDF_Label&   theViewL,
+  const DataLabel&   theViewL,
   TDF_LabelSequence& theAnnotationLabels) const
 {
   theAnnotationLabels.Clear();
@@ -660,7 +660,7 @@ Standard_Boolean XCAFDoc_ViewTool::GetRefAnnotationLabel(
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ViewTool::GetViewLabelsForShape(const TDF_Label&   theShapeL,
+Standard_Boolean XCAFDoc_ViewTool::GetViewLabelsForShape(const DataLabel&   theShapeL,
                                                          TDF_LabelSequence& theViews) const
 {
   Handle(XCAFDoc_GraphNode) aGNode;
@@ -678,7 +678,7 @@ Standard_Boolean XCAFDoc_ViewTool::GetViewLabelsForShape(const TDF_Label&   theS
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ViewTool::GetViewLabelsForGDT(const TDF_Label&   theGDTL,
+Standard_Boolean XCAFDoc_ViewTool::GetViewLabelsForGDT(const DataLabel&   theGDTL,
                                                        TDF_LabelSequence& theViews) const
 {
   Handle(XCAFDoc_GraphNode) aGNode;
@@ -696,7 +696,7 @@ Standard_Boolean XCAFDoc_ViewTool::GetViewLabelsForGDT(const TDF_Label&   theGDT
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ViewTool::GetViewLabelsForClippingPlane(const TDF_Label& theClippingPlaneL,
+Standard_Boolean XCAFDoc_ViewTool::GetViewLabelsForClippingPlane(const DataLabel& theClippingPlaneL,
                                                                  TDF_LabelSequence& theViews) const
 {
   Handle(XCAFDoc_GraphNode) aGNode;
@@ -715,7 +715,7 @@ Standard_Boolean XCAFDoc_ViewTool::GetViewLabelsForClippingPlane(const TDF_Label
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ViewTool::GetViewLabelsForNote(const TDF_Label&   theNoteL,
+Standard_Boolean XCAFDoc_ViewTool::GetViewLabelsForNote(const DataLabel&   theNoteL,
                                                         TDF_LabelSequence& theViews) const
 {
   Handle(XCAFDoc_GraphNode) aGNode;
@@ -733,7 +733,7 @@ Standard_Boolean XCAFDoc_ViewTool::GetViewLabelsForNote(const TDF_Label&   theNo
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ViewTool::GetViewLabelsForAnnotation(const TDF_Label&   theAnnotationL,
+Standard_Boolean XCAFDoc_ViewTool::GetViewLabelsForAnnotation(const DataLabel&   theAnnotationL,
                                                               TDF_LabelSequence& theViews) const
 {
   Handle(XCAFDoc_GraphNode) aGNode;
@@ -752,7 +752,7 @@ Standard_Boolean XCAFDoc_ViewTool::GetViewLabelsForAnnotation(const TDF_Label&  
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ViewTool::IsLocked(const TDF_Label& theViewL) const
+Standard_Boolean XCAFDoc_ViewTool::IsLocked(const DataLabel& theViewL) const
 {
   Handle(TDataStd_UAttribute) anAttr;
   return theViewL.FindAttribute(XCAFDoc::LockGUID(), anAttr);
@@ -760,14 +760,14 @@ Standard_Boolean XCAFDoc_ViewTool::IsLocked(const TDF_Label& theViewL) const
 
 //=================================================================================================
 
-void XCAFDoc_ViewTool::Lock(const TDF_Label& theViewL) const
+void XCAFDoc_ViewTool::Lock(const DataLabel& theViewL) const
 {
   TDataStd_UAttribute::Set(theViewL, XCAFDoc::LockGUID());
 }
 
 //=================================================================================================
 
-void XCAFDoc_ViewTool::Unlock(const TDF_Label& theViewL) const
+void XCAFDoc_ViewTool::Unlock(const DataLabel& theViewL) const
 {
   theViewL.ForgetAttribute(XCAFDoc::LockGUID());
 }

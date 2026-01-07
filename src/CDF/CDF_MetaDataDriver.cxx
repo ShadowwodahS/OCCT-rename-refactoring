@@ -30,8 +30,8 @@ CDF_MetaDataDriver::CDF_MetaDataDriver() {}
 
 //=================================================================================================
 
-Standard_Boolean CDF_MetaDataDriver::HasVersion(const TCollection_ExtendedString&,
-                                                const TCollection_ExtendedString&)
+Standard_Boolean CDF_MetaDataDriver::HasVersion(const UtfString&,
+                                                const UtfString&)
 {
   return Standard_True;
 }
@@ -70,19 +70,19 @@ Handle(PCDM_ReferenceIterator) CDF_MetaDataDriver::ReferenceIterator(
 
 //=================================================================================================
 
-Standard_Boolean CDF_MetaDataDriver::Find(const TCollection_ExtendedString& aFolder,
-                                          const TCollection_ExtendedString& aName)
+Standard_Boolean CDF_MetaDataDriver::Find(const UtfString& aFolder,
+                                          const UtfString& aName)
 {
-  TCollection_ExtendedString aVersion;
+  UtfString aVersion;
   return Find(aFolder, aName, aVersion);
 }
 
 //=================================================================================================
 
-Handle(CDM_MetaData) CDF_MetaDataDriver::MetaData(const TCollection_ExtendedString& aFolder,
-                                                  const TCollection_ExtendedString& aName)
+Handle(CDM_MetaData) CDF_MetaDataDriver::MetaData(const UtfString& aFolder,
+                                                  const UtfString& aName)
 {
-  TCollection_ExtendedString aVersion;
+  UtfString aVersion;
   return MetaData(aFolder, aName, aVersion);
 }
 
@@ -95,8 +95,8 @@ Handle(CDM_MetaData) CDF_MetaDataDriver::LastVersion(const Handle(CDM_MetaData)&
 
 //=================================================================================================
 
-TCollection_ExtendedString CDF_MetaDataDriver::SetName(const Handle(CDM_Document)&,
-                                                       const TCollection_ExtendedString& aName)
+UtfString CDF_MetaDataDriver::SetName(const Handle(CDM_Document)&,
+                                                       const UtfString& aName)
 {
   return aName;
 }

@@ -22,7 +22,7 @@
 #define Handle_TheLine Handle(BRepApprox_ApproxLine)
 #define TheLine BRepApprox_ApproxLine
 #define TheLine_hxx <BRepApprox_ApproxLine.hxx>
-#define TheSvSurfaces ApproxInt_SvSurfaces
+#define TheSvSurfaces SurfaceSurfaces
 #define TheSvSurfaces_hxx <ApproxInt_SvSurfaces.hxx>
 #define ApproxInt_MultiLine BRepApprox_TheMultiLineOfApprox
 #define ApproxInt_MultiLine_hxx <BRepApprox_TheMultiLineOfApprox.hxx>

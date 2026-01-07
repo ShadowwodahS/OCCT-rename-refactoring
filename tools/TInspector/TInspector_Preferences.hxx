@@ -40,7 +40,7 @@ public:
 
   //! Sets path to a preferences file
   //! \param thePath a path
-  void SetDirectory(const TCollection_AsciiString& thePath)
+  void SetDirectory(const AsciiString1& thePath)
   {
     reset();
     myDirectory = thePath;
@@ -48,17 +48,17 @@ public:
 
   //! Returns path to a preferences file
   //! \return path
-  TCollection_AsciiString GetDirectory() const { return myDirectory; }
+  AsciiString1 GetDirectory() const { return myDirectory; }
 
   //! Returns plugin preferences
   //! \param thePluginName a plugin name
-  Standard_EXPORT void GetPreferences(const TCollection_AsciiString&    thePluginName,
+  Standard_EXPORT void GetPreferences(const AsciiString1&    thePluginName,
                                       TInspectorAPI_PreferencesDataMap& theItem);
 
   //! Stores plugin preferences
   //! \param thePluginName a plugin name
   //! \theItem container of plugin preferences values in form: <name, value>
-  void SetPreferences(const TCollection_AsciiString&          thePluginName,
+  void SetPreferences(const AsciiString1&          thePluginName,
                       const TInspectorAPI_PreferencesDataMap& theItem)
   {
     myLoadedPreferences.Bind(thePluginName, theItem);
@@ -102,9 +102,9 @@ private:
 
 private:
   //! directory of preferences file
-  TCollection_AsciiString myDirectory;
+  AsciiString1 myDirectory;
   //! container of already loaded preferences : cache
-  NCollection_DataMap<TCollection_AsciiString, TInspectorAPI_PreferencesDataMap>
+  NCollection_DataMap<AsciiString1, TInspectorAPI_PreferencesDataMap>
     myLoadedPreferences;
   //! state whether the preferences of the current directory is loaded
   Standard_Boolean myIsLoadedPreferences;

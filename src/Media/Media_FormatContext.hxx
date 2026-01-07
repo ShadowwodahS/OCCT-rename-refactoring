@@ -30,7 +30,7 @@ class Media_FormatContext : public RefObject
   DEFINE_STANDARD_RTTIEXT(Media_FormatContext, RefObject)
 public:
   //! Returns string description for AVError code.
-  Standard_EXPORT static TCollection_AsciiString FormatAVErrorDescription(int theErrCodeAV);
+  Standard_EXPORT static AsciiString1 FormatAVErrorDescription(int theErrCodeAV);
 
   //! Convert time units into seconds for context.
   //! @param theTimeUnits value to convert
@@ -70,10 +70,10 @@ public:
                                                       double          theTimeSeconds);
 
   //! Time formatter.
-  Standard_EXPORT static TCollection_AsciiString FormatTime(double theSeconds);
+  Standard_EXPORT static AsciiString1 FormatTime(double theSeconds);
 
   //! Time progress / duration formatter.
-  Standard_EXPORT static TCollection_AsciiString FormatTimeProgress(double theProgress,
+  Standard_EXPORT static AsciiString1 FormatTimeProgress(double theProgress,
                                                                     double theDuration);
 
 public:
@@ -87,7 +87,7 @@ public:
   AVFormatContext* Context() const { return myFormatCtx; }
 
   //! Open input.
-  Standard_EXPORT bool OpenInput(const TCollection_AsciiString& theInput);
+  Standard_EXPORT bool OpenInput(const AsciiString1& theInput);
 
   //! Close input.
   Standard_EXPORT void Close();
@@ -99,7 +99,7 @@ public:
   Standard_EXPORT const AVStream& Stream(unsigned int theIndex) const;
 
   //! Format stream info.
-  Standard_EXPORT TCollection_AsciiString StreamInfo(unsigned int    theIndex,
+  Standard_EXPORT AsciiString1 StreamInfo(unsigned int    theIndex,
                                                      AVCodecContext* theCodecCtx = NULL) const;
 
   //! Return PTS start base in seconds.

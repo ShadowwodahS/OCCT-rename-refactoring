@@ -25,7 +25,7 @@
 #include <TopoDS_Solid.hxx>
 #include <TopTools_ListOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
-class BOPAlgo_PaveFiller;
+class BooleanPaveFiller;
 
 //! The algorithm is to build solids from set of shapes.
 //! It uses the BOPAlgo_Builder algorithm to intersect the given shapes
@@ -102,7 +102,7 @@ class BOPAlgo_PaveFiller;
 //!   return;
 //! }
 //! //
-//! const TopoDS_Shape& aResult = aMV.Shape();  //result of the operation
+//! const TopoShape& aResult = aMV.Shape();  //result of the operation
 class BOPAlgo_MakerVolume : public BOPAlgo_Builder
 {
 public:
@@ -127,10 +127,10 @@ public:
   Standard_Boolean IsIntersect() const;
 
   //! Returns the solid box <mySBox>.
-  const TopoDS_Solid& Box() const;
+  const TopoSolid& Box() const;
 
   //! Returns the processed faces <myFaces>.
-  const TopTools_ListOfShape& Faces() const;
+  const ShapeList& Faces() const;
 
   //! Defines the preventing of addition of internal for solid parts into the result.
   //! By default the internal parts are added into result.
@@ -152,7 +152,7 @@ protected:
 
   //! Performs the operation.
   Standard_EXPORT virtual void PerformInternal1(
-    const BOPAlgo_PaveFiller&    thePF,
+    const BooleanPaveFiller&    thePF,
     const Message_ProgressRange& theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Collects all faces.
@@ -162,18 +162,18 @@ protected:
   Standard_EXPORT void MakeBox(TopTools_MapOfShape& theBoxFaces);
 
   //! Builds solids.
-  Standard_EXPORT void BuildSolids(TopTools_ListOfShape&        theLSR,
+  Standard_EXPORT void BuildSolids(ShapeList&        theLSR,
                                    const Message_ProgressRange& theRange);
 
   //! Removes the covering box.
-  Standard_EXPORT void RemoveBox(TopTools_ListOfShape&      theLSR,
+  Standard_EXPORT void RemoveBox(ShapeList&      theLSR,
                                  const TopTools_MapOfShape& theBoxFaces);
 
   //! Fills the solids with internal shapes.
-  Standard_EXPORT void FillInternalShapes(const TopTools_ListOfShape& theLSR);
+  Standard_EXPORT void FillInternalShapes(const ShapeList& theLSR);
 
   //! Builds the result.
-  Standard_EXPORT void BuildShape(const TopTools_ListOfShape& theLSR);
+  Standard_EXPORT void BuildShape(const ShapeList& theLSR);
 
 protected:
   //! List of operations to be supported by the Progress Indicator.
@@ -191,13 +191,13 @@ protected:
   };
 
   //! Analyze progress steps
-  Standard_EXPORT void fillPISteps(BOPAlgo_PISteps& theSteps) const Standard_OVERRIDE;
+  Standard_EXPORT void fillPISteps(PISteps& theSteps) const Standard_OVERRIDE;
 
 protected:
   Standard_Boolean     myIntersect;
   Bnd_Box              myBBox;
-  TopoDS_Solid         mySBox;
-  TopTools_ListOfShape myFaces;
+  TopoSolid         mySBox;
+  ShapeList myFaces;
   Standard_Boolean     myAvoidInternalShapes;
 
 private:

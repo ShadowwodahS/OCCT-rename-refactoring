@@ -39,11 +39,11 @@ IntTools_ShrunkRange::~IntTools_ShrunkRange() {}
 
 //=================================================================================================
 
-void IntTools_ShrunkRange::SetData(const TopoDS_Edge&   aE,
+void IntTools_ShrunkRange::SetData(const TopoEdge&   aE,
                                    const Standard_Real  aT1,
                                    const Standard_Real  aT2,
-                                   const TopoDS_Vertex& aV1,
-                                   const TopoDS_Vertex& aV2)
+                                   const TopoVertex& aV1,
+                                   const TopoVertex& aV2)
 {
   myEdge         = aE;
   myV1           = aV1;
@@ -71,7 +71,7 @@ const Handle(IntTools_Context)& IntTools_ShrunkRange::Context() const
 
 //=================================================================================================
 
-const TopoDS_Edge& IntTools_ShrunkRange::Edge() const
+const TopoEdge& IntTools_ShrunkRange::Edge() const
 {
   return myEdge;
 }
@@ -119,12 +119,12 @@ void IntTools_ShrunkRange::Perform()
     return;
   }
   //
-  Point3d        aP1 = BRep_Tool::Pnt(myV1);
-  Point3d        aP2 = BRep_Tool::Pnt(myV2);
+  Point3d        aP1 = BRepInspector::Pnt(myV1);
+  Point3d        aP2 = BRepInspector::Pnt(myV2);
   Standard_Real aTolE, aTolV1, aTolV2;
-  aTolE  = BRep_Tool::Tolerance(myEdge);
-  aTolV1 = BRep_Tool::Tolerance(myV1);
-  aTolV2 = BRep_Tool::Tolerance(myV2);
+  aTolE  = BRepInspector::Tolerance(myEdge);
+  aTolV1 = BRepInspector::Tolerance(myV1);
+  aTolV2 = BRepInspector::Tolerance(myV2);
   //
   if (aTolV1 < aTolE)
   {

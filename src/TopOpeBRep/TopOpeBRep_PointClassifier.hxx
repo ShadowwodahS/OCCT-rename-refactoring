@@ -22,7 +22,7 @@
 #include <TopAbs_State.hxx>
 
 class BRepTopAdaptor_TopolTool;
-class TopoDS_Face;
+class TopoFace;
 class gp_Pnt2d;
 
 class TopOpeBRep_PointClassifier
@@ -34,10 +34,10 @@ public:
 
   Standard_EXPORT void Init();
 
-  Standard_EXPORT void Load(const TopoDS_Face& F);
+  Standard_EXPORT void Load(const TopoFace& F);
 
   //! compute position of point <P> regarding with the face <F>.
-  Standard_EXPORT TopAbs_State Classify(const TopoDS_Face&  F,
+  Standard_EXPORT TopAbs_State Classify(const TopoFace&  F,
                                         const gp_Pnt2d&     P,
                                         const Standard_Real Tol);
 

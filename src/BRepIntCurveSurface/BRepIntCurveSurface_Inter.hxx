@@ -24,12 +24,12 @@
 #include <IntCurveSurface_TransitionOnCurve.hxx>
 
 class BRepTopAdaptor_TopolTool;
-class TopoDS_Shape;
+class TopoShape;
 class GeomAdaptor_Curve;
 class gp_Lin;
 class IntCurveSurface_IntersectionPoint;
 class Point3d;
-class TopoDS_Face;
+class TopoFace;
 
 //! Computes the intersection between a face and a
 //! curve. To intersect one curve with shape method
@@ -61,19 +61,19 @@ public:
 
   //! Load the Shape, the curve and initialize the
   //! tolerance used for the classification.
-  Standard_EXPORT void Init(const TopoDS_Shape&      theShape,
+  Standard_EXPORT void Init(const TopoShape&      theShape,
                             const GeomAdaptor_Curve& theCurve,
                             const Standard_Real      theTol);
 
   //! Load the Shape, the curve and initialize the
   //! tolerance used for the classification.
-  Standard_EXPORT void Init(const TopoDS_Shape& theShape,
+  Standard_EXPORT void Init(const TopoShape& theShape,
                             const gp_Lin&       theLine,
                             const Standard_Real theTol);
 
   //! Load the Shape, and initialize the
   //! tolerance used for the classification.
-  Standard_EXPORT void Load(const TopoDS_Shape& theShape, const Standard_Real theTol);
+  Standard_EXPORT void Load(const TopoShape& theShape, const Standard_Real theTol);
 
   //! Method to find intersections of specified curve with loaded shape.
   Standard_EXPORT void Init(const GeomAdaptor_Curve& theCurve);
@@ -109,7 +109,7 @@ public:
   Standard_EXPORT IntCurveSurface_TransitionOnCurve Transition() const;
 
   //! returns the current face.
-  Standard_EXPORT const TopoDS_Face& Face() const;
+  Standard_EXPORT const TopoFace& Face() const;
 
 protected:
   //! Internal function

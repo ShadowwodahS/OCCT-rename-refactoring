@@ -43,7 +43,7 @@ ShapeFix_FreeBounds::ShapeFix_FreeBounds()
 
 //=================================================================================================
 
-ShapeFix_FreeBounds::ShapeFix_FreeBounds(const TopoDS_Shape&    shape,
+ShapeFix_FreeBounds::ShapeFix_FreeBounds(const TopoShape&    shape,
                                          const Standard_Real    sewtoler,
                                          const Standard_Real    closetoler,
                                          const Standard_Boolean splitclosed,
@@ -60,7 +60,7 @@ ShapeFix_FreeBounds::ShapeFix_FreeBounds(const TopoDS_Shape&    shape,
 
 //=================================================================================================
 
-ShapeFix_FreeBounds::ShapeFix_FreeBounds(const TopoDS_Shape&    shape,
+ShapeFix_FreeBounds::ShapeFix_FreeBounds(const TopoShape&    shape,
                                          const Standard_Real    closetoler,
                                          const Standard_Boolean splitclosed,
                                          const Standard_Boolean splitopen)
@@ -96,14 +96,14 @@ Standard_Boolean ShapeFix_FreeBounds::Perform()
     myEdges.Nullify();
     ShapeAnalysis_FreeBounds::DispatchWires(newwires, myWires, myEdges);
 
-    for (TopExp_Explorer exp(myShape, TopAbs_EDGE); exp.More(); exp.Next())
+    for (ShapeExplorer exp(myShape, TopAbs_EDGE); exp.More(); exp.Next())
     {
-      TopoDS_Edge Edge = TopoDS::Edge(exp.Current());
+      TopoEdge Edge = TopoDS::Edge(exp.Current());
       for (TopoDS_Iterator iter(Edge); iter.More(); iter.Next())
       {
-        TopoDS_Vertex V = TopoDS::Vertex(iter.Value());
-        BRep_Builder  B;
-        TopoDS_Vertex newV;
+        TopoVertex V = TopoDS::Vertex(iter.Value());
+        ShapeBuilder  B;
+        TopoVertex newV;
         if (vertices.IsBound(V))
         {
           newV = TopoDS::Vertex(vertices.Find(V));

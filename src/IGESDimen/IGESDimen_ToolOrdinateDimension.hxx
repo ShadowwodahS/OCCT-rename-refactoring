@@ -27,7 +27,7 @@ class IGESData_IGESReaderData;
 class IGESData_ParamReader;
 class IGESData_IGESWriter;
 class Interface_EntityIterator;
-class IGESData_DirChecker;
+class DirectoryChecker;
 class Interface_ShareTool;
 class Interface_Check;
 class Interface_CopyTool;
@@ -35,13 +35,13 @@ class IGESData_IGESDumper;
 
 //! Tool to work on a OrdinateDimension. Called by various Modules
 //! (ReadWriteModule, GeneralModule, SpecificModule)
-class IGESDimen_ToolOrdinateDimension
+class OrdinateDimensionTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns a ToolOrdinateDimension, ready to work
-  Standard_EXPORT IGESDimen_ToolOrdinateDimension();
+  Standard_EXPORT OrdinateDimensionTool();
 
   //! Reads own parameters from file. <PR> gives access to them,
   //! <IR> detains parameter types and values
@@ -59,7 +59,7 @@ public:
                                  Interface_EntityIterator&                  iter) const;
 
   //! Returns specific DirChecker
-  Standard_EXPORT IGESData_DirChecker
+  Standard_EXPORT DirectoryChecker
     DirChecker(const Handle(IGESDimen_OrdinateDimension)& ent) const;
 
   //! Performs Specific Semantic Check

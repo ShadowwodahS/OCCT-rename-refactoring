@@ -35,13 +35,13 @@ public:
 
   //! Initializes me by aFace, a 3d point
   //! and it's UV parameters on face
-  Standard_EXPORT void Init(const TopoDS_Face&  aF,
+  Standard_EXPORT void Init(const TopoFace&  aF,
                             const Point3d&       aP,
                             const Standard_Real U,
                             const Standard_Real V);
 
   //! Modifier
-  Standard_EXPORT void SetFace(const TopoDS_Face& aF);
+  Standard_EXPORT void SetFace(const TopoFace& aF);
 
   //! Modifier
   Standard_EXPORT void SetPnt(const Point3d& aP);
@@ -56,7 +56,7 @@ public:
   Standard_EXPORT Standard_Boolean Valid() const;
 
   //! Selector
-  Standard_EXPORT const TopoDS_Face& Face() const;
+  Standard_EXPORT const TopoFace& Face() const;
 
   //! Selector
   Standard_EXPORT const Point3d& Pnt() const;
@@ -73,7 +73,7 @@ private:
   Point3d           myPnt;
   Standard_Real    myU;
   Standard_Real    myV;
-  TopoDS_Face      myFace;
+  TopoFace      myFace;
 };
 
 #endif // _IntTools_PntOnFace_HeaderFile

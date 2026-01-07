@@ -20,7 +20,7 @@
   #define DPLUGIN(name)
 #else
   #define DPLUGIN(name)                                                                            \
-    extern "C" Standard_EXPORT void PLUGINFACTORY(Draw_Interpretor& theDI)                         \
+    extern "C" Standard_EXPORT void PLUGINFACTORY(DrawInterpreter& theDI)                         \
     {                                                                                              \
       name::Factory(theDI);                                                                        \
     }

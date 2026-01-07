@@ -28,7 +28,7 @@ class IGESDimen_CurveDimension;
 DEFINE_STANDARD_HANDLE(IGESDimen_CurveDimension, IGESData_IGESEntity)
 
 //! defines CurveDimension, Type <204> Form <0>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Used to dimension curves
 //! Consists of one tail segment of nonzero length
 //! beginning with an arrowhead and which serves to define

@@ -80,10 +80,10 @@ public:
   }
 
   //
-  void SetNewSR(const IntTools_Range& aR) { myNewSR = aR; }
+  void SetNewSR(const IntToolsRange& aR) { myNewSR = aR; }
 
   //
-  IntTools_Range& NewSR() { return myNewSR; }
+  IntToolsRange& NewSR() { return myNewSR; }
 
   //
   void SetPaveBlock(const Handle(BOPDS_PaveBlock)& aPB) { myPB = aPB; }
@@ -109,15 +109,15 @@ public:
     {
       return;
     }
-    TopoDS_Face      aFace   = myFace;
-    TopoDS_Edge      anEdge  = myEdge;
+    TopoFace      aFace   = myFace;
+    TopoEdge      anEdge  = myEdge;
     Standard_Boolean hasTrsf = false;
     try
     {
       OCC_CATCH_SIGNALS
 
       Transform3d aTrsf;
-      if (BOPAlgo_Tools::TrsfToPoint(myBox1, myBox2, aTrsf))
+      if (BooleanTools::TrsfToPoint(myBox1, myBox2, aTrsf))
       {
         // Shapes are located far from origin, move the shapes to the origin,
         // to increase the accuracy of intersection.
@@ -150,7 +150,7 @@ public:
 protected:
   Standard_Integer        myIE;
   Standard_Integer        myIF;
-  IntTools_Range          myNewSR;
+  IntToolsRange          myNewSR;
   Handle(BOPDS_PaveBlock) myPB;
   Bnd_Box                 myBox1;
   Bnd_Box                 myBox2;
@@ -162,7 +162,7 @@ typedef NCollection_Vector<BOPAlgo_EdgeFace> BOPAlgo_VectorOfEdgeFace;
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
+void BooleanPaveFiller::PerformEF(const Message_ProgressRange& theRange)
 {
   FillShrunkData(TopAbs_EDGE, TopAbs_FACE);
   //
@@ -227,8 +227,8 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
       continue;
     }
     //
-    const TopoDS_Edge& aE   = (*(TopoDS_Edge*)(&aSIE.Shape()));
-    const TopoDS_Face& aF   = (*(TopoDS_Face*)(&myDS->Shape(nF)));
+    const TopoEdge& aE   = (*(TopoEdge*)(&aSIE.Shape()));
+    const TopoFace& aF   = (*(TopoFace*)(&myDS->Shape(nF)));
     const Bnd_Box&     aBBF = myDS->ShapeInfo(nF).Box();
     //
     BOPDS_FaceInfo&                    aFI   = myDS->ChangeFaceInfo(nF);
@@ -237,8 +237,8 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
     const TColStd_MapOfInteger& aMVIn = aFI.VerticesIn();
     const TColStd_MapOfInteger& aMVOn = aFI.VerticesOn();
     //
-    aTolE = BRep_Tool::Tolerance(aE);
-    aTolF = BRep_Tool::Tolerance(aF);
+    aTolE = BRepInspector::Tolerance(aE);
+    aTolF = BRepInspector::Tolerance(aF);
     //
     BOPDS_ListOfPaveBlock& aLPB = myDS->ChangePaveBlocks(nE);
     aIt.Initialize(aLPB);
@@ -283,14 +283,14 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
       aEdgeFace.SetFuzzyValue(myFuzzyValue);
       aEdgeFace.UseQuickCoincidenceCheck(bExpressCompute);
 
-      IntTools_Range aSR(aTS1, aTS2);
-      IntTools_Range anewSR = aSR;
-      BOPTools_AlgoTools::CorrectRange(aE, aF, aSR, anewSR);
+      IntToolsRange aSR(aTS1, aTS2);
+      IntToolsRange anewSR = aSR;
+      AlgoTools::CorrectRange(aE, aF, aSR, anewSR);
       aEdgeFace.SetNewSR(anewSR);
       //
-      IntTools_Range aPBRange(aT1, aT2);
+      IntToolsRange aPBRange(aT1, aT2);
       aSR = aPBRange;
-      BOPTools_AlgoTools::CorrectRange(aE, aF, aSR, aPBRange);
+      AlgoTools::CorrectRange(aE, aF, aSR, aPBRange);
       aEdgeFace.SetRange(aPBRange);
       //
       // Save the pair to avoid their forced intersection
@@ -309,7 +309,7 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
     aEdgeFace.SetProgressRange(aPS.Next());
   }
   //=================================================================
-  BOPTools_Parallel::Perform(myRunParallel, aVEdgeFace, myContext);
+  BooleanParallelTools::Perform(myRunParallel, aVEdgeFace, myContext);
   //=================================================================
   if (UserBreak(aPSOuter))
   {
@@ -332,11 +332,11 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
     //
     aEdgeFace.Indices(nE, nF);
     //
-    const TopoDS_Edge& aE = aEdgeFace.Edge();
-    const TopoDS_Face& aF = aEdgeFace.Face();
+    const TopoEdge& aE = aEdgeFace.Edge();
+    const TopoFace& aF = aEdgeFace.Face();
     //
-    aTolE = BRep_Tool::Tolerance(aE);
-    aTolF = BRep_Tool::Tolerance(aF);
+    aTolE = BRepInspector::Tolerance(aE);
+    aTolF = BRepInspector::Tolerance(aF);
     //
     const IntTools_SequenceOfCommonPrts& aCPrts = aEdgeFace.CommonParts();
     aNbCPrts                                    = aCPrts.Length();
@@ -346,15 +346,15 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
       {
         const Handle(BOPDS_PaveBlock)& aPB = aEdgeFace.PaveBlock();
         aPB->Range(aT1, aT2);
-        NCollection_List<EdgeRangeDistance>* pList = myDistances.ChangeSeek(BOPDS_Pair(nE, nF));
+        NCollection_List<EdgeRangeDistance1>* pList = myDistances.ChangeSeek(IndexPair(nE, nF));
         if (!pList)
-          pList = myDistances.Bound(BOPDS_Pair(nE, nF), NCollection_List<EdgeRangeDistance>());
-        pList->Append(EdgeRangeDistance(aT1, aT2, aEdgeFace.MinimalDistance()));
+          pList = myDistances.Bound(IndexPair(nE, nF), NCollection_List<EdgeRangeDistance1>());
+        pList->Append(EdgeRangeDistance1(aT1, aT2, aEdgeFace.MinimalDistance()));
       }
       continue;
     }
     //
-    const IntTools_Range&    anewSR = aEdgeFace.NewSR();
+    const IntToolsRange&    anewSR = aEdgeFace.NewSR();
     Handle(BOPDS_PaveBlock)& aPB    = aEdgeFace.PaveBlock();
     //
     aPB->Range(aT1, aT2);
@@ -372,7 +372,7 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
       ReduceIntersectionRange(nV[0], nV[1], nE, nF, aTS1, aTS2);
     }
     //
-    IntTools_Range aR1(aT1, aTS1), aR2(aTS2, aT2);
+    IntToolsRange aR1(aT1, aTS1), aR2(aTS2, aT2);
     //
     BOPDS_FaceInfo&             aFI    = myDS->ChangeFaceInfo(nF);
     const TColStd_MapOfInteger& aMIFOn = aFI.VerticesOn();
@@ -400,16 +400,16 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
           Standard_Boolean bIsOnPave[2];
           Standard_Integer j;
           Standard_Real    aT, aTolToDecide;
-          TopoDS_Vertex    aVnew;
+          TopoVertex    aVnew;
           //
-          IntTools_Tools::VertexParameter(aCPart, aT);
-          BOPTools_AlgoTools::MakeNewVertex(aE, aT, aF, aVnew);
+          Tools2::VertexParameter(aCPart, aT);
+          AlgoTools::MakeNewVertex(aE, aT, aF, aVnew);
           //
-          const IntTools_Range& aR = aCPart.Range1();
+          const IntToolsRange& aR = aCPart.Range1();
           aTolToDecide             = 5.e-8;
           //
-          bIsOnPave[0] = IntTools_Tools::IsInRange(aR1, aR, aTolToDecide);
-          bIsOnPave[1] = IntTools_Tools::IsInRange(aR2, aR, aTolToDecide);
+          bIsOnPave[0] = Tools2::IsInRange(aR1, aR, aTolToDecide);
+          bIsOnPave[1] = Tools2::IsInRange(aR2, aR, aTolToDecide);
           //
           if ((bIsOnPave[0] && bIsOnPave[1]) || (bLinePlane && (bIsOnPave[0] || bIsOnPave[1])))
           {
@@ -427,7 +427,7 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
               //
               aMIEFC.Add(nF);
               //
-              BOPAlgo_Tools::FillMap(aPB, nF, aMPBLI, aAllocator);
+              BooleanTools::FillMap(aPB, nF, aMPBLI, aAllocator);
               break;
             }
           }
@@ -455,8 +455,8 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
             // If it is a touching point, do nothing.
             // If it is an intersection point, update the existing vertex to cover the
             // intersection point.
-            GeomAPI_ProjectPointOnSurf& aProjPS = myContext->ProjPS(aF);
-            const Point3d                aPnew   = BRep_Tool::Pnt(aVnew);
+            PointOnSurfProjector& aProjPS = myContext->ProjPS(aF);
+            const Point3d                aPnew   = BRepInspector::Pnt(aVnew);
             aProjPS.Perform(aPnew);
             Standard_Real    aMinDistEF          = (aProjPS.IsDone() && aProjPS.NbPoints())
                                                      ? aProjPS.LowerDistance()
@@ -473,10 +473,10 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
             {
               if (bIsOnPave[j])
               {
-                const TopoDS_Vertex& aV       = TopoDS::Vertex(myDS->Shape(nV[j]));
-                const Point3d         aP       = BRep_Tool::Pnt(aV);
+                const TopoVertex& aV       = TopoDS::Vertex(myDS->Shape(nV[j]));
+                const Point3d         aP       = BRepInspector::Pnt(aV);
                 Standard_Real        aDistPP  = aP.Distance(aPnew);
-                Standard_Real        aTol     = BRep_Tool::Tolerance(aV);
+                Standard_Real        aTol     = BRepInspector::Tolerance(aV);
                 Standard_Real        aMaxDist = 1.e4 * aTol;
                 if (aTol < .01)
                 {
@@ -497,18 +497,18 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
             continue;
           }
           //
-          Standard_Real aTolVnew = BRep_Tool::Tolerance(aVnew);
+          Standard_Real aTolVnew = BRepInspector::Tolerance(aVnew);
           aTolVnew               = Max(aTolVnew, Max(aTolE, aTolF));
-          BRep_Builder().UpdateVertex(aVnew, aTolVnew);
+          ShapeBuilder().UpdateVertex(aVnew, aTolVnew);
           if (bLinePlane)
           {
             // increase tolerance for Line/Plane intersection, but do not update
             // the vertex till its intersection with some other shape
-            IntTools_Range aCR = aCPart.Range1();
+            IntToolsRange aCR = aCPart.Range1();
             aTolVnew           = Max(aTolVnew, (aCR.Last() - aCR.First()) / 2.);
           }
           //
-          const Point3d& aPnew = BRep_Tool::Pnt(aVnew);
+          const Point3d& aPnew = BRepInspector::Pnt(aVnew);
           //
           if (!myContext->IsPointInFace(aPnew, aF, aTolVnew))
           {
@@ -551,7 +551,7 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
           // 2
           myDS->AddInterf(nE, nF);
           // 3
-          BOPAlgo_Tools::FillMap(aPB, nF, aMPBLI, aAllocator);
+          BooleanTools::FillMap(aPB, nF, aMPBLI, aAllocator);
         }
         break;
         default:
@@ -563,7 +563,7 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
   //=========================================
   // post treatment
   //=========================================
-  BOPAlgo_Tools::PerformCommonBlocks(aMPBLI, aAllocator, myDS, myContext);
+  BooleanTools::PerformCommonBlocks(aMPBLI, aAllocator, myDS, myContext);
   UpdateVerticesOfCB();
   PerformNewVertices(aMVCPB, aAllocator, aPSOuter.Next(1), Standard_False);
   if (HasErrors())
@@ -583,7 +583,7 @@ void BOPAlgo_PaveFiller::PerformEF(const Message_ProgressRange& theRange)
 
 //=================================================================================================
 
-Standard_Boolean BOPAlgo_PaveFiller::CheckFacePaves(const Standard_Integer      nVx,
+Standard_Boolean BooleanPaveFiller::CheckFacePaves(const Standard_Integer      nVx,
                                                     const TColStd_MapOfInteger& aMIFOn,
                                                     const TColStd_MapOfInteger& aMIFIn)
 {
@@ -596,7 +596,7 @@ Standard_Boolean BOPAlgo_PaveFiller::CheckFacePaves(const Standard_Integer      
 
 //=================================================================================================
 
-Standard_Boolean BOPAlgo_PaveFiller::CheckFacePaves(const TopoDS_Vertex&        aVnew,
+Standard_Boolean BooleanPaveFiller::CheckFacePaves(const TopoVertex&        aVnew,
                                                     const TColStd_MapOfInteger& aMIF)
 {
   Standard_Boolean                  bRet;
@@ -609,8 +609,8 @@ Standard_Boolean BOPAlgo_PaveFiller::CheckFacePaves(const TopoDS_Vertex&        
   for (; aIt.More(); aIt.Next())
   {
     nV                      = aIt.Value();
-    const TopoDS_Vertex& aV = (*(TopoDS_Vertex*)(&myDS->Shape(nV)));
-    iFlag                   = BOPTools_AlgoTools::ComputeVV(aVnew, aV);
+    const TopoVertex& aV = (*(TopoVertex*)(&myDS->Shape(nV)));
+    iFlag                   = AlgoTools::ComputeVV(aVnew, aV);
     if (!iFlag)
     {
       return bRet;
@@ -622,7 +622,7 @@ Standard_Boolean BOPAlgo_PaveFiller::CheckFacePaves(const TopoDS_Vertex&        
 
 //=================================================================================================
 
-Standard_Boolean BOPAlgo_PaveFiller::ForceInterfVF(const Standard_Integer nV,
+Standard_Boolean BooleanPaveFiller::ForceInterfVF(const Standard_Integer nV,
                                                    const Standard_Integer nF)
 {
   Standard_Boolean bRet;
@@ -630,8 +630,8 @@ Standard_Boolean BOPAlgo_PaveFiller::ForceInterfVF(const Standard_Integer nV,
   Standard_Real    U, V, aTolVNew;
   //
   bRet                    = Standard_False;
-  const TopoDS_Vertex& aV = *(TopoDS_Vertex*)&myDS->Shape(nV);
-  const TopoDS_Face&   aF = *(TopoDS_Face*)&myDS->Shape(nF);
+  const TopoVertex& aV = *(TopoVertex*)&myDS->Shape(nV);
+  const TopoFace&   aF = *(TopoFace*)&myDS->Shape(nF);
   //
   iFlag = myContext->ComputeVF(aV, aF, U, V, aTolVNew, myFuzzyValue);
   if (iFlag == 0 || iFlag == -2)
@@ -665,10 +665,10 @@ Standard_Boolean BOPAlgo_PaveFiller::ForceInterfVF(const Standard_Integer nV,
     if (iRV >= 0 && iRV == myDS->Rank(nF))
     {
       // add warning status
-      TopoDS_Compound aWC;
-      BRep_Builder().MakeCompound(aWC);
-      BRep_Builder().Add(aWC, aV);
-      BRep_Builder().Add(aWC, aF);
+      TopoCompound aWC;
+      ShapeBuilder().MakeCompound(aWC);
+      ShapeBuilder().Add(aWC, aV);
+      ShapeBuilder().Add(aWC, aF);
       AddWarning(new BOPAlgo_AlertSelfInterferingShape(aWC));
     }
   }
@@ -677,7 +677,7 @@ Standard_Boolean BOPAlgo_PaveFiller::ForceInterfVF(const Standard_Integer nV,
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::ReduceIntersectionRange(const Standard_Integer theV1,
+void BooleanPaveFiller::ReduceIntersectionRange(const Standard_Integer theV1,
                                                  const Standard_Integer theV2,
                                                  const Standard_Integer theE,
                                                  const Standard_Integer theF,
@@ -742,7 +742,7 @@ void BOPAlgo_PaveFiller::ReduceIntersectionRange(const Standard_Integer theV1,
     //
     // update the intersection range
     const IntTools_CommonPrt& aCPart  = aEE.CommonPart();
-    const IntTools_Range&     aCRange = (theE == nE1) ? aCPart.Range1() : aCPart.Ranges2().First();
+    const IntToolsRange&     aCRange = (theE == nE1) ? aCPart.Range1() : aCPart.Ranges2().First();
     aCRange.Range(aTR1, aTR2);
     //
     if (nV == theV1)
@@ -764,7 +764,7 @@ void BOPAlgo_PaveFiller::ReduceIntersectionRange(const Standard_Integer theV1,
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::ForceInterfEF(const Message_ProgressRange& theRange)
+void BooleanPaveFiller::ForceInterfEF(const Message_ProgressRange& theRange)
 {
   Message_ProgressScope aPS(theRange, NULL, 1);
   if (!myIsPrimary)
@@ -815,7 +815,7 @@ void BOPAlgo_PaveFiller::ForceInterfEF(const Message_ProgressRange& theRange)
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB,
+void BooleanPaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB,
                                        const Message_ProgressRange&       theRange,
                                        const Standard_Boolean             theAddInterf)
 {
@@ -885,7 +885,7 @@ void BOPAlgo_PaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB
     if (!aSelector.Select())
       continue;
 
-    const TopoDS_Face&    aF  = TopoDS::Face(aSI.Shape());
+    const TopoFace&    aF  = TopoDS::Face(aSI.Shape());
     const BOPDS_FaceInfo& aFI = myDS->FaceInfo(nF);
     // Vertices of the face
     TColStd_MapOfInteger        aMVF;
@@ -913,7 +913,7 @@ void BOPAlgo_PaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB
     }
 
     // Projection tool
-    GeomAPI_ProjectPointOnSurf& aProjPS      = myContext->ProjPS(aF);
+    PointOnSurfProjector& aProjPS      = myContext->ProjPS(aF);
     BRepAdaptor_Surface&        aSurfAdaptor = myContext->SurfaceAdaptor(aF);
 
     // Iterate on pave blocks and combine pairs containing
@@ -946,7 +946,7 @@ void BOPAlgo_PaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB
           continue;
       }
 
-      const TopoDS_Edge& aE = TopoDS::Edge(myDS->Shape(nE));
+      const TopoEdge& aE = TopoDS::Edge(myDS->Shape(nE));
       BRepAdaptor_Curve  aBAC(aE);
 
       // Check directions coincidence at middle point on the edge
@@ -965,7 +965,7 @@ void BOPAlgo_PaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB
       Point3d aPOnE;
       // Tangent vector in the middle point
       Vector3d aVETgt;
-      aBAC.D1(BOPTools_AlgoTools2D::IntermediatePoint(aTS[0], aTS[1]), aPOnE, aVETgt);
+      aBAC.D1(AlgoTools2D::IntermediatePoint(aTS[0], aTS[1]), aPOnE, aVETgt);
       if (aVETgt.SquareMagnitude() < gp::Resolution())
         continue;
 
@@ -975,15 +975,15 @@ void BOPAlgo_PaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB
 
       // Check the distance in the middle point, using the max vertices
       // tolerance as the criteria.
-      const TopoDS_Vertex& aV1 = TopoDS::Vertex(myDS->Shape(nV1));
-      const TopoDS_Vertex& aV2 = TopoDS::Vertex(myDS->Shape(nV2));
+      const TopoVertex& aV1 = TopoDS::Vertex(myDS->Shape(nV1));
+      const TopoVertex& aV2 = TopoDS::Vertex(myDS->Shape(nV2));
 
       // In the Self-Interference check mode we are interested in real
       // intersections only, so use only the real tolerance of edges,
       // no need to use the extended tolerance.
       Standard_Real aTolCheck =
         (bSICheckMode ? myFuzzyValue
-                      : 2 * Max(BRep_Tool::Tolerance(aV1), BRep_Tool::Tolerance(aV2)));
+                      : 2 * Max(BRepInspector::Tolerance(aV1), BRepInspector::Tolerance(aV2)));
 
       if (aProjPS.LowerDistance() > aTolCheck + myFuzzyValue)
         continue;
@@ -1030,7 +1030,7 @@ void BOPAlgo_PaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB
         }
         if (aTolAdd > 0.)
         {
-          aTolAdd -= (BRep_Tool::Tolerance(aE) + BRep_Tool::Tolerance(aF));
+          aTolAdd -= (BRepInspector::Tolerance(aE) + BRepInspector::Tolerance(aF));
           if (aTolAdd < 0.)
             aTolAdd = 0.;
         }
@@ -1054,7 +1054,7 @@ void BOPAlgo_PaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB
         aEdgeFace.SetBoxes(myDS->ShapeInfo(nE).Box(), myDS->ShapeInfo(nF).Box());
         aEdgeFace.SetFuzzyValue(myFuzzyValue + aTolAdd);
         aEdgeFace.UseQuickCoincidenceCheck(Standard_True);
-        aEdgeFace.SetRange(IntTools_Range(aPB->Pave1().Parameter(), aPB->Pave2().Parameter()));
+        aEdgeFace.SetRange(IntToolsRange(aPB->Pave1().Parameter(), aPB->Pave2().Parameter()));
       }
     }
   }
@@ -1078,7 +1078,7 @@ void BOPAlgo_PaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB
     aEdgeFace.SetProgressRange(aPS.Next());
   }
   // Perform intersection of the found pairs
-  BOPTools_Parallel::Perform(myRunParallel, aVEdgeFace, myContext);
+  BooleanParallelTools::Perform(myRunParallel, aVEdgeFace, myContext);
   if (UserBreak(aPSOuter))
   {
     return;
@@ -1131,10 +1131,10 @@ void BOPAlgo_PaveFiller::ForceInterfEF(const BOPDS_IndexedMapOfPaveBlock& theMPB
     myDS->ChangeFaceInfo(nF).ChangePaveBlocksIn().Add(aPB);
     if (theAddInterf)
       // Fill map for common blocks creation
-      BOPAlgo_Tools::FillMap(aPB, nF, aMPBLI, anAlloc);
+      BooleanTools::FillMap(aPB, nF, aMPBLI, anAlloc);
   }
 
   if (aMPBLI.Extent())
     // Create new common blocks for coinciding pairs
-    BOPAlgo_Tools::PerformCommonBlocks(aMPBLI, anAlloc, myDS);
+    BooleanTools::PerformCommonBlocks(aMPBLI, anAlloc, myDS);
 }

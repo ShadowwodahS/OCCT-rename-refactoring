@@ -73,7 +73,7 @@ Standard_Boolean IFSelect_SelectRootComps::Sort(const Standard_Integer,
   return Standard_True;
 }
 
-TCollection_AsciiString IFSelect_SelectRootComps::ExtractLabel() const
+AsciiString1 IFSelect_SelectRootComps::ExtractLabel() const
 {
-  return TCollection_AsciiString("Local Root Components");
+  return AsciiString1("Local Root Components");
 }

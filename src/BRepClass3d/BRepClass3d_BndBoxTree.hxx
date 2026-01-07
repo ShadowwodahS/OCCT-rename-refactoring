@@ -61,14 +61,14 @@ class BRepClass3d_BndBoxTreeSelectorLine : public BRepClass3d_BndBoxTree::Select
 public:
   struct EdgeParam
   {
-    TopoDS_Edge   myE;
+    TopoEdge   myE;
     Standard_Real myParam;  // par on myE
     Standard_Real myLParam; // par on line
   };
 
   struct VertParam
   {
-    TopoDS_Vertex myV;
+    TopoVertex myV;
     Standard_Real myLParam; // par on line
   };
 
@@ -88,11 +88,11 @@ public:
   void SetCurrentLine(const gp_Lin& theL, const Standard_Real theMaxParam)
   {
     myL = theL;
-    myLC.Load(new Geom_Line(theL), -Precision::PConfusion(), theMaxParam);
+    myLC.Load(new GeomLine(theL), -Precision::PConfusion(), theMaxParam);
   }
 
   void GetEdgeParam(const Standard_Integer i,
-                    TopoDS_Edge&           theOutE,
+                    TopoEdge&           theOutE,
                     Standard_Real&         theOutParam,
                     Standard_Real&         outLParam) const
   {
@@ -103,7 +103,7 @@ public:
   }
 
   void GetVertParam(const Standard_Integer i,
-                    TopoDS_Vertex&         theOutV,
+                    TopoVertex&         theOutV,
                     Standard_Real&         outLParam) const
   {
     const VertParam& VP = myVP.Value(i);

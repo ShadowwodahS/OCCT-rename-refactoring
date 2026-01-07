@@ -47,8 +47,8 @@ void ViewerTest_EventManager::onWasmRedrawView(void*)
   {
     aViewCtrl->myNbUpdateRequests = 0;
 
-    const Handle(V3d_View)&               aView = ViewerTest::CurrentView();
-    const Handle(AIS_InteractiveContext)& aCtx  = ViewerTest::GetAISContext();
+    const Handle(ViewWindow)&               aView = ViewerTest::CurrentView();
+    const Handle(VisualContext)& aCtx  = ViewerTest::GetAISContext();
     if (!aView.IsNull() && !aCtx.IsNull())
     {
       aViewCtrl->ProcessExpose();
@@ -66,15 +66,15 @@ IMPLEMENT_STANDARD_RTTIEXT(ViewerTest_EventManager, RefObject)
 const Handle(AIS_AnimationCamera)& ViewerTest_EventManager::GlobalViewAnimation()
 {
   static Handle(AIS_AnimationCamera) THE_CAMERA_ANIM =
-    new AIS_AnimationCamera("ViewerTest_EventManager_ViewAnimation", Handle(V3d_View)());
+    new AIS_AnimationCamera("ViewerTest_EventManager_ViewAnimation", Handle(ViewWindow)());
   THE_CAMERA_ANIM->SetOwnDuration(0.5);
   return THE_CAMERA_ANIM;
 }
 
 //=================================================================================================
 
-ViewerTest_EventManager::ViewerTest_EventManager(const Handle(V3d_View)&               theView,
-                                                 const Handle(AIS_InteractiveContext)& theCtx)
+ViewerTest_EventManager::ViewerTest_EventManager(const Handle(ViewWindow)&               theView,
+                                                 const Handle(VisualContext)& theCtx)
     : myCtx(theCtx),
       myView(theView),
       myToPickPnt(Standard_False),
@@ -141,7 +141,7 @@ ViewerTest_EventManager::~ViewerTest_EventManager()
   if (!myViewAnimation.IsNull() && myViewAnimation->View() == myView)
   {
     myViewAnimation->Stop();
-    myViewAnimation->SetView(Handle(V3d_View)());
+    myViewAnimation->SetView(Handle(ViewWindow)());
   }
 }
 
@@ -166,8 +166,8 @@ bool ViewerTest_EventManager::UpdateMouseScroll(const Aspect_ScrollDelta& theDel
 {
   if (!myView.IsNull() && (myView->IsSubview() || !myView->Subviews().IsEmpty()))
   {
-    Handle(V3d_View) aParent     = !myView->IsSubview() ? myView : myView->ParentView();
-    Handle(V3d_View) aPickedView = aParent->PickSubview(theDelta.Point);
+    Handle(ViewWindow) aParent     = !myView->IsSubview() ? myView : myView->ParentView();
+    Handle(ViewWindow) aPickedView = aParent->PickSubview(theDelta.Point);
     if (!aPickedView.IsNull() && aPickedView != myView)
     {
       // switch input focus to another subview
@@ -190,8 +190,8 @@ bool ViewerTest_EventManager::UpdateMouseButtons(const Graphic3d_Vec2i& thePoint
       && theButtons != Aspect_VKeyMouse_NONE
       && (myView->IsSubview() || !myView->Subviews().IsEmpty()))
   {
-    Handle(V3d_View) aParent     = !myView->IsSubview() ? myView : myView->ParentView();
-    Handle(V3d_View) aPickedView = aParent->PickSubview(thePoint);
+    Handle(ViewWindow) aParent     = !myView->IsSubview() ? myView : myView->ParentView();
+    Handle(ViewWindow) aPickedView = aParent->PickSubview(thePoint);
     if (!aPickedView.IsNull() && aPickedView != myView)
     {
       // switch input focus to another subview
@@ -207,9 +207,9 @@ bool ViewerTest_EventManager::UpdateMouseButtons(const Graphic3d_Vec2i& thePoint
     {
       Graphic3d_Vec3d anXYZ;
       myView->Convert(thePoint.x(), thePoint.y(), anXYZ.x(), anXYZ.y(), anXYZ.z());
-      Draw::Set(myPickPntArgVec[0].ToCString(), anXYZ.x());
-      Draw::Set(myPickPntArgVec[1].ToCString(), anXYZ.y());
-      Draw::Set(myPickPntArgVec[2].ToCString(), anXYZ.z());
+      Draw1::Set(myPickPntArgVec[0].ToCString(), anXYZ.x());
+      Draw1::Set(myPickPntArgVec[1].ToCString(), anXYZ.y());
+      Draw1::Set(myPickPntArgVec[2].ToCString(), anXYZ.z());
       myToPickPnt = false;
     }
   }
@@ -229,8 +229,8 @@ void ViewerTest_EventManager::ProcessExpose()
 
 //=================================================================================================
 
-void ViewerTest_EventManager::handleViewRedraw(const Handle(AIS_InteractiveContext)& theCtx,
-                                               const Handle(V3d_View)&               theView)
+void ViewerTest_EventManager::handleViewRedraw(const Handle(VisualContext)& theCtx,
+                                               const Handle(ViewWindow)&               theView)
 {
   AIS_ViewController::handleViewRedraw(theCtx, theView);
 
@@ -284,11 +284,11 @@ void ViewerTest_EventManager::ProcessConfigure(bool theIsResized)
     return;
   }
 
-  Handle(V3d_View) aParent = !myView->IsSubview() ? myView : myView->ParentView();
+  Handle(ViewWindow) aParent = !myView->IsSubview() ? myView : myView->ParentView();
   aParent->Window()->DoResize();
   aParent->MustBeResized();
   aParent->Invalidate();
-  for (const Handle(V3d_View)& aChildIter : aParent->Subviews())
+  for (const Handle(ViewWindow)& aChildIter : aParent->Subviews())
   {
     aChildIter->Window()->DoResize();
     aChildIter->MustBeResized();
@@ -300,9 +300,9 @@ void ViewerTest_EventManager::ProcessConfigure(bool theIsResized)
 
 //=================================================================================================
 
-void ViewerTest_EventManager::OnSubviewChanged(const Handle(AIS_InteractiveContext)&,
-                                               const Handle(V3d_View)&,
-                                               const Handle(V3d_View)& theNewView)
+void ViewerTest_EventManager::OnSubviewChanged(const Handle(VisualContext)&,
+                                               const Handle(ViewWindow)&,
+                                               const Handle(ViewWindow)& theNewView)
 {
   ViewerTest::ActivateView(theNewView, false);
 }
@@ -459,7 +459,7 @@ void ViewerTest_EventManager::ProcessKeyPress(Aspect_VKey theKey)
         for (AIS_ListIteratorOfListOfInteractive anIter(aListOfShapes); anIter.More();
              anIter.Next())
         {
-          if (Handle(AIS_Shape) aShape = Handle(AIS_Shape)::DownCast(anIter.Value()))
+          if (Handle(VisualShape) aShape = Handle(VisualShape)::DownCast(anIter.Value()))
           {
             aShape->SetTypeOfHLR(aShape->TypeOfHLR() == Prs3d_TOH_PolyAlgo ? Prs3d_TOH_Algo
                                                                            : Prs3d_TOH_PolyAlgo);
@@ -471,7 +471,7 @@ void ViewerTest_EventManager::ProcessKeyPress(Aspect_VKey theKey)
       {
         for (myCtx->InitSelected(); myCtx->MoreSelected(); myCtx->NextSelected())
         {
-          if (Handle(AIS_Shape) aShape = Handle(AIS_Shape)::DownCast(myCtx->SelectedInteractive()))
+          if (Handle(VisualShape) aShape = Handle(VisualShape)::DownCast(myCtx->SelectedInteractive()))
           {
             aShape->SetTypeOfHLR(aShape->TypeOfHLR() == Prs3d_TOH_PolyAlgo ? Prs3d_TOH_Algo
                                                                            : Prs3d_TOH_PolyAlgo);
@@ -565,7 +565,7 @@ void ViewerTest_EventManager::ProcessKeyPress(Aspect_VKey theKey)
     }
     case Aspect_VKey_Slash:
     case Aspect_VKey_NumpadDivide: {
-      Handle(Graphic3d_Camera) aCamera = myView->Camera();
+      Handle(CameraOn3d) aCamera = myView->Camera();
       if (aCamera->IsStereo())
       {
         aCamera->SetIOD(aCamera->GetIODType(), aCamera->IOD() - 0.01);
@@ -574,7 +574,7 @@ void ViewerTest_EventManager::ProcessKeyPress(Aspect_VKey theKey)
       break;
     }
     case Aspect_VKey_NumpadMultiply: {
-      Handle(Graphic3d_Camera) aCamera = myView->Camera();
+      Handle(CameraOn3d) aCamera = myView->Camera();
       if (aCamera->IsStereo())
       {
         aCamera->SetIOD(aCamera->GetIODType(), aCamera->IOD() + 0.01);
@@ -636,8 +636,8 @@ void ViewerTest_EventManager::ProcessKeyPress(Aspect_VKey theKey)
         }
       }
     }
-    TCollection_AsciiString aCmd =
-      TCollection_AsciiString("vselmode ") + aSelMode + (toEnable ? " 1" : " 0");
+    AsciiString1 aCmd =
+      AsciiString1("vselmode ") + aSelMode + (toEnable ? " 1" : " 0");
     Draw_Interprete(aCmd.ToCString());
   }
 }

@@ -19,7 +19,7 @@
 // purpose  : Returns the initialized label
 //=======================================================================
 
-inline TDF_Label TFunction_Driver::Label() const
+inline DataLabel TFunction_Driver::Label() const
 {
   return myLabel;
 }

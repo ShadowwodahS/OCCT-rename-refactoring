@@ -35,9 +35,9 @@
 #include <Message_Msg.hxx>
 
 // MGE 03/08/98
-IGESBasic_ToolSingularSubfigure::IGESBasic_ToolSingularSubfigure() {}
+SingularSubfigureTool::SingularSubfigureTool() {}
 
-void IGESBasic_ToolSingularSubfigure::ReadOwnParams(const Handle(IGESBasic_SingularSubfigure)& ent,
+void SingularSubfigureTool::ReadOwnParams(const Handle(IGESBasic_SingularSubfigure)& ent,
                                                     const Handle(IGESData_IGESReaderData)&     IR,
                                                     IGESData_ParamReader& PR) const
 {
@@ -111,7 +111,7 @@ void IGESBasic_ToolSingularSubfigure::ReadOwnParams(const Handle(IGESBasic_Singu
   ent->Init(tempSubfigureDef, tempTranslation, temphasscale, tempScaleFactor);
 }
 
-void IGESBasic_ToolSingularSubfigure::WriteOwnParams(const Handle(IGESBasic_SingularSubfigure)& ent,
+void SingularSubfigureTool::WriteOwnParams(const Handle(IGESBasic_SingularSubfigure)& ent,
                                                      IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->Subfigure());
@@ -124,13 +124,13 @@ void IGESBasic_ToolSingularSubfigure::WriteOwnParams(const Handle(IGESBasic_Sing
     IW.SendVoid();
 }
 
-void IGESBasic_ToolSingularSubfigure::OwnShared(const Handle(IGESBasic_SingularSubfigure)& ent,
+void SingularSubfigureTool::OwnShared(const Handle(IGESBasic_SingularSubfigure)& ent,
                                                 Interface_EntityIterator& iter) const
 {
   iter.GetOneItem(ent->Subfigure());
 }
 
-void IGESBasic_ToolSingularSubfigure::OwnCopy(const Handle(IGESBasic_SingularSubfigure)& another,
+void SingularSubfigureTool::OwnCopy(const Handle(IGESBasic_SingularSubfigure)& another,
                                               const Handle(IGESBasic_SingularSubfigure)& ent,
                                               Interface_CopyTool&                        TC) const
 {
@@ -146,23 +146,23 @@ void IGESBasic_ToolSingularSubfigure::OwnCopy(const Handle(IGESBasic_SingularSub
   ent->Init(aSubfigureDef, aTranslation, ahasScale, aScale);
 }
 
-IGESData_DirChecker IGESBasic_ToolSingularSubfigure::DirChecker(
+DirectoryChecker SingularSubfigureTool::DirChecker(
   const Handle(IGESBasic_SingularSubfigure)& ent) const
 {
-  IGESData_DirChecker DC(408, 0); // TypeNo. 408, Form no. 0
+  DirectoryChecker DC(408, 0); // TypeNo. 408, Form no. 0
   DC.Structure(IGESData_DefVoid);
   if (ent->HierarchyStatus() == 1)
     DC.GraphicsIgnored(01); // GraphicsIgnored if Hierarchy = 01
   return DC;
 }
 
-void IGESBasic_ToolSingularSubfigure::OwnCheck(const Handle(IGESBasic_SingularSubfigure)& /* ent */,
+void SingularSubfigureTool::OwnCheck(const Handle(IGESBasic_SingularSubfigure)& /* ent */,
                                                const Interface_ShareTool&,
                                                Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESBasic_ToolSingularSubfigure::OwnDump(const Handle(IGESBasic_SingularSubfigure)& ent,
+void SingularSubfigureTool::OwnDump(const Handle(IGESBasic_SingularSubfigure)& ent,
                                               const IGESData_IGESDumper&                 dumper,
                                               Standard_OStream&                          S,
                                               const Standard_Integer level) const

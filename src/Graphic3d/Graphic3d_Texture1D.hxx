@@ -24,7 +24,7 @@
 #include <Graphic3d_TypeOfTexture.hxx>
 #include <Image_PixMap.hxx>
 #include <Standard_Integer.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 
 class Graphic3d_Texture1D;
 DEFINE_STANDARD_HANDLE(Graphic3d_Texture1D, Graphic3d_TextureMap)
@@ -42,12 +42,12 @@ public:
   Standard_EXPORT static Standard_Integer NumberOfTextures();
 
   //! Returns the name of the predefined texture of rank <aRank>
-  Standard_EXPORT static TCollection_AsciiString TextureName(const Standard_Integer aRank);
+  Standard_EXPORT static AsciiString1 TextureName(const Standard_Integer aRank);
 
   DEFINE_STANDARD_RTTIEXT(Graphic3d_Texture1D, Graphic3d_TextureMap)
 
 protected:
-  Standard_EXPORT Graphic3d_Texture1D(const TCollection_AsciiString& theFileName,
+  Standard_EXPORT Graphic3d_Texture1D(const AsciiString1& theFileName,
                                       const Graphic3d_TypeOfTexture  theType);
 
   Standard_EXPORT Graphic3d_Texture1D(const Graphic3d_NameOfTexture1D theName,

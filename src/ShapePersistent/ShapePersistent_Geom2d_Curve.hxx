@@ -67,7 +67,7 @@ class ShapePersistent_Geom2d_Curve : public ShapePersistent_Geom2d
 
     inline Standard_CString PName() const { return "PGeom2d_BezierCurve"; }
 
-    virtual Handle(Geom2d_Curve) Import() const;
+    virtual Handle(GeomCurve2d) Import() const;
 
   private:
     Standard_Boolean                       myRational;
@@ -109,7 +109,7 @@ class ShapePersistent_Geom2d_Curve : public ShapePersistent_Geom2d
 
     inline Standard_CString PName() const { return "PGeom2d_BSplineCurve"; }
 
-    virtual Handle(Geom2d_Curve) Import() const;
+    virtual Handle(GeomCurve2d) Import() const;
 
   private:
     Standard_Boolean                        myRational;
@@ -149,7 +149,7 @@ class ShapePersistent_Geom2d_Curve : public ShapePersistent_Geom2d
 
     inline Standard_CString PName() const { return "PGeom2d_TrimmedCurve"; }
 
-    virtual Handle(Geom2d_Curve) Import() const;
+    virtual Handle(GeomCurve2d) Import() const;
 
   private:
     Handle(Curve) myBasisCurve;
@@ -184,7 +184,7 @@ class ShapePersistent_Geom2d_Curve : public ShapePersistent_Geom2d
 
     inline Standard_CString PName() const { return "PGeom2d_OffsetCurve"; }
 
-    virtual Handle(Geom2d_Curve) Import() const;
+    virtual Handle(GeomCurve2d) Import() const;
 
   private:
     Handle(Curve) myBasisCurve;

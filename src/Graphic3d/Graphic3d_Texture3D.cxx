@@ -21,7 +21,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_Texture3D, Graphic3d_TextureMap)
 
 //=================================================================================================
 
-Graphic3d_Texture3D::Graphic3d_Texture3D(const TCollection_AsciiString& theFileName)
+Graphic3d_Texture3D::Graphic3d_Texture3D(const AsciiString1& theFileName)
     : Graphic3d_TextureMap(theFileName, Graphic3d_TypeOfTexture_3D)
 {
   myParams->SetFilter(Graphic3d_TOTF_TRILINEAR);
@@ -38,7 +38,7 @@ Graphic3d_Texture3D::Graphic3d_Texture3D(const Handle(Image_PixMap)& thePixMap)
 //=================================================================================================
 
 Graphic3d_Texture3D::Graphic3d_Texture3D(
-  const NCollection_Array1<TCollection_AsciiString>& theFiles)
+  const NCollection_Array1<AsciiString1>& theFiles)
     : Graphic3d_TextureMap("", Graphic3d_TypeOfTexture_3D)
 {
   myParams->SetFilter(Graphic3d_TOTF_TRILINEAR);
@@ -58,9 +58,9 @@ Graphic3d_Texture3D::~Graphic3d_Texture3D()
 void Graphic3d_Texture3D::SetImage(const Handle(Image_PixMap)& thePixMap)
 {
   myPixMap = thePixMap;
-  myPath   = OSD_Path();
+  myPath   = SystemPath();
 
-  NCollection_Array1<TCollection_AsciiString> anArr;
+  NCollection_Array1<AsciiString1> anArr;
   myPaths.Move(anArr);
 }
 
@@ -78,7 +78,7 @@ Handle(Image_PixMap) Graphic3d_Texture3D::GetImage(
   const Standard_Integer aNbSlices = myPaths.Length();
   for (Standard_Integer aSlice = 0; aSlice < aNbSlices; ++aSlice)
   {
-    const TCollection_AsciiString& aSlicePath = myPaths[myPaths.Lower() + aSlice];
+    const AsciiString1& aSlicePath = myPaths[myPaths.Lower() + aSlice];
     Handle(Image_AlienPixMap)      anImage    = new Image_AlienPixMap();
     if (!anImage->Load(aSlicePath))
     {

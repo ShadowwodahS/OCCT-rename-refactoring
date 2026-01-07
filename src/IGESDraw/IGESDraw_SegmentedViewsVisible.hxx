@@ -34,7 +34,7 @@ class IGESDraw_SegmentedViewsVisible;
 DEFINE_STANDARD_HANDLE(IGESDraw_SegmentedViewsVisible, IGESData_ViewKindEntity)
 
 //! defines IGESSegmentedViewsVisible, Type <402> Form <19>
-//! in package IGESDraw
+//! in package IGESDraw1
 //!
 //! Permits the association of display parameters with the
 //! segments of curves in a given view

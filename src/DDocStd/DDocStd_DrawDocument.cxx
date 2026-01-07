@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(DDocStd_DrawDocument, DDF_Data)
 
 //=================================================================================================
 
-Handle(DDocStd_DrawDocument) DDocStd_DrawDocument::Find(const Handle(TDocStd_Document)& /*Doc*/)
+Handle(DDocStd_DrawDocument) DDocStd_DrawDocument::Find(const Handle(AppDocument)& /*Doc*/)
 {
   Handle(DDocStd_DrawDocument) adoc;
   return adoc;
@@ -31,7 +31,7 @@ Handle(DDocStd_DrawDocument) DDocStd_DrawDocument::Find(const Handle(TDocStd_Doc
 
 //=================================================================================================
 
-DDocStd_DrawDocument::DDocStd_DrawDocument(const Handle(TDocStd_Document)& Doc)
+DDocStd_DrawDocument::DDocStd_DrawDocument(const Handle(AppDocument)& Doc)
     : DDF_Data(new TDF_Data), // Doc->GetData())
       myDocument(Doc)
 {
@@ -40,14 +40,14 @@ DDocStd_DrawDocument::DDocStd_DrawDocument(const Handle(TDocStd_Document)& Doc)
 
 //=================================================================================================
 
-Handle(TDocStd_Document) DDocStd_DrawDocument::GetDocument() const
+Handle(AppDocument) DDocStd_DrawDocument::GetDocument() const
 {
   return myDocument;
 }
 
 //=================================================================================================
 
-void DDocStd_DrawDocument::DrawOn(Draw_Display& /*dis*/) const {}
+void DDocStd_DrawDocument::DrawOn(DrawDisplay& /*dis*/) const {}
 
 //=================================================================================================
 
@@ -61,10 +61,10 @@ Handle(Draw_Drawable3D) DDocStd_DrawDocument::Copy() const
 
 void DDocStd_DrawDocument::Dump(Standard_OStream& S) const
 {
-  Handle(TDocStd_Document) STDDOC = myDocument;
+  Handle(AppDocument) STDDOC = myDocument;
   if (!STDDOC.IsNull())
   {
-    S << "TDocStd_Document\n";
+    S << "AppDocument\n";
     DDF_Data::Dump(S);
   }
   else
@@ -75,7 +75,7 @@ void DDocStd_DrawDocument::Dump(Standard_OStream& S) const
 
 //=================================================================================================
 
-void DDocStd_DrawDocument::Whatis(Draw_Interpretor& I) const
+void DDocStd_DrawDocument::Whatis(DrawInterpreter& I) const
 {
   I << myDocument->DynamicType()->Name();
 }

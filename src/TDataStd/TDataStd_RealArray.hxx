@@ -26,7 +26,7 @@
 #include <Standard_OStream.hxx>
 #include <Standard_GUID.hxx>
 
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 class TDF_DeltaOnModification;
 
@@ -51,7 +51,7 @@ public:
   //! If attribute is already set, input parameter <isDelta> is refused and the found
   //! attribute returned.
   Standard_EXPORT static Handle(TDataStd_RealArray) Set(
-    const TDF_Label&       label,
+    const DataLabel&       label,
     const Standard_Integer lower,
     const Standard_Integer upper,
     const Standard_Boolean isDelta = Standard_False);
@@ -59,7 +59,7 @@ public:
   //! Finds, or creates, an RealArray attribute with explicit user defined <guid>.
   //! The RealArray attribute  is  returned.
   Standard_EXPORT static Handle(TDataStd_RealArray) Set(
-    const TDF_Label&       label,
+    const DataLabel&       label,
     const Standard_GUID&   theGuid,
     const Standard_Integer lower,
     const Standard_Integer upper,

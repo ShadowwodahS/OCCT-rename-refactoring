@@ -23,10 +23,10 @@ IMPLEMENT_STANDARD_RTTIEXT(IVtkOCC_Shape, IVtk_IShape)
 // Method: Constructor
 // Purpose:
 //============================================================================
-IVtkOCC_Shape::IVtkOCC_Shape(const TopoDS_Shape&         theShape,
-                             const Handle(Prs3d_Drawer)& theDrawerLink)
+IVtkOCC_Shape::IVtkOCC_Shape(const TopoShape&         theShape,
+                             const Handle(StyleDrawer)& theDrawerLink)
     : myTopoDSShape(theShape),
-      myOCCTDrawer(new Prs3d_Drawer())
+      myOCCTDrawer(new StyleDrawer())
 {
   if (!theDrawerLink.IsNull())
   {
@@ -51,7 +51,7 @@ IVtkOCC_Shape::~IVtkOCC_Shape() {}
 // Method: GetSubShapeId
 // Purpose:
 //============================================================================
-IVtk_IdType IVtkOCC_Shape::GetSubShapeId(const TopoDS_Shape& theSubShape) const
+IVtk_IdType IVtkOCC_Shape::GetSubShapeId(const TopoShape& theSubShape) const
 {
   Standard_Integer anIndex =
     theSubShape.IsSame(myTopoDSShape) ? -1 : mySubShapeIds.FindIndex(theSubShape);
@@ -70,7 +70,7 @@ IVtk_ShapeIdList IVtkOCC_Shape::GetSubIds(const IVtk_IdType theId) const
 {
   IVtk_ShapeIdList aRes;
   // Get the sub-shape by the given id.
-  TopoDS_Shape     aShape     = mySubShapeIds.FindKey((Standard_Integer)theId);
+  TopoShape     aShape     = mySubShapeIds.FindKey((Standard_Integer)theId);
   TopAbs_ShapeEnum aShapeType = aShape.ShapeType();
   if (aShapeType == TopAbs_VERTEX || aShapeType == TopAbs_EDGE || aShapeType == TopAbs_FACE)
   {
@@ -88,7 +88,7 @@ IVtk_ShapeIdList IVtkOCC_Shape::GetSubIds(const IVtk_IdType theId) const
     }
     else
     {
-      TopExp::MapShapes(aShape, aSubShapes);
+      TopExp1::MapShapes(aShape, aSubShapes);
     }
 
     for (int anIt = 1; anIt <= aSubShapes.Extent(); anIt++)
@@ -110,7 +110,7 @@ IVtk_ShapeIdList IVtkOCC_Shape::GetSubIds(const IVtk_IdType theId) const
 // Method: GetSubShape
 // Purpose:
 //============================================================================
-const TopoDS_Shape& IVtkOCC_Shape::GetSubShape(const IVtk_IdType theId) const
+const TopoShape& IVtkOCC_Shape::GetSubShape(const IVtk_IdType theId) const
 {
   return mySubShapeIds.FindKey((Standard_Integer)theId);
 }
@@ -122,5 +122,5 @@ const TopoDS_Shape& IVtkOCC_Shape::GetSubShape(const IVtk_IdType theId) const
 void IVtkOCC_Shape::buildSubShapeIdMap()
 {
   mySubShapeIds.Clear();
-  TopExp::MapShapes(myTopoDSShape, mySubShapeIds);
+  TopExp1::MapShapes(myTopoDSShape, mySubShapeIds);
 }

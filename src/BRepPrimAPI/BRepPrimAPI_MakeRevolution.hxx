@@ -23,7 +23,7 @@
 
 #include <BRepPrim_Revolution.hxx>
 #include <BRepPrimAPI_MakeOneAxis.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 class Frame3d;
 
 //! Describes functions to build revolved shapes.
@@ -37,35 +37,35 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Make a revolution body by rotating a curve around Z.
-  Standard_EXPORT BRepPrimAPI_MakeRevolution(const Handle(Geom_Curve)& Meridian);
+  Standard_EXPORT BRepPrimAPI_MakeRevolution(const Handle(GeomCurve3d)& Meridian);
 
   //! Make a revolution body by rotating a curve around Z.
-  Standard_EXPORT BRepPrimAPI_MakeRevolution(const Handle(Geom_Curve)& Meridian,
+  Standard_EXPORT BRepPrimAPI_MakeRevolution(const Handle(GeomCurve3d)& Meridian,
                                              const Standard_Real       angle);
 
   //! Make a revolution body by rotating a curve around Z.
-  Standard_EXPORT BRepPrimAPI_MakeRevolution(const Handle(Geom_Curve)& Meridian,
+  Standard_EXPORT BRepPrimAPI_MakeRevolution(const Handle(GeomCurve3d)& Meridian,
                                              const Standard_Real       VMin,
                                              const Standard_Real       VMax);
 
   //! Make a revolution body by rotating a curve around Z.
-  Standard_EXPORT BRepPrimAPI_MakeRevolution(const Handle(Geom_Curve)& Meridian,
+  Standard_EXPORT BRepPrimAPI_MakeRevolution(const Handle(GeomCurve3d)& Meridian,
                                              const Standard_Real       VMin,
                                              const Standard_Real       VMax,
                                              const Standard_Real       angle);
 
   //! Make a revolution body by rotating a curve around Z.
   Standard_EXPORT BRepPrimAPI_MakeRevolution(const Frame3d&             Axes,
-                                             const Handle(Geom_Curve)& Meridian);
+                                             const Handle(GeomCurve3d)& Meridian);
 
   //! Make a revolution body by rotating a curve around Z.
   Standard_EXPORT BRepPrimAPI_MakeRevolution(const Frame3d&             Axes,
-                                             const Handle(Geom_Curve)& Meridian,
+                                             const Handle(GeomCurve3d)& Meridian,
                                              const Standard_Real       angle);
 
   //! Make a revolution body by rotating a curve around Z.
   Standard_EXPORT BRepPrimAPI_MakeRevolution(const Frame3d&             Axes,
-                                             const Handle(Geom_Curve)& Meridian,
+                                             const Handle(GeomCurve3d)& Meridian,
                                              const Standard_Real       VMin,
                                              const Standard_Real       VMax);
 
@@ -79,7 +79,7 @@ public:
   //! -   and in the case of a portion of a revolved shape, two
   //! planar faces to close the shape (in the planes u = 0 and u = angle).
   Standard_EXPORT BRepPrimAPI_MakeRevolution(const Frame3d&             Axes,
-                                             const Handle(Geom_Curve)& Meridian,
+                                             const Handle(GeomCurve3d)& Meridian,
                                              const Standard_Real       VMin,
                                              const Standard_Real       VMax,
                                              const Standard_Real       angle);

@@ -27,7 +27,7 @@
 #include <Prs3d_Presentation.hxx>
 
 void DsgPrs_ConcentricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                        const Handle(Prs3d_Drawer)&       aDrawer,
+                                        const Handle(StyleDrawer)&       aDrawer,
                                         const Point3d&                     aCenter,
                                         const Standard_Real               aRadius,
                                         const Dir3d&                     aNorm,

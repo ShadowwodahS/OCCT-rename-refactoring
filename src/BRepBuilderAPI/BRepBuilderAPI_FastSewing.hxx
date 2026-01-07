@@ -67,10 +67,10 @@ public:
   Standard_EXPORT BRepBuilderAPI_FastSewing(const Standard_Real theTolerance = 1.0e-06);
 
   //! Adds faces of a shape
-  Standard_EXPORT Standard_Boolean Add(const TopoDS_Shape& theShape);
+  Standard_EXPORT Standard_Boolean Add(const TopoShape& theShape);
 
   //! Adds a surface
-  Standard_EXPORT Standard_Boolean Add(const Handle(Geom_Surface)& theSurface);
+  Standard_EXPORT Standard_Boolean Add(const Handle(GeomSurface)& theSurface);
 
   //! Compute resulted shape
   Standard_EXPORT void Perform(void);
@@ -82,7 +82,7 @@ public:
   Standard_Real GetTolerance() const { return myTolerance; }
 
   //! Returns resulted shape
-  const TopoDS_Shape& GetResult() const { return myResShape; }
+  const TopoShape& GetResult() const { return myResShape; }
 
   //! Returns list of statuses. Print message if theOS != 0
   Standard_EXPORT FS_VARStatuses GetStatuses(Standard_OStream* const theOS = 0);
@@ -129,13 +129,13 @@ protected:
     //! Creates topological member (vertex)
     void CreateTopologicalVertex(const Standard_Real theToler)
     {
-      BRep_Builder aBuilder;
+      ShapeBuilder aBuilder;
       aBuilder.MakeVertex(myTopoVert, myPnt, theToler);
     }
 
     //! Geometry point of this Vertex
     Point3d        myPnt;
-    TopoDS_Vertex myTopoVert;
+    TopoVertex myTopoVert;
 
     //! List of faces and edges which share this vertex
     NCollection_List<Standard_Integer> myFaces;
@@ -182,9 +182,9 @@ protected:
       myEdges[thePlaceID] = theEdgeID;
     }
 
-    TopoDS_Face mySrcFace;
-    TopoDS_Wire myWire;
-    TopoDS_Face myRetFace;
+    TopoFace mySrcFace;
+    TopoWire myWire;
+    TopoFace myRetFace;
 
     //! myEdges[i] number of the edge in myEdgeVec
     //! (i==0) <-> (V=Vf); (i==1) <-> (U=Ul);
@@ -216,7 +216,7 @@ protected:
       myVertices[1] = theIDVert2;
     };
 
-    //! Creates topological member (TopoDS_Edge)
+    //! Creates topological member (TopoEdge)
     void CreateTopologicalEdge(const NCollection_Vector<FS_Vertex>& theVertexVec,
                                const NCollection_Vector<FS_Face>&   theFaceVec,
                                const Standard_Real                  theTol);
@@ -240,7 +240,7 @@ protected:
     //! BRepBuilderAPI_FastSewing::myEdgeVec list
     Standard_Integer myID;
 
-    TopoDS_Edge myTopoEdge;
+    TopoEdge myTopoEdge;
 
   private:
     //! Index of the vertex in myVertexVec array
@@ -272,7 +272,7 @@ protected:
   };
 
 private:
-  TopoDS_Shape myResShape;
+  TopoShape myResShape;
 
   // myFaceVec, myVertexVec and myEdgeVec lists are filled only once!!!!!
 

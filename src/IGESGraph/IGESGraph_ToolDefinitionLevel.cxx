@@ -31,9 +31,9 @@
 #include <Message_Messenger.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 
-IGESGraph_ToolDefinitionLevel::IGESGraph_ToolDefinitionLevel() {}
+DefinitionLevelTool::DefinitionLevelTool() {}
 
-void IGESGraph_ToolDefinitionLevel::ReadOwnParams(const Handle(IGESGraph_DefinitionLevel)& ent,
+void DefinitionLevelTool::ReadOwnParams(const Handle(IGESGraph_DefinitionLevel)& ent,
                                                   const Handle(IGESData_IGESReaderData)& /*IR*/,
                                                   IGESData_ParamReader& PR) const
 {
@@ -59,7 +59,7 @@ void IGESGraph_ToolDefinitionLevel::ReadOwnParams(const Handle(IGESGraph_Definit
   ent->Init(levelNumbers);
 }
 
-void IGESGraph_ToolDefinitionLevel::WriteOwnParams(const Handle(IGESGraph_DefinitionLevel)& ent,
+void DefinitionLevelTool::WriteOwnParams(const Handle(IGESGraph_DefinitionLevel)& ent,
                                                    IGESData_IGESWriter& IW) const
 {
   Standard_Integer Up = ent->NbPropertyValues();
@@ -68,12 +68,12 @@ void IGESGraph_ToolDefinitionLevel::WriteOwnParams(const Handle(IGESGraph_Defini
     IW.Send(ent->LevelNumber(i));
 }
 
-void IGESGraph_ToolDefinitionLevel::OwnShared(const Handle(IGESGraph_DefinitionLevel)& /*ent*/,
+void DefinitionLevelTool::OwnShared(const Handle(IGESGraph_DefinitionLevel)& /*ent*/,
                                               Interface_EntityIterator& /*iter*/) const
 {
 }
 
-void IGESGraph_ToolDefinitionLevel::OwnCopy(const Handle(IGESGraph_DefinitionLevel)& another,
+void DefinitionLevelTool::OwnCopy(const Handle(IGESGraph_DefinitionLevel)& another,
                                             const Handle(IGESGraph_DefinitionLevel)& ent,
                                             Interface_CopyTool& /*TC*/) const
 {
@@ -89,10 +89,10 @@ void IGESGraph_ToolDefinitionLevel::OwnCopy(const Handle(IGESGraph_DefinitionLev
   ent->Init(levelNumbers);
 }
 
-IGESData_DirChecker IGESGraph_ToolDefinitionLevel::DirChecker(
+DirectoryChecker DefinitionLevelTool::DirChecker(
   const Handle(IGESGraph_DefinitionLevel)& /*ent*/) const
 {
-  IGESData_DirChecker DC(406, 1);
+  DirectoryChecker DC(406, 1);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -103,13 +103,13 @@ IGESData_DirChecker IGESGraph_ToolDefinitionLevel::DirChecker(
   return DC;
 }
 
-void IGESGraph_ToolDefinitionLevel::OwnCheck(const Handle(IGESGraph_DefinitionLevel)& /*ent*/,
+void DefinitionLevelTool::OwnCheck(const Handle(IGESGraph_DefinitionLevel)& /*ent*/,
                                              const Interface_ShareTool&,
                                              Handle(Interface_Check)& /*ach*/) const
 {
 }
 
-void IGESGraph_ToolDefinitionLevel::OwnDump(const Handle(IGESGraph_DefinitionLevel)& ent,
+void DefinitionLevelTool::OwnDump(const Handle(IGESGraph_DefinitionLevel)& ent,
                                             const IGESData_IGESDumper& /*dumper*/,
                                             Standard_OStream&      S,
                                             const Standard_Integer level) const

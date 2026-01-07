@@ -23,7 +23,7 @@
 #include <TopLoc_Location.hxx>
 #include <Standard_Real.hxx>
 #include <TopoDS_TFace.hxx>
-class Geom_Surface;
+class GeomSurface;
 class TopoDS_TShape;
 
 class BRep_TFace;
@@ -59,10 +59,10 @@ public:
   Standard_EXPORT BRep_TFace();
 
   //! Returns face surface.
-  const Handle(Geom_Surface)& Surface() const { return mySurface; }
+  const Handle(GeomSurface)& Surface() const { return mySurface; }
 
   //! Sets surface for this face.
-  void Surface(const Handle(Geom_Surface)& theSurface) { mySurface = theSurface; }
+  void Surface(const Handle(GeomSurface)& theSurface) { mySurface = theSurface; }
 
   //! Returns the face location.
   const TopLoc_Location& Location() const { return myLocation; }
@@ -92,7 +92,7 @@ public:
   //!         the first triangulation appropriate for the input purpose,
   //!         just the first triangulation if none matching other criteria and input purpose is
   //!         AnyFallback or null handle if there is no any suitable triangulation.
-  Standard_EXPORT const Handle(Poly_Triangulation)& Triangulation(
+  Standard_EXPORT const Handle(MeshTriangulation)& Triangulation(
     const Poly_MeshPurpose thePurpose = Poly_MeshPurpose_NONE) const;
 
   //! Sets input triangulation for this face.
@@ -103,7 +103,7 @@ public:
   //! will be reset to new list with only one input triangulation that will be active. Else if input
   //! triangulation is contained in internal triangulations list it will be made active,
   //!      else the active triangulation will be replaced to input one.
-  Standard_EXPORT void Triangulation(const Handle(Poly_Triangulation)& theTriangulation,
+  Standard_EXPORT void Triangulation(const Handle(MeshTriangulation)& theTriangulation,
                                      const Standard_Boolean            theToReset = true);
 
   //! Returns a copy  of the  TShape  with no sub-shapes.
@@ -125,20 +125,20 @@ public:
   //! the method throws exception if there is any NULL triangulation in input list or
   //!       if this list doesn't contain input active triangulation.
   Standard_EXPORT void Triangulations(const Poly_ListOfTriangulation&   theTriangulations,
-                                      const Handle(Poly_Triangulation)& theActiveTriangulation);
+                                      const Handle(MeshTriangulation)& theActiveTriangulation);
 
   //! Returns number of available face triangulations.
   Standard_Integer NbTriangulations() const { return myTriangulations.Size(); }
 
   //! Returns current active triangulation.
-  const Handle(Poly_Triangulation)& ActiveTriangulation() const { return myActiveTriangulation; }
+  const Handle(MeshTriangulation)& ActiveTriangulation() const { return myActiveTriangulation; }
 
   DEFINE_STANDARD_RTTIEXT(BRep_TFace, TopoDS_TFace)
 
 private:
   Poly_ListOfTriangulation   myTriangulations;
-  Handle(Poly_Triangulation) myActiveTriangulation;
-  Handle(Geom_Surface)       mySurface;
+  Handle(MeshTriangulation) myActiveTriangulation;
+  Handle(GeomSurface)       mySurface;
   TopLoc_Location            myLocation;
   Standard_Real              myTolerance;
   Standard_Boolean           myNaturalRestriction;

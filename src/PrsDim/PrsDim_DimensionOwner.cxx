@@ -83,7 +83,7 @@ void PrsDim_DimensionOwner::Unhilight(const Handle(PrsMgr_PresentationManager)& 
 //=================================================================================================
 
 void PrsDim_DimensionOwner::HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                             const Handle(Prs3d_Drawer)&               theStyle,
+                                             const Handle(StyleDrawer)&               theStyle,
                                              const Standard_Integer /*theMode*/)
 {
   thePM->Color(Selectable(), theStyle, HighlightMode(mySelectionMode));

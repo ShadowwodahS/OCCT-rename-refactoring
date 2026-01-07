@@ -36,7 +36,7 @@
 // [arg 2] : Browser name
 //=======================================================================
 
-static Standard_Integer DFBrowse(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DFBrowse(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
   {
@@ -45,21 +45,21 @@ static Standard_Integer DFBrowse(Draw_Interpretor& di, Standard_Integer n, const
   }
 
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(a[1], DF))
+  if (!DDF1::GetDF(a[1], DF))
   {
     Message::SendFail() << "Error: document " << a[1] << " is not found";
     return 1;
   }
 
   Handle(DDF_Browser)     NewDDFBrowser = new DDF_Browser(DF);
-  TCollection_AsciiString name("browser_");
+  AsciiString1 name("browser_");
   name += ((n == 3) ? a[2] : a[1]);
-  Draw::Set(name.ToCString(), NewDDFBrowser);
+  Draw1::Set(name.ToCString(), NewDDFBrowser);
 
   // Load Tcl Script
-  TCollection_AsciiString aTclScript(getenv("CSF_DrawPluginDefaults"));
+  AsciiString1 aTclScript(getenv("CSF_DrawPluginDefaults"));
   aTclScript.AssignCat("/dftree.tcl");
-  OSD_File aTclScriptFile(aTclScript);
+  SystemFile aTclScriptFile(aTclScript);
   if (aTclScriptFile.Exists())
   {
 #ifdef OCCT_DEBUG
@@ -74,7 +74,7 @@ static Standard_Integer DFBrowse(Draw_Interpretor& di, Standard_Integer n, const
   }
 
   // Call command dftree defined in dftree.tcl
-  TCollection_AsciiString aCommand = "dftree ";
+  AsciiString1 aCommand = "dftree ";
   aCommand.AssignCat(name);
   di.Eval(aCommand.ToCString());
   return 0;
@@ -87,23 +87,23 @@ static Standard_Integer DFBrowse(Draw_Interpretor& di, Standard_Integer n, const
 // [arg 2] : Label name
 //=======================================================================
 
-static Standard_Integer DFOpenLabel(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DFOpenLabel(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
 
-  Handle(DDF_Browser) browser = Handle(DDF_Browser)::DownCast(Draw::GetExisting(a[1]));
+  Handle(DDF_Browser) browser = Handle(DDF_Browser)::DownCast(Draw1::GetExisting(a[1]));
   if (browser.IsNull())
   {
     Message::SendFail() << "Syntax error: browser '" << a[1] << "' not found";
     return 1;
   }
 
-  TDF_Label lab;
+  DataLabel lab;
   if (n == 3)
     TDF_Tool::Label(browser->Data(), a[2], lab);
 
-  TCollection_AsciiString list(lab.IsNull() ? browser->OpenRoot() : browser->OpenLabel(lab));
+  AsciiString1 list(lab.IsNull() ? browser->OpenRoot() : browser->OpenLabel(lab));
   di << list.ToCString();
   return 0;
 }
@@ -115,27 +115,27 @@ static Standard_Integer DFOpenLabel(Draw_Interpretor& di, Standard_Integer n, co
 //  arg 2  : Label name
 //=======================================================================
 
-static Standard_Integer DFOpenAttributeList(Draw_Interpretor& di,
+static Standard_Integer DFOpenAttributeList(DrawInterpreter& di,
                                             Standard_Integer  n,
                                             const char**      a)
 {
   if (n < 3)
     return 1;
 
-  Handle(DDF_Browser) browser = Handle(DDF_Browser)::DownCast(Draw::GetExisting(a[1]));
+  Handle(DDF_Browser) browser = Handle(DDF_Browser)::DownCast(Draw1::GetExisting(a[1]));
   if (browser.IsNull())
   {
     Message::SendFail() << "Syntax error: browser '" << a[1] << "' not found";
     return 1;
   }
 
-  TDF_Label lab;
+  DataLabel lab;
   TDF_Tool::Label(browser->Data(), a[2], lab);
 
   if (lab.IsNull())
     return 1;
 
-  TCollection_AsciiString list(browser->OpenAttributeList(lab));
+  AsciiString1 list(browser->OpenAttributeList(lab));
   di << list.ToCString();
   return 0;
 }
@@ -147,20 +147,20 @@ static Standard_Integer DFOpenAttributeList(Draw_Interpretor& di,
 //  arg 2  : Attribute index
 //=======================================================================
 
-static Standard_Integer DFOpenAttribute(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DFOpenAttribute(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
 
-  Handle(DDF_Browser) browser = Handle(DDF_Browser)::DownCast(Draw::GetExisting(a[1]));
+  Handle(DDF_Browser) browser = Handle(DDF_Browser)::DownCast(Draw1::GetExisting(a[1]));
   if (browser.IsNull())
   {
     Message::SendFail() << "Syntax error: browser '" << a[1] << "' not found";
     return 1;
   }
 
-  const Standard_Integer  index = Draw::Atoi(a[2]);
-  TCollection_AsciiString list  = browser->OpenAttribute(index);
+  const Standard_Integer  index = Draw1::Atoi(a[2]);
+  AsciiString1 list  = browser->OpenAttribute(index);
   di << list.ToCString();
   return 0;
 }
@@ -169,7 +169,7 @@ static Standard_Integer DFOpenAttribute(Draw_Interpretor& di, Standard_Integer n
 
 //=================================================================================================
 
-void DDF::BrowserCommands(Draw_Interpretor& theCommands)
+void DDF1::BrowserCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

@@ -17,9 +17,9 @@
 #include <StepData_StepReaderData.hxx>
 #include <StepData_StepWriter.hxx>
 
-RWHeaderSection_RWFileDescription::RWHeaderSection_RWFileDescription() {}
+FileDescriptionWriter::FileDescriptionWriter() {}
 
-void RWHeaderSection_RWFileDescription::ReadStep(
+void FileDescriptionWriter::ReadStep(
   const Handle(StepData_StepReaderData)&       data,
   const Standard_Integer                       num,
   Handle(Interface_Check)&                     ach,
@@ -66,7 +66,7 @@ void RWHeaderSection_RWFileDescription::ReadStep(
     ent->Init(aDescription, aImplementationLevel);
 }
 
-void RWHeaderSection_RWFileDescription::WriteStep(
+void FileDescriptionWriter::WriteStep(
   StepData_StepWriter&                         SW,
   const Handle(HeaderSection_FileDescription)& ent) const
 {

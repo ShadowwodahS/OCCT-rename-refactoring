@@ -30,7 +30,7 @@
 #include <TColGeom2d_HArray1OfBSplineCurve.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 class Geom2d_BSplineCurve;
-class Geom2d_Curve;
+class GeomCurve2d;
 
 //! This package provides an implementation of algorithms to do
 //! the conversion between equivalent geometric entities from
@@ -168,7 +168,7 @@ public:
   //! trimmed curve (this method of parameterization
   //! cannot be used to convert a quasi-complete circle or ellipse).
   Standard_EXPORT static Handle(Geom2d_BSplineCurve) CurveToBSplineCurve(
-    const Handle(Geom2d_Curve)&        C,
+    const Handle(GeomCurve2d)&        C,
     const Convert_ParameterisationType Parameterisation = Convert_TgtThetaOver2);
 
   //! This Method concatenates G1 the ArrayOfCurves as far

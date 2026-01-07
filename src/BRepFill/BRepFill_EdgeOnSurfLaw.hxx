@@ -20,8 +20,8 @@
 #include <Standard.hxx>
 
 #include <BRepFill_LocationLaw.hxx>
-class TopoDS_Wire;
-class TopoDS_Shape;
+class TopoWire;
+class TopoShape;
 
 class BRepFill_EdgeOnSurfLaw;
 DEFINE_STANDARD_HANDLE(BRepFill_EdgeOnSurfLaw, BRepFill_LocationLaw)
@@ -31,7 +31,7 @@ class BRepFill_EdgeOnSurfLaw : public BRepFill_LocationLaw
 {
 
 public:
-  Standard_EXPORT BRepFill_EdgeOnSurfLaw(const TopoDS_Wire& Path, const TopoDS_Shape& Surf);
+  Standard_EXPORT BRepFill_EdgeOnSurfLaw(const TopoWire& Path, const TopoShape& Surf);
 
   //! returns <False> if one  Edge of <Path> do not have
   //! representation on  <Surf>.   In this  case  it is

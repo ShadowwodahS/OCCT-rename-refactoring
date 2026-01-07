@@ -37,7 +37,7 @@ class Point3d;
 class Vector3d;
 class gp_Vec2d;
 
-class BRepApprox_ThePrmPrmSvSurfacesOfApprox : public ApproxInt_SvSurfaces
+class BRepApprox_ThePrmPrmSvSurfacesOfApprox : public SurfaceSurfaces
 {
 public:
   DEFINE_STANDARD_ALLOC

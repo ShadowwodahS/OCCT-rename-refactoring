@@ -46,12 +46,12 @@ Interface_EntityIterator IFSelect_SelectEntityNumber::RootResult(const Interface
   return iter;
 }
 
-TCollection_AsciiString IFSelect_SelectEntityNumber::Label() const
+AsciiString1 IFSelect_SelectEntityNumber::Label() const
 {
   Standard_Integer num = 0;
   if (!thenum.IsNull())
     num = thenum->Value();
-  TCollection_AsciiString labl(num);
+  AsciiString1 labl(num);
   labl.InsertBefore(1, "Entity Number ");
   return labl;
 }

@@ -148,7 +148,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   if (PlanAx3.YDirection().Dot(D2) >= 0.)
     PlanAx3.YReverse();
 
-  Handle(Geom_Plane) gpl = new Geom_Plane(PlanAx3);
+  Handle(GeomPlane) gpl = new GeomPlane(PlanAx3);
   Data->ChangeSurf(ChFiKPart_IndexSurfaceInDS(gpl, DStr));
 
   // About the orientation of the chamfer plane
@@ -177,7 +177,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
 
   // case face 1
   gp_Lin            linPln(P1, xdir);
-  Handle(Geom_Line) GLinPln1 = new Geom_Line(linPln);
+  Handle(GeomLine) GLinPln1 = new GeomLine(linPln);
 
   Standard_Real u, v;
   ElSLib::PlaneParameters(Pos1, P1, u, v);
@@ -209,7 +209,7 @@ Standard_Boolean ChFiKPart_MakeChAsym(TopOpeBRepDS_DataStructure&    DStr,
   // case face 2
 
   linPln.SetLocation(P2);
-  Handle(Geom_Line) GLinPln2 = new Geom_Line(linPln);
+  Handle(GeomLine) GLinPln2 = new GeomLine(linPln);
 
   ElSLib::PlaneParameters(Pos2, P2, u, v);
   p2dPln.SetCoord(u, v);

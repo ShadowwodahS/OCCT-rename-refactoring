@@ -126,7 +126,7 @@ static Standard_Integer FUN_refnearest(const Standard_Real      Angref,
     // and have tangent normals, if they have opposite orientations
     // we choose INTERNAL as resulting complex transition (case EXTERNAL
     // referring to no logical case)
-    if (TopAbs::Complement(Ori) == Oriref)
+    if (TopAbs1::Complement(Ori) == Oriref)
       return M_Ointernal;
     else
       return (Standard_Integer)M_Unknown; // nyi FUN_RAISE
@@ -193,7 +193,7 @@ static Standard_Integer FUN_refnearest(const Standard_Integer   i,
 
     if (Abs(Curvref - Curv) < 1.e-4)
     {
-      if (TopAbs::Complement(Ori) == Oriref)
+      if (TopAbs1::Complement(Ori) == Oriref)
         return M_Ointernal;
       else
         return (Standard_Integer)M_Unknown; // nyi FUN_RAISE

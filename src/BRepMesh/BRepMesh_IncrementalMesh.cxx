@@ -21,18 +21,18 @@
 #include <IMeshData_Wire.hxx>
 #include <IMeshTools_MeshBuilder.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(BRepMesh_IncrementalMesh, BRepMesh_DiscretRoot)
+IMPLEMENT_STANDARD_RTTIEXT(MeshGenerator, BRepMesh_DiscretRoot)
 
 namespace
 {
-//! Default flag to control parallelization for BRepMesh_IncrementalMesh
-//! tool returned for Mesh Factory
+//! Default flag to control parallelization for MeshGenerator
+//! tool returned for Mesh1 Factory
 static Standard_Boolean IS_IN_PARALLEL = Standard_False;
 } // namespace
 
 //=================================================================================================
 
-BRepMesh_IncrementalMesh::BRepMesh_IncrementalMesh()
+MeshGenerator::MeshGenerator()
     : myModified(Standard_False),
       myStatus(IMeshData_NoError)
 {
@@ -40,7 +40,7 @@ BRepMesh_IncrementalMesh::BRepMesh_IncrementalMesh()
 
 //=================================================================================================
 
-BRepMesh_IncrementalMesh::BRepMesh_IncrementalMesh(const TopoDS_Shape&    theShape,
+MeshGenerator::MeshGenerator(const TopoShape&    theShape,
                                                    const Standard_Real    theLinDeflection,
                                                    const Standard_Boolean isRelative,
                                                    const Standard_Real    theAngDeflection,
@@ -59,7 +59,7 @@ BRepMesh_IncrementalMesh::BRepMesh_IncrementalMesh(const TopoDS_Shape&    theSha
 
 //=================================================================================================
 
-BRepMesh_IncrementalMesh::BRepMesh_IncrementalMesh(const TopoDS_Shape&          theShape,
+MeshGenerator::MeshGenerator(const TopoShape&          theShape,
                                                    const IMeshTools_Parameters& theParameters,
                                                    const Message_ProgressRange& theRange)
     : myParameters(theParameters)
@@ -70,11 +70,11 @@ BRepMesh_IncrementalMesh::BRepMesh_IncrementalMesh(const TopoDS_Shape&          
 
 //=================================================================================================
 
-BRepMesh_IncrementalMesh::~BRepMesh_IncrementalMesh() {}
+MeshGenerator::~MeshGenerator() {}
 
 //=================================================================================================
 
-void BRepMesh_IncrementalMesh::Perform(const Message_ProgressRange& theRange)
+void MeshGenerator::Perform(const Message_ProgressRange& theRange)
 {
   Handle(BRepMesh_Context) aContext = new BRepMesh_Context(myParameters.MeshAlgo);
   Perform(aContext, theRange);
@@ -82,7 +82,7 @@ void BRepMesh_IncrementalMesh::Perform(const Message_ProgressRange& theRange)
 
 //=================================================================================================
 
-void BRepMesh_IncrementalMesh::Perform(const Handle(IMeshTools_Context)& theContext,
+void MeshGenerator::Perform(const Handle(IMeshTools_Context)& theContext,
                                        const Message_ProgressRange&      theRange)
 {
   initParameters();
@@ -121,12 +121,12 @@ void BRepMesh_IncrementalMesh::Perform(const Handle(IMeshTools_Context)& theCont
 
 //=================================================================================================
 
-Standard_Integer BRepMesh_IncrementalMesh::Discret(const TopoDS_Shape&    theShape,
+Standard_Integer MeshGenerator::Discret(const TopoShape&    theShape,
                                                    const Standard_Real    theDeflection,
                                                    const Standard_Real    theAngle,
                                                    BRepMesh_DiscretRoot*& theAlgo)
 {
-  BRepMesh_IncrementalMesh* anAlgo      = new BRepMesh_IncrementalMesh();
+  MeshGenerator* anAlgo      = new MeshGenerator();
   anAlgo->ChangeParameters().Deflection = theDeflection;
   anAlgo->ChangeParameters().Angle      = theAngle;
   anAlgo->ChangeParameters().InParallel = IS_IN_PARALLEL;
@@ -137,17 +137,17 @@ Standard_Integer BRepMesh_IncrementalMesh::Discret(const TopoDS_Shape&    theSha
 
 //=================================================================================================
 
-Standard_Boolean BRepMesh_IncrementalMesh::IsParallelDefault()
+Standard_Boolean MeshGenerator::IsParallelDefault()
 {
   return IS_IN_PARALLEL;
 }
 
 //=================================================================================================
 
-void BRepMesh_IncrementalMesh::SetParallelDefault(const Standard_Boolean theInParallel)
+void MeshGenerator::SetParallelDefault(const Standard_Boolean theInParallel)
 {
   IS_IN_PARALLEL = theInParallel;
 }
 
-//! Export Mesh Plugin entry function
-DISCRETPLUGIN(BRepMesh_IncrementalMesh)
+//! Export Mesh1 Plugin entry function
+DISCRETPLUGIN(MeshGenerator)

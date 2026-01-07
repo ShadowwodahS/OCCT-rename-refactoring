@@ -27,7 +27,7 @@
 GC_MakeCircle::GC_MakeCircle(const gp_Circ& C)
 {
   TheError  = gce_Done;
-  TheCircle = new Geom_Circle(C);
+  TheCircle = new GeomCircle(C);
 }
 
 GC_MakeCircle::GC_MakeCircle(const Frame3d& A2, const Standard_Real Radius)
@@ -39,14 +39,14 @@ GC_MakeCircle::GC_MakeCircle(const Frame3d& A2, const Standard_Real Radius)
   else
   {
     TheError  = gce_Done;
-    TheCircle = new Geom_Circle(gp_Circ(A2, Radius));
+    TheCircle = new GeomCircle(gp_Circ(A2, Radius));
   }
 }
 
 GC_MakeCircle::GC_MakeCircle(const gp_Circ& Circ, const Point3d& Point)
 {
   gp_Circ C = gce_MakeCirc(Circ, Point);
-  TheCircle = new Geom_Circle(C);
+  TheCircle = new GeomCircle(C);
   TheError  = gce_Done;
 }
 
@@ -56,7 +56,7 @@ GC_MakeCircle::GC_MakeCircle(const gp_Circ& Circ, const Standard_Real Dist)
   TheError       = C.Status();
   if (TheError == gce_Done)
   {
-    TheCircle = new Geom_Circle(C.Value());
+    TheCircle = new GeomCircle(C.Value());
   }
 }
 
@@ -66,7 +66,7 @@ GC_MakeCircle::GC_MakeCircle(const Point3d& P1, const Point3d& P2, const Point3d
   TheError       = C.Status();
   if (TheError == gce_Done)
   {
-    TheCircle = new Geom_Circle(C.Value());
+    TheCircle = new GeomCircle(C.Value());
   }
 }
 
@@ -76,7 +76,7 @@ GC_MakeCircle::GC_MakeCircle(const Point3d& Point, const Dir3d& Norm, const Stan
   TheError       = C.Status();
   if (TheError == gce_Done)
   {
-    TheCircle = new Geom_Circle(C.Value());
+    TheCircle = new GeomCircle(C.Value());
   }
 }
 
@@ -86,7 +86,7 @@ GC_MakeCircle::GC_MakeCircle(const Point3d& Point, const Point3d& PtAxis, const 
   TheError       = C.Status();
   if (TheError == gce_Done)
   {
-    TheCircle = new Geom_Circle(C.Value());
+    TheCircle = new GeomCircle(C.Value());
   }
 }
 
@@ -96,11 +96,11 @@ GC_MakeCircle::GC_MakeCircle(const Axis3d& Axis, const Standard_Real Radius)
   TheError       = C.Status();
   if (TheError == gce_Done)
   {
-    TheCircle = new Geom_Circle(C.Value());
+    TheCircle = new GeomCircle(C.Value());
   }
 }
 
-const Handle(Geom_Circle)& GC_MakeCircle::Value() const
+const Handle(GeomCircle)& GC_MakeCircle::Value() const
 {
   StdFail_NotDone_Raise_if(TheError != gce_Done, "GC_MakeCircle::Value() - no result");
   return TheCircle;

@@ -19,11 +19,11 @@
 
 //=================================================================================================
 
-LProp_CurAndInf::LProp_CurAndInf() {}
+CurveAndInfo::CurveAndInfo() {}
 
 //=================================================================================================
 
-void LProp_CurAndInf::AddInflection(const Standard_Real Param)
+void CurveAndInfo::AddInflection(const Standard_Real Param)
 {
   if (theParams.IsEmpty())
   {
@@ -50,7 +50,7 @@ void LProp_CurAndInf::AddInflection(const Standard_Real Param)
 
 //=================================================================================================
 
-void LProp_CurAndInf::AddExtCur(const Standard_Real Param, const Standard_Boolean IsMin)
+void CurveAndInfo::AddExtCur(const Standard_Real Param, const Standard_Boolean IsMin)
 {
   LProp_CIType TypePoint;
   if (IsMin)
@@ -83,7 +83,7 @@ void LProp_CurAndInf::AddExtCur(const Standard_Real Param, const Standard_Boolea
 
 //=================================================================================================
 
-void LProp_CurAndInf::Clear()
+void CurveAndInfo::Clear()
 {
   theParams.Clear();
   theTypes.Clear();
@@ -91,21 +91,21 @@ void LProp_CurAndInf::Clear()
 
 //=================================================================================================
 
-Standard_Boolean LProp_CurAndInf::IsEmpty() const
+Standard_Boolean CurveAndInfo::IsEmpty() const
 {
   return theParams.IsEmpty();
 }
 
 //=================================================================================================
 
-Standard_Integer LProp_CurAndInf::NbPoints() const
+Standard_Integer CurveAndInfo::NbPoints() const
 {
   return theParams.Length();
 }
 
 //=================================================================================================
 
-Standard_Real LProp_CurAndInf::Parameter(const Standard_Integer N) const
+Standard_Real CurveAndInfo::Parameter(const Standard_Integer N) const
 {
   if (N < 1 || N > NbPoints())
   {
@@ -116,7 +116,7 @@ Standard_Real LProp_CurAndInf::Parameter(const Standard_Integer N) const
 
 //=================================================================================================
 
-LProp_CIType LProp_CurAndInf::Type(const Standard_Integer N) const
+LProp_CIType CurveAndInfo::Type(const Standard_Integer N) const
 {
   if (N < 1 || N > NbPoints())
   {

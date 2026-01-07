@@ -29,19 +29,19 @@ namespace
 //! @param theNewFoler     the new folder to look for the file
 //! @param theRelativePath result file path relative to theNewFoler
 //! @return true if relative file has been found
-static bool findRelativePath(const TCollection_AsciiString& theAbsolutePath,
-                             const TCollection_AsciiString& theNewFoler,
-                             TCollection_AsciiString&       theRelativePath)
+static bool findRelativePath(const AsciiString1& theAbsolutePath,
+                             const AsciiString1& theNewFoler,
+                             AsciiString1&       theRelativePath)
 {
-  TCollection_AsciiString aNewFoler =
+  AsciiString1 aNewFoler =
     (theNewFoler.EndsWith("\\") || theNewFoler.EndsWith("/")) ? theNewFoler : (theNewFoler + "/");
 
-  TCollection_AsciiString aRelPath;
-  TCollection_AsciiString aPath = theAbsolutePath;
+  AsciiString1 aRelPath;
+  AsciiString1 aPath = theAbsolutePath;
   for (;;)
   {
-    TCollection_AsciiString aFolder, aFileName;
-    OSD_Path::FolderAndFileFromPath(aPath, aFolder, aFileName);
+    AsciiString1 aFolder, aFileName;
+    SystemPath::FolderAndFileFromPath(aPath, aFolder, aFileName);
     if (aFolder.IsEmpty() || aFileName.IsEmpty())
     {
       return false;
@@ -56,7 +56,7 @@ static bool findRelativePath(const TCollection_AsciiString& theAbsolutePath,
       aRelPath = aFileName + "/" + aRelPath;
     }
 
-    if (OSD_File(aNewFoler + aRelPath).Exists())
+    if (SystemFile(aNewFoler + aRelPath).Exists())
     {
       theRelativePath = aRelPath;
       return true;
@@ -79,7 +79,7 @@ static bool findRelativePath(const TCollection_AsciiString& theAbsolutePath,
 //=================================================================================================
 
 RWObj_MtlReader::RWObj_MtlReader(
-  NCollection_DataMap<TCollection_AsciiString, RWObj_Material>& theMaterials)
+  NCollection_DataMap<AsciiString1, RWObj_Material>& theMaterials)
     : myFile(NULL),
       myMaterials(&theMaterials),
       myNbLines(0)
@@ -99,20 +99,20 @@ RWObj_MtlReader::~RWObj_MtlReader()
 
 //=================================================================================================
 
-bool RWObj_MtlReader::Read(const TCollection_AsciiString& theFolder,
-                           const TCollection_AsciiString& theFile)
+bool RWObj_MtlReader::Read(const AsciiString1& theFolder,
+                           const AsciiString1& theFile)
 {
   myPath = theFolder + theFile;
   myFile = OSD_OpenFile(myPath.ToCString(), "rb");
   if (myFile == NULL)
   {
-    Message::Send(TCollection_AsciiString("OBJ material file '") + myPath + "' is not found!",
+    Message::Send(AsciiString1("OBJ material file '") + myPath + "' is not found!",
                   Message_Warning);
     return Standard_False;
   }
 
   char                    aLine[256] = {};
-  TCollection_AsciiString aMatName;
+  AsciiString1 aMatName;
   RWObj_Material          aMat;
   const Standard_Integer  aNbMatOld = myMaterials->Extent();
   bool                    hasAspect = false;
@@ -151,11 +151,11 @@ bool RWObj_MtlReader::Read(const TCollection_AsciiString& theFolder,
         hasAspect = false;
       }
 
-      aMatName = TCollection_AsciiString(aPos);
+      aMatName = AsciiString1(aPos);
       aMat     = RWObj_Material();
       if (!RWObj_Tools::ReadName(aPos, aMatName))
       {
-        Message::SendWarning(TCollection_AsciiString("Empty OBJ material at line ") + myNbLines
+        Message::SendWarning(AsciiString1("Empty OBJ material at line ") + myNbLines
                              + " in file " + myPath);
       }
     }
@@ -294,19 +294,19 @@ bool RWObj_MtlReader::Read(const TCollection_AsciiString& theFolder,
 
 //=================================================================================================
 
-void RWObj_MtlReader::processTexturePath(TCollection_AsciiString&       theTexturePath,
-                                         const TCollection_AsciiString& theFolder)
+void RWObj_MtlReader::processTexturePath(AsciiString1&       theTexturePath,
+                                         const AsciiString1& theFolder)
 {
-  if (OSD_Path::IsAbsolutePath(theTexturePath.ToCString()))
+  if (SystemPath::IsAbsolutePath(theTexturePath.ToCString()))
   {
     Message::SendWarning(
-      TCollection_AsciiString("OBJ file specifies absolute path to the texture image file which "
+      AsciiString1("OBJ file specifies absolute path to the texture image file which "
                               "may be inaccessible on another device\n")
       + theTexturePath);
-    if (!OSD_File(theTexturePath).Exists())
+    if (!SystemFile(theTexturePath).Exists())
     {
       // workaround absolute filenames - try to find the same file at the OBJ file location
-      TCollection_AsciiString aRelativePath;
+      AsciiString1 aRelativePath;
       if (findRelativePath(theTexturePath, theFolder, aRelativePath))
       {
         theTexturePath = theFolder + aRelativePath;
@@ -325,7 +325,7 @@ bool RWObj_MtlReader::validateScalar(const Standard_Real theValue)
 {
   if (theValue < 0.0 || theValue > 1.0)
   {
-    Message::SendWarning(TCollection_AsciiString("Invalid scalar in OBJ material at line ")
+    Message::SendWarning(AsciiString1("Invalid scalar in OBJ material at line ")
                          + myNbLines + " in file " + myPath);
     return false;
   }
@@ -339,7 +339,7 @@ bool RWObj_MtlReader::validateColor(const Graphic3d_Vec3& theVec)
   if (theVec.r() < 0.0f || theVec.r() > 1.0f || theVec.g() < 0.0f || theVec.g() > 1.0f
       || theVec.b() < 0.0f || theVec.b() > 1.0f)
   {
-    Message::SendWarning(TCollection_AsciiString("Invalid color in OBJ material at line ")
+    Message::SendWarning(AsciiString1("Invalid color in OBJ material at line ")
                          + myNbLines + " in file " + myPath);
     return false;
   }

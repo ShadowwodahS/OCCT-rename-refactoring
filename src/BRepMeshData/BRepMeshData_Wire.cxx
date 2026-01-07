@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRepMeshData_Wire, IMeshData_Wire)
 
 //=================================================================================================
 
-BRepMeshData_Wire::BRepMeshData_Wire(const TopoDS_Wire&                      theWire,
+BRepMeshData_Wire::BRepMeshData_Wire(const TopoWire&                      theWire,
                                      const Standard_Integer                  theEdgeNb,
                                      const Handle(NCollection_IncAllocator)& theAllocator)
     : IMeshData_Wire(theWire),

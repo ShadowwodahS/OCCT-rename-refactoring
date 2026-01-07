@@ -29,7 +29,7 @@ inline TNaming_RefShape::TNaming_RefShape()
 // purpose  :
 //=======================================================================
 
-inline TNaming_RefShape::TNaming_RefShape(const TopoDS_Shape& S)
+inline TNaming_RefShape::TNaming_RefShape(const TopoShape& S)
     : myShape(S),
       myFirstUse(0)
 {
@@ -50,7 +50,7 @@ inline void TNaming_RefShape::FirstUse(const TNaming_PtrNode& pdn)
 // purpose  :
 //=======================================================================
 
-inline void TNaming_RefShape::Shape(const TopoDS_Shape& S)
+inline void TNaming_RefShape::Shape(const TopoShape& S)
 {
   myShape = S;
 }
@@ -70,7 +70,7 @@ inline TNaming_PtrNode TNaming_RefShape::FirstUse() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& TNaming_RefShape::Shape() const
+inline const TopoShape& TNaming_RefShape::Shape() const
 {
   return myShape;
 }

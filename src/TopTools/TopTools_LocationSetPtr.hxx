@@ -17,7 +17,7 @@
 #ifndef _TopTools_LocationSetPtr_HeaderFile
 #define _TopTools_LocationSetPtr_HeaderFile
 
-class TopTools_LocationSet;
-typedef TopTools_LocationSet* TopTools_LocationSetPtr;
+class LocationSet1;
+typedef LocationSet1* TopTools_LocationSetPtr;
 
 #endif // _TopTools_LocationSetPtr_HeaderFile

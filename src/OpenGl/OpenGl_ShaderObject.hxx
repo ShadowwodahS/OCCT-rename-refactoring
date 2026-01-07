@@ -40,7 +40,7 @@ public:
 
   //! Loads shader source code.
   Standard_EXPORT Standard_Boolean LoadSource(const Handle(OpenGl_Context)&  theCtx,
-                                              const TCollection_AsciiString& theSource);
+                                              const AsciiString1& theSource);
 
   //! Compiles the shader object.
   Standard_EXPORT Standard_Boolean Compile(const Handle(OpenGl_Context)& theCtx);
@@ -52,19 +52,19 @@ public:
   //! @param theIsVerbose flag to print log on error
   //! @param theToPrintSource flag to print source code on error
   Standard_EXPORT Standard_Boolean LoadAndCompile(const Handle(OpenGl_Context)&  theCtx,
-                                                  const TCollection_AsciiString& theId,
-                                                  const TCollection_AsciiString& theSource,
+                                                  const AsciiString1& theId,
+                                                  const AsciiString1& theSource,
                                                   bool theIsVerbose     = true,
                                                   bool theToPrintSource = true);
 
   //! Print source code of this shader object to messenger.
   Standard_EXPORT void DumpSourceCode(const Handle(OpenGl_Context)&  theCtx,
-                                      const TCollection_AsciiString& theId,
-                                      const TCollection_AsciiString& theSource) const;
+                                      const AsciiString1& theId,
+                                      const AsciiString1& theSource) const;
 
   //! Fetches information log of the last compile operation.
   Standard_EXPORT Standard_Boolean FetchInfoLog(const Handle(OpenGl_Context)& theCtx,
-                                                TCollection_AsciiString&      theLog);
+                                                AsciiString1&      theLog);
 
   //! Creates new empty shader object of specified type.
   Standard_EXPORT Standard_Boolean Create(const Handle(OpenGl_Context)& theCtx);
@@ -91,8 +91,8 @@ public:
   //! @param theToBeautify flag improving formatting (add extra newlines)
   //! @param theToReset when TRUE, existing dumps will be overridden
   Standard_EXPORT Standard_Boolean updateDebugDump(const Handle(OpenGl_Context)&  theCtx,
-                                                   const TCollection_AsciiString& theId,
-                                                   const TCollection_AsciiString& theFolder,
+                                                   const AsciiString1& theId,
+                                                   const AsciiString1& theFolder,
                                                    Standard_Boolean               theToBeautify,
                                                    Standard_Boolean               theToReset);
 

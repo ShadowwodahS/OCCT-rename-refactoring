@@ -18,7 +18,7 @@
 #include <BRepAdaptor_Curve.hxx>
 #include <Standard_DefineAlloc.hxx>
 
-class TopoDS_Edge;
+class TopoEdge;
 class Point3d;
 
 class BRepExtrema_ExtCC
@@ -29,11 +29,11 @@ public:
   BRepExtrema_ExtCC() {}
 
   //! It calculates all the distances. <br>
-  Standard_EXPORT BRepExtrema_ExtCC(const TopoDS_Edge& E1, const TopoDS_Edge& E2);
+  Standard_EXPORT BRepExtrema_ExtCC(const TopoEdge& E1, const TopoEdge& E2);
 
-  Standard_EXPORT void Initialize(const TopoDS_Edge& E2);
+  Standard_EXPORT void Initialize(const TopoEdge& E2);
   //! An exception is raised if the fields have not been initialized. <br>
-  Standard_EXPORT void Perform(const TopoDS_Edge& E1);
+  Standard_EXPORT void Perform(const TopoEdge& E1);
 
   //! True if the distances are found. <br>
   Standard_Boolean IsDone() const { return myExtCC.IsDone(); }

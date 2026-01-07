@@ -27,7 +27,7 @@
 #include <GeomAbs_Shape.hxx>
 class ShapeExtend_MsgRegistrator;
 class ShapeBuild_ReShape;
-class BRepTools_Modifier;
+class ShapeModifier;
 class Message_Msg;
 
 class ShapeProcess_ShapeContext;
@@ -45,18 +45,18 @@ public:
 
   //! Initializes a tool by resource file and shape
   //! to be processed
-  Standard_EXPORT ShapeProcess_ShapeContext(const TopoDS_Shape&    S,
+  Standard_EXPORT ShapeProcess_ShapeContext(const TopoShape&    S,
                                             const Standard_CString file,
                                             const Standard_CString seq = "");
 
   //! Initializes tool by a new shape and clears all results
-  Standard_EXPORT void Init(const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const TopoShape& S);
 
   //! Returns shape being processed
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
   //! Returns current result
-  Standard_EXPORT const TopoDS_Shape& Result() const;
+  Standard_EXPORT const TopoShape& Result() const;
 
   //! Returns map of replacements shape -> shape
   //! This map is not recursive
@@ -85,7 +85,7 @@ public:
   //! It is recommended to use RecordModification() methods
   //! with explicit definition of mapping from current
   //! result to a new one
-  Standard_EXPORT void SetResult(const TopoDS_Shape& S);
+  Standard_EXPORT void SetResult(const TopoShape& S);
 
   Standard_EXPORT void RecordModification(const TopTools_DataMapOfShapeShape&       repl,
                                           const Handle(ShapeExtend_MsgRegistrator)& msg = 0);
@@ -105,15 +105,15 @@ public:
   //! either by call to SetResult(), or by another call to
   //! RecordModification() which contains mapping of current
   //! result to a new one explicitly
-  Standard_EXPORT void RecordModification(const TopoDS_Shape&                       sh,
-                                          const BRepTools_Modifier&                 repl,
+  Standard_EXPORT void RecordModification(const TopoShape&                       sh,
+                                          const ShapeModifier&                 repl,
                                           const Handle(ShapeExtend_MsgRegistrator)& msg = 0);
 
   //! Record a message for shape S
   //! Shape S should be one of subshapes of original shape
   //! (or whole one), but not one of intermediate shapes
   //! Records only if Message() is not Null
-  Standard_EXPORT void AddMessage(const TopoDS_Shape&   S,
+  Standard_EXPORT void AddMessage(const TopoShape&   S,
                                   const Message_Msg&    msg,
                                   const Message_Gravity gravity = Message_Warning);
 
@@ -141,8 +141,8 @@ public:
 
 protected:
 private:
-  TopoDS_Shape                       myShape;
-  TopoDS_Shape                       myResult;
+  TopoShape                       myShape;
+  TopoShape                       myResult;
   TopTools_DataMapOfShapeShape       myMap;
   Handle(ShapeExtend_MsgRegistrator) myMsg;
   TopAbs_ShapeEnum                   myUntil;

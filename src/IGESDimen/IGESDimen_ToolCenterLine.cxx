@@ -35,9 +35,9 @@
 #include <Standard_DomainError.hxx>
 #include <TColgp_HArray1OfXY.hxx>
 
-IGESDimen_ToolCenterLine::IGESDimen_ToolCenterLine() {}
+CenterLineTool::CenterLineTool() {}
 
-void IGESDimen_ToolCenterLine::ReadOwnParams(const Handle(IGESDimen_CenterLine)& ent,
+void CenterLineTool::ReadOwnParams(const Handle(IGESDimen_CenterLine)& ent,
                                              const Handle(IGESData_IGESReaderData)& /* IR */,
                                              IGESData_ParamReader& PR) const
 {
@@ -61,7 +61,7 @@ void IGESDimen_ToolCenterLine::ReadOwnParams(const Handle(IGESDimen_CenterLine)&
   if (!dataPoints.IsNull())
     for (Standard_Integer i = 1; i <= nbval; i++)
     {
-      gp_XY tempXY;
+      Coords2d tempXY;
       // st = PR.ReadXY(PR.CurrentList(1, 2), "Data Points", tempXY); //szv#4:S4163:12Mar99 moved in
       // if
       if (PR.ReadXY(PR.CurrentList(1, 2), "Data Points", tempXY))
@@ -72,7 +72,7 @@ void IGESDimen_ToolCenterLine::ReadOwnParams(const Handle(IGESDimen_CenterLine)&
   ent->Init(datatype, zDisplacement, dataPoints);
 }
 
-void IGESDimen_ToolCenterLine::WriteOwnParams(const Handle(IGESDimen_CenterLine)& ent,
+void CenterLineTool::WriteOwnParams(const Handle(IGESDimen_CenterLine)& ent,
                                               IGESData_IGESWriter&                IW) const
 {
   Standard_Integer upper = ent->NbPoints();
@@ -86,12 +86,12 @@ void IGESDimen_ToolCenterLine::WriteOwnParams(const Handle(IGESDimen_CenterLine)
   }
 }
 
-void IGESDimen_ToolCenterLine::OwnShared(const Handle(IGESDimen_CenterLine)& /* ent */,
+void CenterLineTool::OwnShared(const Handle(IGESDimen_CenterLine)& /* ent */,
                                          Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESDimen_ToolCenterLine::OwnCopy(const Handle(IGESDimen_CenterLine)& another,
+void CenterLineTool::OwnCopy(const Handle(IGESDimen_CenterLine)& another,
                                        const Handle(IGESDimen_CenterLine)& ent,
                                        Interface_CopyTool& /* TC */) const
 {
@@ -104,14 +104,14 @@ void IGESDimen_ToolCenterLine::OwnCopy(const Handle(IGESDimen_CenterLine)& anoth
   for (Standard_Integer i = 1; i <= nbval; i++)
   {
     Point3d tempPnt = (another->Point(i));
-    gp_XY  tempPnt2d(tempPnt.X(), tempPnt.Y());
+    Coords2d  tempPnt2d(tempPnt.X(), tempPnt.Y());
     dataPoints->SetValue(i, tempPnt2d);
   }
   ent->Init(datatype, zDisplacement, dataPoints);
   ent->SetCrossHair(another->IsCrossHair());
 }
 
-Standard_Boolean IGESDimen_ToolCenterLine::OwnCorrect(const Handle(IGESDimen_CenterLine)& ent) const
+Standard_Boolean CenterLineTool::OwnCorrect(const Handle(IGESDimen_CenterLine)& ent) const
 {
   Standard_Boolean res = (ent->RankLineFont() != 1);
   if (res)
@@ -127,15 +127,15 @@ Standard_Boolean IGESDimen_ToolCenterLine::OwnCorrect(const Handle(IGESDimen_Cen
     return res; // rien pu faire (est-ce possible ?)
   Handle(TColgp_HArray1OfXY) pts = new TColgp_HArray1OfXY(1, nb);
   for (Standard_Integer i = 1; i <= nb; i++)
-    pts->SetValue(i, gp_XY(ent->Point(i).X(), ent->Point(i).Y()));
+    pts->SetValue(i, Coords2d(ent->Point(i).X(), ent->Point(i).Y()));
   ent->Init(1, ent->ZDisplacement(), pts);
   return Standard_True;
 }
 
-IGESData_DirChecker IGESDimen_ToolCenterLine::DirChecker(
+DirectoryChecker CenterLineTool::DirChecker(
   const Handle(IGESDimen_CenterLine)& /* ent */) const
 {
-  IGESData_DirChecker DC(106, 20, 21);
+  DirectoryChecker DC(106, 20, 21);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefValue);
   DC.LineWeight(IGESData_DefValue);
@@ -145,7 +145,7 @@ IGESData_DirChecker IGESDimen_ToolCenterLine::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolCenterLine::OwnCheck(const Handle(IGESDimen_CenterLine)& ent,
+void CenterLineTool::OwnCheck(const Handle(IGESDimen_CenterLine)& ent,
                                         const Interface_ShareTool&,
                                         Handle(Interface_Check)& ach) const
 {
@@ -157,7 +157,7 @@ void IGESDimen_ToolCenterLine::OwnCheck(const Handle(IGESDimen_CenterLine)& ent,
     ach->AddFail("Number of data points is not even");
 }
 
-void IGESDimen_ToolCenterLine::OwnDump(const Handle(IGESDimen_CenterLine)& ent,
+void CenterLineTool::OwnDump(const Handle(IGESDimen_CenterLine)& ent,
                                        const IGESData_IGESDumper& /* dumper */,
                                        Standard_OStream&      S,
                                        const Standard_Integer level) const

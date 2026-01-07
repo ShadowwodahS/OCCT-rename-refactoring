@@ -30,7 +30,7 @@
 #include <Bnd_Box.hxx>
 #include <NCollection_UBTree.hxx>
 
-class TopoDS_Wire;
+class TopoWire;
 
 //! Provides methods to build wires.
 //!
@@ -73,7 +73,7 @@ class TopoDS_Wire;
 //! // for all the edges ...
 //! MW.Add(anEdge);
 //!
-//! TopoDS_Wire W = MW;
+//! TopoWire W = MW;
 
 class BRepLib_MakeWire : public BRepLib_MakeShape
 {
@@ -84,50 +84,50 @@ public:
   Standard_EXPORT BRepLib_MakeWire();
 
   //! Make a Wire from an edge.
-  Standard_EXPORT BRepLib_MakeWire(const TopoDS_Edge& E);
+  Standard_EXPORT BRepLib_MakeWire(const TopoEdge& E);
 
   //! Make a Wire from two edges.
-  Standard_EXPORT BRepLib_MakeWire(const TopoDS_Edge& E1, const TopoDS_Edge& E2);
+  Standard_EXPORT BRepLib_MakeWire(const TopoEdge& E1, const TopoEdge& E2);
 
   //! Make a Wire from three edges.
-  Standard_EXPORT BRepLib_MakeWire(const TopoDS_Edge& E1,
-                                   const TopoDS_Edge& E2,
-                                   const TopoDS_Edge& E3);
+  Standard_EXPORT BRepLib_MakeWire(const TopoEdge& E1,
+                                   const TopoEdge& E2,
+                                   const TopoEdge& E3);
 
   //! Make a Wire from four edges.
-  Standard_EXPORT BRepLib_MakeWire(const TopoDS_Edge& E1,
-                                   const TopoDS_Edge& E2,
-                                   const TopoDS_Edge& E3,
-                                   const TopoDS_Edge& E4);
+  Standard_EXPORT BRepLib_MakeWire(const TopoEdge& E1,
+                                   const TopoEdge& E2,
+                                   const TopoEdge& E3,
+                                   const TopoEdge& E4);
 
   //! Make a Wire from a Wire. Useful for adding later.
-  Standard_EXPORT BRepLib_MakeWire(const TopoDS_Wire& W);
+  Standard_EXPORT BRepLib_MakeWire(const TopoWire& W);
 
   //! Add an edge to a wire.
-  Standard_EXPORT BRepLib_MakeWire(const TopoDS_Wire& W, const TopoDS_Edge& E);
+  Standard_EXPORT BRepLib_MakeWire(const TopoWire& W, const TopoEdge& E);
 
   //! Add the edge <E> to the current wire.
-  Standard_EXPORT void Add(const TopoDS_Edge& E);
+  Standard_EXPORT void Add(const TopoEdge& E);
 
   //! Add the edges of <W> to the current wire.
-  Standard_EXPORT void Add(const TopoDS_Wire& W);
+  Standard_EXPORT void Add(const TopoWire& W);
 
   //! Add the edges of <L> to the current wire.
   //! The edges are not to be consecutive.  But they are
   //! to be all connected geometrically or topologically.
-  Standard_EXPORT void Add(const TopTools_ListOfShape& L);
+  Standard_EXPORT void Add(const ShapeList& L);
 
   Standard_EXPORT BRepLib_WireError Error() const;
 
   //! Returns the new wire.
-  Standard_EXPORT const TopoDS_Wire& Wire();
-  Standard_EXPORT                    operator TopoDS_Wire();
+  Standard_EXPORT const TopoWire& Wire();
+  Standard_EXPORT                    operator TopoWire();
 
   //! Returns the last edge added to the wire.
-  Standard_EXPORT const TopoDS_Edge& Edge() const;
+  Standard_EXPORT const TopoEdge& Edge() const;
 
   //! Returns the last connecting vertex.
-  Standard_EXPORT const TopoDS_Vertex& Vertex() const;
+  Standard_EXPORT const TopoVertex& Vertex() const;
 
 private:
   class BRepLib_BndBoxVertexSelector
@@ -164,27 +164,27 @@ private:
     NCollection_List<Standard_Integer> myResultInd;
   };
 
-  void CollectCoincidentVertices(const TopTools_ListOfShape&                        theL,
-                                 NCollection_List<NCollection_List<TopoDS_Vertex>>& theGrVL);
+  void CollectCoincidentVertices(const ShapeList&                        theL,
+                                 NCollection_List<NCollection_List<TopoVertex>>& theGrVL);
 
-  void CreateNewVertices(const NCollection_List<NCollection_List<TopoDS_Vertex>>& theGrVL,
+  void CreateNewVertices(const NCollection_List<NCollection_List<TopoVertex>>& theGrVL,
                          TopTools_DataMapOfShapeShape&                            theO2NV);
 
-  void CreateNewListOfEdges(const TopTools_ListOfShape&         theL,
+  void CreateNewListOfEdges(const ShapeList&         theL,
                             const TopTools_DataMapOfShapeShape& theO2NV,
-                            TopTools_ListOfShape&               theNewEList);
+                            ShapeList&               theNewEList);
 
-  void Add(const TopoDS_Edge& E, Standard_Boolean IsCheckGeometryProximity);
+  void Add(const TopoEdge& E, Standard_Boolean IsCheckGeometryProximity);
 
 protected:
 private:
   BRepLib_WireError          myError;
-  TopoDS_Edge                myEdge;
-  TopoDS_Vertex              myVertex;
+  TopoEdge                myEdge;
+  TopoVertex              myVertex;
   TopTools_IndexedMapOfShape myVertices;
-  TopoDS_Vertex              FirstVertex;
-  TopoDS_Vertex              VF;
-  TopoDS_Vertex              VL;
+  TopoVertex              FirstVertex;
+  TopoVertex              VF;
+  TopoVertex              VL;
 };
 
 #endif // _BRepLib_MakeWire_HeaderFile

@@ -1062,20 +1062,20 @@ Standard_Boolean OpenGl_View::addRaytracePolygonArray(
   return Standard_True;
 }
 
-const TCollection_AsciiString OpenGl_View::ShaderSource::EMPTY_PREFIX;
+const AsciiString1 OpenGl_View::ShaderSource::EMPTY_PREFIX;
 
 // =======================================================================
 // function : Source
 // purpose  : Returns shader source combined with prefix
 // =======================================================================
-TCollection_AsciiString OpenGl_View::ShaderSource::Source(const Handle(OpenGl_Context)& theCtx,
+AsciiString1 OpenGl_View::ShaderSource::Source(const Handle(OpenGl_Context)& theCtx,
                                                           const GLenum theType) const
 {
-  TCollection_AsciiString aVersion = theCtx->GraphicsLibrary() == Aspect_GraphicsLibrary_OpenGLES
+  AsciiString1 aVersion = theCtx->GraphicsLibrary() == Aspect_GraphicsLibrary_OpenGLES
                                        ? "#version 320 es\n"
                                        : "#version 140\n";
 
-  TCollection_AsciiString aPrecisionHeader;
+  AsciiString1 aPrecisionHeader;
   if (theType == GL_FRAGMENT_SHADER && theCtx->GraphicsLibrary() == Aspect_GraphicsLibrary_OpenGLES)
   {
     aPrecisionHeader = theCtx->hasHighp ? "precision highp float;\n"
@@ -1099,17 +1099,17 @@ TCollection_AsciiString OpenGl_View::ShaderSource::Source(const Handle(OpenGl_Co
 // purpose  : Loads shader source from specified files
 // =======================================================================
 Standard_Boolean OpenGl_View::ShaderSource::LoadFromFiles(
-  const TCollection_AsciiString* theFileNames,
-  const TCollection_AsciiString& thePrefix)
+  const AsciiString1* theFileNames,
+  const AsciiString1& thePrefix)
 {
   myError.Clear();
   mySource.Clear();
   myPrefix = thePrefix;
 
-  TCollection_AsciiString aMissingFiles;
+  AsciiString1 aMissingFiles;
   for (Standard_Integer anIndex = 0; !theFileNames[anIndex].IsEmpty(); ++anIndex)
   {
-    OSD_File aFile(theFileNames[anIndex]);
+    SystemFile aFile(theFileNames[anIndex]);
     if (aFile.Exists())
     {
       aFile.Open(OSD_ReadOnly, OSD_Protection());
@@ -1120,7 +1120,7 @@ Standard_Boolean OpenGl_View::ShaderSource::LoadFromFiles(
       {
         aMissingFiles += ", ";
       }
-      aMissingFiles += TCollection_AsciiString("'") + theFileNames[anIndex] + "'";
+      aMissingFiles += AsciiString1("'") + theFileNames[anIndex] + "'";
       continue;
     }
     else if (!aMissingFiles.IsEmpty())
@@ -1129,11 +1129,11 @@ Standard_Boolean OpenGl_View::ShaderSource::LoadFromFiles(
       continue;
     }
 
-    TCollection_AsciiString aSource;
+    AsciiString1 aSource;
     aFile.Read(aSource, (Standard_Integer)aFile.Size());
     if (!aSource.IsEmpty())
     {
-      mySource += TCollection_AsciiString("\n") + aSource;
+      mySource += AsciiString1("\n") + aSource;
     }
     aFile.Close();
   }
@@ -1141,7 +1141,7 @@ Standard_Boolean OpenGl_View::ShaderSource::LoadFromFiles(
   if (!aMissingFiles.IsEmpty())
   {
     myError =
-      TCollection_AsciiString("Shader files ") + aMissingFiles + " are missing or inaccessible";
+      AsciiString1("Shader files ") + aMissingFiles + " are missing or inaccessible";
     return Standard_False;
   }
   return Standard_True;
@@ -1150,8 +1150,8 @@ Standard_Boolean OpenGl_View::ShaderSource::LoadFromFiles(
 //=================================================================================================
 
 Standard_Boolean OpenGl_View::ShaderSource::LoadFromStrings(
-  const TCollection_AsciiString* theStrings,
-  const TCollection_AsciiString& thePrefix)
+  const AsciiString1* theStrings,
+  const AsciiString1& thePrefix)
 {
   myError.Clear();
   mySource.Clear();
@@ -1159,10 +1159,10 @@ Standard_Boolean OpenGl_View::ShaderSource::LoadFromStrings(
 
   for (Standard_Integer anIndex = 0; !theStrings[anIndex].IsEmpty(); ++anIndex)
   {
-    TCollection_AsciiString aSource = theStrings[anIndex];
+    AsciiString1 aSource = theStrings[anIndex];
     if (!aSource.IsEmpty())
     {
-      mySource += TCollection_AsciiString("\n") + aSource;
+      mySource += AsciiString1("\n") + aSource;
     }
   }
   return Standard_True;
@@ -1172,57 +1172,57 @@ Standard_Boolean OpenGl_View::ShaderSource::LoadFromStrings(
 // function : generateShaderPrefix
 // purpose  : Generates shader prefix based on current ray-tracing options
 // =======================================================================
-TCollection_AsciiString OpenGl_View::generateShaderPrefix(
+AsciiString1 OpenGl_View::generateShaderPrefix(
   const Handle(OpenGl_Context)& theGlContext) const
 {
-  TCollection_AsciiString aPrefixString = TCollection_AsciiString("#define STACK_SIZE ")
-                                          + TCollection_AsciiString(myRaytraceParameters.StackSize)
-                                          + "\n" + TCollection_AsciiString("#define NB_BOUNCES ")
-                                          + TCollection_AsciiString(myRaytraceParameters.NbBounces);
+  AsciiString1 aPrefixString = AsciiString1("#define STACK_SIZE ")
+                                          + AsciiString1(myRaytraceParameters.StackSize)
+                                          + "\n" + AsciiString1("#define NB_BOUNCES ")
+                                          + AsciiString1(myRaytraceParameters.NbBounces);
 
   if (myRaytraceParameters.IsZeroToOneDepth)
   {
-    aPrefixString += TCollection_AsciiString("\n#define THE_ZERO_TO_ONE_DEPTH");
+    aPrefixString += AsciiString1("\n#define THE_ZERO_TO_ONE_DEPTH");
   }
 
   if (myRaytraceParameters.TransparentShadows)
   {
-    aPrefixString += TCollection_AsciiString("\n#define TRANSPARENT_SHADOWS");
+    aPrefixString += AsciiString1("\n#define TRANSPARENT_SHADOWS");
   }
   if (!theGlContext->ToRenderSRGB())
   {
-    aPrefixString += TCollection_AsciiString("\n#define THE_SHIFT_sRGB");
+    aPrefixString += AsciiString1("\n#define THE_SHIFT_sRGB");
   }
 
   // If OpenGL driver supports bindless textures and texturing
   // is actually used, activate texturing in ray-tracing mode
   if (myRaytraceParameters.UseBindlessTextures && theGlContext->arbTexBindless != NULL)
   {
-    aPrefixString += TCollection_AsciiString("\n#define USE_TEXTURES")
-                     + TCollection_AsciiString("\n#define MAX_TEX_NUMBER ")
-                     + TCollection_AsciiString(OpenGl_RaytraceGeometry::MAX_TEX_NUMBER);
+    aPrefixString += AsciiString1("\n#define USE_TEXTURES")
+                     + AsciiString1("\n#define MAX_TEX_NUMBER ")
+                     + AsciiString1(OpenGl_RaytraceGeometry::MAX_TEX_NUMBER);
   }
 
   if (myRaytraceParameters.GlobalIllumination) // path tracing activated
   {
-    aPrefixString += TCollection_AsciiString("\n#define PATH_TRACING");
+    aPrefixString += AsciiString1("\n#define PATH_TRACING");
 
     if (myRaytraceParameters.AdaptiveScreenSampling) // adaptive screen sampling requested
     {
       if (theGlContext->IsGlGreaterEqual(4, 4))
       {
-        aPrefixString += TCollection_AsciiString("\n#define ADAPTIVE_SAMPLING");
+        aPrefixString += AsciiString1("\n#define ADAPTIVE_SAMPLING");
         if (myRaytraceParameters.AdaptiveScreenSamplingAtomic
             && theGlContext->CheckExtension("GL_NV_shader_atomic_float"))
         {
-          aPrefixString += TCollection_AsciiString("\n#define ADAPTIVE_SAMPLING_ATOMIC");
+          aPrefixString += AsciiString1("\n#define ADAPTIVE_SAMPLING_ATOMIC");
         }
       }
     }
 
     if (myRaytraceParameters.TwoSidedBsdfModels) // two-sided BSDFs requested
     {
-      aPrefixString += TCollection_AsciiString("\n#define TWO_SIDED_BXDF");
+      aPrefixString += AsciiString1("\n#define TWO_SIDED_BXDF");
     }
 
     switch (myRaytraceParameters.ToneMappingMethod)
@@ -1230,24 +1230,24 @@ TCollection_AsciiString OpenGl_View::generateShaderPrefix(
       case Graphic3d_ToneMappingMethod_Disabled:
         break;
       case Graphic3d_ToneMappingMethod_Filmic:
-        aPrefixString += TCollection_AsciiString("\n#define TONE_MAPPING_FILMIC");
+        aPrefixString += AsciiString1("\n#define TONE_MAPPING_FILMIC");
         break;
     }
   }
 
   if (myRaytraceParameters.ToIgnoreNormalMap)
   {
-    aPrefixString += TCollection_AsciiString("\n#define IGNORE_NORMAL_MAP");
+    aPrefixString += AsciiString1("\n#define IGNORE_NORMAL_MAP");
   }
 
   if (myRaytraceParameters.CubemapForBack)
   {
-    aPrefixString += TCollection_AsciiString("\n#define BACKGROUND_CUBEMAP");
+    aPrefixString += AsciiString1("\n#define BACKGROUND_CUBEMAP");
   }
 
   if (myRaytraceParameters.DepthOfField)
   {
-    aPrefixString += TCollection_AsciiString("\n#define DEPTH_OF_FIELD");
+    aPrefixString += AsciiString1("\n#define DEPTH_OF_FIELD");
   }
 
   return aPrefixString;
@@ -1257,7 +1257,7 @@ TCollection_AsciiString OpenGl_View::generateShaderPrefix(
 // function : safeFailBack
 // purpose  : Performs safe exit when shaders initialization fails
 // =======================================================================
-Standard_Boolean OpenGl_View::safeFailBack(const TCollection_ExtendedString& theMessage,
+Standard_Boolean OpenGl_View::safeFailBack(const UtfString& theMessage,
                                            const Handle(OpenGl_Context)&     theGlContext)
 {
   theGlContext->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
@@ -1288,7 +1288,7 @@ Handle(OpenGl_ShaderObject) OpenGl_View::initShader(const GLenum                
                               GL_DEBUG_TYPE_ERROR,
                               0,
                               GL_DEBUG_SEVERITY_HIGH,
-                              TCollection_ExtendedString("Error: Failed to create ")
+                              UtfString("Error: Failed to create ")
                                 + (theType == GL_VERTEX_SHADER ? "vertex" : "fragment")
                                 + " shader object");
     aShader->Release(theGlContext.get());
@@ -1311,9 +1311,9 @@ Handle(OpenGl_ShaderProgram) OpenGl_View::initProgram(
   const Handle(OpenGl_Context)&      theGlContext,
   const Handle(OpenGl_ShaderObject)& theVertShader,
   const Handle(OpenGl_ShaderObject)& theFragShader,
-  const TCollection_AsciiString&     theName)
+  const AsciiString1&     theName)
 {
-  const TCollection_AsciiString anId = TCollection_AsciiString("occt_rt_") + theName;
+  const AsciiString1 anId = AsciiString1("occt_rt_") + theName;
   Handle(OpenGl_ShaderProgram)  aProgram =
     new OpenGl_ShaderProgram(Handle(Graphic3d_ShaderProgram)(), anId);
 
@@ -1346,14 +1346,14 @@ Handle(OpenGl_ShaderProgram) OpenGl_View::initProgram(
 
   aProgram->SetAttributeName(theGlContext, Graphic3d_TOA_POS, "occVertex");
 
-  TCollection_AsciiString aLinkLog;
+  AsciiString1 aLinkLog;
 
   if (!aProgram->Link(theGlContext))
   {
     aProgram->FetchInfoLog(theGlContext, aLinkLog);
 
-    const TCollection_ExtendedString aMessage =
-      TCollection_ExtendedString("Failed to link shader program:\n") + aLinkLog;
+    const UtfString aMessage =
+      UtfString("Failed to link shader program:\n") + aLinkLog;
 
     theGlContext->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
                               GL_DEBUG_TYPE_ERROR,
@@ -1368,8 +1368,8 @@ Handle(OpenGl_ShaderProgram) OpenGl_View::initProgram(
     aProgram->FetchInfoLog(theGlContext, aLinkLog);
     if (!aLinkLog.IsEmpty() && !aLinkLog.IsEqual("No errors.\n"))
     {
-      const TCollection_ExtendedString aMessage =
-        TCollection_ExtendedString("Shader program was linked with following warnings:\n")
+      const UtfString aMessage =
+        UtfString("Shader program was linked with following warnings:\n")
         + aLinkLog;
 
       theGlContext->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
@@ -1523,7 +1523,7 @@ Standard_Boolean OpenGl_View::initRaytraceResources(const Standard_Integer      
       // Environment map should be updated
       myToUpdateEnvironmentMap = Standard_True;
 
-      const TCollection_AsciiString aPrefixString = generateShaderPrefix(theGlContext);
+      const AsciiString1 aPrefixString = generateShaderPrefix(theGlContext);
 #ifdef RAY_TRACE_PRINT_INFO
       Message::SendTrace() << "GLSL prefix string:" << std::endl << aPrefixString;
 #endif
@@ -1589,7 +1589,7 @@ Standard_Boolean OpenGl_View::initRaytraceResources(const Standard_Integer      
 
     myRaytraceParameters.NbBounces = myRenderParams.RaytracingDepth;
 
-    const TCollection_AsciiString aShaderFolder = Graphic3d_ShaderProgram::ShadersFolder();
+    const AsciiString1 aShaderFolder = Graphic3d_ShaderProgram::ShadersFolder();
     if (myIsRaytraceDataValid)
     {
       myRaytraceParameters.StackSize =
@@ -1597,7 +1597,7 @@ Standard_Boolean OpenGl_View::initRaytraceResources(const Standard_Integer      
             myRaytraceGeometry.TopLevelTreeDepth() + myRaytraceGeometry.BotLevelTreeDepth());
     }
 
-    const TCollection_AsciiString aPrefixString = generateShaderPrefix(theGlContext);
+    const AsciiString1 aPrefixString = generateShaderPrefix(theGlContext);
 
 #ifdef RAY_TRACE_PRINT_INFO
     Message::SendTrace() << "GLSL prefix string:" << std::endl << aPrefixString;
@@ -1607,7 +1607,7 @@ Standard_Boolean OpenGl_View::initRaytraceResources(const Standard_Integer      
     {
       if (!aShaderFolder.IsEmpty())
       {
-        const TCollection_AsciiString aFiles[] = {aShaderFolder + "/RaytraceBase.vs", ""};
+        const AsciiString1 aFiles[] = {aShaderFolder + "/RaytraceBase.vs", ""};
         if (!aBasicVertShaderSrc.LoadFromFiles(aFiles))
         {
           return safeFailBack(aBasicVertShaderSrc.ErrorDescription(), theGlContext);
@@ -1615,7 +1615,7 @@ Standard_Boolean OpenGl_View::initRaytraceResources(const Standard_Integer      
       }
       else
       {
-        const TCollection_AsciiString aSrcShaders[] = {Shaders_RaytraceBase_vs, ""};
+        const AsciiString1 aSrcShaders[] = {Shaders_RaytraceBase_vs, ""};
         aBasicVertShaderSrc.LoadFromStrings(aSrcShaders);
       }
     }
@@ -1623,7 +1623,7 @@ Standard_Boolean OpenGl_View::initRaytraceResources(const Standard_Integer      
     {
       if (!aShaderFolder.IsEmpty())
       {
-        const TCollection_AsciiString aFiles[] = {aShaderFolder + "/RaytraceBase.fs",
+        const AsciiString1 aFiles[] = {aShaderFolder + "/RaytraceBase.fs",
                                                   aShaderFolder + "/TangentSpaceNormal.glsl",
                                                   aShaderFolder + "/PathtraceBase.fs",
                                                   aShaderFolder + "/RaytraceRender.fs",
@@ -1635,7 +1635,7 @@ Standard_Boolean OpenGl_View::initRaytraceResources(const Standard_Integer      
       }
       else
       {
-        const TCollection_AsciiString aSrcShaders[] = {Shaders_RaytraceBase_fs,
+        const AsciiString1 aSrcShaders[] = {Shaders_RaytraceBase_fs,
                                                        Shaders_TangentSpaceNormal_glsl,
                                                        Shaders_PathtraceBase_fs,
                                                        Shaders_RaytraceRender_fs,
@@ -1667,7 +1667,7 @@ Standard_Boolean OpenGl_View::initRaytraceResources(const Standard_Integer      
     {
       if (!aShaderFolder.IsEmpty())
       {
-        const TCollection_AsciiString aFiles[] = {aShaderFolder + "/RaytraceBase.fs",
+        const AsciiString1 aFiles[] = {aShaderFolder + "/RaytraceBase.fs",
                                                   aShaderFolder + "/RaytraceSmooth.fs",
                                                   ""};
         if (!myPostFSAAShaderSource.LoadFromFiles(aFiles, aPrefixString))
@@ -1677,7 +1677,7 @@ Standard_Boolean OpenGl_View::initRaytraceResources(const Standard_Integer      
       }
       else
       {
-        const TCollection_AsciiString aSrcShaders[] = {Shaders_RaytraceBase_fs,
+        const AsciiString1 aSrcShaders[] = {Shaders_RaytraceBase_fs,
                                                        Shaders_RaytraceSmooth_fs,
                                                        ""};
         myPostFSAAShaderSource.LoadFromStrings(aSrcShaders, aPrefixString);
@@ -1707,7 +1707,7 @@ Standard_Boolean OpenGl_View::initRaytraceResources(const Standard_Integer      
     {
       if (!aShaderFolder.IsEmpty())
       {
-        const TCollection_AsciiString aFiles[] = {aShaderFolder + "/Display.fs", ""};
+        const AsciiString1 aFiles[] = {aShaderFolder + "/Display.fs", ""};
         if (!myOutImageShaderSource.LoadFromFiles(aFiles, aPrefixString))
         {
           return safeFailBack(myOutImageShaderSource.ErrorDescription(), theGlContext);
@@ -1715,7 +1715,7 @@ Standard_Boolean OpenGl_View::initRaytraceResources(const Standard_Integer      
       }
       else
       {
-        const TCollection_AsciiString aSrcShaders[] = {Shaders_Display_fs, ""};
+        const AsciiString1 aSrcShaders[] = {Shaders_Display_fs, ""};
         myOutImageShaderSource.LoadFromStrings(aSrcShaders, aPrefixString);
       }
 
@@ -2023,7 +2023,7 @@ Standard_Boolean OpenGl_View::updateRaytraceBuffers(const Standard_Integer      
       myRaytraceTileOffsetsTexture[aViewIter] = new OpenGl_Texture();
     }
 
-    if (aViewIter == 1 && myCamera->ProjectionType() != Graphic3d_Camera::Projection_Stereo)
+    if (aViewIter == 1 && myCamera->ProjectionType() != CameraOn3d::Projection_Stereo)
     {
       myRaytraceFBO1[1]->Release(theGlContext.operator->());
       myRaytraceFBO2[1]->Release(theGlContext.operator->());
@@ -2164,7 +2164,7 @@ void OpenGl_View::updateCamera(const OpenGl_Mat4& theOrientation,
 // =======================================================================
 void OpenGl_View::updatePerspCameraPT(const OpenGl_Mat4&           theOrientation,
                                       const OpenGl_Mat4&           theViewMapping,
-                                      Graphic3d_Camera::Projection theProjection,
+                                      CameraOn3d::Projection theProjection,
                                       OpenGl_Mat4&                 theViewPr,
                                       OpenGl_Mat4&                 theUnview,
                                       const int                    theWinSizeX,
@@ -2177,11 +2177,11 @@ void OpenGl_View::updatePerspCameraPT(const OpenGl_Mat4&           theOrientatio
   theViewPr.Inverted(theUnview);
 
   // get camera stereo params
-  float anIOD = myCamera->GetIODType() == Graphic3d_Camera::IODType_Relative
+  float anIOD = myCamera->GetIODType() == CameraOn3d::IODType_Relative
                   ? static_cast<float>(myCamera->IOD() * myCamera->Distance())
                   : static_cast<float>(myCamera->IOD());
 
-  float aZFocus = myCamera->ZFocusType() == Graphic3d_Camera::FocusType_Relative
+  float aZFocus = myCamera->ZFocusType() == CameraOn3d::FocusType_Relative
                     ? static_cast<float>(myCamera->ZFocus() * myCamera->Distance())
                     : static_cast<float>(myCamera->ZFocus());
 
@@ -2211,7 +2211,7 @@ void OpenGl_View::updatePerspCameraPT(const OpenGl_Mat4&           theOrientatio
 
   myEyeSize = OpenGl_Vec2(static_cast<float>(aScaleX), static_cast<float>(aScaleY));
 
-  if (theProjection == Graphic3d_Camera::Projection_Perspective)
+  if (theProjection == CameraOn3d::Projection_Perspective)
   {
     myEyeView = anEyeViewMono;
   }
@@ -2222,7 +2222,7 @@ void OpenGl_View::updatePerspCameraPT(const OpenGl_Mat4&           theOrientatio
 
     // compute stereo camera shift
     float aDx =
-      theProjection == Graphic3d_Camera::Projection_MonoRightEye ? 0.5f * anIOD : -0.5f * anIOD;
+      theProjection == CameraOn3d::Projection_MonoRightEye ? 0.5f * anIOD : -0.5f * anIOD;
     myEyeOrig += myEyeSide.Normalized() * aDx;
 
     // estimate new camera direction vector and correct its length
@@ -2736,7 +2736,7 @@ Standard_Boolean OpenGl_View::updateRaytraceLightSources(const OpenGl_Mat4& theI
 Standard_Boolean OpenGl_View::setUniformState(const Standard_Integer        theProgramId,
                                               const Standard_Integer        theWinSizeX,
                                               const Standard_Integer        theWinSizeY,
-                                              Graphic3d_Camera::Projection  theProjection,
+                                              CameraOn3d::Projection  theProjection,
                                               const Handle(OpenGl_Context)& theGlContext)
 {
   // Get projection state
@@ -3047,7 +3047,7 @@ void OpenGl_View::unbindRaytraceTextures(const Handle(OpenGl_Context)& theGlCont
 // =======================================================================
 Standard_Boolean OpenGl_View::runRaytraceShaders(const Standard_Integer        theSizeX,
                                                  const Standard_Integer        theSizeY,
-                                                 Graphic3d_Camera::Projection  theProjection,
+                                                 CameraOn3d::Projection  theProjection,
                                                  OpenGl_FrameBuffer*           theReadDrawFbo,
                                                  const Handle(OpenGl_Context)& theGlContext)
 {
@@ -3074,7 +3074,7 @@ Standard_Boolean OpenGl_View::runRaytraceShaders(const Standard_Integer        t
 // =======================================================================
 Standard_Boolean OpenGl_View::runRaytrace(const Standard_Integer        theSizeX,
                                           const Standard_Integer        theSizeY,
-                                          Graphic3d_Camera::Projection  theProjection,
+                                          CameraOn3d::Projection  theProjection,
                                           OpenGl_FrameBuffer*           theReadDrawFbo,
                                           const Handle(OpenGl_Context)& theGlContext)
 {
@@ -3082,7 +3082,7 @@ Standard_Boolean OpenGl_View::runRaytrace(const Standard_Integer        theSizeX
 
   // Choose proper set of frame buffers for stereo rendering
   const Standard_Integer aFBOIdx =
-    (theProjection == Graphic3d_Camera::Projection_MonoRightEye) ? 1 : 0;
+    (theProjection == CameraOn3d::Projection_MonoRightEye) ? 1 : 0;
   bindRaytraceTextures(theGlContext, aFBOIdx);
 
   if (myRenderParams.IsAntialiasingEnabled) // if second FSAA pass is used
@@ -3190,7 +3190,7 @@ Standard_Boolean OpenGl_View::runRaytrace(const Standard_Integer        theSizeX
 // =======================================================================
 Standard_Boolean OpenGl_View::runPathtrace(const Standard_Integer             theSizeX,
                                            const Standard_Integer             theSizeY,
-                                           const Graphic3d_Camera::Projection theProjection,
+                                           const CameraOn3d::Projection theProjection,
                                            const Handle(OpenGl_Context)&      theGlContext)
 {
   if (myToUpdateEnvironmentMap) // check whether the map was changed
@@ -3208,7 +3208,7 @@ Standard_Boolean OpenGl_View::runPathtrace(const Standard_Integer             th
 
   // Choose proper set of frame buffers for stereo rendering
   const Standard_Integer aFBOIdx =
-    (theProjection == Graphic3d_Camera::Projection_MonoRightEye) ? 1 : 0;
+    (theProjection == CameraOn3d::Projection_MonoRightEye) ? 1 : 0;
 
   if (myRaytraceParameters.AdaptiveScreenSampling)
   {
@@ -3335,7 +3335,7 @@ Standard_Boolean OpenGl_View::runPathtrace(const Standard_Integer             th
 
 //=================================================================================================
 
-Standard_Boolean OpenGl_View::runPathtraceOut(const Graphic3d_Camera::Projection theProjection,
+Standard_Boolean OpenGl_View::runPathtraceOut(const CameraOn3d::Projection theProjection,
                                               OpenGl_FrameBuffer*                theReadDrawFbo,
                                               const Handle(OpenGl_Context)&      theGlContext)
 {
@@ -3344,7 +3344,7 @@ Standard_Boolean OpenGl_View::runPathtraceOut(const Graphic3d_Camera::Projection
 
   // Choose proper set of frame buffers for stereo rendering
   const Standard_Integer aFBOIdx =
-    (theProjection == Graphic3d_Camera::Projection_MonoRightEye) ? 1 : 0;
+    (theProjection == CameraOn3d::Projection_MonoRightEye) ? 1 : 0;
 
   if (myRaytraceParameters.AdaptiveScreenSampling)
   {
@@ -3419,7 +3419,7 @@ Standard_Boolean OpenGl_View::runPathtraceOut(const Graphic3d_Camera::Projection
 // =======================================================================
 Standard_Boolean OpenGl_View::raytrace(const Standard_Integer        theSizeX,
                                        const Standard_Integer        theSizeY,
-                                       Graphic3d_Camera::Projection  theProjection,
+                                       CameraOn3d::Projection  theProjection,
                                        OpenGl_FrameBuffer*           theReadDrawFbo,
                                        const Handle(OpenGl_Context)& theGlContext)
 {

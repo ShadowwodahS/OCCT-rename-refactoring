@@ -24,8 +24,8 @@
 #include <Standard_Integer.hxx>
 #include <TColGeom_Array1OfBezierCurve.hxx>
 #include <TColStd_Array1OfReal.hxx>
-class Geom_BSplineCurve;
-class Geom_BezierCurve;
+class BSplineCurve3d;
+class BezierCurve3d;
 
 //! An algorithm to convert a BSpline curve into a series
 //! of adjacent Bezier curves.
@@ -44,7 +44,7 @@ public:
   //! Computes all the data needed to convert the
   //! BSpline curve BasisCurve into a series of adjacent Bezier arcs.
   Standard_EXPORT GeomConvert_BSplineCurveToBezierCurve(
-    const Handle(Geom_BSplineCurve)& BasisCurve);
+    const Handle(BSplineCurve3d)& BasisCurve);
 
   //! Computes all the data needed to convert
   //! the portion of the BSpline curve BasisCurve
@@ -59,7 +59,7 @@ public:
   //! curve [FirstParameter, LastParameter]. The Tolerance criterion
   //! is ParametricTolerance.
   //! Raised if Abs (U2 - U1) <= ParametricTolerance.
-  Standard_EXPORT GeomConvert_BSplineCurveToBezierCurve(const Handle(Geom_BSplineCurve)& BasisCurve,
+  Standard_EXPORT GeomConvert_BSplineCurveToBezierCurve(const Handle(BSplineCurve3d)& BasisCurve,
                                                         const Standard_Real              U1,
                                                         const Standard_Real              U2,
                                                         const Standard_Real ParametricTolerance);
@@ -73,7 +73,7 @@ public:
   //! Standard_OutOfRange if Index is less than 1 or
   //! greater than the number of adjacent Bezier arcs
   //! computed by this algorithm.
-  Standard_EXPORT Handle(Geom_BezierCurve) Arc(const Standard_Integer Index);
+  Standard_EXPORT Handle(BezierCurve3d) Arc(const Standard_Integer Index);
 
   //! Constructs all the Bezier curves whose data is
   //! computed by this algorithm and loads these curves into the Curves table.
@@ -105,7 +105,7 @@ public:
 
 protected:
 private:
-  Handle(Geom_BSplineCurve) myCurve;
+  Handle(BSplineCurve3d) myCurve;
 };
 
 #endif // _GeomConvert_BSplineCurveToBezierCurve_HeaderFile

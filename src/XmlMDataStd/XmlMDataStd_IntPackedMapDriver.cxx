@@ -67,8 +67,8 @@ Standard_Boolean XmlMDataStd_IntPackedMapDriver::Paste(
       aSize = 0;
     else if (!aSizeDStr.GetInteger(aSize))
     {
-      TCollection_ExtendedString aMessageString =
-        TCollection_ExtendedString("Cannot retrieve the Map size"
+      UtfString aMessageString =
+        UtfString("Cannot retrieve the Map size"
                                    " for IntPackedMap attribute as \"")
         + aSize + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);
@@ -97,8 +97,8 @@ Standard_Boolean XmlMDataStd_IntPackedMapDriver::Paste(
       }
       if (!Ok)
       {
-        TCollection_ExtendedString aMessageString =
-          TCollection_ExtendedString("Cannot retrieve integer member"
+        UtfString aMessageString =
+          UtfString("Cannot retrieve integer member"
                                      " for IntPackedMap attribute as \"")
           + aValueString + "\"";
         myMessageDriver->Send(aMessageString, Message_Fail);
@@ -117,8 +117,8 @@ Standard_Boolean XmlMDataStd_IntPackedMapDriver::Paste(
         Standard_Integer aDeltaValue;
         if (!anElement.getAttribute(::IsDeltaOn()).GetInteger(aDeltaValue))
         {
-          TCollection_ExtendedString aMessageString =
-            TCollection_ExtendedString("Cannot retrieve the isDelta value"
+          UtfString aMessageString =
+            UtfString("Cannot retrieve the isDelta value"
                                        " for IntPackedMap attribute as \"")
             + aDeltaValue + "\"";
           myMessageDriver->Send(aMessageString, Message_Fail);

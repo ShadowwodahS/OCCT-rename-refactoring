@@ -25,7 +25,7 @@
 //! in a presentation. Aspects of line display include
 //! width, color and type of line.
 //! The definition set by this class is then passed to the
-//! attribute manager Prs3d_Drawer.
+//! attribute manager StyleDrawer.
 //! Any object which requires a value for line aspect as
 //! an argument may then be given the attribute manager
 //! as a substitute argument in the form of a field such as myDrawer for example.

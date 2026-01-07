@@ -22,27 +22,27 @@
 
 #include <TDF_LabelMap.hxx>
 #include <TopTools_IndexedMapOfShape.hxx>
-class TNaming_NamedShape;
-class TDF_Label;
-class TopoDS_Shape;
+class ShapeAttribute;
+class DataLabel;
+class TopoShape;
 
-class TNaming_NamingTool
+class NamingTool1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT static void CurrentShape(const TDF_LabelMap&               Valid,
                                            const TDF_LabelMap&               Forbiden,
-                                           const Handle(TNaming_NamedShape)& NS,
+                                           const Handle(ShapeAttribute)& NS,
                                            TopTools_IndexedMapOfShape&       MS);
 
   Standard_EXPORT static void CurrentShapeFromShape(const TDF_LabelMap&         Valid,
                                                     const TDF_LabelMap&         Forbiden,
-                                                    const TDF_Label&            Acces,
-                                                    const TopoDS_Shape&         S,
+                                                    const DataLabel&            Acces,
+                                                    const TopoShape&         S,
                                                     TopTools_IndexedMapOfShape& MS);
 
-  Standard_EXPORT static void BuildDescendants(const Handle(TNaming_NamedShape)& NS,
+  Standard_EXPORT static void BuildDescendants(const Handle(ShapeAttribute)& NS,
                                                TDF_LabelMap&                     Labels);
 
 protected:

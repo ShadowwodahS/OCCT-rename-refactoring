@@ -28,7 +28,7 @@
 #ifdef _WIN32
   #include <sys/stat.h>
 
-extern Draw_Viewer dout;
+extern DrawViewer dout;
 
 // extern Standard_IMPORT Standard_Boolean Draw_Interprete(char* command); //for C21
 Standard_IMPORT Standard_Boolean Draw_Interprete(const char* command); // for C30

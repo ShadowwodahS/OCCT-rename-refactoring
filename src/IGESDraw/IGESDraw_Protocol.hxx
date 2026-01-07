@@ -27,7 +27,7 @@ class Interface_Protocol;
 class IGESDraw_Protocol;
 DEFINE_STANDARD_HANDLE(IGESDraw_Protocol, IGESData_Protocol)
 
-//! Description of Protocol for IGESDraw
+//! Description of Protocol for IGESDraw1
 class IGESDraw_Protocol : public IGESData_Protocol
 {
 
@@ -35,7 +35,7 @@ public:
   Standard_EXPORT IGESDraw_Protocol();
 
   //! Gives the count of Resource Protocol. Here, one
-  //! (Protocol from IGESDimen)
+  //! (Protocol from IGESDimen1)
   Standard_EXPORT virtual Standard_Integer NbResources() const Standard_OVERRIDE;
 
   //! Returns a Resource, given a rank.

@@ -30,7 +30,7 @@
 #ifdef OCCT_DEBUG
 Standard_EXPORT void debfctwes(const Standard_Integer /*i*/) {}
 
-Standard_EXPORT void debfctwesmess(const Standard_Integer i, const TCollection_AsciiString& s = "")
+Standard_EXPORT void debfctwesmess(const Standard_Integer i, const AsciiString1& s = "")
 {
   std::cout << "+ + + debfctwes " << s << "F" << i << std::endl;
   debfctwes(i);
@@ -42,11 +42,11 @@ extern void debaddpwes(const Standard_Integer              iFOR,
                        const TopAbs_Orientation            neworiE,
                        const TopOpeBRepBuild_PBuilder&     PB,
                        const TopOpeBRepBuild_PWireEdgeSet& PWES,
-                       const TCollection_AsciiString&      str1,
-                       const TCollection_AsciiString&      str2);
+                       const AsciiString1&      str1,
+                       const AsciiString1&      str2);
 #endif
 
-Standard_Boolean TopOpeBRepBuild_FUN_aresamegeom(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
+Standard_Boolean TopOpeBRepBuild_FUN_aresamegeom(const TopoShape& S1, const TopoShape& S2);
 
 #define M_IN(st) (st == TopAbs_IN)
 #define M_OUT(st) (st == TopAbs_OUT)
@@ -57,8 +57,8 @@ Standard_Boolean TopOpeBRepBuild_FUN_aresamegeom(const TopoDS_Shape& S1, const T
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const TopoDS_Shape&          F1,
-                                                    const TopOpeBRepBuild_GTopo& G1,
+void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const TopoShape&          F1,
+                                                    const GTopologyClassifier& G1,
                                                     TopOpeBRepBuild_WireEdgeSet& WES)
 {
   TopAbs_State TB1, TB2;
@@ -75,7 +75,7 @@ void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const TopoDS_Shape&         
   if (tSPS)
   {
     std::cout << " ShapeInterf ";
-    TopAbs::Print(ShapeInterf, std::cout);
+    TopAbs1::Print(ShapeInterf, std::cout);
     std::cout << std::endl;
   }
   if (tSPS)
@@ -100,7 +100,7 @@ void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const TopoDS_Shape&         
     TopTools_ListIteratorOfListOfShape it = myDataStructure->SameDomain(F1);
     for (; it.More(); it.Next())
     {
-      const TopoDS_Shape& SDF = it.Value();
+      const TopoShape& SDF = it.Value();
       aSDMap.Add(SDF);
     }
   }
@@ -111,14 +111,14 @@ void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const TopoDS_Shape&         
     if (ShapeInterf != TopAbs_SHAPE)
     {
       const Handle(TopOpeBRepDS_Interference)& I    = FCit.Value();
-      const TopOpeBRepDS_Transition&           T    = I->Transition();
+      const StateTransition&           T    = I->Transition();
       TopAbs_ShapeEnum                         shab = T.ShapeBefore(), shaa = T.ShapeAfter();
       if ((shaa != ShapeInterf) || (shab != ShapeInterf))
         continue;
       // modified by NIZHNY-MZV  Thu Feb 24 09:14:31 2000
 
       Standard_Integer si = I->Support();
-      TopoDS_Shape     SS = myDataStructure->Shape(si);
+      TopoShape     SS = myDataStructure->Shape(si);
       // see comment above
       if (aSDMap.Contains(SS))
         continue;
@@ -133,7 +133,7 @@ void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const TopoDS_Shape&         
 //=================================================================================================
 
 void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const TopOpeBRepDS_CurveIterator& FCit,
-                                                    const TopOpeBRepBuild_GTopo&      G1,
+                                                    const GTopologyClassifier&      G1,
                                                     TopOpeBRepBuild_WireEdgeSet&      WES) const
 {
   Standard_Boolean more = FCit.More();
@@ -150,8 +150,8 @@ void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const TopOpeBRepDS_CurveIter
     //    else if (TB1 == TopAbs_IN ) TB = TopAbs_OUT;
   }
 
-  TopoDS_Face& WESF = *((TopoDS_Face*)((void*)&WES.Face()));
-  TopoDS_Face& FTF  = *((TopoDS_Face*)((void*)&myFaceToFill));
+  TopoFace& WESF = *((TopoFace*)((void*)&WES.Face()));
+  TopoFace& FTF  = *((TopoFace*)((void*)&myFaceToFill));
 #ifdef OCCT_DEBUG
 //  Standard_Boolean FTFeqWESF = myFaceReference.IsEqual(WESF);
 #endif
@@ -165,12 +165,12 @@ void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const TopOpeBRepDS_CurveIter
   Standard_Boolean opeCut   = Opec12() || Opec21();
   Standard_Boolean ComOfCut = opeCut && (TB1 == TB2) && (TB1 == TopAbs_IN);
 
-  const TopOpeBRepDS_Transition& T        = FCit.Value()->Transition();
+  const StateTransition& T        = FCit.Value()->Transition();
   TopAbs_Orientation             neworiE  = T.Orientation(TB);
   Standard_Boolean               samegeom = TopOpeBRepBuild_FUN_aresamegeom(FTF, WESF);
   if (!samegeom)
   {
-    neworiE = TopAbs::Complement(neworiE);
+    neworiE = TopAbs1::Complement(neworiE);
   }
 
 #ifdef OCCT_DEBUG
@@ -179,7 +179,7 @@ void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const TopOpeBRepDS_CurveIter
   {
     std::cout << "ifil : " << ifil << " iref : " << iref << " iwes : " << iWESF << std::endl;
     std::cout << "face " << ifil << " is ";
-    TopOpeBRepDS::Print(Conf, std::cout);
+    TopOpeBRepDS1::Print(Conf, std::cout);
     std::cout << std::endl;
     std::cout << "ComOfCut " << ComOfCut << std::endl;
     debfctwesmess(iWESF);
@@ -190,21 +190,21 @@ void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const TopOpeBRepDS_CurveIter
     return;
 
   Standard_Integer                   iG    = FCit.Current();
-  const TopTools_ListOfShape&        LnewE = NewEdges(iG);
+  const ShapeList&        LnewE = NewEdges(iG);
   TopTools_ListIteratorOfListOfShape Iti(LnewE);
   for (; Iti.More(); Iti.Next())
   {
-    TopoDS_Shape EE = Iti.Value();
-    TopoDS_Edge& E  = TopoDS::Edge(EE);
+    TopoShape EE = Iti.Value();
+    TopoEdge& E  = TopoDS::Edge(EE);
 
     // modified by NIZHNY-MZV  Fri Mar 17 12:51:03 2000
-    if (BRep_Tool::Degenerated(E))
+    if (BRepInspector::Degenerated(E))
       continue;
 
     //    TopAbs_Orientation neworiE = FCit.Orientation(TB);
     E.Orientation(neworiE);
 
-    const Handle(Geom2d_Curve)& PC = FCit.PCurve();
+    const Handle(GeomCurve2d)& PC = FCit.PCurve();
 
     Standard_Boolean EhasPConFTF =
 
@@ -217,9 +217,9 @@ void TopOpeBRepBuild_Builder::GFillCurveTopologyWES(const TopOpeBRepDS_CurveIter
 
     if (!EhasPConWESF)
     {
-      //      Standard_Real tolE = BRep_Tool::Tolerance(E);
+      //      Standard_Real tolE = BRepInspector::Tolerance(E);
       Standard_Real        f2, l2, tolpc;
-      Handle(Geom2d_Curve) C2D;
+      Handle(GeomCurve2d) C2D;
       C2D = FC2D_CurveOnSurface(E, WESF, f2, l2, tolpc);
       if (C2D.IsNull())
         throw Standard_ProgramError("GFillCurveTopologyWES");

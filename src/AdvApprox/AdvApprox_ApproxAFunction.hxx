@@ -36,7 +36,7 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColgp_Array1OfPnt.hxx>
 #include <Standard_OStream.hxx>
-class AdvApprox_Cutting;
+class CuttingTool;
 
 //! this approximate a given function
 class AdvApprox_ApproxAFunction
@@ -74,7 +74,7 @@ public:
                                             const GeomAbs_Shape                  Continuity,
                                             const Standard_Integer               MaxDeg,
                                             const Standard_Integer               MaxSeg,
-                                            const AdvApprox_EvaluatorFunction&   Func);
+                                            const EvaluatorFunction&   Func);
 
   //! Approximation with user methode of cutting
   Standard_EXPORT AdvApprox_ApproxAFunction(const Standard_Integer               Num1DSS,
@@ -88,16 +88,16 @@ public:
                                             const GeomAbs_Shape                  Continuity,
                                             const Standard_Integer               MaxDeg,
                                             const Standard_Integer               MaxSeg,
-                                            const AdvApprox_EvaluatorFunction&   Func,
-                                            const AdvApprox_Cutting&             CutTool);
+                                            const EvaluatorFunction&   Func,
+                                            const CuttingTool&             CutTool);
 
   Standard_EXPORT static void Approximation(const Standard_Integer         TotalDimension,
                                             const Standard_Integer         TotalNumSS,
                                             const TColStd_Array1OfInteger& LocalDimension,
                                             const Standard_Real            First,
                                             const Standard_Real            Last,
-                                            AdvApprox_EvaluatorFunction&   Evaluator,
-                                            const AdvApprox_Cutting&       CutTool,
+                                            EvaluatorFunction&   Evaluator,
+                                            const CuttingTool&       CutTool,
                                             const Standard_Integer         ContinuityOrder,
                                             const Standard_Integer         NumMaxCoeffs,
                                             const Standard_Integer         MaxSegments,
@@ -167,7 +167,7 @@ private:
   Standard_EXPORT void Perform(const Standard_Integer   Num1DSS,
                                const Standard_Integer   Num2DSS,
                                const Standard_Integer   Num3DSS,
-                               const AdvApprox_Cutting& CutTool);
+                               const CuttingTool& CutTool);
 
   Standard_Integer                 myNumSubSpaces[3];
   Handle(TColStd_HArray1OfReal)    my1DTolerances;

@@ -45,13 +45,13 @@
 #include <TColStd_SequenceOfInteger.hxx>
 #include <Quantity_Color.hxx>
 
-class V3d_Viewer;
-class V3d_View;
+class ViewManager;
+class ViewWindow;
 class TopLoc_Location;
-class TCollection_ExtendedString;
+class UtfString;
 class Prs3d_LineAspect;
 class Prs3d_BasicAspect;
-class TopoDS_Shape;
+class TopoShape;
 class SelectMgr_Filter;
 
 //! The Interactive Context allows you to manage graphic behavior and selection of Interactive
@@ -64,15 +64,15 @@ class SelectMgr_Filter;
 //! responsible for selection of object as a whole (global selection mode).
 //! Interactive context itself supports decomposed object selection with selection filters support.
 //! By default, global selection mode is equal to 0, but it might be redefined if needed.
-class AIS_InteractiveContext : public RefObject
+class VisualContext : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_InteractiveContext, RefObject)
+  DEFINE_STANDARD_RTTIEXT(VisualContext, RefObject)
 public: //! @name object display management
   //! Constructs the interactive context object defined by the principal viewer MainViewer.
-  Standard_EXPORT AIS_InteractiveContext(const Handle(V3d_Viewer)& MainViewer);
+  Standard_EXPORT VisualContext(const Handle(ViewManager)& MainViewer);
 
   //! Destructor.
-  Standard_EXPORT virtual ~AIS_InteractiveContext();
+  Standard_EXPORT virtual ~VisualContext();
 
   //! Returns the display status of the entity anIobj.
   //! This will be one of the following:
@@ -81,16 +81,16 @@ public: //! @name object display management
   //! - AIS_DS_Temporary temporarily displayed
   //! - AIS_DS_None      nowhere displayed.
   Standard_EXPORT PrsMgr_DisplayStatus
-    DisplayStatus(const Handle(AIS_InteractiveObject)& anIobj) const;
+    DisplayStatus(const Handle(VisualEntity)& anIobj) const;
 
   //! Returns the status of the Interactive Context for the view of the Interactive Object.
-  Standard_EXPORT void Status(const Handle(AIS_InteractiveObject)& anObj,
-                              TCollection_ExtendedString&          astatus) const;
+  Standard_EXPORT void Status(const Handle(VisualEntity)& anObj,
+                              UtfString&          astatus) const;
 
   //! Returns true if Object is displayed in the interactive context.
-  Standard_EXPORT Standard_Boolean IsDisplayed(const Handle(AIS_InteractiveObject)& anIobj) const;
+  Standard_EXPORT Standard_Boolean IsDisplayed(const Handle(VisualEntity)& anIobj) const;
 
-  Standard_EXPORT Standard_Boolean IsDisplayed(const Handle(AIS_InteractiveObject)& aniobj,
+  Standard_EXPORT Standard_Boolean IsDisplayed(const Handle(VisualEntity)& aniobj,
                                                const Standard_Integer               aMode) const;
 
   //! Enable or disable automatic activation of default selection mode while displaying the object.
@@ -107,14 +107,14 @@ public: //! @name object display management
   //! This will be the object's default display mode, if there is one. Otherwise, it will be the
   //! context mode. The Interactive Object's default selection mode is activated if
   //! GetAutoActivateSelection() is TRUE. In general, this is 0.
-  Standard_EXPORT void Display(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void Display(const Handle(VisualEntity)& theIObj,
                                const Standard_Boolean               theToUpdateViewer);
 
   //! Sets status, display mode and selection mode for specified Object
   //! If theSelectionMode equals -1, theIObj will not be activated: it will be displayed but will
   //! not be selectable.
   Standard_EXPORT void Display(
-    const Handle(AIS_InteractiveObject)& theIObj,
+    const Handle(VisualEntity)& theIObj,
     const Standard_Integer               theDispMode,
     const Standard_Integer               theSelectionMode,
     const Standard_Boolean               theToUpdateViewer,
@@ -124,12 +124,12 @@ public: //! @name object display management
   //! and/or with the desired decomposition option, whether the object is visualized or not.
   //! The loaded objects will be selectable but displayable in highlighting only when detected by
   //! the Selector.
-  Standard_EXPORT void Load(const Handle(AIS_InteractiveObject)& theObj,
+  Standard_EXPORT void Load(const Handle(VisualEntity)& theObj,
                             const Standard_Integer               theSelectionMode = -1);
 
   //! Hides the object. The object's presentations are simply flagged as invisible and therefore
   //! excluded from redrawing. To show hidden objects, use Display().
-  Standard_EXPORT void Erase(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void Erase(const Handle(VisualEntity)& theIObj,
                              const Standard_Boolean               theToUpdateViewer);
 
   //! Hides all objects. The object's presentations are simply flagged as invisible and therefore
@@ -148,7 +148,7 @@ public: //! @name object display management
 
   //! Empties the graphic presentation of the mode indexed by aMode.
   //! Warning! Removes theIObj. theIObj is still active if it was previously activated.
-  void ClearPrs(const Handle(AIS_InteractiveObject)& theIObj,
+  void ClearPrs(const Handle(VisualEntity)& theIObj,
                 const Standard_Integer               theMode,
                 const Standard_Boolean               theToUpdateViewer)
   {
@@ -156,7 +156,7 @@ public: //! @name object display management
   }
 
   //! Removes Object from every viewer.
-  Standard_EXPORT void Remove(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void Remove(const Handle(VisualEntity)& theIObj,
                               const Standard_Boolean               theToUpdateViewer);
 
   //! Removes all the objects from Context.
@@ -164,7 +164,7 @@ public: //! @name object display management
 
   //! Recomputes the seen parts presentation of the Object.
   //! If theAllModes equals true, all presentations are present in the object even if unseen.
-  Standard_EXPORT void Redisplay(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void Redisplay(const Handle(VisualEntity)& theIObj,
                                  const Standard_Boolean               theToUpdateViewer,
                                  const Standard_Boolean               theAllModes = Standard_False);
 
@@ -176,25 +176,25 @@ public: //! @name object display management
 
   //! Recomputes the displayed presentations, flags the others.
   //! Doesn't update presentations.
-  Standard_EXPORT void RecomputePrsOnly(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void RecomputePrsOnly(const Handle(VisualEntity)& theIObj,
                                         const Standard_Boolean               theToUpdateViewer,
                                         const Standard_Boolean theAllModes = Standard_False);
 
   //! Recomputes the active selections, flags the others.
   //! Doesn't update presentations.
-  Standard_EXPORT void RecomputeSelectionOnly(const Handle(AIS_InteractiveObject)& anIObj);
+  Standard_EXPORT void RecomputeSelectionOnly(const Handle(VisualEntity)& anIObj);
 
   //! Updates displayed interactive object by checking and recomputing its flagged as "to be
   //! recomputed" presentation and selection structures. This method does not force any
   //! recomputation on its own. The method recomputes selections even if they are loaded without
   //! activation in particular selector.
-  Standard_EXPORT void Update(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void Update(const Handle(VisualEntity)& theIObj,
                               const Standard_Boolean               theUpdateViewer);
 
 public: //! @name highlighting management
   //! Returns default highlight style settings (could be overridden by PrsMgr_PresentableObject).
   //!
-  //! Tip: although highlighting style is defined by Prs3d_Drawer,
+  //! Tip: although highlighting style is defined by StyleDrawer,
   //! only a small set of properties derived from it's base class Graphic3d_PresentationAttributes
   //! will be actually used in most cases.
   //!
@@ -203,7 +203,7 @@ public: //! @name highlighting management
   //!    * Color: Quantity_NOC_CYAN1;
   //!    * Layer: Graphic3d_ZLayerId_Top,
   //!             object highlighting is drawn on top of main scene within Immediate Layers,
-  //!             so that V3d_View::RedrawImmediate() will be enough to see update;
+  //!             so that ViewWindow::RedrawImmediate() will be enough to see update;
   //!  - Prs3d_TypeOfHighlight_LocalDynamic
   //!    * Color: Quantity_NOC_CYAN1;
   //!    * Layer: Graphic3d_ZLayerId_Topmost,
@@ -226,19 +226,19 @@ public: //! @name highlighting management
   //! Prs3d_TypeOfHighlight_Dynamic and Prs3d_TypeOfHighlight_LocalDynamic defaults on object level
   //! @sa PrsMgr_PresentableObject::HilightAttributes() overriding Prs3d_TypeOfHighlight_Selected
   //! and Prs3d_TypeOfHighlight_LocalSelected defaults on object level
-  const Handle(Prs3d_Drawer)& HighlightStyle(const Prs3d_TypeOfHighlight theStyleType) const
+  const Handle(StyleDrawer)& HighlightStyle(const Prs3d_TypeOfHighlight theStyleType) const
   {
     return myStyles[theStyleType];
   }
 
   //! Setup highlight style settings.
   //! Tip: it is better modifying existing style returned by method HighlightStyle()
-  //! instead of creating a new Prs3d_Drawer to avoid unexpected results due misconfiguration.
+  //! instead of creating a new StyleDrawer to avoid unexpected results due misconfiguration.
   //!
   //! If a new highlight style is created, its presentation Zlayer should be checked,
   //! otherwise highlighting might not work as expected.
   void SetHighlightStyle(const Prs3d_TypeOfHighlight theStyleType,
-                         const Handle(Prs3d_Drawer)& theStyle)
+                         const Handle(StyleDrawer)& theStyle)
   {
     myStyles[theStyleType] = theStyle;
     if (theStyleType == Prs3d_TypeOfHighlight_None)
@@ -250,90 +250,90 @@ public: //! @name highlighting management
   //! Returns current dynamic highlight style settings corresponding to
   //! Prs3d_TypeOfHighlight_Dynamic. This is just a short-cut to
   //! HighlightStyle(Prs3d_TypeOfHighlight_Dynamic).
-  const Handle(Prs3d_Drawer)& HighlightStyle() const
+  const Handle(StyleDrawer)& HighlightStyle() const
   {
     return myStyles[Prs3d_TypeOfHighlight_Dynamic];
   }
 
   //! Setup the style of dynamic highlighting corrsponding to Prs3d_TypeOfHighlight_Selected.
   //! This is just a short-cut to SetHighlightStyle(Prs3d_TypeOfHighlight_Dynamic,theStyle).
-  void SetHighlightStyle(const Handle(Prs3d_Drawer)& theStyle)
+  void SetHighlightStyle(const Handle(StyleDrawer)& theStyle)
   {
     myStyles[Prs3d_TypeOfHighlight_Dynamic] = theStyle;
   }
 
   //! Returns current selection style settings corrsponding to Prs3d_TypeOfHighlight_Selected.
   //! This is just a short-cut to HighlightStyle(Prs3d_TypeOfHighlight_Selected).
-  const Handle(Prs3d_Drawer)& SelectionStyle() const
+  const Handle(StyleDrawer)& SelectionStyle() const
   {
     return myStyles[Prs3d_TypeOfHighlight_Selected];
   }
 
   //! Setup the style of selection highlighting.
   //! This is just a short-cut to SetHighlightStyle(Prs3d_TypeOfHighlight_Selected,theStyle).
-  void SetSelectionStyle(const Handle(Prs3d_Drawer)& theStyle)
+  void SetSelectionStyle(const Handle(StyleDrawer)& theStyle)
   {
     myStyles[Prs3d_TypeOfHighlight_Selected] = theStyle;
   }
 
   //! Returns highlight style of the object if it is marked as highlighted via global status
   //! @param[in] theObj  the object to check
-  Standard_EXPORT Standard_Boolean HighlightStyle(const Handle(AIS_InteractiveObject)& theObj,
-                                                  Handle(Prs3d_Drawer)& theStyle) const;
+  Standard_EXPORT Standard_Boolean HighlightStyle(const Handle(VisualEntity)& theObj,
+                                                  Handle(StyleDrawer)& theStyle) const;
 
   //! Returns highlight style of the owner if it is selected
   //! @param[in] theOwner  the owner to check
   Standard_EXPORT Standard_Boolean HighlightStyle(const Handle(SelectMgr_EntityOwner)& theOwner,
-                                                  Handle(Prs3d_Drawer)& theStyle) const;
+                                                  Handle(StyleDrawer)& theStyle) const;
 
   //! Returns true if the object is marked as highlighted via its global status
   //! @param[in] theObj  the object to check
-  Standard_EXPORT Standard_Boolean IsHilighted(const Handle(AIS_InteractiveObject)& theObj) const;
+  Standard_EXPORT Standard_Boolean IsHilighted(const Handle(VisualEntity)& theObj) const;
 
   //! Returns true if the owner is marked as selected
   //! @param[in] theOwner  the owner to check
   Standard_EXPORT Standard_Boolean IsHilighted(const Handle(SelectMgr_EntityOwner)& theOwner) const;
 
   //! Changes the color of all the lines of the object in view.
-  Standard_EXPORT void HilightWithColor(const Handle(AIS_InteractiveObject)& theObj,
-                                        const Handle(Prs3d_Drawer)&          theStyle,
+  Standard_EXPORT void HilightWithColor(const Handle(VisualEntity)& theObj,
+                                        const Handle(StyleDrawer)&          theStyle,
                                         const Standard_Boolean               theToUpdateViewer);
 
   //! Removes hilighting from the Object.
-  Standard_EXPORT void Unhilight(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void Unhilight(const Handle(VisualEntity)& theIObj,
                                  const Standard_Boolean               theToUpdateViewer);
 
 public: //! @name object presence management (View affinity, Layer, Priority)
   //! Returns the display priority of the Object.
   Standard_EXPORT Graphic3d_DisplayPriority
-    DisplayPriority(const Handle(AIS_InteractiveObject)& theIObj) const;
+    DisplayPriority(const Handle(VisualEntity)& theIObj) const;
 
   //! Sets the display priority of the seen parts presentation of the Object.
-  Standard_EXPORT void SetDisplayPriority(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void SetDisplayPriority(const Handle(VisualEntity)& theIObj,
                                           const Graphic3d_DisplayPriority      thePriority);
 
   Standard_DEPRECATED("Deprecated since OCCT7.7, Graphic3d_DisplayPriority should be passed "
                       "instead of integer number to SetDisplayPriority()")
 
-  void SetDisplayPriority(const Handle(AIS_InteractiveObject)& theIObj,
+  void SetDisplayPriority(const Handle(VisualEntity)& theIObj,
                           const Standard_Integer               thePriority)
   {
     SetDisplayPriority(theIObj, (Graphic3d_DisplayPriority)thePriority);
   }
 
   //! Get Z layer id set for displayed interactive object.
-  Standard_EXPORT Graphic3d_ZLayerId GetZLayer(const Handle(AIS_InteractiveObject)& theIObj) const;
+  Standard_EXPORT Graphic3d_ZLayerId GetZLayer(const Handle(VisualEntity)& theIObj) const;
 
   //! Set Z layer id for interactive object.
   //! The Z layers can be used to display temporarily presentations of some object in front of the
-  //! other objects in the scene. The ids for Z layers are generated by V3d_Viewer.
-  Standard_EXPORT void SetZLayer(const Handle(AIS_InteractiveObject)& theIObj,
+  //! other objects in the scene. The ids for Z layers are generated by ViewManager.
+  Standard_EXPORT void SetZLayer(const Handle(VisualEntity)& theIObj,
                                  const Graphic3d_ZLayerId             theLayerId);
 
   //! Setup object visibility in specified view.
   //! Has no effect if object is not displayed in this context.
-  Standard_EXPORT void SetViewAffinity(const Handle(AIS_InteractiveObject)& theIObj,
-                                       const Handle(V3d_View)&              theView,
+  Standard_EXPORT void SetViewAffinity(const Handle(VisualEntity)& theIObj,
+                                       const Handle(ViewWindow)&              theView,
                                        const Standard_Boolean               theIsVisible);
 
 public: //! @name Display Mode management
@@ -346,31 +346,31 @@ public: //! @name Display Mode management
 
   //! Sets the display mode of seen Interactive Objects.
   //! theMode provides the display mode index of the entity theIObj.
-  Standard_EXPORT void SetDisplayMode(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void SetDisplayMode(const Handle(VisualEntity)& theIObj,
                                       const Standard_Integer               theMode,
                                       const Standard_Boolean               theToUpdateViewer);
 
   //! Unsets the display mode of seen Interactive Objects.
-  Standard_EXPORT void UnsetDisplayMode(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void UnsetDisplayMode(const Handle(VisualEntity)& theIObj,
                                         const Standard_Boolean               theToUpdateViewer);
 
 public: //! @name object local transformation management
   //! Puts the location on the initial graphic representation and the selection for the Object.
-  Standard_EXPORT void SetLocation(const Handle(AIS_InteractiveObject)& theObject,
+  Standard_EXPORT void SetLocation(const Handle(VisualEntity)& theObject,
                                    const TopLoc_Location&               theLocation);
 
   //! Puts the Object back into its initial position.
-  Standard_EXPORT void ResetLocation(const Handle(AIS_InteractiveObject)& theObject);
+  Standard_EXPORT void ResetLocation(const Handle(VisualEntity)& theObject);
 
   //! Returns true if the Object has a location.
   Standard_EXPORT Standard_Boolean
-    HasLocation(const Handle(AIS_InteractiveObject)& theObject) const;
+    HasLocation(const Handle(VisualEntity)& theObject) const;
 
   //! Returns the location of the Object.
-  Standard_EXPORT TopLoc_Location Location(const Handle(AIS_InteractiveObject)& theObject) const;
+  Standard_EXPORT TopLoc_Location Location(const Handle(VisualEntity)& theObject) const;
 
   //! Sets transform persistence.
-  Standard_EXPORT void SetTransformPersistence(const Handle(AIS_InteractiveObject)&   theObject,
+  Standard_EXPORT void SetTransformPersistence(const Handle(VisualEntity)&   theObject,
                                                const Handle(Graphic3d_TransformPers)& theTrsfPers);
 
 public: //! @name mouse picking logic (detection and dynamic highlighting of entities under cursor)
@@ -387,12 +387,12 @@ public: //! @name mouse picking logic (detection and dynamic highlighting of ent
   //! Allows to manage sensitivity of a particular selection of interactive object theObject
   //! and changes previous sensitivity value of all sensitive entities in selection with theMode
   //! to the given theNewSensitivity.
-  Standard_EXPORT void SetSelectionSensitivity(const Handle(AIS_InteractiveObject)& theObject,
+  Standard_EXPORT void SetSelectionSensitivity(const Handle(VisualEntity)& theObject,
                                                const Standard_Integer               theMode,
                                                const Standard_Integer theNewSensitivity);
 
   //! Returns last active View (argument of MoveTo()/Select() methods).
-  Standard_EXPORT Handle(V3d_View) LastActiveView() const;
+  Standard_EXPORT Handle(ViewWindow) LastActiveView() const;
 
   //! Relays mouse position in pixels theXPix and theYPix to the interactive context selectors.
   //! This is done by the view theView passing this position to the main viewer and updating it.
@@ -405,7 +405,7 @@ public: //! @name mouse picking logic (detection and dynamic highlighting of ent
   //! style of detected owners (overrides defaults)
   Standard_EXPORT AIS_StatusOfDetection MoveTo(const Standard_Integer  theXPix,
                                                const Standard_Integer  theYPix,
-                                               const Handle(V3d_View)& theView,
+                                               const Handle(ViewWindow)& theView,
                                                const Standard_Boolean  theToRedrawOnUpdate);
 
   //! Relays axis theAxis to the interactive context selectors.
@@ -414,7 +414,7 @@ public: //! @name mouse picking logic (detection and dynamic highlighting of ent
   //! detected object.
   //! @sa PickingStrategy()
   Standard_EXPORT AIS_StatusOfDetection MoveTo(const Axis3d&           theAxis,
-                                               const Handle(V3d_View)& theView,
+                                               const Handle(ViewWindow)& theView,
                                                const Standard_Boolean  theToRedrawOnUpdate);
 
   //! Clears the list of entities detected by MoveTo() and resets dynamic highlighting.
@@ -436,11 +436,11 @@ public: //! @name mouse picking logic (detection and dynamic highlighting of ent
 
   //! Returns the interactive objects last detected in context.
   //! In general this is just a wrapper for
-  //! Handle(AIS_InteractiveObject)::DownCast(DetectedOwner()->Selectable()).
+  //! Handle(VisualEntity)::DownCast(DetectedOwner()->Selectable()).
   //! @sa DetectedOwner()
-  Handle(AIS_InteractiveObject) DetectedInteractive() const
+  Handle(VisualEntity) DetectedInteractive() const
   {
-    return Handle(AIS_InteractiveObject)::DownCast(myLastPicked->Selectable());
+    return Handle(VisualEntity)::DownCast(myLastPicked->Selectable());
   }
 
   //! Returns true if there is a detected shape in local context.
@@ -453,7 +453,7 @@ public: //! @name mouse picking logic (detection and dynamic highlighting of ent
   //! @sa DetectedOwner()
   Standard_DEPRECATED(
     "Local Context is deprecated - local selection should be used without Local Context")
-  Standard_EXPORT const TopoDS_Shape& DetectedShape() const;
+  Standard_EXPORT const TopoShape& DetectedShape() const;
 
   //! returns True if other entities were detected in the last mouse detection
   //! @sa HilightPreviousDetected(), HilightNextDetected().
@@ -470,13 +470,13 @@ public: //! @name mouse picking logic (detection and dynamic highlighting of ent
   //! @return the Rank of hilighted entity
   //! @sa HasNextDetected(), HilightPreviousDetected().
   Standard_EXPORT Standard_Integer
-    HilightNextDetected(const Handle(V3d_View)& theView,
+    HilightNextDetected(const Handle(ViewWindow)& theView,
                         const Standard_Boolean  theToRedrawImmediate = Standard_True);
 
   //! Same as previous methods in reverse direction.
   //! @sa HasNextDetected(), HilightNextDetected().
   Standard_EXPORT Standard_Integer
-    HilightPreviousDetected(const Handle(V3d_View)& theView,
+    HilightPreviousDetected(const Handle(ViewWindow)& theView,
                             const Standard_Boolean  theToRedrawImmediate = Standard_True);
 
 public: //! @name iteration through detected entities
@@ -514,7 +514,7 @@ public: //! @name Selection management
   Standard_EXPORT AIS_StatusOfPick AddSelect(const Handle(SelectMgr_EntityOwner)& theObject);
 
   //! Adds object in the selection.
-  AIS_StatusOfPick AddSelect(const Handle(AIS_InteractiveObject)& theObject)
+  AIS_StatusOfPick AddSelect(const Handle(VisualEntity)& theObject)
   {
     return AddSelect(theObject->GlobalSelOwner());
   }
@@ -530,7 +530,7 @@ public: //! @name Selection management
   Standard_EXPORT AIS_StatusOfPick
     SelectRectangle(const Graphic3d_Vec2i&    thePntMin,
                     const Graphic3d_Vec2i&    thePntMax,
-                    const Handle(V3d_View)&   theView,
+                    const Handle(ViewWindow)&   theView,
                     const AIS_SelectionScheme theSelScheme = AIS_SelectionScheme_Replace);
 
   //! Select everything found in the polygon defined by bounding polyline.
@@ -541,7 +541,7 @@ public: //! @name Selection management
   //! @return picking status
   Standard_EXPORT AIS_StatusOfPick
     SelectPolygon(const TColgp_Array1OfPnt2d& thePolyline,
-                  const Handle(V3d_View)&     theView,
+                  const Handle(ViewWindow)&     theView,
                   const AIS_SelectionScheme   theSelScheme = AIS_SelectionScheme_Replace);
 
   //! Selects the topmost object picked by the point in the view,
@@ -552,10 +552,10 @@ public: //! @name Selection management
   //! @return picking status
   Standard_EXPORT AIS_StatusOfPick
     SelectPoint(const Graphic3d_Vec2i&    thePnt,
-                const Handle(V3d_View)&   theView,
+                const Handle(ViewWindow)&   theView,
                 const AIS_SelectionScheme theSelScheme = AIS_SelectionScheme_Replace);
 
-  //! Select and hilights the previous detected via AIS_InteractiveContext::MoveTo() method;
+  //! Select and hilights the previous detected via VisualContext::MoveTo() method;
   //! unhilights the previous picked.
   //! Viewer should be explicitly redrawn after selection.
   //! @param[in] theSelScheme  selection scheme
@@ -569,11 +569,11 @@ public: //! @name Selection management
     SelectDetected(const AIS_SelectionScheme theSelScheme = AIS_SelectionScheme_Replace);
 
   //! Returns bounding box of selected objects.
-  Standard_EXPORT Bnd_Box BoundingBoxOfSelection(const Handle(V3d_View)& theView) const;
+  Standard_EXPORT Bnd_Box BoundingBoxOfSelection(const Handle(ViewWindow)& theView) const;
 
   Standard_DEPRECATED("BoundingBoxOfSelection() should be called with View argument")
 
-  Bnd_Box BoundingBoxOfSelection() const { return BoundingBoxOfSelection(Handle(V3d_View)()); }
+  Bnd_Box BoundingBoxOfSelection() const { return BoundingBoxOfSelection(Handle(ViewWindow)()); }
 
   //! Sets list of owner selected/deselected using specified selection scheme.
   //! @param theOwners owners to change selection state
@@ -583,14 +583,14 @@ public: //! @name Selection management
                                           const AIS_SelectionScheme       theSelScheme);
 
   //! Fits the view correspondingly to the bounds of selected objects.
-  //! Infinite objects are ignored if infinite state of AIS_InteractiveObject is set to true.
-  Standard_EXPORT void FitSelected(const Handle(V3d_View)& theView,
+  //! Infinite objects are ignored if infinite state of VisualEntity is set to true.
+  Standard_EXPORT void FitSelected(const Handle(ViewWindow)& theView,
                                    const Standard_Real     theMargin,
                                    const Standard_Boolean  theToUpdate);
 
   //! Fits the view correspondingly to the bounds of selected objects.
-  //! Infinite objects are ignored if infinite state of AIS_InteractiveObject is set to true.
-  Standard_EXPORT void FitSelected(const Handle(V3d_View)& theView);
+  //! Infinite objects are ignored if infinite state of VisualEntity is set to true.
+  Standard_EXPORT void FitSelected(const Handle(ViewWindow)& theView);
 
   //! Return value specified whether selected object must be hilighted when mouse cursor is moved
   //! above it
@@ -629,11 +629,11 @@ public: //! @name Selection management
 
   //! Puts the interactive object aniObj in the list of selected objects.
   //! Performs selection filters check.
-  Standard_EXPORT void SetSelected(const Handle(AIS_InteractiveObject)& theObject,
+  Standard_EXPORT void SetSelected(const Handle(VisualEntity)& theObject,
                                    const Standard_Boolean               theToUpdateViewer);
 
   //! Allows to highlight or unhighlight the owner given depending on its selection status
-  Standard_EXPORT void AddOrRemoveSelected(const Handle(AIS_InteractiveObject)& theObject,
+  Standard_EXPORT void AddOrRemoveSelected(const Handle(VisualEntity)& theObject,
                                            const Standard_Boolean               theToUpdateViewer);
 
   //! Updates Selected state of specified owner without calling HilightSelected().
@@ -671,10 +671,10 @@ public: //! @name Selection management
   }
 
   //! Returns true is the object given is selected
-  Standard_EXPORT Standard_Boolean IsSelected(const Handle(AIS_InteractiveObject)& theObj) const;
+  Standard_EXPORT Standard_Boolean IsSelected(const Handle(VisualEntity)& theObj) const;
 
   //! Returns the first selected object in the list of current selected.
-  Standard_EXPORT Handle(AIS_InteractiveObject) FirstSelectedObject() const;
+  Standard_EXPORT Handle(VisualEntity) FirstSelectedObject() const;
 
   //! Count a number of selected entities using InitSelected()+MoreSelected()+NextSelected()
   //! iterator.
@@ -700,13 +700,13 @@ public: //! @name Selection management
     return !mySelection->More() ? Handle(SelectMgr_EntityOwner)() : mySelection->Value();
   }
 
-  //! Return Handle(AIS_InteractiveObject)::DownCast (SelectedOwner()->Selectable()).
+  //! Return Handle(VisualEntity)::DownCast (SelectedOwner()->Selectable()).
   //! @sa SelectedOwner().
-  Handle(AIS_InteractiveObject) SelectedInteractive() const
+  Handle(VisualEntity) SelectedInteractive() const
   {
     return !mySelection->More()
-             ? Handle(AIS_InteractiveObject)()
-             : Handle(AIS_InteractiveObject)::DownCast(mySelection->Value()->Selectable());
+             ? Handle(VisualEntity)()
+             : Handle(VisualEntity)::DownCast(mySelection->Value()->Selectable());
   }
 
   //! Returns TRUE if the interactive context has a shape selected.
@@ -718,11 +718,11 @@ public: //! @name Selection management
   //! transformation being applied:
   //! @code
   //!   const Handle(StdSelect_BRepOwner) aBRepOwner = Handle(StdSelect_BRepOwner)::DownCast
-  //!   (SelectedOwner()); TopoDS_Shape aSelShape     = aBRepOwner->Shape(); TopoDS_Shape
+  //!   (SelectedOwner()); TopoShape aSelShape     = aBRepOwner->Shape(); TopoShape
   //!   aLocatedShape = aSelShape.Located (aBRepOwner->Location() * aSelShape.Location());
   //! @endcode
   //! @sa SelectedOwner(), HasSelectedShape().
-  Standard_EXPORT TopoDS_Shape SelectedShape() const;
+  Standard_EXPORT TopoShape SelectedShape() const;
 
   //! Returns SelectedInteractive()->HasOwner().
   //! @sa SelectedOwner().
@@ -738,11 +738,11 @@ public: //! @name immediate mode rendering
   Standard_EXPORT Standard_Boolean BeginImmediateDraw();
 
   //! returns True if <anIObj> has been stored in the list.
-  Standard_EXPORT Standard_Boolean ImmediateAdd(const Handle(AIS_InteractiveObject)& theObj,
+  Standard_EXPORT Standard_Boolean ImmediateAdd(const Handle(VisualEntity)& theObj,
                                                 const Standard_Integer               theMode = 0);
 
   //! returns True if the immediate display has been done.
-  Standard_EXPORT Standard_Boolean EndImmediateDraw(const Handle(V3d_View)& theView);
+  Standard_EXPORT Standard_Boolean EndImmediateDraw(const Handle(ViewWindow)& theView);
 
   //! Uses the First Active View of Main Viewer!
   //! returns True if the immediate display has been done.
@@ -752,7 +752,7 @@ public: //! @name immediate mode rendering
 
   //! Redraws immediate structures in all views of the viewer given taking into account its
   //! visibility.
-  void RedrawImmediate(const Handle(V3d_Viewer)& theViewer)
+  void RedrawImmediate(const Handle(ViewManager)& theViewer)
   {
     myMainPM->RedrawImmediate(theViewer);
   }
@@ -773,13 +773,13 @@ public: //! @name management of active Selection Modes
   //!                       AIS_SelectionModesConcurrency_Single can be used if only one selection
   //!                       mode is expected to be active and
   //!                       AIS_SelectionModesConcurrency_GlobalOrLocal can be used if either
-  //!                       AIS_InteractiveObject::GlobalSelectionMode() or any combination of Local
+  //!                       VisualEntity::GlobalSelectionMode() or any combination of Local
   //!                       selection modes is acceptable; this value is considered only if
   //!                       theToActivate set to TRUE
   //! @param theIsForce     when set to TRUE, the display status will be ignored while activating
   //! selection mode
   Standard_EXPORT void SetSelectionModeActive(
-    const Handle(AIS_InteractiveObject)& theObj,
+    const Handle(VisualEntity)& theObj,
     const Standard_Integer               theMode,
     const Standard_Boolean               theToActivate,
     const AIS_SelectionModesConcurrency  theConcurrency = AIS_SelectionModesConcurrency_Multiple,
@@ -787,7 +787,7 @@ public: //! @name management of active Selection Modes
 
   //! Activates the selection mode aMode whose index is given, for the given interactive entity
   //! anIobj.
-  void Activate(const Handle(AIS_InteractiveObject)& theObj,
+  void Activate(const Handle(VisualEntity)& theObj,
                 const Standard_Integer               theMode    = 0,
                 const Standard_Boolean               theIsForce = Standard_False)
   {
@@ -803,14 +803,14 @@ public: //! @name management of active Selection Modes
                                 const Standard_Boolean theIsForce = Standard_False);
 
   //! Deactivates all the activated selection modes of an object.
-  void Deactivate(const Handle(AIS_InteractiveObject)& theObj)
+  void Deactivate(const Handle(VisualEntity)& theObj)
   {
     SetSelectionModeActive(theObj, -1, Standard_False, AIS_SelectionModesConcurrency_Single);
   }
 
   //! Deactivates all the activated selection modes of the interactive object anIobj with a given
   //! selection mode aMode.
-  void Deactivate(const Handle(AIS_InteractiveObject)& theObj, const Standard_Integer theMode)
+  void Deactivate(const Handle(VisualEntity)& theObj, const Standard_Integer theMode)
   {
     SetSelectionModeActive(theObj, theMode, Standard_False);
   }
@@ -822,13 +822,13 @@ public: //! @name management of active Selection Modes
   Standard_EXPORT void Deactivate();
 
   //! Returns the list of activated selection modes.
-  Standard_EXPORT void ActivatedModes(const Handle(AIS_InteractiveObject)& anIobj,
+  Standard_EXPORT void ActivatedModes(const Handle(VisualEntity)& anIobj,
                                       TColStd_ListOfInteger&               theList) const;
 
   //! Returns a collection containing all entity owners created for the interactive object in
   //! specified selection mode (in all active modes if the Mode == -1)
   Standard_EXPORT void EntityOwners(Handle(SelectMgr_IndexedMapOfOwner)& theOwners,
-                                    const Handle(AIS_InteractiveObject)& theIObj,
+                                    const Handle(VisualEntity)& theIObj,
                                     const Standard_Integer               theMode = -1) const;
 
 public: //! @name Selection Filters management
@@ -885,18 +885,18 @@ public: //! @name common properties
   //! Returns the default attribute manager.
   //! This contains all the color and line attributes which can be used by interactive objects which
   //! do not have their own attributes.
-  const Handle(Prs3d_Drawer)& DefaultDrawer() const { return myDefaultDrawer; }
+  const Handle(StyleDrawer)& DefaultDrawer() const { return myDefaultDrawer; }
 
   //! Sets the default attribute manager; should be set at context creation time.
   //! Warning - this setter doesn't update links to the default drawer of already displayed objects!
-  void SetDefaultDrawer(const Handle(Prs3d_Drawer)& theDrawer)
+  void SetDefaultDrawer(const Handle(StyleDrawer)& theDrawer)
   {
     myDefaultDrawer                      = theDrawer;
     myStyles[Prs3d_TypeOfHighlight_None] = myDefaultDrawer;
   }
 
   //! Returns the current viewer.
-  const Handle(V3d_Viewer)& CurrentViewer() const { return myMainVwr; }
+  const Handle(ViewManager)& CurrentViewer() const { return myMainVwr; }
 
   const Handle(SelectMgr_SelectionManager)& SelectionManager() const { return mgrSelector; }
 
@@ -961,109 +961,109 @@ public: //! @name common properties
   Standard_EXPORT void RebuildSelectionStructs();
 
   //! Disconnects theObjToDisconnect from theAssembly and removes dependent selection structures
-  Standard_EXPORT void Disconnect(const Handle(AIS_InteractiveObject)& theAssembly,
-                                  const Handle(AIS_InteractiveObject)& theObjToDisconnect = NULL);
+  Standard_EXPORT void Disconnect(const Handle(VisualEntity)& theAssembly,
+                                  const Handle(VisualEntity)& theObjToDisconnect = NULL);
 
   //! Query objects visible or hidden in specified view due to affinity mask.
   Standard_EXPORT void ObjectsForView(
     AIS_ListOfInteractive&     theListOfIO,
-    const Handle(V3d_View)&    theView,
+    const Handle(ViewWindow)&    theView,
     const Standard_Boolean     theIsVisibleInView,
     const PrsMgr_DisplayStatus theStatus = PrsMgr_DisplayStatus_None) const;
 
   //! Return rotation gravity point.
-  Standard_EXPORT virtual Point3d GravityPoint(const Handle(V3d_View)& theView) const;
+  Standard_EXPORT virtual Point3d GravityPoint(const Handle(ViewWindow)& theView) const;
 
 public: //! @name debug visualization
   //! Visualization of sensitives - for debugging purposes!
-  Standard_EXPORT void DisplayActiveSensitive(const Handle(V3d_View)& aView);
+  Standard_EXPORT void DisplayActiveSensitive(const Handle(ViewWindow)& aView);
 
   //! Clear visualization of sensitives.
-  Standard_EXPORT void ClearActiveSensitive(const Handle(V3d_View)& aView);
+  Standard_EXPORT void ClearActiveSensitive(const Handle(ViewWindow)& aView);
 
   //! Visualization of sensitives - for debugging purposes!
-  Standard_EXPORT void DisplayActiveSensitive(const Handle(AIS_InteractiveObject)& anObject,
-                                              const Handle(V3d_View)&              aView);
+  Standard_EXPORT void DisplayActiveSensitive(const Handle(VisualEntity)& anObject,
+                                              const Handle(ViewWindow)&              aView);
 
 public: //! @name common object display attributes
   //! Sets the graphic attributes of the interactive object, such as visualization mode, color, and
   //! material.
-  Standard_EXPORT void SetLocalAttributes(const Handle(AIS_InteractiveObject)& theIObj,
-                                          const Handle(Prs3d_Drawer)&          theDrawer,
+  Standard_EXPORT void SetLocalAttributes(const Handle(VisualEntity)& theIObj,
+                                          const Handle(StyleDrawer)&          theDrawer,
                                           const Standard_Boolean               theToUpdateViewer);
 
   //! Removes the settings for local attributes of the Object and returns to defaults.
-  Standard_EXPORT void UnsetLocalAttributes(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void UnsetLocalAttributes(const Handle(VisualEntity)& theIObj,
                                             const Standard_Boolean               theToUpdateViewer);
 
   //! change the current facing model apply on polygons for SetColor(), SetTransparency(),
   //! SetMaterial() methods default facing model is Aspect_TOFM_TWO_SIDE. This mean that attributes
   //! is applying both on the front and back face.
   Standard_EXPORT void SetCurrentFacingModel(
-    const Handle(AIS_InteractiveObject)& aniobj,
+    const Handle(VisualEntity)& aniobj,
     const Aspect_TypeOfFacingModel       aModel = Aspect_TOFM_BOTH_SIDE);
 
   //! Returns true if a view of the Interactive Object has color.
-  Standard_EXPORT Standard_Boolean HasColor(const Handle(AIS_InteractiveObject)& aniobj) const;
+  Standard_EXPORT Standard_Boolean HasColor(const Handle(VisualEntity)& aniobj) const;
 
   //! Returns the color of the Object in the interactive context.
-  Standard_EXPORT void Color(const Handle(AIS_InteractiveObject)& aniobj,
+  Standard_EXPORT void Color(const Handle(VisualEntity)& aniobj,
                              Quantity_Color&                      acolor) const;
 
   //! Sets the color of the selected entity.
-  Standard_EXPORT void SetColor(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void SetColor(const Handle(VisualEntity)& theIObj,
                                 const Quantity_Color&                theColor,
                                 const Standard_Boolean               theToUpdateViewer);
 
   //! Removes the color selection for the selected entity.
-  Standard_EXPORT void UnsetColor(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void UnsetColor(const Handle(VisualEntity)& theIObj,
                                   const Standard_Boolean               theToUpdateViewer);
 
   //! Returns the width of the Interactive Object in the interactive context.
-  Standard_EXPORT virtual Standard_Real Width(const Handle(AIS_InteractiveObject)& aniobj) const;
+  Standard_EXPORT virtual Standard_Real Width(const Handle(VisualEntity)& aniobj) const;
 
   //! Sets the width of the Object.
-  Standard_EXPORT virtual void SetWidth(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT virtual void SetWidth(const Handle(VisualEntity)& theIObj,
                                         const Standard_Real                  theValue,
                                         const Standard_Boolean               theToUpdateViewer);
 
   //! Removes the width setting of the Object.
-  Standard_EXPORT virtual void UnsetWidth(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT virtual void UnsetWidth(const Handle(VisualEntity)& theIObj,
                                           const Standard_Boolean               theToUpdateViewer);
 
   //! Provides the type of material setting for the view of the Object.
-  Standard_EXPORT void SetMaterial(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void SetMaterial(const Handle(VisualEntity)& theIObj,
                                    const Graphic3d_MaterialAspect&      theMaterial,
                                    const Standard_Boolean               theToUpdateViewer);
 
   //! Removes the type of material setting for viewing the Object.
-  Standard_EXPORT void UnsetMaterial(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void UnsetMaterial(const Handle(VisualEntity)& theIObj,
                                      const Standard_Boolean               theToUpdateViewer);
 
   //! Provides the transparency settings for viewing the Object.
   //! The transparency value aValue may be between 0.0, opaque, and 1.0, fully transparent.
-  Standard_EXPORT void SetTransparency(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void SetTransparency(const Handle(VisualEntity)& theIObj,
                                        const Standard_Real                  theValue,
                                        const Standard_Boolean               theToUpdateViewer);
 
   //! Removes the transparency settings for viewing the Object.
-  Standard_EXPORT void UnsetTransparency(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void UnsetTransparency(const Handle(VisualEntity)& theIObj,
                                          const Standard_Boolean               theToUpdateViewer);
 
-  //! Sets up polygon offsets for the given AIS_InteractiveObject.
-  //! It simply calls AIS_InteractiveObject::SetPolygonOffsets().
-  Standard_EXPORT void SetPolygonOffsets(const Handle(AIS_InteractiveObject)& theIObj,
+  //! Sets up polygon offsets for the given VisualEntity.
+  //! It simply calls VisualEntity::SetPolygonOffsets().
+  Standard_EXPORT void SetPolygonOffsets(const Handle(VisualEntity)& theIObj,
                                          const Standard_Integer               theMode,
                                          const Standard_ShortReal             theFactor,
                                          const Standard_ShortReal             theUnits,
                                          const Standard_Boolean               theToUpdateViewer);
 
-  //! Simply calls AIS_InteractiveObject::HasPolygonOffsets().
+  //! Simply calls VisualEntity::HasPolygonOffsets().
   Standard_EXPORT Standard_Boolean
-    HasPolygonOffsets(const Handle(AIS_InteractiveObject)& anObj) const;
+    HasPolygonOffsets(const Handle(VisualEntity)& anObj) const;
 
   //! Retrieves current polygon offsets settings for Object.
-  Standard_EXPORT void PolygonOffsets(const Handle(AIS_InteractiveObject)& anObj,
+  Standard_EXPORT void PolygonOffsets(const Handle(VisualEntity)& anObj,
                                       Standard_Integer&                    aMode,
                                       Standard_ShortReal&                  aFactor,
                                       Standard_ShortReal&                  aUnits) const;
@@ -1108,16 +1108,16 @@ public: //! @name tessellation deviation properties for automatic triangulation
   //! The default value is 0.001.
   //! In drawing shapes, however, you are allowed to ask for a relative deviation.
   //! This deviation will be: SizeOfObject * DeviationCoefficient.
-  Standard_EXPORT void SetDeviationCoefficient(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void SetDeviationCoefficient(const Handle(VisualEntity)& theIObj,
                                                const Standard_Real                  theCoefficient,
                                                const Standard_Boolean theToUpdateViewer);
 
-  Standard_EXPORT void SetDeviationAngle(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void SetDeviationAngle(const Handle(VisualEntity)& theIObj,
                                          const Standard_Real                  theAngle,
                                          const Standard_Boolean               theToUpdateViewer);
 
-  //! Calls the AIS_Shape SetAngleAndDeviation to set both Angle and Deviation coefficients
-  Standard_EXPORT void SetAngleAndDeviation(const Handle(AIS_InteractiveObject)& theIObj,
+  //! Calls the VisualShape SetAngleAndDeviation to set both Angle and Deviation coefficients
+  Standard_EXPORT void SetAngleAndDeviation(const Handle(VisualEntity)& theIObj,
                                             const Standard_Real                  theAngle,
                                             const Standard_Boolean               theToUpdateViewer);
 
@@ -1146,7 +1146,7 @@ public: //! @name tessellation deviation properties for automatic triangulation
   //! The triangles are formed from chords of the curves in the shape.
   //! The deviation coefficient gives the highest value of the angle with which a chord can deviate
   //! from a tangent to a curve. If this limit is reached, a new triangle is begun. This deviation
-  //! is absolute and is set through Prs3d_Drawer::SetMaximalChordialDeviation. The default value is
+  //! is absolute and is set through StyleDrawer::SetMaximalChordialDeviation. The default value is
   //! 0.001. In drawing shapes, however, you are allowed to ask for a relative deviation. This
   //! deviation will be: SizeOfObject * DeviationCoefficient.
   Standard_Real DeviationCoefficient() const { return myDefaultDrawer->DeviationCoefficient(); }
@@ -1207,7 +1207,7 @@ public: //! @name iso-line display attributes
   //! In case if on-triangulation builder is disabled, default on-plane builder will compute
   //! isolines for the object given.
   Standard_EXPORT void IsoOnTriangulation(const Standard_Boolean               theIsEnabled,
-                                          const Handle(AIS_InteractiveObject)& theObject);
+                                          const Handle(VisualEntity)& theObject);
 
   //! Enables or disables on-triangulation build for isolines for default drawer.
   //! In case if on-triangulation builder is disabled, default on-plane builder will compute
@@ -1225,7 +1225,7 @@ public:
   Standard_DEPRECATED("Deprecated method Display() with obsolete argument "
                       "theToAllowDecomposition")
 
-  void Display(const Handle(AIS_InteractiveObject)& theIObj,
+  void Display(const Handle(VisualEntity)& theIObj,
                const Standard_Integer               theDispMode,
                const Standard_Integer               theSelectionMode,
                const Standard_Boolean               theToUpdateViewer,
@@ -1239,7 +1239,7 @@ public:
   Standard_DEPRECATED("Deprecated method Load() with obsolete last argument "
                       "theToAllowDecomposition")
 
-  void Load(const Handle(AIS_InteractiveObject)& theObj,
+  void Load(const Handle(VisualEntity)& theObj,
             Standard_Integer                     theSelectionMode,
             Standard_Boolean)
   {
@@ -1251,7 +1251,7 @@ public:
   //! The highlight color of entities detected by mouse movement is white by default.
   Standard_DEPRECATED("Deprecated method Hilight()")
 
-  void Hilight(const Handle(AIS_InteractiveObject)& theObj,
+  void Hilight(const Handle(VisualEntity)& theObj,
                const Standard_Boolean               theIsToUpdateViewer)
   {
     return HilightWithColor(theObj, myStyles[Prs3d_TypeOfHighlight_Dynamic], theIsToUpdateViewer);
@@ -1272,14 +1272,14 @@ public:
                                           const Standard_Integer  theYPMin,
                                           const Standard_Integer  theXPMax,
                                           const Standard_Integer  theYPMax,
-                                          const Handle(V3d_View)& theView,
+                                          const Handle(ViewWindow)& theView,
                                           const Standard_Boolean  theToUpdateViewer);
 
   //! polyline selection; clears the previous picked list
   Standard_DEPRECATED("This method is deprecated - SelectPolygon() taking "
                       "AIS_SelectionScheme_Replace should be called instead")
   Standard_EXPORT AIS_StatusOfPick Select(const TColgp_Array1OfPnt2d& thePolyline,
-                                          const Handle(V3d_View)&     theView,
+                                          const Handle(ViewWindow)&     theView,
                                           const Standard_Boolean      theToUpdateViewer);
 
   //! Stores and hilights the previous detected; Unhilights the previous picked.
@@ -1300,7 +1300,7 @@ public:
   Standard_DEPRECATED("This method is deprecated - SelectPolygon() taking AIS_SelectionScheme_XOR "
                       "should be called instead")
   Standard_EXPORT AIS_StatusOfPick ShiftSelect(const TColgp_Array1OfPnt2d& thePolyline,
-                                               const Handle(V3d_View)&     theView,
+                                               const Handle(ViewWindow)&     theView,
                                                const Standard_Boolean      theToUpdateViewer);
 
   //! Rectangle of selection; adds new detected entities into the picked list,
@@ -1311,7 +1311,7 @@ public:
                                                const Standard_Integer  theYPMin,
                                                const Standard_Integer  theXPMax,
                                                const Standard_Integer  theYPMax,
-                                               const Handle(V3d_View)& theView,
+                                               const Handle(ViewWindow)& theView,
                                                const Standard_Boolean  theToUpdateViewer);
 
 public:
@@ -1321,7 +1321,7 @@ public:
   Standard_DEPRECATED("Local Context is deprecated - local selection should be used without Local "
                       "Context")
 
-  void SetCurrentObject(const Handle(AIS_InteractiveObject)& theIObj,
+  void SetCurrentObject(const Handle(VisualEntity)& theIObj,
                         const Standard_Boolean               theToUpdateViewer)
   {
     SetSelected(theIObj, theToUpdateViewer);
@@ -1334,7 +1334,7 @@ public:
   Standard_DEPRECATED("Local Context is deprecated - local selection should be used without Local "
                       "Context")
 
-  void AddOrRemoveCurrentObject(const Handle(AIS_InteractiveObject)& theObj,
+  void AddOrRemoveCurrentObject(const Handle(VisualEntity)& theObj,
                                 const Standard_Boolean               theIsToUpdateViewer)
   {
     AddOrRemoveSelected(theObj, theIsToUpdateViewer);
@@ -1354,7 +1354,7 @@ public:
   Standard_DEPRECATED(
     "Local Context is deprecated - local selection should be used without Local Context")
 
-  Standard_Boolean IsCurrent(const Handle(AIS_InteractiveObject)& theObject) const
+  Standard_Boolean IsCurrent(const Handle(VisualEntity)& theObject) const
   {
     return IsSelected(theObject);
   }
@@ -1389,7 +1389,7 @@ public:
   Standard_DEPRECATED(
     "Local Context is deprecated - local selection should be used without Local Context")
 
-  Handle(AIS_InteractiveObject) Current() const { return SelectedInteractive(); }
+  Handle(VisualEntity) Current() const { return SelectedInteractive(); }
 
   Standard_DEPRECATED(
     "Local Context is deprecated - local selection should be used without Local Context")
@@ -1427,18 +1427,18 @@ public:
   void ClearCurrents(const Standard_Boolean theToUpdateViewer) { ClearSelected(theToUpdateViewer); }
 
   //! @return current mouse-detected shape or empty (null) shape, if current interactive object
-  //! is not a shape (AIS_Shape) or there is no current mouse-detected interactive object at all.
+  //! is not a shape (VisualShape) or there is no current mouse-detected interactive object at all.
   //! @sa DetectedCurrentOwner(), InitDetected(), MoreDetected(), NextDetected().
   Standard_DEPRECATED(
     "Local Context is deprecated - ::DetectedCurrentOwner() should be called instead")
-  Standard_EXPORT const TopoDS_Shape& DetectedCurrentShape() const;
+  Standard_EXPORT const TopoShape& DetectedCurrentShape() const;
 
   //! @return current mouse-detected interactive object or null object, if there is no currently
   //! detected interactives
   //! @sa DetectedCurrentOwner(), InitDetected(), MoreDetected(), NextDetected().
   Standard_DEPRECATED(
     "Local Context is deprecated - ::DetectedCurrentOwner() should be called instead")
-  Standard_EXPORT Handle(AIS_InteractiveObject) DetectedCurrentObject() const;
+  Standard_EXPORT Handle(VisualEntity) DetectedCurrentObject() const;
 
 public: //! @name sub-intensity management (deprecated)
   //! Sub-intensity allows temporary highlighting of particular objects with specified color in a
@@ -1463,13 +1463,13 @@ public: //! @name sub-intensity management (deprecated)
   //! Point with subintensity color. Available only for active local context. There is no effect if
   //! there is no local context. If a local context is open, the presentation of the Interactive
   //! Object activates the selection mode.
-  Standard_EXPORT void SubIntensityOn(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void SubIntensityOn(const Handle(VisualEntity)& theIObj,
                                       const Standard_Boolean               theToUpdateViewer);
 
   //! Removes the subintensity option for the entity.
   //! If a local context is open, the presentation of the Interactive Object activates the selection
   //! mode.
-  Standard_EXPORT void SubIntensityOff(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void SubIntensityOff(const Handle(VisualEntity)& theIObj,
                                        const Standard_Boolean               theToUpdateViewer);
 
   //! Returns selection instance
@@ -1484,18 +1484,18 @@ public: //! @name sub-intensity management (deprecated)
                                         Standard_Integer  theDepth = -1) const;
 
 protected: //! @name internal methods
-  Standard_EXPORT void GetDefModes(const Handle(AIS_InteractiveObject)& anIobj,
+  Standard_EXPORT void GetDefModes(const Handle(VisualEntity)& anIobj,
                                    Standard_Integer&                    Dmode,
                                    Standard_Integer&                    HiMod,
                                    Standard_Integer&                    SelMode) const;
 
-  Standard_EXPORT void EraseGlobal(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void EraseGlobal(const Handle(VisualEntity)& theIObj,
                                    const Standard_Boolean               theToUpdateViewer);
 
-  Standard_EXPORT void ClearGlobal(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void ClearGlobal(const Handle(VisualEntity)& theIObj,
                                    const Standard_Boolean               theToUpdateViewer);
 
-  Standard_EXPORT void ClearGlobalPrs(const Handle(AIS_InteractiveObject)& theObj,
+  Standard_EXPORT void ClearGlobalPrs(const Handle(VisualEntity)& theObj,
                                       const Standard_Integer               theMode,
                                       const Standard_Boolean               theToUpdateViewer);
 
@@ -1503,19 +1503,19 @@ protected: //! @name internal methods
 
   //! Highlights detected objects.
   //! If theToRedrawOnUpdate is set to false, callee should call RedrawImmediate() to update view.
-  Standard_EXPORT AIS_StatusOfDetection moveTo(const Handle(V3d_View)& theView,
+  Standard_EXPORT AIS_StatusOfDetection moveTo(const Handle(ViewWindow)& theView,
                                                const Standard_Boolean  theToRedrawOnUpdate);
 
   //! Returns True if the object is detected.
-  Standard_EXPORT Standard_Boolean isDetected(const Handle(AIS_InteractiveObject)& theObject);
+  Standard_EXPORT Standard_Boolean isDetected(const Handle(VisualEntity)& theObject);
 
   //! Helper function to unhighlight all entity owners currently highlighted with seleciton color.
-  Standard_EXPORT void unselectOwners(const Handle(AIS_InteractiveObject)& theObject);
+  Standard_EXPORT void unselectOwners(const Handle(VisualEntity)& theObject);
 
   //! Helper function that highlights the owner given with <theStyle> without
   //! performing AutoHighlight checks, e.g. is used for dynamic highlight.
   Standard_EXPORT void highlightWithColor(const Handle(SelectMgr_EntityOwner)& theOwner,
-                                          const Handle(V3d_Viewer)&            theViewer = NULL);
+                                          const Handle(ViewManager)&            theViewer = NULL);
 
   //! Helper function that highlights the owner given with <theStyle> with check
   //! for AutoHighlight, e.g. is used for selection.
@@ -1526,13 +1526,13 @@ protected: //! @name internal methods
   //! @param[in] theOwners  list of owners to highlight
   //! @param[in] theStyle   highlight style to apply or NULL to apply selection style
   Standard_EXPORT void highlightOwners(const AIS_NListOfEntityOwner& theOwners,
-                                       const Handle(Prs3d_Drawer)&   theStyle);
+                                       const Handle(StyleDrawer)&   theStyle);
 
   //! Helper function that highlights global owner of the object given with <theStyle> with check
   //! for AutoHighlight, e.g. is used for selection.
   //! If global owner is null, it simply highlights the whole object
-  Standard_EXPORT void highlightGlobal(const Handle(AIS_InteractiveObject)& theObj,
-                                       const Handle(Prs3d_Drawer)&          theStyle,
+  Standard_EXPORT void highlightGlobal(const Handle(VisualEntity)& theObj,
+                                       const Handle(StyleDrawer)&          theStyle,
                                        const Standard_Integer               theDispMode);
 
   //! Helper function that unhighlights all owners that are stored in current AIS_Selection.
@@ -1551,7 +1551,7 @@ protected: //! @name internal methods
 
   //! Helper function that unhighlights global selection owner of given interactive.
   //! The function does not perform any updates of global or owner status
-  Standard_EXPORT void unhighlightGlobal(const Handle(AIS_InteractiveObject)& theObj);
+  Standard_EXPORT void unhighlightGlobal(const Handle(VisualEntity)& theObj);
 
   //! Helper function that turns on sub-intensity in global status and highlights
   //! given objects with sub-intensity color
@@ -1562,14 +1562,14 @@ protected: //! @name internal methods
   //! @param[in] theIsDisplayedOnly  is true if sub-intensity should be applied only to objects with
   //! status AIS_DS_Displayed
   Standard_EXPORT void turnOnSubintensity(
-    const Handle(AIS_InteractiveObject)& theObject          = NULL,
+    const Handle(VisualEntity)& theObject          = NULL,
     const Standard_Integer               theDispMode        = -1,
     const Standard_Boolean               theIsDisplayedOnly = Standard_True) const;
 
   //! Helper function that highlights the object with sub-intensity color without any checks
   //! @param[in] theObject  the object that will be highlighted
   //! @param[in] theMode  display mode
-  Standard_EXPORT void highlightWithSubintensity(const Handle(AIS_InteractiveObject)& theObject,
+  Standard_EXPORT void highlightWithSubintensity(const Handle(VisualEntity)& theObject,
                                                  const Standard_Integer theMode) const;
 
   //! Helper function that highlights the owner with sub-intensity color without any checks
@@ -1582,10 +1582,10 @@ protected: //! @name internal methods
   //! if custom style is defined via object's highlight drawer, it will be used. Otherwise,
   //! dynamic highlight style of interactive context will be returned.
   //! @param[in] theObj  the object to check
-  const Handle(Prs3d_Drawer)& getHiStyle(const Handle(AIS_InteractiveObject)& theObj,
+  const Handle(StyleDrawer)& getHiStyle(const Handle(VisualEntity)& theObj,
                                          const Handle(SelectMgr_EntityOwner)& theOwner) const
   {
-    const Handle(Prs3d_Drawer)& aHiDrawer = theObj->DynamicHilightAttributes();
+    const Handle(StyleDrawer)& aHiDrawer = theObj->DynamicHilightAttributes();
     if (!aHiDrawer.IsNull())
     {
       return aHiDrawer;
@@ -1598,16 +1598,16 @@ protected: //! @name internal methods
 
   //! Return TRUE if highlight style of owner requires full viewer redraw.
   Standard_EXPORT Standard_Boolean isSlowHiStyle(const Handle(SelectMgr_EntityOwner)& theOwner,
-                                                 const Handle(V3d_Viewer)& theViewer) const;
+                                                 const Handle(ViewManager)& theViewer) const;
 
   //! Helper function that returns correct selection style for the object:
   //! if custom style is defined via object's highlight drawer, it will be used. Otherwise,
   //! selection style of interactive context will be returned.
   //! @param[in] theObj  the object to check
-  const Handle(Prs3d_Drawer)& getSelStyle(const Handle(AIS_InteractiveObject)& theObj,
+  const Handle(StyleDrawer)& getSelStyle(const Handle(VisualEntity)& theObj,
                                           const Handle(SelectMgr_EntityOwner)& theOwner) const
   {
-    const Handle(Prs3d_Drawer)& aHiDrawer = theObj->HilightAttributes();
+    const Handle(StyleDrawer)& aHiDrawer = theObj->HilightAttributes();
     if (!aHiDrawer.IsNull())
     {
       return aHiDrawer;
@@ -1620,11 +1620,11 @@ protected: //! @name internal methods
 
   //! Assign the context to the object or throw exception if object was already assigned to another
   //! context.
-  Standard_EXPORT void setContextToObject(const Handle(AIS_InteractiveObject)& theObj);
+  Standard_EXPORT void setContextToObject(const Handle(VisualEntity)& theObj);
 
   //! Return display mode for highlighting.
-  Standard_Integer getHilightMode(const Handle(AIS_InteractiveObject)& theObj,
-                                  const Handle(Prs3d_Drawer)&          theStyle,
+  Standard_Integer getHilightMode(const Handle(VisualEntity)& theObj,
+                                  const Handle(StyleDrawer)&          theStyle,
                                   const Standard_Integer               theDispMode) const
   {
     if (!theStyle.IsNull() && theStyle->DisplayMode() != -1
@@ -1655,7 +1655,7 @@ protected: //! @name internal methods
   //! Bind/Unbind status to object and its children
   //! @param[in] theIObj the object to change status
   //! @param[in] theStatus status, if NULL, unbind object
-  Standard_EXPORT void setObjectStatus(const Handle(AIS_InteractiveObject)& theIObj,
+  Standard_EXPORT void setObjectStatus(const Handle(VisualEntity)& theIObj,
                                        const PrsMgr_DisplayStatus           theStatus,
                                        const Standard_Integer               theDispyMode,
                                        const Standard_Integer               theSelectionMode);
@@ -1664,15 +1664,15 @@ protected: //! @name internal fields
   AIS_DataMapOfIOStatus              myObjects;
   Handle(SelectMgr_SelectionManager) mgrSelector;
   Handle(PrsMgr_PresentationManager) myMainPM;
-  Handle(V3d_Viewer)                 myMainVwr;
-  V3d_View*                          myLastActiveView;
+  Handle(ViewManager)                 myMainVwr;
+  ViewWindow*                          myLastActiveView;
   Handle(SelectMgr_EntityOwner)      myLastPicked;
   Standard_Boolean                   myToHilightSelected;
   Handle(AIS_Selection)              mySelection;
   Handle(SelectMgr_AndOrFilter)      myFilters; //!< context filter (the content active filters
                                                 //!  can be applied with AND or OR operation)
-  Handle(Prs3d_Drawer)      myDefaultDrawer;
-  Handle(Prs3d_Drawer)      myStyles[Prs3d_TypeOfHighlight_NB];
+  Handle(StyleDrawer)      myDefaultDrawer;
+  Handle(StyleDrawer)      myStyles[Prs3d_TypeOfHighlight_NB];
   TColStd_SequenceOfInteger myDetectedSeq;
   Standard_Integer          myCurDetected;
   Standard_Integer          myCurHighlighted;
@@ -1681,6 +1681,6 @@ protected: //! @name internal fields
   Standard_Boolean          myIsAutoActivateSelMode;
 };
 
-DEFINE_STANDARD_HANDLE(AIS_InteractiveContext, RefObject)
+DEFINE_STANDARD_HANDLE(VisualContext, RefObject)
 
 #endif // _AIS_InteractiveContext_HeaderFile

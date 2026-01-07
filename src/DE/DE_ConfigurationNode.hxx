@@ -60,7 +60,7 @@ public:
   //! Updates values according the resource file
   //! @param[in] theResourcePath file path to resource
   //! @return True if Load was successful
-  Standard_EXPORT virtual bool Load(const TCollection_AsciiString& theResourcePath = "");
+  Standard_EXPORT virtual bool Load(const AsciiString1& theResourcePath = "");
 
   //! Updates values according the resource
   //! @param[in] theResource input resource to use
@@ -70,11 +70,11 @@ public:
   //! Writes configuration to the resource file
   //! @param[in] theResourcePath file path to resource
   //! @return True if Save was successful
-  Standard_EXPORT bool Save(const TCollection_AsciiString& theResourcePath) const;
+  Standard_EXPORT bool Save(const AsciiString1& theResourcePath) const;
 
   //! Writes configuration to the string
   //! @return result resource string
-  Standard_EXPORT virtual TCollection_AsciiString Save() const = 0;
+  Standard_EXPORT virtual AsciiString1 Save() const = 0;
 
   //! Creates new provider for the own format
   //! @return new created provider
@@ -102,11 +102,11 @@ public:
 
   //! Gets CAD format name of associated provider
   //! @return provider CAD format
-  Standard_EXPORT virtual TCollection_AsciiString GetFormat() const = 0;
+  Standard_EXPORT virtual AsciiString1 GetFormat() const = 0;
 
   //! Gets provider's vendor name of associated provider
   //! @return provider's vendor name
-  Standard_EXPORT virtual TCollection_AsciiString GetVendor() const = 0;
+  Standard_EXPORT virtual AsciiString1 GetVendor() const = 0;
 
   //! Gets list of supported file extensions
   //! @return list of extensions
@@ -115,7 +115,7 @@ public:
   //! Checks the file extension to verify a format
   //! @param[in] theExtension input file extension
   //! @return Standard_True if file is supported by a current provider
-  Standard_EXPORT virtual bool CheckExtension(const TCollection_AsciiString& theExtension) const;
+  Standard_EXPORT virtual bool CheckExtension(const AsciiString1& theExtension) const;
 
   //! Checks the file content to verify a format
   //! @param[in] theBuffer read stream buffer to check content
@@ -142,7 +142,7 @@ public:
 
 public:
   //!< Internal parameters for transfer process
-  struct DE_SectionGlobal
+  struct GlobalSection2
   {
     // clang-format off
     Standard_Real LengthUnit = 1.0; //!< Target Unit (scaling based on MM) for the transfer process, default 1.0 (MM)

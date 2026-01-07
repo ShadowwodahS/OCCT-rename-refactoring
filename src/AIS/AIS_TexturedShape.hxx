@@ -31,7 +31,7 @@ class Graphic3d_Texture2D;
 
 //! This class allows to map textures on shapes.
 //! Presentations modes AIS_WireFrame (0) and AIS_Shaded (1) behave in the same manner as in
-//! AIS_Shape, whilst new modes 2 (bounding box) and 3 (texture mapping) extends it functionality.
+//! VisualShape, whilst new modes 2 (bounding box) and 3 (texture mapping) extends it functionality.
 //!
 //! The texture itself is parametrized in (0,1)x(0,1).
 //! Each face of a shape located in UV space is provided with these parameters:
@@ -45,12 +45,12 @@ class Graphic3d_Texture2D;
 //! - the number of occurrences of the texture on the face
 //! - the position of the origin of the texture
 //! - the scale factor of the texture
-class AIS_TexturedShape : public AIS_Shape
+class AIS_TexturedShape : public VisualShape
 {
 
 public: //! @name main methods
   //! Initializes the textured shape.
-  Standard_EXPORT AIS_TexturedShape(const TopoDS_Shape& theShape);
+  Standard_EXPORT AIS_TexturedShape(const TopoShape& theShape);
 
   //! Sets the texture source. <theTextureFileName> can specify path to texture image or one of the
   //! standard predefined textures. The accepted file types are those used in Image_AlienPixMap with
@@ -58,7 +58,7 @@ public: //! @name main methods
   //! <theTextureFileName> should contain integer - the Graphic3d_NameOfTexture2D enumeration index.
   //! Setting texture source using this method resets the source pixmap (if was set previously).
   Standard_EXPORT virtual void SetTextureFileName(
-    const TCollection_AsciiString& theTextureFileName);
+    const AsciiString1& theTextureFileName);
 
   //! Sets the texture source. <theTexturePixMap> specifies image data.
   //! Please note that the data should be in Bottom-Up order, the flag of Image_PixMap::IsTopDown()
@@ -176,7 +176,7 @@ public: //! @name methods to alter texture mapping properties
   //! @return true if texture color modulation is turned on
   Standard_Boolean TextureModulate() const { return myModulate; }
 
-  //! Return true if specified display mode is supported (extends AIS_Shape with Display Mode 3).
+  //! Return true if specified display mode is supported (extends VisualShape with Display Mode 3).
   virtual Standard_Boolean AcceptDisplayMode(const Standard_Integer theMode) const Standard_OVERRIDE
   {
     return theMode >= 0 && theMode <= 3;
@@ -196,7 +196,7 @@ protected: //! @name presentation fields
 
 protected: //! @name texture source fields
   Handle(Image_PixMap)      myTexturePixMap;
-  TCollection_AsciiString   myTextureFile;
+  AsciiString1   myTextureFile;
   Graphic3d_NameOfTexture2D myPredefTexture;
 
 protected: //! @name texture mapping properties
@@ -208,9 +208,9 @@ protected: //! @name texture mapping properties
   Standard_Boolean myToShowTriangles;
 
 public:
-  DEFINE_STANDARD_RTTIEXT(AIS_TexturedShape, AIS_Shape)
+  DEFINE_STANDARD_RTTIEXT(AIS_TexturedShape, VisualShape)
 };
 
-DEFINE_STANDARD_HANDLE(AIS_TexturedShape, AIS_Shape)
+DEFINE_STANDARD_HANDLE(AIS_TexturedShape, VisualShape)
 
 #endif // _AIS_TexturedShape_HeaderFile

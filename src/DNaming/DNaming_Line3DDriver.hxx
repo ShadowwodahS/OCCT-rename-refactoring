@@ -23,8 +23,8 @@
 #include <Standard_Integer.hxx>
 #include <TopTools_Array1OfShape.hxx>
 class TFunction_Logbook;
-class TDF_Label;
-class TopoDS_Wire;
+class DataLabel;
+class TopoWire;
 
 class DNaming_Line3DDriver;
 DEFINE_STANDARD_HANDLE(DNaming_Line3DDriver, TFunction_Driver)
@@ -64,8 +64,8 @@ public:
 protected:
 private:
   //! Loads a Line3D in a data framework
-  Standard_EXPORT void LoadNamingDS(const TDF_Label&              theResultLabel,
-                                    const TopoDS_Wire&            theWire,
+  Standard_EXPORT void LoadNamingDS(const DataLabel&              theResultLabel,
+                                    const TopoWire&            theWire,
                                     const TopTools_Array1OfShape& theVertexes,
                                     const Standard_Boolean        isClosed = Standard_False) const;
 };

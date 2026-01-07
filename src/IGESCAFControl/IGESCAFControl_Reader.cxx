@@ -53,7 +53,7 @@ static void checkColorRange(Standard_Real& theCol)
     theCol = 100.;
 }
 
-static inline Standard_Boolean IsComposite(const TopoDS_Shape& theShape)
+static inline Standard_Boolean IsComposite(const TopoShape& theShape)
 {
   if (theShape.ShapeType() == TopAbs_COMPOUND)
   {
@@ -88,11 +88,11 @@ static inline Standard_Boolean IsComposite(const TopoDS_Shape& theShape)
 //           theMap is used to avoid visiting the same compound.
 //=======================================================================
 static void AddCompositeShape(const Handle(XCAFDoc_ShapeTool)& theSTool,
-                              const TopoDS_Shape&              theShape,
+                              const TopoShape&              theShape,
                               Standard_Boolean                 theConsiderLoc,
                               TopTools_MapOfShape&             theMap)
 {
-  TopoDS_Shape           aShape = theShape;
+  TopoShape           aShape = theShape;
   const TopLoc_Location& aLoc   = theShape.Location();
   if (!theConsiderLoc && !aLoc.IsIdentity())
     aShape.Location(TopLoc_Location());
@@ -101,16 +101,16 @@ static void AddCompositeShape(const Handle(XCAFDoc_ShapeTool)& theSTool,
 
   TopoDS_Iterator  anIt(theShape, Standard_False, Standard_False);
   Standard_Boolean aHasCompositeSubShape = Standard_False;
-  TopoDS_Compound  aSimpleShape;
-  BRep_Builder     aB;
+  TopoCompound  aSimpleShape;
+  ShapeBuilder     aB;
   aB.MakeCompound(aSimpleShape);
-  TopoDS_Compound aCompShape;
+  TopoCompound aCompShape;
   aB.MakeCompound(aCompShape);
   Standard_Integer nbSimple = 0;
 
   for (; anIt.More(); anIt.Next())
   {
-    const TopoDS_Shape& aSubShape = anIt.Value();
+    const TopoShape& aSubShape = anIt.Value();
     if (IsComposite(aSubShape))
     {
       aHasCompositeSubShape = Standard_True;
@@ -128,7 +128,7 @@ static void AddCompositeShape(const Handle(XCAFDoc_ShapeTool)& theSTool,
   {
     theSTool->AddShape(aSimpleShape, Standard_False, Standard_False);
 
-    TopoDS_Compound aNewShape;
+    TopoCompound aNewShape;
     aB.MakeCompound(aNewShape);
     aB.Add(aNewShape, aSimpleShape);
     aB.Add(aNewShape, aCompShape);
@@ -147,7 +147,7 @@ static void AddCompositeShape(const Handle(XCAFDoc_ShapeTool)& theSTool,
 // function : Transfer
 // purpose  : basic working method
 //=======================================================================
-Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(TDocStd_Document)& doc,
+Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(AppDocument)& doc,
                                                  const Message_ProgressRange&    theProgress)
 {
   // read all shapes
@@ -170,7 +170,7 @@ Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(TDocStd_Document)&
   }
   aModel->ChangeGlobalSection().SetCascadeUnit(aScaleFactorMM);
   TransferRoots(theProgress); // replaces the above
-  num = NbShapes();
+  num = NbShapes1();
   if (num <= 0)
     return Standard_False;
 
@@ -181,7 +181,7 @@ Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(TDocStd_Document)&
   Standard_Integer i;
   for (i = 1; i <= num; i++)
   {
-    TopoDS_Shape sh = Shape(i);
+    TopoShape sh = Shape(i);
     // ---- HERE -- to add check [ assembly / hybrid model ]
     if (!IsComposite(sh))
       STool->AddShape(sh, Standard_False);
@@ -213,7 +213,7 @@ Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(TDocStd_Document)&
     Handle(Transfer_Binder) binder = TP->Find(ent);
     if (binder.IsNull())
       continue;
-    TopoDS_Shape S = TransferBRep::ShapeResult(binder);
+    TopoShape S = TransferBRep::ShapeResult(binder);
     if (S.IsNull())
       continue;
 
@@ -229,7 +229,7 @@ Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(TDocStd_Document)&
         IsColor = Standard_True;
         if (ent->DefColor() == IGESData_DefValue)
         {
-          col = IGESCAFControl::DecodeColor(ent->RankColor());
+          col = IGESCAFControl1::DecodeColor(ent->RankColor());
         }
         else
         {
@@ -254,7 +254,7 @@ Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(TDocStd_Document)&
       }
     }
 
-    TDF_Label L;
+    DataLabel L;
 
     Standard_Boolean IsFound;
     if (IsColor)
@@ -283,7 +283,7 @@ Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(TDocStd_Document)&
               switch (aDeflist)
               {
                 case IGESData_DefOne: {
-                  TCollection_ExtendedString aLayerName(ent->Level());
+                  UtfString aLayerName(ent->Level());
                   LTool->SetLayer(L, aLayerName);
                   break;
                 }
@@ -292,7 +292,7 @@ Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(TDocStd_Document)&
                   Standard_Integer                 layerNb    = aLevelList->NbLevelNumbers();
                   for (Standard_Integer ilev = 1; ilev <= layerNb; ilev++)
                   {
-                    TCollection_ExtendedString aLayerName(aLevelList->LevelNumber(ilev));
+                    UtfString aLayerName(aLevelList->LevelNumber(ilev));
                     LTool->SetLayer(L, aLayerName);
                   }
                   break;
@@ -316,11 +316,11 @@ Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(TDocStd_Document)&
         // read names
         if (ent->HasName())
         {
-          TCollection_AsciiString string = ent->NameValue()->String();
+          AsciiString1 string = ent->NameValue()->String();
           string.LeftAdjust();
           string.RightAdjust();
-          TCollection_ExtendedString str(string);
-          TDataStd_Name::Set(L, str);
+          UtfString str(string);
+          NameAttribute::Set(L, str);
         }
       }
       if (GetLayerMode() && IsLTool)
@@ -331,7 +331,7 @@ Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(TDocStd_Document)&
         switch (aDeflist)
         {
           case IGESData_DefOne: {
-            TCollection_ExtendedString aLayerName(ent->Level());
+            UtfString aLayerName(ent->Level());
             LTool->SetLayer(L, aLayerName);
             break;
           }
@@ -340,7 +340,7 @@ Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(TDocStd_Document)&
             Standard_Integer                 layerNb    = aLevelList->NbLevelNumbers();
             for (Standard_Integer ilev = 1; ilev <= layerNb; ilev++)
             {
-              TCollection_ExtendedString aLayerName(aLevelList->LevelNumber(ilev));
+              UtfString aLayerName(aLevelList->LevelNumber(ilev));
               LTool->SetLayer(L, aLayerName);
             }
             break;
@@ -360,8 +360,8 @@ Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(TDocStd_Document)&
       Handle(TCollection_HAsciiString) aName = aSubfigure->Name();
       aName->LeftAdjust();
       aName->RightAdjust();
-      TCollection_ExtendedString anExtStrName(aName->ToCString());
-      TDataStd_Name::Set(L, anExtStrName);
+      UtfString anExtStrName(aName->ToCString());
+      NameAttribute::Set(L, anExtStrName);
     }
   }
 
@@ -376,7 +376,7 @@ Standard_Boolean IGESCAFControl_Reader::Transfer(const Handle(TDocStd_Document)&
 //=================================================================================================
 
 Standard_Boolean IGESCAFControl_Reader::Perform(const Standard_CString          filename,
-                                                const Handle(TDocStd_Document)& doc,
+                                                const Handle(AppDocument)& doc,
                                                 const Message_ProgressRange&    theProgress)
 {
   if (ReadFile(filename) != IFSelect_RetDone)

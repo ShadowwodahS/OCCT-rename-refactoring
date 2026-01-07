@@ -45,7 +45,7 @@ BRepAdaptor_CompCurve::BRepAdaptor_CompCurve()
 {
 }
 
-BRepAdaptor_CompCurve::BRepAdaptor_CompCurve(const TopoDS_Wire&     theWire,
+BRepAdaptor_CompCurve::BRepAdaptor_CompCurve(const TopoWire&     theWire,
                                              const Standard_Boolean theIsAC)
     : myWire(theWire),
       TFirst(0.0),
@@ -58,7 +58,7 @@ BRepAdaptor_CompCurve::BRepAdaptor_CompCurve(const TopoDS_Wire&     theWire,
   Initialize(theWire, theIsAC);
 }
 
-BRepAdaptor_CompCurve::BRepAdaptor_CompCurve(const TopoDS_Wire&     theWire,
+BRepAdaptor_CompCurve::BRepAdaptor_CompCurve(const TopoWire&     theWire,
                                              const Standard_Boolean theIsAC,
                                              const Standard_Real    theFirst,
                                              const Standard_Real    theLast,
@@ -99,18 +99,18 @@ Handle(Adaptor3d_Curve) BRepAdaptor_CompCurve::ShallowCopy() const
   return aCopy;
 }
 
-void BRepAdaptor_CompCurve::Initialize(const TopoDS_Wire& W, const Standard_Boolean AC)
+void BRepAdaptor_CompCurve::Initialize(const TopoWire& W, const Standard_Boolean AC)
 {
   Standard_Integer       ii, NbEdge;
   BRepTools_WireExplorer wexp;
-  TopoDS_Edge            E;
+  TopoEdge            E;
 
   myWire = W;
   PTol   = 0.0;
   IsbyAC = AC;
 
   for (NbEdge = 0, wexp.Init(myWire); wexp.More(); wexp.Next())
-    if (!BRep_Tool::Degenerated(wexp.Current()))
+    if (!BRepInspector::Degenerated(wexp.Current()))
       NbEdge++;
 
   if (NbEdge == 0)
@@ -124,7 +124,7 @@ void BRepAdaptor_CompCurve::Initialize(const TopoDS_Wire& W, const Standard_Bool
   for (ii = 0, wexp.Init(myWire); wexp.More(); wexp.Next())
   {
     E = wexp.Current();
-    if (!BRep_Tool::Degenerated(E))
+    if (!BRepInspector::Degenerated(E))
     {
       ii++;
       myCurves->ChangeValue(ii).Initialize(E);
@@ -142,9 +142,9 @@ void BRepAdaptor_CompCurve::Initialize(const TopoDS_Wire& W, const Standard_Bool
   if ((NbEdge > 2) || ((NbEdge == 2) && (!myWire.Closed())))
   {
     TopAbs_Orientation Or = myCurves->Value(1).Edge().Orientation();
-    TopoDS_Vertex      VI, VL;
-    TopExp::CommonVertex(myCurves->Value(1).Edge(), myCurves->Value(2).Edge(), VI);
-    VL = TopExp::LastVertex(myCurves->Value(1).Edge());
+    TopoVertex      VI, VL;
+    TopExp1::CommonVertex(myCurves->Value(1).Edge(), myCurves->Value(2).Edge(), VI);
+    VL = TopExp1::LastVertex(myCurves->Value(1).Edge());
     if (VI.IsSame(VL))
     { // The direction of parsing is always preserved
       if (Or == TopAbs_REVERSED)
@@ -161,7 +161,7 @@ void BRepAdaptor_CompCurve::Initialize(const TopoDS_Wire& W, const Standard_Bool
   TLast  = myKnots->Value(myKnots->Length());
 }
 
-void BRepAdaptor_CompCurve::Initialize(const TopoDS_Wire&     W,
+void BRepAdaptor_CompCurve::Initialize(const TopoWire&     W,
                                        const Standard_Boolean AC,
                                        const Standard_Real    First,
                                        const Standard_Real    Last,
@@ -210,12 +210,12 @@ void BRepAdaptor_CompCurve::Initialize(const TopoDS_Wire&     W,
   }
 }
 
-const TopoDS_Wire& BRepAdaptor_CompCurve::Wire() const
+const TopoWire& BRepAdaptor_CompCurve::Wire() const
 {
   return myWire;
 }
 
-void BRepAdaptor_CompCurve::Edge(const Standard_Real U, TopoDS_Edge& E, Standard_Real& UonE) const
+void BRepAdaptor_CompCurve::Edge(const Standard_Real U, TopoEdge& E, Standard_Real& UonE) const
 {
   Standard_Real    d;
   Standard_Integer index = CurIndex;
@@ -444,12 +444,12 @@ Standard_Integer BRepAdaptor_CompCurve::NbKnots() const
   return myCurves->Value(1).NbKnots();
 }
 
-Handle(Geom_BezierCurve) BRepAdaptor_CompCurve::Bezier() const
+Handle(BezierCurve3d) BRepAdaptor_CompCurve::Bezier() const
 {
   return myCurves->Value(1).Bezier();
 }
 
-Handle(Geom_BSplineCurve) BRepAdaptor_CompCurve::BSpline() const
+Handle(BSplineCurve3d) BRepAdaptor_CompCurve::BSpline() const
 {
   return myCurves->Value(1).BSpline();
 }
@@ -507,13 +507,13 @@ void BRepAdaptor_CompCurve::Prepare(Standard_Real&    W,
   }
 
   // Invert ?
-  const TopoDS_Edge& E  = myCurves->Value(theCurIndex).Edge();
+  const TopoEdge& E  = myCurves->Value(theCurIndex).Edge();
   TopAbs_Orientation Or = E.Orientation();
   Standard_Boolean   Reverse;
   Reverse = (Forward && (Or == TopAbs_REVERSED)) || (!Forward && (Or != TopAbs_REVERSED));
 
   // Calculate the local parameter
-  BRep_Tool::Range(E, f, l);
+  BRepInspector::Range(E, f, l);
   Delta = myKnots->Value(theCurIndex + 1) - myKnots->Value(theCurIndex);
   if (Delta > PTol * 1.e-9)
     Delta = (l - f) / Delta;
@@ -534,7 +534,7 @@ void BRepAdaptor_CompCurve::InvPrepare(const Standard_Integer index,
                                        Standard_Real&         Delta) const
 {
   // Invert?
-  const TopoDS_Edge& E  = myCurves->Value(index).Edge();
+  const TopoEdge& E  = myCurves->Value(index).Edge();
   TopAbs_Orientation Or = E.Orientation();
   Standard_Boolean   Reverse;
   Reverse = (Forward && (Or == TopAbs_REVERSED)) || (!Forward && (Or != TopAbs_REVERSED));
@@ -542,7 +542,7 @@ void BRepAdaptor_CompCurve::InvPrepare(const Standard_Integer index,
   // Calculate the parameters of reparametrisation
   // such as : T = Ti + (t-First)*Delta
   Standard_Real f, l;
-  BRep_Tool::Range(E, f, l);
+  BRepInspector::Range(E, f, l);
   Delta = myKnots->Value(index + 1) - myKnots->Value(index);
   if (l - f > PTol * 1.e-9)
     Delta /= (l - f);

@@ -52,7 +52,7 @@ void gp_Pnt2d::Transform(const gp_Trsf2d& T)
 void gp_Pnt2d::Mirror(const gp_Pnt2d& P)
 {
   coord.Reverse();
-  gp_XY XY = P.coord;
+  Coords2d XY = P.coord;
   XY.Multiply(2.0);
   coord.Add(XY);
 }

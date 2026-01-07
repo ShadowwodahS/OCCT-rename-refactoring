@@ -25,7 +25,7 @@
 #include <TopOpeBRepDS_Kind.hxx>
 #include <Standard_Integer.hxx>
 #include <Standard_OStream.hxx>
-class TopOpeBRepDS_Transition;
+class StateTransition;
 
 class TopOpeBRepDS_ShapeShapeInterference;
 DEFINE_STANDARD_HANDLE(TopOpeBRepDS_ShapeShapeInterference, TopOpeBRepDS_Interference)
@@ -57,7 +57,7 @@ public:
   //! DIFF_ORIENTED :
   //! <S> and <Ancestor> have identical types,
   //! <S> and <Ancestor> orientations are DIFFERENT.
-  Standard_EXPORT TopOpeBRepDS_ShapeShapeInterference(const TopOpeBRepDS_Transition& T,
+  Standard_EXPORT TopOpeBRepDS_ShapeShapeInterference(const StateTransition& T,
                                                       const TopOpeBRepDS_Kind        ST,
                                                       const Standard_Integer         S,
                                                       const TopOpeBRepDS_Kind        GT,

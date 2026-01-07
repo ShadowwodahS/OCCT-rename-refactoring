@@ -44,7 +44,7 @@ BRepMesh_ShapeVisitor::~BRepMesh_ShapeVisitor() {}
 
 //=================================================================================================
 
-void BRepMesh_ShapeVisitor::Visit(const TopoDS_Edge& theEdge)
+void BRepMesh_ShapeVisitor::Visit(const TopoEdge& theEdge)
 {
   if (!myDEdgeMap.IsBound(theEdge))
   {
@@ -55,23 +55,23 @@ void BRepMesh_ShapeVisitor::Visit(const TopoDS_Edge& theEdge)
 
 //=================================================================================================
 
-void BRepMesh_ShapeVisitor::Visit(const TopoDS_Face& theFace)
+void BRepMesh_ShapeVisitor::Visit(const TopoFace& theFace)
 {
-  BRepTools::Update(theFace);
+  BRepTools1::Update(theFace);
   const IMeshData::IFaceHandle& aDFace = myModel->AddFace(theFace);
 
   // Outer wire should always be the first in the model.
-  TopoDS_Wire aOuterWire = ShapeAnalysis::OuterWire(theFace);
+  TopoWire aOuterWire = ShapeAnalysis::OuterWire(theFace);
   if (!addWire(aOuterWire, aDFace))
   {
     aDFace->SetStatus(IMeshData_Failure);
     return;
   }
 
-  TopExp_Explorer aWireIt(theFace, TopAbs_WIRE);
+  ShapeExplorer aWireIt(theFace, TopAbs_WIRE);
   for (; aWireIt.More(); aWireIt.Next())
   {
-    const TopoDS_Wire& aWire = TopoDS::Wire(aWireIt.Current());
+    const TopoWire& aWire = TopoDS::Wire(aWireIt.Current());
     if (aWire.IsSame(aOuterWire))
     {
       continue;
@@ -88,7 +88,7 @@ void BRepMesh_ShapeVisitor::Visit(const TopoDS_Face& theFace)
 
 //=================================================================================================
 
-Standard_Boolean BRepMesh_ShapeVisitor::addWire(const TopoDS_Wire&            theWire,
+Standard_Boolean BRepMesh_ShapeVisitor::addWire(const TopoWire&            theWire,
                                                 const IMeshData::IFaceHandle& theDFace)
 {
   if (theWire.IsNull())
@@ -122,7 +122,7 @@ Standard_Boolean BRepMesh_ShapeVisitor::addWire(const TopoDS_Wire&            th
   for (Standard_Integer i = 1; i <= aEdgesNb; ++i)
   {
     const Standard_Integer aEdgeIndex = aOrderTool.Ordered(i);
-    const TopoDS_Edge&     aEdge      = aWireData->Edge(aEdgeIndex);
+    const TopoEdge&     aEdge      = aWireData->Edge(aEdgeIndex);
     if (aEdge.Orientation() != TopAbs_EXTERNAL)
     {
       const IMeshData::IEdgeHandle& aDEdge = myModel->GetEdge(myDEdgeMap.Find(aEdge));

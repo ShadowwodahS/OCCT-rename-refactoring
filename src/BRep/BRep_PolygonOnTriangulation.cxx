@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRep_PolygonOnTriangulation, BRep_CurveRepresentation
 
 BRep_PolygonOnTriangulation::BRep_PolygonOnTriangulation(
   const Handle(Poly_PolygonOnTriangulation)& P,
-  const Handle(Poly_Triangulation)&          T,
+  const Handle(MeshTriangulation)&          T,
   const TopLoc_Location&                     L)
     : BRep_CurveRepresentation(L),
       myPolygon(P),
@@ -45,7 +45,7 @@ Standard_Boolean BRep_PolygonOnTriangulation::IsPolygonOnTriangulation() const
 //=================================================================================================
 
 Standard_Boolean BRep_PolygonOnTriangulation::IsPolygonOnTriangulation(
-  const Handle(Poly_Triangulation)& T,
+  const Handle(MeshTriangulation)& T,
   const TopLoc_Location&            L) const
 {
   return (T == myTriangulation) && (L == myLocation);
@@ -69,7 +69,7 @@ const Handle(Poly_PolygonOnTriangulation)& BRep_PolygonOnTriangulation::PolygonO
 
 //=================================================================================================
 
-const Handle(Poly_Triangulation)& BRep_PolygonOnTriangulation::Triangulation() const
+const Handle(MeshTriangulation)& BRep_PolygonOnTriangulation::Triangulation() const
 {
   return myTriangulation;
 }

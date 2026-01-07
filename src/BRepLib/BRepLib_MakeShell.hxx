@@ -23,8 +23,8 @@
 
 #include <BRepLib_ShellError.hxx>
 #include <BRepLib_MakeShape.hxx>
-class Geom_Surface;
-class TopoDS_Shell;
+class GeomSurface;
+class TopoShell;
 
 //! Provides methods to build shells.
 //!
@@ -39,10 +39,10 @@ public:
   //! Not done.
   Standard_EXPORT BRepLib_MakeShell();
 
-  Standard_EXPORT BRepLib_MakeShell(const Handle(Geom_Surface)& S,
+  Standard_EXPORT BRepLib_MakeShell(const Handle(GeomSurface)& S,
                                     const Standard_Boolean      Segment = Standard_False);
 
-  Standard_EXPORT BRepLib_MakeShell(const Handle(Geom_Surface)& S,
+  Standard_EXPORT BRepLib_MakeShell(const Handle(GeomSurface)& S,
                                     const Standard_Real         UMin,
                                     const Standard_Real         UMax,
                                     const Standard_Real         VMin,
@@ -51,7 +51,7 @@ public:
 
   //! Creates the shell from the surface  and the min-max
   //! values.
-  Standard_EXPORT void Init(const Handle(Geom_Surface)& S,
+  Standard_EXPORT void Init(const Handle(GeomSurface)& S,
                             const Standard_Real         UMin,
                             const Standard_Real         UMax,
                             const Standard_Real         VMin,
@@ -61,8 +61,8 @@ public:
   Standard_EXPORT BRepLib_ShellError Error() const;
 
   //! Returns the new Shell.
-  Standard_EXPORT const TopoDS_Shell& Shell() const;
-  Standard_EXPORT                     operator TopoDS_Shell() const;
+  Standard_EXPORT const TopoShell& Shell() const;
+  Standard_EXPORT                     operator TopoShell() const;
 
 protected:
 private:

@@ -80,7 +80,7 @@ public:
   //! selection) \theItemNames names to be selected for each selection parameter
   virtual void GetSelectionParameters(QItemSelectionModel*                          theModel,
                                       NCollection_List<Handle(RefObject)>& theParameters,
-                                      NCollection_List<TCollection_AsciiString>&    theItemNames)
+                                      NCollection_List<AsciiString1>&    theItemNames)
   {
     (void)theModel;
     (void)theParameters;
@@ -101,7 +101,7 @@ public:
   //! \param theRefLabels a container of label references, to be selected in tree view
   //! \param theRefPresentation handle of presentation for the references, to be visualized
   virtual void GetReferences(const Handle(TDF_Attribute)& theAttribute,
-                             NCollection_List<TDF_Label>& theRefLabels,
+                             NCollection_List<DataLabel>& theRefLabels,
                              Handle(RefObject)&  theRefPresentation)
   {
     (void)theAttribute;

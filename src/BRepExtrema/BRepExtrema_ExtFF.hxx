@@ -21,7 +21,7 @@
 #include <Extrema_POnSurf.hxx>
 #include <Standard_DefineAlloc.hxx>
 
-class TopoDS_Face;
+class TopoFace;
 
 class BRepExtrema_ExtFF
 {
@@ -31,12 +31,12 @@ public:
   BRepExtrema_ExtFF() {}
 
   //! It calculates all the distances. <br>
-  Standard_EXPORT BRepExtrema_ExtFF(const TopoDS_Face& F1, const TopoDS_Face& F2);
+  Standard_EXPORT BRepExtrema_ExtFF(const TopoFace& F1, const TopoFace& F2);
 
-  Standard_EXPORT void Initialize(const TopoDS_Face& F2);
+  Standard_EXPORT void Initialize(const TopoFace& F2);
   //! An exception is raised if the fields have not been initialized. <br>
   //! Be careful: this method uses the Face F2 only for classify, not for the fields. <br>
-  Standard_EXPORT void Perform(const TopoDS_Face& F1, const TopoDS_Face& F2);
+  Standard_EXPORT void Perform(const TopoFace& F1, const TopoFace& F2);
 
   //! True if the distances are found. <br>
   Standard_Boolean IsDone() const { return myExtSS.IsDone(); }

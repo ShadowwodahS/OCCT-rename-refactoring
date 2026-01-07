@@ -24,14 +24,14 @@
 #include <TopOpeBRep_define.hxx>
 #include <TopOpeBRepDS_CurvePointInterference.hxx>
 
-Standard_Integer BREP_findPDSamongIDMOVP(const TopOpeBRepDS_Point&                       PDS,
+Standard_Integer BREP_findPDSamongIDMOVP(const Point1&                       PDS,
                                          const TopOpeBRepDS_IndexedDataMapOfVertexPoint& IDMOVP)
 {
   Standard_Integer iIDMOVP = 0;
   Standard_Integer i = 1, n = IDMOVP.Extent();
   for (; i <= n; i++)
   {
-    const TopOpeBRepDS_Point& PM = IDMOVP.FindFromIndex(i);
+    const Point1& PM = IDMOVP.FindFromIndex(i);
     if (PDS.IsEqual(PM))
     {
       iIDMOVP = i;
@@ -41,13 +41,13 @@ Standard_Integer BREP_findPDSamongIDMOVP(const TopOpeBRepDS_Point&              
   return iIDMOVP;
 }
 
-void BREP_makeIDMOVP(const TopoDS_Shape& S, TopOpeBRepDS_IndexedDataMapOfVertexPoint& IDMOVP)
+void BREP_makeIDMOVP(const TopoShape& S, TopOpeBRepDS_IndexedDataMapOfVertexPoint& IDMOVP)
 {
-  TopExp_Explorer Ex;
+  ShapeExplorer Ex;
   for (Ex.Init(S, TopAbs_VERTEX); Ex.More(); Ex.Next())
   {
-    const TopoDS_Vertex& v = TopoDS::Vertex(Ex.Current());
-    TopOpeBRepDS_Point   PDS(v);
+    const TopoVertex& v = TopoDS::Vertex(Ex.Current());
+    Point1   PDS(v);
     IDMOVP.Add(v, PDS);
   }
 }
@@ -55,7 +55,7 @@ void BREP_makeIDMOVP(const TopoDS_Shape& S, TopOpeBRepDS_IndexedDataMapOfVertexP
 void BREP_mergePDS(const Handle(TopOpeBRepDS_HDataStructure)& HDS)
 {
   TopOpeBRepDS_DataStructure& BDS = HDS->ChangeDS();
-  TopOpeBRepDS_CurveExplorer  cex(BDS);
+  CurveExplorer  cex(BDS);
   if (!cex.More())
     return;
 
@@ -72,12 +72,12 @@ void BREP_mergePDS(const Handle(TopOpeBRepDS_HDataStructure)& HDS)
     if (!itI.More())
       continue;
 
-    const TopoDS_Face& f1 = TopoDS::Face(c.Shape1());
+    const TopoFace& f1 = TopoDS::Face(c.Shape1());
 #ifdef OCCT_DEBUG
     Standard_Integer if1 =
 #endif
       BDS.Shape(f1);
-    const TopoDS_Face& f2 = TopoDS::Face(c.Shape2());
+    const TopoFace& f2 = TopoDS::Face(c.Shape2());
 #ifdef OCCT_DEBUG
     Standard_Integer if2 =
 #endif
@@ -103,10 +103,10 @@ void BREP_mergePDS(const Handle(TopOpeBRepDS_HDataStructure)& HDS)
       if (GI > BDS.NbPoints())
         continue;
       //**!
-      const TopOpeBRepDS_Point& PDS = BDS.Point(GI);
+      const Point1& PDS = BDS.Point(GI);
 
       Standard_Integer  ivp1;
-      TopoDS_Shape      v1;
+      TopoShape      v1;
       TopOpeBRepDS_Kind k1  = TopOpeBRepDS_UNKNOWN;
       Standard_Integer  iv1 = 0;
 
@@ -119,7 +119,7 @@ void BREP_mergePDS(const Handle(TopOpeBRepDS_HDataStructure)& HDS)
       }
 
       Standard_Integer  ivp2;
-      TopoDS_Shape      v2;
+      TopoShape      v2;
       TopOpeBRepDS_Kind k2  = TopOpeBRepDS_UNKNOWN;
       Standard_Integer  iv2 = 0;
 
@@ -154,20 +154,20 @@ void BREP_mergePDS(const Handle(TopOpeBRepDS_HDataStructure)& HDS)
       {
         if (ivp1 != 0)
         {
-          std::cout << TopOpeBRepDS::SPrint(TopOpeBRepDS_CURVE, ic, "# BREP_mergePDS ", " : ");
-          std::cout << TopOpeBRepDS::SPrint(GK, GI, "", " = ");
-          TCollection_AsciiString str(BDS.HasShape(v1) ? "old" : "new ");
-          std::cout << TopOpeBRepDS::SPrint(k1, iv1, str);
-          std::cout << TopOpeBRepDS::SPrint(TopOpeBRepDS::ShapeToKind(f1.ShapeType()), if1, " de ")
+          std::cout << TopOpeBRepDS1::SPrint(TopOpeBRepDS_CURVE, ic, "# BREP_mergePDS ", " : ");
+          std::cout << TopOpeBRepDS1::SPrint(GK, GI, "", " = ");
+          AsciiString1 str(BDS.HasShape(v1) ? "old" : "new ");
+          std::cout << TopOpeBRepDS1::SPrint(k1, iv1, str);
+          std::cout << TopOpeBRepDS1::SPrint(TopOpeBRepDS1::ShapeToKind(f1.ShapeType()), if1, " de ")
                     << std::endl;
         }
         if (ivp2 != 0)
         {
-          std::cout << TopOpeBRepDS::SPrint(TopOpeBRepDS_CURVE, ic, "# BREP_mergePDS ", " : ");
-          std::cout << TopOpeBRepDS::SPrint(GK, GI, "", " = ");
-          TCollection_AsciiString str(BDS.HasShape(v2) ? "old" : "new ");
-          std::cout << TopOpeBRepDS::SPrint(k2, iv2, str);
-          std::cout << TopOpeBRepDS::SPrint(TopOpeBRepDS::ShapeToKind(f2.ShapeType()), if2, " de ")
+          std::cout << TopOpeBRepDS1::SPrint(TopOpeBRepDS_CURVE, ic, "# BREP_mergePDS ", " : ");
+          std::cout << TopOpeBRepDS1::SPrint(GK, GI, "", " = ");
+          AsciiString1 str(BDS.HasShape(v2) ? "old" : "new ");
+          std::cout << TopOpeBRepDS1::SPrint(k2, iv2, str);
+          std::cout << TopOpeBRepDS1::SPrint(TopOpeBRepDS1::ShapeToKind(f2.ShapeType()), if2, " de ")
                     << std::endl;
         }
       }

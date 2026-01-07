@@ -29,8 +29,8 @@
 BRepPrim_Revolution::BRepPrim_Revolution(const Frame3d&               A,
                                          const Standard_Real         VMin,
                                          const Standard_Real         VMax,
-                                         const Handle(Geom_Curve)&   M,
-                                         const Handle(Geom2d_Curve)& PM)
+                                         const Handle(GeomCurve3d)&   M,
+                                         const Handle(GeomCurve2d)& PM)
     : BRepPrim_OneAxis(BRepPrim_Builder(), A, VMin, VMax),
       myMeridian(M),
       myPMeridian(PM)
@@ -48,7 +48,7 @@ BRepPrim_Revolution::BRepPrim_Revolution(const Frame3d&       A,
 
 //=================================================================================================
 
-void BRepPrim_Revolution::Meridian(const Handle(Geom_Curve)& M, const Handle(Geom2d_Curve)& PM)
+void BRepPrim_Revolution::Meridian(const Handle(GeomCurve3d)& M, const Handle(GeomCurve2d)& PM)
 {
   myMeridian  = M;
   myPMeridian = PM;
@@ -56,21 +56,21 @@ void BRepPrim_Revolution::Meridian(const Handle(Geom_Curve)& M, const Handle(Geo
 
 //=================================================================================================
 
-TopoDS_Face BRepPrim_Revolution::MakeEmptyLateralFace() const
+TopoFace BRepPrim_Revolution::MakeEmptyLateralFace() const
 {
   Handle(Geom_SurfaceOfRevolution) S = new Geom_SurfaceOfRevolution(myMeridian, Axes().Axis());
 
-  TopoDS_Face F;
+  TopoFace F;
   myBuilder.Builder().MakeFace(F, S, Precision::Confusion());
   return F;
 }
 
 //=================================================================================================
 
-TopoDS_Edge BRepPrim_Revolution::MakeEmptyMeridianEdge(const Standard_Real Ang) const
+TopoEdge BRepPrim_Revolution::MakeEmptyMeridianEdge(const Standard_Real Ang) const
 {
-  TopoDS_Edge        E;
-  Handle(Geom_Curve) C = Handle(Geom_Curve)::DownCast(myMeridian->Copy());
+  TopoEdge        E;
+  Handle(GeomCurve3d) C = Handle(GeomCurve3d)::DownCast(myMeridian->Copy());
   Transform3d            T;
   T.SetRotation(Axes().Axis(), Ang);
   C->Transform(T);
@@ -87,7 +87,7 @@ gp_Pnt2d BRepPrim_Revolution::MeridianValue(const Standard_Real V) const
 
 //=================================================================================================
 
-void BRepPrim_Revolution::SetMeridianPCurve(TopoDS_Edge& E, const TopoDS_Face& F) const
+void BRepPrim_Revolution::SetMeridianPCurve(TopoEdge& E, const TopoFace& F) const
 {
   myBuilder.Builder().UpdateEdge(E, myPMeridian, F, Precision::Confusion());
 }

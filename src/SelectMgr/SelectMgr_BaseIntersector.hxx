@@ -25,7 +25,7 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColgp_Array1OfPnt.hxx>
 
-class Graphic3d_Camera;
+class CameraOn3d;
 class SelectMgr_FrustumBuilder;
 class SelectMgr_ViewClipRange;
 
@@ -82,10 +82,10 @@ public:
 
 public:
   //! Return camera definition.
-  const Handle(Graphic3d_Camera)& Camera() const { return myCamera; }
+  const Handle(CameraOn3d)& Camera() const { return myCamera; }
 
   //! Saves camera definition.
-  Standard_EXPORT virtual void SetCamera(const Handle(Graphic3d_Camera)& theCamera);
+  Standard_EXPORT virtual void SetCamera(const Handle(CameraOn3d)& theCamera);
 
   //! Returns current window size.
   //! This method doesn't set any output values for the base class.
@@ -291,7 +291,7 @@ public:
 
 protected:
   // clang-format off
-  Handle(Graphic3d_Camera) myCamera;        //!< camera definition (if builder isn't NULL it is the same as its camera)
+  Handle(CameraOn3d) myCamera;        //!< camera definition (if builder isn't NULL it is the same as its camera)
   // clang-format on
   SelectMgr_SelectionType mySelectionType; //!< type of selection
 };

@@ -44,7 +44,7 @@ void IGESSelect_UpdateFileName::Performing(IFSelect_ContextModif&            ctx
   ctx.AddCheck(check);
 }
 
-TCollection_AsciiString IGESSelect_UpdateFileName::Label() const
+AsciiString1 IGESSelect_UpdateFileName::Label() const
 {
-  return TCollection_AsciiString("Updates IGES File Name to new current one");
+  return AsciiString1("Updates IGES File Name to new current one");
 }

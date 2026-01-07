@@ -22,26 +22,26 @@
 #include <Standard_Handle.hxx>
 
 #include <TDF_LabelMap.hxx>
-class TDF_Label;
-class TopoDS_Shape;
-class TNaming_NamedShape;
+class DataLabel;
+class TopoShape;
+class ShapeAttribute;
 
 //! this class manage a scope of labels
 //! ===================================
-class TNaming_Scope
+class NamingScope
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! WithValid = FALSE
-  Standard_EXPORT TNaming_Scope();
+  Standard_EXPORT NamingScope();
 
   //! if <WithValid> the scope is defined by the map. If not
   //! on the whole framework.
-  Standard_EXPORT TNaming_Scope(const Standard_Boolean WithValid);
+  Standard_EXPORT NamingScope(const Standard_Boolean WithValid);
 
   //! create a scope with a map. WithValid = TRUE.
-  Standard_EXPORT TNaming_Scope(TDF_LabelMap& valid);
+  Standard_EXPORT NamingScope(TDF_LabelMap& valid);
 
   Standard_EXPORT Standard_Boolean WithValid() const;
 
@@ -49,17 +49,17 @@ public:
 
   Standard_EXPORT void ClearValid();
 
-  Standard_EXPORT void Valid(const TDF_Label& L);
+  Standard_EXPORT void Valid(const DataLabel& L);
 
-  Standard_EXPORT void ValidChildren(const TDF_Label&       L,
+  Standard_EXPORT void ValidChildren(const DataLabel&       L,
                                      const Standard_Boolean withroot = Standard_True);
 
-  Standard_EXPORT void Unvalid(const TDF_Label& L);
+  Standard_EXPORT void Unvalid(const DataLabel& L);
 
-  Standard_EXPORT void UnvalidChildren(const TDF_Label&       L,
+  Standard_EXPORT void UnvalidChildren(const DataLabel&       L,
                                        const Standard_Boolean withroot = Standard_True);
 
-  Standard_EXPORT Standard_Boolean IsValid(const TDF_Label& L) const;
+  Standard_EXPORT Standard_Boolean IsValid(const DataLabel& L) const;
 
   Standard_EXPORT const TDF_LabelMap& GetValid() const;
 
@@ -67,7 +67,7 @@ public:
 
   //! Returns  the current  value of  <NS> according to the
   //! Valid Scope.
-  Standard_EXPORT TopoDS_Shape CurrentShape(const Handle(TNaming_NamedShape)& NS) const;
+  Standard_EXPORT TopoShape CurrentShape(const Handle(ShapeAttribute)& NS) const;
 
 protected:
 private:

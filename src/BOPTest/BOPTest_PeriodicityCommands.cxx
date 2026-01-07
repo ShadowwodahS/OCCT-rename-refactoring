@@ -29,10 +29,10 @@
 
 #include <TopoDS.hxx>
 
-static Standard_Integer MakePeriodic(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer GetTwins(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer RepeatShape(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer ClearRepetitions(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer MakePeriodic(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer GetTwins(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer RepeatShape(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer ClearRepetitions(DrawInterpreter&, Standard_Integer, const char**);
 
 namespace
 {
@@ -45,7 +45,7 @@ static BOPAlgo_MakePeriodic& getPeriodicityMaker()
 
 //=================================================================================================
 
-void BOPTest::PeriodicityCommands(Draw_Interpretor& theCommands)
+void BOPTest::PeriodicityCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -95,7 +95,7 @@ void BOPTest::PeriodicityCommands(Draw_Interpretor& theCommands)
 
 //=================================================================================================
 
-Standard_Integer MakePeriodic(Draw_Interpretor& theDI,
+Standard_Integer MakePeriodic(DrawInterpreter& theDI,
                               Standard_Integer  theArgc,
                               const char**      theArgv)
 {
@@ -106,7 +106,7 @@ Standard_Integer MakePeriodic(Draw_Interpretor& theDI,
   }
 
   // Get the shape to make periodic
-  TopoDS_Shape aShape = DBRep::Get(theArgv[2]);
+  TopoShape aShape = DBRep1::Get(theArgv[2]);
   if (aShape.IsNull())
   {
     theDI << "Error: " << theArgv[2] << " is a null shape.\n";
@@ -143,7 +143,7 @@ Standard_Integer MakePeriodic(Draw_Interpretor& theDI,
       return 1;
     }
 
-    Standard_Real aPeriod = Draw::Atof(theArgv[++i]);
+    Standard_Real aPeriod = Draw1::Atof(theArgv[++i]);
 
     getPeriodicityMaker().MakePeriodic(aDirID, Standard_True, aPeriod);
 
@@ -158,7 +158,7 @@ Standard_Integer MakePeriodic(Draw_Interpretor& theDI,
           theDI << "Trim bounds for " << cDirName << " direction are not set\n";
           return 1;
         }
-        Standard_Real aFirst = Draw::Atof(theArgv[++i]);
+        Standard_Real aFirst = Draw1::Atof(theArgv[++i]);
 
         getPeriodicityMaker().SetTrimmed(aDirID, Standard_False, aFirst);
         ++i;
@@ -182,16 +182,16 @@ Standard_Integer MakePeriodic(Draw_Interpretor& theDI,
     return 0;
   }
 
-  // Draw the result shape
-  const TopoDS_Shape& aResult = getPeriodicityMaker().Shape();
-  DBRep::Set(theArgv[1], aResult);
+  // Draw1 the result shape
+  const TopoShape& aResult = getPeriodicityMaker().Shape();
+  DBRep1::Set(theArgv[1], aResult);
 
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer GetTwins(Draw_Interpretor& theDI, Standard_Integer theArgc, const char** theArgv)
+Standard_Integer GetTwins(DrawInterpreter& theDI, Standard_Integer theArgc, const char** theArgv)
 {
   if (theArgc != 3)
   {
@@ -200,35 +200,35 @@ Standard_Integer GetTwins(Draw_Interpretor& theDI, Standard_Integer theArgc, con
   }
 
   // Get the shape to find twins
-  TopoDS_Shape aShape = DBRep::Get(theArgv[2]);
+  TopoShape aShape = DBRep1::Get(theArgv[2]);
   if (aShape.IsNull())
   {
     theDI << "Error: " << theArgv[2] << " is a null shape.\n";
     return 1;
   }
 
-  const TopTools_ListOfShape& aTwins = getPeriodicityMaker().GetTwins(aShape);
+  const ShapeList& aTwins = getPeriodicityMaker().GetTwins(aShape);
 
-  TopoDS_Shape aCTwins;
+  TopoShape aCTwins;
   if (aTwins.IsEmpty())
     theDI << "No twins for the shape.\n";
   else if (aTwins.Extent() == 1)
     aCTwins = aTwins.First();
   else
   {
-    BRep_Builder().MakeCompound(TopoDS::Compound(aCTwins));
+    ShapeBuilder().MakeCompound(TopoDS::Compound(aCTwins));
     for (TopTools_ListIteratorOfListOfShape it(aTwins); it.More(); it.Next())
-      BRep_Builder().Add(aCTwins, it.Value());
+      ShapeBuilder().Add(aCTwins, it.Value());
   }
 
-  DBRep::Set(theArgv[1], aCTwins);
+  DBRep1::Set(theArgv[1], aCTwins);
 
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer RepeatShape(Draw_Interpretor& theDI,
+Standard_Integer RepeatShape(DrawInterpreter& theDI,
                              Standard_Integer  theArgc,
                              const char**      theArgv)
 {
@@ -258,7 +258,7 @@ Standard_Integer RepeatShape(Draw_Interpretor& theDI,
 
     Standard_Integer aTimes = 0;
     if (theArgc > i + 1)
-      aTimes = Draw::Atoi(theArgv[++i]);
+      aTimes = Draw1::Atoi(theArgv[++i]);
 
     if (aTimes == 0)
     {
@@ -280,16 +280,16 @@ Standard_Integer RepeatShape(Draw_Interpretor& theDI,
     return 0;
   }
 
-  // Draw the result shape
-  const TopoDS_Shape& aResult = getPeriodicityMaker().RepeatedShape();
-  DBRep::Set(theArgv[1], aResult);
+  // Draw1 the result shape
+  const TopoShape& aResult = getPeriodicityMaker().RepeatedShape();
+  DBRep1::Set(theArgv[1], aResult);
 
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer ClearRepetitions(Draw_Interpretor&, Standard_Integer theArgc, const char** theArgv)
+Standard_Integer ClearRepetitions(DrawInterpreter&, Standard_Integer theArgc, const char** theArgv)
 {
   // Clear all previous repetitions
   getPeriodicityMaker().ClearRepetitions();
@@ -299,7 +299,7 @@ Standard_Integer ClearRepetitions(Draw_Interpretor&, Standard_Integer theArgc, c
 
   if (theArgc > 1)
   {
-    DBRep::Set(theArgv[1], getPeriodicityMaker().Shape());
+    DBRep1::Set(theArgv[1], getPeriodicityMaker().Shape());
   }
 
   return 0;

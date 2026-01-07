@@ -29,7 +29,7 @@ class IGESDimen_GeneralLabel;
 DEFINE_STANDARD_HANDLE(IGESDimen_GeneralLabel, IGESData_IGESEntity)
 
 //! defines GeneralLabel, Type <210> Form <0>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Used for general labeling with leaders
 class IGESDimen_GeneralLabel : public IGESData_IGESEntity
 {

@@ -22,7 +22,7 @@
 
 #include <TDF_Attribute.hxx>
 #include <Standard_OStream.hxx>
-class TDocStd_Document;
+class AppDocument;
 class Standard_GUID;
 class TDF_Data;
 class TDF_RelocationTable;
@@ -32,7 +32,7 @@ DEFINE_STANDARD_HANDLE(TDocStd_Owner, TDF_Attribute)
 
 //! This  attribute located  at  the  root label  of the
 //! framework contains  a   back reference to   the  owner
-//! TDocStd_Document, providing access to the document from
+//! AppDocument, providing access to the document from
 //! any label.  private class Owner;
 class TDocStd_Owner : public TDF_Attribute
 {
@@ -43,21 +43,21 @@ public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
   Standard_EXPORT static void SetDocument(const Handle(TDF_Data)&         indata,
-                                          const Handle(TDocStd_Document)& doc);
+                                          const Handle(AppDocument)& doc);
 
-  Standard_EXPORT static void SetDocument(const Handle(TDF_Data)& indata, TDocStd_Document* doc);
+  Standard_EXPORT static void SetDocument(const Handle(TDF_Data)& indata, AppDocument* doc);
 
   //! Owner methods
   //! ===============
-  Standard_EXPORT static Handle(TDocStd_Document) GetDocument(const Handle(TDF_Data)& ofdata);
+  Standard_EXPORT static Handle(AppDocument) GetDocument(const Handle(TDF_Data)& ofdata);
 
   Standard_EXPORT TDocStd_Owner();
 
-  Standard_EXPORT void SetDocument(const Handle(TDocStd_Document)& document);
+  Standard_EXPORT void SetDocument(const Handle(AppDocument)& document);
 
-  Standard_EXPORT void SetDocument(TDocStd_Document* document);
+  Standard_EXPORT void SetDocument(AppDocument* document);
 
-  Standard_EXPORT Handle(TDocStd_Document) GetDocument() const;
+  Standard_EXPORT Handle(AppDocument) GetDocument() const;
 
   Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
 
@@ -79,7 +79,7 @@ public:
 protected:
 private:
   //! It keeps pointer to the document to avoid handles cyclic dependency
-  TDocStd_Document* myDocument;
+  AppDocument* myDocument;
 };
 
 #endif // _TDocStd_Owner_HeaderFile

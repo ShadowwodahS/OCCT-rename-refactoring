@@ -44,7 +44,7 @@
 
 //=================================================================================================
 
-class Approx_CurveOnSurface_Eval : public AdvApprox_EvaluatorFunction
+class Approx_CurveOnSurface_Eval : public EvaluatorFunction
 {
 public:
   Approx_CurveOnSurface_Eval(const Handle(Adaptor3d_Curve)&   theFunc,
@@ -144,7 +144,7 @@ void Approx_CurveOnSurface_Eval::Evaluate(Standard_Integer* Dimension,
 
 //=================================================================================================
 
-class Approx_CurveOnSurface_Eval3d : public AdvApprox_EvaluatorFunction
+class Approx_CurveOnSurface_Eval3d : public EvaluatorFunction
 {
 public:
   Approx_CurveOnSurface_Eval3d(const Handle(Adaptor3d_Curve)& theFunc,
@@ -227,7 +227,7 @@ void Approx_CurveOnSurface_Eval3d::Evaluate(Standard_Integer* Dimension,
 
 //=================================================================================================
 
-class Approx_CurveOnSurface_Eval2d : public AdvApprox_EvaluatorFunction
+class Approx_CurveOnSurface_Eval2d : public EvaluatorFunction
 {
 public:
   Approx_CurveOnSurface_Eval2d(const Handle(Adaptor2d_Curve2d)& theFunc2d,
@@ -402,7 +402,7 @@ void Approx_CurveOnSurface::Perform(const Standard_Integer theMaxSegments,
   Approx_CurveOnSurface_Eval3d Eval3dCvOnSurf(HCOnS, myFirst, myLast);
   Approx_CurveOnSurface_Eval2d Eval2dCvOnSurf(TrimmedC2D, myFirst, myLast);
   Approx_CurveOnSurface_Eval   EvalCvOnSurf(HCOnS, TrimmedC2D, myFirst, myLast);
-  AdvApprox_EvaluatorFunction* EvalPtr;
+  EvaluatorFunction* EvalPtr;
   if (theOnly3d)
     EvalPtr = &Eval3dCvOnSurf;
   else if (theOnly2d)
@@ -423,17 +423,17 @@ void Approx_CurveOnSurface::Perform(const Standard_Integer theMaxSegments,
 
     if (mySurf->UContinuity() == GeomAbs_C0)
     {
-      if (!Adaptor3d_HSurfaceTool::IsSurfG1(mySurf, Standard_True, Precision::Angular()))
+      if (!HSurfaceTool::IsSurfG1(mySurf, Standard_True, Precision::Angular()))
         TolU = Min(1.e-3, 1.e3 * TolU);
-      if (!Adaptor3d_HSurfaceTool::IsSurfG1(mySurf, Standard_True, Precision::Confusion()))
+      if (!HSurfaceTool::IsSurfG1(mySurf, Standard_True, Precision::Confusion()))
         TolU = Min(1.e-3, 1.e2 * TolU);
     }
 
     if (mySurf->VContinuity() == GeomAbs_C0)
     {
-      if (!Adaptor3d_HSurfaceTool::IsSurfG1(mySurf, Standard_False, Precision::Angular()))
+      if (!HSurfaceTool::IsSurfG1(mySurf, Standard_False, Precision::Angular()))
         TolV = Min(1.e-3, 1.e3 * TolV);
-      if (!Adaptor3d_HSurfaceTool::IsSurfG1(mySurf, Standard_False, Precision::Confusion()))
+      if (!HSurfaceTool::IsSurfG1(mySurf, Standard_False, Precision::Confusion()))
         TolV = Min(1.e-3, 1.e2 * TolV);
     }
 
@@ -448,7 +448,7 @@ void Approx_CurveOnSurface::Perform(const Standard_Integer theMaxSegments,
     ThreeDTol->Init(myTol / 2);
   }
 
-  AdvApprox_Cutting* CutTool;
+  CuttingTool* CutTool;
 
   if (aContinuity <= myC2D->Continuity() && aContinuity <= mySurf->UContinuity()
       && aContinuity <= mySurf->VContinuity())
@@ -507,7 +507,7 @@ void Approx_CurveOnSurface::Perform(const Standard_Integer theMaxSegments,
     {
       TColgp_Array1OfPnt Poles(1, aApprox.NbPoles());
       aApprox.Poles(1, Poles);
-      myCurve3d = new Geom_BSplineCurve(Poles, Knots->Array1(), Mults->Array1(), Degree);
+      myCurve3d = new BSplineCurve3d(Poles, Knots->Array1(), Mults->Array1(), Degree);
       myError3d = aApprox.MaxError(3, 1);
     }
     if (!theOnly3d)
@@ -537,7 +537,7 @@ Standard_Boolean Approx_CurveOnSurface::HasResult() const
   return myHasResult;
 }
 
-Handle(Geom_BSplineCurve) Approx_CurveOnSurface::Curve3d() const
+Handle(BSplineCurve3d) Approx_CurveOnSurface::Curve3d() const
 {
   return myCurve3d;
 }
@@ -658,8 +658,8 @@ Standard_Boolean Approx_CurveOnSurface::buildC3dOnIsoLine(const Handle(Adaptor2d
     return Standard_False;
 
   // Extract isoline
-  Handle(Geom_Surface) aSurf = aGeomAdapter->Surface();
-  Handle(Geom_Curve)   aC3d;
+  Handle(GeomSurface) aSurf = aGeomAdapter->Surface();
+  Handle(GeomCurve3d)   aC3d;
 
   gp_Pnt2d aF2d = theC2D->Value(theC2D->FirstParameter());
   gp_Pnt2d aL2d = theC2D->Value(theC2D->LastParameter());

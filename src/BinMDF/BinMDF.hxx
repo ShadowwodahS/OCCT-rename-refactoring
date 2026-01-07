@@ -39,7 +39,7 @@ class Message_Messenger;
 //! translation process, a driver table is asked to
 //! give a translation driver for each current object
 //! to be translated.
-class BinMDF
+class BinMDF1
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -243,7 +243,7 @@ Standard_Boolean BRepPrim_OneAxis::HasSides() const
 
 //=================================================================================================
 
-const TopoDS_Shell& BRepPrim_OneAxis::Shell()
+const TopoShell& BRepPrim_OneAxis::Shell()
 {
   if (!ShellBuilt)
   {
@@ -260,7 +260,7 @@ const TopoDS_Shell& BRepPrim_OneAxis::Shell()
       myBuilder.AddShellFace(myShell, EndFace());
     }
 
-    myShell.Closed(BRep_Tool::IsClosed(myShell));
+    myShell.Closed(BRepInspector::IsClosed(myShell));
     myBuilder.CompleteShell(myShell);
     ShellBuilt = Standard_True;
   }
@@ -272,7 +272,7 @@ const TopoDS_Shell& BRepPrim_OneAxis::Shell()
 // purpose  : build the lateral face
 //=======================================================================
 
-const TopoDS_Face& BRepPrim_OneAxis::LateralFace()
+const TopoFace& BRepPrim_OneAxis::LateralFace()
 {
   // do it if not done
   if (!FacesBuilt[FLATERAL])
@@ -353,7 +353,7 @@ const TopoDS_Face& BRepPrim_OneAxis::LateralFace()
 // purpose  : build and return the TopFace
 //=======================================================================
 
-const TopoDS_Face& BRepPrim_OneAxis::TopFace()
+const TopoFace& BRepPrim_OneAxis::TopFace()
 {
   // do it if not done
   if (!FacesBuilt[FTOP])
@@ -393,7 +393,7 @@ const TopoDS_Face& BRepPrim_OneAxis::TopFace()
 
 //=================================================================================================
 
-const TopoDS_Face& BRepPrim_OneAxis::BottomFace()
+const TopoFace& BRepPrim_OneAxis::BottomFace()
 {
   // do it if not done
   if (!FacesBuilt[FBOTTOM])
@@ -434,7 +434,7 @@ const TopoDS_Face& BRepPrim_OneAxis::BottomFace()
 
 //=================================================================================================
 
-const TopoDS_Face& BRepPrim_OneAxis::StartFace()
+const TopoFace& BRepPrim_OneAxis::StartFace()
 {
   // do it if not done
   if (!FacesBuilt[FSTART])
@@ -475,7 +475,7 @@ const TopoDS_Face& BRepPrim_OneAxis::StartFace()
 
 //=================================================================================================
 
-const TopoDS_Face& BRepPrim_OneAxis::EndFace()
+const TopoFace& BRepPrim_OneAxis::EndFace()
 {
   // do it if not done
   if (!FacesBuilt[FEND])
@@ -515,7 +515,7 @@ const TopoDS_Face& BRepPrim_OneAxis::EndFace()
 
 //=================================================================================================
 
-const TopoDS_Wire& BRepPrim_OneAxis::LateralWire()
+const TopoWire& BRepPrim_OneAxis::LateralWire()
 {
   // do it if not done
   if (!WiresBuilt[WLATERAL])
@@ -539,7 +539,7 @@ const TopoDS_Wire& BRepPrim_OneAxis::LateralWire()
 
 //=================================================================================================
 
-const TopoDS_Wire& BRepPrim_OneAxis::LateralStartWire()
+const TopoWire& BRepPrim_OneAxis::LateralStartWire()
 {
   // do it if not done
   if (!WiresBuilt[WLATERALSTART])
@@ -558,7 +558,7 @@ const TopoDS_Wire& BRepPrim_OneAxis::LateralStartWire()
 
 //=================================================================================================
 
-const TopoDS_Wire& BRepPrim_OneAxis::LateralEndWire()
+const TopoWire& BRepPrim_OneAxis::LateralEndWire()
 {
   // do it if not done
   if (!WiresBuilt[WLATERALEND])
@@ -577,7 +577,7 @@ const TopoDS_Wire& BRepPrim_OneAxis::LateralEndWire()
 
 //=================================================================================================
 
-const TopoDS_Wire& BRepPrim_OneAxis::TopWire()
+const TopoWire& BRepPrim_OneAxis::TopWire()
 {
   // do it if not done
   if (!WiresBuilt[WTOP])
@@ -602,7 +602,7 @@ const TopoDS_Wire& BRepPrim_OneAxis::TopWire()
 
 //=================================================================================================
 
-const TopoDS_Wire& BRepPrim_OneAxis::BottomWire()
+const TopoWire& BRepPrim_OneAxis::BottomWire()
 {
   // do it if not done
   if (!WiresBuilt[WBOTTOM])
@@ -628,7 +628,7 @@ const TopoDS_Wire& BRepPrim_OneAxis::BottomWire()
 
 //=================================================================================================
 
-const TopoDS_Wire& BRepPrim_OneAxis::StartWire()
+const TopoWire& BRepPrim_OneAxis::StartWire()
 {
   // do it if not done
   if (!WiresBuilt[WSTART])
@@ -660,7 +660,7 @@ const TopoDS_Wire& BRepPrim_OneAxis::StartWire()
 
 //=================================================================================================
 
-const TopoDS_Wire& BRepPrim_OneAxis::AxisStartWire()
+const TopoWire& BRepPrim_OneAxis::AxisStartWire()
 {
   // do it if not done
   if (!WiresBuilt[WAXISSTART])
@@ -687,7 +687,7 @@ const TopoDS_Wire& BRepPrim_OneAxis::AxisStartWire()
 
 //=================================================================================================
 
-const TopoDS_Wire& BRepPrim_OneAxis::EndWire()
+const TopoWire& BRepPrim_OneAxis::EndWire()
 {
   // do it if not done
   if (!WiresBuilt[WEND])
@@ -718,7 +718,7 @@ const TopoDS_Wire& BRepPrim_OneAxis::EndWire()
 
 //=================================================================================================
 
-const TopoDS_Wire& BRepPrim_OneAxis::AxisEndWire()
+const TopoWire& BRepPrim_OneAxis::AxisEndWire()
 {
   // do it if not done
   if (!WiresBuilt[WAXISEND])
@@ -747,7 +747,7 @@ const TopoDS_Wire& BRepPrim_OneAxis::AxisEndWire()
 // purpose  : make the edge on the axis, oriented +Z
 //=======================================================================
 
-const TopoDS_Edge& BRepPrim_OneAxis::AxisEdge()
+const TopoEdge& BRepPrim_OneAxis::AxisEdge()
 {
   // do it if not done
   if (!EdgesBuilt[EAXIS])
@@ -779,7 +779,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::AxisEdge()
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepPrim_OneAxis::StartEdge()
+const TopoEdge& BRepPrim_OneAxis::StartEdge()
 {
   // do it if not done
   if (!EdgesBuilt[ESTART])
@@ -831,7 +831,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::StartEdge()
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepPrim_OneAxis::EndEdge()
+const TopoEdge& BRepPrim_OneAxis::EndEdge()
 {
   // do it if not done
   if (!EdgesBuilt[EEND])
@@ -882,7 +882,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::EndEdge()
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepPrim_OneAxis::StartTopEdge()
+const TopoEdge& BRepPrim_OneAxis::StartTopEdge()
 {
   // do it if not done
   if (!EdgesBuilt[ETOPSTART])
@@ -912,7 +912,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::StartTopEdge()
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepPrim_OneAxis::StartBottomEdge()
+const TopoEdge& BRepPrim_OneAxis::StartBottomEdge()
 {
   // do it if not done
   if (!EdgesBuilt[EBOTSTART])
@@ -942,7 +942,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::StartBottomEdge()
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepPrim_OneAxis::EndTopEdge()
+const TopoEdge& BRepPrim_OneAxis::EndTopEdge()
 {
   // do it if not done
   if (!EdgesBuilt[ETOPEND])
@@ -974,7 +974,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::EndTopEdge()
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepPrim_OneAxis::EndBottomEdge()
+const TopoEdge& BRepPrim_OneAxis::EndBottomEdge()
 {
   // do it if not done
   if (!EdgesBuilt[EBOTEND])
@@ -1006,7 +1006,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::EndBottomEdge()
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepPrim_OneAxis::TopEdge()
+const TopoEdge& BRepPrim_OneAxis::TopEdge()
 {
   // do it if not done
   if (!EdgesBuilt[ETOP])
@@ -1055,7 +1055,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::TopEdge()
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepPrim_OneAxis::BottomEdge()
+const TopoEdge& BRepPrim_OneAxis::BottomEdge()
 {
   // do it if not done
   if (!EdgesBuilt[EBOTTOM])
@@ -1105,7 +1105,7 @@ const TopoDS_Edge& BRepPrim_OneAxis::BottomEdge()
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepPrim_OneAxis::AxisTopVertex()
+const TopoVertex& BRepPrim_OneAxis::AxisTopVertex()
 {
   // do it if not done
   if (!VerticesBuilt[VAXISTOP])
@@ -1137,7 +1137,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::AxisTopVertex()
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepPrim_OneAxis::AxisBottomVertex()
+const TopoVertex& BRepPrim_OneAxis::AxisBottomVertex()
 {
   // do it if not done
   if (!VerticesBuilt[VAXISBOT])
@@ -1169,7 +1169,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::AxisBottomVertex()
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepPrim_OneAxis::TopStartVertex()
+const TopoVertex& BRepPrim_OneAxis::TopStartVertex()
 {
   // do it if not done
   if (!VerticesBuilt[VTOPSTART])
@@ -1205,7 +1205,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::TopStartVertex()
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepPrim_OneAxis::TopEndVertex()
+const TopoVertex& BRepPrim_OneAxis::TopEndVertex()
 {
   // do it if not done
   if (!VerticesBuilt[VTOPEND])
@@ -1242,7 +1242,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::TopEndVertex()
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepPrim_OneAxis::BottomStartVertex()
+const TopoVertex& BRepPrim_OneAxis::BottomStartVertex()
 {
   // do it if not done
   if (!VerticesBuilt[VBOTSTART])
@@ -1278,7 +1278,7 @@ const TopoDS_Vertex& BRepPrim_OneAxis::BottomStartVertex()
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepPrim_OneAxis::BottomEndVertex()
+const TopoVertex& BRepPrim_OneAxis::BottomEndVertex()
 {
   // do it if not done
   if (!VerticesBuilt[VBOTEND])

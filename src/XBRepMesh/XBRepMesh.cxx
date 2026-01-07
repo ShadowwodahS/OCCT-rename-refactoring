@@ -19,7 +19,7 @@
 
 //=================================================================================================
 
-Standard_Integer XBRepMesh::Discret(const TopoDS_Shape&    theShape,
+Standard_Integer XBRepMesh::Discret(const TopoShape&    theShape,
                                     const Standard_Real    theDeflection,
                                     const Standard_Real    theAngle,
                                     BRepMesh_DiscretRoot*& theAlgo)
@@ -27,7 +27,7 @@ Standard_Integer XBRepMesh::Discret(const TopoDS_Shape&    theShape,
   Standard_Integer iErr;
   //
   iErr                                  = 0;
-  BRepMesh_IncrementalMesh* anAlgo      = new BRepMesh_IncrementalMesh;
+  MeshGenerator* anAlgo      = new MeshGenerator;
   anAlgo->ChangeParameters().Deflection = theDeflection;
   anAlgo->ChangeParameters().Angle      = theAngle;
   anAlgo->SetShape(theShape);

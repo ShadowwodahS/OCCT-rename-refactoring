@@ -56,7 +56,7 @@ SelectMgr_EntityOwner::SelectMgr_EntityOwner(const Handle(SelectMgr_EntityOwner)
 //=================================================================================================
 
 void SelectMgr_EntityOwner::HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                             const Handle(Prs3d_Drawer)&               theStyle,
+                                             const Handle(StyleDrawer)&               theStyle,
                                              const Standard_Integer                    theMode)
 {
   if (mySelectable == NULL)

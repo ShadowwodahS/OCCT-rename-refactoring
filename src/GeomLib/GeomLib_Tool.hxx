@@ -23,9 +23,9 @@
 #include <Standard_Boolean.hxx>
 #include <Standard_Real.hxx>
 
-class Geom_Curve;
-class Geom_Surface;
-class Geom2d_Curve;
+class GeomCurve3d;
+class GeomSurface;
+class GeomCurve2d;
 class Geom2dAdaptor_Curve;
 class gp_Lin2d;
 class Point3d;
@@ -48,14 +48,14 @@ public:
 
   //! Extracts the parameter of a 3D point lying on a 3D curve
   //! or at a distance less than the MaxDist value.
-  Standard_EXPORT static Standard_Boolean Parameter(const Handle(Geom_Curve)& Curve,
+  Standard_EXPORT static Standard_Boolean Parameter(const Handle(GeomCurve3d)& Curve,
                                                     const Point3d&             Point,
                                                     const Standard_Real       MaxDist,
                                                     Standard_Real&            U);
 
   //! Extracts the parameter of a 3D point lying on a surface
   //! or at a distance less than the MaxDist value.
-  Standard_EXPORT static Standard_Boolean Parameters(const Handle(Geom_Surface)& Surface,
+  Standard_EXPORT static Standard_Boolean Parameters(const Handle(GeomSurface)& Surface,
                                                      const Point3d&               Point,
                                                      const Standard_Real         MaxDist,
                                                      Standard_Real&              U,
@@ -63,7 +63,7 @@ public:
 
   //! Extracts the parameter of a 2D point lying on a 2D curve
   //! or at a distance less than the MaxDist value.
-  Standard_EXPORT static Standard_Boolean Parameter(const Handle(Geom2d_Curve)& Curve,
+  Standard_EXPORT static Standard_Boolean Parameter(const Handle(GeomCurve2d)& Curve,
                                                     const gp_Pnt2d&             Point,
                                                     const Standard_Real         MaxDist,
                                                     Standard_Real&              U);

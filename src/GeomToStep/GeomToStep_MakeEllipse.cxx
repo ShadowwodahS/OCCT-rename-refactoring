@@ -32,7 +32,7 @@
 // Creation d'une ellipse de prostep a partir d'une ellipse 3d de gp
 //=============================================================================
 GeomToStep_MakeEllipse::GeomToStep_MakeEllipse(const gp_Elips&         E,
-                                               const StepData_Factors& theLocalFactors)
+                                               const ConversionFactors& theLocalFactors)
 {
 #include "GeomToStep_MakeEllipse_gen.pxx"
 }
@@ -43,7 +43,7 @@ GeomToStep_MakeEllipse::GeomToStep_MakeEllipse(const gp_Elips&         E,
 //=============================================================================
 
 GeomToStep_MakeEllipse::GeomToStep_MakeEllipse(const Handle(Geom_Ellipse)& Cer,
-                                               const StepData_Factors&     theLocalFactors)
+                                               const ConversionFactors&     theLocalFactors)
 {
   gp_Elips E;
   E = Cer->Elips();
@@ -56,7 +56,7 @@ GeomToStep_MakeEllipse::GeomToStep_MakeEllipse(const Handle(Geom_Ellipse)& Cer,
 //=============================================================================
 
 GeomToStep_MakeEllipse::GeomToStep_MakeEllipse(const Handle(Geom2d_Ellipse)& Cer,
-                                               const StepData_Factors&       theLocalFactors)
+                                               const ConversionFactors&       theLocalFactors)
 {
   gp_Elips2d E2d;
   E2d = Cer->Elips2d();

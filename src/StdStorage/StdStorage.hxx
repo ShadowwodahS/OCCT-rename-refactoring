@@ -18,7 +18,7 @@
 #include <Storage_Error.hxx>
 class StdStorage_Data;
 class Storage_BaseDriver;
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! StdStorage package is used to write and read persistent objects.
 //! These objects are read and written by a retrieval or storage
@@ -41,14 +41,14 @@ class StdStorage
 
 public:
   //! Returns the version of Storage's read/write routines
-  Standard_EXPORT static TCollection_AsciiString Version();
+  Standard_EXPORT static AsciiString1 Version();
 
   //! Returns the data read from a file located at theFileName.
   //! The storage format is compartible with legacy persistent one.
   //! These data are aggregated in a StdStorage_Data object which may be
   //! browsed in order to extract the root objects from the container.
   //! Note: - theData object will be created if it is null or cleared otherwise.
-  Standard_EXPORT static Storage_Error Read(const TCollection_AsciiString& theFileName,
+  Standard_EXPORT static Storage_Error Read(const AsciiString1& theFileName,
                                             Handle(StdStorage_Data)&       theData);
 
   //! Returns the data read from the container defined by theDriver.

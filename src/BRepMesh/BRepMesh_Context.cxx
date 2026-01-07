@@ -34,7 +34,7 @@ BRepMesh_Context::BRepMesh_Context(IMeshTools_MeshAlgoType theMeshType)
 {
   if (theMeshType == IMeshTools_MeshAlgoType_DEFAULT)
   {
-    TCollection_AsciiString aValue = OSD_Environment("CSF_MeshAlgo").Value();
+    AsciiString1 aValue = OSD_Environment("CSF_MeshAlgo").Value();
     aValue.LowerCase();
     if (aValue == "watson" || aValue == "0")
     {
@@ -48,7 +48,7 @@ BRepMesh_Context::BRepMesh_Context(IMeshTools_MeshAlgoType theMeshType)
     {
       if (!aValue.IsEmpty())
       {
-        Message::SendWarning(TCollection_AsciiString("BRepMesh_Context, ignore unknown algorithm '")
+        Message::SendWarning(AsciiString1("BRepMesh_Context, ignore unknown algorithm '")
                              + aValue + "' specified in CSF_MeshAlgo variable");
       }
       theMeshType = IMeshTools_MeshAlgoType_Watson;

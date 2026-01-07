@@ -27,23 +27,23 @@
 #include <Extrema_ExtAlgo.hxx>
 #include <Extrema_ExtFlag.hxx>
 class Point3d;
-class Geom_Surface;
+class GeomSurface;
 
 //! This class implements methods for  computing all the orthogonal
 //! projections of a point onto a  surface.
-class GeomAPI_ProjectPointOnSurf
+class PointOnSurfProjector
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates an empty object. Use the
   //! Init function for further initialization.
-  Standard_EXPORT GeomAPI_ProjectPointOnSurf();
+  Standard_EXPORT PointOnSurfProjector();
 
   //! Create the projection  of a point <P> on a surface
   //! <Surface>
-  Standard_EXPORT GeomAPI_ProjectPointOnSurf(const Point3d&               P,
-                                             const Handle(Geom_Surface)& Surface,
+  Standard_EXPORT PointOnSurfProjector(const Point3d&               P,
+                                             const Handle(GeomSurface)& Surface,
                                              const Extrema_ExtAlgo Algo = Extrema_ExtAlgo_Grad);
 
   //! Create the projection  of a point <P> on a surface
@@ -51,13 +51,13 @@ public:
   //! Create the projection of a point <P>  on a surface
   //! <Surface>. The solution are computed in the domain
   //! [Umin,Usup] [Vmin,Vsup] of the surface.
-  Standard_EXPORT GeomAPI_ProjectPointOnSurf(const Point3d&               P,
-                                             const Handle(Geom_Surface)& Surface,
+  Standard_EXPORT PointOnSurfProjector(const Point3d&               P,
+                                             const Handle(GeomSurface)& Surface,
                                              const Standard_Real         Tolerance,
                                              const Extrema_ExtAlgo Algo = Extrema_ExtAlgo_Grad);
 
-  Standard_EXPORT GeomAPI_ProjectPointOnSurf(const Point3d&               P,
-                                             const Handle(Geom_Surface)& Surface,
+  Standard_EXPORT PointOnSurfProjector(const Point3d&               P,
+                                             const Handle(GeomSurface)& Surface,
                                              const Standard_Real         Umin,
                                              const Standard_Real         Usup,
                                              const Standard_Real         Vmin,
@@ -67,8 +67,8 @@ public:
 
   //! Init the projection  of a point <P> on a surface
   //! <Surface>
-  Standard_EXPORT GeomAPI_ProjectPointOnSurf(const Point3d&               P,
-                                             const Handle(Geom_Surface)& Surface,
+  Standard_EXPORT PointOnSurfProjector(const Point3d&               P,
+                                             const Handle(GeomSurface)& Surface,
                                              const Standard_Real         Umin,
                                              const Standard_Real         Usup,
                                              const Standard_Real         Vmin,
@@ -76,7 +76,7 @@ public:
                                              const Extrema_ExtAlgo Algo = Extrema_ExtAlgo_Grad);
 
   Standard_EXPORT void Init(const Point3d&               P,
-                            const Handle(Geom_Surface)& Surface,
+                            const Handle(GeomSurface)& Surface,
                             const Standard_Real         Tolerance,
                             const Extrema_ExtAlgo       Algo = Extrema_ExtAlgo_Grad);
 
@@ -84,11 +84,11 @@ public:
   //! <Surface>. The solution are computed in the domain
   //! [Umin,Usup] [Vmin,Vsup] of the surface.
   Standard_EXPORT void Init(const Point3d&               P,
-                            const Handle(Geom_Surface)& Surface,
+                            const Handle(GeomSurface)& Surface,
                             const Extrema_ExtAlgo       Algo = Extrema_ExtAlgo_Grad);
 
   Standard_EXPORT void Init(const Point3d&               P,
-                            const Handle(Geom_Surface)& Surface,
+                            const Handle(GeomSurface)& Surface,
                             const Standard_Real         Umin,
                             const Standard_Real         Usup,
                             const Standard_Real         Vmin,
@@ -100,14 +100,14 @@ public:
   //! <Surface>. The solutions will be computed in the domain
   //! [Umin,Usup] [Vmin,Vsup] of the surface.
   Standard_EXPORT void Init(const Point3d&               P,
-                            const Handle(Geom_Surface)& Surface,
+                            const Handle(GeomSurface)& Surface,
                             const Standard_Real         Umin,
                             const Standard_Real         Usup,
                             const Standard_Real         Vmin,
                             const Standard_Real         Vsup,
                             const Extrema_ExtAlgo       Algo = Extrema_ExtAlgo_Grad);
 
-  Standard_EXPORT void Init(const Handle(Geom_Surface)& Surface,
+  Standard_EXPORT void Init(const Handle(GeomSurface)& Surface,
                             const Standard_Real         Umin,
                             const Standard_Real         Usup,
                             const Standard_Real         Vmin,
@@ -115,7 +115,7 @@ public:
                             const Standard_Real         Tolerance,
                             const Extrema_ExtAlgo       Algo = Extrema_ExtAlgo_Grad);
 
-  Standard_EXPORT void Init(const Handle(Geom_Surface)& Surface,
+  Standard_EXPORT void Init(const Handle(GeomSurface)& Surface,
                             const Standard_Real         Umin,
                             const Standard_Real         Usup,
                             const Standard_Real         Vmin,

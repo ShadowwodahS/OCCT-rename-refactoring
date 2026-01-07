@@ -25,9 +25,9 @@
 #include <Standard_Integer.hxx>
 class Interface_InterfaceModel;
 class Transfer_ActorOfTransientProcess;
-class TopoDS_Shape;
+class TopoShape;
 class Transfer_FinderProcess;
-class XSControl_WorkSession;
+class ExchangeSession;
 
 class IGESControl_Controller;
 DEFINE_STANDARD_HANDLE(IGESControl_Controller, XSControl_Controller)
@@ -47,7 +47,7 @@ public:
   Standard_EXPORT Handle(Interface_InterfaceModel) NewModel() const Standard_OVERRIDE;
 
   //! Returns the Actor for Read attached to the pair (norm,appli)
-  //! It is an Actor from IGESToBRep, adapted from an IGESModel :
+  //! It is an Actor from IGESToBRep1, adapted from an IGESModel :
   //! Unit, tolerances
   Standard_EXPORT Handle(Transfer_ActorOfTransientProcess) ActorRead(
     const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
@@ -60,7 +60,7 @@ public:
   //! modeshape : 0 group of face (version < 5.1)
   //! 1  BREP-version 5.1 of IGES
   Standard_EXPORT virtual IFSelect_ReturnStatus TransferWriteShape(
-    const TopoDS_Shape&                     shape,
+    const TopoShape&                     shape,
     const Handle(Transfer_FinderProcess)&   FP,
     const Handle(Interface_InterfaceModel)& model,
     const Standard_Integer                  modetrans = 0,
@@ -72,7 +72,7 @@ public:
   //! Also, it creates and records an Adaptor for FNES
   Standard_EXPORT static Standard_Boolean Init();
 
-  Standard_EXPORT virtual void Customise(Handle(XSControl_WorkSession)& WS) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Customise(Handle(ExchangeSession)& WS) Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESControl_Controller, XSControl_Controller)
 

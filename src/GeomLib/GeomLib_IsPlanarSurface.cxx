@@ -31,7 +31,7 @@
 
 static Standard_Boolean Controle(const TColgp_Array1OfPnt&   Poles,
                                  const Standard_Real         Tol,
-                                 const Handle(Geom_Surface)& S,
+                                 const Handle(GeomSurface)& S,
                                  gp_Pln&                     Plan)
 {
   Standard_Boolean        IsPlan = Standard_False;
@@ -79,7 +79,7 @@ static Standard_Boolean Controle(const TColgp_Array1OfPnt&   Poles,
   return IsPlan;
 }
 
-static Standard_Boolean Controle(const Handle(Geom_Curve)& C,
+static Standard_Boolean Controle(const Handle(GeomCurve3d)& C,
                                  const gp_Pln&             Plan,
                                  const Standard_Real       Tol)
 {
@@ -133,7 +133,7 @@ static Standard_Boolean Controle(const Handle(Geom_Curve)& C,
   return B;
 }
 
-GeomLib_IsPlanarSurface::GeomLib_IsPlanarSurface(const Handle(Geom_Surface)& S,
+GeomLib_IsPlanarSurface::GeomLib_IsPlanarSurface(const Handle(GeomSurface)& S,
                                                  const Standard_Real         Tol)
 
 {
@@ -189,7 +189,7 @@ GeomLib_IsPlanarSurface::GeomLib_IsPlanarSurface(const Handle(Geom_Surface)& S,
         axe.SetXDirection(DU);
         myPlan.SetPosition(axe);
         myPlan.SetLocation(P);
-        Handle(Geom_Curve) C;
+        Handle(GeomCurve3d) C;
         C      = S->UIso(Umin);
         IsPlan = Controle(C, myPlan, Tol);
       }
@@ -227,7 +227,7 @@ GeomLib_IsPlanarSurface::GeomLib_IsPlanarSurface(const Handle(Geom_Surface)& S,
         gp_Ax3 axe(P, Dn, Du);
         myPlan.SetPosition(axe);
         myPlan.SetLocation(P);
-        Handle(Geom_Curve) C;
+        Handle(GeomCurve3d) C;
         C      = S->VIso((Vmin + Vmax) / 2);
         IsPlan = Controle(C, myPlan, Tol);
       }

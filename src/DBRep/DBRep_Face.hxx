@@ -37,11 +37,11 @@ class DBRep_Face : public RefObject
 
 public:
   //! N is the number of iso intervals.
-  Standard_EXPORT DBRep_Face(const TopoDS_Face& F, const Standard_Integer N, const Draw_Color& C);
+  Standard_EXPORT DBRep_Face(const TopoFace& F, const Standard_Integer N, const DrawColor& C);
 
-  const TopoDS_Face& Face() const;
+  const TopoFace& Face() const;
 
-  void Face(const TopoDS_Face& F);
+  void Face(const TopoFace& F);
 
   Standard_Integer NbIsos() const;
 
@@ -57,16 +57,16 @@ public:
               Standard_Real&         T1,
               Standard_Real&         T2) const;
 
-  const Draw_Color& Color() const;
+  const DrawColor& Color() const;
 
-  void Color(const Draw_Color& C);
+  void Color(const DrawColor& C);
 
   DEFINE_STANDARD_RTTIEXT(DBRep_Face, RefObject)
 
 protected:
 private:
-  TopoDS_Face             myFace;
-  Draw_Color              myColor;
+  TopoFace             myFace;
+  DrawColor              myColor;
   TColStd_Array1OfInteger myTypes;
   TColStd_Array1OfReal    myParams;
 };

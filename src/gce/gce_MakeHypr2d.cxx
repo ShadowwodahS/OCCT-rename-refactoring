@@ -30,8 +30,8 @@
 //=========================================================================
 gce_MakeHypr2d::gce_MakeHypr2d(const gp_Pnt2d& S1, const gp_Pnt2d& S2, const gp_Pnt2d& Center)
 {
-  gp_Dir2d      XAxis(gp_XY(S1.XY() - Center.XY()));
-  gp_Dir2d      YAxis(gp_XY(S2.XY() - Center.XY()));
+  gp_Dir2d      XAxis(Coords2d(S1.XY() - Center.XY()));
+  gp_Dir2d      YAxis(Coords2d(S2.XY() - Center.XY()));
   gp_Ax22d      Axis(Center, XAxis, YAxis);
   gp_Lin2d      L(Center, XAxis);
   Standard_Real D1 = S1.Distance(Center);

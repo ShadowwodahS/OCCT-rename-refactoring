@@ -37,7 +37,7 @@
 class Law_Function;
 class math_Matrix;
 class gp_Circ;
-class Blend_Point;
+class Point2;
 
 class BlendFunc_CSCircular : public Blend_CSFunction
 {
@@ -141,7 +141,7 @@ public:
   //! Used for the first and last section
   //! The method returns Standard_True if the derivatives
   //! are computed, otherwise it returns Standard_False.
-  Standard_EXPORT virtual Standard_Boolean Section(const Blend_Point&    P,
+  Standard_EXPORT virtual Standard_Boolean Section(const Point2&    P,
                                                    TColgp_Array1OfPnt&   Poles,
                                                    TColgp_Array1OfVec&   DPoles,
                                                    TColgp_Array1OfVec&   D2Poles,
@@ -205,7 +205,7 @@ public:
   Standard_EXPORT void Mults(TColStd_Array1OfInteger& TMults) Standard_OVERRIDE;
 
   //! Used for the first and last section
-  Standard_EXPORT Standard_Boolean Section(const Blend_Point&    P,
+  Standard_EXPORT Standard_Boolean Section(const Point2&    P,
                                            TColgp_Array1OfPnt&   Poles,
                                            TColgp_Array1OfVec&   DPoles,
                                            TColgp_Array1OfPnt2d& Poles2d,
@@ -213,7 +213,7 @@ public:
                                            TColStd_Array1OfReal& Weigths,
                                            TColStd_Array1OfReal& DWeigths) Standard_OVERRIDE;
 
-  Standard_EXPORT void Section(const Blend_Point&    P,
+  Standard_EXPORT void Section(const Point2&    P,
                                TColgp_Array1OfPnt&   Poles,
                                TColgp_Array1OfPnt2d& Poles2d,
                                TColStd_Array1OfReal& Weigths) Standard_OVERRIDE;

@@ -122,7 +122,7 @@ public:
   Standard_EXPORT Standard_CString StringAttribute(const Standard_CString name) const;
 
   //! Returns the exhaustive list of attributes
-  Standard_EXPORT NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>&
+  Standard_EXPORT NCollection_DataMap<AsciiString1, Handle(RefObject)>&
                   AttrList();
 
   //! Gets the list of attributes from <other>, as such, i.e.
@@ -155,7 +155,7 @@ protected:
 
 private:
   size_t                                                                   thecode;
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> theattrib;
+  NCollection_DataMap<AsciiString1, Handle(RefObject)> theattrib;
 };
 
 #endif // _Transfer_Finder_HeaderFile

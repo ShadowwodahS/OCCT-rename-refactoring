@@ -29,15 +29,15 @@ IMPLEMENT_STANDARD_RTTIEXT(TPrsStd_NamedShapeDriver, TPrsStd_Driver)
 
 #undef OPTIM_UPDATE // If this variable is defined there will be done
 
-//                      more otimized update of AIS_Shape. If an object was
+//                      more otimized update of VisualShape. If an object was
 //                      erased in the viewer and it's location was changed
 //                      but topological data wasn't then when displayed only
 //                      the object's presentation will be moved to new location
-//                      without recompute. The shape in AIS_Shape will
+//                      without recompute. The shape in VisualShape will
 //                      be the previous one with the old location.
 //                      NOTE! After selection of sub shapes of the object
 //                      they will have THE OLD LOCATION and it has to be
-//                      compared with location of AIS_Shape that will contain
+//                      compared with location of VisualShape that will contain
 //                      the right location of shape.
 
 //=================================================================================================
@@ -46,43 +46,43 @@ TPrsStd_NamedShapeDriver::TPrsStd_NamedShapeDriver() {}
 
 //=================================================================================================
 
-Standard_Boolean TPrsStd_NamedShapeDriver::Update(const TDF_Label&               aLabel,
-                                                  Handle(AIS_InteractiveObject)& AIS)
+Standard_Boolean TPrsStd_NamedShapeDriver::Update(const DataLabel&               aLabel,
+                                                  Handle(VisualEntity)& AIS)
 {
-  Handle(TNaming_NamedShape) NS;
+  Handle(ShapeAttribute) NS;
 
-  if (!aLabel.FindAttribute(TNaming_NamedShape::GetID(), NS))
+  if (!aLabel.FindAttribute(ShapeAttribute::GetID(), NS))
   {
     return Standard_False;
   }
 
-  // TopoDS_Shape S = TNaming_Tool::CurrentShape (NS);
-  TopoDS_Shape S = TNaming_Tool::GetShape(NS);
+  // TopoShape S = Tool11::CurrentShape (NS);
+  TopoShape S = Tool11::GetShape(NS);
   if (S.IsNull())
   {
     return Standard_False;
   }
   TopLoc_Location L = S.Location();
 
-  Handle(AIS_Shape) AISShape;
+  Handle(VisualShape) AISShape;
   if (AIS.IsNull())
-    AISShape = new AIS_Shape(S);
+    AISShape = new VisualShape(S);
   else
   {
-    AISShape = Handle(AIS_Shape)::DownCast(AIS);
+    AISShape = Handle(VisualShape)::DownCast(AIS);
     if (AISShape.IsNull())
     {
-      AISShape = new AIS_Shape(S);
+      AISShape = new VisualShape(S);
     }
     else
     {
-      TopoDS_Shape oldShape = AISShape->Shape();
+      TopoShape oldShape = AISShape->Shape();
       if (oldShape != S)
       {
         AISShape->ResetTransformation();
 
 #ifdef OPTIM_UPDATE
-        Handle(AIS_InteractiveContext) ctx = AISShape->GetContext();
+        Handle(VisualContext) ctx = AISShape->GetContext();
         if (S.IsPartner(oldShape) && (!ctx.IsNull() && !ctx->IsDisplayed(AISShape)))
         {
           if (L != oldShape.Location())

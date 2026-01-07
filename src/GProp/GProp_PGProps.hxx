@@ -36,7 +36,7 @@ class Point3d;
 //! mass of a system composed of N points is equal to N.
 //! Warning
 //! A framework of this sort provides functions to handle
-//! sets of points easily. But, like any GProp_GProps
+//! sets of points easily. But, like any GeometricProperties
 //! object, by using the Add function, it can theoretically
 //! bring together the computed global properties and
 //! those of a system more complex than a set of points .
@@ -45,9 +45,9 @@ class Point3d;
 //! coherent. Note that this coherence cannot be checked.
 //! Nonetheless, you are advised to restrict your use of a
 //! GProp_PGProps object to a set of points and to
-//! create a GProp_GProps object in order to bring
+//! create a GeometricProperties object in order to bring
 //! together global properties of different systems.
-class GProp_PGProps : public GProp_GProps
+class GProp_PGProps : public GeometricProperties
 {
 public:
   DEFINE_STANDARD_ALLOC

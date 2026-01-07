@@ -121,28 +121,28 @@ Standard_Boolean        Draw_BlackBackGround = Standard_True;
 #if defined(_WIN32)
 // indicates SUBSYSTEM:CONSOLE linker option, to be set to True in main()
 Standard_EXPORT Standard_Boolean Draw_IsConsoleSubsystem    = Standard_False;
-HWND                             Draw_Window::hWndClientMDI = 0;
+HWND                             DrawWindow::hWndClientMDI = 0;
 #endif
 
 //! Return termination callbacks.
-static NCollection_List<Draw_Window::FCallbackBeforeTerminate>& TermCallbacks()
+static NCollection_List<DrawWindow::FCallbackBeforeTerminate>& TermCallbacks()
 {
-  static NCollection_List<Draw_Window::FCallbackBeforeTerminate> MyCallbacks;
+  static NCollection_List<DrawWindow::FCallbackBeforeTerminate> MyCallbacks;
   return MyCallbacks;
 }
 
 //=================================================================================================
 
-void Draw_Window::AddCallbackBeforeTerminate(FCallbackBeforeTerminate theCB)
+void DrawWindow::AddCallbackBeforeTerminate(FCallbackBeforeTerminate theCB)
 {
   TermCallbacks().Append(theCB);
 }
 
 //=================================================================================================
 
-void Draw_Window::RemoveCallbackBeforeTerminate(FCallbackBeforeTerminate theCB)
+void DrawWindow::RemoveCallbackBeforeTerminate(FCallbackBeforeTerminate theCB)
 {
-  for (NCollection_List<Draw_Window::FCallbackBeforeTerminate>::Iterator anIter(TermCallbacks());
+  for (NCollection_List<DrawWindow::FCallbackBeforeTerminate>::Iterator anIter(TermCallbacks());
        anIter.More();
        anIter.Next())
   {
@@ -220,14 +220,14 @@ static Standard_Integer                 Draw_WindowScreen = 0;
 static Handle(Aspect_DisplayConnection) Draw_DisplayConnection;
 
 //! Return list of windows.
-static NCollection_List<Draw_Window*>& getDrawWindowList()
+static NCollection_List<DrawWindow*>& getDrawWindowList()
 {
-  static NCollection_List<Draw_Window*> MyWindows;
+  static NCollection_List<DrawWindow*> MyWindows;
   return MyWindows;
 }
 
 //! Base_Window struct definition
-struct Draw_Window::Base_Window
+struct DrawWindow::Base_Window
 {
   GC                   gc;
   XSetWindowAttributes xswa;
@@ -238,7 +238,7 @@ struct Draw_Window::Base_Window
 #if !defined(__APPLE__) || defined(HAVE_XLIB) // implementation for Apple resides in .mm file
 //=================================================================================================
 
-Draw_Window::Draw_Window(const char*                  theTitle,
+DrawWindow::DrawWindow(const char*                  theTitle,
                          const NCollection_Vec2<int>& theXY,
                          const NCollection_Vec2<int>& theSize,
                          Aspect_Drawable              theParent,
@@ -285,7 +285,7 @@ Draw_Window::Draw_Window(const char*                  theTitle,
 
 //=================================================================================================
 
-Draw_Window::~Draw_Window()
+DrawWindow::~DrawWindow()
 {
   #ifdef _WIN32
   // Delete 'off-screen drawing'-related objects
@@ -306,7 +306,7 @@ Draw_Window::~Draw_Window()
 
 //=================================================================================================
 
-void Draw_Window::init(const NCollection_Vec2<int>& theXY, const NCollection_Vec2<int>& theSize)
+void DrawWindow::init(const NCollection_Vec2<int>& theXY, const NCollection_Vec2<int>& theSize)
 {
   #ifdef _WIN32
   if (myWindow == NULL)
@@ -413,7 +413,7 @@ void Draw_Window::init(const NCollection_Vec2<int>& theXY, const NCollection_Vec
 
 //=================================================================================================
 
-void Draw_Window::SetUseBuffer(Standard_Boolean theToUse)
+void DrawWindow::SetUseBuffer(Standard_Boolean theToUse)
 {
   myUseBuffer = theToUse;
   InitBuffer();
@@ -422,7 +422,7 @@ void Draw_Window::SetUseBuffer(Standard_Boolean theToUse)
   #ifdef _WIN32
 //=================================================================================================
 
-HDC Draw_Window::getMemDC(HDC theWinDC)
+HDC DrawWindow::getMemDC(HDC theWinDC)
 {
   if (!myUseBuffer)
   {
@@ -441,7 +441,7 @@ HDC Draw_Window::getMemDC(HDC theWinDC)
 
 //=================================================================================================
 
-void Draw_Window::releaseMemDC(HDC theMemDC)
+void DrawWindow::releaseMemDC(HDC theMemDC)
 {
   if (!myUseBuffer || !theMemDC)
   {
@@ -458,7 +458,7 @@ void Draw_Window::releaseMemDC(HDC theMemDC)
 
 //=================================================================================================
 
-void Draw_Window::InitBuffer()
+void DrawWindow::InitBuffer()
 {
   #ifdef _WIN32
   if (myUseBuffer)
@@ -513,7 +513,7 @@ void Draw_Window::InitBuffer()
 
 //=================================================================================================
 
-void Draw_Window::SetPosition(Standard_Integer theNewXpos, Standard_Integer theNewYpos)
+void DrawWindow::SetPosition(Standard_Integer theNewXpos, Standard_Integer theNewYpos)
 {
   #ifdef _WIN32
   UINT aFlags = SWP_NOACTIVATE | SWP_NOSIZE | SWP_NOZORDER;
@@ -537,7 +537,7 @@ void Draw_Window::SetPosition(Standard_Integer theNewXpos, Standard_Integer theN
 
 //=================================================================================================
 
-void Draw_Window::SetDimension(Standard_Integer theNewDx, Standard_Integer theNewDy)
+void DrawWindow::SetDimension(Standard_Integer theNewDx, Standard_Integer theNewDy)
 {
   #ifdef _WIN32
   UINT aFlags = SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER;
@@ -559,7 +559,7 @@ void Draw_Window::SetDimension(Standard_Integer theNewDx, Standard_Integer theNe
 
 //=================================================================================================
 
-void Draw_Window::GetPosition(Standard_Integer& thePosX, Standard_Integer& thePosY)
+void DrawWindow::GetPosition(Standard_Integer& thePosX, Standard_Integer& thePosY)
 {
   thePosX = thePosY = 0;
   #ifdef _WIN32
@@ -583,7 +583,7 @@ void Draw_Window::GetPosition(Standard_Integer& thePosX, Standard_Integer& thePo
 
 //=================================================================================================
 
-Standard_Integer Draw_Window::HeightWin() const
+Standard_Integer DrawWindow::HeightWin() const
 {
   #ifdef _WIN32
   RECT aRect;
@@ -600,7 +600,7 @@ Standard_Integer Draw_Window::HeightWin() const
 
 //=================================================================================================
 
-Standard_Integer Draw_Window::WidthWin() const
+Standard_Integer DrawWindow::WidthWin() const
 {
   #ifdef _WIN32
   RECT aRect;
@@ -617,10 +617,10 @@ Standard_Integer Draw_Window::WidthWin() const
 
 //=================================================================================================
 
-void Draw_Window::SetTitle(const TCollection_AsciiString& theTitle)
+void DrawWindow::SetTitle(const AsciiString1& theTitle)
 {
   #ifdef _WIN32
-  const TCollection_ExtendedString aTitleW(theTitle);
+  const UtfString aTitleW(theTitle);
   SetWindowTextW(myWindow, aTitleW.ToWideString());
   #elif defined(HAVE_XLIB)
   XStoreName(Draw_WindowDisplay, myWindow, theTitle.ToCString());
@@ -631,24 +631,24 @@ void Draw_Window::SetTitle(const TCollection_AsciiString& theTitle)
 
 //=================================================================================================
 
-TCollection_AsciiString Draw_Window::GetTitle() const
+AsciiString1 DrawWindow::GetTitle() const
 {
   #ifdef _WIN32
   wchar_t aTitleW[32];
   GetWindowTextW(myWindow, aTitleW, 30);
-  return TCollection_AsciiString(aTitleW);
+  return AsciiString1(aTitleW);
   #elif defined(HAVE_XLIB)
   char* aTitle = NULL;
   XFetchName(Draw_WindowDisplay, myWindow, &aTitle);
-  return TCollection_AsciiString(aTitle);
+  return AsciiString1(aTitle);
   #else
-  return TCollection_AsciiString();
+  return AsciiString1();
   #endif
 }
 
 //=================================================================================================
 
-Standard_Boolean Draw_Window::DefineColor(const Standard_Integer theIndex, const char* theColorName)
+Standard_Boolean DrawWindow::DefineColor(const Standard_Integer theIndex, const char* theColorName)
 {
   #if defined(HAVE_XLIB)
   XColor aColor;
@@ -671,7 +671,7 @@ Standard_Boolean Draw_Window::DefineColor(const Standard_Integer theIndex, const
 
 //=================================================================================================
 
-bool Draw_Window::IsMapped() const
+bool DrawWindow::IsMapped() const
 {
   if (Draw_VirtualWindows || myWindow == 0)
   {
@@ -693,7 +693,7 @@ bool Draw_Window::IsMapped() const
 
 //=================================================================================================
 
-void Draw_Window::DisplayWindow()
+void DrawWindow::DisplayWindow()
 {
   if (Draw_VirtualWindows)
   {
@@ -711,7 +711,7 @@ void Draw_Window::DisplayWindow()
 
 //=================================================================================================
 
-void Draw_Window::Hide()
+void DrawWindow::Hide()
 {
   #ifdef _WIN32
   ShowWindow(myWindow, SW_HIDE);
@@ -722,7 +722,7 @@ void Draw_Window::Hide()
 
 //=================================================================================================
 
-void Draw_Window::Destroy()
+void DrawWindow::Destroy()
 {
   #ifdef _WIN32
   DestroyWindow(myWindow);
@@ -740,7 +740,7 @@ void Draw_Window::Destroy()
 
 //=================================================================================================
 
-void Draw_Window::Clear()
+void DrawWindow::Clear()
 {
   #ifdef _WIN32
   HDC hDC     = GetDC(myWindow);
@@ -775,7 +775,7 @@ void Draw_Window::Clear()
 
 //=================================================================================================
 
-void Draw_Window::Flush()
+void DrawWindow::Flush()
 {
   #if defined(HAVE_XLIB)
   XFlush(Draw_WindowDisplay);
@@ -784,13 +784,13 @@ void Draw_Window::Flush()
 
 //=================================================================================================
 
-void Draw_Window::DrawString(Standard_Integer theX, Standard_Integer theY, const char* theText)
+void DrawWindow::DrawString(Standard_Integer theX, Standard_Integer theY, const char* theText)
 {
   #ifdef _WIN32
   HDC hDC     = GetDC(myWindow);
   HDC aWorkDC = myUseBuffer ? getMemDC(hDC) : hDC;
 
-  const TCollection_ExtendedString aTextW(theText);
+  const UtfString aTextW(theText);
   TextOutW(aWorkDC, theX, theY, aTextW.ToWideString(), aTextW.Length());
 
   if (myUseBuffer)
@@ -815,7 +815,7 @@ void Draw_Window::DrawString(Standard_Integer theX, Standard_Integer theY, const
 
 //=================================================================================================
 
-void Draw_Window::DrawSegments(const Draw_XSegment* theSegments, Standard_Integer theNbElems)
+void DrawWindow::DrawSegments(const Draw_XSegment* theSegments, Standard_Integer theNbElems)
 {
   #ifdef _WIN32
   HDC hDC     = GetDC(myWindow);
@@ -842,7 +842,7 @@ void Draw_Window::DrawSegments(const Draw_XSegment* theSegments, Standard_Intege
 
 //=================================================================================================
 
-void Draw_Window::Redraw()
+void DrawWindow::Redraw()
 {
   #ifdef _WIN32
   if (myUseBuffer)
@@ -882,7 +882,7 @@ void Draw_Window::Redraw()
 
 //=================================================================================================
 
-void Draw_Window::SetColor(Standard_Integer theColor)
+void DrawWindow::SetColor(Standard_Integer theColor)
 {
   #ifdef _WIN32
   HDC hDC   = GetDC(myWindow);
@@ -897,7 +897,7 @@ void Draw_Window::SetColor(Standard_Integer theColor)
 
 //=================================================================================================
 
-void Draw_Window::SetMode(int theMode)
+void DrawWindow::SetMode(int theMode)
 {
   #ifdef _WIN32
   HDC hDC    = GetDC(myWindow);
@@ -963,7 +963,7 @@ static Standard_Boolean SaveBitmap(HBITMAP theHBitmap, const char* theFileName)
 
 //=================================================================================================
 
-Standard_Boolean Draw_Window::Save(const char* theFileName) const
+Standard_Boolean DrawWindow::Save(const char* theFileName) const
 {
   #ifdef _WIN32
   if (myUseBuffer)
@@ -1092,7 +1092,7 @@ Standard_Boolean Draw_Window::Save(const char* theFileName) const
 #if defined(HAVE_XLIB)
 //=================================================================================================
 
-void Draw_Window::Wait(Standard_Boolean theToWait)
+void DrawWindow::Wait(Standard_Boolean theToWait)
 {
   Flush();
   long aMask = ButtonPressMask | ExposureMask | StructureNotifyMask;
@@ -1115,10 +1115,10 @@ static void processXEvents(ClientData, int)
     // search the window in the window list
     bool isFound = false;
 
-    for (NCollection_List<Draw_Window*>::Iterator aWinIter(getDrawWindowList()); aWinIter.More();
+    for (NCollection_List<DrawWindow*>::Iterator aWinIter(getDrawWindowList()); aWinIter.More();
          aWinIter.Next())
     {
-      Draw_Window* aDrawWin = aWinIter.Value();
+      DrawWindow* aDrawWin = aWinIter.Value();
       if (aDrawWin->IsEqualWindows(anEvent.xany.window))
       {
         switch (anEvent.type)
@@ -1152,7 +1152,7 @@ static void processXEvents(ClientData, int)
 
 //=================================================================================================
 
-void Draw_Window::GetNextEvent(Draw_Window::Draw_XEvent& theEvent)
+void DrawWindow::GetNextEvent(DrawWindow::Draw_XEvent& theEvent)
 {
   XEvent anXEvent;
   XNextEvent(Draw_WindowDisplay, &anXEvent);
@@ -1210,7 +1210,7 @@ void Run_Appli(Standard_Boolean (*interprete)(const char*))
                         (ClientData)0);
   #endif // __APPLE__
 
-  Draw_Interpretor& aCommands = Draw::GetInterpretor();
+  DrawInterpreter& aCommands = Draw1::GetInterpretor();
 
   if (tty)
   {
@@ -1247,7 +1247,7 @@ void Run_Appli(Standard_Boolean (*interprete)(const char*))
   }
   #endif
 
-  for (NCollection_List<Draw_Window::FCallbackBeforeTerminate>::Iterator anIter(TermCallbacks());
+  for (NCollection_List<DrawWindow::FCallbackBeforeTerminate>::Iterator anIter(TermCallbacks());
        anIter.More();
        anIter.Next())
   {
@@ -1259,7 +1259,7 @@ void Run_Appli(Standard_Boolean (*interprete)(const char*))
 
 Standard_Boolean Init_Appli()
 {
-  Draw_Interpretor& aCommands = Draw::GetInterpretor();
+  DrawInterpreter& aCommands = Draw1::GetInterpretor();
   aCommands.Init();
   Tcl_Interp* interp = aCommands.Interp();
   Tcl_Init(interp);
@@ -1288,9 +1288,9 @@ Standard_Boolean Init_Appli()
     exit(1);
   }
     #if defined(__APPLE__) && !defined(HAVE_XLIB)
-  Tk_SetAppName(aMainWindow, "Draw");
+  Tk_SetAppName(aMainWindow, "Draw1");
     #else
-  Tk_Name(aMainWindow) = Tk_GetUid(Tk_SetAppName(aMainWindow, "Draw"));
+  Tk_Name(aMainWindow) = Tk_GetUid(Tk_SetAppName(aMainWindow, "Draw1"));
     #endif
 
   Tk_GeometryRequest(aMainWindow, 200, 200);
@@ -1360,7 +1360,7 @@ static void StdinProc(ClientData clientData, int theMask)
   Tcl_UniChar* aUniCharString =
     Tcl_UtfToUniCharDString(Tcl_DStringValue(&Draw_TclLine), -1, &aLineTmp);
   Standard_Integer        l = Tcl_UniCharLen(aUniCharString);
-  TCollection_AsciiString anAsciiString;
+  AsciiString1 anAsciiString;
   for (Standard_Integer i = 0; i < l; ++i)
   {
     Standard_Character aCharacter = aUniCharString[i];
@@ -1435,7 +1435,7 @@ static void StdinProc(ClientData clientData, int theMask)
   prompt:
     if (tty)
     {
-      Prompt(Draw::GetInterpretor().Interp(), gotPartial);
+      Prompt(Draw1::GetInterpretor().Interp(), gotPartial);
     }
   }
   catch (ExceptionBase const&)
@@ -1450,7 +1450,7 @@ static void StdinProc(ClientData clientData, int theMask)
 /*--------------------------------------------------------*\
 |  CREATE DRAW WINDOW PROCEDURE
 \*--------------------------------------------------------*/
-HWND Draw_Window::createDrawWindow(HWND hWndClient, int nitem)
+HWND DrawWindow::createDrawWindow(HWND hWndClient, int nitem)
 {
   if (Draw_IsConsoleSubsystem)
   {
@@ -1491,9 +1491,9 @@ HWND Draw_Window::createDrawWindow(HWND hWndClient, int nitem)
 /*--------------------------------------------------------*\
 |  DRAW WINDOW PROCEDURE
 \*--------------------------------------------------------*/
-LRESULT APIENTRY Draw_Window::DrawProc(HWND hWnd, UINT wMsg, WPARAM wParam, LPARAM lParam)
+LRESULT APIENTRY DrawWindow::DrawProc(HWND hWnd, UINT wMsg, WPARAM wParam, LPARAM lParam)
 {
-  Draw_Window* aLocWin = (Draw_Window*)GetWindowLongPtrW(hWnd, CLIENTWND);
+  DrawWindow* aLocWin = (DrawWindow*)GetWindowLongPtrW(hWnd, CLIENTWND);
   if (aLocWin == NULL)
   {
     return Draw_IsConsoleSubsystem ? DefWindowProcW(hWnd, wMsg, wParam, lParam)
@@ -1538,13 +1538,13 @@ LRESULT APIENTRY Draw_Window::DrawProc(HWND hWnd, UINT wMsg, WPARAM wParam, LPAR
 /*--------------------------------------------------------*\
 |  SelectWait
 \*--------------------------------------------------------*/
-void Draw_Window::SelectWait(HANDLE& theWindow, int& theX, int& theY, int& theButton)
+void DrawWindow::SelectWait(HANDLE& theWindow, int& theX, int& theY, int& theButton)
 {
   MSG aMsg;
   aMsg.wParam = 1;
   GetMessageW(&aMsg, NULL, 0, 0);
   while ((aMsg.message != WM_RBUTTONDOWN && aMsg.message != WM_LBUTTONDOWN)
-         || !(Draw_IsConsoleSubsystem || IsChild(Draw_Window::hWndClientMDI, aMsg.hwnd)))
+         || !(Draw_IsConsoleSubsystem || IsChild(DrawWindow::hWndClientMDI, aMsg.hwnd)))
   {
     GetMessageW(&aMsg, NULL, 0, 0);
   }
@@ -1565,14 +1565,14 @@ void Draw_Window::SelectWait(HANDLE& theWindow, int& theX, int& theY, int& theBu
 /*--------------------------------------------------------*\
 |  SelectNoWait
 \*--------------------------------------------------------*/
-void Draw_Window::SelectNoWait(HANDLE& theWindow, int& theX, int& theY, int& theButton)
+void DrawWindow::SelectNoWait(HANDLE& theWindow, int& theX, int& theY, int& theButton)
 {
   MSG aMsg;
   aMsg.wParam = 1;
   GetMessageW(&aMsg, NULL, 0, 0);
   while ((aMsg.message != WM_RBUTTONDOWN && aMsg.message != WM_LBUTTONDOWN
           && aMsg.message != WM_MOUSEMOVE)
-         || !(Draw_IsConsoleSubsystem || IsChild(Draw_Window::hWndClientMDI, aMsg.hwnd)))
+         || !(Draw_IsConsoleSubsystem || IsChild(DrawWindow::hWndClientMDI, aMsg.hwnd)))
   {
     GetMessageW(&aMsg, NULL, 0, 0);
   }
@@ -1632,7 +1632,7 @@ Standard_Boolean Init_Appli(HINSTANCE hInst, HINSTANCE hPrevInst, int nShow, HWN
     std::cout << "Failed to create Tcl/Tk main loop thread. Switching to batch mode..."
               << std::endl;
     Draw_Batch                  = Standard_True;
-    Draw_Interpretor& aCommands = Draw::GetInterpretor();
+    DrawInterpreter& aCommands = Draw1::GetInterpretor();
     aCommands.Init();
     Tcl_Interp* interp = aCommands.Interp();
     Tcl_Init(interp);
@@ -1751,7 +1751,7 @@ static DWORD WINAPI readStdinThreadFunc(const LPVOID theThreadParameter)
 \*--------------------------------------------------------*/
 void exitProc(ClientData /*dc*/)
 {
-  for (NCollection_List<Draw_Window::FCallbackBeforeTerminate>::Iterator anIter(TermCallbacks());
+  for (NCollection_List<DrawWindow::FCallbackBeforeTerminate>::Iterator anIter(TermCallbacks());
        anIter.More();
        anIter.Next())
   {
@@ -1864,7 +1864,7 @@ static DWORD WINAPI tkLoop(const LPVOID theThreadParameter)
   (void)theThreadParameter;
   Tcl_CreateExitHandler(exitProc, 0);
 
-  Draw_Interpretor& aCommands = Draw::GetInterpretor();
+  DrawInterpreter& aCommands = Draw1::GetInterpretor();
   aCommands.Init();
   Tcl_Interp* interp = aCommands.Interp();
   Tcl_Init(interp);
@@ -1941,7 +1941,7 @@ static DWORD WINAPI tkLoop(const LPVOID theThreadParameter)
       std::cout << "tkLoop: Tk_MainWindow() returned NULL. Exiting...\n";
       Tcl_Exit(0);
     }
-    Tk_Name(mainWindow) = Tk_GetUid(Tk_SetAppName(mainWindow, "Draw"));
+    Tk_Name(mainWindow) = Tk_GetUid(Tk_SetAppName(mainWindow, "Draw1"));
   }
   #endif // #ifdef _TK
 
@@ -1972,7 +1972,7 @@ static DWORD WINAPI tkLoop(const LPVOID theThreadParameter)
     const bool isTclEventQueueEmpty = Tcl_DoOneEvent(TCL_ALL_EVENTS | TCL_DONT_WAIT) == 0;
     if (console_semaphore == HAS_CONSOLE_COMMAND)
     {
-      const TCollection_AsciiString aCmdUtf8(console_command);
+      const AsciiString1 aCmdUtf8(console_command);
       const bool                    wasInterpreted = Draw_Interprete(aCmdUtf8.ToCString());
       if (Draw_IsConsoleSubsystem)
       {

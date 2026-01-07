@@ -22,7 +22,7 @@
 #include <TDF_Attribute.hxx>
 class TCollection_HAsciiString;
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 class XCAFDimTolObjects_DatumObject;
 
@@ -44,12 +44,12 @@ public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
   Standard_EXPORT static Handle(XCAFDoc_Datum) Set(
-    const TDF_Label&                        label,
+    const DataLabel&                        label,
     const Handle(TCollection_HAsciiString)& aName,
     const Handle(TCollection_HAsciiString)& aDescription,
     const Handle(TCollection_HAsciiString)& anIdentification);
 
-  Standard_EXPORT static Handle(XCAFDoc_Datum) Set(const TDF_Label& theLabel);
+  Standard_EXPORT static Handle(XCAFDoc_Datum) Set(const DataLabel& theLabel);
 
   Standard_EXPORT void Set(const Handle(TCollection_HAsciiString)& aName,
                            const Handle(TCollection_HAsciiString)& aDescription,

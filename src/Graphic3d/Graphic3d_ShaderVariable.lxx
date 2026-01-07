@@ -51,7 +51,7 @@ inline Standard_Size Graphic3d_UniformValue<T>::TypeID() const
 // =======================================================================
 template <class T>
 inline Graphic3d_ShaderVariable* Graphic3d_ShaderVariable::Create(
-  const TCollection_AsciiString& theName,
+  const AsciiString1& theName,
   const T&                       theValue)
 {
   Graphic3d_ShaderVariable* theVariable = new Graphic3d_ShaderVariable(theName);

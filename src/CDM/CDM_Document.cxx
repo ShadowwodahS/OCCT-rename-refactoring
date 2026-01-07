@@ -74,7 +74,7 @@ void CDM_Document::Update() {}
 
 //=================================================================================================
 
-Standard_Boolean CDM_Document::Update(TCollection_ExtendedString& ErrorString)
+Standard_Boolean CDM_Document::Update(UtfString& ErrorString)
 {
   ErrorString.Clear();
   Update();
@@ -83,7 +83,7 @@ Standard_Boolean CDM_Document::Update(TCollection_ExtendedString& ErrorString)
 
 //=================================================================================================
 
-Standard_Boolean CDM_Document::GetAlternativeDocument(const TCollection_ExtendedString& aFormat,
+Standard_Boolean CDM_Document::GetAlternativeDocument(const UtfString& aFormat,
                                                       Handle(CDM_Document)& anAlternativeDocument)
 {
   anAlternativeDocument = this;
@@ -213,7 +213,7 @@ Standard_Boolean CDM_Document::IsStored(const Standard_Integer aReferenceIdentif
 
 //=================================================================================================
 
-TCollection_ExtendedString CDM_Document::Name(const Standard_Integer aReferenceIdentifier) const
+UtfString CDM_Document::Name(const Standard_Integer aReferenceIdentifier) const
 {
   if (!IsStored(aReferenceIdentifier))
     throw Standard_DomainError("CDM_Document::Name: document is not stored");
@@ -256,7 +256,7 @@ void CDM_Document::UpdateFromDocuments(const Standard_Address aModifContext) con
 
     Handle(CDM_Document)       theDocumentToUpdate;
     Handle(CDM_Application)    theApplication;
-    TCollection_ExtendedString ErrorString;
+    UtfString ErrorString;
 
     while (!aListOfDocumentsToUpdate.IsEmpty())
     {
@@ -384,7 +384,7 @@ void CDM_Document::SetIsUpToDate(const Standard_Integer aReferenceIdentifier)
 
 //=================================================================================================
 
-void CDM_Document::SetComment(const TCollection_ExtendedString& aComment)
+void CDM_Document::SetComment(const UtfString& aComment)
 {
   myComments.Clear();
   myComments.Append(aComment);
@@ -392,7 +392,7 @@ void CDM_Document::SetComment(const TCollection_ExtendedString& aComment)
 
 //=================================================================================================
 
-void CDM_Document::AddComment(const TCollection_ExtendedString& aComment)
+void CDM_Document::AddComment(const UtfString& aComment)
 {
   myComments.Append(aComment);
 }
@@ -494,21 +494,21 @@ Handle(CDM_MetaData) CDM_Document::MetaData() const
 
 //=================================================================================================
 
-void CDM_Document::SetRequestedComment(const TCollection_ExtendedString& aComment)
+void CDM_Document::SetRequestedComment(const UtfString& aComment)
 {
   myRequestedComment = aComment;
 }
 
 //=================================================================================================
 
-TCollection_ExtendedString CDM_Document::RequestedComment() const
+UtfString CDM_Document::RequestedComment() const
 {
   return myRequestedComment.ToExtString();
 }
 
 //=================================================================================================
 
-TCollection_ExtendedString CDM_Document::Folder() const
+UtfString CDM_Document::Folder() const
 {
   if (myMetaData.IsNull())
     throw Standard_NoSuchObject("cannot furnish the folder of an object "
@@ -518,9 +518,9 @@ TCollection_ExtendedString CDM_Document::Folder() const
 
 //=================================================================================================
 
-void CDM_Document::SetRequestedFolder(const TCollection_ExtendedString& aFolder)
+void CDM_Document::SetRequestedFolder(const UtfString& aFolder)
 {
-  const TCollection_ExtendedString& f = aFolder;
+  const UtfString& f = aFolder;
   if (f.Length() != 0)
   {
     myRequestedFolderIsDefined = Standard_True;
@@ -530,7 +530,7 @@ void CDM_Document::SetRequestedFolder(const TCollection_ExtendedString& aFolder)
 
 //=================================================================================================
 
-TCollection_ExtendedString CDM_Document::RequestedFolder() const
+UtfString CDM_Document::RequestedFolder() const
 {
   Standard_NoSuchObject_Raise_if(!myRequestedFolderIsDefined,
                                  "storage folder is undefined for this document");
@@ -546,7 +546,7 @@ Standard_Boolean CDM_Document::HasRequestedFolder() const
 
 //=================================================================================================
 
-void CDM_Document::SetRequestedName(const TCollection_ExtendedString& aName)
+void CDM_Document::SetRequestedName(const UtfString& aName)
 {
   myRequestedName          = aName;
   myRequestedNameIsDefined = Standard_True;
@@ -554,7 +554,7 @@ void CDM_Document::SetRequestedName(const TCollection_ExtendedString& aName)
 
 //=================================================================================================
 
-TCollection_ExtendedString CDM_Document::RequestedName()
+UtfString CDM_Document::RequestedName()
 {
   if (!myRequestedNameIsDefined)
   {
@@ -569,7 +569,7 @@ TCollection_ExtendedString CDM_Document::RequestedName()
 
 //=================================================================================================
 
-void CDM_Document::SetRequestedPreviousVersion(const TCollection_ExtendedString& aPreviousVersion)
+void CDM_Document::SetRequestedPreviousVersion(const UtfString& aPreviousVersion)
 {
   myRequestedPreviousVersionIsDefined = Standard_True;
   myRequestedPreviousVersion          = aPreviousVersion;
@@ -577,7 +577,7 @@ void CDM_Document::SetRequestedPreviousVersion(const TCollection_ExtendedString&
 
 //=================================================================================================
 
-TCollection_ExtendedString CDM_Document::RequestedPreviousVersion() const
+UtfString CDM_Document::RequestedPreviousVersion() const
 {
   Standard_NoSuchObject_Raise_if(!myRequestedPreviousVersionIsDefined,
                                  "PreviousVersion is undefined fro this document");
@@ -810,10 +810,10 @@ void CDM_Document::RemoveFromReference(const Standard_Integer aReferenceIdentifi
 
 //=================================================================================================
 
-TCollection_ExtendedString GetResource(const TCollection_ExtendedString& aFormat,
-                                       const TCollection_ExtendedString& anItem)
+UtfString GetResource(const UtfString& aFormat,
+                                       const UtfString& anItem)
 {
-  TCollection_ExtendedString theResource;
+  UtfString theResource;
   theResource += aFormat;
   theResource += ".";
   theResource += anItem;
@@ -821,13 +821,13 @@ TCollection_ExtendedString GetResource(const TCollection_ExtendedString& aFormat
 }
 
 static void FIND(const Handle(Resource_Manager)&   theDocumentResource,
-                 const TCollection_ExtendedString& theResourceName,
+                 const UtfString& theResourceName,
                  Standard_Boolean&                 IsDef,
-                 TCollection_ExtendedString&       theValue)
+                 UtfString&       theValue)
 {
-  IsDef = UTL::Find(theDocumentResource, theResourceName);
+  IsDef = UTL1::Find(theDocumentResource, theResourceName);
   if (IsDef)
-    theValue = UTL::Value(theDocumentResource, theResourceName);
+    theValue = UTL1::Value(theDocumentResource, theResourceName);
 }
 
 //=================================================================================================
@@ -852,9 +852,9 @@ void CDM_Document::LoadResources()
   {
     Handle(Resource_Manager) theDocumentResource = StorageResource();
 
-    TCollection_ExtendedString theFormat = StorageFormat();
+    UtfString theFormat = StorageFormat();
     theFormat += ".";
-    TCollection_ExtendedString theResourceName;
+    UtfString theResourceName;
 
     theResourceName = theFormat;
     theResourceName += "FileExtension";
@@ -882,7 +882,7 @@ Standard_Boolean CDM_Document::FindFileExtension()
 
 //=================================================================================================
 
-TCollection_ExtendedString CDM_Document::FileExtension()
+UtfString CDM_Document::FileExtension()
 {
   LoadResources();
   return myFileExtension;
@@ -898,7 +898,7 @@ Standard_Boolean CDM_Document::FindDescription()
 
 //=================================================================================================
 
-TCollection_ExtendedString CDM_Document::Description()
+UtfString CDM_Document::Description()
 {
   LoadResources();
   return myDescription;
@@ -959,7 +959,7 @@ void CDM_Document::DumpJson(Standard_OStream& theOStream, Standard_Integer theDe
   for (TColStd_SequenceOfExtendedString::Iterator aCommentIt(myComments); aCommentIt.More();
        aCommentIt.Next())
   {
-    const TCollection_ExtendedString& aComment = aCommentIt.Value();
+    const UtfString& aComment = aCommentIt.Value();
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aComment)
   }
 

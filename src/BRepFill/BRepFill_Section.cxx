@@ -32,8 +32,8 @@ BRepFill_Section::BRepFill_Section()
 {
 }
 
-BRepFill_Section::BRepFill_Section(const TopoDS_Shape&    Profile,
-                                   const TopoDS_Vertex&   V,
+BRepFill_Section::BRepFill_Section(const TopoShape&    Profile,
+                                   const TopoVertex&   V,
                                    const Standard_Boolean WithContact,
                                    const Standard_Boolean WithCorrection)
     : vertex(V),
@@ -47,17 +47,17 @@ BRepFill_Section::BRepFill_Section(const TopoDS_Shape&    Profile,
   ShapeUpgrade_RemoveLocations RemLoc;
   RemLoc.SetRemoveLevel(TopAbs_COMPOUND);
   RemLoc.Remove(Profile);
-  TopoDS_Shape aProfile = RemLoc.GetResult();
+  TopoShape aProfile = RemLoc.GetResult();
 
   if (aProfile.ShapeType() == TopAbs_WIRE)
     wire = TopoDS::Wire(aProfile);
   else if (aProfile.ShapeType() == TopAbs_VERTEX)
   {
     ispunctual            = Standard_True;
-    TopoDS_Vertex aVertex = TopoDS::Vertex(aProfile);
-    BRep_Builder  BB;
+    TopoVertex aVertex = TopoDS::Vertex(aProfile);
+    ShapeBuilder  BB;
 
-    TopoDS_Edge DegEdge;
+    TopoEdge DegEdge;
     BB.MakeEdge(DegEdge);
     BB.Add(DegEdge, aVertex.Oriented(TopAbs_FORWARD));
     BB.Add(DegEdge, aVertex.Oriented(TopAbs_REVERSED));
@@ -76,9 +76,9 @@ void BRepFill_Section::Set(const Standard_Boolean IsLaw)
   islaw = IsLaw;
 }
 
-TopoDS_Shape BRepFill_Section::ModifiedShape(const TopoDS_Shape& theShape) const
+TopoShape BRepFill_Section::ModifiedShape(const TopoShape& theShape) const
 {
-  TopoDS_Shape aModifiedShape;
+  TopoShape aModifiedShape;
 
   switch (theShape.ShapeType())
   {
@@ -91,8 +91,8 @@ TopoDS_Shape BRepFill_Section::ModifiedShape(const TopoDS_Shape& theShape) const
       TopoDS_Iterator itw(wire);
       for (; itor.More(); itor.Next(), itw.Next())
       {
-        const TopoDS_Shape& anOriginalEdge = itor.Value();
-        const TopoDS_Shape& anEdge         = itw.Value();
+        const TopoShape& anOriginalEdge = itor.Value();
+        const TopoShape& anEdge         = itw.Value();
         if (anOriginalEdge.IsSame(theShape))
         {
           aModifiedShape = anEdge;
@@ -104,17 +104,17 @@ TopoDS_Shape BRepFill_Section::ModifiedShape(const TopoDS_Shape& theShape) const
     case TopAbs_VERTEX:
       if (theShape.IsSame(myOriginalShape))
       {
-        TopExp_Explorer Explo(wire, TopAbs_VERTEX);
+        ShapeExplorer Explo(wire, TopAbs_VERTEX);
         aModifiedShape = Explo.Current();
       }
       else
       {
-        TopExp_Explorer ExpOrig(myOriginalShape, TopAbs_VERTEX);
-        TopExp_Explorer ExpWire(wire, TopAbs_VERTEX);
+        ShapeExplorer ExpOrig(myOriginalShape, TopAbs_VERTEX);
+        ShapeExplorer ExpWire(wire, TopAbs_VERTEX);
         for (; ExpOrig.More(); ExpOrig.Next(), ExpWire.Next())
         {
-          const TopoDS_Shape& anOriginalVertex = ExpOrig.Current();
-          const TopoDS_Shape& aVertex          = ExpWire.Current();
+          const TopoShape& anOriginalVertex = ExpOrig.Current();
+          const TopoShape& aVertex          = ExpWire.Current();
           if (anOriginalVertex.IsSame(theShape))
           {
             aModifiedShape = aVertex;

@@ -34,7 +34,7 @@
 //   Straight line passing through two points.                                      +
 //   ===============================                                      +
 //=========================================================================
-GccAna_Lin2d2Tan::GccAna_Lin2d2Tan(const gp_Pnt2d&     ThePoint1,
+Line2dTwoTangent::Line2dTwoTangent(const gp_Pnt2d&     ThePoint1,
                                    const gp_Pnt2d&     ThePoint2,
                                    const Standard_Real Tolerance)
     : linsol(1, 1),
@@ -80,7 +80,7 @@ GccAna_Lin2d2Tan::GccAna_Lin2d2Tan(const gp_Pnt2d&     ThePoint1,
 //   passing by the center of the circle and ThePoint.                    +
 //=========================================================================
 
-GccAna_Lin2d2Tan::GccAna_Lin2d2Tan(const GccEnt_QualifiedCirc& Qualified1,
+Line2dTwoTangent::Line2dTwoTangent(const GccEnt_QualifiedCirc& Qualified1,
                                    const gp_Pnt2d&             ThePoint,
                                    const Standard_Real         Tolerance)
     : linsol(1, 2),
@@ -191,7 +191,7 @@ GccAna_Lin2d2Tan::GccAna_Lin2d2Tan(const GccEnt_QualifiedCirc& Qualified1,
 //   Then translate the straight line to make it tangent to C1.           +
 //=========================================================================
 
-GccAna_Lin2d2Tan::GccAna_Lin2d2Tan(const GccEnt_QualifiedCirc& Qualified1,
+Line2dTwoTangent::Line2dTwoTangent(const GccEnt_QualifiedCirc& Qualified1,
                                    const GccEnt_QualifiedCirc& Qualified2,
                                    const Standard_Real         Tolerance)
     : linsol(1, 4),
@@ -265,13 +265,13 @@ GccAna_Lin2d2Tan::GccAna_Lin2d2Tan(const GccEnt_QualifiedCirc& Qualified1,
         {
           gp_Pnt2d P1(C2.Location().Rotated(C1.Location(), ASin((R1 - R2) / dist)));
           D1        = gp_Dir2d(gp_Vec2d(C1.Location(), P1));
-          P1        = gp_Pnt2d((C1.Location().XY() + gp_XY(R1 * D1.Y(), -R1 * D1.X())));
+          P1        = gp_Pnt2d((C1.Location().XY() + Coords2d(R1 * D1.Y(), -R1 * D1.X())));
           linsol(1) = gp_Lin2d(P1, D1);
           //         ===========================
           qualifier1(1) = Qualified1.Qualifier();
           qualifier2(1) = Qualified1.Qualifier();
           pnttg1sol(1)  = P1;
-          pnttg2sol(1)  = gp_Pnt2d(C2.Location().XY() + gp_XY(R2 * D1.Y(), -R2 * D1.X()));
+          pnttg2sol(1)  = gp_Pnt2d(C2.Location().XY() + Coords2d(R2 * D1.Y(), -R2 * D1.X()));
           WellDone      = Standard_True;
           NbrSol        = 1;
         }
@@ -310,13 +310,13 @@ GccAna_Lin2d2Tan::GccAna_Lin2d2Tan(const GccEnt_QualifiedCirc& Qualified1,
         {
           gp_Pnt2d P1(C2.Location().Rotated(C1.Location(), ASin(signe * (R1 + R2) / dist)));
           D1        = gp_Dir2d(gp_Vec2d(C1.Location(), P1));
-          P1        = gp_Pnt2d(C1.Location().XY() + signe * (gp_XY(R1 * D1.Y(), -R1 * D1.X())));
+          P1        = gp_Pnt2d(C1.Location().XY() + signe * (Coords2d(R1 * D1.Y(), -R1 * D1.X())));
           linsol(1) = gp_Lin2d(P1, D1);
           //         ===========================
           qualifier1(1) = Qualified1.Qualifier();
           qualifier2(1) = Qualified1.Qualifier();
           pnttg1sol(1)  = P1;
-          pnttg2sol(1)  = gp_Pnt2d(C2.Location().XY() + signe * (gp_XY(-R2 * D1.Y(), R2 * D1.X())));
+          pnttg2sol(1)  = gp_Pnt2d(C2.Location().XY() + signe * (Coords2d(-R2 * D1.Y(), R2 * D1.X())));
           WellDone      = Standard_True;
           NbrSol        = 1;
         }
@@ -350,13 +350,13 @@ GccAna_Lin2d2Tan::GccAna_Lin2d2Tan(const GccEnt_QualifiedCirc& Qualified1,
         {
           gp_Pnt2d P1(C2.Location().Rotated(C1.Location(), ASin((R2 - R1) / dist)));
           D1        = gp_Dir2d(gp_Vec2d(C1.Location(), P1));
-          P1        = gp_Pnt2d(C1.Location().XY() + gp_XY(-R1 * D1.Y(), R1 * D1.X()));
+          P1        = gp_Pnt2d(C1.Location().XY() + Coords2d(-R1 * D1.Y(), R1 * D1.X()));
           linsol(1) = gp_Lin2d(P1, D1);
           //         ===========================
           qualifier1(1) = Qualified1.Qualifier();
           qualifier2(1) = Qualified1.Qualifier();
           pnttg1sol(1)  = P1;
-          pnttg2sol(1)  = gp_Pnt2d(C2.Location().XY() + (gp_XY(-R2 * D1.Y(), R2 * D1.X())));
+          pnttg2sol(1)  = gp_Pnt2d(C2.Location().XY() + (Coords2d(-R2 * D1.Y(), R2 * D1.X())));
           WellDone      = Standard_True;
           NbrSol        = 1;
         }
@@ -402,27 +402,27 @@ GccAna_Lin2d2Tan::GccAna_Lin2d2Tan(const GccEnt_QualifiedCirc& Qualified1,
           {
             gp_Pnt2d P1(C2.Location().Rotated(C1.Location(), ASin((R1 - R2) / dist)));
             D1        = gp_Dir2d(gp_Vec2d(C1.Location(), P1));
-            P1        = gp_Pnt2d(C1.Location().XY() + gp_XY(R1 * D1.Y(), -R1 * D1.X()));
+            P1        = gp_Pnt2d(C1.Location().XY() + Coords2d(R1 * D1.Y(), -R1 * D1.X()));
             linsol(1) = gp_Lin2d(P1, D1);
             //           ===========================
             qualifier1(1) = Qualified1.Qualifier();
             qualifier2(1) = Qualified1.Qualifier();
             pnttg1sol(1)  = P1;
             pnttg2sol(1) =
-              gp_Pnt2d(C2.Location().XY() + signe * (gp_XY(R2 * D1.Y(), -R2 * D1.X())));
+              gp_Pnt2d(C2.Location().XY() + signe * (Coords2d(R2 * D1.Y(), -R2 * D1.X())));
             WellDone = Standard_True;
             NbrSol   = 1;
             if (Min(R1, R2) + Max(R1, R2) < dist)
             {
               gp_Pnt2d P2(C2.Location().Rotated(C1.Location(), ASin(signe * (R1 + R2) / dist)));
               gp_Dir2d D2(gp_Vec2d(C1.Location(), P2));
-              P2        = gp_Pnt2d(C1.Location().XY() + signe * (gp_XY(R1 * D2.Y(), -R1 * D2.X())));
+              P2        = gp_Pnt2d(C1.Location().XY() + signe * (Coords2d(R1 * D2.Y(), -R1 * D2.X())));
               linsol(2) = gp_Lin2d(P2, D2);
               //             ===========================
               qualifier1(1) = Qualified1.Qualifier();
               qualifier2(1) = Qualified1.Qualifier();
               pnttg1sol(2)  = P1;
-              pnttg2sol(2)  = gp_Pnt2d(C2.Location().XY() + (gp_XY(-R2 * D2.Y(), R2 * D2.X())));
+              pnttg2sol(2)  = gp_Pnt2d(C2.Location().XY() + (Coords2d(-R2 * D2.Y(), R2 * D2.X())));
               NbrSol        = 2;
             }
           }
@@ -466,28 +466,28 @@ GccAna_Lin2d2Tan::GccAna_Lin2d2Tan(const GccEnt_QualifiedCirc& Qualified1,
           {
             gp_Pnt2d P1(C2.Location().Rotated(C1.Location(), ASin(signe * (R2 - R1) / dist)));
             D1        = gp_Dir2d(gp_Vec2d(C1.Location(), P1));
-            P1        = gp_Pnt2d(C1.Location().XY() + gp_XY(-R1 * D1.Y(), R1 * D1.X()));
+            P1        = gp_Pnt2d(C1.Location().XY() + Coords2d(-R1 * D1.Y(), R1 * D1.X()));
             linsol(1) = gp_Lin2d(P1, D1);
             //           ===========================
             qualifier1(1) = Qualified1.Qualifier();
             qualifier2(1) = Qualified1.Qualifier();
             pnttg1sol(1)  = P1;
             pnttg2sol(1) =
-              gp_Pnt2d(C2.Location().XY() + signe * (gp_XY(-R2 * D1.Y(), R2 * D1.X())));
+              gp_Pnt2d(C2.Location().XY() + signe * (Coords2d(-R2 * D1.Y(), R2 * D1.X())));
             WellDone = Standard_True;
             NbrSol   = 1;
             if (Min(R1, R2) + Max(R1, R2) < dist)
             {
               gp_Pnt2d P2(C2.Location().Rotated(C1.Location(), ASin(signe * (-R2 - R1) / dist)));
               gp_Dir2d D2(gp_Vec2d(C1.Location(), P2));
-              P2        = gp_Pnt2d(C1.Location().XY() + signe * (gp_XY(-R1 * D2.Y(), R1 * D2.X())));
+              P2        = gp_Pnt2d(C1.Location().XY() + signe * (Coords2d(-R1 * D2.Y(), R1 * D2.X())));
               linsol(2) = gp_Lin2d(P2, D2);
               //             ===========================
               qualifier1(1) = Qualified1.Qualifier();
               qualifier2(1) = Qualified1.Qualifier();
               pnttg1sol(2)  = P2;
               pnttg2sol(2) =
-                gp_Pnt2d(C2.Location().XY() + signe * (gp_XY(R2 * D2.Y(), -R2 * D2.X())));
+                gp_Pnt2d(C2.Location().XY() + signe * (Coords2d(R2 * D2.Y(), -R2 * D2.X())));
               NbrSol = 2;
             }
           }
@@ -502,20 +502,20 @@ GccAna_Lin2d2Tan::GccAna_Lin2d2Tan(const GccEnt_QualifiedCirc& Qualified1,
         NbrSol++;
         gp_Pnt2d P1(C2.Location().Rotated(C1.Location(), ASin(signe * (R2 - R1) / dist)));
         D1             = gp_Dir2d(gp_Vec2d(C1.Location(), P1));
-        P1             = gp_Pnt2d(C1.Location().XY() + signe * gp_XY(-R1 * D1.Y(), R1 * D1.X()));
+        P1             = gp_Pnt2d(C1.Location().XY() + signe * Coords2d(-R1 * D1.Y(), R1 * D1.X()));
         linsol(NbrSol) = gp_Lin2d(P1, D1);
         //       ===========================
         qualifier1(NbrSol) = Qualified1.Qualifier();
         qualifier2(NbrSol) = Qualified1.Qualifier();
         pnttg1sol(NbrSol)  = P1;
         pnttg2sol(NbrSol) =
-          gp_Pnt2d(C2.Location().XY() + signe * (gp_XY(-R2 * D1.Y(), R2 * D1.X())));
+          gp_Pnt2d(C2.Location().XY() + signe * (Coords2d(-R2 * D1.Y(), R2 * D1.X())));
         WellDone = Standard_True;
         if (Min(R1, R2) + Max(R1, R2) < dist)
         {
           gp_Pnt2d P2(C2.Location().Rotated(C1.Location(), ASin(signe * (R2 + R1) / dist)));
           gp_Dir2d D2(gp_Vec2d(C1.Location(), P2));
-          P2 = gp_Pnt2d(C1.Location().XY() + signe * (gp_XY(R1 * D2.Y(), -R1 * D2.X())));
+          P2 = gp_Pnt2d(C1.Location().XY() + signe * (Coords2d(R1 * D2.Y(), -R1 * D2.X())));
           NbrSol++;
           linsol(NbrSol) = gp_Lin2d(P2, D2);
           //         ================================
@@ -523,7 +523,7 @@ GccAna_Lin2d2Tan::GccAna_Lin2d2Tan(const GccEnt_QualifiedCirc& Qualified1,
           qualifier2(NbrSol) = Qualified1.Qualifier();
           pnttg1sol(NbrSol)  = P2;
           pnttg2sol(NbrSol) =
-            gp_Pnt2d(C2.Location().XY() + signe * (gp_XY(-R2 * D2.Y(), R2 * D2.X())));
+            gp_Pnt2d(C2.Location().XY() + signe * (Coords2d(-R2 * D2.Y(), R2 * D2.X())));
         }
       }
     }
@@ -537,17 +537,17 @@ GccAna_Lin2d2Tan::GccAna_Lin2d2Tan(const GccEnt_QualifiedCirc& Qualified1,
   }
 }
 
-Standard_Boolean GccAna_Lin2d2Tan::IsDone() const
+Standard_Boolean Line2dTwoTangent::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer GccAna_Lin2d2Tan::NbSolutions() const
+Standard_Integer Line2dTwoTangent::NbSolutions() const
 {
   return NbrSol;
 }
 
-gp_Lin2d GccAna_Lin2d2Tan::ThisSolution(const Standard_Integer Index) const
+gp_Lin2d Line2dTwoTangent::ThisSolution(const Standard_Integer Index) const
 {
 
   if (Index > NbrSol || Index <= 0)
@@ -557,7 +557,7 @@ gp_Lin2d GccAna_Lin2d2Tan::ThisSolution(const Standard_Integer Index) const
   return linsol(Index);
 }
 
-void GccAna_Lin2d2Tan::WhichQualifier(const Standard_Integer Index,
+void Line2dTwoTangent::WhichQualifier(const Standard_Integer Index,
                                       GccEnt_Position&       Qualif1,
                                       GccEnt_Position&       Qualif2) const
 {
@@ -576,7 +576,7 @@ void GccAna_Lin2d2Tan::WhichQualifier(const Standard_Integer Index,
   }
 }
 
-void GccAna_Lin2d2Tan::Tangency1(const Standard_Integer Index,
+void Line2dTwoTangent::Tangency1(const Standard_Integer Index,
                                  Standard_Real&         ParSol,
                                  Standard_Real&         ParArg,
                                  gp_Pnt2d&              PntSol) const
@@ -597,7 +597,7 @@ void GccAna_Lin2d2Tan::Tangency1(const Standard_Integer Index,
   }
 }
 
-void GccAna_Lin2d2Tan::Tangency2(const Standard_Integer Index,
+void Line2dTwoTangent::Tangency2(const Standard_Integer Index,
                                  Standard_Real&         ParSol,
                                  Standard_Real&         ParArg,
                                  gp_Pnt2d&              PntSol) const

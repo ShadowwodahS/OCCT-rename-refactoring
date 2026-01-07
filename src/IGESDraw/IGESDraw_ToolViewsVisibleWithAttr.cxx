@@ -39,9 +39,9 @@
 
 #include <stdio.h>
 
-IGESDraw_ToolViewsVisibleWithAttr::IGESDraw_ToolViewsVisibleWithAttr() {}
+ViewsVisibleWithAttrTool::ViewsVisibleWithAttrTool() {}
 
-void IGESDraw_ToolViewsVisibleWithAttr::ReadOwnParams(
+void ViewsVisibleWithAttrTool::ReadOwnParams(
   const Handle(IGESDraw_ViewsVisibleWithAttr)& ent,
   const Handle(IGESData_IGESReaderData)&       IR,
   IGESData_ParamReader&                        PR) const
@@ -187,7 +187,7 @@ void IGESDraw_ToolViewsVisibleWithAttr::ReadOwnParams(
             tempDisplayEntities);
 }
 
-void IGESDraw_ToolViewsVisibleWithAttr::WriteOwnParams(
+void ViewsVisibleWithAttrTool::WriteOwnParams(
   const Handle(IGESDraw_ViewsVisibleWithAttr)& ent,
   IGESData_IGESWriter&                         IW) const
 {
@@ -212,7 +212,7 @@ void IGESDraw_ToolViewsVisibleWithAttr::WriteOwnParams(
     IW.Send(ent->DisplayedEntity(I));
 }
 
-void IGESDraw_ToolViewsVisibleWithAttr::OwnShared(const Handle(IGESDraw_ViewsVisibleWithAttr)& ent,
+void ViewsVisibleWithAttrTool::OwnShared(const Handle(IGESDraw_ViewsVisibleWithAttr)& ent,
                                                   Interface_EntityIterator& iter) const
 {
   Standard_Integer up = ent->NbViews();
@@ -228,7 +228,7 @@ void IGESDraw_ToolViewsVisibleWithAttr::OwnShared(const Handle(IGESDraw_ViewsVis
   //  Displayed -> Implied
 }
 
-void IGESDraw_ToolViewsVisibleWithAttr::OwnImplied(const Handle(IGESDraw_ViewsVisibleWithAttr)& ent,
+void ViewsVisibleWithAttrTool::OwnImplied(const Handle(IGESDraw_ViewsVisibleWithAttr)& ent,
                                                    Interface_EntityIterator& iter) const
 {
   Standard_Integer I, up;
@@ -237,7 +237,7 @@ void IGESDraw_ToolViewsVisibleWithAttr::OwnImplied(const Handle(IGESDraw_ViewsVi
     iter.GetOneItem(ent->DisplayedEntity(I));
 }
 
-void IGESDraw_ToolViewsVisibleWithAttr::OwnCopy(
+void ViewsVisibleWithAttrTool::OwnCopy(
   const Handle(IGESDraw_ViewsVisibleWithAttr)& another,
   const Handle(IGESDraw_ViewsVisibleWithAttr)& ent,
   Interface_CopyTool&                          TC) const
@@ -290,7 +290,7 @@ void IGESDraw_ToolViewsVisibleWithAttr::OwnCopy(
             tempDisplayEntities);
 }
 
-void IGESDraw_ToolViewsVisibleWithAttr::OwnRenew(
+void ViewsVisibleWithAttrTool::OwnRenew(
   const Handle(IGESDraw_ViewsVisibleWithAttr)& another,
   const Handle(IGESDraw_ViewsVisibleWithAttr)& ent,
   const Interface_CopyTool&                    TC) const
@@ -321,10 +321,10 @@ void IGESDraw_ToolViewsVisibleWithAttr::OwnRenew(
   ent->InitImplied(tempDisplayEntities);
 }
 
-IGESData_DirChecker IGESDraw_ToolViewsVisibleWithAttr::DirChecker(
+DirectoryChecker ViewsVisibleWithAttrTool::DirChecker(
   const Handle(IGESDraw_ViewsVisibleWithAttr)& /*ent*/) const
 {
-  IGESData_DirChecker DC(402, 4);
+  DirectoryChecker DC(402, 4);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -337,7 +337,7 @@ IGESData_DirChecker IGESDraw_ToolViewsVisibleWithAttr::DirChecker(
   return DC;
 }
 
-void IGESDraw_ToolViewsVisibleWithAttr::OwnCheck(const Handle(IGESDraw_ViewsVisibleWithAttr)& ent,
+void ViewsVisibleWithAttrTool::OwnCheck(const Handle(IGESDraw_ViewsVisibleWithAttr)& ent,
                                                  const Interface_ShareTool&,
                                                  Handle(Interface_Check)& ach) const
 {
@@ -364,14 +364,14 @@ void IGESDraw_ToolViewsVisibleWithAttr::OwnCheck(const Handle(IGESDraw_ViewsVisi
   ach->AddFail(mess, "Mismatch for %d Entities displayed");
 }
 
-void IGESDraw_ToolViewsVisibleWithAttr::OwnWhenDelete(
+void ViewsVisibleWithAttrTool::OwnWhenDelete(
   const Handle(IGESDraw_ViewsVisibleWithAttr)& ent) const
 {
   Handle(IGESData_HArray1OfIGESEntity) tempDisplayEntities;
   ent->InitImplied(tempDisplayEntities);
 }
 
-void IGESDraw_ToolViewsVisibleWithAttr::OwnDump(const Handle(IGESDraw_ViewsVisibleWithAttr)& ent,
+void ViewsVisibleWithAttrTool::OwnDump(const Handle(IGESDraw_ViewsVisibleWithAttr)& ent,
                                                 const IGESData_IGESDumper&                   dumper,
                                                 Standard_OStream&                            S,
                                                 const Standard_Integer level) const
@@ -422,7 +422,7 @@ void IGESDraw_ToolViewsVisibleWithAttr::OwnDump(const Handle(IGESDraw_ViewsVisib
   S << std::endl;
 }
 
-Standard_Boolean IGESDraw_ToolViewsVisibleWithAttr::OwnCorrect(
+Standard_Boolean ViewsVisibleWithAttrTool::OwnCorrect(
   const Handle(IGESDraw_ViewsVisibleWithAttr)& ent) const
 {
   //  Les entites affichees doivent referencer <ent>. Elles ont priorite.

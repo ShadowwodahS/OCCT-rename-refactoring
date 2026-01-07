@@ -72,9 +72,9 @@ Standard_Integer DNaming_SphereDriver::Execute(Handle(TFunction_Logbook)& theLog
   if (aFunction.IsNull())
     return -1;
 
-  Standard_Real               aRadius  = DNaming::GetReal(aFunction, SPHERE_RADIUS)->Get();
-  Handle(TDataStd_UAttribute) anObject = DNaming::GetObjectArg(aFunction, SPHERE_CENTER);
-  Handle(TNaming_NamedShape)  aNSCnt   = DNaming::GetObjectValue(anObject);
+  Standard_Real               aRadius  = DNaming1::GetReal(aFunction, SPHERE_RADIUS)->Get();
+  Handle(TDataStd_UAttribute) anObject = DNaming1::GetObjectArg(aFunction, SPHERE_CENTER);
+  Handle(ShapeAttribute)  aNSCnt   = DNaming1::GetObjectValue(anObject);
   if (aNSCnt.IsNull() || aNSCnt->IsEmpty())
   {
 #ifdef OCCT_DEBUG
@@ -84,7 +84,7 @@ Standard_Integer DNaming_SphereDriver::Execute(Handle(TFunction_Logbook)& theLog
     return -1;
   }
 
-  Handle(TNaming_NamedShape) aPrevSphere = DNaming::GetFunctionResult(aFunction);
+  Handle(ShapeAttribute) aPrevSphere = DNaming1::GetFunctionResult(aFunction);
 
   // Save location
   TopLoc_Location aLocation;
@@ -93,7 +93,7 @@ Standard_Integer DNaming_SphereDriver::Execute(Handle(TFunction_Logbook)& theLog
     aLocation = aPrevSphere->Get().Location();
   }
 
-  TopoDS_Shape aCntShape = aNSCnt->Get();
+  TopoShape aCntShape = aNSCnt->Get();
   if (aCntShape.IsNull())
   {
 #ifdef OCCT_DEBUG
@@ -105,7 +105,7 @@ Standard_Integer DNaming_SphereDriver::Execute(Handle(TFunction_Logbook)& theLog
   Point3d aCenter = Point3d(0., 0., 0.);
   if (aCntShape.ShapeType() == TopAbs_VERTEX)
   {
-    aCenter = BRep_Tool::Pnt(TopoDS::Vertex(aCntShape));
+    aCenter = BRepInspector::Pnt(TopoDS::Vertex(aCntShape));
   }
   Frame3d                 anAxis = Frame3d(aCenter, Dir3d(0, 0, 1), Dir3d(1, 0, 0));
   BRepPrimAPI_MakeSphere aMakeSphere(anAxis, aRadius);
@@ -117,8 +117,8 @@ Standard_Integer DNaming_SphereDriver::Execute(Handle(TFunction_Logbook)& theLog
     return -1;
   }
 
-  TopoDS_Shape aResult = aMakeSphere.Solid();
-  if (!BRepAlgo::IsValid(aResult))
+  TopoShape aResult = aMakeSphere.Solid();
+  if (!BRepAlgo1::IsValid(aResult))
   {
     aFunction->SetFailure(RESULT_NOT_VALID);
     return -1;
@@ -128,7 +128,7 @@ Standard_Integer DNaming_SphereDriver::Execute(Handle(TFunction_Logbook)& theLog
   LoadNamingDS(RESPOSITION(aFunction), aMakeSphere);
   // restore location
   if (!aLocation.IsIdentity())
-    TNaming::Displace(RESPOSITION(aFunction), aLocation, Standard_True);
+    TNaming1::Displace(RESPOSITION(aFunction), aLocation, Standard_True);
 
   theLog->SetValid(RESPOSITION(aFunction), Standard_True);
   aFunction->SetFailure(DONE);
@@ -137,7 +137,7 @@ Standard_Integer DNaming_SphereDriver::Execute(Handle(TFunction_Logbook)& theLog
 
 //=================================================================================================
 
-void DNaming_SphereDriver::LoadNamingDS(const TDF_Label&        theResultLabel,
+void DNaming_SphereDriver::LoadNamingDS(const DataLabel&        theResultLabel,
                                         BRepPrimAPI_MakeSphere& MS) const
 {
 
@@ -154,48 +154,48 @@ void DNaming_SphereDriver::LoadNamingDS(const TDF_Label&        theResultLabel,
   // Load faces of the Sph :
   if (S.HasBottom())
   {
-    TopoDS_Face     BottomFace = S.BottomFace();
+    TopoFace     BottomFace = S.BottomFace();
     TNaming_Builder BOF(theResultLabel.NewChild());
     BOF.Generated(BottomFace);
   }
 
   if (S.HasTop())
   {
-    TopoDS_Face     TopFace = S.TopFace();
+    TopoFace     TopFace = S.TopFace();
     TNaming_Builder TOF(theResultLabel.NewChild());
     TOF.Generated(TopFace);
   }
 
-  TopoDS_Face     LateralFace = S.LateralFace();
+  TopoFace     LateralFace = S.LateralFace();
   TNaming_Builder LOF(theResultLabel.NewChild());
   LOF.Generated(LateralFace);
 
   if (S.HasSides())
   {
-    TopoDS_Face     StartFace = S.StartFace();
+    TopoFace     StartFace = S.StartFace();
     TNaming_Builder SF(theResultLabel.NewChild());
     SF.Generated(StartFace);
-    TopoDS_Face     EndFace = S.EndFace();
+    TopoFace     EndFace = S.EndFace();
     TNaming_Builder EF(theResultLabel.NewChild());
     EF.Generated(EndFace);
   }
   TopTools_IndexedMapOfShape LateralEdges;
-  TopExp::MapShapes(LateralFace, TopAbs_EDGE, LateralEdges);
+  TopExp1::MapShapes(LateralFace, TopAbs_EDGE, LateralEdges);
   Standard_Integer      i = 1;
   TColStd_ListOfInteger goodEdges;
   for (; i <= LateralEdges.Extent(); i++)
-    if (!BRep_Tool::Degenerated(TopoDS::Edge(LateralEdges.FindKey(i))))
+    if (!BRepInspector::Degenerated(TopoDS::Edge(LateralEdges.FindKey(i))))
       goodEdges.Append(i);
 
   if (goodEdges.Extent() == 1)
   {
-    const TopoDS_Edge& aLateralEdge = TopoDS::Edge(LateralEdges.FindKey(goodEdges.First()));
+    const TopoEdge& aLateralEdge = TopoDS::Edge(LateralEdges.FindKey(goodEdges.First()));
     TNaming_Builder    MeridianBuilder(theResultLabel.NewChild());
     MeridianBuilder.Generated(aLateralEdge);
     TopoDS_Iterator it(aLateralEdge);
     for (; it.More(); it.Next())
     {
-      // const TopoDS_Shape& aV = it.Value();
+      // const TopoShape& aV = it.Value();
       TNaming_Builder aVBuilder(theResultLabel.NewChild());
       aVBuilder.Generated(it.Value());
     }

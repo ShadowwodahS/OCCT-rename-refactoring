@@ -709,10 +709,10 @@ Standard_Boolean
     const IntSurf_PntOn2S& thePoint = ResultPntOn2SLine->Value(i);
     Point3d curPnt = thePoint.Value();
     sprintf(name, "p%d_%d", indc, i);
-    DrawTrSurf::Set(name, curPnt);
+    DrawTrSurf1::Set(name, curPnt);
     gp_Pnt2d curPnt2d = thePoint.ValueOnSurface(onfirst);
     sprintf(name, "pp%d_%d", indc, i);
-    DrawTrSurf::Set(name, curPnt2d);
+    DrawTrSurf1::Set(name, curPnt2d);
   }
 #endif
   Handle(TheLine) temp = new TheLine(ResultPntOn2SLine,Standard_False);

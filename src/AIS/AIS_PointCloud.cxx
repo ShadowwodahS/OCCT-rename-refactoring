@@ -29,7 +29,7 @@
 #include <Prs3d_BndBox.hxx>
 
 IMPLEMENT_STANDARD_RTTIEXT(AIS_PointCloudOwner, SelectMgr_EntityOwner)
-IMPLEMENT_STANDARD_RTTIEXT(AIS_PointCloud, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_PointCloud, VisualEntity)
 
 //=================================================================================================
 
@@ -58,7 +58,7 @@ Standard_Boolean AIS_PointCloudOwner::IsForcedHilight() const
 //=================================================================================================
 
 void AIS_PointCloudOwner::HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
-                                           const Handle(Prs3d_Drawer)&               theStyle,
+                                           const Handle(StyleDrawer)&               theStyle,
                                            const Standard_Integer)
 {
   Handle(AIS_PointCloud) anObj = Handle(AIS_PointCloud)::DownCast(Selectable());
@@ -80,7 +80,7 @@ void AIS_PointCloudOwner::HilightWithColor(const Handle(PrsMgr_PresentationManag
   for (SelectMgr_SequenceOfSelection::Iterator aSelIter(anObj->Selections()); aSelIter.More();
        aSelIter.Next())
   {
-    const Handle(SelectMgr_Selection)& aSel = aSelIter.Value();
+    const Handle(SelectionContainer)& aSel = aSelIter.Value();
     for (NCollection_Vector<Handle(SelectMgr_SensitiveEntity)>::Iterator aSelEntIter(
            aSel->Entities());
          aSelEntIter.More();
@@ -260,7 +260,7 @@ void AIS_PointCloud::SetPoints(const Handle(TColgp_HArray1OfPnt)&     theCoords,
 
 void AIS_PointCloud::SetColor(const Quantity_Color& theColor)
 {
-  AIS_InteractiveObject::SetColor(theColor);
+  VisualEntity::SetColor(theColor);
 
   myDrawer->ShadingAspect()->SetColor(theColor);
   SynchronizeAspects();
@@ -275,7 +275,7 @@ void AIS_PointCloud::UnsetColor()
     return;
   }
 
-  AIS_InteractiveObject::UnsetColor();
+  VisualEntity::UnsetColor();
   {
     Graphic3d_MaterialAspect aDefaultMat(Graphic3d_NameOfMaterial_Brass);
     Graphic3d_MaterialAspect aMat   = aDefaultMat;
@@ -379,7 +379,7 @@ void AIS_PointCloud::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void AIS_PointCloud::ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+void AIS_PointCloud::ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                       const Standard_Integer             theMode)
 {
   Handle(SelectMgr_EntityOwner) anOwner = new SelectMgr_EntityOwner(this);

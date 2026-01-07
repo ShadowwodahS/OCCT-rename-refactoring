@@ -40,7 +40,7 @@ public:
   //! @param[in] theData the input binary data
   //! @param[in] theDataLen the length of input data in bytes
   //! @return Base64 encoded string.
-  Standard_EXPORT static TCollection_AsciiString Encode(const Standard_Byte* theData,
+  Standard_EXPORT static AsciiString1 Encode(const Standard_Byte* theData,
                                                         const Standard_Size  theDataLen);
 
   //! Function decoding base64 string.

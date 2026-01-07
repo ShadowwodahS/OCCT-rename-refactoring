@@ -22,7 +22,7 @@
 #include <Plate_D1.hxx>
 #include <Standard_Integer.hxx>
 #include <NLPlate_HGPPConstraint.hxx>
-class gp_XY;
+class Coords2d;
 
 class NLPlate_HPG1Constraint;
 DEFINE_STANDARD_HANDLE(NLPlate_HPG1Constraint, NLPlate_HGPPConstraint)
@@ -33,7 +33,7 @@ class NLPlate_HPG1Constraint : public NLPlate_HGPPConstraint
 {
 
 public:
-  Standard_EXPORT NLPlate_HPG1Constraint(const gp_XY& UV, const Plate_D1& D1T);
+  Standard_EXPORT NLPlate_HPG1Constraint(const Coords2d& UV, const Plate_D1& D1T);
 
   Standard_EXPORT virtual void SetIncrementalLoadAllowed(const Standard_Boolean ILA)
     Standard_OVERRIDE;

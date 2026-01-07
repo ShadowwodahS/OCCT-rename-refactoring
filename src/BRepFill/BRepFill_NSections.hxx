@@ -29,8 +29,8 @@
 #include <Standard_Integer.hxx>
 class Geom_BSplineSurface;
 class GeomFill_SectionLaw;
-class TopoDS_Vertex;
-class TopoDS_Shape;
+class TopoVertex;
+class TopoShape;
 
 class BRepFill_NSections;
 DEFINE_STANDARD_HANDLE(BRepFill_NSections, BRepFill_SectionLaw)
@@ -69,10 +69,10 @@ public:
                                                   const Standard_Real    Param) const
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual TopoDS_Vertex Vertex(const Standard_Integer Index,
+  Standard_EXPORT virtual TopoVertex Vertex(const Standard_Integer Index,
                                                const Standard_Real Param) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void D0(const Standard_Real Param, TopoDS_Shape& S) Standard_OVERRIDE;
+  Standard_EXPORT virtual void D0(const Standard_Real Param, TopoShape& S) Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(BRepFill_NSections, BRepFill_SectionLaw)
 

@@ -39,7 +39,7 @@ public:
   Standard_EXPORT Sweep_NumShapeTool(const Sweep_NumShape& aShape);
 
   //! Returns the number of subshapes in the shape.
-  Standard_EXPORT Standard_Integer NbShapes() const;
+  Standard_EXPORT Standard_Integer NbShapes1() const;
 
   //! Returns the index of <aShape>.
   Standard_EXPORT Standard_Integer Index(const Sweep_NumShape& aShape) const;

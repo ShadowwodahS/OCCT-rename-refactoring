@@ -34,16 +34,16 @@ public:
   //! Empty constructor
   Standard_EXPORT ShapeUpgrade_ConvertCurve3dToBezier();
 
-  //! Sets mode for conversion Geom_Line to bezier.
+  //! Sets mode for conversion GeomLine to bezier.
   void SetLineMode(const Standard_Boolean mode);
 
-  //! Returns the Geom_Line conversion mode.
+  //! Returns the GeomLine conversion mode.
   Standard_Boolean GetLineMode() const;
 
-  //! Sets mode for conversion Geom_Circle to bezier.
+  //! Sets mode for conversion GeomCircle to bezier.
   void SetCircleMode(const Standard_Boolean mode);
 
-  //! Returns the Geom_Circle conversion mode.
+  //! Returns the GeomCircle conversion mode.
   Standard_Boolean GetCircleMode() const;
 
   //! Returns the Geom_Conic conversion mode.

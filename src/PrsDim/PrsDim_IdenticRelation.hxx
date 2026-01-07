@@ -23,13 +23,13 @@
 #include <SelectMgr_Selection.hxx>
 #include <TColStd_ListOfTransient.hxx>
 
-class TopoDS_Shape;
-class Geom_Plane;
-class Geom_Line;
-class Geom_Circle;
+class TopoShape;
+class GeomPlane;
+class GeomLine;
+class GeomCircle;
 class Geom_Ellipse;
-class TopoDS_Wire;
-class TopoDS_Vertex;
+class TopoWire;
+class TopoVertex;
 class Dir3d;
 
 DEFINE_STANDARD_HANDLE(PrsDim_IdenticRelation, PrsDim_Relation)
@@ -45,9 +45,9 @@ public:
   //! entities, FirstShape and SecondShape. The plane
   //! aPlane is initialized in case a visual reference is
   //! needed to show identity.
-  Standard_EXPORT PrsDim_IdenticRelation(const TopoDS_Shape&       FirstShape,
-                                         const TopoDS_Shape&       SecondShape,
-                                         const Handle(Geom_Plane)& aPlane);
+  Standard_EXPORT PrsDim_IdenticRelation(const TopoShape&       FirstShape,
+                                         const TopoShape&       SecondShape,
+                                         const Handle(GeomPlane)& aPlane);
 
   Standard_Boolean HasUsers() const { return !myUsers.IsEmpty(); }
 
@@ -65,7 +65,7 @@ private:
                                        const Handle(Prs3d_Presentation)&         thePrs,
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT void ComputeOneEdgeOVertexPresentation(
@@ -74,7 +74,7 @@ private:
   Standard_EXPORT void ComputeTwoEdgesPresentation(const Handle(Prs3d_Presentation)& aPresentation);
 
   Standard_EXPORT void ComputeTwoLinesPresentation(const Handle(Prs3d_Presentation)& aPresentation,
-                                                   const Handle(Geom_Line)&          aLin,
+                                                   const Handle(GeomLine)&          aLin,
                                                    Point3d&                           Pnt1On1,
                                                    Point3d&                           Pnt2On1,
                                                    Point3d&                           Pnt1On2,
@@ -84,7 +84,7 @@ private:
 
   Standard_EXPORT void ComputeTwoCirclesPresentation(
     const Handle(Prs3d_Presentation)& aPresentation,
-    const Handle(Geom_Circle)&        aCircle,
+    const Handle(GeomCircle)&        aCircle,
     const Point3d&                     Pnt1On1,
     const Point3d&                     Pnt2On1,
     const Point3d&                     Pnt1On2,
@@ -92,18 +92,18 @@ private:
 
   //! Computes the presentation of the identic constraint
   //! between 2 arcs in the case of automatic presentation
-  Standard_EXPORT void ComputeAutoArcPresentation(const Handle(Geom_Circle)& aCircle,
+  Standard_EXPORT void ComputeAutoArcPresentation(const Handle(GeomCircle)& aCircle,
                                                   const Point3d&              firstp,
                                                   const Point3d&              lastp,
                                                   const Standard_Boolean isstatic = Standard_False);
 
   //! Computes the presentation of the identic constraint
   //! between 2 circles in the case of non automatic presentation
-  Standard_EXPORT void ComputeNotAutoCircPresentation(const Handle(Geom_Circle)& aCircle);
+  Standard_EXPORT void ComputeNotAutoCircPresentation(const Handle(GeomCircle)& aCircle);
 
   //! Computes the presentation of the identic constraint
   //! between 2 arcs in the case of non automatic presentation
-  Standard_EXPORT void ComputeNotAutoArcPresentation(const Handle(Geom_Circle)& aCircle,
+  Standard_EXPORT void ComputeNotAutoArcPresentation(const Handle(GeomCircle)& aCircle,
                                                      const Point3d&              pntfirst,
                                                      const Point3d&              pntlast);
 
@@ -136,15 +136,15 @@ private:
 
   Standard_EXPORT Standard_Real ComputeSegSize() const;
 
-  Standard_EXPORT Standard_Boolean ComputeDirection(const TopoDS_Wire&   aWire,
-                                                    const TopoDS_Vertex& aVertex,
+  Standard_EXPORT Standard_Boolean ComputeDirection(const TopoWire&   aWire,
+                                                    const TopoVertex& aVertex,
                                                     Dir3d&              aDir) const;
 
-  Standard_EXPORT Dir3d ComputeLineDirection(const Handle(Geom_Line)& aLin,
+  Standard_EXPORT Dir3d ComputeLineDirection(const Handle(GeomLine)& aLin,
                                               const Point3d&            anExtremity) const;
 
-  Standard_EXPORT Dir3d ComputeCircleDirection(const Handle(Geom_Circle)& aCirc,
-                                                const TopoDS_Vertex&       ConnectedVertex) const;
+  Standard_EXPORT Dir3d ComputeCircleDirection(const Handle(GeomCircle)& aCirc,
+                                                const TopoVertex&       ConnectedVertex) const;
 
 private:
   TColStd_ListOfTransient myUsers;

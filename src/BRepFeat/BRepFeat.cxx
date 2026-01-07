@@ -57,9 +57,9 @@
 
 //=================================================================================================
 
-void BRepFeat::SampleEdges(const TopoDS_Shape& theShape, TColgp_SequenceOfPnt& theSeq)
+void BRepFeat1::SampleEdges(const TopoShape& theShape, TColgp_SequenceOfPnt& theSeq)
 {
-  LocOpe::SampleEdges(theShape, theSeq);
+  LocOpe1::SampleEdges(theShape, theSeq);
 }
 
 //=======================================================================
@@ -67,27 +67,27 @@ void BRepFeat::SampleEdges(const TopoDS_Shape& theShape, TColgp_SequenceOfPnt& t
 // purpose  : Calcul du barycentre des edges d'un shape
 //=======================================================================
 
-void BRepFeat::Barycenter(const TopoDS_Shape& S, Point3d& B)
+void BRepFeat1::Barycenter(const TopoShape& S, Point3d& B)
 {
   TopTools_MapOfShape theMap;
-  TopExp_Explorer     exp(S, TopAbs_EDGE);
+  ShapeExplorer     exp(S, TopAbs_EDGE);
   TopLoc_Location     Loc;
-  Handle(Geom_Curve)  C;
+  Handle(GeomCurve3d)  C;
   Standard_Real       f, l, prm;
   gp_XYZ              Bar(0., 0., 0.);
   Standard_Integer    i, nbp = 0;
 
   for (; exp.More(); exp.Next())
   {
-    const TopoDS_Edge& edg = TopoDS::Edge(exp.Current());
+    const TopoEdge& edg = TopoDS::Edge(exp.Current());
     if (!theMap.Add(edg))
     {
       continue;
     }
-    if (!BRep_Tool::Degenerated(edg))
+    if (!BRepInspector::Degenerated(edg))
     {
-      C = BRep_Tool::Curve(edg, Loc, f, l);
-      C = Handle(Geom_Curve)::DownCast(C->Transformed(Loc.Transformation()));
+      C = BRepInspector::Curve(edg, Loc, f, l);
+      C = Handle(GeomCurve3d)::DownCast(C->Transformed(Loc.Transformation()));
       for (i = 1; i < NECHANTBARYC; i++)
       {
         prm = ((NECHANTBARYC - i) * f + i * l) / NECHANTBARYC;
@@ -101,7 +101,7 @@ void BRepFeat::Barycenter(const TopoDS_Shape& S, Point3d& B)
   {
     if (theMap.Add(exp.Current()))
     {
-      Bar += (BRep_Tool::Pnt(TopoDS::Vertex(exp.Current()))).XYZ();
+      Bar += (BRepInspector::Pnt(TopoDS::Vertex(exp.Current()))).XYZ();
       nbp++;
     }
   }
@@ -115,12 +115,12 @@ void BRepFeat::Barycenter(const TopoDS_Shape& S, Point3d& B)
 // purpose  : Calcul du barycentre "parametrique" shape sur une courbe
 //=======================================================================
 
-Standard_Real BRepFeat::ParametricBarycenter(const TopoDS_Shape& S, const Handle(Geom_Curve)& CC)
+Standard_Real BRepFeat1::ParametricBarycenter(const TopoShape& S, const Handle(GeomCurve3d)& CC)
 {
   TopTools_MapOfShape theMap;
-  TopExp_Explorer     exp(S, TopAbs_EDGE);
+  ShapeExplorer     exp(S, TopAbs_EDGE);
   TopLoc_Location     Loc;
-  Handle(Geom_Curve)  C;
+  Handle(GeomCurve3d)  C;
   Standard_Real       f, l, prm;
   Standard_Integer    i, nbp = 0;
   GeomAdaptor_Curve   TheCurve(CC);
@@ -130,15 +130,15 @@ Standard_Real BRepFeat::ParametricBarycenter(const TopoDS_Shape& S, const Handle
 
   for (; exp.More(); exp.Next())
   {
-    const TopoDS_Edge& edg = TopoDS::Edge(exp.Current());
+    const TopoEdge& edg = TopoDS::Edge(exp.Current());
     if (!theMap.Add(edg))
     {
       continue;
     }
-    if (!BRep_Tool::Degenerated(edg))
+    if (!BRepInspector::Degenerated(edg))
     {
-      C = BRep_Tool::Curve(edg, Loc, f, l);
-      C = Handle(Geom_Curve)::DownCast(C->Transformed(Loc.Transformation()));
+      C = BRepInspector::Curve(edg, Loc, f, l);
+      C = Handle(GeomCurve3d)::DownCast(C->Transformed(Loc.Transformation()));
       for (i = 1; i < NECHANTBARYC; i++)
       {
         prm         = ((NECHANTBARYC - i) * f + i * l) / NECHANTBARYC;
@@ -170,7 +170,7 @@ Standard_Real BRepFeat::ParametricBarycenter(const TopoDS_Shape& S, const Handle
   {
     if (theMap.Add(exp.Current()))
     {
-      Point3d pone = BRep_Tool::Pnt(TopoDS::Vertex(exp.Current()));
+      Point3d pone = BRepInspector::Pnt(TopoDS::Vertex(exp.Current()));
       // On projette sur CC
       extpc.Perform(pone);
       if (extpc.IsDone() && extpc.NbExt() >= 1)
@@ -198,8 +198,8 @@ Standard_Real BRepFeat::ParametricBarycenter(const TopoDS_Shape& S, const Handle
 // purpose  : Calcul du barycentre "parametrique" shape sur une courbe
 //=======================================================================
 
-void BRepFeat::ParametricMinMax(const TopoDS_Shape&       S,
-                                const Handle(Geom_Curve)& CC,
+void BRepFeat1::ParametricMinMax(const TopoShape&       S,
+                                const Handle(GeomCurve3d)& CC,
                                 Standard_Real&            prmin,
                                 Standard_Real&            prmax,
                                 Standard_Real&            prbmin,
@@ -242,9 +242,9 @@ void BRepFeat::ParametricMinMax(const TopoDS_Shape&       S,
   }
 
   TopTools_MapOfShape theMap;
-  TopExp_Explorer     exp(S, TopAbs_EDGE);
+  ShapeExplorer     exp(S, TopAbs_EDGE);
   TopLoc_Location     Loc;
-  Handle(Geom_Curve)  C;
+  Handle(GeomCurve3d)  C;
   Standard_Real       f, l, prm;
   //  Standard_Integer i, nbp= 0;
   Standard_Integer  i;
@@ -255,15 +255,15 @@ void BRepFeat::ParametricMinMax(const TopoDS_Shape&       S,
   prbmax = RealFirst();
   for (; exp.More(); exp.Next())
   {
-    const TopoDS_Edge& edg = TopoDS::Edge(exp.Current());
+    const TopoEdge& edg = TopoDS::Edge(exp.Current());
     if (!theMap.Add(edg))
     {
       continue;
     }
-    if (!BRep_Tool::Degenerated(edg))
+    if (!BRepInspector::Degenerated(edg))
     {
-      C = BRep_Tool::Curve(edg, Loc, f, l);
-      C = Handle(Geom_Curve)::DownCast(C->Transformed(Loc.Transformation()));
+      C = BRepInspector::Curve(edg, Loc, f, l);
+      C = Handle(GeomCurve3d)::DownCast(C->Transformed(Loc.Transformation()));
       for (i = 1; i < NECHANTBARYC; i++)
       {
         prm         = ((NECHANTBARYC - i) * f + i * l) / NECHANTBARYC;
@@ -301,7 +301,7 @@ void BRepFeat::ParametricMinMax(const TopoDS_Shape&       S,
   {
     if (theMap.Add(exp.Current()))
     {
-      Point3d pone = BRep_Tool::Pnt(TopoDS::Vertex(exp.Current()));
+      Point3d pone = BRepInspector::Pnt(TopoDS::Vertex(exp.Current()));
       // On projette sur CC
       extpc.Perform(pone);
       if (extpc.IsDone() && extpc.NbExt() >= 1)
@@ -363,7 +363,7 @@ static void PutInBoundsU(Standard_Real         umin,
                          Standard_Real         period,
                          Standard_Real         f,
                          Standard_Real         l,
-                         Handle(Geom2d_Curve)& C2d)
+                         Handle(GeomCurve2d)& C2d)
 {
   gp_Pnt2d      Pf   = C2d->Value(f);
   gp_Pnt2d      Pl   = C2d->Value(l);
@@ -417,7 +417,7 @@ static void PutInBoundsV(Standard_Real         vmin,
                          Standard_Real         period,
                          Standard_Real         f,
                          Standard_Real         l,
-                         Handle(Geom2d_Curve)& C2d)
+                         Handle(GeomCurve2d)& C2d)
 {
   gp_Pnt2d      Pf   = C2d->Value(f);
   gp_Pnt2d      Pl   = C2d->Value(l);
@@ -459,17 +459,17 @@ static void PutInBoundsV(Standard_Real         vmin,
 
 //=================================================================================================
 
-Standard_Boolean BRepFeat::IsInside(const TopoDS_Face& F1, const TopoDS_Face& F2)
+Standard_Boolean BRepFeat1::IsInside(const TopoFace& F1, const TopoFace& F2)
 {
-  TopExp_Explorer exp;
+  ShapeExplorer exp;
   exp.Init(F1, TopAbs_EDGE);
 
   Standard_Real        umin, umax, vmin, vmax, uperiod = 0, vperiod = 0;
   Standard_Integer     flagu = 0, flagv = 0;
   TopLoc_Location      L; // Recup S avec la location pour eviter la copie.
-  Handle(Geom_Surface) S = BRep_Tool::Surface(F2);
+  Handle(GeomSurface) S = BRepInspector::Surface(F2);
   //  Standard_Real periodu, periodv;
-  BRepTools::UVBounds(F2, umin, umax, vmin, vmax);
+  BRepTools1::UVBounds(F2, umin, umax, vmin, vmax);
 
   if (S->IsUPeriodic())
   {
@@ -482,20 +482,20 @@ Standard_Boolean BRepFeat::IsInside(const TopoDS_Face& F1, const TopoDS_Face& F2
     flagv   = 1;
     vperiod = S->VPeriod();
   }
-  TopoDS_Shape            aLocalShape = F2.Oriented(TopAbs_FORWARD);
+  TopoShape            aLocalShape = F2.Oriented(TopAbs_FORWARD);
   BRepTopAdaptor_FClass2d FC(TopoDS::Face(aLocalShape), Precision::Confusion());
   //  BRepTopAdaptor_FClass2d FC (TopoDS::Face(F2.Oriented(TopAbs_FORWARD)),
   //                                Precision::Confusion());
   for (; exp.More(); exp.Next())
   {
     Standard_Real        f1, l1;
-    Handle(Geom_Curve)   C0 = BRep_Tool::Curve(TopoDS::Edge(exp.Current()), f1, l1);
-    Handle(Geom2d_Curve) C  = GeomProjLib::Curve2d(C0, f1, l1, S);
-    TopoDS_Edge          E  = TopoDS::Edge(exp.Current());
+    Handle(GeomCurve3d)   C0 = BRepInspector::Curve(TopoDS::Edge(exp.Current()), f1, l1);
+    Handle(GeomCurve2d) C  = GeomProjLib::Curve2d(C0, f1, l1, S);
+    TopoEdge          E  = TopoDS::Edge(exp.Current());
     if (flagu == 1 || flagv == 1)
     {
-      Standard_Real eps = BRep_Tool::Tolerance(E);
-      BRep_Tool::Range(E, f1, l1);
+      Standard_Real eps = BRepInspector::Tolerance(E);
+      BRepInspector::Range(E, f1, l1);
       if (flagu == 1)
         PutInBoundsU(umin, umax, eps, uperiod, f1, l1, C);
       if (flagv == 1)
@@ -512,7 +512,7 @@ Standard_Boolean BRepFeat::IsInside(const TopoDS_Face& F1, const TopoDS_Face& F2
 
 //=================================================================================================
 
-void BRepFeat::FaceUntil(const TopoDS_Shape& Sbase, TopoDS_Face& FUntil)
+void BRepFeat1::FaceUntil(const TopoShape& Sbase, TopoFace& FUntil)
 {
   Bnd_Box B;
   BRepBndLib::Add(Sbase, B);
@@ -520,7 +520,7 @@ void BRepFeat::FaceUntil(const TopoDS_Shape& Sbase, TopoDS_Face& FUntil)
   B.Get(x[0], y[0], z[0], x[1], y[1], z[1]);
   Standard_Real diam = 10. * Sqrt(B.SquareExtent());
 
-  Handle(Geom_Surface)  s    = BRep_Tool::Surface(FUntil);
+  Handle(GeomSurface)  s    = BRepInspector::Surface(FUntil);
   Handle(TypeInfo) styp = s->DynamicType();
   if (styp == STANDARD_TYPE(Geom_RectangularTrimmedSurface))
   {
@@ -528,9 +528,9 @@ void BRepFeat::FaceUntil(const TopoDS_Shape& Sbase, TopoDS_Face& FUntil)
     styp = s->DynamicType();
   }
   Handle(Geom_RectangularTrimmedSurface) str;
-  if (styp == STANDARD_TYPE(Geom_Plane))
+  if (styp == STANDARD_TYPE(GeomPlane))
   {
-    gp_Pln        aPln = Handle(Geom_Plane)::DownCast(s)->Pln();
+    gp_Pln        aPln = Handle(GeomPlane)::DownCast(s)->Pln();
     Standard_Real u, v, umin = RealLast(), umax = -umin, vmin = RealLast(), vmax = -vmin;
     for (Standard_Integer i = 0; i < 2; i++)
     {
@@ -615,13 +615,13 @@ void BRepFeat::FaceUntil(const TopoDS_Shape& Sbase, TopoDS_Face& FUntil)
 
 //=================================================================================================
 
-TopoDS_Solid BRepFeat::Tool(const TopoDS_Shape&      SRef,
-                            const TopoDS_Face&       Fac,
+TopoSolid BRepFeat1::Tool(const TopoShape&      SRef,
+                            const TopoFace&       Fac,
                             const TopAbs_Orientation Orf)
 {
-  TopTools_ListOfShape lfaces;
-  //  for (TopExp_Explorer exp(SRef,TopAbs_FACE); exp.More(); exp.Next()) {
-  TopExp_Explorer exp(SRef, TopAbs_FACE);
+  ShapeList lfaces;
+  //  for (ShapeExplorer exp(SRef,TopAbs_FACE); exp.More(); exp.Next()) {
+  ShapeExplorer exp(SRef, TopAbs_FACE);
   for (; exp.More(); exp.Next())
   {
     if (exp.Current().ShapeType() == TopAbs_FACE)
@@ -631,8 +631,8 @@ TopoDS_Solid BRepFeat::Tool(const TopoDS_Shape&      SRef,
   }
 
   LocOpe_BuildShape   bs(lfaces);
-  const TopoDS_Shape& Res = bs.Shape();
-  TopoDS_Shell        Sh;
+  const TopoShape& Res = bs.Shape();
+  TopoShell        Sh;
   if (Res.ShapeType() == TopAbs_SHELL)
   {
     // faire un solide
@@ -651,7 +651,7 @@ TopoDS_Solid BRepFeat::Tool(const TopoDS_Shape&      SRef,
 
   if (Sh.IsNull())
   {
-    TopoDS_Solid So;
+    TopoSolid So;
     return So;
   }
 
@@ -680,8 +680,8 @@ TopoDS_Solid BRepFeat::Tool(const TopoDS_Shape&      SRef,
     Sh.Reverse();
   }
 
-  BRep_Builder B;
-  TopoDS_Solid Soc;
+  ShapeBuilder B;
+  TopoSolid Soc;
   B.MakeSolid(Soc);
   B.Add(Soc, Sh);
   return Soc;
@@ -692,7 +692,7 @@ TopoDS_Solid BRepFeat::Tool(const TopoDS_Shape&      SRef,
 // purpose  : Print the error Description of a StatusError on a stream.
 //=======================================================================
 
-Standard_OStream& BRepFeat::Print(const BRepFeat_StatusError se, Standard_OStream& s)
+Standard_OStream& BRepFeat1::Print(const BRepFeat_StatusError se, Standard_OStream& s)
 {
   switch (se)
   {

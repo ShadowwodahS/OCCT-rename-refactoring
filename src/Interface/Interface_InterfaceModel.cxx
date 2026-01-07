@@ -40,7 +40,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Interface_InterfaceModel, RefObject)
 // performantes, de fournir un identifieur numerique
 // Il est a meme d`etre utilise dans des traitements de Graphe
 // STATICS : les TEMPLATES
-static NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> atemp;
+static NCollection_DataMap<AsciiString1, Handle(RefObject)> atemp;
 
 static const Handle(TypeInfo)& typerep()
 {
@@ -930,7 +930,7 @@ Handle(TColStd_HSequenceOfHAsciiString) Interface_InterfaceModel::ListTemplates(
   Handle(TColStd_HSequenceOfHAsciiString) list = new TColStd_HSequenceOfHAsciiString();
   if (atemp.IsEmpty())
     return list;
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(atemp);
+  NCollection_DataMap<AsciiString1, Handle(RefObject)>::Iterator iter(atemp);
   for (; iter.More(); iter.Next())
   {
     list->Append(new TCollection_HAsciiString(iter.Key()));

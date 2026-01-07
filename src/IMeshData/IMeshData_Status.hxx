@@ -19,7 +19,7 @@
 //! Enumerates statuses used to notify state of discrete model.
 enum IMeshData_Status
 {
-  IMeshData_NoError = 0x0, //!< Mesh generation is successful.
+  IMeshData_NoError = 0x0, //!< Mesh1 generation is successful.
   IMeshData_OpenWire =
     0x1, //!< Notifies open wire problem, which can potentially lead to incorrect results.
   IMeshData_SelfIntersectingWire = 0x2, //!< Notifies self-intersections on discretized wire, which

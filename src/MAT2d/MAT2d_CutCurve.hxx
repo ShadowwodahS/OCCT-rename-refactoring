@@ -24,7 +24,7 @@
 #include <TColGeom2d_SequenceOfCurve.hxx>
 #include <MAT_Side.hxx>
 #include <Standard_Integer.hxx>
-class Geom2d_Curve;
+class GeomCurve2d;
 class Geom2d_TrimmedCurve;
 
 //! Cuts a curve at the extremas of curvature
@@ -37,18 +37,18 @@ public:
 
   Standard_EXPORT MAT2d_CutCurve();
 
-  Standard_EXPORT MAT2d_CutCurve(const Handle(Geom2d_Curve)& C);
+  Standard_EXPORT MAT2d_CutCurve(const Handle(GeomCurve2d)& C);
 
   //! Cuts a curve at the extremas of curvature
   //! and at the inflections.
-  Standard_EXPORT void Perform(const Handle(Geom2d_Curve)& C);
+  Standard_EXPORT void Perform(const Handle(GeomCurve2d)& C);
 
   //! Cuts a curve at the inflections, and at the extremas
   //! of curvature where the concavity is on <aSide>.
-  Standard_EXPORT void Perform(const Handle(Geom2d_Curve)& C, const MAT_Side aSide);
+  Standard_EXPORT void Perform(const Handle(GeomCurve2d)& C, const MAT_Side aSide);
 
   //! Cuts a curve at the inflections.
-  Standard_EXPORT void PerformInf(const Handle(Geom2d_Curve)& C);
+  Standard_EXPORT void PerformInf(const Handle(GeomCurve2d)& C);
 
   //! Returns True if the curve is not cut.
   Standard_EXPORT Standard_Boolean UnModified() const;

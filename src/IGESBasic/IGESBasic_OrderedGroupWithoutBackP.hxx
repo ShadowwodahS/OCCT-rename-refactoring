@@ -25,7 +25,7 @@ class IGESBasic_OrderedGroupWithoutBackP;
 DEFINE_STANDARD_HANDLE(IGESBasic_OrderedGroupWithoutBackP, IGESBasic_Group)
 
 //! defines OrderedGroupWithoutBackP, Type <402> Form <15>
-//! in package IGESBasic
+//! in package IGESBasic1
 //! Allows a collection of a set of entities to be
 //! maintained as a single entity, but the group is
 //! ordered and there are no back pointers.

@@ -65,7 +65,7 @@ class GProp_PrincipalProps;
 //! //declares the GProps, the point (0.0, 0.0, 0.0) of the
 //! //absolute cartesian coordinate system is used as
 //! //default reference point to compute the centre of mass
-//! GProp_GProps System ();
+//! GeometricProperties System ();
 //!
 //! //computes the inertia of a 3d curve
 //! Your_CGProps Component1 (curve, ....);
@@ -94,14 +94,14 @@ class GProp_PrincipalProps;
 //! Real Ixx, Iyy, Izz, Rxx, Ryy, Rzz;
 //! Pp.Moments (Ixx, Iyy, Izz);
 //! Pp.RadiusOfGyration (Ixx, Iyy, Izz);
-class GProp_GProps
+class GeometricProperties
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! The origin (0, 0, 0) of the absolute cartesian coordinate system
   //! is used to compute the global properties.
-  Standard_EXPORT GProp_GProps();
+  Standard_EXPORT GeometricProperties();
 
   //! The point SystemLocation is used to compute the global properties
   //! of the system. For more accuracy it is better to define this
@@ -122,7 +122,7 @@ public:
   //! system. Use it once per component of the system,
   //! and then use the interrogation functions available to
   //! access the computed values.
-  Standard_EXPORT GProp_GProps(const Point3d& SystemLocation);
+  Standard_EXPORT GeometricProperties(const Point3d& SystemLocation);
 
   //! Either
   //! - initializes the global properties retained by this
@@ -136,7 +136,7 @@ public:
   //! may be the case for example, if Item is a
   //! GProp_PGProps framework built to compute the
   //! global properties of a set of points ; or another
-  //! GProp_GProps object which already retains
+  //! GeometricProperties object which already retains
   //! composite global properties. In these cases the real
   //! density was perhaps already taken into account at the
   //! time of construction of Item. Note that this is not
@@ -161,7 +161,7 @@ public:
   //! Exceptions
   //! Standard_DomainError if Density is less than or
   //! equal to gp::Resolution().
-  Standard_EXPORT void Add(const GProp_GProps& Item, const Standard_Real Density = 1.0);
+  Standard_EXPORT void Add(const GeometricProperties& Item, const Standard_Real Density = 1.0);
 
   //! Returns the mass of the current system.
   //! If no density is attached to the components of the
@@ -211,7 +211,7 @@ public:
   //! Y(0,1,0) Z(0,0,1) directions of the absolute cartesian
   //! coordinate system. It is possible to compute the matrix of
   //! inertia at another location point using the Huyghens theorem
-  //! (you can use the method of package GProp : HOperator).
+  //! (you can use the method of package GProp1 : HOperator).
   Standard_EXPORT gp_Mat MatrixOfInertia() const;
 
   //! Returns Ix, Iy, Iz, the static moments of inertia of the

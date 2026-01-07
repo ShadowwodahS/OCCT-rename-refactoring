@@ -24,7 +24,7 @@
 #include <TopOpeBRepDS_Curve.hxx>
 #include <TopOpeBRepDS_GeometryData.hxx>
 
-class TopOpeBRepDS_CurveData : public TopOpeBRepDS_GeometryData
+class TopOpeBRepDS_CurveData : public GeometryData
 {
 public:
   DEFINE_STANDARD_ALLOC

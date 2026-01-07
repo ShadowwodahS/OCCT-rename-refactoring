@@ -19,7 +19,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopTools_ShapeMapHasher.hxx>
 
-typedef NCollection_IndexedDataMap<TopoDS_Shape, Standard_Real, TopTools_ShapeMapHasher>
+typedef NCollection_IndexedDataMap<TopoShape, Standard_Real, ShapeHasher>
   TopTools_IndexedDataMapOfShapeReal;
 
 #endif

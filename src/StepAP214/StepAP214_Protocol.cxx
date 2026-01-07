@@ -1615,5 +1615,5 @@ Standard_Integer StepAP214_Protocol::NbResources() const
 
 Handle(Interface_Protocol) StepAP214_Protocol::Resource(const Standard_Integer /*num*/) const
 {
-  return HeaderSection::Protocol();
+  return HeaderSection1::Protocol();
 }

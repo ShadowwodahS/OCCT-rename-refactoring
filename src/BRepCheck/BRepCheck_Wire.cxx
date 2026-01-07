@@ -68,26 +68,26 @@
 IMPLEMENT_STANDARD_RTTIEXT(BRepCheck_Wire, BRepCheck_Result)
 
 static void Propagate(const TopTools_IndexedDataMapOfShapeListOfShape&,
-                      const TopoDS_Shape&,   // edge
+                      const TopoShape&,   // edge
                       TopTools_MapOfShape&); // mapofedge
 
-static TopAbs_Orientation GetOrientation(const TopTools_MapOfShape&, const TopoDS_Edge&);
+static TopAbs_Orientation GetOrientation(const TopTools_MapOfShape&, const TopoEdge&);
 
-static void ChoixUV(const TopoDS_Vertex&,
-                    const TopoDS_Edge&,
-                    const TopoDS_Face&,
-                    TopTools_ListOfShape&);
+static void ChoixUV(const TopoVertex&,
+                    const TopoEdge&,
+                    const TopoFace&,
+                    ShapeList&);
 
 //      20/03/02 akm vvv (OCC234)
 // static
-//   Standard_Boolean CheckLoopOrientation( const TopoDS_Vertex&,
-// 					const TopoDS_Edge&,
-// 					const TopoDS_Edge&,
-// 					const TopoDS_Face&,
-// 					TopTools_ListOfShape&);
+//   Standard_Boolean CheckLoopOrientation( const TopoVertex&,
+// 					const TopoEdge&,
+// 					const TopoEdge&,
+// 					const TopoFace&,
+// 					ShapeList&);
 //      20/03/02 akm ^^^
 
-inline Standard_Boolean IsOriented(const TopoDS_Shape& S)
+inline Standard_Boolean IsOriented(const TopoShape& S)
 {
   return (S.Orientation() == TopAbs_FORWARD || S.Orientation() == TopAbs_REVERSED);
 }
@@ -98,21 +98,21 @@ static void CurveDirForParameter(const Geom2dAdaptor_Curve& aC2d,
                                  gp_Vec2d&                  aVec2d);
 
 //  Modified by Sergey KHROMOV - Thu Jun 20 11:21:51 2002 OCC325 Begin
-static Standard_Boolean IsClosed2dForPeriodicFace(const TopoDS_Face&   theFace,
+static Standard_Boolean IsClosed2dForPeriodicFace(const TopoFace&   theFace,
                                                   const gp_Pnt2d&      theP1,
                                                   const gp_Pnt2d&      theP2,
-                                                  const TopoDS_Vertex& theVertex);
+                                                  const TopoVertex& theVertex);
 
-static Standard_Boolean GetPnt2d(const TopoDS_Vertex& theVertex,
-                                 const TopoDS_Edge&   theEdge,
-                                 const TopoDS_Face&   theFace,
+static Standard_Boolean GetPnt2d(const TopoVertex& theVertex,
+                                 const TopoEdge&   theEdge,
+                                 const TopoFace&   theFace,
                                  gp_Pnt2d&            aPnt);
 
 //  Modified by Sergey KHROMOV - Wed May 22 10:44:08 2002 End
 
 //=================================================================================================
 
-BRepCheck_Wire::BRepCheck_Wire(const TopoDS_Wire& W)
+BRepCheck_Wire::BRepCheck_Wire(const TopoWire& W)
     : myCdone(Standard_False),
       myCstat(BRepCheck_NoError),
       myGctrl(Standard_False)
@@ -132,21 +132,21 @@ void BRepCheck_Wire::Minimum()
     BRepCheck_ListOfStatus&         lst      = **myMap.Bound(myShape, aNewList);
 
     // check that the wire is "connex"
-    TopExp_Explorer  exp(myShape, TopAbs_EDGE);
+    ShapeExplorer  exp(myShape, TopAbs_EDGE);
     Standard_Integer nbedge = 0;
     myMapVE.Clear();
     // fill myMapVE
     for (; exp.More(); exp.Next())
     {
       nbedge++;
-      TopExp_Explorer expv;
+      ShapeExplorer expv;
       for (expv.Init(exp.Current(), TopAbs_VERTEX); expv.More(); expv.Next())
       {
-        const TopoDS_Shape& vtx   = expv.Current();
+        const TopoShape& vtx   = expv.Current();
         Standard_Integer    index = myMapVE.FindIndex(vtx);
         if (index == 0)
         {
-          TopTools_ListOfShape theListOfShape;
+          ShapeList theListOfShape;
           index = myMapVE.Add(vtx, theListOfShape);
         }
         myMapVE(index).Append(exp.Current());
@@ -183,7 +183,7 @@ void BRepCheck_Wire::Minimum()
 
 //=================================================================================================
 
-void BRepCheck_Wire::InContext(const TopoDS_Shape& S)
+void BRepCheck_Wire::InContext(const TopoShape& S)
 {
   Handle(BRepCheck_HListOfStatus) aHList;
   {
@@ -199,7 +199,7 @@ void BRepCheck_Wire::InContext(const TopoDS_Shape& S)
   BRepCheck_ListOfStatus& lst = *aHList;
 
   // check if my wire is in <S>
-  TopExp_Explorer exp(S, TopAbs_WIRE);
+  ShapeExplorer exp(S, TopAbs_WIRE);
   for (; exp.More(); exp.Next())
   {
     if (exp.Current().IsSame(myShape))
@@ -218,7 +218,7 @@ void BRepCheck_Wire::InContext(const TopoDS_Shape& S)
   switch (styp)
   {
     case TopAbs_FACE: {
-      TopoDS_Edge ed1, ed2;
+      TopoEdge ed1, ed2;
       if (myGctrl)
       {
         st = SelfIntersect(TopoDS::Face(S), ed1, ed2, Standard_True);
@@ -298,7 +298,7 @@ BRepCheck_Status BRepCheck_Wire::Closed(const Standard_Boolean Update)
 
   myCstat = BRepCheck_NoError;
 
-  TopExp_Explorer                    exp, expv;
+  ShapeExplorer                    exp, expv;
   TopTools_MapOfShape                mapS;
   TopTools_DataMapOfShapeListOfShape Cradoc;
   myMapVE.Clear();
@@ -312,7 +312,7 @@ BRepCheck_Status BRepCheck_Wire::Closed(const Standard_Boolean Update)
       // myNbori++;
       if (!Cradoc.IsBound(exp.Current()))
       {
-        TopTools_ListOfShape theListOfShape;
+        ShapeList theListOfShape;
         Cradoc.Bind(exp.Current(), theListOfShape);
       }
       Cradoc(exp.Current()).Append(exp.Current());
@@ -325,7 +325,7 @@ BRepCheck_Status BRepCheck_Wire::Closed(const Standard_Boolean Update)
           Standard_Integer index = myMapVE.FindIndex(expv.Current());
           if (index == 0)
           {
-            TopTools_ListOfShape theListOfShape1;
+            ShapeList theListOfShape1;
             index = myMapVE.Add(expv.Current(), theListOfShape1);
           }
           myMapVE(index).Append(exp.Current());
@@ -538,7 +538,7 @@ static Standard_Boolean IsDistanceIn2DTolerance(
 // function : Closed2d
 // purpose  : for periodic faces
 //=======================================================================
-BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoDS_Face& theFace, const Standard_Boolean Update)
+BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoFace& theFace, const Standard_Boolean Update)
 {
   Handle(BRepCheck_HListOfStatus) aHList;
   {
@@ -572,7 +572,7 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoDS_Face& theFace, const Stan
 
   // count edges having FORWARD or REVERSED orientation
   Standard_Integer aNbOrirntedEdges = 0;
-  TopExp_Explorer  anEdgeExp(myShape, TopAbs_EDGE);
+  ShapeExplorer  anEdgeExp(myShape, TopAbs_EDGE);
   for (; anEdgeExp.More(); anEdgeExp.Next())
   {
     if (IsOriented(anEdgeExp.Current()))
@@ -592,9 +592,9 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoDS_Face& theFace, const Stan
 
   Standard_Integer       aNbFoundEdges = 0;
   BRepTools_WireExplorer aWireExp(TopoDS::Wire(myShape), theFace);
-  TopoDS_Edge            aFirstEdge   = aWireExp.Current();
-  TopoDS_Vertex          aFirstVertex = aWireExp.CurrentVertex();
-  TopoDS_Edge            aLastEdge;
+  TopoEdge            aFirstEdge   = aWireExp.Current();
+  TopoVertex          aFirstVertex = aWireExp.CurrentVertex();
+  TopoEdge            aLastEdge;
 
   for (; aWireExp.More(); aWireExp.Next())
   {
@@ -622,13 +622,13 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoDS_Face& theFace, const Stan
   TopAbs_Orientation anOri;
 
   anOri = aFirstEdge.Orientation();
-  BRep_Tool::Range(aFirstEdge, aF, aL);
+  BRepInspector::Range(aFirstEdge, aF, aL);
   if ((anOri == TopAbs_FORWARD && Precision::IsNegativeInfinite(aF))
       || (anOri == TopAbs_REVERSED && Precision::IsPositiveInfinite(aL)))
     isFirstInfinite = Standard_True;
 
   anOri = aLastEdge.Orientation();
-  BRep_Tool::Range(aLastEdge, aF, aL);
+  BRepInspector::Range(aLastEdge, aF, aL);
 
   if ((anOri == TopAbs_FORWARD && Precision::IsPositiveInfinite(aL))
       || (anOri == TopAbs_REVERSED && Precision::IsNegativeInfinite(aF)))
@@ -657,22 +657,22 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoDS_Face& theFace, const Stan
   gp_Pnt2d aP_first, aP_last, aP_temp; // ends of prev edge, next edge, bidon
 
   // get last point
-  BRep_Tool::UVPoints(aLastEdge, theFace, aP_temp, aP_last);
+  BRepInspector::UVPoints(aLastEdge, theFace, aP_temp, aP_last);
   if (aLastEdge.Orientation() == TopAbs_REVERSED)
     aP_last = aP_temp;
 
   //  Modified by Sergey KHROMOV - Mon Apr 22 10:36:33 2002 Begin
   //   Standard_Real aTol, aUResol, aVResol;
   //   // find 2d tolerance
-  //   aTol  = BRep_Tool::Tolerance(aFirstVertex);
+  //   aTol  = BRepInspector::Tolerance(aFirstVertex);
   //   aUResol = 2*aFaceSurface.UResolution(aTol);
   //   aVResol = 2*aFaceSurface.VResolution(aTol);
 
   // get first point
   if (aFirstEdge.Orientation() == TopAbs_REVERSED)
-    BRep_Tool::UVPoints(aFirstEdge, theFace, aP_temp, aP_first);
+    BRepInspector::UVPoints(aFirstEdge, theFace, aP_temp, aP_first);
   else
-    BRep_Tool::UVPoints(aFirstEdge, theFace, aP_first, aP_temp);
+    BRepInspector::UVPoints(aFirstEdge, theFace, aP_first, aP_temp);
 
   //  Modified by Sergey KHROMOV - Thu Jun 20 10:55:42 2002 OCC325 Begin
   // Check 2d distance for periodic faces with seam edge
@@ -694,10 +694,10 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoDS_Face& theFace, const Stan
   //   {
 
   Standard_Real aTol3d =
-    Max(BRep_Tool::Tolerance(aFirstVertex), BRep_Tool::Tolerance(aWireExp.CurrentVertex()));
+    Max(BRepInspector::Tolerance(aFirstVertex), BRepInspector::Tolerance(aWireExp.CurrentVertex()));
 
-  Point3d aPntRef = BRep_Tool::Pnt(aFirstVertex);
-  Point3d aPnt    = BRep_Tool::Pnt(aWireExp.CurrentVertex());
+  Point3d aPntRef = BRepInspector::Pnt(aFirstVertex);
+  Point3d aPnt    = BRepInspector::Pnt(aWireExp.CurrentVertex());
 
   if (!(IsDistanceIn2DTolerance(aFaceSurface, aP_first, aP_last, aTol3d)))
     aClosedStat = BRepCheck_NotClosed;
@@ -714,7 +714,7 @@ BRepCheck_Status BRepCheck_Wire::Closed2d(const TopoDS_Face& theFace, const Stan
 
 //=================================================================================================
 
-BRepCheck_Status BRepCheck_Wire::Orientation(const TopoDS_Face& F, const Standard_Boolean Update)
+BRepCheck_Status BRepCheck_Wire::Orientation(const TopoFace& F, const Standard_Boolean Update)
 {
   BRepCheck_Status                theOstat = Closed();
   Handle(BRepCheck_HListOfStatus) aHList;
@@ -735,17 +735,17 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoDS_Face& F, const Standar
 
   theOstat = BRepCheck_NoError;
 
-  TopoDS_Vertex        VF, VL;
+  TopoVertex        VF, VL;
   TopAbs_Orientation   orient, ortmp = TopAbs_FORWARD;
-  TopTools_ListOfShape ledge, ListOfPassedEdge;
-  TopExp_Explorer      exp, vte;
+  ShapeList ledge, ListOfPassedEdge;
+  ShapeExplorer      exp, vte;
   TopTools_MapOfShape  mapS;
-  TopoDS_Edge          theEdge, theRef;
+  TopoEdge          theEdge, theRef;
 
   // Checks the orientation of the edges
   for (exp.Init(myShape, TopAbs_EDGE); exp.More(); exp.Next())
   {
-    const TopoDS_Edge& edg = TopoDS::Edge(exp.Current());
+    const TopoEdge& edg = TopoDS::Edge(exp.Current());
     orient                 = edg.Orientation();
     if (IsOriented(edg))
     {
@@ -809,7 +809,7 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoDS_Face& F, const Standar
 
       for (TopTools_ListIteratorOfListOfShape itls(myMapVE(ind)); itls.More(); itls.Next())
       {
-        const TopoDS_Edge& edg = TopoDS::Edge(itls.Value());
+        const TopoEdge& edg = TopoDS::Edge(itls.Value());
 
         orient = edg.Orientation();
         if (mapS.Contains(edg))
@@ -849,7 +849,7 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoDS_Face& F, const Standar
               {
                 // If the processing is in 2d (face not null) or
                 // if the edge is not degenerated it is added
-                if (!F.IsNull() || !BRep_Tool::Degenerated(edg))
+                if (!F.IsNull() || !BRepInspector::Degenerated(edg))
                   ledge.Append(edg);
                 break;
               }
@@ -860,7 +860,7 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoDS_Face& F, const Standar
               {
                 //    // If the processing is in 2d (face not null) or
                 // if the edge is not degenerated it is added
-                if (!F.IsNull() || !BRep_Tool::Degenerated(edg))
+                if (!F.IsNull() || !BRepInspector::Degenerated(edg))
                   ledge.Append(edg);
                 break;
               }
@@ -904,7 +904,7 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoDS_Face& F, const Standar
       // JAG 03/07   else if (nbconnex >= 2 && !F.IsNull())  // Try to see in 2d
       else if (!F.IsNull())
       { // Try to see in 2d
-        TopoDS_Vertex pivot;
+        TopoVertex pivot;
         if (!VL.IsNull())
         {
           pivot = VL;
@@ -987,7 +987,7 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoDS_Face& F, const Standar
 
       // Check the closure of the wire in 2d (not done in Closed())
 
-      TopoDS_Vertex    aVRef;
+      TopoVertex    aVRef;
       Standard_Boolean isCheckClose = Standard_False;
 
       if (isGoFwd && !VF.IsNull())
@@ -1010,7 +1010,7 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoDS_Face& F, const Standar
         ind = myMapVE.FindIndex(aVRef);
         for (TopTools_ListIteratorOfListOfShape itlsh(myMapVE(ind)); itlsh.More(); itlsh.Next())
         {
-          const TopoDS_Edge& edg = TopoDS::Edge(itlsh.Value());
+          const TopoEdge& edg = TopoDS::Edge(itlsh.Value());
           orient                 = edg.Orientation();
           if (!theRef.IsSame(edg))
           {
@@ -1052,9 +1052,9 @@ BRepCheck_Status BRepCheck_Wire::Orientation(const TopoDS_Face& F, const Standar
 
 //=================================================================================================
 
-BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
-                                               TopoDS_Edge&           retE1,
-                                               TopoDS_Edge&           retE2,
+BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoFace&     F,
+                                               TopoEdge&           retE1,
+                                               TopoEdge&           retE2,
                                                const Standard_Boolean Update)
 {
   Handle(BRepCheck_HListOfStatus) aHList;
@@ -1105,10 +1105,10 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
   //
   for (i = 1; i <= Nbedges; i++)
   {
-    const TopoDS_Edge& E1 = TopoDS::Edge(EMap.FindKey(i));
+    const TopoEdge& E1 = TopoDS::Edge(EMap.FindKey(i));
     if (i == 1)
     {
-      Handle(Geom2d_Curve) pcu = BRep_Tool::CurveOnSurface(E1, F, first1, last1);
+      Handle(GeomCurve2d) pcu = BRepInspector::CurveOnSurface(E1, F, first1, last1);
       if (pcu.IsNull())
       {
         retE1 = E1;
@@ -1134,7 +1134,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
         }
       }
       //
-      BRep_Tool::UVPoints(E1, F, pfirst1, plast1);
+      BRepInspector::UVPoints(E1, F, pfirst1, plast1);
       myDomain1.SetValues(pfirst1, first1, tolint, plast1, last1, tolint);
       //
       BndLib_Add2dCurve::Add(C1, first1, last1, Precision::PConfusion(), boxes(i));
@@ -1166,7 +1166,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
           Standard_Boolean         localok = Standard_False;
           Standard_Real            f, l;
           TopLoc_Location          L;
-          const Handle(Geom_Curve) ConS = BRep_Tool::Curve(E1, L, f, l);
+          const Handle(GeomCurve3d) ConS = BRepInspector::Curve(E1, L, f, l);
           if (!ConS.IsNull())
           {
             //-- try to test in 3d. (ParamOnSecond gives the same result)
@@ -1180,16 +1180,16 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
             P3d           = HS->Value(aP2d.X(), aP2d.Y());
           }
           //  Modified by Sergey KHROMOV - Mon Apr 15 12:34:22 2002 End
-          TopExp_Explorer ExplVtx;
+          ShapeExplorer ExplVtx;
           for (ExplVtx.Init(E1, TopAbs_VERTEX); localok == Standard_False && ExplVtx.More();
                ExplVtx.Next())
           {
             Point3d        p3dvtt;
             Standard_Real tolvtt, p3dvttDistanceP3d;
             //
-            const TopoDS_Vertex& vtt = TopoDS::Vertex(ExplVtx.Current());
-            p3dvtt                   = BRep_Tool::Pnt(vtt);
-            tolvtt                   = BRep_Tool::Tolerance(vtt);
+            const TopoVertex& vtt = TopoDS::Vertex(ExplVtx.Current());
+            p3dvtt                   = BRepInspector::Pnt(vtt);
+            tolvtt                   = BRepInspector::Tolerance(vtt);
             tolvtt                   = tolvtt * tolvtt;
             p3dvttDistanceP3d        = p3dvtt.SquareDistance(P3d);
             if (p3dvttDistanceP3d <= tolvtt)
@@ -1219,10 +1219,10 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
     //
     for (j = i + 1; j <= Nbedges; j++)
     {
-      const TopoDS_Edge& E2 = TopoDS::Edge(EMap.FindKey(j));
+      const TopoEdge& E2 = TopoDS::Edge(EMap.FindKey(j));
       if (i == 1)
       {
-        tabCur(j) = BRep_Tool::CurveOnSurface(E2, F, first2, last2);
+        tabCur(j) = BRepInspector::CurveOnSurface(E2, F, first2, last2);
         if (!tabCur(j).IsNull() && last2 > first2)
         {
           C2.Load(tabCur(j));
@@ -1239,7 +1239,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
             }
           }
           //
-          BRep_Tool::UVPoints(E2, F, pfirst2, plast2);
+          BRepInspector::UVPoints(E2, F, pfirst2, plast2);
           tabDom[j - 1].SetValues(pfirst2, first2, tolint, plast2, last2, tolint);
 
           BndLib_Add2dCurve::Add(C2, first2, last2, Precision::PConfusion(), boxes(j));
@@ -1284,7 +1284,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
         Standard_Integer                   nbp, nbs;
         Standard_Real                      IP_ParamOnFirst, IP_ParamOnSecond;
         IntRes2d_Transition                Tr1, Tr2;
-        TopTools_ListOfShape               CommonVertices;
+        ShapeList               CommonVertices;
         TopTools_ListIteratorOfListOfShape itl;
         TopTools_MapOfShape                Vmap;
         //
@@ -1297,7 +1297,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
         it.Initialize(E2);
         for (; it.More(); it.Next())
         {
-          const TopoDS_Shape& V = it.Value();
+          const TopoShape& V = it.Value();
           if (Vmap.Contains(V))
           {
             CommonVertices.Append(V);
@@ -1326,8 +1326,8 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
             Standard_Real    f1, l1, f2, l2;
             TopLoc_Location  L, L2;
             //
-            const Handle(Geom_Curve) ConS  = BRep_Tool::Curve(E1, L, f1, l1);
-            const Handle(Geom_Curve) ConS2 = BRep_Tool::Curve(E2, L2, f2, l2);
+            const Handle(GeomCurve3d) ConS  = BRepInspector::Curve(E1, L, f1, l1);
+            const Handle(GeomCurve3d) ConS2 = BRepInspector::Curve(E2, L2, f2, l2);
             // gka protect against working out of edge range
             if (f1 - IP_ParamOnFirst > ::Precision::PConfusion()
                 || IP_ParamOnFirst - l1 > ::Precision::PConfusion()
@@ -1364,9 +1364,9 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
               Standard_Real p3dvttDistanceP3d, p3dvttDistanceP3d2;
               Point3d        p3dvtt;
               //
-              const TopoDS_Vertex& vtt = TopoDS::Vertex(itl.Value());
-              p3dvtt                   = BRep_Tool::Pnt(vtt);
-              tolvtt                   = BRep_Tool::Tolerance(vtt);
+              const TopoVertex& vtt = TopoDS::Vertex(itl.Value());
+              p3dvtt                   = BRepInspector::Pnt(vtt);
+              tolvtt                   = BRepInspector::Tolerance(vtt);
               tolvtt                   = 1.1 * tolvtt;
               tolvtt                   = tolvtt * tolvtt;
               p3dvttDistanceP3d        = p3dvtt.SquareDistance(P3d);
@@ -1406,21 +1406,21 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
                 Standard_Real disptvtx;
                 Point3d        p3dvtt;
                 //
-                const TopoDS_Vertex& vtt = TopoDS::Vertex(itl.Value());
-                p3dvtt                   = BRep_Tool::Pnt(vtt);
+                const TopoVertex& vtt = TopoDS::Vertex(itl.Value());
+                p3dvtt                   = BRepInspector::Pnt(vtt);
                 disptvtx                 = P3d.Distance(p3dvtt);
                 if (disptvtx < distauvtxleplusproche)
                 {
                   VertexLePlusProche    = p3dvtt;
                   distauvtxleplusproche = disptvtx;
-                  VParaOnEdge1          = BRep_Tool::Parameter(vtt, E1);
-                  VParaOnEdge2          = BRep_Tool::Parameter(vtt, E2);
+                  VParaOnEdge1          = BRepInspector::Parameter(vtt, E1);
+                  VParaOnEdge2          = BRepInspector::Parameter(vtt, E2);
                 }
                 // eap: case of closed edge
                 else if (IsEqual(distauvtxleplusproche, disptvtx))
                 {
-                  Standard_Real newVParaOnEdge1 = BRep_Tool::Parameter(vtt, E1);
-                  Standard_Real newVParaOnEdge2 = BRep_Tool::Parameter(vtt, E2);
+                  Standard_Real newVParaOnEdge1 = BRepInspector::Parameter(vtt, E1);
+                  Standard_Real newVParaOnEdge2 = BRepInspector::Parameter(vtt, E2);
                   if (Abs(IP_ParamOnFirst - VParaOnEdge1) + Abs(IP_ParamOnSecond - VParaOnEdge2)
                       > Abs(IP_ParamOnFirst - newVParaOnEdge1)
                           + Abs(IP_ParamOnSecond - newVParaOnEdge2))
@@ -1449,7 +1449,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
                 Standard_Integer k;
 
                 localok             = Standard_True;
-                Standard_Real tole1 = BRep_Tool::Tolerance(E1);
+                Standard_Real tole1 = BRepInspector::Tolerance(E1);
                 for (k = 2; localok && k < 9; k++)
                 {
                   Standard_Real u = VParaOnEdge1 + k * du1; // check if it works
@@ -1482,7 +1482,7 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
 
                 Lig.SetDirection(aTmpDir);
                 //  Modified by skv - Wed Jul 23 12:22:23 2003 OCC1764 End
-                Standard_Real tole2 = BRep_Tool::Tolerance(E2);
+                Standard_Real tole2 = BRepInspector::Tolerance(E2);
                 for (k = 2; localok && k < 9; k++)
                 {
                   Standard_Real u = VParaOnEdge2 + k * du2; // check if it works
@@ -1596,8 +1596,8 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
                   //
                   aPAR_T = 0.43213918;
                   //
-                  aTolE1 = BRep_Tool::Tolerance(E1);
-                  aTolE2 = BRep_Tool::Tolerance(E2);
+                  aTolE1 = BRepInspector::Tolerance(E1);
+                  aTolE2 = BRepInspector::Tolerance(E2);
                   aTol2  = aTolE1 + aTolE2;
                   aTol2  = aTol2 * aTol2;
                   //
@@ -1635,8 +1635,8 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
               //
               Standard_Real             f, l, tolvtt;
               TopLoc_Location           L, L2;
-              const Handle(Geom_Curve)& ConS  = BRep_Tool::Curve(E1, L, f, l);
-              const Handle(Geom_Curve)& ConS2 = BRep_Tool::Curve(E2, L2, f, l);
+              const Handle(GeomCurve3d)& ConS  = BRepInspector::Curve(E1, L, f, l);
+              const Handle(GeomCurve3d)& ConS2 = BRepInspector::Curve(E2, L2, f, l);
               //  Modified by Sergey KHROMOV - Mon Apr 15 12:34:22 2002 Begin
               if (!ConS.IsNull())
               {
@@ -1665,9 +1665,9 @@ BRepCheck_Status BRepCheck_Wire::SelfIntersect(const TopoDS_Face&     F,
                 Standard_Real p3dvttDistanceP3d, p3dvttDistanceP3d2;
                 Point3d        p3dvtt;
                 //
-                const TopoDS_Vertex& vtt = TopoDS::Vertex(itl.Value());
-                p3dvtt                   = BRep_Tool::Pnt(vtt);
-                tolvtt                   = BRep_Tool::Tolerance(vtt);
+                const TopoVertex& vtt = TopoDS::Vertex(itl.Value());
+                p3dvtt                   = BRepInspector::Pnt(vtt);
+                tolvtt                   = BRepInspector::Tolerance(vtt);
                 tolvtt                   = 1.1 * tolvtt;
                 tolvtt                   = tolvtt * tolvtt;
                 p3dvttDistanceP3d        = p3dvtt.SquareDistance(P3d);
@@ -1750,35 +1750,35 @@ Standard_Boolean BRepCheck_Wire::GeometricControls() const
 //           contained in <mapVE>
 //=======================================================================
 static void Propagate(const TopTools_IndexedDataMapOfShapeListOfShape& mapVE,
-                      const TopoDS_Shape&                              edg,
+                      const TopoShape&                              edg,
                       TopTools_MapOfShape&                             mapE)
 {
-  TopTools_ListOfShape currentEdges;
+  ShapeList currentEdges;
   currentEdges.Append(edg);
 
   do
   {
-    TopTools_ListOfShape               nextEdges;
+    ShapeList               nextEdges;
     TopTools_ListIteratorOfListOfShape itrc(currentEdges);
     for (; itrc.More(); itrc.Next())
     {
-      const TopoDS_Shape& Edge = itrc.Value();
+      const TopoShape& Edge = itrc.Value();
       if (!mapE.Contains(Edge))
         mapE.Add(Edge);
 
-      TopExp_Explorer ex(Edge, TopAbs_VERTEX);
+      ShapeExplorer ex(Edge, TopAbs_VERTEX);
       for (; ex.More(); ex.Next())
       {
-        const TopoDS_Vertex& vtx  = TopoDS::Vertex(ex.Current());
+        const TopoVertex& vtx  = TopoDS::Vertex(ex.Current());
         Standard_Integer     indv = mapVE.FindIndex(vtx);
         if (indv != 0)
         {
-          const TopTools_ListOfShape& edges = mapVE(indv);
+          const ShapeList& edges = mapVE(indv);
 
           TopTools_ListIteratorOfListOfShape itl(edges);
           for (; itl.More(); itl.Next())
           {
-            const TopoDS_Shape& E = itl.Value();
+            const TopoShape& E = itl.Value();
             if (!Edge.IsSame(E) && !mapE.Contains(E))
             {
               mapE.Add(E);
@@ -1794,7 +1794,7 @@ static void Propagate(const TopTools_IndexedDataMapOfShapeListOfShape& mapVE,
 
 //=================================================================================================
 
-static TopAbs_Orientation GetOrientation(const TopTools_MapOfShape& mapE, const TopoDS_Edge& edg)
+static TopAbs_Orientation GetOrientation(const TopTools_MapOfShape& mapE, const TopoEdge& edg)
 {
   TopTools_MapIteratorOfMapOfShape itm(mapE);
   for (; itm.More(); itm.Next())
@@ -1812,10 +1812,10 @@ static TopAbs_Orientation GetOrientation(const TopTools_MapOfShape& mapE, const 
 // purpose  : For vertex theVertex given function find an edge along
 //           that we should go further.
 //=======================================================================
-void ChoixUV(const TopoDS_Vertex&  theVertex,
-             const TopoDS_Edge&    theEdge,
-             const TopoDS_Face&    theFace,
-             TopTools_ListOfShape& theLOfShape)
+void ChoixUV(const TopoVertex&  theVertex,
+             const TopoEdge&    theEdge,
+             const TopoFace&    theFace,
+             ShapeList& theLOfShape)
 {
   TopTools_ListIteratorOfListOfShape It(theLOfShape);
   while (It.More())
@@ -1826,10 +1826,10 @@ void ChoixUV(const TopoDS_Vertex&  theVertex,
       It.Next();
   }
 
-  Standard_Real aTol3d = BRep_Tool::Tolerance(theVertex);
+  Standard_Real aTol3d = BRepInspector::Tolerance(theVertex);
 
   Standard_Integer    anIndex = 0, anIndMin = 0;
-  TopoDS_Edge         anEFound;
+  TopoEdge         anEFound;
   gp_Pnt2d            aPntRef, aPnt;
   gp_Vec2d            aDerRef, aDer;
   Standard_Real       aMinAngle, aMaxAngle, anAngle;
@@ -1838,7 +1838,7 @@ void ChoixUV(const TopoDS_Vertex&  theVertex,
   Standard_Real       aParam = 0.0, aFirstParam = 0.0, aLastParam = 0.0, aParPiv = 0.0;
   BRepAdaptor_Surface aFaceSurface(theFace, Standard_False); // no restriction
 
-  Handle(Geom2d_Curve) C2d = BRep_Tool::CurveOnSurface(theEdge, theFace, aFirstParam, aLastParam);
+  Handle(GeomCurve2d) C2d = BRepInspector::CurveOnSurface(theEdge, theFace, aFirstParam, aLastParam);
   if (C2d.IsNull()) // JAG 10.12.96
     return;
 
@@ -1859,8 +1859,8 @@ void ChoixUV(const TopoDS_Vertex&  theVertex,
   for (; It.More(); It.Next())
   {
     anIndex++;
-    const TopoDS_Edge& anE = TopoDS::Edge(It.Value());
-    C2d                    = BRep_Tool::CurveOnSurface(anE, theFace, aFirstParam, aLastParam);
+    const TopoEdge& anE = TopoDS::Edge(It.Value());
+    C2d                    = BRepInspector::CurveOnSurface(anE, theFace, aFirstParam, aLastParam);
     if (C2d.IsNull())
       continue;
     Geom2dAdaptor_Curve aCA(C2d);
@@ -1910,7 +1910,7 @@ void ChoixUV(const TopoDS_Vertex&  theVertex,
       Standard_Boolean IsFound = Standard_True; // all right
       anEFound                 = TopoDS::Edge(theLOfShape.First());
 
-      if (anEFound.IsNull() || BRep_Tool::Degenerated(theEdge) || BRep_Tool::Degenerated(anEFound))
+      if (anEFound.IsNull() || BRepInspector::Degenerated(theEdge) || BRepInspector::Degenerated(anEFound))
         IsFound = Standard_False; // bad
       else if (!IsDistanceIn2DTolerance(aFaceSurface, aPnt, aPntRef, aTol3d))
         IsFound = Standard_False; // bad
@@ -1991,29 +1991,29 @@ void CurveDirForParameter(const Geom2dAdaptor_Curve& aC2d,
 //           Returns Standard_True if paraametric points are successfully found.
 //=======================================================================
 
-static Standard_Boolean GetPnt2d(const TopoDS_Vertex& theVertex,
-                                 const TopoDS_Edge&   theEdge,
-                                 const TopoDS_Face&   theFace,
+static Standard_Boolean GetPnt2d(const TopoVertex& theVertex,
+                                 const TopoEdge&   theEdge,
+                                 const TopoFace&   theFace,
                                  gp_Pnt2d&            aPnt)
 {
-  Handle(Geom2d_Curve) aPCurve;
+  Handle(GeomCurve2d) aPCurve;
   Standard_Real        aFPar;
   Standard_Real        aLPar;
   Standard_Real        aParOnEdge;
-  TopoDS_Vertex        aFirstVtx;
-  TopoDS_Vertex        aLastVtx;
+  TopoVertex        aFirstVtx;
+  TopoVertex        aLastVtx;
 
-  TopExp::Vertices(theEdge, aFirstVtx, aLastVtx);
+  TopExp1::Vertices(theEdge, aFirstVtx, aLastVtx);
 
   if (!theVertex.IsSame(aFirstVtx) && !theVertex.IsSame(aLastVtx))
     return Standard_False;
 
-  aPCurve = BRep_Tool::CurveOnSurface(theEdge, theFace, aFPar, aLPar);
+  aPCurve = BRepInspector::CurveOnSurface(theEdge, theFace, aFPar, aLPar);
 
   if (aPCurve.IsNull())
     return Standard_False;
 
-  aParOnEdge = BRep_Tool::Parameter(theVertex, theEdge);
+  aParOnEdge = BRepInspector::Parameter(theVertex, theEdge);
   aPnt       = aPCurve->Value(aParOnEdge);
 
   return Standard_True;
@@ -2024,26 +2024,26 @@ static Standard_Boolean GetPnt2d(const TopoDS_Vertex& theVertex,
 // purpose  : Checks the distance between first point of the first edge
 //           and last point of the last edge in 2d for periodic face.
 //=======================================================================
-static Standard_Boolean IsClosed2dForPeriodicFace(const TopoDS_Face&   theFace,
+static Standard_Boolean IsClosed2dForPeriodicFace(const TopoFace&   theFace,
                                                   const gp_Pnt2d&      theP1,
                                                   const gp_Pnt2d&      theP2,
-                                                  const TopoDS_Vertex& theVertex)
+                                                  const TopoVertex& theVertex)
 {
   // Check 2d distance for periodic faces with seam edge.
   // Searching for seam edges
-  TopTools_ListOfShape aSeamEdges;
+  ShapeList aSeamEdges;
   TopTools_MapOfShape  NotSeams;
   TopTools_MapOfShape  ClosedEdges;
-  TopExp_Explorer      anExp(theFace, TopAbs_EDGE);
+  ShapeExplorer      anExp(theFace, TopAbs_EDGE);
 
   for (; anExp.More(); anExp.Next())
   {
-    TopoDS_Edge anEdge = TopoDS::Edge(anExp.Current());
+    TopoEdge anEdge = TopoDS::Edge(anExp.Current());
 
     if (NotSeams.Contains(anEdge))
       continue;
 
-    if (!IsOriented(anEdge) || !BRep_Tool::IsClosed(anEdge, theFace))
+    if (!IsOriented(anEdge) || !BRepInspector::IsClosed(anEdge, theFace))
     {
       NotSeams.Add(anEdge);
       continue;
@@ -2058,7 +2058,7 @@ static Standard_Boolean IsClosed2dForPeriodicFace(const TopoDS_Face&   theFace,
 
   // check if theVertex lies on one of the seam edges
   BRepAdaptor_Surface aFaceSurface(theFace, Standard_False);
-  Standard_Real       aTol      = BRep_Tool::Tolerance(theVertex);
+  Standard_Real       aTol      = BRepInspector::Tolerance(theVertex);
   Standard_Real       aUResol   = aFaceSurface.UResolution(aTol);
   Standard_Real       aVResol   = aFaceSurface.VResolution(aTol);
   Standard_Real       aVicinity = Sqrt(aUResol * aUResol + aVResol * aVResol);
@@ -2068,12 +2068,12 @@ static Standard_Boolean IsClosed2dForPeriodicFace(const TopoDS_Face&   theFace,
 
   for (; anIter.More(); anIter.Next())
   {
-    TopoDS_Edge aSeamEdge = TopoDS::Edge(anIter.Value());
+    TopoEdge aSeamEdge = TopoDS::Edge(anIter.Value());
 
     anExp.Init(aSeamEdge, TopAbs_VERTEX);
     for (; anExp.More(); anExp.Next())
     {
-      const TopoDS_Shape& aVtx = anExp.Current();
+      const TopoShape& aVtx = anExp.Current();
 
       // We found an edge. Check the distance between two given points
       //  to be lower than the computed tolerance.

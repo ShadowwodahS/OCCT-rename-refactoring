@@ -26,7 +26,7 @@
 #include <IGESData_DefList.hxx>
 class Interface_UndefinedContent;
 class IGESData_IGESReaderData;
-class IGESData_DirPart;
+class DirectoryPart;
 class Interface_Check;
 class IGESData_ParamReader;
 class IGESData_IGESWriter;
@@ -88,7 +88,7 @@ public:
   //! (hence, Directory Error Status is non null; and standard Read
   //! will work with an acceptable DirectoryPart)
   Standard_EXPORT virtual Standard_Boolean ReadDir(const Handle(IGESData_IGESReaderData)& IR,
-                                                   IGESData_DirPart&                      DP,
+                                                   DirectoryPart&                      DP,
                                                    Handle(Interface_Check)&               ach);
 
   //! reads own parameters from file; PR gives access to them, IR

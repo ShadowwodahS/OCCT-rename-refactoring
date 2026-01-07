@@ -20,21 +20,21 @@
 
 //=================================================================================================
 
-BRepSweep_Tool::BRepSweep_Tool(const TopoDS_Shape& aShape)
+BRepSweep_Tool::BRepSweep_Tool(const TopoShape& aShape)
 {
-  TopExp::MapShapes(aShape, myMap);
+  TopExp1::MapShapes(aShape, myMap);
 }
 
 //=================================================================================================
 
-Standard_Integer BRepSweep_Tool::NbShapes() const
+Standard_Integer BRepSweep_Tool::NbShapes1() const
 {
   return myMap.Extent();
 }
 
 //=================================================================================================
 
-Standard_Integer BRepSweep_Tool::Index(const TopoDS_Shape& aShape) const
+Standard_Integer BRepSweep_Tool::Index(const TopoShape& aShape) const
 {
   if (!myMap.Contains(aShape))
     return 0;
@@ -43,28 +43,28 @@ Standard_Integer BRepSweep_Tool::Index(const TopoDS_Shape& aShape) const
 
 //=================================================================================================
 
-TopoDS_Shape BRepSweep_Tool::Shape(const Standard_Integer anIndex) const
+TopoShape BRepSweep_Tool::Shape(const Standard_Integer anIndex) const
 {
   return myMap.FindKey(anIndex);
 }
 
 //=================================================================================================
 
-TopAbs_ShapeEnum BRepSweep_Tool::Type(const TopoDS_Shape& aShape) const
+TopAbs_ShapeEnum BRepSweep_Tool::Type(const TopoShape& aShape) const
 {
   return aShape.ShapeType();
 }
 
 //=================================================================================================
 
-TopAbs_Orientation BRepSweep_Tool::Orientation(const TopoDS_Shape& aShape) const
+TopAbs_Orientation BRepSweep_Tool::Orientation(const TopoShape& aShape) const
 {
   return aShape.Orientation();
 }
 
 //=================================================================================================
 
-void BRepSweep_Tool::SetOrientation(TopoDS_Shape& aShape, const TopAbs_Orientation Or) const
+void BRepSweep_Tool::SetOrientation(TopoShape& aShape, const TopAbs_Orientation Or) const
 {
   aShape.Orientation(Or);
 }

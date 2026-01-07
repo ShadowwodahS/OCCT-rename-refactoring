@@ -112,7 +112,7 @@ private:
   // --------------------------------------------------------------------------
 
   friend class TDF_Data;
-  friend class TDF_Label;
+  friend class DataLabel;
 
 private:
   // Private Methods
@@ -163,7 +163,7 @@ private:
   TDF_Data* myData;
 #endif
 #ifdef OCCT_DEBUG
-  TCollection_AsciiString myDebugEntry;
+  AsciiString1 myDebugEntry;
 #endif
 };
 

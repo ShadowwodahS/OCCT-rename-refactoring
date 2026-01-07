@@ -48,7 +48,7 @@ Handle(XmlMDF_ADriver) XmlDrivers_DocumentRetrievalDriver::ReadShapeSection(
   if (myDrivers.IsNull())
     myDrivers = AttributeDrivers(theMsgDriver);
   Handle(XmlMDF_ADriver) aDriver;
-  if (myDrivers->GetDriver(STANDARD_TYPE(TNaming_NamedShape), aDriver))
+  if (myDrivers->GetDriver(STANDARD_TYPE(ShapeAttribute), aDriver))
   {
     Handle(XmlMNaming_NamedShapeDriver) aNamedShapeDriver =
       Handle(XmlMNaming_NamedShapeDriver)::DownCast(aDriver);

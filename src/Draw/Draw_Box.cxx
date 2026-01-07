@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Draw_Box, Draw_Drawable3D)
 
 //=================================================================================================
 
-Draw_Box::Draw_Box(const Bnd_OBB& theOBB, const Draw_Color& theColor)
+Draw_Box::Draw_Box(const Bnd_OBB& theOBB, const DrawColor& theColor)
     : myOBB(theOBB),
       myColor(theColor)
 {
@@ -69,7 +69,7 @@ void Draw_Box::MoveZ(const Standard_Real theShift, Point3d& thePt) const
 
 //=================================================================================================
 
-void Draw_Box::DrawOn(Draw_Display& theDIS) const
+void Draw_Box::DrawOn(DrawDisplay& theDIS) const
 {
   if (myOBB.IsVoid())
   {

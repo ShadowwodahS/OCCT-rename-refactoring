@@ -100,8 +100,8 @@ Units_Token::Units_Token(const Standard_CString          aword,
 
 Handle(Units_Token) Units_Token::Creates() const
 {
-  TCollection_AsciiString word = Word();
-  TCollection_AsciiString mean = Mean();
+  AsciiString1 word = Word();
+  AsciiString1 mean = Mean();
   return new Units_Token(word.ToCString(), mean.ToCString(), Value(), Dimensions());
 }
 
@@ -144,7 +144,7 @@ Units_Token::Units_Token(const Handle(Units_Token)& atoken)
 
 void Units_Token::Update(const Standard_CString amean)
 {
-  TCollection_AsciiString string = Mean();
+  AsciiString1 string = Mean();
   if (string.Search(amean) != -1)
     std::cout << Word() << " encountered twice with the same signification : " << amean
               << std::endl;
@@ -166,7 +166,7 @@ Handle(Units_Token) Units_Token::Add(const Standard_Integer) const
 
 Handle(Units_Token) Units_Token::Add(const Handle(Units_Token)& atoken) const
 {
-  TCollection_AsciiString word = Word();
+  AsciiString1 word = Word();
   if (thedimensions->IsEqual(atoken->Dimensions()))
     return new Units_Token(word.ToCString(), " ", thevalue + atoken->Value(), thedimensions);
   else
@@ -177,7 +177,7 @@ Handle(Units_Token) Units_Token::Add(const Handle(Units_Token)& atoken) const
 
 Handle(Units_Token) Units_Token::Subtract(const Handle(Units_Token)& atoken) const
 {
-  TCollection_AsciiString word = Word();
+  AsciiString1 word = Word();
   if (thedimensions->IsEqual(atoken->Dimensions()))
     return new Units_Token(word.ToCString(), " ", thevalue - atoken->Value(), thedimensions);
   else
@@ -188,7 +188,7 @@ Handle(Units_Token) Units_Token::Subtract(const Handle(Units_Token)& atoken) con
 
 Handle(Units_Token) Units_Token::Multiply(const Handle(Units_Token)& atoken) const
 {
-  TCollection_AsciiString string = Word();
+  AsciiString1 string = Word();
   string.Insert(1, '(');
   string = string + ")*(";
   string = string + atoken->Word();
@@ -217,7 +217,7 @@ Handle(Units_Token) Units_Token::Divide(const Handle(Units_Token)& atoken) const
 #endif
     return this;
   }
-  TCollection_AsciiString string = Word();
+  AsciiString1 string = Word();
   string.Insert(1, '(');
   string = string + ")/(";
   string = string + atoken->Word();
@@ -239,7 +239,7 @@ Standard_Real Units_Token::Divided(const Standard_Real avalue) const
 
 Handle(Units_Token) Units_Token::Power(const Handle(Units_Token)& atoken) const
 {
-  TCollection_AsciiString string = Word();
+  AsciiString1 string = Word();
   string.Insert(1, '(');
   string = string + ")**(";
   string = string + atoken->Word();
@@ -254,8 +254,8 @@ Handle(Units_Token) Units_Token::Power(const Handle(Units_Token)& atoken) const
 
 Handle(Units_Token) Units_Token::Power(const Standard_Real anexponent) const
 {
-  TCollection_AsciiString exponent(anexponent);
-  TCollection_AsciiString string = Word();
+  AsciiString1 exponent(anexponent);
+  AsciiString1 string = Word();
   string.Insert(1, '(');
   string = string + ")**(";
   string = string + exponent;
@@ -270,7 +270,7 @@ Handle(Units_Token) Units_Token::Power(const Standard_Real anexponent) const
 
 Standard_Boolean Units_Token::IsEqual(const Standard_CString astring) const
 {
-  TCollection_AsciiString string = Word();
+  AsciiString1 string = Word();
 #ifdef UNX
   Standard_Integer length = string.Length();
 #else
@@ -287,8 +287,8 @@ Standard_Boolean Units_Token::IsEqual(const Standard_CString astring) const
 
 Standard_Boolean Units_Token::IsEqual(const Handle(Units_Token)& atoken) const
 {
-  TCollection_AsciiString string1 = Word();
-  TCollection_AsciiString string2 = atoken->Word();
+  AsciiString1 string1 = Word();
+  AsciiString1 string2 = atoken->Word();
   Standard_Integer        length  = string1.Length();
   if (length == atoken->Length())
     return (strcmp(string1.ToCString(), string2.ToCString()) == 0) ? Standard_True : Standard_False;
@@ -301,8 +301,8 @@ Standard_Boolean Units_Token::IsEqual(const Handle(Units_Token)& atoken) const
 void Units_Token::Dump(const Standard_Integer ashift, const Standard_Integer alevel) const
 {
   int                     i;
-  TCollection_AsciiString word = Word();
-  TCollection_AsciiString mean = Mean();
+  AsciiString1 word = Word();
+  AsciiString1 mean = Mean();
 
   for (i = 0; i < ashift; i++)
     std::cout << "  ";

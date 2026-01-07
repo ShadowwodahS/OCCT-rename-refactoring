@@ -18,9 +18,9 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Type.hxx>
 
-class TopoDS_Shape;
-class Prs3d_Drawer;
-class Graphic3d_Camera;
+class TopoShape;
+class StyleDrawer;
+class CameraOn3d;
 
 //! Computes the presentation of objects with removal of their hidden lines for a specific
 //! projector.
@@ -30,9 +30,9 @@ class StdPrs_HLRShapeI : public RefObject
 public:
   //! Compute presentation for specified shape.
   virtual void ComputeHLR(const Handle(Prs3d_Presentation)& thePrs,
-                          const TopoDS_Shape&               theShape,
-                          const Handle(Prs3d_Drawer)&       theDrawer,
-                          const Handle(Graphic3d_Camera)&   theProjector) const = 0;
+                          const TopoShape&               theShape,
+                          const Handle(StyleDrawer)&       theDrawer,
+                          const Handle(CameraOn3d)&   theProjector) const = 0;
 };
 
 #endif // _StdPrs_HLRShapeI_HeaderFile

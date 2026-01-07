@@ -33,7 +33,7 @@
 //=========================================================================
 //   Creation of a circle tangent to a circle and two straight lines.          +
 //=========================================================================
-GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedCirc& Qualified1,
+Circle2dThreeTangent::Circle2dThreeTangent(const GccEnt_QualifiedCirc& Qualified1,
                                      const GccEnt_QualifiedLin&  Qualified2,
                                      const GccEnt_QualifiedLin&  Qualified3,
                                      const Standard_Real         Tolerance)
@@ -92,8 +92,8 @@ GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedCirc& Qualified1,
   gp_Dir2d      normL3(-dir3.Y(), dir3.X());
 
   TColStd_Array1OfReal  Radius(1, 2);
-  GccAna_CircLin2dBisec Bis1(C1, L2);
-  GccAna_Lin2dBisec     Bis2(L2, L3);
+  CircleLine2dBisector Bis1(C1, L2);
+  Line2dBisector     Bis2(L2, L3);
   if (Bis1.IsDone() && Bis2.IsDone())
   {
     Standard_Integer nbsolution1 = Bis1.NbSolutions();
@@ -300,13 +300,13 @@ GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedCirc& Qualified1,
                   TheSame3(NbrSol) = 0;
                   gp_Dir2d      dc(origin2.XY() - Center.XY());
                   Standard_Real sign = dc.Dot(gp_Dir2d(-dir2.Y(), dir2.X()));
-                  dc                 = gp_Dir2d(sign * gp_XY(-dir2.Y(), dir2.X()));
+                  dc                 = gp_Dir2d(sign * Coords2d(-dir2.Y(), dir2.X()));
                   pnttg2sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius(m) * dc.XY());
                   par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
                   pararg2(NbrSol)    = ElCLib::Parameter(L2, pnttg2sol(NbrSol));
                   dc                 = gp_Dir2d(origin3.XY() - Center.XY());
                   sign               = dc.Dot(gp_Dir2d(-dir3.Y(), dir3.X()));
-                  dc                 = gp_Dir2d(sign * gp_XY(-dir3.Y(), dir3.X()));
+                  dc                 = gp_Dir2d(sign * Coords2d(-dir3.Y(), dir3.X()));
                   pnttg3sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius(m) * dc.XY());
                   par3sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg3sol(NbrSol));
                   pararg3(NbrSol)    = ElCLib::Parameter(L3, pnttg3sol(NbrSol));

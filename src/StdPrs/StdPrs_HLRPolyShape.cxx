@@ -41,9 +41,9 @@ IMPLEMENT_STANDARD_RTTIEXT(StdPrs_HLRPolyShape, StdPrs_HLRShapeI)
 //=================================================================================================
 
 void StdPrs_HLRPolyShape::ComputeHLR(const Handle(Prs3d_Presentation)& aPresentation,
-                                     const TopoDS_Shape&               aShape,
-                                     const Handle(Prs3d_Drawer)&       aDrawer,
-                                     const Handle(Graphic3d_Camera)&   theProjector) const
+                                     const TopoShape&               aShape,
+                                     const Handle(StyleDrawer)&       aDrawer,
+                                     const Handle(CameraOn3d)&   theProjector) const
 {
   Dir3d  aBackDir = -theProjector->Direction();
   Dir3d  aXpers   = theProjector->Up().Crossed(aBackDir);
@@ -54,7 +54,7 @@ void StdPrs_HLRPolyShape::ComputeHLR(const Handle(Prs3d_Presentation)& aPresenta
 
   Handle(Graphic3d_Group) aGroup = aPresentation->CurrentGroup();
 
-  TopExp_Explorer ex;
+  ShapeExplorer ex;
 
   // find vertices not under ancestors.
   TopAbs_ShapeEnum E = aShape.ShapeType();
@@ -81,7 +81,7 @@ void StdPrs_HLRPolyShape::ComputeHLR(const Handle(Prs3d_Presentation)& aPresenta
   HLRAlgo_EdgeIterator It;
   Standard_Boolean     reg1, regn, outl, intl;
   Standard_Address     Coordinates;
-  TopoDS_Shape         S;
+  TopoShape         S;
 
   HLRBRep_ListOfBPoint BiPntVis, BiPntHid;
 

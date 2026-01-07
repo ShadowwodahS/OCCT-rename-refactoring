@@ -25,8 +25,8 @@
 #include <Standard_Integer.hxx>
 class StdFail_NotDone;
 class Standard_OutOfRange;
-class Geom_Surface;
-class Geom_Curve;
+class GeomSurface;
+class GeomCurve3d;
 
 //! This class implements methods for
 //! computing the intersection curves   between two surfaces.
@@ -34,22 +34,22 @@ class Geom_Curve;
 //! a surface   is the natural  parametric domain
 //! unless the surface is a  RectangularTrimmedSurface
 //! from Geom.
-class GeomAPI_IntSS
+class SurfaceIntersector
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs an empty object. Use the
   //! function Perform for further initialization algorithm by two surfaces.
-  GeomAPI_IntSS();
+  SurfaceIntersector();
 
   //! Computes the intersection curves
   //! between the two surfaces S1 and S2. Parameter Tol defines the precision
   //! of curves computation. For most cases the value 1.0e-7 is recommended to use.
   //! Warning
   //! Use the function IsDone to verify that the intersections are successfully computed.I
-  GeomAPI_IntSS(const Handle(Geom_Surface)& S1,
-                const Handle(Geom_Surface)& S2,
+  SurfaceIntersector(const Handle(GeomSurface)& S1,
+                const Handle(GeomSurface)& S2,
                 const Standard_Real         Tol);
 
   //! Initializes an algorithm with the
@@ -58,8 +58,8 @@ public:
   //! cases the value 1.0e-7 is recommended to use.
   //! Warning
   //! Use function IsDone to verify that the intersections are successfully computed.
-  void Perform(const Handle(Geom_Surface)& S1,
-               const Handle(Geom_Surface)& S2,
+  void Perform(const Handle(GeomSurface)& S1,
+               const Handle(GeomSurface)& S2,
                const Standard_Real         Tol);
 
   //! Returns True if the intersection was successful.
@@ -75,7 +75,7 @@ public:
   //! StdFail_NotDone if the computation fails.
   //! Standard_OutOfRange if Index is out of range [1, NbLines] where NbLines
   //! is the number of computed intersection curves.
-  const Handle(Geom_Curve)& Line(const Standard_Integer Index) const;
+  const Handle(GeomCurve3d)& Line(const Standard_Integer Index) const;
 
 protected:
 private:

@@ -27,13 +27,13 @@
 #include <Standard_Handle.hxx>
 
 class Bnd_Box;
-class Geom_Curve;
-class Geom_Plane;
-class Geom_Surface;
-class TopoDS_Edge;
-class TopoDS_Face;
-class TopoDS_Shape;
-class TopoDS_Vertex;
+class GeomCurve3d;
+class GeomPlane;
+class GeomSurface;
+class TopoEdge;
+class TopoFace;
+class TopoShape;
+class TopoVertex;
 
 //! Auxiliary methods for computing dimensions.
 class PrsDim
@@ -43,7 +43,7 @@ public:
 
   //! Returns the nearest point in a shape. This is used by
   //! several classes in calculation of dimensions.
-  Standard_EXPORT static Point3d Nearest(const TopoDS_Shape& aShape, const Point3d& aPoint);
+  Standard_EXPORT static Point3d Nearest(const TopoShape& aShape, const Point3d& aPoint);
 
   //! @return the nearest point on the line.
   Standard_EXPORT static Point3d Nearest(const gp_Lin& theLine, const Point3d& thePoint);
@@ -51,28 +51,28 @@ public:
   //! For the given point finds nearest point on the curve,
   //! @return TRUE if found point is belongs to the curve
   //! and FALSE otherwise.
-  Standard_EXPORT static Standard_Boolean Nearest(const Handle(Geom_Curve)& theCurve,
+  Standard_EXPORT static Standard_Boolean Nearest(const Handle(GeomCurve3d)& theCurve,
                                                   const Point3d&             thePoint,
                                                   const Point3d&             theFirstPoint,
                                                   const Point3d&             theLastPoint,
                                                   Point3d&                   theNearestPoint);
 
-  Standard_EXPORT static Point3d Farest(const TopoDS_Shape& aShape, const Point3d& aPoint);
+  Standard_EXPORT static Point3d Farest(const TopoShape& aShape, const Point3d& aPoint);
 
   //! Used by 2d Relation only
   //! Computes the 3d geometry of <anEdge> in the current WorkingPlane
   //! and the extremities if any
   //! Return TRUE if ok.
-  Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoDS_Edge&  theEdge,
-                                                          Handle(Geom_Curve)& theCurve,
+  Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoEdge&  theEdge,
+                                                          Handle(GeomCurve3d)& theCurve,
                                                           Point3d&             theFirstPnt,
                                                           Point3d&             theLastPnt);
 
   //! Used by dimensions only.
   //! Computes the 3d geometry of <anEdge>.
   //! Return TRUE if ok.
-  Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoDS_Edge&  theEdge,
-                                                          Handle(Geom_Curve)& theCurve,
+  Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoEdge&  theEdge,
+                                                          Handle(GeomCurve3d)& theCurve,
                                                           Point3d&             theFirstPnt,
                                                           Point3d&             theLastPnt,
                                                           Standard_Boolean&   theIsInfinite);
@@ -85,35 +85,35 @@ public:
   //! If <anEdge> is infinite, <isinfinite> = true and the 2
   //! parameters <FirstPnt> and <LastPnt> have no signification.
   //! Return TRUE if ok.
-  Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoDS_Edge&        theEdge,
-                                                          Handle(Geom_Curve)&       theCurve,
+  Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoEdge&        theEdge,
+                                                          Handle(GeomCurve3d)&       theCurve,
                                                           Point3d&                   theFirstPnt,
                                                           Point3d&                   theLastPnt,
-                                                          Handle(Geom_Curve)&       theExtCurve,
+                                                          Handle(GeomCurve3d)&       theExtCurve,
                                                           Standard_Boolean&         theIsInfinite,
                                                           Standard_Boolean&         theIsOnPlane,
-                                                          const Handle(Geom_Plane)& thePlane);
+                                                          const Handle(GeomPlane)& thePlane);
 
   //! Used by 2d Relation only
   //! Computes the 3d geometry of <anEdge> in the current WorkingPlane
   //! and the extremities if any
   //! Return TRUE if ok.
-  Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoDS_Edge&        theFirstEdge,
-                                                          const TopoDS_Edge&        theSecondEdge,
-                                                          Handle(Geom_Curve)&       theFirstCurve,
-                                                          Handle(Geom_Curve)&       theSecondCurve,
+  Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoEdge&        theFirstEdge,
+                                                          const TopoEdge&        theSecondEdge,
+                                                          Handle(GeomCurve3d)&       theFirstCurve,
+                                                          Handle(GeomCurve3d)&       theSecondCurve,
                                                           Point3d&                   theFirstPnt1,
                                                           Point3d&                   theLastPnt1,
                                                           Point3d&                   theFirstPnt2,
                                                           Point3d&                   theLastPnt2,
-                                                          const Handle(Geom_Plane)& thePlane);
+                                                          const Handle(GeomPlane)& thePlane);
 
   //! Used  by  dimensions  only.Computes  the  3d geometry
   //! of<anEdge1> and <anEdge2> and checks if they are infinite.
-  Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoDS_Edge&  theFirstEdge,
-                                                          const TopoDS_Edge&  theSecondEdge,
-                                                          Handle(Geom_Curve)& theFirstCurve,
-                                                          Handle(Geom_Curve)& theSecondCurve,
+  Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoEdge&  theFirstEdge,
+                                                          const TopoEdge&  theSecondEdge,
+                                                          Handle(GeomCurve3d)& theFirstCurve,
+                                                          Handle(GeomCurve3d)& theSecondCurve,
                                                           Point3d&             theFirstPnt1,
                                                           Point3d&             theLastPnt1,
                                                           Point3d&             theFirstPnt2,
@@ -130,34 +130,34 @@ public:
   //! external to the  plane,  <isinfinite> is true if  this
   //! edge is infinite.  So, the extremities of it are not
   //! significant.  Return TRUE if ok
-  Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoDS_Edge&        theFirstEdge,
-                                                          const TopoDS_Edge&        theSecondEdge,
+  Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoEdge&        theFirstEdge,
+                                                          const TopoEdge&        theSecondEdge,
                                                           Standard_Integer&         theExtIndex,
-                                                          Handle(Geom_Curve)&       theFirstCurve,
-                                                          Handle(Geom_Curve)&       theSecondCurve,
+                                                          Handle(GeomCurve3d)&       theFirstCurve,
+                                                          Handle(GeomCurve3d)&       theSecondCurve,
                                                           Point3d&                   theFirstPnt1,
                                                           Point3d&                   theLastPnt1,
                                                           Point3d&                   theFirstPnt2,
                                                           Point3d&                   theLastPnt2,
-                                                          Handle(Geom_Curve)&       theExtCurve,
+                                                          Handle(GeomCurve3d)&       theExtCurve,
                                                           Standard_Boolean&         theIsinfinite1,
                                                           Standard_Boolean&         theIsinfinite2,
-                                                          const Handle(Geom_Plane)& thePlane);
+                                                          const Handle(GeomPlane)& thePlane);
 
   //! Checks if aCurve belongs to aPlane; if not, projects aCurve in aPlane
   //! and returns aCurve;
   //! Return TRUE if ok
-  Standard_EXPORT static Standard_Boolean ComputeGeomCurve(Handle(Geom_Curve)&       aCurve,
+  Standard_EXPORT static Standard_Boolean ComputeGeomCurve(Handle(GeomCurve3d)&       aCurve,
                                                            const Standard_Real       first1,
                                                            const Standard_Real       last1,
                                                            Point3d&                   FirstPnt1,
                                                            Point3d&                   LastPnt1,
-                                                           const Handle(Geom_Plane)& aPlane,
+                                                           const Handle(GeomPlane)& aPlane,
                                                            Standard_Boolean&         isOnPlane);
 
-  Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoDS_Vertex&      aVertex,
+  Standard_EXPORT static Standard_Boolean ComputeGeometry(const TopoVertex&      aVertex,
                                                           Point3d&                   point,
-                                                          const Handle(Geom_Plane)& aPlane,
+                                                          const Handle(GeomPlane)& aPlane,
                                                           Standard_Boolean&         isOnPlane);
 
   //! Tries to get Plane from Face.  Returns Surface of Face
@@ -168,15 +168,15 @@ public:
   //! Returns pure type of Surface which can be:
   //! Plane, Cylinder, Cone, Sphere, Torus,
   //! SurfaceOfRevolution, SurfaceOfExtrusion
-  Standard_EXPORT static Standard_Boolean GetPlaneFromFace(const TopoDS_Face&    aFace,
+  Standard_EXPORT static Standard_Boolean GetPlaneFromFace(const TopoFace&    aFace,
                                                            gp_Pln&               aPlane,
-                                                           Handle(Geom_Surface)& aSurf,
+                                                           Handle(GeomSurface)& aSurf,
                                                            PrsDim_KindOfSurface& aSurfType,
                                                            Standard_Real&        Offset);
 
-  Standard_EXPORT static void InitFaceLength(const TopoDS_Face&    aFace,
+  Standard_EXPORT static void InitFaceLength(const TopoFace&    aFace,
                                              gp_Pln&               aPlane,
-                                             Handle(Geom_Surface)& aSurface,
+                                             Handle(GeomSurface)& aSurface,
                                              PrsDim_KindOfSurface& aSurfaceType,
                                              Standard_Real&        anOffset);
 
@@ -184,10 +184,10 @@ public:
   //! @param[in] thePlaneDir  the direction on the dimension plane to
   //! compute the plane automatically. It will not be taken into account if
   //! plane is defined by user.
-  Standard_EXPORT static void InitLengthBetweenCurvilinearFaces(const TopoDS_Face&    theFirstFace,
-                                                                const TopoDS_Face&    theSecondFace,
-                                                                Handle(Geom_Surface)& theFirstSurf,
-                                                                Handle(Geom_Surface)& theSecondSurf,
+  Standard_EXPORT static void InitLengthBetweenCurvilinearFaces(const TopoFace&    theFirstFace,
+                                                                const TopoFace&    theSecondFace,
+                                                                Handle(GeomSurface)& theFirstSurf,
+                                                                Handle(GeomSurface)& theSecondSurf,
                                                                 Point3d& theFirstAttach,
                                                                 Point3d& theSecondAttach,
                                                                 Dir3d& theDirOnPlane);
@@ -195,8 +195,8 @@ public:
   //! Finds three points for the angle dimension between
   //! two planes.
   Standard_EXPORT static Standard_Boolean InitAngleBetweenPlanarFaces(
-    const TopoDS_Face&     theFirstFace,
-    const TopoDS_Face&     theSecondFace,
+    const TopoFace&     theFirstFace,
+    const TopoFace&     theSecondFace,
     Point3d&                theCenter,
     Point3d&                theFirstAttach,
     Point3d&                theSecondAttach,
@@ -205,8 +205,8 @@ public:
   //! Finds three points for the angle dimension between
   //! two curvilinear surfaces.
   Standard_EXPORT static Standard_Boolean InitAngleBetweenCurvilinearFaces(
-    const TopoDS_Face&         theFirstFace,
-    const TopoDS_Face&         theSecondFace,
+    const TopoFace&         theFirstFace,
+    const TopoFace&         theSecondFace,
     const PrsDim_KindOfSurface theFirstSurfType,
     const PrsDim_KindOfSurface theSecondSurfType,
     Point3d&                    theCenter,
@@ -243,9 +243,9 @@ public:
 
   Standard_EXPORT static void ComputeProjEdgePresentation(
     const Handle(Prs3d_Presentation)& aPres,
-    const Handle(Prs3d_Drawer)&       aDrawer,
-    const TopoDS_Edge&                anEdge,
-    const Handle(Geom_Curve)&         ProjCurve,
+    const Handle(StyleDrawer)&       aDrawer,
+    const TopoEdge&                anEdge,
+    const Handle(GeomCurve3d)&         ProjCurve,
     const Point3d&                     FirstP,
     const Point3d&                     LastP,
     const Quantity_NameOfColor        aColor   = Quantity_NOC_PURPLE,
@@ -255,8 +255,8 @@ public:
 
   Standard_EXPORT static void ComputeProjVertexPresentation(
     const Handle(Prs3d_Presentation)& aPres,
-    const Handle(Prs3d_Drawer)&       aDrawer,
-    const TopoDS_Vertex&              aVertex,
+    const Handle(StyleDrawer)&       aDrawer,
+    const TopoVertex&              aVertex,
     const Point3d&                     ProjPoint,
     const Quantity_NameOfColor        aColor   = Quantity_NOC_PURPLE,
     const Standard_Real               aWidth   = 2,

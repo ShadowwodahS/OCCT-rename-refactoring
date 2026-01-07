@@ -61,7 +61,7 @@ static char                      txtmes[200]; // plus commode que redeclarer par
 
 static Standard_Boolean initstr = Standard_False;
 #define Maxlst 64
-// static TCollection_AsciiString subl[Maxlst];          // Maxlst : minimum 10
+// static AsciiString1 subl[Maxlst];          // Maxlst : minimum 10
 
 static Standard_Integer acceptvoid = 0;
 
@@ -125,11 +125,11 @@ void StepData_StepReaderData::cleanText(const Handle(TCollection_HAsciiString)& 
     theVal->Clear();
     return;
   }
-  TCollection_ExtendedString aResString;
+  UtfString aResString;
   const Standard_Boolean     toConversion = mySourceCodePage != Resource_FormatType_NoConversion;
   Resource_Unicode::ConvertFormatToUnicode(mySourceCodePage, theVal->ToCString() + 1, aResString);
   Standard_Integer           aResStringSize = aResString.Length() - 1; // skip the last apostrophe
-  TCollection_ExtendedString aTempExtString;  // string for characters within control directives
+  UtfString aTempExtString;  // string for characters within control directives
   Standard_Integer           aSetCharInd = 1; // index to set value to result string
                                               // clang-format off
   Resource_FormatType aLocalFormatType = Resource_FormatType_iso8859_1; // a code page for a "\S\" control directive
@@ -188,7 +188,7 @@ void StepData_StepReaderData::cleanText(const Handle(TCollection_HAsciiString)& 
           (aResChar << 4) | (char)convertCharacterTo16bit(aResString.Value(aStringInd + 4));
         const char aStrForConvert[2] = {aResChar, '\0'};
         // clang-format off
-        aTempExtString = TCollection_ExtendedString(aStrForConvert, Standard_False); // pass through without conversion
+        aTempExtString = UtfString(aStrForConvert, Standard_False); // pass through without conversion
         // clang-format on
         isConverted = Standard_True;
         aStringInd += 4;
@@ -270,7 +270,7 @@ void StepData_StepReaderData::cleanText(const Handle(TCollection_HAsciiString)& 
                 Standard_Utf16Char    aStringBuffer[3];
                 Standard_Utf16Char*   aUtfPntr = aUtfIter.GetUtf16(aStringBuffer);
                 *aUtfPntr++                    = '\0';
-                TCollection_ExtendedString aUtfString(aStringBuffer);
+                UtfString aUtfString(aStringBuffer);
                 aTempExtString.AssignCat(aUtfString);
                 aUtfCharacter[0] = '\0';
               }
@@ -346,7 +346,7 @@ void StepData_StepReaderData::cleanText(const Handle(TCollection_HAsciiString)& 
   }
   theVal->Clear();
   aResString.Trunc(aResStringSize); // trunc the last apostrophe
-  TCollection_AsciiString aTmpString(aResString, 0);
+  AsciiString1 aTmpString(aResString, 0);
   theVal->AssignCat(aTmpString.ToCString());
 }
 
@@ -392,7 +392,7 @@ void StepData_StepReaderData::SetRecord(const Standard_Integer num,
       thetypes.SetValue (num,sublist);
     } else {
       thenbents ++;   // total de termes propres du fichier
-      thetypes.SetValue(num,TCollection_AsciiString(type));
+      thetypes.SetValue(num,AsciiString1(type));
   //    if (strcmp(ident,"SCOPE") != 0) thenbscop ++;  // ?? a verifier
     }
   */
@@ -402,7 +402,7 @@ void StepData_StepReaderData::SetRecord(const Standard_Integer num,
   // thetypes.ChangeValue(num).SetValue(1,type); gka memory
   //============================================
   Standard_Integer        index = 0;
-  TCollection_AsciiString strtype(type);
+  AsciiString1 strtype(type);
   if (thenametypes.Contains(type))
     index = thenametypes.FindIndex(strtype);
   else
@@ -441,7 +441,7 @@ void StepData_StepReaderData::SetRecord(const Standard_Integer num,
                 .IsLess(thenametypes.FindKey(thetypes.Value(prev))))
           {
             //  Warning: components in complex entity are not in alphabetical order.
-            TCollection_AsciiString errm("Complex Type incorrect : ");
+            AsciiString1 errm("Complex Type incorrect : ");
             errm.AssignCat(thenametypes.FindKey(thetypes.Value(prev)));
             errm.AssignCat(" / ");
             errm.AssignCat(thenametypes.FindKey(thetypes.Value(num)));
@@ -518,7 +518,7 @@ void StepData_StepReaderData::AddStepParam(const Standard_Integer    num,
 
 //=================================================================================================
 
-const TCollection_AsciiString& StepData_StepReaderData::RecordType(const Standard_Integer num) const
+const AsciiString1& StepData_StepReaderData::RecordType(const Standard_Integer num) const
 {
   return thenametypes.FindKey(thetypes.Value(num));
 }
@@ -737,7 +737,7 @@ Standard_Integer StepData_StepReaderData::ReadSub(const Standard_Integer        
   Standard_Integer nbp = NbParams(numsub);
   if (nbp == 0)
     return 0; // liste vide = Handle Null
-  const TCollection_AsciiString& rectyp = RecordType(numsub);
+  const AsciiString1& rectyp = RecordType(numsub);
   if (nbp == 1 && rectyp.ToCString()[0] != '(')
   {
     //  c est un type avec un parametre -> SelectNamed
@@ -1129,7 +1129,7 @@ Standard_Boolean StepData_StepReaderData::ReadField(const Standard_Integer      
 Standard_Boolean StepData_StepReaderData::ReadList(const Standard_Integer          num,
                                                    Handle(Interface_Check)&        ach,
                                                    const Handle(StepData_ESDescr)& descr,
-                                                   StepData_FieldList&             list) const
+                                                   FieldList&             list) const
 {
   // controler nbs egaux
   Standard_Integer i, nb = list.NbFields();
@@ -1269,7 +1269,7 @@ Standard_Boolean StepData_StepReaderData::ReadAny(const Standard_Integer        
       Standard_Integer nbp    = NbParams(numsub);
       if (nbp == 0)
         return Standard_False; // liste vide = Handle Null
-      const TCollection_AsciiString& rectyp = RecordType(numsub);
+      const AsciiString1& rectyp = RecordType(numsub);
       if (nbp == 1 && rectyp.ToCString()[0] != '(')
       {
         //  SelectNamed because Field !!!
@@ -1782,7 +1782,7 @@ Standard_Boolean StepData_StepReaderData::ReadEnum(const Standard_Integer   num,
                                                    const Standard_Integer   nump,
                                                    const Standard_CString   mess,
                                                    Handle(Interface_Check)& ach,
-                                                   const StepData_EnumTool& enumtool,
+                                                   const EnumTool& enumtool,
                                                    Standard_Integer&        val) const
 {
   //  reprendre avec ReadEnumParam ?
@@ -1832,7 +1832,7 @@ Standard_Boolean StepData_StepReaderData::ReadTypedParam(const Standard_Integer 
                                                          Handle(Interface_Check)& ach,
                                                          Standard_Integer&        numr,
                                                          Standard_Integer&        numrp,
-                                                         TCollection_AsciiString& typ) const
+                                                         AsciiString1& typ) const
 {
   Handle(String) errmess; // Null si pas d erreur
   if (nump > 0 && nump <= NbParams(num))

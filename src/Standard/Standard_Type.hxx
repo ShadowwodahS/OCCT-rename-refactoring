@@ -195,7 +195,7 @@ inline Standard_OStream& operator<<(Standard_OStream&            theStream,
   return theStream;
 }
 
-//! Definition of Handle_Standard_Type as typedef for compatibility
+//! Definition of Handle_TypeInfo as typedef for compatibility
 DEFINE_STANDARD_HANDLE(TypeInfo, RefObject)
 
 #endif // _Standard_Type_HeaderFile

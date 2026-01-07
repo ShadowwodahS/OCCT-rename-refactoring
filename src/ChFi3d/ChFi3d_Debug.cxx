@@ -271,22 +271,22 @@ void ChFi3d_CheckSurfData(const TopOpeBRepDS_DataStructure& DStr,
   // trace of the surface defined by the chamfer or the fillet
   //  corresponding to SurfData
 
-  Handle(Geom_Surface) surf = (DStr.Surface(Data->Surf())).Surface();
+  Handle(GeomSurface) surf = (DStr.Surface(Data->Surf())).Surface();
   if (!surf.IsNull())
   {
-    BRep_Builder B;
-    TopoDS_Face  F;
+    ShapeBuilder B;
+    TopoFace  F;
     B.MakeFace(F, surf, 0.);
-    TopoDS_Wire W;
+    TopoWire W;
     B.MakeWire(W);
 
-    TopoDS_Vertex V1, V2, V3, V4;
+    TopoVertex V1, V2, V3, V4;
     B.MakeVertex(V1, Data->VertexFirstOnS1().Point(), 0.);
     B.MakeVertex(V2, Data->VertexLastOnS1().Point(), 0.);
     B.MakeVertex(V3, Data->VertexLastOnS2().Point(), 0.);
     B.MakeVertex(V4, Data->VertexFirstOnS2().Point(), 0.);
 
-    TopoDS_Edge E1, E2, E3, E4;
+    TopoEdge E1, E2, E3, E4;
     B.MakeEdge(E1);
     B.MakeEdge(E2);
     B.MakeEdge(E3);
@@ -369,7 +369,7 @@ void ChFi3d_CheckSurfData(const TopOpeBRepDS_DataStructure& DStr,
     //    char name[100];
     char* name = new char[100];
     sprintf(name, "fillet_%d", NbSD++);
-    DBRep::Set(name, F);
+    DBRep1::Set(name, F);
 #endif
   }
 }

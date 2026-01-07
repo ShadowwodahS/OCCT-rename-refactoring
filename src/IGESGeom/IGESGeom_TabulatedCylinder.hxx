@@ -28,7 +28,7 @@ class IGESGeom_TabulatedCylinder;
 DEFINE_STANDARD_HANDLE(IGESGeom_TabulatedCylinder, IGESData_IGESEntity)
 
 //! defines IGESTabulatedCylinder, Type <122> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A tabulated cylinder is a surface formed by moving a line
 //! segment called generatrix parallel to itself along a curve
 //! called directrix. The curve may be a line, circular arc,

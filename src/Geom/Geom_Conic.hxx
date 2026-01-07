@@ -21,13 +21,13 @@
 #include <Geom_Curve.hxx>
 
 class Geom_Conic;
-DEFINE_STANDARD_HANDLE(Geom_Conic, Geom_Curve)
+DEFINE_STANDARD_HANDLE(Geom_Conic, GeomCurve3d)
 
 //! The abstract class Conic describes the common
 //! behavior of conic curves in 3D space and, in
 //! particular, their general characteristics. The Geom
 //! package provides four concrete classes of conics:
-//! Geom_Circle, Geom_Ellipse, Geom_Hyperbola and Geom_Parabola.
+//! GeomCircle, Geom_Ellipse, Geom_Hyperbola and Geom_Parabola.
 //! A conic is positioned in space with a right-handed
 //! coordinate system (Frame3d object), where:
 //! - the origin is the center of the conic (or the apex in
@@ -46,7 +46,7 @@ DEFINE_STANDARD_HANDLE(Geom_Conic, Geom_Curve)
 //! the direction in which the parameter increases along
 //! the conic. The "X Axis" of the local coordinate system
 //! also defines the origin of the parameter of the conic.
-class Geom_Conic : public Geom_Curve
+class Geom_Conic : public GeomCurve3d
 {
 public:
   //! Changes the orientation of the conic's plane. The normal
@@ -118,7 +118,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_Conic, Geom_Curve)
+  DEFINE_STANDARD_RTTIEXT(Geom_Conic, GeomCurve3d)
 
 protected:
   Frame3d pos;

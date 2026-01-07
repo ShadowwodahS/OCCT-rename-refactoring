@@ -26,7 +26,7 @@ class IGESGraph_LineFontPredefined;
 DEFINE_STANDARD_HANDLE(IGESGraph_LineFontPredefined, IGESData_IGESEntity)
 
 //! defines IGESLineFontPredefined, Type <406> Form <19>
-//! in package IGESGraph
+//! in package IGESGraph1
 //!
 //! Provides the ability to specify a line font pattern
 //! from a predefined list rather than from

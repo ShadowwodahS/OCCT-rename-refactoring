@@ -67,22 +67,22 @@ public:
   Standard_EXPORT RWGltf_GltfJsonParser(TopTools_SequenceOfShape& theRootShapes);
 
   //! Set file path.
-  Standard_EXPORT void SetFilePath(const TCollection_AsciiString& theFilePath);
+  Standard_EXPORT void SetFilePath(const AsciiString1& theFilePath);
 
   //! Set flag for probing file without complete reading.
   void SetProbeHeader(bool theToProbe) { myToProbeHeader = theToProbe; }
 
   //! Return prefix for reporting issues.
-  const TCollection_AsciiString& ErrorPrefix() const { return myErrorPrefix; }
+  const AsciiString1& ErrorPrefix() const { return myErrorPrefix; }
 
   //! Set prefix for reporting issues.
-  void SetErrorPrefix(const TCollection_AsciiString& theErrPrefix) { myErrorPrefix = theErrPrefix; }
+  void SetErrorPrefix(const AsciiString1& theErrPrefix) { myErrorPrefix = theErrPrefix; }
 
   //! Set map for storing node attributes.
   void SetAttributeMap(RWMesh_NodeAttributeMap& theAttribMap) { myAttribMap = &theAttribMap; }
 
   //! Set list for storing external files.
-  void SetExternalFiles(NCollection_IndexedMap<TCollection_AsciiString>& theExternalFiles)
+  void SetExternalFiles(NCollection_IndexedMap<AsciiString1>& theExternalFiles)
   {
     myExternalFiles = &theExternalFiles;
   }
@@ -117,14 +117,14 @@ public:
   //! (default) scene will be loaded.
   void SetLoadAllScenes(bool theToLoadAll) { myToLoadAllScenes = theToLoadAll; }
 
-  //! Set flag to use Mesh name in case if Node name is empty, TRUE by default.
+  //! Set flag to use Mesh1 name in case if Node name is empty, TRUE by default.
   void SetMeshNameAsFallback(bool theToFallback) { myUseMeshNameAsFallback = theToFallback; }
 
   //! Parse glTF document.
   Standard_EXPORT bool Parse(const Message_ProgressRange& theProgress);
 
   //! Return face list for loading triangulation.
-  NCollection_Vector<TopoDS_Face>& FaceList() { return myFaceList; }
+  NCollection_Vector<TopoFace>& FaceList() { return myFaceList; }
 
 protected:
 #ifdef HAVE_RAPIDJSON
@@ -161,13 +161,13 @@ protected:
   //! Parse texture definition in binary buffer of GLB file.
   Standard_EXPORT bool gltfParseTexturInGlbBuffer(Handle(Image_Texture)&         theTexture,
                                                   const RWGltf_JsonValue&        theBinVal,
-                                                  const TCollection_AsciiString& theBufferViewId,
+                                                  const AsciiString1& theBufferViewId,
                                                   const RWGltf_JsonValue&        theBufferViewName);
 
   //! Parse texture definition in binary buffer of glTF file.
   Standard_EXPORT bool gltfParseTextureInBufferView(Handle(Image_Texture)&         theTexture,
-                                                    const TCollection_AsciiString& theSourceId,
-                                                    const TCollection_AsciiString& theBufferViewhId,
+                                                    const AsciiString1& theSourceId,
+                                                    const AsciiString1& theBufferViewhId,
                                                     const RWGltf_JsonValue&        theBufferView);
 
   //! Bind material definition to the map.
@@ -181,42 +181,42 @@ protected:
                                            const Message_ProgressRange& theProgress);
 
   //! Parse scene node recursively.
-  Standard_EXPORT bool gltfParseSceneNode(TopoDS_Shape&                  theNodeShape,
-                                          const TCollection_AsciiString& theSceneNodeId,
+  Standard_EXPORT bool gltfParseSceneNode(TopoShape&                  theNodeShape,
+                                          const AsciiString1& theSceneNodeId,
                                           const RWGltf_JsonValue&        theSceneNode,
                                           const Message_ProgressRange&   theProgress);
 
   //! Parse mesh element.
-  Standard_EXPORT bool gltfParseMesh(TopoDS_Shape&                  theMeshShape,
-                                     const TCollection_AsciiString& theMeshId,
+  Standard_EXPORT bool gltfParseMesh(TopoShape&                  theMeshShape,
+                                     const AsciiString1& theMeshId,
                                      const RWGltf_JsonValue&        theMesh);
 
   //! Parse primitive array.
-  Standard_EXPORT bool gltfParsePrimArray(TopoDS_Shape&                  thePrimArrayShape,
-                                          const TCollection_AsciiString& theMeshId,
-                                          const TCollection_AsciiString& theMeshName,
+  Standard_EXPORT bool gltfParsePrimArray(TopoShape&                  thePrimArrayShape,
+                                          const AsciiString1& theMeshId,
+                                          const AsciiString1& theMeshName,
                                           const RWGltf_JsonValue&        thePrimArray);
 
   //! Parse accessor.
   Standard_EXPORT bool gltfParseAccessor(const Handle(RWGltf_GltfLatePrimitiveArray)& theMeshData,
-                                         const TCollection_AsciiString&               theName,
+                                         const AsciiString1&               theName,
                                          const RWGltf_JsonValue&                      theAccessor,
                                          const RWGltf_GltfArrayType                   theType,
                                          const RWGltf_JsonValue* theCompBuffView);
 
   //! Parse buffer view.
   Standard_EXPORT bool gltfParseBufferView(const Handle(RWGltf_GltfLatePrimitiveArray)& theMeshData,
-                                           const TCollection_AsciiString&               theName,
+                                           const AsciiString1&               theName,
                                            const RWGltf_JsonValue&    theBufferView,
-                                           const RWGltf_GltfAccessor& theAccessor,
+                                           const GltfAccessor& theAccessor,
                                            const RWGltf_GltfArrayType theType);
 
   //! Parse buffer.
   Standard_EXPORT bool gltfParseBuffer(const Handle(RWGltf_GltfLatePrimitiveArray)& theMeshData,
-                                       const TCollection_AsciiString&               theName,
+                                       const AsciiString1&               theName,
                                        const RWGltf_JsonValue&                      theBuffer,
-                                       const RWGltf_GltfAccessor&                   theAccessor,
-                                       const RWGltf_GltfBufferView&                 theView,
+                                       const GltfAccessor&                   theAccessor,
+                                       const GltfBufferView&                 theView,
                                        const RWGltf_GltfArrayType                   theType);
 
 protected:
@@ -284,9 +284,9 @@ protected:
   };
 
   //! Bind name attribute.
-  void bindNodeShape(TopoDS_Shape&                     theShape,
+  void bindNodeShape(TopoShape&                     theShape,
                      const TopLoc_Location&            theLoc,
-                     const TCollection_AsciiString&    theNodeId,
+                     const AsciiString1&    theNodeId,
                      const RWGltf_JsonValue*           theUserName,
                      const Handle(TDataStd_NamedData)& theExtras)
   {
@@ -294,8 +294,8 @@ protected:
   }
 
   //! Bind name attribute.
-  void bindMeshShape(TopoDS_Shape&                     theShape,
-                     const TCollection_AsciiString&    theMeshId,
+  void bindMeshShape(TopoShape&                     theShape,
+                     const AsciiString1&    theMeshId,
                      const RWGltf_JsonValue*           theUserName,
                      const Handle(TDataStd_NamedData)& theExtras)
   {
@@ -308,45 +308,45 @@ protected:
   }
 
   //! Find named shape.
-  bool findNodeShape(TopoDS_Shape& theShape, const TCollection_AsciiString& theNodeId) const
+  bool findNodeShape(TopoShape& theShape, const AsciiString1& theNodeId) const
   {
     return findNamedShape(theShape, ShapeMapGroup_Nodes, theNodeId);
   }
 
   //! Find named shape.
-  bool findMeshShape(TopoDS_Shape& theShape, const TCollection_AsciiString& theMeshId) const
+  bool findMeshShape(TopoShape& theShape, const AsciiString1& theMeshId) const
   {
     return findNamedShape(theShape, ShapeMapGroup_Meshes, theMeshId);
   }
 
   //! Bind name attribute.
-  Standard_EXPORT void bindNamedShape(TopoDS_Shape&                     theShape,
+  Standard_EXPORT void bindNamedShape(TopoShape&                     theShape,
                                       ShapeMapGroup                     theGroup,
                                       const TopLoc_Location&            theLoc,
-                                      const TCollection_AsciiString&    theId,
+                                      const AsciiString1&    theId,
                                       const RWGltf_JsonValue*           theUserName,
                                       const Handle(TDataStd_NamedData)& theExtras);
 
   //! Find named shape.
-  bool findNamedShape(TopoDS_Shape&                  theShape,
+  bool findNamedShape(TopoShape&                  theShape,
                       ShapeMapGroup                  theGroup,
-                      const TCollection_AsciiString& theId) const
+                      const AsciiString1& theId) const
   {
     return myShapeMap[theGroup].Find(theId, theShape);
   }
 
   //! Return the string representation of the key.
-  static TCollection_AsciiString getKeyString(const RWGltf_JsonValue& theValue)
+  static AsciiString1 getKeyString(const RWGltf_JsonValue& theValue)
   {
     if (theValue.IsString())
     {
-      return TCollection_AsciiString(theValue.GetString());
+      return AsciiString1(theValue.GetString());
     }
     else if (theValue.IsInt())
     {
-      return TCollection_AsciiString(theValue.GetInt());
+      return AsciiString1(theValue.GetInt());
     }
-    return TCollection_AsciiString();
+    return AsciiString1();
   }
 
 protected:
@@ -367,7 +367,7 @@ protected:
     const RWGltf_JsonValue* Root() const { return myRoot; }
 
     //! Find the child node with specified key.
-    const RWGltf_JsonValue* FindChild(const TCollection_AsciiString& theKey)
+    const RWGltf_JsonValue* FindChild(const AsciiString1& theKey)
     {
       const RWGltf_JsonValue* aNode = NULL;
       return myChildren.Find(theKey, aNode) ? aNode : NULL;
@@ -376,7 +376,7 @@ protected:
     //! Find the child node with specified key.
     const RWGltf_JsonValue* FindChild(const RWGltf_JsonValue& theKey)
     {
-      const TCollection_AsciiString aKey = getKeyString(theKey);
+      const AsciiString1 aKey = getKeyString(theKey);
       if (aKey.IsEmpty())
       {
         return NULL;
@@ -387,10 +387,10 @@ protected:
     }
 
     //! Initialize the element.
-    void Init(const TCollection_AsciiString& theRootName, const RWGltf_JsonValue* theRoot);
+    void Init(const AsciiString1& theRootName, const RWGltf_JsonValue* theRoot);
 
   private:
-    NCollection_DataMap<TCollection_AsciiString, const RWGltf_JsonValue*> myChildren;
+    NCollection_DataMap<AsciiString1, const RWGltf_JsonValue*> myChildren;
     const RWGltf_JsonValue*                                               myRoot;
   };
 
@@ -401,7 +401,7 @@ private:
   //! @param theResult TopLoc_Location object where result of parsing will be written.
   //! @param If true - parsing was successful, transformation is written into @p theResult.
   //!        If true - failed to parse, @p theResult is unchanged.
-  bool parseTransformationMatrix(const TCollection_AsciiString& theSceneNodeId,
+  bool parseTransformationMatrix(const AsciiString1& theSceneNodeId,
                                  const RWGltf_JsonValue&        theMatrixVal,
                                  TopLoc_Location&               theResult) const;
 
@@ -416,7 +416,7 @@ private:
   //! @param theResult TopLoc_Location object where result of parsing will be written.
   //! @param If true - parsing was successful, transformation is written into @p theResult.
   //!        If true - failed to parse, @p theResult is unchanged.
-  bool parseTransformationComponents(const TCollection_AsciiString& theSceneNodeId,
+  bool parseTransformationComponents(const AsciiString1& theSceneNodeId,
                                      const RWGltf_JsonValue*        theRotationVal,
                                      const RWGltf_JsonValue*        theScaleVal,
                                      const RWGltf_JsonValue*        theTranslationVal,
@@ -424,32 +424,32 @@ private:
 #endif
 protected:
   //! Print message about invalid glTF syntax.
-  void reportGltfSyntaxProblem(const TCollection_AsciiString& theMsg,
+  void reportGltfSyntaxProblem(const AsciiString1& theMsg,
                                Message_Gravity                theGravity) const;
 
 protected:
   TopTools_SequenceOfShape* myRootShapes; //!< sequence of result root shapes
   RWMesh_NodeAttributeMap*  myAttribMap;  //!< shape attributes
-  NCollection_IndexedMap<TCollection_AsciiString>*
+  NCollection_IndexedMap<AsciiString1>*
     myExternalFiles;                                //!< list of external file references
                                                     // clang-format off
   RWMesh_CoordinateSystemConverter myCSTrsf;        //!< transformation from glTF to OCCT coordinate system
                                                     // clang-format on
   TColStd_IndexedDataMapOfStringString* myMetadata; //!< file metadata
 
-  NCollection_DataMap<TCollection_AsciiString, Handle(RWGltf_MaterialMetallicRoughness)>
+  NCollection_DataMap<AsciiString1, Handle(RWGltf_MaterialMetallicRoughness)>
                                                                               myMaterialsPbr;
-  NCollection_DataMap<TCollection_AsciiString, Handle(RWGltf_MaterialCommon)> myMaterialsCommon;
-  NCollection_DataMap<TCollection_AsciiString, Handle(XCAFDoc_VisMaterial)>   myMaterials;
-  NCollection_DataMap<TCollection_AsciiString, TopoDS_Shape>                  myShapeMap[3];
+  NCollection_DataMap<AsciiString1, Handle(RWGltf_MaterialCommon)> myMaterialsCommon;
+  NCollection_DataMap<AsciiString1, Handle(XCAFDoc_VisMaterial)>   myMaterials;
+  NCollection_DataMap<AsciiString1, TopoShape>                  myShapeMap[3];
 
-  NCollection_DataMap<TCollection_AsciiString, bool>                       myProbedFiles;
-  NCollection_DataMap<TCollection_AsciiString, Handle(NCollection_Buffer)> myDecodedBuffers;
-  NCollection_Vector<TopoDS_Face> myFaceList; //!< face list for loading triangulation
+  NCollection_DataMap<AsciiString1, bool>                       myProbedFiles;
+  NCollection_DataMap<AsciiString1, Handle(NCollection_Buffer)> myDecodedBuffers;
+  NCollection_Vector<TopoFace> myFaceList; //!< face list for loading triangulation
 
-  TCollection_AsciiString myFilePath;         //!< file path
-  TCollection_AsciiString myFolder;           //!< folder
-  TCollection_AsciiString myErrorPrefix;      //!< invalid syntax error prefix
+  AsciiString1 myFilePath;         //!< file path
+  AsciiString1 myFolder;           //!< folder
+  AsciiString1 myErrorPrefix;      //!< invalid syntax error prefix
   int64_t                 myBinBodyOffset;    //!< offset to binary body
   int64_t                 myBinBodyLen;       //!< binary body length
   bool                    myIsBinary;         //!< binary document
@@ -457,7 +457,7 @@ protected:
   bool                    myToSkipEmptyNodes; //!< ignore nodes without Geometry
   // clang-format off
   bool                      myToLoadAllScenes;  //!< flag to load all scenes in the document, FALSE by default
-  bool                      myUseMeshNameAsFallback; //!< flag to use Mesh name in case if Node name is empty, TRUE by default
+  bool                      myUseMeshNameAsFallback; //!< flag to use Mesh1 name in case if Node name is empty, TRUE by default
   bool                      myToProbeHeader;  //!< flag to probe header without full reading, FALSE by default
   bool                      myToReadAssetExtras; //!< flag to translate asset.extras into metadata, TRUE by default
   // clang-format on

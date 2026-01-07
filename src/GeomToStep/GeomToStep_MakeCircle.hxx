@@ -25,29 +25,29 @@
 
 class StepGeom_Circle;
 class gp_Circ;
-class Geom_Circle;
+class GeomCircle;
 class Geom2d_Circle;
 
 //! This class implements the mapping between classes
 //! Circle from Geom, and Circ from gp, and the class
 //! Circle from StepGeom which describes a circle from
 //! Prostep.
-class GeomToStep_MakeCircle : public GeomToStep_Root
+class GeomToStep_MakeCircle : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeCircle(
     const gp_Circ&          C,
-    const StepData_Factors& theLocalFactors = StepData_Factors());
+    const ConversionFactors& theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeCircle(
-    const Handle(Geom_Circle)& C,
-    const StepData_Factors&    theLocalFactors = StepData_Factors());
+    const Handle(GeomCircle)& C,
+    const ConversionFactors&    theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeCircle(
     const Handle(Geom2d_Circle)& C,
-    const StepData_Factors&      theLocalFactors = StepData_Factors());
+    const ConversionFactors&      theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_Circle)& Value() const;
 

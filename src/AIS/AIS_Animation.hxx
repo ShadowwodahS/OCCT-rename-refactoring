@@ -79,13 +79,13 @@ class AIS_Animation : public RefObject
   DEFINE_STANDARD_RTTIEXT(AIS_Animation, RefObject)
 public:
   //! Creates empty animation.
-  Standard_EXPORT AIS_Animation(const TCollection_AsciiString& theAnimationName);
+  Standard_EXPORT AIS_Animation(const AsciiString1& theAnimationName);
 
   //! Destruct object, clear arguments
   Standard_EXPORT virtual ~AIS_Animation();
 
   //! Animation name.
-  const TCollection_AsciiString& Name() const { return myName; }
+  const AsciiString1& Name() const { return myName; }
 
 public:
   //! @return start time of the animation in the timeline
@@ -117,7 +117,7 @@ public:
   Standard_EXPORT void Clear();
 
   //! Return the child animation with the given name.
-  Standard_EXPORT Handle(AIS_Animation) Find(const TCollection_AsciiString& theAnimationName) const;
+  Standard_EXPORT Handle(AIS_Animation) Find(const AsciiString1& theAnimationName) const;
 
   //! Remove the child animation.
   Standard_EXPORT Standard_Boolean Remove(const Handle(AIS_Animation)& theAnimation);
@@ -207,7 +207,7 @@ protected:
 protected:
   Handle(Media_Timer) myTimer;
 
-  TCollection_AsciiString                     myName;       //!< animation name
+  AsciiString1                     myName;       //!< animation name
   NCollection_Sequence<Handle(AIS_Animation)> myAnimations; //!< sequence of child animations
 
   AnimationState myState;            //!< animation state - started, stopped of paused

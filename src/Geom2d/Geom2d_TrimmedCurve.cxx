@@ -50,7 +50,7 @@ Handle(Geom2d_Geometry) Geom2d_TrimmedCurve::Copy() const
 
 //=================================================================================================
 
-Geom2d_TrimmedCurve::Geom2d_TrimmedCurve(const Handle(Geom2d_Curve)& C,
+Geom2d_TrimmedCurve::Geom2d_TrimmedCurve(const Handle(GeomCurve2d)& C,
                                          const Standard_Real         U1,
                                          const Standard_Real         U2,
                                          const Standard_Boolean      Sense,
@@ -63,9 +63,9 @@ Geom2d_TrimmedCurve::Geom2d_TrimmedCurve(const Handle(Geom2d_Curve)& C,
   // kill trimmed basis curves
   Handle(Geom2d_TrimmedCurve) T = Handle(Geom2d_TrimmedCurve)::DownCast(C);
   if (!T.IsNull())
-    basisCurve = Handle(Geom2d_Curve)::DownCast(T->BasisCurve()->Copy());
+    basisCurve = Handle(GeomCurve2d)::DownCast(T->BasisCurve()->Copy());
   else
-    basisCurve = Handle(Geom2d_Curve)::DownCast(C->Copy());
+    basisCurve = Handle(GeomCurve2d)::DownCast(C->Copy());
 
   SetTrim(U1, U2, Sense, theAdjustPeriodic);
 }
@@ -143,7 +143,7 @@ void Geom2d_TrimmedCurve::SetTrim(const Standard_Real    U1,
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) Geom2d_TrimmedCurve::BasisCurve() const
+Handle(GeomCurve2d) Geom2d_TrimmedCurve::BasisCurve() const
 {
   return basisCurve;
 }

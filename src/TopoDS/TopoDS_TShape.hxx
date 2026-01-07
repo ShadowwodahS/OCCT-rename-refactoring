@@ -137,7 +137,7 @@ public:
                                         Standard_Integer  theDepth = -1) const;
 
   friend class TopoDS_Iterator;
-  friend class TopoDS_Builder;
+  friend class TopoBuilder;
 
   DEFINE_STANDARD_RTTIEXT(TopoDS_TShape, RefObject)
 

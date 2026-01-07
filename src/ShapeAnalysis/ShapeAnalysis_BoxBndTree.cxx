@@ -52,8 +52,8 @@ Standard_Boolean ShapeAnalysis_BoxBndTreeSelector::Accept(const Standard_Integer
     Last  = 2
   };
 
-  TopoDS_Wire   W = TopoDS::Wire(mySeq->Value(theObj));
-  TopoDS_Vertex V1, V2;
+  TopoWire   W = TopoDS::Wire(mySeq->Value(theObj));
+  TopoVertex V1, V2;
   ShapeAnalysis::FindBounds(W, V1, V2);
   if (myShared)
   {
@@ -106,8 +106,8 @@ Standard_Boolean ShapeAnalysis_BoxBndTreeSelector::Accept(const Standard_Integer
 
   else
   {
-    Point3d p1 = BRep_Tool::Pnt(V1);
-    Point3d p2 = BRep_Tool::Pnt(V2);
+    Point3d p1 = BRepInspector::Pnt(V1);
+    Point3d p2 = BRepInspector::Pnt(V2);
 
     Standard_Real tailhead, tailtail, headhead, headtail;
     tailhead             = p1.Distance(myLPnt);

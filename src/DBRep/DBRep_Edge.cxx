@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(DBRep_Edge, RefObject)
 
 //=================================================================================================
 
-DBRep_Edge::DBRep_Edge(const TopoDS_Edge& E, const Draw_Color& C)
+DBRep_Edge::DBRep_Edge(const TopoEdge& E, const DrawColor& C)
     : myEdge(E),
       myColor(C)
 {

@@ -25,7 +25,7 @@
 class TDF_DataSet;
 class TDF_IDFilter;
 class TDF_ClosureMode;
-class TDF_Label;
+class DataLabel;
 
 //! This class provides services to build the closure
 //! of an information set.
@@ -55,7 +55,7 @@ public:
                                       const TDF_ClosureMode&     aMode);
 
   //! Builds the transitive closure of <aLabel>.
-  Standard_EXPORT static void Closure(const TDF_Label&       aLabel,
+  Standard_EXPORT static void Closure(const DataLabel&       aLabel,
                                       TDF_LabelMap&          aLabMap,
                                       TDF_AttributeMap&      anAttMap,
                                       const TDF_IDFilter&    aFilter,
@@ -64,7 +64,7 @@ public:
 protected:
 private:
   //! Adds label attributes and dependences.
-  Standard_EXPORT static void LabelAttributes(const TDF_Label&       aLabel,
+  Standard_EXPORT static void LabelAttributes(const DataLabel&       aLabel,
                                               TDF_LabelMap&          aLabMap,
                                               TDF_AttributeMap&      anAttMap,
                                               const TDF_IDFilter&    aFilter,

@@ -24,8 +24,8 @@
 #include <TopOpeBRepBuild_ShapeSet.hxx>
 #include <TCollection_AsciiString.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Shape;
-class TCollection_AsciiString;
+class TopoShape;
+class AsciiString1;
 
 //! a bound is a shell, a boundelement is a face.
 //! The ShapeSet stores :
@@ -43,42 +43,42 @@ public:
 
   //! Creates a ShellFaceSet to build blocks of faces
   //! connected by edges.
-  Standard_EXPORT TopOpeBRepBuild_ShellFaceSet(const TopoDS_Shape&    S,
+  Standard_EXPORT TopOpeBRepBuild_ShellFaceSet(const TopoShape&    S,
                                                const Standard_Address Addr = NULL);
 
-  Standard_EXPORT const TopoDS_Solid& Solid() const;
+  Standard_EXPORT const TopoSolid& Solid() const;
 
-  Standard_EXPORT virtual void AddShape(const TopoDS_Shape& S) Standard_OVERRIDE;
+  Standard_EXPORT virtual void AddShape(const TopoShape& S) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void AddStartElement(const TopoDS_Shape& S) Standard_OVERRIDE;
+  Standard_EXPORT virtual void AddStartElement(const TopoShape& S) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void AddElement(const TopoDS_Shape& S) Standard_OVERRIDE;
+  Standard_EXPORT virtual void AddElement(const TopoShape& S) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void DumpSS() Standard_OVERRIDE;
 
-  Standard_EXPORT virtual TCollection_AsciiString SName(
-    const TopoDS_Shape&            S,
-    const TCollection_AsciiString& sb = "",
-    const TCollection_AsciiString& sa = "") const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 SName(
+    const TopoShape&            S,
+    const AsciiString1& sb = "",
+    const AsciiString1& sa = "") const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual TCollection_AsciiString SName(
-    const TopTools_ListOfShape&    S,
-    const TCollection_AsciiString& sb = "",
-    const TCollection_AsciiString& sa = "") const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 SName(
+    const ShapeList&    S,
+    const AsciiString1& sb = "",
+    const AsciiString1& sa = "") const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual TCollection_AsciiString SNameori(
-    const TopoDS_Shape&            S,
-    const TCollection_AsciiString& sb = "",
-    const TCollection_AsciiString& sa = "") const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 SNameori(
+    const TopoShape&            S,
+    const AsciiString1& sb = "",
+    const AsciiString1& sa = "") const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual TCollection_AsciiString SNameori(
-    const TopTools_ListOfShape&    S,
-    const TCollection_AsciiString& sb = "",
-    const TCollection_AsciiString& sa = "") const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 SNameori(
+    const ShapeList&    S,
+    const AsciiString1& sb = "",
+    const AsciiString1& sa = "") const Standard_OVERRIDE;
 
 protected:
 private:
-  TopoDS_Solid mySolid;
+  TopoSolid mySolid;
 };
 
 #endif // _TopOpeBRepBuild_ShellFaceSet_HeaderFile

@@ -25,7 +25,7 @@
 #include <TopAbs_Orientation.hxx>
 #include <Standard_Transient.hxx>
 class ChFiDS_Spine;
-class Geom2d_Curve;
+class GeomCurve2d;
 
 class ChFiDS_Stripe;
 DEFINE_STANDARD_HANDLE(ChFiDS_Stripe, RefObject)
@@ -76,13 +76,13 @@ public:
 
   void ChangeLastCurve(const Standard_Integer Index);
 
-  const Handle(Geom2d_Curve)& FirstPCurve() const;
+  const Handle(GeomCurve2d)& FirstPCurve() const;
 
-  const Handle(Geom2d_Curve)& LastPCurve() const;
+  const Handle(GeomCurve2d)& LastPCurve() const;
 
-  Handle(Geom2d_Curve)& ChangeFirstPCurve();
+  Handle(GeomCurve2d)& ChangeFirstPCurve();
 
-  Handle(Geom2d_Curve)& ChangeLastPCurve();
+  Handle(GeomCurve2d)& ChangeLastPCurve();
 
   TopAbs_Orientation FirstPCurveOrientation() const;
 
@@ -120,9 +120,9 @@ public:
 
   Standard_EXPORT void SetCurve(const Standard_Integer Index, const Standard_Boolean First);
 
-  Standard_EXPORT const Handle(Geom2d_Curve)& PCurve(const Standard_Boolean First) const;
+  Standard_EXPORT const Handle(GeomCurve2d)& PCurve(const Standard_Boolean First) const;
 
-  Standard_EXPORT Handle(Geom2d_Curve)& ChangePCurve(const Standard_Boolean First);
+  Standard_EXPORT Handle(GeomCurve2d)& ChangePCurve(const Standard_Boolean First);
 
   Standard_EXPORT TopAbs_Orientation Orientation(const Standard_Integer OnS) const;
 
@@ -159,8 +159,8 @@ private:
   Standard_Real        parfin2;
   Handle(ChFiDS_Spine) mySpine;
   Handle(ChFiDS_HData) myHdata;
-  Handle(Geom2d_Curve) pcrv1;
-  Handle(Geom2d_Curve) pcrv2;
+  Handle(GeomCurve2d) pcrv1;
+  Handle(GeomCurve2d) pcrv2;
   Standard_Integer     myChoix;
   Standard_Integer     indexOfSolid;
   Standard_Integer     indexOfcurve1;

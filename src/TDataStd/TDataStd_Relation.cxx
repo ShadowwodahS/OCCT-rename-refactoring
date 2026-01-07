@@ -39,7 +39,7 @@ const Standard_GUID& TDataStd_Relation::GetID()
 
 //=================================================================================================
 
-Handle(TDataStd_Relation) TDataStd_Relation::Set(const TDF_Label& L)
+Handle(TDataStd_Relation) TDataStd_Relation::Set(const DataLabel& L)
 {
   Handle(TDataStd_Relation) A;
   if (!L.FindAttribute(TDataStd_Relation::GetID(), A))
@@ -56,14 +56,14 @@ TDataStd_Relation::TDataStd_Relation() {}
 
 //=================================================================================================
 
-void TDataStd_Relation::SetRelation(const TCollection_ExtendedString& R)
+void TDataStd_Relation::SetRelation(const UtfString& R)
 {
   SetExpression(R);
 }
 
 //=================================================================================================
 
-const TCollection_ExtendedString& TDataStd_Relation::GetRelation() const
+const UtfString& TDataStd_Relation::GetRelation() const
 {
   return GetExpression();
 }

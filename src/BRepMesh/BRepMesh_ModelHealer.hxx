@@ -72,7 +72,7 @@ private:
   void amplifyEdges();
 
   //! Returns common vertex of two edges or null ptr in case if there is no such vertex.
-  TopoDS_Vertex getCommonVertex(const IMeshData::IEdgeHandle& theEdge1,
+  TopoVertex getCommonVertex(const IMeshData::IEdgeHandle& theEdge1,
                                 const IMeshData::IEdgeHandle& theEdge2) const;
 
   //! Connects pcurves of previous and current edge on the specified face

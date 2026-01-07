@@ -54,10 +54,10 @@
 const Standard_Real PAR_T = 0.43213918;
 
 //=======================================================================
-// function TopOpeBRepBuild_Tools::FindState
+// function Tools3::FindState
 // purpose  :
 //=======================================================================
-void TopOpeBRepBuild_Tools::FindState(const TopoDS_Shape&                              aSubsh,
+void Tools3::FindState(const TopoShape&                              aSubsh,
                                       const TopAbs_State                               aState,
                                       const TopAbs_ShapeEnum                           aSubshEnum,
                                       const TopTools_IndexedDataMapOfShapeListOfShape& aMapSubshAnc,
@@ -65,17 +65,17 @@ void TopOpeBRepBuild_Tools::FindState(const TopoDS_Shape&                       
                                       TopOpeBRepDS_DataMapOfShapeState& aMapSS)
 {
   Standard_Integer                   i, nSub;
-  const TopTools_ListOfShape&        aListOfShapes = aMapSubshAnc.FindFromKey(aSubsh);
+  const ShapeList&        aListOfShapes = aMapSubshAnc.FindFromKey(aSubsh);
   TopTools_ListIteratorOfListOfShape anIt(aListOfShapes);
   for (; anIt.More(); anIt.Next())
   {
-    const TopoDS_Shape&        aS = anIt.Value();
+    const TopoShape&        aS = anIt.Value();
     TopTools_IndexedMapOfShape aSubshMap;
-    TopExp::MapShapes(aS, aSubshEnum, aSubshMap);
+    TopExp1::MapShapes(aS, aSubshEnum, aSubshMap);
     nSub = aSubshMap.Extent();
     for (i = 1; i <= nSub; i++)
     {
-      const TopoDS_Shape& aSS = aSubshMap(i);
+      const TopoShape& aSS = aSubshMap(i);
       if (!aMapProcessedSubsh.Contains(aSS))
       {
         aMapProcessedSubsh.Add(aSS);
@@ -87,10 +87,10 @@ void TopOpeBRepBuild_Tools::FindState(const TopoDS_Shape&                       
 }
 
 //=======================================================================
-// function TopOpeBRepBuild_Tools::PropagateState
+// function Tools3::PropagateState
 // purpose  :
 //=======================================================================
-void TopOpeBRepBuild_Tools::PropagateState(
+void Tools3::PropagateState(
   const TopOpeBRepDS_DataMapOfShapeState&      aSplShapesState,
   const TopTools_IndexedMapOfShape&            aShapesToRestMap,
   const TopAbs_ShapeEnum                       aSubshEnum, // Vertex
@@ -105,10 +105,10 @@ void TopOpeBRepBuild_Tools::PropagateState(
   TopOpeBRepDS_DataMapIteratorOfDataMapOfShapeState anItSS(aSplShapesState);
   for (; anItSS.More(); anItSS.Next())
   {
-    const TopoDS_Shape&        aShape = anItSS.Key();
+    const TopoShape&        aShape = anItSS.Key();
     TopAbs_State               aState = anItSS.Value();
     TopTools_IndexedMapOfShape aSubshapes;
-    TopExp::MapShapes(aShape, aSubshEnum, aSubshapes);
+    TopExp1::MapShapes(aShape, aSubshEnum, aSubshapes);
     nSub = aSubshapes.Extent();
     for (j = 1; j <= nSub; j++)
       if (!anAvoidSubshMap.Contains(aSubshapes(j))) // MSV: enforce subshapes avoidance
@@ -121,14 +121,14 @@ void TopOpeBRepBuild_Tools::PropagateState(
   TopTools_IndexedDataMapOfShapeListOfShape aMapSubshAnc;
   nRest = aShapesToRestMap.Extent();
   for (j = 1; j <= nRest; j++)
-    TopExp::MapShapesAndAncestors(aShapesToRestMap(j), aSubshEnum, aShapeEnum, aMapSubshAnc);
+    TopExp1::MapShapesAndAncestors(aShapesToRestMap(j), aSubshEnum, aShapeEnum, aMapSubshAnc);
 
   // 2. Make Map Of all subshapes  aMapSS
   TopTools_MapOfShape aProcessedSubshapes;
   anItSS.Initialize(aMapSS1);
   for (; anItSS.More(); anItSS.Next())
   {
-    const TopoDS_Shape& aSubsh = anItSS.Key();
+    const TopoShape& aSubsh = anItSS.Key();
     TopAbs_State        aState = anItSS.Value();
     if (aMapSubshAnc.Contains(aSubsh))
     {
@@ -138,15 +138,15 @@ void TopOpeBRepBuild_Tools::PropagateState(
   }
 
   // 3. Propagate the states on ShapesToRestMap
-  TopoDS_Shape        aNullShape;
+  TopoShape        aNullShape;
   TopTools_MapOfShape aNonPassedShapes;
   nRest = aShapesToRestMap.Extent();
   for (j = 1; j <= nRest; j++)
   {
-    const TopoDS_Shape&        aS = aShapesToRestMap.FindKey(j);
+    const TopoShape&        aS = aShapesToRestMap.FindKey(j);
     TopTools_IndexedMapOfShape aSubshMap;
-    TopExp::MapShapes(aS, aSubshEnum, aSubshMap);
-    const TopoDS_Shape& aSubsh = aSubshMap(1);
+    TopExp1::MapShapes(aS, aSubshEnum, aSubshMap);
+    const TopoShape& aSubsh = aSubshMap(1);
     if (aMapSS.IsBound(aSubsh))
     {
       TopAbs_State aState = aMapSS.Find(aSubsh);
@@ -156,7 +156,7 @@ void TopOpeBRepBuild_Tools::PropagateState(
         aState = aShapeClassifier.StateShapeReference(aS, aNullShape);
       }
       // Add the Rest Shape to aMapOfShapeWithState
-      TopOpeBRepDS_ShapeWithState aShapeWithState;
+      ShapeWithState aShapeWithState;
       aShapeWithState.SetState(aState);
       aShapeWithState.SetIsSplitted(Standard_False);
       aMapOfShapeWithState.Add(aS, aShapeWithState);
@@ -177,14 +177,14 @@ void TopOpeBRepBuild_Tools::PropagateState(
     TopTools_MapIteratorOfMapOfShape aMapIt;
     aMapIt.Initialize(aNonPassedShapes);
     for (; aMapIt.More(); aMapIt.Next())
-      TopExp::MapShapesAndAncestors(aMapIt.Key(), aSubshEnum, aShapeEnum, aMapSubshAnc);
+      TopExp1::MapShapesAndAncestors(aMapIt.Key(), aSubshEnum, aShapeEnum, aMapSubshAnc);
 
     aMapSS.Clear();
     aMapIt.Initialize(aNonPassedShapes);
     for (; aMapIt.More(); aMapIt.Next())
     {
       // Face
-      const TopoDS_Shape& aNonPassedShape = aMapIt.Key();
+      const TopoShape& aNonPassedShape = aMapIt.Key();
 
       if (!aMapSS.IsBound(aNonPassedShape))
       {
@@ -196,8 +196,8 @@ void TopOpeBRepBuild_Tools::PropagateState(
 
         // First Subshape
         TopTools_IndexedMapOfShape aTmpMap;
-        TopExp::MapShapes(aNonPassedShape, aSubshEnum, aTmpMap);
-        TopoDS_Shape aFirstSubsh;
+        TopExp1::MapShapes(aNonPassedShape, aSubshEnum, aTmpMap);
+        TopoShape aFirstSubsh;
         for (j = 1; j <= aTmpMap.Extent() && aFirstSubsh.IsNull(); j++)
           if (!anAvoidSubshMap.Contains(aTmpMap(j)))
             aFirstSubsh = aTmpMap(j);
@@ -215,7 +215,7 @@ void TopOpeBRepBuild_Tools::PropagateState(
     }
 
     // Fill aShapeWithState
-    TopOpeBRepDS_ShapeWithState aShapeWithState;
+    ShapeWithState aShapeWithState;
     aShapeWithState.SetIsSplitted(Standard_False);
     TopOpeBRepDS_DataMapIteratorOfDataMapOfShapeState anII(aMapSS);
     for (; anII.More(); anII.Next())
@@ -229,29 +229,29 @@ void TopOpeBRepBuild_Tools::PropagateState(
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Tools::FindState2(
-  const TopoDS_Shape&                              aSubsh,
+void Tools3::FindState2(
+  const TopoShape&                              aSubsh,
   const TopAbs_State                               aState,
   const TopTools_IndexedDataMapOfShapeListOfShape& aMapSubshAnc,
   TopTools_MapOfShape&                             aMapProcessedSubsh,
   TopOpeBRepDS_DataMapOfShapeState&                aMapSS)
 {
   Standard_Integer                   i, nSub;
-  const TopTools_ListOfShape&        aListOfShapes = aMapSubshAnc.FindFromKey(aSubsh);
+  const ShapeList&        aListOfShapes = aMapSubshAnc.FindFromKey(aSubsh);
   TopTools_ListIteratorOfListOfShape anIt(aListOfShapes);
   for (; anIt.More(); anIt.Next())
   {
     // Shape
-    const TopoDS_Shape& aShape = anIt.Value();
+    const TopoShape& aShape = anIt.Value();
     aMapSS.Bind(aShape, aState);
 
     // Subshape
     TopTools_IndexedMapOfShape aSubshMap;
-    TopExp::MapShapes(aShape, TopAbs_VERTEX, aSubshMap);
+    TopExp1::MapShapes(aShape, TopAbs_VERTEX, aSubshMap);
     nSub = aSubshMap.Extent();
     for (i = 1; i <= nSub; i++)
     {
-      const TopoDS_Shape& aSS = aSubshMap(i);
+      const TopoShape& aSS = aSubshMap(i);
       if (!aMapProcessedSubsh.Contains(aSS))
       {
         aMapProcessedSubsh.Add(aSS);
@@ -264,34 +264,34 @@ void TopOpeBRepBuild_Tools::FindState2(
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Tools::FindState1(
-  const TopoDS_Shape&                              aSubsh,
+void Tools3::FindState1(
+  const TopoShape&                              aSubsh,
   const TopAbs_State                               aState,
   const TopTools_IndexedDataMapOfShapeListOfShape& aMapSubshAnc,
   TopTools_MapOfShape&                             aMapProcessedSubsh,
   TopOpeBRepDS_DataMapOfShapeState&                aMapSS)
 {
   Standard_Integer                   i, nSub, j, nW;
-  const TopTools_ListOfShape&        aListOfShapes = aMapSubshAnc.FindFromKey(aSubsh);
+  const ShapeList&        aListOfShapes = aMapSubshAnc.FindFromKey(aSubsh);
   TopTools_ListIteratorOfListOfShape anIt(aListOfShapes);
   for (; anIt.More(); anIt.Next())
   {
     // Face
-    const TopoDS_Shape& aShape = anIt.Value();
+    const TopoShape& aShape = anIt.Value();
     aMapSS.Bind(aShape, aState);
     // Wire
     TopTools_IndexedMapOfShape aWireMap;
-    TopExp::MapShapes(aShape, TopAbs_WIRE, aWireMap);
+    TopExp1::MapShapes(aShape, TopAbs_WIRE, aWireMap);
     nW = aWireMap.Extent();
     for (j = 1; j <= nW; j++)
       aMapSS.Bind(aWireMap(j), aState);
     // Edge
     TopTools_IndexedMapOfShape aSubshMap;
-    TopExp::MapShapes(aShape, TopAbs_EDGE, aSubshMap);
+    TopExp1::MapShapes(aShape, TopAbs_EDGE, aSubshMap);
     nSub = aSubshMap.Extent();
     for (i = 1; i <= nSub; i++)
     {
-      const TopoDS_Shape& aSS = aSubshMap(i);
+      const TopoShape& aSS = aSubshMap(i);
       if (!aMapProcessedSubsh.Contains(aSS))
       {
         aMapProcessedSubsh.Add(aSS);
@@ -304,16 +304,16 @@ void TopOpeBRepBuild_Tools::FindState1(
 
 //=================================================================================================
 
-TopAbs_State TopOpeBRepBuild_Tools::FindStateThroughVertex(
-  const TopoDS_Shape&                          aShape,
+TopAbs_State Tools3::FindStateThroughVertex(
+  const TopoShape&                          aShape,
   TopOpeBRepTool_ShapeClassifier&              aShapeClassifier,
   TopOpeBRepDS_IndexedDataMapOfShapeWithState& aMapOfShapeWithState,
   const TopTools_MapOfShape&                   anAvoidSubshMap)
 {
   TopTools_IndexedMapOfShape aSubshMap;
-  TopExp::MapShapes(aShape, TopAbs_VERTEX, aSubshMap);
+  TopExp1::MapShapes(aShape, TopAbs_VERTEX, aSubshMap);
 
-  TopoDS_Shape     aSubsh;
+  TopoShape     aSubsh;
   Standard_Integer i;
   for (i = 1; i <= aSubshMap.Extent() && aSubsh.IsNull(); i++)
     if (!anAvoidSubshMap.Contains(aSubshMap(i)))
@@ -322,7 +322,7 @@ TopAbs_State TopOpeBRepBuild_Tools::FindStateThroughVertex(
   {
     // try an edge
     aSubshMap.Clear();
-    TopExp::MapShapes(aShape, TopAbs_EDGE, aSubshMap);
+    TopExp1::MapShapes(aShape, TopAbs_EDGE, aSubshMap);
     for (i = 1; i <= aSubshMap.Extent() && aSubsh.IsNull(); i++)
       if (!anAvoidSubshMap.Contains(aSubshMap(i)))
         aSubsh = aSubshMap(i);
@@ -335,9 +335,9 @@ TopAbs_State TopOpeBRepBuild_Tools::FindStateThroughVertex(
     }
   }
 
-  TopoDS_Shape                aNullShape;
+  TopoShape                aNullShape;
   TopAbs_State                aState = aShapeClassifier.StateShapeReference(aSubsh, aNullShape);
-  TopOpeBRepDS_ShapeWithState aShapeWithState;
+  ShapeWithState aShapeWithState;
   aShapeWithState.SetState(aState);
   aShapeWithState.SetIsSplitted(Standard_False);
   aMapOfShapeWithState.Add(aShape, aShapeWithState);
@@ -347,17 +347,17 @@ TopAbs_State TopOpeBRepBuild_Tools::FindStateThroughVertex(
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Tools::SpreadStateToChild(
-  const TopoDS_Shape&                          aShape,
+void Tools3::SpreadStateToChild(
+  const TopoShape&                          aShape,
   const TopAbs_State                           aState,
   TopOpeBRepDS_IndexedDataMapOfShapeWithState& aMapOfShapeWithState)
 {
   TopTools_IndexedMapOfShape aChildMap;
-  TopExp::MapShapes(aShape, TopAbs_FACE, aChildMap);
-  TopExp::MapShapes(aShape, TopAbs_WIRE, aChildMap);
-  TopExp::MapShapes(aShape, TopAbs_EDGE, aChildMap);
+  TopExp1::MapShapes(aShape, TopAbs_FACE, aChildMap);
+  TopExp1::MapShapes(aShape, TopAbs_WIRE, aChildMap);
+  TopExp1::MapShapes(aShape, TopAbs_EDGE, aChildMap);
 
-  TopOpeBRepDS_ShapeWithState aShapeWithState;
+  ShapeWithState aShapeWithState;
   aShapeWithState.SetState(aState);
   aShapeWithState.SetIsSplitted(Standard_False);
 
@@ -370,7 +370,7 @@ void TopOpeBRepBuild_Tools::SpreadStateToChild(
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Tools::PropagateStateForWires(
+void Tools3::PropagateStateForWires(
   const TopTools_IndexedMapOfShape&            aFacesToRestMap,
   TopOpeBRepDS_IndexedDataMapOfShapeWithState& aMapOfShapeWithState)
 {
@@ -379,32 +379,32 @@ void TopOpeBRepBuild_Tools::PropagateStateForWires(
   nF = aFacesToRestMap.Extent();
   for (i = 1; i <= nF; i++)
   {
-    const TopoDS_Shape& aF = aFacesToRestMap(i);
+    const TopoShape& aF = aFacesToRestMap(i);
     if (aMapOfShapeWithState.Contains(aF))
     {
-      const TopOpeBRepDS_ShapeWithState& aSWS = aMapOfShapeWithState.FindFromKey(aF);
+      const ShapeWithState& aSWS = aMapOfShapeWithState.FindFromKey(aF);
       TopAbs_State                       aSt  = aSWS.State();
 
       TopTools_IndexedMapOfShape aWireMap;
-      TopExp::MapShapes(aF, TopAbs_WIRE, aWireMap);
+      TopExp1::MapShapes(aF, TopAbs_WIRE, aWireMap);
       nW = aWireMap.Extent();
       for (j = 1; j <= nW; j++)
       {
-        const TopoDS_Shape&         aW = aWireMap(j);
-        TopOpeBRepDS_ShapeWithState aWireSWS;
+        const TopoShape&         aW = aWireMap(j);
+        ShapeWithState aWireSWS;
         aWireSWS.SetState(aSt);
         aWireSWS.SetIsSplitted(Standard_False);
         aMapOfShapeWithState.Add(aW, aWireSWS);
 
         TopTools_IndexedMapOfShape aEdgeMap;
-        TopExp::MapShapes(aW, TopAbs_EDGE, aEdgeMap);
+        TopExp1::MapShapes(aW, TopAbs_EDGE, aEdgeMap);
         nE = aEdgeMap.Extent();
         for (k = 1; k <= nE; k++)
         {
-          const TopoDS_Shape& aE = aEdgeMap(k);
+          const TopoShape& aE = aEdgeMap(k);
           if (!aMapOfShapeWithState.Contains(aE))
           {
-            TopOpeBRepDS_ShapeWithState anEdgeSWS;
+            ShapeWithState anEdgeSWS;
             anEdgeSWS.SetState(aSt);
             anEdgeSWS.SetIsSplitted(Standard_False);
             aMapOfShapeWithState.Add(aE, anEdgeSWS);
@@ -417,14 +417,14 @@ void TopOpeBRepBuild_Tools::PropagateStateForWires(
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(const TopoDS_Face& aFObj,
-                                                  const TopoDS_Edge& anEdgeObj,
+void Tools3::GetNormalToFaceOnEdge(const TopoFace& aFObj,
+                                                  const TopoEdge& anEdgeObj,
                                                   Vector3d&            aNormal)
 {
-  const TopoDS_Edge&   aEd = anEdgeObj;
-  const TopoDS_Face&   aFS = aFObj;
+  const TopoEdge&   aEd = anEdgeObj;
+  const TopoFace&   aFS = aFObj;
   Standard_Real        f2 = 0., l2 = 0., tolpc = 0., f = 0., l = 0., par = 0.;
-  Handle(Geom2d_Curve) C2D = FC2D_CurveOnSurface(aEd, aFS, f2, l2, tolpc, Standard_True);
+  Handle(GeomCurve2d) C2D = FC2D_CurveOnSurface(aEd, aFS, f2, l2, tolpc, Standard_True);
 
   BRepAdaptor_Curve aCA(aEd);
   f   = aCA.FirstParameter();
@@ -443,15 +443,15 @@ void TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(const TopoDS_Face& aFObj,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Tools::GetNormalInNearestPoint(const TopoDS_Face& F,
-                                                    const TopoDS_Edge& E,
+void Tools3::GetNormalInNearestPoint(const TopoFace& F,
+                                                    const TopoEdge& E,
                                                     Vector3d&            aNormal)
 {
   Standard_Real f2 = 0., l2 = 0., tolpc = 0., par = 0.;
 
   gp_Vec2d aTangent;
 
-  Handle(Geom2d_Curve) C2D = FC2D_CurveOnSurface(E, F, f2, l2, tolpc, Standard_True);
+  Handle(GeomCurve2d) C2D = FC2D_CurveOnSurface(E, F, f2, l2, tolpc, Standard_True);
 
   par = f2 * PAR_T + (1 - PAR_T) * l2;
 
@@ -461,7 +461,7 @@ void TopOpeBRepBuild_Tools::GetNormalInNearestPoint(const TopoDS_Face& F,
   Standard_Real Xnorm = -aTangent.Y();
   Standard_Real Ynorm = aTangent.X();
 
-  Standard_Real step = TopOpeBRepTool_TOOL::minDUV(F);
+  Standard_Real step = TOOL1::minDUV(F);
   step *= 1e-2;
 
   gp_Vec2d aPV(aP.X(), aP.Y());
@@ -502,18 +502,18 @@ void TopOpeBRepBuild_Tools::GetNormalInNearestPoint(const TopoDS_Face& F,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_Tools::GetTangentToEdgeEdge(const TopoDS_Face&, // aFObj,
-                                                             const TopoDS_Edge& anEdgeObj,
-                                                             const TopoDS_Edge& aOriEObj,
+Standard_Boolean Tools3::GetTangentToEdgeEdge(const TopoFace&, // aFObj,
+                                                             const TopoEdge& anEdgeObj,
+                                                             const TopoEdge& aOriEObj,
                                                              Vector3d&            aTangent)
 {
 
-  if (BRep_Tool::Degenerated(aOriEObj) || BRep_Tool::Degenerated(anEdgeObj))
+  if (BRepInspector::Degenerated(aOriEObj) || BRepInspector::Degenerated(anEdgeObj))
   {
-    return TopOpeBRepBuild_Tools::GetTangentToEdge(anEdgeObj, aTangent);
+    return Tools3::GetTangentToEdge(anEdgeObj, aTangent);
   }
 
-  TopoDS_Edge aEd = anEdgeObj, aEOri = aOriEObj;
+  TopoEdge aEd = anEdgeObj, aEOri = aOriEObj;
 
   Standard_Real f = 0., l = 0., par = 0., parOri = 0.;
 
@@ -533,8 +533,8 @@ Standard_Boolean TopOpeBRepBuild_Tools::GetTangentToEdgeEdge(const TopoDS_Face&,
   Point3d aPOri;
   Vector3d aTgOri;
   /////
-  Handle(Geom_Curve) GCOri      = aCAOri.Curve().Curve();
-  Handle(Geom_Curve) aCopyCurve = Handle(Geom_Curve)::DownCast(GCOri->Copy());
+  Handle(GeomCurve3d) GCOri      = aCAOri.Curve().Curve();
+  Handle(GeomCurve3d) aCopyCurve = Handle(GeomCurve3d)::DownCast(GCOri->Copy());
 
   const TopLoc_Location& aLoc  = aEOri.Location();
   Transform3d                aTrsf = aLoc.Transformation();
@@ -565,10 +565,10 @@ Standard_Boolean TopOpeBRepBuild_Tools::GetTangentToEdgeEdge(const TopoDS_Face&,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_Tools::GetTangentToEdge(const TopoDS_Edge& anEdgeObj,
+Standard_Boolean Tools3::GetTangentToEdge(const TopoEdge& anEdgeObj,
                                                          Vector3d&            aTangent)
 {
-  const TopoDS_Edge& aEd = anEdgeObj;
+  const TopoEdge& aEd = anEdgeObj;
 
   Standard_Real f = 0., l = 0., par = 0.;
 
@@ -586,15 +586,15 @@ Standard_Boolean TopOpeBRepBuild_Tools::GetTangentToEdge(const TopoDS_Edge& anEd
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_Tools::GetAdjacentFace(
-  const TopoDS_Shape&                              aFaceObj,
-  const TopoDS_Shape&                              anEObj,
+Standard_Boolean Tools3::GetAdjacentFace(
+  const TopoShape&                              aFaceObj,
+  const TopoShape&                              anEObj,
   const TopTools_IndexedDataMapOfShapeListOfShape& anEdgeFaceMap,
-  TopoDS_Shape&                                    anAdjFaceObj)
+  TopoShape&                                    anAdjFaceObj)
 {
-  const TopTools_ListOfShape&        aListOfAdjFaces = anEdgeFaceMap.FindFromKey(anEObj);
+  const ShapeList&        aListOfAdjFaces = anEdgeFaceMap.FindFromKey(anEObj);
   TopTools_ListIteratorOfListOfShape anIt(aListOfAdjFaces);
-  TopoDS_Shape                       anAdjShape;
+  TopoShape                       anAdjShape;
   for (; anIt.More(); anIt.Next())
   {
     if (anIt.Value() != aFaceObj)
@@ -617,46 +617,46 @@ Standard_Boolean TopOpeBRepBuild_Tools::GetAdjacentFace(
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Tools::UpdatePCurves(const TopoDS_Wire& aWire,
-                                          const TopoDS_Face& fromFace,
-                                          const TopoDS_Face& toFace)
+void Tools3::UpdatePCurves(const TopoWire& aWire,
+                                          const TopoFace& fromFace,
+                                          const TopoFace& toFace)
 {
-  TopExp_Explorer aExp(aWire, TopAbs_EDGE);
+  ShapeExplorer aExp(aWire, TopAbs_EDGE);
 
   for (; aExp.More(); aExp.Next())
   {
-    TopoDS_Shape aEdge = aExp.Current();
+    TopoShape aEdge = aExp.Current();
     UpdateEdgeOnFace(TopoDS::Edge(aEdge), fromFace, toFace);
   }
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Tools::UpdateEdgeOnFace(const TopoDS_Edge& aEdgeToUpdate,
-                                             const TopoDS_Face& fromFace,
-                                             const TopoDS_Face& toFace)
+void Tools3::UpdateEdgeOnFace(const TopoEdge& aEdgeToUpdate,
+                                             const TopoFace& fromFace,
+                                             const TopoFace& toFace)
 {
-  BRep_Builder BB;
+  ShapeBuilder BB;
 
-  Standard_Real        tolE = BRep_Tool::Tolerance(TopoDS::Edge(aEdgeToUpdate));
+  Standard_Real        tolE = BRepInspector::Tolerance(TopoDS::Edge(aEdgeToUpdate));
   Standard_Real        f2 = 0., l2 = 0., tolpc = 0.;
-  Handle(Geom2d_Curve) C2D;
+  Handle(GeomCurve2d) C2D;
 
-  if (BRep_Tool::Degenerated(aEdgeToUpdate))
+  if (BRepInspector::Degenerated(aEdgeToUpdate))
   {
     // we can not compute PCurve for Degenerated Edge
     // so we take as it was on old face and after (in CorrectFace2D)
     //  we will adjust this PCurve
     C2D = FC2D_CurveOnSurface(aEdgeToUpdate, fromFace, f2, l2, tolpc, Standard_True);
     Standard_Real               tol    = Max(tolE, tolpc);
-    Handle(Geom2d_Curve)        C2Dn   = Handle(Geom2d_Curve)::DownCast(C2D->Copy());
+    Handle(GeomCurve2d)        C2Dn   = Handle(GeomCurve2d)::DownCast(C2D->Copy());
     Handle(Geom2d_TrimmedCurve) newC2D = new Geom2d_TrimmedCurve(C2Dn, f2, l2);
     BB.UpdateEdge(aEdgeToUpdate, newC2D, toFace, tol);
   }
   else
   { // not degenerated edge
 
-    if (BRep_Tool::IsClosed(aEdgeToUpdate, fromFace))
+    if (BRepInspector::IsClosed(aEdgeToUpdate, fromFace))
     {
       UpdateEdgeOnPeriodicalFace(aEdgeToUpdate, fromFace, toFace);
     }
@@ -671,18 +671,18 @@ void TopOpeBRepBuild_Tools::UpdateEdgeOnFace(const TopoDS_Edge& aEdgeToUpdate,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Tools::UpdateEdgeOnPeriodicalFace(const TopoDS_Edge& aEdgeToUpdate,
-                                                       const TopoDS_Face& fromFace,
-                                                       const TopoDS_Face& toFace)
+void Tools3::UpdateEdgeOnPeriodicalFace(const TopoEdge& aEdgeToUpdate,
+                                                       const TopoFace& fromFace,
+                                                       const TopoFace& toFace)
 {
   Standard_Boolean   DiffOriented = Standard_False;
-  BRep_Builder       BB;
-  TopoDS_Edge        newE  = aEdgeToUpdate; // newE.Orientation(TopAbs_FORWARD);
-  const TopoDS_Face& fFace = fromFace;      // fFace.Orientation(TopAbs_FORWARD);
-  const TopoDS_Face& tFace = toFace;        // tFace.Orientation(TopAbs_FORWARD);
+  ShapeBuilder       BB;
+  TopoEdge        newE  = aEdgeToUpdate; // newE.Orientation(TopAbs_FORWARD);
+  const TopoFace& fFace = fromFace;      // fFace.Orientation(TopAbs_FORWARD);
+  const TopoFace& tFace = toFace;        // tFace.Orientation(TopAbs_FORWARD);
   Standard_Real      fc = 0., lc = 0.;
 
-  Handle(Geom2d_Curve) cc = BRep_Tool::CurveOnSurface(newE, tFace, fc, lc);
+  Handle(GeomCurve2d) cc = BRepInspector::CurveOnSurface(newE, tFace, fc, lc);
 
   if (!cc.IsNull())
   {
@@ -691,22 +691,22 @@ void TopOpeBRepBuild_Tools::UpdateEdgeOnPeriodicalFace(const TopoDS_Edge& aEdgeT
   }
 
   Vector3d aN1, aN2;
-  TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(fromFace),
+  Tools3::GetNormalToFaceOnEdge(TopoDS::Face(fromFace),
                                                TopoDS::Edge(aEdgeToUpdate),
                                                aN1);
 
-  TopOpeBRepBuild_Tools::GetNormalToFaceOnEdge(TopoDS::Face(toFace),
+  Tools3::GetNormalToFaceOnEdge(TopoDS::Face(toFace),
                                                TopoDS::Edge(aEdgeToUpdate),
                                                aN2);
 
   if (aN1 * aN2 < 0)
     DiffOriented = Standard_True;
 
-  Standard_Real tolE = BRep_Tool::Tolerance(newE);
+  Standard_Real tolE = BRepInspector::Tolerance(newE);
   Standard_Real f2 = 0., l2 = 0., tolpc = 0., tol = 0.;
 
   // first  PCurve
-  Handle(Geom2d_Curve) C2D = FC2D_CurveOnSurface(newE, tFace, f2, l2, tolpc, Standard_True);
+  Handle(GeomCurve2d) C2D = FC2D_CurveOnSurface(newE, tFace, f2, l2, tolpc, Standard_True);
 
   tol = Max(tolpc, tolE);
 
@@ -716,12 +716,12 @@ void TopOpeBRepBuild_Tools::UpdateEdgeOnPeriodicalFace(const TopoDS_Edge& aEdgeT
   Standard_Real ff = 0., lf = 0., fr = 0., lr = 0.;
   gp_Pnt2d      aUVf, aUVr;
 
-  Handle(Geom2d_Curve) oldC2DFor = BRep_Tool::CurveOnSurface(newE, // FC2D_CurveOnSurface(newE,
+  Handle(GeomCurve2d) oldC2DFor = BRepInspector::CurveOnSurface(newE, // FC2D_CurveOnSurface(newE,
                                                              fFace,
                                                              ff,
                                                              lf); //, tolpc, Standard_True);
   newE.Reverse();
-  Handle(Geom2d_Curve) oldC2DRev = BRep_Tool::CurveOnSurface(newE, // FC2D_CurveOnSurface(newE,
+  Handle(GeomCurve2d) oldC2DRev = BRepInspector::CurveOnSurface(newE, // FC2D_CurveOnSurface(newE,
                                                              fFace,
                                                              fr,
                                                              lr); //, tolpc, Standard_True);
@@ -756,7 +756,7 @@ void TopOpeBRepBuild_Tools::UpdateEdgeOnPeriodicalFace(const TopoDS_Edge& aEdgeT
   else
     firstOrder = (scalar > 0.) ? Standard_False : Standard_True;
 
-  Handle(Geom2d_Curve) aTrC = Handle(Geom2d_Curve)::DownCast(C2D->Copy());
+  Handle(GeomCurve2d) aTrC = Handle(GeomCurve2d)::DownCast(C2D->Copy());
   aTrC->Translate(aTrV);
 
   if (dir)
@@ -777,12 +777,12 @@ void TopOpeBRepBuild_Tools::UpdateEdgeOnPeriodicalFace(const TopoDS_Edge& aEdgeT
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_Tools::IsDegEdgesTheSame(const TopoDS_Shape& anE1,
-                                                          const TopoDS_Shape& anE2)
+Standard_Boolean Tools3::IsDegEdgesTheSame(const TopoShape& anE1,
+                                                          const TopoShape& anE2)
 {
   TopTools_IndexedMapOfShape aVMap1, aVMap2;
-  TopExp::MapShapes(anE1, TopAbs_VERTEX, aVMap1);
-  TopExp::MapShapes(anE2, TopAbs_VERTEX, aVMap2);
+  TopExp1::MapShapes(anE1, TopAbs_VERTEX, aVMap1);
+  TopExp1::MapShapes(anE2, TopAbs_VERTEX, aVMap2);
 
   if (!aVMap1.Extent() || !aVMap2.Extent())
     return Standard_False;
@@ -797,34 +797,34 @@ Standard_Boolean TopOpeBRepBuild_Tools::IsDegEdgesTheSame(const TopoDS_Shape& an
 // function : NormalizeFace
 // purpose  : remove all INTERNAL and EXTERNAL edges from the face
 //=======================================================================
-void TopOpeBRepBuild_Tools::NormalizeFace(const TopoDS_Shape& oldFace, TopoDS_Shape& corrFace)
+void Tools3::NormalizeFace(const TopoShape& oldFace, TopoShape& corrFace)
 {
   Standard_Real tolF1;
 
   TopLoc_Location Loc;
-  TopoDS_Face     aF1 = TopoDS::Face(oldFace), aNewFace;
+  TopoFace     aF1 = TopoDS::Face(oldFace), aNewFace;
 
   aF1.Orientation(TopAbs_FORWARD);
 
-  Handle(Geom_Surface) Surf = BRep_Tool::Surface(aF1, Loc);
-  tolF1                     = BRep_Tool::Tolerance(aF1);
-  BRep_Builder BB;
+  Handle(GeomSurface) Surf = BRepInspector::Surface(aF1, Loc);
+  tolF1                     = BRepInspector::Tolerance(aF1);
+  ShapeBuilder BB;
   BB.MakeFace(aNewFace, Surf, Loc, tolF1);
 
-  TopExp_Explorer aFExp(aF1, TopAbs_WIRE);
+  ShapeExplorer aFExp(aF1, TopAbs_WIRE);
   for (; aFExp.More(); aFExp.Next())
   {
     Standard_Integer NbGoodEdges = 0;
-    TopoDS_Shape     aWire       = aFExp.Current();
+    TopoShape     aWire       = aFExp.Current();
     aWire.Orientation(TopAbs_FORWARD);
-    TopoDS_Wire aNewWire;
+    TopoWire aNewWire;
 
     BB.MakeWire(aNewWire);
 
-    TopExp_Explorer aWExp(aWire, TopAbs_EDGE);
+    ShapeExplorer aWExp(aWire, TopAbs_EDGE);
     for (; aWExp.More(); aWExp.Next())
     {
-      TopoDS_Shape anEdge = aWExp.Current();
+      TopoShape anEdge = aWExp.Current();
 
       if (anEdge.Orientation() == TopAbs_EXTERNAL || anEdge.Orientation() == TopAbs_INTERNAL)
         continue;
@@ -848,8 +848,8 @@ void TopOpeBRepBuild_Tools::NormalizeFace(const TopoDS_Shape& oldFace, TopoDS_Sh
 // function : CorrectFace2d
 // purpose  : adjust PCurves of periodical face in 2d
 //=======================================================================
-void TopOpeBRepBuild_Tools::CorrectFace2d(const TopoDS_Shape&                       oldFace,
-                                          TopoDS_Shape&                             corrFace,
+void Tools3::CorrectFace2d(const TopoShape&                       oldFace,
+                                          TopoShape&                             corrFace,
                                           const TopTools_IndexedMapOfOrientedShape& aSourceShapes,
                                           TopTools_IndexedDataMapOfShapeShape& aMapOfCorrect2dEdges)
 {

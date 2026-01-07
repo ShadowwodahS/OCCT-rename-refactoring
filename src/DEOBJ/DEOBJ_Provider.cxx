@@ -36,9 +36,9 @@ DEOBJ_Provider::DEOBJ_Provider(const Handle(DE_ConfigurationNode)& theNode)
 
 //=================================================================================================
 
-bool DEOBJ_Provider::Read(const TCollection_AsciiString&  thePath,
-                          const Handle(TDocStd_Document)& theDocument,
-                          Handle(XSControl_WorkSession)&  theWS,
+bool DEOBJ_Provider::Read(const AsciiString1&  thePath,
+                          const Handle(AppDocument)& theDocument,
+                          Handle(ExchangeSession)&  theWS,
                           const Message_ProgressRange&    theProgress)
 {
   (void)theWS;
@@ -47,9 +47,9 @@ bool DEOBJ_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEOBJ_Provider::Write(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
-                           Handle(XSControl_WorkSession)&  theWS,
+bool DEOBJ_Provider::Write(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
+                           Handle(ExchangeSession)&  theWS,
                            const Message_ProgressRange&    theProgress)
 {
   (void)theWS;
@@ -58,8 +58,8 @@ bool DEOBJ_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEOBJ_Provider::Read(const TCollection_AsciiString&  thePath,
-                          const Handle(TDocStd_Document)& theDocument,
+bool DEOBJ_Provider::Read(const AsciiString1&  thePath,
+                          const Handle(AppDocument)& theDocument,
                           const Message_ProgressRange&    theProgress)
 {
   if (theDocument.IsNull())
@@ -98,8 +98,8 @@ bool DEOBJ_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEOBJ_Provider::Write(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
+bool DEOBJ_Provider::Write(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
                            const Message_ProgressRange&    theProgress)
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEOBJ_ConfigurationNode)))
@@ -152,9 +152,9 @@ bool DEOBJ_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DEOBJ_Provider::Read(const TCollection_AsciiString& thePath,
-                          TopoDS_Shape&                  theShape,
-                          Handle(XSControl_WorkSession)& theWS,
+bool DEOBJ_Provider::Read(const AsciiString1& thePath,
+                          TopoShape&                  theShape,
+                          Handle(ExchangeSession)& theWS,
                           const Message_ProgressRange&   theProgress)
 {
   (void)theWS;
@@ -163,9 +163,9 @@ bool DEOBJ_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEOBJ_Provider::Write(const TCollection_AsciiString& thePath,
-                           const TopoDS_Shape&            theShape,
-                           Handle(XSControl_WorkSession)& theWS,
+bool DEOBJ_Provider::Write(const AsciiString1& thePath,
+                           const TopoShape&            theShape,
+                           Handle(ExchangeSession)& theWS,
                            const Message_ProgressRange&   theProgress)
 {
   (void)theWS;
@@ -174,8 +174,8 @@ bool DEOBJ_Provider::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEOBJ_Provider::Read(const TCollection_AsciiString& thePath,
-                          TopoDS_Shape&                  theShape,
+bool DEOBJ_Provider::Read(const AsciiString1& thePath,
+                          TopoShape&                  theShape,
                           const Message_ProgressRange&   theProgress)
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DEOBJ_ConfigurationNode)))
@@ -203,9 +203,9 @@ bool DEOBJ_Provider::Read(const TCollection_AsciiString& thePath,
                         << thePath;
     return false;
   }
-  Handle(Poly_Triangulation) aTriangulation = aSimpleReader.GetTriangulation();
-  TopoDS_Face                aFace;
-  BRep_Builder               aBuiler;
+  Handle(MeshTriangulation) aTriangulation = aSimpleReader.GetTriangulation();
+  TopoFace                aFace;
+  ShapeBuilder               aBuiler;
   aBuiler.MakeFace(aFace);
   aBuiler.UpdateFace(aFace, aTriangulation);
   theShape = aFace;
@@ -214,11 +214,11 @@ bool DEOBJ_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DEOBJ_Provider::Write(const TCollection_AsciiString& thePath,
-                           const TopoDS_Shape&            theShape,
+bool DEOBJ_Provider::Write(const AsciiString1& thePath,
+                           const TopoShape&            theShape,
                            const Message_ProgressRange&   theProgress)
 {
-  Handle(TDocStd_Document)  aDoc    = new TDocStd_Document("BinXCAF");
+  Handle(AppDocument)  aDoc    = new AppDocument("BinXCAF");
   Handle(XCAFDoc_ShapeTool) aShTool = XCAFDoc_DocumentTool::ShapeTool(aDoc->Main());
   aShTool->AddShape(theShape);
   return Write(thePath, aDoc, theProgress);
@@ -226,14 +226,14 @@ bool DEOBJ_Provider::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-TCollection_AsciiString DEOBJ_Provider::GetFormat() const
+AsciiString1 DEOBJ_Provider::GetFormat() const
 {
-  return TCollection_AsciiString("OBJ");
+  return AsciiString1("OBJ");
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DEOBJ_Provider::GetVendor() const
+AsciiString1 DEOBJ_Provider::GetVendor() const
 {
-  return TCollection_AsciiString("OCC");
+  return AsciiString1("OCC");
 }

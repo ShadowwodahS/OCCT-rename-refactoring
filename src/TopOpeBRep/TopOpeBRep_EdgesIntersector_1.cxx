@@ -129,7 +129,7 @@ TopOpeBRepDS_Config TopOpeBRep_EdgesIntersector::EdgesConfig1() const
   if (ps)
   {
     Standard_Boolean so;
-    so = TopOpeBRepTool_ShapeTool::EdgesSameOriented(myEdge2, myEdge1);
+    so = ShapeTool::EdgesSameOriented(myEdge2, myEdge1);
     c  = (so) ? TopOpeBRepDS_SAMEORIENTED : TopOpeBRepDS_DIFFORIENTED;
   }
   return c;
@@ -137,7 +137,7 @@ TopOpeBRepDS_Config TopOpeBRep_EdgesIntersector::EdgesConfig1() const
 
 //=================================================================================================
 
-TopOpeBRepDS_Transition TopOpeBRep_EdgesIntersector::Transition1(
+StateTransition TopOpeBRep_EdgesIntersector::Transition1(
   const Standard_Integer   Index,
   const TopAbs_Orientation EdgeOrientation) const
 {
@@ -165,7 +165,7 @@ TopOpeBRepDS_Transition TopOpeBRep_EdgesIntersector::Transition1(
 
   if ((EdgeOrientation == TopAbs_INTERNAL) || (EdgeOrientation == TopAbs_EXTERNAL))
   {
-    TopOpeBRepDS_Transition TR(staINON, staINON, shaB, shaA);
+    StateTransition TR(staINON, staINON, shaB, shaA);
     TR.Set(EdgeOrientation);
     return TR;
   }
@@ -293,7 +293,7 @@ TopOpeBRepDS_Transition TopOpeBRep_EdgesIntersector::Transition1(
 
   } // switch TransitionType()
 
-  TopOpeBRepDS_Transition TR;
+  StateTransition TR;
   if (pur1d || pextremity)
   {
     TR.Set(staB, staA, shaB, shaA);
@@ -316,7 +316,7 @@ TopOpeBRepDS_Transition TopOpeBRep_EdgesIntersector::Transition1(
     TopAbs_Orientation eori = EdgeOrientation;
     if (composori)
     {
-      eori = TopAbs::Reverse(eori);
+      eori = TopAbs1::Reverse(eori);
     }
 
     // retournement des etats en fonction de l'orientation de l'arete
@@ -362,17 +362,17 @@ Standard_Boolean TopOpeBRep_EdgesIntersector::IsVertex1(const Standard_Integer I
     // search for an INTERNAL vertex on edge <Index> with
     // a 2d parameter <parV> equal to current point parameter <par>
     Standard_Real      par = Parameter1(Index);
-    const TopoDS_Edge* pE  = NULL;
+    const TopoEdge* pE  = NULL;
     pE                     = (Index == 1) ? &myEdge1 : &myEdge2;
-    const TopoDS_Edge& E   = *pE;
-    TopExp_Explorer    ex;
+    const TopoEdge& E   = *pE;
+    ShapeExplorer    ex;
     for (ex.Init(E, TopAbs_VERTEX); ex.More(); ex.Next())
     {
-      //    for (TopExp_Explorer ex(E,TopAbs_VERTEX); ex.More(); ex.Next()) {
-      const TopoDS_Vertex& V = TopoDS::Vertex(ex.Current());
+      //    for (ShapeExplorer ex(E,TopAbs_VERTEX); ex.More(); ex.Next()) {
+      const TopoVertex& V = TopoDS::Vertex(ex.Current());
       if (V.Orientation() == TopAbs_INTERNAL)
       {
-        Standard_Real parV = BRep_Tool::Parameter(V, E, myFace1);
+        Standard_Real parV = BRepInspector::Parameter(V, E, myFace1);
         if (Abs(par - parV) <= Precision::PConfusion())
         {
           myIsVertexValue  = Standard_True;
@@ -384,11 +384,11 @@ Standard_Boolean TopOpeBRep_EdgesIntersector::IsVertex1(const Standard_Integer I
   }
   else
   { // pos = head or end
-    TopoDS_Vertex V1, V2;
+    TopoVertex V1, V2;
     if (Index == 1)
-      TopExp::Vertices(myEdge1, V1, V2);
+      TopExp1::Vertices(myEdge1, V1, V2);
     else
-      TopExp::Vertices(myEdge2, V1, V2);
+      TopExp1::Vertices(myEdge2, V1, V2);
     if (pos == IntRes2d_Head && !V1.IsNull())
     {
       myIsVertexValue  = Standard_True;
@@ -413,7 +413,7 @@ Standard_Boolean TopOpeBRep_EdgesIntersector::IsVertex1(const Standard_Integer I
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRep_EdgesIntersector::Vertex1(const Standard_Integer Index)
+const TopoShape& TopOpeBRep_EdgesIntersector::Vertex1(const Standard_Integer Index)
 {
   if (!IsVertex1(Index))
     throw ExceptionBase("TopOpeBRep_EdgesIntersector : Vertex1");

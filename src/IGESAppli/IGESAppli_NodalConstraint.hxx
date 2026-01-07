@@ -29,7 +29,7 @@ class IGESAppli_NodalConstraint;
 DEFINE_STANDARD_HANDLE(IGESAppli_NodalConstraint, IGESData_IGESEntity)
 
 //! defines NodalConstraint, Type <418> Form <0>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Relates loads and/or constraints to specific nodes in
 //! the Finite Element Model by creating a relation between
 //! Node entities and Tabular Data Property that contains

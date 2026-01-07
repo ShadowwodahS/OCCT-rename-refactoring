@@ -95,7 +95,7 @@ Standard_Integer ViewerTest::ParseColor(const Standard_Integer   theArgNb,
                                         const char* const* const theArgVec,
                                         Quantity_ColorRGBA&      theColor)
 {
-  return Draw::ParseColor(theArgNb, theArgVec, theColor);
+  return Draw1::ParseColor(theArgNb, theArgVec, theColor);
 }
 
 //=================================================================================================
@@ -104,24 +104,24 @@ Standard_Integer ViewerTest::ParseColor(const Standard_Integer   theArgNb,
                                         const char* const* const theArgVec,
                                         Quantity_Color&          theColor)
 {
-  return Draw::ParseColor(theArgNb, theArgVec, theColor);
+  return Draw1::ParseColor(theArgNb, theArgVec, theColor);
 }
 
 //=================================================================================================
 
 Standard_Boolean ViewerTest::ParseOnOff(Standard_CString theArg, Standard_Boolean& theIsOn)
 {
-  return Draw::ParseOnOff(theArg, theIsOn);
+  return Draw1::ParseOnOff(theArg, theIsOn);
 }
 
 //=================================================================================================
 
-void ViewerTest::GetSelectedShapes(TopTools_ListOfShape& theSelectedShapes)
+void ViewerTest::GetSelectedShapes(ShapeList& theSelectedShapes)
 {
   for (GetAISContext()->InitSelected(); GetAISContext()->MoreSelected();
        GetAISContext()->NextSelected())
   {
-    TopoDS_Shape aShape = GetAISContext()->SelectedShape();
+    TopoShape aShape = GetAISContext()->SelectedShape();
     if (!aShape.IsNull())
     {
       theSelectedShapes.Append(aShape);
@@ -135,7 +135,7 @@ Standard_Boolean ViewerTest::ParseLineType(Standard_CString   theArg,
                                            Aspect_TypeOfLine& theType,
                                            uint16_t&          thePattern)
 {
-  TCollection_AsciiString aTypeStr(theArg);
+  AsciiString1 aTypeStr(theArg);
   aTypeStr.LowerCase();
   if (aTypeStr == "empty" || aTypeStr == "-1")
   {
@@ -204,7 +204,7 @@ Standard_Boolean ViewerTest::ParseMarkerType(Standard_CString      theArg,
                                              Handle(Image_PixMap)& theImage)
 {
   theImage.Nullify();
-  TCollection_AsciiString aTypeStr(theArg);
+  AsciiString1 aTypeStr(theArg);
   aTypeStr.LowerCase();
   if (aTypeStr == "empty")
   {
@@ -297,7 +297,7 @@ Standard_Boolean ViewerTest::ParseMarkerType(Standard_CString      theArg,
 Standard_Boolean ViewerTest::ParseShadingModel(Standard_CString              theArg,
                                                Graphic3d_TypeOfShadingModel& theModel)
 {
-  TCollection_AsciiString aTypeStr(theArg);
+  AsciiString1 aTypeStr(theArg);
   aTypeStr.LowerCase();
   if (aTypeStr == "unlit" || aTypeStr == "color" || aTypeStr == "none")
   {
@@ -351,7 +351,7 @@ Standard_Boolean ViewerTest::parseZLayer(Standard_CString    theArg,
                                          Standard_Boolean    theToAllowInteger,
                                          Graphic3d_ZLayerId& theLayer)
 {
-  TCollection_AsciiString aName(theArg);
+  AsciiString1 aName(theArg);
   aName.LowerCase();
   if (aName == "default" || aName == "def")
   {
@@ -379,14 +379,14 @@ Standard_Boolean ViewerTest::parseZLayer(Standard_CString    theArg,
   }
   else if (!GetAISContext().IsNull())
   {
-    const Handle(V3d_Viewer)& aViewer = ViewerTest::GetAISContext()->CurrentViewer();
+    const Handle(ViewManager)& aViewer = ViewerTest::GetAISContext()->CurrentViewer();
     TColStd_SequenceOfInteger aLayers;
     aViewer->GetAllZLayers(aLayers);
     for (TColStd_SequenceOfInteger::Iterator aLayeriter(aLayers); aLayeriter.More();
          aLayeriter.Next())
     {
       Graphic3d_ZLayerSettings aSettings = aViewer->ZLayerSettings(aLayeriter.Value());
-      if (TCollection_AsciiString::IsSameString(aSettings.Name(), aName, Standard_False))
+      if (AsciiString1::IsSameString(aSettings.Name(), aName, Standard_False))
       {
         theLayer = aLayeriter.Value();
         return true;
@@ -507,13 +507,13 @@ Standard_EXPORT ViewerTest_DoubleMapOfInteractiveAndName& GetMapOfAIS()
 
 //=================================================================================================
 
-Standard_Boolean ViewerTest::Display(const TCollection_AsciiString&       theName,
-                                     const Handle(AIS_InteractiveObject)& theObject,
+Standard_Boolean ViewerTest::Display(const AsciiString1&       theName,
+                                     const Handle(VisualEntity)& theObject,
                                      const Standard_Boolean               theToUpdate,
                                      const Standard_Boolean               theReplaceIfExists)
 {
   ViewerTest_DoubleMapOfInteractiveAndName& aMap = GetMapOfAIS();
-  Handle(AIS_InteractiveContext)            aCtx = ViewerTest::GetAISContext();
+  Handle(VisualContext)            aCtx = ViewerTest::GetAISContext();
   if (aCtx.IsNull())
   {
     Message::SendFail("Error: AIS context is not available.");
@@ -531,7 +531,7 @@ Standard_Boolean ViewerTest::Display(const TCollection_AsciiString&       theNam
       return Standard_False;
     }
 
-    if (Handle(AIS_InteractiveObject) anOldObj = aMap.Find2(theName))
+    if (Handle(VisualEntity) anOldObj = aMap.Find2(theName))
     {
       aCtx->Remove(anOldObj, theObject.IsNull() && theToUpdate);
     }
@@ -555,8 +555,8 @@ Standard_Boolean ViewerTest::Display(const TCollection_AsciiString&       theNam
 
 //! Alias for ViewerTest::Display(), compatibility with old code.
 Standard_EXPORT Standard_Boolean
-  VDisplayAISObject(const TCollection_AsciiString&       theName,
-                    const Handle(AIS_InteractiveObject)& theObject,
+  VDisplayAISObject(const AsciiString1&       theName,
+                    const Handle(VisualEntity)& theObject,
                     Standard_Boolean                     theReplaceIfExists = Standard_True)
 {
   return ViewerTest::Display(theName, theObject, Standard_True, theReplaceIfExists);
@@ -564,47 +564,47 @@ Standard_EXPORT Standard_Boolean
 
 static NCollection_List<Handle(ViewerTest_EventManager)> theEventMgrs;
 
-static Handle(V3d_View)& a3DView()
+static Handle(ViewWindow)& a3DView()
 {
-  static Handle(V3d_View) Viou;
+  static Handle(ViewWindow) Viou;
   return Viou;
 }
 
-Standard_EXPORT Handle(AIS_InteractiveContext)& TheAISContext()
+Standard_EXPORT Handle(VisualContext)& TheAISContext()
 {
-  static Handle(AIS_InteractiveContext) aContext;
+  static Handle(VisualContext) aContext;
   return aContext;
 }
 
-const Handle(V3d_View)& ViewerTest::CurrentView()
+const Handle(ViewWindow)& ViewerTest::CurrentView()
 {
   return a3DView();
 }
 
-void ViewerTest::CurrentView(const Handle(V3d_View)& V)
+void ViewerTest::CurrentView(const Handle(ViewWindow)& V)
 {
   a3DView() = V;
 }
 
-const Handle(AIS_InteractiveContext)& ViewerTest::GetAISContext()
+const Handle(VisualContext)& ViewerTest::GetAISContext()
 {
   return TheAISContext();
 }
 
-void ViewerTest::SetAISContext(const Handle(AIS_InteractiveContext)& aCtx)
+void ViewerTest::SetAISContext(const Handle(VisualContext)& aCtx)
 {
   TheAISContext() = aCtx;
   ViewerTest::ResetEventManager();
 }
 
-Handle(V3d_Viewer) ViewerTest::GetViewerFromContext()
+Handle(ViewManager) ViewerTest::GetViewerFromContext()
 {
-  return !TheAISContext().IsNull() ? TheAISContext()->CurrentViewer() : Handle(V3d_Viewer)();
+  return !TheAISContext().IsNull() ? TheAISContext()->CurrentViewer() : Handle(ViewManager)();
 }
 
-Handle(V3d_Viewer) ViewerTest::GetCollectorFromContext()
+Handle(ViewManager) ViewerTest::GetCollectorFromContext()
 {
-  return !TheAISContext().IsNull() ? TheAISContext()->CurrentViewer() : Handle(V3d_Viewer)();
+  return !TheAISContext().IsNull() ? TheAISContext()->CurrentViewer() : Handle(ViewManager)();
 }
 
 void ViewerTest::SetEventManager(const Handle(ViewerTest_EventManager)& EM)
@@ -631,8 +631,8 @@ Handle(ViewerTest_EventManager) ViewerTest::CurrentEventManager()
 
 //=================================================================================================
 
-static Standard_Boolean getCtxAndView(Handle(AIS_InteractiveContext)& theCtx,
-                                      Handle(V3d_View)&               theView)
+static Standard_Boolean getCtxAndView(Handle(VisualContext)& theCtx,
+                                      Handle(ViewWindow)&               theView)
 {
   theCtx  = ViewerTest::GetAISContext();
   theView = ViewerTest::CurrentView();
@@ -655,12 +655,12 @@ void ViewerTest::Clear()
     return;
   }
 
-  NCollection_Sequence<Handle(AIS_InteractiveObject)> aListRemoved;
+  NCollection_Sequence<Handle(VisualEntity)> aListRemoved;
   for (ViewerTest_DoubleMapIteratorOfDoubleMapOfInteractiveAndName anObjIter(GetMapOfAIS());
        anObjIter.More();
        anObjIter.Next())
   {
-    const Handle(AIS_InteractiveObject)& anObj = anObjIter.Key1();
+    const Handle(VisualEntity)& anObj = anObjIter.Key1();
     if (anObj->GetContext() != TheAISContext())
     {
       continue;
@@ -679,7 +679,7 @@ void ViewerTest::Clear()
   }
   else
   {
-    for (NCollection_Sequence<Handle(AIS_InteractiveObject)>::Iterator anObjIter(aListRemoved);
+    for (NCollection_Sequence<Handle(VisualEntity)>::Iterator anObjIter(aListRemoved);
          anObjIter.More();
          anObjIter.Next())
     {
@@ -707,9 +707,9 @@ static Handle(Prs3d_IsoAspect) CopyIsoAspect(const Handle(Prs3d_IsoAspect)& theI
 //==============================================================================
 // function : visos
 // purpose  : Returns or sets the number of U- and V- isos and isIsoOnPlane flag
-// Draw arg : [name1 ...] [nbUIsos nbVIsos IsoOnPlane(0|1)]
+// Draw1 arg : [name1 ...] [nbUIsos nbVIsos IsoOnPlane(0|1)]
 //==============================================================================
-static int visos(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static int visos(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (TheAISContext().IsNull())
   {
@@ -749,8 +749,8 @@ static int visos(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
 
     if (isChanged)
     {
-      aNbVIsos = Draw::Atoi(argv[aLastInd - 1]);
-      aNbUIsos = Draw::Atoi(argv[aLastInd - 2]);
+      aNbVIsos = Draw1::Atoi(argv[aLastInd - 1]);
+      aNbUIsos = Draw1::Atoi(argv[aLastInd - 2]);
       aLastInd -= 3;
 
       di << "New number of isos : " << aNbUIsos << " " << aNbVIsos << "\n";
@@ -771,8 +771,8 @@ static int visos(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
 
   for (i = 1; i <= aLastInd; i++)
   {
-    TCollection_AsciiString       name(argv[i]);
-    Handle(AIS_InteractiveObject) aShape;
+    AsciiString1       name(argv[i]);
+    Handle(VisualEntity) aShape;
     GetMapOfAIS().Find2(name, aShape);
     if (aShape.IsNull())
     {
@@ -780,7 +780,7 @@ static int visos(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
       return 1;
     }
 
-    Handle(Prs3d_Drawer)    CurDrawer = aShape->Attributes();
+    Handle(StyleDrawer)    CurDrawer = aShape->Attributes();
     Handle(Prs3d_IsoAspect) aUIso     = CurDrawer->UIsoAspect();
     Handle(Prs3d_IsoAspect) aVIso     = CurDrawer->VIsoAspect();
     if (isChanged)
@@ -805,7 +805,7 @@ static int visos(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
   return 0;
 }
 
-static Standard_Integer VDispSensi(Draw_Interpretor&, Standard_Integer theArgNb, Standard_CString*)
+static Standard_Integer VDispSensi(DrawInterpreter&, Standard_Integer theArgNb, Standard_CString*)
 {
   if (theArgNb > 1)
   {
@@ -813,8 +813,8 @@ static Standard_Integer VDispSensi(Draw_Interpretor&, Standard_Integer theArgNb,
     return 1;
   }
 
-  Handle(AIS_InteractiveContext) aCtx;
-  Handle(V3d_View)               aView;
+  Handle(VisualContext) aCtx;
+  Handle(ViewWindow)               aView;
   if (!getCtxAndView(aCtx, aView))
   {
     return 1;
@@ -824,7 +824,7 @@ static Standard_Integer VDispSensi(Draw_Interpretor&, Standard_Integer theArgNb,
   return 0;
 }
 
-static Standard_Integer VClearSensi(Draw_Interpretor&, Standard_Integer theArgNb, Standard_CString*)
+static Standard_Integer VClearSensi(DrawInterpreter&, Standard_Integer theArgNb, Standard_CString*)
 {
   if (theArgNb > 1)
   {
@@ -832,8 +832,8 @@ static Standard_Integer VClearSensi(Draw_Interpretor&, Standard_Integer theArgNb
     return 1;
   }
 
-  Handle(AIS_InteractiveContext) aCtx;
-  Handle(V3d_View)               aView;
+  Handle(VisualContext) aCtx;
+  Handle(ViewWindow)               aView;
   if (!getCtxAndView(aCtx, aView))
   {
     return 1;
@@ -846,13 +846,13 @@ static Standard_Integer VClearSensi(Draw_Interpretor&, Standard_Integer theArgNb
 // function : VDir
 // purpose  : To list the displayed object with their attributes
 //==============================================================================
-static int VDir(Draw_Interpretor& theDI, Standard_Integer theNbArgs, const char** theArgVec)
+static int VDir(DrawInterpreter& theDI, Standard_Integer theNbArgs, const char** theArgVec)
 {
-  TCollection_AsciiString aMatch;
+  AsciiString1 aMatch;
   Standard_Boolean        toFormat = Standard_False;
   for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   {
-    TCollection_AsciiString anArgCase(theArgVec[anArgIter]);
+    AsciiString1 anArgCase(theArgVec[anArgIter]);
     anArgCase.LowerCase();
     if (anArgCase == "-list" || anArgCase == "-format")
     {
@@ -869,15 +869,15 @@ static int VDir(Draw_Interpretor& theDI, Standard_Integer theNbArgs, const char*
     }
   }
 
-  TCollection_AsciiString aRes;
+  AsciiString1 aRes;
   for (ViewerTest_DoubleMapIteratorOfDoubleMapOfInteractiveAndName anIter(GetMapOfAIS());
        anIter.More();
        anIter.Next())
   {
     if (!aMatch.IsEmpty())
     {
-      const TCollection_AsciiString aCheck =
-        TCollection_AsciiString("string match '") + aMatch + "' '" + anIter.Key2() + "'";
+      const AsciiString1 aCheck =
+        AsciiString1("string match '") + aMatch + "' '" + anIter.Key2() + "'";
       if (theDI.Eval(aCheck.ToCString()) == 0 && *theDI.Result() != '1')
       {
         continue;
@@ -886,7 +886,7 @@ static int VDir(Draw_Interpretor& theDI, Standard_Integer theNbArgs, const char*
 
     if (toFormat)
     {
-      aRes += TCollection_AsciiString("\t") + anIter.Key2() + "\n";
+      aRes += AsciiString1("\t") + anIter.Key2() + "\n";
     }
     else
     {
@@ -910,11 +910,11 @@ enum ViewerTest_StereoPair
 // function : VDump
 // purpose  : To dump the active view snapshot to image file
 //==============================================================================
-static Standard_Integer VDump(Draw_Interpretor& theDI,
+static Standard_Integer VDump(DrawInterpreter& theDI,
                               Standard_Integer  theArgNb,
                               Standard_CString* theArgVec)
 {
-  Handle(V3d_View) aView = ViewerTest::CurrentView();
+  Handle(ViewWindow) aView = ViewerTest::CurrentView();
   if (theArgNb < 2)
   {
     Message::SendFail(
@@ -931,7 +931,7 @@ static Standard_Integer VDump(Draw_Interpretor& theDI,
   Standard_CString         aFilePath   = theArgVec[anArgIter++];
   ViewerTest_StereoPair    aStereoPair = ViewerTest_SP_Single;
   V3d_ImageDumpOptions     aParams;
-  Handle(Graphic3d_Camera) aCustomCam;
+  Handle(CameraOn3d) aCustomCam;
   aParams.BufferType     = Graphic3d_BT_RGB;
   aParams.StereoOptions  = V3d_SDO_MONO;
   aParams.TargetZLayerId = Graphic3d_ZLayerId_BotOSD;
@@ -939,7 +939,7 @@ static Standard_Integer VDump(Draw_Interpretor& theDI,
   aParams.LightName      = "";
   for (; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     if (anArg == "-buffer")
     {
@@ -949,7 +949,7 @@ static Standard_Integer VDump(Draw_Interpretor& theDI,
         return 1;
       }
 
-      TCollection_AsciiString aBufArg(theArgVec[anArgIter]);
+      AsciiString1 aBufArg(theArgVec[anArgIter]);
       aBufArg.LowerCase();
       if (aBufArg == "rgba")
       {
@@ -1001,7 +1001,7 @@ static Standard_Integer VDump(Draw_Interpretor& theDI,
     }
     else if (anArgIter + 1 < theArgNb && anArg == "-xrpose")
     {
-      TCollection_AsciiString anXRArg(theArgVec[++anArgIter]);
+      AsciiString1 anXRArg(theArgVec[++anArgIter]);
       anXRArg.LowerCase();
       if (anXRArg == "base")
       {
@@ -1015,7 +1015,7 @@ static Standard_Integer VDump(Draw_Interpretor& theDI,
       {
         if (aView->View()->IsActiveXR())
         {
-          aCustomCam = new Graphic3d_Camera();
+          aCustomCam = new CameraOn3d();
           aView->View()->ComputeXRPosedCameraFromBase(
             *aCustomCam,
             anXRArg == "handleft" ? aView->View()->XRSession()->LeftHandPose()
@@ -1041,7 +1041,7 @@ static Standard_Integer VDump(Draw_Interpretor& theDI,
         return 1;
       }
 
-      TCollection_AsciiString aStereoArg(theArgVec[anArgIter]);
+      AsciiString1 aStereoArg(theArgVec[anArgIter]);
       aStereoArg.LowerCase();
       if (aStereoArg == "l" || aStereoArg == "left")
       {
@@ -1105,7 +1105,7 @@ static Standard_Integer VDump(Draw_Interpretor& theDI,
         Message::SendFail() << "Error: integer value is expected right after 'width'";
         return 1;
       }
-      aParams.Width = Draw::Atoi(theArgVec[anArgIter]);
+      aParams.Width = Draw1::Atoi(theArgVec[anArgIter]);
     }
     else if (anArg == "-height" || anArg == "height" || anArg == "-sizey")
     {
@@ -1119,7 +1119,7 @@ static Standard_Integer VDump(Draw_Interpretor& theDI,
         Message::SendFail() << "Error: integer value is expected right after 'height'";
         return 1;
       }
-      aParams.Height = Draw::Atoi(theArgVec[anArgIter]);
+      aParams.Height = Draw1::Atoi(theArgVec[anArgIter]);
     }
     else if (anArg == "-tile" || anArg == "-tilesize")
     {
@@ -1128,7 +1128,7 @@ static Standard_Integer VDump(Draw_Interpretor& theDI,
         Message::SendFail() << "Error: integer value is expected right after 'tileSize'";
         return 1;
       }
-      aParams.TileSize = Draw::Atoi(theArgVec[anArgIter]);
+      aParams.TileSize = Draw1::Atoi(theArgVec[anArgIter]);
     }
     else if (anArg == "-grouplayer")
     {
@@ -1137,7 +1137,7 @@ static Standard_Integer VDump(Draw_Interpretor& theDI,
         Message::SendFail() << "Error: integer value is expected right after 'grouplayer'";
         return 1;
       }
-      Graphic3d_ZLayerId aZLayer = (Graphic3d_ZLayerId)Draw::Atoi(theArgVec[anArgIter]);
+      Graphic3d_ZLayerId aZLayer = (Graphic3d_ZLayerId)Draw1::Atoi(theArgVec[anArgIter]);
       if (!ViewerTest::ParseZLayer(theArgVec[anArgIter], aZLayer)
           || aZLayer == Graphic3d_ZLayerId_UNKNOWN)
       {
@@ -1153,7 +1153,7 @@ static Standard_Integer VDump(Draw_Interpretor& theDI,
         Message::SendFail() << "Error: integer value is expected right after 'singlelayer'";
         return 1;
       }
-      Graphic3d_ZLayerId aZLayer = (Graphic3d_ZLayerId)Draw::Atoi(theArgVec[anArgIter]);
+      Graphic3d_ZLayerId aZLayer = (Graphic3d_ZLayerId)Draw1::Atoi(theArgVec[anArgIter]);
       if (!ViewerTest::ParseZLayer(theArgVec[anArgIter], aZLayer)
           || aZLayer == Graphic3d_ZLayerId_UNKNOWN)
       {
@@ -1206,7 +1206,7 @@ static Standard_Integer VDump(Draw_Interpretor& theDI,
   }
 
   const bool               wasImmUpdate = aView->SetImmediateUpdate(false);
-  Handle(Graphic3d_Camera) aCamBack     = aView->Camera();
+  Handle(CameraOn3d) aCamBack     = aView->Camera();
   if (!aCustomCam.IsNull())
   {
     aView->SetCamera(aCustomCam);
@@ -1312,12 +1312,12 @@ enum TypeOfDispOperation
 };
 
 //! Displays,Erase...
-static void VwrTst_DispErase(const Handle(AIS_InteractiveObject)& thePrs,
+static void VwrTst_DispErase(const Handle(VisualEntity)& thePrs,
                              const Standard_Integer               theMode,
                              const TypeOfDispOperation            theType,
                              const Standard_Boolean               theToUpdate)
 {
-  Handle(AIS_InteractiveContext) aCtx = ViewerTest::GetAISContext();
+  Handle(VisualContext) aCtx = ViewerTest::GetAISContext();
   switch (theType)
   {
     case TypeOfDispOperation_SetDispMode: {
@@ -1347,7 +1347,7 @@ static void VwrTst_DispErase(const Handle(AIS_InteractiveObject)& thePrs,
 
 //=================================================================================================
 
-static int VDispMode(Draw_Interpretor&, Standard_Integer argc, const char** argv)
+static int VDispMode(DrawInterpreter&, Standard_Integer argc, const char** argv)
 {
   if (argc < 1 || argc > 3)
   {
@@ -1355,10 +1355,10 @@ static int VDispMode(Draw_Interpretor&, Standard_Integer argc, const char** argv
     return 1;
   }
 
-  TypeOfDispOperation            aType = TCollection_AsciiString(argv[0]) == "vunsetdispmode"
+  TypeOfDispOperation            aType = AsciiString1(argv[0]) == "vunsetdispmode"
                                            ? TypeOfDispOperation_UnsetDispMode
                                            : TypeOfDispOperation_SetDispMode;
-  Handle(AIS_InteractiveContext) aCtx  = ViewerTest::GetAISContext();
+  Handle(VisualContext) aCtx  = ViewerTest::GetAISContext();
   if (aCtx.IsNull())
   {
     Message::SendFail("Error: no active viewer");
@@ -1371,7 +1371,7 @@ static int VDispMode(Draw_Interpretor&, Standard_Integer argc, const char** argv
     {
       if (aCtx->NbSelected() == 0)
       {
-        VwrTst_DispErase(Handle(AIS_InteractiveObject)(),
+        VwrTst_DispErase(Handle(VisualEntity)(),
                          -1,
                          TypeOfDispOperation_UnsetDispMode,
                          Standard_False);
@@ -1390,8 +1390,8 @@ static int VDispMode(Draw_Interpretor&, Standard_Integer argc, const char** argv
     }
     else
     {
-      TCollection_AsciiString       aName = argv[1];
-      Handle(AIS_InteractiveObject) aPrs;
+      AsciiString1       aName = argv[1];
+      Handle(VisualEntity) aPrs;
       if (GetMapOfAIS().Find2(aName, aPrs) && !aPrs.IsNull())
       {
         VwrTst_DispErase(aPrs, -1, TypeOfDispOperation_UnsetDispMode, Standard_True);
@@ -1400,10 +1400,10 @@ static int VDispMode(Draw_Interpretor&, Standard_Integer argc, const char** argv
   }
   else if (argc == 2)
   {
-    Standard_Integer aDispMode = Draw::Atoi(argv[1]);
+    Standard_Integer aDispMode = Draw1::Atoi(argv[1]);
     if (aCtx->NbSelected() == 0 && aType == TypeOfDispOperation_SetDispMode)
     {
-      VwrTst_DispErase(Handle(AIS_InteractiveObject)(),
+      VwrTst_DispErase(Handle(VisualEntity)(),
                        aDispMode,
                        TypeOfDispOperation_SetDispMode,
                        Standard_True);
@@ -1416,11 +1416,11 @@ static int VDispMode(Draw_Interpretor&, Standard_Integer argc, const char** argv
   }
   else
   {
-    Handle(AIS_InteractiveObject) aPrs;
-    TCollection_AsciiString       aName(argv[1]);
+    Handle(VisualEntity) aPrs;
+    AsciiString1       aName(argv[1]);
     if (GetMapOfAIS().Find2(aName, aPrs) && !aPrs.IsNull())
     {
-      VwrTst_DispErase(aPrs, Draw::Atoi(argv[2]), aType, Standard_True);
+      VwrTst_DispErase(aPrs, Draw1::Atoi(argv[2]), aType, Standard_True);
     }
   }
   return 0;
@@ -1428,12 +1428,12 @@ static int VDispMode(Draw_Interpretor&, Standard_Integer argc, const char** argv
 
 //=================================================================================================
 
-static int VSubInt(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static int VSubInt(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc == 1)
     return 1;
-  Standard_Integer                      On  = Draw::Atoi(argv[1]);
-  const Handle(AIS_InteractiveContext)& Ctx = ViewerTest::GetAISContext();
+  Standard_Integer                      On  = Draw1::Atoi(argv[1]);
+  const Handle(VisualContext)& Ctx = ViewerTest::GetAISContext();
   if (Ctx.IsNull())
   {
     Message::SendFail("Error: no active viewer");
@@ -1442,7 +1442,7 @@ static int VSubInt(Draw_Interpretor& di, Standard_Integer argc, const char** arg
 
   if (argc == 2)
   {
-    TCollection_AsciiString isOnOff = On == 1 ? "on" : "off";
+    AsciiString1 isOnOff = On == 1 ? "on" : "off";
     di << "Sub intensite is turned " << isOnOff << " for " << Ctx->NbSelected() << "objects\n";
     for (Ctx->InitSelected(); Ctx->MoreSelected(); Ctx->NextSelected())
     {
@@ -1460,8 +1460,8 @@ static int VSubInt(Draw_Interpretor& di, Standard_Integer argc, const char** arg
   }
   else
   {
-    Handle(AIS_InteractiveObject) IO;
-    TCollection_AsciiString       name = argv[2];
+    Handle(VisualEntity) IO;
+    AsciiString1       name = argv[2];
     if (GetMapOfAIS().Find2(name, IO) && !IO.IsNull())
     {
       if (On == 1)
@@ -1480,26 +1480,26 @@ class ViewTest_PrsIter
 {
 public:
   //! Create and initialize iterator object.
-  ViewTest_PrsIter(const TCollection_AsciiString& theName)
+  ViewTest_PrsIter(const AsciiString1& theName)
       : mySource(IterSource_All)
   {
-    NCollection_Sequence<TCollection_AsciiString> aNames;
+    NCollection_Sequence<AsciiString1> aNames;
     if (!theName.IsEmpty())
       aNames.Append(theName);
     Init(aNames);
   }
 
   //! Create and initialize iterator object.
-  ViewTest_PrsIter(const NCollection_Sequence<TCollection_AsciiString>& theNames)
+  ViewTest_PrsIter(const NCollection_Sequence<AsciiString1>& theNames)
       : mySource(IterSource_All)
   {
     Init(theNames);
   }
 
   //! Initialize the iterator.
-  void Init(const NCollection_Sequence<TCollection_AsciiString>& theNames)
+  void Init(const NCollection_Sequence<AsciiString1>& theNames)
   {
-    Handle(AIS_InteractiveContext) aCtx = ViewerTest::GetAISContext();
+    Handle(VisualContext) aCtx = ViewerTest::GetAISContext();
     mySeq                               = theNames;
     mySelIter.Nullify();
     myCurrent.Nullify();
@@ -1507,7 +1507,7 @@ public:
     if (!mySeq.IsEmpty())
     {
       mySource  = IterSource_List;
-      mySeqIter = NCollection_Sequence<TCollection_AsciiString>::Iterator(mySeq);
+      mySeqIter = NCollection_Sequence<AsciiString1>::Iterator(mySeq);
     }
     else if (aCtx->NbSelected() > 0)
     {
@@ -1523,9 +1523,9 @@ public:
     initCurrent();
   }
 
-  const TCollection_AsciiString& CurrentName() const { return myCurrentName; }
+  const AsciiString1& CurrentName() const { return myCurrentName; }
 
-  const Handle(AIS_InteractiveObject)& Current() const { return myCurrent; }
+  const Handle(VisualEntity)& Current() const { return myCurrent; }
 
   const Handle(RefObject)& CurrentTrs() const { return myCurrentTrs; }
 
@@ -1578,7 +1578,7 @@ private:
         {
           myCurrentName = myMapIter.Key2();
           myCurrentTrs  = myMapIter.Key1();
-          myCurrent     = Handle(AIS_InteractiveObject)::DownCast(myCurrentTrs);
+          myCurrent     = Handle(VisualEntity)::DownCast(myCurrentTrs);
         }
         break;
       }
@@ -1592,7 +1592,7 @@ private:
           }
           myCurrentName = mySeqIter.Value();
           myCurrentTrs  = GetMapOfAIS().Find2(mySeqIter.Value());
-          myCurrent     = Handle(AIS_InteractiveObject)::DownCast(myCurrentTrs);
+          myCurrent     = Handle(VisualEntity)::DownCast(myCurrentTrs);
         }
         break;
       }
@@ -1617,24 +1617,24 @@ private:
 
 private:
   // clang-format off
-  Handle(AIS_InteractiveContext) mySelIter;    //!< iterator for current (selected) objects (IterSource_Selected)
+  Handle(VisualContext) mySelIter;    //!< iterator for current (selected) objects (IterSource_Selected)
   ViewerTest_DoubleMapIteratorOfDoubleMapOfInteractiveAndName myMapIter; //!< iterator for map of all objects (IterSource_All)
   // clang-format on
-  NCollection_Sequence<TCollection_AsciiString>           mySeq;
-  NCollection_Sequence<TCollection_AsciiString>::Iterator mySeqIter;
+  NCollection_Sequence<AsciiString1>           mySeq;
+  NCollection_Sequence<AsciiString1>::Iterator mySeqIter;
 
-  TCollection_AsciiString       myCurrentName; //!< current item name
+  AsciiString1       myCurrentName; //!< current item name
   Handle(RefObject)    myCurrentTrs;  //!< current item (as transient object)
-  Handle(AIS_InteractiveObject) myCurrent;     //!< current item
+  Handle(VisualEntity) myCurrent;     //!< current item
 
   IterSource mySource; //!< iterated collection
 };
 
 //! Parse interior style name.
-static bool parseInteriorStyle(const TCollection_AsciiString& theArg,
+static bool parseInteriorStyle(const AsciiString1& theArg,
                                Aspect_InteriorStyle&          theStyle)
 {
-  TCollection_AsciiString anArg(theArg);
+  AsciiString1 anArg(theArg);
   anArg.LowerCase();
   if (anArg == "empty")
   {
@@ -1713,9 +1713,9 @@ struct ViewerTest_AspectsChangeSet
 
   Standard_Integer         ToSetMaterial;
   Graphic3d_NameOfMaterial Material;
-  TCollection_AsciiString  MatName;
+  AsciiString1  MatName;
 
-  NCollection_Sequence<TopoDS_Shape> SubShapes;
+  NCollection_Sequence<TopoShape> SubShapes;
 
   Standard_Integer ToSetShowFreeBoundary;
   Standard_Integer ToSetFreeBoundaryWidth;
@@ -1747,11 +1747,11 @@ struct ViewerTest_AspectsChangeSet
 
   Standard_Integer        ToSetHatch;
   Standard_Integer        StdHatchStyle;
-  TCollection_AsciiString PathToHatchPattern;
+  AsciiString1 PathToHatchPattern;
 
   Standard_Integer             ToSetShadingModel;
   Graphic3d_TypeOfShadingModel ShadingModel;
-  TCollection_AsciiString      ShadingModelName;
+  AsciiString1      ShadingModelName;
 
   Standard_Integer     ToSetInterior;
   Aspect_InteriorStyle InteriorStyle;
@@ -1916,10 +1916,10 @@ struct ViewerTest_AspectsChangeSet
   }
 
   //! Apply aspects to specified drawer.
-  bool Apply(const Handle(Prs3d_Drawer)& theDrawer)
+  bool Apply(const Handle(StyleDrawer)& theDrawer)
   {
     bool                        toRecompute = false;
-    const Handle(Prs3d_Drawer)& aDefDrawer  = ViewerTest::GetAISContext()->DefaultDrawer();
+    const Handle(StyleDrawer)& aDefDrawer  = ViewerTest::GetAISContext()->DefaultDrawer();
     if (ToSetShowFreeBoundary != 0)
     {
       theDrawer->SetFreeBoundaryDraw(ToSetShowFreeBoundary == 1);
@@ -2099,7 +2099,7 @@ struct ViewerTest_AspectsChangeSet
           if (!PathToHatchPattern.IsEmpty())
           {
             Handle(Image_AlienPixMap) anImage = new Image_AlienPixMap();
-            if (anImage->Load(TCollection_AsciiString(PathToHatchPattern.ToCString())))
+            if (anImage->Load(AsciiString1(PathToHatchPattern.ToCString())))
             {
               anAsp->SetHatchStyle(new Graphic3d_HatchStyle(anImage));
             }
@@ -2197,12 +2197,12 @@ struct ViewerTest_AspectsChangeSet
 
 //=================================================================================================
 
-static Standard_Integer VAspects(Draw_Interpretor& theDI,
+static Standard_Integer VAspects(DrawInterpreter& theDI,
                                  Standard_Integer  theArgNb,
                                  const char**      theArgVec)
 {
-  TCollection_AsciiString               aCmdName(theArgVec[0]);
-  const Handle(AIS_InteractiveContext)& aCtx = ViewerTest::GetAISContext();
+  AsciiString1               aCmdName(theArgVec[0]);
+  const Handle(VisualContext)& aCtx = ViewerTest::GetAISContext();
   ViewerTest_AutoUpdater                anUpdateTool(aCtx, ViewerTest::CurrentView());
   if (aCtx.IsNull())
   {
@@ -2212,10 +2212,10 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
 
   Standard_Integer                              anArgIter  = 1;
   Standard_Boolean                              isDefaults = Standard_False;
-  NCollection_Sequence<TCollection_AsciiString> aNames;
+  NCollection_Sequence<AsciiString1> aNames;
   for (; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg = theArgVec[anArgIter];
+    AsciiString1 anArg = theArgVec[anArgIter];
     if (anUpdateTool.parseRedrawMode(anArg))
     {
       continue;
@@ -2296,7 +2296,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
         aNames.Value(aNames.Upper() - 0).ToCString(),
       };
 
-      Standard_Integer aNbParsed = Draw::ParseColor(3, anArgVec, aChangeSet->Color);
+      Standard_Integer aNbParsed = Draw1::ParseColor(3, anArgVec, aChangeSet->Color);
       isOk                       = aNbParsed == 3;
       aNames.Remove(aNames.Length());
       aNames.Remove(aNames.Length());
@@ -2428,7 +2428,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
   }
   for (; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg = theArgVec[anArgIter];
+    AsciiString1 anArg = theArgVec[anArgIter];
     anArg.LowerCase();
     if (anArg == "-setwidth" || anArg == "-width" || anArg == "-setlinewidth"
         || anArg == "-linewidth" || anArg == "-setedgewidth" || anArg == "-setedgeswidth"
@@ -2442,7 +2442,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
         return 1;
       }
 
-      const Standard_Real aWidth = Draw::Atof(theArgVec[anArgIter]);
+      const Standard_Real aWidth = Draw1::Atof(theArgVec[anArgIter]);
       if (anArg == "-setedgewidth" || anArg == "-setedgeswidth" || anArg == "-edgewidth"
           || anArg == "-edgeswidth" || aCmdName == "vsetedgetype")
       {
@@ -2484,7 +2484,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
         return 1;
       }
       aChangeSet->ToSetTransparency = 1;
-      aChangeSet->Transparency      = Draw::Atof(theArgVec[anArgIter]);
+      aChangeSet->Transparency      = Draw1::Atof(theArgVec[anArgIter]);
       if (aChangeSet->Transparency >= 0.0 && aChangeSet->Transparency <= Precision::Confusion())
       {
         aChangeSet->ToSetTransparency = -1;
@@ -2501,7 +2501,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
       aChangeSet->ToSetAlphaMode = 1;
       aChangeSet->AlphaCutoff    = 0.5f;
       {
-        TCollection_AsciiString aParam(theArgVec[anArgIter]);
+        AsciiString1 aParam(theArgVec[anArgIter]);
         aParam.LowerCase();
         if (aParam == "opaque")
         {
@@ -2532,7 +2532,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
 
       if (anArgIter + 1 < theArgNb && theArgVec[anArgIter + 1][0] != '-')
       {
-        TCollection_AsciiString aParam2(theArgVec[anArgIter + 1]);
+        AsciiString1 aParam2(theArgVec[anArgIter + 1]);
         if (aParam2.IsRealValue(Standard_True))
         {
           aChangeSet->AlphaCutoff = (float)aParam2.RealValue();
@@ -2550,7 +2550,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
 
       aChangeSet->ToSetFaceCulling = 1;
       {
-        TCollection_AsciiString aParam(theArgVec[anArgIter]);
+        AsciiString1 aParam(theArgVec[anArgIter]);
         aParam.LowerCase();
         if (aParam == "auto")
         {
@@ -2584,7 +2584,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
       }
 
       aChangeSet->ToSetVisibility = 1;
-      aChangeSet->Visibility      = Draw::Atoi(theArgVec[anArgIter]);
+      aChangeSet->Visibility      = Draw1::Atoi(theArgVec[anArgIter]);
     }
     else if (anArg == "-setalpha" || anArg == "-alpha")
     {
@@ -2594,7 +2594,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
         return 1;
       }
       aChangeSet->ToSetTransparency = 1;
-      aChangeSet->Transparency      = Draw::Atof(theArgVec[anArgIter]);
+      aChangeSet->Transparency      = Draw1::Atof(theArgVec[anArgIter]);
       if (aChangeSet->Transparency < 0.0 || aChangeSet->Transparency > 1.0)
       {
         Message::SendFail() << "Error: the transparency should be within [0; 1] range (specified "
@@ -2621,7 +2621,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
     {
       Quantity_Color   aColor;
       Standard_Integer aNbParsed =
-        Draw::ParseColor(theArgNb - anArgIter - 1, theArgVec + anArgIter + 1, aColor);
+        Draw1::ParseColor(theArgNb - anArgIter - 1, theArgVec + anArgIter + 1, aColor);
       if (aNbParsed == 0)
       {
         Message::SendFail() << "Syntax error at '" << anArg << "'";
@@ -2718,7 +2718,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
         Message::SendFail() << "Error: wrong syntax at " << anArg;
         return 1;
       }
-      aChangeSet->StippleLineFactor = (uint16_t)Draw::Atoi(theArgVec[anArgIter]);
+      aChangeSet->StippleLineFactor = (uint16_t)Draw1::Atoi(theArgVec[anArgIter]);
     }
     else if (anArg == "-setmarkertype" || anArg == "-markertype" || anArg == "-setpointtype"
              || anArg == "-pointtype")
@@ -2751,7 +2751,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
         return 1;
       }
       aChangeSet->ToSetMarkerSize = 1;
-      aChangeSet->MarkerSize      = Draw::Atof(theArgVec[anArgIter]);
+      aChangeSet->MarkerSize      = Draw1::Atof(theArgVec[anArgIter]);
     }
     else if (anArg == "-unsetmarkersize" || anArg == "-unsetpointsize")
     {
@@ -2813,7 +2813,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
           break;
         }
 
-        TopoDS_Shape aSubShape = DBRep::Get(aSubShapeName);
+        TopoShape aSubShape = DBRep1::Get(aSubShapeName);
         if (aSubShape.IsNull())
         {
           Message::SendFail() << "Error: shape " << aSubShapeName << " doesn't found!";
@@ -2832,7 +2832,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
              || anArg == "-fb")
     {
       bool toEnable = true;
-      if (!Draw::ParseOnOff(anArgIter + 1 < theArgNb ? theArgVec[anArgIter + 1] : "", toEnable))
+      if (!Draw1::ParseOnOff(anArgIter + 1 < theArgNb ? theArgVec[anArgIter + 1] : "", toEnable))
       {
         Message::SendFail() << "Error: wrong syntax at " << anArg;
         return 1;
@@ -2849,7 +2849,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
         return 1;
       }
       aChangeSet->ToSetFreeBoundaryWidth = 1;
-      aChangeSet->FreeBoundaryWidth      = Draw::Atof(theArgVec[anArgIter]);
+      aChangeSet->FreeBoundaryWidth      = Draw1::Atof(theArgVec[anArgIter]);
     }
     else if (anArg == "-unsetfreeboundarywidth" || anArg == "-unsetfbwidth")
     {
@@ -2859,7 +2859,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
     else if (anArg == "-setfreeboundarycolor" || anArg == "-freeboundarycolor"
              || anArg == "-setfbcolor" || anArg == "-fbcolor")
     {
-      Standard_Integer aNbParsed = Draw::ParseColor(theArgNb - anArgIter - 1,
+      Standard_Integer aNbParsed = Draw1::ParseColor(theArgNb - anArgIter - 1,
                                                     theArgVec + anArgIter + 1,
                                                     aChangeSet->FreeBoundaryColor);
       if (aNbParsed == 0)
@@ -2879,7 +2879,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
              || anArg == "-setisoontriang" || anArg == "-isoontriang")
     {
       bool toEnable = true;
-      if (!Draw::ParseOnOff(anArgIter + 1 < theArgNb ? theArgVec[anArgIter + 1] : "", toEnable))
+      if (!Draw1::ParseOnOff(anArgIter + 1 < theArgNb ? theArgVec[anArgIter + 1] : "", toEnable))
       {
         Message::SendFail() << "Error: wrong syntax at " << anArg;
         return 1;
@@ -2896,7 +2896,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
              || anArg == "-faceboundary" || anArg == "-faceboundaries" || anArg == "-faceedges")
     {
       bool toEnable = true;
-      if (!Draw::ParseOnOff(anArgIter + 1 < theArgNb ? theArgVec[anArgIter + 1] : "", toEnable))
+      if (!Draw1::ParseOnOff(anArgIter + 1 < theArgNb ? theArgVec[anArgIter + 1] : "", toEnable))
       {
         Message::SendFail() << "Error: wrong syntax at " << anArg;
         return 1;
@@ -2911,7 +2911,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
     }
     else if (anArg == "-setmostcontinuity" || anArg == "-mostcontinuity")
     {
-      TCollection_AsciiString aClassArg(anArgIter + 1 < theArgNb ? theArgVec[anArgIter + 1] : "");
+      AsciiString1 aClassArg(anArgIter + 1 < theArgNb ? theArgVec[anArgIter + 1] : "");
       aClassArg.LowerCase();
       GeomAbs_Shape aClass = GeomAbs_CN;
       if (aClassArg == "c0" || aClassArg == "0")
@@ -2960,7 +2960,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
         return 1;
       }
       aChangeSet->ToSetMaxParamValue = 1;
-      aChangeSet->MaxParamValue      = Draw::Atof(theArgVec[anArgIter]);
+      aChangeSet->MaxParamValue      = Draw1::Atof(theArgVec[anArgIter]);
     }
     else if (anArg == "-setsensitivity" || anArg == "-sensitivity")
     {
@@ -2984,8 +2984,8 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
         return 1;
       }
       aChangeSet->ToSetSensitivity = 1;
-      aChangeSet->SelectionMode    = Draw::Atoi(theArgVec[++anArgIter]);
-      aChangeSet->Sensitivity      = Draw::Atoi(theArgVec[++anArgIter]);
+      aChangeSet->SelectionMode    = Draw1::Atoi(theArgVec[++anArgIter]);
+      aChangeSet->Sensitivity      = Draw1::Atoi(theArgVec[++anArgIter]);
     }
     else if (anArg == "-sethatch" || anArg == "-hatch")
     {
@@ -3004,10 +3004,10 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
       }
 
       aChangeSet->ToSetHatch = 1;
-      TCollection_AsciiString anArgHatch(theArgVec[++anArgIter]);
+      AsciiString1 anArgHatch(theArgVec[++anArgIter]);
       if (anArgHatch.Length() <= 2)
       {
-        const Standard_Integer anIntStyle = Draw::Atoi(anArgHatch.ToCString());
+        const Standard_Integer anIntStyle = Draw1::Atoi(anArgHatch.ToCString());
         if (anIntStyle < 0 || anIntStyle >= Aspect_HS_NB)
         {
           Message::SendFail() << "Error: hatch style is out of range [0, " << (Aspect_HS_NB - 1)
@@ -3067,7 +3067,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
              || anArg == "-drawsilhouette" || anArg == "-silhouette")
     {
       bool toDrawOutline = true;
-      if (anArgIter + 1 < theArgNb && Draw::ParseOnOff(theArgVec[anArgIter + 1], toDrawOutline))
+      if (anArgIter + 1 < theArgNb && Draw1::ParseOnOff(theArgVec[anArgIter + 1], toDrawOutline))
       {
         ++anArgIter;
       }
@@ -3077,7 +3077,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
              || anArg == "-drawedge" || anArg == "-edges")
     {
       bool toDrawEdges = true;
-      if (anArgIter + 1 < theArgNb && Draw::ParseOnOff(theArgVec[anArgIter + 1], toDrawEdges))
+      if (anArgIter + 1 < theArgNb && Draw1::ParseOnOff(theArgVec[anArgIter + 1], toDrawEdges))
       {
         ++anArgIter;
       }
@@ -3087,7 +3087,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
              || anArg == "-skipfirstedge")
     {
       bool isQuadMode = true;
-      if (anArgIter + 1 < theArgNb && Draw::ParseOnOff(theArgVec[anArgIter + 1], isQuadMode))
+      if (anArgIter + 1 < theArgNb && Draw1::ParseOnOff(theArgVec[anArgIter + 1], isQuadMode))
       {
         ++anArgIter;
       }
@@ -3096,7 +3096,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
     else if (anArg == "-setedgecolor" || anArg == "-setedgescolor" || anArg == "-edgecolor"
              || anArg == "-edgescolor")
     {
-      Standard_Integer aNbParsed = Draw::ParseColor(theArgNb - anArgIter - 1,
+      Standard_Integer aNbParsed = Draw1::ParseColor(theArgNb - anArgIter - 1,
                                                     theArgVec + anArgIter + 1,
                                                     aChangeSet->EdgeColor);
       if (aNbParsed == 0)
@@ -3174,7 +3174,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
     else if (anArg == "-dumpcompact")
     {
       toCompactDump = Standard_False;
-      if (++anArgIter >= theArgNb && Draw::ParseOnOff(theArgVec[anArgIter + 1], toCompactDump))
+      if (++anArgIter >= theArgNb && Draw1::ParseOnOff(theArgVec[anArgIter + 1], toCompactDump))
         ++anArgIter;
     }
     else if (anArg == "-dumpdepth")
@@ -3184,7 +3184,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
         Message::SendFail() << "Error: wrong syntax at " << anArg;
         return 1;
       }
-      aDumpDepth = Draw::Atoi(theArgVec[anArgIter]);
+      aDumpDepth = Draw1::Atoi(theArgVec[anArgIter]);
     }
     else
     {
@@ -3207,7 +3207,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
   // all changed values will be set to DefaultDrawer.
   if (isDefaults)
   {
-    const Handle(Prs3d_Drawer)& aDrawer = aCtx->DefaultDrawer();
+    const Handle(StyleDrawer)& aDrawer = aCtx->DefaultDrawer();
     aChangeSet->Apply(aDrawer);
     if (aChangeSet->ToSetLineWidth != 0)
     {
@@ -3241,7 +3241,7 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
     // redisplay all objects in context
     for (ViewTest_PrsIter aPrsIter(aNames); aPrsIter.More(); aPrsIter.Next())
     {
-      const Handle(AIS_InteractiveObject)& aPrs = aPrsIter.Current();
+      const Handle(VisualEntity)& aPrs = aPrsIter.Current();
       if (!aPrs.IsNull())
       {
         aCtx->Redisplay(aPrs, Standard_False);
@@ -3262,23 +3262,23 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
 
   for (ViewTest_PrsIter aPrsIter(aNames); aPrsIter.More(); aPrsIter.Next())
   {
-    const TCollection_AsciiString& aName = aPrsIter.CurrentName();
-    Handle(AIS_InteractiveObject)  aPrs  = aPrsIter.Current();
+    const AsciiString1& aName = aPrsIter.CurrentName();
+    Handle(VisualEntity)  aPrs  = aPrsIter.Current();
     if (aPrs.IsNull())
     {
       return 1;
     }
 
-    Handle(Prs3d_Drawer)     aDrawer = aPrs->Attributes();
+    Handle(StyleDrawer)     aDrawer = aPrs->Attributes();
     Handle(AIS_ColoredShape) aColoredPrs;
     Standard_Boolean         toDisplay   = Standard_False;
     Standard_Boolean         toRedisplay = Standard_False;
     if (aChanges.Length() > 1 || aChangeSet->ToSetVisibility == 1)
     {
-      Handle(AIS_Shape) aShapePrs = Handle(AIS_Shape)::DownCast(aPrs);
+      Handle(VisualShape) aShapePrs = Handle(VisualShape)::DownCast(aPrs);
       if (aShapePrs.IsNull())
       {
-        Message::SendFail() << "Error: an object " << aName << " is not an AIS_Shape presentation!";
+        Message::SendFail() << "Error: an object " << aName << " is not an VisualShape presentation!";
         return 1;
       }
       aColoredPrs = Handle(AIS_ColoredShape)::DownCast(aShapePrs);
@@ -3357,11 +3357,11 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
       for (aChangesIter.Next(); aChangesIter.More(); aChangesIter.Next())
       {
         aChangeSet = &aChangesIter.ChangeValue();
-        for (NCollection_Sequence<TopoDS_Shape>::Iterator aSubShapeIter(aChangeSet->SubShapes);
+        for (NCollection_Sequence<TopoShape>::Iterator aSubShapeIter(aChangeSet->SubShapes);
              aSubShapeIter.More();
              aSubShapeIter.Next())
         {
-          const TopoDS_Shape& aSubShape = aSubShapeIter.Value();
+          const TopoShape& aSubShape = aSubShapeIter.Value();
           if (!aChangeSet->IsEmpty())
           {
             Handle(AIS_ColoredDrawer) aCurColDrawer = aColoredPrs->CustomAspects(aSubShape);
@@ -3431,9 +3431,9 @@ static Standard_Integer VAspects(Draw_Interpretor& theDI,
 // purpose  : Display only a selected or named  object
 //           if there is no selected or named object s, nothing is done
 //==============================================================================
-static int VDonly2(Draw_Interpretor&, Standard_Integer theArgNb, const char** theArgVec)
+static int VDonly2(DrawInterpreter&, Standard_Integer theArgNb, const char** theArgVec)
 {
-  const Handle(AIS_InteractiveContext)& aCtx = ViewerTest::GetAISContext();
+  const Handle(VisualContext)& aCtx = ViewerTest::GetAISContext();
   ViewerTest_AutoUpdater                anUpdateTool(aCtx, ViewerTest::CurrentView());
   if (aCtx.IsNull())
   {
@@ -3469,8 +3469,8 @@ static int VDonly2(Draw_Interpretor&, Standard_Integer theArgNb, const char** th
     // display only specified objects
     for (; anArgIter < theArgNb; ++anArgIter)
     {
-      TCollection_AsciiString       aName = theArgVec[anArgIter];
-      Handle(AIS_InteractiveObject) aShape;
+      AsciiString1       aName = theArgVec[anArgIter];
+      Handle(VisualEntity) aShape;
       if (GetMapOfAIS().Find2(aName, aShape) && !aShape.IsNull())
       {
         aCtx->Display(aShape, Standard_False);
@@ -3489,7 +3489,7 @@ static int VDonly2(Draw_Interpretor&, Standard_Integer theArgNb, const char** th
       continue;
     }
 
-    if (const Handle(AIS_InteractiveObject)& aShape = anIter.Key1())
+    if (const Handle(VisualEntity)& aShape = anIter.Key1())
     {
       aCtx->Erase(aShape, Standard_False);
     }
@@ -3505,9 +3505,9 @@ static int VDonly2(Draw_Interpretor&, Standard_Integer theArgNb, const char** th
 //           If -context is in arguments, the object is not deleted from the map of
 //           objects (deleted only from the current context).
 //==============================================================================
-int VRemove(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theArgVec)
+int VRemove(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
-  const Handle(AIS_InteractiveContext)& aCtx = ViewerTest::GetAISContext();
+  const Handle(VisualContext)& aCtx = ViewerTest::GetAISContext();
   ViewerTest_AutoUpdater                anUpdateTool(aCtx, ViewerTest::CurrentView());
   if (aCtx.IsNull())
   {
@@ -3523,7 +3523,7 @@ int VRemove(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** the
   Standard_Integer anArgIter = 1;
   for (; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg = theArgVec[anArgIter];
+    AsciiString1 anArg = theArgVec[anArgIter];
     anArg.LowerCase();
     if (anArg == "-context")
     {
@@ -3556,7 +3556,7 @@ int VRemove(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** the
     return 1;
   }
 
-  NCollection_List<TCollection_AsciiString> anIONameList;
+  NCollection_List<AsciiString1> anIONameList;
   if (toRemoveAll)
   {
     for (ViewerTest_DoubleMapIteratorOfDoubleMapOfInteractiveAndName anIter(GetMapOfAIS());
@@ -3570,7 +3570,7 @@ int VRemove(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** the
   {
     for (; anArgIter < theArgNb; ++anArgIter)
     {
-      const TCollection_AsciiString aName(theArgVec[anArgIter]);
+      const AsciiString1 aName(theArgVec[anArgIter]);
       if (aName.Search("*") != -1)
       {
         for (ViewerTest_DoubleMapIteratorOfDoubleMapOfInteractiveAndName aPrsIter(GetMapOfAIS());
@@ -3581,8 +3581,8 @@ int VRemove(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** the
           {
             continue;
           }
-          const TCollection_AsciiString aCheck =
-            TCollection_AsciiString("string match '") + aName + "' '" + aPrsIter.Key2() + "'";
+          const AsciiString1 aCheck =
+            AsciiString1("string match '") + aName + "' '" + aPrsIter.Key2() + "'";
           if (theDI.Eval(aCheck.ToCString()) == 0 && *theDI.Result() == '1')
           {
             anIONameList.Append(aPrsIter.Key2());
@@ -3592,7 +3592,7 @@ int VRemove(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** the
         continue;
       }
 
-      Handle(AIS_InteractiveObject) anIO;
+      Handle(VisualEntity) anIO;
       if (!GetMapOfAIS().Find2(aName, anIO))
       {
         if (toFailOnError)
@@ -3634,10 +3634,10 @@ int VRemove(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** the
   }
 
   // Unbind all removed objects from the map of displayed IO.
-  for (NCollection_List<TCollection_AsciiString>::Iterator anIter(anIONameList); anIter.More();
+  for (NCollection_List<AsciiString1>::Iterator anIter(anIONameList); anIter.More();
        anIter.Next())
   {
-    const Handle(AIS_InteractiveObject) anIO = GetMapOfAIS().Find2(anIter.Value());
+    const Handle(VisualEntity) anIO = GetMapOfAIS().Find2(anIter.Value());
     aCtx->Remove(anIO, Standard_False);
     if (toPrintInfo)
     {
@@ -3656,10 +3656,10 @@ int VRemove(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** the
 // purpose  : Erase some selected or named objects
 //           if there is no selected or named objects, the whole viewer is erased
 //==============================================================================
-int VErase(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theArgVec)
+int VErase(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
-  const Handle(AIS_InteractiveContext)& aCtx  = ViewerTest::GetAISContext();
-  const Handle(V3d_View)&               aView = ViewerTest::CurrentView();
+  const Handle(VisualContext)& aCtx  = ViewerTest::GetAISContext();
+  const Handle(ViewWindow)&               aView = ViewerTest::CurrentView();
   ViewerTest_AutoUpdater                anUpdateTool(aCtx, aView);
   if (aCtx.IsNull())
   {
@@ -3668,7 +3668,7 @@ int VErase(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theA
   }
 
   const Standard_Boolean toEraseAll =
-    TCollection_AsciiString(theArgNb > 0 ? theArgVec[0] : "") == "veraseall";
+    AsciiString1(theArgNb > 0 ? theArgVec[0] : "") == "veraseall";
 
   Standard_Integer              anArgIter     = 1;
   Standard_Boolean              toEraseInView = Standard_False;
@@ -3676,7 +3676,7 @@ int VErase(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theA
   TColStd_SequenceOfAsciiString aNamesOfEraseIO;
   for (; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArgCase(theArgVec[anArgIter]);
+    AsciiString1 anArgCase(theArgVec[anArgIter]);
     anArgCase.LowerCase();
     if (anUpdateTool.parseRedrawMode(anArgCase))
     {
@@ -3705,19 +3705,19 @@ int VErase(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theA
   if (!aNamesOfEraseIO.IsEmpty())
   {
     // Erase named objects
-    NCollection_IndexedDataMap<Handle(AIS_InteractiveObject), TCollection_AsciiString> aPrsList;
+    NCollection_IndexedDataMap<Handle(VisualEntity), AsciiString1> aPrsList;
     for (TColStd_SequenceOfAsciiString::Iterator anIter(aNamesOfEraseIO); anIter.More();
          anIter.Next())
     {
-      const TCollection_AsciiString& aName = anIter.Value();
+      const AsciiString1& aName = anIter.Value();
       if (aName.Search("*") != -1)
       {
         for (ViewerTest_DoubleMapIteratorOfDoubleMapOfInteractiveAndName aPrsIter(GetMapOfAIS());
              aPrsIter.More();
              aPrsIter.Next())
         {
-          const TCollection_AsciiString aCheck =
-            TCollection_AsciiString("string match '") + aName + "' '" + aPrsIter.Key2() + "'";
+          const AsciiString1 aCheck =
+            AsciiString1("string match '") + aName + "' '" + aPrsIter.Key2() + "'";
           if (theDI.Eval(aCheck.ToCString()) == 0 && *theDI.Result() == '1')
           {
             aPrsList.Add(aPrsIter.Key1(), aPrsIter.Key2());
@@ -3727,7 +3727,7 @@ int VErase(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theA
       }
       else
       {
-        Handle(AIS_InteractiveObject) anIO;
+        Handle(VisualEntity) anIO;
         if (!GetMapOfAIS().Find2(aName, anIO))
         {
           if (toFailOnError)
@@ -3743,8 +3743,8 @@ int VErase(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theA
       }
     }
 
-    for (NCollection_IndexedDataMap<Handle(AIS_InteractiveObject),
-                                    TCollection_AsciiString>::Iterator anIter(aPrsList);
+    for (NCollection_IndexedDataMap<Handle(VisualEntity),
+                                    AsciiString1>::Iterator anIter(aPrsList);
          anIter.More();
          anIter.Next())
     {
@@ -3766,7 +3766,7 @@ int VErase(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theA
          anIter.More();
          anIter.Next())
     {
-      const Handle(AIS_InteractiveObject)& anIO = anIter.Key1();
+      const Handle(VisualEntity)& anIO = anIter.Key1();
       if (!anIO.IsNull() && aCtx->IsSelected(anIO))
       {
         theDI << anIter.Key2() << " ";
@@ -3789,7 +3789,7 @@ int VErase(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theA
          anIter.More();
          anIter.Next())
     {
-      const Handle(AIS_InteractiveObject)& anIO = anIter.Key1();
+      const Handle(VisualEntity)& anIO = anIter.Key1();
       if (!anIO.IsNull())
       {
         if (toEraseInView)
@@ -3811,10 +3811,10 @@ int VErase(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theA
 // function : VDisplayAll
 // purpose  : Display all the objects of the Map
 //==============================================================================
-static int VDisplayAll(Draw_Interpretor&, Standard_Integer theArgNb, const char** theArgVec)
+static int VDisplayAll(DrawInterpreter&, Standard_Integer theArgNb, const char** theArgVec)
 
 {
-  const Handle(AIS_InteractiveContext)& aCtx = ViewerTest::GetAISContext();
+  const Handle(VisualContext)& aCtx = ViewerTest::GetAISContext();
   ViewerTest_AutoUpdater                anUpdateTool(aCtx, ViewerTest::CurrentView());
   if (aCtx.IsNull())
   {
@@ -3825,7 +3825,7 @@ static int VDisplayAll(Draw_Interpretor&, Standard_Integer theArgNb, const char*
   Standard_Integer anArgIter = 1;
   for (; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArgCase(theArgVec[anArgIter]);
+    AsciiString1 anArgCase(theArgVec[anArgIter]);
     anArgCase.LowerCase();
     if (anUpdateTool.parseRedrawMode(anArgCase))
     {
@@ -3859,8 +3859,8 @@ static int VDisplayAll(Draw_Interpretor&, Standard_Integer theArgNb, const char*
 }
 
 //! Auxiliary method to check if presentation exists
-inline Standard_Integer checkMode(const Handle(AIS_InteractiveContext)& theCtx,
-                                  const Handle(AIS_InteractiveObject)&  theIO,
+inline Standard_Integer checkMode(const Handle(VisualContext)& theCtx,
+                                  const Handle(VisualEntity)&  theIO,
                                   const Standard_Integer                theMode)
 {
   if (theIO.IsNull() || theCtx.IsNull())
@@ -3895,13 +3895,13 @@ enum ViewerTest_BndAction
 };
 
 //! Auxiliary method to print bounding box of presentation
-inline void bndPresentation(Draw_Interpretor&                         theDI,
+inline void bndPresentation(DrawInterpreter&                         theDI,
                             const Handle(PrsMgr_PresentationManager)& theMgr,
-                            const Handle(AIS_InteractiveObject)&      theObj,
+                            const Handle(VisualEntity)&      theObj,
                             const Standard_Integer                    theDispMode,
-                            const TCollection_AsciiString&            theName,
+                            const AsciiString1&            theName,
                             const ViewerTest_BndAction                theAction,
-                            const Handle(Prs3d_Drawer)&               theStyle)
+                            const Handle(StyleDrawer)&               theStyle)
 {
   switch (theAction)
   {
@@ -3935,9 +3935,9 @@ inline void bndPresentation(Draw_Interpretor&                         theDI,
 
 //=================================================================================================
 
-int VBounding(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theArgVec)
+int VBounding(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
-  Handle(AIS_InteractiveContext) aCtx = ViewerTest::GetAISContext();
+  Handle(VisualContext) aCtx = ViewerTest::GetAISContext();
   ViewerTest_AutoUpdater         anUpdateTool(aCtx, ViewerTest::CurrentView());
   if (aCtx.IsNull())
   {
@@ -3948,12 +3948,12 @@ int VBounding(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** t
   ViewerTest_BndAction anAction = BndAction_Show;
   Standard_Integer     aMode    = -1;
 
-  Handle(Prs3d_Drawer) aStyle;
+  Handle(StyleDrawer) aStyle;
 
   Standard_Integer anArgIter = 1;
   for (; anArgIter < theArgNb; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     if (anArg == "-print")
     {
@@ -3974,7 +3974,7 @@ int VBounding(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** t
         Message::SendFail() << "Error: wrong syntax at " << anArg;
         return 1;
       }
-      aMode = Draw::Atoi(theArgVec[anArgIter]);
+      aMode = Draw1::Atoi(theArgVec[anArgIter]);
     }
     else if (!anUpdateTool.parseRedrawMode(anArg))
     {
@@ -3984,7 +3984,7 @@ int VBounding(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** t
 
   if (anAction == BndAction_Show)
   {
-    aStyle = new Prs3d_Drawer();
+    aStyle = new StyleDrawer();
     aStyle->SetMethod(Aspect_TOHM_BOUNDBOX);
     aStyle->SetColor(Quantity_NOC_GRAY99);
   }
@@ -3995,8 +3995,8 @@ int VBounding(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** t
     // has a list of names
     for (; anArgIter < theArgNb; ++anArgIter)
     {
-      TCollection_AsciiString       aName = theArgVec[anArgIter];
-      Handle(AIS_InteractiveObject) anIO;
+      AsciiString1       aName = theArgVec[anArgIter];
+      Handle(VisualEntity) anIO;
       if (!GetMapOfAIS().Find2(aName, anIO))
       {
         Message::SendFail() << "Error: presentation " << aName << " does not exist";
@@ -4018,7 +4018,7 @@ int VBounding(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** t
     // remove all currently selected objects
     for (aCtx->InitSelected(); aCtx->MoreSelected(); aCtx->NextSelected())
     {
-      Handle(AIS_InteractiveObject) anIO = aCtx->SelectedInteractive();
+      Handle(VisualEntity) anIO = aCtx->SelectedInteractive();
       aHighlightedMode                   = checkMode(aCtx, anIO, aMode);
       if (aHighlightedMode != -1)
       {
@@ -4039,7 +4039,7 @@ int VBounding(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** t
          anIter.More();
          anIter.Next())
     {
-      const Handle(AIS_InteractiveObject)& anIO = anIter.Key1();
+      const Handle(VisualEntity)& anIO = anIter.Key1();
       aHighlightedMode                          = checkMode(aCtx, anIO, aMode);
       if (aHighlightedMode != -1)
       {
@@ -4058,11 +4058,11 @@ int VBounding(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** t
 
 //=================================================================================================
 
-Standard_Integer VTexture(Draw_Interpretor& theDi,
+Standard_Integer VTexture(DrawInterpreter& theDi,
                           Standard_Integer  theArgsNb,
                           const char**      theArgVec)
 {
-  const Handle(AIS_InteractiveContext)& aCtx = ViewerTest::GetAISContext();
+  const Handle(VisualContext)& aCtx = ViewerTest::GetAISContext();
   if (aCtx.IsNull())
   {
     Message::SendFail() << "Error: no active view!";
@@ -4078,21 +4078,21 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
   Graphic3d_TypeOfTextureFilter      aFilter       = Graphic3d_TOTF_NEAREST;
   Graphic3d_LevelOfTextureAnisotropy anAnisoFilter = Graphic3d_LOTA_OFF;
 
-  Handle(AIS_InteractiveObject)                    aTexturedIO;
-  Handle(AIS_Shape)                                aTexturedShape;
+  Handle(VisualEntity)                    aTexturedIO;
+  Handle(VisualShape)                                aTexturedShape;
   Handle(Graphic3d_TextureSet)                     aTextureSetOld;
   NCollection_Vector<Handle(Graphic3d_TextureMap)> aTextureVecNew;
   bool toSetGenRepeat = false, toSetGenScale = false, toSetGenOrigin = false, toSetImage = false,
        toComputeUV = false;
 
-  const TCollection_AsciiString aCommandName(theArgVec[0]);
+  const AsciiString1 aCommandName(theArgVec[0]);
   bool                          toSetDefaults = aCommandName == "vtexdefault";
 
   ViewerTest_AutoUpdater anUpdateTool(aCtx, ViewerTest::CurrentView());
   for (Standard_Integer anArgIter = 1; anArgIter < theArgsNb; ++anArgIter)
   {
-    const TCollection_AsciiString aName     = theArgVec[anArgIter];
-    TCollection_AsciiString       aNameCase = aName;
+    const AsciiString1 aName     = theArgVec[anArgIter];
+    AsciiString1       aNameCase = aName;
     aNameCase.LowerCase();
     if (anUpdateTool.parseRedrawMode(aName))
     {
@@ -4104,7 +4104,7 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
       if (aMapOfIO.IsBound2(aName))
       {
         aTexturedIO    = aMapOfIO.Find2(aName);
-        aTexturedShape = Handle(AIS_Shape)::DownCast(aTexturedIO);
+        aTexturedShape = Handle(VisualShape)::DownCast(aTexturedIO);
       }
       if (aTexturedIO.IsNull())
       {
@@ -4126,8 +4126,8 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
       }
       if (anArgIter < theArgsNb)
       {
-        TCollection_AsciiString aValU(theArgVec[anArgIter]);
-        TCollection_AsciiString aValUCase = aValU;
+        AsciiString1 aValU(theArgVec[anArgIter]);
+        AsciiString1 aValUCase = aValU;
         aValUCase.LowerCase();
         toSetGenScale = true;
         if (aValUCase == "off")
@@ -4137,7 +4137,7 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
         }
         else if (anArgIter + 1 < theArgsNb)
         {
-          TCollection_AsciiString aValV(theArgVec[anArgIter + 1]);
+          AsciiString1 aValV(theArgVec[anArgIter + 1]);
           if (aValU.IsRealValue(Standard_True) && aValV.IsRealValue(Standard_True))
           {
             aTexturedShape->SetTextureScaleUV(gp_Pnt2d(aValU.RealValue(), aValV.RealValue()));
@@ -4159,8 +4159,8 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
       }
       if (anArgIter < theArgsNb)
       {
-        TCollection_AsciiString aValU(theArgVec[anArgIter]);
-        TCollection_AsciiString aValUCase = aValU;
+        AsciiString1 aValU(theArgVec[anArgIter]);
+        AsciiString1 aValUCase = aValU;
         aValUCase.LowerCase();
         toSetGenOrigin = true;
         if (aValUCase == "off")
@@ -4170,7 +4170,7 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
         }
         else if (anArgIter + 1 < theArgsNb)
         {
-          TCollection_AsciiString aValV(theArgVec[anArgIter + 1]);
+          AsciiString1 aValV(theArgVec[anArgIter + 1]);
           if (aValU.IsRealValue(Standard_True) && aValV.IsRealValue(Standard_True))
           {
             aTexturedShape->SetTextureOriginUV(gp_Pnt2d(aValU.RealValue(), aValV.RealValue()));
@@ -4192,8 +4192,8 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
       }
       if (anArgIter < theArgsNb)
       {
-        TCollection_AsciiString aValU(theArgVec[anArgIter]);
-        TCollection_AsciiString aValUCase = aValU;
+        AsciiString1 aValU(theArgVec[anArgIter]);
+        AsciiString1 aValUCase = aValU;
         aValUCase.LowerCase();
         toSetGenRepeat = true;
         if (aValUCase == "off")
@@ -4203,7 +4203,7 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
         }
         else if (anArgIter + 1 < theArgsNb)
         {
-          TCollection_AsciiString aValV(theArgVec[anArgIter + 1]);
+          AsciiString1 aValV(theArgVec[anArgIter + 1]);
           if (aValU.IsRealValue(Standard_True) && aValV.IsRealValue(Standard_True))
           {
             aTexturedShape->SetTextureRepeatUV(gp_Pnt2d(aValU.RealValue(), aValV.RealValue()));
@@ -4217,15 +4217,15 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
     }
     else if (aNameCase == "-modulate" || aNameCase == "-nomodulate")
     {
-      toModulate = Draw::ParseOnOffNoIterator(theArgsNb, theArgVec, anArgIter) ? 1 : 0;
+      toModulate = Draw1::ParseOnOffNoIterator(theArgsNb, theArgVec, anArgIter) ? 1 : 0;
     }
     else if (aNameCase == "-srgb" || aNameCase == "-nosrgb")
     {
-      toSetSRgb = Draw::ParseOnOffNoIterator(theArgsNb, theArgVec, anArgIter) ? 1 : 0;
+      toSetSRgb = Draw1::ParseOnOffNoIterator(theArgsNb, theArgVec, anArgIter) ? 1 : 0;
     }
     else if ((aNameCase == "-setfilter" || aNameCase == "-filter") && anArgIter + 1 < theArgsNb)
     {
-      TCollection_AsciiString aValue(theArgVec[anArgIter + 1]);
+      AsciiString1 aValue(theArgVec[anArgIter + 1]);
       aValue.LowerCase();
       ++anArgIter;
       toSetFilter = true;
@@ -4251,7 +4251,7 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
               || aNameCase == "-anisofilter")
              && anArgIter + 1 < theArgsNb)
     {
-      TCollection_AsciiString aValue(theArgVec[anArgIter + 1]);
+      AsciiString1 aValue(theArgVec[anArgIter + 1]);
       aValue.LowerCase();
       ++anArgIter;
       toSetAniso = true;
@@ -4281,7 +4281,7 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
               || aNameCase == "-angle" || aNameCase == "-trsfangle")
              && anArgIter + 1 < theArgsNb)
     {
-      aTrsfRotAngle  = Standard_ShortReal(Draw::Atof(theArgVec[anArgIter + 1]));
+      aTrsfRotAngle  = Standard_ShortReal(Draw1::Atof(theArgVec[anArgIter + 1]));
       toSetTrsfAngle = true;
       ++anArgIter;
     }
@@ -4289,15 +4289,15 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
               || aNameCase == "-translate" || aNameCase == "-translation")
              && anArgIter + 2 < theArgsNb)
     {
-      aTrsfTrans.x() = Standard_ShortReal(Draw::Atof(theArgVec[anArgIter + 1]));
-      aTrsfTrans.y() = Standard_ShortReal(Draw::Atof(theArgVec[anArgIter + 2]));
+      aTrsfTrans.x() = Standard_ShortReal(Draw1::Atof(theArgVec[anArgIter + 1]));
+      aTrsfTrans.y() = Standard_ShortReal(Draw1::Atof(theArgVec[anArgIter + 2]));
       toSetTrsfTrans = true;
       anArgIter += 2;
     }
     else if ((aNameCase == "-trsfscale") && anArgIter + 2 < theArgsNb)
     {
-      aTrsfScale.x() = Standard_ShortReal(Draw::Atof(theArgVec[anArgIter + 1]));
-      aTrsfScale.y() = Standard_ShortReal(Draw::Atof(theArgVec[anArgIter + 2]));
+      aTrsfScale.x() = Standard_ShortReal(Draw1::Atof(theArgVec[anArgIter + 1]));
+      aTrsfScale.y() = Standard_ShortReal(Draw1::Atof(theArgVec[anArgIter + 2]));
       toSetTrsfScale = true;
       anArgIter += 2;
     }
@@ -4307,7 +4307,7 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
     }
     else if ((aNameCase == "-video") && anArgIter + 1 < theArgsNb)
     {
-      const TCollection_AsciiString     anInput(theArgVec[++anArgIter]);
+      const AsciiString1     anInput(theArgVec[++anArgIter]);
       Handle(Graphic3d_MediaTextureSet) aMedia =
         Handle(Graphic3d_MediaTextureSet)::DownCast(aTextureSetOld);
       if (aMedia.IsNull())
@@ -4342,7 +4342,7 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
       TColStd_SequenceOfAsciiString aSlicesSeq;
       for (; anArgIter + 1 < theArgsNb; ++anArgIter)
       {
-        TCollection_AsciiString aSlicePath(theArgVec[anArgIter + 1]);
+        AsciiString1 aSlicePath(theArgVec[anArgIter + 1]);
         if (aSlicePath.StartsWith("-"))
         {
           break;
@@ -4356,10 +4356,10 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
         Message::SendFail() << "Syntax error at '" << aNameCase << "'";
         return 1;
       }
-      NCollection_Array1<TCollection_AsciiString> aSlices;
+      NCollection_Array1<AsciiString1> aSlices;
       aSlices.Resize(0, aSlicesSeq.Size() - 1, false);
       Standard_Integer aSliceIndex = 0;
-      for (const TCollection_AsciiString& aSliceIter : aSlicesSeq)
+      for (const AsciiString1& aSliceIter : aSlicesSeq)
       {
         aSlices[aSliceIndex++] = aSliceIter;
       }
@@ -4371,7 +4371,7 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
              && (aTextureVecNew.IsEmpty() || aNameCase.StartsWith("-tex")))
     {
       Standard_Integer        aTexIndex = 0;
-      TCollection_AsciiString aTexName  = aName;
+      AsciiString1 aTexName  = aName;
       if (aNameCase.StartsWith("-tex"))
       {
         if (anArgIter + 1 >= theArgsNb || aNameCase.Length() < 5)
@@ -4380,7 +4380,7 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
           return 1;
         }
 
-        TCollection_AsciiString aTexIndexStr = aNameCase.SubString(5, aNameCase.Length());
+        AsciiString1 aTexIndexStr = aNameCase.SubString(5, aNameCase.Length());
         if (!aTexIndexStr.IsIntegerValue())
         {
           Message::SendFail() << "Syntax error: invalid argument '" << theArgVec[anArgIter] << "'";
@@ -4413,12 +4413,12 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
       }
       else if (aTexName == "?")
       {
-        const TCollection_AsciiString aTextureFolder = Graphic3d_TextureRoot::TexturesFolder();
+        const AsciiString1 aTextureFolder = Graphic3d_TextureRoot::TexturesFolder();
 
         theDi << "\n Files in current directory : \n\n";
         theDi.Eval("glob -nocomplain *");
 
-        TCollection_AsciiString aCmnd("glob -nocomplain ");
+        AsciiString1 aCmnd("glob -nocomplain ");
         aCmnd += aTextureFolder;
         aCmnd += "/* ";
 
@@ -4428,7 +4428,7 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
       }
       else if (aTexName != "off")
       {
-        if (!OSD_File(aTexName).Exists())
+        if (!SystemFile(aTexName).Exists())
         {
           Message::SendFail() << "Syntax error: non-existing image file has been specified '"
                               << aTexName << "'.";
@@ -4482,7 +4482,7 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
             Handle(Graphic3d_Texture2D)::DownCast(aTextureOld);
           if (!aTex2dOld.IsNull() && !aTex2dNew.IsNull())
           {
-            TCollection_AsciiString aFilePathOld, aFilePathNew;
+            AsciiString1 aFilePathOld, aFilePathNew;
             aTextureOld->Path().SystemName(aFilePathOld);
             aTextureNew->Path().SystemName(aFilePathNew);
             if (aTex2dNew->Name() == aTex2dOld->Name() && aFilePathOld == aFilePathNew
@@ -4656,7 +4656,7 @@ Standard_Integer VTexture(Draw_Interpretor& theDi,
 }
 
 //! Auxiliary method to parse transformation persistence flags
-inline Standard_Boolean parseTrsfPersFlag(const TCollection_AsciiString& theFlagString,
+inline Standard_Boolean parseTrsfPersFlag(const AsciiString1& theFlagString,
                                           Graphic3d_TransModeFlags&      theFlags)
 {
   if (theFlagString == "zoom")
@@ -4700,7 +4700,7 @@ inline Standard_Boolean parseTrsfPersFlag(const TCollection_AsciiString& theFlag
 Standard_Boolean ViewerTest::ParseCorner(Standard_CString               theArg,
                                          Aspect_TypeOfTriedronPosition& theCorner)
 {
-  TCollection_AsciiString aString(theArg);
+  AsciiString1 aString(theArg);
   aString.LowerCase();
   if (aString == "center")
   {
@@ -4755,20 +4755,20 @@ Standard_Boolean ViewerTest::ParseCorner(Standard_CString               theArg,
 // author   : ege
 // purpose  : Display an object from its name
 //==============================================================================
-static int VDisplay2(Draw_Interpretor& theDI, Standard_Integer theArgNb, const char** theArgVec)
+static int VDisplay2(DrawInterpreter& theDI, Standard_Integer theArgNb, const char** theArgVec)
 {
   if (theArgNb < 2)
   {
     Message::SendFail("Syntax error: wrong number of arguments.");
     return 1;
   }
-  if (theArgNb == 2 && TCollection_AsciiString(theArgVec[1]) == "*")
+  if (theArgNb == 2 && AsciiString1(theArgVec[1]) == "*")
   {
     // alias
     return VDisplayAll(theDI, 1, theArgVec);
   }
 
-  Handle(AIS_InteractiveContext) aCtx = ViewerTest::GetAISContext();
+  Handle(VisualContext) aCtx = ViewerTest::GetAISContext();
   if (aCtx.IsNull())
   {
     ViewerTest::ViewerInit();
@@ -4792,8 +4792,8 @@ static int VDisplay2(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
   Standard_Integer                toDisplayInView = Standard_False;
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    const TCollection_AsciiString aName     = theArgVec[anArgIter];
-    TCollection_AsciiString       aNameCase = aName;
+    const AsciiString1 aName     = theArgVec[anArgIter];
+    AsciiString1       aNameCase = aName;
     aNameCase.LowerCase();
     if (anUpdateTool.parseRedrawMode(aName))
     {
@@ -4839,7 +4839,7 @@ static int VDisplay2(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
         return 1;
       }
 
-      anObjDispMode = Draw::Atoi(theArgVec[anArgIter]);
+      anObjDispMode = Draw1::Atoi(theArgVec[anArgIter]);
     }
     else if (aNameCase == "-himode" || aNameCase == "-highmode" || aNameCase == "-highlightmode")
     {
@@ -4849,7 +4849,7 @@ static int VDisplay2(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
         return 1;
       }
 
-      anObjHighMode = Draw::Atoi(theArgVec[anArgIter]);
+      anObjHighMode = Draw1::Atoi(theArgVec[anArgIter]);
     }
     else if (aNameCase == "-3d")
     {
@@ -4873,8 +4873,8 @@ static int VDisplay2(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
 
           if (anArgIter + 2 < theArgNb)
           {
-            TCollection_AsciiString anX(theArgVec[anArgIter + 1]);
-            TCollection_AsciiString anY(theArgVec[anArgIter + 2]);
+            AsciiString1 anX(theArgVec[anArgIter + 1]);
+            AsciiString1 anY(theArgVec[anArgIter + 2]);
             if (anX.IsIntegerValue() && anY.IsIntegerValue())
             {
               anArgIter += 2;
@@ -4894,7 +4894,7 @@ static int VDisplay2(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
 
       toSetTrsfPers                           = Standard_True;
       Graphic3d_TransModeFlags aTrsfPersFlags = Graphic3d_TMF_None;
-      TCollection_AsciiString  aPersFlags(theArgVec[anArgIter]);
+      AsciiString1  aPersFlags(theArgVec[anArgIter]);
       aPersFlags.LowerCase();
       if (!parseTrsfPersFlag(aPersFlags, aTrsfPersFlags))
       {
@@ -4920,9 +4920,9 @@ static int VDisplay2(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
         return 1;
       }
 
-      TCollection_AsciiString aX(theArgVec[++anArgIter]);
-      TCollection_AsciiString aY(theArgVec[++anArgIter]);
-      TCollection_AsciiString aZ = "0";
+      AsciiString1 aX(theArgVec[++anArgIter]);
+      AsciiString1 aY(theArgVec[++anArgIter]);
+      AsciiString1 aZ = "0";
       if (!aX.IsRealValue(Standard_True) || !aY.IsRealValue(Standard_True))
       {
         Message::SendFail() << "Error: wrong syntax at " << aName << ".";
@@ -4930,7 +4930,7 @@ static int VDisplay2(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
       }
       if (anArgIter + 1 < theArgNb)
       {
-        TCollection_AsciiString aTemp = theArgVec[anArgIter + 1];
+        AsciiString1 aTemp = theArgVec[anArgIter + 1];
         if (aTemp.IsRealValue(Standard_True))
         {
           aZ = aTemp;
@@ -5010,7 +5010,7 @@ static int VDisplay2(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
              || aNameCase == "-noautotrian" || aNameCase == "-noautotriang"
              || aNameCase == "-noautotriangulation")
     {
-      isAutoTriang = Draw::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter) ? 1 : 0;
+      isAutoTriang = Draw1::ParseOnOffNoIterator(theArgNb, theArgVec, anArgIter) ? 1 : 0;
     }
     else if (aNameCase == "-erased" || aNameCase == "-load")
     {
@@ -5035,15 +5035,15 @@ static int VDisplay2(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
   // Display interactive objects
   for (Standard_Integer anIter = 1; anIter <= aNamesOfDisplayIO.Length(); ++anIter)
   {
-    const TCollection_AsciiString& aName = aNamesOfDisplayIO.Value(anIter);
-    Handle(AIS_InteractiveObject)  aShape;
+    const AsciiString1& aName = aNamesOfDisplayIO.Value(anIter);
+    Handle(VisualEntity)  aShape;
     if (!GetMapOfAIS().Find2(aName, aShape))
     {
-      // create the AIS_Shape from a name
-      TopoDS_Shape aDrawShape = DBRep::GetExisting(aName);
+      // create the VisualShape from a name
+      TopoShape aDrawShape = DBRep1::GetExisting(aName);
       if (!aDrawShape.IsNull())
       {
-        aShape = new AIS_Shape(aDrawShape);
+        aShape = new VisualShape(aDrawShape);
         if (isMutable != -1)
         {
           aShape->SetMutable(isMutable == 1);
@@ -5163,9 +5163,9 @@ static int VDisplay2(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
         theDI << "Display " << aName << "\n";
       }
 
-      // update the Shape in the AIS_Shape
-      TopoDS_Shape      aNewShape = DBRep::GetExisting(aName);
-      Handle(AIS_Shape) aShapePrs = Handle(AIS_Shape)::DownCast(aShape);
+      // update the Shape in the VisualShape
+      TopoShape      aNewShape = DBRep1::GetExisting(aName);
+      Handle(VisualShape) aShapePrs = Handle(VisualShape)::DownCast(aShape);
       if (!aShapePrs.IsNull())
       {
         if (!aShapePrs->Shape().IsEqual(aNewShape))
@@ -5198,7 +5198,7 @@ static int VDisplay2(Draw_Interpretor& theDI, Standard_Integer theArgNb, const c
 // function : VNbDisplayed
 // purpose  : Returns number of displayed objects
 //=======================================================================
-static Standard_Integer VNbDisplayed(Draw_Interpretor& theDi,
+static Standard_Integer VNbDisplayed(DrawInterpreter& theDi,
                                      Standard_Integer  theArgsNb,
                                      const char**      theArgVec)
 {
@@ -5208,14 +5208,14 @@ static Standard_Integer VNbDisplayed(Draw_Interpretor& theDi,
     return 1;
   }
 
-  Handle(AIS_InteractiveContext) aContextAIS = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContextAIS = ViewerTest::GetAISContext();
   if (aContextAIS.IsNull())
   {
     Message::SendFail("Syntax error: AIS context is not available.");
     return 1;
   }
 
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
     theDi << "use 'vinit' command before " << theArgVec[0] << "\n";
@@ -5231,9 +5231,9 @@ static Standard_Integer VNbDisplayed(Draw_Interpretor& theDi,
 
 //=================================================================================================
 
-static int VUpdate(Draw_Interpretor& /*theDi*/, Standard_Integer theArgsNb, const char** theArgVec)
+static int VUpdate(DrawInterpreter& /*theDi*/, Standard_Integer theArgsNb, const char** theArgVec)
 {
-  Handle(AIS_InteractiveContext) aContextAIS = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContextAIS = ViewerTest::GetAISContext();
   if (aContextAIS.IsNull())
   {
     Message::SendFail("Syntax error: AIS context is not available.");
@@ -5249,9 +5249,9 @@ static int VUpdate(Draw_Interpretor& /*theDi*/, Standard_Integer theArgsNb, cons
   AIS_ListOfInteractive aListOfIO;
   for (int anArgIt = 1; anArgIt < theArgsNb; ++anArgIt)
   {
-    TCollection_AsciiString aName = TCollection_AsciiString(theArgVec[anArgIt]);
+    AsciiString1 aName = AsciiString1(theArgVec[anArgIt]);
 
-    Handle(AIS_InteractiveObject) anAISObj;
+    Handle(VisualEntity) anAISObj;
     GetMapOfAIS().Find2(aName, anAISObj);
     if (anAISObj.IsNull())
     {
@@ -5277,12 +5277,12 @@ static int VUpdate(Draw_Interpretor& /*theDi*/, Standard_Integer theArgsNb, cons
 //==============================================================================
 // function : VShading
 // purpose  : Sharpen or roughten the quality of the shading
-// Draw arg : vshading ShapeName 0.1->0.00001  1 deg-> 30 deg
+// Draw1 arg : vshading ShapeName 0.1->0.00001  1 deg-> 30 deg
 //==============================================================================
-static int VShading(Draw_Interpretor&, Standard_Integer argc, const char** argv)
+static int VShading(DrawInterpreter&, Standard_Integer argc, const char** argv)
 {
   Standard_Real                 myDevCoef;
-  Handle(AIS_InteractiveObject) TheAisIO;
+  Handle(VisualEntity) TheAisIO;
 
   // Verifications
   const Standard_Boolean HaveToSet = (strcasecmp(argv[0], "vsetshading") == 0);
@@ -5292,17 +5292,17 @@ static int VShading(Draw_Interpretor&, Standard_Integer argc, const char** argv)
   }
   else
   {
-    myDevCoef = Draw::Atof(argv[2]);
+    myDevCoef = Draw1::Atof(argv[2]);
   }
 
-  TCollection_AsciiString name = argv[1];
+  AsciiString1 name = argv[1];
   GetMapOfAIS().Find2(name, TheAisIO);
   if (TheAisIO.IsNull())
   {
-    TopoDS_Shape aDrawShape = DBRep::GetExisting(name);
+    TopoShape aDrawShape = DBRep1::GetExisting(name);
     if (!aDrawShape.IsNull())
     {
-      TheAisIO = new AIS_Shape(aDrawShape);
+      TheAisIO = new VisualShape(aDrawShape);
     }
   }
 
@@ -5316,9 +5316,9 @@ static int VShading(Draw_Interpretor&, Standard_Integer argc, const char** argv)
 }
 
 //! Auxiliary method to print Interactive Object information
-static void objInfo(const NCollection_Map<Handle(AIS_InteractiveObject)>& theDetected,
-                    const Handle(AIS_InteractiveObject)&                  theObj,
-                    Draw_Interpretor&                                     theDI)
+static void objInfo(const NCollection_Map<Handle(VisualEntity)>& theDetected,
+                    const Handle(VisualEntity)&                  theObj,
+                    DrawInterpreter&                                     theDI)
 {
   if (theObj.IsNull())
   {
@@ -5338,7 +5338,7 @@ static void objInfo(const NCollection_Map<Handle(AIS_InteractiveObject)>& theDet
     }
     else if (theObj->Signature() == 2)
     {
-      theDI << " AIS_Axis";
+      theDI << " VisualAxis";
     }
     else if (theObj->Signature() == 6)
     {
@@ -5354,17 +5354,17 @@ static void objInfo(const NCollection_Map<Handle(AIS_InteractiveObject)>& theDet
     }
     else if (theObj->Signature() == 1)
     {
-      theDI << " AIS_Point";
+      theDI << " VisualPoint";
     }
     else if (theObj->Signature() == 4)
     {
       theDI << " AIS_PlaneTrihedron";
     }
   }
-  // AIS_Shape
+  // VisualShape
   else if (theObj->Type() == AIS_KindOfInteractive_Shape && theObj->Signature() == 0)
   {
-    theDI << " AIS_Shape";
+    theDI << " VisualShape";
   }
   else if (theObj->Type() == AIS_KindOfInteractive_Relation)
   {
@@ -5405,15 +5405,15 @@ static void objInfo(const NCollection_Map<Handle(AIS_InteractiveObject)>& theDet
 
 //! Print information about locally selected sub-shapes
 template <typename T>
-static void printLocalSelectionInfo(const T& theContext, Draw_Interpretor& theDI)
+static void printLocalSelectionInfo(const T& theContext, DrawInterpreter& theDI)
 {
   const Standard_Boolean isGlobalCtx =
-    (theContext->DynamicType() == STANDARD_TYPE(AIS_InteractiveContext));
-  TCollection_AsciiString aPrevName;
+    (theContext->DynamicType() == STANDARD_TYPE(VisualContext));
+  AsciiString1 aPrevName;
   for (theContext->InitSelected(); theContext->MoreSelected(); theContext->NextSelected())
   {
-    const Handle(AIS_Shape) aShapeIO =
-      Handle(AIS_Shape)::DownCast(theContext->SelectedInteractive());
+    const Handle(VisualShape) aShapeIO =
+      Handle(VisualShape)::DownCast(theContext->SelectedInteractive());
     const Handle(SelectMgr_EntityOwner) anOwner = theContext->SelectedOwner();
     if (aShapeIO.IsNull() || anOwner.IsNull())
       continue;
@@ -5422,17 +5422,17 @@ static void printLocalSelectionInfo(const T& theContext, Draw_Interpretor& theDI
       if (anOwner == aShapeIO->GlobalSelOwner())
         continue;
     }
-    const TopoDS_Shape aSubShape = theContext->SelectedShape();
+    const TopoShape aSubShape = theContext->SelectedShape();
     if (aSubShape.IsNull() || aShapeIO.IsNull() || !GetMapOfAIS().IsBound1(aShapeIO))
     {
       continue;
     }
 
-    const TCollection_AsciiString aParentName = GetMapOfAIS().Find1(aShapeIO);
+    const AsciiString1 aParentName = GetMapOfAIS().Find1(aShapeIO);
     TopTools_MapOfShape           aFilter;
     Standard_Integer              aNumber = 0;
-    const TopoDS_Shape            aShape  = aShapeIO->Shape();
-    for (TopExp_Explorer anIter(aShape, aSubShape.ShapeType()); anIter.More(); anIter.Next())
+    const TopoShape            aShape  = aShapeIO->Shape();
+    for (ShapeExplorer anIter(aShape, aSubShape.ShapeType()); anIter.More(); anIter.Next())
     {
       if (!aFilter.Add(anIter.Current()))
       {
@@ -5491,11 +5491,11 @@ static void printLocalSelectionInfo(const T& theContext, Draw_Interpretor& theDI
 
 //=================================================================================================
 
-static Standard_Integer VState(Draw_Interpretor& theDI,
+static Standard_Integer VState(DrawInterpreter& theDI,
                                Standard_Integer  theArgNb,
                                Standard_CString* theArgVec)
 {
-  Handle(AIS_InteractiveContext) aCtx = TheAISContext();
+  Handle(VisualContext) aCtx = TheAISContext();
   if (aCtx.IsNull())
   {
     Message::SendFail("Error: No opened viewer!");
@@ -5507,7 +5507,7 @@ static Standard_Integer VState(Draw_Interpretor& theDI,
 
   for (Standard_Integer anArgIdx = 1; anArgIdx < theArgNb; ++anArgIdx)
   {
-    TCollection_AsciiString anOption(theArgVec[anArgIdx]);
+    AsciiString1 anOption(theArgVec[anArgIdx]);
     anOption.LowerCase();
     if (anOption == "-detectedentities" || anOption == "-entities")
     {
@@ -5522,7 +5522,7 @@ static Standard_Integer VState(Draw_Interpretor& theDI,
   if (toCheckSelected)
   {
     aCtx->InitSelected();
-    TCollection_AsciiString hasSelected(static_cast<Standard_Integer>(aCtx->HasSelectedShape()));
+    AsciiString1 hasSelected(static_cast<Standard_Integer>(aCtx->HasSelectedShape()));
     theDI << "Check if context has selected shape: " << hasSelected << "\n";
 
     return 0;
@@ -5539,10 +5539,10 @@ static Standard_Integer VState(Draw_Interpretor& theDI,
       const SelectMgr_SortCriterion&          aPickData = aSelector->PickedData(aPickIter);
       const Handle(Select3D_SensitiveEntity)& anEntity  = aSelector->PickedEntity(aPickIter);
       const Handle(SelectMgr_EntityOwner)&    anOwner   = anEntity->OwnerId();
-      Handle(AIS_InteractiveObject)           anObj =
-        Handle(AIS_InteractiveObject)::DownCast(anOwner->Selectable());
+      Handle(VisualEntity)           anObj =
+        Handle(VisualEntity)::DownCast(anOwner->Selectable());
 
-      TCollection_AsciiString aName;
+      AsciiString1 aName;
       GetMapOfAIS().Find1(anObj, aName);
       aName.LeftJustify(20, ' ');
       char anInfoStr[512];
@@ -5599,11 +5599,11 @@ static Standard_Integer VState(Draw_Interpretor& theDI,
     return 0;
   }
 
-  NCollection_Map<Handle(AIS_InteractiveObject)> aDetected;
+  NCollection_Map<Handle(VisualEntity)> aDetected;
   for (aCtx->InitDetected(); aCtx->MoreDetected(); aCtx->NextDetected())
   {
     aDetected.Add(
-      Handle(AIS_InteractiveObject)::DownCast(aCtx->DetectedCurrentOwner()->Selectable()));
+      Handle(VisualEntity)::DownCast(aCtx->DetectedCurrentOwner()->Selectable()));
   }
 
   const Standard_Boolean toShowAll = (theArgNb >= 2 && *theArgVec[1] == '*');
@@ -5611,15 +5611,15 @@ static Standard_Integer VState(Draw_Interpretor& theDI,
   {
     for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
     {
-      const TCollection_AsciiString anObjName = theArgVec[anArgIter];
-      Handle(AIS_InteractiveObject) anObj;
+      const AsciiString1 anObjName = theArgVec[anArgIter];
+      Handle(VisualEntity) anObj;
       if (!GetMapOfAIS().Find2(anObjName, anObj))
       {
         theDI << anObjName << " doesn't exist!\n";
         continue;
       }
 
-      TCollection_AsciiString aName = anObjName;
+      AsciiString1 aName = anObjName;
       aName.LeftJustify(20, ' ');
       theDI << "  " << aName << " ";
       objInfo(aDetected, anObj, theDI);
@@ -5630,16 +5630,16 @@ static Standard_Integer VState(Draw_Interpretor& theDI,
 
   if (aCtx->NbSelected() > 0 && !toShowAll)
   {
-    NCollection_DataMap<Handle(SelectMgr_EntityOwner), TopoDS_Shape> anOwnerShapeMap;
+    NCollection_DataMap<Handle(SelectMgr_EntityOwner), TopoShape> anOwnerShapeMap;
     for (aCtx->InitSelected(); aCtx->MoreSelected(); aCtx->NextSelected())
     {
       const Handle(SelectMgr_EntityOwner) anOwner = aCtx->SelectedOwner();
-      const Handle(AIS_InteractiveObject) anObj =
-        Handle(AIS_InteractiveObject)::DownCast(anOwner->Selectable());
+      const Handle(VisualEntity) anObj =
+        Handle(VisualEntity)::DownCast(anOwner->Selectable());
       // handle whole object selection
       if (anOwner == anObj->GlobalSelOwner())
       {
-        TCollection_AsciiString aName;
+        AsciiString1 aName;
         GetMapOfAIS().Find1(anObj, aName);
         aName.LeftJustify(20, ' ');
         theDI << aName << " ";
@@ -5664,7 +5664,7 @@ static Standard_Integer VState(Draw_Interpretor& theDI,
       continue;
     }
 
-    TCollection_AsciiString aName = anObjIter.Key2();
+    AsciiString1 aName = anObjIter.Key2();
     aName.LeftJustify(20, ' ');
     theDI << "  " << aName << " ";
     objInfo(aDetected, anObjIter.Key1(), theDI);
@@ -5680,7 +5680,7 @@ static Standard_Integer VState(Draw_Interpretor& theDI,
 //           pick objets that are of type <TheType>...
 //=======================================================================
 
-TopoDS_Shape ViewerTest::PickShape(const TopAbs_ShapeEnum theShapeType,
+TopoShape ViewerTest::PickShape(const TopAbs_ShapeEnum theShapeType,
                                    const Standard_Integer theMaxPick)
 {
   Handle(TopTools_HArray1OfShape) aResArray = new TopTools_HArray1OfShape(1, 1);
@@ -5701,7 +5701,7 @@ Standard_Boolean ViewerTest::PickShapes(const TopAbs_ShapeEnum           theShap
   }
 
   // step 1: prepare the data
-  Handle(AIS_InteractiveContext) aCtx = ViewerTest::GetAISContext();
+  Handle(VisualContext) aCtx = ViewerTest::GetAISContext();
   if (aCtx.IsNull())
   {
     Message::SendFail("Error: no active viewer");
@@ -5720,10 +5720,10 @@ Standard_Boolean ViewerTest::PickShapes(const TopAbs_ShapeEnum           theShap
     aCtx->AddFilter(new StdSelect_ShapeTypeFilter(theShapeType));
   }
 
-  const Standard_Integer aSelMode = AIS_Shape::SelectionMode(theShapeType);
+  const Standard_Integer aSelMode = VisualShape::SelectionMode(theShapeType);
   for (AIS_ListOfInteractive::Iterator anObjIter(aDispObjects); anObjIter.More(); anObjIter.Next())
   {
-    if (Handle(AIS_Shape) aShapePrs = Handle(AIS_Shape)::DownCast(anObjIter.Value()))
+    if (Handle(VisualShape) aShapePrs = Handle(VisualShape)::DownCast(anObjIter.Value()))
     {
       aCtx->SetSelectionModeActive(aShapePrs, aSelMode, true, AIS_SelectionModesConcurrency_Single);
     }
@@ -5766,8 +5766,8 @@ Standard_Boolean ViewerTest::PickShapes(const TopAbs_ShapeEnum           theShap
     }
     else
     {
-      Handle(AIS_InteractiveObject) IO = aCtx->SelectedInteractive();
-      theResArray->SetValue(anIndex, Handle(AIS_Shape)::DownCast(IO)->Shape());
+      Handle(VisualEntity) IO = aCtx->SelectedInteractive();
+      theResArray->SetValue(anIndex, Handle(VisualShape)::DownCast(IO)->Shape());
     }
   }
 
@@ -5777,7 +5777,7 @@ Standard_Boolean ViewerTest::PickShapes(const TopAbs_ShapeEnum           theShap
     for (AIS_ListOfInteractive::Iterator anObjIter(aDispObjects); anObjIter.More();
          anObjIter.Next())
     {
-      if (Handle(AIS_Shape) aShapePrs = Handle(AIS_Shape)::DownCast(anObjIter.Value()))
+      if (Handle(VisualShape) aShapePrs = Handle(VisualShape)::DownCast(anObjIter.Value()))
       {
         aCtx->SetSelectionModeActive(aShapePrs,
                                      aSelMode,
@@ -5791,12 +5791,12 @@ Standard_Boolean ViewerTest::PickShapes(const TopAbs_ShapeEnum           theShap
 
 //=================================================================================================
 
-static int VPickShape(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static int VPickShape(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   TopAbs_ShapeEnum aShapeType = TopAbs_SHAPE;
   if (argc != 1)
   {
-    TCollection_AsciiString aShapeArg(argv[1]);
+    AsciiString1 aShapeArg(argv[1]);
     aShapeArg.LowerCase();
     aShapeType = TopAbs_COMPOUND;
     if (aShapeArg == "v" || aShapeArg == "vertex")
@@ -5821,19 +5821,19 @@ static int VPickShape(Draw_Interpretor& di, Standard_Integer argc, const char** 
   }
 
   static Standard_Integer              THE_NB_SHAPES_OF_TYPE[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-  static const TCollection_AsciiString THE_NAME_TYPE[8] =
+  static const AsciiString1 THE_NAME_TYPE[8] =
     {"COMPS", "SOL", "SHE", "F", "W", "E", "V", "SHAP"};
 
   const Standard_Integer aNbToPick = argc > 2 ? argc - 2 : 1;
   if (aNbToPick == 1)
   {
-    TopoDS_Shape aPickedShape = ViewerTest::PickShape(aShapeType);
+    TopoShape aPickedShape = ViewerTest::PickShape(aShapeType);
     if (aPickedShape.IsNull())
     {
       return 1;
     }
 
-    TCollection_AsciiString aName;
+    AsciiString1 aName;
     if (argc > 2)
     {
       aName = argv[2];
@@ -5841,18 +5841,18 @@ static int VPickShape(Draw_Interpretor& di, Standard_Integer argc, const char** 
     else
     {
       const int aShapeIndex = ++THE_NB_SHAPES_OF_TYPE[Standard_Integer(aShapeType)];
-      aName = TCollection_AsciiString("Picked_") + THE_NAME_TYPE[Standard_Integer(aShapeType)] + "_"
+      aName = AsciiString1("Picked_") + THE_NAME_TYPE[Standard_Integer(aShapeType)] + "_"
               + aShapeIndex;
     }
 
-    DBRep::Set(aName.ToCString(), aPickedShape);
-    Handle(AIS_Shape) aShapePrs = new AIS_Shape(aPickedShape);
+    DBRep1::Set(aName.ToCString(), aPickedShape);
+    Handle(VisualShape) aShapePrs = new VisualShape(aPickedShape);
     ViewerTest::Display(aName, aShapePrs, false, true);
     di << "Name of picked shape: " << aName << "\n";
   }
   else
   {
-    TCollection_AsciiString aName(argv[2]);
+    AsciiString1 aName(argv[2]);
     aName.LowerCase();
     const Standard_Boolean          isAutoNaming = aName == ".";
     Handle(TopTools_HArray1OfShape) aPickedArray = new TopTools_HArray1OfShape(1, aNbToPick);
@@ -5862,12 +5862,12 @@ static int VPickShape(Draw_Interpretor& di, Standard_Integer argc, const char** 
            aPickedIter <= aPickedArray->Upper();
            ++aPickedIter)
       {
-        TopoDS_Shape aPickedShape = aPickedArray->Value(aPickedIter);
+        TopoShape aPickedShape = aPickedArray->Value(aPickedIter);
         aName.Clear();
         if (!aPickedShape.IsNull() && isAutoNaming)
         {
           const int aShapeIndex = ++THE_NB_SHAPES_OF_TYPE[Standard_Integer(aShapeType)];
-          aName = TCollection_AsciiString("Picked_") + THE_NAME_TYPE[Standard_Integer(aShapeType)]
+          aName = AsciiString1("Picked_") + THE_NAME_TYPE[Standard_Integer(aShapeType)]
                   + "_" + aShapeIndex;
         }
         else
@@ -5875,8 +5875,8 @@ static int VPickShape(Draw_Interpretor& di, Standard_Integer argc, const char** 
           aName = argv[1 + aPickedIter];
         }
 
-        DBRep::Set(aName.ToCString(), aPickedShape);
-        Handle(AIS_Shape) aShapePrs = new AIS_Shape(aPickedShape);
+        DBRep1::Set(aName.ToCString(), aPickedShape);
+        Handle(VisualShape) aShapePrs = new VisualShape(aPickedShape);
         di << "Display of picked shape #" << aPickedIter << " - name: " << aName << "\n";
         ViewerTest::Display(aName, aShapePrs, false, true);
       }
@@ -5888,9 +5888,9 @@ static int VPickShape(Draw_Interpretor& di, Standard_Integer argc, const char** 
 
 //=================================================================================================
 
-static int VSelFilter(Draw_Interpretor&, Standard_Integer theArgc, const char** theArgv)
+static int VSelFilter(DrawInterpreter&, Standard_Integer theArgc, const char** theArgv)
 {
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
     Message::SendFail("Error: AIS context is not available.");
@@ -5899,7 +5899,7 @@ static int VSelFilter(Draw_Interpretor&, Standard_Integer theArgc, const char** 
 
   for (Standard_Integer anArgIter = 1; anArgIter < theArgc; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgv[anArgIter]);
+    AsciiString1 anArg(theArgv[anArgIter]);
     anArg.LowerCase();
     if (anArg == "-clear")
     {
@@ -5907,7 +5907,7 @@ static int VSelFilter(Draw_Interpretor&, Standard_Integer theArgc, const char** 
     }
     else if (anArg == "-contextfilter" && anArgIter + 1 < theArgc)
     {
-      TCollection_AsciiString aVal(theArgv[++anArgIter]);
+      AsciiString1 aVal(theArgv[++anArgIter]);
       aVal.LowerCase();
       if (aVal == "and")
       {
@@ -5925,9 +5925,9 @@ static int VSelFilter(Draw_Interpretor&, Standard_Integer theArgc, const char** 
     }
     else if (anArg == "-type" && anArgIter + 1 < theArgc)
     {
-      TCollection_AsciiString aVal(theArgv[++anArgIter]);
+      AsciiString1 aVal(theArgv[++anArgIter]);
       TopAbs_ShapeEnum        aShapeType = TopAbs_COMPOUND;
-      if (!TopAbs::ShapeTypeFromString(aVal.ToCString(), aShapeType))
+      if (!TopAbs1::ShapeTypeFromString(aVal.ToCString(), aShapeType))
       {
         Message::SendFail() << "Syntax error: wrong command attribute value '" << aVal << "'";
         return 1;
@@ -5946,9 +5946,9 @@ static int VSelFilter(Draw_Interpretor&, Standard_Integer theArgc, const char** 
     }
     else if (anArg == "-secondtype" && anArgIter + 1 < theArgc)
     {
-      TCollection_AsciiString aVal(theArgv[++anArgIter]);
+      AsciiString1 aVal(theArgv[++anArgIter]);
       TopAbs_ShapeEnum        aShapeType = TopAbs_COMPOUND;
-      if (!TopAbs::ShapeTypeFromString(aVal.ToCString(), aShapeType))
+      if (!TopAbs1::ShapeTypeFromString(aVal.ToCString(), aShapeType))
       {
         Message::SendFail() << "Syntax error: wrong command attribute value '" << aVal << "'";
         return 1;
@@ -5976,10 +5976,10 @@ static int VSelFilter(Draw_Interpretor&, Standard_Integer theArgc, const char** 
 
 //=================================================================================================
 
-static int VPickSelected(Draw_Interpretor&, Standard_Integer theArgNb, const char** theArgs)
+static int VPickSelected(DrawInterpreter&, Standard_Integer theArgNb, const char** theArgs)
 {
   static Standard_Integer aCount = 0;
-  TCollection_AsciiString aName  = "PickedShape_";
+  AsciiString1 aName  = "PickedShape_";
 
   if (theArgNb > 1)
   {
@@ -5994,26 +5994,26 @@ static int VPickSelected(Draw_Interpretor&, Standard_Integer theArgNb, const cha
   for (TheAISContext()->InitSelected(); TheAISContext()->MoreSelected();
        TheAISContext()->NextSelected(), ++anIdx)
   {
-    TopoDS_Shape aShape;
+    TopoShape aShape;
     if (TheAISContext()->HasSelectedShape())
     {
       aShape = TheAISContext()->SelectedShape();
     }
     else
     {
-      Handle(AIS_InteractiveObject) IO = TheAISContext()->SelectedInteractive();
-      aShape                           = Handle(AIS_Shape)::DownCast(IO)->Shape();
+      Handle(VisualEntity) IO = TheAISContext()->SelectedInteractive();
+      aShape                           = Handle(VisualShape)::DownCast(IO)->Shape();
     }
 
-    TCollection_AsciiString aCurrentName = aName;
+    AsciiString1 aCurrentName = aName;
     if (anIdx > 0)
     {
       aCurrentName += anIdx;
     }
 
-    DBRep::Set((aCurrentName).ToCString(), aShape);
+    DBRep1::Set((aCurrentName).ToCString(), aShape);
 
-    Handle(AIS_Shape) aNewShape = new AIS_Shape(aShape);
+    Handle(VisualShape) aNewShape = new VisualShape(aShape);
     GetMapOfAIS().Bind(aNewShape, aCurrentName);
     TheAISContext()->Display(aNewShape, Standard_False);
   }
@@ -6025,11 +6025,11 @@ static int VPickSelected(Draw_Interpretor&, Standard_Integer theArgNb, const cha
 
 //=================================================================================================
 
-static int VIOTypes(Draw_Interpretor& di, Standard_Integer, const char**)
+static int VIOTypes(DrawInterpreter& di, Standard_Integer, const char**)
 {
   //                             1234567890         12345678901234567         123456789
-  TCollection_AsciiString Colum[3] = {"Standard Types", "Type Of Object", "Signature"};
-  TCollection_AsciiString BlankLine(64, '_');
+  AsciiString1 Colum[3] = {"Standard Types", "Type Of Object", "Signature"};
+  AsciiString1 BlankLine(64, '_');
   Standard_Integer        i;
 
   di << "/n" << BlankLine.ToCString() << "\n";
@@ -6042,11 +6042,11 @@ static int VIOTypes(Draw_Interpretor& di, Standard_Integer, const char**)
 
   di << BlankLine.ToCString() << "\n";
 
-  //  TCollection_AsciiString thetypes[5]={"Datum","Shape","Object","Relation","None"};
+  //  AsciiString1 thetypes[5]={"Datum","Shape","Object","Relation","None"};
   const char** names = GetTypeNames();
 
-  TCollection_AsciiString curstring;
-  TCollection_AsciiString curcolum[3];
+  AsciiString1 curstring;
+  AsciiString1 curcolum[3];
 
   // les objets de type Datum..
   curcolum[1] += "Datum";
@@ -6056,7 +6056,7 @@ static int VIOTypes(Draw_Interpretor& di, Standard_Integer, const char**)
     curcolum[0] += names[i];
 
     curcolum[2].Clear();
-    curcolum[2] += TCollection_AsciiString(i + 1);
+    curcolum[2] += AsciiString1(i + 1);
 
     for (Standard_Integer j = 0; j <= 2; j++)
     {
@@ -6077,7 +6077,7 @@ static int VIOTypes(Draw_Interpretor& di, Standard_Integer, const char**)
     curcolum[0].Clear();
     curcolum[0] += names[7 + i];
     curcolum[2].Clear();
-    curcolum[2] += TCollection_AsciiString(i);
+    curcolum[2] += AsciiString1(i);
 
     for (Standard_Integer j = 0; j <= 2; j++)
     {
@@ -6096,7 +6096,7 @@ static int VIOTypes(Draw_Interpretor& di, Standard_Integer, const char**)
     curcolum[0].Clear();
     curcolum[0] += names[10 + i];
     curcolum[2].Clear();
-    curcolum[2] += TCollection_AsciiString(i);
+    curcolum[2] += AsciiString1(i);
 
     for (Standard_Integer j = 0; j <= 2; j++)
     {
@@ -6117,7 +6117,7 @@ static int VIOTypes(Draw_Interpretor& di, Standard_Integer, const char**)
     curcolum[0].Clear();
     curcolum[0] += names[12 + i];
     curcolum[2].Clear();
-    curcolum[2] += TCollection_AsciiString(i);
+    curcolum[2] += AsciiString1(i);
 
     for (Standard_Integer j = 0; j <= 2; j++)
     {
@@ -6131,7 +6131,7 @@ static int VIOTypes(Draw_Interpretor& di, Standard_Integer, const char**)
   return 0;
 }
 
-static int VEraseType(Draw_Interpretor&, Standard_Integer argc, const char** argv)
+static int VEraseType(DrawInterpreter&, Standard_Integer argc, const char** argv)
 {
   if (argc != 2)
     return 1;
@@ -6152,7 +6152,7 @@ static int VEraseType(Draw_Interpretor&, Standard_Integer argc, const char** arg
   }
 
   TheAISContext()->DisplayedObjects(TheType, TheSign, LIO);
-  Handle(AIS_InteractiveObject) curio;
+  Handle(VisualEntity) curio;
   for (AIS_ListIteratorOfListOfInteractive it(LIO); it.More(); it.Next())
   {
     curio = it.Value();
@@ -6171,7 +6171,7 @@ static int VEraseType(Draw_Interpretor&, Standard_Integer argc, const char** arg
   return 0;
 }
 
-static int VDisplayType(Draw_Interpretor&, Standard_Integer argc, const char** argv)
+static int VDisplayType(DrawInterpreter&, Standard_Integer argc, const char** argv)
 {
   if (argc != 2)
     return 1;
@@ -6191,7 +6191,7 @@ static int VDisplayType(Draw_Interpretor&, Standard_Integer argc, const char** a
 
   AIS_ListOfInteractive LIO;
   TheAISContext()->ObjectsInside(LIO, TheType, TheSign);
-  Handle(AIS_InteractiveObject) curio;
+  Handle(VisualEntity) curio;
   for (AIS_ListIteratorOfListOfInteractive it(LIO); it.More(); it.Next())
   {
     curio = it.Value();
@@ -6212,10 +6212,10 @@ static int VDisplayType(Draw_Interpretor&, Standard_Integer argc, const char** a
 
 //=================================================================================================
 
-static int VBsdf(Draw_Interpretor& theDI, Standard_Integer theArgsNb, const char** theArgVec)
+static int VBsdf(DrawInterpreter& theDI, Standard_Integer theArgsNb, const char** theArgVec)
 {
-  Handle(V3d_View)   aView   = ViewerTest::CurrentView();
-  Handle(V3d_Viewer) aViewer = ViewerTest::GetViewerFromContext();
+  Handle(ViewWindow)   aView   = ViewerTest::CurrentView();
+  Handle(ViewManager) aViewer = ViewerTest::GetViewerFromContext();
   if (aView.IsNull() || aViewer.IsNull())
   {
     Message::SendFail("Error: No active viewer!");
@@ -6270,9 +6270,9 @@ static int VBsdf(Draw_Interpretor& theDI, Standard_Integer theArgsNb, const char
   }
 
   // find object
-  TCollection_AsciiString aName(
+  AsciiString1 aName(
     aCmd.Arg(ViewerTest_CmdParser::THE_UNNAMED_COMMAND_OPTION_KEY, 0).c_str());
-  Handle(AIS_InteractiveObject) anIObj;
+  Handle(VisualEntity) anIObj;
   if (!GetMapOfAIS().Find2(aName, anIObj))
   {
     Message::SendFail("Error: no active viewer");
@@ -6434,9 +6434,9 @@ static int VBsdf(Draw_Interpretor& theDI, Standard_Integer theArgsNb, const char
 
       if (aFresnelType == "schlick")
       {
-        Graphic3d_Vec3 aRGB(static_cast<float>(Draw::Atof(aCmd.Arg(aFresnel, 1).c_str())),
-                            static_cast<float>(Draw::Atof(aCmd.Arg(aFresnel, 2).c_str())),
-                            static_cast<float>(Draw::Atof(aCmd.Arg(aFresnel, 3).c_str())));
+        Graphic3d_Vec3 aRGB(static_cast<float>(Draw1::Atof(aCmd.Arg(aFresnel, 1).c_str())),
+                            static_cast<float>(Draw1::Atof(aCmd.Arg(aFresnel, 2).c_str())),
+                            static_cast<float>(Draw1::Atof(aCmd.Arg(aFresnel, 3).c_str())));
 
         aRGB.r() = std::min(std::max(aRGB.r(), 0.f), 1.f);
         aRGB.g() = std::min(std::max(aRGB.g(), 0.f), 1.f);
@@ -6457,8 +6457,8 @@ static int VBsdf(Draw_Interpretor& theDI, Standard_Integer theArgsNb, const char
 
       if (aFresnelType == "conductor")
       {
-        const float aN = static_cast<float>(Draw::Atof(aCmd.Arg(aFresnel, 1).c_str()));
-        const float aK = static_cast<float>(Draw::Atof(aCmd.Arg(aFresnel, 2).c_str()));
+        const float aN = static_cast<float>(Draw1::Atof(aCmd.Arg(aFresnel, 1).c_str()));
+        const float aK = static_cast<float>(Draw1::Atof(aCmd.Arg(aFresnel, 2).c_str()));
 
         (aLayerID < 1 ? aBSDF.FresnelBase : aBSDF.FresnelCoat) =
           Graphic3d_Fresnel::CreateConductor(aN, aK);
@@ -6475,14 +6475,14 @@ static int VBsdf(Draw_Interpretor& theDI, Standard_Integer theArgsNb, const char
 
       if (aFresnelType == "constant")
       {
-        const float aR = static_cast<float>(Draw::Atof(aCmd.Arg(aFresnel, 1).c_str()));
+        const float aR = static_cast<float>(Draw1::Atof(aCmd.Arg(aFresnel, 1).c_str()));
 
         (aLayerID < 1 ? aBSDF.FresnelBase : aBSDF.FresnelCoat) =
           Graphic3d_Fresnel::CreateConstant(aR);
       }
       else if (aFresnelType == "dielectric")
       {
-        const float aN = static_cast<float>(Draw::Atof(aCmd.Arg(aFresnel, 1).c_str()));
+        const float aN = static_cast<float>(Draw1::Atof(aCmd.Arg(aFresnel, 1).c_str()));
 
         (aLayerID < 1 ? aBSDF.FresnelBase : aBSDF.FresnelCoat) =
           Graphic3d_Fresnel::CreateDielectric(aN);
@@ -6509,7 +6509,7 @@ static int VBsdf(Draw_Interpretor& theDI, Standard_Integer theArgsNb, const char
 // function : VLoadSelection
 // purpose  : Adds given objects to map of AIS and loads selection primitives for them
 //==============================================================================
-static Standard_Integer VLoadSelection(Draw_Interpretor& /*theDi*/,
+static Standard_Integer VLoadSelection(DrawInterpreter& /*theDi*/,
                                        Standard_Integer theArgNb,
                                        const char**     theArgVec)
 {
@@ -6519,7 +6519,7 @@ static Standard_Integer VLoadSelection(Draw_Interpretor& /*theDi*/,
     return 1;
   }
 
-  Handle(AIS_InteractiveContext) aCtx = ViewerTest::GetAISContext();
+  Handle(VisualContext) aCtx = ViewerTest::GetAISContext();
   if (aCtx.IsNull())
   {
     ViewerTest::ViewerInit();
@@ -6529,14 +6529,14 @@ static Standard_Integer VLoadSelection(Draw_Interpretor& /*theDi*/,
   // Parse input arguments
   for (Standard_Integer anArgIter = 1; anArgIter < theArgNb; ++anArgIter)
   {
-    const TCollection_AsciiString aName = theArgVec[anArgIter];
-    Handle(AIS_InteractiveObject) aShape;
+    const AsciiString1 aName = theArgVec[anArgIter];
+    Handle(VisualEntity) aShape;
     if (!GetMapOfAIS().Find2(aName, aShape))
     {
-      TopoDS_Shape aDrawShape = DBRep::GetExisting(aName);
+      TopoShape aDrawShape = DBRep1::GetExisting(aName);
       if (!aDrawShape.IsNull())
       {
-        aShape = new AIS_Shape(aDrawShape);
+        aShape = new VisualShape(aDrawShape);
         GetMapOfAIS().Bind(aShape, aName);
       }
     }
@@ -6554,10 +6554,10 @@ static Standard_Integer VLoadSelection(Draw_Interpretor& /*theDi*/,
 
 //==============================================================================
 // function : ViewerTest::Commands
-// purpose  : Add all the viewer command in the Draw_Interpretor
+// purpose  : Add all the viewer command in the DrawInterpreter
 //==============================================================================
 
-void ViewerTest::Commands(Draw_Interpretor& theCommands)
+void ViewerTest::Commands(DrawInterpreter& theCommands)
 {
   ViewerTest::ViewerCommands(theCommands);
   ViewerTest::RelationCommands(theCommands);
@@ -6568,7 +6568,7 @@ void ViewerTest::Commands(Draw_Interpretor& theCommands)
   const char* aGroup    = "AIS Viewer";
   const char* aFileName = __FILE__;
   auto        addCmd =
-    [&](const char* theName, Draw_Interpretor::CommandFunction theFunc, const char* theHelp) {
+    [&](const char* theName, DrawInterpreter::CommandFunction theFunc, const char* theHelp) {
       theCommands.Add(theName, theHelp, aFileName, theFunc, aGroup);
     };
 
@@ -6950,9 +6950,9 @@ nAdjusts parameters of material BSDF:
 // function : splitParameter
 // purpose  : Split parameter string to parameter name and parameter value
 //==============================================================================
-Standard_Boolean ViewerTest::SplitParameter(const TCollection_AsciiString& theString,
-                                            TCollection_AsciiString&       theName,
-                                            TCollection_AsciiString&       theValue)
+Standard_Boolean ViewerTest::SplitParameter(const AsciiString1& theString,
+                                            AsciiString1&       theName,
+                                            AsciiString1&       theValue)
 {
   Standard_Integer aParamNameEnd = theString.FirstLocationInSet("=", 1, theString.Length());
 
@@ -6961,7 +6961,7 @@ Standard_Boolean ViewerTest::SplitParameter(const TCollection_AsciiString& theSt
     return Standard_False;
   }
 
-  TCollection_AsciiString aString(theString);
+  AsciiString1 aString(theString);
   if (aParamNameEnd != 0)
   {
     theValue = aString.Split(aParamNameEnd);
@@ -6975,13 +6975,13 @@ Standard_Boolean ViewerTest::SplitParameter(const TCollection_AsciiString& theSt
 //==============================================================================
 // ViewerTest::Factory
 //==============================================================================
-void ViewerTest::Factory(Draw_Interpretor& theDI)
+void ViewerTest::Factory(DrawInterpreter& theDI)
 {
   // definition of Viewer Command
   ViewerTest::Commands(theDI);
 
 #ifdef OCCT_DEBUG
-  theDI << "Draw Plugin : OCC V2d & V3d commands are loaded\n";
+  theDI << "Draw1 Plugin : OCC V2d & V3d commands are loaded\n";
 #endif
 }
 

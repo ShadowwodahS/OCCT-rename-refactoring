@@ -53,11 +53,11 @@ public:
 
   //! Initialize the model by the given context
   //! \param theContext viewer context
-  Standard_EXPORT Handle(AIS_InteractiveContext) GetContext() const;
+  Standard_EXPORT Handle(VisualContext) GetContext() const;
 
   //! Initialize the model by the given context
   //! \param theContext viewer context
-  Standard_EXPORT void SetContext(const Handle(AIS_InteractiveContext)& theContext);
+  Standard_EXPORT void SetContext(const Handle(VisualContext)& theContext);
 
   //! Returns tree view indices for the given pointers of presentable object
   //! \param thePointers a list of presentation pointers
@@ -70,7 +70,7 @@ public:
   //! Returns tree model index of the presentation item in the tree view.
   //! \param thePresentation a presentation
   //! \return model index if the value is found or Null model index
-  Standard_EXPORT QModelIndex FindIndex(const Handle(AIS_InteractiveObject)& thePresentation) const;
+  Standard_EXPORT QModelIndex FindIndex(const Handle(VisualEntity)& thePresentation) const;
 
   //! Updates tree model
   Standard_EXPORT void UpdateTreeModel();

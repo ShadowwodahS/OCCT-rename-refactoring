@@ -132,7 +132,7 @@ public:
                                            const bool          theAlphaComponentIsOff = false);
 
   //! Returns hex sRGBA string in format "#RRGGBBAA".
-  static TCollection_AsciiString ColorToHex(const Quantity_ColorRGBA& theColor,
+  static AsciiString1 ColorToHex(const Quantity_ColorRGBA& theColor,
                                             const bool                theToPrefixHash = true)
   {
     NCollection_Vec4<Standard_ShortReal> anSRgb =

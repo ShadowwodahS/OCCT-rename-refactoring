@@ -80,8 +80,8 @@ void IntPatch_PolyLine::Prepare()
     const gp_Pnt2d& P3 = Point(i);
     if (i >= 3)
     {
-      gp_XY         V13   = P3.XY() - P1.XY();
-      gp_XY         V12   = P2.XY() - P1.XY();
+      Coords2d         V13   = P3.XY() - P1.XY();
+      Coords2d         V12   = P2.XY() - P1.XY();
       Standard_Real d13_2 = V13.SquareModulus(), d_2;
       if (d13_2 > eps_2)
         d_2 = V13.CrossSquareMagnitude(V12) / d13_2;
@@ -90,7 +90,7 @@ void IntPatch_PolyLine::Prepare()
       if (d_2 > myError * myError)
       {
         // try to compute deflection more precisely using parabola interpolation
-        gp_XY         V23 = P3.XY() - P2.XY();
+        Coords2d         V23 = P3.XY() - P2.XY();
         Standard_Real d12 = V12.Modulus(), d23 = V23.Modulus();
         // compute parameter of P2 (assume parameters of P1,P3 are 0,1)
         Standard_Real tm = d12 / (d12 + d23);

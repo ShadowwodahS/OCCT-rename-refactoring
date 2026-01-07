@@ -64,8 +64,8 @@ Standard_Boolean XmlMFunction_GraphNodeDriver::Paste(const XmlObjMgt_Persistent&
   // Read the LastIndex; the attribute should present
   if (!anElement.getAttribute(::LastPreviousIndex()).GetInteger(aLastIndPrev))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the last index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the last index"
                                  " for previous functions of GraphNode attribute");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
@@ -76,8 +76,8 @@ Standard_Boolean XmlMFunction_GraphNodeDriver::Paste(const XmlObjMgt_Persistent&
     Standard_Integer anInteger;
     if (!XmlObjMgt::GetStringValue(anElement).GetInteger(anInteger))
     {
-      TCollection_ExtendedString aMessageString =
-        TCollection_ExtendedString("Cannot retrieve integer member"
+      UtfString aMessageString =
+        UtfString("Cannot retrieve integer member"
                                    " for previous functions of GraphNode attribute");
       myMessageDriver->Send(aMessageString, Message_Fail);
       return Standard_False;
@@ -92,8 +92,8 @@ Standard_Boolean XmlMFunction_GraphNodeDriver::Paste(const XmlObjMgt_Persistent&
     {
       if (!XmlObjMgt::GetInteger(aValueStr, aValue))
       {
-        TCollection_ExtendedString aMessageString =
-          TCollection_ExtendedString("Cannot retrieve integer member"
+        UtfString aMessageString =
+          UtfString("Cannot retrieve integer member"
                                      " for previous functions of GraphNode attribute as \"")
           + aValueStr + "\"";
         myMessageDriver->Send(aMessageString, Message_Fail);
@@ -114,8 +114,8 @@ Standard_Boolean XmlMFunction_GraphNodeDriver::Paste(const XmlObjMgt_Persistent&
   // Read the LastIndex; the attribute should present
   if (!anElement.getAttribute(::LastNextIndex()).GetInteger(aLastIndNext))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the last index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the last index"
                                  " for next functions of GraphNode attribute");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
@@ -128,8 +128,8 @@ Standard_Boolean XmlMFunction_GraphNodeDriver::Paste(const XmlObjMgt_Persistent&
   {
     if (!XmlObjMgt::GetInteger(aValueStr, aValue))
     {
-      TCollection_ExtendedString aMessageString =
-        TCollection_ExtendedString("Cannot retrieve integer member"
+      UtfString aMessageString =
+        UtfString("Cannot retrieve integer member"
                                    " for next functions of GraphNode attribute as \"")
         + aValueStr + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);
@@ -144,8 +144,8 @@ Standard_Boolean XmlMFunction_GraphNodeDriver::Paste(const XmlObjMgt_Persistent&
   Standard_Integer exec = 0;
   if (!anElement.getAttribute(::ExecutionStatus()).GetInteger(exec))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the execution status"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the execution status"
                                  " for GraphNode attribute");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
@@ -170,12 +170,12 @@ void XmlMFunction_GraphNodeDriver::Paste(const Handle(TDF_Attribute)& theSource,
 
   theTarget.Element().setAttribute(::LastPreviousIndex(), G->GetPrevious().Extent());
 
-  TCollection_AsciiString           aValueStr;
+  AsciiString1           aValueStr;
   TColStd_MapIteratorOfMapOfInteger itrm(G->GetPrevious());
   for (; itrm.More(); itrm.Next())
   {
     const Standard_Integer ID = itrm.Key();
-    aValueStr += TCollection_AsciiString(ID);
+    aValueStr += AsciiString1(ID);
     aValueStr += ' ';
   }
 
@@ -192,7 +192,7 @@ void XmlMFunction_GraphNodeDriver::Paste(const Handle(TDF_Attribute)& theSource,
   for (; itrm.More(); itrm.Next())
   {
     const Standard_Integer ID = itrm.Key();
-    aValueStr += TCollection_AsciiString(ID);
+    aValueStr += AsciiString1(ID);
     aValueStr += ' ';
   }
 

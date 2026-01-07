@@ -40,20 +40,20 @@ public:
 
   //! Eisnew = true if E is a new edge built on edge I->Geometry()
   //! false if E is shape <=> I->Geometry()
-  Standard_EXPORT void Init(const TopoDS_Shape&                      FI,
-                            const TopoDS_Shape&                      E,
+  Standard_EXPORT void Init(const TopoShape&                      FI,
+                            const TopoShape&                      E,
                             const Standard_Boolean                   Eisnew,
                             const Handle(TopOpeBRepDS_Interference)& I);
 
   //! Eisnew = true if E is a new edge built on edge I->Geometry()
   //! false if E is shape <=> I->Geometry()
-  Standard_EXPORT void Add(const TopoDS_Shape&                      FI,
-                           const TopoDS_Shape&                      F,
-                           const TopoDS_Shape&                      E,
+  Standard_EXPORT void Add(const TopoShape&                      FI,
+                           const TopoShape&                      F,
+                           const TopoShape&                      E,
                            const Standard_Boolean                   Eisnew,
                            const Handle(TopOpeBRepDS_Interference)& I);
 
-  Standard_EXPORT void Add(const TopoDS_Shape&                      E,
+  Standard_EXPORT void Add(const TopoShape&                      E,
                            const TopOpeBRepDS_Curve&                C,
                            const Handle(TopOpeBRepDS_Interference)& I);
 
@@ -72,7 +72,7 @@ private:
   TopAbs_Orientation          myFaceOrientation;
   Standard_Integer            myFaceOriented;
   TopTrans_SurfaceTransition  myTool;
-  TopoDS_Shape                myEdge;
+  TopoShape                myEdge;
   Standard_Boolean            isLine;
   Point3d                      myPntOnEd;
   Standard_Real               myParOnEd;

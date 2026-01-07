@@ -857,10 +857,10 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::isIntersectBoundary(
   const Point3d& aCircCenter = theTrsf.TranslationPart();
   Frame3d        anAxis;
   anAxis.Transform(theTrsf);
-  Handle(Geom_Circle) aCirc = new Geom_Circle(anAxis, theRadius);
+  Handle(GeomCircle) aCirc = new GeomCircle(anAxis, theRadius);
 
   Dir3d               aCircNorm  = Dir3d(0, 0, 1).Transformed(theTrsf);
-  Handle(Geom_Surface) aCircPlane = new Geom_Plane(aCircCenter, aCircNorm);
+  Handle(GeomSurface) aCircPlane = new GeomPlane(aCircCenter, aCircNorm);
 
   for (Standard_Integer anIdx = myBoundaryPoints.Lower();
        anIdx < aFacesNb + myBoundaryPoints.Lower();
@@ -872,7 +872,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::isIntersectBoundary(
                        myBoundaryPoints.Value(anIdx % aFacesNb + 1)};
 
     Dir3d aBndPlaneNorm           = Vector3d(aFace[0], aFace[1]).Crossed(Vector3d(aFace[0], aFace[2]));
-    Handle(Geom_Surface) aBndPlane = new Geom_Plane(aFace[0], aBndPlaneNorm);
+    Handle(GeomSurface) aBndPlane = new GeomPlane(aFace[0], aBndPlaneNorm);
 
     GeomInt_IntSS anInterSS(aCircPlane, aBndPlane, Precision::Confusion());
     if (!anInterSS.IsDone() || anInterSS.NbLines() == 0)
@@ -880,7 +880,7 @@ Standard_Boolean SelectMgr_TriangularFrustumSet::isIntersectBoundary(
       continue;
     }
 
-    const Handle(Geom_Line)& anInterLine = Handle(Geom_Line)::DownCast(anInterSS.Line(1));
+    const Handle(GeomLine)& anInterLine = Handle(GeomLine)::DownCast(anInterSS.Line(1));
     Standard_Real            aDistance   = anInterLine->Lin().Distance(aCircCenter);
     if (aDistance > theRadius)
     {

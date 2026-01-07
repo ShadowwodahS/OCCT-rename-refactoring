@@ -23,7 +23,7 @@
 
 //=================================================================================================
 
-const TopoDS_Face& BRepPrimAPI_MakeOneAxis::Face()
+const TopoFace& BRepPrimAPI_MakeOneAxis::Face()
 {
   Build();
   return ((BRepPrim_OneAxis*)OneAxis())->LateralFace();
@@ -31,7 +31,7 @@ const TopoDS_Face& BRepPrimAPI_MakeOneAxis::Face()
 
 //=================================================================================================
 
-const TopoDS_Shell& BRepPrimAPI_MakeOneAxis::Shell()
+const TopoShell& BRepPrimAPI_MakeOneAxis::Shell()
 {
   Build();
   return ((BRepPrim_OneAxis*)OneAxis())->Shell();
@@ -41,7 +41,7 @@ const TopoDS_Shell& BRepPrimAPI_MakeOneAxis::Shell()
 
 void BRepPrimAPI_MakeOneAxis::Build(const Message_ProgressRange& /*theRange*/)
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeSolid(TopoDS::Solid(myShape));
   B.Add(myShape, ((BRepPrim_OneAxis*)OneAxis())->Shell());
   Done();
@@ -49,7 +49,7 @@ void BRepPrimAPI_MakeOneAxis::Build(const Message_ProgressRange& /*theRange*/)
 
 //=================================================================================================
 
-const TopoDS_Solid& BRepPrimAPI_MakeOneAxis::Solid()
+const TopoSolid& BRepPrimAPI_MakeOneAxis::Solid()
 {
   Build();
   return TopoDS::Solid(myShape);
@@ -57,21 +57,21 @@ const TopoDS_Solid& BRepPrimAPI_MakeOneAxis::Solid()
 
 //=================================================================================================
 
-BRepPrimAPI_MakeOneAxis::operator TopoDS_Face()
+BRepPrimAPI_MakeOneAxis::operator TopoFace()
 {
   return Face();
 }
 
 //=================================================================================================
 
-BRepPrimAPI_MakeOneAxis::operator TopoDS_Shell()
+BRepPrimAPI_MakeOneAxis::operator TopoShell()
 {
   return Shell();
 }
 
 //=================================================================================================
 
-BRepPrimAPI_MakeOneAxis::operator TopoDS_Solid()
+BRepPrimAPI_MakeOneAxis::operator TopoSolid()
 {
   return Solid();
 }

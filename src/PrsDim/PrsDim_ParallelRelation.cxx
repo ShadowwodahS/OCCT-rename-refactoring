@@ -46,9 +46,9 @@ IMPLEMENT_STANDARD_RTTIEXT(PrsDim_ParallelRelation, PrsDim_Relation)
 
 //=================================================================================================
 
-PrsDim_ParallelRelation::PrsDim_ParallelRelation(const TopoDS_Shape&       aFShape,
-                                                 const TopoDS_Shape&       aSShape,
-                                                 const Handle(Geom_Plane)& aPlane)
+PrsDim_ParallelRelation::PrsDim_ParallelRelation(const TopoShape&       aFShape,
+                                                 const TopoShape&       aSShape,
+                                                 const Handle(GeomPlane)& aPlane)
 {
   myFShape            = aFShape;
   mySShape            = aSShape;
@@ -60,9 +60,9 @@ PrsDim_ParallelRelation::PrsDim_ParallelRelation(const TopoDS_Shape&       aFSha
 
 //=================================================================================================
 
-PrsDim_ParallelRelation::PrsDim_ParallelRelation(const TopoDS_Shape&       aFShape,
-                                                 const TopoDS_Shape&       aSShape,
-                                                 const Handle(Geom_Plane)& aPlane,
+PrsDim_ParallelRelation::PrsDim_ParallelRelation(const TopoShape&       aFShape,
+                                                 const TopoShape&       aSShape,
+                                                 const Handle(GeomPlane)& aPlane,
                                                  const Point3d&             aPosition,
                                                  const DsgPrs_ArrowSide    aSymbolPrs,
                                                  const Standard_Real       anArrowSize)
@@ -101,7 +101,7 @@ void PrsDim_ParallelRelation::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void PrsDim_ParallelRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+void PrsDim_ParallelRelation::ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                                const Standard_Integer)
 {
   gp_Lin L1(myFAttach, myDirAttach);
@@ -175,13 +175,13 @@ void PrsDim_ParallelRelation::ComputeTwoFacesParallel(const Handle(Prs3d_Present
 void PrsDim_ParallelRelation::ComputeTwoEdgesParallel(
   const Handle(Prs3d_Presentation)& aPresentation)
 {
-  TopoDS_Edge E1 = TopoDS::Edge(myFShape);
-  TopoDS_Edge E2 = TopoDS::Edge(mySShape);
+  TopoEdge E1 = TopoDS::Edge(myFShape);
+  TopoEdge E2 = TopoDS::Edge(mySShape);
 
   Point3d             ptat11, ptat12, ptat21, ptat22; //,pint3d;
-  Handle(Geom_Curve) geom1, geom2;
+  Handle(GeomCurve3d) geom1, geom2;
   Standard_Boolean   isInfinite1, isInfinite2;
-  Handle(Geom_Curve) extCurv;
+  Handle(GeomCurve3d) extCurv;
   if (!PrsDim::ComputeGeometry(E1,
                                E2,
                                myExtShape,
@@ -217,9 +217,9 @@ void PrsDim_ParallelRelation::ComputeTwoEdgesParallel(
     ptat12                 = geom_el1->Focus2().Translated(-transvec);
     isEl1                  = Standard_True;
   }
-  else if (geom1->IsInstance(STANDARD_TYPE(Geom_Line)))
+  else if (geom1->IsInstance(STANDARD_TYPE(GeomLine)))
   {
-    Handle(Geom_Line) geom_lin1(Handle(Geom_Line)::DownCast(geom1));
+    Handle(GeomLine) geom_lin1(Handle(GeomLine)::DownCast(geom1));
     l1 = geom_lin1->Lin();
   }
   else
@@ -237,16 +237,16 @@ void PrsDim_ParallelRelation::ComputeTwoEdgesParallel(
     ptat22                 = geom_el2->Focus2().Translated(-transvec);
     isEl2                  = Standard_True;
   }
-  else if (geom2->IsInstance(STANDARD_TYPE(Geom_Line)))
+  else if (geom2->IsInstance(STANDARD_TYPE(GeomLine)))
   {
-    Handle(Geom_Line) geom_lin2(Handle(Geom_Line)::DownCast(geom2));
+    Handle(GeomLine) geom_lin2(Handle(GeomLine)::DownCast(geom2));
     l2 = geom_lin2->Lin();
   }
   else
     return;
 
-  const Handle(Geom_Line)& geom_lin1 = new Geom_Line(l1);
-  const Handle(Geom_Line)& geom_lin2 = new Geom_Line(l2);
+  const Handle(GeomLine)& geom_lin1 = new GeomLine(l1);
+  const Handle(GeomLine)& geom_lin2 = new GeomLine(l2);
 
   myDirAttach = l1.Direction();
   // size
@@ -329,7 +329,7 @@ void PrsDim_ParallelRelation::ComputeTwoEdgesParallel(
   {
     mySAttach = ElCLib::Value(ElCLib::Parameter(l2, myPosition), l2);
   }
-  TCollection_ExtendedString aText(" //");
+  UtfString aText(" //");
 
   if (l1.Distance(l2) <= Precision::Confusion())
   {

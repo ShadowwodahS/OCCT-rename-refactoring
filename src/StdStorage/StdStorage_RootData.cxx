@@ -44,7 +44,7 @@ Standard_Boolean StdStorage_RootData::Read(const Handle(Storage_BaseDriver)& the
     return Standard_False;
   }
 
-  TCollection_AsciiString aRootName, aTypeName;
+  AsciiString1 aRootName, aTypeName;
   Standard_Integer        aRef;
 
   Standard_Integer len = theDriver->RootSectionSize();
@@ -145,7 +145,7 @@ Handle(StdStorage_HSequenceOfRoots) StdStorage_RootData::Roots() const
   return anObjectsSeq;
 }
 
-Handle(StdStorage_Root) StdStorage_RootData::Find(const TCollection_AsciiString& aName) const
+Handle(StdStorage_Root) StdStorage_RootData::Find(const AsciiString1& aName) const
 {
   Handle(StdStorage_Root) p;
   if (myObjects.Contains(aName))
@@ -156,12 +156,12 @@ Handle(StdStorage_Root) StdStorage_RootData::Find(const TCollection_AsciiString&
   return p;
 }
 
-Standard_Boolean StdStorage_RootData::IsRoot(const TCollection_AsciiString& aName) const
+Standard_Boolean StdStorage_RootData::IsRoot(const AsciiString1& aName) const
 {
   return myObjects.Contains(aName);
 }
 
-void StdStorage_RootData::RemoveRoot(const TCollection_AsciiString& aName)
+void StdStorage_RootData::RemoveRoot(const AsciiString1& aName)
 {
   if (myObjects.Contains(aName))
   {
@@ -197,12 +197,12 @@ void StdStorage_RootData::ClearErrorStatus()
   myErrorStatusExt.Clear();
 }
 
-TCollection_AsciiString StdStorage_RootData::ErrorStatusExtension() const
+AsciiString1 StdStorage_RootData::ErrorStatusExtension() const
 {
   return myErrorStatusExt;
 }
 
-void StdStorage_RootData::SetErrorStatusExtension(const TCollection_AsciiString& anErrorExt)
+void StdStorage_RootData::SetErrorStatusExtension(const AsciiString1& anErrorExt)
 {
   myErrorStatusExt = anErrorExt;
 }

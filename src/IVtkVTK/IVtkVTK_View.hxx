@@ -106,7 +106,7 @@ public:
   //! @param[in]  theDisplayPnt 2d point of display coordinates
   //! @param[out]  theWorldPnt 3d point of world coordinates
   //! @return true if conversion was successful, false otherwise
-  Standard_EXPORT virtual bool DisplayToWorld(const gp_XY& theDisplayPnt,
+  Standard_EXPORT virtual bool DisplayToWorld(const Coords2d& theDisplayPnt,
                                               gp_XYZ&      theWorldPnt) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IVtkVTK_View, IVtk_IView)

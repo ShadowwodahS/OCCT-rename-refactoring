@@ -102,7 +102,7 @@ void XmlMXCAFDoc_AssemblyItemRefDriver::Paste(const Handle(TDF_Attribute)& theSo
   }
   else if (aThis->IsSubshapeIndex())
   {
-    TCollection_AsciiString aSubshapeIndexStr(aThis->GetSubshapeIndex());
+    AsciiString1 aSubshapeIndexStr(aThis->GetSubshapeIndex());
     XmlObjMgt_DOMString     aSubshapeIndex(aSubshapeIndexStr.ToCString());
     theTarget.Element().setAttribute(::SubshapeIndex(), aSubshapeIndex);
   }

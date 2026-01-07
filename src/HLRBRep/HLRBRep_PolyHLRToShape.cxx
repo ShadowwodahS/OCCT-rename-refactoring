@@ -42,7 +42,7 @@ void HLRBRep_PolyHLRToShape::Update(const Handle(HLRBRep_PolyAlgo)& A)
   HLRAlgo_EdgeIterator It;
   myBiPntVis.Clear();
   myBiPntHid.Clear();
-  TopoDS_Shape       S;
+  TopoShape       S;
   Standard_Boolean   reg1, regn, outl, intl;
   const Transform3d&     T = myAlgo->Projector().Transformation();
   HLRAlgo_EdgeStatus status;
@@ -54,9 +54,9 @@ void HLRBRep_PolyHLRToShape::Update(const Handle(HLRBRep_PolyAlgo)& A)
     gp_XYZ                    aEnd    = aPoints.Pnt2;
     T.Transforms(aSta);
     T.Transforms(aEnd);
-    const gp_XY aSta2D(aSta.X(), aSta.Y());
-    const gp_XY aEnd2D(aEnd.X(), aEnd.Y());
-    const gp_XY aD = aEnd2D - aSta2D;
+    const Coords2d aSta2D(aSta.X(), aSta.Y());
+    const Coords2d aEnd2D(aEnd.X(), aEnd.Y());
+    const Coords2d aD = aEnd2D - aSta2D;
     if (aD.Modulus() > 1.e-10)
     {
 
@@ -79,14 +79,14 @@ void HLRBRep_PolyHLRToShape::Update(const Handle(HLRBRep_PolyAlgo)& A)
 
 //=================================================================================================
 
-TopoDS_Shape HLRBRep_PolyHLRToShape::InternalCompound(const Standard_Integer typ,
+TopoShape HLRBRep_PolyHLRToShape::InternalCompound(const Standard_Integer typ,
                                                       const Standard_Boolean visible,
-                                                      const TopoDS_Shape&    S)
+                                                      const TopoShape&    S)
 {
   TopTools_MapOfShape Map;
   if (!S.IsNull())
   {
-    TopExp_Explorer ex;
+    ShapeExplorer ex;
     for (ex.Init(S, TopAbs_EDGE); ex.More(); ex.Next())
       Map.Add(ex.Current());
     for (ex.Init(S, TopAbs_FACE); ex.More(); ex.Next())
@@ -94,8 +94,8 @@ TopoDS_Shape HLRBRep_PolyHLRToShape::InternalCompound(const Standard_Integer typ
   }
   Standard_Boolean todraw, reg1, regn, outl, intl;
   Standard_Boolean added = Standard_False;
-  TopoDS_Shape     Result;
-  BRep_Builder     B;
+  TopoShape     Result;
+  ShapeBuilder     B;
   B.MakeCompound(TopoDS::Compound(Result));
 
   if (myHideMode)
@@ -139,7 +139,7 @@ TopoDS_Shape HLRBRep_PolyHLRToShape::InternalCompound(const Standard_Integer typ
   else
   {
     const Transform3d& T = myAlgo->Projector().Transformation();
-    TopoDS_Shape   SBP;
+    TopoShape   SBP;
 
     for (myAlgo->InitShow(); myAlgo->MoreShow(); myAlgo->NextShow())
     {
@@ -160,9 +160,9 @@ TopoDS_Shape HLRBRep_PolyHLRToShape::InternalCompound(const Standard_Integer typ
         gp_XYZ aSta = aPoints.Pnt1, aEnd = aPoints.Pnt2;
         T.Transforms(aSta);
         T.Transforms(aEnd);
-        const gp_XY aSta2D(aSta.X(), aSta.Y());
-        const gp_XY aEnd2D(aEnd.X(), aEnd.Y());
-        const gp_XY aD = aEnd2D - aSta2D;
+        const Coords2d aSta2D(aSta.X(), aSta.Y());
+        const Coords2d aEnd2D(aEnd.X(), aEnd.Y());
+        const Coords2d aD = aEnd2D - aSta2D;
         if (aD.SquareModulus() > 1.e-20)
         {
           B.Add(Result, BRepLib_MakeEdge2d(aSta2D, aEnd2D));
@@ -172,6 +172,6 @@ TopoDS_Shape HLRBRep_PolyHLRToShape::InternalCompound(const Standard_Integer typ
     }
   }
   if (!added)
-    Result = TopoDS_Shape();
+    Result = TopoShape();
   return Result;
 }

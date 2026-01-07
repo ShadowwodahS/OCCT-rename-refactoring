@@ -26,7 +26,7 @@ class StepData_Protocol;
 //! Gives basic data definition for Step Interface.
 //! Any class of a data model described in EXPRESS Language
 //! is candidate to be managed by a Step Interface
-class StepData
+class StepData1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -44,7 +44,7 @@ public:
   //! which are the Protocol and Modules to be loaded into Libraries
   Standard_EXPORT static void Init();
 
-  //! Returns a Protocol from StepData (avoids to create it)
+  //! Returns a Protocol from StepData1 (avoids to create it)
   Standard_EXPORT static Handle(StepData_Protocol) Protocol();
 };
 

@@ -21,7 +21,7 @@
 #include <XCAFDoc_AssemblyIterator.hxx>
 #include <XCAFDoc_AssemblyGraph.hxx>
 
-class TDocStd_Document;
+class AppDocument;
 class XCAFDoc_ShapeTool;
 
 //! Provides generic methods for traversing assembly tree and graph

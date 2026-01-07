@@ -20,28 +20,28 @@
 #include <Standard.hxx>
 #include <Standard_DefineAlloc.hxx>
 
-class TopOpeBRepDS_Point;
+class Point1;
 class TopOpeBRep_VPointInter;
 class TopOpeBRep_Point2d;
 class TopOpeBRep_FaceEdgeIntersector;
-class TopoDS_Shape;
+class TopoShape;
 
 //! Provide services needed by the Fillers
-class TopOpeBRep_PointGeomTool
+class PointGeometryTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static TopOpeBRepDS_Point MakePoint(const TopOpeBRep_VPointInter& IP);
+  Standard_EXPORT static Point1 MakePoint(const TopOpeBRep_VPointInter& IP);
 
-  Standard_EXPORT static TopOpeBRepDS_Point MakePoint(const TopOpeBRep_Point2d& P2D);
+  Standard_EXPORT static Point1 MakePoint(const TopOpeBRep_Point2d& P2D);
 
-  Standard_EXPORT static TopOpeBRepDS_Point MakePoint(const TopOpeBRep_FaceEdgeIntersector& FEI);
+  Standard_EXPORT static Point1 MakePoint(const TopOpeBRep_FaceEdgeIntersector& FEI);
 
-  Standard_EXPORT static TopOpeBRepDS_Point MakePoint(const TopoDS_Shape& S);
+  Standard_EXPORT static Point1 MakePoint(const TopoShape& S);
 
-  Standard_EXPORT static Standard_Boolean IsEqual(const TopOpeBRepDS_Point& DSP1,
-                                                  const TopOpeBRepDS_Point& DSP2);
+  Standard_EXPORT static Standard_Boolean IsEqual(const Point1& DSP1,
+                                                  const Point1& DSP2);
 
 protected:
 private:

@@ -26,9 +26,9 @@
 #include <Standard_Integer.hxx>
 #include <Message_ProgressRange.hxx>
 
-class XSControl_WorkSession;
+class ExchangeSession;
 class Interface_InterfaceModel;
-class TopoDS_Shape;
+class TopoShape;
 
 //! This class gives a simple way to create then write a
 //! Model compliant to a given norm, from a Shape
@@ -47,7 +47,7 @@ public:
 
   //! Creates a Writer from an already existing Session
   //! If <scratch> is True (D), clears already recorded data
-  Standard_EXPORT XSControl_Writer(const Handle(XSControl_WorkSession)& WS,
+  Standard_EXPORT XSControl_Writer(const Handle(ExchangeSession)& WS,
                                    const Standard_Boolean               scratch = Standard_True);
 
   //! Sets a specific norm to <me>
@@ -55,11 +55,11 @@ public:
   Standard_EXPORT Standard_Boolean SetNorm(const Standard_CString norm);
 
   //! Sets a specific session to <me>
-  Standard_EXPORT void SetWS(const Handle(XSControl_WorkSession)& WS,
+  Standard_EXPORT void SetWS(const Handle(ExchangeSession)& WS,
                              const Standard_Boolean               scratch = Standard_True);
 
   //! Returns the session used in <me>
-  Standard_EXPORT Handle(XSControl_WorkSession) WS() const;
+  Standard_EXPORT Handle(ExchangeSession) WS() const;
 
   //! Returns the produced model. Produces a new one if not yet done
   //! or if <newone> is True
@@ -70,7 +70,7 @@ public:
 
   //! Transfers a Shape according to the mode
   Standard_EXPORT IFSelect_ReturnStatus
-    TransferShape(const TopoDS_Shape&          sh,
+    TransferShape(const TopoShape&          sh,
                   const Standard_Integer       mode        = 0,
                   const Message_ProgressRange& theProgress = Message_ProgressRange());
 
@@ -83,7 +83,7 @@ public:
 
 protected:
 private:
-  Handle(XSControl_WorkSession) thesession;
+  Handle(ExchangeSession) thesession;
 };
 
 #endif // _XSControl_Writer_HeaderFile

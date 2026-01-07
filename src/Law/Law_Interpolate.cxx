@@ -579,7 +579,7 @@ void Law_Interpolate::PerformNonPeriodic()
 }
 
 //=======================================================================
-// function : Handle(Geom_BSplineCurve)&
+// function : Handle(BSplineCurve3d)&
 // purpose  :
 //=======================================================================
 

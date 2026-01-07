@@ -60,10 +60,10 @@ public:
   Standard_EXPORT void SetPointText(const Point3d& thePnt);
 
   //! Returns a tessellated annotation if specified
-  const TopoDS_Shape& GetPresentation() const { return myPresentation; }
+  const TopoShape& GetPresentation() const { return myPresentation; }
 
   //! Sets a tessellated annotation
-  Standard_EXPORT void SetPresentation(const TopoDS_Shape& thePresentation);
+  Standard_EXPORT void SetPresentation(const TopoShape& thePresentation);
 
   //! Resets data to the state after calling the default constructor
   Standard_EXPORT void Reset();
@@ -72,7 +72,7 @@ private:
   Frame3d           myPlane;
   Point3d           myPnt;
   Point3d           myPntTxt;
-  TopoDS_Shape     myPresentation;
+  TopoShape     myPresentation;
   Standard_Boolean myHasPlane;
   Standard_Boolean myHasPnt;
   Standard_Boolean myHasPntTxt;

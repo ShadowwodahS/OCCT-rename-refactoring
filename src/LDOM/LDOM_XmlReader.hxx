@@ -25,7 +25,7 @@
 #include <LDOM_BasicElement.hxx>
 #include <LDOM_OSStream.hxx>
 
-class TCollection_AsciiString;
+class AsciiString1;
 
 //  Class LDOM_XmlReader
 //
@@ -49,7 +49,7 @@ public:
 
   // ---------- PUBLIC METHODS ----------
   LDOM_XmlReader(const Handle(LDOM_MemManager)& aDocument,
-                 TCollection_AsciiString&       anErrorString,
+                 AsciiString1&       anErrorString,
                  const Standard_Boolean         theTagPerStep = Standard_False);
   // Constructor - takes a file descriptor for input
   // Constructor - takes an std::istream for input
@@ -87,10 +87,10 @@ private:
   // ---------- PRIVATE FIELDS ----------
 
   Standard_Boolean         myEOF;
-  TCollection_AsciiString& myError;
+  AsciiString1& myError;
   Handle(LDOM_MemManager)  myDocument;
   LDOM_BasicElement*       myElement;
-  const LDOM_BasicNode*    myLastChild; // optim. reading attributes
+  const BasicNode*    myLastChild; // optim. reading attributes
   const char*              myPtr;
   const char*              myEndPtr;
   char                     myBuffer[XML_BUFFER_SIZE + 4];

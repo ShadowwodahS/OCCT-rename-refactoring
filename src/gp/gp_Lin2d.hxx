@@ -218,7 +218,7 @@ private:
 //=======================================================================
 inline Standard_Real gp_Lin2d::Distance(const gp_Pnt2d& theP) const
 {
-  gp_XY aCoord = theP.XY();
+  Coords2d aCoord = theP.XY();
   aCoord.Subtract((pos.Location()).XY());
   Standard_Real aVal = aCoord.Crossed(pos.Direction().XY());
   if (aVal < 0)
@@ -248,7 +248,7 @@ inline Standard_Real gp_Lin2d::Distance(const gp_Lin2d& theOther) const
 //=======================================================================
 inline Standard_Real gp_Lin2d::SquareDistance(const gp_Pnt2d& theP) const
 {
-  gp_XY aCoord = theP.XY();
+  Coords2d aCoord = theP.XY();
   aCoord.Subtract((pos.Location()).XY());
   Standard_Real aD = aCoord.Crossed(pos.Direction().XY());
   return aD * aD;

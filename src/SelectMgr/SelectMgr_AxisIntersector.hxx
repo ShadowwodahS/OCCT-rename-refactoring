@@ -38,7 +38,7 @@ public:
 
   //! Saves camera definition.
   //! Do nothing for axis intersector (not applicable to this volume).
-  Standard_EXPORT virtual void SetCamera(const Handle(Graphic3d_Camera)& theCamera)
+  Standard_EXPORT virtual void SetCamera(const Handle(CameraOn3d)& theCamera)
     Standard_OVERRIDE;
 
   //! Returns FALSE (not applicable to this volume).

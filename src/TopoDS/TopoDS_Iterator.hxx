@@ -24,9 +24,9 @@
 #include <TopLoc_Location.hxx>
 
 //! Iterates on the underlying shape underlying a given
-//! TopoDS_Shape object, providing access to its
+//! TopoShape object, providing access to its
 //! component sub-shapes. Each component shape is
-//! returned as a TopoDS_Shape with an orientation,
+//! returned as a TopoShape with an orientation,
 //! and a compound of the original values and the relative values.
 class TopoDS_Iterator
 {
@@ -46,7 +46,7 @@ public:
   //! - If cumLoc is true, the function multiplies all
   //! sub-shapes by the location of S, i.e. it applies to
   //! each sub-shape the transformation that is associated with S.
-  TopoDS_Iterator(const TopoDS_Shape&    S,
+  TopoDS_Iterator(const TopoShape&    S,
                   const Standard_Boolean cumOri = Standard_True,
                   const Standard_Boolean cumLoc = Standard_True)
   {
@@ -60,7 +60,7 @@ public:
   //! - If cumLoc is true, the function multiplies all
   //! sub-shapes by the location of S, i.e. it applies to
   //! each sub-shape the transformation that is associated with S.
-  Standard_EXPORT void Initialize(const TopoDS_Shape&    S,
+  Standard_EXPORT void Initialize(const TopoShape&    S,
                                   const Standard_Boolean cumOri = Standard_True,
                                   const Standard_Boolean cumLoc = Standard_True);
 
@@ -78,14 +78,14 @@ public:
   //! this iterator is scanning.
   //! Exceptions
   //! Standard_NoSuchObject if there is no current sub-shape.
-  const TopoDS_Shape& Value() const
+  const TopoShape& Value() const
   {
     Standard_NoSuchObject_Raise_if(!More(), "TopoDS_Iterator::Value");
     return myShape;
   }
 
 private:
-  TopoDS_Shape                     myShape;
+  TopoShape                     myShape;
   TopoDS_ListIteratorOfListOfShape myShapes;
   TopAbs_Orientation               myOrientation;
   TopLoc_Location                  myLocation;

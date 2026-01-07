@@ -34,10 +34,10 @@ Handle(BinMDF_ADriverTable) BinTObjDrivers_DocumentStorageDriver::AttributeDrive
   const Handle(Message_Messenger)& theMsgDrv)
 {
   // Standard drivers
-  Handle(BinMDF_ADriverTable) aTable = BinLDrivers::AttributeDrivers(theMsgDrv);
+  Handle(BinMDF_ADriverTable) aTable = BinLDrivers1::AttributeDrivers(theMsgDrv);
 
   // Native drivers
-  BinTObjDrivers::AddDrivers(aTable, theMsgDrv);
+  BinTObjDrivers1::AddDrivers(aTable, theMsgDrv);
 
   return aTable;
 }

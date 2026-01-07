@@ -24,9 +24,9 @@
 #include <TopAbs_Orientation.hxx>
 #include <Standard_Integer.hxx>
 #include <TopTrans_CurveTransition.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class TopOpeBRepDS_Interference;
-class TopOpeBRepDS_Point;
+class Point1;
 
 //! a tool computing complex transition on Edge.
 class TopOpeBRepDS_EdgeInterferenceTool
@@ -36,14 +36,14 @@ public:
 
   Standard_EXPORT TopOpeBRepDS_EdgeInterferenceTool();
 
-  Standard_EXPORT void Init(const TopoDS_Shape& E, const Handle(TopOpeBRepDS_Interference)& I);
+  Standard_EXPORT void Init(const TopoShape& E, const Handle(TopOpeBRepDS_Interference)& I);
 
-  Standard_EXPORT void Add(const TopoDS_Shape&                      E,
-                           const TopoDS_Shape&                      V,
+  Standard_EXPORT void Add(const TopoShape&                      E,
+                           const TopoShape&                      V,
                            const Handle(TopOpeBRepDS_Interference)& I);
 
-  Standard_EXPORT void Add(const TopoDS_Shape&                      E,
-                           const TopOpeBRepDS_Point&                P,
+  Standard_EXPORT void Add(const TopoShape&                      E,
+                           const Point1&                P,
                            const Handle(TopOpeBRepDS_Interference)& I);
 
   Standard_EXPORT void Transition(const Handle(TopOpeBRepDS_Interference)& I) const;

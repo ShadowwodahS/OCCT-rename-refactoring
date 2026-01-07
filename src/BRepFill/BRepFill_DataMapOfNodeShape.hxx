@@ -21,8 +21,8 @@
 #include <TopoDS_Shape.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<Handle(MAT_Node), TopoDS_Shape> BRepFill_DataMapOfNodeShape;
-typedef NCollection_DataMap<Handle(MAT_Node), TopoDS_Shape>::Iterator
+typedef NCollection_DataMap<Handle(MAT_Node), TopoShape> BRepFill_DataMapOfNodeShape;
+typedef NCollection_DataMap<Handle(MAT_Node), TopoShape>::Iterator
   BRepFill_DataMapIteratorOfDataMapOfNodeShape;
 
 #endif

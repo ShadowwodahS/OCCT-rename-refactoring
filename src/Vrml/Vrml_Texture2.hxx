@@ -45,14 +45,14 @@ public:
 
   Standard_EXPORT Vrml_Texture2();
 
-  Standard_EXPORT Vrml_Texture2(const TCollection_AsciiString& aFilename,
+  Standard_EXPORT Vrml_Texture2(const AsciiString1& aFilename,
                                 const Handle(Vrml_SFImage)&    aImage,
                                 const Vrml_Texture2Wrap        aWrapS,
                                 const Vrml_Texture2Wrap        aWrapT);
 
-  Standard_EXPORT void SetFilename(const TCollection_AsciiString& aFilename);
+  Standard_EXPORT void SetFilename(const AsciiString1& aFilename);
 
-  Standard_EXPORT TCollection_AsciiString Filename() const;
+  Standard_EXPORT AsciiString1 Filename() const;
 
   Standard_EXPORT void SetImage(const Handle(Vrml_SFImage)& aImage);
 
@@ -70,7 +70,7 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString myFilename;
+  AsciiString1 myFilename;
   Handle(Vrml_SFImage)    myImage;
   Vrml_Texture2Wrap       myWrapS;
   Vrml_Texture2Wrap       myWrapT;

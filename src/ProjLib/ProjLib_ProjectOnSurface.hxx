@@ -19,7 +19,7 @@
 
 #include <Adaptor3d_Surface.hxx>
 
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 
 //! Project a curve on a  surface.  The result ( a  3D
 //! Curve)  will be an approximation
@@ -45,14 +45,14 @@ public:
 
   Standard_Boolean IsDone() const { return myIsDone; }
 
-  Standard_EXPORT Handle(Geom_BSplineCurve) BSpline() const;
+  Standard_EXPORT Handle(BSplineCurve3d) BSpline() const;
 
 private:
   Handle(Adaptor3d_Curve)   myCurve;
   Handle(Adaptor3d_Surface) mySurface;
   Standard_Real             myTolerance;
   Standard_Boolean          myIsDone;
-  Handle(Geom_BSplineCurve) myResult;
+  Handle(BSplineCurve3d) myResult;
 };
 
 #endif // _ProjLib_ProjectOnSurface_HeaderFile

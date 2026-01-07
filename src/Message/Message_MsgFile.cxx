@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef NCollection_DataMap<TCollection_AsciiString, TCollection_ExtendedString>
+typedef NCollection_DataMap<AsciiString1, UtfString>
   Message_DataMapOfExtendedString;
 
 static Message_DataMapOfExtendedString& msgsDataMap()
@@ -62,11 +62,11 @@ Standard_Boolean Message_MsgFile::Load(const Standard_CString theDirName,
     return Standard_False;
 
   Standard_Boolean        ret = Standard_True;
-  TCollection_AsciiString aDirList(theDirName);
+  AsciiString1 aDirList(theDirName);
   //  Try to load from all consecutive directories in list
   for (int i = 1;; i++)
   {
-    TCollection_AsciiString aFileName = aDirList.Token(" \t\n", i);
+    AsciiString1 aFileName = aDirList.Token(" \t\n", i);
     if (aFileName.IsEmpty())
       break;
 #ifdef _WIN32
@@ -83,7 +83,7 @@ Standard_Boolean Message_MsgFile::Load(const Standard_CString theDirName,
 
 //=======================================================================
 // function : getString
-// purpose  : Takes a TCollection_ExtendedString from Ascii or Unicode
+// purpose  : Takes a UtfString from Ascii or Unicode
 //           Strings are left-trimmed; those beginning with '!' are omitted
 // Called   : from loadFile()
 //=======================================================================
@@ -94,18 +94,18 @@ struct TCollection_String;
 template <>
 struct TCollection_String<Standard_Character>
 {
-  typedef TCollection_AsciiString type;
+  typedef AsciiString1 type;
 };
 
 template <>
 struct TCollection_String<Standard_ExtCharacter>
 {
-  typedef TCollection_ExtendedString type;
+  typedef UtfString type;
 };
 
 template <class CharType>
 static inline Standard_Boolean getString(CharType*&                  thePtr,
-                                         TCollection_ExtendedString& theString,
+                                         UtfString& theString,
                                          Standard_Integer&           theLeftSpaces)
 {
   CharType*        anEndPtr = thePtr;
@@ -162,8 +162,8 @@ static inline Standard_Boolean getString(CharType*&                  thePtr,
 template <class _Char>
 static inline Standard_Boolean loadFile(_Char* theBuffer)
 {
-  TCollection_AsciiString    aKeyword;
-  TCollection_ExtendedString aMessage, aString;
+  AsciiString1    aKeyword;
+  UtfString aMessage, aString;
   LoadingState               aState         = MsgFile_WaitingKeyword;
   _Char*                     sCurrentString = theBuffer;
   Standard_Integer           aLeftSpaces = 0, aFirstLeftSpaces = 0;
@@ -184,7 +184,7 @@ static inline Standard_Boolean loadFile(_Char* theBuffer)
           aMessage += '\n';
           aLeftSpaces -= aFirstLeftSpaces;
           if (aLeftSpaces > 0)
-            aMessage += TCollection_ExtendedString(aLeftSpaces, ' ');
+            aMessage += UtfString(aLeftSpaces, ' ');
           aMessage += aString;
           break;
         }
@@ -203,7 +203,7 @@ static inline Standard_Boolean loadFile(_Char* theBuffer)
         if (isKeyword)
         {
           // remove the first dot character and all subsequent spaces + right-trim
-          aKeyword = TCollection_AsciiString(aString.Split(1));
+          aKeyword = AsciiString1(aString.Split(1));
           aKeyword.LeftAdjust();
           aKeyword.RightAdjust();
           aState = MsgFile_WaitingMessage;
@@ -307,7 +307,7 @@ Standard_Boolean Message_MsgFile::LoadFromEnv(const Standard_CString theEnvName,
                                               const Standard_CString theFileName,
                                               const Standard_CString theLangExt)
 {
-  TCollection_AsciiString aLangExt(theLangExt != NULL ? theLangExt : "");
+  AsciiString1 aLangExt(theLangExt != NULL ? theLangExt : "");
   if (aLangExt.IsEmpty())
   {
     OSD_Environment aLangEnv("CSF_LANGUAGE");
@@ -318,11 +318,11 @@ Standard_Boolean Message_MsgFile::LoadFromEnv(const Standard_CString theEnvName,
     }
   }
 
-  TCollection_AsciiString aFilePath(theFileName);
+  AsciiString1 aFilePath(theFileName);
   if (theEnvName != NULL && theEnvName[0] != '\0')
   {
     OSD_Environment         aNameEnv(theEnvName);
-    TCollection_AsciiString aNameEnvStr = aNameEnv.Value();
+    AsciiString1 aNameEnvStr = aNameEnv.Value();
     if (!aNameEnvStr.IsEmpty())
     {
       if (aNameEnvStr.Value(aNameEnvStr.Length()) != '/')
@@ -366,8 +366,8 @@ Standard_Boolean Message_MsgFile::LoadFromString(const Standard_CString theConte
 // purpose  : Add one message to the global table. Fails if the same keyword
 //           already exists in the table
 //=======================================================================
-Standard_Boolean Message_MsgFile::AddMsg(const TCollection_AsciiString&    theKeyword,
-                                         const TCollection_ExtendedString& theMessage)
+Standard_Boolean Message_MsgFile::AddMsg(const AsciiString1&    theKeyword,
+                                         const UtfString& theMessage)
 {
   Message_DataMapOfExtendedString& aDataMap = ::msgsDataMap();
 
@@ -380,15 +380,15 @@ Standard_Boolean Message_MsgFile::AddMsg(const TCollection_AsciiString&    theKe
 // function : getMsg
 // purpose  : retrieve the message previously defined for the given keyword
 //=======================================================================
-const TCollection_ExtendedString& Message_MsgFile::Msg(const Standard_CString theKeyword)
+const UtfString& Message_MsgFile::Msg(const Standard_CString theKeyword)
 {
-  TCollection_AsciiString aKey(theKeyword);
+  AsciiString1 aKey(theKeyword);
   return Msg(aKey);
 }
 
 //=================================================================================================
 
-Standard_Boolean Message_MsgFile::HasMsg(const TCollection_AsciiString& theKeyword)
+Standard_Boolean Message_MsgFile::HasMsg(const AsciiString1& theKeyword)
 {
   Standard_Mutex::Sentry aSentry(Message_MsgFile_Mutex());
   return ::msgsDataMap().IsBound(theKeyword);
@@ -398,7 +398,7 @@ Standard_Boolean Message_MsgFile::HasMsg(const TCollection_AsciiString& theKeywo
 // function : Msg
 // purpose  : retrieve the message previously defined for the given keyword
 //=======================================================================
-const TCollection_ExtendedString& Message_MsgFile::Msg(const TCollection_AsciiString& theKeyword)
+const UtfString& Message_MsgFile::Msg(const AsciiString1& theKeyword)
 {
   // find message in the map
   Message_DataMapOfExtendedString& aDataMap = ::msgsDataMap();
@@ -406,14 +406,14 @@ const TCollection_ExtendedString& Message_MsgFile::Msg(const TCollection_AsciiSt
 
   // if message is not found, generate error message and add it to the map to minimize overhead
   // on consequent calls with the same key
-  const TCollection_ExtendedString* aValPtr = aDataMap.Seek(theKeyword);
+  const UtfString* aValPtr = aDataMap.Seek(theKeyword);
   if (aValPtr == NULL)
   {
     // text of the error message can be itself defined in the map
-    static const TCollection_AsciiString    aPrefixCode("Message_Msg_BadKeyword");
-    static const TCollection_ExtendedString aDefPrefix("Unknown message invoked with the keyword ");
-    const TCollection_ExtendedString*       aPrefValPtr = aDataMap.Seek(aPrefixCode);
-    TCollection_AsciiString aErrorMessage = (aPrefValPtr != NULL ? *aPrefValPtr : aDefPrefix);
+    static const AsciiString1    aPrefixCode("Message_Msg_BadKeyword");
+    static const UtfString aDefPrefix("Unknown message invoked with the keyword ");
+    const UtfString*       aPrefValPtr = aDataMap.Seek(aPrefixCode);
+    AsciiString1 aErrorMessage = (aPrefValPtr != NULL ? *aPrefValPtr : aDefPrefix);
     aErrorMessage += theKeyword;
     aDataMap.Bind(theKeyword, aErrorMessage); // do not use AddMsg() here to avoid mutex deadlock
     aValPtr = aDataMap.Seek(theKeyword);

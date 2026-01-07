@@ -95,7 +95,7 @@ Standard_Boolean IGESData_BasicEditor::SetUnitValue(const Standard_Real val)
     return Standard_False;
   Standard_Real vmm = val * themodel->GlobalSection().CascadeUnit();
   // #73 rln 10.03.99 S4135: "read.scale.unit" does not affect GlobalSection
-  // if (Interface_Static::IVal("read.scale.unit") == 1) vmm = vmm * 1000.;
+  // if (ExchangeConfig::IVal("read.scale.unit") == 1) vmm = vmm * 1000.;
   // vmm est exprime en MILLIMETRES
   Standard_Integer aFlag = GetFlagByValue(vmm);
   return (aFlag > 0) ? SetUnitFlag(aFlag) : Standard_False;
@@ -349,7 +349,7 @@ Standard_Boolean IGESData_BasicEditor::AutoCorrect(const Handle(IGESData_IGESEnt
   if (theglib.Select(ent, gmodule, CN))
   {
     Handle(IGESData_GeneralModule) gmod = Handle(IGESData_GeneralModule)::DownCast(gmodule);
-    IGESData_DirChecker            DC   = gmod->DirChecker(CN, ent);
+    DirectoryChecker            DC   = gmod->DirChecker(CN, ent);
     done |= DC.Correct(ent);
   }
 

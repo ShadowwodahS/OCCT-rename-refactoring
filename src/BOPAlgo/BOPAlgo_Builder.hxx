@@ -36,7 +36,7 @@
 #include <TopTools_MapOfShape.hxx>
 #include <TopAbs_ShapeEnum.hxx>
 class IntTools_Context;
-class TopoDS_Shape;
+class TopoShape;
 
 //!
 //! The class is a General Fuse algorithm - base algorithm for the
@@ -96,13 +96,13 @@ public:
 
 public: //! @name Arguments
   //! Adds the argument to the operation.
-  Standard_EXPORT virtual void AddArgument(const TopoDS_Shape& theShape);
+  Standard_EXPORT virtual void AddArgument(const TopoShape& theShape);
 
   //! Sets the list of arguments for the operation.
-  Standard_EXPORT virtual void SetArguments(const TopTools_ListOfShape& theLS);
+  Standard_EXPORT virtual void SetArguments(const ShapeList& theLS);
 
   //! Returns the list of arguments.
-  const TopTools_ListOfShape& Arguments() const { return myArguments; }
+  const ShapeList& Arguments() const { return myArguments; }
 
 public: //! @name Options
   //! Sets the flag that defines the mode of treatment.
@@ -140,7 +140,7 @@ public: //! @name Performing the operation
   //! Performs the operation with the prepared filler.
   //! The intersection will not be performed in this case.
   Standard_EXPORT virtual void PerformWithFiller(
-    const BOPAlgo_PaveFiller&    theFiller,
+    const BooleanPaveFiller&    theFiller,
     const Message_ProgressRange& theRange = Message_ProgressRange());
 
 public: //! @name BOPs on open solids
@@ -183,9 +183,9 @@ public: //! @name BOPs on open solids
   //! @param theTools       - The group of Tools for BOP;
   //! @param theToolsState  - State for tools faces to pass into result;
   //! @param theReport      - The alternative report to avoid pollution of the main one.
-  Standard_EXPORT virtual void BuildBOP(const TopTools_ListOfShape&  theObjects,
+  Standard_EXPORT virtual void BuildBOP(const ShapeList&  theObjects,
                                         const TopAbs_State           theObjState,
-                                        const TopTools_ListOfShape&  theTools,
+                                        const ShapeList&  theTools,
                                         const TopAbs_State           theToolsState,
                                         const Message_ProgressRange& theRange,
                                         Handle(Message_Report)       theReport = NULL);
@@ -210,8 +210,8 @@ public: //! @name BOPs on open solids
   //! @param theOperation - The BOP type;
   //! @param theRange     - The parameter to progressIndicator
   //! @param theReport    - The alternative report to avoid pollution of the global one.
-  void BuildBOP(const TopTools_ListOfShape&  theObjects,
-                const TopTools_ListOfShape&  theTools,
+  void BuildBOP(const ShapeList&  theObjects,
+                const ShapeList&  theTools,
                 const BOPAlgo_Operation      theOperation,
                 const Message_ProgressRange& theRange,
                 Handle(Message_Report)       theReport = NULL)
@@ -269,12 +269,12 @@ protected: //! @name History methods
   //! The General Fuse operation does not perform any other modification than splitting the input
   //! shapes basing on their intersection information. This information is contained in myImages
   //! map. Thus, here the method returns only splits (if any) contained in this map.
-  Standard_EXPORT virtual const TopTools_ListOfShape* LocModified(const TopoDS_Shape& theS);
+  Standard_EXPORT virtual const ShapeList* LocModified(const TopoShape& theS);
 
   //! Returns the list of shapes generated from the shape theS.
   //! Similarly to *LocModified* must be redefined for specific operations,
   //! obtaining Generated elements differently.
-  Standard_EXPORT virtual const TopTools_ListOfShape& LocGenerated(const TopoDS_Shape& theS);
+  Standard_EXPORT virtual const ShapeList& LocGenerated(const TopoShape& theS);
 
 public: //! @name Images/Origins
   //! Returns the map of images.
@@ -306,10 +306,10 @@ protected: //! @name Analyze progress of the operation
 
   //! Auxiliary structure to get information about number of shapes
   //! of each type participated in operation.
-  class NbShapes
+  class NbShapes1
   {
   public:
-    NbShapes()
+    NbShapes1()
     {
       for (Standard_Integer i = 0; i < 8; ++i)
       {
@@ -355,25 +355,25 @@ protected: //! @name Analyze progress of the operation
 
 protected:
   //! Compute number of shapes of certain type participating in operation
-  Standard_EXPORT NbShapes getNbShapes() const;
+  Standard_EXPORT NbShapes1 getNbShapes() const;
 
   //! Filling steps for constant operations
   Standard_EXPORT void fillPIConstants(const Standard_Real theWhole,
-                                       BOPAlgo_PISteps&    theSteps) const Standard_OVERRIDE;
+                                       PISteps&    theSteps) const Standard_OVERRIDE;
 
   //! Filling steps for all other operations
-  Standard_EXPORT void fillPISteps(BOPAlgo_PISteps& theSteps) const Standard_OVERRIDE;
+  Standard_EXPORT void fillPISteps(PISteps& theSteps) const Standard_OVERRIDE;
 
 protected: //! @name Methods for building the result
   //! Performs the building of the result.
   //! The method calls the PerformInternal1() method surrounded by a try-catch block.
-  Standard_EXPORT virtual void PerformInternal(const BOPAlgo_PaveFiller&    thePF,
+  Standard_EXPORT virtual void PerformInternal(const BooleanPaveFiller&    thePF,
                                                const Message_ProgressRange& theRange);
 
   //! Performs the building of the result.
   //! To build the result of any other operation
   //! it will be necessary to override this method.
-  Standard_EXPORT virtual void PerformInternal1(const BOPAlgo_PaveFiller&    thePF,
+  Standard_EXPORT virtual void PerformInternal1(const BooleanPaveFiller&    thePF,
                                                 const Message_ProgressRange& theRange);
 
   //! Builds the result of operation.
@@ -406,7 +406,7 @@ protected: //! @name Fill Images of CONTAINERS
 
   //! Builds the image of the given container using the splits
   //! of its sub-shapes.
-  Standard_EXPORT void FillImagesContainer(const TopoDS_Shape&    theS,
+  Standard_EXPORT void FillImagesContainer(const TopoShape&    theS,
                                            const TopAbs_ShapeEnum theType);
 
 protected: //! @name Fill Images of FACES
@@ -440,9 +440,9 @@ protected: //! @name Fill Images of SOLIDS
 
   //! Builds the draft solid by rebuilding the shells of the solid
   //! with the splits of faces.
-  Standard_EXPORT void BuildDraftSolid(const TopoDS_Shape&   theSolid,
-                                       TopoDS_Shape&         theDraftSolid,
-                                       TopTools_ListOfShape& theLIF);
+  Standard_EXPORT void BuildDraftSolid(const TopoShape&   theSolid,
+                                       TopoShape&         theDraftSolid,
+                                       ShapeList& theLIF);
 
   //! Finds faces located inside each solid.
   Standard_EXPORT virtual void FillIn3DParts(TopTools_DataMapOfShapeShape& theDraftSolids,
@@ -462,7 +462,7 @@ protected: //! @name Fill Images of COMPOUNDS
   Standard_EXPORT void FillImagesCompounds(const Message_ProgressRange& theRange);
 
   //! Builds the image of the given compound.
-  Standard_EXPORT void FillImagesCompound(const TopoDS_Shape& theS, TopTools_MapOfShape& theMF);
+  Standard_EXPORT void FillImagesCompound(const TopoShape& theS, TopTools_MapOfShape& theMF);
 
 protected: //! @name Post treatment
   //! Post treatment of the result of the operation.
@@ -471,7 +471,7 @@ protected: //! @name Post treatment
   Standard_EXPORT virtual void PostTreat(const Message_ProgressRange& theRange);
 
 protected:                          //! @name Fields
-  TopTools_ListOfShape myArguments; //!< Arguments of the operation
+  ShapeList myArguments; //!< Arguments of the operation
   // clang-format off
   TopTools_MapOfShape myMapFence;               //!< Fence map providing the uniqueness of the shapes in the list of arguments
   BOPAlgo_PPaveFiller myPaveFiller;             //!< Pave Filler - algorithm for sub-shapes intersection

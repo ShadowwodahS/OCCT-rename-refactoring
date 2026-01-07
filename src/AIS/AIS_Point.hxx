@@ -20,17 +20,17 @@
 #include <AIS_InteractiveObject.hxx>
 
 class Geom_Point;
-class TopoDS_Vertex;
+class TopoVertex;
 
 //! Constructs point datums to be used in construction of
 //! composite shapes. The datum is displayed as the plus marker +.
-class AIS_Point : public AIS_InteractiveObject
+class VisualPoint : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_Point, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(VisualPoint, VisualEntity)
 public:
   //! Initializes the point aComponent from which the point
   //! datum will be built.
-  Standard_EXPORT AIS_Point(const Handle(Geom_Point)& aComponent);
+  Standard_EXPORT VisualPoint(const Handle(Geom_Point)& aComponent);
 
   //! Returns index 1, the default index for a point.
   virtual Standard_Integer Signature() const Standard_OVERRIDE { return 1; }
@@ -70,7 +70,7 @@ public:
   Standard_Boolean HasMarker() const { return myHasTOM; }
 
   //! Converts a point into a vertex.
-  Standard_EXPORT TopoDS_Vertex Vertex() const;
+  Standard_EXPORT TopoVertex Vertex() const;
 
 protected:
   Standard_EXPORT virtual void Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
@@ -78,7 +78,7 @@ protected:
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
 private:
-  Standard_EXPORT void ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+  Standard_EXPORT void ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                         const Standard_Integer             aMode) Standard_OVERRIDE;
 
   Standard_EXPORT void UpdatePointValues();
@@ -92,6 +92,6 @@ private:
   Aspect_TypeOfMarker myTOM;
 };
 
-DEFINE_STANDARD_HANDLE(AIS_Point, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(VisualPoint, VisualEntity)
 
 #endif // _AIS_Point_HeaderFile

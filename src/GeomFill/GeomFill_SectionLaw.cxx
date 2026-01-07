@@ -73,9 +73,9 @@ Standard_Boolean GeomFill_SectionLaw::IsConstant(Standard_Real& Error) const
   return Standard_False;
 }
 
-Handle(Geom_Curve) GeomFill_SectionLaw::ConstantSection() const
+Handle(GeomCurve3d) GeomFill_SectionLaw::ConstantSection() const
 {
-  Handle(Geom_Curve) C;
+  Handle(GeomCurve3d) C;
   throw Standard_DomainError("GeomFill_SectionLaw::ConstantSection");
 }
 
@@ -85,8 +85,8 @@ Standard_Boolean GeomFill_SectionLaw::IsConicalLaw(Standard_Real& Error) const
   return Standard_False;
 }
 
-Handle(Geom_Curve) GeomFill_SectionLaw::CirclSection(const Standard_Real) const
+Handle(GeomCurve3d) GeomFill_SectionLaw::CirclSection(const Standard_Real) const
 {
-  Handle(Geom_Curve) C;
+  Handle(GeomCurve3d) C;
   throw Standard_DomainError("GeomFill_SectionLaw::CirclSection");
 }

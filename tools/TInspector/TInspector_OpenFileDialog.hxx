@@ -72,7 +72,7 @@ public:
   //! \param theCommunicator source of preferences
   //! \param[out] theFileNames  container of recently opened file names
   Standard_EXPORT static void GetPluginRecentlyOpenedFiles(
-    const TCollection_AsciiString& thePluginName,
+    const AsciiString1& thePluginName,
     TInspector_Communicator*       theCommunicator,
     QStringList&                   theFileNames);
 
@@ -82,7 +82,7 @@ public:
   //! \param theFileNames container of recently opened file names to be set into communicator
   //! preferences
   Standard_EXPORT static void SetPluginRecentlyOpenedFiles(
-    const TCollection_AsciiString& thePluginName,
+    const AsciiString1& thePluginName,
     TInspector_Communicator*       theCommunicator,
     QStringList&                   theFileNames);
 

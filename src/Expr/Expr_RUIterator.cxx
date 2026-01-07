@@ -21,9 +21,9 @@
 #include <Expr_UnknownIterator.hxx>
 #include <Standard_NoMoreObject.hxx>
 
-Expr_RUIterator::Expr_RUIterator(const Handle(Expr_GeneralRelation)& rel)
+RelationUsedIterator::RelationUsedIterator(const Handle(Expr_GeneralRelation)& rel)
 {
-  Expr_RelationIterator       ri(rel);
+  RelationIterator       ri(rel);
   Handle(Expr_SingleRelation) srel;
   Handle(Expr_NamedUnknown)   var;
   myCurrent = 1;
@@ -31,7 +31,7 @@ Expr_RUIterator::Expr_RUIterator(const Handle(Expr_GeneralRelation)& rel)
   {
     srel = ri.Value();
     ri.Next();
-    Expr_UnknownIterator ui1(srel->FirstMember());
+    UnknownIterator ui1(srel->FirstMember());
     while (ui1.More())
     {
       var = ui1.Value();
@@ -41,7 +41,7 @@ Expr_RUIterator::Expr_RUIterator(const Handle(Expr_GeneralRelation)& rel)
         myMap.Add(var);
       }
     }
-    Expr_UnknownIterator ui2(srel->SecondMember());
+    UnknownIterator ui2(srel->SecondMember());
     while (ui2.More())
     {
       var = ui2.Value();
@@ -54,12 +54,12 @@ Expr_RUIterator::Expr_RUIterator(const Handle(Expr_GeneralRelation)& rel)
   }
 }
 
-Standard_Boolean Expr_RUIterator::More() const
+Standard_Boolean RelationUsedIterator::More() const
 {
   return (myCurrent <= myMap.Extent());
 }
 
-void Expr_RUIterator::Next()
+void RelationUsedIterator::Next()
 {
   if (!More())
   {
@@ -68,7 +68,7 @@ void Expr_RUIterator::Next()
   myCurrent++;
 }
 
-Handle(Expr_NamedUnknown) Expr_RUIterator::Value() const
+Handle(Expr_NamedUnknown) RelationUsedIterator::Value() const
 {
   return myMap(myCurrent);
 }

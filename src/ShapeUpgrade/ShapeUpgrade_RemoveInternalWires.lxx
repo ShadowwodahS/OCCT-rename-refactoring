@@ -58,7 +58,7 @@ inline const TopTools_SequenceOfShape& ShapeUpgrade_RemoveInternalWires::Removed
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape ShapeUpgrade_RemoveInternalWires::GetResult() const
+inline TopoShape ShapeUpgrade_RemoveInternalWires::GetResult() const
 {
   return myResult;
 }

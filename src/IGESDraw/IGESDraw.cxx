@@ -27,9 +27,9 @@
 //  (Modules are created and loaded in appropriate libraries, once by Init)
 static Handle(IGESDraw_Protocol) protocol;
 
-void IGESDraw::Init()
+void IGESDraw1::Init()
 {
-  IGESDimen::Init();
+  IGESDimen1::Init();
   if (protocol.IsNull())
   {
     protocol = new IGESDraw_Protocol;
@@ -40,7 +40,7 @@ void IGESDraw::Init()
   }
 }
 
-Handle(IGESDraw_Protocol) IGESDraw::Protocol()
+Handle(IGESDraw_Protocol) IGESDraw1::Protocol()
 {
   return protocol;
 }

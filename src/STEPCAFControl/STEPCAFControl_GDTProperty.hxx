@@ -43,12 +43,12 @@
 
 //! This class provides tools for access (read)
 //! the GDT properties.
-class STEPCAFControl_GDTProperty
+class GeometricToleranceProperty
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT             STEPCAFControl_GDTProperty();
+  Standard_EXPORT             GeometricToleranceProperty();
   Standard_EXPORT static void GetDimModifiers(
     const Handle(StepRepr_CompoundRepresentationItem)& theCRI,
     XCAFDimTolObjects_DimensionModifiersSequence&      theModifiers);
@@ -119,7 +119,7 @@ public:
     const StepBasic_Unit&                           theUnit);
 
   Standard_EXPORT static Handle(StepVisual_TessellatedGeometricSet) GetTessellation(
-    const TopoDS_Shape& theShape);
+    const TopoShape& theShape);
 };
 
 #endif // _STEPCAFControl_GDTProperty_HeaderFile

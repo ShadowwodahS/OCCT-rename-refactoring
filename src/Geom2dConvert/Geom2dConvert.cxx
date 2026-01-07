@@ -61,7 +61,7 @@ typedef gp_Hypr2d               Hypr2d;
 typedef gp_Parab2d              Parab2d;
 typedef gp_Pnt2d                Pnt2d;
 typedef gp_Trsf2d               Trsf2d;
-typedef Geom2d_Curve            Curve;
+typedef GeomCurve2d            Curve;
 typedef Geom2d_BSplineCurve     BSplineCurve;
 typedef TColStd_Array1OfReal    Array1OfReal;
 typedef TColStd_Array1OfInteger Array1OfInteger;
@@ -182,7 +182,7 @@ Handle(Geom2d_BSplineCurve) Geom2dConvert::SplitBSplineCurve(
 
 Handle(Geom2d_BSplineCurve) Geom2dConvert::CurveToBSplineCurve(
 
-  const Handle(Geom2d_Curve)&        C,
+  const Handle(GeomCurve2d)&        C,
   const Convert_ParameterisationType Parameterisation)
 {
 
@@ -753,8 +753,8 @@ static Standard_Integer GeomAbsToInteger(const GeomAbs_Shape gcont)
 
 //=================================================================================================
 
-static GeomAbs_Shape Continuity(const Handle(Geom2d_Curve)& C1,
-                                const Handle(Geom2d_Curve)& C2,
+static GeomAbs_Shape Continuity(const Handle(GeomCurve2d)& C1,
+                                const Handle(GeomCurve2d)& C2,
                                 const Standard_Real         u1,
                                 const Standard_Real         u2,
                                 const Standard_Boolean      r1,
@@ -774,8 +774,8 @@ static GeomAbs_Shape Continuity(const Handle(Geom2d_Curve)& C1,
   cont1 = GeomAbsToInteger(gcont1);
   cont2 = GeomAbsToInteger(gcont2);
 
-  Handle(Geom2d_Curve) aCurve1 = C1;
-  Handle(Geom2d_Curve) aCurve2 = C2;
+  Handle(GeomCurve2d) aCurve1 = C1;
+  Handle(GeomCurve2d) aCurve2 = C2;
   if (C1->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve)))
   {
     Handle(Geom2d_TrimmedCurve) aTrimmed = Handle(Geom2d_TrimmedCurve)::DownCast(aCurve1);
@@ -859,8 +859,8 @@ static GeomAbs_Shape Continuity(const Handle(Geom2d_Curve)& C1,
 
 //=================================================================================================
 
-static GeomAbs_Shape Continuity(const Handle(Geom2d_Curve)& C1,
-                                const Handle(Geom2d_Curve)& C2,
+static GeomAbs_Shape Continuity(const Handle(GeomCurve2d)& C1,
+                                const Handle(GeomCurve2d)& C2,
                                 const Standard_Real         u1,
                                 const Standard_Real         u2,
                                 const Standard_Boolean      r1,

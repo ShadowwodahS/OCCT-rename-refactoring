@@ -41,9 +41,9 @@ inline void HLRBRep_PolyHLRToShape::Hide()
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::VCompound()
+inline TopoShape HLRBRep_PolyHLRToShape::VCompound()
 {
-  return InternalCompound(4, Standard_True, TopoDS_Shape());
+  return InternalCompound(4, Standard_True, TopoShape());
 }
 
 //=======================================================================
@@ -51,7 +51,7 @@ inline TopoDS_Shape HLRBRep_PolyHLRToShape::VCompound()
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::VCompound(const TopoDS_Shape& S)
+inline TopoShape HLRBRep_PolyHLRToShape::VCompound(const TopoShape& S)
 {
   return InternalCompound(4, Standard_True, S);
 }
@@ -61,9 +61,9 @@ inline TopoDS_Shape HLRBRep_PolyHLRToShape::VCompound(const TopoDS_Shape& S)
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::Rg1LineVCompound()
+inline TopoShape HLRBRep_PolyHLRToShape::Rg1LineVCompound()
 {
-  return InternalCompound(2, Standard_True, TopoDS_Shape());
+  return InternalCompound(2, Standard_True, TopoShape());
 }
 
 //=======================================================================
@@ -71,7 +71,7 @@ inline TopoDS_Shape HLRBRep_PolyHLRToShape::Rg1LineVCompound()
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::Rg1LineVCompound(const TopoDS_Shape& S)
+inline TopoShape HLRBRep_PolyHLRToShape::Rg1LineVCompound(const TopoShape& S)
 {
   return InternalCompound(2, Standard_True, S);
 }
@@ -81,9 +81,9 @@ inline TopoDS_Shape HLRBRep_PolyHLRToShape::Rg1LineVCompound(const TopoDS_Shape&
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::RgNLineVCompound()
+inline TopoShape HLRBRep_PolyHLRToShape::RgNLineVCompound()
 {
-  return InternalCompound(3, Standard_True, TopoDS_Shape());
+  return InternalCompound(3, Standard_True, TopoShape());
 }
 
 //=======================================================================
@@ -91,7 +91,7 @@ inline TopoDS_Shape HLRBRep_PolyHLRToShape::RgNLineVCompound()
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::RgNLineVCompound(const TopoDS_Shape& S)
+inline TopoShape HLRBRep_PolyHLRToShape::RgNLineVCompound(const TopoShape& S)
 {
   return InternalCompound(3, Standard_True, S);
 }
@@ -101,9 +101,9 @@ inline TopoDS_Shape HLRBRep_PolyHLRToShape::RgNLineVCompound(const TopoDS_Shape&
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::OutLineVCompound()
+inline TopoShape HLRBRep_PolyHLRToShape::OutLineVCompound()
 {
-  return InternalCompound(1, Standard_True, TopoDS_Shape());
+  return InternalCompound(1, Standard_True, TopoShape());
 }
 
 //=======================================================================
@@ -111,7 +111,7 @@ inline TopoDS_Shape HLRBRep_PolyHLRToShape::OutLineVCompound()
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::OutLineVCompound(const TopoDS_Shape& S)
+inline TopoShape HLRBRep_PolyHLRToShape::OutLineVCompound(const TopoShape& S)
 {
   return InternalCompound(1, Standard_True, S);
 }
@@ -121,9 +121,9 @@ inline TopoDS_Shape HLRBRep_PolyHLRToShape::OutLineVCompound(const TopoDS_Shape&
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::HCompound()
+inline TopoShape HLRBRep_PolyHLRToShape::HCompound()
 {
-  return InternalCompound(4, Standard_False, TopoDS_Shape());
+  return InternalCompound(4, Standard_False, TopoShape());
 }
 
 //=======================================================================
@@ -131,7 +131,7 @@ inline TopoDS_Shape HLRBRep_PolyHLRToShape::HCompound()
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::HCompound(const TopoDS_Shape& S)
+inline TopoShape HLRBRep_PolyHLRToShape::HCompound(const TopoShape& S)
 {
   return InternalCompound(4, Standard_False, S);
 }
@@ -141,9 +141,9 @@ inline TopoDS_Shape HLRBRep_PolyHLRToShape::HCompound(const TopoDS_Shape& S)
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::Rg1LineHCompound()
+inline TopoShape HLRBRep_PolyHLRToShape::Rg1LineHCompound()
 {
-  return InternalCompound(2, Standard_False, TopoDS_Shape());
+  return InternalCompound(2, Standard_False, TopoShape());
 }
 
 //=======================================================================
@@ -151,7 +151,7 @@ inline TopoDS_Shape HLRBRep_PolyHLRToShape::Rg1LineHCompound()
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::Rg1LineHCompound(const TopoDS_Shape& S)
+inline TopoShape HLRBRep_PolyHLRToShape::Rg1LineHCompound(const TopoShape& S)
 {
   return InternalCompound(2, Standard_False, S);
 }
@@ -161,9 +161,9 @@ inline TopoDS_Shape HLRBRep_PolyHLRToShape::Rg1LineHCompound(const TopoDS_Shape&
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::RgNLineHCompound()
+inline TopoShape HLRBRep_PolyHLRToShape::RgNLineHCompound()
 {
-  return InternalCompound(3, Standard_False, TopoDS_Shape());
+  return InternalCompound(3, Standard_False, TopoShape());
 }
 
 //=======================================================================
@@ -171,7 +171,7 @@ inline TopoDS_Shape HLRBRep_PolyHLRToShape::RgNLineHCompound()
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::RgNLineHCompound(const TopoDS_Shape& S)
+inline TopoShape HLRBRep_PolyHLRToShape::RgNLineHCompound(const TopoShape& S)
 {
   return InternalCompound(3, Standard_False, S);
 }
@@ -181,9 +181,9 @@ inline TopoDS_Shape HLRBRep_PolyHLRToShape::RgNLineHCompound(const TopoDS_Shape&
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::OutLineHCompound()
+inline TopoShape HLRBRep_PolyHLRToShape::OutLineHCompound()
 {
-  return InternalCompound(1, Standard_False, TopoDS_Shape());
+  return InternalCompound(1, Standard_False, TopoShape());
 }
 
 //=======================================================================
@@ -191,7 +191,7 @@ inline TopoDS_Shape HLRBRep_PolyHLRToShape::OutLineHCompound()
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Shape HLRBRep_PolyHLRToShape::OutLineHCompound(const TopoDS_Shape& S)
+inline TopoShape HLRBRep_PolyHLRToShape::OutLineHCompound(const TopoShape& S)
 {
   return InternalCompound(1, Standard_False, S);
 }

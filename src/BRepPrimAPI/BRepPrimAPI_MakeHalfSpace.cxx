@@ -33,7 +33,7 @@
 
 //=================================================================================================
 
-static Dir3d getNormalOnFace(const TopoDS_Face&  theFace,
+static Dir3d getNormalOnFace(const TopoFace&  theFace,
                               const Standard_Real theU,
                               const Standard_Real theV)
 {
@@ -50,23 +50,23 @@ static Dir3d getNormalOnFace(const TopoDS_Face&  theFace,
 // purpose  : Get average normal at the point with the given parameter on the edge
 //=======================================================================
 
-static Standard_Boolean getNormalFromEdge(const TopoDS_Shape& theShape,
-                                          const TopoDS_Edge&  theEdge,
+static Standard_Boolean getNormalFromEdge(const TopoShape& theShape,
+                                          const TopoEdge&  theEdge,
                                           const Standard_Real thePar,
                                           Dir3d&             theNormal)
 {
   gp_XYZ          aSum;
-  TopExp_Explorer ex(theShape, TopAbs_FACE);
+  ShapeExplorer ex(theShape, TopAbs_FACE);
   for (; ex.More(); ex.Next())
   {
-    const TopoDS_Face& aF = TopoDS::Face(ex.Current());
-    TopExp_Explorer    ex1(aF, TopAbs_EDGE);
+    const TopoFace& aF = TopoDS::Face(ex.Current());
+    ShapeExplorer    ex1(aF, TopAbs_EDGE);
     for (; ex1.More(); ex1.Next())
     {
       if (ex1.Current().IsSame(theEdge))
       {
         Standard_Real        f, l;
-        Handle(Geom2d_Curve) aC2d  = BRep_Tool::CurveOnSurface(theEdge, aF, f, l);
+        Handle(GeomCurve2d) aC2d  = BRepInspector::CurveOnSurface(theEdge, aF, f, l);
         gp_Pnt2d             aP2d  = aC2d->Value(thePar);
         Dir3d               aNorm = getNormalOnFace(aF, aP2d.X(), aP2d.Y());
         aSum += aNorm.XYZ();
@@ -86,21 +86,21 @@ static Standard_Boolean getNormalFromEdge(const TopoDS_Shape& theShape,
 // purpose  : Get average normal at the point of the vertex
 //=======================================================================
 
-static Standard_Boolean getNormalFromVertex(const TopoDS_Shape&  theShape,
-                                            const TopoDS_Vertex& theVer,
+static Standard_Boolean getNormalFromVertex(const TopoShape&  theShape,
+                                            const TopoVertex& theVer,
                                             Dir3d&              theNormal)
 {
   gp_XYZ          aSum;
-  TopExp_Explorer ex(theShape, TopAbs_FACE);
+  ShapeExplorer ex(theShape, TopAbs_FACE);
   for (; ex.More(); ex.Next())
   {
-    const TopoDS_Face& aF = TopoDS::Face(ex.Current());
-    TopExp_Explorer    ex1(aF, TopAbs_VERTEX);
+    const TopoFace& aF = TopoDS::Face(ex.Current());
+    ShapeExplorer    ex1(aF, TopAbs_VERTEX);
     for (; ex1.More(); ex1.Next())
     {
       if (ex1.Current().IsSame(theVer))
       {
-        gp_Pnt2d aP2d  = BRep_Tool::Parameters(theVer, aF);
+        gp_Pnt2d aP2d  = BRepInspector::Parameters(theVer, aF);
         Dir3d   aNorm = getNormalOnFace(aF, aP2d.X(), aP2d.Y());
         aSum += aNorm.XYZ();
       }
@@ -124,11 +124,11 @@ static Standard_Boolean getNormalFromVertex(const TopoDS_Shape&  theShape,
 //             - theNormal : The normal direction to the shape at projection point
 //=======================================================================
 static Standard_Boolean FindExtrema(const Point3d&       thePnt,
-                                    const TopoDS_Shape& theShape,
+                                    const TopoShape& theShape,
                                     Point3d&             theMinPnt,
                                     Dir3d&             theNormal)
 {
-  TopoDS_Vertex aRefVertex = BRepBuilderAPI_MakeVertex(thePnt);
+  TopoVertex aRefVertex = BRepBuilderAPI_MakeVertex(thePnt);
 
   BRepExtrema_DistShapeShape ext(aRefVertex, theShape);
 
@@ -142,7 +142,7 @@ static Standard_Boolean FindExtrema(const Point3d&       thePnt,
   {
     if (ext.SupportTypeShape2(iext) == BRepExtrema_IsInFace)
     {
-      TopoDS_Face aF = TopoDS::Face(ext.SupportOnShape2(iext));
+      TopoFace aF = TopoDS::Face(ext.SupportOnShape2(iext));
       theMinPnt      = ext.PointOnShape2(iext);
       Standard_Real aU, aV;
       ext.ParOnFaceS2(iext, aU, aV);
@@ -159,14 +159,14 @@ static Standard_Boolean FindExtrema(const Point3d&       thePnt,
       theMinPnt = ext.PointOnShape2(iext);
       Standard_Real aPar;
       ext.ParOnEdgeS2(iext, aPar);
-      TopoDS_Edge aE = TopoDS::Edge(ext.SupportOnShape2(iext));
+      TopoEdge aE = TopoDS::Edge(ext.SupportOnShape2(iext));
       if (getNormalFromEdge(theShape, aE, aPar, theNormal))
         return Standard_True;
     }
     else if (ext.SupportTypeShape2(iext) == BRepExtrema_IsVertex)
     {
       theMinPnt        = ext.PointOnShape2(iext);
-      TopoDS_Vertex aV = TopoDS::Vertex(ext.SupportOnShape2(iext));
+      TopoVertex aV = TopoDS::Vertex(ext.SupportOnShape2(iext));
       if (getNormalFromVertex(theShape, aV, theNormal))
         return Standard_True;
     }
@@ -188,13 +188,13 @@ static Standard_Boolean isOutside(const Point3d& thePnt,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeHalfSpace::BRepPrimAPI_MakeHalfSpace(const TopoDS_Face& theFace,
+BRepPrimAPI_MakeHalfSpace::BRepPrimAPI_MakeHalfSpace(const TopoFace& theFace,
                                                      const Point3d&      theRefPnt)
 {
   // Set the flag is <IsDone> to False.
   NotDone();
 
-  TopoDS_Shell aShell;
+  TopoShell aShell;
 
   Point3d aMinPnt;
   Dir3d aNormal;
@@ -203,14 +203,14 @@ BRepPrimAPI_MakeHalfSpace::BRepPrimAPI_MakeHalfSpace(const TopoDS_Face& theFace,
     Standard_Boolean toReverse = isOutside(theRefPnt, aMinPnt, aNormal);
 
     // Construction of the open solid.
-    BRep_Builder().MakeShell(aShell);
-    BRep_Builder().Add(aShell, theFace);
-    BRep_Builder().MakeSolid(mySolid);
+    ShapeBuilder().MakeShell(aShell);
+    ShapeBuilder().Add(aShell, theFace);
+    ShapeBuilder().MakeSolid(mySolid);
     if (toReverse)
     {
       aShell.Reverse();
     }
-    BRep_Builder().Add(mySolid, aShell);
+    ShapeBuilder().Add(mySolid, aShell);
     myShape = mySolid;
     Done();
   }
@@ -218,7 +218,7 @@ BRepPrimAPI_MakeHalfSpace::BRepPrimAPI_MakeHalfSpace(const TopoDS_Face& theFace,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeHalfSpace::BRepPrimAPI_MakeHalfSpace(const TopoDS_Shell& theShell,
+BRepPrimAPI_MakeHalfSpace::BRepPrimAPI_MakeHalfSpace(const TopoShell& theShell,
                                                      const Point3d&       theRefPnt)
 {
   // Set the flag is <IsDone> to False.
@@ -232,13 +232,13 @@ BRepPrimAPI_MakeHalfSpace::BRepPrimAPI_MakeHalfSpace(const TopoDS_Shell& theShel
     Standard_Boolean toReverse = isOutside(theRefPnt, aMinPnt, aNormal);
 
     // Construction of the open solid.
-    TopoDS_Shell aShell = theShell;
-    BRep_Builder().MakeSolid(mySolid);
+    TopoShell aShell = theShell;
+    ShapeBuilder().MakeSolid(mySolid);
     if (toReverse)
     {
       aShell.Reverse();
     }
-    BRep_Builder().Add(mySolid, aShell);
+    ShapeBuilder().Add(mySolid, aShell);
     myShape = mySolid;
     Done();
   }
@@ -246,7 +246,7 @@ BRepPrimAPI_MakeHalfSpace::BRepPrimAPI_MakeHalfSpace(const TopoDS_Shell& theShel
 
 //=================================================================================================
 
-const TopoDS_Solid& BRepPrimAPI_MakeHalfSpace::Solid() const
+const TopoSolid& BRepPrimAPI_MakeHalfSpace::Solid() const
 {
   StdFail_NotDone_Raise_if(!IsDone(), "BRepPrimAPI_MakeHalfSpace::Solid");
   return mySolid;
@@ -254,7 +254,7 @@ const TopoDS_Solid& BRepPrimAPI_MakeHalfSpace::Solid() const
 
 //=================================================================================================
 
-BRepPrimAPI_MakeHalfSpace::operator TopoDS_Solid() const
+BRepPrimAPI_MakeHalfSpace::operator TopoSolid() const
 {
   return Solid();
 }

@@ -20,6 +20,6 @@
 #include <IGESData_DirPart.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<IGESData_DirPart> IGESData_Array1OfDirPart;
+typedef NCollection_Array1<DirectoryPart> IGESData_Array1OfDirPart;
 
 #endif

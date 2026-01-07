@@ -45,7 +45,7 @@ inline void BRepFeat_MakeCylindricalHole::Init(const Axis3d& Axis)
 // purpose  :
 //=======================================================================
 
-inline void BRepFeat_MakeCylindricalHole::Init(const TopoDS_Shape& S, const Axis3d& Axis)
+inline void BRepFeat_MakeCylindricalHole::Init(const TopoShape& S, const Axis3d& Axis)
 {
   BRepFeat_Builder::Init(S);
   myAxis  = Axis;

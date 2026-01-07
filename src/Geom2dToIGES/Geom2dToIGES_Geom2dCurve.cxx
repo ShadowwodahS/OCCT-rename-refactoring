@@ -51,7 +51,7 @@ Geom2dToIGES_Geom2dCurve::Geom2dToIGES_Geom2dCurve(const Geom2dToIGES_Geom2dEnti
 //=============================================================================
 
 Handle(IGESData_IGESEntity) Geom2dToIGES_Geom2dCurve::Transfer2dCurve(
-  const Handle(Geom2d_Curve)& start,
+  const Handle(GeomCurve2d)& start,
   const Standard_Real         Udeb,
   const Standard_Real         Ufin)
 {

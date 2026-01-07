@@ -26,12 +26,12 @@
 #include <TopOpeBRepDS_Config.hxx>
 #include <TopAbs_Orientation.hxx>
 
-class TopOpeBRepDS_ShapeData
+class ShapeData1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepDS_ShapeData();
+  Standard_EXPORT ShapeData1();
 
   Standard_EXPORT const TopOpeBRepDS_ListOfInterference& Interferences() const;
 
@@ -46,7 +46,7 @@ public:
 protected:
 private:
   TopOpeBRepDS_ListOfInterference myInterferences;
-  TopTools_ListOfShape            mySameDomain;
+  ShapeList            mySameDomain;
   Standard_Integer                mySameDomainRef;
   TopOpeBRepDS_Config             mySameDomainOri;
   Standard_Integer                mySameDomainInd;

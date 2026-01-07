@@ -24,7 +24,7 @@
 #include <IntRes2d_Intersection.hxx>
 class Bisector_Bisec;
 class IntRes2d_Domain;
-class Geom2d_Curve;
+class GeomCurve2d;
 class Bisector_BisecCC;
 class Geom2d_Line;
 
@@ -67,9 +67,9 @@ public:
 protected:
 private:
   //! Intersection between 2 curves.
-  Standard_EXPORT void SinglePerform(const Handle(Geom2d_Curve)& C1,
+  Standard_EXPORT void SinglePerform(const Handle(GeomCurve2d)& C1,
                                      const IntRes2d_Domain&      D1,
-                                     const Handle(Geom2d_Curve)& C2,
+                                     const Handle(GeomCurve2d)& C2,
                                      const IntRes2d_Domain&      D2,
                                      const Standard_Real         TolConf,
                                      const Standard_Real         Tol,
@@ -83,7 +83,7 @@ private:
 
   Standard_EXPORT void TestBound(const Handle(Geom2d_Line)&  C1,
                                  const IntRes2d_Domain&      D1,
-                                 const Handle(Geom2d_Curve)& C2,
+                                 const Handle(GeomCurve2d)& C2,
                                  const IntRes2d_Domain&      D2,
                                  const Standard_Real         Tol,
                                  const Standard_Boolean      Reverse);

@@ -17,9 +17,9 @@
 #define TNaming_NCollections_HeaderFile
 #include <NCollection_Map.hxx>
 #include <NCollection_DataMap.hxx>
-typedef NCollection_Map<TopoDS_Shape>                         TNaming_MapOfShape;
+typedef NCollection_Map<TopoShape>                         TNaming_MapOfShape;
 typedef TNaming_MapOfShape::Iterator                          TNaming_MapIteratorOfMapOfShape;
-typedef NCollection_DataMap<TopoDS_Shape, TNaming_MapOfShape> TNaming_DataMapOfShapeMapOfShape;
+typedef NCollection_DataMap<TopoShape, TNaming_MapOfShape> TNaming_DataMapOfShapeMapOfShape;
 typedef TNaming_DataMapOfShapeMapOfShape::Iterator
   TNaming_DataMapIteratorOfDataMapOfShapeMapOfShape;
 

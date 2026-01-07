@@ -36,7 +36,7 @@ public:
   gp_Vec2d(const gp_Dir2d& theV);
 
   //! Creates a vector with a doublet of coordinates.
-  gp_Vec2d(const gp_XY& theCoord)
+  gp_Vec2d(const Coords2d& theCoord)
       : coord(theCoord)
   {
   }
@@ -74,7 +74,7 @@ public:
   void SetY(const Standard_Real theY) { coord.SetY(theY); }
 
   //! Assigns the two coordinates of theCoord to this vector.
-  void SetXY(const gp_XY& theCoord) { coord = theCoord; }
+  void SetXY(const Coords2d& theCoord) { coord = theCoord; }
 
   //! Returns the coordinate of range theIndex :
   //! theIndex = 1 => X is returned
@@ -92,7 +92,7 @@ public:
   Standard_Real Y() const { return coord.Y(); }
 
   //! For this vector, returns its two coordinates as a number pair
-  const gp_XY& XY() const { return coord; }
+  const Coords2d& XY() const { return coord; }
 
   //! Returns True if the two vectors have the same magnitude value
   //! and the same direction. The precision values are theLinearTolerance
@@ -350,7 +350,7 @@ public:
   }
 
 private:
-  gp_XY coord;
+  Coords2d coord;
 };
 
 #include <gp_Dir2d.hxx>

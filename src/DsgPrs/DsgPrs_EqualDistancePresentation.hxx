@@ -26,7 +26,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class Point3d;
-class Geom_Plane;
+class GeomPlane;
 class Dir3d;
 class gp_Circ;
 
@@ -44,17 +44,17 @@ public:
   //! The distance is the length of a projection from the shape to the plane.
   //! These distances are used to compare two shapes by this vector alone.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Point3d&                     Point1,
                                   const Point3d&                     Point2,
                                   const Point3d&                     Point3,
                                   const Point3d&                     Point4,
-                                  const Handle(Geom_Plane)&         Plane);
+                                  const Handle(GeomPlane)&         Plane);
 
   //! is used for presentation of interval between
   //! two lines or two points or between a line and a point.
   Standard_EXPORT static void AddInterval(const Handle(Prs3d_Presentation)& aPresentation,
-                                          const Handle(Prs3d_Drawer)&       aDrawer,
+                                          const Handle(StyleDrawer)&       aDrawer,
                                           const Point3d&                     aPoint1,
                                           const Point3d&                     aPoint2,
                                           const Dir3d&                     aDir,
@@ -67,7 +67,7 @@ public:
   //! One of arcs can have a zero radius.
   Standard_EXPORT static void AddIntervalBetweenTwoArcs(
     const Handle(Prs3d_Presentation)& aPresentation,
-    const Handle(Prs3d_Drawer)&       aDrawer,
+    const Handle(StyleDrawer)&       aDrawer,
     const gp_Circ&                    aCircle1,
     const gp_Circ&                    aCircle2,
     const Point3d&                     aPoint1,

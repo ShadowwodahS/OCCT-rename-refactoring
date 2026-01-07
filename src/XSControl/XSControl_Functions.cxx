@@ -58,7 +58,7 @@ static IFSelect_ReturnStatus XSControl_xnorm(const Handle(IFSelect_SessionPilot)
   Standard_Integer       argc = pilot->NbWords();
   const Standard_CString arg1 = pilot->Arg(1);
   //        ****    xnorm        ****
-  Handle(XSControl_WorkSession)   WS      = XSControl::Session(pilot);
+  Handle(ExchangeSession)   WS      = XSControl::Session(pilot);
   Handle(XSControl_Controller)    control = WS->NormAdaptor();
   Message_Messenger::StreamBuffer sout    = Message::SendInfo();
   if (argc == 1)

@@ -53,7 +53,7 @@ public:
   Standard_EXPORT Standard_Boolean WriteFile(IFSelect_ContextWrite& ctx) const Standard_OVERRIDE;
 
   //! Defines a protocol to be adequate for IGES
-  //! (encompasses ALL the IGES norm including IGESSolid, IGESAppli)
+  //! (encompasses ALL the IGES norm including IGESSolid1, IGESAppli1)
   Standard_EXPORT static Handle(IGESData_Protocol) DefineProtocol();
 
   //! Dumps an IGES Entity with an IGES Dumper. <level> is the one

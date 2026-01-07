@@ -24,7 +24,7 @@
 #include <TopOpeBRepDS_Kind.hxx>
 #include <Standard_Integer.hxx>
 #include <Standard_OStream.hxx>
-class TopOpeBRepDS_Transition;
+class StateTransition;
 
 class TopOpeBRepDS_CurvePointInterference;
 DEFINE_STANDARD_HANDLE(TopOpeBRepDS_CurvePointInterference, TopOpeBRepDS_Interference)
@@ -34,7 +34,7 @@ class TopOpeBRepDS_CurvePointInterference : public TopOpeBRepDS_Interference
 {
 
 public:
-  Standard_EXPORT TopOpeBRepDS_CurvePointInterference(const TopOpeBRepDS_Transition& T,
+  Standard_EXPORT TopOpeBRepDS_CurvePointInterference(const StateTransition& T,
                                                       const TopOpeBRepDS_Kind        ST,
                                                       const Standard_Integer         S,
                                                       const TopOpeBRepDS_Kind        GT,

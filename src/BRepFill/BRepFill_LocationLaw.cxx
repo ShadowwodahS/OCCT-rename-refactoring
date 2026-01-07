@@ -75,21 +75,21 @@ static void ToG0(const gp_Mat& M1, const gp_Mat& M2, gp_Mat& T)
 
 //=================================================================================================
 
-void BRepFill_LocationLaw::Init(const TopoDS_Wire& Path)
+void BRepFill_LocationLaw::Init(const TopoWire& Path)
 
 {
   Standard_Integer       NbEdge;
   BRepTools_WireExplorer wexp;
-  // Class BRep_Tool without fields and without Constructor :
-  //  BRep_Tool B;
-  TopoDS_Edge E;
+  // Class BRepInspector without fields and without Constructor :
+  //  BRepInspector B;
+  TopoEdge E;
 
   myPath = Path;
   myTol  = 1.e-4;
 
   for (NbEdge = 0, wexp.Init(myPath); wexp.More(); wexp.Next())
     //    if (! B.Degenerated(wexp.Current())) NbEdge++;
-    if (!BRep_Tool::Degenerated(wexp.Current()))
+    if (!BRepInspector::Degenerated(wexp.Current()))
       NbEdge++;
 
   myLaws   = new (GeomFill_HArray1OfLocationLaw)(1, NbEdge);
@@ -293,39 +293,39 @@ const Handle(GeomFill_LocationLaw)& BRepFill_LocationLaw::Law(const Standard_Int
 
 //=================================================================================================
 
-const TopoDS_Wire& BRepFill_LocationLaw::Wire() const
+const TopoWire& BRepFill_LocationLaw::Wire() const
 {
   return myPath;
 }
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepFill_LocationLaw::Edge(const Standard_Integer Index) const
+const TopoEdge& BRepFill_LocationLaw::Edge(const Standard_Integer Index) const
 {
   return TopoDS::Edge(myEdges->Value(Index));
 }
 
 //=================================================================================================
 
-TopoDS_Vertex BRepFill_LocationLaw::Vertex(const Standard_Integer Index) const
+TopoVertex BRepFill_LocationLaw::Vertex(const Standard_Integer Index) const
 {
-  TopoDS_Edge   E;
-  TopoDS_Vertex V;
+  TopoEdge   E;
+  TopoVertex V;
   if (Index <= myEdges->Length())
   {
     E = TopoDS::Edge(myEdges->Value(Index));
     if (E.Orientation() == TopAbs_REVERSED)
-      V = TopExp::LastVertex(E);
+      V = TopExp1::LastVertex(E);
     else
-      V = TopExp::FirstVertex(E);
+      V = TopExp1::FirstVertex(E);
   }
   else if (Index == myEdges->Length() + 1)
   {
     E = TopoDS::Edge(myEdges->Value(Index - 1));
     if (E.Orientation() == TopAbs_REVERSED)
-      V = TopExp::FirstVertex(E);
+      V = TopExp1::FirstVertex(E);
     else
-      V = TopExp::LastVertex(E);
+      V = TopExp1::LastVertex(E);
   }
   return V;
 }
@@ -336,12 +336,12 @@ TopoDS_Vertex BRepFill_LocationLaw::Vertex(const Standard_Integer Index) const
 //           and the index of the edge in the trajectory
 //===================================================================
 void BRepFill_LocationLaw::PerformVertex(const Standard_Integer Index,
-                                         const TopoDS_Vertex&   Input,
+                                         const TopoVertex&   Input,
                                          const Standard_Real    TolMin,
-                                         TopoDS_Vertex&         Output,
+                                         TopoVertex&         Output,
                                          const Standard_Integer ILoc) const
 {
-  BRep_Builder     B;
+  ShapeBuilder     B;
   Standard_Boolean IsBary = (ILoc == 0);
   Standard_Real    First, Last;
   Point3d           P;
@@ -401,7 +401,7 @@ void BRepFill_LocationLaw::PerformVertex(const Standard_Integer Index,
     }
   }
 
-  P = BRep_Tool::Pnt(Input);
+  P = BRepInspector::Pnt(Input);
 
   if (IsBary)
   {
@@ -456,8 +456,8 @@ Standard_Boolean BRepFill_LocationLaw::IsClosed() const
   if (myPath.Closed())
     return Standard_True;
 
-  TopoDS_Vertex V1, V2;
-  TopExp::Vertices(myPath, V1, V2);
+  TopoVertex V1, V2;
+  TopExp1::Vertices(myPath, V1, V2);
   return (V1.IsSame(V2));
 }
 
@@ -474,8 +474,8 @@ Standard_Integer BRepFill_LocationLaw::IsG1(const Standard_Integer Index,
   Standard_Real        First, Last, EpsNul = 1.e-12;
   Standard_Real        TolEps = SpatialTolerance;
   Standard_Boolean     Ok_D1  = Standard_False;
-  TopoDS_Vertex        V;
-  TopoDS_Edge          E;
+  TopoVertex        V;
+  TopoEdge          E;
   TColgp_Array1OfPnt2d Bid1(1, 1);
   TColgp_Array1OfVec2d Bid2(1, 1);
 
@@ -513,11 +513,11 @@ Standard_Integer BRepFill_LocationLaw::IsG1(const Standard_Integer Index,
   }
 
   if (E.Orientation() == TopAbs_REVERSED)
-    V = TopExp::LastVertex(E);
+    V = TopExp1::LastVertex(E);
   else
-    V = TopExp::FirstVertex(E);
+    V = TopExp1::FirstVertex(E);
 
-  TolEps += 2 * BRep_Tool::Tolerance(V);
+  TolEps += 2 * BRepInspector::Tolerance(V);
 
   Standard_Boolean isG0 = Standard_True;
   Standard_Boolean isG1 = Standard_True;
@@ -621,7 +621,7 @@ void BRepFill_LocationLaw::Parameter(const Standard_Real Abcissa,
 // function : D0
 // purpose  : Position of a section, with a given curviline abscissa
 //===================================================================
-void BRepFill_LocationLaw::D0(const Standard_Real Abcissa, TopoDS_Shape& W)
+void BRepFill_LocationLaw::D0(const Standard_Real Abcissa, TopoShape& W)
 {
   Standard_Real    u;
   Standard_Integer ind;

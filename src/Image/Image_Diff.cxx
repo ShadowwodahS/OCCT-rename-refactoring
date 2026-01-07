@@ -114,8 +114,8 @@ Standard_Boolean Image_Diff::Init(const Handle(Image_PixMap)& theImageRef,
 
 //=================================================================================================
 
-Standard_Boolean Image_Diff::Init(const TCollection_AsciiString& theImgPathRef,
-                                  const TCollection_AsciiString& theImgPathNew,
+Standard_Boolean Image_Diff::Init(const AsciiString1& theImgPathRef,
+                                  const AsciiString1& theImgPathNew,
                                   const Standard_Boolean         theToBlackWhite)
 {
   Handle(Image_AlienPixMap) anImgRef = new Image_AlienPixMap();
@@ -370,7 +370,7 @@ Standard_Boolean Image_Diff::SaveDiffImage(Image_PixMap& theDiffImage) const
 
 //=================================================================================================
 
-Standard_Boolean Image_Diff::SaveDiffImage(const TCollection_AsciiString& theDiffPath) const
+Standard_Boolean Image_Diff::SaveDiffImage(const AsciiString1& theDiffPath) const
 {
   if (myImageRef.IsNull() || myImageNew.IsNull() || theDiffPath.IsEmpty())
   {

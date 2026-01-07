@@ -36,13 +36,13 @@ HLRBRep_HLRToShape::HLRBRep_HLRToShape(const Handle(HLRBRep_Algo)& A)
 
 //=================================================================================================
 
-TopoDS_Shape HLRBRep_HLRToShape::InternalCompound(const Standard_Integer typ,
+TopoShape HLRBRep_HLRToShape::InternalCompound(const Standard_Integer typ,
                                                   const Standard_Boolean visible,
-                                                  const TopoDS_Shape&    S,
+                                                  const TopoShape&    S,
                                                   const Standard_Boolean In3d)
 {
   Standard_Boolean     added = Standard_False;
-  TopoDS_Shape         Result;
+  TopoShape         Result;
   Handle(HLRBRep_Data) DS = myAlgo->DataStructure();
 
   if (!DS.IsNull())
@@ -63,7 +63,7 @@ TopoDS_Shape HLRBRep_HLRToShape::InternalCompound(const Standard_Integer typ,
       else
         myAlgo->ShapeBounds(index).Bounds(v1, v2, e1, e2, f1, f2);
     }
-    BRep_Builder B;
+    ShapeBuilder B;
     B.MakeCompound(TopoDS::Compound(Result));
     HLRBRep_EdgeData* ed = &(DS->EDataArray().ChangeValue(e1 - 1));
 
@@ -82,7 +82,7 @@ TopoDS_Shape HLRBRep_HLRToShape::InternalCompound(const Standard_Integer typ,
     {
       TopTools_IndexedMapOfShape& Edges = DS->EdgeMap();
       TopTools_IndexedMapOfShape& Faces = DS->FaceMap();
-      TopExp_Explorer             Exp;
+      ShapeExplorer             Exp;
 
       for (Exp.Init(S, TopAbs_FACE); Exp.More(); Exp.Next())
       {
@@ -132,7 +132,7 @@ TopoDS_Shape HLRBRep_HLRToShape::InternalCompound(const Standard_Integer typ,
     DS->Projector().Scaled(Standard_False);
   }
   if (!added)
-    Result = TopoDS_Shape();
+    Result = TopoShape();
   return Result;
 }
 
@@ -142,7 +142,7 @@ void HLRBRep_HLRToShape::DrawFace(const Standard_Boolean visible,
                                   const Standard_Integer typ,
                                   const Standard_Integer iface,
                                   Handle(HLRBRep_Data)&  DS,
-                                  TopoDS_Shape&          Result,
+                                  TopoShape&          Result,
                                   Standard_Boolean&      added,
                                   const Standard_Boolean In3d) const
 {
@@ -207,7 +207,7 @@ void HLRBRep_HLRToShape::DrawEdge(const Standard_Boolean visible,
                                   const Standard_Boolean inFace,
                                   const Standard_Integer typ,
                                   HLRBRep_EdgeData&      ed,
-                                  TopoDS_Shape&          Result,
+                                  TopoShape&          Result,
                                   Standard_Boolean&      added,
                                   const Standard_Boolean In3d) const
 {
@@ -225,8 +225,8 @@ void HLRBRep_HLRToShape::DrawEdge(const Standard_Boolean visible,
   {
     Standard_Real        sta, end;
     Standard_ShortReal   tolsta, tolend;
-    BRep_Builder         B;
-    TopoDS_Edge          E;
+    ShapeBuilder         B;
+    TopoEdge          E;
     HLRAlgo_EdgeIterator It;
     if (visible)
     {

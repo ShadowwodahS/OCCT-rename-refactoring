@@ -39,16 +39,16 @@ public:
   void SetContext(const Handle(IntTools_Context)& theContext) { myContext = theContext; }
 
   //! Returns the input shapes
-  const TopTools_ListOfShape& Shapes() const { return myShapes; }
+  const ShapeList& Shapes() const { return myShapes; }
 
   //! Sets the shapes for building areas
-  void SetShapes(const TopTools_ListOfShape& theLS) { myShapes = theLS; }
+  void SetShapes(const ShapeList& theLS) { myShapes = theLS; }
 
   //! Returns the found loops
-  const TopTools_ListOfShape& Loops() const { return myLoops; }
+  const ShapeList& Loops() const { return myLoops; }
 
   //! Returns the found areas
-  const TopTools_ListOfShape& Areas() const { return myAreas; }
+  const ShapeList& Areas() const { return myAreas; }
 
   //! Defines the preventing of addition of internal parts into result.
   //! The default value is FALSE, i.e. the internal parts are added into result.
@@ -75,10 +75,10 @@ protected:
   virtual void PerformInternalShapes(const Message_ProgressRange& theRange) = 0;
 
   Handle(IntTools_Context)           myContext;
-  TopTools_ListOfShape               myShapes;
-  TopTools_ListOfShape               myLoops;
-  TopTools_ListOfShape               myLoopsInternal;
-  TopTools_ListOfShape               myAreas;
+  ShapeList               myShapes;
+  ShapeList               myLoops;
+  ShapeList               myLoopsInternal;
+  ShapeList               myAreas;
   TopTools_IndexedMapOfOrientedShape myShapesToAvoid;
   Standard_Boolean                   myAvoidInternalShapes;
 

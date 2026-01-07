@@ -19,8 +19,8 @@
 #include <Standard_Type.hxx>
 
 #include <BRepCheck_Result.hxx>
-class TopoDS_Solid;
-class TopoDS_Shape;
+class TopoSolid;
+class TopoShape;
 
 class BRepCheck_Solid;
 DEFINE_STANDARD_HANDLE(BRepCheck_Solid, BRepCheck_Result)
@@ -32,11 +32,11 @@ class BRepCheck_Solid : public BRepCheck_Result
 public:
   //! Constructor
   //! <theS> is the solid to check
-  Standard_EXPORT BRepCheck_Solid(const TopoDS_Solid& theS);
+  Standard_EXPORT BRepCheck_Solid(const TopoSolid& theS);
 
   //! Checks the solid in context of
   //! the shape <theContextShape>
-  Standard_EXPORT virtual void InContext(const TopoDS_Shape& theContextShape) Standard_OVERRIDE;
+  Standard_EXPORT virtual void InContext(const TopoShape& theContextShape) Standard_OVERRIDE;
 
   //! Checks the solid per se.
   //!

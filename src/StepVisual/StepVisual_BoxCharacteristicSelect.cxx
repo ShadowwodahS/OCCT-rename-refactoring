@@ -16,24 +16,24 @@
 
 #include <StepVisual_BoxCharacteristicSelect.hxx>
 
-StepVisual_BoxCharacteristicSelect::StepVisual_BoxCharacteristicSelect() {}
+BoxCharacteristicSelect::BoxCharacteristicSelect() {}
 
-void StepVisual_BoxCharacteristicSelect::SetTypeOfContent(const Standard_Integer aType)
+void BoxCharacteristicSelect::SetTypeOfContent(const Standard_Integer aType)
 {
   theTypeOfContent = aType;
 }
 
-Standard_Integer StepVisual_BoxCharacteristicSelect::TypeOfContent() const
+Standard_Integer BoxCharacteristicSelect::TypeOfContent() const
 {
   return theTypeOfContent;
 }
 
-Standard_Real StepVisual_BoxCharacteristicSelect::RealValue() const
+Standard_Real BoxCharacteristicSelect::RealValue() const
 {
   return theRealValue;
 }
 
-void StepVisual_BoxCharacteristicSelect::SetRealValue(const Standard_Real aValue)
+void BoxCharacteristicSelect::SetRealValue(const Standard_Real aValue)
 {
   theRealValue = aValue;
 }

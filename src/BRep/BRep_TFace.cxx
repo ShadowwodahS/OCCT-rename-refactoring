@@ -45,7 +45,7 @@ Handle(TopoDS_TShape) BRep_TFace::EmptyCopy() const
 
 //=================================================================================================
 
-const Handle(Poly_Triangulation)& BRep_TFace::Triangulation(const Poly_MeshPurpose thePurpose) const
+const Handle(MeshTriangulation)& BRep_TFace::Triangulation(const Poly_MeshPurpose thePurpose) const
 {
   if (thePurpose == Poly_MeshPurpose_NONE)
   {
@@ -53,7 +53,7 @@ const Handle(Poly_Triangulation)& BRep_TFace::Triangulation(const Poly_MeshPurpo
   }
   for (Poly_ListOfTriangulation::Iterator anIter(myTriangulations); anIter.More(); anIter.Next())
   {
-    const Handle(Poly_Triangulation)& aTriangulation = anIter.Value();
+    const Handle(MeshTriangulation)& aTriangulation = anIter.Value();
     if ((aTriangulation->MeshPurpose() & thePurpose) != 0)
     {
       return aTriangulation;
@@ -64,13 +64,13 @@ const Handle(Poly_Triangulation)& BRep_TFace::Triangulation(const Poly_MeshPurpo
     // if none matching other criteria was found return the first defined triangulation
     return myTriangulations.First();
   }
-  static const Handle(Poly_Triangulation) anEmptyTriangulation;
+  static const Handle(MeshTriangulation) anEmptyTriangulation;
   return anEmptyTriangulation;
 }
 
 //=================================================================================================
 
-void BRep_TFace::Triangulation(const Handle(Poly_Triangulation)& theTriangulation,
+void BRep_TFace::Triangulation(const Handle(MeshTriangulation)& theTriangulation,
                                const Standard_Boolean            theToReset)
 {
   if (theToReset || theTriangulation.IsNull())
@@ -131,7 +131,7 @@ void BRep_TFace::Triangulation(const Handle(Poly_Triangulation)& theTriangulatio
 //=================================================================================================
 
 void BRep_TFace::Triangulations(const Poly_ListOfTriangulation&   theTriangulations,
-                                const Handle(Poly_Triangulation)& theActiveTriangulation)
+                                const Handle(MeshTriangulation)& theActiveTriangulation)
 {
   if (theTriangulations.IsEmpty())
   {
@@ -142,7 +142,7 @@ void BRep_TFace::Triangulations(const Poly_ListOfTriangulation&   theTriangulati
   Standard_Boolean anActiveInList = false;
   for (Poly_ListOfTriangulation::Iterator anIter(theTriangulations); anIter.More(); anIter.Next())
   {
-    const Handle(Poly_Triangulation)& aTriangulation = anIter.Value();
+    const Handle(MeshTriangulation)& aTriangulation = anIter.Value();
     Standard_ASSERT_RAISE(!aTriangulation.IsNull(),
                           "Try to set list with NULL triangulation to the face");
     if (aTriangulation == theActiveTriangulation)
@@ -185,7 +185,7 @@ void BRep_TFace::DumpJson(Standard_OStream& theOStream, Standard_Integer theDept
 
   for (Poly_ListOfTriangulation::Iterator anIter(myTriangulations); anIter.More(); anIter.Next())
   {
-    const Handle(Poly_Triangulation)& aTriangulation = anIter.Value();
+    const Handle(MeshTriangulation)& aTriangulation = anIter.Value();
     OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, aTriangulation.get())
   }
 }

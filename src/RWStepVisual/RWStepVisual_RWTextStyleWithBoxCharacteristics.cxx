@@ -57,15 +57,15 @@ void RWStepVisual_RWTextStyleWithBoxCharacteristics::ReadStep(
   // --- own field : characteristics ---
 
   Standard_Integer        numr, numpr;
-  TCollection_AsciiString TypeHeigth("BOX_HEIGHT");
-  TCollection_AsciiString TypeWidth("BOX_WIDTH");
-  TCollection_AsciiString TypeSlant("BOX_SLANT_ANGLE");
-  TCollection_AsciiString TypeRotate("BOX_ROTATE_ANGLE");
-  TCollection_AsciiString TrueType;
+  AsciiString1 TypeHeigth("BOX_HEIGHT");
+  AsciiString1 TypeWidth("BOX_WIDTH");
+  AsciiString1 TypeSlant("BOX_SLANT_ANGLE");
+  AsciiString1 TypeRotate("BOX_ROTATE_ANGLE");
+  AsciiString1 TrueType;
 
   Handle(StepVisual_HArray1OfBoxCharacteristicSelect) aCharacteristics;
   Standard_Real                                       aCharacteristicsItem;
-  StepVisual_BoxCharacteristicSelect                  aBoxCharacteristicSelect;
+  BoxCharacteristicSelect                  aBoxCharacteristicSelect;
 
   Standard_Integer nsub3;
   nsub3 = data->SubListNumber(num, 3, Standard_False);

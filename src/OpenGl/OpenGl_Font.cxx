@@ -24,7 +24,7 @@ IMPLEMENT_STANDARD_RTTIEXT(OpenGl_Font, OpenGl_Resource)
 
 //=================================================================================================
 
-OpenGl_Font::OpenGl_Font(const Handle(Font_FTFont)& theFont, const TCollection_AsciiString& theKey)
+OpenGl_Font::OpenGl_Font(const Handle(Font_FTFont)& theFont, const AsciiString1& theKey)
     : myKey(theKey),
       myFont(theFont),
       myAscender(0.0f),
@@ -146,7 +146,7 @@ bool OpenGl_Font::createTexture(const Handle(OpenGl_Context)& theCtx)
                         GL_DEBUG_TYPE_ERROR,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString("New texture initialization of size ")
+                        AsciiString1("New texture initialization of size ")
                           + aTextureSizeX + "x" + aTextureSizeY + " for textured font has failed.");
     return false;
   }

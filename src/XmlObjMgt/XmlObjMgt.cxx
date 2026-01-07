@@ -80,7 +80,7 @@ XmlObjMgt_DOMString XmlObjMgt::GetStringValue(const XmlObjMgt_Element& theElemen
 // purpose  : Converts theString to hex printable representation and put it
 //         : to the out buffer
 //=======================================================================
-void SprintfExtStr(char* out, const TCollection_ExtendedString& theString)
+void SprintfExtStr(char* out, const UtfString& theString)
 {
   unsigned short* p       = (unsigned short*)theString.ToExtString();
   int             len     = theString.Length();
@@ -110,12 +110,12 @@ void SprintfExtStr(char* out, const TCollection_ExtendedString& theString)
 //=======================================================================
 
 Standard_Boolean XmlObjMgt::SetExtendedString(XmlObjMgt_Element&                theElement,
-                                              const TCollection_ExtendedString& theString)
+                                              const UtfString& theString)
 {
-  TCollection_AsciiString anAString;
+  AsciiString1 anAString;
   if (theString.IsAscii())
   {
-    anAString = TCollection_AsciiString(theString, '?');
+    anAString = AsciiString1(theString, '?');
     SetStringValue(theElement, anAString.ToCString());
   }
   else
@@ -150,7 +150,7 @@ Standard_Boolean XmlObjMgt::SetExtendedString(XmlObjMgt_Element&                
 //=======================================================================
 
 Standard_Boolean XmlObjMgt::GetExtendedString(const XmlObjMgt_Element&    theElement,
-                                              TCollection_ExtendedString& theString)
+                                              UtfString& theString)
 {
   theString = GetStringValue(theElement);
   return Standard_True;
@@ -163,7 +163,7 @@ Standard_Boolean XmlObjMgt::GetExtendedString(const XmlObjMgt_Element&    theEle
 //=======================================================================
 
 Standard_Boolean XmlObjMgt::GetTagEntryString(const XmlObjMgt_DOMString& theSource,
-                                              TCollection_AsciiString&   theTagEntry)
+                                              AsciiString1&   theTagEntry)
 {
   //    Check the prefix
   const size_t aPrefixSize = sizeof(aRefPrefix) - 1;
@@ -218,7 +218,7 @@ Standard_Boolean XmlObjMgt::GetTagEntryString(const XmlObjMgt_DOMString& theSour
 //=======================================================================
 
 void XmlObjMgt::SetTagEntryString(XmlObjMgt_DOMString&           theTarget,
-                                  const TCollection_AsciiString& theTagEntry)
+                                  const AsciiString1& theTagEntry)
 {
   //    Begin parsing theTagEntry
   const char* aTagEntry = (const char*)theTagEntry.ToCString() + 1;

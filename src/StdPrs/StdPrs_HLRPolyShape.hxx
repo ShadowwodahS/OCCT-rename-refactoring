@@ -32,9 +32,9 @@ class StdPrs_HLRPolyShape : public StdPrs_HLRShapeI
 public:
   //! Compute presentation for specified shape.
   Standard_EXPORT virtual void ComputeHLR(const Handle(Prs3d_Presentation)& thePrs,
-                                          const TopoDS_Shape&               theShape,
-                                          const Handle(Prs3d_Drawer)&       theDrawer,
-                                          const Handle(Graphic3d_Camera)&   theProjector) const
+                                          const TopoShape&               theShape,
+                                          const Handle(StyleDrawer)&       theDrawer,
+                                          const Handle(CameraOn3d)&   theProjector) const
     Standard_OVERRIDE;
 };
 

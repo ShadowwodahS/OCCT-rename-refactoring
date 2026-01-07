@@ -24,7 +24,7 @@
 #include <TopOpeBRepTool_OutCurveType.hxx>
 #include <Standard_Integer.hxx>
 
-class TopOpeBRepTool_GeomTool
+class GeomTool1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -39,7 +39,7 @@ public:
   //! walking   points  of  <L>,
   //! - APPROX  to build  an  approximation curve on the
   //! walking points of <L>.
-  Standard_EXPORT TopOpeBRepTool_GeomTool(
+  Standard_EXPORT GeomTool1(
     const TopOpeBRepTool_OutCurveType TypeC3D = TopOpeBRepTool_BSPLINE1,
     const Standard_Boolean            CompC3D = Standard_True,
     const Standard_Boolean            CompPC1 = Standard_True,
@@ -58,7 +58,7 @@ public:
 
   Standard_EXPORT void DefinePCurves2(const Standard_Boolean CompPC2);
 
-  Standard_EXPORT void Define(const TopOpeBRepTool_GeomTool& GT);
+  Standard_EXPORT void Define(const GeomTool1& GT);
 
   Standard_EXPORT void GetTolerances(Standard_Real& tol3d, Standard_Real& tol2d) const;
 

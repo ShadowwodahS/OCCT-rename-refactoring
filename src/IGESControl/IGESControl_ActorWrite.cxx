@@ -50,8 +50,8 @@ Standard_Boolean IGESControl_ActorWrite::Recognize(const Handle(Transfer_Finder)
   if (!gemap.IsNull())
   {
     Handle(RefObject) geom = gemap->Value();
-    DeclareAndCast(Geom_Curve, Curve, geom);
-    DeclareAndCast(Geom_Surface, Surf, geom);
+    DeclareAndCast(GeomCurve3d, Curve, geom);
+    DeclareAndCast(GeomSurface, Surf, geom);
     if (!Curve.IsNull() || !Surf.IsNull())
       return Standard_True;
   }
@@ -76,7 +76,7 @@ Handle(Transfer_Binder) IGESControl_ActorWrite::Transfer(const Handle(Transfer_F
   DeclareAndCast(TransferBRep_ShapeMapper, shmap, start);
   if (!shmap.IsNull())
   {
-    TopoDS_Shape shape = shmap->Value();
+    TopoShape shape = shmap->Value();
     if (shape.IsNull())
     {
       return NullResult();
@@ -104,8 +104,8 @@ Handle(Transfer_Binder) IGESControl_ActorWrite::Transfer(const Handle(Transfer_F
   if (!gemap.IsNull())
   {
     Handle(RefObject) geom = gemap->Value();
-    DeclareAndCast(Geom_Curve, Curve, geom);
-    DeclareAndCast(Geom_Surface, Surf, geom);
+    DeclareAndCast(GeomCurve3d, Curve, geom);
+    DeclareAndCast(GeomSurface, Surf, geom);
 
     //  On reconnait : Curve et Surface de Geom
     //   quid de Point; Geom2d ?

@@ -32,7 +32,7 @@ TInspector_PluginParameters::TInspector_PluginParameters(TInspector_Window* theW
 // purpose :
 // =======================================================================
 void TInspector_PluginParameters::SetParameters(
-  const TCollection_AsciiString&                      thePluginName,
+  const AsciiString1&                      thePluginName,
   const NCollection_List<Handle(RefObject)>& theParameters,
   const Standard_Boolean&                             theToActivatePlugin)
 {
@@ -49,7 +49,7 @@ void TInspector_PluginParameters::SetParameters(
 // function : SetTemporaryDirectory
 // purpose :
 // =======================================================================
-void TInspector_PluginParameters::SetTemporaryDirectory(const TCollection_AsciiString& thePath)
+void TInspector_PluginParameters::SetTemporaryDirectory(const AsciiString1& thePath)
 {
   if (thePath.IsEqual(myPreferences->GetDirectory()))
     return;

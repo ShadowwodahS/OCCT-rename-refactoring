@@ -56,9 +56,9 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
   Geom2dAdaptor_Curve         C1    = Qualified1.Qualified();
   Geom2dAdaptor_Curve         C2    = Qualified2.Qualified();
   Geom2dAdaptor_Curve         C3    = Qualified3.Qualified();
-  const Handle(Geom2d_Curve)& CC1   = C1.Curve();
-  const Handle(Geom2d_Curve)& CC2   = C2.Curve();
-  const Handle(Geom2d_Curve)& CC3   = C3.Curve();
+  const Handle(GeomCurve2d)& CC1   = C1.Curve();
+  const Handle(GeomCurve2d)& CC2   = C2.Curve();
+  const Handle(GeomCurve2d)& CC3   = C3.Curve();
   GeomAbs_CurveType           Type1 = C1.GetType();
   GeomAbs_CurveType           Type2 = C2.GetType();
   GeomAbs_CurveType           Type3 = C3.GetType();
@@ -87,7 +87,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
           Handle(Geom2d_Circle) CCC3 = Handle(Geom2d_Circle)::DownCast(CC3);
           gp_Circ2d             c3(CCC3->Circ2d());
           GccEnt_QualifiedCirc  Qc3 = GccEnt_QualifiedCirc(c3, Qualified3.Qualifier());
-          GccAna_Circ2d3Tan     Circ(Qc1, Qc2, Qc3, Tolerance);
+          Circle2dThreeTangent     Circ(Qc1, Qc2, Qc3, Tolerance);
           WellDone = Circ.IsDone();
           NbrSol   = Circ.NbSolutions();
           for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -101,7 +101,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
           Handle(Geom2d_Line) LL3 = Handle(Geom2d_Line)::DownCast(CC3);
           gp_Lin2d            l3(LL3->Lin2d());
           GccEnt_QualifiedLin Ql3 = GccEnt_QualifiedLin(l3, Qualified3.Qualifier());
-          GccAna_Circ2d3Tan   Circ(Qc1, Qc2, Ql3, Tolerance);
+          Circle2dThreeTangent   Circ(Qc1, Qc2, Ql3, Tolerance);
           WellDone = Circ.IsDone();
           NbrSol   = Circ.NbSolutions();
           for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -121,7 +121,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
           Handle(Geom2d_Circle) CCC3 = Handle(Geom2d_Circle)::DownCast(CC3);
           gp_Circ2d             c3(CCC3->Circ2d());
           GccEnt_QualifiedCirc  Qc3(c3, Qualified3.Qualifier());
-          GccAna_Circ2d3Tan     Circ(Qc1, Qc3, Ql2, Tolerance);
+          Circle2dThreeTangent     Circ(Qc1, Qc3, Ql2, Tolerance);
           WellDone = Circ.IsDone();
           NbrSol   = Circ.NbSolutions();
           for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -135,7 +135,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
           Handle(Geom2d_Line) LL3 = Handle(Geom2d_Line)::DownCast(CC3);
           gp_Lin2d            l3(LL3->Lin2d());
           GccEnt_QualifiedLin Ql3 = GccEnt_QualifiedLin(l3, Qualified3.Qualifier());
-          GccAna_Circ2d3Tan   Circ(Qc1, Ql2, Ql3, Tolerance);
+          Circle2dThreeTangent   Circ(Qc1, Ql2, Ql3, Tolerance);
           WellDone = Circ.IsDone();
           NbrSol   = Circ.NbSolutions();
           for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -161,7 +161,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
           Handle(Geom2d_Circle) CCC3 = Handle(Geom2d_Circle)::DownCast(CC3);
           gp_Circ2d             c3(CCC3->Circ2d());
           GccEnt_QualifiedCirc  Qc3 = GccEnt_QualifiedCirc(c3, Qualified3.Qualifier());
-          GccAna_Circ2d3Tan     Circ(Qc2, Qc3, Ql1, Tolerance);
+          Circle2dThreeTangent     Circ(Qc2, Qc3, Ql1, Tolerance);
           WellDone = Circ.IsDone();
           NbrSol   = Circ.NbSolutions();
           for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -175,7 +175,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
           Handle(Geom2d_Line) LL3 = Handle(Geom2d_Line)::DownCast(CC3);
           gp_Lin2d            l3(LL3->Lin2d());
           GccEnt_QualifiedLin Ql3 = GccEnt_QualifiedLin(l3, Qualified3.Qualifier());
-          GccAna_Circ2d3Tan   Circ(Qc2, Ql1, Ql3, Tolerance);
+          Circle2dThreeTangent   Circ(Qc2, Ql1, Ql3, Tolerance);
           WellDone = Circ.IsDone();
           NbrSol   = Circ.NbSolutions();
           for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -195,7 +195,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
           Handle(Geom2d_Circle) CCC3 = Handle(Geom2d_Circle)::DownCast(CC3);
           gp_Circ2d             c3(CCC3->Circ2d());
           GccEnt_QualifiedCirc  Qc3 = GccEnt_QualifiedCirc(c3, Qualified3.Qualifier());
-          GccAna_Circ2d3Tan     Circ(Qc3, Ql2, Ql1, Tolerance);
+          Circle2dThreeTangent     Circ(Qc3, Ql2, Ql1, Tolerance);
           WellDone = Circ.IsDone();
           NbrSol   = Circ.NbSolutions();
           for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -209,7 +209,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
           Handle(Geom2d_Line) LL3 = Handle(Geom2d_Line)::DownCast(CC3);
           gp_Lin2d            l3(LL3->Lin2d());
           GccEnt_QualifiedLin Ql3 = GccEnt_QualifiedLin(l3, Qualified3.Qualifier());
-          GccAna_Circ2d3Tan   Circ(Ql1, Ql2, Ql3, Tolerance);
+          Circle2dThreeTangent   Circ(Ql1, Ql2, Ql3, Tolerance);
           WellDone = Circ.IsDone();
           NbrSol   = Circ.NbSolutions();
           for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -289,8 +289,8 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
 {
   Geom2dAdaptor_Curve         C1    = Qualified1.Qualified();
   Geom2dAdaptor_Curve         C2    = Qualified2.Qualified();
-  const Handle(Geom2d_Curve)& CC1   = C1.Curve();
-  const Handle(Geom2d_Curve)& CC2   = C2.Curve();
+  const Handle(GeomCurve2d)& CC1   = C1.Curve();
+  const Handle(GeomCurve2d)& CC2   = C2.Curve();
   GeomAbs_CurveType           Type1 = C1.GetType();
   GeomAbs_CurveType           Type2 = C2.GetType();
 
@@ -312,7 +312,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
         Handle(Geom2d_Circle) CCC2 = Handle(Geom2d_Circle)::DownCast(CC2);
         gp_Circ2d             c2(CCC2->Circ2d());
         GccEnt_QualifiedCirc  Qc2(c2, Qualified2.Qualifier());
-        GccAna_Circ2d3Tan     Circ(Qc1, Qc2, Point->Pnt2d(), Tolerance);
+        Circle2dThreeTangent     Circ(Qc1, Qc2, Point->Pnt2d(), Tolerance);
         WellDone = Circ.IsDone();
         NbrSol   = Circ.NbSolutions();
         for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -326,7 +326,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
         Handle(Geom2d_Line) LL2 = Handle(Geom2d_Line)::DownCast(CC2);
         gp_Lin2d            l2(LL2->Lin2d());
         GccEnt_QualifiedLin Ql2(l2, Qualified2.Qualifier());
-        GccAna_Circ2d3Tan   Circ(Qc1, Ql2, Point->Pnt2d(), Tolerance);
+        Circle2dThreeTangent   Circ(Qc1, Ql2, Point->Pnt2d(), Tolerance);
         WellDone = Circ.IsDone();
         NbrSol   = Circ.NbSolutions();
         for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -346,7 +346,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
         Handle(Geom2d_Circle) CCC2 = Handle(Geom2d_Circle)::DownCast(CC2);
         gp_Circ2d             c2(CCC2->Circ2d());
         GccEnt_QualifiedCirc  Qc2(c2, Qualified2.Qualifier());
-        GccAna_Circ2d3Tan     Circ(Qc2, Ql1, Point->Pnt2d(), Tolerance);
+        Circle2dThreeTangent     Circ(Qc2, Ql1, Point->Pnt2d(), Tolerance);
         WellDone = Circ.IsDone();
         NbrSol   = Circ.NbSolutions();
         for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -360,7 +360,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
         Handle(Geom2d_Line) LL2 = Handle(Geom2d_Line)::DownCast(CC2);
         gp_Lin2d            l2(LL2->Lin2d());
         GccEnt_QualifiedLin Ql2(l2, Qualified2.Qualifier());
-        GccAna_Circ2d3Tan   Circ(Ql1, Ql2, Point->Pnt2d(), Tolerance);
+        Circle2dThreeTangent   Circ(Ql1, Ql2, Point->Pnt2d(), Tolerance);
         WellDone = Circ.IsDone();
         NbrSol   = Circ.NbSolutions();
         for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -436,7 +436,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
       pararg3(1, 16)
 {
   Geom2dAdaptor_Curve         C1    = Qualified1.Qualified();
-  const Handle(Geom2d_Curve)& CC1   = C1.Curve();
+  const Handle(GeomCurve2d)& CC1   = C1.Curve();
   GeomAbs_CurveType           Type1 = C1.GetType();
 
   //=============================================================================
@@ -451,7 +451,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
       Handle(Geom2d_Circle) CCC1 = Handle(Geom2d_Circle)::DownCast(CC1);
       gp_Circ2d             c1(CCC1->Circ2d());
       GccEnt_QualifiedCirc  Qc1(c1, Qualified1.Qualifier());
-      GccAna_Circ2d3Tan     Circ(Qc1, Point1->Pnt2d(), Point2->Pnt2d(), Tolerance);
+      Circle2dThreeTangent     Circ(Qc1, Point1->Pnt2d(), Point2->Pnt2d(), Tolerance);
       WellDone = Circ.IsDone();
       NbrSol   = Circ.NbSolutions();
       for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -465,7 +465,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Geom2dGcc_QualifiedCurve& Quali
       Handle(Geom2d_Line) LL1 = Handle(Geom2d_Line)::DownCast(CC1);
       gp_Lin2d            l1(LL1->Lin2d());
       GccEnt_QualifiedLin Ql1(l1, Qualified1.Qualifier());
-      GccAna_Circ2d3Tan   Circ(Ql1, Point1->Pnt2d(), Point2->Pnt2d(), Tolerance);
+      Circle2dThreeTangent   Circ(Ql1, Point1->Pnt2d(), Point2->Pnt2d(), Tolerance);
       WellDone = Circ.IsDone();
       NbrSol   = Circ.NbSolutions();
       for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -543,7 +543,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Handle(Geom2d_Point)& Point1,
   //=============================================================================
 
   NbrSol = 0;
-  GccAna_Circ2d3Tan Circ(Point1->Pnt2d(), Point2->Pnt2d(), Point3->Pnt2d(), Tolerance);
+  Circle2dThreeTangent Circ(Point1->Pnt2d(), Point2->Pnt2d(), Point3->Pnt2d(), Tolerance);
   WellDone = Circ.IsDone();
   NbrSol   = Circ.NbSolutions();
   for (Standard_Integer i = 1; i <= NbrSol; i++)
@@ -553,7 +553,7 @@ Geom2dGcc_Circ2d3Tan::Geom2dGcc_Circ2d3Tan(const Handle(Geom2d_Point)& Point1,
   Results(Circ, 1, 2, 3);
 }
 
-void Geom2dGcc_Circ2d3Tan::Results(const GccAna_Circ2d3Tan& Circ,
+void Geom2dGcc_Circ2d3Tan::Results(const Circle2dThreeTangent& Circ,
                                    const Standard_Integer   Rank1,
                                    const Standard_Integer   Rank2,
                                    const Standard_Integer   Rank3)

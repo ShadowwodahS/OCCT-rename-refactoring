@@ -160,9 +160,9 @@ public:
 protected:
 private:
   Handle(Interface_InterfaceModel)     themodel;
-  TCollection_AsciiString              thename;
+  AsciiString1              thename;
   Handle(Transfer_ResultFromTransient) themain;
-  TCollection_AsciiString              themlab;
+  AsciiString1              themlab;
   Standard_Integer                     themnum;
   Interface_CheckStatus                themchk;
 };

@@ -62,7 +62,7 @@ Standard_Boolean BinMDataStd_ExtStringArrayDriver::Paste(
   Standard_Boolean                ok           = Standard_True;
   for (Standard_Integer i = aFirstInd; i <= aLastInd; i++)
   {
-    TCollection_ExtendedString aStr;
+    UtfString aStr;
     if (!(theSource >> aStr))
     {
       ok = Standard_False;
@@ -88,7 +88,7 @@ Standard_Boolean BinMDataStd_ExtStringArrayDriver::Paste(
     anAtt->SetDelta(aDelta);
   }
 
-  BinMDataStd::SetAttributeID(theSource,
+  BinMDataStd1::SetAttributeID(theSource,
                               anAtt,
                               theRelocTable.GetHeaderData()->StorageVersion().IntegerValue());
   return ok;

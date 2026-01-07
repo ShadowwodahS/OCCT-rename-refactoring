@@ -65,10 +65,10 @@ void Expr_GreaterThan::Simplify()
 
 Handle(Expr_GeneralRelation) Expr_GreaterThan::Copy() const
 {
-  return new Expr_GreaterThan(Expr::CopyShare(FirstMember()), Expr::CopyShare(SecondMember()));
+  return new Expr_GreaterThan(Expr1::CopyShare(FirstMember()), Expr1::CopyShare(SecondMember()));
 }
 
-TCollection_AsciiString Expr_GreaterThan::String() const
+AsciiString1 Expr_GreaterThan::String() const
 {
   return FirstMember()->String() + " > " + SecondMember()->String();
 }

@@ -40,7 +40,7 @@ const Standard_GUID& TDataStd_IntegerArray::GetID()
 // function : SetAttr
 // purpose  : Implements Set functionality
 //=======================================================================
-static Handle(TDataStd_IntegerArray) SetAttr(const TDF_Label&       label,
+static Handle(TDataStd_IntegerArray) SetAttr(const DataLabel&       label,
                                              const Standard_Integer lower,
                                              const Standard_Integer upper,
                                              const Standard_Boolean isDelta,
@@ -87,7 +87,7 @@ void TDataStd_IntegerArray::Init(const Standard_Integer lower, const Standard_In
 // purpose  : isDelta applicable only for new attributes
 //=======================================================================
 
-Handle(TDataStd_IntegerArray) TDataStd_IntegerArray::Set(const TDF_Label&       label,
+Handle(TDataStd_IntegerArray) TDataStd_IntegerArray::Set(const DataLabel&       label,
                                                          const Standard_Integer lower,
                                                          const Standard_Integer upper,
                                                          const Standard_Boolean isDelta)
@@ -101,7 +101,7 @@ Handle(TDataStd_IntegerArray) TDataStd_IntegerArray::Set(const TDF_Label&       
 // purpose  : Set user defined attribute with specific ID
 //=======================================================================
 
-Handle(TDataStd_IntegerArray) TDataStd_IntegerArray::Set(const TDF_Label&       label,
+Handle(TDataStd_IntegerArray) TDataStd_IntegerArray::Set(const DataLabel&       label,
                                                          const Standard_GUID&   theGuid,
                                                          const Standard_Integer lower,
                                                          const Standard_Integer upper,

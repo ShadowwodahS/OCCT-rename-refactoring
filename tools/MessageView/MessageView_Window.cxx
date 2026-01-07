@@ -273,7 +273,7 @@ void MessageView_Window::SetPreferences(const TInspectorAPI_PreferencesDataMap& 
 // =======================================================================
 void MessageView_Window::UpdateContent()
 {
-  TCollection_AsciiString aName = "TKMessageView";
+  AsciiString1 aName = "TKMessageView";
   if (myParameters->FindParameters(aName))
   {
     NCollection_List<Handle(RefObject)> aParameters = myParameters->Parameters(aName);
@@ -298,10 +298,10 @@ void MessageView_Window::UpdateContent()
 // =======================================================================
 void MessageView_Window::Init(NCollection_List<Handle(RefObject)>& theParameters)
 {
-  Handle(AIS_InteractiveContext)               aContext;
+  Handle(VisualContext)               aContext;
   NCollection_List<Handle(RefObject)> aParameters;
 
-  Handle(Graphic3d_Camera) aViewCamera;
+  Handle(CameraOn3d) aViewCamera;
 
   for (NCollection_List<Handle(RefObject)>::Iterator aParamsIt(theParameters);
        aParamsIt.More();
@@ -313,15 +313,15 @@ void MessageView_Window::Init(NCollection_List<Handle(RefObject)>& theParameters
     {
       addReport(aMessageReport);
     }
-    else if (!Handle(AIS_InteractiveContext)::DownCast(anObject).IsNull())
+    else if (!Handle(VisualContext)::DownCast(anObject).IsNull())
     {
       aParameters.Append(anObject);
       if (aContext.IsNull())
-        aContext = Handle(AIS_InteractiveContext)::DownCast(anObject);
+        aContext = Handle(VisualContext)::DownCast(anObject);
     }
-    else if (!Handle(Graphic3d_Camera)::DownCast(anObject).IsNull())
+    else if (!Handle(CameraOn3d)::DownCast(anObject).IsNull())
     {
-      aViewCamera = Handle(Graphic3d_Camera)::DownCast(anObject);
+      aViewCamera = Handle(CameraOn3d)::DownCast(anObject);
     }
   }
   MessageModel_TreeModel* aTreeModel = dynamic_cast<MessageModel_TreeModel*>(myTreeView->model());
@@ -355,7 +355,7 @@ void MessageView_Window::updateTreeModel()
 // purpose :
 // =======================================================================
 void MessageView_Window::addReport(const Handle(Message_Report)&  theReport,
-                                   const TCollection_AsciiString& theReportDescription)
+                                   const AsciiString1& theReportDescription)
 {
   MessageModel_TreeModel* aModel = dynamic_cast<MessageModel_TreeModel*>(myTreeView->model());
   aModel->AddReport(theReport, theReportDescription);
@@ -714,7 +714,7 @@ void MessageView_Window::updatePropertyPanelBySelection()
 // =======================================================================
 void MessageView_Window::updatePreviewPresentation()
 {
-  Handle(AIS_InteractiveContext) aContext = myViewWindow->ViewToolBar()->CurrentContext();
+  Handle(VisualContext) aContext = myViewWindow->ViewToolBar()->CurrentContext();
   if (aContext.IsNull())
     return;
 

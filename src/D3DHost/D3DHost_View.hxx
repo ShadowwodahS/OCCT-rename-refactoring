@@ -79,7 +79,7 @@ public:
 
 protected:
   //! Auxiliary method.
-  Standard_EXPORT static TCollection_AsciiString d3dFormatError(const long theErrCode);
+  Standard_EXPORT static AsciiString1 d3dFormatError(const long theErrCode);
 
   //! Initialize the D3D library.
   Standard_EXPORT bool d3dInitLib();

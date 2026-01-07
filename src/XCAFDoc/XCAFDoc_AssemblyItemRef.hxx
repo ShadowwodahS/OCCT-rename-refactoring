@@ -36,7 +36,7 @@ public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
   //! Finds a reference attribute on the given label and returns it, if it is found
-  Standard_EXPORT static Handle(XCAFDoc_AssemblyItemRef) Get(const TDF_Label& theLabel);
+  Standard_EXPORT static Handle(XCAFDoc_AssemblyItemRef) Get(const DataLabel& theLabel);
 
   //! @name Set reference attribute functions.
   //! @{
@@ -46,7 +46,7 @@ public:
   //! \param[in]  theItemId - assembly item ID.
   //! \return A handle to the attribute instance.
   Standard_EXPORT static Handle(XCAFDoc_AssemblyItemRef) Set(
-    const TDF_Label&              theLabel,
+    const DataLabel&              theLabel,
     const XCAFDoc_AssemblyItemId& theItemId);
 
   //! Create (if not exist) a reference to an assembly item's label attribute.
@@ -55,7 +55,7 @@ public:
   //! \param[in]  theGUID   - assembly item's label attribute ID.
   //! \return A handle to the attribute instance.
   Standard_EXPORT static Handle(XCAFDoc_AssemblyItemRef) Set(
-    const TDF_Label&              theLabel,
+    const DataLabel&              theLabel,
     const XCAFDoc_AssemblyItemId& theItemId,
     const Standard_GUID&          theGUID);
 
@@ -65,7 +65,7 @@ public:
   //! \param[in]  theShapeIndex - assembly item's subshape index.
   //! \return A handle to the attribute instance.
   Standard_EXPORT static Handle(XCAFDoc_AssemblyItemRef) Set(
-    const TDF_Label&              theLabel,
+    const DataLabel&              theLabel,
     const XCAFDoc_AssemblyItemId& theItemId,
     const Standard_Integer        theShapeIndex);
 
@@ -117,7 +117,7 @@ public:
   //! Sets the assembly item ID from a formatted path
   //! that the reference points to.
   //! Extra reference data (if any) will be cleared.
-  Standard_EXPORT void SetItem(const TCollection_AsciiString& theString);
+  Standard_EXPORT void SetItem(const AsciiString1& theString);
 
   //! Sets the assembly item's label attribute that the reference points to.
   //! The base assembly item will not change.
@@ -148,7 +148,7 @@ public:
 private:
   XCAFDoc_AssemblyItemId  myItemId;   ///< Assembly item ID
   Standard_Integer        myExtraRef; ///< Type of extra reference: subshape or attribute
-  TCollection_AsciiString myExtraId;  ///< Extra reference data
+  AsciiString1 myExtraId;  ///< Extra reference data
 };
 
 #endif // _XCAFDoc_AssemblyItemRef_HeaderFile

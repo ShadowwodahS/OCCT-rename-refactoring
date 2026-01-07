@@ -20,7 +20,7 @@
 #include <BRepTools_Modification.hxx>
 #include <Message_Gravity.hxx>
 class ShapeExtend_BasicMsgRegistrator;
-class TopoDS_Shape;
+class TopoShape;
 class Message_Msg;
 
 class ShapeCustom_Modification;
@@ -41,7 +41,7 @@ public:
 
   //! Sends a message to be attached to the shape.
   //! Calls corresponding message of message registrator.
-  Standard_EXPORT void SendMsg(const TopoDS_Shape&   shape,
+  Standard_EXPORT void SendMsg(const TopoShape&   shape,
                                const Message_Msg&    message,
                                const Message_Gravity gravity = Message_Info) const;
 

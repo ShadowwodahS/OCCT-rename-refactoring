@@ -32,7 +32,7 @@
 class ExprIntrp_Generator;
 class Expr_GeneralExpression;
 class Expr_GeneralRelation;
-class TCollection_AsciiString;
+class AsciiString1;
 class Expr_GeneralFunction;
 class Expr_NamedFunction;
 class Expr_NamedExpression;
@@ -50,7 +50,7 @@ public:
 
   Standard_EXPORT void PushRelation(const Handle(Expr_GeneralRelation)& rel);
 
-  Standard_EXPORT void PushName(const TCollection_AsciiString& name);
+  Standard_EXPORT void PushName(const AsciiString1& name);
 
   Standard_EXPORT void PushValue(const Standard_Integer degree);
 
@@ -60,7 +60,7 @@ public:
 
   Standard_EXPORT Handle(Expr_GeneralRelation) PopRelation();
 
-  Standard_EXPORT TCollection_AsciiString PopName();
+  Standard_EXPORT AsciiString1 PopName();
 
   Standard_EXPORT Standard_Integer PopValue();
 
@@ -76,9 +76,9 @@ public:
 
   Standard_EXPORT void Use(const Handle(Expr_NamedExpression)& named);
 
-  Standard_EXPORT Handle(Expr_NamedExpression) GetNamed(const TCollection_AsciiString& name);
+  Standard_EXPORT Handle(Expr_NamedExpression) GetNamed(const AsciiString1& name);
 
-  Standard_EXPORT Handle(Expr_NamedFunction) GetFunction(const TCollection_AsciiString& name);
+  Standard_EXPORT Handle(Expr_NamedFunction) GetFunction(const AsciiString1& name);
 
 protected:
 private:

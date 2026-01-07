@@ -39,24 +39,24 @@
 #include <functional>
 #include <vector>
 //
-static void MakeShapeForFullOutput(const TCollection_AsciiString&,
+static void MakeShapeForFullOutput(const AsciiString1&,
                                    const Standard_Integer,
-                                   const TopTools_ListOfShape&,
+                                   const ShapeList&,
                                    Standard_Integer&,
-                                   Draw_Interpretor&,
+                                   DrawInterpreter&,
                                    Standard_Boolean bCurveOnSurf  = Standard_False,
                                    Standard_Real    aMaxDist      = 0.,
                                    Standard_Real    aMaxParameter = 0.);
 //
-static Standard_Integer bopcheck(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopargcheck(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopapicheck(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer xdistef(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer checkcurveonsurf(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer bopcheck(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopargcheck(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopapicheck(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer xdistef(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer checkcurveonsurf(DrawInterpreter&, Standard_Integer, const char**);
 
 //=================================================================================================
 
-void BOPTest::CheckCommands(Draw_Interpretor& theCommands)
+void BOPTest::CheckCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -163,7 +163,7 @@ protected:
 
 //=================================================================================================
 
-Standard_Integer bopcheck(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopcheck(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
   {
@@ -184,7 +184,7 @@ Standard_Integer bopcheck(Draw_Interpretor& di, Standard_Integer n, const char**
     return 1;
   }
   //
-  TopoDS_Shape aS = DBRep::Get(a[1]);
+  TopoShape aS = DBRep1::Get(a[1]);
   if (aS.IsNull())
   {
     di << "null shapes are not allowed here!";
@@ -203,7 +203,7 @@ Standard_Integer bopcheck(Draw_Interpretor& di, Standard_Integer n, const char**
   {
     if (a[2][0] != '-')
     {
-      aLevel = Draw::Atoi(a[2]);
+      aLevel = Draw1::Atoi(a[2]);
     }
   }
   //
@@ -225,7 +225,7 @@ Standard_Integer bopcheck(Draw_Interpretor& di, Standard_Integer n, const char**
     }
   }
   //
-  // aLevel = (n==3) ? Draw::Atoi(a[2]) : aNbInterfTypes-1;
+  // aLevel = (n==3) ? Draw1::Atoi(a[2]) : aNbInterfTypes-1;
   //-------------------------------------------------------------------
   char buf[256], aName1[32], aName2[32];
   char aInterfTypes[10][4] = {"V/V", "V/E", "E/E", "V/F", "E/F", "F/F", "V/Z", "E/Z", "F/Z", "Z/Z"};
@@ -233,7 +233,7 @@ Standard_Integer bopcheck(Draw_Interpretor& di, Standard_Integer n, const char**
   Standard_Integer             iErr, iCnt, n1, n2, iT;
   TopAbs_ShapeEnum             aType1, aType2;
   BOPAlgo_CheckerSI            aChecker;
-  TopTools_ListOfShape         aLS;
+  ShapeList         aLS;
   BOPDS_MapIteratorOfMapOfPair aItMPK;
   //
   if (aLevel < (aNbInterfTypes - 1))
@@ -281,7 +281,7 @@ Standard_Integer bopcheck(Draw_Interpretor& di, Standard_Integer n, const char**
   aItMPK.Initialize(aMPK);
   for (; aItMPK.More(); aItMPK.Next())
   {
-    const BOPDS_Pair& aPK = aItMPK.Value();
+    const IndexPair& aPK = aItMPK.Value();
     aPK.Indices(n1, n2);
     if (aDS.IsNewShape(n1) || aDS.IsNewShape(n2))
     {
@@ -293,7 +293,7 @@ Standard_Integer bopcheck(Draw_Interpretor& di, Standard_Integer n, const char**
     aType1                      = aSI1.ShapeType();
     aType2                      = aSI2.ShapeType();
     //
-    iT = BOPDS_Tools::TypeToInteger(aType1, aType2);
+    iT = Tools1::TypeToInteger(aType1, aType2);
     //
     aBInterf.SetIndices(n1, n2);
     aBInterf.SetType(iT);
@@ -314,20 +314,20 @@ Standard_Integer bopcheck(Draw_Interpretor& di, Standard_Integer n, const char**
       continue;
     }
     //
-    const TopoDS_Shape& aS1 = aDS.Shape(n1);
-    const TopoDS_Shape& aS2 = aDS.Shape(n2);
+    const TopoShape& aS1 = aDS.Shape(n1);
+    const TopoShape& aS2 = aDS.Shape(n2);
     //
     iT = aBI.Type();
     di << aInterfTypes[iT] << ": ";
     //
     sprintf(aName1, "x%d", n1);
     // sprintf(aName1, "x%d", iCnt);
-    DBRep::Set(aName1, aS1);
+    DBRep1::Set(aName1, aS1);
     //
     ++iCnt;
     sprintf(aName2, "x%d", n2);
     // sprintf(aName2, "x%d", iCnt);
-    DBRep::Set(aName2, aS2);
+    DBRep1::Set(aName2, aS2);
     ++iCnt;
     //
     sprintf(buf, "%s %s \n", aName1, aName2);
@@ -354,7 +354,7 @@ Standard_Integer bopcheck(Draw_Interpretor& di, Standard_Integer n, const char**
 
 //=================================================================================================
 
-Standard_Integer bopargcheck(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopargcheck(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
   {
@@ -397,7 +397,7 @@ Standard_Integer bopargcheck(Draw_Interpretor& di, Standard_Integer n, const cha
     return 1;
   }
 
-  TopoDS_Shape aS1 = DBRep::Get(a[1]);
+  TopoShape aS1 = DBRep1::Get(a[1]);
 
   if (aS1.IsNull())
   {
@@ -450,7 +450,7 @@ Standard_Integer bopargcheck(Draw_Interpretor& di, Standard_Integer n, const cha
   }
 
   // set & test second shape
-  TopoDS_Shape aS22, aS2;
+  TopoShape aS22, aS2;
   if (isS2)
   {
     if (indxS2 != 2)
@@ -461,7 +461,7 @@ Standard_Integer bopargcheck(Draw_Interpretor& di, Standard_Integer n, const cha
     }
     else
     {
-      aS22 = DBRep::Get(a[2]);
+      aS22 = DBRep1::Get(a[2]);
       if (aS22.IsNull())
       {
         di << "Error: second shape is null!\n";
@@ -641,28 +641,28 @@ Standard_Integer bopargcheck(Draw_Interpretor& di, Standard_Integer n, const cha
       Standard_Integer S1_COnS = 0, S2_COnS = 0, S1_COnSAll = 0, S2_COnSAll = 0;
       Standard_Boolean hasUnknown = Standard_False;
 
-      TCollection_AsciiString aS1SIBaseName("s1si_");
-      TCollection_AsciiString aS1SEBaseName("s1se_");
-      TCollection_AsciiString aS1BFBaseName("s1bf_");
-      TCollection_AsciiString aS1BVBaseName("s1bv_");
-      TCollection_AsciiString aS1BEBaseName("s1be_");
-      TCollection_AsciiString aS1C0BaseName("s1C0_");
-      TCollection_AsciiString aS1COnSBaseName("s1COnS_");
-      TCollection_AsciiString aS2SIBaseName("s2si_");
-      TCollection_AsciiString aS2SEBaseName("s2se_");
-      TCollection_AsciiString aS2BFBaseName("s2bf_");
-      TCollection_AsciiString aS2BVBaseName("s2bv_");
-      TCollection_AsciiString aS2BEBaseName("s2be_");
-      TCollection_AsciiString aS2C0BaseName("s2C0_");
-      TCollection_AsciiString aS2COnSBaseName("s2COnS_");
+      AsciiString1 aS1SIBaseName("s1si_");
+      AsciiString1 aS1SEBaseName("s1se_");
+      AsciiString1 aS1BFBaseName("s1bf_");
+      AsciiString1 aS1BVBaseName("s1bv_");
+      AsciiString1 aS1BEBaseName("s1be_");
+      AsciiString1 aS1C0BaseName("s1C0_");
+      AsciiString1 aS1COnSBaseName("s1COnS_");
+      AsciiString1 aS2SIBaseName("s2si_");
+      AsciiString1 aS2SEBaseName("s2se_");
+      AsciiString1 aS2BFBaseName("s2bf_");
+      AsciiString1 aS2BVBaseName("s2bv_");
+      AsciiString1 aS2BEBaseName("s2be_");
+      AsciiString1 aS2C0BaseName("s2C0_");
+      AsciiString1 aS2COnSBaseName("s2COnS_");
 
       for (; anIt.More(); anIt.Next())
       {
         const BOPAlgo_CheckResult&  aResult = anIt.Value();
-        const TopoDS_Shape&         aSS1    = aResult.GetShape1();
-        const TopoDS_Shape&         aSS2    = aResult.GetShape2();
-        const TopTools_ListOfShape& aLS1    = aResult.GetFaultyShapes1();
-        const TopTools_ListOfShape& aLS2    = aResult.GetFaultyShapes2();
+        const TopoShape&         aSS1    = aResult.GetShape1();
+        const TopoShape&         aSS2    = aResult.GetShape2();
+        const ShapeList& aLS1    = aResult.GetFaultyShapes1();
+        const ShapeList& aLS2    = aResult.GetFaultyShapes2();
         Standard_Boolean            isL1    = !aLS1.IsEmpty();
         Standard_Boolean            isL2    = !aLS2.IsEmpty();
 
@@ -1035,7 +1035,7 @@ Standard_Integer bopargcheck(Draw_Interpretor& di, Standard_Integer n, const cha
 
 //=================================================================================================
 
-Standard_Integer bopapicheck(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopapicheck(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
   {
@@ -1043,12 +1043,12 @@ Standard_Integer bopapicheck(Draw_Interpretor& di, Standard_Integer n, const cha
     return 1;
   }
 
-  TopoDS_Shape aS1 = DBRep::Get(a[1]);
-  TopoDS_Shape aS2;
+  TopoShape aS1 = DBRep1::Get(a[1]);
+  TopoShape aS2;
   if (n > 2)
   {
     // Try to get the second shape
-    aS2 = DBRep::Get(a[2]);
+    aS2 = DBRep1::Get(a[2]);
   }
 
   BOPAlgo_Operation anOp    = BOPAlgo_UNKNOWN;
@@ -1148,7 +1148,7 @@ Standard_Integer bopapicheck(Draw_Interpretor& di, Standard_Integer n, const cha
 
 //=================================================================================================
 
-Standard_Integer xdistef(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer xdistef(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
   {
@@ -1156,8 +1156,8 @@ Standard_Integer xdistef(Draw_Interpretor& di, Standard_Integer n, const char** 
     return 1;
   }
   //
-  const TopoDS_Shape aS1 = DBRep::Get(a[1]);
-  const TopoDS_Shape aS2 = DBRep::Get(a[2]);
+  const TopoShape aS1 = DBRep1::Get(a[1]);
+  const TopoShape aS2 = DBRep1::Get(a[2]);
   //
   if (aS1.IsNull() || aS2.IsNull())
   {
@@ -1173,10 +1173,10 @@ Standard_Integer xdistef(Draw_Interpretor& di, Standard_Integer n, const char** 
   //
   Standard_Real aMaxDist = 0.0, aMaxPar = 0.0;
   //
-  const TopoDS_Edge& anEdge = *(TopoDS_Edge*)&aS1;
-  const TopoDS_Face& aFace  = *(TopoDS_Face*)&aS2;
+  const TopoEdge& anEdge = *(TopoEdge*)&aS1;
+  const TopoFace& aFace  = *(TopoFace*)&aS2;
   //
-  if (!BOPTools_AlgoTools::ComputeTolerance(aFace, anEdge, aMaxDist, aMaxPar))
+  if (!AlgoTools::ComputeTolerance(aFace, anEdge, aMaxDist, aMaxPar))
   {
     di << "Tolerance cannot be computed\n";
     return 1;
@@ -1189,7 +1189,7 @@ Standard_Integer xdistef(Draw_Interpretor& di, Standard_Integer n, const char** 
 
 //=================================================================================================
 
-Standard_Integer checkcurveonsurf(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer checkcurveonsurf(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -1197,7 +1197,7 @@ Standard_Integer checkcurveonsurf(Draw_Interpretor& di, Standard_Integer n, cons
     return 1;
   }
   //
-  TopoDS_Shape aS = DBRep::Get(a[1]);
+  TopoShape aS = DBRep1::Get(a[1]);
   if (aS.IsNull())
   {
     di << "null shape\n";
@@ -1206,9 +1206,9 @@ Standard_Integer checkcurveonsurf(Draw_Interpretor& di, Standard_Integer n, cons
   //
   Standard_Integer nE, nF, anECounter, aFCounter;
   Standard_Real    aT, aTolE, aDMax;
-  TopExp_Explorer  aExpF, aExpE;
+  ShapeExplorer  aExpF, aExpE;
   char             buf[200], aFName[10], anEName[10];
-  NCollection_DataMap<TopoDS_Shape, Standard_Real, TopTools_ShapeMapHasher> aDMETol;
+  NCollection_DataMap<TopoShape, Standard_Real, ShapeHasher> aDMETol;
   TopTools_DataMapOfShapeInteger                                            aMSI;
   //
   anECounter = 0;
@@ -1217,19 +1217,19 @@ Standard_Integer checkcurveonsurf(Draw_Interpretor& di, Standard_Integer n, cons
   aExpF.Init(aS, TopAbs_FACE);
   for (; aExpF.More(); aExpF.Next())
   {
-    const TopoDS_Face& aF = *(TopoDS_Face*)&aExpF.Current();
+    const TopoFace& aF = *(TopoFace*)&aExpF.Current();
     //
     aExpE.Init(aF, TopAbs_EDGE);
     for (; aExpE.More(); aExpE.Next())
     {
-      const TopoDS_Edge& aE = *(TopoDS_Edge*)&aExpE.Current();
+      const TopoEdge& aE = *(TopoEdge*)&aExpE.Current();
       //
-      if (!BOPTools_AlgoTools::ComputeTolerance(aF, aE, aDMax, aT))
+      if (!AlgoTools::ComputeTolerance(aF, aE, aDMax, aT))
       {
         continue;
       }
       //
-      aTolE = BRep_Tool::Tolerance(aE);
+      aTolE = BRepInspector::Tolerance(aE);
       if (!(aDMax > aTolE))
       {
         continue;
@@ -1285,8 +1285,8 @@ Standard_Integer checkcurveonsurf(Draw_Interpretor& di, Standard_Integer n, cons
               aT);
       di << buf;
       //
-      DBRep::Set(anEName, aE);
-      DBRep::Set(aFName, aF);
+      DBRep1::Set(anEName, aE);
+      DBRep1::Set(aFName, aF);
     }
   }
   //
@@ -1299,7 +1299,7 @@ Standard_Integer checkcurveonsurf(Draw_Interpretor& di, Standard_Integer n, cons
     aExpE.Init(aS, TopAbs_EDGE);
     for (anECounter = 0; aExpE.More(); aExpE.Next())
     {
-      const TopoDS_Shape& aE = aExpE.Current();
+      const TopoShape& aE = aExpE.Current();
       if (!M.Add(aE))
       {
         continue;
@@ -1327,27 +1327,27 @@ Standard_Integer checkcurveonsurf(Draw_Interpretor& di, Standard_Integer n, cons
 
 //=================================================================================================
 
-void MakeShapeForFullOutput(const TCollection_AsciiString& aBaseName,
+void MakeShapeForFullOutput(const AsciiString1& aBaseName,
                             const Standard_Integer         aIndex,
-                            const TopTools_ListOfShape&    aList,
+                            const ShapeList&    aList,
                             Standard_Integer&              aCount,
-                            Draw_Interpretor&              di,
+                            DrawInterpreter&              di,
                             Standard_Boolean               bCurveOnSurf,
                             Standard_Real                  aMaxDist,
                             Standard_Real                  aMaxParameter)
 {
-  TCollection_AsciiString aNum(aIndex);
-  TCollection_AsciiString aName = aBaseName + aNum;
+  AsciiString1 aNum(aIndex);
+  AsciiString1 aName = aBaseName + aNum;
   Standard_CString        name  = aName.ToCString();
 
-  TopoDS_Compound cmp;
-  BRep_Builder    BB;
+  TopoCompound cmp;
+  ShapeBuilder    BB;
   BB.MakeCompound(cmp);
 
   TopTools_ListIteratorOfListOfShape anIt(aList);
   for (; anIt.More(); anIt.Next())
   {
-    const TopoDS_Shape& aS = anIt.Value();
+    const TopoShape& aS = anIt.Value();
     BB.Add(cmp, aS);
     aCount++;
   }
@@ -1360,5 +1360,5 @@ void MakeShapeForFullOutput(const TCollection_AsciiString& aBaseName,
   //
   di << "\n";
   //
-  DBRep::Set(name, cmp);
+  DBRep1::Set(name, cmp);
 }

@@ -22,25 +22,25 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Integer.hxx>
-class Geom_Surface;
+class GeomSurface;
 class Point3d;
 class Vector3d;
 
-class GeomLProp_SurfaceTool
+class SurfaceTool1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Computes the point <P> of parameter <U> and <V> on the
   //! Surface <S>.
-  Standard_EXPORT static void Value(const Handle(Geom_Surface)& S,
+  Standard_EXPORT static void Value(const Handle(GeomSurface)& S,
                                     const Standard_Real         U,
                                     const Standard_Real         V,
                                     Point3d&                     P);
 
   //! Computes the point <P> and first derivative <D1*> of
   //! parameter <U> and <V> on the Surface <S>.
-  Standard_EXPORT static void D1(const Handle(Geom_Surface)& S,
+  Standard_EXPORT static void D1(const Handle(GeomSurface)& S,
                                  const Standard_Real         U,
                                  const Standard_Real         V,
                                  Point3d&                     P,
@@ -49,7 +49,7 @@ public:
 
   //! Computes the point <P>, the first derivative <D1*> and second
   //! derivative <D2*> of parameter <U> and <V> on the Surface <S>.
-  Standard_EXPORT static void D2(const Handle(Geom_Surface)& S,
+  Standard_EXPORT static void D2(const Handle(GeomSurface)& S,
                                  const Standard_Real         U,
                                  const Standard_Real         V,
                                  Point3d&                     P,
@@ -59,7 +59,7 @@ public:
                                  Vector3d&                     D2V,
                                  Vector3d&                     DUV);
 
-  Standard_EXPORT static Vector3d DN(const Handle(Geom_Surface)& S,
+  Standard_EXPORT static Vector3d DN(const Handle(GeomSurface)& S,
                                    const Standard_Real         U,
                                    const Standard_Real         V,
                                    const Standard_Integer      IU,
@@ -68,10 +68,10 @@ public:
   //! returns the order of continuity of the Surface <S>.
   //! returns 1 : first derivative only is computable
   //! returns 2 : first and second derivative only are computable.
-  Standard_EXPORT static Standard_Integer Continuity(const Handle(Geom_Surface)& S);
+  Standard_EXPORT static Standard_Integer Continuity(const Handle(GeomSurface)& S);
 
   //! returns the bounds of the Surface.
-  Standard_EXPORT static void Bounds(const Handle(Geom_Surface)& S,
+  Standard_EXPORT static void Bounds(const Handle(GeomSurface)& S,
                                      Standard_Real&              U1,
                                      Standard_Real&              V1,
                                      Standard_Real&              U2,

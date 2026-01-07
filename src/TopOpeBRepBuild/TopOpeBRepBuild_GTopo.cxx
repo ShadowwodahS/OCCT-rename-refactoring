@@ -21,14 +21,14 @@
 
 //=================================================================================================
 
-TopOpeBRepBuild_GTopo::TopOpeBRepBuild_GTopo()
+GTopologyClassifier::GTopologyClassifier()
 {
   Reset();
 }
 
 //=================================================================================================
 
-TopOpeBRepBuild_GTopo::TopOpeBRepBuild_GTopo(const Standard_Boolean    ii,
+GTopologyClassifier::GTopologyClassifier(const Standard_Boolean    ii,
                                              const Standard_Boolean    in,
                                              const Standard_Boolean    io,
                                              const Standard_Boolean    ni,
@@ -52,7 +52,7 @@ TopOpeBRepBuild_GTopo::TopOpeBRepBuild_GTopo(const Standard_Boolean    ii,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_GTopo::Reset()
+void GTopologyClassifier::Reset()
 {
   myt1 = myt2   = TopAbs_SHAPE;
   mycases[0][0] = mycases[0][1] = mycases[0][2] = mycases[1][0] = mycases[1][1] = mycases[1][2] =
@@ -63,7 +63,7 @@ void TopOpeBRepBuild_GTopo::Reset()
 
 //=================================================================================================
 
-void TopOpeBRepBuild_GTopo::Set(const Standard_Boolean ii,
+void GTopologyClassifier::Set(const Standard_Boolean ii,
                                 const Standard_Boolean in,
                                 const Standard_Boolean io,
                                 const Standard_Boolean ni,
@@ -86,7 +86,7 @@ void TopOpeBRepBuild_GTopo::Set(const Standard_Boolean ii,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_GTopo::Type(TopAbs_ShapeEnum& t1, TopAbs_ShapeEnum& t2) const
+void GTopologyClassifier::Type(TopAbs_ShapeEnum& t1, TopAbs_ShapeEnum& t2) const
 {
   t1 = myt1;
   t2 = myt2;
@@ -94,7 +94,7 @@ void TopOpeBRepBuild_GTopo::Type(TopAbs_ShapeEnum& t1, TopAbs_ShapeEnum& t2) con
 
 //=================================================================================================
 
-void TopOpeBRepBuild_GTopo::ChangeType(const TopAbs_ShapeEnum t1, const TopAbs_ShapeEnum t2)
+void GTopologyClassifier::ChangeType(const TopAbs_ShapeEnum t1, const TopAbs_ShapeEnum t2)
 {
   myt1 = t1;
   myt2 = t2;
@@ -102,21 +102,21 @@ void TopOpeBRepBuild_GTopo::ChangeType(const TopAbs_ShapeEnum t1, const TopAbs_S
 
 //=================================================================================================
 
-TopOpeBRepDS_Config TopOpeBRepBuild_GTopo::Config1() const
+TopOpeBRepDS_Config GTopologyClassifier::Config1() const
 {
   return myConfig1;
 }
 
 //=================================================================================================
 
-TopOpeBRepDS_Config TopOpeBRepBuild_GTopo::Config2() const
+TopOpeBRepDS_Config GTopologyClassifier::Config2() const
 {
   return myConfig2;
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_GTopo::ChangeConfig(const TopOpeBRepDS_Config C1, const TopOpeBRepDS_Config C2)
+void GTopologyClassifier::ChangeConfig(const TopOpeBRepDS_Config C1, const TopOpeBRepDS_Config C2)
 {
   myConfig1 = C1;
   myConfig2 = C2;
@@ -124,7 +124,7 @@ void TopOpeBRepBuild_GTopo::ChangeConfig(const TopOpeBRepDS_Config C1, const Top
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_GTopo::Value(const Standard_Integer i1,
+Standard_Boolean GTopologyClassifier::Value(const Standard_Integer i1,
                                               const Standard_Integer i2) const
 {
   Standard_Boolean b = mycases[i1][i2];
@@ -133,7 +133,7 @@ Standard_Boolean TopOpeBRepBuild_GTopo::Value(const Standard_Integer i1,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_GTopo::Value(const TopAbs_State s1, const TopAbs_State s2) const
+Standard_Boolean GTopologyClassifier::Value(const TopAbs_State s1, const TopAbs_State s2) const
 {
   Standard_Integer i1 = GIndex(s1);
   Standard_Integer i2 = GIndex(s2);
@@ -143,7 +143,7 @@ Standard_Boolean TopOpeBRepBuild_GTopo::Value(const TopAbs_State s1, const TopAb
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_GTopo::Value(const Standard_Integer II) const
+Standard_Boolean GTopologyClassifier::Value(const Standard_Integer II) const
 {
   Standard_Integer i1 = 0, i2 = 0;
   Index(II, i1, i2);
@@ -153,7 +153,7 @@ Standard_Boolean TopOpeBRepBuild_GTopo::Value(const Standard_Integer II) const
 
 //=================================================================================================
 
-void TopOpeBRepBuild_GTopo::ChangeValue(const Standard_Integer i1,
+void GTopologyClassifier::ChangeValue(const Standard_Integer i1,
                                         const Standard_Integer i2,
                                         const Standard_Boolean b)
 {
@@ -162,7 +162,7 @@ void TopOpeBRepBuild_GTopo::ChangeValue(const Standard_Integer i1,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_GTopo::ChangeValue(const TopAbs_State     s1,
+void GTopologyClassifier::ChangeValue(const TopAbs_State     s1,
                                         const TopAbs_State     s2,
                                         const Standard_Boolean b)
 {
@@ -173,7 +173,7 @@ void TopOpeBRepBuild_GTopo::ChangeValue(const TopAbs_State     s1,
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepBuild_GTopo::GIndex(const TopAbs_State s) const
+Standard_Integer GTopologyClassifier::GIndex(const TopAbs_State s) const
 {
   if (s == TopAbs_IN)
     return 0;
@@ -187,7 +187,7 @@ Standard_Integer TopOpeBRepBuild_GTopo::GIndex(const TopAbs_State s) const
 
 //=================================================================================================
 
-TopAbs_State TopOpeBRepBuild_GTopo::GState(const Standard_Integer i) const
+TopAbs_State GTopologyClassifier::GState(const Standard_Integer i) const
 {
   if (i == 0)
     return TopAbs_IN;
@@ -201,7 +201,7 @@ TopAbs_State TopOpeBRepBuild_GTopo::GState(const Standard_Integer i) const
 
 //=================================================================================================
 
-void TopOpeBRepBuild_GTopo::Index(const Standard_Integer II,
+void GTopologyClassifier::Index(const Standard_Integer II,
                                   Standard_Integer&      i1,
                                   Standard_Integer&      i2) const
 {
@@ -248,7 +248,7 @@ void TopOpeBRepBuild_GTopo::Index(const Standard_Integer II,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_GTopo::DumpVal(Standard_OStream&  OS,
+void GTopologyClassifier::DumpVal(Standard_OStream&  OS,
                                     const TopAbs_State s1,
                                     const TopAbs_State s2) const
 {
@@ -257,37 +257,37 @@ void TopOpeBRepBuild_GTopo::DumpVal(Standard_OStream&  OS,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_GTopo::DumpType(Standard_OStream& OS) const
+void GTopologyClassifier::DumpType(Standard_OStream& OS) const
 {
-  TopAbs::Print(myt1, OS);
+  TopAbs1::Print(myt1, OS);
   OS << "/";
-  TopAbs::Print(myt2, OS);
+  TopAbs1::Print(myt2, OS);
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_GTopo::DumpSSB(Standard_OStream&      OS,
+void GTopologyClassifier::DumpSSB(Standard_OStream&      OS,
                                     const TopAbs_State     s1,
                                     const TopAbs_State     s2,
                                     const Standard_Boolean b)
 {
-  TopAbs::Print(s1, OS);
+  TopAbs1::Print(s1, OS);
   OS << " ";
-  TopAbs::Print(s2, OS);
+  TopAbs1::Print(s2, OS);
   OS << " : " << b;
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_GTopo::Dump(Standard_OStream& OS, const Standard_Address a) const
+void GTopologyClassifier::Dump(Standard_OStream& OS, const Standard_Address a) const
 {
   char* s = (char*)a;
 
   DumpType(OS);
   OS << " ";
-  TopOpeBRepDS::Print(myConfig1, OS);
+  TopOpeBRepDS1::Print(myConfig1, OS);
   OS << " ";
-  TopOpeBRepDS::Print(myConfig2, OS);
+  TopOpeBRepDS1::Print(myConfig2, OS);
   OS << std::endl;
 
   if (myReverseForce)
@@ -331,7 +331,7 @@ void TopOpeBRepBuild_GTopo::Dump(Standard_OStream& OS, const Standard_Address a)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_GTopo::StatesON(TopAbs_State& s1, TopAbs_State& s2) const
+void GTopologyClassifier::StatesON(TopAbs_State& s1, TopAbs_State& s2) const
 {
   s1 = TopAbs_UNKNOWN;
   if (Value(TopAbs_ON, TopAbs_IN))
@@ -353,7 +353,7 @@ void TopOpeBRepBuild_GTopo::StatesON(TopAbs_State& s1, TopAbs_State& s2) const
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_GTopo::IsToReverse1() const
+Standard_Boolean GTopologyClassifier::IsToReverse1() const
 {
   if (myReverseForce)
   {
@@ -376,7 +376,7 @@ Standard_Boolean TopOpeBRepBuild_GTopo::IsToReverse1() const
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_GTopo::IsToReverse2() const
+Standard_Boolean GTopologyClassifier::IsToReverse2() const
 {
   if (myReverseForce)
   {
@@ -397,7 +397,7 @@ Standard_Boolean TopOpeBRepBuild_GTopo::IsToReverse2() const
 
 //=================================================================================================
 
-void TopOpeBRepBuild_GTopo::SetReverse(const Standard_Boolean rev)
+void GTopologyClassifier::SetReverse(const Standard_Boolean rev)
 {
   myReverseForce = Standard_True;
   myReverseValue = rev;
@@ -405,7 +405,7 @@ void TopOpeBRepBuild_GTopo::SetReverse(const Standard_Boolean rev)
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_GTopo::Reverse() const
+Standard_Boolean GTopologyClassifier::Reverse() const
 {
   if (myReverseForce)
     return myReverseValue;
@@ -414,9 +414,9 @@ Standard_Boolean TopOpeBRepBuild_GTopo::Reverse() const
 
 //=================================================================================================
 
-TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTopo::CopyPermuted() const
+GTopologyClassifier GTopologyClassifier::CopyPermuted() const
 {
-  TopOpeBRepBuild_GTopo g;
+  GTopologyClassifier g;
 
   g.ChangeType(myt2, myt1);
   g.ChangeConfig(myConfig2, myConfig1);

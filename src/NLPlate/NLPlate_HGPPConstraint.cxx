@@ -31,7 +31,7 @@ void NLPlate_HGPPConstraint::SetActiveOrder(const Standard_Integer ActiveOrder)
   myActiveOrder = ActiveOrder;
 }
 
-void NLPlate_HGPPConstraint::SetUV(const gp_XY& UV)
+void NLPlate_HGPPConstraint::SetUV(const Coords2d& UV)
 {
   myUV = UV;
 }
@@ -56,7 +56,7 @@ Standard_Boolean NLPlate_HGPPConstraint::IncrementalLoadAllowed() const
   return Standard_False;
 }
 
-const gp_XY& NLPlate_HGPPConstraint::UV() const
+const Coords2d& NLPlate_HGPPConstraint::UV() const
 {
   return myUV;
 }

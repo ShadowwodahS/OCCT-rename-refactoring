@@ -33,9 +33,9 @@
 #include <Message_Msg.hxx>
 
 // MGE 31/07/98
-IGESGeom_ToolSurfaceOfRevolution::IGESGeom_ToolSurfaceOfRevolution() {}
+SurfaceOfRevolutionTool::SurfaceOfRevolutionTool() {}
 
-void IGESGeom_ToolSurfaceOfRevolution::ReadOwnParams(
+void SurfaceOfRevolutionTool::ReadOwnParams(
   const Handle(IGESGeom_SurfaceOfRevolution)& ent,
   const Handle(IGESData_IGESReaderData)&      IR,
   IGESData_ParamReader&                       PR) const
@@ -116,7 +116,7 @@ void IGESGeom_ToolSurfaceOfRevolution::ReadOwnParams(
   ent->Init(anAxis, aGeneratrix, aStartAngle, anEndAngle);
 }
 
-void IGESGeom_ToolSurfaceOfRevolution::WriteOwnParams(
+void SurfaceOfRevolutionTool::WriteOwnParams(
   const Handle(IGESGeom_SurfaceOfRevolution)& ent,
   IGESData_IGESWriter&                        IW) const
 {
@@ -126,14 +126,14 @@ void IGESGeom_ToolSurfaceOfRevolution::WriteOwnParams(
   IW.Send(ent->EndAngle());
 }
 
-void IGESGeom_ToolSurfaceOfRevolution::OwnShared(const Handle(IGESGeom_SurfaceOfRevolution)& ent,
+void SurfaceOfRevolutionTool::OwnShared(const Handle(IGESGeom_SurfaceOfRevolution)& ent,
                                                  Interface_EntityIterator& iter) const
 {
   iter.GetOneItem(ent->AxisOfRevolution());
   iter.GetOneItem(ent->Generatrix());
 }
 
-void IGESGeom_ToolSurfaceOfRevolution::OwnCopy(const Handle(IGESGeom_SurfaceOfRevolution)& another,
+void SurfaceOfRevolutionTool::OwnCopy(const Handle(IGESGeom_SurfaceOfRevolution)& another,
                                                const Handle(IGESGeom_SurfaceOfRevolution)& ent,
                                                Interface_CopyTool&                         TC) const
 {
@@ -145,10 +145,10 @@ void IGESGeom_ToolSurfaceOfRevolution::OwnCopy(const Handle(IGESGeom_SurfaceOfRe
   ent->Init(anAxis, aGeneratrix, aStartAngle, anEndAngle);
 }
 
-IGESData_DirChecker IGESGeom_ToolSurfaceOfRevolution::DirChecker(
+DirectoryChecker SurfaceOfRevolutionTool::DirChecker(
   const Handle(IGESGeom_SurfaceOfRevolution)& /*ent*/) const
 {
-  IGESData_DirChecker DC(120, 0);
+  DirectoryChecker DC(120, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   //  DC.LineWeight(IGESData_DefValue);
@@ -158,7 +158,7 @@ IGESData_DirChecker IGESGeom_ToolSurfaceOfRevolution::DirChecker(
   return DC;
 }
 
-void IGESGeom_ToolSurfaceOfRevolution::OwnCheck(const Handle(IGESGeom_SurfaceOfRevolution)& /*ent*/,
+void SurfaceOfRevolutionTool::OwnCheck(const Handle(IGESGeom_SurfaceOfRevolution)& /*ent*/,
                                                 const Interface_ShareTool&,
                                                 Handle(Interface_Check)& /*ach*/) const
 {
@@ -167,7 +167,7 @@ void IGESGeom_ToolSurfaceOfRevolution::OwnCheck(const Handle(IGESGeom_SurfaceOfR
   //    ach.AddFail("0 < TA - SA <=  2Pi is not satisfied");
 }
 
-void IGESGeom_ToolSurfaceOfRevolution::OwnDump(const Handle(IGESGeom_SurfaceOfRevolution)& ent,
+void SurfaceOfRevolutionTool::OwnDump(const Handle(IGESGeom_SurfaceOfRevolution)& ent,
                                                const IGESData_IGESDumper&                  dumper,
                                                Standard_OStream&                           S,
                                                const Standard_Integer level) const

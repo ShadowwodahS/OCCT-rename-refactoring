@@ -61,7 +61,7 @@
 
 //=================================================================================================
 
-static Standard_Integer edgesameparam(Draw_Interpretor& di,
+static Standard_Integer edgesameparam(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -73,7 +73,7 @@ static Standard_Integer edgesameparam(Draw_Interpretor& di,
     di << "shapename ,  option f to force, else only Edges not-SameParameter are computed\n";
     return 1 /* Error */;
   }
-  TopoDS_Shape Shape = DBRep::Get(argv[1]);
+  TopoShape Shape = DBRep1::Get(argv[1]);
 
   if (!ShapeFix::SameParameter(Shape, (argc > 2 && arg2[0] == 'f'), BRepBuilderAPI::Precision()))
     di << "Some edges were not processed\n";
@@ -83,7 +83,7 @@ static Standard_Integer edgesameparam(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer settolerance(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer settolerance(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
@@ -96,7 +96,7 @@ static Standard_Integer settolerance(Draw_Interpretor& di, Standard_Integer argc
   }
   Standard_CString arg1  = argv[1];
   Standard_CString arg2  = argv[2];
-  TopoDS_Shape     Shape = DBRep::Get(arg1);
+  TopoShape     Shape = DBRep1::Get(arg1);
   if (Shape.IsNull())
   {
     di << "Shape unknown : " << arg1 << "\n";
@@ -134,21 +134,21 @@ static Standard_Integer settolerance(Draw_Interpretor& di, Standard_Integer argc
   Standard_Real tmin, tmax;
   mod2 = argv[premarg][0];
   if (mod2 == '=')
-    tmin = tmax = Draw::Atof(argv[argc - 1]);
+    tmin = tmax = Draw1::Atof(argv[argc - 1]);
   else if (mod2 == '<')
   {
     tmin = 0;
-    tmax = Draw::Atof(argv[argc - 1]);
+    tmax = Draw1::Atof(argv[argc - 1]);
   }
   else if (mod2 == '>')
   {
-    tmin = Draw::Atof(argv[argc - 1]);
+    tmin = Draw1::Atof(argv[argc - 1]);
     tmax = 0;
   }
   else
   {
-    tmin = Draw::Atof(argv[premarg]);
-    tmax = Draw::Atof(argv[argc - 1]);
+    tmin = Draw1::Atof(argv[premarg]);
+    tmax = Draw1::Atof(argv[argc - 1]);
   }
 
   if (argc == premarg + 1 || tmin == tmax)
@@ -166,7 +166,7 @@ static Standard_Integer settolerance(Draw_Interpretor& di, Standard_Integer argc
 
 //=================================================================================================
 
-static Standard_Integer stwire(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer stwire(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 2)
   { // help
@@ -225,7 +225,7 @@ static Standard_Integer stwire(Draw_Interpretor& di, Standard_Integer argc, cons
         break;
     }
   }
-  TopoDS_Shape Shape = DBRep::Get(arg1);
+  TopoShape Shape = DBRep1::Get(arg1);
   if (Shape.IsNull())
   {
     di << arg1 << " inconnu\n";
@@ -237,7 +237,7 @@ static Standard_Integer stwire(Draw_Interpretor& di, Standard_Integer argc, cons
   Handle(ShapeAnalysis_Wire)   saw  = new ShapeAnalysis_Wire;
   saw->Load(sbwd);
 
-  TopoDS_Shape awire; // en principe un Wire
+  TopoShape awire; // en principe un Wire
   if (Shape.ShapeType() == TopAbs_WIRE)
   {
     awire = Shape;
@@ -245,7 +245,7 @@ static Standard_Integer stwire(Draw_Interpretor& di, Standard_Integer argc, cons
   else if (Shape.ShapeType() == TopAbs_FACE)
   {
     saw->SetFace(TopoDS::Face(Shape));
-    TopExp_Explorer expw(Shape, TopAbs_WIRE);
+    ShapeExplorer expw(Shape, TopAbs_WIRE);
     if (expw.More())
       awire = expw.Current();
     saw->SetPrecision(BRepBuilderAPI::Precision());
@@ -260,9 +260,9 @@ static Standard_Integer stwire(Draw_Interpretor& di, Standard_Integer argc, cons
 
   // Chargement : normal ou par connected(oriented)
   //  if (ox) {
-  for (TopExp_Explorer exp(Shape, TopAbs_EDGE); exp.More(); exp.Next())
+  for (ShapeExplorer exp(Shape, TopAbs_EDGE); exp.More(); exp.Next())
   {
-    TopoDS_Edge      E      = TopoDS::Edge(exp.Current());
+    TopoEdge      E      = TopoDS::Edge(exp.Current());
     Standard_Integer orient = saw->CheckShapeConnect(E);
     di << "Orientation : " << orient << " LowerDist : " << saw->MinDistance3d() << "\n";
     if (ox)
@@ -273,7 +273,7 @@ static Standard_Integer stwire(Draw_Interpretor& di, Standard_Integer argc, cons
   //  }
   //  else sbwd->Init (awire);
 
-  Handle(ShapeFix_Wire) sfw = new ShapeFix_Wire;
+  Handle(WireHealer) sfw = new WireHealer;
   sfw->Init(saw);
 
   //   Traitement en cours
@@ -331,13 +331,13 @@ static Standard_Integer stwire(Draw_Interpretor& di, Standard_Integer argc, cons
     di << "NbEdges : " << nb << "\n";
     for (i = 1; i <= nb; i++)
     {
-      TopoDS_Edge E = sbwd->Edge(i);
+      TopoEdge E = sbwd->Edge(i);
       di << "Edge " << i;
       if (E.Orientation() == TopAbs_REVERSED)
         di << " REV";
       else
         di << " FWD";
-      if (BRep_Tool::Degenerated(E))
+      if (BRepInspector::Degenerated(E))
         di << " DGNR";
       if (sbwd->IsSeam(i))
         di << " SEAM_WIRE";
@@ -361,7 +361,7 @@ static Standard_Integer stwire(Draw_Interpretor& di, Standard_Integer argc, cons
   }
 
   //  Resultat
-  TopoDS_Wire result;
+  TopoWire result;
   if (ov)
   {
     ShapeAnalysis_WireVertex sawv;
@@ -420,7 +420,7 @@ static Standard_Integer stwire(Draw_Interpretor& di, Standard_Integer argc, cons
     //  On prend celui qui a le plus d edges
     Standard_Integer nbe, maxe = 0;
     for (i = 1; i <= nb; i ++) {
-      TopoDS_Wire wir = CW.Wire(i);
+      TopoWire wir = CW.Wire(i);
       nbe = 0;
       for (TopoDS_Iterator ite(wir); ite.More(); ite.Next()) nbe ++;
       if (nbe > maxe) { num = i; maxe = nbe; }
@@ -441,13 +441,13 @@ static Standard_Integer stwire(Draw_Interpretor& di, Standard_Integer argc, cons
     di << "Pas de resultat, desole\n";
     return 1; // Fail
   }
-  DBRep::Set(arg2, result);
+  DBRep1::Set(arg2, result);
   return 0; // Done
 }
 
 //=================================================================================================
 
-static Standard_Integer reface(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer reface(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
@@ -456,7 +456,7 @@ static Standard_Integer reface(Draw_Interpretor& di, Standard_Integer argc, cons
   }
   Standard_CString arg1  = argv[1];
   Standard_CString arg2  = argv[2];
-  TopoDS_Shape     Shape = DBRep::Get(arg1);
+  TopoShape     Shape = DBRep1::Get(arg1);
   if (Shape.IsNull())
   {
     di << "Shape unknown : " << arg1 << "\n";
@@ -509,13 +509,13 @@ static Standard_Integer reface(Draw_Interpretor& di, Standard_Integer argc, cons
     }
   }
 
-  TopoDS_Face        face;
+  TopoFace        face;
   ShapeBuild_ReShape resh;
 
   Standard_Integer nbfc = 0;
-  for (TopExp_Explorer EF(Shape, TopAbs_FACE); EF.More(); EF.Next())
+  for (ShapeExplorer EF(Shape, TopAbs_FACE); EF.More(); EF.Next())
   {
-    TopoDS_Face F            = TopoDS::Face(EF.Current());
+    TopoFace F            = TopoDS::Face(EF.Current());
     face                     = F;
     Standard_Boolean newface = Standard_False;
     //    on va voir si ShapeTool_Face trouve qqchose a redire
@@ -535,7 +535,7 @@ static Standard_Integer reface(Draw_Interpretor& di, Standard_Integer argc, cons
   if (nbfc > 0)
   {
     di << "Faces reprises par ShapeFix_Face : " << nbfc << "\n";
-    DBRep::Set(arg2, resh.Apply(Shape, TopAbs_FACE, 2));
+    DBRep1::Set(arg2, resh.Apply(Shape, TopAbs_FACE, 2));
     return 0; // Done
   }
   else
@@ -545,7 +545,7 @@ static Standard_Integer reface(Draw_Interpretor& di, Standard_Integer argc, cons
 
 //=================================================================================================
 
-static Standard_Integer fixshape(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer fixshape(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   Handle(ShapeExtend_MsgRegistrator) msg = new ShapeExtend_MsgRegistrator;
   Handle(ShapeFix_Shape)             sfs = new ShapeFix_Shape;
@@ -597,7 +597,7 @@ static Standard_Integer fixshape(Draw_Interpretor& di, Standard_Integer argc, co
         break;
       }
 
-      sfs->FixWireTool()->SetMaxTailAngle(Draw::Atof(argv[i]) * (M_PI / 180));
+      sfs->FixWireTool()->SetMaxTailAngle(Draw1::Atof(argv[i]) * (M_PI / 180));
     }
     else if (!strcmp(argv[i], "-maxtailw"))
     {
@@ -606,7 +606,7 @@ static Standard_Integer fixshape(Draw_Interpretor& di, Standard_Integer argc, co
         break;
       }
 
-      sfs->FixWireTool()->SetMaxTailWidth(Draw::Atof(argv[i]));
+      sfs->FixWireTool()->SetMaxTailWidth(Draw1::Atof(argv[i]));
       sfs->FixWireTool()->FixTailMode() = 1;
     }
     else
@@ -617,17 +617,17 @@ static Standard_Integer fixshape(Draw_Interpretor& di, Standard_Integer argc, co
           res = argv[i];
           break;
         case 1: {
-          TopoDS_Shape initShape = DBRep::Get(argv[i]);
+          TopoShape initShape = DBRep1::Get(argv[i]);
           if (initShape.IsNull())
             continue;
           sfs->Init(initShape);
         }
         break;
         case 2:
-          sfs->SetPrecision(Draw::Atof(argv[i]));
+          sfs->SetPrecision(Draw1::Atof(argv[i]));
           break;
         case 3:
-          sfs->SetMaxTolerance(Draw::Atof(argv[i]));
+          sfs->SetMaxTolerance(Draw1::Atof(argv[i]));
           break;
       }
     }
@@ -657,14 +657,14 @@ static Standard_Integer fixshape(Draw_Interpretor& di, Standard_Integer argc, co
 
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(di, 1);
   sfs->Perform(aProgress->Start());
-  DBRep::Set(res, sfs->Shape());
+  DBRep1::Set(res, sfs->Shape());
 
   if (mess)
   {
     TColStd_DataMapOfAsciiStringInteger aMapOfNumberOfFixes;
     Standard_SStream                    aSStream;
-    TopoDS_Compound                     aCompound;
-    BRep_Builder                        aBuilder;
+    TopoCompound                     aCompound;
+    ShapeBuilder                        aBuilder;
     aBuilder.MakeCompound(aCompound);
     const ShapeExtend_DataMapOfShapeListOfMsg& map = msg->MapShape();
     // Counting the number of each type of fixes. If the switch '*?' store all modified shapes in
@@ -705,7 +705,7 @@ static Standard_Integer fixshape(Draw_Interpretor& di, Standard_Integer argc, co
       char buff[256];
       Sprintf(buff, "%s_%s", res, "m");
       di << " Modified shapes saved in compound: " << buff;
-      DBRep::Set(buff, aCompound);
+      DBRep1::Set(buff, aCompound);
     }
   }
 
@@ -714,12 +714,12 @@ static Standard_Integer fixshape(Draw_Interpretor& di, Standard_Integer argc, co
 
 //=================================================================================================
 
-Standard_Integer fixgaps(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer fixgaps(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
 
-  TopoDS_Shape S = DBRep::Get(a[2]);
+  TopoShape S = DBRep1::Get(a[2]);
   if (S.IsNull())
   {
     di << " Shape is null\n";
@@ -727,11 +727,11 @@ Standard_Integer fixgaps(Draw_Interpretor& di, Standard_Integer n, const char** 
   }
 
   Handle(ShapeFix_Wireframe) SFWF = new ShapeFix_Wireframe(S);
-  Standard_Real              prec = (n > 3 ? Draw::Atof(a[3]) : 0.);
+  Standard_Real              prec = (n > 3 ? Draw1::Atof(a[3]) : 0.);
   SFWF->SetPrecision(prec);
   if (SFWF->FixWireGaps())
   {
-    DBRep::Set(a[1], SFWF->Shape());
+    DBRep1::Set(a[1], SFWF->Shape());
     di << " Wireframe gaps fixed on shape\n";
   }
 
@@ -740,25 +740,25 @@ Standard_Integer fixgaps(Draw_Interpretor& di, Standard_Integer n, const char** 
 
 //=================================================================================================
 
-Standard_Integer fixsmall(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer fixsmall(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
 
-  TopoDS_Shape S = DBRep::Get(a[2]);
+  TopoShape S = DBRep1::Get(a[2]);
   if (S.IsNull())
   {
     di << " Shape is null\n";
     return 1;
   }
 
-  Standard_Real      prec = (n == 4) ? Draw::Atof(a[3]) : 1.;
+  Standard_Real      prec = (n == 4) ? Draw1::Atof(a[3]) : 1.;
   ShapeFix_Wireframe SFWF(S);
   SFWF.SetPrecision(prec);
 
   if (SFWF.FixSmallEdges())
   {
-    DBRep::Set(a[1], SFWF.Shape());
+    DBRep1::Set(a[1], SFWF.Shape());
     di << " Small edges fixed on shape\n";
   }
 
@@ -767,27 +767,27 @@ Standard_Integer fixsmall(Draw_Interpretor& di, Standard_Integer n, const char**
 
 //=================================================================================================
 
-static Standard_Integer fixsmalledges(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer fixsmalledges(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
   {
     di << "Invalid number of arguments\n";
     return 1;
   }
-  TopoDS_Shape Sh = DBRep::Get(a[2]);
+  TopoShape Sh = DBRep1::Get(a[2]);
 
   Standard_Integer k      = 3;
   Standard_Real    tol    = 100000;
   Standard_Integer mode   = 2;
   Standard_Real    tolang = M_PI / 2;
   if (n > k)
-    tol = Draw::Atof(a[k++]);
+    tol = Draw1::Atof(a[k++]);
 
   if (n > k)
-    mode = Draw::Atoi(a[k++]);
+    mode = Draw1::Atoi(a[k++]);
 
   if (n > k)
-    tolang = Draw::Atof(a[k++]);
+    tolang = Draw1::Atof(a[k++]);
 
   Handle(ShapeFix_Wireframe) aSfwr    = new ShapeFix_Wireframe();
   Handle(ShapeBuild_ReShape) aReShape = new ShapeBuild_ReShape;
@@ -808,14 +808,14 @@ static Standard_Integer fixsmalledges(Draw_Interpretor& di, Standard_Integer n, 
                          aModeDrop,
                          tolang);
   // aSfwr->FixSmallEdges();
-  TopoDS_Shape resShape = aSfwr->Shape();
-  DBRep::Set(a[1], resShape);
+  TopoShape resShape = aSfwr->Shape();
+  DBRep1::Set(a[1], resShape);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer fixsmallfaces(Draw_Interpretor& theDI,
+Standard_Integer fixsmallfaces(DrawInterpreter& theDI,
                                Standard_Integer  theArgc,
                                const char**      theArgv)
 {
@@ -825,14 +825,14 @@ Standard_Integer fixsmallfaces(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape aShape = DBRep::Get(theArgv[2]);
+  TopoShape aShape = DBRep1::Get(theArgv[2]);
   if (aShape.IsNull())
   {
     theDI << "Error: Shape " << theArgv[2] << " is null\n";
     return 1;
   }
 
-  Standard_Real aPrec = (theArgc < 4 ? 1. : Draw::Atof(theArgv[3]));
+  Standard_Real aPrec = (theArgc < 4 ? 1. : Draw1::Atof(theArgv[3]));
 
   ShapeFix_FixSmallFace aFixSmallFaces;
   aFixSmallFaces.Init(aShape);
@@ -844,42 +844,42 @@ Standard_Integer fixsmallfaces(Draw_Interpretor& theDI,
     aShape = aFixSmallFaces.Shape();
   }
 
-  DBRep::Set(theArgv[1], aShape);
+  DBRep1::Set(theArgv[1], aShape);
 
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer checkoverlapedges(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer checkoverlapedges(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
   {
     di << "Invalid number of arguments\n";
     return 1;
   }
-  TopoDS_Shape Sh1 = DBRep::Get(a[1]);
-  TopoDS_Shape Sh2 = DBRep::Get(a[2]);
+  TopoShape Sh1 = DBRep1::Get(a[1]);
+  TopoShape Sh2 = DBRep1::Get(a[2]);
   if (Sh1.IsNull() || Sh2.IsNull())
   {
     di << "Invalid arguments\n";
     return 1;
   }
-  TopoDS_Edge e1 = TopoDS::Edge(Sh1);
-  TopoDS_Edge e2 = TopoDS::Edge(Sh2);
+  TopoEdge e1 = TopoDS::Edge(Sh1);
+  TopoEdge e2 = TopoDS::Edge(Sh2);
   if (e1.IsNull() || e2.IsNull())
   {
     di << "Invalid type of arguments\n";
     return 1;
   }
 
-  if (BRep_Tool::Degenerated(e1))
+  if (BRepInspector::Degenerated(e1))
   {
     di << a[1] << " is degenerated\n";
     return 1;
   }
 
-  if (BRep_Tool::Degenerated(e2))
+  if (BRepInspector::Degenerated(e2))
   {
     di << a[2] << " is degenerated\n";
     return 1;
@@ -889,9 +889,9 @@ static Standard_Integer checkoverlapedges(Draw_Interpretor& di, Standard_Integer
   Standard_Real    aDistDomain = 0.0;
   Standard_Integer k           = 3;
   if (k < n)
-    aTol = Draw::Atof(a[k++]);
+    aTol = Draw1::Atof(a[k++]);
   if (k < n)
-    aDistDomain = Draw::Atof(a[k++]);
+    aDistDomain = Draw1::Atof(a[k++]);
 
   ShapeAnalysis_Edge sae;
   if (sae.CheckOverlapping(e1, e2, aTol, aDistDomain))
@@ -912,16 +912,16 @@ static Standard_Integer checkoverlapedges(Draw_Interpretor& di, Standard_Integer
 
 //=================================================================================================
 
-static Standard_Integer checkfclass2d(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer checkfclass2d(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 4)
   {
     di << "Invalid number of arguments\n";
     return 1;
   }
-  TopoDS_Shape  Sh1    = DBRep::Get(a[1]);
-  Standard_Real ucoord = Draw::Atof(a[2]);
-  Standard_Real vcoord = Draw::Atof(a[3]);
+  TopoShape  Sh1    = DBRep1::Get(a[1]);
+  Standard_Real ucoord = Draw1::Atof(a[2]);
+  Standard_Real vcoord = Draw1::Atof(a[3]);
   if (Sh1.IsNull() || Sh1.ShapeType() != TopAbs_FACE)
   {
     di << "Invalid arguments\n";
@@ -933,7 +933,7 @@ static Standard_Integer checkfclass2d(Draw_Interpretor& di, Standard_Integer n, 
     tol = Atof(a[4]);
   }
 
-  TopoDS_Face             aFace = TopoDS::Face(Sh1);
+  TopoFace             aFace = TopoDS::Face(Sh1);
   gp_Pnt2d                p2d(ucoord, vcoord);
   BRepTopAdaptor_FClass2d f2d(aFace, tol);
   TopAbs_State            stat = f2d.Perform(p2d);
@@ -948,14 +948,14 @@ static Standard_Integer checkfclass2d(Draw_Interpretor& di, Standard_Integer n, 
   return 0;
 }
 
-static Standard_Integer connectedges(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer connectedges(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
   {
     di << "Invalid number of arguments. Should be : result shape [toler shared]\n";
     return 1;
   }
-  TopoDS_Shape aSh1 = DBRep::Get(a[2]);
+  TopoShape aSh1 = DBRep1::Get(a[2]);
   if (aSh1.IsNull())
   {
     di << "Shape is null\n";
@@ -963,12 +963,12 @@ static Standard_Integer connectedges(Draw_Interpretor& di, Standard_Integer n, c
   }
   Standard_Real aTol = Precision::Confusion();
   if (n > 3)
-    aTol = Draw::Atof(a[3]);
+    aTol = Draw1::Atof(a[3]);
 
   Standard_Boolean shared = Standard_True;
   if (n > 4)
-    shared = (Draw::Atoi(a[4]) == 1);
-  TopExp_Explorer                   aExpE(aSh1, TopAbs_EDGE);
+    shared = (Draw1::Atoi(a[4]) == 1);
+  ShapeExplorer                   aExpE(aSh1, TopAbs_EDGE);
   Handle(TopTools_HSequenceOfShape) aSeqEdges = new TopTools_HSequenceOfShape;
   Handle(TopTools_HSequenceOfShape) aSeqWires = new TopTools_HSequenceOfShape;
   TopTools_IndexedMapOfShape        aMapEdges;
@@ -979,16 +979,16 @@ static Standard_Integer connectedges(Draw_Interpretor& di, Standard_Integer n, c
   }
 
   ShapeAnalysis_FreeBounds::ConnectEdgesToWires(aSeqEdges, aTol, shared, aSeqWires);
-  TopoDS_Compound aComp;
-  BRep_Builder    aB;
+  TopoCompound aComp;
+  ShapeBuilder    aB;
   aB.MakeCompound(aComp);
   Standard_Integer i = 1;
   for (; i <= aSeqWires->Length(); i++)
   {
-    TopoDS_Shape aW = aSeqWires->Value(i);
+    TopoShape aW = aSeqWires->Value(i);
     di << "Wire - " << i << " : \n";
 
-    TopExp_Explorer aExp1(aW, TopAbs_EDGE);
+    ShapeExplorer aExp1(aW, TopAbs_EDGE);
     for (; aExp1.More(); aExp1.Next())
     {
       if (shared)
@@ -998,9 +998,9 @@ static Standard_Integer connectedges(Draw_Interpretor& di, Standard_Integer n, c
       }
       else
       {
-        TopoDS_Vertex aV1, aV2;
-        TopExp::Vertices(TopoDS::Edge(aExp1.Current()), aV1, aV2);
-        Point3d aP = BRep_Tool::Pnt(aV1);
+        TopoVertex aV1, aV2;
+        TopExp1::Vertices(TopoDS::Edge(aExp1.Current()), aV1, aV2);
+        Point3d aP = BRepInspector::Pnt(aV1);
         di << aP.X() << " " << aP.Y() << " " << aP.Z() << "\n";
       }
     }
@@ -1008,13 +1008,13 @@ static Standard_Integer connectedges(Draw_Interpretor& di, Standard_Integer n, c
     di << "\n";
     aB.Add(aComp, aSeqWires->Value(i));
   }
-  DBRep::Set(a[1], aComp);
+  DBRep1::Set(a[1], aComp);
   return 0;
 }
 
 //=================================================================================================
 
-void SWDRAW_ShapeFix::InitCommands(Draw_Interpretor& theCommands)
+void SWDRAW_ShapeFix::InitCommands(DrawInterpreter& theCommands)
 {
   static Standard_Integer initactor = 0;
   if (initactor)

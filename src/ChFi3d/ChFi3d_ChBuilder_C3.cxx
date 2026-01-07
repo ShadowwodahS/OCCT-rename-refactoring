@@ -94,7 +94,7 @@ static Standard_Boolean CoPlanar(const Point3d& PntA,
 //           it to allow the intersection computation
 //=======================================================================
 
-static Handle(GeomAdaptor_Surface) BoundSurf(const Handle(Geom_Surface)& S,
+static Handle(GeomAdaptor_Surface) BoundSurf(const Handle(GeomSurface)& S,
                                              const gp_Pnt2d&             Pdeb,
                                              const gp_Pnt2d&             Pfin)
 {
@@ -136,9 +136,9 @@ static Standard_Boolean ComputeIntersection(TopOpeBRepDS_DataStructure&    DStr,
                                             const gp_Pnt2d&                p2ddeb,
                                             const Point3d&                  pfin,
                                             const gp_Pnt2d&                p2dfin,
-                                            Handle(Geom_Curve)&            gc,
-                                            Handle(Geom2d_Curve)&          pc1,
-                                            Handle(Geom2d_Curve)&          pc2,
+                                            Handle(GeomCurve3d)&            gc,
+                                            Handle(GeomCurve2d)&          pc1,
+                                            Handle(GeomCurve2d)&          pc2,
                                             Vector3d&                        derudeb,
                                             Vector3d&                        dervdeb,
                                             gp_Pnt2d&                      ptcoindeb,
@@ -153,8 +153,8 @@ static Standard_Boolean ComputeIntersection(TopOpeBRepDS_DataStructure&    DStr,
   Handle(GeomAdaptor_Surface) HS1;
   HS1 = ChFi3d_BoundSurf(DStr, SD, 1, 2);
 
-  const Handle(Geom_Surface)& gpl = DStr.Surface(SDCoin->Surf()).Surface();
-  const Handle(Geom_Surface)& gSD = DStr.Surface(SD->Surf()).Surface();
+  const Handle(GeomSurface)& gpl = DStr.Surface(SDCoin->Surf()).Surface();
+  const Handle(GeomSurface)& gSD = DStr.Surface(SD->Surf()).Surface();
 
   // compute pardeb
   TColStd_Array1OfReal Pardeb(1, 4), Parfin(1, 4);
@@ -207,12 +207,12 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
   Standard_Boolean issmooth = Standard_False;
 
   TopOpeBRepDS_DataStructure&       DStr = myDS->ChangeDS();
-  const TopoDS_Vertex&              Vtx  = myVDataMap.FindKey(Jndex);
+  const TopoVertex&              Vtx  = myVDataMap.FindKey(Jndex);
   ChFiDS_ListIteratorOfListOfStripe It;
   //  Standard_Integer Index[3],pivot,deb,fin,ii,jj,kk;
   Standard_Integer      Index[3], pivot = 0, deb = 0, fin = 0, ii;
   Handle(ChFiDS_Stripe) CD[3];
-  TopoDS_Face           face[3];
+  TopoFace           face[3];
   Standard_Integer      jf[3][3];
   Standard_Boolean      sameside[3], oksea[3];
   for (Standard_Integer g = 0; g <= 2; g++)
@@ -541,7 +541,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
   done = Standard_False;
 
   Standard_Integer     Icf = 0, Icl = 0;
-  Handle(Geom2d_Curve) debpc1, finpc1;
+  Handle(GeomCurve2d) debpc1, finpc1;
 
   if (!c1triangle)
   {
@@ -560,7 +560,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
     gp_Ax3 planAx3(p3d[pivot], ndir, xdir);
     if (planAx3.YDirection().Dot(v1) <= 0.)
       planAx3.YReverse();
-    Handle(Geom_Plane) gpl = new Geom_Plane(planAx3);
+    Handle(GeomPlane) gpl = new GeomPlane(planAx3);
     coin->ChangeSurf(ChFiKPart_IndexSurfaceInDS(gpl, DStr));
 
     // on oriente coin
@@ -574,9 +574,9 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
       coin->ChangeOrientation() = TopAbs_FORWARD;
 
     // on calcule les intersections
-    Handle(Geom_Curve)        gcpiv, gcdeb, gcfin;
+    Handle(GeomCurve3d)        gcpiv, gcdeb, gcfin;
     Handle(Geom_TrimmedCurve) gcface;
-    Handle(Geom2d_Curve)      pivpc1, pivpc2, debpc2, finpc2, facepc1, facepc2;
+    Handle(GeomCurve2d)      pivpc1, pivpc2, debpc2, finpc2, facepc1, facepc2;
     gp_Pnt2d                  ptbid;
 
     // intersection coin-pivot
@@ -667,8 +667,8 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
     {
       GeomInt_IntSS        inter;
       BRepAdaptor_Surface  facebid(face[pivot]);
-      Handle(Geom_Surface) surfbid =
-        Handle(Geom_Surface)::DownCast(facebid.Surface().Surface()->Transformed(facebid.Trsf()));
+      Handle(GeomSurface) surfbid =
+        Handle(GeomSurface)::DownCast(facebid.Surface().Surface()->Transformed(facebid.Trsf()));
       inter.Perform(gpl, surfbid, Precision::Intersection());
       if (inter.IsDone())
       {
@@ -720,7 +720,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
       trans = TopAbs_FORWARD;
     else
       trans = TopAbs_REVERSED;
-    Handle(Geom2d_Curve) bidpc;
+    Handle(GeomCurve2d) bidpc;
     if (c1triangle)
       fi1.SetInterference(0, trans, bidpc, bidpc);
     else
@@ -747,8 +747,8 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
     // !c1plan
     //--------
 
-    Handle(Geom_Surface) Surfcoin;
-    Handle(Geom2d_Curve) PCurveOnFace, PCurveOnPiv;
+    Handle(GeomSurface) Surfcoin;
+    Handle(GeomCurve2d) PCurveOnFace, PCurveOnPiv;
 
     // le contour a remplir est constitue de courbes isos sur deb et fin
     // de deux pcurves calculees sur piv et la face opposee.
@@ -860,7 +860,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
 
     // le coin pour commencer,
     // -----------------------
-    ChFiDS_Regul regdeb, regfin;
+    Regularity regdeb, regfin;
     If1 = ChFi3d_IndexPointInDS(Pf1, DStr);
     If2 = ChFi3d_IndexPointInDS(Pf2, DStr);
     if (c1triangle)
@@ -885,7 +885,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
         coin->InterferenceOnS1().PCurveOnSurf()->Value(coin->InterferenceOnS1().FirstParameter());
       pp2 =
         coin->InterferenceOnS2().PCurveOnSurf()->Value(coin->InterferenceOnS2().FirstParameter());
-      Handle(Geom_Curve) C3d;
+      Handle(GeomCurve3d) C3d;
       Standard_Real      tolreached;
       ChFi3d_ComputeArete(Pf1,
                           pp1,
@@ -925,7 +925,7 @@ void ChFi3d_ChBuilder::PerformThreeCorner(const Standard_Integer Jndex)
         coin->InterferenceOnS1().PCurveOnSurf()->Value(coin->InterferenceOnS1().LastParameter());
       pp2 =
         coin->InterferenceOnS2().PCurveOnSurf()->Value(coin->InterferenceOnS2().LastParameter());
-      Handle(Geom_Curve) C3d;
+      Handle(GeomCurve3d) C3d;
       Standard_Real      tolreached;
       ChFi3d_ComputeArete(Pl1,
                           pp1,

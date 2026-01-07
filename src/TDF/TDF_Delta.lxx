@@ -44,12 +44,12 @@ inline const TDF_AttributeDeltaList& TDF_Delta::AttributeDeltas() const
   return myAttDeltaList;
 }
 
-inline void TDF_Delta::SetName(const TCollection_ExtendedString& theName)
+inline void TDF_Delta::SetName(const UtfString& theName)
 {
   myName = theName;
 }
 
-inline TCollection_ExtendedString TDF_Delta::Name() const
+inline UtfString TDF_Delta::Name() const
 {
   return myName;
 }

@@ -18,7 +18,7 @@
 // purpose  :
 //=======================================================================
 
-inline void STEPCAFControl_ExternFile::SetWS(const Handle(XSControl_WorkSession)& WS)
+inline void STEPCAFControl_ExternFile::SetWS(const Handle(ExchangeSession)& WS)
 {
   myWS = WS;
 }
@@ -28,7 +28,7 @@ inline void STEPCAFControl_ExternFile::SetWS(const Handle(XSControl_WorkSession)
 // purpose  :
 //=======================================================================
 
-inline Handle(XSControl_WorkSession) STEPCAFControl_ExternFile::GetWS() const
+inline Handle(ExchangeSession) STEPCAFControl_ExternFile::GetWS() const
 {
   return myWS;
 }
@@ -119,7 +119,7 @@ inline Handle(TCollection_HAsciiString) STEPCAFControl_ExternFile::GetName() con
 //purpose  :
 //=======================================================================
 
-inline void STEPCAFControl_ExternFile::SetShape (const TopoDS_Shape &Shape)
+inline void STEPCAFControl_ExternFile::SetShape (const TopoShape &Shape)
 {
   myShape = Shape;
 }
@@ -129,7 +129,7 @@ inline void STEPCAFControl_ExternFile::SetShape (const TopoDS_Shape &Shape)
 //purpose  :
 //=======================================================================
 
-inline TopoDS_Shape STEPCAFControl_ExternFile::GetShape () const
+inline TopoShape STEPCAFControl_ExternFile::GetShape () const
 {
   return myShape;
 }
@@ -140,7 +140,7 @@ inline TopoDS_Shape STEPCAFControl_ExternFile::GetShape () const
 // purpose  :
 //=======================================================================
 
-inline void STEPCAFControl_ExternFile::SetLabel(const TDF_Label& Label)
+inline void STEPCAFControl_ExternFile::SetLabel(const DataLabel& Label)
 {
   myLabel = Label;
 }
@@ -150,7 +150,7 @@ inline void STEPCAFControl_ExternFile::SetLabel(const TDF_Label& Label)
 // purpose  :
 //=======================================================================
 
-inline TDF_Label STEPCAFControl_ExternFile::GetLabel() const
+inline DataLabel STEPCAFControl_ExternFile::GetLabel() const
 {
   return myLabel;
 }

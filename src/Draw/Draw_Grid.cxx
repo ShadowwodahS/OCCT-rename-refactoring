@@ -28,7 +28,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Draw_Grid, Draw_Drawable3D)
 static Standard_Real MinimumStep = 1.e-3;
 static Standard_Real Ratio       = 200.0;
 
-extern Draw_Viewer dout;
+extern DrawViewer dout;
 
 //=================================================================================================
 
@@ -60,7 +60,7 @@ void Draw_Grid::Steps(const Standard_Real StepX,
 // Purpose  : Displays the grid.
 //=======================================================================
 
-void Draw_Grid::DrawOn(Draw_Display& Out) const
+void Draw_Grid::DrawOn(DrawDisplay& Out) const
 {
   if (!myIsActive)
     return;
@@ -143,15 +143,15 @@ void Draw_Grid::DrawOn(Draw_Display& Out) const
         Pnt1.Transform(T);
         Pnt2.SetCoord(X + Offset, Y, 0.0);
         Pnt2.Transform(T);
-        Out.SetColor(Draw_Color(Draw_bleu));
-        Out.Draw(Pnt1, Pnt2);
+        Out.SetColor(DrawColor(Draw_bleu));
+        Out.Draw1(Pnt1, Pnt2);
 
         Pnt1.SetCoord(X, Y - Offset, 0.0);
         Pnt1.Transform(T);
         Pnt2.SetCoord(X, Y + Offset, 0.0);
         Pnt2.Transform(T);
-        Out.SetColor(Draw_Color(Draw_bleu));
-        Out.Draw(Pnt1, Pnt2);
+        Out.SetColor(DrawColor(Draw_bleu));
+        Out.Draw1(Pnt1, Pnt2);
       }
     }
   }

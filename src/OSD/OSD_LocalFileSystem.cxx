@@ -20,9 +20,9 @@ IMPLEMENT_STANDARD_RTTIEXT(OSD_LocalFileSystem, OSD_FileSystem)
 
 //=================================================================================================
 
-Standard_Boolean OSD_LocalFileSystem::IsSupportedPath(const TCollection_AsciiString& theUrl) const
+Standard_Boolean OSD_LocalFileSystem::IsSupportedPath(const AsciiString1& theUrl) const
 {
-  return !OSD_Path::IsRemoteProtocolPath(theUrl.ToCString());
+  return !SystemPath::IsRemoteProtocolPath(theUrl.ToCString());
 }
 
 //=================================================================================================
@@ -58,7 +58,7 @@ Standard_Boolean OSD_LocalFileSystem::IsOpenOStream(
 //=================================================================================================
 
 std::shared_ptr<std::streambuf> OSD_LocalFileSystem::OpenStreamBuffer(
-  const TCollection_AsciiString& theUrl,
+  const AsciiString1& theUrl,
   const std::ios_base::openmode  theMode,
   const int64_t                  theOffset,
   int64_t*                       theOutBufSize)
@@ -66,7 +66,7 @@ std::shared_ptr<std::streambuf> OSD_LocalFileSystem::OpenStreamBuffer(
   Standard_ASSERT_RAISE(theOffset >= 0,
                         "Incorrect negative stream position during stream buffer opening");
   std::shared_ptr<std::filebuf> aNewBuf(new std::filebuf());
-  if (!OSD_OpenStream(*aNewBuf, TCollection_ExtendedString(theUrl), theMode))
+  if (!OSD_OpenStream(*aNewBuf, UtfString(theUrl), theMode))
   {
     return std::shared_ptr<std::streambuf>();
   }

@@ -48,7 +48,7 @@
 //  the points among which we'll choose the solutions.   +
 //  The choices are made basing on Qualifieurs of L1.        +
 //=========================================================================
-GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
+Circle2dTwoTangentOn::Circle2dTwoTangentOn(const GccEnt_QualifiedLin& Qualified1,
                                          const gp_Pnt2d&            Point2,
                                          const gp_Lin2d&            OnLine,
                                          const Standard_Real        Tolerance)
@@ -96,10 +96,10 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
 
   Standard_Real dp2l = OnLine.Distance(Point2);
   gp_Dir2d      donline(OnLine.Direction());
-  gp_Pnt2d      pinterm(Point2.XY() + dp2l * gp_XY(-donline.Y(), donline.X()));
+  gp_Pnt2d      pinterm(Point2.XY() + dp2l * Coords2d(-donline.Y(), donline.X()));
   if (OnLine.Distance(pinterm) > Tol)
   {
-    pinterm = gp_Pnt2d(Point2.XY() - dp2l * gp_XY(-donline.Y(), donline.X()));
+    pinterm = gp_Pnt2d(Point2.XY() - dp2l * Coords2d(-donline.Y(), donline.X()));
   }
   Standard_Real dist = L1.Distance(pinterm);
   if (Abs(dist - dp2l) <= Tol)
@@ -137,7 +137,7 @@ GccAna_Circ2d2TanOn::GccAna_Circ2d2TanOn(const GccEnt_QualifiedLin& Qualified1,
         qualifier1(NbrSol) = GccEnt_enclosed;
       }
       Standard_Real sign = dc2.Dot(gp_Dir2d(-dirL1.Y(), dirL1.X()));
-      dc2                = gp_Dir2d(sign * gp_XY(-dirL1.Y(), dirL1.X()));
+      dc2                = gp_Dir2d(sign * Coords2d(-dirL1.Y(), dirL1.X()));
       pnttg1sol(NbrSol)  = gp_Pnt2d(pinterm.XY() + dp2l * dc2.XY());
       pnttg2sol(NbrSol)  = Point2;
       pntcen(NbrSol)     = pinterm;

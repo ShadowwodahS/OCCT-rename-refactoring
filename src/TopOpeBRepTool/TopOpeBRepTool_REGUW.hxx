@@ -31,7 +31,7 @@
 #include <gp_Pnt2d.hxx>
 #include <TopoDS_Edge.hxx>
 #include <gp_Dir2d.hxx>
-class TopoDS_Face;
+class TopoFace;
 class TopOpeBRepTool_connexity;
 
 class TopOpeBRepTool_REGUW
@@ -39,9 +39,9 @@ class TopOpeBRepTool_REGUW
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepTool_REGUW(const TopoDS_Face& FRef);
+  Standard_EXPORT TopOpeBRepTool_REGUW(const TopoFace& FRef);
 
-  Standard_EXPORT const TopoDS_Face& Fref() const;
+  Standard_EXPORT const TopoFace& Fref() const;
 
   Standard_EXPORT void SetEsplits(TopTools_DataMapOfShapeListOfShape& Esplits);
 
@@ -53,61 +53,61 @@ public:
 
   Standard_EXPORT Standard_Boolean SplitEds();
 
-  Standard_EXPORT void Init(const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const TopoShape& S);
 
-  Standard_EXPORT const TopoDS_Shape& S() const;
+  Standard_EXPORT const TopoShape& S() const;
 
   Standard_EXPORT Standard_Boolean HasInit() const;
 
   Standard_EXPORT Standard_Boolean MapS();
 
   Standard_EXPORT Standard_Boolean REGU(const Standard_Integer istep,
-                                        const TopoDS_Shape&    Scur,
-                                        TopTools_ListOfShape&  Splits);
+                                        const TopoShape&    Scur,
+                                        ShapeList&  Splits);
 
   Standard_EXPORT Standard_Boolean REGU();
 
-  Standard_EXPORT Standard_Boolean GetSplits(TopTools_ListOfShape& Splits) const;
+  Standard_EXPORT Standard_Boolean GetSplits(ShapeList& Splits) const;
 
   Standard_EXPORT Standard_Boolean InitBlock();
 
   Standard_EXPORT Standard_Boolean NextinBlock();
 
-  Standard_EXPORT Standard_Boolean NearestE(const TopTools_ListOfShape& loe,
-                                            TopoDS_Edge&                efound) const;
+  Standard_EXPORT Standard_Boolean NearestE(const ShapeList& loe,
+                                            TopoEdge&                efound) const;
 
-  Standard_EXPORT Standard_Boolean Connexity(const TopoDS_Vertex&      v,
+  Standard_EXPORT Standard_Boolean Connexity(const TopoVertex&      v,
                                              TopOpeBRepTool_connexity& co) const;
 
-  Standard_EXPORT Standard_Boolean AddNewConnexity(const TopoDS_Vertex&   v,
+  Standard_EXPORT Standard_Boolean AddNewConnexity(const TopoVertex&   v,
                                                    const Standard_Integer OriKey,
-                                                   const TopoDS_Edge&     e);
+                                                   const TopoEdge&     e);
 
-  Standard_EXPORT Standard_Boolean RemoveOldConnexity(const TopoDS_Vertex&   v,
+  Standard_EXPORT Standard_Boolean RemoveOldConnexity(const TopoVertex&   v,
                                                       const Standard_Integer OriKey,
-                                                      const TopoDS_Edge&     e);
+                                                      const TopoEdge&     e);
 
-  Standard_EXPORT Standard_Boolean UpdateMultiple(const TopoDS_Vertex& v);
+  Standard_EXPORT Standard_Boolean UpdateMultiple(const TopoVertex& v);
 
 protected:
 private:
-  Standard_EXPORT void InitStep(const TopoDS_Shape& S);
+  Standard_EXPORT void InitStep(const TopoShape& S);
 
-  TopoDS_Shape                                  myS;
+  TopoShape                                  myS;
   TopOpeBRepTool_CORRISO                        myCORRISO;
   Standard_Boolean                              hasnewsplits;
   TopTools_DataMapOfShapeListOfShape            myEsplits;
   TopTools_DataMapOfShapeListOfShape            myOwNw;
   TopOpeBRepTool_IndexedDataMapOfShapeconnexity mymapvEds;
   TopTools_MapOfShape                           mymapvmultiple;
-  TopTools_ListOfShape                          myListVmultiple;
+  ShapeList                          myListVmultiple;
   Standard_Integer                              iStep;
   Standard_Real                                 mytol2d;
   Standard_Boolean                              isinit0;
-  TopoDS_Vertex                                 myv0;
+  TopoVertex                                 myv0;
   gp_Pnt2d                                      myp2d0;
-  TopoDS_Vertex                                 myv;
-  TopoDS_Edge                                   myed;
+  TopoVertex                                 myv;
+  TopoEdge                                   myed;
   gp_Pnt2d                                      myp2d;
   gp_Dir2d                                      mytg2d;
 };

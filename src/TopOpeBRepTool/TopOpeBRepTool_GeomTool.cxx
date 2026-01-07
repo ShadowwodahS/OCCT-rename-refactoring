@@ -19,7 +19,7 @@
 
 //=================================================================================================
 
-TopOpeBRepTool_GeomTool::TopOpeBRepTool_GeomTool(const TopOpeBRepTool_OutCurveType TypeC3D,
+GeomTool1::GeomTool1(const TopOpeBRepTool_OutCurveType TypeC3D,
                                                  const Standard_Boolean            CompC3D,
                                                  const Standard_Boolean            CompPC1,
                                                  const Standard_Boolean            CompPC2)
@@ -35,7 +35,7 @@ TopOpeBRepTool_GeomTool::TopOpeBRepTool_GeomTool(const TopOpeBRepTool_OutCurveTy
 
 //=================================================================================================
 
-void TopOpeBRepTool_GeomTool::Define(const TopOpeBRepTool_OutCurveType TypeC3D,
+void GeomTool1::Define(const TopOpeBRepTool_OutCurveType TypeC3D,
                                      const Standard_Boolean            CompC3D,
                                      const Standard_Boolean            CompPC1,
                                      const Standard_Boolean            CompPC2)
@@ -48,42 +48,42 @@ void TopOpeBRepTool_GeomTool::Define(const TopOpeBRepTool_OutCurveType TypeC3D,
 
 //=================================================================================================
 
-void TopOpeBRepTool_GeomTool::Define(const TopOpeBRepTool_OutCurveType TypeC3D)
+void GeomTool1::Define(const TopOpeBRepTool_OutCurveType TypeC3D)
 {
   myTypeC3D = TypeC3D;
 }
 
 //=================================================================================================
 
-void TopOpeBRepTool_GeomTool::DefineCurves(const Standard_Boolean CompC3D)
+void GeomTool1::DefineCurves(const Standard_Boolean CompC3D)
 {
   myCompC3D = CompC3D;
 }
 
 //=================================================================================================
 
-void TopOpeBRepTool_GeomTool::DefinePCurves1(const Standard_Boolean CompPC1)
+void GeomTool1::DefinePCurves1(const Standard_Boolean CompPC1)
 {
   myCompPC1 = CompPC1;
 }
 
 //=================================================================================================
 
-void TopOpeBRepTool_GeomTool::DefinePCurves2(const Standard_Boolean CompPC2)
+void GeomTool1::DefinePCurves2(const Standard_Boolean CompPC2)
 {
   myCompPC2 = CompPC2;
 }
 
 //=================================================================================================
 
-void TopOpeBRepTool_GeomTool::Define(const TopOpeBRepTool_GeomTool& GT)
+void GeomTool1::Define(const GeomTool1& GT)
 {
   *this = GT;
 }
 
 //=================================================================================================
 
-void TopOpeBRepTool_GeomTool::GetTolerances(Standard_Real& tol3d, Standard_Real& tol2d) const
+void GeomTool1::GetTolerances(Standard_Real& tol3d, Standard_Real& tol2d) const
 {
   tol3d = myTol3d;
   tol2d = myTol2d;
@@ -91,7 +91,7 @@ void TopOpeBRepTool_GeomTool::GetTolerances(Standard_Real& tol3d, Standard_Real&
 
 //=================================================================================================
 
-void TopOpeBRepTool_GeomTool::SetTolerances(const Standard_Real tol3d, const Standard_Real tol2d)
+void GeomTool1::SetTolerances(const Standard_Real tol3d, const Standard_Real tol2d)
 {
   myTol3d = tol3d;
   myTol2d = tol2d;
@@ -99,42 +99,42 @@ void TopOpeBRepTool_GeomTool::SetTolerances(const Standard_Real tol3d, const Sta
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepTool_GeomTool::NbPntMax() const
+Standard_Integer GeomTool1::NbPntMax() const
 {
   return myNbPntMax;
 }
 
 //=================================================================================================
 
-void TopOpeBRepTool_GeomTool::SetNbPntMax(const Standard_Integer NbPntMax)
+void GeomTool1::SetNbPntMax(const Standard_Integer NbPntMax)
 {
   myNbPntMax = NbPntMax;
 }
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_GeomTool::CompC3D() const
+Standard_Boolean GeomTool1::CompC3D() const
 {
   return myCompC3D;
 }
 
 //=================================================================================================
 
-TopOpeBRepTool_OutCurveType TopOpeBRepTool_GeomTool::TypeC3D() const
+TopOpeBRepTool_OutCurveType GeomTool1::TypeC3D() const
 {
   return myTypeC3D;
 }
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_GeomTool::CompPC1() const
+Standard_Boolean GeomTool1::CompPC1() const
 {
   return myCompPC1;
 }
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_GeomTool::CompPC2() const
+Standard_Boolean GeomTool1::CompPC2() const
 {
   return myCompPC2;
 }

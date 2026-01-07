@@ -53,7 +53,7 @@ public:
 
   struct Triangle
   {
-    gp_XY         V1, V2, V3;
+    Coords2d         V1, V2, V3;
     Standard_Real Param, TolParam, TolAng, Tolerance;
   };
 

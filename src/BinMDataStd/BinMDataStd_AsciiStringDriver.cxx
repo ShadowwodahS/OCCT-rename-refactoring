@@ -50,7 +50,7 @@ Standard_Boolean BinMDataStd_AsciiStringDriver::Paste(const BinObjMgt_Persistent
                                                       BinObjMgt_RRelocationTable&  RelocTable) const
 {
   Handle(TDataStd_AsciiString) aStrAtt = Handle(TDataStd_AsciiString)::DownCast(Target);
-  TCollection_AsciiString      aString;
+  AsciiString1      aString;
   Standard_Boolean             ok = Source >> aString;
   if (ok)
     aStrAtt->Set(aString);

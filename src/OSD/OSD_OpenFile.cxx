@@ -56,7 +56,7 @@ static int OSD_OpenFile_iosMode2FileFlags(::std::ios_base::openmode theMode)
 
 //=================================================================================================
 
-int OSD_OpenFileDescriptor(const TCollection_ExtendedString& theName,
+int OSD_OpenFileDescriptor(const UtfString& theName,
                            ::std::ios_base::openmode         theMode)
 {
   int       aFileDesc = -1;
@@ -82,8 +82,8 @@ FILE* OSD_OpenFile(const char* theName, const char* theMode)
   FILE* aFile = 0;
 #if defined(_WIN32)
   // file name is treated as UTF-8 string and converted to UTF-16 one
-  const TCollection_ExtendedString aFileNameW(theName, Standard_True);
-  const TCollection_ExtendedString aFileModeW(theMode, Standard_True);
+  const UtfString aFileNameW(theName, Standard_True);
+  const UtfString aFileModeW(theMode, Standard_True);
   aFile = ::_wfopen(aFileNameW.ToWideString(), aFileModeW.ToWideString());
 #else
   aFile = ::fopen(theName, theMode);
@@ -93,11 +93,11 @@ FILE* OSD_OpenFile(const char* theName, const char* theMode)
 
 //=================================================================================================
 
-FILE* OSD_OpenFile(const TCollection_ExtendedString& theName, const char* theMode)
+FILE* OSD_OpenFile(const UtfString& theName, const char* theMode)
 {
   FILE* aFile = 0;
 #if defined(_WIN32)
-  const TCollection_ExtendedString aFileModeW(theMode, Standard_True);
+  const UtfString aFileModeW(theMode, Standard_True);
   aFile = ::_wfopen(theName.ToWideString(), aFileModeW.ToWideString());
 #else
   // conversion in UTF-8 for linux
@@ -114,7 +114,7 @@ Standard_Time OSD_FileStatCTime(const char* theName)
   Standard_Time aTime = 0;
 #if defined(_WIN32)
   // file name is treated as UTF-8 string and converted to UTF-16 one
-  const TCollection_ExtendedString aFileNameW(theName, Standard_True);
+  const UtfString aFileNameW(theName, Standard_True);
   struct __stat64                  aStat;
   if (_wstat64(aFileNameW.ToWideString(), &aStat) == 0)
   {

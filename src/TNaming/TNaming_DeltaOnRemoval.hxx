@@ -22,7 +22,7 @@
 
 #include <TDF_DeltaOnRemoval.hxx>
 class TNaming_DeltaOnModification;
-class TNaming_NamedShape;
+class ShapeAttribute;
 
 class TNaming_DeltaOnRemoval;
 DEFINE_STANDARD_HANDLE(TNaming_DeltaOnRemoval, TDF_DeltaOnRemoval)
@@ -32,7 +32,7 @@ class TNaming_DeltaOnRemoval : public TDF_DeltaOnRemoval
 
 public:
   //! Initializes a TDF_DeltaOnModification.
-  Standard_EXPORT TNaming_DeltaOnRemoval(const Handle(TNaming_NamedShape)& NS);
+  Standard_EXPORT TNaming_DeltaOnRemoval(const Handle(ShapeAttribute)& NS);
 
   //! Applies the delta to the attribute.
   Standard_EXPORT virtual void Apply() Standard_OVERRIDE;

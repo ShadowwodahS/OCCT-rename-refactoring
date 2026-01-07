@@ -30,7 +30,7 @@ class BRepTools_Modification;
 //! Implements   the  methods   of MakeShape for   the
 //! constant  topology modifications.  The methods are
 //! implemented  when the modification uses a Modifier
-//! from BRepTools. Some of  them have to be redefined
+//! from BRepTools1. Some of  them have to be redefined
 //! if  the  modification is  implemented with another
 //! tool (see Transform from BRepBuilderAPI for example).
 //! The BRepBuilderAPI package provides the following
@@ -49,7 +49,7 @@ public:
 
   //! Returns the list  of shapes modified from the shape
   //! <S>.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Modified(const TopoDS_Shape& S)
+  Standard_EXPORT virtual const ShapeList& Modified(const TopoShape& S)
     Standard_OVERRIDE;
 
   //! Returns the modified shape corresponding to <S>.
@@ -60,7 +60,7 @@ public:
   //! transformation has been applied. Raises NoSuchObject from Standard
   //! if S is not the initial shape or a sub-shape
   //! of the initial shape.
-  Standard_EXPORT virtual TopoDS_Shape ModifiedShape(const TopoDS_Shape& S) const;
+  Standard_EXPORT virtual TopoShape ModifiedShape(const TopoShape& S) const;
 
 protected:
   //! Empty constructor.
@@ -68,7 +68,7 @@ protected:
 
   //! Initializes the modifier with  the Shape  <S>, and
   //! set the field <myInitialShape> to <S>.
-  Standard_EXPORT BRepBuilderAPI_ModifyShape(const TopoDS_Shape& S);
+  Standard_EXPORT BRepBuilderAPI_ModifyShape(const TopoShape& S);
 
   //! Set the field <myModification> with <M>.
   Standard_EXPORT BRepBuilderAPI_ModifyShape(const Handle(BRepTools_Modification)& M);
@@ -77,22 +77,22 @@ protected:
   //! set the field <myInitialShape> to <S>, and set the
   //! field <myModification> with  <M>, the performs the
   //! modification.
-  Standard_EXPORT BRepBuilderAPI_ModifyShape(const TopoDS_Shape&                   S,
+  Standard_EXPORT BRepBuilderAPI_ModifyShape(const TopoShape&                   S,
                                              const Handle(BRepTools_Modification)& M);
 
   //! Performs the previously  given modification on the
   //! shape <S>.
-  Standard_EXPORT void DoModif(const TopoDS_Shape& S);
+  Standard_EXPORT void DoModif(const TopoShape& S);
 
   //! Performs the  modification   <M> on a   previously
   //! given shape.
   Standard_EXPORT void DoModif(const Handle(BRepTools_Modification)& M);
 
   //! Performs the  modification <M> on the shape <S>.
-  Standard_EXPORT void DoModif(const TopoDS_Shape& S, const Handle(BRepTools_Modification)& M);
+  Standard_EXPORT void DoModif(const TopoShape& S, const Handle(BRepTools_Modification)& M);
 
-  BRepTools_Modifier             myModifier;
-  TopoDS_Shape                   myInitialShape;
+  ShapeModifier             myModifier;
+  TopoShape                   myInitialShape;
   Handle(BRepTools_Modification) myModification;
 
 private:

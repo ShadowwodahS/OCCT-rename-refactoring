@@ -35,7 +35,7 @@
 //=============================================================================
 GeomToStep_MakeRectangularTrimmedSurface::GeomToStep_MakeRectangularTrimmedSurface(
   const Handle(Geom_RectangularTrimmedSurface)& RTSurf,
-  const StepData_Factors&                       theLocalFactors)
+  const ConversionFactors&                       theLocalFactors)
 {
 
   Handle(StepGeom_RectangularTrimmedSurface) StepRTS = new StepGeom_RectangularTrimmedSurface;
@@ -61,7 +61,7 @@ GeomToStep_MakeRectangularTrimmedSurface::GeomToStep_MakeRectangularTrimmedSurfa
   Standard_Real        uFact      = 1.;
   Standard_Real        vFact      = 1.;
   Standard_Real        LengthFact = theLocalFactors.LengthFactor();
-  Handle(Geom_Surface) theSurf    = RTSurf->BasisSurface();
+  Handle(GeomSurface) theSurf    = RTSurf->BasisSurface();
   if (theSurf->IsKind(STANDARD_TYPE(Geom_CylindricalSurface)))
   {
     uFact = AngleFact;
@@ -84,7 +84,7 @@ GeomToStep_MakeRectangularTrimmedSurface::GeomToStep_MakeRectangularTrimmedSurfa
     uFact                              = AngleFact;
     vFact                              = Cos(semAng) / LengthFact;
   }
-  else if (theSurf->IsKind(STANDARD_TYPE(Geom_Plane)))
+  else if (theSurf->IsKind(STANDARD_TYPE(GeomPlane)))
   {
     uFact = vFact = 1. / LengthFact;
   }

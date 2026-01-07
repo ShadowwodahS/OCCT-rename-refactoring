@@ -21,24 +21,24 @@
 #include <Standard_Handle.hxx>
 
 #include <TColStd_IndexedDataMapOfTransientTransient.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class TNaming_TranslateTool;
 class TopLoc_Location;
 
-class TNaming_CopyShape
+class ShapeCopier
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Makes  copy  a  set  of  shape(s),  using the  aMap
-  Standard_EXPORT static void CopyTool(const TopoDS_Shape&                         aShape,
+  Standard_EXPORT static void CopyTool(const TopoShape&                         aShape,
                                        TColStd_IndexedDataMapOfTransientTransient& aMap,
-                                       TopoDS_Shape&                               aResult);
+                                       TopoShape&                               aResult);
 
   //! Translates  a  Transient  shape(s)  to  Transient
-  Standard_EXPORT static void Translate(const TopoDS_Shape&                         aShape,
+  Standard_EXPORT static void Translate(const TopoShape&                         aShape,
                                         TColStd_IndexedDataMapOfTransientTransient& aMap,
-                                        TopoDS_Shape&                               aResult,
+                                        TopoShape&                               aResult,
                                         const Handle(TNaming_TranslateTool)&        TrTool);
 
   //! Translates a Topological  Location  to an  other  Top.

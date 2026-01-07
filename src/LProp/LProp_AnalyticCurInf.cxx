@@ -20,14 +20,14 @@
 
 //=================================================================================================
 
-LProp_AnalyticCurInf::LProp_AnalyticCurInf() {}
+AnalyticCurveInfo::AnalyticCurveInfo() {}
 
 //=================================================================================================
 
-void LProp_AnalyticCurInf::Perform(const GeomAbs_CurveType CType,
+void AnalyticCurveInfo::Perform(const GeomAbs_CurveType CType,
                                    const Standard_Real     UFirst,
                                    const Standard_Real     ULast,
-                                   LProp_CurAndInf&        Result)
+                                   CurveAndInfo&        Result)
 {
   Standard_Boolean IsMin = Standard_True;
   Standard_Boolean IsMax = Standard_False;

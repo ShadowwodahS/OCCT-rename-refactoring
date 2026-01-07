@@ -21,15 +21,15 @@
 
 #include <Standard_Boolean.hxx>
 
-//! The class BOPDS_IndexRange is to store
+//! The class IndexRange is to store
 //! the information about range of two indices
-class BOPDS_IndexRange
+class IndexRange
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Empty constructor
-  BOPDS_IndexRange();
+  IndexRange();
 
   //! Modifier
   //! Sets the first index <theI1>  of the range

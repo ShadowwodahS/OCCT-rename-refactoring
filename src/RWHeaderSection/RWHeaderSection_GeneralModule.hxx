@@ -31,9 +31,9 @@ class Interface_CopyTool;
 class RWHeaderSection_GeneralModule;
 DEFINE_STANDARD_HANDLE(RWHeaderSection_GeneralModule, StepData_GeneralModule)
 
-//! Defines General Services for HeaderSection Entities
+//! Defines General Services for HeaderSection1 Entities
 //! (Share,Check,Copy; Trace already inherited)
-//! Depends (for case numbers) of Protocol from HeaderSection
+//! Depends (for case numbers) of Protocol from HeaderSection1
 class RWHeaderSection_GeneralModule : public StepData_GeneralModule
 {
 
@@ -42,7 +42,7 @@ public:
   Standard_EXPORT RWHeaderSection_GeneralModule();
 
   //! Specific filling of the list of Entities shared by an Entity
-  //! <ent>, according to a Case Number <CN> (provided by HeaderSection
+  //! <ent>, according to a Case Number <CN> (provided by HeaderSection1
   //! Protocol).
   Standard_EXPORT void FillSharedCase(const Standard_Integer            CN,
                                       const Handle(RefObject)& ent,

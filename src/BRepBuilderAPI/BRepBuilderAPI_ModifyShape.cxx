@@ -25,7 +25,7 @@ BRepBuilderAPI_ModifyShape::BRepBuilderAPI_ModifyShape() {}
 
 //=================================================================================================
 
-BRepBuilderAPI_ModifyShape::BRepBuilderAPI_ModifyShape(const TopoDS_Shape& S)
+BRepBuilderAPI_ModifyShape::BRepBuilderAPI_ModifyShape(const TopoShape& S)
     : myModifier(S),
       myInitialShape(S)
 {
@@ -40,7 +40,7 @@ BRepBuilderAPI_ModifyShape::BRepBuilderAPI_ModifyShape(const Handle(BRepTools_Mo
 
 //=================================================================================================
 
-BRepBuilderAPI_ModifyShape::BRepBuilderAPI_ModifyShape(const TopoDS_Shape&                   S,
+BRepBuilderAPI_ModifyShape::BRepBuilderAPI_ModifyShape(const TopoShape&                   S,
                                                        const Handle(BRepTools_Modification)& M)
     : myModifier(S),
       myInitialShape(S)
@@ -71,7 +71,7 @@ void BRepBuilderAPI_ModifyShape::DoModif()
 
 //=================================================================================================
 
-void BRepBuilderAPI_ModifyShape::DoModif(const TopoDS_Shape& S)
+void BRepBuilderAPI_ModifyShape::DoModif(const TopoShape& S)
 {
   if (!S.IsEqual(myInitialShape) || !IsDone())
   {
@@ -91,7 +91,7 @@ void BRepBuilderAPI_ModifyShape::DoModif(const Handle(BRepTools_Modification)& M
 
 //=================================================================================================
 
-void BRepBuilderAPI_ModifyShape::DoModif(const TopoDS_Shape&                   S,
+void BRepBuilderAPI_ModifyShape::DoModif(const TopoShape&                   S,
                                          const Handle(BRepTools_Modification)& M)
 {
   myInitialShape = S;
@@ -102,14 +102,14 @@ void BRepBuilderAPI_ModifyShape::DoModif(const TopoDS_Shape&                   S
 
 //=================================================================================================
 
-TopoDS_Shape BRepBuilderAPI_ModifyShape::ModifiedShape(const TopoDS_Shape& S) const
+TopoShape BRepBuilderAPI_ModifyShape::ModifiedShape(const TopoShape& S) const
 {
   return myModifier.ModifiedShape(S);
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepBuilderAPI_ModifyShape::Modified(const TopoDS_Shape& F)
+const ShapeList& BRepBuilderAPI_ModifyShape::Modified(const TopoShape& F)
 {
   myGenerated.Clear();
   myGenerated.Append(myModifier.ModifiedShape(F));

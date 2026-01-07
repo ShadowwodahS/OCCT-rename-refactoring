@@ -29,7 +29,7 @@
 class AIS_AnimationCamera;
 class AIS_ViewCubeOwner;
 class Graphic3d_ArrayOfTriangles;
-class V3d_View;
+class ViewWindow;
 
 //! Interactive object for displaying the view manipulation cube.
 //!
@@ -57,9 +57,9 @@ class V3d_View;
 //! that includes transformation loop.
 //! This loop allows external actions like application updating. For this purpose AIS_ViewCube has
 //! virtual interface onAfterAnimation(), that is to be redefined on application level.
-class AIS_ViewCube : public AIS_InteractiveObject
+class AIS_ViewCube : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_ViewCube, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_ViewCube, VisualEntity)
 public:
   //! Return TRUE if specified orientation belongs to box side.
   Standard_EXPORT static bool IsBoxSide(V3d_TypeOfOrientation theOrient);
@@ -337,14 +337,14 @@ public: //! @name Style management API
 
   //! Return box side label or empty string if undefined.
   //! Default labels: FRONT, BACK, LEFT, RIGHT, TOP, BOTTOM.
-  TCollection_AsciiString BoxSideLabel(V3d_TypeOfOrientation theSide) const
+  AsciiString1 BoxSideLabel(V3d_TypeOfOrientation theSide) const
   {
-    const TCollection_AsciiString* aLabel = myBoxSideLabels.Seek(theSide);
-    return aLabel != NULL ? *aLabel : TCollection_AsciiString();
+    const AsciiString1* aLabel = myBoxSideLabels.Seek(theSide);
+    return aLabel != NULL ? *aLabel : AsciiString1();
   }
 
   //! Set box side label.
-  void SetBoxSideLabel(const V3d_TypeOfOrientation theSide, const TCollection_AsciiString& theLabel)
+  void SetBoxSideLabel(const V3d_TypeOfOrientation theSide, const AsciiString1& theLabel)
   {
     if (!IsBoxSide(theSide))
     {
@@ -367,11 +367,11 @@ public: //! @name Style management API
 
   //! Return font name that is used for displaying of sides and axes text. Alias for:
   //! @code Attributes()->TextAspect()->Aspect()->SetFont() @endcode
-  const TCollection_AsciiString& Font() const { return myDrawer->TextAspect()->Aspect()->Font(); }
+  const AsciiString1& Font() const { return myDrawer->TextAspect()->Aspect()->Font(); }
 
   //! Set font name that is used for displaying of sides and axes text. Alias for:
   //! @code Attributes()->TextAspect()->SetFont() @endcode
-  void SetFont(const TCollection_AsciiString& theFont)
+  void SetFont(const AsciiString1& theFont)
   {
     myDrawer->TextAspect()->Aspect()->SetFont(theFont);
     SynchronizeAspects();
@@ -393,16 +393,16 @@ public: //! @name Style management API
 
   //! Return axes labels or empty string if undefined.
   //! Default labels: X, Y, Z.
-  TCollection_AsciiString AxisLabel(Prs3d_DatumParts theAxis) const
+  AsciiString1 AxisLabel(Prs3d_DatumParts theAxis) const
   {
-    const TCollection_AsciiString* aLabel = myAxesLabels.Seek(theAxis);
-    return aLabel != NULL ? *aLabel : TCollection_AsciiString();
+    const AsciiString1* aLabel = myAxesLabels.Seek(theAxis);
+    return aLabel != NULL ? *aLabel : AsciiString1();
   }
 
   //! Set axes labels.
-  void SetAxesLabels(const TCollection_AsciiString& theX,
-                     const TCollection_AsciiString& theY,
-                     const TCollection_AsciiString& theZ)
+  void SetAxesLabels(const AsciiString1& theX,
+                     const AsciiString1& theY,
+                     const AsciiString1& theZ)
   {
     myAxesLabels.Bind(Prs3d_DatumParts_XAxis, theX);
     myAxesLabels.Bind(Prs3d_DatumParts_YAxis, theY);
@@ -504,8 +504,8 @@ protected:
   //! Fit selected/all into view.
   //! @param[in] theView  view definition to retrieve scene bounding box
   //! @param theCamera [in,out] camera definition
-  Standard_EXPORT virtual void viewFitAll(const Handle(V3d_View)&         theView,
-                                          const Handle(Graphic3d_Camera)& theCamera);
+  Standard_EXPORT virtual void viewFitAll(const Handle(ViewWindow)&         theView,
+                                          const Handle(CameraOn3d)& theCamera);
 
 protected: //! @name protected virtual API
   //! Method that is called after one step of transformation.
@@ -540,7 +540,7 @@ public: //! @name Presentation computation
   //! @param[in] theSelection  input selection object that is to be filled with sensitive entities.
   //! @param[in] theMode  selection mode.
   //! @warning object accepts only 0 selection mode.
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Disables auto highlighting to use HilightSelected() and HilightOwnerWithColor() overridden
@@ -557,7 +557,7 @@ public: //! @name Presentation computation
   //! @param[in] theOwner  input entity owner.
   Standard_EXPORT virtual void HilightOwnerWithColor(
     const Handle(PrsMgr_PresentationManager)& thePM,
-    const Handle(Prs3d_Drawer)&               theStyle,
+    const Handle(StyleDrawer)&               theStyle,
     const Handle(SelectMgr_EntityOwner)&      theOwner) Standard_OVERRIDE;
 
   //! Method which draws selected owners.
@@ -648,14 +648,14 @@ protected:
     const Handle(Graphic3d_ArrayOfTriangles)& theTris,
     Standard_Integer&                         theNbNodes,
     Standard_Integer&                         theNbTris,
-    const gp_XY&                              theSize,
+    const Coords2d&                              theSize,
     Standard_Real                             theRadius,
     const Transform3d&                            theTrsf);
 
 protected:
-  NCollection_DataMap<V3d_TypeOfOrientation, TCollection_AsciiString>
+  NCollection_DataMap<V3d_TypeOfOrientation, AsciiString1>
     myBoxSideLabels; //!< map with box side labels
-  NCollection_DataMap<Prs3d_DatumParts, TCollection_AsciiString>
+  NCollection_DataMap<Prs3d_DatumParts, AsciiString1>
                               myAxesLabels;      //!< map with axes labels
   Handle(Prs3d_ShadingAspect) myBoxEdgeAspect;   //!< style for box edges
   Handle(Prs3d_ShadingAspect) myBoxCornerAspect; //!< style for box corner
@@ -679,8 +679,8 @@ protected:
 
 protected:                                        //! @name Animation options
   Handle(AIS_AnimationCamera) myViewAnimation;    //!< Camera animation object
-  Handle(Graphic3d_Camera)    myStartState;       //!< Start state of view camera
-  Handle(Graphic3d_Camera)    myEndState;         //!< End state of view camera
+  Handle(CameraOn3d)    myStartState;       //!< Start state of view camera
+  Handle(CameraOn3d)    myEndState;         //!< End state of view camera
   Standard_Boolean            myToAutoStartAnim;  //!< start animation automatically on click
   Standard_Boolean            myIsFixedAnimation; //!< fixed-loop animation
   Standard_Boolean            myToFitSelected;    //!< fit selected or fit entire scene

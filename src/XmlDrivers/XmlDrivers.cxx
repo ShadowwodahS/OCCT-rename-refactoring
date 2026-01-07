@@ -61,7 +61,7 @@ const Handle(RefObject)& XmlDrivers::Factory(const Standard_GUID& theGUID)
 
 //=================================================================================================
 
-void XmlDrivers::DefineFormat(const Handle(TDocStd_Application)& theApp)
+void XmlDrivers::DefineFormat(const Handle(AppManager)& theApp)
 {
   theApp->DefineFormat("XmlOcaf",
                        "Xml OCAF Document",

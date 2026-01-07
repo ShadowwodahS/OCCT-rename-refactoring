@@ -26,7 +26,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SelectSignature, IFSelect_SelectExtract)
 //  signmode : 1 prendre si contenu, 2 refuser si contenu
 //             3 prendre si egal,    4 refuser si egal
 //  ou test numerique, ajouter : 16 <  24 <=  32 >  40 >=
-static Standard_Integer multsign(const TCollection_AsciiString& signtext,
+static Standard_Integer multsign(const AsciiString1& signtext,
                                  TColStd_SequenceOfAsciiString& signlist,
                                  TColStd_SequenceOfInteger&     signmode)
 {
@@ -48,7 +48,7 @@ static Standard_Integer multsign(const TCollection_AsciiString& signtext,
   if (mode == 0)
     return mode;
   //  On va tronconner
-  TCollection_AsciiString item;
+  AsciiString1 item;
   Standard_Integer        imod = 1;
   for (i = 1; i <= nb; i++)
   {
@@ -88,7 +88,7 @@ static Standard_Integer multsign(const TCollection_AsciiString& signtext,
 }
 
 IFSelect_SelectSignature::IFSelect_SelectSignature(const Handle(IFSelect_Signature)& matcher,
-                                                   const TCollection_AsciiString&    signtext,
+                                                   const AsciiString1&    signtext,
                                                    const Standard_Boolean            exact)
     : thematcher(matcher),
       thesigntext(signtext),
@@ -215,7 +215,7 @@ Standard_Boolean IFSelect_SelectSignature::Sort(
   return Standard_True;
 }
 
-const TCollection_AsciiString& IFSelect_SelectSignature::SignatureText() const
+const AsciiString1& IFSelect_SelectSignature::SignatureText() const
 {
   return thesigntext;
 }
@@ -225,9 +225,9 @@ Standard_Boolean IFSelect_SelectSignature::IsExact() const
   return (theexact < 0);
 }
 
-TCollection_AsciiString IFSelect_SelectSignature::ExtractLabel() const
+AsciiString1 IFSelect_SelectSignature::ExtractLabel() const
 {
-  TCollection_AsciiString lab;
+  AsciiString1 lab;
   if (!thematcher.IsNull())
     lab.AssignCat(thematcher->Name());
   else

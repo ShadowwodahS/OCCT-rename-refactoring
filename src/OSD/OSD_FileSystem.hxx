@@ -43,7 +43,7 @@ public:
 
 public:
   //! Returns TRUE if URL defines a supported protocol.
-  virtual Standard_Boolean IsSupportedPath(const TCollection_AsciiString& theUrl) const = 0;
+  virtual Standard_Boolean IsSupportedPath(const AsciiString1& theUrl) const = 0;
 
   //! Returns TRUE if current input stream is opened for reading operations.
   virtual Standard_Boolean IsOpenIStream(const std::shared_ptr<std::istream>& theStream) const = 0;
@@ -66,7 +66,7 @@ public:
   //! @return pointer to newly created opened stream, to theOldStream if it can be reused or NULL in
   //! case of failure.
   Standard_EXPORT virtual std::shared_ptr<std::istream> OpenIStream(
-    const TCollection_AsciiString&       theUrl,
+    const AsciiString1&       theUrl,
     const std::ios_base::openmode        theMode,
     const int64_t                        theOffset    = 0,
     const std::shared_ptr<std::istream>& theOldStream = std::shared_ptr<std::istream>());
@@ -79,7 +79,7 @@ public:
   //! (std::ios_base::out will be implicitly added)
   //! @return pointer to newly created opened stream or NULL in case of failure.
   Standard_EXPORT virtual std::shared_ptr<std::ostream> OpenOStream(
-    const TCollection_AsciiString& theUrl,
+    const AsciiString1& theUrl,
     const std::ios_base::openmode  theMode);
 
   //! Opens stream buffer for specified file URL.
@@ -89,7 +89,7 @@ public:
   //! (beginning of the stream buffer by default)
   //! @param[out] theOutBufSize  total buffer size (only if buffer is opened for read)
   //! @return pointer to newly created opened stream buffer or NULL in case of failure.
-  virtual std::shared_ptr<std::streambuf> OpenStreamBuffer(const TCollection_AsciiString& theUrl,
+  virtual std::shared_ptr<std::streambuf> OpenStreamBuffer(const AsciiString1& theUrl,
                                                            const std::ios_base::openmode  theMode,
                                                            const int64_t theOffset     = 0,
                                                            int64_t*      theOutBufSize = NULL) = 0;

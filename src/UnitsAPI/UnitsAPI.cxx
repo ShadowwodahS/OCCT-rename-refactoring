@@ -21,7 +21,7 @@
 
 static Handle(Resource_Manager) CurrentUnits, SICurrentUnits, MDTVCurrentUnits;
 static Units_UnitsSystem        LocalSystemUnits, SILocalSystemUnits, MDTVLocalSystemUnits;
-static TCollection_AsciiString  rstring;
+static AsciiString1  rstring;
 static UnitsAPI_SystemUnits     localSystem   = UnitsAPI_SI;
 static UnitsAPI_SystemUnits     currentSystem = UnitsAPI_DEFAULT;
 
@@ -43,7 +43,7 @@ void UnitsAPI::CheckLoading(const UnitsAPI_SystemUnits aSystemUnits)
         {
 #ifdef _WIN32
           OSD_Environment         env3("CSF_CurrentUnits");
-          TCollection_AsciiString csfcurrent(env3.Value());
+          AsciiString1 csfcurrent(env3.Value());
           if (csfcurrent.Length() > 0)
             SICurrentUnits = new Resource_Manager(csfcurrent.ToCString());
           else
@@ -61,7 +61,7 @@ void UnitsAPI::CheckLoading(const UnitsAPI_SystemUnits aSystemUnits)
         {
 #ifdef _WIN32
           OSD_Environment         env4("CSF_MDTVCurrentUnits");
-          TCollection_AsciiString csfmdtvcurrent(env4.Value());
+          AsciiString1 csfmdtvcurrent(env4.Value());
           if (csfmdtvcurrent.Length() > 0)
             MDTVCurrentUnits = new Resource_Manager(csfmdtvcurrent.ToCString());
           else
@@ -139,7 +139,7 @@ Standard_Real UnitsAPI::CurrentToLS(const Standard_Real aData, const Standard_CS
   CheckLoading(localSystem);
   if (CurrentUnits->Find(aQuantity))
   {
-    TCollection_AsciiString current(CurrentUnits->Value(aQuantity));
+    AsciiString1 current(CurrentUnits->Value(aQuantity));
     aValue = Units::ToSI(aData, current.ToCString());
     aValue = LocalSystemUnits.ConvertSIValueToUserSystem(aQuantity, aValue);
   }
@@ -162,7 +162,7 @@ Standard_Real UnitsAPI::CurrentToSI(const Standard_Real aData, const Standard_CS
   CheckLoading(UnitsAPI_DEFAULT);
   if (CurrentUnits->Find(aQuantity))
   {
-    TCollection_AsciiString current(CurrentUnits->Value(aQuantity));
+    AsciiString1 current(CurrentUnits->Value(aQuantity));
     aValue = Units::ToSI(aData, current.ToCString());
   }
 #ifdef OCCT_DEBUG
@@ -184,7 +184,7 @@ Standard_Real UnitsAPI::CurrentFromLS(const Standard_Real aData, const Standard_
   CheckLoading(localSystem);
   if (CurrentUnits->Find(aQuantity))
   {
-    TCollection_AsciiString current(CurrentUnits->Value(aQuantity));
+    AsciiString1 current(CurrentUnits->Value(aQuantity));
     aValue = LocalSystemUnits.ConvertUserSystemValueToSI(aQuantity, aData);
     aValue = Units::FromSI(aValue, current.ToCString());
   }
@@ -207,7 +207,7 @@ Standard_Real UnitsAPI::CurrentFromSI(const Standard_Real aData, const Standard_
   CheckLoading(UnitsAPI_DEFAULT);
   if (CurrentUnits->Find(aQuantity))
   {
-    TCollection_AsciiString current(CurrentUnits->Value(aQuantity));
+    AsciiString1 current(CurrentUnits->Value(aQuantity));
     aValue = Units::FromSI(aData, current.ToCString());
   }
 #ifdef OCCT_DEBUG
@@ -231,7 +231,7 @@ Standard_Real UnitsAPI::CurrentToAny(const Standard_Real    aData,
   CheckLoading(UnitsAPI_DEFAULT);
   if (CurrentUnits->Find(aQuantity))
   {
-    TCollection_AsciiString current(CurrentUnits->Value(aQuantity));
+    AsciiString1 current(CurrentUnits->Value(aQuantity));
     aValue = AnyToAny(aData, current.ToCString(), aUnit);
   }
 #ifdef OCCT_DEBUG
@@ -255,7 +255,7 @@ Standard_Real UnitsAPI::CurrentFromAny(const Standard_Real    aData,
   CheckLoading(UnitsAPI_DEFAULT);
   if (CurrentUnits->Find(aQuantity))
   {
-    TCollection_AsciiString current(CurrentUnits->Value(aQuantity));
+    AsciiString1 current(CurrentUnits->Value(aQuantity));
     aValue = AnyToAny(aData, aUnit, current.ToCString());
   }
 #ifdef OCCT_DEBUG
@@ -465,7 +465,7 @@ void UnitsAPI::Reload()
 
 //=================================================================================================
 
-static TCollection_AsciiString astring;
+static AsciiString1 astring;
 
 Standard_CString UnitsAPI::CurrentUnit(const Standard_CString aQuantity)
 {
@@ -559,7 +559,7 @@ Standard_Boolean UnitsAPI::Check(const Standard_CString aQuantity, const Standar
   CheckLoading(UnitsAPI_DEFAULT);
   if (CurrentUnits->Find(aQuantity))
   {
-    TCollection_AsciiString current(CurrentUnits->Value(aQuantity));
+    AsciiString1 current(CurrentUnits->Value(aQuantity));
     //    aValue = AnyToAny(aData,current.ToCString(),aUnit);
     //    aValue = Units::Convert(aValue,aUnit1,aUnit2);
   }

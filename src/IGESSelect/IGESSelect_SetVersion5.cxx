@@ -42,7 +42,7 @@ void IGESSelect_SetVersion5::Performing(IFSelect_ContextModif&            ctx,
     ctx.CCheck()->GetMessages(check);
 }
 
-TCollection_AsciiString IGESSelect_SetVersion5::Label() const
+AsciiString1 IGESSelect_SetVersion5::Label() const
 {
-  return TCollection_AsciiString("Update IGES Version in Global Section to 5.1");
+  return AsciiString1("Update IGES Version in Global Section to 5.1");
 }

@@ -31,14 +31,14 @@
 
 class Adaptor3d_TopolTool;
 class BRepBlend_Line;
-class gp_XY;
+class Coords2d;
 class ChFiDS_SurfData;
 class ChFiDS_Spine;
 class ChFiDS_Stripe;
 class Law_Function;
-class TopoDS_Edge;
-class TopoDS_Shape;
-class TopoDS_Vertex;
+class TopoEdge;
+class TopoShape;
+class TopoVertex;
 
 //! Tool  of  construction of  fillets 3d on  edges (on a solid).
 class ChFi3d_FilBuilder : public ChFi3d_Builder
@@ -46,7 +46,7 @@ class ChFi3d_FilBuilder : public ChFi3d_Builder
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT ChFi3d_FilBuilder(const TopoDS_Shape&      S,
+  Standard_EXPORT ChFi3d_FilBuilder(const TopoShape&      S,
                                     const ChFi3d_FilletShape FShape = ChFi3d_Rational,
                                     const Standard_Real      Ta     = 1.0e-2);
 
@@ -59,10 +59,10 @@ public:
   //! initialisation of  a contour with the first edge
   //! (the following are found  by propagation).
   //! Attention, you  need  to start  with  SetRadius.
-  Standard_EXPORT void Add(const TopoDS_Edge& E);
+  Standard_EXPORT void Add(const TopoEdge& E);
 
   //! initialisation of the constant vector the corresponding  1st  edge.
-  Standard_EXPORT void Add(const Standard_Real Radius, const TopoDS_Edge& E);
+  Standard_EXPORT void Add(const Standard_Real Radius, const TopoEdge& E);
 
   //! Set the radius of the contour of index IC.
   Standard_EXPORT void SetRadius(const Handle(Law_Function)& C,
@@ -83,48 +83,48 @@ public:
   //! index IC. Since  then  E is flagged as constant.
   Standard_EXPORT void SetRadius(const Standard_Real    Radius,
                                  const Standard_Integer IC,
-                                 const TopoDS_Edge&     E);
+                                 const TopoEdge&     E);
 
   //! Extracts the flag constant and the vector of edge E.
-  Standard_EXPORT void UnSet(const Standard_Integer IC, const TopoDS_Edge& E);
+  Standard_EXPORT void UnSet(const Standard_Integer IC, const TopoEdge& E);
 
   //! Set a vector on vertex  V of  the contour of index IC.
   Standard_EXPORT void SetRadius(const Standard_Real    Radius,
                                  const Standard_Integer IC,
-                                 const TopoDS_Vertex&   V);
+                                 const TopoVertex&   V);
 
   //! Extracts the vector of  the vertex V.
-  Standard_EXPORT void UnSet(const Standard_Integer IC, const TopoDS_Vertex& V);
+  Standard_EXPORT void UnSet(const Standard_Integer IC, const TopoVertex& V);
 
   //! Set  a vertex on the point of parametre U in the edge IinC
   //! of  the contour of index IC
-  Standard_EXPORT void SetRadius(const gp_XY&           UandR,
+  Standard_EXPORT void SetRadius(const Coords2d&           UandR,
                                  const Standard_Integer IC,
                                  const Standard_Integer IinC);
 
   //! Returns true E is flagged as edge constant.
-  Standard_EXPORT Standard_Boolean IsConstant(const Standard_Integer IC, const TopoDS_Edge& E);
+  Standard_EXPORT Standard_Boolean IsConstant(const Standard_Integer IC, const TopoEdge& E);
 
   //! Returns the vector if E is flagged as edge constant.
-  Standard_EXPORT Standard_Real Radius(const Standard_Integer IC, const TopoDS_Edge& E);
+  Standard_EXPORT Standard_Real Radius(const Standard_Integer IC, const TopoEdge& E);
 
   //! Returns in First and Last  les extremities of  the
   //! part of variable  vector framing E, returns
   //! False  if  E is flagged as edge constant.
   Standard_EXPORT Standard_Boolean GetBounds(const Standard_Integer IC,
-                                             const TopoDS_Edge&     E,
+                                             const TopoEdge&     E,
                                              Standard_Real&         First,
                                              Standard_Real&         Last);
 
   //! Returns the rule of  elementary  evolution of  the
   //! part to  variable vector framing E, returns a
   //! rule zero if E is flagged as edge constant.
-  Standard_EXPORT Handle(Law_Function) GetLaw(const Standard_Integer IC, const TopoDS_Edge& E);
+  Standard_EXPORT Handle(Law_Function) GetLaw(const Standard_Integer IC, const TopoEdge& E);
 
   //! Sets the rule of elementary evolution of  the
   //! part to variable  vector framing E.
   Standard_EXPORT void SetLaw(const Standard_Integer      IC,
-                              const TopoDS_Edge&          E,
+                              const TopoEdge&          E,
                               const Handle(Law_Function)& L);
 
   Standard_EXPORT void Simulate(const Standard_Integer IC);
@@ -367,13 +367,13 @@ protected:
 
   Standard_EXPORT void PerformThreeCorner(const Standard_Integer Index) Standard_OVERRIDE;
 
-  Standard_EXPORT void ExtentOneCorner(const TopoDS_Vertex&         V,
+  Standard_EXPORT void ExtentOneCorner(const TopoVertex&         V,
                                        const Handle(ChFiDS_Stripe)& S) Standard_OVERRIDE;
 
-  Standard_EXPORT void ExtentTwoCorner(const TopoDS_Vertex&       V,
+  Standard_EXPORT void ExtentTwoCorner(const TopoVertex&       V,
                                        const ChFiDS_ListOfStripe& LS) Standard_OVERRIDE;
 
-  Standard_EXPORT void ExtentThreeCorner(const TopoDS_Vertex&       V,
+  Standard_EXPORT void ExtentThreeCorner(const TopoVertex&       V,
                                          const ChFiDS_ListOfStripe& LS) Standard_OVERRIDE;
 
   Standard_EXPORT void SetRegul() Standard_OVERRIDE;

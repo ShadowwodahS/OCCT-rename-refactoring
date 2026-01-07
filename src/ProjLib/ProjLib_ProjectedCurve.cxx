@@ -518,7 +518,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
             l = myCurve->LastParameter();
             ExtendC2d(aRes, l, dt, U1, U2, V1, V2, 1, SingularCase[1]);
           }
-          Handle(Geom2d_Curve) NewCurve2d;
+          Handle(GeomCurve2d) NewCurve2d;
           GeomLib::SameRange(Precision::PConfusion(),
                              aRes,
                              aRes->FirstParameter(),
@@ -679,7 +679,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
             // Add segment after end of curve
             ExtendC2d(aRes, l, dt, u1, u2, v1, Vsingular[1], 1, 4);
           }
-          Handle(Geom2d_Curve) NewCurve2d;
+          Handle(GeomCurve2d) NewCurve2d;
           GeomLib::SameRange(Precision::PConfusion(),
                              aRes,
                              aRes->FirstParameter(),
@@ -743,7 +743,7 @@ void ProjLib_ProjectedCurve::Perform(const Handle(Adaptor3d_Curve)& C)
         Standard_Real l = myCurve->LastParameter();
         ExtendC2d(aRes, l, dt, U1, U2, V1, V2, 1, SingularCase[1]);
       }
-      Handle(Geom2d_Curve) NewCurve2d;
+      Handle(GeomCurve2d) NewCurve2d;
       GeomLib::SameRange(Precision::PConfusion(),
                          aRes,
                          aRes->FirstParameter(),

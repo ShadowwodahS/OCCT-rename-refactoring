@@ -21,8 +21,8 @@
 
 class PrsMgr_PresentationManager;
 class PrsMgr_PresentableObject;
-class Graphic3d_Camera;
-class Prs3d_Drawer;
+class CameraOn3d;
+class StyleDrawer;
 
 DEFINE_STANDARD_HANDLE(PrsMgr_Presentation, Graphic3d_Structure)
 
@@ -63,7 +63,7 @@ public:
   Standard_EXPORT virtual void Erase() Standard_OVERRIDE;
 
   //! Highlight structure.
-  Standard_EXPORT void Highlight(const Handle(Prs3d_Drawer)& theStyle);
+  Standard_EXPORT void Highlight(const Handle(StyleDrawer)& theStyle);
 
   //! Unhighlight structure.
   Standard_EXPORT void Unhighlight();
@@ -96,11 +96,11 @@ protected:
   //! Displays myStructure.
   Standard_EXPORT void display(const Standard_Boolean theIsHighlight);
 
-  Standard_EXPORT virtual void computeHLR(const Handle(Graphic3d_Camera)& theProjector,
+  Standard_EXPORT virtual void computeHLR(const Handle(CameraOn3d)& theProjector,
                                           Handle(Graphic3d_Structure)&    theGivenStruct)
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void RecomputeTransformation(const Handle(Graphic3d_Camera)& theProjector)
+  Standard_EXPORT virtual void RecomputeTransformation(const Handle(CameraOn3d)& theProjector)
     Standard_OVERRIDE;
 
 protected:

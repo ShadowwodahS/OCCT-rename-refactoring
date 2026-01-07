@@ -190,7 +190,7 @@ Handle(Graphic3d_AspectText3d) MeshVS_Tool::CreateAspectText3d(const Handle(Mesh
   Standard_CString         aFont       = Font_NOF_ASCII_MONO;
   Aspect_TypeOfStyleText   aStyle      = Aspect_TOST_NORMAL;
   Aspect_TypeOfDisplayText aDispText   = Aspect_TODT_NORMAL;
-  TCollection_AsciiString  aFontString = Font_NOF_ASCII_MONO;
+  AsciiString1  aFontString = Font_NOF_ASCII_MONO;
   Font_FontAspect          aFontAspect = Font_FA_Regular;
   Standard_Integer         aStyleI     = (Standard_Integer)Aspect_TOST_NORMAL;
   Standard_Integer         aDispTextI  = (Standard_Integer)Aspect_TODT_NORMAL;

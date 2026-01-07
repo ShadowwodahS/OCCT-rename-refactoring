@@ -39,7 +39,7 @@
 //   by angle TheAngle ==> D1.                                            +
 //   create straight line passing through ThePoint of direction D1.              +
 //=========================================================================
-GccAna_Lin2dTanObl::GccAna_Lin2dTanObl(const gp_Pnt2d&     ThePoint,
+Line2dTangentObl::Line2dTangentObl(const gp_Pnt2d&     ThePoint,
                                        const gp_Lin2d&     TheLine,
                                        const Standard_Real TheAngle)
     : linsol(1, 1),
@@ -96,7 +96,7 @@ GccAna_Lin2dTanObl::GccAna_Lin2dTanObl(const gp_Pnt2d&     ThePoint,
 //   create the straight line passing by C1 of direction D1.                    +
 //=========================================================================
 
-GccAna_Lin2dTanObl::GccAna_Lin2dTanObl(const GccEnt_QualifiedCirc& Qualified1,
+Line2dTangentObl::Line2dTangentObl(const GccEnt_QualifiedCirc& Qualified1,
                                        const gp_Lin2d&             TheLine,
                                        const Standard_Real         TheAngle)
     : linsol(1, 2),
@@ -131,9 +131,9 @@ GccAna_Lin2dTanObl::GccAna_Lin2dTanObl(const GccEnt_QualifiedCirc& Qualified1,
     if (Qualified1.IsEnclosing())
     {
       //   =============================
-      gp_XY xy(Cos(TheAngle) * Cosa - Sin(TheAngle) * Sina,
+      Coords2d xy(Cos(TheAngle) * Cosa - Sin(TheAngle) * Sina,
                Cos(TheAngle) * Sina + Sin(TheAngle) * Cosa);
-      pnttg1sol(1) = gp_Pnt2d(C1.Location().XY() + R1 * gp_XY(xy.Y(), -xy.X()));
+      pnttg1sol(1) = gp_Pnt2d(C1.Location().XY() + R1 * Coords2d(xy.Y(), -xy.X()));
       linsol(1)    = gp_Lin2d(pnttg1sol(1), gp_Dir2d(xy));
       //     ===============================================
       qualifier1(1) = Qualified1.Qualifier();
@@ -154,9 +154,9 @@ GccAna_Lin2dTanObl::GccAna_Lin2dTanObl(const GccEnt_QualifiedCirc& Qualified1,
     else if (Qualified1.IsOutside())
     {
       //   ================================
-      gp_XY xy(Cos(TheAngle) * Cosa - Sin(TheAngle) * Sina,
+      Coords2d xy(Cos(TheAngle) * Cosa - Sin(TheAngle) * Sina,
                Cos(TheAngle) * Sina + Sin(TheAngle) * Cosa);
-      pnttg1sol(1) = gp_Pnt2d(C1.Location().XY() + R1 * gp_XY(-xy.Y(), xy.X()));
+      pnttg1sol(1) = gp_Pnt2d(C1.Location().XY() + R1 * Coords2d(-xy.Y(), xy.X()));
       linsol(1)    = gp_Lin2d(pnttg1sol(1), gp_Dir2d(xy));
       //     ===============================================
       qualifier1(1) = Qualified1.Qualifier();
@@ -177,9 +177,9 @@ GccAna_Lin2dTanObl::GccAna_Lin2dTanObl(const GccEnt_QualifiedCirc& Qualified1,
     else if (Qualified1.IsUnqualified())
     {
       //   ====================================
-      gp_XY xy(Cos(TheAngle) * Cosa - Sin(TheAngle) * Sina,
+      Coords2d xy(Cos(TheAngle) * Cosa - Sin(TheAngle) * Sina,
                Cos(TheAngle) * Sina + Sin(TheAngle) * Cosa);
-      pnttg1sol(1) = gp_Pnt2d(C1.Location().XY() + R1 * gp_XY(xy.Y(), -xy.X()));
+      pnttg1sol(1) = gp_Pnt2d(C1.Location().XY() + R1 * Coords2d(xy.Y(), -xy.X()));
       linsol(1)    = gp_Lin2d(pnttg1sol(1), gp_Dir2d(xy));
       //     ===============================================
       qualifier1(1) = GccEnt_enclosing;
@@ -196,7 +196,7 @@ GccAna_Lin2dTanObl::GccAna_Lin2dTanObl(const GccEnt_QualifiedCirc& Qualified1,
           }
         }
       }
-      pnttg1sol(2) = gp_Pnt2d(C1.Location().XY() + R1 * gp_XY(-xy.Y(), xy.X()));
+      pnttg1sol(2) = gp_Pnt2d(C1.Location().XY() + R1 * Coords2d(-xy.Y(), xy.X()));
       linsol(2)    = gp_Lin2d(pnttg1sol(2), gp_Dir2d(xy));
       //     ===============================================
       qualifier1(2) = GccEnt_outside;
@@ -224,19 +224,19 @@ GccAna_Lin2dTanObl::GccAna_Lin2dTanObl(const GccEnt_QualifiedCirc& Qualified1,
   }
 }
 
-Standard_Boolean GccAna_Lin2dTanObl::IsDone() const
+Standard_Boolean Line2dTangentObl::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer GccAna_Lin2dTanObl::NbSolutions() const
+Standard_Integer Line2dTangentObl::NbSolutions() const
 {
   if (!WellDone)
     throw StdFail_NotDone();
   return NbrSol;
 }
 
-gp_Lin2d GccAna_Lin2dTanObl::ThisSolution(const Standard_Integer Index) const
+gp_Lin2d Line2dTangentObl::ThisSolution(const Standard_Integer Index) const
 {
   if (!WellDone)
     throw StdFail_NotDone();
@@ -246,7 +246,7 @@ gp_Lin2d GccAna_Lin2dTanObl::ThisSolution(const Standard_Integer Index) const
   return linsol(Index);
 }
 
-void GccAna_Lin2dTanObl::WhichQualifier(const Standard_Integer Index,
+void Line2dTangentObl::WhichQualifier(const Standard_Integer Index,
                                         GccEnt_Position&       Qualif1) const
 {
   if (!WellDone)
@@ -263,7 +263,7 @@ void GccAna_Lin2dTanObl::WhichQualifier(const Standard_Integer Index,
   }
 }
 
-void GccAna_Lin2dTanObl::Tangency1(const Standard_Integer Index,
+void Line2dTangentObl::Tangency1(const Standard_Integer Index,
                                    Standard_Real&         ParSol,
                                    Standard_Real&         ParArg,
                                    gp_Pnt2d&              PntSol) const
@@ -284,7 +284,7 @@ void GccAna_Lin2dTanObl::Tangency1(const Standard_Integer Index,
   }
 }
 
-void GccAna_Lin2dTanObl::Intersection2(const Standard_Integer Index,
+void Line2dTangentObl::Intersection2(const Standard_Integer Index,
                                        Standard_Real&         ParSol,
                                        Standard_Real&         ParArg,
                                        gp_Pnt2d&              PntSol) const

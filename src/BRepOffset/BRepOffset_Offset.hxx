@@ -27,8 +27,8 @@
 #include <GeomAbs_JoinType.hxx>
 #include <GeomAbs_Shape.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Edge;
-class TopoDS_Vertex;
+class TopoEdge;
+class TopoVertex;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -47,7 +47,7 @@ public:
 
   Standard_EXPORT BRepOffset_Offset();
 
-  Standard_EXPORT BRepOffset_Offset(const TopoDS_Face&     Face,
+  Standard_EXPORT BRepOffset_Offset(const TopoFace&     Face,
                                     const Standard_Real    Offset,
                                     const Standard_Boolean OffsetOutside = Standard_True,
                                     const GeomAbs_JoinType JoinType      = GeomAbs_Arc);
@@ -64,93 +64,93 @@ public:
   //! E' = the image of E in the offsetting  of
   //! another  face  sharing E  with a
   //! continuity at least G1
-  Standard_EXPORT BRepOffset_Offset(const TopoDS_Face&                  Face,
+  Standard_EXPORT BRepOffset_Offset(const TopoFace&                  Face,
                                     const Standard_Real                 Offset,
                                     const TopTools_DataMapOfShapeShape& Created,
                                     const Standard_Boolean OffsetOutside = Standard_True,
                                     const GeomAbs_JoinType JoinType      = GeomAbs_Arc);
 
-  Standard_EXPORT BRepOffset_Offset(const TopoDS_Edge&     Path,
-                                    const TopoDS_Edge&     Edge1,
-                                    const TopoDS_Edge&     Edge2,
+  Standard_EXPORT BRepOffset_Offset(const TopoEdge&     Path,
+                                    const TopoEdge&     Edge1,
+                                    const TopoEdge&     Edge2,
                                     const Standard_Real    Offset,
                                     const Standard_Boolean Polynomial = Standard_False,
                                     const Standard_Real    Tol        = 1.0e-4,
                                     const GeomAbs_Shape    Conti      = GeomAbs_C1);
 
-  Standard_EXPORT BRepOffset_Offset(const TopoDS_Edge&     Path,
-                                    const TopoDS_Edge&     Edge1,
-                                    const TopoDS_Edge&     Edge2,
+  Standard_EXPORT BRepOffset_Offset(const TopoEdge&     Path,
+                                    const TopoEdge&     Edge1,
+                                    const TopoEdge&     Edge2,
                                     const Standard_Real    Offset,
-                                    const TopoDS_Edge&     FirstEdge,
-                                    const TopoDS_Edge&     LastEdge,
+                                    const TopoEdge&     FirstEdge,
+                                    const TopoEdge&     LastEdge,
                                     const Standard_Boolean Polynomial = Standard_False,
                                     const Standard_Real    Tol        = 1.0e-4,
                                     const GeomAbs_Shape    Conti      = GeomAbs_C1);
 
   //! Tol and Conti are only used if Polynomial is True
   //! (Used to perform the approximation)
-  Standard_EXPORT BRepOffset_Offset(const TopoDS_Vertex&        Vertex,
-                                    const TopTools_ListOfShape& LEdge,
+  Standard_EXPORT BRepOffset_Offset(const TopoVertex&        Vertex,
+                                    const ShapeList& LEdge,
                                     const Standard_Real         Offset,
                                     const Standard_Boolean      Polynomial = Standard_False,
                                     const Standard_Real         Tol        = 1.0e-4,
                                     const GeomAbs_Shape         Conti      = GeomAbs_C1);
 
-  Standard_EXPORT void Init(const TopoDS_Face&     Face,
+  Standard_EXPORT void Init(const TopoFace&     Face,
                             const Standard_Real    Offset,
                             const Standard_Boolean OffsetOutside = Standard_True,
                             const GeomAbs_JoinType JoinType      = GeomAbs_Arc);
 
-  Standard_EXPORT void Init(const TopoDS_Face&                  Face,
+  Standard_EXPORT void Init(const TopoFace&                  Face,
                             const Standard_Real                 Offset,
                             const TopTools_DataMapOfShapeShape& Created,
                             const Standard_Boolean              OffsetOutside = Standard_True,
                             const GeomAbs_JoinType              JoinType      = GeomAbs_Arc);
 
-  Standard_EXPORT void Init(const TopoDS_Edge&     Path,
-                            const TopoDS_Edge&     Edge1,
-                            const TopoDS_Edge&     Edge2,
+  Standard_EXPORT void Init(const TopoEdge&     Path,
+                            const TopoEdge&     Edge1,
+                            const TopoEdge&     Edge2,
                             const Standard_Real    Offset,
                             const Standard_Boolean Polynomial = Standard_False,
                             const Standard_Real    Tol        = 1.0e-4,
                             const GeomAbs_Shape    Conti      = GeomAbs_C1);
 
-  Standard_EXPORT void Init(const TopoDS_Edge&     Path,
-                            const TopoDS_Edge&     Edge1,
-                            const TopoDS_Edge&     Edge2,
+  Standard_EXPORT void Init(const TopoEdge&     Path,
+                            const TopoEdge&     Edge1,
+                            const TopoEdge&     Edge2,
                             const Standard_Real    Offset,
-                            const TopoDS_Edge&     FirstEdge,
-                            const TopoDS_Edge&     LastEdge,
+                            const TopoEdge&     FirstEdge,
+                            const TopoEdge&     LastEdge,
                             const Standard_Boolean Polynomial = Standard_False,
                             const Standard_Real    Tol        = 1.0e-4,
                             const GeomAbs_Shape    Conti      = GeomAbs_C1);
 
   //! Tol and Conti are only used if Polynomial is True
   //! (Used to perform the approximation)
-  Standard_EXPORT void Init(const TopoDS_Vertex&        Vertex,
-                            const TopTools_ListOfShape& LEdge,
+  Standard_EXPORT void Init(const TopoVertex&        Vertex,
+                            const ShapeList& LEdge,
                             const Standard_Real         Offset,
                             const Standard_Boolean      Polynomial = Standard_False,
                             const Standard_Real         Tol        = 1.0e-4,
                             const GeomAbs_Shape         Conti      = GeomAbs_C1);
 
   //! Only used in Rolling Ball. Pipe on Free Boundary
-  Standard_EXPORT void Init(const TopoDS_Edge& Edge, const Standard_Real Offset);
+  Standard_EXPORT void Init(const TopoEdge& Edge, const Standard_Real Offset);
 
-  const TopoDS_Shape& InitialShape() const;
+  const TopoShape& InitialShape() const;
 
-  Standard_EXPORT const TopoDS_Face& Face() const;
+  Standard_EXPORT const TopoFace& Face() const;
 
-  Standard_EXPORT TopoDS_Shape Generated(const TopoDS_Shape& Shape) const;
+  Standard_EXPORT TopoShape Generated(const TopoShape& Shape) const;
 
   Standard_EXPORT BRepOffset_Status Status() const;
 
 protected:
 private:
-  TopoDS_Shape                 myShape;
+  TopoShape                 myShape;
   BRepOffset_Status            myStatus;
-  TopoDS_Face                  myFace;
+  TopoFace                  myFace;
   TopTools_DataMapOfShapeShape myMap;
 };
 

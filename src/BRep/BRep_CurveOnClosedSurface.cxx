@@ -27,9 +27,9 @@ IMPLEMENT_STANDARD_RTTIEXT(BRep_CurveOnClosedSurface, BRep_CurveOnSurface)
 
 //=================================================================================================
 
-BRep_CurveOnClosedSurface::BRep_CurveOnClosedSurface(const Handle(Geom2d_Curve)& PC1,
-                                                     const Handle(Geom2d_Curve)& PC2,
-                                                     const Handle(Geom_Surface)& S,
+BRep_CurveOnClosedSurface::BRep_CurveOnClosedSurface(const Handle(GeomCurve2d)& PC1,
+                                                     const Handle(GeomCurve2d)& PC2,
+                                                     const Handle(GeomSurface)& S,
                                                      const TopLoc_Location&      L,
                                                      const GeomAbs_Shape         C)
     : BRep_CurveOnSurface(PC1, S, L),
@@ -54,8 +54,8 @@ Standard_Boolean BRep_CurveOnClosedSurface::IsRegularity() const
 
 //=================================================================================================
 
-Standard_Boolean BRep_CurveOnClosedSurface::IsRegularity(const Handle(Geom_Surface)& S1,
-                                                         const Handle(Geom_Surface)& S2,
+Standard_Boolean BRep_CurveOnClosedSurface::IsRegularity(const Handle(GeomSurface)& S1,
+                                                         const Handle(GeomSurface)& S2,
                                                          const TopLoc_Location&      L1,
                                                          const TopLoc_Location&      L2) const
 {
@@ -64,7 +64,7 @@ Standard_Boolean BRep_CurveOnClosedSurface::IsRegularity(const Handle(Geom_Surfa
 
 //=================================================================================================
 
-const Handle(Geom2d_Curve)& BRep_CurveOnClosedSurface::PCurve2() const
+const Handle(GeomCurve2d)& BRep_CurveOnClosedSurface::PCurve2() const
 {
   return myPCurve2;
 }
@@ -78,7 +78,7 @@ const GeomAbs_Shape& BRep_CurveOnClosedSurface::Continuity() const
 
 //=================================================================================================
 
-const Handle(Geom_Surface)& BRep_CurveOnClosedSurface::Surface2() const
+const Handle(GeomSurface)& BRep_CurveOnClosedSurface::Surface2() const
 {
   return Surface();
 }
@@ -92,7 +92,7 @@ const TopLoc_Location& BRep_CurveOnClosedSurface::Location2() const
 
 //=================================================================================================
 
-void BRep_CurveOnClosedSurface::PCurve2(const Handle(Geom2d_Curve)& C)
+void BRep_CurveOnClosedSurface::PCurve2(const Handle(GeomCurve2d)& C)
 {
   myPCurve2 = C;
 }

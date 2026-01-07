@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Font_SystemFont, RefObject)
 
 //=================================================================================================
 
-Font_SystemFont::Font_SystemFont(const TCollection_AsciiString& theFontName)
+Font_SystemFont::Font_SystemFont(const AsciiString1& theFontName)
     : myFontKey(theFontName),
       myFontName(theFontName),
       myIsSingleLine(Standard_False)
@@ -38,7 +38,7 @@ Font_SystemFont::Font_SystemFont(const TCollection_AsciiString& theFontName)
 //=================================================================================================
 
 void Font_SystemFont::SetFontPath(Font_FontAspect                theAspect,
-                                  const TCollection_AsciiString& thePath,
+                                  const AsciiString1& thePath,
                                   const Standard_Integer         theFaceId)
 {
   if (theAspect == Font_FontAspect_UNDEFINED)
@@ -58,10 +58,10 @@ Standard_Boolean Font_SystemFont::IsEqual(const Handle(Font_SystemFont)& theOthe
 
 //=================================================================================================
 
-TCollection_AsciiString Font_SystemFont::ToString() const
+AsciiString1 Font_SystemFont::ToString() const
 {
-  TCollection_AsciiString aDesc;
-  aDesc += TCollection_AsciiString() + "'" + myFontName + "'";
+  AsciiString1 aDesc;
+  aDesc += AsciiString1() + "'" + myFontName + "'";
 
   bool isFirstAspect = true;
   aDesc += " [aspects: ";

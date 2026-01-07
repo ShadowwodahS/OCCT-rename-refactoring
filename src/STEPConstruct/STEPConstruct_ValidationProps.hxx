@@ -26,8 +26,8 @@
 #include <Standard_CString.hxx>
 #include <TColStd_SequenceOfTransient.hxx>
 class StepBasic_ProductDefinition;
-class XSControl_WorkSession;
-class TopoDS_Shape;
+class ExchangeSession;
+class TopoShape;
 class StepRepr_RepresentationItem;
 class StepRepr_CharacterizedDefinition;
 class StepRepr_RepresentationContext;
@@ -47,17 +47,17 @@ public:
   Standard_EXPORT STEPConstruct_ValidationProps();
 
   //! Creates a tool and loads it with worksession
-  Standard_EXPORT STEPConstruct_ValidationProps(const Handle(XSControl_WorkSession)& WS);
+  Standard_EXPORT STEPConstruct_ValidationProps(const Handle(ExchangeSession)& WS);
 
   //! Load worksession; returns True if succeeded
-  Standard_EXPORT Standard_Boolean Init(const Handle(XSControl_WorkSession)& WS);
+  Standard_EXPORT Standard_Boolean Init(const Handle(ExchangeSession)& WS);
 
   //! General method for adding (writing) a validation property
   //! for shape which should be already mapped on writing itself.
   //! It uses FindTarget() to find target STEP entity
   //! resulting from given shape, and associated context
   //! Returns True if success, False in case of fail
-  Standard_EXPORT Standard_Boolean AddProp(const TopoDS_Shape&                        Shape,
+  Standard_EXPORT Standard_Boolean AddProp(const TopoShape&                        Shape,
                                            const Handle(StepRepr_RepresentationItem)& Prop,
                                            const Standard_CString                     Descr,
                                            const Standard_Boolean instance = Standard_False);
@@ -73,24 +73,24 @@ public:
 
   //! Adds surface area property for given shape (already mapped).
   //! Returns True if success, False in case of fail
-  Standard_EXPORT Standard_Boolean AddArea(const TopoDS_Shape& Shape, const Standard_Real Area);
+  Standard_EXPORT Standard_Boolean AddArea(const TopoShape& Shape, const Standard_Real Area);
 
   //! Adds volume property for given shape (already mapped).
   //! Returns True if success, False in case of fail
-  Standard_EXPORT Standard_Boolean AddVolume(const TopoDS_Shape& Shape, const Standard_Real Vol);
+  Standard_EXPORT Standard_Boolean AddVolume(const TopoShape& Shape, const Standard_Real Vol);
 
   //! Adds centroid property for given shape (already mapped).
   //! Returns True if success, False in case of fail
   //! If instance is True, then centroid is assigned to
   //! an instance of component in assembly
-  Standard_EXPORT Standard_Boolean AddCentroid(const TopoDS_Shape&    Shape,
+  Standard_EXPORT Standard_Boolean AddCentroid(const TopoShape&    Shape,
                                                const Point3d&          Pnt,
                                                const Standard_Boolean instance = Standard_False);
 
   //! Finds target STEP entity to which validation props should
   //! be assigned, and corresponding context, starting from shape
   //! Returns True if success, False in case of fail
-  Standard_EXPORT Standard_Boolean FindTarget(const TopoDS_Shape&                     S,
+  Standard_EXPORT Standard_Boolean FindTarget(const TopoShape&                     S,
                                               StepRepr_CharacterizedDefinition&       target,
                                               Handle(StepRepr_RepresentationContext)& Context,
                                               const Standard_Boolean instance = Standard_False);
@@ -111,12 +111,12 @@ public:
 
   //! Returns Shape associated with given SDR or Null Shape
   //! if not found
-  Standard_EXPORT TopoDS_Shape
+  Standard_EXPORT TopoShape
     GetPropShape(const Handle(StepBasic_ProductDefinition)& ProdDef) const;
 
   //! Returns Shape associated with given PpD or Null Shape
   //! if not found
-  Standard_EXPORT TopoDS_Shape GetPropShape(const Handle(StepRepr_PropertyDefinition)& PD) const;
+  Standard_EXPORT TopoShape GetPropShape(const Handle(StepRepr_PropertyDefinition)& PD) const;
 
   //! Returns value of Real-Valued property (Area or Volume)
   //! If Property is neither Area nor Volume, returns False
@@ -126,17 +126,17 @@ public:
     GetPropReal(const Handle(StepRepr_RepresentationItem)& item,
                 Standard_Real&                             Val,
                 Standard_Boolean&                          isArea,
-                const StepData_Factors& theLocalFactors = StepData_Factors()) const;
+                const ConversionFactors& theLocalFactors = ConversionFactors()) const;
 
   //! Returns value of Centroid property (or False if it is not)
   Standard_EXPORT Standard_Boolean
     GetPropPnt(const Handle(StepRepr_RepresentationItem)&    item,
                const Handle(StepRepr_RepresentationContext)& Context,
                Point3d&                                       Pnt,
-               const StepData_Factors& theLocalFactors = StepData_Factors()) const;
+               const ConversionFactors& theLocalFactors = ConversionFactors()) const;
 
   //! Sets current assembly shape SDR (for FindCDSR calls)
-  Standard_EXPORT void SetAssemblyShape(const TopoDS_Shape& shape);
+  Standard_EXPORT void SetAssemblyShape(const TopoShape& shape);
 
 protected:
 private:

@@ -990,7 +990,7 @@ void MeshVS_MeshPrsBuilder::AddVolumePrs(const Handle(MeshVS_HArray1OfSequenceOf
       }
     }
 
-    // Draw edges
+    // Draw1 edges
     for (NCollection_Map<MeshVS_NodePair, MeshVS_SymmetricPairHasher>::Iterator anIt(aEdgeMap);
          anIt.More();
          anIt.Next())

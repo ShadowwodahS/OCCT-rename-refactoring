@@ -48,11 +48,11 @@ TopoDSToStep_Builder::TopoDSToStep_Builder()
 // Method  : TopoDSToStep_Builder
 // Purpose :
 // ============================================================================
-TopoDSToStep_Builder::TopoDSToStep_Builder(const TopoDS_Shape&                   aShape,
+TopoDSToStep_Builder::TopoDSToStep_Builder(const TopoShape&                   aShape,
                                            TopoDSToStep_Tool&                    aTool,
                                            const Handle(Transfer_FinderProcess)& FP,
                                            const Standard_Integer       theTessellatedGeomParam,
-                                           const StepData_Factors&      theLocalFactors,
+                                           const ConversionFactors&      theLocalFactors,
                                            const Message_ProgressRange& theProgress)
 {
   done = Standard_False;
@@ -63,11 +63,11 @@ TopoDSToStep_Builder::TopoDSToStep_Builder(const TopoDS_Shape&                  
 // Method  : Init
 // Purpose :
 // ============================================================================
-void TopoDSToStep_Builder::Init(const TopoDS_Shape&                   aShape,
+void TopoDSToStep_Builder::Init(const TopoShape&                   aShape,
                                 TopoDSToStep_Tool&                    myTool,
                                 const Handle(Transfer_FinderProcess)& FP,
                                 const Standard_Integer                theTessellatedGeomParam,
-                                const StepData_Factors&               theLocalFactors,
+                                const ConversionFactors&               theLocalFactors,
                                 const Message_ProgressRange&          theProgress)
 {
 
@@ -82,17 +82,17 @@ void TopoDSToStep_Builder::Init(const TopoDS_Shape&                   aShape,
   switch (aShape.ShapeType())
   {
     case TopAbs_SHELL: {
-      TopoDS_Shell myShell = TopoDS::Shell(aShape);
+      TopoShell myShell = TopoDS::Shell(aShape);
       myTool.SetCurrentShell(myShell);
 
       Handle(StepShape_FaceSurface)                   FS;
       Handle(StepShape_TopologicalRepresentationItem) Fpms;
       TColStd_SequenceOfTransient                     mySeq;
 
-      //	const TopoDS_Shell ForwardShell =
+      //	const TopoShell ForwardShell =
       //	  TopoDS::Shell(myShell.Oriented(TopAbs_FORWARD));
 
-      //	TopExp_Explorer myExp(ForwardShell, TopAbs_FACE);
+      //	ShapeExplorer myExp(ForwardShell, TopAbs_FACE);
       //  CKY  9-DEC-1997 (PRO9824 et consorts)
       //   Pour passer les orientations : ELLES SONT DONNEES EN RELATIF
       //   Donc, pour SHELL, on doit l ecrire en direct en STEP (pas le choix)
@@ -104,7 +104,7 @@ void TopoDSToStep_Builder::Init(const TopoDS_Shape&                   aShape,
       //  Il reste ici et la du code relatif a "en Faceted on combine differemment"
       //  -> reste encore du menage a faire
 
-      TopExp_Explorer anExp;
+      ShapeExplorer anExp;
 
       TopoDSToStep_MakeStepFace MkFace;
 
@@ -116,7 +116,7 @@ void TopoDSToStep_Builder::Init(const TopoDS_Shape&                   aShape,
       Message_ProgressScope aPS1(aPS.Next(), NULL, nbshapes);
       for (anExp.Init(myShell, TopAbs_FACE); anExp.More() && aPS1.More(); anExp.Next(), aPS1.Next())
       {
-        const TopoDS_Face Face = TopoDS::Face(anExp.Current());
+        const TopoFace Face = TopoDS::Face(anExp.Current());
 
         MkFace.Init(Face, myTool, FP, theLocalFactors);
 
@@ -185,7 +185,7 @@ void TopoDSToStep_Builder::Init(const TopoDS_Shape&                   aShape,
     }
 
     case TopAbs_FACE: {
-      const TopoDS_Face Face = TopoDS::Face(aShape);
+      const TopoFace Face = TopoDS::Face(aShape);
 
       Handle(StepShape_FaceSurface)                   FS;
       Handle(StepShape_TopologicalRepresentationItem) Fpms;

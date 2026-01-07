@@ -25,7 +25,7 @@
 #include <TColStd_ListOfReal.hxx>
 #include <TopTools_ListIteratorOfListOfShape.hxx>
 #include <Standard_Boolean.hxx>
-class TopoDS_Edge;
+class TopoEdge;
 
 class Draft_VertexInfo
 {
@@ -34,15 +34,15 @@ public:
 
   Standard_EXPORT Draft_VertexInfo();
 
-  Standard_EXPORT void Add(const TopoDS_Edge& E);
+  Standard_EXPORT void Add(const TopoEdge& E);
 
   Standard_EXPORT const Point3d& Geometry() const;
 
-  Standard_EXPORT Standard_Real Parameter(const TopoDS_Edge& E);
+  Standard_EXPORT Standard_Real Parameter(const TopoEdge& E);
 
   Standard_EXPORT void InitEdgeIterator();
 
-  Standard_EXPORT const TopoDS_Edge& Edge() const;
+  Standard_EXPORT const TopoEdge& Edge() const;
 
   Standard_EXPORT void NextEdge();
 
@@ -50,12 +50,12 @@ public:
 
   Standard_EXPORT Point3d& ChangeGeometry();
 
-  Standard_EXPORT Standard_Real& ChangeParameter(const TopoDS_Edge& E);
+  Standard_EXPORT Standard_Real& ChangeParameter(const TopoEdge& E);
 
 protected:
 private:
   Point3d                             myGeom;
-  TopTools_ListOfShape               myEdges;
+  ShapeList               myEdges;
   TColStd_ListOfReal                 myParams;
   TopTools_ListIteratorOfListOfShape myItEd;
 };

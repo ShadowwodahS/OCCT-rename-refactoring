@@ -25,8 +25,8 @@
 #include <TDataStd_RealEnum.hxx>
 #include <Standard_OStream.hxx>
 class Standard_GUID;
-class TDF_Label;
-class TCollection_ExtendedString;
+class DataLabel;
+class UtfString;
 class TDataStd_Real;
 class TDataStd_Expression;
 class TDF_RelocationTable;
@@ -39,7 +39,7 @@ DEFINE_STANDARD_HANDLE(TDataStd_Variable, TDF_Attribute)
 //! ==================
 //!
 //! * A variable is  associated to a TDataStd_Real (which
-//! contains its    current  value) and  a   TDataStd_Name
+//! contains its    current  value) and  a   NameAttribute
 //! attribute (which  contains  its name).  It  contains a
 //! constant flag, and a Unit
 //!
@@ -58,17 +58,17 @@ public:
   //! Find, or create, a  Variable attribute.
   //! Real methods
   //! ============
-  Standard_EXPORT static Handle(TDataStd_Variable) Set(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataStd_Variable) Set(const DataLabel& label);
 
   Standard_EXPORT TDataStd_Variable();
 
   //! set or change the name  of the variable, in myUnknown
   //! and my associated Name attribute.
-  Standard_EXPORT void Name(const TCollection_ExtendedString& string);
+  Standard_EXPORT void Name(const UtfString& string);
 
   //! returns    string   stored  in   the  associated  Name
   //! attribute.
-  Standard_EXPORT const TCollection_ExtendedString& Name() const;
+  Standard_EXPORT const UtfString& Name() const;
 
   //! retrieve or create  the associated real attribute  and
   //! set the  value  <value>.
@@ -112,11 +112,11 @@ public:
   //! A constant value is not modified by regeneration.
   Standard_EXPORT Standard_Boolean IsConstant() const;
 
-  Standard_EXPORT void Unit(const TCollection_AsciiString& unit);
+  Standard_EXPORT void Unit(const AsciiString1& unit);
 
   //! to read/write fields
   //! ===================
-  Standard_EXPORT const TCollection_AsciiString& Unit() const;
+  Standard_EXPORT const AsciiString1& Unit() const;
 
   //! if  <status> is   True, this  variable  will not   be
   //! modified by the solver.
@@ -145,7 +145,7 @@ public:
 protected:
 private:
   Standard_Boolean        isConstant;
-  TCollection_AsciiString myUnit;
+  AsciiString1 myUnit;
 };
 
 #endif // _TDataStd_Variable_HeaderFile

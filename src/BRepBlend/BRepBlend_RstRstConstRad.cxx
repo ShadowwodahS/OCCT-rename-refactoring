@@ -598,7 +598,7 @@ Standard_Real BRepBlend_RstRstConstRad::GetSectionSize() const
 
 void BRepBlend_RstRstConstRad::GetMinimalWeight(TColStd_Array1OfReal& Weights) const
 {
-  BlendFunc::GetMinimalWeights(mySShape, myTConv, minang, maxang, Weights);
+  BlendFunc1::GetMinimalWeights(mySShape, myTConv, minang, maxang, Weights);
   // It is supposed that it does not depend on the Radius!
 }
 
@@ -606,14 +606,14 @@ void BRepBlend_RstRstConstRad::GetMinimalWeight(TColStd_Array1OfReal& Weights) c
 
 Standard_Integer BRepBlend_RstRstConstRad::NbIntervals(const GeomAbs_Shape S) const
 {
-  return guide->NbIntervals(BlendFunc::NextShape(S));
+  return guide->NbIntervals(BlendFunc1::NextShape(S));
 }
 
 //=================================================================================================
 
 void BRepBlend_RstRstConstRad::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) const
 {
-  guide->Intervals(T, BlendFunc::NextShape(S));
+  guide->Intervals(T, BlendFunc1::NextShape(S));
 }
 
 //=================================================================================================
@@ -624,7 +624,7 @@ void BRepBlend_RstRstConstRad::GetShape(Standard_Integer& NbPoles,
                                         Standard_Integer& NbPoles2d)
 {
   NbPoles2d = 2;
-  BlendFunc::GetShape(mySShape, maxang, NbPoles, NbKnots, Degree, myTConv);
+  BlendFunc1::GetShape(mySShape, maxang, NbPoles, NbKnots, Degree, myTConv);
 }
 
 //=======================================================================
@@ -663,7 +663,7 @@ void BRepBlend_RstRstConstRad::Mults(TColStd_Array1OfInteger& TMults)
 
 //=================================================================================================
 
-void BRepBlend_RstRstConstRad::Section(const Blend_Point&    P,
+void BRepBlend_RstRstConstRad::Section(const Point2&    P,
                                        TColgp_Array1OfPnt&   Poles,
                                        TColgp_Array1OfPnt2d& Poles2d,
                                        TColStd_Array1OfReal& Weights)
@@ -719,7 +719,7 @@ void BRepBlend_RstRstConstRad::Section(const Blend_Point&    P,
 
 //=================================================================================================
 
-Standard_Boolean BRepBlend_RstRstConstRad::Section(const Blend_Point&    P,
+Standard_Boolean BRepBlend_RstRstConstRad::Section(const Point2&    P,
                                                    TColgp_Array1OfPnt&   Poles,
                                                    TColgp_Array1OfVec&   DPoles,
                                                    TColgp_Array1OfPnt2d& Poles2d,
@@ -925,7 +925,7 @@ Standard_Boolean BRepBlend_RstRstConstRad::Section(const Blend_Point&    P,
 
 //=================================================================================================
 
-Standard_Boolean BRepBlend_RstRstConstRad::Section(const Blend_Point&,
+Standard_Boolean BRepBlend_RstRstConstRad::Section(const Point2&,
                                                    TColgp_Array1OfPnt&,
                                                    TColgp_Array1OfVec&,
                                                    TColgp_Array1OfVec&,

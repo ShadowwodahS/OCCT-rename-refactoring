@@ -60,10 +60,10 @@ Handle(TypeInfo) XmlMDF_ADriver::SourceType() const
 
 //=================================================================================================
 
-const TCollection_AsciiString& XmlMDF_ADriver::TypeName() const
+const AsciiString1& XmlMDF_ADriver::TypeName() const
 {
   const Standard_CString aString = myTypeName.ToCString();
   if (myTypeName.Length() == 0 || aString[myTypeName.Length() - 1] == ':')
-    (TCollection_AsciiString&)myTypeName += SourceType()->Name();
+    (AsciiString1&)myTypeName += SourceType()->Name();
   return myTypeName;
 }

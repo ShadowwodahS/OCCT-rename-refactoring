@@ -26,7 +26,7 @@
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool::RegularizeShells(const TopoDS_Solid&                 theSolid,
+Standard_Boolean TopOpeBRepTool1::RegularizeShells(const TopoSolid&                 theSolid,
                                                   TopTools_DataMapOfShapeListOfShape& OldSheNewShe,
                                                   TopTools_DataMapOfShapeListOfShape& FSplits)
 {
@@ -37,11 +37,11 @@ Standard_Boolean TopOpeBRepTool::RegularizeShells(const TopoDS_Solid&           
   REGUS.SetFsplits(FSplits);
 
   //  Standard_Boolean hastoregu = Standard_False;
-  TopExp_Explorer exsh(theSolid, TopAbs_SHELL);
+  ShapeExplorer exsh(theSolid, TopAbs_SHELL);
   for (; exsh.More(); exsh.Next())
   {
 
-    const TopoDS_Shape& sh = exsh.Current();
+    const TopoShape& sh = exsh.Current();
     REGUS.Init(sh);
     Standard_Boolean ok = REGUS.MapS();
     if (!ok)

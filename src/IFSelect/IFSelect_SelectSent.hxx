@@ -26,7 +26,7 @@ class Interface_EntityIterator;
 class Interface_Graph;
 class RefObject;
 class Interface_InterfaceModel;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_SelectSent;
 DEFINE_STANDARD_HANDLE(IFSelect_SelectSent, IFSelect_SelectExtract)
@@ -86,7 +86,7 @@ public:
   //! SentCount = 2, AtLeast = False -> "Sent twice entities"
   //! SentCount > 2, AtLeast = True  -> "Sent at least <count> times entities"
   //! SentCount > 2, AtLeast = False -> "Sent <count> times entities"
-  Standard_EXPORT TCollection_AsciiString ExtractLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExtractLabel() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectSent, IFSelect_SelectExtract)
 

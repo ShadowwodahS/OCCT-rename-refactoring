@@ -20,7 +20,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(NLPlate_HPG1Constraint, NLPlate_HGPPConstraint)
 
-NLPlate_HPG1Constraint::NLPlate_HPG1Constraint(const gp_XY& UV, const Plate_D1& D1T)
+NLPlate_HPG1Constraint::NLPlate_HPG1Constraint(const Coords2d& UV, const Plate_D1& D1T)
     : myG1Target(D1T)
 {
   SetUV(UV);

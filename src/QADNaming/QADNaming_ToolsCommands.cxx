@@ -31,24 +31,24 @@
 //           - for test ShapeCopy mechanism
 //=======================================================================
 
-static Standard_Integer QADNaming_CheckHasSame(Draw_Interpretor& di,
+static Standard_Integer QADNaming_CheckHasSame(DrawInterpreter& di,
                                                Standard_Integer  nb,
                                                const char**      arg)
 {
   if (nb < 4)
     return 1;
-  TopoDS_Shape S1 = DBRep::Get(arg[1]);
+  TopoShape S1 = DBRep1::Get(arg[1]);
   if (S1.IsNull())
   {
-    BRep_Builder aBuilder;
-    BRepTools::Read(S1, arg[1], aBuilder);
+    ShapeBuilder aBuilder;
+    BRepTools1::Read(S1, arg[1], aBuilder);
   }
 
-  TopoDS_Shape S2 = DBRep::Get(arg[2]);
+  TopoShape S2 = DBRep1::Get(arg[2]);
   if (S2.IsNull())
   {
-    BRep_Builder aBuilder;
-    BRepTools::Read(S2, arg[2], aBuilder);
+    ShapeBuilder aBuilder;
+    BRepTools1::Read(S2, arg[2], aBuilder);
   }
   char M[8];
   strcpy(M, arg[3]);
@@ -63,7 +63,7 @@ static Standard_Integer QADNaming_CheckHasSame(Draw_Interpretor& di,
   else
     return 1;
 
-  TopExp_Explorer Exp1, Exp2;
+  ShapeExplorer Exp1, Exp2;
 
   TopTools_MapOfShape M1, M2;
   for (Exp1.Init(S1, mod); Exp1.More(); Exp1.Next())
@@ -79,11 +79,11 @@ static Standard_Integer QADNaming_CheckHasSame(Draw_Interpretor& di,
   TopTools_MapIteratorOfMapOfShape itr2;
   for (; itr1.More(); itr1.Next())
   {
-    const TopoDS_Shape& s1 = itr1.Key();
+    const TopoShape& s1 = itr1.Key();
 
     for (itr2.Initialize(M2); itr2.More(); itr2.Next())
     {
-      const TopoDS_Shape& s2 = itr2.Key();
+      const TopoShape& s2 = itr2.Key();
       if (s1.IsSame(s2))
         di << "Shapes " << arg[1] << " and " << arg[2] << " have SAME subshapes\n";
     }
@@ -98,24 +98,24 @@ static Standard_Integer QADNaming_CheckHasSame(Draw_Interpretor& di,
 //           - for test ShapeCopy mechanism
 //=======================================================================
 
-static Standard_Integer QADNaming_TCopyShape(Draw_Interpretor& di,
+static Standard_Integer QADNaming_TCopyShape(DrawInterpreter& di,
                                              Standard_Integer  nb,
                                              const char**      arg)
 {
-  TNaming_Translator TR;
+  NamingTranslator TR;
   if (nb < 2)
     return (1);
 
   DNaming_DataMapOfShapeOfName aDMapOfShapeOfName;
   for (Standard_Integer i = 1; i < nb; i++)
   {
-    TopoDS_Shape            S = DBRep::Get(arg[i]);
-    TCollection_AsciiString name(arg[i]);
+    TopoShape            S = DBRep1::Get(arg[i]);
+    AsciiString1 name(arg[i]);
     name.AssignCat("_c");
     if (S.IsNull())
     {
-      BRep_Builder aBuilder;
-      BRepTools::Read(S, arg[i], aBuilder);
+      ShapeBuilder aBuilder;
+      BRepTools1::Read(S, arg[i], aBuilder);
     }
 
     // Add to Map
@@ -138,9 +138,9 @@ static Standard_Integer QADNaming_TCopyShape(Draw_Interpretor& di,
     DNaming_DataMapIteratorOfDataMapOfShapeOfName itrn(aDMapOfShapeOfName);
     for (; itrn.More(); itrn.Next())
     {
-      const TCollection_AsciiString& name   = itrn.Value();
-      const TopoDS_Shape             Result = TR.Copied(itrn.Key());
-      DBRep::Set(name.ToCString(), Result);
+      const AsciiString1& name   = itrn.Value();
+      const TopoShape             Result = TR.Copied(itrn.Key());
+      DBRep1::Set(name.ToCString(), Result);
       di.AppendElement(name.ToCString());
     }
     return 0;
@@ -151,7 +151,7 @@ static Standard_Integer QADNaming_TCopyShape(Draw_Interpretor& di,
 
 //=================================================================================================
 
-void QADNaming::ToolsCommands(Draw_Interpretor& theCommands)
+void QADNaming::ToolsCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean done = Standard_False;

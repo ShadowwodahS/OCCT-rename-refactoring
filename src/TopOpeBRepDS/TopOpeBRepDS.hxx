@@ -27,51 +27,51 @@
 #include <TopAbs_ShapeEnum.hxx>
 #include <TopAbs_Orientation.hxx>
 #include <TopOpeBRepDS_Config.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! This package provides services used by the TopOpeBRepBuild
 //! package performing topological operations on the BRep
 //! data structure.
-class TopOpeBRepDS
+class TopOpeBRepDS1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! IN OU ON UN
-  Standard_EXPORT static TCollection_AsciiString SPrint(const TopAbs_State S);
+  Standard_EXPORT static AsciiString1 SPrint(const TopAbs_State S);
 
   Standard_EXPORT static Standard_OStream& Print(const TopAbs_State S, Standard_OStream& OS);
 
   //! <K>
-  Standard_EXPORT static TCollection_AsciiString SPrint(const TopOpeBRepDS_Kind K);
+  Standard_EXPORT static AsciiString1 SPrint(const TopOpeBRepDS_Kind K);
 
   //! S1(<K>,<I>)S2
-  Standard_EXPORT static TCollection_AsciiString SPrint(const TopOpeBRepDS_Kind        K,
+  Standard_EXPORT static AsciiString1 SPrint(const TopOpeBRepDS_Kind        K,
                                                         const Standard_Integer         I,
-                                                        const TCollection_AsciiString& B = "",
-                                                        const TCollection_AsciiString& A = "");
+                                                        const AsciiString1& B = "",
+                                                        const AsciiString1& A = "");
 
   Standard_EXPORT static Standard_OStream& Print(const TopOpeBRepDS_Kind K, Standard_OStream& S);
 
   Standard_EXPORT static Standard_OStream& Print(const TopOpeBRepDS_Kind        K,
                                                  const Standard_Integer         I,
                                                  Standard_OStream&              S,
-                                                 const TCollection_AsciiString& B = "",
-                                                 const TCollection_AsciiString& A = "");
+                                                 const AsciiString1& B = "",
+                                                 const AsciiString1& A = "");
 
-  Standard_EXPORT static TCollection_AsciiString SPrint(const TopAbs_ShapeEnum T);
+  Standard_EXPORT static AsciiString1 SPrint(const TopAbs_ShapeEnum T);
 
   //! (<T>,<I>)
-  Standard_EXPORT static TCollection_AsciiString SPrint(const TopAbs_ShapeEnum T,
+  Standard_EXPORT static AsciiString1 SPrint(const TopAbs_ShapeEnum T,
                                                         const Standard_Integer I);
 
   Standard_EXPORT static Standard_OStream& Print(const TopAbs_ShapeEnum T,
                                                  const Standard_Integer I,
                                                  Standard_OStream&      S);
 
-  Standard_EXPORT static TCollection_AsciiString SPrint(const TopAbs_Orientation O);
+  Standard_EXPORT static AsciiString1 SPrint(const TopAbs_Orientation O);
 
-  Standard_EXPORT static TCollection_AsciiString SPrint(const TopOpeBRepDS_Config C);
+  Standard_EXPORT static AsciiString1 SPrint(const TopOpeBRepDS_Config C);
 
   Standard_EXPORT static Standard_OStream& Print(const TopOpeBRepDS_Config C, Standard_OStream& S);
 

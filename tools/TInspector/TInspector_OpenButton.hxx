@@ -46,7 +46,7 @@ public:
   Standard_EXPORT QPushButton* StartButton();
 
   //! Sets the default directory of plugin.
-  void SetPluginRecentlyOpenedFiles(const TCollection_AsciiString& thePluginName,
+  void SetPluginRecentlyOpenedFiles(const AsciiString1& thePluginName,
                                     const QStringList&             theRecentlyOpenedFiles)
   {
     myRecentlyOpenedFiles[thePluginName] = theRecentlyOpenedFiles;
@@ -61,7 +61,7 @@ private slots:
 private:
   QPushButton* myStartButton; //!< processed button
   //!< plugins recently opened files
-  QMap<TCollection_AsciiString, QStringList> myRecentlyOpenedFiles;
+  QMap<AsciiString1, QStringList> myRecentlyOpenedFiles;
 };
 
 #endif

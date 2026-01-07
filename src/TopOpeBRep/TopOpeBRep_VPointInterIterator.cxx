@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-TopOpeBRep_VPointInterIterator::TopOpeBRep_VPointInterIterator()
+VPointIntersectionIterator::VPointIntersectionIterator()
     : myLineInter(NULL),
       myVPointIndex(0),
       myVPointNb(0),
@@ -30,14 +30,14 @@ TopOpeBRep_VPointInterIterator::TopOpeBRep_VPointInterIterator()
 
 //=================================================================================================
 
-TopOpeBRep_VPointInterIterator::TopOpeBRep_VPointInterIterator(const TopOpeBRep_LineInter& LI)
+VPointIntersectionIterator::VPointIntersectionIterator(const TopOpeBRep_LineInter& LI)
 {
   Init(LI);
 }
 
 //=================================================================================================
 
-void TopOpeBRep_VPointInterIterator::Init(const TopOpeBRep_LineInter& LI,
+void VPointIntersectionIterator::Init(const TopOpeBRep_LineInter& LI,
                                           const Standard_Boolean      checkkeep)
 {
   myLineInter = (TopOpeBRep_LineInter*)&LI;
@@ -47,7 +47,7 @@ void TopOpeBRep_VPointInterIterator::Init(const TopOpeBRep_LineInter& LI,
 
 //=================================================================================================
 
-void TopOpeBRep_VPointInterIterator::Init()
+void VPointIntersectionIterator::Init()
 {
   myVPointIndex = 1;
   myVPointNb    = myLineInter->NbVPoint();
@@ -66,14 +66,14 @@ void TopOpeBRep_VPointInterIterator::Init()
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRep_VPointInterIterator::More() const
+Standard_Boolean VPointIntersectionIterator::More() const
 {
   return (myVPointIndex <= myVPointNb);
 }
 
 //=================================================================================================
 
-void TopOpeBRep_VPointInterIterator::Next()
+void VPointIntersectionIterator::Next()
 {
   myVPointIndex++;
   if (mycheckkeep)
@@ -91,34 +91,34 @@ void TopOpeBRep_VPointInterIterator::Next()
 
 //=================================================================================================
 
-const TopOpeBRep_VPointInter& TopOpeBRep_VPointInterIterator::CurrentVP()
+const TopOpeBRep_VPointInter& VPointIntersectionIterator::CurrentVP()
 {
   if (!More())
-    throw Standard_ProgramError("TopOpeBRep_VPointInterIterator::CurrentVP");
+    throw Standard_ProgramError("VPointIntersectionIterator::CurrentVP");
   const TopOpeBRep_VPointInter& VP = myLineInter->VPoint(myVPointIndex);
   return VP;
 }
 
 //=================================================================================================
 
-TopOpeBRep_VPointInter& TopOpeBRep_VPointInterIterator::ChangeCurrentVP()
+TopOpeBRep_VPointInter& VPointIntersectionIterator::ChangeCurrentVP()
 {
   if (!More())
-    throw Standard_ProgramError("TopOpeBRep_VPointInterIterator::ChangeCurrentVP");
+    throw Standard_ProgramError("VPointIntersectionIterator::ChangeCurrentVP");
   TopOpeBRep_VPointInter& VP = myLineInter->ChangeVPoint(myVPointIndex);
   return VP;
 }
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRep_VPointInterIterator::CurrentVPIndex() const
+Standard_Integer VPointIntersectionIterator::CurrentVPIndex() const
 {
   if (!More())
-    throw Standard_ProgramError("TopOpeBRep_VPointInterIterator::CurrentVPIndex");
+    throw Standard_ProgramError("VPointIntersectionIterator::CurrentVPIndex");
   return myVPointIndex;
 }
 
-TopOpeBRep_PLineInter TopOpeBRep_VPointInterIterator::PLineInterDummy() const
+TopOpeBRep_PLineInter VPointIntersectionIterator::PLineInterDummy() const
 {
   return myLineInter;
 }

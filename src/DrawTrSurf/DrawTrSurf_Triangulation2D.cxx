@@ -32,7 +32,7 @@ IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_Triangulation2D, Draw_Drawable2D)
 
 //=================================================================================================
 
-DrawTrSurf_Triangulation2D::DrawTrSurf_Triangulation2D(const Handle(Poly_Triangulation)& T)
+DrawTrSurf_Triangulation2D::DrawTrSurf_Triangulation2D(const Handle(MeshTriangulation)& T)
     : myTriangulation(T)
 {
   // Build the connect tool
@@ -87,14 +87,14 @@ DrawTrSurf_Triangulation2D::DrawTrSurf_Triangulation2D(const Handle(Poly_Triangu
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) DrawTrSurf_Triangulation2D::Triangulation() const
+Handle(MeshTriangulation) DrawTrSurf_Triangulation2D::Triangulation() const
 {
   return myTriangulation;
 }
 
 //=================================================================================================
 
-void DrawTrSurf_Triangulation2D::DrawOn(Draw_Display& dis) const
+void DrawTrSurf_Triangulation2D::DrawOn(DrawDisplay& dis) const
 {
   // Display the edges
   Standard_Integer i, n;
@@ -106,7 +106,7 @@ void DrawTrSurf_Triangulation2D::DrawOn(Draw_Display& dis) const
     n                                   = Free.Length() / 2;
     for (i = 1; i <= n; i++)
     {
-      dis.Draw(myTriangulation->UVNode(Free[2 * i - 1]), myTriangulation->UVNode(Free[2 * i]));
+      dis.Draw1(myTriangulation->UVNode(Free[2 * i - 1]), myTriangulation->UVNode(Free[2 * i]));
     }
 
     // internal edges
@@ -115,7 +115,7 @@ void DrawTrSurf_Triangulation2D::DrawOn(Draw_Display& dis) const
     n                                       = Internal.Length() / 2;
     for (i = 1; i <= n; i++)
     {
-      dis.Draw(myTriangulation->UVNode(Internal[2 * i - 1]),
+      dis.Draw1(myTriangulation->UVNode(Internal[2 * i - 1]),
                myTriangulation->UVNode(Internal[2 * i]));
     }
   }
@@ -137,7 +137,7 @@ void DrawTrSurf_Triangulation2D::Dump(Standard_OStream& S) const
 
 //=================================================================================================
 
-void DrawTrSurf_Triangulation2D::Whatis(Draw_Interpretor& I) const
+void DrawTrSurf_Triangulation2D::Whatis(DrawInterpreter& I) const
 {
   I << "triangulation";
 }

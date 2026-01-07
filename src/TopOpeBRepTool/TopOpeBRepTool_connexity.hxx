@@ -33,37 +33,37 @@ public:
 
   Standard_EXPORT TopOpeBRepTool_connexity();
 
-  Standard_EXPORT TopOpeBRepTool_connexity(const TopoDS_Shape& Key);
+  Standard_EXPORT TopOpeBRepTool_connexity(const TopoShape& Key);
 
-  Standard_EXPORT void SetKey(const TopoDS_Shape& Key);
+  Standard_EXPORT void SetKey(const TopoShape& Key);
 
-  Standard_EXPORT const TopoDS_Shape& Key() const;
+  Standard_EXPORT const TopoShape& Key() const;
 
   Standard_EXPORT Standard_Integer Item(const Standard_Integer OriKey,
-                                        TopTools_ListOfShape&  Item) const;
+                                        ShapeList&  Item) const;
 
-  Standard_EXPORT Standard_Integer AllItems(TopTools_ListOfShape& Item) const;
+  Standard_EXPORT Standard_Integer AllItems(ShapeList& Item) const;
 
-  Standard_EXPORT void AddItem(const Standard_Integer OriKey, const TopTools_ListOfShape& Item);
+  Standard_EXPORT void AddItem(const Standard_Integer OriKey, const ShapeList& Item);
 
-  Standard_EXPORT void AddItem(const Standard_Integer OriKey, const TopoDS_Shape& Item);
+  Standard_EXPORT void AddItem(const Standard_Integer OriKey, const TopoShape& Item);
 
   Standard_EXPORT Standard_Boolean RemoveItem(const Standard_Integer OriKey,
-                                              const TopoDS_Shape&    Item);
+                                              const TopoShape&    Item);
 
-  Standard_EXPORT Standard_Boolean RemoveItem(const TopoDS_Shape& Item);
+  Standard_EXPORT Standard_Boolean RemoveItem(const TopoShape& Item);
 
-  Standard_EXPORT TopTools_ListOfShape& ChangeItem(const Standard_Integer OriKey);
+  Standard_EXPORT ShapeList& ChangeItem(const Standard_Integer OriKey);
 
   Standard_EXPORT Standard_Boolean IsMultiple() const;
 
   Standard_EXPORT Standard_Boolean IsFaulty() const;
 
-  Standard_EXPORT Standard_Integer IsInternal(TopTools_ListOfShape& Item) const;
+  Standard_EXPORT Standard_Integer IsInternal(ShapeList& Item) const;
 
 protected:
 private:
-  TopoDS_Shape                 theKey;
+  TopoShape                 theKey;
   TopTools_Array1OfListOfShape theItems;
 };
 

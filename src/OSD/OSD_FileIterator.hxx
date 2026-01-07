@@ -21,7 +21,7 @@
 #include <OSD_Error.hxx>
 #include <TCollection_AsciiString.hxx>
 
-class OSD_Path;
+class SystemPath;
 
 //! Manages a breadth-only search for files in the specified Path.
 //! There is no specific order of results.
@@ -36,14 +36,14 @@ public:
   //! Instantiates Object as Iterator;
   //! Wild-card "*" can be used in Mask the same way it
   //! is used by unix shell for file names
-  Standard_EXPORT OSD_FileIterator(const OSD_Path& where, const TCollection_AsciiString& Mask);
+  Standard_EXPORT OSD_FileIterator(const SystemPath& where, const AsciiString1& Mask);
 
   Standard_EXPORT void Destroy();
 
   ~OSD_FileIterator() { Destroy(); }
 
   //! Initializes the current File Iterator
-  Standard_EXPORT void Initialize(const OSD_Path& where, const TCollection_AsciiString& Mask);
+  Standard_EXPORT void Initialize(const SystemPath& where, const AsciiString1& Mask);
 
   //! Returns TRUE if there are other items using the 'Tree'
   //! method.
@@ -55,7 +55,7 @@ public:
   Standard_EXPORT void Next();
 
   //! Returns the next file found .
-  Standard_EXPORT OSD_File Values();
+  Standard_EXPORT SystemFile Values();
 
   //! Returns TRUE if an error occurs
   Standard_EXPORT Standard_Boolean Failed() const;
@@ -70,10 +70,10 @@ public:
   Standard_EXPORT Standard_Integer Error() const;
 
 private:
-  OSD_File                TheIterator;
+  SystemFile                TheIterator;
   Standard_Boolean        myFlag;
-  TCollection_AsciiString myMask;
-  TCollection_AsciiString myPlace;
+  AsciiString1 myMask;
+  AsciiString1 myPlace;
   OSD_Error               myError;
 
   // platform-specific fields

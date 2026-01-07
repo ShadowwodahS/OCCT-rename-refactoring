@@ -37,11 +37,11 @@ public:
   Standard_EXPORT BinLDrivers_DocumentSection();
 
   //! Constructor
-  Standard_EXPORT BinLDrivers_DocumentSection(const TCollection_AsciiString& theName,
+  Standard_EXPORT BinLDrivers_DocumentSection(const AsciiString1& theName,
                                               const Standard_Boolean         isPostRead);
 
   //! Query the name of the section.
-  Standard_EXPORT const TCollection_AsciiString& Name() const;
+  Standard_EXPORT const AsciiString1& Name() const;
 
   //! Query the status: if the Section should be read after OCAF;
   //! False means that the Section is read before starting to
@@ -78,7 +78,7 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString myName;
+  AsciiString1 myName;
   uint64_t                myValue[2];
   Standard_Boolean        myIsPostRead;
 };

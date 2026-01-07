@@ -62,7 +62,7 @@ void TDocStd_MultiTransactionManager::Undo()
   Standard_Integer                  i;
   for (i = docs.Length(); i > 0; i--)
   {
-    Handle(TDocStd_Document) doc = docs.Value(i);
+    Handle(AppDocument) doc = docs.Value(i);
     if (doc.IsNull() || doc->GetAvailableUndos() == 0)
       continue;
     doc->Undo();
@@ -82,7 +82,7 @@ void TDocStd_MultiTransactionManager::Redo()
   Standard_Integer                  i;
   for (i = docs.Length(); i > 0; i--)
   {
-    Handle(TDocStd_Document) doc = docs.Value(i);
+    Handle(AppDocument) doc = docs.Value(i);
     if (doc.IsNull() || doc->GetAvailableRedos() == 0)
       continue;
     doc->Redo();
@@ -166,7 +166,7 @@ Standard_Boolean TDocStd_MultiTransactionManager::CommitCommand()
 //=================================================================================================
 
 Standard_Boolean TDocStd_MultiTransactionManager::CommitCommand(
-  const TCollection_ExtendedString& theName)
+  const UtfString& theName)
 {
   Standard_Boolean isCommited = CommitCommand();
   if (isCommited && myUndos.Length())
@@ -243,7 +243,7 @@ void TDocStd_MultiTransactionManager::RemoveLastUndo()
 
 //=================================================================================================
 
-void TDocStd_MultiTransactionManager::AddDocument(const Handle(TDocStd_Document)& theDoc)
+void TDocStd_MultiTransactionManager::AddDocument(const Handle(AppDocument)& theDoc)
 {
   Standard_Integer i;
   for (i = myDocuments.Length(); i > 0; i--)
@@ -273,7 +273,7 @@ void TDocStd_MultiTransactionManager::AddDocument(const Handle(TDocStd_Document)
 
 //=================================================================================================
 
-void TDocStd_MultiTransactionManager::RemoveDocument(const Handle(TDocStd_Document)& theDoc)
+void TDocStd_MultiTransactionManager::RemoveDocument(const Handle(AppDocument)& theDoc)
 {
   Standard_Integer i;
   for (i = myDocuments.Length(); i > 0; i--)

@@ -17,7 +17,7 @@
 #ifndef _V3d_ViewerPointer_HeaderFile
 #define _V3d_ViewerPointer_HeaderFile
 
-class V3d_Viewer;
-typedef V3d_Viewer* V3d_ViewerPointer;
+class ViewManager;
+typedef ViewManager* V3d_ViewerPointer;
 
 #endif // _V3d_ViewerPointer_HeaderFile

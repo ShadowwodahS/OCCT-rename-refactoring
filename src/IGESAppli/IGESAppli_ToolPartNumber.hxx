@@ -27,7 +27,7 @@ class IGESData_IGESReaderData;
 class IGESData_ParamReader;
 class IGESData_IGESWriter;
 class Interface_EntityIterator;
-class IGESData_DirChecker;
+class DirectoryChecker;
 class Interface_ShareTool;
 class Interface_Check;
 class Interface_CopyTool;
@@ -35,13 +35,13 @@ class IGESData_IGESDumper;
 
 //! Tool to work on a PartNumber. Called by various Modules
 //! (ReadWriteModule, GeneralModule, SpecificModule)
-class IGESAppli_ToolPartNumber
+class PartNumberTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns a ToolPartNumber, ready to work
-  Standard_EXPORT IGESAppli_ToolPartNumber();
+  Standard_EXPORT PartNumberTool();
 
   //! Reads own parameters from file. <PR> gives access to them,
   //! <IR> detains parameter types and values
@@ -63,7 +63,7 @@ public:
   Standard_EXPORT Standard_Boolean OwnCorrect(const Handle(IGESAppli_PartNumber)& ent) const;
 
   //! Returns specific DirChecker
-  Standard_EXPORT IGESData_DirChecker DirChecker(const Handle(IGESAppli_PartNumber)& ent) const;
+  Standard_EXPORT DirectoryChecker DirChecker(const Handle(IGESAppli_PartNumber)& ent) const;
 
   //! Performs Specific Semantic Check
   Standard_EXPORT void OwnCheck(const Handle(IGESAppli_PartNumber)& ent,

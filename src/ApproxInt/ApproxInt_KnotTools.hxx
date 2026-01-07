@@ -45,7 +45,7 @@ class IntPatch_WLine;
 //!
 //! For more details look at:
 //! Anshuman Razdan - Knot Placement for B-Spline curve Approximation.
-class ApproxInt_KnotTools
+class KnotTools
 {
 public:
   DEFINE_STANDARD_ALLOC

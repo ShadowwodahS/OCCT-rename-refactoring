@@ -37,7 +37,7 @@ public:
   gp_Pnt2d() {}
 
   //! Creates a point with a doublet of coordinates.
-  gp_Pnt2d(const gp_XY& theCoord)
+  gp_Pnt2d(const Coords2d& theCoord)
       : coord(theCoord)
   {
   }
@@ -70,7 +70,7 @@ public:
   void SetY(const Standard_Real theY) { coord.SetY(theY); }
 
   //! Assigns the two coordinates of Coord to this point.
-  void SetXY(const gp_XY& theCoord) { coord = theCoord; }
+  void SetXY(const Coords2d& theCoord) { coord = theCoord; }
 
   //! Returns the coordinate of range theIndex :
   //! theIndex = 1 => X is returned
@@ -88,14 +88,14 @@ public:
   Standard_Real Y() const { return coord.Y(); }
 
   //! For this point, returns its two coordinates as a number pair.
-  const gp_XY& XY() const { return coord; }
+  const Coords2d& XY() const { return coord; }
 
   //! For this point, returns its two coordinates as a number pair.
-  const gp_XY& Coord() const { return coord; }
+  const Coords2d& Coord() const { return coord; }
 
   //! Returns the coordinates of this point.
   //! Note: This syntax allows direct modification of the returned value.
-  gp_XY& ChangeCoord() { return coord; }
+  Coords2d& ChangeCoord() { return coord; }
 
   //! Comparison
   //! Returns True if the distance between the two
@@ -179,7 +179,7 @@ public:
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
 private:
-  gp_XY coord;
+  Coords2d coord;
 };
 
 #include <gp_Vec2d.hxx>
@@ -191,7 +191,7 @@ private:
 //=======================================================================
 inline Standard_Real gp_Pnt2d::Distance(const gp_Pnt2d& theOther) const
 {
-  const gp_XY&  aXY = theOther.coord;
+  const Coords2d&  aXY = theOther.coord;
   Standard_Real aX  = coord.X() - aXY.X();
   Standard_Real aY  = coord.Y() - aXY.Y();
   return sqrt(aX * aX + aY * aY);
@@ -203,7 +203,7 @@ inline Standard_Real gp_Pnt2d::Distance(const gp_Pnt2d& theOther) const
 //=======================================================================
 inline Standard_Real gp_Pnt2d::SquareDistance(const gp_Pnt2d& theOther) const
 {
-  const gp_XY&  aXY = theOther.coord;
+  const Coords2d&  aXY = theOther.coord;
   Standard_Real aX  = coord.X() - aXY.X();
   Standard_Real aY  = coord.Y() - aXY.Y();
   return (aX * aX + aY * aY);
@@ -226,7 +226,7 @@ inline void gp_Pnt2d::Rotate(const gp_Pnt2d& theP, const Standard_Real theAng)
 //=======================================================================
 inline void gp_Pnt2d::Scale(const gp_Pnt2d& theP, const Standard_Real theS)
 {
-  gp_XY aXY = theP.coord;
+  Coords2d aXY = theP.coord;
   aXY.Multiply(1.0 - theS);
   coord.Multiply(theS);
   coord.Add(aXY);

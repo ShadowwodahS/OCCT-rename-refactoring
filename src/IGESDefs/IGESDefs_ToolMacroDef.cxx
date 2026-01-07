@@ -32,9 +32,9 @@
 #include <Message_Messenger.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESDefs_ToolMacroDef::IGESDefs_ToolMacroDef() {}
+MacroDefTool::MacroDefTool() {}
 
-void IGESDefs_ToolMacroDef::ReadOwnParams(const Handle(IGESDefs_MacroDef)& ent,
+void MacroDefTool::ReadOwnParams(const Handle(IGESDefs_MacroDef)& ent,
                                           const Handle(IGESData_IGESReaderData)& /* IR */,
                                           IGESData_ParamReader& PR) const
 {
@@ -82,7 +82,7 @@ void IGESDefs_ToolMacroDef::ReadOwnParams(const Handle(IGESDefs_MacroDef)& ent,
   ent->Init(macro, entityTypeID, langStatements, endMacro);
 }
 
-void IGESDefs_ToolMacroDef::WriteOwnParams(const Handle(IGESDefs_MacroDef)& ent,
+void MacroDefTool::WriteOwnParams(const Handle(IGESDefs_MacroDef)& ent,
                                            IGESData_IGESWriter&             IW) const
 {
   IW.Send(ent->MACRO());
@@ -93,12 +93,12 @@ void IGESDefs_ToolMacroDef::WriteOwnParams(const Handle(IGESDefs_MacroDef)& ent,
   IW.Send(ent->ENDMACRO());
 }
 
-void IGESDefs_ToolMacroDef::OwnShared(const Handle(IGESDefs_MacroDef)& /* ent */,
+void MacroDefTool::OwnShared(const Handle(IGESDefs_MacroDef)& /* ent */,
                                       Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESDefs_ToolMacroDef::OwnCopy(const Handle(IGESDefs_MacroDef)& another,
+void MacroDefTool::OwnCopy(const Handle(IGESDefs_MacroDef)& another,
                                     const Handle(IGESDefs_MacroDef)& ent,
                                     Interface_CopyTool& /* TC */) const
 {
@@ -119,10 +119,10 @@ void IGESDefs_ToolMacroDef::OwnCopy(const Handle(IGESDefs_MacroDef)& another,
   ent->Init(macro, entityTypeID, langStatements, endMacro);
 }
 
-IGESData_DirChecker IGESDefs_ToolMacroDef::DirChecker(
+DirectoryChecker MacroDefTool::DirChecker(
   const Handle(IGESDefs_MacroDef)& /* ent */) const
 {
-  IGESData_DirChecker DC(306, 0);
+  DirectoryChecker DC(306, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -134,13 +134,13 @@ IGESData_DirChecker IGESDefs_ToolMacroDef::DirChecker(
   return DC;
 }
 
-void IGESDefs_ToolMacroDef::OwnCheck(const Handle(IGESDefs_MacroDef)& /* ent */,
+void MacroDefTool::OwnCheck(const Handle(IGESDefs_MacroDef)& /* ent */,
                                      const Interface_ShareTool&,
                                      Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESDefs_ToolMacroDef::OwnDump(const Handle(IGESDefs_MacroDef)& ent,
+void MacroDefTool::OwnDump(const Handle(IGESDefs_MacroDef)& ent,
                                     const IGESData_IGESDumper& /* dumper */,
                                     Standard_OStream&      S,
                                     const Standard_Integer level) const

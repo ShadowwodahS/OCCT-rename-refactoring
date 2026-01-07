@@ -28,20 +28,20 @@
 #include <Draw_Interpretor.hxx>
 class TDataStd_Real;
 class TFunction_Function;
-class TDataStd_Integer;
-class TDataStd_Name;
-class TNaming_NamedShape;
+class IntAttribute;
+class NameAttribute;
+class ShapeAttribute;
 class Axis3d;
 class TDataStd_UAttribute;
-class TopoDS_Shape;
+class TopoShape;
 class BRepBuilderAPI_MakeShape;
 class TNaming_Builder;
-class TDF_Label;
+class DataLabel;
 class BRepAlgoAPI_BooleanOperation;
 class TDF_Data;
-class TCollection_AsciiString;
+class AsciiString1;
 
-class DNaming
+class DNaming1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -50,18 +50,18 @@ public:
     const Handle(TFunction_Function)& theFunction,
     const Standard_Integer            thePosition);
 
-  Standard_EXPORT static Handle(TDataStd_Integer) GetInteger(
+  Standard_EXPORT static Handle(IntAttribute) GetInteger(
     const Handle(TFunction_Function)& theFunction,
     const Standard_Integer            thePosition);
 
-  Standard_EXPORT static Handle(TDataStd_Name) GetString(
+  Standard_EXPORT static Handle(NameAttribute) GetString(
     const Handle(TFunction_Function)& theFunction,
     const Standard_Integer            thePosition);
 
-  Standard_EXPORT static Standard_Boolean ComputeAxis(const Handle(TNaming_NamedShape)& theNS,
+  Standard_EXPORT static Standard_Boolean ComputeAxis(const Handle(ShapeAttribute)& theNS,
                                                       Axis3d&                           theAx1);
 
-  Standard_EXPORT static Handle(TNaming_NamedShape) GetFunctionResult(
+  Standard_EXPORT static Handle(ShapeAttribute) GetFunctionResult(
     const Handle(TFunction_Function)& theFunction);
 
   Standard_EXPORT static Handle(TDataStd_UAttribute) GetObjectArg(
@@ -72,7 +72,7 @@ public:
                                            const Standard_Integer             thePosition,
                                            const Handle(TDataStd_UAttribute)& theNewValue);
 
-  Standard_EXPORT static Handle(TNaming_NamedShape) GetObjectValue(
+  Standard_EXPORT static Handle(ShapeAttribute) GetObjectValue(
     const Handle(TDataStd_UAttribute)& theObject);
 
   Standard_EXPORT static Handle(TFunction_Function) GetLastFunction(
@@ -90,68 +90,68 @@ public:
   Standard_EXPORT static Standard_Boolean IsAttachment(
     const Handle(TDataStd_UAttribute)& theObject);
 
-  Standard_EXPORT static Handle(TNaming_NamedShape) GetAttachmentsContext(
+  Standard_EXPORT static Handle(ShapeAttribute) GetAttachmentsContext(
     const Handle(TDataStd_UAttribute)& theObject);
 
-  Standard_EXPORT static Standard_Boolean ComputeSweepDir(const TopoDS_Shape& theShape,
+  Standard_EXPORT static Standard_Boolean ComputeSweepDir(const TopoShape& theShape,
                                                           Axis3d&             theAxis);
 
   Standard_EXPORT static void LoadAndOrientModifiedShapes(
     BRepBuilderAPI_MakeShape&           MakeShape,
-    const TopoDS_Shape&                 ShapeIn,
+    const TopoShape&                 ShapeIn,
     const TopAbs_ShapeEnum              GeneratedFrom,
     TNaming_Builder&                    Builder,
     const TopTools_DataMapOfShapeShape& SubShapesOfResult);
 
   Standard_EXPORT static void LoadAndOrientGeneratedShapes(
     BRepBuilderAPI_MakeShape&           MakeShape,
-    const TopoDS_Shape&                 ShapeIn,
+    const TopoShape&                 ShapeIn,
     const TopAbs_ShapeEnum              GeneratedFrom,
     TNaming_Builder&                    Builder,
     const TopTools_DataMapOfShapeShape& SubShapesOfResult);
 
   Standard_EXPORT static void LoadDeletedShapes(BRepBuilderAPI_MakeShape& MakeShape,
-                                                const TopoDS_Shape&       ShapeIn,
+                                                const TopoShape&       ShapeIn,
                                                 const TopAbs_ShapeEnum    KindOfDeletedShape,
                                                 TNaming_Builder&          Builder);
 
-  Standard_EXPORT static void LoadResult(const TDF_Label&              theLabel,
+  Standard_EXPORT static void LoadResult(const DataLabel&              theLabel,
                                          BRepAlgoAPI_BooleanOperation& MS);
 
-  Standard_EXPORT static TopoDS_Shape CurrentShape(const Standard_CString  ShapeEntry,
+  Standard_EXPORT static TopoShape CurrentShape(const Standard_CString  ShapeEntry,
                                                    const Handle(TDF_Data)& Data);
 
   Standard_EXPORT static void GetShape(const Standard_CString  ShapeEntry,
                                        const Handle(TDF_Data)& Data,
-                                       TopTools_ListOfShape&   Shapes);
+                                       ShapeList&   Shapes);
 
   //! theStatus = 0  Not  found,
   //! theStatus = 1  One  shape,
   //! theStatus = 2  More than one shape.
-  Standard_EXPORT static TCollection_AsciiString GetEntry(const TopoDS_Shape&     Shape,
+  Standard_EXPORT static AsciiString1 GetEntry(const TopoShape&     Shape,
                                                           const Handle(TDF_Data)& Data,
                                                           Standard_Integer&       theStatus);
 
   //! Loads the Shape to DF
-  Standard_EXPORT static void LoadImportedShape(const TDF_Label&    theResultLabel,
-                                                const TopoDS_Shape& theShape);
+  Standard_EXPORT static void LoadImportedShape(const DataLabel&    theResultLabel,
+                                                const TopoShape& theShape);
 
   //! Reloads sub-shapes of the Shape to DF
-  Standard_EXPORT static void LoadPrime(const TDF_Label&    theResultLabel,
-                                        const TopoDS_Shape& theShape);
+  Standard_EXPORT static void LoadPrime(const DataLabel&    theResultLabel,
+                                        const TopoShape& theShape);
 
-  Standard_EXPORT static void AllCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void AllCommands(DrawInterpreter& DI);
 
   //! commands relatives to NamedShape
-  Standard_EXPORT static void BasicCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void BasicCommands(DrawInterpreter& DI);
 
-  Standard_EXPORT static void ToolsCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void ToolsCommands(DrawInterpreter& DI);
 
   //! commands relatives to Naming
-  Standard_EXPORT static void SelectionCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void SelectionCommands(DrawInterpreter& DI);
 
   //! commands for  testing Naming
-  Standard_EXPORT static void ModelingCommands(Draw_Interpretor& DI);
+  Standard_EXPORT static void ModelingCommands(DrawInterpreter& DI);
 };
 
 #endif // _DNaming_HeaderFile

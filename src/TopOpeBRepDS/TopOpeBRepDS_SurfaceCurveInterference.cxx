@@ -28,12 +28,12 @@ TopOpeBRepDS_SurfaceCurveInterference::TopOpeBRepDS_SurfaceCurveInterference() {
 //=================================================================================================
 
 TopOpeBRepDS_SurfaceCurveInterference::TopOpeBRepDS_SurfaceCurveInterference(
-  const TopOpeBRepDS_Transition& T,
+  const StateTransition& T,
   const TopOpeBRepDS_Kind        ST,
   const Standard_Integer         S,
   const TopOpeBRepDS_Kind        GT,
   const Standard_Integer         G,
-  const Handle(Geom2d_Curve)&    PC)
+  const Handle(GeomCurve2d)&    PC)
     : TopOpeBRepDS_Interference(T, ST, S, GT, G),
       myPCurve(PC)
 {
@@ -49,14 +49,14 @@ TopOpeBRepDS_SurfaceCurveInterference::TopOpeBRepDS_SurfaceCurveInterference(
 
 //=================================================================================================
 
-const Handle(Geom2d_Curve)& TopOpeBRepDS_SurfaceCurveInterference::PCurve() const
+const Handle(GeomCurve2d)& TopOpeBRepDS_SurfaceCurveInterference::PCurve() const
 {
   return myPCurve;
 }
 
 //=================================================================================================
 
-void TopOpeBRepDS_SurfaceCurveInterference::PCurve(const Handle(Geom2d_Curve)& PC)
+void TopOpeBRepDS_SurfaceCurveInterference::PCurve(const Handle(GeomCurve2d)& PC)
 {
   myPCurve = PC;
 }

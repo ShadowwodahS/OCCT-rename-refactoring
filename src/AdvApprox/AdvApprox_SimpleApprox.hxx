@@ -47,7 +47,7 @@ public:
                                          const Standard_Integer               WorkDegree,
                                          const Standard_Integer               NbGaussPoints,
                                          const Handle(PLib_JacobiPolynomial)& JacobiBase,
-                                         const AdvApprox_EvaluatorFunction&   Func);
+                                         const EvaluatorFunction&   Func);
 
   //! Constructs approximator tool.
   //!

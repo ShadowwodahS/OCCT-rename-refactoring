@@ -47,7 +47,7 @@ public:
 
   Standard_EXPORT virtual void SetActiveOrder(const Standard_Integer ActiveOrder);
 
-  Standard_EXPORT virtual void SetUV(const gp_XY& UV);
+  Standard_EXPORT virtual void SetUV(const Coords2d& UV);
 
   Standard_EXPORT virtual void SetOrientation(const Standard_Integer Orient = 0);
 
@@ -65,7 +65,7 @@ public:
 
   Standard_EXPORT virtual Standard_Integer ActiveOrder() const = 0;
 
-  Standard_EXPORT virtual const gp_XY& UV() const;
+  Standard_EXPORT virtual const Coords2d& UV() const;
 
   Standard_EXPORT virtual Standard_Integer Orientation();
 
@@ -90,7 +90,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(NLPlate_HGPPConstraint, RefObject)
 
 protected:
-  gp_XY            myUV;
+  Coords2d            myUV;
   Standard_Integer myActiveOrder;
 
 private:

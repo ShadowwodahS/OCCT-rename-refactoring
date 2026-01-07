@@ -63,7 +63,7 @@ TCollection_HExtendedString::TCollection_HExtendedString(const Standard_Integer 
 // ----------------------------------------------------------------------------
 // Create
 // ----------------------------------------------------------------------------
-TCollection_HExtendedString::TCollection_HExtendedString(const TCollection_ExtendedString& astring)
+TCollection_HExtendedString::TCollection_HExtendedString(const UtfString& astring)
     : myString(astring)
 {
 }
@@ -270,7 +270,7 @@ Standard_ExtCharacter TCollection_HExtendedString::Value(const Standard_Integer 
 // ----------------------------------------------------------------------------
 // String
 // ----------------------------------------------------------------------------
-const TCollection_ExtendedString& TCollection_HExtendedString::String() const
+const UtfString& TCollection_HExtendedString::String() const
 {
   return myString;
 }
@@ -293,7 +293,7 @@ Standard_Boolean TCollection_HExtendedString::IsSameState(
   return myString == other->String();
 }
 
-TCollection_ExtendedString& TCollection_HExtendedString::ChangeString() const
+UtfString& TCollection_HExtendedString::ChangeString() const
 {
-  return (TCollection_ExtendedString&)myString;
+  return (UtfString&)myString;
 }

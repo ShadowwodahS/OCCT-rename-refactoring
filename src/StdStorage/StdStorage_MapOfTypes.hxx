@@ -21,6 +21,6 @@
 #include <Standard_Integer.hxx>
 #include <NCollection_IndexedDataMap.hxx>
 
-typedef NCollection_IndexedDataMap<TCollection_AsciiString, Standard_Integer> StdStorage_MapOfTypes;
+typedef NCollection_IndexedDataMap<AsciiString1, Standard_Integer> StdStorage_MapOfTypes;
 
 #endif

@@ -28,10 +28,10 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <GeomAbs_IsoType.hxx>
 #include <TColStd_HArray1OfReal.hxx>
-class TopoDS_Face;
+class TopoFace;
 class Point3d;
 class Vector3d;
-class TopoDS_Edge;
+class TopoEdge;
 class gp_Pnt2d;
 class gp_Vec2d;
 
@@ -51,9 +51,9 @@ public:
   //! spans on a face. This option has an effect only for
   //! BSpline faces. Spans are returned by the methods GetUKnots
   //! and GetTKnots.
-  BRepGProp_Face(const TopoDS_Face& F, const Standard_Boolean IsUseSpan = Standard_False);
+  BRepGProp_Face(const TopoFace& F, const Standard_Boolean IsUseSpan = Standard_False);
 
-  Standard_EXPORT void Load(const TopoDS_Face& F);
+  Standard_EXPORT void Load(const TopoFace& F);
 
   Standard_EXPORT Standard_Integer VIntegrationOrder() const;
 
@@ -61,7 +61,7 @@ public:
   Standard_Boolean NaturalRestriction() const;
 
   //! Returns the TopoDS face.
-  const TopoDS_Face& GetFace() const;
+  const TopoFace& GetFace() const;
 
   //! Returns the value of the boundary curve of the face.
   gp_Pnt2d Value2d(const Standard_Real U) const;
@@ -102,7 +102,7 @@ public:
 
   //! Loading the boundary arc.
   //! Returns FALSE if edge has no P-Curve.
-  Standard_EXPORT bool Load(const TopoDS_Edge& E);
+  Standard_EXPORT bool Load(const TopoEdge& E);
 
   //! Returns the parametric value of the start point of
   //! the current arc of curve.

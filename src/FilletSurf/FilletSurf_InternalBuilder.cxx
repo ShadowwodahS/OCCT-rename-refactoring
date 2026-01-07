@@ -55,7 +55,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TopOpeBRepDS_HDataStructure.hxx>
 
-static Standard_Boolean isinlist(const TopoDS_Shape& E, const TopTools_ListOfShape& L)
+static Standard_Boolean isinlist(const TopoShape& E, const ShapeList& L)
 {
   TopTools_ListIteratorOfListOfShape It;
   for (It.Initialize(L); It.More(); It.Next())
@@ -75,7 +75,7 @@ static Standard_Boolean IntPlanEdge(Handle(BRepAdaptor_Curve)& Ed,
   Standard_Real               f    = Ed->FirstParameter();
   Standard_Real               l    = Ed->LastParameter();
   Point3d                      Or   = P.Location();
-  Handle(Geom_Plane)          Pln  = new Geom_Plane(P);
+  Handle(GeomPlane)          Pln  = new GeomPlane(P);
   Handle(GeomAdaptor_Surface) Plan = new GeomAdaptor_Surface(GeomAdaptor_Surface(Pln));
 
   IntCurveSurface_HInter            Intersection;
@@ -151,7 +151,7 @@ static Standard_Boolean ComputeEdgeParameter(const Handle(ChFiDS_Spine)& Spine,
 
 //=================================================================================================
 
-FilletSurf_InternalBuilder::FilletSurf_InternalBuilder(const TopoDS_Shape&      S,
+FilletSurf_InternalBuilder::FilletSurf_InternalBuilder(const TopoShape&      S,
                                                        const ChFi3d_FilletShape FShape,
                                                        const Standard_Real      Ta,
                                                        const Standard_Real      Tapp3d,
@@ -174,7 +174,7 @@ FilletSurf_InternalBuilder::FilletSurf_InternalBuilder(const TopoDS_Shape&      
 //  5 : edge is not alive
 //=======================================================================
 
-Standard_Integer FilletSurf_InternalBuilder::Add(const TopTools_ListOfShape& E,
+Standard_Integer FilletSurf_InternalBuilder::Add(const ShapeList& E,
                                                  const Standard_Real         R)
 {
   if (E.IsEmpty())
@@ -182,13 +182,13 @@ Standard_Integer FilletSurf_InternalBuilder::Add(const TopTools_ListOfShape& E,
   TopTools_ListIteratorOfListOfShape It;
   for (It.Initialize(E); It.More(); It.Next())
   {
-    TopoDS_Edge cured = TopoDS::Edge(It.Value());
+    TopoEdge cured = TopoDS::Edge(It.Value());
     if (cured.IsNull())
       return 4;
     if (!myEFMap.Contains(cured))
       return 4;
     // check if the edge is a fracture edge
-    TopoDS_Face ff1, ff2;
+    TopoFace ff1, ff2;
     for (It.Initialize(myEFMap(cured)); It.More(); It.Next())
     {
       if (ff1.IsNull())
@@ -208,10 +208,10 @@ Standard_Integer FilletSurf_InternalBuilder::Add(const TopTools_ListOfShape& E,
       return 5;
     if (ff1.IsSame(ff2))
       return 5;
-    if (BRep_Tool::Continuity(cured, ff1, ff2) != GeomAbs_C0)
+    if (BRepInspector::Continuity(cured, ff1, ff2) != GeomAbs_C0)
       return 5;
   }
-  TopoDS_Edge ed = TopoDS::Edge(E.First());
+  TopoEdge ed = TopoDS::Edge(E.First());
   ed.Orientation(TopAbs_FORWARD);
   ChFi3d_FilBuilder::Add(R, ed);
   Handle(ChFiDS_Stripe) st       = myListStripe.First();
@@ -224,7 +224,7 @@ Standard_Integer FilletSurf_InternalBuilder::Add(const TopTools_ListOfShape& E,
 
   for (It.Initialize(E); It.More(); It.Next())
   {
-    TopoDS_Edge cured = TopoDS::Edge(It.Value());
+    TopoEdge cured = TopoDS::Edge(It.Value());
     if (!Contains(cured))
       return 2;
   }
@@ -235,7 +235,7 @@ Standard_Integer FilletSurf_InternalBuilder::Add(const TopTools_ListOfShape& E,
   Standard_Integer        yatrou             = 0;
   for (Standard_Integer i = 1; i <= sp->NbEdges(); i++)
   {
-    TopoDS_Edge cured = sp->Edges(i);
+    TopoEdge cured = sp->Edges(i);
     if (isinlist(cured, E))
     {
       debut = 1;
@@ -256,7 +256,7 @@ Standard_Integer FilletSurf_InternalBuilder::Add(const TopTools_ListOfShape& E,
     Standard_Boolean vraitrou = 0, aLocalDebut = 0;
     for (Standard_Integer i = sp->NbEdges(); i > yatrou; i--)
     {
-      TopoDS_Edge cured = sp->Edges(i);
+      TopoEdge cured = sp->Edges(i);
       if (isinlist(cured, E))
       {
         if (vraitrou)
@@ -431,16 +431,16 @@ Standard_Boolean FilletSurf_InternalBuilder::PerformSurf(ChFiDS_SequenceOfSurfDa
     const ChFiDS_CommonPoint& cpf1 = Data->VertexFirstOnS1();
     if (cpf1.IsOnArc())
     {
-      TopoDS_Face F1 = S1->Face();
-      TopoDS_Face bid;
+      TopoFace F1 = S1->Face();
+      TopoFace bid;
       Intf = !SearchFace(Spine, cpf1, F1, bid);
       ok   = Intf != 0;
     }
     const ChFiDS_CommonPoint& cpf2 = Data->VertexFirstOnS2();
     if (cpf2.IsOnArc() && !ok)
     {
-      TopoDS_Face F2 = S2->Face();
-      TopoDS_Face bid;
+      TopoFace F2 = S2->Face();
+      TopoFace bid;
       Intf = !SearchFace(Spine, cpf2, F2, bid);
     }
   }
@@ -449,16 +449,16 @@ Standard_Boolean FilletSurf_InternalBuilder::PerformSurf(ChFiDS_SequenceOfSurfDa
   const ChFiDS_CommonPoint& cpl1 = Data->VertexLastOnS1();
   if (cpl1.IsOnArc())
   {
-    TopoDS_Face F1 = S1->Face();
-    TopoDS_Face bid;
+    TopoFace F1 = S1->Face();
+    TopoFace bid;
     Intl = !SearchFace(Spine, cpl1, F1, bid);
     ok   = Intl != 0;
   }
   const ChFiDS_CommonPoint& cpl2 = Data->VertexLastOnS2();
   if (cpl2.IsOnArc() && !ok)
   {
-    TopoDS_Face F2 = S2->Face();
-    TopoDS_Face bid;
+    TopoFace F2 = S2->Face();
+    TopoFace bid;
     Intl = !SearchFace(Spine, cpl2, F2, bid);
   }
   Data->FirstSpineParam(First);
@@ -582,7 +582,7 @@ Standard_Integer FilletSurf_InternalBuilder::NbSurface() const
 // purpose  : gives the NUBS surface of index Index
 //=======================================================================
 
-const Handle(Geom_Surface)& FilletSurf_InternalBuilder::SurfaceFillet(
+const Handle(GeomSurface)& FilletSurf_InternalBuilder::SurfaceFillet(
   const Standard_Integer Index) const
 {
   Standard_Integer isurf = myListStripe.First()->SetOfSurfData()->Value(Index)->Surf();
@@ -606,7 +606,7 @@ Standard_Real FilletSurf_InternalBuilder::TolApp3d(const Standard_Integer Index)
 // function : SupportFace1
 // purpose  : gives the first support  face relative to SurfaceFillet(Index)
 //=======================================================================
-const TopoDS_Face& FilletSurf_InternalBuilder::SupportFace1(const Standard_Integer Index) const
+const TopoFace& FilletSurf_InternalBuilder::SupportFace1(const Standard_Integer Index) const
 {
   Standard_Integer isurf = myListStripe.First()->SetOfSurfData()->Value(Index)->IndexOfS1();
 
@@ -617,7 +617,7 @@ const TopoDS_Face& FilletSurf_InternalBuilder::SupportFace1(const Standard_Integ
 // function : SupportFace2
 // purpose  : gives the second support face relative to SurfaceFillet(Index)
 //=======================================================================
-const TopoDS_Face& FilletSurf_InternalBuilder::SupportFace2(const Standard_Integer Index) const
+const TopoFace& FilletSurf_InternalBuilder::SupportFace2(const Standard_Integer Index) const
 {
   Standard_Integer isurf = myListStripe.First()->SetOfSurfData()->Value(Index)->IndexOfS2();
 
@@ -629,7 +629,7 @@ const TopoDS_Face& FilletSurf_InternalBuilder::SupportFace2(const Standard_Integ
 // purpose  :  gives  the 3d curve  of SurfaceFillet(Index)  on SupportFace1(Index)
 //===============================================================================
 
-const Handle(Geom_Curve)& FilletSurf_InternalBuilder::CurveOnFace1(
+const Handle(GeomCurve3d)& FilletSurf_InternalBuilder::CurveOnFace1(
   const Standard_Integer Index) const
 {
   Standard_Integer icurv =
@@ -642,7 +642,7 @@ const Handle(Geom_Curve)& FilletSurf_InternalBuilder::CurveOnFace1(
 // purpose  : gives the 3d  curve of  SurfaceFillet(Index) on SupportFace2(Index
 //=======================================================================
 
-const Handle(Geom_Curve)& FilletSurf_InternalBuilder::CurveOnFace2(
+const Handle(GeomCurve3d)& FilletSurf_InternalBuilder::CurveOnFace2(
   const Standard_Integer Index) const
 {
   Standard_Integer icurv =
@@ -654,7 +654,7 @@ const Handle(Geom_Curve)& FilletSurf_InternalBuilder::CurveOnFace2(
 // function : PCurveOnFace1
 // purpose  : gives the  PCurve associated to CurvOnSup1(Index)  on the support face
 //=======================================================================
-const Handle(Geom2d_Curve)& FilletSurf_InternalBuilder::PCurveOnFace1(
+const Handle(GeomCurve2d)& FilletSurf_InternalBuilder::PCurveOnFace1(
   const Standard_Integer Index) const
 {
   return myListStripe.First()->SetOfSurfData()->Value(Index)->InterferenceOnS1().PCurveOnFace();
@@ -665,7 +665,7 @@ const Handle(Geom2d_Curve)& FilletSurf_InternalBuilder::PCurveOnFace1(
 // purpose  : gives the PCurve associated to CurveOnFace1(Index) on the Fillet
 //=======================================================================
 
-const Handle(Geom2d_Curve)& FilletSurf_InternalBuilder::PCurve1OnFillet(
+const Handle(GeomCurve2d)& FilletSurf_InternalBuilder::PCurve1OnFillet(
   const Standard_Integer Index) const
 {
   return myListStripe.First()->SetOfSurfData()->Value(Index)->InterferenceOnS1().PCurveOnSurf();
@@ -675,7 +675,7 @@ const Handle(Geom2d_Curve)& FilletSurf_InternalBuilder::PCurve1OnFillet(
 // function : PCurveOnFace2
 // purpose  : gives the  PCurve associated to CurvOnSup2(Index)  on the support face
 //=======================================================================
-const Handle(Geom2d_Curve)& FilletSurf_InternalBuilder::PCurveOnFace2(
+const Handle(GeomCurve2d)& FilletSurf_InternalBuilder::PCurveOnFace2(
   const Standard_Integer Index) const
 {
   return myListStripe.First()->SetOfSurfData()->Value(Index)->InterferenceOnS2().PCurveOnFace();
@@ -685,7 +685,7 @@ const Handle(Geom2d_Curve)& FilletSurf_InternalBuilder::PCurveOnFace2(
 // function : PCurveOnFillet2
 // purpose  : gives the PCurve associated to CurveOnFace2(Index) on the Fillet
 //=======================================================================
-const Handle(Geom2d_Curve)& FilletSurf_InternalBuilder::PCurve2OnFillet(
+const Handle(GeomCurve2d)& FilletSurf_InternalBuilder::PCurve2OnFillet(
   const Standard_Integer Index) const
 {
   return myListStripe.First()->SetOfSurfData()->Value(Index)->InterferenceOnS2().PCurveOnSurf();
@@ -827,7 +827,7 @@ Standard_Integer FilletSurf_InternalBuilder::NbSection(const Standard_Integer In
 // function : Section
 // purpose  : gives the   arc of circle corresponding    to section number
 //           IndexSec  of  SurfaceFillet(IndexSurf)  (The   basis curve  of the
-//           trimmed curve is a Geom_Circle)
+//           trimmed curve is a GeomCircle)
 //=======================================================================
 void FilletSurf_InternalBuilder::Section(const Standard_Integer     IndexSurf,
                                          const Standard_Integer     IndexSec,
@@ -836,6 +836,6 @@ void FilletSurf_InternalBuilder::Section(const Standard_Integer     IndexSurf,
   gp_Circ       c;
   Standard_Real deb, fin;
   Sect(1, IndexSurf)->Value(IndexSec).Get(c, deb, fin);
-  Handle(Geom_Circle) Gc = new Geom_Circle(c);
+  Handle(GeomCircle) Gc = new GeomCircle(c);
   Circ                   = new Geom_TrimmedCurve(Gc, deb, fin);
 }

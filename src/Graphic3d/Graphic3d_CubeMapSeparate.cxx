@@ -25,7 +25,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_CubeMapSeparate, Graphic3d_CubeMap)
 //=================================================================================================
 
 Graphic3d_CubeMapSeparate::Graphic3d_CubeMapSeparate(
-  const NCollection_Array1<TCollection_AsciiString>& thePaths)
+  const NCollection_Array1<AsciiString1>& thePaths)
 {
   if (thePaths.Size() == 6)
   {
@@ -94,7 +94,7 @@ Handle(Image_CompressedPixMap) Graphic3d_CubeMapSeparate::CompressedValue(
   }
 
   const Graphic3d_CubeMapOrder anOrder = Graphic3d_CubeMapOrder::Default();
-  TCollection_AsciiString      aFilePath;
+  AsciiString1      aFilePath;
   myPaths[anOrder[myCurrentSide]].SystemName(aFilePath);
   if (aFilePath.IsEmpty())
   {
@@ -120,7 +120,7 @@ Handle(Image_CompressedPixMap) Graphic3d_CubeMapSeparate::CompressedValue(
     return anImage;
   }
 
-  Message::SendWarning(TCollection_AsciiString() + "'" + aFilePath
+  Message::SendWarning(AsciiString1() + "'" + aFilePath
                        + "' inconsistent image format or dimension in Graphic3d_CubeMapSeparate");
   return Handle(Image_CompressedPixMap)();
 }
@@ -142,7 +142,7 @@ Handle(Image_PixMap) Graphic3d_CubeMapSeparate::Value(
   }
   else
   {
-    TCollection_AsciiString aFilePath;
+    AsciiString1 aFilePath;
     myPaths[anOrder[myCurrentSide]].SystemName(aFilePath);
     if (!aFilePath.IsEmpty())
     {
@@ -169,7 +169,7 @@ Handle(Image_PixMap) Graphic3d_CubeMapSeparate::Value(
             else
             {
               Message::SendWarning(
-                TCollection_AsciiString() + "'" + aFilePath
+                AsciiString1() + "'" + aFilePath
                 + "' inconsistent image format or dimension in Graphic3d_CubeMapSeparate");
             }
           }
@@ -177,13 +177,13 @@ Handle(Image_PixMap) Graphic3d_CubeMapSeparate::Value(
       }
       else
       {
-        Message::SendWarning(TCollection_AsciiString() + "Unable to load '" + aFilePath
+        Message::SendWarning(AsciiString1() + "Unable to load '" + aFilePath
                              + "' image of Graphic3d_CubeMapSeparate");
       }
     }
     else
     {
-      Message::SendWarning(TCollection_AsciiString() + "[" + myCurrentSide
+      Message::SendWarning(AsciiString1() + "[" + myCurrentSide
                            + "] path of Graphic3d_CubeMapSeparate is invalid");
     }
   }
@@ -202,7 +202,7 @@ Standard_Boolean Graphic3d_CubeMapSeparate::IsDone() const
 
   for (unsigned int i = 0; i < 6; ++i)
   {
-    OSD_File aCubeMapFile(myPaths[i]);
+    SystemFile aCubeMapFile(myPaths[i]);
     if (!aCubeMapFile.Exists())
     {
       return Standard_False;

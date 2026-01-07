@@ -26,11 +26,11 @@
 #include <TopTools_ListOfShape.hxx>
 #include <TopTools_IndexedMapOfOrientedShape.hxx>
 #include <TopTools_IndexedDataMapOfShapeShape.hxx>
-class TopoDS_Edge;
+class TopoEdge;
 class gp_Pnt2d;
-class TopoDS_Shape;
+class TopoShape;
 class gp_Vec2d;
-class Geom2d_Curve;
+class GeomCurve2d;
 class Bnd_Box2d;
 
 class TopOpeBRepBuild_CorrectFace2d
@@ -41,11 +41,11 @@ public:
   Standard_EXPORT TopOpeBRepBuild_CorrectFace2d();
 
   Standard_EXPORT TopOpeBRepBuild_CorrectFace2d(
-    const TopoDS_Face&                        aFace,
+    const TopoFace&                        aFace,
     const TopTools_IndexedMapOfOrientedShape& anAvoidMap,
     TopTools_IndexedDataMapOfShapeShape&      aMap);
 
-  Standard_EXPORT const TopoDS_Face& Face() const;
+  Standard_EXPORT const TopoFace& Face() const;
 
   Standard_EXPORT void Perform();
 
@@ -53,18 +53,18 @@ public:
 
   Standard_EXPORT Standard_Integer ErrorStatus() const;
 
-  Standard_EXPORT const TopoDS_Face& CorrectedFace() const;
+  Standard_EXPORT const TopoFace& CorrectedFace() const;
 
   Standard_EXPORT void SetMapOfTrans2dInfo(TopTools_IndexedDataMapOfShapeShape& aMap);
 
   Standard_EXPORT TopTools_IndexedDataMapOfShapeShape& MapOfTrans2dInfo();
 
-  Standard_EXPORT static void GetP2dFL(const TopoDS_Face& aFace,
-                                       const TopoDS_Edge& anEdge,
+  Standard_EXPORT static void GetP2dFL(const TopoFace& aFace,
+                                       const TopoEdge& anEdge,
                                        gp_Pnt2d&          P2dF,
                                        gp_Pnt2d&          P2dL);
 
-  Standard_EXPORT static void CheckList(const TopoDS_Face& aFace, TopTools_ListOfShape& aHeadList);
+  Standard_EXPORT static void CheckList(const TopoFace& aFace, ShapeList& aHeadList);
 
 protected:
 private:
@@ -72,54 +72,54 @@ private:
 
   Standard_EXPORT Standard_Integer MakeRightWire();
 
-  Standard_EXPORT void MakeHeadList(const TopoDS_Shape&   aFirstEdge,
-                                    TopTools_ListOfShape& aHeadList) const;
+  Standard_EXPORT void MakeHeadList(const TopoShape&   aFirstEdge,
+                                    ShapeList& aHeadList) const;
 
-  Standard_EXPORT void TranslateCurve2d(const TopoDS_Edge&    anEdge,
-                                        const TopoDS_Face&    aFace,
+  Standard_EXPORT void TranslateCurve2d(const TopoEdge&    anEdge,
+                                        const TopoFace&    aFace,
                                         const gp_Vec2d&       aTranslateVec,
-                                        Handle(Geom2d_Curve)& aCurve2d);
+                                        Handle(GeomCurve2d)& aCurve2d);
 
-  Standard_EXPORT Standard_Integer OuterWire(TopoDS_Wire& anOuterWire) const;
+  Standard_EXPORT Standard_Integer OuterWire(TopoWire& anOuterWire) const;
 
-  Standard_EXPORT void BndBoxWire(const TopoDS_Wire& aWire, Bnd_Box2d& aB2d) const;
+  Standard_EXPORT void BndBoxWire(const TopoWire& aWire, Bnd_Box2d& aB2d) const;
 
-  Standard_EXPORT void MoveWire2d(TopoDS_Wire& aWire, const gp_Vec2d& aTrV);
+  Standard_EXPORT void MoveWire2d(TopoWire& aWire, const gp_Vec2d& aTrV);
 
-  Standard_EXPORT void MoveWires2d(TopoDS_Wire& aWire);
+  Standard_EXPORT void MoveWires2d(TopoWire& aWire);
 
-  Standard_EXPORT void UpdateEdge(const TopoDS_Edge&          E,
-                                  const Handle(Geom2d_Curve)& C,
-                                  const TopoDS_Face&          F,
+  Standard_EXPORT void UpdateEdge(const TopoEdge&          E,
+                                  const Handle(GeomCurve2d)& C,
+                                  const TopoFace&          F,
                                   const Standard_Real         Tol);
 
-  Standard_EXPORT void UpdateEdge(const TopoDS_Edge&          E,
-                                  const Handle(Geom2d_Curve)& C1,
-                                  const Handle(Geom2d_Curve)& C2,
-                                  const TopoDS_Face&          F,
+  Standard_EXPORT void UpdateEdge(const TopoEdge&          E,
+                                  const Handle(GeomCurve2d)& C1,
+                                  const Handle(GeomCurve2d)& C2,
+                                  const TopoFace&          F,
                                   const Standard_Real         Tol);
 
-  Standard_EXPORT void BuildCopyData(const TopoDS_Face&                        F,
+  Standard_EXPORT void BuildCopyData(const TopoFace&                        F,
                                      const TopTools_IndexedMapOfOrientedShape& anAvoidMap,
-                                     TopoDS_Face&                              aCopyFace,
+                                     TopoFace&                              aCopyFace,
                                      TopTools_IndexedMapOfOrientedShape&       aCopyAvoidMap,
                                      const Standard_Boolean                    aNeedToUsePMap);
 
   Standard_EXPORT Standard_Integer
-    ConnectWire(TopoDS_Face&                              aCopyFace,
+    ConnectWire(TopoFace&                              aCopyFace,
                 const TopTools_IndexedMapOfOrientedShape& aCopyAvoidMap,
                 const Standard_Boolean                    aTryToConnectFlag);
 
-  TopoDS_Face                         myFace;
-  TopoDS_Face                         myCorrectedFace;
+  TopoFace                         myFace;
+  TopoFace                         myCorrectedFace;
   Standard_Boolean                    myIsDone;
   Standard_Integer                    myErrorStatus;
   Standard_Real                       myFaceTolerance;
-  TopoDS_Wire                         myCurrentWire;
-  TopTools_ListOfShape                myOrderedWireList;
+  TopoWire                         myCurrentWire;
+  ShapeList                myOrderedWireList;
   TopTools_IndexedMapOfOrientedShape  myAvoidMap;
   Standard_Address                    myMap;
-  TopoDS_Face                         myCopyFace;
+  TopoFace                         myCopyFace;
   TopTools_IndexedMapOfOrientedShape  myCopyAvoidMap;
   TopTools_IndexedDataMapOfShapeShape myEdMapInversed;
 };

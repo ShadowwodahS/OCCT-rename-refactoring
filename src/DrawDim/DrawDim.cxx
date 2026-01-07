@@ -38,43 +38,43 @@
 #include <TopoDS_Vertex.hxx>
 
 #ifdef _WIN32
-Standard_IMPORT Draw_Viewer dout;
+Standard_IMPORT DrawViewer dout;
 #endif
 
 //=================================================================================================
 
-void DrawDim::AllCommands(Draw_Interpretor& theCommands)
+void DrawDim1::AllCommands(DrawInterpreter& theCommands)
 {
   PlanarDimensionCommands(theCommands);
 }
 
 //=================================================================================================
 
-void DrawDim::DrawShapeName(const TopoDS_Shape& ashape, const Standard_CString aname)
+void DrawDim1::DrawShapeName(const TopoShape& ashape, const Standard_CString aname)
 {
   Point3d                  position;
-  TCollection_AsciiString t(" ");
+  AsciiString1 t(" ");
   switch (ashape.ShapeType())
   {
     case TopAbs_EDGE: {
       Standard_Real      f, l, parameter;
-      Handle(Geom_Curve) curve = BRep_Tool::Curve(TopoDS::Edge(ashape), f, l);
-      if (curve->IsKind(STANDARD_TYPE(Geom_Line)))
+      Handle(GeomCurve3d) curve = BRepInspector::Curve(TopoDS::Edge(ashape), f, l);
+      if (curve->IsKind(STANDARD_TYPE(GeomLine)))
       {
         parameter = (f + l) / 2.;
-        position  = ElCLib::Value(parameter, Handle(Geom_Line)::DownCast(curve)->Lin());
+        position  = ElCLib::Value(parameter, Handle(GeomLine)::DownCast(curve)->Lin());
       }
-      else if (curve->IsKind(STANDARD_TYPE(Geom_Circle)))
+      else if (curve->IsKind(STANDARD_TYPE(GeomCircle)))
       {
         parameter = (f + l) / 2.;
         if (f > l)
           parameter = parameter + M_PI;
-        position = ElCLib::Value(parameter, Handle(Geom_Circle)::DownCast(curve)->Circ());
+        position = ElCLib::Value(parameter, Handle(GeomCircle)::DownCast(curve)->Circ());
       }
     }
     break;
     case TopAbs_VERTEX: {
-      position = BRep_Tool::Pnt(TopoDS::Vertex(ashape));
+      position = BRepInspector::Pnt(TopoDS::Vertex(ashape));
     }
     break;
     default:
@@ -87,9 +87,9 @@ void DrawDim::DrawShapeName(const TopoDS_Shape& ashape, const Standard_CString a
 
 //=================================================================================================
 
-Standard_Boolean DrawDim::Pln(const TopoDS_Face& f, gp_Pln& p)
+Standard_Boolean DrawDim1::Pln(const TopoFace& f, gp_Pln& p)
 {
-  Handle(Geom_Plane) P = Handle(Geom_Plane)::DownCast(BRep_Tool::Surface(f));
+  Handle(GeomPlane) P = Handle(GeomPlane)::DownCast(BRepInspector::Surface(f));
   if (!P.IsNull())
   {
     p = P->Pln();
@@ -100,18 +100,18 @@ Standard_Boolean DrawDim::Pln(const TopoDS_Face& f, gp_Pln& p)
 
 //=================================================================================================
 
-Standard_Boolean DrawDim::Lin(const TopoDS_Edge& e,
+Standard_Boolean DrawDim1::Lin(const TopoEdge& e,
                               gp_Lin&            l,
                               Standard_Boolean&  infinite,
                               Standard_Real&     first,
                               Standard_Real&     last)
 {
   Standard_Real     f1, l1;
-  Handle(Geom_Line) L = Handle(Geom_Line)::DownCast(BRep_Tool::Curve(e, f1, l1));
+  Handle(GeomLine) L = Handle(GeomLine)::DownCast(BRepInspector::Curve(e, f1, l1));
   if (!L.IsNull())
   {
-    TopoDS_Vertex vf, vl;
-    TopExp::Vertices(TopoDS::Edge(e), vf, vl);
+    TopoVertex vf, vl;
+    TopExp1::Vertices(TopoDS::Edge(e), vf, vl);
     if (vf.IsNull() && vl.IsNull())
     {
       infinite = Standard_True;
@@ -120,7 +120,7 @@ Standard_Boolean DrawDim::Lin(const TopoDS_Edge& e,
     }
     else if (vf.IsNull() || vl.IsNull())
     {
-      throw Standard_DomainError("DrawDim::Lin : semi infinite edge");
+      throw Standard_DomainError("DrawDim1::Lin : semi infinite edge");
     }
     else
     {
@@ -136,13 +136,13 @@ Standard_Boolean DrawDim::Lin(const TopoDS_Edge& e,
 
 //=================================================================================================
 
-Standard_Boolean DrawDim::Circ(const TopoDS_Edge& e,
+Standard_Boolean DrawDim1::Circ(const TopoEdge& e,
                                gp_Circ&           c,
                                Standard_Real&     first,
                                Standard_Real&     last)
 {
   Standard_Real       f1, l1;
-  Handle(Geom_Circle) C = Handle(Geom_Circle)::DownCast(BRep_Tool::Curve(e, f1, l1));
+  Handle(GeomCircle) C = Handle(GeomCircle)::DownCast(BRepInspector::Curve(e, f1, l1));
   if (!C.IsNull())
   {
     c     = C->Circ();
@@ -155,16 +155,16 @@ Standard_Boolean DrawDim::Circ(const TopoDS_Edge& e,
 
 //=================================================================================================
 
-Point3d DrawDim::Nearest(const TopoDS_Shape& ashape, const Point3d& apoint)
+Point3d DrawDim1::Nearest(const TopoShape& ashape, const Point3d& apoint)
 {
   Standard_Real   dist = RealLast();
   Standard_Real   curdist;
   Point3d          result;
   Point3d          curpnt;
-  TopExp_Explorer explo(ashape, TopAbs_VERTEX);
+  ShapeExplorer explo(ashape, TopAbs_VERTEX);
   while (explo.More())
   {
-    curpnt  = BRep_Tool::Pnt(TopoDS::Vertex(explo.Current()));
+    curpnt  = BRepInspector::Pnt(TopoDS::Vertex(explo.Current()));
     curdist = apoint.Distance(curpnt);
     if (curdist < dist)
     {

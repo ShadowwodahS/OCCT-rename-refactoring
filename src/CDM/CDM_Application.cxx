@@ -67,7 +67,7 @@ void CDM_Application::Write(const Standard_ExtString aString)
 
 void CDM_Application::BeginOfUpdate(const Handle(CDM_Document)& /*aDocument*/)
 {
-  TCollection_ExtendedString updating("Updating: ");
+  UtfString updating("Updating: ");
   updating += "Document";
   Write(updating.ToExtString());
 }
@@ -76,9 +76,9 @@ void CDM_Application::BeginOfUpdate(const Handle(CDM_Document)& /*aDocument*/)
 
 void CDM_Application::EndOfUpdate(const Handle(CDM_Document)& /*aDocument*/,
                                   const Standard_Boolean theStatus,
-                                  const TCollection_ExtendedString& /*ErrorString*/)
+                                  const UtfString& /*ErrorString*/)
 {
-  TCollection_ExtendedString message;
+  UtfString message;
   if (theStatus)
     message = "Updated: ";
   else
@@ -93,10 +93,10 @@ void CDM_Application::EndOfUpdate(const Handle(CDM_Document)& /*aDocument*/,
 // purpose  : returns the application name
 //=======================================================================
 
-TCollection_ExtendedString CDM_Application::Name() const
+UtfString CDM_Application::Name() const
 {
   // Default: empty
-  return TCollection_ExtendedString();
+  return UtfString();
 }
 
 //=======================================================================
@@ -104,10 +104,10 @@ TCollection_ExtendedString CDM_Application::Name() const
 // purpose  : returns the application version
 //=======================================================================
 
-TCollection_AsciiString CDM_Application::Version() const
+AsciiString1 CDM_Application::Version() const
 {
   // Default: empty
-  return TCollection_AsciiString();
+  return AsciiString1();
 }
 
 //=======================================================================

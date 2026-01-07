@@ -32,7 +32,7 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <GeomAbs_CurveType.hxx>
 
-class TopoDS_Edge;
+class TopoEdge;
 class Point3d;
 class Vector3d;
 class gp_Lin;
@@ -40,8 +40,8 @@ class gp_Circ;
 class gp_Elips;
 class gp_Hypr;
 class gp_Parab;
-class Geom_BezierCurve;
-class Geom_BSplineCurve;
+class BezierCurve3d;
+class BSplineCurve3d;
 
 DEFINE_STANDARD_HANDLE(BRepAdaptor_CompCurve, Adaptor3d_Curve)
 
@@ -63,12 +63,12 @@ public:
   Standard_EXPORT BRepAdaptor_CompCurve();
 
   Standard_EXPORT BRepAdaptor_CompCurve(
-    const TopoDS_Wire&     W,
+    const TopoWire&     W,
     const Standard_Boolean KnotByCurvilinearAbcissa = Standard_False);
 
   //! Creates a Curve  to  access the geometry of edge
   //! <W>.
-  Standard_EXPORT BRepAdaptor_CompCurve(const TopoDS_Wire&     W,
+  Standard_EXPORT BRepAdaptor_CompCurve(const TopoWire&     W,
                                         const Standard_Boolean KnotByCurvilinearAbcissa,
                                         const Standard_Real    First,
                                         const Standard_Real    Last,
@@ -78,22 +78,22 @@ public:
   Standard_EXPORT virtual Handle(Adaptor3d_Curve) ShallowCopy() const Standard_OVERRIDE;
 
   //! Sets the  wire <W>.
-  Standard_EXPORT void Initialize(const TopoDS_Wire&     W,
+  Standard_EXPORT void Initialize(const TopoWire&     W,
                                   const Standard_Boolean KnotByCurvilinearAbcissa);
 
   //! Sets wire <W> and trimmed  parameter.
-  Standard_EXPORT void Initialize(const TopoDS_Wire&     W,
+  Standard_EXPORT void Initialize(const TopoWire&     W,
                                   const Standard_Boolean KnotByCurvilinearAbcissa,
                                   const Standard_Real    First,
                                   const Standard_Real    Last,
                                   const Standard_Real    Tol);
 
   //! Returns the wire.
-  Standard_EXPORT const TopoDS_Wire& Wire() const;
+  Standard_EXPORT const TopoWire& Wire() const;
 
   //! returns an  edge  and   one  parameter on them
   //! corresponding to the parameter U.
-  Standard_EXPORT void Edge(const Standard_Real U, TopoDS_Edge& E, Standard_Real& UonE) const;
+  Standard_EXPORT void Edge(const Standard_Real U, TopoEdge& E, Standard_Real& UonE) const;
 
   Standard_EXPORT Standard_Real FirstParameter() const Standard_OVERRIDE;
 
@@ -189,9 +189,9 @@ public:
 
   Standard_EXPORT Standard_Integer NbKnots() const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Geom_BezierCurve) Bezier() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BezierCurve3d) Bezier() const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Geom_BSplineCurve) BSpline() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BSplineCurve3d) BSpline() const Standard_OVERRIDE;
 
 protected:
 private:
@@ -201,7 +201,7 @@ private:
                                   Standard_Real&         F,
                                   Standard_Real&         D) const;
 
-  TopoDS_Wire                        myWire;
+  TopoWire                        myWire;
   Standard_Real                      TFirst;
   Standard_Real                      TLast;
   Standard_Real                      PTol;

@@ -23,7 +23,7 @@
 #include <IFSelect_SelectCombine.hxx>
 class Interface_EntityIterator;
 class Interface_Graph;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_SelectIntersection;
 DEFINE_STANDARD_HANDLE(IFSelect_SelectIntersection, IFSelect_SelectCombine)
@@ -43,7 +43,7 @@ public:
     RootResult(const Interface_Graph& G) const Standard_OVERRIDE;
 
   //! Returns a text defining the criterium : "Intersection (AND)"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectIntersection, IFSelect_SelectCombine)
 

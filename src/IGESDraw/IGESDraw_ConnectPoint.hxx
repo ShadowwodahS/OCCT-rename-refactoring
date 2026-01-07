@@ -31,7 +31,7 @@ class IGESDraw_ConnectPoint;
 DEFINE_STANDARD_HANDLE(IGESDraw_ConnectPoint, IGESData_IGESEntity)
 
 //! defines IGESConnectPoint, Type <132> Form Number <0>
-//! in package IGESDraw
+//! in package IGESDraw1
 //!
 //! Connect Point Entity describes a point of connection for
 //! zero, one or more entities. Its referenced from Composite

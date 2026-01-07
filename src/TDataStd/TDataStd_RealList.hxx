@@ -25,7 +25,7 @@
 #include <Standard_OStream.hxx>
 #include <Standard_GUID.hxx>
 
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 
 class TDataStd_RealList;
@@ -42,10 +42,10 @@ public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
   //! Finds or creates a list of double values attribute.
-  Standard_EXPORT static Handle(TDataStd_RealList) Set(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataStd_RealList) Set(const DataLabel& label);
 
   //! Finds or creates a list of double values attribute with explicit user defined <guid>.
-  Standard_EXPORT static Handle(TDataStd_RealList) Set(const TDF_Label&     label,
+  Standard_EXPORT static Handle(TDataStd_RealList) Set(const DataLabel&     label,
                                                        const Standard_GUID& theGuid);
 
   Standard_EXPORT TDataStd_RealList();

@@ -176,10 +176,10 @@ public:
   Standard_EXPORT void AddModifier(const XCAFDimTolObjects_DimensionModif theModifier);
 
   //! Returns a 'curve' along which the dimension is measured.
-  Standard_EXPORT TopoDS_Edge GetPath() const;
+  Standard_EXPORT TopoEdge GetPath() const;
 
   //! Sets a 'curve' along which the dimension is measured.
-  Standard_EXPORT void SetPath(const TopoDS_Edge& thePath);
+  Standard_EXPORT void SetPath(const TopoEdge& thePath);
 
   //! Returns the orientation of the dimension in annotation plane.
   Standard_EXPORT Standard_Boolean GetDirection(Dir3d& theDir) const;
@@ -243,7 +243,7 @@ public:
   Point3d GetPoint2() const { return myPnt2; }
 
   //! Set graphical presentation for the object.
-  void SetPresentation(const TopoDS_Shape&                     thePresentation,
+  void SetPresentation(const TopoShape&                     thePresentation,
                        const Handle(TCollection_HAsciiString)& thePresentationName)
   {
     myPresentation     = thePresentation;
@@ -251,7 +251,7 @@ public:
   }
 
   //! Returns graphical presentation of the object.
-  TopoDS_Shape GetPresentation() const { return myPresentation; }
+  TopoShape GetPresentation() const { return myPresentation; }
 
   //! Returns graphical presentation of the object
   Standard_EXPORT Handle(TCollection_HAsciiString) GetPresentationName() const
@@ -308,7 +308,7 @@ private:
   Standard_Integer                                     myL;
   Standard_Integer                                     myR;
   XCAFDimTolObjects_DimensionModifiersSequence         myModifiers;
-  TopoDS_Edge                                          myPath;
+  TopoEdge                                          myPath;
   Dir3d                                               myDir;
   Point3d                                               myPnt1, myPnt2;
   Standard_Boolean                                     myHasPoint1, myHasPoint2;
@@ -316,7 +316,7 @@ private:
   Standard_Boolean                                     myHasPlane;
   Standard_Boolean                                     myHasPntText;
   Point3d                                               myPntText;
-  TopoDS_Shape                                         myPresentation;
+  TopoShape                                         myPresentation;
   Handle(TCollection_HAsciiString)                     mySemanticName;
   Handle(TCollection_HAsciiString)                     myPresentationName;
   NCollection_Vector<Handle(TCollection_HAsciiString)> myDescriptions;

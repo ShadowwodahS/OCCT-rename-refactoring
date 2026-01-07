@@ -24,13 +24,13 @@ class LDOM_Attr;
 //  Class LDOM_BasicAttribute
 //
 
-class LDOM_BasicAttribute : public LDOM_BasicNode
+class LDOM_BasicAttribute : public BasicNode
 {
 public:
   // ---------- PUBLIC METHODS ----------
 
   LDOM_BasicAttribute()
-      : LDOM_BasicNode(LDOM_Node::UNKNOWN),
+      : BasicNode(LDOM_Node::UNKNOWN),
         myName(NULL)
   {
   }
@@ -60,7 +60,7 @@ private:
   // ---------- PRIVATE METHODS ----------
 
   LDOM_BasicAttribute(const LDOMBasicString& aName)
-      : LDOM_BasicNode(LDOM_Node::ATTRIBUTE_NODE),
+      : BasicNode(LDOM_Node::ATTRIBUTE_NODE),
         myName(aName.GetString())
   {
   }

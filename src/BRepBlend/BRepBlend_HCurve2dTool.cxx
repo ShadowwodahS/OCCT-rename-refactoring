@@ -22,7 +22,7 @@
 #include <GeomAbs_CurveType.hxx>
 
 //============================================================
-Standard_Integer BRepBlend_HCurve2dTool::NbSamples(const Handle(Adaptor2d_Curve2d)& C,
+Standard_Integer HCurve2dTool::NbSamples(const Handle(Adaptor2d_Curve2d)& C,
                                                    const Standard_Real              U0,
                                                    const Standard_Real              U1)
 {

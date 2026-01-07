@@ -34,11 +34,11 @@ class DFBrowser_Module;
 class DFBrowser_TreeModel;
 
 //! \class DFBrowser_TreeModel
-//! Tree model that has items described TDocStd_Application. The structure of items is the
+//! Tree model that has items described AppManager. The structure of items is the
 //! following:
-//! -  <DFBrowser_ItemApplication>: for TDocStd_Application
-//! -    <DFBrowser_ItemDocument>: for TDocStd_Document
-//!-       <DFBrowser_Item>: for either TDF_Label or TDF_Attribute
+//! -  <DFBrowser_ItemApplication>: for AppManager
+//! -    <DFBrowser_ItemDocument>: for AppDocument
+//!-       <DFBrowser_Item>: for either DataLabel or TDF_Attribute
 //! It is possible to visualize some items as highlighted.
 class DFBrowser_TreeModel : public TreeModel_ModelBase
 {
@@ -54,14 +54,14 @@ public:
   Standard_EXPORT virtual void InitColumns() Standard_OVERRIDE;
 
   //! Fills the root item by the application
-  Standard_EXPORT void Init(const Handle(TDocStd_Application)& theApplication);
+  Standard_EXPORT void Init(const Handle(AppManager)& theApplication);
 
   //! Fills root item by the module
   Standard_EXPORT void SetModule(DFBrowser_Module* theModule);
 
   //! Returns an OCAF application or NULL
   //! \return an application instance
-  Standard_EXPORT Handle(TDocStd_Application) GetTDocStdApplication() const;
+  Standard_EXPORT Handle(AppManager) GetTDocStdApplication() const;
 
   //! Returns true if the tree view model contains highlighted items. This highlight is set
   //! manually.
@@ -78,7 +78,7 @@ public:
   //! starting from the rools label it descends by the found labels till the parameter label.
   //! \param theLabel an OCAF label
   //! \return model index if the value is found or Null model index
-  Standard_EXPORT QModelIndex FindIndex(const TDF_Label& theLabel) const;
+  Standard_EXPORT QModelIndex FindIndex(const DataLabel& theLabel) const;
 
   //! Returns tree model index by list of label entries and (possible) attribute name.
   //! \param theLabelEntries a container of label entries starting from root till searched label
@@ -93,7 +93,7 @@ public:
   Standard_EXPORT QModelIndex FindIndexByAttribute(Handle(TDF_Attribute) theAttribute) const;
 
   //! Returns tree model indices for the labels.
-  Standard_EXPORT void ConvertToIndices(const NCollection_List<TDF_Label>& theReferences,
+  Standard_EXPORT void ConvertToIndices(const NCollection_List<DataLabel>& theReferences,
                                         QModelIndexList&                   theIndices);
 
   //! Returns tree model indices of references

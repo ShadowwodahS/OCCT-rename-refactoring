@@ -34,7 +34,7 @@ AdvApprox_SimpleApprox::AdvApprox_SimpleApprox(const Standard_Integer           
                                                const Standard_Integer               WorkDegree,
                                                const Standard_Integer               NbGaussPoints,
                                                const Handle(PLib_JacobiPolynomial)& JacobiBase,
-                                               const AdvApprox_EvaluatorFunction&   Func)
+                                               const EvaluatorFunction&   Func)
     : myTotalNumSS(TotalNumSS),
       myTotalDimension(TotalDimension),
       myNbGaussPoints(NbGaussPoints),
@@ -93,7 +93,7 @@ void AdvApprox_SimpleApprox::Perform(const TColStd_Array1OfInteger& LocalDimensi
   Standard_Integer i, idim, k, numss;
 
   Standard_Integer             Dimension = myTotalDimension;
-  AdvApprox_EvaluatorFunction& Evaluator = *(AdvApprox_EvaluatorFunction*)myEvaluator;
+  EvaluatorFunction& Evaluator = *(EvaluatorFunction*)myEvaluator;
 
   // ===== the computation of Rr(t) (the first part of Pp) ======
 

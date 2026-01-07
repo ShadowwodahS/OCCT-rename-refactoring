@@ -20,12 +20,12 @@
 
 //=================================================================================================
 
-void Geom2dEvaluator::CalculateD0(gp_Pnt2d&           theValue,
+void Geom2dEvaluator1::CalculateD0(gp_Pnt2d&           theValue,
                                   const gp_Vec2d&     theD1,
                                   const Standard_Real theOffset)
 {
   if (theD1.SquareMagnitude() <= gp::Resolution())
-    throw Standard_NullValue("Geom2dEvaluator: Undefined normal vector "
+    throw Standard_NullValue("Geom2dEvaluator1: Undefined normal vector "
                              "because tangent vector has zero-magnitude!");
 
   gp_Dir2d aNormal(theD1.Y(), -theD1.X());
@@ -34,7 +34,7 @@ void Geom2dEvaluator::CalculateD0(gp_Pnt2d&           theValue,
 
 //=================================================================================================
 
-void Geom2dEvaluator::CalculateD1(gp_Pnt2d&           theValue,
+void Geom2dEvaluator1::CalculateD1(gp_Pnt2d&           theValue,
                                   gp_Vec2d&           theD1,
                                   const gp_Vec2d&     theD2,
                                   const Standard_Real theOffset)
@@ -44,8 +44,8 @@ void Geom2dEvaluator::CalculateD1(gp_Pnt2d&           theValue,
 
   // P'(u) = p'(u) + (Offset / R**2) * (DNdir/DU * R -  Ndir * (DR/R))
 
-  gp_XY         Ndir(theD1.Y(), -theD1.X());
-  gp_XY         DNdir(theD2.Y(), -theD2.X());
+  Coords2d         Ndir(theD1.Y(), -theD1.X());
+  Coords2d         DNdir(theD2.Y(), -theD2.X());
   Standard_Real R2 = Ndir.SquareModulus();
   Standard_Real R  = Sqrt(R2);
   Standard_Real R3 = R * R2;
@@ -75,7 +75,7 @@ void Geom2dEvaluator::CalculateD1(gp_Pnt2d&           theValue,
 
 //=================================================================================================
 
-void Geom2dEvaluator::CalculateD2(gp_Pnt2d&              theValue,
+void Geom2dEvaluator1::CalculateD2(gp_Pnt2d&              theValue,
                                   gp_Vec2d&              theD1,
                                   gp_Vec2d&              theD2,
                                   const gp_Vec2d&        theD3,
@@ -90,9 +90,9 @@ void Geom2dEvaluator::CalculateD2(gp_Pnt2d&              theValue,
   // P"(u) = p"(u) + (Offset / R) * (D2Ndir/DU - DNdir * (2.0 * Dr/ R**2) +
   //         Ndir * ( (3.0 * Dr**2 / R**4) - (D2r / R**2)))
 
-  gp_XY         Ndir(theD1.Y(), -theD1.X());
-  gp_XY         DNdir(theD2.Y(), -theD2.X());
-  gp_XY         D2Ndir(theD3.Y(), -theD3.X());
+  Coords2d         Ndir(theD1.Y(), -theD1.X());
+  Coords2d         DNdir(theD2.Y(), -theD2.X());
+  Coords2d         D2Ndir(theD3.Y(), -theD3.X());
   Standard_Real R2  = Ndir.SquareModulus();
   Standard_Real R   = Sqrt(R2);
   Standard_Real R3  = R2 * R;
@@ -103,7 +103,7 @@ void Geom2dEvaluator::CalculateD2(gp_Pnt2d&              theValue,
   if (R5 <= gp::Resolution())
   {
     if (R4 <= gp::Resolution())
-      throw Standard_NullValue("Geom2dEvaluator: Null derivative");
+      throw Standard_NullValue("Geom2dEvaluator1: Null derivative");
     // We try another computation but the stability is not very good dixit ISG.
     //  V2 = P" (U) :
     D2Ndir.Subtract(DNdir.Multiplied(2.0 * Dr / R2));
@@ -141,7 +141,7 @@ void Geom2dEvaluator::CalculateD2(gp_Pnt2d&              theValue,
 
 //=================================================================================================
 
-void Geom2dEvaluator::CalculateD3(gp_Pnt2d&              theValue,
+void Geom2dEvaluator1::CalculateD3(gp_Pnt2d&              theValue,
                                   gp_Vec2d&              theD1,
                                   gp_Vec2d&              theD2,
                                   gp_Vec2d&              theD3,
@@ -162,10 +162,10 @@ void Geom2dEvaluator::CalculateD3(gp_Pnt2d&              theValue,
   //          (D3r/R2) * Ndir + (6.0 * Dr * Dr / R4) * Ndir +
   //          (6.0 * Dr * D2r / R4) * Ndir - (15.0 * Dr* Dr* Dr /R6) * Ndir
 
-  gp_XY         Ndir(theD1.Y(), -theD1.X());
-  gp_XY         DNdir(theD2.Y(), -theD2.X());
-  gp_XY         D2Ndir(theD3.Y(), -theD3.X());
-  gp_XY         D3Ndir(theD4.Y(), -theD4.X());
+  Coords2d         Ndir(theD1.Y(), -theD1.X());
+  Coords2d         DNdir(theD2.Y(), -theD2.X());
+  Coords2d         D2Ndir(theD3.Y(), -theD3.X());
+  Coords2d         D3Ndir(theD4.Y(), -theD4.X());
   Standard_Real R2  = Ndir.SquareModulus();
   Standard_Real R   = Sqrt(R2);
   Standard_Real R3  = R2 * R;
@@ -180,7 +180,7 @@ void Geom2dEvaluator::CalculateD3(gp_Pnt2d&              theValue,
   if (R7 <= gp::Resolution())
   {
     if (R6 <= gp::Resolution())
-      throw Standard_NullValue("Geom2dEvaluator: Null derivative");
+      throw Standard_NullValue("Geom2dEvaluator1: Null derivative");
     // We try another computation but the stability is not very good dixit ISG.
     //  V3 = P"' (U) :
     D3Ndir.Subtract(D2Ndir.Multiplied(3.0 * theOffset * Dr / R2));

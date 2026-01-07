@@ -58,9 +58,9 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
   GeomAbs_CurveType           Type1 = C1.GetType();
   GeomAbs_CurveType           Type2 = C2.GetType();
   GeomAbs_CurveType           Type3 = OnCurve.GetType();
-  const Handle(Geom2d_Curve)& CC1   = C1.Curve();
-  const Handle(Geom2d_Curve)& CC2   = C2.Curve();
-  const Handle(Geom2d_Curve)& Con   = OnCurve.Curve();
+  const Handle(GeomCurve2d)& CC1   = C1.Curve();
+  const Handle(GeomCurve2d)& CC2   = C2.Curve();
+  const Handle(GeomCurve2d)& Con   = OnCurve.Curve();
 
   //=============================================================================
   //                            Appel a GccAna.                                 +
@@ -85,7 +85,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           if (Type3 == GeomAbs_Circle)
           {
             Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
-            GccAna_Circ2d2TanOn   CircAna(Qc1,
+            Circle2dTwoTangentOn   CircAna(Qc1,
                                         GccEnt_QualifiedCirc(c2, Qualified2.Qualifier()),
                                         CCon->Circ2d(),
                                         Tolerance);
@@ -103,7 +103,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           else
           {
             Handle(Geom2d_Line) LLon = Handle(Geom2d_Line)::DownCast(Con);
-            GccAna_Circ2d2TanOn CircAna(Qc1,
+            Circle2dTwoTangentOn CircAna(Qc1,
                                         GccEnt_QualifiedCirc(c2, Qualified2.Qualifier()),
                                         LLon->Lin2d(),
                                         Tolerance);
@@ -126,7 +126,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           if (Type3 == GeomAbs_Circle)
           {
             Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
-            GccAna_Circ2d2TanOn   CircAna(Qc1,
+            Circle2dTwoTangentOn   CircAna(Qc1,
                                         GccEnt_QualifiedLin(l2, Qualified2.Qualifier()),
                                         CCon->Circ2d(),
                                         Tolerance);
@@ -144,7 +144,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           else
           {
             Handle(Geom2d_Line) LLon = Handle(Geom2d_Line)::DownCast(Con);
-            GccAna_Circ2d2TanOn CircAna(Qc1,
+            Circle2dTwoTangentOn CircAna(Qc1,
                                         GccEnt_QualifiedLin(l2, Qualified2.Qualifier()),
                                         LLon->Lin2d(),
                                         Tolerance);
@@ -173,7 +173,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           if (Type3 == GeomAbs_Circle)
           {
             Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
-            GccAna_Circ2d2TanOn   CircAna(GccEnt_QualifiedCirc(c2, Qualified2.Qualifier()),
+            Circle2dTwoTangentOn   CircAna(GccEnt_QualifiedCirc(c2, Qualified2.Qualifier()),
                                         Ql1,
                                         CCon->Circ2d(),
                                         Tolerance);
@@ -192,7 +192,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           else
           {
             Handle(Geom2d_Line) LLon = Handle(Geom2d_Line)::DownCast(Con);
-            GccAna_Circ2d2TanOn CircAna(GccEnt_QualifiedCirc(c2, Qualified2.Qualifier()),
+            Circle2dTwoTangentOn CircAna(GccEnt_QualifiedCirc(c2, Qualified2.Qualifier()),
                                         Ql1,
                                         LLon->Lin2d(),
                                         Tolerance);
@@ -216,7 +216,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           if (Type3 == GeomAbs_Circle)
           {
             Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
-            GccAna_Circ2d2TanOn   CircAna(Ql1,
+            Circle2dTwoTangentOn   CircAna(Ql1,
                                         GccEnt_QualifiedLin(l2, Qualified2.Qualifier()),
                                         CCon->Circ2d(),
                                         Tolerance);
@@ -234,7 +234,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
           else
           {
             Handle(Geom2d_Line) LLon = Handle(Geom2d_Line)::DownCast(Con);
-            GccAna_Circ2d2TanOn CircAna(Ql1,
+            Circle2dTwoTangentOn CircAna(Ql1,
                                         GccEnt_QualifiedLin(l2, Qualified2.Qualifier()),
                                         LLon->Lin2d(),
                                         Tolerance);
@@ -463,8 +463,8 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
   Geom2dAdaptor_Curve         C1    = Qualified1.Qualified();
   GeomAbs_CurveType           Type1 = C1.GetType();
   GeomAbs_CurveType           Type3 = OnCurve.GetType();
-  const Handle(Geom2d_Curve)& CC1   = C1.Curve();
-  const Handle(Geom2d_Curve)& Con   = OnCurve.Curve();
+  const Handle(GeomCurve2d)& CC1   = C1.Curve();
+  const Handle(GeomCurve2d)& Con   = OnCurve.Curve();
 
   //=============================================================================
   //                            Appel a GccAna.                                 +
@@ -485,7 +485,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
         if (Type3 == GeomAbs_Circle)
         {
           Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
-          GccAna_Circ2d2TanOn   CircAna(Qc1, pnt, CCon->Circ2d(), Tolerance);
+          Circle2dTwoTangentOn   CircAna(Qc1, pnt, CCon->Circ2d(), Tolerance);
           WellDone = CircAna.IsDone();
           if (WellDone)
           {
@@ -500,7 +500,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
         else if (Type3 == GeomAbs_Line)
         {
           Handle(Geom2d_Line) CCon = Handle(Geom2d_Line)::DownCast(Con);
-          GccAna_Circ2d2TanOn CircAna(Qc1, pnt, CCon->Lin2d(), Tolerance);
+          Circle2dTwoTangentOn CircAna(Qc1, pnt, CCon->Lin2d(), Tolerance);
           WellDone = CircAna.IsDone();
           if (WellDone)
           {
@@ -521,7 +521,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
         if (Type3 == GeomAbs_Circle)
         {
           Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
-          GccAna_Circ2d2TanOn   CircAna(Ql1, pnt, CCon->Circ2d(), Tolerance);
+          Circle2dTwoTangentOn   CircAna(Ql1, pnt, CCon->Circ2d(), Tolerance);
           WellDone = CircAna.IsDone();
           if (WellDone)
           {
@@ -536,7 +536,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Geom2dGcc_QualifiedCurve& Q
         else if (Type3 == GeomAbs_Line)
         {
           Handle(Geom2d_Line) LLon = Handle(Geom2d_Line)::DownCast(Con);
-          GccAna_Circ2d2TanOn CircAna(Ql1, pnt, LLon->Lin2d(), Tolerance);
+          Circle2dTwoTangentOn CircAna(Ql1, pnt, LLon->Lin2d(), Tolerance);
           WellDone = CircAna.IsDone();
           if (WellDone)
           {
@@ -704,7 +704,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Handle(Geom2d_Point)& Point
       parcen3(1, 8)
 {
   GeomAbs_CurveType           Type3 = OnCurve.GetType();
-  const Handle(Geom2d_Curve)& Con   = OnCurve.Curve();
+  const Handle(GeomCurve2d)& Con   = OnCurve.Curve();
 
   //=============================================================================
   //                            Appel a GccAna.                                 +
@@ -719,7 +719,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Handle(Geom2d_Point)& Point
     if (Type3 == GeomAbs_Circle)
     {
       Handle(Geom2d_Circle) CCon = Handle(Geom2d_Circle)::DownCast(Con);
-      GccAna_Circ2d2TanOn   CircAna(pnt1, pnt2, CCon->Circ2d(), Tolerance);
+      Circle2dTwoTangentOn   CircAna(pnt1, pnt2, CCon->Circ2d(), Tolerance);
       WellDone = CircAna.IsDone();
       if (WellDone)
       {
@@ -734,7 +734,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Handle(Geom2d_Point)& Point
     else
     {
       Handle(Geom2d_Line) LLon = Handle(Geom2d_Line)::DownCast(Con);
-      GccAna_Circ2d2TanOn CircAna(pnt1, pnt2, LLon->Lin2d(), Tolerance);
+      Circle2dTwoTangentOn CircAna(pnt1, pnt2, LLon->Lin2d(), Tolerance);
       WellDone = CircAna.IsDone();
       if (WellDone)
       {
@@ -768,7 +768,7 @@ Geom2dGcc_Circ2d2TanOn::Geom2dGcc_Circ2d2TanOn(const Handle(Geom2d_Point)& Point
   }
 }
 
-void Geom2dGcc_Circ2d2TanOn::Results(const GccAna_Circ2d2TanOn& Circ)
+void Geom2dGcc_Circ2d2TanOn::Results(const Circle2dTwoTangentOn& Circ)
 {
   for (Standard_Integer j = 1; j <= NbrSol; j++)
   {

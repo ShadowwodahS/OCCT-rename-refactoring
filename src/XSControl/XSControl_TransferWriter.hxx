@@ -25,7 +25,7 @@
 #include <Transfer_FinderProcess.hxx>
 class XSControl_Controller;
 class Interface_InterfaceModel;
-class TopoDS_Shape;
+class TopoShape;
 class Interface_CheckIterator;
 
 class XSControl_TransferWriter;
@@ -101,7 +101,7 @@ public:
 
   //! Tells if a Shape is valid for a transfer to a model
   //! Asks the Controller (RecognizeWriteShape)
-  Standard_EXPORT Standard_Boolean RecognizeShape(const TopoDS_Shape& theShape);
+  Standard_EXPORT Standard_Boolean RecognizeShape(const TopoShape& theShape);
 
   //! Transfers a Shape from CasCade to a model of current norm,
   //! according to the last call to SetTransferMode
@@ -110,7 +110,7 @@ public:
   //! transfer badly initialised
   Standard_EXPORT IFSelect_ReturnStatus
     TransferWriteShape(const Handle(Interface_InterfaceModel)& theModel,
-                       const TopoDS_Shape&                     theShape,
+                       const TopoShape&                     theShape,
                        const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Returns the check-list of last transfer (write), i.e. the

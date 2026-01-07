@@ -20,12 +20,12 @@
 #include <TDataStd_DataMapOfStringHArray1OfInteger.hxx>
 #include <TDataStd_DataMapOfStringHArray1OfReal.hxx>
 
-static const TCollection_ExtendedString& String(Handle(StdObjMgt_Persistent) theValue)
+static const UtfString& String(Handle(StdObjMgt_Persistent) theValue)
 {
   if (theValue)
     return theValue->ExtString()->String();
 
-  static TCollection_ExtendedString anEmptyString;
+  static UtfString anEmptyString;
   return anEmptyString;
 }
 

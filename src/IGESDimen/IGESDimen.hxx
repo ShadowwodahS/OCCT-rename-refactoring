@@ -26,7 +26,7 @@ class IGESDimen_Protocol;
 //! This package represents Entities applied to Dimensions
 //! ie. Annotation Entities and attached Properties and
 //! Associativities.
-class IGESDimen
+class IGESDimen1
 {
 public:
   DEFINE_STANDARD_ALLOC

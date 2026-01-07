@@ -31,7 +31,7 @@ class IGESDraw_NetworkSubfigureDef;
 DEFINE_STANDARD_HANDLE(IGESDraw_NetworkSubfigureDef, IGESData_IGESEntity)
 
 //! defines IGESNetworkSubfigureDef,
-//! Type <320> Form Number <0> in package IGESDraw
+//! Type <320> Form Number <0> in package IGESDraw1
 //!
 //! This class differs from the ordinary subfigure definition
 //! in that it defines a specialized subfigure, one whose

@@ -18,7 +18,7 @@
 // purpose  :
 //=======================================================================
 
-inline void ShapeUpgrade_EdgeDivide::SetFace(const TopoDS_Face& F)
+inline void ShapeUpgrade_EdgeDivide::SetFace(const TopoFace& F)
 {
   myFace = F;
 }

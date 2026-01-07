@@ -21,7 +21,7 @@
 
 /**
  *  Implementation of the Geometry node.
- *  Contains the topological representation (TopoDS_Shell) of the VRML geometry
+ *  Contains the topological representation (TopoShell) of the VRML geometry
  */
 
 class VrmlData_Geometry : public VrmlData_Node

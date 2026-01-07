@@ -42,11 +42,11 @@ public:
 
   //! Initializes algorithm by the face F
   //! and tolerance Tol
-  Standard_EXPORT IntTools_FClass2d(const TopoDS_Face& F, const Standard_Real Tol);
+  Standard_EXPORT IntTools_FClass2d(const TopoFace& F, const Standard_Real Tol);
 
   //! Initializes algorithm by the face F
   //! and tolerance Tol
-  Standard_EXPORT void Init(const TopoDS_Face& F, const Standard_Real Tol);
+  Standard_EXPORT void Init(const TopoFace& F, const Standard_Real Tol);
 
   //! Returns state of infinite 2d point relatively to (0, 0)
   Standard_EXPORT TopAbs_State PerformInfinitePoint() const;
@@ -75,7 +75,7 @@ private:
   BRepTopAdaptor_SeqOfPtr   TabClass;
   TColStd_SequenceOfInteger TabOrien;
   Standard_Real             Toluv;
-  TopoDS_Face               Face;
+  TopoFace               Face;
   Standard_Real             U1;
   Standard_Real             V1;
   Standard_Real             U2;

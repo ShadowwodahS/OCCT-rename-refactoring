@@ -23,7 +23,7 @@
 #include <Standard_GUID.hxx>
 #include <TDF_ChildIterator.hxx>
 class TDF_Attribute;
-class TDF_Label;
+class DataLabel;
 
 //! Iterates on the children of a label, to find
 //! attributes having ID as Attribute ID.
@@ -40,7 +40,7 @@ public:
   //! Iterates on the children of the given label. If
   //! <allLevels> option is set to true, it explores not
   //! only the first, but all the sub label levels.
-  Standard_EXPORT TDF_ChildIDIterator(const TDF_Label&       aLabel,
+  Standard_EXPORT TDF_ChildIDIterator(const DataLabel&       aLabel,
                                       const Standard_GUID&   anID,
                                       const Standard_Boolean allLevels = Standard_False);
 
@@ -48,7 +48,7 @@ public:
   //! given label. If <allLevels> option is set to true,
   //! it explores not only the first, but all the sub
   //! label levels.
-  Standard_EXPORT void Initialize(const TDF_Label&       aLabel,
+  Standard_EXPORT void Initialize(const DataLabel&       aLabel,
                                   const Standard_GUID&   anID,
                                   const Standard_Boolean allLevels = Standard_False);
 

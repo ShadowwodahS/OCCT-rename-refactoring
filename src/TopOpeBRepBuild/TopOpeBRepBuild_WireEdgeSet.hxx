@@ -26,11 +26,11 @@
 #include <TopAbs_Orientation.hxx>
 #include <Standard_Integer.hxx>
 #include <TCollection_AsciiString.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class gp_Pnt2d;
 class gp_Vec2d;
-class TopoDS_Edge;
-class TCollection_AsciiString;
+class TopoEdge;
+class AsciiString1;
 
 //! a bound is a wire, a boundelement is an edge.
 //! The ShapeSet stores :
@@ -45,54 +45,54 @@ public:
   //! Creates a WireEdgeSet to build edges connected by vertices
   //! on face F. Edges of the WireEdgeSet must have a representation
   //! on surface of face F.
-  Standard_EXPORT TopOpeBRepBuild_WireEdgeSet(const TopoDS_Shape&    F,
+  Standard_EXPORT TopOpeBRepBuild_WireEdgeSet(const TopoShape&    F,
                                               const Standard_Address Addr = NULL);
 
   //! value of field myFace
-  Standard_EXPORT const TopoDS_Face& Face() const;
+  Standard_EXPORT const TopoFace& Face() const;
 
-  Standard_EXPORT virtual void AddShape(const TopoDS_Shape& S) Standard_OVERRIDE;
+  Standard_EXPORT virtual void AddShape(const TopoShape& S) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void AddStartElement(const TopoDS_Shape& S) Standard_OVERRIDE;
+  Standard_EXPORT virtual void AddStartElement(const TopoShape& S) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void AddElement(const TopoDS_Shape& S) Standard_OVERRIDE;
+  Standard_EXPORT virtual void AddElement(const TopoShape& S) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void InitNeighbours(const TopoDS_Shape& E) Standard_OVERRIDE;
+  Standard_EXPORT virtual void InitNeighbours(const TopoShape& E) Standard_OVERRIDE;
 
   //! Build the list of neighbour edges of edge myCurrentShape
   //! Initialize iterator of neighbour edges to edge myCurrentShape
   Standard_EXPORT virtual void FindNeighbours() Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const TopTools_ListOfShape& MakeNeighboursList(const TopoDS_Shape& E,
-                                                                         const TopoDS_Shape& V)
+  Standard_EXPORT virtual const ShapeList& MakeNeighboursList(const TopoShape& E,
+                                                                         const TopoShape& V)
     Standard_OVERRIDE;
 
-  Standard_EXPORT static void IsUVISO(const TopoDS_Edge& E,
-                                      const TopoDS_Face& F,
+  Standard_EXPORT static void IsUVISO(const TopoEdge& E,
+                                      const TopoFace& F,
                                       Standard_Boolean&  uiso,
                                       Standard_Boolean&  viso);
 
   Standard_EXPORT virtual void DumpSS() Standard_OVERRIDE;
 
-  Standard_EXPORT virtual TCollection_AsciiString SName(
-    const TopoDS_Shape&            S,
-    const TCollection_AsciiString& sb = "",
-    const TCollection_AsciiString& sa = "") const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 SName(
+    const TopoShape&            S,
+    const AsciiString1& sb = "",
+    const AsciiString1& sa = "") const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual TCollection_AsciiString SName(
-    const TopTools_ListOfShape&    S,
-    const TCollection_AsciiString& sb = "",
-    const TCollection_AsciiString& sa = "") const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 SName(
+    const ShapeList&    S,
+    const AsciiString1& sb = "",
+    const AsciiString1& sa = "") const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual TCollection_AsciiString SNameori(
-    const TopoDS_Shape&            S,
-    const TCollection_AsciiString& sb = "",
-    const TCollection_AsciiString& sa = "") const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 SNameori(
+    const TopoShape&            S,
+    const AsciiString1& sb = "",
+    const AsciiString1& sa = "") const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual TCollection_AsciiString SNameori(
-    const TopTools_ListOfShape&    S,
-    const TCollection_AsciiString& sb = "",
-    const TCollection_AsciiString& sa = "") const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 SNameori(
+    const ShapeList&    S,
+    const AsciiString1& sb = "",
+    const AsciiString1& sa = "") const Standard_OVERRIDE;
 
 protected:
 private:
@@ -101,42 +101,42 @@ private:
   //! i.e, returns True if V is shared by E1 and E2 and if V has different
   //! orientations on E1 and E2.
   //! If V is shared by E1 and E2, returns the orientation of V on E1 and E2
-  Standard_EXPORT Standard_Boolean VertexConnectsEdges(const TopoDS_Shape& V,
-                                                       const TopoDS_Shape& E1,
-                                                       const TopoDS_Shape& E2,
+  Standard_EXPORT Standard_Boolean VertexConnectsEdges(const TopoShape& V,
+                                                       const TopoShape& E1,
+                                                       const TopoShape& E2,
                                                        TopAbs_Orientation& O1,
                                                        TopAbs_Orientation& O2) const;
 
-  Standard_EXPORT Standard_Boolean VertexConnectsEdgesClosing(const TopoDS_Shape& V,
-                                                              const TopoDS_Shape& E1,
-                                                              const TopoDS_Shape& E2) const;
+  Standard_EXPORT Standard_Boolean VertexConnectsEdgesClosing(const TopoShape& V,
+                                                              const TopoShape& E1,
+                                                              const TopoShape& E2) const;
 
-  Standard_EXPORT Standard_Integer NbClosingShapes(const TopTools_ListOfShape& L) const;
+  Standard_EXPORT Standard_Integer NbClosingShapes(const ShapeList& L) const;
 
-  Standard_EXPORT void LocalD1(const TopoDS_Shape& F,
-                               const TopoDS_Shape& E,
-                               const TopoDS_Shape& V,
+  Standard_EXPORT void LocalD1(const TopoShape& F,
+                               const TopoShape& E,
+                               const TopoShape& V,
                                gp_Pnt2d&           p2,
                                gp_Vec2d&           v2) const;
 
   //! indicates if the edge <E> is a closing edge of myFace
-  Standard_EXPORT Standard_Boolean IsClosed(const TopoDS_Shape& E) const;
+  Standard_EXPORT Standard_Boolean IsClosed(const TopoShape& E) const;
 
   //! indicates if the edge <E> is a closing edge on U of myFace
-  Standard_EXPORT Standard_Boolean IsUClosed(const TopoDS_Shape& E) const;
+  Standard_EXPORT Standard_Boolean IsUClosed(const TopoShape& E) const;
 
   //! indicates if the edge <E> is a closing edge on V of myFace
-  Standard_EXPORT Standard_Boolean IsVClosed(const TopoDS_Shape& E) const;
+  Standard_EXPORT Standard_Boolean IsVClosed(const TopoShape& E) const;
 
-  Standard_EXPORT TCollection_AsciiString SNameVEE(const TopoDS_Shape& V,
-                                                   const TopoDS_Shape& E1,
-                                                   const TopoDS_Shape& E2) const;
+  Standard_EXPORT AsciiString1 SNameVEE(const TopoShape& V,
+                                                   const TopoShape& E1,
+                                                   const TopoShape& E2) const;
 
-  Standard_EXPORT TCollection_AsciiString SNameVEL(const TopoDS_Shape&         V,
-                                                   const TopoDS_Shape&         E,
-                                                   const TopTools_ListOfShape& L) const;
+  Standard_EXPORT AsciiString1 SNameVEL(const TopoShape&         V,
+                                                   const TopoShape&         E,
+                                                   const ShapeList& L) const;
 
-  TopoDS_Face myFace;
+  TopoFace myFace;
 };
 
 #endif // _TopOpeBRepBuild_WireEdgeSet_HeaderFile

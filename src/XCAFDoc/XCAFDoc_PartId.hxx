@@ -17,6 +17,6 @@
 
 #include <TCollection_AsciiString.hxx>
 
-typedef TCollection_AsciiString XCAFDoc_PartId;
+typedef AsciiString1 XCAFDoc_PartId;
 
 #endif // _XCAFDoc_PartId_HeaderFile

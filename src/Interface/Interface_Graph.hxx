@@ -257,7 +257,7 @@ protected:
   Standard_EXPORT void InitStats();
 
   Handle(Interface_InterfaceModel)       themodel;
-  TCollection_AsciiString                thepresents;
+  AsciiString1                thepresents;
   Handle(TColStd_HArray1OfInteger)       thestats;
   Handle(TColStd_HArray1OfListOfInteger) thesharings;
 

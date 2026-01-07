@@ -65,7 +65,7 @@ public:
   Standard_EXPORT Standard_CString TypeName() const;
 
   //! Returns the type name as an AsciiString
-  Standard_EXPORT const TCollection_AsciiString& StepType() const;
+  Standard_EXPORT const AsciiString1& StepType() const;
 
   //! Returns the basic ESDescr, null if <me> is not derived
   Standard_EXPORT Handle(StepData_ESDescr) Base() const;
@@ -104,9 +104,9 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString                                        thenom;
+  AsciiString1                                        thenom;
   Handle(TColStd_HArray1OfTransient)                             thedescr;
-  NCollection_DataMap<TCollection_AsciiString, Standard_Integer> thenames;
+  NCollection_DataMap<AsciiString1, Standard_Integer> thenames;
   Handle(StepData_ESDescr)                                       thebase;
   Handle(StepData_ESDescr)                                       thesuper;
 };

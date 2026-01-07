@@ -24,9 +24,9 @@
 #include <BRepBuilderAPI_MakeShape.hxx>
 class Point3d;
 class Frame3d;
-class TopoDS_Shell;
-class TopoDS_Solid;
-class TopoDS_Face;
+class TopoShell;
+class TopoSolid;
+class TopoFace;
 
 //! Describes functions to build parallelepiped boxes.
 //! A MakeBox object provides a framework for:
@@ -47,30 +47,30 @@ class TopoDS_Face;
 //! system less than or equal to Precision::Confusion().
 //! In these cases, the box would be flat.
 
-class BRepPrimAPI_MakeBox : public BRepBuilderAPI_MakeShape
+class BoxMaker : public BRepBuilderAPI_MakeShape
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Default constructor
-  BRepPrimAPI_MakeBox() {}
+  BoxMaker() {}
 
   //! Make a box with a corner at 0,0,0 and the other dx,dy,dz
-  Standard_EXPORT BRepPrimAPI_MakeBox(const Standard_Real dx,
+  Standard_EXPORT BoxMaker(const Standard_Real dx,
                                       const Standard_Real dy,
                                       const Standard_Real dz);
 
   //! Make a box with a corner at P and size dx, dy, dz.
-  Standard_EXPORT BRepPrimAPI_MakeBox(const Point3d&       P,
+  Standard_EXPORT BoxMaker(const Point3d&       P,
                                       const Standard_Real dx,
                                       const Standard_Real dy,
                                       const Standard_Real dz);
 
   //! Make a box with corners P1,P2.
-  Standard_EXPORT BRepPrimAPI_MakeBox(const Point3d& P1, const Point3d& P2);
+  Standard_EXPORT BoxMaker(const Point3d& P1, const Point3d& P2);
 
   //! Make a box with Ax2 (the left corner and the axis) and size dx, dy, dz.
-  Standard_EXPORT BRepPrimAPI_MakeBox(const Frame3d&       Axes,
+  Standard_EXPORT BoxMaker(const Frame3d&       Axes,
                                       const Standard_Real dx,
                                       const Standard_Real dy,
                                       const Standard_Real dz);
@@ -103,30 +103,30 @@ public:
     const Message_ProgressRange& theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Returns the constructed box as a shell.
-  Standard_EXPORT const TopoDS_Shell& Shell();
-  Standard_EXPORT                     operator TopoDS_Shell();
+  Standard_EXPORT const TopoShell& Shell();
+  Standard_EXPORT                     operator TopoShell();
 
   //! Returns the constructed box as a solid.
-  Standard_EXPORT const TopoDS_Solid& Solid();
-  Standard_EXPORT                     operator TopoDS_Solid();
+  Standard_EXPORT const TopoSolid& Solid();
+  Standard_EXPORT                     operator TopoSolid();
 
   //! Returns ZMin face
-  Standard_EXPORT const TopoDS_Face& BottomFace();
+  Standard_EXPORT const TopoFace& BottomFace();
 
   //! Returns XMin face
-  Standard_EXPORT const TopoDS_Face& BackFace();
+  Standard_EXPORT const TopoFace& BackFace();
 
   //! Returns XMax face
-  Standard_EXPORT const TopoDS_Face& FrontFace();
+  Standard_EXPORT const TopoFace& FrontFace();
 
   //! Returns YMin face
-  Standard_EXPORT const TopoDS_Face& LeftFace();
+  Standard_EXPORT const TopoFace& LeftFace();
 
   //! Returns YMax face
-  Standard_EXPORT const TopoDS_Face& RightFace();
+  Standard_EXPORT const TopoFace& RightFace();
 
   //! Returns ZMax face
-  Standard_EXPORT const TopoDS_Face& TopFace();
+  Standard_EXPORT const TopoFace& TopFace();
 
 protected:
   BRepPrim_Wedge myWedge;

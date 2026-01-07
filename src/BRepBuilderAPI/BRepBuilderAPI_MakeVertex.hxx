@@ -24,7 +24,7 @@
 #include <BRepLib_MakeVertex.hxx>
 #include <BRepBuilderAPI_MakeShape.hxx>
 class Point3d;
-class TopoDS_Vertex;
+class TopoVertex;
 
 //! Describes functions to build BRepBuilder vertices directly
 //! from 3D geometric points. A vertex built using a
@@ -43,12 +43,12 @@ public:
   //! Constructs a vertex from point P.
   //! Example create a vertex from a 3D point.
   //! Point3d P(0,0,10);
-  //! TopoDS_Vertex V = BRepBuilderAPI_MakeVertex(P);
+  //! TopoVertex V = BRepBuilderAPI_MakeVertex(P);
   Standard_EXPORT BRepBuilderAPI_MakeVertex(const Point3d& P);
 
   //! Returns the constructed vertex.
-  Standard_EXPORT const TopoDS_Vertex& Vertex();
-  Standard_EXPORT                      operator TopoDS_Vertex();
+  Standard_EXPORT const TopoVertex& Vertex();
+  Standard_EXPORT                      operator TopoVertex();
 
 protected:
 private:

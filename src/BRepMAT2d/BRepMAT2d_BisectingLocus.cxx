@@ -273,7 +273,7 @@ Bisector_Bisec BRepMAT2d_BisectingLocus::GeomBis(const Handle(MAT_Arc)& anArc,
 {
   Reverse = Standard_False;
 
-  Handle(Geom2d_Curve) Bis(theTool.GeomBis(anArc->GeomIndex()).Value());
+  Handle(GeomCurve2d) Bis(theTool.GeomBis(anArc->GeomIndex()).Value());
 
   if (Bis->FirstParameter() <= -Precision::Infinite())
   {
@@ -329,7 +329,7 @@ static void CutSketch(MAT2d_SequenceOfSequenceOfGeometry& Figure,
     for (j = 1; j <= Contour.Length(); j++)
     {
       ICurveInit++;
-      Cuter.Perform(Handle(Geom2d_Curve)::DownCast(Contour.ChangeValue(j)));
+      Cuter.Perform(Handle(GeomCurve2d)::DownCast(Contour.ChangeValue(j)));
       NbSection = 1;
       if (!Cuter.UnModified())
       {

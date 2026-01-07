@@ -17,7 +17,7 @@
 
 //=================================================================================================
 
-IntTools_Range::IntTools_Range()
+IntToolsRange::IntToolsRange()
     : myFirst(0.),
       myLast(0.)
 {
@@ -25,7 +25,7 @@ IntTools_Range::IntTools_Range()
 
 //=================================================================================================
 
-IntTools_Range::IntTools_Range(const Standard_Real aFirst, const Standard_Real aLast)
+IntToolsRange::IntToolsRange(const Standard_Real aFirst, const Standard_Real aLast)
 {
   myFirst = aFirst;
   myLast  = aLast;
@@ -33,35 +33,35 @@ IntTools_Range::IntTools_Range(const Standard_Real aFirst, const Standard_Real a
 
 //=================================================================================================
 
-void IntTools_Range::SetFirst(const Standard_Real aFirst)
+void IntToolsRange::SetFirst(const Standard_Real aFirst)
 {
   myFirst = aFirst;
 }
 
 //=================================================================================================
 
-void IntTools_Range::SetLast(const Standard_Real aLast)
+void IntToolsRange::SetLast(const Standard_Real aLast)
 {
   myLast = aLast;
 }
 
 //=================================================================================================
 
-Standard_Real IntTools_Range::First() const
+Standard_Real IntToolsRange::First() const
 {
   return myFirst;
 }
 
 //=================================================================================================
 
-Standard_Real IntTools_Range::Last() const
+Standard_Real IntToolsRange::Last() const
 {
   return myLast;
 }
 
 //=================================================================================================
 
-void IntTools_Range::Range(Standard_Real& aFirst, Standard_Real& aLast) const
+void IntToolsRange::Range(Standard_Real& aFirst, Standard_Real& aLast) const
 {
   aFirst = myFirst;
   aLast  = myLast;

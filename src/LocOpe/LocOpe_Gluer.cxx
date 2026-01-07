@@ -42,13 +42,13 @@
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 #include <TopTools_IndexedMapOfShape.hxx>
 
-static TopAbs_Orientation GetOrientation(const TopoDS_Face&, const TopoDS_Face&);
+static TopAbs_Orientation GetOrientation(const TopoFace&, const TopoFace&);
 
-static Standard_Boolean Contains(const TopTools_ListOfShape&, const TopoDS_Shape&);
+static Standard_Boolean Contains(const ShapeList&, const TopoShape&);
 
 //=================================================================================================
 
-void LocOpe_Gluer::Init(const TopoDS_Shape& Sbase, const TopoDS_Shape& Snew)
+void LocOpe_Gluer::Init(const TopoShape& Sbase, const TopoShape& Snew)
 {
   mySb = Sbase;
   mySn = Snew;
@@ -62,9 +62,9 @@ void LocOpe_Gluer::Init(const TopoDS_Shape& Sbase, const TopoDS_Shape& Snew)
 
 //=================================================================================================
 
-void LocOpe_Gluer::Bind(const TopoDS_Face& Fnew, const TopoDS_Face& Fbase)
+void LocOpe_Gluer::Bind(const TopoFace& Fnew, const TopoFace& Fbase)
 {
-  TopExp_Explorer exp(mySn, TopAbs_FACE);
+  ShapeExplorer exp(mySn, TopAbs_FACE);
 
   for (; exp.More(); exp.Next())
   {
@@ -78,9 +78,9 @@ void LocOpe_Gluer::Bind(const TopoDS_Face& Fnew, const TopoDS_Face& Fbase)
     throw Standard_ConstructionError();
   }
 
-  TopoDS_Shape aLocalFace = Fnew.Oriented(exp.Current().Orientation());
-  TopoDS_Face  Fnor       = TopoDS::Face(aLocalFace);
-  //  TopoDS_Face Fnor = TopoDS::Face(Fnew.Oriented(exp.Current().Orientation()));
+  TopoShape aLocalFace = Fnew.Oriented(exp.Current().Orientation());
+  TopoFace  Fnor       = TopoDS::Face(aLocalFace);
+  //  TopoFace Fnor = TopoDS::Face(Fnew.Oriented(exp.Current().Orientation()));
 
   for (exp.Init(mySb, TopAbs_FACE); exp.More(); exp.Next())
   {
@@ -95,8 +95,8 @@ void LocOpe_Gluer::Bind(const TopoDS_Face& Fnew, const TopoDS_Face& Fbase)
   }
 
   aLocalFace       = Fbase.Oriented(exp.Current().Orientation());
-  TopoDS_Face Fbor = TopoDS::Face(aLocalFace);
-  //  TopoDS_Face Fbor = TopoDS::Face(Fbase.Oriented(exp.Current().Orientation()));
+  TopoFace Fbor = TopoDS::Face(aLocalFace);
+  //  TopoFace Fbor = TopoDS::Face(Fbase.Oriented(exp.Current().Orientation()));
   TopAbs_Orientation Ori = GetOrientation(Fnor, Fbor);
 
   if (myOri == TopAbs_INTERNAL)
@@ -119,7 +119,7 @@ void LocOpe_Gluer::Bind(const TopoDS_Face& Fnew, const TopoDS_Face& Fbase)
 
   for (exp.Init(Fnor, TopAbs_EDGE); exp.More(); exp.Next())
   {
-    const TopoDS_Edge& edg = TopoDS::Edge(exp.Current());
+    const TopoEdge& edg = TopoDS::Edge(exp.Current());
     //    if (!myMapEF.IsBound(edg)) {
     //      myMapEF.Bind(edg,Fbor);
     if (!myMapEF.Contains(edg))
@@ -140,7 +140,7 @@ void LocOpe_Gluer::Bind(const TopoDS_Face& Fnew, const TopoDS_Face& Fbase)
 
 //=================================================================================================
 
-void LocOpe_Gluer::Bind(const TopoDS_Edge& Enew, const TopoDS_Edge& Ebase)
+void LocOpe_Gluer::Bind(const TopoEdge& Enew, const TopoEdge& Ebase)
 {
   if (myMapEE.IsBound(Enew) && !myMapEE(Enew).IsSame(Ebase))
   {
@@ -170,10 +170,10 @@ void LocOpe_Gluer::Perform()
 
   for (ind = 1; ind <= lmap; ind++)
   {
-    TopoDS_Shape S = myMapEF.FindKey(ind);
+    TopoShape S = myMapEF.FindKey(ind);
     if (S.ShapeType() == TopAbs_EDGE)
     {
-      TopoDS_Shape S2 = myMapEF(ind);
+      TopoShape S2 = myMapEF(ind);
       if (!S2.IsNull())
       {
         theWOnS->Bind(TopoDS::Edge(S), TopoDS::Face(S2));
@@ -205,8 +205,8 @@ void LocOpe_Gluer::Perform()
     return;
   }
   // Mise a jour des descendants
-  //  for (TopExp_Explorer exp(mySb,TopAbs_FACE); exp.More(); exp.Next()) {
-  TopExp_Explorer exp(mySb, TopAbs_FACE);
+  //  for (ShapeExplorer exp(mySb,TopAbs_FACE); exp.More(); exp.Next()) {
+  ShapeExplorer exp(mySb, TopAbs_FACE);
   for (; exp.More(); exp.Next())
   {
     myDescF.Bind(exp.Current(), theSplit.DescendantShapes(exp.Current()));
@@ -214,7 +214,7 @@ void LocOpe_Gluer::Perform()
 
   for (exp.Init(mySn, TopAbs_FACE); exp.More(); exp.Next())
   {
-    TopTools_ListOfShape thelist;
+    ShapeList thelist;
     myDescF.Bind(exp.Current(), thelist);
     if (Contains(theGS->OrientedFaces(), exp.Current()))
     {
@@ -236,14 +236,14 @@ void LocOpe_Gluer::Perform()
     TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itd;
     for (itd.Initialize(myDescF); itd.More(); itd.Next())
     {
-      TopTools_ListOfShape               newDesc;
+      ShapeList               newDesc;
       TopTools_ListIteratorOfListOfShape itl;
       for (itl.Initialize(itd.Value()); itl.More(); itl.Next())
       {
         TopTools_ListIteratorOfListOfShape itl2(theGen.DescendantFace(TopoDS::Face(itl.Value())));
         for (; itl2.More(); itl2.Next())
         {
-          const TopoDS_Face& descface = TopoDS::Face(itl2.Value());
+          const TopoFace& descface = TopoDS::Face(itl2.Value());
           if (!descface.IsNull())
           { // sinon la face a disparu
             newDesc.Append(descface);
@@ -256,35 +256,35 @@ void LocOpe_Gluer::Perform()
 
   // recodage des regularites
   TopTools_IndexedDataMapOfShapeListOfShape theMapEF1, theMapEF2;
-  TopExp::MapShapesAndAncestors(mySn, TopAbs_EDGE, TopAbs_FACE, theMapEF1);
-  TopExp::MapShapesAndAncestors(myRes, TopAbs_EDGE, TopAbs_FACE, theMapEF2);
+  TopExp1::MapShapesAndAncestors(mySn, TopAbs_EDGE, TopAbs_FACE, theMapEF1);
+  TopExp1::MapShapesAndAncestors(myRes, TopAbs_EDGE, TopAbs_FACE, theMapEF2);
 
   for (ind = 1; ind <= theMapEF1.Extent(); ind++)
   {
-    const TopoDS_Edge&          edg = TopoDS::Edge(theMapEF1.FindKey(ind));
-    const TopTools_ListOfShape& LL  = theMapEF1(ind);
+    const TopoEdge&          edg = TopoDS::Edge(theMapEF1.FindKey(ind));
+    const ShapeList& LL  = theMapEF1(ind);
     if (LL.Extent() == 2)
     {
-      const TopoDS_Face& fac1    = TopoDS::Face(LL.First());
-      const TopoDS_Face& fac2    = TopoDS::Face(LL.Last());
-      GeomAbs_Shape      thecont = BRep_Tool::Continuity(edg, fac1, fac2);
+      const TopoFace& fac1    = TopoDS::Face(LL.First());
+      const TopoFace& fac2    = TopoDS::Face(LL.Last());
+      GeomAbs_Shape      thecont = BRepInspector::Continuity(edg, fac1, fac2);
       if (thecont >= GeomAbs_G1)
       {
         // on essaie de recoder
         Standard_Integer ind2 = theMapEF2.FindIndex(edg);
         if (ind2 != 0)
         {
-          const TopTools_ListOfShape& LL2 = theMapEF2(ind2);
+          const ShapeList& LL2 = theMapEF2(ind2);
           if (LL2.Extent() == 2)
           {
-            const TopoDS_Face& ff1 = TopoDS::Face(LL2.First());
-            const TopoDS_Face& ff2 = TopoDS::Face(LL2.Last());
+            const TopoFace& ff1 = TopoDS::Face(LL2.First());
+            const TopoFace& ff2 = TopoDS::Face(LL2.Last());
             if ((ff1.IsSame(fac1) && ff2.IsSame(fac2)) || (ff1.IsSame(fac2) && ff2.IsSame(fac1)))
             {
             }
             else
             {
-              BRep_Builder B;
+              ShapeBuilder B;
               B.Continuity(edg, ff1, ff2, thecont);
             }
           }
@@ -296,26 +296,26 @@ void LocOpe_Gluer::Perform()
   theWOnS->InitEdgeIterator();
   while (theWOnS->MoreEdge())
   {
-    TopoDS_Edge edg = theWOnS->Edge();
+    TopoEdge edg = theWOnS->Edge();
     for (ind = 1; ind <= theMapEF2.Extent(); ind++)
     {
-      const TopoDS_Edge& edg1 = TopoDS::Edge(theMapEF2.FindKey(ind));
+      const TopoEdge& edg1 = TopoDS::Edge(theMapEF2.FindKey(ind));
       if (edg1.IsSame(edg))
       {
         myEdges.Append(edg);
         // recodage eventuel des regularites sur cet edge
-        const TopTools_ListOfShape& L = theMapEF2(ind);
+        const ShapeList& L = theMapEF2(ind);
         if (L.Extent() == 2)
         {
-          const TopoDS_Face& fac1 = TopoDS::Face(L.First());
-          const TopoDS_Face& fac2 = TopoDS::Face(L.Last());
-          if (LocOpe::TgtFaces(edg, fac1, fac2))
+          const TopoFace& fac1 = TopoDS::Face(L.First());
+          const TopoFace& fac2 = TopoDS::Face(L.Last());
+          if (LocOpe1::TgtFaces(edg, fac1, fac2))
           {
             myTgtEdges.Append(edg);
-            GeomAbs_Shape thecont = BRep_Tool::Continuity(edg, fac1, fac2);
+            GeomAbs_Shape thecont = BRepInspector::Continuity(edg, fac1, fac2);
             if (thecont < GeomAbs_G1)
             {
-              BRep_Builder B;
+              ShapeBuilder B;
               B.Continuity(edg, fac1, fac2, GeomAbs_G1);
             }
           }
@@ -330,7 +330,7 @@ void LocOpe_Gluer::Perform()
 
 //=================================================================================================
 
-const TopTools_ListOfShape& LocOpe_Gluer::DescendantFaces(const TopoDS_Face& F) const
+const ShapeList& LocOpe_Gluer::DescendantFaces(const TopoFace& F) const
 {
   if (!myDone)
   {
@@ -338,21 +338,21 @@ const TopTools_ListOfShape& LocOpe_Gluer::DescendantFaces(const TopoDS_Face& F) 
   }
   if (myDescF.IsBound(F))
     return myDescF(F);
-  static TopTools_ListOfShape nullList;
+  static ShapeList nullList;
   return nullList;
 }
 
 //=================================================================================================
 
-static TopAbs_Orientation GetOrientation(const TopoDS_Face& Fn, const TopoDS_Face& Fb)
+static TopAbs_Orientation GetOrientation(const TopoFace& Fn, const TopoFace& Fb)
 {
 
-  Handle(Geom_Surface) Sn, Sb;
-  Sn = BRep_Tool::Surface(Fn);
-  Sb = BRep_Tool::Surface(Fb);
+  Handle(GeomSurface) Sn, Sb;
+  Sn = BRepInspector::Surface(Fn);
+  Sb = BRepInspector::Surface(Fb);
 
   // Find a point on Sb
-  TopExp_Explorer exp;
+  ShapeExplorer exp;
   Standard_Real   f, l;
   gp_Pnt2d        ptvtx;
   Point3d          pvt;
@@ -360,8 +360,8 @@ static TopAbs_Orientation GetOrientation(const TopoDS_Face& Fn, const TopoDS_Fac
 
   for (exp.Init(Fn, TopAbs_EDGE); exp.More(); exp.Next())
   {
-    const TopoDS_Edge&   edg = TopoDS::Edge(exp.Current());
-    Handle(Geom2d_Curve) C2d = BRep_Tool::CurveOnSurface(edg, Fn, f, l);
+    const TopoEdge&   edg = TopoDS::Edge(exp.Current());
+    Handle(GeomCurve2d) C2d = BRepInspector::CurveOnSurface(edg, Fn, f, l);
     if (Precision::IsNegativeInfinite(f) && Precision::IsPositiveInfinite(l))
     {
       f = -100.;
@@ -435,7 +435,7 @@ static TopAbs_Orientation GetOrientation(const TopoDS_Face& Fn, const TopoDS_Fac
 
 //=================================================================================================
 
-static Standard_Boolean Contains(const TopTools_ListOfShape& L, const TopoDS_Shape& S)
+static Standard_Boolean Contains(const ShapeList& L, const TopoShape& S)
 {
   TopTools_ListIteratorOfListOfShape it;
   for (it.Initialize(L); it.More(); it.Next())
@@ -452,34 +452,34 @@ static Standard_Boolean Contains(const TopTools_ListOfShape& L, const TopoDS_Sha
 
 void LocOpe_Gluer::AddEdges()
 {
-  TopExp_Explorer exp, expsb;
+  ShapeExplorer exp, expsb;
   exp.Init(mySn, TopAbs_EDGE);
 
   TopLoc_Location Loc;
   //  Standard_Real l, f;
   TopTools_IndexedMapOfShape MapV, MapFPrism, MapE;
-  TopExp_Explorer            vexp;
+  ShapeExplorer            vexp;
   Standard_Integer           flag, i;
 
-  TopExp::MapShapes(mySn, TopAbs_FACE, MapFPrism);
+  TopExp1::MapShapes(mySn, TopAbs_FACE, MapFPrism);
 
   for (expsb.Init(myRes, TopAbs_FACE); expsb.More(); expsb.Next())
   {
     if (!MapFPrism.Contains(expsb.Current()))
     {
       MapV.Clear();
-      TopExp::MapShapes(expsb.Current(), TopAbs_VERTEX, MapV);
-      TopExp::MapShapes(expsb.Current(), TopAbs_EDGE, MapE);
+      TopExp1::MapShapes(expsb.Current(), TopAbs_VERTEX, MapV);
+      TopExp1::MapShapes(expsb.Current(), TopAbs_EDGE, MapE);
       for (exp.Init(mySn, TopAbs_EDGE); exp.More(); exp.Next())
       {
-        TopoDS_Edge e = TopoDS::Edge(exp.Current());
+        TopoEdge e = TopoDS::Edge(exp.Current());
         if (MapE.Contains(e))
           continue;
         flag = 0;
         vexp.Init(e, TopAbs_VERTEX);
         for (; vexp.More(); vexp.Next())
         {
-          TopoDS_Vertex v = TopoDS::Vertex(vexp.Current());
+          TopoVertex v = TopoDS::Vertex(vexp.Current());
           if (MapV.Contains(v))
           {
             flag = 1;
@@ -494,7 +494,7 @@ void LocOpe_Gluer::AddEdges()
           flag = 0;
           for (; vexp.More(); vexp.Next())
           {
-            TopoDS_Vertex v = TopoDS::Vertex(vexp.Current());
+            TopoVertex v = TopoDS::Vertex(vexp.Current());
             if (!MapV.Contains(v))
             {
               ext.Perform(v, TopoDS::Face(expsb.Current()));
@@ -510,7 +510,7 @@ void LocOpe_Gluer::AddEdges()
                 {
                   dist2min = Min(dist2min, ext.SquareDistance(i));
                 }
-                if (dist2min >= BRep_Tool::Tolerance(v) * BRep_Tool::Tolerance(v))
+                if (dist2min >= BRepInspector::Tolerance(v) * BRepInspector::Tolerance(v))
                 {
                   flag = 0;
                   break;

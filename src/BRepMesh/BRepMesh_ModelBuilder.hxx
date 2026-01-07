@@ -41,7 +41,7 @@ protected:
   //! Creates discrete model for the given shape.
   //! Returns nullptr in case of failure.
   Standard_EXPORT virtual Handle(IMeshData_Model) performInternal(
-    const TopoDS_Shape&          theShape,
+    const TopoShape&          theShape,
     const IMeshTools_Parameters& theParameters) Standard_OVERRIDE;
 };
 

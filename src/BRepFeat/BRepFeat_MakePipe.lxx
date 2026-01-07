@@ -26,10 +26,10 @@ inline BRepFeat_MakePipe::BRepFeat_MakePipe() {}
 // purpose  :
 //=======================================================================
 
-inline BRepFeat_MakePipe::BRepFeat_MakePipe(const TopoDS_Shape&    Sbase,
-                                            const TopoDS_Shape&    Pbase,
-                                            const TopoDS_Face&     Skface,
-                                            const TopoDS_Wire&     Spine,
+inline BRepFeat_MakePipe::BRepFeat_MakePipe(const TopoShape&    Sbase,
+                                            const TopoShape&    Pbase,
+                                            const TopoFace&     Skface,
+                                            const TopoWire&     Spine,
                                             const Standard_Integer Fuse,
                                             const Standard_Boolean Modify)
 

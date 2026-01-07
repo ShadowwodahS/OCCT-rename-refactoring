@@ -31,7 +31,7 @@ DEFINE_STANDARD_HANDLE(MoniTool_TransientElem, MoniTool_Element)
 //! and the HashCoder associated to the class of the Key
 //!
 //! Transient from Standard defines the class to be keyed
-//! MapTransientHasher from TColStd is the associated Hasher
+//! MapTransientHasher from TColStd is the associated Hasher1
 //! DataInfo from MoniTool   is an additional class which helps to provide
 //! information on the value (template : see DataInfo)
 class MoniTool_TransientElem : public MoniTool_Element
@@ -39,7 +39,7 @@ class MoniTool_TransientElem : public MoniTool_Element
 
 public:
   //! Creates a TransientElem with a Value. This Value can then not be
-  //! changed. It is used by the Hasher to compute the HashCode,
+  //! changed. It is used by the Hasher1 to compute the HashCode,
   //! which will then be stored for an immediate reading.
   Standard_EXPORT MoniTool_TransientElem(const Handle(RefObject)& akey);
 

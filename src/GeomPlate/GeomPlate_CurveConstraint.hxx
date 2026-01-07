@@ -20,7 +20,7 @@
 #include <Adaptor3d_CurveOnSurface.hxx>
 #include <GeomLProp_SLProps.hxx>
 
-class Geom2d_Curve;
+class GeomCurve2d;
 class Law_Function;
 class Point3d;
 class Vector3d;
@@ -128,10 +128,10 @@ public:
   Standard_EXPORT Handle(Adaptor3d_Curve) Curve3d() const;
 
   //! loads a 2d curve associated the surface resulting of the constraints
-  Standard_EXPORT void SetCurve2dOnSurf(const Handle(Geom2d_Curve)& Curve2d);
+  Standard_EXPORT void SetCurve2dOnSurf(const Handle(GeomCurve2d)& Curve2d);
 
   //! Returns a 2d curve associated the surface resulting of the constraints
-  Standard_EXPORT Handle(Geom2d_Curve) Curve2dOnSurf() const;
+  Standard_EXPORT Handle(GeomCurve2d) Curve2dOnSurf() const;
 
   //! loads a 2d curve  resulting from the normal projection of
   //! the curve on the initial surface
@@ -151,7 +151,7 @@ protected:
   Standard_Integer                 myOrder;
   Handle(Adaptor3d_Curve)          my3dCurve;
   Standard_Integer                 myTang;
-  Handle(Geom2d_Curve)             my2dCurve;
+  Handle(GeomCurve2d)             my2dCurve;
   Handle(Adaptor2d_Curve2d)        myHCurve2d;
   Handle(Law_Function)             myG0Crit;
   Handle(Law_Function)             myG1Crit;

@@ -35,7 +35,7 @@ class Draw_Number : public Draw_Drawable3D
   void Value(const Standard_Real theV) { myValue = theV; }
 
   //! Does nothing,
-  Standard_EXPORT virtual void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   //! Returns TRUE if object can be displayed.
   virtual bool IsDisplayable() const Standard_OVERRIDE { return false; }
@@ -50,7 +50,7 @@ class Draw_Number : public Draw_Drawable3D
   Standard_EXPORT virtual void Save(Standard_OStream& theStream) const Standard_OVERRIDE;
 
   //! For variable whatis command. Set as a result the type of the variable.
-  Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
 private:
   Standard_Real myValue;

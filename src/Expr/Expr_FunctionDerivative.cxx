@@ -126,21 +126,21 @@ Handle(Expr_NamedUnknown) Expr_FunctionDerivative::DerivVariable() const
   return myDerivate;
 }
 
-TCollection_AsciiString Expr_FunctionDerivative::GetStringName() const
+AsciiString1 Expr_FunctionDerivative::GetStringName() const
 {
-  TCollection_AsciiString res;
+  AsciiString1 res;
   if (NbOfVariables() == 1)
   {
     res                       = myFunction->GetStringName();
     char                    c = 39;
-    TCollection_AsciiString diff(myDegree, c);
+    AsciiString1 diff(myDegree, c);
     res += diff;
     return res;
   }
-  TCollection_AsciiString diff("@");
+  AsciiString1 diff("@");
   if (myDegree > 1)
   {
-    TCollection_AsciiString deg(myDegree);
+    AsciiString1 deg(myDegree);
     diff += deg;
   }
   res = diff;
@@ -156,7 +156,7 @@ TCollection_AsciiString Expr_FunctionDerivative::GetStringName() const
   }
   res += diff;
   res += "X";
-  TCollection_AsciiString rank(index);
+  AsciiString1 rank(index);
   res += rank;
   return res;
 }

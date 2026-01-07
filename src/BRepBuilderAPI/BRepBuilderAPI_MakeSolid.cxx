@@ -39,7 +39,7 @@ BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoDS_CompSolid& S)
 
 //=================================================================================================
 
-BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoDS_Shell& S)
+BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoShell& S)
     : myMakeSolid(S)
 {
   if (myMakeSolid.IsDone())
@@ -51,7 +51,7 @@ BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoDS_Shell& S)
 
 //=================================================================================================
 
-BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoDS_Shell& S1, const TopoDS_Shell& S2)
+BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoShell& S1, const TopoShell& S2)
     : myMakeSolid(S1, S2)
 {
   if (myMakeSolid.IsDone())
@@ -63,9 +63,9 @@ BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoDS_Shell& S1, const
 
 //=================================================================================================
 
-BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoDS_Shell& S1,
-                                                   const TopoDS_Shell& S2,
-                                                   const TopoDS_Shell& S3)
+BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoShell& S1,
+                                                   const TopoShell& S2,
+                                                   const TopoShell& S3)
     : myMakeSolid(S1, S2, S3)
 {
   if (myMakeSolid.IsDone())
@@ -77,7 +77,7 @@ BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoDS_Shell& S1,
 
 //=================================================================================================
 
-BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoDS_Solid& So)
+BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoSolid& So)
     : myMakeSolid(So)
 {
   if (myMakeSolid.IsDone())
@@ -89,7 +89,7 @@ BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoDS_Solid& So)
 
 //=================================================================================================
 
-BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoDS_Solid& So, const TopoDS_Shell& S)
+BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoSolid& So, const TopoShell& S)
     : myMakeSolid(So, S)
 {
   if (myMakeSolid.IsDone())
@@ -101,7 +101,7 @@ BRepBuilderAPI_MakeSolid::BRepBuilderAPI_MakeSolid(const TopoDS_Solid& So, const
 
 //=================================================================================================
 
-void BRepBuilderAPI_MakeSolid::Add(const TopoDS_Shell& S)
+void BRepBuilderAPI_MakeSolid::Add(const TopoShell& S)
 {
   myMakeSolid.Add(S);
   if (myMakeSolid.IsDone())
@@ -120,21 +120,21 @@ Standard_Boolean BRepBuilderAPI_MakeSolid::IsDone() const
 
 //=================================================================================================
 
-const TopoDS_Solid& BRepBuilderAPI_MakeSolid::Solid()
+const TopoSolid& BRepBuilderAPI_MakeSolid::Solid()
 {
   return myMakeSolid.Solid();
 }
 
 //=================================================================================================
 
-BRepBuilderAPI_MakeSolid::operator TopoDS_Solid()
+BRepBuilderAPI_MakeSolid::operator TopoSolid()
 {
   return Solid();
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepBuilderAPI_MakeSolid::IsDeleted(const TopoDS_Shape& S)
+Standard_Boolean BRepBuilderAPI_MakeSolid::IsDeleted(const TopoShape& S)
 
 {
   if (S.ShapeType() == TopAbs_FACE)

@@ -33,13 +33,13 @@ public:
 
   Standard_EXPORT BRepBuilderAPI_Collect();
 
-  Standard_EXPORT void Add(const TopoDS_Shape& SI, BRepBuilderAPI_MakeShape& MKS);
+  Standard_EXPORT void Add(const TopoShape& SI, BRepBuilderAPI_MakeShape& MKS);
 
-  Standard_EXPORT void AddGenerated(const TopoDS_Shape& S, const TopoDS_Shape& Gen);
+  Standard_EXPORT void AddGenerated(const TopoShape& S, const TopoShape& Gen);
 
-  Standard_EXPORT void AddModif(const TopoDS_Shape& S, const TopoDS_Shape& Mod);
+  Standard_EXPORT void AddModif(const TopoShape& S, const TopoShape& Mod);
 
-  Standard_EXPORT void Filter(const TopoDS_Shape& SF);
+  Standard_EXPORT void Filter(const TopoShape& SF);
 
   Standard_EXPORT const TopTools_DataMapOfShapeListOfShape& Modification() const;
 
@@ -47,7 +47,7 @@ public:
 
 protected:
 private:
-  TopoDS_Shape                       myInitialShape;
+  TopoShape                       myInitialShape;
   TopTools_MapOfShape                myDeleted;
   TopTools_DataMapOfShapeListOfShape myMod;
   TopTools_DataMapOfShapeListOfShape myGen;

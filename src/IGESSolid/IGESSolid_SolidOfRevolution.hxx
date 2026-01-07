@@ -29,7 +29,7 @@ class IGESSolid_SolidOfRevolution;
 DEFINE_STANDARD_HANDLE(IGESSolid_SolidOfRevolution, IGESData_IGESEntity)
 
 //! defines SolidOfRevolution, Type <162> Form Number <0,1>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! This entity is defined by revolving the area determined
 //! by a planar curve about a specified axis through a given
 //! fraction of full rotation.

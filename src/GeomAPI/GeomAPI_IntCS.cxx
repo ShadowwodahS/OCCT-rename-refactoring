@@ -29,14 +29,14 @@ GeomAPI_IntCS::GeomAPI_IntCS() {}
 
 //=================================================================================================
 
-GeomAPI_IntCS::GeomAPI_IntCS(const Handle(Geom_Curve)& C, const Handle(Geom_Surface)& S)
+GeomAPI_IntCS::GeomAPI_IntCS(const Handle(GeomCurve3d)& C, const Handle(GeomSurface)& S)
 {
   Perform(C, S);
 }
 
 //=================================================================================================
 
-void GeomAPI_IntCS::Perform(const Handle(Geom_Curve)& C, const Handle(Geom_Surface)& S)
+void GeomAPI_IntCS::Perform(const Handle(GeomCurve3d)& C, const Handle(GeomSurface)& S)
 {
   myCurve = C;
 
@@ -93,7 +93,7 @@ Standard_Integer GeomAPI_IntCS::NbSegments() const
 
 //=================================================================================================
 
-Handle(Geom_Curve) GeomAPI_IntCS::Segment(const Standard_Integer Index) const
+Handle(GeomCurve3d) GeomAPI_IntCS::Segment(const Standard_Integer Index) const
 {
   const IntCurveSurface_IntersectionPoint& FirstPoint = myIntCS.Segment(Index).FirstPoint();
 

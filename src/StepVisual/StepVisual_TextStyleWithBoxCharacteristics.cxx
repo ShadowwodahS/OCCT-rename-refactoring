@@ -42,7 +42,7 @@ Handle(StepVisual_HArray1OfBoxCharacteristicSelect) StepVisual_TextStyleWithBoxC
   return characteristics;
 }
 
-StepVisual_BoxCharacteristicSelect StepVisual_TextStyleWithBoxCharacteristics::CharacteristicsValue(
+BoxCharacteristicSelect StepVisual_TextStyleWithBoxCharacteristics::CharacteristicsValue(
   const Standard_Integer num) const
 {
   return characteristics->Value(num);

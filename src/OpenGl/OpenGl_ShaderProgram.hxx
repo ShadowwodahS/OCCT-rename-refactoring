@@ -203,7 +203,7 @@ public:
   //! Wrapper for compiling shader object with verbose printing on error.
   Standard_EXPORT static bool compileShaderVerbose(const Handle(OpenGl_Context)&      theCtx,
                                                    const Handle(OpenGl_ShaderObject)& theShader,
-                                                   const TCollection_AsciiString&     theSource,
+                                                   const AsciiString1&     theSource,
                                                    bool theToPrintSource = true);
 
   //! Creates uninitialized shader program.
@@ -220,7 +220,7 @@ public:
   //! classes without OCCT Viewer itself. If this is not the case - create the program using shared
   //! OpenGl_ShaderManager instance instead.
   Standard_EXPORT OpenGl_ShaderProgram(const Handle(Graphic3d_ShaderProgram)& theProxy = NULL,
-                                       const TCollection_AsciiString&         theId    = "");
+                                       const AsciiString1&         theId    = "");
 
 protected:
   static OpenGl_VariableSetterSelector mySetterSelector;
@@ -258,7 +258,7 @@ public:
 
   //! Fetches information log of the last link operation.
   Standard_EXPORT Standard_Boolean FetchInfoLog(const Handle(OpenGl_Context)& theCtx,
-                                                TCollection_AsciiString&      theLog);
+                                                AsciiString1&      theLog);
 
   //! Fetches uniform variables from proxy shader program.
   Standard_EXPORT Standard_Boolean ApplyVariables(const Handle(OpenGl_Context)& theCtx);
@@ -606,7 +606,7 @@ public:
   //! @param theToBeautify flag improving formatting (add extra newlines)
   //! @param theToReset when TRUE, existing dumps will be overridden
   Standard_EXPORT Standard_Boolean UpdateDebugDump(const Handle(OpenGl_Context)&  theCtx,
-                                                   const TCollection_AsciiString& theFolder = "",
+                                                   const AsciiString1& theFolder = "",
                                                    Standard_Boolean theToBeautify = Standard_False,
                                                    Standard_Boolean theToReset    = Standard_False);
 

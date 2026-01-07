@@ -25,7 +25,7 @@
 #include <TNaming_NameType.hxx>
 #include <TNaming_ListOfNamedShape.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TNaming_NamedShape;
+class ShapeAttribute;
 class TNaming_Localizer;
 
 class TNaming_Identifier
@@ -33,14 +33,14 @@ class TNaming_Identifier
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TNaming_Identifier(const TDF_Label&       Lab,
-                                     const TopoDS_Shape&    S,
-                                     const TopoDS_Shape&    Context,
+  Standard_EXPORT TNaming_Identifier(const DataLabel&       Lab,
+                                     const TopoShape&    S,
+                                     const TopoShape&    Context,
                                      const Standard_Boolean Geom);
 
-  Standard_EXPORT TNaming_Identifier(const TDF_Label&                  Lab,
-                                     const TopoDS_Shape&               S,
-                                     const Handle(TNaming_NamedShape)& ContextNS,
+  Standard_EXPORT TNaming_Identifier(const DataLabel&                  Lab,
+                                     const TopoShape&               S,
+                                     const Handle(ShapeAttribute)& ContextNS,
                                      const Standard_Boolean            Geom);
 
   Standard_EXPORT Standard_Boolean IsDone() const;
@@ -49,7 +49,7 @@ public:
 
   Standard_EXPORT Standard_Boolean IsFeature();
 
-  Standard_EXPORT Handle(TNaming_NamedShape) Feature() const;
+  Standard_EXPORT Handle(ShapeAttribute) Feature() const;
 
   Standard_EXPORT void InitArgs();
 
@@ -59,39 +59,39 @@ public:
 
   Standard_EXPORT Standard_Boolean ArgIsFeature() const;
 
-  Standard_EXPORT Handle(TNaming_NamedShape) FeatureArg();
+  Standard_EXPORT Handle(ShapeAttribute) FeatureArg();
 
-  Standard_EXPORT TopoDS_Shape ShapeArg();
+  Standard_EXPORT TopoShape ShapeArg();
 
-  Standard_EXPORT TopoDS_Shape ShapeContext() const;
+  Standard_EXPORT TopoShape ShapeContext() const;
 
-  Standard_EXPORT Handle(TNaming_NamedShape) NamedShapeOfGeneration() const;
+  Standard_EXPORT Handle(ShapeAttribute) NamedShapeOfGeneration() const;
 
   Standard_EXPORT void AncestorIdentification(TNaming_Localizer&  Localizer,
-                                              const TopoDS_Shape& Context);
+                                              const TopoShape& Context);
 
   Standard_EXPORT void PrimitiveIdentification(TNaming_Localizer&                Localizer,
-                                               const Handle(TNaming_NamedShape)& NS);
+                                               const Handle(ShapeAttribute)& NS);
 
   Standard_EXPORT void GeneratedIdentification(TNaming_Localizer&                Localizer,
-                                               const Handle(TNaming_NamedShape)& NS);
+                                               const Handle(ShapeAttribute)& NS);
 
   Standard_EXPORT void Identification(TNaming_Localizer&                Localizer,
-                                      const Handle(TNaming_NamedShape)& NS);
+                                      const Handle(ShapeAttribute)& NS);
 
 protected:
 private:
-  Standard_EXPORT void Init(const TopoDS_Shape& Context);
+  Standard_EXPORT void Init(const TopoShape& Context);
 
-  TDF_Label                  myTDFAcces;
-  TopoDS_Shape               myShape;
+  DataLabel                  myTDFAcces;
+  TopoShape               myShape;
   Standard_Boolean           myDone;
   Standard_Boolean           myIsFeature;
   TNaming_NameType           myType;
-  Handle(TNaming_NamedShape) myFeature;
+  Handle(ShapeAttribute) myFeature;
   TNaming_ListOfNamedShape   myPrimitiveArgs;
-  TopTools_ListOfShape       myShapeArgs;
-  Handle(TNaming_NamedShape) myNSContext;
+  ShapeList       myShapeArgs;
+  Handle(ShapeAttribute) myNSContext;
 };
 
 #endif // _TNaming_Identifier_HeaderFile

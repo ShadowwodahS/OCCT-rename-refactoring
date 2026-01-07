@@ -40,7 +40,7 @@ const Standard_GUID& XCAFDoc_Color::GetID()
 
 //=================================================================================================
 
-Handle(XCAFDoc_Color) XCAFDoc_Color::Set(const TDF_Label& L, const Quantity_Color& C)
+Handle(XCAFDoc_Color) XCAFDoc_Color::Set(const DataLabel& L, const Quantity_Color& C)
 {
   Handle(XCAFDoc_Color) A;
   if (!L.FindAttribute(XCAFDoc_Color::GetID(), A))
@@ -54,7 +54,7 @@ Handle(XCAFDoc_Color) XCAFDoc_Color::Set(const TDF_Label& L, const Quantity_Colo
 
 //=================================================================================================
 
-Handle(XCAFDoc_Color) XCAFDoc_Color::Set(const TDF_Label& L, const Quantity_ColorRGBA& C)
+Handle(XCAFDoc_Color) XCAFDoc_Color::Set(const DataLabel& L, const Quantity_ColorRGBA& C)
 {
   Handle(XCAFDoc_Color) A;
   if (!L.FindAttribute(XCAFDoc_Color::GetID(), A))
@@ -68,7 +68,7 @@ Handle(XCAFDoc_Color) XCAFDoc_Color::Set(const TDF_Label& L, const Quantity_Colo
 
 //=================================================================================================
 
-Handle(XCAFDoc_Color) XCAFDoc_Color::Set(const TDF_Label& L, const Quantity_NameOfColor C)
+Handle(XCAFDoc_Color) XCAFDoc_Color::Set(const DataLabel& L, const Quantity_NameOfColor C)
 {
   Handle(XCAFDoc_Color) A;
   if (!L.FindAttribute(XCAFDoc_Color::GetID(), A))
@@ -82,7 +82,7 @@ Handle(XCAFDoc_Color) XCAFDoc_Color::Set(const TDF_Label& L, const Quantity_Name
 
 //=================================================================================================
 
-Handle(XCAFDoc_Color) XCAFDoc_Color::Set(const TDF_Label&    L,
+Handle(XCAFDoc_Color) XCAFDoc_Color::Set(const DataLabel&    L,
                                          const Standard_Real R,
                                          const Standard_Real G,
                                          const Standard_Real B,

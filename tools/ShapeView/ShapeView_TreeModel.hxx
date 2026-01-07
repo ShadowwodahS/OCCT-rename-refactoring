@@ -29,7 +29,7 @@
 class ShapeView_TreeModel;
 
 //! \class ShapeView_TreeModel
-//! View model to visualize content of TopoDS_Shape
+//! View model to visualize content of TopoShape
 class ShapeView_TreeModel : public TreeModel_ModelBase
 {
 public:
@@ -41,7 +41,7 @@ public:
 
   //! Adds shape, append it to the model root item
   //! \param theShape a shape instance
-  Standard_EXPORT void AddShape(const TopoDS_Shape& theShape);
+  Standard_EXPORT void AddShape(const TopoShape& theShape);
 
   //! Removes all shapes in the model root item
   Standard_EXPORT void RemoveAllShapes();
@@ -49,7 +49,7 @@ public:
   //! Returns model index of the shape.
   //! \param theShape a shape object
   //! \return the model index
-  QModelIndex FindIndex(const TopoDS_Shape& theShape) const;
+  QModelIndex FindIndex(const TopoShape& theShape) const;
 
 protected:
   //! Creates root item

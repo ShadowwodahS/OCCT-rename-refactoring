@@ -16,7 +16,7 @@
 #include <QANCollection.hxx>
 #include <Draw_Interpretor.hxx>
 
-void QANCollection::Commands(Draw_Interpretor& theCommands)
+void QANCollection::Commands(DrawInterpreter& theCommands)
 {
   QANCollection::CommandsTest(theCommands);
   QANCollection::CommandsPerf(theCommands);

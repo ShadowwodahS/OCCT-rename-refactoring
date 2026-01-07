@@ -43,16 +43,16 @@ TPrsStd_GeometryDriver::TPrsStd_GeometryDriver() {}
 
 //=================================================================================================
 
-Standard_Boolean TPrsStd_GeometryDriver::Update(const TDF_Label&               aLabel,
-                                                Handle(AIS_InteractiveObject)& anAISObject)
+Standard_Boolean TPrsStd_GeometryDriver::Update(const DataLabel&               aLabel,
+                                                Handle(VisualEntity)& anAISObject)
 {
   Handle(TDataXtd_Geometry)  aGeom;
-  Handle(TNaming_NamedShape) NS;
+  Handle(ShapeAttribute) NS;
   TDataXtd_GeometryEnum      GeomType;
 
   if (!aLabel.FindAttribute(TDataXtd_Geometry::GetID(), aGeom))
   {
-    if (aLabel.FindAttribute(TNaming_NamedShape::GetID(), NS))
+    if (aLabel.FindAttribute(ShapeAttribute::GetID(), NS))
     {
       GeomType = TDataXtd_Geometry::Type(aLabel);
     }
@@ -73,14 +73,14 @@ Standard_Boolean TPrsStd_GeometryDriver::Update(const TDF_Label&               a
       if (!TDataXtd_Geometry::Point(aLabel, pt))
         return Standard_False;
       Handle(Geom_Point) apt = new Geom_CartesianPoint(pt);
-      Handle(AIS_Point)  ais1;
+      Handle(VisualPoint)  ais1;
       if (anAISObject.IsNull())
-        ais1 = new AIS_Point(apt);
+        ais1 = new VisualPoint(apt);
       else
       {
-        ais1 = Handle(AIS_Point)::DownCast(anAISObject);
+        ais1 = Handle(VisualPoint)::DownCast(anAISObject);
         if (ais1.IsNull())
-          ais1 = new AIS_Point(apt);
+          ais1 = new VisualPoint(apt);
         else
         {
           ais1->SetComponent(apt);
@@ -97,7 +97,7 @@ Standard_Boolean TPrsStd_GeometryDriver::Update(const TDF_Label&               a
       gp_Lin ln;
       if (!TDataXtd_Geometry::Line(aLabel, ln))
         return Standard_False;
-      Handle(Geom_Line) aln = new Geom_Line(ln);
+      Handle(GeomLine) aln = new GeomLine(ln);
       Handle(AIS_Line)  ais2;
       if (anAISObject.IsNull())
         ais2 = new AIS_Line(aln);
@@ -124,7 +124,7 @@ Standard_Boolean TPrsStd_GeometryDriver::Update(const TDF_Label&               a
       gp_Circ          cir;
       if (!TDataXtd_Geometry::Circle(aLabel, cir))
         return Standard_False;
-      Handle(Geom_Circle) acir = new Geom_Circle(cir);
+      Handle(GeomCircle) acir = new GeomCircle(cir);
       Handle(AIS_Circle)  ais3;
       if (anAISObject.IsNull())
         ais3 = new AIS_Circle(acir);
@@ -149,17 +149,17 @@ Standard_Boolean TPrsStd_GeometryDriver::Update(const TDF_Label&               a
       gp_Elips elp;
       if (!TDataXtd_Geometry::Ellipse(aLabel, elp))
         return Standard_False;
-      BRepBuilderAPI_MakeEdge mkEdge(elp);
+      EdgeMaker mkEdge(elp);
       if (!mkEdge.IsDone())
         return Standard_False;
-      Handle(AIS_Shape) ais;
+      Handle(VisualShape) ais;
       if (anAISObject.IsNull())
-        ais = new AIS_Shape(mkEdge);
+        ais = new VisualShape(mkEdge);
       else
       {
-        ais = Handle(AIS_Shape)::DownCast(anAISObject);
+        ais = Handle(VisualShape)::DownCast(anAISObject);
         if (ais.IsNull())
-          ais = new AIS_Shape(mkEdge);
+          ais = new VisualShape(mkEdge);
         else
         {
           ais->ResetTransformation();

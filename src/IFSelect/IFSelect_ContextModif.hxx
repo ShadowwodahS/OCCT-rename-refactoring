@@ -211,8 +211,8 @@ private:
   Interface_Graph               thegraf;
   Handle(Interface_Protocol)    theprot;
   Handle(Interface_CopyControl) themap;
-  TCollection_AsciiString       thefile;
-  TCollection_AsciiString       thelist;
+  AsciiString1       thefile;
+  AsciiString1       thelist;
   Interface_CheckIterator       thechek;
   Standard_Boolean              thesel;
   Standard_Integer              thecurr;

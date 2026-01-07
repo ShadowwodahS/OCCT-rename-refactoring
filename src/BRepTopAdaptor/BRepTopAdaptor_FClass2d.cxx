@@ -79,7 +79,7 @@ public:
 static StatistiquesFClass2d STAT;
 #endif
 
-BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoDS_Face&  aFace,
+BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoFace&  aFace,
                                                  const Standard_Real TolUV)
     : Toluv(TolUV),
       Face(aFace),
@@ -99,11 +99,11 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoDS_Face&  aFace,
   Handle(BRepAdaptor_Surface) surf = new BRepAdaptor_Surface();
   surf->Initialize(aFace, Standard_False);
 
-  TopoDS_Edge            edge;
+  TopoEdge            edge;
   TopAbs_Orientation     Or;
   Standard_Real          u, du, Tole = 0.0, Tol = 0.0;
   BRepTools_WireExplorer WireExplorer;
-  TopExp_Explorer        FaceExplorer;
+  ShapeExplorer        FaceExplorer;
 
   Umin = Vmin = 0.0; // RealLast();
   Umax = Vmax = -Umin;
@@ -122,7 +122,7 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoDS_Face&  aFace,
     Standard_Boolean       WireIsNotEmpty = Standard_False;
     Standard_Integer       NbEdges        = 0;
 
-    TopExp_Explorer Explorer;
+    ShapeExplorer Explorer;
     for (Explorer.Init(FaceExplorer.Current(), TopAbs_EDGE); Explorer.More(); Explorer.Next())
       NbEdges++;
     aNbE = NbEdges;
@@ -140,27 +140,27 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoDS_Face&  aFace,
       if (Or == TopAbs_FORWARD || Or == TopAbs_REVERSED)
       {
         Standard_Real pfbid, plbid;
-        if (BRep_Tool::CurveOnSurface(edge, Face, pfbid, plbid).IsNull())
+        if (BRepInspector::CurveOnSurface(edge, Face, pfbid, plbid).IsNull())
           return;
         BRepAdaptor_Curve2d C(edge, Face);
 
         //-- ----------------------------------------
         Standard_Boolean degenerated = Standard_False;
-        if (BRep_Tool::Degenerated(edge))
+        if (BRepInspector::Degenerated(edge))
           degenerated = Standard_True;
-        if (BRep_Tool::IsClosed(edge, Face))
+        if (BRepInspector::IsClosed(edge, Face))
           degenerated = Standard_True;
-        TopoDS_Vertex Va, Vb;
-        TopExp::Vertices(edge, Va, Vb);
+        TopoVertex Va, Vb;
+        TopExp1::Vertices(edge, Va, Vb);
         Standard_Real TolVertex1 = 0., TolVertex = 0.;
         if (Va.IsNull())
           degenerated = Standard_True;
         else
-          TolVertex1 = BRep_Tool::Tolerance(Va);
+          TolVertex1 = BRepInspector::Tolerance(Va);
         if (Vb.IsNull())
           degenerated = Standard_True;
         else
-          TolVertex = BRep_Tool::Tolerance(Vb);
+          TolVertex = BRepInspector::Tolerance(Vb);
         if (TolVertex < TolVertex1)
           TolVertex = TolVertex1;
         BRepAdaptor_Curve C3d;
@@ -196,7 +196,7 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoDS_Face&  aFace,
 
         //-- ----------------------------------------
 
-        Tole = BRep_Tool::Tolerance(edge);
+        Tole = BRepInspector::Tolerance(edge);
         if (Tole > Tol)
           Tol = Tole;
 
@@ -386,7 +386,7 @@ BRepTopAdaptor_FClass2d::BRepTopAdaptor_FClass2d(const TopoDS_Face&  aFace,
             if (Or == TopAbs_FORWARD || Or == TopAbs_REVERSED)
             {
               Standard_Real pfbid, plbid;
-              BRep_Tool::Range(edge, Face, pfbid, plbid);
+              BRepInspector::Range(edge, Face, pfbid, plbid);
               if (Abs(plbid - pfbid) < 1.e-9)
                 continue;
               BRepAdaptor_Curve2d           C(edge, Face);

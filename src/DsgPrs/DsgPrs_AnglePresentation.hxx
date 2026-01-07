@@ -25,7 +25,7 @@
 #include <DsgPrs_ArrowSide.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class TCollection_ExtendedString;
+class UtfString;
 class gp_Circ;
 class Point3d;
 class Dir3d;
@@ -42,9 +42,9 @@ public:
   //! VmaxCircle - a circle at V parameter = Vmax
   //! aCircle - a circle at V parameter from projection of aPosition to axis of the cone
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Standard_Real               aVal,
-                                  const TCollection_ExtendedString& aText,
+                                  const UtfString& aText,
                                   const gp_Circ&                    aCircle,
                                   const Point3d&                     aPosition,
                                   const Point3d&                     Apex,
@@ -57,7 +57,7 @@ public:
   //! CenterPoint, using the offset point OffsetPoint.
   //! Lines are drawn to points AttachmentPoint1 and AttachmentPoint2
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Standard_Real               theval,
                                   const Point3d&                     CenterPoint,
                                   const Point3d&                     AttachmentPoint1,
@@ -69,9 +69,9 @@ public:
   //! Same  as above, but <thevalstring> contains conversion
   //! in Session units....
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Standard_Real               theval,
-                                  const TCollection_ExtendedString& thevalstring,
+                                  const UtfString& thevalstring,
                                   const Point3d&                     CenterPoint,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
@@ -82,9 +82,9 @@ public:
   //! Same  as above, may add one  or
   //! two Arrows  according to  <ArrowSide>  value
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Standard_Real               theval,
-                                  const TCollection_ExtendedString& thevalstring,
+                                  const UtfString& thevalstring,
                                   const Point3d&                     CenterPoint,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
@@ -96,9 +96,9 @@ public:
   //! Same  as above, but axisdir contains the axis direction
   //! useful for Revol that can be opened with 180 degrees
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Standard_Real               theval,
-                                  const TCollection_ExtendedString& thevalstring,
+                                  const UtfString& thevalstring,
                                   const Point3d&                     CenterPoint,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
@@ -110,9 +110,9 @@ public:
   //! Same  as above,may add one  or
   //! two Arrows  according to  <ArrowSide>  value
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Standard_Real               theval,
-                                  const TCollection_ExtendedString& thevalstring,
+                                  const UtfString& thevalstring,
                                   const Point3d&                     CenterPoint,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
@@ -125,12 +125,12 @@ public:
                                   const DsgPrs_ArrowSide            ArrowSide);
 
   //! simple representation of a poor lonesome angle dimension
-  //! Draw a line from <theCenter>   to <AttachmentPoint1>, then operates
+  //! Draw1 a line from <theCenter>   to <AttachmentPoint1>, then operates
   //! a rotation around the perpmay add one  or
   //! two Arrows  according to  <ArrowSide>  value.  The
   //! attributes (color,arrowsize,...) are driven by the Drawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Standard_Real               theval,
                                   const Point3d&                     theCenter,
                                   const Point3d&                     AttachmentPoint1,

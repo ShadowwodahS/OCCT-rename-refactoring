@@ -32,7 +32,7 @@ class IGESDimen_FlagNote;
 DEFINE_STANDARD_HANDLE(IGESDimen_FlagNote, IGESData_IGESEntity)
 
 //! defines FlagNote, Type <208> Form <0>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Is label information formatted in different ways
 class IGESDimen_FlagNote : public IGESData_IGESEntity
 {

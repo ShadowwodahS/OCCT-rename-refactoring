@@ -29,8 +29,8 @@
 #include <GCPnts_AbscissaPoint.hxx>
 
 // Comparator, used in std::sort.
-static Standard_Boolean comp(const gp_XY& theA,
-                             const gp_XY& theB)
+static Standard_Boolean comp(const Coords2d& theA,
+                             const Coords2d& theB)
 {
   if (theA.X() < theB.X())
   {
@@ -102,7 +102,7 @@ static void ChangeIntervals(Handle(TColStd_HArray1OfReal)& theInts, const Standa
 class Extrema_CCPointsInspector : public NCollection_CellFilter_InspectorXY
 {
 public:
-  typedef gp_XY Target;
+  typedef Coords2d Target;
   //! Constructor; remembers the tolerance
   Extrema_CCPointsInspector (const Standard_Real theTol)
   {
@@ -121,7 +121,7 @@ public:
   }
 
   //! Set current point to search for coincidence
-  void SetCurrent (const gp_XY& theCurPnt) 
+  void SetCurrent (const Coords2d& theCurPnt) 
   { 
     myCurrent = theCurPnt;
   }
@@ -129,7 +129,7 @@ public:
   //! Implementation of inspection method
   NCollection_CellFilter_Action Inspect (const Target& theObject)
   {
-    gp_XY aPt = myCurrent.Subtracted(theObject);
+    Coords2d aPt = myCurrent.Subtracted(theObject);
     const Standard_Real aSQDist = aPt.SquareModulus();
     if(aSQDist < myTol)
     {
@@ -141,7 +141,7 @@ public:
 
 private:
   Standard_Real myTol;
-  gp_XY myCurrent;
+  Coords2d myCurrent;
   Standard_Boolean myIsFind;
 };
 
@@ -445,7 +445,7 @@ void Extrema_GenExtCC::Perform()
                                       Precision::PConfusion());
   Extrema_CCPointsInspector anInspector(aCellSize);
   NCollection_CellFilter<Extrema_CCPointsInspector> aFilter(aCellSize);
-  NCollection_Vector<gp_XY> aPnts;
+  NCollection_Vector<Coords2d> aPnts;
 
   Standard_Integer i,j,k;
   math_Vector aFirstBorderInterval(1,2);
@@ -489,10 +489,10 @@ void Extrema_GenExtCC::Perform()
       for(k = 1; k <= aFinder.NbExtrema(); k++)
       {
         aFinder.Points(k, sol);
-        gp_XY aPnt2d(sol(1), sol(2));
+        Coords2d aPnt2d(sol(1), sol(2));
 
-        gp_XY aXYmin = anInspector.Shift(aPnt2d, -aCellSize);
-        gp_XY aXYmax = anInspector.Shift(aPnt2d,  aCellSize);
+        Coords2d aXYmin = anInspector.Shift(aPnt2d, -aCellSize);
+        Coords2d aXYmax = anInspector.Shift(aPnt2d,  aCellSize);
 
         anInspector.ClearFind();
         anInspector.SetCurrent(aPnt2d);
@@ -501,7 +501,7 @@ void Extrema_GenExtCC::Perform()
         {
           // Point is out of close cells, add new one.
           aFilter.Add(aPnt2d, aPnt2d);
-          aPnts.Append(gp_XY(sol(1), sol(2)));
+          aPnts.Append(Coords2d(sol(1), sol(2)));
         }
       }
     }
@@ -520,7 +520,7 @@ void Extrema_GenExtCC::Perform()
   if (aNbSol == 1)
   {
     // Single solution
-    const gp_XY& aSol = aPnts.First();
+    const Coords2d& aSol = aPnts.First();
     myPoints1.Append(aSol.X());
     myPoints2.Append(aSol.Y());
     return;
@@ -557,8 +557,8 @@ void Extrema_GenExtCC::Perform()
   // Iterate on all solutions and collect the extreme solutions on all parallel segments.
   for (Standard_Integer anIdx = 0; anIdx < aNbSol - 1; anIdx++)
   {
-    const gp_XY& aCurrent = aPnts(anIdx);
-    const gp_XY& aNext    = aPnts(anIdx + 1);
+    const Coords2d& aCurrent = aPnts(anIdx);
+    const Coords2d& aNext    = aPnts(anIdx + 1);
 
     aVec(1) = (aCurrent.X() + aNext.X()) * 0.5;
     aVec(2) = (aCurrent.Y() + aNext.Y()) * 0.5;
@@ -634,7 +634,7 @@ void Extrema_GenExtCC::Perform()
   if (isParallel)
   {
     // Keep only one solution
-    const gp_XY& aSol = aPnts.First();
+    const Coords2d& aSol = aPnts.First();
     myPoints1.Append(aSol.X());
     myPoints2.Append(aSol.Y());
     myParallel = Standard_True;
@@ -645,7 +645,7 @@ void Extrema_GenExtCC::Perform()
     TColStd_ListIteratorOfListOfInteger aItSol(aSolutions);
     for (; aItSol.More(); aItSol.Next())
     {
-      const gp_XY& aSol = aPnts(aItSol.Value());
+      const Coords2d& aSol = aPnts(aItSol.Value());
       myPoints1.Append(aSol.X());
       myPoints2.Append(aSol.Y());
     }

@@ -30,7 +30,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(BRepFill_Edge3DLaw, BRepFill_LocationLaw)
 
-BRepFill_Edge3DLaw::BRepFill_Edge3DLaw(const TopoDS_Wire&                  Path,
+BRepFill_Edge3DLaw::BRepFill_Edge3DLaw(const TopoWire&                  Path,
                                        const Handle(GeomFill_LocationLaw)& Law)
 {
   Init(Path);
@@ -38,10 +38,10 @@ BRepFill_Edge3DLaw::BRepFill_Edge3DLaw(const TopoDS_Wire&                  Path,
   Standard_Integer       ipath;
   TopAbs_Orientation     Or;
   BRepTools_WireExplorer wexp;
-  // Class BRep_Tool without fields and without Constructor :
-  //  BRep_Tool B;
-  TopoDS_Edge               E;
-  Handle(Geom_Curve)        C;
+  // Class BRepInspector without fields and without Constructor :
+  //  BRepInspector B;
+  TopoEdge               E;
+  Handle(GeomCurve3d)        C;
   Handle(GeomAdaptor_Curve) AC;
   Standard_Real             First, Last;
 
@@ -49,11 +49,11 @@ BRepFill_Edge3DLaw::BRepFill_Edge3DLaw(const TopoDS_Wire&                  Path,
   {
     E = wexp.Current();
     //    if (!B.Degenerated(E)) {
-    if (!BRep_Tool::Degenerated(E))
+    if (!BRepInspector::Degenerated(E))
     {
       ipath++;
       myEdges->SetValue(ipath, E);
-      C  = BRep_Tool::Curve(E, First, Last);
+      C  = BRepInspector::Curve(E, First, Last);
       Or = E.Orientation();
       if (Or == TopAbs_REVERSED)
       {

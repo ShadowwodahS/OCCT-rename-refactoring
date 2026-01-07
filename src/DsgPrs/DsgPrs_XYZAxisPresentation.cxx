@@ -43,7 +43,7 @@ void DsgPrs_XYZAxisPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   aPrims->AddVertex(aPlast);
   G->AddPrimitiveArray(aPrims);
 
-  Prs3d_Arrow::Draw(aPresentation->CurrentGroup(), aPlast, aDir, M_PI / 180. * 10., aVal / 10.);
+  Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(), aPlast, aDir, M_PI / 180. * 10., aVal / 10.);
 
   if (*theText != '\0')
   {
@@ -73,7 +73,7 @@ void DsgPrs_XYZAxisPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   G->AddPrimitiveArray(aPrims);
 
   G->SetPrimitivesAspect(anArrowAspect->Aspect());
-  Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+  Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                     aPlast,
                     aDir,
                     anArrowAspect->Angle(),

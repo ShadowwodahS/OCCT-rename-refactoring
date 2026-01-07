@@ -56,9 +56,9 @@ Handle(Interface_Protocol) IGESDimen_Protocol::Resource(const Standard_Integer n
 {
   Handle(Interface_Protocol) res;
   if (num == 1)
-    res = IGESGraph::Protocol();
+    res = IGESGraph1::Protocol();
   if (num == 2)
-    res = IGESGeom::Protocol();
+    res = IGESGeom1::Protocol();
   return res;
 }
 

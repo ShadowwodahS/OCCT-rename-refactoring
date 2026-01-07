@@ -21,7 +21,7 @@
 #include <TCollection_HAsciiString.hxx>
 #include <TCollection_HExtendedString.hxx>
 
-class Message_Printer;
+class LogPrinter;
 
 // resolve name collisions with WinAPI headers
 #ifdef AddPrinter
@@ -148,17 +148,17 @@ public:
   Standard_EXPORT Message_Messenger();
 
   //! Create messenger with single printer
-  Standard_EXPORT Message_Messenger(const Handle(Message_Printer)& thePrinter);
+  Standard_EXPORT Message_Messenger(const Handle(LogPrinter)& thePrinter);
 
   //! Add a printer to the messenger.
   //! The printer will be added only if it is not yet in the list.
   //! Returns True if printer has been added.
-  Standard_EXPORT Standard_Boolean AddPrinter(const Handle(Message_Printer)& thePrinter);
+  Standard_EXPORT Standard_Boolean AddPrinter(const Handle(LogPrinter)& thePrinter);
 
   //! Removes specified printer from the messenger.
   //! Returns True if this printer has been found in the list
   //! and removed.
-  Standard_EXPORT Standard_Boolean RemovePrinter(const Handle(Message_Printer)& thePrinter);
+  Standard_EXPORT Standard_Boolean RemovePrinter(const Handle(LogPrinter)& thePrinter);
 
   //! Removes printers of specified type (including derived classes)
   //! from the messenger.
@@ -183,11 +183,11 @@ public:
                             const Message_Gravity   theGravity = Message_Warning) const;
 
   //! See above
-  Standard_EXPORT void Send(const TCollection_AsciiString& theString,
+  Standard_EXPORT void Send(const AsciiString1& theString,
                             const Message_Gravity          theGravity = Message_Warning) const;
 
   //! See above
-  Standard_EXPORT void Send(const TCollection_ExtendedString& theString,
+  Standard_EXPORT void Send(const UtfString& theString,
                             const Message_Gravity             theGravity = Message_Warning) const;
 
   //! Create string buffer for message of specified type
@@ -213,19 +213,19 @@ public:
   StreamBuffer SendTrace() { return Send(Message_Trace); }
 
   //! Short-cut to Send (theMessage, Message_Fail)
-  void SendFail(const TCollection_AsciiString& theMessage) { Send(theMessage, Message_Fail); }
+  void SendFail(const AsciiString1& theMessage) { Send(theMessage, Message_Fail); }
 
   //! Short-cut to Send (theMessage, Message_Alarm)
-  void SendAlarm(const TCollection_AsciiString& theMessage) { Send(theMessage, Message_Alarm); }
+  void SendAlarm(const AsciiString1& theMessage) { Send(theMessage, Message_Alarm); }
 
   //! Short-cut to Send (theMessage, Message_Warning)
-  void SendWarning(const TCollection_AsciiString& theMessage) { Send(theMessage, Message_Warning); }
+  void SendWarning(const AsciiString1& theMessage) { Send(theMessage, Message_Warning); }
 
   //! Short-cut to Send (theMessage, Message_Info)
-  void SendInfo(const TCollection_AsciiString& theMessage) { Send(theMessage, Message_Info); }
+  void SendInfo(const AsciiString1& theMessage) { Send(theMessage, Message_Info); }
 
   //! Short-cut to Send (theMessage, Message_Trace)
-  void SendTrace(const TCollection_AsciiString& theMessage) { Send(theMessage, Message_Trace); }
+  void SendTrace(const AsciiString1& theMessage) { Send(theMessage, Message_Trace); }
 
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;

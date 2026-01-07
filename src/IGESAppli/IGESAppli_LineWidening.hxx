@@ -27,7 +27,7 @@ class IGESAppli_LineWidening;
 DEFINE_STANDARD_HANDLE(IGESAppli_LineWidening, IGESData_IGESEntity)
 
 //! defines LineWidening, Type <406> Form <5>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Defines the characteristics of entities when they are
 //! used to define locations of items.
 class IGESAppli_LineWidening : public IGESData_IGESEntity

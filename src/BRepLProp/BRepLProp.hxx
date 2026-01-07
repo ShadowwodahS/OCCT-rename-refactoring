@@ -28,7 +28,7 @@ class BRepAdaptor_Curve;
 //! These global functions compute the degree of
 //! continuity of a curve built by concatenation of two
 //! edges at their junction point.
-class BRepLProp
+class BRepLProp1
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -20,32 +20,32 @@
 
 //=================================================================================================
 
-TopOpeBRep_WPointInter::TopOpeBRep_WPointInter() {}
+WPointIntersection::WPointIntersection() {}
 
 //=================================================================================================
 
-void TopOpeBRep_WPointInter::Set(const IntSurf_PntOn2S& P)
+void WPointIntersection::Set(const IntSurf_PntOn2S& P)
 {
   myPP2S = (IntSurf_PntOn2S*)&P;
 }
 
 //=================================================================================================
 
-void TopOpeBRep_WPointInter::ParametersOnS1(Standard_Real& U1, Standard_Real& V1) const
+void WPointIntersection::ParametersOnS1(Standard_Real& U1, Standard_Real& V1) const
 {
   myPP2S->ParametersOnS1(U1, V1);
 }
 
 //=================================================================================================
 
-void TopOpeBRep_WPointInter::ParametersOnS2(Standard_Real& U2, Standard_Real& V2) const
+void WPointIntersection::ParametersOnS2(Standard_Real& U2, Standard_Real& V2) const
 {
   myPP2S->ParametersOnS2(U2, V2);
 }
 
 //=================================================================================================
 
-void TopOpeBRep_WPointInter::Parameters(Standard_Real& U1,
+void WPointIntersection::Parameters(Standard_Real& U1,
                                         Standard_Real& V1,
                                         Standard_Real& U2,
                                         Standard_Real& V2) const
@@ -55,7 +55,7 @@ void TopOpeBRep_WPointInter::Parameters(Standard_Real& U1,
 
 //=================================================================================================
 
-gp_Pnt2d TopOpeBRep_WPointInter::ValueOnS1() const
+gp_Pnt2d WPointIntersection::ValueOnS1() const
 {
   Standard_Real u, v;
   myPP2S->ParametersOnS1(u, v);
@@ -64,7 +64,7 @@ gp_Pnt2d TopOpeBRep_WPointInter::ValueOnS1() const
 
 //=================================================================================================
 
-gp_Pnt2d TopOpeBRep_WPointInter::ValueOnS2() const
+gp_Pnt2d WPointIntersection::ValueOnS2() const
 {
   Standard_Real u, v;
   myPP2S->ParametersOnS2(u, v);
@@ -73,12 +73,12 @@ gp_Pnt2d TopOpeBRep_WPointInter::ValueOnS2() const
 
 //=================================================================================================
 
-const Point3d& TopOpeBRep_WPointInter::Value() const
+const Point3d& WPointIntersection::Value() const
 {
   return myPP2S->Value();
 }
 
-TopOpeBRep_PPntOn2S TopOpeBRep_WPointInter::PPntOn2SDummy() const
+TopOpeBRep_PPntOn2S WPointIntersection::PPntOn2SDummy() const
 {
   return myPP2S;
 }

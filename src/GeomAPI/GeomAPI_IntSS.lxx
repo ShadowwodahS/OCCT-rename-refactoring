@@ -15,19 +15,19 @@
 // commercial license or contractual agreement.
 
 //=======================================================================
-// function : GeomAPI_IntSS
+// function : SurfaceIntersector
 // purpose  :
 //=======================================================================
 
-inline GeomAPI_IntSS::GeomAPI_IntSS() {}
+inline SurfaceIntersector::SurfaceIntersector() {}
 
 //=======================================================================
-// function : GeomAPI_IntSS
+// function : SurfaceIntersector
 // purpose  :
 //=======================================================================
 
-inline GeomAPI_IntSS::GeomAPI_IntSS(const Handle(Geom_Surface)& S1,
-                                    const Handle(Geom_Surface)& S2,
+inline SurfaceIntersector::SurfaceIntersector(const Handle(GeomSurface)& S1,
+                                    const Handle(GeomSurface)& S2,
                                     const Standard_Real         Tol)
     : myIntersec(S1, S2, Tol, Standard_True)
 {
@@ -38,8 +38,8 @@ inline GeomAPI_IntSS::GeomAPI_IntSS(const Handle(Geom_Surface)& S1,
 // purpose  :
 //=======================================================================
 
-inline void GeomAPI_IntSS::Perform(const Handle(Geom_Surface)& S1,
-                                   const Handle(Geom_Surface)& S2,
+inline void SurfaceIntersector::Perform(const Handle(GeomSurface)& S1,
+                                   const Handle(GeomSurface)& S2,
                                    const Standard_Real         Tol)
 {
   myIntersec.Perform(S1, S2, Tol, Standard_True);
@@ -50,7 +50,7 @@ inline void GeomAPI_IntSS::Perform(const Handle(Geom_Surface)& S1,
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean GeomAPI_IntSS::IsDone() const
+inline Standard_Boolean SurfaceIntersector::IsDone() const
 {
   return myIntersec.IsDone();
 }
@@ -60,7 +60,7 @@ inline Standard_Boolean GeomAPI_IntSS::IsDone() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer GeomAPI_IntSS::NbLines() const
+inline Standard_Integer SurfaceIntersector::NbLines() const
 {
   return myIntersec.NbLines();
 }
@@ -70,7 +70,7 @@ inline Standard_Integer GeomAPI_IntSS::NbLines() const
 // purpose  :
 //=======================================================================
 
-inline const Handle(Geom_Curve)& GeomAPI_IntSS::Line(const Standard_Integer I) const
+inline const Handle(GeomCurve3d)& SurfaceIntersector::Line(const Standard_Integer I) const
 {
   return myIntersec.Line(I);
 }

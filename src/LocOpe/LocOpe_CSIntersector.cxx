@@ -48,11 +48,11 @@ static Standard_Boolean LocAfter(const LocOpe_SequenceOfPntFace&,
                                  Standard_Integer&,
                                  Standard_Integer&);
 
-static void AddPoints(IntCurvesFace_Intersector&, LocOpe_SequenceOfPntFace&, const TopoDS_Face&);
+static void AddPoints(IntCurvesFace_Intersector&, LocOpe_SequenceOfPntFace&, const TopoFace&);
 
 //=================================================================================================
 
-void LocOpe_CSIntersector::Init(const TopoDS_Shape& S)
+void LocOpe_CSIntersector::Init(const TopoShape& S)
 {
   myDone  = Standard_False;
   myShape = S;
@@ -83,10 +83,10 @@ void LocOpe_CSIntersector::Perform(const LocOpe_SequenceOfLin& Slin)
 
   constexpr Standard_Real binf = RealFirst();
   constexpr Standard_Real bsup = RealLast();
-  TopExp_Explorer         exp(myShape, TopAbs_FACE);
+  ShapeExplorer         exp(myShape, TopAbs_FACE);
   for (; exp.More(); exp.Next())
   {
-    const TopoDS_Face&        theface = TopoDS::Face(exp.Current());
+    const TopoFace&        theface = TopoDS::Face(exp.Current());
     IntCurvesFace_Intersector theInt(theface, Precision::PConfusion());
     for (Standard_Integer i = 1; i <= myNbelem; i++)
     {
@@ -117,19 +117,19 @@ void LocOpe_CSIntersector::Perform(const LocOpe_SequenceOfCirc& Scir)
   }
   myPoints = (LocOpe_SequenceOfPntFace*)new LocOpe_SequenceOfPntFace[myNbelem];
 
-  TopExp_Explorer           exp(myShape, TopAbs_FACE);
+  ShapeExplorer           exp(myShape, TopAbs_FACE);
   Handle(GeomAdaptor_Curve) HC   = new GeomAdaptor_Curve();
   Standard_Real             binf = 0.;
   Standard_Real             bsup = 2. * M_PI;
 
   for (; exp.More(); exp.Next())
   {
-    const TopoDS_Face&        theface = TopoDS::Face(exp.Current());
+    const TopoFace&        theface = TopoDS::Face(exp.Current());
     IntCurvesFace_Intersector theInt(theface, 0.);
     for (Standard_Integer i = 1; i <= myNbelem; i++)
     {
 
-      HC->Load(new Geom_Circle(Scir(i)));
+      HC->Load(new GeomCircle(Scir(i)));
       theInt.Perform(HC, binf, bsup);
       if (theInt.IsDone())
       {
@@ -157,11 +157,11 @@ void LocOpe_CSIntersector::Perform(const TColGeom_SequenceOfCurve& Scur)
   }
   myPoints = (LocOpe_SequenceOfPntFace*)new LocOpe_SequenceOfPntFace[myNbelem];
 
-  TopExp_Explorer           exp(myShape, TopAbs_FACE);
+  ShapeExplorer           exp(myShape, TopAbs_FACE);
   Handle(GeomAdaptor_Curve) HC = new GeomAdaptor_Curve();
   for (; exp.More(); exp.Next())
   {
-    const TopoDS_Face&        theface = TopoDS::Face(exp.Current());
+    const TopoFace&        theface = TopoDS::Face(exp.Current());
     IntCurvesFace_Intersector theInt(theface, 0.);
     for (Standard_Integer i = 1; i <= myNbelem; i++)
     {
@@ -506,7 +506,7 @@ static Standard_Boolean LocAfter(const LocOpe_SequenceOfPntFace& Spt,
 
 static void AddPoints(IntCurvesFace_Intersector& theInt,
                       LocOpe_SequenceOfPntFace&  theSeq,
-                      const TopoDS_Face&         theface)
+                      const TopoFace&         theface)
 {
   Standard_Integer nbpoints = theSeq.Length();
   Standard_Integer newpnt   = theInt.NbPnt();

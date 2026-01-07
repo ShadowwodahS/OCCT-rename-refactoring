@@ -28,7 +28,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESGeom_Flash, IGESData_IGESEntity)
 
 IGESGeom_Flash::IGESGeom_Flash() {}
 
-void IGESGeom_Flash::Init(const gp_XY&                       aPoint,
+void IGESGeom_Flash::Init(const Coords2d&                       aPoint,
                           const Standard_Real                aDim1,
                           const Standard_Real                aDim2,
                           const Standard_Real                aRotation,

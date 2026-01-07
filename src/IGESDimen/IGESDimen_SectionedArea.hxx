@@ -30,7 +30,7 @@ class IGESDimen_SectionedArea;
 DEFINE_STANDARD_HANDLE(IGESDimen_SectionedArea, IGESData_IGESEntity)
 
 //! defines IGES Sectioned Area, Type <230> Form <0>,
-//! in package IGESDimen
+//! in package IGESDimen1
 //! A sectioned area is a portion of a design which is to be
 //! filled with a pattern of lines. Ordinarily, this entity
 //! is used to reveal or expose shape or material characteri-

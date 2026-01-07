@@ -22,14 +22,14 @@
 
 #include <BRepTools_TrsfModification.hxx>
 class Transform3d;
-class TopoDS_Face;
-class Geom_Surface;
+class TopoFace;
+class GeomSurface;
 class TopLoc_Location;
-class TopoDS_Edge;
-class Geom_Curve;
-class TopoDS_Vertex;
+class TopoEdge;
+class GeomCurve3d;
+class TopoVertex;
 class Point3d;
-class Geom2d_Curve;
+class GeomCurve2d;
 
 class ShapeCustom_TrsfModification;
 DEFINE_STANDARD_HANDLE(ShapeCustom_TrsfModification, BRepTools_TrsfModification)
@@ -37,7 +37,7 @@ DEFINE_STANDARD_HANDLE(ShapeCustom_TrsfModification, BRepTools_TrsfModification)
 //! Complements BRepTools_TrsfModification to provide reversible
 //! scaling regarding tolerances.
 //! Uses actual tolerances (attached to the shapes) not ones
-//! returned by BRep_Tool::Tolerance to work with tolerances
+//! returned by BRepInspector::Tolerance to work with tolerances
 //! lower than Precision::Confusion.
 class ShapeCustom_TrsfModification : public BRepTools_TrsfModification
 {
@@ -49,8 +49,8 @@ public:
   //! Calls inherited method.
   //! Sets <Tol> as actual tolerance of <F> multiplied with scale
   //! factor.
-  Standard_EXPORT Standard_Boolean NewSurface(const TopoDS_Face&    F,
-                                              Handle(Geom_Surface)& S,
+  Standard_EXPORT Standard_Boolean NewSurface(const TopoFace&    F,
+                                              Handle(GeomSurface)& S,
                                               TopLoc_Location&      L,
                                               Standard_Real&        Tol,
                                               Standard_Boolean&     RevWires,
@@ -59,33 +59,33 @@ public:
   //! Calls inherited method.
   //! Sets <Tol> as actual tolerance of <E> multiplied with scale
   //! factor.
-  Standard_EXPORT Standard_Boolean NewCurve(const TopoDS_Edge&  E,
-                                            Handle(Geom_Curve)& C,
+  Standard_EXPORT Standard_Boolean NewCurve(const TopoEdge&  E,
+                                            Handle(GeomCurve3d)& C,
                                             TopLoc_Location&    L,
                                             Standard_Real&      Tol) Standard_OVERRIDE;
 
   //! Calls inherited method.
   //! Sets <Tol> as actual tolerance of <V> multiplied with scale
   //! factor.
-  Standard_EXPORT Standard_Boolean NewPoint(const TopoDS_Vertex& V,
+  Standard_EXPORT Standard_Boolean NewPoint(const TopoVertex& V,
                                             Point3d&              P,
                                             Standard_Real&       Tol) Standard_OVERRIDE;
 
   //! Calls inherited method.
   //! Sets <Tol> as actual tolerance of <E> multiplied with scale
   //! factor.
-  Standard_EXPORT Standard_Boolean NewCurve2d(const TopoDS_Edge&    E,
-                                              const TopoDS_Face&    F,
-                                              const TopoDS_Edge&    NewE,
-                                              const TopoDS_Face&    NewF,
-                                              Handle(Geom2d_Curve)& C,
+  Standard_EXPORT Standard_Boolean NewCurve2d(const TopoEdge&    E,
+                                              const TopoFace&    F,
+                                              const TopoEdge&    NewE,
+                                              const TopoFace&    NewF,
+                                              Handle(GeomCurve2d)& C,
                                               Standard_Real&        Tol) Standard_OVERRIDE;
 
   //! Calls inherited method.
   //! Sets <Tol> as actual tolerance of <V> multiplied with scale
   //! factor.
-  Standard_EXPORT Standard_Boolean NewParameter(const TopoDS_Vertex& V,
-                                                const TopoDS_Edge&   E,
+  Standard_EXPORT Standard_Boolean NewParameter(const TopoVertex& V,
+                                                const TopoEdge&   E,
                                                 Standard_Real&       P,
                                                 Standard_Real&       Tol) Standard_OVERRIDE;
 

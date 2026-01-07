@@ -23,11 +23,11 @@
 class gp_Pnt2d;
 class gp_Vec2d;
 
-//! The Geom2dEvaluator package provides  utilities for .
+//! The Geom2dEvaluator1 package provides  utilities for .
 //! calculating value and derivatives of offset curve
 //! using corresponding values of base curve
 
-class Geom2dEvaluator
+class Geom2dEvaluator1
 {
 public:
   DEFINE_STANDARD_ALLOC

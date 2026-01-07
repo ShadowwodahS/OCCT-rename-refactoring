@@ -32,7 +32,7 @@ class Transform3d;
 class Geom_Geometry;
 
 class Geom_OffsetCurve;
-DEFINE_STANDARD_HANDLE(Geom_OffsetCurve, Geom_Curve)
+DEFINE_STANDARD_HANDLE(Geom_OffsetCurve, GeomCurve3d)
 
 //! This class implements the basis services for an offset curve
 //! in 3D space. The Offset curve in this package can be a self
@@ -75,7 +75,7 @@ DEFINE_STANDARD_HANDLE(Geom_OffsetCurve, Geom_Curve)
 //! are the same (The distance between these two points is lower or
 //! equal to the Resolution sea package gp) . The OffsetCurve can be
 //! closed even if the basis curve is not closed.
-class Geom_OffsetCurve : public Geom_Curve
+class Geom_OffsetCurve : public GeomCurve3d
 {
 
 public:
@@ -96,7 +96,7 @@ public:
   //! Raised if the basis curve C is not at least C1.
   //! Warnings :
   //! No check is done to know if ||V^T|| != 0.0 at any point.
-  Standard_EXPORT Geom_OffsetCurve(const Handle(Geom_Curve)& C,
+  Standard_EXPORT Geom_OffsetCurve(const Handle(GeomCurve3d)& C,
                                    const Standard_Real       Offset,
                                    const Dir3d&             V,
                                    const Standard_Boolean    isNotCheckC0 = Standard_False);
@@ -121,7 +121,7 @@ public:
   //! has C0-continuity is not made.
   //! Exceptions
   //! Standard_ConstructionError if the curve C is not at least "C1" continuous.
-  Standard_EXPORT void SetBasisCurve(const Handle(Geom_Curve)& C,
+  Standard_EXPORT void SetBasisCurve(const Handle(GeomCurve3d)& C,
                                      const Standard_Boolean    isNotCheckC0 = Standard_False);
 
   //! Changes this offset curve by assigning V as the
@@ -133,7 +133,7 @@ public:
 
   //! Returns the basis curve of this offset curve.
   //! Note: The basis curve can be an offset curve.
-  Standard_EXPORT Handle(Geom_Curve) BasisCurve() const;
+  Standard_EXPORT Handle(GeomCurve3d) BasisCurve() const;
 
   //! Returns the global continuity of this offset curve as a
   //! value of the GeomAbs_Shape enumeration.
@@ -285,11 +285,11 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_OffsetCurve, Geom_Curve)
+  DEFINE_STANDARD_RTTIEXT(Geom_OffsetCurve, GeomCurve3d)
 
 protected:
 private:
-  Handle(Geom_Curve)                basisCurve;
+  Handle(GeomCurve3d)                basisCurve;
   Dir3d                            direction;
   Standard_Real                     offsetValue;
   GeomAbs_Shape                     myBasisCurveContinuity;

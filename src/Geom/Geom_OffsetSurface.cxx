@@ -62,7 +62,7 @@
 #include <TColStd_HArray1OfInteger.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_OffsetSurface, Geom_Surface)
+IMPLEMENT_STANDARD_RTTIEXT(Geom_OffsetSurface, GeomSurface)
 
 static const Standard_Real MyAngularToleranceForG1 = Precision::Angular();
 
@@ -80,7 +80,7 @@ Handle(Geom_Geometry) Geom_OffsetSurface::Copy() const
 //            offset surface.
 //=======================================================================
 
-Geom_OffsetSurface::Geom_OffsetSurface(const Handle(Geom_Surface)& theSurf,
+Geom_OffsetSurface::Geom_OffsetSurface(const Handle(GeomSurface)& theSurf,
                                        const Standard_Real         theOffset,
                                        const Standard_Boolean      isNotCheckC0)
     : offsetValue(theOffset)
@@ -90,13 +90,13 @@ Geom_OffsetSurface::Geom_OffsetSurface(const Handle(Geom_Surface)& theSurf,
 
 //=================================================================================================
 
-void Geom_OffsetSurface::SetBasisSurface(const Handle(Geom_Surface)& S,
+void Geom_OffsetSurface::SetBasisSurface(const Handle(GeomSurface)& S,
                                          const Standard_Boolean      isNotCheckC0)
 {
   Standard_Real aUf, aUl, aVf, aVl;
   S->Bounds(aUf, aUl, aVf, aVl);
 
-  Handle(Geom_Surface) aCheckingSurf = Handle(Geom_Surface)::DownCast(S->Copy());
+  Handle(GeomSurface) aCheckingSurf = Handle(GeomSurface)::DownCast(S->Copy());
   Standard_Boolean     isTrimmed     = Standard_False;
 
   while (aCheckingSurf->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface))
@@ -125,7 +125,7 @@ void Geom_OffsetSurface::SetBasisSurface(const Handle(Geom_Surface)& S,
   // Basis surface must be at least C1
   if (isC0)
   {
-    Handle(Geom_Curve) aCurve;
+    Handle(GeomCurve3d) aCurve;
 
     if (aCheckingSurf->IsKind(STANDARD_TYPE(Geom_SurfaceOfRevolution)))
     {
@@ -162,20 +162,20 @@ void Geom_OffsetSurface::SetBasisSurface(const Handle(Geom_Surface)& S,
     const Standard_Real aUIsoPar = (aUf + aUl) / 2.0, aVIsoPar = (aVf + aVl) / 2.0;
     Standard_Boolean    isUG1 = Standard_False, isVG1 = Standard_False;
 
-    const Handle(Geom_Curve) aCurv1 = aCurve.IsNull() ? aCheckingSurf->UIso(aUIsoPar) : aCurve;
-    const Handle(Geom_Curve) aCurv2 = aCheckingSurf->VIso(aVIsoPar);
-    isUG1                           = !aCurv1->IsKind(STANDARD_TYPE(Geom_BSplineCurve));
-    isVG1                           = !aCurv2->IsKind(STANDARD_TYPE(Geom_BSplineCurve));
+    const Handle(GeomCurve3d) aCurv1 = aCurve.IsNull() ? aCheckingSurf->UIso(aUIsoPar) : aCurve;
+    const Handle(GeomCurve3d) aCurv2 = aCheckingSurf->VIso(aVIsoPar);
+    isUG1                           = !aCurv1->IsKind(STANDARD_TYPE(BSplineCurve3d));
+    isVG1                           = !aCurv2->IsKind(STANDARD_TYPE(BSplineCurve3d));
 
     if (!isUG1)
     {
-      Handle(Geom_BSplineCurve) aBC = Handle(Geom_BSplineCurve)::DownCast(aCurv1);
+      Handle(BSplineCurve3d) aBC = Handle(BSplineCurve3d)::DownCast(aCurv1);
       isUG1                         = aBC->IsG1(aVf, aVl, MyAngularToleranceForG1);
     }
     //
     if (!isVG1)
     {
-      Handle(Geom_BSplineCurve) aBC = Handle(Geom_BSplineCurve)::DownCast(aCurv2);
+      Handle(BSplineCurve3d) aBC = Handle(BSplineCurve3d)::DownCast(aCurv2);
       isVG1                         = aBC->IsG1(aUf, aUl, MyAngularToleranceForG1);
     }
     //
@@ -408,10 +408,10 @@ Vector3d Geom_OffsetSurface::DN(const Standard_Real    U,
 ////
 ////*************************************************
 
-class Geom_OffsetSurface_UIsoEvaluator : public AdvApprox_EvaluatorFunction
+class Geom_OffsetSurface_UIsoEvaluator : public EvaluatorFunction
 {
 public:
-  Geom_OffsetSurface_UIsoEvaluator(const Handle(Geom_Surface)& theSurface, const Standard_Real theU)
+  Geom_OffsetSurface_UIsoEvaluator(const Handle(GeomSurface)& theSurface, const Standard_Real theU)
       : CurrentSurface(theSurface),
         IsoPar(theU)
   {
@@ -455,10 +455,10 @@ void Geom_OffsetSurface_UIsoEvaluator::Evaluate(Standard_Integer*, /*Dimension*/
   *ReturnCode = 0;
 }
 
-class Geom_OffsetSurface_VIsoEvaluator : public AdvApprox_EvaluatorFunction
+class Geom_OffsetSurface_VIsoEvaluator : public EvaluatorFunction
 {
 public:
-  Geom_OffsetSurface_VIsoEvaluator(const Handle(Geom_Surface)& theSurface, const Standard_Real theV)
+  Geom_OffsetSurface_VIsoEvaluator(const Handle(GeomSurface)& theSurface, const Standard_Real theV)
       : CurrentSurface(theSurface),
         IsoPar(theV)
   {
@@ -472,7 +472,7 @@ public:
                         Standard_Integer* ErrorCode);
 
 private:
-  Handle(Geom_Surface) CurrentSurface;
+  Handle(GeomSurface) CurrentSurface;
   Standard_Real        IsoPar;
 };
 
@@ -510,14 +510,14 @@ void Geom_OffsetSurface_VIsoEvaluator::Evaluate(Standard_Integer*, /*Dimension*/
 //           This approx always will return a BSplineCurve from Geom.
 //=======================================================================
 
-Handle(Geom_Curve) Geom_OffsetSurface::UIso(const Standard_Real UU) const
+Handle(GeomCurve3d) Geom_OffsetSurface::UIso(const Standard_Real UU) const
 {
   if (equivSurf.IsNull())
   {
     GeomAdaptor_Surface aGAsurf(basisSurf);
     if (aGAsurf.GetType() == GeomAbs_SurfaceOfExtrusion)
     {
-      Handle(Geom_Curve) aL = basisSurf->UIso(UU);
+      Handle(GeomCurve3d) aL = basisSurf->UIso(UU);
       GeomLProp_SLProps  aSurfProps(basisSurf, UU, 0., 2, Precision::Confusion());
 
       Vector3d aDir;
@@ -552,7 +552,7 @@ Handle(Geom_Curve) Geom_OffsetSurface::UIso(const Standard_Real UU) const
     Knots = Approx.Knots()->Array1();
     Mults = Approx.Multiplicities()->Array1();
 
-    Handle(Geom_BSplineCurve) C = new Geom_BSplineCurve(Poles, Knots, Mults, Approx.Degree());
+    Handle(BSplineCurve3d) C = new BSplineCurve3d(Poles, Knots, Mults, Approx.Degree());
     return C;
   }
   else
@@ -561,7 +561,7 @@ Handle(Geom_Curve) Geom_OffsetSurface::UIso(const Standard_Real UU) const
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_OffsetSurface::VIso(const Standard_Real VV) const
+Handle(GeomCurve3d) Geom_OffsetSurface::VIso(const Standard_Real VV) const
 {
   if (equivSurf.IsNull())
   {
@@ -588,7 +588,7 @@ Handle(Geom_Curve) Geom_OffsetSurface::VIso(const Standard_Real VV) const
     Knots = Approx.Knots()->Array1();
     Mults = Approx.Multiplicities()->Array1();
 
-    Handle(Geom_BSplineCurve) C = new Geom_BSplineCurve(Poles, Knots, Mults, Approx.Degree());
+    Handle(BSplineCurve3d) C = new BSplineCurve3d(Poles, Knots, Mults, Approx.Degree());
     return C;
   }
   else
@@ -644,14 +644,14 @@ Standard_Real Geom_OffsetSurface::VPeriod() const
 Standard_Boolean Geom_OffsetSurface::IsUClosed() const
 {
   Standard_Boolean     UClosed;
-  Handle(Geom_Surface) SBasis = BasisSurface();
+  Handle(GeomSurface) SBasis = BasisSurface();
 
   if (SBasis->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
   {
     Handle(Geom_RectangularTrimmedSurface) St =
       Handle(Geom_RectangularTrimmedSurface)::DownCast(SBasis);
 
-    Handle(Geom_Surface) S = St->BasisSurface();
+    Handle(GeomSurface) S = St->BasisSurface();
     if (S->IsKind(STANDARD_TYPE(Geom_ElementarySurface)))
     {
       UClosed = SBasis->IsUClosed();
@@ -661,8 +661,8 @@ Standard_Boolean Geom_OffsetSurface::IsUClosed() const
       Handle(Geom_SurfaceOfLinearExtrusion) Extru =
         Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(S);
 
-      Handle(Geom_Curve) C = Extru->BasisCurve();
-      if (C->IsKind(STANDARD_TYPE(Geom_Circle)) || C->IsKind(STANDARD_TYPE(Geom_Ellipse)))
+      Handle(GeomCurve3d) C = Extru->BasisCurve();
+      if (C->IsKind(STANDARD_TYPE(GeomCircle)) || C->IsKind(STANDARD_TYPE(Geom_Ellipse)))
       {
         UClosed = SBasis->IsUClosed();
       }
@@ -691,8 +691,8 @@ Standard_Boolean Geom_OffsetSurface::IsUClosed() const
       Handle(Geom_SurfaceOfLinearExtrusion) Extru =
         Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(SBasis);
 
-      Handle(Geom_Curve) C = Extru->BasisCurve();
-      UClosed = (C->IsKind(STANDARD_TYPE(Geom_Circle)) || C->IsKind(STANDARD_TYPE(Geom_Ellipse)));
+      Handle(GeomCurve3d) C = Extru->BasisCurve();
+      UClosed = (C->IsKind(STANDARD_TYPE(GeomCircle)) || C->IsKind(STANDARD_TYPE(Geom_Ellipse)));
     }
     else if (SBasis->IsKind(STANDARD_TYPE(Geom_SurfaceOfRevolution)))
     {
@@ -711,14 +711,14 @@ Standard_Boolean Geom_OffsetSurface::IsUClosed() const
 Standard_Boolean Geom_OffsetSurface::IsVClosed() const
 {
   Standard_Boolean     VClosed;
-  Handle(Geom_Surface) SBasis = BasisSurface();
+  Handle(GeomSurface) SBasis = BasisSurface();
 
   if (SBasis->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
   {
     Handle(Geom_RectangularTrimmedSurface) St =
       Handle(Geom_RectangularTrimmedSurface)::DownCast(SBasis);
 
-    Handle(Geom_Surface) S = St->BasisSurface();
+    Handle(GeomSurface) S = St->BasisSurface();
     if (S->IsKind(STANDARD_TYPE(Geom_ElementarySurface)))
     {
       VClosed = SBasis->IsVClosed();
@@ -779,13 +779,13 @@ gp_GTrsf2d Geom_OffsetSurface::ParametricTransformation(const Transform3d& T) co
 //           a l'offset surface.
 //=======================================================================
 
-Handle(Geom_Surface) Geom_OffsetSurface::Surface() const
+Handle(GeomSurface) Geom_OffsetSurface::Surface() const
 {
   if (offsetValue == 0.0)
     return basisSurf; // Cas direct
 
   constexpr Standard_Real Tol = Precision::Confusion();
-  Handle(Geom_Surface)    Result, Base;
+  Handle(GeomSurface)    Result, Base;
   Result.Nullify();
   Handle(TypeInfo) TheType = basisSurf->DynamicType();
   Standard_Boolean      IsTrimmed;
@@ -808,12 +808,12 @@ Handle(Geom_Surface) Geom_OffsetSurface::Surface() const
   }
 
   // Traite les surfaces cannonique
-  if (TheType == STANDARD_TYPE(Geom_Plane))
+  if (TheType == STANDARD_TYPE(GeomPlane))
   {
-    Handle(Geom_Plane) P = Handle(Geom_Plane)::DownCast(Base);
+    Handle(GeomPlane) P = Handle(GeomPlane)::DownCast(Base);
     Vector3d             T = P->Position().XDirection() ^ P->Position().YDirection();
     T *= offsetValue;
-    Result = Handle(Geom_Plane)::DownCast(P->Translated(T));
+    Result = Handle(GeomPlane)::DownCast(P->Translated(T));
   }
   else if (TheType == STANDARD_TYPE(Geom_CylindricalSurface))
   {
@@ -958,7 +958,7 @@ void Geom_OffsetSurface::DumpJson(Standard_OStream& theOStream, Standard_Integer
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Geom_Surface)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, GeomSurface)
 
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, basisSurf.get())
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, equivSurf.get())

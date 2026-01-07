@@ -16,18 +16,18 @@
 
 #include <TopoDSToStep_Root.hxx>
 
-TopoDSToStep_Root::TopoDSToStep_Root()
+Root3::Root3()
 {
   done  = Standard_False;
   toler = 0.0001;
 }
 
-Standard_Real& TopoDSToStep_Root::Tolerance()
+Standard_Real& Root3::Tolerance()
 {
   return toler;
 }
 
-Standard_Boolean TopoDSToStep_Root::IsDone() const
+Standard_Boolean Root3::IsDone() const
 {
   return done;
 }

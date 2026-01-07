@@ -19,7 +19,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Geom2dEvaluator_OffsetCurve, Geom2dEvaluator_Curve)
 
-Geom2dEvaluator_OffsetCurve::Geom2dEvaluator_OffsetCurve(const Handle(Geom2d_Curve)& theBase,
+Geom2dEvaluator_OffsetCurve::Geom2dEvaluator_OffsetCurve(const Handle(GeomCurve2d)& theBase,
                                                          const Standard_Real         theOffset)
     : Geom2dEvaluator_Curve(),
       myBaseCurve(theBase),
@@ -39,7 +39,7 @@ void Geom2dEvaluator_OffsetCurve::D0(const Standard_Real theU, gp_Pnt2d& theValu
 {
   gp_Vec2d aD1;
   BaseD1(theU, theValue, aD1);
-  Geom2dEvaluator::CalculateD0(theValue, aD1, myOffset);
+  Geom2dEvaluator1::CalculateD0(theValue, aD1, myOffset);
 }
 
 void Geom2dEvaluator_OffsetCurve::D1(const Standard_Real theU,
@@ -48,7 +48,7 @@ void Geom2dEvaluator_OffsetCurve::D1(const Standard_Real theU,
 {
   gp_Vec2d aD2;
   BaseD2(theU, theValue, theD1, aD2);
-  Geom2dEvaluator::CalculateD1(theValue, theD1, aD2, myOffset);
+  Geom2dEvaluator1::CalculateD1(theValue, theD1, aD2, myOffset);
 }
 
 void Geom2dEvaluator_OffsetCurve::D2(const Standard_Real theU,
@@ -66,7 +66,7 @@ void Geom2dEvaluator_OffsetCurve::D2(const Standard_Real theU,
     isDirectionChange = AdjustDerivative(3, theU, theD1, theD2, aD3, aDummyD4);
   }
 
-  Geom2dEvaluator::CalculateD2(theValue, theD1, theD2, aD3, isDirectionChange, myOffset);
+  Geom2dEvaluator1::CalculateD2(theValue, theD1, theD2, aD3, isDirectionChange, myOffset);
 }
 
 void Geom2dEvaluator_OffsetCurve::D3(const Standard_Real theU,
@@ -82,7 +82,7 @@ void Geom2dEvaluator_OffsetCurve::D3(const Standard_Real theU,
   if (theD1.SquareMagnitude() <= gp::Resolution())
     isDirectionChange = AdjustDerivative(4, theU, theD1, theD2, theD3, aD4);
 
-  Geom2dEvaluator::CalculateD3(theValue, theD1, theD2, theD3, aD4, isDirectionChange, myOffset);
+  Geom2dEvaluator1::CalculateD3(theValue, theD1, theD2, theD3, aD4, isDirectionChange, myOffset);
 }
 
 gp_Vec2d Geom2dEvaluator_OffsetCurve::DN(const Standard_Real    theU,

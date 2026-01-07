@@ -25,12 +25,12 @@
 #include <GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox.hxx>
 #include <ApproxInt_SvSurfaces.hxx>
 
-class Adaptor3d_HSurfaceTool;
+class HSurfaceTool;
 class IntPatch_WLine;
 class GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox;
 class GeomInt_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfWLApprox;
 
-class GeomInt_ThePrmPrmSvSurfacesOfWLApprox : public ApproxInt_SvSurfaces
+class GeomInt_ThePrmPrmSvSurfacesOfWLApprox : public SurfaceSurfaces
 {
 public:
   DEFINE_STANDARD_ALLOC

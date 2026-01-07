@@ -60,7 +60,7 @@ typedef NCollection_Vector<BOPAlgo_ShrunkRange> BOPAlgo_VectorOfShrunkRange;
 
 //=================================================================================================
 
-void BOPAlgo_PaveFiller::FillShrunkData(const TopAbs_ShapeEnum aType1,
+void BooleanPaveFiller::FillShrunkData(const TopAbs_ShapeEnum aType1,
                                         const TopAbs_ShapeEnum aType2)
 {
   myIterator->Initialize(aType1, aType2);
@@ -109,11 +109,11 @@ void BOPAlgo_PaveFiller::FillShrunkData(const TopAbs_ShapeEnum aType1,
         aPB->Indices(nV1, nV2);
         aPB->Range(aT1, aT2);
         //
-        const TopoDS_Edge& aE = (*(TopoDS_Edge*)(&aSIE.Shape()));
+        const TopoEdge& aE = (*(TopoEdge*)(&aSIE.Shape()));
         //
-        const TopoDS_Vertex& aV1 = (*(TopoDS_Vertex*)(&myDS->Shape(nV1)));
+        const TopoVertex& aV1 = (*(TopoVertex*)(&myDS->Shape(nV1)));
         //
-        const TopoDS_Vertex& aV2 = (*(TopoDS_Vertex*)(&myDS->Shape(nV2)));
+        const TopoVertex& aV2 = (*(TopoVertex*)(&myDS->Shape(nV2)));
         //
         BOPAlgo_ShrunkRange& aSD = aVSD.Appended();
         //
@@ -125,7 +125,7 @@ void BOPAlgo_PaveFiller::FillShrunkData(const TopAbs_ShapeEnum aType1,
   //
   aNbVSD = aVSD.Length();
   //=============================================================
-  BOPTools_Parallel::Perform(myRunParallel, aVSD, myContext);
+  BooleanParallelTools::Perform(myRunParallel, aVSD, myContext);
   //=============================================================
   //
   for (k = 0; k < aNbVSD; ++k)

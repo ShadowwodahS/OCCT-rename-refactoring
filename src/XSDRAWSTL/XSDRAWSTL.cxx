@@ -47,13 +47,13 @@
 #include <XSDRAWSTL_DataSource3D.hxx>
 #include <XSDRAWSTL_DrawableMesh.hxx>
 
-extern Standard_Boolean VDisplayAISObject(const TCollection_AsciiString&       theName,
-                                          const Handle(AIS_InteractiveObject)& theAISObj,
+extern Standard_Boolean VDisplayAISObject(const AsciiString1&       theName,
+                                          const Handle(VisualEntity)& theAISObj,
                                           Standard_Boolean theReplaceIfExists = Standard_True);
 
 //=================================================================================================
 
-static Standard_Integer writestl(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer writestl(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3 || argc > 4)
   {
@@ -61,18 +61,18 @@ static Standard_Integer writestl(Draw_Interpretor& di, Standard_Integer argc, co
   }
   else
   {
-    TopoDS_Shape     aShape      = DBRep::Get(argv[1]);
+    TopoShape     aShape      = DBRep1::Get(argv[1]);
     Standard_Boolean isASCIIMode = Standard_False;
     if (argc == 4)
     {
-      isASCIIMode = (Draw::Atoi(argv[3]) == 0);
+      isASCIIMode = (Draw1::Atoi(argv[3]) == 0);
     }
-    StlAPI_Writer aWriter;
+    StlWriter aWriter;
     aWriter.ASCIIMode()                      = isASCIIMode;
     Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(di);
     Standard_Boolean               isOK      = aWriter.Write(aShape, argv[2], aProgress->Start());
     if (!isOK)
-      di << "** Error **: Mesh writing has been failed.\n";
+      di << "** Error **: Mesh1 writing has been failed.\n";
   }
   return 0;
 }
@@ -81,17 +81,17 @@ static Standard_Integer writestl(Draw_Interpretor& di, Standard_Integer argc, co
 // function : readstl
 // purpose  : Reads stl file
 //=============================================================================
-static Standard_Integer readstl(Draw_Interpretor& theDI,
+static Standard_Integer readstl(DrawInterpreter& theDI,
                                 Standard_Integer  theArgc,
                                 const char**      theArgv)
 {
-  TCollection_AsciiString aShapeName, aFilePath;
+  AsciiString1 aShapeName, aFilePath;
   bool                    toCreateCompOfTris = false;
   bool                    anIsMulti          = false;
   double                  aMergeAngle        = M_PI / 2.0;
   for (Standard_Integer anArgIter = 1; anArgIter < theArgc; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgv[anArgIter]);
+    AsciiString1 anArg(theArgv[anArgIter]);
     anArg.LowerCase();
     if (aShapeName.IsEmpty())
     {
@@ -104,7 +104,7 @@ static Standard_Integer readstl(Draw_Interpretor& theDI,
     else if (anArg == "-brep")
     {
       toCreateCompOfTris = true;
-      if (anArgIter + 1 < theArgc && Draw::ParseOnOff(theArgv[anArgIter + 1], toCreateCompOfTris))
+      if (anArgIter + 1 < theArgc && Draw1::ParseOnOff(theArgv[anArgIter + 1], toCreateCompOfTris))
       {
         ++anArgIter;
       }
@@ -112,7 +112,7 @@ static Standard_Integer readstl(Draw_Interpretor& theDI,
     else if (anArg == "-multi")
     {
       anIsMulti = true;
-      if (anArgIter + 1 < theArgc && Draw::ParseOnOff(theArgv[anArgIter + 1], anIsMulti))
+      if (anArgIter + 1 < theArgc && Draw1::ParseOnOff(theArgv[anArgIter + 1], anIsMulti))
       {
         ++anArgIter;
       }
@@ -127,7 +127,7 @@ static Standard_Integer readstl(Draw_Interpretor& theDI,
       else
       {
         aMergeAngle = M_PI / 4.0;
-        if (anArgIter + 1 < theArgc && Draw::ParseReal(theArgv[anArgIter + 1], aMergeAngle))
+        if (anArgIter + 1 < theArgc && Draw1::ParseReal(theArgv[anArgIter + 1], aMergeAngle))
         {
           if (aMergeAngle < 0.0 || aMergeAngle > 90.0)
           {
@@ -152,17 +152,17 @@ static Standard_Integer readstl(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape aShape;
+  TopoShape aShape;
   if (!toCreateCompOfTris)
   {
     Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(theDI, 1);
     if (anIsMulti)
     {
-      NCollection_Sequence<Handle(Poly_Triangulation)> aTriangList;
+      NCollection_Sequence<Handle(MeshTriangulation)> aTriangList;
       // Read STL file to the triangulation list.
-      RWStl::ReadFile(aFilePath.ToCString(), aMergeAngle, aTriangList, aProgress->Start());
-      BRep_Builder aB;
-      TopoDS_Face  aFace;
+      RWStl1::ReadFile(aFilePath.ToCString(), aMergeAngle, aTriangList, aProgress->Start());
+      ShapeBuilder aB;
+      TopoFace  aFace;
       if (aTriangList.Size() == 1)
       {
         aB.MakeFace(aFace);
@@ -171,10 +171,10 @@ static Standard_Integer readstl(Draw_Interpretor& theDI,
       }
       else
       {
-        TopoDS_Compound aCmp;
+        TopoCompound aCmp;
         aB.MakeCompound(aCmp);
 
-        NCollection_Sequence<Handle(Poly_Triangulation)>::Iterator anIt(aTriangList);
+        NCollection_Sequence<Handle(MeshTriangulation)>::Iterator anIt(aTriangList);
         for (; anIt.More(); anIt.Next())
         {
           aB.MakeFace(aFace);
@@ -187,11 +187,11 @@ static Standard_Integer readstl(Draw_Interpretor& theDI,
     else
     {
       // Read STL file to the triangulation.
-      Handle(Poly_Triangulation) aTriangulation =
-        RWStl::ReadFile(aFilePath.ToCString(), aMergeAngle, aProgress->Start());
+      Handle(MeshTriangulation) aTriangulation =
+        RWStl1::ReadFile(aFilePath.ToCString(), aMergeAngle, aProgress->Start());
 
-      TopoDS_Face  aFace;
-      BRep_Builder aB;
+      TopoFace  aFace;
+      ShapeBuilder aB;
       aB.MakeFace(aFace);
       aB.UpdateFace(aFace, aTriangulation);
       aShape = aFace;
@@ -199,16 +199,16 @@ static Standard_Integer readstl(Draw_Interpretor& theDI,
   }
   else
   {
-    Standard_DISABLE_DEPRECATION_WARNINGS StlAPI::Read(aShape, aFilePath.ToCString());
+    Standard_DISABLE_DEPRECATION_WARNINGS StlAPI1::Read(aShape, aFilePath.ToCString());
     Standard_ENABLE_DEPRECATION_WARNINGS
   }
-  DBRep::Set(aShapeName.ToCString(), aShape);
+  DBRep1::Set(aShapeName.ToCString(), aShape);
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer createmesh(Draw_Interpretor& theDI,
+static Standard_Integer createmesh(DrawInterpreter& theDI,
                                    Standard_Integer  theNbArgs,
                                    const char**      theArgVec)
 {
@@ -219,7 +219,7 @@ static Standard_Integer createmesh(Draw_Interpretor& theDI,
     return 0;
   }
 
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
     theDI << "No active view. Please call 'vinit' first\n";
@@ -227,9 +227,9 @@ static Standard_Integer createmesh(Draw_Interpretor& theDI,
   }
 
   // Progress indicator
-  OSD_Path                       aFile(theArgVec[2]);
+  SystemPath                       aFile(theArgVec[2]);
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(theDI, 1);
-  Handle(Poly_Triangulation)     aSTLMesh  = RWStl::ReadFile(aFile, aProgress->Start());
+  Handle(MeshTriangulation)     aSTLMesh  = RWStl1::ReadFile(aFile, aProgress->Start());
 
   theDI << "Reading OK...\n";
   Handle(XSDRAWSTL_DataSource) aDS = new XSDRAWSTL_DataSource(aSTLMesh);
@@ -253,8 +253,8 @@ static Standard_Integer createmesh(Draw_Interpretor& theDI,
   VDisplayAISObject(theArgVec[1], aMesh);
   aContext->Deactivate(aMesh);
 
-  Draw::Set(theArgVec[1], new XSDRAWSTL_DrawableMesh(aMesh));
-  Handle(V3d_View) aView = ViewerTest::CurrentView();
+  Draw1::Set(theArgVec[1], new XSDRAWSTL_DrawableMesh(aMesh));
+  Handle(ViewWindow) aView = ViewerTest::CurrentView();
   if (!aView.IsNull())
     aView->FitAll();
 
@@ -263,7 +263,7 @@ static Standard_Integer createmesh(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer create3d(Draw_Interpretor& theDI,
+static Standard_Integer create3d(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
@@ -274,7 +274,7 @@ static Standard_Integer create3d(Draw_Interpretor& theDI,
     return 0;
   }
 
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   if (aContext.IsNull())
   {
     theDI << "No active view. Please call 'vinit' first\n";
@@ -302,8 +302,8 @@ static Standard_Integer create3d(Draw_Interpretor& theDI,
   VDisplayAISObject(theArgVec[1], aMesh);
   aContext->Deactivate(aMesh);
 
-  Draw::Set(theArgVec[1], new XSDRAWSTL_DrawableMesh(aMesh));
-  Handle(V3d_View) aView = ViewerTest::CurrentView();
+  Draw1::Set(theArgVec[1], new XSDRAWSTL_DrawableMesh(aMesh));
+  Handle(ViewWindow) aView = ViewerTest::CurrentView();
   if (!aView.IsNull())
     aView->FitAll();
 
@@ -312,10 +312,10 @@ static Standard_Integer create3d(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-Handle(MeshVS_Mesh) getMesh(const char* theName, Draw_Interpretor& theDI)
+Handle(MeshVS_Mesh) getMesh(const char* theName, DrawInterpreter& theDI)
 {
   Handle(XSDRAWSTL_DrawableMesh) aDrawMesh =
-    Handle(XSDRAWSTL_DrawableMesh)::DownCast(Draw::Get(theName));
+    Handle(XSDRAWSTL_DrawableMesh)::DownCast(Draw1::Get(theName));
 
   if (aDrawMesh.IsNull())
   {
@@ -337,7 +337,7 @@ Handle(MeshVS_Mesh) getMesh(const char* theName, Draw_Interpretor& theDI)
 
 //=================================================================================================
 
-static Standard_Integer setcolor(Draw_Interpretor& theDI,
+static Standard_Integer setcolor(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec,
                                  Standard_Integer  theParam)
@@ -349,13 +349,13 @@ static Standard_Integer setcolor(Draw_Interpretor& theDI,
     Handle(MeshVS_Mesh) aMesh = getMesh(theArgVec[1], theDI);
     if (!aMesh.IsNull())
     {
-      Standard_Real aRed   = Draw::Atof(theArgVec[2]);
-      Standard_Real aGreen = Draw::Atof(theArgVec[3]);
-      Standard_Real aBlue  = Draw::Atof(theArgVec[4]);
+      Standard_Real aRed   = Draw1::Atof(theArgVec[2]);
+      Standard_Real aGreen = Draw1::Atof(theArgVec[3]);
+      Standard_Real aBlue  = Draw1::Atof(theArgVec[4]);
       aMesh->GetDrawer()->SetColor((MeshVS_DrawerAttribute)theParam,
                                    Quantity_Color(aRed, aGreen, aBlue, Quantity_TOC_RGB));
 
-      Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+      Handle(VisualContext) aContext = ViewerTest::GetAISContext();
 
       if (aContext.IsNull())
         theDI << "The context is null\n";
@@ -368,7 +368,7 @@ static Standard_Integer setcolor(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer meshcolor(Draw_Interpretor& theInterp,
+static Standard_Integer meshcolor(DrawInterpreter& theInterp,
                                   Standard_Integer  theNbArgs,
                                   const char**      theArgVec)
 {
@@ -377,7 +377,7 @@ static Standard_Integer meshcolor(Draw_Interpretor& theInterp,
 
 //=================================================================================================
 
-static Standard_Integer linecolor(Draw_Interpretor& theInterp,
+static Standard_Integer linecolor(DrawInterpreter& theInterp,
                                   Standard_Integer  theNbArgs,
                                   const char**      theArgVec)
 {
@@ -386,7 +386,7 @@ static Standard_Integer linecolor(Draw_Interpretor& theInterp,
 
 //=================================================================================================
 
-static Standard_Integer meshmat(Draw_Interpretor& theDI,
+static Standard_Integer meshmat(DrawInterpreter& theDI,
                                 Standard_Integer  theNbArgs,
                                 const char**      theArgVec)
 {
@@ -397,20 +397,20 @@ static Standard_Integer meshmat(Draw_Interpretor& theDI,
     Handle(MeshVS_Mesh) aMesh = getMesh(theArgVec[1], theDI);
     if (!aMesh.IsNull())
     {
-      Standard_Integer aMaterial = Draw::Atoi(theArgVec[2]);
+      Standard_Integer aMaterial = Draw1::Atoi(theArgVec[2]);
 
       Graphic3d_MaterialAspect aMatAsp =
         (Graphic3d_MaterialAspect)(Graphic3d_NameOfMaterial)aMaterial;
 
       if (theNbArgs == 4)
       {
-        Standard_Real aTransparency = Draw::Atof(theArgVec[3]);
+        Standard_Real aTransparency = Draw1::Atof(theArgVec[3]);
         aMatAsp.SetTransparency(Standard_ShortReal(aTransparency));
       }
       aMesh->GetDrawer()->SetMaterial(MeshVS_DA_FrontMaterial, aMatAsp);
       aMesh->GetDrawer()->SetMaterial(MeshVS_DA_BackMaterial, aMatAsp);
 
-      Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+      Handle(VisualContext) aContext = ViewerTest::GetAISContext();
 
       if (aContext.IsNull())
         theDI << "The context is null\n";
@@ -423,7 +423,7 @@ static Standard_Integer meshmat(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer shrink(Draw_Interpretor& theDI,
+static Standard_Integer shrink(DrawInterpreter& theDI,
                                Standard_Integer  theNbArgs,
                                const char**      theArgVec)
 {
@@ -434,10 +434,10 @@ static Standard_Integer shrink(Draw_Interpretor& theDI,
     Handle(MeshVS_Mesh) aMesh = getMesh(theArgVec[1], theDI);
     if (!aMesh.IsNull())
     {
-      Standard_Real aShrinkCoeff = Draw::Atof(theArgVec[2]);
+      Standard_Real aShrinkCoeff = Draw1::Atof(theArgVec[2]);
       aMesh->GetDrawer()->SetDouble(MeshVS_DA_ShrinkCoeff, aShrinkCoeff);
 
-      Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+      Handle(VisualContext) aContext = ViewerTest::GetAISContext();
 
       if (aContext.IsNull())
         theDI << "The context is null\n";
@@ -450,7 +450,7 @@ static Standard_Integer shrink(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer closed(Draw_Interpretor& theDI,
+static Standard_Integer closed(DrawInterpreter& theDI,
                                Standard_Integer  theArgc,
                                const char**      theArgv)
 {
@@ -463,10 +463,10 @@ static Standard_Integer closed(Draw_Interpretor& theDI,
     Handle(MeshVS_Mesh) aMesh = getMesh(theArgv[1], theDI);
     if (!aMesh.IsNull())
     {
-      Standard_Boolean aFlag = Draw::Atoi(theArgv[2]) != 0;
+      Standard_Boolean aFlag = Draw1::Atoi(theArgv[2]) != 0;
       aMesh->GetDrawer()->SetBoolean(MeshVS_DA_SupressBackFaces, aFlag);
 
-      Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+      Handle(VisualContext) aContext = ViewerTest::GetAISContext();
       if (aContext.IsNull())
       {
         theDI << "The context is null\n";
@@ -482,7 +482,7 @@ static Standard_Integer closed(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer mdisplay(Draw_Interpretor& theDI,
+static Standard_Integer mdisplay(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
@@ -493,7 +493,7 @@ static Standard_Integer mdisplay(Draw_Interpretor& theDI,
     Handle(MeshVS_Mesh) aMesh = getMesh(theArgVec[1], theDI);
     if (!aMesh.IsNull())
     {
-      Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+      Handle(VisualContext) aContext = ViewerTest::GetAISContext();
 
       if (aContext.IsNull())
         theDI << "The context is null\n";
@@ -508,7 +508,7 @@ static Standard_Integer mdisplay(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer merase(Draw_Interpretor& theDI,
+static Standard_Integer merase(DrawInterpreter& theDI,
                                Standard_Integer  theNbArgs,
                                const char**      theArgVec)
 {
@@ -519,7 +519,7 @@ static Standard_Integer merase(Draw_Interpretor& theDI,
     Handle(MeshVS_Mesh) aMesh = getMesh(theArgVec[1], theDI);
     if (!aMesh.IsNull())
     {
-      Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+      Handle(VisualContext) aContext = ViewerTest::GetAISContext();
 
       if (aContext.IsNull())
         theDI << "The context is null\n";
@@ -529,14 +529,14 @@ static Standard_Integer merase(Draw_Interpretor& theDI,
       }
     }
     else
-      theDI << "Mesh is null\n";
+      theDI << "Mesh1 is null\n";
   }
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer hidesel(Draw_Interpretor& theDI,
+static Standard_Integer hidesel(DrawInterpreter& theDI,
                                 Standard_Integer  theNbArgs,
                                 const char**      theArgVec)
 {
@@ -547,7 +547,7 @@ static Standard_Integer hidesel(Draw_Interpretor& theDI,
     return 0;
   }
 
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   Handle(MeshVS_Mesh)            aMesh    = getMesh(theArgVec[1], theDI);
   if (aMesh.IsNull())
   {
@@ -596,7 +596,7 @@ static Standard_Integer hidesel(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer showonly(Draw_Interpretor& theDI,
+static Standard_Integer showonly(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
@@ -607,7 +607,7 @@ static Standard_Integer showonly(Draw_Interpretor& theDI,
     return 0;
   }
 
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   Handle(MeshVS_Mesh)            aMesh    = getMesh(theArgVec[1], theDI);
   if (aMesh.IsNull())
   {
@@ -649,7 +649,7 @@ static Standard_Integer showonly(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer showall(Draw_Interpretor& theDI,
+static Standard_Integer showall(DrawInterpreter& theDI,
                                 Standard_Integer  theNbArgs,
                                 const char**      theArgVec)
 {
@@ -660,7 +660,7 @@ static Standard_Integer showall(Draw_Interpretor& theDI,
     return 0;
   }
 
-  Handle(AIS_InteractiveContext) aContext = ViewerTest::GetAISContext();
+  Handle(VisualContext) aContext = ViewerTest::GetAISContext();
   Handle(MeshVS_Mesh)            aMesh    = getMesh(theArgVec[1], theDI);
   if (aMesh.IsNull())
   {
@@ -682,7 +682,7 @@ static Standard_Integer showall(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer meshcolors(Draw_Interpretor& theDI,
+static Standard_Integer meshcolors(DrawInterpreter& theDI,
                                    Standard_Integer  theNbArgs,
                                    const char**      theArgVec)
 {
@@ -708,10 +708,10 @@ static Standard_Integer meshcolors(Draw_Interpretor& theDI,
 
     if (aMesh.IsNull())
     {
-      theDI << "Mesh not found\n";
+      theDI << "Mesh1 not found\n";
       return 0;
     }
-    Handle(AIS_InteractiveContext) anIC = ViewerTest::GetAISContext();
+    Handle(VisualContext) anIC = ViewerTest::GetAISContext();
     if (anIC.IsNull())
     {
       theDI << "The context is null\n";
@@ -719,14 +719,14 @@ static Standard_Integer meshcolors(Draw_Interpretor& theDI,
     }
     if (!aMesh.IsNull())
     {
-      TCollection_AsciiString aMode = TCollection_AsciiString(theArgVec[2]);
+      AsciiString1 aMode = AsciiString1(theArgVec[2]);
       Quantity_Color          aColor1(Quantity_NOC_BLUE1);
       Quantity_Color          aColor2(Quantity_NOC_RED1);
       if (aMode.IsEqual("elem1") || aMode.IsEqual("elem2") || aMode.IsEqual("nodal")
           || aMode.IsEqual("nodaltex") || aMode.IsEqual("none"))
       {
         Handle(MeshVS_PrsBuilder) aTempBuilder;
-        Standard_Integer          aReflection = Draw::Atoi(theArgVec[3]);
+        Standard_Integer          aReflection = Draw1::Atoi(theArgVec[3]);
 
         for (Standard_Integer aCount = 0; aCount < aMesh->GetBuildersCount(); aCount++)
         {
@@ -863,7 +863,7 @@ static Standard_Integer meshcolors(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer meshvectors(Draw_Interpretor& theDI,
+static Standard_Integer meshvectors(DrawInterpreter& theDI,
                                     Standard_Integer  theNbArgs,
                                     const char**      theArgVec)
 {
@@ -884,18 +884,18 @@ static Standard_Integer meshvectors(Draw_Interpretor& theDI,
 
   if (aMesh.IsNull())
   {
-    theDI << "Mesh not found\n";
+    theDI << "Mesh1 not found\n";
     return 0;
   }
-  Handle(AIS_InteractiveContext) anIC = ViewerTest::GetAISContext();
+  Handle(VisualContext) anIC = ViewerTest::GetAISContext();
   if (anIC.IsNull())
   {
     theDI << "The context is null\n";
     return 0;
   }
 
-  TCollection_AsciiString aParam;
-  TCollection_AsciiString aMode("none");
+  AsciiString1 aParam;
+  AsciiString1 aMode("none");
   Standard_Real           aMaxlen(1.0);
   Quantity_Color          aColor(Quantity_NOC_ORANGE);
   Standard_Real           anArrowPart(0.1);
@@ -911,7 +911,7 @@ static Standard_Integer meshvectors(Draw_Interpretor& theDI,
       }
       else if (aParam == "-maxlen")
       {
-        aMaxlen = Draw::Atof(theArgVec[anIdx]);
+        aMaxlen = Draw1::Atof(theArgVec[anIdx]);
       }
       else if (aParam == "-color")
       {
@@ -923,11 +923,11 @@ static Standard_Integer meshvectors(Draw_Interpretor& theDI,
       }
       else if (aParam == "-arrowpart")
       {
-        anArrowPart = Draw::Atof(theArgVec[anIdx]);
+        anArrowPart = Draw1::Atof(theArgVec[anIdx]);
       }
       else if (aParam == "-issimple")
       {
-        isSimplePrs = Draw::Atoi(theArgVec[anIdx]) != 0;
+        isSimplePrs = Draw1::Atoi(theArgVec[anIdx]) != 0;
       }
       aParam.Clear();
     }
@@ -1017,7 +1017,7 @@ static Standard_Integer meshvectors(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer meshtext(Draw_Interpretor& theDI,
+static Standard_Integer meshtext(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
@@ -1032,11 +1032,11 @@ static Standard_Integer meshtext(Draw_Interpretor& theDI,
 
   if (aMesh.IsNull())
   {
-    theDI << "Mesh not found\n";
+    theDI << "Mesh1 not found\n";
     return 0;
   }
 
-  Handle(AIS_InteractiveContext) anIC = ViewerTest::GetAISContext();
+  Handle(VisualContext) anIC = ViewerTest::GetAISContext();
   if (anIC.IsNull())
   {
     theDI << "The context is null\n";
@@ -1048,7 +1048,7 @@ static Standard_Integer meshtext(Draw_Interpretor& theDI,
   Standard_Integer                   aLen = aMesh->GetDataSource()->GetAllElements().Extent();
   for (Standard_Integer anIndex = 1; anIndex <= aLen; anIndex++)
   {
-    aLabels.Bind(anIndex, TCollection_AsciiString(anIndex));
+    aLabels.Bind(anIndex, AsciiString1(anIndex));
   }
 
   Handle(MeshVS_TextPrsBuilder) aTextBuilder =
@@ -1061,7 +1061,7 @@ static Standard_Integer meshtext(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer meshdeform(Draw_Interpretor& theDI,
+static Standard_Integer meshdeform(DrawInterpreter& theDI,
                                    Standard_Integer  theNbArgs,
                                    const char**      theArgVec)
 {
@@ -1076,18 +1076,18 @@ static Standard_Integer meshdeform(Draw_Interpretor& theDI,
 
   if (aMesh.IsNull())
   {
-    theDI << "Mesh not found\n";
+    theDI << "Mesh1 not found\n";
     return 0;
   }
-  Handle(AIS_InteractiveContext) anIC = ViewerTest::GetAISContext();
+  Handle(VisualContext) anIC = ViewerTest::GetAISContext();
   if (anIC.IsNull())
   {
     theDI << "The context is null\n";
     return 0;
   }
 
-  TCollection_AsciiString aParam;
-  TCollection_AsciiString aMode("off");
+  AsciiString1 aParam;
+  AsciiString1 aMode("off");
   Standard_Real           aScale(1.0);
 
   for (Standard_Integer anIdx = 2; anIdx < theNbArgs; anIdx++)
@@ -1100,7 +1100,7 @@ static Standard_Integer meshdeform(Draw_Interpretor& theDI,
       }
       else if (aParam == "-scale")
       {
-        aScale = Draw::Atof(theArgVec[anIdx]);
+        aScale = Draw1::Atof(theArgVec[anIdx]);
       }
       aParam.Clear();
     }
@@ -1139,7 +1139,7 @@ static Standard_Integer meshdeform(Draw_Interpretor& theDI,
 
   anIC->Redisplay(aMesh, Standard_False);
 
-  Handle(V3d_View) aView = ViewerTest::CurrentView();
+  Handle(ViewWindow) aView = ViewerTest::CurrentView();
   if (!aView.IsNull())
     aView->FitAll();
 
@@ -1148,7 +1148,7 @@ static Standard_Integer meshdeform(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer mesh_edge_width(Draw_Interpretor& theDI,
+static Standard_Integer mesh_edge_width(DrawInterpreter& theDI,
                                         Standard_Integer  theNbArgs,
                                         const char**      theArgVec)
 {
@@ -1165,20 +1165,20 @@ static Standard_Integer mesh_edge_width(Draw_Interpretor& theDI,
     Handle(MeshVS_Mesh) aMesh = getMesh(theArgVec[1], theDI);
     if (aMesh.IsNull())
     {
-      theDI << "Mesh not found\n";
+      theDI << "Mesh1 not found\n";
       return 0;
     }
 
     const char* aWidthStr = theArgVec[2];
-    if (aWidthStr == 0 || Draw::Atof(aWidthStr) <= 0)
+    if (aWidthStr == 0 || Draw1::Atof(aWidthStr) <= 0)
     {
       theDI << "Width must be real value more than zero\n";
       return 0;
     }
 
-    double aWidth = Draw::Atof(aWidthStr);
+    double aWidth = Draw1::Atof(aWidthStr);
 
-    Handle(AIS_InteractiveContext) anIC = ViewerTest::GetAISContext();
+    Handle(VisualContext) anIC = ViewerTest::GetAISContext();
     if (anIC.IsNull())
     {
       theDI << "The context is null\n";
@@ -1205,7 +1205,7 @@ static Standard_Integer mesh_edge_width(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer meshinfo(Draw_Interpretor& theDI,
+static Standard_Integer meshinfo(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
@@ -1218,7 +1218,7 @@ static Standard_Integer meshinfo(Draw_Interpretor& theDI,
   Handle(MeshVS_Mesh) aMesh = getMesh(theArgVec[1], theDI);
   if (aMesh.IsNull())
   {
-    theDI << "Mesh not found\n";
+    theDI << "Mesh1 not found\n";
     return 0;
   }
 
@@ -1238,7 +1238,7 @@ static Standard_Integer meshinfo(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-void XSDRAWSTL::Factory(Draw_Interpretor& theDI)
+void XSDRAWSTL::Factory(DrawInterpreter& theDI)
 {
   static Standard_Boolean aIsActivated = Standard_False;
   if (aIsActivated)

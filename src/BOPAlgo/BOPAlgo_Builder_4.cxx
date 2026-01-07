@@ -24,7 +24,7 @@
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BOPAlgo_Builder::LocGenerated(const TopoDS_Shape& theS)
+const ShapeList& BOPAlgo_Builder::LocGenerated(const TopoShape& theS)
 {
   // The rules for Generated shapes are these:
   // 1. The EDGE may be generated from the FACES as an intersection edge;
@@ -88,7 +88,7 @@ const TopTools_ListOfShape& BOPAlgo_Builder::LocGenerated(const TopoDS_Shape& th
         continue;
 
       // Get the new vertex
-      const TopoDS_Shape& aVNew = myDS->Shape(nVNew);
+      const TopoShape& aVNew = myDS->Shape(nVNew);
 
       // Check that the result shape contains vertex
       if (myMapShape.Contains(aVNew))
@@ -111,7 +111,7 @@ const TopTools_ListOfShape& BOPAlgo_Builder::LocGenerated(const TopoDS_Shape& th
   Standard_Integer aNb = aMPBSc.Extent();
   for (Standard_Integer i = 1; i <= aNb; ++i)
   {
-    const TopoDS_Shape& aENew = myDS->Shape(aMPBSc(i)->Edge());
+    const TopoShape& aENew = myDS->Shape(aMPBSc(i)->Edge());
     if (myMapShape.Contains(aENew))
       myHistShapes.Append(aENew);
   }
@@ -122,7 +122,7 @@ const TopTools_ListOfShape& BOPAlgo_Builder::LocGenerated(const TopoDS_Shape& th
   TColStd_MapOfInteger::Iterator aItM(aMVSc);
   for (; aItM.More(); aItM.Next())
   {
-    const TopoDS_Shape& aVNew = myDS->Shape(aItM.Value());
+    const TopoShape& aVNew = myDS->Shape(aItM.Value());
     if (myMapShape.Contains(aVNew))
       myHistShapes.Append(aVNew);
   }
@@ -132,7 +132,7 @@ const TopTools_ListOfShape& BOPAlgo_Builder::LocGenerated(const TopoDS_Shape& th
 
 //=================================================================================================
 
-const TopTools_ListOfShape* BOPAlgo_Builder::LocModified(const TopoDS_Shape& theS)
+const ShapeList* BOPAlgo_Builder::LocModified(const TopoShape& theS)
 {
   return myImages.Seek(theS);
 }
@@ -149,7 +149,7 @@ void BOPAlgo_Builder::PrepareHistory(const Message_ProgressRange& theRange)
 
   // Map the result shape
   myMapShape.Clear();
-  TopExp::MapShapes(myShape, myMapShape);
+  TopExp1::MapShapes(myShape, myMapShape);
 
   // Among all input shapes find:
   // - Shapes that have been modified (split). Add the splits kept in the result
@@ -162,7 +162,7 @@ void BOPAlgo_Builder::PrepareHistory(const Message_ProgressRange& theRange)
   Message_ProgressScope aPS(theRange, "Preparing history information", aNbS);
   for (Standard_Integer i = 0; i < aNbS; ++i, aPS.Next())
   {
-    const TopoDS_Shape& aS = myDS->Shape(i);
+    const TopoShape& aS = myDS->Shape(i);
 
     // Check if History information is available for this kind of shape.
     if (!BRepTools_History::IsSupportedType(aS))
@@ -176,14 +176,14 @@ void BOPAlgo_Builder::PrepareHistory(const Message_ProgressRange& theRange)
     Standard_Boolean isModified = Standard_False;
 
     // Check if the shape has any splits
-    const TopTools_ListOfShape* pLSp = LocModified(aS);
+    const ShapeList* pLSp = LocModified(aS);
     if (pLSp)
     {
       // Find all splits of the shape which are kept in the result
       TopTools_ListIteratorOfListOfShape aIt(*pLSp);
       for (; aIt.More(); aIt.Next())
       {
-        TopoDS_Shape aSp = aIt.Value();
+        TopoShape aSp = aIt.Value();
         // Check if the result shape contains the split
         if (myMapShape.Contains(aSp))
         {
@@ -191,7 +191,7 @@ void BOPAlgo_Builder::PrepareHistory(const Message_ProgressRange& theRange)
           TopAbs_ShapeEnum aType = aSp.ShapeType();
           if (aType == TopAbs_VERTEX || aType == TopAbs_SOLID)
             aSp.Orientation(aS.Orientation());
-          else if (BOPTools_AlgoTools::IsSplitToReverse(aSp, aS, myContext))
+          else if (AlgoTools::IsSplitToReverse(aSp, aS, myContext))
             aSp.Reverse();
 
           myHistory->AddModified(aS, aSp);
@@ -201,11 +201,11 @@ void BOPAlgo_Builder::PrepareHistory(const Message_ProgressRange& theRange)
     }
 
     // Check if the shape has Generated elements
-    const TopTools_ListOfShape&        aGenShapes = LocGenerated(aS);
+    const ShapeList&        aGenShapes = LocGenerated(aS);
     TopTools_ListIteratorOfListOfShape aIt(aGenShapes);
     for (; aIt.More(); aIt.Next())
     {
-      const TopoDS_Shape& aG = aIt.Value();
+      const TopoShape& aG = aIt.Value();
       if (myMapShape.Contains(aG))
         myHistory->AddGenerated(aS, aG);
     }

@@ -36,7 +36,7 @@ BRepAlgoAPI_BuilderAlgo::BRepAlgoAPI_BuilderAlgo()
 
 //=================================================================================================
 
-BRepAlgoAPI_BuilderAlgo::BRepAlgoAPI_BuilderAlgo(const BOPAlgo_PaveFiller& aPF)
+BRepAlgoAPI_BuilderAlgo::BRepAlgoAPI_BuilderAlgo(const BooleanPaveFiller& aPF)
     : BRepAlgoAPI_Algo(),
       myNonDestructive(Standard_False),
       myGlue(BOPAlgo_GlueOff),
@@ -45,7 +45,7 @@ BRepAlgoAPI_BuilderAlgo::BRepAlgoAPI_BuilderAlgo(const BOPAlgo_PaveFiller& aPF)
       myIsIntersectionNeeded(Standard_False),
       myBuilder(NULL)
 {
-  myDSFiller = (BOPAlgo_PaveFiller*)&aPF;
+  myDSFiller = (BooleanPaveFiller*)&aPF;
 }
 
 //=================================================================================================
@@ -103,7 +103,7 @@ void BRepAlgoAPI_BuilderAlgo::Build(const Message_ProgressRange& theRange)
 // function : IntersectShapes
 // purpose  : Intersects the given shapes with the intersection tool
 //=======================================================================
-void BRepAlgoAPI_BuilderAlgo::IntersectShapes(const TopTools_ListOfShape&  theArgs,
+void BRepAlgoAPI_BuilderAlgo::IntersectShapes(const ShapeList&  theArgs,
                                               const Message_ProgressRange& theRange)
 {
   if (!myIsIntersectionNeeded)
@@ -113,7 +113,7 @@ void BRepAlgoAPI_BuilderAlgo::IntersectShapes(const TopTools_ListOfShape&  theAr
     delete myDSFiller;
 
   // Create new Filler
-  myDSFiller = new BOPAlgo_PaveFiller(myAllocator);
+  myDSFiller = new BooleanPaveFiller(myAllocator);
   // Set arguments for intersection
   myDSFiller->SetArguments(theArgs);
   // Set options for intersection
@@ -193,7 +193,7 @@ void BRepAlgoAPI_BuilderAlgo::SimplifyResult(const Standard_Boolean theUnifyEdge
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepAlgoAPI_BuilderAlgo::Modified(const TopoDS_Shape& theS)
+const ShapeList& BRepAlgoAPI_BuilderAlgo::Modified(const TopoShape& theS)
 {
   if (myFillHistory && myHistory)
     return myHistory->Modified(theS);
@@ -203,7 +203,7 @@ const TopTools_ListOfShape& BRepAlgoAPI_BuilderAlgo::Modified(const TopoDS_Shape
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepAlgoAPI_BuilderAlgo::Generated(const TopoDS_Shape& theS)
+const ShapeList& BRepAlgoAPI_BuilderAlgo::Generated(const TopoShape& theS)
 {
   if (myFillHistory && myHistory)
     return myHistory->Generated(theS);
@@ -213,7 +213,7 @@ const TopTools_ListOfShape& BRepAlgoAPI_BuilderAlgo::Generated(const TopoDS_Shap
 
 //=================================================================================================
 
-Standard_Boolean BRepAlgoAPI_BuilderAlgo::IsDeleted(const TopoDS_Shape& theS)
+Standard_Boolean BRepAlgoAPI_BuilderAlgo::IsDeleted(const TopoShape& theS)
 {
   return (myFillHistory && myHistory ? myHistory->IsRemoved(theS) : Standard_False);
 }
@@ -241,7 +241,7 @@ Standard_Boolean BRepAlgoAPI_BuilderAlgo::HasDeleted() const
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepAlgoAPI_BuilderAlgo::SectionEdges()
+const ShapeList& BRepAlgoAPI_BuilderAlgo::SectionEdges()
 {
   myGenerated.Clear();
   if (myBuilder == NULL)
@@ -269,7 +269,7 @@ const TopTools_ListOfShape& BRepAlgoAPI_BuilderAlgo::SectionEdges()
       for (; aItPB.More(); aItPB.Next())
       {
         const Handle(BOPDS_PaveBlock)& aPB = aItPB.Value();
-        const TopoDS_Shape&            aSE = pDS->Shape(aPB->Edge());
+        const TopoShape&            aSE = pDS->Shape(aPB->Edge());
         if (!aMFence.Add(aSE))
           continue;
         // Take into account simplification of the result shape
@@ -278,7 +278,7 @@ const TopTools_ListOfShape& BRepAlgoAPI_BuilderAlgo::SectionEdges()
           if (mySimplifierHistory->IsRemoved(aSE))
             continue;
 
-          const TopTools_ListOfShape& aLSEIm = mySimplifierHistory->Modified(aSE);
+          const ShapeList& aLSEIm = mySimplifierHistory->Modified(aSE);
           if (!aLSEIm.IsEmpty())
           {
             TopTools_ListIteratorOfListOfShape aItLEIm(aLSEIm);

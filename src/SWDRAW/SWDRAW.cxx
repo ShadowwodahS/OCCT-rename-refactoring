@@ -35,7 +35,7 @@ static int dejadraw = 0;
 
 //=================================================================================================
 
-static Standard_Integer LocSet(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer LocSet(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 2)
   {
@@ -46,7 +46,7 @@ static Standard_Integer LocSet(Draw_Interpretor& di, Standard_Integer argc, cons
     return 1;
   }
 
-  TopoDS_Shape a = DBRep::Get(argv[1]);
+  TopoShape a = DBRep1::Get(argv[1]);
   if (a.IsNull())
   {
     di << "No shape named \"" << argv[1] << "\" found\n";
@@ -55,7 +55,7 @@ static Standard_Integer LocSet(Draw_Interpretor& di, Standard_Integer argc, cons
   TopLoc_Location L;
   if (argc > 2)
   {
-    TopoDS_Shape b = DBRep::Get(argv[2]);
+    TopoShape b = DBRep1::Get(argv[2]);
     if (b.IsNull())
     {
       di << "No shape named \"" << argv[2] << "\" found\n";
@@ -63,7 +63,7 @@ static Standard_Integer LocSet(Draw_Interpretor& di, Standard_Integer argc, cons
     }
     if (argc > 3)
     {
-      TopoDS_Shape c = DBRep::Get(argv[3]);
+      TopoShape c = DBRep1::Get(argv[3]);
       if (c.IsNull())
       {
         di << "No shape named \"" << argv[3] << "\" found\n";
@@ -75,14 +75,14 @@ static Standard_Integer LocSet(Draw_Interpretor& di, Standard_Integer argc, cons
       L = b.Location();
   }
   a.Location(L);
-  DBRep::Set(argv[1], a);
+  DBRep1::Set(argv[1], a);
 
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer LocDump(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer LocDump(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 2)
   {
@@ -90,7 +90,7 @@ static Standard_Integer LocDump(Draw_Interpretor& di, Standard_Integer argc, con
     return 1;
   }
 
-  TopoDS_Shape a = DBRep::Get(argv[1]);
+  TopoShape a = DBRep1::Get(argv[1]);
   if (a.IsNull())
   {
     di << "No shape named \"" << argv[1] << "\" found\n";
@@ -111,7 +111,7 @@ static Standard_Integer LocDump(Draw_Interpretor& di, Standard_Integer argc, con
 
 //=================================================================================================
 
-void SWDRAW::Init(Draw_Interpretor& theCommands)
+void SWDRAW::Init(DrawInterpreter& theCommands)
 {
   if (!dejadraw)
   {

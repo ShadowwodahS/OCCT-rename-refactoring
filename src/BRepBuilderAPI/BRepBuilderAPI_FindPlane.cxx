@@ -42,23 +42,23 @@ BRepBuilderAPI_FindPlane::BRepBuilderAPI_FindPlane() {}
 
 //=================================================================================================
 
-BRepBuilderAPI_FindPlane::BRepBuilderAPI_FindPlane(const TopoDS_Shape& S, const Standard_Real Tol)
+BRepBuilderAPI_FindPlane::BRepBuilderAPI_FindPlane(const TopoShape& S, const Standard_Real Tol)
 {
   Init(S, Tol);
 }
 
 //=================================================================================================
 
-void BRepBuilderAPI_FindPlane::Init(const TopoDS_Shape& S, const Standard_Real Tol)
+void BRepBuilderAPI_FindPlane::Init(const TopoShape& S, const Standard_Real Tol)
 {
   Standard_Real tolerance = Tol;
   myPlane.Nullify();
 
   // compute the tolerance
-  TopExp_Explorer ex;
+  ShapeExplorer ex;
   for (ex.Init(S, TopAbs_EDGE); ex.More(); ex.Next())
   {
-    Standard_Real t = BRep_Tool::Tolerance(TopoDS::Edge(ex.Current()));
+    Standard_Real t = BRepInspector::Tolerance(TopoDS::Edge(ex.Current()));
     if (t > tolerance)
       tolerance = t;
   }
@@ -68,26 +68,26 @@ void BRepBuilderAPI_FindPlane::Init(const TopoDS_Shape& S, const Standard_Real T
   TopLoc_Location      loc;
   Standard_Real        first, last;
   Standard_Boolean     found = Standard_False;
-  Handle(Geom_Plane)   P;
+  Handle(GeomPlane)   P;
   TColgp_SequenceOfPnt points;
   Standard_Integer     nbPnts;
 
   for (ex.Init(S, TopAbs_EDGE); ex.More(); ex.Next())
   {
-    Handle(Geom_Curve) c3d = BRep_Tool::Curve(TopoDS::Edge(ex.Current()), loc, first, last);
+    Handle(GeomCurve3d) c3d = BRepInspector::Curve(TopoDS::Edge(ex.Current()), loc, first, last);
 
     if (!c3d.IsNull())
     {
-      Handle(Geom_Curve) c3dptr =
-        Handle(Geom_Curve)::DownCast(c3d->Transformed(loc.Transformation()));
+      Handle(GeomCurve3d) c3dptr =
+        Handle(GeomCurve3d)::DownCast(c3d->Transformed(loc.Transformation()));
 
       Handle(TypeInfo) cType = c3dptr->DynamicType();
 
-      if (cType == STANDARD_TYPE(Geom_Line))
+      if (cType == STANDARD_TYPE(GeomLine))
       {
         nbPnts = 3;
       }
-      else if ((cType == STANDARD_TYPE(Geom_Circle)) || (cType == STANDARD_TYPE(Geom_Ellipse))
+      else if ((cType == STANDARD_TYPE(GeomCircle)) || (cType == STANDARD_TYPE(Geom_Ellipse))
                || (cType == STANDARD_TYPE(Geom_Parabola))
                || (cType == STANDARD_TYPE(Geom_Hyperbola)))
       {
@@ -96,17 +96,17 @@ void BRepBuilderAPI_FindPlane::Init(const TopoDS_Shape& S, const Standard_Real T
         {
           found                 = Standard_True;
           Handle(Geom_Conic) Co = Handle(Geom_Conic)::DownCast(c3dptr);
-          P                     = new Geom_Plane(gp_Ax3(Co->Position()));
+          P                     = new GeomPlane(gp_Ax3(Co->Position()));
         }
       }
-      else if (cType == STANDARD_TYPE(Geom_BezierCurve))
+      else if (cType == STANDARD_TYPE(BezierCurve3d))
       {
-        Handle(Geom_BezierCurve) Co = Handle(Geom_BezierCurve)::DownCast(c3dptr);
+        Handle(BezierCurve3d) Co = Handle(BezierCurve3d)::DownCast(c3dptr);
         nbPnts                      = Co->NbPoles();
       }
-      else if (cType == STANDARD_TYPE(Geom_BSplineCurve))
+      else if (cType == STANDARD_TYPE(BSplineCurve3d))
       {
-        Handle(Geom_BSplineCurve) Co = Handle(Geom_BSplineCurve)::DownCast(c3dptr);
+        Handle(BSplineCurve3d) Co = Handle(BSplineCurve3d)::DownCast(c3dptr);
         nbPnts                       = Co->NbPoles();
       }
       else
@@ -176,7 +176,7 @@ void BRepBuilderAPI_FindPlane::Init(const TopoDS_Shape& S, const Standard_Real T
           Dir3d D1(V1), D2(Vector3d(p0, p2));
           if (!D1.IsParallel(D2, Precision::Angular()))
           {
-            P     = new Geom_Plane(gp_Ax3(p0, D1.Crossed(D2), D1));
+            P     = new GeomPlane(gp_Ax3(p0, D1.Crossed(D2), D1));
             found = Standard_True;
           }
         }
@@ -213,7 +213,7 @@ Standard_Boolean BRepBuilderAPI_FindPlane::Found() const
 
 //=================================================================================================
 
-Handle(Geom_Plane) BRepBuilderAPI_FindPlane::Plane() const
+Handle(GeomPlane) BRepBuilderAPI_FindPlane::Plane() const
 {
   return myPlane;
 }

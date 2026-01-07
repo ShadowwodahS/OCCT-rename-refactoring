@@ -103,9 +103,9 @@ Interface_EntityIterator IFSelect_SelectExplore::RootResult(const Interface_Grap
   return res;
 }
 
-TCollection_AsciiString IFSelect_SelectExplore::Label() const
+AsciiString1 IFSelect_SelectExplore::Label() const
 {
-  TCollection_AsciiString labl;
+  AsciiString1 labl;
   if (thelevel == 0)
     labl.AssignCat("(Recursive)");
   else if (thelevel > 0)

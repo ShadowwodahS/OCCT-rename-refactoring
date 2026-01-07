@@ -21,8 +21,8 @@
 #include <TopoDS_Shape.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<Standard_Integer, TopoDS_Shape> TopTools_DataMapOfIntegerShape;
-typedef NCollection_DataMap<Standard_Integer, TopoDS_Shape>::Iterator
+typedef NCollection_DataMap<Standard_Integer, TopoShape> TopTools_DataMapOfIntegerShape;
+typedef NCollection_DataMap<Standard_Integer, TopoShape>::Iterator
   TopTools_DataMapIteratorOfDataMapOfIntegerShape;
 
 #endif

@@ -29,7 +29,7 @@ class IGESSolid_Block;
 DEFINE_STANDARD_HANDLE(IGESSolid_Block, IGESData_IGESEntity)
 
 //! defines Block, Type <150> Form Number <0>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! The Block is a rectangular parallelopiped, defined with
 //! one vertex at (X1, Y1, Z1) and three edges lying along
 //! the local +X, +Y, +Z axes.

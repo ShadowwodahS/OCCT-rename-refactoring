@@ -20,6 +20,6 @@
 #include <TDocStd_Document.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Handle(TDocStd_Document)> TDocStd_SequenceOfDocument;
+typedef NCollection_Sequence<Handle(AppDocument)> TDocStd_SequenceOfDocument;
 
 #endif

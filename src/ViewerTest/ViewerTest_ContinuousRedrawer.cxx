@@ -47,7 +47,7 @@ ViewerTest_ContinuousRedrawer::~ViewerTest_ContinuousRedrawer()
 
 //=================================================================================================
 
-void ViewerTest_ContinuousRedrawer::Start(const Handle(V3d_View)& theView,
+void ViewerTest_ContinuousRedrawer::Start(const Handle(ViewWindow)& theView,
                                           Standard_Real           theTargetFps)
 {
   if (myView != theView || myTargetFps != theTargetFps)
@@ -76,7 +76,7 @@ void ViewerTest_ContinuousRedrawer::Start(const Handle(V3d_View)& theView,
 
 //=================================================================================================
 
-void ViewerTest_ContinuousRedrawer::Stop(const Handle(V3d_View)& theView)
+void ViewerTest_ContinuousRedrawer::Stop(const Handle(ViewWindow)& theView)
 {
   if (!theView.IsNull() && myView != theView)
   {

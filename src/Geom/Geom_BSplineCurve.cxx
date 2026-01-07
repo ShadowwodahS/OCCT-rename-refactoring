@@ -46,7 +46,7 @@
 #include <Standard_Real.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_BSplineCurve, Geom_BoundedCurve)
+IMPLEMENT_STANDARD_RTTIEXT(BSplineCurve3d, Geom_BoundedCurve)
 
 //=======================================================================
 // function : CheckCurveData
@@ -58,7 +58,7 @@ static void CheckCurveData(const TColgp_Array1OfPnt&      CPoles,
                            const Standard_Integer         Degree,
                            const Standard_Boolean         Periodic)
 {
-  if (Degree < 1 || Degree > Geom_BSplineCurve::MaxDegree())
+  if (Degree < 1 || Degree > BSplineCurve3d::MaxDegree())
   {
     throw Standard_ConstructionError("BSpline curve: invalid degree");
   }
@@ -95,24 +95,24 @@ static Standard_Boolean Rational(const TColStd_Array1OfReal& theWeights)
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_BSplineCurve::Copy() const
+Handle(Geom_Geometry) BSplineCurve3d::Copy() const
 {
-  Handle(Geom_BSplineCurve) C;
+  Handle(BSplineCurve3d) C;
   if (IsRational())
-    C = new Geom_BSplineCurve(poles->Array1(),
+    C = new BSplineCurve3d(poles->Array1(),
                               weights->Array1(),
                               knots->Array1(),
                               mults->Array1(),
                               deg,
                               periodic);
   else
-    C = new Geom_BSplineCurve(poles->Array1(), knots->Array1(), mults->Array1(), deg, periodic);
+    C = new BSplineCurve3d(poles->Array1(), knots->Array1(), mults->Array1(), deg, periodic);
   return C;
 }
 
 //=================================================================================================
 
-Geom_BSplineCurve::Geom_BSplineCurve(const TColgp_Array1OfPnt&      Poles,
+BSplineCurve3d::BSplineCurve3d(const TColgp_Array1OfPnt&      Poles,
                                      const TColStd_Array1OfReal&    Knots,
                                      const TColStd_Array1OfInteger& Mults,
                                      const Standard_Integer         Degree,
@@ -142,7 +142,7 @@ Geom_BSplineCurve::Geom_BSplineCurve(const TColgp_Array1OfPnt&      Poles,
 
 //=================================================================================================
 
-Geom_BSplineCurve::Geom_BSplineCurve(const TColgp_Array1OfPnt&      Poles,
+BSplineCurve3d::BSplineCurve3d(const TColgp_Array1OfPnt&      Poles,
                                      const TColStd_Array1OfReal&    Weights,
                                      const TColStd_Array1OfReal&    Knots,
                                      const TColStd_Array1OfInteger& Mults,
@@ -161,13 +161,13 @@ Geom_BSplineCurve::Geom_BSplineCurve(const TColgp_Array1OfPnt&      Poles,
   CheckCurveData(Poles, Knots, Mults, Degree, Periodic);
 
   if (Weights.Length() != Poles.Length())
-    throw Standard_ConstructionError("Geom_BSplineCurve: Weights and Poles array size mismatch");
+    throw Standard_ConstructionError("BSplineCurve3d: Weights and Poles array size mismatch");
 
   Standard_Integer i;
   for (i = Weights.Lower(); i <= Weights.Upper(); i++)
   {
     if (Weights(i) <= gp::Resolution())
-      throw Standard_ConstructionError("Geom_BSplineCurve: Weights values too small");
+      throw Standard_ConstructionError("BSplineCurve3d: Weights values too small");
   }
 
   // check really rational
@@ -195,19 +195,19 @@ Geom_BSplineCurve::Geom_BSplineCurve(const TColgp_Array1OfPnt&      Poles,
 
 //=================================================================================================
 
-Standard_Integer Geom_BSplineCurve::MaxDegree()
+Standard_Integer BSplineCurve3d::MaxDegree()
 {
   return BSplCLib::MaxDegree();
 }
 
 //=================================================================================================
 
-void Geom_BSplineCurve::IncreaseDegree(const Standard_Integer Degree)
+void BSplineCurve3d::IncreaseDegree(const Standard_Integer Degree)
 {
   if (Degree == deg)
     return;
 
-  if (Degree < deg || Degree > Geom_BSplineCurve::MaxDegree())
+  if (Degree < deg || Degree > BSplineCurve3d::MaxDegree())
   {
     throw Standard_ConstructionError("BSpline curve: IncreaseDegree: bad degree value");
   }
@@ -252,7 +252,7 @@ void Geom_BSplineCurve::IncreaseDegree(const Standard_Integer Degree)
 
 //=================================================================================================
 
-void Geom_BSplineCurve::IncreaseMultiplicity(const Standard_Integer Index, const Standard_Integer M)
+void BSplineCurve3d::IncreaseMultiplicity(const Standard_Integer Index, const Standard_Integer M)
 {
   TColStd_Array1OfReal k(1, 1);
   k(1) = knots->Value(Index);
@@ -263,7 +263,7 @@ void Geom_BSplineCurve::IncreaseMultiplicity(const Standard_Integer Index, const
 
 //=================================================================================================
 
-void Geom_BSplineCurve::IncreaseMultiplicity(const Standard_Integer I1,
+void BSplineCurve3d::IncreaseMultiplicity(const Standard_Integer I1,
                                              const Standard_Integer I2,
                                              const Standard_Integer M)
 {
@@ -278,7 +278,7 @@ void Geom_BSplineCurve::IncreaseMultiplicity(const Standard_Integer I1,
 
 //=================================================================================================
 
-void Geom_BSplineCurve::IncrementMultiplicity(const Standard_Integer I1,
+void BSplineCurve3d::IncrementMultiplicity(const Standard_Integer I1,
                                               const Standard_Integer I2,
                                               const Standard_Integer Step)
 {
@@ -291,7 +291,7 @@ void Geom_BSplineCurve::IncrementMultiplicity(const Standard_Integer I1,
 
 //=================================================================================================
 
-void Geom_BSplineCurve::InsertKnot(const Standard_Real    U,
+void BSplineCurve3d::InsertKnot(const Standard_Real    U,
                                    const Standard_Integer M,
                                    const Standard_Real    ParametricTolerance,
                                    const Standard_Boolean Add)
@@ -305,7 +305,7 @@ void Geom_BSplineCurve::InsertKnot(const Standard_Real    U,
 
 //=================================================================================================
 
-void Geom_BSplineCurve::InsertKnots(const TColStd_Array1OfReal&    Knots,
+void BSplineCurve3d::InsertKnots(const TColStd_Array1OfReal&    Knots,
                                     const TColStd_Array1OfInteger& Mults,
                                     const Standard_Real            Epsilon,
                                     const Standard_Boolean         Add)
@@ -323,7 +323,7 @@ void Geom_BSplineCurve::InsertKnots(const TColStd_Array1OfReal&    Knots,
                                     nbknots,
                                     Epsilon,
                                     Add))
-    throw Standard_ConstructionError("Geom_BSplineCurve::InsertKnots");
+    throw Standard_ConstructionError("BSplineCurve3d::InsertKnots");
 
   if (nbpoles == poles->Length())
     return;
@@ -367,7 +367,7 @@ void Geom_BSplineCurve::InsertKnots(const TColStd_Array1OfReal&    Knots,
 
 //=================================================================================================
 
-Standard_Boolean Geom_BSplineCurve::RemoveKnot(const Standard_Integer Index,
+Standard_Boolean BSplineCurve3d::RemoveKnot(const Standard_Integer Index,
                                                const Standard_Integer M,
                                                const Standard_Real    Tolerance)
 {
@@ -438,7 +438,7 @@ Standard_Boolean Geom_BSplineCurve::RemoveKnot(const Standard_Integer Index,
 
 //=================================================================================================
 
-void Geom_BSplineCurve::Reverse()
+void BSplineCurve3d::Reverse()
 {
   BSplCLib::Reverse(knots->ChangeArray1());
   BSplCLib::Reverse(mults->ChangeArray1());
@@ -455,19 +455,19 @@ void Geom_BSplineCurve::Reverse()
 
 //=================================================================================================
 
-Standard_Real Geom_BSplineCurve::ReversedParameter(const Standard_Real U) const
+Standard_Real BSplineCurve3d::ReversedParameter(const Standard_Real U) const
 {
   return (FirstParameter() + LastParameter() - U);
 }
 
 //=================================================================================================
 
-void Geom_BSplineCurve::Segment(const Standard_Real U1,
+void BSplineCurve3d::Segment(const Standard_Real U1,
                                 const Standard_Real U2,
                                 const Standard_Real theTolerance)
 {
   if (U2 < U1)
-    throw Standard_DomainError("Geom_BSplineCurve::Segment");
+    throw Standard_DomainError("BSplineCurve3d::Segment");
 
   Standard_Real    NewU1, NewU2;
   Standard_Real    U, DU = 0, aDDU = 0;
@@ -483,7 +483,7 @@ void Geom_BSplineCurve::Segment(const Standard_Real U1,
     Standard_Real Period = LastParameter() - FirstParameter();
     DU                   = U2 - U1;
     if (DU - Period > Precision::PConfusion())
-      throw Standard_DomainError("Geom_BSplineCurve::Segment");
+      throw Standard_DomainError("BSplineCurve3d::Segment");
     if (DU > Period)
       DU = Period;
     aDDU = DU;
@@ -650,7 +650,7 @@ void Geom_BSplineCurve::Segment(const Standard_Real U1,
 
 //=================================================================================================
 
-void Geom_BSplineCurve::SetKnot(const Standard_Integer Index, const Standard_Real K)
+void BSplineCurve3d::SetKnot(const Standard_Integer Index, const Standard_Real K)
 {
   if (Index < 1 || Index > knots->Length())
     throw Standard_OutOfRange("BSpline curve: SetKnot: Index and #knots mismatch");
@@ -684,7 +684,7 @@ void Geom_BSplineCurve::SetKnot(const Standard_Integer Index, const Standard_Rea
 
 //=================================================================================================
 
-void Geom_BSplineCurve::SetKnots(const TColStd_Array1OfReal& K)
+void BSplineCurve3d::SetKnots(const TColStd_Array1OfReal& K)
 {
   CheckCurveData(poles->Array1(), K, mults->Array1(), deg, periodic);
   knots->ChangeArray1() = K;
@@ -694,7 +694,7 @@ void Geom_BSplineCurve::SetKnots(const TColStd_Array1OfReal& K)
 
 //=================================================================================================
 
-void Geom_BSplineCurve::SetKnot(const Standard_Integer Index,
+void BSplineCurve3d::SetKnot(const Standard_Integer Index,
                                 const Standard_Real    K,
                                 const Standard_Integer M)
 {
@@ -704,7 +704,7 @@ void Geom_BSplineCurve::SetKnot(const Standard_Integer Index,
 
 //=================================================================================================
 
-void Geom_BSplineCurve::SetPeriodic()
+void BSplineCurve3d::SetPeriodic()
 {
   Standard_Integer first = FirstUKnotIndex();
   Standard_Integer last  = LastUKnotIndex();
@@ -744,17 +744,17 @@ void Geom_BSplineCurve::SetPeriodic()
 
 //=================================================================================================
 
-void Geom_BSplineCurve::SetOrigin(const Standard_Integer Index)
+void BSplineCurve3d::SetOrigin(const Standard_Integer Index)
 {
   if (!periodic)
-    throw Standard_NoSuchObject("Geom_BSplineCurve::SetOrigin");
+    throw Standard_NoSuchObject("BSplineCurve3d::SetOrigin");
 
   Standard_Integer i, k;
   Standard_Integer first = FirstUKnotIndex();
   Standard_Integer last  = LastUKnotIndex();
 
   if ((Index < first) || (Index > last))
-    throw Standard_DomainError("Geom_BSplineCurve::SetOrigin");
+    throw Standard_DomainError("BSplineCurve3d::SetOrigin");
 
   Standard_Integer nbknots = knots->Length();
   Standard_Integer nbpoles = poles->Length();
@@ -834,10 +834,10 @@ void Geom_BSplineCurve::SetOrigin(const Standard_Integer Index)
 
 //=================================================================================================
 
-void Geom_BSplineCurve::SetOrigin(const Standard_Real U, const Standard_Real Tol)
+void BSplineCurve3d::SetOrigin(const Standard_Real U, const Standard_Real Tol)
 {
   if (!periodic)
-    throw Standard_NoSuchObject("Geom_BSplineCurve::SetOrigin");
+    throw Standard_NoSuchObject("BSplineCurve3d::SetOrigin");
   // U est il dans la period.
   Standard_Real uf = FirstParameter(), ul = LastParameter();
   Standard_Real u = U, period = ul - uf;
@@ -885,7 +885,7 @@ void Geom_BSplineCurve::SetOrigin(const Standard_Real U, const Standard_Real Tol
 
 //=================================================================================================
 
-void Geom_BSplineCurve::SetNotPeriodic()
+void BSplineCurve3d::SetNotPeriodic()
 {
   if (periodic)
   {
@@ -926,7 +926,7 @@ void Geom_BSplineCurve::SetNotPeriodic()
 
 //=================================================================================================
 
-void Geom_BSplineCurve::SetPole(const Standard_Integer Index, const Point3d& P)
+void BSplineCurve3d::SetPole(const Standard_Integer Index, const Point3d& P)
 {
   if (Index < 1 || Index > poles->Length())
     throw Standard_OutOfRange("BSpline curve: SetPole: index and #pole mismatch");
@@ -936,7 +936,7 @@ void Geom_BSplineCurve::SetPole(const Standard_Integer Index, const Point3d& P)
 
 //=================================================================================================
 
-void Geom_BSplineCurve::SetPole(const Standard_Integer Index,
+void BSplineCurve3d::SetPole(const Standard_Integer Index,
                                 const Point3d&          P,
                                 const Standard_Real    W)
 {
@@ -946,7 +946,7 @@ void Geom_BSplineCurve::SetPole(const Standard_Integer Index,
 
 //=================================================================================================
 
-void Geom_BSplineCurve::SetWeight(const Standard_Integer Index, const Standard_Real W)
+void BSplineCurve3d::SetWeight(const Standard_Integer Index, const Standard_Real W)
 {
   if (Index < 1 || Index > poles->Length())
     throw Standard_OutOfRange("BSpline curve: SetWeight: Index and #pole mismatch");
@@ -980,7 +980,7 @@ void Geom_BSplineCurve::SetWeight(const Standard_Integer Index, const Standard_R
 
 //=================================================================================================
 
-void Geom_BSplineCurve::MovePoint(const Standard_Real    U,
+void BSplineCurve3d::MovePoint(const Standard_Real    U,
                                   const Point3d&          P,
                                   const Standard_Integer Index1,
                                   const Standard_Integer Index2,
@@ -1016,7 +1016,7 @@ void Geom_BSplineCurve::MovePoint(const Standard_Real    U,
 
 //=================================================================================================
 
-void Geom_BSplineCurve::MovePointAndTangent(const Standard_Real    U,
+void BSplineCurve3d::MovePointAndTangent(const Standard_Real    U,
                                             const Point3d&          P,
                                             const Vector3d&          Tangent,
                                             const Standard_Real    Tolerance,
@@ -1063,7 +1063,7 @@ void Geom_BSplineCurve::MovePointAndTangent(const Standard_Real    U,
 
 //=================================================================================================
 
-void Geom_BSplineCurve::UpdateKnots()
+void BSplineCurve3d::UpdateKnots()
 {
   rational = !weights.IsNull();
 
@@ -1116,7 +1116,7 @@ void Geom_BSplineCurve::UpdateKnots()
 // purpose  : that is compute the cache so that it is valid
 //=======================================================================
 
-void Geom_BSplineCurve::PeriodicNormalization(Standard_Real& Parameter) const
+void BSplineCurve3d::PeriodicNormalization(Standard_Real& Parameter) const
 {
   Standard_Real Period;
 
@@ -1136,7 +1136,7 @@ void Geom_BSplineCurve::PeriodicNormalization(Standard_Real& Parameter) const
 
 //=================================================================================================
 
-void Geom_BSplineCurve::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void BSplineCurve3d::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 

@@ -27,7 +27,7 @@ class BinMDF_ADriverTable;
 class Message_Messenger;
 
 //! Storage and Retrieval drivers for modelling attributes.
-class BinMDataStd
+class BinMDataStd1
 {
 public:
   DEFINE_STANDARD_ALLOC

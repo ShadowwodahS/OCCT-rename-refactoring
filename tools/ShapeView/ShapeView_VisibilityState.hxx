@@ -88,7 +88,7 @@ protected:
   //! Gets shape of the view model by the parameter index if it has a shape
   //! \param theIndex tree model index
   //! \return shape instance
-  TopoDS_Shape Shape(const QModelIndex& theIndex) const;
+  TopoShape Shape(const QModelIndex& theIndex) const;
 
 private:
   View_Displayer*       myDisplayer;        //!< view displayer

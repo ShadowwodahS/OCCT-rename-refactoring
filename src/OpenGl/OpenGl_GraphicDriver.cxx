@@ -635,7 +635,7 @@ const Handle(OpenGl_Context)& OpenGl_GraphicDriver::GetSharedContext(bool theBou
 //=================================================================================================
 
 Standard_Boolean OpenGl_GraphicDriver::MemoryInfo(Standard_Size&           theFreeBytes,
-                                                  TCollection_AsciiString& theInfo) const
+                                                  AsciiString1& theInfo) const
 {
   // this is extra work (for OpenGl_Context initialization)...
   OpenGl_Context aGlCtx;
@@ -672,7 +672,7 @@ void OpenGl_GraphicDriver::TextSize(const Handle(Graphic3d_CView)& theView,
 
   const Standard_ShortReal   aHeight = (theHeight < 2.0f) ? DefaultTextHeight() : theHeight;
   OpenGl_Aspects             aTextAspect;
-  TCollection_ExtendedString anExtText = theText;
+  UtfString anExtText = theText;
   NCollection_String         aText(anExtText.ToExtString());
   OpenGl_Text::StringSize(aCtx,
                           aText,

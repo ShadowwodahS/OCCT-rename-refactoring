@@ -47,7 +47,7 @@ static bool isValidColor(const gp_XYZ& theVec3)
 //=================================================================================================
 
 static bool parseColor(VrmlData_ErrorStatus& theStatus,
-                       VrmlData_InBuffer&    theBuffer,
+                       InputBuffer&    theBuffer,
                        gp_XYZ&               theColor,
                        const VrmlData_Scene& theScene)
 {
@@ -85,7 +85,7 @@ static bool parseColor(VrmlData_ErrorStatus& theStatus,
 //=================================================================================================
 
 static bool parseScalar(VrmlData_ErrorStatus& theStatus,
-                        VrmlData_InBuffer&    theBuffer,
+                        InputBuffer&    theBuffer,
                         Standard_Real&        theValue,
                         const VrmlData_Scene& theScene)
 {
@@ -177,7 +177,7 @@ Handle(VrmlData_Node) VrmlData_Material::Clone(const Handle(VrmlData_Node)& theO
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Material::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_Material::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus;
   Standard_Real        anIntensity[3] = {0.2, 0.2, 0.};

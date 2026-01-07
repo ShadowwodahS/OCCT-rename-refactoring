@@ -42,7 +42,7 @@ public:
   bool HasLabel() const { return !GetLabel().IsNull(); }
 
   //! \return the current label
-  Standard_EXPORT virtual TDF_Label GetLabel() const;
+  Standard_EXPORT virtual DataLabel GetLabel() const;
 
   //! \return the current module
   DFBrowser_Module* GetModule() const { return myModule; }
@@ -62,7 +62,7 @@ public:
 protected:
   //! Sets the item label
   //! \param theLabel an object where the child items structure is found
-  void setLabel(TDF_Label theLabel) { myLabel = theLabel; }
+  void setLabel(DataLabel theLabel) { myLabel = theLabel; }
 
   //! Returns if additional information is shown in item for Display and ToolTip values
   //! \return boolean value
@@ -72,7 +72,7 @@ protected:
   //! \return rows count
   virtual int initRowCount() const Standard_OVERRIDE;
 
-  //! Returns label information like text, icon or background(if it contains TDataStd_Name
+  //! Returns label information like text, icon or background(if it contains NameAttribute
   //! attribute) \param theItemRole a value role \return the value
   virtual QVariant initValue(const int theItemRole) const Standard_OVERRIDE;
 
@@ -93,7 +93,7 @@ protected:
   DFBrowser_ItemBase(TreeModel_ItemBasePtr theParent, const int theRow, const int theColumn);
 
 private:
-  TDF_Label myLabel; //!< a label of the document, which contains child labels and attributes
+  DataLabel myLabel; //!< a label of the document, which contains child labels and attributes
   DFBrowser_Module* myModule; //!< the current module
   bool myIsUseAdditionalInfo; //!< if true, additional item info is shown in square brackets
 };

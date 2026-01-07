@@ -27,7 +27,7 @@ class IGESGeom_SurfaceOfRevolution;
 DEFINE_STANDARD_HANDLE(IGESGeom_SurfaceOfRevolution, IGESData_IGESEntity)
 
 //! defines IGESSurfaceOfRevolution, Type <120> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A surface of revolution is defined by an axis of rotation
 //! a generatrix, and start and terminate rotation angles. The
 //! surface is created by rotating the generatrix about the axis

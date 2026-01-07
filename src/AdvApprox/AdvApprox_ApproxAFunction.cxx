@@ -53,7 +53,7 @@ static Standard_Boolean AdvApprox_Debug = 0;
 static void MAPDBN(const Standard_Integer       dimension,
                    const Standard_Real          Debut,
                    const Standard_Real          Fin,
-                   AdvApprox_EvaluatorFunction& Evaluator,
+                   EvaluatorFunction& Evaluator,
                    const Standard_Integer       Iordre)
 // Objet : Controle par difference finis, des derives
 // Warning : En mode Debug, uniquement
@@ -401,9 +401,9 @@ void AdvApprox_ApproxAFunction::Approximation(
   const Standard_Real            First,
   const Standard_Real            Last,
   // Intervalle (a,b) de definition de la fonction a approcher.
-  AdvApprox_EvaluatorFunction& Evaluator,
+  EvaluatorFunction& Evaluator,
   // Fonction externe de positionnement sur la fonction a approcher.
-  const AdvApprox_Cutting& CutTool,
+  const CuttingTool& CutTool,
   // Maniere de decouper en 2 un intervalle.
   const Standard_Integer ContinuityOrder,
   // ordre de continutie a respecter (-1, 0, 1, 2)
@@ -646,7 +646,7 @@ AdvApprox_ApproxAFunction::AdvApprox_ApproxAFunction(const Standard_Integer     
                                                      const GeomAbs_Shape                Continuity,
                                                      const Standard_Integer             MaxDeg,
                                                      const Standard_Integer             MaxSeg,
-                                                     const AdvApprox_EvaluatorFunction& Func)
+                                                     const EvaluatorFunction& Func)
     : my1DTolerances(OneDTol),
       my2DTolerances(TwoDTol),
       my3DTolerances(ThreeDTol),
@@ -674,8 +674,8 @@ AdvApprox_ApproxAFunction::AdvApprox_ApproxAFunction(const Standard_Integer     
                                                      const GeomAbs_Shape                Continuity,
                                                      const Standard_Integer             MaxDeg,
                                                      const Standard_Integer             MaxSeg,
-                                                     const AdvApprox_EvaluatorFunction& Func,
-                                                     const AdvApprox_Cutting&           CutTool)
+                                                     const EvaluatorFunction& Func,
+                                                     const CuttingTool&           CutTool)
     : my1DTolerances(OneDTol),
       my2DTolerances(TwoDTol),
       my3DTolerances(ThreeDTol),
@@ -698,7 +698,7 @@ AdvApprox_ApproxAFunction::AdvApprox_ApproxAFunction(const Standard_Integer     
 void AdvApprox_ApproxAFunction::Perform(const Standard_Integer   Num1DSS,
                                         const Standard_Integer   Num2DSS,
                                         const Standard_Integer   Num3DSS,
-                                        const AdvApprox_Cutting& CutTool)
+                                        const CuttingTool& CutTool)
 {
   if (Num1DSS < 0 || Num2DSS < 0 || Num3DSS < 0 || Num1DSS + Num2DSS + Num3DSS <= 0
       || myLast < myFirst || myMaxDegree < 1 || myMaxSegments < 0)
@@ -789,7 +789,7 @@ void AdvApprox_ApproxAFunction::Perform(const Standard_Integer   Num1DSS,
                 LocalDimension,
                 myFirst,
                 myLast,
-                *(AdvApprox_EvaluatorFunction*)myEvaluator,
+                *(EvaluatorFunction*)myEvaluator,
                 CutTool,
                 ContinuityOrder,
                 NumMaxCoeffs,

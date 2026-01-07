@@ -69,7 +69,7 @@ Standard_Boolean TopOpeBRepDS_Check::ChkIntg()
   const TopOpeBRepDS_DataStructure& DS = myHDS->DS();
   Standard_Boolean                  bI = Standard_False;
   // Check the integrity of the DS
-  Standard_Integer i, nshape = DS.NbShapes();
+  Standard_Integer i, nshape = DS.NbShapes1();
   for (i = 1; i <= nshape; i++)
   {
     // Integrity of Interferences : Check support and geometry
@@ -172,14 +172,14 @@ Standard_Boolean TopOpeBRepDS_Check::CheckDS(const Standard_Integer I, const Top
   }
 
   // topology
-  if (myHDS->NbShapes() < I)
+  if (myHDS->NbShapes1() < I)
   {
     if (myMapShapeStatus.IsBound(I))
       myMapShapeStatus.UnBind(I);
     myMapShapeStatus.Bind(I, TopOpeBRepDS_NOK);
     return Standard_False;
   }
-  const TopoDS_Shape& S = myHDS->Shape(I);
+  const TopoShape& S = myHDS->Shape(I);
 
   TopAbs_ShapeEnum se = TopAbs_COMPOUND;
 
@@ -224,12 +224,12 @@ Standard_Boolean TopOpeBRepDS_Check::ChkIntgSamDom()
 {
   Standard_Boolean            b = Standard_True, bb = Standard_False;
   TopOpeBRepDS_DataStructure& BDS  = myHDS->ChangeDS();
-  Standard_Integer            NbSh = myHDS->NbShapes(), i, Curr, Loc;
+  Standard_Integer            NbSh = myHDS->NbShapes1(), i, Curr, Loc;
   for (i = 1; i <= NbSh; i++)
   {
     // Verifie que les Shapes de mySameDomaine existe bien dans la DS
-    const TopoDS_Shape&         Sind = myHDS->Shape(i);
-    const TopTools_ListOfShape& losi = BDS.ShapeSameDomain(Sind);
+    const TopoShape&         Sind = myHDS->Shape(i);
+    const ShapeList& losi = BDS.ShapeSameDomain(Sind);
     if (!CheckShapes(losi))
     {
       b = Standard_False;
@@ -246,7 +246,7 @@ Standard_Boolean TopOpeBRepDS_Check::ChkIntgSamDom()
     if (Curr)
     {
       // Verification du type des differents Shapes SameDomain
-      const TopoDS_Shape& Sref = myHDS->Shape(Curr);
+      const TopoShape& Sref = myHDS->Shape(Curr);
       if (Sind.ShapeType() != Sref.ShapeType())
       {
         b = Standard_False;
@@ -256,12 +256,12 @@ Standard_Boolean TopOpeBRepDS_Check::ChkIntgSamDom()
       // sauf si Sind == Sref
       if (i != Curr)
       {
-        const TopTools_ListOfShape&        losr = BDS.ShapeSameDomain(Sref);
+        const ShapeList&        losr = BDS.ShapeSameDomain(Sref);
         TopTools_ListIteratorOfListOfShape liolos;
         liolos.Initialize(losr);
         while (liolos.More())
         {
-          const TopoDS_Shape& Sh = liolos.Value();
+          const TopoShape& Sh = liolos.Value();
           Loc                    = myHDS->Shape(Sh);
           if (Loc == i)
           {
@@ -282,13 +282,13 @@ Standard_Boolean TopOpeBRepDS_Check::ChkIntgSamDom()
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS_Check::CheckShapes(const TopTools_ListOfShape& LS) const
+Standard_Boolean TopOpeBRepDS_Check::CheckShapes(const ShapeList& LS) const
 {
   Standard_Integer                   index;
   TopTools_ListIteratorOfListOfShape it(LS);
   while (it.More())
   {
-    const TopoDS_Shape& itS = it.Value();
+    const TopoShape& itS = it.Value();
     index                   = myHDS->Shape(itS);
     if (!index)
       return Standard_False;
@@ -310,9 +310,9 @@ Standard_Boolean TopOpeBRepDS_Check::OneVertexOnPnt()
   Standard_Real               tol1, tol2, Dist;
   TColStd_IndexedMapOfInteger vert;
   vert.Clear();
-  for (i = 1; i <= myHDS->NbShapes(); i++)
+  for (i = 1; i <= myHDS->NbShapes1(); i++)
   {
-    const TopoDS_Shape& S = myHDS->Shape(i);
+    const TopoShape& S = myHDS->Shape(i);
     if ((S.ShapeType() == TopAbs_VERTEX) && myHDS->HasShape(S))
       vert.Add(i);
   }
@@ -320,17 +320,17 @@ Standard_Boolean TopOpeBRepDS_Check::OneVertexOnPnt()
   for (i = 1; i <= NbVe; i++)
   {
     Curr1                  = vert.FindKey(i);
-    const TopoDS_Shape& S1 = myHDS->Shape(Curr1);
+    const TopoShape& S1 = myHDS->Shape(Curr1);
     sdr1                   = myHDS->SameDomainReference(S1);
     for (j = i + 1; j <= NbVe; j++)
     {
       Curr2                  = vert.FindKey(j);
-      const TopoDS_Shape& S2 = myHDS->Shape(Curr2);
+      const TopoShape& S2 = myHDS->Shape(Curr2);
       sdr2                   = myHDS->SameDomainReference(S2);
-      tol1                   = TopOpeBRepTool_ShapeTool::Tolerance(S1);
-      tol2                   = TopOpeBRepTool_ShapeTool::Tolerance(S2);
-      const Point3d& P1       = TopOpeBRepTool_ShapeTool::Pnt(S1);
-      const Point3d& P2       = TopOpeBRepTool_ShapeTool::Pnt(S2);
+      tol1                   = ShapeTool::Tolerance(S1);
+      tol2                   = ShapeTool::Tolerance(S2);
+      const Point3d& P1       = ShapeTool::Pnt(S1);
+      const Point3d& P2       = ShapeTool::Pnt(S2);
       Dist                   = P1.Distance(P2);
       if (Dist <= tol1 + tol2)
       {
@@ -347,11 +347,11 @@ Standard_Boolean TopOpeBRepDS_Check::OneVertexOnPnt()
     TopOpeBRepDS_PointExplorer PE(myHDS->DS());
     for (; PE.More(); PE.Next())
     {
-      const TopOpeBRepDS_Point& dsPnt = PE.Point();
+      const Point1& dsPnt = PE.Point();
       const Point3d&             Pnt1  = dsPnt.Point();
       tol1                            = dsPnt.Tolerance();
-      tol2                            = TopOpeBRepTool_ShapeTool::Tolerance(S1);
-      const Point3d& Pnt2              = TopOpeBRepTool_ShapeTool::Pnt(S1);
+      tol2                            = ShapeTool::Tolerance(S1);
+      const Point3d& Pnt2              = ShapeTool::Pnt(S1);
       Dist                            = Pnt1.Distance(Pnt2);
       if (Dist <= tol1 + tol2)
       {
@@ -364,10 +364,10 @@ Standard_Boolean TopOpeBRepDS_Check::OneVertexOnPnt()
     TopOpeBRepDS_PointExplorer PE(myHDS->DS());
     if (PE.IsPoint(i))
     {
-      const TopOpeBRepDS_Point& dsPnt1 = myHDS->Point(i);
+      const Point1& dsPnt1 = myHDS->Point(i);
       for (j = i + 1; j < NbPo; j++)
       {
-        const TopOpeBRepDS_Point& dsPnt2 = myHDS->Point(j);
+        const Point1& dsPnt2 = myHDS->Point(j);
         if (dsPnt1.IsEqual(dsPnt2))
         {
         }
@@ -385,7 +385,7 @@ Standard_Boolean CheckEdgeParameter(const Handle(TopOpeBRepDS_HDataStructure)& m
 {
   TopOpeBRepDS_ListIteratorOfListOfInterference it1;
   const TopOpeBRepDS_DataStructure&             DS = myHDS->DS();
-  Standard_Integer                              i, nshape = DS.NbShapes();
+  Standard_Integer                              i, nshape = DS.NbShapes1();
   Standard_Boolean                              IsOK = Standard_True;
   for (i = 1; i <= nshape; i++)
   {
@@ -422,7 +422,7 @@ Standard_Boolean CheckEdgeParameter(const Handle(TopOpeBRepDS_HDataStructure)& m
         Handle(TopOpeBRepDS_CurvePointInterference)::DownCast(I1));
       if (!CPI.IsNull())
       {
-        Standard_Integer Param = (Standard_Integer)TopOpeBRepDS_InterferenceTool::Parameter(CPI);
+        Standard_Integer Param = (Standard_Integer)InterferenceTool::Parameter(CPI);
         if (Param > 1.e50)
         {
           IsOK = Standard_False;
@@ -454,7 +454,7 @@ Standard_OStream& TopOpeBRepDS_Check::PrintIntg(Standard_OStream& OS)
        DMI.Next())
   {
     i                     = DMI.Key();
-    const TopoDS_Shape& S = myHDS->Shape(i);
+    const TopoShape& S = myHDS->Shape(i);
     switch (S.ShapeType())
     {
       case TopAbs_VERTEX:
@@ -595,7 +595,7 @@ Standard_OStream& TopOpeBRepDS_Check::PrintShape(const TopAbs_ShapeEnum SE, Stan
 
 Standard_OStream& TopOpeBRepDS_Check::PrintShape(const Standard_Integer index, Standard_OStream& OS)
 {
-  if (myHDS->NbShapes() < index)
+  if (myHDS->NbShapes1() < index)
   {
     OS << "**PB**IN**TopOpeBRepDS_Check::PrintShape** ";
     return OS;

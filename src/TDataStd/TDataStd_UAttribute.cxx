@@ -29,7 +29,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TDataStd_UAttribute, TDF_Attribute)
 
 //=================================================================================================
 
-Handle(TDataStd_UAttribute) TDataStd_UAttribute::Set(const TDF_Label&     label,
+Handle(TDataStd_UAttribute) TDataStd_UAttribute::Set(const DataLabel&     label,
                                                      const Standard_GUID& guid)
 {
   Handle(TDataStd_UAttribute) A;

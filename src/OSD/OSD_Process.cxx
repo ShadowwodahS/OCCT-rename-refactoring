@@ -54,9 +54,9 @@ const OSD_WhoAmI Iam = OSD_WProcess;
 
 OSD_Process::OSD_Process() {}
 
-void OSD_Process::TerminalType(TCollection_AsciiString& Name)
+void OSD_Process::TerminalType(AsciiString1& Name)
 {
-  TCollection_AsciiString which = "TERM";
+  AsciiString1 which = "TERM";
   OSD_Environment         term(which, "");
 
   term.Value();
@@ -98,14 +98,14 @@ Standard_Integer OSD_Process::ProcessId()
   return (getpid());
 }
 
-TCollection_AsciiString OSD_Process::UserName()
+AsciiString1 OSD_Process::UserName()
 {
   #if defined(__EMSCRIPTEN__)
   // Emscripten SDK raises TODO exception in runtime while calling getpwuid()
-  return TCollection_AsciiString();
+  return AsciiString1();
   #else
   struct passwd* anInfos = getpwuid(getuid());
-  return TCollection_AsciiString(anInfos ? anInfos->pw_name : "");
+  return AsciiString1(anInfos ? anInfos->pw_name : "");
   #endif
 }
 
@@ -121,11 +121,11 @@ Standard_Boolean OSD_Process::IsSuperUser()
   }
 }
 
-OSD_Path OSD_Process::CurrentDirectory()
+SystemPath OSD_Process::CurrentDirectory()
 {
   char                    cwd[MAXPATHLEN + 1];
-  OSD_Path                result;
-  TCollection_AsciiString Name;
+  SystemPath                result;
+  AsciiString1 Name;
 
   if (!getcwd(cwd, MAXPATHLEN + 1))
     myError.SetValue(errno, Iam, "Where");
@@ -147,24 +147,24 @@ OSD_Path OSD_Process::CurrentDirectory()
     Standard_Integer iDisk = Name.Search(":");
     if (iDisk)
     {
-      TCollection_AsciiString Disk;
-      TCollection_AsciiString Directory;
+      AsciiString1 Disk;
+      AsciiString1 Directory;
       Disk      = Name.SubString(1, iDisk - 1);
       Directory = Name.SubString(iDisk + 1, Name.Length());
       result.SetValues("", "", "", Disk, Directory, "", "");
     }
   #else
-    Name += TCollection_AsciiString("/");
-    result = OSD_Path(Name);
+    Name += AsciiString1("/");
+    result = SystemPath(Name);
       //      result.SetValues("","","","",Name,"","");
   #endif
   }
   return (result);
 }
 
-void OSD_Process::SetCurrentDirectory(const OSD_Path& where)
+void OSD_Process::SetCurrentDirectory(const SystemPath& where)
 {
-  TCollection_AsciiString Name;
+  AsciiString1 Name;
   int                     status;
 
   where.SystemName(Name);
@@ -197,7 +197,7 @@ Standard_Integer OSD_Process::Error() const
 #else
 
 //------------------------------------------------------------------------
-//-------------------  WNT Sources of OSD_Path ---------------------------
+//-------------------  WNT Sources of SystemPath ---------------------------
 //------------------------------------------------------------------------
 
 void _osd_wnt_set_error(OSD_Error&, Standard_Integer, ...);
@@ -209,7 +209,7 @@ OSD_Process::OSD_Process()
   //
 }
 
-void OSD_Process ::TerminalType(TCollection_AsciiString& Name)
+void OSD_Process ::TerminalType(AsciiString1& Name)
 {
 
   Name = "WIN32 console";
@@ -233,20 +233,20 @@ Quantity_Date OSD_Process ::SystemDate()
 
 //=================================================================================================
 
-TCollection_AsciiString OSD_Process::UserName()
+AsciiString1 OSD_Process::UserName()
 {
   #ifndef OCCT_UWP
   wchar_t                 aUserName[UNLEN + 1];
   DWORD                   aNameSize = UNLEN + 1;
-  TCollection_AsciiString retVal;
+  AsciiString1 retVal;
   if (!GetUserNameW(aUserName, &aNameSize))
   {
     _osd_wnt_set_error(myError, OSD_WProcess);
-    return TCollection_AsciiString();
+    return AsciiString1();
   }
-  return TCollection_AsciiString(aUserName);
+  return AsciiString1(aUserName);
   #else
-  return TCollection_AsciiString();
+  return AsciiString1();
   #endif
 }
 
@@ -300,9 +300,9 @@ Standard_Integer OSD_Process::ProcessId()
 
 //=================================================================================================
 
-OSD_Path OSD_Process::CurrentDirectory()
+SystemPath OSD_Process::CurrentDirectory()
 {
-  OSD_Path anCurrentDirectory;
+  SystemPath anCurrentDirectory;
   #ifndef OCCT_UWP
   const DWORD aBuffLen = GetCurrentDirectoryW(0, NULL);
   if (aBuffLen > 0)
@@ -310,10 +310,10 @@ OSD_Path OSD_Process::CurrentDirectory()
     wchar_t* aBuff = new wchar_t[aBuffLen + 1];
     GetCurrentDirectoryW(aBuffLen, aBuff);
     aBuff[aBuffLen] = L'\0';
-    const TCollection_AsciiString aPath(aBuff);
+    const AsciiString1 aPath(aBuff);
     delete[] aBuff;
 
-    anCurrentDirectory = OSD_Path(aPath);
+    anCurrentDirectory = SystemPath(aPath);
   }
   else
   {
@@ -323,13 +323,13 @@ OSD_Path OSD_Process::CurrentDirectory()
   return anCurrentDirectory;
 }
 
-void OSD_Process ::SetCurrentDirectory(const OSD_Path& where)
+void OSD_Process ::SetCurrentDirectory(const SystemPath& where)
 {
 
-  TCollection_AsciiString path;
+  AsciiString1 path;
 
   where.SystemName(path);
-  TCollection_ExtendedString pathW(path);
+  UtfString pathW(path);
 
   if (!::SetCurrentDirectoryW(pathW.ToWideString()))
 
@@ -369,7 +369,7 @@ Standard_Integer OSD_Process ::Error() const
 
 //=================================================================================================
 
-TCollection_AsciiString OSD_Process::ExecutablePath()
+AsciiString1 OSD_Process::ExecutablePath()
 {
 #ifdef _WIN32
   wchar_t aBuff[MAX_PATH + 2];
@@ -377,11 +377,11 @@ TCollection_AsciiString OSD_Process::ExecutablePath()
   aBuff[MAX_PATH + 1] = 0;
   if (aLenFilled == 0)
   {
-    return TCollection_AsciiString();
+    return AsciiString1();
   }
   else if (aLenFilled <= MAX_PATH)
   {
-    return TCollection_AsciiString(aBuff);
+    return AsciiString1(aBuff);
   }
 
   // buffer is not large enough (e.g. path uses \\?\ prefix)
@@ -392,14 +392,14 @@ TCollection_AsciiString OSD_Process::ExecutablePath()
     aBuffDyn = reinterpret_cast<wchar_t*>(realloc(aBuffDyn, sizeof(wchar_t) * (aBuffLen + 1)));
     if (aBuffDyn == NULL)
     {
-      return TCollection_AsciiString();
+      return AsciiString1();
     }
 
     aLenFilled = GetModuleFileNameW(NULL, aBuffDyn, DWORD(aBuffLen));
     if (aLenFilled != aBuffLen)
     {
       aBuffDyn[aBuffLen] = L'\0';
-      TCollection_AsciiString aRes(aBuffDyn);
+      AsciiString1 aRes(aBuffDyn);
       free(aBuffDyn);
       return aRes;
     }
@@ -410,7 +410,7 @@ TCollection_AsciiString OSD_Process::ExecutablePath()
   _NSGetExecutablePath(NULL, &aNbBytes);
   if (aNbBytes == 0)
   {
-    return TCollection_AsciiString();
+    return AsciiString1();
   }
 
   // retrieve path to executable (probably link)
@@ -422,36 +422,36 @@ TCollection_AsciiString OSD_Process::ExecutablePath()
   char* aResultBuf = realpath(&aBuff.First(), NULL);
   if (aResultBuf == NULL)
   {
-    return TCollection_AsciiString();
+    return AsciiString1();
   }
 
-  TCollection_AsciiString aProcessPath(aResultBuf);
+  AsciiString1 aProcessPath(aResultBuf);
   free(aResultBuf); // according to man for realpath()
   return aProcessPath;
 #elif defined(__linux__)
   // get info from /proc/PID/exe
 
-  TCollection_AsciiString aSimLink =
-    TCollection_AsciiString("/proc/") + TCollection_AsciiString(getpid()) + "/exe";
+  AsciiString1 aSimLink =
+    AsciiString1("/proc/") + AsciiString1(getpid()) + "/exe";
   char    aBuff[4096];
   ssize_t aBytes = readlink(aSimLink.ToCString(), aBuff, 4096);
   if (aBytes > 0)
   {
     aBuff[aBytes] = '\0';
-    return TCollection_AsciiString(aBuff);
+    return AsciiString1(aBuff);
   }
-  return TCollection_AsciiString();
+  return AsciiString1();
 #else
   // not implemented
-  return TCollection_AsciiString();
+  return AsciiString1();
 #endif
 }
 
 //=================================================================================================
 
-TCollection_AsciiString OSD_Process::ExecutableFolder()
+AsciiString1 OSD_Process::ExecutableFolder()
 {
-  TCollection_AsciiString aFullPath  = ExecutablePath();
+  AsciiString1 aFullPath  = ExecutablePath();
   Standard_Integer        aLastSplit = -1;
 #ifdef _WIN32
   const char THE_FILE_SEPARATOR = '\\';
@@ -470,5 +470,5 @@ TCollection_AsciiString OSD_Process::ExecutableFolder()
   {
     return aFullPath.SubString(1, aLastSplit);
   }
-  return TCollection_AsciiString();
+  return AsciiString1();
 }

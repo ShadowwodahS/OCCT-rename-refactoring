@@ -22,13 +22,13 @@
 
 #include <ExprIntrp_Generator.hxx>
 class Expr_GeneralExpression;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class ExprIntrp_GenExp;
 DEFINE_STANDARD_HANDLE(ExprIntrp_GenExp, ExprIntrp_Generator)
 
 //! This class permits, from a string, to create any
-//! kind of expression of package Expr by using
+//! kind of expression of package Expr1 by using
 //! built-in functions such as Sin,Cos, etc, and by
 //! creating variables.
 class ExprIntrp_GenExp : public ExprIntrp_Generator
@@ -38,7 +38,7 @@ public:
   Standard_EXPORT static Handle(ExprIntrp_GenExp) Create();
 
   //! Processes given string.
-  Standard_EXPORT void Process(const TCollection_AsciiString& str);
+  Standard_EXPORT void Process(const AsciiString1& str);
 
   //! Returns false if any syntax error has occurred during
   //! process.

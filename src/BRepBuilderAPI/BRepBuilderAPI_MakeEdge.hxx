@@ -25,17 +25,17 @@
 #include <BRepBuilderAPI_MakeShape.hxx>
 #include <Standard_Real.hxx>
 #include <BRepBuilderAPI_EdgeError.hxx>
-class TopoDS_Vertex;
+class TopoVertex;
 class Point3d;
 class gp_Lin;
 class gp_Circ;
 class gp_Elips;
 class gp_Hypr;
 class gp_Parab;
-class Geom_Curve;
-class Geom2d_Curve;
-class Geom_Surface;
-class TopoDS_Edge;
+class GeomCurve3d;
+class GeomCurve2d;
+class GeomSurface;
+class TopoEdge;
 
 //! Provides methods to build edges.
 //!
@@ -68,123 +68,123 @@ class TopoDS_Edge;
 //! V1 and V2. Same as the  previous but no vertices
 //! are created. If a vertex is  Null the curve will
 //! be open in this direction.
-class BRepBuilderAPI_MakeEdge : public BRepBuilderAPI_MakeShape
+class EdgeMaker : public BRepBuilderAPI_MakeShape
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge();
+  Standard_EXPORT EdgeMaker();
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const TopoDS_Vertex& V1, const TopoDS_Vertex& V2);
+  Standard_EXPORT EdgeMaker(const TopoVertex& V1, const TopoVertex& V2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const Point3d& P1, const Point3d& P2);
+  Standard_EXPORT EdgeMaker(const Point3d& P1, const Point3d& P2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Lin& L);
+  Standard_EXPORT EdgeMaker(const gp_Lin& L);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Lin&       L,
+  Standard_EXPORT EdgeMaker(const gp_Lin&       L,
                                           const Standard_Real p1,
                                           const Standard_Real p2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Lin& L, const Point3d& P1, const Point3d& P2);
+  Standard_EXPORT EdgeMaker(const gp_Lin& L, const Point3d& P1, const Point3d& P2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Lin&        L,
-                                          const TopoDS_Vertex& V1,
-                                          const TopoDS_Vertex& V2);
+  Standard_EXPORT EdgeMaker(const gp_Lin&        L,
+                                          const TopoVertex& V1,
+                                          const TopoVertex& V2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Circ& L);
+  Standard_EXPORT EdgeMaker(const gp_Circ& L);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Circ&      L,
+  Standard_EXPORT EdgeMaker(const gp_Circ&      L,
                                           const Standard_Real p1,
                                           const Standard_Real p2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Circ& L, const Point3d& P1, const Point3d& P2);
+  Standard_EXPORT EdgeMaker(const gp_Circ& L, const Point3d& P1, const Point3d& P2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Circ&       L,
-                                          const TopoDS_Vertex& V1,
-                                          const TopoDS_Vertex& V2);
+  Standard_EXPORT EdgeMaker(const gp_Circ&       L,
+                                          const TopoVertex& V1,
+                                          const TopoVertex& V2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Elips& L);
+  Standard_EXPORT EdgeMaker(const gp_Elips& L);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Elips&     L,
+  Standard_EXPORT EdgeMaker(const gp_Elips&     L,
                                           const Standard_Real p1,
                                           const Standard_Real p2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Elips& L, const Point3d& P1, const Point3d& P2);
+  Standard_EXPORT EdgeMaker(const gp_Elips& L, const Point3d& P1, const Point3d& P2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Elips&      L,
-                                          const TopoDS_Vertex& V1,
-                                          const TopoDS_Vertex& V2);
+  Standard_EXPORT EdgeMaker(const gp_Elips&      L,
+                                          const TopoVertex& V1,
+                                          const TopoVertex& V2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Hypr& L);
+  Standard_EXPORT EdgeMaker(const gp_Hypr& L);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Hypr&      L,
+  Standard_EXPORT EdgeMaker(const gp_Hypr&      L,
                                           const Standard_Real p1,
                                           const Standard_Real p2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Hypr& L, const Point3d& P1, const Point3d& P2);
+  Standard_EXPORT EdgeMaker(const gp_Hypr& L, const Point3d& P1, const Point3d& P2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Hypr&       L,
-                                          const TopoDS_Vertex& V1,
-                                          const TopoDS_Vertex& V2);
+  Standard_EXPORT EdgeMaker(const gp_Hypr&       L,
+                                          const TopoVertex& V1,
+                                          const TopoVertex& V2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Parab& L);
+  Standard_EXPORT EdgeMaker(const gp_Parab& L);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Parab&     L,
+  Standard_EXPORT EdgeMaker(const gp_Parab&     L,
                                           const Standard_Real p1,
                                           const Standard_Real p2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Parab& L, const Point3d& P1, const Point3d& P2);
+  Standard_EXPORT EdgeMaker(const gp_Parab& L, const Point3d& P1, const Point3d& P2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const gp_Parab&      L,
-                                          const TopoDS_Vertex& V1,
-                                          const TopoDS_Vertex& V2);
+  Standard_EXPORT EdgeMaker(const gp_Parab&      L,
+                                          const TopoVertex& V1,
+                                          const TopoVertex& V2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const Handle(Geom_Curve)& L);
+  Standard_EXPORT EdgeMaker(const Handle(GeomCurve3d)& L);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const Handle(Geom_Curve)& L,
+  Standard_EXPORT EdgeMaker(const Handle(GeomCurve3d)& L,
                                           const Standard_Real       p1,
                                           const Standard_Real       p2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const Handle(Geom_Curve)& L,
+  Standard_EXPORT EdgeMaker(const Handle(GeomCurve3d)& L,
                                           const Point3d&             P1,
                                           const Point3d&             P2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const Handle(Geom_Curve)& L,
-                                          const TopoDS_Vertex&      V1,
-                                          const TopoDS_Vertex&      V2);
+  Standard_EXPORT EdgeMaker(const Handle(GeomCurve3d)& L,
+                                          const TopoVertex&      V1,
+                                          const TopoVertex&      V2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const Handle(Geom_Curve)& L,
+  Standard_EXPORT EdgeMaker(const Handle(GeomCurve3d)& L,
                                           const Point3d&             P1,
                                           const Point3d&             P2,
                                           const Standard_Real       p1,
                                           const Standard_Real       p2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const Handle(Geom_Curve)& L,
-                                          const TopoDS_Vertex&      V1,
-                                          const TopoDS_Vertex&      V2,
+  Standard_EXPORT EdgeMaker(const Handle(GeomCurve3d)& L,
+                                          const TopoVertex&      V1,
+                                          const TopoVertex&      V2,
                                           const Standard_Real       p1,
                                           const Standard_Real       p2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const Handle(Geom2d_Curve)& L,
-                                          const Handle(Geom_Surface)& S);
+  Standard_EXPORT EdgeMaker(const Handle(GeomCurve2d)& L,
+                                          const Handle(GeomSurface)& S);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const Handle(Geom2d_Curve)& L,
-                                          const Handle(Geom_Surface)& S,
+  Standard_EXPORT EdgeMaker(const Handle(GeomCurve2d)& L,
+                                          const Handle(GeomSurface)& S,
                                           const Standard_Real         p1,
                                           const Standard_Real         p2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const Handle(Geom2d_Curve)& L,
-                                          const Handle(Geom_Surface)& S,
+  Standard_EXPORT EdgeMaker(const Handle(GeomCurve2d)& L,
+                                          const Handle(GeomSurface)& S,
                                           const Point3d&               P1,
                                           const Point3d&               P2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const Handle(Geom2d_Curve)& L,
-                                          const Handle(Geom_Surface)& S,
-                                          const TopoDS_Vertex&        V1,
-                                          const TopoDS_Vertex&        V2);
+  Standard_EXPORT EdgeMaker(const Handle(GeomCurve2d)& L,
+                                          const Handle(GeomSurface)& S,
+                                          const TopoVertex&        V1,
+                                          const TopoVertex&        V2);
 
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const Handle(Geom2d_Curve)& L,
-                                          const Handle(Geom_Surface)& S,
+  Standard_EXPORT EdgeMaker(const Handle(GeomCurve2d)& L,
+                                          const Handle(GeomSurface)& S,
                                           const Point3d&               P1,
                                           const Point3d&               P2,
                                           const Standard_Real         p1,
@@ -254,56 +254,56 @@ public:
   //! parameters of the curve will then be used.
   //!
   //! Auxiliary methods
-  Standard_EXPORT BRepBuilderAPI_MakeEdge(const Handle(Geom2d_Curve)& L,
-                                          const Handle(Geom_Surface)& S,
-                                          const TopoDS_Vertex&        V1,
-                                          const TopoDS_Vertex&        V2,
+  Standard_EXPORT EdgeMaker(const Handle(GeomCurve2d)& L,
+                                          const Handle(GeomSurface)& S,
+                                          const TopoVertex&        V1,
+                                          const TopoVertex&        V2,
                                           const Standard_Real         p1,
                                           const Standard_Real         p2);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& C);
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& C);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& C,
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& C,
                             const Standard_Real       p1,
                             const Standard_Real       p2);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& C, const Point3d& P1, const Point3d& P2);
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& C, const Point3d& P1, const Point3d& P2);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& C,
-                            const TopoDS_Vertex&      V1,
-                            const TopoDS_Vertex&      V2);
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& C,
+                            const TopoVertex&      V1,
+                            const TopoVertex&      V2);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& C,
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& C,
                             const Point3d&             P1,
                             const Point3d&             P2,
                             const Standard_Real       p1,
                             const Standard_Real       p2);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& C,
-                            const TopoDS_Vertex&      V1,
-                            const TopoDS_Vertex&      V2,
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& C,
+                            const TopoVertex&      V1,
+                            const TopoVertex&      V2,
                             const Standard_Real       p1,
                             const Standard_Real       p2);
 
-  Standard_EXPORT void Init(const Handle(Geom2d_Curve)& C, const Handle(Geom_Surface)& S);
+  Standard_EXPORT void Init(const Handle(GeomCurve2d)& C, const Handle(GeomSurface)& S);
 
-  Standard_EXPORT void Init(const Handle(Geom2d_Curve)& C,
-                            const Handle(Geom_Surface)& S,
+  Standard_EXPORT void Init(const Handle(GeomCurve2d)& C,
+                            const Handle(GeomSurface)& S,
                             const Standard_Real         p1,
                             const Standard_Real         p2);
 
-  Standard_EXPORT void Init(const Handle(Geom2d_Curve)& C,
-                            const Handle(Geom_Surface)& S,
+  Standard_EXPORT void Init(const Handle(GeomCurve2d)& C,
+                            const Handle(GeomSurface)& S,
                             const Point3d&               P1,
                             const Point3d&               P2);
 
-  Standard_EXPORT void Init(const Handle(Geom2d_Curve)& C,
-                            const Handle(Geom_Surface)& S,
-                            const TopoDS_Vertex&        V1,
-                            const TopoDS_Vertex&        V2);
+  Standard_EXPORT void Init(const Handle(GeomCurve2d)& C,
+                            const Handle(GeomSurface)& S,
+                            const TopoVertex&        V1,
+                            const TopoVertex&        V2);
 
-  Standard_EXPORT void Init(const Handle(Geom2d_Curve)& C,
-                            const Handle(Geom_Surface)& S,
+  Standard_EXPORT void Init(const Handle(GeomCurve2d)& C,
+                            const Handle(GeomSurface)& S,
                             const Point3d&               P1,
                             const Point3d&               P2,
                             const Standard_Real         p1,
@@ -311,10 +311,10 @@ public:
 
   //! Defines or redefines the arguments for the construction of an edge.
   //! This function is currently used after the empty constructor BRepAPI_MakeEdge().
-  Standard_EXPORT void Init(const Handle(Geom2d_Curve)& C,
-                            const Handle(Geom_Surface)& S,
-                            const TopoDS_Vertex&        V1,
-                            const TopoDS_Vertex&        V2,
+  Standard_EXPORT void Init(const Handle(GeomCurve2d)& C,
+                            const Handle(GeomSurface)& S,
+                            const TopoVertex&        V1,
+                            const TopoVertex&        V2,
                             const Standard_Real         p1,
                             const Standard_Real         p2);
 
@@ -329,11 +329,11 @@ public:
 
   //! Returns the constructed edge.
   //! Exceptions StdFail_NotDone if the edge is not built.
-  Standard_EXPORT const TopoDS_Edge& Edge();
-  Standard_EXPORT                    operator TopoDS_Edge();
+  Standard_EXPORT const TopoEdge& Edge();
+  Standard_EXPORT                    operator TopoEdge();
 
   //! Returns the first vertex of the edge. May be Null.
-  Standard_EXPORT const TopoDS_Vertex& Vertex1() const;
+  Standard_EXPORT const TopoVertex& Vertex1() const;
 
   //! Returns the second vertex of the edge. May be Null.
   //!
@@ -345,7 +345,7 @@ public:
   //! given at the time of the construction, if the edge is oriented reversed.
   //! Exceptions
   //! StdFail_NotDone if the edge is not built.
-  Standard_EXPORT const TopoDS_Vertex& Vertex2() const;
+  Standard_EXPORT const TopoVertex& Vertex2() const;
 
 protected:
 private:

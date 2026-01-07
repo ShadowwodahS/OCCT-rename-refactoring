@@ -25,7 +25,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class Point3d;
-class Geom_Plane;
+class GeomPlane;
 
 //! A framework to define display of equality in radii.
 class DsgPrs_EqualRadiusPresentation
@@ -42,12 +42,12 @@ public:
   //! first and second shapes respectively, and FirstPoint
   //! and SecondPoint are the attachment points of the radii to arcs.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Point3d&                     FirstCenter,
                                   const Point3d&                     SecondCenter,
                                   const Point3d&                     FirstPoint,
                                   const Point3d&                     SecondPoint,
-                                  const Handle(Geom_Plane)&         Plane);
+                                  const Handle(GeomPlane)&         Plane);
 
 protected:
 private:

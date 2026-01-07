@@ -49,9 +49,9 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Read operation has ended correctly
   Standard_EXPORT virtual bool Read(
-    const TCollection_AsciiString&  thePath,
-    const Handle(TDocStd_Document)& theDocument,
-    Handle(XSControl_WorkSession)&  theWS,
+    const AsciiString1&  thePath,
+    const Handle(AppDocument)& theDocument,
+    Handle(ExchangeSession)&  theWS,
     const Message_ProgressRange&    theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Writes a CAD file, according internal configuration
@@ -61,9 +61,9 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Write operation has ended correctly
   Standard_EXPORT virtual bool Write(
-    const TCollection_AsciiString&  thePath,
-    const Handle(TDocStd_Document)& theDocument,
-    Handle(XSControl_WorkSession)&  theWS,
+    const AsciiString1&  thePath,
+    const Handle(AppDocument)& theDocument,
+    Handle(ExchangeSession)&  theWS,
     const Message_ProgressRange&    theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Reads a CAD file, according internal configuration
@@ -72,8 +72,8 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Read operation has ended correctly
   Standard_EXPORT virtual bool Read(
-    const TCollection_AsciiString&  thePath,
-    const Handle(TDocStd_Document)& theDocument,
+    const AsciiString1&  thePath,
+    const Handle(AppDocument)& theDocument,
     const Message_ProgressRange&    theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Writes a CAD file, according internal configuration
@@ -82,8 +82,8 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Write operation has ended correctly
   Standard_EXPORT virtual bool Write(
-    const TCollection_AsciiString&  thePath,
-    const Handle(TDocStd_Document)& theDocument,
+    const AsciiString1&  thePath,
+    const Handle(AppDocument)& theDocument,
     const Message_ProgressRange&    theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Reads a CAD file, according internal configuration
@@ -93,9 +93,9 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Read operation has ended correctly
   Standard_EXPORT virtual bool Read(
-    const TCollection_AsciiString& thePath,
-    TopoDS_Shape&                  theShape,
-    Handle(XSControl_WorkSession)& theWS,
+    const AsciiString1& thePath,
+    TopoShape&                  theShape,
+    Handle(ExchangeSession)& theWS,
     const Message_ProgressRange&   theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Writes a CAD file, according internal configuration
@@ -105,9 +105,9 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Write operation has ended correctly
   Standard_EXPORT virtual bool Write(
-    const TCollection_AsciiString& thePath,
-    const TopoDS_Shape&            theShape,
-    Handle(XSControl_WorkSession)& theWS,
+    const AsciiString1& thePath,
+    const TopoShape&            theShape,
+    Handle(ExchangeSession)& theWS,
     const Message_ProgressRange&   theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Reads a CAD file, according internal configuration
@@ -116,8 +116,8 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Read operation has ended correctly
   Standard_EXPORT virtual bool Read(
-    const TCollection_AsciiString& thePath,
-    TopoDS_Shape&                  theShape,
+    const AsciiString1& thePath,
+    TopoShape&                  theShape,
     const Message_ProgressRange&   theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Writes a CAD file, according internal configuration
@@ -126,18 +126,18 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Write operation has ended correctly
   Standard_EXPORT virtual bool Write(
-    const TCollection_AsciiString& thePath,
-    const TopoDS_Shape&            theShape,
+    const AsciiString1& thePath,
+    const TopoShape&            theShape,
     const Message_ProgressRange&   theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 
 public:
   //! Gets CAD format name of associated provider
   //! @return provider CAD format
-  Standard_EXPORT virtual TCollection_AsciiString GetFormat() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 GetFormat() const Standard_OVERRIDE;
 
   //! Gets provider's vendor name of associated provider
   //! @return provider's vendor name
-  Standard_EXPORT virtual TCollection_AsciiString GetVendor() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 GetVendor() const Standard_OVERRIDE;
 };
 
 #endif // _DEGLTF_Provider_HeaderFile

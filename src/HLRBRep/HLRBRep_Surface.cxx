@@ -32,7 +32,7 @@ HLRBRep_Surface::HLRBRep_Surface()
 
 //=================================================================================================
 
-void HLRBRep_Surface::Surface(const TopoDS_Face& F)
+void HLRBRep_Surface::Surface(const TopoFace& F)
 {
   // mySurf.Initialize(F,Standard_False);
   mySurf.Initialize(F, Standard_True);
@@ -126,7 +126,7 @@ Standard_Boolean HLRBRep_Surface::SideRowsOfPoles(const Standard_Real    tol,
     }
   }
 
-  GProp_PEquation Pl(p, (Standard_Real)tol);
+  PrincipalEquation Pl(p, (Standard_Real)tol);
   if (Pl.IsPlanar())
     result = Abs(Pl.Plane().Axis().Direction().Z()) < 0.0001;
 

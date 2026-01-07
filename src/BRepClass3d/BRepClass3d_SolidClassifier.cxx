@@ -73,7 +73,7 @@ BRepClass3d_SolidClassifier::BRepClass3d_SolidClassifier()
 #endif
 }
 
-void BRepClass3d_SolidClassifier::Load(const TopoDS_Shape& S)
+void BRepClass3d_SolidClassifier::Load(const TopoShape& S)
 {
 
 #if LBRCOMPT
@@ -100,7 +100,7 @@ void BRepClass3d_SolidClassifier::Load(const TopoDS_Shape& S)
 #endif
 }
 
-BRepClass3d_SolidClassifier::BRepClass3d_SolidClassifier(const TopoDS_Shape& S)
+BRepClass3d_SolidClassifier::BRepClass3d_SolidClassifier(const TopoShape& S)
     : aSolidLoaded(Standard_True),
       explorer(S),
       isaholeinspace(Standard_False)
@@ -121,7 +121,7 @@ BRepClass3d_SolidClassifier::BRepClass3d_SolidClassifier(const TopoDS_Shape& S)
 #endif
 }
 
-BRepClass3d_SolidClassifier::BRepClass3d_SolidClassifier(const TopoDS_Shape& S,
+BRepClass3d_SolidClassifier::BRepClass3d_SolidClassifier(const TopoShape& S,
                                                          const Point3d&       P,
                                                          const Standard_Real Tol)
     : explorer(S)

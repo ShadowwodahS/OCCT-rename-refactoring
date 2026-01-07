@@ -24,7 +24,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <Standard_Integer.hxx>
 #include <Draw_Drawable2D.hxx>
-class Draw_Display;
+class DrawDisplay;
 
 class Draw_Text2D;
 DEFINE_STANDARD_HANDLE(Draw_Text2D, Draw_Drawable2D)
@@ -33,25 +33,25 @@ class Draw_Text2D : public Draw_Drawable2D
 {
 
 public:
-  Standard_EXPORT Draw_Text2D(const gp_Pnt2d& p, const Standard_CString T, const Draw_Color& col);
+  Standard_EXPORT Draw_Text2D(const gp_Pnt2d& p, const Standard_CString T, const DrawColor& col);
 
   Standard_EXPORT Draw_Text2D(const gp_Pnt2d&        p,
                               const Standard_CString T,
-                              const Draw_Color&      col,
+                              const DrawColor&      col,
                               const Standard_Integer moveX,
                               const Standard_Integer moveY);
 
   Standard_EXPORT void SetPnt2d(const gp_Pnt2d& p);
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Draw_Text2D, Draw_Drawable2D)
 
 protected:
 private:
   gp_Pnt2d                myPoint;
-  Draw_Color              myColor;
-  TCollection_AsciiString myText;
+  DrawColor              myColor;
+  AsciiString1 myText;
   Standard_Integer        mymoveX;
   Standard_Integer        mymoveY;
 };

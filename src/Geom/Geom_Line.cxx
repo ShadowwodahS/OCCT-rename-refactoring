@@ -27,154 +27,154 @@
 #include <Standard_RangeError.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_Line, Geom_Curve)
+IMPLEMENT_STANDARD_RTTIEXT(GeomLine, GeomCurve3d)
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_Line::Copy() const
+Handle(Geom_Geometry) GeomLine::Copy() const
 {
 
-  Handle(Geom_Line) L;
-  L = new Geom_Line(pos);
+  Handle(GeomLine) L;
+  L = new GeomLine(pos);
   return L;
 }
 
 //=================================================================================================
 
-Geom_Line::Geom_Line(const Axis3d& A)
+GeomLine::GeomLine(const Axis3d& A)
     : pos(A)
 {
 }
 
 //=================================================================================================
 
-Geom_Line::Geom_Line(const gp_Lin& L)
+GeomLine::GeomLine(const gp_Lin& L)
     : pos(L.Position())
 {
 }
 
 //=================================================================================================
 
-Geom_Line::Geom_Line(const Point3d& P, const Dir3d& V)
+GeomLine::GeomLine(const Point3d& P, const Dir3d& V)
     : pos(P, V)
 {
 }
 
 //=================================================================================================
 
-void Geom_Line::Reverse()
+void GeomLine::Reverse()
 {
   pos.Reverse();
 }
 
 //=================================================================================================
 
-Standard_Real Geom_Line::ReversedParameter(const Standard_Real U) const
+Standard_Real GeomLine::ReversedParameter(const Standard_Real U) const
 {
   return (-U);
 }
 
 //=================================================================================================
 
-void Geom_Line::SetDirection(const Dir3d& V)
+void GeomLine::SetDirection(const Dir3d& V)
 {
   pos.SetDirection(V);
 }
 
 //=================================================================================================
 
-void Geom_Line::SetLin(const gp_Lin& L)
+void GeomLine::SetLin(const gp_Lin& L)
 {
   pos = L.Position();
 }
 
 //=================================================================================================
 
-void Geom_Line::SetLocation(const Point3d& P)
+void GeomLine::SetLocation(const Point3d& P)
 {
   pos.SetLocation(P);
 }
 
 //=================================================================================================
 
-void Geom_Line::SetPosition(const Axis3d& A1)
+void GeomLine::SetPosition(const Axis3d& A1)
 {
   pos = A1;
 }
 
 //=================================================================================================
 
-const Axis3d& Geom_Line::Position() const
+const Axis3d& GeomLine::Position() const
 {
   return pos;
 }
 
 //=================================================================================================
 
-Standard_Boolean Geom_Line::IsClosed() const
+Standard_Boolean GeomLine::IsClosed() const
 {
   return Standard_False;
 }
 
 //=================================================================================================
 
-Standard_Boolean Geom_Line::IsPeriodic() const
+Standard_Boolean GeomLine::IsPeriodic() const
 {
   return Standard_False;
 }
 
 //=================================================================================================
 
-GeomAbs_Shape Geom_Line::Continuity() const
+GeomAbs_Shape GeomLine::Continuity() const
 {
   return GeomAbs_CN;
 }
 
 //=================================================================================================
 
-Standard_Real Geom_Line::FirstParameter() const
+Standard_Real GeomLine::FirstParameter() const
 {
   return -Precision::Infinite();
 }
 
 //=================================================================================================
 
-Standard_Real Geom_Line::LastParameter() const
+Standard_Real GeomLine::LastParameter() const
 {
   return Precision::Infinite();
 }
 
 //=================================================================================================
 
-gp_Lin Geom_Line::Lin() const
+gp_Lin GeomLine::Lin() const
 {
   return gp_Lin(pos);
 }
 
 //=================================================================================================
 
-Standard_Boolean Geom_Line::IsCN(const Standard_Integer) const
+Standard_Boolean GeomLine::IsCN(const Standard_Integer) const
 {
   return Standard_True;
 }
 
 //=================================================================================================
 
-void Geom_Line::Transform(const Transform3d& T)
+void GeomLine::Transform(const Transform3d& T)
 {
   pos.Transform(T);
 }
 
 //=================================================================================================
 
-void Geom_Line::D0(const Standard_Real U, Point3d& P) const
+void GeomLine::D0(const Standard_Real U, Point3d& P) const
 {
   P = ElCLib::LineValue(U, pos);
 }
 
 //=================================================================================================
 
-void Geom_Line::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
+void GeomLine::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
 {
 
   ElCLib::LineD1(U, pos, P, V1);
@@ -182,7 +182,7 @@ void Geom_Line::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
 
 //=================================================================================================
 
-void Geom_Line::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
+void GeomLine::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
 
   ElCLib::LineD1(U, pos, P, V1);
@@ -191,7 +191,7 @@ void Geom_Line::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2
 
 //=================================================================================================
 
-void Geom_Line::D3(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3) const
+void GeomLine::D3(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2, Vector3d& V3) const
 {
 
   ElCLib::LineD1(U, pos, P, V1);
@@ -201,7 +201,7 @@ void Geom_Line::D3(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2
 
 //=================================================================================================
 
-Vector3d Geom_Line::DN(const Standard_Real, const Standard_Integer N) const
+Vector3d GeomLine::DN(const Standard_Real, const Standard_Integer N) const
 {
 
   Standard_RangeError_Raise_if(N <= 0, " ");
@@ -213,7 +213,7 @@ Vector3d Geom_Line::DN(const Standard_Real, const Standard_Integer N) const
 
 //=================================================================================================
 
-Standard_Real Geom_Line::TransformedParameter(const Standard_Real U, const Transform3d& T) const
+Standard_Real GeomLine::TransformedParameter(const Standard_Real U, const Transform3d& T) const
 {
   if (Precision::IsInfinite(U))
     return U;
@@ -222,17 +222,17 @@ Standard_Real Geom_Line::TransformedParameter(const Standard_Real U, const Trans
 
 //=================================================================================================
 
-Standard_Real Geom_Line::ParametricTransformation(const Transform3d& T) const
+Standard_Real GeomLine::ParametricTransformation(const Transform3d& T) const
 {
   return Abs(T.ScaleFactor());
 }
 
 //=================================================================================================
 
-void Geom_Line::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void GeomLine::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Geom_Curve)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, GeomCurve3d)
 
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &pos)
 }

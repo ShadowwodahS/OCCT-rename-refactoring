@@ -48,21 +48,21 @@
 
 //=============================================================================
 
-IGESControl_Writer::IGESControl_Writer()
+IgesFileWriter::IgesFileWriter()
     : myTP(new Transfer_FinderProcess(10000)),
       myIsComputed(Standard_False)
 {
   IGESControl_Controller::Init();
   myEditor.Init(IGESSelect_WorkLibrary::DefineProtocol());
-  myEditor.SetUnitName(Interface_Static::CVal("write.iges.unit"));
+  myEditor.SetUnitName(ExchangeConfig::CVal("write.iges.unit"));
   myEditor.ApplyUnit();
-  myWriteMode = Interface_Static::IVal("write.iges.brep.mode");
+  myWriteMode = ExchangeConfig::IVal("write.iges.brep.mode");
   myModel     = myEditor.Model();
 }
 
 //=============================================================================
 
-IGESControl_Writer::IGESControl_Writer(const Standard_CString theUnit,
+IgesFileWriter::IgesFileWriter(const Standard_CString theUnit,
                                        const Standard_Integer theModecr)
     : myTP(new Transfer_FinderProcess(10000)),
       myWriteMode(theModecr),
@@ -77,7 +77,7 @@ IGESControl_Writer::IGESControl_Writer(const Standard_CString theUnit,
 
 //=============================================================================
 
-IGESControl_Writer::IGESControl_Writer(const Handle(IGESData_IGESModel)& theModel,
+IgesFileWriter::IgesFileWriter(const Handle(IGESData_IGESModel)& theModel,
                                        const Standard_Integer            theModecr)
     : myTP(new Transfer_FinderProcess(10000)),
       myModel(theModel),
@@ -89,7 +89,7 @@ IGESControl_Writer::IGESControl_Writer(const Handle(IGESData_IGESModel)& theMode
 
 //=============================================================================
 
-Standard_Boolean IGESControl_Writer::AddShape(const TopoDS_Shape&          theShape,
+Standard_Boolean IgesFileWriter::AddShape(const TopoShape&          theShape,
                                               const Message_ProgressRange& theProgress)
 {
   if (theShape.IsNull())
@@ -102,7 +102,7 @@ Standard_Boolean IGESControl_Writer::AddShape(const TopoDS_Shape&          theSh
   Message_ProgressScope aPS(theProgress, NULL, 2);
 
   XSAlgo_ShapeProcessor aShapeProcessor(myShapeProcParams);
-  TopoDS_Shape Shape = aShapeProcessor.ProcessShape(theShape, myShapeProcFlags.first, aPS.Next());
+  TopoShape Shape = aShapeProcessor.ProcessShape(theShape, myShapeProcFlags.first, aPS.Next());
 
   if (!aPS.More())
     return Standard_False;
@@ -130,9 +130,9 @@ Standard_Boolean IGESControl_Writer::AddShape(const TopoDS_Shape&          theSh
 
   Standard_Real oldtol = myModel->GlobalSection().Resolution(), newtol;
 
-  Standard_Integer tolmod = Interface_Static::IVal("write.precision.mode");
+  Standard_Integer tolmod = ExchangeConfig::IVal("write.precision.mode");
   if (tolmod == 2)
-    newtol = Interface_Static::RVal("write.precision.val");
+    newtol = ExchangeConfig::RVal("write.precision.val");
   else
   {
     ShapeAnalysis_ShapeTolerance stu;
@@ -178,12 +178,12 @@ Standard_Boolean IGESControl_Writer::AddShape(const TopoDS_Shape&          theSh
   return aent;
 }
 
-Standard_Boolean IGESControl_Writer::AddGeom(const Handle(RefObject)& geom)
+Standard_Boolean IgesFileWriter::AddGeom(const Handle(RefObject)& geom)
 {
   if (geom.IsNull() || !geom->IsKind(STANDARD_TYPE(Geom_Geometry)))
     return Standard_False;
-  DeclareAndCast(Geom_Curve, Curve, geom);
-  DeclareAndCast(Geom_Surface, Surf, geom);
+  DeclareAndCast(GeomCurve3d, Curve, geom);
+  DeclareAndCast(GeomSurface, Surf, geom);
   Handle(IGESData_IGESEntity) ent;
 
   //  On reconnait : Curve et Surface de Geom
@@ -222,7 +222,7 @@ Standard_Boolean IGESControl_Writer::AddGeom(const Handle(RefObject)& geom)
 
 //=============================================================================
 
-Standard_Boolean IGESControl_Writer::AddEntity(const Handle(IGESData_IGESEntity)& ent)
+Standard_Boolean IgesFileWriter::AddEntity(const Handle(IGESData_IGESEntity)& ent)
 {
   if (ent.IsNull())
     return Standard_False;
@@ -233,7 +233,7 @@ Standard_Boolean IGESControl_Writer::AddEntity(const Handle(IGESData_IGESEntity)
 
 //=============================================================================
 
-void IGESControl_Writer::ComputeModel()
+void IgesFileWriter::ComputeModel()
 {
   if (!myIsComputed)
   {
@@ -245,7 +245,7 @@ void IGESControl_Writer::ComputeModel()
 
 //=============================================================================
 
-Standard_Boolean IGESControl_Writer::Write(Standard_OStream& S, const Standard_Boolean fnes)
+Standard_Boolean IgesFileWriter::Write(Standard_OStream& S, const Standard_Boolean fnes)
 {
   if (!S)
     return Standard_False;
@@ -264,7 +264,7 @@ Standard_Boolean IGESControl_Writer::Write(Standard_OStream& S, const Standard_B
 
 //=============================================================================
 
-Standard_Boolean IGESControl_Writer::Write(const Standard_CString file, const Standard_Boolean fnes)
+Standard_Boolean IgesFileWriter::Write(const Standard_CString file, const Standard_Boolean fnes)
 {
   const Handle(OSD_FileSystem)& aFileSystem = OSD_FileSystem::DefaultFileSystem();
   std::shared_ptr<std::ostream> aStream =
@@ -285,7 +285,7 @@ Standard_Boolean IGESControl_Writer::Write(const Standard_CString file, const St
 
 //=============================================================================
 
-void IGESControl_Writer::SetShapeFixParameters(
+void IgesFileWriter::SetShapeFixParameters(
   const XSAlgo_ShapeProcessor::ParameterMap& theParameters)
 {
   myShapeProcParams = theParameters;
@@ -293,15 +293,15 @@ void IGESControl_Writer::SetShapeFixParameters(
 
 //=============================================================================
 
-void IGESControl_Writer::SetShapeFixParameters(XSAlgo_ShapeProcessor::ParameterMap&& theParameters)
+void IgesFileWriter::SetShapeFixParameters(XSAlgo_ShapeProcessor::ParameterMap&& theParameters)
 {
   myShapeProcParams = std::move(theParameters);
 }
 
 //=============================================================================
 
-void IGESControl_Writer::SetShapeFixParameters(
-  const DE_ShapeFixParameters&               theParameters,
+void IgesFileWriter::SetShapeFixParameters(
+  const ShapeFixParameters&               theParameters,
   const XSAlgo_ShapeProcessor::ParameterMap& theAdditionalParameters)
 {
   XSAlgo_ShapeProcessor::SetShapeFixParameters(theParameters,
@@ -311,7 +311,7 @@ void IGESControl_Writer::SetShapeFixParameters(
 
 //=============================================================================
 
-void IGESControl_Writer::SetShapeProcessFlags(const ShapeProcess::OperationsFlags& theFlags)
+void IgesFileWriter::SetShapeProcessFlags(const ShapeProcess::OperationsFlags& theFlags)
 {
   myShapeProcFlags.first  = theFlags;
   myShapeProcFlags.second = true;
@@ -319,7 +319,7 @@ void IGESControl_Writer::SetShapeProcessFlags(const ShapeProcess::OperationsFlag
 
 //=============================================================================
 
-void IGESControl_Writer::InitializeMissingParameters()
+void IgesFileWriter::InitializeMissingParameters()
 {
   if (GetShapeFixParameters().IsEmpty())
   {

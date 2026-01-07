@@ -34,11 +34,11 @@
 static const Standard_Integer MAXPOINTS            = 100;
 static const Standard_Real    MyCurvatureTolerance = 0.0001;
 
-static Standard_Boolean checkContinuity(const Handle(Geom2d_Curve)& theCurve1,
-                                        const Handle(Geom2d_Curve)& theCurve2,
+static Standard_Boolean checkContinuity(const Handle(GeomCurve2d)& theCurve1,
+                                        const Handle(GeomCurve2d)& theCurve2,
                                         const Standard_Real         theAnglTol);
 
-static Geom2dConvert_PPoint getParameter(const gp_XY&             theXY1,
+static Geom2dConvert_PPoint getParameter(const Coords2d&             theXY1,
                                          const Standard_Real      theFirstPar,
                                          const Standard_Real      theLastPar,
                                          const Adaptor2d_Curve2d& theCurve);
@@ -84,7 +84,7 @@ Geom2dConvert_ApproxArcsSegments::Geom2dConvert_ApproxArcsSegments(
     case GeomAbs_Circle: {
       // Create a couple of arcs of equal size.
       const Geom2dConvert_PPoint aPP(.5 * (myExt[0].Parameter() + myExt[1].Parameter()), myCurve);
-      Handle(Geom2d_Curve)       aCurve = makeCircle(myExt[0], aPP);
+      Handle(GeomCurve2d)       aCurve = makeCircle(myExt[0], aPP);
       if (aCurve.IsNull() == Standard_False)
       {
         mySeqCurves.Append(aCurve);
@@ -116,11 +116,11 @@ Geom2dConvert_ApproxArcsSegments::Geom2dConvert_ApproxArcsSegments(
 // purpose  : method for creation of circle
 //=======================================================================
 
-Handle(Geom2d_Curve) Geom2dConvert_ApproxArcsSegments::makeCircle(
+Handle(GeomCurve2d) Geom2dConvert_ApproxArcsSegments::makeCircle(
   const Geom2dConvert_PPoint& theFirst,
   const Geom2dConvert_PPoint& theLast) const
 {
-  Handle(Geom2d_Curve) aResult;
+  Handle(GeomCurve2d) aResult;
   gp_Pnt2d             aPointM(0.0, 0.0);
   const Standard_Real  aParaM = (theFirst.Parameter() + theLast.Parameter()) * .5;
   myCurve.D0(aParaM, aPointM);
@@ -145,12 +145,12 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeArc(
   const Standard_Boolean       isFirst,
   Handle(Geom2d_TrimmedCurve)& theCurve) const
 {
-  const gp_XY aP1(theParam1.Point());
-  const gp_XY aP2(theParam2.Point());
-  const gp_XY aVec(isFirst ? theParam1.D1() : -theParam1.D1());
+  const Coords2d aP1(theParam1.Point());
+  const Coords2d aP2(theParam2.Point());
+  const Coords2d aVec(isFirst ? theParam1.D1() : -theParam1.D1());
 
   // Detect the sense (CCW means positive)
-  const gp_XY   aDelta = aP2 - aP1;
+  const Coords2d   aDelta = aP2 - aP1;
   Standard_Real aSense = aVec ^ aDelta;
   if (aSense > Precision::Angular())
     aSense = 1.;
@@ -163,7 +163,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeArc(
   }
 
   // Find the centre of the circle
-  const gp_XY         aMiddle     = (aP2 + aP1) * 0.5;
+  const Coords2d         aMiddle     = (aP2 + aP1) * 0.5;
   const Standard_Real prodP1V     = aP1 * aVec;
   const Standard_Real prodDeM     = aDelta * aMiddle;
   const Standard_Real vprodVD     = aVec ^ aDelta;
@@ -205,8 +205,8 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeArc(
     }
     theCurve = new Geom2d_TrimmedCurve(Circ, anAlpha1, anAlpha2);
     // Correct the direction in the opposite point
-    const gp_XY aRadV = theParam2.Point() - aCenter.XY();
-    theParam2.SetD1(gp_XY(-aRadV.Y() * aSense, aRadV.X() * aSense));
+    const Coords2d aRadV = theParam2.Point() - aCenter.XY();
+    theParam2.SetD1(Coords2d(-aRadV.Y() * aSense, aRadV.X() * aSense));
     return Standard_True;
   }
 
@@ -226,7 +226,7 @@ Handle(Geom2d_TrimmedCurve) Geom2dConvert_ApproxArcsSegments::makeLine(
 {
   Handle(Geom2d_TrimmedCurve) aResult;
 
-  gp_XY aSlope = theLast.Point() - theFirst.Point();
+  Coords2d aSlope = theLast.Point() - theFirst.Point();
   if (fabs(aSlope.SquareModulus()) < gp::Resolution())
     return aResult;
   gp_Dir2d aDirLine(aSlope);
@@ -271,7 +271,7 @@ Handle(Geom2d_TrimmedCurve) Geom2dConvert_ApproxArcsSegments::makeLine(
     {
       aResult = aCurve;
       // correct the derivatives fields in both arguments
-      const gp_XY aNewD1(theLast.Point() - theFirst.Point());
+      const Coords2d aNewD1(theLast.Point() - theFirst.Point());
       theFirst.SetD1(aNewD1);
       theLast.SetD1(aNewD1);
     }
@@ -300,7 +300,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeFreeform()
   Standard_Integer           i;
   for (i = 1; i < seqParamPoints.Length(); i += 2)
   {
-    Handle(Geom2d_Curve)  aLineCurve;
+    Handle(GeomCurve2d)  aLineCurve;
     Geom2dConvert_PPoint& aParam0 = seqParamPoints.ChangeValue(i);
     Geom2dConvert_PPoint& aParam1 = seqParamPoints.ChangeValue(i + 1);
     if (aParam0 != aParam1)
@@ -328,7 +328,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeFreeform()
       }
     }
 
-    const Handle(Geom2d_Curve)& aCurve = aSeqLinearParts.Value((i + 1) / 2);
+    const Handle(GeomCurve2d)& aCurve = aSeqLinearParts.Value((i + 1) / 2);
     if (aCurve.IsNull() == Standard_False)
       mySeqCurves.Append(aCurve);
     else
@@ -391,7 +391,7 @@ void Geom2dConvert_ApproxArcsSegments::getLinearParts(Geom2dConvert_SequenceOfPP
   GCPnts_QuasiUniformDeflection aQUDefAlgo(myCurveMut, myTolerance * 0.5);
   Standard_Boolean              isUniformDone = aQUDefAlgo.IsDone();
 
-  gp_XY aLastPnt(myExt[0].Point());
+  Coords2d aLastPnt(myExt[0].Point());
   if (isUniformDone)
   {
     for (i = 1; i <= aQUDefAlgo.NbPoints(); i++)
@@ -414,7 +414,7 @@ void Geom2dConvert_ApproxArcsSegments::getLinearParts(Geom2dConvert_SequenceOfPP
   }
 
   // check if the curve may be linearised
-  gp_XY               aDir  = myExt[1].Point() - myExt[0].Point();
+  Coords2d               aDir  = myExt[1].Point() - myExt[0].Point();
   const Standard_Real aMod2 = aDir.SquareModulus();
   if (aMod2 > Precision::Confusion())
   {
@@ -546,7 +546,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::makeApproximation(
     const Standard_Real aDistance = (theFirstParam.Point() - theLastParam.Point()).Modulus();
     if (aDistance < myTolerance)
     {
-      const Handle(Geom2d_Curve) aCurve = makeLine(theFirstParam, theLastParam, Standard_True);
+      const Handle(GeomCurve2d) aCurve = makeLine(theFirstParam, theLastParam, Standard_True);
       isDone                            = !aCurve.IsNull();
       if (isDone && mySeqCurves.Length())
         isDone = checkContinuity(mySeqCurves.Last(), aCurve, myAngleTolerance);
@@ -590,7 +590,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::calculateBiArcs(
     // std::cout << "calculateBiArcs(): bad initial data" << std::endl;
     return Standard_False;
   }
-  const gp_XY aPnt[2] = {theFirstParam.Point(), theLastParam.Point()};
+  const Coords2d aPnt[2] = {theFirstParam.Point(), theLastParam.Point()};
   gp_Dir2d    aDir[2] = {theFirstParam.D1(), theLastParam.D1()};
 
   // Try to approximate the curve by a single arc. The criterion for that is
@@ -637,9 +637,9 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::calculateBiArcs(
   const Standard_Real aProd[3] = {aPnt[0] ^ aDir[0].XY(),
                                   aPnt[1] ^ aDir[1].XY(),
                                   aDir[1] ^ aDir[0].XY()};
-  gp_XY               aIntPoint((aProd[0] * aDir[1].X() - aProd[1] * aDir[0].X()) / aProd[2],
+  Coords2d               aIntPoint((aProd[0] * aDir[1].X() - aProd[1] * aDir[0].X()) / aProd[2],
                   (aProd[0] * aDir[1].Y() - aProd[1] * aDir[0].Y()) / aProd[2]);
-  const gp_XY         aDiff[2] = {aIntPoint - aPnt[0], aIntPoint - aPnt[1]};
+  const Coords2d         aDiff[2] = {aIntPoint - aPnt[0], aIntPoint - aPnt[1]};
   if (aDiff[0] * aDir[0].XY() < 0. || aDiff[1] * aDir[1].XY() < 0.)
   {
     return Standard_False;
@@ -654,10 +654,10 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::calculateBiArcs(
   if (fabs(aB1 - 0.5) < 0.0001)
     return Standard_False;
 
-  gp_XY aXY[2] = {aPnt[0] + aDir[0].XY() * ad12 * ad1 / (ad12 + ad1 + ad2),
+  Coords2d aXY[2] = {aPnt[0] + aDir[0].XY() * ad12 * ad1 / (ad12 + ad1 + ad2),
                   aPnt[1] + aDir[1].XY() * ad12 * ad2 / (ad12 + ad1 + ad2)};
 
-  const gp_XY          aXYmidArc(aXY[0] + aB1 * (aXY[1] - aXY[0]));
+  const Coords2d          aXYmidArc(aXY[0] + aB1 * (aXY[1] - aXY[0]));
   Geom2dConvert_PPoint aParamMidArc =
     getParameter(aXYmidArc, theFirstParam.Parameter(), theLastParam.Parameter(), myCurve);
 
@@ -710,7 +710,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::calculateLines(
       const Standard_Real aDistance = (aCurParam.Point() - (*aPrevParam).Point()).Modulus();
       if (aDistance > myTolerance)
       {
-        const Handle(Geom2d_Curve) aCurve = makeLine(*aPrevParam, aCurParam, Standard_False);
+        const Handle(GeomCurve2d) aCurve = makeLine(*aPrevParam, aCurParam, Standard_False);
         if (aCurve.IsNull())
         {
           return Standard_False;
@@ -730,7 +730,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::calculateLines(
 //=======================================================================
 
 Standard_Boolean Geom2dConvert_ApproxArcsSegments::checkCurve(
-  const Handle(Geom2d_Curve)& aCurve,
+  const Handle(GeomCurve2d)& aCurve,
   const Standard_Real         theFirstParam,
   const Standard_Real         theLastParam) const
 {
@@ -741,7 +741,7 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::checkCurve(
   Standard_Integer aNbPnts    = (isUniformDone ? mySeqParams.Length() : MAXPOINTS);
   Standard_Real    aParamStep = (theLastParam - theFirstParam) / MAXPOINTS;
 
-  Handle(Geom2d_Curve)        aCurve1  = aCurve;
+  Handle(GeomCurve2d)        aCurve1  = aCurve;
   Handle(Geom2d_TrimmedCurve) aTrCurve = Handle(Geom2d_TrimmedCurve)::DownCast(aCurve);
   if (!aTrCurve.IsNull())
     aCurve1 = aTrCurve->BasisCurve();
@@ -803,8 +803,8 @@ Standard_Boolean Geom2dConvert_ApproxArcsSegments::checkCurve(
 // purpose  : check continuty first derivative between two curves.
 //=======================================================================
 
-Standard_Boolean checkContinuity(const Handle(Geom2d_Curve)& theCurve1,
-                                 const Handle(Geom2d_Curve)& theCurve2,
+Standard_Boolean checkContinuity(const Handle(GeomCurve2d)& theCurve1,
+                                 const Handle(GeomCurve2d)& theCurve2,
                                  const Standard_Real         theAngleTol)
 {
   gp_Vec2d v11, v21;
@@ -821,7 +821,7 @@ Standard_Boolean checkContinuity(const Handle(Geom2d_Curve)& theCurve1,
 // purpose  : getting the nearest point on AdaptorCurve to the specified point.
 //=======================================================================
 
-Geom2dConvert_PPoint getParameter(const gp_XY&             theXY1,
+Geom2dConvert_PPoint getParameter(const Coords2d&             theXY1,
                                   const Standard_Real      theFirstParam,
                                   const Standard_Real      theLastParam,
                                   const Adaptor2d_Curve2d& theCurve)

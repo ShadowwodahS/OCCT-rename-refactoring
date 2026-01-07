@@ -80,7 +80,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
   {
     Handle(Geom_RectangularTrimmedSurface) Surface =
       Handle(Geom_RectangularTrimmedSurface)::DownCast(mySurface);
-    Handle(Geom_Surface)                     BasSurf = Surface->BasisSurface();
+    Handle(GeomSurface)                     BasSurf = Surface->BasisSurface();
     ShapeUpgrade_ConvertSurfaceToBezierBasis converter;
     converter.Init(BasSurf, UFirst, ULast, VFirst, VLast);
     converter.SetUSplitValues(myUSplitValues);
@@ -95,7 +95,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
   else if (mySurface->IsKind(STANDARD_TYPE(Geom_OffsetSurface)))
   {
     Handle(Geom_OffsetSurface) Offset  = Handle(Geom_OffsetSurface)::DownCast(mySurface);
-    Handle(Geom_Surface)       BasSurf = Offset->BasisSurface();
+    Handle(GeomSurface)       BasSurf = Offset->BasisSurface();
     ShapeUpgrade_ConvertSurfaceToBezierBasis converter;
     converter.Init(BasSurf, UFirst, ULast, VFirst, VLast);
     converter.SetUSplitValues(myUSplitValues);
@@ -107,9 +107,9 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
     mySegments = converter.Segments();
     return;
   }
-  else if (mySurface->IsKind(STANDARD_TYPE(Geom_Plane)) && myPlaneMode)
+  else if (mySurface->IsKind(STANDARD_TYPE(GeomPlane)) && myPlaneMode)
   {
-    Handle(Geom_Plane) pln = Handle(Geom_Plane)::DownCast(mySurface);
+    Handle(GeomPlane) pln = Handle(GeomPlane)::DownCast(mySurface);
     TColgp_Array2OfPnt poles(1, 2, 1, 2);
     Point3d             dp;
     poles(1, 1) = dp = pln->Value(UFirst, VFirst);
@@ -280,7 +280,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
   else if (mySurface->IsKind(STANDARD_TYPE(Geom_SurfaceOfRevolution)) && myRevolutionMode)
   {
     Handle(Geom_SurfaceOfRevolution) revol = Handle(Geom_SurfaceOfRevolution)::DownCast(mySurface);
-    Handle(Geom_Curve)               basis = revol->BasisCurve();
+    Handle(GeomCurve3d)               basis = revol->BasisCurve();
     if (basis->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
     {
       Handle(Geom_TrimmedCurve) tc = Handle(Geom_TrimmedCurve)::DownCast(basis);
@@ -295,7 +295,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
       Handle(Geom_OffsetCurve)            offset    = Handle(Geom_OffsetCurve)::DownCast(basis);
       Standard_Real                       value     = offset->Offset();
       Dir3d                              direction = offset->Direction();
-      Handle(Geom_Curve)                  bas       = offset->BasisCurve();
+      Handle(GeomCurve3d)                  bas       = offset->BasisCurve();
       ShapeUpgrade_ConvertCurve3dToBezier converter;
       converter.Init(bas, VFirst, VLast);
       converter.Perform(Standard_True);
@@ -376,7 +376,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
   {
     Handle(Geom_SurfaceOfLinearExtrusion) extr =
       Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(mySurface);
-    Handle(Geom_Curve) basis = extr->BasisCurve();
+    Handle(GeomCurve3d) basis = extr->BasisCurve();
     // Dir3d direction = extr->Direction(); // direction not used (skl)
 
     Handle(TColGeom_HArray1OfCurve)     curves;
@@ -399,7 +399,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
     Standard_Integer i; // svv #1
     for (i = 1; i <= nbCurves; i++)
     {
-      Handle(Geom_BezierCurve) bez     = Handle(Geom_BezierCurve)::DownCast(curves->Value(i));
+      Handle(BezierCurve3d) bez     = Handle(BezierCurve3d)::DownCast(curves->Value(i));
       Standard_Integer         nbPoles = bez->NbPoles();
       TColgp_Array1OfPnt       poles(1, nbPoles);
       bez->Poles(poles);
@@ -450,7 +450,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
     Handle(TColGeom_HArray2OfSurface) surf = new TColGeom_HArray2OfSurface(1, 1, 1, 1);
     Standard_Real                     U1, U2, V1, V2;
     mySurface->Bounds(U1, U2, V1, V2);
-    Handle(Geom_Surface) S;
+    Handle(GeomSurface) S;
     if (U1 - UFirst < precision && ULast - U2 < precision && V2 - VFirst < precision
         && VLast - V2 < precision)
       S = mySurface;
@@ -469,7 +469,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Compute(const Standard_Boolean Se
 
 //=================================================================================================
 
-static Handle(Geom_Surface) GetSegment(const Handle(Geom_Surface)& surf,
+static Handle(GeomSurface) GetSegment(const Handle(GeomSurface)& surf,
                                        const Standard_Real         U1,
                                        const Standard_Real         U2,
                                        const Standard_Real         V1,
@@ -495,7 +495,7 @@ static Handle(Geom_Surface) GetSegment(const Handle(Geom_Surface)& surf,
     return bezier;
   }
 
-  Handle(Geom_Surface) S;
+  Handle(GeomSurface) S;
   if (surf->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
   {
     Handle(Geom_RectangularTrimmedSurface) rect =
@@ -510,15 +510,15 @@ static Handle(Geom_Surface) GetSegment(const Handle(Geom_Surface)& surf,
     Handle(Geom_SurfaceOfRevolution) revol = Handle(Geom_SurfaceOfRevolution)::DownCast(S->Copy());
     Standard_Real                    Umin, Umax, Vmin, Vmax;
     revol->Bounds(Umin, Umax, Vmin, Vmax);
-    Handle(Geom_Curve) basis = revol->BasisCurve();
+    Handle(GeomCurve3d) basis = revol->BasisCurve();
     if (basis->IsKind(STANDARD_TYPE(Geom_OffsetCurve)))
     {
       Handle(Geom_OffsetCurve) offset = Handle(Geom_OffsetCurve)::DownCast(basis);
       basis                           = offset->BasisCurve();
     }
-    if (basis->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+    if (basis->IsKind(STANDARD_TYPE(BezierCurve3d)))
     {
-      Handle(Geom_BezierCurve) bezier = Handle(Geom_BezierCurve)::DownCast(basis);
+      Handle(BezierCurve3d) bezier = Handle(BezierCurve3d)::DownCast(basis);
       bezier->Segment(V1, V2);
     }
     else
@@ -555,7 +555,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Build(const Standard_Boolean /*Se
 {
   Standard_Boolean     isOffset    = Standard_False;
   Standard_Real        offsetValue = 0;
-  Handle(Geom_Surface) S;
+  Handle(GeomSurface) S;
   if (mySurface->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
   {
     Handle(Geom_RectangularTrimmedSurface) Surface =
@@ -598,7 +598,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Build(const Standard_Boolean /*Se
         if (parV - myVSplitParams->Value(j2) < prec)
           break;
 
-      Handle(Geom_Surface) patch = mySegments->Patch(j1 - 1, j2 - 1);
+      Handle(GeomSurface) patch = mySegments->Patch(j1 - 1, j2 - 1);
       Standard_Real        U1, U2, V1, V2;
       patch->Bounds(U1, U2, V1, V2);
       // linear recomputation of part:
@@ -615,7 +615,7 @@ void ShapeUpgrade_ConvertSurfaceToBezierBasis::Build(const Standard_Boolean /*Se
       Standard_Real        uL2 = U1 + (parU - uFirst) * uFact;
       Standard_Real        vL1 = V1 + (ppV - vFirst) * vFact;
       Standard_Real        vL2 = V1 + (parV - vFirst) * vFact;
-      Handle(Geom_Surface) res = GetSegment(patch, uL1, uL2, vL1, vL2);
+      Handle(GeomSurface) res = GetSegment(patch, uL1, uL2, vL1, vL2);
       if (isOffset)
       {
         Handle(Geom_OffsetSurface) resOff = new Geom_OffsetSurface(res, offsetValue);

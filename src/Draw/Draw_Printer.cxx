@@ -18,18 +18,18 @@
 #include <TCollection_AsciiString.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Draw_Printer, Message_Printer)
+IMPLEMENT_STANDARD_RTTIEXT(Draw_Printer, LogPrinter)
 
 //=================================================================================================
 
-Draw_Printer::Draw_Printer(Draw_Interpretor& theTcl)
+Draw_Printer::Draw_Printer(DrawInterpreter& theTcl)
     : myTcl(&theTcl)
 {
 }
 
 //=================================================================================================
 
-void Draw_Printer::send(const TCollection_AsciiString& theString,
+void Draw_Printer::send(const AsciiString1& theString,
                         const Message_Gravity          theGravity) const
 {
   if (myTcl == NULL || theGravity < myTraceLevel)

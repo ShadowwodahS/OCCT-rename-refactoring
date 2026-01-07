@@ -90,7 +90,7 @@ public:
   //! Returns presentations of selected items in tree model
   //! \param theModel selection model
   //! \return container of presentations
-  NCollection_List<Handle(AIS_InteractiveObject)> SelectedPresentations(
+  NCollection_List<Handle(VisualEntity)> SelectedPresentations(
     QItemSelectionModel* theModel);
 
   //! Returns selected shapes
@@ -99,13 +99,13 @@ public:
 
 private:
   //! Fills controls of the plugin by parameters:
-  //! - Fine AIS_InteractiveObject and fills View if it if it differs from the current context
+  //! - Fine VisualEntity and fills View if it if it differs from the current context
   //! \param theParameters a parameters container
   bool Init(const NCollection_List<Handle(RefObject)>& theParameters);
 
   //! Read BREP file, creates AIS presentation for the shape and visualize it in the current context
   //! \param theFileName a name of BREP file
-  bool OpenFile(const TCollection_AsciiString& theFileName);
+  bool OpenFile(const AsciiString1& theFileName);
 
 private slots:
 
@@ -154,7 +154,7 @@ private slots:
 private:
   //! Inits the window content by the given context
   //! \param theContext a context
-  void SetContext(const Handle(AIS_InteractiveContext)& theContext);
+  void SetContext(const Handle(VisualContext)& theContext);
 
   //! Updates tree model
   void UpdateTreeModel();
@@ -178,13 +178,13 @@ private:
 
   //! Creates an instance of 3D view to initialize context.
   //! \return a context of created view.
-  Handle(AIS_InteractiveContext) createView();
+  Handle(VisualContext) createView();
 
   //! Creates a new default light into V3d viewer
   //! \param theSourceLight type of light source
   //! \param theViewer viewer to add the created light
   void addLight(const Graphic3d_TypeOfLightSource& theSourceLight,
-                const Handle(V3d_Viewer)&          theViewer);
+                const Handle(ViewManager)&          theViewer);
 
 private:
   QWidget* myParent; //!< widget, comes when Init window, the window control lays in the layout,
@@ -200,7 +200,7 @@ private:
   QTreeView* myTreeView; //!< tree view of AIS content
 
   ViewControl_MessageDialog*
-    myExportToShapeViewDialog; //!< dialog about exporting TopoDS_Shape to ShapeView plugin
+    myExportToShapeViewDialog; //!< dialog about exporting TopoShape to ShapeView plugin
   View_Window* myViewWindow; //!< temporary view window, it is created if Open is called but context
                              //!< is still NULL
 

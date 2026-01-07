@@ -32,7 +32,7 @@ const Standard_GUID& TDataXtd_Placement::GetID()
 
 //=================================================================================================
 
-Handle(TDataXtd_Placement) TDataXtd_Placement::Set(const TDF_Label& L)
+Handle(TDataXtd_Placement) TDataXtd_Placement::Set(const DataLabel& L)
 {
   Handle(TDataXtd_Placement) A;
   if (!L.FindAttribute(TDataXtd_Placement::GetID(), A))

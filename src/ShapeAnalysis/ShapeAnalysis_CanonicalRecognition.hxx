@@ -38,8 +38,8 @@ class gp_Sphere;
 class gp_Lin;
 class gp_Circ;
 class gp_Elips;
-class Geom_Curve;
-class Geom_Surface;
+class GeomCurve3d;
+class GeomSurface;
 
 //! This class provides operators for analysis surfaces and curves of shapes
 //! in order to find out more simple geometry entities, which could replace
@@ -53,13 +53,13 @@ public:
   Standard_EXPORT ShapeAnalysis_CanonicalRecognition();
 
   //! constructor with shape initialisation
-  Standard_EXPORT ShapeAnalysis_CanonicalRecognition(const TopoDS_Shape& theShape);
+  Standard_EXPORT ShapeAnalysis_CanonicalRecognition(const TopoShape& theShape);
 
   //! Sets shape
-  Standard_EXPORT void SetShape(const TopoDS_Shape& theShape);
+  Standard_EXPORT void SetShape(const TopoShape& theShape);
 
   //! Returns input shape
-  const TopoDS_Shape& GetShape() const { return myShape; }
+  const TopoShape& GetShape() const { return myShape; }
 
   //! Returns deviation between input geometry entity and analytical entity
   Standard_Real GetGap() const { return myGap; }
@@ -117,30 +117,21 @@ private:
                            Frame3d&                 thePos,
                            TColStd_Array1OfReal&   theParams);
 
-  static Handle(Geom_Surface) GetSurface(const TopoDS_Face&         theFace,
+  static Handle(GeomSurface) GetSurface(const TopoFace&         theFace,
                                          const Standard_Real        theTol,
                                          const GeomConvert_ConvType theType,
                                          const GeomAbs_SurfaceType  theTarget,
                                          Standard_Real&             theGap,
                                          Standard_Integer&          theStatus);
 
-  static Handle(Geom_Surface) GetSurface(const TopoDS_Shell&        theShell,
+  static Handle(GeomSurface) GetSurface(const TopoShell&        theShell,
                                          const Standard_Real        theTol,
                                          const GeomConvert_ConvType theType,
                                          const GeomAbs_SurfaceType  theTarget,
                                          Standard_Real&             theGap,
                                          Standard_Integer&          theStatus);
 
-  static Handle(Geom_Surface) GetSurface(const TopoDS_Edge&         theEdge,
-                                         const Standard_Real        theTol,
-                                         const GeomConvert_ConvType theType,
-                                         const GeomAbs_SurfaceType  theTarget,
-                                         gp_Ax3&                    thePos,
-                                         TColStd_Array1OfReal&      theParams,
-                                         Standard_Real&             theGap,
-                                         Standard_Integer&          theStatus);
-
-  static Handle(Geom_Surface) GetSurface(const TopoDS_Wire&         theWire,
+  static Handle(GeomSurface) GetSurface(const TopoEdge&         theEdge,
                                          const Standard_Real        theTol,
                                          const GeomConvert_ConvType theType,
                                          const GeomAbs_SurfaceType  theTarget,
@@ -149,14 +140,23 @@ private:
                                          Standard_Real&             theGap,
                                          Standard_Integer&          theStatus);
 
-  static Handle(Geom_Curve) GetCurve(const TopoDS_Edge&         theEdge,
+  static Handle(GeomSurface) GetSurface(const TopoWire&         theWire,
+                                         const Standard_Real        theTol,
+                                         const GeomConvert_ConvType theType,
+                                         const GeomAbs_SurfaceType  theTarget,
+                                         gp_Ax3&                    thePos,
+                                         TColStd_Array1OfReal&      theParams,
+                                         Standard_Real&             theGap,
+                                         Standard_Integer&          theStatus);
+
+  static Handle(GeomCurve3d) GetCurve(const TopoEdge&         theEdge,
                                      const Standard_Real        theTol,
                                      const GeomConvert_ConvType theType,
                                      const GeomAbs_CurveType    theTarget,
                                      Standard_Real&             theGap,
                                      Standard_Integer&          theStatus);
 
-  static Standard_Boolean GetSurfaceByLS(const TopoDS_Wire&        theWire,
+  static Standard_Boolean GetSurfaceByLS(const TopoWire&        theWire,
                                          const Standard_Real       theTol,
                                          const GeomAbs_SurfaceType theTarget,
                                          gp_Ax3&                   thePos,
@@ -164,10 +164,10 @@ private:
                                          Standard_Real&            theGap,
                                          Standard_Integer&         theStatus);
 
-  void Init(const TopoDS_Shape& theShape);
+  void Init(const TopoShape& theShape);
 
 private:
-  TopoDS_Shape     myShape;
+  TopoShape     myShape;
   TopAbs_ShapeEnum mySType;
   Standard_Real    myGap;
   Standard_Integer myStatus;

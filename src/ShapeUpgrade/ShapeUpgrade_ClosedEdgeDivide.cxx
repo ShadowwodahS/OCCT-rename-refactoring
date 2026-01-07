@@ -39,23 +39,23 @@ ShapeUpgrade_ClosedEdgeDivide::ShapeUpgrade_ClosedEdgeDivide()
 
 //=================================================================================================
 
-Standard_Boolean ShapeUpgrade_ClosedEdgeDivide::Compute(const TopoDS_Edge& anEdge)
+Standard_Boolean ShapeUpgrade_ClosedEdgeDivide::Compute(const TopoEdge& anEdge)
 {
   Clear();
   ShapeAnalysis_Edge sae;
-  TopoDS_Vertex      V1 = sae.FirstVertex(anEdge);
-  TopoDS_Vertex      V2 = sae.LastVertex(anEdge);
-  if (V1.IsSame(V2) && !BRep_Tool::Degenerated(anEdge))
+  TopoVertex      V1 = sae.FirstVertex(anEdge);
+  TopoVertex      V2 = sae.LastVertex(anEdge);
+  if (V1.IsSame(V2) && !BRepInspector::Degenerated(anEdge))
   {
     const Standard_Integer nbPoints = 23;
-    Point3d                 pntV     = BRep_Tool::Pnt(V1);
-    Standard_Real          TolV1    = LimitTolerance(BRep_Tool::Tolerance(V1));
+    Point3d                 pntV     = BRepInspector::Pnt(V1);
+    Standard_Real          TolV1    = LimitTolerance(BRepInspector::Tolerance(V1));
     TolV1                           = TolV1 * TolV1;
     Standard_Real      f, l;
-    Handle(Geom_Curve) curve3d = BRep_Tool::Curve(anEdge, f, l);
+    Handle(GeomCurve3d) curve3d = BRepInspector::Curve(anEdge, f, l);
     myHasCurve3d               = !curve3d.IsNull();
     Standard_Real        f2d = 0., l2d = 0.;
-    Handle(Geom2d_Curve) pcurve1;
+    Handle(GeomCurve2d) pcurve1;
     if (!myFace.IsNull())
     { // process free edges
       sae.PCurve(anEdge, myFace, pcurve1, f2d, l2d, Standard_False);
@@ -101,7 +101,7 @@ Standard_Boolean ShapeUpgrade_ClosedEdgeDivide::Compute(const TopoDS_Edge& anEdg
 
     if (myHasCurve2d)
     {
-      Handle(Geom_Surface) surf   = BRep_Tool::Surface(myFace);
+      Handle(GeomSurface) surf   = BRepInspector::Surface(myFace);
       Standard_Real        maxPar = f2d, dMax = 0;
       Standard_Real        step  = (l2d - f2d) / (nbPoints - 1);
       Standard_Real        param = f2d + step;

@@ -31,7 +31,7 @@
 class Geom2dGcc_QualifiedCurve;
 class Geom2dAdaptor_Curve;
 class Geom2d_Point;
-class GccAna_Circ2d2TanOn;
+class Circle2dTwoTangentOn;
 class Geom2dGcc_Circ2d2TanOnGeo;
 class gp_Circ2d;
 class gp_Pnt2d;
@@ -89,7 +89,7 @@ public:
                                          const Geom2dAdaptor_Curve&  OnCurve,
                                          const Standard_Real         Tolerance);
 
-  Standard_EXPORT void Results(const GccAna_Circ2d2TanOn& Circ);
+  Standard_EXPORT void Results(const Circle2dTwoTangentOn& Circ);
 
   Standard_EXPORT void Results(const Geom2dGcc_Circ2d2TanOnGeo& Circ);
 

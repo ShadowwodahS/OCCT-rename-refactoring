@@ -42,11 +42,11 @@ public:
   Standard_EXPORT void Notify();
 
   //! Return input media.
-  const TCollection_AsciiString& Input() const { return myInput; }
+  const AsciiString1& Input() const { return myInput; }
 
   //! Open specified file.
   //! Passing an empty path would close current input.
-  Standard_EXPORT void OpenInput(const TCollection_AsciiString& thePath,
+  Standard_EXPORT void OpenInput(const AsciiString1& thePath,
                                  Standard_Boolean               theToWait);
 
   //! Return player context; it can be NULL until first OpenInput().
@@ -94,7 +94,7 @@ protected:
   Handle(Graphic3d_ShaderProgram) myShaderYUV;        //!< shader program for YUV  texture set
   Handle(Graphic3d_ShaderProgram) myShaderYUVJ;       //!< shader program for YUVJ texture set
   Handle(Standard_HMutex)         myMutex;            //!< mutex for accessing frames
-  TCollection_AsciiString         myInput;            //!< input media
+  AsciiString1         myInput;            //!< input media
   CallbackOnUpdate_t              myCallbackFunction; //!< callback function
   void*                           myCallbackUserPtr;  //!< callback data
   Graphic3d_Vec2i                 myFrameSize;        //!< front frame size

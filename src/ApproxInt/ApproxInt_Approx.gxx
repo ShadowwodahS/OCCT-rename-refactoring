@@ -610,7 +610,7 @@ void ApproxInt_Approx::buildKnots(const Handle(TheWLine)& theline,
   math_Vector aPars(myData.indicemin, myData.indicemax);
   Parameters(aTestLine, myData.indicemin, myData.indicemax, myData.parametrization, aPars);
 
-  ApproxInt_KnotTools::BuildKnots(aPntXYZ,
+  KnotTools::BuildKnots(aPntXYZ,
                                   aPntU1V1,
                                   aPntU2V2,
                                   aPars,

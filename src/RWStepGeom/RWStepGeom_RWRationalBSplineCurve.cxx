@@ -21,12 +21,12 @@
 #include <TColStd_HArray1OfReal.hxx>
 
 // --- Enum : BSplineCurveForm ---
-static TCollection_AsciiString bscfEllipticArc(".ELLIPTIC_ARC.");
-static TCollection_AsciiString bscfPolylineForm(".POLYLINE_FORM.");
-static TCollection_AsciiString bscfParabolicArc(".PARABOLIC_ARC.");
-static TCollection_AsciiString bscfCircularArc(".CIRCULAR_ARC.");
-static TCollection_AsciiString bscfUnspecified(".UNSPECIFIED.");
-static TCollection_AsciiString bscfHyperbolicArc(".HYPERBOLIC_ARC.");
+static AsciiString1 bscfEllipticArc(".ELLIPTIC_ARC.");
+static AsciiString1 bscfPolylineForm(".POLYLINE_FORM.");
+static AsciiString1 bscfParabolicArc(".PARABOLIC_ARC.");
+static AsciiString1 bscfCircularArc(".CIRCULAR_ARC.");
+static AsciiString1 bscfUnspecified(".UNSPECIFIED.");
+static AsciiString1 bscfHyperbolicArc(".HYPERBOLIC_ARC.");
 
 RWStepGeom_RWRationalBSplineCurve::RWStepGeom_RWRationalBSplineCurve() {}
 

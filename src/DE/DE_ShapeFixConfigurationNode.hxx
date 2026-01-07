@@ -41,10 +41,10 @@ public:
 
   //! Writes configuration to the string
   //! @return result resource string
-  Standard_EXPORT virtual TCollection_AsciiString Save() const Standard_OVERRIDE;
+  Standard_EXPORT virtual AsciiString1 Save() const Standard_OVERRIDE;
 
 public:
-  DE_ShapeFixParameters ShapeFixParameters; //!< Shape healing parameters
+  ShapeFixParameters ShapeFixParameters; //!< Shape healing parameters
 };
 
 #endif // _DE_ShapeFixConfigurationNode_HeaderFile

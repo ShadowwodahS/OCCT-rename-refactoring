@@ -41,11 +41,11 @@
 // MGE 30/07/98
 //=================================================================================================
 
-IGESGeom_ToolPlane::IGESGeom_ToolPlane() {}
+PlaneTool::PlaneTool() {}
 
 //=================================================================================================
 
-void IGESGeom_ToolPlane::ReadOwnParams(const Handle(IGESGeom_Plane)&          ent,
+void PlaneTool::ReadOwnParams(const Handle(IGESGeom_Plane)&          ent,
                                        const Handle(IGESData_IGESReaderData)& IR,
                                        IGESData_ParamReader&                  PR) const
 {
@@ -126,7 +126,7 @@ void IGESGeom_ToolPlane::ReadOwnParams(const Handle(IGESGeom_Plane)&          en
 
 //=================================================================================================
 
-void IGESGeom_ToolPlane::WriteOwnParams(const Handle(IGESGeom_Plane)& ent,
+void PlaneTool::WriteOwnParams(const Handle(IGESGeom_Plane)& ent,
                                         IGESData_IGESWriter&          IW) const
 {
   Standard_Real A, B, C, D;
@@ -146,7 +146,7 @@ void IGESGeom_ToolPlane::WriteOwnParams(const Handle(IGESGeom_Plane)& ent,
 
 //=================================================================================================
 
-void IGESGeom_ToolPlane::OwnShared(const Handle(IGESGeom_Plane)& ent,
+void PlaneTool::OwnShared(const Handle(IGESGeom_Plane)& ent,
                                    Interface_EntityIterator&     iter) const
 {
   iter.GetOneItem(ent->BoundingCurve());
@@ -154,7 +154,7 @@ void IGESGeom_ToolPlane::OwnShared(const Handle(IGESGeom_Plane)& ent,
 
 //=================================================================================================
 
-void IGESGeom_ToolPlane::OwnCopy(const Handle(IGESGeom_Plane)& another,
+void PlaneTool::OwnCopy(const Handle(IGESGeom_Plane)& another,
                                  const Handle(IGESGeom_Plane)& ent,
                                  Interface_CopyTool&           TC) const
 {
@@ -169,9 +169,9 @@ void IGESGeom_ToolPlane::OwnCopy(const Handle(IGESGeom_Plane)& another,
 
 //=================================================================================================
 
-IGESData_DirChecker IGESGeom_ToolPlane::DirChecker(const Handle(IGESGeom_Plane)& ent) const
+DirectoryChecker PlaneTool::DirChecker(const Handle(IGESGeom_Plane)& ent) const
 {
-  IGESData_DirChecker DC(108, -1, 1);
+  DirectoryChecker DC(108, -1, 1);
   DC.Structure(IGESData_DefVoid);
   if (ent->FormNumber() != 0)
   {
@@ -190,7 +190,7 @@ IGESData_DirChecker IGESGeom_ToolPlane::DirChecker(const Handle(IGESGeom_Plane)&
 
 //=================================================================================================
 
-void IGESGeom_ToolPlane::OwnCheck(const Handle(IGESGeom_Plane)& ent,
+void PlaneTool::OwnCheck(const Handle(IGESGeom_Plane)& ent,
                                   const Interface_ShareTool&,
                                   Handle(Interface_Check)& ach) const
 {
@@ -239,7 +239,7 @@ void IGESGeom_ToolPlane::OwnCheck(const Handle(IGESGeom_Plane)& ent,
 
 //=================================================================================================
 
-void IGESGeom_ToolPlane::OwnDump(const Handle(IGESGeom_Plane)& ent,
+void PlaneTool::OwnDump(const Handle(IGESGeom_Plane)& ent,
                                  const IGESData_IGESDumper&    dumper,
                                  Standard_OStream&             S,
                                  const Standard_Integer        level) const

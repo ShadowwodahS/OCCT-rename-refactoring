@@ -81,11 +81,11 @@ Standard_Boolean IGESSelect_SplineToBSpline::Updated(const Handle(RefObject)& en
   return themap->Search(entfrom, entto);
 }
 
-TCollection_AsciiString IGESSelect_SplineToBSpline::Label() const
+AsciiString1 IGESSelect_SplineToBSpline::Label() const
 {
   if (thetryc2)
-    return TCollection_AsciiString(
+    return AsciiString1(
       "Convert Spline Forms to BSpline, trying to recover C1-C2 continuity");
   else
-    return TCollection_AsciiString("Convert Spline Forms to BSpline");
+    return AsciiString1("Convert Spline Forms to BSpline");
 }

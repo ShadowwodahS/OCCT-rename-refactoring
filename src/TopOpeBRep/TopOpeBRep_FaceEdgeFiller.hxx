@@ -23,22 +23,22 @@
 
 #include <Standard_Integer.hxx>
 #include <TopOpeBRepDS_ListOfInterference.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class TopOpeBRep_FaceEdgeIntersector;
 class TopOpeBRepDS_HDataStructure;
-class TopOpeBRepDS_Point;
+class Point1;
 class TopOpeBRepDS_DataStructure;
 class TopOpeBRepDS_Interference;
 
-class TopOpeBRep_FaceEdgeFiller
+class FaceEdgeFiller
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRep_FaceEdgeFiller();
+  Standard_EXPORT FaceEdgeFiller();
 
-  Standard_EXPORT void Insert(const TopoDS_Shape&                        F,
-                              const TopoDS_Shape&                        E,
+  Standard_EXPORT void Insert(const TopoShape&                        F,
+                              const TopoShape&                        E,
                               TopOpeBRep_FaceEdgeIntersector&            FEINT,
                               const Handle(TopOpeBRepDS_HDataStructure)& HDS);
 
@@ -51,7 +51,7 @@ private:
   //! if True, iterator It points (by the Value() method) on the first
   //! interference accessing an identical 3D point.
   Standard_EXPORT Standard_Boolean ScanInterfList(TopOpeBRepDS_ListIteratorOfListOfInterference& IT,
-                                                  const TopOpeBRepDS_Point&         DSP,
+                                                  const Point1&         DSP,
                                                   const TopOpeBRepDS_DataStructure& BDS) const;
 
   //! Search for an interference in list <IT> which 3D geometry
@@ -75,7 +75,7 @@ private:
   //!
   //! returns the value of ScanInterfList().
   Standard_EXPORT Standard_Boolean GetGeometry(const TopOpeBRepDS_ListOfInterference& L,
-                                               const TopOpeBRepDS_Point&              DSP,
+                                               const Point1&              DSP,
                                                Standard_Integer&                      G,
                                                TopOpeBRepDS_DataStructure&            DS) const;
 

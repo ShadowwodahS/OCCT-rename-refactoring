@@ -50,7 +50,7 @@ Handle(Expr_GeneralExpression) Expr_Absolute::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_Absolute::Copy() const
 {
-  return new Expr_Absolute(Expr::CopyShare(Operand()));
+  return new Expr_Absolute(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_Absolute::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -72,7 +72,7 @@ Handle(Expr_GeneralExpression) Expr_Absolute::Derivative(const Handle(Expr_Named
 {
   Handle(Expr_GeneralExpression) op    = Operand();
   Handle(Expr_GeneralExpression) derop = op->Derivative(X);
-  Handle(Expr_Sign)              myder = new Expr_Sign(Expr::CopyShare(op));
+  Handle(Expr_Sign)              myder = new Expr_Sign(Expr1::CopyShare(op));
   Handle(Expr_Product)           resul = myder->ShallowSimplified() * derop;
   return resul->ShallowSimplified();
 }
@@ -83,9 +83,9 @@ Standard_Real Expr_Absolute::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return ::Abs(Operand()->Evaluate(vars, vals));
 }
 
-TCollection_AsciiString Expr_Absolute::String() const
+AsciiString1 Expr_Absolute::String() const
 {
-  TCollection_AsciiString str("Abs(");
+  AsciiString1 str("Abs(");
   str += Operand()->String();
   str += ")";
   return str;

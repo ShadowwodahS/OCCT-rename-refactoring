@@ -36,11 +36,11 @@ public:
   Standard_EXPORT IntTools_ShrunkRange();
   Standard_EXPORT virtual ~IntTools_ShrunkRange();
 
-  Standard_EXPORT void SetData(const TopoDS_Edge&   aE,
+  Standard_EXPORT void SetData(const TopoEdge&   aE,
                                const Standard_Real  aT1,
                                const Standard_Real  aT2,
-                               const TopoDS_Vertex& aV1,
-                               const TopoDS_Vertex& aV2);
+                               const TopoVertex& aV1,
+                               const TopoVertex& aV2);
 
   Standard_EXPORT void SetContext(const Handle(IntTools_Context)& aCtx);
 
@@ -52,7 +52,7 @@ public:
 
   Standard_EXPORT const Bnd_Box& BndBox() const;
 
-  Standard_EXPORT const TopoDS_Edge& Edge() const;
+  Standard_EXPORT const TopoEdge& Edge() const;
 
   Standard_EXPORT void Perform();
 
@@ -68,9 +68,9 @@ public:
   Standard_Real Length() const { return myLength; }
 
 protected:
-  TopoDS_Edge              myEdge;
-  TopoDS_Vertex            myV1;
-  TopoDS_Vertex            myV2;
+  TopoEdge              myEdge;
+  TopoVertex            myV1;
+  TopoVertex            myV2;
   Standard_Real            myT1;
   Standard_Real            myT2;
   Standard_Real            myTS1;

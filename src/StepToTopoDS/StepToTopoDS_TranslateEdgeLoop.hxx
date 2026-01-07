@@ -25,13 +25,13 @@
 #include <TopoDS_Shape.hxx>
 #include <StepToTopoDS_Root.hxx>
 class StepShape_FaceBound;
-class TopoDS_Face;
-class Geom_Surface;
+class TopoFace;
+class GeomSurface;
 class StepGeom_Surface;
 class StepToTopoDS_Tool;
-class StepToTopoDS_NMTool;
+class NamingTool2;
 
-class StepToTopoDS_TranslateEdgeLoop : public StepToTopoDS_Root
+class StepToTopoDS_TranslateEdgeLoop : public Root2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -40,31 +40,31 @@ public:
 
   Standard_EXPORT StepToTopoDS_TranslateEdgeLoop(
     const Handle(StepShape_FaceBound)& FB,
-    const TopoDS_Face&                 F,
-    const Handle(Geom_Surface)&        S,
+    const TopoFace&                 F,
+    const Handle(GeomSurface)&        S,
     const Handle(StepGeom_Surface)&    SS,
     const Standard_Boolean             ss,
     StepToTopoDS_Tool&                 T,
-    StepToTopoDS_NMTool&               NMTool,
-    const StepData_Factors&            theLocalFactors = StepData_Factors());
+    NamingTool2&               NMTool,
+    const ConversionFactors&            theLocalFactors = ConversionFactors());
 
   Standard_EXPORT void Init(const Handle(StepShape_FaceBound)& FB,
-                            const TopoDS_Face&                 F,
-                            const Handle(Geom_Surface)&        S,
+                            const TopoFace&                 F,
+                            const Handle(GeomSurface)&        S,
                             const Handle(StepGeom_Surface)&    SS,
                             const Standard_Boolean             ss,
                             StepToTopoDS_Tool&                 T,
-                            StepToTopoDS_NMTool&               NMTool,
-                            const StepData_Factors& theLocalFactors = StepData_Factors());
+                            NamingTool2&               NMTool,
+                            const ConversionFactors& theLocalFactors = ConversionFactors());
 
-  Standard_EXPORT const TopoDS_Shape& Value() const;
+  Standard_EXPORT const TopoShape& Value() const;
 
   Standard_EXPORT StepToTopoDS_TranslateEdgeLoopError Error() const;
 
 protected:
 private:
   StepToTopoDS_TranslateEdgeLoopError myError;
-  TopoDS_Shape                        myResult;
+  TopoShape                        myResult;
 };
 
 #endif // _StepToTopoDS_TranslateEdgeLoop_HeaderFile

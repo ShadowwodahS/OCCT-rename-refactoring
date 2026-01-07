@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer ChFiDS_StripeMap::Extent() const
+inline Standard_Integer StripeMap::Extent() const
 {
   return mymap.Extent();
 }
@@ -29,7 +29,7 @@ inline Standard_Integer ChFiDS_StripeMap::Extent() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Vertex& ChFiDS_StripeMap::FindKey(const Standard_Integer I) const
+inline const TopoVertex& StripeMap::FindKey(const Standard_Integer I) const
 {
   return mymap.FindKey(I);
 }

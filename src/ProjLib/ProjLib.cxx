@@ -180,7 +180,7 @@ gp_Lin2d ProjLib::Project(const gp_Torus& To, const gp_Circ& Ci)
 
 //=================================================================================================
 
-void ProjLib::MakePCurveOfType(const ProjLib_ProjectedCurve& PC, Handle(Geom2d_Curve)& C2D)
+void ProjLib::MakePCurveOfType(const ProjLib_ProjectedCurve& PC, Handle(GeomCurve2d)& C2D)
 {
 
   switch (PC.GetType())

@@ -34,32 +34,32 @@ public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT static Quantity_NameOfColor GetLineColor(
-    const Handle(Prs3d_Drawer)& aDrawer,
+    const Handle(StyleDrawer)& aDrawer,
     const AIS_TypeOfAttribute   TheTypeOfAttributes);
 
-  Standard_EXPORT static void GetLineColor(const Handle(Prs3d_Drawer)& aDrawer,
+  Standard_EXPORT static void GetLineColor(const Handle(StyleDrawer)& aDrawer,
                                            const AIS_TypeOfAttribute   TheTypeOfAttributes,
                                            Quantity_Color&             TheLineColor);
 
-  Standard_EXPORT static Standard_Real GetLineWidth(const Handle(Prs3d_Drawer)& aDrawer,
+  Standard_EXPORT static Standard_Real GetLineWidth(const Handle(StyleDrawer)& aDrawer,
                                                     const AIS_TypeOfAttribute TheTypeOfAttributes);
 
   Standard_EXPORT static Aspect_TypeOfLine GetLineType(
-    const Handle(Prs3d_Drawer)& aDrawer,
+    const Handle(StyleDrawer)& aDrawer,
     const AIS_TypeOfAttribute   TheTypeOfAttributes);
 
-  Standard_EXPORT static void GetLineAtt(const Handle(Prs3d_Drawer)& aDrawer,
+  Standard_EXPORT static void GetLineAtt(const Handle(StyleDrawer)& aDrawer,
                                          const AIS_TypeOfAttribute   TheTypeOfAttributes,
                                          Quantity_NameOfColor&       aCol,
                                          Standard_Real&              aWidth,
                                          Aspect_TypeOfLine&          aTyp);
 
-  Standard_EXPORT static Quantity_NameOfColor GetInteriorColor(const Handle(Prs3d_Drawer)& aDrawer);
+  Standard_EXPORT static Quantity_NameOfColor GetInteriorColor(const Handle(StyleDrawer)& aDrawer);
 
-  Standard_EXPORT static void GetInteriorColor(const Handle(Prs3d_Drawer)& aDrawer,
+  Standard_EXPORT static void GetInteriorColor(const Handle(StyleDrawer)& aDrawer,
                                                Quantity_Color&             aColor);
 
-  Standard_EXPORT static Graphic3d_MaterialAspect GetMaterial(const Handle(Prs3d_Drawer)& aDrawer);
+  Standard_EXPORT static Graphic3d_MaterialAspect GetMaterial(const Handle(StyleDrawer)& aDrawer);
 
 protected:
 private:

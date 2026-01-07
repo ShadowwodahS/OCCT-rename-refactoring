@@ -37,17 +37,17 @@ void debiskole() {}
 
 Standard_EXPORT Standard_Boolean FUNKP_KPiskolesh(const TopOpeBRepBuild_Builder&    BU,
                                                   const TopOpeBRepDS_DataStructure& BDS,
-                                                  const TopoDS_Shape&               Sarg,
-                                                  TopTools_ListOfShape&             lShsd,
-                                                  TopTools_ListOfShape&             lfhsd);
+                                                  const TopoShape&               Sarg,
+                                                  ShapeList&             lShsd,
+                                                  ShapeList&             lfhsd);
 Standard_EXPORT void             FUNKP_KPmakefaces(const TopOpeBRepBuild_Builder& BU,
-                                                   const TopoDS_Shape&            Fac1,
-                                                   const TopTools_ListOfShape&    LF2,
+                                                   const TopoShape&            Fac1,
+                                                   const ShapeList&    LF2,
                                                    const TopAbs_State             Stfac1,
                                                    const TopAbs_State             Stfac2,
                                                    const Standard_Boolean         R1,
                                                    const Standard_Boolean         R2,
-                                                   TopTools_ListOfShape&          Lres);
+                                                   ShapeList&          Lres);
 
 //=================================================================================================
 
@@ -70,16 +70,16 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
   // NYI en allant chercher l'indice 1,2 retourne par GShapeRank(S)
   // NYI dans la DS. l'index est defini pour tous les shapes HasSameDomain
 
-  TopTools_ListOfShape& lmergesha1 = ChangeMerged(myShape1, myState1);
+  ShapeList& lmergesha1 = ChangeMerged(myShape1, myState1);
   ChangeMerged(myShape2, myState2);
 
-  TopTools_ListOfShape lShsd1, lShsd2; // liste de solides HasSameDomain
-  TopTools_ListOfShape lfhsd1, lfhsd2; // liste de faces HasSameDomain
+  ShapeList lShsd1, lShsd2; // liste de solides HasSameDomain
+  ShapeList lfhsd1, lfhsd2; // liste de faces HasSameDomain
   KPiskolesh(myShape1, lShsd1, lfhsd1);
   KPiskolesh(myShape2, lShsd2, lfhsd2);
   // traitement de tous les solides NYI
-  TopoDS_Shape sol1 = lShsd1.First();
-  TopoDS_Shape sol2 = lShsd2.First();
+  TopoShape sol1 = lShsd1.First();
+  TopoShape sol2 = lShsd2.First();
 
   ChangeMerged(sol1, myState1);
   ChangeMerged(sol2, myState2);
@@ -95,14 +95,14 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
     std::cout << "" << std::endl;
     for (; itm1.More(); itm1.Next())
     {
-      const TopoDS_Shape& f  = itm1.Key();
+      const TopoShape& f  = itm1.Key();
       Standard_Integer    fi = myDataStructure->Shape(f);
       std::cout << "face " << fi << " : ";
-      const TopTools_ListOfShape&        l = itm1.Value();
+      const ShapeList&        l = itm1.Value();
       TopTools_ListIteratorOfListOfShape it(l);
       for (; it.More(); it.Next())
       {
-        const TopoDS_Shape& ff  = it.Value();
+        const TopoShape& ff  = it.Value();
         Standard_Integer    ffi = myDataStructure->Shape(ff);
         std::cout << ffi << " ";
       }
@@ -112,21 +112,21 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
   }
 #endif
 
-  TopTools_ListOfShape  LFIN;
-  TopTools_ListOfShape* plfIN = NULL;
-  const TopoDS_Shape*   pfOU  = NULL;
-  const TopoDS_Shape*   pfIN  = NULL;
+  ShapeList  LFIN;
+  ShapeList* plfIN = NULL;
+  const TopoShape*   pfOU  = NULL;
+  const TopoShape*   pfIN  = NULL;
 
   for (; itm1.More(); itm1.Next())
   {
-    //    const TopoDS_Shape& f = itm1.Key();
+    //    const TopoShape& f = itm1.Key();
     //   myDataStructure->Shape(f); //DEB
-    const TopTools_ListOfShape& los = itm1.Value();
+    const ShapeList& los = itm1.Value();
     Standard_Boolean            emp = los.IsEmpty();
     if (!emp)
     {
       if (plfIN == NULL)
-        plfIN = (TopTools_ListOfShape*)&itm1.Value();
+        plfIN = (ShapeList*)&itm1.Value();
       if (pfOU == NULL)
         pfOU = &itm1.Key();
       if (pfIN == NULL)
@@ -166,12 +166,12 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
 
   // solfOU = solide dont la face *pfOU est OUT / faces LFIN
   // solfIN = solide dont les faces *plfIN sont IN / face *pfOU
-  TopoDS_Shape solfOU;
+  TopoShape solfOU;
   if (rankpfOU == 1)
     solfOU = sol1;
   else
     solfOU = sol2;
-  TopoDS_Shape solfIN;
+  TopoShape solfIN;
   if (rankpfIN == 1)
     solfIN = sol1;
   else
@@ -183,7 +183,7 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
 
   TopAbs_State stsol1 = TopAbs_UNKNOWN, stsol2 = TopAbs_UNKNOWN;
   TopAbs_State stfac1 = TopAbs_UNKNOWN, stfac2 = TopAbs_UNKNOWN;
-  TopoDS_Shape fac1, fac2;
+  TopoShape fac1, fac2;
   if (rankpfOU == 1)
   {
     stsol1 = stsolfOU;
@@ -210,17 +210,17 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
   if (icla1 == SHEUNDEF || icla2 == SHEUNDEF)
     return;
 
-  TopoDS_Shape                              she1; // she1 = shell accedant fac1
+  TopoShape                              she1; // she1 = shell accedant fac1
   TopTools_IndexedDataMapOfShapeListOfShape Mfacshe1;
-  TopExp::MapShapesAndAncestors(sol1, TopAbs_FACE, TopAbs_SHELL, Mfacshe1);
-  const TopTools_ListOfShape&        lshe1 = Mfacshe1.FindFromKey(fac1);
+  TopExp1::MapShapesAndAncestors(sol1, TopAbs_FACE, TopAbs_SHELL, Mfacshe1);
+  const ShapeList&        lshe1 = Mfacshe1.FindFromKey(fac1);
   TopTools_ListIteratorOfListOfShape itlshe1(lshe1);
   she1 = itlshe1.Value();
 
-  TopoDS_Shape                              she2; // she2 = shell accedant fac2
+  TopoShape                              she2; // she2 = shell accedant fac2
   TopTools_IndexedDataMapOfShapeListOfShape Mfacshe2;
-  TopExp::MapShapesAndAncestors(sol2, TopAbs_FACE, TopAbs_SHELL, Mfacshe2);
-  const TopTools_ListOfShape&        lshe2 = Mfacshe2.FindFromKey(fac2);
+  TopExp1::MapShapesAndAncestors(sol2, TopAbs_FACE, TopAbs_SHELL, Mfacshe2);
+  const ShapeList&        lshe2 = Mfacshe2.FindFromKey(fac2);
   TopTools_ListIteratorOfListOfShape itlshe2(lshe2);
   she2 = itlshe2.Value();
 
@@ -231,19 +231,19 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
   if (TKPB)
   {
     std::cout << "stsol1 ";
-    TopAbs::Print(stsol1, std::cout);
+    TopAbs1::Print(stsol1, std::cout);
     std::cout << " ";
   }
   if (TKPB)
   {
     std::cout << "stsol2 ";
-    TopAbs::Print(stsol2, std::cout);
+    TopAbs1::Print(stsol2, std::cout);
     std::cout << std::endl;
   }
   debiskole();
 #endif
 
-  TopoDS_Shell newshe;
+  TopoShell newshe;
 
   if (ires == RESNULL)
   {
@@ -307,14 +307,14 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
     for (; itm1.More(); itm1.Next())
     {
 
-      const TopoDS_Shape&         f1  = itm1.Key();
-      const TopTools_ListOfShape& lf2 = itm1.Value();
+      const TopoShape&         f1  = itm1.Key();
+      const ShapeList& lf2 = itm1.Value();
       if (lf2.IsEmpty())
         continue;
 
       TopTools_ListIteratorOfListOfShape it2;
       it2.Initialize(lf2);
-      const TopoDS_Shape& f2 = it2.Value();
+      const TopoShape& f2 = it2.Value();
 
       /*#ifdef OCCT_DEBUG
             Standard_Integer ii1 = myDataStructure->Shape(f1);
@@ -338,7 +338,7 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
 
       Standard_Boolean r1 = (stsol1 == TopAbs_IN);
       Standard_Boolean r2 = (stsol2 == TopAbs_IN);
-      TopoDS_Shape     fac;
+      TopoShape     fac;
       if (rankf1 == 1)
         fac = KPmakeface(f1, lf2, stf1, stf2, r1, r2);
       if (rankf1 == 2)
@@ -359,7 +359,7 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
       TopOpeBRepTool_ShapeExplorer fex1;
       for (fex1.Init(she1, TopAbs_FACE); fex1.More(); fex1.Next())
       {
-        const TopoDS_Shape& facur = fex1.Current();
+        const TopoShape& facur = fex1.Current();
 
         Standard_Boolean isfsd   = myKPMAPf1f2.IsBound(facur);
         Standard_Boolean isadded = addedfaces.IsBound(facur);
@@ -367,7 +367,7 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
 
         if (toadd)
         {
-          TopoDS_Shape fori = facur;
+          TopoShape fori = facur;
           if (stsol1 == TopAbs_IN)
             fori.Complement();
           addedfaces.Bind(fori, fori);
@@ -378,7 +378,7 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
       TopOpeBRepTool_ShapeExplorer fex2;
       for (fex2.Init(she2, TopAbs_FACE); fex2.More(); fex2.Next())
       {
-        const TopoDS_Shape& facur = fex2.Current();
+        const TopoShape& facur = fex2.Current();
 
         Standard_Boolean isfsd   = myKPMAPf1f2.IsBound(facur);
         Standard_Boolean isadded = addedfaces.IsBound(facur);
@@ -386,7 +386,7 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
 
         if (toadd)
         {
-          TopoDS_Shape fori = facur;
+          TopoShape fori = facur;
           if (stsol2 == TopAbs_IN)
             fori.Complement();
           addedfaces.Bind(fori, fori);
@@ -403,7 +403,7 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
     }
     for (; itadd.More(); itadd.Next())
     {
-      const TopoDS_Shape& ftoadd = itadd.Key();
+      const TopoShape& ftoadd = itadd.Key();
       myBuildTool.AddShellFace(newshe, ftoadd);
     }
 
@@ -416,7 +416,7 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
 #endif
   }
 
-  TopoDS_Solid newsol;
+  TopoSolid newsol;
   if (!newshe.IsNull())
   {
     myBuildTool.MakeSolid(newsol);
@@ -426,11 +426,11 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
   if (icla1 == SHECLASAUTR || icla1 == SHEGARDAUTR)
   {
     // n.b. : ne pas prendre she1 accedant f1
-    TopTools_ListOfShape         loshe1;
+    ShapeList         loshe1;
     TopOpeBRepTool_ShapeExplorer ex1;
     for (ex1.Init(sol1, TopAbs_SHELL); ex1.More(); ex1.Next())
     {
-      const TopoDS_Shape& shecur = ex1.Current();
+      const TopoShape& shecur = ex1.Current();
       if (she1.IsEqual(shecur))
         continue;
       if (icla1 == SHECLASAUTR)
@@ -450,7 +450,7 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
     TopTools_ListIteratorOfListOfShape itloshe1;
     for (itloshe1.Initialize(loshe1); itloshe1.More(); itloshe1.Next())
     {
-      const TopoDS_Shape& shecur = itloshe1.Value();
+      const TopoShape& shecur = itloshe1.Value();
       myBuildTool.AddSolidShell(newsol, shecur);
     }
   }
@@ -458,11 +458,11 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
   if (icla2 == SHECLASAUTR || icla2 == SHEGARDAUTR)
   {
     // n.b. : ne pas prendre she2 accedant f2
-    TopTools_ListOfShape         loshe2;
+    ShapeList         loshe2;
     TopOpeBRepTool_ShapeExplorer ex2;
     for (ex2.Init(sol2, TopAbs_SHELL); ex2.More(); ex2.Next())
     {
-      const TopoDS_Shape& shecur = ex2.Current();
+      const TopoShape& shecur = ex2.Current();
       if (she2.IsEqual(shecur))
         continue;
       if (icla2 == SHECLASAUTR)
@@ -482,7 +482,7 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
     TopTools_ListIteratorOfListOfShape itloshe2;
     for (itloshe2.Initialize(loshe2); itloshe2.More(); itloshe2.Next())
     {
-      const TopoDS_Shape& shecur = itloshe2.Value();
+      const TopoShape& shecur = itloshe2.Value();
       myBuildTool.AddSolidShell(newsol, shecur);
     }
   }
@@ -503,8 +503,8 @@ void TopOpeBRepBuild_Builder::MergeKPartiskole()
 Standard_Integer TopOpeBRepBuild_Builder::KPiskole()
 {
 
-  TopTools_ListOfShape lShsd1, lShsd2; // liste de solides HasSameDomain
-  TopTools_ListOfShape lfhsd1, lfhsd2; // liste de faces HasSameDomain
+  ShapeList lShsd1, lShsd2; // liste de solides HasSameDomain
+  ShapeList lfhsd1, lfhsd2; // liste de faces HasSameDomain
 
   Standard_Boolean iskp1 = KPiskolesh(myShape1, lShsd1, lfhsd1);
   if (!iskp1)
@@ -531,13 +531,13 @@ Standard_Integer TopOpeBRepBuild_Builder::KPiskole()
   if (nshsd1 > 1 || nshsd2 > 1)
     return 0;
 
-  TopTools_ListOfShape lf1, lf2;
-  TopTools_ListOfShape les; // section
+  ShapeList lf1, lf2;
+  ShapeList les; // section
 
   for (TopTools_ListIteratorOfListOfShape itlf1(lfhsd1); itlf1.More(); itlf1.Next())
   {
 
-    const TopoDS_Shape& f1 = itlf1.Value();
+    const TopoShape& f1 = itlf1.Value();
 #ifdef OCCT_DEBUG
 //    Standard_Boolean isb1 = myKPMAPf1f2.IsBound(f1); // DEB
 #endif
@@ -564,7 +564,7 @@ Standard_Integer TopOpeBRepBuild_Builder::KPiskole()
     for (TopTools_ListIteratorOfListOfShape itlf2(lf2); itlf2.More(); itlf2.Next())
     {
 
-      const TopoDS_Shape& f2 = itlf2.Value();
+      const TopoShape& f2 = itlf2.Value();
 #ifdef OCCT_DEBUG
 //      Standard_Boolean isb2 = myKPMAPf1f2.IsBound(f2); // DEB
 #endif
@@ -579,16 +579,16 @@ Standard_Integer TopOpeBRepBuild_Builder::KPiskole()
         Standard_Boolean isb1 = myKPMAPf1f2.IsBound(f1);
         if (!isb1)
         {
-          TopTools_ListOfShape los;
+          ShapeList los;
           myKPMAPf1f2.Bind(f1, los);
         }
-        TopTools_ListOfShape& los = myKPMAPf1f2.ChangeFind(f1);
+        ShapeList& los = myKPMAPf1f2.ChangeFind(f1);
         los.Append(f2);
 
         Standard_Boolean isb2 = myKPMAPf1f2.IsBound(f2);
         if (!isb2)
         {
-          TopTools_ListOfShape los1;
+          ShapeList los1;
           myKPMAPf1f2.Bind(f2, los1);
         }
       }
@@ -597,22 +597,22 @@ Standard_Integer TopOpeBRepBuild_Builder::KPiskole()
         Standard_Boolean isb2 = myKPMAPf1f2.IsBound(f2);
         if (!isb2)
         {
-          TopTools_ListOfShape los;
+          ShapeList los;
           myKPMAPf1f2.Bind(f2, los);
         }
-        TopTools_ListOfShape& los = myKPMAPf1f2.ChangeFind(f2);
+        ShapeList& los = myKPMAPf1f2.ChangeFind(f2);
         los.Append(f1);
 
         Standard_Boolean isb1 = myKPMAPf1f2.IsBound(f1);
         if (!isb1)
         {
-          TopTools_ListOfShape los1;
+          ShapeList los1;
           myKPMAPf1f2.Bind(f1, los1);
         }
       }
 
       // les aretes de la face IN sont des aretes de section
-      TopoDS_Shape fw;
+      TopoShape fw;
       if (state1 == TopAbs_IN)
         fw = f1;
       else if (state2 == TopAbs_IN)
@@ -747,21 +747,21 @@ void TopOpeBRepBuild_Builder::KPiskoleanalyse(const TopAbs_State Stfac1,
 } // TopOpeBRepBuild_Builder::KPiskoleanalyse
 
 Standard_EXPORT void FUNKP_KPmakefaces(const TopOpeBRepBuild_Builder& BU,
-                                       const TopoDS_Shape&            Fac1,
-                                       const TopTools_ListOfShape&    LF2,
+                                       const TopoShape&            Fac1,
+                                       const ShapeList&    LF2,
                                        const TopAbs_State             Stfac1,
                                        const TopAbs_State /*Stfac2*/,
                                        const Standard_Boolean R1,
                                        const Standard_Boolean R2,
-                                       TopTools_ListOfShape&  Lres)
+                                       ShapeList&  Lres)
 {
   // reconstruisons la face qui contient les autres
-  BRep_Builder BB;
-  TopoDS_Face  fac;
+  ShapeBuilder BB;
+  TopoFace  fac;
   BB.MakeFace(fac);
 
   Standard_Integer     rankIN = 0;
-  TopTools_ListOfShape LFSO, LFDO;
+  ShapeList LFSO, LFDO;
 
 #ifdef OCCT_DEBUG
   Standard_Integer iF1;
@@ -775,7 +775,7 @@ Standard_EXPORT void FUNKP_KPmakefaces(const TopOpeBRepBuild_Builder& BU,
 
   if (Stfac1 == TopAbs_OUT)
   {
-    TopoDS_Shape aLocalShape = Fac1.EmptyCopied();
+    TopoShape aLocalShape = Fac1.EmptyCopied();
     fac                      = TopoDS::Face(aLocalShape);
     //    fac = TopoDS::Face(Fac1.EmptyCopied());
     Standard_Integer rankF = BU.GShapeRank(Fac1);
@@ -792,7 +792,7 @@ Standard_EXPORT void FUNKP_KPmakefaces(const TopOpeBRepBuild_Builder& BU,
     throw Standard_ProgramError("KPmakeface rankIN = 0");
   }
 
-  TopTools_ListOfShape LFIN;
+  ShapeList LFIN;
   BU.GFindSameRank(LFSO, rankIN, LFIN);
   BU.GFindSameRank(LFDO, rankIN, LFIN);
 
@@ -805,13 +805,13 @@ Standard_EXPORT void FUNKP_KPmakefaces(const TopOpeBRepBuild_Builder& BU,
   }
 #endif
 
-  TopOpeBRepBuild_WireToFace wtof;
+  WireToFaceBuilder wtof;
 
   TopOpeBRepTool_ShapeExplorer wex1;
   for (wex1.Init(Fac1, TopAbs_WIRE); wex1.More(); wex1.Next())
   {
-    const TopoDS_Shape& wicur = wex1.Current();
-    TopoDS_Wire         wori  = TopoDS::Wire(wicur);
+    const TopoShape& wicur = wex1.Current();
+    TopoWire         wori  = TopoDS::Wire(wicur);
     if (R1)
       wori.Complement();
     wtof.AddWire(wori);
@@ -821,11 +821,11 @@ Standard_EXPORT void FUNKP_KPmakefaces(const TopOpeBRepBuild_Builder& BU,
   TopOpeBRepTool_ShapeExplorer wex2;
   for (TopTools_ListIteratorOfListOfShape it2(LF2); it2.More(); it2.Next())
   {
-    const TopoDS_Shape& Fac2 = it2.Value();
+    const TopoShape& Fac2 = it2.Value();
     for (wex2.Init(Fac2, TopAbs_WIRE); wex2.More(); wex2.Next())
     {
-      const TopoDS_Shape& wicur = wex2.Current();
-      TopoDS_Wire         wori  = TopoDS::Wire(wicur);
+      const TopoShape& wicur = wex2.Current();
+      TopoWire         wori  = TopoDS::Wire(wicur);
       if (R2)
         wori.Complement();
       wtof.AddWire(wori);
@@ -833,7 +833,7 @@ Standard_EXPORT void FUNKP_KPmakefaces(const TopOpeBRepBuild_Builder& BU,
     }
   }
 
-  const TopoDS_Face& F1 = TopoDS::Face(Fac1);
+  const TopoFace& F1 = TopoDS::Face(Fac1);
   wtof.MakeFaces(F1, Lres);
 #ifdef OCCT_DEBUG
 //  Standard_Integer nlres = Lres.Extent(); // DEB
@@ -844,20 +844,20 @@ Standard_EXPORT void FUNKP_KPmakefaces(const TopOpeBRepBuild_Builder& BU,
 
 //=================================================================================================
 
-TopoDS_Shape TopOpeBRepBuild_Builder::KPmakeface(const TopoDS_Shape&         Fac1,
-                                                 const TopTools_ListOfShape& LF2,
+TopoShape TopOpeBRepBuild_Builder::KPmakeface(const TopoShape&         Fac1,
+                                                 const ShapeList& LF2,
                                                  const TopAbs_State          Stfac1,
                                                  const TopAbs_State /*Stfac2*/,
                                                  const Standard_Boolean R1,
                                                  const Standard_Boolean R2)
 {
   // reconstruisons la face qui contient l'autre
-  BRep_Builder BB;
-  TopoDS_Face  fac;
+  ShapeBuilder BB;
+  TopoFace  fac;
   BB.MakeFace(fac);
 
   Standard_Integer     rankIN = 0;
-  TopTools_ListOfShape LFSO, LFDO;
+  ShapeList LFSO, LFDO;
 
 #ifdef OCCT_DEBUG
   Standard_Integer iF1;
@@ -871,7 +871,7 @@ TopoDS_Shape TopOpeBRepBuild_Builder::KPmakeface(const TopoDS_Shape&         Fac
 
   if (Stfac1 == TopAbs_OUT)
   {
-    TopoDS_Shape aLocalShape = Fac1.EmptyCopied();
+    TopoShape aLocalShape = Fac1.EmptyCopied();
     fac                      = TopoDS::Face(aLocalShape);
     //    fac = TopoDS::Face(Fac1.EmptyCopied());
     Standard_Integer rankF = GShapeRank(Fac1);
@@ -888,7 +888,7 @@ TopoDS_Shape TopOpeBRepBuild_Builder::KPmakeface(const TopoDS_Shape&         Fac
     throw Standard_ProgramError("KPmakeface rankIN = 0");
   }
 
-  TopTools_ListOfShape LFIN;
+  ShapeList LFIN;
   GFindSameRank(LFSO, rankIN, LFIN);
   GFindSameRank(LFDO, rankIN, LFIN);
 
@@ -904,8 +904,8 @@ TopoDS_Shape TopOpeBRepBuild_Builder::KPmakeface(const TopoDS_Shape&         Fac
   TopOpeBRepTool_ShapeExplorer wex1;
   for (wex1.Init(Fac1, TopAbs_WIRE); wex1.More(); wex1.Next())
   {
-    const TopoDS_Shape& wicur = wex1.Current();
-    TopoDS_Shape        wori  = wicur;
+    const TopoShape& wicur = wex1.Current();
+    TopoShape        wori  = wicur;
     if (R1)
       wori.Complement();
     myBuildTool.AddFaceWire(fac, wori);
@@ -914,11 +914,11 @@ TopoDS_Shape TopOpeBRepBuild_Builder::KPmakeface(const TopoDS_Shape&         Fac
   TopOpeBRepTool_ShapeExplorer wex2;
   for (TopTools_ListIteratorOfListOfShape it2(LF2); it2.More(); it2.Next())
   {
-    const TopoDS_Shape& Fac2 = it2.Value();
+    const TopoShape& Fac2 = it2.Value();
     for (wex2.Init(Fac2, TopAbs_WIRE); wex2.More(); wex2.Next())
     {
-      const TopoDS_Shape& wicur = wex2.Current();
-      TopoDS_Shape        wori  = wicur;
+      const TopoShape& wicur = wex2.Current();
+      TopoShape        wori  = wicur;
       if (R2)
         wori.Complement();
       myBuildTool.AddFaceWire(fac, wori);
@@ -930,9 +930,9 @@ TopoDS_Shape TopOpeBRepBuild_Builder::KPmakeface(const TopoDS_Shape&         Fac
 
 Standard_EXPORT Standard_Boolean FUNKP_KPiskolesh(const TopOpeBRepBuild_Builder&    BU,
                                                   const TopOpeBRepDS_DataStructure& BDS,
-                                                  const TopoDS_Shape&               Sarg,
-                                                  TopTools_ListOfShape&             lShsd,
-                                                  TopTools_ListOfShape& /*lfhsd*/)
+                                                  const TopoShape&               Sarg,
+                                                  ShapeList&             lShsd,
+                                                  ShapeList& /*lfhsd*/)
 // <lShsd> : the list of solids same domain with <Sarg>
 // sol is  <lShsd>'s first solid
 // <lfhsd> : the list of <sol>'s same domain faces, none of the list carries geometric interf
@@ -943,9 +943,9 @@ Standard_EXPORT Standard_Boolean FUNKP_KPiskolesh(const TopOpeBRepBuild_Builder&
   Standard_Integer nsol = BU.KPlhsd(Sarg, TopAbs_SOLID, lShsd);
   if (nsol == 0)
     return Standard_False;
-  const TopoDS_Shape& sol = lShsd.First();
+  const TopoShape& sol = lShsd.First();
 
-  TopTools_ListOfShape lfhg;
+  ShapeList lfhg;
   Standard_Integer     nfhg = BU.KPlhg(sol, TopAbs_FACE, lfhg);
   if (nfhg != 0)
   {
@@ -975,9 +975,9 @@ Standard_EXPORT Standard_Boolean FUNKP_KPiskolesh(const TopOpeBRepBuild_Builder&
 // si oui : retourne un solide et une liste de faces de collage
 //=======================================================================
 
-Standard_Boolean TopOpeBRepBuild_Builder::KPiskolesh(const TopoDS_Shape&   Sarg,
-                                                     TopTools_ListOfShape& lShsd,
-                                                     TopTools_ListOfShape& lfhsd) const
+Standard_Boolean TopOpeBRepBuild_Builder::KPiskolesh(const TopoShape&   Sarg,
+                                                     ShapeList& lShsd,
+                                                     ShapeList& lfhsd) const
 {
 #ifdef OCCT_DEBUG
   Standard_Boolean TKPB = TopOpeBRepBuild_GettraceKPB();
@@ -994,7 +994,7 @@ Standard_Boolean TopOpeBRepBuild_Builder::KPiskolesh(const TopoDS_Shape&   Sarg,
   TopTools_ListIteratorOfListOfShape it(lfhsd);
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape& fac    = it.Value();
+    const TopoShape& fac    = it.Value();
     Standard_Boolean    isplan = FUN_tool_plane(fac); // pro7993 BUG
     if (!isplan)
       return Standard_False;
@@ -1003,7 +1003,7 @@ Standard_Boolean TopOpeBRepBuild_Builder::KPiskolesh(const TopoDS_Shape&   Sarg,
     if (nw > 1)
       return Standard_False;
 
-    TopTools_ListOfShape lehg;
+    ShapeList lehg;
     Standard_Integer     nehg = KPlhg(fac, TopAbs_EDGE, lehg);
     if (nehg != 0)
       return Standard_False;

@@ -21,13 +21,13 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class TopoDS_Shape;
+class TopoShape;
 class TopoDS_TShape;
-class TopoDS_Wire;
-class TopoDS_Shell;
-class TopoDS_Solid;
+class TopoWire;
+class TopoShell;
+class TopoSolid;
 class TopoDS_CompSolid;
-class TopoDS_Compound;
+class TopoCompound;
 
 //! A  Builder is used   to  create  Topological  Data
 //! Structures.It is the root of the Builder class hierarchy.
@@ -68,41 +68,41 @@ class TopoDS_Compound;
 //! - Only VERTEX can be added in an EDGE.
 //!
 //! - Nothing can be added in a VERTEX.
-class TopoDS_Builder
+class TopoBuilder
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Make an empty Wire.
-  void MakeWire(TopoDS_Wire& W) const;
+  void MakeWire(TopoWire& W) const;
 
   //! Make an empty Shell.
-  void MakeShell(TopoDS_Shell& S) const;
+  void MakeShell(TopoShell& S) const;
 
   //! Make a Solid covering the whole 3D space.
-  void MakeSolid(TopoDS_Solid& S) const;
+  void MakeSolid(TopoSolid& S) const;
 
   //! Make an empty Composite Solid.
   void MakeCompSolid(TopoDS_CompSolid& C) const;
 
   //! Make an empty Compound.
-  void MakeCompound(TopoDS_Compound& C) const;
+  void MakeCompound(TopoCompound& C) const;
 
   //! Add the Shape C in the Shape S.
   //! Exceptions
   //! - TopoDS_FrozenShape if S is not free and cannot be modified.
   //! - TopoDS__UnCompatibleShapes if S and C are not compatible.
-  Standard_EXPORT void Add(TopoDS_Shape& S, const TopoDS_Shape& C) const;
+  Standard_EXPORT void Add(TopoShape& S, const TopoShape& C) const;
 
   //! Remove the Shape C from the Shape S.
   //! Exceptions
   //! TopoDS_FrozenShape if S is frozen and cannot be modified.
-  Standard_EXPORT void Remove(TopoDS_Shape& S, const TopoDS_Shape& C) const;
+  Standard_EXPORT void Remove(TopoShape& S, const TopoShape& C) const;
 
 protected:
   //! The basic method to make  a Shape, used by all the
   //! Make methods.
-  Standard_EXPORT void MakeShape(TopoDS_Shape& S, const Handle(TopoDS_TShape)& T) const;
+  Standard_EXPORT void MakeShape(TopoShape& S, const Handle(TopoDS_TShape)& T) const;
 
 private:
 };

@@ -35,14 +35,14 @@
 //! separator's bounding box with the current view volume. Culling is controlled by the
 //! renderCulling field. These are set to AUTO by default, allowing the implementation to
 //! decide whether or not to cull.
-class Vrml_Separator
+class Separator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_Separator(const Vrml_SeparatorRenderCulling aRenderCulling);
+  Standard_EXPORT Separator(const Vrml_SeparatorRenderCulling aRenderCulling);
 
-  Standard_EXPORT Vrml_Separator();
+  Standard_EXPORT Separator();
 
   Standard_EXPORT void SetRenderCulling(const Vrml_SeparatorRenderCulling aRenderCulling);
 

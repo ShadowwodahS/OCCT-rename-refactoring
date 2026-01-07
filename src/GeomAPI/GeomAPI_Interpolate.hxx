@@ -169,8 +169,8 @@ public:
 
   //! Returns the computed BSpline curve.
   //! Raises StdFail_NotDone if the interpolation fails.
-  Standard_EXPORT const Handle(Geom_BSplineCurve)& Curve() const;
-  Standard_EXPORT                                  operator Handle(Geom_BSplineCurve)() const;
+  Standard_EXPORT const Handle(BSplineCurve3d)& Curve() const;
+  Standard_EXPORT                                  operator Handle(BSplineCurve3d)() const;
 
   //! Returns true if the constrained BSpline curve is successfully constructed.
   //! Note: in this case, the result is given by the function Curve.
@@ -187,7 +187,7 @@ private:
   Standard_Real                    myTolerance;
   Handle(TColgp_HArray1OfPnt)      myPoints;
   Standard_Boolean                 myIsDone;
-  Handle(Geom_BSplineCurve)        myCurve;
+  Handle(BSplineCurve3d)        myCurve;
   Handle(TColgp_HArray1OfVec)      myTangents;
   Handle(TColStd_HArray1OfBoolean) myTangentFlags;
   Handle(TColStd_HArray1OfReal)    myParameters;

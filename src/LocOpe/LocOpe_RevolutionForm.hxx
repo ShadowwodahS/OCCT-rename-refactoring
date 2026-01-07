@@ -36,27 +36,27 @@ public:
 
   Standard_EXPORT LocOpe_RevolutionForm();
 
-  Standard_EXPORT LocOpe_RevolutionForm(const TopoDS_Shape& Base,
+  Standard_EXPORT LocOpe_RevolutionForm(const TopoShape& Base,
                                         const Axis3d&       Axe,
                                         const Standard_Real Angle);
 
-  Standard_EXPORT void Perform(const TopoDS_Shape& Base,
+  Standard_EXPORT void Perform(const TopoShape& Base,
                                const Axis3d&       Axe,
                                const Standard_Real Angle);
 
-  Standard_EXPORT const TopoDS_Shape& FirstShape() const;
+  Standard_EXPORT const TopoShape& FirstShape() const;
 
-  Standard_EXPORT const TopoDS_Shape& LastShape() const;
+  Standard_EXPORT const TopoShape& LastShape() const;
 
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
-  Standard_EXPORT const TopTools_ListOfShape& Shapes(const TopoDS_Shape& S) const;
+  Standard_EXPORT const ShapeList& Shapes(const TopoShape& S) const;
 
 protected:
 private:
   Standard_EXPORT void IntPerf();
 
-  TopoDS_Shape                       myBase;
+  TopoShape                       myBase;
   Vector3d                             myVec;
   Vector3d                             myTra;
   Standard_Real                      myAngle;
@@ -64,9 +64,9 @@ private:
   Standard_Real                      myAngTra;
   Standard_Boolean                   myDone;
   Standard_Boolean                   myIsTrans;
-  TopoDS_Shape                       myRes;
-  TopoDS_Shape                       myFirstShape;
-  TopoDS_Shape                       myLastShape;
+  TopoShape                       myRes;
+  TopoShape                       myFirstShape;
+  TopoShape                       myLastShape;
   TopTools_DataMapOfShapeListOfShape myMap;
   Point3d                             myPnt1;
   Point3d                             myPnt2;

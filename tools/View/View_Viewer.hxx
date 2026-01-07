@@ -55,25 +55,25 @@ public:
 
   //! Creates OCC components on the window
   //! \param theWindowHandle an id of the application window
-  Standard_EXPORT void InitViewer(const Handle(AIS_InteractiveContext)& theContext);
+  Standard_EXPORT void InitViewer(const Handle(VisualContext)& theContext);
 
   //! Creates OCC components on the window
   //! \param theWindowHandle an id of the application window
-  Standard_EXPORT static Handle(AIS_InteractiveContext) CreateStandardViewer();
+  Standard_EXPORT static Handle(VisualContext) CreateStandardViewer();
 
   //! Returns an OCC viewer
-  const Handle(V3d_Viewer)& GetViewer() { return myViewer; }
+  const Handle(ViewManager)& GetViewer() { return myViewer; }
 
   //! Returns active view
-  const Handle(V3d_View)& GetView() { return myView; }
+  const Handle(ViewWindow)& GetView() { return myView; }
 
   //! Returns OCCT context to provide display and selection mechanism
-  const Handle(AIS_InteractiveContext)& GetContext() const { return myContext; }
+  const Handle(VisualContext)& GetContext() const { return myContext; }
 
 private:
-  Handle(V3d_Viewer) myViewer; //!< the OCCT viewer
-  Handle(V3d_View)   myView;   //!< the OCCT view window
-  Handle(AIS_InteractiveContext)
+  Handle(ViewManager) myViewer; //!< the OCCT viewer
+  Handle(ViewWindow)   myView;   //!< the OCCT view window
+  Handle(VisualContext)
                  myContext;      //!< OCCT context to provide display and selection mechanism
   Quantity_Color myDefaultColor; //!< the default color of the viewer
 };

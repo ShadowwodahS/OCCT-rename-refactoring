@@ -224,10 +224,10 @@ Standard_Boolean IFSelect_TransformStandard::Updated(const Handle(RefObject)& en
   return themap->Search(entfrom, entto);
 }
 
-TCollection_AsciiString IFSelect_TransformStandard::Label() const
+AsciiString1 IFSelect_TransformStandard::Label() const
 {
   char                    lab[30];
-  TCollection_AsciiString labl("");
+  AsciiString1 labl("");
   if (CopyOption())
     labl.AssignCat("Standard Copy");
   else

@@ -47,13 +47,13 @@
 //=============================================================================
 // Creation d' une Curve de prostep a partir d' une Curve de Geom
 //=============================================================================
-GeomToStep_MakeCurve::GeomToStep_MakeCurve(const Handle(Geom_Curve)& C,
-                                           const StepData_Factors&   theLocalFactors)
+GeomToStep_MakeCurve::GeomToStep_MakeCurve(const Handle(GeomCurve3d)& C,
+                                           const ConversionFactors&   theLocalFactors)
 {
   done = Standard_True;
-  if (C->IsKind(STANDARD_TYPE(Geom_Line)))
+  if (C->IsKind(STANDARD_TYPE(GeomLine)))
   {
-    Handle(Geom_Line)   L = Handle(Geom_Line)::DownCast(C);
+    Handle(GeomLine)   L = Handle(GeomLine)::DownCast(C);
     GeomToStep_MakeLine MkLine(L, theLocalFactors);
     theCurve = MkLine.Value();
   }
@@ -66,17 +66,17 @@ GeomToStep_MakeCurve::GeomToStep_MakeCurve(const Handle(Geom_Curve)& C,
   else if (C->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
   {
     Handle(Geom_TrimmedCurve) T = Handle(Geom_TrimmedCurve)::DownCast(C);
-    Handle(Geom_Curve)        B = T->BasisCurve();
+    Handle(GeomCurve3d)        B = T->BasisCurve();
     //    TANT PIS, on passe la courbe de base ...
-    if (B->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+    if (B->IsKind(STANDARD_TYPE(BSplineCurve3d)))
     {
-      Handle(Geom_BSplineCurve) BS = Handle(Geom_BSplineCurve)::DownCast(B->Copy());
+      Handle(BSplineCurve3d) BS = Handle(BSplineCurve3d)::DownCast(B->Copy());
       BS->Segment(T->FirstParameter(), T->LastParameter());
       B = BS;
     }
-    else if (B->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+    else if (B->IsKind(STANDARD_TYPE(BezierCurve3d)))
     {
-      Handle(Geom_BezierCurve) BZ = Handle(Geom_BezierCurve)::DownCast(B->Copy());
+      Handle(BezierCurve3d) BZ = Handle(BezierCurve3d)::DownCast(B->Copy());
       BZ->Segment(T->FirstParameter(), T->LastParameter());
       B = BZ;
     }
@@ -105,8 +105,8 @@ GeomToStep_MakeCurve::GeomToStep_MakeCurve(const Handle(Geom_Curve)& C,
 // Creation d'une Curve de prostep a partir d' une Curve de Geom2d
 //=============================================================================
 
-GeomToStep_MakeCurve::GeomToStep_MakeCurve(const Handle(Geom2d_Curve)& C,
-                                           const StepData_Factors&     theLocalFactors)
+GeomToStep_MakeCurve::GeomToStep_MakeCurve(const Handle(GeomCurve2d)& C,
+                                           const ConversionFactors&     theLocalFactors)
 {
   done = Standard_True;
   if (C->IsKind(STANDARD_TYPE(Geom2d_Line)))

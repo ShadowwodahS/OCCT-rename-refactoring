@@ -37,7 +37,7 @@ ShapeUpgrade_FixSmallCurves::ShapeUpgrade_FixSmallCurves()
 
 //=================================================================================================
 
-void ShapeUpgrade_FixSmallCurves::Init(const TopoDS_Edge& theEdge, const TopoDS_Face& theFace)
+void ShapeUpgrade_FixSmallCurves::Init(const TopoEdge& theEdge, const TopoFace& theFace)
 {
   myEdge = theEdge;
   myFace = theFace;
@@ -45,9 +45,9 @@ void ShapeUpgrade_FixSmallCurves::Init(const TopoDS_Edge& theEdge, const TopoDS_
 
 //=================================================================================================
 
-Standard_Boolean ShapeUpgrade_FixSmallCurves::Approx(Handle(Geom_Curve)& /*Curve3d*/,
-                                                     Handle(Geom2d_Curve)& /*Curve2d*/,
-                                                     Handle(Geom2d_Curve)& /*Curve2dR*/,
+Standard_Boolean ShapeUpgrade_FixSmallCurves::Approx(Handle(GeomCurve3d)& /*Curve3d*/,
+                                                     Handle(GeomCurve2d)& /*Curve2d*/,
+                                                     Handle(GeomCurve2d)& /*Curve2dR*/,
                                                      Standard_Real& /*First*/,
                                                      Standard_Real& /*Last*/)
 {

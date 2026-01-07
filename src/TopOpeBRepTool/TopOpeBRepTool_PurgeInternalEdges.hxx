@@ -45,7 +45,7 @@ public:
   //! Initialize   members and  begin  exploration   of  shape
   //! depending of the value of PerformNow
   Standard_EXPORT TopOpeBRepTool_PurgeInternalEdges(
-    const TopoDS_Shape&    theShape,
+    const TopoShape&    theShape,
     const Standard_Boolean PerformNow = Standard_True);
 
   //! returns  the list  internal edges associated  with
@@ -56,7 +56,7 @@ public:
 
   //! returns myShape modified with the list of internal
   //! edges removed from it.
-  Standard_EXPORT TopoDS_Shape& Shape();
+  Standard_EXPORT TopoShape& Shape();
 
   //! returns the number of edges candidate to be removed
   Standard_EXPORT Standard_Integer NbEdges() const;
@@ -79,7 +79,7 @@ private:
   Standard_EXPORT void BuildList();
 
 private:
-  TopoDS_Shape                       myShape;
+  TopoShape                       myShape;
   Standard_Boolean                   myIsDone;
   TopTools_DataMapOfShapeListOfShape myMapFacLstEdg;
 };

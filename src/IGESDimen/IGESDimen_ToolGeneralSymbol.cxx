@@ -34,9 +34,9 @@
 #include <Interface_ShareTool.hxx>
 #include <Message_Messenger.hxx>
 
-IGESDimen_ToolGeneralSymbol::IGESDimen_ToolGeneralSymbol() {}
+GeneralSymbolTool::GeneralSymbolTool() {}
 
-void IGESDimen_ToolGeneralSymbol::ReadOwnParams(const Handle(IGESDimen_GeneralSymbol)& ent,
+void GeneralSymbolTool::ReadOwnParams(const Handle(IGESDimen_GeneralSymbol)& ent,
                                                 const Handle(IGESData_IGESReaderData)& IR,
                                                 IGESData_ParamReader&                  PR) const
 {
@@ -100,7 +100,7 @@ void IGESDimen_ToolGeneralSymbol::ReadOwnParams(const Handle(IGESDimen_GeneralSy
   ent->Init(tempNote, tempGeoms, tempLeaders);
 }
 
-void IGESDimen_ToolGeneralSymbol::WriteOwnParams(const Handle(IGESDimen_GeneralSymbol)& ent,
+void GeneralSymbolTool::WriteOwnParams(const Handle(IGESDimen_GeneralSymbol)& ent,
                                                  IGESData_IGESWriter&                   IW) const
 {
   Standard_Integer i, num;
@@ -113,7 +113,7 @@ void IGESDimen_ToolGeneralSymbol::WriteOwnParams(const Handle(IGESDimen_GeneralS
     IW.Send(ent->LeaderArrow(i));
 }
 
-void IGESDimen_ToolGeneralSymbol::OwnShared(const Handle(IGESDimen_GeneralSymbol)& ent,
+void GeneralSymbolTool::OwnShared(const Handle(IGESDimen_GeneralSymbol)& ent,
                                             Interface_EntityIterator&              iter) const
 {
   Standard_Integer i, num;
@@ -124,7 +124,7 @@ void IGESDimen_ToolGeneralSymbol::OwnShared(const Handle(IGESDimen_GeneralSymbol
     iter.GetOneItem(ent->LeaderArrow(i));
 }
 
-void IGESDimen_ToolGeneralSymbol::OwnCopy(const Handle(IGESDimen_GeneralSymbol)& another,
+void GeneralSymbolTool::OwnCopy(const Handle(IGESDimen_GeneralSymbol)& another,
                                           const Handle(IGESDimen_GeneralSymbol)& ent,
                                           Interface_CopyTool&                    TC) const
 {
@@ -152,10 +152,10 @@ void IGESDimen_ToolGeneralSymbol::OwnCopy(const Handle(IGESDimen_GeneralSymbol)&
   ent->SetFormNumber(another->FormNumber());
 }
 
-IGESData_DirChecker IGESDimen_ToolGeneralSymbol::DirChecker(
+DirectoryChecker GeneralSymbolTool::DirChecker(
   const Handle(IGESDimen_GeneralSymbol)& /* ent */) const
 {
-  IGESData_DirChecker DC(228, 0, 9999);
+  DirectoryChecker DC(228, 0, 9999);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefAny);
@@ -165,7 +165,7 @@ IGESData_DirChecker IGESDimen_ToolGeneralSymbol::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolGeneralSymbol::OwnCheck(const Handle(IGESDimen_GeneralSymbol)& ent,
+void GeneralSymbolTool::OwnCheck(const Handle(IGESDimen_GeneralSymbol)& ent,
                                            const Interface_ShareTool&,
                                            Handle(Interface_Check)& ach) const
 {
@@ -177,7 +177,7 @@ void IGESDimen_ToolGeneralSymbol::OwnCheck(const Handle(IGESDimen_GeneralSymbol)
       ach->AddFail("No General Note defined for form number non 0");
 }
 
-void IGESDimen_ToolGeneralSymbol::OwnDump(const Handle(IGESDimen_GeneralSymbol)& ent,
+void GeneralSymbolTool::OwnDump(const Handle(IGESDimen_GeneralSymbol)& ent,
                                           const IGESData_IGESDumper&             dumper,
                                           Standard_OStream&                      S,
                                           const Standard_Integer                 level) const

@@ -45,7 +45,7 @@ public:
 
 private:
   //! Create arc of circle by three points (knowing that myCurve is circle).
-  Handle(Geom2d_Curve) makeCircle(const Geom2dConvert_PPoint& theFirst,
+  Handle(GeomCurve2d) makeCircle(const Geom2dConvert_PPoint& theFirst,
                                   const Geom2dConvert_PPoint& theLast) const;
 
   //! Create an arc of circle using 2 points and a derivative in the first point.
@@ -84,7 +84,7 @@ private:
                                   Geom2dConvert_PPoint& theLastParam);
 
   //! Checking max deflection Geom curve from Adaptor Curve
-  Standard_Boolean checkCurve(const Handle(Geom2d_Curve)& aCurve,
+  Standard_Boolean checkCurve(const Handle(GeomCurve2d)& aCurve,
                               const Standard_Real         theFirstParam,
                               const Standard_Real         theLastParam) const;
 

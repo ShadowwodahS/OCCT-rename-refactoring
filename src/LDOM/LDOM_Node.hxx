@@ -22,10 +22,10 @@
 #include <LDOMString.hxx>
 #include <LDOM_MemManager.hxx>
 
-class LDOM_BasicNode;
+class BasicNode;
 
 //  LDOM_Node : base class for LDOM interface objects
-//              references LDOM_BasicNode - the real data stored in Document
+//              references BasicNode - the real data stored in Document
 //  This type can be safely cast to any derived type, e.g. :
 //         LDOM_Node aNode          = MyGetElementNode();
 //         LDOM_Element& anElemNode = (LDOM_Element&) aNode;
@@ -109,11 +109,11 @@ protected:
   friend class LDOM_NodeList;
   // ---------- PROTECTED METHODS ----------
 
-  const LDOM_BasicNode& Origin() const;
+  const BasicNode& Origin() const;
 
-  LDOM_Node(const LDOM_BasicNode& anOrig, const Handle(LDOM_MemManager)& aDoc)
+  LDOM_Node(const BasicNode& anOrig, const Handle(LDOM_MemManager)& aDoc)
       : myDocument(aDoc),
-        myOrigin((LDOM_BasicNode*)&anOrig),
+        myOrigin((BasicNode*)&anOrig),
         myLastChild(NULL)
   {
   }
@@ -127,11 +127,11 @@ protected:
   Handle(LDOM_MemManager) myDocument;
 
   // pointer to (non-transient) node data in the document-managed memory
-  LDOM_BasicNode* myOrigin;
+  BasicNode* myOrigin;
 
   // Transient data (only applicable to LDOM_Element type):
   // the last child; myLastChild->mySibling points to the first attribute
-  const LDOM_BasicNode* myLastChild;
+  const BasicNode* myLastChild;
 
   friend char* db_pretty_print(const LDOM_Node*, int, char*);
 };

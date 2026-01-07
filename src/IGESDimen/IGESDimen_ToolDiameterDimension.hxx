@@ -27,7 +27,7 @@ class IGESData_IGESReaderData;
 class IGESData_ParamReader;
 class IGESData_IGESWriter;
 class Interface_EntityIterator;
-class IGESData_DirChecker;
+class DirectoryChecker;
 class Interface_ShareTool;
 class Interface_Check;
 class Interface_CopyTool;
@@ -35,13 +35,13 @@ class IGESData_IGESDumper;
 
 //! Tool to work on a DiameterDimension. Called by various Modules
 //! (ReadWriteModule, GeneralModule, SpecificModule)
-class IGESDimen_ToolDiameterDimension
+class DiameterDimensionTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns a ToolDiameterDimension, ready to work
-  Standard_EXPORT IGESDimen_ToolDiameterDimension();
+  Standard_EXPORT DiameterDimensionTool();
 
   //! Reads own parameters from file. <PR> gives access to them,
   //! <IR> detains parameter types and values
@@ -59,7 +59,7 @@ public:
                                  Interface_EntityIterator&                  iter) const;
 
   //! Returns specific DirChecker
-  Standard_EXPORT IGESData_DirChecker
+  Standard_EXPORT DirectoryChecker
     DirChecker(const Handle(IGESDimen_DiameterDimension)& ent) const;
 
   //! Performs Specific Semantic Check

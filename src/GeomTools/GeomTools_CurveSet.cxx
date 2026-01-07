@@ -63,23 +63,23 @@ void GeomTools_CurveSet::Clear()
 
 //=================================================================================================
 
-Standard_Integer GeomTools_CurveSet::Add(const Handle(Geom_Curve)& C)
+Standard_Integer GeomTools_CurveSet::Add(const Handle(GeomCurve3d)& C)
 {
   return (C.IsNull()) ? 0 : myMap.Add(C);
 }
 
 //=================================================================================================
 
-Handle(Geom_Curve) GeomTools_CurveSet::Curve(const Standard_Integer I) const
+Handle(GeomCurve3d) GeomTools_CurveSet::Curve(const Standard_Integer I) const
 {
   if (I <= 0 || I > myMap.Extent())
-    return Handle(Geom_Curve)();
-  return Handle(Geom_Curve)::DownCast(myMap(I));
+    return Handle(GeomCurve3d)();
+  return Handle(GeomCurve3d)::DownCast(myMap(I));
 }
 
 //=================================================================================================
 
-Standard_Integer GeomTools_CurveSet::Index(const Handle(Geom_Curve)& S) const
+Standard_Integer GeomTools_CurveSet::Index(const Handle(GeomCurve3d)& S) const
 {
   return S.IsNull() ? 0 : myMap.FindIndex(S);
 }
@@ -118,7 +118,7 @@ static void Print(const Dir3d& D, Standard_OStream& OS, const Standard_Boolean c
 
 //=================================================================================================
 
-static void Print(const Handle(Geom_Line)& L, Standard_OStream& OS, const Standard_Boolean compact)
+static void Print(const Handle(GeomLine)& L, Standard_OStream& OS, const Standard_Boolean compact)
 {
   if (compact)
     OS << LINE << " ";
@@ -139,7 +139,7 @@ static void Print(const Handle(Geom_Line)& L, Standard_OStream& OS, const Standa
 
 //=================================================================================================
 
-static void Print(const Handle(Geom_Circle)& CC,
+static void Print(const Handle(GeomCircle)& CC,
                   Standard_OStream&          OS,
                   const Standard_Boolean     compact)
 {
@@ -275,7 +275,7 @@ static void Print(const Handle(Geom_Hyperbola)& H,
 
 //=================================================================================================
 
-static void Print(const Handle(Geom_BezierCurve)& B,
+static void Print(const Handle(BezierCurve3d)& B,
                   Standard_OStream&               OS,
                   const Standard_Boolean          compact)
 {
@@ -316,7 +316,7 @@ static void Print(const Handle(Geom_BezierCurve)& B,
 
 //=================================================================================================
 
-static void Print(const Handle(Geom_BSplineCurve)& B,
+static void Print(const Handle(BSplineCurve3d)& B,
                   Standard_OStream&                OS,
                   const Standard_Boolean           compact)
 {
@@ -434,19 +434,19 @@ static void Print(const Handle(Geom_OffsetCurve)& C,
 
 //=================================================================================================
 
-void GeomTools_CurveSet::PrintCurve(const Handle(Geom_Curve)& C,
+void GeomTools_CurveSet::PrintCurve(const Handle(GeomCurve3d)& C,
                                     Standard_OStream&         OS,
                                     const Standard_Boolean    compact)
 {
   Handle(TypeInfo) TheType = C->DynamicType();
 
-  if (TheType == STANDARD_TYPE(Geom_Line))
+  if (TheType == STANDARD_TYPE(GeomLine))
   {
-    Print(Handle(Geom_Line)::DownCast(C), OS, compact);
+    Print(Handle(GeomLine)::DownCast(C), OS, compact);
   }
-  else if (TheType == STANDARD_TYPE(Geom_Circle))
+  else if (TheType == STANDARD_TYPE(GeomCircle))
   {
-    Print(Handle(Geom_Circle)::DownCast(C), OS, compact);
+    Print(Handle(GeomCircle)::DownCast(C), OS, compact);
   }
   else if (TheType == STANDARD_TYPE(Geom_Ellipse))
   {
@@ -460,13 +460,13 @@ void GeomTools_CurveSet::PrintCurve(const Handle(Geom_Curve)& C,
   {
     Print(Handle(Geom_Hyperbola)::DownCast(C), OS, compact);
   }
-  else if (TheType == STANDARD_TYPE(Geom_BezierCurve))
+  else if (TheType == STANDARD_TYPE(BezierCurve3d))
   {
-    Print(Handle(Geom_BezierCurve)::DownCast(C), OS, compact);
+    Print(Handle(BezierCurve3d)::DownCast(C), OS, compact);
   }
-  else if (TheType == STANDARD_TYPE(Geom_BSplineCurve))
+  else if (TheType == STANDARD_TYPE(BSplineCurve3d))
   {
-    Print(Handle(Geom_BSplineCurve)::DownCast(C), OS, compact);
+    Print(Handle(BSplineCurve3d)::DownCast(C), OS, compact);
   }
   else if (TheType == STANDARD_TYPE(Geom_TrimmedCurve))
   {
@@ -498,7 +498,7 @@ void GeomTools_CurveSet::Dump(Standard_OStream& OS) const
   for (i = 1; i <= nbsurf; i++)
   {
     OS << std::setw(4) << i << " : ";
-    PrintCurve(Handle(Geom_Curve)::DownCast(myMap(i)), OS, Standard_False);
+    PrintCurve(Handle(GeomCurve3d)::DownCast(myMap(i)), OS, Standard_False);
   }
 }
 
@@ -513,7 +513,7 @@ void GeomTools_CurveSet::Write(Standard_OStream& OS, const Message_ProgressRange
   Message_ProgressScope aPS(theProgress, "3D Curves", nbcurve);
   for (i = 1; i <= nbcurve && aPS.More(); i++, aPS.Next())
   {
-    PrintCurve(Handle(Geom_Curve)::DownCast(myMap(i)), OS, Standard_True);
+    PrintCurve(Handle(GeomCurve3d)::DownCast(myMap(i)), OS, Standard_True);
   }
   OS.precision(prec);
 }
@@ -544,25 +544,25 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Dir3d& D)
 
 //=================================================================================================
 
-static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Line)& L)
+static Standard_IStream& operator>>(Standard_IStream& IS, Handle(GeomLine)& L)
 {
   Point3d P(0., 0., 0.);
   Dir3d AX(1., 0., 0.);
   IS >> P >> AX;
-  L = new Geom_Line(P, AX);
+  L = new GeomLine(P, AX);
   return IS;
 }
 
 //=================================================================================================
 
-static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Circle)& C)
+static Standard_IStream& operator>>(Standard_IStream& IS, Handle(GeomCircle)& C)
 {
   Point3d        P(0., 0., 0.);
   Dir3d        A(1., 0., 0.), AX(1., 0., 0.), AY(1., 0., 0.);
   Standard_Real R = 0.;
   IS >> P >> A >> AX >> AY;
   GeomTools::GetReal(IS, R);
-  C = new Geom_Circle(Frame3d(P, A, AX), R);
+  C = new GeomCircle(Frame3d(P, A, AX), R);
   return IS;
 }
 
@@ -609,7 +609,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_Hyperbola)
 
 //=================================================================================================
 
-static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_BezierCurve)& B)
+static Standard_IStream& operator>>(Standard_IStream& IS, Handle(BezierCurve3d)& B)
 {
   Standard_Boolean rational = Standard_False;
   IS >> rational;
@@ -629,16 +629,16 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_BezierCurv
   }
 
   if (rational)
-    B = new Geom_BezierCurve(poles, weights);
+    B = new BezierCurve3d(poles, weights);
   else
-    B = new Geom_BezierCurve(poles);
+    B = new BezierCurve3d(poles);
 
   return IS;
 }
 
 //=================================================================================================
 
-static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_BSplineCurve)& B)
+static Standard_IStream& operator>>(Standard_IStream& IS, Handle(BSplineCurve3d)& B)
 {
 
   Standard_Boolean rational = Standard_False, periodic = Standard_False;
@@ -668,9 +668,9 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_BSplineCur
   }
 
   if (rational)
-    B = new Geom_BSplineCurve(poles, weights, knots, mults, degree, periodic);
+    B = new BSplineCurve3d(poles, weights, knots, mults, degree, periodic);
   else
-    B = new Geom_BSplineCurve(poles, knots, mults, degree, periodic);
+    B = new BSplineCurve3d(poles, knots, mults, degree, periodic);
 
   return IS;
 }
@@ -682,7 +682,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_TrimmedCur
   Standard_Real p1 = 0., p2 = 0.;
   GeomTools::GetReal(IS, p1);
   GeomTools::GetReal(IS, p2);
-  Handle(Geom_Curve) BC = GeomTools_CurveSet::ReadCurve(IS);
+  Handle(GeomCurve3d) BC = GeomTools_CurveSet::ReadCurve(IS);
   C                     = new Geom_TrimmedCurve(BC, p1, p2);
   return IS;
 }
@@ -695,18 +695,18 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom_OffsetCurv
   GeomTools::GetReal(IS, p);
   Dir3d D(1., 0., 0.);
   IS >> D;
-  Handle(Geom_Curve) BC = GeomTools_CurveSet::ReadCurve(IS);
+  Handle(GeomCurve3d) BC = GeomTools_CurveSet::ReadCurve(IS);
   C                     = new Geom_OffsetCurve(BC, p, D);
   return IS;
 }
 
 //=================================================================================================
 
-Handle(Geom_Curve) GeomTools_CurveSet::ReadCurve(Standard_IStream& IS)
+Handle(GeomCurve3d) GeomTools_CurveSet::ReadCurve(Standard_IStream& IS)
 {
   Standard_Integer ctype;
 
-  Handle(Geom_Curve) C;
+  Handle(GeomCurve3d) C;
   try
   {
     OCC_CATCH_SIGNALS
@@ -715,14 +715,14 @@ Handle(Geom_Curve) GeomTools_CurveSet::ReadCurve(Standard_IStream& IS)
     {
 
       case LINE: {
-        Handle(Geom_Line) CC;
+        Handle(GeomLine) CC;
         IS >> CC;
         C = CC;
       }
       break;
 
       case CIRCLE: {
-        Handle(Geom_Circle) CC;
+        Handle(GeomCircle) CC;
         IS >> CC;
         C = CC;
       }
@@ -750,14 +750,14 @@ Handle(Geom_Curve) GeomTools_CurveSet::ReadCurve(Standard_IStream& IS)
       break;
 
       case BEZIER: {
-        Handle(Geom_BezierCurve) CC;
+        Handle(BezierCurve3d) CC;
         IS >> CC;
         C = CC;
       }
       break;
 
       case BSPLINE: {
-        Handle(Geom_BSplineCurve) CC;
+        Handle(BSplineCurve3d) CC;
         IS >> CC;
         C = CC;
       }
@@ -778,7 +778,7 @@ Handle(Geom_Curve) GeomTools_CurveSet::ReadCurve(Standard_IStream& IS)
       break;
 
       default: {
-        Handle(Geom_Curve) CC;
+        Handle(GeomCurve3d) CC;
         GeomTools::GetUndefinedTypeHandler()->ReadCurve(ctype, IS, CC);
         C = CC;
       }
@@ -812,7 +812,7 @@ void GeomTools_CurveSet::Read(Standard_IStream& IS, const Message_ProgressRange&
   Message_ProgressScope aPS(theProgress, "3D Curves", nbcurve);
   for (i = 1; i <= nbcurve && aPS.More(); i++, aPS.Next())
   {
-    Handle(Geom_Curve) C = GeomTools_CurveSet::ReadCurve(IS);
+    Handle(GeomCurve3d) C = GeomTools_CurveSet::ReadCurve(IS);
     myMap.Add(C);
   }
 }

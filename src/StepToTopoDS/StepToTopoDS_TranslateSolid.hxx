@@ -26,10 +26,10 @@
 class StepShape_ConnectedFaceSet;
 class StepVisual_TessellatedSolid;
 class StepToTopoDS_Tool;
-class StepToTopoDS_NMTool;
+class NamingTool2;
 class Transfer_TransientProcess;
 
-class StepToTopoDS_TranslateSolid : public StepToTopoDS_Root
+class StepToTopoDS_TranslateSolid : public Root2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -39,20 +39,20 @@ public:
   Standard_EXPORT void Init(const Handle(StepVisual_TessellatedSolid)& theTSo,
                             const Handle(Transfer_TransientProcess)&   theTP,
                             StepToTopoDS_Tool&                         theTool,
-                            StepToTopoDS_NMTool&                       theNMTool,
+                            NamingTool2&                       theNMTool,
                             const Standard_Boolean       theReadTessellatedWhenNoBRepOnly,
                             Standard_Boolean&            theHasGeom,
-                            const StepData_Factors&      theLocalFactors = StepData_Factors(),
+                            const ConversionFactors&      theLocalFactors = ConversionFactors(),
                             const Message_ProgressRange& theProgress     = Message_ProgressRange());
 
-  Standard_EXPORT const TopoDS_Shape& Value() const;
+  Standard_EXPORT const TopoShape& Value() const;
 
   Standard_EXPORT StepToTopoDS_TranslateSolidError Error() const;
 
 protected:
 private:
   StepToTopoDS_TranslateSolidError myError;
-  TopoDS_Shape                     myResult;
+  TopoShape                     myResult;
 };
 
 #endif // _StepToTopoDS_TranslateSolid_HeaderFile

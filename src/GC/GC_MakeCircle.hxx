@@ -96,12 +96,12 @@ public:
   //! Returns the constructed circle.
   //! Exceptions
   //! StdFail_NotDone if no circle is constructed.
-  Standard_EXPORT const Handle(Geom_Circle)& Value() const;
+  Standard_EXPORT const Handle(GeomCircle)& Value() const;
 
-  operator const Handle(Geom_Circle) & () const { return Value(); }
+  operator const Handle(GeomCircle) & () const { return Value(); }
 
 private:
-  Handle(Geom_Circle) TheCircle;
+  Handle(GeomCircle) TheCircle;
 };
 
 #endif // _GC_MakeCircle_HeaderFile

@@ -27,16 +27,16 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <Standard_Boolean.hxx>
 #include <GeomAbs_CurveType.hxx>
-class TopoDS_Edge;
-class TopoDS_Vertex;
+class TopoEdge;
+class TopoVertex;
 class Vector3d;
 class gp_Lin;
 class gp_Circ;
 class gp_Elips;
 class gp_Hypr;
 class gp_Parab;
-class Geom_BezierCurve;
-class Geom_BSplineCurve;
+class BezierCurve3d;
+class BSplineCurve3d;
 
 DEFINE_STANDARD_HANDLE(BiTgte_CurveOnVertex, Adaptor3d_Curve)
 
@@ -48,9 +48,9 @@ class BiTgte_CurveOnVertex : public Adaptor3d_Curve
 public:
   Standard_EXPORT BiTgte_CurveOnVertex();
 
-  Standard_EXPORT BiTgte_CurveOnVertex(const TopoDS_Edge& EonF, const TopoDS_Vertex& V);
+  Standard_EXPORT BiTgte_CurveOnVertex(const TopoEdge& EonF, const TopoVertex& V);
 
-  Standard_EXPORT void Init(const TopoDS_Edge& EonF, const TopoDS_Vertex& V);
+  Standard_EXPORT void Init(const TopoEdge& EonF, const TopoVertex& V);
 
   Standard_EXPORT Standard_Real FirstParameter() const Standard_OVERRIDE;
 
@@ -150,9 +150,9 @@ public:
 
   Standard_EXPORT Standard_Integer NbKnots() const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Geom_BezierCurve) Bezier() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BezierCurve3d) Bezier() const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Geom_BSplineCurve) BSpline() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BSplineCurve3d) BSpline() const Standard_OVERRIDE;
 
 private:
   Standard_Real myFirst;

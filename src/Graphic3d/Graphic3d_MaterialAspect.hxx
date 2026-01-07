@@ -79,14 +79,14 @@ public:
   //! - given name set by method ::SetMaterialName()
   //! - standard name for a material within enumeration
   //! - "UserDefined" for non-standard material without name specified externally.
-  const TCollection_AsciiString& StringName() const { return myStringName; }
+  const AsciiString1& StringName() const { return myStringName; }
 
   //! Returns the given name of this material. This might be:
   Standard_CString MaterialName() const { return myStringName.ToCString(); }
 
   //! The current material become a "UserDefined" material.
   //! Set the name of the "UserDefined" material.
-  void SetMaterialName(const TCollection_AsciiString& theName)
+  void SetMaterialName(const AsciiString1& theName)
   {
     // if a component of a "standard" material change, the
     // result is no more standard (a blue gold is not a gold)
@@ -285,7 +285,7 @@ private:
 private:
   Graphic3d_BSDF          myBSDF;
   Graphic3d_PBRMaterial   myPBRMaterial;
-  TCollection_AsciiString myStringName;
+  AsciiString1 myStringName;
   Quantity_Color          myColors[Graphic3d_TypeOfReflection_NB];
   Standard_ShortReal      myTransparencyCoef;
   Standard_ShortReal      myRefractionIndex;

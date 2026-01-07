@@ -17,7 +17,7 @@
 #include <NCollection_List.hxx>
 #include <TDF_Attribute.hxx>
 
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! @def DEFINE_DERIVED_ATTRIBUTE
 //! Defines declaration of Handle method and declares methods for serialization
@@ -75,7 +75,7 @@ public:
   Standard_EXPORT static Handle(TDF_Attribute) Attribute(Standard_CString theType);
 
   //! Returns the type name of the registered attribute by its type.
-  Standard_EXPORT static const TCollection_AsciiString& TypeName(Standard_CString theType);
+  Standard_EXPORT static const AsciiString1& TypeName(Standard_CString theType);
 
   //! Returns all the derived registered attributes list.
   Standard_EXPORT static void Attributes(NCollection_List<Handle(TDF_Attribute)>& theList);

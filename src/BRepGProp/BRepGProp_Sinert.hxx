@@ -27,8 +27,8 @@ class BRepGProp_Domain;
 
 //! Computes the global properties of a face in 3D space.
 //! The face 's requirements to evaluate the global properties
-//! are defined in the template FaceTool from package GProp.
-class BRepGProp_Sinert : public GProp_GProps
+//! are defined in the template FaceTool from package GProp1.
+class BRepGProp_Sinert : public GeometricProperties
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -40,7 +40,7 @@ public:
   //! Builds a Sinert to evaluate the global properties of
   //! the face <S>. If isNaturalRestriction is true the domain of S is defined
   //! with the natural bounds, else it defined with an iterator
-  //! of Edge from TopoDS (see DomainTool from GProp)
+  //! of Edge from TopoDS (see DomainTool from GProp1)
   Standard_EXPORT BRepGProp_Sinert(BRepGProp_Face& S, BRepGProp_Domain& D, const Point3d& SLocation);
 
   Standard_EXPORT BRepGProp_Sinert(BRepGProp_Face&     S,

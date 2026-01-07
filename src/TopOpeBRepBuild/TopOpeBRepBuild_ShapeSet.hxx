@@ -65,20 +65,20 @@ public:
   Standard_EXPORT virtual ~TopOpeBRepBuild_ShapeSet();
 
   //! Adds <S> to the list of shapes. (wires or shells).
-  Standard_EXPORT virtual void AddShape(const TopoDS_Shape& S);
+  Standard_EXPORT virtual void AddShape(const TopoShape& S);
 
   //! (S is a face or edge)
   //! Add S to the list of starting shapes used for reconstructions.
   //! apply AddElement(S).
-  Standard_EXPORT virtual void AddStartElement(const TopoDS_Shape& S);
+  Standard_EXPORT virtual void AddStartElement(const TopoShape& S);
 
   //! for each subshape SE of S of type mySubShapeType
   //! - Add subshapes of S to the map of subshapes (mySubShapeMap)
   //! - Add S to the list of shape incident to subshapes of S.
-  Standard_EXPORT virtual void AddElement(const TopoDS_Shape& S);
+  Standard_EXPORT virtual void AddElement(const TopoShape& S);
 
   //! return a reference on myStartShapes
-  Standard_EXPORT const TopTools_ListOfShape& StartElements() const;
+  Standard_EXPORT const ShapeList& StartElements() const;
 
   Standard_EXPORT void InitShapes();
 
@@ -86,7 +86,7 @@ public:
 
   Standard_EXPORT void NextShape();
 
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
   Standard_EXPORT void InitStartElements();
 
@@ -94,94 +94,94 @@ public:
 
   Standard_EXPORT void NextStartElement();
 
-  Standard_EXPORT const TopoDS_Shape& StartElement() const;
+  Standard_EXPORT const TopoShape& StartElement() const;
 
-  Standard_EXPORT virtual void InitNeighbours(const TopoDS_Shape& S);
+  Standard_EXPORT virtual void InitNeighbours(const TopoShape& S);
 
   Standard_EXPORT Standard_Boolean MoreNeighbours();
 
   Standard_EXPORT void NextNeighbour();
 
-  Standard_EXPORT const TopoDS_Shape& Neighbour() const;
+  Standard_EXPORT const TopoShape& Neighbour() const;
 
-  Standard_EXPORT TopTools_ListOfShape& ChangeStartShapes();
+  Standard_EXPORT ShapeList& ChangeStartShapes();
 
   //! Build the list of neighbour shapes of myCurrentShape
   //! (neighbour shapes and myCurrentShapes are of type t)
   //! Initialize myIncidentShapesIter on neighbour shapes.
   Standard_EXPORT virtual void FindNeighbours();
 
-  Standard_EXPORT virtual const TopTools_ListOfShape& MakeNeighboursList(const TopoDS_Shape& E,
-                                                                         const TopoDS_Shape& V);
+  Standard_EXPORT virtual const ShapeList& MakeNeighboursList(const TopoShape& E,
+                                                                         const TopoShape& V);
 
-  Standard_EXPORT Standard_Integer MaxNumberSubShape(const TopoDS_Shape& Shape);
+  Standard_EXPORT Standard_Integer MaxNumberSubShape(const TopoShape& Shape);
 
   Standard_EXPORT void CheckShape(const Standard_Boolean checkshape);
 
   Standard_EXPORT Standard_Boolean CheckShape() const;
 
-  Standard_EXPORT Standard_Boolean CheckShape(const TopoDS_Shape&    S,
+  Standard_EXPORT Standard_Boolean CheckShape(const TopoShape&    S,
                                               const Standard_Boolean checkgeom = Standard_False);
 
-  Standard_EXPORT void DumpName(Standard_OStream& OS, const TCollection_AsciiString& str) const;
+  Standard_EXPORT void DumpName(Standard_OStream& OS, const AsciiString1& str) const;
 
   Standard_EXPORT void DumpCheck(Standard_OStream&              OS,
-                                 const TCollection_AsciiString& str,
-                                 const TopoDS_Shape&            S,
+                                 const AsciiString1& str,
+                                 const TopoShape&            S,
                                  const Standard_Boolean         chk) const;
 
   Standard_EXPORT virtual void DumpSS();
 
   Standard_EXPORT virtual void DumpBB();
 
-  Standard_EXPORT void DEBName(const TCollection_AsciiString& N);
+  Standard_EXPORT void DEBName(const AsciiString1& N);
 
-  Standard_EXPORT const TCollection_AsciiString& DEBName() const;
+  Standard_EXPORT const AsciiString1& DEBName() const;
 
   Standard_EXPORT void DEBNumber(const Standard_Integer I);
 
   Standard_EXPORT Standard_Integer DEBNumber() const;
 
-  Standard_EXPORT virtual TCollection_AsciiString SName(
-    const TopoDS_Shape&            S,
-    const TCollection_AsciiString& sb = "",
-    const TCollection_AsciiString& sa = "") const;
+  Standard_EXPORT virtual AsciiString1 SName(
+    const TopoShape&            S,
+    const AsciiString1& sb = "",
+    const AsciiString1& sa = "") const;
 
-  Standard_EXPORT virtual TCollection_AsciiString SNameori(
-    const TopoDS_Shape&            S,
-    const TCollection_AsciiString& sb = "",
-    const TCollection_AsciiString& sa = "") const;
+  Standard_EXPORT virtual AsciiString1 SNameori(
+    const TopoShape&            S,
+    const AsciiString1& sb = "",
+    const AsciiString1& sa = "") const;
 
-  Standard_EXPORT virtual TCollection_AsciiString SName(
-    const TopTools_ListOfShape&    S,
-    const TCollection_AsciiString& sb = "",
-    const TCollection_AsciiString& sa = "") const;
+  Standard_EXPORT virtual AsciiString1 SName(
+    const ShapeList&    S,
+    const AsciiString1& sb = "",
+    const AsciiString1& sa = "") const;
 
-  Standard_EXPORT virtual TCollection_AsciiString SNameori(
-    const TopTools_ListOfShape&    S,
-    const TCollection_AsciiString& sb = "",
-    const TCollection_AsciiString& sa = "") const;
+  Standard_EXPORT virtual AsciiString1 SNameori(
+    const ShapeList&    S,
+    const AsciiString1& sb = "",
+    const AsciiString1& sa = "") const;
 
 protected:
-  Standard_EXPORT void ProcessAddShape(const TopoDS_Shape& S);
+  Standard_EXPORT void ProcessAddShape(const TopoShape& S);
 
-  Standard_EXPORT void ProcessAddStartElement(const TopoDS_Shape& S);
+  Standard_EXPORT void ProcessAddStartElement(const TopoShape& S);
 
-  Standard_EXPORT void ProcessAddElement(const TopoDS_Shape& S);
+  Standard_EXPORT void ProcessAddElement(const TopoShape& S);
 
   TopAbs_ShapeEnum                          myShapeType;
   TopAbs_ShapeEnum                          mySubShapeType;
   TopOpeBRepTool_ShapeExplorer              mySubShapeExplorer;
-  TopTools_ListOfShape                      myStartShapes;
+  ShapeList                      myStartShapes;
   TopTools_ListIteratorOfListOfShape        myStartShapesIter;
   TopTools_IndexedDataMapOfShapeListOfShape mySubShapeMap;
   TopTools_ListIteratorOfListOfShape        myIncidentShapesIter;
-  TopTools_ListOfShape                      myShapes;
+  ShapeList                      myShapes;
   TopTools_ListIteratorOfListOfShape        myShapesIter;
-  TopoDS_Shape                              myCurrentShape;
-  TopTools_ListOfShape                      myCurrentShapeNeighbours;
+  TopoShape                              myCurrentShape;
+  ShapeList                      myCurrentShapeNeighbours;
   Standard_Integer                          myDEBNumber;
-  TCollection_AsciiString                   myDEBName;
+  AsciiString1                   myDEBName;
   TopTools_IndexedMapOfOrientedShape        myOMSS;
   TopTools_IndexedMapOfOrientedShape        myOMES;
   TopTools_IndexedMapOfOrientedShape        myOMSH;

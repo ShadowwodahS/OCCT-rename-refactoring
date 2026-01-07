@@ -82,14 +82,14 @@ IntTools_CommonPrt& IntTools_CommonPrt::Assign(const IntTools_CommonPrt& Other)
 
 //=================================================================================================
 
-void IntTools_CommonPrt::SetEdge1(const TopoDS_Edge& anEdge)
+void IntTools_CommonPrt::SetEdge1(const TopoEdge& anEdge)
 {
   myEdge1 = anEdge;
 }
 
 //=================================================================================================
 
-void IntTools_CommonPrt::SetEdge2(const TopoDS_Edge& anEdge)
+void IntTools_CommonPrt::SetEdge2(const TopoEdge& anEdge)
 {
   myEdge2 = anEdge;
 }
@@ -103,7 +103,7 @@ void IntTools_CommonPrt::SetType(const TopAbs_ShapeEnum aType)
 
 //=================================================================================================
 
-void IntTools_CommonPrt::SetRange1(const IntTools_Range& aRange)
+void IntTools_CommonPrt::SetRange1(const IntToolsRange& aRange)
 {
   myRange1 = aRange;
 }
@@ -118,7 +118,7 @@ void IntTools_CommonPrt::SetRange1(const Standard_Real tf, const Standard_Real t
 
 //=================================================================================================
 
-void IntTools_CommonPrt::AppendRange2(const IntTools_Range& aRange)
+void IntTools_CommonPrt::AppendRange2(const IntToolsRange& aRange)
 {
   myRanges2.Append(aRange);
 }
@@ -127,7 +127,7 @@ void IntTools_CommonPrt::AppendRange2(const IntTools_Range& aRange)
 
 void IntTools_CommonPrt::AppendRange2(const Standard_Real tf, const Standard_Real tl)
 {
-  IntTools_Range aRange(tf, tl);
+  IntToolsRange aRange(tf, tl);
   myRanges2.Append(aRange);
 }
 
@@ -147,14 +147,14 @@ void IntTools_CommonPrt::SetVertexParameter2(const Standard_Real tV)
 
 //=================================================================================================
 
-const TopoDS_Edge& IntTools_CommonPrt::Edge1() const
+const TopoEdge& IntTools_CommonPrt::Edge1() const
 {
   return myEdge1;
 }
 
 //=================================================================================================
 
-const TopoDS_Edge& IntTools_CommonPrt::Edge2() const
+const TopoEdge& IntTools_CommonPrt::Edge2() const
 {
   return myEdge2;
 }
@@ -168,7 +168,7 @@ TopAbs_ShapeEnum IntTools_CommonPrt::Type() const
 
 //=================================================================================================
 
-const IntTools_Range& IntTools_CommonPrt::Range1() const
+const IntToolsRange& IntTools_CommonPrt::Range1() const
 {
   return myRange1;
 }

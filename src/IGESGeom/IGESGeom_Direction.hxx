@@ -28,7 +28,7 @@ class IGESGeom_Direction;
 DEFINE_STANDARD_HANDLE(IGESGeom_Direction, IGESData_IGESEntity)
 
 //! defines IGESDirection, Type <123> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A direction entity is a non-zero vector in Euclidean 3-space
 //! that is defined by its three components (direction ratios)
 //! with respect to the coordinate axes. If x, y, z are the

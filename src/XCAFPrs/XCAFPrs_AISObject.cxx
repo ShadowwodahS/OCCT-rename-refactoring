@@ -37,8 +37,8 @@ IMPLEMENT_STANDARD_RTTIEXT(XCAFPrs_AISObject, AIS_ColoredShape)
 
 //=================================================================================================
 
-XCAFPrs_AISObject::XCAFPrs_AISObject(const TDF_Label& theLabel)
-    : AIS_ColoredShape(TopoDS_Shape()),
+XCAFPrs_AISObject::XCAFPrs_AISObject(const DataLabel& theLabel)
+    : AIS_ColoredShape(TopoShape()),
       myToSyncStyles(Standard_True)
 {
   // define plastic material by default for proper color reproduction
@@ -50,16 +50,16 @@ XCAFPrs_AISObject::XCAFPrs_AISObject(const TDF_Label& theLabel)
 
 //=================================================================================================
 
-static void DisplayText(const TDF_Label&                  aLabel,
+static void DisplayText(const DataLabel&                  aLabel,
                         const Handle(Prs3d_Presentation)& aPrs,
                         const Handle(Prs3d_TextAspect)&   anAspect,
                         const TopLoc_Location&            aLocation)
 {
   // first label itself
-  Handle(TDataStd_Name) aName;
-  if (aLabel.FindAttribute(TDataStd_Name::GetID(), aName))
+  Handle(NameAttribute) aName;
+  if (aLabel.FindAttribute(NameAttribute::GetID(), aName))
   {
-    TopoDS_Shape aShape;
+    TopoShape aShape;
     if (XCAFDoc_ShapeTool::GetShape(aLabel, aShape))
     {
       // find the position to display as middle of the bounding box
@@ -71,7 +71,7 @@ static void DisplayText(const TDF_Label&                  aLabel,
         Standard_Real aXmin, aYmin, aZmin, aXmax, aYmax, aZmax;
         aBox.Get(aXmin, aYmin, aZmin, aXmax, aYmax, aZmax);
         Point3d aPnt(0.5 * (aXmin + aXmax), 0.5 * (aYmin + aYmax), 0.5 * (aZmin + aZmax));
-        Prs3d_Text::Draw(aPrs->CurrentGroup(), anAspect, aName->Get(), aPnt);
+        Prs3d_Text::Draw1(aPrs->CurrentGroup(), anAspect, aName->Get(), aPnt);
       }
     }
   }
@@ -84,7 +84,7 @@ static void DisplayText(const TDF_Label&                  aLabel,
     Standard_Integer i = 1;
     for (i = 1; i <= seq.Length(); i++)
     {
-      TDF_Label aL = seq.Value(i);
+      DataLabel aL = seq.Value(i);
       // clang-format off
       DisplayText (aL, aPrs, anAspect, aLocation); //suppose that subshapes do not contain locations
       // clang-format on
@@ -98,9 +98,9 @@ static void DisplayText(const TDF_Label&                  aLabel,
     Standard_Integer i = 1;
     for (i = 1; i <= seq.Length(); i++)
     {
-      TDF_Label aL = seq.Value(i);
+      DataLabel aL = seq.Value(i);
       DisplayText(aL, aPrs, anAspect, aLocation);
-      TDF_Label aRefLabel;
+      DataLabel aRefLabel;
 
       // attributes of references
       TopLoc_Location aLoc = XCAFDoc_ShapeTool::GetLocation(aL);
@@ -119,10 +119,10 @@ void XCAFPrs_AISObject::DispatchStyles(const Standard_Boolean theToSyncStyles)
   myToSyncStyles = theToSyncStyles;
   myShapeColors.Clear();
 
-  TopoDS_Shape aShape;
+  TopoShape aShape;
   if (!XCAFDoc_ShapeTool::GetShape(myLabel, aShape) || aShape.IsNull())
   {
-    Set(TopoDS_Shape());
+    Set(TopoShape());
     return;
   }
   Set(aShape);
@@ -141,13 +141,13 @@ void XCAFPrs_AISObject::DispatchStyles(const Standard_Boolean theToSyncStyles)
                    myDrawer->ShadingAspect()->Aspect()->FrontMaterial());
 
   // collect sub-shapes with the same style into compounds
-  BRep_Builder                                               aBuilder;
-  NCollection_IndexedDataMap<XCAFPrs_Style, TopoDS_Compound> aStyleGroups;
+  ShapeBuilder                                               aBuilder;
+  NCollection_IndexedDataMap<XCAFPrs_Style, TopoCompound> aStyleGroups;
   for (XCAFPrs_DataMapIteratorOfIndexedDataMapOfShapeStyle aStyledShapeIter(aSettings);
        aStyledShapeIter.More();
        aStyledShapeIter.Next())
   {
-    TopoDS_Compound aComp;
+    TopoCompound aComp;
     if (aStyleGroups.FindFromKey(aStyledShapeIter.Value(), aComp))
     {
       aBuilder.Add(aComp, aStyledShapeIter.Key());
@@ -156,7 +156,7 @@ void XCAFPrs_AISObject::DispatchStyles(const Standard_Boolean theToSyncStyles)
 
     aBuilder.MakeCompound(aComp);
     aBuilder.Add(aComp, aStyledShapeIter.Key());
-    TopoDS_Compound* aMapShape = aStyleGroups.ChangeSeek(aStyledShapeIter.Value());
+    TopoCompound* aMapShape = aStyleGroups.ChangeSeek(aStyledShapeIter.Value());
     if (aMapShape == NULL)
       aStyleGroups.Add(aStyledShapeIter.Value(), aComp);
     else
@@ -165,14 +165,14 @@ void XCAFPrs_AISObject::DispatchStyles(const Standard_Boolean theToSyncStyles)
   aSettings.Clear();
 
   // assign custom aspects
-  for (NCollection_IndexedDataMap<XCAFPrs_Style, TopoDS_Compound>::Iterator aStyleGroupIter(
+  for (NCollection_IndexedDataMap<XCAFPrs_Style, TopoCompound>::Iterator aStyleGroupIter(
          aStyleGroups);
        aStyleGroupIter.More();
        aStyleGroupIter.Next())
   {
-    const TopoDS_Compound& aComp = aStyleGroupIter.Value();
+    const TopoCompound& aComp = aStyleGroupIter.Value();
     TopoDS_Iterator        aShapeIter(aComp);
-    TopoDS_Shape           aShapeCur = aShapeIter.Value();
+    TopoShape           aShapeCur = aShapeIter.Value();
     aShapeIter.Next();
     if (aShapeIter.More())
     {
@@ -249,7 +249,7 @@ void XCAFPrs_AISObject::Compute(const Handle(PrsMgr_PresentationManager)& thePre
 
 //=================================================================================================
 
-void XCAFPrs_AISObject::setStyleToDrawer(const Handle(Prs3d_Drawer)&     theDrawer,
+void XCAFPrs_AISObject::setStyleToDrawer(const Handle(StyleDrawer)&     theDrawer,
                                          const XCAFPrs_Style&            theStyle,
                                          const XCAFPrs_Style&            theDefStyle,
                                          const Graphic3d_MaterialAspect& theDefMaterial)

@@ -23,7 +23,7 @@
 #include <Standard_NoSuchObject.hxx>
 #include <TCollection_AsciiString.hxx>
 
-#define TheKey TCollection_AsciiString
+#define TheKey AsciiString1
 #define TheKey_hxx <TCollection_AsciiString.hxx>
 #define Handle_TheResul Handle(RefObject)
 #define TheResul RefObject

@@ -46,7 +46,7 @@
 // purpose  : static subfunction in IsDegeneratedZone
 //=======================================================================
 static Standard_Boolean IsDegeneratedZone(const gp_Pnt2d&             aP2d,
-                                          const Handle(Geom_Surface)& aS,
+                                          const Handle(GeomSurface)& aS,
                                           const Standard_Integer      iDir)
 {
   Standard_Boolean bFlag = Standard_True;
@@ -124,8 +124,8 @@ static Standard_Boolean IsDegeneratedZone(const gp_Pnt2d&             aP2d,
 // purpose  : static subfunction in NotUseSurfacesForApprox
 //=======================================================================
 static Standard_Boolean IsPointInDegeneratedZone(const IntSurf_PntOn2S& aP2S,
-                                                 const TopoDS_Face&     aF1,
-                                                 const TopoDS_Face&     aF2)
+                                                 const TopoFace&     aF1,
+                                                 const TopoFace&     aF2)
 
 {
   Standard_Boolean bFlag = Standard_True;
@@ -133,11 +133,11 @@ static Standard_Boolean IsPointInDegeneratedZone(const IntSurf_PntOn2S& aP2S,
   Standard_Real    U1, V1, U2, V2, aDelta, aD;
   gp_Pnt2d         aP2d;
 
-  Handle(Geom_Surface) aS1 = BRep_Tool::Surface(aF1);
+  Handle(GeomSurface) aS1 = BRepInspector::Surface(aF1);
   aS1->Bounds(US11, US12, VS11, VS12);
   GeomAdaptor_Surface aGAS1(aS1);
 
-  Handle(Geom_Surface) aS2 = BRep_Tool::Surface(aF2);
+  Handle(GeomSurface) aS2 = BRepInspector::Surface(aF2);
   aS1->Bounds(US21, US22, VS21, VS22);
   GeomAdaptor_Surface aGAS2(aS2);
   //
@@ -222,8 +222,8 @@ static Standard_Boolean IsPointInDegeneratedZone(const IntSurf_PntOn2S& aP2S,
 
 //=================================================================================================
 
-Standard_Boolean IntTools_WLineTool::NotUseSurfacesForApprox(const TopoDS_Face&            aF1,
-                                                             const TopoDS_Face&            aF2,
+Standard_Boolean WireLineTool::NotUseSurfacesForApprox(const TopoFace&            aF1,
+                                                             const TopoFace&            aF2,
                                                              const Handle(IntPatch_WLine)& WL,
                                                              const Standard_Integer        ifprm,
                                                              const Standard_Integer        ilprm)
@@ -475,12 +475,12 @@ static Standard_Boolean FindPoint(const gp_Pnt2d&     theFirstPoint,
 
 //=================================================================================================
 
-Standard_Boolean IntTools_WLineTool::DecompositionOfWLine(
+Standard_Boolean WireLineTool::DecompositionOfWLine(
   const Handle(IntPatch_WLine)&      theWLine,
   const Handle(GeomAdaptor_Surface)& theSurface1,
   const Handle(GeomAdaptor_Surface)& theSurface2,
-  const TopoDS_Face&                 theFace1,
-  const TopoDS_Face&                 theFace2,
+  const TopoFace&                 theFace1,
+  const TopoFace&                 theFace2,
   const GeomInt_LineConstructor&     theLConstructor,
   const Standard_Boolean             theAvoidLConstructor,
   const Standard_Real                theTol,
@@ -967,7 +967,7 @@ Standard_Boolean IntTools_WLineTool::DecompositionOfWLine(
           {
             // check point
             Standard_Real               aCriteria = theTol;
-            GeomAPI_ProjectPointOnSurf& aProjector =
+            PointOnSurfProjector& aProjector =
               (surfit == 0) ? aContext->ProjPS(theFace2) : aContext->ProjPS(theFace1);
             Handle(GeomAdaptor_Surface) aSurface = (surfit == 0) ? theSurface1 : theSurface2;
 
@@ -1008,7 +1008,7 @@ Standard_Boolean IntTools_WLineTool::DecompositionOfWLine(
                   foundV = (foundV < vmin) ? vmin : foundV;
                   foundV = (foundV > vmax) ? vmax : foundV;
 
-                  GeomAPI_ProjectPointOnSurf& aProjector2 =
+                  PointOnSurfProjector& aProjector2 =
                     (surfit == 0) ? aContext->ProjPS(theFace1) : aContext->ProjPS(theFace2);
 
                   aP3d = aSurfaceOther->Value(foundU, foundV);

@@ -167,7 +167,7 @@ private:
     const BRepMesh_Vertex& aVertex1 = myStructure->GetNode(aNodes[1]);
     const BRepMesh_Vertex& aVertex2 = myStructure->GetNode(aNodes[2]);
 
-    gp_XY                  aLocation;
+    Coords2d                  aLocation;
     Standard_Real          aRadius;
     const Standard_Boolean isOk = BRepMesh_CircleTool::MakeCircle(aVertex0.Coord(),
                                                                   aVertex1.Coord(),

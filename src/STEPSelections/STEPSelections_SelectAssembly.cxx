@@ -93,7 +93,7 @@ Standard_Boolean STEPSelections_SelectAssembly::Explore(const Standard_Integer /
   return isSome;
 }
 
-TCollection_AsciiString STEPSelections_SelectAssembly::ExploreLabel() const
+AsciiString1 STEPSelections_SelectAssembly::ExploreLabel() const
 {
-  return TCollection_AsciiString("Assembly components");
+  return AsciiString1("Assembly components");
 }

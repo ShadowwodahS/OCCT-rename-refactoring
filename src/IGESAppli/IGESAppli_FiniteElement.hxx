@@ -29,7 +29,7 @@ class IGESAppli_FiniteElement;
 DEFINE_STANDARD_HANDLE(IGESAppli_FiniteElement, IGESData_IGESEntity)
 
 //! defines FiniteElement, Type <136> Form <0>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Used to define a finite element with the help of an
 //! element topology.
 class IGESAppli_FiniteElement : public IGESData_IGESEntity

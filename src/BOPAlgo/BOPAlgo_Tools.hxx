@@ -35,10 +35,10 @@
 class BOPDS_PaveBlock;
 class BOPDS_CommonBlock;
 class IntTools_Context;
-class TopoDS_Shape;
+class TopoShape;
 
 //! Provides tools used in the intersection part of Boolean operations
-class BOPAlgo_Tools
+class BooleanTools
 {
 public:
   //! Makes the chains of the connected elements from the given convexity map
@@ -146,8 +146,8 @@ public:
   //! 1 - in case there are no edges in the given shape;<br>
   //! 2 - sharing of the edges has failed.<br>
   Standard_EXPORT static Standard_Integer EdgesToWires(
-    const TopoDS_Shape&    theEdges,
-    TopoDS_Shape&          theWires,
+    const TopoShape&    theEdges,
+    TopoShape&          theWires,
     const Standard_Boolean theShared = Standard_False,
     const Standard_Real    theAngTol = 1.e-8);
 
@@ -165,8 +165,8 @@ public:
   //!               the wires are located. Default value is 1.e-8 which is used
   //!               for intersection of planes in IntTools_FaceFace.<br>
   //! Method returns TRUE in case of success, i.e. at least one face has been built.<br>
-  Standard_EXPORT static Standard_Boolean WiresToFaces(const TopoDS_Shape& theWires,
-                                                       TopoDS_Shape&       theFaces,
+  Standard_EXPORT static Standard_Boolean WiresToFaces(const TopoShape& theWires,
+                                                       TopoShape&       theFaces,
                                                        const Standard_Real theAngTol = 1.e-8);
 
   //! Finds chains of intersecting vertices
@@ -189,8 +189,8 @@ public:
   //! do not have any geometrically coinciding parts without topological
   //! sharing of these parts
   Standard_EXPORT static void ClassifyFaces(
-    const TopTools_ListOfShape&                theFaces,
-    const TopTools_ListOfShape&                theSolids,
+    const ShapeList&                theFaces,
+    const ShapeList&                theSolids,
     const Standard_Boolean                     theRunParallel,
     Handle(IntTools_Context)&                  theContext,
     TopTools_IndexedDataMapOfShapeListOfShape& theInParts,
@@ -205,8 +205,8 @@ public:
   //! @param theParts   - The parts to classify relatively solids
   //! @param theImages  - Possible images of the parts that has to be classified
   //! @param theContext - cached geometrical tools to speed-up classifications
-  Standard_EXPORT static void FillInternals(const TopTools_ListOfShape&               theSolids,
-                                            const TopTools_ListOfShape&               theParts,
+  Standard_EXPORT static void FillInternals(const ShapeList&               theSolids,
+                                            const ShapeList&               theParts,
                                             const TopTools_DataMapOfShapeListOfShape& theImages,
                                             const Handle(IntTools_Context)&           theContext);
 

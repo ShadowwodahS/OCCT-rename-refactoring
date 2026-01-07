@@ -26,7 +26,7 @@ class IGESDraw_Protocol;
 //! This package contains the group of classes necessary for
 //! Structure Entities implied in Drawings and Structured
 //! Graphics (Sets for drawing, Drawings and Views).
-class IGESDraw
+class IGESDraw1
 {
 public:
   DEFINE_STANDARD_ALLOC

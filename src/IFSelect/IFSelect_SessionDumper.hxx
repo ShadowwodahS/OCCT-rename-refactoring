@@ -22,7 +22,7 @@
 
 #include <Standard_Transient.hxx>
 class IFSelect_SessionFile;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_SessionDumper;
 DEFINE_STANDARD_HANDLE(IFSelect_SessionDumper, RefObject)
@@ -85,7 +85,7 @@ public:
   //! ReadOwn can use these methods from SessionFile to access Own
   //! Parameters : NbOwnParams, IsVoid, IsText, TextValue, ItemValue
   Standard_EXPORT virtual Standard_Boolean ReadOwn(IFSelect_SessionFile&          file,
-                                                   const TCollection_AsciiString& type,
+                                                   const AsciiString1& type,
                                                    Handle(RefObject)&    item) const = 0;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SessionDumper, RefObject)

@@ -37,11 +37,11 @@
 // MGE 31/07/98
 //=================================================================================================
 
-IGESGeom_ToolBoundedSurface::IGESGeom_ToolBoundedSurface() {}
+BoundedSurfaceTool::BoundedSurfaceTool() {}
 
 //=================================================================================================
 
-void IGESGeom_ToolBoundedSurface::ReadOwnParams(const Handle(IGESGeom_BoundedSurface)& ent,
+void BoundedSurfaceTool::ReadOwnParams(const Handle(IGESGeom_BoundedSurface)& ent,
                                                 const Handle(IGESData_IGESReaderData)& IR,
                                                 IGESData_ParamReader&                  PR) const
 {
@@ -144,7 +144,7 @@ void IGESGeom_ToolBoundedSurface::ReadOwnParams(const Handle(IGESGeom_BoundedSur
 
 //=================================================================================================
 
-void IGESGeom_ToolBoundedSurface::WriteOwnParams(const Handle(IGESGeom_BoundedSurface)& ent,
+void BoundedSurfaceTool::WriteOwnParams(const Handle(IGESGeom_BoundedSurface)& ent,
                                                  IGESData_IGESWriter&                   IW) const
 {
   Standard_Integer i, num;
@@ -157,7 +157,7 @@ void IGESGeom_ToolBoundedSurface::WriteOwnParams(const Handle(IGESGeom_BoundedSu
 
 //=================================================================================================
 
-void IGESGeom_ToolBoundedSurface::OwnShared(const Handle(IGESGeom_BoundedSurface)& ent,
+void BoundedSurfaceTool::OwnShared(const Handle(IGESGeom_BoundedSurface)& ent,
                                             Interface_EntityIterator&              iter) const
 {
   Standard_Integer i, num;
@@ -168,7 +168,7 @@ void IGESGeom_ToolBoundedSurface::OwnShared(const Handle(IGESGeom_BoundedSurface
 
 //=================================================================================================
 
-void IGESGeom_ToolBoundedSurface::OwnCopy(const Handle(IGESGeom_BoundedSurface)& another,
+void BoundedSurfaceTool::OwnCopy(const Handle(IGESGeom_BoundedSurface)& another,
                                           const Handle(IGESGeom_BoundedSurface)& ent,
                                           Interface_CopyTool&                    TC) const
 {
@@ -190,10 +190,10 @@ void IGESGeom_ToolBoundedSurface::OwnCopy(const Handle(IGESGeom_BoundedSurface)&
 
 //=================================================================================================
 
-IGESData_DirChecker IGESGeom_ToolBoundedSurface::DirChecker(
+DirectoryChecker BoundedSurfaceTool::DirChecker(
   const Handle(IGESGeom_BoundedSurface)& /* ent */) const
 {
-  IGESData_DirChecker DC(143, 0);
+  DirectoryChecker DC(143, 0);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefAny);
@@ -206,7 +206,7 @@ IGESData_DirChecker IGESGeom_ToolBoundedSurface::DirChecker(
 
 //=================================================================================================
 
-void IGESGeom_ToolBoundedSurface::OwnCheck(const Handle(IGESGeom_BoundedSurface)& ent,
+void BoundedSurfaceTool::OwnCheck(const Handle(IGESGeom_BoundedSurface)& ent,
                                            const Interface_ShareTool&,
                                            Handle(Interface_Check)& ach) const
 {
@@ -225,7 +225,7 @@ void IGESGeom_ToolBoundedSurface::OwnCheck(const Handle(IGESGeom_BoundedSurface)
 
 //=================================================================================================
 
-void IGESGeom_ToolBoundedSurface::OwnDump(const Handle(IGESGeom_BoundedSurface)& ent,
+void BoundedSurfaceTool::OwnDump(const Handle(IGESGeom_BoundedSurface)& ent,
                                           const IGESData_IGESDumper&             dumper,
                                           Standard_OStream&                      S,
                                           const Standard_Integer                 level) const

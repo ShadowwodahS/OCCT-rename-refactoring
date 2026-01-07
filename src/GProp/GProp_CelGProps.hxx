@@ -29,7 +29,7 @@ class gp_Lin;
 //! in 3D space.
 //! It can be an elementary curve from package gp such as
 //! Lin, Circ, Elips, Parab .
-class GProp_CelGProps : public GProp_GProps
+class GProp_CelGProps : public GeometricProperties
 {
 public:
   DEFINE_STANDARD_ALLOC

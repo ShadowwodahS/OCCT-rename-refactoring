@@ -23,7 +23,7 @@
 #include <SelectMgr_SelectableObject.hxx>
 #include <TopLoc_Location.hxx>
 
-class V3d_Viewer;
+class ViewManager;
 
 //! A framework to define classes of owners of sensitive primitives.
 //! The owner is the link between application and selection data structures.
@@ -100,7 +100,7 @@ public:
   //! manages highlighting on its own, execution will be passed to
   //! SelectMgr_SelectableObject::HilightOwnerWithColor method.
   Standard_EXPORT virtual void HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
-                                                const Handle(Prs3d_Drawer)&               theStyle,
+                                                const Handle(StyleDrawer)&               theStyle,
                                                 const Standard_Integer theMode = 0);
 
   //! Removes highlighting from the owner of a detected selectable object in the presentation
@@ -181,7 +181,7 @@ public:
 
   //! Implements immediate application of location transformation of parent object to dynamic
   //! highlight structure
-  virtual void UpdateHighlightTrsf(const Handle(V3d_Viewer)&                 theViewer,
+  virtual void UpdateHighlightTrsf(const Handle(ViewManager)&                 theViewer,
                                    const Handle(PrsMgr_PresentationManager)& theManager,
                                    const Standard_Integer                    theDispMode)
   {

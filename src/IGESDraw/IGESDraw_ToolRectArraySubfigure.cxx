@@ -35,9 +35,9 @@
 #include <Standard_DomainError.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 
-IGESDraw_ToolRectArraySubfigure::IGESDraw_ToolRectArraySubfigure() {}
+RectArraySubfigureTool::RectArraySubfigureTool() {}
 
-void IGESDraw_ToolRectArraySubfigure::ReadOwnParams(const Handle(IGESDraw_RectArraySubfigure)& ent,
+void RectArraySubfigureTool::ReadOwnParams(const Handle(IGESDraw_RectArraySubfigure)& ent,
                                                     const Handle(IGESData_IGESReaderData)&     IR,
                                                     IGESData_ParamReader& PR) const
 {
@@ -109,7 +109,7 @@ void IGESDraw_ToolRectArraySubfigure::ReadOwnParams(const Handle(IGESDraw_RectAr
             tempPositions);
 }
 
-void IGESDraw_ToolRectArraySubfigure::WriteOwnParams(const Handle(IGESDraw_RectArraySubfigure)& ent,
+void RectArraySubfigureTool::WriteOwnParams(const Handle(IGESDraw_RectArraySubfigure)& ent,
                                                      IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->BaseEntity());
@@ -130,13 +130,13 @@ void IGESDraw_ToolRectArraySubfigure::WriteOwnParams(const Handle(IGESDraw_RectA
     IW.Send(ent->ListPosition(I));
 }
 
-void IGESDraw_ToolRectArraySubfigure::OwnShared(const Handle(IGESDraw_RectArraySubfigure)& ent,
+void RectArraySubfigureTool::OwnShared(const Handle(IGESDraw_RectArraySubfigure)& ent,
                                                 Interface_EntityIterator& iter) const
 {
   iter.GetOneItem(ent->BaseEntity());
 }
 
-void IGESDraw_ToolRectArraySubfigure::OwnCopy(const Handle(IGESDraw_RectArraySubfigure)& another,
+void RectArraySubfigureTool::OwnCopy(const Handle(IGESDraw_RectArraySubfigure)& another,
                                               const Handle(IGESDraw_RectArraySubfigure)& ent,
                                               Interface_CopyTool&                        TC) const
 {
@@ -171,10 +171,10 @@ void IGESDraw_ToolRectArraySubfigure::OwnCopy(const Handle(IGESDraw_RectArraySub
             tempPositions);
 }
 
-IGESData_DirChecker IGESDraw_ToolRectArraySubfigure::DirChecker(
+DirectoryChecker RectArraySubfigureTool::DirChecker(
   const Handle(IGESDraw_RectArraySubfigure)& /*ent*/) const
 {
-  IGESData_DirChecker DC(412, 0);
+  DirectoryChecker DC(412, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.LineWeight(IGESData_DefValue);
@@ -184,13 +184,13 @@ IGESData_DirChecker IGESDraw_ToolRectArraySubfigure::DirChecker(
   return DC;
 }
 
-void IGESDraw_ToolRectArraySubfigure::OwnCheck(const Handle(IGESDraw_RectArraySubfigure)& /*ent*/,
+void RectArraySubfigureTool::OwnCheck(const Handle(IGESDraw_RectArraySubfigure)& /*ent*/,
                                                const Interface_ShareTool&,
                                                Handle(Interface_Check)& /*ach*/) const
 {
 }
 
-void IGESDraw_ToolRectArraySubfigure::OwnDump(const Handle(IGESDraw_RectArraySubfigure)& ent,
+void RectArraySubfigureTool::OwnDump(const Handle(IGESDraw_RectArraySubfigure)& ent,
                                               const IGESData_IGESDumper&                 dumper,
                                               Standard_OStream&                          S,
                                               const Standard_Integer level) const

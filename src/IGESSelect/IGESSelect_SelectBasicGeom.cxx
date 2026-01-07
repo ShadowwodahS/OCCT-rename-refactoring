@@ -218,16 +218,16 @@ Standard_Boolean IGESSelect_SelectBasicGeom::Explore(const Standard_Integer /*le
   return Standard_False;
 }
 
-TCollection_AsciiString IGESSelect_SelectBasicGeom::ExploreLabel() const
+AsciiString1 IGESSelect_SelectBasicGeom::ExploreLabel() const
 {
   if (thegeom == 2)
-    return TCollection_AsciiString("Basic Curves 3d");
+    return AsciiString1("Basic Curves 3d");
   else if (thegeom > 0)
-    return TCollection_AsciiString("Curves 3d");
+    return AsciiString1("Curves 3d");
   else if (thegeom < 0)
-    return TCollection_AsciiString("Surfaces");
+    return AsciiString1("Surfaces");
   else
-    return TCollection_AsciiString("Basic Geometry");
+    return AsciiString1("Basic Geometry");
 }
 
 Standard_Boolean IGESSelect_SelectBasicGeom::SubCurves(const Handle(IGESData_IGESEntity)& ent,

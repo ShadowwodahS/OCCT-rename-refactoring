@@ -74,7 +74,7 @@ public: //! @name methods for compatibility with layers
   Standard_EXPORT OpenGl_Text();
 
   //! Create key for shared resource
-  Standard_EXPORT static TCollection_AsciiString FontKey(const OpenGl_Aspects& theAspect,
+  Standard_EXPORT static AsciiString1 FontKey(const OpenGl_Aspects& theAspect,
                                                          Standard_Integer      theHeight,
                                                          unsigned int          theResolution,
                                                          Font_Hinting          theFontHinting);
@@ -85,7 +85,7 @@ public: //! @name methods for compatibility with layers
                                                       Standard_Integer               theHeight,
                                                       unsigned int                   theResolution,
                                                       Font_Hinting                   theFontHinting,
-                                                      const TCollection_AsciiString& theKey);
+                                                      const AsciiString1& theKey);
 
   //! Compute text width
   Standard_EXPORT static void StringSize(const Handle(OpenGl_Context)& theCtx,
@@ -135,10 +135,10 @@ private:
                    const OpenGl_Aspects&         theTextAspect,
                    const OpenGl_Vec3&            theDVec) const;
 
-  //! Draw arrays of vertices.
+  //! Draw1 arrays of vertices.
   void drawText(const Handle(OpenGl_Context)& theCtx, const OpenGl_Aspects& theTextAspect) const;
 
-  //! Draw rectangle from bounding text box.
+  //! Draw1 rectangle from bounding text box.
   void drawRect(const Handle(OpenGl_Context)& theCtx,
                 const OpenGl_Aspects&         theTextAspect,
                 const OpenGl_Vec4&            theColorSubs) const;

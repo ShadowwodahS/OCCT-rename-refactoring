@@ -38,7 +38,7 @@ class GccEnt_QualifiedCirc;
 //! with the first argument.
 //! Its direction is making an angle Angle with the
 //! second argument.
-class GccAna_Lin2dTanObl
+class Line2dTangentObl
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -46,7 +46,7 @@ public:
   //! This class implements the algorithms used to
   //! create 2d line passing through a point and
   //! making an angle with a line.
-  Standard_EXPORT GccAna_Lin2dTanObl(const gp_Pnt2d&     ThePoint,
+  Standard_EXPORT Line2dTangentObl(const gp_Pnt2d&     ThePoint,
                                      const gp_Lin2d&     TheLine,
                                      const Standard_Real TheAngle);
 
@@ -56,7 +56,7 @@ public:
   //! Exceptions
   //! GccEnt_BadQualifier if a qualifier is inconsistent with
   //! the argument it qualifies (for example, enclosed for a circle).
-  Standard_EXPORT GccAna_Lin2dTanObl(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Line2dTangentObl(const GccEnt_QualifiedCirc& Qualified1,
                                      const gp_Lin2d&             TheLine,
                                      const Standard_Real         TheAngle);
 

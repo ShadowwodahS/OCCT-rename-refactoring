@@ -57,14 +57,14 @@ void VInspector_ItemV3dViewer::Init()
 {
   VInspector_ItemContextPropertiesPtr aParentItem =
     itemDynamicCast<VInspector_ItemContextProperties>(Parent());
-  Handle(V3d_Viewer) aViewer;
+  Handle(ViewManager) aViewer;
   if (aParentItem)
   {
     VInspector_ItemContextPtr aParentContextItem =
       itemDynamicCast<VInspector_ItemContext>(aParentItem->Parent());
     if (aParentContextItem)
     {
-      Handle(AIS_InteractiveContext) aContext = aParentContextItem->GetContext();
+      Handle(VisualContext) aContext = aParentContextItem->GetContext();
       aViewer                                 = aContext->CurrentViewer();
     }
   }
@@ -100,7 +100,7 @@ void VInspector_ItemV3dViewer::initItem() const
 // =======================================================================
 void VInspector_ItemV3dViewer::initStream(Standard_OStream& theOStream) const
 {
-  Handle(V3d_Viewer) aViewer = GetViewer();
+  Handle(ViewManager) aViewer = GetViewer();
   if (aViewer.IsNull())
     return;
 

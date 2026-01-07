@@ -29,7 +29,7 @@ class IGESDimen_BasicDimension;
 DEFINE_STANDARD_HANDLE(IGESDimen_BasicDimension, IGESData_IGESEntity)
 
 //! Defines IGES Basic Dimension, Type 406, Form 31,
-//! in package IGESDimen
+//! in package IGESDimen1
 //! The basic Dimension Property indicates that the referencing
 //! dimension entity is to be displayed with a box around text.
 class IGESDimen_BasicDimension : public IGESData_IGESEntity
@@ -39,10 +39,10 @@ public:
   Standard_EXPORT IGESDimen_BasicDimension();
 
   Standard_EXPORT void Init(const Standard_Integer nbPropVal,
-                            const gp_XY&           lowerLeft,
-                            const gp_XY&           lowerRight,
-                            const gp_XY&           upperRight,
-                            const gp_XY&           upperLeft);
+                            const Coords2d&           lowerLeft,
+                            const Coords2d&           lowerRight,
+                            const Coords2d&           upperRight,
+                            const Coords2d&           upperLeft);
 
   //! returns the number of properties = 8
   Standard_EXPORT Standard_Integer NbPropertyValues() const;
@@ -64,10 +64,10 @@ public:
 protected:
 private:
   Standard_Integer theNbPropertyValues;
-  gp_XY            theLowerLeft;
-  gp_XY            theLowerRight;
-  gp_XY            theUpperRight;
-  gp_XY            theUpperLeft;
+  Coords2d            theLowerLeft;
+  Coords2d            theLowerRight;
+  Coords2d            theUpperRight;
+  Coords2d            theUpperLeft;
 };
 
 #endif // _IGESDimen_BasicDimension_HeaderFile

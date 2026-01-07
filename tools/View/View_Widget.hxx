@@ -45,7 +45,7 @@ class View_Widget : public QWidget
 public:
   //! Constructor
   Standard_EXPORT View_Widget(QWidget*                              theParent,
-                              const Handle(AIS_InteractiveContext)& theContext,
+                              const Handle(VisualContext)& theContext,
                               const bool                            isFitAllActive);
 
   //! Destructor

@@ -23,25 +23,25 @@
 
 #include <GeomToStep_Root.hxx>
 class StepGeom_Curve;
-class Geom_Curve;
-class Geom2d_Curve;
+class GeomCurve3d;
+class GeomCurve2d;
 
 //! This class implements the mapping between classes
 //! Curve from Geom and the class Curve from StepGeom which
 //! describes a Curve from prostep. As Curve is an
 //! abstract curve this class an access to the sub-class required.
-class GeomToStep_MakeCurve : public GeomToStep_Root
+class GeomToStep_MakeCurve : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeCurve(
-    const Handle(Geom_Curve)& C,
-    const StepData_Factors&   theLocalFactors = StepData_Factors());
+    const Handle(GeomCurve3d)& C,
+    const ConversionFactors&   theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeCurve(
-    const Handle(Geom2d_Curve)& C,
-    const StepData_Factors&     theLocalFactors = StepData_Factors());
+    const Handle(GeomCurve2d)& C,
+    const ConversionFactors&     theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_Curve)& Value() const;
 

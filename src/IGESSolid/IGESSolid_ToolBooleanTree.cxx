@@ -35,9 +35,9 @@
 
 #include <stdio.h>
 
-IGESSolid_ToolBooleanTree::IGESSolid_ToolBooleanTree() {}
+BooleanTreeTool::BooleanTreeTool() {}
 
-void IGESSolid_ToolBooleanTree::ReadOwnParams(const Handle(IGESSolid_BooleanTree)&   ent,
+void BooleanTreeTool::ReadOwnParams(const Handle(IGESSolid_BooleanTree)&   ent,
                                               const Handle(IGESData_IGESReaderData)& IR,
                                               IGESData_ParamReader&                  PR) const
 {
@@ -96,7 +96,7 @@ void IGESSolid_ToolBooleanTree::ReadOwnParams(const Handle(IGESSolid_BooleanTree
   ent->Init(tempOperands, tempOperations);
 }
 
-void IGESSolid_ToolBooleanTree::WriteOwnParams(const Handle(IGESSolid_BooleanTree)& ent,
+void BooleanTreeTool::WriteOwnParams(const Handle(IGESSolid_BooleanTree)& ent,
                                                IGESData_IGESWriter&                 IW) const
 {
   Standard_Integer length = ent->Length();
@@ -111,7 +111,7 @@ void IGESSolid_ToolBooleanTree::WriteOwnParams(const Handle(IGESSolid_BooleanTre
   }
 }
 
-void IGESSolid_ToolBooleanTree::OwnShared(const Handle(IGESSolid_BooleanTree)& ent,
+void BooleanTreeTool::OwnShared(const Handle(IGESSolid_BooleanTree)& ent,
                                           Interface_EntityIterator&            iter) const
 {
   Standard_Integer length = ent->Length();
@@ -122,7 +122,7 @@ void IGESSolid_ToolBooleanTree::OwnShared(const Handle(IGESSolid_BooleanTree)& e
   }
 }
 
-void IGESSolid_ToolBooleanTree::OwnCopy(const Handle(IGESSolid_BooleanTree)& another,
+void BooleanTreeTool::OwnCopy(const Handle(IGESSolid_BooleanTree)& another,
                                         const Handle(IGESSolid_BooleanTree)& ent,
                                         Interface_CopyTool&                  TC) const
 {
@@ -145,10 +145,10 @@ void IGESSolid_ToolBooleanTree::OwnCopy(const Handle(IGESSolid_BooleanTree)& ano
   ent->Init(tempOperands, tempOperations);
 }
 
-IGESData_DirChecker IGESSolid_ToolBooleanTree::DirChecker(
+DirectoryChecker BooleanTreeTool::DirChecker(
   const Handle(IGESSolid_BooleanTree)& /*ent*/) const
 {
-  IGESData_DirChecker DC(180, 0);
+  DirectoryChecker DC(180, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.Color(IGESData_DefAny);
@@ -158,7 +158,7 @@ IGESData_DirChecker IGESSolid_ToolBooleanTree::DirChecker(
   return DC;
 }
 
-void IGESSolid_ToolBooleanTree::OwnCheck(const Handle(IGESSolid_BooleanTree)& ent,
+void BooleanTreeTool::OwnCheck(const Handle(IGESSolid_BooleanTree)& ent,
                                          const Interface_ShareTool&,
                                          Handle(Interface_Check)& ach) const
 {
@@ -187,7 +187,7 @@ void IGESSolid_ToolBooleanTree::OwnCheck(const Handle(IGESSolid_BooleanTree)& en
   }
 }
 
-void IGESSolid_ToolBooleanTree::OwnDump(const Handle(IGESSolid_BooleanTree)& ent,
+void BooleanTreeTool::OwnDump(const Handle(IGESSolid_BooleanTree)& ent,
                                         const IGESData_IGESDumper&           dumper,
                                         Standard_OStream&                    S,
                                         const Standard_Integer               level) const

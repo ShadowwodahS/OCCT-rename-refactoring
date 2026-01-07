@@ -27,8 +27,8 @@
 #include <TopTools_DataMapOfShapeShape.hxx>
 #include <TopTools_ListOfShape.hxx>
 #include <BRepTools_ReShape.hxx>
-class TopoDS_Wire;
-class TopoDS_Shape;
+class TopoWire;
+class TopoShape;
 
 //! Compute a topological surface ( a  shell) using
 //! generating wires. The face of the shell will be
@@ -41,23 +41,23 @@ public:
 
   Standard_EXPORT BRepFill_Generator();
 
-  Standard_EXPORT void AddWire(const TopoDS_Wire& Wire);
+  Standard_EXPORT void AddWire(const TopoWire& Wire);
 
   //! Compute the  shell.
   Standard_EXPORT void Perform();
 
-  const TopoDS_Shell& Shell() const;
+  const TopoShell& Shell() const;
 
   //! Returns  all   the shapes created
   Standard_EXPORT const TopTools_DataMapOfShapeListOfShape& Generated() const;
 
   //! Returns   the  shapes  created  from   a  subshape
   //! <SSection>  of a  section.
-  Standard_EXPORT const TopTools_ListOfShape& GeneratedShapes(const TopoDS_Shape& SSection) const;
+  Standard_EXPORT const ShapeList& GeneratedShapes(const TopoShape& SSection) const;
 
   //! Returns a modified shape in the constructed shell,
   //! If shape is not changed (replaced) during operation => returns the same shape
-  Standard_EXPORT TopoDS_Shape ResultShape(const TopoDS_Shape& theShape) const;
+  Standard_EXPORT TopoShape ResultShape(const TopoShape& theShape) const;
 
   //! Sets the mutable input state
   //! If true then the input profile can be modified
@@ -73,7 +73,7 @@ public:
 protected:
 private:
   TopTools_SequenceOfShape           myWires;
-  TopoDS_Shell                       myShell;
+  TopoShell                       myShell;
   TopTools_DataMapOfShapeListOfShape myMap;
   TopTools_DataMapOfShapeShape       myOldNewShapes;
   BRepTools_ReShape                  myReshaper;

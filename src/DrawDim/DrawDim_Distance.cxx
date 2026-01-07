@@ -32,7 +32,7 @@ IMPLEMENT_STANDARD_RTTIEXT(DrawDim_Distance, DrawDim_Dimension)
 
 //=================================================================================================
 
-DrawDim_Distance::DrawDim_Distance(const TopoDS_Face& plane1, const TopoDS_Face& plane2)
+DrawDim_Distance::DrawDim_Distance(const TopoFace& plane1, const TopoFace& plane2)
 {
   myPlane1 = plane1;
   myPlane2 = plane2;
@@ -40,7 +40,7 @@ DrawDim_Distance::DrawDim_Distance(const TopoDS_Face& plane1, const TopoDS_Face&
 
 //=================================================================================================
 
-DrawDim_Distance::DrawDim_Distance(const TopoDS_Face& plane1)
+DrawDim_Distance::DrawDim_Distance(const TopoFace& plane1)
 
 {
   myPlane1 = plane1;
@@ -48,35 +48,35 @@ DrawDim_Distance::DrawDim_Distance(const TopoDS_Face& plane1)
 
 //=================================================================================================
 
-const TopoDS_Face& DrawDim_Distance::Plane1() const
+const TopoFace& DrawDim_Distance::Plane1() const
 {
   return myPlane1;
 }
 
 //=================================================================================================
 
-void DrawDim_Distance::Plane1(const TopoDS_Face& face)
+void DrawDim_Distance::Plane1(const TopoFace& face)
 {
   myPlane1 = face;
 }
 
 //=================================================================================================
 
-const TopoDS_Face& DrawDim_Distance::Plane2() const
+const TopoFace& DrawDim_Distance::Plane2() const
 {
   return myPlane2;
 }
 
 //=================================================================================================
 
-void DrawDim_Distance::Plane2(const TopoDS_Face& face)
+void DrawDim_Distance::Plane2(const TopoFace& face)
 {
   myPlane2 = face;
 }
 
 //=================================================================================================
 
-void DrawDim_Distance::DrawOn(Draw_Display& dis) const
+void DrawDim_Distance::DrawOn(DrawDisplay& dis) const
 {
 
   // compute the points and the direction
@@ -94,10 +94,10 @@ void DrawDim_Distance::DrawOn(Draw_Display& dis) const
   Point3d SAttach; // second attach point
 
   // first point, try a vertex
-  TopExp_Explorer explo(myPlane1, TopAbs_VERTEX);
+  ShapeExplorer explo(myPlane1, TopAbs_VERTEX);
   if (explo.More())
   {
-    FAttach = BRep_Tool::Pnt(TopoDS::Vertex(explo.Current()));
+    FAttach = BRepInspector::Pnt(TopoDS::Vertex(explo.Current()));
   }
   else
   {
@@ -118,7 +118,7 @@ void DrawDim_Distance::DrawOn(Draw_Display& dis) const
   SAttach.Translate(V);
 
   // DISPLAY
-  dis.Draw(FAttach, SAttach);
+  dis.Draw1(FAttach, SAttach);
   V *= 0.5;
   FAttach.Translate(V);
   dis.DrawMarker(FAttach, Draw_Losange);

@@ -43,13 +43,13 @@ IMPLEMENT_STANDARD_RTTIEXT(GeomFill_GuideTrihedronPlan, GeomFill_TrihedronWithGu
 #endif
 
 #ifdef OCCT_DEBUG
-static void TracePlan(const Handle(Geom_Surface)& /*Plan*/)
+static void TracePlan(const Handle(GeomSurface)& /*Plan*/)
 {
   std::cout << "Pas d'intersection Guide/Plan" << std::endl;
   #if DRAW
   char* Temp = "ThePlan";
-  DrawTrSurf::Set(Temp, Plan);
-  //  DrawTrSurf::Set("ThePlan", Plan);
+  DrawTrSurf1::Set(Temp, Plan);
+  //  DrawTrSurf1::Set("ThePlan", Plan);
   #endif
 }
 #endif
@@ -107,7 +107,7 @@ void GeomFill_GuideTrihedronPlan::Init()
   Standard_Real    f = myCurve->FirstParameter();
   Standard_Real    l = myCurve->LastParameter();
 
-  Handle(Geom_Plane)                Plan;
+  Handle(GeomPlane)                Plan;
   Handle(GeomAdaptor_Surface)       Pl;
   IntCurveSurface_IntersectionPoint PInt;
   IntCurveSurface_HInter            Int;
@@ -135,7 +135,7 @@ void GeomFill_GuideTrihedronPlan::Init()
     t /= (myNbPts - 1);
     myCurve->D0(t, P);
     frenet->D0(t, Tangent, Normal, BiNormal);
-    Plan = new (Geom_Plane)(P, Tangent);
+    Plan = new (GeomPlane)(P, Tangent);
     Pl   = new (GeomAdaptor_Surface)(Plan);
 
     Int.Perform(myTrimG, Pl); // intersection plan / guide
@@ -262,7 +262,7 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D0(const Standard_Real Param,
 #ifdef OCCT_DEBUG
     std::cout << "D0 :";
     // plan ortho a la trajectoire pour determiner Pprime
-    Handle(Geom_Plane) Plan = new (Geom_Plane)(P, Tangent);
+    Handle(GeomPlane) Plan = new (GeomPlane)(P, Tangent);
     TracePlan(Plan);
 #endif
     myStatus = GeomFill_PlaneNotIntersectGuide;
@@ -352,7 +352,7 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D1(const Standard_Real Param,
 #ifdef OCCT_DEBUG
     std::cout << "D1 :";
     // plan ortho a la trajectoire
-    Handle(Geom_Plane) Plan = new (Geom_Plane)(P, Tangent);
+    Handle(GeomPlane) Plan = new (GeomPlane)(P, Tangent);
     TracePlan(Plan);
 #endif
     myStatus = GeomFill_PlaneNotIntersectGuide;
@@ -398,7 +398,7 @@ Standard_Boolean GeomFill_GuideTrihedronPlan::D2(const Standard_Real Param,
 
   /*
     // plan ortho a Tangent pour trouver la pt Pprime sur le guide
-    Handle(Geom_Plane) Plan = new (Geom_Plane)(P, Tangent);
+    Handle(GeomPlane) Plan = new (GeomPlane)(P, Tangent);
     Handle(GeomAdaptor_Surface) Pl= new(GeomAdaptor_Surface)(Plan);
 
 

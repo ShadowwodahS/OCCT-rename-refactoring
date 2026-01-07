@@ -25,8 +25,8 @@
 #include <BRepBuilderAPI_MakeShape.hxx>
 #include <GeomAbs_JoinType.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Wire;
-class TopoDS_Shape;
+class TopoWire;
+class TopoShape;
 
 //! Describes functions to build evolved shapes.
 //! An evolved shape is built from a planar spine (face or
@@ -86,8 +86,8 @@ public:
   //! theSpine can be shape only of type wire or face.
   //! See description to this class for detailed information.
   Standard_EXPORT BRepOffsetAPI_MakeEvolved(
-    const TopoDS_Shape&    theSpine,
-    const TopoDS_Wire&     theProfile,
+    const TopoShape&    theSpine,
+    const TopoWire&     theProfile,
     const GeomAbs_JoinType theJoinType      = GeomAbs_Arc,
     const Standard_Boolean theIsAxeProf     = Standard_True,
     const Standard_Boolean theIsSolid       = Standard_False,
@@ -105,14 +105,14 @@ public:
   //! Returns   the  shapes  created  from   a  subshape
   //! <SpineShape>  of     the  spine   and   a subshape
   //! <ProfShape> on the profile.
-  Standard_EXPORT const TopTools_ListOfShape& GeneratedShapes(const TopoDS_Shape& SpineShape,
-                                                              const TopoDS_Shape& ProfShape) const;
+  Standard_EXPORT const ShapeList& GeneratedShapes(const TopoShape& SpineShape,
+                                                              const TopoShape& ProfShape) const;
 
   //! Return the face Top if <Solid> is True in the constructor.
-  Standard_EXPORT const TopoDS_Shape& Top() const;
+  Standard_EXPORT const TopoShape& Top() const;
 
   //! Return the face Bottom  if <Solid> is True in the constructor.
-  Standard_EXPORT const TopoDS_Shape& Bottom() const;
+  Standard_EXPORT const TopoShape& Bottom() const;
 
 protected:
 private:

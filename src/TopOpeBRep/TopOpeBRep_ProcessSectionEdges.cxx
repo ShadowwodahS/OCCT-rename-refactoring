@@ -47,7 +47,7 @@ Standard_EXPORT Standard_Boolean FUN_EqualPonR(const TopOpeBRep_LineInter&   Lre
 // purpose  : Get list <LES> of restriction edges from the current faces
 //           intersector having part IN one of the 2 faces.
 //=======================================================================
-void TopOpeBRep_FacesFiller::GetESL(TopTools_ListOfShape& LES)
+void TopOpeBRep_FacesFiller::GetESL(ShapeList& LES)
 {
 
 #ifdef OCCT_DEBUG
@@ -68,12 +68,12 @@ void TopOpeBRep_FacesFiller::GetESL(TopTools_ListOfShape& LES)
 
     if (isrest)
     {
-      const TopoDS_Edge& E = TopoDS::Edge(L.Arc());
+      const TopoEdge& E = TopoDS::Edge(L.Arc());
 
 #ifdef OCCT_DEBUG
       if (trRL)
       {
-        TopOpeBRep_VPointInterIterator VPI;
+        VPointIntersectionIterator VPI;
         VPI.Init(L);
         std::cout << std::endl << "------------ Dump Rline  --------------------" << std::endl;
         for (; VPI.More(); VPI.Next())
@@ -105,13 +105,13 @@ Standard_Boolean TopOpeBRep_FacesFiller::KeepRLine(const TopOpeBRep_LineInter& L
   Standard_Boolean         isrest = (t == TopOpeBRep_RESTRICTION);
   if (!isrest)
     return Standard_False;
-  const TopoDS_Edge& EL   = TopoDS::Edge(L.Arc());
-  Standard_Boolean   isdg = BRep_Tool::Degenerated(EL);
+  const TopoEdge& EL   = TopoDS::Edge(L.Arc());
+  Standard_Boolean   isdg = BRepInspector::Degenerated(EL);
   if (isdg)
     return Standard_False;
 
   // look for a vpoint with transition IN/OUT or OUT/IN
-  TopOpeBRep_VPointInterIterator VPI;
+  VPointIntersectionIterator VPI;
   VPI.Init(L, checkkeep);
 
   // With LineConstructor, each RLine restricted by its vpbounds
@@ -130,8 +130,8 @@ Standard_Boolean TopOpeBRep_FacesFiller::KeepRLine(const TopOpeBRep_LineInter& L
     VPI.Next();
 
   Standard_Boolean middle = Standard_False; // xpu011098 : cto012U1
-  TopoDS_Vertex    vv;
-  Standard_Boolean closedE = TopOpeBRepTool_TOOL::ClosedE(EL, vv);
+  TopoVertex    vv;
+  Standard_Boolean closedE = TOOL1::ClosedE(EL, vv);
   if (closedE)
   {
     Standard_Real parf, parl;
@@ -183,14 +183,14 @@ Standard_Boolean TopOpeBRep_FacesFiller::KeepRLine(const TopOpeBRep_LineInter& L
     Standard_Boolean samept = FUN_EqualPonR(L, vpf, vpl);
     if (samept)
     {
-      TopoDS_Vertex    vclo;
-      Standard_Boolean closedEL = TopOpeBRepTool_TOOL::ClosedE(EL, vclo);
+      TopoVertex    vclo;
+      Standard_Boolean closedEL = TOOL1::ClosedE(EL, vclo);
       if (closedEL)
       {
-        Standard_Real tolvclo = BRep_Tool::Tolerance(vclo);
-        //	Standard_Real tolvclo = BRep_Tool::Tolerance(TopoDS::Vertex(vclo));
-        Point3d ptclo = BRep_Tool::Pnt(vclo);
-        //	Point3d ptclo = BRep_Tool::Pnt(TopoDS::Vertex(vclo));
+        Standard_Real tolvclo = BRepInspector::Tolerance(vclo);
+        //	Standard_Real tolvclo = BRepInspector::Tolerance(TopoDS::Vertex(vclo));
+        Point3d ptclo = BRepInspector::Pnt(vclo);
+        //	Point3d ptclo = BRepInspector::Pnt(TopoDS::Vertex(vclo));
         Standard_Real    tolf    = vpf.Tolerance();
         Point3d           ptf     = vpf.Value();
         Standard_Real    d       = ptf.Distance(ptclo);
@@ -206,7 +206,7 @@ Standard_Boolean TopOpeBRep_FacesFiller::KeepRLine(const TopOpeBRep_LineInter& L
   Standard_Boolean out = Standard_False;
   if (samevp)
   {
-    Standard_Boolean isper = TopOpeBRepTool_ShapeTool::BASISCURVE(EL)->IsPeriodic();
+    Standard_Boolean isper = ShapeTool::BASISCURVE(EL)->IsPeriodic();
 
     Standard_Integer f, l, n;
     L.VPBounds(f, l, n);
@@ -252,7 +252,7 @@ Standard_Boolean TopOpeBRep_FacesFiller::KeepRLine(const TopOpeBRep_LineInter& L
 #ifdef OCCT_DEBUG
 //  if (trc) {
 //    std::cout<<" bip("<<vpf.Index()<<","<<vpl.Index()<<") of line restriction ";
-//    std::cout<<L.Index()<<" is ";TopAbs::Print(stVPbip,std::cout);
+//    std::cout<<L.Index()<<" is ";TopAbs1::Print(stVPbip,std::cout);
 //    if (keeprline) std::cout<<" : edge restriction kept"<<std::endl;
 //    else std::cout<<" : edge restriction kept not kept"<<std::endl;
 //  }
@@ -261,48 +261,48 @@ Standard_Boolean TopOpeBRep_FacesFiller::KeepRLine(const TopOpeBRep_LineInter& L
   return keeprline;
 }
 
-Standard_EXPORT Standard_Boolean FUN_brep_sdmRE(const TopoDS_Edge& E1, const TopoDS_Edge& E2)
+Standard_EXPORT Standard_Boolean FUN_brep_sdmRE(const TopoEdge& E1, const TopoEdge& E2)
 { // prequesitory : E1, E2 are restriction edges of opposite rank
   //                found in the same FacesFiller
   Standard_Boolean  ok = Standard_False;
   BRepAdaptor_Curve BAC;
-  TopoDS_Vertex     v1, v2;
-  TopExp::Vertices(E1, v1, v2);
-  TopoDS_Vertex v3, v4;
-  TopExp::Vertices(E2, v3, v4);
+  TopoVertex     v1, v2;
+  TopExp1::Vertices(E1, v1, v2);
+  TopoVertex v3, v4;
+  TopExp1::Vertices(E2, v3, v4);
   if (!ok)
   {
     BAC.Initialize(E1);
-    Standard_Real tol1 = BRep_Tool::Tolerance(E1);
-    Standard_Real tol2 = BRep_Tool::Tolerance(v3);
-    Standard_Real tol3 = BRep_Tool::Tolerance(v4);
+    Standard_Real tol1 = BRepInspector::Tolerance(E1);
+    Standard_Real tol2 = BRepInspector::Tolerance(v3);
+    Standard_Real tol3 = BRepInspector::Tolerance(v4);
     Standard_Real tol4 = Max(tol1, Max(tol2, tol3));
     if (!ok)
     {
-      const Point3d& P3 = BRep_Tool::Pnt(v3);
+      const Point3d& P3 = BRepInspector::Pnt(v3);
       ok               = FUN_tool_PinC(P3, BAC, tol4);
     }
     if (!ok)
     {
-      const Point3d& P4 = BRep_Tool::Pnt(v4);
+      const Point3d& P4 = BRepInspector::Pnt(v4);
       ok               = FUN_tool_PinC(P4, BAC, tol4);
     }
   }
   if (!ok)
   {
     BAC.Initialize(E2);
-    Standard_Real tol1 = BRep_Tool::Tolerance(E2);
-    Standard_Real tol2 = BRep_Tool::Tolerance(v1);
-    Standard_Real tol3 = BRep_Tool::Tolerance(v2);
+    Standard_Real tol1 = BRepInspector::Tolerance(E2);
+    Standard_Real tol2 = BRepInspector::Tolerance(v1);
+    Standard_Real tol3 = BRepInspector::Tolerance(v2);
     Standard_Real tol4 = Max(tol1, Max(tol2, tol3));
     if (!ok)
     {
-      const Point3d& P1 = BRep_Tool::Pnt(v1);
+      const Point3d& P1 = BRepInspector::Pnt(v1);
       ok               = FUN_tool_PinC(P1, BAC, tol4);
     }
     if (!ok)
     {
-      const Point3d& P2 = BRep_Tool::Pnt(v2);
+      const Point3d& P2 = BRepInspector::Pnt(v2);
       ok               = FUN_tool_PinC(P2, BAC, tol4);
     }
   }
@@ -315,16 +315,16 @@ void TopOpeBRep_FacesFiller::ProcessSectionEdges()
 {
   // recuperation des aretes d'intersection mapES
   // MSV: replace map with list to achieve predictable order of edges
-  TopTools_ListOfShape LES;
+  ShapeList LES;
   GetESL(LES);
 
   // add LES edges as section edges in the DS.
   TopTools_ListIteratorOfListOfShape itLES;
   for (itLES.Initialize(LES); itLES.More(); itLES.Next())
   {
-    const TopoDS_Edge& E = TopoDS::Edge(itLES.Value());
+    const TopoEdge& E = TopoDS::Edge(itLES.Value());
 
-    Standard_Boolean isdg = BRep_Tool::Degenerated(E); // xpu290698
+    Standard_Boolean isdg = BRepInspector::Degenerated(E); // xpu290698
     if (isdg)
       continue; // xpu290698
 
@@ -339,11 +339,11 @@ void TopOpeBRep_FacesFiller::ProcessSectionEdges()
   // LOI = liste des rank (1 ou 2 ) des aretes de section (liste LES)
   for (itLES.Initialize(LES); itLES.More(); itLES.Next())
   {
-    const TopoDS_Edge& ELES = TopoDS::Edge(itLES.Value());
+    const TopoEdge& ELES = TopoDS::Edge(itLES.Value());
     Standard_Boolean   is1  = Standard_False;
     Standard_Boolean   is2  = Standard_False;
     myFacesIntersector->InitLine();
-    TopoDS_Edge ELI;
+    TopoEdge ELI;
     for (; myFacesIntersector->MoreLine(); myFacesIntersector->NextLine())
     {
       TopOpeBRep_LineInter& L = myFacesIntersector->CurrentLine();
@@ -371,7 +371,7 @@ void TopOpeBRep_FacesFiller::ProcessSectionEdges()
   for (itLES.Initialize(LES), itLOI.Initialize(LOI); itLES.More() && itLOI.More();
        itLES.Next(), itLOI.Next())
   {
-    const TopoDS_Shape& E1  = itLES.Value();
+    const TopoShape& E1  = itLES.Value();
     Standard_Integer    rE1 = itLOI.Value();
     myDS->AddShape(E1, rE1);
   }
@@ -382,18 +382,18 @@ void TopOpeBRep_FacesFiller::ProcessSectionEdges()
   TopTools_DataMapOfShapeListOfShape mapELE;
   for (itLES.Initialize(LES); itLES.More(); itLES.Next())
   {
-    const TopoDS_Edge& E1  = TopoDS::Edge(itLES.Value());
+    const TopoEdge& E1  = TopoDS::Edge(itLES.Value());
     Standard_Integer   iE1 = myDS->Shape(E1);
     Standard_Integer   rE1 = myDS->AncestorRank(iE1);
     if (rE1 != 1)
       continue;
-    TopTools_ListOfShape thelist;
+    ShapeList thelist;
     mapELE.Bind(E1, thelist);
 
     TopTools_ListIteratorOfListOfShape itLES2;
     for (itLES2.Initialize(LES); itLES2.More(); itLES2.Next())
     {
-      const TopoDS_Edge& E2  = TopoDS::Edge(itLES2.Value());
+      const TopoEdge& E2  = TopoDS::Edge(itLES2.Value());
       Standard_Integer   iE2 = myDS->Shape(E2);
       Standard_Integer   rE2 = myDS->AncestorRank(iE2);
       if (rE2 == 0 || iE1 == iE2 || rE2 == rE1)
@@ -411,19 +411,19 @@ void TopOpeBRep_FacesFiller::ProcessSectionEdges()
 
   for (itmapELE.Initialize(mapELE); itmapELE.More(); itmapELE.Next())
   {
-    const TopoDS_Edge&                 E1         = TopoDS::Edge(itmapELE.Key());
+    const TopoEdge&                 E1         = TopoDS::Edge(itmapELE.Key());
     Standard_Integer                   iE1        = myDS->Shape(E1);
     Standard_Integer                   rE1        = myDS->AncestorRank(iE1);
-    const TopoDS_Face&                 aFace1     = TopoDS::Face(myFacesIntersector->Face(rE1));
-    Standard_Boolean                   isClosing1 = BRep_Tool::IsClosed(E1, aFace1);
+    const TopoFace&                 aFace1     = TopoDS::Face(myFacesIntersector->Face(rE1));
+    Standard_Boolean                   isClosing1 = BRepInspector::IsClosed(E1, aFace1);
     TopTools_ListIteratorOfListOfShape itL(itmapELE.Value());
     for (; itL.More(); itL.Next())
     {
-      const TopoDS_Edge& E2         = TopoDS::Edge(itL.Value());
+      const TopoEdge& E2         = TopoDS::Edge(itL.Value());
       Standard_Integer   iE2        = myDS->Shape(E2);
       Standard_Integer   rE2        = myDS->AncestorRank(iE2);
-      const TopoDS_Face& aFace2     = TopoDS::Face(myFacesIntersector->Face(rE2));
-      Standard_Boolean   isClosing2 = BRep_Tool::IsClosed(E2, aFace2);
+      const TopoFace& aFace2     = TopoDS::Face(myFacesIntersector->Face(rE2));
+      Standard_Boolean   isClosing2 = BRepInspector::IsClosed(E2, aFace2);
       Standard_Boolean   refFirst   = isClosing1 || !isClosing2;
       myDS->FillShapesSameDomain(E1,
                                  E2,

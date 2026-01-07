@@ -61,16 +61,16 @@ Standard_Boolean BinMDataStd_ReferenceArrayDriver::Paste(
   anAtt->Init(aFirstInd, aLastInd);
   for (Standard_Integer i = aFirstInd; i <= aLastInd; i++)
   {
-    TCollection_AsciiString entry;
+    AsciiString1 entry;
     if (!(theSource >> entry))
       return Standard_False;
-    TDF_Label L;
+    DataLabel L;
     TDF_Tool::Label(anAtt->Label().Data(), entry, L, Standard_True);
     if (!L.IsNull())
       anAtt->SetValue(i, L);
   }
 
-  BinMDataStd::SetAttributeID(theSource,
+  BinMDataStd1::SetAttributeID(theSource,
                               anAtt,
                               theRelocTable.GetHeaderData()->StorageVersion().IntegerValue());
   return Standard_True;
@@ -91,10 +91,10 @@ void BinMDataStd_ReferenceArrayDriver::Paste(const Handle(TDF_Attribute)& theSou
   theTarget << aFirstInd << aLastInd;
   for (; i <= aLastInd; i++)
   {
-    TDF_Label L = anAtt->Value(i);
+    DataLabel L = anAtt->Value(i);
     if (!L.IsNull())
     {
-      TCollection_AsciiString entry;
+      AsciiString1 entry;
       TDF_Tool::Entry(L, entry);
       theTarget << entry;
     }

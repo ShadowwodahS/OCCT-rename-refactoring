@@ -79,7 +79,7 @@
 //            then bug will not be reproduced. Therefore, this generator
 //            is very important (despite its taking many lines of the code).
 //=======================================================================
-static Standard_Integer SurfaceGenOCC26675_1(Draw_Interpretor& theDI,
+static Standard_Integer SurfaceGenOCC26675_1(DrawInterpreter& theDI,
                                              Standard_Integer  theNArg,
                                              const char**      theArgVal)
 {
@@ -99,9 +99,9 @@ static Standard_Integer SurfaceGenOCC26675_1(Draw_Interpretor& theDI,
                          -866.02540378443609000000,
                          +0.00000000000000000000);
   const Frame3d aCircAxes(aCircCenter, aCircN, aCircX);
-  const Handle(Geom_Curve) aCurv = new Geom_Circle(aCircAxes, +50.00000000000000000000);
+  const Handle(GeomCurve3d) aCurv = new GeomCircle(aCircAxes, +50.00000000000000000000);
 
-  const Handle(Geom_Surface) aS2 = new Geom_SurfaceOfLinearExtrusion(aCurv, anExtrDir);
+  const Handle(GeomSurface) aS2 = new Geom_SurfaceOfLinearExtrusion(aCurv, anExtrDir);
 
   TColgp_Array2OfPnt      aPoles(1, 7, 1, 81);
   TColStd_Array2OfReal    aWeights(1, 7, 1, 81);
@@ -1845,17 +1845,17 @@ static Standard_Integer SurfaceGenOCC26675_1(Draw_Interpretor& theDI,
   }
   ////
 
-  const Handle(Geom_Surface) aS1 =
+  const Handle(GeomSurface) aS1 =
     new Geom_BSplineSurface(aPoles, aWeights, aUKnots, aVKnots, aUMult, aVMult, aUDegree, aVDegree);
 
   char buff[1024];
 
   Sprintf(buff, "%s_1", theArgVal[1]);
-  DrawTrSurf::Set(buff, aS1);
+  DrawTrSurf1::Set(buff, aS1);
   theDI << buff << " ";
 
   Sprintf(buff, "%s_2", theArgVal[1]);
-  DrawTrSurf::Set(buff, aS2);
+  DrawTrSurf1::Set(buff, aS2);
   theDI << buff << "\n";
 
   return 0;
@@ -1918,7 +1918,7 @@ int test<4>()
 
 //=================================================================================================
 
-static Standard_Integer OCC24836(Draw_Interpretor& theDI, Standard_Integer n, const char** a)
+static Standard_Integer OCC24836(DrawInterpreter& theDI, Standard_Integer n, const char** a)
 {
   if (n != 1)
   {
@@ -1944,26 +1944,26 @@ static Standard_Integer OCC24836(Draw_Interpretor& theDI, Standard_Integer n, co
 //=======================================================================
 
 // Fetch via topology
-static std::pair<Point3d, Point3d> getVerticesA(const TopoDS_Edge& theEdge)
+static std::pair<Point3d, Point3d> getVerticesA(const TopoEdge& theEdge)
 {
   std::pair<Point3d, Point3d> result;
 
-  static TopoDS_Vertex aFirst, aLast;
-  TopExp::Vertices(theEdge, aFirst, aLast, Standard_True);
+  static TopoVertex aFirst, aLast;
+  TopExp1::Vertices(theEdge, aFirst, aLast, Standard_True);
 
-  result.first  = BRep_Tool::Pnt(aFirst);
-  result.second = BRep_Tool::Pnt(aLast);
+  result.first  = BRepInspector::Pnt(aFirst);
+  result.second = BRepInspector::Pnt(aLast);
 
   return result;
 }
 
 // Geometrical way
-static std::pair<Point3d, Point3d> getVerticesB(const TopoDS_Edge& theEdge)
+static std::pair<Point3d, Point3d> getVerticesB(const TopoEdge& theEdge)
 {
   Standard_Real first;
   Standard_Real last;
 
-  Handle(Geom_Curve) curve = BRep_Tool::Curve(theEdge, first, last);
+  Handle(GeomCurve3d) curve = BRepInspector::Curve(theEdge, first, last);
 
   std::pair<Point3d, Point3d> result;
 
@@ -1980,7 +1980,7 @@ static std::pair<Point3d, Point3d> getVerticesB(const TopoDS_Edge& theEdge)
   return result;
 }
 
-static Standard_Integer OCC27021(Draw_Interpretor& theDI,
+static Standard_Integer OCC27021(DrawInterpreter& theDI,
                                  Standard_Integer  theNArg,
                                  const char**      theArgVal)
 {
@@ -1990,16 +1990,16 @@ static Standard_Integer OCC27021(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape shape(DBRep::Get(theArgVal[1]));
+  TopoShape shape(DBRep1::Get(theArgVal[1]));
 
   TopTools_IndexedMapOfShape shape_faces;
-  TopExp::MapShapes(shape, TopAbs_FACE, shape_faces);
+  TopExp1::MapShapes(shape, TopAbs_FACE, shape_faces);
 
   // Pick a single face which shows the problem.
-  TopoDS_Face                face = TopoDS::Face(shape_faces(10));
+  TopoFace                face = TopoDS::Face(shape_faces(10));
   TopTools_IndexedMapOfShape face_edges;
-  TopExp::MapShapes(face, TopAbs_EDGE, face_edges);
-  TopoDS_Edge edge = TopoDS::Edge(face_edges(2));
+  TopExp1::MapShapes(face, TopAbs_EDGE, face_edges);
+  TopoEdge edge = TopoDS::Edge(face_edges(2));
 
   Standard_Integer iterations = 100000000;
 
@@ -2028,7 +2028,7 @@ static Standard_Integer OCC27021(Draw_Interpretor& theDI,
 // function : OCC27235
 // purpose : check presentation in GDT document
 //=======================================================================
-static Standard_Integer OCC27235(Draw_Interpretor& theDI, Standard_Integer n, const char** a)
+static Standard_Integer OCC27235(DrawInterpreter& theDI, Standard_Integer n, const char** a)
 {
   if (n < 2)
   {
@@ -2036,8 +2036,8 @@ static Standard_Integer OCC27235(Draw_Interpretor& theDI, Standard_Integer n, co
     return 1;
   }
 
-  Handle(TDocStd_Document) Doc;
-  DDocStd::GetDocument(a[1], Doc);
+  Handle(AppDocument) Doc;
+  DDocStd1::GetDocument(a[1], Doc);
   if (Doc.IsNull())
   {
     theDI << a[1] << " is not a document\n";
@@ -2045,8 +2045,8 @@ static Standard_Integer OCC27235(Draw_Interpretor& theDI, Standard_Integer n, co
   }
   Handle(XCAFDoc_DimTolTool) aDimTolTool = XCAFDoc_DocumentTool::DimTolTool(Doc->Main());
   Handle(XCAFDoc_ShapeTool)  aShapeTool  = XCAFDoc_DocumentTool::ShapeTool(Doc->Main());
-  TopoDS_Compound            aPresentations;
-  BRep_Builder               B;
+  TopoCompound            aPresentations;
+  ShapeBuilder               B;
   B.MakeCompound(aPresentations);
 
   TDF_LabelSequence aLabels;
@@ -2066,7 +2066,7 @@ static Standard_Integer OCC27235(Draw_Interpretor& theDI, Standard_Integer n, co
     Handle(XCAFDimTolObjects_DimensionObject) anObject = aDimAttr->GetObject();
     if (anObject.IsNull())
       continue;
-    TopoDS_Shape aShape = anObject->GetPresentation();
+    TopoShape aShape = anObject->GetPresentation();
     if (!aShape.IsNull())
       B.Add(aPresentations, aShape);
   }
@@ -2081,7 +2081,7 @@ static Standard_Integer OCC27235(Draw_Interpretor& theDI, Standard_Integer n, co
     Handle(XCAFDimTolObjects_GeomToleranceObject) anObject = aGTAttr->GetObject();
     if (anObject.IsNull())
       continue;
-    TopoDS_Shape aShape = anObject->GetPresentation();
+    TopoShape aShape = anObject->GetPresentation();
     if (!aShape.IsNull())
       B.Add(aPresentations, aShape);
   }
@@ -2099,14 +2099,14 @@ static Standard_Integer OCC27235(Draw_Interpretor& theDI, Standard_Integer n, co
         Handle(XCAFDimTolObjects_DatumObject) anObject = aDat->GetObject();
         if (anObject.IsNull())
           continue;
-        TopoDS_Shape aShape = anObject->GetPresentation();
+        TopoShape aShape = anObject->GetPresentation();
         if (!aShape.IsNull())
           B.Add(aPresentations, aShape);
       }
     }
   }
 
-  GProp_GProps aG;
+  GeometricProperties aG;
   BRepGProp::LinearProperties(aPresentations, aG);
   Point3d aPnt = aG.CentreOfMass();
   theDI << "Centre of mass: " << aPnt.X() << " " << aPnt.Y() << " " << aPnt.Z() << "\n";
@@ -2117,7 +2117,7 @@ static Standard_Integer OCC27235(Draw_Interpretor& theDI, Standard_Integer n, co
 
 //=================================================================================================
 
-static Standard_Integer OCC26930(Draw_Interpretor& theDI,
+static Standard_Integer OCC26930(DrawInterpreter& theDI,
                                  Standard_Integer  theNArg,
                                  const char**      theArgVal)
 {
@@ -2127,20 +2127,20 @@ static Standard_Integer OCC26930(Draw_Interpretor& theDI,
     return 1;
   }
 
-  Handle(Geom_Surface) aSurface = DrawTrSurf::GetSurface(theArgVal[1]);
-  Handle(Geom_Curve)   aCurve   = DrawTrSurf::GetCurve(theArgVal[2]);
-  Standard_Real        aStart   = Draw::Atof(theArgVal[3]);
-  Standard_Real        anEnd    = Draw::Atof(theArgVal[4]);
+  Handle(GeomSurface) aSurface = DrawTrSurf1::GetSurface(theArgVal[1]);
+  Handle(GeomCurve3d)   aCurve   = DrawTrSurf1::GetCurve(theArgVal[2]);
+  Standard_Real        aStart   = Draw1::Atof(theArgVal[3]);
+  Standard_Real        anEnd    = Draw1::Atof(theArgVal[4]);
 
   // project
-  Handle(Geom2d_Curve) aPCurve;
+  Handle(GeomCurve2d) aPCurve;
 
   ShapeConstruct_ProjectCurveOnSurface aProj;
   aProj.Init(aSurface, Precision::Confusion());
   {
     try
     {
-      Handle(Geom_Curve) aTmpCurve = aCurve; // to use reference in Perform()
+      Handle(GeomCurve3d) aTmpCurve = aCurve; // to use reference in Perform()
       aProj.Perform(aTmpCurve, aStart, anEnd, aPCurve);
     }
     catch (const ExceptionBase&)
@@ -2170,7 +2170,7 @@ static Standard_Integer OCC26930(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer OCC27466(Draw_Interpretor& theDI,
+static Standard_Integer OCC27466(DrawInterpreter& theDI,
                                  Standard_Integer  theNArg,
                                  const char**      theArgVal)
 {
@@ -2180,14 +2180,14 @@ static Standard_Integer OCC27466(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Face aFace = TopoDS::Face(DBRep::Get(theArgVal[1], TopAbs_FACE, Standard_True));
+  TopoFace aFace = TopoDS::Face(DBRep1::Get(theArgVal[1], TopAbs_FACE, Standard_True));
   if (aFace.IsNull())
     return 1;
   Point3d aPnt;
-  if (!DrawTrSurf::GetPoint(theArgVal[2], aPnt))
+  if (!DrawTrSurf1::GetPoint(theArgVal[2], aPnt))
     return 1;
   gp_Pnt2d aUV;
-  if (!DrawTrSurf::GetPoint2d(theArgVal[3], aUV))
+  if (!DrawTrSurf1::GetPoint2d(theArgVal[3], aUV))
     return 1;
   BRepAdaptor_Surface aSurf(aFace);
 
@@ -2208,8 +2208,8 @@ static Standard_Integer OCC27466(Draw_Interpretor& theDI,
     Standard_Real u, v;
     anExtrema.Point().Parameter(u, v);
     gp_Pnt2d aResUV(u, v);
-    DrawTrSurf::Set((TCollection_AsciiString(theArgVal[2]) + "_res").ToCString(), aResPnt);
-    DrawTrSurf::Set((TCollection_AsciiString(theArgVal[3]) + "_res").ToCString(), aResUV);
+    DrawTrSurf1::Set((AsciiString1(theArgVal[2]) + "_res").ToCString(), aResPnt);
+    DrawTrSurf1::Set((AsciiString1(theArgVal[3]) + "_res").ToCString(), aResUV);
     theDI << theArgVal[2] << "_res and " << theArgVal[3]
           << "_res are created, dist=" << sqrt(aSqDist);
   }
@@ -2246,7 +2246,7 @@ Standard_Real Coeffs[6];
 // function : OCC26747_CheckParabola
 // purpose  : Checks if created parabola is correct
 //========================================================================
-static void OCC26747_CheckParabola(Draw_Interpretor&      theDI,
+static void OCC26747_CheckParabola(DrawInterpreter&      theDI,
                                    const char*            theName,
                                    const Standard_Boolean theSense = Standard_True)
 {
@@ -2255,7 +2255,7 @@ static void OCC26747_CheckParabola(Draw_Interpretor&      theDI,
   //                      Directrix,                    Focus
   GCE2d_MakeParabola aPrb(Parab2d_Bug26747::Axes, Parab2d_Bug26747::FocusPoint, theSense);
 
-  DrawTrSurf::Set(theName, aPrb.Value());
+  DrawTrSurf1::Set(theName, aPrb.Value());
 
   gp_Pnt2d aVert(aPrb.Value()->Parab2d().Location());
 
@@ -2291,7 +2291,7 @@ static void OCC26747_CheckParabola(Draw_Interpretor&      theDI,
 // function : OCC26747_1
 // purpose  : Creates a 2D-parabola for testing
 //========================================================================
-static Standard_Integer OCC26747_1(Draw_Interpretor& theDI,
+static Standard_Integer OCC26747_1(DrawInterpreter& theDI,
                                    Standard_Integer  theNArg,
                                    const char**      theArgVal)
 {
@@ -2353,7 +2353,7 @@ static Standard_Integer OCC26747_1(Draw_Interpretor& theDI,
 // function : OCC26747_2
 // purpose  : Creates a 2D-parabola for testing
 //=======================================================================
-static Standard_Integer OCC26747_2(Draw_Interpretor& theDI,
+static Standard_Integer OCC26747_2(DrawInterpreter& theDI,
                                    Standard_Integer  theNArg,
                                    const char**      theArgVal)
 {
@@ -2417,7 +2417,7 @@ static Standard_Integer OCC26747_2(Draw_Interpretor& theDI,
 // function : OCC26747_3
 // purpose  : Creates a 2D-parabola for testing
 //=======================================================================
-static Standard_Integer OCC26747_3(Draw_Interpretor& theDI,
+static Standard_Integer OCC26747_3(DrawInterpreter& theDI,
                                    Standard_Integer  theNArg,
                                    const char**      theArgVal)
 {
@@ -2486,7 +2486,7 @@ static Standard_Integer OCC26747_3(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer OCC27357(Draw_Interpretor& theDI, Standard_Integer, const char**)
+static Standard_Integer OCC27357(DrawInterpreter& theDI, Standard_Integer, const char**)
 {
   TColgp_Array1OfPnt2d aPoles(1, 3);
   aPoles.SetValue(1, gp_Pnt2d(0., 0.));
@@ -2533,7 +2533,7 @@ static Standard_Integer OCC27357(Draw_Interpretor& theDI, Standard_Integer, cons
 
 //=================================================================================================
 
-static Standard_Integer OCC26270(Draw_Interpretor& theDI,
+static Standard_Integer OCC26270(DrawInterpreter& theDI,
                                  Standard_Integer  theNArg,
                                  const char**      theArgVal)
 {
@@ -2542,13 +2542,13 @@ static Standard_Integer OCC26270(Draw_Interpretor& theDI,
     theDI << "Usage :" << theArgVal[0] << " shape result\n";
     return 0;
   }
-  TopoDS_Shape             aShape = DBRep::Get(theArgVal[1]);
-  TopExp_Explorer          anExp(aShape, TopAbs_EDGE);
+  TopoShape             aShape = DBRep1::Get(theArgVal[1]);
+  ShapeExplorer          anExp(aShape, TopAbs_EDGE);
   TColGeom_SequenceOfCurve aCurveSeq;
   for (; anExp.More(); anExp.Next())
   {
     Standard_Real      f, l;
-    Handle(Geom_Curve) aCurve = BRep_Tool::Curve(TopoDS::Edge(anExp.Current()), f, l);
+    Handle(GeomCurve3d) aCurve = BRepInspector::Curve(TopoDS::Edge(anExp.Current()), f, l);
     if (!aCurve.IsNull())
     {
       aCurve = new Geom_TrimmedCurve(aCurve, f, l);
@@ -2564,9 +2564,9 @@ static Standard_Integer OCC26270(Draw_Interpretor& theDI,
       Handle(Geom_BSplineSurface) aRes = aBSurface.BSplineSurface();
       if (!aRes.IsNull())
       {
-        BRepBuilderAPI_MakeFace b_face1(aRes, Precision::Confusion());
-        const TopoDS_Face&      bsp_face1 = b_face1.Face();
-        DBRep::Set(theArgVal[2], bsp_face1);
+        FaceMaker b_face1(aRes, Precision::Confusion());
+        const TopoFace&      bsp_face1 = b_face1.Face();
+        DBRep1::Set(theArgVal[2], bsp_face1);
       }
     }
     catch (ExceptionBase const&)
@@ -2580,40 +2580,40 @@ static Standard_Integer OCC26270(Draw_Interpretor& theDI,
 #include "BRepBuilderAPI_MakeWire.hxx"
 #include "BRepBuilderAPI_MakeEdge.hxx"
 
-static Standard_Integer OCC27552(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer OCC27552(DrawInterpreter&, Standard_Integer, const char**)
 {
-  BRep_Builder  BB;
-  TopoDS_Vertex V1, V2, V3;
-  TopoDS_Edge   E1, E2;
+  ShapeBuilder  BB;
+  TopoVertex V1, V2, V3;
+  TopoEdge   E1, E2;
   BB.MakeVertex(V1, Point3d(0, 0, 0), 0.1);
   BB.MakeVertex(V2, Point3d(5, 0, 0), 0.1);
   BB.MakeVertex(V3, Point3d(10, 0, 0), 0.1);
-  E1 = BRepBuilderAPI_MakeEdge(V1, V2).Edge();
-  E2 = BRepBuilderAPI_MakeEdge(V2, V3).Edge();
+  E1 = EdgeMaker(V1, V2).Edge();
+  E2 = EdgeMaker(V2, V3).Edge();
   BRepBuilderAPI_MakeWire MW;
   MW.Add(E1);
   MW.Add(E2);
-  TopoDS_Vertex V4, V5, V6, V7;
-  TopoDS_Edge   E3, E4;
+  TopoVertex V4, V5, V6, V7;
+  TopoEdge   E3, E4;
   BB.MakeVertex(V4, Point3d(10, 0 + 0.05, 0), 0.07);
   BB.MakeVertex(V5, Point3d(10, 0 - 0.05, 0), 0.07);
   BB.MakeVertex(V6, Point3d(10, 0 + 2, 0), 0.07);
   BB.MakeVertex(V7, Point3d(10, 0 - 2, 0), 0.07);
-  E3 = BRepBuilderAPI_MakeEdge(V4, V6).Edge();
-  E4 = BRepBuilderAPI_MakeEdge(V5, V7).Edge();
-  TopTools_ListOfShape LLE;
+  E3 = EdgeMaker(V4, V6).Edge();
+  E4 = EdgeMaker(V5, V7).Edge();
+  ShapeList LLE;
   LLE.Append(E3);
   LLE.Append(E4);
   MW.Add(LLE);
-  TopoDS_Shape W = MW.Wire();
-  DBRep::Set("outw", W);
+  TopoShape W = MW.Wire();
+  DBRep1::Set("outw", W);
 
   return 0;
 }
 
 #include <NCollection_IncAllocator.hxx>
 
-static Standard_Integer OCC27875(Draw_Interpretor& theDI,
+static Standard_Integer OCC27875(DrawInterpreter& theDI,
                                  Standard_Integer  theNArg,
                                  const char**      theArgVal)
 {
@@ -2624,7 +2624,7 @@ static Standard_Integer OCC27875(Draw_Interpretor& theDI,
 
   TColGeom_SequenceOfCurve aNC(new NCollection_IncAllocator());
 
-  const Handle(Geom_Curve) aC = Handle(Geom_Curve)::DownCast(DrawTrSurf::Get(theArgVal[1]));
+  const Handle(GeomCurve3d) aC = Handle(GeomCurve3d)::DownCast(DrawTrSurf1::Get(theArgVal[1]));
 
   aNC.Append(aC);
 
@@ -2640,7 +2640,7 @@ static Standard_Integer OCC27875(Draw_Interpretor& theDI,
 
 #include <BRepClass_FaceClassifier.hxx>
 
-static Standard_Integer OCC27884(Draw_Interpretor& theDI,
+static Standard_Integer OCC27884(DrawInterpreter& theDI,
                                  Standard_Integer  theArgNb,
                                  const char**      theArgVec)
 {
@@ -2648,18 +2648,18 @@ static Standard_Integer OCC27884(Draw_Interpretor& theDI,
   {
     return 0;
   }
-  Standard_Real      aCheck = Draw::Atof(theArgVec[3]);
-  Handle(Geom_Curve) aCur   = DrawTrSurf::GetCurve(theArgVec[1]);
+  Standard_Real      aCheck = Draw1::Atof(theArgVec[3]);
+  Handle(GeomCurve3d) aCur   = DrawTrSurf1::GetCurve(theArgVec[1]);
 
   const Handle(TypeInfo)& aType = aCur->DynamicType();
 
   Standard_Real aF = aCur->FirstParameter();
   Standard_Real aL = aCur->LastParameter();
 
-  Standard_Real number_points = Draw::Atof(theArgVec[2]);
+  Standard_Real number_points = Draw1::Atof(theArgVec[2]);
   Standard_Real aSig          = (aL - aF) / (number_points - 1);
 
-  TopTools_ListOfShape aLE;
+  ShapeList aLE;
 
   Point3d aP, aPF, aPL;
   aPF = aCur->Value(aF);
@@ -2667,27 +2667,27 @@ static Standard_Integer OCC27884(Draw_Interpretor& theDI,
 
   for (Standard_Integer i = 1; i < number_points; i++)
   {
-    TopoDS_Edge anE;
+    TopoEdge anE;
     aL  = aF + (i * aSig);
     aPL = aCur->Value(aL);
     if (aCheck == 2)
     {
       if (i % 2 == 1)
       {
-        anE = BRepBuilderAPI_MakeEdge(aPF, aPL);
+        anE = EdgeMaker(aPF, aPL);
       }
       else
       {
-        if (aType == STANDARD_TYPE(Geom_BSplineCurve))
+        if (aType == STANDARD_TYPE(BSplineCurve3d))
         {
-          Handle(Geom_BSplineCurve) aCurCopy = Handle(Geom_BSplineCurve)::DownCast(aCur->Copy());
+          Handle(BSplineCurve3d) aCurCopy = Handle(BSplineCurve3d)::DownCast(aCur->Copy());
           aCurCopy->Segment(aL - aSig, aL);
-          anE = BRepBuilderAPI_MakeEdge(aCurCopy);
+          anE = EdgeMaker(aCurCopy);
         }
         else
         {
           Handle(Geom_TrimmedCurve) aTCur = new Geom_TrimmedCurve(aCur, aL - aSig, aL);
-          anE                             = BRepBuilderAPI_MakeEdge(aTCur);
+          anE                             = EdgeMaker(aTCur);
         }
       }
       aPF = aPL;
@@ -2696,21 +2696,21 @@ static Standard_Integer OCC27884(Draw_Interpretor& theDI,
     {
       if (aCheck == 0)
       {
-        anE = BRepBuilderAPI_MakeEdge(aPF, aPL);
+        anE = EdgeMaker(aPF, aPL);
         aPF = aPL;
       }
       if (aCheck == 1)
       {
-        if (aType == STANDARD_TYPE(Geom_BSplineCurve))
+        if (aType == STANDARD_TYPE(BSplineCurve3d))
         {
-          Handle(Geom_BSplineCurve) aCurCopy = Handle(Geom_BSplineCurve)::DownCast(aCur->Copy());
+          Handle(BSplineCurve3d) aCurCopy = Handle(BSplineCurve3d)::DownCast(aCur->Copy());
           aCurCopy->Segment(aL - aSig, aL);
-          anE = BRepBuilderAPI_MakeEdge(aCurCopy);
+          anE = EdgeMaker(aCurCopy);
         }
         else
         {
           Handle(Geom_TrimmedCurve) aTCur = new Geom_TrimmedCurve(aCur, aL - aSig, aL);
-          anE                             = BRepBuilderAPI_MakeEdge(aTCur);
+          anE                             = EdgeMaker(aTCur);
         }
       }
     }
@@ -2718,21 +2718,21 @@ static Standard_Integer OCC27884(Draw_Interpretor& theDI,
   }
   if (!aCur->IsClosed())
   {
-    TopoDS_Edge anE = BRepBuilderAPI_MakeEdge(aPL, aP);
+    TopoEdge anE = EdgeMaker(aPL, aP);
     aLE.Append(anE);
   }
 
   BRepBuilderAPI_MakeWire aWire;
   aWire.Add(aLE);
-  TopoDS_Face aFace = BRepBuilderAPI_MakeFace(aWire.Wire());
+  TopoFace aFace = FaceMaker(aWire.Wire());
 
   //
 
   Standard_Real anUMin, anUMax, aVMin, aVMax;
-  BRepTools::UVBounds(aFace, anUMin, anUMax, aVMin, aVMax);
+  BRepTools1::UVBounds(aFace, anUMin, anUMax, aVMin, aVMax);
   gp_Pnt2d aP2d(anUMin - ((anUMax + anUMin) / 2), aVMin - ((aVMax + aVMin) / 2));
 
-  const Standard_Real aTol = BRep_Tool::Tolerance(aFace);
+  const Standard_Real aTol = BRepInspector::Tolerance(aFace);
 
   BRepClass_FaceClassifier aClassifier;
 
@@ -2763,7 +2763,7 @@ static Standard_Integer OCC27884(Draw_Interpretor& theDI,
 #include <XCAFView_Object.hxx>
 #include <XCAFView_ProjectionType.hxx>
 
-static Standard_Integer OCC28389(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC28389(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 20)
   {
@@ -2771,8 +2771,8 @@ static Standard_Integer OCC28389(Draw_Interpretor& di, Standard_Integer argc, co
           "vd_z ud_x ud_y ud_z zoom width height";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << "Error: Wrong document";
@@ -2780,7 +2780,7 @@ static Standard_Integer OCC28389(Draw_Interpretor& di, Standard_Integer argc, co
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -2802,9 +2802,9 @@ static Standard_Integer OCC28389(Draw_Interpretor& di, Standard_Integer argc, co
 
   Standard_Boolean isOK = Standard_True;
   // check links
-  Standard_Integer  nbShapes = Draw::Atoi(argv[3]);
-  Standard_Integer  nbGDTs   = Draw::Atoi(argv[4]);
-  Standard_Integer  nbPlanes = Draw::Atoi(argv[5]);
+  Standard_Integer  nbShapes = Draw1::Atoi(argv[3]);
+  Standard_Integer  nbGDTs   = Draw1::Atoi(argv[4]);
+  Standard_Integer  nbPlanes = Draw1::Atoi(argv[5]);
   TDF_LabelSequence aSequence;
   aViewTool->GetRefShapeLabel(aLabel, aSequence);
   if (aSequence.Length() != nbShapes)
@@ -2841,36 +2841,36 @@ static Standard_Integer OCC28389(Draw_Interpretor& di, Standard_Integer argc, co
     return 1;
   }
 
-  Point3d aPP(Draw::Atof(argv[8]), Draw::Atof(argv[9]), Draw::Atof(argv[10]));
+  Point3d aPP(Draw1::Atof(argv[8]), Draw1::Atof(argv[9]), Draw1::Atof(argv[10]));
   if (aPP.Distance(anObj->ProjectionPoint()) > Precision::Confusion())
   {
     di << "Error: Wrong projection point";
     return 1;
   }
 
-  Dir3d aVD(Draw::Atof(argv[11]), Draw::Atof(argv[12]), Draw::Atof(argv[13]));
+  Dir3d aVD(Draw1::Atof(argv[11]), Draw1::Atof(argv[12]), Draw1::Atof(argv[13]));
   if (!aVD.IsEqual(anObj->ViewDirection(), Precision::Angular()))
   {
     di << "Error: Wrong view direction";
     return 1;
   }
 
-  Dir3d aUD(Draw::Atof(argv[14]), Draw::Atof(argv[15]), Draw::Atof(argv[16]));
+  Dir3d aUD(Draw1::Atof(argv[14]), Draw1::Atof(argv[15]), Draw1::Atof(argv[16]));
   if (!aUD.IsEqual(anObj->UpDirection(), Precision::Angular()))
   {
     di << "Error: Wrong up direction";
     return 1;
   }
 
-  if (fabs(anObj->ZoomFactor() - Draw::Atof(argv[17])) > Precision::Confusion())
+  if (fabs(anObj->ZoomFactor() - Draw1::Atof(argv[17])) > Precision::Confusion())
   {
     di << "Error: Wrong zoom factor";
     return 1;
   }
 
-  if (fabs(anObj->WindowHorizontalSize() - Draw::Atof(argv[18])) > Precision::Confusion())
+  if (fabs(anObj->WindowHorizontalSize() - Draw1::Atof(argv[18])) > Precision::Confusion())
     isOK = Standard_False;
-  if (fabs(anObj->WindowVerticalSize() - Draw::Atof(argv[19])) > Precision::Confusion())
+  if (fabs(anObj->WindowVerticalSize() - Draw1::Atof(argv[19])) > Precision::Confusion())
     isOK = Standard_False;
   if (!isOK)
   {
@@ -2887,7 +2887,7 @@ static Standard_Integer OCC28389(Draw_Interpretor& di, Standard_Integer argc, co
 #include <Geom2dAPI_Interpolate.hxx>
 #include <GeomAPI.hxx>
 
-static Standard_Integer OCC28594(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC28594(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 3)
   {
@@ -2928,17 +2928,17 @@ static Standard_Integer OCC28594(Draw_Interpretor& di, Standard_Integer argc, co
   interp_2d_without_scale.Perform();
   Handle(Geom2d_BSplineCurve) curve_2d_without_scale = interp_2d_without_scale.Curve();
 
-  DrawTrSurf::Set(argv[1], curve_2d_with_scale);
-  DrawTrSurf::Set(argv[2], curve_2d_without_scale);
+  DrawTrSurf1::Set(argv[1], curve_2d_with_scale);
+  DrawTrSurf1::Set(argv[2], curve_2d_without_scale);
   return 0;
 }
 
-static Standard_Integer OCC28784(Draw_Interpretor&, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC28784(DrawInterpreter&, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
     return 1;
 
-  TopoDS_Shape aShape = DBRep::Get(argv[2]);
+  TopoShape aShape = DBRep1::Get(argv[2]);
   if (aShape.IsNull())
     return 1;
 
@@ -2952,14 +2952,14 @@ static Standard_Integer OCC28784(Draw_Interpretor&, Standard_Integer argc, const
   HLRBRep_PolyHLRToShape aHLRtoShape;
   aHLRtoShape.Update(aHLR);
 
-  TopoDS_Shape aHidden = aHLRtoShape.HCompound();
+  TopoShape aHidden = aHLRtoShape.HCompound();
 
-  DBRep::Set(argv[1], aHidden);
+  DBRep1::Set(argv[1], aHidden);
 
   return 0;
 }
 
-static Standard_Integer OCC28829(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer OCC28829(DrawInterpreter&, Standard_Integer, const char**)
 {
   // do something that causes FPE exception
   std::cout << "sqrt(-1) = " << sqrt(-1.) << std::endl;
@@ -2976,7 +2976,7 @@ static Standard_Integer OCC28829(Draw_Interpretor&, Standard_Integer, const char
   #undef max
 #endif
 
-static Standard_Integer OCC28887(Draw_Interpretor&,
+static Standard_Integer OCC28887(DrawInterpreter&,
                                  Standard_Integer theNbArgs,
                                  const char**     theArgVec)
 {
@@ -2986,8 +2986,8 @@ static Standard_Integer OCC28887(Draw_Interpretor&,
     return 1;
   }
 
-  const TCollection_AsciiString aFilePath(theArgVec[1]);
-  const TCollection_AsciiString aName(theArgVec[2]);
+  const AsciiString1 aFilePath(theArgVec[1]);
+  const AsciiString1 aName(theArgVec[2]);
   Handle(NCollection_Buffer)    aBuffer;
   {
     const Handle(OSD_FileSystem)& aFileSystem = OSD_FileSystem::DefaultFileSystem();
@@ -3029,17 +3029,17 @@ static Standard_Integer OCC28887(Draw_Interpretor&,
   aStream.seekg(0, std::ios_base::beg);
   if (aFilePath.EndsWith(".brep") || aFilePath.EndsWith(".rle"))
   {
-    TopoDS_Shape aShape;
-    BRep_Builder aBuilder;
-    BRepTools::Read(aShape, aStream, aBuilder);
-    DBRep::Set(aName.ToCString(), aShape);
+    TopoShape aShape;
+    ShapeBuilder aBuilder;
+    BRepTools1::Read(aShape, aStream, aBuilder);
+    DBRep1::Set(aName.ToCString(), aShape);
   }
   else
   {
-    Handle(TDocStd_Document)    aDoc;
-    Handle(TDocStd_Application) anApp    = DDocStd::GetApplication();
+    Handle(AppDocument)    aDoc;
+    Handle(AppManager) anApp    = DDocStd1::GetApplication();
     Standard_CString            aNameVar = aName.ToCString();
-    if (DDocStd::GetDocument(aNameVar, aDoc, Standard_False))
+    if (DDocStd1::GetDocument(aNameVar, aDoc, Standard_False))
     {
       std::cout << "Error: document with name " << aName << " already exists\n";
       return 1;
@@ -3052,14 +3052,14 @@ static Standard_Integer OCC28887(Draw_Interpretor&,
     }
 
     Handle(DDocStd_DrawDocument) aDrawDoc = new DDocStd_DrawDocument(aDoc);
-    TDataStd_Name::Set(aDoc->GetData()->Root(), aName.ToCString());
-    Draw::Set(aName.ToCString(), aDrawDoc);
+    NameAttribute::Set(aDoc->GetData()->Root(), aName.ToCString());
+    Draw1::Set(aName.ToCString(), aDrawDoc);
   }
 
   return 0;
 }
 
-static Standard_Integer OCC28131(Draw_Interpretor&,
+static Standard_Integer OCC28131(DrawInterpreter&,
                                  Standard_Integer theNbArgs,
                                  const char**     theArgVec)
 {
@@ -3087,11 +3087,11 @@ static Standard_Integer OCC28131(Draw_Interpretor&,
       Point3d(ratio2 * outer_e_bzr_geom_v(1).X(), outer_e_bzr_geom_v(4).Y(), 0);
   }
 
-  Handle(Geom_BezierCurve)  outer_e_bzr_geom = new Geom_BezierCurve(outer_e_bzr_geom_v);
-  Handle(Geom_BSplineCurve) outer_e_bsp_geom = GeomConvert::CurveToBSplineCurve(outer_e_bzr_geom);
-  TopoDS_Edge               outer_e          = BRepBuilderAPI_MakeEdge(outer_e_bsp_geom);
+  Handle(BezierCurve3d)  outer_e_bzr_geom = new BezierCurve3d(outer_e_bzr_geom_v);
+  Handle(BSplineCurve3d) outer_e_bsp_geom = GeomConvert::CurveToBSplineCurve(outer_e_bzr_geom);
+  TopoEdge               outer_e          = EdgeMaker(outer_e_bsp_geom);
 
-  Handle(Geom_BSplineCurve) curve1;
+  Handle(BSplineCurve3d) curve1;
   {
     Handle(TColgp_HArray1OfPnt2d) harray = new TColgp_HArray1OfPnt2d(1, 2); // sizing harray
     harray->SetValue(1, gp_Pnt2d(-JiZhunXian2_v1.Y(), 0));
@@ -3108,11 +3108,11 @@ static Standard_Integer OCC28131(Draw_Interpretor&,
 
     gp_Pln pln(gp_Ax3(Point3d(), Dir3d(1, 0, 0), Dir3d(0, -1, 0)));
 
-    Handle(Geom_BSplineCurve) c3d = Handle(Geom_BSplineCurve)::DownCast(GeomAPI::To3d(c, pln));
+    Handle(BSplineCurve3d) c3d = Handle(BSplineCurve3d)::DownCast(GeomAPI::To3d(c, pln));
     curve1                        = c3d;
   }
 
-  Handle(Geom_BSplineCurve) curve2;
+  Handle(BSplineCurve3d) curve2;
   {
     Handle(TColgp_HArray1OfPnt2d) harray = new TColgp_HArray1OfPnt2d(1, 3); // sizing harray
     harray->SetValue(1, gp_Pnt2d(-JiZhunXian2_v0.X(), 0));
@@ -3124,7 +3124,7 @@ static Standard_Integer OCC28131(Draw_Interpretor&,
 
     Handle(Geom2d_BSplineCurve) c = anInterpolation.Curve();
     gp_Pln                      pln(gp_Ax3(Point3d(), Dir3d(0, -1, 0), Dir3d(-1, 0, 0)));
-    Handle(Geom_BSplineCurve)   c3d = Handle(Geom_BSplineCurve)::DownCast(GeomAPI::To3d(c, pln));
+    Handle(BSplineCurve3d)   c3d = Handle(BSplineCurve3d)::DownCast(GeomAPI::To3d(c, pln));
     curve2                          = c3d;
   }
 
@@ -3134,13 +3134,13 @@ static Standard_Integer OCC28131(Draw_Interpretor&,
 
   const Handle(Geom_BSplineSurface)& surf_geom = fill2.Surface();
 
-  TopoDS_Shape filled_face = BRepBuilderAPI_MakeFace(surf_geom, 0);
+  TopoShape filled_face = FaceMaker(surf_geom, 0);
 
-  DBRep::Set(theArgVec[1], filled_face);
+  DBRep1::Set(theArgVec[1], filled_face);
 
   /*
     ///////////////////////////////////////////////////////////////////////
-    TopoDS_Solid first_solid;
+    TopoSolid first_solid;
     {
       BRepOffset_MakeOffset myOffsetShape(filled_face, -offset_thick, 1e-4,
         BRepOffset_Skin, //Mode
@@ -3162,7 +3162,7 @@ static Standard_Integer OCC28131(Draw_Interpretor&,
 #include <Geom2d_Ellipse.hxx>
 #include <Geom2dAPI_InterCurveCurve.hxx>
 
-static Standard_Integer OCC29289(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer OCC29289(DrawInterpreter&, Standard_Integer, const char**)
 {
   gp_Elips2d             e1(gp_Ax2d(gp_Pnt2d(0., 0.), gp_Dir2d(1., 0)), 2., 1.);
   Handle(Geom2d_Ellipse) Ge1 = new Geom2d_Ellipse(e1);
@@ -3253,7 +3253,7 @@ Standard_Boolean IsSameGuid(const Standard_GUID& aGuidNull, const Standard_GUID&
 #define QCOMPARE(val1, val2)                                                                       \
   di << "Checking " #val1 " == " #val2 << ((val1) == (val2) ? ": OK\n" : ": Error\n")
 
-static Standard_Integer OCC29371(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer OCC29371(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 1)
   {
@@ -3261,10 +3261,10 @@ static Standard_Integer OCC29371(Draw_Interpretor& di, Standard_Integer n, const
     return 1;
   }
 
-  Handle(TDocStd_Application) anApp = DDocStd::GetApplication();
-  Handle(TDocStd_Document)    aDoc;
+  Handle(AppManager) anApp = DDocStd1::GetApplication();
+  Handle(AppDocument)    aDoc;
   anApp->NewDocument("BinOcaf", aDoc);
-  TDF_Label        aLab = aDoc->Main();
+  DataLabel        aLab = aDoc->Main();
   Standard_GUID    aNullGuid("00000000-0000-0000-0000-000000000000");
   Standard_Boolean IsNullGuid(Standard_False);
 
@@ -3324,8 +3324,8 @@ static Standard_Integer OCC29371(Draw_Interpretor& di, Standard_Integer n, const
       IsNullGuid          = IsSameGuid(aNullGuid, aGuid);
     }
 
-    // 7. Set TDataStd_Integer
-    Handle(TDataStd_Integer) anIntAtt = new TDataStd_Integer();
+    // 7. Set IntAttribute
+    Handle(IntAttribute) anIntAtt = new IntAttribute();
     aLab.AddAttribute(anIntAtt);
     if (!anIntAtt.IsNull())
     {
@@ -3351,8 +3351,8 @@ static Standard_Integer OCC29371(Draw_Interpretor& di, Standard_Integer n, const
       IsNullGuid          = IsSameGuid(aNullGuid, aGuid);
     }
 
-    // 10. Set TDataStd_Name
-    Handle(TDataStd_Name) aNameAtt = new TDataStd_Name();
+    // 10. Set NameAttribute
+    Handle(NameAttribute) aNameAtt = new NameAttribute();
     aLab.AddAttribute(aNameAtt);
     if (!aNameAtt.IsNull())
     {
@@ -3421,7 +3421,7 @@ static Standard_Integer OCC29371(Draw_Interpretor& di, Standard_Integer n, const
 
 // check that copying of empty maps does not allocate extra memory
 template <typename T>
-void AllocDummyArr(Draw_Interpretor& theDI, int theN1, int theN2)
+void AllocDummyArr(DrawInterpreter& theDI, int theN1, int theN2)
 {
   NCollection_Array1<T> aMapArr1(0, theN1), aMapArr2(0, theN2);
 
@@ -3442,7 +3442,7 @@ void AllocDummyArr(Draw_Interpretor& theDI, int theN1, int theN2)
     theDI << "Error: memory increased by " << (int)(aMem1 - aMem0) << " bytes\n";
 }
 
-static Standard_Integer OCC29064(Draw_Interpretor& theDI,
+static Standard_Integer OCC29064(DrawInterpreter& theDI,
                                  Standard_Integer  theArgc,
                                  const char**      theArgv)
 {
@@ -3480,7 +3480,7 @@ static Standard_Integer OCC29064(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer OCC29430(Draw_Interpretor& theDI,
+static Standard_Integer OCC29430(DrawInterpreter& theDI,
                                  Standard_Integer /*theNArg*/,
                                  const char** theArgVal)
 {
@@ -3491,11 +3491,11 @@ static Standard_Integer OCC29430(Draw_Interpretor& theDI,
     r45,
     r225,
     Standard_True);
-  BRepBuilderAPI_MakeEdge edgeMaker(arcMaker.Value());
+  EdgeMaker edgeMaker(arcMaker.Value());
   BRepBuilderAPI_MakeWire wireMaker(edgeMaker.Edge());
-  const TopoDS_Wire       circle = wireMaker.Wire();
+  const TopoWire       circle = wireMaker.Wire();
 
-  DBRep::Set(theArgVal[1], circle);
+  DBRep1::Set(theArgVal[1], circle);
 
   BRepAdaptor_CompCurve curve(circle);
   theDI << "Curve.FirstParameter() = " << curve.FirstParameter() << "\n";
@@ -3504,8 +3504,8 @@ static Standard_Integer OCC29430(Draw_Interpretor& theDI,
   const Point3d aStartPt = curve.Value(curve.FirstParameter());
   const Point3d anEndPt  = curve.Value(curve.LastParameter());
 
-  DrawTrSurf::Set(theArgVal[2], aStartPt);
-  DrawTrSurf::Set(theArgVal[3], anEndPt);
+  DrawTrSurf1::Set(theArgVal[2], aStartPt);
+  DrawTrSurf1::Set(theArgVal[3], anEndPt);
 
   return 0;
 }
@@ -3514,17 +3514,17 @@ static Standard_Integer OCC29430(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer OCC29531(Draw_Interpretor&, Standard_Integer, const char** theArgV)
+static Standard_Integer OCC29531(DrawInterpreter&, Standard_Integer, const char** theArgV)
 {
-  Handle(TDocStd_Application) anApp = DDocStd::GetApplication();
-  Handle(TDocStd_Document)    aDoc;
+  Handle(AppManager) anApp = DDocStd1::GetApplication();
+  Handle(AppDocument)    aDoc;
   anApp->NewDocument("BinOcaf", aDoc);
   aDoc->SetUndoLimit(1);
 
   STEPCAFControl_Reader Reader;
   Reader.ReadFile(theArgV[1]);
   Reader.Transfer(aDoc);
-  TDF_Label aShL, aDL;
+  DataLabel aShL, aDL;
   TDF_Tool::Label(aDoc->GetData(), "0:1:1:2:672", aShL);
   TDF_Tool::Label(aDoc->GetData(), "0:1:4:10", aDL);
 
@@ -3546,7 +3546,7 @@ static Standard_Integer OCC29531(Draw_Interpretor&, Standard_Integer, const char
 #include <IntPatch_PointLine.hxx>
 #include <IntSurf_PntOn2S.hxx>
 
-static Standard_Integer OCC29807(Draw_Interpretor& theDI,
+static Standard_Integer OCC29807(DrawInterpreter& theDI,
                                  Standard_Integer  theNArg,
                                  const char**      theArgV)
 {
@@ -3556,8 +3556,8 @@ static Standard_Integer OCC29807(Draw_Interpretor& theDI,
     return 1;
   }
 
-  const Handle(Geom_Surface) aS1 = DrawTrSurf::GetSurface(theArgV[1]);
-  const Handle(Geom_Surface) aS2 = DrawTrSurf::GetSurface(theArgV[2]);
+  const Handle(GeomSurface) aS1 = DrawTrSurf1::GetSurface(theArgV[1]);
+  const Handle(GeomSurface) aS2 = DrawTrSurf1::GetSurface(theArgV[2]);
 
   if (aS1.IsNull() || aS2.IsNull())
   {
@@ -3565,10 +3565,10 @@ static Standard_Integer OCC29807(Draw_Interpretor& theDI,
     return 1;
   }
 
-  const Standard_Real aU1 = Draw::Atof(theArgV[3]);
-  const Standard_Real aV1 = Draw::Atof(theArgV[4]);
-  const Standard_Real aU2 = Draw::Atof(theArgV[5]);
-  const Standard_Real aV2 = Draw::Atof(theArgV[6]);
+  const Standard_Real aU1 = Draw1::Atof(theArgV[3]);
+  const Standard_Real aV1 = Draw1::Atof(theArgV[4]);
+  const Standard_Real aU2 = Draw1::Atof(theArgV[5]);
+  const Standard_Real aV2 = Draw1::Atof(theArgV[6]);
 
   const Handle(GeomAdaptor_Surface) anAS1 = new GeomAdaptor_Surface(aS1);
   const Handle(GeomAdaptor_Surface) anAS2 = new GeomAdaptor_Surface(aS2);
@@ -3596,7 +3596,7 @@ static Standard_Integer OCC29807(Draw_Interpretor& theDI,
 // function : OCC29925
 // purpose  : check safety of functions like IsSpace(), LowerCase(), etc. for all chars
 //=======================================================================
-static Standard_Integer OCC29925(Draw_Interpretor& theDI, Standard_Integer, const char**)
+static Standard_Integer OCC29925(DrawInterpreter& theDI, Standard_Integer, const char**)
 {
   // iterate by all valid ASCII chars (including extended)
   for (int i = 0; i < 256; i++)
@@ -3646,7 +3646,7 @@ static Standard_Integer OCC29925(Draw_Interpretor& theDI, Standard_Integer, cons
 // function : OCC29311
 // purpose  : check performance of OBB calculations
 //=======================================================================
-static Standard_Integer OCC29311(Draw_Interpretor& theDI,
+static Standard_Integer OCC29311(DrawInterpreter& theDI,
                                  Standard_Integer  theArgc,
                                  const char**      theArgv)
 {
@@ -3656,8 +3656,8 @@ static Standard_Integer OCC29311(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape     aShape  = DBRep::Get(theArgv[1]);
-  Standard_Integer aNbIter = Draw::Atoi(theArgv[3]);
+  TopoShape     aShape  = DBRep1::Get(theArgv[1]);
+  Standard_Integer aNbIter = Draw1::Atoi(theArgv[3]);
 
   Bnd_OBB   anOBB;
   OSD_Timer aTimer;
@@ -3678,7 +3678,7 @@ static Standard_Integer OCC29311(Draw_Interpretor& theDI,
 
 #include <BRepOffset_Tool.hxx>
 
-static Standard_Integer OCC30391(Draw_Interpretor& theDI,
+static Standard_Integer OCC30391(DrawInterpreter& theDI,
                                  Standard_Integer  theNArg,
                                  const char**      theArgV)
 {
@@ -3689,18 +3689,18 @@ static Standard_Integer OCC30391(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape aShape = DBRep::Get(theArgV[2], TopAbs_FACE);
+  TopoShape aShape = DBRep1::Get(theArgV[2], TopAbs_FACE);
   if (aShape.IsNull())
     return 1;
 
-  const TopoDS_Face& aFace = TopoDS::Face(aShape);
+  const TopoFace& aFace = TopoDS::Face(aShape);
 
   Standard_Real aLenBeforeUfirst = atof(theArgV[3]);
   Standard_Real aLenAfterUlast   = atof(theArgV[4]);
   Standard_Real aLenBeforeVfirst = atof(theArgV[5]);
   Standard_Real aLenAfterVlast   = atof(theArgV[6]);
 
-  TopoDS_Face Result;
+  TopoFace Result;
   BRepOffset_Tool::EnLargeFace(aFace,
                                Result,
                                Standard_True,
@@ -3714,13 +3714,13 @@ static Standard_Integer OCC30391(Draw_Interpretor& theDI,
                                aLenBeforeVfirst,
                                aLenAfterVlast);
 
-  DBRep::Set(theArgV[1], Result);
+  DBRep1::Set(theArgV[1], Result);
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer OCC29745(Draw_Interpretor& theDI,
+static Standard_Integer OCC29745(DrawInterpreter& theDI,
                                  Standard_Integer  theArgc,
                                  const char**      theArgv)
 {
@@ -3730,13 +3730,13 @@ static Standard_Integer OCC29745(Draw_Interpretor& theDI,
     return 1;
   }
 
-  Handle(Geom_Curve)   aC3d;
-  Handle(Geom2d_Curve) aC2d;
+  Handle(GeomCurve3d)   aC3d;
+  Handle(GeomCurve2d) aC2d;
 
-  aC3d = DrawTrSurf::GetCurve(theArgv[1]);
+  aC3d = DrawTrSurf1::GetCurve(theArgv[1]);
   if (aC3d.IsNull())
   {
-    aC2d = DrawTrSurf::GetCurve2d(theArgv[1]);
+    aC2d = DrawTrSurf1::GetCurve2d(theArgv[1]);
     if (aC2d.IsNull())
     {
       theDI << "Null curve" << "\n";
@@ -3744,7 +3744,7 @@ static Standard_Integer OCC29745(Draw_Interpretor& theDI,
     }
   }
 
-  Standard_Integer i     = Draw::Atoi(theArgv[2]);
+  Standard_Integer i     = Draw1::Atoi(theArgv[2]);
   GeomAbs_Shape    aCont = GeomAbs_C0;
   if (i <= 0)
     aCont = GeomAbs_C0;
@@ -3757,8 +3757,8 @@ static Standard_Integer OCC29745(Draw_Interpretor& theDI,
   else if (i >= 4)
     aCont = GeomAbs_CN;
 
-  Standard_Real t1 = Draw::Atof(theArgv[3]);
-  Standard_Real t2 = Draw::Atof(theArgv[4]);
+  Standard_Real t1 = Draw1::Atof(theArgv[3]);
+  Standard_Real t2 = Draw1::Atof(theArgv[4]);
 
   GeomAdaptor_Curve   aGAC3d;
   Geom2dAdaptor_Curve aGAC2d;
@@ -3806,14 +3806,14 @@ static Standard_Integer OCC29745(Draw_Interpretor& theDI,
 #include <OSD_Parallel.hxx>
 #include <OSD_Thread.hxx>
 #include <OSD_Environment.hxx>
-typedef NCollection_Sequence<TCollection_AsciiString> SequenceOfDocNames;
+typedef NCollection_Sequence<AsciiString1> SequenceOfDocNames;
 
 typedef struct
 {
   Standard_ThreadId       ID;
   int                     iThread;
-  TCollection_AsciiString inFile[3];
-  TCollection_AsciiString outFile[2];
+  AsciiString1 inFile[3];
+  AsciiString1 outFile[2];
   bool                    finished;
   int*                    res;
 } Args;
@@ -3836,10 +3836,10 @@ void* threadFunction(void* theArgs)
       return args->res;
     }
 
-    Handle(TDocStd_Application) anApp = new TDocStd_Application();
+    Handle(AppManager) anApp = new AppManager();
     OCC_CATCH_SIGNALS;
-    BinLDrivers::DefineFormat(anApp);
-    BinDrivers::DefineFormat(anApp);
+    BinLDrivers1::DefineFormat(anApp);
+    BinDrivers1::DefineFormat(anApp);
     XmlLDrivers::DefineFormat(anApp);
     XmlDrivers::DefineFormat(anApp);
     StdLDrivers::DefineFormat(anApp);
@@ -3847,8 +3847,8 @@ void* threadFunction(void* theArgs)
 
     for (int aFileIndex = 0; aFileIndex < 3; aFileIndex++)
     {
-      TCollection_AsciiString  aDocName = args->inFile[aFileIndex];
-      Handle(TDocStd_Document) aDoc;
+      AsciiString1  aDocName = args->inFile[aFileIndex];
+      Handle(AppDocument) aDoc;
       for (int i = 1; i <= nbREP; i++)
       {
 
@@ -3861,16 +3861,16 @@ void* threadFunction(void* theArgs)
         }
         else
         {
-          TDF_Label         aLabel = aDoc->Main();
+          DataLabel         aLabel = aDoc->Main();
           TDF_ChildIterator anIt(aLabel, Standard_True);
           for (; anIt.More(); anIt.Next())
           {
-            const TDF_Label&             aLab = anIt.Value();
+            const DataLabel&             aLab = anIt.Value();
             Handle(TDataStd_AsciiString) anAtt;
             aLab.FindAttribute(TDataStd_AsciiString::GetID(), anAtt);
             if (!anAtt.IsNull())
             {
-              TCollection_AsciiString aStr = anAtt->Get();
+              AsciiString1 aStr = anAtt->Get();
               if (aStr.IsEqual(aDocName))
               {
                 *(args->res) = (int)aLab.Tag();
@@ -3881,7 +3881,7 @@ void* threadFunction(void* theArgs)
 
           if (aFileIndex != 2)
           {
-            TCollection_AsciiString anOutDocName = args->outFile[aFileIndex];
+            AsciiString1 anOutDocName = args->outFile[aFileIndex];
             anApp->SaveAs(aDoc, anOutDocName);
           }
           anApp->Close(aDoc);
@@ -3902,7 +3902,7 @@ void* threadFunction(void* theArgs)
 
 //=================================================================================================
 
-static Standard_Integer OCC29195(Draw_Interpretor&, Standard_Integer theArgC, const char** theArgV)
+static Standard_Integer OCC29195(DrawInterpreter&, Standard_Integer theArgC, const char** theArgV)
 {
   if (theArgC < 2)
   {
@@ -3915,9 +3915,9 @@ static Standard_Integer OCC29195(Draw_Interpretor&, Standard_Integer theArgC, co
     return 1;
   }
   int iThread(0), off(0);
-  if (TCollection_AsciiString(theArgV[1]).IsIntegerValue())
+  if (AsciiString1(theArgV[1]).IsIntegerValue())
   {
-    nbREP = TCollection_AsciiString(theArgV[1]).IntegerValue();
+    nbREP = AsciiString1(theArgV[1]).IntegerValue();
     off   = 1;
   }
   if (theArgC - off - 1 < 5 || (theArgC - off - 1) % 5 != 0)
@@ -3989,12 +3989,12 @@ static Standard_Integer OCC29195(Draw_Interpretor&, Standard_Integer theArgC, co
 //=======================================================================
 // function : QAStartsWith string startstring
 //=======================================================================
-static Standard_Integer QAStartsWith(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer QAStartsWith(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n == 3)
   {
-    TCollection_ExtendedString str      = a[1];
-    TCollection_ExtendedString startstr = a[2];
+    UtfString str      = a[1];
+    UtfString startstr = a[2];
     if (str.StartsWith(startstr))
       di << "Yes";
     else
@@ -4008,12 +4008,12 @@ static Standard_Integer QAStartsWith(Draw_Interpretor& di, Standard_Integer n, c
 //=======================================================================
 // function : QAEndsWith string endstring
 //=======================================================================
-static Standard_Integer QAEndsWith(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer QAEndsWith(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n == 3)
   {
-    TCollection_ExtendedString str    = a[1];
-    TCollection_ExtendedString endstr = a[2];
+    UtfString str    = a[1];
+    UtfString endstr = a[2];
     if (str.EndsWith(endstr))
       di << "Yes";
     else
@@ -4067,11 +4067,11 @@ public:
 #include <Approx_FitAndDivide.hxx>
 #include <Convert_CompBezierCurvesToBSplineCurve.hxx>
 
-static Standard_Integer OCC30435(Draw_Interpretor& di, Standard_Integer, const char** a)
+static Standard_Integer OCC30435(DrawInterpreter& di, Standard_Integer, const char** a)
 {
 
-  Handle(Geom_Curve) GC;
-  GC = DrawTrSurf::GetCurve(a[2]);
+  Handle(GeomCurve3d) GC;
+  GC = DrawTrSurf1::GetCurve(a[2]);
   if (GC.IsNull())
     return 1;
 
@@ -4133,10 +4133,10 @@ static Standard_Integer OCC30435(Draw_Interpretor& di, Standard_Integer, const c
   Conv.Poles(NewPoles);
 
   BSplCLib::Reparametrize(GC->FirstParameter(), GC->LastParameter(), NewKnots);
-  Handle(Geom_BSplineCurve) TheCurve =
-    new Geom_BSplineCurve(NewPoles, NewKnots, NewMults, Conv.Degree());
+  Handle(BSplineCurve3d) TheCurve =
+    new BSplineCurve3d(NewPoles, NewKnots, NewMults, Conv.Degree());
 
-  DrawTrSurf::Set(a[1], TheCurve);
+  DrawTrSurf1::Set(a[1], TheCurve);
   di << a[1] << ": tolreached = " << tolreached << "\n";
 
   return 0;
@@ -4146,14 +4146,14 @@ static Standard_Integer OCC30435(Draw_Interpretor& di, Standard_Integer, const c
 // function : OCC30708_1
 // purpose  : Tests initialization of the TopoDS_Iterator with null shape
 //=======================================================================
-static Standard_Integer OCC30708_1(Draw_Interpretor& di, Standard_Integer, const char**)
+static Standard_Integer OCC30708_1(DrawInterpreter& di, Standard_Integer, const char**)
 {
   TopoDS_Iterator it;
   try
   {
     OCC_CATCH_SIGNALS
 
-    TopoDS_Shape empty;
+    TopoShape empty;
     it.Initialize(empty);
   }
   catch (const ExceptionBase&)
@@ -4172,13 +4172,13 @@ static Standard_Integer OCC30708_1(Draw_Interpretor& di, Standard_Integer, const
 // function : OCC30708_2
 // purpose  : Tests initialization of the BRepLib_MakeWire with null wire
 //=======================================================================
-static Standard_Integer OCC30708_2(Draw_Interpretor& di, Standard_Integer, const char**)
+static Standard_Integer OCC30708_2(DrawInterpreter& di, Standard_Integer, const char**)
 {
   try
   {
     OCC_CATCH_SIGNALS
 
-    TopoDS_Wire      empty;
+    TopoWire      empty;
     BRepLib_MakeWire aWBuilder(empty);
   }
   catch (const ExceptionBase&)
@@ -4195,7 +4195,7 @@ static Standard_Integer OCC30708_2(Draw_Interpretor& di, Standard_Integer, const
 #include <Geom2d_TrimmedCurve.hxx>
 #include <Geom2dConvert_CompCurveToBSplineCurve.hxx>
 
-static Standard_Integer OCC30747(Draw_Interpretor& theDI,
+static Standard_Integer OCC30747(DrawInterpreter& theDI,
                                  Standard_Integer  theArgc,
                                  const char**      theArgV)
 {
@@ -4232,13 +4232,13 @@ static Standard_Integer OCC30747(Draw_Interpretor& theDI,
     return 1;
   }
 
-  DrawTrSurf::Set(theArgV[1], aRes.BSplineCurve());
+  DrawTrSurf1::Set(theArgV[1], aRes.BSplineCurve());
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer OCC30869(Draw_Interpretor& theDI,
+static Standard_Integer OCC30869(DrawInterpreter& theDI,
                                  Standard_Integer  theArgc,
                                  const char**      theArgv)
 {
@@ -4248,7 +4248,7 @@ static Standard_Integer OCC30869(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape aWire = DBRep::Get(theArgv[1]);
+  TopoShape aWire = DBRep1::Get(theArgv[1]);
   if (aWire.IsNull() || aWire.ShapeType() != TopAbs_WIRE)
   {
     theDI << theArgv[1] << " is not a wire.\n";
@@ -4284,7 +4284,7 @@ static Standard_Integer OCC30869(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer OCC30880(Draw_Interpretor& theDI,
+static Standard_Integer OCC30880(DrawInterpreter& theDI,
                                  Standard_Integer  theArgc,
                                  const char**      theArgv)
 {
@@ -4294,14 +4294,14 @@ static Standard_Integer OCC30880(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TopoDS_Shape anEdge = DBRep::Get(theArgv[1]);
+  TopoShape anEdge = DBRep1::Get(theArgv[1]);
   if (anEdge.IsNull() || anEdge.ShapeType() != TopAbs_EDGE)
   {
     theDI << theArgv[1] << " is not an edge.\n";
     return 1;
   }
 
-  TopoDS_Shape aFace = DBRep::Get(theArgv[2]);
+  TopoShape aFace = DBRep1::Get(theArgv[2]);
   if (aFace.IsNull() || aFace.ShapeType() != TopAbs_FACE)
   {
     theDI << theArgv[2] << " is not a face.\n";
@@ -4352,11 +4352,11 @@ static Standard_Integer OCC30880(Draw_Interpretor& theDI,
 
 #include <BRepPrimAPI_MakeBox.hxx>
 
-static Standard_Integer OCC30704(Draw_Interpretor& di, Standard_Integer, const char**)
+static Standard_Integer OCC30704(DrawInterpreter& di, Standard_Integer, const char**)
 {
   // Make a shape somewhere far from (0, 0, 0).
-  BRepPrimAPI_MakeBox mkBox(Point3d(100, 100, 100), 100, 100, 100);
-  const TopoDS_Shape& box = mkBox.Shape();
+  BoxMaker mkBox(Point3d(100, 100, 100), 100, 100, 100);
+  const TopoShape& box = mkBox.Shape();
 
   // Add a bounding box of a shape to a void bounding box.
   Bnd_OBB aVoidBox, aBox;
@@ -4369,7 +4369,7 @@ static Standard_Integer OCC30704(Draw_Interpretor& di, Standard_Integer, const c
   return 0;
 }
 
-static Standard_Integer OCC30704_1(Draw_Interpretor& di, Standard_Integer, const char**)
+static Standard_Integer OCC30704_1(DrawInterpreter& di, Standard_Integer, const char**)
 {
   // A point.
   Point3d aP(100, 200, 300);
@@ -4390,7 +4390,7 @@ static Standard_Integer OCC30704_1(Draw_Interpretor& di, Standard_Integer, const
 //           with respect to update of the cache for points located exactly
 //           on boundary between bspline spans (i.e. at knots)
 //=======================================================================
-static Standard_Integer OCC30990(Draw_Interpretor& theDI,
+static Standard_Integer OCC30990(DrawInterpreter& theDI,
                                  Standard_Integer  theNArg,
                                  const char**      theArgV)
 {
@@ -4401,7 +4401,7 @@ static Standard_Integer OCC30990(Draw_Interpretor& theDI,
   }
 
   const Handle(Geom_BSplineSurface) aSurf =
-    Handle(Geom_BSplineSurface)::DownCast(DrawTrSurf::GetSurface(theArgV[1]));
+    Handle(Geom_BSplineSurface)::DownCast(DrawTrSurf1::GetSurface(theArgV[1]));
   if (aSurf.IsNull())
   {
     theDI << "Error: " << theArgV[1] << " is not a B-Spline surface";
@@ -4502,7 +4502,7 @@ static Standard_Integer OCC30990(Draw_Interpretor& theDI,
 #include <BRepPrimAPI_MakePrism.hxx>
 #include <BRepBuilderAPI_MakeVertex.hxx>
 
-static Standard_Integer OCC31294(Draw_Interpretor& di, Standard_Integer, const char**)
+static Standard_Integer OCC31294(DrawInterpreter& di, Standard_Integer, const char**)
 {
   BRepBuilderAPI_MakeVertex mkVert(Point3d(0., 0., 0.));
   BRepBuilderAPI_MakeVertex mkDummy(Point3d(0., 0., 0.));
@@ -4525,7 +4525,7 @@ static Standard_Integer OCC31294(Draw_Interpretor& di, Standard_Integer, const c
 
 //=================================================================================================
 
-static Standard_Integer OCC31697(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC31697(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
@@ -4533,8 +4533,8 @@ static Standard_Integer OCC31697(Draw_Interpretor& di, Standard_Integer argc, co
     return 1;
   }
 
-  TCollection_AsciiString anExpStr(argv[1]);
-  TCollection_AsciiString aVarStr(argv[2]);
+  AsciiString1 anExpStr(argv[1]);
+  AsciiString1 aVarStr(argv[2]);
 
   Handle(ExprIntrp_GenExp) exprIntrp = ExprIntrp_GenExp::Create();
 
@@ -4559,7 +4559,7 @@ static Standard_Integer OCC31697(Draw_Interpretor& di, Standard_Integer argc, co
 
   Handle(Expr_GeneralExpression) aDer = anExpr->Derivative(aVar);
 
-  TCollection_AsciiString aDerStr = aDer->String();
+  AsciiString1 aDerStr = aDer->String();
 
   di << "The derivative of the " << argv[1] << " by " << argv[2] << " is equal to " << aDerStr
      << "\n";
@@ -4573,7 +4573,7 @@ static Standard_Integer OCC31697(Draw_Interpretor& di, Standard_Integer argc, co
 
 //=================================================================================================
 
-static Standard_Integer OCC31320(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC31320(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
@@ -4581,14 +4581,14 @@ static Standard_Integer OCC31320(Draw_Interpretor& di, Standard_Integer argc, co
     return 1;
   }
   Handle(TObj_Model)       aModel;
-  Handle(TDocStd_Document) D;
-  if (!DDocStd::GetDocument(argv[1], D))
+  Handle(AppDocument) D;
+  if (!DDocStd1::GetDocument(argv[1], D))
   {
     di << "Error: document " << argv[1] << " not found\n";
     return 1;
   }
 
-  TDF_Label           aLabel = D->Main();
+  DataLabel           aLabel = D->Main();
   Handle(TObj_TModel) aModelAttr;
   if (!aLabel.IsNull() && aLabel.FindAttribute(TObj_TModel::GetID(), aModelAttr))
     aModel = aModelAttr->Model();
@@ -4637,9 +4637,9 @@ namespace
 class QABugs_XdeLoader : public OSD_Thread
 {
 public:
-  QABugs_XdeLoader(const Handle(TDocStd_Application)& theXdeApp,
-                   const Handle(TDocStd_Document)&    theXdeDoc,
-                   const TCollection_AsciiString&     theFilePath)
+  QABugs_XdeLoader(const Handle(AppManager)& theXdeApp,
+                   const Handle(AppDocument)&    theXdeDoc,
+                   const AsciiString1&     theFilePath)
       : OSD_Thread(performThread),
         myXdeApp(theXdeApp),
         myXdeDoc(theXdeDoc),
@@ -4650,7 +4650,7 @@ public:
 private:
   void perform()
   {
-    Handle(TDocStd_Document) aNewDoc;
+    Handle(AppDocument) aNewDoc;
     const PCDM_ReaderStatus  aReaderStatus = myXdeApp->Open(myFilePath, aNewDoc);
     if (aReaderStatus != PCDM_RS_OK)
     {
@@ -4679,9 +4679,9 @@ private:
   }
 
 private:
-  Handle(TDocStd_Application) myXdeApp;
-  Handle(TDocStd_Document)    myXdeDoc;
-  TCollection_AsciiString     myFilePath;
+  Handle(AppManager) myXdeApp;
+  Handle(AppDocument)    myXdeDoc;
+  AsciiString1     myFilePath;
 };
 } // namespace
 
@@ -4689,7 +4689,7 @@ private:
 // function : OCC31785
 // purpose  : Try reading XBF file in background thread
 //=======================================================================
-static Standard_Integer OCC31785(Draw_Interpretor& theDI,
+static Standard_Integer OCC31785(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
@@ -4699,20 +4699,20 @@ static Standard_Integer OCC31785(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TCollection_AsciiString aFileName(theArgVec[1]);
+  AsciiString1 aFileName(theArgVec[1]);
 
-  Handle(TDocStd_Application) anXdeApp = new TDocStd_Application();
-  BinXCAFDrivers::DefineFormat(anXdeApp);
+  Handle(AppManager) anXdeApp = new AppManager();
+  BinXCAFDrivers1::DefineFormat(anXdeApp);
 
-  Handle(TDocStd_Document) anXdeDoc;
-  anXdeApp->NewDocument(TCollection_ExtendedString("BinXCAF"), anXdeDoc);
+  Handle(AppDocument) anXdeDoc;
+  anXdeApp->NewDocument(UtfString("BinXCAF"), anXdeDoc);
   QABugs_XdeLoader aLoader(anXdeApp, anXdeDoc, aFileName);
   aLoader.Run(&aLoader);
   aLoader.Wait();
   return 0;
 }
 
-static Standard_Integer QANullifyShape(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer QANullifyShape(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
   {
@@ -4720,9 +4720,9 @@ static Standard_Integer QANullifyShape(Draw_Interpretor& di, Standard_Integer n,
     di << "Usage: QANullifyShape shape\n";
     return 1;
   }
-  TopoDS_Shape aShape = DBRep::Get(a[1]);
+  TopoShape aShape = DBRep1::Get(a[1]);
   aShape.Nullify();
-  DBRep::Set(a[1], aShape);
+  DBRep1::Set(a[1], aShape);
   return 0;
 }
 
@@ -4804,7 +4804,7 @@ static void CheckAx3Ax1(gp_Ax3& theAx, const Axis3d& theAx0)
   }
 }
 
-static Standard_Integer OCC29406(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer OCC29406(DrawInterpreter&, Standard_Integer, const char**)
 {
   // Main (Z) direction
   {
@@ -4851,7 +4851,7 @@ static Standard_Integer OCC29406(Draw_Interpretor&, Standard_Integer, const char
 #include <BRepCheck_Analyzer.hxx>
 #include <GCPnts_UniformDeflection.hxx>
 
-static Standard_Integer OCC32744(Draw_Interpretor& theDi,
+static Standard_Integer OCC32744(DrawInterpreter& theDi,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
@@ -4861,7 +4861,7 @@ static Standard_Integer OCC32744(Draw_Interpretor& theDi,
     return 1;
   }
 
-  const TopoDS_Shape& aShape = DBRep::Get(theArgVec[1]);
+  const TopoShape& aShape = DBRep1::Get(theArgVec[1]);
   if (aShape.IsNull())
   {
     theDi << " Null Shape is not allowed here\n";
@@ -4873,12 +4873,12 @@ static Standard_Integer OCC32744(Draw_Interpretor& theDi,
     return 1;
   }
 
-  const TopoDS_Edge& anEdge = TopoDS::Edge(aShape);
+  const TopoEdge& anEdge = TopoDS::Edge(aShape);
   BRepCheck_Analyzer analyzer(anEdge);
   if (analyzer.IsValid())
   {
     Standard_Real            firstParam = 0., lastParam = 0.;
-    Handle(Geom_Curve)       pCurve = BRep_Tool::Curve(anEdge, firstParam, lastParam);
+    Handle(GeomCurve3d)       pCurve = BRepInspector::Curve(anEdge, firstParam, lastParam);
     GeomAdaptor_Curve        curveAdaptor(pCurve, firstParam, lastParam);
     GCPnts_UniformDeflection uniformAbs(curveAdaptor, 0.001, firstParam, lastParam);
   }
@@ -4886,7 +4886,7 @@ static Standard_Integer OCC32744(Draw_Interpretor& theDi,
   return 0;
 }
 
-static Standard_Integer OCC33009(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer OCC33009(DrawInterpreter&, Standard_Integer, const char**)
 {
   Bnd_OBB aBndBox;
 
@@ -4903,7 +4903,7 @@ static Standard_Integer OCC33009(Draw_Interpretor&, Standard_Integer, const char
   return 0;
 }
 
-static Standard_Integer OCC33048(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer OCC33048(DrawInterpreter&, Standard_Integer, const char**)
 {
   Standard_Real isOK = true;
   try
@@ -4928,7 +4928,7 @@ static Standard_Integer OCC33048(Draw_Interpretor&, Standard_Integer, const char
 
 //=================================================================================================
 
-static Standard_Integer OCC33657_1(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer OCC33657_1(DrawInterpreter&, Standard_Integer, const char**)
 {
   STEPCAFControl_Controller::Init();
   // Checking constructors working in parallel.
@@ -4944,7 +4944,7 @@ static Standard_Integer OCC33657_1(Draw_Interpretor&, Standard_Integer, const ch
 
 //=================================================================================================
 
-static Standard_Integer OCC33657_2(Draw_Interpretor& theDI,
+static Standard_Integer OCC33657_2(DrawInterpreter& theDI,
                                    Standard_Integer  theArgC,
                                    const char**      theArgV)
 {
@@ -4957,7 +4957,7 @@ static Standard_Integer OCC33657_2(Draw_Interpretor& theDI,
   STEPCAFControl_Controller::Init();
   // Checking readers working in parallel.
   OSD_Parallel::For(0, 100, [&](int) {
-    STEPControl_Reader aReader;
+    StepFileReader aReader;
     aReader.ReadFile(theArgV[1], DESTEP_Parameters{});
     aReader.TransferRoots();
   });
@@ -4967,13 +4967,13 @@ static Standard_Integer OCC33657_2(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-static Standard_Integer OCC33657_3(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer OCC33657_3(DrawInterpreter&, Standard_Integer, const char**)
 {
   STEPCAFControl_Controller::Init();
-  const TopoDS_Shape aShape = BRepPrimAPI_MakeBox(10.0, 20.0, 30.0).Shape();
+  const TopoShape aShape = BoxMaker(10.0, 20.0, 30.0).Shape();
   // Checking writers working in parallel.
   OSD_Parallel::For(0, 100, [&](int) {
-    STEPControl_Writer aWriter;
+    StepFileWriter aWriter;
     aWriter.Transfer(aShape, STEPControl_StepModelType::STEPControl_AsIs, DESTEP_Parameters{});
     std::ostringstream aStream;
     aWriter.WriteStream(aStream);
@@ -4984,7 +4984,7 @@ static Standard_Integer OCC33657_3(Draw_Interpretor&, Standard_Integer, const ch
 
 //=================================================================================================
 
-static Standard_Integer OCC33657_4(Draw_Interpretor& theDI,
+static Standard_Integer OCC33657_4(DrawInterpreter& theDI,
                                    Standard_Integer  theArgC,
                                    const char**      theArgV)
 {
@@ -4997,10 +4997,10 @@ static Standard_Integer OCC33657_4(Draw_Interpretor& theDI,
   STEPCAFControl_Controller::Init();
 
   // Acquire shape to write/read.
-  STEPControl_Reader aReader;
+  StepFileReader aReader;
   aReader.ReadFile(theArgV[1], DESTEP_Parameters{});
   aReader.TransferRoots();
-  TopoDS_Shape aSourceShape = aReader.OneShape();
+  TopoShape aSourceShape = aReader.OneShape();
 
   // Analyzer to compare the shape with the same shape after write-read sequence.
   ShapeAnalysis_ShapeContents aSourceAnalyzer;
@@ -5018,7 +5018,7 @@ static Standard_Integer OCC33657_4(Draw_Interpretor& theDI,
     }
 
     // Writing.
-    STEPControl_Writer aWriter;
+    StepFileWriter aWriter;
     aWriter.Transfer(aSourceShape,
                      STEPControl_StepModelType::STEPControl_AsIs,
                      DESTEP_Parameters{});
@@ -5026,10 +5026,10 @@ static Standard_Integer OCC33657_4(Draw_Interpretor& theDI,
     aWriter.WriteStream(aStream);
 
     // Reading.
-    STEPControl_Reader aReader;
+    StepFileReader aReader;
     aReader.ReadStream("", DESTEP_Parameters{}, aStream);
     aReader.TransferRoots();
-    const TopoDS_Shape          aResultShape = aReader.OneShape();
+    const TopoShape          aResultShape = aReader.OneShape();
     ShapeAnalysis_ShapeContents aResultAnalyzer;
     aResultAnalyzer.Perform(aResultShape);
 
@@ -5084,7 +5084,7 @@ static Standard_Integer OCC33657_4(Draw_Interpretor& theDI,
 // CosMaxAngle sets the maximal rotation angle between two adjacent segments.
 // This value must be equal to the cosine of this angle.
 //=======================================================================
-static Standard_Integer QACheckBends(Draw_Interpretor& theDI,
+static Standard_Integer QACheckBends(DrawInterpreter& theDI,
                                      Standard_Integer  theNArg,
                                      const char**      theArgVal)
 {
@@ -5096,7 +5096,7 @@ static Standard_Integer QACheckBends(Draw_Interpretor& theDI,
     return 1;
   }
 
-  Handle(Geom_Curve) aCurve = DrawTrSurf::GetCurve(theArgVal[1]);
+  Handle(GeomCurve3d) aCurve = DrawTrSurf1::GetCurve(theArgVal[1]);
 
   if (aCurve.IsNull())
   {
@@ -5109,12 +5109,12 @@ static Standard_Integer QACheckBends(Draw_Interpretor& theDI,
 
   if (theNArg > 2)
   {
-    aCosMaxAngle = Draw::Atof(theArgVal[2]);
+    aCosMaxAngle = Draw1::Atof(theArgVal[2]);
   }
 
   if (theNArg > 3)
   {
-    aNbPoints = Draw::Atoi(theArgVal[3]);
+    aNbPoints = Draw1::Atoi(theArgVal[3]);
   }
 
   Standard_Real U1 = aCurve->FirstParameter(), U2 = aCurve->LastParameter();
@@ -5148,7 +5148,7 @@ static Standard_Integer QACheckBends(Draw_Interpretor& theDI,
   return 0;
 }
 
-static Standard_Integer OCC26441(Draw_Interpretor& theDi,
+static Standard_Integer OCC26441(DrawInterpreter& theDi,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
@@ -5158,13 +5158,13 @@ static Standard_Integer OCC26441(Draw_Interpretor& theDi,
     return 1;
   }
 
-  const TopoDS_Shape& aShape = DBRep::Get(theArgVec[1]);
+  const TopoShape& aShape = DBRep1::Get(theArgVec[1]);
   if (aShape.IsNull())
   {
     theDi << " Null Shape is not allowed here\n";
     return 1;
   }
-  const TopoDS_Shape& aRefShape = DBRep::Get(theArgVec[2]);
+  const TopoShape& aRefShape = DBRep1::Get(theArgVec[2]);
   if (aRefShape.IsNull())
   {
     theDi << " Null Shape is not allowed here\n";
@@ -5179,43 +5179,43 @@ static Standard_Integer OCC26441(Draw_Interpretor& theDi,
   Standard_Real anEps = Precision::Confusion();
   if (theNbArgs > 3)
   {
-    anEps = Draw::Atof(theArgVec[3]);
+    anEps = Draw1::Atof(theArgVec[3]);
   }
 
   Standard_Boolean isAllDiff = Standard_False;
   if (theNbArgs > 4)
   {
-    Standard_Integer Inc = Draw::Atoi(theArgVec[4]);
+    Standard_Integer Inc = Draw1::Atoi(theArgVec[4]);
     if (Inc > 0)
       isAllDiff = Standard_True;
   }
 
-  BRep_Builder        aBB;
-  TopExp_Explorer     anExp, anExpRef;
+  ShapeBuilder        aBB;
+  ShapeExplorer     anExp, anExpRef;
   Standard_Real       aMaxE = 0., aMaxV = 0.;
   TopTools_MapOfShape aChecked;
-  TopoDS_Vertex       aV[2], aRefV[2];
+  TopoVertex       aV[2], aRefV[2];
 
   // Checking edge and vertex tolerances
-  TopoDS_Compound aBadEdges;
+  TopoCompound aBadEdges;
   aBB.MakeCompound(aBadEdges);
-  TopoDS_Compound aBadVerts;
+  TopoCompound aBadVerts;
   aBB.MakeCompound(aBadVerts);
   anExp.Init(aShape, TopAbs_EDGE);
   anExpRef.Init(aRefShape, TopAbs_EDGE);
   for (; anExpRef.More(); anExpRef.Next())
   {
-    const TopoDS_Edge& aRefE = TopoDS::Edge(anExpRef.Current());
+    const TopoEdge& aRefE = TopoDS::Edge(anExpRef.Current());
     if (!anExp.More())
     {
       theDi << " Different number of edges\n";
       return 1;
     }
-    const TopoDS_Edge& anE = TopoDS::Edge(anExp.Current());
+    const TopoEdge& anE = TopoDS::Edge(anExp.Current());
     if (!aChecked.Add(anE))
       continue;
-    Standard_Real aTolRef = BRep_Tool::Tolerance(aRefE);
-    Standard_Real aTol    = BRep_Tool::Tolerance(anE);
+    Standard_Real aTolRef = BRepInspector::Tolerance(aRefE);
+    Standard_Real aTol    = BRepInspector::Tolerance(anE);
     Standard_Real aDiff   = aTol - aTolRef;
     if (isAllDiff && aDiff < 0)
       aDiff = -aDiff;
@@ -5226,8 +5226,8 @@ static Standard_Integer OCC26441(Draw_Interpretor& theDi,
 
       aBB.Add(aBadEdges, anE);
     }
-    TopExp::Vertices(aRefE, aRefV[0], aRefV[1]);
-    TopExp::Vertices(anE, aV[0], aV[1]);
+    TopExp1::Vertices(aRefE, aRefV[0], aRefV[1]);
+    TopExp1::Vertices(anE, aV[0], aV[1]);
 
     for (int i = 0; i < 2; ++i)
     {
@@ -5235,8 +5235,8 @@ static Standard_Integer OCC26441(Draw_Interpretor& theDi,
         continue;
       if (!aChecked.Add(aV[i]))
         continue;
-      aTolRef = BRep_Tool::Tolerance(aRefV[i]);
-      aTol    = BRep_Tool::Tolerance(aV[i]);
+      aTolRef = BRepInspector::Tolerance(aRefV[i]);
+      aTol    = BRepInspector::Tolerance(aV[i]);
       aDiff   = aTol - aTolRef;
       if (aDiff > anEps)
       {
@@ -5253,18 +5253,18 @@ static Standard_Integer OCC26441(Draw_Interpretor& theDi,
   if (aMaxE > anEps)
   {
     theDi << " Maximal difference for edges : " << aMaxE << "\n";
-    DBRep::Set("BadEdges", aBadEdges);
+    DBRep1::Set("BadEdges", aBadEdges);
   }
   if (aMaxV > anEps)
   {
     theDi << " Maximal difference for vertices : " << aMaxV << "\n";
-    DBRep::Set("BadVerts", aBadVerts);
+    DBRep1::Set("BadVerts", aBadVerts);
   }
 
   return 0;
 }
 
-void QABugs::Commands_20(Draw_Interpretor& theCommands)
+void QABugs::Commands_20(DrawInterpreter& theCommands)
 {
   const char* group = "QABugs";
 
@@ -5443,19 +5443,19 @@ void QABugs::Commands_20(Draw_Interpretor& theCommands)
     group);
 
   theCommands.Add("OCC33657_2",
-                  "Check performance of STEPControl_Reader in multithreading environment.",
+                  "Check performance of StepFileReader in multithreading environment.",
                   __FILE__,
                   OCC33657_2,
                   group);
 
   theCommands.Add("OCC33657_3",
-                  "Check performance of STEPControl_Writer in multithreading environment.",
+                  "Check performance of StepFileWriter in multithreading environment.",
                   __FILE__,
                   OCC33657_3,
                   group);
 
   theCommands.Add("OCC33657_4",
-                  "Check performance of STEPControl_Reader/Writer in multithreading environment.",
+                  "Check performance of StepFileReader/Writer in multithreading environment.",
                   __FILE__,
                   OCC33657_4,
                   group);

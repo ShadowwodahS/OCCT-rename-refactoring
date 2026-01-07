@@ -21,8 +21,8 @@
 #include <TopoDS_Shape.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TCollection_AsciiString, TopoDS_Shape> StepToTopoDS_DataMapOfRINames;
-typedef NCollection_DataMap<TCollection_AsciiString, TopoDS_Shape>::Iterator
+typedef NCollection_DataMap<AsciiString1, TopoShape> StepToTopoDS_DataMapOfRINames;
+typedef NCollection_DataMap<AsciiString1, TopoShape>::Iterator
   StepToTopoDS_DataMapIteratorOfDataMapOfRINames;
 
 #endif

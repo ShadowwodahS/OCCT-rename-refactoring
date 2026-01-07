@@ -31,12 +31,12 @@
 #include <Standard_IStream.hxx>
 #include <TopAbs_ShapeEnum.hxx>
 
-class TopoDS_Shape;
+class TopoShape;
 
 //! Contains a Shape and all  its subshapes, locations
 //! and geometries.
 //!
-//! The topology is inherited from TopTools.
+//! The topology is inherited from TopTools1.
 class BRepTools_ShapeSet : public TopTools_ShapeSet
 {
 public:
@@ -49,7 +49,7 @@ public:
 
   //! Builds an empty ShapeSet.
   //! @param theWithTriangles flag to write triangulation data
-  Standard_EXPORT BRepTools_ShapeSet(const BRep_Builder&    theBuilder,
+  Standard_EXPORT BRepTools_ShapeSet(const ShapeBuilder&    theBuilder,
                                      const Standard_Boolean theWithTriangles = Standard_True,
                                      const Standard_Boolean theWithNormals   = Standard_False);
 
@@ -76,7 +76,7 @@ public:
   Standard_EXPORT virtual void Clear() Standard_OVERRIDE;
 
   //! Stores the geometry of <S>.
-  Standard_EXPORT virtual void AddGeometry(const TopoDS_Shape& S) Standard_OVERRIDE;
+  Standard_EXPORT virtual void AddGeometry(const TopoShape& S) Standard_OVERRIDE;
 
   //! Dumps the geometry of me on the stream <OS>.
   Standard_EXPORT virtual void DumpGeometry(Standard_OStream& OS) const Standard_OVERRIDE;
@@ -93,27 +93,27 @@ public:
     const Message_ProgressRange& theProgress = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Dumps the geometry of <S> on the stream <OS>.
-  Standard_EXPORT virtual void DumpGeometry(const TopoDS_Shape& S,
+  Standard_EXPORT virtual void DumpGeometry(const TopoShape& S,
                                             Standard_OStream&   OS) const Standard_OVERRIDE;
 
   //! Writes the geometry of <S>  on the stream <OS> in a
   //! format that can be read back by Read.
-  Standard_EXPORT virtual void WriteGeometry(const TopoDS_Shape& S,
+  Standard_EXPORT virtual void WriteGeometry(const TopoShape& S,
                                              Standard_OStream&   OS) const Standard_OVERRIDE;
 
   //! Reads the geometry of a shape of type <T> from the
   //! stream <IS> and returns it in <S>.
   Standard_EXPORT virtual void ReadGeometry(const TopAbs_ShapeEnum T,
                                             Standard_IStream&      IS,
-                                            TopoDS_Shape&          S) Standard_OVERRIDE;
+                                            TopoShape&          S) Standard_OVERRIDE;
 
   //! Inserts  the shape <S2> in  the  shape <S1>.  This
   //! method must be   redefined  to  use   the  correct
   //! builder.
-  Standard_EXPORT virtual void AddShapes(TopoDS_Shape&       S1,
-                                         const TopoDS_Shape& S2) Standard_OVERRIDE;
+  Standard_EXPORT virtual void AddShapes(TopoShape&       S1,
+                                         const TopoShape& S2) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void Check(const TopAbs_ShapeEnum T, TopoDS_Shape& S) Standard_OVERRIDE;
+  Standard_EXPORT virtual void Check(const TopAbs_ShapeEnum T, TopoShape& S) Standard_OVERRIDE;
 
   //! Reads the 3d polygons  of me
   //! from the  stream  <IS>.
@@ -171,13 +171,13 @@ public:
 
 protected:
 private:
-  BRep_Builder                  myBuilder;
+  ShapeBuilder                  myBuilder;
   GeomTools_SurfaceSet          mySurfaces;
   GeomTools_CurveSet            myCurves;
   GeomTools_Curve2dSet          myCurves2d;
   TColStd_IndexedMapOfTransient myPolygons2D;
   TColStd_IndexedMapOfTransient myPolygons3D;
-  NCollection_IndexedDataMap<Handle(Poly_Triangulation),
+  NCollection_IndexedDataMap<Handle(MeshTriangulation),
                              // clang-format off
                              Standard_Boolean> myTriangulations; //!< Contains a boolean flag with information
                                                                  //!  to save normals for triangulation

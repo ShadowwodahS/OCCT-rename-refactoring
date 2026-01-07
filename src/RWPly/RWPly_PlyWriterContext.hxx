@@ -71,7 +71,7 @@ public: //! @name writing into file
 
   //! Open file for writing.
   Standard_EXPORT bool Open(
-    const TCollection_AsciiString&       theName,
+    const AsciiString1&       theName,
     const std::shared_ptr<std::ostream>& theStream = std::shared_ptr<std::ostream>());
 
   //! Write the header.
@@ -122,7 +122,7 @@ public: //! @name writing into file
 
 private:
   std::shared_ptr<std::ostream> myStream;
-  TCollection_AsciiString       myName;
+  AsciiString1       myName;
   Standard_Integer              myNbHeaderVerts;
   Standard_Integer              myNbHeaderElems;
   Standard_Integer              myNbVerts;

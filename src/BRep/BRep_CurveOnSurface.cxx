@@ -28,8 +28,8 @@ IMPLEMENT_STANDARD_RTTIEXT(BRep_CurveOnSurface, BRep_GCurve)
 
 //=================================================================================================
 
-BRep_CurveOnSurface::BRep_CurveOnSurface(const Handle(Geom2d_Curve)& PC,
-                                         const Handle(Geom_Surface)& S,
+BRep_CurveOnSurface::BRep_CurveOnSurface(const Handle(GeomCurve2d)& PC,
+                                         const Handle(GeomSurface)& S,
                                          const TopLoc_Location&      L)
     : BRep_GCurve(L, PC->FirstParameter(), PC->LastParameter()),
       myPCurve(PC),
@@ -56,7 +56,7 @@ Standard_Boolean BRep_CurveOnSurface::IsCurveOnSurface() const
 
 //=================================================================================================
 
-Standard_Boolean BRep_CurveOnSurface::IsCurveOnSurface(const Handle(Geom_Surface)& S,
+Standard_Boolean BRep_CurveOnSurface::IsCurveOnSurface(const Handle(GeomSurface)& S,
                                                        const TopLoc_Location&      L) const
 {
   return (S == mySurface) && (L == myLocation);
@@ -64,21 +64,21 @@ Standard_Boolean BRep_CurveOnSurface::IsCurveOnSurface(const Handle(Geom_Surface
 
 //=================================================================================================
 
-const Handle(Geom_Surface)& BRep_CurveOnSurface::Surface() const
+const Handle(GeomSurface)& BRep_CurveOnSurface::Surface() const
 {
   return mySurface;
 }
 
 //=================================================================================================
 
-const Handle(Geom2d_Curve)& BRep_CurveOnSurface::PCurve() const
+const Handle(GeomCurve2d)& BRep_CurveOnSurface::PCurve() const
 {
   return myPCurve;
 }
 
 //=================================================================================================
 
-void BRep_CurveOnSurface::PCurve(const Handle(Geom2d_Curve)& C)
+void BRep_CurveOnSurface::PCurve(const Handle(GeomCurve2d)& C)
 {
   myPCurve = C;
 }

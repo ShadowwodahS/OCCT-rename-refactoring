@@ -58,7 +58,7 @@ public:
   //! If InitDocument() is redefined for a specific
   //! application, the new document is handled by the
   //! applicative session.
-  Standard_EXPORT virtual void NewDocument(const TCollection_ExtendedString& theFormat,
+  Standard_EXPORT virtual void NewDocument(const UtfString& theFormat,
                                            Handle(CDM_Document)&             theDoc);
 
   //! Initialize a document for the applicative session.
@@ -95,8 +95,8 @@ public:
   //! Since  the version is not specified in  this syntax, the  latest will be used.
   //! A link is kept with the database through an instance of CDM_MetaData
   Standard_EXPORT Handle(CDM_Document) Retrieve(
-    const TCollection_ExtendedString& aFolder,
-    const TCollection_ExtendedString& aName,
+    const UtfString& aFolder,
+    const UtfString& aName,
     const Standard_Boolean            UseStorageConfiguration = Standard_True,
     const Handle(PCDM_ReaderFilter)&  theFilter               = Handle(PCDM_ReaderFilter)(),
     const Message_ProgressRange&      theRange                = Message_ProgressRange());
@@ -116,20 +116,20 @@ public:
   //! A link is kept with the database through an instance
   //! of CDM_MetaData
   Standard_EXPORT Handle(CDM_Document) Retrieve(
-    const TCollection_ExtendedString& aFolder,
-    const TCollection_ExtendedString& aName,
-    const TCollection_ExtendedString& aVersion,
+    const UtfString& aFolder,
+    const UtfString& aName,
+    const UtfString& aVersion,
     const Standard_Boolean            UseStorageConfiguration = Standard_True,
     const Handle(PCDM_ReaderFilter)&  theFilter               = Handle(PCDM_ReaderFilter)(),
     const Message_ProgressRange&      theRange                = Message_ProgressRange());
 
-  Standard_EXPORT PCDM_ReaderStatus CanRetrieve(const TCollection_ExtendedString& theFolder,
-                                                const TCollection_ExtendedString& theName,
+  Standard_EXPORT PCDM_ReaderStatus CanRetrieve(const UtfString& theFolder,
+                                                const UtfString& theName,
                                                 const bool                        theAppendMode);
 
-  Standard_EXPORT PCDM_ReaderStatus CanRetrieve(const TCollection_ExtendedString& theFolder,
-                                                const TCollection_ExtendedString& theName,
-                                                const TCollection_ExtendedString& theVersion,
+  Standard_EXPORT PCDM_ReaderStatus CanRetrieve(const UtfString& theFolder,
+                                                const UtfString& theName,
+                                                const UtfString& theVersion,
                                                 const bool                        theAppendMode);
 
   //! Checks  status  after  Retrieve
@@ -156,7 +156,7 @@ public:
   //! In case if reader is not available, will raise Standard_NoSuchObject
   //! or other exception if raised by plugin loader.
   Standard_EXPORT virtual Handle(PCDM_Reader) ReaderFromFormat(
-    const TCollection_ExtendedString& aFormat);
+    const UtfString& aFormat);
 
   //! Returns instance of storage driver for specified format.
   //!
@@ -171,13 +171,13 @@ public:
   //! In case if driver is not available, will raise Standard_NoSuchObject
   //! or other exception if raised by plugin loader.
   Standard_EXPORT virtual Handle(PCDM_StorageDriver) WriterFromFormat(
-    const TCollection_ExtendedString& aFormat);
+    const UtfString& aFormat);
 
   //! try to  retrieve a Format  directly in the  file or in
   //! application   resource  by using   extension. returns
   //! True if found;
-  Standard_EXPORT Standard_Boolean Format(const TCollection_ExtendedString& aFileName,
-                                          TCollection_ExtendedString&       theFormat);
+  Standard_EXPORT Standard_Boolean Format(const UtfString& aFileName,
+                                          UtfString&       theFormat);
 
   Standard_EXPORT Standard_ExtString DefaultFolder();
 
@@ -233,11 +233,11 @@ protected:
   Standard_EXPORT CDF_Application();
 
   PCDM_ReaderStatus myRetrievableStatus;
-  NCollection_IndexedDataMap<TCollection_ExtendedString, Handle(PCDM_RetrievalDriver)> myReaders;
-  NCollection_IndexedDataMap<TCollection_ExtendedString, Handle(PCDM_StorageDriver)>   myWriters;
+  NCollection_IndexedDataMap<UtfString, Handle(PCDM_RetrievalDriver)> myReaders;
+  NCollection_IndexedDataMap<UtfString, Handle(PCDM_StorageDriver)>   myWriters;
 
 private:
-  TCollection_ExtendedString myDefaultFolder;
+  UtfString myDefaultFolder;
 };
 
 #endif // _CDF_Application_HeaderFile

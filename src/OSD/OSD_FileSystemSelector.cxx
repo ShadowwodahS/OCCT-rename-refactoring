@@ -41,7 +41,7 @@ void OSD_FileSystemSelector::RemoveProtocol(const Handle(OSD_FileSystem)& theFil
 //=================================================================================================
 
 Standard_Boolean OSD_FileSystemSelector::IsSupportedPath(
-  const TCollection_AsciiString& theUrl) const
+  const AsciiString1& theUrl) const
 {
   for (NCollection_List<Handle(OSD_FileSystem)>::Iterator aProtIter(myProtocols); aProtIter.More();
        aProtIter.Next())
@@ -69,7 +69,7 @@ Standard_Boolean OSD_FileSystemSelector::IsOpenIStream(
        aProtIter.Next())
   {
     const Handle(OSD_FileSystem)& aFileSystem = aProtIter.Value();
-    if (aFileSystem->IsSupportedPath(TCollection_AsciiString(aFileStream->Url().c_str())))
+    if (aFileSystem->IsSupportedPath(AsciiString1(aFileStream->Url().c_str())))
     {
       if (aFileSystem->IsOpenIStream(theStream))
       {
@@ -95,7 +95,7 @@ Standard_Boolean OSD_FileSystemSelector::IsOpenOStream(
        aProtIter.Next())
   {
     const Handle(OSD_FileSystem)& aFileSystem = aProtIter.Value();
-    if (aFileSystem->IsSupportedPath(TCollection_AsciiString(aFileStream->Url().c_str())))
+    if (aFileSystem->IsSupportedPath(AsciiString1(aFileStream->Url().c_str())))
     {
       if (aFileSystem->IsOpenOStream(theStream))
       {
@@ -109,7 +109,7 @@ Standard_Boolean OSD_FileSystemSelector::IsOpenOStream(
 //=================================================================================================
 
 std::shared_ptr<std::istream> OSD_FileSystemSelector::OpenIStream(
-  const TCollection_AsciiString&       theUrl,
+  const AsciiString1&       theUrl,
   const std::ios_base::openmode        theMode,
   const int64_t                        theOffset,
   const std::shared_ptr<std::istream>& theOldStream)
@@ -134,7 +134,7 @@ std::shared_ptr<std::istream> OSD_FileSystemSelector::OpenIStream(
 //=================================================================================================
 
 std::shared_ptr<std::ostream> OSD_FileSystemSelector::OpenOStream(
-  const TCollection_AsciiString& theUrl,
+  const AsciiString1& theUrl,
   const std::ios_base::openmode  theMode)
 {
   for (NCollection_List<Handle(OSD_FileSystem)>::Iterator aProtIter(myProtocols); aProtIter.More();
@@ -156,7 +156,7 @@ std::shared_ptr<std::ostream> OSD_FileSystemSelector::OpenOStream(
 //=================================================================================================
 
 std::shared_ptr<std::streambuf> OSD_FileSystemSelector::OpenStreamBuffer(
-  const TCollection_AsciiString& theUrl,
+  const AsciiString1& theUrl,
   const std::ios_base::openmode  theMode,
   const int64_t                  theOffset,
   int64_t*                       theOutBufSize)

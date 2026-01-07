@@ -28,12 +28,12 @@
 
 //! Stores the parameters of a curve 2d or 3d corresponding
 //! to the curvature's extremas and the Inflection's Points.
-class LProp_CurAndInf
+class CurveAndInfo
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT LProp_CurAndInf();
+  Standard_EXPORT CurveAndInfo();
 
   Standard_EXPORT void AddInflection(const Standard_Real Param);
 

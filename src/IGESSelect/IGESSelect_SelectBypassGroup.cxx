@@ -44,7 +44,7 @@ Standard_Boolean IGESSelect_SelectBypassGroup::Explore(const Standard_Integer /*
   return Standard_True;
 }
 
-TCollection_AsciiString IGESSelect_SelectBypassGroup::ExploreLabel() const
+AsciiString1 IGESSelect_SelectBypassGroup::ExploreLabel() const
 {
-  return TCollection_AsciiString("Content of Groups");
+  return AsciiString1("Content of Groups");
 }

@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-RWMesh_ShapeIterator::RWMesh_ShapeIterator(const TDF_Label&       theLabel,
+RWMesh_ShapeIterator::RWMesh_ShapeIterator(const DataLabel&       theLabel,
                                            const TopLoc_Location& theLocation,
                                            const TopAbs_ShapeEnum theShapeTypeFind,
                                            const TopAbs_ShapeEnum theShapeTypeAvoid,
@@ -31,7 +31,7 @@ RWMesh_ShapeIterator::RWMesh_ShapeIterator(const TDF_Label&       theLabel,
       myShapeType(theShapeTypeFind),
       myHasColor(false)
 {
-  TopoDS_Shape aShape;
+  TopoShape aShape;
   if (!XCAFDoc_ShapeTool::GetShape(theLabel, aShape) || aShape.IsNull())
   {
     return;
@@ -49,7 +49,7 @@ RWMesh_ShapeIterator::RWMesh_ShapeIterator(const TDF_Label&       theLabel,
 
 //=================================================================================================
 
-RWMesh_ShapeIterator::RWMesh_ShapeIterator(const TopoDS_Shape&    theShape,
+RWMesh_ShapeIterator::RWMesh_ShapeIterator(const TopoShape&    theShape,
                                            const TopAbs_ShapeEnum theShapeTypeFind,
                                            const TopAbs_ShapeEnum theShapeTypeAvoid,
                                            const XCAFPrs_Style&   theStyle)
@@ -67,7 +67,7 @@ RWMesh_ShapeIterator::RWMesh_ShapeIterator(const TopoDS_Shape&    theShape,
 
 //=================================================================================================
 
-void RWMesh_ShapeIterator::dispatchStyles(const TDF_Label&       theLabel,
+void RWMesh_ShapeIterator::dispatchStyles(const DataLabel&       theLabel,
                                           const TopLoc_Location& theLocation,
                                           const XCAFPrs_Style&   theStyle)
 {
@@ -86,7 +86,7 @@ void RWMesh_ShapeIterator::dispatchStyles(const TDF_Label&       theLabel,
     for (XCAFPrs_IndexedDataMapOfShapeStyle::Iterator aStyleIter(aStyles); aStyleIter.More();
          aStyleIter.Next())
     {
-      const TopoDS_Shape&    aKeyShape     = aStyleIter.Key();
+      const TopoShape&    aKeyShape     = aStyleIter.Key();
       const TopAbs_ShapeEnum aKeyShapeType = aKeyShape.ShapeType();
       if (aTypeIter == myShapeType)
       {
@@ -111,14 +111,14 @@ void RWMesh_ShapeIterator::dispatchStyles(const TDF_Label&       theLabel,
         aCafStyle.SetMaterial(theStyle.Material());
       }
 
-      TopoDS_Shape aKeyShapeLocated = aKeyShape.Located(theLocation);
+      TopoShape aKeyShapeLocated = aKeyShape.Located(theLocation);
       if (aKeyShapeType == myShapeType)
       {
         myStyles.Bind(aKeyShapeLocated, aCafStyle);
       }
       else
       {
-        for (TopExp_Explorer aShapeIter(aKeyShapeLocated, myShapeType); aShapeIter.More();
+        for (ShapeExplorer aShapeIter(aKeyShapeLocated, myShapeType); aShapeIter.More();
              aShapeIter.Next())
         {
           if (!myStyles.IsBound(aShapeIter.Current()))

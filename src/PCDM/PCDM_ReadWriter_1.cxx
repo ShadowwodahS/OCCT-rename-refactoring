@@ -47,7 +47,7 @@ IMPLEMENT_STANDARD_RTTIEXT(PCDM_ReadWriter_1, PCDM_ReadWriter)
 
 PCDM_ReadWriter_1::PCDM_ReadWriter_1() {}
 
-static Standard_Integer RemoveExtraSeparator(TCollection_AsciiString& aString)
+static Standard_Integer RemoveExtraSeparator(AsciiString1& aString)
 {
 
   Standard_Integer i, j, len;
@@ -74,10 +74,10 @@ static Standard_Integer RemoveExtraSeparator(TCollection_AsciiString& aString)
   return len;
 }
 
-static TCollection_AsciiString AbsolutePath(const TCollection_AsciiString& aDirPath,
-                                            const TCollection_AsciiString& aRelFilePath)
+static AsciiString1 AbsolutePath(const AsciiString1& aDirPath,
+                                            const AsciiString1& aRelFilePath)
 {
-  TCollection_AsciiString EmptyString = "";
+  AsciiString1 EmptyString = "";
 #ifdef _WIN32
   if (aRelFilePath.Search(":") == 2
       || (aRelFilePath.Search("\\") == 1 && aRelFilePath.Value(2) == '\\'))
@@ -86,7 +86,7 @@ static TCollection_AsciiString AbsolutePath(const TCollection_AsciiString& aDirP
 #endif
     return aRelFilePath;
 
-  TCollection_AsciiString DirPath = aDirPath, RelFilePath = aRelFilePath;
+  AsciiString1 DirPath = aDirPath, RelFilePath = aRelFilePath;
   Standard_Integer        i, len;
 
 #ifdef _WIN32
@@ -117,17 +117,17 @@ static TCollection_AsciiString AbsolutePath(const TCollection_AsciiString& aDirP
       return EmptyString;
     DirPath.Trunc(i - 1);
   }
-  TCollection_AsciiString retx;
+  AsciiString1 retx;
   retx = DirPath;
   retx += "/";
   retx += RelFilePath;
   return retx;
 }
 
-static TCollection_AsciiString GetDirFromFile(const TCollection_ExtendedString& aFileName)
+static AsciiString1 GetDirFromFile(const UtfString& aFileName)
 {
-  TCollection_AsciiString theCFile(aFileName);
-  TCollection_AsciiString theDirectory;
+  AsciiString1 theCFile(aFileName);
+  AsciiString1 theDirectory;
   Standard_Integer        i = theCFile.SearchFromEnd("/");
 #ifdef _WIN32
   //    if(i==-1) i=theCFile.SearchFromEnd("\\");
@@ -141,7 +141,7 @@ static TCollection_AsciiString GetDirFromFile(const TCollection_ExtendedString& 
 
 //=================================================================================================
 
-TCollection_AsciiString PCDM_ReadWriter_1::Version() const
+AsciiString1 PCDM_ReadWriter_1::Version() const
 {
   return "PCDM_ReadWriter_1";
 }
@@ -151,7 +151,7 @@ TCollection_AsciiString PCDM_ReadWriter_1::Version() const
 void PCDM_ReadWriter_1::WriteReferenceCounter(const Handle(Storage_Data)& aData,
                                               const Handle(CDM_Document)& aDocument) const
 {
-  TCollection_AsciiString ligne(REFERENCE_COUNTER);
+  AsciiString1 ligne(REFERENCE_COUNTER);
   ligne += aDocument->ReferenceCounter();
   aData->AddToUserInfo(ligne);
 }
@@ -161,7 +161,7 @@ void PCDM_ReadWriter_1::WriteReferenceCounter(const Handle(Storage_Data)& aData,
 void PCDM_ReadWriter_1::WriteReferences(
   const Handle(Storage_Data)&       aData,
   const Handle(CDM_Document)&       aDocument,
-  const TCollection_ExtendedString& theReferencerFileName) const
+  const UtfString& theReferencerFileName) const
 {
 
   Standard_Integer theNumber = aDocument->ToReferencesNumber();
@@ -170,29 +170,29 @@ void PCDM_ReadWriter_1::WriteReferences(
 
     aData->AddToUserInfo(START_REF);
 
-    CDM_ReferenceIterator it(aDocument);
+    ReferenceIterator it(aDocument);
 
-    TCollection_ExtendedString ligne;
+    UtfString ligne;
 
-    TCollection_AsciiString theAbsoluteDirectory = GetDirFromFile(theReferencerFileName);
+    AsciiString1 theAbsoluteDirectory = GetDirFromFile(theReferencerFileName);
 
     for (; it.More(); it.Next())
     {
-      ligne = TCollection_ExtendedString(it.ReferenceIdentifier());
+      ligne = UtfString(it.ReferenceIdentifier());
       ligne += " ";
-      ligne += TCollection_ExtendedString(it.Document()->Modifications());
+      ligne += UtfString(it.Document()->Modifications());
       ligne += " ";
 
-      TCollection_AsciiString thePath(it.Document()->MetaData()->FileName());
-      TCollection_AsciiString theRelativePath;
+      AsciiString1 thePath(it.Document()->MetaData()->FileName());
+      AsciiString1 theRelativePath;
       if (!theAbsoluteDirectory.IsEmpty())
       {
-        theRelativePath = OSD_Path::RelativePath(theAbsoluteDirectory, thePath);
+        theRelativePath = SystemPath::RelativePath(theAbsoluteDirectory, thePath);
         if (!theRelativePath.IsEmpty())
           thePath = theRelativePath;
       }
-      ligne += TCollection_ExtendedString(thePath);
-      UTL::AddToUserInfo(aData, ligne);
+      ligne += UtfString(thePath);
+      UTL1::AddToUserInfo(aData, ligne);
     }
     aData->AddToUserInfo(END_REF);
   }
@@ -213,7 +213,7 @@ void PCDM_ReadWriter_1::WriteExtensions(const Handle(Storage_Data)& aData,
     aData->AddToUserInfo(START_EXT);
     for (Standard_Integer i = 1; i <= theNumber; i++)
     {
-      UTL::AddToUserInfo(aData, theExtensions(i));
+      UTL1::AddToUserInfo(aData, theExtensions(i));
     }
     aData->AddToUserInfo(END_EXT);
   }
@@ -224,7 +224,7 @@ void PCDM_ReadWriter_1::WriteExtensions(const Handle(Storage_Data)& aData,
 void PCDM_ReadWriter_1::WriteVersion(const Handle(Storage_Data)& aData,
                                      const Handle(CDM_Document)& aDocument) const
 {
-  TCollection_AsciiString ligne(MODIFICATION_COUNTER);
+  AsciiString1 ligne(MODIFICATION_COUNTER);
   ligne += aDocument->Modifications();
   aData->AddToUserInfo(ligne);
 }
@@ -232,15 +232,15 @@ void PCDM_ReadWriter_1::WriteVersion(const Handle(Storage_Data)& aData,
 //=================================================================================================
 
 Standard_Integer PCDM_ReadWriter_1::ReadReferenceCounter(
-  const TCollection_ExtendedString& aFileName,
+  const UtfString& aFileName,
   const Handle(Message_Messenger)&  theMsgDriver) const
 {
 
   Standard_Integer           theReferencesCounter(0);
   Standard_Integer           i;
   Handle(Storage_BaseDriver) theFileDriver;
-  TCollection_AsciiString    aFileNameU(aFileName);
-  if (PCDM::FileDriverType(aFileNameU, theFileDriver) == PCDM_TOFD_Unknown)
+  AsciiString1    aFileNameU(aFileName);
+  if (PCDM1::FileDriverType(aFileNameU, theFileDriver) == PCDM_TOFD_Unknown)
     return theReferencesCounter;
 
   Standard_Boolean theFileIsOpen(Standard_False);
@@ -267,7 +267,7 @@ Standard_Integer PCDM_ReadWriter_1::ReadReferenceCounter(
         {
           //	  std::cout << "warning: could not read the reference counter in " << aFileName <<
           // std::endl;
-          TCollection_ExtendedString aMsg("Warning: ");
+          UtfString aMsg("Warning: ");
           aMsg = aMsg.Cat("could not read the reference counter in ").Cat(aFileName).Cat("\0");
           if (!theMsgDriver.IsNull())
             theMsgDriver->Send(aMsg.ToExtString());
@@ -289,7 +289,7 @@ Standard_Integer PCDM_ReadWriter_1::ReadReferenceCounter(
 
 //=================================================================================================
 
-void PCDM_ReadWriter_1::ReadReferences(const TCollection_ExtendedString& aFileName,
+void PCDM_ReadWriter_1::ReadReferences(const UtfString& aFileName,
                                        PCDM_SequenceOfReference&         theReferences,
                                        const Handle(Message_Messenger)&  theMsgDriver) const
 {
@@ -299,26 +299,26 @@ void PCDM_ReadWriter_1::ReadReferences(const TCollection_ExtendedString& aFileNa
   ReadUserInfo(aFileName, START_REF, END_REF, ReadReferences, theMsgDriver);
 
   Standard_Integer           theReferenceIdentifier;
-  TCollection_ExtendedString theFileName;
+  UtfString theFileName;
   Standard_Integer           theDocumentVersion;
 
-  TCollection_AsciiString theAbsoluteDirectory = GetDirFromFile(aFileName);
+  AsciiString1 theAbsoluteDirectory = GetDirFromFile(aFileName);
 
   for (Standard_Integer i = 1; i <= ReadReferences.Length(); i++)
   {
     Standard_Integer pos = ReadReferences(i).Search(" ");
     if (pos != -1)
     {
-      TCollection_ExtendedString theRest = ReadReferences(i).Split(pos);
-      theReferenceIdentifier             = UTL::IntegerValue(ReadReferences(i));
+      UtfString theRest = ReadReferences(i).Split(pos);
+      theReferenceIdentifier             = UTL1::IntegerValue(ReadReferences(i));
 
       Standard_Integer pos2 = theRest.Search(" ");
 
       theFileName        = theRest.Split(pos2);
-      theDocumentVersion = UTL::IntegerValue(theRest);
+      theDocumentVersion = UTL1::IntegerValue(theRest);
 
-      TCollection_AsciiString thePath(theFileName);
-      TCollection_AsciiString theAbsolutePath;
+      AsciiString1 thePath(theFileName);
+      AsciiString1 theAbsolutePath;
       if (!theAbsoluteDirectory.IsEmpty())
       {
         theAbsolutePath = AbsolutePath(theAbsoluteDirectory, thePath);
@@ -329,7 +329,7 @@ void PCDM_ReadWriter_1::ReadReferences(const TCollection_ExtendedString& aFileNa
       {
         //      std::cout << "reference found; ReferenceIdentifier: " << theReferenceIdentifier <<
         //      "; File:" << thePath << ", version:" << theDocumentVersion;
-        TCollection_ExtendedString aMsg("Warning: ");
+        UtfString aMsg("Warning: ");
         aMsg = aMsg.Cat("reference found; ReferenceIdentifier:  ")
                  .Cat(theReferenceIdentifier)
                  .Cat("; File:")
@@ -339,7 +339,7 @@ void PCDM_ReadWriter_1::ReadReferences(const TCollection_ExtendedString& aFileNa
                  .Cat("\0");
         theMsgDriver->Send(aMsg.ToExtString());
       }
-      TCollection_ExtendedString aPathW(thePath);
+      UtfString aPathW(thePath);
       theReferences.Append(PCDM_Reference(theReferenceIdentifier, aPathW, theDocumentVersion));
     }
   }
@@ -347,7 +347,7 @@ void PCDM_ReadWriter_1::ReadReferences(const TCollection_ExtendedString& aFileNa
 
 //=================================================================================================
 
-void PCDM_ReadWriter_1::ReadExtensions(const TCollection_ExtendedString& aFileName,
+void PCDM_ReadWriter_1::ReadExtensions(const UtfString& aFileName,
                                        TColStd_SequenceOfExtendedString& theExtensions,
                                        const Handle(Message_Messenger)&  theMsgDriver) const
 {
@@ -357,16 +357,16 @@ void PCDM_ReadWriter_1::ReadExtensions(const TCollection_ExtendedString& aFileNa
 
 //=================================================================================================
 
-void PCDM_ReadWriter_1::ReadUserInfo(const TCollection_ExtendedString& aFileName,
-                                     const TCollection_AsciiString&    Start,
-                                     const TCollection_AsciiString&    End,
+void PCDM_ReadWriter_1::ReadUserInfo(const UtfString& aFileName,
+                                     const AsciiString1&    Start,
+                                     const AsciiString1&    End,
                                      TColStd_SequenceOfExtendedString& theUserInfo,
                                      const Handle(Message_Messenger)&)
 {
   Standard_Integer           i;
   Handle(Storage_BaseDriver) theFileDriver;
-  TCollection_AsciiString    aFileNameU(aFileName);
-  if (PCDM::FileDriverType(aFileNameU, theFileDriver) == PCDM_TOFD_Unknown)
+  AsciiString1    aFileNameU(aFileName);
+  if (PCDM1::FileDriverType(aFileNameU, theFileDriver) == PCDM_TOFD_Unknown)
     return;
 
   PCDM_ReadWriter::Open(theFileDriver, aFileName, Storage_VSRead);
@@ -379,7 +379,7 @@ void PCDM_ReadWriter_1::ReadUserInfo(const TCollection_ExtendedString& aFileName
 
   for (i = 1; i <= refUserInfo.Length(); i++)
   {
-    TCollection_ExtendedString theLine = refUserInfo(i);
+    UtfString theLine = refUserInfo(i);
     if (refUserInfo(i) == Start)
       debut = i;
     if (refUserInfo(i) == End)
@@ -389,7 +389,7 @@ void PCDM_ReadWriter_1::ReadUserInfo(const TCollection_ExtendedString& aFileName
   {
     for (i = debut + 1; i < fin; i++)
     {
-      TCollection_ExtendedString aInfoW(refUserInfo(i));
+      UtfString aInfoW(refUserInfo(i));
       theUserInfo.Append(aInfoW);
     }
   }
@@ -399,14 +399,14 @@ void PCDM_ReadWriter_1::ReadUserInfo(const TCollection_ExtendedString& aFileName
 //=================================================================================================
 
 Standard_Integer PCDM_ReadWriter_1::ReadDocumentVersion(
-  const TCollection_ExtendedString& aFileName,
+  const UtfString& aFileName,
   const Handle(Message_Messenger)&  theMsgDriver) const
 {
 
   Standard_Integer           theVersion(-1);
   Handle(Storage_BaseDriver) theFileDriver;
-  TCollection_AsciiString    aFileNameU(aFileName);
-  if (PCDM::FileDriverType(aFileNameU, theFileDriver) == PCDM_TOFD_Unknown)
+  AsciiString1    aFileNameU(aFileName);
+  if (PCDM1::FileDriverType(aFileNameU, theFileDriver) == PCDM_TOFD_Unknown)
     return theVersion;
 
   Standard_Boolean theFileIsOpen(Standard_False);
@@ -433,7 +433,7 @@ Standard_Integer PCDM_ReadWriter_1::ReadDocumentVersion(
         catch (ExceptionBase const&)
         {
           //	  std::cout << "warning: could not read the version in " << aFileName << std::endl;
-          TCollection_ExtendedString aMsg("Warning: ");
+          UtfString aMsg("Warning: ");
           aMsg = aMsg.Cat("could not read the version in ").Cat(aFileName).Cat("\0");
           if (!theMsgDriver.IsNull())
             theMsgDriver->Send(aMsg.ToExtString());

@@ -53,7 +53,7 @@ void BOPAlgo_Algo::CheckResult()
 
 //=================================================================================================
 
-void BOPAlgo_Algo::analyzeProgress(const Standard_Real theWhole, BOPAlgo_PISteps& theSteps) const
+void BOPAlgo_Algo::analyzeProgress(const Standard_Real theWhole, PISteps& theSteps) const
 {
   Standard_Real aWhole = theWhole;
 
@@ -98,8 +98,8 @@ void BOPAlgo_Algo::analyzeProgress(const Standard_Real theWhole, BOPAlgo_PISteps
 
 //=================================================================================================
 
-void BOPAlgo_Algo::fillPIConstants(const Standard_Real, BOPAlgo_PISteps&) const {}
+void BOPAlgo_Algo::fillPIConstants(const Standard_Real, PISteps&) const {}
 
 //=================================================================================================
 
-void BOPAlgo_Algo::fillPISteps(BOPAlgo_PISteps&) const {}
+void BOPAlgo_Algo::fillPISteps(PISteps&) const {}

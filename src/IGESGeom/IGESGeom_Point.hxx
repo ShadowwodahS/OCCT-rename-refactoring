@@ -29,7 +29,7 @@ class IGESGeom_Point;
 DEFINE_STANDARD_HANDLE(IGESGeom_Point, IGESData_IGESEntity)
 
 //! defines IGESPoint, Type <116> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 class IGESGeom_Point : public IGESData_IGESEntity
 {
 

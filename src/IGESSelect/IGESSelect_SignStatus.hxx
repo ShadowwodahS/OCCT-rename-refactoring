@@ -24,7 +24,7 @@
 #include <Standard_CString.hxx>
 class RefObject;
 class Interface_InterfaceModel;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IGESSelect_SignStatus;
 DEFINE_STANDARD_HANDLE(IGESSelect_SignStatus, IFSelect_Signature)
@@ -57,7 +57,7 @@ public:
   //! Performs the match rule (see above)
   Standard_EXPORT virtual Standard_Boolean Matches(const Handle(RefObject)&       ent,
                                                    const Handle(Interface_InterfaceModel)& model,
-                                                   const TCollection_AsciiString&          text,
+                                                   const AsciiString1&          text,
                                                    const Standard_Boolean exact) const
     Standard_OVERRIDE;
 

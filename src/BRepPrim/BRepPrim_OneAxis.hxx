@@ -94,17 +94,17 @@ public:
   //! U parameter is the angle with the  origin on the X
   //! axis. The  V parameter is   the  parameter of  the
   //! meridian.
-  Standard_EXPORT virtual TopoDS_Face MakeEmptyLateralFace() const = 0;
+  Standard_EXPORT virtual TopoFace MakeEmptyLateralFace() const = 0;
 
   //! Returns  an  edge with  a 3D curve   made from the
   //! meridian  in the XZ  plane rotated by <Ang> around
   //! the Z-axis. Ang may be 0 or myAngle.
-  Standard_EXPORT virtual TopoDS_Edge MakeEmptyMeridianEdge(const Standard_Real Ang) const = 0;
+  Standard_EXPORT virtual TopoEdge MakeEmptyMeridianEdge(const Standard_Real Ang) const = 0;
 
   //! Sets the  parametric curve of the  edge <E> in the
   //! face  <F> to be  the   2d representation  of   the
   //! meridian.
-  Standard_EXPORT virtual void SetMeridianPCurve(TopoDS_Edge& E, const TopoDS_Face& F) const = 0;
+  Standard_EXPORT virtual void SetMeridianPCurve(TopoEdge& E, const TopoFace& F) const = 0;
 
   //! Returns the meridian point at parameter <V> in the
   //! plane XZ.
@@ -150,112 +150,112 @@ public:
 
   //! Returns the Shell containing all the  Faces of the
   //! primitive.
-  Standard_EXPORT const TopoDS_Shell& Shell();
+  Standard_EXPORT const TopoShell& Shell();
 
   //! Returns  the lateral Face.   It is oriented toward
   //! the outside of the primitive.
-  Standard_EXPORT const TopoDS_Face& LateralFace();
+  Standard_EXPORT const TopoFace& LateralFace();
 
   //! Returns the   top planar  Face.    It  is Oriented
   //! toward the +Z axis (outside).
-  Standard_EXPORT const TopoDS_Face& TopFace();
+  Standard_EXPORT const TopoFace& TopFace();
 
   //! Returns  the Bottom planar Face.   It is  Oriented
   //! toward the -Z axis (outside).
-  Standard_EXPORT const TopoDS_Face& BottomFace();
+  Standard_EXPORT const TopoFace& BottomFace();
 
   //! Returns  the  Face   starting   the slice, it   is
   //! oriented toward the exterior of the primitive.
-  Standard_EXPORT const TopoDS_Face& StartFace();
+  Standard_EXPORT const TopoFace& StartFace();
 
   //! Returns the Face ending the slice, it  is oriented
   //! toward the exterior of the primitive.
-  Standard_EXPORT const TopoDS_Face& EndFace();
+  Standard_EXPORT const TopoFace& EndFace();
 
   //! Returns  the wire in the lateral face.
-  Standard_EXPORT const TopoDS_Wire& LateralWire();
+  Standard_EXPORT const TopoWire& LateralWire();
 
   //! Returns the   wire in the   lateral  face with the
   //! start edge.
-  Standard_EXPORT const TopoDS_Wire& LateralStartWire();
+  Standard_EXPORT const TopoWire& LateralStartWire();
 
   //! Returns the wire with in lateral face with the end
   //! edge.
-  Standard_EXPORT const TopoDS_Wire& LateralEndWire();
+  Standard_EXPORT const TopoWire& LateralEndWire();
 
   //! Returns the wire in the top face.
-  Standard_EXPORT const TopoDS_Wire& TopWire();
+  Standard_EXPORT const TopoWire& TopWire();
 
   //! Returns the wire in the bottom face.
-  Standard_EXPORT const TopoDS_Wire& BottomWire();
+  Standard_EXPORT const TopoWire& BottomWire();
 
   //! Returns the wire  in the  start face.
-  Standard_EXPORT const TopoDS_Wire& StartWire();
+  Standard_EXPORT const TopoWire& StartWire();
 
   //! Returns  the wire   in the  start   face  with the
   //! AxisEdge.
-  Standard_EXPORT const TopoDS_Wire& AxisStartWire();
+  Standard_EXPORT const TopoWire& AxisStartWire();
 
   //! Returns the Wire in   the end face.
-  Standard_EXPORT const TopoDS_Wire& EndWire();
+  Standard_EXPORT const TopoWire& EndWire();
 
   //! Returns  the Wire  in  the   end   face  with  the
   //! AxisEdge.
-  Standard_EXPORT const TopoDS_Wire& AxisEndWire();
+  Standard_EXPORT const TopoWire& AxisEndWire();
 
   //! Returns the Edge built along the Axis and oriented
   //! on +Z of the Axis.
-  Standard_EXPORT const TopoDS_Edge& AxisEdge();
+  Standard_EXPORT const TopoEdge& AxisEdge();
 
   //! Returns the   Edge at angle 0.
-  Standard_EXPORT const TopoDS_Edge& StartEdge();
+  Standard_EXPORT const TopoEdge& StartEdge();
 
   //! Returns the  Edge at  angle Angle.  If !HasSides()
   //! the StartEdge and the EndEdge are the same edge.
-  Standard_EXPORT const TopoDS_Edge& EndEdge();
+  Standard_EXPORT const TopoEdge& EndEdge();
 
   //! Returns the linear Edge between start Face and top
   //! Face.
-  Standard_EXPORT const TopoDS_Edge& StartTopEdge();
+  Standard_EXPORT const TopoEdge& StartTopEdge();
 
   //! Returns the linear  Edge between  start  Face  and
   //! bottom Face.
-  Standard_EXPORT const TopoDS_Edge& StartBottomEdge();
+  Standard_EXPORT const TopoEdge& StartBottomEdge();
 
   //! Returns the linear Edge  between end Face and  top
   //! Face.
-  Standard_EXPORT const TopoDS_Edge& EndTopEdge();
+  Standard_EXPORT const TopoEdge& EndTopEdge();
 
   //! Returns  the  linear  Edge  between end  Face  and
   //! bottom Face.
-  Standard_EXPORT const TopoDS_Edge& EndBottomEdge();
+  Standard_EXPORT const TopoEdge& EndBottomEdge();
 
   //! Returns the edge at VMax. If  MeridianClosed() the
   //! TopEdge and the BottomEdge are the same edge.
-  Standard_EXPORT const TopoDS_Edge& TopEdge();
+  Standard_EXPORT const TopoEdge& TopEdge();
 
   //! Returns the edge  at VMin. If MeridianClosed() the
   //! TopEdge and the BottomEdge are the same edge.
-  Standard_EXPORT const TopoDS_Edge& BottomEdge();
+  Standard_EXPORT const TopoEdge& BottomEdge();
 
   //! Returns the Vertex at the Top altitude on the axis.
-  Standard_EXPORT const TopoDS_Vertex& AxisTopVertex();
+  Standard_EXPORT const TopoVertex& AxisTopVertex();
 
   //! Returns the Vertex  at the Bottom  altitude on the
   //! axis.
-  Standard_EXPORT const TopoDS_Vertex& AxisBottomVertex();
+  Standard_EXPORT const TopoVertex& AxisBottomVertex();
 
   //! Returns the vertex (0,VMax)
-  Standard_EXPORT const TopoDS_Vertex& TopStartVertex();
+  Standard_EXPORT const TopoVertex& TopStartVertex();
 
   //! Returns the vertex (angle,VMax)
-  Standard_EXPORT const TopoDS_Vertex& TopEndVertex();
+  Standard_EXPORT const TopoVertex& TopEndVertex();
 
   //! Returns the vertex (0,VMin)
-  Standard_EXPORT const TopoDS_Vertex& BottomStartVertex();
+  Standard_EXPORT const TopoVertex& BottomStartVertex();
 
   //! Returns the vertex (angle,VMax)
-  Standard_EXPORT const TopoDS_Vertex& BottomEndVertex();
+  Standard_EXPORT const TopoVertex& BottomEndVertex();
   Standard_EXPORT virtual ~BRepPrim_OneAxis();
 
 protected:
@@ -274,15 +274,15 @@ private:
   Standard_Real    myVMin;
   Standard_Real    myVMax;
   Standard_Real    myMeridianOffset;
-  TopoDS_Shell     myShell;
+  TopoShell     myShell;
   Standard_Boolean ShellBuilt;
-  TopoDS_Vertex    myVertices[6];
+  TopoVertex    myVertices[6];
   Standard_Boolean VerticesBuilt[6];
-  TopoDS_Edge      myEdges[9];
+  TopoEdge      myEdges[9];
   Standard_Boolean EdgesBuilt[9];
-  TopoDS_Wire      myWires[9];
+  TopoWire      myWires[9];
   Standard_Boolean WiresBuilt[9];
-  TopoDS_Face      myFaces[5];
+  TopoFace      myFaces[5];
   Standard_Boolean FacesBuilt[5];
 };
 

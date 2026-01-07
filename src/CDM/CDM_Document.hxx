@@ -84,12 +84,12 @@ public:
   //! returns True in case  of success, false otherwise.  In
   //! case of Failure, additional information can be given in
   //! ErrorString.
-  Standard_EXPORT virtual Standard_Boolean Update(TCollection_ExtendedString& ErrorString);
+  Standard_EXPORT virtual Standard_Boolean Update(UtfString& ErrorString);
 
   //! The Storage Format is the key which is used to determine in the
   //! application resources the storage driver plugin, the file
   //! extension and other data used to store the document.
-  Standard_EXPORT virtual TCollection_ExtendedString StorageFormat() const = 0;
+  Standard_EXPORT virtual UtfString StorageFormat() const = 0;
 
   //! by default empties the extensions.
   Standard_EXPORT virtual void Extensions(TColStd_SequenceOfExtendedString& Extensions) const;
@@ -98,7 +98,7 @@ public:
   //! a different format. For example, to extract a Shape
   //! from an applicative document.
   Standard_EXPORT virtual Standard_Boolean GetAlternativeDocument(
-    const TCollection_ExtendedString& aFormat,
+    const UtfString& aFormat,
     Handle(CDM_Document)&             anAlternativeDocument);
 
   //! Creates a reference from this document to {anOtherDocument}.
@@ -134,7 +134,7 @@ public:
 
   //! returns the name of the metadata of the To Document of
   //! the reference identified by aReferenceIdentifier.
-  Standard_EXPORT TCollection_ExtendedString
+  Standard_EXPORT UtfString
     Name(const Standard_Integer aReferenceIdentifier) const;
 
   //! call  virtual  method   Update  on  all   referencing
@@ -200,10 +200,10 @@ public:
   Standard_EXPORT void SetIsUpToDate(const Standard_Integer aReferenceIdentifier);
 
   //! associates a comment with this document.
-  Standard_EXPORT void SetComment(const TCollection_ExtendedString& aComment);
+  Standard_EXPORT void SetComment(const UtfString& aComment);
 
   //! appends a comment into comments of this document.
-  Standard_EXPORT void AddComment(const TCollection_ExtendedString& aComment);
+  Standard_EXPORT void AddComment(const UtfString& aComment);
 
   //! associates a comments with this document.
   Standard_EXPORT void SetComments(const TColStd_SequenceOfExtendedString& aComments);
@@ -231,36 +231,36 @@ public:
 
   Standard_EXPORT Handle(CDM_MetaData) MetaData() const;
 
-  Standard_EXPORT TCollection_ExtendedString Folder() const;
+  Standard_EXPORT UtfString Folder() const;
 
   //! defines the folder in which the object should be stored.
-  Standard_EXPORT void SetRequestedFolder(const TCollection_ExtendedString& aFolder);
+  Standard_EXPORT void SetRequestedFolder(const UtfString& aFolder);
 
-  Standard_EXPORT TCollection_ExtendedString RequestedFolder() const;
+  Standard_EXPORT UtfString RequestedFolder() const;
 
   Standard_EXPORT Standard_Boolean HasRequestedFolder() const;
 
   //! defines the name under which the object should be stored.
-  Standard_EXPORT void SetRequestedName(const TCollection_ExtendedString& aName);
+  Standard_EXPORT void SetRequestedName(const UtfString& aName);
 
   //! Determines under which the document is going to be store.
   //! By default the name of the document will be used.
   //! If the document has no name its presentation will be used.
-  Standard_EXPORT TCollection_ExtendedString RequestedName();
+  Standard_EXPORT UtfString RequestedName();
 
   Standard_EXPORT void SetRequestedPreviousVersion(
-    const TCollection_ExtendedString& aPreviousVersion);
+    const UtfString& aPreviousVersion);
 
   Standard_EXPORT void UnsetRequestedPreviousVersion();
 
   Standard_EXPORT Standard_Boolean HasRequestedPreviousVersion() const;
 
-  Standard_EXPORT TCollection_ExtendedString RequestedPreviousVersion() const;
+  Standard_EXPORT UtfString RequestedPreviousVersion() const;
 
   //! defines the Comment with  which the object should be stored.
-  Standard_EXPORT void SetRequestedComment(const TCollection_ExtendedString& aComment);
+  Standard_EXPORT void SetRequestedComment(const UtfString& aComment);
 
-  Standard_EXPORT TCollection_ExtendedString RequestedComment() const;
+  Standard_EXPORT UtfString RequestedComment() const;
 
   //! read (or rereads) the following resource.
   Standard_EXPORT void LoadResources();
@@ -268,12 +268,12 @@ public:
   Standard_EXPORT Standard_Boolean FindFileExtension();
 
   //! gets the Desktop.Domain.Application.`FileFormat`.FileExtension resource.
-  Standard_EXPORT TCollection_ExtendedString FileExtension();
+  Standard_EXPORT UtfString FileExtension();
 
   Standard_EXPORT Standard_Boolean FindDescription();
 
   //! gets the `FileFormat`.Description resource.
-  Standard_EXPORT TCollection_ExtendedString Description();
+  Standard_EXPORT UtfString Description();
 
   //! returns  true  if the   version is greater  than   the
   //! storage version
@@ -343,7 +343,7 @@ public:
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
   friend class CDM_Reference;
-  friend class CDM_ReferenceIterator;
+  friend class ReferenceIterator;
   friend class CDM_Application;
 
   DEFINE_STANDARD_RTTIEXT(CDM_Document, RefObject)
@@ -373,15 +373,15 @@ private:
   Standard_Integer                 myActualReferenceIdentifier;
   Standard_Integer                 myStorageVersion;
   Handle(CDM_MetaData)             myMetaData;
-  TCollection_ExtendedString       myRequestedComment;
-  TCollection_ExtendedString       myRequestedFolder;
+  UtfString       myRequestedComment;
+  UtfString       myRequestedFolder;
   Standard_Boolean                 myRequestedFolderIsDefined;
-  TCollection_ExtendedString       myRequestedName;
+  UtfString       myRequestedName;
   Standard_Boolean                 myRequestedNameIsDefined;
   Standard_Boolean                 myRequestedPreviousVersionIsDefined;
-  TCollection_ExtendedString       myRequestedPreviousVersion;
-  TCollection_ExtendedString       myFileExtension;
-  TCollection_ExtendedString       myDescription;
+  UtfString       myRequestedPreviousVersion;
+  UtfString       myFileExtension;
+  UtfString       myDescription;
   Standard_Boolean                 myFileExtensionWasFound;
   Standard_Boolean                 myDescriptionWasFound;
   Handle(CDM_Application)          myApplication;

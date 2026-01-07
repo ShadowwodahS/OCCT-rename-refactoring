@@ -22,7 +22,7 @@
 
 #include <Plate_LinearScalarConstraint.hxx>
 #include <Standard_Integer.hxx>
-class gp_XY;
+class Coords2d;
 class gp_Pln;
 
 //! constraint a point to belong to a Plane
@@ -31,7 +31,7 @@ class Plate_PlaneConstraint
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Plate_PlaneConstraint(const gp_XY&           point2d,
+  Standard_EXPORT Plate_PlaneConstraint(const Coords2d&           point2d,
                                         const gp_Pln&          pln,
                                         const Standard_Integer iu = 0,
                                         const Standard_Integer iv = 0);

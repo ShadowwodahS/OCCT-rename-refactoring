@@ -520,7 +520,7 @@ void BlendFunc_CSCircular::Section(const Standard_Real Param,
   Pfin = ElCLib::Parameter(C, ptc);
 }
 
-Standard_Boolean BlendFunc_CSCircular::Section(const Blend_Point&    P,
+Standard_Boolean BlendFunc_CSCircular::Section(const Point2&    P,
                                                TColgp_Array1OfPnt&   Poles,
                                                TColgp_Array1OfVec&   DPoles,
                                                TColgp_Array1OfVec&   D2Poles,
@@ -713,7 +713,7 @@ Standard_Real BlendFunc_CSCircular::GetSectionSize() const
 
 void BlendFunc_CSCircular::GetMinimalWeight(TColStd_Array1OfReal& Weigths) const
 {
-  BlendFunc::GetMinimalWeights(mySShape, myTConv, minang, maxang, Weigths);
+  BlendFunc1::GetMinimalWeights(mySShape, myTConv, minang, maxang, Weigths);
   // On suppose que cela ne depend pas du Rayon!
 }
 
@@ -721,14 +721,14 @@ void BlendFunc_CSCircular::GetMinimalWeight(TColStd_Array1OfReal& Weigths) const
 
 Standard_Integer BlendFunc_CSCircular::NbIntervals(const GeomAbs_Shape S) const
 {
-  return curv->NbIntervals(BlendFunc::NextShape(S));
+  return curv->NbIntervals(BlendFunc1::NextShape(S));
 }
 
 //=================================================================================================
 
 void BlendFunc_CSCircular::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) const
 {
-  curv->Intervals(T, BlendFunc::NextShape(S));
+  curv->Intervals(T, BlendFunc1::NextShape(S));
 }
 
 //=================================================================================================
@@ -739,7 +739,7 @@ void BlendFunc_CSCircular::GetShape(Standard_Integer& NbPoles,
                                     Standard_Integer& NbPoles2d)
 {
   NbPoles2d = 1;
-  BlendFunc::GetShape(mySShape, maxang, NbPoles, NbKnots, Degree, myTConv);
+  BlendFunc1::GetShape(mySShape, maxang, NbPoles, NbKnots, Degree, myTConv);
 }
 
 //=======================================================================
@@ -777,7 +777,7 @@ void BlendFunc_CSCircular::Mults(TColStd_Array1OfInteger& TMults)
 
 //=================================================================================================
 
-void BlendFunc_CSCircular::Section(const Blend_Point&    P,
+void BlendFunc_CSCircular::Section(const Point2&    P,
                                    TColgp_Array1OfPnt&   Poles,
                                    TColgp_Array1OfPnt2d& Poles2d,
                                    TColStd_Array1OfReal& Weights)
@@ -831,7 +831,7 @@ void BlendFunc_CSCircular::Section(const Blend_Point&    P,
 
 //=================================================================================================
 
-Standard_Boolean BlendFunc_CSCircular::Section(const Blend_Point&    P,
+Standard_Boolean BlendFunc_CSCircular::Section(const Point2&    P,
                                                TColgp_Array1OfPnt&   Poles,
                                                TColgp_Array1OfVec&   DPoles,
                                                TColgp_Array1OfPnt2d& Poles2d,

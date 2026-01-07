@@ -32,8 +32,8 @@ TPrsStd_PlaneDriver::TPrsStd_PlaneDriver() {}
 
 //=================================================================================================
 
-Standard_Boolean TPrsStd_PlaneDriver::Update(const TDF_Label&               aLabel,
-                                             Handle(AIS_InteractiveObject)& anAISObject)
+Standard_Boolean TPrsStd_PlaneDriver::Update(const DataLabel&               aLabel,
+                                             Handle(VisualEntity)& anAISObject)
 {
   Handle(TDataXtd_Plane) apPlane;
 
@@ -47,7 +47,7 @@ Standard_Boolean TPrsStd_PlaneDriver::Update(const TDF_Label&               aLab
   {
     return Standard_False;
   }
-  Handle(Geom_Plane) apt = new Geom_Plane(pln);
+  Handle(GeomPlane) apt = new GeomPlane(pln);
 
   //  Update AIS
   Handle(AIS_Plane) aisplane;

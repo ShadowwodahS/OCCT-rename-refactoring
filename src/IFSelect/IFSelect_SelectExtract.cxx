@@ -58,9 +58,9 @@ Standard_Boolean IFSelect_SelectExtract::SortInGraph(const Standard_Integer     
   return Sort(rank, ent, G.Model());
 }
 
-TCollection_AsciiString IFSelect_SelectExtract::Label() const
+AsciiString1 IFSelect_SelectExtract::Label() const
 {
-  TCollection_AsciiString labl;
+  AsciiString1 labl;
   if (thesort)
     labl.AssignCat("Picked: ");
   if (!thesort)

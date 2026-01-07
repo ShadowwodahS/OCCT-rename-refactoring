@@ -32,11 +32,11 @@
 
 class Bnd_Box;
 class BRepAdaptor_Surface;
-class TCollection_AsciiString;
+class AsciiString1;
 class TopOpeBRep_Point2d;
 class IntRes2d_IntersectionSegment;
 class IntRes2d_IntersectionPoint;
-class TopOpeBRepDS_Transition;
+class StateTransition;
 class Point3d;
 
 //! Describes the intersection of two edges on the same surface
@@ -49,10 +49,10 @@ public:
 
   Standard_EXPORT virtual ~TopOpeBRep_EdgesIntersector();
 
-  Standard_EXPORT void SetFaces(const TopoDS_Shape& F1, const TopoDS_Shape& F2);
+  Standard_EXPORT void SetFaces(const TopoShape& F1, const TopoShape& F2);
 
-  Standard_EXPORT void SetFaces(const TopoDS_Shape& F1,
-                                const TopoDS_Shape& F2,
+  Standard_EXPORT void SetFaces(const TopoShape& F1,
+                                const TopoShape& F2,
                                 const Bnd_Box&      B1,
                                 const Bnd_Box&      B2);
 
@@ -63,8 +63,8 @@ public:
   //! set working space dimension D = 1 for E &|| W, 2 for E in F
   Standard_EXPORT Standard_Integer Dimension() const;
 
-  Standard_EXPORT void Perform(const TopoDS_Shape&    E1,
-                               const TopoDS_Shape&    E2,
+  Standard_EXPORT void Perform(const TopoShape&    E1,
+                               const TopoShape&    E2,
                                const Standard_Boolean ReduceSegments = Standard_True);
 
   Standard_EXPORT Standard_Boolean IsEmpty();
@@ -75,11 +75,11 @@ public:
   //! = mySameDomain.
   Standard_EXPORT Standard_Boolean SameDomain() const;
 
-  Standard_EXPORT const TopoDS_Shape& Edge(const Standard_Integer Index) const;
+  Standard_EXPORT const TopoShape& Edge(const Standard_Integer Index) const;
 
   Standard_EXPORT const Geom2dAdaptor_Curve& Curve(const Standard_Integer Index) const;
 
-  Standard_EXPORT const TopoDS_Shape& Face(const Standard_Integer Index) const;
+  Standard_EXPORT const TopoShape& Face(const Standard_Integer Index) const;
 
   Standard_EXPORT const BRepAdaptor_Surface& Surface(const Standard_Integer Index) const;
 
@@ -95,7 +95,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbSegments() const;
 
-  Standard_EXPORT void Dump(const TCollection_AsciiString& str,
+  Standard_EXPORT void Dump(const AsciiString1& str,
                             const Standard_Integer         ie1 = 0,
                             const Standard_Integer         ie2 = 0);
 
@@ -143,14 +143,14 @@ private:
 
   Standard_EXPORT const IntRes2d_IntersectionPoint& Point1() const;
 
-  Standard_EXPORT TopOpeBRepDS_Transition Transition1(const Standard_Integer   Index,
+  Standard_EXPORT StateTransition Transition1(const Standard_Integer   Index,
                                                       const TopAbs_Orientation EO) const;
 
   Standard_EXPORT Standard_Real Parameter1(const Standard_Integer Index) const;
 
   Standard_EXPORT Standard_Boolean IsVertex1(const Standard_Integer Index);
 
-  Standard_EXPORT const TopoDS_Shape& Vertex1(const Standard_Integer Index);
+  Standard_EXPORT const TopoShape& Vertex1(const Standard_Integer Index);
 
   Standard_EXPORT Point3d Value1() const;
 
@@ -164,8 +164,8 @@ private:
   //! DIFFORIENTED if the edges share geometry and are not same oriented.
   Standard_EXPORT TopOpeBRepDS_Config EdgesConfig1() const;
 
-  TopoDS_Face                            myFace1;
-  TopoDS_Face                            myFace2;
+  TopoFace                            myFace1;
+  TopoFace                            myFace2;
   Handle(BRepAdaptor_Surface)            mySurface1;
   Handle(BRepAdaptor_Surface)            mySurface2;
   GeomAbs_SurfaceType                    mySurfaceType1;
@@ -174,8 +174,8 @@ private:
   Standard_Boolean                       myFacesSameOriented;
   IntRes2d_Domain                        myDomain1;
   IntRes2d_Domain                        myDomain2;
-  TopoDS_Edge                            myEdge1;
-  TopoDS_Edge                            myEdge2;
+  TopoEdge                            myEdge1;
+  TopoEdge                            myEdge2;
   Geom2dAdaptor_Curve                    myCurve1;
   Geom2dAdaptor_Curve                    myCurve2;
   Standard_Real                          myTol1;
@@ -191,7 +191,7 @@ private:
   Standard_Integer                       myIsVertexPointIndex;
   Standard_Integer                       myIsVertexIndex;
   Standard_Boolean                       myIsVertexValue;
-  TopoDS_Vertex                          myIsVertexVertex;
+  TopoVertex                          myIsVertexVertex;
   Standard_Integer                       myDimension;
   Standard_Boolean                       myHasSegment;
   Standard_Boolean                       mySameDomain;

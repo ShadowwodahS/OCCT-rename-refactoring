@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-void TopoDS_Iterator::Initialize(const TopoDS_Shape&    S,
+void TopoDS_Iterator::Initialize(const TopoShape&    S,
                                  const Standard_Boolean cumOri,
                                  const Standard_Boolean cumLoc)
 {
@@ -41,7 +41,7 @@ void TopoDS_Iterator::Initialize(const TopoDS_Shape&    S,
   if (More())
   {
     myShape = myShapes.Value();
-    myShape.Orientation(TopAbs::Compose(myOrientation, myShape.Orientation()));
+    myShape.Orientation(TopAbs1::Compose(myOrientation, myShape.Orientation()));
     if (!myLocation.IsIdentity())
       myShape.Move(myLocation, Standard_False);
   }
@@ -55,7 +55,7 @@ void TopoDS_Iterator::Next()
   if (More())
   {
     myShape = myShapes.Value();
-    myShape.Orientation(TopAbs::Compose(myOrientation, myShape.Orientation()));
+    myShape.Orientation(TopAbs1::Compose(myOrientation, myShape.Orientation()));
     if (!myLocation.IsIdentity())
       myShape.Move(myLocation, Standard_False);
   }

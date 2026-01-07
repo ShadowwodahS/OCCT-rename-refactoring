@@ -21,8 +21,8 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <TopOpeBRepBuild_Area3dBuilder.hxx>
-class TopOpeBRepBuild_LoopSet;
-class TopOpeBRepBuild_LoopClassifier;
+class LoopSet;
+class LoopClassifier;
 
 //! The SolidAreaBuilder algorithm is used to construct Solids from a LoopSet,
 //! where the Loop is the composite topological object of the boundary,
@@ -42,12 +42,12 @@ public:
   //! Creates a SolidAreaBuilder to build Solids on
   //! the (shells,blocks of face) of <LS>, using the classifier <LC>.
   Standard_EXPORT TopOpeBRepBuild_SolidAreaBuilder(
-    TopOpeBRepBuild_LoopSet&        LS,
-    TopOpeBRepBuild_LoopClassifier& LC,
+    LoopSet&        LS,
+    LoopClassifier& LC,
     const Standard_Boolean          ForceClass = Standard_False);
 
-  Standard_EXPORT void InitSolidAreaBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                            TopOpeBRepBuild_LoopClassifier& LC,
+  Standard_EXPORT void InitSolidAreaBuilder(LoopSet&        LS,
+                                            LoopClassifier& LC,
                                             const Standard_Boolean ForceClass = Standard_False);
 
 protected:

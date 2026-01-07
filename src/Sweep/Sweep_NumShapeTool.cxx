@@ -27,7 +27,7 @@ Sweep_NumShapeTool::Sweep_NumShapeTool(const Sweep_NumShape& aShape)
 
 //=================================================================================================
 
-Standard_Integer Sweep_NumShapeTool::NbShapes() const
+Standard_Integer Sweep_NumShapeTool::NbShapes1() const
 {
   if (myNumShape.Type() == TopAbs_EDGE)
   {
@@ -141,7 +141,7 @@ Sweep_NumShape Sweep_NumShapeTool::LastVertex() const
   {
     if (HasLastVertex())
     {
-      return Sweep_NumShape(NbShapes() - 1,
+      return Sweep_NumShape(NbShapes1() - 1,
                             TopAbs_VERTEX,
                             myNumShape.Closed(),
                             Standard_False,

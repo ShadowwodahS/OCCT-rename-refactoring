@@ -23,7 +23,7 @@
 #include <Prs3d_Drawer.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class TCollection_ExtendedString;
+class UtfString;
 class Point3d;
 class Dir3d;
 
@@ -41,8 +41,8 @@ public:
   //! object aPresentation. Their display attributes are
   //! defined by the attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
                                   const Dir3d&                     aDirection,
@@ -54,8 +54,8 @@ public:
   //! point AttachmentPoint2, along direction
   //! aDirection, using the offset point OffsetPoint.
   Standard_EXPORT static void AddAxes(const Handle(Prs3d_Presentation)& aPresentation,
-                                      const Handle(Prs3d_Drawer)&       aDrawer,
-                                      const TCollection_ExtendedString& aText,
+                                      const Handle(StyleDrawer)&       aDrawer,
+                                      const UtfString& aText,
                                       const Point3d&                     AttachmentPoint1,
                                       const Point3d&                     AttachmentPoint2,
                                       const Dir3d&                     aDirection,

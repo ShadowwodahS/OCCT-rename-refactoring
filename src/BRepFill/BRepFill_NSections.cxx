@@ -68,10 +68,10 @@ static Standard_Boolean Affich = 0;
 //=======================================================================
 
 // NOTE: this code duplicates the same function in BRepOffsetAPI_ThruSections.cxx
-static Handle(Geom_BSplineCurve) EdgeToBSpline(const TopoDS_Edge& theEdge)
+static Handle(BSplineCurve3d) EdgeToBSpline(const TopoEdge& theEdge)
 {
-  Handle(Geom_BSplineCurve) aBSCurve;
-  if (BRep_Tool::Degenerated(theEdge))
+  Handle(BSplineCurve3d) aBSCurve;
+  if (BRepInspector::Degenerated(theEdge))
   {
     // degenerated edge : construction of a point curve
     TColStd_Array1OfReal aKnots(1, 2);
@@ -83,26 +83,26 @@ static Handle(Geom_BSplineCurve) EdgeToBSpline(const TopoDS_Edge& theEdge)
     aMults(2) = 2;
 
     TColgp_Array1OfPnt aPoles(1, 2);
-    TopoDS_Vertex      vf, vl;
-    TopExp::Vertices(theEdge, vl, vf);
-    aPoles(1) = BRep_Tool::Pnt(vf);
-    aPoles(2) = BRep_Tool::Pnt(vl);
+    TopoVertex      vf, vl;
+    TopExp1::Vertices(theEdge, vl, vf);
+    aPoles(1) = BRepInspector::Pnt(vf);
+    aPoles(2) = BRepInspector::Pnt(vl);
 
-    aBSCurve = new Geom_BSplineCurve(aPoles, aKnots, aMults, 1);
+    aBSCurve = new BSplineCurve3d(aPoles, aKnots, aMults, 1);
   }
   else
   {
     // get the curve of the edge
     TopLoc_Location    aLoc;
     Standard_Real      aFirst, aLast;
-    Handle(Geom_Curve) aCurve = BRep_Tool::Curve(theEdge, aLoc, aFirst, aLast);
+    Handle(GeomCurve3d) aCurve = BRepInspector::Curve(theEdge, aLoc, aFirst, aLast);
 
     // convert its part used by edge to bspline; note that if edge curve is bspline,
     // approximation or conversion made via trimmed curve is still needed -- it will copy it,
     // segment as appropriate, and remove periodicity if it is periodic (deadly for approximator)
     Handle(Geom_TrimmedCurve) aTrimCurve = new Geom_TrimmedCurve(aCurve, aFirst, aLast);
 
-    const Handle(Geom_Curve)& aCurveTemp = aTrimCurve; // to avoid ambiguity
+    const Handle(GeomCurve3d)& aCurveTemp = aTrimCurve; // to avoid ambiguity
     GeomConvert_ApproxCurve   anAppr(aCurveTemp, Precision::Confusion(), GeomAbs_C1, 16, 14);
     if (anAppr.HasResult())
       aBSCurve = anAppr.Curve();
@@ -141,28 +141,28 @@ static Handle(Geom_BSplineSurface) totalsurf(const TopTools_Array2OfShape& shape
                                              const Standard_Real           myPres3d)
 {
   Standard_Integer i, j, jdeb = 1, jfin = NbSects;
-  TopoDS_Edge      edge;
-  TopoDS_Vertex    vf, vl;
+  TopoEdge      edge;
+  TopoVertex    vf, vl;
 
   GeomFill_SectionGenerator   section;
   Handle(Geom_BSplineSurface) surface;
-  Handle(Geom_BSplineCurve)   BS, BS1;
+  Handle(BSplineCurve3d)   BS, BS1;
 
   if (w1Point)
   {
     jdeb++;
     edge = TopoDS::Edge(shapes.Value(1, 1));
-    TopExp::Vertices(edge, vl, vf);
+    TopExp1::Vertices(edge, vl, vf);
     TColgp_Array1OfPnt Extremities(1, 2);
-    Extremities(1) = BRep_Tool::Pnt(vf);
-    Extremities(2) = BRep_Tool::Pnt(vl);
+    Extremities(1) = BRepInspector::Pnt(vf);
+    Extremities(2) = BRepInspector::Pnt(vl);
     TColStd_Array1OfReal Bounds(1, 2);
     Bounds(1) = 0.;
     Bounds(2) = 1.;
     TColStd_Array1OfInteger Mult(1, 2);
     Mult(1)                           = 2;
     Mult(2)                           = 2;
-    Handle(Geom_BSplineCurve) BSPoint = new Geom_BSplineCurve(Extremities, Bounds, Mult, 1);
+    Handle(BSplineCurve3d) BSPoint = new BSplineCurve3d(Extremities, Bounds, Mult, 1);
     section.AddCurve(BSPoint);
   }
 
@@ -183,8 +183,8 @@ static Handle(Geom_BSplineSurface) totalsurf(const TopTools_Array2OfShape& shape
     else
     {
       // read the first edge to initialise CompBS;
-      TopoDS_Edge               aPrevEdge = TopoDS::Edge(shapes.Value(1, j));
-      Handle(Geom_BSplineCurve) curvBS    = EdgeToBSpline(aPrevEdge);
+      TopoEdge               aPrevEdge = TopoDS::Edge(shapes.Value(1, j));
+      Handle(BSplineCurve3d) curvBS    = EdgeToBSpline(aPrevEdge);
 
       // initialization
       GeomConvert_CompCurveToBSplineCurve CompBS(curvBS);
@@ -192,15 +192,15 @@ static Handle(Geom_BSplineSurface) totalsurf(const TopTools_Array2OfShape& shape
       for (i = 2; i <= NbEdges; i++)
       {
         // read the edge
-        TopoDS_Edge aNextEdge = TopoDS::Edge(shapes.Value(i, j));
+        TopoEdge aNextEdge = TopoDS::Edge(shapes.Value(i, j));
         curvBS                = EdgeToBSpline(aNextEdge);
 
         // concatenation
-        TopoDS_Vertex    ComV;
+        TopoVertex    ComV;
         Standard_Real    epsV;
-        Standard_Boolean Bof = TopExp::CommonVertex(aPrevEdge, aNextEdge, ComV);
+        Standard_Boolean Bof = TopExp1::CommonVertex(aPrevEdge, aNextEdge, ComV);
         if (Bof)
-          epsV = BRep_Tool::Tolerance(ComV);
+          epsV = BRepInspector::Tolerance(ComV);
         else
           epsV = Precision::Confusion();
         Bof = CompBS.Add(curvBS, epsV, Standard_True, Standard_False, 1);
@@ -226,17 +226,17 @@ static Handle(Geom_BSplineSurface) totalsurf(const TopTools_Array2OfShape& shape
   if (w2Point)
   {
     edge = TopoDS::Edge(shapes.Value(NbEdges, NbSects));
-    TopExp::Vertices(edge, vl, vf);
+    TopExp1::Vertices(edge, vl, vf);
     TColgp_Array1OfPnt Extremities(1, 2);
-    Extremities(1) = BRep_Tool::Pnt(vf);
-    Extremities(2) = BRep_Tool::Pnt(vl);
+    Extremities(1) = BRepInspector::Pnt(vf);
+    Extremities(2) = BRepInspector::Pnt(vl);
     TColStd_Array1OfReal Bounds(1, 2);
     Bounds(1) = 0.;
     Bounds(2) = 1.;
     TColStd_Array1OfInteger Mult(1, 2);
     Mult(1)                           = 2;
     Mult(2)                           = 2;
-    Handle(Geom_BSplineCurve) BSPoint = new Geom_BSplineCurve(Extremities, Bounds, Mult, 1);
+    Handle(BSplineCurve3d) BSPoint = new BSplineCurve3d(Extremities, Bounds, Mult, 1);
     section.AddCurve(BSPoint);
   }
 
@@ -381,7 +381,7 @@ BRepFill_NSections::BRepFill_NSections(const TopTools_SequenceOfShape& S,
       NBSECT++;
       char name[256];
       sprintf(name, "WIRE_%d", NBSECT);
-      DBRep::Set(name, TopoDS::Wire(S.Value(i)));
+      DBRep1::Set(name, TopoDS::Wire(S.Value(i)));
     }
   #endif
   }
@@ -412,26 +412,26 @@ BRepFill_NSections::BRepFill_NSections(const TopTools_SequenceOfShape& S,
 void BRepFill_NSections::Init(const TColStd_SequenceOfReal& P, const Standard_Boolean Build)
 {
   BRepTools_WireExplorer wexp;
-  // Class BRep_Tool without fields and without Constructor :
-  //  BRep_Tool B;
-  TopoDS_Edge      E;
+  // Class BRepInspector without fields and without Constructor :
+  //  BRepInspector B;
+  TopoEdge      E;
   Standard_Integer ii, NbEdge, jj, NbSects = P.Length();
   Standard_Integer ideb = 1, ifin   = NbSects;
   Standard_Boolean wClosed, w1Point = Standard_True, w2Point = Standard_True;
   Standard_Real    First, Last;
-  TopoDS_Wire      W;
+  TopoWire      W;
 
   // Check if the start and end wires are punctual
   W = TopoDS::Wire(myShapes(1));
   for (wexp.Init(W); wexp.More(); wexp.Next())
     //    w1Point = w1Point && B.Degenerated(wexp.Current());
-    w1Point = w1Point && BRep_Tool::Degenerated(wexp.Current());
+    w1Point = w1Point && BRepInspector::Degenerated(wexp.Current());
   if (w1Point)
     ideb++;
   W = TopoDS::Wire(myShapes(NbSects));
   for (wexp.Init(W); wexp.More(); wexp.Next())
     //    w2Point = w2Point && B.Degenerated(wexp.Current());
-    w2Point = w2Point && BRep_Tool::Degenerated(wexp.Current());
+    w2Point = w2Point && BRepInspector::Degenerated(wexp.Current());
   if (w2Point)
     ifin--;
 
@@ -442,7 +442,7 @@ void BRepFill_NSections::Init(const TColStd_SequenceOfReal& P, const Standard_Bo
   W = TopoDS::Wire(myShapes(ideb));
   for (NbEdge = 0, wexp.Init(W); wexp.More(); wexp.Next())
     //    if (! B.Degenerated(wexp.Current())) NbEdge++;
-    if (!BRep_Tool::Degenerated(wexp.Current()))
+    if (!BRepInspector::Degenerated(wexp.Current()))
       NbEdge++;
 
   myEdges = new (TopTools_HArray2OfShape)(1, NbEdge, 1, NbSects);
@@ -459,7 +459,7 @@ void BRepFill_NSections::Init(const TColStd_SequenceOfReal& P, const Standard_Bo
       E = wexp.Current();
 
       //      if ( ! B.Degenerated(E)) {
-      if (!BRep_Tool::Degenerated(E))
+      if (!BRepInspector::Degenerated(E))
       {
         myEdges->SetValue(ii, jj, E);
         if (E.Orientation() == TopAbs_FORWARD)
@@ -475,26 +475,26 @@ void BRepFill_NSections::Init(const TColStd_SequenceOfReal& P, const Standard_Bo
     if (!wClosed)
     {
       // if unsure about the flag, make check
-      TopoDS_Edge   Edge1, Edge2;
-      TopoDS_Vertex V1, V2;
+      TopoEdge   Edge1, Edge2;
+      TopoVertex V1, V2;
       Edge1 = TopoDS::Edge(myEdges->Value(NbEdge, jj));
       Edge2 = TopoDS::Edge(myEdges->Value(1, jj));
 
       if (Edge1.Orientation() == TopAbs_REVERSED)
       {
-        V1 = TopExp::FirstVertex(Edge1);
+        V1 = TopExp1::FirstVertex(Edge1);
       }
       else
       {
-        V1 = TopExp::LastVertex(Edge1);
+        V1 = TopExp1::LastVertex(Edge1);
       }
       if (Edge2.Orientation() == TopAbs_REVERSED)
       {
-        V2 = TopExp::LastVertex(Edge2);
+        V2 = TopExp1::LastVertex(Edge2);
       }
       else
       {
-        V2 = TopExp::FirstVertex(Edge2);
+        V2 = TopExp1::FirstVertex(Edge2);
       }
       if (V1.IsSame(V2))
       {
@@ -504,9 +504,9 @@ void BRepFill_NSections::Init(const TColStd_SequenceOfReal& P, const Standard_Bo
       {
         BRepAdaptor_Curve Curve1(Edge1);
         BRepAdaptor_Curve Curve2(Edge2);
-        Standard_Real     U1  = BRep_Tool::Parameter(V1, Edge1);
-        Standard_Real     U2  = BRep_Tool::Parameter(V2, Edge2);
-        Standard_Real     Eps = BRep_Tool::Tolerance(V2) + BRep_Tool::Tolerance(V1);
+        Standard_Real     U1  = BRepInspector::Parameter(V1, Edge1);
+        Standard_Real     U2  = BRepInspector::Parameter(V2, Edge2);
+        Standard_Real     Eps = BRepInspector::Tolerance(V2) + BRepInspector::Tolerance(V1);
 
         wClosed = Curve1.Value(U1).IsEqual(Curve2.Value(U2), Eps);
       }
@@ -563,7 +563,7 @@ void BRepFill_NSections::Init(const TColStd_SequenceOfReal& P, const Standard_Bo
   {
     char* name = new char[100];
     sprintf(name, "Ref_Surf");
-    DrawTrSurf::Set(name, mySurface);
+    DrawTrSurf1::Set(name, mySurface);
   }
 #endif
 
@@ -577,39 +577,39 @@ void BRepFill_NSections::Init(const TColStd_SequenceOfReal& P, const Standard_Bo
       for (jj = 1; jj <= NbSects; jj++)
       {
         E = TopoDS::Edge(myEdges->Value(ii, jj));
-        Handle(Geom_Curve) C;
+        Handle(GeomCurve3d) C;
         //	if (B.Degenerated(E)) {
-        if (BRep_Tool::Degenerated(E))
+        if (BRepInspector::Degenerated(E))
         {
-          TopoDS_Vertex vf, vl;
-          TopExp::Vertices(E, vl, vf);
+          TopoVertex vf, vl;
+          TopExp1::Vertices(E, vl, vf);
           TColgp_Array1OfPnt Extremities(1, 2);
-          Extremities(1) = BRep_Tool::Pnt(vf);
-          Extremities(2) = BRep_Tool::Pnt(vl);
+          Extremities(1) = BRepInspector::Pnt(vf);
+          Extremities(2) = BRepInspector::Pnt(vl);
           TColStd_Array1OfReal Bounds(1, 2);
           Bounds(1) = 0.;
           Bounds(2) = 1.;
           TColStd_Array1OfInteger Mult(1, 2);
           Mult(1)                           = 2;
           Mult(2)                           = 2;
-          Handle(Geom_BSplineCurve) BSPoint = new Geom_BSplineCurve(Extremities, Bounds, Mult, 1);
+          Handle(BSplineCurve3d) BSPoint = new BSplineCurve3d(Extremities, Bounds, Mult, 1);
           C                                 = BSPoint;
         }
         else
         {
-          C = BRep_Tool::Curve(E, First, Last);
+          C = BRepInspector::Curve(E, First, Last);
 
           if (E.Orientation() == TopAbs_REVERSED)
           {
             Standard_Real      aux;
-            Handle(Geom_Curve) CBis;
+            Handle(GeomCurve3d) CBis;
             CBis  = C->Reversed(); // To avoid the spoiling of the topology
             aux   = C->ReversedParameter(First);
             First = C->ReversedParameter(Last);
             Last  = aux;
             C     = CBis;
           }
-          if ((ii > 1) || (!BRep_Tool::IsClosed(E)))
+          if ((ii > 1) || (!BRepInspector::IsClosed(E)))
           { // Cut C
             Handle(Geom_TrimmedCurve) TC = new (Geom_TrimmedCurve)(C, First, Last);
             C                            = TC;
@@ -643,26 +643,26 @@ Standard_Boolean BRepFill_NSections::IsConstant() const
 
 //=================================================================================================
 
-TopoDS_Vertex BRepFill_NSections::Vertex(const Standard_Integer Index,
+TopoVertex BRepFill_NSections::Vertex(const Standard_Integer Index,
                                          const Standard_Real    Param) const
 {
-  BRep_Builder  B;
-  TopoDS_Vertex V;
+  ShapeBuilder  B;
+  TopoVertex V;
   B.MakeVertex(V);
   Point3d P;
 
   if (Index <= myEdges->ColLength())
   {
-    Handle(Geom_BSplineCurve) Curve =
-      Handle(Geom_BSplineCurve)::DownCast(myLaws->Value(Index)->BSplineSurface()->VIso(Param));
+    Handle(BSplineCurve3d) Curve =
+      Handle(BSplineCurve3d)::DownCast(myLaws->Value(Index)->BSplineSurface()->VIso(Param));
     Standard_Real first = Curve->FirstParameter();
     Curve->D0(first, P);
     B.UpdateVertex(V, P, Precision::Confusion());
   }
   else if (Index == myEdges->ColLength() + 1)
   {
-    Handle(Geom_BSplineCurve) Curve =
-      Handle(Geom_BSplineCurve)::DownCast(myLaws->Value(Index - 1)->BSplineSurface()->VIso(Param));
+    Handle(BSplineCurve3d) Curve =
+      Handle(BSplineCurve3d)::DownCast(myLaws->Value(Index - 1)->BSplineSurface()->VIso(Param));
     Standard_Real last = Curve->LastParameter();
     Curve->D0(last, P);
     B.UpdateVertex(V, P, Precision::Confusion());
@@ -698,7 +698,7 @@ Standard_Real BRepFill_NSections::VertexTol(const Standard_Integer Index,
   Handle(TColgp_HArray1OfPnt)      Poles;
   Handle(TColStd_HArray1OfReal)    Knots, Weigth;
   Handle(TColStd_HArray1OfInteger) Mults;
-  Handle(Geom_BSplineCurve)        BS;
+  Handle(BSplineCurve3d)        BS;
   Point3d                           PFirst;
 
   Loi = myLaws->Value(I1);
@@ -710,7 +710,7 @@ Standard_Real BRepFill_NSections::VertexTol(const Standard_Integer Index,
   Loi->Knots(Knots->ChangeArray1());
   Mults = new (TColStd_HArray1OfInteger)(1, NbKnots);
   Loi->Mults(Mults->ChangeArray1());
-  BS     = new (Geom_BSplineCurve)(Poles->Array1(),
+  BS     = new (BSplineCurve3d)(Poles->Array1(),
                                Weigth->Array1(),
                                Knots->Array1(),
                                Mults->Array1(),
@@ -727,7 +727,7 @@ Standard_Real BRepFill_NSections::VertexTol(const Standard_Integer Index,
   Loi->Knots(Knots->ChangeArray1());
   Mults = new (TColStd_HArray1OfInteger)(1, NbKnots);
   Loi->Mults(Mults->ChangeArray1());
-  BS = new (Geom_BSplineCurve)(Poles->Array1(),
+  BS = new (BSplineCurve3d)(Poles->Array1(),
                                Weigth->Array1(),
                                Knots->Array1(),
                                Mults->Array1(),
@@ -773,7 +773,7 @@ GeomAbs_Shape BRepFill_NSections::Continuity(const Standard_Integer Index,
   for (jj = 1; jj <= myShapes.Length(); jj++)
   {
 
-    TopoDS_Edge Edge1, Edge2;
+    TopoEdge Edge1, Edge2;
     if ((Index == 0) || (Index == myEdges->ColLength()))
     {
       if (!uclosed)
@@ -788,34 +788,34 @@ GeomAbs_Shape BRepFill_NSections::Continuity(const Standard_Integer Index,
       Edge2 = TopoDS::Edge(myEdges->Value(Index + 1, jj));
     }
 
-    TopoDS_Vertex V1, V2;
+    TopoVertex V1, V2;
     if (Edge1.Orientation() == TopAbs_REVERSED)
     {
-      V1 = TopExp::FirstVertex(Edge1);
+      V1 = TopExp1::FirstVertex(Edge1);
     }
     else
     {
-      V1 = TopExp::LastVertex(Edge1);
+      V1 = TopExp1::LastVertex(Edge1);
     }
     if (Edge2.Orientation() == TopAbs_REVERSED)
     {
-      V2 = TopExp::LastVertex(Edge2);
+      V2 = TopExp1::LastVertex(Edge2);
     }
     else
     {
-      V2 = TopExp::FirstVertex(Edge2);
+      V2 = TopExp1::FirstVertex(Edge2);
     }
 
-    if (BRep_Tool::Degenerated(Edge1) || BRep_Tool::Degenerated(Edge2))
+    if (BRepInspector::Degenerated(Edge1) || BRepInspector::Degenerated(Edge2))
       cont_jj = GeomAbs_CN;
     else
     {
-      Standard_Real     U1 = BRep_Tool::Parameter(V1, Edge1);
-      Standard_Real     U2 = BRep_Tool::Parameter(V2, Edge2);
+      Standard_Real     U1 = BRepInspector::Parameter(V1, Edge1);
+      Standard_Real     U2 = BRepInspector::Parameter(V2, Edge2);
       BRepAdaptor_Curve Curve1(Edge1);
       BRepAdaptor_Curve Curve2(Edge2);
-      Standard_Real     Eps = BRep_Tool::Tolerance(V2) + BRep_Tool::Tolerance(V1);
-      cont_jj               = BRepLProp::Continuity(Curve1, Curve2, U1, U2, Eps, TolAngular);
+      Standard_Real     Eps = BRepInspector::Tolerance(V2) + BRepInspector::Tolerance(V1);
+      cont_jj               = BRepLProp1::Continuity(Curve1, Curve2, U1, U2, Eps, TolAngular);
     }
 
     if (jj == 1)
@@ -829,21 +829,21 @@ GeomAbs_Shape BRepFill_NSections::Continuity(const Standard_Integer Index,
 
 //=================================================================================================
 
-void BRepFill_NSections::D0(const Standard_Real V, TopoDS_Shape& S)
+void BRepFill_NSections::D0(const Standard_Real V, TopoShape& S)
 {
-  TopoDS_Wire      W;
+  TopoWire      W;
   BRepLib_MakeWire MW;
   Standard_Integer ii, NbEdge = myLaws->Length();
   for (ii = 1; ii <= NbEdge; ii++)
   {
-    Handle(Geom_BSplineCurve) Curve =
-      Handle(Geom_BSplineCurve)::DownCast(myLaws->Value(ii)->BSplineSurface()->VIso(V));
+    Handle(BSplineCurve3d) Curve =
+      Handle(BSplineCurve3d)::DownCast(myLaws->Value(ii)->BSplineSurface()->VIso(V));
     Standard_Real first = Curve->FirstParameter(), last = Curve->LastParameter();
-    TopoDS_Edge   E = BRepLib_MakeEdge(Curve, first, last);
+    TopoEdge   E = BRepLib_MakeEdge(Curve, first, last);
     MW.Add(E);
   }
   TopAbs_Orientation Orien       = TopAbs_FORWARD;
-  TopoDS_Shape       aLocalShape = MW.Wire().Oriented(Orien);
+  TopoShape       aLocalShape = MW.Wire().Oriented(Orien);
   S                              = TopoDS::Wire(aLocalShape);
   //  S = TopoDS::Wire(MW.Wire().Oriented(Orien));
 }

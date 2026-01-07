@@ -35,7 +35,7 @@ public:
   //! draws the representation of a MidPoint between
   //! two vertices.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Frame3d&                     theAxe,
                                   const Point3d&                     MidPoint,
                                   const Point3d&                     Position,
@@ -45,7 +45,7 @@ public:
   //! draws the representation of a MidPoint between
   //! two lines or linear segments.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Frame3d&                     theAxe,
                                   const Point3d&                     MidPoint,
                                   const Point3d&                     Position,
@@ -57,7 +57,7 @@ public:
   //! draws the representation of a MidPoint between
   //! two entire circles or two circular arcs.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const gp_Circ&                    aCircle,
                                   const Point3d&                     MidPoint,
                                   const Point3d&                     Position,
@@ -69,7 +69,7 @@ public:
   //! draws the representation of a MidPoint between
   //! two entire ellipses or two elliptic arcs.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const gp_Elips&                   anElips,
                                   const Point3d&                     MidPoint,
                                   const Point3d&                     Position,

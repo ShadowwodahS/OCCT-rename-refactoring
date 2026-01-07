@@ -31,12 +31,12 @@ class DDF_AttributeBrowser
 public:
   Standard_EXPORT DDF_AttributeBrowser(
     Standard_Boolean (*test)(const Handle(TDF_Attribute)&),
-    TCollection_AsciiString (*open)(const Handle(TDF_Attribute)&),
-    TCollection_AsciiString (*text)(const Handle(TDF_Attribute)&));
+    AsciiString1 (*open)(const Handle(TDF_Attribute)&),
+    AsciiString1 (*text)(const Handle(TDF_Attribute)&));
 
   Standard_Boolean        Test(const Handle(TDF_Attribute)& anAtt) const;
-  TCollection_AsciiString Open(const Handle(TDF_Attribute)& anAtt) const;
-  TCollection_AsciiString Text(const Handle(TDF_Attribute)& anAtt) const;
+  AsciiString1 Open(const Handle(TDF_Attribute)& anAtt) const;
+  AsciiString1 Text(const Handle(TDF_Attribute)& anAtt) const;
 
   inline DDF_AttributeBrowser* Next() { return myNext; }
 
@@ -45,9 +45,9 @@ public:
 private:
   Standard_Boolean (*myTest)(const Handle(TDF_Attribute)&);
 
-  TCollection_AsciiString (*myOpen)(const Handle(TDF_Attribute)&);
+  AsciiString1 (*myOpen)(const Handle(TDF_Attribute)&);
 
-  TCollection_AsciiString (*myText)(const Handle(TDF_Attribute)&);
+  AsciiString1 (*myText)(const Handle(TDF_Attribute)&);
 
   DDF_AttributeBrowser* myNext;
 };

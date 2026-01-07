@@ -21,8 +21,8 @@
 
 inline void ChFiDS_FaceInterference::SetInterference(const Standard_Integer      LineIndex,
                                                      const TopAbs_Orientation    Trans,
-                                                     const Handle(Geom2d_Curve)& PCurv1,
-                                                     const Handle(Geom2d_Curve)& PCurv2)
+                                                     const Handle(GeomCurve2d)& PCurv1,
+                                                     const Handle(GeomCurve2d)& PCurv2)
 {
   lineindex      = LineIndex;
   LineTransition = Trans;
@@ -85,7 +85,7 @@ inline TopAbs_Orientation ChFiDS_FaceInterference::Transition() const
 // purpose  :
 //=======================================================================
 
-inline const Handle(Geom2d_Curve)& ChFiDS_FaceInterference::PCurveOnFace() const
+inline const Handle(GeomCurve2d)& ChFiDS_FaceInterference::PCurveOnFace() const
 {
   return pCurveOnFace;
 }
@@ -95,7 +95,7 @@ inline const Handle(Geom2d_Curve)& ChFiDS_FaceInterference::PCurveOnFace() const
 // purpose  :
 //=======================================================================
 
-inline const Handle(Geom2d_Curve)& ChFiDS_FaceInterference::PCurveOnSurf() const
+inline const Handle(GeomCurve2d)& ChFiDS_FaceInterference::PCurveOnSurf() const
 {
   return pCurveOnSurf;
 }
@@ -105,7 +105,7 @@ inline const Handle(Geom2d_Curve)& ChFiDS_FaceInterference::PCurveOnSurf() const
 // purpose  :
 //=======================================================================
 
-inline Handle(Geom2d_Curve)& ChFiDS_FaceInterference::ChangePCurveOnFace()
+inline Handle(GeomCurve2d)& ChFiDS_FaceInterference::ChangePCurveOnFace()
 {
   return pCurveOnFace;
 }
@@ -115,7 +115,7 @@ inline Handle(Geom2d_Curve)& ChFiDS_FaceInterference::ChangePCurveOnFace()
 // purpose  :
 //=======================================================================
 
-inline Handle(Geom2d_Curve)& ChFiDS_FaceInterference::ChangePCurveOnSurf()
+inline Handle(GeomCurve2d)& ChFiDS_FaceInterference::ChangePCurveOnSurf()
 {
   return pCurveOnSurf;
 }

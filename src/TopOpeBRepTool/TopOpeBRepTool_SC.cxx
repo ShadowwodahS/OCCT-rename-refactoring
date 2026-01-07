@@ -31,7 +31,7 @@ Standard_EXPORT TopOpeBRepTool_ShapeClassifier& FSC_GetPSC(void)
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT TopOpeBRepTool_ShapeClassifier& FSC_GetPSC(const TopoDS_Shape& S)
+Standard_EXPORT TopOpeBRepTool_ShapeClassifier& FSC_GetPSC(const TopoShape& S)
 {
   if (TopOpeBRepTool_PSC == NULL)
     TopOpeBRepTool_PSC = new TopOpeBRepTool_ShapeClassifier();
@@ -41,11 +41,11 @@ Standard_EXPORT TopOpeBRepTool_ShapeClassifier& FSC_GetPSC(const TopoDS_Shape& S
 
 // ----------------------------------------------------------------------
 Standard_EXPORT TopAbs_State FSC_StatePonFace(const Point3d&                   P,
-                                              const TopoDS_Shape&             F,
+                                              const TopoShape&             F,
                                               TopOpeBRepTool_ShapeClassifier& PSC)
 {
   // Projects <P> on the surface and classifies it in the face <F>
-  Handle(Geom_Surface) S = BRep_Tool::Surface(TopoDS::Face(F));
+  Handle(GeomSurface) S = BRepInspector::Surface(TopoDS::Face(F));
 
   gp_Pnt2d         UV;
   Standard_Real    dist;
@@ -61,9 +61,9 @@ Standard_EXPORT TopAbs_State FSC_StatePonFace(const Point3d&                   P
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT TopAbs_State FSC_StateEonFace(const TopoDS_Shape&             E,
+Standard_EXPORT TopAbs_State FSC_StateEonFace(const TopoShape&             E,
                                               const Standard_Real             t,
-                                              const TopoDS_Shape&             F,
+                                              const TopoShape&             F,
                                               TopOpeBRepTool_ShapeClassifier& PSC)
 {
   BRepAdaptor_Curve BAC(TopoDS::Edge(E));

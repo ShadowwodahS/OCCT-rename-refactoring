@@ -63,7 +63,7 @@ Standard_Boolean XSControl_TransferWriter::RecognizeTransient(const Handle(RefOb
   if (myController.IsNull())
     return Standard_False;
   XSControl_Utils xu;
-  TopoDS_Shape    sh = xu.BinderShape(obj);
+  TopoShape    sh = xu.BinderShape(obj);
   if (!sh.IsNull())
     return RecognizeShape(sh);
   return myController->RecognizeWriteTransient(obj, myTransferMode);
@@ -112,7 +112,7 @@ IFSelect_ReturnStatus XSControl_TransferWriter::TransferWriteTransient(
 
 //=================================================================================================
 
-Standard_Boolean XSControl_TransferWriter::RecognizeShape(const TopoDS_Shape& shape)
+Standard_Boolean XSControl_TransferWriter::RecognizeShape(const TopoShape& shape)
 {
   if (myController.IsNull())
     return Standard_False;
@@ -125,7 +125,7 @@ Standard_Boolean XSControl_TransferWriter::RecognizeShape(const TopoDS_Shape& sh
 
 IFSelect_ReturnStatus XSControl_TransferWriter::TransferWriteShape(
   const Handle(Interface_InterfaceModel)& theModel,
-  const TopoDS_Shape&                     theShape,
+  const TopoShape&                     theShape,
   const Message_ProgressRange&            theProgress)
 {
   IFSelect_ReturnStatus status = IFSelect_RetVoid;
@@ -134,7 +134,7 @@ IFSelect_ReturnStatus XSControl_TransferWriter::TransferWriteShape(
   if (theModel.IsNull())
     return IFSelect_RetVoid;
 
-  TopoDS_Shape aShape = theShape;
+  TopoShape aShape = theShape;
 
   if (myTransferWriter.IsNull())
     myTransferWriter = new Transfer_FinderProcess;

@@ -27,9 +27,9 @@
 #include <TDataXtd_Presentation.hxx>
 #include <AIS_InteractiveContext.hxx>
 
-class AIS_InteractiveObject;
+class VisualEntity;
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 class TDF_AttributeDelta;
 
@@ -37,13 +37,13 @@ class TPrsStd_AISPresentation;
 DEFINE_STANDARD_HANDLE(TPrsStd_AISPresentation, TDF_Attribute)
 
 //! An attribute to associate an
-//! AIS_InteractiveObject to a label in an AIS viewer.
+//! VisualEntity to a label in an AIS viewer.
 //! This attribute works in collaboration with TPrsStd_AISViewer.
 //! Note that all the Set... and Unset... attribute
 //! methods as well as the query methods for
 //! visualization attributes and the HasOwn... test
 //! methods are shortcuts to the respective
-//! AIS_InteractiveObject settings.
+//! VisualEntity settings.
 class TPrsStd_AISPresentation : public TDF_Attribute
 {
 
@@ -53,11 +53,11 @@ public:
 
   //! Creates or retrieves the presentation attribute on
   //! the label L, and sets the GUID driver.
-  Standard_EXPORT static Handle(TPrsStd_AISPresentation) Set(const TDF_Label&     L,
+  Standard_EXPORT static Handle(TPrsStd_AISPresentation) Set(const DataLabel&     L,
                                                              const Standard_GUID& driver);
 
   //! Delete (if exist) the presentation attribute associated to the label <L>.
-  Standard_EXPORT static void Unset(const TDF_Label& L);
+  Standard_EXPORT static void Unset(const DataLabel& L);
 
   //! Creates or retrieves the AISPresentation
   //! attribute attached to master.
@@ -90,8 +90,8 @@ public:
   //! Returns true if this AIS presentation attribute is displayed.
   Standard_EXPORT Standard_Boolean IsDisplayed() const;
 
-  //! Returns AIS_InteractiveObject stored in the presentation attribute
-  Standard_EXPORT Handle(AIS_InteractiveObject) GetAIS() const;
+  //! Returns VisualEntity stored in the presentation attribute
+  Standard_EXPORT Handle(VisualEntity) GetAIS() const;
 
   //! Returns the material setting for this presentation attribute.
   Standard_EXPORT Graphic3d_NameOfMaterial Material() const;
@@ -207,26 +207,26 @@ protected:
   Standard_EXPORT virtual Handle(TDataXtd_Presentation) getData() const;
 
 private:
-  Handle(AIS_InteractiveContext) getAISContext() const;
+  Handle(VisualContext) getAISContext() const;
 
   //! Activates selection mode of the interactive object.
   //! It is called internally on change of selection mode and AISUpdate().
   void ActivateSelectionMode();
 
-  //! Updates AIS_InteractiveObject stored in the attribute
+  //! Updates VisualEntity stored in the attribute
   //! and applies the visualization settings
   Standard_EXPORT void AISUpdate();
 
-  //! Displays AIS_InteractiveObject stored in the attribute
+  //! Displays VisualEntity stored in the attribute
   Standard_EXPORT void AISDisplay();
 
-  //! Erases AIS_InteractiveObject stored in the attribute in
+  //! Erases VisualEntity stored in the attribute in
   //! the viewer; If <remove> = True then AISObject is removed
-  //! from AIS_InteractiveContext instead of simple erasing in the viewer
+  //! from VisualContext instead of simple erasing in the viewer
   Standard_EXPORT void AISErase(const Standard_Boolean remove = Standard_False);
 
 private:
-  Handle(AIS_InteractiveObject) myAIS;
+  Handle(VisualEntity) myAIS;
 };
 
 #endif // _TPrsStd_AISPresentation_HeaderFile

@@ -29,14 +29,14 @@
 //! This  node  defines  a  3D  scaling  about  the  origin.
 //! By  default  :
 //! myRotation  =  (1 1 1)
-class Vrml_Scale
+class Scale
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_Scale();
+  Standard_EXPORT Scale();
 
-  Standard_EXPORT Vrml_Scale(const Vector3d& aScaleFactor);
+  Standard_EXPORT Scale(const Vector3d& aScaleFactor);
 
   Standard_EXPORT void SetScaleFactor(const Vector3d& aScaleFactor);
 

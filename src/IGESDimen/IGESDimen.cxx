@@ -28,10 +28,10 @@
 //  (Modules are created and loaded in appropriate libraries, once by Init)
 static Handle(IGESDimen_Protocol) protocol;
 
-void IGESDimen::Init()
+void IGESDimen1::Init()
 {
-  IGESGeom::Init();
-  IGESGraph::Init();
+  IGESGeom1::Init();
+  IGESGraph1::Init();
   if (protocol.IsNull())
   {
     protocol = new IGESDimen_Protocol;
@@ -42,7 +42,7 @@ void IGESDimen::Init()
   }
 }
 
-Handle(IGESDimen_Protocol) IGESDimen::Protocol()
+Handle(IGESDimen_Protocol) IGESDimen1::Protocol()
 {
   return protocol;
 }

@@ -49,12 +49,12 @@ public:
   /**
    * Read the unknown node, till the last closing brace of it.
    */
-  Standard_EXPORT virtual VrmlData_ErrorStatus Read(VrmlData_InBuffer& theBuffer) Standard_OVERRIDE;
+  Standard_EXPORT virtual VrmlData_ErrorStatus Read(InputBuffer& theBuffer) Standard_OVERRIDE;
 
   /**
    * Query the title of the unknown node.
    */
-  inline const TCollection_AsciiString& GetTitle() const { return myTitle; }
+  inline const AsciiString1& GetTitle() const { return myTitle; }
 
   /**
    * Check if the Node is non-writeable -- always returns true.
@@ -64,7 +64,7 @@ public:
 private:
   // ---------- PRIVATE FIELDS ----------
 
-  TCollection_AsciiString myTitle;
+  AsciiString1 myTitle;
 
 public:
   // Declaration of CASCADE RTTI

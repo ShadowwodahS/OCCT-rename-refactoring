@@ -22,7 +22,7 @@
 
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! A tool to substitute subshapes by other shapes.
 //!
@@ -34,12 +34,12 @@ class TopoDS_Shape;
 //! The method Build reconstructs a new Shape with the
 //! modifications.The Shape and the new shape are
 //! registered.
-class BRepTools_Substitution
+class ShapeSubstitution
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepTools_Substitution();
+  Standard_EXPORT ShapeSubstitution();
 
   //! Reset all the fields.
   Standard_EXPORT void Clear();
@@ -52,20 +52,20 @@ public:
   //! if an item of <NewShapes> is oriented FORWARD.
   //! it will be oriented as <OldShape> in its ancestors.
   //! else it will be reversed.
-  Standard_EXPORT void Substitute(const TopoDS_Shape&         OldShape,
-                                  const TopTools_ListOfShape& NewShapes);
+  Standard_EXPORT void Substitute(const TopoShape&         OldShape,
+                                  const ShapeList& NewShapes);
 
   //! Build NewShape from <S> if its subshapes has modified.
   //!
   //! The methods <IsCopied> and <Copy> allows you to keep
   //! the resul of <Build>
-  Standard_EXPORT void Build(const TopoDS_Shape& S);
+  Standard_EXPORT void Build(const TopoShape& S);
 
   //! Returns   True if <S> has   been  replaced .
-  Standard_EXPORT Standard_Boolean IsCopied(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Boolean IsCopied(const TopoShape& S) const;
 
   //! Returns the set of shapes substituted to <S>.
-  Standard_EXPORT const TopTools_ListOfShape& Copy(const TopoDS_Shape& S) const;
+  Standard_EXPORT const ShapeList& Copy(const TopoShape& S) const;
 
 protected:
 private:

@@ -25,13 +25,13 @@
 #include <Standard_Integer.hxx>
 #include <Message_ProgressRange.hxx>
 
-class TopoDS_Shape;
+class TopoShape;
 class IGESData_IGESEntity;
-class TopoDS_Vertex;
+class TopoVertex;
 class IGESSolid_VertexList;
 class IGESSolid_EdgeList;
 class IGESSolid_Loop;
-class TopoDS_Face;
+class TopoFace;
 class gp_Trsf2d;
 class IGESSolid_Face;
 class IGESSolid_Shell;
@@ -64,34 +64,34 @@ public:
                                         const Standard_Boolean optimized);
 
   //! Transfer the BRepEntity" : Face, Shell or ManifoldSolid.
-  Standard_EXPORT TopoDS_Shape
+  Standard_EXPORT TopoShape
     TransferBRepEntity(const Handle(IGESData_IGESEntity)& start,
                        const Message_ProgressRange&       theProgress = Message_ProgressRange());
 
   //! Transfer the entity number "index" of the VertexList "start"
-  Standard_EXPORT TopoDS_Vertex TransferVertex(const Handle(IGESSolid_VertexList)& start,
+  Standard_EXPORT TopoVertex TransferVertex(const Handle(IGESSolid_VertexList)& start,
                                                const Standard_Integer              index);
 
   //! Transfer the entity number "index" of the EdgeList "start".
-  Standard_EXPORT TopoDS_Shape TransferEdge(const Handle(IGESSolid_EdgeList)& start,
+  Standard_EXPORT TopoShape TransferEdge(const Handle(IGESSolid_EdgeList)& start,
                                             const Standard_Integer            index);
 
   //! Transfer the Loop Entity
-  Standard_EXPORT TopoDS_Shape TransferLoop(const Handle(IGESSolid_Loop)& start,
-                                            const TopoDS_Face&            Face,
+  Standard_EXPORT TopoShape TransferLoop(const Handle(IGESSolid_Loop)& start,
+                                            const TopoFace&            Face,
                                             const gp_Trsf2d&              trans,
                                             const Standard_Real           uFact);
 
   //! Transfer the Face Entity
-  Standard_EXPORT TopoDS_Shape TransferFace(const Handle(IGESSolid_Face)& start);
+  Standard_EXPORT TopoShape TransferFace(const Handle(IGESSolid_Face)& start);
 
   //! Transfer the Shell Entity
-  Standard_EXPORT TopoDS_Shape
+  Standard_EXPORT TopoShape
     TransferShell(const Handle(IGESSolid_Shell)& start,
                   const Message_ProgressRange&   theProgress = Message_ProgressRange());
 
   //! Transfer the ManifoldSolid Entity
-  Standard_EXPORT TopoDS_Shape
+  Standard_EXPORT TopoShape
     TransferManifoldSolid(const Handle(IGESSolid_ManifoldSolid)& start,
                           const Message_ProgressRange& theProgress = Message_ProgressRange());
 

@@ -40,8 +40,8 @@
 #include <TransferBRep_ShapeMapper.hxx>
 #include <XSControl_Utils.hxx>
 
-static TCollection_AsciiString    bufasc;
-static TCollection_ExtendedString bufext;
+static AsciiString1    bufasc;
+static UtfString bufext;
 static const Standard_ExtString   voidext = {0};
 
 XSControl_Utils::XSControl_Utils() {}
@@ -210,7 +210,7 @@ Standard_CString XSControl_Utils::ToCString(const Handle(TCollection_HAsciiStrin
   //         return (strval.IsNull() ? "" : strval->ToCString());
 }
 
-Standard_CString XSControl_Utils::ToCString(const TCollection_AsciiString& strval) const
+Standard_CString XSControl_Utils::ToCString(const AsciiString1& strval) const
 {
   return strval.ToCString();
 }
@@ -220,9 +220,9 @@ Handle(TCollection_HAsciiString) XSControl_Utils::ToHString(const Standard_CStri
   return new TCollection_HAsciiString(strcon);
 }
 
-TCollection_AsciiString XSControl_Utils::ToAString(const Standard_CString strcon) const
+AsciiString1 XSControl_Utils::ToAString(const Standard_CString strcon) const
 {
-  return TCollection_AsciiString(strcon);
+  return AsciiString1(strcon);
 }
 
 //  #######         STRING : Extended de base         #######
@@ -233,7 +233,7 @@ Standard_ExtString XSControl_Utils::ToEString(
   return (strval.IsNull() ? voidext : strval->ToExtString());
 }
 
-Standard_ExtString XSControl_Utils::ToEString(const TCollection_ExtendedString& strval) const
+Standard_ExtString XSControl_Utils::ToEString(const UtfString& strval) const
 {
   return strval.ToExtString();
 }
@@ -244,9 +244,9 @@ Handle(TCollection_HExtendedString) XSControl_Utils::ToHString(
   return new TCollection_HExtendedString(strcon);
 }
 
-TCollection_ExtendedString XSControl_Utils::ToXString(const Standard_ExtString strcon) const
+UtfString XSControl_Utils::ToXString(const Standard_ExtString strcon) const
 {
-  return TCollection_ExtendedString(strcon);
+  return UtfString(strcon);
 }
 
 //  #######        STRING : Ascii <-> Extended        #######
@@ -254,7 +254,7 @@ TCollection_ExtendedString XSControl_Utils::ToXString(const Standard_ExtString s
 Standard_ExtString XSControl_Utils::AsciiToExtended(const Standard_CString str) const
 {
   bufext.Clear();
-  bufext = TCollection_ExtendedString(str);
+  bufext = UtfString(str);
   return bufext.ToExtString();
 }
 
@@ -390,10 +390,10 @@ void XSControl_Utils::AppendEStr(const Handle(TColStd_HSequenceOfHExtendedString
 //  ##########################################################
 //  #######           SHAPES : Acces de base           #######
 
-TopoDS_Shape XSControl_Utils::CompoundFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval) const
+TopoShape XSControl_Utils::CompoundFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval) const
 {
-  BRep_Builder    B;
-  TopoDS_Compound C;
+  ShapeBuilder    B;
+  TopoCompound C;
   B.MakeCompound(C);
   Standard_Integer i, n = seqval->Length();
   for (i = 1; i <= n; i++)
@@ -401,7 +401,7 @@ TopoDS_Shape XSControl_Utils::CompoundFromSeq(const Handle(TopTools_HSequenceOfS
   return C;
 }
 
-TopAbs_ShapeEnum XSControl_Utils::ShapeType(const TopoDS_Shape&    shape,
+TopAbs_ShapeEnum XSControl_Utils::ShapeType(const TopoShape&    shape,
                                             const Standard_Boolean compound) const
 {
   if (shape.IsNull())
@@ -412,7 +412,7 @@ TopAbs_ShapeEnum XSControl_Utils::ShapeType(const TopoDS_Shape&    shape,
   res = TopAbs_SHAPE;
   for (TopoDS_Iterator iter(shape); iter.More(); iter.Next())
   {
-    const TopoDS_Shape& sh = iter.Value();
+    const TopoShape& sh = iter.Value();
     if (sh.IsNull())
       continue;
     TopAbs_ShapeEnum typ = sh.ShapeType();
@@ -435,7 +435,7 @@ TopAbs_ShapeEnum XSControl_Utils::ShapeType(const TopoDS_Shape&    shape,
   return res;
 }
 
-TopoDS_Shape XSControl_Utils::SortedCompound(const TopoDS_Shape&    shape,
+TopoShape XSControl_Utils::SortedCompound(const TopoShape&    shape,
                                              const TopAbs_ShapeEnum type,
                                              const Standard_Boolean explore,
                                              const Standard_Boolean compound) const
@@ -443,14 +443,14 @@ TopoDS_Shape XSControl_Utils::SortedCompound(const TopoDS_Shape&    shape,
   if (shape.IsNull())
     return shape;
   TopAbs_ShapeEnum typ = shape.ShapeType();
-  TopoDS_Shape     sh, sh0;
+  TopoShape     sh, sh0;
   Standard_Integer nb = 0;
 
   //  Compound : on le prend, soit tel quel, soit son contenu
   if (typ == TopAbs_COMPOUND || typ == TopAbs_COMPSOLID)
   {
-    TopoDS_Compound C;
-    BRep_Builder    B;
+    TopoCompound C;
+    ShapeBuilder    B;
     B.MakeCompound(C);
     for (TopoDS_Iterator it(shape); it.More(); it.Next())
     {
@@ -486,26 +486,26 @@ TopoDS_Shape XSControl_Utils::SortedCompound(const TopoDS_Shape&    shape,
     return shape;
   if (typ == TopAbs_EDGE && type == TopAbs_WIRE)
   {
-    BRep_Builder B;
-    TopoDS_Wire  W;
+    ShapeBuilder B;
+    TopoWire  W;
     B.MakeWire(W);
     B.Add(W, shape); // ne passe pas ! : TopoDS::Edge(shape)
     return W;
   }
   if (typ == TopAbs_FACE && type == TopAbs_SHELL)
   {
-    BRep_Builder B;
-    TopoDS_Shell S;
+    ShapeBuilder B;
+    TopoShell S;
     B.MakeShell(S);
     B.Add(S, shape); // ne passe pas ! : TopoDS::Face(shape));
-    S.Closed(BRep_Tool::IsClosed(S));
+    S.Closed(BRepInspector::IsClosed(S));
     return S;
   }
 
   //   Le reste : selon exploration
   if (!explore)
   {
-    TopoDS_Shape nulsh;
+    TopoShape nulsh;
     return nulsh;
   }
 
@@ -513,8 +513,8 @@ TopoDS_Shape XSControl_Utils::SortedCompound(const TopoDS_Shape&    shape,
   //  SOLID + mode COMPOUND : reconduire les SHELLs
   if (typ == TopAbs_SOLID && compound)
   {
-    TopoDS_Compound C;
-    BRep_Builder    B;
+    TopoCompound C;
+    ShapeBuilder    B;
     B.MakeCompound(C);
     for (TopoDS_Iterator it(shape); it.More(); it.Next())
     {
@@ -533,10 +533,10 @@ TopoDS_Shape XSControl_Utils::SortedCompound(const TopoDS_Shape&    shape,
   }
 
   //  Exploration classique
-  TopoDS_Compound CC;
-  BRep_Builder    BB;
+  TopoCompound CC;
+  ShapeBuilder    BB;
   BB.MakeCompound(CC);
-  for (TopExp_Explorer aExp(shape, type); aExp.More(); aExp.Next())
+  for (ShapeExplorer aExp(shape, type); aExp.More(); aExp.Next())
   {
     nb++;
     sh = aExp.Current();
@@ -551,10 +551,10 @@ TopoDS_Shape XSControl_Utils::SortedCompound(const TopoDS_Shape&    shape,
 
 //  #######               SHAPES : Liste               #######
 
-TopoDS_Shape XSControl_Utils::ShapeValue(const Handle(TopTools_HSequenceOfShape)& seqval,
+TopoShape XSControl_Utils::ShapeValue(const Handle(TopTools_HSequenceOfShape)& seqval,
                                          const Standard_Integer                   num) const
 {
-  TopoDS_Shape shape;
+  TopoShape shape;
   if (seqval.IsNull())
     return shape;
   if (num > 0 && num <= seqval->Length())
@@ -568,14 +568,14 @@ Handle(TopTools_HSequenceOfShape) XSControl_Utils::NewSeqShape() const
 }
 
 void XSControl_Utils::AppendShape(const Handle(TopTools_HSequenceOfShape)& seqval,
-                                  const TopoDS_Shape&                      shape) const
+                                  const TopoShape&                      shape) const
 {
   seqval->Append(shape);
 }
 
 //  #######            SHAPES <-> Transient            #######
 
-Handle(RefObject) XSControl_Utils::ShapeBinder(const TopoDS_Shape&    shape,
+Handle(RefObject) XSControl_Utils::ShapeBinder(const TopoShape&    shape,
                                                         const Standard_Boolean hs) const
 {
   if (hs)
@@ -584,9 +584,9 @@ Handle(RefObject) XSControl_Utils::ShapeBinder(const TopoDS_Shape&    shape,
     return new TransferBRep_ShapeBinder(shape);
 }
 
-TopoDS_Shape XSControl_Utils::BinderShape(const Handle(RefObject)& tr) const
+TopoShape XSControl_Utils::BinderShape(const Handle(RefObject)& tr) const
 {
-  TopoDS_Shape sh;
+  TopoShape sh;
   DeclareAndCast(Transfer_Binder, sb, tr);
   if (!sb.IsNull())
     return TransferBRep::ShapeResult(sb);

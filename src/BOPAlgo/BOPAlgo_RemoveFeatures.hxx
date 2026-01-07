@@ -115,8 +115,8 @@
 //!
 //! Here is the example of usage of the algorithm:
 //! ~~~~
-//! TopoDS_Shape aSolid = ...;              // Input shape to remove the features from
-//! TopTools_ListOfShape aFaces = ...;      // Faces to remove from the shape
+//! TopoShape aSolid = ...;              // Input shape to remove the features from
+//! ShapeList aFaces = ...;      // Faces to remove from the shape
 //! Standard_Boolean bRunParallel = ...;    // Parallel processing mode
 //! Standard_Boolean isHistoryNeeded = ...; // History support
 //!
@@ -135,7 +135,7 @@
 //! {
 //!   // warnings treatment
 //! }
-//! const TopoDS_Shape& aResult = aRF.Shape(); // Result shape
+//! const TopoShape& aResult = aRF.Shape(); // Result shape
 //! ~~~~
 //!
 //! The algorithm preserves the type of the input shape in the result shape. Thus,
@@ -160,18 +160,18 @@ public: //! @name Setting input data for the algorithm
   //! Sets the shape for processing.
   //! @param[in] theShape  The shape to remove the faces from.
   //!                      It should either be the SOLID, COMPSOLID or COMPOUND of Solids.
-  void SetShape(const TopoDS_Shape& theShape) { myInputShape = theShape; }
+  void SetShape(const TopoShape& theShape) { myInputShape = theShape; }
 
   //! Returns the input shape
-  const TopoDS_Shape& InputShape() const { return myInputShape; }
+  const TopoShape& InputShape() const { return myInputShape; }
 
   //! Adds the face to remove from the input shape.
   //! @param[in] theFace  The shape to extract the faces for removal.
-  void AddFaceToRemove(const TopoDS_Shape& theFace) { myFacesToRemove.Append(theFace); }
+  void AddFaceToRemove(const TopoShape& theFace) { myFacesToRemove.Append(theFace); }
 
   //! Adds the faces to remove from the input shape.
   //! @param[in] theFaces  The list of shapes to extract the faces for removal.
-  void AddFacesToRemove(const TopTools_ListOfShape& theFaces)
+  void AddFacesToRemove(const ShapeList& theFaces)
   {
     TopTools_ListIteratorOfListOfShape it(theFaces);
     for (; it.More(); it.Next())
@@ -180,7 +180,7 @@ public: //! @name Setting input data for the algorithm
 
   //! Returns the list of faces which have been requested for removal
   //! from the input shape.
-  const TopTools_ListOfShape& FacesToRemove() const { return myFacesToRemove; }
+  const ShapeList& FacesToRemove() const { return myFacesToRemove; }
 
 public: //! @name Performing the operation
   //! Performs the operation
@@ -227,7 +227,7 @@ protected: //! @name Protected methods performing the removal
   //! @param[in] theAdjFacesHistory  The history of the adjacent faces reconstruction;
   //! @param[in] theSolidsHistoryNeeded  Defines whether the history of solids
   //!                                    modifications should be tracked or not.
-  Standard_EXPORT void RemoveFeature(const TopoDS_Shape&               theFeature,
+  Standard_EXPORT void RemoveFeature(const TopoShape&               theFeature,
                                      const TopTools_IndexedMapOfShape& theSolids,
                                      const TopTools_MapOfShape&        theFeatureFacesMap,
                                      const Standard_Boolean            theHasAdjacentFaces,
@@ -248,15 +248,15 @@ protected: //! @name Protected methods performing the removal
 
   //! Filling steps for constant operations
   Standard_EXPORT void fillPIConstants(const Standard_Real theWhole,
-                                       BOPAlgo_PISteps&    theSteps) const Standard_OVERRIDE;
+                                       PISteps&    theSteps) const Standard_OVERRIDE;
 
 protected: //! @name Fields
   // Inputs
-  TopoDS_Shape         myInputShape;    //!< Input shape
-  TopTools_ListOfShape myFacesToRemove; //!< Faces to remove
+  TopoShape         myInputShape;    //!< Input shape
+  ShapeList myFacesToRemove; //!< Faces to remove
 
   // Intermediate
-  TopTools_ListOfShape myFeatures;        //!< List of not connected features to remove
+  ShapeList myFeatures;        //!< List of not connected features to remove
                                           //! (each feature is a compound of faces)
   TopTools_IndexedMapOfShape myInputsMap; //!< Map of all sub-shapes of the input shape
 };

@@ -26,9 +26,9 @@ IMPLEMENT_STANDARD_RTTIEXT(IFSelect_DispPerOne, IFSelect_Dispatch)
 //  Genere un paquet par racine (strong comp.) locale a la liste transmise
 IFSelect_DispPerOne::IFSelect_DispPerOne() {}
 
-TCollection_AsciiString IFSelect_DispPerOne::Label() const
+AsciiString1 IFSelect_DispPerOne::Label() const
 {
-  return TCollection_AsciiString("One File per Input Entity");
+  return AsciiString1("One File per Input Entity");
 }
 
 Standard_Boolean IFSelect_DispPerOne::LimitedMax(const Standard_Integer nbent,

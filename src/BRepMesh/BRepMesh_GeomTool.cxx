@@ -205,10 +205,10 @@ Standard_Boolean BRepMesh_GeomTool::Value(const Standard_Integer             the
   thePoint = myDiscretTool.Value(theIndex);
   theParam = myDiscretTool.Parameter(theIndex);
 
-  const TopoDS_Face& aFace = theSurface->Face();
+  const TopoFace& aFace = theSurface->Face();
 
   Standard_Real        aFirst, aLast;
-  Handle(Geom2d_Curve) aCurve = BRep_Tool::CurveOnSurface(*myEdge, aFace, aFirst, aLast);
+  Handle(GeomCurve2d) aCurve = BRepInspector::CurveOnSurface(*myEdge, aFace, aFirst, aLast);
 
   aCurve->D0(theParam, theUV);
 
@@ -271,7 +271,7 @@ Standard_Boolean BRepMesh_GeomTool::Normal(const Handle(BRepAdaptor_Surface)& th
   if (!isOK)
     return Standard_False;
 
-  const TopoDS_Face& aFace = theSurface->Face();
+  const TopoFace& aFace = theSurface->Face();
   TopAbs_Orientation aOri  = aFace.Orientation();
   if (aOri == TopAbs_REVERSED)
     theNormal.Reverse();
@@ -281,16 +281,16 @@ Standard_Boolean BRepMesh_GeomTool::Normal(const Handle(BRepAdaptor_Surface)& th
 
 //=================================================================================================
 
-BRepMesh_GeomTool::IntFlag BRepMesh_GeomTool::IntLinLin(const gp_XY& theStartPnt1,
-                                                        const gp_XY& theEndPnt1,
-                                                        const gp_XY& theStartPnt2,
-                                                        const gp_XY& theEndPnt2,
-                                                        gp_XY&       theIntPnt,
+BRepMesh_GeomTool::IntFlag BRepMesh_GeomTool::IntLinLin(const Coords2d& theStartPnt1,
+                                                        const Coords2d& theEndPnt1,
+                                                        const Coords2d& theStartPnt2,
+                                                        const Coords2d& theEndPnt2,
+                                                        Coords2d&       theIntPnt,
                                                         Standard_Real (&theParamOnSegment)[2])
 {
-  gp_XY aVec1    = theEndPnt1 - theStartPnt1;
-  gp_XY aVec2    = theEndPnt2 - theStartPnt2;
-  gp_XY aVecO1O2 = theStartPnt2 - theStartPnt1;
+  Coords2d aVec1    = theEndPnt1 - theStartPnt1;
+  Coords2d aVec2    = theEndPnt2 - theStartPnt2;
+  Coords2d aVecO1O2 = theStartPnt2 - theStartPnt1;
 
   Standard_Real aCrossD1D2 = aVec1 ^ aVec2;
   Standard_Real aCrossD1D3 = aVecO1O2 ^ aVec2;
@@ -318,10 +318,10 @@ BRepMesh_GeomTool::IntFlag BRepMesh_GeomTool::IntLinLin(const gp_XY& theStartPnt
 //=================================================================================================
 
 BRepMesh_GeomTool::IntFlag BRepMesh_GeomTool::IntSegSeg(
-  const gp_XY&           theStartPnt1,
-  const gp_XY&           theEndPnt1,
-  const gp_XY&           theStartPnt2,
-  const gp_XY&           theEndPnt2,
+  const Coords2d&           theStartPnt1,
+  const Coords2d&           theEndPnt1,
+  const Coords2d&           theStartPnt2,
+  const Coords2d&           theEndPnt2,
   const Standard_Boolean isConsiderEndPointTouch,
   const Standard_Boolean isConsiderPointOnSegment,
   gp_Pnt2d&              theIntPnt)
@@ -469,12 +469,12 @@ std::pair<Standard_Integer, Standard_Integer> BRepMesh_GeomTool::CellsCount(
 
 //=================================================================================================
 
-Standard_Integer BRepMesh_GeomTool::classifyPoint(const gp_XY& thePoint1,
-                                                  const gp_XY& thePoint2,
-                                                  const gp_XY& thePointToCheck)
+Standard_Integer BRepMesh_GeomTool::classifyPoint(const Coords2d& thePoint1,
+                                                  const Coords2d& thePoint2,
+                                                  const Coords2d& thePointToCheck)
 {
-  gp_XY aP1 = thePoint2 - thePoint1;
-  gp_XY aP2 = thePointToCheck - thePoint1;
+  Coords2d aP1 = thePoint2 - thePoint1;
+  Coords2d aP2 = thePointToCheck - thePoint1;
 
   constexpr Standard_Real aPrec   = Precision::PConfusion();
   const Standard_Real     aSqPrec = aPrec * aPrec;
@@ -486,7 +486,7 @@ Standard_Integer BRepMesh_GeomTool::classifyPoint(const gp_XY& thePoint1,
       return 0; // out
   }
 
-  gp_XY aMult = aP1.Multiplied(aP2);
+  Coords2d aMult = aP1.Multiplied(aP2);
   if (aMult.X() < 0.0 || aMult.Y() < 0.0)
     return 0; // out
 

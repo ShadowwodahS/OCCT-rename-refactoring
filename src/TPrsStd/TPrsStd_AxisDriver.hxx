@@ -21,8 +21,8 @@
 #include <Standard_Type.hxx>
 
 #include <TPrsStd_Driver.hxx>
-class TDF_Label;
-class AIS_InteractiveObject;
+class DataLabel;
+class VisualEntity;
 
 class TPrsStd_AxisDriver;
 DEFINE_STANDARD_HANDLE(TPrsStd_AxisDriver, TPrsStd_Driver)
@@ -39,8 +39,8 @@ public:
   //! No compute is done.
   //! Returns <True> if information was found
   //! and AISObject updated.
-  Standard_EXPORT virtual Standard_Boolean Update(const TDF_Label&               aLabel,
-                                                  Handle(AIS_InteractiveObject)& anAISObject)
+  Standard_EXPORT virtual Standard_Boolean Update(const DataLabel&               aLabel,
+                                                  Handle(VisualEntity)& anAISObject)
     Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(TPrsStd_AxisDriver, TPrsStd_Driver)

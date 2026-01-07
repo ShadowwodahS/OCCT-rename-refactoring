@@ -44,8 +44,8 @@ public:
   //! @param F and @param A are not used in computation and are obsolete.
   //! @param theRange - the progress indicator of algorithm
   Standard_EXPORT BRepExtrema_DistShapeShape(
-    const TopoDS_Shape&          Shape1,
-    const TopoDS_Shape&          Shape2,
+    const TopoShape&          Shape1,
+    const TopoShape&          Shape2,
     const Extrema_ExtFlag        F        = Extrema_ExtFlag_MINMAX,
     const Extrema_ExtAlgo        A        = Extrema_ExtAlgo_Grad,
     const Message_ProgressRange& theRange = Message_ProgressRange());
@@ -58,8 +58,8 @@ public:
   //! @param F and @param A are not used in computation and are obsolete.
   //! @param theRange - the progress indicator of algorithm
   Standard_EXPORT BRepExtrema_DistShapeShape(
-    const TopoDS_Shape&          Shape1,
-    const TopoDS_Shape&          Shape2,
+    const TopoShape&          Shape1,
+    const TopoShape&          Shape2,
     const Standard_Real          theDeflection,
     const Extrema_ExtFlag        F        = Extrema_ExtFlag_MINMAX,
     const Extrema_ExtAlgo        A        = Extrema_ExtAlgo_Grad,
@@ -69,10 +69,10 @@ public:
   void SetDeflection(const Standard_Real theDeflection) { myEps = theDeflection; }
 
   //! load first shape into extrema <br>
-  Standard_EXPORT void LoadS1(const TopoDS_Shape& Shape1);
+  Standard_EXPORT void LoadS1(const TopoShape& Shape1);
 
   //! load second shape into extrema <br>
-  Standard_EXPORT void LoadS2(const TopoDS_Shape& Shape1);
+  Standard_EXPORT void LoadS2(const TopoShape& Shape1);
 
   //! computation of  the minimum  distance  (value  and <br>
   //!          couple  of points). Parameter theDeflection is used <br>
@@ -130,11 +130,11 @@ public:
 
   //! gives the support where the Nth solution on the first shape is situated. <br>
   //! This support can be a Vertex, an Edge or a Face. <br>
-  Standard_EXPORT TopoDS_Shape SupportOnShape1(const Standard_Integer N) const;
+  Standard_EXPORT TopoShape SupportOnShape1(const Standard_Integer N) const;
 
   //! gives the support where the Nth solution on the second shape is situated. <br>
   //! This support can be a Vertex, an Edge or a Face. <br>
-  Standard_EXPORT TopoDS_Shape SupportOnShape2(const Standard_Integer N) const;
+  Standard_EXPORT TopoShape SupportOnShape2(const Standard_Integer N) const;
 
   //! gives the corresponding parameter t if the Nth solution <br>
   //! is situated on an Edge of the first shape <br>
@@ -187,7 +187,7 @@ private:
                                     const TopTools_IndexedMapOfShape& theMap2,
                                     const Message_ProgressRange&      theRange);
 
-  Standard_Boolean SolidTreatment(const TopoDS_Shape&               theShape,
+  Standard_Boolean SolidTreatment(const TopoShape&               theShape,
                                   const TopTools_IndexedMapOfShape& theMap,
                                   const Message_ProgressRange&      theRange);
 
@@ -198,8 +198,8 @@ private:
   BRepExtrema_SeqOfSolution  mySolutionsShape2;
   Standard_Boolean           myInnerSol;
   Standard_Real              myEps;
-  TopoDS_Shape               myShape1;
-  TopoDS_Shape               myShape2;
+  TopoShape               myShape1;
+  TopoShape               myShape2;
   TopTools_IndexedMapOfShape myMapV1;
   TopTools_IndexedMapOfShape myMapV2;
   TopTools_IndexedMapOfShape myMapE1;

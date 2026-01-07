@@ -42,14 +42,14 @@
 
 static Handle(TDocStd_MultiTransactionManager) sMultiTransactionManager = 0;
 
-static int mtmCreate(Draw_Interpretor& /*di*/, int n, const char** a)
+static int mtmCreate(DrawInterpreter& /*di*/, int n, const char** a)
 {
   if (!sMultiTransactionManager.IsNull())
     sMultiTransactionManager->SetUndoLimit(0);
 
   sMultiTransactionManager = new TDocStd_MultiTransactionManager();
   if (n > 1)
-    sMultiTransactionManager->SetUndoLimit(Draw::Atoi(a[1]));
+    sMultiTransactionManager->SetUndoLimit(Draw1::Atoi(a[1]));
   return 0;
 }
 
@@ -58,7 +58,7 @@ static int mtmCreate(Draw_Interpretor& /*di*/, int n, const char** a)
 // purpose  : adds a document to the transactions manager
 //=======================================================================
 
-static int mtmAddDocument(Draw_Interpretor& di, int n, const char** a)
+static int mtmAddDocument(DrawInterpreter& di, int n, const char** a)
 {
   if (sMultiTransactionManager.IsNull())
   {
@@ -67,7 +67,7 @@ static int mtmAddDocument(Draw_Interpretor& di, int n, const char** a)
   }
   if (n > 1)
   {
-    Handle(DDocStd_DrawDocument) aDrawDoc = Handle(DDocStd_DrawDocument)::DownCast(Draw::Get(a[1]));
+    Handle(DDocStd_DrawDocument) aDrawDoc = Handle(DDocStd_DrawDocument)::DownCast(Draw1::Get(a[1]));
     if (aDrawDoc.IsNull())
     {
       di << "Error   : wrong document name\n";
@@ -88,7 +88,7 @@ static int mtmAddDocument(Draw_Interpretor& di, int n, const char** a)
 // purpose  : opens new transaction
 //=======================================================================
 
-static int mtmOpenTransaction(Draw_Interpretor& di, int /*n*/, const char** /*a*/)
+static int mtmOpenTransaction(DrawInterpreter& di, int /*n*/, const char** /*a*/)
 {
   if (sMultiTransactionManager.IsNull())
   {
@@ -104,7 +104,7 @@ static int mtmOpenTransaction(Draw_Interpretor& di, int /*n*/, const char** /*a*
 // purpose  : commits last opened transaction
 //=======================================================================
 
-static int mtmCommitTransaction(Draw_Interpretor& di, int n, const char** a)
+static int mtmCommitTransaction(DrawInterpreter& di, int n, const char** a)
 {
   if (sMultiTransactionManager.IsNull())
   {
@@ -112,7 +112,7 @@ static int mtmCommitTransaction(Draw_Interpretor& di, int n, const char** a)
     return 1;
   }
   if (n > 1)
-    sMultiTransactionManager->CommitCommand(TCollection_ExtendedString(a[1], Standard_True));
+    sMultiTransactionManager->CommitCommand(UtfString(a[1], Standard_True));
   else
     sMultiTransactionManager->CommitCommand();
   return 0;
@@ -123,7 +123,7 @@ static int mtmCommitTransaction(Draw_Interpretor& di, int n, const char** a)
 // purpose  : aborts last opened transaction
 //=======================================================================
 
-static int mtmAbortTransaction(Draw_Interpretor& di, int /*n*/, const char** /*a*/)
+static int mtmAbortTransaction(DrawInterpreter& di, int /*n*/, const char** /*a*/)
 {
   if (sMultiTransactionManager.IsNull())
   {
@@ -139,7 +139,7 @@ static int mtmAbortTransaction(Draw_Interpretor& di, int /*n*/, const char** /*a
 // purpose  : dumps state of the multiple transaction manager
 //=======================================================================
 
-static int mtmDump(Draw_Interpretor& di, int /*n*/, const char** /*a*/)
+static int mtmDump(DrawInterpreter& di, int /*n*/, const char** /*a*/)
 {
   if (sMultiTransactionManager.IsNull())
   {
@@ -160,7 +160,7 @@ static int mtmDump(Draw_Interpretor& di, int /*n*/, const char** /*a*/)
 // purpose  : undos last transaction
 //=======================================================================
 
-static int mtmUndo(Draw_Interpretor& di, int /*n*/, const char** /*a*/)
+static int mtmUndo(DrawInterpreter& di, int /*n*/, const char** /*a*/)
 {
   if (sMultiTransactionManager.IsNull())
   {
@@ -176,7 +176,7 @@ static int mtmUndo(Draw_Interpretor& di, int /*n*/, const char** /*a*/)
 // purpose  : redos last transaction
 //=======================================================================
 
-static int mtmRedo(Draw_Interpretor& di, int /*n*/, const char** /*a*/)
+static int mtmRedo(DrawInterpreter& di, int /*n*/, const char** /*a*/)
 {
   if (sMultiTransactionManager.IsNull())
   {
@@ -192,7 +192,7 @@ static int mtmRedo(Draw_Interpretor& di, int /*n*/, const char** /*a*/)
 // purpose  : redos last transaction
 //=======================================================================
 
-static int mtmNestedMode(Draw_Interpretor& di, int n, const char** a)
+static int mtmNestedMode(DrawInterpreter& di, int n, const char** a)
 {
   if (sMultiTransactionManager.IsNull())
   {
@@ -202,7 +202,7 @@ static int mtmNestedMode(Draw_Interpretor& di, int n, const char** a)
   Standard_Boolean aMode = Standard_False;
   if (n > 1)
   {
-    aMode = Draw::Atoi(a[1]) ? Standard_True : Standard_False;
+    aMode = Draw1::Atoi(a[1]) ? Standard_True : Standard_False;
   }
   sMultiTransactionManager->SetNestedTransactionMode(aMode);
   return 0;
@@ -210,7 +210,7 @@ static int mtmNestedMode(Draw_Interpretor& di, int n, const char** a)
 
 //=================================================================================================
 
-static Standard_Integer XAttributeValue(Draw_Interpretor& di,
+static Standard_Integer XAttributeValue(DrawInterpreter& di,
                                         Standard_Integer  argc,
                                         const char**      argv)
 {
@@ -219,14 +219,14 @@ static Standard_Integer XAttributeValue(Draw_Interpretor& di,
     di << "ERROR: Too few args\n";
     return 1;
   }
-  Handle(DDF_Browser) browser = Handle(DDF_Browser)::DownCast(Draw::GetExisting(argv[1]));
+  Handle(DDF_Browser) browser = Handle(DDF_Browser)::DownCast(Draw1::GetExisting(argv[1]));
   if (browser.IsNull())
   {
     std::cout << "Syntax error: Not a browser: " << argv[1] << "\n";
     return 1;
   }
 
-  TDF_Label lab;
+  DataLabel lab;
   TDF_Tool::Label(browser->Data(), argv[2], lab);
   if (lab.IsNull())
   {
@@ -234,7 +234,7 @@ static Standard_Integer XAttributeValue(Draw_Interpretor& di,
     return 1;
   }
 
-  Standard_Integer      num = Draw::Atoi(argv[3]);
+  Standard_Integer      num = Draw1::Atoi(argv[3]);
   TDF_AttributeIterator itr(lab, Standard_False);
   for (Standard_Integer i = 1; itr.More() && i < num; i++)
     itr.Next();
@@ -249,7 +249,7 @@ static Standard_Integer XAttributeValue(Draw_Interpretor& di,
   if (att->IsKind(STANDARD_TYPE(TDataStd_TreeNode)))
   {
     Handle(TDataStd_TreeNode) TN = Handle(TDataStd_TreeNode)::DownCast(att);
-    TCollection_AsciiString   ref;
+    AsciiString1   ref;
     if (TN->HasFather())
     {
       TDF_Tool::Entry(TN->Father()->Label(), ref);
@@ -273,25 +273,25 @@ static Standard_Integer XAttributeValue(Draw_Interpretor& di,
   else if (att->IsKind(STANDARD_TYPE(TDF_Reference)))
   {
     Handle(TDF_Reference)   val = Handle(TDF_Reference)::DownCast(att);
-    TCollection_AsciiString ref;
+    AsciiString1 ref;
     TDF_Tool::Entry(val->Get(), ref);
     di << "==> " << ref.ToCString();
   }
-  else if (att->IsKind(STANDARD_TYPE(TDataStd_Integer)))
+  else if (att->IsKind(STANDARD_TYPE(IntAttribute)))
   {
-    Handle(TDataStd_Integer) val = Handle(TDataStd_Integer)::DownCast(att);
-    TCollection_AsciiString  str(val->Get());
+    Handle(IntAttribute) val = Handle(IntAttribute)::DownCast(att);
+    AsciiString1  str(val->Get());
     di << str.ToCString();
   }
   else if (att->IsKind(STANDARD_TYPE(TDataStd_Real)))
   {
     Handle(TDataStd_Real)   val = Handle(TDataStd_Real)::DownCast(att);
-    TCollection_AsciiString str(val->Get());
+    AsciiString1 str(val->Get());
     di << str.ToCString();
   }
-  else if (att->IsKind(STANDARD_TYPE(TDataStd_Name)))
+  else if (att->IsKind(STANDARD_TYPE(NameAttribute)))
   {
-    Handle(TDataStd_Name) val = Handle(TDataStd_Name)::DownCast(att);
+    Handle(NameAttribute) val = Handle(NameAttribute)::DownCast(att);
     di << val->Get();
   }
   else if (att->IsKind(STANDARD_TYPE(TDataStd_Comment)))
@@ -311,7 +311,7 @@ static Standard_Integer XAttributeValue(Draw_Interpretor& di,
     {
       if (j > val->Lower())
         di << ", ";
-      TCollection_AsciiString str(val->Value(j));
+      AsciiString1 str(val->Value(j));
       di << str.ToCString();
     }
   }
@@ -322,7 +322,7 @@ static Standard_Integer XAttributeValue(Draw_Interpretor& di,
     {
       if (j > val->Lower())
         di << ", ";
-      TCollection_AsciiString str(val->Value(j));
+      AsciiString1 str(val->Value(j));
       di << str.ToCString();
     }
   }
@@ -333,14 +333,14 @@ static Standard_Integer XAttributeValue(Draw_Interpretor& di,
     {
       if (j > val->Lower())
         di << ", ";
-      TCollection_AsciiString str(val->Value(j));
+      AsciiString1 str(val->Value(j));
       di << str.ToCString();
     }
   }
-  else if (att->IsKind(STANDARD_TYPE(TNaming_NamedShape)))
+  else if (att->IsKind(STANDARD_TYPE(ShapeAttribute)))
   {
-    Handle(TNaming_NamedShape) val = Handle(TNaming_NamedShape)::DownCast(att);
-    TopoDS_Shape               S   = val->Get();
+    Handle(ShapeAttribute) val = Handle(ShapeAttribute)::DownCast(att);
+    TopoShape               S   = val->Get();
     di << S.TShape()->DynamicType()->Name();
     if (!S.Location().IsIdentity())
       di << "(located)";
@@ -354,7 +354,7 @@ static Standard_Integer XAttributeValue(Draw_Interpretor& di,
 // purpose  : removes a document from the transactions manager
 //=======================================================================
 
-static int mtmRemoveDocument(Draw_Interpretor& di, int n, const char** a)
+static int mtmRemoveDocument(DrawInterpreter& di, int n, const char** a)
 {
   if (sMultiTransactionManager.IsNull())
   {
@@ -363,7 +363,7 @@ static int mtmRemoveDocument(Draw_Interpretor& di, int n, const char** a)
   }
   if (n > 1)
   {
-    Handle(DDocStd_DrawDocument) aDrawDoc = Handle(DDocStd_DrawDocument)::DownCast(Draw::Get(a[1]));
+    Handle(DDocStd_DrawDocument) aDrawDoc = Handle(DDocStd_DrawDocument)::DownCast(Draw1::Get(a[1]));
     if (aDrawDoc.IsNull())
     {
       di << "Error   : wrong document name\n";
@@ -381,7 +381,7 @@ static int mtmRemoveDocument(Draw_Interpretor& di, int n, const char** a)
 
 //=================================================================================================
 
-void DDocStd::MTMCommands(Draw_Interpretor& theCommands)
+void DDocStd1::MTMCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

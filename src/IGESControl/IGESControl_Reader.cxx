@@ -49,37 +49,37 @@
 // add of stdio.h for NT compilation
 //=================================================================================================
 
-IGESControl_Reader::IGESControl_Reader()
+IgesFileReader::IgesFileReader()
 {
   IGESControl_Controller::Init();
-  SetWS(new XSControl_WorkSession);
+  SetWS(new ExchangeSession);
   SetNorm("IGES");
-  Standard_Integer onlyvisible = Interface_Static::IVal("read.iges.onlyvisible");
+  Standard_Integer onlyvisible = ExchangeConfig::IVal("read.iges.onlyvisible");
   theReadOnlyVisible           = (onlyvisible == 1);
 }
 
 //=================================================================================================
 
-IGESControl_Reader::IGESControl_Reader(const Handle(XSControl_WorkSession)& WS,
+IgesFileReader::IgesFileReader(const Handle(ExchangeSession)& WS,
                                        const Standard_Boolean               scratch)
 {
   IGESControl_Controller::Init();
   SetWS(WS, scratch);
   SetNorm("IGES");
-  Standard_Integer onlyvisible = Interface_Static::IVal("read.iges.onlyvisible");
+  Standard_Integer onlyvisible = ExchangeConfig::IVal("read.iges.onlyvisible");
   theReadOnlyVisible           = (onlyvisible == 1);
 }
 
 //=================================================================================================
 
-Handle(IGESData_IGESModel) IGESControl_Reader::IGESModel() const
+Handle(IGESData_IGESModel) IgesFileReader::IGESModel() const
 {
   return Handle(IGESData_IGESModel)::DownCast(Model());
 }
 
 //=================================================================================================
 
-Standard_Integer IGESControl_Reader::NbRootsForTransfer()
+Standard_Integer IgesFileReader::NbRootsForTransfer()
 {
   if (therootsta)
     return theroots.Length();
@@ -89,7 +89,7 @@ Standard_Integer IGESControl_Reader::NbRootsForTransfer()
   if (model.IsNull())
     return 0;
 
-  Handle(XSControl_WorkSession)            session    = WS();
+  Handle(ExchangeSession)            session    = WS();
   Handle(Interface_Protocol)               protocol   = session->Protocol();
   Handle(XSControl_Controller)             controller = session->NormAdaptor();
   Handle(Transfer_ActorOfTransientProcess) actor      = controller->ActorRead(model);
@@ -97,7 +97,7 @@ Standard_Integer IGESControl_Reader::NbRootsForTransfer()
   Interface_ShareFlags SH(model, protocol);
 
   // sln 11.06.2002 OCC448
-  Interface_Static::SetIVal("read.iges.onlyvisible", theReadOnlyVisible);
+  ExchangeConfig::SetIVal("read.iges.onlyvisible", theReadOnlyVisible);
 
   Standard_Integer nb = model->NbEntities();
   for (Standard_Integer i = 1; i <= nb; i++)
@@ -124,7 +124,7 @@ Standard_Integer IGESControl_Reader::NbRootsForTransfer()
 // Modified :
 //=======================================================================
 
-void IGESControl_Reader::PrintTransferInfo(const IFSelect_PrintFail  failsonly,
+void IgesFileReader::PrintTransferInfo(const IFSelect_PrintFail  failsonly,
                                            const IFSelect_PrintCount mode) const
 {
   Standard_Integer nbWarn = 0, nbFail = 0, nbEntities = 0, nbRoots = 0, nbResults = 0;
@@ -137,8 +137,8 @@ void IGESControl_Reader::PrintTransferInfo(const IFSelect_PrintFail  failsonly,
     nbRoots    = TP->NbRoots();
     // nbResults = TP->NbMapped();
     Transfer_IteratorOfProcessForTransient iterTrans = TP->RootResult(Standard_True);
-    NCollection_DataMap<TCollection_AsciiString, Standard_Integer> aMapCountResult;
-    NCollection_DataMap<TCollection_AsciiString, Standard_Integer> aMapCountMapping;
+    NCollection_DataMap<AsciiString1, Standard_Integer> aMapCountResult;
+    NCollection_DataMap<AsciiString1, Standard_Integer> aMapCountMapping;
     for (iterTrans.Start(); iterTrans.More(); iterTrans.Next())
     {
       nbResults++;
@@ -175,8 +175,8 @@ void IGESControl_Reader::PrintTransferInfo(const IFSelect_PrintFail  failsonly,
     }
 
     Interface_CheckIterator checkIterator = TP->CheckList(Standard_False);
-    NCollection_DataMap<TCollection_AsciiString, Standard_Integer>                   aMapCount;
-    NCollection_DataMap<TCollection_AsciiString, Handle(TColStd_HSequenceOfInteger)> aMapList;
+    NCollection_DataMap<AsciiString1, Standard_Integer>                   aMapCount;
+    NCollection_DataMap<AsciiString1, Handle(TColStd_HSequenceOfInteger)> aMapList;
     // Init the dicoCount dicoList and nbWarn ,nb Fail.
     for (checkIterator.Start(); checkIterator.More(); checkIterator.Next())
     {
@@ -254,9 +254,9 @@ void IGESControl_Reader::PrintTransferInfo(const IFSelect_PrintFail  failsonly,
       case IFSelect_ListByItem: {
         Message_Msg msg3030("IGES_3030");
         TF->Send(msg3030, Message_Info);
-        NCollection_DataMap<TCollection_AsciiString, Standard_Integer>::Iterator aMapCountIter(
+        NCollection_DataMap<AsciiString1, Standard_Integer>::Iterator aMapCountIter(
           aMapCount);
-        NCollection_DataMap<TCollection_AsciiString, Handle(TColStd_HSequenceOfInteger)>::Iterator
+        NCollection_DataMap<AsciiString1, Handle(TColStd_HSequenceOfInteger)>::Iterator
           aMapListIter(aMapList);
         for (; aMapCountIter.More() && aMapListIter.More();
              aMapCountIter.Next(), aMapListIter.Next())
@@ -302,7 +302,7 @@ void IGESControl_Reader::PrintTransferInfo(const IFSelect_PrintFail  failsonly,
         Message_Msg msg3045("IGES_3045");
         TF->Send(msg3045, Message_Info);
 
-        NCollection_DataMap<TCollection_AsciiString, Standard_Integer>::Iterator aMapIter(
+        NCollection_DataMap<AsciiString1, Standard_Integer>::Iterator aMapIter(
           aMapCountResult);
         for (; aMapIter.More(); aMapIter.Next())
         {
@@ -345,7 +345,7 @@ void IGESControl_Reader::PrintTransferInfo(const IFSelect_PrintFail  failsonly,
             }
           }
         }
-        NCollection_DataMap<TCollection_AsciiString, Standard_Integer>::Iterator aMapCountIter(
+        NCollection_DataMap<AsciiString1, Standard_Integer>::Iterator aMapCountIter(
           aMapCountMapping);
         for (; aMapCountIter.More(); aMapCountIter.Next())
         {
@@ -365,14 +365,14 @@ void IGESControl_Reader::PrintTransferInfo(const IFSelect_PrintFail  failsonly,
 
 //=================================================================================================
 
-DE_ShapeFixParameters IGESControl_Reader::GetDefaultShapeFixParameters() const
+ShapeFixParameters IgesFileReader::GetDefaultShapeFixParameters() const
 {
   return DEIGES_Parameters::GetDefaultShapeFixParameters();
 }
 
 //=================================================================================================
 
-ShapeProcess::OperationsFlags IGESControl_Reader::GetDefaultShapeProcessFlags() const
+ShapeProcess::OperationsFlags IgesFileReader::GetDefaultShapeProcessFlags() const
 {
   ShapeProcess::OperationsFlags aFlags;
   aFlags.set(ShapeProcess::Operation::FixShape);

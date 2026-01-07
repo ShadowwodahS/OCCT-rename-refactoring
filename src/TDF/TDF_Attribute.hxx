@@ -24,7 +24,7 @@
 #include <Standard_Transient.hxx>
 #include <Standard_OStream.hxx>
 #include <TDF_AttributeIndexedMap.hxx>
-class TDF_Label;
+class DataLabel;
 class TDF_DeltaOnForget;
 class Standard_GUID;
 class TDF_AttributeDelta;
@@ -147,7 +147,7 @@ public:
   //! If the label is not included in a data
   //! framework, it is null.
   //! This function should not be redefined inline.
-  Standard_EXPORT const TDF_Label Label() const;
+  Standard_EXPORT const DataLabel Label() const;
 
   //! Returns the transaction index in which the
   //! attribute has been created or modified.
@@ -378,7 +378,7 @@ public:
                                         Standard_Integer  theDepth = -1) const;
 
   friend class TDF_Data;
-  friend class TDF_Label;
+  friend class DataLabel;
   friend class TDF_LabelNode;
   friend class TDF_AttributeIterator;
   friend class TDF_DeltaOnForget;

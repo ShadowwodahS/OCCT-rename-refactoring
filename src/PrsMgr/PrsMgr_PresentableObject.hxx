@@ -35,7 +35,7 @@ typedef PrsMgr_PresentationManager PrsMgr_PresentationManager3d;
 //! A framework to supply the Graphic3d structure of the object to be presented.
 //! On the first display request, this structure is created by calling the appropriate algorithm and
 //! retaining this framework for further display. This abstract framework is inherited in
-//! Application Interactive Services (AIS), notably by AIS_InteractiveObject. Consequently, 3D
+//! Application Interactive Services (AIS), notably by VisualEntity. Consequently, 3D
 //! presentation should be handled by the relevant daughter classes and their member functions in
 //! AIS. This is particularly true in the creation of new interactive objects.
 //!
@@ -45,8 +45,8 @@ typedef PrsMgr_PresentationManager PrsMgr_PresentationManager3d;
 //!
 //! Warning! Methods managing standard attributes (SetColor(), SetWidth(), SetMaterial()) have
 //! different meaning for objects of different type (or no meaning at all). Sub-classes might
-//! override these methods to modify Prs3d_Drawer or class properties providing a convenient
-//! short-cut depending on application needs. For more sophisticated configuring, Prs3d_Drawer
+//! override these methods to modify StyleDrawer or class properties providing a convenient
+//! short-cut depending on application needs. For more sophisticated configuring, StyleDrawer
 //! should be modified directly, while short-cuts might be left unimplemented.
 class PrsMgr_PresentableObject : public RefObject
 {
@@ -188,31 +188,31 @@ public:
 
 public: //! @name presentation attributes
   //! Returns the attributes settings.
-  const Handle(Prs3d_Drawer)& Attributes() const { return myDrawer; }
+  const Handle(StyleDrawer)& Attributes() const { return myDrawer; }
 
   //! Initializes the drawing tool theDrawer.
-  virtual void SetAttributes(const Handle(Prs3d_Drawer)& theDrawer) { myDrawer = theDrawer; }
+  virtual void SetAttributes(const Handle(StyleDrawer)& theDrawer) { myDrawer = theDrawer; }
 
   //! Returns the hilight attributes settings.
   //! When not NULL, overrides both Prs3d_TypeOfHighlight_LocalSelected and
-  //! Prs3d_TypeOfHighlight_Selected defined within AIS_InteractiveContext::HighlightStyle().
-  //! @sa AIS_InteractiveContext::HighlightStyle()
-  const Handle(Prs3d_Drawer)& HilightAttributes() const { return myHilightDrawer; }
+  //! Prs3d_TypeOfHighlight_Selected defined within VisualContext::HighlightStyle().
+  //! @sa VisualContext::HighlightStyle()
+  const Handle(StyleDrawer)& HilightAttributes() const { return myHilightDrawer; }
 
   //! Initializes the hilight drawing tool theDrawer.
-  virtual void SetHilightAttributes(const Handle(Prs3d_Drawer)& theDrawer)
+  virtual void SetHilightAttributes(const Handle(StyleDrawer)& theDrawer)
   {
     myHilightDrawer = theDrawer;
   }
 
   //! Returns the hilight attributes settings.
   //! When not NULL, overrides both Prs3d_TypeOfHighlight_LocalDynamic and
-  //! Prs3d_TypeOfHighlight_Dynamic defined within AIS_InteractiveContext::HighlightStyle().
-  //! @sa AIS_InteractiveContext::HighlightStyle()
-  const Handle(Prs3d_Drawer)& DynamicHilightAttributes() const { return myDynHilightDrawer; }
+  //! Prs3d_TypeOfHighlight_Dynamic defined within VisualContext::HighlightStyle().
+  //! @sa VisualContext::HighlightStyle()
+  const Handle(StyleDrawer)& DynamicHilightAttributes() const { return myDynHilightDrawer; }
 
   //! Initializes the dynamic hilight drawing tool.
-  virtual void SetDynamicHilightAttributes(const Handle(Prs3d_Drawer)& theDrawer)
+  virtual void SetDynamicHilightAttributes(const Handle(StyleDrawer)& theDrawer)
   {
     myDynHilightDrawer = theDrawer;
   }
@@ -313,7 +313,7 @@ public: //! @name object transformation
   //! Each of the views in the viewer and every modification such as rotation, for example, entails
   //! recalculation.
   //! @param theProjector [in] view orientation
-  virtual void RecomputeTransformation(const Handle(Graphic3d_Camera)& theProjector)
+  virtual void RecomputeTransformation(const Handle(CameraOn3d)& theProjector)
   {
     (void)theProjector;
   }
@@ -415,7 +415,7 @@ protected: //! @name interface methods
   //! @param[in] theProjector  view orientation
   //! @param[in] theTrsf  additional transformation, or NULL if undefined
   //! @param[in] thePrs   presentation to fill
-  Standard_EXPORT virtual void computeHLR(const Handle(Graphic3d_Camera)&   theProjector,
+  Standard_EXPORT virtual void computeHLR(const Handle(CameraOn3d)&   theProjector,
                                           const Handle(TopLoc_Datum3D)&     theTrsf,
                                           const Handle(Prs3d_Presentation)& thePrs);
 
@@ -602,9 +602,9 @@ protected:
   PrsMgr_Presentations                   myPresentations;           //!< list of presentations
   Handle(Graphic3d_ViewAffinity)         myViewAffinity;            //!< view affinity mask
   Handle(Graphic3d_SequenceOfHClipPlane) myClipPlanes;              //!< sequence of object-specific clipping planes
-  Handle(Prs3d_Drawer)                   myDrawer;                  //!< main presentation attributes
-  Handle(Prs3d_Drawer)                   myHilightDrawer;           //!< (optional) custom presentation attributes for highlighting selected object
-  Handle(Prs3d_Drawer)                   myDynHilightDrawer;        //!< (optional) custom presentation attributes for highlighting detected object
+  Handle(StyleDrawer)                   myDrawer;                  //!< main presentation attributes
+  Handle(StyleDrawer)                   myHilightDrawer;           //!< (optional) custom presentation attributes for highlighting selected object
+  Handle(StyleDrawer)                   myDynHilightDrawer;        //!< (optional) custom presentation attributes for highlighting detected object
   Handle(Graphic3d_TransformPers)        myTransformPersistence;    //!< transformation persistence
   Handle(TopLoc_Datum3D)                 myLocalTransformation;     //!< local transformation relative to parent object
   Handle(TopLoc_Datum3D)                 myTransformation;          //!< absolute transformation of this object (combined parents + local transformations)

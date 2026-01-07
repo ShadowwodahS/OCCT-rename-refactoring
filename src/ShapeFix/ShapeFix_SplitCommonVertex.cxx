@@ -45,7 +45,7 @@ ShapeFix_SplitCommonVertex::ShapeFix_SplitCommonVertex()
 
 //=================================================================================================
 
-void ShapeFix_SplitCommonVertex::Init(const TopoDS_Shape& S)
+void ShapeFix_SplitCommonVertex::Init(const TopoShape& S)
 {
   myShape = S;
   if (Context().IsNull())
@@ -61,10 +61,10 @@ void ShapeFix_SplitCommonVertex::Perform()
   TopAbs_ShapeEnum st = myShape.ShapeType();
   if (st > TopAbs_FACE)
     return;
-  for (TopExp_Explorer itf(myShape, TopAbs_FACE); itf.More(); itf.Next())
+  for (ShapeExplorer itf(myShape, TopAbs_FACE); itf.More(); itf.Next())
   {
-    TopoDS_Shape tmpFace = Context()->Apply(itf.Current());
-    TopoDS_Face  F       = TopoDS::Face(tmpFace);
+    TopoShape tmpFace = Context()->Apply(itf.Current());
+    TopoFace  F       = TopoDS::Face(tmpFace);
     if (F.IsNull())
       continue;
     // analys face and split if necessary
@@ -81,32 +81,32 @@ void ShapeFix_SplitCommonVertex::Perform()
     MapVV.Clear();
     for (Standard_Integer nw1 = 1; nw1 < wires.Length(); nw1++)
     {
-      TopoDS_Wire                  w1    = TopoDS::Wire(wires.Value(nw1));
+      TopoWire                  w1    = TopoDS::Wire(wires.Value(nw1));
       Handle(ShapeExtend_WireData) sewd1 = new ShapeExtend_WireData(w1);
       for (Standard_Integer nw2 = nw1 + 1; nw2 <= wires.Length(); nw2++)
       {
-        TopoDS_Wire                  w2    = TopoDS::Wire(wires.Value(nw2));
+        TopoWire                  w2    = TopoDS::Wire(wires.Value(nw2));
         Handle(ShapeExtend_WireData) sewd2 = new ShapeExtend_WireData(w2);
 
-        for (TopExp_Explorer expv1(w1, TopAbs_VERTEX); expv1.More(); expv1.Next())
+        for (ShapeExplorer expv1(w1, TopAbs_VERTEX); expv1.More(); expv1.Next())
         {
-          TopoDS_Vertex V1 = TopoDS::Vertex(expv1.Current());
-          for (TopExp_Explorer expv2(w2, TopAbs_VERTEX); expv2.More(); expv2.Next())
+          TopoVertex V1 = TopoDS::Vertex(expv1.Current());
+          for (ShapeExplorer expv2(w2, TopAbs_VERTEX); expv2.More(); expv2.Next())
           {
-            TopoDS_Vertex V2 = TopoDS::Vertex(expv2.Current());
+            TopoVertex V2 = TopoDS::Vertex(expv2.Current());
             if (V1 == V2)
             {
               // common vertex exists
-              TopoDS_Vertex Vnew;
+              TopoVertex Vnew;
               if (MapVV.IsBound(V2))
               {
                 Vnew = TopoDS::Vertex(MapVV.Find(V2));
               }
               else
               {
-                Point3d        P   = BRep_Tool::Pnt(V2);
-                Standard_Real tol = BRep_Tool::Tolerance(V2);
-                BRep_Builder  B;
+                Point3d        P   = BRepInspector::Pnt(V2);
+                Standard_Real tol = BRepInspector::Tolerance(V2);
+                ShapeBuilder  B;
                 B.MakeVertex(Vnew, P, tol);
                 MapVV.Bind(V2, Vnew);
               }
@@ -114,9 +114,9 @@ void ShapeFix_SplitCommonVertex::Perform()
               ShapeAnalysis_Edge sae;
               for (Standard_Integer ne2 = 1; ne2 <= sewd2->NbEdges(); ne2++)
               {
-                TopoDS_Edge      E       = sewd2->Edge(ne2);
-                TopoDS_Vertex    FV      = sae.FirstVertex(E);
-                TopoDS_Vertex    LV      = sae.LastVertex(E);
+                TopoEdge      E       = sewd2->Edge(ne2);
+                TopoVertex    FV      = sae.FirstVertex(E);
+                TopoVertex    LV      = sae.LastVertex(E);
                 Standard_Boolean IsCoinc = Standard_False;
                 if (FV == V2)
                 {
@@ -130,7 +130,7 @@ void ShapeFix_SplitCommonVertex::Perform()
                 }
                 if (IsCoinc)
                 {
-                  TopoDS_Edge NewE = sbe.CopyReplaceVertices(E, FV, LV);
+                  TopoEdge NewE = sbe.CopyReplaceVertices(E, FV, LV);
                   Context()->Replace(E, NewE);
                 }
               }
@@ -148,7 +148,7 @@ void ShapeFix_SplitCommonVertex::Perform()
 
 //=================================================================================================
 
-TopoDS_Shape ShapeFix_SplitCommonVertex::Shape()
+TopoShape ShapeFix_SplitCommonVertex::Shape()
 {
   return myShape;
 }

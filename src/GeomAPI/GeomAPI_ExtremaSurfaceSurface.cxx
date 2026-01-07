@@ -33,16 +33,16 @@ GeomAPI_ExtremaSurfaceSurface::GeomAPI_ExtremaSurfaceSurface()
 
 //=================================================================================================
 
-GeomAPI_ExtremaSurfaceSurface::GeomAPI_ExtremaSurfaceSurface(const Handle(Geom_Surface)& S1,
-                                                             const Handle(Geom_Surface)& S2)
+GeomAPI_ExtremaSurfaceSurface::GeomAPI_ExtremaSurfaceSurface(const Handle(GeomSurface)& S1,
+                                                             const Handle(GeomSurface)& S2)
 {
   Init(S1, S2);
 }
 
 //=================================================================================================
 
-GeomAPI_ExtremaSurfaceSurface::GeomAPI_ExtremaSurfaceSurface(const Handle(Geom_Surface)& S1,
-                                                             const Handle(Geom_Surface)& S2,
+GeomAPI_ExtremaSurfaceSurface::GeomAPI_ExtremaSurfaceSurface(const Handle(GeomSurface)& S1,
+                                                             const Handle(GeomSurface)& S2,
                                                              const Standard_Real         U1min,
                                                              const Standard_Real         U1max,
                                                              const Standard_Real         V1min,
@@ -57,8 +57,8 @@ GeomAPI_ExtremaSurfaceSurface::GeomAPI_ExtremaSurfaceSurface(const Handle(Geom_S
 
 //=================================================================================================
 
-void GeomAPI_ExtremaSurfaceSurface::Init(const Handle(Geom_Surface)& S1,
-                                         const Handle(Geom_Surface)& S2)
+void GeomAPI_ExtremaSurfaceSurface::Init(const Handle(GeomSurface)& S1,
+                                         const Handle(GeomSurface)& S2)
 {
   GeomAdaptor_Surface TheSurface1(S1);
   GeomAdaptor_Surface TheSurface2(S2);
@@ -92,8 +92,8 @@ void GeomAPI_ExtremaSurfaceSurface::Init(const Handle(Geom_Surface)& S1,
 
 //=================================================================================================
 
-void GeomAPI_ExtremaSurfaceSurface::Init(const Handle(Geom_Surface)& S1,
-                                         const Handle(Geom_Surface)& S2,
+void GeomAPI_ExtremaSurfaceSurface::Init(const Handle(GeomSurface)& S1,
+                                         const Handle(GeomSurface)& S2,
                                          const Standard_Real         U1min,
                                          const Standard_Real         U1max,
                                          const Standard_Real         V1min,

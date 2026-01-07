@@ -29,13 +29,13 @@
 
 //=================================================================================================
 
-Standard_Boolean StdPrs_ToolTriangulatedShape::IsTriangulated(const TopoDS_Shape& theShape)
+Standard_Boolean StdPrs_ToolTriangulatedShape::IsTriangulated(const TopoShape& theShape)
 {
   TopLoc_Location aLocDummy;
-  for (TopExp_Explorer aFaceIter(theShape, TopAbs_FACE); aFaceIter.More(); aFaceIter.Next())
+  for (ShapeExplorer aFaceIter(theShape, TopAbs_FACE); aFaceIter.More(); aFaceIter.Next())
   {
-    const TopoDS_Face&                aFace = TopoDS::Face(aFaceIter.Current());
-    const Handle(Poly_Triangulation)& aTri  = BRep_Tool::Triangulation(aFace, aLocDummy);
+    const TopoFace&                aFace = TopoDS::Face(aFaceIter.Current());
+    const Handle(MeshTriangulation)& aTri  = BRepInspector::Triangulation(aFace, aLocDummy);
     if (aTri.IsNull())
     {
       return Standard_False;
@@ -46,7 +46,7 @@ Standard_Boolean StdPrs_ToolTriangulatedShape::IsTriangulated(const TopoDS_Shape
 
 //=================================================================================================
 
-Standard_Boolean StdPrs_ToolTriangulatedShape::IsClosed(const TopoDS_Shape& theShape)
+Standard_Boolean StdPrs_ToolTriangulatedShape::IsClosed(const TopoShape& theShape)
 {
   if (theShape.IsNull())
   {
@@ -61,7 +61,7 @@ Standard_Boolean StdPrs_ToolTriangulatedShape::IsClosed(const TopoDS_Shape& theS
       // check that compound consists of closed solids
       for (TopoDS_Iterator anIter(theShape); anIter.More(); anIter.Next())
       {
-        const TopoDS_Shape& aShape = anIter.Value();
+        const TopoShape& aShape = anIter.Value();
         if (!IsClosed(aShape))
         {
           return Standard_False;
@@ -71,14 +71,14 @@ Standard_Boolean StdPrs_ToolTriangulatedShape::IsClosed(const TopoDS_Shape& theS
     }
     case TopAbs_SOLID: {
       // Check for non-manifold topology first of all:
-      // have to use BRep_Tool::IsClosed() because it checks the face connectivity
+      // have to use BRepInspector::IsClosed() because it checks the face connectivity
       // inside the shape
-      if (!BRep_Tool::IsClosed(theShape))
+      if (!BRepInspector::IsClosed(theShape))
         return Standard_False;
 
       for (TopoDS_Iterator anIter(theShape); anIter.More(); anIter.Next())
       {
-        const TopoDS_Shape& aShape = anIter.Value();
+        const TopoShape& aShape = anIter.Value();
         if (aShape.IsNull())
         {
           continue;
@@ -113,8 +113,8 @@ Standard_Boolean StdPrs_ToolTriangulatedShape::IsClosed(const TopoDS_Shape& theS
 
 //=================================================================================================
 
-Standard_Real StdPrs_ToolTriangulatedShape::GetDeflection(const TopoDS_Shape&         theShape,
-                                                          const Handle(Prs3d_Drawer)& theDrawer)
+Standard_Real StdPrs_ToolTriangulatedShape::GetDeflection(const TopoShape&         theShape,
+                                                          const Handle(StyleDrawer)& theDrawer)
 {
   if (theDrawer->TypeOfDeflection() != Aspect_TOD_RELATIVE)
   {
@@ -147,16 +147,16 @@ Standard_Real StdPrs_ToolTriangulatedShape::GetDeflection(const TopoDS_Shape&   
 
 //=================================================================================================
 
-Standard_Boolean StdPrs_ToolTriangulatedShape::IsTessellated(const TopoDS_Shape&         theShape,
-                                                             const Handle(Prs3d_Drawer)& theDrawer)
+Standard_Boolean StdPrs_ToolTriangulatedShape::IsTessellated(const TopoShape&         theShape,
+                                                             const Handle(StyleDrawer)& theDrawer)
 {
-  return BRepTools::Triangulation(theShape, GetDeflection(theShape, theDrawer), true);
+  return BRepTools1::Triangulation(theShape, GetDeflection(theShape, theDrawer), true);
 }
 
 //=================================================================================================
 
-Standard_Boolean StdPrs_ToolTriangulatedShape::Tessellate(const TopoDS_Shape&         theShape,
-                                                          const Handle(Prs3d_Drawer)& theDrawer)
+Standard_Boolean StdPrs_ToolTriangulatedShape::Tessellate(const TopoShape&         theShape,
+                                                          const Handle(StyleDrawer)& theDrawer)
 {
   Standard_Boolean wasRecomputed = Standard_False;
   // Check if it is possible to avoid unnecessary recomputation of shape triangulation
@@ -182,8 +182,8 @@ Standard_Boolean StdPrs_ToolTriangulatedShape::Tessellate(const TopoDS_Shape&   
 //=================================================================================================
 
 void StdPrs_ToolTriangulatedShape::ClearOnOwnDeflectionChange(
-  const TopoDS_Shape&         theShape,
-  const Handle(Prs3d_Drawer)& theDrawer,
+  const TopoShape&         theShape,
+  const Handle(StyleDrawer)& theDrawer,
   const Standard_Boolean      theToResetCoeff)
 {
   if (!theDrawer->IsAutoTriangulation() || theShape.IsNull())
@@ -203,7 +203,7 @@ void StdPrs_ToolTriangulatedShape::ClearOnOwnDeflectionChange(
     return;
   }
 
-  BRepTools::Clean(theShape);
+  BRepTools1::Clean(theShape);
   if (theToResetCoeff)
   {
     theDrawer->UpdatePreviousDeviationAngle();

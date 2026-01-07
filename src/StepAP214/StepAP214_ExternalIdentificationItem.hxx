@@ -50,8 +50,8 @@ public:
 
   //! Recognizes a kind of ExternalIdentificationItem select type
   //! 1 -> DocumentFile from StepBasic
-  //! 2 -> ExternallyDefinedClass from StepAP214
-  //! 3 -> ExternallyDefinedGeneralProperty from StepAP214
+  //! 2 -> ExternallyDefinedClass from StepAP2141
+  //! 3 -> ExternallyDefinedGeneralProperty from StepAP2141
   //! 4 -> ProductDefinition from StepBasic
   //! 5 -> AppliedOrganizationAssignment from AP214
   //! 6 -> AppliedPersonAndOrganizationAssignment from AP214

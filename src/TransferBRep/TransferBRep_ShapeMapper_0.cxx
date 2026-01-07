@@ -25,15 +25,15 @@
 
 //=================================================================================================
 
-TransferBRep_ShapeMapper::TransferBRep_ShapeMapper(const TopoDS_Shape& akey)
+TransferBRep_ShapeMapper::TransferBRep_ShapeMapper(const TopoShape& akey)
     : theval(akey)
 {
-  SetHashCode(TopTools_ShapeMapHasher{}(akey));
+  SetHashCode(ShapeHasher{}(akey));
 }
 
 //=================================================================================================
 
-const TopoDS_Shape& TransferBRep_ShapeMapper::Value() const
+const TopoShape& TransferBRep_ShapeMapper::Value() const
 {
   return theval;
 }
@@ -49,7 +49,7 @@ Standard_Boolean TransferBRep_ShapeMapper::Equates(const Handle(Transfer_Finder)
   if (other->DynamicType() != DynamicType())
     return Standard_False;
   Handle(TransferBRep_ShapeMapper) another = Handle(TransferBRep_ShapeMapper)::DownCast(other);
-  return TopTools_ShapeMapHasher{}(theval, another->Value());
+  return ShapeHasher{}(theval, another->Value());
 }
 
 //=================================================================================================

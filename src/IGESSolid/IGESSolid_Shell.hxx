@@ -29,7 +29,7 @@ class IGESSolid_Shell;
 DEFINE_STANDARD_HANDLE(IGESSolid_Shell, IGESData_IGESEntity)
 
 //! defines Shell, Type <514> Form Number <1>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! Shell entity is a connected entity of dimensionality 2
 //! which divides R3 into two arcwise connected open subsets,
 //! one of which is finite. Inside of the shell is defined to

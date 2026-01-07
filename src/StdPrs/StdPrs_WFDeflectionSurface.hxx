@@ -41,7 +41,7 @@ public:
   //! Note that this surface object is manipulated by handles.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Handle(Adaptor3d_Surface)&  aSurface,
-                                  const Handle(Prs3d_Drawer)&       aDrawer);
+                                  const Handle(StyleDrawer)&       aDrawer);
 
 protected:
 private:

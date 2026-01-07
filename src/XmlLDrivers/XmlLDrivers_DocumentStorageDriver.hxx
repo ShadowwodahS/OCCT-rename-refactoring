@@ -29,7 +29,7 @@
 
 class XmlMDF_ADriverTable;
 class CDM_Document;
-class TCollection_AsciiString;
+class AsciiString1;
 class Message_Messenger;
 
 class XmlLDrivers_DocumentStorageDriver;
@@ -39,11 +39,11 @@ class XmlLDrivers_DocumentStorageDriver : public PCDM_StorageDriver
 {
 
 public:
-  Standard_EXPORT XmlLDrivers_DocumentStorageDriver(const TCollection_ExtendedString& theCopyright);
+  Standard_EXPORT XmlLDrivers_DocumentStorageDriver(const UtfString& theCopyright);
 
   Standard_EXPORT virtual void Write(
     const Handle(CDM_Document)&       theDocument,
-    const TCollection_ExtendedString& theFileName,
+    const UtfString& theFileName,
     const Message_ProgressRange&      theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Write(
@@ -67,8 +67,8 @@ protected:
     XmlObjMgt_Element&           thePDoc,
     const Message_ProgressRange& theRange = Message_ProgressRange());
 
-  Standard_EXPORT void AddNamespace(const TCollection_AsciiString& thePrefix,
-                                    const TCollection_AsciiString& theURI);
+  Standard_EXPORT void AddNamespace(const AsciiString1& thePrefix,
+                                    const AsciiString1& theURI);
 
   Standard_EXPORT virtual Standard_Boolean WriteShapeSection(
     XmlObjMgt_Element&           thePDoc,
@@ -80,8 +80,8 @@ protected:
 
 private:
   XmlLDrivers_SequenceOfNamespaceDef mySeqOfNS;
-  TCollection_ExtendedString         myCopyright;
-  TCollection_ExtendedString         myFileName;
+  UtfString         myCopyright;
+  UtfString         myFileName;
 };
 
 #endif // _XmlLDrivers_DocumentStorageDriver_HeaderFile

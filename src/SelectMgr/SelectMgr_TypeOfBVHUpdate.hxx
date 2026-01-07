@@ -17,7 +17,7 @@
 #ifndef _SelectMgr_TypeOfBVHUpdate_HeaderFile
 #define _SelectMgr_TypeOfBVHUpdate_HeaderFile
 
-//! Keeps track for BVH update state for each SelectMgr_Selection entity in a following way:
+//! Keeps track for BVH update state for each SelectionContainer entity in a following way:
 //! - Add        : 2nd level BVH does not contain any of the selection's sensitive entities and they
 //! must be added;
 //! - Remove     : all sensitive entities of the selection must be removed from 2nd level BVH;

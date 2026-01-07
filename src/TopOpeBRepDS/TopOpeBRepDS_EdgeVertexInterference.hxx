@@ -26,7 +26,7 @@
 #include <Standard_Boolean.hxx>
 #include <TopOpeBRepDS_Config.hxx>
 #include <Standard_OStream.hxx>
-class TopOpeBRepDS_Transition;
+class StateTransition;
 
 class TopOpeBRepDS_EdgeVertexInterference;
 DEFINE_STANDARD_HANDLE(TopOpeBRepDS_EdgeVertexInterference, TopOpeBRepDS_ShapeShapeInterference)
@@ -46,7 +46,7 @@ public:
   //! <P> is the parameter of <G> on the edge.
   //!
   //! interference is stored in the list of interfs of the edge.
-  Standard_EXPORT TopOpeBRepDS_EdgeVertexInterference(const TopOpeBRepDS_Transition& T,
+  Standard_EXPORT TopOpeBRepDS_EdgeVertexInterference(const StateTransition& T,
                                                       const TopOpeBRepDS_Kind        ST,
                                                       const Standard_Integer         S,
                                                       const Standard_Integer         G,
@@ -64,7 +64,7 @@ public:
   //! <P> is the parameter of <G> on the edge.
   //!
   //! interference is stored in the list of interfs of the edge.
-  Standard_EXPORT TopOpeBRepDS_EdgeVertexInterference(const TopOpeBRepDS_Transition& T,
+  Standard_EXPORT TopOpeBRepDS_EdgeVertexInterference(const StateTransition& T,
                                                       const Standard_Integer         S,
                                                       const Standard_Integer         G,
                                                       const Standard_Boolean         GIsBound,

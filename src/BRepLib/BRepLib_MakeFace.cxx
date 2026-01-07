@@ -60,7 +60,7 @@ BRepLib_MakeFace::BRepLib_MakeFace()
 
 //=================================================================================================
 
-BRepLib_MakeFace::BRepLib_MakeFace(const TopoDS_Face& F)
+BRepLib_MakeFace::BRepLib_MakeFace(const TopoFace& F)
 {
   Init(F);
 }
@@ -69,7 +69,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const TopoDS_Face& F)
 
 BRepLib_MakeFace::BRepLib_MakeFace(const gp_Pln& P)
 {
-  Handle(Geom_Plane) GP = new Geom_Plane(P);
+  Handle(GeomPlane) GP = new GeomPlane(P);
   Init(GP, Standard_True, Precision::Confusion());
 }
 
@@ -107,7 +107,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const gp_Torus& T)
 
 //=================================================================================================
 
-BRepLib_MakeFace::BRepLib_MakeFace(const Handle(Geom_Surface)& S, const Standard_Real TolDegen)
+BRepLib_MakeFace::BRepLib_MakeFace(const Handle(GeomSurface)& S, const Standard_Real TolDegen)
 {
   Init(S, Standard_True, TolDegen);
 }
@@ -120,7 +120,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const gp_Pln&       P,
                                    const Standard_Real VMin,
                                    const Standard_Real VMax)
 {
-  Handle(Geom_Plane) GP = new Geom_Plane(P);
+  Handle(GeomPlane) GP = new GeomPlane(P);
   Init(GP, UMin, UMax, VMin, VMax, Precision::Confusion());
 }
 
@@ -174,7 +174,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const gp_Torus&     T,
 
 //=================================================================================================
 
-BRepLib_MakeFace::BRepLib_MakeFace(const Handle(Geom_Surface)& S,
+BRepLib_MakeFace::BRepLib_MakeFace(const Handle(GeomSurface)& S,
                                    const Standard_Real         UMin,
                                    const Standard_Real         UMax,
                                    const Standard_Real         VMin,
@@ -186,7 +186,7 @@ BRepLib_MakeFace::BRepLib_MakeFace(const Handle(Geom_Surface)& S,
 
 //=================================================================================================
 
-BRepLib_MakeFace::BRepLib_MakeFace(const TopoDS_Wire& W, const Standard_Boolean OnlyPlane)
+BRepLib_MakeFace::BRepLib_MakeFace(const TopoWire& W, const Standard_Boolean OnlyPlane)
 
 {
   // Find a surface through the wire
@@ -198,29 +198,29 @@ BRepLib_MakeFace::BRepLib_MakeFace(const TopoDS_Wire& W, const Standard_Boolean 
   }
 
   // build the face and add the wire
-  BRep_Builder B;
+  ShapeBuilder B;
   myError = BRepLib_FaceDone;
 
   Standard_Real tol = Max(1.2 * FS.ToleranceReached(), FS.Tolerance());
 
   B.MakeFace(TopoDS::Face(myShape), FS.Surface(), FS.Location(), tol);
 
-  TopoDS_Wire aW;
+  TopoWire aW;
   if (OnlyPlane)
   {
     // get rid of degenerative edges in the input wire
-    BRep_Builder aB;
+    ShapeBuilder aB;
     aB.MakeWire(aW);
 
-    TopoDS_Wire      aWForw         = W;
+    TopoWire      aWForw         = W;
     Standard_Boolean hasDegenerated = Standard_False;
     aWForw.Orientation(TopAbs_FORWARD);
     TopoDS_Iterator anIter(aWForw);
     for (; anIter.More(); anIter.Next())
     {
-      const TopoDS_Edge& aE = TopoDS::Edge(anIter.Value());
+      const TopoEdge& aE = TopoDS::Edge(anIter.Value());
 
-      if (BRep_Tool::Degenerated(aE))
+      if (BRepInspector::Degenerated(aE))
       {
         hasDegenerated = Standard_True;
       }
@@ -251,90 +251,90 @@ BRepLib_MakeFace::BRepLib_MakeFace(const TopoDS_Wire& W, const Standard_Boolean 
   //
   BRepLib::SameParameter(myShape, tol, Standard_True);
   //
-  if (BRep_Tool::IsClosed(aW))
+  if (BRepInspector::IsClosed(aW))
     CheckInside();
 }
 
 //=================================================================================================
 
 BRepLib_MakeFace::BRepLib_MakeFace(const gp_Pln&          P,
-                                   const TopoDS_Wire&     W,
+                                   const TopoWire&     W,
                                    const Standard_Boolean Inside)
 {
-  Handle(Geom_Plane) Pl = new Geom_Plane(P);
+  Handle(GeomPlane) Pl = new GeomPlane(P);
   Init(Pl, Standard_False, Precision::Confusion());
   Add(W);
-  if (Inside && BRep_Tool::IsClosed(W))
+  if (Inside && BRepInspector::IsClosed(W))
     CheckInside();
 }
 
 //=================================================================================================
 
 BRepLib_MakeFace::BRepLib_MakeFace(const gp_Cylinder&     C,
-                                   const TopoDS_Wire&     W,
+                                   const TopoWire&     W,
                                    const Standard_Boolean Inside)
 {
   Handle(Geom_CylindricalSurface) GC = new Geom_CylindricalSurface(C);
   Init(GC, Standard_False, Precision::Confusion());
   Add(W);
-  if (Inside && BRep_Tool::IsClosed(W))
+  if (Inside && BRepInspector::IsClosed(W))
     CheckInside();
 }
 
 //=================================================================================================
 
 BRepLib_MakeFace::BRepLib_MakeFace(const gp_Cone&         C,
-                                   const TopoDS_Wire&     W,
+                                   const TopoWire&     W,
                                    const Standard_Boolean Inside)
 {
   Handle(Geom_ConicalSurface) GC = new Geom_ConicalSurface(C);
   Init(GC, Standard_False, Precision::Confusion());
   Add(W);
-  if (Inside && BRep_Tool::IsClosed(W))
+  if (Inside && BRepInspector::IsClosed(W))
     CheckInside();
 }
 
 //=================================================================================================
 
 BRepLib_MakeFace::BRepLib_MakeFace(const gp_Sphere&       S,
-                                   const TopoDS_Wire&     W,
+                                   const TopoWire&     W,
                                    const Standard_Boolean Inside)
 {
   Handle(Geom_SphericalSurface) GS = new Geom_SphericalSurface(S);
   Init(GS, Standard_False, Precision::Confusion());
   Add(W);
-  if (Inside && BRep_Tool::IsClosed(W))
+  if (Inside && BRepInspector::IsClosed(W))
     CheckInside();
 }
 
 //=================================================================================================
 
 BRepLib_MakeFace::BRepLib_MakeFace(const gp_Torus&        T,
-                                   const TopoDS_Wire&     W,
+                                   const TopoWire&     W,
                                    const Standard_Boolean Inside)
 {
   Handle(Geom_ToroidalSurface) GT = new Geom_ToroidalSurface(T);
   Init(GT, Standard_False, Precision::Confusion());
   Add(W);
-  if (Inside && BRep_Tool::IsClosed(W))
+  if (Inside && BRepInspector::IsClosed(W))
     CheckInside();
 }
 
 //=================================================================================================
 
-BRepLib_MakeFace::BRepLib_MakeFace(const Handle(Geom_Surface)& S,
-                                   const TopoDS_Wire&          W,
+BRepLib_MakeFace::BRepLib_MakeFace(const Handle(GeomSurface)& S,
+                                   const TopoWire&          W,
                                    const Standard_Boolean      Inside)
 {
   Init(S, Standard_False, Precision::Confusion());
   Add(W);
-  if (Inside && BRep_Tool::IsClosed(W))
+  if (Inside && BRepInspector::IsClosed(W))
     CheckInside();
 }
 
 //=================================================================================================
 
-BRepLib_MakeFace::BRepLib_MakeFace(const TopoDS_Face& F, const TopoDS_Wire& W)
+BRepLib_MakeFace::BRepLib_MakeFace(const TopoFace& F, const TopoWire& W)
 {
   Init(F);
   Add(W);
@@ -342,13 +342,13 @@ BRepLib_MakeFace::BRepLib_MakeFace(const TopoDS_Face& F, const TopoDS_Wire& W)
 
 //=================================================================================================
 
-void BRepLib_MakeFace::Init(const TopoDS_Face& F)
+void BRepLib_MakeFace::Init(const TopoFace& F)
 {
   // copy the face
   myShape = F.EmptyCopied();
   myError = BRepLib_FaceDone;
 
-  BRep_Builder    B;
+  ShapeBuilder    B;
   TopoDS_Iterator It(F);
   while (It.More())
   {
@@ -359,7 +359,7 @@ void BRepLib_MakeFace::Init(const TopoDS_Face& F)
 
 //=================================================================================================
 
-void BRepLib_MakeFace::Init(const Handle(Geom_Surface)& S,
+void BRepLib_MakeFace::Init(const Handle(GeomSurface)& S,
                             const Standard_Boolean      Bound,
                             const Standard_Real         TolDegen)
 {
@@ -372,10 +372,10 @@ void BRepLib_MakeFace::Init(const Handle(Geom_Surface)& S,
   }
   else
   {
-    BRep_Builder B;
+    ShapeBuilder B;
     B.MakeFace(TopoDS::Face(myShape), S, Precision::Confusion());
   }
-  BRep_Builder B;
+  ShapeBuilder B;
   B.NaturalRestriction(TopoDS::Face(myShape), Standard_True);
 }
 
@@ -385,7 +385,7 @@ void BRepLib_MakeFace::Init(const Handle(Geom_Surface)& S,
 //           passed tolerance value
 //=======================================================================
 
-Standard_Boolean BRepLib_MakeFace::IsDegenerated(const Handle(Geom_Curve)& theCurve,
+Standard_Boolean BRepLib_MakeFace::IsDegenerated(const Handle(GeomCurve3d)& theCurve,
                                                  const Standard_Real       theMaxTol,
                                                  Standard_Real&            theActTol)
 {
@@ -404,7 +404,7 @@ Standard_Boolean BRepLib_MakeFace::IsDegenerated(const Handle(Geom_Curve)& theCu
   }
   else if (Type == GeomAbs_BSplineCurve)
   {
-    Handle(Geom_BSplineCurve) BS            = AC.BSpline();
+    Handle(BSplineCurve3d) BS            = AC.BSpline();
     Standard_Integer          NbPoles       = BS->NbPoles();
     Standard_Real             aMaxPoleDist2 = 0.0, aMaxTol2 = theMaxTol * theMaxTol;
     Point3d                    P1, P2;
@@ -423,7 +423,7 @@ Standard_Boolean BRepLib_MakeFace::IsDegenerated(const Handle(Geom_Curve)& theCu
   }
   else if (Type == GeomAbs_BezierCurve)
   {
-    Handle(Geom_BezierCurve) BZ            = AC.Bezier();
+    Handle(BezierCurve3d) BZ            = AC.Bezier();
     Standard_Integer         NbPoles       = BZ->NbPoles();
     Standard_Real            aMaxPoleDist2 = 0.0, aMaxTol2 = theMaxTol * theMaxTol;
     Point3d                   P1, P2;
@@ -446,7 +446,7 @@ Standard_Boolean BRepLib_MakeFace::IsDegenerated(const Handle(Geom_Curve)& theCu
 
 //=================================================================================================
 
-void BRepLib_MakeFace::Init(const Handle(Geom_Surface)& SS,
+void BRepLib_MakeFace::Init(const Handle(GeomSurface)& SS,
                             const Standard_Real         Um,
                             const Standard_Real         UM,
                             const Standard_Real         Vm,
@@ -462,7 +462,7 @@ void BRepLib_MakeFace::Init(const Handle(Geom_Surface)& SS,
 
   Standard_Real umin, umax, vmin, vmax, T;
 
-  Handle(Geom_Surface)                   S = SS, BS = SS;
+  Handle(GeomSurface)                   S = SS, BS = SS;
   Handle(Geom_RectangularTrimmedSurface) RS = Handle(Geom_RectangularTrimmedSurface)::DownCast(S);
   if (!RS.IsNull())
     BS = RS->BasisSurface();
@@ -478,7 +478,7 @@ void BRepLib_MakeFace::Init(const Handle(Geom_Surface)& SS,
   if (OffsetSurface)
   {
     Handle(Geom_OffsetSurface) OS   = Handle(Geom_OffsetSurface)::DownCast(BS);
-    Handle(Geom_Surface)       Base = OS->BasisSurface();
+    Handle(GeomSurface)       Base = OS->BasisSurface();
 
     if (Base->DynamicType() == STANDARD_TYPE(Geom_SurfaceOfLinearExtrusion))
     {
@@ -541,7 +541,7 @@ void BRepLib_MakeFace::Init(const Handle(Geom_Surface)& SS,
 
   // compute 3d curves and degenerate flag
   Standard_Real      maxTol = TolDegen;
-  Handle(Geom_Curve) Cumin, Cumax, Cvmin, Cvmax;
+  Handle(GeomCurve3d) Cumin, Cumax, Cvmin, Cvmax;
   Standard_Boolean   Dumin, Dumax, Dvmin, Dvmax;
   Dumin = Dumax = Dvmin = Dvmax = Standard_False;
   Standard_Real uminTol = Precision::Confusion(), umaxTol = Precision::Confusion(),
@@ -569,9 +569,9 @@ void BRepLib_MakeFace::Init(const Handle(Geom_Surface)& SS,
   }
 
   // compute vertices
-  BRep_Builder B;
+  ShapeBuilder B;
 
-  TopoDS_Vertex V00, V10, V11, V01;
+  TopoVertex V00, V10, V11, V01;
 
   if (!umininf)
   {
@@ -621,11 +621,11 @@ void BRepLib_MakeFace::Init(const Handle(Geom_Surface)& SS,
     Lvmax = new Geom2d_Line(gp_Pnt2d(0, VMax), gp_Dir2d(1, 0));
 
   // make the face
-  TopoDS_Face& F = TopoDS::Face(myShape);
+  TopoFace& F = TopoDS::Face(myShape);
   B.MakeFace(F, S, Precision::Confusion());
 
   // make the edges
-  TopoDS_Edge eumin, eumax, evmin, evmax;
+  TopoEdge eumin, eumax, evmin, evmax;
 
   if (!umininf)
   {
@@ -731,7 +731,7 @@ void BRepLib_MakeFace::Init(const Handle(Geom_Surface)& SS,
   eumin.Orientation(TopAbs_REVERSED);
   evmax.Orientation(TopAbs_REVERSED);
 
-  TopoDS_Wire W;
+  TopoWire W;
 
   if (!umininf && !umaxinf && vmininf && vmaxinf)
   {
@@ -787,9 +787,9 @@ void BRepLib_MakeFace::Init(const Handle(Geom_Surface)& SS,
 
 //=================================================================================================
 
-void BRepLib_MakeFace::Add(const TopoDS_Wire& W)
+void BRepLib_MakeFace::Add(const TopoWire& W)
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.Add(myShape, W);
   B.NaturalRestriction(TopoDS::Face(myShape), Standard_False);
   Done();
@@ -797,14 +797,14 @@ void BRepLib_MakeFace::Add(const TopoDS_Wire& W)
 
 //=================================================================================================
 
-const TopoDS_Face& BRepLib_MakeFace::Face() const
+const TopoFace& BRepLib_MakeFace::Face() const
 {
   return TopoDS::Face(myShape);
 }
 
 //=================================================================================================
 
-BRepLib_MakeFace::operator TopoDS_Face() const
+BRepLib_MakeFace::operator TopoFace() const
 {
   return Face();
 }
@@ -824,12 +824,12 @@ BRepLib_FaceError BRepLib_MakeFace::Error() const
 void BRepLib_MakeFace::CheckInside()
 {
   // compute the area and return the face if the area is negative
-  TopoDS_Face             F = TopoDS::Face(myShape);
+  TopoFace             F = TopoDS::Face(myShape);
   BRepTopAdaptor_FClass2d FClass(F, 0.);
   if (FClass.PerformInfinitePoint() == TopAbs_IN)
   {
-    BRep_Builder    B;
-    TopoDS_Shape    S = myShape.EmptyCopied();
+    ShapeBuilder    B;
+    TopoShape    S = myShape.EmptyCopied();
     TopoDS_Iterator it(myShape);
     while (it.More())
     {

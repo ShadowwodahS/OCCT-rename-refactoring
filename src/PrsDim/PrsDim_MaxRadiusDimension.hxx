@@ -31,15 +31,15 @@ class PrsDim_MaxRadiusDimension : public PrsDim_EllipseRadiusDimension
 public:
   //! Max  Ellipse  radius dimension
   //! Shape  can  be  edge  ,  planar  face  or  cylindrical  face
-  Standard_EXPORT PrsDim_MaxRadiusDimension(const TopoDS_Shape&               aShape,
+  Standard_EXPORT PrsDim_MaxRadiusDimension(const TopoShape&               aShape,
                                             const Standard_Real               aVal,
-                                            const TCollection_ExtendedString& aText);
+                                            const UtfString& aText);
 
   //! Max  Ellipse  radius dimension with  position
   //! Shape  can  be  edge  ,  planar  face  or  cylindrical  face
-  Standard_EXPORT PrsDim_MaxRadiusDimension(const TopoDS_Shape&               aShape,
+  Standard_EXPORT PrsDim_MaxRadiusDimension(const TopoShape&               aShape,
                                             const Standard_Real               aVal,
-                                            const TCollection_ExtendedString& aText,
+                                            const UtfString& aText,
                                             const Point3d&                     aPosition,
                                             const DsgPrs_ArrowSide            aSymbolPrs,
                                             const Standard_Real               anArrowSize = 0.0);
@@ -49,7 +49,7 @@ private:
                                        const Handle(Prs3d_Presentation)&         thePrs,
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT void ComputeEllipse(const Handle(Prs3d_Presentation)& aPresentation);

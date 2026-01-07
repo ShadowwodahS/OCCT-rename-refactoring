@@ -32,24 +32,24 @@ extern Standard_Boolean TopOpeBRepTool_GettraceCLOV();
 
 //=================================================================================================
 
-TopOpeBRepBuild_PaveClassifier::TopOpeBRepBuild_PaveClassifier(const TopoDS_Shape& E)
+TopOpeBRepBuild_PaveClassifier::TopOpeBRepBuild_PaveClassifier(const TopoShape& E)
     : myEdgePeriodic(Standard_False),
       mySameParameters(Standard_False),
       myClosedVertices(Standard_False)
 {
   myEdge = TopoDS::Edge(E);
 
-  if (!BRep_Tool::Degenerated(myEdge))
+  if (!BRepInspector::Degenerated(myEdge))
   {
     TopLoc_Location    loc;
     Standard_Real      f, l;
-    Handle(Geom_Curve) C = BRep_Tool::Curve(myEdge, loc, f, l);
+    Handle(GeomCurve3d) C = BRepInspector::Curve(myEdge, loc, f, l);
     if (!C.IsNull())
     {
       if (C->IsPeriodic())
       {
-        TopoDS_Vertex v1, v2;
-        TopExp::Vertices(myEdge, v1, v2); // v1 FORWARD, v2 REVERSED
+        TopoVertex v1, v2;
+        TopExp1::Vertices(myEdge, v1, v2); // v1 FORWARD, v2 REVERSED
         if (!v1.IsNull() && !v2.IsNull())
         {
           // --- the edge has vertices
@@ -60,7 +60,7 @@ TopOpeBRepBuild_PaveClassifier::TopOpeBRepBuild_PaveClassifier(const TopoDS_Shap
           myEdgePeriodic = mySameParameters = v1.IsSame(v2);
           if (mySameParameters)
           {
-            myFirst = BRep_Tool::Parameter(v1, myEdge);
+            myFirst = BRepInspector::Parameter(v1, myEdge);
           }
         }
         else
@@ -156,7 +156,7 @@ TopAbs_State TopOpeBRepBuild_PaveClassifier::CompareOnNonPeriodic()
     else if (myP1 > myP2)
       std::cout << " p1 > p2";
     std::cout << " --> state ";
-    TopAbs::Print(state, std::cout);
+    TopAbs1::Print(state, std::cout);
     std::cout << std::endl;
   }
 #endif
@@ -234,10 +234,10 @@ void TopOpeBRepBuild_PaveClassifier::AdjustOnPeriodic()
   if (TopOpeBRepTool_GettraceVC())
   {
     std::cout << "p1 " << p1 << " ";
-    TopAbs::Print(myO1, std::cout);
+    TopAbs1::Print(myO1, std::cout);
     std::cout << " --> " << myP1 << std::endl;
     std::cout << "p2 " << p2 << " ";
-    TopAbs::Print(myO2, std::cout);
+    TopAbs1::Print(myO2, std::cout);
     std::cout << " --> " << myP2 << std::endl;
   }
 #endif
@@ -282,7 +282,7 @@ TopAbs_State TopOpeBRepBuild_PaveClassifier::CompareOnPeriodic()
   {
     std::cout << "VC_P : cas " << myCas1 << "__" << myCas2;
     std::cout << " --> state ";
-    TopAbs::Print(state, std::cout);
+    TopAbs1::Print(state, std::cout);
     std::cout << std::endl;
   }
 #endif
@@ -308,9 +308,9 @@ TopAbs_State TopOpeBRepBuild_PaveClassifier::Compare(const Handle(TopOpeBRepBuil
   if (TopOpeBRepTool_GettraceVC())
   {
     std::cout << std::endl << "VC : " << myP1 << " " << myP2 << " ";
-    TopAbs::Print(myO1, std::cout);
+    TopAbs1::Print(myO1, std::cout);
     std::cout << " ";
-    TopAbs::Print(myO2, std::cout);
+    TopAbs1::Print(myO2, std::cout);
     std::cout << " (p " << myEdgePeriodic;
     std::cout << " s " << mySameParameters << " c " << myClosedVertices << ")" << std::endl;
   }
@@ -331,7 +331,7 @@ TopAbs_State TopOpeBRepBuild_PaveClassifier::Compare(const Handle(TopOpeBRepBuil
   if (TopOpeBRepTool_GettraceVC())
   {
     std::cout << "VC : --> final state ";
-    TopAbs::Print(state, std::cout);
+    TopAbs1::Print(state, std::cout);
     std::cout << std::endl;
   }
 #endif

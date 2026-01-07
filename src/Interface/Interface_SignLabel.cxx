@@ -27,10 +27,10 @@ Standard_CString Interface_SignLabel::Name() const
   return "Entity Label";
 }
 
-TCollection_AsciiString Interface_SignLabel::Text(const Handle(RefObject)& ent,
+AsciiString1 Interface_SignLabel::Text(const Handle(RefObject)& ent,
                                                   const Handle(RefObject)& context) const
 {
-  TCollection_AsciiString          atext;
+  AsciiString1          atext;
   Handle(Interface_InterfaceModel) model = Handle(Interface_InterfaceModel)::DownCast(context);
   if (ent.IsNull() || model.IsNull())
     return atext;

@@ -96,7 +96,7 @@ Standard_Boolean STEPSelections_SelectGSCurves::Explore(const Standard_Integer /
   return isSome;
 }
 
-TCollection_AsciiString STEPSelections_SelectGSCurves::ExploreLabel() const
+AsciiString1 STEPSelections_SelectGSCurves::ExploreLabel() const
 {
-  return TCollection_AsciiString("Curves in GS");
+  return AsciiString1("Curves in GS");
 }

@@ -63,15 +63,15 @@ Standard_Boolean IGESSelect_SelectLevelNumber::Sort(
   return Standard_False;
 }
 
-TCollection_AsciiString IGESSelect_SelectLevelNumber::ExtractLabel() const
+AsciiString1 IGESSelect_SelectLevelNumber::ExtractLabel() const
 {
   char             labl[50];
   Standard_Integer numlev = 0;
   if (!thelevnum.IsNull())
     numlev = thelevnum->Value();
   if (numlev == 0)
-    return TCollection_AsciiString("IGES Entity attached to no Level");
+    return AsciiString1("IGES Entity attached to no Level");
 
   sprintf(labl, "IGES Entity, Level Number admitting %d", numlev);
-  return TCollection_AsciiString(labl);
+  return AsciiString1(labl);
 }

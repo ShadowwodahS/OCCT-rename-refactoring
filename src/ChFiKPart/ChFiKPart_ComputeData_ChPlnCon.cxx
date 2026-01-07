@@ -281,7 +281,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
     // and no intersection plane-chamfer are needed
 
     // intersection plane-chamfer
-  Handle(Geom_Circle) GCirPln;
+  Handle(GeomCircle) GCirPln;
   Handle(Geom2d_Circle) GCir2dPln;
   Frame3d CirAx2 = ChamfAx3.Ax2();
   CirAx2.SetLocation(PtPl);
@@ -291,7 +291,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
         PtPl.Y()+ChamfRad*Dx.Y(),
         PtPl.Z()+ChamfRad*Dx.Z());
     gp_Circ CirPln(CirAx2,ChamfRad);
-    GCirPln = new Geom_Circle(CirPln);
+    GCirPln = new GeomCircle(CirPln);
 
       //pcurve on the plane
     ElSLib::PlaneParameters(PosPl,Pt ,u,v);
@@ -345,7 +345,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
 
   CirAx2.SetLocation(Or);
   gp_Circ CirCon(CirAx2, Rad);
-  Handle(Geom_Circle) GCirCon = new Geom_Circle(CirCon);
+  Handle(GeomCircle) GCirCon = new GeomCircle(CirCon);
 
       //pcurve on chamfer
   if (plandab)

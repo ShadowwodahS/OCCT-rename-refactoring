@@ -24,7 +24,7 @@
 
 #define ThePSurface Handle(Adaptor3d_Surface)
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
-#define ThePSurfaceTool Adaptor3d_HSurfaceTool
+#define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
 #define IntImp_ZerParFunc IntWalk_TheFunctionOfTheInt2S
 #define IntImp_ZerParFunc_hxx <IntWalk_TheFunctionOfTheInt2S.hxx>

@@ -30,7 +30,7 @@ class TDataStd_HDataMapOfStringString;
 class TDataStd_HDataMapOfStringByte;
 class TDataStd_HDataMapOfStringHArray1OfInteger;
 class TDataStd_HDataMapOfStringHArray1OfReal;
-class TCollection_ExtendedString;
+class UtfString;
 
 class TDataStd_NamedData;
 DEFINE_STANDARD_HANDLE(TDataStd_NamedData, TDF_Attribute)
@@ -43,7 +43,7 @@ public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
   //! Finds or creates a named data attribute.
-  Standard_EXPORT static Handle(TDataStd_NamedData) Set(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataStd_NamedData) Set(const DataLabel& label);
 
 public:
   //! Empty constructor.
@@ -54,16 +54,16 @@ public:
 
   //! Returns true if the attribute contains specified by Name
   //! integer value.
-  Standard_EXPORT Standard_Boolean HasInteger(const TCollection_ExtendedString& theName) const;
+  Standard_EXPORT Standard_Boolean HasInteger(const UtfString& theName) const;
 
   //! Returns the integer value specified by the Name.
   //! It returns 0 if internal map doesn't contain the specified
   //! integer (use HasInteger() to check before).
-  Standard_EXPORT Standard_Integer GetInteger(const TCollection_ExtendedString& theName);
+  Standard_EXPORT Standard_Integer GetInteger(const UtfString& theName);
 
   //! Defines a named integer.
   //! If the integer already exists, it changes its value to <theInteger>.
-  Standard_EXPORT void SetInteger(const TCollection_ExtendedString& theName,
+  Standard_EXPORT void SetInteger(const UtfString& theName,
                                   const Standard_Integer            theInteger);
 
   //! Returns the internal container of named integers.
@@ -76,16 +76,16 @@ public:
   Standard_EXPORT Standard_Boolean HasReals() const;
 
   //! Returns true if the attribute contains a real specified by Name.
-  Standard_EXPORT Standard_Boolean HasReal(const TCollection_ExtendedString& theName) const;
+  Standard_EXPORT Standard_Boolean HasReal(const UtfString& theName) const;
 
   //! Returns the named real.
   //! It returns 0.0 if there is no such a named real
   //! (use HasReal()).
-  Standard_EXPORT Standard_Real GetReal(const TCollection_ExtendedString& theName);
+  Standard_EXPORT Standard_Real GetReal(const UtfString& theName);
 
   //! Defines a named real.
   //! If the real already exists, it changes its value to <theReal>.
-  Standard_EXPORT void SetReal(const TCollection_ExtendedString& theName,
+  Standard_EXPORT void SetReal(const UtfString& theName,
                                const Standard_Real               theReal);
 
   //! Returns the internal container of named reals.
@@ -98,18 +98,18 @@ public:
   Standard_EXPORT Standard_Boolean HasStrings() const;
 
   //! Returns true if the attribute contains this named string.
-  Standard_EXPORT Standard_Boolean HasString(const TCollection_ExtendedString& theName) const;
+  Standard_EXPORT Standard_Boolean HasString(const UtfString& theName) const;
 
   //! Returns the named string.
   //! It returns an empty string if there is no such a named string
   //! (use HasString()).
-  Standard_EXPORT const TCollection_ExtendedString& GetString(
-    const TCollection_ExtendedString& theName);
+  Standard_EXPORT const UtfString& GetString(
+    const UtfString& theName);
 
   //! Defines a named string.
   //! If the string already exists, it changes its value to <theString>.
-  Standard_EXPORT void SetString(const TCollection_ExtendedString& theName,
-                                 const TCollection_ExtendedString& theString);
+  Standard_EXPORT void SetString(const UtfString& theName,
+                                 const UtfString& theString);
 
   //! Returns the internal container of named strings.
   Standard_EXPORT const TDataStd_DataMapOfStringString& GetStringsContainer();
@@ -121,16 +121,16 @@ public:
   Standard_EXPORT Standard_Boolean HasBytes() const;
 
   //! Returns true if the attribute contains this named byte.
-  Standard_EXPORT Standard_Boolean HasByte(const TCollection_ExtendedString& theName) const;
+  Standard_EXPORT Standard_Boolean HasByte(const UtfString& theName) const;
 
   //! Returns the named byte.
   //! It returns 0 if there is no such a named byte
   //! (use HasByte()).
-  Standard_EXPORT Standard_Byte GetByte(const TCollection_ExtendedString& theName);
+  Standard_EXPORT Standard_Byte GetByte(const UtfString& theName);
 
   //! Defines a named byte.
   //! If the byte already exists, it changes its value to <theByte>.
-  Standard_EXPORT void SetByte(const TCollection_ExtendedString& theName,
+  Standard_EXPORT void SetByte(const UtfString& theName,
                                const Standard_Byte               theByte);
 
   //! Returns the internal container of named bytes.
@@ -144,19 +144,19 @@ public:
 
   //! Returns true if the attribute contains this named array of integer values.
   Standard_EXPORT Standard_Boolean
-    HasArrayOfIntegers(const TCollection_ExtendedString& theName) const;
+    HasArrayOfIntegers(const UtfString& theName) const;
 
   //! Returns the named array of integer values.
   //! It returns a NULL Handle if there is no such a named array of integers
   //! (use HasArrayOfIntegers()).
   Standard_EXPORT const Handle(TColStd_HArray1OfInteger)& GetArrayOfIntegers(
-    const TCollection_ExtendedString& theName);
+    const UtfString& theName);
 
   //! Defines a named array of integer values.
   //! @param[in] theName  key
   //! @param[in] theArrayOfIntegers  new value, overrides existing (passed array will be copied by
   //! value!)
-  void SetArrayOfIntegers(const TCollection_ExtendedString&       theName,
+  void SetArrayOfIntegers(const UtfString&       theName,
                           const Handle(TColStd_HArray1OfInteger)& theArrayOfIntegers)
   {
     Backup();
@@ -174,19 +174,19 @@ public:
   Standard_EXPORT Standard_Boolean HasArraysOfReals() const;
 
   //! Returns true if the attribute contains this named array of real values.
-  Standard_EXPORT Standard_Boolean HasArrayOfReals(const TCollection_ExtendedString& theName) const;
+  Standard_EXPORT Standard_Boolean HasArrayOfReals(const UtfString& theName) const;
 
   //! Returns the named array of real values.
   //! It returns a NULL Handle if there is no such a named array of reals
   //! (use HasArrayOfReals()).
   Standard_EXPORT const Handle(TColStd_HArray1OfReal)& GetArrayOfReals(
-    const TCollection_ExtendedString& theName);
+    const UtfString& theName);
 
   //! Defines a named array of real values.
   //! @param[in] theName key
   //! @param[in] theArrayOfReals new value, overrides existing (passed array will be copied by
   //! value!)
-  void SetArrayOfReals(const TCollection_ExtendedString&    theName,
+  void SetArrayOfReals(const UtfString&    theName,
                        const Handle(TColStd_HArray1OfReal)& theArrayOfReals)
   {
     Backup();
@@ -224,7 +224,7 @@ public: //! @name late-load deferred data interface
   //! - Application displays model in read-only way.
   //!   Late-load elements are loaded temporarily on demand and immediately unloaded.
   //!     theNamedData->LoadDeferredData (true);
-  //!     TCollection_AsciiString aValue = theNamedData->GetString (theKey);
+  //!     AsciiString1 aValue = theNamedData->GetString (theKey);
   //!     theNamedData->UnloadDeferredData();
   //! - Application saves the model into another format.
   //!   All late-load elements should be loaded (at least temporary during operation).
@@ -259,28 +259,28 @@ public:
   Standard_EXPORT void clear();
 
   //! Defines a named integer (without calling Backup).
-  Standard_EXPORT void setInteger(const TCollection_ExtendedString& theName,
+  Standard_EXPORT void setInteger(const UtfString& theName,
                                   const Standard_Integer            theInteger);
 
   //! Defines a named real (without calling Backup).
-  Standard_EXPORT void setReal(const TCollection_ExtendedString& theName,
+  Standard_EXPORT void setReal(const UtfString& theName,
                                const Standard_Real               theReal);
 
   //! Defines a named string (without calling Backup).
-  Standard_EXPORT void setString(const TCollection_ExtendedString& theName,
-                                 const TCollection_ExtendedString& theString);
+  Standard_EXPORT void setString(const UtfString& theName,
+                                 const UtfString& theString);
 
   //! Defines a named byte (without calling Backup).
-  Standard_EXPORT void setByte(const TCollection_ExtendedString& theName,
+  Standard_EXPORT void setByte(const UtfString& theName,
                                const Standard_Byte               theByte);
 
   //! Defines a named array of integer values (without calling Backup).
   Standard_EXPORT void setArrayOfIntegers(
-    const TCollection_ExtendedString&       theName,
+    const UtfString&       theName,
     const Handle(TColStd_HArray1OfInteger)& theArrayOfIntegers);
 
   //! Defines a named array of real values (without calling Backup).
-  Standard_EXPORT void setArrayOfReals(const TCollection_ExtendedString&    theName,
+  Standard_EXPORT void setArrayOfReals(const UtfString&    theName,
                                        const Handle(TColStd_HArray1OfReal)& theArrayOfReals);
 
 public: //! @name TDF_Attribute interface

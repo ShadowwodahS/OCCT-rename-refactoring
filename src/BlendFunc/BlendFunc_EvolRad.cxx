@@ -318,18 +318,18 @@ Standard_Boolean BlendFunc_EvolRad::ComputeValues(const math_Vector&     X,
       //     Vector3d normal;
       gp_Pnt2d P(X(1), X(2));
       if (Order == 0)
-        BlendFunc::ComputeNormal(surf1, P, nsurf1);
+        BlendFunc1::ComputeNormal(surf1, P, nsurf1);
       else
-        BlendFunc::ComputeDNormal(surf1, P, nsurf1, dns1u1, dns1v1);
+        BlendFunc1::ComputeDNormal(surf1, P, nsurf1, dns1u1, dns1v1);
     }
     if (nsurf2.Magnitude() < Eps)
     {
       //     Vector3d normal;
       gp_Pnt2d P(X(3), X(4));
       if (Order == 0)
-        BlendFunc::ComputeNormal(surf2, P, nsurf2);
+        BlendFunc1::ComputeNormal(surf2, P, nsurf2);
       else
-        BlendFunc::ComputeDNormal(surf2, P, nsurf2, dns1u2, dns1v2);
+        BlendFunc1::ComputeDNormal(surf2, P, nsurf2, dns1u2, dns1v2);
     }
   }
 
@@ -1253,7 +1253,7 @@ Standard_Real BlendFunc_EvolRad::GetSectionSize() const
 
 void BlendFunc_EvolRad::GetMinimalWeight(TColStd_Array1OfReal& Weights) const
 {
-  BlendFunc::GetMinimalWeights(mySShape, myTConv, minang, maxang, Weights);
+  BlendFunc1::GetMinimalWeights(mySShape, myTConv, minang, maxang, Weights);
 }
 
 //=================================================================================================
@@ -1261,7 +1261,7 @@ void BlendFunc_EvolRad::GetMinimalWeight(TColStd_Array1OfReal& Weights) const
 Standard_Integer BlendFunc_EvolRad::NbIntervals(const GeomAbs_Shape S) const
 {
   Standard_Integer Nb_Int_Courbe, Nb_Int_Loi;
-  Nb_Int_Courbe = curv->NbIntervals(BlendFunc::NextShape(S));
+  Nb_Int_Courbe = curv->NbIntervals(BlendFunc1::NextShape(S));
   Nb_Int_Loi    = fevol->NbIntervals(S);
 
   if (Nb_Int_Loi == 1)
@@ -1272,7 +1272,7 @@ Standard_Integer BlendFunc_EvolRad::NbIntervals(const GeomAbs_Shape S) const
   TColStd_Array1OfReal   IntC(1, Nb_Int_Courbe + 1);
   TColStd_Array1OfReal   IntL(1, Nb_Int_Loi + 1);
   TColStd_SequenceOfReal Inter;
-  curv->Intervals(IntC, BlendFunc::NextShape(S));
+  curv->Intervals(IntC, BlendFunc1::NextShape(S));
   fevol->Intervals(IntL, S);
 
   FusionneIntervalles(IntC, IntL, Inter);
@@ -1284,19 +1284,19 @@ Standard_Integer BlendFunc_EvolRad::NbIntervals(const GeomAbs_Shape S) const
 void BlendFunc_EvolRad::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) const
 {
   Standard_Integer Nb_Int_Courbe, Nb_Int_Loi;
-  Nb_Int_Courbe = curv->NbIntervals(BlendFunc::NextShape(S));
+  Nb_Int_Courbe = curv->NbIntervals(BlendFunc1::NextShape(S));
   Nb_Int_Loi    = fevol->NbIntervals(S);
 
   if (Nb_Int_Loi == 1)
   {
-    curv->Intervals(T, BlendFunc::NextShape(S));
+    curv->Intervals(T, BlendFunc1::NextShape(S));
   }
   else
   {
     TColStd_Array1OfReal   IntC(1, Nb_Int_Courbe + 1);
     TColStd_Array1OfReal   IntL(1, Nb_Int_Loi + 1);
     TColStd_SequenceOfReal Inter;
-    curv->Intervals(IntC, BlendFunc::NextShape(S));
+    curv->Intervals(IntC, BlendFunc1::NextShape(S));
     fevol->Intervals(IntL, S);
 
     FusionneIntervalles(IntC, IntL, Inter);
@@ -1315,7 +1315,7 @@ void BlendFunc_EvolRad::GetShape(Standard_Integer& NbPoles,
                                  Standard_Integer& NbPoles2d)
 {
   NbPoles2d = 2;
-  BlendFunc::GetShape(mySShape, maxang, NbPoles, NbKnots, Degree, myTConv);
+  BlendFunc1::GetShape(mySShape, maxang, NbPoles, NbKnots, Degree, myTConv);
 }
 
 //=======================================================================
@@ -1354,7 +1354,7 @@ void BlendFunc_EvolRad::Mults(TColStd_Array1OfInteger& TMults)
 
 //=================================================================================================
 
-void BlendFunc_EvolRad::Section(const Blend_Point&    P,
+void BlendFunc_EvolRad::Section(const Point2&    P,
                                 TColgp_Array1OfPnt&   Poles,
                                 TColgp_Array1OfPnt2d& Poles2d,
                                 TColStd_Array1OfReal& Weights)
@@ -1436,7 +1436,7 @@ void BlendFunc_EvolRad::Section(const Blend_Point&    P,
 
 //=================================================================================================
 
-Standard_Boolean BlendFunc_EvolRad::Section(const Blend_Point&    P,
+Standard_Boolean BlendFunc_EvolRad::Section(const Point2&    P,
                                             TColgp_Array1OfPnt&   Poles,
                                             TColgp_Array1OfVec&   DPoles,
                                             TColgp_Array1OfPnt2d& Poles2d,
@@ -1616,7 +1616,7 @@ Standard_Boolean BlendFunc_EvolRad::Section(const Blend_Point&    P,
 
 //=================================================================================================
 
-Standard_Boolean BlendFunc_EvolRad::Section(const Blend_Point&    P,
+Standard_Boolean BlendFunc_EvolRad::Section(const Point2&    P,
                                             TColgp_Array1OfPnt&   Poles,
                                             TColgp_Array1OfVec&   DPoles,
                                             TColgp_Array1OfVec&   D2Poles,

@@ -21,20 +21,20 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(BRepTools_Modification, RefObject)
 
-Standard_Boolean BRepTools_Modification::NewTriangulation(const TopoDS_Face&,
-                                                          Handle(Poly_Triangulation)&)
+Standard_Boolean BRepTools_Modification::NewTriangulation(const TopoFace&,
+                                                          Handle(MeshTriangulation)&)
 {
   return Standard_False;
 }
 
-Standard_Boolean BRepTools_Modification::NewPolygon(const TopoDS_Edge&, Handle(Poly_Polygon3D)&)
+Standard_Boolean BRepTools_Modification::NewPolygon(const TopoEdge&, Handle(Poly_Polygon3D)&)
 {
   return Standard_False;
 }
 
 Standard_Boolean BRepTools_Modification::NewPolygonOnTriangulation(
-  const TopoDS_Edge&,
-  const TopoDS_Face&,
+  const TopoEdge&,
+  const TopoFace&,
   Handle(Poly_PolygonOnTriangulation)&)
 {
   return Standard_False;

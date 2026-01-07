@@ -309,7 +309,7 @@ private:
 static void PerformApprox(const Handle(Adaptor3d_Curve)& C,
                           const gp_Ax3&                  Pl,
                           const Dir3d&                  D,
-                          Handle(Geom_BSplineCurve)&     BSplineCurvePtr)
+                          Handle(BSplineCurve3d)&     BSplineCurvePtr)
 
 {
   ProjLib_OnPlane F(C, Pl, D);
@@ -410,7 +410,7 @@ static void PerformApprox(const Handle(Adaptor3d_Curve)& C,
     Mults.SetValue(i, MaxDeg);
   }
   Mults.SetValue(NbKnots, MaxDeg + 1);
-  BSplineCurvePtr = new Geom_BSplineCurve(Poles, Knots, Mults, MaxDeg, Standard_False);
+  BSplineCurvePtr = new BSplineCurve3d(Poles, Knots, Mults, MaxDeg, Standard_False);
 
   // Try to smooth
   Standard_Integer m1 = MaxDeg - 1;
@@ -540,11 +540,11 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
   myIsApprox  = Standard_False;
   myTolerance = Tolerance;
 
-  Handle(Geom_BSplineCurve) ApproxCurve;
+  Handle(BSplineCurve3d) ApproxCurve;
   Handle(GeomAdaptor_Curve) aGAHCurve;
 
-  Handle(Geom_Line)      GeomLinePtr;
-  Handle(Geom_Circle)    GeomCirclePtr;
+  Handle(GeomLine)      GeomLinePtr;
+  Handle(GeomCircle)    GeomCirclePtr;
   Handle(Geom_Ellipse)   GeomEllipsePtr;
   Handle(Geom_Hyperbola) GeomHyperbolaPtr;
   Handle(Geom_Parabola)  GeomParabolaPtr;
@@ -582,7 +582,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
         TColStd_Array1OfReal Knots(1, 2);
         Knots(1)                      = myCurve->FirstParameter();
         Knots(2)                      = myCurve->LastParameter();
-        Handle(Geom_BSplineCurve) BSP = new Geom_BSplineCurve(Poles, Knots, Mults, 1);
+        Handle(BSplineCurve3d) BSP = new BSplineCurve3d(Poles, Knots, Mults, 1);
 
         //  Modified by Sergey KHROMOV - Tue Jan 29 16:57:29 2002 Begin
         GeomAdaptor_Curve aGACurve(BSP);
@@ -596,7 +596,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
         myFirstPar  = myCurve->FirstParameter();
         myLastPar   = myCurve->LastParameter();
         aLine       = gp_Lin(P, Dir3d(Xc));
-        GeomLinePtr = new Geom_Line(aLine);
+        GeomLinePtr = new GeomLine(aLine);
 
         //  Modified by Sergey KHROMOV - Tue Jan 29 16:57:29 2002 Begin
         GeomAdaptor_Curve aGACurve(GeomLinePtr,
@@ -619,7 +619,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
         Point3d P2   = ProjectPnt(myPlane, myDirection, myCurve->Value(Ufin));
         myFirstPar  = Vector3d(aLine.Direction()).Dot(Vector3d(P, P1));
         myLastPar   = Vector3d(aLine.Direction()).Dot(Vector3d(P, P2));
-        GeomLinePtr = new Geom_Line(aLine);
+        GeomLinePtr = new GeomLine(aLine);
         if (!myKeepParam)
         {
           //  Modified by Sergey KHROMOV - Tue Jan 29 16:57:29 2002 Begin
@@ -637,7 +637,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
           Handle(Geom_TrimmedCurve) NewTrimCurvePtr =
             new Geom_TrimmedCurve(GeomLinePtr, myFirstPar, myLastPar);
 
-          Handle(Geom_BSplineCurve) NewCurvePtr = GeomConvert::CurveToBSplineCurve(NewTrimCurvePtr);
+          Handle(BSplineCurve3d) NewCurvePtr = GeomConvert::CurveToBSplineCurve(NewTrimCurvePtr);
           num_knots                             = NewCurvePtr->NbKnots();
           TColStd_Array1OfReal BsplineKnots(1, num_knots);
           NewCurvePtr->Knots(BsplineKnots);
@@ -768,7 +768,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
           {
             myType = GeomAbs_Circle;
             gp_Circ Circ(Axe, Major);
-            GeomCirclePtr = new Geom_Circle(Circ);
+            GeomCirclePtr = new GeomCircle(Circ);
             //  Modified by Sergey KHROMOV - Tue Jan 29 16:57:29 2002 Begin
             GeomAdaptor_Curve aGACurve(GeomCirclePtr);
             myResult = new GeomAdaptor_Curve(aGACurve);
@@ -804,7 +804,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
       }
       else if (GeomCirclePtr || GeomEllipsePtr)
       {
-        Handle(Geom_Curve) aResultCurve = GeomCirclePtr;
+        Handle(GeomCurve3d) aResultCurve = GeomCirclePtr;
         if (aResultCurve.IsNull())
           aResultCurve = GeomEllipsePtr;
         // start and end parameters of the projected curve
@@ -837,7 +837,7 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
       {
         myType      = GeomAbs_Line;
         aLine       = gp_Lin(P, Dir3d(Yc));
-        GeomLinePtr = new Geom_Line(aLine);
+        GeomLinePtr = new GeomLine(aLine);
       }
       else if (Xc.IsNormal(Yc, Precision::Angular()))
       {
@@ -929,10 +929,10 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
     }
     break;
     case GeomAbs_BezierCurve: {
-      Handle(Geom_BezierCurve) BezierCurvePtr = myCurve->Bezier();
+      Handle(BezierCurve3d) BezierCurvePtr = myCurve->Bezier();
       Standard_Integer         NbPoles        = BezierCurvePtr->NbPoles();
 
-      Handle(Geom_BezierCurve) ProjCu = Handle(Geom_BezierCurve)::DownCast(BezierCurvePtr->Copy());
+      Handle(BezierCurve3d) ProjCu = Handle(BezierCurve3d)::DownCast(BezierCurvePtr->Copy());
 
       myKeepParam = Standard_True;
       myIsApprox  = Standard_False;
@@ -949,12 +949,12 @@ void ProjLib_ProjectOnPlane::Load(const Handle(Adaptor3d_Curve)& C,
     }
     break;
     case GeomAbs_BSplineCurve: {
-      Handle(Geom_BSplineCurve) BSplineCurvePtr = myCurve->BSpline();
+      Handle(BSplineCurve3d) BSplineCurvePtr = myCurve->BSpline();
       //
       //    make a copy of the curve and projects its poles
       //
-      Handle(Geom_BSplineCurve) ProjectedBSplinePtr =
-        Handle(Geom_BSplineCurve)::DownCast(BSplineCurvePtr->Copy());
+      Handle(BSplineCurve3d) ProjectedBSplinePtr =
+        Handle(BSplineCurve3d)::DownCast(BSplineCurvePtr->Copy());
 
       myKeepParam = Standard_True;
       myIsApprox  = Standard_False;
@@ -1315,7 +1315,7 @@ Standard_Integer ProjLib_ProjectOnPlane::NbKnots() const
 
 //=================================================================================================
 
-Handle(Geom_BezierCurve) ProjLib_ProjectOnPlane::Bezier() const
+Handle(BezierCurve3d) ProjLib_ProjectOnPlane::Bezier() const
 {
   if (myType != GeomAbs_BezierCurve)
     throw Standard_NoSuchObject("ProjLib_ProjectOnPlane:Bezier");
@@ -1325,7 +1325,7 @@ Handle(Geom_BezierCurve) ProjLib_ProjectOnPlane::Bezier() const
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) ProjLib_ProjectOnPlane::BSpline() const
+Handle(BSplineCurve3d) ProjLib_ProjectOnPlane::BSpline() const
 {
   if (myType != GeomAbs_BSplineCurve)
     throw Standard_NoSuchObject("ProjLib_ProjectOnPlane:BSpline");
@@ -1335,14 +1335,14 @@ Handle(Geom_BSplineCurve) ProjLib_ProjectOnPlane::BSpline() const
 
 //=================================================================================================
 
-void ProjLib_ProjectOnPlane::GetTrimmedResult(const Handle(Geom_Curve)& theProjCurve)
+void ProjLib_ProjectOnPlane::GetTrimmedResult(const Handle(GeomCurve3d)& theProjCurve)
 {
   gp_Lin   aLin;
   gp_Parab aParab;
   gp_Hypr  aHypr;
   if (myType == GeomAbs_Line)
   {
-    aLin = Handle(Geom_Line)::DownCast(theProjCurve)->Lin();
+    aLin = Handle(GeomLine)::DownCast(theProjCurve)->Lin();
   }
   else if (myType == GeomAbs_Parabola)
   {
@@ -1402,7 +1402,7 @@ void ProjLib_ProjectOnPlane::GetTrimmedResult(const Handle(Geom_Curve)& theProjC
 
 //=================================================================================================
 
-Standard_Boolean ProjLib_ProjectOnPlane::BuildParabolaByApex(Handle(Geom_Curve)& theGeomParabolaPtr)
+Standard_Boolean ProjLib_ProjectOnPlane::BuildParabolaByApex(Handle(GeomCurve3d)& theGeomParabolaPtr)
 {
   //
   // Searching parabola apex as point with maximal curvature
@@ -1462,7 +1462,7 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildParabolaByApex(Handle(Geom_Curve)&
 //=================================================================================================
 
 Standard_Boolean ProjLib_ProjectOnPlane::BuildHyperbolaByApex(
-  Handle(Geom_Curve)& theGeomHyperbolaPtr)
+  Handle(GeomCurve3d)& theGeomHyperbolaPtr)
 {
   // Try to build hyperbola with help of apex position
   GeomAbs_CurveType aCurType = myType;
@@ -1520,7 +1520,7 @@ Standard_Boolean ProjLib_ProjectOnPlane::BuildHyperbolaByApex(
 void ProjLib_ProjectOnPlane::BuildByApprox(const Standard_Real theLimitParameter)
 {
   myType = GeomAbs_BSplineCurve;
-  Handle(Geom_BSplineCurve) anApproxCurve;
+  Handle(BSplineCurve3d) anApproxCurve;
   if (Precision::IsInfinite(myCurve->FirstParameter())
       || Precision::IsInfinite(myCurve->LastParameter()))
   {

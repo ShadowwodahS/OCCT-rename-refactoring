@@ -65,8 +65,8 @@ Standard_Boolean XmlMDataStd_RealDriver::Paste(const XmlObjMgt_Persistent&  theS
   Standard_CString           aValueStr = Standard_CString(aRealStr.GetString());
   if (XmlObjMgt::GetReal(aRealStr, aValue) == Standard_False)
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve Real attribute from \"") + aValueStr + "\"";
+    UtfString aMessageString =
+      UtfString("Cannot retrieve Real attribute from \"") + aValueStr + "\"";
     myMessageDriver->Send(aMessageString, Message_Warning);
   }
   Handle(TDataStd_Real) anAtt = Handle(TDataStd_Real)::DownCast(theTarget);
@@ -86,7 +86,7 @@ void XmlMDataStd_RealDriver::Paste(const Handle(TDF_Attribute)& theSource,
   Handle(TDataStd_Real) anAtt = Handle(TDataStd_Real)::DownCast(theSource);
   char                  aValueChar[32];
   Sprintf(aValueChar, "%.17g", anAtt->Get());
-  TCollection_AsciiString aValueStr(aValueChar);
+  AsciiString1 aValueStr(aValueChar);
   // No occurrence of '&', '<' and other irregular XML characters
   XmlObjMgt::SetStringValue(theTarget, aValueStr.ToCString(), Standard_True);
   if (anAtt->ID() != TDataStd_Real::GetID())

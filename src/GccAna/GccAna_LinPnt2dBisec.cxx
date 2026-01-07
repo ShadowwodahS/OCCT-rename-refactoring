@@ -46,7 +46,7 @@ GccAna_LinPnt2dBisec::GccAna_LinPnt2dBisec(const gp_Lin2d& Line1, const gp_Pnt2d
     Standard_Real ypoint2 = Point2.Y();
     if ((-ydir * (xpoint2 - xloc) + xdir * (ypoint2 - yloc)) > 0.0)
     {
-      gp_Ax2d    axeparab(gp_Pnt2d(Point2.XY() - dist / 2. * gp_XY(-ydir, xdir)),
+      gp_Ax2d    axeparab(gp_Pnt2d(Point2.XY() - dist / 2. * Coords2d(-ydir, xdir)),
                        gp_Dir2d(-ydir, xdir));
       gp_Parab2d bislinpnt(axeparab, dist / 2.0);
       bissol = new GccInt_BParab(bislinpnt);
@@ -54,7 +54,7 @@ GccAna_LinPnt2dBisec::GccAna_LinPnt2dBisec(const gp_Lin2d& Line1, const gp_Pnt2d
     }
     else
     {
-      gp_Ax2d    axeparab(gp_Pnt2d(Point2.XY() + dist / 2. * gp_XY(-ydir, xdir)),
+      gp_Ax2d    axeparab(gp_Pnt2d(Point2.XY() + dist / 2. * Coords2d(-ydir, xdir)),
                        gp_Dir2d(ydir, -xdir));
       gp_Parab2d bislinpnt(axeparab, dist / 2.0);
       bissol = new GccInt_BParab(bislinpnt);

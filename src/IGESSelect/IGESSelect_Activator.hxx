@@ -28,7 +28,7 @@ class IFSelect_SessionPilot;
 class IGESSelect_Activator;
 DEFINE_STANDARD_HANDLE(IGESSelect_Activator, IFSelect_Activator)
 
-//! Performs Actions specific to IGESSelect, i.e. creation of
+//! Performs Actions specific to IGESSelect1, i.e. creation of
 //! IGES Selections and Dispatches, plus dumping specific to IGES
 class IGESSelect_Activator : public IFSelect_Activator
 {
@@ -36,11 +36,11 @@ class IGESSelect_Activator : public IFSelect_Activator
 public:
   Standard_EXPORT IGESSelect_Activator();
 
-  //! Executes a Command Line for IGESSelect
+  //! Executes a Command Line for IGESSelect1
   Standard_EXPORT IFSelect_ReturnStatus
     Do(const Standard_Integer number, const Handle(IFSelect_SessionPilot)& pilot) Standard_OVERRIDE;
 
-  //! Sends a short help message for IGESSelect commands
+  //! Sends a short help message for IGESSelect1 commands
   Standard_EXPORT Standard_CString Help(const Standard_Integer number) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_Activator, IFSelect_Activator)

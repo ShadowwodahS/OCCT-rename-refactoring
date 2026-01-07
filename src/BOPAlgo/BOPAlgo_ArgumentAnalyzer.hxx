@@ -37,16 +37,16 @@ public:
   Standard_EXPORT virtual ~BOPAlgo_ArgumentAnalyzer();
 
   //! sets object shape
-  Standard_EXPORT void SetShape1(const TopoDS_Shape& TheShape);
+  Standard_EXPORT void SetShape1(const TopoShape& TheShape);
 
   //! sets tool shape
-  Standard_EXPORT void SetShape2(const TopoDS_Shape& TheShape);
+  Standard_EXPORT void SetShape2(const TopoShape& TheShape);
 
   //! returns object shape;
-  Standard_EXPORT const TopoDS_Shape& GetShape1() const;
+  Standard_EXPORT const TopoShape& GetShape1() const;
 
   //! returns tool shape
-  Standard_EXPORT const TopoDS_Shape& GetShape2() const;
+  Standard_EXPORT const TopoShape& GetShape2() const;
 
   //! returns ref
   Standard_EXPORT BOPAlgo_Operation& OperationType();
@@ -124,8 +124,8 @@ protected:
   Standard_EXPORT void TestCurveOnSurface();
 
 private:
-  TopoDS_Shape              myShape1;
-  TopoDS_Shape              myShape2;
+  TopoShape              myShape1;
+  TopoShape              myShape2;
   Standard_Boolean          myStopOnFirst;
   BOPAlgo_Operation         myOperation;
   Standard_Boolean          myArgumentTypeMode;

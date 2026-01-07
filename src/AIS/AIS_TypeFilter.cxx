@@ -28,7 +28,7 @@ AIS_TypeFilter::AIS_TypeFilter(const AIS_KindOfInteractive TheKind)
 
 Standard_Boolean AIS_TypeFilter::IsOk(const Handle(SelectMgr_EntityOwner)& anObj) const
 {
-  Handle(AIS_InteractiveObject) anObject =
-    Handle(AIS_InteractiveObject)::DownCast(anObj->Selectable());
+  Handle(VisualEntity) anObject =
+    Handle(VisualEntity)::DownCast(anObj->Selectable());
   return !anObject.IsNull() && anObject->Type() == myKind;
 }

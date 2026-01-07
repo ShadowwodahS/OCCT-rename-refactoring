@@ -33,24 +33,24 @@
 #define TDF_TagSeparator ':'
 
 static void TDF_Tool_ExtendedDeepDump(Standard_OStream&        anOS,
-                                      const TDF_Label&         aLabel,
+                                      const DataLabel&         aLabel,
                                       const TDF_IDFilter&      aFilter,
                                       TDF_AttributeIndexedMap& aMap);
 
-static Standard_Boolean TDF_Tool_DescendantRef(const TDF_Label&           aRefLabel,
-                                               const TDF_Label&           aLabel,
+static Standard_Boolean TDF_Tool_DescendantRef(const DataLabel&           aRefLabel,
+                                               const DataLabel&           aLabel,
                                                const TDF_IDFilter&        aFilter,
                                                const Handle(TDF_DataSet)& ds);
 
-static void TDF_Tool_OutReferers(const TDF_Label&           aRefLabel,
-                                 const TDF_Label&           aLabel,
+static void TDF_Tool_OutReferers(const DataLabel&           aRefLabel,
+                                 const DataLabel&           aLabel,
                                  TDF_AttributeMap&          atts,
                                  const TDF_IDFilter&        aFilterForReferers,
                                  const TDF_IDFilter&        aFilterForReferences,
                                  const Handle(TDF_DataSet)& ds);
 
-static void TDF_Tool_OutReferences(const TDF_Label&           aRefLabel,
-                                   const TDF_Label&           aLabel,
+static void TDF_Tool_OutReferences(const DataLabel&           aRefLabel,
+                                   const DataLabel&           aLabel,
                                    TDF_AttributeMap&          atts,
                                    const TDF_IDFilter&        aFilterForReferers,
                                    const TDF_IDFilter&        aFilterForReferences,
@@ -61,7 +61,7 @@ static void TDF_Tool_OutReferences(const TDF_Label&           aRefLabel,
 // purpose  : Returns the numbers of labels of the tree.
 //=======================================================================
 
-Standard_Integer TDF_Tool::NbLabels(const TDF_Label& aLabel)
+Standard_Integer TDF_Tool::NbLabels(const DataLabel& aLabel)
 {
   Standard_Integer n = 1;
   for (TDF_ChildIterator itr(aLabel, Standard_True); itr.More(); itr.Next())
@@ -74,7 +74,7 @@ Standard_Integer TDF_Tool::NbLabels(const TDF_Label& aLabel)
 // purpose  : Returns the number of attributes of the tree.
 //=======================================================================
 
-Standard_Integer TDF_Tool::NbAttributes(const TDF_Label& aLabel)
+Standard_Integer TDF_Tool::NbAttributes(const DataLabel& aLabel)
 {
   Standard_Integer n = aLabel.NbAttributes();
   for (TDF_ChildIterator itr(aLabel, Standard_True); itr.More(); itr.Next())
@@ -88,7 +88,7 @@ Standard_Integer TDF_Tool::NbAttributes(const TDF_Label& aLabel)
 //           selected by an IDFilter.
 //=======================================================================
 
-Standard_Integer TDF_Tool::NbAttributes(const TDF_Label& aLabel, const TDF_IDFilter& aFilter)
+Standard_Integer TDF_Tool::NbAttributes(const DataLabel& aLabel, const TDF_IDFilter& aFilter)
 {
   Standard_Integer      n = 0;
   TDF_AttributeIterator it2;
@@ -104,7 +104,7 @@ Standard_Integer TDF_Tool::NbAttributes(const TDF_Label& aLabel, const TDF_IDFil
 
 //=================================================================================================
 
-Standard_Boolean TDF_Tool::IsSelfContained(const TDF_Label& aLabel)
+Standard_Boolean TDF_Tool::IsSelfContained(const DataLabel& aLabel)
 {
   TDF_IDFilter filter(Standard_False); // Keep all.
   return IsSelfContained(aLabel, filter);
@@ -112,7 +112,7 @@ Standard_Boolean TDF_Tool::IsSelfContained(const TDF_Label& aLabel)
 
 //=================================================================================================
 
-Standard_Boolean TDF_Tool::IsSelfContained(const TDF_Label& aLabel, const TDF_IDFilter& aFilter)
+Standard_Boolean TDF_Tool::IsSelfContained(const DataLabel& aLabel, const TDF_IDFilter& aFilter)
 {
   Handle(TDF_DataSet) ds = new TDF_DataSet();
 
@@ -129,8 +129,8 @@ Standard_Boolean TDF_Tool::IsSelfContained(const TDF_Label& aLabel, const TDF_ID
 
 //=================================================================================================
 
-static Standard_Boolean TDF_Tool_DescendantRef(const TDF_Label&           aRefLabel,
-                                               const TDF_Label&           aLabel,
+static Standard_Boolean TDF_Tool_DescendantRef(const DataLabel&           aRefLabel,
+                                               const DataLabel&           aLabel,
                                                const TDF_IDFilter&        aFilter,
                                                const Handle(TDF_DataSet)& ds)
 {
@@ -173,7 +173,7 @@ static Standard_Boolean TDF_Tool_DescendantRef(const TDF_Label&           aRefLa
 
 //=================================================================================================
 
-void TDF_Tool::OutReferers(const TDF_Label& aLabel, TDF_AttributeMap& atts)
+void TDF_Tool::OutReferers(const DataLabel& aLabel, TDF_AttributeMap& atts)
 {
   TDF_IDFilter filter(Standard_False); // Keep all.
   OutReferers(aLabel, filter, filter, atts);
@@ -181,7 +181,7 @@ void TDF_Tool::OutReferers(const TDF_Label& aLabel, TDF_AttributeMap& atts)
 
 //=================================================================================================
 
-void TDF_Tool::OutReferers(const TDF_Label&    aLabel,
+void TDF_Tool::OutReferers(const DataLabel&    aLabel,
                            const TDF_IDFilter& aFilterForReferers,
                            const TDF_IDFilter& aFilterForReferences,
                            TDF_AttributeMap&   atts)
@@ -196,8 +196,8 @@ void TDF_Tool::OutReferers(const TDF_Label&    aLabel,
 
 //=================================================================================================
 
-static void TDF_Tool_OutReferers(const TDF_Label&           aRefLabel,
-                                 const TDF_Label&           aLabel,
+static void TDF_Tool_OutReferers(const DataLabel&           aRefLabel,
+                                 const DataLabel&           aLabel,
                                  TDF_AttributeMap&          atts,
                                  const TDF_IDFilter&        aFilterForReferers,
                                  const TDF_IDFilter&        aFilterForReferences,
@@ -248,7 +248,7 @@ static void TDF_Tool_OutReferers(const TDF_Label&           aRefLabel,
 
 //=================================================================================================
 
-void TDF_Tool::OutReferences(const TDF_Label& aLabel, TDF_AttributeMap& atts)
+void TDF_Tool::OutReferences(const DataLabel& aLabel, TDF_AttributeMap& atts)
 {
   TDF_IDFilter filter(Standard_False); // Keep all.
   OutReferences(aLabel, filter, filter, atts);
@@ -256,7 +256,7 @@ void TDF_Tool::OutReferences(const TDF_Label& aLabel, TDF_AttributeMap& atts)
 
 //=================================================================================================
 
-void TDF_Tool::OutReferences(const TDF_Label&    aLabel,
+void TDF_Tool::OutReferences(const DataLabel&    aLabel,
                              const TDF_IDFilter& aFilterForReferers,
                              const TDF_IDFilter& aFilterForReferences,
                              TDF_AttributeMap&   atts)
@@ -271,8 +271,8 @@ void TDF_Tool::OutReferences(const TDF_Label&    aLabel,
 
 //=================================================================================================
 
-static void TDF_Tool_OutReferences(const TDF_Label&           aRefLabel,
-                                   const TDF_Label&           aLabel,
+static void TDF_Tool_OutReferences(const DataLabel&           aRefLabel,
+                                   const DataLabel&           aLabel,
                                    TDF_AttributeMap&          atts,
                                    const TDF_IDFilter&        aFilterForReferers,
                                    const TDF_IDFilter&        aFilterForReferences,
@@ -314,10 +314,10 @@ static void TDF_Tool_OutReferences(const TDF_Label&           aRefLabel,
 
 //=================================================================================================
 
-void TDF_Tool::RelocateLabel(const TDF_Label&       aSourceLabel,
-                             const TDF_Label&       fromRoot,
-                             const TDF_Label&       toRoot,
-                             TDF_Label&             aTargetLabel,
+void TDF_Tool::RelocateLabel(const DataLabel&       aSourceLabel,
+                             const DataLabel&       fromRoot,
+                             const DataLabel&       toRoot,
+                             DataLabel&             aTargetLabel,
                              const Standard_Boolean create)
 {
   if (!aSourceLabel.IsDescendant(fromRoot))
@@ -338,12 +338,12 @@ void TDF_Tool::RelocateLabel(const TDF_Label&       aSourceLabel,
 // purpose  : Returns the entry as an ascii string.
 //=======================================================================
 
-void TDF_Tool::Entry(const TDF_Label& aLabel, TCollection_AsciiString& anEntry)
+void TDF_Tool::Entry(const DataLabel& aLabel, AsciiString1& anEntry)
 {
   if (!aLabel.IsNull())
   {
     int       aStrLen = 1; // initial "0" of a root label
-    TDF_Label aLab    = aLabel;
+    DataLabel aLab    = aLabel;
     for (; !aLab.IsRoot(); aLab = aLab.Father())
     {
       for (int aTag = aLab.Tag(); aTag > 9; aTag /= 10)
@@ -354,13 +354,13 @@ void TDF_Tool::Entry(const TDF_Label& aLabel, TCollection_AsciiString& anEntry)
     if (aStrLen == 1)
     {
       // an exceptional case for the root label, it ends with separator
-      static const TCollection_AsciiString THE_ROOT_ENTRY =
-        TCollection_AsciiString('0') + TDF_TagSeparator;
+      static const AsciiString1 THE_ROOT_ENTRY =
+        AsciiString1('0') + TDF_TagSeparator;
       anEntry = THE_ROOT_ENTRY;
     }
     else
     {
-      anEntry                  = TCollection_AsciiString(aStrLen, TDF_TagSeparator);
+      anEntry                  = AsciiString1(aStrLen, TDF_TagSeparator);
       Standard_Character* aPtr = const_cast<Standard_Character*>(anEntry.ToCString() + aStrLen - 1);
       for (aLab = aLabel; !aLab.IsRoot(); aLab = aLab.Father())
       {
@@ -382,12 +382,12 @@ void TDF_Tool::Entry(const TDF_Label& aLabel, TCollection_AsciiString& anEntry)
 // purpose  : Returns the entry of a label as a list of integers.
 //=======================================================================
 
-void TDF_Tool::TagList(const TDF_Label& aLabel, TColStd_ListOfInteger& aTagList)
+void TDF_Tool::TagList(const DataLabel& aLabel, TColStd_ListOfInteger& aTagList)
 {
   aTagList.Clear();
   if (!aLabel.IsNull())
   {
-    TDF_Label Label = aLabel;
+    DataLabel Label = aLabel;
     for (;;)
     {
       aTagList.Prepend(Label.Tag());
@@ -403,7 +403,7 @@ void TDF_Tool::TagList(const TDF_Label& aLabel, TColStd_ListOfInteger& aTagList)
 // purpose  : Returns the entry expressed as a string as a list of integers.
 //=======================================================================
 
-void TDF_Tool::TagList(const TCollection_AsciiString& anEntry, TColStd_ListOfInteger& aTagList)
+void TDF_Tool::TagList(const AsciiString1& anEntry, TColStd_ListOfInteger& aTagList)
 {
   char*            cc = (char*)anEntry.ToCString();
   Standard_Integer n  = 0;
@@ -436,8 +436,8 @@ void TDF_Tool::TagList(const TCollection_AsciiString& anEntry, TColStd_ListOfInt
 //=======================================================================
 
 void TDF_Tool::Label(const Handle(TDF_Data)&        aDF,
-                     const TCollection_AsciiString& anEntry,
-                     TDF_Label&                     aLabel,
+                     const AsciiString1& anEntry,
+                     DataLabel&                     aLabel,
                      const Standard_Boolean         create)
 {
   Standard_Boolean isFound = Standard_False;
@@ -456,7 +456,7 @@ void TDF_Tool::Label(const Handle(TDF_Data)&        aDF,
 
 void TDF_Tool::Label(const Handle(TDF_Data)& aDF,
                      const Standard_CString  anEntry,
-                     TDF_Label&              aLabel,
+                     DataLabel&              aLabel,
                      const Standard_Boolean  create)
 {
   Standard_Boolean isFound = Standard_False;
@@ -479,7 +479,7 @@ void TDF_Tool::Label(const Handle(TDF_Data)& aDF,
 
 void TDF_Tool::Label(const Handle(TDF_Data)&      aDF,
                      const TColStd_ListOfInteger& aTagList,
-                     TDF_Label&                   aLabel,
+                     DataLabel&                   aLabel,
                      const Standard_Boolean       create)
 {
   if (aTagList.Extent() == 0)
@@ -513,7 +513,7 @@ void TDF_Tool::CountLabels(TDF_LabelList& aLabelList, TDF_LabelIntegerMap& aLabe
   TDF_ListIteratorOfLabelList itr(aLabelList);
   while (itr.More())
   {
-    const TDF_Label& lab = itr.Value();
+    const DataLabel& lab = itr.Value();
     if (aLabelMap.IsBound(lab))
     {
       aLabelMap(lab) += 1;
@@ -540,7 +540,7 @@ void TDF_Tool::DeductLabels(TDF_LabelList& aLabelList, TDF_LabelIntegerMap& aLab
   TDF_ListIteratorOfLabelList itr(aLabelList);
   while (itr.More())
   {
-    const TDF_Label& lab = itr.Value();
+    const DataLabel& lab = itr.Value();
     if (aLabelMap.IsBound(lab))
     {
       aLabelMap(lab) -= 1;
@@ -587,7 +587,7 @@ void TDF_Tool::ExtendedDeepDump(Standard_OStream&       anOS,
 // purpose  : Deep dump of a label.
 //=======================================================================
 
-void TDF_Tool::DeepDump(Standard_OStream& anOS, const TDF_Label& aLabel)
+void TDF_Tool::DeepDump(Standard_OStream& anOS, const DataLabel& aLabel)
 {
   // Dumps the label.
   anOS << aLabel;
@@ -604,7 +604,7 @@ void TDF_Tool::DeepDump(Standard_OStream& anOS, const TDF_Label& aLabel)
 //=======================================================================
 
 void TDF_Tool::ExtendedDeepDump(Standard_OStream&   anOS,
-                                const TDF_Label&    aLabel,
+                                const DataLabel&    aLabel,
                                 const TDF_IDFilter& aFilter)
 {
   TDF_AttributeIndexedMap map;
@@ -617,7 +617,7 @@ void TDF_Tool::ExtendedDeepDump(Standard_OStream&   anOS,
 
   anOS << std::endl << "Extended dump of filtered attribute(s):" << std::endl;
   Standard_Integer        nba = 0;
-  TCollection_AsciiString entry;
+  AsciiString1 entry;
   Standard_Integer        i;
   for (i = 1; i <= map.Extent(); ++i)
   {
@@ -651,7 +651,7 @@ void TDF_Tool::ExtendedDeepDump(Standard_OStream&   anOS,
 //=======================================================================
 
 static void TDF_Tool_ExtendedDeepDump(Standard_OStream&        anOS,
-                                      const TDF_Label&         aLabel,
+                                      const DataLabel&         aLabel,
                                       const TDF_IDFilter&      aFilter,
                                       TDF_AttributeIndexedMap& aMap)
 {

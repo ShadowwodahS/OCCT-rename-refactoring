@@ -30,7 +30,7 @@ Standard_Boolean IFSelect_SelectErrorEntities::Sort(
   return model->IsErrorEntity(model->Number(ent));
 }
 
-TCollection_AsciiString IFSelect_SelectErrorEntities::ExtractLabel() const
+AsciiString1 IFSelect_SelectErrorEntities::ExtractLabel() const
 {
-  return TCollection_AsciiString("Error Entities");
+  return AsciiString1("Error Entities");
 }

@@ -66,7 +66,7 @@ static Standard_Boolean findNearestValidPoint(const Adaptor3d_Curve& theCurve,
   if (aType == GeomAbs_OffsetCurve)
   {
     Handle(Geom_OffsetCurve) anOffsetCurve = theCurve.OffsetCurve();
-    Handle(Geom_Curve)       aBaseCurve    = anOffsetCurve->BasisCurve();
+    Handle(GeomCurve3d)       aBaseCurve    = anOffsetCurve->BasisCurve();
     aType                                  = GeomAdaptor_Curve(aBaseCurve).GetType();
   }
   if (aType == GeomAbs_BezierCurve || aType == GeomAbs_BSplineCurve)
@@ -222,13 +222,13 @@ Standard_Boolean BRepLib::FindValidRange(const Adaptor3d_Curve& theCurve,
 
 //=================================================================================================
 
-Standard_Boolean BRepLib::FindValidRange(const TopoDS_Edge& theEdge,
+Standard_Boolean BRepLib::FindValidRange(const TopoEdge& theEdge,
                                          Standard_Real&     theFirst,
                                          Standard_Real&     theLast)
 {
   TopLoc_Location aLoc;
   Standard_Real   f, l;
-  if (BRep_Tool::Curve(theEdge, aLoc, f, l).IsNull())
+  if (BRepInspector::Curve(theEdge, aLoc, f, l).IsNull())
     return Standard_False;
   BRepAdaptor_Curve anAC(theEdge);
   Standard_Real     aParV[2] = {anAC.FirstParameter(), anAC.LastParameter()};
@@ -236,10 +236,10 @@ Standard_Boolean BRepLib::FindValidRange(const TopoDS_Edge& theEdge,
     return Standard_False;
 
   // get vertices
-  TopoDS_Vertex aV[2];
-  TopExp::Vertices(theEdge, aV[0], aV[1]);
+  TopoVertex aV[2];
+  TopExp1::Vertices(theEdge, aV[0], aV[1]);
 
-  Standard_Real aTolE = BRep_Tool::Tolerance(theEdge);
+  Standard_Real aTolE = BRepInspector::Tolerance(theEdge);
   // to have correspondence with intersection precision
   // the tolerances of vertices are increased on Precision::Confusion()
   Standard_Real aTolV[2] = {Precision::Confusion(), Precision::Confusion()};
@@ -248,8 +248,8 @@ Standard_Boolean BRepLib::FindValidRange(const TopoDS_Edge& theEdge,
   {
     if (!aV[i].IsNull())
     {
-      aTolV[i] += BRep_Tool::Tolerance(aV[i]);
-      aPntV[i] = BRep_Tool::Pnt(aV[i]);
+      aTolV[i] += BRepInspector::Tolerance(aV[i]);
+      aPntV[i] = BRepInspector::Pnt(aV[i]);
     }
     else if (!Precision::IsInfinite(aParV[i]))
     {
@@ -271,30 +271,30 @@ Standard_Boolean BRepLib::FindValidRange(const TopoDS_Edge& theEdge,
 
 //=================================================================================================
 
-void BRepLib::BuildPCurveForEdgeOnPlane(const TopoDS_Edge& aE, const TopoDS_Face& aF)
+void BRepLib::BuildPCurveForEdgeOnPlane(const TopoEdge& aE, const TopoFace& aF)
 {
   Standard_Boolean     bToUpdate;
   Standard_Real        aTolE;
-  Handle(Geom2d_Curve) aC2D;
-  BRep_Builder         aBB;
+  Handle(GeomCurve2d) aC2D;
+  ShapeBuilder         aBB;
   //
   BuildPCurveForEdgeOnPlane(aE, aF, aC2D, bToUpdate);
   if (bToUpdate)
   {
-    aTolE = BRep_Tool::Tolerance(aE);
+    aTolE = BRepInspector::Tolerance(aE);
     aBB.UpdateEdge(aE, aC2D, aF, aTolE);
   }
 }
 
 //=================================================================================================
 
-void BRepLib::BuildPCurveForEdgeOnPlane(const TopoDS_Edge&    aE,
-                                        const TopoDS_Face&    aF,
-                                        Handle(Geom2d_Curve)& aC2D,
+void BRepLib::BuildPCurveForEdgeOnPlane(const TopoEdge&    aE,
+                                        const TopoFace&    aF,
+                                        Handle(GeomCurve2d)& aC2D,
                                         Standard_Boolean&     bToUpdate)
 {
   Standard_Real    aT1, aT2;
   Standard_Boolean isStored;
-  aC2D      = BRep_Tool::CurveOnSurface(aE, aF, aT1, aT2, &isStored);
+  aC2D      = BRepInspector::CurveOnSurface(aE, aF, aT1, aT2, &isStored);
   bToUpdate = !isStored && !aC2D.IsNull();
 }

@@ -88,7 +88,7 @@
 #include <Convert_CompBezierCurvesToBSplineCurve.hxx>
 
 #ifdef _WIN32
-Standard_IMPORT Draw_Viewer dout;
+Standard_IMPORT DrawViewer dout;
 #endif
 
 // Class is used in fitcurve
@@ -130,22 +130,22 @@ public:
 
 //=================================================================================================
 
-static Standard_Integer anacurve(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer anacurve(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 5)
     return 1;
 
   Handle(Geom_Geometry) result;
-  Handle(Geom2d_Curve)  result2d;
+  Handle(GeomCurve2d)  result2d;
 
   if (!strcmp(a[0], "line"))
   {
     if (n == 6)
-      result2d = new Geom2d_Line(gp_Pnt2d(Draw::Atof(a[2]), Draw::Atof(a[3])),
-                                 gp_Dir2d(Draw::Atof(a[4]), Draw::Atof(a[5])));
+      result2d = new Geom2d_Line(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])),
+                                 gp_Dir2d(Draw1::Atof(a[4]), Draw1::Atof(a[5])));
     else if (n == 8)
-      result = new Geom_Line(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                             Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])));
+      result = new GeomLine(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])),
+                             Dir3d(Draw1::Atof(a[5]), Draw1::Atof(a[6]), Draw1::Atof(a[7])));
     else
       return 1;
   }
@@ -154,26 +154,26 @@ static Standard_Integer anacurve(Draw_Interpretor&, Standard_Integer n, const ch
   {
     if (n == 5)
       result2d =
-        new Geom2d_Circle(gp_Ax22d(gp_Pnt2d(Draw::Atof(a[2]), Draw::Atof(a[3])), gp_Dir2d(1, 0)),
-                          Draw::Atof(a[4]));
+        new Geom2d_Circle(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])), gp_Dir2d(1, 0)),
+                          Draw1::Atof(a[4]));
     else if (n == 6)
-      result = new Geom_Circle(
-        Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])), Dir3d(0, 0, 1)),
-        Draw::Atof(a[5]));
+      result = new GeomCircle(
+        Frame3d(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])), Dir3d(0, 0, 1)),
+        Draw1::Atof(a[5]));
     else if (n == 7)
-      result2d = new Geom2d_Circle(gp_Ax22d(gp_Pnt2d(Draw::Atof(a[2]), Draw::Atof(a[3])),
-                                            gp_Dir2d(Draw::Atof(a[4]), Draw::Atof(a[5]))),
-                                   Draw::Atof(a[6]));
+      result2d = new Geom2d_Circle(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])),
+                                            gp_Dir2d(Draw1::Atof(a[4]), Draw1::Atof(a[5]))),
+                                   Draw1::Atof(a[6]));
     else if (n == 9)
-      result = new Geom_Circle(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                                      Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]))),
-                               Draw::Atof(a[8]));
+      result = new GeomCircle(Frame3d(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])),
+                                      Dir3d(Draw1::Atof(a[5]), Draw1::Atof(a[6]), Draw1::Atof(a[7]))),
+                               Draw1::Atof(a[8]));
     else if (n == 12)
       result =
-        new Geom_Circle(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                               Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])),
-                               Dir3d(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]))),
-                        Draw::Atof(a[11]));
+        new GeomCircle(Frame3d(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])),
+                               Dir3d(Draw1::Atof(a[5]), Draw1::Atof(a[6]), Draw1::Atof(a[7])),
+                               Dir3d(Draw1::Atof(a[8]), Draw1::Atof(a[9]), Draw1::Atof(a[10]))),
+                        Draw1::Atof(a[11]));
     else
       return 1;
   }
@@ -182,27 +182,27 @@ static Standard_Integer anacurve(Draw_Interpretor&, Standard_Integer n, const ch
   {
     if (n == 5)
       result2d =
-        new Geom2d_Parabola(gp_Ax22d(gp_Pnt2d(Draw::Atof(a[2]), Draw::Atof(a[3])), gp_Dir2d(1, 0)),
-                            Draw::Atof(a[4]));
+        new Geom2d_Parabola(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])), gp_Dir2d(1, 0)),
+                            Draw1::Atof(a[4]));
     else if (n == 6)
       result = new Geom_Parabola(
-        Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])), Dir3d(0, 0, 1)),
-        Draw::Atof(a[5]));
+        Frame3d(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])), Dir3d(0, 0, 1)),
+        Draw1::Atof(a[5]));
     else if (n == 7)
-      result2d = new Geom2d_Parabola(gp_Ax22d(gp_Pnt2d(Draw::Atof(a[2]), Draw::Atof(a[3])),
-                                              gp_Dir2d(Draw::Atof(a[4]), Draw::Atof(a[5]))),
-                                     Draw::Atof(a[6]));
+      result2d = new Geom2d_Parabola(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])),
+                                              gp_Dir2d(Draw1::Atof(a[4]), Draw1::Atof(a[5]))),
+                                     Draw1::Atof(a[6]));
     else if (n == 9)
       result =
-        new Geom_Parabola(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                                 Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]))),
-                          Draw::Atof(a[8]));
+        new Geom_Parabola(Frame3d(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])),
+                                 Dir3d(Draw1::Atof(a[5]), Draw1::Atof(a[6]), Draw1::Atof(a[7]))),
+                          Draw1::Atof(a[8]));
     else if (n == 12)
       result =
-        new Geom_Parabola(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                                 Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])),
-                                 Dir3d(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]))),
-                          Draw::Atof(a[11]));
+        new Geom_Parabola(Frame3d(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])),
+                                 Dir3d(Draw1::Atof(a[5]), Draw1::Atof(a[6]), Draw1::Atof(a[7])),
+                                 Dir3d(Draw1::Atof(a[8]), Draw1::Atof(a[9]), Draw1::Atof(a[10]))),
+                          Draw1::Atof(a[11]));
     else
       return 1;
   }
@@ -211,32 +211,32 @@ static Standard_Integer anacurve(Draw_Interpretor&, Standard_Integer n, const ch
   {
     if (n == 6)
       result2d =
-        new Geom2d_Ellipse(gp_Ax22d(gp_Pnt2d(Draw::Atof(a[2]), Draw::Atof(a[3])), gp_Dir2d(1, 0)),
-                           Draw::Atof(a[4]),
-                           Draw::Atof(a[5]));
+        new Geom2d_Ellipse(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])), gp_Dir2d(1, 0)),
+                           Draw1::Atof(a[4]),
+                           Draw1::Atof(a[5]));
     else if (n == 7)
       result = new Geom_Ellipse(
-        Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])), Dir3d(0, 0, 1)),
-        Draw::Atof(a[5]),
-        Draw::Atof(a[6]));
+        Frame3d(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])), Dir3d(0, 0, 1)),
+        Draw1::Atof(a[5]),
+        Draw1::Atof(a[6]));
     else if (n == 8)
-      result2d = new Geom2d_Ellipse(gp_Ax22d(gp_Pnt2d(Draw::Atof(a[2]), Draw::Atof(a[3])),
-                                             gp_Dir2d(Draw::Atof(a[4]), Draw::Atof(a[5]))),
-                                    Draw::Atof(a[6]),
-                                    Draw::Atof(a[7]));
+      result2d = new Geom2d_Ellipse(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])),
+                                             gp_Dir2d(Draw1::Atof(a[4]), Draw1::Atof(a[5]))),
+                                    Draw1::Atof(a[6]),
+                                    Draw1::Atof(a[7]));
     else if (n == 10)
       result =
-        new Geom_Ellipse(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                                Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]))),
-                         Draw::Atof(a[8]),
-                         Draw::Atof(a[9]));
+        new Geom_Ellipse(Frame3d(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])),
+                                Dir3d(Draw1::Atof(a[5]), Draw1::Atof(a[6]), Draw1::Atof(a[7]))),
+                         Draw1::Atof(a[8]),
+                         Draw1::Atof(a[9]));
     else if (n == 13)
       result =
-        new Geom_Ellipse(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                                Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])),
-                                Dir3d(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]))),
-                         Draw::Atof(a[11]),
-                         Draw::Atof(a[12]));
+        new Geom_Ellipse(Frame3d(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])),
+                                Dir3d(Draw1::Atof(a[5]), Draw1::Atof(a[6]), Draw1::Atof(a[7])),
+                                Dir3d(Draw1::Atof(a[8]), Draw1::Atof(a[9]), Draw1::Atof(a[10]))),
+                         Draw1::Atof(a[11]),
+                         Draw1::Atof(a[12]));
     else
       return 1;
   }
@@ -245,40 +245,40 @@ static Standard_Integer anacurve(Draw_Interpretor&, Standard_Integer n, const ch
   {
     if (n == 6)
       result2d =
-        new Geom2d_Hyperbola(gp_Ax22d(gp_Pnt2d(Draw::Atof(a[2]), Draw::Atof(a[3])), gp_Dir2d(1, 0)),
-                             Draw::Atof(a[4]),
-                             Draw::Atof(a[5]));
+        new Geom2d_Hyperbola(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])), gp_Dir2d(1, 0)),
+                             Draw1::Atof(a[4]),
+                             Draw1::Atof(a[5]));
     else if (n == 7)
       result = new Geom_Hyperbola(
-        Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])), Dir3d(0, 0, 1)),
-        Draw::Atof(a[5]),
-        Draw::Atof(a[6]));
+        Frame3d(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])), Dir3d(0, 0, 1)),
+        Draw1::Atof(a[5]),
+        Draw1::Atof(a[6]));
     else if (n == 8)
-      result2d = new Geom2d_Hyperbola(gp_Ax22d(gp_Pnt2d(Draw::Atof(a[2]), Draw::Atof(a[3])),
-                                               gp_Dir2d(Draw::Atof(a[4]), Draw::Atof(a[5]))),
-                                      Draw::Atof(a[6]),
-                                      Draw::Atof(a[7]));
+      result2d = new Geom2d_Hyperbola(gp_Ax22d(gp_Pnt2d(Draw1::Atof(a[2]), Draw1::Atof(a[3])),
+                                               gp_Dir2d(Draw1::Atof(a[4]), Draw1::Atof(a[5]))),
+                                      Draw1::Atof(a[6]),
+                                      Draw1::Atof(a[7]));
     else if (n == 10)
       result =
-        new Geom_Hyperbola(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                                  Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7]))),
-                           Draw::Atof(a[8]),
-                           Draw::Atof(a[9]));
+        new Geom_Hyperbola(Frame3d(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])),
+                                  Dir3d(Draw1::Atof(a[5]), Draw1::Atof(a[6]), Draw1::Atof(a[7]))),
+                           Draw1::Atof(a[8]),
+                           Draw1::Atof(a[9]));
     else if (n == 13)
       result =
-        new Geom_Hyperbola(Frame3d(Point3d(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4])),
-                                  Dir3d(Draw::Atof(a[5]), Draw::Atof(a[6]), Draw::Atof(a[7])),
-                                  Dir3d(Draw::Atof(a[8]), Draw::Atof(a[9]), Draw::Atof(a[10]))),
-                           Draw::Atof(a[11]),
-                           Draw::Atof(a[12]));
+        new Geom_Hyperbola(Frame3d(Point3d(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4])),
+                                  Dir3d(Draw1::Atof(a[5]), Draw1::Atof(a[6]), Draw1::Atof(a[7])),
+                                  Dir3d(Draw1::Atof(a[8]), Draw1::Atof(a[9]), Draw1::Atof(a[10]))),
+                           Draw1::Atof(a[11]),
+                           Draw1::Atof(a[12]));
     else
       return 1;
   }
 
   if (!result.IsNull())
-    DrawTrSurf::Set(a[1], result);
+    DrawTrSurf1::Set(a[1], result);
   else if (!result2d.IsNull())
-    DrawTrSurf::Set(a[1], result2d);
+    DrawTrSurf1::Set(a[1], result2d);
   else
     return 1;
 
@@ -287,7 +287,7 @@ static Standard_Integer anacurve(Draw_Interpretor&, Standard_Integer n, const ch
 
 //=================================================================================================
 
-static Standard_Integer polecurve(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer polecurve(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   Standard_Integer k, i;
 
@@ -297,7 +297,7 @@ static Standard_Integer polecurve(Draw_Interpretor&, Standard_Integer n, const c
   if (!strcmp(a[0], "beziercurve"))
   {
 
-    Standard_Integer np = Draw::Atoi(a[2]);
+    Standard_Integer np = Draw1::Atoi(a[2]);
     if (np == 0)
       return 1;
 
@@ -312,28 +312,28 @@ static Standard_Integer polecurve(Draw_Interpretor&, Standard_Integer n, const c
     k = 3;
     for (i = 1; i <= np; i++)
     {
-      poles(i).SetCoord(Draw::Atof(a[k]), Draw::Atof(a[k + 1]), Draw::Atof(a[k + 2]));
+      poles(i).SetCoord(Draw1::Atof(a[k]), Draw1::Atof(a[k + 1]), Draw1::Atof(a[k + 2]));
       k += 3;
       if (hasw)
       {
-        weights(i) = Draw::Atof(a[k]);
+        weights(i) = Draw1::Atof(a[k]);
         k++;
       }
     }
 
-    Handle(Geom_BezierCurve) result;
+    Handle(BezierCurve3d) result;
     if (hasw)
-      result = new Geom_BezierCurve(poles, weights);
+      result = new BezierCurve3d(poles, weights);
     else
-      result = new Geom_BezierCurve(poles);
+      result = new BezierCurve3d(poles);
 
-    DrawTrSurf::Set(a[1], result);
+    DrawTrSurf1::Set(a[1], result);
   }
 
   else if (!strcmp((*a[0] == 'p') ? a[0] + 1 : a[0], "bsplinecurve"))
   {
-    Standard_Integer deg = Draw::Atoi(a[2]);
-    Standard_Integer nbk = Draw::Atoi(a[3]);
+    Standard_Integer deg = Draw1::Atoi(a[2]);
+    Standard_Integer nbk = Draw1::Atoi(a[3]);
 
     TColStd_Array1OfReal    knots(1, nbk);
     TColStd_Array1OfInteger mults(1, nbk);
@@ -341,9 +341,9 @@ static Standard_Integer polecurve(Draw_Interpretor&, Standard_Integer n, const c
     Standard_Integer Sigma = 0;
     for (i = 1; i <= nbk; i++)
     {
-      knots(i) = Draw::Atof(a[k]);
+      knots(i) = Draw1::Atof(a[k]);
       k++;
-      mults(i) = Draw::Atoi(a[k]);
+      mults(i) = Draw1::Atoi(a[k]);
       Sigma += mults(i);
       k++;
     }
@@ -360,15 +360,15 @@ static Standard_Integer polecurve(Draw_Interpretor&, Standard_Integer n, const c
 
     for (i = 1; i <= np; i++)
     {
-      poles(i).SetCoord(Draw::Atof(a[k]), Draw::Atof(a[k + 1]), Draw::Atof(a[k + 2]));
+      poles(i).SetCoord(Draw1::Atof(a[k]), Draw1::Atof(a[k + 1]), Draw1::Atof(a[k + 2]));
       k += 3;
-      weights(i) = Draw::Atof(a[k]);
+      weights(i) = Draw1::Atof(a[k]);
       k++;
     }
 
-    Handle(Geom_BSplineCurve) result =
-      new Geom_BSplineCurve(poles, weights, knots, mults, deg, periodic);
-    DrawTrSurf::Set(a[1], result);
+    Handle(BSplineCurve3d) result =
+      new BSplineCurve3d(poles, weights, knots, mults, deg, periodic);
+    DrawTrSurf1::Set(a[1], result);
   }
 
   return 0;
@@ -376,7 +376,7 @@ static Standard_Integer polecurve(Draw_Interpretor&, Standard_Integer n, const c
 
 //=================================================================================================
 
-static Standard_Integer polecurve2d(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer polecurve2d(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   Standard_Integer k, i;
 
@@ -386,7 +386,7 @@ static Standard_Integer polecurve2d(Draw_Interpretor&, Standard_Integer n, const
   if (!strcmp(a[0], "2dbeziercurve"))
   {
 
-    Standard_Integer np = Draw::Atoi(a[2]);
+    Standard_Integer np = Draw1::Atoi(a[2]);
     if (np == 0)
       return 1;
 
@@ -401,11 +401,11 @@ static Standard_Integer polecurve2d(Draw_Interpretor&, Standard_Integer n, const
     k = 3;
     for (i = 1; i <= np; i++)
     {
-      poles(i).SetCoord(Draw::Atof(a[k]), Draw::Atof(a[k + 1]));
+      poles(i).SetCoord(Draw1::Atof(a[k]), Draw1::Atof(a[k + 1]));
       k += 2;
       if (hasw)
       {
-        weights(i) = Draw::Atof(a[k]);
+        weights(i) = Draw1::Atof(a[k]);
         k++;
       }
     }
@@ -416,13 +416,13 @@ static Standard_Integer polecurve2d(Draw_Interpretor&, Standard_Integer n, const
     else
       result = new Geom2d_BezierCurve(poles);
 
-    DrawTrSurf::Set(a[1], result);
+    DrawTrSurf1::Set(a[1], result);
   }
 
   else if (!strcmp((*(a[0] + 2) == 'p') ? a[0] + 3 : a[0] + 2, "bsplinecurve"))
   {
-    Standard_Integer deg = Draw::Atoi(a[2]);
-    Standard_Integer nbk = Draw::Atoi(a[3]);
+    Standard_Integer deg = Draw1::Atoi(a[2]);
+    Standard_Integer nbk = Draw1::Atoi(a[3]);
 
     TColStd_Array1OfReal    knots(1, nbk);
     TColStd_Array1OfInteger mults(1, nbk);
@@ -430,9 +430,9 @@ static Standard_Integer polecurve2d(Draw_Interpretor&, Standard_Integer n, const
     Standard_Integer Sigma = 0;
     for (i = 1; i <= nbk; i++)
     {
-      knots(i) = Draw::Atof(a[k]);
+      knots(i) = Draw1::Atof(a[k]);
       k++;
-      mults(i) = Draw::Atoi(a[k]);
+      mults(i) = Draw1::Atoi(a[k]);
       Sigma += mults(i);
       k++;
     }
@@ -449,15 +449,15 @@ static Standard_Integer polecurve2d(Draw_Interpretor&, Standard_Integer n, const
 
     for (i = 1; i <= np; i++)
     {
-      poles(i).SetCoord(Draw::Atof(a[k]), Draw::Atof(a[k + 1]));
+      poles(i).SetCoord(Draw1::Atof(a[k]), Draw1::Atof(a[k + 1]));
       k += 2;
-      weights(i) = Draw::Atof(a[k]);
+      weights(i) = Draw1::Atof(a[k]);
       k++;
     }
 
     Handle(Geom2d_BSplineCurve) result =
       new Geom2d_BSplineCurve(poles, weights, knots, mults, deg, periodic);
-    DrawTrSurf::Set(a[1], result);
+    DrawTrSurf1::Set(a[1], result);
   }
 
   return 0;
@@ -465,7 +465,7 @@ static Standard_Integer polecurve2d(Draw_Interpretor&, Standard_Integer n, const
 
 //=================================================================================================
 
-static Standard_Integer reverse(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer reverse(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
@@ -474,17 +474,17 @@ static Standard_Integer reverse(Draw_Interpretor&, Standard_Integer n, const cha
   for (i = 1; i < n; i++)
   {
 
-    Handle(Geom_Curve) GC = DrawTrSurf::GetCurve(a[i]);
+    Handle(GeomCurve3d) GC = DrawTrSurf1::GetCurve(a[i]);
     if (!GC.IsNull())
     {
       GC->Reverse();
-      Draw::Repaint();
+      Draw1::Repaint();
     }
-    Handle(Geom2d_Curve) GC2d = DrawTrSurf::GetCurve2d(a[i]);
+    Handle(GeomCurve2d) GC2d = DrawTrSurf1::GetCurve2d(a[i]);
     if (!GC2d.IsNull())
     {
       GC2d->Reverse();
-      Draw::Repaint();
+      Draw1::Repaint();
     }
   }
   return 0;
@@ -492,55 +492,55 @@ static Standard_Integer reverse(Draw_Interpretor&, Standard_Integer n, const cha
 
 //=================================================================================================
 
-static Standard_Integer cmovepole(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer cmovepole(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 5)
     return 1;
 
-  Standard_Real dx = Draw::Atof(a[3]);
-  Standard_Real dy = Draw::Atof(a[4]);
+  Standard_Real dx = Draw1::Atof(a[3]);
+  Standard_Real dy = Draw1::Atof(a[4]);
   Standard_Real dz = 0;
   if (n >= 6)
-    dz = Draw::Atof(a[5]);
-  Standard_Integer Index = Draw::Atoi(a[2]);
+    dz = Draw1::Atof(a[5]);
+  Standard_Integer Index = Draw1::Atoi(a[2]);
 
-  Handle(Geom_BezierCurve) G1 = DrawTrSurf::GetBezierCurve(a[1]);
+  Handle(BezierCurve3d) G1 = DrawTrSurf1::GetBezierCurve(a[1]);
   if (!G1.IsNull())
   {
     Point3d P = G1->Pole(Index);
     P.SetCoord(P.X() + dx, P.Y() + dy, P.Z() + dz);
     G1->SetPole(Index, P);
-    Draw::Repaint();
+    Draw1::Repaint();
     return 0;
   }
 
-  Handle(Geom_BSplineCurve) G2 = DrawTrSurf::GetBSplineCurve(a[1]);
+  Handle(BSplineCurve3d) G2 = DrawTrSurf1::GetBSplineCurve(a[1]);
   if (!G2.IsNull())
   {
     Point3d P = G2->Pole(Index);
     P.SetCoord(P.X() + dx, P.Y() + dy, P.Z() + dz);
     G2->SetPole(Index, P);
-    Draw::Repaint();
+    Draw1::Repaint();
     return 0;
   }
 
-  Handle(Geom2d_BezierCurve) G3 = DrawTrSurf::GetBezierCurve2d(a[1]);
+  Handle(Geom2d_BezierCurve) G3 = DrawTrSurf1::GetBezierCurve2d(a[1]);
   if (!G3.IsNull())
   {
     gp_Pnt2d P = G3->Pole(Index);
     P.SetCoord(P.X() + dx, P.Y() + dy);
     G3->SetPole(Index, P);
-    Draw::Repaint();
+    Draw1::Repaint();
     return 0;
   }
 
-  Handle(Geom2d_BSplineCurve) G4 = DrawTrSurf::GetBSplineCurve2d(a[1]);
+  Handle(Geom2d_BSplineCurve) G4 = DrawTrSurf1::GetBSplineCurve2d(a[1]);
   if (!G4.IsNull())
   {
     gp_Pnt2d P = G4->Pole(Index);
     P.SetCoord(P.X() + dx, P.Y() + dy);
     G4->SetPole(Index, P);
-    Draw::Repaint();
+    Draw1::Repaint();
     return 0;
   }
 
@@ -549,13 +549,13 @@ static Standard_Integer cmovepole(Draw_Interpretor&, Standard_Integer n, const c
 
 //=================================================================================================
 
-static Standard_Integer cmovetangent(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer cmovetangent(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   Standard_Integer dimension, condition, error_status;
   Standard_Real    u, x, y, z, tolerance, tx, ty, tz;
-  u = Draw::Atof(a[2]);
-  x = Draw::Atof(a[3]);
-  y = Draw::Atof(a[4]);
+  u = Draw1::Atof(a[2]);
+  x = Draw1::Atof(a[3]);
+  y = Draw1::Atof(a[4]);
   z = 0.0e0, tolerance = 1.0e-5;
   dimension = 3;
   if (n <= 8)
@@ -578,16 +578,16 @@ static Standard_Integer cmovetangent(Draw_Interpretor& di, Standard_Integer n, c
   error_status = 0;
   if (dimension == 3)
   {
-    Handle(Geom_BSplineCurve) G2 = DrawTrSurf::GetBSplineCurve(a[1]);
+    Handle(BSplineCurve3d) G2 = DrawTrSurf1::GetBSplineCurve(a[1]);
     if (!G2.IsNull())
     {
-      z  = Draw::Atof(a[5]);
-      tx = Draw::Atof(a[6]);
-      ty = Draw::Atof(a[7]);
-      tz = Draw::Atof(a[8]);
+      z  = Draw1::Atof(a[5]);
+      tx = Draw1::Atof(a[6]);
+      ty = Draw1::Atof(a[7]);
+      tz = Draw1::Atof(a[8]);
       if (n == 10)
       {
-        condition = Max(Draw::Atoi(a[9]), -1);
+        condition = Max(Draw1::Atoi(a[9]), -1);
         condition = Min(condition, G2->Degree() - 1);
       }
       Point3d p;
@@ -598,7 +598,7 @@ static Standard_Integer cmovetangent(Draw_Interpretor& di, Standard_Integer n, c
       G2->MovePointAndTangent(u, p, tangent, tolerance, condition, condition, error_status);
       if (!error_status)
       {
-        Draw::Repaint();
+        Draw1::Repaint();
       }
       else
       {
@@ -610,14 +610,14 @@ static Standard_Integer cmovetangent(Draw_Interpretor& di, Standard_Integer n, c
   }
   else
   {
-    Handle(Geom2d_BSplineCurve) G2 = DrawTrSurf::GetBSplineCurve2d(a[1]);
+    Handle(Geom2d_BSplineCurve) G2 = DrawTrSurf1::GetBSplineCurve2d(a[1]);
     if (!G2.IsNull())
     {
-      tx = Draw::Atof(a[5]);
-      ty = Draw::Atof(a[6]);
+      tx = Draw1::Atof(a[5]);
+      ty = Draw1::Atof(a[6]);
       if (n == 8)
       {
-        condition = Max(Draw::Atoi(a[7]), -1);
+        condition = Max(Draw1::Atoi(a[7]), -1);
         condition = Min(condition, G2->Degree() - 1);
       }
       gp_Pnt2d p;
@@ -628,7 +628,7 @@ static Standard_Integer cmovetangent(Draw_Interpretor& di, Standard_Integer n, c
       G2->MovePointAndTangent(u, p, tangent, tolerance, condition, condition, error_status);
       if (!error_status)
       {
-        Draw::Repaint();
+        Draw1::Repaint();
       }
       else
       {
@@ -643,32 +643,32 @@ static Standard_Integer cmovetangent(Draw_Interpretor& di, Standard_Integer n, c
 
 //=================================================================================================
 
-static Standard_Integer cmovepoint(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer cmovepoint(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 5)
     return 1;
 
-  Standard_Real dx = Draw::Atof(a[3]);
-  Standard_Real dy = Draw::Atof(a[4]);
+  Standard_Real dx = Draw1::Atof(a[3]);
+  Standard_Real dy = Draw1::Atof(a[4]);
   Standard_Real dz = 0;
   if (n >= 6 && n != 7)
-    dz = Draw::Atof(a[5]);
-  Standard_Real    u      = Draw::Atof(a[2]);
+    dz = Draw1::Atof(a[5]);
+  Standard_Real    u      = Draw1::Atof(a[2]);
   Standard_Integer index1 = 0;
   Standard_Integer index2 = 0;
   Standard_Integer fmodif, lmodif;
   if (n == 7)
   {
-    index1 = Draw::Atoi(a[5]);
-    index2 = Draw::Atoi(a[6]);
+    index1 = Draw1::Atoi(a[5]);
+    index2 = Draw1::Atoi(a[6]);
   }
   else if (n == 8)
   {
-    index1 = Draw::Atoi(a[6]);
-    index2 = Draw::Atoi(a[7]);
+    index1 = Draw1::Atoi(a[6]);
+    index2 = Draw1::Atoi(a[7]);
   }
 
-  Handle(Geom_BSplineCurve) G2 = DrawTrSurf::GetBSplineCurve(a[1]);
+  Handle(BSplineCurve3d) G2 = DrawTrSurf1::GetBSplineCurve(a[1]);
   if (!G2.IsNull())
   {
     if (index1 == 0)
@@ -680,11 +680,11 @@ static Standard_Integer cmovepoint(Draw_Interpretor&, Standard_Integer n, const 
     G2->D0(u, p);
     p.SetCoord(p.X() + dx, p.Y() + dy, p.Z() + dz);
     G2->MovePoint(u, p, index1, index2, fmodif, lmodif);
-    Draw::Repaint();
+    Draw1::Repaint();
     return 0;
   }
 
-  Handle(Geom2d_BSplineCurve) G4 = DrawTrSurf::GetBSplineCurve2d(a[1]);
+  Handle(Geom2d_BSplineCurve) G4 = DrawTrSurf1::GetBSplineCurve2d(a[1]);
   if (!G4.IsNull())
   {
     if (index1 == 0)
@@ -696,7 +696,7 @@ static Standard_Integer cmovepoint(Draw_Interpretor&, Standard_Integer n, const 
     G4->D0(u, p);
     p.SetCoord(p.X() + dx, p.Y() + dy);
     G4->MovePoint(u, p, index1, index2, fmodif, lmodif);
-    Draw::Repaint();
+    Draw1::Repaint();
     return 0;
   }
   return 0;
@@ -704,23 +704,23 @@ static Standard_Integer cmovepoint(Draw_Interpretor&, Standard_Integer n, const 
 
 //=================================================================================================
 
-static Standard_Integer cinsertknot(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer cinsertknot(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
 
-  Handle(Geom_BSplineCurve)   GBs   = DrawTrSurf::GetBSplineCurve(a[1]);
-  Handle(Geom2d_BSplineCurve) GBs2d = DrawTrSurf::GetBSplineCurve2d(a[1]);
+  Handle(BSplineCurve3d)   GBs   = DrawTrSurf1::GetBSplineCurve(a[1]);
+  Handle(Geom2d_BSplineCurve) GBs2d = DrawTrSurf1::GetBSplineCurve2d(a[1]);
 
   if (GBs.IsNull() && GBs2d.IsNull())
     return 1;
 
   if (n <= 4)
   {
-    Standard_Real    knot = Draw::Atof(a[2]);
+    Standard_Real    knot = Draw1::Atof(a[2]);
     Standard_Integer mult = 1;
     if (n == 4)
-      mult = Draw::Atoi(a[3]);
+      mult = Draw1::Atoi(a[3]);
     if (!GBs.IsNull())
       GBs->InsertKnot(knot, mult, Precision::PConfusion());
     else
@@ -737,8 +737,8 @@ static Standard_Integer cinsertknot(Draw_Interpretor&, Standard_Integer n, const
     TColStd_Array1OfInteger mults(1, nbk);
     for (i = 2; i < n; i += 2)
     {
-      knots(i / 2) = Draw::Atof(a[i]);
-      mults(i / 2) = Draw::Atoi(a[i + 1]);
+      knots(i / 2) = Draw1::Atof(a[i]);
+      mults(i / 2) = Draw1::Atoi(a[i + 1]);
     }
 
     if (!GBs.IsNull())
@@ -747,25 +747,25 @@ static Standard_Integer cinsertknot(Draw_Interpretor&, Standard_Integer n, const
       GBs2d->InsertKnots(knots, mults, Precision::PConfusion());
   }
 
-  Draw::Repaint();
+  Draw1::Repaint();
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer csetknot(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer csetknot(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
 
-  Handle(Geom_BSplineCurve)   GBs   = DrawTrSurf::GetBSplineCurve(a[1]);
-  Handle(Geom2d_BSplineCurve) GBs2d = DrawTrSurf::GetBSplineCurve2d(a[1]);
+  Handle(BSplineCurve3d)   GBs   = DrawTrSurf1::GetBSplineCurve(a[1]);
+  Handle(Geom2d_BSplineCurve) GBs2d = DrawTrSurf1::GetBSplineCurve2d(a[1]);
 
   if (GBs.IsNull() && GBs2d.IsNull())
     return 1;
 
-  Standard_Integer index = Draw::Atoi(a[2]);
-  Standard_Real    knot  = Draw::Atof(a[3]);
+  Standard_Integer index = Draw1::Atoi(a[2]);
+  Standard_Real    knot  = Draw1::Atof(a[3]);
 
   if (n == 4)
   {
@@ -776,38 +776,38 @@ static Standard_Integer csetknot(Draw_Interpretor&, Standard_Integer n, const ch
   }
   else
   {
-    Standard_Integer mult = Draw::Atoi(a[4]);
+    Standard_Integer mult = Draw1::Atoi(a[4]);
     if (!GBs.IsNull())
       GBs->SetKnot(index, knot, mult);
     else
       GBs2d->SetKnot(index, knot, mult);
   }
 
-  Draw::Repaint();
+  Draw1::Repaint();
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer cremknot(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer cremknot(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
 
-  Handle(Geom_BSplineCurve)   GBs   = DrawTrSurf::GetBSplineCurve(a[1]);
-  Handle(Geom2d_BSplineCurve) GBs2d = DrawTrSurf::GetBSplineCurve2d(a[1]);
+  Handle(BSplineCurve3d)   GBs   = DrawTrSurf1::GetBSplineCurve(a[1]);
+  Handle(Geom2d_BSplineCurve) GBs2d = DrawTrSurf1::GetBSplineCurve2d(a[1]);
 
   if (GBs.IsNull() && GBs2d.IsNull())
     return 1;
 
-  Standard_Integer index = Draw::Atoi(a[2]);
+  Standard_Integer index = Draw1::Atoi(a[2]);
   Standard_Integer mult  = 0;
   if (n >= 4)
-    mult = Draw::Atoi(a[3]);
+    mult = Draw1::Atoi(a[3]);
 
   Standard_Real tol = RealLast();
   if (n >= 5)
-    tol = Draw::Atof(a[4]);
+    tol = Draw1::Atof(a[4]);
 
   if (!GBs.IsNull())
   {
@@ -820,23 +820,23 @@ static Standard_Integer cremknot(Draw_Interpretor& di, Standard_Integer n, const
       di << "Remove knots failed\n";
   }
 
-  Draw::Repaint();
+  Draw1::Repaint();
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer increasedegree(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer increasedegree(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
 
-  Standard_Integer Deg = Draw::Atoi(a[2]);
+  Standard_Integer Deg = Draw1::Atoi(a[2]);
 
-  Handle(Geom_BezierCurve)    GBz   = DrawTrSurf::GetBezierCurve(a[1]);
-  Handle(Geom_BSplineCurve)   GBs   = DrawTrSurf::GetBSplineCurve(a[1]);
-  Handle(Geom2d_BezierCurve)  GBz2d = DrawTrSurf::GetBezierCurve2d(a[1]);
-  Handle(Geom2d_BSplineCurve) GBs2d = DrawTrSurf::GetBSplineCurve2d(a[1]);
+  Handle(BezierCurve3d)    GBz   = DrawTrSurf1::GetBezierCurve(a[1]);
+  Handle(BSplineCurve3d)   GBs   = DrawTrSurf1::GetBSplineCurve(a[1]);
+  Handle(Geom2d_BezierCurve)  GBz2d = DrawTrSurf1::GetBezierCurve2d(a[1]);
+  Handle(Geom2d_BSplineCurve) GBs2d = DrawTrSurf1::GetBSplineCurve2d(a[1]);
 
   if (!GBz.IsNull())
     GBz->Increase(Deg);
@@ -849,21 +849,21 @@ static Standard_Integer increasedegree(Draw_Interpretor&, Standard_Integer n, co
   else
     return 1;
 
-  Draw::Repaint();
+  Draw1::Repaint();
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer removepole(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer removepole(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
 
-  Standard_Integer Index = Draw::Atoi(a[2]);
+  Standard_Integer Index = Draw1::Atoi(a[2]);
 
-  Handle(Geom_BezierCurve)   GBZ   = DrawTrSurf::GetBezierCurve(a[1]);
-  Handle(Geom2d_BezierCurve) GBZ2d = DrawTrSurf::GetBezierCurve2d(a[1]);
+  Handle(BezierCurve3d)   GBZ   = DrawTrSurf1::GetBezierCurve(a[1]);
+  Handle(Geom2d_BezierCurve) GBZ2d = DrawTrSurf1::GetBezierCurve2d(a[1]);
   if (!GBZ.IsNull())
   {
     GBZ->RemovePole(Index);
@@ -878,34 +878,34 @@ static Standard_Integer removepole(Draw_Interpretor& di, Standard_Integer n, con
     return 1;
   }
 
-  Draw::Repaint();
+  Draw1::Repaint();
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer insertpole(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer insertpole(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 6)
     return 1;
 
-  Standard_Integer Index = Draw::Atoi(a[2]);
+  Standard_Integer Index = Draw1::Atoi(a[2]);
 
-  Handle(Geom_BezierCurve)   GBZ   = DrawTrSurf::GetBezierCurve(a[1]);
-  Handle(Geom2d_BezierCurve) GBZ2d = DrawTrSurf::GetBezierCurve2d(a[1]);
+  Handle(BezierCurve3d)   GBZ   = DrawTrSurf1::GetBezierCurve(a[1]);
+  Handle(Geom2d_BezierCurve) GBZ2d = DrawTrSurf1::GetBezierCurve2d(a[1]);
   if (!GBZ.IsNull())
   {
-    Point3d P(Draw::Atof(a[3]), Draw::Atof(a[4]), Draw::Atof(a[5]));
+    Point3d P(Draw1::Atof(a[3]), Draw1::Atof(a[4]), Draw1::Atof(a[5]));
     if (n == 7)
-      GBZ->InsertPoleAfter(Index, P, Draw::Atof(a[6]));
+      GBZ->InsertPoleAfter(Index, P, Draw1::Atof(a[6]));
     else
       GBZ->InsertPoleAfter(Index, P);
   }
   else if (!GBZ2d.IsNull())
   {
-    gp_Pnt2d P(Draw::Atof(a[3]), Draw::Atof(a[4]));
+    gp_Pnt2d P(Draw1::Atof(a[3]), Draw1::Atof(a[4]));
     if (n == 6)
-      GBZ2d->InsertPoleAfter(Index, P, Draw::Atof(a[5]));
+      GBZ2d->InsertPoleAfter(Index, P, Draw1::Atof(a[5]));
     else
       GBZ2d->InsertPoleAfter(Index, P);
   }
@@ -915,25 +915,25 @@ static Standard_Integer insertpole(Draw_Interpretor& di, Standard_Integer n, con
     return 1;
   }
 
-  Draw::Repaint();
+  Draw1::Repaint();
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer cfindp(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer cfindp(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 6)
     return 1;
 
   Standard_Integer Index = 0;
-  Standard_Integer view  = Draw::Atoi(a[2]);
-  Standard_Real    x     = Draw::Atof(a[3]);
-  Standard_Real    y     = Draw::Atof(a[4]);
+  Standard_Integer view  = Draw1::Atoi(a[2]);
+  Standard_Real    x     = Draw1::Atof(a[3]);
+  Standard_Real    y     = Draw1::Atof(a[4]);
 
-  Draw_Display d = dout.MakeDisplay(view);
+  DrawDisplay d = dout.MakeDisplay(view);
 
-  Handle(Draw_Drawable3D) D = Draw::Get(a[1]);
+  Handle(Draw_Drawable3D) D = Draw1::Get(a[1]);
 
   Handle(DrawTrSurf_BezierCurve) DBz = Handle(DrawTrSurf_BezierCurve)::DownCast(D);
   if (!DBz.IsNull())
@@ -959,20 +959,20 @@ static Standard_Integer cfindp(Draw_Interpretor&, Standard_Integer n, const char
     }
   }
 
-  Draw::Set(a[5], Index);
+  Draw1::Set(a[5], Index);
 
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer csetperiodic(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer csetperiodic(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
 
-  Handle(Geom_BSplineCurve)   GBs   = DrawTrSurf::GetBSplineCurve(a[1]);
-  Handle(Geom2d_BSplineCurve) GBs2d = DrawTrSurf::GetBSplineCurve2d(a[1]);
+  Handle(BSplineCurve3d)   GBs   = DrawTrSurf1::GetBSplineCurve(a[1]);
+  Handle(Geom2d_BSplineCurve) GBs2d = DrawTrSurf1::GetBSplineCurve2d(a[1]);
 
   if (GBs.IsNull() && GBs2d.IsNull())
     return 1;
@@ -992,22 +992,22 @@ static Standard_Integer csetperiodic(Draw_Interpretor&, Standard_Integer n, cons
       GBs2d->SetNotPeriodic();
   }
 
-  Draw::Repaint();
+  Draw1::Repaint();
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer value(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer value(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
 
-  Handle(Geom_Curve) GC = DrawTrSurf::GetCurve(a[1]);
+  Handle(GeomCurve3d) GC = DrawTrSurf1::GetCurve(a[1]);
   if (GC.IsNull())
     return 1;
 
-  Standard_Real U = Draw::Atof(a[2]);
+  Standard_Real U = Draw1::Atof(a[2]);
 
   Standard_Boolean DrawPoint = (n % 3 == 1);
   if (DrawPoint)
@@ -1025,28 +1025,28 @@ static Standard_Integer value(Draw_Interpretor&, Standard_Integer n, const char*
         return 1;
       Vector3d D2;
       GC->D2(U, P, D1, D2);
-      Draw::Set(a[9], D2.X());
-      Draw::Set(a[10], D2.Y());
-      Draw::Set(a[11], D2.Z());
+      Draw1::Set(a[9], D2.X());
+      Draw1::Set(a[10], D2.Y());
+      Draw1::Set(a[11], D2.Z());
     }
     else
       GC->D1(U, P, D1);
-    Draw::Set(a[6], D1.X());
-    Draw::Set(a[7], D1.Y());
-    Draw::Set(a[8], D1.Z());
+    Draw1::Set(a[6], D1.X());
+    Draw1::Set(a[7], D1.Y());
+    Draw1::Set(a[8], D1.Z());
   }
   else
     GC->D0(U, P);
 
   if (n > 3)
   {
-    Draw::Set(a[3], P.X());
-    Draw::Set(a[4], P.Y());
-    Draw::Set(a[5], P.Z());
+    Draw1::Set(a[3], P.X());
+    Draw1::Set(a[4], P.Y());
+    Draw1::Set(a[5], P.Z());
   }
   if (DrawPoint)
   {
-    DrawTrSurf::Set(a[n], P);
+    DrawTrSurf1::Set(a[n], P);
   }
 
   return 0;
@@ -1054,16 +1054,16 @@ static Standard_Integer value(Draw_Interpretor&, Standard_Integer n, const char*
 
 //=================================================================================================
 
-static Standard_Integer value2d(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer value2d(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
 
-  Handle(Geom2d_Curve) GC = DrawTrSurf::GetCurve2d(a[1]);
+  Handle(GeomCurve2d) GC = DrawTrSurf1::GetCurve2d(a[1]);
   if (GC.IsNull())
     return 1;
 
-  Standard_Real U = Draw::Atof(a[2]);
+  Standard_Real U = Draw1::Atof(a[2]);
 
   Standard_Boolean DrawPoint = (n % 2 == 0);
   if (DrawPoint)
@@ -1081,25 +1081,25 @@ static Standard_Integer value2d(Draw_Interpretor&, Standard_Integer n, const cha
         return 1;
       gp_Vec2d D2;
       GC->D2(U, P, D1, D2);
-      Draw::Set(a[7], D2.X());
-      Draw::Set(a[8], D2.Y());
+      Draw1::Set(a[7], D2.X());
+      Draw1::Set(a[8], D2.Y());
     }
     else
       GC->D1(U, P, D1);
-    Draw::Set(a[5], D1.X());
-    Draw::Set(a[6], D1.Y());
+    Draw1::Set(a[5], D1.X());
+    Draw1::Set(a[6], D1.Y());
   }
   else
     GC->D0(U, P);
 
   if (n > 3)
   {
-    Draw::Set(a[3], P.X());
-    Draw::Set(a[4], P.Y());
+    Draw1::Set(a[3], P.X());
+    Draw1::Set(a[4], P.Y());
   }
   if (DrawPoint)
   {
-    DrawTrSurf::Set(a[n], P);
+    DrawTrSurf1::Set(a[n], P);
   }
 
   return 0;
@@ -1107,21 +1107,21 @@ static Standard_Integer value2d(Draw_Interpretor&, Standard_Integer n, const cha
 
 //=================================================================================================
 
-static Standard_Integer segment(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer segment(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 4 || n > 5)
     return 1;
 
-  Handle(Geom_BezierCurve)    GBz   = DrawTrSurf::GetBezierCurve(a[1]);
-  Handle(Geom_BSplineCurve)   GBs   = DrawTrSurf::GetBSplineCurve(a[1]);
-  Handle(Geom2d_BezierCurve)  GBz2d = DrawTrSurf::GetBezierCurve2d(a[1]);
-  Handle(Geom2d_BSplineCurve) GBs2d = DrawTrSurf::GetBSplineCurve2d(a[1]);
+  Handle(BezierCurve3d)    GBz   = DrawTrSurf1::GetBezierCurve(a[1]);
+  Handle(BSplineCurve3d)   GBs   = DrawTrSurf1::GetBSplineCurve(a[1]);
+  Handle(Geom2d_BezierCurve)  GBz2d = DrawTrSurf1::GetBezierCurve2d(a[1]);
+  Handle(Geom2d_BSplineCurve) GBs2d = DrawTrSurf1::GetBSplineCurve2d(a[1]);
 
-  Standard_Real f = Draw::Atof(a[2]), l = Draw::Atof(a[3]);
+  Standard_Real f = Draw1::Atof(a[2]), l = Draw1::Atof(a[3]);
 
   Standard_Real aTolerance = Precision::PConfusion();
   if (n == 5)
-    aTolerance = Draw::Atof(a[4]);
+    aTolerance = Draw1::Atof(a[4]);
 
   if (!GBz.IsNull())
     GBz->Segment(f, l);
@@ -1134,46 +1134,46 @@ static Standard_Integer segment(Draw_Interpretor&, Standard_Integer n, const cha
   else
     return 1;
 
-  Draw::Repaint();
+  Draw1::Repaint();
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer setorigin(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer setorigin(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
 
-  Handle(Geom_BSplineCurve)   GBs   = DrawTrSurf::GetBSplineCurve(a[1]);
-  Handle(Geom2d_BSplineCurve) GBs2d = DrawTrSurf::GetBSplineCurve2d(a[1]);
+  Handle(BSplineCurve3d)   GBs   = DrawTrSurf1::GetBSplineCurve(a[1]);
+  Handle(Geom2d_BSplineCurve) GBs2d = DrawTrSurf1::GetBSplineCurve2d(a[1]);
 
   if (!GBs.IsNull())
-    GBs->SetOrigin(Draw::Atoi(a[2]));
+    GBs->SetOrigin(Draw1::Atoi(a[2]));
   if (!GBs2d.IsNull())
-    GBs2d->SetOrigin(Draw::Atoi(a[2]));
+    GBs2d->SetOrigin(Draw1::Atoi(a[2]));
   else
     return 1;
 
-  Draw::Repaint();
+  Draw1::Repaint();
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer point(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer point(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
   if (n >= 5)
   {
-    Point3d P(Draw::Atof(a[2]), Draw::Atof(a[3]), Draw::Atof(a[4]));
-    DrawTrSurf::Set(a[1], P);
+    Point3d P(Draw1::Atof(a[2]), Draw1::Atof(a[3]), Draw1::Atof(a[4]));
+    DrawTrSurf1::Set(a[1], P);
   }
   else
   {
-    gp_Pnt2d P(Draw::Atof(a[2]), Draw::Atof(a[3]));
-    DrawTrSurf::Set(a[1], P);
+    gp_Pnt2d P(Draw1::Atof(a[2]), Draw1::Atof(a[3]));
+    DrawTrSurf1::Set(a[1], P);
   }
 
   return 0;
@@ -1181,24 +1181,24 @@ static Standard_Integer point(Draw_Interpretor&, Standard_Integer n, const char*
 
 //=================================================================================================
 
-static Standard_Integer coord(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer coord(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n == 4)
   {
     gp_Pnt2d P;
-    if (!DrawTrSurf::GetPoint2d(a[1], P))
+    if (!DrawTrSurf1::GetPoint2d(a[1], P))
       return 1;
-    Draw::Set(a[2], P.X());
-    Draw::Set(a[3], P.Y());
+    Draw1::Set(a[2], P.X());
+    Draw1::Set(a[3], P.Y());
   }
   else if (n == 5)
   {
     Point3d P;
-    if (!DrawTrSurf::GetPoint(a[1], P))
+    if (!DrawTrSurf1::GetPoint(a[1], P))
       return 1;
-    Draw::Set(a[2], P.X());
-    Draw::Set(a[3], P.Y());
-    Draw::Set(a[4], P.Z());
+    Draw1::Set(a[2], P.X());
+    Draw1::Set(a[3], P.Y());
+    Draw1::Set(a[4], P.Z());
   }
   else
     return 1;
@@ -1208,18 +1208,18 @@ static Standard_Integer coord(Draw_Interpretor&, Standard_Integer n, const char*
 
 //=================================================================================================
 
-static Standard_Integer minmaxcurandinf(Draw_Interpretor& di,
+static Standard_Integer minmaxcurandinf(DrawInterpreter& di,
                                         Standard_Integer  argc,
                                         const char**      argv)
 {
   if (argc < 2)
     return 1;
 
-  Handle(Geom2d_Curve) C1 = DrawTrSurf::GetCurve2d(argv[1]);
+  Handle(GeomCurve2d) C1 = DrawTrSurf1::GetCurve2d(argv[1]);
   if (C1.IsNull())
     return 1;
 
-  Draw_Color              Couleur;
+  DrawColor              Couleur;
   Geom2dLProp_CurAndInf2d Sommets;
 
   Sommets.PerformCurExt(C1);
@@ -1265,13 +1265,13 @@ static Standard_Integer minmaxcurandinf(Draw_Interpretor& di,
 // function :  shcurvature
 // purpose  :  affiche le peigne de courbure
 //=======================================================================
-static Standard_Integer shcurvature(Draw_Interpretor&, Standard_Integer argc, const char** argv)
+static Standard_Integer shcurvature(DrawInterpreter&, Standard_Integer argc, const char** argv)
 {
   if (argc < 2)
     return 1;
 
-  Handle(DrawTrSurf_Curve2d) C2d = Handle(DrawTrSurf_Curve2d)::DownCast(Draw::Get(argv[1]));
-  Handle(DrawTrSurf_Curve)   C3d = Handle(DrawTrSurf_Curve)::DownCast(Draw::Get(argv[1]));
+  Handle(DrawTrSurf_Curve2d) C2d = Handle(DrawTrSurf_Curve2d)::DownCast(Draw1::Get(argv[1]));
+  Handle(DrawTrSurf_Curve)   C3d = Handle(DrawTrSurf_Curve)::DownCast(Draw1::Get(argv[1]));
 
   if (C2d.IsNull())
   {
@@ -1283,7 +1283,7 @@ static Standard_Integer shcurvature(Draw_Interpretor&, Standard_Integer argc, co
   {
     C2d->ShowCurvature();
   }
-  Draw::Repaint();
+  Draw1::Repaint();
   return 0;
 }
 
@@ -1291,12 +1291,12 @@ static Standard_Integer shcurvature(Draw_Interpretor&, Standard_Integer argc, co
 // function :  clcurvature
 // purpose  :  efface le peigne de courbure
 //=======================================================================
-static Standard_Integer clcurvature(Draw_Interpretor&, Standard_Integer argc, const char** argv)
+static Standard_Integer clcurvature(DrawInterpreter&, Standard_Integer argc, const char** argv)
 {
   if (argc < 2)
     return 1;
-  Handle(DrawTrSurf_Curve2d) C2d = Handle(DrawTrSurf_Curve2d)::DownCast(Draw::Get(argv[1]));
-  Handle(DrawTrSurf_Curve)   C3d = Handle(DrawTrSurf_Curve)::DownCast(Draw::Get(argv[1]));
+  Handle(DrawTrSurf_Curve2d) C2d = Handle(DrawTrSurf_Curve2d)::DownCast(Draw1::Get(argv[1]));
+  Handle(DrawTrSurf_Curve)   C3d = Handle(DrawTrSurf_Curve)::DownCast(Draw1::Get(argv[1]));
 
   if (C2d.IsNull())
   {
@@ -1308,7 +1308,7 @@ static Standard_Integer clcurvature(Draw_Interpretor&, Standard_Integer argc, co
   {
     C2d->ClearCurvature();
   }
-  Draw::Repaint();
+  Draw1::Repaint();
   return 0;
 }
 
@@ -1316,13 +1316,13 @@ static Standard_Integer clcurvature(Draw_Interpretor&, Standard_Integer argc, co
 // function :  radiusmax
 // purpose  :  definit le rayon de courbure maximum a afficher
 //=======================================================================
-static Standard_Integer radiusmax(Draw_Interpretor&, Standard_Integer argc, const char** argv)
+static Standard_Integer radiusmax(DrawInterpreter&, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
     return 1;
-  Standard_Real              Radius = Draw::Atof(argv[2]);
-  Handle(DrawTrSurf_Curve2d) C2d    = Handle(DrawTrSurf_Curve2d)::DownCast(Draw::Get(argv[1]));
-  Handle(DrawTrSurf_Curve)   C3d    = Handle(DrawTrSurf_Curve)::DownCast(Draw::Get(argv[1]));
+  Standard_Real              Radius = Draw1::Atof(argv[2]);
+  Handle(DrawTrSurf_Curve2d) C2d    = Handle(DrawTrSurf_Curve2d)::DownCast(Draw1::Get(argv[1]));
+  Handle(DrawTrSurf_Curve)   C3d    = Handle(DrawTrSurf_Curve)::DownCast(Draw1::Get(argv[1]));
 
   if (C2d.IsNull())
   {
@@ -1334,7 +1334,7 @@ static Standard_Integer radiusmax(Draw_Interpretor&, Standard_Integer argc, cons
   {
     C2d->SetRadiusMax(Radius);
   }
-  Draw::Repaint();
+  Draw1::Repaint();
   return 0;
 }
 
@@ -1342,13 +1342,13 @@ static Standard_Integer radiusmax(Draw_Interpretor&, Standard_Integer argc, cons
 // function :  radiusratio
 // purpose  :  definit le ratio du rayon de courbure a afficher
 //=======================================================================
-static Standard_Integer radiusratio(Draw_Interpretor&, Standard_Integer argc, const char** argv)
+static Standard_Integer radiusratio(DrawInterpreter&, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
     return 1;
-  Standard_Real              Ratio = Draw::Atof(argv[2]);
-  Handle(DrawTrSurf_Curve2d) C2d   = Handle(DrawTrSurf_Curve2d)::DownCast(Draw::Get(argv[1]));
-  Handle(DrawTrSurf_Curve)   C3d   = Handle(DrawTrSurf_Curve)::DownCast(Draw::Get(argv[1]));
+  Standard_Real              Ratio = Draw1::Atof(argv[2]);
+  Handle(DrawTrSurf_Curve2d) C2d   = Handle(DrawTrSurf_Curve2d)::DownCast(Draw1::Get(argv[1]));
+  Handle(DrawTrSurf_Curve)   C3d   = Handle(DrawTrSurf_Curve)::DownCast(Draw1::Get(argv[1]));
 
   if (C2d.IsNull())
   {
@@ -1360,25 +1360,25 @@ static Standard_Integer radiusratio(Draw_Interpretor&, Standard_Integer argc, co
   {
     C2d->SetRadiusRatio(Ratio);
   }
-  Draw::Repaint();
+  Draw1::Repaint();
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer localprop(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer localprop(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
     return 1;
 
-  Standard_Real U = Draw::Atof(argv[2]);
+  Standard_Real U = Draw1::Atof(argv[2]);
 
-  Handle(Geom2d_Curve) C2d = DrawTrSurf::GetCurve2d(argv[1]);
-  Handle(Geom_Curve)   C3d;
+  Handle(GeomCurve2d) C2d = DrawTrSurf1::GetCurve2d(argv[1]);
+  Handle(GeomCurve3d)   C3d;
 
   if (C2d.IsNull())
   {
-    C3d = DrawTrSurf::GetCurve(argv[1]);
+    C3d = DrawTrSurf1::GetCurve(argv[1]);
     if (C3d.IsNull())
       return 1;
     GeomLProp_CLProps Prop(C3d, 2, Precision::Confusion());
@@ -1401,7 +1401,7 @@ static Standard_Integer localprop(Draw_Interpretor& di, Standard_Integer argc, c
         Prop.Normal(Nor);
         Dir3d                   AxC = Nor ^ Tang;
         Frame3d                   Axe(Center, AxC, Nor);
-        Handle(Geom_Circle)      Cir3d = new Geom_Circle(Axe, R);
+        Handle(GeomCircle)      Cir3d = new GeomCircle(Axe, R);
         Handle(DrawTrSurf_Curve) dr;
         dr = new DrawTrSurf_Curve(Cir3d);
         dout << dr;
@@ -1444,17 +1444,17 @@ static Standard_Integer localprop(Draw_Interpretor& di, Standard_Integer argc, c
 
 //=================================================================================================
 
-static Standard_Integer rawcont(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer rawcont(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 5)
     return 1;
 
-  Handle(Geom_Curve) GC1;
-  GC1 = DrawTrSurf::GetCurve(a[1]);
-  Handle(Geom_Curve) GC2;
-  GC2                  = DrawTrSurf::GetCurve(a[2]);
-  Standard_Real param1 = Draw::Atof(a[3]);
-  Standard_Real param2 = Draw::Atof(a[4]);
+  Handle(GeomCurve3d) GC1;
+  GC1 = DrawTrSurf1::GetCurve(a[1]);
+  Handle(GeomCurve3d) GC2;
+  GC2                  = DrawTrSurf1::GetCurve(a[2]);
+  Standard_Real param1 = Draw1::Atof(a[3]);
+  Standard_Real param2 = Draw1::Atof(a[4]);
   if (GC1.IsNull() || GC2.IsNull())
     return 1;
   Point3d a_point1, a_point2;
@@ -1462,7 +1462,7 @@ static Standard_Integer rawcont(Draw_Interpretor& di, Standard_Integer n, const 
   GC2->D0(param2, a_point2);
   if (a_point2.SquareDistance(a_point1) < Precision::Confusion())
   {
-    GeomAbs_Shape cont = GeomLProp::Continuity(GC1,
+    GeomAbs_Shape cont = GeomLProp1::Continuity(GC1,
                                                GC2,
                                                param1,
                                                param2,
@@ -1506,7 +1506,7 @@ static Standard_Integer rawcont(Draw_Interpretor& di, Standard_Integer n, const 
 
 //=================================================================================================
 
-static Standard_Integer approxcurveonsurf(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer approxcurveonsurf(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   Standard_Real    Tol        = 1.e-7;      // Tolerance (default 0.1mm)
   GeomAbs_Shape    Continuity = GeomAbs_C1; // Continuity order : 0, 1 or 2 (default 1)
@@ -1517,27 +1517,27 @@ static Standard_Integer approxcurveonsurf(Draw_Interpretor& di, Standard_Integer
     return 1;
 
   if (n > 4)
-    Tol = Max(Draw::Atof(a[4]), 1.e-10);
+    Tol = Max(Draw1::Atof(a[4]), 1.e-10);
 
   if (n > 5)
   {
-    if (Draw::Atoi(a[5]) == 0)
+    if (Draw1::Atoi(a[5]) == 0)
       Continuity = GeomAbs_C0;
-    if (Draw::Atoi(a[5]) == 2)
+    if (Draw1::Atoi(a[5]) == 2)
       Continuity = GeomAbs_C2;
   }
 
   if (n > 6)
   {
-    MaxDeg = Draw::Atoi(a[6]);
+    MaxDeg = Draw1::Atoi(a[6]);
     if (MaxDeg < 1 || MaxDeg > 14)
       MaxDeg = 14;
   }
 
   if (n > 7)
-    MaxSeg = Draw::Atoi(a[7]);
-  Handle(Geom2d_Curve) curve2d = DrawTrSurf::GetCurve2d(a[2]);
-  Handle(Geom_Surface) Surf    = DrawTrSurf::GetSurface(a[3]);
+    MaxSeg = Draw1::Atoi(a[7]);
+  Handle(GeomCurve2d) curve2d = DrawTrSurf1::GetCurve2d(a[2]);
+  Handle(GeomSurface) Surf    = DrawTrSurf1::GetSurface(a[3]);
 
   Handle(Geom2dAdaptor_Curve) A2d = new (Geom2dAdaptor_Curve)(curve2d);
   Handle(GeomAdaptor_Surface) AS  = new (GeomAdaptor_Surface)(Surf);
@@ -1547,8 +1547,8 @@ static Standard_Integer approxcurveonsurf(Draw_Interpretor& di, Standard_Integer
 
   if (App.HasResult())
   {
-    Handle(Geom_BSplineCurve) BSCurve = App.Curve3d();
-    DrawTrSurf::Set(a[1], BSCurve);
+    Handle(BSplineCurve3d) BSCurve = App.Curve3d();
+    DrawTrSurf1::Set(a[1], BSCurve);
     return 0;
   }
 
@@ -1558,7 +1558,7 @@ static Standard_Integer approxcurveonsurf(Draw_Interpretor& di, Standard_Integer
 
 //=================================================================================================
 
-static Standard_Integer approxcurve(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer approxcurve(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   Standard_Real    Tol        = 1.e-7;      // Tolerance (default 0.1mm)
   GeomAbs_Shape    Continuity = GeomAbs_C1; // Continuity order : 0, 1 or 2 (default 1)
@@ -1572,9 +1572,9 @@ static Standard_Integer approxcurve(Draw_Interpretor& di, Standard_Integer n, co
   // Case == 4 : curve_on_surface approximation with reparametrization
   // Case == 5 : 2 curves_on_surfaces approximation with reparametrization
 
-  Handle(Geom_Curve)   curve;
-  Handle(Geom2d_Curve) curve2d, curve2d2;
-  Handle(Geom_Surface) surface, surface2;
+  Handle(GeomCurve3d)   curve;
+  Handle(GeomCurve2d) curve2d, curve2d2;
+  Handle(GeomSurface) surface, surface2;
 
   if (n < 2)
     return 1;
@@ -1585,7 +1585,7 @@ static Standard_Integer approxcurve(Draw_Interpretor& di, Standard_Integer n, co
     if (n > 11 || n < 4)
       return 1;
     Tol   = 1.e-4;
-    curve = DrawTrSurf::GetCurve(a[3]);
+    curve = DrawTrSurf1::GetCurve(a[3]);
     if (!curve.IsNull())
     {
       shift = 4;
@@ -1596,16 +1596,16 @@ static Standard_Integer approxcurve(Draw_Interpretor& di, Standard_Integer n, co
       // approx curve_on_surface
       if (n < 5)
         return 1;
-      curve2d = DrawTrSurf::GetCurve2d(a[3]);
-      surface = DrawTrSurf::GetSurface(a[4]);
+      curve2d = DrawTrSurf1::GetCurve2d(a[3]);
+      surface = DrawTrSurf1::GetSurface(a[4]);
       if (curve2d.IsNull() || surface.IsNull())
       {
         return 1;
       }
       if (n >= 7)
       {
-        curve2d2 = DrawTrSurf::GetCurve2d(a[5]);
-        surface2 = DrawTrSurf::GetSurface(a[6]);
+        curve2d2 = DrawTrSurf1::GetCurve2d(a[5]);
+        surface2 = DrawTrSurf1::GetSurface(a[6]);
         if (curve2d2.IsNull() || surface2.IsNull())
         {
           shift = 5;
@@ -1631,10 +1631,10 @@ static Standard_Integer approxcurve(Draw_Interpretor& di, Standard_Integer n, co
     if (n > 7 || n < 3)
       return 1;
     shift = 3;
-    curve = DrawTrSurf::GetCurve(a[2]);
+    curve = DrawTrSurf1::GetCurve(a[2]);
     if (curve.IsNull())
     {
-      curve2d = DrawTrSurf::GetCurve2d(a[2]);
+      curve2d = DrawTrSurf1::GetCurve2d(a[2]);
       if (curve2d.IsNull())
       {
         return 1;
@@ -1646,25 +1646,25 @@ static Standard_Integer approxcurve(Draw_Interpretor& di, Standard_Integer n, co
   }
 
   if (n > shift)
-    Tol = Max(Draw::Atof(a[shift]), 1.e-10);
+    Tol = Max(Draw1::Atof(a[shift]), 1.e-10);
 
   if (n > shift + 1)
   {
-    if (Draw::Atoi(a[shift + 1]) == 0)
+    if (Draw1::Atoi(a[shift + 1]) == 0)
       Continuity = GeomAbs_C0;
-    if (Draw::Atoi(a[shift + 1]) == 2)
+    if (Draw1::Atoi(a[shift + 1]) == 2)
       Continuity = GeomAbs_C2;
   }
 
   if (n > shift + 2)
   {
-    MaxDeg = Draw::Atoi(a[shift + 2]);
+    MaxDeg = Draw1::Atoi(a[shift + 2]);
     if (MaxDeg < 1 || MaxDeg > 14)
       MaxDeg = 14;
   }
 
   if (n > shift + 3)
-    MaxSeg = Draw::Atoi(a[shift + 3]);
+    MaxSeg = Draw1::Atoi(a[shift + 3]);
 
   if (Case == 1)
   {
@@ -1675,8 +1675,8 @@ static Standard_Integer approxcurve(Draw_Interpretor& di, Standard_Integer n, co
       Standard_SStream aSStream;
       appr.Dump(aSStream);
       di << aSStream;
-      Handle(Geom_BSplineCurve) BSCurve = appr.Curve();
-      DrawTrSurf::Set(a[1], BSCurve);
+      Handle(BSplineCurve3d) BSCurve = appr.Curve();
+      DrawTrSurf1::Set(a[1], BSCurve);
     }
   }
 
@@ -1690,7 +1690,7 @@ static Standard_Integer approxcurve(Draw_Interpretor& di, Standard_Integer n, co
       appr.Dump(aSStream);
       di << aSStream;
       Handle(Geom2d_BSplineCurve) BSCurve = appr.Curve();
-      DrawTrSurf::Set(a[1], BSCurve);
+      DrawTrSurf1::Set(a[1], BSCurve);
     }
   }
 
@@ -1704,8 +1704,8 @@ static Standard_Integer approxcurve(Draw_Interpretor& di, Standard_Integer n, co
       Standard_SStream aSStream;
       appr.Dump(aSStream);
       di << aSStream;
-      Handle(Geom_BSplineCurve) BSCurve = appr.Curve3d();
-      DrawTrSurf::Set(a[2], BSCurve);
+      Handle(BSplineCurve3d) BSCurve = appr.Curve3d();
+      DrawTrSurf1::Set(a[2], BSCurve);
     }
   }
   else if (Case == 4)
@@ -1719,8 +1719,8 @@ static Standard_Integer approxcurve(Draw_Interpretor& di, Standard_Integer n, co
       Standard_SStream aSStream;
       appr.Dump(aSStream);
       di << aSStream;
-      Handle(Geom_BSplineCurve) BSCurve = appr.Curve3d();
-      DrawTrSurf::Set(a[2], BSCurve);
+      Handle(BSplineCurve3d) BSCurve = appr.Curve3d();
+      DrawTrSurf1::Set(a[2], BSCurve);
     }
   }
 
@@ -1738,8 +1738,8 @@ static Standard_Integer approxcurve(Draw_Interpretor& di, Standard_Integer n, co
       Standard_SStream aSStream;
       appr.Dump(aSStream);
       di << aSStream;
-      Handle(Geom_BSplineCurve) BSCurve = appr.Curve3d();
-      DrawTrSurf::Set(a[2], BSCurve);
+      Handle(BSplineCurve3d) BSCurve = appr.Curve3d();
+      DrawTrSurf1::Set(a[2], BSCurve);
     }
   }
 
@@ -1748,13 +1748,13 @@ static Standard_Integer approxcurve(Draw_Interpretor& di, Standard_Integer n, co
 
 //=================================================================================================
 
-static Standard_Integer fitcurve(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer fitcurve(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
 
-  Handle(Geom_Curve) GC;
-  GC = DrawTrSurf::GetCurve(a[2]);
+  Handle(GeomCurve3d) GC;
+  GC = DrawTrSurf1::GetCurve(a[2]);
   if (GC.IsNull())
     return 1;
 
@@ -1826,10 +1826,10 @@ static Standard_Integer fitcurve(Draw_Interpretor& di, Standard_Integer n, const
   Conv.Poles(NewPoles);
 
   BSplCLib::Reparametrize(GC->FirstParameter(), GC->LastParameter(), NewKnots);
-  Handle(Geom_BSplineCurve) TheCurve =
-    new Geom_BSplineCurve(NewPoles, NewKnots, NewMults, Conv.Degree());
+  Handle(BSplineCurve3d) TheCurve =
+    new BSplineCurve3d(NewPoles, NewKnots, NewMults, Conv.Degree());
 
-  DrawTrSurf::Set(a[1], TheCurve);
+  DrawTrSurf1::Set(a[1], TheCurve);
   di << a[1] << ": tolreached = " << tolreached << "\n";
 
   return 0;
@@ -1841,7 +1841,7 @@ static Standard_Integer fitcurve(Draw_Interpretor& di, Standard_Integer n, const
 //           compared to the degree of the curve
 //=======================================================================
 
-static Standard_Integer splitc1(Draw_Interpretor& di, Standard_Integer n, const char** c)
+static Standard_Integer splitc1(DrawInterpreter& di, Standard_Integer n, const char** c)
 
 {
   Standard_Real    tolerance = 1.0e-5, angular_tolerance = 1.0e-4;
@@ -1850,14 +1850,14 @@ static Standard_Integer splitc1(Draw_Interpretor& di, Standard_Integer n, const 
 
   if (n < 3)
     return 1;
-  optiontab = Draw::Atoi(c[2]);
+  optiontab = Draw1::Atoi(c[2]);
   if (n >= 4)
-    tolerance = Draw::Atof(c[3]);
+    tolerance = Draw1::Atof(c[3]);
   if (n >= 5)
   {
-    angular_tolerance = Draw::Atof(c[4]);
+    angular_tolerance = Draw1::Atof(c[4]);
   }
-  Handle(Geom_Curve) ACurve = Handle(Geom_Curve)::DownCast(DrawTrSurf::Get(c[1]));
+  Handle(GeomCurve3d) ACurve = Handle(GeomCurve3d)::DownCast(DrawTrSurf1::Get(c[1]));
 
   Standard_Real f = ACurve->FirstParameter();
   Standard_Real l = ACurve->LastParameter();
@@ -1868,7 +1868,7 @@ static Standard_Integer splitc1(Draw_Interpretor& di, Standard_Integer n, const 
     return 1;
   }
 
-  Handle(Geom_BSplineCurve) BS = GeomConvert::CurveToBSplineCurve(ACurve);
+  Handle(BSplineCurve3d) BS = GeomConvert::CurveToBSplineCurve(ACurve);
 
   if (BS.IsNull())
     return 1;
@@ -1881,7 +1881,7 @@ static Standard_Integer splitc1(Draw_Interpretor& di, Standard_Integer n, const 
     {
       Sprintf(name, "%s_%d", c[1], i + 1);
       Standard_CString new_name = name;
-      DrawTrSurf::Set(new_name, tabBS->Value(i));
+      DrawTrSurf1::Set(new_name, tabBS->Value(i));
       di.AppendElement(name);
     }
   }
@@ -1889,7 +1889,7 @@ static Standard_Integer splitc1(Draw_Interpretor& di, Standard_Integer n, const 
   {
     GeomConvert::C0BSplineToC1BSplineCurve(BS, tolerance, angular_tolerance);
 
-    DrawTrSurf::Set(c[1], BS);
+    DrawTrSurf1::Set(c[1], BS);
   }
   return 0;
 }
@@ -1900,7 +1900,7 @@ static Standard_Integer splitc1(Draw_Interpretor& di, Standard_Integer n, const 
 //           compared to the degree of the curve
 //=======================================================================
 
-static Standard_Integer splitc12d(Draw_Interpretor& di, Standard_Integer n, const char** c)
+static Standard_Integer splitc12d(DrawInterpreter& di, Standard_Integer n, const char** c)
 
 {
   Standard_Real    tolerance = 1.0e-5, angular_tolerance = 1.0e-4;
@@ -1909,12 +1909,12 @@ static Standard_Integer splitc12d(Draw_Interpretor& di, Standard_Integer n, cons
 
   if (n < 3)
     return 1;
-  optiontab = Draw::Atoi(c[2]);
+  optiontab = Draw1::Atoi(c[2]);
   if (n == 4)
-    tolerance = Draw::Atof(c[3]);
+    tolerance = Draw1::Atof(c[3]);
   if (n == 5)
-    angular_tolerance = Draw::Atof(c[4]);
-  Handle(Geom2d_Curve) ACurve = DrawTrSurf::GetCurve2d(c[1]);
+    angular_tolerance = Draw1::Atof(c[4]);
+  Handle(GeomCurve2d) ACurve = DrawTrSurf1::GetCurve2d(c[1]);
 
   Standard_Real f = ACurve->FirstParameter();
   Standard_Real l = ACurve->LastParameter();
@@ -1938,14 +1938,14 @@ static Standard_Integer splitc12d(Draw_Interpretor& di, Standard_Integer n, cons
     {
       Sprintf(name, "%s_%d", c[1], i + 1);
       Standard_CString new_name = name;
-      DrawTrSurf::Set(new_name, tabBS->Value(i));
+      DrawTrSurf1::Set(new_name, tabBS->Value(i));
       di.AppendElement(name);
     }
   }
   else
   {
     Geom2dConvert::C0BSplineToC1BSplineCurve(BS, tolerance);
-    DrawTrSurf::Set(c[1], BS);
+    DrawTrSurf1::Set(c[1], BS);
   }
   return 0;
 }
@@ -1956,7 +1956,7 @@ static Standard_Integer splitc12d(Draw_Interpretor& di, Standard_Integer n, cons
 //           derivative on the boundaries of the surface if possible
 //=======================================================================
 
-static Standard_Integer canceldenom(Draw_Interpretor&, Standard_Integer n, const char** c)
+static Standard_Integer canceldenom(DrawInterpreter&, Standard_Integer n, const char** c)
 
 {
   Standard_Integer uoption, voption;
@@ -1964,15 +1964,15 @@ static Standard_Integer canceldenom(Draw_Interpretor&, Standard_Integer n, const
   Standard_Boolean vdirection = Standard_False;
   if (n < 4)
     return 1;
-  uoption = Draw::Atoi(c[2]);
-  voption = Draw::Atoi(c[3]);
+  uoption = Draw1::Atoi(c[2]);
+  voption = Draw1::Atoi(c[3]);
   if (uoption)
     udirection = Standard_True;
   if (voption)
     vdirection = Standard_True;
-  Handle(Geom_BSplineSurface) BSurf = DrawTrSurf::GetBSplineSurface(c[1]);
+  Handle(Geom_BSplineSurface) BSurf = DrawTrSurf1::GetBSplineSurface(c[1]);
   GeomLib::CancelDenominatorDerivative(BSurf, udirection, vdirection);
-  DrawTrSurf::Set(c[1], BSurf);
+  DrawTrSurf1::Set(c[1], BSurf);
   return 0;
 }
 
@@ -1981,15 +1981,15 @@ static Standard_Integer canceldenom(Draw_Interpretor&, Standard_Integer n, const
 // purpose  : eval curve's length
 //=======================================================================
 
-static Standard_Integer length(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer length(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
-  Handle(Geom_Curve)   GC   = DrawTrSurf::GetCurve(a[1]);
-  Handle(Geom2d_Curve) GC2d = DrawTrSurf::GetCurve2d(a[1]);
+  Handle(GeomCurve3d)   GC   = DrawTrSurf1::GetCurve(a[1]);
+  Handle(GeomCurve2d) GC2d = DrawTrSurf1::GetCurve2d(a[1]);
   Standard_Real        Tol  = Precision::Confusion(), L;
   if (n == 3)
-    Tol = Draw::Atof(a[2]);
+    Tol = Draw1::Atof(a[2]);
 
   if (!GC.IsNull())
   {
@@ -2013,7 +2013,7 @@ static Standard_Integer length(Draw_Interpretor& di, Standard_Integer n, const c
 
 //=================================================================================================
 
-void GeomliteTest::CurveCommands(Draw_Interpretor& theCommands)
+void GeomliteTest::CurveCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean loaded = Standard_False;
@@ -2021,7 +2021,7 @@ void GeomliteTest::CurveCommands(Draw_Interpretor& theCommands)
     return;
   loaded = Standard_True;
 
-  DrawTrSurf::BasicCommands(theCommands);
+  DrawTrSurf1::BasicCommands(theCommands);
 
   const char* g;
 

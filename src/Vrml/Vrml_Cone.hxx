@@ -32,12 +32,12 @@
 //! the  cone  has  a  radius  of  1  at  the  bottom  and  height  of  2,
 //! with  its  apex  at  1  and  its  bottom  at  -1.  The  cone  has  two  parts:
 //! the  sides  and  the  bottom
-class Vrml_Cone
+class Cone
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_Cone(const Vrml_ConeParts aParts        = Vrml_ConeALL,
+  Standard_EXPORT Cone(const Vrml_ConeParts aParts        = Vrml_ConeALL,
                             const Standard_Real  aBottomRadius = 1,
                             const Standard_Real  aHeight       = 2);
 

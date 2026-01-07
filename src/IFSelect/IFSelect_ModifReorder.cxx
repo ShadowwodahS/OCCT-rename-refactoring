@@ -41,10 +41,10 @@ void IFSelect_ModifReorder::Perform(IFSelect_ContextModif&                  ctx,
     target->AddEntity(list.Value());
 }
 
-TCollection_AsciiString IFSelect_ModifReorder::Label() const
+AsciiString1 IFSelect_ModifReorder::Label() const
 {
   Standard_CString astr =
     (Standard_CString)(thertl ? "Reorder, Roots last" : "Reorder, Roots first");
-  return TCollection_AsciiString(astr);
+  return AsciiString1(astr);
   //    ( thertl ? "Reorder, Roots last" : "Reorder, Roots first");
 }

@@ -64,13 +64,13 @@ public:
          const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   //! Returns a text defining the criterium, includes the flag name
-  Standard_EXPORT TCollection_AsciiString ExtractLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExtractLabel() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectFlag, IFSelect_SelectExtract)
 
 protected:
 private:
-  TCollection_AsciiString thename;
+  AsciiString1 thename;
 };
 
 #endif // _IFSelect_SelectFlag_HeaderFile

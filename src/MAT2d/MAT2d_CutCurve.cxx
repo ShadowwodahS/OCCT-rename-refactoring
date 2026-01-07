@@ -29,14 +29,14 @@ MAT2d_CutCurve::MAT2d_CutCurve() {}
 
 //=================================================================================================
 
-MAT2d_CutCurve::MAT2d_CutCurve(const Handle(Geom2d_Curve)& C)
+MAT2d_CutCurve::MAT2d_CutCurve(const Handle(GeomCurve2d)& C)
 {
   Perform(C);
 }
 
 //=================================================================================================
 
-void MAT2d_CutCurve::Perform(const Handle(Geom2d_Curve)& C)
+void MAT2d_CutCurve::Perform(const Handle(GeomCurve2d)& C)
 {
   theCurves.Clear();
 

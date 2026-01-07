@@ -26,8 +26,8 @@
 #include <TColStd_HSequenceOfInteger.hxx>
 #include <Standard_Integer.hxx>
 class ShapeExtend_WireData;
-class TopoDS_Wire;
-class TopoDS_Edge;
+class TopoWire;
+class TopoEdge;
 
 //! This class is auxiliary class (data storage) used in ComposeShell.
 //! It is intended for representing segment of the wire
@@ -65,7 +65,7 @@ public:
                                        const TopAbs_Orientation            ori = TopAbs_EXTERNAL);
 
   //! Creates segment and initializes it with wire and orientation.
-  Standard_EXPORT ShapeFix_WireSegment(const TopoDS_Wire&       wire,
+  Standard_EXPORT ShapeFix_WireSegment(const TopoWire&       wire,
                                        const TopAbs_Orientation ori = TopAbs_EXTERNAL);
 
   //! Clears all fields.
@@ -85,11 +85,11 @@ public:
 
   //! Returns first vertex of the first edge in the wire
   //! (no dependence on Orientation()).
-  Standard_EXPORT TopoDS_Vertex FirstVertex() const;
+  Standard_EXPORT TopoVertex FirstVertex() const;
 
   //! Returns last vertex of the last edge in the wire
   //! (no dependence on Orientation()).
-  Standard_EXPORT TopoDS_Vertex LastVertex() const;
+  Standard_EXPORT TopoVertex LastVertex() const;
 
   //! Returns True if FirstVertex() == LastVertex()
   Standard_EXPORT Standard_Boolean IsClosed() const;
@@ -98,20 +98,20 @@ public:
   Standard_EXPORT Standard_Integer NbEdges() const;
 
   //! Returns edge by given index in the wire
-  Standard_EXPORT TopoDS_Edge Edge(const Standard_Integer i) const;
+  Standard_EXPORT TopoEdge Edge(const Standard_Integer i) const;
 
   //! Replaces edge at index i by new one.
-  Standard_EXPORT void SetEdge(const Standard_Integer i, const TopoDS_Edge& edge);
+  Standard_EXPORT void SetEdge(const Standard_Integer i, const TopoEdge& edge);
 
   //! Insert a new edge with index i and implicitly defined
   //! patch indices (indefinite patch).
   //! If i==0, edge is inserted at end of wire.
-  Standard_EXPORT void AddEdge(const Standard_Integer i, const TopoDS_Edge& edge);
+  Standard_EXPORT void AddEdge(const Standard_Integer i, const TopoEdge& edge);
 
   //! Insert a new edge with index i and explicitly defined
   //! patch indices. If i==0, edge is inserted at end of wire.
   Standard_EXPORT void AddEdge(const Standard_Integer i,
-                               const TopoDS_Edge&     edge,
+                               const TopoEdge&     edge,
                                const Standard_Integer iumin,
                                const Standard_Integer iumax,
                                const Standard_Integer ivmin,
@@ -146,16 +146,16 @@ public:
   //! IUMin(i) <= IUMax(i) <= IUMin(i)+1
   Standard_EXPORT Standard_Boolean CheckPatchIndex(const Standard_Integer i) const;
 
-  Standard_EXPORT void SetVertex(const TopoDS_Vertex& theVertex);
+  Standard_EXPORT void SetVertex(const TopoVertex& theVertex);
 
-  Standard_EXPORT TopoDS_Vertex GetVertex() const;
+  Standard_EXPORT TopoVertex GetVertex() const;
 
   Standard_EXPORT Standard_Boolean IsVertex() const;
 
 protected:
 private:
   Handle(ShapeExtend_WireData)       myWire;
-  TopoDS_Vertex                      myVertex;
+  TopoVertex                      myVertex;
   TopAbs_Orientation                 myOrient;
   Handle(TColStd_HSequenceOfInteger) myIUMin;
   Handle(TColStd_HSequenceOfInteger) myIUMax;

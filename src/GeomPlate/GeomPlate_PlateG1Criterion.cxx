@@ -86,7 +86,7 @@ void GeomPlate_PlateG1Criterion::Value(AdvApp2Var_Patch& P, const AdvApp2Var_Con
   {
     Vector3d v1s, v2s, v3s;
     Vector3d v3h(myXYZ.Value(i).X(), myXYZ.Value(i).Y(), myXYZ.Value(i).Z());
-    gp_XY  P2d = myData.Value(i);
+    Coords2d  P2d = myData.Value(i);
     if (UInt[0] < P2d.X() && P2d.X() < UInt[1] && VInt[0] < P2d.Y() && P2d.Y() < VInt[1])
     {
       //   u,v recadres sur (-1,1)

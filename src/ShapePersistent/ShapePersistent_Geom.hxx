@@ -173,15 +173,15 @@ public:
 
   typedef instance<SharedBase<Geom_Transformation>, Geom_Transformation, Transform3d> Transformation;
 
-  typedef geometryBase<Geom_Curve>   Curve;
-  typedef geometryBase<Geom_Surface> Surface;
+  typedef geometryBase<GeomCurve3d>   Curve;
+  typedef geometryBase<GeomSurface> Surface;
 
 public:
   //! Create a persistent object for a curve
-  Standard_EXPORT static Handle(Curve) Translate(const Handle(Geom_Curve)&         theCurve,
+  Standard_EXPORT static Handle(Curve) Translate(const Handle(GeomCurve3d)&         theCurve,
                                                  StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a curve
-  Standard_EXPORT static Handle(Surface) Translate(const Handle(Geom_Surface)&       theSurf,
+  Standard_EXPORT static Handle(Surface) Translate(const Handle(GeomSurface)&       theSurf,
                                                    StdObjMgt_TransientPersistentMap& theMap);
 };
 
@@ -369,7 +369,7 @@ inline Standard_CString ShapePersistent_Geom::geometryBase<Geom_Geometry>::PName
 //=======================================================================
 
 template <>
-inline Standard_CString ShapePersistent_Geom::geometryBase<Geom_Curve>::PName() const
+inline Standard_CString ShapePersistent_Geom::geometryBase<GeomCurve3d>::PName() const
 {
   return "PGeom_Curve";
 }
@@ -379,7 +379,7 @@ inline Standard_CString ShapePersistent_Geom::geometryBase<Geom_Curve>::PName() 
 //=======================================================================
 
 template <>
-inline Standard_CString ShapePersistent_Geom::geometryBase<Geom_Surface>::PName() const
+inline Standard_CString ShapePersistent_Geom::geometryBase<GeomSurface>::PName() const
 {
   return "PGeom_Surface";
 }

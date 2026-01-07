@@ -33,7 +33,7 @@
 // ErrorMessage
 //==========================================================
 
-static void DDocStd_StorageErrorMessage(Draw_Interpretor& theDI, const Storage_Error theStatus)
+static void DDocStd_StorageErrorMessage(DrawInterpreter& theDI, const Storage_Error theStatus)
 {
   switch (theStatus)
   {
@@ -86,7 +86,7 @@ static void DDocStd_StorageErrorMessage(Draw_Interpretor& theDI, const Storage_E
 // function : DDocStd_ShapeSchema_Write
 //=======================================================================
 
-static Standard_Integer DDocStd_fsdwrite(Draw_Interpretor& theDI,
+static Standard_Integer DDocStd_fsdwrite(DrawInterpreter& theDI,
                                          Standard_Integer  theArgNb,
                                          const char**      theArgs)
 {
@@ -136,10 +136,10 @@ static Standard_Integer DDocStd_fsdwrite(Draw_Interpretor& theDI,
   }
 
   TopTools_SequenceOfShape                                       aShapes;
-  NCollection_DataMap<TCollection_AsciiString, Standard_Integer> aShapeNames;
+  NCollection_DataMap<AsciiString1, Standard_Integer> aShapeNames;
   for (Standard_Integer i = 1; i < iArgN; ++i)
   {
-    TopoDS_Shape aShape = DBRep::Get(theArgs[i]);
+    TopoShape aShape = DBRep1::Get(theArgs[i]);
     if (aShape.IsNull())
     {
       theDI << "Error : null shape " << theArgs[i] << "\n";
@@ -154,12 +154,12 @@ static Standard_Integer DDocStd_fsdwrite(Draw_Interpretor& theDI,
 
   Handle(StdStorage_Data) aData = new StdStorage_Data;
 
-  aData->HeaderData()->SetApplicationName(TCollection_ExtendedString("DDocStd_ShapeSchema_Write"));
+  aData->HeaderData()->SetApplicationName(UtfString("DDocStd_ShapeSchema_Write"));
 
   StdObjMgt_TransientPersistentMap aMap;
   for (Standard_Integer i = 1; i <= aShapes.Length(); ++i)
   {
-    const TopoDS_Shape& aShape = aShapes.Value(i);
+    const TopoShape& aShape = aShapes.Value(i);
 
     Handle(ShapePersistent_TopoDS::HShape) aPShape =
       ShapePersistent_TopoDS::Translate(aShape, aMap, ShapePersistent_WithTriangle);
@@ -169,7 +169,7 @@ static Standard_Integer DDocStd_fsdwrite(Draw_Interpretor& theDI,
       return 1;
     }
 
-    TCollection_AsciiString aName = theArgs[i];
+    AsciiString1 aName = theArgs[i];
     if (aShapeNames.IsBound(aName))
     {
       Standard_Integer n = aShapeNames.Find(theArgs[i]);
@@ -195,7 +195,7 @@ static Standard_Integer DDocStd_fsdwrite(Draw_Interpretor& theDI,
 // function : DDocStd_ShapeSchema_Read
 //=======================================================================
 
-static Standard_Integer DDocStd_fsdread(Draw_Interpretor& theDI,
+static Standard_Integer DDocStd_fsdread(DrawInterpreter& theDI,
                                         Standard_Integer  theArgNb,
                                         const char**      theArgs)
 {
@@ -216,7 +216,7 @@ static Standard_Integer DDocStd_fsdread(Draw_Interpretor& theDI,
   if (strcmp(theArgs[2], "restore_with_names") == 0)
     rflag = Standard_True;
   Handle(StdStorage_Data) aData;
-  Storage_Error           anError = StdStorage::Read(TCollection_AsciiString(theArgs[1]), aData);
+  Storage_Error           anError = StdStorage::Read(AsciiString1(theArgs[1]), aData);
   if (anError != Storage_VSOk)
   {
     DDocStd_StorageErrorMessage(theDI, anError);
@@ -240,16 +240,16 @@ static Standard_Integer DDocStd_fsdread(Draw_Interpretor& theDI,
           Handle(ShapePersistent_TopoDS::HShape)::DownCast(aPObject);
         if (aHShape) // shapes are expected
         {
-          TopoDS_Shape aShape = aHShape->Import();
+          TopoShape aShape = aHShape->Import();
           if (rflag)
           {
             if (!aRoot->Name().IsEmpty())
-              DBRep::Set(aRoot->Name().ToCString(), aShape);
+              DBRep1::Set(aRoot->Name().ToCString(), aShape);
             else
             {
-              TCollection_AsciiString aNam("name_");
+              AsciiString1 aNam("name_");
               aNam += aRoot->Reference();
-              DBRep::Set(aNam.ToCString(), aShape);
+              DBRep1::Set(aNam.ToCString(), aShape);
             }
 #ifdef DEBUG_FSDREAD
             Standard_Integer indx = aRoot->Reference();
@@ -271,25 +271,25 @@ static Standard_Integer DDocStd_fsdread(Draw_Interpretor& theDI,
     if (aShapes.Length() > 1)
     {
       theDI << "       " << aShapes.Length() << " shape(s) translated\n";
-      BRep_Builder    aB;
-      TopoDS_Compound aC;
+      ShapeBuilder    aB;
+      TopoCompound aC;
       aB.MakeCompound(aC);
       for (Standard_Integer i = 1; i <= aShapes.Length(); ++i)
         aB.Add(aC, aShapes.Value(i));
-      DBRep::Set(theArgs[2], aC);
+      DBRep1::Set(theArgs[2], aC);
     }
     else
-      DBRep::Set(theArgs[2], aShapes.First());
+      DBRep1::Set(theArgs[2], aShapes.First());
   }
   return 0;
 }
 
 //=======================================================================
 // function : ShapeSchemaCommands
-// purpose  : registers shape schema related commands in Draw interpreter
+// purpose  : registers shape schema related commands in Draw1 interpreter
 //=======================================================================
 
-void DDocStd::ShapeSchemaCommands(Draw_Interpretor& theCommands)
+void DDocStd1::ShapeSchemaCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

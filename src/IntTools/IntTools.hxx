@@ -19,19 +19,19 @@
 #include <IntTools_CArray1OfReal.hxx>
 #include <IntTools_SequenceOfRoots.hxx>
 
-class TopoDS_Edge;
+class TopoEdge;
 class Point3d;
-class Geom_Curve;
+class GeomCurve3d;
 class BRepAdaptor_Curve;
 
 //! Contains classes for intersection and classification purposes and accompanying classes.
-class IntTools
+class IntTools1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! returns the length of the edge;
-  Standard_EXPORT static Standard_Real Length(const TopoDS_Edge& E);
+  Standard_EXPORT static Standard_Real Length(const TopoEdge& E);
 
   //! Remove from  the  sequence aSeq the Roots  that  have
   //! values ti and tj such as  |ti-tj]  <  anEpsT.
@@ -46,7 +46,7 @@ public:
                                              const Standard_Real       anEpsNull);
 
   Standard_EXPORT static Standard_Integer Parameter(const Point3d&             P,
-                                                    const Handle(Geom_Curve)& Curve,
+                                                    const Handle(GeomCurve3d)& Curve,
                                                     Standard_Real&            aParm);
 
   Standard_EXPORT static Standard_Integer GetRadius(const BRepAdaptor_Curve& C,

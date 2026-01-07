@@ -27,7 +27,7 @@
 #include <Standard_IStream.hxx>
 #include <Message_ProgressRange.hxx>
 
-class Geom_Surface;
+class GeomSurface;
 
 //! Stores a set of Surfaces from Geom.
 class GeomTools_SurfaceSet
@@ -43,13 +43,13 @@ public:
 
   //! Incorporate a new Surface in the  set and returns
   //! its index.
-  Standard_EXPORT Standard_Integer Add(const Handle(Geom_Surface)& S);
+  Standard_EXPORT Standard_Integer Add(const Handle(GeomSurface)& S);
 
   //! Returns the Surface of index <I>.
-  Standard_EXPORT Handle(Geom_Surface) Surface(const Standard_Integer I) const;
+  Standard_EXPORT Handle(GeomSurface) Surface(const Standard_Integer I) const;
 
   //! Returns the index of <L>.
-  Standard_EXPORT Standard_Integer Index(const Handle(Geom_Surface)& S) const;
+  Standard_EXPORT Standard_Integer Index(const Handle(GeomSurface)& S) const;
 
   //! Dumps the content of me on the stream <OS>.
   Standard_EXPORT void Dump(Standard_OStream& OS) const;
@@ -67,14 +67,14 @@ public:
 
   //! Dumps the surface on the stream,  if compact is True
   //! use the compact format that can be read back.
-  Standard_EXPORT static void PrintSurface(const Handle(Geom_Surface)& S,
+  Standard_EXPORT static void PrintSurface(const Handle(GeomSurface)& S,
                                            Standard_OStream&           OS,
                                            const Standard_Boolean      compact = Standard_False);
 
   //! Reads the surface  from  the stream.  The  surface  is
   //! assumed   to have  been  written  with  the Print
   //! method (compact = True).
-  Standard_EXPORT static Handle(Geom_Surface) ReadSurface(Standard_IStream& IS);
+  Standard_EXPORT static Handle(GeomSurface) ReadSurface(Standard_IStream& IS);
 
 private:
   TColStd_IndexedMapOfTransient myMap;

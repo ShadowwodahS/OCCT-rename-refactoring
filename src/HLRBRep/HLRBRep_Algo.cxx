@@ -38,7 +38,7 @@ HLRBRep_Algo::HLRBRep_Algo(const Handle(HLRBRep_Algo)& A)
 
 //=================================================================================================
 
-void HLRBRep_Algo::Add(const TopoDS_Shape&               S,
+void HLRBRep_Algo::Add(const TopoShape&               S,
                        const Handle(RefObject)& SData,
                        const Standard_Integer            nbIso)
 {
@@ -47,16 +47,16 @@ void HLRBRep_Algo::Add(const TopoDS_Shape&               S,
 
 //=================================================================================================
 
-void HLRBRep_Algo::Add(const TopoDS_Shape& S, const Standard_Integer nbIso)
+void HLRBRep_Algo::Add(const TopoShape& S, const Standard_Integer nbIso)
 {
   Load(new HLRTopoBRep_OutLiner(S), nbIso);
 }
 
 //=================================================================================================
 
-Standard_Integer HLRBRep_Algo::Index(const TopoDS_Shape& S)
+Standard_Integer HLRBRep_Algo::Index(const TopoShape& S)
 {
-  Standard_Integer n = NbShapes();
+  Standard_Integer n = NbShapes1();
 
   for (Standard_Integer i = 1; i <= n; i++)
   {
@@ -73,11 +73,11 @@ Standard_Integer HLRBRep_Algo::Index(const TopoDS_Shape& S)
 
 void HLRBRep_Algo::OutLinedShapeNullify()
 {
-  Standard_Integer n = NbShapes();
+  Standard_Integer n = NbShapes1();
 
   for (Standard_Integer i = 1; i <= n; i++)
   {
-    ShapeBounds(i).Shape()->OutLinedShape(TopoDS_Shape());
+    ShapeBounds(i).Shape()->OutLinedShape(TopoShape());
     ShapeBounds(i).Shape()->DataStructure().Clear();
   }
 }

@@ -26,7 +26,7 @@
 #include <TopOpeBRepBuild_SolidAreaBuilder.hxx>
 #include <Standard_Integer.hxx>
 class TopOpeBRepBuild_ShellFaceSet;
-class TopoDS_Shape;
+class TopoShape;
 class TopOpeBRepBuild_ShapeSet;
 
 class TopOpeBRepBuild_SolidBuilder
@@ -62,7 +62,7 @@ public:
   //! This shell may be :
   //! * an old shell OldShell(), which has not been reconstructed;
   //! * a new shell made of faces described by ...NewFace() methods.
-  Standard_EXPORT const TopoDS_Shape& OldShell() const;
+  Standard_EXPORT const TopoShape& OldShell() const;
 
   Standard_EXPORT Standard_Integer InitFace();
 
@@ -71,15 +71,15 @@ public:
   Standard_EXPORT void NextFace();
 
   //! Returns current new face of current new shell.
-  Standard_EXPORT const TopoDS_Shape& Face() const;
+  Standard_EXPORT const TopoShape& Face() const;
 
 protected:
 private:
   Standard_EXPORT void MakeLoops(TopOpeBRepBuild_ShapeSet& SS);
 
-  TopOpeBRepBuild_LoopSet          myLoopSet;
-  TopOpeBRepBuild_BlockIterator    myBlockIterator;
-  TopOpeBRepBuild_BlockBuilder     myBlockBuilder;
+  LoopSet          myLoopSet;
+  TopOpeBRepBuildBlockIterator    myBlockIterator;
+  BlockBuilder     myBlockBuilder;
   TopOpeBRepBuild_SolidAreaBuilder mySolidAreaBuilder;
 };
 

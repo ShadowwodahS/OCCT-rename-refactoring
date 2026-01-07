@@ -223,30 +223,30 @@ Standard_Boolean LDOMBasicString::equals(const LDOMBasicString& anOther) const
 
 //=================================================================================================
 
-LDOMBasicString::operator TCollection_AsciiString() const
+LDOMBasicString::operator AsciiString1() const
 {
   switch (myType)
   {
     case LDOM_Integer:
-      return TCollection_AsciiString(myVal.i);
+      return AsciiString1(myVal.i);
     case LDOM_AsciiFree:
     case LDOM_AsciiDoc:
     case LDOM_AsciiDocClear:
     case LDOM_AsciiHashed:
-      return TCollection_AsciiString(Standard_CString(myVal.ptr));
+      return AsciiString1(Standard_CString(myVal.ptr));
     default:;
   }
-  return TCollection_AsciiString();
+  return AsciiString1();
 }
 
 //=================================================================================================
 
-LDOMBasicString::operator TCollection_ExtendedString() const
+LDOMBasicString::operator UtfString() const
 {
   switch (myType)
   {
     case LDOM_Integer:
-      return TCollection_ExtendedString(myVal.i);
+      return UtfString(myVal.i);
     case LDOM_AsciiFree:
     case LDOM_AsciiDoc:
     case LDOM_AsciiDocClear:
@@ -257,13 +257,13 @@ LDOMBasicString::operator TCollection_ExtendedString() const
       errno                           = 0;
       // Check if ptr is ascii string
       if (ptr[0] != '#' || ptr[1] != '#')
-        return TCollection_ExtendedString(ptr);
+        return UtfString(ptr);
       buf[0] = ptr[2];
       buf[1] = ptr[3];
       buf[2] = ptr[4];
       buf[3] = ptr[5];
       if (strtol(&buf[0], NULL, 16) != aUnicodeHeader)
-        return TCollection_ExtendedString(ptr);
+        return UtfString(ptr);
 
       // convert Unicode to Extended String
       ptr += 2;
@@ -281,17 +281,17 @@ LDOMBasicString::operator TCollection_ExtendedString() const
         if (errno)
         {
           delete[] aResult;
-          return TCollection_ExtendedString();
+          return UtfString();
         }
       }
       aResult[j] = 0;
-      TCollection_ExtendedString aResultStr(aResult);
+      UtfString aResultStr(aResult);
       delete[] aResult;
       return aResultStr;
     }
     default:;
   }
-  return TCollection_ExtendedString();
+  return UtfString();
 }
 
 //=======================================================================

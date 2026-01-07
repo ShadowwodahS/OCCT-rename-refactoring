@@ -18,7 +18,7 @@
 #include <RWObj_TriangulationReader.hxx>
 
 //! The OBJ mesh reader into XDE document.
-class RWObj_CafReader : public RWMesh_CafReader, protected RWObj_IShapeReceiver
+class RWObj_CafReader : public RWMesh_CafReader, protected ShapeReceiver
 {
   DEFINE_STANDARD_RTTIEXT(RWObj_CafReader, RWMesh_CafReader)
 public:
@@ -37,7 +37,7 @@ public:
 protected:
   //! Read the mesh from specified file.
   Standard_EXPORT virtual Standard_Boolean performMesh(std::istream&                  theStream,
-                                                       const TCollection_AsciiString& theFile,
+                                                       const AsciiString1& theFile,
                                                        const Message_ProgressRange&   theProgress,
                                                        const Standard_Boolean         theToProbe)
     Standard_OVERRIDE;
@@ -45,21 +45,21 @@ protected:
 protected:
   //! Create reader context.
   //! Can be overridden by sub-class to read triangulation into application-specific data structures
-  //! instead of Poly_Triangulation.
+  //! instead of MeshTriangulation.
   Standard_EXPORT virtual Handle(RWObj_TriangulationReader) createReaderContext();
 
   //! @param theShape       shape to register
   //! @param theName        shape name
   //! @param theMaterial    shape material
   //! @param theIsRootShape indicates that this is a root object (free shape)
-  Standard_EXPORT virtual void BindNamedShape(const TopoDS_Shape&            theShape,
-                                              const TCollection_AsciiString& theName,
+  Standard_EXPORT virtual void BindNamedShape(const TopoShape&            theShape,
+                                              const AsciiString1& theName,
                                               const RWObj_Material*          theMaterial,
                                               const Standard_Boolean         theIsRootShape)
     Standard_OVERRIDE;
 
 protected:
-  NCollection_DataMap<TCollection_AsciiString, Handle(XCAFDoc_VisMaterial)> myObjMaterialMap;
+  NCollection_DataMap<AsciiString1, Handle(XCAFDoc_VisMaterial)> myObjMaterialMap;
   // clang-format off
   Standard_Boolean myIsSinglePrecision; //!< flag for reading vertex data with single or double floating point precision
   // clang-format on

@@ -22,8 +22,8 @@
 //! documents using the last file format version. The last version of Open CASCADE Technology is
 //! able to read old documents of any version. However, a previous version of Open CASCADE
 //! Technology may not be able to read a new document. In this case use the method
-//! ChangeStorageFormatVersion() from TDocStd_Document to change the file format version. Then, save
-//! the document by means of SaveAs() from TDocStd_Application.
+//! ChangeStorageFormatVersion() from AppDocument to change the file format version. Then, save
+//! the document by means of SaveAs() from AppManager.
 //!
 //! If it is necessary to improve an XML or binary file format of OCAF document, follow please the
 //! next steps:

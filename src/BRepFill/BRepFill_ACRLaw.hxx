@@ -22,7 +22,7 @@
 
 #include <TColStd_HArray1OfReal.hxx>
 #include <BRepFill_LocationLaw.hxx>
-class TopoDS_Wire;
+class TopoWire;
 class GeomFill_LocationGuide;
 
 class BRepFill_ACRLaw;
@@ -35,7 +35,7 @@ class BRepFill_ACRLaw : public BRepFill_LocationLaw
 {
 
 public:
-  Standard_EXPORT BRepFill_ACRLaw(const TopoDS_Wire&                    Path,
+  Standard_EXPORT BRepFill_ACRLaw(const TopoWire&                    Path,
                                   const Handle(GeomFill_LocationGuide)& Law);
 
   DEFINE_STANDARD_RTTIEXT(BRepFill_ACRLaw, BRepFill_LocationLaw)

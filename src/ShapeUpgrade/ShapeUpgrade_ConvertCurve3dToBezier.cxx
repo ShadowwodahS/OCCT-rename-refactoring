@@ -54,7 +54,7 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Compute()
   if (myCurve->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
   {
     Handle(Geom_TrimmedCurve)           tmp      = Handle(Geom_TrimmedCurve)::DownCast(myCurve);
-    Handle(Geom_Curve)                  BasCurve = tmp->BasisCurve();
+    Handle(GeomCurve3d)                  BasCurve = tmp->BasisCurve();
     ShapeUpgrade_ConvertCurve3dToBezier converter;
     converter.Init(BasCurve, First, Last);
     converter.SetSplitValues(mySplitValues);
@@ -66,9 +66,9 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Compute()
     mySplitParams->ChangeSequence() = converter.SplitParams()->Sequence();
     return;
   }
-  else if (myCurve->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+  else if (myCurve->IsKind(STANDARD_TYPE(BezierCurve3d)))
   {
-    Handle(Geom_BezierCurve) bezier = Handle(Geom_BezierCurve)::DownCast(myCurve);
+    Handle(BezierCurve3d) bezier = Handle(BezierCurve3d)::DownCast(myCurve);
     myNbCurves                      = mySplitValues->Length() - 1;
     mySplitParams->Append(First);
     mySplitParams->Append(Last);
@@ -79,16 +79,16 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Compute()
     }
     else
     {
-      Handle(Geom_BezierCurve) besNew = Handle(Geom_BezierCurve)::DownCast(bezier->Copy());
+      Handle(BezierCurve3d) besNew = Handle(BezierCurve3d)::DownCast(bezier->Copy());
       besNew->Segment(First, Last);
       mySegments->Append(besNew);
       myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
     }
     return;
   }
-  else if (myCurve->IsKind(STANDARD_TYPE(Geom_Line)))
+  else if (myCurve->IsKind(STANDARD_TYPE(GeomLine)))
   {
-    Handle(Geom_Line) aLine = Handle(Geom_Line)::DownCast(myCurve);
+    Handle(GeomLine) aLine = Handle(GeomLine)::DownCast(myCurve);
     myNbCurves              = mySplitValues->Length() - 1;
     mySplitParams->Append(First);
     mySplitParams->Append(Last);
@@ -101,13 +101,13 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Compute()
     TColgp_Array1OfPnt poles(1, 2);
     poles(1)                        = aLine->Value(First);
     poles(2)                        = aLine->Value(Last);
-    Handle(Geom_BezierCurve) bezier = new Geom_BezierCurve(poles);
+    Handle(BezierCurve3d) bezier = new BezierCurve3d(poles);
     mySegments->Append(bezier);
     myStatus = ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
     return;
   }
   else if ((myCurve->IsKind(STANDARD_TYPE(Geom_Conic)) && !myConicMode)
-           || (myCurve->IsKind(STANDARD_TYPE(Geom_Circle)) && !myCircleMode))
+           || (myCurve->IsKind(STANDARD_TYPE(GeomCircle)) && !myCircleMode))
   {
     myNbCurves = mySplitValues->Length() - 1;
     mySplitParams->Append(First);
@@ -118,12 +118,12 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Compute()
   }
   else
   {
-    Handle(Geom_BSplineCurve) aBSpline;
+    Handle(BSplineCurve3d) aBSpline;
     Standard_Real             Shift = 0.;
     if (myCurve->IsKind(STANDARD_TYPE(Geom_Conic)))
     {
       // clang-format off
-      Handle(Geom_Curve) tcurve = new Geom_TrimmedCurve(myCurve,First,Last); //protection against parabols ets
+      Handle(GeomCurve3d) tcurve = new Geom_TrimmedCurve(myCurve,First,Last); //protection against parabols ets
       // clang-format on
       GeomConvert_ApproxCurve approx(tcurve, Precision::Approximation(), GeomAbs_C1, 100, 6);
       if (approx.HasResult())
@@ -137,12 +137,12 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Compute()
       First = aBSpline->FirstParameter();
       Last  = aBSpline->LastParameter();
     }
-    else if (!myCurve->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+    else if (!myCurve->IsKind(STANDARD_TYPE(BSplineCurve3d)))
     {
       aBSpline = GeomConvert::CurveToBSplineCurve(myCurve, Convert_QuasiAngular);
     }
     else
-      aBSpline = Handle(Geom_BSplineCurve)::DownCast(myCurve);
+      aBSpline = Handle(BSplineCurve3d)::DownCast(myCurve);
 
     Standard_Real bf = aBSpline->FirstParameter();
     Standard_Real bl = aBSpline->LastParameter();
@@ -221,10 +221,10 @@ void ShapeUpgrade_ConvertCurve3dToBezier::Build(const Standard_Boolean /*Segment
       else
         prevPar = 0.;
 
-    Handle(Geom_Curve) crv = Handle(Geom_Curve)::DownCast(mySegments->Value(j - 1)->Copy());
-    if (crv->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+    Handle(GeomCurve3d) crv = Handle(GeomCurve3d)::DownCast(mySegments->Value(j - 1)->Copy());
+    if (crv->IsKind(STANDARD_TYPE(BezierCurve3d)))
     {
-      Handle(Geom_BezierCurve) bes    = Handle(Geom_BezierCurve)::DownCast(crv);
+      Handle(BezierCurve3d) bes    = Handle(BezierCurve3d)::DownCast(crv);
       Standard_Real            uFact  = mySplitParams->Value(j) - mySplitParams->Value(j - 1);
       Standard_Real            pp     = mySplitValues->Value(i - 1);
       Standard_Real            length = (par - pp) / uFact;

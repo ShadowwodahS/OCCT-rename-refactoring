@@ -21,8 +21,8 @@
 #include <Standard_DefineAlloc.hxx>
 #include <Standard_Handle.hxx>
 
-class Geom_Plane;
-class TopoDS_Shape;
+class GeomPlane;
+class TopoShape;
 
 //! Describes functions to find the plane in which the edges
 //! of a given shape are located.
@@ -46,7 +46,7 @@ public:
   //! -   the largest of the tolerance values assigned to the individual edges of S.
   //! Use the function Found to verify that a plane is built.
   //! The resulting plane is then retrieved using the function Plane.
-  Standard_EXPORT BRepBuilderAPI_FindPlane(const TopoDS_Shape& S, const Standard_Real Tol = -1);
+  Standard_EXPORT BRepBuilderAPI_FindPlane(const TopoShape& S, const Standard_Real Tol = -1);
 
   //! Constructs the plane containing the edges of the shape S.
   //! A plane is built only if all the edges are within a distance
@@ -56,7 +56,7 @@ public:
   //! -   the largest of the tolerance values assigned to the individual edges of S.
   //! Use the function Found to verify that a plane is built.
   //! The resulting plane is then retrieved using the function Plane.
-  Standard_EXPORT void Init(const TopoDS_Shape& S, const Standard_Real Tol = -1);
+  Standard_EXPORT void Init(const TopoShape& S, const Standard_Real Tol = -1);
 
   //! Returns true if a plane containing the edges of the
   //! shape is found and built. Use the function Plane to consult the result.
@@ -66,11 +66,11 @@ public:
   //! Warning
   //! Use the function Found to verify that the plane is built. If
   //! a plane is not found, Plane returns a null handle.
-  Standard_EXPORT Handle(Geom_Plane) Plane() const;
+  Standard_EXPORT Handle(GeomPlane) Plane() const;
 
 protected:
 private:
-  Handle(Geom_Plane) myPlane;
+  Handle(GeomPlane) myPlane;
 };
 
 #endif // _BRepBuilderAPI_FindPlane_HeaderFile

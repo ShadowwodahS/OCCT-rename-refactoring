@@ -29,13 +29,13 @@ static Standard_GUID BinXCAFRetrievalDriver("a78ff497-a779-11d5-aab4-0050044b1af
 
 //=================================================================================================
 
-const Handle(RefObject)& BinXCAFDrivers::Factory(const Standard_GUID& theGUID)
+const Handle(RefObject)& BinXCAFDrivers1::Factory(const Standard_GUID& theGUID)
 {
 
   if (theGUID == BinXCAFStorageDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "BinXCAFDrivers : Storage Plugin" << std::endl;
+    std::cout << "BinXCAFDrivers1 : Storage Plugin" << std::endl;
 #endif
     static Handle(RefObject) model_sd = new BinXCAFDrivers_DocumentStorageDriver;
     return model_sd;
@@ -44,7 +44,7 @@ const Handle(RefObject)& BinXCAFDrivers::Factory(const Standard_GUID& theGUID)
   if (theGUID == BinXCAFRetrievalDriver)
   {
 #ifdef OCCT_DEBUG
-    std::cout << "BinXCAFDrivers : Retrieval Plugin" << std::endl;
+    std::cout << "BinXCAFDrivers1 : Retrieval Plugin" << std::endl;
 #endif
     static Handle(RefObject) model_rd = new BinXCAFDrivers_DocumentRetrievalDriver;
     return model_rd;
@@ -55,7 +55,7 @@ const Handle(RefObject)& BinXCAFDrivers::Factory(const Standard_GUID& theGUID)
 
 //=================================================================================================
 
-void BinXCAFDrivers::DefineFormat(const Handle(TDocStd_Application)& theApp)
+void BinXCAFDrivers1::DefineFormat(const Handle(AppManager)& theApp)
 {
   theApp->DefineFormat("BinXCAF",
                        "Binary XCAF Document",
@@ -66,16 +66,16 @@ void BinXCAFDrivers::DefineFormat(const Handle(TDocStd_Application)& theApp)
 
 //=================================================================================================
 
-Handle(BinMDF_ADriverTable) BinXCAFDrivers::AttributeDrivers(
+Handle(BinMDF_ADriverTable) BinXCAFDrivers1::AttributeDrivers(
   const Handle(Message_Messenger)& aMsgDrv)
 {
   // Standard Drivers
-  Handle(BinMDF_ADriverTable) aTable = BinDrivers::AttributeDrivers(aMsgDrv);
+  Handle(BinMDF_ADriverTable) aTable = BinDrivers1::AttributeDrivers(aMsgDrv);
 
   // XCAF Drivers
-  BinMXCAFDoc::AddDrivers(aTable, aMsgDrv);
+  BinMXCAFDoc1::AddDrivers(aTable, aMsgDrv);
 
   return aTable;
 }
 
-PLUGIN(BinXCAFDrivers)
+PLUGIN(BinXCAFDrivers1)

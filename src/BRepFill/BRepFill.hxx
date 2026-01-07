@@ -23,26 +23,26 @@
 
 #include <Standard_Boolean.hxx>
 #include <TColStd_Array1OfReal.hxx>
-class TopoDS_Face;
-class TopoDS_Edge;
-class TopoDS_Shell;
-class TopoDS_Wire;
-class TopoDS_Shape;
+class TopoFace;
+class TopoEdge;
+class TopoShell;
+class TopoWire;
+class TopoShape;
 class gp_Ax3;
 class Point3d;
 class Vector3d;
 
-class BRepFill
+class BRepFill1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Computes a ruled surface between two edges.
-  Standard_EXPORT static TopoDS_Face Face(const TopoDS_Edge& Edge1, const TopoDS_Edge& Edge2);
+  Standard_EXPORT static TopoFace Face(const TopoEdge& Edge1, const TopoEdge& Edge2);
 
   //! Computes a ruled surface between two wires.
   //! The wires must have the same number of edges.
-  Standard_EXPORT static TopoDS_Shell Shell(const TopoDS_Wire& Wire1, const TopoDS_Wire& Wire2);
+  Standard_EXPORT static TopoShell Shell(const TopoWire& Wire1, const TopoWire& Wire2);
 
   //! Computes  <AxeProf>  as Follow. <Location> is
   //! the Position of the nearest vertex V  of <Profile>
@@ -50,23 +50,23 @@ public:
   //! to <Spine> at the projected point of V on the Spine.
   //! <Direction> is normal to <Spine>.
   //! <Spine> is a plane wire or a plane face.
-  Standard_EXPORT static void Axe(const TopoDS_Shape& Spine,
-                                  const TopoDS_Wire&  Profile,
+  Standard_EXPORT static void Axe(const TopoShape& Spine,
+                                  const TopoWire&  Profile,
                                   gp_Ax3&             AxeProf,
                                   Standard_Boolean&   ProfOnSpine,
                                   const Standard_Real Tol);
 
   //! Compute ACR on a  wire
-  Standard_EXPORT static void ComputeACR(const TopoDS_Wire& wire, TColStd_Array1OfReal& ACR);
+  Standard_EXPORT static void ComputeACR(const TopoWire& wire, TColStd_Array1OfReal& ACR);
 
   //! Insert ACR on a  wire
-  Standard_EXPORT static TopoDS_Wire InsertACR(const TopoDS_Wire&          wire,
+  Standard_EXPORT static TopoWire InsertACR(const TopoWire&          wire,
                                                const TColStd_Array1OfReal& ACRcuts,
                                                const Standard_Real         prec);
 
 private:
   //! Computes origins and orientation on a closed wire
-  Standard_EXPORT static void SearchOrigin(TopoDS_Wire&        W,
+  Standard_EXPORT static void SearchOrigin(TopoWire&        W,
                                            const Point3d&       P,
                                            const Vector3d&       V,
                                            const Standard_Real Tol);

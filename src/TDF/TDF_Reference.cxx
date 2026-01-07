@@ -36,7 +36,7 @@ const Standard_GUID& TDF_Reference::GetID()
 
 //=================================================================================================
 
-Handle(TDF_Reference) TDF_Reference::Set(const TDF_Label& L, const TDF_Label& Origin)
+Handle(TDF_Reference) TDF_Reference::Set(const DataLabel& L, const DataLabel& Origin)
 {
   Handle(TDF_Reference) A;
   if (!L.FindAttribute(TDF_Reference::GetID(), A))
@@ -57,7 +57,7 @@ TDF_Reference::TDF_Reference() {}
 
 //=================================================================================================
 
-void TDF_Reference::Set(const TDF_Label& Origin)
+void TDF_Reference::Set(const DataLabel& Origin)
 {
   // OCC2932 correction
   if (myOrigin == Origin)
@@ -69,7 +69,7 @@ void TDF_Reference::Set(const TDF_Label& Origin)
 
 //=================================================================================================
 
-TDF_Label TDF_Reference::Get() const
+DataLabel TDF_Reference::Get() const
 {
   return myOrigin;
 }
@@ -100,7 +100,7 @@ void TDF_Reference::Restore(const Handle(TDF_Attribute)& With)
 void TDF_Reference::Paste(const Handle(TDF_Attribute)&       Into,
                           const Handle(TDF_RelocationTable)& RT) const
 {
-  TDF_Label tLab;
+  DataLabel tLab;
   if (!myOrigin.IsNull())
   {
     if (!RT->HasRelocation(myOrigin, tLab))
@@ -137,7 +137,7 @@ void TDF_Reference::DumpJson(Standard_OStream& theOStream, Standard_Integer theD
 
   OCCT_DUMP_BASE_CLASS(theOStream, theDepth, TDF_Attribute)
 
-  TCollection_AsciiString aLabel;
+  AsciiString1 aLabel;
   TDF_Tool::Entry(myOrigin, aLabel);
   OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aLabel)
 }

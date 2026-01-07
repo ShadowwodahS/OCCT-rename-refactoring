@@ -20,10 +20,10 @@
 #include <TopExp_Explorer.hxx>
 #include <TopAbs.hxx>
 
-//! Extends TopExp_Explorer by counting index of current item
+//! Extends ShapeExplorer by counting index of current item
 //! (for tracing and debug)
 
-class TopOpeBRepTool_ShapeExplorer : public TopExp_Explorer
+class TopOpeBRepTool_ShapeExplorer : public ShapeExplorer
 {
 public:
   //! Creates an empty explorer, becomes useful after Init.
@@ -41,19 +41,19 @@ public:
   //! exploration.   If   <ToAvoid>  is  equal  or  less
   //! complex than <ToFind> or if  <ToAVoid> is SHAPE it
   //! has no effect on the exploration.
-  TopOpeBRepTool_ShapeExplorer(const TopoDS_Shape&    S,
+  TopOpeBRepTool_ShapeExplorer(const TopoShape&    S,
                                const TopAbs_ShapeEnum ToFind,
                                const TopAbs_ShapeEnum ToAvoid = TopAbs_SHAPE)
-      : TopExp_Explorer(S, ToFind, ToAvoid),
+      : ShapeExplorer(S, ToFind, ToAvoid),
         myIndex(More() ? 1 : 0)
   {
   }
 
-  void Init(const TopoDS_Shape&    S,
+  void Init(const TopoShape&    S,
             const TopAbs_ShapeEnum ToFind,
             const TopAbs_ShapeEnum ToAvoid = TopAbs_SHAPE)
   {
-    TopExp_Explorer::Init(S, ToFind, ToAvoid);
+    ShapeExplorer::Init(S, ToFind, ToAvoid);
     myIndex = (More() ? 1 : 0);
   }
 
@@ -62,7 +62,7 @@ public:
   {
     if (More())
       myIndex++;
-    TopExp_Explorer::Next();
+    ShapeExplorer::Next();
   }
 
   //! Index of current sub-shape
@@ -73,9 +73,9 @@ public:
   {
     if (More())
     {
-      TopAbs::Print(Current().ShapeType(), OS);
+      TopAbs1::Print(Current().ShapeType(), OS);
       OS << "(" << Index() << ",";
-      TopAbs::Print(Current().Orientation(), OS);
+      TopAbs1::Print(Current().Orientation(), OS);
       OS << ") ";
     }
     return OS;

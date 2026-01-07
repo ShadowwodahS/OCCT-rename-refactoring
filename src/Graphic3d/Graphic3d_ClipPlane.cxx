@@ -266,8 +266,8 @@ void Graphic3d_ClipPlane::setCappingFlag(bool theToUse, int theFlag)
 
 void Graphic3d_ClipPlane::makeId()
 {
-  myId = TCollection_AsciiString("Graphic3d_ClipPlane_") // DynamicType()->Name()
-         + TCollection_AsciiString(Standard_Atomic_Increment(&THE_CLIP_PLANE_COUNTER));
+  myId = AsciiString1("Graphic3d_ClipPlane_") // DynamicType()->Name()
+         + AsciiString1(Standard_Atomic_Increment(&THE_CLIP_PLANE_COUNTER));
 }
 
 //=================================================================================================

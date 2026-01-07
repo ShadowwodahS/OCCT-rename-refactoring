@@ -31,9 +31,9 @@
 #include <Interface_ShareTool.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESAppli_ToolPinNumber::IGESAppli_ToolPinNumber() {}
+PinNumberTool::PinNumberTool() {}
 
-void IGESAppli_ToolPinNumber::ReadOwnParams(const Handle(IGESAppli_PinNumber)& ent,
+void PinNumberTool::ReadOwnParams(const Handle(IGESAppli_PinNumber)& ent,
                                             const Handle(IGESData_IGESReaderData)& /* IR */,
                                             IGESData_ParamReader& PR) const
 {
@@ -49,19 +49,19 @@ void IGESAppli_ToolPinNumber::ReadOwnParams(const Handle(IGESAppli_PinNumber)& e
   ent->Init(tempNbPropertyValues, tempPinNumber);
 }
 
-void IGESAppli_ToolPinNumber::WriteOwnParams(const Handle(IGESAppli_PinNumber)& ent,
+void PinNumberTool::WriteOwnParams(const Handle(IGESAppli_PinNumber)& ent,
                                              IGESData_IGESWriter&               IW) const
 {
   IW.Send(ent->NbPropertyValues());
   IW.Send(ent->PinNumberVal());
 }
 
-void IGESAppli_ToolPinNumber::OwnShared(const Handle(IGESAppli_PinNumber)& /* ent */,
+void PinNumberTool::OwnShared(const Handle(IGESAppli_PinNumber)& /* ent */,
                                         Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESAppli_ToolPinNumber::OwnCopy(const Handle(IGESAppli_PinNumber)& another,
+void PinNumberTool::OwnCopy(const Handle(IGESAppli_PinNumber)& another,
                                       const Handle(IGESAppli_PinNumber)& ent,
                                       Interface_CopyTool& /* TC */) const
 {
@@ -72,7 +72,7 @@ void IGESAppli_ToolPinNumber::OwnCopy(const Handle(IGESAppli_PinNumber)& another
   ent->Init(aNbPropertyValues, aPinNumber);
 }
 
-Standard_Boolean IGESAppli_ToolPinNumber::OwnCorrect(const Handle(IGESAppli_PinNumber)& ent) const
+Standard_Boolean PinNumberTool::OwnCorrect(const Handle(IGESAppli_PinNumber)& ent) const
 {
   Standard_Boolean res = (ent->SubordinateStatus() != 0);
   if (res)
@@ -83,10 +83,10 @@ Standard_Boolean IGESAppli_ToolPinNumber::OwnCorrect(const Handle(IGESAppli_PinN
   return res; // RAZ level selon subordibate
 }
 
-IGESData_DirChecker IGESAppli_ToolPinNumber::DirChecker(
+DirectoryChecker PinNumberTool::DirChecker(
   const Handle(IGESAppli_PinNumber)& /* ent */) const
 {
-  IGESData_DirChecker DC(406, 8); // Form no = 8 & Type = 406
+  DirectoryChecker DC(406, 8); // Form no = 8 & Type = 406
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.BlankStatusIgnored();
@@ -95,7 +95,7 @@ IGESData_DirChecker IGESAppli_ToolPinNumber::DirChecker(
   return DC;
 }
 
-void IGESAppli_ToolPinNumber::OwnCheck(const Handle(IGESAppli_PinNumber)& ent,
+void PinNumberTool::OwnCheck(const Handle(IGESAppli_PinNumber)& ent,
                                        const Interface_ShareTool&,
                                        Handle(Interface_Check)& ach) const
 {
@@ -108,7 +108,7 @@ void IGESAppli_ToolPinNumber::OwnCheck(const Handle(IGESAppli_PinNumber)& ent,
   // Level to be ignored if the property is subordinate -- queried
 }
 
-void IGESAppli_ToolPinNumber::OwnDump(const Handle(IGESAppli_PinNumber)& ent,
+void PinNumberTool::OwnDump(const Handle(IGESAppli_PinNumber)& ent,
                                       const IGESData_IGESDumper& /* dumper */,
                                       Standard_OStream& S,
                                       const Standard_Integer /* level */) const

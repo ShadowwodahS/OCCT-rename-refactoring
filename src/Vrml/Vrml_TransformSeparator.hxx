@@ -29,12 +29,12 @@
 //! before  traversing  its  children  and  restores  it  afterwards.
 //! This  node  can  be  used  to  isolate  transformations  to  light  sources
 //! or  objects.
-class Vrml_TransformSeparator
+class TransformSeparator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_TransformSeparator();
+  Standard_EXPORT TransformSeparator();
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream);
 

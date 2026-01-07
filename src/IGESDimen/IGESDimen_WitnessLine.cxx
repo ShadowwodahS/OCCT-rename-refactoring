@@ -56,14 +56,14 @@ Standard_Real IGESDimen_WitnessLine::ZDisplacement() const
 
 Point3d IGESDimen_WitnessLine::Point(const Standard_Integer Index) const
 {
-  gp_XY  tempXY = theDataPoints->Value(Index);
+  Coords2d  tempXY = theDataPoints->Value(Index);
   Point3d point(tempXY.X(), tempXY.Y(), theZDisplacement);
   return point;
 }
 
 Point3d IGESDimen_WitnessLine::TransformedPoint(const Standard_Integer Index) const
 {
-  gp_XY  point2d = theDataPoints->Value(Index);
+  Coords2d  point2d = theDataPoints->Value(Index);
   gp_XYZ point(point2d.X(), point2d.Y(), theZDisplacement);
   if (HasTransf())
     Location().Transforms(point);

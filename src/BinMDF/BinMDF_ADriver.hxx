@@ -41,7 +41,7 @@ public:
   Standard_EXPORT virtual const Handle(TypeInfo)& SourceType() const;
 
   //! Returns the type name of the attribute object
-  const TCollection_AsciiString& TypeName() const;
+  const AsciiString1& TypeName() const;
 
   //! Translate the contents of <aSource> and put it
   //! into <aTarget>, using the relocation table
@@ -66,7 +66,7 @@ protected:
   Standard_EXPORT BinMDF_ADriver(const Handle(Message_Messenger)& theMsgDriver,
                                  const Standard_CString           theName = NULL);
 
-  TCollection_AsciiString myTypeName;
+  AsciiString1 myTypeName;
 
   Handle(Message_Messenger) myMessageDriver;
 };

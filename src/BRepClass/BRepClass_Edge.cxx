@@ -37,14 +37,14 @@ void BRepClass_Edge::SetNextEdge(const TopTools_IndexedDataMapOfShapeListOfShape
   {
     return;
   }
-  TopoDS_Vertex aVF, aVL;
-  TopExp::Vertices(myEdge, aVF, aVL, Standard_True);
+  TopoVertex aVF, aVL;
+  TopExp1::Vertices(myEdge, aVF, aVL, Standard_True);
 
   if (aVL.IsNull() || aVL.IsSame(aVF))
   {
     return;
   }
-  const TopTools_ListOfShape* aListE = theMapVE.Seek(aVL);
+  const ShapeList* aListE = theMapVE.Seek(aVL);
   if (aListE->Extent() == 2)
   {
     for (TopTools_ListIteratorOfListOfShape anIt(*aListE); anIt.More(); anIt.Next())
@@ -59,7 +59,7 @@ void BRepClass_Edge::SetNextEdge(const TopTools_IndexedDataMapOfShapeListOfShape
 
 //=================================================================================================
 
-BRepClass_Edge::BRepClass_Edge(const TopoDS_Edge& E, const TopoDS_Face& F)
+BRepClass_Edge::BRepClass_Edge(const TopoEdge& E, const TopoFace& F)
     : myEdge(E),
       myFace(F),
       myMaxTolerance(Precision::Infinite()),

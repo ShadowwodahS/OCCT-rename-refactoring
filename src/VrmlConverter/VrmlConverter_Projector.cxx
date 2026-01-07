@@ -281,7 +281,7 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
     if (Camera == VrmlConverter_PerspectiveCamera)
     {
       //    myPerspectiveCamera.SetPosition(VSource);
-      //    myPerspectiveCamera.SetOrientation(Vrml_SFRotation
+      //    myPerspectiveCamera.SetOrientation(SFRotation
       //    (Dturn.X(),Dturn.Y(),Dturn.Z(),AngleTurn));
       myPerspectiveCamera.SetFocalDistance(Focus);
       myPerspectiveCamera.SetAngle(2 * Angle);
@@ -290,7 +290,7 @@ VrmlConverter_Projector::VrmlConverter_Projector(const TopTools_Array1OfShape&  
     if (Camera == VrmlConverter_OrthographicCamera)
     {
       //  myOrthographicCamera.SetPosition(VSource);
-      //  myOrthographicCamera.SetOrientation(Vrml_SFRotation
+      //  myOrthographicCamera.SetOrientation(SFRotation
       //  (Dturn.X(),Dturn.Y(),Dturn.Z(),AngleTurn));
       myOrthographicCamera.SetFocalDistance(Focus);
       myOrthographicCamera.SetHeight(2 * Height);
@@ -305,7 +305,7 @@ void VrmlConverter_Projector::Add(Standard_OStream& anOStream) const
     case VrmlConverter_NoCamera:
       break;
     case VrmlConverter_PerspectiveCamera: {
-      Vrml_TransformSeparator TS;
+      TransformSeparator TS;
       TS.Print(anOStream);
       myMatrixTransform.Print(anOStream);
       Vrml_Instancing I1("Perspective Camera");
@@ -315,7 +315,7 @@ void VrmlConverter_Projector::Add(Standard_OStream& anOStream) const
     }
     break;
     case VrmlConverter_OrthographicCamera: {
-      Vrml_TransformSeparator TS;
+      TransformSeparator TS;
       TS.Print(anOStream);
       myMatrixTransform.Print(anOStream);
       Vrml_Instancing I2("Orthographic Camera");

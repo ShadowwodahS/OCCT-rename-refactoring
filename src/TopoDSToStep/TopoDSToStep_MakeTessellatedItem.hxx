@@ -22,13 +22,13 @@
 #include <Message_ProgressRange.hxx>
 
 class StepVisual_TessellatedItem;
-class TopoDS_Face;
-class TopoDS_Shell;
+class TopoFace;
+class TopoShell;
 class Transfer_FinderProcess;
 
 //! This class implements the mapping between
 //! Face, Shell fromTopoDS and TriangulatedFace from StepVisual.
-class TopoDSToStep_MakeTessellatedItem : public TopoDSToStep_Root
+class TopoDSToStep_MakeTessellatedItem : public Root3
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -36,25 +36,25 @@ public:
   Standard_EXPORT TopoDSToStep_MakeTessellatedItem();
 
   Standard_EXPORT TopoDSToStep_MakeTessellatedItem(
-    const TopoDS_Face&                    theFace,
+    const TopoFace&                    theFace,
     TopoDSToStep_Tool&                    theTool,
     const Handle(Transfer_FinderProcess)& theFP,
     const Standard_Boolean                theToPreferSurfaceSet,
     const Message_ProgressRange&          theProgress = Message_ProgressRange());
 
   Standard_EXPORT TopoDSToStep_MakeTessellatedItem(
-    const TopoDS_Shell&                   theShell,
+    const TopoShell&                   theShell,
     TopoDSToStep_Tool&                    theTool,
     const Handle(Transfer_FinderProcess)& theFP,
     const Message_ProgressRange&          theProgress = Message_ProgressRange());
 
-  Standard_EXPORT void Init(const TopoDS_Face&                    theFace,
+  Standard_EXPORT void Init(const TopoFace&                    theFace,
                             TopoDSToStep_Tool&                    theTool,
                             const Handle(Transfer_FinderProcess)& theFP,
                             const Standard_Boolean                theToPreferSurfaceSet,
                             const Message_ProgressRange& theProgress = Message_ProgressRange());
 
-  Standard_EXPORT void Init(const TopoDS_Shell&                   theShell,
+  Standard_EXPORT void Init(const TopoShell&                   theShell,
                             TopoDSToStep_Tool&                    theTool,
                             const Handle(Transfer_FinderProcess)& theFP,
                             const Message_ProgressRange& theProgress = Message_ProgressRange());

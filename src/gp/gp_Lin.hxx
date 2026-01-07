@@ -33,7 +33,7 @@
 //! See Also
 //! gce_MakeLin which provides functions for more complex
 //! line constructions
-//! Geom_Line which provides additional functions for
+//! GeomLine which provides additional functions for
 //! constructing lines and works, in particular, with the
 //! parametric equations of lines
 class gp_Lin

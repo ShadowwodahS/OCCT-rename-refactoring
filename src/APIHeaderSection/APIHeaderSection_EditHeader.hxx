@@ -21,7 +21,7 @@
 
 #include <IFSelect_Editor.hxx>
 #include <Standard_Integer.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 class IFSelect_EditForm;
 class TCollection_HAsciiString;
 class RefObject;
@@ -36,7 +36,7 @@ class APIHeaderSection_EditHeader : public IFSelect_Editor
 public:
   Standard_EXPORT APIHeaderSection_EditHeader();
 
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Boolean
     Recognize(const Handle(IFSelect_EditForm)& form) const Standard_OVERRIDE;

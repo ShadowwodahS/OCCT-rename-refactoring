@@ -29,7 +29,7 @@ static Standard_Integer myDocumentVersion = -1;
 
 //=================================================================================================
 
-void BinMDataXtd::AddDrivers(const Handle(BinMDF_ADriverTable)& theDriverTable,
+void BinMDataXtd1::AddDrivers(const Handle(BinMDF_ADriverTable)& theDriverTable,
                              const Handle(Message_Messenger)&   theMsgDriver)
 {
   theDriverTable->AddDriver(new BinMDataXtd_ConstraintDriver(theMsgDriver));
@@ -45,7 +45,7 @@ void BinMDataXtd::AddDrivers(const Handle(BinMDF_ADriverTable)& theDriverTable,
 // function : SetDocumentVersion
 // purpose  : Sets current document version
 //=======================================================================
-void BinMDataXtd::SetDocumentVersion(const Standard_Integer theVersion)
+void BinMDataXtd1::SetDocumentVersion(const Standard_Integer theVersion)
 {
   myDocumentVersion = theVersion;
 }
@@ -54,7 +54,7 @@ void BinMDataXtd::SetDocumentVersion(const Standard_Integer theVersion)
 // function : DocumentVersion
 // purpose  : Retrieved document version
 //=======================================================================
-Standard_Integer BinMDataXtd::DocumentVersion()
+Standard_Integer BinMDataXtd1::DocumentVersion()
 {
   return myDocumentVersion;
 }

@@ -95,7 +95,7 @@ void DFBrowserPane_TDataStdReferenceArray::GetShortAttributeInfo(
 // =======================================================================
 void DFBrowserPane_TDataStdReferenceArray::GetReferences(
   const Handle(TDF_Attribute)& theAttribute,
-  NCollection_List<TDF_Label>& theRefLabels,
+  NCollection_List<DataLabel>& theRefLabels,
   Handle(RefObject)& /*theRefPresentation*/)
 {
   if (!getTableView())
@@ -110,7 +110,7 @@ void DFBrowserPane_TDataStdReferenceArray::GetReferences(
 
   for (int aValueId = anAttribute->Lower(); aValueId <= anAttribute->Upper(); aValueId++)
   {
-    TDF_Label aLabel = anAttribute->Value(aValueId);
+    DataLabel aLabel = anAttribute->Value(aValueId);
     if (aSelectedEntries.contains(DFBrowserPane_Tools::GetEntry(aLabel).ToCString()))
       theRefLabels.Append(aLabel);
   }

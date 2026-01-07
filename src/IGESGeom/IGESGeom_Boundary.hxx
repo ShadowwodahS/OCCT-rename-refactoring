@@ -30,7 +30,7 @@ class IGESGeom_Boundary;
 DEFINE_STANDARD_HANDLE(IGESGeom_Boundary, IGESData_IGESEntity)
 
 //! defines IGESBoundary, Type <141> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A boundary entity identifies a surface boundary consisting
 //! of a set of curves lying on the surface
 class IGESGeom_Boundary : public IGESData_IGESEntity

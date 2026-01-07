@@ -18,7 +18,7 @@
 #include <TCollection_AsciiString.hxx>
 #include <NCollection_List.hxx>
 
-typedef NCollection_List<TCollection_AsciiString>           TColStd_ListOfAsciiString;
-typedef NCollection_List<TCollection_AsciiString>::Iterator TColStd_ListIteratorOfListOfAsciiString;
+typedef NCollection_List<AsciiString1>           TColStd_ListOfAsciiString;
+typedef NCollection_List<AsciiString1>::Iterator TColStd_ListIteratorOfListOfAsciiString;
 
 #endif

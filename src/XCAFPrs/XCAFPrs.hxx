@@ -22,7 +22,7 @@
 
 #include <XCAFPrs_IndexedDataMapOfShapeStyle.hxx>
 #include <Standard_Boolean.hxx>
-class TDF_Label;
+class DataLabel;
 class TopLoc_Location;
 
 //! Presentation (visualiation, selection etc.) tools for
@@ -38,7 +38,7 @@ public:
   //! The location <loc> is for internal use, it
   //! should be Null location for external call
   Standard_EXPORT static void CollectStyleSettings(
-    const TDF_Label&                    L,
+    const DataLabel&                    L,
     const TopLoc_Location&              loc,
     XCAFPrs_IndexedDataMapOfShapeStyle& settings,
     const Quantity_ColorRGBA&           theLayerColor = Quantity_ColorRGBA(Quantity_NOC_WHITE));

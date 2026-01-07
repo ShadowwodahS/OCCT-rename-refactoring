@@ -53,7 +53,7 @@ RWMesh_CafReader::~RWMesh_CafReader()
   //
 }
 
-void RWMesh_CafReader::SetDocument(const Handle(TDocStd_Document)& theDoc)
+void RWMesh_CafReader::SetDocument(const Handle(AppDocument)& theDoc)
 {
   myXdeDoc                    = theDoc;
   Standard_Real aScaleFactorM = 1.;
@@ -65,12 +65,12 @@ void RWMesh_CafReader::SetDocument(const Handle(TDocStd_Document)& theDoc)
 
 //=================================================================================================
 
-TopoDS_Shape RWMesh_CafReader::SingleShape() const
+TopoShape RWMesh_CafReader::SingleShape() const
 {
   if (myRootShapes.Size() > 1)
   {
-    BRep_Builder    aBuilder;
-    TopoDS_Compound aCompound;
+    ShapeBuilder    aBuilder;
+    TopoCompound aCompound;
     aBuilder.MakeCompound(aCompound);
     for (TopTools_SequenceOfShape::Iterator aRootIter(myRootShapes); aRootIter.More();
          aRootIter.Next())
@@ -83,12 +83,12 @@ TopoDS_Shape RWMesh_CafReader::SingleShape() const
   {
     return myRootShapes.First();
   }
-  return TopoDS_Shape();
+  return TopoShape();
 }
 
 //=================================================================================================
 
-Standard_Boolean RWMesh_CafReader::perform(const TCollection_AsciiString& theFile,
+Standard_Boolean RWMesh_CafReader::perform(const AsciiString1& theFile,
                                            const Message_ProgressRange&   theProgress,
                                            const Standard_Boolean         theToProbe)
 {
@@ -100,7 +100,7 @@ Standard_Boolean RWMesh_CafReader::perform(const TCollection_AsciiString& theFil
 //=================================================================================================
 
 Standard_Boolean RWMesh_CafReader::perform(std::istream&                  theStream,
-                                           const TCollection_AsciiString& theFile,
+                                           const AsciiString1& theFile,
                                            const Message_ProgressRange&   theProgress,
                                            const Standard_Boolean         theToProbe)
 {
@@ -134,11 +134,11 @@ Standard_Boolean RWMesh_CafReader::perform(std::istream&                  theStr
   for (TopTools_SequenceOfShape::Iterator aRootIter(myRootShapes); aRootIter.More();
        aRootIter.Next())
   {
-    for (TopExp_Explorer aFaceIter(aRootIter.Value(), TopAbs_FACE); aFaceIter.More();
+    for (ShapeExplorer aFaceIter(aRootIter.Value(), TopAbs_FACE); aFaceIter.More();
          aFaceIter.Next())
     {
-      const TopoDS_Face& aFace = TopoDS::Face(aFaceIter.Current());
-      if (const Handle(Poly_Triangulation)& aPolyTri = BRep_Tool::Triangulation(aFace, aDummyLoc))
+      const TopoFace& aFace = TopoDS::Face(aFaceIter.Current());
+      if (const Handle(MeshTriangulation)& aPolyTri = BRepInspector::Triangulation(aFace, aDummyLoc))
       {
         aNbNodes += aPolyTri->NbNodes();
         aNbElems += aPolyTri->NbTriangles();
@@ -155,7 +155,7 @@ Standard_Boolean RWMesh_CafReader::perform(std::istream&                  theStr
 
   aLoadingTimer.Stop();
 
-  Message::SendInfo(TCollection_AsciiString("Mesh ") + theFile + "\n[" + aNbNodes + " nodes] ["
+  Message::SendInfo(AsciiString1("Mesh1 ") + theFile + "\n[" + aNbNodes + " nodes] ["
                     + aNbElems + " 2d elements]" + "\n[" + (!isDone ? "PARTIALLY " : "")
                     + "read in " + aLoadingTimer.ElapsedTime() + " s]");
   return Standard_True;
@@ -183,7 +183,7 @@ void RWMesh_CafReader::fillDocument()
 
   const Standard_Boolean wasAutoNaming = XCAFDoc_ShapeTool::AutoNaming();
   XCAFDoc_ShapeTool::SetAutoNaming(Standard_False);
-  const TCollection_AsciiString aRootName; // = generateRootName (theFile);
+  const AsciiString1 aRootName; // = generateRootName (theFile);
   CafDocumentTools              aTools;
   aTools.ShapeTool       = XCAFDoc_DocumentTool::ShapeTool(myXdeDoc->Main());
   aTools.ColorTool       = XCAFDoc_DocumentTool::ColorTool(myXdeDoc->Main());
@@ -191,7 +191,7 @@ void RWMesh_CafReader::fillDocument()
   for (TopTools_SequenceOfShape::Iterator aRootIter(myRootShapes); aRootIter.More();
        aRootIter.Next())
   {
-    addShapeIntoDoc(aTools, aRootIter.Value(), TDF_Label(), aRootName);
+    addShapeIntoDoc(aTools, aRootIter.Value(), DataLabel(), aRootName);
   }
   XCAFDoc_DocumentTool::ShapeTool(myXdeDoc->Main())->UpdateAssemblies();
   XCAFDoc_ShapeTool::SetAutoNaming(wasAutoNaming);
@@ -199,30 +199,30 @@ void RWMesh_CafReader::fillDocument()
 
 //=================================================================================================
 
-void RWMesh_CafReader::setShapeName(const TDF_Label&               theLabel,
+void RWMesh_CafReader::setShapeName(const DataLabel&               theLabel,
                                     const TopAbs_ShapeEnum         theShapeType,
-                                    const TCollection_AsciiString& theName,
-                                    const TDF_Label&               theParentLabel,
-                                    const TCollection_AsciiString& theParentName)
+                                    const AsciiString1& theName,
+                                    const DataLabel&               theParentLabel,
+                                    const AsciiString1& theParentName)
 {
   if (!theName.IsEmpty())
   {
-    TDataStd_Name::Set(theLabel, theName);
+    NameAttribute::Set(theLabel, theName);
   }
   else if (!theParentLabel.IsNull())
   {
-    TDataStd_Name::Set(theLabel, shapeTypeToString(theShapeType));
+    NameAttribute::Set(theLabel, shapeTypeToString(theShapeType));
   }
   else if (theParentLabel.IsNull() && !theParentName.IsEmpty())
   {
-    TDataStd_Name::Set(theLabel, theParentName);
+    NameAttribute::Set(theLabel, theParentName);
   }
 }
 
 //=================================================================================================
 
 void RWMesh_CafReader::setShapeStyle(const CafDocumentTools& theTools,
-                                     const TDF_Label&        theLabel,
+                                     const DataLabel&        theLabel,
                                      const XCAFPrs_Style&    theStyle)
 {
   if (theStyle.IsSetColorSurf())
@@ -235,10 +235,10 @@ void RWMesh_CafReader::setShapeStyle(const CafDocumentTools& theTools,
   }
   if (!theStyle.Material().IsNull())
   {
-    TDF_Label aMaterialLabel = theStyle.Material()->Label();
+    DataLabel aMaterialLabel = theStyle.Material()->Label();
     if (aMaterialLabel.IsNull())
     {
-      const TCollection_AsciiString aMatName =
+      const AsciiString1 aMatName =
         !theStyle.Material()->RawName().IsNull() ? theStyle.Material()->RawName()->String() : "";
       aMaterialLabel = theTools.VisMaterialTool->AddMaterial(theStyle.Material(), aMatName);
     }
@@ -249,7 +249,7 @@ void RWMesh_CafReader::setShapeStyle(const CafDocumentTools& theTools,
 //=================================================================================================
 
 void RWMesh_CafReader::setShapeNamedData(const CafDocumentTools&,
-                                         const TDF_Label&                  theLabel,
+                                         const DataLabel&                  theLabel,
                                          const Handle(TDataStd_NamedData)& theNameData)
 {
   if (theNameData.IsNull())
@@ -257,7 +257,7 @@ void RWMesh_CafReader::setShapeNamedData(const CafDocumentTools&,
     return;
   }
 
-  const TDF_Label            aNameDataLabel = theNameData->Label();
+  const DataLabel            aNameDataLabel = theNameData->Label();
   Handle(TDataStd_NamedData) anOtherNamedData;
   if (theLabel.FindAttribute(theNameData->ID(), anOtherNamedData))
   {
@@ -282,9 +282,9 @@ void RWMesh_CafReader::setShapeNamedData(const CafDocumentTools&,
 //=================================================================================================
 
 Standard_Boolean RWMesh_CafReader::addShapeIntoDoc(CafDocumentTools&              theTools,
-                                                   const TopoDS_Shape&            theShape,
-                                                   const TDF_Label&               theLabel,
-                                                   const TCollection_AsciiString& theParentName)
+                                                   const TopoShape&            theShape,
+                                                   const DataLabel&               theLabel,
+                                                   const AsciiString1& theParentName)
 {
   if (theShape.IsNull() || myXdeDoc.IsNull())
   {
@@ -292,8 +292,8 @@ Standard_Boolean RWMesh_CafReader::addShapeIntoDoc(CafDocumentTools&            
   }
 
   const TopAbs_ShapeEnum aShapeType     = theShape.ShapeType();
-  TopoDS_Shape           aShapeToAdd    = theShape;
-  const TopoDS_Shape     aShapeNoLoc    = theShape.Located(TopLoc_Location());
+  TopoShape           aShapeToAdd    = theShape;
+  const TopoShape     aShapeNoLoc    = theShape.Located(TopLoc_Location());
   Standard_Boolean       toMakeAssembly = Standard_False;
   if (theShape.ShapeType() == TopAbs_COMPOUND)
   {
@@ -308,7 +308,7 @@ Standard_Boolean RWMesh_CafReader::addShapeIntoDoc(CafDocumentTools&            
         break;
       }
 
-      const TopoDS_Face& aFace = TopoDS::Face(aSubShapeIter.Value());
+      const TopoFace& aFace = TopoDS::Face(aSubShapeIter.Value());
       toMakeAssembly =
         toMakeAssembly
         || (myAttribMap.Find(aFace, aSubFaceAttribs) && !aSubFaceAttribs.Name.IsEmpty());
@@ -318,15 +318,15 @@ Standard_Boolean RWMesh_CafReader::addShapeIntoDoc(CafDocumentTools&            
     {
       // create an empty Compound to add as assembly, so that we can add children one-by-one via
       // AddComponent()
-      TopoDS_Compound aCompound;
-      BRep_Builder    aBuilder;
+      TopoCompound aCompound;
+      ShapeBuilder    aBuilder;
       aBuilder.MakeCompound(aCompound);
       aCompound.Location(theShape.Location(), Standard_False);
       aShapeToAdd = aCompound;
     }
   }
 
-  TDF_Label aNewLabel, anOldLabel;
+  DataLabel aNewLabel, anOldLabel;
   if (theLabel.IsNull())
   {
     // add new shape
@@ -343,7 +343,7 @@ Standard_Boolean RWMesh_CafReader::addShapeIntoDoc(CafDocumentTools&            
     {
       aNewLabel = theTools.ShapeTool->AddComponent(theLabel, aShapeToAdd, toMakeAssembly);
 
-      TDF_Label aRefLabel = aNewLabel;
+      DataLabel aRefLabel = aNewLabel;
       theTools.ShapeTool->GetReferredShape(aNewLabel, aRefLabel);
       if (!aRefLabel.IsNull())
       {
@@ -368,7 +368,7 @@ Standard_Boolean RWMesh_CafReader::addShapeIntoDoc(CafDocumentTools&            
 
   if (toMakeAssembly)
   {
-    TDF_Label aRefLabel;
+    DataLabel aRefLabel;
     theTools.ShapeTool->GetReferredShape(aNewLabel, aRefLabel);
     if (!aRefLabel.IsNull())
     {
@@ -377,7 +377,7 @@ Standard_Boolean RWMesh_CafReader::addShapeIntoDoc(CafDocumentTools&            
   }
 
   // if new label is a reference get referred shape
-  TDF_Label aNewRefLabel = aNewLabel;
+  DataLabel aNewRefLabel = aNewLabel;
   theTools.ShapeTool->GetReferredShape(aNewLabel, aNewRefLabel);
 
   RWMesh_NodeAttributes aRefShapeAttribs;
@@ -436,7 +436,7 @@ Standard_Boolean RWMesh_CafReader::addShapeIntoDoc(CafDocumentTools&            
   if (theTools.ShapeTool->IsAssembly(aNewRefLabel))
   {
     // store sub-shapes (iterator is set to not inherit Location of parent object)
-    TCollection_AsciiString aDummyName;
+    AsciiString1 aDummyName;
     for (TopoDS_Iterator aSubShapeIter(theShape, Standard_True, Standard_False);
          aSubShapeIter.More();
          aSubShapeIter.Next())
@@ -461,8 +461,8 @@ Standard_Boolean RWMesh_CafReader::addShapeIntoDoc(CafDocumentTools&            
 //=================================================================================================
 
 Standard_Boolean RWMesh_CafReader::addSubShapeIntoDoc(CafDocumentTools&   theTools,
-                                                      const TopoDS_Shape& theShape,
-                                                      const TDF_Label&    theParentLabel)
+                                                      const TopoShape& theShape,
+                                                      const DataLabel&    theParentLabel)
 {
   if (theShape.IsNull() || myXdeDoc.IsNull())
   {
@@ -492,7 +492,7 @@ Standard_Boolean RWMesh_CafReader::addSubShapeIntoDoc(CafDocumentTools&   theToo
     return Standard_False;
   }
 
-  TDF_Label aNewLabel = theTools.ShapeTool->AddSubShape(theParentLabel, theShape);
+  DataLabel aNewLabel = theTools.ShapeTool->AddSubShape(theParentLabel, theShape);
   if (aNewLabel.IsNull())
   {
     return Standard_False;
@@ -502,12 +502,12 @@ Standard_Boolean RWMesh_CafReader::addSubShapeIntoDoc(CafDocumentTools&   theToo
   aShapeMapTool->SetShape(theShape);
 
   // if new label is a reference get referred shape
-  TDF_Label aNewRefLabel = aNewLabel;
+  DataLabel aNewRefLabel = aNewLabel;
   theTools.ShapeTool->GetReferredShape(aNewLabel, aNewRefLabel);
 
   // put attributes to the Product (shared across Instances)
-  static const TCollection_AsciiString anEmptyString;
-  setShapeName(aNewRefLabel, aShapeType, aShapeAttribs.Name, TDF_Label(), anEmptyString);
+  static const AsciiString1 anEmptyString;
+  setShapeName(aNewRefLabel, aShapeType, aShapeAttribs.Name, DataLabel(), anEmptyString);
   setShapeStyle(theTools, aNewRefLabel, aShapeAttribs.Style);
   setShapeNamedData(theTools, aNewRefLabel, aShapeAttribs.NamedData);
 
@@ -516,7 +516,7 @@ Standard_Boolean RWMesh_CafReader::addSubShapeIntoDoc(CafDocumentTools&   theToo
 
 //=================================================================================================
 
-void RWMesh_CafReader::generateNames(const TCollection_AsciiString& theFile,
+void RWMesh_CafReader::generateNames(const AsciiString1& theFile,
                                      const Standard_Integer         theRootLower,
                                      const Standard_Boolean         theWithSubLabels)
 {
@@ -525,9 +525,9 @@ void RWMesh_CafReader::generateNames(const TCollection_AsciiString& theFile,
     return;
   }
 
-  TCollection_AsciiString aDummyFolder, aFileName;
-  OSD_Path::FolderAndFileFromPath(theFile, aDummyFolder, aFileName);
-  const TCollection_AsciiString aRootName = myRootPrefix + aFileName;
+  AsciiString1 aDummyFolder, aFileName;
+  SystemPath::FolderAndFileFromPath(theFile, aDummyFolder, aFileName);
+  const AsciiString1 aRootName = myRootPrefix + aFileName;
 
   Handle(XCAFDoc_ShapeTool) aShapeTool = XCAFDoc_DocumentTool::ShapeTool(myXdeDoc->Main());
   TDF_LabelSequence         aRootLabels;
@@ -538,7 +538,7 @@ void RWMesh_CafReader::generateNames(const TCollection_AsciiString& theFile,
   }
 
   // replace empty names
-  Handle(TDataStd_Name) aNodeName;
+  Handle(NameAttribute) aNodeName;
   Standard_Integer      aRootIndex = aRootLabels.Lower();
   TDF_LabelSequence     aNewRootLabels;
   for (TDF_LabelSequence::Iterator aRootIter(aRootLabels); aRootIter.More();
@@ -553,16 +553,16 @@ void RWMesh_CafReader::generateNames(const TCollection_AsciiString& theFile,
       aNewRootLabels.Append(aRootIter.Value());
     }
 
-    const TDF_Label aLabel  = aRootIter.Value();
-    TDF_Label       aRefLab = aLabel;
+    const DataLabel aLabel  = aRootIter.Value();
+    DataLabel       aRefLab = aLabel;
     XCAFDoc_ShapeTool::GetReferredShape(aLabel, aRefLab);
-    if (!aRefLab.FindAttribute(TDataStd_Name::GetID(), aNodeName))
+    if (!aRefLab.FindAttribute(NameAttribute::GetID(), aNodeName))
     {
-      TDataStd_Name::Set(aRefLab, aRootName);
+      NameAttribute::Set(aRefLab, aRootName);
     }
-    if (aLabel != aRefLab && !aLabel.FindAttribute(TDataStd_Name::GetID(), aNodeName))
+    if (aLabel != aRefLab && !aLabel.FindAttribute(NameAttribute::GetID(), aNodeName))
     {
-      TDataStd_Name::Set(aLabel, aRootName);
+      NameAttribute::Set(aLabel, aRootName);
     }
   }
 
@@ -575,15 +575,15 @@ void RWMesh_CafReader::generateNames(const TCollection_AsciiString& theFile,
          aDocIter.Next())
     {
       if (aDocIter.CurrentDepth() == 0
-          || aDocIter.Current().RefLabel.FindAttribute(TDataStd_Name::GetID(), aNodeName))
+          || aDocIter.Current().RefLabel.FindAttribute(NameAttribute::GetID(), aNodeName))
       {
         continue;
       }
 
-      const TopoDS_Shape aShape = XCAFDoc_ShapeTool::GetShape(aDocIter.Current().RefLabel);
+      const TopoShape aShape = XCAFDoc_ShapeTool::GetShape(aDocIter.Current().RefLabel);
       if (!aShape.IsNull())
       {
-        TDataStd_Name::Set(aDocIter.Current().RefLabel, shapeTypeToString(aShape.ShapeType()));
+        NameAttribute::Set(aDocIter.Current().RefLabel, shapeTypeToString(aShape.ShapeType()));
       }
     }
   }

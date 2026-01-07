@@ -27,7 +27,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(DrawTrSurf_BSplineCurve, DrawTrSurf_Curve)
 
-DrawTrSurf_BSplineCurve::DrawTrSurf_BSplineCurve(const Handle(Geom_BSplineCurve)& C)
+DrawTrSurf_BSplineCurve::DrawTrSurf_BSplineCurve(const Handle(BSplineCurve3d)& C)
     : DrawTrSurf_Curve(C, Draw_vert, 16, 0.05, 1)
 {
 
@@ -39,10 +39,10 @@ DrawTrSurf_BSplineCurve::DrawTrSurf_BSplineCurve(const Handle(Geom_BSplineCurve)
   polesLook = Draw_rouge;
 }
 
-DrawTrSurf_BSplineCurve::DrawTrSurf_BSplineCurve(const Handle(Geom_BSplineCurve)& C,
-                                                 const Draw_Color&                CurvColor,
-                                                 const Draw_Color&                PolesColor,
-                                                 const Draw_Color&                KnotsColor,
+DrawTrSurf_BSplineCurve::DrawTrSurf_BSplineCurve(const Handle(BSplineCurve3d)& C,
+                                                 const DrawColor&                CurvColor,
+                                                 const DrawColor&                PolesColor,
+                                                 const DrawColor&                KnotsColor,
                                                  const Draw_MarkerShape           KnotsShape,
                                                  const Standard_Integer           KnotsSize,
                                                  const Standard_Boolean           ShowPoles,
@@ -60,9 +60,9 @@ DrawTrSurf_BSplineCurve::DrawTrSurf_BSplineCurve(const Handle(Geom_BSplineCurve)
   polesLook = PolesColor;
 }
 
-void DrawTrSurf_BSplineCurve::DrawOn(Draw_Display& dis) const
+void DrawTrSurf_BSplineCurve::DrawOn(DrawDisplay& dis) const
 {
-  Handle(Geom_BSplineCurve) C = Handle(Geom_BSplineCurve)::DownCast(curv);
+  Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(curv);
   if (drawPoles)
   {
     Standard_Integer NbPoles = C->NbPoles();
@@ -96,11 +96,11 @@ void DrawTrSurf_BSplineCurve::DrawOn(Draw_Display& dis) const
   }
 }
 
-void DrawTrSurf_BSplineCurve::DrawOn(Draw_Display&          dis,
+void DrawTrSurf_BSplineCurve::DrawOn(DrawDisplay&          dis,
                                      const Standard_Boolean ShowPoles,
                                      const Standard_Boolean ShowKnots) const
 {
-  Handle(Geom_BSplineCurve) C = Handle(Geom_BSplineCurve)::DownCast(curv);
+  Handle(BSplineCurve3d) C = Handle(BSplineCurve3d)::DownCast(curv);
   if (drawPoles && ShowPoles)
   {
     Standard_Integer NbPoles = C->NbPoles();
@@ -129,14 +129,14 @@ void DrawTrSurf_BSplineCurve::DrawOn(Draw_Display&          dis,
   }
 }
 
-void DrawTrSurf_BSplineCurve::DrawOn(Draw_Display&          dis,
+void DrawTrSurf_BSplineCurve::DrawOn(DrawDisplay&          dis,
                                      const Standard_Real    U1,
                                      const Standard_Real    U2,
                                      const Standard_Integer Pindex,
                                      const Standard_Boolean ShowPoles,
                                      const Standard_Boolean ShowKnots) const
 {
-  Handle(Geom_BSplineCurve) C    = Handle(Geom_BSplineCurve)::DownCast(curv);
+  Handle(BSplineCurve3d) C    = Handle(BSplineCurve3d)::DownCast(curv);
   Standard_Real             Eps1 = Abs(Epsilon(U1));
   Standard_Real             Eps2 = Abs(Epsilon(U2));
   Standard_Integer          I1, J1, I2, J2;
@@ -280,11 +280,11 @@ void DrawTrSurf_BSplineCurve::DrawOn(Draw_Display&          dis,
 
 void DrawTrSurf_BSplineCurve::FindPole(const Standard_Real X,
                                        const Standard_Real Y,
-                                       const Draw_Display& D,
+                                       const DrawDisplay& D,
                                        const Standard_Real XPrec,
                                        Standard_Integer&   Index) const
 {
-  Handle(Geom_BSplineCurve) bc   = Handle(Geom_BSplineCurve)::DownCast(curv);
+  Handle(BSplineCurve3d) bc   = Handle(BSplineCurve3d)::DownCast(curv);
   Standard_Real             Prec = XPrec / D.Zoom();
   gp_Pnt2d                  p1(X / D.Zoom(), Y / D.Zoom());
   Index++;
@@ -302,11 +302,11 @@ void DrawTrSurf_BSplineCurve::FindPole(const Standard_Real X,
 
 void DrawTrSurf_BSplineCurve::FindKnot(const Standard_Real X,
                                        const Standard_Real Y,
-                                       const Draw_Display& D,
+                                       const DrawDisplay& D,
                                        const Standard_Real Prec,
                                        Standard_Integer&   Index) const
 {
-  Handle(Geom_BSplineCurve) bc = Handle(Geom_BSplineCurve)::DownCast(curv);
+  Handle(BSplineCurve3d) bc = Handle(BSplineCurve3d)::DownCast(curv);
   gp_Pnt2d                  p1(X, Y);
   Index++;
   Standard_Integer NbKnots = bc->NbKnots();
@@ -326,7 +326,7 @@ void DrawTrSurf_BSplineCurve::FindKnot(const Standard_Real X,
 Handle(Draw_Drawable3D) DrawTrSurf_BSplineCurve::Copy() const
 {
   Handle(DrawTrSurf_BSplineCurve) DC =
-    new DrawTrSurf_BSplineCurve(Handle(Geom_BSplineCurve)::DownCast(curv->Copy()),
+    new DrawTrSurf_BSplineCurve(Handle(BSplineCurve3d)::DownCast(curv->Copy()),
                                 look,
                                 polesLook,
                                 knotsLook,
@@ -345,9 +345,9 @@ Handle(Draw_Drawable3D) DrawTrSurf_BSplineCurve::Copy() const
 
 Handle(Draw_Drawable3D) DrawTrSurf_BSplineCurve::Restore(std::istream& theStream)
 {
-  const DrawTrSurf_Params&  aParams = DrawTrSurf::Parameters();
-  Handle(Geom_BSplineCurve) aGeomCurve =
-    Handle(Geom_BSplineCurve)::DownCast(GeomTools_CurveSet::ReadCurve(theStream));
+  const DrawTrSurf_Params&  aParams = DrawTrSurf1::Parameters();
+  Handle(BSplineCurve3d) aGeomCurve =
+    Handle(BSplineCurve3d)::DownCast(GeomTools_CurveSet::ReadCurve(theStream));
   Handle(DrawTrSurf_BSplineCurve) aDrawCurve = new DrawTrSurf_BSplineCurve(aGeomCurve,
                                                                            aParams.CurvColor,
                                                                            aParams.PolesColor,

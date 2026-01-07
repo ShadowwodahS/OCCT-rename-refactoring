@@ -27,7 +27,7 @@ void StepData_ECDescr::Add(const Handle(StepData_ESDescr)& member)
   if (member.IsNull())
     return;
   Standard_CString        name = member->TypeName();
-  TCollection_AsciiString nam(name);
+  AsciiString1 nam(name);
   for (Standard_Integer i = NbMembers(); i > 0; i--)
   {
     Handle(StepData_ESDescr) mem = Member(i);
@@ -56,7 +56,7 @@ Handle(TColStd_HSequenceOfAsciiString) StepData_ECDescr::TypeList() const
   Standard_Integer                       i, nb = NbMembers();
   for (i = 1; i <= nb; i++)
   {
-    TCollection_AsciiString nam(Member(i)->TypeName());
+    AsciiString1 nam(Member(i)->TypeName());
     tl->Append(nam);
   }
   return tl;

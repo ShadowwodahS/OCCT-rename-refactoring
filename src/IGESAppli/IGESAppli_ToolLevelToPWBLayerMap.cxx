@@ -34,9 +34,9 @@
 #include <TCollection_HAsciiString.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 
-IGESAppli_ToolLevelToPWBLayerMap::IGESAppli_ToolLevelToPWBLayerMap() {}
+LevelToPWBLayerMapTool::LevelToPWBLayerMapTool() {}
 
-void IGESAppli_ToolLevelToPWBLayerMap::ReadOwnParams(
+void LevelToPWBLayerMapTool::ReadOwnParams(
   const Handle(IGESAppli_LevelToPWBLayerMap)& ent,
   const Handle(IGESData_IGESReaderData)& /* IR */,
   IGESData_ParamReader& PR) const
@@ -88,7 +88,7 @@ void IGESAppli_ToolLevelToPWBLayerMap::ReadOwnParams(
             tempExchangeFileLevelIdent);
 }
 
-void IGESAppli_ToolLevelToPWBLayerMap::WriteOwnParams(
+void LevelToPWBLayerMapTool::WriteOwnParams(
   const Handle(IGESAppli_LevelToPWBLayerMap)& ent,
   IGESData_IGESWriter&                        IW) const
 {
@@ -104,13 +104,13 @@ void IGESAppli_ToolLevelToPWBLayerMap::WriteOwnParams(
   }
 }
 
-void IGESAppli_ToolLevelToPWBLayerMap::OwnShared(
+void LevelToPWBLayerMapTool::OwnShared(
   const Handle(IGESAppli_LevelToPWBLayerMap)& /* ent */,
   Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESAppli_ToolLevelToPWBLayerMap::OwnCopy(const Handle(IGESAppli_LevelToPWBLayerMap)& another,
+void LevelToPWBLayerMapTool::OwnCopy(const Handle(IGESAppli_LevelToPWBLayerMap)& another,
                                                const Handle(IGESAppli_LevelToPWBLayerMap)& ent,
                                                Interface_CopyTool& /* TC */) const
 {
@@ -139,10 +139,10 @@ void IGESAppli_ToolLevelToPWBLayerMap::OwnCopy(const Handle(IGESAppli_LevelToPWB
             tempExchangeFileLevelIdent);
 }
 
-IGESData_DirChecker IGESAppli_ToolLevelToPWBLayerMap::DirChecker(
+DirectoryChecker LevelToPWBLayerMapTool::DirChecker(
   const Handle(IGESAppli_LevelToPWBLayerMap)& /* ent */) const
 {
-  IGESData_DirChecker DC(406, 24);
+  DirectoryChecker DC(406, 24);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -154,14 +154,14 @@ IGESData_DirChecker IGESAppli_ToolLevelToPWBLayerMap::DirChecker(
   return DC;
 }
 
-void IGESAppli_ToolLevelToPWBLayerMap::OwnCheck(
+void LevelToPWBLayerMapTool::OwnCheck(
   const Handle(IGESAppli_LevelToPWBLayerMap)& /* ent */,
   const Interface_ShareTool&,
   Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESAppli_ToolLevelToPWBLayerMap::OwnDump(const Handle(IGESAppli_LevelToPWBLayerMap)& ent,
+void LevelToPWBLayerMapTool::OwnDump(const Handle(IGESAppli_LevelToPWBLayerMap)& ent,
                                                const IGESData_IGESDumper& /* dumper */,
                                                Standard_OStream&      S,
                                                const Standard_Integer level) const

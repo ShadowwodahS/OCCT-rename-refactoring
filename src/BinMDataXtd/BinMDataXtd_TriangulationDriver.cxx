@@ -65,7 +65,7 @@ Standard_Boolean BinMDataXtd_TriangulationDriver::Paste(const BinObjMgt_Persiste
   }
 
   // allocate the mesh
-  Handle(Poly_Triangulation) PT = new Poly_Triangulation(nbNodes, nbTriangles, hasUV);
+  Handle(MeshTriangulation) PT = new MeshTriangulation(nbNodes, nbTriangles, hasUV);
 
   // deflection
   PT->Deflection(deflection);
@@ -114,7 +114,7 @@ void BinMDataXtd_TriangulationDriver::Paste(const Handle(TDF_Attribute)& theSour
 {
   const Handle(TDataXtd_Triangulation) attribute =
     Handle(TDataXtd_Triangulation)::DownCast(theSource);
-  const Handle(Poly_Triangulation)& PT = attribute->Get();
+  const Handle(MeshTriangulation)& PT = attribute->Get();
   if (!PT.IsNull())
   {
     Standard_Integer nbNodes     = PT->NbNodes();

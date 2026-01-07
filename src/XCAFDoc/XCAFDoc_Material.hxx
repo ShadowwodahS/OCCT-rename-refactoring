@@ -23,7 +23,7 @@
 #include <TDF_Attribute.hxx>
 class TCollection_HAsciiString;
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 
 class XCAFDoc_Material;
@@ -39,7 +39,7 @@ public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
   Standard_EXPORT static Handle(XCAFDoc_Material) Set(
-    const TDF_Label&                        label,
+    const DataLabel&                        label,
     const Handle(TCollection_HAsciiString)& aName,
     const Handle(TCollection_HAsciiString)& aDescription,
     const Standard_Real                     aDensity,

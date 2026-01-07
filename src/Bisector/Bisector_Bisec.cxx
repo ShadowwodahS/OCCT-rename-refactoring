@@ -45,7 +45,7 @@ static Standard_Boolean Affich = Standard_False;
   #endif
 #endif
 
-static Standard_Boolean IsMaxRC(const Handle(Geom2d_Curve)& C, Standard_Real U, Standard_Real& R);
+static Standard_Boolean IsMaxRC(const Handle(GeomCurve2d)& C, Standard_Real U, Standard_Real& R);
 
 static void ReplaceByLineIfIsToSmall(Handle(Bisector_Curve)& Bis,
                                      Standard_Real&          UFirst,
@@ -68,8 +68,8 @@ Bisector_Bisec::Bisector_Bisec() {}
 //   tolerance     :   threshold starting from which the bisectrices are degenerated
 //===========================================================================
 
-void Bisector_Bisec::Perform(const Handle(Geom2d_Curve)& afirstcurve,
-                             const Handle(Geom2d_Curve)& asecondcurve,
+void Bisector_Bisec::Perform(const Handle(GeomCurve2d)& afirstcurve,
+                             const Handle(GeomCurve2d)& asecondcurve,
                              const gp_Pnt2d&             apoint,
                              const gp_Vec2d&             afirstvector,
                              const gp_Vec2d&             asecondvector,
@@ -92,8 +92,8 @@ void Bisector_Bisec::Perform(const Handle(Geom2d_Curve)& afirstcurve,
     Type2 = Handle(Geom2d_TrimmedCurve)::DownCast(asecondcurve)->BasisCurve()->DynamicType();
   }
 
-  Handle(Geom2d_Curve) afirstcurve1  = afirstcurve;
-  Handle(Geom2d_Curve) asecondcurve1 = asecondcurve;
+  Handle(GeomCurve2d) afirstcurve1  = afirstcurve;
+  Handle(GeomCurve2d) asecondcurve1 = asecondcurve;
 
   if (Type1 == STANDARD_TYPE(Geom2d_BSplineCurve))
   {
@@ -252,13 +252,13 @@ void Bisector_Bisec::Perform(const Handle(Geom2d_Curve)& afirstcurve,
   if (Affich)
   {
     sprintf(name, "c1_%d", ++nbb);
-    DrawTrSurf::Set(name, afirstcurve);
+    DrawTrSurf1::Set(name, afirstcurve);
     sprintf(name, "c2_%d", nbb);
-    DrawTrSurf::Set(name, asecondcurve);
+    DrawTrSurf1::Set(name, asecondcurve);
     sprintf(name, "p%d", nbb);
-    DrawTrSurf::Set(name, apoint);
+    DrawTrSurf1::Set(name, apoint);
     sprintf(name, "b%d", nbb);
-    DrawTrSurf::Set(name, thebisector);
+    DrawTrSurf1::Set(name, thebisector);
   }
 #endif
 }
@@ -275,7 +275,7 @@ void Bisector_Bisec::Perform(const Handle(Geom2d_Curve)& afirstcurve,
 //   tolerance     :   threshold starting from which the bisectrices are degenerated
 //===========================================================================
 
-void Bisector_Bisec::Perform(const Handle(Geom2d_Curve)& afirstcurve,
+void Bisector_Bisec::Perform(const Handle(GeomCurve2d)& afirstcurve,
                              const Handle(Geom2d_Point)& asecondpoint,
                              const gp_Pnt2d&             apoint,
                              const gp_Vec2d&             afirstvector,
@@ -346,7 +346,7 @@ void Bisector_Bisec::Perform(const Handle(Geom2d_Curve)& afirstcurve,
       // Bissectrice algo
       //-------------------------------------------------------------------
       Handle(Bisector_BisecPC) BisPC              = new Bisector_BisecPC();
-      Handle(Geom2d_Curve)     afirstcurvereverse = afirstcurve->Reversed();
+      Handle(GeomCurve2d)     afirstcurvereverse = afirstcurve->Reversed();
 
       BisPC->Perform(afirstcurvereverse, asecondpoint->Pnt2d(), -adirection);
       //  Modified by Sergey KHROMOV - Thu Feb 21 16:49:54 2002 Begin
@@ -405,13 +405,13 @@ void Bisector_Bisec::Perform(const Handle(Geom2d_Curve)& afirstcurve,
   if (Affich)
   {
     sprintf(name, "c1_%d", ++nbb);
-    DrawTrSurf::Set(name, afirstcurve);
+    DrawTrSurf1::Set(name, afirstcurve);
     sprintf(name, "c2_%d", nbb);
-    DrawTrSurf::Set(name, asecondpoint->Pnt2d());
+    DrawTrSurf1::Set(name, asecondpoint->Pnt2d());
     sprintf(name, "p%d", nbb);
-    DrawTrSurf::Set(name, apoint);
+    DrawTrSurf1::Set(name, apoint);
     sprintf(name, "b%d", nbb);
-    DrawTrSurf::Set(name, thebisector);
+    DrawTrSurf1::Set(name, thebisector);
   }
 #endif
 }
@@ -429,7 +429,7 @@ void Bisector_Bisec::Perform(const Handle(Geom2d_Curve)& afirstcurve,
 //===========================================================================
 
 void Bisector_Bisec::Perform(const Handle(Geom2d_Point)& afirstpoint,
-                             const Handle(Geom2d_Curve)& asecondcurve,
+                             const Handle(GeomCurve2d)& asecondcurve,
                              const gp_Pnt2d&             apoint,
                              const gp_Vec2d&             afirstvector,
                              const gp_Vec2d&             asecondvector,
@@ -555,13 +555,13 @@ void Bisector_Bisec::Perform(const Handle(Geom2d_Point)& afirstpoint,
   if (Affich)
   {
     sprintf(name, "c1_%d", ++nbb);
-    DrawTrSurf::Set(name, afirstpoint->Pnt2d());
+    DrawTrSurf1::Set(name, afirstpoint->Pnt2d());
     sprintf(name, "c2_%d", nbb);
-    DrawTrSurf::Set(name, asecondcurve);
+    DrawTrSurf1::Set(name, asecondcurve);
     sprintf(name, "p%d", nbb);
-    DrawTrSurf::Set(name, apoint);
+    DrawTrSurf1::Set(name, apoint);
     sprintf(name, "b%d", nbb);
-    DrawTrSurf::Set(name, thebisector);
+    DrawTrSurf1::Set(name, thebisector);
   }
 #endif
 }
@@ -603,13 +603,13 @@ void Bisector_Bisec::Perform(const Handle(Geom2d_Point)& afirstpoint,
   if (Affich)
   {
     sprintf(name, "c1_%d", ++nbb);
-    DrawTrSurf::Set(name, afirstpoint->Pnt2d());
+    DrawTrSurf1::Set(name, afirstpoint->Pnt2d());
     sprintf(name, "c2_%d", nbb);
-    DrawTrSurf::Set(name, asecondpoint->Pnt2d());
+    DrawTrSurf1::Set(name, asecondpoint->Pnt2d());
     sprintf(name, "p%d", nbb);
-    DrawTrSurf::Set(name, apoint);
+    DrawTrSurf1::Set(name, apoint);
     sprintf(name, "b%d", nbb);
-    DrawTrSurf::Set(name, thebisector);
+    DrawTrSurf1::Set(name, thebisector);
   }
 #endif
 }
@@ -661,7 +661,7 @@ static void ReplaceByLineIfIsToSmall(Handle(Bisector_Curve)& Bis,
 
 //=================================================================================================
 
-static Standard_Boolean IsMaxRC(const Handle(Geom2d_Curve)& C, Standard_Real U, Standard_Real& R)
+static Standard_Boolean IsMaxRC(const Handle(GeomCurve2d)& C, Standard_Real U, Standard_Real& R)
 {
   Standard_Real KF, KL;
   Standard_Real US = C->FirstParameter();

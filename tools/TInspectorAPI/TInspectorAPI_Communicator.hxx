@@ -38,7 +38,7 @@ public:
   //! \param thePluginName the name of the library
   //! \return an instance of the communicator or NULL
   static Standard_EXPORT TInspectorAPI_Communicator* LoadPluginLibrary(
-    const TCollection_AsciiString& thePluginName);
+    const AsciiString1& thePluginName);
 
   //! Sets parameters container, it should be used when the plugin is initialized or in update
   //! content \param theParameters a parameters container

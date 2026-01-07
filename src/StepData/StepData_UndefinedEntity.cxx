@@ -140,7 +140,7 @@ void StepData_UndefinedEntity::ReadRecord(const Handle(StepData_StepReaderData)&
 void StepData_UndefinedEntity::WriteParams(StepData_StepWriter& SW) const
 {
   if (!IsSub())
-    SW.StartEntity(TCollection_AsciiString(StepType()));
+    SW.StartEntity(AsciiString1(StepType()));
   Standard_Integer           nb = thecont->NbParams();
   Handle(RefObject) anent;
   for (Standard_Integer i = 1; i <= nb; i++)

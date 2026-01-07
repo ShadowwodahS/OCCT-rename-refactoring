@@ -25,7 +25,7 @@ class Adaptor3d_Curve;
 
 //! A framework to provide display of any curve with
 //! respect to the maximal chordal deviation defined in
-//! the Prs3d_Drawer attributes manager.
+//! the StyleDrawer attributes manager.
 class StdPrs_DeflectionCurve : public Prs3d_Root
 {
 public:
@@ -40,7 +40,7 @@ public:
   //! visualization approach is activated (it is activated by default).
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   Adaptor3d_Curve&                  aCurve,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Standard_Boolean            drawCurve = Standard_True);
 
   //! adds to the presentation aPresentation the drawing of the curve
@@ -55,7 +55,7 @@ public:
                                   Adaptor3d_Curve&                  aCurve,
                                   const Standard_Real               U1,
                                   const Standard_Real               U2,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Standard_Boolean            drawCurve = Standard_True);
 
   //! adds to the presentation aPresentation the drawing of the curve
@@ -81,7 +81,7 @@ public:
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   Adaptor3d_Curve&                  aCurve,
                                   const Standard_Real               aDeflection,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   TColgp_SequenceOfPnt&             Points,
                                   const Standard_Boolean            drawCurve = Standard_True);
 
@@ -110,7 +110,7 @@ public:
                                                 const Standard_Real         Z,
                                                 const Standard_Real         aDistance,
                                                 const Adaptor3d_Curve&      aCurve,
-                                                const Handle(Prs3d_Drawer)& aDrawer);
+                                                const Handle(StyleDrawer)& aDrawer);
 
   //! returns true if the distance between the point (X,Y,Z) and the
   //! drawing of the curve aCurve with respect of the maximal
@@ -124,7 +124,7 @@ public:
                                                 const Adaptor3d_Curve&      aCurve,
                                                 const Standard_Real         U1,
                                                 const Standard_Real         U2,
-                                                const Handle(Prs3d_Drawer)& aDrawer);
+                                                const Handle(StyleDrawer)& aDrawer);
 
   //! Returns true if the distance between the point (theX, theY, theZ)
   //! and the drawing with respect of the maximal chordial deviation theDeflection is less then

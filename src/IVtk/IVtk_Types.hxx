@@ -48,7 +48,7 @@ typedef NCollection_List<IVtk_PointId> IVtk_PointIdList;
 typedef NCollection_DataMap<IVtk_IdType, IVtk_ShapeIdList> IVtk_SubShapeMap;
 typedef NCollection_Map<IVtk_IdType>                       IVtk_IdTypeMap;
 
-typedef NCollection_List<gp_XY> IVtk_Pnt2dList;
+typedef NCollection_List<Coords2d> IVtk_Pnt2dList;
 
 //! @enum IVtk_SelectionMode Selection modes for 3D shapes
 //!

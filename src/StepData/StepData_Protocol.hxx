@@ -34,7 +34,7 @@ class StepData_Protocol;
 DEFINE_STANDARD_HANDLE(StepData_Protocol, Interface_Protocol)
 
 //! Description of Basic Protocol for Step
-//! The class Protocol from StepData itself describes a default
+//! The class Protocol from StepData1 itself describes a default
 //! Protocol, which recognizes only UnknownEntities.
 //! Sub-classes will redefine CaseNumber and, if necessary,
 //! NbResources and Resources.
@@ -147,9 +147,9 @@ public:
 protected:
 private:
   Interface_DataMapOfTransientInteger                                      thedscnum;
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> thedscnam;
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> thepdescr;
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> thedscbas;
+  NCollection_DataMap<AsciiString1, Handle(RefObject)> thedscnam;
+  NCollection_DataMap<AsciiString1, Handle(RefObject)> thepdescr;
+  NCollection_DataMap<AsciiString1, Handle(RefObject)> thedscbas;
 };
 
 #endif // _StepData_Protocol_HeaderFile

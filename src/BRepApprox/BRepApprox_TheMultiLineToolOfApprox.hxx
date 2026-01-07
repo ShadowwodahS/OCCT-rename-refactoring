@@ -24,7 +24,7 @@
 #include <TColgp_Array1OfPnt.hxx>
 #include <Standard_Boolean.hxx>
 class BRepApprox_TheMultiLineOfApprox;
-class ApproxInt_SvSurfaces;
+class SurfaceSurfaces;
 
 class BRepApprox_TheMultiLineToolOfApprox
 {
@@ -126,7 +126,7 @@ private:
 
 #define TheMultiLine BRepApprox_TheMultiLineOfApprox
 #define TheMultiLine_hxx <BRepApprox_TheMultiLineOfApprox.hxx>
-#define TheMultiMPoint ApproxInt_SvSurfaces
+#define TheMultiMPoint SurfaceSurfaces
 #define TheMultiMPoint_hxx <ApproxInt_SvSurfaces.hxx>
 #define ApproxInt_MultiLineTool BRepApprox_TheMultiLineToolOfApprox
 #define ApproxInt_MultiLineTool_hxx <BRepApprox_TheMultiLineToolOfApprox.hxx>

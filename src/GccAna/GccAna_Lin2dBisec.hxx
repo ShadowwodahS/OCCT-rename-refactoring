@@ -45,13 +45,13 @@ class gp_Pnt2d;
 //! -   defining the construction of the bisecting lines,
 //! -   implementing the construction algorithm, and
 //! -   consulting the result.
-class GccAna_Lin2dBisec
+class Line2dBisector
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs bisecting lines between the two lines Lin1 and Lin2.
-  Standard_EXPORT GccAna_Lin2dBisec(const gp_Lin2d& Lin1, const gp_Lin2d& Lin2);
+  Standard_EXPORT Line2dBisector(const gp_Lin2d& Lin1, const gp_Lin2d& Lin2);
 
   //! Returns True when the algorithm succeeded.
   Standard_EXPORT Standard_Boolean IsDone() const;

@@ -47,11 +47,11 @@ public:
 
   //! Returns the current label
   //! \return a label
-  Standard_EXPORT virtual TDF_Label GetLabel() const Standard_OVERRIDE;
+  Standard_EXPORT virtual DataLabel GetLabel() const Standard_OVERRIDE;
 
   //! Sets the item document
   //! \param theLabel an object where the child items structure is found
-  void setDocument(const Handle(TDocStd_Document)& theDocument) { myDocument = theDocument; }
+  void setDocument(const Handle(AppDocument)& theDocument) { myDocument = theDocument; }
 
   //! Returns true if the current document is not null
   //! \return a boolean value
@@ -59,7 +59,7 @@ public:
 
   //! Returns the current document
   //! \return a label
-  Standard_EXPORT const Handle(TDocStd_Document)& getDocument() const;
+  Standard_EXPORT const Handle(AppDocument)& getDocument() const;
 
   //! Inits the item, fills internal containers
   Standard_EXPORT virtual void Init() Standard_OVERRIDE;
@@ -90,7 +90,7 @@ private:
   }
 
 private:
-  Handle(TDocStd_Document) myDocument; //!< cached application document by the row index of the item
+  Handle(AppDocument) myDocument; //!< cached application document by the row index of the item
 };
 
 #endif

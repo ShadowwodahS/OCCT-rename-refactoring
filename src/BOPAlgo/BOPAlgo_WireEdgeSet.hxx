@@ -25,8 +25,8 @@
 #include <NCollection_BaseAllocator.hxx>
 #include <TopoDS_Face.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Face;
-class TopoDS_Shape;
+class TopoFace;
+class TopoShape;
 
 class BOPAlgo_WireEdgeSet
 {
@@ -40,22 +40,22 @@ public:
 
   void Clear();
 
-  void SetFace(const TopoDS_Face& aF);
+  void SetFace(const TopoFace& aF);
 
-  const TopoDS_Face& Face() const;
+  const TopoFace& Face() const;
 
-  void AddStartElement(const TopoDS_Shape& sS);
+  void AddStartElement(const TopoShape& sS);
 
-  const TopTools_ListOfShape& StartElements() const;
+  const ShapeList& StartElements() const;
 
-  void AddShape(const TopoDS_Shape& sS);
+  void AddShape(const TopoShape& sS);
 
-  const TopTools_ListOfShape& Shapes() const;
+  const ShapeList& Shapes() const;
 
 protected:
-  TopoDS_Face          myFace;
-  TopTools_ListOfShape myStartShapes;
-  TopTools_ListOfShape myShapes;
+  TopoFace          myFace;
+  ShapeList myStartShapes;
+  ShapeList myShapes;
 
 private:
 };

@@ -78,7 +78,7 @@ inline Standard_Boolean TopOpeBRep_Point2d::IsVertex(const Standard_Integer Inde
 // function : SetVertex
 // purpose  :
 //=======================================================================
-inline void TopOpeBRep_Point2d::SetVertex(const Standard_Integer Index, const TopoDS_Vertex& V)
+inline void TopOpeBRep_Point2d::SetVertex(const Standard_Integer Index, const TopoVertex& V)
 {
   if (Index == 1)
   {
@@ -99,7 +99,7 @@ inline void TopOpeBRep_Point2d::SetVertex(const Standard_Integer Index, const To
 // purpose  :
 //=======================================================================
 inline void TopOpeBRep_Point2d::SetTransition(const Standard_Integer         Index,
-                                              const TopOpeBRepDS_Transition& T)
+                                              const StateTransition& T)
 {
   if (Index == 1)
     mytransition1 = T;

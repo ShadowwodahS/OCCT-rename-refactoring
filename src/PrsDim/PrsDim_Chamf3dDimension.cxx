@@ -40,9 +40,9 @@ IMPLEMENT_STANDARD_RTTIEXT(PrsDim_Chamf3dDimension, PrsDim_Relation)
 
 //=================================================================================================
 
-PrsDim_Chamf3dDimension::PrsDim_Chamf3dDimension(const TopoDS_Shape&               aFShape,
+PrsDim_Chamf3dDimension::PrsDim_Chamf3dDimension(const TopoShape&               aFShape,
                                                  const Standard_Real               aVal,
-                                                 const TCollection_ExtendedString& aText)
+                                                 const UtfString& aText)
     : PrsDim_Relation()
 {
   myFShape            = aFShape;
@@ -56,9 +56,9 @@ PrsDim_Chamf3dDimension::PrsDim_Chamf3dDimension(const TopoDS_Shape&            
 
 //=================================================================================================
 
-PrsDim_Chamf3dDimension::PrsDim_Chamf3dDimension(const TopoDS_Shape&               aFShape,
+PrsDim_Chamf3dDimension::PrsDim_Chamf3dDimension(const TopoShape&               aFShape,
                                                  const Standard_Real               aVal,
-                                                 const TCollection_ExtendedString& aText,
+                                                 const UtfString& aText,
                                                  const Point3d&                     aPosition,
                                                  const DsgPrs_ArrowSide            aSymbolPrs,
                                                  const Standard_Real               anArrowSize)
@@ -116,7 +116,7 @@ void PrsDim_Chamf3dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
   else
   {
 
-    Handle(Geom_Line) dimLin    = new Geom_Line(myPntAttach, myDir);
+    Handle(GeomLine) dimLin    = new GeomLine(myPntAttach, myDir);
     Standard_Real     parcurpos = ElCLib::Parameter(dimLin->Lin(), myPosition);
     curpos                      = ElCLib::Value(parcurpos, dimLin->Lin());
 
@@ -160,7 +160,7 @@ void PrsDim_Chamf3dDimension::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void PrsDim_Chamf3dDimension::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+void PrsDim_Chamf3dDimension::ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                                const Standard_Integer)
 {
   Handle(SelectMgr_EntityOwner)     own = new SelectMgr_EntityOwner(this, 7);

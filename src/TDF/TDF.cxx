@@ -37,7 +37,7 @@ const Standard_GUID& TDF::UppestID()
 
 //=================================================================================================
 
-void TDF::AddLinkGUIDToProgID(const Standard_GUID& ID, const TCollection_ExtendedString& ProgID)
+void TDF::AddLinkGUIDToProgID(const Standard_GUID& ID, const UtfString& ProgID)
 {
   guidprogidmap.UnBind1(ID);
   guidprogidmap.UnBind2(ProgID);
@@ -47,7 +47,7 @@ void TDF::AddLinkGUIDToProgID(const Standard_GUID& ID, const TCollection_Extende
 
 //=================================================================================================
 
-Standard_Boolean TDF::GUIDFromProgID(const TCollection_ExtendedString& ProgID, Standard_GUID& ID)
+Standard_Boolean TDF::GUIDFromProgID(const UtfString& ProgID, Standard_GUID& ID)
 {
   if (guidprogidmap.IsBound2(ProgID))
   {
@@ -59,7 +59,7 @@ Standard_Boolean TDF::GUIDFromProgID(const TCollection_ExtendedString& ProgID, S
 
 //=================================================================================================
 
-Standard_Boolean TDF::ProgIDFromGUID(const Standard_GUID& ID, TCollection_ExtendedString& ProgID)
+Standard_Boolean TDF::ProgIDFromGUID(const Standard_GUID& ID, UtfString& ProgID)
 {
   if (guidprogidmap.IsBound1(ID))
   {

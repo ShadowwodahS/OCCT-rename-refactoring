@@ -55,8 +55,8 @@ Standard_Boolean XmlMXCAFDoc_DimTolDriver::Paste(const XmlObjMgt_Persistent&  th
 
   if (anIntStr.GetInteger(aKind) == Standard_False)
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve DimTol attribute kind from \"") + anIntStr + "\"";
+    UtfString aMessageString =
+      UtfString("Cannot retrieve DimTol attribute kind from \"") + anIntStr + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
   }
@@ -66,7 +66,7 @@ Standard_Boolean XmlMXCAFDoc_DimTolDriver::Paste(const XmlObjMgt_Persistent&  th
   XmlObjMgt_DOMString      aDescrStr = anElement.getAttribute(::DescrIndexString());
   if (aNameStr == NULL || aDescrStr == NULL)
   {
-    TCollection_ExtendedString aMessageString(
+    UtfString aMessageString(
       "Cannot retrieve DimTol attribute name or description");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
@@ -81,7 +81,7 @@ Standard_Boolean XmlMXCAFDoc_DimTolDriver::Paste(const XmlObjMgt_Persistent&  th
     aFirstInd = 1;
   else if (!aFirstIndex.GetInteger(aFirstInd))
   {
-    TCollection_ExtendedString aMessageString(
+    UtfString aMessageString(
       "Cannot retrieve the DimTol first index for real array ");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
@@ -91,7 +91,7 @@ Standard_Boolean XmlMXCAFDoc_DimTolDriver::Paste(const XmlObjMgt_Persistent&  th
     aLastInd = 0;
   else if (!aLastIndex.GetInteger(aLastInd))
   {
-    TCollection_ExtendedString aMessageString(
+    UtfString aMessageString(
       "Cannot retrieve the DimTol last index for real array ");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
@@ -110,8 +110,8 @@ Standard_Boolean XmlMXCAFDoc_DimTolDriver::Paste(const XmlObjMgt_Persistent&  th
     {
       if (!XmlObjMgt::GetReal(aValueStr, aValue))
       {
-        TCollection_ExtendedString aMessageString =
-          TCollection_ExtendedString("Cannot retrieve real member"
+        UtfString aMessageString =
+          UtfString("Cannot retrieve real member"
                                      " for real array \"")
           + aValueStr + "\"";
         myMessageDriver->Send(aMessageString, Message_Fail);
@@ -158,7 +158,7 @@ void XmlMXCAFDoc_DimTolDriver::Paste(const Handle(TDF_Attribute)& theSource,
   theTarget.Element().setAttribute(::LastIndexString(), aLastInd);
   if (aLastInd >= aFirstInd)
   {
-    TCollection_AsciiString aValueStr;
+    AsciiString1 aValueStr;
     for (Standard_Integer i = aFirstInd; i <= aLastInd; i++)
     {
       char aValueChar[256];

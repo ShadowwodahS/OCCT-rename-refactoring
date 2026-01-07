@@ -23,7 +23,7 @@
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf()
+PointOnSurfProjector::PointOnSurfProjector()
     : myIsDone(Standard_False),
       myIndex(0)
 {
@@ -31,8 +31,8 @@ GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf()
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const Point3d&               P,
-                                                       const Handle(Geom_Surface)& Surface,
+PointOnSurfProjector::PointOnSurfProjector(const Point3d&               P,
+                                                       const Handle(GeomSurface)& Surface,
                                                        const Extrema_ExtAlgo       theProjAlgo)
 {
   Init(P, Surface, theProjAlgo);
@@ -40,8 +40,8 @@ GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const Point3d&           
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const Point3d&               P,
-                                                       const Handle(Geom_Surface)& Surface,
+PointOnSurfProjector::PointOnSurfProjector(const Point3d&               P,
+                                                       const Handle(GeomSurface)& Surface,
                                                        const Standard_Real         Tolerance,
                                                        const Extrema_ExtAlgo       theProjAlgo)
 {
@@ -50,8 +50,8 @@ GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const Point3d&           
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const Point3d&               P,
-                                                       const Handle(Geom_Surface)& Surface,
+PointOnSurfProjector::PointOnSurfProjector(const Point3d&               P,
+                                                       const Handle(GeomSurface)& Surface,
                                                        const Standard_Real         Umin,
                                                        const Standard_Real         Usup,
                                                        const Standard_Real         Vmin,
@@ -64,8 +64,8 @@ GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const Point3d&           
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const Point3d&               P,
-                                                       const Handle(Geom_Surface)& Surface,
+PointOnSurfProjector::PointOnSurfProjector(const Point3d&               P,
+                                                       const Handle(GeomSurface)& Surface,
                                                        const Standard_Real         Umin,
                                                        const Standard_Real         Usup,
                                                        const Standard_Real         Vmin,
@@ -79,7 +79,7 @@ GeomAPI_ProjectPointOnSurf::GeomAPI_ProjectPointOnSurf(const Point3d&           
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnSurf::Init()
+void PointOnSurfProjector::Init()
 {
   myIsDone = myExtPS.IsDone() && (myExtPS.NbExt() > 0);
 
@@ -103,8 +103,8 @@ void GeomAPI_ProjectPointOnSurf::Init()
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnSurf::Init(const Point3d&               P,
-                                      const Handle(Geom_Surface)& Surface,
+void PointOnSurfProjector::Init(const Point3d&               P,
+                                      const Handle(GeomSurface)& Surface,
                                       const Extrema_ExtAlgo       theProjAlgo)
 
 {
@@ -113,8 +113,8 @@ void GeomAPI_ProjectPointOnSurf::Init(const Point3d&               P,
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnSurf::Init(const Point3d&               P,
-                                      const Handle(Geom_Surface)& Surface,
+void PointOnSurfProjector::Init(const Point3d&               P,
+                                      const Handle(GeomSurface)& Surface,
                                       const Standard_Real         Tolerance,
                                       const Extrema_ExtAlgo       theProjAlgo)
 
@@ -141,8 +141,8 @@ void GeomAPI_ProjectPointOnSurf::Init(const Point3d&               P,
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnSurf::Init(const Point3d&               P,
-                                      const Handle(Geom_Surface)& Surface,
+void PointOnSurfProjector::Init(const Point3d&               P,
+                                      const Handle(GeomSurface)& Surface,
                                       const Standard_Real         Umin,
                                       const Standard_Real         Usup,
                                       const Standard_Real         Vmin,
@@ -165,8 +165,8 @@ void GeomAPI_ProjectPointOnSurf::Init(const Point3d&               P,
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnSurf::Init(const Point3d&               P,
-                                      const Handle(Geom_Surface)& Surface,
+void PointOnSurfProjector::Init(const Point3d&               P,
+                                      const Handle(GeomSurface)& Surface,
                                       const Standard_Real         Umin,
                                       const Standard_Real         Usup,
                                       const Standard_Real         Vmin,
@@ -189,7 +189,7 @@ void GeomAPI_ProjectPointOnSurf::Init(const Point3d&               P,
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnSurf::Init(const Handle(Geom_Surface)& Surface,
+void PointOnSurfProjector::Init(const Handle(GeomSurface)& Surface,
                                       const Standard_Real         Umin,
                                       const Standard_Real         Usup,
                                       const Standard_Real         Vmin,
@@ -212,7 +212,7 @@ void GeomAPI_ProjectPointOnSurf::Init(const Handle(Geom_Surface)& Surface,
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnSurf::Init(const Handle(Geom_Surface)& Surface,
+void PointOnSurfProjector::Init(const Handle(GeomSurface)& Surface,
                                       const Standard_Real         Umin,
                                       const Standard_Real         Usup,
                                       const Standard_Real         Vmin,
@@ -235,7 +235,7 @@ void GeomAPI_ProjectPointOnSurf::Init(const Handle(Geom_Surface)& Surface,
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnSurf::Perform(const Point3d& P)
+void PointOnSurfProjector::Perform(const Point3d& P)
 {
   myExtPS.Perform(P);
   Init();
@@ -243,14 +243,14 @@ void GeomAPI_ProjectPointOnSurf::Perform(const Point3d& P)
 
 //=================================================================================================
 
-Standard_Boolean GeomAPI_ProjectPointOnSurf::IsDone() const
+Standard_Boolean PointOnSurfProjector::IsDone() const
 {
   return myIsDone;
 }
 
 //=================================================================================================
 
-Standard_Integer GeomAPI_ProjectPointOnSurf::NbPoints() const
+Standard_Integer PointOnSurfProjector::NbPoints() const
 {
   if (myIsDone)
   {
@@ -264,77 +264,77 @@ Standard_Integer GeomAPI_ProjectPointOnSurf::NbPoints() const
 
 //=================================================================================================
 
-Point3d GeomAPI_ProjectPointOnSurf::Point(const Standard_Integer Index) const
+Point3d PointOnSurfProjector::Point(const Standard_Integer Index) const
 {
   Standard_OutOfRange_Raise_if(Index < 1 || Index > NbPoints(),
-                               "GeomAPI_ProjectPointOnSurf::Point");
+                               "PointOnSurfProjector::Point");
   return (myExtPS.Point(Index)).Value();
 }
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnSurf::Parameters(const Standard_Integer Index,
+void PointOnSurfProjector::Parameters(const Standard_Integer Index,
                                             Standard_Real&         U,
                                             Standard_Real&         V) const
 {
   Standard_OutOfRange_Raise_if(Index < 1 || Index > NbPoints(),
-                               "GeomAPI_ProjectPointOnSurf::Parameter");
+                               "PointOnSurfProjector::Parameter");
   (myExtPS.Point(Index)).Parameter(U, V);
 }
 
 //=================================================================================================
 
-Standard_Real GeomAPI_ProjectPointOnSurf::Distance(const Standard_Integer Index) const
+Standard_Real PointOnSurfProjector::Distance(const Standard_Integer Index) const
 {
   Standard_OutOfRange_Raise_if(Index < 1 || Index > NbPoints(),
-                               "GeomAPI_ProjectPointOnSurf::Distance");
+                               "PointOnSurfProjector::Distance");
   return sqrt(myExtPS.SquareDistance(Index));
 }
 
 //=================================================================================================
 
-Point3d GeomAPI_ProjectPointOnSurf::NearestPoint() const
+Point3d PointOnSurfProjector::NearestPoint() const
 {
-  StdFail_NotDone_Raise_if(!myIsDone, "GeomAPI_ProjectPointOnSurf::NearestPoint");
+  StdFail_NotDone_Raise_if(!myIsDone, "PointOnSurfProjector::NearestPoint");
 
   return (myExtPS.Point(myIndex)).Value();
 }
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnSurf::operator Standard_Integer() const
+PointOnSurfProjector::operator Standard_Integer() const
 {
   return NbPoints();
 }
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnSurf::operator Point3d() const
+PointOnSurfProjector::operator Point3d() const
 {
   return NearestPoint();
 }
 
 //=================================================================================================
 
-void GeomAPI_ProjectPointOnSurf::LowerDistanceParameters(Standard_Real& U, Standard_Real& V) const
+void PointOnSurfProjector::LowerDistanceParameters(Standard_Real& U, Standard_Real& V) const
 {
-  StdFail_NotDone_Raise_if(!myIsDone, "GeomAPI_ProjectPointOnSurf::LowerDistanceParameters");
+  StdFail_NotDone_Raise_if(!myIsDone, "PointOnSurfProjector::LowerDistanceParameters");
 
   (myExtPS.Point(myIndex)).Parameter(U, V);
 }
 
 //=================================================================================================
 
-Standard_Real GeomAPI_ProjectPointOnSurf::LowerDistance() const
+Standard_Real PointOnSurfProjector::LowerDistance() const
 {
-  StdFail_NotDone_Raise_if(!myIsDone, "GeomAPI_ProjectPointOnSurf::LowerDistance");
+  StdFail_NotDone_Raise_if(!myIsDone, "PointOnSurfProjector::LowerDistance");
 
   return sqrt(myExtPS.SquareDistance(myIndex));
 }
 
 //=================================================================================================
 
-GeomAPI_ProjectPointOnSurf::operator Standard_Real() const
+PointOnSurfProjector::operator Standard_Real() const
 {
   return LowerDistance();
 }

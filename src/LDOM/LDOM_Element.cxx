@@ -37,16 +37,16 @@ LDOMString LDOM_Element::getAttribute(const LDOMString& aName) const
     return LDOMString();
   if (myLastChild == NULL)
   {
-    const LDOM_BasicNode* aNode = anElem.GetFirstChild();
+    const BasicNode* aNode = anElem.GetFirstChild();
     if (aNode && aNode->getNodeType() != LDOM_Node::ATTRIBUTE_NODE)
       for (;;)
       {
-        const LDOM_BasicNode* aSibling = aNode->GetSibling();
+        const BasicNode* aSibling = aNode->GetSibling();
         if (aSibling == NULL)
           return LDOMString();
         if (aSibling->getNodeType() == LDOM_Node::ATTRIBUTE_NODE)
         {
-          (const LDOM_BasicNode*&)myLastChild = aNode;
+          (const BasicNode*&)myLastChild = aNode;
           break;
         }
         aNode = aSibling;
@@ -67,16 +67,16 @@ LDOM_Attr LDOM_Element::getAttributeNode(const LDOMString& aName) const
     return LDOM_Attr();
   if (myLastChild == NULL)
   {
-    const LDOM_BasicNode* aNode = anElem.GetFirstChild();
+    const BasicNode* aNode = anElem.GetFirstChild();
     if (aNode && aNode->getNodeType() != LDOM_Node::ATTRIBUTE_NODE)
       for (;;)
       {
-        const LDOM_BasicNode* aSibling = aNode->GetSibling();
+        const BasicNode* aSibling = aNode->GetSibling();
         if (aSibling == NULL)
           return LDOM_Attr();
         if (aSibling->getNodeType() == LDOM_Node::ATTRIBUTE_NODE)
         {
-          (const LDOM_BasicNode*&)myLastChild = aSibling;
+          (const BasicNode*&)myLastChild = aSibling;
           break;
         }
         aNode = aSibling;
@@ -208,12 +208,12 @@ void LDOM_Element::ReplaceElement(const LDOM_Element& anOther)
     anElem.myTagName                    = anOtherElem.myTagName;
     anElem.myAttributeMask              = anOtherElem.myAttributeMask;
     anElem.myFirstChild                 = anOtherElem.myFirstChild;
-    (const LDOM_BasicNode*&)myLastChild = anOther.myLastChild;
+    (const BasicNode*&)myLastChild = anOther.myLastChild;
   }
   else
   {
     anElem.ReplaceElement(anOtherElem, myDocument);
-    (const LDOM_BasicNode*&)myLastChild = NULL;
+    (const BasicNode*&)myLastChild = NULL;
   }
 }
 

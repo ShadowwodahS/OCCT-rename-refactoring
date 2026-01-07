@@ -33,9 +33,9 @@
 #include <TColgp_SequenceOfPnt2d.hxx>
 #include <TColStd_SequenceOfReal.hxx>
 class ShapeAnalysis_Surface;
-class Geom_Surface;
-class Geom_Curve;
-class Geom2d_Curve;
+class GeomSurface;
+class GeomCurve3d;
+class GeomCurve2d;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -64,15 +64,15 @@ public:
 
   //! Initializes the object with all necessary parameters,
   //! i.e. surface and precision
-  Standard_EXPORT virtual void Init(const Handle(Geom_Surface)& surf, const Standard_Real preci);
+  Standard_EXPORT virtual void Init(const Handle(GeomSurface)& surf, const Standard_Real preci);
 
   //! Initializes the object with all necessary parameters,
   //! i.e. surface and precision
   Standard_EXPORT virtual void Init(const Handle(ShapeAnalysis_Surface)& surf,
                                     const Standard_Real                  preci);
 
-  //! Loads a surface (in the form of Geom_Surface) to project on
-  Standard_EXPORT void SetSurface(const Handle(Geom_Surface)& surf);
+  //! Loads a surface (in the form of GeomSurface) to project on
+  Standard_EXPORT void SetSurface(const Handle(GeomSurface)& surf);
 
   //! Loads a surface (in the form of ShapeAnalysis_Surface) to project on
   Standard_EXPORT void SetSurface(const Handle(ShapeAnalysis_Surface)& surf);
@@ -109,10 +109,10 @@ public:
   //! lies on a direct line the infinite line is returned, in the case
   //! same-parameter condition is satisfied.
   //! TolFirst and TolLast are the tolerances at the ends of input curve 3D.
-  Standard_EXPORT virtual Standard_Boolean Perform(Handle(Geom_Curve)&   c3d,
+  Standard_EXPORT virtual Standard_Boolean Perform(Handle(GeomCurve3d)&   c3d,
                                                    const Standard_Real   First,
                                                    const Standard_Real   Last,
-                                                   Handle(Geom2d_Curve)& c2d,
+                                                   Handle(GeomCurve2d)& c2d,
                                                    const Standard_Real   TolFirst = -1,
                                                    const Standard_Real   TolLast  = -1);
 
@@ -125,10 +125,10 @@ public:
   //! to Approx_CurveOnSurface. If nbinterval is equal to -1
   //! (default), this value is computed depending on source 3d curve
   //! and surface.
-  Standard_EXPORT Standard_Boolean PerformByProjLib(Handle(Geom_Curve)&    c3d,
+  Standard_EXPORT Standard_Boolean PerformByProjLib(Handle(GeomCurve3d)&    c3d,
                                                     const Standard_Real    First,
                                                     const Standard_Real    Last,
-                                                    Handle(Geom2d_Curve)&  c2d,
+                                                    Handle(GeomCurve2d)&  c2d,
                                                     const GeomAbs_Shape    continuity = GeomAbs_C1,
                                                     const Standard_Integer maxdeg     = 12,
                                                     const Standard_Integer nbinterval = -1);
@@ -143,7 +143,7 @@ protected:
   //! points2d - 2d points lies on line in parametric space
   //! theTol - tolerance used for compare initial points 3d and
   //! 3d points obtained from line lying in parameric space of surface
-  Standard_EXPORT Handle(Geom2d_Curve) getLine(const TColgp_SequenceOfPnt&   points,
+  Standard_EXPORT Handle(GeomCurve2d) getLine(const TColgp_SequenceOfPnt&   points,
                                                const TColStd_SequenceOfReal& params,
                                                TColgp_SequenceOfPnt2d&       points2d,
                                                const Standard_Real           theTol,
@@ -160,18 +160,18 @@ protected:
   gp_Pnt2d                      myCashe2d[2];
 
 private:
-  Standard_EXPORT Handle(Geom2d_Curve) ProjectAnalytic(const Handle(Geom_Curve)& c3d) const;
+  Standard_EXPORT Handle(GeomCurve2d) ProjectAnalytic(const Handle(GeomCurve3d)& c3d) const;
 
   Standard_EXPORT Standard_Boolean ApproxPCurve(const Standard_Integer    nbrPnt,
-                                                const Handle(Geom_Curve)& c3d,
+                                                const Handle(GeomCurve3d)& c3d,
                                                 const Standard_Real       TolFirst,
                                                 const Standard_Real       TolLast,
                                                 TColgp_SequenceOfPnt&     points,
                                                 TColStd_SequenceOfReal&   params,
                                                 TColgp_SequenceOfPnt2d&   points2d,
-                                                Handle(Geom2d_Curve)&     c2d);
+                                                Handle(GeomCurve2d)&     c2d);
 
-  Standard_EXPORT void CorrectExtremity(const Handle(Geom_Curve)&     theC3d,
+  Standard_EXPORT void CorrectExtremity(const Handle(GeomCurve3d)&     theC3d,
                                         const TColStd_SequenceOfReal& theParams,
                                         TColgp_SequenceOfPnt2d&       thePnt2d,
                                         const Standard_Boolean        theIsFirstPoint,
@@ -184,26 +184,26 @@ private:
                                                      const Standard_Real       TolOnPeriod,
                                                      Standard_Real&            CurCoord,
                                                      const Standard_Real       prevCoord,
-                                                     const Handle(Geom_Curve)& c3d,
+                                                     const Handle(GeomCurve3d)& c3d,
                                                      Standard_Integer&         theIndex,
                                                      TColgp_SequenceOfPnt&     points,
                                                      TColStd_SequenceOfReal&   params,
                                                      TColgp_SequenceOfPnt2d&   pnt2d);
 
-  Standard_EXPORT Handle(Geom2d_Curve) InterpolatePCurve(const Standard_Integer         nbrPnt,
+  Standard_EXPORT Handle(GeomCurve2d) InterpolatePCurve(const Standard_Integer         nbrPnt,
                                                          Handle(TColgp_HArray1OfPnt2d)& points2d,
                                                          Handle(TColStd_HArray1OfReal)& params,
-                                                         const Handle(Geom_Curve)&      orig) const;
+                                                         const Handle(GeomCurve3d)&      orig) const;
 
-  Standard_EXPORT Handle(Geom2d_Curve) ApproximatePCurve(const Standard_Integer         nbrPnt,
+  Standard_EXPORT Handle(GeomCurve2d) ApproximatePCurve(const Standard_Integer         nbrPnt,
                                                          Handle(TColgp_HArray1OfPnt2d)& points2d,
                                                          Handle(TColStd_HArray1OfReal)& params,
-                                                         const Handle(Geom_Curve)&      orig) const;
+                                                         const Handle(GeomCurve3d)&      orig) const;
 
-  Standard_EXPORT Handle(Geom_Curve) InterpolateCurve3d(const Standard_Integer         nbrPnt,
+  Standard_EXPORT Handle(GeomCurve3d) InterpolateCurve3d(const Standard_Integer         nbrPnt,
                                                         Handle(TColgp_HArray1OfPnt)&   points,
                                                         Handle(TColStd_HArray1OfReal)& params,
-                                                        const Handle(Geom_Curve)&      orig) const;
+                                                        const Handle(GeomCurve3d)&      orig) const;
 
   Standard_EXPORT void CheckPoints(Handle(TColgp_HArray1OfPnt)&   points,
                                    Handle(TColStd_HArray1OfReal)& params,
@@ -222,7 +222,7 @@ private:
                                                      Standard_Boolean&             p2OnIso,
                                                      gp_Pnt2d&                     valueP2,
                                                      Standard_Boolean&             isoPar2d3d,
-                                                     Handle(Geom_Curve)&           cIso,
+                                                     Handle(GeomCurve3d)&           cIso,
                                                      Standard_Real&                t1,
                                                      Standard_Real&                t2,
                                                      TColStd_Array1OfReal&         pout) const;

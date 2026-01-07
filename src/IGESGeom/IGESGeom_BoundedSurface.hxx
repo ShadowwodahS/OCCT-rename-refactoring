@@ -28,7 +28,7 @@ class IGESGeom_BoundedSurface;
 DEFINE_STANDARD_HANDLE(IGESGeom_BoundedSurface, IGESData_IGESEntity)
 
 //! defines BoundedSurface, Type <143> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A bounded surface is used to communicate trimmed
 //! surfaces. The surface and trimming curves are assumed
 //! to be represented parametrically.

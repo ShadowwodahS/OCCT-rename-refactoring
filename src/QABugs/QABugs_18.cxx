@@ -41,7 +41,7 @@
 
 #define DEFAULT_COLOR Quantity_NOC_GOLDENROD
 
-static Standard_Integer OCC267(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC267(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 3)
   {
@@ -49,11 +49,11 @@ static Standard_Integer OCC267(Draw_Interpretor& di, Standard_Integer argc, cons
     return 1;
   }
 
-  Handle(TDocStd_Document) D;
-  if (!DDocStd::GetDocument(argv[1], D))
+  Handle(AppDocument) D;
+  if (!DDocStd1::GetDocument(argv[1], D))
     return 1;
-  TCollection_ExtendedString  path(argv[2]);
-  Handle(TDocStd_Application) A = DDocStd::GetApplication();
+  UtfString  path(argv[2]);
+  Handle(AppManager) A = DDocStd1::GetApplication();
 
   PCDM_StoreStatus theStatus = A->SaveAs(D, path);
   if (theStatus == PCDM_SS_OK)
@@ -68,7 +68,7 @@ static Standard_Integer OCC267(Draw_Interpretor& di, Standard_Integer argc, cons
   return 0;
 }
 
-static Standard_Integer OCC181(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC181(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 5)
   {
@@ -78,7 +78,7 @@ static Standard_Integer OCC181(Draw_Interpretor& di, Standard_Integer argc, cons
   Standard_CString aFileName  = argv[1];
   Standard_CString aDir1      = argv[2];
   Standard_CString aDir2      = argv[3];
-  Standard_Integer verboseInt = Draw::Atoi(argv[4]);
+  Standard_Integer verboseInt = Draw1::Atoi(argv[4]);
 
   Standard_Boolean verboseBool = Standard_False;
   if (verboseInt != 0)
@@ -86,7 +86,7 @@ static Standard_Integer OCC181(Draw_Interpretor& di, Standard_Integer argc, cons
     verboseBool = Standard_True;
   }
 
-  TCollection_AsciiString Env1, Env2, CSF_ = "set env(CSF_";
+  AsciiString1 Env1, Env2, CSF_ = "set env(CSF_";
   Env1 = CSF_ + aFileName + "UserDefaults) " + aDir1;
   Env2 = CSF_ + aFileName + "UserDefaults) " + aDir2;
 
@@ -110,7 +110,7 @@ static Standard_Integer OCC181(Draw_Interpretor& di, Standard_Integer argc, cons
   return 0;
 }
 
-static Standard_Integer OCC27849(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC27849(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 3)
   {
@@ -151,7 +151,7 @@ static Standard_Real delta_percent(Standard_Real a, Standard_Real b)
   return result;
 }
 
-static Standard_Integer OCC367(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC367(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 7)
   {
@@ -159,23 +159,23 @@ static Standard_Integer OCC367(Draw_Interpretor& di, Standard_Integer argc, cons
     return 1;
   }
 
-  TopoDS_Wire      myTopoDSWire = TopoDS::Wire(DBRep::Get(argv[1]));
-  Standard_Real    l            = Draw::Atof(argv[2]);
-  Standard_Real    goodX        = Draw::Atof(argv[3]);
-  Standard_Real    goodY        = Draw::Atof(argv[4]);
-  Standard_Real    goodZ        = Draw::Atof(argv[5]);
-  Standard_Real    percent      = Draw::Atof(argv[6]);
+  TopoWire      myTopoDSWire = TopoDS::Wire(DBRep1::Get(argv[1]));
+  Standard_Real    l            = Draw1::Atof(argv[2]);
+  Standard_Real    goodX        = Draw1::Atof(argv[3]);
+  Standard_Real    goodY        = Draw1::Atof(argv[4]);
+  Standard_Real    goodZ        = Draw1::Atof(argv[5]);
+  Standard_Real    percent      = Draw1::Atof(argv[6]);
   Standard_Boolean aStatus      = Standard_False;
 
   // Find the first vertex of the wire
   BRepTools_WireExplorer wire_exp(myTopoDSWire);
-  TopoDS_Vertex          vlast;
+  TopoVertex          vlast;
   {
-    TopoDS_Vertex vw1, vw2;
-    TopExp::Vertices(myTopoDSWire, vw1, vw2);
-    TopoDS_Vertex ve1, ve2;
-    TopoDS_Edge   edge = TopoDS::Edge(wire_exp.Current());
-    TopExp::Vertices(edge, ve1, ve2);
+    TopoVertex vw1, vw2;
+    TopExp1::Vertices(myTopoDSWire, vw1, vw2);
+    TopoVertex ve1, ve2;
+    TopoEdge   edge = TopoDS::Edge(wire_exp.Current());
+    TopExp1::Vertices(edge, ve1, ve2);
     if (vw1.IsSame(ve1) || vw1.IsSame(ve2))
       vlast = vw1;
     else
@@ -192,14 +192,14 @@ static Standard_Integer OCC367(Draw_Interpretor& di, Standard_Integer argc, cons
     EdgeIndex++;
     di << "\n\n New Edge \n" << "\n";
     Standard_Real      newufirst, newulast;
-    TopoDS_Edge        edge = TopoDS::Edge(wire_exp.Current());
+    TopoEdge        edge = TopoDS::Edge(wire_exp.Current());
     Standard_Real      ufirst, ulast;
-    Handle(Geom_Curve) acurve;
-    TopoDS_Vertex      ve1, ve2;
-    TopExp::Vertices(edge, ve1, ve2);
+    Handle(GeomCurve3d) acurve;
+    TopoVertex      ve1, ve2;
+    TopExp1::Vertices(edge, ve1, ve2);
     if (ve1.IsSame(vlast))
     {
-      acurve    = BRep_Tool::Curve(edge, ufirst, ulast);
+      acurve    = BRepInspector::Curve(edge, ufirst, ulast);
       newufirst = ufirst;
       newulast  = ulast;
       vlast     = ve2;
@@ -208,7 +208,7 @@ static Standard_Integer OCC367(Draw_Interpretor& di, Standard_Integer argc, cons
     {
       Standard_ASSERT_RAISE(ve2.IsSame(vlast), "Not the same vertex");
       Standard_ASSERT_RAISE(wire_exp.Orientation() == TopAbs_REVERSED, "Wire should be REVERSED");
-      acurve    = BRep_Tool::Curve(edge, ufirst, ulast);
+      acurve    = BRepInspector::Curve(edge, ufirst, ulast);
       newufirst = acurve->ReversedParameter(ufirst);
       newulast  = acurve->ReversedParameter(ulast);
       acurve    = acurve->Reversed();
@@ -257,7 +257,7 @@ static Standard_Integer OCC367(Draw_Interpretor& di, Standard_Integer argc, cons
   return 0;
 }
 
-void QABugs::Commands_18(Draw_Interpretor& theCommands)
+void QABugs::Commands_18(DrawInterpreter& theCommands)
 {
   const char* group = "QABugs";
 

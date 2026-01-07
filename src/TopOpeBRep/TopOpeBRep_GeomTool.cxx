@@ -33,17 +33,17 @@
 
 //=================================================================================================
 
-void TopOpeBRep_GeomTool::MakeCurves(const Standard_Real         min,
+void GeometryTool::MakeCurves(const Standard_Real         min,
                                      const Standard_Real         max,
                                      const TopOpeBRep_LineInter& L,
-                                     const TopoDS_Shape& /*S1*/,
-                                     const TopoDS_Shape& /*S2*/,
+                                     const TopoShape& /*S1*/,
+                                     const TopoShape& /*S2*/,
                                      TopOpeBRepDS_Curve&   C,
-                                     Handle(Geom2d_Curve)& PC1,
-                                     Handle(Geom2d_Curve)& PC2)
+                                     Handle(GeomCurve2d)& PC1,
+                                     Handle(GeomCurve2d)& PC2)
 {
   Standard_Boolean         IsWalk = Standard_False;
-  Handle(Geom_Curve)       C3D;
+  Handle(GeomCurve3d)       C3D;
   TopOpeBRep_TypeLineCurve typeline = L.TypeLineCurve();
 
   switch (typeline)
@@ -76,7 +76,7 @@ void TopOpeBRep_GeomTool::MakeCurves(const Standard_Real         min,
     case TopOpeBRep_RESTRICTION:
     case TopOpeBRep_OTHERTYPE:
     default:
-      throw Standard_ProgramError("TopOpeBRep_GeomTool::MakePrivateCurves");
+      throw Standard_ProgramError("GeometryTool::MakePrivateCurves");
       break;
   }
 
@@ -87,10 +87,10 @@ void TopOpeBRep_GeomTool::MakeCurves(const Standard_Real         min,
 
 //=================================================================================================
 
-void TopOpeBRep_GeomTool::MakeCurve(const Standard_Real         min,
+void GeometryTool::MakeCurve(const Standard_Real         min,
                                     const Standard_Real         max,
                                     const TopOpeBRep_LineInter& L,
-                                    Handle(Geom_Curve)&         C3D)
+                                    Handle(GeomCurve3d)&         C3D)
 {
   TopOpeBRep_TypeLineCurve typeline = L.TypeLineCurve();
 
@@ -125,17 +125,17 @@ void TopOpeBRep_GeomTool::MakeCurve(const Standard_Real         min,
     case TopOpeBRep_RESTRICTION:
     case TopOpeBRep_OTHERTYPE:
     default:
-      throw Standard_ProgramError("TopOpeBRep_GeomTool::MakePrivateCurves");
+      throw Standard_ProgramError("GeometryTool::MakePrivateCurves");
       break;
   }
 }
 
 //=================================================================================================
 
-Handle(Geom_Curve) TopOpeBRep_GeomTool::MakeBSpline1fromWALKING3d(const TopOpeBRep_LineInter& L)
+Handle(GeomCurve3d) GeometryTool::MakeBSpline1fromWALKING3d(const TopOpeBRep_LineInter& L)
 {
   Standard_Integer               ip;
-  TopOpeBRep_WPointInterIterator itW(L);
+  WPointIntersectionIterator itW(L);
   Standard_Integer               nbpoints = L.NbWPoint();
   // Define points3d with the walking 3d points of <L>
   TColgp_Array1OfPnt points3d(1, nbpoints);
@@ -143,17 +143,17 @@ Handle(Geom_Curve) TopOpeBRep_GeomTool::MakeBSpline1fromWALKING3d(const TopOpeBR
   {
     points3d.SetValue(ip, itW.CurrentWP().Value());
   }
-  Handle(Geom_Curve) C = TopOpeBRepTool_CurveTool::MakeBSpline1fromPnt(points3d);
+  Handle(GeomCurve3d) C = TopOpeBRepTool_CurveTool::MakeBSpline1fromPnt(points3d);
   return C;
 }
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) TopOpeBRep_GeomTool::MakeBSpline1fromWALKING2d(const TopOpeBRep_LineInter& L,
+Handle(GeomCurve2d) GeometryTool::MakeBSpline1fromWALKING2d(const TopOpeBRep_LineInter& L,
                                                                     const Standard_Integer      SI)
 {
   Standard_Integer               ip;
-  TopOpeBRep_WPointInterIterator itW(L);
+  WPointIntersectionIterator itW(L);
   Standard_Integer               nbpoints = L.NbWPoint();
   // Define points2d with the walking 2d points of <L>
   TColgp_Array1OfPnt2d points2d(1, nbpoints);
@@ -164,6 +164,6 @@ Handle(Geom2d_Curve) TopOpeBRep_GeomTool::MakeBSpline1fromWALKING2d(const TopOpe
     else if (SI == 2)
       points2d.SetValue(ip, itW.CurrentWP().ValueOnS2());
   }
-  Handle(Geom2d_Curve) C = TopOpeBRepTool_CurveTool::MakeBSpline1fromPnt2d(points2d);
+  Handle(GeomCurve2d) C = TopOpeBRepTool_CurveTool::MakeBSpline1fromPnt2d(points2d);
   return C;
 }

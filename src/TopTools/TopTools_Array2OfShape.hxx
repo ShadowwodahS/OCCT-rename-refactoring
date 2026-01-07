@@ -20,6 +20,6 @@
 #include <TopoDS_Shape.hxx>
 #include <NCollection_Array2.hxx>
 
-typedef NCollection_Array2<TopoDS_Shape> TopTools_Array2OfShape;
+typedef NCollection_Array2<TopoShape> TopTools_Array2OfShape;
 
 #endif

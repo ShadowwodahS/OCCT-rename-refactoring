@@ -17,7 +17,7 @@
 // function : GetShapesLocations
 // purpose  :
 //=======================================================================
-inline TopTools_LocationSet& XmlMNaming_NamedShapeDriver::GetShapesLocations()
+inline LocationSet1& XmlMNaming_NamedShapeDriver::GetShapesLocations()
 {
   return myShapeSet.ChangeLocations();
 }

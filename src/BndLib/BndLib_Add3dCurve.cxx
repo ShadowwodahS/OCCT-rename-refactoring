@@ -54,7 +54,7 @@ static void reduceSplineBox(const Adaptor3d_Curve& theCurve,
 
   if (theCurve.GetType() == GeomAbs_BSplineCurve)
   {
-    Handle(Geom_BSplineCurve) aC     = theCurve.BSpline();
+    Handle(BSplineCurve3d) aC     = theCurve.BSpline();
     const TColgp_Array1OfPnt& aPoles = aC->Poles();
 
     for (Standard_Integer anIdx = aPoles.Lower(); anIdx <= aPoles.Upper(); ++anIdx)
@@ -64,7 +64,7 @@ static void reduceSplineBox(const Adaptor3d_Curve& theCurve,
   }
   if (theCurve.GetType() == GeomAbs_BezierCurve)
   {
-    Handle(Geom_BezierCurve)  aC     = theCurve.Bezier();
+    Handle(BezierCurve3d)  aC     = theCurve.Bezier();
     const TColgp_Array1OfPnt& aPoles = aC->Poles();
 
     for (Standard_Integer anIdx = aPoles.Lower(); anIdx <= aPoles.Upper(); ++anIdx)
@@ -178,7 +178,7 @@ void BndLib_Add3dCurve::Add(const Adaptor3d_Curve& C,
       break;
     }
     case GeomAbs_BezierCurve: {
-      Handle(Geom_BezierCurve) Bz = C.Bezier();
+      Handle(BezierCurve3d) Bz = C.Bezier();
       Standard_Integer         N  = Bz->Degree();
       GeomAdaptor_Curve        GACurve(Bz);
       Bnd_Box                  B1;
@@ -189,13 +189,13 @@ void BndLib_Add3dCurve::Add(const Adaptor3d_Curve& C,
       break;
     }
     case GeomAbs_BSplineCurve: {
-      Handle(Geom_BSplineCurve) Bs = C.BSpline();
+      Handle(BSplineCurve3d) Bs = C.BSpline();
       if (Abs(Bs->FirstParameter() - U1) > Precision::Parametric(Tol)
           || Abs(Bs->LastParameter() - U2) > Precision::Parametric(Tol))
       {
 
         Handle(Geom_Geometry)     G = Bs->Copy();
-        Handle(Geom_BSplineCurve) Bsaux(Handle(Geom_BSplineCurve)::DownCast(G));
+        Handle(BSplineCurve3d) Bsaux(Handle(BSplineCurve3d)::DownCast(G));
         Standard_Real             u1 = U1, u2 = U2;
         //// modified by jgv, 24.10.01 for BUC61031 ////
         if (Bsaux->IsPeriodic())
@@ -581,7 +581,7 @@ Standard_Integer NbSamples(const Adaptor3d_Curve& C,
       break;
     }
     case GeomAbs_BSplineCurve: {
-      const Handle(Geom_BSplineCurve)& BC = C.BSpline();
+      const Handle(BSplineCurve3d)& BC = C.BSpline();
       N                                   = 2 * (BC->Degree() + 1) * (BC->NbKnots() - 1);
       Standard_Real umin = BC->FirstParameter(), umax = BC->LastParameter();
       Standard_Real du = (Umax - Umin) / (umax - umin);

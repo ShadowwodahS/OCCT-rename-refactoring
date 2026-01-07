@@ -52,12 +52,12 @@ public:
 
   Standard_EXPORT BRepFill_OffsetWire();
 
-  Standard_EXPORT BRepFill_OffsetWire(const TopoDS_Face&     Spine,
+  Standard_EXPORT BRepFill_OffsetWire(const TopoFace&     Spine,
                                       const GeomAbs_JoinType Join         = GeomAbs_Arc,
                                       const Standard_Boolean IsOpenResult = Standard_False);
 
   //! Initialize the evaluation of Offsetting.
-  Standard_EXPORT void Init(const TopoDS_Face&     Spine,
+  Standard_EXPORT void Init(const TopoFace&     Spine,
                             const GeomAbs_JoinType Join         = GeomAbs_Arc,
                             const Standard_Boolean IsOpenResult = Standard_False);
 
@@ -67,7 +67,7 @@ public:
   Standard_EXPORT void Perform(const Standard_Real Offset, const Standard_Real Alt = 0.0);
 
   //! Performs an  OffsetWire
-  Standard_EXPORT void PerformWithBiLo(const TopoDS_Face&              WSP,
+  Standard_EXPORT void PerformWithBiLo(const TopoFace&              WSP,
                                        const Standard_Real             Offset,
                                        const BRepMAT2d_BisectingLocus& Locus,
                                        BRepMAT2d_LinkTopoBilo&         Link,
@@ -76,15 +76,15 @@ public:
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 
-  Standard_EXPORT const TopoDS_Face& Spine() const;
+  Standard_EXPORT const TopoFace& Spine() const;
 
   //! returns the generated shape.
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
   //! Returns   the  shapes  created  from   a  subshape
   //! <SpineShape> of the spine.
   //! Returns the last computed Offset.
-  Standard_EXPORT const TopTools_ListOfShape& GeneratedShapes(const TopoDS_Shape& SpineShape);
+  Standard_EXPORT const ShapeList& GeneratedShapes(const TopoShape& SpineShape);
 
   Standard_EXPORT GeomAbs_JoinType JoinType() const;
 
@@ -101,8 +101,8 @@ private:
   Standard_EXPORT void Add(const BRepFill_OffsetWire& Other);
 
   Standard_EXPORT void UpdateDetromp(BRepFill_DataMapOfOrientedShapeListOfShape& Detromp,
-                                     const TopoDS_Shape&                         Shape1,
-                                     const TopoDS_Shape&                         Shape2,
+                                     const TopoShape&                         Shape1,
+                                     const TopoShape&                         Shape2,
                                      const TopTools_SequenceOfShape&             Vertices,
                                      const TColgp_SequenceOfPnt&                 Params,
                                      const Bisector_Bisec&                       Bisec,
@@ -116,11 +116,11 @@ private:
   //! Fix holes between open wires where it is possible
   Standard_EXPORT void FixHoles();
 
-  TopoDS_Face                                       mySpine;
-  TopoDS_Face                                       myWorkSpine;
+  TopoFace                                       mySpine;
+  TopoFace                                       myWorkSpine;
   Standard_Real                                     myOffset;
   Standard_Boolean                                  myIsOpenResult;
-  TopoDS_Shape                                      myShape;
+  TopoShape                                      myShape;
   Standard_Boolean                                  myIsDone;
   GeomAbs_JoinType                                  myJoinType;
   BRepFill_IndexedDataMapOfOrientedShapeListOfShape myMap;

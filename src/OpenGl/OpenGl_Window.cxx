@@ -149,8 +149,8 @@ static int xErrorDummyHandler(Display* /*theDisplay*/, XErrorEvent* /*theErrorEv
 }
 
 //! Auxiliary method to format list.
-static void addMsgToList(TCollection_ExtendedString&       theList,
-                         const TCollection_ExtendedString& theMsg)
+static void addMsgToList(UtfString&       theList,
+                         const UtfString& theMsg)
 {
   if (!theList.IsEmpty())
   {
@@ -328,7 +328,7 @@ void OpenGl_Window::Init(const Handle(OpenGl_GraphicDriver)& theDriver,
   const Standard_Boolean hasStereo = aPixelFrmtId != 0 && theCaps->contextStereo;
   if (aPixelFrmtId == 0 && theCaps->contextStereo)
   {
-    TCollection_ExtendedString aMsg(
+    UtfString aMsg(
       "OpenGl_Window::CreateWindow: "
       "ChoosePixelFormat is unable to find stereo supported pixel format. "
       "Choosing similar non stereo format.");
@@ -346,7 +346,7 @@ void OpenGl_Window::Init(const Handle(OpenGl_GraphicDriver)& theDriver,
   {
     ReleaseDC(aWindow, aWindowDC);
 
-    TCollection_AsciiString aMsg(
+    AsciiString1 aMsg(
       "OpenGl_Window::CreateWindow: ChoosePixelFormat failed. Error code: ");
     aMsg += (int)GetLastError();
     throw Aspect_GraphicDeviceDefinitionError(aMsg.ToCString());
@@ -484,7 +484,7 @@ void OpenGl_Window::Init(const Handle(OpenGl_GraphicDriver)& theDriver,
     {
       ReleaseDC(aWindow, aWindowDC);
 
-      TCollection_AsciiString aMsg(
+      AsciiString1 aMsg(
         "OpenGl_Window::CreateWindow: SetPixelFormat failed. Error code: ");
       aMsg += (int)GetLastError();
       throw Aspect_GraphicDeviceDefinitionError(aMsg.ToCString());
@@ -540,7 +540,7 @@ void OpenGl_Window::Init(const Handle(OpenGl_GraphicDriver)& theDriver,
 
         if (aGContext != NULL && !theCaps->contextCompatible)
         {
-          TCollection_ExtendedString aMsg(
+          UtfString aMsg(
             "OpenGl_Window::CreateWindow: core profile creation failed.");
           myGlContext->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
                                    GL_DEBUG_TYPE_PORTABILITY,
@@ -582,7 +582,7 @@ void OpenGl_Window::Init(const Handle(OpenGl_GraphicDriver)& theDriver,
     {
       ReleaseDC(aWindow, aWindowDC);
 
-      TCollection_AsciiString aMsg(
+      AsciiString1 aMsg(
         "OpenGl_Window::CreateWindow: wglCreateContext failed. Error code: ");
       aMsg += (int)GetLastError();
       throw Aspect_GraphicDeviceDefinitionError(aMsg.ToCString());
@@ -592,7 +592,7 @@ void OpenGl_Window::Init(const Handle(OpenGl_GraphicDriver)& theDriver,
   // all GL context within one OpenGl_GraphicDriver should be shared!
   if (aSlaveCtx != NULL && wglShareLists(aSlaveCtx, aGContext) != TRUE)
   {
-    TCollection_AsciiString aMsg("OpenGl_Window::CreateWindow: wglShareLists failed. Error code: ");
+    AsciiString1 aMsg("OpenGl_Window::CreateWindow: wglShareLists failed. Error code: ");
     aMsg += (int)GetLastError();
     throw Aspect_GraphicDeviceDefinitionError(aMsg.ToCString());
   }
@@ -687,7 +687,7 @@ void OpenGl_Window::Init(const Handle(OpenGl_GraphicDriver)& theDriver,
 
       if (aGContext != NULL && !theCaps->contextCompatible)
       {
-        TCollection_ExtendedString aMsg(
+        UtfString aMsg(
           "OpenGl_Window::CreateWindow: core profile creation failed.");
         myGlContext->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
                                  GL_DEBUG_TYPE_PORTABILITY,
@@ -710,7 +710,7 @@ void OpenGl_Window::Init(const Handle(OpenGl_GraphicDriver)& theDriver,
   }
 
   // check Visual for OpenGl context's parameters compatibility
-  TCollection_ExtendedString aList;
+  UtfString aList;
   int                        isDoubleBuffer = 0, isRGBA = 0, isStereo = 0;
   int                        aDepthSize = 0, aStencilSize = 0;
   glXGetConfig(aDisp, aVis.get(), GLX_RGBA, &isRGBA);
@@ -736,8 +736,8 @@ void OpenGl_Window::Init(const Handle(OpenGl_GraphicDriver)& theDriver,
   }
   if (!aList.IsEmpty())
   {
-    TCollection_ExtendedString aMsg =
-      TCollection_ExtendedString("OpenGl_Window::CreateWindow: window Visual is incomplete: ")
+    UtfString aMsg =
+      UtfString("OpenGl_Window::CreateWindow: window Visual is incomplete: ")
       + aList;
     myGlContext->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
                              GL_DEBUG_TYPE_OTHER,
@@ -876,7 +876,7 @@ void OpenGl_Window::init()
     aColorFormats.Append(GL_RGBA8);
     if (!aDefFbo->InitRenderBuffer(myGlContext, mySize, aColorFormats, GL_DEPTH24_STENCIL8))
     {
-      TCollection_AsciiString aMsg("OpenGl_Window::CreateWindow: default FBO creation failed");
+      AsciiString1 aMsg("OpenGl_Window::CreateWindow: default FBO creation failed");
       throw Aspect_GraphicDeviceDefinitionError(aMsg.ToCString());
     }
     myGlContext->SetDefaultFrameBuffer(aDefFbo);

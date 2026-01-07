@@ -24,7 +24,7 @@
 class MeshVS_Mesh;
 class Quantity_Color;
 class MeshVS_DataSource;
-class TCollection_AsciiString;
+class AsciiString1;
 
 DEFINE_STANDARD_HANDLE(MeshVS_TextPrsBuilder, MeshVS_PrsBuilder)
 
@@ -64,12 +64,12 @@ public:
   //! Returns text assigned with single node or element
   Standard_EXPORT Standard_Boolean GetText(const Standard_Boolean   IsElement,
                                            const Standard_Integer   ID,
-                                           TCollection_AsciiString& Text) const;
+                                           AsciiString1& Text) const;
 
   //! Sets text assigned with single node or element
   Standard_EXPORT void SetText(const Standard_Boolean         IsElement,
                                const Standard_Integer         ID,
-                               const TCollection_AsciiString& Text);
+                               const AsciiString1& Text);
 
   DEFINE_STANDARD_RTTIEXT(MeshVS_TextPrsBuilder, MeshVS_PrsBuilder)
 

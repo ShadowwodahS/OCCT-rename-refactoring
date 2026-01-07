@@ -44,7 +44,7 @@ Standard_Boolean FairCurve_DistributionOfJerk::Value(const math_Vector& TParam, 
 {
   Standard_Boolean Ok = Standard_True;
   Standard_Integer ier, ii, jj, kk;
-  gp_XY            CPrim(0., 0.), CSecn(0., 0.), CTroi(0., 0.);
+  Coords2d            CPrim(0., 0.), CSecn(0., 0.), CTroi(0., 0.);
   Standard_Integer LastGradientIndex, FirstNonZero, LastZero;
 
   // (0.0) initialisations generales

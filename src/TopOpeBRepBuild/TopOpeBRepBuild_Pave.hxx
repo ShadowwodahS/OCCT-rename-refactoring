@@ -34,21 +34,21 @@ public:
   //! V = vertex, P = parameter of vertex <V>
   //! bound = True if <V> is an old vertex
   //! bound = False if <V> is a new vertex
-  Standard_EXPORT TopOpeBRepBuild_Pave(const TopoDS_Shape&    V,
+  Standard_EXPORT TopOpeBRepBuild_Pave(const TopoShape&    V,
                                        const Standard_Real    P,
                                        const Standard_Boolean bound);
 
   Standard_EXPORT void HasSameDomain(const Standard_Boolean b);
 
-  Standard_EXPORT void SameDomain(const TopoDS_Shape& VSD);
+  Standard_EXPORT void SameDomain(const TopoShape& VSD);
 
   Standard_EXPORT Standard_Boolean HasSameDomain() const;
 
-  Standard_EXPORT const TopoDS_Shape& SameDomain() const;
+  Standard_EXPORT const TopoShape& SameDomain() const;
 
-  Standard_EXPORT const TopoDS_Shape& Vertex() const;
+  Standard_EXPORT const TopoShape& Vertex() const;
 
-  Standard_EXPORT TopoDS_Shape& ChangeVertex();
+  Standard_EXPORT TopoShape& ChangeVertex();
 
   Standard_EXPORT Standard_Real Parameter() const;
 
@@ -58,7 +58,7 @@ public:
 
   Standard_EXPORT virtual Standard_Boolean IsShape() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const TopoDS_Shape& Shape() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const TopoShape& Shape() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Dump() const Standard_OVERRIDE;
 
@@ -66,11 +66,11 @@ public:
 
 protected:
 private:
-  TopoDS_Shape      myVertex;
+  TopoShape      myVertex;
   Standard_Real     myParam;
   Standard_Boolean  myIsShape;
   Standard_Boolean  myHasSameDomain;
-  TopoDS_Shape      mySameDomain;
+  TopoShape      mySameDomain;
   TopOpeBRepDS_Kind myIntType;
 };
 

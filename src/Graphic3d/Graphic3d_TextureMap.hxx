@@ -20,7 +20,7 @@
 #include <Graphic3d_TextureRoot.hxx>
 #include <Graphic3d_TypeOfTexture.hxx>
 #include <Graphic3d_LevelOfTextureAnisotropy.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! This is an abstract class for managing texture applicable on polygons.
 class Graphic3d_TextureMap : public Graphic3d_TextureRoot
@@ -66,7 +66,7 @@ public:
   Standard_EXPORT void SetAnisoFilter(const Graphic3d_LevelOfTextureAnisotropy theLevel);
 
 protected:
-  Standard_EXPORT Graphic3d_TextureMap(const TCollection_AsciiString& theFileName,
+  Standard_EXPORT Graphic3d_TextureMap(const AsciiString1& theFileName,
                                        const Graphic3d_TypeOfTexture  theType);
 
   Standard_EXPORT Graphic3d_TextureMap(const Handle(Image_PixMap)&   thePixMap,

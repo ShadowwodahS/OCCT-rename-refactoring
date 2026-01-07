@@ -79,11 +79,11 @@ Handle(Resource_Manager) ShapeProcess_Context::LoadResourceManager(const Standar
   // and reloaded only if file date has changed
   static Handle(Resource_Manager) sRC;
   static Standard_Time            sMtime, sUMtime;
-  static TCollection_AsciiString  sName;
+  static AsciiString1  sName;
 
   struct stat             buf;
   Standard_Time           aMtime(0), aUMtime(0);
-  TCollection_AsciiString aPath, aUserPath;
+  AsciiString1 aPath, aUserPath;
   Resource_Manager::GetResourcePath(aPath, name, Standard_False);
   Resource_Manager::GetResourcePath(aUserPath, name, Standard_True);
   if (!aPath.IsEmpty())
@@ -197,7 +197,7 @@ Standard_Boolean ShapeProcess_Context::IsParamSet(const Standard_CString param) 
 //=================================================================================================
 
 Standard_Boolean ShapeProcess_Context::GetString(const Standard_CString   param,
-                                                 TCollection_AsciiString& str) const
+                                                 AsciiString1& str) const
 {
   if (myRC.IsNull())
     return Standard_False;
@@ -222,7 +222,7 @@ Standard_Boolean ShapeProcess_Context::GetReal(const Standard_CString param,
   if (myRC.IsNull())
     return Standard_False;
 
-  TCollection_AsciiString str;
+  AsciiString1 str;
   if (!GetString(param, str))
     return Standard_False;
 
@@ -236,7 +236,7 @@ Standard_Boolean ShapeProcess_Context::GetReal(const Standard_CString param,
   str.LeftAdjust();
   if (str.Value(1) == '&')
   {
-    TCollection_AsciiString ref = str.Split(1);
+    AsciiString1 ref = str.Split(1);
     ref.LeftAdjust();
     ref.RightAdjust();
     if (!myRC->Find(ref.ToCString()))
@@ -269,7 +269,7 @@ Standard_Boolean ShapeProcess_Context::GetInteger(const Standard_CString param,
   if (myRC.IsNull())
     return Standard_False;
 
-  TCollection_AsciiString str;
+  AsciiString1 str;
   if (!GetString(param, str))
     return Standard_False;
 
@@ -283,7 +283,7 @@ Standard_Boolean ShapeProcess_Context::GetInteger(const Standard_CString param,
   str.LeftAdjust();
   if (str.Value(1) == '&')
   {
-    TCollection_AsciiString ref = str.Split(1);
+    AsciiString1 ref = str.Split(1);
     ref.LeftAdjust();
     ref.RightAdjust();
     if (!myRC->Find(ref.ToCString()))

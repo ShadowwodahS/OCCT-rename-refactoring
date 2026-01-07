@@ -21,7 +21,7 @@
 
 #include <Standard_Transient.hxx>
 
-class Graphic3d_Camera;
+class CameraOn3d;
 
 class Graphic3d_DataStructureManager;
 DEFINE_STANDARD_HANDLE(Graphic3d_DataStructureManager, RefObject)
@@ -39,7 +39,7 @@ protected:
   Standard_EXPORT Graphic3d_DataStructureManager();
 
   //! Returns camera object of the view.
-  virtual const Handle(Graphic3d_Camera)& Camera() const = 0;
+  virtual const Handle(CameraOn3d)& Camera() const = 0;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

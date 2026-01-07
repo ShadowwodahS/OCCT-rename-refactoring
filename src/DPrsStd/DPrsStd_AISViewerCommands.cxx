@@ -35,7 +35,7 @@
 // purpose  : AISInitViewer (DOC)
 //=======================================================================
 
-static Standard_Integer DPrsStd_AISInitViewer(Draw_Interpretor& theDI,
+static Standard_Integer DPrsStd_AISInitViewer(DrawInterpreter& theDI,
                                               Standard_Integer  theArgNb,
                                               const char**      theArgVec)
 {
@@ -45,38 +45,38 @@ static Standard_Integer DPrsStd_AISInitViewer(Draw_Interpretor& theDI,
     return 1;
   }
 
-  Handle(TDocStd_Document) aDoc;
-  if (!DDocStd::GetDocument(theArgVec[1], aDoc))
+  Handle(AppDocument) aDoc;
+  if (!DDocStd1::GetDocument(theArgVec[1], aDoc))
   {
     return 1;
   }
 
-  TDF_Label                 aRoot = aDoc->GetData()->Root();
+  DataLabel                 aRoot = aDoc->GetData()->Root();
   Handle(TPrsStd_AISViewer) aDocViewer;
-  TCollection_AsciiString   aViewName =
-    TCollection_AsciiString("Driver1/Document_") + theArgVec[1] + "/View1";
+  AsciiString1   aViewName =
+    AsciiString1("Driver1/Document_") + theArgVec[1] + "/View1";
   if (!TPrsStd_AISViewer::Find(aRoot, aDocViewer))
   {
     ViewerTest::ViewerInit(aViewName);
     aDocViewer = TPrsStd_AISViewer::New(aRoot, ViewerTest::GetAISContext());
   }
 
-  DDF::ReturnLabel(theDI, aDocViewer->Label());
+  DDF1::ReturnLabel(theDI, aDocViewer->Label());
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer DPrsStd_AISRepaint(Draw_Interpretor& di,
+static Standard_Integer DPrsStd_AISRepaint(DrawInterpreter& di,
                                            Standard_Integer  nb,
                                            const char**      arg)
 {
   if (nb == 2)
   {
-    Handle(TDocStd_Document) D;
-    if (!DDocStd::GetDocument(arg[1], D))
+    Handle(AppDocument) D;
+    if (!DDocStd1::GetDocument(arg[1], D))
       return 1;
-    TDF_Label acces = D->GetData()->Root();
+    DataLabel acces = D->GetData()->Root();
     TPrsStd_AISViewer::Update(acces);
     return 0;
   }
@@ -86,14 +86,14 @@ static Standard_Integer DPrsStd_AISRepaint(Draw_Interpretor& di,
 
 //=================================================================================================
 
-void DPrsStd::AISViewerCommands(Draw_Interpretor& theCommands)
+void DPrsStd1::AISViewerCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done          = Standard_True;
-  const char* g = "DPrsStd : standard presentation commands";
+  const char* g = "DPrsStd1 : standard presentation commands";
 
   // standard commands working on AISViewer
 

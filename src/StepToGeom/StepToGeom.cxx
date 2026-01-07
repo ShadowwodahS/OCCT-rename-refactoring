@@ -138,9 +138,9 @@
 // Creation d' un Ax1Placement de Geom a partir d' un axis1_placement de Step
 //=============================================================================
 
-Handle(Geom_Axis1Placement) StepToGeom::MakeAxis1Placement(
+Handle(Geom_Axis1Placement) StepToGeom1::MakeAxis1Placement(
   const Handle(StepGeom_Axis1Placement)& SA,
-  const StepData_Factors&                theLocalFactors)
+  const ConversionFactors&                theLocalFactors)
 {
   Handle(Geom_CartesianPoint) P = MakeCartesianPoint(SA->Location(), theLocalFactors);
   if (!P.IsNull())
@@ -163,9 +163,9 @@ Handle(Geom_Axis1Placement) StepToGeom::MakeAxis1Placement(
 // Creation d' un Axis2Placement de Geom a partir d' un axis2_placement_3d de Step
 //=============================================================================
 
-Handle(Geom_Axis2Placement) StepToGeom::MakeAxis2Placement(
+Handle(Geom_Axis2Placement) StepToGeom1::MakeAxis2Placement(
   const Handle(StepGeom_Axis2Placement3d)& SA,
-  const StepData_Factors&                  theLocalFactors)
+  const ConversionFactors&                  theLocalFactors)
 {
   Handle(Geom_CartesianPoint) P = MakeCartesianPoint(SA->Location(), theLocalFactors);
   if (!P.IsNull())
@@ -209,7 +209,7 @@ Handle(Geom_Axis2Placement) StepToGeom::MakeAxis2Placement(
 // Creation of an AxisPlacement from a Kinematic SuParameters for Step
 //=============================================================================
 
-Handle(Geom_Axis2Placement) StepToGeom::MakeAxis2Placement(
+Handle(Geom_Axis2Placement) StepToGeom1::MakeAxis2Placement(
   const Handle(StepGeom_SuParameters)& theSP)
 {
   Standard_Real aLocX =
@@ -236,9 +236,9 @@ Handle(Geom_Axis2Placement) StepToGeom::MakeAxis2Placement(
 // Creation d' un AxisPlacement de Geom2d a partir d' un axis2_placement_3d de Step
 //=============================================================================
 
-Handle(Geom2d_AxisPlacement) StepToGeom::MakeAxisPlacement(
+Handle(Geom2d_AxisPlacement) StepToGeom1::MakeAxisPlacement(
   const Handle(StepGeom_Axis2Placement2d)& SA,
-  const StepData_Factors&                  theLocalFactors)
+  const ConversionFactors&                  theLocalFactors)
 {
   Handle(Geom2d_CartesianPoint) P = MakeCartesianPoint2d(SA->Location(), theLocalFactors);
   if (!P.IsNull())
@@ -262,8 +262,8 @@ Handle(Geom2d_AxisPlacement) StepToGeom::MakeAxisPlacement(
 // Creation d' une BoundedCurve de Geom a partir d' une BoundedCurve de Step
 //=============================================================================
 
-Handle(Geom_BoundedCurve) StepToGeom::MakeBoundedCurve(const Handle(StepGeom_BoundedCurve)& SC,
-                                                       const StepData_Factors& theLocalFactors)
+Handle(Geom_BoundedCurve) StepToGeom1::MakeBoundedCurve(const Handle(StepGeom_BoundedCurve)& SC,
+                                                       const ConversionFactors& theLocalFactors)
 {
   if (SC->IsKind(STANDARD_TYPE(StepGeom_BSplineCurveWithKnotsAndRationalBSplineCurve)))
   {
@@ -286,7 +286,7 @@ Handle(Geom_BoundedCurve) StepToGeom::MakeBoundedCurve(const Handle(StepGeom_Bou
   {
     const Handle(StepGeom_BezierCurve) BzC     = Handle(StepGeom_BezierCurve)::DownCast(SC);
     Standard_Integer                   aDegree = BzC->Degree();
-    if (aDegree < 1 || aDegree > Geom_BSplineCurve::MaxDegree())
+    if (aDegree < 1 || aDegree > BSplineCurve3d::MaxDegree())
       return 0;
     const Handle(StepGeom_BSplineCurveWithKnots) BSPL = new StepGeom_BSplineCurveWithKnots;
     BSPL->SetDegree(aDegree);
@@ -311,7 +311,7 @@ Handle(Geom_BoundedCurve) StepToGeom::MakeBoundedCurve(const Handle(StepGeom_Bou
   {
     const Handle(StepGeom_UniformCurve) UC      = Handle(StepGeom_UniformCurve)::DownCast(SC);
     Standard_Integer                    aDegree = UC->Degree();
-    if (aDegree < 1 || aDegree > Geom_BSplineCurve::MaxDegree())
+    if (aDegree < 1 || aDegree > BSplineCurve3d::MaxDegree())
       return 0;
     const Handle(StepGeom_BSplineCurveWithKnots) BSPL = new StepGeom_BSplineCurveWithKnots;
     BSPL->SetDegree(aDegree);
@@ -339,7 +339,7 @@ Handle(Geom_BoundedCurve) StepToGeom::MakeBoundedCurve(const Handle(StepGeom_Bou
   {
     const Handle(StepGeom_QuasiUniformCurve) QUC = Handle(StepGeom_QuasiUniformCurve)::DownCast(SC);
     Standard_Integer                         aDegree = QUC->Degree();
-    if (aDegree < 1 || aDegree > Geom_BSplineCurve::MaxDegree())
+    if (aDegree < 1 || aDegree > BSplineCurve3d::MaxDegree())
       return 0;
     const Handle(StepGeom_BSplineCurveWithKnots) BSPL = new StepGeom_BSplineCurveWithKnots;
     BSPL->SetDegree(aDegree);
@@ -370,7 +370,7 @@ Handle(Geom_BoundedCurve) StepToGeom::MakeBoundedCurve(const Handle(StepGeom_Bou
     const Handle(StepGeom_UniformCurveAndRationalBSplineCurve) RUC =
       Handle(StepGeom_UniformCurveAndRationalBSplineCurve)::DownCast(SC);
     Standard_Integer aDegree = RUC->Degree();
-    if (aDegree < 1 || aDegree > Geom_BSplineCurve::MaxDegree())
+    if (aDegree < 1 || aDegree > BSplineCurve3d::MaxDegree())
       return 0;
     const Handle(StepGeom_BSplineCurveWithKnotsAndRationalBSplineCurve) RBSPL =
       new StepGeom_BSplineCurveWithKnotsAndRationalBSplineCurve;
@@ -405,7 +405,7 @@ Handle(Geom_BoundedCurve) StepToGeom::MakeBoundedCurve(const Handle(StepGeom_Bou
     const Handle(StepGeom_QuasiUniformCurveAndRationalBSplineCurve) RQUC =
       Handle(StepGeom_QuasiUniformCurveAndRationalBSplineCurve)::DownCast(SC);
     Standard_Integer aDegree = RQUC->Degree();
-    if (aDegree < 1 || aDegree > Geom_BSplineCurve::MaxDegree())
+    if (aDegree < 1 || aDegree > BSplineCurve3d::MaxDegree())
       return 0;
     const Handle(StepGeom_BSplineCurveWithKnotsAndRationalBSplineCurve) RBSPL =
       new StepGeom_BSplineCurveWithKnotsAndRationalBSplineCurve;
@@ -448,8 +448,8 @@ Handle(Geom_BoundedCurve) StepToGeom::MakeBoundedCurve(const Handle(StepGeom_Bou
 // Creation d' une BoundedCurve de Geom a partir d' une BoundedCurve de Step
 //=============================================================================
 
-Handle(Geom2d_BoundedCurve) StepToGeom::MakeBoundedCurve2d(const Handle(StepGeom_BoundedCurve)& SC,
-                                                           const StepData_Factors& theLocalFactors)
+Handle(Geom2d_BoundedCurve) StepToGeom1::MakeBoundedCurve2d(const Handle(StepGeom_BoundedCurve)& SC,
+                                                           const ConversionFactors& theLocalFactors)
 {
   if (SC->IsKind(STANDARD_TYPE(StepGeom_BSplineCurveWithKnotsAndRationalBSplineCurve)))
   {
@@ -477,9 +477,9 @@ Handle(Geom2d_BoundedCurve) StepToGeom::MakeBoundedCurve2d(const Handle(StepGeom
 // Creation d' une BoundedSurface de Geom a partir d' une BoundedSurface de Step
 //=============================================================================
 
-Handle(Geom_BoundedSurface) StepToGeom::MakeBoundedSurface(
+Handle(Geom_BoundedSurface) StepToGeom1::MakeBoundedSurface(
   const Handle(StepGeom_BoundedSurface)& SS,
-  const StepData_Factors&                theLocalFactors)
+  const ConversionFactors&                theLocalFactors)
 {
   if (SS->IsKind(STANDARD_TYPE(StepGeom_BSplineSurfaceWithKnotsAndRationalBSplineSurface)))
   {
@@ -721,10 +721,10 @@ Handle(Geom_BoundedSurface) StepToGeom::MakeBoundedSurface(
 template <class TPntArray, class TCartesianPoint, class TGpPnt, class TBSplineCurve>
 Handle(TBSplineCurve) MakeBSplineCurveCommon(
   const Handle(StepGeom_BSplineCurve)& theStepGeom_BSplineCurve,
-  const StepData_Factors&              theLocalFactors,
+  const ConversionFactors&              theLocalFactors,
   TGpPnt (TCartesianPoint::*thePntGetterFunction)() const,
   Handle(TCartesianPoint) (*thePointMakerFunction)(const Handle(StepGeom_CartesianPoint)&,
-                                                   const StepData_Factors&))
+                                                   const ConversionFactors&))
 {
   Handle(StepGeom_BSplineCurveWithKnots) aBSplineCurveWithKnots;
   Handle(StepGeom_BSplineCurveWithKnotsAndRationalBSplineCurve)
@@ -899,11 +899,11 @@ Handle(TBSplineCurve) MakeBSplineCurveCommon(
 // Creation d' une BSplineCurve de Geom a partir d' une BSplineCurve de Step
 //=============================================================================
 
-Handle(Geom_BSplineCurve) StepToGeom::MakeBSplineCurve(
+Handle(BSplineCurve3d) StepToGeom1::MakeBSplineCurve(
   const Handle(StepGeom_BSplineCurve)& theStepGeom_BSplineCurve,
-  const StepData_Factors&              theLocalFactors)
+  const ConversionFactors&              theLocalFactors)
 {
-  return MakeBSplineCurveCommon<TColgp_Array1OfPnt, Geom_CartesianPoint, Point3d, Geom_BSplineCurve>(
+  return MakeBSplineCurveCommon<TColgp_Array1OfPnt, Geom_CartesianPoint, Point3d, BSplineCurve3d>(
     theStepGeom_BSplineCurve,
     theLocalFactors,
     &Geom_CartesianPoint::Pnt,
@@ -915,9 +915,9 @@ Handle(Geom_BSplineCurve) StepToGeom::MakeBSplineCurve(
 // BSplineCurveWithKnotsAndRationalBSplineCurve de Step
 //=============================================================================
 
-Handle(Geom2d_BSplineCurve) StepToGeom::MakeBSplineCurve2d(
+Handle(Geom2d_BSplineCurve) StepToGeom1::MakeBSplineCurve2d(
   const Handle(StepGeom_BSplineCurve)& theStepGeom_BSplineCurve,
-  const StepData_Factors&              theLocalFactors)
+  const ConversionFactors&              theLocalFactors)
 {
   return MakeBSplineCurveCommon<TColgp_Array1OfPnt2d,
                                 Geom2d_CartesianPoint,
@@ -933,9 +933,9 @@ Handle(Geom2d_BSplineCurve) StepToGeom::MakeBSplineCurve2d(
 // BSplineSurface de Step
 //=============================================================================
 
-Handle(Geom_BSplineSurface) StepToGeom::MakeBSplineSurface(
+Handle(Geom_BSplineSurface) StepToGeom1::MakeBSplineSurface(
   const Handle(StepGeom_BSplineSurface)& SS,
-  const StepData_Factors&                theLocalFactors)
+  const ConversionFactors&                theLocalFactors)
 {
   Standard_Integer                                                  i, j;
   Handle(StepGeom_BSplineSurfaceWithKnots)                          BS;
@@ -1127,9 +1127,9 @@ Handle(Geom_BSplineSurface) StepToGeom::MakeBSplineSurface(
 // Creation d' un CartesianPoint de Geom a partir d' un CartesianPoint de Step
 //=============================================================================
 
-Handle(Geom_CartesianPoint) StepToGeom::MakeCartesianPoint(
+Handle(Geom_CartesianPoint) StepToGeom1::MakeCartesianPoint(
   const Handle(StepGeom_CartesianPoint)& SP,
-  const StepData_Factors&                theLocalFactors)
+  const ConversionFactors&                theLocalFactors)
 {
   if (!SP.IsNull() && SP->NbCoordinates() == 3)
   {
@@ -1147,9 +1147,9 @@ Handle(Geom_CartesianPoint) StepToGeom::MakeCartesianPoint(
 // Step
 //=============================================================================
 
-Handle(Geom2d_CartesianPoint) StepToGeom::MakeCartesianPoint2d(
+Handle(Geom2d_CartesianPoint) StepToGeom1::MakeCartesianPoint2d(
   const Handle(StepGeom_CartesianPoint)& SP,
-  const StepData_Factors&                theLocalFactors)
+  const ConversionFactors&                theLocalFactors)
 {
   (void)theLocalFactors;
   if (SP->NbCoordinates() == 2)
@@ -1165,8 +1165,8 @@ Handle(Geom2d_CartesianPoint) StepToGeom::MakeCartesianPoint2d(
 // Creation d' un Circle de Geom a partir d' un Circle de Step
 //=============================================================================
 
-Handle(Geom_Circle) StepToGeom::MakeCircle(const Handle(StepGeom_Circle)& SC,
-                                           const StepData_Factors&        theLocalFactors)
+Handle(GeomCircle) StepToGeom1::MakeCircle(const Handle(StepGeom_Circle)& SC,
+                                           const ConversionFactors&        theLocalFactors)
 {
   const StepGeom_Axis2Placement AxisSelect = SC->Position();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 2)
@@ -1176,7 +1176,7 @@ Handle(Geom_Circle) StepToGeom::MakeCircle(const Handle(StepGeom_Circle)& SC,
                          theLocalFactors);
     if (!A.IsNull())
     {
-      return new Geom_Circle(A->Ax2(), SC->Radius() * theLocalFactors.LengthFactor());
+      return new GeomCircle(A->Ax2(), SC->Radius() * theLocalFactors.LengthFactor());
     }
   }
   return 0;
@@ -1186,8 +1186,8 @@ Handle(Geom_Circle) StepToGeom::MakeCircle(const Handle(StepGeom_Circle)& SC,
 // Creation d' un Circle de Geom2d a partir d' un Circle de Step
 //=============================================================================
 
-Handle(Geom2d_Circle) StepToGeom::MakeCircle2d(const Handle(StepGeom_Circle)& SC,
-                                               const StepData_Factors&        theLocalFactors)
+Handle(Geom2d_Circle) StepToGeom1::MakeCircle2d(const Handle(StepGeom_Circle)& SC,
+                                               const ConversionFactors&        theLocalFactors)
 {
   const StepGeom_Axis2Placement AxisSelect = SC->Position();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 1)
@@ -1207,8 +1207,8 @@ Handle(Geom2d_Circle) StepToGeom::MakeCircle2d(const Handle(StepGeom_Circle)& SC
 // Creation d' une Conic de Geom a partir d' une Conic de Step
 //=============================================================================
 
-Handle(Geom_Conic) StepToGeom::MakeConic(const Handle(StepGeom_Conic)& SC,
-                                         const StepData_Factors&       theLocalFactors)
+Handle(Geom_Conic) StepToGeom1::MakeConic(const Handle(StepGeom_Conic)& SC,
+                                         const ConversionFactors&       theLocalFactors)
 {
   if (SC->IsKind(STANDARD_TYPE(StepGeom_Circle)))
   {
@@ -1234,8 +1234,8 @@ Handle(Geom_Conic) StepToGeom::MakeConic(const Handle(StepGeom_Conic)& SC,
 // Creation d' une Conic de Geom2d a partir d' une Conic de Step
 //=============================================================================
 
-Handle(Geom2d_Conic) StepToGeom::MakeConic2d(const Handle(StepGeom_Conic)& SC,
-                                             const StepData_Factors&       theLocalFactors)
+Handle(Geom2d_Conic) StepToGeom1::MakeConic2d(const Handle(StepGeom_Conic)& SC,
+                                             const ConversionFactors&       theLocalFactors)
 {
   if (SC->IsKind(STANDARD_TYPE(StepGeom_Circle)))
   {
@@ -1262,9 +1262,9 @@ Handle(Geom2d_Conic) StepToGeom::MakeConic2d(const Handle(StepGeom_Conic)& SC,
 // Step
 //=============================================================================
 
-Handle(Geom_ConicalSurface) StepToGeom::MakeConicalSurface(
+Handle(Geom_ConicalSurface) StepToGeom1::MakeConicalSurface(
   const Handle(StepGeom_ConicalSurface)& SS,
-  const StepData_Factors&                theLocalFactors)
+  const ConversionFactors&                theLocalFactors)
 {
   Handle(Geom_Axis2Placement) A = MakeAxis2Placement(SS->Position(), theLocalFactors);
   if (!A.IsNull())
@@ -1282,12 +1282,12 @@ Handle(Geom_ConicalSurface) StepToGeom::MakeConicalSurface(
 // Creation d' une Curve de Geom a partir d' une Curve de Step
 //=============================================================================
 
-Handle(Geom_Curve) StepToGeom::MakeCurve(const Handle(StepGeom_Curve)& SC,
-                                         const StepData_Factors&       theLocalFactors)
+Handle(GeomCurve3d) StepToGeom1::MakeCurve(const Handle(StepGeom_Curve)& SC,
+                                         const ConversionFactors&       theLocalFactors)
 {
   if (SC.IsNull())
   {
-    return Handle(Geom_Curve)();
+    return Handle(GeomCurve3d)();
   }
   if (SC->IsKind(STANDARD_TYPE(StepGeom_Line)))
   {
@@ -1314,7 +1314,7 @@ Handle(Geom_Curve) StepToGeom::MakeCurve(const Handle(StepGeom_Curve)& SC,
     // protect against cyclic references and wrong type of cartop
     if (!T.IsNull() && PC != SC)
     {
-      Handle(Geom_Curve) C1 = MakeCurve(PC, theLocalFactors);
+      Handle(GeomCurve3d) C1 = MakeCurve(PC, theLocalFactors);
       if (!C1.IsNull())
       {
         Transform3d T1;
@@ -1332,7 +1332,7 @@ Handle(Geom_Curve) StepToGeom::MakeCurve(const Handle(StepGeom_Curve)& SC,
     const Handle(StepGeom_Curve)         BC = OC->BasisCurve();
     if (BC != SC)
     { // protect against loop
-      Handle(Geom_Curve) C1 = MakeCurve(BC, theLocalFactors);
+      Handle(GeomCurve3d) C1 = MakeCurve(BC, theLocalFactors);
       if (!C1.IsNull())
       {
         Handle(Geom_Direction) RD = MakeDirection(OC->RefDirection());
@@ -1355,8 +1355,8 @@ Handle(Geom_Curve) StepToGeom::MakeCurve(const Handle(StepGeom_Curve)& SC,
 // Creation d' une Curve de Geom2d a partir d' une Curve de Step
 //=============================================================================
 
-Handle(Geom2d_Curve) StepToGeom::MakeCurve2d(const Handle(StepGeom_Curve)& SC,
-                                             const StepData_Factors&       theLocalFactors)
+Handle(GeomCurve2d) StepToGeom1::MakeCurve2d(const Handle(StepGeom_Curve)& SC,
+                                             const ConversionFactors&       theLocalFactors)
 {
   if (SC->IsKind(STANDARD_TYPE(StepGeom_Line)))
   {
@@ -1379,7 +1379,7 @@ Handle(Geom2d_Curve) StepToGeom::MakeCurve2d(const Handle(StepGeom_Curve)& SC,
     // protect against cyclic references and wrong type of cartop
     if (!T.IsNull() && PC != SC)
     {
-      Handle(Geom2d_Curve) C1 = MakeCurve2d(PC, theLocalFactors);
+      Handle(GeomCurve2d) C1 = MakeCurve2d(PC, theLocalFactors);
       if (!C1.IsNull())
       {
         gp_Trsf2d T1;
@@ -1399,9 +1399,9 @@ Handle(Geom2d_Curve) StepToGeom::MakeCurve2d(const Handle(StepGeom_Curve)& SC,
 // CylindricalSurface de Step
 //=============================================================================
 
-Handle(Geom_CylindricalSurface) StepToGeom::MakeCylindricalSurface(
+Handle(Geom_CylindricalSurface) StepToGeom1::MakeCylindricalSurface(
   const Handle(StepGeom_CylindricalSurface)& SS,
-  const StepData_Factors&                    theLocalFactors)
+  const ConversionFactors&                    theLocalFactors)
 {
   Handle(Geom_Axis2Placement) A = MakeAxis2Placement(SS->Position(), theLocalFactors);
   if (!A.IsNull())
@@ -1415,7 +1415,7 @@ Handle(Geom_CylindricalSurface) StepToGeom::MakeCylindricalSurface(
 // Creation d' un Direction de Geom a partir d' un Direction de Step
 //=============================================================================
 
-Handle(Geom_Direction) StepToGeom::MakeDirection(const Handle(StepGeom_Direction)& SD)
+Handle(Geom_Direction) StepToGeom1::MakeDirection(const Handle(StepGeom_Direction)& SD)
 {
   if (SD->NbDirectionRatios() >= 3)
   {
@@ -1440,14 +1440,14 @@ Handle(Geom_Direction) StepToGeom::MakeDirection(const Handle(StepGeom_Direction
 // Creation d' un Direction de Geom2d a partir d' un Direction de Step
 //=============================================================================
 
-Handle(Geom2d_Direction) StepToGeom::MakeDirection2d(const Handle(StepGeom_Direction)& SD)
+Handle(Geom2d_Direction) StepToGeom1::MakeDirection2d(const Handle(StepGeom_Direction)& SD)
 {
   if (SD->NbDirectionRatios() >= 2)
   {
     const Standard_Real X = SD->DirectionRatiosValue(1);
     const Standard_Real Y = SD->DirectionRatiosValue(2);
     // sln 23.10.2001. CTS23496: Direction is not created if it has null magnitude
-    if (gp_XY(X, Y).SquareModulus() > gp::Resolution() * gp::Resolution())
+    if (Coords2d(X, Y).SquareModulus() > gp::Resolution() * gp::Resolution())
     {
       return new Geom2d_Direction(X, Y);
     }
@@ -1460,9 +1460,9 @@ Handle(Geom2d_Direction) StepToGeom::MakeDirection2d(const Handle(StepGeom_Direc
 // ElementarySurface de Step
 //=============================================================================
 
-Handle(Geom_ElementarySurface) StepToGeom::MakeElementarySurface(
+Handle(Geom_ElementarySurface) StepToGeom1::MakeElementarySurface(
   const Handle(StepGeom_ElementarySurface)& SS,
-  const StepData_Factors&                   theLocalFactors)
+  const ConversionFactors&                   theLocalFactors)
 {
   if (SS->IsKind(STANDARD_TYPE(StepGeom_Plane)))
   {
@@ -1492,8 +1492,8 @@ Handle(Geom_ElementarySurface) StepToGeom::MakeElementarySurface(
 // Creation d' un Ellipse de Geom a partir d' un Ellipse de Step
 //=============================================================================
 
-Handle(Geom_Ellipse) StepToGeom::MakeEllipse(const Handle(StepGeom_Ellipse)& SC,
-                                             const StepData_Factors&         theLocalFactors)
+Handle(Geom_Ellipse) StepToGeom1::MakeEllipse(const Handle(StepGeom_Ellipse)& SC,
+                                             const ConversionFactors&         theLocalFactors)
 {
   const StepGeom_Axis2Placement AxisSelect = SC->Position();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 2)
@@ -1526,8 +1526,8 @@ Handle(Geom_Ellipse) StepToGeom::MakeEllipse(const Handle(StepGeom_Ellipse)& SC,
 // Creation d' un Ellipse de Geom2d a partir d' un Ellipse de Step
 //=============================================================================
 
-Handle(Geom2d_Ellipse) StepToGeom::MakeEllipse2d(const Handle(StepGeom_Ellipse)& SC,
-                                                 const StepData_Factors&         theLocalFactors)
+Handle(Geom2d_Ellipse) StepToGeom1::MakeEllipse2d(const Handle(StepGeom_Ellipse)& SC,
+                                                 const ConversionFactors&         theLocalFactors)
 {
   const StepGeom_Axis2Placement AxisSelect = SC->Position();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 1)
@@ -1559,8 +1559,8 @@ Handle(Geom2d_Ellipse) StepToGeom::MakeEllipse2d(const Handle(StepGeom_Ellipse)&
 // Creation d' un Hyperbola de Geom a partir d' un Hyperbola de Step
 //=============================================================================
 
-Handle(Geom_Hyperbola) StepToGeom::MakeHyperbola(const Handle(StepGeom_Hyperbola)& SC,
-                                                 const StepData_Factors&           theLocalFactors)
+Handle(Geom_Hyperbola) StepToGeom1::MakeHyperbola(const Handle(StepGeom_Hyperbola)& SC,
+                                                 const ConversionFactors&           theLocalFactors)
 {
   const StepGeom_Axis2Placement AxisSelect = SC->Position();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 2)
@@ -1582,8 +1582,8 @@ Handle(Geom_Hyperbola) StepToGeom::MakeHyperbola(const Handle(StepGeom_Hyperbola
 // Creation d' un Hyperbola de Geom2d a partir d' un Hyperbola de Step
 //=============================================================================
 
-Handle(Geom2d_Hyperbola) StepToGeom::MakeHyperbola2d(const Handle(StepGeom_Hyperbola)& SC,
-                                                     const StepData_Factors& theLocalFactors)
+Handle(Geom2d_Hyperbola) StepToGeom1::MakeHyperbola2d(const Handle(StepGeom_Hyperbola)& SC,
+                                                     const ConversionFactors& theLocalFactors)
 {
   const StepGeom_Axis2Placement AxisSelect = SC->Position();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 1)
@@ -1604,8 +1604,8 @@ Handle(Geom2d_Hyperbola) StepToGeom::MakeHyperbola2d(const Handle(StepGeom_Hyper
 // Creation d' une Line de Geom a partir d' une Line de Step
 //=============================================================================
 
-Handle(Geom_Line) StepToGeom::MakeLine(const Handle(StepGeom_Line)& SC,
-                                       const StepData_Factors&      theLocalFactors)
+Handle(GeomLine) StepToGeom1::MakeLine(const Handle(StepGeom_Line)& SC,
+                                       const ConversionFactors&      theLocalFactors)
 {
   Handle(Geom_CartesianPoint) P = MakeCartesianPoint(SC->Pnt(), theLocalFactors);
   if (!P.IsNull())
@@ -1617,7 +1617,7 @@ Handle(Geom_Line) StepToGeom::MakeLine(const Handle(StepGeom_Line)& SC,
       if (D->Vec().SquareMagnitude() < Precision::Confusion() * Precision::Confusion())
         return 0;
       const Dir3d V(D->Vec());
-      return new Geom_Line(P->Pnt(), V);
+      return new GeomLine(P->Pnt(), V);
     }
   }
   return 0;
@@ -1627,8 +1627,8 @@ Handle(Geom_Line) StepToGeom::MakeLine(const Handle(StepGeom_Line)& SC,
 // Creation d' une Line de Geom2d a partir d' une Line de Step
 //=============================================================================
 
-Handle(Geom2d_Line) StepToGeom::MakeLine2d(const Handle(StepGeom_Line)& SC,
-                                           const StepData_Factors&      theLocalFactors)
+Handle(Geom2d_Line) StepToGeom1::MakeLine2d(const Handle(StepGeom_Line)& SC,
+                                           const ConversionFactors&      theLocalFactors)
 {
   Handle(Geom2d_CartesianPoint) P = MakeCartesianPoint2d(SC->Pnt(), theLocalFactors);
   if (!P.IsNull())
@@ -1648,8 +1648,8 @@ Handle(Geom2d_Line) StepToGeom::MakeLine2d(const Handle(StepGeom_Line)& SC,
 // Creation d' un Parabola de Geom a partir d' un Parabola de Step
 //=============================================================================
 
-Handle(Geom_Parabola) StepToGeom::MakeParabola(const Handle(StepGeom_Parabola)& SC,
-                                               const StepData_Factors&          theLocalFactors)
+Handle(Geom_Parabola) StepToGeom1::MakeParabola(const Handle(StepGeom_Parabola)& SC,
+                                               const ConversionFactors&          theLocalFactors)
 {
   const StepGeom_Axis2Placement AxisSelect = SC->Position();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 2)
@@ -1669,8 +1669,8 @@ Handle(Geom_Parabola) StepToGeom::MakeParabola(const Handle(StepGeom_Parabola)& 
 // Creation d' un Parabola de Geom2d a partir d' un Parabola de Step
 //=============================================================================
 
-Handle(Geom2d_Parabola) StepToGeom::MakeParabola2d(const Handle(StepGeom_Parabola)& SC,
-                                                   const StepData_Factors&          theLocalFactors)
+Handle(Geom2d_Parabola) StepToGeom1::MakeParabola2d(const Handle(StepGeom_Parabola)& SC,
+                                                   const ConversionFactors&          theLocalFactors)
 {
   const StepGeom_Axis2Placement AxisSelect = SC->Position();
   if (AxisSelect.CaseNum(AxisSelect.Value()) == 1)
@@ -1691,24 +1691,24 @@ Handle(Geom2d_Parabola) StepToGeom::MakeParabola2d(const Handle(StepGeom_Parabol
 // Creation d' un Plane de Geom a partir d' un plane de Step
 //=============================================================================
 
-Handle(Geom_Plane) StepToGeom::MakePlane(const Handle(StepGeom_Plane)& SP,
-                                         const StepData_Factors&       theLocalFactors)
+Handle(GeomPlane) StepToGeom1::MakePlane(const Handle(StepGeom_Plane)& SP,
+                                         const ConversionFactors&       theLocalFactors)
 {
   Handle(Geom_Axis2Placement) A = MakeAxis2Placement(SP->Position(), theLocalFactors);
   if (!A.IsNull())
   {
-    return new Geom_Plane(A->Ax2());
+    return new GeomPlane(A->Ax2());
   }
   return 0;
 }
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) StepToGeom::MakePolyline(const Handle(StepGeom_Polyline)& SPL,
-                                                   const StepData_Factors&          theLocalFactors)
+Handle(BSplineCurve3d) StepToGeom1::MakePolyline(const Handle(StepGeom_Polyline)& SPL,
+                                                   const ConversionFactors&          theLocalFactors)
 {
   if (SPL.IsNull())
-    return Handle(Geom_BSplineCurve)();
+    return Handle(BSplineCurve3d)();
 
   const Standard_Integer nbp = SPL->NbPoints();
   if (nbp > 1)
@@ -1730,15 +1730,15 @@ Handle(Geom_BSplineCurve) StepToGeom::MakePolyline(const Handle(StepGeom_Polylin
     Mults.SetValue(1, 2);
     Mults.SetValue(nbp, 2);
 
-    return new Geom_BSplineCurve(Poles, Knots, Mults, 1);
+    return new BSplineCurve3d(Poles, Knots, Mults, 1);
   }
   return 0;
 }
 
 //=================================================================================================
 
-Handle(Geom2d_BSplineCurve) StepToGeom::MakePolyline2d(const Handle(StepGeom_Polyline)& SPL,
-                                                       const StepData_Factors& theLocalFactors)
+Handle(Geom2d_BSplineCurve) StepToGeom1::MakePolyline2d(const Handle(StepGeom_Polyline)& SPL,
+                                                       const ConversionFactors& theLocalFactors)
 {
   if (SPL.IsNull())
     return Handle(Geom2d_BSplineCurve)();
@@ -1773,11 +1773,11 @@ Handle(Geom2d_BSplineCurve) StepToGeom::MakePolyline2d(const Handle(StepGeom_Pol
 // RectangularTrimmedSurface de Step
 //=============================================================================
 
-Handle(Geom_RectangularTrimmedSurface) StepToGeom::MakeRectangularTrimmedSurface(
+Handle(Geom_RectangularTrimmedSurface) StepToGeom1::MakeRectangularTrimmedSurface(
   const Handle(StepGeom_RectangularTrimmedSurface)& SS,
-  const StepData_Factors&                           theLocalFactors)
+  const ConversionFactors&                           theLocalFactors)
 {
-  Handle(Geom_Surface) theBasis = MakeSurface(SS->BasisSurface(), theLocalFactors);
+  Handle(GeomSurface) theBasis = MakeSurface(SS->BasisSurface(), theLocalFactors);
   if (!theBasis.IsNull())
   {
     // -----------------------------------------
@@ -1811,7 +1811,7 @@ Handle(Geom_RectangularTrimmedSurface) StepToGeom::MakeRectangularTrimmedSurface
       uFact                                    = AngleFact;
       vFact                                    = LengthFact / Cos(conicS->SemiAngle());
     }
-    else if (theBasis->IsKind(STANDARD_TYPE(Geom_Plane)))
+    else if (theBasis->IsKind(STANDARD_TYPE(GeomPlane)))
     {
       uFact = vFact = LengthFact;
     }
@@ -1831,9 +1831,9 @@ Handle(Geom_RectangularTrimmedSurface) StepToGeom::MakeRectangularTrimmedSurface
 // SphericalSurface de Step
 //=============================================================================
 
-Handle(Geom_SphericalSurface) StepToGeom::MakeSphericalSurface(
+Handle(Geom_SphericalSurface) StepToGeom1::MakeSphericalSurface(
   const Handle(StepGeom_SphericalSurface)& SS,
-  const StepData_Factors&                  theLocalFactors)
+  const ConversionFactors&                  theLocalFactors)
 {
   Handle(Geom_Axis2Placement) A = MakeAxis2Placement(SS->Position(), theLocalFactors);
   if (!A.IsNull())
@@ -1847,13 +1847,13 @@ Handle(Geom_SphericalSurface) StepToGeom::MakeSphericalSurface(
 // Creation d' une Surface de Geom a partir d' une Surface de Step
 //=============================================================================
 
-Handle(Geom_Surface) StepToGeom::MakeSurface(const Handle(StepGeom_Surface)& SS,
-                                             const StepData_Factors&         theLocalFactors)
+Handle(GeomSurface) StepToGeom1::MakeSurface(const Handle(StepGeom_Surface)& SS,
+                                             const ConversionFactors&         theLocalFactors)
 {
   // sln 01.10.2001 BUC61003. If entry shell is NULL do nothing
   if (SS.IsNull())
   {
-    return Handle(Geom_Surface)();
+    return Handle(GeomSurface)();
   }
 
   try
@@ -1868,7 +1868,7 @@ Handle(Geom_Surface) StepToGeom::MakeSurface(const Handle(StepGeom_Surface)& SS,
       const Handle(StepGeom_ElementarySurface) S1 =
         Handle(StepGeom_ElementarySurface)::DownCast(SS);
       if (S1->Position().IsNull())
-        return Handle(Geom_Surface)();
+        return Handle(GeomSurface)();
 
       return MakeElementarySurface(S1, theLocalFactors);
     }
@@ -1880,21 +1880,21 @@ Handle(Geom_Surface) StepToGeom::MakeSurface(const Handle(StepGeom_Surface)& SS,
     { //: d4 abv 12 Mar 98
       const Handle(StepGeom_OffsetSurface) OS = Handle(StepGeom_OffsetSurface)::DownCast(SS);
 
-      Handle(Geom_Surface) aBasisSurface = MakeSurface(OS->BasisSurface(), theLocalFactors);
+      Handle(GeomSurface) aBasisSurface = MakeSurface(OS->BasisSurface(), theLocalFactors);
       if (!aBasisSurface.IsNull())
       {
         // sln 03.10.01. BUC61003. creation of  offset surface is corrected
         const Standard_Real anOffset = OS->Distance() * theLocalFactors.LengthFactor();
         if (aBasisSurface->Continuity() == GeomAbs_C0)
         {
-          const BRepBuilderAPI_MakeFace aBFace(aBasisSurface, Precision::Confusion());
+          const FaceMaker aBFace(aBasisSurface, Precision::Confusion());
           if (aBFace.IsDone())
           {
-            const TopoDS_Shape aResult =
+            const TopoShape aResult =
               ShapeAlgo::AlgoContainer()->C0ShapeToC1Shape(aBFace.Face(), Abs(anOffset));
             if (aResult.ShapeType() == TopAbs_FACE)
             {
-              aBasisSurface = BRep_Tool::Surface(TopoDS::Face(aResult));
+              aBasisSurface = BRepInspector::Surface(TopoDS::Face(aResult));
             }
           }
         }
@@ -1912,7 +1912,7 @@ Handle(Geom_Surface) StepToGeom::MakeSurface(const Handle(StepGeom_Surface)& SS,
       // protect against cyclic references and wrong type of cartop
       if (!T.IsNull() && PS != SS)
       {
-        Handle(Geom_Surface) S1 = MakeSurface(PS, theLocalFactors);
+        Handle(GeomSurface) S1 = MakeSurface(PS, theLocalFactors);
         if (!S1.IsNull())
         {
           Transform3d T1;
@@ -1944,11 +1944,11 @@ Handle(Geom_Surface) StepToGeom::MakeSurface(const Handle(StepGeom_Surface)& SS,
 // SurfaceOfLinearExtrusion de Step
 //=============================================================================
 
-Handle(Geom_SurfaceOfLinearExtrusion) StepToGeom::MakeSurfaceOfLinearExtrusion(
+Handle(Geom_SurfaceOfLinearExtrusion) StepToGeom1::MakeSurfaceOfLinearExtrusion(
   const Handle(StepGeom_SurfaceOfLinearExtrusion)& SS,
-  const StepData_Factors&                          theLocalFactors)
+  const ConversionFactors&                          theLocalFactors)
 {
-  Handle(Geom_Curve) C = MakeCurve(SS->SweptCurve(), theLocalFactors);
+  Handle(GeomCurve3d) C = MakeCurve(SS->SweptCurve(), theLocalFactors);
   if (!C.IsNull())
   {
     // sln 23.10.2001. CTS23496: Surface is not created if extrusion axis have not been successfully
@@ -1958,7 +1958,7 @@ Handle(Geom_SurfaceOfLinearExtrusion) StepToGeom::MakeSurfaceOfLinearExtrusion(
     if (!V.IsNull())
     {
       const Dir3d      D(V->Vec());
-      Handle(Geom_Line) aLine = Handle(Geom_Line)::DownCast(C);
+      Handle(GeomLine) aLine = Handle(GeomLine)::DownCast(C);
       if (!aLine.IsNull() && aLine->Lin().Direction().IsParallel(D, Precision::Angular()))
         return Handle(Geom_SurfaceOfLinearExtrusion)();
       return new Geom_SurfaceOfLinearExtrusion(C, D);
@@ -1972,11 +1972,11 @@ Handle(Geom_SurfaceOfLinearExtrusion) StepToGeom::MakeSurfaceOfLinearExtrusion(
 // SurfaceOfRevolution de Step
 //=============================================================================
 
-Handle(Geom_SurfaceOfRevolution) StepToGeom::MakeSurfaceOfRevolution(
+Handle(Geom_SurfaceOfRevolution) StepToGeom1::MakeSurfaceOfRevolution(
   const Handle(StepGeom_SurfaceOfRevolution)& SS,
-  const StepData_Factors&                     theLocalFactors)
+  const ConversionFactors&                     theLocalFactors)
 {
-  Handle(Geom_Curve) C = MakeCurve(SS->SweptCurve(), theLocalFactors);
+  Handle(GeomCurve3d) C = MakeCurve(SS->SweptCurve(), theLocalFactors);
   if (!C.IsNull())
   {
     Handle(Geom_Axis1Placement) A1 = MakeAxis1Placement(SS->AxisPosition(), theLocalFactors);
@@ -1984,7 +1984,7 @@ Handle(Geom_SurfaceOfRevolution) StepToGeom::MakeSurfaceOfRevolution(
     {
       const Axis3d A(A1->Ax1());
       // skl for OCC952 (one bad case revolution of circle)
-      if (C->IsKind(STANDARD_TYPE(Geom_Circle)) || C->IsKind(STANDARD_TYPE(Geom_Ellipse)))
+      if (C->IsKind(STANDARD_TYPE(GeomCircle)) || C->IsKind(STANDARD_TYPE(Geom_Ellipse)))
       {
         const Handle(Geom_Conic) conic = Handle(Geom_Conic)::DownCast(C);
         const Point3d             pc    = conic->Location();
@@ -1997,7 +1997,7 @@ Handle(Geom_SurfaceOfRevolution) StepToGeom::MakeSurfaceOfRevolution(
           // checking A2 lies on plane of circle
           if (dirline.IsNormal(norm, Precision::Angular())
               && (dirline.IsParallel(xAxis, Precision::Angular())
-                  || C->IsKind(STANDARD_TYPE(Geom_Circle))))
+                  || C->IsKind(STANDARD_TYPE(GeomCircle))))
           {
             // change parametrization for trimming
             Frame3d axnew(pc, norm, dirline.Reversed());
@@ -2017,8 +2017,8 @@ Handle(Geom_SurfaceOfRevolution) StepToGeom::MakeSurfaceOfRevolution(
 // SweptSurface de Geom
 //=============================================================================
 
-Handle(Geom_SweptSurface) StepToGeom::MakeSweptSurface(const Handle(StepGeom_SweptSurface)& SS,
-                                                       const StepData_Factors& theLocalFactors)
+Handle(Geom_SweptSurface) StepToGeom1::MakeSweptSurface(const Handle(StepGeom_SweptSurface)& SS,
+                                                       const ConversionFactors& theLocalFactors)
 {
   if (SS->IsKind(STANDARD_TYPE(StepGeom_SurfaceOfLinearExtrusion)))
   {
@@ -2038,9 +2038,9 @@ Handle(Geom_SweptSurface) StepToGeom::MakeSweptSurface(const Handle(StepGeom_Swe
 // ToroidalSurface de Step
 //=============================================================================
 
-Handle(Geom_ToroidalSurface) StepToGeom::MakeToroidalSurface(
+Handle(Geom_ToroidalSurface) StepToGeom1::MakeToroidalSurface(
   const Handle(StepGeom_ToroidalSurface)& SS,
-  const StepData_Factors&                 theLocalFactors)
+  const ConversionFactors&                 theLocalFactors)
 {
   Handle(Geom_Axis2Placement) A = MakeAxis2Placement(SS->Position(), theLocalFactors);
   if (!A.IsNull())
@@ -2055,10 +2055,10 @@ Handle(Geom_ToroidalSurface) StepToGeom::MakeToroidalSurface(
 
 //=================================================================================================
 
-Standard_Boolean StepToGeom::MakeTransformation2d(
+Standard_Boolean StepToGeom1::MakeTransformation2d(
   const Handle(StepGeom_CartesianTransformationOperator2d)& SCTO,
   gp_Trsf2d&                                                CT,
-  const StepData_Factors&                                   theLocalFactors)
+  const ConversionFactors&                                   theLocalFactors)
 {
   //  NB : on ne s interesse ici qu au deplacement rigide
   Handle(Geom2d_CartesianPoint) CP = MakeCartesianPoint2d(SCTO->LocalOrigin(), theLocalFactors);
@@ -2084,10 +2084,10 @@ Standard_Boolean StepToGeom::MakeTransformation2d(
 
 //=================================================================================================
 
-Standard_Boolean StepToGeom::MakeTransformation3d(
+Standard_Boolean StepToGeom1::MakeTransformation3d(
   const Handle(StepGeom_CartesianTransformationOperator3d)& SCTO,
   Transform3d&                                                  CT,
-  const StepData_Factors&                                   theLocalFactors)
+  const ConversionFactors&                                   theLocalFactors)
 {
   Handle(Geom_CartesianPoint) CP = MakeCartesianPoint(SCTO->LocalOrigin(), theLocalFactors);
   if (!CP.IsNull())
@@ -2142,14 +2142,14 @@ Standard_Boolean StepToGeom::MakeTransformation3d(
 // ----------------------------------------------------------------
 //: o6 abv 18 Feb 99: parameter Factor added
 //: p3 abv 23 Feb 99: parameter Shift added
-static Standard_Boolean ExtractParameter(const Handle(Geom_Curve)&                       aGeomCurve,
+static Standard_Boolean ExtractParameter(const Handle(GeomCurve3d)&                       aGeomCurve,
                                          const Handle(StepGeom_HArray1OfTrimmingSelect)& TS,
                                          const Standard_Integer                          nbSel,
                                          const Standard_Integer                          MasterRep,
                                          const Standard_Real                             Factor,
                                          const Standard_Real                             Shift,
                                          Standard_Real&                                  aParam,
-                                         const StepData_Factors& theLocalFactors)
+                                         const ConversionFactors& theLocalFactors)
 {
   Handle(StepGeom_CartesianPoint) aPoint;
   Standard_Integer                i;
@@ -2166,7 +2166,7 @@ static Standard_Boolean ExtractParameter(const Handle(Geom_Curve)&              
     {
       aPoint = theSel.CartesianPoint();
       Handle(Geom_CartesianPoint) theGeomPnt =
-        StepToGeom::MakeCartesianPoint(aPoint, theLocalFactors);
+        StepToGeom1::MakeCartesianPoint(aPoint, theLocalFactors);
       Point3d thegpPnt = theGeomPnt->Pnt();
 
       //: S4136: use advanced algorithm
@@ -2221,7 +2221,7 @@ static Standard_Boolean ExtractParameter(const Handle(Geom_Curve)&              
     {
       aPoint = theSel.CartesianPoint();
       Handle(Geom_CartesianPoint) theGeomPnt =
-        StepToGeom::MakeCartesianPoint(aPoint, theLocalFactors);
+        StepToGeom1::MakeCartesianPoint(aPoint, theLocalFactors);
       Point3d thegpPnt = theGeomPnt->Pnt();
       // Project Point On Curve
       ShapeAnalysis_Curve sac;
@@ -2244,11 +2244,11 @@ static Standard_Boolean ExtractParameter(const Handle(Geom_Curve)&              
 // Creation d' une Trimmed Curve de Geom a partir d' une Trimmed Curve de Step
 //=============================================================================
 
-Handle(Geom_TrimmedCurve) StepToGeom::MakeTrimmedCurve(const Handle(StepGeom_TrimmedCurve)& SC,
-                                                       const StepData_Factors& theLocalFactors)
+Handle(Geom_TrimmedCurve) StepToGeom1::MakeTrimmedCurve(const Handle(StepGeom_TrimmedCurve)& SC,
+                                                       const ConversionFactors& theLocalFactors)
 {
   const Handle(StepGeom_Curve) theSTEPCurve = SC->BasisCurve();
-  Handle(Geom_Curve)           theCurve     = MakeCurve(theSTEPCurve, theLocalFactors);
+  Handle(GeomCurve3d)           theCurve     = MakeCurve(theSTEPCurve, theLocalFactors);
   if (theCurve.IsNull())
     return Handle(Geom_TrimmedCurve)();
 
@@ -2401,11 +2401,11 @@ Handle(Geom_TrimmedCurve) StepToGeom::MakeTrimmedCurve(const Handle(StepGeom_Tri
 //=============================================================================
 // Shall be completed to treat trimming with points
 
-Handle(Geom2d_BSplineCurve) StepToGeom::MakeTrimmedCurve2d(const Handle(StepGeom_TrimmedCurve)& SC,
-                                                           const StepData_Factors& theLocalFactors)
+Handle(Geom2d_BSplineCurve) StepToGeom1::MakeTrimmedCurve2d(const Handle(StepGeom_TrimmedCurve)& SC,
+                                                           const ConversionFactors& theLocalFactors)
 {
   const Handle(StepGeom_Curve) BasisCurve   = SC->BasisCurve();
-  Handle(Geom2d_Curve)         theGeomBasis = MakeCurve2d(BasisCurve, theLocalFactors);
+  Handle(GeomCurve2d)         theGeomBasis = MakeCurve2d(BasisCurve, theLocalFactors);
   if (theGeomBasis.IsNull())
     return Handle(Geom2d_BSplineCurve)();
 
@@ -2462,9 +2462,9 @@ Handle(Geom2d_BSplineCurve) StepToGeom::MakeTrimmedCurve2d(const Handle(StepGeom
 // Creation d' un VectorWithMagnitude de Geom a partir d' un Vector de Step
 //=============================================================================
 
-Handle(Geom_VectorWithMagnitude) StepToGeom::MakeVectorWithMagnitude(
+Handle(Geom_VectorWithMagnitude) StepToGeom1::MakeVectorWithMagnitude(
   const Handle(StepGeom_Vector)& SV,
-  const StepData_Factors&        theLocalFactors)
+  const ConversionFactors&        theLocalFactors)
 {
   // sln 22.10.2001. CTS23496: Vector is not created if direction have not been successfully created
   Handle(Geom_Direction) D = MakeDirection(SV->Orientation());
@@ -2480,7 +2480,7 @@ Handle(Geom_VectorWithMagnitude) StepToGeom::MakeVectorWithMagnitude(
 // Creation d' un VectorWithMagnitude de Geom2d a partir d' un Vector de Step
 //=============================================================================
 
-Handle(Geom2d_VectorWithMagnitude) StepToGeom::MakeVectorWithMagnitude2d(
+Handle(Geom2d_VectorWithMagnitude) StepToGeom1::MakeVectorWithMagnitude2d(
   const Handle(StepGeom_Vector)& SV)
 {
   // sln 23.10.2001. CTS23496: Vector is not created if direction have not been successfully created
@@ -2498,7 +2498,7 @@ Handle(Geom2d_VectorWithMagnitude) StepToGeom::MakeVectorWithMagnitude2d(
 // Creation of a YptRotation from a Kinematic SpatialRotation for Step
 //=============================================================================
 
-Handle(TColStd_HArray1OfReal) StepToGeom::MakeYprRotation(
+Handle(TColStd_HArray1OfReal) StepToGeom1::MakeYprRotation(
   const StepKinematics_SpatialRotation&             SR,
   const Handle(StepRepr_GlobalUnitAssignedContext)& theCntxt)
 {

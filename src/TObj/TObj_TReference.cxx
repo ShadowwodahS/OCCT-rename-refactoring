@@ -47,7 +47,7 @@ const Standard_GUID& TObj_TReference::ID() const
 
 //=================================================================================================
 
-Handle(TObj_TReference) TObj_TReference::Set(const TDF_Label&           theLabel,
+Handle(TObj_TReference) TObj_TReference::Set(const DataLabel&           theLabel,
                                              const Handle(TObj_Object)& theObject,
                                              const Handle(TObj_Object)& theMaster)
 {
@@ -71,7 +71,7 @@ Handle(TObj_TReference) TObj_TReference::Set(const TDF_Label&           theLabel
 
 //=================================================================================================
 
-void TObj_TReference::Set(const Handle(TObj_Object)& theElem, const TDF_Label& theMasterLabel)
+void TObj_TReference::Set(const Handle(TObj_Object)& theElem, const DataLabel& theMasterLabel)
 {
   Backup();
   if (theElem.IsNull())
@@ -87,7 +87,7 @@ void TObj_TReference::Set(const Handle(TObj_Object)& theElem, const TDF_Label& t
 // purpose  : for persistent only.
 //=======================================================================
 
-void TObj_TReference::Set(const TDF_Label& theLabel, const TDF_Label& theMasterLabel)
+void TObj_TReference::Set(const DataLabel& theLabel, const DataLabel& theMasterLabel)
 {
   Backup();
   myLabel       = theLabel;
@@ -140,7 +140,7 @@ void TObj_TReference::Paste(const Handle(TDF_Attribute)&       theInto,
   }
 
   // get new referenced object
-  TDF_Label aRefLabel = myLabel;
+  DataLabel aRefLabel = myLabel;
   if (!RT->HasRelocation(myLabel, aRefLabel))
     aRefLabel = myLabel;
   aRefLabel.FindAttribute(TObj_TObject::GetID(), aObject);
@@ -151,7 +151,7 @@ void TObj_TReference::Paste(const Handle(TDF_Attribute)&       theInto,
   // find correct master label
   Handle(TObj_Object) aMasterObj;
   TObj_Object::GetObj(aReference->Label(), aMasterObj, Standard_True);
-  TDF_Label aMasterLabel;
+  DataLabel aMasterLabel;
   if (!aMasterObj.IsNull())
     aMasterLabel = aMasterObj->GetLabel();
   if (aMasterLabel.IsNull() || !aMasterLabel.FindAttribute(TObj_TObject::GetID(), aMasterTObj))

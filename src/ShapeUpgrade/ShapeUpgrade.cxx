@@ -38,7 +38,7 @@ Standard_Boolean ShapeUpgrade::Debug()
 //=================================================================================================
 
 Standard_Boolean ShapeUpgrade::C0BSplineToSequenceOfC1BSplineCurve(
-  const Handle(Geom_BSplineCurve)&          BS,
+  const Handle(BSplineCurve3d)&          BS,
   Handle(TColGeom_HSequenceOfBoundedCurve)& seqBS)
 {
   if (BS.IsNull() || (BS->IsCN(1)))
@@ -118,8 +118,8 @@ Standard_Boolean ShapeUpgrade::C0BSplineToSequenceOfC1BSplineCurve(
       newPoles(j)   = Poles(j + PoleIndex - 1);
     }
 
-    Handle(Geom_BSplineCurve) newC =
-      new Geom_BSplineCurve(newPoles, newWeights, newKnots, newMults, deg);
+    Handle(BSplineCurve3d) newC =
+      new BSplineCurve3d(newPoles, newWeights, newKnots, newMults, deg);
     seqBS->Append(newC);
 
     StartKnotIndex = EndKnotIndex;
@@ -129,7 +129,7 @@ Standard_Boolean ShapeUpgrade::C0BSplineToSequenceOfC1BSplineCurve(
 
 //=================================================================================================
 
-static Handle(Geom_BSplineCurve) BSplineCurve2dTo3d(const Handle(Geom2d_BSplineCurve)& BS)
+static Handle(BSplineCurve3d) BSplineCurve2dTo3d(const Handle(Geom2d_BSplineCurve)& BS)
 {
   Standard_Integer        deg     = BS->Degree();
   Standard_Integer        NbKnots = BS->NbKnots();
@@ -151,12 +151,12 @@ static Handle(Geom_BSplineCurve) BSplineCurve2dTo3d(const Handle(Geom2d_BSplineC
   for (Standard_Integer i = 1; i <= NbPoles; i++)
     Poles3d(i) = Point3d(Poles2d(i).X(), Poles2d(i).Y(), 0);
 
-  Handle(Geom_BSplineCurve) BS3d =
-    new Geom_BSplineCurve(Poles3d, Weights, Knots, Mults, deg, BS->IsPeriodic());
+  Handle(BSplineCurve3d) BS3d =
+    new BSplineCurve3d(Poles3d, Weights, Knots, Mults, deg, BS->IsPeriodic());
   return BS3d;
 }
 
-static Handle(Geom2d_BSplineCurve) BSplineCurve3dTo2d(const Handle(Geom_BSplineCurve)& BS)
+static Handle(Geom2d_BSplineCurve) BSplineCurve3dTo2d(const Handle(BSplineCurve3d)& BS)
 {
   Standard_Integer        deg     = BS->Degree();
   Standard_Integer        NbKnots = BS->NbKnots();
@@ -190,14 +190,14 @@ Standard_Boolean ShapeUpgrade::C0BSplineToSequenceOfC1BSplineCurve(
   if (BS.IsNull() || (BS->IsCN(1)))
     return Standard_False;
 
-  Handle(Geom_BSplineCurve)                BS3d = BSplineCurve2dTo3d(BS);
+  Handle(BSplineCurve3d)                BS3d = BSplineCurve2dTo3d(BS);
   Handle(TColGeom_HSequenceOfBoundedCurve) seqBS3d;
   Standard_Boolean result = C0BSplineToSequenceOfC1BSplineCurve(BS3d, seqBS3d);
   if (result)
   {
     seqBS = new TColGeom2d_HSequenceOfBoundedCurve;
     for (Standard_Integer i = 1; i <= seqBS3d->Length(); i++)
-      seqBS->Append(BSplineCurve3dTo2d(Handle(Geom_BSplineCurve)::DownCast(seqBS3d->Value(i))));
+      seqBS->Append(BSplineCurve3dTo2d(Handle(BSplineCurve3d)::DownCast(seqBS3d->Value(i))));
   }
   return result;
 }

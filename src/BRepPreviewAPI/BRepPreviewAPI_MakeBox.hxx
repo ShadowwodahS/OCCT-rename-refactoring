@@ -26,7 +26,7 @@
 //! 3 - preview can be a rectangular face if thin box in only one direction is a point;
 //! 4 - preview can be a valid box if point values fulfill the conditions of a valid box.
 
-class BRepPreviewAPI_MakeBox : public BRepPrimAPI_MakeBox
+class BRepPreviewAPI_MakeBox : public BoxMaker
 {
 public:
   //! Constructor

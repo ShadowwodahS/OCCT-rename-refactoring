@@ -32,9 +32,9 @@ Standard_EXPORT void debgsobu(const Standard_Integer /*iSO*/) {}
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GSFSMakeSolids(const TopoDS_Shape&           SOF,
+void TopOpeBRepBuild_Builder::GSFSMakeSolids(const TopoShape&           SOF,
                                              TopOpeBRepBuild_ShellFaceSet& SFS,
-                                             TopTools_ListOfShape&         LOSO)
+                                             ShapeList&         LOSO)
 {
 #ifdef OCCT_DEBUG
   Standard_Integer iSO;
@@ -55,9 +55,9 @@ void TopOpeBRepBuild_Builder::GSFSMakeSolids(const TopoDS_Shape&           SOF,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GSOBUMakeSolids(const TopoDS_Shape&           SOF,
+void TopOpeBRepBuild_Builder::GSOBUMakeSolids(const TopoShape&           SOF,
                                               TopOpeBRepBuild_SolidBuilder& SOBU,
-                                              TopTools_ListOfShape&         LOSO)
+                                              ShapeList&         LOSO)
 {
 #ifdef OCCT_DEBUG
   Standard_Integer iSO;
@@ -74,8 +74,8 @@ void TopOpeBRepBuild_Builder::GSOBUMakeSolids(const TopoDS_Shape&           SOF,
   }
 #endif
 
-  TopoDS_Shape     newSolid;
-  TopoDS_Shape     newShell;
+  TopoShape     newSolid;
+  TopoShape     newShell;
   Standard_Integer nfa = 0;
   Standard_Integer nsh = 0;
   SOBU.InitSolid();
@@ -95,7 +95,7 @@ void TopOpeBRepBuild_Builder::GSOBUMakeSolids(const TopoDS_Shape&           SOF,
         nfa = SOBU.InitFace();
         for (; SOBU.MoreFace(); SOBU.NextFace())
         {
-          const TopoDS_Shape& F = SOBU.Face();
+          const TopoShape& F = SOBU.Face();
           myBuildTool.AddShellFace(newShell, F);
         }
       }
@@ -105,16 +105,16 @@ void TopOpeBRepBuild_Builder::GSOBUMakeSolids(const TopoDS_Shape&           SOF,
       {
         Standard_Boolean                          closed = Standard_True;
         TopTools_IndexedDataMapOfShapeListOfShape edgemap;
-        TopExp::MapShapesAndAncestors(newShell, TopAbs_EDGE, TopAbs_FACE, edgemap);
+        TopExp1::MapShapesAndAncestors(newShell, TopAbs_EDGE, TopAbs_FACE, edgemap);
         Standard_Integer iedge, nedge = edgemap.Extent();
         for (iedge = 1; iedge <= nedge; iedge++)
         {
-          const TopoDS_Shape& E  = edgemap.FindKey(iedge);
+          const TopoShape& E  = edgemap.FindKey(iedge);
           TopAbs_Orientation  oE = E.Orientation();
           if (oE == TopAbs_INTERNAL || oE == TopAbs_EXTERNAL)
             continue;
-          const TopoDS_Edge& EE    = TopoDS::Edge(E);
-          Standard_Boolean   degen = BRep_Tool::Degenerated(EE);
+          const TopoEdge& EE    = TopoDS::Edge(E);
+          Standard_Boolean   degen = BRepInspector::Degenerated(EE);
           if (degen)
             continue;
           Standard_Integer nbf = edgemap(iedge).Extent();
@@ -130,7 +130,7 @@ void TopOpeBRepBuild_Builder::GSOBUMakeSolids(const TopoDS_Shape&           SOF,
       myBuildTool.AddSolidShell(newSolid, newShell);
     }
 
-    TopExp_Explorer  ex(newSolid, TopAbs_VERTEX);
+    ShapeExplorer  ex(newSolid, TopAbs_VERTEX);
     Standard_Boolean isempty = ex.More();
     if (!isempty)
     {
@@ -140,12 +140,12 @@ void TopOpeBRepBuild_Builder::GSOBUMakeSolids(const TopoDS_Shape&           SOF,
     Standard_Boolean newSolidOK = Standard_True;
     if (nsh == 1 && nfa == 1)
     {
-      TopExp_Explorer  exp(newSolid, TopAbs_EDGE);
+      ShapeExplorer  exp(newSolid, TopAbs_EDGE);
       Standard_Boolean hasnondegenerated = Standard_False;
       for (; exp.More(); exp.Next())
       {
-        const TopoDS_Edge& e = TopoDS::Edge(exp.Current());
-        if (!BRep_Tool::Degenerated(e))
+        const TopoEdge& e = TopoDS::Edge(exp.Current());
+        if (!BRepInspector::Degenerated(e))
         {
           hasnondegenerated = Standard_True;
           break;
@@ -156,7 +156,7 @@ void TopOpeBRepBuild_Builder::GSOBUMakeSolids(const TopoDS_Shape&           SOF,
         continue;
     }
 
-    TopTools_ListOfShape newSolidLOS;
+    ShapeList newSolidLOS;
     RegularizeSolid(SOF, newSolid, newSolidLOS);
     LOSO.Append(newSolidLOS);
     //    LOSO.Append(newSolid);

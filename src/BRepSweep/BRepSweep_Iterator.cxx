@@ -23,7 +23,7 @@ BRepSweep_Iterator::BRepSweep_Iterator() {}
 
 //=================================================================================================
 
-void BRepSweep_Iterator::Init(const TopoDS_Shape& aShape)
+void BRepSweep_Iterator::Init(const TopoShape& aShape)
 {
   myIterator.Initialize(aShape);
 }

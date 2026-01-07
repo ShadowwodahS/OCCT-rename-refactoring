@@ -20,14 +20,14 @@
 #include <TDataStd_GenericExtString.hxx>
 #include <Standard_OStream.hxx>
 
-class TDF_Label;
-class TCollection_ExtendedString;
+class DataLabel;
+class UtfString;
 
-class TDataStd_Name;
-DEFINE_STANDARD_HANDLE(TDataStd_Name, TDataStd_GenericExtString)
+class NameAttribute;
+DEFINE_STANDARD_HANDLE(NameAttribute, TDataStd_GenericExtString)
 
 //! Used to define a name attribute containing a string which specifies the name.
-class TDataStd_Name : public TDataStd_GenericExtString
+class NameAttribute : public TDataStd_GenericExtString
 {
 
 public:
@@ -51,26 +51,26 @@ public:
   //! Returns True if found.
   //! tools methods to translate path <-> pathlist
   //! ===========================================
-  //! move to draw For Draw test we may provide this tool method which convert a path in a
+  //! move to draw For Draw1 test we may provide this tool method which convert a path in a
   //! sequence of string to call after the FindLabel methods.
   //! Example: if it's given "Assembly:Part_1:Sketch_5" it will return in <pathlist>
   //! the list of 3 strings: "Assembly","Part_1","Sketch_5".
   //! move to draw from <pathlist> build the string path
   //! Name methods
   //! ============
-  Standard_EXPORT static Handle(TDataStd_Name) Set(const TDF_Label&                  label,
-                                                   const TCollection_ExtendedString& string);
+  Standard_EXPORT static Handle(NameAttribute) Set(const DataLabel&                  label,
+                                                   const UtfString& string);
 
   //! Finds, or creates, a Name attribute with explicit user defined <guid> and sets <string>.
   //! The Name attribute  is  returned.
-  Standard_EXPORT static Handle(TDataStd_Name) Set(const TDF_Label&                  label,
+  Standard_EXPORT static Handle(NameAttribute) Set(const DataLabel&                  label,
                                                    const Standard_GUID&              guid,
-                                                   const TCollection_ExtendedString& string);
+                                                   const UtfString& string);
 
-  Standard_EXPORT TDataStd_Name();
+  Standard_EXPORT NameAttribute();
 
   //! Sets <S> as name. Raises if <S> is not a valid name.
-  Standard_EXPORT void Set(const TCollection_ExtendedString& S) Standard_OVERRIDE;
+  Standard_EXPORT void Set(const UtfString& S) Standard_OVERRIDE;
 
   //! Sets the explicit user defined GUID  to the attribute.
   Standard_EXPORT void SetID(const Standard_GUID& guid) Standard_OVERRIDE;
@@ -80,7 +80,7 @@ public:
 
   Standard_EXPORT virtual Standard_OStream& Dump(Standard_OStream& anOS) const Standard_OVERRIDE;
 
-  DEFINE_DERIVED_ATTRIBUTE(TDataStd_Name, TDataStd_GenericExtString)
+  DEFINE_DERIVED_ATTRIBUTE(NameAttribute, TDataStd_GenericExtString)
 };
 
 #endif // _TDataStd_Name_HeaderFile

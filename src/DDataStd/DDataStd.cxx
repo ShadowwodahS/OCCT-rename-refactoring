@@ -26,7 +26,7 @@
 
 //=================================================================================================
 
-void DDataStd::AllCommands(Draw_Interpretor& theCommands)
+void DDataStd1::AllCommands(DrawInterpreter& theCommands)
 {
   NamedShapeCommands(theCommands);
   BasicCommands(theCommands);
@@ -40,12 +40,12 @@ void DDataStd::AllCommands(Draw_Interpretor& theCommands)
 
 //=================================================================================================
 
-void DDataStd::DumpConstraint(const Handle(TDataXtd_Constraint)& CTR, Standard_OStream& anOS)
+void DDataStd1::DumpConstraint(const Handle(TDataXtd_Constraint)& CTR, Standard_OStream& anOS)
 {
-  TCollection_AsciiString S;
+  AsciiString1 S;
   TDF_Tool::Entry(CTR->Label(), S);
   anOS << S << " ";
-  TDataXtd::Print(CTR->GetType(), anOS);
+  TDataXtd1::Print(CTR->GetType(), anOS);
   for (Standard_Integer i = 1; i <= CTR->NbGeometries(); i++)
   {
     anOS << " G_" << i << " (";

@@ -26,36 +26,36 @@
 
 class StepShape_ShellBasedSurfaceModel;
 class StepVisual_TessellatedItem;
-class TopoDS_Face;
+class TopoFace;
 class Transfer_FinderProcess;
-class TopoDS_Shell;
-class TopoDS_Solid;
+class TopoShell;
+class TopoSolid;
 
 //! This class implements the mapping between classes
 //! Face, Shell or Solid from TopoDS and ShellBasedSurfaceModel
 //! from StepShape. All the topology and geometry comprised
 //! into the shape are taken into account and translated.
-class TopoDSToStep_MakeShellBasedSurfaceModel : public TopoDSToStep_Root
+class TopoDSToStep_MakeShellBasedSurfaceModel : public Root3
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT TopoDSToStep_MakeShellBasedSurfaceModel(
-    const TopoDS_Face&                    F,
+    const TopoFace&                    F,
     const Handle(Transfer_FinderProcess)& FP,
-    const StepData_Factors&               theLocalFactors = StepData_Factors(),
+    const ConversionFactors&               theLocalFactors = ConversionFactors(),
     const Message_ProgressRange&          theProgress     = Message_ProgressRange());
 
   Standard_EXPORT TopoDSToStep_MakeShellBasedSurfaceModel(
-    const TopoDS_Shell&                   S,
+    const TopoShell&                   S,
     const Handle(Transfer_FinderProcess)& FP,
-    const StepData_Factors&               theLocalFactors = StepData_Factors(),
+    const ConversionFactors&               theLocalFactors = ConversionFactors(),
     const Message_ProgressRange&          theProgress     = Message_ProgressRange());
 
   Standard_EXPORT TopoDSToStep_MakeShellBasedSurfaceModel(
-    const TopoDS_Solid&                   S,
+    const TopoSolid&                   S,
     const Handle(Transfer_FinderProcess)& FP,
-    const StepData_Factors&               theLocalFactors = StepData_Factors(),
+    const ConversionFactors&               theLocalFactors = ConversionFactors(),
     const Message_ProgressRange&          theProgress     = Message_ProgressRange());
 
   Standard_EXPORT const Handle(StepShape_ShellBasedSurfaceModel)& Value() const;

@@ -37,13 +37,13 @@ class ShapeFix_Wireframe : public ShapeFix_Root
 public:
   Standard_EXPORT ShapeFix_Wireframe();
 
-  Standard_EXPORT ShapeFix_Wireframe(const TopoDS_Shape& shape);
+  Standard_EXPORT ShapeFix_Wireframe(const TopoShape& shape);
 
   //! Clears all statuses
   Standard_EXPORT virtual void ClearStatuses();
 
   //! Loads a shape, resets statuses
-  Standard_EXPORT void Load(const TopoDS_Shape& shape);
+  Standard_EXPORT void Load(const TopoShape& shape);
 
   //! Fixes gaps between ends of curves of adjacent edges
   //! (both 3d and pcurves) in wires
@@ -91,7 +91,7 @@ public:
   //! FAIL1 - Failed to fix some small edges
   Standard_Boolean StatusSmallEdges(const ShapeExtend_Status status) const;
 
-  TopoDS_Shape Shape();
+  TopoShape Shape();
 
   //! Returns mode managing removing small edges.
   Standard_Boolean& ModeDropSmallEdges();
@@ -105,7 +105,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(ShapeFix_Wireframe, ShapeFix_Root)
 
 protected:
-  TopoDS_Shape myShape;
+  TopoShape myShape;
 
 private:
   Standard_Boolean myModeDrop;

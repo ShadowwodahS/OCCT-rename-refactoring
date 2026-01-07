@@ -40,7 +40,7 @@ class DrawTrSurf_Polygon3D : public Draw_Drawable3D
 
   Standard_Boolean ShowNodes() const { return myNodes; }
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   //! For variable copy.
   Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
@@ -53,7 +53,7 @@ class DrawTrSurf_Polygon3D : public Draw_Drawable3D
 
   //! For variable whatis command. Set  as a result  the
   //! type of the variable.
-  Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
 private:
   Handle(Poly_Polygon3D) myPolygon3D;

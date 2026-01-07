@@ -47,7 +47,7 @@ static GeomAbs_Shape blend_cont = GeomAbs_C1;
 
 static BRepFilletAPI_MakeFillet* Rakk = 0;
 
-static void printtolblend(Draw_Interpretor& di)
+static void printtolblend(DrawInterpreter& di)
 {
   di << "tolerance ang : " << ta << "\n";
   di << "tolerance 3d  : " << t3d << "\n";
@@ -57,7 +57,7 @@ static void printtolblend(Draw_Interpretor& di)
   di << "tolblend " << ta << " " << t3d << " " << t2d << " " << fl << "\n";
 }
 
-static Standard_Integer VBLEND(Draw_Interpretor& di, Standard_Integer narg, const char** a)
+static Standard_Integer VBLEND(DrawInterpreter& di, Standard_Integer narg, const char** a)
 {
   if (Rakk != 0)
   {
@@ -74,15 +74,15 @@ static Standard_Integer VBLEND(Draw_Interpretor& di, Standard_Integer narg, cons
   {
     for (Standard_Integer i = 1; i <= NbToPick; i++)
     {
-      TopoDS_Shape PickSh = arr->Value(i);
+      TopoShape PickSh = arr->Value(i);
       if (!PickSh.IsNull())
       {
-        DBRep::Set(a[(2 * i + 2)], PickSh);
+        DBRep1::Set(a[(2 * i + 2)], PickSh);
       }
     }
   }
 
-  TopoDS_Shape V = DBRep::Get(a[2]);
+  TopoShape V = DBRep1::Get(a[2]);
   if (V.IsNull())
     return 1;
   ChFi3d_FilletShape FSh = ChFi3d_Rational;
@@ -101,14 +101,14 @@ static Standard_Integer VBLEND(Draw_Interpretor& di, Standard_Integer narg, cons
   Rakk->SetParams(ta, tesp, t2d, t3d, t2d, fl);
   Rakk->SetContinuity(blend_cont, tapp_angle);
   Standard_Real    Rad;
-  TopoDS_Edge      E;
+  TopoEdge      E;
   Standard_Integer nbedge = 0;
   for (Standard_Integer ii = 1; ii < (narg - 1) / 2; ii++)
   {
-    Rad                      = Draw::Atof(a[2 * ii + 1]);
-    TopoDS_Shape aLocalShape = DBRep::Get(a[(2 * ii + 2)], TopAbs_EDGE);
+    Rad                      = Draw1::Atof(a[2 * ii + 1]);
+    TopoShape aLocalShape = DBRep1::Get(a[(2 * ii + 2)], TopAbs_EDGE);
     E                        = TopoDS::Edge(aLocalShape);
-    //    E = TopoDS::Edge(DBRep::Get(a[(2*ii+2)],TopAbs_EDGE));
+    //    E = TopoDS::Edge(DBRep1::Get(a[(2*ii+2)],TopAbs_EDGE));
     if (!E.IsNull())
     {
       Rakk->Add(Rad, E);
@@ -120,16 +120,16 @@ static Standard_Integer VBLEND(Draw_Interpretor& di, Standard_Integer narg, cons
   Rakk->Build();
   if (!Rakk->IsDone())
     return 1;
-  TopoDS_Shape res = Rakk->Shape();
-  DBRep::Set(a[1], res);
+  TopoShape res = Rakk->Shape();
+  DBRep1::Set(a[1], res);
 
   // visu resultat...
-  ViewerTest::Display(a[2], Handle(AIS_InteractiveObject)(), false);
-  ViewerTest::Display(a[1], new AIS_Shape(res), true);
+  ViewerTest::Display(a[2], Handle(VisualEntity)(), false);
+  ViewerTest::Display(a[1], new VisualShape(res), true);
   return 0;
 }
 
-void ViewerTest::FilletCommands(Draw_Interpretor& theCommands)
+void ViewerTest::FilletCommands(DrawInterpreter& theCommands)
 {
   const char* g = "Viewer Fillet construction commands";
   theCommands.Add("vblend",

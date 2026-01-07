@@ -20,7 +20,7 @@
 #include <Standard_Type.hxx>
 
 #include <ShapeUpgrade_FaceDivide.hxx>
-class TopoDS_Face;
+class TopoFace;
 
 class ShapeUpgrade_FaceDivideArea;
 DEFINE_STANDARD_HANDLE(ShapeUpgrade_FaceDivideArea, ShapeUpgrade_FaceDivide)
@@ -33,7 +33,7 @@ public:
   //! Creates empty  constructor.
   Standard_EXPORT ShapeUpgrade_FaceDivideArea();
 
-  Standard_EXPORT ShapeUpgrade_FaceDivideArea(const TopoDS_Face& F);
+  Standard_EXPORT ShapeUpgrade_FaceDivideArea(const TopoFace& F);
 
   //! Performs splitting and computes the resulting shell
   //! The context is used to keep track of former splittings

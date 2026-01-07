@@ -31,7 +31,7 @@ class IGESSolid_Loop;
 DEFINE_STANDARD_HANDLE(IGESSolid_Loop, IGESData_IGESEntity)
 
 //! defines Loop, Type <508> Form Number <1>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! A Loop entity specifies a bound of a face. It represents
 //! a connected collection of face boundaries, seams, and
 //! poles of a single face.

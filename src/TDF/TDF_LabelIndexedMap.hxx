@@ -18,6 +18,6 @@
 
 #include <NCollection_IndexedMap.hxx>
 
-typedef NCollection_IndexedMap<TDF_Label> TDF_LabelIndexedMap;
+typedef NCollection_IndexedMap<DataLabel> TDF_LabelIndexedMap;
 
 #endif

@@ -28,7 +28,7 @@
 
 //! A framework to present the principal properties of
 //! inertia of a system of which global properties are
-//! computed by a GProp_GProps object.
+//! computed by a GeometricProperties object.
 //! There is always a set of axes for which the
 //! products of inertia of a geometric system are equal
 //! to 0; i.e. the matrix of inertia of the system is
@@ -38,12 +38,12 @@
 //! called the principal moments of inertia.
 //! This sort of presentation object is created, filled and
 //! returned by the function PrincipalProperties for
-//! any GProp_GProps object, and can be queried to access the result.
+//! any GeometricProperties object, and can be queried to access the result.
 //! Note: The system whose principal properties of
 //! inertia are returned by this framework is referred to
 //! as the current system. The current system,
 //! however, is retained neither by this presentation
-//! framework nor by the GProp_GProps object which activates it.
+//! framework nor by the GeometricProperties object which activates it.
 class GProp_PrincipalProps
 {
 public:
@@ -152,7 +152,7 @@ public:
     //! (GProp_PrincipalProps object) which may be
     //! queried to access the value sought.
     Standard_EXPORT GProp_PrincipalProps
-    GProp_GProps::PrincipalProperties() const;
+    GeometricProperties::PrincipalProperties() const;
 
 protected:
 private:

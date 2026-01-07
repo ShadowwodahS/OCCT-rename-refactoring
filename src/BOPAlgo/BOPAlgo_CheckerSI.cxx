@@ -66,10 +66,10 @@ public:
   Standard_Integer IndexOfFace() const { return myIF; }
 
   //
-  void SetFace(const TopoDS_Face& aF) { myF = aF; }
+  void SetFace(const TopoFace& aF) { myF = aF; }
 
   //
-  const TopoDS_Face& Face() const { return myF; }
+  const TopoFace& Face() const { return myF; }
 
   //
   void SetTolF(const Standard_Real aTolF) { myTolF = aTolF; }
@@ -92,7 +92,7 @@ public:
 protected:
   Standard_Integer myIF;
   Standard_Real    myTolF;
-  TopoDS_Face      myF;
+  TopoFace      myF;
 };
 
 // end of definition of class BOPAlgo_FaceSelfIntersect
@@ -104,7 +104,7 @@ typedef NCollection_Vector<BOPAlgo_FaceSelfIntersect> BOPAlgo_VectorOfFaceSelfIn
 //=================================================================================================
 
 BOPAlgo_CheckerSI::BOPAlgo_CheckerSI()
-    : BOPAlgo_PaveFiller()
+    : BooleanPaveFiller()
 {
   myLevelOfCheck   = BOPDS_DS::NbInterfTypes() - 1;
   myNonDestructive = Standard_True;
@@ -167,7 +167,7 @@ void BOPAlgo_CheckerSI::Perform(const Message_ProgressRange& theRange)
     //
     Message_ProgressScope aPS(theRange, "Checking shape on self-intersection", 10);
     // Perform intersection of sub shapes
-    BOPAlgo_PaveFiller::Perform(aPS.Next(8));
+    BooleanPaveFiller::Perform(aPS.Next(8));
     if (UserBreak(aPS))
     {
       return;
@@ -207,7 +207,7 @@ void BOPAlgo_CheckerSI::Perform(const Message_ProgressRange& theRange)
 void BOPAlgo_CheckerSI::PostTreat()
 {
   Standard_Integer i, aNb, n1, n2;
-  BOPDS_Pair       aPK;
+  IndexPair       aPK;
   //
   BOPDS_MapOfPair& aMPK = *((BOPDS_MapOfPair*)&myDS->Interferences());
 
@@ -316,9 +316,9 @@ void BOPAlgo_CheckerSI::PostTreat()
     {
       if (bTangentFaces)
       {
-        const TopoDS_Face& aF1 = *((TopoDS_Face*)&myDS->Shape(n1));
-        const TopoDS_Face& aF2 = *((TopoDS_Face*)&myDS->Shape(n2));
-        bFlag = BOPTools_AlgoTools::AreFacesSameDomain(aF1, aF2, myContext, myFuzzyValue);
+        const TopoFace& aF1 = *((TopoFace*)&myDS->Shape(n1));
+        const TopoFace& aF2 = *((TopoFace*)&myDS->Shape(n2));
+        bFlag = AlgoTools::AreFacesSameDomain(aF1, aF2, myContext, myFuzzyValue);
         if (bFlag)
         {
           ++iFound;
@@ -409,7 +409,7 @@ void BOPAlgo_CheckerSI::CheckFaceSelfIntersection(const Message_ProgressRange& t
   if (myLevelOfCheck < 5)
     return;
 
-  BOPDS_Pair aPK;
+  IndexPair aPK;
 
   BOPDS_MapOfPair& aMPK = *((BOPDS_MapOfPair*)&myDS->Interferences());
   aMPK.Clear();
@@ -427,7 +427,7 @@ void BOPAlgo_CheckerSI::CheckFaceSelfIntersection(const Message_ProgressRange& t
     if (aSI.ShapeType() != TopAbs_FACE)
       continue;
     //
-    const TopoDS_Face&  aF = (*(TopoDS_Face*)(&aSI.Shape()));
+    const TopoFace&  aF = (*(TopoFace*)(&aSI.Shape()));
     BRepAdaptor_Surface BAsurf(aF, Standard_False);
     GeomAbs_SurfaceType aSurfType = BAsurf.GetType();
     if (aSurfType == GeomAbs_Plane || aSurfType == GeomAbs_Cylinder || aSurfType == GeomAbs_Cone
@@ -443,7 +443,7 @@ void BOPAlgo_CheckerSI::CheckFaceSelfIntersection(const Message_ProgressRange& t
         continue;
     }
 
-    Standard_Real aTolF = BRep_Tool::Tolerance(aF);
+    Standard_Real aTolF = BRepInspector::Tolerance(aF);
 
     BOPAlgo_FaceSelfIntersect& aFaceSelfIntersect = aVFace.Appended();
     //
@@ -462,7 +462,7 @@ void BOPAlgo_CheckerSI::CheckFaceSelfIntersection(const Message_ProgressRange& t
     aVFace.ChangeValue(iF).SetProgressRange(aPSParallel.Next());
   }
   //======================================================
-  BOPTools_Parallel::Perform(myRunParallel, aVFace);
+  BooleanParallelTools::Perform(myRunParallel, aVFace);
   //======================================================
   if (UserBreak(aPSOuter))
   {

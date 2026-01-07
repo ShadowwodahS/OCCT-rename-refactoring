@@ -88,7 +88,7 @@ Standard_Boolean MeshVS_TextPrsBuilder::HasTexts(const Standard_Boolean IsElemen
 
 Standard_Boolean MeshVS_TextPrsBuilder::GetText(const Standard_Boolean   IsElement,
                                                 const Standard_Integer   theID,
-                                                TCollection_AsciiString& theStr) const
+                                                AsciiString1& theStr) const
 {
   const MeshVS_DataMapOfIntegerAsciiString* aMap = &myNodeTextMap;
   if (IsElement)
@@ -105,7 +105,7 @@ Standard_Boolean MeshVS_TextPrsBuilder::GetText(const Standard_Boolean   IsEleme
 
 void MeshVS_TextPrsBuilder::SetText(const Standard_Boolean         IsElement,
                                     const Standard_Integer         ID,
-                                    const TCollection_AsciiString& Text)
+                                    const AsciiString1& Text)
 {
   MeshVS_DataMapOfIntegerAsciiString* aMap = &myNodeTextMap;
   if (IsElement)
@@ -153,7 +153,7 @@ void MeshVS_TextPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
   aDrawer->GetDouble(MeshVS_DA_TextExpansionFactor, AExpansionFactor);
   aDrawer->GetDouble(MeshVS_DA_TextSpace, ASpace);
 
-  TCollection_AsciiString AFontString = Font_NOF_ASCII_MONO;
+  AsciiString1 AFontString = Font_NOF_ASCII_MONO;
   if (aDrawer->GetAsciiString(MeshVS_DA_TextFont, AFontString))
     AFont = AFontString.ToCString();
 
@@ -177,7 +177,7 @@ void MeshVS_TextPrsBuilder::Build(const Handle(Prs3d_Presentation)& Prs,
   MeshVS_Buffer              aCoordsBuf(3 * aMaxFaceNodes * sizeof(Standard_Real));
   TColStd_Array1OfReal       aCoords(aCoordsBuf, 1, 3 * aMaxFaceNodes);
   Standard_Integer           NbNodes;
-  TCollection_AsciiString    aStr;
+  AsciiString1    aStr;
   MeshVS_EntityType          aType;
   TColStd_PackedMapOfInteger aCustomElements;
 

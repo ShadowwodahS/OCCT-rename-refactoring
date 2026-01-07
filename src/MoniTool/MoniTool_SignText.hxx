@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <Standard_Transient.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 
 class MoniTool_SignText;
 DEFINE_STANDARD_HANDLE(MoniTool_SignText, RefObject)
@@ -43,14 +43,14 @@ public:
   //! without defined context.
   //! By default, calls Text with undefined context (Null Handle) and
   //! if empty, then returns DynamicType
-  Standard_EXPORT virtual TCollection_AsciiString TextAlone(
+  Standard_EXPORT virtual AsciiString1 TextAlone(
     const Handle(RefObject)& ent) const;
 
   //! Gives a text as a signature for a transient object in a context
   //! If the context is senseless, it can be given as Null Handle
   //! empty result if nothing to give (at least the DynamicType could
   //! be sent ?)
-  Standard_EXPORT virtual TCollection_AsciiString Text(
+  Standard_EXPORT virtual AsciiString1 Text(
     const Handle(RefObject)& ent,
     const Handle(RefObject)& context) const = 0;
 

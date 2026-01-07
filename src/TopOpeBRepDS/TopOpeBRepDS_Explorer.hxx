@@ -24,10 +24,10 @@
 #include <TopAbs_ShapeEnum.hxx>
 #include <Standard_Integer.hxx>
 class TopOpeBRepDS_HDataStructure;
-class TopoDS_Shape;
-class TopoDS_Face;
-class TopoDS_Edge;
-class TopoDS_Vertex;
+class TopoShape;
+class TopoFace;
+class TopoEdge;
+class TopoVertex;
 
 class TopOpeBRepDS_Explorer
 {
@@ -50,15 +50,15 @@ public:
 
   Standard_EXPORT void Next();
 
-  Standard_EXPORT const TopoDS_Shape& Current() const;
+  Standard_EXPORT const TopoShape& Current() const;
 
   Standard_EXPORT Standard_Integer Index() const;
 
-  Standard_EXPORT const TopoDS_Face& Face() const;
+  Standard_EXPORT const TopoFace& Face() const;
 
-  Standard_EXPORT const TopoDS_Edge& Edge() const;
+  Standard_EXPORT const TopoEdge& Edge() const;
 
-  Standard_EXPORT const TopoDS_Vertex& Vertex() const;
+  Standard_EXPORT const TopoVertex& Vertex() const;
 
 protected:
 private:

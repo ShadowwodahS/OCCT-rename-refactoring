@@ -18,7 +18,7 @@
 #include <NCollection_DataMap.hxx>
 #include <TopTools_ShapeMapHasher.hxx>
 
-typedef NCollection_DataMap<TopoDS_Shape, Handle(AIS_ColoredDrawer), TopTools_ShapeMapHasher>
+typedef NCollection_DataMap<TopoShape, Handle(AIS_ColoredDrawer), ShapeHasher>
   AIS_DataMapOfShapeDrawer;
 
 #endif // _AIS_DataMapOfShapeDrawer_HeaderFile

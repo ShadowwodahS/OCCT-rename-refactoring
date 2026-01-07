@@ -25,9 +25,9 @@
 #include <TopAbs_ShapeEnum.hxx>
 
 class XSAlgo_ToolContainer;
-class TopoDS_Shape;
-class TopoDS_Edge;
-class TopoDS_Face;
+class TopoShape;
+class TopoEdge;
+class TopoFace;
 class Transfer_TransientProcess;
 class Transfer_FinderProcess;
 
@@ -56,8 +56,8 @@ public:
   //! @param[in] theNonManifold flag to proceed with non-manifold topology
   //! @param[in] theDetailingLevel the lowest shape type to be processed, lower shapes are ignored
   //! @return the processed shape
-  Standard_EXPORT virtual TopoDS_Shape ProcessShape(
-    const TopoDS_Shape&          theShape,
+  Standard_EXPORT virtual TopoShape ProcessShape(
+    const TopoShape&          theShape,
     const Standard_Real          thePrec,
     const Standard_Real          theMaxTol,
     const Standard_CString       thePrscfile,
@@ -69,8 +69,8 @@ public:
 
   //! Checks quality of pcurve of the edge on the given face,
   //! and corrects it if necessary.
-  Standard_EXPORT virtual Standard_Boolean CheckPCurve(const TopoDS_Edge&     theEdge,
-                                                       const TopoDS_Face&     theFace,
+  Standard_EXPORT virtual Standard_Boolean CheckPCurve(const TopoEdge&     theEdge,
+                                                       const TopoFace&     theFace,
                                                        const Standard_Real    thePrecision,
                                                        const Standard_Boolean theIsSeam) const;
 

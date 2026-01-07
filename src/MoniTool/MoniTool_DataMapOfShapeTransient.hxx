@@ -22,9 +22,9 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TopoDS_Shape, Handle(RefObject), TopTools_ShapeMapHasher>
+typedef NCollection_DataMap<TopoShape, Handle(RefObject), ShapeHasher>
   MoniTool_DataMapOfShapeTransient;
-typedef NCollection_DataMap<TopoDS_Shape, Handle(RefObject), TopTools_ShapeMapHasher>::
+typedef NCollection_DataMap<TopoShape, Handle(RefObject), ShapeHasher>::
   Iterator MoniTool_DataMapIteratorOfDataMapOfShapeTransient;
 
 #endif

@@ -51,11 +51,11 @@
 #include <Message_ProgressScope.hxx>
 #include <Geom_Surface.hxx>
 
-static void SetShapeFlags(const TopoDS_Shape& theInSh, TopoDS_Shape& theOutSh);
+static void SetShapeFlags(const TopoShape& theInSh, TopoShape& theOutSh);
 
 //=================================================================================================
 
-BRepTools_Modifier::BRepTools_Modifier(Standard_Boolean theMutableInput)
+ShapeModifier::ShapeModifier(Standard_Boolean theMutableInput)
     : myDone(Standard_False),
       myMutableInput(theMutableInput)
 {
@@ -63,7 +63,7 @@ BRepTools_Modifier::BRepTools_Modifier(Standard_Boolean theMutableInput)
 
 //=================================================================================================
 
-BRepTools_Modifier::BRepTools_Modifier(const TopoDS_Shape& S)
+ShapeModifier::ShapeModifier(const TopoShape& S)
     : myShape(S),
       myDone(Standard_False),
       myMutableInput(Standard_False)
@@ -73,7 +73,7 @@ BRepTools_Modifier::BRepTools_Modifier(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-BRepTools_Modifier::BRepTools_Modifier(const TopoDS_Shape&                   S,
+ShapeModifier::ShapeModifier(const TopoShape&                   S,
                                        const Handle(BRepTools_Modification)& M)
     : myShape(S),
       myDone(Standard_False),
@@ -85,7 +85,7 @@ BRepTools_Modifier::BRepTools_Modifier(const TopoDS_Shape&                   S,
 
 //=================================================================================================
 
-void BRepTools_Modifier::Init(const TopoDS_Shape& S)
+void ShapeModifier::Init(const TopoShape& S)
 {
   myShape = S;
   myDone  = Standard_False;
@@ -98,7 +98,7 @@ void BRepTools_Modifier::Init(const TopoDS_Shape& S)
 static TopTools_IndexedMapOfShape MapE, MapF;
 #endif
 
-void BRepTools_Modifier::Perform(const Handle(BRepTools_Modification)& M,
+void ShapeModifier::Perform(const Handle(BRepTools_Modification)& M,
                                  const Message_ProgressRange&          theProgress)
 {
   if (myShape.IsNull())
@@ -108,16 +108,16 @@ void BRepTools_Modifier::Perform(const Handle(BRepTools_Modification)& M,
 #ifdef DEBUG_Modifier
   MapE.Clear();
   MapF.Clear();
-  TopExp::MapShapes(myShape, TopAbs_EDGE, MapE);
-  TopExp::MapShapes(myShape, TopAbs_FACE, MapF);
+  TopExp1::MapShapes(myShape, TopAbs_EDGE, MapE);
+  TopExp1::MapShapes(myShape, TopAbs_FACE, MapF);
 #endif
   TopTools_DataMapIteratorOfDataMapOfShapeShape theIter(myMap);
 
   Message_ProgressScope aPS(theProgress, "Converting Shape", 2);
 
   TopTools_IndexedDataMapOfShapeListOfShape aMVE, aMEF;
-  TopExp::MapShapesAndAncestors(myShape, TopAbs_VERTEX, TopAbs_EDGE, aMVE);
-  TopExp::MapShapesAndAncestors(myShape, TopAbs_EDGE, TopAbs_FACE, aMEF);
+  TopExp1::MapShapesAndAncestors(myShape, TopAbs_VERTEX, TopAbs_EDGE, aMVE);
+  TopExp1::MapShapesAndAncestors(myShape, TopAbs_EDGE, TopAbs_FACE, aMEF);
 
   CreateNewVertices(aMVE, M);
 
@@ -155,25 +155,25 @@ void BRepTools_Modifier::Perform(const Handle(BRepTools_Modification)& M,
 
   // Update the continuities
 
-  BRep_Builder aBB;
+  ShapeBuilder aBB;
 
   /*
     Standard_Boolean RecomputeTriangles = Standard_False;
     Standard_Real MaxDeflection = RealFirst();
-    Handle(Poly_Triangulation) Tr;
+    Handle(MeshTriangulation) Tr;
     Handle(Poly_Polygon3D) Po;
     TopLoc_Location Loc;
   */
 
   for (int ii = 1; ii <= aMEF.Extent(); ii++)
   {
-    const TopoDS_Edge& CurE = TopoDS::Edge(aMEF.FindKey(ii));
-    const TopoDS_Edge& NewE = TopoDS::Edge(myMap(CurE));
+    const TopoEdge& CurE = TopoDS::Edge(aMEF.FindKey(ii));
+    const TopoEdge& NewE = TopoDS::Edge(myMap(CurE));
     if (!CurE.IsSame(NewE))
     {
       TopTools_ListIteratorOfListOfShape it;
       it.Initialize(aMEF.FindFromKey(CurE));
-      TopoDS_Face F1, F2;
+      TopoFace F1, F2;
       while (it.More() && F2.IsNull())
       {
         if (F1.IsNull())
@@ -188,8 +188,8 @@ void BRepTools_Modifier::Perform(const Handle(BRepTools_Modification)& M,
       }
       if (!F2.IsNull())
       {
-        const TopoDS_Face& newf1   = TopoDS::Face(myMap(F1));
-        const TopoDS_Face& newf2   = TopoDS::Face(myMap(F2));
+        const TopoFace& newf1   = TopoDS::Face(myMap(F1));
+        const TopoFace& newf2   = TopoDS::Face(myMap(F2));
         GeomAbs_Shape      Newcont = M->Continuity(CurE, F1, F2, NewE, newf1, newf2);
         if (Newcont > GeomAbs_C0)
         {
@@ -201,7 +201,7 @@ void BRepTools_Modifier::Perform(const Handle(BRepTools_Modification)& M,
   }
   /*
     if (RecomputeTriangles) {
-      BRepMesh_IncrementalMesh(myMap(myShape),MaxDeflection);
+      MeshGenerator(myMap(myShape),MaxDeflection);
     }
   */
 
@@ -210,11 +210,11 @@ void BRepTools_Modifier::Perform(const Handle(BRepTools_Modification)& M,
 
 //=================================================================================================
 
-void BRepTools_Modifier::Put(const TopoDS_Shape& S)
+void ShapeModifier::Put(const TopoShape& S)
 {
   if (!myMap.IsBound(S))
   {
-    myMap.Bind(S, TopoDS_Shape());
+    myMap.Bind(S, TopoShape());
     for (TopoDS_Iterator theIterator(S, Standard_False); theIterator.More(); theIterator.Next())
     {
 
@@ -225,7 +225,7 @@ void BRepTools_Modifier::Put(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                   S,
+Standard_Boolean ShapeModifier::Rebuild(const TopoShape&                   S,
                                              const Handle(BRepTools_Modification)& M,
                                              Standard_Boolean&                     theNewGeom,
                                              const Message_ProgressRange&          theProgress)
@@ -235,7 +235,7 @@ Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                
   int iE = MapE.Contains(S) ? MapE.FindIndex(S) : 0;
 #endif
   TopAbs_ShapeEnum ts     = S.ShapeType();
-  TopoDS_Shape&    result = myMap(S);
+  TopoShape&    result = myMap(S);
   if (!result.IsNull())
   {
     theNewGeom = myHasNewGeom.Contains(S);
@@ -243,7 +243,7 @@ Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                
   }
   Standard_Boolean   rebuild = Standard_False, RevWires = Standard_False;
   TopAbs_Orientation ResOr = TopAbs_FORWARD;
-  BRep_Builder       B;
+  ShapeBuilder       B;
   Standard_Real      tol;
   Standard_Boolean   No3DCurve = Standard_False; // en fait, si on n`a pas de
   // modif geometry 3d , it is necessary to test the existence of a curve 3d.
@@ -266,11 +266,11 @@ Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                
         if (aNSinfo.myRevFace)
           ResOr = TopAbs_REVERSED;
         // set specifics flags of a Face
-        B.NaturalRestriction(TopoDS::Face(result), BRep_Tool::NaturalRestriction(TopoDS::Face(S)));
+        B.NaturalRestriction(TopoDS::Face(result), BRepInspector::NaturalRestriction(TopoDS::Face(S)));
       }
 
       // update triangulation on the copied face
-      Handle(Poly_Triangulation) aTriangulation;
+      Handle(MeshTriangulation) aTriangulation;
       if (M->NewTriangulation(TopoDS::Face(S), aTriangulation))
       {
         if (rebuild) // the copied face already exists => update it
@@ -293,7 +293,7 @@ Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                
         if (aNCinfo.myCurve.IsNull())
         {
           B.MakeEdge(TopoDS::Edge(result));
-          B.Degenerated(TopoDS::Edge(result), BRep_Tool::Degenerated(TopoDS::Edge(S)));
+          B.Degenerated(TopoDS::Edge(result), BRepInspector::Degenerated(TopoDS::Edge(S)));
           B.UpdateEdge(TopoDS::Edge(result), aNCinfo.myToler); // OCC217
           No3DCurve = Standard_True;
         }
@@ -309,8 +309,8 @@ Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                
         //	result.Orientation(S.Orientation());
 
         // set specifics flags of an Edge
-        B.SameParameter(TopoDS::Edge(result), BRep_Tool::SameParameter(TopoDS::Edge(S)));
-        B.SameRange(TopoDS::Edge(result), BRep_Tool::SameRange(TopoDS::Edge(S)));
+        B.SameParameter(TopoDS::Edge(result), BRepInspector::SameParameter(TopoDS::Edge(S)));
+        B.SameRange(TopoDS::Edge(result), BRepInspector::SameRange(TopoDS::Edge(S)));
       }
 
       // update polygonal structure on the edge
@@ -381,7 +381,7 @@ Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                
       orient = it.Value().Orientation();
       if (RevWires || myMap(it.Value()).Orientation() == TopAbs_REVERSED)
       {
-        orient = TopAbs::Reverse(orient);
+        orient = TopAbs1::Reverse(orient);
       }
       B.Add(result, myMap(it.Value()).Oriented(orient));
     }
@@ -389,16 +389,16 @@ Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                
     if (ts == TopAbs_FACE)
     {
       // pcurves
-      Handle(Geom2d_Curve) curve2d; //,curve2d1;
-      TopoDS_Face          face = TopoDS::Face(S);
+      Handle(GeomCurve2d) curve2d; //,curve2d1;
+      TopoFace          face = TopoDS::Face(S);
       TopAbs_Orientation   fcor = face.Orientation();
       if (fcor != TopAbs_REVERSED)
         fcor = TopAbs_FORWARD;
 
-      TopExp_Explorer ex(face.Oriented(fcor), TopAbs_EDGE);
+      ShapeExplorer ex(face.Oriented(fcor), TopAbs_EDGE);
       for (; ex.More(); ex.Next())
       {
-        const TopoDS_Edge& edge = TopoDS::Edge(ex.Current());
+        const TopoEdge& edge = TopoDS::Edge(ex.Current());
 
 #ifdef DEBUG_Modifier
         iE = MapE.Contains(edge) ? MapE.FindIndex(edge) : 0;
@@ -419,34 +419,34 @@ Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                
           // check that edge contains two pcurves on this surface:
           // either it is true seam on the current face, or belongs to two faces
           // built on that same surface (see OCC21772)
-          // Note: this check could be made separate method in BRepTools
+          // Note: this check could be made separate method in BRepTools1
           Standard_Boolean isClosed = Standard_False;
-          if (BRep_Tool::IsClosed(edge, face))
+          if (BRepInspector::IsClosed(edge, face))
           {
-            isClosed = (!newgeom || BRepTools::IsReallyClosed(edge, face));
+            isClosed = (!newgeom || BRepTools1::IsReallyClosed(edge, face));
             if (!isClosed)
             {
               TopLoc_Location aLoc;
-              TopoDS_Shape    resface = (myMap.IsBound(face) ? myMap(face) : face);
+              TopoShape    resface = (myMap.IsBound(face) ? myMap(face) : face);
               if (resface.IsNull())
                 resface = face;
-              Handle(Geom_Surface) aSurf = BRep_Tool::Surface(TopoDS::Face(resface), aLoc);
+              Handle(GeomSurface) aSurf = BRepInspector::Surface(TopoDS::Face(resface), aLoc);
               // check other faces sharing the same surface
-              TopExp_Explorer aExpF(myShape, TopAbs_FACE);
+              ShapeExplorer aExpF(myShape, TopAbs_FACE);
               for (; aExpF.More() && !isClosed; aExpF.Next())
               {
-                TopoDS_Face anOther = TopoDS::Face(aExpF.Current());
+                TopoFace anOther = TopoDS::Face(aExpF.Current());
                 if (anOther.IsSame(face))
                   continue;
-                TopoDS_Shape resface2 = (myMap.IsBound(anOther) ? myMap(anOther) : anOther);
+                TopoShape resface2 = (myMap.IsBound(anOther) ? myMap(anOther) : anOther);
                 if (resface2.IsNull())
                   resface2 = anOther;
                 TopLoc_Location      anOtherLoc;
-                Handle(Geom_Surface) anOtherSurf =
-                  BRep_Tool::Surface(TopoDS::Face(resface2), anOtherLoc);
+                Handle(GeomSurface) anOtherSurf =
+                  BRepInspector::Surface(TopoDS::Face(resface2), anOtherLoc);
                 if (aSurf == anOtherSurf && aLoc.IsEqual(anOtherLoc))
                 {
-                  TopExp_Explorer aExpE(anOther, TopAbs_EDGE);
+                  ShapeExplorer aExpE(anOther, TopAbs_EDGE);
                   for (; aExpE.More() && !isClosed; aExpE.Next())
                     isClosed = edge.IsSame(aExpE.Current());
                 }
@@ -455,17 +455,17 @@ Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                
           }
           if (isClosed)
           {
-            TopoDS_Edge  CurE         = TopoDS::Edge(myMap(edge));
-            TopoDS_Shape aLocalResult = result;
+            TopoEdge  CurE         = TopoDS::Edge(myMap(edge));
+            TopoShape aLocalResult = result;
             aLocalResult.Orientation(TopAbs_FORWARD);
-            TopoDS_Face          CurF = TopoDS::Face(aLocalResult);
-            Handle(Geom2d_Curve) curve2d1, currcurv;
+            TopoFace          CurF = TopoDS::Face(aLocalResult);
+            Handle(GeomCurve2d) curve2d1, currcurv;
             Standard_Real        f, l;
             if ((!RevWires && fcor != edge.Orientation())
                 || (RevWires && fcor == edge.Orientation()))
             {
               CurE.Orientation(TopAbs_FORWARD);
-              curve2d1 = BRep_Tool::CurveOnSurface(CurE, CurF, f, l);
+              curve2d1 = BRepInspector::CurveOnSurface(CurE, CurF, f, l);
               if (curve2d1.IsNull())
                 curve2d1 = new Geom2d_Line(gp::OX2d());
               B.UpdateEdge(CurE, curve2d1, curve2d, CurF, 0.);
@@ -473,12 +473,12 @@ Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                
             else
             {
               CurE.Orientation(TopAbs_REVERSED);
-              curve2d1 = BRep_Tool::CurveOnSurface(CurE, CurF, f, l);
+              curve2d1 = BRepInspector::CurveOnSurface(CurE, CurF, f, l);
               if (curve2d1.IsNull())
                 curve2d1 = new Geom2d_Line(gp::OX2d());
               B.UpdateEdge(CurE, curve2d, curve2d1, CurF, 0.);
             }
-            currcurv = BRep_Tool::CurveOnSurface(CurE, CurF, f, l);
+            currcurv = BRepInspector::CurveOnSurface(CurE, CurF, f, l);
             B.Range(CurE, f, l);
           }
           else
@@ -488,32 +488,32 @@ Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                
 
           TopLoc_Location    theLoc;
           Standard_Real      theF, theL;
-          Handle(Geom_Curve) C3D =
-            BRep_Tool::Curve(TopoDS::Edge(myMap(ex.Current())), theLoc, theF, theL);
+          Handle(GeomCurve3d) C3D =
+            BRepInspector::Curve(TopoDS::Edge(myMap(ex.Current())), theLoc, theF, theL);
           if (C3D.IsNull())
           { // Update vertices
             Standard_Real   param;
-            TopExp_Explorer ex2(edge, TopAbs_VERTEX);
+            ShapeExplorer ex2(edge, TopAbs_VERTEX);
             while (ex2.More())
             {
-              const TopoDS_Vertex& vertex = TopoDS::Vertex(ex2.Current());
+              const TopoVertex& vertex = TopoDS::Vertex(ex2.Current());
               if (!M->NewParameter(vertex, edge, param, tol))
               {
-                tol   = BRep_Tool::Tolerance(vertex);
-                param = BRep_Tool::Parameter(vertex, edge);
+                tol   = BRepInspector::Tolerance(vertex);
+                param = BRepInspector::Parameter(vertex, edge);
               }
 
               TopAbs_Orientation vtxrelat = vertex.Orientation();
               if (edge.Orientation() == TopAbs_REVERSED)
               {
                 // Update considere l'edge FORWARD, et le vertex en relatif
-                vtxrelat = TopAbs::Reverse(vtxrelat);
+                vtxrelat = TopAbs1::Reverse(vtxrelat);
               }
               // if (myMap(edge).Orientation() == TopAbs_REVERSED) {
-              //   vtxrelat= TopAbs::Reverse(vtxrelat);
+              //   vtxrelat= TopAbs1::Reverse(vtxrelat);
               // }
 
-              TopoDS_Vertex aLocalVertex = TopoDS::Vertex(myMap(vertex));
+              TopoVertex aLocalVertex = TopoDS::Vertex(myMap(vertex));
               aLocalVertex.Orientation(vtxrelat);
               // B.UpdateVertex(TopoDS::Vertex
               //(myMap(vertex).Oriented(vtxrelat)),
@@ -526,10 +526,10 @@ Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                
         // Copy polygon on triangulation
         Handle(Poly_PolygonOnTriangulation) aPolyOnTria_1, aPolyOnTria_2;
         Standard_Boolean aNewPonT = M->NewPolygonOnTriangulation(edge, face, aPolyOnTria_1);
-        if (BRepTools::IsReallyClosed(edge, face))
+        if (BRepTools1::IsReallyClosed(edge, face))
         {
           // Obtain triangulation on reversed edge
-          TopoDS_Edge anEdgeRev = edge;
+          TopoEdge anEdgeRev = edge;
           anEdgeRev.Reverse();
           aNewPonT = M->NewPolygonOnTriangulation(anEdgeRev, face, aPolyOnTria_2) || aNewPonT;
           // It there is only one polygon on triangulation, store it to aPolyOnTria_1
@@ -542,9 +542,9 @@ Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                
         if (aNewPonT)
         {
           TopLoc_Location            aLocation;
-          Handle(Poly_Triangulation) aNewFaceTria =
-            BRep_Tool::Triangulation(TopoDS::Face(myMap(face)), aLocation);
-          TopoDS_Edge aNewEdge = TopoDS::Edge(myMap(edge));
+          Handle(MeshTriangulation) aNewFaceTria =
+            BRepInspector::Triangulation(TopoDS::Face(myMap(face)), aLocation);
+          TopoEdge aNewEdge = TopoDS::Edge(myMap(edge));
           if (aPolyOnTria_2.IsNull())
             B.UpdateEdge(aNewEdge, aPolyOnTria_1, aNewFaceTria, aLocation);
           else
@@ -563,32 +563,32 @@ Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                
     {
       // Vertices
       Standard_Real      param;
-      const TopoDS_Edge& edge = TopoDS::Edge(S);
+      const TopoEdge& edge = TopoDS::Edge(S);
       TopAbs_Orientation edor = edge.Orientation();
       if (edor != TopAbs_REVERSED)
         edor = TopAbs_FORWARD;
-      TopExp_Explorer ex(edge.Oriented(edor), TopAbs_VERTEX);
+      ShapeExplorer ex(edge.Oriented(edor), TopAbs_VERTEX);
       while (ex.More())
       {
-        const TopoDS_Vertex& vertex = TopoDS::Vertex(ex.Current());
+        const TopoVertex& vertex = TopoDS::Vertex(ex.Current());
 
         if (!M->NewParameter(vertex, edge, param, tol))
         {
-          tol   = BRep_Tool::Tolerance(vertex);
-          param = BRep_Tool::Parameter(vertex, edge);
+          tol   = BRepInspector::Tolerance(vertex);
+          param = BRepInspector::Parameter(vertex, edge);
         }
 
         TopAbs_Orientation vtxrelat = vertex.Orientation();
         if (edor == TopAbs_REVERSED)
         {
           // Update considere l'edge FORWARD, et le vertex en relatif
-          vtxrelat = TopAbs::Reverse(vtxrelat);
+          vtxrelat = TopAbs1::Reverse(vtxrelat);
         }
 
         // if (result.Orientation() == TopAbs_REVERSED) {
-        //   vtxrelat= TopAbs::Reverse(vtxrelat);
+        //   vtxrelat= TopAbs1::Reverse(vtxrelat);
         // }
-        TopoDS_Vertex aLocalVertex = TopoDS::Vertex(myMap(vertex));
+        TopoVertex aLocalVertex = TopoDS::Vertex(myMap(vertex));
         aLocalVertex.Orientation(vtxrelat);
         // B.UpdateVertex(TopoDS::Vertex(myMap(vertex).Oriented(vtxrelat)),
         if (myMutableInput || !aLocalVertex.IsSame(vertex))
@@ -614,20 +614,20 @@ Standard_Boolean BRepTools_Modifier::Rebuild(const TopoDS_Shape&                
   return rebuild;
 }
 
-void BRepTools_Modifier::CreateNewVertices(const TopTools_IndexedDataMapOfShapeListOfShape& theMVE,
+void ShapeModifier::CreateNewVertices(const TopTools_IndexedDataMapOfShapeListOfShape& theMVE,
                                            const Handle(BRepTools_Modification)&            M)
 {
   double       aToler;
-  BRep_Builder aBB;
+  ShapeBuilder aBB;
   Point3d       aPnt;
   for (int i = 1; i <= theMVE.Extent(); i++)
   {
     // fill MyMap only with vertices with NewPoint == true
-    const TopoDS_Vertex& aV     = TopoDS::Vertex(theMVE.FindKey(i));
+    const TopoVertex& aV     = TopoDS::Vertex(theMVE.FindKey(i));
     Standard_Boolean     IsNewP = M->NewPoint(aV, aPnt, aToler);
     if (IsNewP)
     {
-      TopoDS_Vertex aNewV;
+      TopoVertex aNewV;
       aBB.MakeVertex(aNewV, aPnt, aToler);
       SetShapeFlags(aV, aNewV);
       myMap(aV) = aNewV;
@@ -638,16 +638,16 @@ void BRepTools_Modifier::CreateNewVertices(const TopTools_IndexedDataMapOfShapeL
   }
 }
 
-void BRepTools_Modifier::FillNewCurveInfo(const TopTools_IndexedDataMapOfShapeListOfShape& theMEF,
+void ShapeModifier::FillNewCurveInfo(const TopTools_IndexedDataMapOfShapeListOfShape& theMEF,
                                           const Handle(BRepTools_Modification)&            M)
 {
-  Handle(Geom_Curve)               aCurve;
+  Handle(GeomCurve3d)               aCurve;
   TopLoc_Location                  aLocation;
-  BRepTools_Modifier::NewCurveInfo aNCinfo;
+  ShapeModifier::NewCurveInfo aNCinfo;
   double                           aToler;
   for (int i = 1; i <= theMEF.Extent(); i++)
   {
-    const TopoDS_Edge& anE      = TopoDS::Edge(theMEF.FindKey(i));
+    const TopoEdge& anE      = TopoDS::Edge(theMEF.FindKey(i));
     Standard_Boolean   IsNewCur = M->NewCurve(anE, aCurve, aLocation, aToler);
     if (IsNewCur)
     {
@@ -660,17 +660,17 @@ void BRepTools_Modifier::FillNewCurveInfo(const TopTools_IndexedDataMapOfShapeLi
   }
 }
 
-void BRepTools_Modifier::FillNewSurfaceInfo(const Handle(BRepTools_Modification)& M)
+void ShapeModifier::FillNewSurfaceInfo(const Handle(BRepTools_Modification)& M)
 {
   TopTools_IndexedMapOfShape aMF;
-  TopExp::MapShapes(myShape, TopAbs_FACE, aMF);
-  BRepTools_Modifier::NewSurfaceInfo aNSinfo;
+  TopExp1::MapShapes(myShape, TopAbs_FACE, aMF);
+  ShapeModifier::NewSurfaceInfo aNSinfo;
   for (int i = 1; i <= aMF.Extent(); i++)
   {
-    const TopoDS_Face&   aF = TopoDS::Face(aMF(i));
+    const TopoFace&   aF = TopoDS::Face(aMF(i));
     Standard_Boolean     RevFace;
     Standard_Boolean     RevWires;
-    Handle(Geom_Surface) aSurface;
+    Handle(GeomSurface) aSurface;
     TopLoc_Location      aLocation;
     double               aToler1;
     Standard_Boolean IsNewSur = M->NewSurface(aF, aSurface, aLocation, aToler1, RevWires, RevFace);
@@ -688,19 +688,19 @@ void BRepTools_Modifier::FillNewSurfaceInfo(const Handle(BRepTools_Modification)
     {
       // check if subshapes will be modified
       Standard_Boolean notRebuilded = Standard_True;
-      TopExp_Explorer  exE(aF, TopAbs_EDGE);
+      ShapeExplorer  exE(aF, TopAbs_EDGE);
       while (exE.More() && notRebuilded)
       {
-        const TopoDS_Edge& anEE = TopoDS::Edge(exE.Current());
+        const TopoEdge& anEE = TopoDS::Edge(exE.Current());
         if (myNCInfo.IsBound(anEE))
         {
           notRebuilded = Standard_False;
           break;
         }
-        TopExp_Explorer exV(anEE, TopAbs_VERTEX);
+        ShapeExplorer exV(anEE, TopAbs_VERTEX);
         while (exV.More() && notRebuilded)
         {
-          const TopoDS_Vertex& aVV = TopoDS::Vertex(exV.Current());
+          const TopoVertex& aVV = TopoDS::Vertex(exV.Current());
           if (!myMap(aVV).IsNull())
           {
             notRebuilded = Standard_False;
@@ -719,7 +719,7 @@ void BRepTools_Modifier::FillNewSurfaceInfo(const Handle(BRepTools_Modification)
   }
 }
 
-void BRepTools_Modifier::CreateOtherVertices(
+void ShapeModifier::CreateOtherVertices(
   const TopTools_IndexedDataMapOfShapeListOfShape& theMVE,
   const TopTools_IndexedDataMapOfShapeListOfShape& theMEF,
   const Handle(BRepTools_Modification)&            M)
@@ -734,33 +734,33 @@ void BRepTools_Modifier::CreateOtherVertices(
 
   for (int i = 1; i <= theMVE.Extent(); i++)
   {
-    const TopoDS_Vertex& aV    = TopoDS::Vertex(theMVE.FindKey(i));
-    TopoDS_Vertex        aNewV = TopoDS::Vertex(myMap(aV));
+    const TopoVertex& aV    = TopoDS::Vertex(theMVE.FindKey(i));
+    TopoVertex        aNewV = TopoDS::Vertex(myMap(aV));
     if (aNewV.IsNull())
     {
-      const TopTools_ListOfShape&        aLEdges   = theMVE(i);
+      const ShapeList&        aLEdges   = theMVE(i);
       Standard_Boolean                   toReplace = Standard_False;
       TopTools_ListIteratorOfListOfShape it(aLEdges);
       for (; it.More() && !toReplace; it.Next())
       {
-        const TopoDS_Edge& anE = TopoDS::Edge(it.Value());
+        const TopoEdge& anE = TopoDS::Edge(it.Value());
         if (myNCInfo.IsBound(anE) && !myNCInfo(anE).myCurve.IsNull())
           toReplace = Standard_True;
 
         if (!toReplace)
         {
-          const TopTools_ListOfShape&        aLFaces = theMEF.FindFromKey(anE);
+          const ShapeList&        aLFaces = theMEF.FindFromKey(anE);
           TopTools_ListIteratorOfListOfShape it2(aLFaces);
           for (; it2.More(); it2.Next())
           {
-            const TopoDS_Face& aF = TopoDS::Face(it2.Value());
+            const TopoFace& aF = TopoDS::Face(it2.Value());
             if (!myNonUpdFace.Contains(aF))
             {
-              Handle(Geom2d_Curve) aCurve2d;
+              Handle(GeomCurve2d) aCurve2d;
               // some NewCurve2d()s may use NewE arg internally, so the
               // null TShape as an arg may lead to the exceptions
-              TopoDS_Edge aDummyE = TopoDS::Edge(anE.EmptyCopied());
-              if (M->NewCurve2d(anE, aF, aDummyE, TopoDS_Face(), aCurve2d, aToler))
+              TopoEdge aDummyE = TopoDS::Edge(anE.EmptyCopied());
+              if (M->NewCurve2d(anE, aF, aDummyE, TopoFace(), aCurve2d, aToler))
               {
                 toReplace = true;
                 break;
@@ -779,7 +779,7 @@ void BRepTools_Modifier::CreateOtherVertices(
   }
 }
 
-static void SetShapeFlags(const TopoDS_Shape& theInSh, TopoDS_Shape& theOutSh)
+static void SetShapeFlags(const TopoShape& theInSh, TopoShape& theOutSh)
 {
   theOutSh.Modified(theInSh.Modified());
   theOutSh.Checked(theInSh.Checked());
@@ -789,12 +789,12 @@ static void SetShapeFlags(const TopoDS_Shape& theInSh, TopoDS_Shape& theOutSh)
   theOutSh.Convex(theInSh.Convex());
 }
 
-Standard_Boolean BRepTools_Modifier::IsMutableInput() const
+Standard_Boolean ShapeModifier::IsMutableInput() const
 {
   return myMutableInput;
 }
 
-void BRepTools_Modifier::SetMutableInput(Standard_Boolean theMutableInput)
+void ShapeModifier::SetMutableInput(Standard_Boolean theMutableInput)
 {
   myMutableInput = theMutableInput;
 }

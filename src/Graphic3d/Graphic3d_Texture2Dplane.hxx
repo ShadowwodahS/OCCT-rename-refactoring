@@ -22,7 +22,7 @@
 #include <Graphic3d_NameOfTexturePlane.hxx>
 #include <Graphic3d_Texture2D.hxx>
 #include <Graphic3d_NameOfTexture2D.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 
 class Graphic3d_Texture2Dplane;
 DEFINE_STANDARD_HANDLE(Graphic3d_Texture2Dplane, Graphic3d_Texture2D)
@@ -34,7 +34,7 @@ class Graphic3d_Texture2Dplane : public Graphic3d_Texture2D
 
 public:
   //! Creates a texture from a file
-  Standard_EXPORT Graphic3d_Texture2Dplane(const TCollection_AsciiString& theFileName);
+  Standard_EXPORT Graphic3d_Texture2Dplane(const AsciiString1& theFileName);
 
   //! Creates a texture from a predefined texture name set.
   Standard_EXPORT Graphic3d_Texture2Dplane(const Graphic3d_NameOfTexture2D theNOT);

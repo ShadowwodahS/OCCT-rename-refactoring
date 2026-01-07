@@ -28,9 +28,9 @@ IntTools_Curve::IntTools_Curve()
 
 //=================================================================================================
 
-IntTools_Curve::IntTools_Curve(const Handle(Geom_Curve)&   the3dCurve,
-                               const Handle(Geom2d_Curve)& the2dCurve1,
-                               const Handle(Geom2d_Curve)& the2dCurve2,
+IntTools_Curve::IntTools_Curve(const Handle(GeomCurve3d)&   the3dCurve,
+                               const Handle(GeomCurve2d)& the2dCurve1,
+                               const Handle(GeomCurve2d)& the2dCurve2,
                                const Standard_Real         theTolerance,
                                const Standard_Real         theTangentialTolerance)
     : myTolerance(theTolerance),

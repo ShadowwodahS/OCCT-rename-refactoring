@@ -25,7 +25,7 @@
 class Interface_EntityIterator;
 class Interface_Graph;
 class RefObject;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_SelectExplore;
 DEFINE_STANDARD_HANDLE(IFSelect_SelectExplore, IFSelect_SelectDeduct)
@@ -80,10 +80,10 @@ public:
 
   //! Returns a text saying "(Recursive)" or "(Level nn)" plus
   //! specific criterium returned by ExploreLabel (see below)
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   //! Returns a text defining the way of exploration
-  Standard_EXPORT virtual TCollection_AsciiString ExploreLabel() const = 0;
+  Standard_EXPORT virtual AsciiString1 ExploreLabel() const = 0;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectExplore, IFSelect_SelectDeduct)
 

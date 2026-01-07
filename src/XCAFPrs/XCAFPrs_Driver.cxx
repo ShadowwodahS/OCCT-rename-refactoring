@@ -26,13 +26,13 @@ IMPLEMENT_STANDARD_RTTIEXT(XCAFPrs_Driver, TPrsStd_Driver)
 
 //=================================================================================================
 
-Standard_Boolean XCAFPrs_Driver::Update(const TDF_Label& L, Handle(AIS_InteractiveObject)& ais)
+Standard_Boolean XCAFPrs_Driver::Update(const DataLabel& L, Handle(VisualEntity)& ais)
 
 {
   //  std::cout << "XCAFPrs_Driver::Update" << std::endl;
   // WARNING! The label L can be out of any document
   // (this is a case for reading from the file)
-  //  Handle(TDocStd_Document) DOC = TDocStd_Document::Get(L);
+  //  Handle(AppDocument) DOC = AppDocument::Get(L);
 
   XCAFDoc_ShapeTool shapes;
   if (!shapes.IsShape(L))

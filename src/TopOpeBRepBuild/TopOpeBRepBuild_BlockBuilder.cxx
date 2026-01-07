@@ -20,14 +20,14 @@
 
 //=================================================================================================
 
-TopOpeBRepBuild_BlockBuilder::TopOpeBRepBuild_BlockBuilder()
+BlockBuilder::BlockBuilder()
     : myIsDone(Standard_False)
 {
 }
 
 //=================================================================================================
 
-TopOpeBRepBuild_BlockBuilder::TopOpeBRepBuild_BlockBuilder(TopOpeBRepBuild_ShapeSet& SS)
+BlockBuilder::BlockBuilder(TopOpeBRepBuild_ShapeSet& SS)
     : myIsDone(Standard_False)
 {
   MakeBlock(SS);
@@ -35,7 +35,7 @@ TopOpeBRepBuild_BlockBuilder::TopOpeBRepBuild_BlockBuilder(TopOpeBRepBuild_Shape
 
 //=================================================================================================
 
-void TopOpeBRepBuild_BlockBuilder::MakeBlock(TopOpeBRepBuild_ShapeSet& SS)
+void BlockBuilder::MakeBlock(TopOpeBRepBuild_ShapeSet& SS)
 {
   // Compute the set of connexity blocks of elements of element set SS
   //
@@ -65,7 +65,7 @@ void TopOpeBRepBuild_BlockBuilder::MakeBlock(TopOpeBRepBuild_ShapeSet& SS)
   for (SS.InitStartElements(); SS.MoreStartElements(); SS.NextStartElement())
   {
 
-    const TopoDS_Shape& E = SS.StartElement();
+    const TopoShape& E = SS.StartElement();
     Mextent               = myOrientedShapeMap.Extent();
     Eindex                = AddElement(E);
 
@@ -94,7 +94,7 @@ void TopOpeBRepBuild_BlockBuilder::MakeBlock(TopOpeBRepBuild_ShapeSet& SS)
         // E = element of M on which neighbours must be searched
         // first step : Eindex = index of starting element of SS
         // next steps : Eindex = index of neighbours of starting element of SS
-        const TopoDS_Shape& E1    = myOrientedShapeMap(Eindex);
+        const TopoShape& E1    = myOrientedShapeMap(Eindex);
         CurNei                    = SS.MaxNumberSubShape(E1);
         Standard_Boolean condregu = Standard_True;
         if (CurNei > 2)
@@ -105,7 +105,7 @@ void TopOpeBRepBuild_BlockBuilder::MakeBlock(TopOpeBRepBuild_ShapeSet& SS)
 
         for (; SS.MoreNeighbours(); SS.NextNeighbour())
         {
-          const TopoDS_Shape& N = SS.Neighbour();
+          const TopoShape& N = SS.Neighbour();
           AddElement(N);
         }
 
@@ -154,14 +154,14 @@ void TopOpeBRepBuild_BlockBuilder::MakeBlock(TopOpeBRepBuild_ShapeSet& SS)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_BlockBuilder::InitBlock()
+void BlockBuilder::InitBlock()
 {
   myBlockIndex = 1;
 }
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_BlockBuilder::MoreBlock() const
+Standard_Boolean BlockBuilder::MoreBlock() const
 {
   // the length of myBlocks is 1 + number of connexity blocks
   Standard_Integer l = myBlocks.Length();
@@ -171,45 +171,45 @@ Standard_Boolean TopOpeBRepBuild_BlockBuilder::MoreBlock() const
 
 //=================================================================================================
 
-void TopOpeBRepBuild_BlockBuilder::NextBlock()
+void BlockBuilder::NextBlock()
 {
   myBlockIndex++;
 }
 
 //=================================================================================================
 
-TopOpeBRepBuild_BlockIterator TopOpeBRepBuild_BlockBuilder::BlockIterator() const
+TopOpeBRepBuildBlockIterator BlockBuilder::BlockIterator() const
 {
   Standard_Integer lower = myBlocks(myBlockIndex);
   Standard_Integer upper = myBlocks(myBlockIndex + 1) - 1;
-  return TopOpeBRepBuild_BlockIterator(lower, upper);
+  return TopOpeBRepBuildBlockIterator(lower, upper);
 }
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepBuild_BlockBuilder::Element(
-  const TopOpeBRepBuild_BlockIterator& BI) const
+const TopoShape& BlockBuilder::Element(
+  const TopOpeBRepBuildBlockIterator& BI) const
 {
   Standard_Boolean isbound = BI.More();
   if (!isbound)
     throw ExceptionBase("OutOfRange");
 
   Standard_Integer    index = BI.Value();
-  const TopoDS_Shape& E     = myOrientedShapeMap(index);
+  const TopoShape& E     = myOrientedShapeMap(index);
   return E;
 }
 
-const TopoDS_Shape& TopOpeBRepBuild_BlockBuilder::Element(const Standard_Integer index) const
+const TopoShape& BlockBuilder::Element(const Standard_Integer index) const
 {
   Standard_Boolean isbound = myOrientedShapeMapIsValid.IsBound(index);
   if (!isbound)
     throw ExceptionBase("OutOfRange");
 
-  const TopoDS_Shape& E = myOrientedShapeMap(index);
+  const TopoShape& E = myOrientedShapeMap(index);
   return E;
 }
 
-Standard_Integer TopOpeBRepBuild_BlockBuilder::Element(const TopoDS_Shape& E) const
+Standard_Integer BlockBuilder::Element(const TopoShape& E) const
 {
   Standard_Boolean isbound = myOrientedShapeMap.Contains(E);
   if (!isbound)
@@ -221,8 +221,8 @@ Standard_Integer TopOpeBRepBuild_BlockBuilder::Element(const TopoDS_Shape& E) co
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_BlockBuilder::ElementIsValid(
-  const TopOpeBRepBuild_BlockIterator& BI) const
+Standard_Boolean BlockBuilder::ElementIsValid(
+  const TopOpeBRepBuildBlockIterator& BI) const
 {
   Standard_Boolean isbound = BI.More();
   if (!isbound)
@@ -235,7 +235,7 @@ Standard_Boolean TopOpeBRepBuild_BlockBuilder::ElementIsValid(
   return isvalid;
 }
 
-Standard_Boolean TopOpeBRepBuild_BlockBuilder::ElementIsValid(const Standard_Integer Sindex) const
+Standard_Boolean BlockBuilder::ElementIsValid(const Standard_Integer Sindex) const
 {
   Standard_Boolean isbound = myOrientedShapeMapIsValid.IsBound(Sindex);
   if (!isbound)
@@ -249,7 +249,7 @@ Standard_Boolean TopOpeBRepBuild_BlockBuilder::ElementIsValid(const Standard_Int
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepBuild_BlockBuilder::AddElement(const TopoDS_Shape& S)
+Standard_Integer BlockBuilder::AddElement(const TopoShape& S)
 {
   Standard_Integer Sindex = myOrientedShapeMap.Add(S);
   myOrientedShapeMapIsValid.Bind(Sindex, 1);
@@ -259,7 +259,7 @@ Standard_Integer TopOpeBRepBuild_BlockBuilder::AddElement(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_BlockBuilder::SetValid(const TopOpeBRepBuild_BlockIterator& BI,
+void BlockBuilder::SetValid(const TopOpeBRepBuildBlockIterator& BI,
                                             const Standard_Boolean               isvalid)
 {
   Standard_Boolean isbound = BI.More();
@@ -271,7 +271,7 @@ void TopOpeBRepBuild_BlockBuilder::SetValid(const TopOpeBRepBuild_BlockIterator&
   myOrientedShapeMapIsValid.Bind(Sindex, i);
 }
 
-void TopOpeBRepBuild_BlockBuilder::SetValid(const Standard_Integer Sindex,
+void BlockBuilder::SetValid(const Standard_Integer Sindex,
                                             const Standard_Boolean isvalid)
 {
   Standard_Boolean isbound = myOrientedShapeMapIsValid.IsBound(Sindex);
@@ -284,7 +284,7 @@ void TopOpeBRepBuild_BlockBuilder::SetValid(const Standard_Integer Sindex,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_BlockBuilder::CurrentBlockIsRegular()
+Standard_Boolean BlockBuilder::CurrentBlockIsRegular()
 {
   Standard_Boolean b = Standard_False;
   Standard_Integer i = myBlocksIsRegular.Value(myBlockIndex);

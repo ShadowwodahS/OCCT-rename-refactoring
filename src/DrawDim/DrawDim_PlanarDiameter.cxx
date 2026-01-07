@@ -33,7 +33,7 @@ IMPLEMENT_STANDARD_RTTIEXT(DrawDim_PlanarDiameter, DrawDim_PlanarDimension)
 
 //=================================================================================================
 
-DrawDim_PlanarDiameter::DrawDim_PlanarDiameter(const TopoDS_Face& face, const TopoDS_Shape& c)
+DrawDim_PlanarDiameter::DrawDim_PlanarDiameter(const TopoFace& face, const TopoShape& c)
 {
   myPlane  = face;
   myCircle = c;
@@ -41,30 +41,30 @@ DrawDim_PlanarDiameter::DrawDim_PlanarDiameter(const TopoDS_Face& face, const To
 
 //=================================================================================================
 
-DrawDim_PlanarDiameter::DrawDim_PlanarDiameter(const TopoDS_Shape& c)
+DrawDim_PlanarDiameter::DrawDim_PlanarDiameter(const TopoShape& c)
 {
   myCircle = c;
 }
 
 //=================================================================================================
 
-void DrawDim_PlanarDiameter::DrawOn(Draw_Display& dis) const
+void DrawDim_PlanarDiameter::DrawOn(DrawDisplay& dis) const
 {
   if (myCircle.ShapeType() == TopAbs_EDGE)
   {
     Standard_Real      f, l;
-    Handle(Geom_Curve) curve = BRep_Tool::Curve(TopoDS::Edge(myCircle), f, l);
-    if (curve->IsKind(STANDARD_TYPE(Geom_Circle)))
+    Handle(GeomCurve3d) curve = BRepInspector::Curve(TopoDS::Edge(myCircle), f, l);
+    if (curve->IsKind(STANDARD_TYPE(GeomCircle)))
     {
-      gp_Circ       circle = Handle(Geom_Circle)::DownCast(curve)->Circ();
-      TopoDS_Vertex vf, vl;
-      TopExp::Vertices(TopoDS::Edge(myCircle), vf, vl);
-      const Point3d  first    = BRep_Tool::Pnt(vf);
+      gp_Circ       circle = Handle(GeomCircle)::DownCast(curve)->Circ();
+      TopoVertex vf, vl;
+      TopExp1::Vertices(TopoDS::Edge(myCircle), vf, vl);
+      const Point3d  first    = BRepInspector::Pnt(vf);
       Standard_Real parfirst = ElCLib::Parameter(circle, first);
       Standard_Real parlast  = (parfirst + M_PI);
       Point3d        last     = ElCLib::Value(parlast, circle);
       //
-      dis.Draw(first, last);
+      dis.Draw1(first, last);
       Point3d p((first.X() + last.X()) / 2, (first.Y() + last.Y()) / 2, (first.Z() + last.Z()) / 2);
       DrawText(p, dis);
       return;

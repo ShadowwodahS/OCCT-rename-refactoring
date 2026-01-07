@@ -22,8 +22,8 @@
 #include <BRepCheck_Status.hxx>
 
 class BRep_CurveRepresentation;
-class TopoDS_Edge;
-class TopoDS_Shape;
+class TopoEdge;
+class TopoShape;
 
 class BRepCheck_Edge;
 DEFINE_STANDARD_HANDLE(BRepCheck_Edge, BRepCheck_Result)
@@ -32,9 +32,9 @@ class BRepCheck_Edge : public BRepCheck_Result
 {
 
 public:
-  Standard_EXPORT BRepCheck_Edge(const TopoDS_Edge& E);
+  Standard_EXPORT BRepCheck_Edge(const TopoEdge& E);
 
-  Standard_EXPORT void InContext(const TopoDS_Shape& ContextShape) Standard_OVERRIDE;
+  Standard_EXPORT void InContext(const TopoShape& ContextShape) Standard_OVERRIDE;
 
   Standard_EXPORT void Minimum() Standard_OVERRIDE;
 
@@ -61,7 +61,7 @@ public:
 
   //! Checks, if polygon on triangulation of heEdge
   //! is out of 3D-curve of this edge.
-  Standard_EXPORT BRepCheck_Status CheckPolygonOnTriangulation(const TopoDS_Edge& theEdge);
+  Standard_EXPORT BRepCheck_Status CheckPolygonOnTriangulation(const TopoEdge& theEdge);
 
   DEFINE_STANDARD_RTTIEXT(BRepCheck_Edge, BRepCheck_Result)
 

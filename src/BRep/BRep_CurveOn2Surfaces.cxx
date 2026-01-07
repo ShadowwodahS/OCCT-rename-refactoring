@@ -26,8 +26,8 @@ IMPLEMENT_STANDARD_RTTIEXT(BRep_CurveOn2Surfaces, BRep_CurveRepresentation)
 
 //=================================================================================================
 
-BRep_CurveOn2Surfaces::BRep_CurveOn2Surfaces(const Handle(Geom_Surface)& S1,
-                                             const Handle(Geom_Surface)& S2,
+BRep_CurveOn2Surfaces::BRep_CurveOn2Surfaces(const Handle(GeomSurface)& S1,
+                                             const Handle(GeomSurface)& S2,
                                              const TopLoc_Location&      L1,
                                              const TopLoc_Location&      L2,
                                              const GeomAbs_Shape         C)
@@ -55,8 +55,8 @@ Standard_Boolean BRep_CurveOn2Surfaces::IsRegularity() const
 
 //=================================================================================================
 
-Standard_Boolean BRep_CurveOn2Surfaces::IsRegularity(const Handle(Geom_Surface)& S1,
-                                                     const Handle(Geom_Surface)& S2,
+Standard_Boolean BRep_CurveOn2Surfaces::IsRegularity(const Handle(GeomSurface)& S1,
+                                                     const Handle(GeomSurface)& S2,
                                                      const TopLoc_Location&      L1,
                                                      const TopLoc_Location&      L2) const
 {
@@ -66,14 +66,14 @@ Standard_Boolean BRep_CurveOn2Surfaces::IsRegularity(const Handle(Geom_Surface)&
 
 //=================================================================================================
 
-const Handle(Geom_Surface)& BRep_CurveOn2Surfaces::Surface() const
+const Handle(GeomSurface)& BRep_CurveOn2Surfaces::Surface() const
 {
   return mySurface;
 }
 
 //=================================================================================================
 
-const Handle(Geom_Surface)& BRep_CurveOn2Surfaces::Surface2() const
+const Handle(GeomSurface)& BRep_CurveOn2Surfaces::Surface2() const
 {
   return mySurface2;
 }

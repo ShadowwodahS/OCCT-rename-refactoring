@@ -37,19 +37,19 @@
 // Method : RadianToDegree
 // Purpose:
 // ============================================================================
-Handle(Geom2d_Curve) GeomConvert_Units::RadianToDegree(const Handle(Geom2d_Curve)& theCurve2d,
-                                                       const Handle(Geom_Surface)& theSurf,
+Handle(GeomCurve2d) GeomConvert_Units::RadianToDegree(const Handle(GeomCurve2d)& theCurve2d,
+                                                       const Handle(GeomSurface)& theSurf,
                                                        const Standard_Real         theLengthFactor,
                                                        const Standard_Real theFactorRadianDegree)
 {
-  Handle(Geom2d_Curve) aCurve2d   = Handle(Geom2d_Curve)::DownCast(theCurve2d->Copy());
+  Handle(GeomCurve2d) aCurve2d   = Handle(GeomCurve2d)::DownCast(theCurve2d->Copy());
   Standard_Real        uFact      = 1.;
   Standard_Real        vFact      = 1.;
   Standard_Real        LengthFact = 1. / theLengthFactor;
   Standard_Real        AngleFact  = theFactorRadianDegree; // 180./PI;  pilotable
 
   gp_Pnt2d   Pt1;
-  gp_XY      pXY;
+  Coords2d      pXY;
   gp_GTrsf2d tMatu, tMatv;
 
   //  theSurf is a CylindricalSurface or a ConicalSurface or
@@ -76,7 +76,7 @@ Handle(Geom2d_Curve) GeomConvert_Units::RadianToDegree(const Handle(Geom2d_Curve
     uFact                              = AngleFact;
     vFact                              = LengthFact * Cos(semAng);
   }
-  else if (theSurf->IsKind(STANDARD_TYPE(Geom_Plane)))
+  else if (theSurf->IsKind(STANDARD_TYPE(GeomPlane)))
   {
     uFact = vFact = LengthFact;
     if (aCurve2d->IsKind(STANDARD_TYPE(Geom2d_Circle))
@@ -171,19 +171,19 @@ Handle(Geom2d_Curve) GeomConvert_Units::RadianToDegree(const Handle(Geom2d_Curve
 //             Then pcurves parameter have to be transformed
 //             from DEGREE to RADIAN
 // ============================================================================
-Handle(Geom2d_Curve) GeomConvert_Units::DegreeToRadian(const Handle(Geom2d_Curve)& thePcurve,
-                                                       const Handle(Geom_Surface)& theSurface,
+Handle(GeomCurve2d) GeomConvert_Units::DegreeToRadian(const Handle(GeomCurve2d)& thePcurve,
+                                                       const Handle(GeomSurface)& theSurface,
                                                        const Standard_Real         theLengthFactor,
                                                        const Standard_Real theFactorRadianDegree)
 {
-  Handle(Geom2d_Curve) aPcurve    = Handle(Geom2d_Curve)::DownCast(thePcurve->Copy());
+  Handle(GeomCurve2d) aPcurve    = Handle(GeomCurve2d)::DownCast(thePcurve->Copy());
   Standard_Real        uFact      = 1.;
   Standard_Real        vFact      = 1.;
   Standard_Real        LengthFact = theLengthFactor;
   Standard_Real        AngleFact  = theFactorRadianDegree; // PI/180.;  pilotable
 
   gp_Pnt2d   Pt1;
-  gp_XY      pXY;
+  Coords2d      pXY;
   gp_GTrsf2d tMatu, tMatv;
 
   // What to change ??
@@ -209,7 +209,7 @@ Handle(Geom2d_Curve) GeomConvert_Units::DegreeToRadian(const Handle(Geom2d_Curve
     uFact                              = AngleFact;
     vFact                              = LengthFact / Cos(semAng);
   }
-  else if (theSurface->IsKind(STANDARD_TYPE(Geom_Plane)))
+  else if (theSurface->IsKind(STANDARD_TYPE(GeomPlane)))
   {
     uFact = vFact = LengthFact;
     if (aPcurve->IsKind(STANDARD_TYPE(Geom2d_Circle))
@@ -306,9 +306,9 @@ Handle(Geom2d_Curve) GeomConvert_Units::DegreeToRadian(const Handle(Geom2d_Curve
 // Method : MirrorPCurve
 // Purpose:
 // ============================================================================
-Handle(Geom2d_Curve) GeomConvert_Units::MirrorPCurve(const Handle(Geom2d_Curve)& theCurve)
+Handle(GeomCurve2d) GeomConvert_Units::MirrorPCurve(const Handle(GeomCurve2d)& theCurve)
 {
-  Handle(Geom2d_Curve) theMirrored = Handle(Geom2d_Curve)::DownCast(theCurve->Copy());
+  Handle(GeomCurve2d) theMirrored = Handle(GeomCurve2d)::DownCast(theCurve->Copy());
   gp_Trsf2d            T;
   gp_Pnt2d             Loc(0., 0.);
   gp_Dir2d             Dir(1., 0.);

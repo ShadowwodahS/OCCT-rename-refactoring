@@ -22,7 +22,7 @@
 #include <TopoDS_Iterator.hxx>
 #include <TopoDS.hxx>
 
-static const TopTools_ListOfShape anEmptyList;
+static const ShapeList anEmptyList;
 
 //=================================================================================================
 
@@ -30,8 +30,8 @@ BRepOffsetAPI_MakeEvolved::BRepOffsetAPI_MakeEvolved() {}
 
 //=================================================================================================
 
-BRepOffsetAPI_MakeEvolved::BRepOffsetAPI_MakeEvolved(const TopoDS_Shape&    Spine,
-                                                     const TopoDS_Wire&     Profil,
+BRepOffsetAPI_MakeEvolved::BRepOffsetAPI_MakeEvolved(const TopoShape&    Spine,
+                                                     const TopoWire&     Profil,
                                                      const GeomAbs_JoinType Join,
                                                      const Standard_Boolean AxeProf,
                                                      const Standard_Boolean Solid,
@@ -48,7 +48,7 @@ BRepOffsetAPI_MakeEvolved::BRepOffsetAPI_MakeEvolved(const TopoDS_Shape&    Spin
   if (theIsVolume)
   {
     myVolume.SetParallelMode(theRunInParallel);
-    TopoDS_Wire aSpine;
+    TopoWire aSpine;
     if (Spine.ShapeType() == TopAbs_WIRE)
     {
       aSpine = TopoDS::Wire(Spine);
@@ -70,7 +70,7 @@ BRepOffsetAPI_MakeEvolved::BRepOffsetAPI_MakeEvolved(const TopoDS_Shape&    Spin
     if (!AxeProf)
     {
       Standard_Boolean POS;
-      BRepFill::Axe(Spine, Profil, Axis, POS, Max(Tol, Precision::Confusion()));
+      BRepFill1::Axe(Spine, Profil, Axis, POS, Max(Tol, Precision::Confusion()));
       if (ProfOnSpine && !POS)
         return;
     }
@@ -120,23 +120,23 @@ void BRepOffsetAPI_MakeEvolved::Build(const Message_ProgressRange& /*theRange*/)
 
 //=================================================================================================
 
-const TopoDS_Shape& BRepOffsetAPI_MakeEvolved::Top() const
+const TopoShape& BRepOffsetAPI_MakeEvolved::Top() const
 {
   return myEvolved.Top();
 }
 
 //=================================================================================================
 
-const TopoDS_Shape& BRepOffsetAPI_MakeEvolved::Bottom() const
+const TopoShape& BRepOffsetAPI_MakeEvolved::Bottom() const
 {
   return myEvolved.Bottom();
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepOffsetAPI_MakeEvolved::GeneratedShapes(
-  const TopoDS_Shape& SpineShape,
-  const TopoDS_Shape& ProfShape) const
+const ShapeList& BRepOffsetAPI_MakeEvolved::GeneratedShapes(
+  const TopoShape& SpineShape,
+  const TopoShape& ProfShape) const
 {
   if (!myEvolved.IsDone())
     return anEmptyList;

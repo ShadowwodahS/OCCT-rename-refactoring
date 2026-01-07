@@ -36,7 +36,7 @@ class VrmlConverter_Drawer;
 //! is converted into IndexedLineSet ( VRML ).
 //! The computation will be made according to a maximal
 //! chordial deviation.
-class VrmlConverter_DeflectionCurve
+class DeflectionCurveConverter
 {
 public:
   DEFINE_STANDARD_ALLOC

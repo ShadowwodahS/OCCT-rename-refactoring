@@ -43,7 +43,7 @@
 #include <StepShape_ShapeRepresentation.hxx>
 #include <StepShape_ShellBasedSurfaceModel.hxx>
 
-STEPSelections_Counter::STEPSelections_Counter()
+SelectionCounter::SelectionCounter()
 {
   myNbFaces  = 0;
   myNbShells = 0;
@@ -52,7 +52,7 @@ STEPSelections_Counter::STEPSelections_Counter()
   myNbEdges  = 0;
 }
 
-void STEPSelections_Counter::Count(const Interface_Graph&            graph,
+void SelectionCounter::Count(const Interface_Graph&            graph,
                                    const Handle(RefObject)& start)
 {
   if (start.IsNull())
@@ -233,7 +233,7 @@ void STEPSelections_Counter::Count(const Interface_Graph&            graph,
   }
 }
 
-void STEPSelections_Counter::Clear()
+void SelectionCounter::Clear()
 {
   myMapOfFaces.Clear();
   myMapOfShells.Clear();
@@ -247,7 +247,7 @@ void STEPSelections_Counter::Clear()
   myNbEdges  = 0;
 }
 
-void STEPSelections_Counter::AddShell(const Handle(StepShape_ConnectedFaceSet)& cfs)
+void SelectionCounter::AddShell(const Handle(StepShape_ConnectedFaceSet)& cfs)
 {
   myMapOfShells.Add(cfs);
   myNbShells++;
@@ -258,7 +258,7 @@ void STEPSelections_Counter::AddShell(const Handle(StepShape_ConnectedFaceSet)& 
   return;
 }
 
-void STEPSelections_Counter::AddCompositeCurve(const Handle(StepGeom_CompositeCurve)& ccurve)
+void SelectionCounter::AddCompositeCurve(const Handle(StepGeom_CompositeCurve)& ccurve)
 {
   Standard_Integer nbs = ccurve->NbSegments();
   for (Standard_Integer i = 1; i <= nbs; i++)

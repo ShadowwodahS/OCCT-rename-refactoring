@@ -38,9 +38,9 @@
 #include <Interface_ShareTool.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESAppli_ToolFlow::IGESAppli_ToolFlow() {}
+FlowTool::FlowTool() {}
 
-void IGESAppli_ToolFlow::ReadOwnParams(const Handle(IGESAppli_Flow)&          ent,
+void FlowTool::ReadOwnParams(const Handle(IGESAppli_Flow)&          ent,
                                        const Handle(IGESData_IGESReaderData)& IR,
                                        IGESData_ParamReader&                  PR) const
 {
@@ -177,7 +177,7 @@ void IGESAppli_ToolFlow::ReadOwnParams(const Handle(IGESAppli_Flow)&          en
             tempContFlowAssocs);
 }
 
-void IGESAppli_ToolFlow::WriteOwnParams(const Handle(IGESAppli_Flow)& ent,
+void FlowTool::WriteOwnParams(const Handle(IGESAppli_Flow)& ent,
                                         IGESData_IGESWriter&          IW) const
 {
   Standard_Integer i, num;
@@ -204,7 +204,7 @@ void IGESAppli_ToolFlow::WriteOwnParams(const Handle(IGESAppli_Flow)& ent,
     IW.Send(ent->ContFlowAssociativity(i));
 }
 
-void IGESAppli_ToolFlow::OwnShared(const Handle(IGESAppli_Flow)& ent,
+void FlowTool::OwnShared(const Handle(IGESAppli_Flow)& ent,
                                    Interface_EntityIterator&     iter) const
 {
   Standard_Integer i, num;
@@ -220,7 +220,7 @@ void IGESAppli_ToolFlow::OwnShared(const Handle(IGESAppli_Flow)& ent,
     iter.GetOneItem(ent->ContFlowAssociativity(i));
 }
 
-void IGESAppli_ToolFlow::OwnCopy(const Handle(IGESAppli_Flow)& another,
+void FlowTool::OwnCopy(const Handle(IGESAppli_Flow)& another,
                                  const Handle(IGESAppli_Flow)& ent,
                                  Interface_CopyTool&           TC) const
 {
@@ -301,14 +301,14 @@ void IGESAppli_ToolFlow::OwnCopy(const Handle(IGESAppli_Flow)& another,
             tempContFlowAssocs);
 }
 
-Standard_Boolean IGESAppli_ToolFlow::OwnCorrect(const Handle(IGESAppli_Flow)& ent) const
+Standard_Boolean FlowTool::OwnCorrect(const Handle(IGESAppli_Flow)& ent) const
 {
   return ent->OwnCorrect(); // nbcontextflags = 2
 }
 
-IGESData_DirChecker IGESAppli_ToolFlow::DirChecker(const Handle(IGESAppli_Flow)& /* ent */) const
+DirectoryChecker FlowTool::DirChecker(const Handle(IGESAppli_Flow)& /* ent */) const
 {
-  IGESData_DirChecker DC(402, 18);
+  DirectoryChecker DC(402, 18);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -320,7 +320,7 @@ IGESData_DirChecker IGESAppli_ToolFlow::DirChecker(const Handle(IGESAppli_Flow)&
   return DC;
 }
 
-void IGESAppli_ToolFlow::OwnCheck(const Handle(IGESAppli_Flow)& ent,
+void FlowTool::OwnCheck(const Handle(IGESAppli_Flow)& ent,
                                   const Interface_ShareTool&,
                                   Handle(Interface_Check)& ach) const
 {
@@ -332,7 +332,7 @@ void IGESAppli_ToolFlow::OwnCheck(const Handle(IGESAppli_Flow)& ent,
     ach->AddFail("Function Flag != 0,1,2");
 }
 
-void IGESAppli_ToolFlow::OwnDump(const Handle(IGESAppli_Flow)& ent,
+void FlowTool::OwnDump(const Handle(IGESAppli_Flow)& ent,
                                  const IGESData_IGESDumper&    dumper,
                                  Standard_OStream&             S,
                                  const Standard_Integer        level) const

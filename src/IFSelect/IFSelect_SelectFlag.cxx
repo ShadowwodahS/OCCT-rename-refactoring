@@ -59,9 +59,9 @@ Standard_Boolean IFSelect_SelectFlag::Sort(const Standard_Integer,
   return Standard_False;
 }
 
-TCollection_AsciiString IFSelect_SelectFlag::ExtractLabel() const
+AsciiString1 IFSelect_SelectFlag::ExtractLabel() const
 {
-  TCollection_AsciiString lab("Entities Flagged by ");
+  AsciiString1 lab("Entities Flagged by ");
   lab.AssignCat(thename);
   return lab;
 }

@@ -26,7 +26,7 @@ IMPLEMENT_STANDARD_RTTIEXT(XmlXCAFDrivers_DocumentStorageDriver, XmlDrivers_Docu
 //=================================================================================================
 
 XmlXCAFDrivers_DocumentStorageDriver::XmlXCAFDrivers_DocumentStorageDriver(
-  const TCollection_ExtendedString& theCopyright)
+  const UtfString& theCopyright)
     : XmlDrivers_DocumentStorageDriver(theCopyright)
 {
   AddNamespace("xcaf", "http://www.opencascade.org/OCAF/XML/XCAF");

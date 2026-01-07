@@ -34,11 +34,11 @@
 // MGE 30/07/98
 //=================================================================================================
 
-IGESGeom_ToolCurveOnSurface::IGESGeom_ToolCurveOnSurface() {}
+CurveOnSurfaceTool::CurveOnSurfaceTool() {}
 
 //=================================================================================================
 
-void IGESGeom_ToolCurveOnSurface::ReadOwnParams(const Handle(IGESGeom_CurveOnSurface)& ent,
+void CurveOnSurfaceTool::ReadOwnParams(const Handle(IGESGeom_CurveOnSurface)& ent,
                                                 const Handle(IGESData_IGESReaderData)& IR,
                                                 IGESData_ParamReader&                  PR) const
 {
@@ -141,7 +141,7 @@ void IGESGeom_ToolCurveOnSurface::ReadOwnParams(const Handle(IGESGeom_CurveOnSur
 
 //=================================================================================================
 
-void IGESGeom_ToolCurveOnSurface::WriteOwnParams(const Handle(IGESGeom_CurveOnSurface)& ent,
+void CurveOnSurfaceTool::WriteOwnParams(const Handle(IGESGeom_CurveOnSurface)& ent,
                                                  IGESData_IGESWriter&                   IW) const
 {
   IW.Send(ent->CreationMode());
@@ -153,7 +153,7 @@ void IGESGeom_ToolCurveOnSurface::WriteOwnParams(const Handle(IGESGeom_CurveOnSu
 
 //=================================================================================================
 
-void IGESGeom_ToolCurveOnSurface::OwnShared(const Handle(IGESGeom_CurveOnSurface)& ent,
+void CurveOnSurfaceTool::OwnShared(const Handle(IGESGeom_CurveOnSurface)& ent,
                                             Interface_EntityIterator&              iter) const
 {
   iter.GetOneItem(ent->Surface());
@@ -163,7 +163,7 @@ void IGESGeom_ToolCurveOnSurface::OwnShared(const Handle(IGESGeom_CurveOnSurface
 
 //=================================================================================================
 
-void IGESGeom_ToolCurveOnSurface::OwnCopy(const Handle(IGESGeom_CurveOnSurface)& another,
+void CurveOnSurfaceTool::OwnCopy(const Handle(IGESGeom_CurveOnSurface)& another,
                                           const Handle(IGESGeom_CurveOnSurface)& ent,
                                           Interface_CopyTool&                    TC) const
 {
@@ -179,7 +179,7 @@ void IGESGeom_ToolCurveOnSurface::OwnCopy(const Handle(IGESGeom_CurveOnSurface)&
 
 //=================================================================================================
 
-Standard_Boolean IGESGeom_ToolCurveOnSurface::OwnCorrect(
+Standard_Boolean CurveOnSurfaceTool::OwnCorrect(
   const Handle(IGESGeom_CurveOnSurface)& ent) const
 {
   Handle(IGESData_IGESEntity) c2d = ent->CurveUV();
@@ -194,10 +194,10 @@ Standard_Boolean IGESGeom_ToolCurveOnSurface::OwnCorrect(
 
 //=================================================================================================
 
-IGESData_DirChecker IGESGeom_ToolCurveOnSurface::DirChecker(
+DirectoryChecker CurveOnSurfaceTool::DirChecker(
   const Handle(IGESGeom_CurveOnSurface)& /* ent */) const
 {
-  IGESData_DirChecker DC(142, 0);
+  DirectoryChecker DC(142, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   //  DC.LineWeight(IGESData_DefValue);
@@ -210,7 +210,7 @@ IGESData_DirChecker IGESGeom_ToolCurveOnSurface::DirChecker(
 
 //=================================================================================================
 
-void IGESGeom_ToolCurveOnSurface::OwnCheck(const Handle(IGESGeom_CurveOnSurface)& ent,
+void CurveOnSurfaceTool::OwnCheck(const Handle(IGESGeom_CurveOnSurface)& ent,
                                            const Interface_ShareTool&,
                                            Handle(Interface_Check)& ach) const
 {
@@ -239,7 +239,7 @@ void IGESGeom_ToolCurveOnSurface::OwnCheck(const Handle(IGESGeom_CurveOnSurface)
 
 //=================================================================================================
 
-void IGESGeom_ToolCurveOnSurface::OwnDump(const Handle(IGESGeom_CurveOnSurface)& ent,
+void CurveOnSurfaceTool::OwnDump(const Handle(IGESGeom_CurveOnSurface)& ent,
                                           const IGESData_IGESDumper&             dumper,
                                           Standard_OStream&                      S,
                                           const Standard_Integer                 level) const

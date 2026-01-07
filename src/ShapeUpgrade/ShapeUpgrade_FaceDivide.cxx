@@ -52,7 +52,7 @@ ShapeUpgrade_FaceDivide::ShapeUpgrade_FaceDivide()
 
 //=================================================================================================
 
-ShapeUpgrade_FaceDivide::ShapeUpgrade_FaceDivide(const TopoDS_Face& F)
+ShapeUpgrade_FaceDivide::ShapeUpgrade_FaceDivide(const TopoFace& F)
     : ShapeUpgrade_Tool(),
       myStatus(0)
 {
@@ -64,7 +64,7 @@ ShapeUpgrade_FaceDivide::ShapeUpgrade_FaceDivide(const TopoDS_Face& F)
 
 //=================================================================================================
 
-void ShapeUpgrade_FaceDivide::Init(const TopoDS_Face& F)
+void ShapeUpgrade_FaceDivide::Init(const TopoFace& F)
 {
   myResult = myFace = F;
 }
@@ -103,14 +103,14 @@ Standard_Boolean ShapeUpgrade_FaceDivide::SplitSurface(const Standard_Real theAr
     myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
     return Standard_False;
   }
-  TopoDS_Face face = TopoDS::Face(myResult);
+  TopoFace face = TopoDS::Face(myResult);
 
   TopLoc_Location      L;
-  Handle(Geom_Surface) surf;
-  surf = BRep_Tool::Surface(face, L);
+  Handle(GeomSurface) surf;
+  surf = BRepInspector::Surface(face, L);
 
   Standard_Real Uf, Ul, Vf, Vl;
-  //  BRepTools::UVBounds(myFace,Uf,Ul,Vf,Vl);
+  //  BRepTools1::UVBounds(myFace,Uf,Ul,Vf,Vl);
   ShapeAnalysis::GetFaceUVBounds(face, Uf, Ul, Vf, Vl);
   if (Precision::IsInfinite(Uf) || Precision::IsInfinite(Ul) || Precision::IsInfinite(Vf)
       || Precision::IsInfinite(Vl))
@@ -146,13 +146,13 @@ Standard_Boolean ShapeUpgrade_FaceDivide::SplitSurface(const Standard_Real theAr
   // if surface was modified, force copying all vertices (and edges as consequence)
   // to protect original shape from increasing tolerance after SameParameter
   if (SplitSurf->Status(ShapeExtend_DONE3))
-    for (TopExp_Explorer exp(face, TopAbs_VERTEX); exp.More(); exp.Next())
+    for (ShapeExplorer exp(face, TopAbs_VERTEX); exp.More(); exp.Next())
     {
       if (Context()->IsRecorded(exp.Current()))
         continue;
       // smh#8
-      TopoDS_Shape  emptyCopied = exp.Current().EmptyCopied();
-      TopoDS_Vertex V           = TopoDS::Vertex(emptyCopied);
+      TopoShape  emptyCopied = exp.Current().EmptyCopied();
+      TopoVertex V           = TopoDS::Vertex(emptyCopied);
       Context()->Replace(exp.Current(), V);
     }
 
@@ -184,9 +184,9 @@ Standard_Boolean ShapeUpgrade_FaceDivide::SplitCurves()
     return Standard_False;
 
   SplitWire->SetMaxTolerance(MaxTolerance());
-  for (TopExp_Explorer explf(myResult, TopAbs_FACE); explf.More(); explf.Next())
+  for (ShapeExplorer explf(myResult, TopAbs_FACE); explf.More(); explf.Next())
   {
-    TopoDS_Shape S = Context()->Apply(explf.Current(), TopAbs_SHAPE);
+    TopoShape S = Context()->Apply(explf.Current(), TopAbs_SHAPE);
 
     // S should be face; else return with FAIL
     if (S.IsNull() || S.ShapeType() != TopAbs_FACE)
@@ -194,16 +194,16 @@ Standard_Boolean ShapeUpgrade_FaceDivide::SplitCurves()
       myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
       return Standard_False;
     }
-    TopoDS_Face F = TopoDS::Face(S);
+    TopoFace F = TopoDS::Face(S);
 
     SplitWire->SetFace(F);
     for (TopoDS_Iterator wi(F, Standard_False); wi.More(); wi.Next())
     {
-      // TopoDS_Wire wire = TopoDS::Wire ( wi.Value() );
+      // TopoWire wire = TopoDS::Wire ( wi.Value() );
       //  modifications already defined in context are to be applied inside SplitWire
       if (wi.Value().ShapeType() != TopAbs_WIRE)
         continue;
-      TopoDS_Wire wire = TopoDS::Wire(wi.Value());
+      TopoWire wire = TopoDS::Wire(wi.Value());
       SplitWire->Load(wire);
       SplitWire->SetContext(Context());
       SplitWire->Perform();
@@ -222,7 +222,7 @@ Standard_Boolean ShapeUpgrade_FaceDivide::SplitCurves()
 
 //=================================================================================================
 
-TopoDS_Shape ShapeUpgrade_FaceDivide::Result() const
+TopoShape ShapeUpgrade_FaceDivide::Result() const
 {
   return myResult;
 }

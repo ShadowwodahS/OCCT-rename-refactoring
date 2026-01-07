@@ -34,9 +34,9 @@
 #include <Standard_DomainError.hxx>
 
 // MGE 29/07/98
-IGESGeom_ToolLine::IGESGeom_ToolLine() {}
+LineTool1::LineTool1() {}
 
-void IGESGeom_ToolLine::ReadOwnParams(const Handle(IGESGeom_Line)& ent,
+void LineTool1::ReadOwnParams(const Handle(IGESGeom_Line)& ent,
                                       const Handle(IGESData_IGESReaderData)& /* IR */,
                                       IGESData_ParamReader& PR) const
 {
@@ -61,7 +61,7 @@ void IGESGeom_ToolLine::ReadOwnParams(const Handle(IGESGeom_Line)& ent,
   ent->Init(aStart, anEnd);
 }
 
-void IGESGeom_ToolLine::WriteOwnParams(const Handle(IGESGeom_Line)& ent,
+void LineTool1::WriteOwnParams(const Handle(IGESGeom_Line)& ent,
                                        IGESData_IGESWriter&         IW) const
 {
   IW.Send(ent->StartPoint().X());
@@ -72,21 +72,21 @@ void IGESGeom_ToolLine::WriteOwnParams(const Handle(IGESGeom_Line)& ent,
   IW.Send(ent->EndPoint().Z());
 }
 
-void IGESGeom_ToolLine::OwnShared(const Handle(IGESGeom_Line)& /* ent */,
+void LineTool1::OwnShared(const Handle(IGESGeom_Line)& /* ent */,
                                   Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESGeom_ToolLine::OwnCopy(const Handle(IGESGeom_Line)& another,
+void LineTool1::OwnCopy(const Handle(IGESGeom_Line)& another,
                                 const Handle(IGESGeom_Line)& ent,
                                 Interface_CopyTool& /* TC */) const
 {
   ent->Init(another->StartPoint().XYZ(), another->EndPoint().XYZ());
 }
 
-IGESData_DirChecker IGESGeom_ToolLine::DirChecker(const Handle(IGESGeom_Line)& /* ent */) const
+DirectoryChecker LineTool1::DirChecker(const Handle(IGESGeom_Line)& /* ent */) const
 {
-  IGESData_DirChecker DC(110, 0, 2);
+  DirectoryChecker DC(110, 0, 2);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   //  DC.LineWeight(IGESData_DefValue);
@@ -95,13 +95,13 @@ IGESData_DirChecker IGESGeom_ToolLine::DirChecker(const Handle(IGESGeom_Line)& /
   return DC;
 }
 
-void IGESGeom_ToolLine::OwnCheck(const Handle(IGESGeom_Line)& /* ent */,
+void LineTool1::OwnCheck(const Handle(IGESGeom_Line)& /* ent */,
                                  const Interface_ShareTool&,
                                  Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESGeom_ToolLine::OwnDump(const Handle(IGESGeom_Line)& ent,
+void LineTool1::OwnDump(const Handle(IGESGeom_Line)& ent,
                                 const IGESData_IGESDumper& /* dumper */,
                                 Standard_OStream&      S,
                                 const Standard_Integer level) const
@@ -120,7 +120,7 @@ void IGESGeom_ToolLine::OwnDump(const Handle(IGESGeom_Line)& ent,
       break;
   }
 
-  S << "Line from IGESGeom\n"
+  S << "Line from IGESGeom1\n"
     << "Starting Point : ";
   IGESData_DumpXYZL(S, level, ent->StartPoint(), ent->Location());
   S << "\n"

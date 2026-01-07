@@ -27,7 +27,7 @@ class TDataXtd_Constraint;
 
 //! commands for Standard Attributes.
 //! =================================
-class DDataStd
+class DDataStd1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -36,33 +36,33 @@ public:
   //! commands
   //! ========
   //! command to set and get modeling attributes
-  Standard_EXPORT static void AllCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void AllCommands(DrawInterpreter& I);
 
   //! to set and get NamedShape
-  Standard_EXPORT static void NamedShapeCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void NamedShapeCommands(DrawInterpreter& I);
 
   //! to set and get Integer, Real,  Reference, Geometry
-  Standard_EXPORT static void BasicCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void BasicCommands(DrawInterpreter& I);
 
   //! to set and get Datum attributes
-  Standard_EXPORT static void DatumCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void DatumCommands(DrawInterpreter& I);
 
   //! to set and get Constraint and Constraint  attributes
-  Standard_EXPORT static void ConstraintCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void ConstraintCommands(DrawInterpreter& I);
 
   //! to set and get Objects attributes
-  Standard_EXPORT static void ObjectCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void ObjectCommands(DrawInterpreter& I);
 
   //! to display standard attributes
-  Standard_EXPORT static void DrawDisplayCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void DrawDisplayCommands(DrawInterpreter& I);
 
   //! to set and get Name attribute
-  Standard_EXPORT static void NameCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void NameCommands(DrawInterpreter& I);
 
   //! to build, edit and browse an explicit tree of labels
   //! package methods
   //! ===============
-  Standard_EXPORT static void TreeCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void TreeCommands(DrawInterpreter& I);
 
   Standard_EXPORT static void DumpConstraint(const Handle(TDataXtd_Constraint)& C,
                                              Standard_OStream&                  S);

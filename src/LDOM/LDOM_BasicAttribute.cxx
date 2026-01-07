@@ -20,7 +20,7 @@
 //=================================================================================================
 
 LDOM_BasicAttribute::LDOM_BasicAttribute(const LDOM_Attr& anAttr)
-    : LDOM_BasicNode(anAttr.Origin()),
+    : BasicNode(anAttr.Origin()),
       myName(anAttr.getName().GetString()),
       myValue(anAttr.getValue())
 {
@@ -54,6 +54,6 @@ LDOM_BasicAttribute& LDOM_BasicAttribute::operator=(const LDOM_NullPtr* aNull)
 {
   myName  = NULL;
   myValue = aNull;
-  LDOM_BasicNode::operator=(aNull);
+  BasicNode::operator=(aNull);
   return *this;
 }

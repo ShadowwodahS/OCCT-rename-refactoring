@@ -22,9 +22,9 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TopoDS_Shape, BRepOffset_Offset, TopTools_ShapeMapHasher>
+typedef NCollection_DataMap<TopoShape, BRepOffset_Offset, ShapeHasher>
   BRepOffset_DataMapOfShapeOffset;
-typedef NCollection_DataMap<TopoDS_Shape, BRepOffset_Offset, TopTools_ShapeMapHasher>::Iterator
+typedef NCollection_DataMap<TopoShape, BRepOffset_Offset, ShapeHasher>::Iterator
   BRepOffset_DataMapIteratorOfDataMapOfShapeOffset;
 
 #endif

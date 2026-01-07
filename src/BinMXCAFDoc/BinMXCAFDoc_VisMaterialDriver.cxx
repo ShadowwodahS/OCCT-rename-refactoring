@@ -167,7 +167,7 @@ static void writeTexture(BinObjMgt_Persistent& theTarget, const Handle(Image_Tex
 //! Decode texture path.
 static void readTexture(const BinObjMgt_Persistent& theSource, Handle(Image_Texture)& theTexture)
 {
-  TCollection_AsciiString aStr;
+  AsciiString1 aStr;
   theSource.GetAsciiString(aStr);
   if (aStr.IsEmpty())
   {
@@ -230,7 +230,7 @@ Standard_Boolean BinMXCAFDoc_VisMaterialDriver::Paste(
   if (aVerMaj < 1 || aVerMaj > MaterialVersionMajor)
   {
     myMessageDriver->Send(
-      TCollection_AsciiString("Skipping XCAFDoc_VisMaterial of unknown version ")
+      AsciiString1("Skipping XCAFDoc_VisMaterial of unknown version ")
       + Standard_Integer(aVerMaj) + "." + Standard_Integer(aVerMin)
       + " (supported version: " + Standard_Integer(MaterialVersionMajor) + "."
       + Standard_Integer(MaterialVersionMinor) + ")");

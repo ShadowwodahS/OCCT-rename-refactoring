@@ -21,7 +21,7 @@
 
 #include <BRepFill_Edge3DLaw.hxx>
 #include <Standard_Real.hxx>
-class TopoDS_Wire;
+class TopoWire;
 class GeomFill_LocationDraft;
 
 class BRepFill_DraftLaw;
@@ -32,7 +32,7 @@ class BRepFill_DraftLaw : public BRepFill_Edge3DLaw
 {
 
 public:
-  Standard_EXPORT BRepFill_DraftLaw(const TopoDS_Wire&                    Path,
+  Standard_EXPORT BRepFill_DraftLaw(const TopoWire&                    Path,
                                     const Handle(GeomFill_LocationDraft)& Law);
 
   //! To clean the little discontinuities.

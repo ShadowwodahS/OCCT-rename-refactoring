@@ -33,8 +33,8 @@ public:
   Handle(Image_Texture)   EmissiveTexture;          //!< RGB emissive map controls the color and intensity of the light being emitted by the material
   Handle(Image_Texture)   OcclusionTexture;         //!< R occlusion map indicating areas of indirect lighting
   Handle(Image_Texture)   NormalTexture;            //!< normal map
-  TCollection_AsciiString Id;                       //!< material identifier
-  TCollection_AsciiString Name;                     //!< material name
+  AsciiString1 Id;                       //!< material identifier
+  AsciiString1 Name;                     //!< material name
   Quantity_ColorRGBA      BaseColor;                //!< base color (or scale factor to the texture); [1.0, 1.0, 1.0, 1.0] by default
   Graphic3d_Vec3          EmissiveFactor;           //!< emissive color; [0.0, 0.0, 0.0] by default
   Standard_ShortReal      Metallic;                 //!< metalness  (or scale factor to the texture) within range [0.0, 1.0]; 1.0 by default

@@ -27,43 +27,43 @@
 #include <TopTools_ListOfShape.hxx>
 #include <TColGeom_SequenceOfCurve.hxx>
 #include <TColgp_SequenceOfPnt.hxx>
-class TopoDS_Wire;
-class Geom_Curve;
+class TopoWire;
+class GeomCurve3d;
 
-//! Defines a  pipe  (near from   Pipe from BRepFill),
+//! Defines a  pipe  (near from   Pipe from BRepFill1),
 //! with modifications provided for the Pipe feature.
 class LocOpe_Pipe
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT LocOpe_Pipe(const TopoDS_Wire& Spine, const TopoDS_Shape& Profile);
+  Standard_EXPORT LocOpe_Pipe(const TopoWire& Spine, const TopoShape& Profile);
 
-  const TopoDS_Shape& Spine() const;
+  const TopoShape& Spine() const;
 
-  const TopoDS_Shape& Profile() const;
+  const TopoShape& Profile() const;
 
-  const TopoDS_Shape& FirstShape() const;
+  const TopoShape& FirstShape() const;
 
-  const TopoDS_Shape& LastShape() const;
+  const TopoShape& LastShape() const;
 
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
-  Standard_EXPORT const TopTools_ListOfShape& Shapes(const TopoDS_Shape& S);
+  Standard_EXPORT const ShapeList& Shapes(const TopoShape& S);
 
   Standard_EXPORT const TColGeom_SequenceOfCurve& Curves(const TColgp_SequenceOfPnt& Spt);
 
-  Standard_EXPORT Handle(Geom_Curve) BarycCurve();
+  Standard_EXPORT Handle(GeomCurve3d) BarycCurve();
 
 protected:
 private:
   BRepFill_Pipe                      myPipe;
   TopTools_DataMapOfShapeListOfShape myMap;
-  TopoDS_Shape                       myRes;
-  TopTools_ListOfShape               myGShap;
+  TopoShape                       myRes;
+  ShapeList               myGShap;
   TColGeom_SequenceOfCurve           myCrvs;
-  TopoDS_Shape                       myFirstShape;
-  TopoDS_Shape                       myLastShape;
+  TopoShape                       myFirstShape;
+  TopoShape                       myLastShape;
 };
 
 #include <LocOpe_Pipe.lxx>

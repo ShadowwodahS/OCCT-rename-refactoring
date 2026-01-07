@@ -51,21 +51,21 @@ public:
   Standard_EXPORT Handle(Storage_HSeqOfRoot) Roots() const;
 
   //! find a root with name <aName>.
-  Standard_EXPORT Handle(Storage_Root) Find(const TCollection_AsciiString& aName) const;
+  Standard_EXPORT Handle(Storage_Root) Find(const AsciiString1& aName) const;
 
   //! returns Standard_True if <me> contains a root named <aName>
-  Standard_EXPORT Standard_Boolean IsRoot(const TCollection_AsciiString& aName) const;
+  Standard_EXPORT Standard_Boolean IsRoot(const AsciiString1& aName) const;
 
   //! remove the root named <aName>.
-  Standard_EXPORT void RemoveRoot(const TCollection_AsciiString& aName);
+  Standard_EXPORT void RemoveRoot(const AsciiString1& aName);
 
   Standard_EXPORT Storage_Error ErrorStatus() const;
 
-  Standard_EXPORT TCollection_AsciiString ErrorStatusExtension() const;
+  Standard_EXPORT AsciiString1 ErrorStatusExtension() const;
 
   Standard_EXPORT void ClearErrorStatus();
 
-  Standard_EXPORT void UpdateRoot(const TCollection_AsciiString&     aName,
+  Standard_EXPORT void UpdateRoot(const AsciiString1&     aName,
                                   const Handle(DbObject)& aPers);
 
   friend class Storage_Schema;
@@ -76,11 +76,11 @@ protected:
 private:
   Standard_EXPORT void SetErrorStatus(const Storage_Error anError);
 
-  Standard_EXPORT void SetErrorStatusExtension(const TCollection_AsciiString& anErrorExt);
+  Standard_EXPORT void SetErrorStatusExtension(const AsciiString1& anErrorExt);
 
   Storage_MapOfPers       myObjects;
   Storage_Error           myErrorStatus;
-  TCollection_AsciiString myErrorStatusExt;
+  AsciiString1 myErrorStatusExt;
 };
 
 #endif // _Storage_RootData_HeaderFile

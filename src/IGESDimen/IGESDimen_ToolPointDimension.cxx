@@ -31,9 +31,9 @@
 #include <Interface_Macros.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESDimen_ToolPointDimension::IGESDimen_ToolPointDimension() {}
+PointDimensionTool::PointDimensionTool() {}
 
-void IGESDimen_ToolPointDimension::ReadOwnParams(const Handle(IGESDimen_PointDimension)& ent,
+void PointDimensionTool::ReadOwnParams(const Handle(IGESDimen_PointDimension)& ent,
                                                  const Handle(IGESData_IGESReaderData)&  IR,
                                                  IGESData_ParamReader&                   PR) const
 {
@@ -63,7 +63,7 @@ void IGESDimen_ToolPointDimension::ReadOwnParams(const Handle(IGESDimen_PointDim
   ent->Init(tempNote, leadArr, tempGeom);
 }
 
-void IGESDimen_ToolPointDimension::WriteOwnParams(const Handle(IGESDimen_PointDimension)& ent,
+void PointDimensionTool::WriteOwnParams(const Handle(IGESDimen_PointDimension)& ent,
                                                   IGESData_IGESWriter&                    IW) const
 {
   IW.Send(ent->Note());
@@ -71,7 +71,7 @@ void IGESDimen_ToolPointDimension::WriteOwnParams(const Handle(IGESDimen_PointDi
   IW.Send(ent->Geom());
 }
 
-void IGESDimen_ToolPointDimension::OwnShared(const Handle(IGESDimen_PointDimension)& ent,
+void PointDimensionTool::OwnShared(const Handle(IGESDimen_PointDimension)& ent,
                                              Interface_EntityIterator&               iter) const
 {
   iter.GetOneItem(ent->Note());
@@ -79,7 +79,7 @@ void IGESDimen_ToolPointDimension::OwnShared(const Handle(IGESDimen_PointDimensi
   iter.GetOneItem(ent->Geom());
 }
 
-void IGESDimen_ToolPointDimension::OwnCopy(const Handle(IGESDimen_PointDimension)& another,
+void PointDimensionTool::OwnCopy(const Handle(IGESDimen_PointDimension)& another,
                                            const Handle(IGESDimen_PointDimension)& ent,
                                            Interface_CopyTool&                     TC) const
 {
@@ -89,10 +89,10 @@ void IGESDimen_ToolPointDimension::OwnCopy(const Handle(IGESDimen_PointDimension
   ent->Init(tempNote, tempArrow, tempGeom);
 }
 
-IGESData_DirChecker IGESDimen_ToolPointDimension::DirChecker(
+DirectoryChecker PointDimensionTool::DirChecker(
   const Handle(IGESDimen_PointDimension)& /*ent*/) const
 {
-  IGESData_DirChecker DC(220, 0);
+  DirectoryChecker DC(220, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.LineWeight(IGESData_DefValue);
@@ -103,13 +103,13 @@ IGESData_DirChecker IGESDimen_ToolPointDimension::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolPointDimension::OwnCheck(const Handle(IGESDimen_PointDimension)& /*ent*/,
+void PointDimensionTool::OwnCheck(const Handle(IGESDimen_PointDimension)& /*ent*/,
                                             const Interface_ShareTool&,
                                             Handle(Interface_Check)& /*ach*/) const
 {
 }
 
-void IGESDimen_ToolPointDimension::OwnDump(const Handle(IGESDimen_PointDimension)& ent,
+void PointDimensionTool::OwnDump(const Handle(IGESDimen_PointDimension)& ent,
                                            const IGESData_IGESDumper&              dumper,
                                            Standard_OStream&                       S,
                                            const Standard_Integer                  level) const

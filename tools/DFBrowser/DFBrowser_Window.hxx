@@ -92,9 +92,9 @@ public:
   Standard_EXPORT void UpdateContent();
 
   //! Fills controls of the plugin by parameters:
-  //! - Find TDocStd_Application and fills OCAF tree model if it differs from the current
+  //! - Find AppManager and fills OCAF tree model if it differs from the current
   //! application
-  //! - Fine AIS_InteractiveObject and fills View if it if it differs from the current context
+  //! - Fine VisualEntity and fills View if it if it differs from the current context
   //! - If it is the first call, it creates module, fills selection models
   //! \param theParameters a parameters container
   Standard_EXPORT void Init(const NCollection_List<Handle(RefObject)>& theParameters);
@@ -103,7 +103,7 @@ public:
   //! Before opening it cleans tree view history, current selections,
   //! reset OCAF tree view model. After opening document, it fills all controls by the created
   //! application. \param theFileName a file name to be opened
-  Standard_EXPORT void OpenFile(const TCollection_AsciiString& theFileName);
+  Standard_EXPORT void OpenFile(const AsciiString1& theFileName);
 
   //! Returns main control
   QWidget* GetMainWindow() const { return myMainWindow; }
@@ -116,7 +116,7 @@ public:
 
   //! Returns temporary directory defined by environment variables TEMP or TMP
   //! \return string value
-  Standard_EXPORT static TCollection_AsciiString TmpDirectory();
+  Standard_EXPORT static AsciiString1 TmpDirectory();
 
   //! Sets whether DumpJson is used when the tree view is generated
   Standard_EXPORT static void SetUseDumpJson(const Standard_Boolean theValue);
@@ -211,7 +211,7 @@ private:
 protected:
   //! Returns presentation for the OCAF tree model index. To do this, it uses attribute pane for
   //! this item \param theIndex a model index \return presentation or NULL
-  Handle(AIS_InteractiveObject) findPresentation(const QModelIndex& theIndex);
+  Handle(VisualEntity) findPresentation(const QModelIndex& theIndex);
 
   //! Returns presentations for the OCAF tree model indices. To do this, it uses attribute pane for
   //! this items \param theIndex a model index \return container of presentations or NULL
@@ -239,7 +239,7 @@ private:
                              //!< for a selected item
   DFBrowser_DumpView* myDumpView; //!< Text editor where "Dump" method output is shown
   ViewControl_MessageDialog*
-    myExportToShapeViewDialog; //!< dialog about exporting TopoDS_Shape to ShapeView plugin
+    myExportToShapeViewDialog; //!< dialog about exporting TopoShape to ShapeView plugin
   Handle(TInspectorAPI_PluginParameters)
           myParameters;     //!< contains application, context, files that should be opened
   QString myOpenedFileName; //!< cached name of opened file between parent is set, apply it by

@@ -61,7 +61,7 @@ static void addTriangulation(Prs3d_NListOfSequenceOfPnt&                    theS
   {
     aTrsf = theLoc * theTri->GetInitLocation();
   }
-  const Handle(Poly_Triangulation)& aPolyTri = theTri->Triangulation();
+  const Handle(MeshTriangulation)& aPolyTri = theTri->Triangulation();
   for (Standard_Integer aTriIter = 1; aTriIter <= aPolyTri->NbTriangles(); ++aTriIter)
   {
     const Poly_Triangle& aTri     = aPolyTri->Triangle(aTriIter);
@@ -137,7 +137,7 @@ static void addCircle(Prs3d_NListOfSequenceOfPnt& theSeqLines,
   gp_XYZ              aVec(0, 0, theHeight);
 
   Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt();
-  Geom_Circle                   aGeom(Frame3d(), theRadius);
+  GeomCircle                   aGeom(Frame3d(), theRadius);
   for (Standard_Real anU = 0.0f; anU < (2.0 * M_PI + anUStep); anU += anUStep)
   {
     Point3d aCircPnt = aGeom.Value(anU).Coord() + aVec;
@@ -183,7 +183,7 @@ static void addCylinder(Prs3d_NListOfSequenceOfPnt&               theSeqLines,
 //=================================================================================================
 
 void SelectMgr::ComputeSensitivePrs(const Handle(Graphic3d_Structure)&     thePrs,
-                                    const Handle(SelectMgr_Selection)&     theSel,
+                                    const Handle(SelectionContainer)&     theSel,
                                     const Transform3d&                         theLoc,
                                     const Handle(Graphic3d_TransformPers)& theTrsfPers)
 {

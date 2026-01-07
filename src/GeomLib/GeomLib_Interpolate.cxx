@@ -106,7 +106,7 @@ GeomLib_Interpolate::GeomLib_Interpolate(const Standard_Integer      Degree,
 
     if (!inversion_problem)
     {
-      myCurve  = new Geom_BSplineCurve(poles, ParametersArray, multiplicities, order - 1);
+      myCurve  = new BSplineCurve3d(poles, ParametersArray, multiplicities, order - 1);
       myIsDone = Standard_True;
     }
     else
@@ -118,7 +118,7 @@ GeomLib_Interpolate::GeomLib_Interpolate(const Standard_Integer      Degree,
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) GeomLib_Interpolate::Curve() const
+Handle(BSplineCurve3d) GeomLib_Interpolate::Curve() const
 {
   return myCurve;
 }

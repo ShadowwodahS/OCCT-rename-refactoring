@@ -34,7 +34,7 @@
 static TopAbs_State SlowClassifyOnBoundary(const Point3d&             thePointToClassify,
                                            const gp_Pnt2d&           thePoint2dToClassify,
                                            BRepClass_FaceClassifier& theSlowClassifier,
-                                           const TopoDS_Face&        theFace);
+                                           const TopoFace&        theFace);
 
 // modified by NIZHNY-MKK  Mon Jun 19 11:47:51 2000.END
 
@@ -48,7 +48,7 @@ TopOpeBRep_VPointInterClassifier::TopOpeBRep_VPointInterClassifier()
 //=================================================================================================
 
 TopAbs_State TopOpeBRep_VPointInterClassifier::VPointPosition(
-  const TopoDS_Shape&         F,
+  const TopoShape&         F,
   TopOpeBRep_VPointInter&     VP,
   const Standard_Integer      FaceClassifyIndex,
   TopOpeBRep_PointClassifier& PC,
@@ -65,7 +65,7 @@ TopAbs_State TopOpeBRep_VPointInterClassifier::VPointPosition(
       if (VP.IsOnDomS1())
       {
         VP.State(TopAbs_ON, 1);
-        const TopoDS_Edge&  E  = TopoDS::Edge(VP.ArcOnS1());
+        const TopoEdge&  E  = TopoDS::Edge(VP.ArcOnS1());
         const Standard_Real pE = VP.ParameterOnArc1();
         VP.EdgeON(E, pE, 1);
         myState = TopAbs_ON;
@@ -78,7 +78,7 @@ TopAbs_State TopOpeBRep_VPointInterClassifier::VPointPosition(
       if (VP.IsOnDomS2())
       {
         VP.State(TopAbs_ON, 2);
-        const TopoDS_Edge&  E  = TopoDS::Edge(VP.ArcOnS2());
+        const TopoEdge&  E  = TopoDS::Edge(VP.ArcOnS2());
         const Standard_Real pE = VP.ParameterOnArc2();
         VP.EdgeON(E, pE, 2);
         myState = TopAbs_ON;
@@ -95,8 +95,8 @@ TopAbs_State TopOpeBRep_VPointInterClassifier::VPointPosition(
     return myState;
   }
 
-  TopoDS_Face FF = TopoDS::Face(F);
-  TopOpeBRepTool_ShapeTool::AdjustOnPeriodic(FF, u, v);
+  TopoFace FF = TopoDS::Face(F);
+  ShapeTool::AdjustOnPeriodic(FF, u, v);
   gp_Pnt2d     p2d(u, v);
   TopAbs_State statefast = PC.Classify(FF, p2d, Tol);
   myState                = statefast;
@@ -181,11 +181,11 @@ TopAbs_State TopOpeBRep_VPointInterClassifier::VPointPosition(
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRep_VPointInterClassifier::Edge() const
+const TopoShape& TopOpeBRep_VPointInterClassifier::Edge() const
 {
   if (myState == TopAbs_ON)
   {
-    const TopoDS_Shape& S = mySlowFaceClassifier.Edge().Edge();
+    const TopoShape& S = mySlowFaceClassifier.Edge().Edge();
     return S;
   }
   else
@@ -212,26 +212,26 @@ Standard_Real TopOpeBRep_VPointInterClassifier::EdgeParameter() const
 static TopAbs_State SlowClassifyOnBoundary(const Point3d&             thePointToClassify,
                                            const gp_Pnt2d&           thePoint2dToClassify,
                                            BRepClass_FaceClassifier& theSlowClassifier,
-                                           const TopoDS_Face&        theFace)
+                                           const TopoFace&        theFace)
 {
 
   Standard_Real      aParameterOnEdge = theSlowClassifier.EdgeParameter();
-  const TopoDS_Edge& anEdge           = theSlowClassifier.Edge().Edge();
+  const TopoEdge& anEdge           = theSlowClassifier.Edge().Edge();
 
   Standard_Real      parf, parl;
-  Handle(Geom_Curve) anEdgeCurve = BRep_Tool::Curve(anEdge, parf, parl);
+  Handle(GeomCurve3d) anEdgeCurve = BRepInspector::Curve(anEdge, parf, parl);
 
   if (!anEdgeCurve.IsNull())
   {
     Standard_Real    minparameterdiff   = parl - parf;
     Standard_Real    aDistanceToCompare = 0;
     Standard_Boolean samewithvertex     = Standard_False;
-    TopExp_Explorer  anExp(anEdge, TopAbs_VERTEX);
+    ShapeExplorer  anExp(anEdge, TopAbs_VERTEX);
     for (; anExp.More() && !samewithvertex; anExp.Next())
     {
-      TopoDS_Vertex aVertex           = TopoDS::Vertex(anExp.Current());
-      Standard_Real aVertexTolerance  = BRep_Tool::Tolerance(aVertex);
-      Point3d        anEdgeVertexPoint = BRep_Tool::Pnt(aVertex);
+      TopoVertex aVertex           = TopoDS::Vertex(anExp.Current());
+      Standard_Real aVertexTolerance  = BRepInspector::Tolerance(aVertex);
+      Point3d        anEdgeVertexPoint = BRepInspector::Pnt(aVertex);
       if (thePointToClassify.IsEqual(anEdgeVertexPoint, aVertexTolerance))
         samewithvertex = Standard_True;
     }
@@ -250,11 +250,11 @@ static TopAbs_State SlowClassifyOnBoundary(const Point3d&             thePointTo
       }
     }
 
-    Standard_Real anEdgeTolerance = BRep_Tool::Tolerance(anEdge);
+    Standard_Real anEdgeTolerance = BRepInspector::Tolerance(anEdge);
 
     if ((aProjTool.NbPoints() == 0) || (aDistanceToCompare >= anEdgeTolerance))
     {
-      Handle(Geom2d_Curve) anEdgePCurve = BRep_Tool::CurveOnSurface(anEdge, theFace, parf, parl);
+      Handle(GeomCurve2d) anEdgePCurve = BRepInspector::CurveOnSurface(anEdge, theFace, parf, parl);
 
       if (!anEdgePCurve.IsNull())
       {

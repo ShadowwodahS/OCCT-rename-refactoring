@@ -42,7 +42,7 @@ DEFINE_STANDARD_HANDLE(Poly_CoherentTriangulation, RefObject)
  * that share this node</li> <li>Add nodes and triangles to the structure,</li> <li>Find all
  * triangles sharing a single or a couple of nodes</li> <li>Remove triangles from structure</li>
  * <li>Optionally create Links between pairs of nodes according to the current triangulation.</li>
- * <li>Convert from/to Poly_Triangulation structure.</li>
+ * <li>Convert from/to MeshTriangulation structure.</li>
  * </ul>
  *
  * This class is useful for algorithms that need to analyse and/or edit a triangulated mesh -- for
@@ -57,7 +57,7 @@ DEFINE_STANDARD_HANDLE(Poly_CoherentTriangulation, RefObject)
  * Contains references to all incident triangles. You can add new nodes but you cannot remove
  * existing ones. However each node that has no referenced triangle is considered as "free" (use the
  * method IsFreeNode() to check this). Free nodes are not available to further processing,
- * particularly they are not exported in Poly_Triangulation.
+ * particularly they are not exported in MeshTriangulation.
  * </li>
  * <li><b>Poly_CoherentTriangle</b>: Main data type. Refers three Nodes, three connected Triangles,
  * three opposite (connected) Nodes and three Links. If there is boundary then 1, 2 or 3 references
@@ -170,7 +170,7 @@ public:
    * following this constructor if you need these links.
    */
   Standard_EXPORT Poly_CoherentTriangulation(
-    const Handle(Poly_Triangulation)&        theTriangulation,
+    const Handle(MeshTriangulation)&        theTriangulation,
     const Handle(NCollection_BaseAllocator)& theAlloc = 0L);
 
   /**
@@ -179,9 +179,9 @@ public:
   Standard_EXPORT virtual ~Poly_CoherentTriangulation();
 
   /**
-   * Create an instance of Poly_Triangulation from this object.
+   * Create an instance of MeshTriangulation from this object.
    */
-  Standard_EXPORT Handle(Poly_Triangulation) GetTriangulation() const;
+  Standard_EXPORT Handle(MeshTriangulation) GetTriangulation() const;
 
   /**
    * Find and remove degenerated triangles in Triangulation.

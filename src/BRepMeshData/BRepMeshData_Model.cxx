@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRepMeshData_Model, IMeshData_Model)
 
 //=================================================================================================
 
-BRepMeshData_Model::BRepMeshData_Model(const TopoDS_Shape& theShape)
+BRepMeshData_Model::BRepMeshData_Model(const TopoShape& theShape)
     : IMeshData_Model(theShape),
       myMaxSize(0.),
       myAllocator(new NCollection_IncAllocator(IMeshData::MEMORY_BLOCK_SIZE_HUGE)),
@@ -46,7 +46,7 @@ Standard_Integer BRepMeshData_Model::FacesNb() const
 
 //=================================================================================================
 
-const IMeshData::IFaceHandle& BRepMeshData_Model::AddFace(const TopoDS_Face& theFace)
+const IMeshData::IFaceHandle& BRepMeshData_Model::AddFace(const TopoFace& theFace)
 {
   IMeshData::IFaceHandle aFace(new (myAllocator) BRepMeshData_Face(theFace, myAllocator));
   return myDFaces.Append(aFace);
@@ -68,7 +68,7 @@ Standard_Integer BRepMeshData_Model::EdgesNb() const
 
 //=================================================================================================
 
-const IMeshData::IEdgeHandle& BRepMeshData_Model::AddEdge(const TopoDS_Edge& theEdge)
+const IMeshData::IEdgeHandle& BRepMeshData_Model::AddEdge(const TopoEdge& theEdge)
 {
   IMeshData::IEdgeHandle aEdge(new (myAllocator) BRepMeshData_Edge(theEdge, myAllocator));
   return myDEdges.Append(aEdge);

@@ -22,7 +22,7 @@
 #include <TDF_Attribute.hxx>
 
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 
 /*
  * Attribute for storing gp_XYZ
@@ -46,7 +46,7 @@ public:
   //! Method for create TObj_TXYZ object
 
   //! Creates attribute and sets the XYZ
-  static Standard_EXPORT Handle(TObj_TXYZ) Set(const TDF_Label& theLabel, const gp_XYZ& theXYZ);
+  static Standard_EXPORT Handle(TObj_TXYZ) Set(const DataLabel& theLabel, const gp_XYZ& theXYZ);
 
 public:
   //! Methods for setting and obtaining XYZ

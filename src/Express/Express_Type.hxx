@@ -16,7 +16,7 @@
 
 #include <Standard_Type.hxx>
 
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! Provides basis for identification (reference) to some type
 //! in express schema
@@ -25,7 +25,7 @@ class Express_Type : public RefObject
 
 public:
   //! Returns CPP-style name of the type
-  Standard_EXPORT virtual const TCollection_AsciiString CPPName() const = 0;
+  Standard_EXPORT virtual const AsciiString1 CPPName() const = 0;
 
   //! Return True if type is defined in package Standard (False by default)
   Standard_EXPORT virtual Standard_Boolean IsStandard() const;
@@ -46,8 +46,8 @@ public:
   //! Declares type as used by some item being generated.
   //! Calls Use() for all referred types and schema items.
   //! Default instantiation does nothing
-  Standard_EXPORT virtual void Use2(const TCollection_AsciiString& theRefName,
-                                    const TCollection_AsciiString& theRefPack) const;
+  Standard_EXPORT virtual void Use2(const AsciiString1& theRefName,
+                                    const AsciiString1& theRefPack) const;
 
   DEFINE_STANDARD_RTTIEXT(Express_Type, RefObject)
 

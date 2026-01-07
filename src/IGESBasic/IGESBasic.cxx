@@ -26,9 +26,9 @@
 //  (Modules are created and loaded in appropriate libraries, once by Init)
 static Handle(IGESBasic_Protocol) protocol;
 
-void IGESBasic::Init()
+void IGESBasic1::Init()
 {
-  IGESData::Init(); // useful for Undefined Type or Erroneous Entities
+  IGESData1::Init(); // useful for Undefined Type or Erroneous Entities
   if (protocol.IsNull())
   {
     protocol = new IGESBasic_Protocol;
@@ -39,7 +39,7 @@ void IGESBasic::Init()
   }
 }
 
-Handle(IGESBasic_Protocol) IGESBasic::Protocol()
+Handle(IGESBasic_Protocol) IGESBasic1::Protocol()
 {
   return protocol;
 }

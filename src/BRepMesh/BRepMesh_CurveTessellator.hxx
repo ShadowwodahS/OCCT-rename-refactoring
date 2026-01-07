@@ -22,8 +22,8 @@
 #include <BRepAdaptor_Curve.hxx>
 #include <IMeshData_Types.hxx>
 
-class Geom_Surface;
-class Geom2d_Curve;
+class GeomSurface;
+class GeomCurve2d;
 struct IMeshTools_Parameters;
 
 //! Auxiliary class performing tessellation of passed edge according to specified parameters.
@@ -70,15 +70,15 @@ private:
   // Check deflection in 2d space for improvement of edge tessellation.
   void splitByDeflection2d();
 
-  void splitSegment(const Handle(Geom_Surface)& theSurf,
-                    const Handle(Geom2d_Curve)& theCurve2d,
+  void splitSegment(const Handle(GeomSurface)& theSurf,
+                    const Handle(GeomCurve2d)& theCurve2d,
                     const Standard_Real         theFirst,
                     const Standard_Real         theLast,
                     const Standard_Integer      theNbIter);
 
   //! Checks whether the given point lies within tolerance of the vertex.
   Standard_Boolean isInToleranceOfVertex(const Point3d&        thePoint,
-                                         const TopoDS_Vertex& theVertex) const;
+                                         const TopoVertex& theVertex) const;
 
 private:
   BRepMesh_CurveTessellator(const BRepMesh_CurveTessellator& theOther);
@@ -88,12 +88,12 @@ private:
 private:
   const IMeshData::IEdgeHandle& myDEdge;
   const IMeshTools_Parameters&  myParameters;
-  TopoDS_Edge                   myEdge;
+  TopoEdge                   myEdge;
   BRepAdaptor_Curve             myCurve;
   Standard_Integer              myMinPointsNb;
   GCPnts_TangentialDeflection   myDiscretTool;
-  TopoDS_Vertex                 myFirstVertex;
-  TopoDS_Vertex                 myLastVertex;
+  TopoVertex                 myFirstVertex;
+  TopoVertex                 myLastVertex;
   Standard_Real                 mySquareEdgeDef;
   Standard_Real                 mySquareMinSize;
   Standard_Real                 myEdgeSqTol;

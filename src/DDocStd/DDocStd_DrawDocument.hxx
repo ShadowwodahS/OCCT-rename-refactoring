@@ -22,38 +22,38 @@
 #include <DDF_Data.hxx>
 #include <Standard_OStream.hxx>
 #include <Draw_Interpretor.hxx>
-class TDocStd_Document;
-class Draw_Display;
+class AppDocument;
+class DrawDisplay;
 class Draw_Drawable3D;
 
 class DDocStd_DrawDocument;
 DEFINE_STANDARD_HANDLE(DDocStd_DrawDocument, DDF_Data)
 
-//! draw variable for TDocStd_Document.
+//! draw variable for AppDocument.
 //! ==================================
 class DDocStd_DrawDocument : public DDF_Data
 {
 
 public:
-  Standard_EXPORT static Handle(DDocStd_DrawDocument) Find(const Handle(TDocStd_Document)& Doc);
+  Standard_EXPORT static Handle(DDocStd_DrawDocument) Find(const Handle(AppDocument)& Doc);
 
-  Standard_EXPORT DDocStd_DrawDocument(const Handle(TDocStd_Document)& Doc);
+  Standard_EXPORT DDocStd_DrawDocument(const Handle(AppDocument)& Doc);
 
-  Standard_EXPORT Handle(TDocStd_Document) GetDocument() const;
+  Standard_EXPORT Handle(AppDocument) GetDocument() const;
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
 
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(DDocStd_DrawDocument, DDF_Data)
 
 protected:
 private:
-  Handle(TDocStd_Document) myDocument;
+  Handle(AppDocument) myDocument;
 };
 
 #endif // _DDocStd_DrawDocument_HeaderFile

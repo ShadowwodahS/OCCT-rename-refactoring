@@ -25,7 +25,7 @@
 
 //=================================================================================================
 
-TopOpeBRepDS_Point TopOpeBRep_PointGeomTool::MakePoint(const TopOpeBRep_VPointInter& IP)
+Point1 PointGeometryTool::MakePoint(const TopOpeBRep_VPointInter& IP)
 {
   Standard_Real    tolip  = IP.Tolerance();
   Standard_Real    tolout = tolip;
@@ -36,20 +36,20 @@ TopOpeBRepDS_Point TopOpeBRep_PointGeomTool::MakePoint(const TopOpeBRep_VPointIn
   }
   else if (si == 1)
   {
-    const TopoDS_Edge& E = TopoDS::Edge(IP.Edge(si));
-    tolout               = BRep_Tool::Tolerance(E);
+    const TopoEdge& E = TopoDS::Edge(IP.Edge(si));
+    tolout               = BRepInspector::Tolerance(E);
   }
   else if (si == 2)
   {
-    const TopoDS_Edge& E = TopoDS::Edge(IP.Edge(si));
-    tolout               = BRep_Tool::Tolerance(E);
+    const TopoEdge& E = TopoDS::Edge(IP.Edge(si));
+    tolout               = BRepInspector::Tolerance(E);
   }
   else if (si == 3)
   {
-    const TopoDS_Edge& E1 = TopoDS::Edge(IP.Edge(1));
-    const TopoDS_Edge& E2 = TopoDS::Edge(IP.Edge(2));
-    Standard_Real      t1 = BRep_Tool::Tolerance(E1);
-    Standard_Real      t2 = BRep_Tool::Tolerance(E2);
+    const TopoEdge& E1 = TopoDS::Edge(IP.Edge(1));
+    const TopoEdge& E2 = TopoDS::Edge(IP.Edge(2));
+    Standard_Real      t1 = BRepInspector::Tolerance(E1);
+    Standard_Real      t2 = BRepInspector::Tolerance(E2);
     //    tolout = Max(t1,t2);
     if (t1 > 0.9)
       t1 = 0.9;
@@ -58,36 +58,36 @@ TopOpeBRepDS_Point TopOpeBRep_PointGeomTool::MakePoint(const TopOpeBRep_VPointIn
     tolout = 2.5 * (t1 + t2);
   }
   tolout = Max(tolout, tolip);
-  return TopOpeBRepDS_Point(IP.Value(), tolout);
+  return Point1(IP.Value(), tolout);
 }
 
 //=================================================================================================
 
-TopOpeBRepDS_Point TopOpeBRep_PointGeomTool::MakePoint(const TopOpeBRep_Point2d& P2D)
+Point1 PointGeometryTool::MakePoint(const TopOpeBRep_Point2d& P2D)
 {
   Standard_Real tol = P2D.Tolerance();
-  return TopOpeBRepDS_Point(P2D.Value(), tol);
+  return Point1(P2D.Value(), tol);
 }
 
 //=================================================================================================
 
-TopOpeBRepDS_Point TopOpeBRep_PointGeomTool::MakePoint(const TopOpeBRep_FaceEdgeIntersector& FEI)
+Point1 PointGeometryTool::MakePoint(const TopOpeBRep_FaceEdgeIntersector& FEI)
 {
   Standard_Real tol = FEI.Tolerance();
-  return TopOpeBRepDS_Point(FEI.Value(), tol);
+  return Point1(FEI.Value(), tol);
 }
 
 //=================================================================================================
 
-TopOpeBRepDS_Point TopOpeBRep_PointGeomTool::MakePoint(const TopoDS_Shape& S)
+Point1 PointGeometryTool::MakePoint(const TopoShape& S)
 {
-  return TopOpeBRepDS_Point(S);
+  return Point1(S);
 }
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRep_PointGeomTool::IsEqual(const TopOpeBRepDS_Point& DSP1,
-                                                   const TopOpeBRepDS_Point& DSP2)
+Standard_Boolean PointGeometryTool::IsEqual(const Point1& DSP1,
+                                                   const Point1& DSP2)
 {
   Standard_Boolean b = DSP1.IsEqual(DSP2);
   return b;

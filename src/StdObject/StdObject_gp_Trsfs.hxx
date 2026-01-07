@@ -60,7 +60,7 @@ inline StdObjMgt_ReadData& operator>>(StdObjMgt_ReadData& theReadData, gp_Trsf2d
   Standard_Real    aScale;
   Standard_Integer aForm;
   gp_Mat2d         aMat;
-  gp_XY            aLoc;
+  Coords2d            aLoc;
 
   theReadData >> aScale >> aForm >> aMat >> aLoc;
 
@@ -81,7 +81,7 @@ inline StdObjMgt_WriteData& operator<<(StdObjMgt_WriteData& theWriteData, const 
   Standard_Real    aScale = theTrsf.ScaleFactor();
   Standard_Integer aForm  = theTrsf.Form();
   const gp_Mat2d&  aMat   = theTrsf.HVectorialPart();
-  const gp_XY&     aLoc   = theTrsf.TranslationPart();
+  const Coords2d&     aLoc   = theTrsf.TranslationPart();
 
   theWriteData << aScale << aForm << aMat << aLoc;
 

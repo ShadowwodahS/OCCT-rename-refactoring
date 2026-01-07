@@ -30,7 +30,7 @@
 #include <GccEnt_Position.hxx>
 class Geom2dGcc_QualifiedCurve;
 class Geom2d_Point;
-class GccAna_Circ2d3Tan;
+class Circle2dThreeTangent;
 class gp_Circ2d;
 class gp_Pnt2d;
 
@@ -132,7 +132,7 @@ public:
                                        const Handle(Geom2d_Point)& Point3,
                                        const Standard_Real         Tolerance);
 
-  Standard_EXPORT void Results(const GccAna_Circ2d3Tan& Circ,
+  Standard_EXPORT void Results(const Circle2dThreeTangent& Circ,
                                const Standard_Integer   Rank1,
                                const Standard_Integer   Rank2,
                                const Standard_Integer   Rank3);

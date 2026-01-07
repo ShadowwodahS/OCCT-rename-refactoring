@@ -30,14 +30,14 @@ class Geom_BSplineSurface;
 //! BSplineSurfaceWithKnots from
 //! StepGeom which describes a
 //! bspline_Surface_with_knots from Prostep
-class GeomToStep_MakeBSplineSurfaceWithKnots : public GeomToStep_Root
+class GeomToStep_MakeBSplineSurfaceWithKnots : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeBSplineSurfaceWithKnots(
     const Handle(Geom_BSplineSurface)& Bsplin,
-    const StepData_Factors&            theLocalFactors = StepData_Factors());
+    const ConversionFactors&            theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_BSplineSurfaceWithKnots)& Value() const;
 

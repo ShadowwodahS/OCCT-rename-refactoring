@@ -32,8 +32,8 @@
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 #include <TopTools_ListIteratorOfListOfShape.hxx>
 
-BRepSweep_Trsf::BRepSweep_Trsf(const BRep_Builder&    aBuilder,
-                               const TopoDS_Shape&    aGenShape,
+BRepSweep_Trsf::BRepSweep_Trsf(const ShapeBuilder&    aBuilder,
+                               const TopoShape&    aGenShape,
                                const Sweep_NumShape&  aDirWire,
                                const TopLoc_Location& aLocation,
                                const Standard_Boolean aCopy)
@@ -55,7 +55,7 @@ void BRepSweep_Trsf::Init()
   }
 }
 
-Standard_Boolean BRepSweep_Trsf::Process(const TopoDS_Shape& aGenS, const Sweep_NumShape& aDirV)
+Standard_Boolean BRepSweep_Trsf::Process(const TopoShape& aGenS, const Sweep_NumShape& aDirV)
 {
   Standard_Boolean dotrsf = (aDirV.Index() == 2 && !myDirWire.Closed());
   Standard_Integer iD     = myDirShapeTool.Index(aDirV);
@@ -77,7 +77,7 @@ Standard_Boolean BRepSweep_Trsf::Process(const TopoDS_Shape& aGenS, const Sweep_
     }
     if (!touch || !dotrsf)
     {
-      TopoDS_Shape newShape = aGenS;
+      TopoShape newShape = aGenS;
       if (dotrsf)
         newShape.Move(myLocation);
       myShapes(iG, iD)      = newShape;
@@ -89,36 +89,36 @@ Standard_Boolean BRepSweep_Trsf::Process(const TopoDS_Shape& aGenS, const Sweep_
 
 //=================================================================================================
 
-void BRepSweep_Trsf::SetContinuity(const TopoDS_Shape& aGenS, const Sweep_NumShape& aDirS)
+void BRepSweep_Trsf::SetContinuity(const TopoShape& aGenS, const Sweep_NumShape& aDirS)
 {
   constexpr Standard_Real tl = Precision::Confusion();
   // angular etant un peu severe pour les contours sketches.
   Standard_Real ta = 0.00175; // environ 0.1 degre
   GeomAbs_Shape cont;
-  BRep_Builder  B = myBuilder.Builder();
+  ShapeBuilder  B = myBuilder.Builder();
   if (aGenS.ShapeType() == TopAbs_EDGE)
   {
     if (HasShape(aGenS, aDirS))
     {
-      TopoDS_Edge       E = TopoDS::Edge(aGenS);
+      TopoEdge       E = TopoDS::Edge(aGenS);
       BRepAdaptor_Curve e;
       Standard_Real     ud, uf;
-      TopoDS_Vertex     d, f;
-      TopExp::Vertices(E, d, f);
+      TopoVertex     d, f;
+      TopExp1::Vertices(E, d, f);
       if (d.IsSame(f))
       {
-        //	tol3d = Max(tl,BRep_Tool::Tolerance(d));
-        const Standard_Real tol3d = Max(tl, 2. * BRep_Tool::Tolerance(d)); // IFV 24.05.00 buc60684
+        //	tol3d = Max(tl,BRepInspector::Tolerance(d));
+        const Standard_Real tol3d = Max(tl, 2. * BRepInspector::Tolerance(d)); // IFV 24.05.00 buc60684
         e.Initialize(E);
-        ud   = BRep_Tool::Parameter(d, TopoDS::Edge(aGenS));
-        uf   = BRep_Tool::Parameter(f, TopoDS::Edge(aGenS));
-        cont = BRepLProp::Continuity(e, e, ud, uf, tol3d, ta);
+        ud   = BRepInspector::Parameter(d, TopoDS::Edge(aGenS));
+        uf   = BRepInspector::Parameter(f, TopoDS::Edge(aGenS));
+        cont = BRepLProp1::Continuity(e, e, ud, uf, tol3d, ta);
         if (cont >= 1)
         {
-          TopoDS_Shape s_wnt = Shape(d, aDirS);
-          TopoDS_Edge  e_wnt = TopoDS::Edge(s_wnt);
+          TopoShape s_wnt = Shape(d, aDirS);
+          TopoEdge  e_wnt = TopoDS::Edge(s_wnt);
           s_wnt              = Shape(aGenS, aDirS);
-          TopoDS_Face f_wnt  = TopoDS::Face(s_wnt);
+          TopoFace f_wnt  = TopoDS::Face(s_wnt);
           B.Continuity(e_wnt, f_wnt, f_wnt, cont);
         }
       }
@@ -129,13 +129,13 @@ void BRepSweep_Trsf::SetContinuity(const TopoDS_Shape& aGenS, const Sweep_NumSha
         {
           TopLoc_Location Lo;
           Standard_Real   fi, la;
-          cont = BRep_Tool::Curve(E, Lo, fi, la)->Continuity();
+          cont = BRepInspector::Curve(E, Lo, fi, la)->Continuity();
           if (cont >= 1)
           {
-            TopoDS_Shape s_wnt = Shape(aGenS, dirv);
-            TopoDS_Edge  e_wnt = TopoDS::Edge(s_wnt);
+            TopoShape s_wnt = Shape(aGenS, dirv);
+            TopoEdge  e_wnt = TopoDS::Edge(s_wnt);
             s_wnt              = Shape(aGenS, aDirS);
-            TopoDS_Face f_wnt  = TopoDS::Face(s_wnt);
+            TopoFace f_wnt  = TopoDS::Face(s_wnt);
             B.Continuity(e_wnt, f_wnt, f_wnt, cont);
           }
         }
@@ -144,15 +144,15 @@ void BRepSweep_Trsf::SetContinuity(const TopoDS_Shape& aGenS, const Sweep_NumSha
   }
   else if (aGenS.ShapeType() == TopAbs_WIRE)
   {
-    TopoDS_Edge                               E1, E2;
+    TopoEdge                               E1, E2;
     BRepAdaptor_Curve                         e1, e2;
     Standard_Real                             u1, u2;
     TopTools_IndexedDataMapOfShapeListOfShape M;
-    TopExp::MapShapesAndAncestors(aGenS, TopAbs_VERTEX, TopAbs_EDGE, M);
+    TopExp1::MapShapesAndAncestors(aGenS, TopAbs_VERTEX, TopAbs_EDGE, M);
     TopTools_ListIteratorOfListOfShape It, Jt;
     for (Standard_Integer i = 1; i <= M.Extent(); i++)
     {
-      TopoDS_Vertex    V = TopoDS::Vertex(M.FindKey(i));
+      TopoVertex    V = TopoDS::Vertex(M.FindKey(i));
       Standard_Integer j = 1;
       for (It.Initialize(M.FindFromIndex(i)); It.More(); It.Next(), j++)
       {
@@ -167,22 +167,22 @@ void BRepSweep_Trsf::SetContinuity(const TopoDS_Shape& aGenS, const Sweep_NumSha
           E2 = TopoDS::Edge(Jt.Value());
           if (!E1.IsSame(E2) && HasShape(E1, aDirS) && HasShape(E2, aDirS))
           {
-            u1 = BRep_Tool::Parameter(V, E1);
-            u2 = BRep_Tool::Parameter(V, E2);
-            //	    tol3d = Max(tl,BRep_Tool::Tolerance(V));
+            u1 = BRepInspector::Parameter(V, E1);
+            u2 = BRepInspector::Parameter(V, E2);
+            //	    tol3d = Max(tl,BRepInspector::Tolerance(V));
             const Standard_Real tol3d =
-              Max(tl, 2. * BRep_Tool::Tolerance(V)); // IFV 24.05.00 buc60684
+              Max(tl, 2. * BRepInspector::Tolerance(V)); // IFV 24.05.00 buc60684
             e1.Initialize(E1);
             e2.Initialize(E2);
-            cont = BRepLProp::Continuity(e1, e2, u1, u2, tol3d, ta);
+            cont = BRepLProp1::Continuity(e1, e2, u1, u2, tol3d, ta);
             if (cont >= 1)
             {
-              TopoDS_Shape s_wnt = Shape(V, aDirS);
-              TopoDS_Edge  e_wnt = TopoDS::Edge(s_wnt);
+              TopoShape s_wnt = Shape(V, aDirS);
+              TopoEdge  e_wnt = TopoDS::Edge(s_wnt);
               s_wnt              = Shape(E1, aDirS);
-              TopoDS_Face f1_wnt = TopoDS::Face(s_wnt);
+              TopoFace f1_wnt = TopoDS::Face(s_wnt);
               s_wnt              = Shape(E2, aDirS);
-              TopoDS_Face f2_wnt = TopoDS::Face(s_wnt);
+              TopoFace f2_wnt = TopoDS::Face(s_wnt);
               B.Continuity(e_wnt, f1_wnt, f2_wnt, cont);
             }
           }

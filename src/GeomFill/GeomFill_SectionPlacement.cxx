@@ -166,7 +166,7 @@ GeomFill_SectionPlacement::GeomFill_SectionPlacement(const Handle(GeomFill_Locat
   }
   else
   {
-    Handle(Geom_Curve) CurveSection = Handle(Geom_Curve)::DownCast(Section);
+    Handle(GeomCurve3d) CurveSection = Handle(GeomCurve3d)::DownCast(Section);
     myAdpSection.Load(CurveSection);
     mySection = CurveSection;
   }
@@ -247,7 +247,7 @@ GeomFill_SectionPlacement::GeomFill_SectionPlacement(const Handle(GeomFill_Locat
       if (myAdpSection.IsPeriodic())
       {
         // Correct boundaries to avoid mistake of LocateU
-        Handle(Geom_Curve) aCurve = myAdpSection.Curve();
+        Handle(GeomCurve3d) aCurve = myAdpSection.Curve();
         if (aCurve->IsInstance(STANDARD_TYPE(Geom_TrimmedCurve)))
           aCurve = (Handle(Geom_TrimmedCurve)::DownCast(aCurve))->BasisCurve();
         Standard_Real Ufirst  = aCurve->FirstParameter();
@@ -262,7 +262,7 @@ GeomFill_SectionPlacement::GeomFill_SectionPlacement(const Handle(GeomFill_Locat
       Standard_Real t, delta;
       if (myAdpSection.GetType() == GeomAbs_BSplineCurve)
       {
-        Handle(Geom_BSplineCurve) BC = Handle(Geom_BSplineCurve)::DownCast(myAdpSection.Curve());
+        Handle(BSplineCurve3d) BC = Handle(BSplineCurve3d)::DownCast(myAdpSection.Curve());
         Standard_Integer          I1, I2, I3, I4;
         BC->LocateU(first, Precision::Confusion(), I1, I2);
         BC->LocateU(last, Precision::Confusion(), I3, I4);
@@ -435,7 +435,7 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
 
       // (1.2) Intersection Plan-courbe
       gp_Ax3                      axe(TheAxe.Location(), TheAxe.Direction());
-      Handle(Geom_Plane)          plan   = new (Geom_Plane)(axe);
+      Handle(GeomPlane)          plan   = new (GeomPlane)(axe);
       Handle(GeomAdaptor_Surface) adplan = new (GeomAdaptor_Surface)(plan);
       IntCurveSurface_HInter      Intersector;
       Intersector.Perform(Path, adplan);
@@ -523,7 +523,7 @@ void GeomFill_SectionPlacement::Perform(const Handle(Adaptor3d_Curve)& Path,
 
          // (1.2) Intersection Plan-courbe
          gp_Ax3 axe (TheAxe.Location(), TheAxe.Direction());
-         Handle(Geom_Plane) plan = new (Geom_Plane)(axe);
+         Handle(GeomPlane) plan = new (GeomPlane)(axe);
          Handle(GeomAdaptor_Surface) adplan =
          new (GeomAdaptor_Surface)(plan);
          IntCurveSurface_HInter Intersector;
@@ -848,19 +848,19 @@ Transform3d GeomFill_SectionPlacement::Transformation(const Standard_Boolean Wit
 
 //=================================================================================================
 
-Handle(Geom_Curve) GeomFill_SectionPlacement::Section(const Standard_Boolean WithTranslation) const
+Handle(GeomCurve3d) GeomFill_SectionPlacement::Section(const Standard_Boolean WithTranslation) const
 {
-  Handle(Geom_Curve) TheSection = Handle(Geom_Curve)::DownCast(mySection->Copy());
+  Handle(GeomCurve3d) TheSection = Handle(GeomCurve3d)::DownCast(mySection->Copy());
   TheSection->Transform(Transformation(WithTranslation, Standard_False));
   return TheSection;
 }
 
 //=================================================================================================
 
-Handle(Geom_Curve) GeomFill_SectionPlacement::ModifiedSection(
+Handle(GeomCurve3d) GeomFill_SectionPlacement::ModifiedSection(
   const Standard_Boolean WithTranslation) const
 {
-  Handle(Geom_Curve) TheSection = Handle(Geom_Curve)::DownCast(mySection->Copy());
+  Handle(GeomCurve3d) TheSection = Handle(GeomCurve3d)::DownCast(mySection->Copy());
   TheSection->Transform(Transformation(WithTranslation, Standard_True));
   return TheSection;
 }

@@ -19,6 +19,6 @@
 #include <NCollection_Sequence.hxx>
 #include <SelectMgr_Selection.hxx>
 
-typedef NCollection_Sequence<Handle(SelectMgr_Selection)> SelectMgr_SequenceOfSelection;
+typedef NCollection_Sequence<Handle(SelectionContainer)> SelectMgr_SequenceOfSelection;
 
 #endif // _SelectMgr_SequenceOfSelection_HeaderFile

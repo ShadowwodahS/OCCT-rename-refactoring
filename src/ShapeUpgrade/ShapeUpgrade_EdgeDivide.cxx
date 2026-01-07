@@ -45,12 +45,12 @@ void ShapeUpgrade_EdgeDivide::Clear()
 
 //=================================================================================================
 
-Standard_Boolean ShapeUpgrade_EdgeDivide::Compute(const TopoDS_Edge& anEdge)
+Standard_Boolean ShapeUpgrade_EdgeDivide::Compute(const TopoEdge& anEdge)
 {
   Clear();
 
   Standard_Real      f, l;
-  Handle(Geom_Curve) curve3d = BRep_Tool::Curve(anEdge, f, l);
+  Handle(GeomCurve3d) curve3d = BRepInspector::Curve(anEdge, f, l);
   myHasCurve3d               = !curve3d.IsNull();
 
   Handle(ShapeUpgrade_SplitCurve3d) theSplit3dTool = GetSplitCurve3dTool();
@@ -64,7 +64,7 @@ Standard_Boolean ShapeUpgrade_EdgeDivide::Compute(const TopoDS_Edge& anEdge)
   // on pcurve(s): all knots
   // assume that if seam-edge, its pcurve1 and pcurve2 has the same split knots !!!
   Standard_Real        f2d = 0., l2d = 0.;
-  Handle(Geom2d_Curve) pcurve1;
+  Handle(GeomCurve2d) pcurve1;
   if (!myFace.IsNull())
   { // process free edges
     ShapeAnalysis_Edge sae;

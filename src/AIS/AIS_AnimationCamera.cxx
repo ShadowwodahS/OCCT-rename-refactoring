@@ -20,8 +20,8 @@ IMPLEMENT_STANDARD_RTTIEXT(AIS_AnimationCamera, AIS_Animation)
 
 //=================================================================================================
 
-AIS_AnimationCamera::AIS_AnimationCamera(const TCollection_AsciiString& theAnimationName,
-                                         const Handle(V3d_View)&        theView)
+AIS_AnimationCamera::AIS_AnimationCamera(const AsciiString1& theAnimationName,
+                                         const Handle(ViewWindow)&        theView)
     : AIS_Animation(theAnimationName),
       myView(theView)
 {
@@ -37,7 +37,7 @@ void AIS_AnimationCamera::update(const AIS_AnimationProgress& theProgress)
     return;
   }
 
-  Handle(Graphic3d_Camera) aCamera = myView->Camera();
+  Handle(CameraOn3d) aCamera = myView->Camera();
 
   Graphic3d_CameraLerp aCamLerp(myCamStart, myCamEnd);
   aCamLerp.Interpolate(HasOwnDuration() ? theProgress.LocalNormalized : 1.0, aCamera);

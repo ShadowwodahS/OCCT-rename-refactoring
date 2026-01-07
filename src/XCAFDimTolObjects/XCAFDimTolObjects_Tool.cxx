@@ -30,7 +30,7 @@
 
 //=================================================================================================
 
-XCAFDimTolObjects_Tool::XCAFDimTolObjects_Tool(const Handle(TDocStd_Document)& theDoc)
+XCAFDimTolObjects_Tool::XCAFDimTolObjects_Tool(const Handle(AppDocument)& theDoc)
 {
   myDimTolTool = XCAFDoc_DocumentTool::DimTolTool(theDoc->Main());
 }
@@ -44,7 +44,7 @@ void XCAFDimTolObjects_Tool::GetDimensions(
   TDF_ChildIterator aChildIterator(myDimTolTool->Label());
   for (; aChildIterator.More(); aChildIterator.Next())
   {
-    TDF_Label                 aL = aChildIterator.Value();
+    DataLabel                 aL = aChildIterator.Value();
     Handle(XCAFDoc_Dimension) aDimension;
     if (aL.FindAttribute(XCAFDoc_Dimension::GetID(), aDimension))
     {
@@ -64,7 +64,7 @@ void XCAFDimTolObjects_Tool::GetGeomTolerances(
   TDF_ChildIterator aChildIterator(myDimTolTool->Label());
   for (; aChildIterator.More(); aChildIterator.Next())
   {
-    TDF_Label                     aL = aChildIterator.Value();
+    DataLabel                     aL = aChildIterator.Value();
     Handle(XCAFDoc_GeomTolerance) aGeomTolerance;
     if (aL.FindAttribute(XCAFDoc_GeomTolerance::GetID(), aGeomTolerance))
     {
@@ -89,11 +89,11 @@ void XCAFDimTolObjects_Tool::GetGeomTolerances(
 //=================================================================================================
 
 Standard_Boolean XCAFDimTolObjects_Tool::GetRefDimensions(
-  const TopoDS_Shape&                        theShape,
+  const TopoShape&                        theShape,
   XCAFDimTolObjects_DimensionObjectSequence& theDimensionObjectSequence) const
 {
   theDimensionObjectSequence.Clear();
-  TDF_Label aShapeL;
+  DataLabel aShapeL;
   myDimTolTool->ShapeTool()->Search(theShape, aShapeL);
   if (!aShapeL.IsNull())
   {
@@ -115,13 +115,13 @@ Standard_Boolean XCAFDimTolObjects_Tool::GetRefDimensions(
 //=================================================================================================
 
 Standard_Boolean XCAFDimTolObjects_Tool::GetRefGeomTolerances(
-  const TopoDS_Shape&                            theShape,
+  const TopoShape&                            theShape,
   XCAFDimTolObjects_GeomToleranceObjectSequence& theGeomToleranceObjectSequence,
   XCAFDimTolObjects_DatumObjectSequence&         theDatumSequence,
   XCAFDimTolObjects_DataMapOfToleranceDatum&     theMap) const
 {
   theGeomToleranceObjectSequence.Clear();
-  TDF_Label aShapeL;
+  DataLabel aShapeL;
   myDimTolTool->ShapeTool()->Search(theShape, aShapeL);
   if (!aShapeL.IsNull())
   {
@@ -158,10 +158,10 @@ Standard_Boolean XCAFDimTolObjects_Tool::GetRefGeomTolerances(
 //=================================================================================================
 
 Standard_Boolean XCAFDimTolObjects_Tool::GetRefDatum(
-  const TopoDS_Shape&                    theShape,
+  const TopoShape&                    theShape,
   Handle(XCAFDimTolObjects_DatumObject)& theDatumObject) const
 {
-  TDF_Label aShapeL;
+  DataLabel aShapeL;
   myDimTolTool->ShapeTool()->Search(theShape, aShapeL);
   if (!aShapeL.IsNull())
   {

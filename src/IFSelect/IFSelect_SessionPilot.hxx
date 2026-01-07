@@ -95,10 +95,10 @@ public:
 
   //! Sets the value of the Command Line to be interpreted
   //! Also prepares the interpretation (splitting by blanks)
-  Standard_EXPORT void SetCommandLine(const TCollection_AsciiString& command);
+  Standard_EXPORT void SetCommandLine(const AsciiString1& command);
 
   //! Returns the Command Line to be interpreted
-  Standard_EXPORT const TCollection_AsciiString& CommandLine() const;
+  Standard_EXPORT const AsciiString1& CommandLine() const;
 
   //! Returns the part of the command line which begins at argument
   //! <numarg> between 0 and NbWords-1 (by default, all the line)
@@ -113,7 +113,7 @@ public:
 
   //! Returns a word given its rank in the Command Line. Begins at 0
   //! which is the Command Title, 1 is the 1st arg., etc...
-  Standard_EXPORT const TCollection_AsciiString& Word(const Standard_Integer num) const;
+  Standard_EXPORT const AsciiString1& Word(const Standard_Integer num) const;
 
   //! Returns a word given its rank, as a CString.
   //! As for Word, begins at 0 (the command name), etc...
@@ -127,7 +127,7 @@ public:
   Standard_EXPORT Standard_Integer NbCommands() const;
 
   //! Returns a recorded Command, given its rank (from 1)
-  Standard_EXPORT const TCollection_AsciiString& Command(const Standard_Integer num) const;
+  Standard_EXPORT const AsciiString1& Command(const Standard_Integer num) const;
 
   //! Allows to associate a Transient Value with the last execution
   //! as a partial result
@@ -165,11 +165,11 @@ public:
   //! If <alias> is empty, Executes with no change
   //!
   //! Error status is returned if the alias is unknown as command
-  Standard_EXPORT IFSelect_ReturnStatus ExecuteAlias(const TCollection_AsciiString& aliasname);
+  Standard_EXPORT IFSelect_ReturnStatus ExecuteAlias(const AsciiString1& aliasname);
 
   //! Sets the Command then tries to execute it. Return value :
   //! same as for Perform
-  Standard_EXPORT IFSelect_ReturnStatus Execute(const TCollection_AsciiString& command);
+  Standard_EXPORT IFSelect_ReturnStatus Execute(const AsciiString1& command);
 
   //! Executes a Counter in a general way
   //! If <numword> is greater than count of command words, it counts
@@ -209,8 +209,8 @@ public:
 
 private:
   Handle(IFSelect_WorkSession)  thesession;
-  TCollection_AsciiString       theprompt;
-  TCollection_AsciiString       thecommand;
+  AsciiString1       theprompt;
+  AsciiString1       thecommand;
   Standard_Integer              thenbwords;
   TColStd_Array1OfAsciiString   thewords;
   TColStd_Array1OfInteger       thewordeb;

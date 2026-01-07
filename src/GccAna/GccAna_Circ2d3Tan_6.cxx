@@ -31,7 +31,7 @@
 //=========================================================================
 //   Creation of a circle tangent to two straight lines and a point.      +
 //=========================================================================
-GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedLin& Qualified1,
+Circle2dThreeTangent::Circle2dThreeTangent(const GccEnt_QualifiedLin& Qualified1,
                                      const GccEnt_QualifiedLin& Qualified2,
                                      const gp_Pnt2d&            Point3,
                                      const Standard_Real        Tolerance)
@@ -81,7 +81,7 @@ GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedLin& Qualified1,
   gp_Dir2d dir2(L2.Direction());
   gp_Dir2d normL2(-dir2.Y(), dir2.X());
 
-  GccAna_Lin2dBisec    Bis1(L1, L2);
+  Line2dBisector    Bis1(L1, L2);
   GccAna_LinPnt2dBisec Bis2(L1, Point3);
   if (Bis1.IsDone() && Bis2.IsDone())
   {
@@ -226,14 +226,14 @@ GccAna_Circ2d3Tan::GccAna_Circ2d3Tan(const GccEnt_QualifiedLin& Qualified1,
                 TheSame1(NbrSol)   = 0;
                 gp_Dir2d      dc(origin1.XY() - Center.XY());
                 Standard_Real sign = dc.Dot(gp_Dir2d(-dir1.Y(), dir1.X()));
-                dc                 = gp_Dir2d(sign * gp_XY(-dir1.Y(), dir1.X()));
+                dc                 = gp_Dir2d(sign * Coords2d(-dir1.Y(), dir1.X()));
                 pnttg1sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc.XY());
                 par1sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));
                 pararg1(NbrSol)    = ElCLib::Parameter(L1, pnttg1sol(NbrSol));
                 TheSame2(NbrSol)   = 0;
                 dc                 = gp_Dir2d(origin2.XY() - Center.XY());
                 sign               = dc.Dot(gp_Dir2d(-dir2.Y(), dir2.X()));
-                dc                 = gp_Dir2d(sign * gp_XY(-dir2.Y(), dir2.X()));
+                dc                 = gp_Dir2d(sign * Coords2d(-dir2.Y(), dir2.X()));
                 pnttg2sol(NbrSol)  = gp_Pnt2d(Center.XY() + Radius * dc.XY());
                 par2sol(NbrSol)    = ElCLib::Parameter(cirsol(NbrSol), pnttg2sol(NbrSol));
                 pararg2(NbrSol)    = ElCLib::Parameter(L2, pnttg2sol(NbrSol));

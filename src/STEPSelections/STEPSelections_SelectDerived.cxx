@@ -32,7 +32,7 @@ STEPSelections_SelectDerived::STEPSelections_SelectDerived()
 }
 
 static Handle(TypeInfo) GetStepType(const Handle(StepData_ReadWriteModule)& module,
-                                         const TCollection_AsciiString&          type)
+                                         const AsciiString1&          type)
 {
   Handle(TypeInfo) atype;
   if (module.IsNull())
@@ -50,7 +50,7 @@ static Handle(TypeInfo) GetStepType(const Handle(StepData_ReadWriteModule)& modu
 Standard_Boolean STEPSelections_SelectDerived::Matches(
   const Handle(RefObject)& ent,
   const Handle(Interface_InterfaceModel)& /*model*/,
-  const TCollection_AsciiString& text,
+  const AsciiString1& text,
   const Standard_Boolean /*exact*/) const
 {
   Standard_Integer                 CN;

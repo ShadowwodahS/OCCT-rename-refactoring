@@ -27,7 +27,7 @@ class IGESGraph_IntercharacterSpacing;
 DEFINE_STANDARD_HANDLE(IGESGraph_IntercharacterSpacing, IGESData_IGESEntity)
 
 //! defines IGESIntercharacterSpacing, Type <406> Form <18>
-//! in package IGESGraph
+//! in package IGESGraph1
 //!
 //! Specifies the gap between letters when fixed-pitch
 //! spacing is used

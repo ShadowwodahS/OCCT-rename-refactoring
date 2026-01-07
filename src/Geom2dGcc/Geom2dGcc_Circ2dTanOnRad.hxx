@@ -31,7 +31,7 @@
 class Geom2dGcc_QualifiedCurve;
 class Geom2dAdaptor_Curve;
 class Geom2d_Point;
-class GccAna_Circ2dTanOnRad;
+class Circle2dTangentOnRadius;
 class Geom2dGcc_Circ2dTanOnRadGeo;
 class gp_Circ2d;
 class gp_Pnt2d;
@@ -81,10 +81,10 @@ public:
   //! Similarly, the qualified curve Qualified1 is created from
   //! an adapted curve.
   //! Adapted curves are created in the following way:
-  //! Handle(Geom2d_Curve) myCurveOn = ... ;
+  //! Handle(GeomCurve2d) myCurveOn = ... ;
   //! Geom2dAdaptor_Curve OnCurv ( myCurveOn ) ;
   //! The algorithm is then constructed with this object:
-  //! Handle(Geom2d_Curve) myCurve1 = ...
+  //! Handle(GeomCurve2d) myCurve1 = ...
   //! ;
   //! Geom2dAdaptor_Curve Adapted1 ( myCurve1 ) ;
   //! Geom2dGcc_QualifiedCurve
@@ -106,7 +106,7 @@ public:
                                            const Standard_Real         Radius,
                                            const Standard_Real         Tolerance);
 
-  Standard_EXPORT void Results(const GccAna_Circ2dTanOnRad& Circ);
+  Standard_EXPORT void Results(const Circle2dTangentOnRadius& Circ);
 
   Standard_EXPORT void Results(const Geom2dGcc_Circ2dTanOnRadGeo& Circ);
 

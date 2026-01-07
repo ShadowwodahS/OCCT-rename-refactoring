@@ -28,7 +28,7 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <GeomAbs_CurveType.hxx>
 
-class TopoDS_Face;
+class TopoFace;
 class Adaptor3d_CurveOnSurface;
 class Point3d;
 class Vector3d;
@@ -37,8 +37,8 @@ class gp_Circ;
 class gp_Elips;
 class gp_Hypr;
 class gp_Parab;
-class Geom_BezierCurve;
-class Geom_BSplineCurve;
+class BezierCurve3d;
+class BSplineCurve3d;
 class Geom_OffsetCurve;
 
 DEFINE_STANDARD_HANDLE(BRepAdaptor_Curve, Adaptor3d_Curve)
@@ -64,14 +64,14 @@ public:
 
   //! Creates a Curve  to  access the geometry of edge
   //! <E>.
-  Standard_EXPORT BRepAdaptor_Curve(const TopoDS_Edge& E);
+  Standard_EXPORT BRepAdaptor_Curve(const TopoEdge& E);
 
   //! Creates a Curve to access  the geometry  of edge
   //! <E>.   The geometry  will   be  computed using the
   //! parametric curve of <E> on the face  <F>. An Error
   //! is  raised if  the edge does  not have a pcurve on
   //! the face.
-  Standard_EXPORT BRepAdaptor_Curve(const TopoDS_Edge& E, const TopoDS_Face& F);
+  Standard_EXPORT BRepAdaptor_Curve(const TopoEdge& E, const TopoFace& F);
 
   //! Shallow copy of adaptor
   Standard_EXPORT virtual Handle(Adaptor3d_Curve) ShallowCopy() const Standard_OVERRIDE;
@@ -81,14 +81,14 @@ public:
 
   //! Sets  the Curve <me>  to access the  geometry of
   //! edge <E>.
-  Standard_EXPORT void Initialize(const TopoDS_Edge& E);
+  Standard_EXPORT void Initialize(const TopoEdge& E);
 
   //! Sets the Curve <me>  to access  the  geometry of
   //! edge <E>.  The geometry will be computed using the
   //! parametric curve of <E>  on the face <F>. An Error
   //! is raised if the edge  does not  have a pcurve  on
   //! the face.
-  Standard_EXPORT void Initialize(const TopoDS_Edge& E, const TopoDS_Face& F);
+  Standard_EXPORT void Initialize(const TopoEdge& E, const TopoFace& F);
 
   //! Returns the coordinate system of the curve.
   Standard_EXPORT const Transform3d& Trsf() const;
@@ -108,7 +108,7 @@ public:
   Standard_EXPORT const Adaptor3d_CurveOnSurface& CurveOnSurface() const;
 
   //! Returns the edge.
-  Standard_EXPORT const TopoDS_Edge& Edge() const;
+  Standard_EXPORT const TopoEdge& Edge() const;
 
   //! Returns the edge tolerance.
   Standard_EXPORT Standard_Real Tolerance() const;
@@ -210,12 +210,12 @@ public:
   //! Warning:
   //! This will make a copy of the Bezier Curve since it applies to it myTsrf.
   //! Be careful when using this method.
-  Standard_EXPORT Handle(Geom_BezierCurve) Bezier() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BezierCurve3d) Bezier() const Standard_OVERRIDE;
 
   //! Warning:
   //! This will make a copy of the BSpline Curve since it applies to it myTsrf.
   //! Be careful when using this method.
-  Standard_EXPORT Handle(Geom_BSplineCurve) BSpline() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BSplineCurve3d) BSpline() const Standard_OVERRIDE;
 
   Standard_EXPORT Handle(Geom_OffsetCurve) OffsetCurve() const Standard_OVERRIDE;
 
@@ -223,7 +223,7 @@ private:
   Transform3d                          myTrsf;
   GeomAdaptor_Curve                myCurve;
   Handle(Adaptor3d_CurveOnSurface) myConSurf;
-  TopoDS_Edge                      myEdge;
+  TopoEdge                      myEdge;
 };
 
 #endif // _BRepAdaptor_Curve_HeaderFile

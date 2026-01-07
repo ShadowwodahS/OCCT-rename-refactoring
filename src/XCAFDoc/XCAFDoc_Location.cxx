@@ -38,7 +38,7 @@ const Standard_GUID& XCAFDoc_Location::GetID()
 
 //=================================================================================================
 
-Handle(XCAFDoc_Location) XCAFDoc_Location::Set(const TDF_Label& L, const TopLoc_Location& Loc)
+Handle(XCAFDoc_Location) XCAFDoc_Location::Set(const DataLabel& L, const TopLoc_Location& Loc)
 {
   Handle(XCAFDoc_Location) A;
   if (!L.FindAttribute(XCAFDoc_Location::GetID(), A))

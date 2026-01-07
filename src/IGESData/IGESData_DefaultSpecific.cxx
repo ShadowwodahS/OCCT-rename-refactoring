@@ -26,7 +26,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESData_DefaultSpecific, IGESData_SpecificModule)
 
 IGESData_DefaultSpecific::IGESData_DefaultSpecific()
 {
-  IGESData_SpecificLib::SetGlobal(this, IGESData::Protocol());
+  IGESData_SpecificLib::SetGlobal(this, IGESData1::Protocol());
 }
 
 void IGESData_DefaultSpecific::OwnDump(const Standard_Integer /*CN*/,

@@ -38,7 +38,7 @@
 
 //=================================================================================================
 
-static Standard_Integer QATestExtremaSS(Draw_Interpretor& theInterpretor,
+static Standard_Integer QATestExtremaSS(DrawInterpreter& theInterpretor,
                                         Standard_Integer  theArgNb,
                                         const char**      theArgs)
 {
@@ -49,7 +49,7 @@ static Standard_Integer QATestExtremaSS(Draw_Interpretor& theInterpretor,
   }
 
   // Get target shape
-  TopoDS_Shape aShape = DBRep::Get(theArgs[1]);
+  TopoShape aShape = DBRep1::Get(theArgs[1]);
   if (aShape.IsNull())
   {
     std::cerr << "Error: " << theArgs[1] << " shape is null\n";
@@ -57,7 +57,7 @@ static Standard_Integer QATestExtremaSS(Draw_Interpretor& theInterpretor,
   }
 
   // Get step value
-  const Standard_Real aStep = Draw::Atof(theArgs[2]);
+  const Standard_Real aStep = Draw1::Atof(theArgs[2]);
   if (aStep <= 1e-5)
   {
     std::cerr << "Error: Step " << aStep << " is too small\n";
@@ -67,7 +67,7 @@ static Standard_Integer QATestExtremaSS(Draw_Interpretor& theInterpretor,
   Extrema_ExtFlag aFlag = Extrema_ExtFlag_MIN;
   if (theArgNb > 3)
   {
-    Standard_Integer aVal = Draw::Atoi(theArgs[3]);
+    Standard_Integer aVal = Draw1::Atoi(theArgs[3]);
     if (aVal > 0)
     {
       aFlag = aVal == 1 ? Extrema_ExtFlag_MAX : Extrema_ExtFlag_MINMAX;
@@ -149,7 +149,7 @@ static Standard_Integer QATestExtremaSS(Draw_Interpretor& theInterpretor,
 
 //=================================================================================================
 
-void QADraw::CommonCommands(Draw_Interpretor& theCommands)
+void QADraw::CommonCommands(DrawInterpreter& theCommands)
 {
   const char* group = "QA_Commands";
 
@@ -167,7 +167,7 @@ void QADraw::CommonCommands(Draw_Interpretor& theCommands)
 //==============================================================================
 // QADraw::Factory
 //==============================================================================
-void QADraw::Factory(Draw_Interpretor& theCommands)
+void QADraw::Factory(DrawInterpreter& theCommands)
 {
   // definition of QA Command
   QADraw::CommonCommands(theCommands);

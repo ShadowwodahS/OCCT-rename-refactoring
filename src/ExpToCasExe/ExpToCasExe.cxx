@@ -37,7 +37,7 @@ Handle(Express_Schema) GetSchema(const char* theFileName)
   // aScanner.set_debug(1);
   exptocas::parser aParser(&aScanner);
   aParser.parse();
-  return Express::Schema();
+  return Express1::Schema();
 }
 
 //=======================================================================
@@ -304,8 +304,8 @@ int main(int argc, char* argv[])
   //=================================
   // Step 1: parsing EXPRESS file
   // open schema file
-  OSD_Path aPath(argv[1]);
-  OSD_File aFile(aPath);
+  SystemPath aPath(argv[1]);
+  SystemFile aFile(aPath);
   if (!aFile.IsReadable())
   {
     Message::SendFail() << "Error: Cannot open " << argv[1];
@@ -370,7 +370,7 @@ int main(int argc, char* argv[])
 
   //=================================
   // Step 3: Iterate over new items and set the package name if need
-  const TCollection_AsciiString aUserName("user");
+  const AsciiString1 aUserName("user");
   for (Standard_Integer aNum = 1; aNum <= aSchema->NbItems(); aNum++)
   {
     if (aSchema->Item(aNum)->GetGenMode() == Express_Item::GM_GenByUser)

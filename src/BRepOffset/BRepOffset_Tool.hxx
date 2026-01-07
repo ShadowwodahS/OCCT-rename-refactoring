@@ -29,15 +29,15 @@
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
 #include <TopTools_IndexedMapOfShape.hxx>
-class TopoDS_Edge;
-class TopoDS_Vertex;
-class TopoDS_Face;
+class TopoEdge;
+class TopoVertex;
+class TopoFace;
 class BRepOffset_Analyse;
-class TopoDS_Wire;
-class TopoDS_Shape;
+class TopoWire;
+class TopoShape;
 class BRepAlgo_AsDes;
-class BRepAlgo_Image;
-class Geom_Curve;
+class ShapeImage;
+class GeomCurve3d;
 
 class BRepOffset_Tool
 {
@@ -46,16 +46,16 @@ public:
 
   //! <V1> is the FirstVertex ,<V2> is the Last Vertex of <Edge>
   //! taking account the orientation of Edge.
-  Standard_EXPORT static void EdgeVertices(const TopoDS_Edge& E,
-                                           TopoDS_Vertex&     V1,
-                                           TopoDS_Vertex&     V2);
+  Standard_EXPORT static void EdgeVertices(const TopoEdge& E,
+                                           TopoVertex&     V1,
+                                           TopoVertex&     V2);
 
   //! <E> is a section  between <F1> and <F2>.  Computes
   //! <O1> the orientation of <E> in <F1> influenced by <F2>.
   //! idem for <O2>.
-  Standard_EXPORT static void OrientSection(const TopoDS_Edge&  E,
-                                            const TopoDS_Face&  F1,
-                                            const TopoDS_Face&  F2,
+  Standard_EXPORT static void OrientSection(const TopoEdge&  E,
+                                            const TopoFace&  F1,
+                                            const TopoFace&  F2,
                                             TopAbs_Orientation& O1,
                                             TopAbs_Orientation& O2);
 
@@ -63,63 +63,63 @@ public:
   //! Returns TRUE if common shapes have been found.<br>
   //! <theLE> will contain the found common edges;<br>
   //! <theLV> will contain the found common vertices.
-  Standard_EXPORT static Standard_Boolean FindCommonShapes(const TopoDS_Face&    theF1,
-                                                           const TopoDS_Face&    theF2,
-                                                           TopTools_ListOfShape& theLE,
-                                                           TopTools_ListOfShape& theLV);
+  Standard_EXPORT static Standard_Boolean FindCommonShapes(const TopoFace&    theF1,
+                                                           const TopoFace&    theF2,
+                                                           ShapeList& theLE,
+                                                           ShapeList& theLV);
 
   //! Looks for the common shapes of type <theType> between shapes <theS1> and <theS2>.<br>
   //! Returns TRUE if common shapes have been found.<br>
   //! <theLSC> will contain the found common shapes.
-  Standard_EXPORT static Standard_Boolean FindCommonShapes(const TopoDS_Shape&    theS1,
-                                                           const TopoDS_Shape&    theS2,
+  Standard_EXPORT static Standard_Boolean FindCommonShapes(const TopoShape&    theS1,
+                                                           const TopoShape&    theS2,
                                                            const TopAbs_ShapeEnum theType,
-                                                           TopTools_ListOfShape&  theLSC);
+                                                           ShapeList&  theLSC);
 
   //! Computes the   Section between  <F1> and  <F2> the
   //! edges solution   are  stored in <LInt1>  with  the
   //! orientation on <F1>, the sames edges are stored in
   //! <Lint2> with the orientation on <F2>.
-  Standard_EXPORT static void Inter3D(const TopoDS_Face&    F1,
-                                      const TopoDS_Face&    F2,
-                                      TopTools_ListOfShape& LInt1,
-                                      TopTools_ListOfShape& LInt2,
+  Standard_EXPORT static void Inter3D(const TopoFace&    F1,
+                                      const TopoFace&    F2,
+                                      ShapeList& LInt1,
+                                      ShapeList& LInt2,
                                       const TopAbs_State    Side,
-                                      const TopoDS_Edge&    RefEdge,
-                                      const TopoDS_Face&    RefFace1,
-                                      const TopoDS_Face&    RefFace2);
+                                      const TopoEdge&    RefEdge,
+                                      const TopoFace&    RefFace1,
+                                      const TopoFace&    RefFace2);
 
   //! Find if the edges <Edges> of the face <F2> are on
   //! the face <F1>.
   //! Set in <LInt1> <LInt2> the updated edges.
   //! If all the edges are computed, returns true.
-  Standard_EXPORT static Standard_Boolean TryProject(const TopoDS_Face&          F1,
-                                                     const TopoDS_Face&          F2,
-                                                     const TopTools_ListOfShape& Edges,
-                                                     TopTools_ListOfShape&       LInt1,
-                                                     TopTools_ListOfShape&       LInt2,
+  Standard_EXPORT static Standard_Boolean TryProject(const TopoFace&          F1,
+                                                     const TopoFace&          F2,
+                                                     const ShapeList& Edges,
+                                                     ShapeList&       LInt1,
+                                                     ShapeList&       LInt2,
                                                      const TopAbs_State          Side,
                                                      const Standard_Real         TolConf);
 
-  Standard_EXPORT static void PipeInter(const TopoDS_Face&    F1,
-                                        const TopoDS_Face&    F2,
-                                        TopTools_ListOfShape& LInt1,
-                                        TopTools_ListOfShape& LInt2,
+  Standard_EXPORT static void PipeInter(const TopoFace&    F1,
+                                        const TopoFace&    F2,
+                                        ShapeList& LInt1,
+                                        ShapeList& LInt2,
                                         const TopAbs_State    Side);
 
-  Standard_EXPORT static void Inter2d(const TopoDS_Face&    F,
-                                      const TopoDS_Edge&    E1,
-                                      const TopoDS_Edge&    E2,
-                                      TopTools_ListOfShape& LV,
+  Standard_EXPORT static void Inter2d(const TopoFace&    F,
+                                      const TopoEdge&    E1,
+                                      const TopoEdge&    E2,
+                                      ShapeList& LV,
                                       const Standard_Real   Tol);
 
-  Standard_EXPORT static void InterOrExtent(const TopoDS_Face&    F1,
-                                            const TopoDS_Face&    F2,
-                                            TopTools_ListOfShape& LInt1,
-                                            TopTools_ListOfShape& LInt2,
+  Standard_EXPORT static void InterOrExtent(const TopoFace&    F1,
+                                            const TopoFace&    F2,
+                                            ShapeList& LInt1,
+                                            ShapeList& LInt2,
                                             const TopAbs_State    Side);
 
-  Standard_EXPORT static void CheckBounds(const TopoDS_Face&        F,
+  Standard_EXPORT static void CheckBounds(const TopoFace&        F,
                                           const BRepOffset_Analyse& Analyse,
                                           Standard_Boolean&         enlargeU,
                                           Standard_Boolean&         enlargeVfirst,
@@ -142,8 +142,8 @@ public:
   //! set the values of enlargement on correspondent directions.
   //! If some of them equals -1, the default value of enlargement is used.
   Standard_EXPORT static Standard_Boolean EnLargeFace(
-    const TopoDS_Face&     F,
-    TopoDS_Face&           NF,
+    const TopoFace&     F,
+    TopoFace&           NF,
     const Standard_Boolean ChangeGeom,
     const Standard_Boolean UpDatePCurve       = Standard_False,
     const Standard_Boolean enlargeU           = Standard_True,
@@ -155,27 +155,27 @@ public:
     const Standard_Real    theLenBeforeVfirst = -1.,
     const Standard_Real    theLenAfterVlast   = -1.);
 
-  Standard_EXPORT static void ExtentFace(const TopoDS_Face&            F,
+  Standard_EXPORT static void ExtentFace(const TopoFace&            F,
                                          TopTools_DataMapOfShapeShape& ConstShapes,
                                          TopTools_DataMapOfShapeShape& ToBuild,
                                          const TopAbs_State            Side,
                                          const Standard_Real           TolConf,
-                                         TopoDS_Face&                  NF);
+                                         TopoFace&                  NF);
 
   //! Via the wire explorer store in <NOnV1> for
   //! an Edge <E> of <W> his Edge neighbour on the first
   //! vertex <V1> of <E>.
   //! Store in NOnV2 the Neighbour of <E>on the last
   //! vertex <V2> of <E>.
-  Standard_EXPORT static void BuildNeighbour(const TopoDS_Wire&            W,
-                                             const TopoDS_Face&            F,
+  Standard_EXPORT static void BuildNeighbour(const TopoWire&            W,
+                                             const TopoFace&            F,
                                              TopTools_DataMapOfShapeShape& NOnV1,
                                              TopTools_DataMapOfShapeShape& NOnV2);
 
   //! Store in MVE for a vertex <V>  in <S> the incident
   //! edges <E> in <S>.
   //! An Edge is Store only one Time for a vertex.
-  Standard_EXPORT static void MapVertexEdges(const TopoDS_Shape&                 S,
+  Standard_EXPORT static void MapVertexEdges(const TopoShape&                 S,
                                              TopTools_DataMapOfShapeListOfShape& MVE);
 
   //! Remove the non valid   part of an offsetshape
@@ -184,21 +184,21 @@ public:
   //! 2 - Remove all the shapes not  valid in the result
   //! (according to the side of offsetting)
   //! in this version only the first point is implemented.
-  Standard_EXPORT static TopoDS_Shape Deboucle3D(const TopoDS_Shape&        S,
+  Standard_EXPORT static TopoShape Deboucle3D(const TopoShape&        S,
                                                  const TopTools_MapOfShape& Boundary);
 
-  Standard_EXPORT static void CorrectOrientation(const TopoDS_Shape&               SI,
+  Standard_EXPORT static void CorrectOrientation(const TopoShape&               SI,
                                                  const TopTools_IndexedMapOfShape& NewEdges,
                                                  Handle(BRepAlgo_AsDes)&           AsDes,
-                                                 BRepAlgo_Image&                   InitOffset,
+                                                 ShapeImage&                   InitOffset,
                                                  const Standard_Real               Offset);
 
-  Standard_EXPORT static Standard_Real Gabarit(const Handle(Geom_Curve)& aCurve);
+  Standard_EXPORT static Standard_Real Gabarit(const Handle(GeomCurve3d)& aCurve);
 
   //! Compares the normal directions of the planar faces and returns
   //! TRUE if the directions are the same with the given precision.<br>
-  Standard_EXPORT static Standard_Boolean CheckPlanesNormals(const TopoDS_Face&  theFace1,
-                                                             const TopoDS_Face&  theFace2,
+  Standard_EXPORT static Standard_Boolean CheckPlanesNormals(const TopoFace&  theFace1,
+                                                             const TopoFace&  theFace2,
                                                              const Standard_Real theTolAng = 1.e-8);
 
 protected:

@@ -23,7 +23,7 @@
 #include <gp_Pnt.hxx>
 #include <SelectMgr_Selection.hxx>
 
-class Geom_Line;
+class GeomLine;
 class Geom_Axis1Placement;
 class Geom_Axis2Placement;
 class Prs3d_LineAspect;
@@ -34,32 +34,32 @@ class Prs3d_LineAspect;
 //! shape, for example, from one of the axes. Conversely,
 //! an axis can be created to build a revolved shape and
 //! then situated relative to one of the axes of the view.
-class AIS_Axis : public AIS_InteractiveObject
+class VisualAxis : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_Axis, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(VisualAxis, VisualEntity)
 public:
   //! Initializes the line aComponent
-  Standard_EXPORT AIS_Axis(const Handle(Geom_Line)& aComponent);
+  Standard_EXPORT VisualAxis(const Handle(GeomLine)& aComponent);
 
   //! initializes the axis2 position
   //! aComponent. The coordinate system used is right-handed.
-  Standard_EXPORT AIS_Axis(const Handle(Geom_Axis2Placement)& aComponent,
+  Standard_EXPORT VisualAxis(const Handle(Geom_Axis2Placement)& aComponent,
                            const AIS_TypeOfAxis               anAxisType);
 
   //! Initializes the axis1 position anAxis.
-  Standard_EXPORT AIS_Axis(const Handle(Geom_Axis1Placement)& anAxis);
+  Standard_EXPORT VisualAxis(const Handle(Geom_Axis1Placement)& anAxis);
 
   //! Initializes the ray as axis with start point and direction
   //! @param[in] theAxis Start point and direction of the ray
   //! @param[in] theLength Optional length of the ray (ray is infinite by default).
-  Standard_EXPORT AIS_Axis(const Axis3d& theAxis, const Standard_Real theLength = -1);
+  Standard_EXPORT VisualAxis(const Axis3d& theAxis, const Standard_Real theLength = -1);
 
   //! Returns the axis entity aComponent and identifies it
   //! as a component of a shape.
-  const Handle(Geom_Line)& Component() const { return myComponent; }
+  const Handle(GeomLine)& Component() const { return myComponent; }
 
   //! Sets the coordinates of the lin aComponent.
-  Standard_EXPORT void SetComponent(const Handle(Geom_Line)& aComponent);
+  Standard_EXPORT void SetComponent(const Handle(GeomLine)& aComponent);
 
   //! Returns the position of axis2 and   positions it by
   //! identifying it as the x, y, or z axis and giving its
@@ -84,7 +84,7 @@ public:
 
   //! Returns a signature of 2 for axis datums. When you
   //! activate mode 2 by a signature, you pick AIS objects
-  //! of type AIS_Axis.
+  //! of type VisualAxis.
   Standard_Boolean IsXYZAxis() const { return myIsXYZAxis; }
 
   //! Returns true if the interactive object accepts the display mode aMode.
@@ -114,13 +114,13 @@ private:
                                        const Handle(Prs3d_Presentation)&         thePrs,
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT void ComputeFields();
 
 private:
-  Handle(Geom_Line)           myComponent;
+  Handle(GeomLine)           myComponent;
   Handle(Geom_Axis2Placement) myAx2;
   Point3d                      myPfirst;
   Point3d                      myPlast;
@@ -132,6 +132,6 @@ private:
   Handle(Prs3d_LineAspect)    myLineAspect;
 };
 
-DEFINE_STANDARD_HANDLE(AIS_Axis, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(VisualAxis, VisualEntity)
 
 #endif // _AIS_Axis_HeaderFile

@@ -22,7 +22,7 @@
 
 #include <IFSelect_Dispatch.hxx>
 #include <Standard_Integer.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 class Interface_Graph;
 class IFGraph_SubPartsIterator;
 
@@ -40,7 +40,7 @@ public:
   Standard_EXPORT IFSelect_DispPerOne();
 
   //! Returns as Label, "One File per Input Entity"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   //! Returns True, maximum limit is given as <nbent>
   Standard_EXPORT virtual Standard_Boolean LimitedMax(const Standard_Integer nbent,

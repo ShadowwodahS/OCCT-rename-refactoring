@@ -69,7 +69,7 @@ class ShapePersistent_Geom_Curve : private ShapePersistent_Geom
 
     inline Standard_CString PName() const { return "PGeom_BezierCurve"; }
 
-    virtual Handle(Geom_Curve) Import() const;
+    virtual Handle(GeomCurve3d) Import() const;
 
   private:
     Standard_Boolean                     myRational;
@@ -111,7 +111,7 @@ class ShapePersistent_Geom_Curve : private ShapePersistent_Geom
 
     inline Standard_CString PName() const { return "PGeom_BSplineCurve"; }
 
-    virtual Handle(Geom_Curve) Import() const;
+    virtual Handle(GeomCurve3d) Import() const;
 
   private:
     Standard_Boolean                        myRational;
@@ -151,7 +151,7 @@ class ShapePersistent_Geom_Curve : private ShapePersistent_Geom
 
     inline Standard_CString PName() const { return "PGeom_TrimmedCurve"; }
 
-    virtual Handle(Geom_Curve) Import() const;
+    virtual Handle(GeomCurve3d) Import() const;
 
   private:
     Handle(Curve) myBasisCurve;
@@ -186,7 +186,7 @@ class ShapePersistent_Geom_Curve : private ShapePersistent_Geom
 
     inline Standard_CString PName() const { return "PGeom_OffsetCurve"; }
 
-    virtual Handle(Geom_Curve) Import() const;
+    virtual Handle(GeomCurve3d) Import() const;
 
   private:
     Handle(Curve) myBasisCurve;
@@ -195,10 +195,10 @@ class ShapePersistent_Geom_Curve : private ShapePersistent_Geom
   };
 
 public:
-  typedef instance<Curve, Geom_Line, Axis3d> Line;
+  typedef instance<Curve, GeomLine, Axis3d> Line;
 
   typedef subBase_gp<Curve, Frame3d>                Conic;
-  typedef instance<Conic, Geom_Circle, gp_Circ>    Circle;
+  typedef instance<Conic, GeomCircle, gp_Circ>    Circle;
   typedef instance<Conic, Geom_Ellipse, gp_Elips>  Ellipse;
   typedef instance<Conic, Geom_Hyperbola, gp_Hypr> Hyperbola;
   typedef instance<Conic, Geom_Parabola, gp_Parab> Parabola;
@@ -212,10 +212,10 @@ public:
 
 public:
   //! Create a persistent object for a line
-  Standard_EXPORT static Handle(Curve) Translate(const Handle(Geom_Line)&          theCurve,
+  Standard_EXPORT static Handle(Curve) Translate(const Handle(GeomLine)&          theCurve,
                                                  StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a circle
-  Standard_EXPORT static Handle(Curve) Translate(const Handle(Geom_Circle)&        theCurve,
+  Standard_EXPORT static Handle(Curve) Translate(const Handle(GeomCircle)&        theCurve,
                                                  StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a ellipse
   Standard_EXPORT static Handle(Curve) Translate(const Handle(Geom_Ellipse)&       theCurve,
@@ -227,10 +227,10 @@ public:
   Standard_EXPORT static Handle(Curve) Translate(const Handle(Geom_Parabola)&      theCurve,
                                                  StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a Bezier curve
-  Standard_EXPORT static Handle(Curve) Translate(const Handle(Geom_BezierCurve)&   theCurve,
+  Standard_EXPORT static Handle(Curve) Translate(const Handle(BezierCurve3d)&   theCurve,
                                                  StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a BSpline curve
-  Standard_EXPORT static Handle(Curve) Translate(const Handle(Geom_BSplineCurve)&  theCurve,
+  Standard_EXPORT static Handle(Curve) Translate(const Handle(BSplineCurve3d)&  theCurve,
                                                  StdObjMgt_TransientPersistentMap& theMap);
   //! Create a persistent object for a trimmed curve
   Standard_EXPORT static Handle(Curve) Translate(const Handle(Geom_TrimmedCurve)&  theCurve,
@@ -244,11 +244,11 @@ public:
 // Line
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, Geom_Line, Axis3d>::
+Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, GeomLine, Axis3d>::
   PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, Geom_Line, Axis3d>::Write(
+void ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, GeomLine, Axis3d>::Write(
   StdObjMgt_WriteData& theWriteData) const;
 
 //=======================================================================
@@ -263,10 +263,10 @@ Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Curve, F
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom::
-  instance<ShapePersistent_Geom_Curve::Conic, Geom_Circle, gp_Circ>::PName() const;
+  instance<ShapePersistent_Geom_Curve::Conic, GeomCircle, gp_Circ>::PName() const;
 
 template <>
-void ShapePersistent_Geom::instance<ShapePersistent_Geom_Curve::Conic, Geom_Circle, gp_Circ>::Write(
+void ShapePersistent_Geom::instance<ShapePersistent_Geom_Curve::Conic, GeomCircle, gp_Circ>::Write(
   StdObjMgt_WriteData& theWriteData) const;
 
 //=======================================================================

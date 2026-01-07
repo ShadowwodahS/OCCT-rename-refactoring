@@ -32,14 +32,14 @@ IMPLEMENT_DERIVED_ATTRIBUTE_WITH_TYPE(XCAFDoc_ClippingPlaneTool,
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_ClippingPlaneTool::BaseLabel() const
+DataLabel XCAFDoc_ClippingPlaneTool::BaseLabel() const
 {
   return Label();
 }
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ClippingPlaneTool::IsClippingPlane(const TDF_Label& theLabel) const
+Standard_Boolean XCAFDoc_ClippingPlaneTool::IsClippingPlane(const DataLabel& theLabel) const
 {
   if (theLabel.Father() != Label())
     return Standard_False;
@@ -52,9 +52,9 @@ Standard_Boolean XCAFDoc_ClippingPlaneTool::IsClippingPlane(const TDF_Label& the
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ClippingPlaneTool::GetClippingPlane(const TDF_Label&            theLabel,
+Standard_Boolean XCAFDoc_ClippingPlaneTool::GetClippingPlane(const DataLabel&            theLabel,
                                                              gp_Pln&                     thePlane,
-                                                             TCollection_ExtendedString& theName,
+                                                             UtfString& theName,
                                                              Standard_Boolean& theCapping) const
 {
   if (theLabel.Father() != Label())
@@ -65,12 +65,12 @@ Standard_Boolean XCAFDoc_ClippingPlaneTool::GetClippingPlane(const TDF_Label&   
     return Standard_False;
 
   TDataXtd_Geometry::Plane(aPlaneAttribute->Label(), thePlane);
-  Handle(TDataStd_Name) aNameAttribute;
-  if (theLabel.FindAttribute(TDataStd_Name::GetID(), aNameAttribute))
+  Handle(NameAttribute) aNameAttribute;
+  if (theLabel.FindAttribute(NameAttribute::GetID(), aNameAttribute))
     theName = aNameAttribute->Get();
 
-  Handle(TDataStd_Integer) aCappingAttribute;
-  if (theLabel.FindAttribute(TDataStd_Integer::GetID(), aCappingAttribute))
+  Handle(IntAttribute) aCappingAttribute;
+  if (theLabel.FindAttribute(IntAttribute::GetID(), aCappingAttribute))
     theCapping = (aCappingAttribute->Get() == 1);
 
   return Standard_True;
@@ -79,12 +79,12 @@ Standard_Boolean XCAFDoc_ClippingPlaneTool::GetClippingPlane(const TDF_Label&   
 //=================================================================================================
 
 Standard_Boolean XCAFDoc_ClippingPlaneTool::GetClippingPlane(
-  const TDF_Label&                  theLabel,
+  const DataLabel&                  theLabel,
   gp_Pln&                           thePlane,
   Handle(TCollection_HAsciiString)& theName,
   Standard_Boolean&                 theCapping) const
 {
-  TCollection_ExtendedString anExtName;
+  UtfString anExtName;
   if (!GetClippingPlane(theLabel, thePlane, anExtName, theCapping))
     return Standard_False;
   theName = new TCollection_HAsciiString(anExtName);
@@ -93,17 +93,17 @@ Standard_Boolean XCAFDoc_ClippingPlaneTool::GetClippingPlane(
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_ClippingPlaneTool::AddClippingPlane(
+DataLabel XCAFDoc_ClippingPlaneTool::AddClippingPlane(
   const gp_Pln&                     thePlane,
-  const TCollection_ExtendedString& theName) const
+  const UtfString& theName) const
 {
-  TDF_Label         aLabel;
+  DataLabel         aLabel;
   TDF_LabelSequence aClippingPlanes;
   GetClippingPlanes(aClippingPlanes);
   for (Standard_Integer i = 1; i <= aClippingPlanes.Length(); i++)
   {
     gp_Pln                     aPlane;
-    TCollection_ExtendedString aName;
+    UtfString aName;
     Standard_Boolean           aCapping;
     GetClippingPlane(aClippingPlanes.Value(i), aPlane, aName, aCapping);
     if (!aName.IsEqual(theName))
@@ -123,48 +123,48 @@ TDF_Label XCAFDoc_ClippingPlaneTool::AddClippingPlane(
 
   TDataXtd_Plane::Set(aLabel, thePlane);
   if (!theName.IsEmpty())
-    TDataStd_Name::Set(aLabel, theName);
+    NameAttribute::Set(aLabel, theName);
 
   return aLabel;
 }
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_ClippingPlaneTool::AddClippingPlane(
+DataLabel XCAFDoc_ClippingPlaneTool::AddClippingPlane(
   const gp_Pln&                           thePlane,
   const Handle(TCollection_HAsciiString)& theName) const
 {
-  TCollection_ExtendedString anExtName = TCollection_ExtendedString(theName->String());
+  UtfString anExtName = UtfString(theName->String());
   return AddClippingPlane(thePlane, anExtName);
 }
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_ClippingPlaneTool::AddClippingPlane(const gp_Pln&                     thePlane,
-                                                      const TCollection_ExtendedString& theName,
+DataLabel XCAFDoc_ClippingPlaneTool::AddClippingPlane(const gp_Pln&                     thePlane,
+                                                      const UtfString& theName,
                                                       const Standard_Boolean theCapping) const
 {
-  TDF_Label        aLabel      = AddClippingPlane(thePlane, theName);
+  DataLabel        aLabel      = AddClippingPlane(thePlane, theName);
   Standard_Integer aCappingVal = (theCapping) ? 1 : 0;
-  TDataStd_Integer::Set(aLabel, aCappingVal);
+  IntAttribute::Set(aLabel, aCappingVal);
 
   return aLabel;
 }
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_ClippingPlaneTool::AddClippingPlane(
+DataLabel XCAFDoc_ClippingPlaneTool::AddClippingPlane(
   const gp_Pln&                           thePlane,
   const Handle(TCollection_HAsciiString)& theName,
   const Standard_Boolean                  theCapping) const
 {
-  TCollection_ExtendedString anExtName = TCollection_ExtendedString(theName->String());
+  UtfString anExtName = UtfString(theName->String());
   return AddClippingPlane(thePlane, anExtName, theCapping);
 }
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ClippingPlaneTool::RemoveClippingPlane(const TDF_Label& theLabel) const
+Standard_Boolean XCAFDoc_ClippingPlaneTool::RemoveClippingPlane(const DataLabel& theLabel) const
 {
   Handle(TDataStd_TreeNode) Node;
   if (!IsClippingPlane(theLabel) || theLabel.FindAttribute(XCAFDoc::ViewRefPlaneGUID(), Node))
@@ -183,7 +183,7 @@ void XCAFDoc_ClippingPlaneTool::GetClippingPlanes(TDF_LabelSequence& theLabels) 
   TDF_ChildIDIterator ChildIDIterator(Label(), TDataXtd_Plane::GetID());
   for (; ChildIDIterator.More(); ChildIDIterator.Next())
   {
-    TDF_Label aLabel = ChildIDIterator.Value()->Label();
+    DataLabel aLabel = ChildIDIterator.Value()->Label();
     if (IsClippingPlane(aLabel))
       theLabels.Append(aLabel);
   }
@@ -191,9 +191,9 @@ void XCAFDoc_ClippingPlaneTool::GetClippingPlanes(TDF_LabelSequence& theLabels) 
 
 //=================================================================================================
 
-void XCAFDoc_ClippingPlaneTool::UpdateClippingPlane(const TDF_Label&                  theLabel,
+void XCAFDoc_ClippingPlaneTool::UpdateClippingPlane(const DataLabel&                  theLabel,
                                                     const gp_Pln&                     thePlane,
-                                                    const TCollection_ExtendedString& theName) const
+                                                    const UtfString& theName) const
 {
   if (theLabel.Father() != Label())
     return;
@@ -203,32 +203,32 @@ void XCAFDoc_ClippingPlaneTool::UpdateClippingPlane(const TDF_Label&            
     return;
   theLabel.ForgetAttribute(TDataXtd_Plane::GetID());
   TDataXtd_Plane::Set(theLabel, thePlane);
-  theLabel.ForgetAttribute(TDataStd_Name::GetID());
-  TDataStd_Name::Set(theLabel, theName);
+  theLabel.ForgetAttribute(NameAttribute::GetID());
+  NameAttribute::Set(theLabel, theName);
 }
 
 //=================================================================================================
 
-void XCAFDoc_ClippingPlaneTool::SetCapping(const TDF_Label&       theClippingPlaneL,
+void XCAFDoc_ClippingPlaneTool::SetCapping(const DataLabel&       theClippingPlaneL,
                                            const Standard_Boolean theCapping)
 {
   if (theClippingPlaneL.Father() != Label())
     return;
 
-  theClippingPlaneL.ForgetAttribute(TDataStd_Integer::GetID());
+  theClippingPlaneL.ForgetAttribute(IntAttribute::GetID());
   Standard_Integer aCappingVal = (theCapping) ? 1 : 0;
-  TDataStd_Integer::Set(theClippingPlaneL, aCappingVal);
+  IntAttribute::Set(theClippingPlaneL, aCappingVal);
 }
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ClippingPlaneTool::GetCapping(const TDF_Label& theClippingPlaneL) const
+Standard_Boolean XCAFDoc_ClippingPlaneTool::GetCapping(const DataLabel& theClippingPlaneL) const
 {
   if (theClippingPlaneL.Father() != Label())
     return Standard_False;
 
-  Handle(TDataStd_Integer) aCappingAttribute;
-  if (theClippingPlaneL.FindAttribute(TDataStd_Integer::GetID(), aCappingAttribute))
+  Handle(IntAttribute) aCappingAttribute;
+  if (theClippingPlaneL.FindAttribute(IntAttribute::GetID(), aCappingAttribute))
     return (aCappingAttribute->Get() == 1);
 
   return Standard_False;
@@ -236,14 +236,14 @@ Standard_Boolean XCAFDoc_ClippingPlaneTool::GetCapping(const TDF_Label& theClipp
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_ClippingPlaneTool::GetCapping(const TDF_Label&  theClippingPlaneL,
+Standard_Boolean XCAFDoc_ClippingPlaneTool::GetCapping(const DataLabel&  theClippingPlaneL,
                                                        Standard_Boolean& theCapping) const
 {
   if (theClippingPlaneL.Father() != Label())
     return Standard_False;
 
-  Handle(TDataStd_Integer) aCappingAttribute;
-  if (theClippingPlaneL.FindAttribute(TDataStd_Integer::GetID(), aCappingAttribute))
+  Handle(IntAttribute) aCappingAttribute;
+  if (theClippingPlaneL.FindAttribute(IntAttribute::GetID(), aCappingAttribute))
   {
     theCapping = (aCappingAttribute->Get() == 1);
     return Standard_True;
@@ -262,7 +262,7 @@ const Standard_GUID& XCAFDoc_ClippingPlaneTool::GetID()
 
 //=================================================================================================
 
-Handle(XCAFDoc_ClippingPlaneTool) XCAFDoc_ClippingPlaneTool::Set(const TDF_Label& L)
+Handle(XCAFDoc_ClippingPlaneTool) XCAFDoc_ClippingPlaneTool::Set(const DataLabel& L)
 {
   Handle(XCAFDoc_ClippingPlaneTool) A;
   if (!L.FindAttribute(XCAFDoc_ClippingPlaneTool::GetID(), A))

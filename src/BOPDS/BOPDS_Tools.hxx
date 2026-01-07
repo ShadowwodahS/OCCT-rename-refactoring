@@ -21,10 +21,10 @@
 #include <Standard_Integer.hxx>
 #include <TopAbs_ShapeEnum.hxx>
 
-//! The class BOPDS_Tools contains
+//! The class Tools1 contains
 //! a set auxiliary static functions
 //! of the package BOPDS
-class BOPDS_Tools
+class Tools1
 {
 public:
   DEFINE_STANDARD_ALLOC

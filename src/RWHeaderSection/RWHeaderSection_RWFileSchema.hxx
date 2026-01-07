@@ -28,12 +28,12 @@ class HeaderSection_FileSchema;
 class StepData_StepWriter;
 
 //! Read & Write Module for FileSchema
-class RWHeaderSection_RWFileSchema
+class FileSchemaWriter
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT RWHeaderSection_RWFileSchema();
+  Standard_EXPORT FileSchemaWriter();
 
   Standard_EXPORT void ReadStep(const Handle(StepData_StepReaderData)&  data,
                                 const Standard_Integer                  num,

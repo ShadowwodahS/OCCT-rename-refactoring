@@ -15,7 +15,7 @@
 // commercial license or contractual agreement.
 
 // modified by mps (juillet 96 ): on utilise BRepAdaptor a la place de
-// GeomAdaptor dans Initialize et Perform.
+// GeomAdaptor1 dans Initialize et Perform.
 
 #include <BRepExtrema_ExtFF.hxx>
 
@@ -28,7 +28,7 @@
 
 //=================================================================================================
 
-BRepExtrema_ExtFF::BRepExtrema_ExtFF(const TopoDS_Face& F1, const TopoDS_Face& F2)
+BRepExtrema_ExtFF::BRepExtrema_ExtFF(const TopoFace& F1, const TopoFace& F2)
 {
   Initialize(F2);
   Perform(F1, F2);
@@ -36,24 +36,24 @@ BRepExtrema_ExtFF::BRepExtrema_ExtFF(const TopoDS_Face& F1, const TopoDS_Face& F
 
 //=================================================================================================
 
-void BRepExtrema_ExtFF::Initialize(const TopoDS_Face& F2)
+void BRepExtrema_ExtFF::Initialize(const TopoFace& F2)
 {
   BRepAdaptor_Surface Surf(F2);
   if (Surf.GetType() == GeomAbs_OtherSurface)
     return; // protect against non-geometric type (e.g. triangulation)
 
   myHS              = new BRepAdaptor_Surface(Surf);
-  Standard_Real Tol = Min(BRep_Tool::Tolerance(F2), Precision::Confusion());
+  Standard_Real Tol = Min(BRepInspector::Tolerance(F2), Precision::Confusion());
   Tol               = Min(Surf.UResolution(Tol), Surf.VResolution(Tol));
   Tol               = Max(Tol, Precision::PConfusion());
   Standard_Real U1, U2, V1, V2;
-  BRepTools::UVBounds(F2, U1, U2, V1, V2);
+  BRepTools1::UVBounds(F2, U1, U2, V1, V2);
   myExtSS.Initialize(*myHS, U1, U2, V1, V2, Tol);
 }
 
 //=================================================================================================
 
-void BRepExtrema_ExtFF::Perform(const TopoDS_Face& F1, const TopoDS_Face& F2)
+void BRepExtrema_ExtFF::Perform(const TopoFace& F1, const TopoFace& F2)
 {
   mySqDist.Clear();
   myPointsOnS1.Clear();
@@ -64,11 +64,11 @@ void BRepExtrema_ExtFF::Perform(const TopoDS_Face& F1, const TopoDS_Face& F2)
     return; // protect against non-geometric type (e.g. triangulation)
 
   Handle(BRepAdaptor_Surface) HS1  = new BRepAdaptor_Surface(Surf1);
-  Standard_Real               Tol1 = Min(BRep_Tool::Tolerance(F1), Precision::Confusion());
+  Standard_Real               Tol1 = Min(BRepInspector::Tolerance(F1), Precision::Confusion());
   Tol1                             = Min(Surf1.UResolution(Tol1), Surf1.VResolution(Tol1));
   Tol1                             = Max(Tol1, Precision::PConfusion());
   Standard_Real U1, U2, V1, V2;
-  BRepTools::UVBounds(F1, U1, U2, V1, V2);
+  BRepTools1::UVBounds(F1, U1, U2, V1, V2);
   myExtSS.Perform(*HS1, U1, U2, V1, V2, Tol1);
 
   if (!myExtSS.IsDone())
@@ -80,7 +80,7 @@ void BRepExtrema_ExtFF::Perform(const TopoDS_Face& F1, const TopoDS_Face& F2)
   {
     // Exploration of points and classification
     BRepClass_FaceClassifier classifier;
-    const Standard_Real      Tol2 = BRep_Tool::Tolerance(F2);
+    const Standard_Real      Tol2 = BRepInspector::Tolerance(F2);
     Extrema_POnSurf          P1, P2;
 
     Standard_Integer i;

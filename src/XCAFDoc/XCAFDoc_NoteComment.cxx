@@ -28,7 +28,7 @@ const Standard_GUID& XCAFDoc_NoteComment::GetID()
 
 //=================================================================================================
 
-Handle(XCAFDoc_NoteComment) XCAFDoc_NoteComment::Get(const TDF_Label& theLabel)
+Handle(XCAFDoc_NoteComment) XCAFDoc_NoteComment::Get(const DataLabel& theLabel)
 {
   Handle(XCAFDoc_NoteComment) aThis;
   theLabel.FindAttribute(XCAFDoc_NoteComment::GetID(), aThis);
@@ -37,10 +37,10 @@ Handle(XCAFDoc_NoteComment) XCAFDoc_NoteComment::Get(const TDF_Label& theLabel)
 
 //=================================================================================================
 
-Handle(XCAFDoc_NoteComment) XCAFDoc_NoteComment::Set(const TDF_Label&                  theLabel,
-                                                     const TCollection_ExtendedString& theUserName,
-                                                     const TCollection_ExtendedString& theTimeStamp,
-                                                     const TCollection_ExtendedString& theComment)
+Handle(XCAFDoc_NoteComment) XCAFDoc_NoteComment::Set(const DataLabel&                  theLabel,
+                                                     const UtfString& theUserName,
+                                                     const UtfString& theTimeStamp,
+                                                     const UtfString& theComment)
 {
   Handle(XCAFDoc_NoteComment) aNoteComment;
   if (!theLabel.IsNull() && !theLabel.FindAttribute(XCAFDoc_NoteComment::GetID(), aNoteComment))
@@ -59,7 +59,7 @@ XCAFDoc_NoteComment::XCAFDoc_NoteComment() {}
 
 //=================================================================================================
 
-void XCAFDoc_NoteComment::Set(const TCollection_ExtendedString& theComment)
+void XCAFDoc_NoteComment::Set(const UtfString& theComment)
 {
   Backup();
 

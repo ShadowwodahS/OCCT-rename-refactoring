@@ -1,6 +1,6 @@
 // Created on : Tue May 12 14:11:46 2020
 // Created by: Igor KHOZHANOV
-// Generator:	Express (EXPRESS -> CASCADE/XSTEP Translator) V2.0
+// Generator:	Express1 (EXPRESS -> CASCADE/XSTEP Translator) V2.0
 // Copyright (c) Open CASCADE 2020
 //
 // This file is part of Open CASCADE Technology software library.

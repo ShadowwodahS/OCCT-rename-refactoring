@@ -35,11 +35,11 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Gets file name and path.
-  Standard_EXPORT void Path(OSD_Path& Name) const;
+  Standard_EXPORT void Path(SystemPath& Name) const;
 
   //! Sets file name and path.
   //! If a name is not found, it raises a program error.
-  Standard_EXPORT void SetPath(const OSD_Path& Name);
+  Standard_EXPORT void SetPath(const SystemPath& Name);
 
   //! Returns TRUE if <me> exists.
   Standard_EXPORT Standard_Boolean Exists();
@@ -48,10 +48,10 @@ public:
   Standard_EXPORT void Remove();
 
   //! Moves <me> into another directory
-  Standard_EXPORT void Move(const OSD_Path& NewPath);
+  Standard_EXPORT void Move(const SystemPath& NewPath);
 
   //! Copies <me> to another FileNode
-  Standard_EXPORT void Copy(const OSD_Path& ToPath);
+  Standard_EXPORT void Copy(const SystemPath& ToPath);
 
   // None of the existing security APIs are supported in a UWP applications
   //! Returns access mode of <me>.
@@ -91,13 +91,13 @@ protected:
 
   //! Instantiates the object FileNode storing its name.
   //! If a name is not found, it raises a program error.
-  Standard_EXPORT OSD_FileNode(const OSD_Path& Name);
+  Standard_EXPORT OSD_FileNode(const SystemPath& Name);
 
   //! Destructor is protected for safer inheritance
   ~OSD_FileNode() {}
 
 protected:
-  OSD_Path  myPath;
+  SystemPath  myPath;
   OSD_Error myError;
 };
 

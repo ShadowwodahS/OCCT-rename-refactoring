@@ -36,7 +36,7 @@ StdPrs_ToolRFace::StdPrs_ToolRFace(const Handle(BRepAdaptor_Surface)& theSurface
 
 //=================================================================================================
 
-const TopoDS_Edge& StdPrs_ToolRFace::Edge() const
+const TopoEdge& StdPrs_ToolRFace::Edge() const
 {
   return TopoDS::Edge(myExplorer.Current());
 }
@@ -55,8 +55,8 @@ void StdPrs_ToolRFace::next()
       continue;
     }
 
-    if (Handle(Geom2d_Curve) aCurve =
-          BRep_Tool::CurveOnSurface(TopoDS::Edge(myExplorer.Current()), myFace, aParamU1, aParamU2))
+    if (Handle(GeomCurve2d) aCurve =
+          BRepInspector::CurveOnSurface(TopoDS::Edge(myExplorer.Current()), myFace, aParamU1, aParamU2))
     {
       myCurve.Load(aCurve, aParamU1, aParamU2);
       return;

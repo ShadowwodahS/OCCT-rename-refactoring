@@ -25,7 +25,7 @@
 #include <Select3D_SensitiveSegment.hxx>
 #include <SelectMgr_EntityOwner.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_CameraFrustum, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_CameraFrustum, VisualEntity)
 
 namespace
 {
@@ -36,7 +36,7 @@ static const Quantity_Color     THE_DEFAULT_COLOR        = Quantity_NOC_WHITE;
 //=================================================================================================
 
 AIS_CameraFrustum::AIS_CameraFrustum()
-    : myPoints(0, Graphic3d_Camera::FrustumVerticesNB)
+    : myPoints(0, CameraOn3d::FrustumVerticesNB)
 {
   myDrawer->SetLineAspect(new Prs3d_LineAspect(THE_DEFAULT_COLOR, Aspect_TOL_SOLID, 1.0));
 
@@ -60,7 +60,7 @@ Standard_Boolean AIS_CameraFrustum::AcceptDisplayMode(const Standard_Integer the
 
 //=================================================================================================
 
-void AIS_CameraFrustum::SetCameraFrustum(const Handle(Graphic3d_Camera)& theCamera)
+void AIS_CameraFrustum::SetCameraFrustum(const Handle(CameraOn3d)& theCamera)
 {
   if (theCamera.IsNull())
   {
@@ -79,7 +79,7 @@ void AIS_CameraFrustum::SetCameraFrustum(const Handle(Graphic3d_Camera)& theCame
 
 void AIS_CameraFrustum::SetColor(const Quantity_Color& theColor)
 {
-  AIS_InteractiveObject::SetColor(theColor);
+  VisualEntity::SetColor(theColor);
   myDrawer->ShadingAspect()->SetColor(theColor);
   myDrawer->LineAspect()->SetColor(theColor);
   SynchronizeAspects();
@@ -94,7 +94,7 @@ void AIS_CameraFrustum::UnsetColor()
     return;
   }
 
-  AIS_InteractiveObject::UnsetColor();
+  VisualEntity::UnsetColor();
 
   myDrawer->ShadingAspect()->SetColor(THE_DEFAULT_COLOR);
   myDrawer->LineAspect()->SetColor(THE_DEFAULT_COLOR);
@@ -119,9 +119,9 @@ void AIS_CameraFrustum::fillTriangles()
     const Standard_Integer aPlaneTriangleVertsNb = 2 * 3;
     const Standard_Integer aPlanesNb             = 3 * 2;
 
-    myTriangles = new Graphic3d_ArrayOfTriangles(Graphic3d_Camera::FrustumVerticesNB,
+    myTriangles = new Graphic3d_ArrayOfTriangles(CameraOn3d::FrustumVerticesNB,
                                                  aPlaneTriangleVertsNb * aPlanesNb);
-    myTriangles->SetVertice(Graphic3d_Camera::FrustumVerticesNB, Point3d(0.0, 0.0, 0.0));
+    myTriangles->SetVertice(CameraOn3d::FrustumVerticesNB, Point3d(0.0, 0.0, 0.0));
 
     // Triangles go in order (clockwise vertices traversing for correct normal):
     // (0, 2, 1), (3, 1, 2)
@@ -160,7 +160,7 @@ void AIS_CameraFrustum::fillTriangles()
     }
   }
 
-  for (Standard_Integer aPointIter = 0; aPointIter < Graphic3d_Camera::FrustumVerticesNB;
+  for (Standard_Integer aPointIter = 0; aPointIter < CameraOn3d::FrustumVerticesNB;
        ++aPointIter)
   {
     const Graphic3d_Vec3d aPnt = myPoints[aPointIter];
@@ -176,9 +176,9 @@ void AIS_CameraFrustum::fillBorders()
   {
     const Standard_Integer aPlaneSegmVertsNb = 2 * 4;
     const Standard_Integer aPlanesNb         = 3 * 2;
-    myBorders = new Graphic3d_ArrayOfSegments(Graphic3d_Camera::FrustumVerticesNB,
+    myBorders = new Graphic3d_ArrayOfSegments(CameraOn3d::FrustumVerticesNB,
                                               aPlaneSegmVertsNb * aPlanesNb);
-    myBorders->SetVertice(Graphic3d_Camera::FrustumVerticesNB, Point3d(0.0, 0.0, 0.0));
+    myBorders->SetVertice(CameraOn3d::FrustumVerticesNB, Point3d(0.0, 0.0, 0.0));
 
     // Segments go in order:
     // (0, 2), (2, 3), (3, 1), (1, 0)
@@ -205,7 +205,7 @@ void AIS_CameraFrustum::fillBorders()
     }
   }
 
-  for (Standard_Integer aPointIter = 0; aPointIter < Graphic3d_Camera::FrustumVerticesNB;
+  for (Standard_Integer aPointIter = 0; aPointIter < CameraOn3d::FrustumVerticesNB;
        ++aPointIter)
   {
     const Graphic3d_Vec3d aPnt = myPoints[aPointIter];
@@ -244,7 +244,7 @@ void AIS_CameraFrustum::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void AIS_CameraFrustum::ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+void AIS_CameraFrustum::ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                          const Standard_Integer             theMode)
 {
   Handle(SelectMgr_EntityOwner) anOwner = new SelectMgr_EntityOwner(this);

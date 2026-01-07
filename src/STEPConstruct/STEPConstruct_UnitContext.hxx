@@ -46,7 +46,7 @@ public:
   //! uncertainty equal to Tol3d)
   Standard_EXPORT void Init(const Standard_Real               Tol3d,
                             const Handle(StepData_StepModel)& theModel,
-                            const StepData_Factors&           theLocalFactors = StepData_Factors());
+                            const ConversionFactors&           theLocalFactors = ConversionFactors());
 
   //! Returns True if Init was called successfully
   Standard_EXPORT Standard_Boolean IsDone() const;
@@ -59,11 +59,11 @@ public:
   //! factor  .  Returns a status, 0 if OK
   Standard_EXPORT Standard_Integer
     ComputeFactors(const Handle(StepRepr_GlobalUnitAssignedContext)& aContext,
-                   const StepData_Factors& theLocalFactors = StepData_Factors());
+                   const ConversionFactors& theLocalFactors = ConversionFactors());
 
   Standard_EXPORT Standard_Integer
     ComputeFactors(const Handle(StepBasic_NamedUnit)& aUnit,
-                   const StepData_Factors&            theLocalFactors = StepData_Factors());
+                   const ConversionFactors&            theLocalFactors = ConversionFactors());
 
   //! Computes the uncertainty value (for length)
   Standard_EXPORT Standard_Integer

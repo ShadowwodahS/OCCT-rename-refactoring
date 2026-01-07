@@ -37,9 +37,9 @@
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColStd_HArray2OfTransient.hxx>
 
-IGESDefs_ToolAttributeTable::IGESDefs_ToolAttributeTable() {}
+AttributeTableTool::AttributeTableTool() {}
 
-void IGESDefs_ToolAttributeTable::ReadOwnParams(const Handle(IGESDefs_AttributeTable)& ent,
+void AttributeTableTool::ReadOwnParams(const Handle(IGESDefs_AttributeTable)& ent,
                                                 const Handle(IGESData_IGESReaderData)& IR,
                                                 IGESData_ParamReader&                  PR) const
 {
@@ -148,7 +148,7 @@ void IGESDefs_ToolAttributeTable::ReadOwnParams(const Handle(IGESDefs_AttributeT
   ent->Init(list2);
 }
 
-void IGESDefs_ToolAttributeTable::WriteOwnParams(const Handle(IGESDefs_AttributeTable)& ent,
+void AttributeTableTool::WriteOwnParams(const Handle(IGESDefs_AttributeTable)& ent,
                                                  IGESData_IGESWriter&                   IW) const
 {
   Handle(IGESDefs_AttributeDef) ab = ent->Definition();
@@ -195,7 +195,7 @@ void IGESDefs_ToolAttributeTable::WriteOwnParams(const Handle(IGESDefs_Attribute
   }
 }
 
-void IGESDefs_ToolAttributeTable::OwnShared(const Handle(IGESDefs_AttributeTable)& ent,
+void AttributeTableTool::OwnShared(const Handle(IGESDefs_AttributeTable)& ent,
                                             Interface_EntityIterator&              iter) const
 {
   Handle(IGESDefs_AttributeDef) ab = ent->Definition();
@@ -214,7 +214,7 @@ void IGESDefs_ToolAttributeTable::OwnShared(const Handle(IGESDefs_AttributeTable
   }
 }
 
-void IGESDefs_ToolAttributeTable::OwnCopy(const Handle(IGESDefs_AttributeTable)& another,
+void AttributeTableTool::OwnCopy(const Handle(IGESDefs_AttributeTable)& another,
                                           const Handle(IGESDefs_AttributeTable)& ent,
                                           Interface_CopyTool&                    TC) const
 {
@@ -285,10 +285,10 @@ void IGESDefs_ToolAttributeTable::OwnCopy(const Handle(IGESDefs_AttributeTable)&
   ent->Init(list2);
 }
 
-IGESData_DirChecker IGESDefs_ToolAttributeTable::DirChecker(
+DirectoryChecker AttributeTableTool::DirChecker(
   const Handle(IGESDefs_AttributeTable)& /* ent */) const
 {
-  IGESData_DirChecker DC(422, 0, 1);
+  DirectoryChecker DC(422, 0, 1);
   DC.Structure(IGESData_DefReference);
   DC.GraphicsIgnored();
   DC.BlankStatusIgnored();
@@ -296,7 +296,7 @@ IGESData_DirChecker IGESDefs_ToolAttributeTable::DirChecker(
   return DC;
 }
 
-void IGESDefs_ToolAttributeTable::OwnCheck(const Handle(IGESDefs_AttributeTable)& ent,
+void AttributeTableTool::OwnCheck(const Handle(IGESDefs_AttributeTable)& ent,
                                            const Interface_ShareTool&,
                                            Handle(Interface_Check)& ach) const
 {
@@ -313,7 +313,7 @@ void IGESDefs_ToolAttributeTable::OwnCheck(const Handle(IGESDefs_AttributeTable)
     ach->AddFail("Mismatch between Definition (Structure) and Content");
 }
 
-void IGESDefs_ToolAttributeTable::OwnDump(const Handle(IGESDefs_AttributeTable)& ent,
+void AttributeTableTool::OwnDump(const Handle(IGESDefs_AttributeTable)& ent,
                                           const IGESData_IGESDumper&             dumper,
                                           Standard_OStream&                      S,
                                           const Standard_Integer                 level) const

@@ -22,7 +22,7 @@
 #include <TFunction_Driver.hxx>
 #include <Standard_Integer.hxx>
 class TFunction_Logbook;
-class TDF_Label;
+class DataLabel;
 class BRepAlgoAPI_BooleanOperation;
 class TFunction_Function;
 
@@ -63,10 +63,10 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void LoadNamingDS(const TDF_Label&              theResultLabel,
+  Standard_EXPORT void LoadNamingDS(const DataLabel&              theResultLabel,
                                     BRepAlgoAPI_BooleanOperation& MS) const;
 
-  Standard_EXPORT void LoadSectionNDS(const TDF_Label&              theResultLabel,
+  Standard_EXPORT void LoadSectionNDS(const DataLabel&              theResultLabel,
                                       BRepAlgoAPI_BooleanOperation& MS) const;
 
   Standard_EXPORT Standard_Boolean

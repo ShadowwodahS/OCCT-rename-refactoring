@@ -162,7 +162,7 @@ static char* getEncodingName(const char* theEncodingName)
 
 //=================================================================================================
 
-LDOM_XmlWriter::LDOM_XmlWriter(const char* theEncoding)
+XmlWriter::XmlWriter(const char* theEncoding)
     : myEncodingName(::getEncodingName(theEncoding)),
       myIndent(0),
       myCurIndent(0),
@@ -174,7 +174,7 @@ LDOM_XmlWriter::LDOM_XmlWriter(const char* theEncoding)
 
 //=================================================================================================
 
-LDOM_XmlWriter::~LDOM_XmlWriter()
+XmlWriter::~XmlWriter()
 {
   delete[] myEncodingName;
 
@@ -186,7 +186,7 @@ LDOM_XmlWriter::~LDOM_XmlWriter()
 
 //=================================================================================================
 
-void LDOM_XmlWriter::Write(Standard_OStream& theOStream, const LDOM_Document& aDoc)
+void XmlWriter::Write(Standard_OStream& theOStream, const LDOM_Document& aDoc)
 {
   Write(theOStream, gXMLDecl1);
 
@@ -202,7 +202,7 @@ void LDOM_XmlWriter::Write(Standard_OStream& theOStream, const LDOM_Document& aD
 
 //=================================================================================================
 
-void LDOM_XmlWriter::Write(Standard_OStream& theOStream, const LDOM_Node& theNode)
+void XmlWriter::Write(Standard_OStream& theOStream, const LDOM_Node& theNode)
 {
   // Get the name and value out for convenience
   LDOMString aNodeName  = theNode.getNodeName();
@@ -329,7 +329,7 @@ void LDOM_XmlWriter::Write(Standard_OStream& theOStream, const LDOM_Node& theNod
 // function :
 // purpose  : Stream out an LDOMString
 //=======================================================================
-void LDOM_XmlWriter::Write(Standard_OStream& theOStream, const LDOMBasicString& theString)
+void XmlWriter::Write(Standard_OStream& theOStream, const LDOMBasicString& theString)
 {
   switch (theString.Type())
   {
@@ -337,7 +337,7 @@ void LDOM_XmlWriter::Write(Standard_OStream& theOStream, const LDOMBasicString& 
       Standard_Integer aValue;
       theString.GetInteger(aValue);
 
-      TCollection_AsciiString aStrValue(aValue);
+      AsciiString1 aStrValue(aValue);
       theOStream.write(aStrValue.ToCString(), strlen(aStrValue.ToCString()));
 
       break;
@@ -361,7 +361,7 @@ void LDOM_XmlWriter::Write(Standard_OStream& theOStream, const LDOMBasicString& 
       if (aStr)
       {
         Standard_Integer aLen;
-        char*            encStr = LDOM_CharReference::Encode(aStr, aLen, Standard_False);
+        char*            encStr = CharReference::Encode(aStr, aLen, Standard_False);
         if (aLen > 0)
         {
           theOStream.write(encStr, aLen);
@@ -381,7 +381,7 @@ void LDOM_XmlWriter::Write(Standard_OStream& theOStream, const LDOMBasicString& 
 // function : Write
 // purpose  : Stream out a char
 //=======================================================================
-void LDOM_XmlWriter::Write(Standard_OStream& theOStream, const char theChar)
+void XmlWriter::Write(Standard_OStream& theOStream, const char theChar)
 {
   theOStream.write(&theChar, sizeof(char));
 }
@@ -390,7 +390,7 @@ void LDOM_XmlWriter::Write(Standard_OStream& theOStream, const char theChar)
 // function : Write
 // purpose  : Stream out a char *
 //=======================================================================
-void LDOM_XmlWriter::Write(Standard_OStream& theOStream, const char* theString)
+void XmlWriter::Write(Standard_OStream& theOStream, const char* theString)
 {
   Standard_Size aLength = strlen(theString);
   if (aLength > 0)
@@ -403,7 +403,7 @@ void LDOM_XmlWriter::Write(Standard_OStream& theOStream, const char* theString)
 // function : WriteAttribute()
 // purpose  : Stream out an XML attribute.
 //=======================================================================
-void LDOM_XmlWriter::WriteAttribute(Standard_OStream& theOStream, const LDOM_Node& theAtt)
+void XmlWriter::WriteAttribute(Standard_OStream& theOStream, const LDOM_Node& theAtt)
 {
   const char*      aName     = theAtt.getNodeName().GetString();
   const LDOMString aValueStr = theAtt.getNodeValue();
@@ -448,7 +448,7 @@ void LDOM_XmlWriter::WriteAttribute(Standard_OStream& theOStream, const LDOM_Nod
     }
     else
     {
-      encStr = LDOM_CharReference::Encode(aValue, aLength, Standard_True);
+      encStr = CharReference::Encode(aValue, aLength, Standard_True);
       aLength += (Standard_Integer)(4 + strlen(aName));
     }
 

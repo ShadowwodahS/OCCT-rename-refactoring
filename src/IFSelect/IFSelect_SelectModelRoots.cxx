@@ -26,7 +26,7 @@ Interface_EntityIterator IFSelect_SelectModelRoots::RootResult(const Interface_G
   return G.RootEntities();
 }
 
-TCollection_AsciiString IFSelect_SelectModelRoots::Label() const
+AsciiString1 IFSelect_SelectModelRoots::Label() const
 {
-  return TCollection_AsciiString("Root (not shared) Entities from Model");
+  return AsciiString1("Root (not shared) Entities from Model");
 }

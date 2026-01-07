@@ -35,9 +35,9 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESSolid_ToolSelectedComponent::IGESSolid_ToolSelectedComponent() {}
+SelectedComponentTool::SelectedComponentTool() {}
 
-void IGESSolid_ToolSelectedComponent::ReadOwnParams(const Handle(IGESSolid_SelectedComponent)& ent,
+void SelectedComponentTool::ReadOwnParams(const Handle(IGESSolid_SelectedComponent)& ent,
                                                     const Handle(IGESData_IGESReaderData)&     IR,
                                                     IGESData_ParamReader& PR) const
 {
@@ -59,7 +59,7 @@ void IGESSolid_ToolSelectedComponent::ReadOwnParams(const Handle(IGESSolid_Selec
   ent->Init(tempEntity, tempSelectPoint);
 }
 
-void IGESSolid_ToolSelectedComponent::WriteOwnParams(const Handle(IGESSolid_SelectedComponent)& ent,
+void SelectedComponentTool::WriteOwnParams(const Handle(IGESSolid_SelectedComponent)& ent,
                                                      IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->Component());
@@ -68,13 +68,13 @@ void IGESSolid_ToolSelectedComponent::WriteOwnParams(const Handle(IGESSolid_Sele
   IW.Send(ent->SelectPoint().Z());
 }
 
-void IGESSolid_ToolSelectedComponent::OwnShared(const Handle(IGESSolid_SelectedComponent)& ent,
+void SelectedComponentTool::OwnShared(const Handle(IGESSolid_SelectedComponent)& ent,
                                                 Interface_EntityIterator& iter) const
 {
   iter.GetOneItem(ent->Component());
 }
 
-void IGESSolid_ToolSelectedComponent::OwnCopy(const Handle(IGESSolid_SelectedComponent)& another,
+void SelectedComponentTool::OwnCopy(const Handle(IGESSolid_SelectedComponent)& another,
                                               const Handle(IGESSolid_SelectedComponent)& ent,
                                               Interface_CopyTool&                        TC) const
 {
@@ -83,10 +83,10 @@ void IGESSolid_ToolSelectedComponent::OwnCopy(const Handle(IGESSolid_SelectedCom
   ent->Init(tempEntity, tempSelectPoint);
 }
 
-IGESData_DirChecker IGESSolid_ToolSelectedComponent::DirChecker(
+DirectoryChecker SelectedComponentTool::DirChecker(
   const Handle(IGESSolid_SelectedComponent)& /* ent */) const
 {
-  IGESData_DirChecker DC(182, 0);
+  DirectoryChecker DC(182, 0);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
@@ -99,13 +99,13 @@ IGESData_DirChecker IGESSolid_ToolSelectedComponent::DirChecker(
   return DC;
 }
 
-void IGESSolid_ToolSelectedComponent::OwnCheck(const Handle(IGESSolid_SelectedComponent)& /* ent */,
+void SelectedComponentTool::OwnCheck(const Handle(IGESSolid_SelectedComponent)& /* ent */,
                                                const Interface_ShareTool&,
                                                Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESSolid_ToolSelectedComponent::OwnDump(const Handle(IGESSolid_SelectedComponent)& ent,
+void SelectedComponentTool::OwnDump(const Handle(IGESSolid_SelectedComponent)& ent,
                                               const IGESData_IGESDumper&                 dumper,
                                               Standard_OStream&                          S,
                                               const Standard_Integer level) const

@@ -18,14 +18,14 @@
 #include <XCAFPrs_DocumentExplorer.hxx>
 
 //! Indexed map of scene nodes with custom search algorithm.
-class RWGltf_GltfSceneNodeMap : public NCollection_IndexedMap<XCAFPrs_DocumentNode>
+class GltfSceneNodeMap : public NCollection_IndexedMap<XCAFPrs_DocumentNode>
 {
 public:
   //! Empty constructor.
-  RWGltf_GltfSceneNodeMap() {}
+  GltfSceneNodeMap() {}
 
   //! Find index from document node string identifier.
-  Standard_Integer FindIndex(const TCollection_AsciiString& theNodeId) const
+  Standard_Integer FindIndex(const AsciiString1& theNodeId) const
   {
     if (IsEmpty())
     {

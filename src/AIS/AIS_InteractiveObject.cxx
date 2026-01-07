@@ -27,11 +27,11 @@
 #include <Prs3d_TextAspect.hxx>
 #include <PrsMgr_PresentationManager.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_InteractiveObject, SelectMgr_SelectableObject)
+IMPLEMENT_STANDARD_RTTIEXT(VisualEntity, SelectMgr_SelectableObject)
 
 //=================================================================================================
 
-AIS_InteractiveObject::AIS_InteractiveObject(
+VisualEntity::VisualEntity(
   const PrsMgr_TypeOfPresentation3d aTypeOfPresentation3d)
     : SelectMgr_SelectableObject(aTypeOfPresentation3d),
       myCTXPtr(NULL)
@@ -41,7 +41,7 @@ AIS_InteractiveObject::AIS_InteractiveObject(
 
 //=================================================================================================
 
-void AIS_InteractiveObject::Redisplay(const Standard_Boolean AllModes)
+void VisualEntity::Redisplay(const Standard_Boolean AllModes)
 {
   if (myCTXPtr == NULL)
     return;
@@ -51,8 +51,8 @@ void AIS_InteractiveObject::Redisplay(const Standard_Boolean AllModes)
 
 //=================================================================================================
 
-Standard_Boolean AIS_InteractiveObject::ProcessDragging(const Handle(AIS_InteractiveContext)&,
-                                                        const Handle(V3d_View)&,
+Standard_Boolean VisualEntity::ProcessDragging(const Handle(VisualContext)&,
+                                                        const Handle(ViewWindow)&,
                                                         const Handle(SelectMgr_EntityOwner)&,
                                                         const Graphic3d_Vec2i&,
                                                         const Graphic3d_Vec2i&,
@@ -63,14 +63,14 @@ Standard_Boolean AIS_InteractiveObject::ProcessDragging(const Handle(AIS_Interac
 
 //=================================================================================================
 
-Handle(AIS_InteractiveContext) AIS_InteractiveObject::GetContext() const
+Handle(VisualContext) VisualEntity::GetContext() const
 {
   return myCTXPtr;
 }
 
 //=================================================================================================
 
-void AIS_InteractiveObject::SetContext(const Handle(AIS_InteractiveContext)& theCtx)
+void VisualEntity::SetContext(const Handle(VisualContext)& theCtx)
 {
   if (myCTXPtr == theCtx.get())
   {
@@ -86,14 +86,14 @@ void AIS_InteractiveObject::SetContext(const Handle(AIS_InteractiveContext)& the
 
 //=================================================================================================
 
-void AIS_InteractiveObject::SetDisplayStatus(PrsMgr_DisplayStatus theStatus)
+void VisualEntity::SetDisplayStatus(PrsMgr_DisplayStatus theStatus)
 {
   myDisplayStatus = theStatus;
 }
 
 //=================================================================================================
 
-Standard_Boolean AIS_InteractiveObject::HasPresentation() const
+Standard_Boolean VisualEntity::HasPresentation() const
 {
   return HasInteractiveContext()
          && myCTXPtr->MainPrsMgr()->HasPresentation(this, myDrawer->DisplayMode());
@@ -101,7 +101,7 @@ Standard_Boolean AIS_InteractiveObject::HasPresentation() const
 
 //=================================================================================================
 
-Handle(Prs3d_Presentation) AIS_InteractiveObject::Presentation() const
+Handle(Prs3d_Presentation) VisualEntity::Presentation() const
 {
   if (!HasInteractiveContext())
   {
@@ -115,7 +115,7 @@ Handle(Prs3d_Presentation) AIS_InteractiveObject::Presentation() const
 
 //=================================================================================================
 
-void AIS_InteractiveObject::SetAspect(const Handle(Prs3d_BasicAspect)& theAspect)
+void VisualEntity::SetAspect(const Handle(Prs3d_BasicAspect)& theAspect)
 {
 
   if (!HasPresentation())
@@ -149,7 +149,7 @@ void AIS_InteractiveObject::SetAspect(const Handle(Prs3d_BasicAspect)& theAspect
 
 //=================================================================================================
 
-void AIS_InteractiveObject::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void VisualEntity::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 

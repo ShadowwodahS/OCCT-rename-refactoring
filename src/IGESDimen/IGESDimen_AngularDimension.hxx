@@ -31,7 +31,7 @@ class IGESDimen_AngularDimension;
 DEFINE_STANDARD_HANDLE(IGESDimen_AngularDimension, IGESData_IGESEntity)
 
 //! defines AngularDimension, Type <202> Form <0>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Used to dimension angles
 class IGESDimen_AngularDimension : public IGESData_IGESEntity
 {
@@ -53,7 +53,7 @@ public:
   Standard_EXPORT void Init(const Handle(IGESDimen_GeneralNote)& aNote,
                             const Handle(IGESDimen_WitnessLine)& aLine,
                             const Handle(IGESDimen_WitnessLine)& anotherLine,
-                            const gp_XY&                         aVertex,
+                            const Coords2d&                         aVertex,
                             const Standard_Real                  aRadius,
                             const Handle(IGESDimen_LeaderArrow)& aLeader,
                             const Handle(IGESDimen_LeaderArrow)& anotherLeader);
@@ -96,7 +96,7 @@ private:
   Handle(IGESDimen_GeneralNote) theNote;
   Handle(IGESDimen_WitnessLine) theFirstWitnessLine;
   Handle(IGESDimen_WitnessLine) theSecondWitnessLine;
-  gp_XY                         theVertex;
+  Coords2d                         theVertex;
   Standard_Real                 theRadius;
   Handle(IGESDimen_LeaderArrow) theFirstLeader;
   Handle(IGESDimen_LeaderArrow) theSecondLeader;

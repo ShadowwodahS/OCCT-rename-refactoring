@@ -31,7 +31,7 @@ extern Standard_Boolean TopOpeBRepBuild_GettraceCHK();
 //=================================================================================================
 
 TopOpeBRepBuild_ShellFaceClassifier::TopOpeBRepBuild_ShellFaceClassifier(
-  const TopOpeBRepBuild_BlockBuilder& BB)
+  const BlockBuilder& BB)
     : TopOpeBRepBuild_CompositeClassifier(BB)
 {
 }
@@ -46,8 +46,8 @@ void TopOpeBRepBuild_ShellFaceClassifier::Clear()
 
 //=================================================================================================
 
-TopAbs_State TopOpeBRepBuild_ShellFaceClassifier::CompareShapes(const TopoDS_Shape& B1,
-                                                                const TopoDS_Shape& B2)
+TopAbs_State TopOpeBRepBuild_ShellFaceClassifier::CompareShapes(const TopoShape& B1,
+                                                                const TopoShape& B2)
 {
 #ifdef OCCT_DEBUG
 //  const TopAbs_ShapeEnum t1 = B1.ShapeType();
@@ -64,8 +64,8 @@ TopAbs_State TopOpeBRepBuild_ShellFaceClassifier::CompareShapes(const TopoDS_Sha
 
 //=================================================================================================
 
-TopAbs_State TopOpeBRepBuild_ShellFaceClassifier::CompareElementToShape(const TopoDS_Shape& F,
-                                                                        const TopoDS_Shape& SHE)
+TopAbs_State TopOpeBRepBuild_ShellFaceClassifier::CompareElementToShape(const TopoShape& F,
+                                                                        const TopoShape& SHE)
 {
 #ifdef OCCT_DEBUG
 //  const TopAbs_ShapeEnum t1 = F.ShapeType();
@@ -82,31 +82,31 @@ TopAbs_State TopOpeBRepBuild_ShellFaceClassifier::CompareElementToShape(const To
 
 //=================================================================================================
 
-void TopOpeBRepBuild_ShellFaceClassifier::ResetShape(const TopoDS_Shape& SHE)
+void TopOpeBRepBuild_ShellFaceClassifier::ResetShape(const TopoShape& SHE)
 {
 #ifdef OCCT_DEBUG
 //  const TopAbs_ShapeEnum t1 = SHE.ShapeType();
 #endif
 
-  TopExp_Explorer    ex(SHE, TopAbs_FACE);
-  const TopoDS_Face& F = TopoDS::Face(ex.Current());
+  ShapeExplorer    ex(SHE, TopAbs_FACE);
+  const TopoFace& F = TopoDS::Face(ex.Current());
   ResetElement(F);
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_ShellFaceClassifier::ResetElement(const TopoDS_Shape& F)
+void TopOpeBRepBuild_ShellFaceClassifier::ResetElement(const TopoShape& F)
 {
   const TopAbs_ShapeEnum t = F.ShapeType();
 
   // initialize myPoint3d with first vertex of face <E>
   myFirstCompare = Standard_True;
 
-  TopExp_Explorer ex(F, TopAbs_VERTEX);
+  ShapeExplorer ex(F, TopAbs_VERTEX);
   if (ex.More())
   {
-    const TopoDS_Vertex& V = TopoDS::Vertex(ex.Current());
-    myPoint3d              = BRep_Tool::Pnt(V);
+    const TopoVertex& V = TopoDS::Vertex(ex.Current());
+    myPoint3d              = BRepInspector::Pnt(V);
   }
   else
   {
@@ -125,7 +125,7 @@ void TopOpeBRepBuild_ShellFaceClassifier::ResetElement(const TopoDS_Shape& F)
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_ShellFaceClassifier::CompareElement(const TopoDS_Shape& F)
+Standard_Boolean TopOpeBRepBuild_ShellFaceClassifier::CompareElement(const TopoShape& F)
 {
 #ifdef OCCT_DEBUG
 //  const TopAbs_ShapeEnum t = F.ShapeType();
@@ -151,7 +151,7 @@ Standard_Boolean TopOpeBRepBuild_ShellFaceClassifier::CompareElement(const TopoD
       // la face F est la premiere d'un bloc de faces
       // on recupere le shell correspondant au bloc de faces (shellise)
       // dont F fait partie.
-      TopoDS_Shape sbid = myFaceShellMap.Find(F);
+      TopoShape sbid = myFaceShellMap.Find(F);
       myShell           = TopoDS::Shell(sbid);
       bRet              = !bRet;
     }
@@ -185,18 +185,18 @@ TopAbs_State TopOpeBRepBuild_ShellFaceClassifier::State()
   if (TopOpeBRepBuild_GettraceCHK())
   {
     STATIC_ishell++;
-    TCollection_AsciiString home("/home/wb/mdl/gti/prod/TTOPOPE/src/test/data/");
-    TCollection_AsciiString sname("shell_");
+    AsciiString1 home("/home/wb/mdl/gti/prod/TTOPOPE/src/test/data/");
+    AsciiString1 sname("shell_");
     sname = home + sname + STATIC_ishell;
-    TCollection_AsciiString vname("vertex_");
+    AsciiString1 vname("vertex_");
     vname = home + vname + STATIC_ishell;
-    BRep_Builder  B;
-    TopoDS_Vertex V;
+    ShapeBuilder  B;
+    TopoVertex V;
     B.MakeVertex(V, myPoint3d, tol3d);
     std::cout << "TopOpeBRepBuild_ShellFaceClassifier : write shell " << sname;
     std::cout << " vertex " << vname << std::endl;
-    BRepTools::Write(myShell, sname.ToCString());
-    BRepTools::Write(V, vname.ToCString());
+    BRepTools1::Write(myShell, sname.ToCString());
+    BRepTools1::Write(V, vname.ToCString());
   }
 #endif
   mySolidClassifier.Classify(myShell, myPoint3d, tol3d);

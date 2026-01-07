@@ -47,7 +47,7 @@ const Handle(Image_Texture)& RWGltf_GltfMaterialMap::baseColorTexture(
 
 //=================================================================================================
 
-RWGltf_GltfMaterialMap::RWGltf_GltfMaterialMap(const TCollection_AsciiString& theFile,
+RWGltf_GltfMaterialMap::RWGltf_GltfMaterialMap(const AsciiString1& theFile,
                                                const Standard_Integer         theDefSamplerId)
     : RWMesh_MaterialMap(theFile),
       myWriter(NULL),
@@ -65,7 +65,7 @@ RWGltf_GltfMaterialMap::~RWGltf_GltfMaterialMap()
 
 //=================================================================================================
 
-void RWGltf_GltfMaterialMap::AddImages(RWGltf_GltfOStreamWriter* theWriter,
+void RWGltf_GltfMaterialMap::AddImages(GltfBinaryWriter* theWriter,
                                        const XCAFPrs_Style&      theStyle,
                                        Standard_Boolean&         theIsStarted)
 {
@@ -99,7 +99,7 @@ void RWGltf_GltfMaterialMap::AddGlbImages(std::ostream& theBinFile, const XCAFPr
 
 //=================================================================================================
 
-void RWGltf_GltfMaterialMap::addImage(RWGltf_GltfOStreamWriter*    theWriter,
+void RWGltf_GltfMaterialMap::addImage(GltfBinaryWriter*    theWriter,
                                       const Handle(Image_Texture)& theTexture,
                                       Standard_Boolean&            theIsStarted)
 {
@@ -109,14 +109,14 @@ void RWGltf_GltfMaterialMap::addImage(RWGltf_GltfOStreamWriter*    theWriter,
     return;
   }
 
-  const TCollection_AsciiString aGltfImgKey = myImageMap.Extent();
-  TCollection_AsciiString       aTextureUri;
+  const AsciiString1 aGltfImgKey = myImageMap.Extent();
+  AsciiString1       aTextureUri;
   if (!CopyTexture(aTextureUri, theTexture, aGltfImgKey))
   {
     myImageFailMap.Add(theTexture);
     return;
   }
-  myImageMap.Add(theTexture, RWGltf_GltfBufferView());
+  myImageMap.Add(theTexture, GltfBufferView());
 
   if (!theIsStarted)
   {
@@ -148,7 +148,7 @@ void RWGltf_GltfMaterialMap::addGlbImage(std::ostream&                theBinFile
     return;
   }
 
-  RWGltf_GltfBufferView aBuffImage;
+  GltfBufferView aBuffImage;
   aBuffImage.ByteOffset = theBinFile.tellp();
   if (!theTexture->WriteImage(theBinFile, myFileName))
   {
@@ -177,17 +177,17 @@ void RWGltf_GltfMaterialMap::addGlbImage(std::ostream&                theBinFile
 
 //=================================================================================================
 
-void RWGltf_GltfMaterialMap::FlushGlbBufferViews(RWGltf_GltfOStreamWriter* theWriter,
+void RWGltf_GltfMaterialMap::FlushGlbBufferViews(GltfBinaryWriter* theWriter,
                                                  const Standard_Integer    theBinDataBufferId,
                                                  Standard_Integer&         theBuffViewId)
 {
 #ifdef HAVE_RAPIDJSON
-  for (NCollection_IndexedDataMap<Handle(Image_Texture), RWGltf_GltfBufferView>::Iterator
+  for (NCollection_IndexedDataMap<Handle(Image_Texture), GltfBufferView>::Iterator
          aBufViewIter(myImageMap);
        aBufViewIter.More();
        aBufViewIter.Next())
   {
-    RWGltf_GltfBufferView& aBuffView = aBufViewIter.ChangeValue();
+    GltfBufferView& aBuffView = aBufViewIter.ChangeValue();
     if (aBuffView.ByteLength <= 0)
     {
       continue;
@@ -212,17 +212,17 @@ void RWGltf_GltfMaterialMap::FlushGlbBufferViews(RWGltf_GltfOStreamWriter* theWr
 
 //=================================================================================================
 
-void RWGltf_GltfMaterialMap::FlushGlbImages(RWGltf_GltfOStreamWriter* theWriter)
+void RWGltf_GltfMaterialMap::FlushGlbImages(GltfBinaryWriter* theWriter)
 {
 #ifdef HAVE_RAPIDJSON
   bool isStarted = false;
-  for (NCollection_IndexedDataMap<Handle(Image_Texture), RWGltf_GltfBufferView>::Iterator
+  for (NCollection_IndexedDataMap<Handle(Image_Texture), GltfBufferView>::Iterator
          aBufViewIter(myImageMap);
        aBufViewIter.More();
        aBufViewIter.Next())
   {
     const Handle(Image_Texture)& aTexture  = aBufViewIter.Key();
-    const RWGltf_GltfBufferView& aBuffView = aBufViewIter.Value();
+    const GltfBufferView& aBuffView = aBufViewIter.Value();
     if (aBuffView.ByteLength <= 0)
     {
       continue;
@@ -237,10 +237,10 @@ void RWGltf_GltfMaterialMap::FlushGlbImages(RWGltf_GltfOStreamWriter* theWriter)
 
     theWriter->StartObject();
     {
-      const TCollection_AsciiString anImageFormat = aTexture->MimeType();
+      const AsciiString1 anImageFormat = aTexture->MimeType();
       if (anImageFormat != "image/png" && anImageFormat != "image/jpeg")
       {
-        Message::SendWarning(TCollection_AsciiString("Warning! Non-standard mime-type ")
+        Message::SendWarning(AsciiString1("Warning! Non-standard mime-type ")
                              + anImageFormat + " (texture " + aTexture->TextureId()
                              + ") within glTF file");
       }
@@ -262,7 +262,7 @@ void RWGltf_GltfMaterialMap::FlushGlbImages(RWGltf_GltfOStreamWriter* theWriter)
 
 //=================================================================================================
 
-void RWGltf_GltfMaterialMap::AddMaterial(RWGltf_GltfOStreamWriter* theWriter,
+void RWGltf_GltfMaterialMap::AddMaterial(GltfBinaryWriter* theWriter,
                                          const XCAFPrs_Style&      theStyle,
                                          Standard_Boolean&         theIsStarted)
 {
@@ -292,7 +292,7 @@ void RWGltf_GltfMaterialMap::AddMaterial(RWGltf_GltfOStreamWriter* theWriter,
 
 //=================================================================================================
 
-void RWGltf_GltfMaterialMap::AddTextures(RWGltf_GltfOStreamWriter* theWriter,
+void RWGltf_GltfMaterialMap::AddTextures(GltfBinaryWriter* theWriter,
                                          const XCAFPrs_Style&      theStyle,
                                          Standard_Boolean&         theIsStarted)
 {
@@ -310,7 +310,7 @@ void RWGltf_GltfMaterialMap::AddTextures(RWGltf_GltfOStreamWriter* theWriter,
 
 //=================================================================================================
 
-void RWGltf_GltfMaterialMap::addTexture(RWGltf_GltfOStreamWriter*    theWriter,
+void RWGltf_GltfMaterialMap::addTexture(GltfBinaryWriter*    theWriter,
                                         const Handle(Image_Texture)& theTexture,
                                         Standard_Boolean&            theIsStarted)
 {
@@ -349,7 +349,7 @@ void RWGltf_GltfMaterialMap::addTexture(RWGltf_GltfOStreamWriter*    theWriter,
 
 //=================================================================================================
 
-TCollection_AsciiString RWGltf_GltfMaterialMap::AddMaterial(const XCAFPrs_Style& theStyle)
+AsciiString1 RWGltf_GltfMaterialMap::AddMaterial(const XCAFPrs_Style& theStyle)
 {
   return RWMesh_MaterialMap::AddMaterial(theStyle);
 }
@@ -357,8 +357,8 @@ TCollection_AsciiString RWGltf_GltfMaterialMap::AddMaterial(const XCAFPrs_Style&
 //=================================================================================================
 
 void RWGltf_GltfMaterialMap::DefineMaterial(const XCAFPrs_Style& theStyle,
-                                            const TCollection_AsciiString& /*theKey*/,
-                                            const TCollection_AsciiString& theName)
+                                            const AsciiString1& /*theKey*/,
+                                            const AsciiString1& theName)
 {
 #ifdef HAVE_RAPIDJSON
   if (myWriter == NULL)

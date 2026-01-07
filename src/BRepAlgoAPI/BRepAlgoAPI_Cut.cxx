@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-BRepAlgoAPI_Cut::BRepAlgoAPI_Cut()
+BooleanCut::BooleanCut()
     : BRepAlgoAPI_BooleanOperation()
 {
   myOperation = BOPAlgo_CUT;
@@ -28,7 +28,7 @@ BRepAlgoAPI_Cut::BRepAlgoAPI_Cut()
 
 //=================================================================================================
 
-BRepAlgoAPI_Cut::BRepAlgoAPI_Cut(const BOPAlgo_PaveFiller& aPF)
+BooleanCut::BooleanCut(const BooleanPaveFiller& aPF)
     : BRepAlgoAPI_BooleanOperation(aPF)
 {
   myOperation = BOPAlgo_CUT;
@@ -36,12 +36,12 @@ BRepAlgoAPI_Cut::BRepAlgoAPI_Cut(const BOPAlgo_PaveFiller& aPF)
 
 //=================================================================================================
 
-BRepAlgoAPI_Cut::~BRepAlgoAPI_Cut() {}
+BooleanCut::~BooleanCut() {}
 
 //=================================================================================================
 
-BRepAlgoAPI_Cut::BRepAlgoAPI_Cut(const TopoDS_Shape&          S1,
-                                 const TopoDS_Shape&          S2,
+BooleanCut::BooleanCut(const TopoShape&          S1,
+                                 const TopoShape&          S2,
                                  const Message_ProgressRange& theRange)
     : BRepAlgoAPI_BooleanOperation(S1, S2, BOPAlgo_CUT)
 {
@@ -50,9 +50,9 @@ BRepAlgoAPI_Cut::BRepAlgoAPI_Cut(const TopoDS_Shape&          S1,
 
 //=================================================================================================
 
-BRepAlgoAPI_Cut::BRepAlgoAPI_Cut(const TopoDS_Shape&          S1,
-                                 const TopoDS_Shape&          S2,
-                                 const BOPAlgo_PaveFiller&    aDSF,
+BooleanCut::BooleanCut(const TopoShape&          S1,
+                                 const TopoShape&          S2,
+                                 const BooleanPaveFiller&    aDSF,
                                  const Standard_Boolean       bFWD,
                                  const Message_ProgressRange& theRange)
     : BRepAlgoAPI_BooleanOperation(S1, S2, aDSF, (bFWD) ? BOPAlgo_CUT : BOPAlgo_CUT21)

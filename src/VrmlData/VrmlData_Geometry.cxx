@@ -64,8 +64,8 @@ const Handle(TopoDS_TShape)& VrmlData_Box::TShape()
   {
     try
     {
-      const TopoDS_Shell aShell =
-        BRepPrimAPI_MakeBox(Point3d(-0.5 * mySize), mySize.X(), mySize.Y(), mySize.Z());
+      const TopoShell aShell =
+        BoxMaker(Point3d(-0.5 * mySize), mySize.X(), mySize.Y(), mySize.Z());
       SetTShape(aShell.TShape());
       myIsModified = Standard_False;
     }
@@ -90,7 +90,7 @@ Handle(VrmlData_Node) VrmlData_Box::Clone(const Handle(VrmlData_Node)& theOther)
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Box::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_Box::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus;
   if (OK(aStatus, VrmlData_Scene::ReadLine(theBuffer)))
@@ -161,7 +161,7 @@ Handle(VrmlData_Node) VrmlData_Cone::Clone(const Handle(VrmlData_Node)& theOther
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Cone::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_Cone::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus;
   Standard_Boolean     hasSide(Standard_True), hasBottom(Standard_True);
@@ -244,7 +244,7 @@ const Handle(TopoDS_TShape)& VrmlData_Cylinder::TShape()
       Frame3d            aLocalAxis(Point3d(0., -0.5 * myHeight, 0.), Dir3d(0., 1., 0.));
       BRepPrim_Cylinder aBuilder(aLocalAxis, myRadius, myHeight);
       BRepPrim_Builder  aShapeBuilder;
-      TopoDS_Shell      aShell;
+      TopoShell      aShell;
       aShapeBuilder.MakeShell(aShell);
       if (myHasSide)
         aShapeBuilder.AddShellFace(aShell, aBuilder.LateralFace());
@@ -279,7 +279,7 @@ Handle(VrmlData_Node) VrmlData_Cylinder::Clone(const Handle(VrmlData_Node)& theO
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Cylinder::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_Cylinder::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus;
   Standard_Boolean     hasSide(Standard_True), hasBottom(Standard_True);
@@ -393,7 +393,7 @@ Handle(VrmlData_Node) VrmlData_Sphere::Clone(const Handle(VrmlData_Node)& theOth
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Sphere::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_Sphere::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus;
   while (OK(aStatus, VrmlData_Scene::ReadLine(theBuffer)))
@@ -436,7 +436,7 @@ VrmlData_ErrorStatus VrmlData_Sphere::Write(const char* thePrefix) const
 Standard_Boolean VrmlData_TextureCoordinate::AllocateValues(const Standard_Size theLength)
 {
   myPoints =
-    reinterpret_cast<const gp_XY*>(Scene().Allocator()->Allocate(theLength * sizeof(gp_XY)));
+    reinterpret_cast<const Coords2d*>(Scene().Allocator()->Allocate(theLength * sizeof(Coords2d)));
   myLength = theLength;
   return (myPoints != 0L);
 }
@@ -456,17 +456,17 @@ Handle(VrmlData_Node) VrmlData_TextureCoordinate::Clone(const Handle(VrmlData_No
   {
     aResult->AllocateValues(myLength);
     for (Standard_Size i = 0; i < myLength; i++)
-      const_cast<gp_XY&>(aResult->myPoints[i]) = myPoints[i];
+      const_cast<Coords2d&>(aResult->myPoints[i]) = myPoints[i];
   }
   return aResult;
 }
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_TextureCoordinate::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_TextureCoordinate::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus      aStatus;
-  NCollection_Vector<gp_XY> vecValues;
+  NCollection_Vector<Coords2d> vecValues;
   if (OK(aStatus, VrmlData_Scene::ReadLine(theBuffer)))
   {
     // Match the name with the current word in the stream
@@ -481,7 +481,7 @@ VrmlData_ErrorStatus VrmlData_TextureCoordinate::Read(VrmlData_InBuffer& theBuff
           theBuffer.LinePtr++;
           for (;;)
           {
-            gp_XY anXY;
+            Coords2d anXY;
             if (!OK(aStatus, VrmlData_Scene::ReadLine(theBuffer)))
               break;
             // closing bracket, in case that it follows a comma
@@ -512,8 +512,8 @@ VrmlData_ErrorStatus VrmlData_TextureCoordinate::Read(VrmlData_InBuffer& theBuff
       myLength = vecValues.Length();
       if (myLength > 0)
       {
-        gp_XY* aPoints =
-          reinterpret_cast<gp_XY*>(Scene().Allocator()->Allocate(myLength * sizeof(gp_XY)));
+        Coords2d* aPoints =
+          reinterpret_cast<Coords2d*>(Scene().Allocator()->Allocate(myLength * sizeof(Coords2d)));
         myPoints = aPoints;
         for (Standard_Integer i = 0; i < Standard_Integer(myLength); i++)
           aPoints[i] = vecValues(i);
@@ -538,7 +538,7 @@ VrmlData_ErrorStatus VrmlData_TextureCoordinate::Read(VrmlData_InBuffer& theBuff
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_ArrayVec3d::ReadArray(VrmlData_InBuffer&     theBuffer,
+VrmlData_ErrorStatus VrmlData_ArrayVec3d::ReadArray(InputBuffer&     theBuffer,
                                                     const char*            theName,
                                                     const Standard_Boolean isScale)
 {
@@ -671,7 +671,7 @@ Handle(VrmlData_Node) VrmlData_Coordinate::Clone(const Handle(VrmlData_Node)& th
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Coordinate::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_Coordinate::Read(InputBuffer& theBuffer)
 {
   return VrmlData_ArrayVec3d::ReadArray(theBuffer, "point", Standard_True);
 }
@@ -710,7 +710,7 @@ Handle(VrmlData_Node) VrmlData_Color::Clone(const Handle(VrmlData_Node)& theOthe
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Color::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_Color::Read(InputBuffer& theBuffer)
 {
   return ReadArray(theBuffer, "color", Standard_False);
 }
@@ -750,7 +750,7 @@ Handle(VrmlData_Node) VrmlData_Normal::Clone(const Handle(VrmlData_Node)& theOth
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Normal::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_Normal::Read(InputBuffer& theBuffer)
 {
   return VrmlData_ArrayVec3d::ReadArray(theBuffer, "vector", Standard_False);
 }

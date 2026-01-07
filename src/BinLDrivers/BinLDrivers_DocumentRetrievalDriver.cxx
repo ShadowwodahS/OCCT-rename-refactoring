@@ -60,7 +60,7 @@ BinLDrivers_DocumentRetrievalDriver::BinLDrivers_DocumentRetrievalDriver()
 
 //=================================================================================================
 
-void BinLDrivers_DocumentRetrievalDriver::Read(const TCollection_ExtendedString& theFileName,
+void BinLDrivers_DocumentRetrievalDriver::Read(const UtfString& theFileName,
                                                const Handle(CDM_Document)&       theNewDocument,
                                                const Handle(CDM_Application)&    theApplication,
                                                const Handle(PCDM_ReaderFilter)&  theFilter,
@@ -73,7 +73,7 @@ void BinLDrivers_DocumentRetrievalDriver::Read(const TCollection_ExtendedString&
   if (aFileStream.get() != NULL && aFileStream->good())
   {
     Handle(Storage_Data)       dData;
-    TCollection_ExtendedString aFormat = PCDM_ReadWriter::FileFormat(*aFileStream, dData);
+    UtfString aFormat = PCDM_ReadWriter::FileFormat(*aFileStream, dData);
 
     Read(*aFileStream, dData, theNewDocument, theApplication, theFilter, theRange);
     if (!theRange.More())
@@ -106,9 +106,9 @@ void BinLDrivers_DocumentRetrievalDriver::Read(Standard_IStream&                
   myReaderStatus = PCDM_RS_DriverFailure;
   myMsgDriver    = theApplication->MessageDriver();
 
-  const TCollection_ExtendedString aMethStr("BinLDrivers_DocumentRetrievalDriver: ");
+  const UtfString aMethStr("BinLDrivers_DocumentRetrievalDriver: ");
 
-  Handle(TDocStd_Document) aDoc = Handle(TDocStd_Document)::DownCast(theDoc);
+  Handle(AppDocument) aDoc = Handle(AppDocument)::DownCast(theDoc);
   if (aDoc.IsNull())
   {
 #ifdef OCCT_DEBUG
@@ -130,7 +130,7 @@ void BinLDrivers_DocumentRetrievalDriver::Read(Standard_IStream&                
   {
     for (Standard_Integer i = 1; i <= aHeaderData->UserInfo().Length(); i++)
     {
-      const TCollection_AsciiString& aLine = aHeaderData->UserInfo().Value(i);
+      const AsciiString1& aLine = aHeaderData->UserInfo().Value(i);
 
       if (aLine.Search(REFERENCE_COUNTER) != -1)
       {
@@ -153,14 +153,14 @@ void BinLDrivers_DocumentRetrievalDriver::Read(Standard_IStream&                
   }
   TDocStd_FormatVersion aFileVer =
     static_cast<TDocStd_FormatVersion>(aHeaderData->StorageVersion().IntegerValue());
-  TDocStd_FormatVersion aCurrVer = TDocStd_Document::CurrentStorageFormatVersion();
+  TDocStd_FormatVersion aCurrVer = AppDocument::CurrentStorageFormatVersion();
   // maintain one-way compatibility starting from version 2+
   if (!CheckDocumentVersion(aFileVer, aCurrVer))
   {
     myReaderStatus = PCDM_RS_NoVersion;
     // file was written with another version
     myMsgDriver->Send(aMethStr + "error: wrong file version: " + aHeaderData->StorageVersion()
-                        + " while current is " + TDocStd_Document::CurrentStorageFormatVersion(),
+                        + " while current is " + AppDocument::CurrentStorageFormatVersion(),
                       Message_Fail);
     return;
   }
@@ -172,7 +172,7 @@ void BinLDrivers_DocumentRetrievalDriver::Read(Standard_IStream&                
   Standard_Integer                     i;
   for (i = 1; i <= aUserInfo.Length(); i++)
   {
-    TCollection_AsciiString aStr = aUserInfo(i);
+    AsciiString1 aStr = aUserInfo(i);
     if (aStr == START_TYPES)
       begin = Standard_True;
     else if (aStr == END_TYPES)
@@ -182,7 +182,7 @@ void BinLDrivers_DocumentRetrievalDriver::Read(Standard_IStream&                
       if (aFileVer < TDocStd_FormatVersion_VERSION_8)
       {
 #ifdef DATATYPE_MIGRATION
-        TCollection_AsciiString newName;
+        AsciiString1 newName;
         if (Storage_Schema::CheckTypeMigration(aStr, newName))
         {
   #ifdef OCCT_DEBUG
@@ -285,7 +285,7 @@ void BinLDrivers_DocumentRetrievalDriver::Read(Standard_IStream&                
     char aShapeSecLabel[SIZEOFSHAPELABEL + 1];
     aShapeSecLabel[SIZEOFSHAPELABEL] = 0x00;
     theIStream.read((char*)&aShapeSecLabel, SIZEOFSHAPELABEL); // SHAPESECTION_POS
-    TCollection_AsciiString aShapeLabel(aShapeSecLabel);
+    AsciiString1 aShapeLabel(aShapeSecLabel);
     // detect if a file was written in old fashion (version 2 without shapes)
     // and if so then skip reading ShapeSection
     if (aShapeLabel.Length() > 0)
@@ -398,14 +398,14 @@ void BinLDrivers_DocumentRetrievalDriver::Read(Standard_IStream&                
 
 Standard_Integer BinLDrivers_DocumentRetrievalDriver::ReadSubTree(
   Standard_IStream&                theIS,
-  const TDF_Label&                 theLabel,
+  const DataLabel&                 theLabel,
   const Handle(PCDM_ReaderFilter)& theFilter,
   const Standard_Boolean&          theQuickPart,
   const Standard_Boolean           theReadMissing,
   const Message_ProgressRange&     theRange)
 {
   Standard_Integer           nbRead = 0;
-  TCollection_ExtendedString aMethStr("BinLDrivers_DocumentRetrievalDriver: ");
+  UtfString aMethStr("BinLDrivers_DocumentRetrievalDriver: ");
 
   Message_ProgressScope aPS(theRange, "Reading sub tree", 2, true);
 
@@ -507,7 +507,7 @@ Standard_Integer BinLDrivers_DocumentRetrievalDriver::ReadSubTree(
         }
         catch (const Standard_DomainError&)
         {
-          // For attributes that can have arbitrary GUID (e.g. TDataStd_Integer), exception
+          // For attributes that can have arbitrary GUID (e.g. IntAttribute), exception
           // will be raised in valid case if attribute of that type with default GUID is already
           // present  on the same label; the reason is that actual GUID will be read later.
           // To avoid this, set invalid (null) GUID to the newly added attribute (see #29669)
@@ -565,7 +565,7 @@ Standard_Integer BinLDrivers_DocumentRetrievalDriver::ReadSubTree(
   while (theIS && aTag >= 0 && !theIS.eof())
   { // not an end marker ?
     // create sub-label
-    TDF_Label aLab = theLabel.FindChild(aTag, Standard_True);
+    DataLabel aLab = theLabel.FindChild(aTag, Standard_True);
     if (!aPS.More())
     {
       myReaderStatus = PCDM_RS_UserBreak;
@@ -607,7 +607,7 @@ Standard_Integer BinLDrivers_DocumentRetrievalDriver::ReadSubTree(
 Handle(BinMDF_ADriverTable) BinLDrivers_DocumentRetrievalDriver::AttributeDrivers(
   const Handle(Message_Messenger)& theMessageDriver)
 {
-  return BinLDrivers::AttributeDrivers(theMessageDriver);
+  return BinLDrivers1::AttributeDrivers(theMessageDriver);
 }
 
 //=================================================================================================
@@ -630,7 +630,7 @@ void BinLDrivers_DocumentRetrievalDriver::ReadShapeSection(
 {
   if (isMess && theSection.Length())
   {
-    const TCollection_ExtendedString aMethStr("BinLDrivers_DocumentRetrievalDriver: ");
+    const UtfString aMethStr("BinLDrivers_DocumentRetrievalDriver: ");
     myMsgDriver->Send(aMethStr + "warning: Geometry is not supported by Lite schema. ",
                       Message_Warning);
   }
@@ -649,7 +649,7 @@ void BinLDrivers_DocumentRetrievalDriver::CheckShapeSection(const Storage_Positi
 #endif
     if (ShapeSectionPos != endPos)
     {
-      const TCollection_ExtendedString aMethStr("BinLDrivers_DocumentRetrievalDriver: ");
+      const UtfString aMethStr("BinLDrivers_DocumentRetrievalDriver: ");
       myMsgDriver->Send(aMethStr + "warning: Geometry is not supported by Lite schema. ",
                         Message_Warning);
     }

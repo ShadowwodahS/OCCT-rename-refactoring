@@ -94,7 +94,7 @@ Standard_Boolean IFSelect_SelectRange::Sort(const Standard_Integer rank,
   return (rank >= rankfrom && (rankto == 0 || rankto >= rank));
 }
 
-TCollection_AsciiString IFSelect_SelectRange::ExtractLabel() const
+AsciiString1 IFSelect_SelectRange::ExtractLabel() const
 {
   char             lab[30];
   Standard_Integer rankfrom = 0;
@@ -112,5 +112,5 @@ TCollection_AsciiString IFSelect_SelectRange::ExtractLabel() const
   else
     sprintf(lab, "From %d Until %d", rankfrom, rankto);
 
-  return TCollection_AsciiString(lab);
+  return AsciiString1(lab);
 }

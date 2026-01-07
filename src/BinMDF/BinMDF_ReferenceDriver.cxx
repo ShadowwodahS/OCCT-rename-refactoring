@@ -47,7 +47,7 @@ Standard_Boolean BinMDF_ReferenceDriver::Paste(const BinObjMgt_Persistent&  theS
 {
   Handle(TDF_Reference) aRef = Handle(TDF_Reference)::DownCast(theTarget);
 
-  TDF_Label tLab; // Null label.
+  DataLabel tLab; // Null label.
   if (!theSource.GetLabel(aRef->Label().Data(), tLab))
     return Standard_False;
 
@@ -68,8 +68,8 @@ void BinMDF_ReferenceDriver::Paste(const Handle(TDF_Attribute)& theSource,
   Handle(TDF_Reference) aRef = Handle(TDF_Reference)::DownCast(theSource);
   if (!aRef.IsNull())
   {
-    const TDF_Label& lab    = aRef->Label();
-    const TDF_Label& refLab = aRef->Get();
+    const DataLabel& lab    = aRef->Label();
+    const DataLabel& refLab = aRef->Get();
     if (!lab.IsNull() && !refLab.IsNull())
     {
       if (lab.IsDescendant(refLab.Root()))

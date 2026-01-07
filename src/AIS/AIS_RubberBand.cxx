@@ -28,7 +28,7 @@
 
 #define MEMORY_BLOCK_SIZE 512 * 7
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_RubberBand, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_RubberBand, VisualEntity)
 
 //=================================================================================================
 
@@ -257,7 +257,7 @@ Standard_Boolean AIS_RubberBand::fillTriangles()
   IMeshData::VectorOfInteger anIndexes(myPoints.Length(), anAllocator);
   for (Standard_Integer aPtIdx = aPtsLower; aPtIdx <= aPtsUpper; ++aPtIdx)
   {
-    gp_XY aP((Standard_Real)myPoints.Value(aPtIdx).x(), (Standard_Real)myPoints.Value(aPtIdx).y());
+    Coords2d aP((Standard_Real)myPoints.Value(aPtIdx).x(), (Standard_Real)myPoints.Value(aPtIdx).y());
     BRepMesh_Vertex aVertex(aP, aPtIdx, BRepMesh_Frontier);
     anIndexes.Append(aMeshStructure->AddNode(aVertex));
   }
@@ -349,7 +349,7 @@ void AIS_RubberBand::Compute(const Handle(PrsMgr_PresentationManager)&,
     return;
   }
 
-  // Draw filling
+  // Draw1 filling
   if (IsFilling() && fillTriangles())
   {
     Handle(Graphic3d_Group) aGroup1 = thePresentation->NewGroup();
@@ -357,7 +357,7 @@ void AIS_RubberBand::Compute(const Handle(PrsMgr_PresentationManager)&,
     aGroup1->AddPrimitiveArray(myTriangles);
   }
 
-  // Draw frame
+  // Draw1 frame
   if (myBorders.IsNull()
       || myBorders->VertexNumber() != myPoints.Length() + (myIsPolygonClosed ? 1 : 0))
   {

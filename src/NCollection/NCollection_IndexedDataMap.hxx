@@ -45,7 +45,7 @@
  *              discussion about the number of buckets.
  */
 
-template <class TheKeyType, class TheItemType, class Hasher = NCollection_DefaultHasher<TheKeyType>>
+template <class TheKeyType, class TheItemType, class Hasher1 = NCollection_DefaultHasher<TheKeyType>>
 class NCollection_IndexedDataMap : public NCollection_BaseMap
 {
 public:
@@ -53,7 +53,7 @@ public:
   typedef TheKeyType key_type;
   //! STL-compliant typedef for value type
   typedef TheItemType value_type;
-  typedef Hasher      hasher;
+  typedef Hasher1      hasher;
 
 private:
   //!    Adaptation of the TListNode to the INDEXEDDatamap
@@ -707,7 +707,7 @@ protected:
   }
 
 protected:
-  Hasher myHasher;
+  Hasher1 myHasher;
 };
 
 #endif

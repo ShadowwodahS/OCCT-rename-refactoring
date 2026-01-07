@@ -28,7 +28,7 @@
 #include <gp_Dir.hxx>
 #include <LProp_Status.hxx>
 #include <Standard_Boolean.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 class LProp_BadContinuity;
 class Standard_DomainError;
 class Standard_OutOfRange;
@@ -36,7 +36,7 @@ class LProp_NotDefined;
 class Vector3d;
 class Point3d;
 class Dir3d;
-class GeomLProp_CurveTool;
+class CurveTool1;
 
 class GeomLProp_CLProps
 {
@@ -52,14 +52,14 @@ public:
   //! only the tangent, N should be equal to 1.
   //! <Resolution> is the linear tolerance (it is used to test
   //! if a vector is null).
-  Standard_EXPORT GeomLProp_CLProps(const Handle(Geom_Curve)& C,
+  Standard_EXPORT GeomLProp_CLProps(const Handle(GeomCurve3d)& C,
                                     const Standard_Integer    N,
                                     const Standard_Real       Resolution);
 
   //! Same as previous constructor but here the parameter is
   //! set to the value <U>.
   //! All the computations done will be related to <C> and <U>.
-  Standard_EXPORT GeomLProp_CLProps(const Handle(Geom_Curve)& C,
+  Standard_EXPORT GeomLProp_CLProps(const Handle(GeomCurve3d)& C,
                                     const Standard_Real       U,
                                     const Standard_Integer    N,
                                     const Standard_Real       Resolution);
@@ -78,7 +78,7 @@ public:
 
   //! Initializes the local properties of the curve
   //! for the new curve.
-  Standard_EXPORT void SetCurve(const Handle(Geom_Curve)& C);
+  Standard_EXPORT void SetCurve(const Handle(GeomCurve3d)& C);
 
   //! Returns the Point.
   Standard_EXPORT const Point3d& Value() const;
@@ -114,7 +114,7 @@ public:
 
 protected:
 private:
-  Handle(Geom_Curve) myCurve;
+  Handle(GeomCurve3d) myCurve;
   Standard_Real      myU;
   Standard_Integer   myDerOrder;
   Standard_Real      myCN;

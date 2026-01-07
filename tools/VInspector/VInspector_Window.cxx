@@ -256,8 +256,8 @@ void VInspector_Window::SetPreferences(const TInspectorAPI_PreferencesDataMap& t
   for (TInspectorAPI_IteratorOfPreferencesDataMap anItemIt(theItem); anItemIt.More();
        anItemIt.Next())
   {
-    TCollection_AsciiString anItemKey   = anItemIt.Key();
-    TCollection_AsciiString anItemValue = anItemIt.Value();
+    AsciiString1 anItemKey   = anItemIt.Key();
+    AsciiString1 anItemValue = anItemIt.Value();
     if (anItemKey.IsEqual("geometry"))
       myMainWindow->restoreState(TreeModel_Tools::ToByteArray(anItemValue.ToCString()));
     else if (TreeModel_Tools::RestoreState(myTreeView,
@@ -289,26 +289,26 @@ void VInspector_Window::SetPreferences(const TInspectorAPI_PreferencesDataMap& t
 // =======================================================================
 void VInspector_Window::UpdateContent()
 {
-  TCollection_AsciiString aName = "TKVInspector";
+  AsciiString1 aName = "TKVInspector";
 
   bool isModelUpdated = false;
   if (myParameters->FindParameters(aName))
     isModelUpdated = Init(myParameters->Parameters(aName));
   if (myParameters->FindFileNames(aName))
   {
-    for (NCollection_List<TCollection_AsciiString>::Iterator aFileNamesIt(
+    for (NCollection_List<AsciiString1>::Iterator aFileNamesIt(
            myParameters->FileNames(aName));
          aFileNamesIt.More();
          aFileNamesIt.Next())
       isModelUpdated = OpenFile(aFileNamesIt.Value()) || isModelUpdated;
 
-    NCollection_List<TCollection_AsciiString> aNames;
+    NCollection_List<AsciiString1> aNames;
     myParameters->SetFileNames(aName, aNames);
   }
   if (!isModelUpdated)
     UpdateTreeModel();
 
-  // make AIS_InteractiveObject selected selected if exist in select parameters
+  // make VisualEntity selected selected if exist in select parameters
   NCollection_List<Handle(RefObject)> anObjects;
   VInspector_ViewModel* aViewModel = dynamic_cast<VInspector_ViewModel*>(myTreeView->model());
   if (aViewModel && myParameters->GetSelectedObjects(aName, anObjects))
@@ -320,8 +320,8 @@ void VInspector_Window::UpdateContent()
          aParamsIt.Next())
     {
       Handle(RefObject)    anObject = aParamsIt.Value();
-      Handle(AIS_InteractiveObject) aPresentation =
-        Handle(AIS_InteractiveObject)::DownCast(anObject);
+      Handle(VisualEntity) aPresentation =
+        Handle(VisualEntity)::DownCast(anObject);
       if (aPresentation.IsNull())
         continue;
 
@@ -338,10 +338,10 @@ void VInspector_Window::UpdateContent()
 // function : SelectedPresentations
 // purpose :
 // =======================================================================
-NCollection_List<Handle(AIS_InteractiveObject)> VInspector_Window::SelectedPresentations(
+NCollection_List<Handle(VisualEntity)> VInspector_Window::SelectedPresentations(
   QItemSelectionModel* theModel)
 {
-  NCollection_List<Handle(AIS_InteractiveObject)> aSelectedPresentations;
+  NCollection_List<Handle(VisualEntity)> aSelectedPresentations;
 
   QList<TreeModel_ItemBasePtr> anItems =
     TreeModel_ModelBase::SelectedItems(theModel->selectedIndexes());
@@ -364,8 +364,8 @@ NCollection_List<Handle(AIS_InteractiveObject)> VInspector_Window::SelectedPrese
          anIt.More();
          anIt.Next())
     {
-      Handle(AIS_InteractiveObject) aPresentation =
-        Handle(AIS_InteractiveObject)::DownCast(anIt.Value());
+      Handle(VisualEntity) aPresentation =
+        Handle(VisualEntity)::DownCast(anIt.Value());
       if (aSelectedIds.contains((size_t)aPresentation.get()))
         continue;
       aSelectedIds.append((size_t)aPresentation.get());
@@ -398,7 +398,7 @@ void VInspector_Window::SelectedShapes(
       continue;
     }
 
-    TopoDS_Shape aShape = aVItem->GetPresentationShape();
+    TopoShape aShape = aVItem->GetPresentationShape();
     if (aShape.IsNull())
       continue;
 
@@ -416,7 +416,7 @@ bool VInspector_Window::Init(const NCollection_List<Handle(RefObject)>& theParam
   if (!aViewModel)
     return Standard_False;
 
-  Handle(AIS_InteractiveContext) aContext;
+  Handle(VisualContext) aContext;
   Standard_Boolean               isModelUpdated = Standard_False;
 
   for (NCollection_List<Handle(RefObject)>::Iterator aParamsIt(theParameters);
@@ -425,7 +425,7 @@ bool VInspector_Window::Init(const NCollection_List<Handle(RefObject)>& theParam
   {
     Handle(RefObject) anObject = aParamsIt.Value();
     if (aContext.IsNull())
-      aContext = Handle(AIS_InteractiveContext)::DownCast(anObject);
+      aContext = Handle(VisualContext)::DownCast(anObject);
   }
   if (aViewModel->GetContext() != aContext)
     SetContext(aContext);
@@ -442,7 +442,7 @@ bool VInspector_Window::Init(const NCollection_List<Handle(RefObject)>& theParam
 // function : SetContext
 // purpose :
 // =======================================================================
-void VInspector_Window::SetContext(const Handle(AIS_InteractiveContext)& theContext)
+void VInspector_Window::SetContext(const Handle(VisualContext)& theContext)
 {
   if (theContext.IsNull())
     return;
@@ -459,20 +459,20 @@ void VInspector_Window::SetContext(const Handle(AIS_InteractiveContext)& theCont
 // function : OpenFile
 // purpose :
 // =======================================================================
-bool VInspector_Window::OpenFile(const TCollection_AsciiString& theFileName)
+bool VInspector_Window::OpenFile(const AsciiString1& theFileName)
 {
   VInspector_ViewModel* aViewModel = dynamic_cast<VInspector_ViewModel*>(myTreeView->model());
   if (!aViewModel)
     return false;
 
-  Handle(AIS_InteractiveContext) aContext       = aViewModel->GetContext();
+  Handle(VisualContext) aContext       = aViewModel->GetContext();
   bool                           isModelUpdated = false;
   if (aContext.IsNull())
   {
     aContext = createView();
     SetContext(aContext);
 
-    const Handle(V3d_Viewer) aViewer = aViewModel->GetContext()->CurrentViewer();
+    const Handle(ViewManager) aViewer = aViewModel->GetContext()->CurrentViewer();
     if (!aViewer.IsNull())
     {
       addLight(Graphic3d_TOLS_POSITIONAL, aViewer);
@@ -482,11 +482,11 @@ bool VInspector_Window::OpenFile(const TCollection_AsciiString& theFileName)
     isModelUpdated = true;
   }
 
-  TopoDS_Shape aShape = Convert_Tools::ReadShape(theFileName);
+  TopoShape aShape = Convert_Tools::ReadShape(theFileName);
   if (aShape.IsNull())
     return isModelUpdated;
 
-  Handle(AIS_Shape) aPresentation = new AIS_Shape(aShape);
+  Handle(VisualShape) aPresentation = new VisualShape(aShape);
   aPresentation->Attributes()->SetAutoTriangulation(Standard_False);
 
   View_Displayer* aDisplayer = displayer();
@@ -648,9 +648,9 @@ void VInspector_Window::onExportToShapeView()
   NCollection_List<Handle(RefObject)> aSelectedShapes;
   SelectedShapes(aSelectedShapes);
 
-  TCollection_AsciiString                      aPluginName("TKShapeView");
+  AsciiString1                      aPluginName("TKShapeView");
   NCollection_List<Handle(RefObject)> aParameters;
-  NCollection_List<TCollection_AsciiString>    anItemNames;
+  NCollection_List<AsciiString1>    anItemNames;
 
   QStringList anExportedPointers;
   if (aSelectedShapes.Extent() > 0)
@@ -664,7 +664,7 @@ void VInspector_Window::onExportToShapeView()
       if (aShapePtr.IsNull())
         continue;
 
-      const TopoDS_Shape& aShape = aShapePtr->Shape();
+      const TopoShape& aShape = aShapePtr->Shape();
       if (aShape.IsNull())
         continue;
       aParameters.Append(aShape.TShape());
@@ -676,7 +676,7 @@ void VInspector_Window::onExportToShapeView()
   if (anExportedPointers.isEmpty())
     return;
 
-  TCollection_AsciiString aPluginShortName = aPluginName.SubString(3, aPluginName.Length());
+  AsciiString1 aPluginShortName = aPluginName.SubString(3, aPluginName.Length());
   QString                 aMessage         = QString("Objects %1 are sent to %2.")
                        .arg(anExportedPointers.join(", "))
                        .arg(aPluginShortName.ToCString());
@@ -703,7 +703,7 @@ void VInspector_Window::onAddLight()
   VInspector_ViewModel* aViewModel = dynamic_cast<VInspector_ViewModel*>(myTreeView->model());
   if (!aViewModel)
     return;
-  const Handle(V3d_Viewer) aViewer = aViewModel->GetContext()->CurrentViewer();
+  const Handle(ViewManager) aViewer = aViewModel->GetContext()->CurrentViewer();
   if (aViewer.IsNull())
     return;
 
@@ -743,7 +743,7 @@ void VInspector_Window::onAddLight()
 void VInspector_Window::onRemoveLight()
 {
   VInspector_ViewModel*    aViewModel = dynamic_cast<VInspector_ViewModel*>(myTreeView->model());
-  const Handle(V3d_Viewer) aViewer = aViewModel ? aViewModel->GetContext()->CurrentViewer() : NULL;
+  const Handle(ViewManager) aViewer = aViewModel ? aViewModel->GetContext()->CurrentViewer() : NULL;
   if (aViewer.IsNull())
   {
     return;
@@ -779,7 +779,7 @@ void VInspector_Window::onRemoveLight()
 void VInspector_Window::onOnOffLight()
 {
   VInspector_ViewModel*    aViewModel = dynamic_cast<VInspector_ViewModel*>(myTreeView->model());
-  const Handle(V3d_Viewer) aViewer = aViewModel ? aViewModel->GetContext()->CurrentViewer() : NULL;
+  const Handle(ViewManager) aViewer = aViewModel ? aViewModel->GetContext()->CurrentViewer() : NULL;
   if (aViewer.IsNull())
   {
     return;
@@ -887,7 +887,7 @@ void VInspector_Window::displaySelectedPresentations(const View_DisplayActionTyp
   if (!aViewModel)
     return;
 
-  Handle(AIS_InteractiveContext) aContext = aViewModel->GetContext();
+  Handle(VisualContext) aContext = aViewModel->GetContext();
   if (aContext.IsNull())
     return;
 
@@ -895,20 +895,20 @@ void VInspector_Window::displaySelectedPresentations(const View_DisplayActionTyp
   if (!aSelectionModel)
     return;
 
-  NCollection_List<Handle(AIS_InteractiveObject)> aSelectedPresentations =
+  NCollection_List<Handle(VisualEntity)> aSelectedPresentations =
     SelectedPresentations(aSelectionModel);
-  // the order of objects returned by AIS_InteractiveContext is changed because the processed object
+  // the order of objects returned by VisualContext is changed because the processed object
   // is moved from Erased to Displayed container or back
   aSelectionModel->clear();
 
   if (aSelectedPresentations.Extent() == 0)
     return;
 
-  for (NCollection_List<Handle(AIS_InteractiveObject)>::Iterator anIOIt(aSelectedPresentations);
+  for (NCollection_List<Handle(VisualEntity)>::Iterator anIOIt(aSelectedPresentations);
        anIOIt.More();
        anIOIt.Next())
   {
-    Handle(AIS_InteractiveObject) aPresentation = anIOIt.Value();
+    Handle(VisualEntity) aPresentation = anIOIt.Value();
     switch (theType)
     {
       case View_DisplayActionType_DisplayId: {
@@ -984,10 +984,10 @@ void VInspector_Window::selectTreeViewItems(const QStringList& thePointers)
 // function : createView
 // purpose :
 // =======================================================================
-Handle(AIS_InteractiveContext) VInspector_Window::createView()
+Handle(VisualContext) VInspector_Window::createView()
 {
   // create two view windows
-  Handle(AIS_InteractiveContext) aContext = View_Viewer::CreateStandardViewer();
+  Handle(VisualContext) aContext = View_Viewer::CreateStandardViewer();
 
   myViewWindow = new View_Window(0, aContext, false /*for opening several BREP files*/, true);
   myViewWindow->SetPredefinedSize(VINSPECTOR_DEFAULT_VIEW_WIDTH, VINSPECTOR_DEFAULT_VIEW_HEIGHT);
@@ -1014,7 +1014,7 @@ View_Displayer* VInspector_Window::displayer()
 // purpose :
 // =======================================================================
 void VInspector_Window::addLight(const Graphic3d_TypeOfLightSource& theSourceLight,
-                                 const Handle(V3d_Viewer)&          theViewer)
+                                 const Handle(ViewManager)&          theViewer)
 {
   Standard_Boolean aNeedDirection =
     theSourceLight == Graphic3d_TOLS_DIRECTIONAL || theSourceLight == Graphic3d_TOLS_SPOT;

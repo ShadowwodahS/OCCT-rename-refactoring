@@ -20,21 +20,21 @@
 
 class RefObject;
 class Standard_GUID;
-class TCollection_AsciiString;
+class AsciiString1;
 class XmlMDF_ADriverTable;
 class Message_Messenger;
-class TDocStd_Application;
+class AppManager;
 
 class XmlLDrivers
 {
 public:
   Standard_EXPORT static const Handle(RefObject)& Factory(const Standard_GUID& theGUID);
 
-  Standard_EXPORT static TCollection_AsciiString CreationDate();
+  Standard_EXPORT static AsciiString1 CreationDate();
 
   //! Defines format "XmlLOcaf" and registers its read and write drivers
   //! in the specified application
-  Standard_EXPORT static void DefineFormat(const Handle(TDocStd_Application)& theApp);
+  Standard_EXPORT static void DefineFormat(const Handle(AppManager)& theApp);
 
   Standard_EXPORT static Handle(XmlMDF_ADriverTable) AttributeDrivers(
     const Handle(Message_Messenger)& theMsgDriver);

@@ -20,14 +20,14 @@
 
 //! Builds the mesh of a shape with respect of their
 //! correctly triangulated parts
-class BRepMesh_IncrementalMesh : public BRepMesh_DiscretRoot
+class MeshGenerator : public BRepMesh_DiscretRoot
 {
 public: //! @name mesher API
   //! Default constructor
-  Standard_EXPORT BRepMesh_IncrementalMesh();
+  Standard_EXPORT MeshGenerator();
 
   //! Destructor
-  Standard_EXPORT virtual ~BRepMesh_IncrementalMesh();
+  Standard_EXPORT virtual ~MeshGenerator();
 
   //! Constructor.
   //! Automatically calls method Perform.
@@ -38,7 +38,7 @@ public: //! @name mesher API
   //! used for the faces will be the maximum deflection of their edges.
   //! @param theAngDeflection angular deflection.
   //! @param isInParallel if TRUE shape will be meshed in parallel.
-  Standard_EXPORT BRepMesh_IncrementalMesh(const TopoDS_Shape&    theShape,
+  Standard_EXPORT MeshGenerator(const TopoShape&    theShape,
                                            const Standard_Real    theLinDeflection,
                                            const Standard_Boolean isRelative       = Standard_False,
                                            const Standard_Real    theAngDeflection = 0.5,
@@ -48,8 +48,8 @@ public: //! @name mesher API
   //! Automatically calls method Perform.
   //! @param theShape shape to be meshed.
   //! @param theParameters - parameters of meshing
-  Standard_EXPORT BRepMesh_IncrementalMesh(
-    const TopoDS_Shape&          theShape,
+  Standard_EXPORT MeshGenerator(
+    const TopoShape&          theShape,
     const IMeshTools_Parameters& theParameters,
     const Message_ProgressRange& theRange = Message_ProgressRange());
 
@@ -81,7 +81,7 @@ private:
     if (myParameters.Deflection < Precision::Confusion())
     {
       throw Standard_NumericError(
-        "BRepMesh_IncrementalMesh::initParameters : invalid parameter value");
+        "MeshGenerator::initParameters : invalid parameter value");
     }
     if (myParameters.DeflectionInterior < Precision::Confusion())
     {
@@ -98,7 +98,7 @@ private:
     if (myParameters.Angle < Precision::Angular())
     {
       throw Standard_NumericError(
-        "BRepMesh_IncrementalMesh::initParameters : invalid parameter value");
+        "MeshGenerator::initParameters : invalid parameter value");
     }
     if (myParameters.AngleInterior < Precision::Angular())
     {
@@ -107,26 +107,26 @@ private:
   }
 
 public: //! @name plugin API
-  //! Plugin interface for the Mesh Factories.
+  //! Plugin interface for the Mesh1 Factories.
   //! Initializes meshing algorithm with the given parameters.
   //! @param theShape shape to be meshed.
   //! @param theLinDeflection linear deflection.
   //! @param theAngDeflection angular deflection.
   //! @param[out] theAlgo pointer to initialized algorithm.
-  Standard_EXPORT static Standard_Integer Discret(const TopoDS_Shape&    theShape,
+  Standard_EXPORT static Standard_Integer Discret(const TopoShape&    theShape,
                                                   const Standard_Real    theLinDeflection,
                                                   const Standard_Real    theAngDeflection,
                                                   BRepMesh_DiscretRoot*& theAlgo);
 
   //! Returns multi-threading usage flag set by default in
-  //! Discret() static method (thus applied only to Mesh Factories).
+  //! Discret() static method (thus applied only to Mesh1 Factories).
   Standard_EXPORT static Standard_Boolean IsParallelDefault();
 
   //! Setup multi-threading usage flag set by default in
-  //! Discret() static method (thus applied only to Mesh Factories).
+  //! Discret() static method (thus applied only to Mesh1 Factories).
   Standard_EXPORT static void SetParallelDefault(const Standard_Boolean isInParallel);
 
-  DEFINE_STANDARD_RTTIEXT(BRepMesh_IncrementalMesh, BRepMesh_DiscretRoot)
+  DEFINE_STANDARD_RTTIEXT(MeshGenerator, BRepMesh_DiscretRoot)
 
 protected:
   IMeshTools_Parameters myParameters;

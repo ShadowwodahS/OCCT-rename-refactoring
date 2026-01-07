@@ -22,7 +22,7 @@
 
 #include <TColgp_Array1OfPnt2d.hxx>
 class Geom2d_Line;
-class Geom2d_Curve;
+class GeomCurve2d;
 class Geom2d_BSplineCurve;
 
 //! Converts curve2d to analytical form with given
@@ -41,7 +41,7 @@ public:
   //! Try to convert BSpline2d or Bezier2d to line 2d
   //! only if it is linear. Recalculate first and last parameters.
   //! Returns line2d or null curve2d.
-  Standard_EXPORT static Handle(Geom2d_Line) ConvertToLine2d(const Handle(Geom2d_Curve)& theCurve,
+  Standard_EXPORT static Handle(Geom2d_Line) ConvertToLine2d(const Handle(GeomCurve2d)& theCurve,
                                                              const Standard_Real         theFirstIn,
                                                              const Standard_Real         theLastIn,
                                                              const Standard_Real theTolerance,

@@ -23,14 +23,14 @@
 #include <Standard_Transient.hxx>
 #include <Draw_ColorKind.hxx>
 class Draw_Drawable3D;
-class TDF_Label;
+class DataLabel;
 class TDataXtd_Constraint;
-class TopoDS_Shape;
+class TopoShape;
 
 class DDataStd_DrawDriver;
 DEFINE_STANDARD_HANDLE(DDataStd_DrawDriver, RefObject)
 
-//! Root class of drivers to build draw variables from TDF_Label.
+//! Root class of drivers to build draw variables from DataLabel.
 //! Priority rule to display standard attributes is :
 //! * 1 Constraint
 //! * 2 Object
@@ -53,18 +53,18 @@ public:
 
   //! reusable methods (may used when redefined <Drawable>)
   //! =====================================================
-  Standard_EXPORT virtual Handle(Draw_Drawable3D) Drawable(const TDF_Label& L) const;
+  Standard_EXPORT virtual Handle(Draw_Drawable3D) Drawable(const DataLabel& L) const;
 
   Standard_EXPORT Handle(Draw_Drawable3D) DrawableConstraint(
     const Handle(TDataXtd_Constraint)& C) const;
 
   Standard_EXPORT Handle(Draw_Drawable3D) DrawableShape(
-    const TDF_Label&       L,
+    const DataLabel&       L,
     const Draw_ColorKind   color,
     const Standard_Boolean current = Standard_True) const;
 
   //! May be used for temporary display of a shape
-  Standard_EXPORT static Handle(Draw_Drawable3D) DrawableShape(const TopoDS_Shape&  s,
+  Standard_EXPORT static Handle(Draw_Drawable3D) DrawableShape(const TopoShape&  s,
                                                                const Draw_ColorKind color);
 
   DEFINE_STANDARD_RTTIEXT(DDataStd_DrawDriver, RefObject)

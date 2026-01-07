@@ -22,14 +22,14 @@ IMPLEMENT_STANDARD_RTTIEXT(Expr_NamedExpression, Expr_GeneralExpression)
 
 //=================================================================================================
 
-const TCollection_AsciiString& Expr_NamedExpression::GetName() const
+const AsciiString1& Expr_NamedExpression::GetName() const
 {
   return myName;
 }
 
 //=================================================================================================
 
-void Expr_NamedExpression::SetName(const TCollection_AsciiString& name)
+void Expr_NamedExpression::SetName(const AsciiString1& name)
 {
   myName = name;
 }
@@ -61,7 +61,7 @@ Standard_Boolean Expr_NamedExpression::IsIdentical(
   return aResult;
 }
 
-TCollection_AsciiString Expr_NamedExpression::String() const
+AsciiString1 Expr_NamedExpression::String() const
 {
   return GetName();
 }

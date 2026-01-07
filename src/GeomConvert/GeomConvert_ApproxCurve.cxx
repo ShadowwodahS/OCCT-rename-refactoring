@@ -31,7 +31,7 @@
 // class : GeomConvert_ApproxCurve_Eval
 // purpose: evaluator class for approximation
 //=======================================================================
-class GeomConvert_ApproxCurve_Eval : public AdvApprox_EvaluatorFunction
+class GeomConvert_ApproxCurve_Eval : public EvaluatorFunction
 {
 public:
   GeomConvert_ApproxCurve_Eval(const Handle(Adaptor3d_Curve)& theFunc,
@@ -108,7 +108,7 @@ void GeomConvert_ApproxCurve_Eval::Evaluate(Standard_Integer* Dimension,
   }
 }
 
-GeomConvert_ApproxCurve::GeomConvert_ApproxCurve(const Handle(Geom_Curve)& Curve,
+GeomConvert_ApproxCurve::GeomConvert_ApproxCurve(const Handle(GeomCurve3d)& Curve,
                                                  const Standard_Real       Tol3d,
                                                  const GeomAbs_Shape       Order,
                                                  const Standard_Integer    MaxSegments,
@@ -179,12 +179,12 @@ void GeomConvert_ApproxCurve::Approximate(const Handle(Adaptor3d_Curve)& theCurv
     Handle(TColStd_HArray1OfReal)    Knots  = aApprox.Knots();
     Handle(TColStd_HArray1OfInteger) Mults  = aApprox.Multiplicities();
     Standard_Integer                 Degree = aApprox.Degree();
-    myBSplCurve = new Geom_BSplineCurve(Poles, Knots->Array1(), Mults->Array1(), Degree);
+    myBSplCurve = new BSplineCurve3d(Poles, Knots->Array1(), Mults->Array1(), Degree);
     myMaxError  = aApprox.MaxError(3, 1);
   }
 }
 
-Handle(Geom_BSplineCurve) GeomConvert_ApproxCurve::Curve() const
+Handle(BSplineCurve3d) GeomConvert_ApproxCurve::Curve() const
 {
   return myBSplCurve;
 }

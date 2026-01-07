@@ -23,13 +23,13 @@
 
 #include <GeomToIGES_GeomEntity.hxx>
 class IGESData_IGESEntity;
-class Geom_Surface;
+class GeomSurface;
 class Geom_BoundedSurface;
 class Geom_BSplineSurface;
 class Geom_BezierSurface;
 class Geom_RectangularTrimmedSurface;
 class Geom_ElementarySurface;
-class Geom_Plane;
+class GeomPlane;
 class Geom_CylindricalSurface;
 class Geom_ConicalSurface;
 class Geom_SphericalSurface;
@@ -69,7 +69,7 @@ public:
   //! Transfert  a  GeometryEntity which  answer True  to  the
   //! member : BRepToIGES::IsGeomSurface(Geometry).  If this
   //! Entity could not be converted, this member returns a NullEntity.
-  Standard_EXPORT Handle(IGESData_IGESEntity) TransferSurface(const Handle(Geom_Surface)& start,
+  Standard_EXPORT Handle(IGESData_IGESEntity) TransferSurface(const Handle(GeomSurface)& start,
                                                               const Standard_Real         Udeb,
                                                               const Standard_Real         Ufin,
                                                               const Standard_Real         Vdeb,
@@ -110,7 +110,7 @@ public:
     const Standard_Real                   Vdeb,
     const Standard_Real                   Vfin);
 
-  Standard_EXPORT Handle(IGESData_IGESEntity) TransferSurface(const Handle(Geom_Plane)& start,
+  Standard_EXPORT Handle(IGESData_IGESEntity) TransferSurface(const Handle(GeomPlane)& start,
                                                               const Standard_Real       Udeb,
                                                               const Standard_Real       Ufin,
                                                               const Standard_Real       Vdeb,
@@ -172,7 +172,7 @@ public:
     const Standard_Real               Vdeb,
     const Standard_Real               Vfin);
 
-  Standard_EXPORT Handle(IGESData_IGESEntity) TransferPlaneSurface(const Handle(Geom_Plane)& start,
+  Standard_EXPORT Handle(IGESData_IGESEntity) TransferPlaneSurface(const Handle(GeomPlane)& start,
                                                                    const Standard_Real       Udeb,
                                                                    const Standard_Real       Ufin,
                                                                    const Standard_Real       Vdeb,

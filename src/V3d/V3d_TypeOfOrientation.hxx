@@ -23,7 +23,7 @@
 //!
 //! This enumeration defines only main Camera direction, so that the Camera up direction should be
 //! defined elsewhere for unambiguous Camera definition. Open CASCADE does not force application
-//! using specific coordinate system, although Draw Harness and samples define +Z-up +Y-forward
+//! using specific coordinate system, although Draw1 Harness and samples define +Z-up +Y-forward
 //! coordinate system for camera view manipulation. Therefore, this enumeration also defines
 //! V3d_TypeOfOrientation_Zup_* aliases defining front/back/left/top camera orientations for +Z-up
 //! convention as well as V3d_TypeOfOrientation_Yup_* aliases for another commonly used in other

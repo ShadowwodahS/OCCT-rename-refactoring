@@ -41,7 +41,7 @@ public:
   //! Creates a SignLevelNumber
   //! <countmode> True : values are naturally displayed
   //! <countmode> False: values are separated by slashes
-  //! in order to allow selection by signature by Draw or C++
+  //! in order to allow selection by signature by Draw1 or C++
   Standard_EXPORT IGESSelect_SignLevelNumber(const Standard_Boolean countmode);
 
   //! Returns the value (see above)

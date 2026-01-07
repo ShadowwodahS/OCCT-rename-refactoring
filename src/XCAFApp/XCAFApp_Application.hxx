@@ -23,14 +23,14 @@
 #include <Standard_CString.hxx>
 
 class XCAFApp_Application;
-DEFINE_STANDARD_HANDLE(XCAFApp_Application, TDocStd_Application)
+DEFINE_STANDARD_HANDLE(XCAFApp_Application, AppManager)
 
 //! Implements an Application for the DECAF documents
-class XCAFApp_Application : public TDocStd_Application
+class XCAFApp_Application : public AppManager
 {
 
 public:
-  //! methods from TDocStd_Application
+  //! methods from AppManager
   //! ================================
   Standard_EXPORT virtual Standard_CString ResourcesName() Standard_OVERRIDE;
 
@@ -48,7 +48,7 @@ public:
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(XCAFApp_Application, TDocStd_Application)
+  DEFINE_STANDARD_RTTIEXT(XCAFApp_Application, AppManager)
 
 protected:
   Standard_EXPORT XCAFApp_Application();

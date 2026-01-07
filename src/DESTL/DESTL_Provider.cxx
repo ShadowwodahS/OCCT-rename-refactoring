@@ -38,9 +38,9 @@ DESTL_Provider::DESTL_Provider(const Handle(DE_ConfigurationNode)& theNode)
 
 //=================================================================================================
 
-bool DESTL_Provider::Read(const TCollection_AsciiString&  thePath,
-                          const Handle(TDocStd_Document)& theDocument,
-                          Handle(XSControl_WorkSession)&  theWS,
+bool DESTL_Provider::Read(const AsciiString1&  thePath,
+                          const Handle(AppDocument)& theDocument,
+                          Handle(ExchangeSession)&  theWS,
                           const Message_ProgressRange&    theProgress)
 {
   (void)theWS;
@@ -49,9 +49,9 @@ bool DESTL_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DESTL_Provider::Write(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
-                           Handle(XSControl_WorkSession)&  theWS,
+bool DESTL_Provider::Write(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
+                           Handle(ExchangeSession)&  theWS,
                            const Message_ProgressRange&    theProgress)
 {
   (void)theWS;
@@ -60,8 +60,8 @@ bool DESTL_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DESTL_Provider::Read(const TCollection_AsciiString&  thePath,
-                          const Handle(TDocStd_Document)& theDocument,
+bool DESTL_Provider::Read(const AsciiString1&  thePath,
+                          const Handle(AppDocument)& theDocument,
                           const Message_ProgressRange&    theProgress)
 {
   if (theDocument.IsNull())
@@ -70,7 +70,7 @@ bool DESTL_Provider::Read(const TCollection_AsciiString&  thePath,
                         << "\t: theDocument shouldn't be null";
     return false;
   }
-  TopoDS_Shape aShape;
+  TopoShape aShape;
   if (!Read(thePath, aShape, theProgress))
   {
     return false;
@@ -82,11 +82,11 @@ bool DESTL_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DESTL_Provider::Write(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
+bool DESTL_Provider::Write(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
                            const Message_ProgressRange&    theProgress)
 {
-  TopoDS_Shape              aShape;
+  TopoShape              aShape;
   TDF_LabelSequence         aLabels;
   Handle(XCAFDoc_ShapeTool) aSTool = XCAFDoc_DocumentTool::ShapeTool(theDocument->Main());
   aSTool->GetFreeShapes(aLabels);
@@ -111,12 +111,12 @@ bool DESTL_Provider::Write(const TCollection_AsciiString&  thePath,
   }
   else
   {
-    TopoDS_Compound aComp;
-    BRep_Builder    aBuilder;
+    TopoCompound aComp;
+    ShapeBuilder    aBuilder;
     aBuilder.MakeCompound(aComp);
     for (Standard_Integer anIndex = 1; anIndex <= aLabels.Length(); anIndex++)
     {
-      TopoDS_Shape aS = aSTool->GetShape(aLabels.Value(anIndex));
+      TopoShape aS = aSTool->GetShape(aLabels.Value(anIndex));
       aBuilder.Add(aComp, aS);
     }
     aShape = aComp;
@@ -126,9 +126,9 @@ bool DESTL_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DESTL_Provider::Read(const TCollection_AsciiString& thePath,
-                          TopoDS_Shape&                  theShape,
-                          Handle(XSControl_WorkSession)& theWS,
+bool DESTL_Provider::Read(const AsciiString1& thePath,
+                          TopoShape&                  theShape,
+                          Handle(ExchangeSession)& theWS,
                           const Message_ProgressRange&   theProgress)
 {
   (void)theWS;
@@ -137,9 +137,9 @@ bool DESTL_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DESTL_Provider::Write(const TCollection_AsciiString& thePath,
-                           const TopoDS_Shape&            theShape,
-                           Handle(XSControl_WorkSession)& theWS,
+bool DESTL_Provider::Write(const AsciiString1& thePath,
+                           const TopoShape&            theShape,
+                           Handle(ExchangeSession)& theWS,
                            const Message_ProgressRange&   theProgress)
 {
   (void)theWS;
@@ -148,8 +148,8 @@ bool DESTL_Provider::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DESTL_Provider::Read(const TCollection_AsciiString& thePath,
-                          TopoDS_Shape&                  theShape,
+bool DESTL_Provider::Read(const AsciiString1& thePath,
+                          TopoShape&                  theShape,
                           const Message_ProgressRange&   theProgress)
 {
   Message::SendWarning()
@@ -173,18 +173,18 @@ bool DESTL_Provider::Read(const TCollection_AsciiString& thePath,
   }
   if (!aNode->InternalParameters.ReadBRep)
   {
-    Handle(Poly_Triangulation) aTriangulation =
-      RWStl::ReadFile(thePath.ToCString(), aMergeAngle, theProgress);
+    Handle(MeshTriangulation) aTriangulation =
+      RWStl1::ReadFile(thePath.ToCString(), aMergeAngle, theProgress);
 
-    TopoDS_Face  aFace;
-    BRep_Builder aB;
+    TopoFace  aFace;
+    ShapeBuilder aB;
     aB.MakeFace(aFace);
     aB.UpdateFace(aFace, aTriangulation);
     theShape = aFace;
   }
   else
   {
-    Standard_DISABLE_DEPRECATION_WARNINGS if (!StlAPI::Read(theShape, thePath.ToCString()))
+    Standard_DISABLE_DEPRECATION_WARNINGS if (!StlAPI1::Read(theShape, thePath.ToCString()))
     {
       Message::SendFail() << "Error in the DESTL_Provider during reading the file " << thePath;
       return false;
@@ -196,8 +196,8 @@ bool DESTL_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DESTL_Provider::Write(const TCollection_AsciiString& thePath,
-                           const TopoDS_Shape&            theShape,
+bool DESTL_Provider::Write(const AsciiString1& thePath,
+                           const TopoShape&            theShape,
                            const Message_ProgressRange&   theProgress)
 {
   Message::SendWarning()
@@ -216,12 +216,12 @@ bool DESTL_Provider::Write(const TCollection_AsciiString& thePath,
       << "\t: Target Units for writing were changed, but current format doesn't support scaling";
   }
 
-  StlAPI_Writer aWriter;
+  StlWriter aWriter;
   aWriter.ASCIIMode() = aNode->InternalParameters.WriteAscii;
   if (!aWriter.Write(theShape, thePath.ToCString(), theProgress))
   {
     Message::SendFail() << "Error in the DESTL_Provider during reading the file " << thePath
-                        << "\t: Mesh writing has been failed";
+                        << "\t: Mesh1 writing has been failed";
     return false;
   }
   return true;
@@ -229,14 +229,14 @@ bool DESTL_Provider::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-TCollection_AsciiString DESTL_Provider::GetFormat() const
+AsciiString1 DESTL_Provider::GetFormat() const
 {
-  return TCollection_AsciiString("STL");
+  return AsciiString1("STL");
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DESTL_Provider::GetVendor() const
+AsciiString1 DESTL_Provider::GetVendor() const
 {
-  return TCollection_AsciiString("OCC");
+  return AsciiString1("OCC");
 }

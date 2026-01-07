@@ -27,16 +27,16 @@ class Interface_EntityIterator;
 //! Describes a list of fields, in a general way
 //! This basic class is for a null size list
 //! Subclasses are for 1, N (fixed) or Dynamic sizes
-class StepData_FieldList
+class FieldList
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Destructor is virtual
-  Standard_EXPORT virtual ~StepData_FieldList();
+  Standard_EXPORT virtual ~FieldList();
 
   //! Creates a FieldList of 0 Field
-  Standard_EXPORT StepData_FieldList();
+  Standard_EXPORT FieldList();
 
   //! Returns the count of fields. Here, returns 0
   Standard_EXPORT virtual Standard_Integer NbFields() const;

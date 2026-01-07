@@ -39,7 +39,7 @@ public:
   //! @param theUV position of vertex in parametric space.
   //! @param theLocation3d index of 3d point to be associated with vertex.
   //! @param theMovability movability of the vertex.
-  BRepMesh_Vertex(const gp_XY&                   theUV,
+  BRepMesh_Vertex(const Coords2d&                   theUV,
                   const Standard_Integer         theLocation3d,
                   const BRepMesh_DegreeOfFreedom theMovability)
   {
@@ -63,7 +63,7 @@ public:
   //! @param theUV position of vertex in parametric space.
   //! @param theLocation3d index of 3d point to be associated with vertex.
   //! @param theMovability movability of the vertex.
-  void Initialize(const gp_XY&                   theUV,
+  void Initialize(const Coords2d&                   theUV,
                   const Standard_Integer         theLocation3d,
                   const BRepMesh_DegreeOfFreedom theMovability)
   {
@@ -73,10 +73,10 @@ public:
   }
 
   //! Returns position of the vertex in parametric space.
-  const gp_XY& Coord() const { return myUV; }
+  const Coords2d& Coord() const { return myUV; }
 
   //! Returns position of the vertex in parametric space for modification.
-  gp_XY& ChangeCoord() { return myUV; }
+  Coords2d& ChangeCoord() { return myUV; }
 
   //! Returns index of 3d point associated with the vertex.
   Standard_Integer Location3d() const { return myLocation3d; }
@@ -104,7 +104,7 @@ public:
   Standard_Boolean operator==(const BRepMesh_Vertex& Other) const { return IsEqual(Other); }
 
 private:
-  gp_XY                    myUV;
+  Coords2d                    myUV;
   Standard_Integer         myLocation3d;
   BRepMesh_DegreeOfFreedom myMovability;
 };

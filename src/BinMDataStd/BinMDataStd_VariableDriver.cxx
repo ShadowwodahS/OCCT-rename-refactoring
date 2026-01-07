@@ -51,7 +51,7 @@ Standard_Boolean BinMDataStd_VariableDriver::Paste(const BinObjMgt_Persistent&  
     return Standard_False;
   aV->Constant(isConstant);
 
-  TCollection_AsciiString anStr;
+  AsciiString1 anStr;
   if (!(theSource >> anStr))
     return Standard_False;
   aV->Unit(anStr);

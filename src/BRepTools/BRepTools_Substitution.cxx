@@ -26,18 +26,18 @@
 
 //=================================================================================================
 
-BRepTools_Substitution::BRepTools_Substitution() {}
+ShapeSubstitution::ShapeSubstitution() {}
 
 //=================================================================================================
 
-void BRepTools_Substitution::Clear()
+void ShapeSubstitution::Clear()
 {
   myMap.Clear();
 }
 
 //=================================================================================================
 
-void BRepTools_Substitution::Substitute(const TopoDS_Shape& OS, const TopTools_ListOfShape& NS)
+void ShapeSubstitution::Substitute(const TopoShape& OS, const ShapeList& NS)
 {
   Standard_ConstructionError_Raise_if(IsCopied(OS), "BRepTools_CutClue::Substitute");
   myMap.Bind(OS, NS);
@@ -45,12 +45,12 @@ void BRepTools_Substitution::Substitute(const TopoDS_Shape& OS, const TopTools_L
 
 //=================================================================================================
 
-void BRepTools_Substitution::Build(const TopoDS_Shape& S)
+void ShapeSubstitution::Build(const TopoShape& S)
 {
   if (IsCopied(S))
     return;
 
-  BRep_Builder     B;
+  ShapeBuilder     B;
   TopoDS_Iterator  iteS(S.Oriented(TopAbs_FORWARD));
   Standard_Boolean IsModified  = Standard_False;
   Standard_Boolean HasSubShape = Standard_False;
@@ -60,7 +60,7 @@ void BRepTools_Substitution::Build(const TopoDS_Shape& S)
   //------------------------------------------
   for (; iteS.More(); iteS.Next())
   {
-    const TopoDS_Shape& SS = iteS.Value();
+    const TopoShape& SS = iteS.Value();
     Build(SS);
     if (IsCopied(SS))
     {
@@ -68,7 +68,7 @@ void BRepTools_Substitution::Build(const TopoDS_Shape& S)
     }
   }
 
-  TopoDS_Shape NewS = S.Oriented(TopAbs_FORWARD);
+  TopoShape NewS = S.Oriented(TopAbs_FORWARD);
   if (IsModified)
   {
     //----------------------------------------
@@ -79,7 +79,7 @@ void BRepTools_Substitution::Build(const TopoDS_Shape& S)
     if (NewS.ShapeType() == TopAbs_EDGE)
     {
       Standard_Real f, l;
-      BRep_Tool::Range(TopoDS::Edge(S), f, l);
+      BRepInspector::Range(TopoDS::Edge(S), f, l);
       B.Range(TopoDS::Edge(NewS), f, l);
     }
 
@@ -90,20 +90,20 @@ void BRepTools_Substitution::Build(const TopoDS_Shape& S)
     for (; iteS.More(); iteS.Next())
     {
       TopAbs_Orientation   OS = iteS.Value().Orientation();
-      TopTools_ListOfShape L;
+      ShapeList L;
       L = myMap(iteS.Value());
       TopTools_ListIteratorOfListOfShape iteL(L);
 
       for (; iteL.More(); iteL.Next())
       {
-        const TopoDS_Shape NSS = iteL.Value();
+        const TopoShape NSS = iteL.Value();
         //------------------------------------------
         // Rebuild NSS and add its copy to NewS.
         //------------------------------------------
         Build(NSS);
 
-        const TopTools_ListOfShape&        NL    = myMap(NSS);
-        TopAbs_Orientation                 NewOr = TopAbs::Compose(OS, NSS.Orientation());
+        const ShapeList&        NL    = myMap(NSS);
+        TopAbs_Orientation                 NewOr = TopAbs1::Compose(OS, NSS.Orientation());
         TopTools_ListIteratorOfListOfShape iteNL(NL);
 
         for (; iteNL.More(); iteNL.Next())
@@ -123,7 +123,7 @@ void BRepTools_Substitution::Build(const TopoDS_Shape& S)
         NewS.Nullify();
     }
   }
-  TopTools_ListOfShape L;
+  ShapeList L;
   //-------------------------------------------------------
   // NewS has the same orientation than S in its ancestors
   // so NewS is bound with orientation FORWARD.
@@ -135,7 +135,7 @@ void BRepTools_Substitution::Build(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_Substitution::IsCopied(const TopoDS_Shape& S) const
+Standard_Boolean ShapeSubstitution::IsCopied(const TopoShape& S) const
 {
   if (myMap.IsBound(S))
   {
@@ -150,8 +150,8 @@ Standard_Boolean BRepTools_Substitution::IsCopied(const TopoDS_Shape& S) const
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepTools_Substitution::Copy(const TopoDS_Shape& S) const
+const ShapeList& ShapeSubstitution::Copy(const TopoShape& S) const
 {
-  Standard_NoSuchObject_Raise_if(!IsCopied(S), "BRepTools_Substitution::Copy");
+  Standard_NoSuchObject_Raise_if(!IsCopied(S), "ShapeSubstitution::Copy");
   return myMap(S);
 }

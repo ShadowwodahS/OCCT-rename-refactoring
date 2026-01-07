@@ -20,7 +20,7 @@
 #include <Standard.hxx>
 #include <Standard_DefineAlloc.hxx>
 
-class TopoDS_Shape;
+class TopoShape;
 class Bnd_Box;
 class Bnd_OBB;
 
@@ -49,7 +49,7 @@ public:
   //! -   This algorithm is time consuming if triangulation has not
   //! been inserted inside the data structure of the shape S.
   //! -   The resulting bounding box may be somewhat larger than the object.
-  Standard_EXPORT static void Add(const TopoDS_Shape&    S,
+  Standard_EXPORT static void Add(const TopoShape&    S,
                                   Bnd_Box&               B,
                                   const Standard_Boolean useTriangulation = Standard_True);
 
@@ -64,7 +64,7 @@ public:
   //! tolerance value of the sub-shapes as is the case with the
   //! Add function. So the added part of the resulting bounding
   //! box is closer to the shape S.
-  Standard_EXPORT static void AddClose(const TopoDS_Shape& S, Bnd_Box& B);
+  Standard_EXPORT static void AddClose(const TopoShape& S, Bnd_Box& B);
 
   //! Adds the shape S to the bounding box B.
   //! This algorithm builds precise bounding box,
@@ -75,7 +75,7 @@ public:
   //! these tolerances are used for numerical methods of bounding box size calculations,
   //! otherwise bounding box is built according to sizes of uderlined geometrical entities,
   //! numerical calculation use tolerance Precision::Confusion().
-  Standard_EXPORT static void AddOptimal(const TopoDS_Shape&    S,
+  Standard_EXPORT static void AddOptimal(const TopoShape&    S,
                                          Bnd_Box&               B,
                                          const Standard_Boolean useTriangulation  = Standard_True,
                                          const Standard_Boolean useShapeTolerance = Standard_False);
@@ -93,7 +93,7 @@ public:
   //! theIsOptimal flag defines whether to look for the more tight
   //! OBB for the cost of performance or not.
   Standard_EXPORT static void AddOBB(
-    const TopoDS_Shape&    theS,
+    const TopoShape&    theS,
     Bnd_OBB&               theOBB,
     const Standard_Boolean theIsTriangulationUsed  = Standard_True,
     const Standard_Boolean theIsOptimal            = Standard_False,

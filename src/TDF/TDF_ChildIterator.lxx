@@ -24,7 +24,7 @@ inline Standard_Boolean TDF_ChildIterator::More() const
   return (myNode != NULL);
 }
 
-inline const TDF_Label TDF_ChildIterator::Value() const
+inline const DataLabel TDF_ChildIterator::Value() const
 {
-  return TDF_Label(myNode);
+  return DataLabel(myNode);
 }

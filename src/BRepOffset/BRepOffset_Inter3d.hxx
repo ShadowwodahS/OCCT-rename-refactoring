@@ -29,9 +29,9 @@
 #include <BRepOffset_DataMapOfShapeOffset.hxx>
 #include <TopTools_DataMapOfShapeShape.hxx>
 class BRepAlgo_AsDes;
-class BRepAlgo_Image;
-class TopoDS_Face;
-class TopoDS_Shape;
+class ShapeImage;
+class TopoFace;
+class TopoShape;
 class BRepOffset_Analyse;
 
 //! Computes the connection of the offset and not offset faces
@@ -49,30 +49,30 @@ public:
                                      const Standard_Real           Tol);
 
   // Computes intersection of the given faces among each other
-  Standard_EXPORT void CompletInt(const TopTools_ListOfShape&  SetOfFaces,
-                                  const BRepAlgo_Image&        InitOffsetFace,
+  Standard_EXPORT void CompletInt(const ShapeList&  SetOfFaces,
+                                  const ShapeImage&        InitOffsetFace,
                                   const Message_ProgressRange& theRange);
 
   //! Computes intersection of pair of faces
-  Standard_EXPORT void FaceInter(const TopoDS_Face&    F1,
-                                 const TopoDS_Face&    F2,
-                                 const BRepAlgo_Image& InitOffsetFace);
+  Standard_EXPORT void FaceInter(const TopoFace&    F1,
+                                 const TopoFace&    F2,
+                                 const ShapeImage& InitOffsetFace);
 
   //! Computes connections of the offset faces that have to be connected by arcs.
-  Standard_EXPORT void ConnexIntByArc(const TopTools_ListOfShape&  SetOfFaces,
-                                      const TopoDS_Shape&          ShapeInit,
+  Standard_EXPORT void ConnexIntByArc(const ShapeList&  SetOfFaces,
+                                      const TopoShape&          ShapeInit,
                                       const BRepOffset_Analyse&    Analyse,
-                                      const BRepAlgo_Image&        InitOffsetFace,
+                                      const ShapeImage&        InitOffsetFace,
                                       const Message_ProgressRange& theRange);
 
   //! Computes intersection of the offset faces that have to be connected by
   //! sharp edges, i.e. it computes intersection between extended offset faces.
-  Standard_EXPORT void ConnexIntByInt(const TopoDS_Shape&                    SI,
+  Standard_EXPORT void ConnexIntByInt(const TopoShape&                    SI,
                                       const BRepOffset_DataMapOfShapeOffset& MapSF,
                                       const BRepOffset_Analyse&              A,
                                       TopTools_DataMapOfShapeShape&          MES,
                                       TopTools_DataMapOfShapeShape&          Build,
-                                      TopTools_ListOfShape&                  Failed,
+                                      ShapeList&                  Failed,
                                       const Message_ProgressRange&           theRange,
                                       const Standard_Boolean bIsPlanar = Standard_False);
 
@@ -83,7 +83,7 @@ public:
                                        const BRepOffset_Analyse&              A,
                                        TopTools_DataMapOfShapeShape&          MES,
                                        TopTools_DataMapOfShapeShape&          Build,
-                                       TopTools_ListOfShape&                  Failed,
+                                       ShapeList&                  Failed,
                                        const Message_ProgressRange&           theRange,
                                        const Standard_Boolean bIsPlanar = Standard_False);
 
@@ -91,15 +91,15 @@ public:
   Standard_EXPORT void ContextIntByArc(const TopTools_IndexedMapOfShape& ContextFaces,
                                        const Standard_Boolean            ExtentContext,
                                        const BRepOffset_Analyse&         Analyse,
-                                       const BRepAlgo_Image&             InitOffsetFace,
-                                       BRepAlgo_Image&                   InitOffsetEdge,
+                                       const ShapeImage&             InitOffsetFace,
+                                       ShapeImage&                   InitOffsetEdge,
                                        const Message_ProgressRange&      theRange);
 
   //! Marks the pair of faces as already intersected
-  Standard_EXPORT void SetDone(const TopoDS_Face& F1, const TopoDS_Face& F2);
+  Standard_EXPORT void SetDone(const TopoFace& F1, const TopoFace& F2);
 
   //! Checks if the pair of faces has already been treated.
-  Standard_EXPORT Standard_Boolean IsDone(const TopoDS_Face& F1, const TopoDS_Face& F2) const;
+  Standard_EXPORT Standard_Boolean IsDone(const TopoFace& F1, const TopoFace& F2) const;
 
   //! Returns touched faces
   TopTools_IndexedMapOfShape& TouchedFaces() { return myTouched; };
@@ -112,10 +112,10 @@ public:
 
 private:
   //! Stores the intersection results into AsDes
-  Standard_EXPORT void Store(const TopoDS_Face&          F1,
-                             const TopoDS_Face&          F2,
-                             const TopTools_ListOfShape& LInt1,
-                             const TopTools_ListOfShape& LInt2);
+  Standard_EXPORT void Store(const TopoFace&          F1,
+                             const TopoFace&          F2,
+                             const ShapeList& LInt1,
+                             const ShapeList& LInt2);
 
 private:
   Handle(BRepAlgo_AsDes)             myAsDes;

@@ -21,7 +21,7 @@
 
 //! A framework to define the display attributes of isoparameters.
 //! This framework can be used to modify the default
-//! setting for isoparameters in Prs3d_Drawer.
+//! setting for isoparameters in StyleDrawer.
 class Prs3d_IsoAspect : public Prs3d_LineAspect
 {
   DEFINE_STANDARD_RTTIEXT(Prs3d_IsoAspect, Prs3d_LineAspect)

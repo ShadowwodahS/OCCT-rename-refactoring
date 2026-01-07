@@ -97,17 +97,17 @@ Standard_Real IntAna2d_Conic::Value(const Standard_Real X, const Standard_Real Y
   return (_a * X * X + _b * Y * Y + 2. * _c * X * Y + 2. * _d * X + 2. * _e * Y + _f);
 }
 
-gp_XY IntAna2d_Conic::Grad(const Standard_Real X, const Standard_Real Y) const
+Coords2d IntAna2d_Conic::Grad(const Standard_Real X, const Standard_Real Y) const
 {
   Standard_Real _a, _b, _c, _d, _e, _f;
   this->Coefficients(_a, _b, _c, _d, _e, _f);
-  return gp_XY(2. * _a * X + 2. * _c * Y + 2. * _d, 2. * _b * Y + 2. * _c * X + 2. * _e);
+  return Coords2d(2. * _a * X + 2. * _c * Y + 2. * _d, 2. * _b * Y + 2. * _c * X + 2. * _e);
 }
 
 void IntAna2d_Conic::ValAndGrad(const Standard_Real X,
                                 const Standard_Real Y,
                                 Standard_Real&      Val,
-                                gp_XY&              Grd) const
+                                Coords2d&              Grd) const
 {
   Standard_Real la, lb, lc, ld, le, lf;
   this->Coefficients(la, lb, lc, ld, le, lf);

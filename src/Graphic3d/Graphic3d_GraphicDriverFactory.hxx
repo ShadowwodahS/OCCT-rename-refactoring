@@ -37,7 +37,7 @@ public:
     bool                                          theIsPreferred = false);
 
   //! Unregisters factory.
-  Standard_EXPORT static void UnregisterFactory(const TCollection_AsciiString& theName);
+  Standard_EXPORT static void UnregisterFactory(const AsciiString1& theName);
 
   //! Return default driver factory or NULL if no one was registered.
   Standard_EXPORT static Handle(Graphic3d_GraphicDriverFactory) DefaultDriverFactory();
@@ -51,14 +51,14 @@ public:
     const Handle(Aspect_DisplayConnection)& theDisp) = 0;
 
   //! Return driver factory name.
-  const TCollection_AsciiString& Name() const { return myName; }
+  const AsciiString1& Name() const { return myName; }
 
 protected:
   //! Empty constructor.
-  Standard_EXPORT Graphic3d_GraphicDriverFactory(const TCollection_AsciiString& theName);
+  Standard_EXPORT Graphic3d_GraphicDriverFactory(const AsciiString1& theName);
 
 protected:
-  TCollection_AsciiString myName;
+  AsciiString1 myName;
 };
 
 #endif // _Graphic3d_GraphicDriverFactory_HeaderFile

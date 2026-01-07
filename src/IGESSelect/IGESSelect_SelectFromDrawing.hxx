@@ -23,7 +23,7 @@
 #include <IFSelect_SelectDeduct.hxx>
 class Interface_EntityIterator;
 class Interface_Graph;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IGESSelect_SelectFromDrawing;
 DEFINE_STANDARD_HANDLE(IGESSelect_SelectFromDrawing, IFSelect_SelectDeduct)
@@ -45,7 +45,7 @@ public:
     RootResult(const Interface_Graph& G) const Standard_OVERRIDE;
 
   //! Returns the label, with is "Entities attached to Drawing"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_SelectFromDrawing, IFSelect_SelectDeduct)
 

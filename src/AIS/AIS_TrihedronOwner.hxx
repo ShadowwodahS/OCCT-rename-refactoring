@@ -34,7 +34,7 @@ public:
 
   //! Highlights selectable object's presentation.
   Standard_EXPORT virtual void HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                                const Handle(Prs3d_Drawer)&               theStyle,
+                                                const Handle(StyleDrawer)&               theStyle,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Returns true if the presentation manager thePM

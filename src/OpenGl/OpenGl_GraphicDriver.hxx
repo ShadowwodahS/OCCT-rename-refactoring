@@ -168,7 +168,7 @@ public:
   //! Please read OpenGl_Context::MemoryInfo() for more description.
   Standard_EXPORT Standard_Boolean
     MemoryInfo(Standard_Size&           theFreeBytes,
-               TCollection_AsciiString& theInfo) const Standard_OVERRIDE;
+               AsciiString1& theInfo) const Standard_OVERRIDE;
 
 public:
   //! Method to retrieve valid GL context.

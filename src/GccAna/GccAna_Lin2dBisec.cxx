@@ -36,7 +36,7 @@
 //   with direction of Lin1 is always positive.             +
 //   The second bissectrice is turned in the positive direction.             +
 //=========================================================================
-GccAna_Lin2dBisec::GccAna_Lin2dBisec(const gp_Lin2d& Lin1, const gp_Lin2d& Lin2)
+Line2dBisector::Line2dBisector(const gp_Lin2d& Lin1, const gp_Lin2d& Lin2)
     : linsol(1, 2),
       pntint1sol(1, 2),
       pntint2sol(1, 2),
@@ -76,7 +76,7 @@ GccAna_Lin2dBisec::GccAna_Lin2dBisec(const gp_Lin2d& Lin1, const gp_Lin2d& Lin2)
         linsol(NbrSol) =
           gp_Lin2d(gp_Pnt2d(Lin2.Location().XY() +
                             //       ========================================================
-                            gp_XY(-Lin2.Direction().Y() * dist, Lin2.Direction().X() * dist)),
+                            Coords2d(-Lin2.Direction().Y() * dist, Lin2.Direction().X() * dist)),
                    //               =============================================================
                    Lin2.Direction());
         //               =================
@@ -122,19 +122,19 @@ GccAna_Lin2dBisec::GccAna_Lin2dBisec(const gp_Lin2d& Lin1, const gp_Lin2d& Lin2)
 
 //=========================================================================
 
-Standard_Boolean GccAna_Lin2dBisec::IsDone() const
+Standard_Boolean Line2dBisector::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer GccAna_Lin2dBisec::NbSolutions() const
+Standard_Integer Line2dBisector::NbSolutions() const
 {
   if (!WellDone)
     throw StdFail_NotDone();
   return NbrSol;
 }
 
-gp_Lin2d GccAna_Lin2dBisec::ThisSolution(const Standard_Integer Index) const
+gp_Lin2d Line2dBisector::ThisSolution(const Standard_Integer Index) const
 {
   if (!WellDone)
     throw StdFail_NotDone();
@@ -143,7 +143,7 @@ gp_Lin2d GccAna_Lin2dBisec::ThisSolution(const Standard_Integer Index) const
   return linsol(Index);
 }
 
-void GccAna_Lin2dBisec::Intersection1(const Standard_Integer Index,
+void Line2dBisector::Intersection1(const Standard_Integer Index,
                                       Standard_Real&         ParSol,
                                       Standard_Real&         ParArg,
                                       gp_Pnt2d&              PntSol) const
@@ -164,7 +164,7 @@ void GccAna_Lin2dBisec::Intersection1(const Standard_Integer Index,
   }
 }
 
-void GccAna_Lin2dBisec::Intersection2(const Standard_Integer Index,
+void Line2dBisector::Intersection2(const Standard_Integer Index,
                                       Standard_Real&         ParSol,
                                       Standard_Real&         ParArg,
                                       gp_Pnt2d&              PntSol) const

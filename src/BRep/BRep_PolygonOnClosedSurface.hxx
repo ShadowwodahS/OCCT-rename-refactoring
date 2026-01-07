@@ -22,7 +22,7 @@
 
 #include <BRep_PolygonOnSurface.hxx>
 class Poly_Polygon2D;
-class Geom_Surface;
+class GeomSurface;
 class TopLoc_Location;
 class BRep_CurveRepresentation;
 
@@ -37,7 +37,7 @@ class BRep_PolygonOnClosedSurface : public BRep_PolygonOnSurface
 public:
   Standard_EXPORT BRep_PolygonOnClosedSurface(const Handle(Poly_Polygon2D)& P1,
                                               const Handle(Poly_Polygon2D)& P2,
-                                              const Handle(Geom_Surface)&   S,
+                                              const Handle(GeomSurface)&   S,
                                               const TopLoc_Location&        L);
 
   //! returns True.

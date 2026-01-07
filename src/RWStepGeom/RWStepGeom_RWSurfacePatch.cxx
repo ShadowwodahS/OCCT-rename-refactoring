@@ -21,11 +21,11 @@
 #include <TCollection_AsciiString.hxx>
 
 // --- Enum : TransitionCode ---
-static TCollection_AsciiString tcDiscontinuous(".DISCONTINUOUS.");
-static TCollection_AsciiString tcContSameGradientSameCurvature(
+static AsciiString1 tcDiscontinuous(".DISCONTINUOUS.");
+static AsciiString1 tcContSameGradientSameCurvature(
   ".CONT_SAME_GRADIENT_SAME_CURVATURE.");
-static TCollection_AsciiString tcContSameGradient(".CONT_SAME_GRADIENT.");
-static TCollection_AsciiString tcContinuous(".CONTINUOUS.");
+static AsciiString1 tcContSameGradient(".CONT_SAME_GRADIENT.");
+static AsciiString1 tcContinuous(".CONTINUOUS.");
 
 RWStepGeom_RWSurfacePatch::RWStepGeom_RWSurfacePatch() {}
 

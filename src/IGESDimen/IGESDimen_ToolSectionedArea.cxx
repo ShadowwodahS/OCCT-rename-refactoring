@@ -33,9 +33,9 @@
 #include <Interface_ShareTool.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESDimen_ToolSectionedArea::IGESDimen_ToolSectionedArea() {}
+SectionedAreaTool::SectionedAreaTool() {}
 
-void IGESDimen_ToolSectionedArea::ReadOwnParams(const Handle(IGESDimen_SectionedArea)& ent,
+void SectionedAreaTool::ReadOwnParams(const Handle(IGESDimen_SectionedArea)& ent,
                                                 const Handle(IGESData_IGESReaderData)& IR,
                                                 IGESData_ParamReader&                  PR) const
 {
@@ -78,7 +78,7 @@ void IGESDimen_ToolSectionedArea::ReadOwnParams(const Handle(IGESDimen_Sectioned
   ent->Init(extCurve, tempPattern, passPnt, tempDistance, tempAngle, tempIslands);
 }
 
-void IGESDimen_ToolSectionedArea::WriteOwnParams(const Handle(IGESDimen_SectionedArea)& ent,
+void SectionedAreaTool::WriteOwnParams(const Handle(IGESDimen_SectionedArea)& ent,
                                                  IGESData_IGESWriter&                   IW) const
 {
   Standard_Integer i, length = ent->NbIslands();
@@ -94,7 +94,7 @@ void IGESDimen_ToolSectionedArea::WriteOwnParams(const Handle(IGESDimen_Sectione
     IW.Send(ent->IslandCurve(i));
 }
 
-void IGESDimen_ToolSectionedArea::OwnShared(const Handle(IGESDimen_SectionedArea)& ent,
+void SectionedAreaTool::OwnShared(const Handle(IGESDimen_SectionedArea)& ent,
                                             Interface_EntityIterator&              iter) const
 {
   Standard_Integer i, length = ent->NbIslands();
@@ -103,7 +103,7 @@ void IGESDimen_ToolSectionedArea::OwnShared(const Handle(IGESDimen_SectionedArea
     iter.GetOneItem(ent->IslandCurve(i));
 }
 
-void IGESDimen_ToolSectionedArea::OwnCopy(const Handle(IGESDimen_SectionedArea)& another,
+void SectionedAreaTool::OwnCopy(const Handle(IGESDimen_SectionedArea)& another,
                                           const Handle(IGESDimen_SectionedArea)& ent,
                                           Interface_CopyTool&                    TC) const
 {
@@ -127,10 +127,10 @@ void IGESDimen_ToolSectionedArea::OwnCopy(const Handle(IGESDimen_SectionedArea)&
   ent->SetInverted(another->IsInverted());
 }
 
-IGESData_DirChecker IGESDimen_ToolSectionedArea::DirChecker(
+DirectoryChecker SectionedAreaTool::DirChecker(
   const Handle(IGESDimen_SectionedArea)& /* ent */) const
 {
-  IGESData_DirChecker DC(230, 0, 1);
+  DirectoryChecker DC(230, 0, 1);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.LineWeight(IGESData_DefValue);
@@ -141,13 +141,13 @@ IGESData_DirChecker IGESDimen_ToolSectionedArea::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolSectionedArea::OwnCheck(const Handle(IGESDimen_SectionedArea)& /* ent */,
+void SectionedAreaTool::OwnCheck(const Handle(IGESDimen_SectionedArea)& /* ent */,
                                            const Interface_ShareTool&,
                                            Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESDimen_ToolSectionedArea::OwnDump(const Handle(IGESDimen_SectionedArea)& ent,
+void SectionedAreaTool::OwnDump(const Handle(IGESDimen_SectionedArea)& ent,
                                           const IGESData_IGESDumper&             dumper,
                                           Standard_OStream&                      S,
                                           const Standard_Integer                 level) const

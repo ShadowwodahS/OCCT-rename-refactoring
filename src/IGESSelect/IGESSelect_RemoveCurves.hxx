@@ -24,7 +24,7 @@
 class IFSelect_ContextModif;
 class IGESData_IGESModel;
 class Interface_CopyTool;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IGESSelect_RemoveCurves;
 DEFINE_STANDARD_HANDLE(IGESSelect_RemoveCurves, IGESSelect_ModelModifier)
@@ -47,7 +47,7 @@ public:
 
   //! Returns a text which is
   //! "Remove Curves UV on Face"  or  "Remove Curves 3D on Face"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_RemoveCurves, IGESSelect_ModelModifier)
 

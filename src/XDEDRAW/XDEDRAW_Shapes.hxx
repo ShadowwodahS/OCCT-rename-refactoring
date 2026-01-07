@@ -27,7 +27,7 @@ class XDEDRAW_Shapes
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static void InitCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void InitCommands(DrawInterpreter& theCommands);
 
 protected:
 private:

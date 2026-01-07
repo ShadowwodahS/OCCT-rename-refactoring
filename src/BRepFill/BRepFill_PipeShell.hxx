@@ -39,7 +39,7 @@ class BRepFill_LocationLaw;
 class BRepFill_SectionLaw;
 class Frame3d;
 class Dir3d;
-class TopoDS_Vertex;
+class TopoVertex;
 class Transform3d;
 class BRepFill_Sweep;
 
@@ -55,7 +55,7 @@ class BRepFill_PipeShell : public RefObject
 public:
   //! Set an sweep's mode
   //! If no mode are set, the mode used in MakePipe is used
-  Standard_EXPORT BRepFill_PipeShell(const TopoDS_Wire& Spine);
+  Standard_EXPORT BRepFill_PipeShell(const TopoWire& Spine);
 
   //! Set an Frenet or an CorrectedFrenet trihedron
   //! to  perform  the  sweeping
@@ -77,7 +77,7 @@ public:
   //! at   the spine, like    the  normal the surfaces.
   //! Warning: To  be  effective,  Each  edge  of  the  <spine>  must
   //! have an  representation  on   one   face  of<SpineSupport>
-  Standard_EXPORT Standard_Boolean Set(const TopoDS_Shape& SpineSupport);
+  Standard_EXPORT Standard_Boolean Set(const TopoShape& SpineSupport);
 
   //! Set  an  auxiliary  spine  to  define  the Normal
   //! For  each  Point  of  the  Spine  P,  an  Point  Q  is  evalued
@@ -99,7 +99,7 @@ public:
   //! If <KeepContact> equals BRepFill_ContactOnBorder: The auxiliary spine
   //! becomes a boundary of the swept surface and the width of section varies
   //! along the path.
-  Standard_EXPORT void Set(const TopoDS_Wire&           AuxiliarySpine,
+  Standard_EXPORT void Set(const TopoWire&           AuxiliarySpine,
                            const Standard_Boolean       CurvilinearEquivalence = Standard_True,
                            const BRepFill_TypeOfContact KeepContact = BRepFill_NoContact);
 
@@ -123,33 +123,33 @@ public:
   Standard_EXPORT void SetForceApproxC1(const Standard_Boolean ForceApproxC1);
 
   //! Set an section. The correspondence with the spine, will be automatically performed.
-  Standard_EXPORT void Add(const TopoDS_Shape&    Profile,
+  Standard_EXPORT void Add(const TopoShape&    Profile,
                            const Standard_Boolean WithContact    = Standard_False,
                            const Standard_Boolean WithCorrection = Standard_False);
 
   //! Set an section. The correspondence with the spine, is given by Location.
-  Standard_EXPORT void Add(const TopoDS_Shape&    Profile,
-                           const TopoDS_Vertex&   Location,
+  Standard_EXPORT void Add(const TopoShape&    Profile,
+                           const TopoVertex&   Location,
                            const Standard_Boolean WithContact    = Standard_False,
                            const Standard_Boolean WithCorrection = Standard_False);
 
   //! Set  an    section  and  an   homotetic    law.
   //! The  homotetie's  centers  is  given  by  point  on  the  <Spine>.
-  Standard_EXPORT void SetLaw(const TopoDS_Shape&         Profile,
+  Standard_EXPORT void SetLaw(const TopoShape&         Profile,
                               const Handle(Law_Function)& L,
                               const Standard_Boolean      WithContact    = Standard_False,
                               const Standard_Boolean      WithCorrection = Standard_False);
 
   //! Set  an    section  and  an   homotetic    law.
   //! The  homotetie  center  is  given  by  point  on  the  <Spine>
-  Standard_EXPORT void SetLaw(const TopoDS_Shape&         Profile,
+  Standard_EXPORT void SetLaw(const TopoShape&         Profile,
                               const Handle(Law_Function)& L,
-                              const TopoDS_Vertex&        Location,
+                              const TopoVertex&        Location,
                               const Standard_Boolean      WithContact    = Standard_False,
                               const Standard_Boolean      WithCorrection = Standard_False);
 
   //! Delete an section.
-  Standard_EXPORT void DeleteProfile(const TopoDS_Shape& Profile);
+  Standard_EXPORT void DeleteProfile(const TopoShape& Profile);
 
   //! Say if <me> is ready to build the shape
   //! return False if <me> do not have section definition
@@ -171,7 +171,7 @@ public:
   //! Perform simulation of the sweep :
   //! Some Section are returned.
   Standard_EXPORT void Simulate(const Standard_Integer NumberOfSection,
-                                TopTools_ListOfShape&  Sections);
+                                ShapeList&  Sections);
 
   //! Builds the resulting shape (redefined from MakeShape).
   Standard_EXPORT Standard_Boolean Build();
@@ -181,29 +181,29 @@ public:
   Standard_EXPORT Standard_Boolean MakeSolid();
 
   //! Returns the result Shape.
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
   Standard_EXPORT Standard_Real ErrorOnSurface() const;
 
   //! Returns the  TopoDS  Shape of the bottom of the sweep.
-  Standard_EXPORT const TopoDS_Shape& FirstShape() const;
+  Standard_EXPORT const TopoShape& FirstShape() const;
 
   //! Returns the TopoDS Shape of the top of the sweep.
-  Standard_EXPORT const TopoDS_Shape& LastShape() const;
+  Standard_EXPORT const TopoShape& LastShape() const;
 
   //! Returns the list of original profiles
-  void Profiles(TopTools_ListOfShape& theProfiles)
+  void Profiles(ShapeList& theProfiles)
   {
     for (Standard_Integer i = 1; i <= mySeq.Length(); ++i)
       theProfiles.Append(mySeq(i).OriginalShape());
   }
 
   //! Returns the spine
-  const TopoDS_Wire& Spine() { return mySpine; }
+  const TopoWire& Spine() { return mySpine; }
 
   //! Returns the  list   of shapes generated   from the
   //! shape <S>.
-  Standard_EXPORT void Generated(const TopoDS_Shape& S, TopTools_ListOfShape& L);
+  Standard_EXPORT void Generated(const TopoShape& S, ShapeList& L);
 
   DEFINE_STANDARD_RTTIEXT(BRepFill_PipeShell, RefObject)
 
@@ -212,7 +212,7 @@ private:
   Standard_EXPORT void Prepare();
 
   Standard_EXPORT void Place(const BRepFill_Section& Sec,
-                             TopoDS_Wire&            W,
+                             TopoWire&            W,
                              Transform3d&                Trsf,
                              Standard_Real&          param);
 
@@ -220,10 +220,10 @@ private:
 
   Standard_EXPORT void BuildHistory(const BRepFill_Sweep& theSweep);
 
-  TopoDS_Wire                        mySpine;
-  TopoDS_Shape                       myFirst;
-  TopoDS_Shape                       myLast;
-  TopoDS_Shape                       myShape;
+  TopoWire                        mySpine;
+  TopoShape                       myFirst;
+  TopoShape                       myLast;
+  TopoShape                       myShape;
   BRepFill_SequenceOfSection         mySeq;
   TopTools_SequenceOfShape           WSeq;
   TColStd_SequenceOfInteger          myIndOfSec;

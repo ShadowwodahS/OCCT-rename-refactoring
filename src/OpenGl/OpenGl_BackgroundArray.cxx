@@ -486,7 +486,7 @@ Standard_Boolean OpenGl_BackgroundArray::createCubeMapArray() const
 // purpose :
 // =======================================================================
 void OpenGl_BackgroundArray::Render(const Handle(OpenGl_Workspace)& theWorkspace,
-                                    Graphic3d_Camera::Projection    theProjection) const
+                                    CameraOn3d::Projection    theProjection) const
 {
   const Handle(OpenGl_Context)& aCtx       = theWorkspace->GetGlContext();
   Standard_Integer              aViewSizeX = aCtx->Viewport()[2];
@@ -514,7 +514,7 @@ void OpenGl_BackgroundArray::Render(const Handle(OpenGl_Workspace)& theWorkspace
 
   if (myType == Graphic3d_TOB_CUBEMAP)
   {
-    Graphic3d_Camera aCamera(aCtx->Camera());
+    CameraOn3d aCamera(aCtx->Camera());
     aCamera.SetZRange(0.01, 1.0); // is needed to avoid perspective camera exception
 
     // cancel translation
@@ -527,9 +527,9 @@ void OpenGl_BackgroundArray::Render(const Handle(OpenGl_Workspace)& theWorkspace
     // - Force perspective projection when orthographic camera is active
     //   (orthographic projection makes no sense for cubemap).
     const bool isCustomProj = aCamera.IsCustomStereoFrustum() || aCamera.IsCustomStereoProjection();
-    aCamera.SetProjectionType(theProjection == Graphic3d_Camera::Projection_Orthographic
+    aCamera.SetProjectionType(theProjection == CameraOn3d::Projection_Orthographic
                                   || !isCustomProj
-                                ? Graphic3d_Camera::Projection_Perspective
+                                ? CameraOn3d::Projection_Perspective
                                 : theProjection);
 
     aProjection = aCamera.ProjectionMatrixF();
@@ -537,13 +537,13 @@ void OpenGl_BackgroundArray::Render(const Handle(OpenGl_Workspace)& theWorkspace
     if (isCustomProj)
     {
       // get projection matrix without pre-multiplied stereoscopic head-to-eye translation
-      if (theProjection == Graphic3d_Camera::Projection_MonoLeftEye)
+      if (theProjection == CameraOn3d::Projection_MonoLeftEye)
       {
         Graphic3d_Mat4 aMatProjL, aMatHeadToEyeL, aMatProjR, aMatHeadToEyeR;
         aCamera.StereoProjectionF(aMatProjL, aMatHeadToEyeL, aMatProjR, aMatHeadToEyeR);
         aProjection = aMatProjL;
       }
-      else if (theProjection == Graphic3d_Camera::Projection_MonoRightEye)
+      else if (theProjection == CameraOn3d::Projection_MonoRightEye)
       {
         Graphic3d_Mat4 aMatProjL, aMatHeadToEyeL, aMatProjR, aMatHeadToEyeR;
         aCamera.StereoProjectionF(aMatProjL, aMatHeadToEyeL, aMatProjR, aMatHeadToEyeR);

@@ -73,7 +73,7 @@ Handle(TColStd_HSequenceOfAsciiString) StepData_FreeFormEntity::TypeList() const
   Handle(StepData_FreeFormEntity) next = thenext;
   while (!next.IsNull())
   {
-    li->Append(TCollection_AsciiString(next->StepType()));
+    li->Append(AsciiString1(next->StepType()));
     next = next->Next();
   }
   return li;
@@ -103,14 +103,14 @@ Standard_Boolean StepData_FreeFormEntity::Reorder(Handle(StepData_FreeFormEntity
   //  remise en ordre avec un dictionnaire
   e1 = ent;
   e2.Nullify();
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> dic;
+  NCollection_DataMap<AsciiString1, Handle(RefObject)> dic;
   while (!e1.IsNull())
   {
     dic.Bind(e1->StepType(), e1);
     e1 = e1->Next();
   }
   //  d abord effacer les next en cours ...
-  for (NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(dic);
+  for (NCollection_DataMap<AsciiString1, Handle(RefObject)>::Iterator iter(dic);
        iter.More();
        iter.Next())
   {
@@ -120,7 +120,7 @@ Standard_Boolean StepData_FreeFormEntity::Reorder(Handle(StepData_FreeFormEntity
   }
   //  ... puis les remettre dans l ordre
   e1.Nullify();
-  for (NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(dic);
+  for (NCollection_DataMap<AsciiString1, Handle(RefObject)>::Iterator iter(dic);
        iter.More();
        iter.Next())
   {

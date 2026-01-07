@@ -524,10 +524,10 @@ struct NCollection_CellFilter_InspectorXYZ
 
 /**
  * Base class defining part of the Inspector interface
- * for CellFilter algorithm, working with gp_XY points in 2d space
+ * for CellFilter algorithm, working with Coords2d points in 2d space
  */
 
-class gp_XY;
+class Coords2d;
 
 struct NCollection_CellFilter_InspectorXY
 {
@@ -538,7 +538,7 @@ struct NCollection_CellFilter_InspectorXY
   };
 
   //! Points type
-  typedef gp_XY Point;
+  typedef Coords2d Point;
 
   //! Access to coordinate
   static Standard_Real Coord(int i, const Point& thePnt) { return thePnt.Coord(i + 1); }

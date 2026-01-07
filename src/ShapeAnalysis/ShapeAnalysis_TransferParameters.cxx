@@ -34,15 +34,15 @@ ShapeAnalysis_TransferParameters::ShapeAnalysis_TransferParameters()
 
 //=================================================================================================
 
-ShapeAnalysis_TransferParameters::ShapeAnalysis_TransferParameters(const TopoDS_Edge& E,
-                                                                   const TopoDS_Face& F)
+ShapeAnalysis_TransferParameters::ShapeAnalysis_TransferParameters(const TopoEdge& E,
+                                                                   const TopoFace& F)
 {
   Init(E, F);
 }
 
 //=================================================================================================
 
-void ShapeAnalysis_TransferParameters::Init(const TopoDS_Edge& E, const TopoDS_Face& F)
+void ShapeAnalysis_TransferParameters::Init(const TopoEdge& E, const TopoFace& F)
 {
   myScale = 1.;
   myShift = 0.;
@@ -50,11 +50,11 @@ void ShapeAnalysis_TransferParameters::Init(const TopoDS_Edge& E, const TopoDS_F
   TopLoc_Location L;
   myEdge = E;
   ShapeAnalysis_Edge sae;
-  Handle(Geom_Curve) curve3d; // = BRep_Tool::Curve (E,f,l);
+  Handle(GeomCurve3d) curve3d; // = BRepInspector::Curve (E,f,l);
   sae.Curve3d(E, curve3d, f, l, Standard_False);
   myFirst = f;
   myLast  = l;
-  Handle(Geom2d_Curve) curve2d; // = BRep_Tool::CurveOnSurface (E, F, f2d,l2d);
+  Handle(GeomCurve2d) curve2d; // = BRepInspector::CurveOnSurface (E, F, f2d,l2d);
   // ShapeAnalysis_Edge sae;
   if (!F.IsNull())
   { // process free edges
@@ -106,7 +106,7 @@ Standard_Real ShapeAnalysis_TransferParameters::Perform(const Standard_Real    P
 
 //=================================================================================================
 
-void ShapeAnalysis_TransferParameters::TransferRange(TopoDS_Edge&           newEdge,
+void ShapeAnalysis_TransferParameters::TransferRange(TopoEdge&           newEdge,
                                                      const Standard_Real    prevPar,
                                                      const Standard_Real    currPar,
                                                      const Standard_Boolean Is2d)

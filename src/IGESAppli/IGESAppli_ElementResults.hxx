@@ -34,7 +34,7 @@ class IGESAppli_ElementResults;
 DEFINE_STANDARD_HANDLE(IGESAppli_ElementResults, IGESData_IGESEntity)
 
 //! defines ElementResults, Type <148>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Used to find the results of FEM analysis
 class IGESAppli_ElementResults : public IGESData_IGESEntity
 {

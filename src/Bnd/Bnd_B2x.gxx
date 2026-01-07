@@ -19,7 +19,7 @@ inline Standard_Boolean _compareDist  (const RealType aHSize[2],
   return (Abs(aDist[0]) > aHSize[0] || Abs(aDist[1]) > aHSize[1]);
 }
 
-inline Standard_Boolean _compareDistD (const gp_XY& aHSize, const gp_XY& aDist)
+inline Standard_Boolean _compareDistD (const Coords2d& aHSize, const Coords2d& aDist)
 {
   return (Abs(aDist.X()) > aHSize.X() || Abs(aDist.Y()) > aHSize.Y());
 }
@@ -29,7 +29,7 @@ inline Standard_Boolean _compareDistD (const gp_XY& aHSize, const gp_XY& aDist)
 //purpose  : Update the box by a point
 //=======================================================================
 
-void Bnd_B2x::Add (const gp_XY& thePnt) {
+void Bnd_B2x::Add (const Coords2d& thePnt) {
   if (IsVoid()) {
     myCenter[0] = RealType(thePnt.X());
     myCenter[1] = RealType(thePnt.Y());
@@ -128,7 +128,7 @@ Bnd_B2x Bnd_B2x::Transformed (const gp_Trsf2d& theTrsf) const
     aResult.myHSize[0] = (RealType)(myHSize[0] * aScaleAbs);
     aResult.myHSize[1] = (RealType)(myHSize[1] * aScaleAbs);
   } else {
-    gp_XY aCenter ((Standard_Real)myCenter[0],
+    Coords2d aCenter ((Standard_Real)myCenter[0],
                    (Standard_Real)myCenter[1]);
     theTrsf.Transforms (aCenter);
     aResult.myCenter[0] = (RealType)aCenter.X();
@@ -148,7 +148,7 @@ Bnd_B2x Bnd_B2x::Transformed (const gp_Trsf2d& theTrsf) const
 //purpose  : Intersection Box - Circle
 //=======================================================================
 
-Standard_Boolean Bnd_B2x::IsOut (const gp_XY&           theCenter,
+Standard_Boolean Bnd_B2x::IsOut (const Coords2d&           theCenter,
                                  const Standard_Real    theRadius,
                                  const Standard_Boolean isCircleHollow) const
 {
@@ -221,7 +221,7 @@ Standard_Boolean Bnd_B2x::IsOut (const Bnd_B2x&   theBox,
     // 'this' box.
     const Standard_Real * aMat = &theTrsf.HVectorialPart().Value(1,1);
 
-    gp_XY aCenter ((Standard_Real)theBox.myCenter[0],
+    Coords2d aCenter ((Standard_Real)theBox.myCenter[0],
                    (Standard_Real)theBox.myCenter[1]);
     theTrsf.Transforms (aCenter);
     const Standard_Real aDist[2] = {
@@ -265,7 +265,7 @@ Standard_Boolean Bnd_B2x::IsOut (const gp_Ax2d& theLine) const
     return Standard_True;
   // Intersect the line containing the segment.
   const Standard_Real aProd[3] = {
-    theLine.Direction().XY() ^ (gp_XY (myCenter[0] - theLine.Location().X(),
+    theLine.Direction().XY() ^ (Coords2d (myCenter[0] - theLine.Location().X(),
                                        myCenter[1] - theLine.Location().Y())),
     theLine.Direction().X() * Standard_Real(myHSize[1]),
     theLine.Direction().Y() * Standard_Real(myHSize[0])
@@ -278,26 +278,26 @@ Standard_Boolean Bnd_B2x::IsOut (const gp_Ax2d& theLine) const
 //purpose  : Intersection Box - Segment
 //=======================================================================
 
-Standard_Boolean Bnd_B2x::IsOut (const gp_XY& theP0, const gp_XY& theP1) const
+Standard_Boolean Bnd_B2x::IsOut (const Coords2d& theP0, const Coords2d& theP1) const
 {
   Standard_Boolean aResult (Standard_True);
   if (IsVoid() == Standard_False)
   {
     // Intersect the line containing the segment.
-    const gp_XY aSegDelta (theP1 - theP0);
+    const Coords2d aSegDelta (theP1 - theP0);
     const Standard_Real aProd[3] = {
-      aSegDelta ^ (gp_XY (myCenter[0], myCenter[1]) - theP0),
+      aSegDelta ^ (Coords2d (myCenter[0], myCenter[1]) - theP0),
       aSegDelta.X() * Standard_Real(myHSize[1]),
       aSegDelta.Y() * Standard_Real(myHSize[0])
     };
     if (Abs(aProd[0]) < (Abs(aProd[1]) + Abs(aProd[2])))
     {
       // Intersection with line detected; check the segment as bounding box
-      const gp_XY aHSeg    (0.5 * aSegDelta.X(), 0.5 * aSegDelta.Y());
-      const gp_XY aHSegAbs (Abs(aHSeg.X()), Abs(aHSeg.Y()));
-      aResult = _compareDistD (gp_XY((Standard_Real)myHSize[0],
+      const Coords2d aHSeg    (0.5 * aSegDelta.X(), 0.5 * aSegDelta.Y());
+      const Coords2d aHSegAbs (Abs(aHSeg.X()), Abs(aHSeg.Y()));
+      aResult = _compareDistD (Coords2d((Standard_Real)myHSize[0],
                                      (Standard_Real)myHSize[1]) + aHSegAbs,
-                               theP0 + aHSeg-gp_XY((Standard_Real)myCenter[0],
+                               theP0 + aHSeg-Coords2d((Standard_Real)myCenter[0],
                                                    (Standard_Real)myCenter[1]));
     }
   }
@@ -331,7 +331,7 @@ Standard_Boolean Bnd_B2x::IsIn (const Bnd_B2x&   theBox,
     // theBox is rotated, scaled and translated. We apply the reverse
     // translation and scaling then check against the rotated box 'this'
     const Standard_Real * aMat = &theTrsf.HVectorialPart().Value(1,1);
-    gp_XY aCenter ((Standard_Real)theBox.myCenter[0],
+    Coords2d aCenter ((Standard_Real)theBox.myCenter[0],
                    (Standard_Real)theBox.myCenter[1]);
     theTrsf.Transforms (aCenter);
     const Standard_Real aDist[2] = {

@@ -40,9 +40,9 @@ DESTEP_Provider::DESTEP_Provider(const Handle(DE_ConfigurationNode)& theNode)
 
 //=================================================================================================
 
-bool DESTEP_Provider::Read(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
-                           Handle(XSControl_WorkSession)&  theWS,
+bool DESTEP_Provider::Read(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
+                           Handle(ExchangeSession)&  theWS,
                            const Message_ProgressRange&    theProgress)
 {
   if (theDocument.IsNull())
@@ -92,9 +92,9 @@ bool DESTEP_Provider::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DESTEP_Provider::Write(const TCollection_AsciiString&  thePath,
-                            const Handle(TDocStd_Document)& theDocument,
-                            Handle(XSControl_WorkSession)&  theWS,
+bool DESTEP_Provider::Write(const AsciiString1&  thePath,
+                            const Handle(AppDocument)& theDocument,
+                            Handle(ExchangeSession)&  theWS,
                             const Message_ProgressRange&    theProgress)
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DESTEP_ConfigurationNode)))
@@ -136,7 +136,7 @@ bool DESTEP_Provider::Write(const TCollection_AsciiString&  thePath,
                                              UnitsMethods_LengthUnit_Millimeter);
   aParams.WriteUnit = aTargetUnit;
   aModel->SetWriteLengthUnit(aNode->GlobalParameters.LengthUnit);
-  TDF_Label aLabel;
+  DataLabel aLabel;
   if (!aWriter.Transfer(theDocument, aParams, aMode, 0, theProgress))
   {
     Message::SendFail() << "Error in the DESTEP_Provider during writing the file " << thePath
@@ -166,29 +166,29 @@ bool DESTEP_Provider::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-bool DESTEP_Provider::Read(const TCollection_AsciiString&  thePath,
-                           const Handle(TDocStd_Document)& theDocument,
+bool DESTEP_Provider::Read(const AsciiString1&  thePath,
+                           const Handle(AppDocument)& theDocument,
                            const Message_ProgressRange&    theProgress)
 {
-  Handle(XSControl_WorkSession) aWS = new XSControl_WorkSession();
+  Handle(ExchangeSession) aWS = new ExchangeSession();
   return Read(thePath, theDocument, aWS, theProgress);
 }
 
 //=================================================================================================
 
-bool DESTEP_Provider::Write(const TCollection_AsciiString&  thePath,
-                            const Handle(TDocStd_Document)& theDocument,
+bool DESTEP_Provider::Write(const AsciiString1&  thePath,
+                            const Handle(AppDocument)& theDocument,
                             const Message_ProgressRange&    theProgress)
 {
-  Handle(XSControl_WorkSession) aWS = new XSControl_WorkSession();
+  Handle(ExchangeSession) aWS = new ExchangeSession();
   return Write(thePath, theDocument, aWS, theProgress);
 }
 
 //=================================================================================================
 
-bool DESTEP_Provider::Read(const TCollection_AsciiString& thePath,
-                           TopoDS_Shape&                  theShape,
-                           Handle(XSControl_WorkSession)& theWS,
+bool DESTEP_Provider::Read(const AsciiString1& thePath,
+                           TopoShape&                  theShape,
+                           Handle(ExchangeSession)& theWS,
                            const Message_ProgressRange&   theProgress)
 {
   (void)theProgress;
@@ -200,7 +200,7 @@ bool DESTEP_Provider::Read(const TCollection_AsciiString& thePath,
   }
   Handle(DESTEP_ConfigurationNode) aNode = Handle(DESTEP_ConfigurationNode)::DownCast(GetNode());
   personizeWS(theWS);
-  STEPControl_Reader aReader;
+  StepFileReader aReader;
   aReader.SetWS(theWS);
   aReader.SetShapeFixParameters(aNode->ShapeFixParameters);
   IFSelect_ReturnStatus aReadstat   = IFSelect_RetVoid;
@@ -226,9 +226,9 @@ bool DESTEP_Provider::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DESTEP_Provider::Write(const TCollection_AsciiString& thePath,
-                            const TopoDS_Shape&            theShape,
-                            Handle(XSControl_WorkSession)& theWS,
+bool DESTEP_Provider::Write(const AsciiString1& thePath,
+                            const TopoShape&            theShape,
+                            Handle(ExchangeSession)& theWS,
                             const Message_ProgressRange&   theProgress)
 {
   if (GetNode().IsNull() || !GetNode()->IsKind(STANDARD_TYPE(DESTEP_ConfigurationNode)))
@@ -240,7 +240,7 @@ bool DESTEP_Provider::Write(const TCollection_AsciiString& thePath,
   Handle(DESTEP_ConfigurationNode) aNode = Handle(DESTEP_ConfigurationNode)::DownCast(GetNode());
 
   personizeWS(theWS);
-  STEPControl_Writer aWriter;
+  StepFileWriter aWriter;
   aWriter.SetWS(theWS);
   IFSelect_ReturnStatus      aWritestat = IFSelect_RetVoid;
   Handle(StepData_StepModel) aModel     = aWriter.Model();
@@ -284,47 +284,47 @@ bool DESTEP_Provider::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-bool DESTEP_Provider::Read(const TCollection_AsciiString& thePath,
-                           TopoDS_Shape&                  theShape,
+bool DESTEP_Provider::Read(const AsciiString1& thePath,
+                           TopoShape&                  theShape,
                            const Message_ProgressRange&   theProgress)
 {
-  Handle(XSControl_WorkSession) aWS = new XSControl_WorkSession();
+  Handle(ExchangeSession) aWS = new ExchangeSession();
   return Read(thePath, theShape, aWS, theProgress);
 }
 
 //=================================================================================================
 
-bool DESTEP_Provider::Write(const TCollection_AsciiString& thePath,
-                            const TopoDS_Shape&            theShape,
+bool DESTEP_Provider::Write(const AsciiString1& thePath,
+                            const TopoShape&            theShape,
                             const Message_ProgressRange&   theProgress)
 {
-  Handle(XSControl_WorkSession) aWS = new XSControl_WorkSession();
+  Handle(ExchangeSession) aWS = new ExchangeSession();
   return Write(thePath, theShape, aWS, theProgress);
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DESTEP_Provider::GetFormat() const
+AsciiString1 DESTEP_Provider::GetFormat() const
 {
-  return TCollection_AsciiString("STEP");
+  return AsciiString1("STEP");
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DESTEP_Provider::GetVendor() const
+AsciiString1 DESTEP_Provider::GetVendor() const
 {
-  return TCollection_AsciiString("OCC");
+  return AsciiString1("OCC");
 }
 
 //=================================================================================================
 
-void DESTEP_Provider::personizeWS(Handle(XSControl_WorkSession)& theWS)
+void DESTEP_Provider::personizeWS(Handle(ExchangeSession)& theWS)
 {
   if (theWS.IsNull())
   {
     Message::SendWarning() << "Warning: DESTEP_Provider :"
                            << " Null work session, use internal temporary session";
-    theWS = new XSControl_WorkSession();
+    theWS = new ExchangeSession();
   }
   Handle(STEPCAFControl_Controller) aCntrl =
     Handle(STEPCAFControl_Controller)::DownCast(theWS->NormAdaptor());

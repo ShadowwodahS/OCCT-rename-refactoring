@@ -77,10 +77,10 @@ public:
   virtual ~BRepCheck_ToolSolid() {};
 
   //
-  void SetSolid(const TopoDS_Solid& aZ) { mySolid = aZ; };
+  void SetSolid(const TopoSolid& aZ) { mySolid = aZ; };
 
   //
-  const TopoDS_Solid& Solid() const { return mySolid; };
+  const TopoSolid& Solid() const { return mySolid; };
 
   //
   Standard_Boolean IsHole() const { return myIsHole; };
@@ -112,7 +112,7 @@ public:
   void Init()
   {
     Standard_Real   aT, aT1, aT2, aPAR_T;
-    TopExp_Explorer aExp;
+    ShapeExplorer aExp;
     //
     // 0.myHSC
     myHSC = new BRepCheck_HSC();
@@ -130,13 +130,13 @@ public:
     aExp.Init(mySolid, TopAbs_EDGE);
     for (; aExp.More(); aExp.Next())
     {
-      const TopoDS_Edge& aE = *((TopoDS_Edge*)&aExp.Current());
-      if (!BRep_Tool::Degenerated(aE))
+      const TopoEdge& aE = *((TopoEdge*)&aExp.Current());
+      if (!BRepInspector::Degenerated(aE))
       {
-        Handle(Geom_Curve) aC3D = BRep_Tool::Curve(aE, aT1, aT2);
+        Handle(GeomCurve3d) aC3D = BRepInspector::Curve(aE, aT1, aT2);
         aT                      = (1. - aPAR_T) * aT1 + aPAR_T * aT2;
         myPnt                   = aC3D->Value(aT);
-        myPntTol                = BRep_Tool::Tolerance(aE);
+        myPntTol                = BRepInspector::Tolerance(aE);
         break;
       }
     }
@@ -147,7 +147,7 @@ protected:
   Standard_Boolean      myIsHole;
   Point3d                myPnt;
   Standard_Real         myPntTol;
-  TopoDS_Solid          mySolid;
+  TopoSolid          mySolid;
   Handle(BRepCheck_HSC) myHSC;
 };
 
@@ -158,7 +158,7 @@ typedef NCollection_Vector<BRepCheck_ToolSolid> BRepCheck_VectorOfToolSolid;
 
 //=================================================================================================
 
-BRepCheck_Solid::BRepCheck_Solid(const TopoDS_Solid& S)
+BRepCheck_Solid::BRepCheck_Solid(const TopoSolid& S)
 {
   Init(S);
 }
@@ -176,7 +176,7 @@ void BRepCheck_Solid::Blind()
 
 //=================================================================================================
 
-void BRepCheck_Solid::InContext(const TopoDS_Shape&) {}
+void BRepCheck_Solid::InContext(const TopoShape&) {}
 
 //=================================================================================================
 
@@ -190,10 +190,10 @@ void BRepCheck_Solid::Minimum()
   //
   Standard_Boolean            bFound, bIsHole, bFlag;
   Standard_Integer            i, j, aNbVTS, aNbVTS1, iCntSh, iCntShInt;
-  TopoDS_Solid                aZ;
+  TopoSolid                aZ;
   TopoDS_Iterator             aIt, aItF;
-  TopoDS_Builder              aBB;
-  TopExp_Explorer             aExp;
+  TopoBuilder              aBB;
+  ShapeExplorer             aExp;
   TopTools_MapOfShape         aMSS;
   TopAbs_Orientation          aOr;
   BRepCheck_VectorOfToolSolid aVTS;
@@ -208,7 +208,7 @@ void BRepCheck_Solid::Minimum()
   aExp.Init(myShape, TopAbs_FACE);
   for (; !bFound && aExp.More(); aExp.Next())
   {
-    const TopoDS_Shape& aF = aExp.Current();
+    const TopoShape& aF = aExp.Current();
     if (!aMSS.Add(aF))
     {
       BRepCheck::Add(aLST, BRepCheck_InvalidImbricationOfShells);
@@ -225,7 +225,7 @@ void BRepCheck_Solid::Minimum()
   aIt.Initialize(myShape);
   for (; aIt.More(); aIt.Next())
   {
-    const TopoDS_Shape& aSx = aIt.Value();
+    const TopoShape& aSx = aIt.Value();
     //
     if (aSx.ShapeType() != TopAbs_SHELL)
     {
@@ -237,14 +237,14 @@ void BRepCheck_Solid::Minimum()
       continue;
     }
     //
-    const TopoDS_Shell& aSh = *((TopoDS_Shell*)&aSx);
+    const TopoShell& aSh = *((TopoShell*)&aSx);
     //
     // Skip internal shells
     bFound = Standard_False;
     aItF.Initialize(aSh);
     for (; !bFound && aItF.More(); aItF.Next())
     {
-      const TopoDS_Shape& aF = aItF.Value();
+      const TopoShape& aF = aItF.Value();
       aOr                    = aF.Orientation();
       if (aOr == TopAbs_INTERNAL)
       {
@@ -260,7 +260,7 @@ void BRepCheck_Solid::Minimum()
     ++iCntSh;
     //
     // Skip not closed shells
-    if (!BRep_Tool::IsClosed(aSh))
+    if (!BRepInspector::IsClosed(aSh))
     {
       continue;
     }

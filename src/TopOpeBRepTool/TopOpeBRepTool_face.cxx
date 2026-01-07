@@ -27,10 +27,10 @@
 
 TopOpeBRepTool_face::TopOpeBRepTool_face() {}
 
-static void FUN_reverse(const TopoDS_Face& f, TopoDS_Face& frev)
+static void FUN_reverse(const TopoFace& f, TopoFace& frev)
 {
-  BRep_Builder B;
-  TopoDS_Shape aLocalShape = f.EmptyCopied();
+  ShapeBuilder B;
+  TopoShape aLocalShape = f.EmptyCopied();
   frev                     = TopoDS::Face(aLocalShape);
   //  frev = TopoDS::Face(f.EmptyCopied());
   TopoDS_Iterator it(f);
@@ -43,19 +43,19 @@ static void FUN_reverse(const TopoDS_Face& f, TopoDS_Face& frev)
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_face::Init(const TopoDS_Wire& W, const TopoDS_Face& Fref)
+Standard_Boolean TopOpeBRepTool_face::Init(const TopoWire& W, const TopoFace& Fref)
 {
   myFfinite.Nullify();
   myW = W;
 
   // fres :
-  //  TopoDS_Face fres;
-  //  Handle(Geom_Surface) su = BRep_Tool::Surface(Fref);
-  //  BRep_Builder B; B.MakeFace(fres,su,Precision::Confusion());
-  TopoDS_Shape aLocalShape = Fref.EmptyCopied();
-  TopoDS_Face  fres        = TopoDS::Face(aLocalShape);
-  //  TopoDS_Face fres = TopoDS::Face(Fref.EmptyCopied());
-  BRep_Builder B;
+  //  TopoFace fres;
+  //  Handle(GeomSurface) su = BRepInspector::Surface(Fref);
+  //  ShapeBuilder B; B.MakeFace(fres,su,Precision::Confusion());
+  TopoShape aLocalShape = Fref.EmptyCopied();
+  TopoFace  fres        = TopoDS::Face(aLocalShape);
+  //  TopoFace fres = TopoDS::Face(Fref.EmptyCopied());
+  ShapeBuilder B;
   B.Add(fres, W);
   B.NaturalRestriction(fres, Standard_True);
 
@@ -90,7 +90,7 @@ Standard_Boolean TopOpeBRepTool_face::Finite() const
 
 //=================================================================================================
 
-const TopoDS_Face& TopOpeBRepTool_face::Ffinite() const
+const TopoFace& TopOpeBRepTool_face::Ffinite() const
 {
   if (!IsDone())
     throw ExceptionBase("TopOpeBRepTool_face NOT DONE");
@@ -99,21 +99,21 @@ const TopoDS_Face& TopOpeBRepTool_face::Ffinite() const
 
 //=================================================================================================
 
-const TopoDS_Wire& TopOpeBRepTool_face::W() const
+const TopoWire& TopOpeBRepTool_face::W() const
 {
   return myW;
 }
 
 //=======================================================================
-// function : TopoDS_Face&
+// function : TopoFace&
 // purpose  :
 //=======================================================================
 
-TopoDS_Face TopOpeBRepTool_face::RealF() const
+TopoFace TopOpeBRepTool_face::RealF() const
 {
   if (myfinite)
     return myFfinite;
-  TopoDS_Face realf;
+  TopoFace realf;
   FUN_reverse(myFfinite, realf);
   return realf;
 }

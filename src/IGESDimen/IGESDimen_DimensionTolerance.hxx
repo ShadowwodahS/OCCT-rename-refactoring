@@ -27,7 +27,7 @@ class IGESDimen_DimensionTolerance;
 DEFINE_STANDARD_HANDLE(IGESDimen_DimensionTolerance, IGESData_IGESEntity)
 
 //! defines Dimension Tolerance, Type <406>, Form <29>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Provides tolerance information for a dimension which
 //! can be used by the receiving system to regenerate the
 //! dimension.

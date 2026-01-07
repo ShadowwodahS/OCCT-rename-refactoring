@@ -50,7 +50,7 @@ ShapeUpgrade_ClosedFaceDivide::ShapeUpgrade_ClosedFaceDivide()
 
 //=================================================================================================
 
-ShapeUpgrade_ClosedFaceDivide::ShapeUpgrade_ClosedFaceDivide(const TopoDS_Face& F)
+ShapeUpgrade_ClosedFaceDivide::ShapeUpgrade_ClosedFaceDivide(const TopoFace& F)
     : ShapeUpgrade_FaceDivide(F)
 {
   myNbSplit = 1;
@@ -69,7 +69,7 @@ Standard_Boolean ShapeUpgrade_ClosedFaceDivide::SplitSurface(const Standard_Real
     myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL3);
     return Standard_False;
   }
-  TopoDS_Face face = TopoDS::Face(myResult);
+  TopoFace face = TopoDS::Face(myResult);
 
   Standard_Real Uf, Ul, Vf, Vl;
   ShapeAnalysis::GetFaceUVBounds(myFace, Uf, Ul, Vf, Vl);
@@ -79,8 +79,8 @@ Standard_Boolean ShapeUpgrade_ClosedFaceDivide::SplitSurface(const Standard_Real
     return Standard_False;
 
   TopLoc_Location      L;
-  Handle(Geom_Surface) surf;
-  surf = BRep_Tool::Surface(face, L);
+  Handle(GeomSurface) surf;
+  surf = BRepInspector::Surface(face, L);
 
   Standard_Boolean                isUSplit = Standard_False;
   Standard_Boolean                doSplit  = Standard_False;
@@ -90,20 +90,20 @@ Standard_Boolean ShapeUpgrade_ClosedFaceDivide::SplitSurface(const Standard_Real
   {
     if (iter.Value().ShapeType() != TopAbs_WIRE)
       continue;
-    TopoDS_Wire                  wire = TopoDS::Wire(iter.Value());
+    TopoWire                  wire = TopoDS::Wire(iter.Value());
     Handle(ShapeExtend_WireData) sewd = new ShapeExtend_WireData(wire);
     for (Standard_Integer i = 1; i <= sewd->NbEdges() && !doSplit; i++)
       if (sewd->IsSeam(i))
       {
         doSplit                   = Standard_True;
-        TopoDS_Edge          edge = sewd->Edge(i);
+        TopoEdge          edge = sewd->Edge(i);
         ShapeAnalysis_Edge   sae;
-        Handle(Geom2d_Curve) c1, c2;
+        Handle(GeomCurve2d) c1, c2;
         Standard_Real        f1, f2, l1, l2;
         if (!sae.PCurve(edge, face, c1, f1, l1, Standard_False))
           continue;
         // smh#8
-        TopoDS_Shape tmpE = edge.Reversed();
+        TopoShape tmpE = edge.Reversed();
         if (!sae.PCurve(TopoDS::Edge(tmpE), face, c2, f2, l2, Standard_False))
           continue;
         if (c2 == c1)
@@ -241,13 +241,13 @@ Standard_Boolean ShapeUpgrade_ClosedFaceDivide::SplitSurface(const Standard_Real
   if (CompShell.Status(ShapeExtend_FAIL) || !CompShell.Status(ShapeExtend_DONE))
     myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_FAIL2);
 
-  TopoDS_Shape res = CompShell.Result();
+  TopoShape res = CompShell.Result();
   myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE2);
-  for (TopExp_Explorer exp(res, TopAbs_FACE); exp.More(); exp.Next())
+  for (ShapeExplorer exp(res, TopAbs_FACE); exp.More(); exp.Next())
   {
     // smh#8
-    TopoDS_Shape tempf = Context()->Apply(exp.Current());
-    TopoDS_Face  f     = TopoDS::Face(tempf);
+    TopoShape tempf = Context()->Apply(exp.Current());
+    TopoFace  f     = TopoDS::Face(tempf);
     myResult           = f;
     if (SplitSurface())
       Context()->Replace(f, myResult);

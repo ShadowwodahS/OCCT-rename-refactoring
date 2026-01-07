@@ -337,7 +337,7 @@ BinObjMgt_Persistent& BinObjMgt_Persistent::PutCString(const Standard_CString th
 // purpose  : Offset in output buffer is word-aligned
 //=======================================================================
 
-BinObjMgt_Persistent& BinObjMgt_Persistent::PutAsciiString(const TCollection_AsciiString& theValue)
+BinObjMgt_Persistent& BinObjMgt_Persistent::PutAsciiString(const AsciiString1& theValue)
 {
   alignOffset(BP_INTSIZE, Standard_True);
   Standard_Integer aSize = theValue.Length() + 1;
@@ -352,7 +352,7 @@ BinObjMgt_Persistent& BinObjMgt_Persistent::PutAsciiString(const TCollection_Asc
 //=======================================================================
 
 BinObjMgt_Persistent& BinObjMgt_Persistent::PutExtendedString(
-  const TCollection_ExtendedString& theValue)
+  const UtfString& theValue)
 {
   alignOffset(BP_INTSIZE, Standard_True);
   Standard_Integer aSize = (theValue.Length() + 1) * BP_EXTCHARSIZE;
@@ -370,7 +370,7 @@ BinObjMgt_Persistent& BinObjMgt_Persistent::PutExtendedString(
 
 //=================================================================================================
 
-BinObjMgt_Persistent& BinObjMgt_Persistent::PutLabel(const TDF_Label& theValue)
+BinObjMgt_Persistent& BinObjMgt_Persistent::PutLabel(const DataLabel& theValue)
 {
   alignOffset(BP_INTSIZE, Standard_True);
   Standard_Integer aLen = (theValue.IsNull() ? 0 : theValue.Depth() + 1);
@@ -658,7 +658,7 @@ const BinObjMgt_Persistent& BinObjMgt_Persistent::GetShortReal(Standard_ShortRea
 //=================================================================================================
 
 const BinObjMgt_Persistent& BinObjMgt_Persistent::GetAsciiString(
-  TCollection_AsciiString& theValue) const
+  AsciiString1& theValue) const
 {
   alignOffset(BP_INTSIZE);
   Standard_Integer      aStartIndex  = myIndex;
@@ -707,7 +707,7 @@ const BinObjMgt_Persistent& BinObjMgt_Persistent::GetAsciiString(
 //=================================================================================================
 
 const BinObjMgt_Persistent& BinObjMgt_Persistent::GetExtendedString(
-  TCollection_ExtendedString& theValue) const
+  UtfString& theValue) const
 {
   alignOffset(BP_INTSIZE);
   Standard_Integer       aStartIndex  = myIndex;
@@ -761,7 +761,7 @@ const BinObjMgt_Persistent& BinObjMgt_Persistent::GetExtendedString(
 //=================================================================================================
 
 const BinObjMgt_Persistent& BinObjMgt_Persistent::GetLabel(const Handle(TDF_Data)& theDS,
-                                                           TDF_Label&              theValue) const
+                                                           DataLabel&              theValue) const
 {
   theValue.Nullify();
   alignOffset(BP_INTSIZE);

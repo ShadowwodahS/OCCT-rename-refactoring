@@ -24,7 +24,7 @@
 #include <Standard_OStream.hxx>
 #include <Standard_GUID.hxx>
 
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 class TDF_DataSet;
 
@@ -42,11 +42,11 @@ public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
   //! Finds or creates a list of reference values (labels) attribute.
-  Standard_EXPORT static Handle(TDataStd_ReferenceList) Set(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataStd_ReferenceList) Set(const DataLabel& label);
 
   //! Finds or creates a list of reference values (labels) attribute with explicit user defined
   //! <guid>.
-  Standard_EXPORT static Handle(TDataStd_ReferenceList) Set(const TDF_Label&     label,
+  Standard_EXPORT static Handle(TDataStd_ReferenceList) Set(const DataLabel&     label,
                                                             const Standard_GUID& theGuid);
 
   Standard_EXPORT TDataStd_ReferenceList();
@@ -55,9 +55,9 @@ public:
 
   Standard_EXPORT Standard_Integer Extent() const;
 
-  Standard_EXPORT void Prepend(const TDF_Label& value);
+  Standard_EXPORT void Prepend(const DataLabel& value);
 
-  Standard_EXPORT void Append(const TDF_Label& value);
+  Standard_EXPORT void Append(const DataLabel& value);
 
   //! Sets the explicit GUID (user defined) for the attribute.
   Standard_EXPORT void SetID(const Standard_GUID& theGuid) Standard_OVERRIDE;
@@ -66,34 +66,34 @@ public:
   Standard_EXPORT void SetID() Standard_OVERRIDE;
 
   //! Inserts the <value> before the first meet of <before_value>.
-  Standard_EXPORT Standard_Boolean InsertBefore(const TDF_Label& value,
-                                                const TDF_Label& before_value);
+  Standard_EXPORT Standard_Boolean InsertBefore(const DataLabel& value,
+                                                const DataLabel& before_value);
 
   //! Inserts the label before the <index> position.
   //! The indices start with 1 .. Extent().
   Standard_EXPORT Standard_Boolean InsertBefore(const Standard_Integer index,
-                                                const TDF_Label&       before_value);
+                                                const DataLabel&       before_value);
 
   //! Inserts the <value> after the first meet of <after_value>.
-  Standard_EXPORT Standard_Boolean InsertAfter(const TDF_Label& value,
-                                               const TDF_Label& after_value);
+  Standard_EXPORT Standard_Boolean InsertAfter(const DataLabel& value,
+                                               const DataLabel& after_value);
 
   //! Inserts the label after the <index> position.
   //! The indices start with 1 .. Extent().
   Standard_EXPORT Standard_Boolean InsertAfter(const Standard_Integer index,
-                                               const TDF_Label&       after_value);
+                                               const DataLabel&       after_value);
 
   //! Removes the first meet of the <value>.
-  Standard_EXPORT Standard_Boolean Remove(const TDF_Label& value);
+  Standard_EXPORT Standard_Boolean Remove(const DataLabel& value);
 
   //! Removes a label at "index" position.
   Standard_EXPORT Standard_Boolean Remove(const Standard_Integer index);
 
   Standard_EXPORT void Clear();
 
-  Standard_EXPORT const TDF_Label& First() const;
+  Standard_EXPORT const DataLabel& First() const;
 
-  Standard_EXPORT const TDF_Label& Last() const;
+  Standard_EXPORT const DataLabel& Last() const;
 
   Standard_EXPORT const TDF_LabelList& List() const;
 

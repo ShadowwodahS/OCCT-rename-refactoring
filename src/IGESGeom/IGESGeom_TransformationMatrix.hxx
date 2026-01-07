@@ -29,7 +29,7 @@ class IGESGeom_TransformationMatrix;
 DEFINE_STANDARD_HANDLE(IGESGeom_TransformationMatrix, IGESData_TransfEntity)
 
 //! defines IGESTransformationMatrix, Type <124> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! The transformation matrix entity transforms three-row column
 //! vectors by means of matrix multiplication and then a vector
 //! addition. This entity can be considered as an "operator"

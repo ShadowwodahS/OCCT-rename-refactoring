@@ -19,7 +19,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(StepDimTol_SimpleDatumReferenceModifierMember, StepData_SelectInt)
 
-static StepData_EnumTool tool(".ANY_CROSS_SECTION.",
+static EnumTool tool(".ANY_CROSS_SECTION.",
                               ".ANY_LONGITUDINAL_SECTION.",
                               ".BASIC.",
                               ".CONTACTING_FEATURE.",

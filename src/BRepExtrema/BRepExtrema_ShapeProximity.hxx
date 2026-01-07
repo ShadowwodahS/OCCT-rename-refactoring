@@ -55,8 +55,8 @@ public:
 
   //! Creates proximity tool for the given two shapes.
   Standard_EXPORT BRepExtrema_ShapeProximity(
-    const TopoDS_Shape& theShape1,
-    const TopoDS_Shape& theShape2,
+    const TopoShape& theShape1,
+    const TopoShape& theShape2,
     const Standard_Real theTolerance = Precision::Infinite());
 
 public:
@@ -70,10 +70,10 @@ public:
   Standard_Real Proximity() const { return Tolerance(); }
 
   //! Loads 1st shape into proximity tool.
-  Standard_EXPORT Standard_Boolean LoadShape1(const TopoDS_Shape& theShape1);
+  Standard_EXPORT Standard_Boolean LoadShape1(const TopoShape& theShape1);
 
   //! Loads 2nd shape into proximity tool.
-  Standard_EXPORT Standard_Boolean LoadShape2(const TopoDS_Shape& theShape2);
+  Standard_EXPORT Standard_Boolean LoadShape2(const TopoShape& theShape2);
 
   //! Set number of sample points on the 1st shape used to compute the proximity value.
   //! In case of 0, all triangulation nodes will be used.
@@ -102,13 +102,13 @@ public:
   }
 
   //! Returns sub-shape from 1st shape with the given index (started from 0).
-  const TopoDS_Shape& GetSubShape1(const Standard_Integer theID) const
+  const TopoShape& GetSubShape1(const Standard_Integer theID) const
   {
     return myShapeList1.Value(theID);
   }
 
   //! Returns sub-shape from 1st shape with the given index (started from 0).
-  const TopoDS_Shape& GetSubShape2(const Standard_Integer theID) const
+  const TopoShape& GetSubShape2(const Standard_Integer theID) const
   {
     return myShapeList2.Value(theID);
   }

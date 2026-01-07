@@ -46,7 +46,7 @@ public:
   /**
    * Query the Center
    */
-  inline const gp_XY& Center() const { return myCenter; }
+  inline const Coords2d& Center() const { return myCenter; }
 
   /**
    * Query the Rotation
@@ -56,17 +56,17 @@ public:
   /**
    * Query the Scale
    */
-  inline const gp_XY& Scale() const { return myScale; }
+  inline const Coords2d& Scale() const { return myScale; }
 
   /**
    * Query the Translation
    */
-  inline const gp_XY& Translation() const { return myTranslation; }
+  inline const Coords2d& Translation() const { return myTranslation; }
 
   /**
    * Set the Center
    */
-  inline void SetCenter(const gp_XY& V) { myCenter = V; }
+  inline void SetCenter(const Coords2d& V) { myCenter = V; }
 
   /**
    * Set the Rotation
@@ -76,12 +76,12 @@ public:
   /**
    * Set the Scale
    */
-  inline void SetScale(const gp_XY& V) { myScale = V; }
+  inline void SetScale(const Coords2d& V) { myScale = V; }
 
   /**
    * Set the Translation
    */
-  inline void SetTranslation(const gp_XY& V) { myTranslation = V; }
+  inline void SetTranslation(const Coords2d& V) { myTranslation = V; }
 
 protected:
   // ---------- PROTECTED METHODS ----------
@@ -89,10 +89,10 @@ protected:
 private:
   // ---------- PRIVATE FIELDS ----------
 
-  gp_XY         myCenter;
+  Coords2d         myCenter;
   Standard_Real myRotation;
-  gp_XY         myScale;
-  gp_XY         myTranslation;
+  Coords2d         myScale;
+  Coords2d         myTranslation;
 
 public:
   // Declaration of CASCADE RTTI

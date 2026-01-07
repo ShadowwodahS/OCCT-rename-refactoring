@@ -22,9 +22,9 @@
 #include <TopLoc_Location.hxx>
 #include <Standard_Real.hxx>
 #include <Standard_Transient.hxx>
-class Geom_Curve;
-class Geom2d_Curve;
-class Geom_Surface;
+class GeomCurve3d;
+class GeomCurve2d;
+class GeomSurface;
 
 class BRep_PointRepresentation;
 DEFINE_STANDARD_HANDLE(BRep_PointRepresentation, RefObject)
@@ -45,16 +45,16 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsPointOnSurface() const;
 
   //! A point on the curve <C>.
-  Standard_EXPORT virtual Standard_Boolean IsPointOnCurve(const Handle(Geom_Curve)& C,
+  Standard_EXPORT virtual Standard_Boolean IsPointOnCurve(const Handle(GeomCurve3d)& C,
                                                           const TopLoc_Location&    L) const;
 
   //! A point on the 2d curve <PC> on the surface <S>.
-  Standard_EXPORT virtual Standard_Boolean IsPointOnCurveOnSurface(const Handle(Geom2d_Curve)& PC,
-                                                                   const Handle(Geom_Surface)& S,
+  Standard_EXPORT virtual Standard_Boolean IsPointOnCurveOnSurface(const Handle(GeomCurve2d)& PC,
+                                                                   const Handle(GeomSurface)& S,
                                                                    const TopLoc_Location& L) const;
 
   //! A point on the surface <S>.
-  Standard_EXPORT virtual Standard_Boolean IsPointOnSurface(const Handle(Geom_Surface)& S,
+  Standard_EXPORT virtual Standard_Boolean IsPointOnSurface(const Handle(GeomSurface)& S,
                                                             const TopLoc_Location&      L) const;
 
   const TopLoc_Location& Location() const;
@@ -69,17 +69,17 @@ public:
 
   Standard_EXPORT virtual void Parameter2(const Standard_Real P);
 
-  Standard_EXPORT virtual const Handle(Geom_Curve)& Curve() const;
+  Standard_EXPORT virtual const Handle(GeomCurve3d)& Curve() const;
 
-  Standard_EXPORT virtual void Curve(const Handle(Geom_Curve)& C);
+  Standard_EXPORT virtual void Curve(const Handle(GeomCurve3d)& C);
 
-  Standard_EXPORT virtual const Handle(Geom2d_Curve)& PCurve() const;
+  Standard_EXPORT virtual const Handle(GeomCurve2d)& PCurve() const;
 
-  Standard_EXPORT virtual void PCurve(const Handle(Geom2d_Curve)& C);
+  Standard_EXPORT virtual void PCurve(const Handle(GeomCurve2d)& C);
 
-  Standard_EXPORT virtual const Handle(Geom_Surface)& Surface() const;
+  Standard_EXPORT virtual const Handle(GeomSurface)& Surface() const;
 
-  Standard_EXPORT virtual void Surface(const Handle(Geom_Surface)& S);
+  Standard_EXPORT virtual void Surface(const Handle(GeomSurface)& S);
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,

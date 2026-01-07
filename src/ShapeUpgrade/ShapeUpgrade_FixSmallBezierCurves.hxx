@@ -20,8 +20,8 @@
 #include <Standard_Type.hxx>
 
 #include <ShapeUpgrade_FixSmallCurves.hxx>
-class Geom_Curve;
-class Geom2d_Curve;
+class GeomCurve3d;
+class GeomCurve2d;
 
 class ShapeUpgrade_FixSmallBezierCurves;
 DEFINE_STANDARD_HANDLE(ShapeUpgrade_FixSmallBezierCurves, ShapeUpgrade_FixSmallCurves)
@@ -32,9 +32,9 @@ class ShapeUpgrade_FixSmallBezierCurves : public ShapeUpgrade_FixSmallCurves
 public:
   Standard_EXPORT ShapeUpgrade_FixSmallBezierCurves();
 
-  Standard_EXPORT virtual Standard_Boolean Approx(Handle(Geom_Curve)&   Curve3d,
-                                                  Handle(Geom2d_Curve)& Curve2d,
-                                                  Handle(Geom2d_Curve)& Curve2dR,
+  Standard_EXPORT virtual Standard_Boolean Approx(Handle(GeomCurve3d)&   Curve3d,
+                                                  Handle(GeomCurve2d)& Curve2d,
+                                                  Handle(GeomCurve2d)& Curve2dR,
                                                   Standard_Real&        First,
                                                   Standard_Real&        Last) Standard_OVERRIDE;
 

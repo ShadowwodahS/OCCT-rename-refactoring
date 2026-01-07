@@ -25,7 +25,7 @@
 #include <TDF_LabelMap.hxx>
 #include <TDF_AttributeMap.hxx>
 #include <Standard_OStream.hxx>
-class TDF_Label;
+class DataLabel;
 class TDF_Attribute;
 
 class TDF_RelocationTable;
@@ -80,15 +80,15 @@ public:
 
   //! Sets the relocation value of <aSourceLabel> to
   //! <aTargetLabel>.
-  Standard_EXPORT void SetRelocation(const TDF_Label& aSourceLabel, const TDF_Label& aTargetLabel);
+  Standard_EXPORT void SetRelocation(const DataLabel& aSourceLabel, const DataLabel& aTargetLabel);
 
   //! Finds the relocation value of <aSourceLabel>
   //! and returns it into <aTargetLabel>.
   //!
   //! (See above SelfRelocate method for more
   //! explanation about the method behavior)
-  Standard_EXPORT Standard_Boolean HasRelocation(const TDF_Label& aSourceLabel,
-                                                 TDF_Label&       aTargetLabel) const;
+  Standard_EXPORT Standard_Boolean HasRelocation(const DataLabel& aSourceLabel,
+                                                 DataLabel&       aTargetLabel) const;
 
   //! Sets the relocation value of <aSourceAttribute> to
   //! <aTargetAttribute>.

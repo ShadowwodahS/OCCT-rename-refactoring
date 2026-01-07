@@ -23,11 +23,11 @@
 #include <TColGeom_SequenceOfCurve.hxx>
 #include <GeomFill_PipeError.hxx>
 
-class Geom_Surface;
+class GeomSurface;
 class GeomFill_LocationLaw;
 class GeomFill_SectionLaw;
-class Geom_Curve;
-class Geom2d_Curve;
+class GeomCurve3d;
+class GeomCurve2d;
 class Dir3d;
 
 //! Describes functions to construct pipes. A pipe is built by
@@ -92,46 +92,46 @@ public:
   //! the function Init to initialize it.
   Standard_EXPORT GeomFill_Pipe();
 
-  Standard_EXPORT GeomFill_Pipe(const Handle(Geom_Curve)& Path, const Standard_Real Radius);
+  Standard_EXPORT GeomFill_Pipe(const Handle(GeomCurve3d)& Path, const Standard_Real Radius);
 
   //! Create  a  pipe  with  a  constant  section
   //! (<FirstSection>)  and a path (<Path>)
   //! Option can be  - GeomFill_IsCorrectedFrenet
   //! - GeomFill_IsFrenet
   //! - GeomFill_IsConstant
-  Standard_EXPORT GeomFill_Pipe(const Handle(Geom_Curve)& Path,
-                                const Handle(Geom_Curve)& FirstSect,
+  Standard_EXPORT GeomFill_Pipe(const Handle(GeomCurve3d)& Path,
+                                const Handle(GeomCurve3d)& FirstSect,
                                 const GeomFill_Trihedron  Option = GeomFill_IsCorrectedFrenet);
 
   //! Create  a  pipe  with  a  constant  section
   //! (<FirstSection>)  and a path defined by <Path> and <Support>
-  Standard_EXPORT GeomFill_Pipe(const Handle(Geom2d_Curve)& Path,
-                                const Handle(Geom_Surface)& Support,
-                                const Handle(Geom_Curve)&   FirstSect);
+  Standard_EXPORT GeomFill_Pipe(const Handle(GeomCurve2d)& Path,
+                                const Handle(GeomSurface)& Support,
+                                const Handle(GeomCurve3d)&   FirstSect);
 
   //! Create  a  pipe with  a  constant section
   //! (<FirstSection>) and a   path <Path>  and a fixed
   //! binormal direction <Dir>
-  Standard_EXPORT GeomFill_Pipe(const Handle(Geom_Curve)& Path,
-                                const Handle(Geom_Curve)& FirstSect,
+  Standard_EXPORT GeomFill_Pipe(const Handle(GeomCurve3d)& Path,
+                                const Handle(GeomCurve3d)& FirstSect,
                                 const Dir3d&             Dir);
 
   //! Create a pipe with an evolving section
   //! The section evaluate from First to Last Section
-  Standard_EXPORT GeomFill_Pipe(const Handle(Geom_Curve)& Path,
-                                const Handle(Geom_Curve)& FirstSect,
-                                const Handle(Geom_Curve)& LastSect);
+  Standard_EXPORT GeomFill_Pipe(const Handle(GeomCurve3d)& Path,
+                                const Handle(GeomCurve3d)& FirstSect,
+                                const Handle(GeomCurve3d)& LastSect);
 
   //! Create a pipe with N  sections
   //! The section evaluate from First to Last Section
-  Standard_EXPORT GeomFill_Pipe(const Handle(Geom_Curve)&       Path,
+  Standard_EXPORT GeomFill_Pipe(const Handle(GeomCurve3d)&       Path,
                                 const TColGeom_SequenceOfCurve& NSections);
 
   //! Create  a pipe  with  a constant  radius with  2
   //! guide-line.
-  Standard_EXPORT GeomFill_Pipe(const Handle(Geom_Curve)& Path,
-                                const Handle(Geom_Curve)& Curve1,
-                                const Handle(Geom_Curve)& Curve2,
+  Standard_EXPORT GeomFill_Pipe(const Handle(GeomCurve3d)& Path,
+                                const Handle(GeomCurve3d)& Curve1,
+                                const Handle(GeomCurve3d)& Curve2,
                                 const Standard_Real       Radius);
 
   //! Create  a pipe  with  a constant  radius with  2
@@ -179,31 +179,31 @@ public:
   //! obtained by applying to the curve Si the geometric
   //! transformation which transforms coordinate system
   //! T1 into coordinate system Ti.
-  Standard_EXPORT GeomFill_Pipe(const Handle(Geom_Curve)&      Path,
+  Standard_EXPORT GeomFill_Pipe(const Handle(GeomCurve3d)&      Path,
                                 const Handle(Adaptor3d_Curve)& Guide,
-                                const Handle(Geom_Curve)&      FirstSect,
+                                const Handle(GeomCurve3d)&      FirstSect,
                                 const Standard_Boolean         ByACR,
                                 const Standard_Boolean         rotat);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& Path, const Standard_Real Radius);
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& Path, const Standard_Real Radius);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& Path,
-                            const Handle(Geom_Curve)& FirstSect,
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& Path,
+                            const Handle(GeomCurve3d)& FirstSect,
                             const GeomFill_Trihedron  Option = GeomFill_IsCorrectedFrenet);
 
-  Standard_EXPORT void Init(const Handle(Geom2d_Curve)& Path,
-                            const Handle(Geom_Surface)& Support,
-                            const Handle(Geom_Curve)&   FirstSect);
+  Standard_EXPORT void Init(const Handle(GeomCurve2d)& Path,
+                            const Handle(GeomSurface)& Support,
+                            const Handle(GeomCurve3d)&   FirstSect);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& Path,
-                            const Handle(Geom_Curve)& FirstSect,
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& Path,
+                            const Handle(GeomCurve3d)& FirstSect,
                             const Dir3d&             Dir);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)& Path,
-                            const Handle(Geom_Curve)& FirstSect,
-                            const Handle(Geom_Curve)& LastSect);
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)& Path,
+                            const Handle(GeomCurve3d)& FirstSect,
+                            const Handle(GeomCurve3d)& LastSect);
 
-  Standard_EXPORT void Init(const Handle(Geom_Curve)&       Path,
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)&       Path,
                             const TColGeom_SequenceOfCurve& NSections);
 
   //! Create  a pipe  with  a constant  radius with  2
@@ -221,9 +221,9 @@ public:
   //! LastSect along the path Path.
   //! Use the function Perform to build the surface.
   //! Note: a description of the resulting surface is given under Constructors.
-  Standard_EXPORT void Init(const Handle(Geom_Curve)&      Path,
+  Standard_EXPORT void Init(const Handle(GeomCurve3d)&      Path,
                             const Handle(Adaptor3d_Curve)& Guide,
-                            const Handle(Geom_Curve)&      FirstSect,
+                            const Handle(GeomCurve3d)&      FirstSect,
                             const Standard_Boolean         ByACR,
                             const Standard_Boolean         rotat);
 
@@ -255,7 +255,7 @@ public:
   //! Warning
   //! Do not use this function before the surface is built (in this
   //! case the function will return a null handle).
-  const Handle(Geom_Surface)& Surface() const;
+  const Handle(GeomSurface)& Surface() const;
 
   //! The u parametric direction of the surface constructed by
   //! this algorithm usually corresponds to the evolution
@@ -308,7 +308,7 @@ private:
   Handle(Adaptor3d_Curve)      myAdpPath;
   Handle(Adaptor3d_Curve)      myAdpFirstSect;
   Handle(Adaptor3d_Curve)      myAdpLastSect;
-  Handle(Geom_Surface)         mySurface;
+  Handle(GeomSurface)         mySurface;
   Handle(GeomFill_LocationLaw) myLoc;
   Handle(GeomFill_SectionLaw)  mySec;
   Standard_Integer             myType;

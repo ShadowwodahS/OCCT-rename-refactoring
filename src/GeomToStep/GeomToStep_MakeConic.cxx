@@ -41,12 +41,12 @@
 // Creation d' une Conic de prostep a partir d' une Conic de Geom
 //=============================================================================
 GeomToStep_MakeConic::GeomToStep_MakeConic(const Handle(Geom_Conic)& C,
-                                           const StepData_Factors&   theLocalFactors)
+                                           const ConversionFactors&   theLocalFactors)
 {
   done = Standard_True;
-  if (C->IsKind(STANDARD_TYPE(Geom_Circle)))
+  if (C->IsKind(STANDARD_TYPE(GeomCircle)))
   {
-    Handle(Geom_Circle)   Cer = Handle(Geom_Circle)::DownCast(C);
+    Handle(GeomCircle)   Cer = Handle(GeomCircle)::DownCast(C);
     GeomToStep_MakeCircle MkCircle(Cer, theLocalFactors);
     theConic = MkCircle.Value();
   }
@@ -82,7 +82,7 @@ GeomToStep_MakeConic::GeomToStep_MakeConic(const Handle(Geom_Conic)& C,
 //=============================================================================
 
 GeomToStep_MakeConic::GeomToStep_MakeConic(const Handle(Geom2d_Conic)& C,
-                                           const StepData_Factors&     theLocalFactors)
+                                           const ConversionFactors&     theLocalFactors)
 {
   done = Standard_True;
   if (C->IsKind(STANDARD_TYPE(Geom2d_Circle)))

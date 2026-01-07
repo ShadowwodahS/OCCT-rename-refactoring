@@ -30,7 +30,7 @@ Draw_Number::Draw_Number(const Standard_Real theV)
 
 //=================================================================================================
 
-void Draw_Number::DrawOn(Draw_Display&) const
+void Draw_Number::DrawOn(DrawDisplay&) const
 {
   //
 }
@@ -74,7 +74,7 @@ Handle(Draw_Drawable3D) Draw_Number::Restore(Standard_IStream& theStream)
 
 //=================================================================================================
 
-void Draw_Number::Whatis(Draw_Interpretor& S) const
+void Draw_Number::Whatis(DrawInterpreter& S) const
 {
   S << "numeric";
 }

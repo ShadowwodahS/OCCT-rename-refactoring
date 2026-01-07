@@ -40,7 +40,7 @@ namespace
 //! adds the sub-shapes of the shape instead.
 //! Returns 'true' if the sub-shapes were added.
 template <typename TMap>
-void Add(TMap& theMap, const TopoDS_Shape& theShape)
+void Add(TMap& theMap, const TopoShape& theShape)
 {
   const TopAbs_ShapeEnum aType = theShape.ShapeType();
   if (aType != TopAbs_WIRE && aType != TopAbs_SHELL && aType != TopAbs_COMPSOLID)
@@ -59,8 +59,8 @@ void Add(TMap& theMap, const TopoDS_Shape& theShape)
 
 // include <ShapeExtend.hxx>
 // #include <BRepTools_Edge.hxx>
-static void CopyRanges(const TopoDS_Shape& toedge,
-                       const TopoDS_Shape& fromedge,
+static void CopyRanges(const TopoShape& toedge,
+                       const TopoShape& fromedge,
                        const Standard_Real alpha,
                        const Standard_Real beta)
 {
@@ -89,7 +89,7 @@ static void CopyRanges(const TopoDS_Shape& toedge,
     if ( ! isC3d && ! fromGC->IsCurveOnSurface()) continue; // only 3d curves and pcurves are treated
     // clang-format on
 
-    Handle(Geom_Surface) surface;
+    Handle(GeomSurface) surface;
     TopLoc_Location      L;
     if (!isC3d)
     {
@@ -137,20 +137,20 @@ void BRepTools_ReShape::Clear()
 
 //=================================================================================================
 
-void BRepTools_ReShape::Remove(const TopoDS_Shape& shape)
+void BRepTools_ReShape::Remove(const TopoShape& shape)
 {
-  TopoDS_Shape nulshape;
+  TopoShape nulshape;
   replace(shape, nulshape, TReplacementKind_Remove);
 }
 
 //=================================================================================================
 
-void BRepTools_ReShape::replace(const TopoDS_Shape&    ashape,
-                                const TopoDS_Shape&    anewshape,
+void BRepTools_ReShape::replace(const TopoShape&    ashape,
+                                const TopoShape&    anewshape,
                                 const TReplacementKind theKind)
 {
-  TopoDS_Shape shape    = ashape;
-  TopoDS_Shape newshape = anewshape;
+  TopoShape shape    = ashape;
+  TopoShape newshape = anewshape;
   if (shape.IsNull() || shape == newshape)
     return;
 
@@ -188,9 +188,9 @@ void BRepTools_ReShape::replace(const TopoDS_Shape&    ashape,
 
 //=================================================================================================
 
-Standard_Boolean BRepTools_ReShape::IsRecorded(const TopoDS_Shape& ashape) const
+Standard_Boolean BRepTools_ReShape::IsRecorded(const TopoShape& ashape) const
 {
-  TopoDS_Shape shape = ashape;
+  TopoShape shape = ashape;
   if (myConsiderLocation)
   {
     TopLoc_Location nullLoc;
@@ -203,12 +203,12 @@ Standard_Boolean BRepTools_ReShape::IsRecorded(const TopoDS_Shape& ashape) const
 
 //=================================================================================================
 
-TopoDS_Shape BRepTools_ReShape::Value(const TopoDS_Shape& ashape) const
+TopoShape BRepTools_ReShape::Value(const TopoShape& ashape) const
 {
-  TopoDS_Shape res;
+  TopoShape res;
   if (ashape.IsNull())
     return res;
-  TopoDS_Shape shape = ashape;
+  TopoShape shape = ashape;
   if (myConsiderLocation)
   {
     TopLoc_Location nullLoc;
@@ -248,8 +248,8 @@ TopoDS_Shape BRepTools_ReShape::Value(const TopoDS_Shape& ashape) const
 
 //=================================================================================================
 
-Standard_Integer BRepTools_ReShape::Status(const TopoDS_Shape&    ashape,
-                                           TopoDS_Shape&          newsh,
+Standard_Integer BRepTools_ReShape::Status(const TopoShape&    ashape,
+                                           TopoShape&          newsh,
                                            const Standard_Boolean last)
 {
   Standard_Integer res = 0;
@@ -259,7 +259,7 @@ Standard_Integer BRepTools_ReShape::Status(const TopoDS_Shape&    ashape,
     return res;
   }
 
-  TopoDS_Shape    shape  = ashape;
+  TopoShape    shape  = ashape;
   TopLoc_Location aLocSh = shape.Location();
   if (myConsiderLocation)
   {
@@ -287,7 +287,7 @@ Standard_Integer BRepTools_ReShape::Status(const TopoDS_Shape&    ashape,
              && ((myConsiderLocation && !newsh.IsPartner(shape))
                  || (!myConsiderLocation && !newsh.IsSame(shape))))
     {
-      // TopoDS_Shape newnewsh;
+      // TopoShape newnewsh;
       // Standard_Integer newres = Status (newsh, newnewsh, last);
       // newsh = newnewsh;
       // if (newres) res = newres;
@@ -359,14 +359,14 @@ static Standard_Integer EncodeStatus(const Standard_Integer status)
 
 //=================================================================================================
 
-TopoDS_Shape BRepTools_ReShape::Apply(const TopoDS_Shape& shape, const TopAbs_ShapeEnum until)
+TopoShape BRepTools_ReShape::Apply(const TopoShape& shape, const TopAbs_ShapeEnum until)
 {
   myStatus = EncodeStatus(0); // ShapeExtend::EncodeStatus ( ShapeExtend_OK );
   if (shape.IsNull())
     return shape;
 
   // apply direct replacement
-  TopoDS_Shape newsh = Value(shape);
+  TopoShape newsh = Value(shape);
 
   // if shape removed, return NULL
   if (newsh.IsNull())
@@ -379,7 +379,7 @@ TopoDS_Shape BRepTools_ReShape::Apply(const TopoDS_Shape& shape, const TopAbs_Sh
   if ((myConsiderLocation && !newsh.IsPartner(shape))
       || (!myConsiderLocation && !newsh.IsSame(shape)))
   {
-    TopoDS_Shape res = Apply(newsh, until);
+    TopoShape res = Apply(newsh, until);
     myStatus |= EncodeStatus(1); // ShapeExtend::EncodeStatus ( ShapeExtend_DONE1 );
     return res;
   }
@@ -405,9 +405,9 @@ TopoDS_Shape BRepTools_ReShape::Apply(const TopoDS_Shape& shape, const TopAbs_Sh
   default:               return shape;
   }
   */
-  BRep_Builder B;
+  ShapeBuilder B;
 
-  TopoDS_Shape       result = shape.EmptyCopied();
+  TopoShape       result = shape.EmptyCopied();
   TopAbs_Orientation orien  = shape.Orientation();
   result.Orientation(TopAbs_FORWARD); // protect against INTERNAL or EXTERNAL shapes
   Standard_Boolean modif     = Standard_False;
@@ -417,7 +417,7 @@ TopoDS_Shape BRepTools_ReShape::Apply(const TopoDS_Shape& shape, const TopAbs_Sh
   Standard_Boolean isEmpty = Standard_True;
   for (TopoDS_Iterator it(shape, Standard_False); it.More(); it.Next())
   {
-    const TopoDS_Shape& sh = it.Value();
+    const TopoShape& sh = it.Value();
     newsh                  = Apply(sh, until);
     if (newsh != sh)
     {
@@ -441,7 +441,7 @@ TopoDS_Shape BRepTools_ReShape::Apply(const TopoDS_Shape& shape, const TopAbs_Sh
     Standard_Integer nitems = 0;
     for (TopoDS_Iterator subit(newsh); subit.More(); subit.Next(), nitems++)
     {
-      const TopoDS_Shape& subsh = subit.Value();
+      const TopoShape& subsh = subit.Value();
       // clang-format off
       if ( subsh.ShapeType() == sh.ShapeType() ) B.Add ( result, subsh );//fix for SAMTECH bug OCC322 about absent internal vertices after sewing.
       else locStatus |= EncodeStatus(10);//ShapeExtend::EncodeStatus ( ShapeExtend_FAIL1 );
@@ -456,7 +456,7 @@ TopoDS_Shape BRepTools_ReShape::Apply(const TopoDS_Shape& shape, const TopAbs_Sh
   // and face) we have to produce an empty result
   if (isEmpty && st != TopAbs_VERTEX && st != TopAbs_EDGE && st != TopAbs_FACE)
   {
-    result = TopoDS_Shape();
+    result = TopoShape();
   }
   else
   {
@@ -467,15 +467,15 @@ TopoDS_Shape BRepTools_ReShape::Apply(const TopoDS_Shape& shape, const TopAbs_Sh
     }
     else if (st == TopAbs_FACE)
     {
-      TopoDS_Face face = TopoDS::Face(shape);
-      if (BRep_Tool::NaturalRestriction(face))
+      TopoFace face = TopoDS::Face(shape);
+      if (BRepInspector::NaturalRestriction(face))
       {
-        BRep_Builder aB;
+        ShapeBuilder aB;
         aB.NaturalRestriction(TopoDS::Face(result), Standard_True);
       }
     }
     else if (st == TopAbs_WIRE || st == TopAbs_SHELL)
-      result.Closed(BRep_Tool::IsClosed(result));
+      result.Closed(BRepInspector::IsClosed(result));
 
     result.Orientation(orien);
   }
@@ -495,23 +495,23 @@ TopoDS_Shape BRepTools_ReShape::Apply(const TopoDS_Shape& shape, const TopAbs_Sh
 
 //=================================================================================================
 
-TopoDS_Vertex BRepTools_ReShape::CopyVertex(const TopoDS_Vertex& theV, const Standard_Real theTol)
+TopoVertex BRepTools_ReShape::CopyVertex(const TopoVertex& theV, const Standard_Real theTol)
 {
-  return CopyVertex(theV, BRep_Tool::Pnt(theV), theTol);
+  return CopyVertex(theV, BRepInspector::Pnt(theV), theTol);
 }
 
 //=================================================================================================
 
-TopoDS_Vertex BRepTools_ReShape::CopyVertex(const TopoDS_Vertex& theV,
+TopoVertex BRepTools_ReShape::CopyVertex(const TopoVertex& theV,
                                             const Point3d&        theNewPos,
                                             const Standard_Real  theTol)
 {
-  TopoDS_Vertex    aVertexCopy;
+  TopoVertex    aVertexCopy;
   Standard_Boolean isRecorded = IsRecorded(theV);
   aVertexCopy = isRecorded ? TopoDS::Vertex(Apply(theV)) : TopoDS::Vertex(theV.EmptyCopied());
 
-  BRep_Builder  B;
-  Standard_Real aNewTol = theTol > 0.0 ? theTol : BRep_Tool::Tolerance(theV);
+  ShapeBuilder  B;
+  Standard_Real aNewTol = theTol > 0.0 ? theTol : BRepInspector::Tolerance(theV);
   B.UpdateVertex(aVertexCopy, theNewPos, aNewTol);
 
   if (!isRecorded)
@@ -520,7 +520,7 @@ TopoDS_Vertex BRepTools_ReShape::CopyVertex(const TopoDS_Vertex& theV,
   return aVertexCopy;
 }
 
-Standard_Boolean BRepTools_ReShape::IsNewShape(const TopoDS_Shape& theShape) const
+Standard_Boolean BRepTools_ReShape::IsNewShape(const TopoShape& theShape) const
 {
   return myNewShapes.Contains(theShape);
 }
@@ -534,18 +534,18 @@ Handle(BRepTools_History) BRepTools_ReShape::History() const
   // Fill the history.
   for (TShapeToReplacement::Iterator aRIt(myShapeToReplacement); aRIt.More(); aRIt.Next())
   {
-    const TopoDS_Shape& aShape = aRIt.Key();
+    const TopoShape& aShape = aRIt.Key();
     if (!BRepTools_History::IsSupportedType(aShape) || myNewShapes.Contains(aShape))
     {
       continue;
     }
 
-    NCollection_IndexedMap<TopoDS_Shape> aIntermediates;
-    NCollection_Map<TopoDS_Shape>        aModified;
+    NCollection_IndexedMap<TopoShape> aIntermediates;
+    NCollection_Map<TopoShape>        aModified;
     aIntermediates.Add(aShape);
     for (Standard_Integer aI = 1; aI <= aIntermediates.Size(); ++aI)
     {
-      const TopoDS_Shape& aIntermediate = aIntermediates(aI);
+      const TopoShape& aIntermediate = aIntermediates(aI);
       const TReplacement* aReplacement  = myShapeToReplacement.Seek(aIntermediate);
       if (aReplacement == NULL)
       {
@@ -553,7 +553,7 @@ Handle(BRepTools_History) BRepTools_ReShape::History() const
       }
       else if (aReplacement->RelationKind() != BRepTools_History::TRelationType_Removed)
       {
-        const TopoDS_Shape aResult = aReplacement->RelationResult();
+        const TopoShape aResult = aReplacement->RelationResult();
         if (!aResult.IsNull())
         {
           Add(aIntermediates, aResult);
@@ -567,7 +567,7 @@ Handle(BRepTools_History) BRepTools_ReShape::History() const
     }
     else
     {
-      for (NCollection_Map<TopoDS_Shape>::Iterator aIt(aModified); aIt.More(); aIt.Next())
+      for (NCollection_Map<TopoShape>::Iterator aIt(aModified); aIt.More(); aIt.Next())
       {
         aHistory->AddModified(aShape, aIt.Value());
       }

@@ -38,11 +38,11 @@
 #include <StdPrs_Curve.hxx>
 #include <UnitsAPI.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_Axis, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(VisualAxis, VisualEntity)
 
 //=================================================================================================
 
-AIS_Axis::AIS_Axis(const Handle(Geom_Line)& aComponent)
+VisualAxis::VisualAxis(const Handle(GeomLine)& aComponent)
     : myComponent(aComponent),
       myTypeOfAxis(AIS_TOAX_Unknown),
       myIsXYZAxis(Standard_False)
@@ -58,10 +58,10 @@ AIS_Axis::AIS_Axis(const Handle(Geom_Line)& aComponent)
 }
 
 //=======================================================================
-// function : AIS_Axis
+// function : VisualAxis
 // purpose  :  Xaxis, YAxis, ZAxis
 //=======================================================================
-AIS_Axis::AIS_Axis(const Handle(Geom_Axis2Placement)& aComponent, const AIS_TypeOfAxis anAxisType)
+VisualAxis::VisualAxis(const Handle(Geom_Axis2Placement)& aComponent, const AIS_TypeOfAxis anAxisType)
     : myAx2(aComponent),
       myTypeOfAxis(anAxisType),
       myIsXYZAxis(Standard_True)
@@ -88,8 +88,8 @@ AIS_Axis::AIS_Axis(const Handle(Geom_Axis2Placement)& aComponent, const AIS_Type
 
 //=================================================================================================
 
-AIS_Axis::AIS_Axis(const Handle(Geom_Axis1Placement)& anAxis)
-    : myComponent(new Geom_Line(anAxis->Ax1())),
+VisualAxis::VisualAxis(const Handle(Geom_Axis1Placement)& anAxis)
+    : myComponent(new GeomLine(anAxis->Ax1())),
       myTypeOfAxis(AIS_TOAX_Unknown),
       myIsXYZAxis(Standard_False)
 {
@@ -105,8 +105,8 @@ AIS_Axis::AIS_Axis(const Handle(Geom_Axis1Placement)& anAxis)
 
 //=================================================================================================
 
-AIS_Axis::AIS_Axis(const Axis3d& theAxis, const Standard_Real theLength)
-    : myComponent(new Geom_Line(theAxis)),
+VisualAxis::VisualAxis(const Axis3d& theAxis, const Standard_Real theLength)
+    : myComponent(new GeomLine(theAxis)),
       myTypeOfAxis(AIS_TOAX_ZAxis),
       myIsXYZAxis(Standard_True)
 {
@@ -114,7 +114,7 @@ AIS_Axis::AIS_Axis(const Axis3d& theAxis, const Standard_Real theLength)
   myPfirst = theAxis.Location();
   if (theLength <= 0 && theLength != -1)
   {
-    throw Standard_NumericError("AIS_Axis::AIS_Axis : invalid value for theLength parameter");
+    throw Standard_NumericError("VisualAxis::VisualAxis : invalid value for theLength parameter");
   }
   myVal   = (theLength == -1) ? UnitsAPI::AnyToLS(250000., "mm") : theLength;
   myPlast = myPfirst.XYZ() + myVal * myDir.XYZ();
@@ -130,7 +130,7 @@ AIS_Axis::AIS_Axis(const Axis3d& theAxis, const Standard_Real theLength)
 
 //=================================================================================================
 
-void AIS_Axis::SetComponent(const Handle(Geom_Line)& aComponent)
+void VisualAxis::SetComponent(const Handle(GeomLine)& aComponent)
 {
   myComponent  = aComponent;
   myTypeOfAxis = AIS_TOAX_Unknown;
@@ -146,7 +146,7 @@ void AIS_Axis::SetComponent(const Handle(Geom_Line)& aComponent)
 
 //=================================================================================================
 
-void AIS_Axis::SetAxis2Placement(const Handle(Geom_Axis2Placement)& aComponent,
+void VisualAxis::SetAxis2Placement(const Handle(Geom_Axis2Placement)& aComponent,
                                  const AIS_TypeOfAxis               anAxisType)
 {
   myAx2        = aComponent;
@@ -157,14 +157,14 @@ void AIS_Axis::SetAxis2Placement(const Handle(Geom_Axis2Placement)& aComponent,
 
 //=================================================================================================
 
-void AIS_Axis::SetAxis1Placement(const Handle(Geom_Axis1Placement)& anAxis)
+void VisualAxis::SetAxis1Placement(const Handle(Geom_Axis1Placement)& anAxis)
 {
-  SetComponent(new Geom_Line(anAxis->Ax1()));
+  SetComponent(new GeomLine(anAxis->Ax1()));
 }
 
 //=================================================================================================
 
-void AIS_Axis::Compute(const Handle(PrsMgr_PresentationManager)&,
+void VisualAxis::Compute(const Handle(PrsMgr_PresentationManager)&,
                        const Handle(Prs3d_Presentation)& thePrs,
                        const Standard_Integer)
 {
@@ -188,7 +188,7 @@ void AIS_Axis::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void AIS_Axis::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+void VisualAxis::ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                 const Standard_Integer)
 {
   Handle(SelectMgr_EntityOwner)     eown = new SelectMgr_EntityOwner(this, 3);
@@ -198,7 +198,7 @@ void AIS_Axis::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
 
 //=================================================================================================
 
-void AIS_Axis::SetColor(const Quantity_Color& aCol)
+void VisualAxis::SetColor(const Quantity_Color& aCol)
 {
   hasOwnColor = Standard_True;
   myDrawer->SetColor(aCol);
@@ -213,7 +213,7 @@ void AIS_Axis::SetColor(const Quantity_Color& aCol)
 
 //=================================================================================================
 
-void AIS_Axis::SetWidth(const Standard_Real aValue)
+void VisualAxis::SetWidth(const Standard_Real aValue)
 {
   if (aValue < 0.0)
     return;
@@ -231,7 +231,7 @@ void AIS_Axis::SetWidth(const Standard_Real aValue)
 
 //=================================================================================================
 
-void AIS_Axis::SetDisplayAspect(const Handle(Prs3d_LineAspect)& theNewLineAspect)
+void VisualAxis::SetDisplayAspect(const Handle(Prs3d_LineAspect)& theNewLineAspect)
 {
   myDrawer->SetLineAspect(theNewLineAspect);
   myLineAspect = myDrawer->LineAspect();
@@ -240,7 +240,7 @@ void AIS_Axis::SetDisplayAspect(const Handle(Prs3d_LineAspect)& theNewLineAspect
 
 //=================================================================================================
 
-void AIS_Axis::ComputeFields()
+void VisualAxis::ComputeFields()
 {
   if (myIsXYZAxis)
   {
@@ -285,7 +285,7 @@ void AIS_Axis::ComputeFields()
         break;
     }
 
-    myComponent = new Geom_Line(Orig, myDir);
+    myComponent = new GeomLine(Orig, myDir);
     x           = xo + x * myVal;
     y           = yo + y * myVal;
     z           = zo + z * myVal;
@@ -296,14 +296,14 @@ void AIS_Axis::ComputeFields()
 
 //=================================================================================================
 
-Standard_Boolean AIS_Axis::AcceptDisplayMode(const Standard_Integer aMode) const
+Standard_Boolean VisualAxis::AcceptDisplayMode(const Standard_Integer aMode) const
 {
   return aMode == 0;
 }
 
 //=================================================================================================
 
-void AIS_Axis::UnsetColor()
+void VisualAxis::UnsetColor()
 {
   myDrawer->LineAspect()->SetColor(Quantity_NOC_RED);
   hasOwnColor = Standard_False;
@@ -316,7 +316,7 @@ void AIS_Axis::UnsetColor()
 
 //=================================================================================================
 
-void AIS_Axis::UnsetWidth()
+void VisualAxis::UnsetWidth()
 {
   myOwnWidth = 0.0f;
   myDrawer->LineAspect()->SetWidth(1.);

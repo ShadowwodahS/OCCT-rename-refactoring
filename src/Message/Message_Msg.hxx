@@ -24,7 +24,7 @@
 #include <TCollection_HExtendedString.hxx>
 #include <TColStd_SequenceOfInteger.hxx>
 
-class TCollection_AsciiString;
+class AsciiString1;
 class TCollection_HAsciiString;
 class TCollection_HExtendedString;
 
@@ -63,7 +63,7 @@ public:
   Standard_EXPORT Message_Msg(const Standard_CString theKey);
 
   //! Create a message using a corresponding entry in Message_MsgFile
-  Standard_EXPORT Message_Msg(const TCollection_ExtendedString& theKey);
+  Standard_EXPORT Message_Msg(const UtfString& theKey);
 
   //! Set a message body text -- can be used as alternative to
   //! using messages from resource file
@@ -71,7 +71,7 @@ public:
 
   //! Set a message body text -- can be used as alternative to
   //! using messages from resource file
-  Standard_EXPORT void Set(const TCollection_ExtendedString& theMsg);
+  Standard_EXPORT void Set(const UtfString& theMsg);
 
   //! Set a value for %..s conversion
   Standard_EXPORT Message_Msg& Arg(const Standard_CString theString);
@@ -79,9 +79,9 @@ public:
   Message_Msg& operator<<(const Standard_CString theString) { return Arg(theString); }
 
   //! Set a value for %..s conversion
-  Message_Msg& Arg(const TCollection_AsciiString& theString);
+  Message_Msg& Arg(const AsciiString1& theString);
 
-  Message_Msg& operator<<(const TCollection_AsciiString& theString) { return Arg(theString); }
+  Message_Msg& operator<<(const AsciiString1& theString) { return Arg(theString); }
 
   //! Set a value for %..s conversion
   Message_Msg& Arg(const Handle(TCollection_HAsciiString)& theString);
@@ -92,9 +92,9 @@ public:
   }
 
   //! Set a value for %..s conversion
-  Standard_EXPORT Message_Msg& Arg(const TCollection_ExtendedString& theString);
+  Standard_EXPORT Message_Msg& Arg(const UtfString& theString);
 
-  Message_Msg& operator<<(const TCollection_ExtendedString& theString) { return Arg(theString); }
+  Message_Msg& operator<<(const UtfString& theString) { return Arg(theString); }
 
   //! Set a value for %..s conversion
   Message_Msg& Arg(const Handle(TCollection_HExtendedString)& theString);
@@ -115,11 +115,11 @@ public:
   Message_Msg& operator<<(const Standard_Real theReal) { return Arg(theReal); }
 
   //! Returns the original message text
-  const TCollection_ExtendedString& Original() const;
+  const UtfString& Original() const;
 
   //! Returns current state of the message text with
   //! parameters to the moment
-  const TCollection_ExtendedString& Value() const;
+  const UtfString& Value() const;
 
   //! Tells if Value differs from Original
   Standard_Boolean IsEdited() const;
@@ -128,21 +128,21 @@ public:
   //! filled. If some parameters were not yet filled by calls
   //! to methods Arg (or <<), these parameters are filled by
   //! the word UNKNOWN
-  Standard_EXPORT const TCollection_ExtendedString& Get();
+  Standard_EXPORT const UtfString& Get();
 
-  operator const TCollection_ExtendedString&() { return Get(); }
+  operator const UtfString&() { return Get(); }
 
 protected:
 private:
   Standard_EXPORT Standard_Integer getFormat(const Standard_Integer   theType,
-                                             TCollection_AsciiString& theFormat);
+                                             AsciiString1& theFormat);
 
   Standard_EXPORT void replaceText(const Standard_Integer            theFirst,
                                    const Standard_Integer            theNb,
-                                   const TCollection_ExtendedString& theStr);
+                                   const UtfString& theStr);
 
-  TCollection_ExtendedString myOriginal;
-  TCollection_ExtendedString myMessageBody;
+  UtfString myOriginal;
+  UtfString myMessageBody;
   TColStd_SequenceOfInteger  mySeqOfFormats;
 };
 

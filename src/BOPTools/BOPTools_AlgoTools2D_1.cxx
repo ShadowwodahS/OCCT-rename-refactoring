@@ -33,46 +33,46 @@
 
 #include <BOPTools_AlgoTools.hxx>
 
-static Standard_Integer UpdateClosedPCurve(const TopoDS_Edge&,
-                                           const TopoDS_Edge&,
-                                           const TopoDS_Face&,
+static Standard_Integer UpdateClosedPCurve(const TopoEdge&,
+                                           const TopoEdge&,
+                                           const TopoFace&,
                                            const Handle(IntTools_Context)&);
-static Standard_Boolean IsClosed(const TopoDS_Edge&, const TopoDS_Face&);
+static Standard_Boolean IsClosed(const TopoEdge&, const TopoFace&);
 
 //=================================================================================================
 
-Standard_Integer BOPTools_AlgoTools2D::AttachExistingPCurve(const TopoDS_Edge& theE2, // old
-                                                            const TopoDS_Edge& theE1, // new
-                                                            const TopoDS_Face& theF,
+Standard_Integer AlgoTools2D::AttachExistingPCurve(const TopoEdge& theE2, // old
+                                                            const TopoEdge& theE1, // new
+                                                            const TopoFace& theF,
                                                             const Handle(IntTools_Context)& aCtx)
 {
   Standard_Boolean     bIsToReverse, bIsClosed, bComp;
   Standard_Integer     iRet;
   Standard_Real        aTol, aT11, aT12, aT21, aT22, aTolPPC;
   Standard_Real        aTolSP, aTMax;
-  Handle(Geom2d_Curve) aC2Dold, aC2DoldC;
-  Handle(Geom2d_Curve) aC2DT;
-  BRep_Builder         aBB;
+  Handle(GeomCurve2d) aC2Dold, aC2DoldC;
+  Handle(GeomCurve2d) aC2DT;
+  ShapeBuilder         aBB;
   //
   iRet = 0;
   //
-  TopoDS_Face aF = theF;
+  TopoFace aF = theF;
   aF.Orientation(TopAbs_FORWARD);
-  TopoDS_Edge aE1 = theE1;
+  TopoEdge aE1 = theE1;
   aE1.Orientation(TopAbs_FORWARD);
-  TopoDS_Edge aE2 = theE2;
+  TopoEdge aE2 = theE2;
   aE2.Orientation(TopAbs_FORWARD);
   //
-  aC2Dold = BRep_Tool::CurveOnSurface(aE2, aF, aT21, aT22);
+  aC2Dold = BRepInspector::CurveOnSurface(aE2, aF, aT21, aT22);
   if (aC2Dold.IsNull())
   {
     iRet = 1;
     return iRet;
   }
   //
-  aC2DoldC = Handle(Geom2d_Curve)::DownCast(aC2Dold->Copy());
+  aC2DoldC = Handle(GeomCurve2d)::DownCast(aC2Dold->Copy());
   //
-  bIsToReverse = BOPTools_AlgoTools::IsSplitToReverse(aE1, aE2, aCtx);
+  bIsToReverse = AlgoTools::IsSplitToReverse(aE1, aE2, aCtx);
   if (bIsToReverse)
   {
     Standard_Real aT21r, aT22r;
@@ -89,7 +89,7 @@ Standard_Integer BOPTools_AlgoTools2D::AttachExistingPCurve(const TopoDS_Edge& t
   //
   aTolPPC = Precision::PConfusion();
   //
-  Handle(Geom_Curve) aCE1 = BRep_Tool::Curve(aE1, aT11, aT12);
+  Handle(GeomCurve3d) aCE1 = BRepInspector::Curve(aE1, aT11, aT12);
   //
   GeomLib::SameRange(aTolPPC, aC2DT, aT21, aT22, aT11, aT12, aC2DT);
   //
@@ -101,16 +101,16 @@ Standard_Integer BOPTools_AlgoTools2D::AttachExistingPCurve(const TopoDS_Edge& t
   //
   // check the curves on same parameter to prevent
   // big tolerance increasing
-  Handle(Geom_Surface) aSF = BRep_Tool::Surface(aF);
+  Handle(GeomSurface) aSF = BRepInspector::Surface(aF);
   //
-  bComp = IntTools_Tools::ComputeTolerance(aCE1, aC2DT, aSF, aT11, aT12, aTolSP, aTMax, aTolPPC);
+  bComp = Tools2::ComputeTolerance(aCE1, aC2DT, aSF, aT11, aT12, aTolSP, aTMax, aTolPPC);
   if (!bComp)
   {
     iRet = 3;
     return iRet;
   }
   //
-  aTol = BRep_Tool::Tolerance(aE1);
+  aTol = BRepInspector::Tolerance(aE1);
   //
   if ((aTolSP > 10. * aTol) && aTolSP > 0.1)
   {
@@ -119,7 +119,7 @@ Standard_Integer BOPTools_AlgoTools2D::AttachExistingPCurve(const TopoDS_Edge& t
   }
   //
   // create a temporary edge to make same parameter pcurve
-  TopoDS_Edge aE1T;
+  TopoEdge aE1T;
   aBB.MakeEdge(aE1T, aCE1, aTol);
   aBB.Range(aE1T, aT11, aT12);
   aBB.SameRange(aE1T, Standard_False);
@@ -150,7 +150,7 @@ Standard_Integer BOPTools_AlgoTools2D::AttachExistingPCurve(const TopoDS_Edge& t
   // transfer pcurve(s) from the temporary edge to the new edge
   aBB.Transfert(aE1T, aE1);
   // update tolerance of vertices
-  Standard_Real   aNewTol = BRep_Tool::Tolerance(aE1T);
+  Standard_Real   aNewTol = BRepInspector::Tolerance(aE1T);
   TopoDS_Iterator it(aE1);
   for (; it.More(); it.Next())
     aBB.UpdateVertex(TopoDS::Vertex(it.Value()), aNewTol);
@@ -159,9 +159,9 @@ Standard_Integer BOPTools_AlgoTools2D::AttachExistingPCurve(const TopoDS_Edge& t
 
 //=================================================================================================
 
-Standard_Integer UpdateClosedPCurve(const TopoDS_Edge&              aEold,
-                                    const TopoDS_Edge&              aEnew,
-                                    const TopoDS_Face&              aF,
+Standard_Integer UpdateClosedPCurve(const TopoEdge&              aEold,
+                                    const TopoEdge&              aEnew,
+                                    const TopoFace&              aF,
                                     const Handle(IntTools_Context)& aCtx)
 {
   Standard_Boolean            bUClosed, bRevOrder;
@@ -171,22 +171,22 @@ Standard_Integer UpdateClosedPCurve(const TopoDS_Edge&              aEold,
   gp_Pnt2d                    aP2DS1, aP2DS2, aP2D;
   gp_Vec2d                    aV2DT, aV2D, aV2DS1, aV2DS2;
   Point3d                      aP;
-  Handle(Geom2d_Curve)        aC2D, aC2DS1, aC2DS2, aC2Dnew, aC2DoldCT;
-  Handle(Geom2d_Curve)        aC2Dold;
+  Handle(GeomCurve2d)        aC2D, aC2DS1, aC2DS2, aC2Dnew, aC2DoldCT;
+  Handle(GeomCurve2d)        aC2Dold;
   Handle(Geom2d_TrimmedCurve) aC2DTnew;
-  Handle(Geom_Surface)        aS;
-  TopoDS_Edge                 aES;
-  BRep_Builder                aBB;
+  Handle(GeomSurface)        aS;
+  TopoEdge                 aES;
+  ShapeBuilder                aBB;
   //
   iRet = 0;
-  aTol = BRep_Tool::Tolerance(aEnew);
+  aTol = BRepInspector::Tolerance(aEnew);
   //
   // aC2DoldCT is alone p-curve of aEnew that we've built
   // The task is to build closed p-curves for aEnew
-  aC2DoldCT = BRep_Tool::CurveOnSurface(aEnew, aF, aT1, aT2);
+  aC2DoldCT = BRepInspector::CurveOnSurface(aEnew, aF, aT1, aT2);
   //
   // aC2Dold is p-curve of aEold
-  aC2Dold = BRep_Tool::CurveOnSurface(aEold, aF, aT1, aT2);
+  aC2Dold = BRepInspector::CurveOnSurface(aEold, aF, aT1, aT2);
   //
   // As aEold is closed on aF, it is possible to retrieve
   // the two p-curves:
@@ -194,12 +194,12 @@ Standard_Integer UpdateClosedPCurve(const TopoDS_Edge&              aEold,
   //  aC2DS2 -second p-curve
   aES = aEold;
   aES.Orientation(TopAbs_FORWARD);
-  aC2DS1 = BRep_Tool::CurveOnSurface(aES, aF, aTS1, aTS2);
+  aC2DS1 = BRepInspector::CurveOnSurface(aES, aF, aTS1, aTS2);
   //
   aES.Orientation(TopAbs_REVERSED);
-  aC2DS2 = BRep_Tool::CurveOnSurface(aES, aF, aTS1, aTS2);
+  aC2DS2 = BRepInspector::CurveOnSurface(aES, aF, aTS1, aTS2);
   //
-  aTS = BOPTools_AlgoTools2D::IntermediatePoint(aTS1, aTS2);
+  aTS = AlgoTools2D::IntermediatePoint(aTS1, aTS2);
   //
   aC2DS1->D1(aTS, aP2DS1, aV2DS1);
   aC2DS2->D1(aTS, aP2DS2, aV2DS2);
@@ -221,7 +221,7 @@ Standard_Integer UpdateClosedPCurve(const TopoDS_Edge&              aEold,
   aP2DS2.Coord(aUS2, aVS2);
   //
   // aP - some 3D-point on seam edge of the surface aS
-  aS = BRep_Tool::Surface(aF);
+  aS = BRepInspector::Surface(aF);
   aS->D0(aUS1, aVS1, aP);
   //
   GeomAPI_ProjectPointOnCurve& aProjPC = aCtx->ProjPC(aEnew);
@@ -241,7 +241,7 @@ Standard_Integer UpdateClosedPCurve(const TopoDS_Edge&              aEold,
   aC2D->D1(aT, aP2D, aV2D);
   aP2D.Coord(aU, aV);
   //
-  aC2Dnew  = Handle(Geom2d_Curve)::DownCast(aC2D->Copy());
+  aC2Dnew  = Handle(GeomCurve2d)::DownCast(aC2D->Copy());
   aC2DTnew = new Geom2d_TrimmedCurve(aC2Dnew, aT1, aT2);
   //
   aV2DT = aV2DS12;
@@ -284,20 +284,20 @@ Standard_Integer UpdateClosedPCurve(const TopoDS_Edge&              aEold,
 
 //=================================================================================================
 
-Standard_Boolean IsClosed(const TopoDS_Edge& aE, const TopoDS_Face& aF)
+Standard_Boolean IsClosed(const TopoEdge& aE, const TopoFace& aF)
 {
   Standard_Boolean bRet;
   //
-  bRet = BRep_Tool::IsClosed(aE, aF);
+  bRet = BRepInspector::IsClosed(aE, aF);
   if (bRet)
   {
     Standard_Integer iCnt;
     //
     iCnt = 0;
-    TopExp_Explorer aExp(aF, TopAbs_EDGE);
+    ShapeExplorer aExp(aF, TopAbs_EDGE);
     for (; (aExp.More() || iCnt == 2); aExp.Next())
     {
-      const TopoDS_Shape& aEx = aExp.Current();
+      const TopoShape& aEx = aExp.Current();
       if (aEx.IsSame(aE))
       {
         ++iCnt;

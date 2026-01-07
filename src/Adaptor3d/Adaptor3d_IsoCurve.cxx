@@ -999,28 +999,28 @@ Standard_Integer Adaptor3d_IsoCurve::NbKnots() const
 
 //=================================================================================================
 
-Handle(Geom_BezierCurve) Adaptor3d_IsoCurve::Bezier() const
+Handle(BezierCurve3d) Adaptor3d_IsoCurve::Bezier() const
 {
-  Handle(Geom_BezierCurve) C;
+  Handle(BezierCurve3d) C;
   if (mySurface->GetType() == GeomAbs_SurfaceOfRevolution)
   {
     C = mySurface->BasisCurve()->Bezier();
-    C = Handle(Geom_BezierCurve)::DownCast(C->Copy());
+    C = Handle(BezierCurve3d)::DownCast(C->Copy());
     C->Rotate(mySurface->AxeOfRevolution(), myParameter);
   }
   else if (mySurface->GetType() == GeomAbs_SurfaceOfExtrusion)
   {
     C = mySurface->BasisCurve()->Bezier();
-    C = Handle(Geom_BezierCurve)::DownCast(C->Copy());
+    C = Handle(BezierCurve3d)::DownCast(C->Copy());
     C->Translate(myParameter * Vector3d(mySurface->Direction()));
   }
   else if (myIso == GeomAbs_IsoU)
   {
-    C = Handle(Geom_BezierCurve)::DownCast(mySurface->Bezier()->UIso(myParameter));
+    C = Handle(BezierCurve3d)::DownCast(mySurface->Bezier()->UIso(myParameter));
   }
   else
   {
-    C = Handle(Geom_BezierCurve)::DownCast(mySurface->Bezier()->VIso(myParameter));
+    C = Handle(BezierCurve3d)::DownCast(mySurface->Bezier()->VIso(myParameter));
   }
   //  C->Segment(myFirst,myLast);
   return C;
@@ -1028,28 +1028,28 @@ Handle(Geom_BezierCurve) Adaptor3d_IsoCurve::Bezier() const
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) Adaptor3d_IsoCurve::BSpline() const
+Handle(BSplineCurve3d) Adaptor3d_IsoCurve::BSpline() const
 {
-  Handle(Geom_BSplineCurve) C;
+  Handle(BSplineCurve3d) C;
   if (mySurface->GetType() == GeomAbs_SurfaceOfRevolution)
   {
     C = mySurface->BasisCurve()->BSpline();
-    C = Handle(Geom_BSplineCurve)::DownCast(C->Copy());
+    C = Handle(BSplineCurve3d)::DownCast(C->Copy());
     C->Rotate(mySurface->AxeOfRevolution(), myParameter);
   }
   else if (mySurface->GetType() == GeomAbs_SurfaceOfExtrusion)
   {
     C = mySurface->BasisCurve()->BSpline();
-    C = Handle(Geom_BSplineCurve)::DownCast(C->Copy());
+    C = Handle(BSplineCurve3d)::DownCast(C->Copy());
     C->Translate(myParameter * Vector3d(mySurface->Direction()));
   }
   else if (myIso == GeomAbs_IsoU)
   {
-    C = Handle(Geom_BSplineCurve)::DownCast(mySurface->BSpline()->UIso(myParameter));
+    C = Handle(BSplineCurve3d)::DownCast(mySurface->BSpline()->UIso(myParameter));
   }
   else
   {
-    C = Handle(Geom_BSplineCurve)::DownCast(mySurface->BSpline()->VIso(myParameter));
+    C = Handle(BSplineCurve3d)::DownCast(mySurface->BSpline()->VIso(myParameter));
   }
   //  C->Segment(myFirst,myLast);
   return C;

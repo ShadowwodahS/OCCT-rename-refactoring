@@ -35,12 +35,12 @@ class TColStd_HPackedMapOfInteger;
 //! Selection and consequently highlighting can disabled by
 //! setting default selection mode to -1. There will be no way
 //! to select object from interactive view. Any calls to
-//! AIS_InteractiveContext::AddOrRemoveSelected should be also prohibited,
+//! VisualContext::AddOrRemoveSelected should be also prohibited,
 //! to avoid programmatic highlighting (workaround is setting non-supported
 //! hilight mode, e.g. 100);
-class AIS_PointCloud : public AIS_InteractiveObject
+class AIS_PointCloud : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_PointCloud, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_PointCloud, VisualEntity)
 public:
   //! Display modes supported by this Point Cloud object
   enum DisplayMode
@@ -109,7 +109,7 @@ protected:
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Prepare selection for this object.
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
 private:
@@ -117,7 +117,7 @@ private:
   Bnd_Box                         myBndBox; //!< bounding box for presentation
 };
 
-DEFINE_STANDARD_HANDLE(AIS_PointCloud, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(AIS_PointCloud, VisualEntity)
 
 //! Custom owner for highlighting selected points.
 class AIS_PointCloudOwner : public SelectMgr_EntityOwner
@@ -145,7 +145,7 @@ public:
 
   //! Handle dynamic highlighting.
   Standard_EXPORT virtual void HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
-                                                const Handle(Prs3d_Drawer)&               theStyle,
+                                                const Handle(StyleDrawer)&               theStyle,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Removes highlighting.

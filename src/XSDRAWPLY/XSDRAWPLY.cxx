@@ -40,13 +40,13 @@
 // function : writeply
 // purpose  : write PLY file
 //=======================================================================
-static Standard_Integer WritePly(Draw_Interpretor& theDI,
+static Standard_Integer WritePly(DrawInterpreter& theDI,
                                  Standard_Integer  theNbArgs,
                                  const char**      theArgVec)
 {
-  Handle(TDocStd_Document)    aDoc;
-  Handle(TDocStd_Application) anApp = DDocStd::GetApplication();
-  TCollection_AsciiString     aShapeName, aFileName;
+  Handle(AppDocument)    aDoc;
+  Handle(AppManager) anApp = DDocStd1::GetApplication();
+  AsciiString1     aShapeName, aFileName;
 
   Standard_Real aDist     = 0.0;
   Standard_Real aDens     = Precision::Infinite();
@@ -57,41 +57,41 @@ static Standard_Integer WritePly(Draw_Interpretor& theDI,
   TColStd_IndexedDataMapOfStringString aFileInfo;
   for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   {
-    TCollection_AsciiString anArg(theArgVec[anArgIter]);
+    AsciiString1 anArg(theArgVec[anArgIter]);
     anArg.LowerCase();
     if (anArg == "-normal")
     {
-      hasNormals = Draw::ParseOnOffIterator(theNbArgs, theArgVec, anArgIter);
+      hasNormals = Draw1::ParseOnOffIterator(theNbArgs, theArgVec, anArgIter);
     }
     else if (anArg == "-nonormal")
     {
-      hasNormals = !Draw::ParseOnOffIterator(theNbArgs, theArgVec, anArgIter);
+      hasNormals = !Draw1::ParseOnOffIterator(theNbArgs, theArgVec, anArgIter);
     }
     else if (anArg == "-color" || anArg == "-nocolor" || anArg == "-colors" || anArg == "-nocolors")
     {
-      hasColors = Draw::ParseOnOffNoIterator(theNbArgs, theArgVec, anArgIter);
+      hasColors = Draw1::ParseOnOffNoIterator(theNbArgs, theArgVec, anArgIter);
     }
     else if (anArg == "-uv" || anArg == "-nouv")
     {
-      hasTexCoords = Draw::ParseOnOffNoIterator(theNbArgs, theArgVec, anArgIter);
+      hasTexCoords = Draw1::ParseOnOffNoIterator(theNbArgs, theArgVec, anArgIter);
     }
     else if (anArg == "-partid")
     {
-      hasPartId = Draw::ParseOnOffNoIterator(theNbArgs, theArgVec, anArgIter);
+      hasPartId = Draw1::ParseOnOffNoIterator(theNbArgs, theArgVec, anArgIter);
       hasFaceId = hasFaceId && !hasPartId;
     }
     else if (anArg == "-surfid" || anArg == "-surfaceid" || anArg == "-faceid")
     {
-      hasFaceId = Draw::ParseOnOffNoIterator(theNbArgs, theArgVec, anArgIter);
+      hasFaceId = Draw1::ParseOnOffNoIterator(theNbArgs, theArgVec, anArgIter);
       hasPartId = hasPartId && !hasFaceId;
     }
     else if (anArg == "-pntset" || anArg == "-pntcloud" || anArg == "-pointset"
              || anArg == "-pointcloud" || anArg == "-cloud" || anArg == "-points")
     {
-      isPntSet = Draw::ParseOnOffIterator(theNbArgs, theArgVec, anArgIter);
+      isPntSet = Draw1::ParseOnOffIterator(theNbArgs, theArgVec, anArgIter);
     }
     else if ((anArg == "-dist" || anArg == "-distance") && anArgIter + 1 < theNbArgs
-             && Draw::ParseReal(theArgVec[anArgIter + 1], aDist))
+             && Draw1::ParseReal(theArgVec[anArgIter + 1], aDist))
     {
       ++anArgIter;
       isPntSet = true;
@@ -103,7 +103,7 @@ static Standard_Integer WritePly(Draw_Interpretor& theDI,
       aDist = Max(aDist, Precision::Confusion());
     }
     else if ((anArg == "-dens" || anArg == "-density") && anArgIter + 1 < theNbArgs
-             && Draw::ParseReal(theArgVec[anArgIter + 1], aDens))
+             && Draw1::ParseReal(theArgVec[anArgIter + 1], aDens))
     {
       ++anArgIter;
       isDensityPoints = Standard_True;
@@ -115,7 +115,7 @@ static Standard_Integer WritePly(Draw_Interpretor& theDI,
       }
     }
     else if ((anArg == "-tol" || anArg == "-tolerance") && anArgIter + 1 < theNbArgs
-             && Draw::ParseReal(theArgVec[anArgIter + 1], aTol))
+             && Draw1::ParseReal(theArgVec[anArgIter + 1], aTol))
     {
       ++anArgIter;
       isPntSet = true;
@@ -141,13 +141,13 @@ static Standard_Integer WritePly(Draw_Interpretor& theDI,
       }
 
       Standard_CString aNameVar = theArgVec[anArgIter];
-      DDocStd::GetDocument(aNameVar, aDoc, false);
+      DDocStd1::GetDocument(aNameVar, aDoc, false);
       if (aDoc.IsNull())
       {
-        TopoDS_Shape aShape = DBRep::Get(aNameVar);
+        TopoShape aShape = DBRep1::Get(aNameVar);
         if (!aShape.IsNull())
         {
-          anApp->NewDocument(TCollection_ExtendedString("BinXCAF"), aDoc);
+          anApp->NewDocument(UtfString("BinXCAF"), aDoc);
           Handle(XCAFDoc_ShapeTool) aShapeTool = XCAFDoc_DocumentTool::ShapeTool(aDoc->Main());
           aShapeTool->AddShape(aShape);
         }
@@ -189,11 +189,11 @@ static Standard_Integer WritePly(Draw_Interpretor& theDI,
     {
     public:
       PointCloudPlyWriter(Standard_Real theTol)
-          : BRepLib_PointCloudShape(TopoDS_Shape(), theTol)
+          : BRepLib_PointCloudShape(TopoShape(), theTol)
       {
       }
 
-      void AddFaceColor(const TopoDS_Shape& theFace, const Graphic3d_Vec4ub& theColor)
+      void AddFaceColor(const TopoShape& theFace, const Graphic3d_Vec4ub& theColor)
       {
         myFaceColor.Bind(theFace, theColor);
       }
@@ -202,7 +202,7 @@ static Standard_Integer WritePly(Draw_Interpretor& theDI,
       virtual void addPoint(const Point3d&       thePoint,
                             const Vector3d&       theNorm,
                             const gp_Pnt2d&     theUV,
-                            const TopoDS_Shape& theFace)
+                            const TopoShape& theFace)
       {
         Graphic3d_Vec4ub aColor;
         myFaceColor.Find(theFace, aColor);
@@ -214,7 +214,7 @@ static Standard_Integer WritePly(Draw_Interpretor& theDI,
       }
 
     private:
-      NCollection_DataMap<TopoDS_Shape, Graphic3d_Vec4ub> myFaceColor;
+      NCollection_DataMap<TopoShape, Graphic3d_Vec4ub> myFaceColor;
     };
 
     PointCloudPlyWriter aPlyCtx(aTol);
@@ -222,8 +222,8 @@ static Standard_Integer WritePly(Draw_Interpretor& theDI,
     aPlyCtx.SetColors(hasColors);
     aPlyCtx.SetTexCoords(hasTexCoords);
 
-    TopoDS_Compound aComp;
-    BRep_Builder().MakeCompound(aComp);
+    TopoCompound aComp;
+    ShapeBuilder().MakeCompound(aComp);
     for (XCAFPrs_DocumentExplorer aDocExplorer(aDoc,
                                                aRootLabels,
                                                XCAFPrs_DocumentExplorerFlags_OnlyLeafNodes);
@@ -238,7 +238,7 @@ static Standard_Integer WritePly(Draw_Interpretor& theDI,
            aFaceIter.More();
            aFaceIter.Next())
       {
-        BRep_Builder().Add(aComp, aFaceIter.Face());
+        ShapeBuilder().Add(aComp, aFaceIter.Face());
         Graphic3d_Vec4ub aColorVec(255);
         if (aFaceIter.HasFaceColor())
         {
@@ -299,7 +299,7 @@ static Standard_Integer WritePly(Draw_Interpretor& theDI,
 
 //=================================================================================================
 
-void XSDRAWPLY::Factory(Draw_Interpretor& theDI)
+void XSDRAWPLY::Factory(DrawInterpreter& theDI)
 {
   static Standard_Boolean aIsActivated = Standard_False;
   if (aIsActivated)

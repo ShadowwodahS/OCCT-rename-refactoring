@@ -63,7 +63,7 @@ QVariant DFBrowser_ItemApplication::initValue(const int theItemRole) const
       || theItemRole == Qt::ToolTipRole || theItemRole == DFBrowserPane_ItemRole_DisplayExtended
       || theItemRole == DFBrowserPane_ItemRole_ToolTipExtended)
   {
-    return "TDocStd_Application";
+    return "AppManager";
   }
   return QVariant();
 }

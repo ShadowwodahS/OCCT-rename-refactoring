@@ -16,14 +16,14 @@
 #ifndef LDOM_DocumentType_HeaderFile
 #define LDOM_DocumentType_HeaderFile
 
-//  Block of comments describing class LDOM_DocumentType
+//  Block of comments describing class DocumentType
 
-class LDOM_DocumentType
+class DocumentType
 {
 public:
   // ---------- PUBLIC METHODS ----------
 
-  LDOM_DocumentType() {}
+  DocumentType() {}
 
   // Empty constructor
 };

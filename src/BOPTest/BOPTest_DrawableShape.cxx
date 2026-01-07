@@ -38,16 +38,16 @@ IMPLEMENT_STANDARD_RTTIEXT(BOPTest_DrawableShape, DBRep_DrawableShape)
 
 //=================================================================================================
 
-BOPTest_DrawableShape::BOPTest_DrawableShape(const TopoDS_Shape&    aShape,
-                                             const Draw_Color&      FreeCol,
-                                             const Draw_Color&      ConnCol,
-                                             const Draw_Color&      EdgeCol,
-                                             const Draw_Color&      IsosCol,
+BOPTest_DrawableShape::BOPTest_DrawableShape(const TopoShape&    aShape,
+                                             const DrawColor&      FreeCol,
+                                             const DrawColor&      ConnCol,
+                                             const DrawColor&      EdgeCol,
+                                             const DrawColor&      IsosCol,
                                              const Standard_Real    size,
                                              const Standard_Integer nbisos,
                                              const Standard_Integer discret,
                                              const Standard_CString Text,
-                                             const Draw_Color&      TextColor)
+                                             const DrawColor&      TextColor)
     : DBRep_DrawableShape(aShape, FreeCol, ConnCol, EdgeCol, IsosCol, size, nbisos, discret)
 {
   myText      = new Draw_Text3D(Pnt(), Text, TextColor);
@@ -56,9 +56,9 @@ BOPTest_DrawableShape::BOPTest_DrawableShape(const TopoDS_Shape&    aShape,
 
 //=================================================================================================
 
-BOPTest_DrawableShape::BOPTest_DrawableShape(const TopoDS_Shape&    aShape,
+BOPTest_DrawableShape::BOPTest_DrawableShape(const TopoShape&    aShape,
                                              const Standard_CString Text,
-                                             const Draw_Color&      TextColor)
+                                             const DrawColor&      TextColor)
     : DBRep_DrawableShape(aShape,
                           Draw_vert,
                           Draw_jaune,
@@ -78,9 +78,9 @@ Point3d BOPTest_DrawableShape::Pnt() const
 {
   Point3d          P(0, 0, 0);
   Standard_Real   u, v, u1, u2, v1, v2, p;
-  TopExp_Explorer ex;
+  ShapeExplorer ex;
 
-  TopoDS_Shape     S      = Shape();
+  TopoShape     S      = Shape();
   TopAbs_ShapeEnum T      = S.ShapeType();
   Standard_Real    facpar = 0.;
 
@@ -102,7 +102,7 @@ Point3d BOPTest_DrawableShape::Pnt() const
   switch (T)
   {
     case TopAbs_VERTEX:
-      P = BRep_Tool::Pnt(TopoDS::Vertex(S));
+      P = BRepInspector::Pnt(TopoDS::Vertex(S));
       break;
 
     case TopAbs_EDGE: {
@@ -118,8 +118,8 @@ Point3d BOPTest_DrawableShape::Pnt() const
 
     case TopAbs_WIRE: {
       TopTools_IndexedMapOfShape aME;
-      TopExp::MapShapes(S, TopAbs_EDGE, aME);
-      const TopoDS_Edge& anEdge = TopoDS::Edge(aME(1));
+      TopExp1::MapShapes(S, TopAbs_EDGE, aME);
+      const TopoEdge& anEdge = TopoDS::Edge(aME(1));
       BRepAdaptor_Curve  CU(anEdge);
       u1 = CU.FirstParameter();
       u2 = CU.LastParameter();
@@ -132,7 +132,7 @@ Point3d BOPTest_DrawableShape::Pnt() const
 
     case TopAbs_FACE: {
       BRepAdaptor_Surface SU(TopoDS::Face(S));
-      BRepTools::UVBounds(TopoDS::Face(S), u1, u2, v1, v2);
+      BRepTools1::UVBounds(TopoDS::Face(S), u1, u2, v1, v2);
       //
       facpar = .2;
       u      = u1 + (u2 - u1) * facpar;
@@ -144,11 +144,11 @@ Point3d BOPTest_DrawableShape::Pnt() const
     case TopAbs_SHELL:
     case TopAbs_SOLID: {
       TopTools_IndexedMapOfShape aMF;
-      TopExp::MapShapes(S, TopAbs_FACE, aMF);
-      const TopoDS_Face& aF = TopoDS::Face(aMF(1));
+      TopExp1::MapShapes(S, TopAbs_FACE, aMF);
+      const TopoFace& aF = TopoDS::Face(aMF(1));
 
       BRepAdaptor_Surface SU(TopoDS::Face(aF));
-      BRepTools::UVBounds(aF, u1, u2, v1, v2);
+      BRepTools1::UVBounds(aF, u1, u2, v1, v2);
       facpar = .4;
       u      = u1 + (u2 - u1) * facpar;
       v      = v1 + (v2 - v1) * facpar;
@@ -164,7 +164,7 @@ Point3d BOPTest_DrawableShape::Pnt() const
 
 //=================================================================================================
 
-void BOPTest_DrawableShape::DrawOn(Draw_Display& dis) const
+void BOPTest_DrawableShape::DrawOn(DrawDisplay& dis) const
 {
   DBRep_DrawableShape::DrawOn(dis);
   myText->SetPnt(Pnt());

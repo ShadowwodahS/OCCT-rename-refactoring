@@ -106,11 +106,11 @@ Standard_Integer SelectMgr_SelectingVolumeManager::GetActiveSelectionType() cons
 
 //=================================================================================================
 
-const Handle(Graphic3d_Camera)& SelectMgr_SelectingVolumeManager::Camera() const
+const Handle(CameraOn3d)& SelectMgr_SelectingVolumeManager::Camera() const
 {
   if (myActiveSelectingVolume.IsNull())
   {
-    static const Handle(Graphic3d_Camera) anEmptyCamera;
+    static const Handle(CameraOn3d) anEmptyCamera;
     return anEmptyCamera;
   }
   return myActiveSelectingVolume->Camera();
@@ -118,7 +118,7 @@ const Handle(Graphic3d_Camera)& SelectMgr_SelectingVolumeManager::Camera() const
 
 //=================================================================================================
 
-void SelectMgr_SelectingVolumeManager::SetCamera(const Handle(Graphic3d_Camera)& theCamera)
+void SelectMgr_SelectingVolumeManager::SetCamera(const Handle(CameraOn3d)& theCamera)
 {
   Standard_ASSERT_RAISE(!myActiveSelectingVolume.IsNull(),
                         "SelectMgr_SelectingVolumeManager::SetCamera() should be called after "

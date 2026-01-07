@@ -35,14 +35,14 @@ LocOpe_GluedShape::LocOpe_GluedShape() {}
 
 //=================================================================================================
 
-LocOpe_GluedShape::LocOpe_GluedShape(const TopoDS_Shape& S)
+LocOpe_GluedShape::LocOpe_GluedShape(const TopoShape& S)
     : myShape(S)
 {
 }
 
 //=================================================================================================
 
-void LocOpe_GluedShape::Init(const TopoDS_Shape& S)
+void LocOpe_GluedShape::Init(const TopoShape& S)
 {
   myShape = S;
   myMap.Clear();
@@ -53,10 +53,10 @@ void LocOpe_GluedShape::Init(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-void LocOpe_GluedShape::GlueOnFace(const TopoDS_Face& F)
+void LocOpe_GluedShape::GlueOnFace(const TopoFace& F)
 {
-  //  for (TopExp_Explorer exp(myShape,TopAbs_FACE); exp.More();exp.Next()) {
-  TopExp_Explorer exp(myShape, TopAbs_FACE);
+  //  for (ShapeExplorer exp(myShape,TopAbs_FACE); exp.More();exp.Next()) {
+  ShapeExplorer exp(myShape, TopAbs_FACE);
   for (; exp.More(); exp.Next())
   {
     if (exp.Current().IsSame(F))
@@ -83,19 +83,19 @@ void LocOpe_GluedShape::MapEdgeAndVertices()
   // Edges et faces generes
 
   TopTools_IndexedDataMapOfShapeListOfShape theMapEF;
-  TopExp::MapShapesAndAncestors(myShape, TopAbs_EDGE, TopAbs_FACE, theMapEF);
+  TopExp1::MapShapesAndAncestors(myShape, TopAbs_EDGE, TopAbs_FACE, theMapEF);
 
   TopTools_MapOfShape                mapdone;
   TopTools_MapIteratorOfMapOfShape   itm(myMap);
   TopTools_ListIteratorOfListOfShape itl;
-  TopExp_Explorer                    exp, exp2, exp3;
+  ShapeExplorer                    exp, exp2, exp3;
 
   for (; itm.More(); itm.Next())
   {
-    const TopoDS_Face& fac = TopoDS::Face(itm.Key());
+    const TopoFace& fac = TopoDS::Face(itm.Key());
     for (exp.Init(fac, TopAbs_EDGE); exp.More(); exp.Next())
     {
-      const TopoDS_Edge& edg = TopoDS::Edge(exp.Current());
+      const TopoEdge& edg = TopoDS::Edge(exp.Current());
       if (mapdone.Contains(edg))
       {
         continue;
@@ -127,10 +127,10 @@ void LocOpe_GluedShape::MapEdgeAndVertices()
 
   for (itl.Initialize(myGEdges); itl.More(); itl.Next())
   {
-    const TopoDS_Edge& edg = TopoDS::Edge(itl.Value());
+    const TopoEdge& edg = TopoDS::Edge(itl.Value());
     for (exp.Init(edg, TopAbs_VERTEX); exp.More(); exp.Next())
     {
-      const TopoDS_Vertex& vtx = TopoDS::Vertex(exp.Current());
+      const TopoVertex& vtx = TopoDS::Vertex(exp.Current());
       if (myGShape.IsBound(vtx))
       {
         continue;
@@ -147,7 +147,7 @@ void LocOpe_GluedShape::MapEdgeAndVertices()
           {
             if (myGShape.IsBound(exp2.Current()))
             {
-              myGShape.Bind(vtx, TopoDS_Edge());
+              myGShape.Bind(vtx, TopoEdge());
             }
             else
             {
@@ -177,7 +177,7 @@ void LocOpe_GluedShape::MapEdgeAndVertices()
 
 //=================================================================================================
 
-const TopTools_ListOfShape& LocOpe_GluedShape::GeneratingEdges()
+const ShapeList& LocOpe_GluedShape::GeneratingEdges()
 {
   if (myGShape.IsEmpty())
   {
@@ -188,7 +188,7 @@ const TopTools_ListOfShape& LocOpe_GluedShape::GeneratingEdges()
 
 //=================================================================================================
 
-TopoDS_Edge LocOpe_GluedShape::Generated(const TopoDS_Vertex& V)
+TopoEdge LocOpe_GluedShape::Generated(const TopoVertex& V)
 {
   if (myGShape.IsEmpty())
   {
@@ -199,7 +199,7 @@ TopoDS_Edge LocOpe_GluedShape::Generated(const TopoDS_Vertex& V)
 
 //=================================================================================================
 
-TopoDS_Face LocOpe_GluedShape::Generated(const TopoDS_Edge& E)
+TopoFace LocOpe_GluedShape::Generated(const TopoEdge& E)
 {
   if (myGShape.IsEmpty())
   {
@@ -210,7 +210,7 @@ TopoDS_Face LocOpe_GluedShape::Generated(const TopoDS_Edge& E)
 
 //=================================================================================================
 
-const TopTools_ListOfShape& LocOpe_GluedShape::OrientedFaces()
+const ShapeList& LocOpe_GluedShape::OrientedFaces()
 {
   if (myGShape.IsEmpty())
   {

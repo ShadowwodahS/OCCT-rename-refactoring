@@ -51,9 +51,9 @@ public:
   //! current  value  from  Drawer won't be used.
   //! This value is used by:
   //!
-  //! VrmlConverter_DeflectionCurve
-  //! VrmlConverter_WFDeflectionRestrictedFace
-  //! VrmlConverter_WFDeflectionShape
+  //! DeflectionCurveConverter
+  //! WFDeflectionRestrictedFaceConverter
+  //! WFDeflectionShapeConverter
   Standard_EXPORT void SetMaximalChordialDeviation(const Standard_Real aChordialDeviation);
 
   //! returns the maximal chordial deviation.
@@ -71,9 +71,9 @@ public:
   //! current  value  from  Drawer won't be used.
   //! This value is used by:
   //!
-  //! VrmlConverter_Curve
-  //! VrmlConverter_WFRestrictedFace
-  //! VrmlConverter_WFShape
+  //! CurveConverter
+  //! WFRestrictedFaceConverter
+  //! WFShapeConverter
   Standard_EXPORT void SetDiscretisation(const Standard_Integer d);
 
   Standard_EXPORT Standard_Integer Discretisation() const;
@@ -81,9 +81,9 @@ public:
   //! defines the maximum value allowed  for the first and last
   //! parameters of an infinite curve.
   //! Default value: 500.
-  //! VrmlConverter_Curve
-  //! VrmlConverter_WFRestrictedFace
-  //! VrmlConverter_WFShape
+  //! CurveConverter
+  //! WFRestrictedFaceConverter
+  //! WFShapeConverter
   Standard_EXPORT void SetMaximalParameterValue(const Standard_Real Value);
 
   Standard_EXPORT Standard_Real MaximalParameterValue() const;
@@ -98,11 +98,11 @@ public:
   //! Defines the attributes which are used when drawing an
   //! U isoparametric curve of a face. Defines the number
   //! of U isoparametric curves to be drawn for a single face.
-  //! The default values are the same default values from Vrml package.
+  //! The default values are the same default values from Vrml1 package.
   //!
   //! These attributes are used by the following algorithms:
-  //! VrmlConverter_WFRestrictedFace
-  //! VrmlConverter_WFDeflectionRestrictedFace
+  //! WFRestrictedFaceConverter
+  //! WFDeflectionRestrictedFaceConverter
   Standard_EXPORT Handle(VrmlConverter_IsoAspect) UIsoAspect();
 
   Standard_EXPORT void SetUIsoAspect(const Handle(VrmlConverter_IsoAspect)& anAspect);
@@ -110,19 +110,19 @@ public:
   //! Defines the attributes which are used when drawing an
   //! V isoparametric curve of a face. Defines the number
   //! of V isoparametric curves to be drawn for a single face.
-  //! The default values are the same default values from Vrml package.
+  //! The default values are the same default values from Vrml1 package.
   //!
   //! These attributes are used by the following algorithms:
-  //! VrmlConverter_WFRestrictedFace
-  //! VrmlConverter_WFDeflectionRestrictedFace
+  //! WFRestrictedFaceConverter
+  //! WFDeflectionRestrictedFaceConverter
   Standard_EXPORT Handle(VrmlConverter_IsoAspect) VIsoAspect();
 
   Standard_EXPORT void SetVIsoAspect(const Handle(VrmlConverter_IsoAspect)& anAspect);
 
-  //! The default values are the same default values from Vrml package.
+  //! The default values are the same default values from Vrml1 package.
   //! These attributes are used by the following algorithms:
-  //! VrmlConverter_WFShape
-  //! VrmlConverter_WFDeflectionShape
+  //! WFShapeConverter
+  //! WFDeflectionShapeConverter
   Standard_EXPORT Handle(VrmlConverter_LineAspect) FreeBoundaryAspect();
 
   Standard_EXPORT void SetFreeBoundaryAspect(const Handle(VrmlConverter_LineAspect)& anAspect);
@@ -134,10 +134,10 @@ public:
   //! returns True if the drawing of the free boundaries is enabled.
   Standard_EXPORT Standard_Boolean FreeBoundaryDraw() const;
 
-  //! The default values are the same default values from Vrml package.
+  //! The default values are the same default values from Vrml1 package.
   //! These attributes are used by the following algorithms:
-  //! VrmlConverter_WFShape
-  //! VrmlConverter_WFDeflectionShape
+  //! WFShapeConverter
+  //! WFDeflectionShapeConverter
   Standard_EXPORT Handle(VrmlConverter_LineAspect) WireAspect();
 
   Standard_EXPORT void SetWireAspect(const Handle(VrmlConverter_LineAspect)& anAspect);
@@ -149,10 +149,10 @@ public:
   //! returns True if the drawing of the wire is enabled.
   Standard_EXPORT Standard_Boolean WireDraw() const;
 
-  //! The default values are the same default values from Vrml package.
+  //! The default values are the same default values from Vrml1 package.
   //! These attributes are used by the following algorithms:
-  //! VrmlConverter_WFShape
-  //! VrmlConverter_WFDeflectionShape
+  //! WFShapeConverter
+  //! WFDeflectionShapeConverter
   Standard_EXPORT Handle(VrmlConverter_LineAspect) UnFreeBoundaryAspect();
 
   Standard_EXPORT void SetUnFreeBoundaryAspect(const Handle(VrmlConverter_LineAspect)& anAspect);
@@ -164,7 +164,7 @@ public:
   //! returns True if the drawing of the unfree boundaries is enabled.
   Standard_EXPORT Standard_Boolean UnFreeBoundaryDraw() const;
 
-  //! The default values are the same default values from Vrml package.
+  //! The default values are the same default values from Vrml1 package.
   Standard_EXPORT Handle(VrmlConverter_LineAspect) LineAspect();
 
   Standard_EXPORT void SetLineAspect(const Handle(VrmlConverter_LineAspect)& anAspect);
@@ -173,7 +173,7 @@ public:
 
   Standard_EXPORT void SetPointAspect(const Handle(VrmlConverter_PointAspect)& anAspect);
 
-  //! The default values are the same default values from Vrml package.
+  //! The default values are the same default values from Vrml1 package.
   Standard_EXPORT Handle(VrmlConverter_ShadingAspect) ShadingAspect();
 
   Standard_EXPORT void SetShadingAspect(const Handle(VrmlConverter_ShadingAspect)& anAspect);
@@ -189,14 +189,14 @@ public:
   Standard_EXPORT void DisableDrawHiddenLine();
 
   //! returns LineAspect  for  the hidden lines.
-  //! The default values are the same default values from Vrml package.
+  //! The default values are the same default values from Vrml1 package.
   Standard_EXPORT Handle(VrmlConverter_LineAspect) HiddenLineAspect();
 
   //! sets LineAspect  for  the hidden lines.
   Standard_EXPORT void SetHiddenLineAspect(const Handle(VrmlConverter_LineAspect)& anAspect);
 
   //! returns LineAspect  for  the seen lines.
-  //! The default values are the same default values from Vrml package.
+  //! The default values are the same default values from Vrml1 package.
   Standard_EXPORT Handle(VrmlConverter_LineAspect) SeenLineAspect();
 
   //! sets LineAspect  for  the seen lines.

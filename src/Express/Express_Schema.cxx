@@ -95,7 +95,7 @@ Handle(Express_Item) Express_Schema::Item(const Standard_CString theName,
 
 //=================================================================================================
 
-Handle(Express_Item) Express_Schema::Item(const TCollection_AsciiString& theName) const
+Handle(Express_Item) Express_Schema::Item(const AsciiString1& theName) const
 {
   return Item(theName.ToCString());
 }

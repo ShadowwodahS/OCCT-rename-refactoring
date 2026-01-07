@@ -36,7 +36,7 @@
 #include <TColgp_Array1OfPnt.hxx>
 class Point3d;
 class Vector3d;
-class Geom_Curve;
+class GeomCurve3d;
 class Transform3d;
 class Geom_Geometry;
 
@@ -1249,23 +1249,23 @@ public:
 
   //! Computes the U isoparametric curve.
   //! A B-spline curve is returned.
-  Standard_EXPORT Handle(Geom_Curve) UIso(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) UIso(const Standard_Real U) const Standard_OVERRIDE;
 
   //! Computes the V isoparametric curve.
   //! A B-spline curve is returned.
-  Standard_EXPORT Handle(Geom_Curve) VIso(const Standard_Real V) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) VIso(const Standard_Real V) const Standard_OVERRIDE;
 
   //! Computes the U isoparametric curve.
   //! If CheckRational=False, no try to make it non-rational.
   //! A B-spline curve is returned.
-  Standard_EXPORT Handle(Geom_Curve) UIso(const Standard_Real    U,
+  Standard_EXPORT Handle(GeomCurve3d) UIso(const Standard_Real    U,
                                           const Standard_Boolean CheckRational) const;
 
   //! Computes the V isoparametric curve.
   //! If CheckRational=False, no try to make it non-rational.
   //! A B-spline curve is returned.
   //! transformations
-  Standard_EXPORT Handle(Geom_Curve) VIso(const Standard_Real    V,
+  Standard_EXPORT Handle(GeomCurve3d) VIso(const Standard_Real    V,
                                           const Standard_Boolean CheckRational) const;
 
   //! Applies the transformation T to this BSpline surface.

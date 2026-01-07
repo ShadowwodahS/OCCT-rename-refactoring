@@ -33,13 +33,13 @@
 #include <TColgp_SequenceOfXYZ.hxx>
 #include <TColGeom2d_HArray1OfCurve.hxx>
 #include <TColStd_HArray1OfReal.hxx>
-class Geom_Surface;
+class GeomSurface;
 class GeomPlate_Surface;
 class GeomPlate_CurveConstraint;
 class GeomPlate_PointConstraint;
 class gp_Pnt2d;
 class Point3d;
-class Geom2d_Curve;
+class GeomCurve2d;
 
 //! This class provides an algorithm for constructing such a plate surface that
 //! it conforms to given curve and/or point constraints.
@@ -76,7 +76,7 @@ public:
                                               const Standard_Real    TolCurv     = 0.1,
                                               const Standard_Boolean Anisotropie = Standard_False);
 
-  Standard_EXPORT GeomPlate_BuildPlateSurface(const Handle(Geom_Surface)& Surf,
+  Standard_EXPORT GeomPlate_BuildPlateSurface(const Handle(GeomSurface)& Surf,
                                               const Standard_Integer      Degree     = 3,
                                               const Standard_Integer      NbPtsOnCur = 10,
                                               const Standard_Integer      NbIter     = 3,
@@ -125,7 +125,7 @@ public:
   Standard_EXPORT void Init();
 
   //! Loads the initial Surface
-  Standard_EXPORT void LoadInitSurface(const Handle(Geom_Surface)& Surf);
+  Standard_EXPORT void LoadInitSurface(const Handle(GeomSurface)& Surf);
 
   //! Adds the linear constraint cont.
   Standard_EXPORT void Add(const Handle(GeomPlate_CurveConstraint)& Cont);
@@ -166,7 +166,7 @@ public:
   Standard_EXPORT Handle(GeomPlate_Surface) Surface() const;
 
   //! Returns the initial surface
-  Standard_EXPORT Handle(Geom_Surface) SurfInit() const;
+  Standard_EXPORT Handle(GeomSurface) SurfInit() const;
 
   //! Allows you to ensure that the array of curves returned by
   //! Curves2d has the correct orientation. Returns the
@@ -216,7 +216,7 @@ private:
 
   Standard_EXPORT gp_Pnt2d ProjectPoint(const Point3d& P);
 
-  Standard_EXPORT Handle(Geom2d_Curve) ProjectCurve(const Handle(Adaptor3d_Curve)& Curv);
+  Standard_EXPORT Handle(GeomCurve2d) ProjectCurve(const Handle(Adaptor3d_Curve)& Curv);
 
   Standard_EXPORT Handle(Adaptor2d_Curve2d) ProjectedCurve(Handle(Adaptor3d_Curve)& Curv);
 
@@ -252,8 +252,8 @@ private:
   Handle(GeomPlate_HArray1OfSequenceOfReal)    myParCont;
   Handle(GeomPlate_HArray1OfSequenceOfReal)    myPlateCont;
   Handle(GeomPlate_HSequenceOfPointConstraint) myPntCont;
-  Handle(Geom_Surface)                         mySurfInit;
-  Handle(Geom_Surface)                         myPlanarSurfInit;
+  Handle(GeomSurface)                         mySurfInit;
+  Handle(GeomSurface)                         myPlanarSurfInit;
   Handle(GeomPlate_Surface)                    myGeomPlateSurface;
   Plate_Plate                                  myPlate;
   Plate_Plate                                  myPrevPlate;

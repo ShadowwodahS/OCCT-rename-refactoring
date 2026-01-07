@@ -20,7 +20,7 @@
 #include <Standard.hxx>
 #include <Standard_DefineAlloc.hxx>
 
-class TopoDS_Vertex;
+class TopoVertex;
 class Point3d;
 
 //! Provides low-level functions used for constructing vertices
@@ -37,13 +37,13 @@ public:
   //! tolerance that is required to comprise source vertices
   //! multiplied by tolFactor (in order to avoid errors because
   //! of discreteness of calculations).
-  Standard_EXPORT TopoDS_Vertex CombineVertex(const TopoDS_Vertex& V1,
-                                              const TopoDS_Vertex& V2,
+  Standard_EXPORT TopoVertex CombineVertex(const TopoVertex& V1,
+                                              const TopoVertex& V2,
                                               const Standard_Real  tolFactor = 1.0001) const;
 
   //! The same function as above, except that it accepts two points
   //! and two tolerances instead of vertices
-  Standard_EXPORT TopoDS_Vertex CombineVertex(const Point3d&       pnt1,
+  Standard_EXPORT TopoVertex CombineVertex(const Point3d&       pnt1,
                                               const Point3d&       pnt2,
                                               const Standard_Real tol1,
                                               const Standard_Real tol2,

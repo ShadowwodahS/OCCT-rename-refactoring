@@ -25,7 +25,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TDataXtd_Position, TDF_Attribute)
 
 //=================================================================================================
 
-void TDataXtd_Position::Set(const TDF_Label& aLabel, const Point3d& aPos)
+void TDataXtd_Position::Set(const DataLabel& aLabel, const Point3d& aPos)
 {
   Handle(TDataXtd_Position) pos;
   if (!aLabel.FindAttribute(TDataXtd_Position::GetID(), pos))
@@ -38,7 +38,7 @@ void TDataXtd_Position::Set(const TDF_Label& aLabel, const Point3d& aPos)
 
 //=================================================================================================
 
-Handle(TDataXtd_Position) TDataXtd_Position::Set(const TDF_Label& L)
+Handle(TDataXtd_Position) TDataXtd_Position::Set(const DataLabel& L)
 {
   Handle(TDataXtd_Position) POS;
   if (!L.FindAttribute(TDataXtd_Position::GetID(), POS))
@@ -51,7 +51,7 @@ Handle(TDataXtd_Position) TDataXtd_Position::Set(const TDF_Label& L)
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Position::Get(const TDF_Label& aLabel, Point3d& aPos)
+Standard_Boolean TDataXtd_Position::Get(const DataLabel& aLabel, Point3d& aPos)
 {
   Handle(TDataXtd_Position) pos;
   if (aLabel.FindAttribute(TDataXtd_Position::GetID(), pos))

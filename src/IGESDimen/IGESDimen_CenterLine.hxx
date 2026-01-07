@@ -29,7 +29,7 @@ class IGESDimen_CenterLine;
 DEFINE_STANDARD_HANDLE(IGESDimen_CenterLine, IGESData_IGESEntity)
 
 //! defines CenterLine, Type <106> Form <20-21>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Is an entity appearing as crosshairs or as a
 //! construction between 2 positions
 class IGESDimen_CenterLine : public IGESData_IGESEntity

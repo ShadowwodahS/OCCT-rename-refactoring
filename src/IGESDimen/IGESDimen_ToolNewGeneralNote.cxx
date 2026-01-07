@@ -40,9 +40,9 @@
 
 #include <stdio.h>
 
-IGESDimen_ToolNewGeneralNote::IGESDimen_ToolNewGeneralNote() {}
+NewGeneralNoteTool::NewGeneralNoteTool() {}
 
-void IGESDimen_ToolNewGeneralNote::ReadOwnParams(const Handle(IGESDimen_NewGeneralNote)& ent,
+void NewGeneralNoteTool::ReadOwnParams(const Handle(IGESDimen_NewGeneralNote)& ent,
                                                  const Handle(IGESData_IGESReaderData)&  IR,
                                                  IGESData_ParamReader&                   PR) const
 {
@@ -276,7 +276,7 @@ void IGESDimen_ToolNewGeneralNote::ReadOwnParams(const Handle(IGESDimen_NewGener
             texts);
 }
 
-void IGESDimen_ToolNewGeneralNote::WriteOwnParams(const Handle(IGESDimen_NewGeneralNote)& ent,
+void NewGeneralNoteTool::WriteOwnParams(const Handle(IGESDimen_NewGeneralNote)& ent,
                                                   IGESData_IGESWriter&                    IW) const
 {
   IW.Send(ent->TextWidth());
@@ -321,7 +321,7 @@ void IGESDimen_ToolNewGeneralNote::WriteOwnParams(const Handle(IGESDimen_NewGene
   }
 }
 
-void IGESDimen_ToolNewGeneralNote::OwnShared(const Handle(IGESDimen_NewGeneralNote)& ent,
+void NewGeneralNoteTool::OwnShared(const Handle(IGESDimen_NewGeneralNote)& ent,
                                              Interface_EntityIterator&               iter) const
 {
   Standard_Integer nbval = ent->NbStrings();
@@ -333,7 +333,7 @@ void IGESDimen_ToolNewGeneralNote::OwnShared(const Handle(IGESDimen_NewGeneralNo
   }
 }
 
-void IGESDimen_ToolNewGeneralNote::OwnCopy(const Handle(IGESDimen_NewGeneralNote)& another,
+void NewGeneralNoteTool::OwnCopy(const Handle(IGESDimen_NewGeneralNote)& another,
                                            const Handle(IGESDimen_NewGeneralNote)& ent,
                                            Interface_CopyTool&                     TC) const
 {
@@ -444,10 +444,10 @@ void IGESDimen_ToolNewGeneralNote::OwnCopy(const Handle(IGESDimen_NewGeneralNote
             texts);
 }
 
-IGESData_DirChecker IGESDimen_ToolNewGeneralNote::DirChecker(
+DirectoryChecker NewGeneralNoteTool::DirChecker(
   const Handle(IGESDimen_NewGeneralNote)& /* ent */) const
 {
-  IGESData_DirChecker DC(213, 0);
+  DirectoryChecker DC(213, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefValue);
   DC.LineWeight(IGESData_DefValue);
@@ -457,7 +457,7 @@ IGESData_DirChecker IGESDimen_ToolNewGeneralNote::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolNewGeneralNote::OwnCheck(const Handle(IGESDimen_NewGeneralNote)& ent,
+void NewGeneralNoteTool::OwnCheck(const Handle(IGESDimen_NewGeneralNote)& ent,
                                             const Interface_ShareTool&,
                                             Handle(Interface_Check)& ach) const
 {
@@ -509,7 +509,7 @@ void IGESDimen_ToolNewGeneralNote::OwnCheck(const Handle(IGESDimen_NewGeneralNot
   }
 }
 
-void IGESDimen_ToolNewGeneralNote::OwnDump(const Handle(IGESDimen_NewGeneralNote)& ent,
+void NewGeneralNoteTool::OwnDump(const Handle(IGESDimen_NewGeneralNote)& ent,
                                            const IGESData_IGESDumper&              dumper,
                                            Standard_OStream&                       S,
                                            const Standard_Integer                  level) const

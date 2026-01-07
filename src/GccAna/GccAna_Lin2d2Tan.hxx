@@ -45,7 +45,7 @@ class gp_Lin2d;
 //! and raise BadQualifier Error in case of incorrect couple (qualifier,
 //! curv).
 //! For example: "EnclosedCirc".
-class GccAna_Lin2d2Tan
+class Line2dTwoTangent
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -54,7 +54,7 @@ public:
   //! create 2d lines passing through 2 points.
   //! Tolerance is used because we can't create a line
   //! when the distance between the two points is too small.
-  Standard_EXPORT GccAna_Lin2d2Tan(const gp_Pnt2d&     ThePoint1,
+  Standard_EXPORT Line2dTwoTangent(const gp_Pnt2d&     ThePoint1,
                                    const gp_Pnt2d&     ThePoint2,
                                    const Standard_Real Tolerance);
 
@@ -66,7 +66,7 @@ public:
   //! Tolerance is used because there is no solution
   //! when the point is inside the solution according to
   //! the tolerance.
-  Standard_EXPORT GccAna_Lin2d2Tan(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Line2dTwoTangent(const GccEnt_QualifiedCirc& Qualified1,
                                    const gp_Pnt2d&             ThePoint,
                                    const Standard_Real         Tolerance);
 
@@ -74,7 +74,7 @@ public:
   //! create 2d lines tangent to 2 circles.
   //! Exception BadQualifier is raised in the case of
   //! EnclosedCirc
-  Standard_EXPORT GccAna_Lin2d2Tan(const GccEnt_QualifiedCirc& Qualified1,
+  Standard_EXPORT Line2dTwoTangent(const GccEnt_QualifiedCirc& Qualified1,
                                    const GccEnt_QualifiedCirc& Qualified2,
                                    const Standard_Real         Tolerance);
 

@@ -21,13 +21,13 @@
 #include <Standard_Mutex.hxx>
 #include <TColStd_ListOfAsciiString.hxx>
 
-class TopoDS_Shape;
-class XSControl_WorkSession;
-class TDocStd_Document;
+class TopoShape;
+class ExchangeSession;
+class AppDocument;
 
-typedef NCollection_IndexedDataMap<TCollection_AsciiString, Handle(DE_ConfigurationNode)>
+typedef NCollection_IndexedDataMap<AsciiString1, Handle(DE_ConfigurationNode)>
   DE_ConfigurationVendorMap;
-typedef NCollection_DataMap<TCollection_AsciiString, DE_ConfigurationVendorMap>
+typedef NCollection_DataMap<AsciiString1, DE_ConfigurationVendorMap>
   DE_ConfigurationFormatMap;
 
 //! The main class for working with CAD file exchange.
@@ -82,9 +82,9 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Read operation has ended correctly
   Standard_EXPORT Standard_Boolean
-    Read(const TCollection_AsciiString&  thePath,
-         const Handle(TDocStd_Document)& theDocument,
-         Handle(XSControl_WorkSession)&  theWS,
+    Read(const AsciiString1&  thePath,
+         const Handle(AppDocument)& theDocument,
+         Handle(ExchangeSession)&  theWS,
          const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Writes a CAD file, according internal configuration
@@ -94,9 +94,9 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Write operation has ended correctly
   Standard_EXPORT Standard_Boolean
-    Write(const TCollection_AsciiString&  thePath,
-          const Handle(TDocStd_Document)& theDocument,
-          Handle(XSControl_WorkSession)&  theWS,
+    Write(const AsciiString1&  thePath,
+          const Handle(AppDocument)& theDocument,
+          Handle(ExchangeSession)&  theWS,
           const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Reads a CAD file, according internal configuration
@@ -105,8 +105,8 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Read operation has ended correctly
   Standard_EXPORT Standard_Boolean
-    Read(const TCollection_AsciiString&  thePath,
-         const Handle(TDocStd_Document)& theDocument,
+    Read(const AsciiString1&  thePath,
+         const Handle(AppDocument)& theDocument,
          const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Writes a CAD file, according internal configuration
@@ -115,8 +115,8 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Write operation has ended correctly
   Standard_EXPORT Standard_Boolean
-    Write(const TCollection_AsciiString&  thePath,
-          const Handle(TDocStd_Document)& theDocument,
+    Write(const AsciiString1&  thePath,
+          const Handle(AppDocument)& theDocument,
           const Message_ProgressRange&    theProgress = Message_ProgressRange());
 
   //! Reads a CAD file, according internal configuration
@@ -126,9 +126,9 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Read operation has ended correctly
   Standard_EXPORT Standard_Boolean
-    Read(const TCollection_AsciiString& thePath,
-         TopoDS_Shape&                  theShape,
-         Handle(XSControl_WorkSession)& theWS,
+    Read(const AsciiString1& thePath,
+         TopoShape&                  theShape,
+         Handle(ExchangeSession)& theWS,
          const Message_ProgressRange&   theProgress = Message_ProgressRange());
 
   //! Writes a CAD file, according internal configuration
@@ -138,9 +138,9 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Write operation has ended correctly
   Standard_EXPORT Standard_Boolean
-    Write(const TCollection_AsciiString& thePath,
-          const TopoDS_Shape&            theShape,
-          Handle(XSControl_WorkSession)& theWS,
+    Write(const AsciiString1& thePath,
+          const TopoShape&            theShape,
+          Handle(ExchangeSession)& theWS,
           const Message_ProgressRange&   theProgress = Message_ProgressRange());
 
   //! Reads a CAD file, according internal configuration
@@ -149,8 +149,8 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Read operation has ended correctly
   Standard_EXPORT Standard_Boolean
-    Read(const TCollection_AsciiString& thePath,
-         TopoDS_Shape&                  theShape,
+    Read(const AsciiString1& thePath,
+         TopoShape&                  theShape,
          const Message_ProgressRange&   theProgress = Message_ProgressRange());
 
   //! Writes a CAD file, according internal configuration
@@ -159,8 +159,8 @@ public:
   //! @param[in] theProgress progress indicator
   //! @return true if Write operation has ended correctly
   Standard_EXPORT Standard_Boolean
-    Write(const TCollection_AsciiString& thePath,
-          const TopoDS_Shape&            theShape,
+    Write(const AsciiString1& thePath,
+          const TopoShape&            theShape,
           const Message_ProgressRange&   theProgress = Message_ProgressRange());
 
 public:
@@ -168,7 +168,7 @@ public:
   //! @param[in] theResource file path to resource or resource value
   //! @param[in] theIsRecursive flag to update all nodes
   //! @return true if theResource has loaded correctly
-  Standard_EXPORT Standard_Boolean Load(const TCollection_AsciiString& theResource = "",
+  Standard_EXPORT Standard_Boolean Load(const AsciiString1& theResource = "",
                                         const Standard_Boolean theIsRecursive      = Standard_True);
 
   //! Updates values according the resource
@@ -185,7 +185,7 @@ public:
   //! @param[in] theVendors list of providers to save. If empty, saves all available
   //! @return true if the Configuration has saved correctly
   Standard_EXPORT Standard_Boolean
-    Save(const TCollection_AsciiString&   theResourcePath,
+    Save(const AsciiString1&   theResourcePath,
          const Standard_Boolean           theIsRecursive = Standard_True,
          const TColStd_ListOfAsciiString& theFormats     = TColStd_ListOfAsciiString(),
          const TColStd_ListOfAsciiString& theVendors     = TColStd_ListOfAsciiString());
@@ -195,7 +195,7 @@ public:
   //! @param[in] theFormats list of formats to save. If empty, saves all available
   //! @param[in] theVendors list of providers to save. If empty, saves all available
   //! @return result resource string
-  Standard_EXPORT TCollection_AsciiString
+  Standard_EXPORT AsciiString1
     Save(const Standard_Boolean           theIsRecursive = Standard_True,
          const TColStd_ListOfAsciiString& theFormats     = TColStd_ListOfAsciiString(),
          const TColStd_ListOfAsciiString& theVendors     = TColStd_ListOfAsciiString());
@@ -215,15 +215,15 @@ public:
   //! @param[in] theVendor input node vendor name
   //! @param[out] theNode output node
   //! @return Standard_True if the node is found
-  Standard_EXPORT Standard_Boolean Find(const TCollection_AsciiString& theFormat,
-                                        const TCollection_AsciiString& theVendor,
+  Standard_EXPORT Standard_Boolean Find(const AsciiString1& theFormat,
+                                        const AsciiString1& theVendor,
                                         Handle(DE_ConfigurationNode)&  theNode) const;
 
   //! Changes provider priority to one format if it exists
   //! @param[in] theFormat input node CAD format
   //! @param[in] theVendorPriority priority of work with vendors
   //! @param[in] theToDisable flag for disabling nodes that are not included in the priority
-  Standard_EXPORT void ChangePriority(const TCollection_AsciiString&   theFormat,
+  Standard_EXPORT void ChangePriority(const AsciiString1&   theFormat,
                                       const TColStd_ListOfAsciiString& theVendorPriority,
                                       const Standard_Boolean theToDisable = Standard_False);
 
@@ -239,7 +239,7 @@ public:
   //! @param[in] theToImport flag to finds for import. Standard_True-import, Standard_False-export
   //! @param[out] theProvider created new provider
   //! @return Standard_True if provider found and created
-  Standard_EXPORT virtual Standard_Boolean FindProvider(const TCollection_AsciiString& thePath,
+  Standard_EXPORT virtual Standard_Boolean FindProvider(const AsciiString1& thePath,
                                                         const Standard_Boolean         theToImport,
                                                         Handle(DE_Provider)& theProvider) const;
 
@@ -271,7 +271,7 @@ protected:
 
 public:
   // clang-format off
-  DE_ConfigurationNode::DE_SectionGlobal GlobalParameters; //!< Internal parameters for the all translators
+  DE_ConfigurationNode::GlobalSection2 GlobalParameters; //!< Internal parameters for the all translators
 
 private:
   Standard_Boolean myKeepUpdates; //!< Flag that keeps changes on configuration nodes which are being updated

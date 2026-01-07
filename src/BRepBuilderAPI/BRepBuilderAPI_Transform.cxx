@@ -29,7 +29,7 @@ BRepBuilderAPI_Transform::BRepBuilderAPI_Transform(const Transform3d& T)
 
 //=================================================================================================
 
-BRepBuilderAPI_Transform::BRepBuilderAPI_Transform(const TopoDS_Shape&    theShape,
+BRepBuilderAPI_Transform::BRepBuilderAPI_Transform(const TopoShape&    theShape,
                                                    const Transform3d&         theTrsf,
                                                    const Standard_Boolean theCopyGeom,
                                                    const Standard_Boolean theCopyMesh)
@@ -41,7 +41,7 @@ BRepBuilderAPI_Transform::BRepBuilderAPI_Transform(const TopoDS_Shape&    theSha
 
 //=================================================================================================
 
-void BRepBuilderAPI_Transform::Perform(const TopoDS_Shape&    theShape,
+void BRepBuilderAPI_Transform::Perform(const TopoShape&    theShape,
                                        const Standard_Boolean theCopyGeom,
                                        const Standard_Boolean theCopyMesh)
 {
@@ -65,7 +65,7 @@ void BRepBuilderAPI_Transform::Perform(const TopoDS_Shape&    theShape,
 
 //=================================================================================================
 
-TopoDS_Shape BRepBuilderAPI_Transform::ModifiedShape(const TopoDS_Shape& S) const
+TopoShape BRepBuilderAPI_Transform::ModifiedShape(const TopoShape& S) const
 {
   if (myUseModif)
   {
@@ -76,7 +76,7 @@ TopoDS_Shape BRepBuilderAPI_Transform::ModifiedShape(const TopoDS_Shape& S) cons
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepBuilderAPI_Transform::Modified(const TopoDS_Shape& F)
+const ShapeList& BRepBuilderAPI_Transform::Modified(const TopoShape& F)
 {
   if (!myUseModif)
   {

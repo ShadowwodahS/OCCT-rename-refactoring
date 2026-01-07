@@ -21,7 +21,7 @@
 #include <Geom_TrimmedCurve.hxx>
 #include <Geom_OffsetCurve.hxx>
 
-Handle(Geom_Curve) ShapePersistent_Geom_Curve::pBezier::Import() const
+Handle(GeomCurve3d) ShapePersistent_Geom_Curve::pBezier::Import() const
 {
   if (myPoles.IsNull())
     return NULL;
@@ -30,13 +30,13 @@ Handle(Geom_Curve) ShapePersistent_Geom_Curve::pBezier::Import() const
   {
     if (myWeights.IsNull())
       return NULL;
-    return new Geom_BezierCurve(*myPoles->Array(), *myWeights->Array());
+    return new BezierCurve3d(*myPoles->Array(), *myWeights->Array());
   }
   else
-    return new Geom_BezierCurve(*myPoles->Array());
+    return new BezierCurve3d(*myPoles->Array());
 }
 
-Handle(Geom_Curve) ShapePersistent_Geom_Curve::pBSpline::Import() const
+Handle(GeomCurve3d) ShapePersistent_Geom_Curve::pBSpline::Import() const
 {
   if (myPoles.IsNull() || myKnots.IsNull() || myMultiplicities.IsNull())
     return NULL;
@@ -46,7 +46,7 @@ Handle(Geom_Curve) ShapePersistent_Geom_Curve::pBSpline::Import() const
     if (myWeights.IsNull())
       return NULL;
 
-    return new Geom_BSplineCurve(*myPoles->Array(),
+    return new BSplineCurve3d(*myPoles->Array(),
                                  *myWeights->Array(),
                                  *myKnots->Array(),
                                  *myMultiplicities->Array(),
@@ -54,14 +54,14 @@ Handle(Geom_Curve) ShapePersistent_Geom_Curve::pBSpline::Import() const
                                  myPeriodic);
   }
   else
-    return new Geom_BSplineCurve(*myPoles->Array(),
+    return new BSplineCurve3d(*myPoles->Array(),
                                  *myKnots->Array(),
                                  *myMultiplicities->Array(),
                                  mySpineDegree,
                                  myPeriodic);
 }
 
-Handle(Geom_Curve) ShapePersistent_Geom_Curve::pTrimmed::Import() const
+Handle(GeomCurve3d) ShapePersistent_Geom_Curve::pTrimmed::Import() const
 {
   if (myBasisCurve.IsNull())
     return NULL;
@@ -69,7 +69,7 @@ Handle(Geom_Curve) ShapePersistent_Geom_Curve::pTrimmed::Import() const
   return new Geom_TrimmedCurve(myBasisCurve->Import(), myFirstU, myLastU);
 }
 
-Handle(Geom_Curve) ShapePersistent_Geom_Curve::pOffset::Import() const
+Handle(GeomCurve3d) ShapePersistent_Geom_Curve::pOffset::Import() const
 {
   if (myBasisCurve.IsNull())
     return NULL;
@@ -81,22 +81,22 @@ Handle(Geom_Curve) ShapePersistent_Geom_Curve::pOffset::Import() const
 // Line
 //=======================================================================
 template <>
-Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, Geom_Line, Axis3d>::
+Standard_CString ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, GeomLine, Axis3d>::
   PName() const
 {
   return "PGeom_Line";
 }
 
 template <>
-void ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, Geom_Line, Axis3d>::Write(
+void ShapePersistent_Geom::instance<ShapePersistent_Geom::Curve, GeomLine, Axis3d>::Write(
   StdObjMgt_WriteData& theWriteData) const
 {
-  Handle(Geom_Line) aMyGeom = Handle(Geom_Line)::DownCast(myTransient);
+  Handle(GeomLine) aMyGeom = Handle(GeomLine)::DownCast(myTransient);
   write(theWriteData, aMyGeom->Position());
 }
 
 Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom_Curve::Translate(
-  const Handle(Geom_Line)&          theCurve,
+  const Handle(GeomLine)&          theCurve,
   StdObjMgt_TransientPersistentMap& theMap)
 {
   Handle(ShapePersistent_Geom::Curve) aPC;
@@ -129,21 +129,21 @@ Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Curve, F
 //=======================================================================
 template <>
 Standard_CString ShapePersistent_Geom::
-  instance<ShapePersistent_Geom_Curve::Conic, Geom_Circle, gp_Circ>::PName() const
+  instance<ShapePersistent_Geom_Curve::Conic, GeomCircle, gp_Circ>::PName() const
 {
   return "PGeom_Circle";
 }
 
 template <>
-void ShapePersistent_Geom::instance<ShapePersistent_Geom_Curve::Conic, Geom_Circle, gp_Circ>::Write(
+void ShapePersistent_Geom::instance<ShapePersistent_Geom_Curve::Conic, GeomCircle, gp_Circ>::Write(
   StdObjMgt_WriteData& theWriteData) const
 {
-  Handle(Geom_Circle) aMyGeom = Handle(Geom_Circle)::DownCast(myTransient);
+  Handle(GeomCircle) aMyGeom = Handle(GeomCircle)::DownCast(myTransient);
   theWriteData << aMyGeom->Circ();
 }
 
 Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom_Curve::Translate(
-  const Handle(Geom_Circle)&        theCurve,
+  const Handle(GeomCircle)&        theCurve,
   StdObjMgt_TransientPersistentMap& theMap)
 {
   Handle(ShapePersistent_Geom::Curve) aPC;
@@ -276,7 +276,7 @@ Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom_Curve::Translate(
 // BezierCurve
 //=======================================================================
 Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom_Curve::Translate(
-  const Handle(Geom_BezierCurve)&   theCurve,
+  const Handle(BezierCurve3d)&   theCurve,
   StdObjMgt_TransientPersistentMap& theMap)
 {
   Handle(ShapePersistent_Geom::Curve) aPC;
@@ -307,7 +307,7 @@ Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom_Curve::Translate(
 // BSplineCurve
 //=======================================================================
 Handle(ShapePersistent_Geom::Curve) ShapePersistent_Geom_Curve::Translate(
-  const Handle(Geom_BSplineCurve)&  theCurve,
+  const Handle(BSplineCurve3d)&  theCurve,
   StdObjMgt_TransientPersistentMap& theMap)
 {
   Handle(ShapePersistent_Geom::Curve) aPC;

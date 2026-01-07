@@ -32,7 +32,7 @@
 #include <StdFail_NotDone.hxx>
 
 //=========================================================================
-GccAna_CircPnt2dBisec::GccAna_CircPnt2dBisec(const gp_Circ2d& Circle, const gp_Pnt2d& Point)
+CirclePoint2dBisector::CirclePoint2dBisector(const gp_Circ2d& Circle, const gp_Pnt2d& Point)
 {
   circle      = Circle;
   point       = Point;
@@ -40,7 +40,7 @@ GccAna_CircPnt2dBisec::GccAna_CircPnt2dBisec(const gp_Circ2d& Circle, const gp_P
   DefineSolutions();
 }
 
-GccAna_CircPnt2dBisec::GccAna_CircPnt2dBisec(const gp_Circ2d&    Circle,
+CirclePoint2dBisector::CirclePoint2dBisector(const gp_Circ2d&    Circle,
                                              const gp_Pnt2d&     Point,
                                              const Standard_Real Tolerance)
 {
@@ -53,7 +53,7 @@ GccAna_CircPnt2dBisec::GccAna_CircPnt2dBisec(const gp_Circ2d&    Circle,
   DefineSolutions();
 }
 
-void GccAna_CircPnt2dBisec::DefineSolutions()
+void CirclePoint2dBisector::DefineSolutions()
 {
   Standard_Real dist = circle.Radius() - point.Distance(circle.Location());
 
@@ -88,7 +88,7 @@ void GccAna_CircPnt2dBisec::DefineSolutions()
 //  two parabolas (biscirPnt1, biscirPnt1).                          +
 //=========================================================================
 
-Handle(GccInt_Bisec) GccAna_CircPnt2dBisec::ThisSolution(const Standard_Integer Index) const
+Handle(GccInt_Bisec) CirclePoint2dBisector::ThisSolution(const Standard_Integer Index) const
 {
 
   if (!WellDone)
@@ -175,12 +175,12 @@ Handle(GccInt_Bisec) GccAna_CircPnt2dBisec::ThisSolution(const Standard_Integer 
 
 //=========================================================================
 
-Standard_Boolean GccAna_CircPnt2dBisec::IsDone() const
+Standard_Boolean CirclePoint2dBisector::IsDone() const
 {
   return WellDone;
 }
 
-Standard_Integer GccAna_CircPnt2dBisec::NbSolutions() const
+Standard_Integer CirclePoint2dBisector::NbSolutions() const
 {
   return NbrSol;
 }

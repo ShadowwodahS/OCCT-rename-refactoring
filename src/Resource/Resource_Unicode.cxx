@@ -44,7 +44,7 @@ static inline Standard_Boolean isshift(unsigned int c)
 }
 
 void Resource_Unicode::ConvertSJISToUnicode(const Standard_CString      fromstr,
-                                            TCollection_ExtendedString& tostr)
+                                            UtfString& tostr)
 {
   tostr.Clear();
 
@@ -66,12 +66,12 @@ void Resource_Unicode::ConvertSJISToUnicode(const Standard_CString      fromstr,
 
       Resource_sjis_to_unicode(&ph, &pl);
       Standard_ExtCharacter      curcar = ((Standard_ExtCharacter)((ph << 8) | pl));
-      TCollection_ExtendedString curext(curcar);
+      UtfString curext(curcar);
       tostr.AssignCat(curext);
     }
     else
     {
-      TCollection_ExtendedString curext(((char)*currentstr));
+      UtfString curext(((char)*currentstr));
       currentstr++;
       tostr.AssignCat(curext);
     }
@@ -79,7 +79,7 @@ void Resource_Unicode::ConvertSJISToUnicode(const Standard_CString      fromstr,
 }
 
 void Resource_Unicode::ConvertEUCToUnicode(const Standard_CString      fromstr,
-                                           TCollection_ExtendedString& tostr)
+                                           UtfString& tostr)
 {
   tostr.Clear();
 
@@ -101,12 +101,12 @@ void Resource_Unicode::ConvertEUCToUnicode(const Standard_CString      fromstr,
 
       Resource_euc_to_unicode(&ph, &pl);
       Standard_ExtCharacter      curcar = ((Standard_ExtCharacter)((ph << 8) | pl));
-      TCollection_ExtendedString curext(curcar);
+      UtfString curext(curcar);
       tostr.AssignCat(curext);
     }
     else
     {
-      TCollection_ExtendedString curext(((char)*currentstr));
+      UtfString curext(((char)*currentstr));
       currentstr++;
       tostr.AssignCat(curext);
     }
@@ -114,7 +114,7 @@ void Resource_Unicode::ConvertEUCToUnicode(const Standard_CString      fromstr,
 }
 
 void Resource_Unicode::ConvertGBToUnicode(const Standard_CString      fromstr,
-                                          TCollection_ExtendedString& tostr)
+                                          UtfString& tostr)
 {
   tostr.Clear();
 
@@ -136,12 +136,12 @@ void Resource_Unicode::ConvertGBToUnicode(const Standard_CString      fromstr,
 
       Resource_gb_to_unicode(&ph, &pl);
       Standard_ExtCharacter      curcar = ((Standard_ExtCharacter)((ph << 8) | pl));
-      TCollection_ExtendedString curext(curcar);
+      UtfString curext(curcar);
       tostr.AssignCat(curext);
     }
     else
     {
-      TCollection_ExtendedString curext(((char)*currentstr));
+      UtfString curext(((char)*currentstr));
       currentstr++;
       tostr.AssignCat(curext);
     }
@@ -149,7 +149,7 @@ void Resource_Unicode::ConvertGBToUnicode(const Standard_CString      fromstr,
 }
 
 Standard_Boolean Resource_Unicode::ConvertGBKToUnicode(const Standard_CString      fromstr,
-                                                       TCollection_ExtendedString& tostr)
+                                                       UtfString& tostr)
 {
   tostr.Clear();
 
@@ -162,9 +162,9 @@ Standard_Boolean Resource_Unicode::ConvertGBKToUnicode(const Standard_CString   
     {
       if (!(*currentch >= 0x30 && *currentch <= 0x39))
       {
-        TCollection_ExtendedString curext3(((char)*currentch));
-        TCollection_ExtendedString curext2(((char)gb3));
-        TCollection_ExtendedString curext1(((char)gb2));
+        UtfString curext3(((char)*currentch));
+        UtfString curext2(((char)gb3));
+        UtfString curext1(((char)gb2));
         tostr.Insert(0, curext3);
         tostr.Insert(0, curext2);
         tostr.Insert(0, curext1);
@@ -177,7 +177,7 @@ Standard_Boolean Resource_Unicode::ConvertGBKToUnicode(const Standard_CString   
       {
         unsigned short             uni    = gbkuni[codepnt];
         Standard_ExtCharacter      curcar = ((Standard_ExtCharacter)uni);
-        TCollection_ExtendedString curext(curcar);
+        UtfString curext(curcar);
         tostr.AssignCat(curext);
         currentch++;
         continue;
@@ -193,8 +193,8 @@ Standard_Boolean Resource_Unicode::ConvertGBKToUnicode(const Standard_CString   
         currentch++;
         continue;
       }
-      TCollection_ExtendedString curext2(((char)*currentch));
-      TCollection_ExtendedString curext1(((char)gb2));
+      UtfString curext2(((char)*currentch));
+      UtfString curext1(((char)gb2));
       tostr.Insert(0, curext2);
       tostr.Insert(0, curext1);
       return Standard_False;
@@ -221,7 +221,7 @@ Standard_Boolean Resource_Unicode::ConvertGBKToUnicode(const Standard_CString   
         {
           unsigned short             uni    = gbkuni[pointer];
           Standard_ExtCharacter      curcar = ((Standard_ExtCharacter)uni);
-          TCollection_ExtendedString curext(curcar);
+          UtfString curext(curcar);
           tostr.AssignCat(curext);
           currentch++;
           continue;
@@ -230,7 +230,7 @@ Standard_Boolean Resource_Unicode::ConvertGBKToUnicode(const Standard_CString   
       if (*currentch <= 0x7F)
       {
         // ASCII symbol
-        TCollection_ExtendedString curext(((char)*currentch));
+        UtfString curext(((char)*currentch));
         currentch++;
         tostr.Insert(0, curext);
         continue;
@@ -242,7 +242,7 @@ Standard_Boolean Resource_Unicode::ConvertGBKToUnicode(const Standard_CString   
       if (*currentch <= 0x7F)
       {
         // ASCII symbol
-        TCollection_ExtendedString curext(((char)*currentch));
+        UtfString curext(((char)*currentch));
         currentch++;
         tostr.AssignCat(curext);
       }
@@ -250,7 +250,7 @@ Standard_Boolean Resource_Unicode::ConvertGBKToUnicode(const Standard_CString   
       {
         // Special symbol
         Standard_ExtCharacter      curcar = ((Standard_ExtCharacter)((0x20 << 8) | 0xAC));
-        TCollection_ExtendedString curext(curcar);
+        UtfString curext(curcar);
         tostr.AssignCat(curext);
         currentch++;
       }
@@ -268,7 +268,7 @@ Standard_Boolean Resource_Unicode::ConvertGBKToUnicode(const Standard_CString   
 }
 
 Standard_Boolean Resource_Unicode::ConvertBig5ToUnicode(const Standard_CString      fromstr,
-                                                        TCollection_ExtendedString& tostr)
+                                                        UtfString& tostr)
 {
   tostr.Clear();
 
@@ -346,7 +346,7 @@ Standard_Boolean Resource_Unicode::ConvertBig5ToUnicode(const Standard_CString  
       if (*currentch <= 0x7F)
       {
         // ASCII symbol
-        TCollection_ExtendedString curext(((char)*currentch));
+        UtfString curext(((char)*currentch));
         currentch++;
         tostr.Insert(0, curext);
         continue;
@@ -358,7 +358,7 @@ Standard_Boolean Resource_Unicode::ConvertBig5ToUnicode(const Standard_CString  
       if (*currentch <= 0x7F)
       {
         // ASCII symbol
-        TCollection_ExtendedString curext(((char)*currentch));
+        UtfString curext(((char)*currentch));
         currentch++;
         tostr.AssignCat(curext);
       }
@@ -375,7 +375,7 @@ Standard_Boolean Resource_Unicode::ConvertBig5ToUnicode(const Standard_CString  
   return Standard_True;
 }
 
-Standard_Boolean Resource_Unicode::ConvertUnicodeToSJIS(const TCollection_ExtendedString& fromstr,
+Standard_Boolean Resource_Unicode::ConvertUnicodeToSJIS(const UtfString& fromstr,
                                                         Standard_PCharacter&              tostr,
                                                         const Standard_Integer            maxsize)
 {
@@ -430,7 +430,7 @@ Standard_Boolean Resource_Unicode::ConvertUnicodeToSJIS(const TCollection_Extend
   return Standard_True;
 }
 
-Standard_Boolean Resource_Unicode::ConvertUnicodeToEUC(const TCollection_ExtendedString& fromstr,
+Standard_Boolean Resource_Unicode::ConvertUnicodeToEUC(const UtfString& fromstr,
                                                        Standard_PCharacter&              tostr,
                                                        const Standard_Integer            maxsize)
 {
@@ -485,7 +485,7 @@ Standard_Boolean Resource_Unicode::ConvertUnicodeToEUC(const TCollection_Extende
   return Standard_True;
 }
 
-Standard_Boolean Resource_Unicode::ConvertUnicodeToGB(const TCollection_ExtendedString& fromstr,
+Standard_Boolean Resource_Unicode::ConvertUnicodeToGB(const UtfString& fromstr,
                                                       Standard_PCharacter&              tostr,
                                                       const Standard_Integer            maxsize)
 {
@@ -540,7 +540,7 @@ Standard_Boolean Resource_Unicode::ConvertUnicodeToGB(const TCollection_Extended
   return Standard_True;
 }
 
-Standard_Boolean Resource_Unicode::ConvertUnicodeToANSI(const TCollection_ExtendedString& fromstr,
+Standard_Boolean Resource_Unicode::ConvertUnicodeToANSI(const UtfString& fromstr,
                                                         Standard_PCharacter&              tostr,
                                                         const Standard_Integer            maxsize)
 {
@@ -594,7 +594,7 @@ static Resource_FormatType& Resource_Current_Format()
     Handle(Resource_Manager) mgr = new Resource_Manager("CharSet");
     if (mgr->Find("FormatType"))
     {
-      TCollection_AsciiString form = mgr->Value("FormatType");
+      AsciiString1 form = mgr->Value("FormatType");
       if (form.IsEqual("SJIS"))
       {
         theformat = Resource_SJIS;
@@ -639,7 +639,7 @@ void Resource_Unicode::ReadFormat()
 
 void Resource_Unicode::ConvertFormatToUnicode(const Resource_FormatType   theFormat,
                                               const Standard_CString      theFromStr,
-                                              TCollection_ExtendedString& theToStr)
+                                              UtfString& theToStr)
 {
   switch (theFormat)
   {
@@ -656,7 +656,7 @@ void Resource_Unicode::ConvertFormatToUnicode(const Resource_FormatType   theFor
       break;
     }
     case Resource_FormatType_ANSI: {
-      theToStr = TCollection_ExtendedString(theFromStr, Standard_False);
+      theToStr = UtfString(theFromStr, Standard_False);
       break;
     }
     case Resource_FormatType_CP1250:
@@ -703,13 +703,13 @@ void Resource_Unicode::ConvertFormatToUnicode(const Resource_FormatType   theFor
       break;
     }
     case Resource_FormatType_UTF8: {
-      theToStr = TCollection_ExtendedString(theFromStr, Standard_True);
+      theToStr = UtfString(theFromStr, Standard_True);
       break;
     }
     case Resource_FormatType_SystemLocale: {
       NCollection_Utf16String aString;
       aString.FromLocale(theFromStr);
-      theToStr = TCollection_ExtendedString(aString.ToCString());
+      theToStr = UtfString(aString.ToCString());
       break;
     }
   }
@@ -717,7 +717,7 @@ void Resource_Unicode::ConvertFormatToUnicode(const Resource_FormatType   theFor
 
 Standard_Boolean Resource_Unicode::ConvertUnicodeToFormat(
   const Resource_FormatType         theFormat,
-  const TCollection_ExtendedString& theFromStr,
+  const UtfString& theFromStr,
   Standard_PCharacter&              theToStr,
   const Standard_Integer            theMaxSize)
 {

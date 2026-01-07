@@ -49,7 +49,7 @@ IGESToBRep_IGESBoundary::IGESToBRep_IGESBoundary(const IGESToBRep_CurveAndSurfac
 
 void IGESToBRep_IGESBoundary::Init(const IGESToBRep_CurveAndSurface&  CS,
                                    const Handle(IGESData_IGESEntity)& entity,
-                                   const TopoDS_Face&                 face,
+                                   const TopoFace&                 face,
                                    const gp_Trsf2d&                   trans,
                                    const Standard_Real                uFact,
                                    const Standard_Integer             filepreference)
@@ -153,13 +153,13 @@ Standard_Boolean IGESToBRep_IGESBoundary::Transfer(
     len3d = scurve3d->NbEdges();
   else
   {
-    IGESToBRep::IGESCurveToSequenceOfIGESCurve(icurve3d, seq3d);
+    IGESToBRep1::IGESCurveToSequenceOfIGESCurve(icurve3d, seq3d);
     len3d = seq3d->Length();
   }
   if (!curves2d.IsNull())
   {
     for (Standard_Integer i = 1; i <= curves2d->Length(); i++)
-      IGESToBRep::IGESCurveToSequenceOfIGESCurve(curves2d->Value(i), seq2d);
+      IGESToBRep1::IGESCurveToSequenceOfIGESCurve(curves2d->Value(i), seq2d);
     len2d = seq2d->Length();
   }
 
@@ -192,7 +192,7 @@ Standard_Boolean IGESToBRep_IGESBoundary::Transfer(
       Gsewd->Add(scurve3d->Wire());
     else
     {
-      TopoDS_Shape Sh = TC.TransferTopoCurve(icurve3d);
+      TopoShape Sh = TC.TransferTopoCurve(icurve3d);
       if (!Sh.IsNull())
       {
         Gsewd3d->Add(Sh);
@@ -211,7 +211,7 @@ Standard_Boolean IGESToBRep_IGESBoundary::Transfer(
   {
     for (Standard_Integer i = curves2d->Lower(); i <= curves2d->Upper(); i++)
     {
-      TopoDS_Shape Sh = TC.Transfer2dTopoCurve(curves2d->Value(i), myface, mytrsf, myuFact);
+      TopoShape Sh = TC.Transfer2dTopoCurve(curves2d->Value(i), myface, mytrsf, myuFact);
       if (!Sh.IsNull())
         Gsewd2d->Add(Sh);
     }
@@ -233,7 +233,7 @@ Standard_Boolean IGESToBRep_IGESBoundary::Transfer(
         Lsewd3d->Add(scurve3d->Edge(i));
       else
       {
-        TopoDS_Shape shape3d =
+        TopoShape shape3d =
           TC.TransferTopoCurve(Handle(IGESData_IGESEntity)::DownCast(seq3d->Value(i)));
         if (!shape3d.IsNull())
         {
@@ -247,7 +247,7 @@ Standard_Boolean IGESToBRep_IGESBoundary::Transfer(
       Gsewd3d->Add(Lsewd3d->Wire());
 
       Handle(ShapeExtend_WireData) Lsewd2d = new ShapeExtend_WireData;
-      TopoDS_Shape                 shape2d =
+      TopoShape                 shape2d =
         TC.Transfer2dTopoCurve(Handle(IGESData_IGESEntity)::DownCast(seq2d->Value(i)),
                                myface,
                                mytrsf,
@@ -278,8 +278,8 @@ Standard_Boolean IGESToBRep_IGESBoundary::Transfer(
         // copying pcurve to edge with 3D curve
         for (Standard_Integer iedge = 1; iedge <= Lsewd3d->NbEdges(); iedge++)
         {
-          TopoDS_Edge edge3d = Lsewd3d->Edge(iedge), edge2d = Lsewd2d->Edge(iedge);
-          if (!IGESToBRep::TransferPCurve(edge2d, edge3d, myface))
+          TopoEdge edge3d = Lsewd3d->Edge(iedge), edge2d = Lsewd2d->Edge(iedge);
+          if (!IGESToBRep1::TransferPCurve(edge2d, edge3d, myface))
             continue;
         }
       }
@@ -312,15 +312,15 @@ Standard_Boolean IGESToBRep_IGESBoundary::Transfer(
 void IGESToBRep_IGESBoundary::ReverseCurves3d(const Handle(ShapeExtend_WireData)& sewd)
 {
   sewd->Reverse();
-  BRep_Builder B;
-  TopoDS_Wire  W;
+  ShapeBuilder B;
+  TopoWire  W;
   B.MakeWire(W);
   for (Standard_Integer i = 1; i <= sewd->NbEdges(); i++)
   {
-    TopoDS_Edge        oldedge = sewd->Edge(i), newedge;
+    TopoEdge        oldedge = sewd->Edge(i), newedge;
     TopLoc_Location    L;
     Standard_Real      p1, p2;
-    Handle(Geom_Curve) curve = BRep_Tool::Curve(oldedge, L, p1, p2);
+    Handle(GeomCurve3d) curve = BRepInspector::Curve(oldedge, L, p1, p2);
     if (curve->IsPeriodic()) // #21
       ShapeBuild_Edge().MakeEdge(newedge,
                                  curve->Reversed(),
@@ -334,11 +334,11 @@ void IGESToBRep_IGESBoundary::ReverseCurves3d(const Handle(ShapeExtend_WireData)
         L,
         Max(curve->ReversedParameter(curve->LastParameter()), curve->ReversedParameter(p2)),
         Min(curve->ReversedParameter(curve->FirstParameter()), curve->ReversedParameter(p1)));
-    newedge.Orientation(TopAbs::Reverse(oldedge.Orientation()));
+    newedge.Orientation(TopAbs1::Reverse(oldedge.Orientation()));
     // sewd->Set (newedge, i);
     B.Add(W, newedge);
   }
-  Handle(ShapeFix_Wire) sfw = new ShapeFix_Wire();
+  Handle(WireHealer) sfw = new WireHealer();
   sfw->Load(W);
   sfw->FixConnected();
   sewd->Init(sfw->Wire());
@@ -352,14 +352,14 @@ void IGESToBRep_IGESBoundary::ReverseCurves3d(const Handle(ShapeExtend_WireData)
 //=======================================================================
 
 void IGESToBRep_IGESBoundary::ReverseCurves2d(const Handle(ShapeExtend_WireData)& sewd,
-                                              const TopoDS_Face&                  face)
+                                              const TopoFace&                  face)
 {
   sewd->Reverse(face);
   for (Standard_Integer i = 1; i <= sewd->NbEdges(); i++)
   {
-    TopoDS_Edge          oldedge = sewd->Edge(i), newedge;
+    TopoEdge          oldedge = sewd->Edge(i), newedge;
     Standard_Real        p1, p2;
-    Handle(Geom2d_Curve) curve = BRep_Tool::CurveOnSurface(oldedge, face, p1, p2);
+    Handle(GeomCurve2d) curve = BRepInspector::CurveOnSurface(oldedge, face, p1, p2);
 
     // skl 24.04.2002 for OCC314
     if (curve->IsPeriodic())

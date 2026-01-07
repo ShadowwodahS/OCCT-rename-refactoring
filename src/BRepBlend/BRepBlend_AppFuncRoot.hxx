@@ -157,9 +157,9 @@ public:
   Standard_EXPORT virtual void Point(const Blend_AppFunction& Func,
                                      const Standard_Real      Param,
                                      const math_Vector&       Sol,
-                                     Blend_Point&             Pnt) const = 0;
+                                     Point2&             Pnt) const = 0;
 
-  Standard_EXPORT virtual void Vec(math_Vector& Sol, const Blend_Point& Pnt) const = 0;
+  Standard_EXPORT virtual void Vec(math_Vector& Sol, const Point2& Pnt) const = 0;
 
   DEFINE_STANDARD_RTTIEXT(BRepBlend_AppFuncRoot, Approx_SweepFunction)
 
@@ -172,7 +172,7 @@ protected:
 private:
   Standard_EXPORT Standard_Boolean SearchPoint(Blend_AppFunction&  Func,
                                                const Standard_Real Param,
-                                               Blend_Point&        Pnt);
+                                               Point2&        Pnt);
 
   Standard_EXPORT Standard_Boolean SearchLocation(const Standard_Real    Param,
                                                   const Standard_Integer FirstIndex,
@@ -182,7 +182,7 @@ private:
   Handle(BRepBlend_Line) myLine;
   Standard_Address       myFunc;
   math_Vector            myTolerance;
-  Blend_Point            myPnt;
+  Point2            myPnt;
   Point3d                 myBary;
   math_Vector            X1;
   math_Vector            X2;

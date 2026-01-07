@@ -24,25 +24,25 @@
 
 //=================================================================================================
 
-BRepAlgo_Image::BRepAlgo_Image() {}
+ShapeImage::ShapeImage() {}
 
 //=================================================================================================
 
-void BRepAlgo_Image::SetRoot(const TopoDS_Shape& S)
+void ShapeImage::SetRoot(const TopoShape& S)
 {
   roots.Append(S);
 }
 
 //=================================================================================================
 
-void BRepAlgo_Image::Bind(const TopoDS_Shape& OldS, const TopoDS_Shape& NewS)
+void ShapeImage::Bind(const TopoShape& OldS, const TopoShape& NewS)
 {
   if (down.IsBound(OldS))
   {
-    throw Standard_ConstructionError(" BRepAlgo_Image::Bind");
+    throw Standard_ConstructionError(" ShapeImage::Bind");
     return;
   }
-  TopTools_ListOfShape L;
+  ShapeList L;
   down.Bind(OldS, L);
   down(OldS).Append(NewS);
   up.Bind(NewS, OldS);
@@ -50,11 +50,11 @@ void BRepAlgo_Image::Bind(const TopoDS_Shape& OldS, const TopoDS_Shape& NewS)
 
 //=================================================================================================
 
-void BRepAlgo_Image::Bind(const TopoDS_Shape& OldS, const TopTools_ListOfShape& L)
+void ShapeImage::Bind(const TopoShape& OldS, const ShapeList& L)
 {
   if (HasImage(OldS))
   {
-    throw Standard_ConstructionError(" BRepAlgo_Image::Bind");
+    throw Standard_ConstructionError(" ShapeImage::Bind");
     return;
   }
   TopTools_ListIteratorOfListOfShape it(L);
@@ -69,7 +69,7 @@ void BRepAlgo_Image::Bind(const TopoDS_Shape& OldS, const TopTools_ListOfShape& 
 
 //=================================================================================================
 
-void BRepAlgo_Image::Clear()
+void ShapeImage::Clear()
 {
   roots.Clear();
   up.Clear();
@@ -78,11 +78,11 @@ void BRepAlgo_Image::Clear()
 
 //=================================================================================================
 
-void BRepAlgo_Image::Add(const TopoDS_Shape& OldS, const TopoDS_Shape& NewS)
+void ShapeImage::Add(const TopoShape& OldS, const TopoShape& NewS)
 {
   if (!HasImage(OldS))
   {
-    throw Standard_ConstructionError(" BRepAlgo_Image::Add");
+    throw Standard_ConstructionError(" ShapeImage::Add");
   }
   down(OldS).Append(NewS);
   up.Bind(NewS, OldS);
@@ -90,7 +90,7 @@ void BRepAlgo_Image::Add(const TopoDS_Shape& OldS, const TopoDS_Shape& NewS)
 
 //=================================================================================================
 
-void BRepAlgo_Image::Add(const TopoDS_Shape& OldS, const TopTools_ListOfShape& L)
+void ShapeImage::Add(const TopoShape& OldS, const ShapeList& L)
 {
   TopTools_ListIteratorOfListOfShape it(L);
   for (; it.More(); it.Next())
@@ -101,14 +101,14 @@ void BRepAlgo_Image::Add(const TopoDS_Shape& OldS, const TopTools_ListOfShape& L
 
 //=================================================================================================
 
-void BRepAlgo_Image::Remove(const TopoDS_Shape& S)
+void ShapeImage::Remove(const TopoShape& S)
 {
   if (!up.IsBound(S))
   {
-    throw Standard_ConstructionError(" BRepAlgo_Image::Remove");
+    throw Standard_ConstructionError(" ShapeImage::Remove");
   }
-  const TopoDS_Shape&                OldS = up(S);
-  TopTools_ListOfShape&              L    = down(OldS);
+  const TopoShape&                OldS = up(S);
+  ShapeList&              L    = down(OldS);
   TopTools_ListIteratorOfListOfShape it(L);
   while (it.More())
   {
@@ -125,44 +125,44 @@ void BRepAlgo_Image::Remove(const TopoDS_Shape& S)
 }
 
 //=======================================================================
-// function : TopTools_ListOfShape&
+// function : ShapeList&
 // purpose  :
 //=======================================================================
 
-const TopTools_ListOfShape& BRepAlgo_Image::Roots() const
+const ShapeList& ShapeImage::Roots() const
 {
   return roots;
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepAlgo_Image::IsImage(const TopoDS_Shape& S) const
+Standard_Boolean ShapeImage::IsImage(const TopoShape& S) const
 {
   return up.IsBound(S);
 }
 
 //=================================================================================================
 
-const TopoDS_Shape& BRepAlgo_Image::ImageFrom(const TopoDS_Shape& S) const
+const TopoShape& ShapeImage::ImageFrom(const TopoShape& S) const
 {
   if (!up.IsBound(S))
   {
-    throw Standard_ConstructionError(" BRepAlgo_Image::ImageFrom");
+    throw Standard_ConstructionError(" ShapeImage::ImageFrom");
   }
   return up(S);
 }
 
 //=================================================================================================
 
-const TopoDS_Shape& BRepAlgo_Image::Root(const TopoDS_Shape& S) const
+const TopoShape& ShapeImage::Root(const TopoShape& S) const
 {
   if (!up.IsBound(S))
   {
-    throw Standard_ConstructionError(" BRepAlgo_Image::FirstImageFrom");
+    throw Standard_ConstructionError(" ShapeImage::FirstImageFrom");
   }
 
-  TopoDS_Shape S1 = up(S);
-  TopoDS_Shape S2 = S;
+  TopoShape S1 = up(S);
+  TopoShape S2 = S;
 
   if (S1.IsSame(S2))
     return up(S);
@@ -179,21 +179,21 @@ const TopoDS_Shape& BRepAlgo_Image::Root(const TopoDS_Shape& S) const
 
 //=================================================================================================
 
-Standard_Boolean BRepAlgo_Image::HasImage(const TopoDS_Shape& S) const
+Standard_Boolean ShapeImage::HasImage(const TopoShape& S) const
 {
   return down.IsBound(S);
 }
 
 //=======================================================================
-// function : TopTools_ListOfShape&
+// function : ShapeList&
 // purpose  :
 //=======================================================================
 
-const TopTools_ListOfShape& BRepAlgo_Image::Image(const TopoDS_Shape& S) const
+const ShapeList& ShapeImage::Image(const TopoShape& S) const
 {
   if (!HasImage(S))
   {
-    static TopTools_ListOfShape L;
+    static ShapeList L;
     L.Append(S);
     return L;
   }
@@ -201,10 +201,10 @@ const TopTools_ListOfShape& BRepAlgo_Image::Image(const TopoDS_Shape& S) const
 }
 
 //=======================================================================
-// function : TopTools_ListOfShape&
+// function : ShapeList&
 // purpose  :
 //=======================================================================
-void BRepAlgo_Image::LastImage(const TopoDS_Shape& S, TopTools_ListOfShape& L) const
+void ShapeImage::LastImage(const TopoShape& S, ShapeList& L) const
 {
   if (!down.IsBound(S))
   {
@@ -229,14 +229,14 @@ void BRepAlgo_Image::LastImage(const TopoDS_Shape& S, TopTools_ListOfShape& L) c
 
 //=================================================================================================
 
-void BRepAlgo_Image::Compact()
+void ShapeImage::Compact()
 {
   TopTools_DataMapOfShapeListOfShape M;
   TopTools_ListIteratorOfListOfShape it(roots);
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape&  S = it.Value();
-    TopTools_ListOfShape LI;
+    const TopoShape&  S = it.Value();
+    ShapeList LI;
     if (HasImage(S))
       LastImage(S, LI);
     M.Bind(S, LI);
@@ -254,10 +254,10 @@ void BRepAlgo_Image::Compact()
 
 //=================================================================================================
 
-void BRepAlgo_Image::Filter(const TopoDS_Shape& S, const TopAbs_ShapeEnum T)
+void ShapeImage::Filter(const TopoShape& S, const TopAbs_ShapeEnum T)
 
 {
-  TopExp_Explorer     exp(S, T);
+  ShapeExplorer     exp(S, T);
   TopTools_MapOfShape M;
   for (; exp.More(); exp.Next())
   {
@@ -270,7 +270,7 @@ void BRepAlgo_Image::Filter(const TopoDS_Shape& S, const TopAbs_ShapeEnum T)
     TopTools_DataMapIteratorOfDataMapOfShapeShape mit(up);
     for (; mit.More(); mit.Next())
     {
-      const TopoDS_Shape& aS = mit.Key();
+      const TopoShape& aS = mit.Key();
       if (aS.ShapeType() == T && !M.Contains(aS))
       {
         Remove(aS);
@@ -283,10 +283,10 @@ void BRepAlgo_Image::Filter(const TopoDS_Shape& S, const TopAbs_ShapeEnum T)
 
 //=================================================================================================
 
-void BRepAlgo_Image::RemoveRoot(const TopoDS_Shape& Root)
+void ShapeImage::RemoveRoot(const TopoShape& Root)
 {
   Standard_Boolean isRemoved = Standard_False;
-  for (TopTools_ListOfShape::Iterator it(roots); it.More(); it.Next())
+  for (ShapeList::Iterator it(roots); it.More(); it.Next())
   {
     if (Root.IsSame(it.Value()))
     {
@@ -299,12 +299,12 @@ void BRepAlgo_Image::RemoveRoot(const TopoDS_Shape& Root)
   if (!isRemoved)
     return;
 
-  const TopTools_ListOfShape* pNewS = down.Seek(Root);
+  const ShapeList* pNewS = down.Seek(Root);
   if (pNewS)
   {
-    for (TopTools_ListOfShape::Iterator it(*pNewS); it.More(); it.Next())
+    for (ShapeList::Iterator it(*pNewS); it.More(); it.Next())
     {
-      const TopoDS_Shape* pOldS = up.Seek(it.Value());
+      const TopoShape* pOldS = up.Seek(it.Value());
       if (pOldS && pOldS->IsSame(Root))
         up.UnBind(it.Value());
     }
@@ -314,12 +314,12 @@ void BRepAlgo_Image::RemoveRoot(const TopoDS_Shape& Root)
 
 //=================================================================================================
 
-void BRepAlgo_Image::ReplaceRoot(const TopoDS_Shape& OldRoot, const TopoDS_Shape& NewRoot)
+void ShapeImage::ReplaceRoot(const TopoShape& OldRoot, const TopoShape& NewRoot)
 {
   if (!HasImage(OldRoot))
     return;
 
-  const TopTools_ListOfShape& aLImage = Image(OldRoot);
+  const ShapeList& aLImage = Image(OldRoot);
   if (HasImage(NewRoot))
     Add(NewRoot, aLImage);
   else

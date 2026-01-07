@@ -70,7 +70,7 @@ BRepTools_ShapeSet::BRepTools_ShapeSet(const Standard_Boolean theWithTriangles,
 
 //=================================================================================================
 
-BRepTools_ShapeSet::BRepTools_ShapeSet(const BRep_Builder&    theBuilder,
+BRepTools_ShapeSet::BRepTools_ShapeSet(const ShapeBuilder&    theBuilder,
                                        const Standard_Boolean theWithTriangles,
                                        const Standard_Boolean theWithNormals)
     : myBuilder(theBuilder),
@@ -102,7 +102,7 @@ void BRepTools_ShapeSet::Clear()
 
 //=================================================================================================
 
-void BRepTools_ShapeSet::AddGeometry(const TopoDS_Shape& S)
+void BRepTools_ShapeSet::AddGeometry(const TopoShape& S)
 {
   // Add the geometry
 
@@ -222,7 +222,7 @@ void BRepTools_ShapeSet::AddGeometry(const TopoDS_Shape& S)
     }
     if (myWithTriangles || TF->Surface().IsNull())
     { // for XML Persistence
-      Handle(Poly_Triangulation) Tr = TF->Triangulation();
+      Handle(MeshTriangulation) Tr = TF->Triangulation();
       if (!Tr.IsNull())
         myTriangulations.Add(Tr, needNormals);
     }
@@ -344,7 +344,7 @@ static void PrintRegularity(const GeomAbs_Shape C, Standard_OStream& OS)
 
 //=================================================================================================
 
-void BRepTools_ShapeSet::DumpGeometry(const TopoDS_Shape& S, Standard_OStream& OS) const
+void BRepTools_ShapeSet::DumpGeometry(const TopoShape& S, Standard_OStream& OS) const
 {
   // Dump the geometry
 
@@ -352,9 +352,9 @@ void BRepTools_ShapeSet::DumpGeometry(const TopoDS_Shape& S, Standard_OStream& O
   {
 
     // Dump the point geometry
-    TopoDS_Vertex V = TopoDS::Vertex(S);
-    OS << "    Tolerance : " << BRep_Tool::Tolerance(V) << "\n";
-    Point3d p = BRep_Tool::Pnt(V);
+    TopoVertex V = TopoDS::Vertex(S);
+    OS << "    Tolerance : " << BRepInspector::Tolerance(V) << "\n";
+    Point3d p = BRepInspector::Pnt(V);
     OS << "    - Point 3D : " << p.X() << ", " << p.Y() << ", " << p.Z() << "\n";
 
     Handle(BRep_TVertex)                         TV = Handle(BRep_TVertex)::DownCast(S.TShape());
@@ -492,8 +492,8 @@ void BRepTools_ShapeSet::DumpGeometry(const TopoDS_Shape& S, Standard_OStream& O
   else if (S.ShapeType() == TopAbs_FACE)
   {
 
-    const TopoDS_Face& F = TopoDS::Face(S);
-    if (BRep_Tool::NaturalRestriction(F))
+    const TopoFace& F = TopoDS::Face(S);
+    if (BRepInspector::NaturalRestriction(F))
       OS << "NaturalRestriction\n";
 
     // Dump the surface geometry
@@ -521,7 +521,7 @@ void BRepTools_ShapeSet::DumpGeometry(const TopoDS_Shape& S, Standard_OStream& O
 
 //=================================================================================================
 
-void BRepTools_ShapeSet::WriteGeometry(const TopoDS_Shape& S, Standard_OStream& OS) const
+void BRepTools_ShapeSet::WriteGeometry(const TopoShape& S, Standard_OStream& OS) const
 {
   // Write the geometry
 
@@ -529,9 +529,9 @@ void BRepTools_ShapeSet::WriteGeometry(const TopoDS_Shape& S, Standard_OStream& 
   {
 
     // Write the point geometry
-    TopoDS_Vertex V = TopoDS::Vertex(S);
-    OS << BRep_Tool::Tolerance(V) << "\n";
-    Point3d p = BRep_Tool::Pnt(V);
+    TopoVertex V = TopoDS::Vertex(S);
+    OS << BRepInspector::Tolerance(V) << "\n";
+    Point3d p = BRepInspector::Pnt(V);
     OS << p.X() << " " << p.Y() << " " << p.Z() << "\n";
 
     Handle(BRep_TVertex)                         TV = Handle(BRep_TVertex)::DownCast(S.TShape());
@@ -687,11 +687,11 @@ void BRepTools_ShapeSet::WriteGeometry(const TopoDS_Shape& S, Standard_OStream& 
   {
 
     Handle(BRep_TFace) TF = Handle(BRep_TFace)::DownCast(S.TShape());
-    const TopoDS_Face& F  = TopoDS::Face(S);
+    const TopoFace& F  = TopoDS::Face(S);
 
     if (!(TF->Surface()).IsNull())
     {
-      OS << ((BRep_Tool::NaturalRestriction(F)) ? 1 : 0);
+      OS << ((BRepInspector::NaturalRestriction(F)) ? 1 : 0);
       OS << " ";
       // Write the surface geometry
       OS << " " << TF->Tolerance();
@@ -770,7 +770,7 @@ static GeomAbs_Shape ReadRegularity(Standard_IStream& IS)
 
 void BRepTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
                                       Standard_IStream&      IS,
-                                      TopoDS_Shape&          S)
+                                      TopoShape&          S)
 {
   // Read the geometry
 
@@ -788,7 +788,7 @@ void BRepTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
       //---------
 
     case TopAbs_VERTEX: {
-      TopoDS_Vertex& V = TopoDS::Vertex(S);
+      TopoVertex& V = TopoDS::Vertex(S);
 
       // Read the point geometry
       GeomTools::GetReal(IS, tol);
@@ -874,7 +874,7 @@ void BRepTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
 
       // Create an edge
       {
-        TopoDS_Edge& E = TopoDS::Edge(S);
+        TopoEdge& E = TopoDS::Edge(S);
 
         myBuilder.MakeEdge(E);
 
@@ -1062,7 +1062,7 @@ void BRepTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
 
     case TopAbs_FACE: {
       // create a face :
-      TopoDS_Face& F = TopoDS::Face(S);
+      TopoFace& F = TopoDS::Face(S);
       //    std::streampos pos;
       myBuilder.MakeFace(F);
 
@@ -1151,19 +1151,19 @@ void BRepTools_ShapeSet::ReadGeometry(const TopAbs_ShapeEnum T,
 
 //=================================================================================================
 
-void BRepTools_ShapeSet::AddShapes(TopoDS_Shape& S1, const TopoDS_Shape& S2)
+void BRepTools_ShapeSet::AddShapes(TopoShape& S1, const TopoShape& S2)
 {
   myBuilder.Add(S1, S2);
 }
 
 //=================================================================================================
 
-void BRepTools_ShapeSet::Check(const TopAbs_ShapeEnum T, TopoDS_Shape& S)
+void BRepTools_ShapeSet::Check(const TopAbs_ShapeEnum T, TopoShape& S)
 {
   if (T == TopAbs_FACE)
   {
-    const TopoDS_Face& F = TopoDS::Face(S);
-    BRepTools::Update(F);
+    const TopoFace& F = TopoDS::Face(S);
+    BRepTools1::Update(F);
   }
 }
 
@@ -1448,7 +1448,7 @@ void BRepTools_ShapeSet::WriteTriangulation(Standard_OStream&            OS,
     OS << " -------\n";
   }
 
-  Handle(Poly_Triangulation) T;
+  Handle(MeshTriangulation) T;
   for (i = 1; i <= nbtri && aPS.More(); i++, aPS.Next())
   {
 
@@ -1598,7 +1598,7 @@ void BRepTools_ShapeSet::ReadTriangulation(Standard_IStream&            IS,
   Standard_Boolean hasUV      = Standard_False;
   Standard_Boolean hasNormals = Standard_False;
 
-  Handle(Poly_Triangulation) T;
+  Handle(MeshTriangulation) T;
 
   IS >> buffer;
   if (strstr(buffer, "Triangulations") == NULL)
@@ -1617,7 +1617,7 @@ void BRepTools_ShapeSet::ReadTriangulation(Standard_IStream&            IS,
     }
     GeomTools::GetReal(IS, d);
 
-    T = new Poly_Triangulation(nbNodes, nbTriangles, hasUV, hasNormals);
+    T = new MeshTriangulation(nbNodes, nbTriangles, hasUV, hasNormals);
 
     for (j = 1; j <= nbNodes; j++)
     {

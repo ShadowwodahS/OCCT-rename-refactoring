@@ -20,7 +20,7 @@
 #include <IMeshData_Types.hxx>
 
 //! Class implements functionality of model post-processing tool.
-//! Stores polygons on triangulations to TopoDS_Edge.
+//! Stores polygons on triangulations to TopoEdge.
 class BRepMesh_ModelPostProcessor : public IMeshTools_ModelAlgo
 {
 public:

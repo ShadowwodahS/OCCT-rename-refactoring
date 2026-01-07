@@ -30,10 +30,10 @@ BRepMesh_EdgeTessellationExtractor::BRepMesh_EdgeTessellationExtractor(
   const IMeshData::IEdgeHandle& theEdge,
   const IMeshData::IFaceHandle& theFace)
 {
-  Handle(Poly_Triangulation) aTriangulation = BRep_Tool::Triangulation(theFace->GetFace(), myLoc);
+  Handle(MeshTriangulation) aTriangulation = BRepInspector::Triangulation(theFace->GetFace(), myLoc);
 
   Handle(Poly_PolygonOnTriangulation) aPolygon =
-    BRep_Tool::PolygonOnTriangulation(theEdge->GetEdge(), aTriangulation, myLoc);
+    BRepInspector::PolygonOnTriangulation(theEdge->GetEdge(), aTriangulation, myLoc);
 
   myTriangulation = aTriangulation.get();
   myIndices       = &aPolygon->Nodes();

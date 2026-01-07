@@ -17,9 +17,9 @@
 #include <StepData_StepReaderData.hxx>
 #include <StepData_StepWriter.hxx>
 
-RWHeaderSection_RWFileSchema::RWHeaderSection_RWFileSchema() {}
+FileSchemaWriter::FileSchemaWriter() {}
 
-void RWHeaderSection_RWFileSchema::ReadStep(const Handle(StepData_StepReaderData)&  data,
+void FileSchemaWriter::ReadStep(const Handle(StepData_StepReaderData)&  data,
                                             const Standard_Integer                  num,
                                             Handle(Interface_Check)&                ach,
                                             const Handle(HeaderSection_FileSchema)& ent) const
@@ -59,7 +59,7 @@ void RWHeaderSection_RWFileSchema::ReadStep(const Handle(StepData_StepReaderData
     ent->Init(aSchemaIdentifiers);
 }
 
-void RWHeaderSection_RWFileSchema::WriteStep(StepData_StepWriter&                    SW,
+void FileSchemaWriter::WriteStep(StepData_StepWriter&                    SW,
                                              const Handle(HeaderSection_FileSchema)& ent) const
 {
 

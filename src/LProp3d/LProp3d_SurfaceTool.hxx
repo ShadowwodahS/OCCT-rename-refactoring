@@ -18,7 +18,7 @@
 
 #include <Adaptor3d_Surface.hxx>
 
-class LProp3d_SurfaceTool
+class SurfaceTool2
 {
 public:
   DEFINE_STANDARD_ALLOC

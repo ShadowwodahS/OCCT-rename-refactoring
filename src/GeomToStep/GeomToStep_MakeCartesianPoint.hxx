@@ -33,7 +33,7 @@ class StepData_StepModel;
 //! CartesianPoint from Geom and Pnt from gp, and the class
 //! CartesianPoint from StepGeom which describes a point from
 //! Prostep.
-class GeomToStep_MakeCartesianPoint : public GeomToStep_Root
+class GeomToStep_MakeCartesianPoint : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC

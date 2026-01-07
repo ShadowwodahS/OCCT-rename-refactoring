@@ -48,7 +48,7 @@ TDocStd_XLink::TDocStd_XLink()
 // purpose  : Class method.
 //=======================================================================
 
-Handle(TDocStd_XLink) TDocStd_XLink::Set(const TDF_Label& atLabel)
+Handle(TDocStd_XLink) TDocStd_XLink::Set(const DataLabel& atLabel)
 {
   Handle(TDocStd_XLink) xRef;
   if (!atLabel.FindAttribute(TDocStd_XLink::GetID(), xRef))
@@ -63,11 +63,11 @@ Handle(TDocStd_XLink) TDocStd_XLink::Set(const TDF_Label& atLabel)
 
 Handle(TDF_Reference) TDocStd_XLink::Update()
 {
-  TDF_Label                reflabel;
-  Handle(TDocStd_Document) refdoc;
+  DataLabel                reflabel;
+  Handle(AppDocument) refdoc;
   Standard_Integer         IEntry = myDocEntry.IntegerValue();
-  Handle(TDocStd_Document) mydoc  = TDocStd_Document::Get(Label()); // mon document
-  refdoc                          = Handle(TDocStd_Document)::DownCast(mydoc->Document(IEntry));
+  Handle(AppDocument) mydoc  = AppDocument::Get(Label()); // mon document
+  refdoc                          = Handle(AppDocument)::DownCast(mydoc->Document(IEntry));
   TDF_Tool::Label(refdoc->GetData(), myLabelEntry, reflabel);
   // return TXLink::Import(reflabel,Label());
   return TDF_Reference::Set(Label(), reflabel);
@@ -90,7 +90,7 @@ const Standard_GUID& TDocStd_XLink::GetID()
 
 //=================================================================================================
 
-void TDocStd_XLink::DocumentEntry(const TCollection_AsciiString& aDocEntry)
+void TDocStd_XLink::DocumentEntry(const AsciiString1& aDocEntry)
 {
   Backup();
   myDocEntry = aDocEntry;
@@ -98,14 +98,14 @@ void TDocStd_XLink::DocumentEntry(const TCollection_AsciiString& aDocEntry)
 
 //=================================================================================================
 
-const TCollection_AsciiString& TDocStd_XLink::DocumentEntry() const
+const AsciiString1& TDocStd_XLink::DocumentEntry() const
 {
   return myDocEntry;
 }
 
 //=================================================================================================
 
-void TDocStd_XLink::LabelEntry(const TDF_Label& aLabel)
+void TDocStd_XLink::LabelEntry(const DataLabel& aLabel)
 {
   Backup();
   TDF_Tool::Entry(aLabel, myLabelEntry);
@@ -113,7 +113,7 @@ void TDocStd_XLink::LabelEntry(const TDF_Label& aLabel)
 
 //=================================================================================================
 
-void TDocStd_XLink::LabelEntry(const TCollection_AsciiString& aLabEntry)
+void TDocStd_XLink::LabelEntry(const AsciiString1& aLabEntry)
 {
   Backup();
   myLabelEntry = aLabEntry;
@@ -121,7 +121,7 @@ void TDocStd_XLink::LabelEntry(const TCollection_AsciiString& aLabEntry)
 
 //=================================================================================================
 
-const TCollection_AsciiString& TDocStd_XLink::LabelEntry() const
+const AsciiString1& TDocStd_XLink::LabelEntry() const
 {
   return myLabelEntry;
 }

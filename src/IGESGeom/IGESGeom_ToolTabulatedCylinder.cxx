@@ -36,9 +36,9 @@
 #include <Standard_DomainError.hxx>
 
 // MGE 31/07/98
-IGESGeom_ToolTabulatedCylinder::IGESGeom_ToolTabulatedCylinder() {}
+TabulatedCylinderTool::TabulatedCylinderTool() {}
 
-void IGESGeom_ToolTabulatedCylinder::ReadOwnParams(const Handle(IGESGeom_TabulatedCylinder)& ent,
+void TabulatedCylinderTool::ReadOwnParams(const Handle(IGESGeom_TabulatedCylinder)& ent,
                                                    const Handle(IGESData_IGESReaderData)&    IR,
                                                    IGESData_ParamReader& PR) const
 {
@@ -86,7 +86,7 @@ void IGESGeom_ToolTabulatedCylinder::ReadOwnParams(const Handle(IGESGeom_Tabulat
   ent->Init(aDirectrix, anEnd);
 }
 
-void IGESGeom_ToolTabulatedCylinder::WriteOwnParams(const Handle(IGESGeom_TabulatedCylinder)& ent,
+void TabulatedCylinderTool::WriteOwnParams(const Handle(IGESGeom_TabulatedCylinder)& ent,
                                                     IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->Directrix());
@@ -95,13 +95,13 @@ void IGESGeom_ToolTabulatedCylinder::WriteOwnParams(const Handle(IGESGeom_Tabula
   IW.Send(ent->EndPoint().Z());
 }
 
-void IGESGeom_ToolTabulatedCylinder::OwnShared(const Handle(IGESGeom_TabulatedCylinder)& ent,
+void TabulatedCylinderTool::OwnShared(const Handle(IGESGeom_TabulatedCylinder)& ent,
                                                Interface_EntityIterator&                 iter) const
 {
   iter.GetOneItem(ent->Directrix());
 }
 
-void IGESGeom_ToolTabulatedCylinder::OwnCopy(const Handle(IGESGeom_TabulatedCylinder)& another,
+void TabulatedCylinderTool::OwnCopy(const Handle(IGESGeom_TabulatedCylinder)& another,
                                              const Handle(IGESGeom_TabulatedCylinder)& ent,
                                              Interface_CopyTool&                       TC) const
 {
@@ -112,10 +112,10 @@ void IGESGeom_ToolTabulatedCylinder::OwnCopy(const Handle(IGESGeom_TabulatedCyli
   ent->Init(aDirectrix, anEnd);
 }
 
-IGESData_DirChecker IGESGeom_ToolTabulatedCylinder::DirChecker(
+DirectoryChecker TabulatedCylinderTool::DirChecker(
   const Handle(IGESGeom_TabulatedCylinder)& /* ent */) const
 {
-  IGESData_DirChecker DC(122, 0);
+  DirectoryChecker DC(122, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   //  DC.LineWeight(IGESData_DefValue);
@@ -124,13 +124,13 @@ IGESData_DirChecker IGESGeom_ToolTabulatedCylinder::DirChecker(
   return DC;
 }
 
-void IGESGeom_ToolTabulatedCylinder::OwnCheck(const Handle(IGESGeom_TabulatedCylinder)& /* ent */,
+void TabulatedCylinderTool::OwnCheck(const Handle(IGESGeom_TabulatedCylinder)& /* ent */,
                                               const Interface_ShareTool&,
                                               Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESGeom_ToolTabulatedCylinder::OwnDump(const Handle(IGESGeom_TabulatedCylinder)& ent,
+void TabulatedCylinderTool::OwnDump(const Handle(IGESGeom_TabulatedCylinder)& ent,
                                              const IGESData_IGESDumper&                dumper,
                                              Standard_OStream&                         S,
                                              const Standard_Integer                    level) const

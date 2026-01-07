@@ -133,7 +133,7 @@ static void FindLimits(const Handle(Adaptor3d_Surface)& surf,
 
 void StdPrs_WFDeflectionSurface::Add(const Handle(Prs3d_Presentation)& aPresentation,
                                      const Handle(Adaptor3d_Surface)&  aSurface,
-                                     const Handle(Prs3d_Drawer)&       aDrawer)
+                                     const Handle(StyleDrawer)&       aDrawer)
 {
   Standard_Real U1, U2, V1, V2;
   Standard_Real MaxP = aDrawer->MaximalParameterValue();

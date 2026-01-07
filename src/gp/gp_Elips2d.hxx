@@ -297,7 +297,7 @@ inline gp_Ax2d gp_Elips2d::Directrix1() const
   Standard_Real anE = Eccentricity();
   Standard_ConstructionError_Raise_if(anE <= gp::Resolution(),
                                       "gp_Elips2d::Directrix1() - zero eccentricity");
-  gp_XY anOrig = pos.XDirection().XY();
+  Coords2d anOrig = pos.XDirection().XY();
   anOrig.Multiply(majorRadius / anE);
   anOrig.Add(pos.Location().XY());
   return gp_Ax2d(gp_Pnt2d(anOrig), gp_Dir2d(pos.YDirection()));
@@ -312,7 +312,7 @@ inline gp_Ax2d gp_Elips2d::Directrix2() const
   Standard_Real anE = Eccentricity();
   Standard_ConstructionError_Raise_if(anE <= gp::Resolution(),
                                       "gp_Elips2d::Directrix2() - zero eccentricity");
-  gp_XY anOrig = pos.XDirection().XY();
+  Coords2d anOrig = pos.XDirection().XY();
   anOrig.Multiply(-majorRadius / anE);
   anOrig.Add(pos.Location().XY());
   return gp_Ax2d(gp_Pnt2d(anOrig), gp_Dir2d(pos.YDirection()));

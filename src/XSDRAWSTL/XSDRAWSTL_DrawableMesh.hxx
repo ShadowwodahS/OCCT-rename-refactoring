@@ -21,7 +21,7 @@
 
 #include <Draw_Drawable3D.hxx>
 class MeshVS_Mesh;
-class Draw_Display;
+class DrawDisplay;
 
 class XSDRAWSTL_DrawableMesh;
 DEFINE_STANDARD_HANDLE(XSDRAWSTL_DrawableMesh, Draw_Drawable3D)
@@ -32,7 +32,7 @@ class XSDRAWSTL_DrawableMesh : public Draw_Drawable3D
 public:
   Standard_EXPORT XSDRAWSTL_DrawableMesh(const Handle(MeshVS_Mesh)& aMesh);
 
-  Standard_EXPORT virtual void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   Standard_EXPORT Handle(MeshVS_Mesh) GetMesh() const;
 

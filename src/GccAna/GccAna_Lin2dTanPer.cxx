@@ -166,7 +166,7 @@ GccAna_Lin2dTanPer::GccAna_Lin2dTanPer(const GccEnt_QualifiedCirc& Qualified1,
     nbsol = 2;
     signe = -1;
   }
-  gp_XY xy(C1.Radius() * TheLin.Direction().XY());
+  Coords2d xy(C1.Radius() * TheLin.Direction().XY());
   for (Standard_Integer j = 1; j <= nbsol; j++)
   {
     signe = -signe;

@@ -28,14 +28,14 @@
 #include <Standard_Integer.hxx>
 class IGESData_ViewKindEntity;
 class gp_Pnt2d;
-class gp_XY;
+class Coords2d;
 class gp_XYZ;
 
 class IGESDraw_DrawingWithRotation;
 DEFINE_STANDARD_HANDLE(IGESDraw_DrawingWithRotation, IGESData_IGESEntity)
 
 //! defines IGESDrawingWithRotation, Type <404> Form <1>
-//! in package IGESDraw
+//! in package IGESDraw1
 //!
 //! Permits rotation, in addition to transformation and
 //! scaling, between the view and drawing coordinate systems
@@ -82,7 +82,7 @@ public:
   //! raises an exception if Index <= 0 or Index > NbAnnotations().
   Standard_EXPORT Handle(IGESData_IGESEntity) Annotation(const Standard_Integer Index) const;
 
-  Standard_EXPORT gp_XY ViewToDrawing(const Standard_Integer NumView,
+  Standard_EXPORT Coords2d ViewToDrawing(const Standard_Integer NumView,
                                       const gp_XYZ&          ViewCoords) const;
 
   //! Returns the Drawing Unit Value if it is specified (by a

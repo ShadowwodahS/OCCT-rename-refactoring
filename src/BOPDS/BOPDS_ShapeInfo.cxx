@@ -22,7 +22,7 @@
 void BOPDS_ShapeInfo::Dump() const
 {
   const TopAbs_ShapeEnum aTS = ShapeType();
-  printf(" %s", TopAbs::ShapeTypeToString(aTS));
+  printf(" %s", TopAbs1::ShapeTypeToString(aTS));
   printf(" {");
   for (TColStd_ListOfInteger::Iterator aIt(mySubShapes); aIt.More(); aIt.Next())
   {

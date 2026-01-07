@@ -34,13 +34,13 @@ class Plate_FreeGtoCConstraint
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Plate_FreeGtoCConstraint(const gp_XY&           point2d,
+  Standard_EXPORT Plate_FreeGtoCConstraint(const Coords2d&           point2d,
                                            const Plate_D1&        D1S,
                                            const Plate_D1&        D1T,
                                            const Standard_Real    IncrementalLoad = 1.0,
                                            const Standard_Integer orientation     = 0);
 
-  Standard_EXPORT Plate_FreeGtoCConstraint(const gp_XY&           point2d,
+  Standard_EXPORT Plate_FreeGtoCConstraint(const Coords2d&           point2d,
                                            const Plate_D1&        D1S,
                                            const Plate_D1&        D1T,
                                            const Plate_D2&        D2S,
@@ -48,7 +48,7 @@ public:
                                            const Standard_Real    IncrementalLoad = 1.0,
                                            const Standard_Integer orientation     = 0);
 
-  Standard_EXPORT Plate_FreeGtoCConstraint(const gp_XY&           point2d,
+  Standard_EXPORT Plate_FreeGtoCConstraint(const Coords2d&           point2d,
                                            const Plate_D1&        D1S,
                                            const Plate_D1&        D1T,
                                            const Plate_D2&        D2S,
@@ -68,7 +68,7 @@ public:
 
 protected:
 private:
-  gp_XY                        pnt2d;
+  Coords2d                        pnt2d;
   Standard_Integer             nb_PPConstraints;
   Standard_Integer             nb_LSConstraints;
   Plate_PinpointConstraint     myPPC[5];

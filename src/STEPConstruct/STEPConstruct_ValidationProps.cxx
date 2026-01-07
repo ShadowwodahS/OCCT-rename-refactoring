@@ -60,14 +60,14 @@ STEPConstruct_ValidationProps::STEPConstruct_ValidationProps() {}
 //=================================================================================================
 
 STEPConstruct_ValidationProps::STEPConstruct_ValidationProps(
-  const Handle(XSControl_WorkSession)& WS)
+  const Handle(ExchangeSession)& WS)
     : STEPConstruct_Tool(WS)
 {
 }
 
 //=================================================================================================
 
-Standard_Boolean STEPConstruct_ValidationProps::Init(const Handle(XSControl_WorkSession)& WS)
+Standard_Boolean STEPConstruct_ValidationProps::Init(const Handle(ExchangeSession)& WS)
 {
   return SetWS(WS);
 }
@@ -88,7 +88,7 @@ static Handle(Transfer_SimpleBinderOfTransient) TransientResult(
 //=================================================================================================
 
 Standard_Boolean STEPConstruct_ValidationProps::FindTarget(
-  const TopoDS_Shape&                     Shape,
+  const TopoShape&                     Shape,
   StepRepr_CharacterizedDefinition&       target,
   Handle(StepRepr_RepresentationContext)& Context,
   const Standard_Boolean                  instance)
@@ -104,7 +104,7 @@ Standard_Boolean STEPConstruct_ValidationProps::FindTarget(
         Handle(StepRepr_NextAssemblyUsageOccurrence) NAUO;
         Standard_Boolean found = myAssemblyPD.IsNull()?
           FinderProcess()->FindTypedTransient
-    (mapper,STANDARD_TYPE(StepRepr_NextAssemblyUsageOccurrence), NAUO) : STEPConstruct::FindNAUO
+    (mapper,STANDARD_TYPE(StepRepr_NextAssemblyUsageOccurrence), NAUO) : STEPConstruct1::FindNAUO
     (binder,myAssemblyPD,NAUO); if ( found ) {
           //skl find CDSR using NAUO:
           Handle(StepShape_ContextDependentShapeRepresentation) CDSR
@@ -395,7 +395,7 @@ Standard_Boolean STEPConstruct_ValidationProps::AddProp(
 //=================================================================================================
 
 Standard_Boolean STEPConstruct_ValidationProps::AddProp(
-  const TopoDS_Shape&                        Shape,
+  const TopoShape&                        Shape,
   const Handle(StepRepr_RepresentationItem)& Prop,
   const Standard_CString                     Descr,
   const Standard_Boolean                     instance)
@@ -409,7 +409,7 @@ Standard_Boolean STEPConstruct_ValidationProps::AddProp(
 
 //=================================================================================================
 
-Standard_Boolean STEPConstruct_ValidationProps::AddVolume(const TopoDS_Shape& Shape,
+Standard_Boolean STEPConstruct_ValidationProps::AddVolume(const TopoShape& Shape,
                                                           const Standard_Real Vol)
 {
   Handle(StepBasic_MeasureValueMember) Val = new StepBasic_MeasureValueMember;
@@ -445,7 +445,7 @@ Standard_Boolean STEPConstruct_ValidationProps::AddVolume(const TopoDS_Shape& Sh
 
 //=================================================================================================
 
-Standard_Boolean STEPConstruct_ValidationProps::AddArea(const TopoDS_Shape& Shape,
+Standard_Boolean STEPConstruct_ValidationProps::AddArea(const TopoShape& Shape,
                                                         const Standard_Real Area)
 {
   Handle(StepBasic_MeasureValueMember) Val = new StepBasic_MeasureValueMember;
@@ -481,7 +481,7 @@ Standard_Boolean STEPConstruct_ValidationProps::AddArea(const TopoDS_Shape& Shap
 
 //=================================================================================================
 
-Standard_Boolean STEPConstruct_ValidationProps::AddCentroid(const TopoDS_Shape&    Shape,
+Standard_Boolean STEPConstruct_ValidationProps::AddCentroid(const TopoShape&    Shape,
                                                             const Point3d&          Pnt,
                                                             const Standard_Boolean instance)
 {
@@ -517,7 +517,7 @@ Standard_Boolean STEPConstruct_ValidationProps::LoadProps(TColStd_SequenceOfTran
       // "geometric validation property" with words separated by spaces; however older versions of
       // the same RP document used underscores. To be able to read files written using older
       // convention, we convert all underscores to spaces for this check.
-      TCollection_AsciiString aName = PD->Name()->String();
+      AsciiString1 aName = PD->Name()->String();
       aName.ChangeAll('_', ' ', Standard_False);
       aName.LowerCase();
       if (aName != "geometric validation property")
@@ -607,11 +607,11 @@ Handle(StepRepr_NextAssemblyUsageOccurrence) STEPConstruct_ValidationProps::GetP
 
 //=================================================================================================
 
-TopoDS_Shape STEPConstruct_ValidationProps::GetPropShape(
+TopoShape STEPConstruct_ValidationProps::GetPropShape(
   const Handle(StepBasic_ProductDefinition)& ProdDef) const
 {
   // find target shape
-  TopoDS_Shape            S;
+  TopoShape            S;
   Handle(Transfer_Binder) binder = TransientProcess()->Find(ProdDef);
   if (!binder.IsNull() && binder->HasResult())
   {
@@ -640,11 +640,11 @@ TopoDS_Shape STEPConstruct_ValidationProps::GetPropShape(
 
 //=================================================================================================
 
-TopoDS_Shape STEPConstruct_ValidationProps::GetPropShape(
+TopoShape STEPConstruct_ValidationProps::GetPropShape(
   const Handle(StepRepr_PropertyDefinition)& PD) const
 {
   Handle(StepBasic_ProductDefinition) ProdDef = GetPropPD(PD);
-  TopoDS_Shape                        S;
+  TopoShape                        S;
   if (!ProdDef.IsNull())
     S = GetPropShape(ProdDef);
   return S;
@@ -656,7 +656,7 @@ Standard_Boolean STEPConstruct_ValidationProps::GetPropReal(
   const Handle(StepRepr_RepresentationItem)& item,
   Standard_Real&                             Val,
   Standard_Boolean&                          isArea,
-  const StepData_Factors&                    theLocalFactors) const
+  const ConversionFactors&                    theLocalFactors) const
 {
   // decode volume & area
   if (!item->IsKind(STANDARD_TYPE(StepRepr_MeasureRepresentationItem)))
@@ -666,7 +666,7 @@ Standard_Boolean STEPConstruct_ValidationProps::GetPropReal(
     Handle(StepRepr_MeasureRepresentationItem)::DownCast(item);
 
   Handle(StepBasic_MeasureWithUnit) M    = mri->Measure();
-  TCollection_AsciiString           Name = M->ValueComponentMember()->Name();
+  AsciiString1           Name = M->ValueComponentMember()->Name();
   StepBasic_Unit                    Unit = M->UnitComponent();
 
   Standard_Real                 scale = 1.;
@@ -724,7 +724,7 @@ Standard_Boolean STEPConstruct_ValidationProps::GetPropPnt(
   const Handle(StepRepr_RepresentationItem)&    item,
   const Handle(StepRepr_RepresentationContext)& Context,
   Point3d&                                       Pnt,
-  const StepData_Factors&                       theLocalFactors) const
+  const ConversionFactors&                       theLocalFactors) const
 {
   // centroid
   if (!item->IsKind(STANDARD_TYPE(StepGeom_CartesianPoint)))
@@ -777,7 +777,7 @@ Standard_Boolean STEPConstruct_ValidationProps::GetPropPnt(
 
 //=================================================================================================
 
-void STEPConstruct_ValidationProps::SetAssemblyShape(const TopoDS_Shape& shape)
+void STEPConstruct_ValidationProps::SetAssemblyShape(const TopoShape& shape)
 {
   Handle(TransferBRep_ShapeMapper) mapper = TransferBRep::ShapeMapper(FinderProcess(), shape);
   FinderProcess()->FindTypedTransient(mapper,

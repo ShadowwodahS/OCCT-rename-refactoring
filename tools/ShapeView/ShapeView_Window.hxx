@@ -92,17 +92,17 @@ public:
 protected:
   //! Appends shape into tree view model
   //! \param theShape a shape instance
-  Standard_EXPORT void addShape(const TopoDS_Shape& theShape);
+  Standard_EXPORT void addShape(const TopoShape& theShape);
 
 private:
   //! Fills controls of the plugin by parameters:
-  //! - Fine AIS_InteractiveObject and fills View if it if it differs from the current context
+  //! - Fine VisualEntity and fills View if it if it differs from the current context
   //! \param theParameters a parameters container
   void Init(NCollection_List<Handle(RefObject)>& theParameters);
 
   //! Reads Shape from the file name, add Shape into tree view
   //! \param theFileName BREP file name
-  void OpenFile(const TCollection_AsciiString& theFileName);
+  void OpenFile(const AsciiString1& theFileName);
 
 protected slots:
 
@@ -135,7 +135,7 @@ protected slots:
   //! \param theFileName a file name to be opened
   void onOpenFile(const QString& theFileName)
   {
-    OpenFile(TCollection_AsciiString(theFileName.toUtf8().data()));
+    OpenFile(AsciiString1(theFileName.toUtf8().data()));
   }
 
 protected:

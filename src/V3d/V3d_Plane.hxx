@@ -29,7 +29,7 @@ DEFINE_STANDARD_HANDLE(V3d_Plane, RefObject)
 //! @code
 //!
 //! Handle(V3d_Plane) aPlane (0, 1, 0, -20);
-//! Handle(V3d_View) aView;
+//! Handle(ViewWindow) aView;
 //! aView->AddClipPlane (aPlane->ClipPlane());
 //!
 //! aPlane->Display (aView);
@@ -55,7 +55,7 @@ public:
                                 const Standard_Real theD);
 
   //! Display the plane representation in the chosen view.
-  Standard_EXPORT virtual void Display(const Handle(V3d_View)& theView,
+  Standard_EXPORT virtual void Display(const Handle(ViewWindow)& theView,
                                        const Quantity_Color&   theColor = Quantity_NOC_GRAY);
 
   //! Erase the plane representation.

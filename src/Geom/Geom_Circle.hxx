@@ -29,8 +29,8 @@ class Vector3d;
 class Transform3d;
 class Geom_Geometry;
 
-class Geom_Circle;
-DEFINE_STANDARD_HANDLE(Geom_Circle, Geom_Conic)
+class GeomCircle;
+DEFINE_STANDARD_HANDLE(GeomCircle, Geom_Conic)
 
 //! Describes a circle in 3D space.
 //! A circle is defined by its radius and, as with any conic
@@ -50,7 +50,7 @@ DEFINE_STANDARD_HANDLE(Geom_Circle, Geom_Conic)
 //! gives an explicit orientation to the circle (definition of
 //! the trigonometric sense), determining the direction in
 //! which the parameter increases along the circle.
-//! The Geom_Circle circle is parameterized by an angle:
+//! The GeomCircle circle is parameterized by an angle:
 //! P(U) = O + R*Cos(U)*XDir + R*Sin(U)*YDir, where:
 //! - P is the point of parameter U,
 //! - O, XDir and YDir are respectively the origin, "X
@@ -61,12 +61,12 @@ DEFINE_STANDARD_HANDLE(Geom_Circle, Geom_Conic)
 //! parameter is the angle with this "X Direction".
 //! A circle is a closed and periodic curve. The period is
 //! 2.*Pi and the parameter range is [ 0, 2.*Pi [.
-class Geom_Circle : public Geom_Conic
+class GeomCircle : public Geom_Conic
 {
 
 public:
   //! Constructs a circle by conversion of the gp_Circ circle C.
-  Standard_EXPORT Geom_Circle(const gp_Circ& C);
+  Standard_EXPORT GeomCircle(const gp_Circ& C);
 
   //! Constructs a circle of radius Radius, where A2 locates the circle and
   //! defines its orientation in 3D space such that:
@@ -76,7 +76,7 @@ public:
   //! - A2 is the local coordinate system of the circle.
   //! Note: It is possible to create a circle where Radius is equal to 0.0.
   //! raised if Radius < 0.
-  Standard_EXPORT Geom_Circle(const Frame3d& A2, const Standard_Real Radius);
+  Standard_EXPORT GeomCircle(const Frame3d& A2, const Standard_Real Radius);
 
   //! Set <me> so that <me> has the same geometric properties as C.
   Standard_EXPORT void SetCirc(const gp_Circ& C);
@@ -157,7 +157,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_Circle, Geom_Conic)
+  DEFINE_STANDARD_RTTIEXT(GeomCircle, Geom_Conic)
 
 protected:
 private:

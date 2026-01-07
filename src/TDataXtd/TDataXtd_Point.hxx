@@ -17,7 +17,7 @@
 #define _TDataXtd_Point_HeaderFile
 
 #include <TDataStd_GenericEmpty.hxx>
-class TDF_Label;
+class DataLabel;
 class Point3d;
 
 class TDataXtd_Point;
@@ -41,13 +41,13 @@ public:
 
   //! Sets the label Label as a point attribute.
   //! If no object is found, a point attribute is created.
-  Standard_EXPORT static Handle(TDataXtd_Point) Set(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataXtd_Point) Set(const DataLabel& label);
 
   //! Sets the label Label as a point attribute containing the point P.
   //! If no object is found, a point attribute is created.
   //! Point methods
   //! =============
-  Standard_EXPORT static Handle(TDataXtd_Point) Set(const TDF_Label& label, const Point3d& P);
+  Standard_EXPORT static Handle(TDataXtd_Point) Set(const DataLabel& label, const Point3d& P);
 
   Standard_EXPORT TDataXtd_Point();
 

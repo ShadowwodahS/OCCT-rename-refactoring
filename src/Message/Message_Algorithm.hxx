@@ -33,9 +33,9 @@
 #include <Message_HArrayOfMsg.hxx>
 
 class Message_Messenger;
-class TCollection_AsciiString;
+class AsciiString1;
 class TCollection_HAsciiString;
-class TCollection_ExtendedString;
+class UtfString;
 class TCollection_HExtendedString;
 class Message_Msg;
 class TColStd_HPackedMapOfInteger;
@@ -108,7 +108,7 @@ public:
   //! If noRepetitions is True, the parameter will be added only
   //! if it has not been yet recorded for the same status flag
   void SetStatus(const Message_Status&          theStat,
-                 const TCollection_AsciiString& theStr,
+                 const AsciiString1& theStr,
                  const Standard_Boolean         noRepetitions = Standard_True);
 
   //! Sets status with string parameter
@@ -122,7 +122,7 @@ public:
   //! If noRepetitions is True, the parameter will be added only
   //! if it has not been yet recorded for the same status flag
   void SetStatus(const Message_Status&             theStat,
-                 const TCollection_ExtendedString& theStr,
+                 const UtfString& theStr,
                  const Standard_Boolean            noRepetitions = Standard_True);
 
   //! Sets status with string parameter
@@ -204,13 +204,13 @@ public:
 
   //! Prepares a string containing a list of integers contained
   //! in theError map, but not more than theMaxCount
-  Standard_EXPORT static TCollection_ExtendedString PrepareReport(
+  Standard_EXPORT static UtfString PrepareReport(
     const Handle(TColStd_HPackedMapOfInteger)& theError,
     const Standard_Integer                     theMaxCount);
 
   //! Prepares a string containing a list of names contained
   //! in theReportSeq sequence, but not more than theMaxCount
-  Standard_EXPORT static TCollection_ExtendedString PrepareReport(
+  Standard_EXPORT static UtfString PrepareReport(
     const TColStd_SequenceOfHExtendedString& theReportSeq,
     const Standard_Integer                   theMaxCount);
 

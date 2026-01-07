@@ -49,8 +49,8 @@ char Name[100];
 
 BRepToIGES_BREntity::BRepToIGES_BREntity()
     : TheUnitFactor(1.0),
-      myConvSurface(Interface_Static::IVal("write.convertsurface.mode") != 0),
-      myPCurveMode(Interface_Static::IVal("write.surfacecurve.mode") != 0),
+      myConvSurface(ExchangeConfig::IVal("write.convertsurface.mode") != 0),
+      myPCurveMode(ExchangeConfig::IVal("write.surfacecurve.mode") != 0),
       TheMap(new Transfer_FinderProcess())
 {
 }
@@ -61,8 +61,8 @@ void BRepToIGES_BREntity::Init()
 {
   TheMap        = new Transfer_FinderProcess();
   TheUnitFactor = 1.;
-  myConvSurface = Interface_Static::IVal("write.convertsurface.mode") != 0;
-  myPCurveMode  = Interface_Static::IVal("write.surfacecurve.mode") != 0;
+  myConvSurface = ExchangeConfig::IVal("write.convertsurface.mode") != 0;
+  myPCurveMode  = ExchangeConfig::IVal("write.surfacecurve.mode") != 0;
 }
 
 //=================================================================================================
@@ -106,11 +106,11 @@ Handle(Transfer_FinderProcess) BRepToIGES_BREntity::GetTransferProcess() const
 //=================================================================================================
 
 Handle(IGESData_IGESEntity) BRepToIGES_BREntity::TransferShape(
-  const TopoDS_Shape&          start,
+  const TopoShape&          start,
   const Message_ProgressRange& theProgress)
 {
   Handle(IGESData_IGESEntity) res;
-  //  TopoDS_Shape theShape;
+  //  TopoShape theShape;
   // Standard_Integer Nb = 1; //szv#4:S4163:12Mar99 not needed
 
   if (start.IsNull())
@@ -118,14 +118,14 @@ Handle(IGESData_IGESEntity) BRepToIGES_BREntity::TransferShape(
 
   if (start.ShapeType() == TopAbs_VERTEX)
   {
-    TopoDS_Vertex     V = TopoDS::Vertex(start);
+    TopoVertex     V = TopoDS::Vertex(start);
     BRepToIGES_BRWire BW(*this);
     BW.SetModel(GetModel());
     res = BW.TransferVertex(V);
   }
   else if (start.ShapeType() == TopAbs_EDGE)
   {
-    TopoDS_Edge       E = TopoDS::Edge(start);
+    TopoEdge       E = TopoDS::Edge(start);
     BRepToIGES_BRWire BW(*this);
     BW.SetModel(GetModel());
     TopTools_DataMapOfShapeShape anEmptyMap;
@@ -133,7 +133,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BREntity::TransferShape(
   }
   else if (start.ShapeType() == TopAbs_WIRE)
   {
-    TopoDS_Wire       W = TopoDS::Wire(start);
+    TopoWire       W = TopoDS::Wire(start);
     BRepToIGES_BRWire BW(*this);
     BW.SetModel(GetModel());
     res = BW.TransferWire(W);
@@ -144,25 +144,25 @@ Handle(IGESData_IGESEntity) BRepToIGES_BREntity::TransferShape(
     //    surfaces directes (obligatoire dans IGES)
     //    theShape = ShapeCustom::DirectFaces(start);
     // sprintf(Name,"res_%d",Nb++);
-    // DBRep::Set(Name,theShape);
+    // DBRep1::Set(Name,theShape);
 
     if (start.ShapeType() == TopAbs_FACE)
     {
-      TopoDS_Face        F = TopoDS::Face(start);
+      TopoFace        F = TopoDS::Face(start);
       BRepToIGES_BRShell BS(*this);
       BS.SetModel(GetModel());
       res = BS.TransferFace(F, theProgress);
     }
     else if (start.ShapeType() == TopAbs_SHELL)
     {
-      TopoDS_Shell       S = TopoDS::Shell(start);
+      TopoShell       S = TopoDS::Shell(start);
       BRepToIGES_BRShell BS(*this);
       BS.SetModel(GetModel());
       res = BS.TransferShell(S, theProgress);
     }
     else if (start.ShapeType() == TopAbs_SOLID)
     {
-      TopoDS_Solid       M = TopoDS::Solid(start);
+      TopoSolid       M = TopoDS::Solid(start);
       BRepToIGES_BRSolid BS(*this);
       BS.SetModel(GetModel());
       res = BS.TransferSolid(M, theProgress);
@@ -176,7 +176,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BREntity::TransferShape(
     }
     else if (start.ShapeType() == TopAbs_COMPOUND)
     {
-      TopoDS_Compound    C = TopoDS::Compound(start);
+      TopoCompound    C = TopoDS::Compound(start);
       BRepToIGES_BRSolid BS(*this);
       BS.SetModel(GetModel());
       res = BS.TransferCompound(C, theProgress);
@@ -192,7 +192,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BREntity::TransferShape(
 
 //=================================================================================================
 
-void BRepToIGES_BREntity::AddFail(const TopoDS_Shape& start, const Standard_CString amess)
+void BRepToIGES_BREntity::AddFail(const TopoShape& start, const Standard_CString amess)
 {
   Handle(TransferBRep_ShapeMapper) Mapper = new TransferBRep_ShapeMapper(start);
   TheMap->AddFail(Mapper, amess);
@@ -200,7 +200,7 @@ void BRepToIGES_BREntity::AddFail(const TopoDS_Shape& start, const Standard_CStr
 
 //=================================================================================================
 
-void BRepToIGES_BREntity::AddWarning(const TopoDS_Shape& start, const Standard_CString amess)
+void BRepToIGES_BREntity::AddWarning(const TopoShape& start, const Standard_CString amess)
 {
   Handle(TransferBRep_ShapeMapper) Mapper = new TransferBRep_ShapeMapper(start);
   TheMap->AddWarning(Mapper, amess);
@@ -226,7 +226,7 @@ void BRepToIGES_BREntity::AddWarning(const Handle(RefObject)& start,
 
 //=================================================================================================
 
-Standard_Boolean BRepToIGES_BREntity::HasShapeResult(const TopoDS_Shape& start) const
+Standard_Boolean BRepToIGES_BREntity::HasShapeResult(const TopoShape& start) const
 {
   Handle(TransferBRep_ShapeMapper) Mapper = new TransferBRep_ShapeMapper(start);
   DeclareAndCast(Transfer_SimpleBinderOfTransient, binder, TheMap->Find(Mapper));
@@ -237,7 +237,7 @@ Standard_Boolean BRepToIGES_BREntity::HasShapeResult(const TopoDS_Shape& start) 
 
 //=================================================================================================
 
-Handle(RefObject) BRepToIGES_BREntity::GetShapeResult(const TopoDS_Shape& start) const
+Handle(RefObject) BRepToIGES_BREntity::GetShapeResult(const TopoShape& start) const
 {
   Handle(RefObject) res;
 
@@ -252,7 +252,7 @@ Handle(RefObject) BRepToIGES_BREntity::GetShapeResult(const TopoDS_Shape& start)
 
 //=================================================================================================
 
-void BRepToIGES_BREntity::SetShapeResult(const TopoDS_Shape&               start,
+void BRepToIGES_BREntity::SetShapeResult(const TopoShape&               start,
                                          const Handle(RefObject)& result)
 {
   Handle(TransferBRep_ShapeMapper)         Mapper = new TransferBRep_ShapeMapper(start);

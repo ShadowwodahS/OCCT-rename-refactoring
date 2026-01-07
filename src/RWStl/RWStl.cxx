@@ -81,14 +81,14 @@ public:
     myTriangles.Append(Poly_Triangle(theNode1, theNode2, theNode3));
   }
 
-  //! Creates Poly_Triangulation from collected data
-  Handle(Poly_Triangulation) GetTriangulation()
+  //! Creates MeshTriangulation from collected data
+  Handle(MeshTriangulation) GetTriangulation()
   {
     if (myTriangles.IsEmpty())
-      return Handle(Poly_Triangulation)();
+      return Handle(MeshTriangulation)();
 
-    Handle(Poly_Triangulation) aPoly =
-      new Poly_Triangulation(myNodes.Length(), myTriangles.Length(), Standard_False);
+    Handle(MeshTriangulation) aPoly =
+      new MeshTriangulation(myNodes.Length(), myTriangles.Length(), Standard_False);
     for (Standard_Integer aNodeIter = 0; aNodeIter < myNodes.Size(); ++aNodeIter)
     {
       aPoly->SetNode(aNodeIter + 1, myNodes[aNodeIter]);
@@ -121,7 +121,7 @@ public:
   //! Add triangulation to triangulation list for multi-domain case
   virtual void AddSolid() Standard_OVERRIDE
   {
-    if (Handle(Poly_Triangulation) aCurrentTri = GetTriangulation())
+    if (Handle(MeshTriangulation) aCurrentTri = GetTriangulation())
     {
       myTriangulationList.Append(aCurrentTri);
     }
@@ -129,20 +129,20 @@ public:
   }
 
   //! Returns triangulation list for multi-domain case
-  NCollection_Sequence<Handle(Poly_Triangulation)>& ChangeTriangulationList()
+  NCollection_Sequence<Handle(MeshTriangulation)>& ChangeTriangulationList()
   {
     return myTriangulationList;
   }
 
 private:
-  NCollection_Sequence<Handle(Poly_Triangulation)> myTriangulationList;
+  NCollection_Sequence<Handle(MeshTriangulation)> myTriangulationList;
 };
 
 } // namespace
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) RWStl::ReadFile(const Standard_CString       theFile,
+Handle(MeshTriangulation) RWStl1::ReadFile(const Standard_CString       theFile,
                                            const Standard_Real          theMergeAngle,
                                            const Message_ProgressRange& theProgress)
 {
@@ -156,9 +156,9 @@ Handle(Poly_Triangulation) RWStl::ReadFile(const Standard_CString       theFile,
 
 //=================================================================================================
 
-void RWStl::ReadFile(const Standard_CString                            theFile,
+void RWStl1::ReadFile(const Standard_CString                            theFile,
                      const Standard_Real                               theMergeAngle,
-                     NCollection_Sequence<Handle(Poly_Triangulation)>& theTriangList,
+                     NCollection_Sequence<Handle(MeshTriangulation)>& theTriangList,
                      const Message_ProgressRange&                      theProgress)
 {
   MultiDomainReader aReader;
@@ -170,26 +170,26 @@ void RWStl::ReadFile(const Standard_CString                            theFile,
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) RWStl::ReadFile(const OSD_Path&              theFile,
+Handle(MeshTriangulation) RWStl1::ReadFile(const SystemPath&              theFile,
                                            const Message_ProgressRange& theProgress)
 {
-  OSD_File aFile(theFile);
+  SystemFile aFile(theFile);
   if (!aFile.Exists())
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
 
-  TCollection_AsciiString aPath;
+  AsciiString1 aPath;
   theFile.SystemName(aPath);
   return ReadFile(aPath.ToCString(), theProgress);
 }
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) RWStl::ReadBinary(const OSD_Path&              theFile,
+Handle(MeshTriangulation) RWStl1::ReadBinary(const SystemPath&              theFile,
                                              const Message_ProgressRange& theProgress)
 {
-  TCollection_AsciiString aPath;
+  AsciiString1 aPath;
   theFile.SystemName(aPath);
 
   const Handle(OSD_FileSystem)& aFileSystem = OSD_FileSystem::DefaultFileSystem();
@@ -197,13 +197,13 @@ Handle(Poly_Triangulation) RWStl::ReadBinary(const OSD_Path&              theFil
     aFileSystem->OpenIStream(aPath, std::ios::in | std::ios::binary);
   if (aStream.get() == NULL)
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
 
   Reader aReader;
   if (!aReader.ReadBinary(*aStream, theProgress))
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
 
   return aReader.GetTriangulation();
@@ -211,10 +211,10 @@ Handle(Poly_Triangulation) RWStl::ReadBinary(const OSD_Path&              theFil
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) RWStl::ReadAscii(const OSD_Path&              theFile,
+Handle(MeshTriangulation) RWStl1::ReadAscii(const SystemPath&              theFile,
                                             const Message_ProgressRange& theProgress)
 {
-  TCollection_AsciiString aPath;
+  AsciiString1 aPath;
   theFile.SystemName(aPath);
 
   const Handle(OSD_FileSystem)& aFileSystem = OSD_FileSystem::DefaultFileSystem();
@@ -222,7 +222,7 @@ Handle(Poly_Triangulation) RWStl::ReadAscii(const OSD_Path&              theFile
     aFileSystem->OpenIStream(aPath, std::ios::in | std::ios::binary);
   if (aStream.get() == NULL)
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
 
   // get length of file to feed progress indicator
@@ -234,7 +234,7 @@ Handle(Poly_Triangulation) RWStl::ReadAscii(const OSD_Path&              theFile
   Standard_ReadLineBuffer aBuffer(THE_BUFFER_SIZE);
   if (!aReader.ReadAscii(*aStream, aBuffer, theEnd, theProgress))
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
 
   return aReader.GetTriangulation();
@@ -242,8 +242,8 @@ Handle(Poly_Triangulation) RWStl::ReadAscii(const OSD_Path&              theFile
 
 //=================================================================================================
 
-Standard_Boolean RWStl::WriteBinary(const Handle(Poly_Triangulation)& theMesh,
-                                    const OSD_Path&                   thePath,
+Standard_Boolean RWStl1::WriteBinary(const Handle(MeshTriangulation)& theMesh,
+                                    const SystemPath&                   thePath,
                                     const Message_ProgressRange&      theProgress)
 {
   if (theMesh.IsNull() || theMesh->NbTriangles() <= 0)
@@ -251,7 +251,7 @@ Standard_Boolean RWStl::WriteBinary(const Handle(Poly_Triangulation)& theMesh,
     return Standard_False;
   }
 
-  TCollection_AsciiString aPath;
+  AsciiString1 aPath;
   thePath.SystemName(aPath);
 
   FILE* aFile = OSD_OpenFile(aPath, "wb");
@@ -268,8 +268,8 @@ Standard_Boolean RWStl::WriteBinary(const Handle(Poly_Triangulation)& theMesh,
 
 //=================================================================================================
 
-Standard_Boolean RWStl::WriteAscii(const Handle(Poly_Triangulation)& theMesh,
-                                   const OSD_Path&                   thePath,
+Standard_Boolean RWStl1::WriteAscii(const Handle(MeshTriangulation)& theMesh,
+                                   const SystemPath&                   thePath,
                                    const Message_ProgressRange&      theProgress)
 {
   if (theMesh.IsNull() || theMesh->NbTriangles() <= 0)
@@ -277,7 +277,7 @@ Standard_Boolean RWStl::WriteAscii(const Handle(Poly_Triangulation)& theMesh,
     return Standard_False;
   }
 
-  TCollection_AsciiString aPath;
+  AsciiString1 aPath;
   thePath.SystemName(aPath);
 
   FILE* aFile = OSD_OpenFile(aPath, "w");
@@ -293,7 +293,7 @@ Standard_Boolean RWStl::WriteAscii(const Handle(Poly_Triangulation)& theMesh,
 
 //=================================================================================================
 
-Standard_Boolean RWStl::writeASCII(const Handle(Poly_Triangulation)& theMesh,
+Standard_Boolean RWStl1::writeASCII(const Handle(MeshTriangulation)& theMesh,
                                    FILE*                             theFile,
                                    const Message_ProgressRange&      theProgress)
 {
@@ -376,7 +376,7 @@ Standard_Boolean RWStl::writeASCII(const Handle(Poly_Triangulation)& theMesh,
 
 //=================================================================================================
 
-Standard_Boolean RWStl::writeBinary(const Handle(Poly_Triangulation)& theMesh,
+Standard_Boolean RWStl1::writeBinary(const Handle(MeshTriangulation)& theMesh,
                                     FILE*                             theFile,
                                     const Message_ProgressRange&      theProgress)
 {

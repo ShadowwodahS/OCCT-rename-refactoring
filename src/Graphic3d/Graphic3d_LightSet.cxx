@@ -147,13 +147,13 @@ Standard_Size Graphic3d_LightSet::UpdateRevision()
                 + myLightTypesEnabled[Graphic3d_TypeOfLightSource_Spot];
   myKeyEnabledLong = aKeyLong;
   myKeyEnabledShort =
-    TCollection_AsciiString(myLightTypesEnabled[Graphic3d_TypeOfLightSource_Directional] > 0
+    AsciiString1(myLightTypesEnabled[Graphic3d_TypeOfLightSource_Directional] > 0
                               ? THE_LIGHT_KEY_LETTERS[Graphic3d_TypeOfLightSource_Directional]
                               : '\0')
-    + TCollection_AsciiString(myLightTypesEnabled[Graphic3d_TypeOfLightSource_Positional] > 0
+    + AsciiString1(myLightTypesEnabled[Graphic3d_TypeOfLightSource_Positional] > 0
                                 ? THE_LIGHT_KEY_LETTERS[Graphic3d_TypeOfLightSource_Positional]
                                 : '\0')
-    + TCollection_AsciiString(myLightTypesEnabled[Graphic3d_TypeOfLightSource_Spot] > 0
+    + AsciiString1(myLightTypesEnabled[Graphic3d_TypeOfLightSource_Spot] > 0
                                 ? THE_LIGHT_KEY_LETTERS[Graphic3d_TypeOfLightSource_Spot]
                                 : '\0');
   return myRevision;

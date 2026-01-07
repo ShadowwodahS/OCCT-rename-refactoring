@@ -63,11 +63,11 @@ public:
 
   //! Return an unique ID.
   //! This ID will be used to manage resource in graphic driver.
-  Standard_EXPORT const TCollection_AsciiString& GetImageId() const;
+  Standard_EXPORT const AsciiString1& GetImageId() const;
 
   //! Return an unique ID.
   //! This ID will be used to manage resource in graphic driver.
-  Standard_EXPORT const TCollection_AsciiString& GetImageAlphaId() const;
+  Standard_EXPORT const AsciiString1& GetImageAlphaId() const;
 
   //! Return texture size
   Standard_EXPORT void GetTextureSize(Standard_Integer& theWidth,
@@ -91,14 +91,14 @@ public:
 protected:
   //! Constructor from existing pixmap with predefined ids.
   Standard_EXPORT Graphic3d_MarkerImage(
-    const TCollection_AsciiString& theId,
-    const TCollection_AsciiString& theAlphaId,
+    const AsciiString1& theId,
+    const AsciiString1& theAlphaId,
     const Handle(Image_PixMap)&    theImage,
     const Handle(Image_PixMap)&    theImageAlpha = Handle(Image_PixMap)());
 
 private:
-  TCollection_AsciiString myImageId;      //!< resource identifier
-  TCollection_AsciiString myImageAlphaId; //!< resource identifier
+  AsciiString1 myImageId;      //!< resource identifier
+  AsciiString1 myImageAlphaId; //!< resource identifier
                                           // clang-format off
   Handle(TColStd_HArray1OfByte) myBitMap;       //!< bytes array with bitmap definition (for compatibility with old code)
   Handle(Image_PixMap)          myImage;        //!< full-color  marker definition

@@ -107,7 +107,7 @@ void ShapePersistent_Geom2d::instance<ShapePersistent_Geom2d::Transformation,
 //=======================================================================
 
 Handle(ShapePersistent_Geom2d::Curve) ShapePersistent_Geom2d::Translate(
-  const Handle(Geom2d_Curve)&       theCurve,
+  const Handle(GeomCurve2d)&       theCurve,
   StdObjMgt_TransientPersistentMap& theMap)
 {
   Handle(ShapePersistent_Geom2d::Curve) aPC;

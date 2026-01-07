@@ -23,7 +23,7 @@ Storage_TypedCallBack::Storage_TypedCallBack()
 {
 }
 
-Storage_TypedCallBack::Storage_TypedCallBack(const TCollection_AsciiString&  aTypeName,
+Storage_TypedCallBack::Storage_TypedCallBack(const AsciiString1&  aTypeName,
                                              const Handle(Storage_CallBack)& aCallBack)
     : myIndex(0)
 {
@@ -31,12 +31,12 @@ Storage_TypedCallBack::Storage_TypedCallBack(const TCollection_AsciiString&  aTy
   myCallBack = aCallBack;
 }
 
-void Storage_TypedCallBack::SetType(const TCollection_AsciiString& aType)
+void Storage_TypedCallBack::SetType(const AsciiString1& aType)
 {
   myType = aType;
 }
 
-TCollection_AsciiString Storage_TypedCallBack::Type() const
+AsciiString1 Storage_TypedCallBack::Type() const
 {
   return myType;
 }

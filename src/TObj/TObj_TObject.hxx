@@ -23,7 +23,7 @@
 #include <TDF_Attribute.hxx>
 
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 
 /**
  * Purpose: OCAF Attribute to storing objects (interfaces) of OCAF-based
@@ -50,7 +50,7 @@ public:
   //! Method for create TObj_TObject object
 
   //! Creates TObj_TObject attribute on given label
-  static Standard_EXPORT Handle(TObj_TObject) Set(const TDF_Label&           theLabel,
+  static Standard_EXPORT Handle(TObj_TObject) Set(const DataLabel&           theLabel,
                                                   const Handle(TObj_Object)& theElem);
 
 public:

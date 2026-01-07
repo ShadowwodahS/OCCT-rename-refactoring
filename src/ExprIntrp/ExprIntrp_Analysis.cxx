@@ -38,7 +38,7 @@ void ExprIntrp_Analysis::PushFunction(const Handle(Expr_GeneralFunction)& func)
   myGFStack.Prepend(func);
 }
 
-void ExprIntrp_Analysis::PushName(const TCollection_AsciiString& name)
+void ExprIntrp_Analysis::PushName(const AsciiString1& name)
 {
   myNameStack.Prepend(name);
 }
@@ -81,9 +81,9 @@ Handle(Expr_GeneralFunction) ExprIntrp_Analysis::PopFunction()
   return res;
 }
 
-TCollection_AsciiString ExprIntrp_Analysis::PopName()
+AsciiString1 ExprIntrp_Analysis::PopName()
 {
-  TCollection_AsciiString res;
+  AsciiString1 res;
   if (!myNameStack.IsEmpty())
   {
     res = myNameStack.First();
@@ -144,7 +144,7 @@ void ExprIntrp_Analysis::Use(const Handle(Expr_NamedExpression)& named)
   myMaster->Use(named);
 }
 
-Handle(Expr_NamedExpression) ExprIntrp_Analysis::GetNamed(const TCollection_AsciiString& name)
+Handle(Expr_NamedExpression) ExprIntrp_Analysis::GetNamed(const AsciiString1& name)
 {
   for (Standard_Integer i = 1; i <= myNamed.Length(); i++)
   {
@@ -157,7 +157,7 @@ Handle(Expr_NamedExpression) ExprIntrp_Analysis::GetNamed(const TCollection_Asci
   return curnamed;
 }
 
-Handle(Expr_NamedFunction) ExprIntrp_Analysis::GetFunction(const TCollection_AsciiString& name)
+Handle(Expr_NamedFunction) ExprIntrp_Analysis::GetFunction(const AsciiString1& name)
 {
   for (Standard_Integer i = 1; i <= myFunctions.Length(); i++)
   {

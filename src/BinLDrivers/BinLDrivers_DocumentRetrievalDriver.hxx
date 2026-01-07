@@ -30,10 +30,10 @@
 
 class BinMDF_ADriverTable;
 class Message_Messenger;
-class TCollection_ExtendedString;
+class UtfString;
 class CDM_Document;
 class CDM_Application;
-class TDF_Label;
+class DataLabel;
 class BinLDrivers_DocumentSection;
 
 class BinLDrivers_DocumentRetrievalDriver;
@@ -48,7 +48,7 @@ public:
 
   //! retrieves the content of the file into a new Document.
   Standard_EXPORT virtual void Read(
-    const TCollection_ExtendedString& theFileName,
+    const UtfString& theFileName,
     const Handle(CDM_Document)&       theNewDocument,
     const Handle(CDM_Application)&    theApplication,
     const Handle(PCDM_ReaderFilter)&  theFilter   = Handle(PCDM_ReaderFilter)(),
@@ -71,7 +71,7 @@ protected:
   //! Read the tree from the stream <theIS> to <theLabel>
   Standard_EXPORT virtual Standard_Integer ReadSubTree(
     Standard_IStream&                theIS,
-    const TDF_Label&                 theData,
+    const DataLabel&                 theData,
     const Handle(PCDM_ReaderFilter)& theFilter,
     const Standard_Boolean&          theQuickPart,
     const Standard_Boolean           theReadMissing,

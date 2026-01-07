@@ -18,22 +18,22 @@
 #include <CDF_DirectoryIterator.hxx>
 #include <CDM_Document.hxx>
 
-CDF_DirectoryIterator::CDF_DirectoryIterator(const Handle(CDF_Directory)& aDirectory)
+DirectoryIterator::DirectoryIterator(const Handle(CDF_Directory)& aDirectory)
     : myIterator(aDirectory->List())
 {
 }
 
-Standard_Boolean CDF_DirectoryIterator::MoreDocument()
+Standard_Boolean DirectoryIterator::MoreDocument()
 {
   return myIterator.More();
 }
 
-void CDF_DirectoryIterator::NextDocument()
+void DirectoryIterator::NextDocument()
 {
   myIterator.Next();
 }
 
-Handle(CDM_Document) CDF_DirectoryIterator::Document()
+Handle(CDM_Document) DirectoryIterator::Document()
 {
 
   return myIterator.Value();

@@ -24,7 +24,7 @@
 // purpose  :
 //=======================================================================
 
-inline void ShapeFix_Wire::SetFace(const TopoDS_Face& face)
+inline void WireHealer::SetFace(const TopoFace& face)
 {
   myAnalyzer->SetFace(face);
 }
@@ -34,7 +34,7 @@ inline void ShapeFix_Wire::SetFace(const TopoDS_Face& face)
 // purpose  :
 //=======================================================================
 
-inline void ShapeFix_Wire::SetSurface(const Handle(Geom_Surface)& surf)
+inline void WireHealer::SetSurface(const Handle(GeomSurface)& surf)
 {
   myAnalyzer->SetSurface(surf);
 }
@@ -44,7 +44,7 @@ inline void ShapeFix_Wire::SetSurface(const Handle(Geom_Surface)& surf)
 // purpose  :
 //=======================================================================
 
-inline void ShapeFix_Wire::SetSurface(const Handle(Geom_Surface)& surf, const TopLoc_Location& loc)
+inline void WireHealer::SetSurface(const Handle(GeomSurface)& surf, const TopLoc_Location& loc)
 {
   myAnalyzer->SetSurface(surf, loc);
 }
@@ -54,7 +54,7 @@ inline void ShapeFix_Wire::SetSurface(const Handle(Geom_Surface)& surf, const To
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ShapeFix_Wire::IsLoaded() const
+inline Standard_Boolean WireHealer::IsLoaded() const
 {
   return myAnalyzer->IsLoaded();
 }
@@ -64,7 +64,7 @@ inline Standard_Boolean ShapeFix_Wire::IsLoaded() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ShapeFix_Wire::IsReady() const
+inline Standard_Boolean WireHealer::IsReady() const
 {
   return myAnalyzer->IsReady();
 }
@@ -74,7 +74,7 @@ inline Standard_Boolean ShapeFix_Wire::IsReady() const
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Wire ShapeFix_Wire::Wire() const
+inline TopoWire WireHealer::Wire() const
 {
   return myAnalyzer->WireData()->Wire();
 }
@@ -84,7 +84,7 @@ inline TopoDS_Wire ShapeFix_Wire::Wire() const
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Wire ShapeFix_Wire::WireAPIMake() const
+inline TopoWire WireHealer::WireAPIMake() const
 {
   return myAnalyzer->WireData()->WireAPIMake();
 }
@@ -94,7 +94,7 @@ inline TopoDS_Wire ShapeFix_Wire::WireAPIMake() const
 // purpose  :
 //=======================================================================
 
-inline Handle(ShapeAnalysis_Wire) ShapeFix_Wire::Analyzer() const
+inline Handle(ShapeAnalysis_Wire) WireHealer::Analyzer() const
 {
   return myAnalyzer;
 }
@@ -104,7 +104,7 @@ inline Handle(ShapeAnalysis_Wire) ShapeFix_Wire::Analyzer() const
 // purpose  :
 //=======================================================================
 
-inline const Handle(ShapeExtend_WireData)& ShapeFix_Wire::WireData() const
+inline const Handle(ShapeExtend_WireData)& WireHealer::WireData() const
 {
   return myAnalyzer->WireData();
 }
@@ -114,7 +114,7 @@ inline const Handle(ShapeExtend_WireData)& ShapeFix_Wire::WireData() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Face& ShapeFix_Wire::Face() const
+inline const TopoFace& WireHealer::Face() const
 {
   return myAnalyzer->Face();
 }
@@ -124,7 +124,7 @@ inline const TopoDS_Face& ShapeFix_Wire::Face() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean& ShapeFix_Wire::ModifyTopologyMode()
+inline Standard_Boolean& WireHealer::ModifyTopologyMode()
 {
   return myTopoMode;
 }
@@ -134,7 +134,7 @@ inline Standard_Boolean& ShapeFix_Wire::ModifyTopologyMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean& ShapeFix_Wire::ModifyGeometryMode()
+inline Standard_Boolean& WireHealer::ModifyGeometryMode()
 {
   return myGeomMode;
 }
@@ -144,7 +144,7 @@ inline Standard_Boolean& ShapeFix_Wire::ModifyGeometryMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::ModifyRemoveLoopMode()
+inline Standard_Integer& WireHealer::ModifyRemoveLoopMode()
 {
   return myRemoveLoopMode;
 }
@@ -154,7 +154,7 @@ inline Standard_Integer& ShapeFix_Wire::ModifyRemoveLoopMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean& ShapeFix_Wire::ClosedWireMode()
+inline Standard_Boolean& WireHealer::ClosedWireMode()
 {
   return myClosedMode;
 }
@@ -164,7 +164,7 @@ inline Standard_Boolean& ShapeFix_Wire::ClosedWireMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean& ShapeFix_Wire::PreferencePCurveMode()
+inline Standard_Boolean& WireHealer::PreferencePCurveMode()
 {
   return myPreference2d;
 }
@@ -174,7 +174,7 @@ inline Standard_Boolean& ShapeFix_Wire::PreferencePCurveMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean& ShapeFix_Wire::FixGapsByRangesMode()
+inline Standard_Boolean& WireHealer::FixGapsByRangesMode()
 {
   return myFixGapsByRanges;
 }
@@ -187,7 +187,7 @@ inline Standard_Boolean& ShapeFix_Wire::FixGapsByRangesMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixReorderMode()
+inline Standard_Integer& WireHealer::FixReorderMode()
 {
   return myFixReorderMode;
 }
@@ -197,7 +197,7 @@ inline Standard_Integer& ShapeFix_Wire::FixReorderMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixSmallMode()
+inline Standard_Integer& WireHealer::FixSmallMode()
 {
   return myFixSmallMode;
 }
@@ -207,7 +207,7 @@ inline Standard_Integer& ShapeFix_Wire::FixSmallMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixConnectedMode()
+inline Standard_Integer& WireHealer::FixConnectedMode()
 {
   return myFixConnectedMode;
 }
@@ -217,7 +217,7 @@ inline Standard_Integer& ShapeFix_Wire::FixConnectedMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixEdgeCurvesMode()
+inline Standard_Integer& WireHealer::FixEdgeCurvesMode()
 {
   return myFixEdgeCurvesMode;
 }
@@ -227,7 +227,7 @@ inline Standard_Integer& ShapeFix_Wire::FixEdgeCurvesMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixDegeneratedMode()
+inline Standard_Integer& WireHealer::FixDegeneratedMode()
 {
   return myFixDegeneratedMode;
 }
@@ -240,7 +240,7 @@ inline Standard_Integer& ShapeFix_Wire::FixDegeneratedMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixReversed2dMode()
+inline Standard_Integer& WireHealer::FixReversed2dMode()
 {
   return myFixReversed2dMode;
 }
@@ -250,7 +250,7 @@ inline Standard_Integer& ShapeFix_Wire::FixReversed2dMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixRemovePCurveMode()
+inline Standard_Integer& WireHealer::FixRemovePCurveMode()
 {
   return myFixRemovePCurveMode;
 }
@@ -260,7 +260,7 @@ inline Standard_Integer& ShapeFix_Wire::FixRemovePCurveMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixRemoveCurve3dMode()
+inline Standard_Integer& WireHealer::FixRemoveCurve3dMode()
 {
   return myFixRemoveCurve3dMode;
 }
@@ -270,7 +270,7 @@ inline Standard_Integer& ShapeFix_Wire::FixRemoveCurve3dMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixAddPCurveMode()
+inline Standard_Integer& WireHealer::FixAddPCurveMode()
 {
   return myFixAddPCurveMode;
 }
@@ -280,7 +280,7 @@ inline Standard_Integer& ShapeFix_Wire::FixAddPCurveMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixAddCurve3dMode()
+inline Standard_Integer& WireHealer::FixAddCurve3dMode()
 {
   return myFixAddCurve3dMode;
 }
@@ -290,7 +290,7 @@ inline Standard_Integer& ShapeFix_Wire::FixAddCurve3dMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixSeamMode()
+inline Standard_Integer& WireHealer::FixSeamMode()
 {
   return myFixSeamMode;
 }
@@ -300,7 +300,7 @@ inline Standard_Integer& ShapeFix_Wire::FixSeamMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixShiftedMode()
+inline Standard_Integer& WireHealer::FixShiftedMode()
 {
   return myFixShiftedMode;
 }
@@ -310,7 +310,7 @@ inline Standard_Integer& ShapeFix_Wire::FixShiftedMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixSameParameterMode()
+inline Standard_Integer& WireHealer::FixSameParameterMode()
 {
   return myFixSameParameterMode;
 }
@@ -320,7 +320,7 @@ inline Standard_Integer& ShapeFix_Wire::FixSameParameterMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixVertexToleranceMode()
+inline Standard_Integer& WireHealer::FixVertexToleranceMode()
 {
   return myFixVertexToleranceMode;
 }
@@ -330,7 +330,7 @@ inline Standard_Integer& ShapeFix_Wire::FixVertexToleranceMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixLackingMode()
+inline Standard_Integer& WireHealer::FixLackingMode()
 {
   return myFixLackingMode;
 }
@@ -340,7 +340,7 @@ inline Standard_Integer& ShapeFix_Wire::FixLackingMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixSelfIntersectionMode()
+inline Standard_Integer& WireHealer::FixSelfIntersectionMode()
 {
   return myFixSelfIntersectionMode;
 }
@@ -350,7 +350,7 @@ inline Standard_Integer& ShapeFix_Wire::FixSelfIntersectionMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixGaps3dMode()
+inline Standard_Integer& WireHealer::FixGaps3dMode()
 {
   return myFixGaps3dMode;
 }
@@ -360,7 +360,7 @@ inline Standard_Integer& ShapeFix_Wire::FixGaps3dMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixGaps2dMode()
+inline Standard_Integer& WireHealer::FixGaps2dMode()
 {
   return myFixGaps2dMode;
 }
@@ -370,7 +370,7 @@ inline Standard_Integer& ShapeFix_Wire::FixGaps2dMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixNotchedEdgesMode()
+inline Standard_Integer& WireHealer::FixNotchedEdgesMode()
 {
   return myFixNotchedEdgesMode;
 }
@@ -380,7 +380,7 @@ inline Standard_Integer& ShapeFix_Wire::FixNotchedEdgesMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixSelfIntersectingEdgeMode()
+inline Standard_Integer& WireHealer::FixSelfIntersectingEdgeMode()
 {
   return myFixSelfIntersectingEdgeMode;
 }
@@ -390,7 +390,7 @@ inline Standard_Integer& ShapeFix_Wire::FixSelfIntersectingEdgeMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixIntersectingEdgesMode()
+inline Standard_Integer& WireHealer::FixIntersectingEdgesMode()
 {
   return myFixIntersectingEdgesMode;
 }
@@ -400,7 +400,7 @@ inline Standard_Integer& ShapeFix_Wire::FixIntersectingEdgesMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer& ShapeFix_Wire::FixNonAdjacentIntersectingEdgesMode()
+inline Standard_Integer& WireHealer::FixNonAdjacentIntersectingEdgesMode()
 {
   return myFixNonAdjacentIntersectingEdgesMode;
 }
@@ -409,7 +409,7 @@ inline Standard_Integer& ShapeFix_Wire::FixNonAdjacentIntersectingEdgesMode()
 // function : FixTailMode
 // purpose  :
 //=======================================================================
-inline Standard_Integer& ShapeFix_Wire::FixTailMode()
+inline Standard_Integer& WireHealer::FixTailMode()
 {
   return myFixTailMode;
 }
@@ -422,7 +422,7 @@ inline Standard_Integer& ShapeFix_Wire::FixTailMode()
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ShapeFix_Wire::StatusReorder(const ShapeExtend_Status status) const
+inline Standard_Boolean WireHealer::StatusReorder(const ShapeExtend_Status status) const
 {
   return ShapeExtend::DecodeStatus(myStatusReorder, status);
 }
@@ -432,7 +432,7 @@ inline Standard_Boolean ShapeFix_Wire::StatusReorder(const ShapeExtend_Status st
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ShapeFix_Wire::StatusSmall(const ShapeExtend_Status status) const
+inline Standard_Boolean WireHealer::StatusSmall(const ShapeExtend_Status status) const
 {
   return ShapeExtend::DecodeStatus(myStatusSmall, status);
 }
@@ -442,7 +442,7 @@ inline Standard_Boolean ShapeFix_Wire::StatusSmall(const ShapeExtend_Status stat
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ShapeFix_Wire::StatusConnected(const ShapeExtend_Status status) const
+inline Standard_Boolean WireHealer::StatusConnected(const ShapeExtend_Status status) const
 {
   return ShapeExtend::DecodeStatus(myStatusConnected, status);
 }
@@ -452,7 +452,7 @@ inline Standard_Boolean ShapeFix_Wire::StatusConnected(const ShapeExtend_Status 
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ShapeFix_Wire::StatusEdgeCurves(const ShapeExtend_Status status) const
+inline Standard_Boolean WireHealer::StatusEdgeCurves(const ShapeExtend_Status status) const
 {
   return ShapeExtend::DecodeStatus(myStatusEdgeCurves, status);
 }
@@ -462,7 +462,7 @@ inline Standard_Boolean ShapeFix_Wire::StatusEdgeCurves(const ShapeExtend_Status
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ShapeFix_Wire::StatusDegenerated(const ShapeExtend_Status status) const
+inline Standard_Boolean WireHealer::StatusDegenerated(const ShapeExtend_Status status) const
 {
   return ShapeExtend::DecodeStatus(myStatusDegenerated, status);
 }
@@ -472,7 +472,7 @@ inline Standard_Boolean ShapeFix_Wire::StatusDegenerated(const ShapeExtend_Statu
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ShapeFix_Wire::StatusLacking(const ShapeExtend_Status status) const
+inline Standard_Boolean WireHealer::StatusLacking(const ShapeExtend_Status status) const
 {
   return ShapeExtend::DecodeStatus(myStatusLacking, status);
 }
@@ -482,7 +482,7 @@ inline Standard_Boolean ShapeFix_Wire::StatusLacking(const ShapeExtend_Status st
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ShapeFix_Wire::StatusSelfIntersection(const ShapeExtend_Status status) const
+inline Standard_Boolean WireHealer::StatusSelfIntersection(const ShapeExtend_Status status) const
 {
   return ShapeExtend::DecodeStatus(myStatusSelfIntersection, status);
 }
@@ -492,7 +492,7 @@ inline Standard_Boolean ShapeFix_Wire::StatusSelfIntersection(const ShapeExtend_
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ShapeFix_Wire::StatusGaps3d(const ShapeExtend_Status status) const
+inline Standard_Boolean WireHealer::StatusGaps3d(const ShapeExtend_Status status) const
 {
   return ShapeExtend::DecodeStatus(myStatusGaps3d, status);
 }
@@ -502,7 +502,7 @@ inline Standard_Boolean ShapeFix_Wire::StatusGaps3d(const ShapeExtend_Status sta
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ShapeFix_Wire::StatusGaps2d(const ShapeExtend_Status status) const
+inline Standard_Boolean WireHealer::StatusGaps2d(const ShapeExtend_Status status) const
 {
   return ShapeExtend::DecodeStatus(myStatusGaps2d, status);
 }
@@ -512,7 +512,7 @@ inline Standard_Boolean ShapeFix_Wire::StatusGaps2d(const ShapeExtend_Status sta
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ShapeFix_Wire::StatusClosed(const ShapeExtend_Status status) const
+inline Standard_Boolean WireHealer::StatusClosed(const ShapeExtend_Status status) const
 {
   return ShapeExtend::DecodeStatus(myStatusClosed, status);
 }
@@ -522,7 +522,7 @@ inline Standard_Boolean ShapeFix_Wire::StatusClosed(const ShapeExtend_Status sta
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ShapeFix_Wire::StatusNotches(const ShapeExtend_Status status) const
+inline Standard_Boolean WireHealer::StatusNotches(const ShapeExtend_Status status) const
 {
   return ShapeExtend::DecodeStatus(myStatusNotches, status);
 }
@@ -531,7 +531,7 @@ inline Standard_Boolean ShapeFix_Wire::StatusNotches(const ShapeExtend_Status st
 // function : StatusFixTails
 // purpose  :
 //=======================================================================
-inline Standard_Boolean ShapeFix_Wire::StatusFixTails(const ShapeExtend_Status status) const
+inline Standard_Boolean WireHealer::StatusFixTails(const ShapeExtend_Status status) const
 {
   return ShapeExtend::DecodeStatus(myStatusFixTails, status);
 }
@@ -541,7 +541,7 @@ inline Standard_Boolean ShapeFix_Wire::StatusFixTails(const ShapeExtend_Status s
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ShapeFix_Wire::LastFixStatus(const ShapeExtend_Status status) const
+inline Standard_Boolean WireHealer::LastFixStatus(const ShapeExtend_Status status) const
 {
   return ShapeExtend::DecodeStatus(myLastFixStatus, status);
 }
@@ -551,7 +551,7 @@ inline Standard_Boolean ShapeFix_Wire::LastFixStatus(const ShapeExtend_Status st
 // purpose  :
 //=======================================================================
 
-inline Handle(ShapeFix_Edge) ShapeFix_Wire::FixEdgeTool() const
+inline Handle(ShapeFix_Edge) WireHealer::FixEdgeTool() const
 {
   return myFixEdge;
 }
@@ -561,7 +561,7 @@ inline Handle(ShapeFix_Edge) ShapeFix_Wire::FixEdgeTool() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean ShapeFix_Wire::StatusRemovedSegment() const
+inline Standard_Boolean WireHealer::StatusRemovedSegment() const
 {
   return myStatusRemovedSegment;
 }

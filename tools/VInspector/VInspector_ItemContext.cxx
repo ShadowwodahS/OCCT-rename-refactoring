@@ -37,7 +37,7 @@ int VInspector_ItemContext::initRowCount() const
 
   int aNbProperties = 1; // item to visualize Viewer information of context
 
-  Handle(AIS_InteractiveContext) aContext = Handle(AIS_InteractiveContext)::DownCast(Object());
+  Handle(VisualContext) aContext = Handle(VisualContext)::DownCast(Object());
   if (aContext.IsNull())
     return 0;
 
@@ -70,7 +70,7 @@ QVariant VInspector_ItemContext::initValue(const int theItemRole) const
       && theItemRole != Qt::ToolTipRole)
     return QVariant();
 
-  Handle(AIS_InteractiveContext) aContext = Handle(AIS_InteractiveContext)::DownCast(Object());
+  Handle(VisualContext) aContext = Handle(VisualContext)::DownCast(Object());
   if (aContext.IsNull())
     return Column() == 0 ? "Empty context" : "";
 
@@ -79,7 +79,7 @@ QVariant VInspector_ItemContext::initValue(const int theItemRole) const
     case 0:
       return aContext->DynamicType()->Name();
     case 4: {
-      Handle(AIS_InteractiveObject) anEmptyIO;
+      Handle(VisualEntity) anEmptyIO;
       int aSelectedCount = VInspector_Tools::SelectedOwners(aContext, anEmptyIO, false);
       return aSelectedCount > 0 ? QString::number(aSelectedCount) : "";
     }
@@ -97,7 +97,7 @@ QVariant VInspector_ItemContext::initValue(const int theItemRole) const
 // =======================================================================
 void VInspector_ItemContext::Init()
 {
-  Handle(AIS_InteractiveContext) aContext = GetContext();
+  Handle(VisualContext) aContext = GetContext();
   if (aContext.IsNull())
     return;
 
@@ -142,7 +142,7 @@ TreeModel_ItemBasePtr VInspector_ItemContext::createChild(int theRow, int theCol
 // =======================================================================
 void VInspector_ItemContext::initStream(Standard_OStream& theOStream) const
 {
-  Handle(AIS_InteractiveContext) aContext = GetContext();
+  Handle(VisualContext) aContext = GetContext();
   if (aContext.IsNull())
     return;
 

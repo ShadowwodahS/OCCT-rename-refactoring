@@ -25,13 +25,13 @@
 
 //=================================================================================================
 
-Standard_Boolean ChFi2d::CommonVertex(const TopoDS_Edge& E1,
-                                      const TopoDS_Edge& E2,
-                                      TopoDS_Vertex&     V)
+Standard_Boolean ChFi2d1::CommonVertex(const TopoEdge& E1,
+                                      const TopoEdge& E2,
+                                      TopoVertex&     V)
 {
-  TopoDS_Vertex firstVertex1, lastVertex1, firstVertex2, lastVertex2;
-  TopExp::Vertices(E1, firstVertex1, lastVertex1);
-  TopExp::Vertices(E2, firstVertex2, lastVertex2);
+  TopoVertex firstVertex1, lastVertex1, firstVertex2, lastVertex2;
+  TopExp1::Vertices(E1, firstVertex1, lastVertex1);
+  TopExp1::Vertices(E2, firstVertex2, lastVertex2);
 
   if (firstVertex1.IsSame(firstVertex2) || firstVertex1.IsSame(lastVertex2))
   {
@@ -48,13 +48,13 @@ Standard_Boolean ChFi2d::CommonVertex(const TopoDS_Edge& E1,
 
 //=================================================================================================
 
-ChFi2d_ConstructionError ChFi2d::FindConnectedEdges(const TopoDS_Face&   F,
-                                                    const TopoDS_Vertex& V,
-                                                    TopoDS_Edge&         E1,
-                                                    TopoDS_Edge&         E2)
+ChFi2d_ConstructionError ChFi2d1::FindConnectedEdges(const TopoFace&   F,
+                                                    const TopoVertex& V,
+                                                    TopoEdge&         E1,
+                                                    TopoEdge&         E2)
 {
   TopTools_IndexedDataMapOfShapeListOfShape vertexMap;
-  TopExp::MapShapesAndAncestors(F, TopAbs_VERTEX, TopAbs_EDGE, vertexMap);
+  TopExp1::MapShapesAndAncestors(F, TopAbs_VERTEX, TopAbs_EDGE, vertexMap);
 
   if (vertexMap.Contains(V))
   {

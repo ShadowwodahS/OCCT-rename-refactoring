@@ -25,7 +25,7 @@ public:
   //! Constructor with string argument
   Standard_EXPORT Message_AttributeObject(
     const Handle(RefObject)& theObject,
-    const TCollection_AsciiString&    theName = TCollection_AsciiString());
+    const AsciiString1&    theName = AsciiString1());
 
   //! Returns object
   //! @return the object instance

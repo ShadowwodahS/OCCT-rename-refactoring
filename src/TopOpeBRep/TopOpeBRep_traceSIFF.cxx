@@ -44,33 +44,33 @@ void TopOpeBRep_traceSIFF::Set(const Standard_Boolean b, Standard_Integer n, cha
   myfilename = a[2];
 }
 
-void TopOpeBRep_traceSIFF::Set(const TCollection_AsciiString& brep1,
-                               const TCollection_AsciiString& brep2,
-                               const TCollection_AsciiString& filename)
+void TopOpeBRep_traceSIFF::Set(const AsciiString1& brep1,
+                               const AsciiString1& brep2,
+                               const AsciiString1& filename)
 {
   mybrep1    = brep1;
   mybrep2    = brep2;
   myfilename = filename;
 }
 
-TCollection_AsciiString TopOpeBRep_traceSIFF::Name1(const Standard_Integer I) const
+AsciiString1 TopOpeBRep_traceSIFF::Name1(const Standard_Integer I) const
 {
-  TCollection_AsciiString s = mybrep1 + "_" + I;
+  AsciiString1 s = mybrep1 + "_" + I;
   return s;
 }
 
-TCollection_AsciiString TopOpeBRep_traceSIFF::Name2(const Standard_Integer I) const
+AsciiString1 TopOpeBRep_traceSIFF::Name2(const Standard_Integer I) const
 {
-  TCollection_AsciiString s = mybrep2 + "_" + I;
+  AsciiString1 s = mybrep2 + "_" + I;
   return s;
 }
 
-const TCollection_AsciiString& TopOpeBRep_traceSIFF::File() const
+const AsciiString1& TopOpeBRep_traceSIFF::File() const
 {
   return myfilename;
 }
 
-Standard_Boolean TopOpeBRep_traceSIFF::Start(const TCollection_AsciiString& s, Standard_OStream& OS)
+Standard_Boolean TopOpeBRep_traceSIFF::Start(const AsciiString1& s, Standard_OStream& OS)
 {
   Standard_CString cs = myfilename.ToCString();
   myopen              = Standard_True;
@@ -97,13 +97,13 @@ void TopOpeBRep_traceSIFF::Add(const Standard_Integer I1, const Standard_Integer
   {
     return;
   }
-  TCollection_AsciiString n1 = Name1(I1);
-  TCollection_AsciiString n2 = Name2(I2);
+  AsciiString1 n1 = Name1(I1);
+  AsciiString1 n2 = Name2(I2);
   std::ostream            osfic(&myfilebuf);
   osfic << n1 << " " << n2 << "\n";
 }
 
-void TopOpeBRep_traceSIFF::End(const TCollection_AsciiString& s, Standard_OStream& OS)
+void TopOpeBRep_traceSIFF::End(const AsciiString1& s, Standard_OStream& OS)
 {
   if (!myopen)
   {

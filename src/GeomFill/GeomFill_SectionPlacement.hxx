@@ -26,7 +26,7 @@
 #include <Extrema_ExtPC.hxx>
 #include <gp_Pnt.hxx>
 class GeomFill_LocationLaw;
-class Geom_Curve;
+class GeomCurve3d;
 class Geom_Geometry;
 class Transform3d;
 class gp_Mat;
@@ -68,14 +68,14 @@ public:
   //! the Location Law.
   //! If <WithTranslation> contact between
   //! <Section> and <Path> is forced.
-  Standard_EXPORT Handle(Geom_Curve) Section(const Standard_Boolean WithTranslation) const;
+  Standard_EXPORT Handle(GeomCurve3d) Section(const Standard_Boolean WithTranslation) const;
 
   //! Compute the Section, in the coordinate system given by
   //! the Location Law.
   //! To have the Normal to section equal to the Location
   //! Law Normal.  If <WithTranslation> contact between
   //! <Section> and <Path> is forced.
-  Standard_EXPORT Handle(Geom_Curve) ModifiedSection(const Standard_Boolean WithTranslation) const;
+  Standard_EXPORT Handle(GeomCurve3d) ModifiedSection(const Standard_Boolean WithTranslation) const;
 
 protected:
 private:
@@ -89,7 +89,7 @@ private:
   Standard_Real                Gabarit;
   Handle(GeomFill_LocationLaw) myLaw;
   GeomAdaptor_Curve            myAdpSection;
-  Handle(Geom_Curve)           mySection;
+  Handle(GeomCurve3d)           mySection;
   Standard_Real                SecParam;
   Standard_Real                PathParam;
   Standard_Real                Dist;

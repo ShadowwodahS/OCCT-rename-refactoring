@@ -113,7 +113,7 @@ public:
 protected:
   //! Recomputes given selection mode and updates BVHs in all viewer selectors
   Standard_EXPORT void recomputeSelectionMode(const Handle(SelectMgr_SelectableObject)& theObject,
-                                              const Handle(SelectMgr_Selection)& theSelection,
+                                              const Handle(SelectionContainer)& theSelection,
                                               const Standard_Integer             theMode);
 
 private:
@@ -125,7 +125,7 @@ private:
 
   //! In multi-thread mode queues sensitive entities to build its BVH in separate threads.
   //! Otherwise, builds BVH for heavyweight entities immediately.
-  Standard_EXPORT void buildBVH(const Handle(SelectMgr_Selection)& theSelection);
+  Standard_EXPORT void buildBVH(const Handle(SelectionContainer)& theSelection);
 
 private:
   Handle(SelectMgr_ViewerSelector)                    mySelector;

@@ -80,7 +80,7 @@ Handle(Expr_GeneralExpression) Expr_PolyFunction::Copy() const
   Expr_Array1OfGeneralExpression vars(1, max);
   for (Standard_Integer i = 1; i <= max; i++)
   {
-    vars(i) = Expr::CopyShare(SubExpression(i));
+    vars(i) = Expr1::CopyShare(SubExpression(i));
   }
   return new Expr_PolyFunction(myFunction, vars);
 }
@@ -176,9 +176,9 @@ Standard_Real Expr_PolyFunction::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return myFunction->Evaluate(varsfunc, valsfunc);
 }
 
-TCollection_AsciiString Expr_PolyFunction::String() const
+AsciiString1 Expr_PolyFunction::String() const
 {
-  TCollection_AsciiString res = myFunction->GetStringName();
+  AsciiString1 res = myFunction->GetStringName();
   res += "(";
   Standard_Integer max = NbOperands();
   for (Standard_Integer i = 1; i <= max; i++)

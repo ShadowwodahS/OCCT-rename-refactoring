@@ -61,15 +61,15 @@ static void take_time(const Standard_Integer, const char*, const Handle(Message_
 //=================================================================================================
 
 XmlLDrivers_DocumentStorageDriver::XmlLDrivers_DocumentStorageDriver(
-  const TCollection_ExtendedString& theCopyright)
+  const UtfString& theCopyright)
     : myCopyright(theCopyright)
 {
 }
 
 //=================================================================================================
 
-void XmlLDrivers_DocumentStorageDriver::AddNamespace(const TCollection_AsciiString& thePrefix,
-                                                     const TCollection_AsciiString& theURI)
+void XmlLDrivers_DocumentStorageDriver::AddNamespace(const AsciiString1& thePrefix,
+                                                     const AsciiString1& theURI)
 {
   for (Standard_Integer i = 1; i <= mySeqOfNS.Length(); i++)
     if (thePrefix == mySeqOfNS(i).Prefix())
@@ -80,7 +80,7 @@ void XmlLDrivers_DocumentStorageDriver::AddNamespace(const TCollection_AsciiStri
 //=================================================================================================
 
 void XmlLDrivers_DocumentStorageDriver::Write(const Handle(CDM_Document)&       theDocument,
-                                              const TCollection_ExtendedString& theFileName,
+                                              const UtfString& theFileName,
                                               const Message_ProgressRange&      theRange)
 {
   myFileName = theFileName;
@@ -97,7 +97,7 @@ void XmlLDrivers_DocumentStorageDriver::Write(const Handle(CDM_Document)&       
     SetIsError(Standard_True);
     SetStoreStatus(PCDM_SS_WriteFailure);
 
-    TCollection_ExtendedString aMsg = TCollection_ExtendedString("Error: the file ") + theFileName
+    UtfString aMsg = UtfString("Error: the file ") + theFileName
                                       + " cannot be opened for writing";
 
     theDocument->Application()->MessageDriver()->Send(aMsg.ToExtString(), Message_Fail);
@@ -123,7 +123,7 @@ void XmlLDrivers_DocumentStorageDriver::Write(const Handle(CDM_Document)&  theDo
   if (WriteToDomDocument(theDocument, anElement, theRange) == Standard_False)
   {
 
-    LDOM_XmlWriter aWriter;
+    XmlWriter aWriter;
     aWriter.SetIndentation(1);
 
     if (theOStream.good())
@@ -135,8 +135,8 @@ void XmlLDrivers_DocumentStorageDriver::Write(const Handle(CDM_Document)&  theDo
       SetIsError(Standard_True);
       SetStoreStatus(PCDM_SS_WriteFailure);
 
-      TCollection_ExtendedString aMsg =
-        TCollection_ExtendedString("Error: the stream is bad and") + " cannot be used for writing";
+      UtfString aMsg =
+        UtfString("Error: the stream is bad and") + " cannot be used for writing";
       theDocument->Application()->MessageDriver()->Send(aMsg.ToExtString(), Message_Fail);
 
       throw ExceptionBase("File cannot be opened for writing");
@@ -165,15 +165,15 @@ Standard_Boolean XmlLDrivers_DocumentStorageDriver::WriteToDomDocument(
   XmlObjMgt_Document aDOMDoc = theElement.getOwnerDocument();
 
   // 1.a File Format
-  TCollection_AsciiString aStorageFormat(theDocument->StorageFormat(), '?');
+  AsciiString1 aStorageFormat(theDocument->StorageFormat(), '?');
   theElement.setAttribute("format", aStorageFormat.ToCString());
   //  theElement.setAttribute ("schema", "XSD");
 
   theElement.setAttribute("xmlns", "http://www.opencascade.org/OCAF/XML");
   for (i = 1; i <= mySeqOfNS.Length(); i++)
   {
-    TCollection_AsciiString aPrefix =
-      TCollection_AsciiString("xmlns:") + mySeqOfNS(i).Prefix().ToCString();
+    AsciiString1 aPrefix =
+      AsciiString1("xmlns:") + mySeqOfNS(i).Prefix().ToCString();
     theElement.setAttribute(aPrefix.ToCString(), mySeqOfNS(i).URI().ToCString());
   }
   theElement.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
@@ -183,11 +183,11 @@ Standard_Boolean XmlLDrivers_DocumentStorageDriver::WriteToDomDocument(
   //                          " http://www.nnov.matra-dtv.fr/~agv/XmlOcaf.xsd");
   //
   //  the order of search : by CSF_XmlOcafResource and then by CASROOT
-  TCollection_AsciiString anHTTP            = "http://www.opencascade.org/OCAF/XML";
+  AsciiString1 anHTTP            = "http://www.opencascade.org/OCAF/XML";
   Standard_Boolean        aToSetCSFVariable = Standard_False;
   const char*             aCSFVariable[2]   = {"CSF_XmlOcafResource", "CASROOT"};
   OSD_Environment         anEnv(aCSFVariable[0]);
-  TCollection_AsciiString aResourceDir = anEnv.Value();
+  AsciiString1 aResourceDir = anEnv.Value();
   if (aResourceDir.IsEmpty())
   {
     // now try by CASROOT
@@ -201,7 +201,7 @@ Standard_Boolean XmlLDrivers_DocumentStorageDriver::WriteToDomDocument(
 #ifdef OCCT_DEBUGXML
     else
     {
-      TCollection_ExtendedString aWarn = FAILSTR "Neither ";
+      UtfString aWarn = FAILSTR "Neither ";
       aWarn = (aWarn + aCSFVariable[0] + ", nor " + aCSFVariable[1] + " variables have been set");
       aMessageDriver->Send(aWarn.ToExtString(), Message_Warning);
     }
@@ -209,10 +209,10 @@ Standard_Boolean XmlLDrivers_DocumentStorageDriver::WriteToDomDocument(
   }
   if (!aResourceDir.IsEmpty())
   {
-    TCollection_AsciiString aResourceFileName = aResourceDir + "/XmlOcaf.xsd";
+    AsciiString1 aResourceFileName = aResourceDir + "/XmlOcaf.xsd";
     // search directory name that has been constructed, now check whether
     // it and the file exist
-    OSD_File aResourceFile(aResourceFileName);
+    SystemFile aResourceFile(aResourceFileName);
     if (aResourceFile.Exists())
     {
       if (aToSetCSFVariable)
@@ -220,14 +220,14 @@ Standard_Boolean XmlLDrivers_DocumentStorageDriver::WriteToDomDocument(
         OSD_Environment aCSFVarEnv(aCSFVariable[0], aResourceDir);
         aCSFVarEnv.Build();
 #ifdef OCCT_DEBUGXML
-        TCollection_ExtendedString aWarn1 = "Variable ";
+        UtfString aWarn1 = "Variable ";
         aWarn1 =
           (aWarn1 + aCSFVariable[0] + " has not been explicitly defined. Set to " + aResourceDir);
         aMessageDriver->Send(aWarn1.ToExtString(), Message_Warning);
 #endif
         if (aCSFVarEnv.Failed())
         {
-          TCollection_ExtendedString aWarn = FAILSTR "Failed to initialize ";
+          UtfString aWarn = FAILSTR "Failed to initialize ";
           aWarn                            = aWarn + aCSFVariable[0] + " with " + aResourceDir;
           aMessageDriver->Send(aWarn.ToExtString(), Message_Fail);
         }
@@ -236,7 +236,7 @@ Standard_Boolean XmlLDrivers_DocumentStorageDriver::WriteToDomDocument(
 #ifdef OCCT_DEBUGXML
     else
     {
-      TCollection_ExtendedString aWarn = FAILSTR "Schema definition file ";
+      UtfString aWarn = FAILSTR "Schema definition file ";
       aWarn += (aResourceFileName + " was not found");
       aMessageDriver->Send(aWarn.ToExtString(), Message_Warning);
     }
@@ -249,7 +249,7 @@ Standard_Boolean XmlLDrivers_DocumentStorageDriver::WriteToDomDocument(
   XmlObjMgt_Element anInfoElem = aDOMDoc.createElement("info");
   theElement.appendChild(anInfoElem);
 
-  TCollection_AsciiString aCreationDate = XmlLDrivers::CreationDate();
+  AsciiString1 aCreationDate = XmlLDrivers::CreationDate();
 
   //  anInfoElem.setAttribute("dbv", 0);
   anInfoElem.setAttribute("date", aCreationDate.ToCString());
@@ -257,13 +257,13 @@ Standard_Boolean XmlLDrivers_DocumentStorageDriver::WriteToDomDocument(
   //  anInfoElem.setAttribute("appv", anAppVersion.ToCString());
 
   // Document version
-  Handle(TDocStd_Document) aDoc = Handle(TDocStd_Document)::DownCast(theDocument);
+  Handle(AppDocument) aDoc = Handle(AppDocument)::DownCast(theDocument);
   // clang-format off
-  TDocStd_FormatVersion aFormatVersion = TDocStd_Document::CurrentStorageFormatVersion(); // the last version of the format
+  TDocStd_FormatVersion aFormatVersion = AppDocument::CurrentStorageFormatVersion(); // the last version of the format
   // clang-format on
-  if (TDocStd_Document::CurrentStorageFormatVersion() < aDoc->StorageFormatVersion())
+  if (AppDocument::CurrentStorageFormatVersion() < aDoc->StorageFormatVersion())
   {
-    TCollection_ExtendedString anErrorString(
+    UtfString anErrorString(
       "Unacceptable storage format version, the last version is used");
     aMessageDriver->Send(anErrorString.ToExtString(), Message_Warning);
   }
@@ -271,13 +271,13 @@ Standard_Boolean XmlLDrivers_DocumentStorageDriver::WriteToDomDocument(
   {
     aFormatVersion = aDoc->StorageFormatVersion();
   }
-  const TCollection_AsciiString aStringFormatVersion(aFormatVersion);
+  const AsciiString1 aStringFormatVersion(aFormatVersion);
   anInfoElem.setAttribute("DocVersion", aStringFormatVersion.ToCString());
 
   // User info with Copyright
   TColStd_SequenceOfAsciiString aUserInfo;
   if (myCopyright.Length() > 0)
-    aUserInfo.Append(TCollection_AsciiString(myCopyright, '?'));
+    aUserInfo.Append(AsciiString1(myCopyright, '?'));
 
   Handle(Storage_Data) theData = new Storage_Data;
   // PCDM_ReadWriter::WriteFileFormat( theData, theDocument );
@@ -336,7 +336,7 @@ Standard_Boolean XmlLDrivers_DocumentStorageDriver::WriteToDomDocument(
     {
       SetIsError(Standard_True);
       SetStoreStatus(PCDM_SS_Failure);
-      TCollection_ExtendedString anErrorString(anException.GetMessageString());
+      UtfString anErrorString(anException.GetMessageString());
       aMessageDriver->Send(anErrorString.ToExtString(), Message_Fail);
     }
   }
@@ -344,7 +344,7 @@ Standard_Boolean XmlLDrivers_DocumentStorageDriver::WriteToDomDocument(
   {
     SetIsError(Standard_True);
     SetStoreStatus(PCDM_SS_No_Obj);
-    TCollection_ExtendedString anErrorString("error occurred");
+    UtfString anErrorString("error occurred");
     aMessageDriver->Send(anErrorString.ToExtString(), Message_Fail);
   }
   // 2b. Write number of objects into the info section
@@ -375,8 +375,8 @@ Standard_Integer XmlLDrivers_DocumentStorageDriver::MakeDocument(
   XmlObjMgt_Element&           theElement,
   const Message_ProgressRange& theRange)
 {
-  TCollection_ExtendedString aMessage;
-  Handle(TDocStd_Document)   TDOC = Handle(TDocStd_Document)::DownCast(theTDoc);
+  UtfString aMessage;
+  Handle(AppDocument)   TDOC = Handle(AppDocument)::DownCast(theTDoc);
   if (!TDOC.IsNull())
   {
     //    myRelocTable.SetDocument (theElement.getOwnerDocument());
@@ -438,7 +438,7 @@ static void take_time(const Standard_Integer           isReset,
 {
   struct timeb tmbuf;
   ftime(&tmbuf);
-  TCollection_ExtendedString aMessage((Standard_CString)aHeader);
+  UtfString aMessage((Standard_CString)aHeader);
   if (isReset)
     tmbuf0 = tmbuf;
   else

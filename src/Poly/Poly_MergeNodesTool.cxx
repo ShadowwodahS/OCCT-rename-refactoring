@@ -282,7 +282,7 @@ inline void Poly_MergeNodesTool::MergedNodesMap::ReSize(const int theSize)
 Poly_MergeNodesTool::Poly_MergeNodesTool(const double theSmoothAngle,
                                          const double theMergeTolerance,
                                          const int    theNbFacets)
-    : myPolyData(new Poly_Triangulation()),
+    : myPolyData(new MeshTriangulation()),
       myNodeIndexMap(
         (theSmoothAngle > 0.0 || theMergeTolerance > 0.0) ? initialNbBuckets(theNbFacets) : 1),
       myNodeInds(0, 0, 0, -1),
@@ -409,7 +409,7 @@ void Poly_MergeNodesTool::PushLastElement(int theNbNodes)
 
 //=================================================================================================
 
-void Poly_MergeNodesTool::AddTriangulation(const Handle(Poly_Triangulation)& theTris,
+void Poly_MergeNodesTool::AddTriangulation(const Handle(MeshTriangulation)& theTris,
                                            const Transform3d&                    theTrsf,
                                            const Standard_Boolean            theToReverse)
 {
@@ -444,11 +444,11 @@ void Poly_MergeNodesTool::AddTriangulation(const Handle(Poly_Triangulation)& the
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) Poly_MergeNodesTool::Result()
+Handle(MeshTriangulation) Poly_MergeNodesTool::Result()
 {
   if (myPolyData.IsNull())
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
 
   // compress data
@@ -459,8 +459,8 @@ Handle(Poly_Triangulation) Poly_MergeNodesTool::Result()
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) Poly_MergeNodesTool::MergeNodes(
-  const Handle(Poly_Triangulation)& theTris,
+Handle(MeshTriangulation) Poly_MergeNodesTool::MergeNodes(
+  const Handle(MeshTriangulation)& theTris,
   const Transform3d&                    theTrsf,
   const Standard_Boolean            theToReverse,
   const double                      theSmoothAngle,
@@ -469,7 +469,7 @@ Handle(Poly_Triangulation) Poly_MergeNodesTool::MergeNodes(
 {
   if (theTris.IsNull() || theTris->NbNodes() < 3 || theTris->NbTriangles() < 1)
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
 
   Poly_MergeNodesTool aMergeTool(theSmoothAngle, theMergeTolerance, theTris->NbTriangles());
@@ -477,7 +477,7 @@ Handle(Poly_Triangulation) Poly_MergeNodesTool::MergeNodes(
   if (!theToForce && aMergeTool.NbNodes() == theTris->NbNodes()
       && aMergeTool.NbElements() == theTris->NbTriangles())
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
   return aMergeTool.Result();
 }

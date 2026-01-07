@@ -30,10 +30,10 @@
 class gp_Ax3;
 class BRepMAT2d_BisectingLocus;
 class BRepMAT2d_LinkTopoBilo;
-class BRepTools_Quilt;
+class ShapeQuilt;
 class TopLoc_Location;
-class TopoDS_Edge;
-class TopoDS_Vertex;
+class TopoEdge;
+class TopoVertex;
 
 //! Constructs an evolved volume from a spine (wire or face)
 //! and  a profile ( wire).
@@ -50,32 +50,32 @@ public:
   //! <AxeProf> slides on the profile with direction
   //! colinear to the normal to <Spine>, and its
   //! <XDirection> mixed with the tangent to <Spine>.
-  Standard_EXPORT BRepFill_Evolved(const TopoDS_Wire&     Spine,
-                                   const TopoDS_Wire&     Profile,
+  Standard_EXPORT BRepFill_Evolved(const TopoWire&     Spine,
+                                   const TopoWire&     Profile,
                                    const gp_Ax3&          AxeProf,
                                    const GeomAbs_JoinType Join  = GeomAbs_Arc,
                                    const Standard_Boolean Solid = Standard_False);
 
   //! Creates an  evolved shape  by sweeping the <Profile>
   //! along the <Spine>
-  Standard_EXPORT BRepFill_Evolved(const TopoDS_Face&     Spine,
-                                   const TopoDS_Wire&     Profile,
+  Standard_EXPORT BRepFill_Evolved(const TopoFace&     Spine,
+                                   const TopoWire&     Profile,
                                    const gp_Ax3&          AxeProf,
                                    const GeomAbs_JoinType Join  = GeomAbs_Arc,
                                    const Standard_Boolean Solid = Standard_False);
 
   //! Performs an  evolved shape  by sweeping the <Profile>
   //! along the <Spine>
-  Standard_EXPORT void Perform(const TopoDS_Wire&     Spine,
-                               const TopoDS_Wire&     Profile,
+  Standard_EXPORT void Perform(const TopoWire&     Spine,
+                               const TopoWire&     Profile,
                                const gp_Ax3&          AxeProf,
                                const GeomAbs_JoinType Join  = GeomAbs_Arc,
                                const Standard_Boolean Solid = Standard_False);
 
   //! Performs an  evolved shape  by sweeping the <Profile>
   //! along the <Spine>
-  Standard_EXPORT void Perform(const TopoDS_Face&     Spine,
-                               const TopoDS_Wire&     Profile,
+  Standard_EXPORT void Perform(const TopoFace&     Spine,
+                               const TopoWire&     Profile,
                                const gp_Ax3&          AxeProf,
                                const GeomAbs_JoinType Join  = GeomAbs_Arc,
                                const Standard_Boolean Solid = Standard_False);
@@ -83,55 +83,55 @@ public:
   Standard_EXPORT Standard_Boolean IsDone() const;
 
   //! returns the generated shape.
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
   //! Returns   the  shapes  created  from   a  subshape
   //! <SpineShape>  of     the  spine   and   a subshape
   //! <ProfShape> on the profile.
-  Standard_EXPORT const TopTools_ListOfShape& GeneratedShapes(const TopoDS_Shape& SpineShape,
-                                                              const TopoDS_Shape& ProfShape) const;
+  Standard_EXPORT const ShapeList& GeneratedShapes(const TopoShape& SpineShape,
+                                                              const TopoShape& ProfShape) const;
 
   Standard_EXPORT GeomAbs_JoinType JoinType() const;
 
   //! Return the face Top if <Solid> is True in the constructor.
-  Standard_EXPORT const TopoDS_Shape& Top() const;
+  Standard_EXPORT const TopoShape& Top() const;
 
   //! Return the face Bottom  if <Solid> is True in the constructor.
-  Standard_EXPORT const TopoDS_Shape& Bottom() const;
+  Standard_EXPORT const TopoShape& Bottom() const;
 
 protected:
 private:
-  Standard_EXPORT void PrivatePerform(const TopoDS_Face&     Spine,
-                                      const TopoDS_Wire&     Profile,
+  Standard_EXPORT void PrivatePerform(const TopoFace&     Spine,
+                                      const TopoWire&     Profile,
                                       const gp_Ax3&          AxeProf,
                                       const GeomAbs_JoinType Join  = GeomAbs_Arc,
                                       const Standard_Boolean Solid = Standard_False);
 
-  Standard_EXPORT void SetWork(const TopoDS_Face& Spine, const TopoDS_Wire& Profile);
+  Standard_EXPORT void SetWork(const TopoFace& Spine, const TopoWire& Profile);
 
-  Standard_EXPORT void ElementaryPerform(const TopoDS_Face&              Spine,
-                                         const TopoDS_Wire&              Profile,
+  Standard_EXPORT void ElementaryPerform(const TopoFace&              Spine,
+                                         const TopoWire&              Profile,
                                          const BRepMAT2d_BisectingLocus& Locus,
                                          BRepMAT2d_LinkTopoBilo&         Link,
                                          const GeomAbs_JoinType          Join = GeomAbs_Arc);
 
-  Standard_EXPORT void PlanarPerform(const TopoDS_Face&              Spine,
-                                     const TopoDS_Wire&              Profile,
+  Standard_EXPORT void PlanarPerform(const TopoFace&              Spine,
+                                     const TopoWire&              Profile,
                                      const BRepMAT2d_BisectingLocus& Locus,
                                      BRepMAT2d_LinkTopoBilo&         Link,
                                      const GeomAbs_JoinType          Join = GeomAbs_Arc);
 
-  Standard_EXPORT void VerticalPerform(const TopoDS_Face&              Spine,
-                                       const TopoDS_Wire&              Profile,
+  Standard_EXPORT void VerticalPerform(const TopoFace&              Spine,
+                                       const TopoWire&              Profile,
                                        const BRepMAT2d_BisectingLocus& Locus,
                                        BRepMAT2d_LinkTopoBilo&         Link,
                                        const GeomAbs_JoinType          Join = GeomAbs_Arc);
 
   Standard_EXPORT BRepFill_DataMapOfShapeDataMapOfShapeListOfShape& Generated();
 
-  Standard_EXPORT void Add(BRepFill_Evolved& Vevo, const TopoDS_Wire& Prof, BRepTools_Quilt& Glue);
+  Standard_EXPORT void Add(BRepFill_Evolved& Vevo, const TopoWire& Prof, ShapeQuilt& Glue);
 
-  Standard_EXPORT TopoDS_Shape& ChangeShape();
+  Standard_EXPORT TopoShape& ChangeShape();
 
   Standard_EXPORT void Transfert(BRepFill_Evolved&                   Vevo,
                                  const TopTools_DataMapOfShapeShape& MapProf,
@@ -145,46 +145,46 @@ private:
   //! - Cut the profile at the extrema of distance from the
   //! Profile to the Oz Axis.
   //! - building the new wires with the cutting edges.
-  Standard_EXPORT void PrepareProfile(TopTools_ListOfShape&         WorkProf,
+  Standard_EXPORT void PrepareProfile(ShapeList&         WorkProf,
                                       TopTools_DataMapOfShapeShape& MapProf) const;
 
   //! Prepare the spine as follow
   //! - Cut the spine-Edges at the extrema of curvature and
   //! at the inflexion points.
-  Standard_EXPORT void PrepareSpine(TopoDS_Face&                  WorkSpine,
+  Standard_EXPORT void PrepareSpine(TopoFace&                  WorkSpine,
                                     TopTools_DataMapOfShapeShape& SpineProf) const;
 
-  Standard_EXPORT void MakePipe(const TopoDS_Edge& SpineEdge, const gp_Ax3& ProfRef);
+  Standard_EXPORT void MakePipe(const TopoEdge& SpineEdge, const gp_Ax3& ProfRef);
 
-  Standard_EXPORT void MakeRevol(const TopoDS_Edge&   SpineEdge,
-                                 const TopoDS_Vertex& SpineVertex,
+  Standard_EXPORT void MakeRevol(const TopoEdge&   SpineEdge,
+                                 const TopoVertex& SpineVertex,
                                  const gp_Ax3&        ProfRef);
 
   //! Find the location transforming the planar shape <Shape>
   //! in the plane xOy
   //! if the Shape is not planar.
-  Standard_EXPORT TopLoc_Location FindLocation(const TopoDS_Face& Face) const;
+  Standard_EXPORT TopLoc_Location FindLocation(const TopoFace& Face) const;
 
   //! Apply the Location <LS> to <mySpine> and  <LP> to
   //! <myProfil>
   //! in order to set the Shapes in the work space.
   Standard_EXPORT void TransformInitWork(const TopLoc_Location& LS, const TopLoc_Location& LP);
 
-  Standard_EXPORT void ContinuityOnOffsetEdge(const TopTools_ListOfShape& WorkProf);
+  Standard_EXPORT void ContinuityOnOffsetEdge(const ShapeList& WorkProf);
 
-  Standard_EXPORT void AddTopAndBottom(BRepTools_Quilt& Glue);
+  Standard_EXPORT void AddTopAndBottom(ShapeQuilt& Glue);
 
   Standard_EXPORT void MakeSolid();
 
-  TopoDS_Face                                      mySpine;
-  TopoDS_Wire                                      myProfile;
-  TopoDS_Shape                                     myShape;
+  TopoFace                                      mySpine;
+  TopoWire                                      myProfile;
+  TopoShape                                     myShape;
   Standard_Boolean                                 myIsDone;
   Standard_Boolean                                 mySpineType;
   GeomAbs_JoinType                                 myJoinType;
   BRepFill_DataMapOfShapeDataMapOfShapeListOfShape myMap;
-  TopoDS_Shape                                     myTop;
-  TopoDS_Shape                                     myBottom;
+  TopoShape                                     myTop;
+  TopoShape                                     myBottom;
 };
 
 #endif // _BRepFill_Evolved_HeaderFile

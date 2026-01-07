@@ -172,7 +172,7 @@ Standard_CString MoniTool_AttrList::StringAttribute(const Standard_CString name)
   return hval->ToCString();
 }
 
-const NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& MoniTool_AttrList::
+const NCollection_DataMap<AsciiString1, Handle(RefObject)>& MoniTool_AttrList::
   AttrList() const
 {
   return theattrib;
@@ -187,15 +187,15 @@ void MoniTool_AttrList::GetAttributes(const MoniTool_AttrList& other,
                                       const Standard_CString   fromname,
                                       const Standard_Boolean   copied)
 {
-  const NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& list =
+  const NCollection_DataMap<AsciiString1, Handle(RefObject)>& list =
     other.AttrList();
   if (list.IsEmpty())
     return;
 
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(list);
+  NCollection_DataMap<AsciiString1, Handle(RefObject)>::Iterator iter(list);
   for (; iter.More(); iter.Next())
   {
-    const TCollection_AsciiString& name = iter.Key();
+    const AsciiString1& name = iter.Key();
     if (!name.StartsWith(fromname))
       continue;
     const Handle(RefObject)& atr    = iter.Value();

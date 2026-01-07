@@ -36,9 +36,9 @@
 #include <Standard_DomainError.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESDraw_ToolNetworkSubfigure::IGESDraw_ToolNetworkSubfigure() {}
+NetworkSubfigureTool::NetworkSubfigureTool() {}
 
-void IGESDraw_ToolNetworkSubfigure::ReadOwnParams(const Handle(IGESDraw_NetworkSubfigure)& ent,
+void NetworkSubfigureTool::ReadOwnParams(const Handle(IGESDraw_NetworkSubfigure)& ent,
                                                   const Handle(IGESData_IGESReaderData)&   IR,
                                                   IGESData_ParamReader&                    PR) const
 {
@@ -140,7 +140,7 @@ void IGESDraw_ToolNetworkSubfigure::ReadOwnParams(const Handle(IGESDraw_NetworkS
   ent->Init(definition, translation, scale, typeflag, designator, textTemplate, connectPoints);
 }
 
-void IGESDraw_ToolNetworkSubfigure::WriteOwnParams(const Handle(IGESDraw_NetworkSubfigure)& ent,
+void NetworkSubfigureTool::WriteOwnParams(const Handle(IGESDraw_NetworkSubfigure)& ent,
                                                    IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->SubfigureDefinition());
@@ -162,7 +162,7 @@ void IGESDraw_ToolNetworkSubfigure::WriteOwnParams(const Handle(IGESDraw_Network
     IW.Send(ent->ConnectPoint(i));
 }
 
-void IGESDraw_ToolNetworkSubfigure::OwnShared(const Handle(IGESDraw_NetworkSubfigure)& ent,
+void NetworkSubfigureTool::OwnShared(const Handle(IGESDraw_NetworkSubfigure)& ent,
                                               Interface_EntityIterator&                iter) const
 {
   iter.GetOneItem(ent->SubfigureDefinition());
@@ -172,7 +172,7 @@ void IGESDraw_ToolNetworkSubfigure::OwnShared(const Handle(IGESDraw_NetworkSubfi
     iter.GetOneItem(ent->ConnectPoint(i));
 }
 
-void IGESDraw_ToolNetworkSubfigure::OwnCopy(const Handle(IGESDraw_NetworkSubfigure)& another,
+void NetworkSubfigureTool::OwnCopy(const Handle(IGESDraw_NetworkSubfigure)& another,
                                             const Handle(IGESDraw_NetworkSubfigure)& ent,
                                             Interface_CopyTool&                      TC) const
 {
@@ -212,10 +212,10 @@ void IGESDraw_ToolNetworkSubfigure::OwnCopy(const Handle(IGESDraw_NetworkSubfigu
   ent->Init(definition, translation, scale, typeflag, designator, textTemplate, connectPoints);
 }
 
-IGESData_DirChecker IGESDraw_ToolNetworkSubfigure::DirChecker(
+DirectoryChecker NetworkSubfigureTool::DirChecker(
   const Handle(IGESDraw_NetworkSubfigure)& /*ent*/) const
 {
-  IGESData_DirChecker DC(420, 0);
+  DirectoryChecker DC(420, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.LineWeight(IGESData_DefValue);
@@ -223,7 +223,7 @@ IGESData_DirChecker IGESDraw_ToolNetworkSubfigure::DirChecker(
   return DC;
 }
 
-void IGESDraw_ToolNetworkSubfigure::OwnCheck(const Handle(IGESDraw_NetworkSubfigure)& ent,
+void NetworkSubfigureTool::OwnCheck(const Handle(IGESDraw_NetworkSubfigure)& ent,
                                              const Interface_ShareTool&,
                                              Handle(Interface_Check)& ach) const
 {
@@ -235,7 +235,7 @@ void IGESDraw_ToolNetworkSubfigure::OwnCheck(const Handle(IGESDraw_NetworkSubfig
     ach->AddFail("Primary Reference Designator : not defined");
 }
 
-void IGESDraw_ToolNetworkSubfigure::OwnDump(const Handle(IGESDraw_NetworkSubfigure)& ent,
+void NetworkSubfigureTool::OwnDump(const Handle(IGESDraw_NetworkSubfigure)& ent,
                                             const IGESData_IGESDumper&               dumper,
                                             Standard_OStream&                        S,
                                             const Standard_Integer                   level) const

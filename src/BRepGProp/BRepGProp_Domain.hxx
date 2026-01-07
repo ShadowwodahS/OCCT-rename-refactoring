@@ -23,8 +23,8 @@
 
 #include <TopExp_Explorer.hxx>
 #include <Standard_Boolean.hxx>
-class TopoDS_Face;
-class TopoDS_Edge;
+class TopoFace;
+class TopoEdge;
 
 //! Arc iterator. Returns only Forward and Reversed edges from
 //! the face in an undigested order.
@@ -37,10 +37,10 @@ public:
   BRepGProp_Domain();
 
   //! Constructor. Initializes the domain with the face.
-  BRepGProp_Domain(const TopoDS_Face& F);
+  BRepGProp_Domain(const TopoFace& F);
 
   //! Initializes the domain with the face.
-  void Init(const TopoDS_Face& F);
+  void Init(const TopoFace& F);
 
   //! Returns True if there is another arc of curve in the list.
   Standard_Boolean More();
@@ -49,7 +49,7 @@ public:
   void Init();
 
   //! Returns the current edge.
-  const TopoDS_Edge& Value();
+  const TopoEdge& Value();
 
   //! Sets the index of the arc iterator to the next arc of
   //! curve.
@@ -57,7 +57,7 @@ public:
 
 protected:
 private:
-  TopExp_Explorer myExplorer;
+  ShapeExplorer myExplorer;
 };
 
 #include <BRepGProp_Domain.lxx>

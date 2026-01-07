@@ -32,14 +32,14 @@ BRepBuilderAPI_MakeVertex::BRepBuilderAPI_MakeVertex(const Point3d& P)
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepBuilderAPI_MakeVertex::Vertex()
+const TopoVertex& BRepBuilderAPI_MakeVertex::Vertex()
 {
   return myMakeVertex.Vertex();
 }
 
 //=================================================================================================
 
-BRepBuilderAPI_MakeVertex::operator TopoDS_Vertex()
+BRepBuilderAPI_MakeVertex::operator TopoVertex()
 {
   return Vertex();
 }

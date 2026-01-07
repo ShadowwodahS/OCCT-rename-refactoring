@@ -32,7 +32,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IGESData_DefaultGeneral, IGESData_GeneralModule)
 
 IGESData_DefaultGeneral::IGESData_DefaultGeneral()
 {
-  Interface_GeneralLib::SetGlobal(this, IGESData::Protocol());
+  Interface_GeneralLib::SetGlobal(this, IGESData1::Protocol());
 }
 
 void IGESData_DefaultGeneral::OwnSharedCase(const Standard_Integer             CN,
@@ -53,10 +53,10 @@ void IGESData_DefaultGeneral::OwnSharedCase(const Standard_Integer             C
   }
 }
 
-IGESData_DirChecker IGESData_DefaultGeneral::DirChecker(const Standard_Integer,
+DirectoryChecker IGESData_DefaultGeneral::DirChecker(const Standard_Integer,
                                                         const Handle(IGESData_IGESEntity)&) const
 {
-  IGESData_DirChecker dc;
+  DirectoryChecker dc;
   return dc;
 } // aucun critere specifique
 

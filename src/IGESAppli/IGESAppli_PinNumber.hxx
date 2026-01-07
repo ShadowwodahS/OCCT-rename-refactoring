@@ -27,7 +27,7 @@ class IGESAppli_PinNumber;
 DEFINE_STANDARD_HANDLE(IGESAppli_PinNumber, IGESData_IGESEntity)
 
 //! defines PinNumber, Type <406> Form <8>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Used to attach a text string representing a component
 //! pin number to an entity being used to represent an
 //! electrical component's pin

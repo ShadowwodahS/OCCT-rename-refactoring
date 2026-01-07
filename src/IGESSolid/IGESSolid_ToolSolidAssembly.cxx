@@ -31,9 +31,9 @@
 #include <Interface_ShareTool.hxx>
 #include <Message_Messenger.hxx>
 
-IGESSolid_ToolSolidAssembly::IGESSolid_ToolSolidAssembly() {}
+SolidAssemblyTool::SolidAssemblyTool() {}
 
-void IGESSolid_ToolSolidAssembly::ReadOwnParams(const Handle(IGESSolid_SolidAssembly)& ent,
+void SolidAssemblyTool::ReadOwnParams(const Handle(IGESSolid_SolidAssembly)& ent,
                                                 const Handle(IGESData_IGESReaderData)& IR,
                                                 IGESData_ParamReader&                  PR) const
 {
@@ -82,7 +82,7 @@ void IGESSolid_ToolSolidAssembly::ReadOwnParams(const Handle(IGESSolid_SolidAsse
   ent->Init(tempItems, tempMatrices);
 }
 
-void IGESSolid_ToolSolidAssembly::WriteOwnParams(const Handle(IGESSolid_SolidAssembly)& ent,
+void SolidAssemblyTool::WriteOwnParams(const Handle(IGESSolid_SolidAssembly)& ent,
                                                  IGESData_IGESWriter&                   IW) const
 {
   Standard_Integer nbitems = ent->NbItems();
@@ -95,7 +95,7 @@ void IGESSolid_ToolSolidAssembly::WriteOwnParams(const Handle(IGESSolid_SolidAss
     IW.Send(ent->TransfMatrix(i));
 }
 
-void IGESSolid_ToolSolidAssembly::OwnShared(const Handle(IGESSolid_SolidAssembly)& ent,
+void SolidAssemblyTool::OwnShared(const Handle(IGESSolid_SolidAssembly)& ent,
                                             Interface_EntityIterator&              iter) const
 {
   Standard_Integer nbitems = ent->NbItems();
@@ -106,7 +106,7 @@ void IGESSolid_ToolSolidAssembly::OwnShared(const Handle(IGESSolid_SolidAssembly
     iter.GetOneItem(ent->TransfMatrix(i));
 }
 
-void IGESSolid_ToolSolidAssembly::OwnCopy(const Handle(IGESSolid_SolidAssembly)& another,
+void SolidAssemblyTool::OwnCopy(const Handle(IGESSolid_SolidAssembly)& another,
                                           const Handle(IGESSolid_SolidAssembly)& ent,
                                           Interface_CopyTool&                    TC) const
 {
@@ -134,10 +134,10 @@ void IGESSolid_ToolSolidAssembly::OwnCopy(const Handle(IGESSolid_SolidAssembly)&
   ent->Init(tempItems, tempMatrices);
 }
 
-IGESData_DirChecker IGESSolid_ToolSolidAssembly::DirChecker(
+DirectoryChecker SolidAssemblyTool::DirChecker(
   const Handle(IGESSolid_SolidAssembly)& /* ent */) const
 {
-  IGESData_DirChecker DC(184, 0, 1);
+  DirectoryChecker DC(184, 0, 1);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
@@ -148,13 +148,13 @@ IGESData_DirChecker IGESSolid_ToolSolidAssembly::DirChecker(
   return DC;
 }
 
-void IGESSolid_ToolSolidAssembly::OwnCheck(const Handle(IGESSolid_SolidAssembly)& /* ent */,
+void SolidAssemblyTool::OwnCheck(const Handle(IGESSolid_SolidAssembly)& /* ent */,
                                            const Interface_ShareTool&,
                                            Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESSolid_ToolSolidAssembly::OwnDump(const Handle(IGESSolid_SolidAssembly)& ent,
+void SolidAssemblyTool::OwnDump(const Handle(IGESSolid_SolidAssembly)& ent,
                                           const IGESData_IGESDumper&             dumper,
                                           Standard_OStream&                      S,
                                           const Standard_Integer                 level) const

@@ -33,7 +33,7 @@ BRepBuilderAPI_GTransform::BRepBuilderAPI_GTransform(const gp_GTrsf& T)
 
 //=================================================================================================
 
-BRepBuilderAPI_GTransform::BRepBuilderAPI_GTransform(const TopoDS_Shape&    S,
+BRepBuilderAPI_GTransform::BRepBuilderAPI_GTransform(const TopoShape&    S,
                                                      const gp_GTrsf&        T,
                                                      const Standard_Boolean Copy)
     : myGTrsf(T)
@@ -44,12 +44,12 @@ BRepBuilderAPI_GTransform::BRepBuilderAPI_GTransform(const TopoDS_Shape&    S,
 
 //=================================================================================================
 
-void BRepBuilderAPI_GTransform::Perform(const TopoDS_Shape& S, const Standard_Boolean Copy)
+void BRepBuilderAPI_GTransform::Perform(const TopoShape& S, const Standard_Boolean Copy)
 {
   BRepBuilderAPI_NurbsConvert nc;
   nc.Perform(S, Copy);
   myHist.Add(S, nc);
-  TopoDS_Shape                        Slocal = nc.Shape();
+  TopoShape                        Slocal = nc.Shape();
   Handle(BRepTools_GTrsfModification) theModif =
     Handle(BRepTools_GTrsfModification)::DownCast(myModification);
   theModif->GTrsf() = myGTrsf;
@@ -59,13 +59,13 @@ void BRepBuilderAPI_GTransform::Perform(const TopoDS_Shape& S, const Standard_Bo
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepBuilderAPI_GTransform::Modified(const TopoDS_Shape& F)
+const ShapeList& BRepBuilderAPI_GTransform::Modified(const TopoShape& F)
 {
   myGenerated.Clear();
   const TopTools_DataMapOfShapeListOfShape& M = myHist.Modification();
   if (M.IsBound(F))
   {
-    TopTools_ListOfShape               Li;
+    ShapeList               Li;
     TopTools_ListIteratorOfListOfShape itL(M(F));
     for (; itL.More(); itL.Next())
       Li.Assign(BRepBuilderAPI_ModifyShape::Modified(itL.Value()));
@@ -75,14 +75,14 @@ const TopTools_ListOfShape& BRepBuilderAPI_GTransform::Modified(const TopoDS_Sha
 
 //=================================================================================================
 
-TopoDS_Shape BRepBuilderAPI_GTransform::ModifiedShape(const TopoDS_Shape& S) const
+TopoShape BRepBuilderAPI_GTransform::ModifiedShape(const TopoShape& S) const
 {
   const TopTools_DataMapOfShapeListOfShape& aMapModif = myHist.Modification();
-  TopoDS_Shape                              aShape    = S;
+  TopoShape                              aShape    = S;
 
   if (aMapModif.IsBound(S))
   {
-    const TopTools_ListOfShape& aListModShape = aMapModif(S);
+    const ShapeList& aListModShape = aMapModif(S);
     Standard_Integer            aNbShapes     = aListModShape.Extent();
 
     if (aNbShapes > 0)

@@ -54,7 +54,7 @@ Units_Dimensions::Units_Dimensions(const Standard_Real amass,
 //=======================================================================
 
 static Handle(Units_QuantitiesSequence) quantitySequence;
-static TCollection_AsciiString          quantityName;
+static AsciiString1          quantityName;
 
 Standard_CString Units_Dimensions::Quantity() const
 {

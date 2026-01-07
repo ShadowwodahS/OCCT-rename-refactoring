@@ -112,7 +112,7 @@ public:
   Standard_EXPORT Standard_CString StringAttribute(const Standard_CString name) const;
 
   //! Returns the exhaustive list of attributes
-  Standard_EXPORT const NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>&
+  Standard_EXPORT const NCollection_DataMap<AsciiString1, Handle(RefObject)>&
                         AttrList() const;
 
   //! Gets the list of attributes from <other>, as such, i.e.
@@ -138,7 +138,7 @@ public:
 
 protected:
 private:
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)> theattrib;
+  NCollection_DataMap<AsciiString1, Handle(RefObject)> theattrib;
 };
 
 #endif // _MoniTool_AttrList_HeaderFile

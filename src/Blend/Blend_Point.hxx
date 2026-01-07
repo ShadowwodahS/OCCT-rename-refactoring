@@ -27,15 +27,15 @@
 #include <gp_Vec2d.hxx>
 class gp_Vec2d;
 
-class Blend_Point
+class Point2
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Blend_Point();
+  Standard_EXPORT Point2();
 
   //! Creates a point on 2 surfaces, with tangents.
-  Standard_EXPORT Blend_Point(const Point3d&       Pt1,
+  Standard_EXPORT Point2(const Point3d&       Pt1,
                               const Point3d&       Pt2,
                               const Standard_Real Param,
                               const Standard_Real U1,
@@ -48,7 +48,7 @@ public:
                               const gp_Vec2d&     Tg22d);
 
   //! Creates a point on 2 surfaces, without tangents.
-  Standard_EXPORT Blend_Point(const Point3d&       Pt1,
+  Standard_EXPORT Point2(const Point3d&       Pt1,
                               const Point3d&       Pt2,
                               const Standard_Real Param,
                               const Standard_Real U1,
@@ -57,7 +57,7 @@ public:
                               const Standard_Real V2);
 
   //! Creates a point on a surface and a curve, with tangents.
-  Standard_EXPORT Blend_Point(const Point3d&       Pts,
+  Standard_EXPORT Point2(const Point3d&       Pts,
                               const Point3d&       Ptc,
                               const Standard_Real Param,
                               const Standard_Real U,
@@ -68,7 +68,7 @@ public:
                               const gp_Vec2d&     Tg2d);
 
   //! Creates a point on a surface and a curve, without tangents.
-  Standard_EXPORT Blend_Point(const Point3d&       Pts,
+  Standard_EXPORT Point2(const Point3d&       Pts,
                               const Point3d&       Ptc,
                               const Standard_Real Param,
                               const Standard_Real U,
@@ -77,7 +77,7 @@ public:
 
   //! Creates a point on a surface and a curve on surface,
   //! with tangents.
-  Standard_EXPORT Blend_Point(const Point3d&       Pt1,
+  Standard_EXPORT Point2(const Point3d&       Pt1,
                               const Point3d&       Pt2,
                               const Standard_Real Param,
                               const Standard_Real U1,
@@ -92,7 +92,7 @@ public:
 
   //! Creates a point on a surface and a curve on surface,
   //! without tangents.
-  Standard_EXPORT Blend_Point(const Point3d&       Pt1,
+  Standard_EXPORT Point2(const Point3d&       Pt1,
                               const Point3d&       Pt2,
                               const Standard_Real Param,
                               const Standard_Real U1,
@@ -102,7 +102,7 @@ public:
                               const Standard_Real PC);
 
   //! Creates a point on two curves on surfaces, with tangents.
-  Standard_EXPORT Blend_Point(const Point3d&       Pt1,
+  Standard_EXPORT Point2(const Point3d&       Pt1,
                               const Point3d&       Pt2,
                               const Standard_Real Param,
                               const Standard_Real U1,
@@ -117,7 +117,7 @@ public:
                               const gp_Vec2d&     Tg22d);
 
   //! Creates a point on two curves on surfaces, with tangents.
-  Standard_EXPORT Blend_Point(const Point3d&       Pt1,
+  Standard_EXPORT Point2(const Point3d&       Pt1,
                               const Point3d&       Pt2,
                               const Standard_Real Param,
                               const Standard_Real U1,

@@ -20,7 +20,7 @@
 #include <Standard_Type.hxx>
 
 class CDM_MetaData;
-class TCollection_ExtendedString;
+class UtfString;
 class CDM_Document;
 class PCDM_ReferenceIterator;
 class Message_Messenger;
@@ -50,31 +50,31 @@ public:
                                                const Standard_Integer      aToDocumentVersion);
 
   //! by default return Standard_True.
-  Standard_EXPORT virtual Standard_Boolean HasVersion(const TCollection_ExtendedString& aFolder,
-                                                      const TCollection_ExtendedString& aName);
+  Standard_EXPORT virtual Standard_Boolean HasVersion(const UtfString& aFolder,
+                                                      const UtfString& aName);
 
-  Standard_EXPORT virtual TCollection_ExtendedString BuildFileName(
+  Standard_EXPORT virtual UtfString BuildFileName(
     const Handle(CDM_Document)& aDocument) = 0;
 
   //! this method is useful if the name of an object --
   //! depends on the metadatadriver. For  example a Driver
   //! -- based  on the operating  system can choose to  add
   //! the extension of file to create to the object.
-  Standard_EXPORT virtual TCollection_ExtendedString SetName(
+  Standard_EXPORT virtual UtfString SetName(
     const Handle(CDM_Document)&       aDocument,
-    const TCollection_ExtendedString& aName);
+    const UtfString& aName);
 
   //! should indicate whether meta-data exist in the DBMS corresponding
   //! to the Data.
   //! aVersion may be NULL;
-  Standard_EXPORT virtual Standard_Boolean Find(const TCollection_ExtendedString& aFolder,
-                                                const TCollection_ExtendedString& aName,
-                                                const TCollection_ExtendedString& aVersion) = 0;
+  Standard_EXPORT virtual Standard_Boolean Find(const UtfString& aFolder,
+                                                const UtfString& aName,
+                                                const UtfString& aVersion) = 0;
 
   Standard_EXPORT virtual Standard_Boolean HasReadPermission(
-    const TCollection_ExtendedString& aFolder,
-    const TCollection_ExtendedString& aName,
-    const TCollection_ExtendedString& aVersion) = 0;
+    const UtfString& aFolder,
+    const UtfString& aName,
+    const UtfString& aVersion) = 0;
 
   //! should return the MetaData stored in the DBMS with the meta-data
   //! corresponding to the Data. If the MetaDataDriver has version management capabilities
@@ -84,9 +84,9 @@ public:
   //! If the version is  set to NULL, MetaData should return
   //! the last version of the metadata
   Standard_EXPORT virtual Handle(CDM_MetaData) MetaData(
-    const TCollection_ExtendedString& aFolder,
-    const TCollection_ExtendedString& aName,
-    const TCollection_ExtendedString& aVersion) = 0;
+    const UtfString& aFolder,
+    const UtfString& aName,
+    const UtfString& aVersion) = 0;
 
   //! by default returns aMetaDATA
   //! should return the MetaData stored in the DBMS with the meta-data
@@ -105,23 +105,23 @@ public:
   //! has version capabilities, version must be set in the returned Data.
   Standard_EXPORT virtual Handle(CDM_MetaData) CreateMetaData(
     const Handle(CDM_Document)&       aDocument,
-    const TCollection_ExtendedString& aFileName) = 0;
+    const UtfString& aFileName) = 0;
 
   Standard_EXPORT virtual Standard_Boolean FindFolder(
-    const TCollection_ExtendedString& aFolder) = 0;
+    const UtfString& aFolder) = 0;
 
-  Standard_EXPORT virtual TCollection_ExtendedString DefaultFolder() = 0;
+  Standard_EXPORT virtual UtfString DefaultFolder() = 0;
 
   Standard_EXPORT virtual Handle(PCDM_ReferenceIterator) ReferenceIterator(
     const Handle(Message_Messenger)& theMessageDriver);
 
   //! calls Find with an empty version
-  Standard_EXPORT Standard_Boolean Find(const TCollection_ExtendedString& aFolder,
-                                        const TCollection_ExtendedString& aName);
+  Standard_EXPORT Standard_Boolean Find(const UtfString& aFolder,
+                                        const UtfString& aName);
 
   //! calls MetaData with an empty version
-  Standard_EXPORT Handle(CDM_MetaData) MetaData(const TCollection_ExtendedString& aFolder,
-                                                const TCollection_ExtendedString& aName);
+  Standard_EXPORT Handle(CDM_MetaData) MetaData(const UtfString& aFolder,
+                                                const UtfString& aName);
 
   DEFINE_STANDARD_RTTIEXT(CDF_MetaDataDriver, RefObject)
 

@@ -46,10 +46,10 @@ static NCollection_DataMap<Standard_CString, Handle(TDF_Attribute), Standard_CSt
 }
 
 //! Global map of the string-type of derived attribute -> type name to identify this attribute
-static NCollection_DataMap<Standard_CString, TCollection_AsciiString*, Standard_CStringHasher>&
+static NCollection_DataMap<Standard_CString, AsciiString1*, Standard_CStringHasher>&
   Types()
 {
-  static NCollection_DataMap<Standard_CString, TCollection_AsciiString*, Standard_CStringHasher>
+  static NCollection_DataMap<Standard_CString, AsciiString1*, Standard_CStringHasher>
     THE_DERIVED_TYPES;
   return THE_DERIVED_TYPES;
 }
@@ -95,7 +95,7 @@ static void Initialize()
       Handle(TDF_Attribute) aDerived            = aCreator.Value().myCreator();
       Standard_CString      aDerivedDynamicType = aDerived->DynamicType()->Name();
 
-      TCollection_AsciiString aTypeName;
+      AsciiString1 aTypeName;
       if (aCreator.Value().myNameSpace != NULL)
       {
         if (aCreator.Value().myNameSpace[0] != '\0')
@@ -114,7 +114,7 @@ static void Initialize()
       }
 
       // persistent storage of types strings: they are not changed like maps on resize
-      static NCollection_List<TCollection_AsciiString> THE_TYPES_STORAGE;
+      static NCollection_List<AsciiString1> THE_TYPES_STORAGE;
       THE_TYPES_STORAGE.Append(aTypeName);
       TDF_DerivedAttributeGlobals::Types().Bind(aDerivedDynamicType, &(THE_TYPES_STORAGE.Last()));
       TDF_DerivedAttributeGlobals::Attributes().Bind(aDerivedDynamicType, aDerived);
@@ -141,16 +141,16 @@ Handle(TDF_Attribute) TDF_DerivedAttribute::Attribute(Standard_CString theType)
 
 //=================================================================================================
 
-const TCollection_AsciiString& TDF_DerivedAttribute::TypeName(Standard_CString theType)
+const AsciiString1& TDF_DerivedAttribute::TypeName(Standard_CString theType)
 {
   Standard_Mutex::Sentry aSentry(TDF_DerivedAttributeGlobals::Mutex());
   Initialize();
-  if (TCollection_AsciiString* const* aResult = TDF_DerivedAttributeGlobals::Types().Seek(theType))
+  if (AsciiString1* const* aResult = TDF_DerivedAttributeGlobals::Types().Seek(theType))
   {
     return **aResult;
   }
 
-  static const TCollection_AsciiString anEmpty;
+  static const AsciiString1 anEmpty;
   return anEmpty;
 }
 

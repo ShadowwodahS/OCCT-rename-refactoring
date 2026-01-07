@@ -23,7 +23,7 @@
 // #define MDTV_DEB_INT
 //=================================================================================================
 
-TNaming_ShapesSet::TNaming_ShapesSet(const TopoDS_Shape& CS, const TopAbs_ShapeEnum Type)
+ShapesSet::ShapesSet(const TopoShape& CS, const TopAbs_ShapeEnum Type)
 {
   if (CS.IsNull())
     return;
@@ -51,7 +51,7 @@ TNaming_ShapesSet::TNaming_ShapesSet(const TopoDS_Shape& CS, const TopAbs_ShapeE
     // corrected by vro 13.09.00:
     if (Type > CS.ShapeType())
     {
-      for (TopExp_Explorer exp(CS, Type); exp.More(); exp.Next())
+      for (ShapeExplorer exp(CS, Type); exp.More(); exp.Next())
       {
         Add(exp.Current());
 #ifdef OCCT_DEBUG_INT
@@ -72,9 +72,9 @@ TNaming_ShapesSet::TNaming_ShapesSet(const TopoDS_Shape& CS, const TopAbs_ShapeE
 
 //=================================================================================================
 
-void TNaming_ShapesSet::Add(const TNaming_ShapesSet& Shapes)
+void ShapesSet::Add(const ShapesSet& Shapes)
 {
-  TNaming_IteratorOnShapesSet it(Shapes);
+  ShapesSetIterator it(Shapes);
   for (; it.More(); it.Next())
   {
     myMap.Add(it.Value());
@@ -83,14 +83,14 @@ void TNaming_ShapesSet::Add(const TNaming_ShapesSet& Shapes)
 
 //=================================================================================================
 
-void TNaming_ShapesSet::Filter(const TNaming_ShapesSet& Shapes)
+void ShapesSet::Filter(const ShapesSet& Shapes)
 {
 
-  TNaming_ShapesSet           ToRemove;
-  TNaming_IteratorOnShapesSet it(*this);
+  ShapesSet           ToRemove;
+  ShapesSetIterator it(*this);
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape& S = it.Value();
+    const TopoShape& S = it.Value();
     if (!Shapes.Contains(S))
     {
       ToRemove.Add(S);
@@ -101,9 +101,9 @@ void TNaming_ShapesSet::Filter(const TNaming_ShapesSet& Shapes)
 
 //=================================================================================================
 
-void TNaming_ShapesSet::Remove(const TNaming_ShapesSet& Shapes)
+void ShapesSet::Remove(const ShapesSet& Shapes)
 {
-  TNaming_IteratorOnShapesSet it(Shapes);
+  ShapesSetIterator it(Shapes);
   for (; it.More(); it.Next())
   {
     myMap.Remove(it.Value());

@@ -124,7 +124,7 @@ void SelectMgr_SelectionManager::Activate(const Handle(SelectMgr_SelectableObjec
     return;
 
   Standard_Boolean isComputed = Standard_False;
-  if (const Handle(SelectMgr_Selection)& aSelOld = theObject->Selection(theMode))
+  if (const Handle(SelectionContainer)& aSelOld = theObject->Selection(theMode))
   {
     isComputed = !aSelOld->IsEmpty();
   }
@@ -133,7 +133,7 @@ void SelectMgr_SelectionManager::Activate(const Handle(SelectMgr_SelectableObjec
     loadMode(theObject, theMode);
   }
 
-  const Handle(SelectMgr_Selection)& aSelection = theObject->Selection(theMode);
+  const Handle(SelectionContainer)& aSelection = theObject->Selection(theMode);
   switch (aSelection->UpdateStatus())
   {
     case SelectMgr_TOU_Full: {
@@ -200,7 +200,7 @@ void SelectMgr_SelectionManager::Deactivate(const Handle(SelectMgr_SelectableObj
     return;
   }
 
-  const Handle(SelectMgr_Selection)& aSel = theObject->Selection(theMode);
+  const Handle(SelectionContainer)& aSel = theObject->Selection(theMode);
   if (theMode == -1)
   {
     for (SelectMgr_SequenceOfSelection::Iterator aSelIter(theObject->Selections()); aSelIter.More();
@@ -250,7 +250,7 @@ Standard_Boolean SelectMgr_SelectionManager::IsActivated(
     return Standard_False;
   }
 
-  const Handle(SelectMgr_Selection)& aSelection = theObject->Selection(theMode);
+  const Handle(SelectionContainer)& aSelection = theObject->Selection(theMode);
   if (aSelection.IsNull())
   {
     return Standard_False;
@@ -287,7 +287,7 @@ void SelectMgr_SelectionManager::ClearSelectionStructures(
 
   if (theMode != -1)
   {
-    if (const Handle(SelectMgr_Selection)& aSelection = theObj->Selection(theMode))
+    if (const Handle(SelectionContainer)& aSelection = theObj->Selection(theMode))
     {
       mySelector->RemoveSelectionOfObject(theObj, aSelection);
       aSelection->UpdateBVHStatus(SelectMgr_TBU_Add);
@@ -298,7 +298,7 @@ void SelectMgr_SelectionManager::ClearSelectionStructures(
     for (SelectMgr_SequenceOfSelection::Iterator aSelIter(theObj->Selections()); aSelIter.More();
          aSelIter.Next())
     {
-      const Handle(SelectMgr_Selection)& aSelection = aSelIter.Value();
+      const Handle(SelectionContainer)& aSelection = aSelIter.Value();
       mySelector->RemoveSelectionOfObject(theObj, aSelection);
       aSelection->UpdateBVHStatus(SelectMgr_TBU_Add);
     }
@@ -333,7 +333,7 @@ void SelectMgr_SelectionManager::RestoreSelectionStructures(
 
   if (theMode != -1)
   {
-    if (const Handle(SelectMgr_Selection)& aSelection = theObj->Selection(theMode))
+    if (const Handle(SelectionContainer)& aSelection = theObj->Selection(theMode))
     {
       mySelector->AddSelectionToObject(theObj, aSelection);
       aSelection->UpdateBVHStatus(SelectMgr_TBU_None);
@@ -344,7 +344,7 @@ void SelectMgr_SelectionManager::RestoreSelectionStructures(
     for (SelectMgr_SequenceOfSelection::Iterator aSelIter(theObj->Selections()); aSelIter.More();
          aSelIter.Next())
     {
-      const Handle(SelectMgr_Selection)& aSelection = aSelIter.Value();
+      const Handle(SelectionContainer)& aSelection = aSelIter.Value();
       mySelector->AddSelectionToObject(theObj, aSelection);
       aSelection->UpdateBVHStatus(SelectMgr_TBU_None);
     }
@@ -356,7 +356,7 @@ void SelectMgr_SelectionManager::RestoreSelectionStructures(
 
 void SelectMgr_SelectionManager::recomputeSelectionMode(
   const Handle(SelectMgr_SelectableObject)& theObject,
-  const Handle(SelectMgr_Selection)&        theSelection,
+  const Handle(SelectionContainer)&        theSelection,
   const Standard_Integer                    theMode)
 {
   theSelection->UpdateStatus(SelectMgr_TOU_Full);
@@ -416,14 +416,14 @@ void SelectMgr_SelectionManager::RecomputeSelection(
     for (SelectMgr_SequenceOfSelection::Iterator aSelIter(theObject->Selections()); aSelIter.More();
          aSelIter.Next())
     {
-      const Handle(SelectMgr_Selection)& aSelection = aSelIter.Value();
+      const Handle(SelectionContainer)& aSelection = aSelIter.Value();
       const Standard_Integer             aSelMode   = aSelection->Mode();
       recomputeSelectionMode(theObject, aSelection, aSelMode);
     }
   }
   else
   {
-    if (const Handle(SelectMgr_Selection)& aSelection = theObject->Selection(theMode))
+    if (const Handle(SelectionContainer)& aSelection = theObject->Selection(theMode))
     {
       recomputeSelectionMode(theObject, aSelection, theMode);
     }
@@ -453,7 +453,7 @@ void SelectMgr_SelectionManager::Update(const Handle(SelectMgr_SelectableObject)
   for (SelectMgr_SequenceOfSelection::Iterator aSelIter(theObject->Selections()); aSelIter.More();
        aSelIter.Next())
   {
-    const Handle(SelectMgr_Selection)& aSelection = aSelIter.Value();
+    const Handle(SelectionContainer)& aSelection = aSelIter.Value();
     if (theIsForce || mySelector->Status(aSelection) == SelectMgr_SOS_Activated)
     {
       switch (aSelection->UpdateStatus())
@@ -491,13 +491,13 @@ void SelectMgr_SelectionManager::loadMode(const Handle(SelectMgr_SelectableObjec
     return;
   }
 
-  if (const Handle(SelectMgr_Selection)& aSelOld = theObject->Selection(theMode))
+  if (const Handle(SelectionContainer)& aSelOld = theObject->Selection(theMode))
   {
     if (aSelOld->IsEmpty())
     {
       if (aSelOld->BVHUpdateStatus() == SelectMgr_TBU_Remove)
       {
-        Handle(SelectMgr_Selection) aNewSel = new SelectMgr_Selection(theMode);
+        Handle(SelectionContainer) aNewSel = new SelectionContainer(theMode);
         theObject->AddSelection(aNewSel, theMode);
         aNewSel->UpdateBVHStatus(SelectMgr_TBU_Remove);
         aNewSel->SetSelectionState(SelectMgr_SOS_Deactivated);
@@ -508,7 +508,7 @@ void SelectMgr_SelectionManager::loadMode(const Handle(SelectMgr_SelectableObjec
     return;
   }
 
-  Handle(SelectMgr_Selection) aNewSel = new SelectMgr_Selection(theMode);
+  Handle(SelectionContainer) aNewSel = new SelectionContainer(theMode);
   theObject->AddSelection(aNewSel, theMode);
   if (myGlobal.Contains(theObject))
   {
@@ -523,7 +523,7 @@ void SelectMgr_SelectionManager::loadMode(const Handle(SelectMgr_SelectableObjec
 // Function: buildBVH
 // Purpose : Private Method
 //==================================================
-void SelectMgr_SelectionManager::buildBVH(const Handle(SelectMgr_Selection)& theSelection)
+void SelectMgr_SelectionManager::buildBVH(const Handle(SelectionContainer)& theSelection)
 {
   if (mySelector->ToPrebuildBVH())
   {
@@ -572,7 +572,7 @@ void SelectMgr_SelectionManager::SetUpdateMode(const Handle(SelectMgr_Selectable
                                                const Standard_Integer                    theMode,
                                                const SelectMgr_TypeOfUpdate              theType)
 {
-  if (const Handle(SelectMgr_Selection)& aSel = theObject->Selection(theMode))
+  if (const Handle(SelectionContainer)& aSel = theObject->Selection(theMode))
   {
     aSel->UpdateStatus(theType);
   }
@@ -597,7 +597,7 @@ void SelectMgr_SelectionManager::SetSelectionSensitivity(
     return;
   }
 
-  const Handle(SelectMgr_Selection)& aSel = theObject->Selection(theMode);
+  const Handle(SelectionContainer)& aSel = theObject->Selection(theMode);
   if (aSel.IsNull())
   {
     return;

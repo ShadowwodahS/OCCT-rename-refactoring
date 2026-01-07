@@ -28,7 +28,7 @@ class IGESBasic_SingularSubfigure;
 DEFINE_STANDARD_HANDLE(IGESBasic_SingularSubfigure, IGESData_IGESEntity)
 
 //! defines SingularSubfigure, Type <408> Form <0>
-//! in package IGESBasic
+//! in package IGESBasic1
 //! Defines the occurrence of a single instance of the
 //! defined Subfigure.
 class IGESBasic_SingularSubfigure : public IGESData_IGESEntity

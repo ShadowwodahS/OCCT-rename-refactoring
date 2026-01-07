@@ -75,8 +75,8 @@ private:
                          Aspect_TypeOfMarker                  theType,
                          Standard_ShortReal                   theScale,
                          const Graphic3d_Vec4&                theColor,
-                         TCollection_AsciiString&             theKey,
-                         TCollection_AsciiString&             theKeyA);
+                         AsciiString1&             theKey,
+                         AsciiString1&             theKeyA);
 
 private:
   Handle(OpenGl_PointSprite) mySprite;

@@ -50,8 +50,8 @@ public:
   Standard_EXPORT IntPatch_ImpImpIntersection();
 
   //! Flag theIsReqToKeepRLine has been entered only for
-  //! compatibility with TopOpeBRep package. It shall be deleted
-  //! after deleting TopOpeBRep.
+  //! compatibility with TopOpeBRep1 package. It shall be deleted
+  //! after deleting TopOpeBRep1.
   //! When intersection result returns IntPatch_RLine and another
   //! IntPatch_Line (not restriction) we (in case of theIsReqToKeepRLine==TRUE)
   //! will always keep both lines even if they are coincided.
@@ -65,8 +65,8 @@ public:
     const Standard_Boolean             theIsReqToKeepRLine = Standard_False);
 
   //! Flag theIsReqToKeepRLine has been entered only for
-  //! compatibility with TopOpeBRep package. It shall be deleted
-  //! after deleting TopOpeBRep.
+  //! compatibility with TopOpeBRep1 package. It shall be deleted
+  //! after deleting TopOpeBRep1.
   //! When intersection result returns IntPatch_RLine and another
   //! IntPatch_Line (not restriction) we (in case of theIsReqToKeepRLine==TRUE)
   //! will always keep both lines even if they are coincided.

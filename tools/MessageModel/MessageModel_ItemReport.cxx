@@ -54,7 +54,7 @@ QVariant MessageModel_ItemReport::initValue(const int theRole) const
   if (theRole == Qt::ToolTipRole && !myDescription.IsEmpty()
       && Column() == 0) // display the exported file name in tool tip
   {
-    OSD_Path aPath(myDescription);
+    SystemPath aPath(myDescription);
     return QString("%1%2").arg(aPath.Name().ToCString()).arg(aPath.Extension().ToCString());
   }
 

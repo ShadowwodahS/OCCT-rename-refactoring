@@ -30,8 +30,8 @@ void IGESGraph_UniformRectGrid::Init(const Standard_Integer nbProps,
                                      const Standard_Integer finite,
                                      const Standard_Integer line,
                                      const Standard_Integer weighted,
-                                     const gp_XY&           aGridPoint,
-                                     const gp_XY&           aGridSpacing,
+                                     const Coords2d&           aGridPoint,
+                                     const Coords2d&           aGridSpacing,
                                      const Standard_Integer pointsX,
                                      const Standard_Integer pointsY)
 {

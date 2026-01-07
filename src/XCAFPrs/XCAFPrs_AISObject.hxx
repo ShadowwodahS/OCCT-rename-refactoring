@@ -20,19 +20,19 @@
 
 class XCAFPrs_Style;
 
-//! Implements AIS_InteractiveObject functionality for shape in DECAF document.
+//! Implements VisualEntity functionality for shape in DECAF document.
 class XCAFPrs_AISObject : public AIS_ColoredShape
 {
 public:
   //! Creates an object to visualise the shape label.
-  Standard_EXPORT XCAFPrs_AISObject(const TDF_Label& theLabel);
+  Standard_EXPORT XCAFPrs_AISObject(const DataLabel& theLabel);
 
   //! Returns the label which was visualised by this presentation
-  const TDF_Label& GetLabel() const { return myLabel; }
+  const DataLabel& GetLabel() const { return myLabel; }
 
   //! Assign the label to this presentation
   //! (but does not mark it outdated with SetToUpdate()).
-  void SetLabel(const TDF_Label& theLabel) { myLabel = theLabel; }
+  void SetLabel(const DataLabel& theLabel) { myLabel = theLabel; }
 
   //! Fetch the Shape from associated Label and fill the map of sub-shapes styles.
   //! By default, this method is called implicitly within first ::Compute().
@@ -61,13 +61,13 @@ protected:
 
 protected:
   //! Assign style to drawer.
-  static void setStyleToDrawer(const Handle(Prs3d_Drawer)&     theDrawer,
+  static void setStyleToDrawer(const Handle(StyleDrawer)&     theDrawer,
                                const XCAFPrs_Style&            theStyle,
                                const XCAFPrs_Style&            theDefStyle,
                                const Graphic3d_MaterialAspect& theDefMaterial);
 
 protected:
-  TDF_Label myLabel; //!< label pointing onto the shape
+  DataLabel myLabel; //!< label pointing onto the shape
   // clang-format off
   Standard_Boolean myToSyncStyles; //!< flag indicating that shape and sub-shapes should be updates within Compute()
   // clang-format on

@@ -68,28 +68,28 @@ Standard_EXPORT void FDSSDM_prepare(const Handle(TopOpeBRepDS_HDataStructure)& H
   // modified by NIZNHY-PKV Sun Dec 15 17:58:31 2002 t
   Gps1->Clear();
   Gps2->Clear();
-  Standard_Integer i, n = HDS->NbShapes();
+  Standard_Integer i, n = HDS->NbShapes1();
   for (i = 1; i <= n; i++)
   {
-    const TopoDS_Shape& s   = HDS->Shape(i);
+    const TopoShape& s   = HDS->Shape(i);
     Standard_Boolean    hsd = HDS->HasSameDomain(s);
     if (!hsd)
       continue;
-    TopTools_ListOfShape thelist, thelist1;
+    ShapeList thelist, thelist1;
     if (!Gps1->Contains(s))
       Gps1->Add(s, thelist);
     if (!Gps2->Contains(s))
       Gps2->Add(s, thelist1);
-    TopTools_ListOfShape& LS1 = Gps1->ChangeFromKey(s);
-    TopTools_ListOfShape& LS2 = Gps2->ChangeFromKey(s);
+    ShapeList& LS1 = Gps1->ChangeFromKey(s);
+    ShapeList& LS2 = Gps2->ChangeFromKey(s);
     FDSSDM_makes1s2(s, LS1, LS2);
   }
 } // prepare
 //=================================================================================================
 
-Standard_EXPORT void FDSSDM_makes1s2(const TopoDS_Shape&   S,
-                                     TopTools_ListOfShape& L1,
-                                     TopTools_ListOfShape& L2)
+Standard_EXPORT void FDSSDM_makes1s2(const TopoShape&   S,
+                                     ShapeList& L1,
+                                     ShapeList& L2)
 // L1 = S1, complete lists L1,L2 with the shapes of the DS having same domain
 {
   // modified by NIZNHY-PKV Sun Dec 15 17:59:11 2002 f
@@ -107,12 +107,12 @@ Standard_EXPORT void FDSSDM_makes1s2(const TopoDS_Shape&   S,
     TopTools_ListIteratorOfListOfShape it1(L1);
     for (i = 1; i <= nl1; i++)
     {
-      const TopoDS_Shape& S1 = it1.Value();
+      const TopoShape& S1 = it1.Value();
       //                HDS->Shape(S1);
       TopTools_ListIteratorOfListOfShape itsd(HDS->SameDomain(S1));
       for (; itsd.More(); itsd.Next())
       {
-        const TopoDS_Shape& S2 = itsd.Value();
+        const TopoShape& S2 = itsd.Value();
         //                  HDS->Shape(S2);
         Standard_Boolean found = FDSSDM_contains(S2, L2);
         if (!found)
@@ -128,12 +128,12 @@ Standard_EXPORT void FDSSDM_makes1s2(const TopoDS_Shape&   S,
     TopTools_ListIteratorOfListOfShape it2(L2);
     for (i = 1; i <= nl2; i++)
     {
-      const TopoDS_Shape& S2 = it2.Value();
+      const TopoShape& S2 = it2.Value();
       //      HDS->Shape(S2);
       TopTools_ListIteratorOfListOfShape itsd(HDS->SameDomain(S2));
       for (; itsd.More(); itsd.Next())
       {
-        const TopoDS_Shape& S1 = itsd.Value();
+        const TopoShape& S1 = itsd.Value();
         //                  HDS->Shape(S1);
         Standard_Boolean found = FDSSDM_contains(S1, L1);
         if (!found)
@@ -151,10 +151,10 @@ Standard_EXPORT void FDSSDM_makes1s2(const TopoDS_Shape&   S,
 
 //=================================================================================================
 
-Standard_EXPORT void FDSSDM_s1s2makesordor(const TopTools_ListOfShape& LS1,
-                                           const TopTools_ListOfShape& LS2,
-                                           TopTools_ListOfShape&       LSO,
-                                           TopTools_ListOfShape&       LDO)
+Standard_EXPORT void FDSSDM_s1s2makesordor(const ShapeList& LS1,
+                                           const ShapeList& LS2,
+                                           ShapeList&       LSO,
+                                           ShapeList&       LDO)
 {
   // modified by NIZNHY-PKV Sun Dec 15 17:59:37 2002 f
   // const Handle(TopOpeBRepDS_HDataStructure)& HDS = Ghds;
@@ -163,13 +163,13 @@ Standard_EXPORT void FDSSDM_s1s2makesordor(const TopTools_ListOfShape& LS1,
   TopTools_ListIteratorOfListOfShape it(LS1);
   if (!it.More())
     return;
-  const TopoDS_Shape& sref = it.Value();
+  const TopoShape& sref = it.Value();
   HDS->SameDomainReference(sref);
   TopOpeBRepDS_Config oref = HDS->SameDomainOrientation(sref);
 
   for (it.Initialize(LS1); it.More(); it.Next())
   {
-    const TopoDS_Shape& s = it.Value();
+    const TopoShape& s = it.Value();
     TopOpeBRepDS_Config o = HDS->SameDomainOrientation(s);
     //  HDS->Shape(s);
     if (o == oref && !FDSSDM_contains(s, LSO))
@@ -180,7 +180,7 @@ Standard_EXPORT void FDSSDM_s1s2makesordor(const TopTools_ListOfShape& LS1,
 
   for (it.Initialize(LS2); it.More(); it.Next())
   {
-    const TopoDS_Shape& s = it.Value();
+    const TopoShape& s = it.Value();
     TopOpeBRepDS_Config o = HDS->SameDomainOrientation(s);
     //             HDS->Shape(s);
     if (o == oref && !FDSSDM_contains(s, LSO))
@@ -190,7 +190,7 @@ Standard_EXPORT void FDSSDM_s1s2makesordor(const TopTools_ListOfShape& LS1,
   }
 } // s1s2makesordor
 
-Standard_EXPORT Standard_Boolean FDSSDM_hass1s2(const TopoDS_Shape& S)
+Standard_EXPORT Standard_Boolean FDSSDM_hass1s2(const TopoShape& S)
 {
   Standard_Boolean b1 = Gps1->Contains(S);
   Standard_Boolean b2 = Gps2->Contains(S);
@@ -198,9 +198,9 @@ Standard_EXPORT Standard_Boolean FDSSDM_hass1s2(const TopoDS_Shape& S)
   return b;
 } // hass1s2
 
-Standard_EXPORT void FDSSDM_s1s2(const TopoDS_Shape&   S,
-                                 TopTools_ListOfShape& LS1,
-                                 TopTools_ListOfShape& LS2)
+Standard_EXPORT void FDSSDM_s1s2(const TopoShape&   S,
+                                 ShapeList& LS1,
+                                 ShapeList& LS2)
 {
   LS1.Clear();
   LS2.Clear();
@@ -210,30 +210,30 @@ Standard_EXPORT void FDSSDM_s1s2(const TopoDS_Shape&   S,
     FDSSDM_makes1s2(S, LS1, LS2);
     return;
   }
-  const TopTools_ListOfShape& L1 = Gps1->FindFromKey(S);
-  const TopTools_ListOfShape& L2 = Gps2->FindFromKey(S);
+  const ShapeList& L1 = Gps1->FindFromKey(S);
+  const ShapeList& L2 = Gps2->FindFromKey(S);
   FDSSDM_copylist(L1, LS1);
   FDSSDM_copylist(L2, LS2);
 } // s1s2
 
-Standard_EXPORT void FDSSDM_sordor(const TopoDS_Shape&   S,
-                                   TopTools_ListOfShape& LSO,
-                                   TopTools_ListOfShape& LDO)
+Standard_EXPORT void FDSSDM_sordor(const TopoShape&   S,
+                                   ShapeList& LSO,
+                                   ShapeList& LDO)
 {
   LSO.Clear();
   LDO.Clear();
-  TopTools_ListOfShape LS1, LS2;
+  ShapeList LS1, LS2;
   FDSSDM_s1s2(S, LS1, LS2);
   FDSSDM_s1s2makesordor(LS1, LS2, LSO, LDO);
 } // sordor
 
-Standard_EXPORT Standard_Boolean FDSSDM_contains(const TopoDS_Shape&         S,
-                                                 const TopTools_ListOfShape& L)
+Standard_EXPORT Standard_Boolean FDSSDM_contains(const TopoShape&         S,
+                                                 const ShapeList& L)
 // True if S IsSame a shape of list L.
 {
   for (TopTools_ListIteratorOfListOfShape it(L); it.More(); it.Next())
   {
-    const TopoDS_Shape& SL     = it.Value();
+    const TopoShape& SL     = it.Value();
     Standard_Boolean    issame = SL.IsSame(S);
     if (issame)
       return Standard_True;
@@ -241,16 +241,16 @@ Standard_EXPORT Standard_Boolean FDSSDM_contains(const TopoDS_Shape&         S,
   return Standard_False;
 } // contains
 
-Standard_EXPORT void FDSSDM_copylist(const TopTools_ListOfShape& Lin,
+Standard_EXPORT void FDSSDM_copylist(const ShapeList& Lin,
                                      const Standard_Integer      I1,
                                      const Standard_Integer      I2,
-                                     TopTools_ListOfShape&       Lou)
+                                     ShapeList&       Lou)
 // copie des elements [i1..i2] de Lin dans Lou. 1er element de Lin = index 1
 {
   TopTools_ListIteratorOfListOfShape it(Lin);
   for (Standard_Integer i = 1; it.More(); it.Next(), i++)
   {
-    const TopoDS_Shape& EL = it.Value();
+    const TopoShape& EL = it.Value();
     if (i >= I1 && i <= I2)
     {
       Lou.Append(EL);
@@ -258,7 +258,7 @@ Standard_EXPORT void FDSSDM_copylist(const TopTools_ListOfShape& Lin,
   }
 } // copylist
 
-Standard_EXPORT void FDSSDM_copylist(const TopTools_ListOfShape& Lin, TopTools_ListOfShape& Lou)
+Standard_EXPORT void FDSSDM_copylist(const ShapeList& Lin, ShapeList& Lou)
 // copy de Lin dans Lou
 {
   const Standard_Integer I1 = 1;

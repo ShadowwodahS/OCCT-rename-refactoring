@@ -23,7 +23,7 @@
 
 #include <BRepSweep_Rotation.hxx>
 #include <Standard_Boolean.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class Axis3d;
 class Sweep_NumShape;
 class TopLoc_Location;
@@ -37,39 +37,39 @@ public:
 
   //! Builds the Revol of meridian S axis A  and angle D. If
   //! C is true S is copied.
-  Standard_EXPORT BRepSweep_Revol(const TopoDS_Shape&    S,
+  Standard_EXPORT BRepSweep_Revol(const TopoShape&    S,
                                   const Axis3d&          A,
                                   const Standard_Real    D,
                                   const Standard_Boolean C = Standard_False);
 
   //! Builds the Revol of meridian S  axis A and angle 2*Pi.
   //! If C is true S is copied.
-  Standard_EXPORT BRepSweep_Revol(const TopoDS_Shape&    S,
+  Standard_EXPORT BRepSweep_Revol(const TopoShape&    S,
                                   const Axis3d&          A,
                                   const Standard_Boolean C = Standard_False);
 
   //! Returns the TopoDS Shape attached to the Revol.
-  Standard_EXPORT TopoDS_Shape Shape();
+  Standard_EXPORT TopoShape Shape();
 
   //! Returns    the  TopoDS  Shape   generated  with  aGenS
   //! (subShape  of the generating shape).
-  Standard_EXPORT TopoDS_Shape Shape(const TopoDS_Shape& aGenS);
+  Standard_EXPORT TopoShape Shape(const TopoShape& aGenS);
 
   //! Returns the first shape of the revol  (coinciding with
   //! the generating shape).
-  Standard_EXPORT TopoDS_Shape FirstShape();
+  Standard_EXPORT TopoShape FirstShape();
 
   //! Returns the first shape of the revol  (coinciding with
   //! the generating shape).
-  Standard_EXPORT TopoDS_Shape FirstShape(const TopoDS_Shape& aGenS);
+  Standard_EXPORT TopoShape FirstShape(const TopoShape& aGenS);
 
   //! Returns the TopoDS Shape of the top of the prism.
-  Standard_EXPORT TopoDS_Shape LastShape();
+  Standard_EXPORT TopoShape LastShape();
 
   //! Returns the  TopoDS  Shape of the top  of  the  prism.
   //! generated  with  aGenS  (subShape  of  the  generating
   //! shape).
-  Standard_EXPORT TopoDS_Shape LastShape(const TopoDS_Shape& aGenS);
+  Standard_EXPORT TopoShape LastShape(const TopoShape& aGenS);
 
   //! returns the axis
   Standard_EXPORT Axis3d Axe() const;
@@ -78,7 +78,7 @@ public:
   Standard_EXPORT Standard_Real Angle() const;
 
   //! Returns true if the aGenS is used in resulting Shape
-  Standard_EXPORT Standard_Boolean IsUsed(const TopoDS_Shape& aGenS) const;
+  Standard_EXPORT Standard_Boolean IsUsed(const TopoShape& aGenS) const;
 
 private:
   //! builds the NumShape.

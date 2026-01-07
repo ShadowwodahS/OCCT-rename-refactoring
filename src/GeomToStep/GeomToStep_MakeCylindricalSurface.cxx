@@ -29,7 +29,7 @@
 //=============================================================================
 GeomToStep_MakeCylindricalSurface::GeomToStep_MakeCylindricalSurface(
   const Handle(Geom_CylindricalSurface)& CS,
-  const StepData_Factors&                theLocalFactors)
+  const ConversionFactors&                theLocalFactors)
 {
   Handle(StepGeom_CylindricalSurface) CSstep;
   Handle(StepGeom_Axis2Placement3d)   aPosition;

@@ -37,11 +37,11 @@
 // MGE 03/08/98
 //=================================================================================================
 
-IGESSolid_ToolShell::IGESSolid_ToolShell() {}
+ShellTool::ShellTool() {}
 
 //=================================================================================================
 
-void IGESSolid_ToolShell::ReadOwnParams(const Handle(IGESSolid_Shell)&         ent,
+void ShellTool::ReadOwnParams(const Handle(IGESSolid_Shell)&         ent,
                                         const Handle(IGESData_IGESReaderData)& IR,
                                         IGESData_ParamReader&                  PR) const
 {
@@ -118,7 +118,7 @@ void IGESSolid_ToolShell::ReadOwnParams(const Handle(IGESSolid_Shell)&         e
 
 //=================================================================================================
 
-void IGESSolid_ToolShell::WriteOwnParams(const Handle(IGESSolid_Shell)& ent,
+void ShellTool::WriteOwnParams(const Handle(IGESSolid_Shell)& ent,
                                          IGESData_IGESWriter&           IW) const
 {
   Standard_Integer i, nbfaces = ent->NbFaces();
@@ -133,7 +133,7 @@ void IGESSolid_ToolShell::WriteOwnParams(const Handle(IGESSolid_Shell)& ent,
 
 //=================================================================================================
 
-void IGESSolid_ToolShell::OwnShared(const Handle(IGESSolid_Shell)& ent,
+void ShellTool::OwnShared(const Handle(IGESSolid_Shell)& ent,
                                     Interface_EntityIterator&      iter) const
 {
   Standard_Integer nbfaces = ent->NbFaces();
@@ -143,7 +143,7 @@ void IGESSolid_ToolShell::OwnShared(const Handle(IGESSolid_Shell)& ent,
 
 //=================================================================================================
 
-void IGESSolid_ToolShell::OwnCopy(const Handle(IGESSolid_Shell)& another,
+void ShellTool::OwnCopy(const Handle(IGESSolid_Shell)& another,
                                   const Handle(IGESSolid_Shell)& ent,
                                   Interface_CopyTool&            TC) const
 {
@@ -162,9 +162,9 @@ void IGESSolid_ToolShell::OwnCopy(const Handle(IGESSolid_Shell)& another,
 
 //=================================================================================================
 
-IGESData_DirChecker IGESSolid_ToolShell::DirChecker(const Handle(IGESSolid_Shell)& /* ent */) const
+DirectoryChecker ShellTool::DirChecker(const Handle(IGESSolid_Shell)& /* ent */) const
 {
-  IGESData_DirChecker DC(514, 1, 2);
+  DirectoryChecker DC(514, 1, 2);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
@@ -177,7 +177,7 @@ IGESData_DirChecker IGESSolid_ToolShell::DirChecker(const Handle(IGESSolid_Shell
 
 //=================================================================================================
 
-void IGESSolid_ToolShell::OwnCheck(const Handle(IGESSolid_Shell)& ent,
+void ShellTool::OwnCheck(const Handle(IGESSolid_Shell)& ent,
                                    const Interface_ShareTool&,
                                    Handle(Interface_Check)& ach) const
 {
@@ -196,7 +196,7 @@ void IGESSolid_ToolShell::OwnCheck(const Handle(IGESSolid_Shell)& ent,
 
 //=================================================================================================
 
-void IGESSolid_ToolShell::OwnDump(const Handle(IGESSolid_Shell)& ent,
+void ShellTool::OwnDump(const Handle(IGESSolid_Shell)& ent,
                                   const IGESData_IGESDumper&     dumper,
                                   Standard_OStream&              S,
                                   const Standard_Integer         level) const

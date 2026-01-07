@@ -32,7 +32,7 @@ void TopOpeBRep_ShapeScanner::Clear()
 
 //=================================================================================================
 
-void TopOpeBRep_ShapeScanner::AddBoxesMakeCOB(const TopoDS_Shape&    S,
+void TopOpeBRep_ShapeScanner::AddBoxesMakeCOB(const TopoShape&    S,
                                               const TopAbs_ShapeEnum TS,
                                               const TopAbs_ShapeEnum TA)
 {
@@ -49,7 +49,7 @@ void TopOpeBRep_ShapeScanner::Init(TopOpeBRepTool_ShapeExplorer& E)
 
   for (; E.More(); E.Next())
   {
-    const TopoDS_Shape& cur = E.Current();
+    const TopoShape& cur = E.Current();
     //    TopAbs_ShapeEnum t = cur.ShapeType();
     Init(cur);
     Standard_Boolean b = More();
@@ -60,7 +60,7 @@ void TopOpeBRep_ShapeScanner::Init(TopOpeBRepTool_ShapeExplorer& E)
 
 //=================================================================================================
 
-void TopOpeBRep_ShapeScanner::Init(const TopoDS_Shape& E)
+void TopOpeBRep_ShapeScanner::Init(const TopoShape& E)
 {
   myListIterator = myBoxSort.Compare(E);
 }
@@ -82,9 +82,9 @@ void TopOpeBRep_ShapeScanner::Next()
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRep_ShapeScanner::Current() const
+const TopoShape& TopOpeBRep_ShapeScanner::Current() const
 {
-  const TopoDS_Shape& E = myBoxSort.TouchedShape(myListIterator);
+  const TopoShape& E = myBoxSort.TouchedShape(myListIterator);
   return E;
 }
 
@@ -119,13 +119,13 @@ Standard_OStream& TopOpeBRep_ShapeScanner::DumpCurrent(Standard_OStream& OS) con
 #ifdef OCCT_DEBUG
   if (More())
   {
-    const TopoDS_Shape& S = Current();
+    const TopoShape& S = Current();
     TopAbs_ShapeEnum    T = S.ShapeType();
     TopAbs_Orientation  O = S.Orientation();
     Standard_Integer    I = Index();
-    TopAbs::Print(T, std::cout);
+    TopAbs1::Print(T, std::cout);
     std::cout << "(" << I << ",";
-    TopAbs::Print(O, std::cout);
+    TopAbs1::Print(O, std::cout);
     std::cout << ") ";
   }
 #endif

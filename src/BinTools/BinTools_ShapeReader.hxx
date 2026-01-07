@@ -20,16 +20,16 @@
 #include <TopLoc_Location.hxx>
 #include <TopoDS_Shape.hxx>
 
-class Geom_Curve;
-class Geom_Surface;
-class Geom2d_Curve;
+class GeomCurve3d;
+class GeomSurface;
+class GeomCurve2d;
 class Poly_Polygon3D;
 class Poly_PolygonOnTriangulation;
-class Poly_Triangulation;
+class MeshTriangulation;
 
 //! Reads topology from IStream in binary format without grouping of objects by types
 //! and using relative positions in a file as references.
-class BinTools_ShapeReader : public BinTools_ShapeSetBase
+class BinTools_ShapeReader : public ShapeSetBase
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -43,36 +43,36 @@ public:
   Standard_EXPORT virtual void Clear() Standard_OVERRIDE;
 
   //! Reads the shape from stream using previously restored shapes and objects by references.
-  Standard_EXPORT void Read(Standard_IStream& theStream, TopoDS_Shape& theShape) Standard_OVERRIDE;
+  Standard_EXPORT void Read(Standard_IStream& theStream, TopoShape& theShape) Standard_OVERRIDE;
 
   //! Reads location from the stream.
-  Standard_EXPORT const TopLoc_Location* ReadLocation(BinTools_IStream& theStream);
+  Standard_EXPORT const TopLoc_Location* ReadLocation(BinaryInputStream& theStream);
 
 private:
   //! Reads the shape from stream using previously restored shapes and objects by references.
-  TopoDS_Shape ReadShape(BinTools_IStream& theStream);
+  TopoShape ReadShape(BinaryInputStream& theStream);
   //! Reads curve from the stream.
-  Handle(Geom_Curve) ReadCurve(BinTools_IStream& theStream);
+  Handle(GeomCurve3d) ReadCurve(BinaryInputStream& theStream);
   //! Reads curve2d from the stream.
-  Handle(Geom2d_Curve) ReadCurve2d(BinTools_IStream& theStream);
+  Handle(GeomCurve2d) ReadCurve2d(BinaryInputStream& theStream);
   //! Reads surface from the stream.
-  Handle(Geom_Surface) ReadSurface(BinTools_IStream& theStream);
+  Handle(GeomSurface) ReadSurface(BinaryInputStream& theStream);
   //! Reads ploygon3d from the stream.
-  Handle(Poly_Polygon3D) ReadPolygon3d(BinTools_IStream& theStream);
+  Handle(Poly_Polygon3D) ReadPolygon3d(BinaryInputStream& theStream);
   //! Reads polygon on triangulation from the stream.
-  Handle(Poly_PolygonOnTriangulation) ReadPolygon(BinTools_IStream& theStream);
+  Handle(Poly_PolygonOnTriangulation) ReadPolygon(BinaryInputStream& theStream);
   //! Reads triangulation from the stream.
-  Handle(Poly_Triangulation) ReadTriangulation(BinTools_IStream& theStream);
+  Handle(MeshTriangulation) ReadTriangulation(BinaryInputStream& theStream);
 
   /// position of the shape previously restored
-  NCollection_DataMap<uint64_t, TopoDS_Shape>                        myShapePos;
+  NCollection_DataMap<uint64_t, TopoShape>                        myShapePos;
   NCollection_DataMap<uint64_t, TopLoc_Location>                     myLocationPos;
-  NCollection_DataMap<uint64_t, Handle(Geom_Curve)>                  myCurvePos;
-  NCollection_DataMap<uint64_t, Handle(Geom2d_Curve)>                myCurve2dPos;
-  NCollection_DataMap<uint64_t, Handle(Geom_Surface)>                mySurfacePos;
+  NCollection_DataMap<uint64_t, Handle(GeomCurve3d)>                  myCurvePos;
+  NCollection_DataMap<uint64_t, Handle(GeomCurve2d)>                myCurve2dPos;
+  NCollection_DataMap<uint64_t, Handle(GeomSurface)>                mySurfacePos;
   NCollection_DataMap<uint64_t, Handle(Poly_Polygon3D)>              myPolygon3dPos;
   NCollection_DataMap<uint64_t, Handle(Poly_PolygonOnTriangulation)> myPolygonPos;
-  NCollection_DataMap<uint64_t, Handle(Poly_Triangulation)>          myTriangulationPos;
+  NCollection_DataMap<uint64_t, Handle(MeshTriangulation)>          myTriangulationPos;
 };
 
 #endif // _BinTools_ShapeReader_HeaderFile

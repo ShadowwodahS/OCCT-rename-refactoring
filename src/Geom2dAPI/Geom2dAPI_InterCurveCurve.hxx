@@ -23,7 +23,7 @@
 
 #include <Geom2dInt_GInter.hxx>
 #include <Standard_Integer.hxx>
-class Geom2d_Curve;
+class GeomCurve2d;
 class gp_Pnt2d;
 
 //! This class implements methods for computing
@@ -45,8 +45,8 @@ public:
 
   //! Creates an object and computes the
   //! intersections between the curves C1 and C2.
-  Standard_EXPORT Geom2dAPI_InterCurveCurve(const Handle(Geom2d_Curve)& C1,
-                                            const Handle(Geom2d_Curve)& C2,
+  Standard_EXPORT Geom2dAPI_InterCurveCurve(const Handle(GeomCurve2d)& C1,
+                                            const Handle(GeomCurve2d)& C2,
                                             const Standard_Real         Tol = 1.0e-6);
 
   //! Creates an object and computes self-intersections of the curve C1.
@@ -60,13 +60,13 @@ public:
   //! Use functions NbPoints and NbSegments to obtain the number of
   //! solutions. If the algorithm finds no intersections NbPoints and
   //! NbSegments return 0.
-  Standard_EXPORT Geom2dAPI_InterCurveCurve(const Handle(Geom2d_Curve)& C1,
+  Standard_EXPORT Geom2dAPI_InterCurveCurve(const Handle(GeomCurve2d)& C1,
                                             const Standard_Real         Tol = 1.0e-6);
 
   //! Initializes an algorithm with the
   //! given arguments and computes the intersections between the curves C1. and C2.
-  Standard_EXPORT void Init(const Handle(Geom2d_Curve)& C1,
-                            const Handle(Geom2d_Curve)& C2,
+  Standard_EXPORT void Init(const Handle(GeomCurve2d)& C1,
+                            const Handle(GeomCurve2d)& C2,
                             const Standard_Real         Tol = 1.0e-6);
 
   //! Initializes an algorithm with the
@@ -80,7 +80,7 @@ public:
   //! Use functions NbPoints and NbSegments to obtain the number
   //! of solutions. If the algorithm finds no intersections NbPoints
   //! and NbSegments return 0.
-  Standard_EXPORT void Init(const Handle(Geom2d_Curve)& C1, const Standard_Real Tol = 1.0e-6);
+  Standard_EXPORT void Init(const Handle(GeomCurve2d)& C1, const Standard_Real Tol = 1.0e-6);
 
   //! Returns the number of intersection-points in case of cross intersections.
   //! NbPoints returns 0 if no intersections were found.
@@ -114,8 +114,8 @@ public:
   //! Standard_NullObject if the algorithm is initialized for the
   //! computing of self-intersections on a curve.
   Standard_EXPORT void Segment(const Standard_Integer Index,
-                               Handle(Geom2d_Curve)&  Curve1,
-                               Handle(Geom2d_Curve)&  Curve2) const;
+                               Handle(GeomCurve2d)&  Curve1,
+                               Handle(GeomCurve2d)&  Curve2) const;
 
   //! return the algorithmic object from Intersection.
   const Geom2dInt_GInter& Intersector() const;
@@ -123,8 +123,8 @@ public:
 protected:
 private:
   Standard_Boolean     myIsDone;
-  Handle(Geom2d_Curve) myCurve1;
-  Handle(Geom2d_Curve) myCurve2;
+  Handle(GeomCurve2d) myCurve1;
+  Handle(GeomCurve2d) myCurve2;
   Geom2dInt_GInter     myIntersector;
 };
 

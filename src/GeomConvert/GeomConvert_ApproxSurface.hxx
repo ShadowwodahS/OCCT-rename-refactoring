@@ -22,7 +22,7 @@
 #include <Standard_OStream.hxx>
 
 class Geom_BSplineSurface;
-class Geom_Surface;
+class GeomSurface;
 
 //! A framework to convert a surface to a BSpline
 //! surface. This is done by approximation to a BSpline
@@ -43,7 +43,7 @@ public:
   //! -   the maximum number of segments MaxSegments
   //! allowed in the resulting BSpline curve
   //! -   the index of precision PrecisCode.
-  Standard_EXPORT GeomConvert_ApproxSurface(const Handle(Geom_Surface)& Surf,
+  Standard_EXPORT GeomConvert_ApproxSurface(const Handle(GeomSurface)& Surf,
                                             const Standard_Real         Tol3d,
                                             const GeomAbs_Shape         UContinuity,
                                             const GeomAbs_Shape         VContinuity,

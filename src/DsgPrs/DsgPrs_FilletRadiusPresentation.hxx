@@ -24,7 +24,7 @@
 #include <DsgPrs_ArrowSide.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class TCollection_ExtendedString;
+class UtfString;
 class Point3d;
 class Dir3d;
 class Geom_TrimmedCurve;
@@ -40,9 +40,9 @@ public:
   //! defined by the attribute manager aDrawer. the value
   //! specifies the length of the radius.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Standard_Real               thevalue,
-                                  const TCollection_ExtendedString& aText,
+                                  const UtfString& aText,
                                   const Point3d&                     aPosition,
                                   const Dir3d&                     aNormalDir,
                                   const Point3d&                     aBasePnt,

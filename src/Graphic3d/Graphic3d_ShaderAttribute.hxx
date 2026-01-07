@@ -25,20 +25,20 @@ class Graphic3d_ShaderAttribute : public RefObject
 {
 public:
   //! Creates new attribute.
-  Standard_EXPORT Graphic3d_ShaderAttribute(const TCollection_AsciiString& theName,
+  Standard_EXPORT Graphic3d_ShaderAttribute(const AsciiString1& theName,
                                             const int                      theLocation);
 
   //! Destructor.
   Standard_EXPORT virtual ~Graphic3d_ShaderAttribute();
 
   //! Returns name of shader variable.
-  const TCollection_AsciiString& Name() const { return myName; }
+  const AsciiString1& Name() const { return myName; }
 
   //! Returns attribute location to be bound on GLSL program linkage stage.
   int Location() const { return myLocation; }
 
 protected:
-  TCollection_AsciiString myName;     //!< attribute name
+  AsciiString1 myName;     //!< attribute name
   int                     myLocation; //!< attribute location
 
 public:

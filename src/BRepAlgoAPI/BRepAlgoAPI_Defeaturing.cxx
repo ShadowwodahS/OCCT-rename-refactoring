@@ -48,21 +48,21 @@ void BRepAlgoAPI_Defeaturing::Build(const Message_ProgressRange& theRange)
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepAlgoAPI_Defeaturing::Modified(const TopoDS_Shape& theS)
+const ShapeList& BRepAlgoAPI_Defeaturing::Modified(const TopoShape& theS)
 {
   return myFeatureRemovalTool.Modified(theS);
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepAlgoAPI_Defeaturing::Generated(const TopoDS_Shape& theS)
+const ShapeList& BRepAlgoAPI_Defeaturing::Generated(const TopoShape& theS)
 {
   return myFeatureRemovalTool.Generated(theS);
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepAlgoAPI_Defeaturing::IsDeleted(const TopoDS_Shape& theS)
+Standard_Boolean BRepAlgoAPI_Defeaturing::IsDeleted(const TopoShape& theS)
 {
   return myFeatureRemovalTool.IsDeleted(theS);
 }

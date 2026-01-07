@@ -33,7 +33,7 @@ static const Standard_Integer theStackSize = 20;
 
 //=================================================================================================
 
-TopExp_Explorer::TopExp_Explorer()
+ShapeExplorer::ShapeExplorer()
     : myStack(0L),
       myTop(-1),
       mySizeOfStack(theStackSize),
@@ -46,7 +46,7 @@ TopExp_Explorer::TopExp_Explorer()
 
 //=================================================================================================
 
-TopExp_Explorer::TopExp_Explorer(const TopoDS_Shape&    theS,
+ShapeExplorer::ShapeExplorer(const TopoShape&    theS,
                                  const TopAbs_ShapeEnum theToFind,
                                  const TopAbs_ShapeEnum theToAvoid)
     : myStack(0L),
@@ -63,7 +63,7 @@ TopExp_Explorer::TopExp_Explorer(const TopoDS_Shape&    theS,
 
 //=================================================================================================
 
-void TopExp_Explorer::Init(const TopoDS_Shape&    S,
+void ShapeExplorer::Init(const TopoShape&    S,
                            const TopAbs_ShapeEnum ToFind,
                            const TopAbs_ShapeEnum ToAvoid)
 {
@@ -114,12 +114,12 @@ void TopExp_Explorer::Init(const TopoDS_Shape&    S,
 
 //=================================================================================================
 
-const TopoDS_Shape& TopExp_Explorer::Current() const
+const TopoShape& ShapeExplorer::Current() const
 {
-  Standard_NoSuchObject_Raise_if(!hasMore, "TopExp_Explorer::Current");
+  Standard_NoSuchObject_Raise_if(!hasMore, "ShapeExplorer::Current");
   if (myTop >= 0)
   {
-    const TopoDS_Shape& S = myStack[myTop].Value();
+    const TopoShape& S = myStack[myTop].Value();
     return S;
   }
   else
@@ -128,12 +128,12 @@ const TopoDS_Shape& TopExp_Explorer::Current() const
 
 //=================================================================================================
 
-void TopExp_Explorer::Next()
+void ShapeExplorer::Next()
 {
   Standard_Integer NewSize;
-  TopoDS_Shape     ShapTop;
+  TopoShape     ShapTop;
   TopAbs_ShapeEnum ty;
-  Standard_NoMoreObject_Raise_if(!hasMore, "TopExp_Explorer::Next");
+  Standard_NoMoreObject_Raise_if(!hasMore, "ShapeExplorer::Next");
 
   if (myTop < 0)
   {
@@ -225,14 +225,14 @@ void TopExp_Explorer::Next()
 
 //=================================================================================================
 
-void TopExp_Explorer::ReInit()
+void ShapeExplorer::ReInit()
 {
   Init(myShape, toFind, toAvoid);
 }
 
 //=================================================================================================
 
-TopExp_Explorer::~TopExp_Explorer()
+ShapeExplorer::~ShapeExplorer()
 {
   Clear();
   if (myStack)
@@ -245,7 +245,7 @@ TopExp_Explorer::~TopExp_Explorer()
 
 //=================================================================================================
 
-void TopExp_Explorer::Clear()
+void ShapeExplorer::Clear()
 {
   hasMore = Standard_False;
   for (int i = 0; i <= myTop; ++i)

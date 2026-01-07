@@ -18,7 +18,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TDataStd_GenericExtString, TDF_Attribute)
 
 //=================================================================================================
 
-void TDataStd_GenericExtString::Set(const TCollection_ExtendedString& S)
+void TDataStd_GenericExtString::Set(const UtfString& S)
 {
   if (myString == S)
     return;
@@ -29,7 +29,7 @@ void TDataStd_GenericExtString::Set(const TCollection_ExtendedString& S)
 
 //=================================================================================================
 
-const TCollection_ExtendedString& TDataStd_GenericExtString::Get() const
+const UtfString& TDataStd_GenericExtString::Get() const
 {
   return myString;
 }

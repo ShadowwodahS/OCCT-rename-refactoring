@@ -24,8 +24,8 @@
 #include <Standard_Integer.hxx>
 #include <TopTools_HSequenceOfShape.hxx>
 #include <Standard_CString.hxx>
-class XSControl_WorkSession;
-class TCollection_AsciiString;
+class ExchangeSession;
+class AsciiString1;
 
 //! Defines additional commands for XSControl to :
 //! - control of initialisation (xinit, xnorm, newmodel)
@@ -55,7 +55,7 @@ public:
   //! <list>. If <list> is null, it is firstly created. Then it is
   //! completed (Append without Clear) by the Shapes found
   //! Returns 0 if no Shape could be found
-  Standard_EXPORT static Standard_Integer MoreShapes(const Handle(XSControl_WorkSession)& session,
+  Standard_EXPORT static Standard_Integer MoreShapes(const Handle(ExchangeSession)& session,
                                                      Handle(TopTools_HSequenceOfShape)&   list,
                                                      const Standard_CString               name);
 
@@ -70,12 +70,12 @@ public:
   //! If <var> is neither null nor empty, resvar = var
   //! Else, the root part of <resfile> is considered, if defined
   //! Else, <def> is taken
-  Standard_EXPORT static Standard_Boolean FileAndVar(const Handle(XSControl_WorkSession)& session,
+  Standard_EXPORT static Standard_Boolean FileAndVar(const Handle(ExchangeSession)& session,
                                                      const Standard_CString               file,
                                                      const Standard_CString               var,
                                                      const Standard_CString               def,
-                                                     TCollection_AsciiString&             resfile,
-                                                     TCollection_AsciiString&             resvar);
+                                                     AsciiString1&             resfile,
+                                                     AsciiString1&             resvar);
 
 protected:
 private:

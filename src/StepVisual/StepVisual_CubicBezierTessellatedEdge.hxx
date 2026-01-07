@@ -1,6 +1,6 @@
 // Created on : Thu Mar 24 18:30:11 2022
 // Created by: snn
-// Generator: Express (EXPRESS -> CASCADE/XSTEP Translator) V2.0
+// Generator: Express1 (EXPRESS -> CASCADE/XSTEP Translator) V2.0
 // Copyright (c) Open CASCADE 2022
 //
 // This file is part of Open CASCADE Technology software library.

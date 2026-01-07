@@ -156,10 +156,10 @@ void IGESSelect_RemoveCurves::Performing(IFSelect_ContextModif& ctx,
   }
 }
 
-TCollection_AsciiString IGESSelect_RemoveCurves::Label() const
+AsciiString1 IGESSelect_RemoveCurves::Label() const
 {
   if (theUV)
-    return TCollection_AsciiString("Remove Curves UV on Face");
+    return AsciiString1("Remove Curves UV on Face");
   else
-    return TCollection_AsciiString("Remove Curves 3D on Face");
+    return AsciiString1("Remove Curves 3D on Face");
 }

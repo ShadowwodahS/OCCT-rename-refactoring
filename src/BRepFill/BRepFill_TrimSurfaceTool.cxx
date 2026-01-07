@@ -74,11 +74,11 @@ static Standard_Integer NBCALL = 0;
 //          returned parallel.
 //=======================================================================
 
-BRepFill_TrimSurfaceTool::BRepFill_TrimSurfaceTool(const Handle(Geom2d_Curve)& Bis,
-                                                   const TopoDS_Face&          Face1,
-                                                   const TopoDS_Face&          Face2,
-                                                   const TopoDS_Edge&          Edge1,
-                                                   const TopoDS_Edge&          Edge2,
+BRepFill_TrimSurfaceTool::BRepFill_TrimSurfaceTool(const Handle(GeomCurve2d)& Bis,
+                                                   const TopoFace&          Face1,
+                                                   const TopoFace&          Face2,
+                                                   const TopoEdge&          Edge1,
+                                                   const TopoEdge&          Edge2,
                                                    const Standard_Boolean      Inv1,
                                                    const Standard_Boolean      Inv2)
     : myFace1(Face1),
@@ -98,19 +98,19 @@ BRepFill_TrimSurfaceTool::BRepFill_TrimSurfaceTool(const Handle(Geom2d_Curve)& B
     char name[256];
 
     sprintf(name, "FACE1_%d", NBCALL);
-    DBRep::Set(name, myFace1);
+    DBRep1::Set(name, myFace1);
 
     sprintf(name, "FACE2_%d", NBCALL);
-    DBRep::Set(name, myFace2);
+    DBRep1::Set(name, myFace2);
 
     sprintf(name, "EDGE1_%d", NBCALL);
-    DBRep::Set(name, myEdge1);
+    DBRep1::Set(name, myEdge1);
 
     sprintf(name, "EDGE2_%d", NBCALL);
-    DBRep::Set(name, myEdge2);
+    DBRep1::Set(name, myEdge2);
 
     sprintf(name, "BISSEC_%d", NBCALL);
-    DrawTrSurf::Set(name, myBis);
+    DrawTrSurf1::Set(name, myBis);
   #endif
   }
 #endif
@@ -143,22 +143,22 @@ static void Bubble(TColgp_SequenceOfPnt& Seq)
 
 //=================================================================================================
 
-static Standard_Real EvalPhase(const TopoDS_Edge&         Edge,
-                               const TopoDS_Face&         Face,
+static Standard_Real EvalPhase(const TopoEdge&         Edge,
+                               const TopoFace&         Face,
                                const GeomAdaptor_Surface& GAS,
                                const gp_Ax3&              Axis)
 {
   gp_Pnt2d      PE1, PE2, PF1, PF2;
   Standard_Real VDeg;
   Standard_Real V = 0.;
-  BRep_Tool::UVPoints(Edge, Face, PE1, PE2);
+  BRepInspector::UVPoints(Edge, Face, PE1, PE2);
   VDeg = PE1.Y();
-  TopExp_Explorer Exp(Face, TopAbs_EDGE);
+  ShapeExplorer Exp(Face, TopAbs_EDGE);
   for (; Exp.More(); Exp.Next())
   {
     if (!TopoDS::Edge(Exp.Current()).IsSame(Edge))
     {
-      BRep_Tool::UVPoints(TopoDS::Edge(Exp.Current()), Face, PF1, PF2);
+      BRepInspector::UVPoints(TopoDS::Edge(Exp.Current()), Face, PF1, PF2);
       V = (Abs(PF1.Y() - VDeg) > Abs(PF2.Y() - VDeg)) ? PF1.Y() : PF2.Y();
       break;
     }
@@ -173,18 +173,18 @@ static Standard_Real EvalPhase(const TopoDS_Edge&         Edge,
 
 //=================================================================================================
 
-static void EvalParameters(const TopoDS_Edge&          Edge,
-                           const TopoDS_Face&          Face,
-                           const Handle(Geom2d_Curve)& Bis,
+static void EvalParameters(const TopoEdge&          Edge,
+                           const TopoFace&          Face,
+                           const Handle(GeomCurve2d)& Bis,
                            TColgp_SequenceOfPnt&       Seq)
 {
-  Standard_Boolean Degener = BRep_Tool::Degenerated(Edge);
+  Standard_Boolean Degener = BRepInspector::Degenerated(Edge);
   // return curves 3d associated to edges.
   TopLoc_Location L;
   Standard_Real   f, l;
 
   Handle(Geom_TrimmedCurve) CT;
-  Handle(Geom_Plane)        Plane = new Geom_Plane(0, 0, 1, 0);
+  Handle(GeomPlane)        Plane = new GeomPlane(0, 0, 1, 0);
 
   Geom2dInt_GInter Intersector;
 
@@ -199,11 +199,11 @@ static void EvalParameters(const TopoDS_Edge&          Edge,
 
   if (!Degener)
   {
-    Handle(Geom_Curve) C = BRep_Tool::Curve(Edge, L, f, l);
+    Handle(GeomCurve3d) C = BRepInspector::Curve(Edge, L, f, l);
     CT                   = new Geom_TrimmedCurve(C, f, l);
     CT->Transform(L.Transformation());
     // projection of 3d curves in the plane xOy
-    Handle(Geom2d_Curve) C2d = GeomProjLib::Curve2d(CT, Plane);
+    Handle(GeomCurve2d) C2d = GeomProjLib::Curve2d(CT, Plane);
 
     Geom2dAdaptor_Curve AC(C2d);
     Geom2dAdaptor_Curve ABis(Bis);
@@ -312,7 +312,7 @@ static void EvalParameters(const TopoDS_Edge&          Edge,
     // the edge is degenerated : the point and it is found if it is
     // on the bissectrice.
 
-    Point3d   P3d = BRep_Tool::Pnt(TopExp::FirstVertex(Edge));
+    Point3d   P3d = BRepInspector::Pnt(TopExp1::FirstVertex(Edge));
     gp_Pnt2d P2d(P3d.X(), P3d.Y());
 
     Standard_Real UBis = Bis->FirstParameter();
@@ -336,7 +336,7 @@ static void EvalParameters(const TopoDS_Edge&          Edge,
     }
 
     // evaluate parameter intersection.
-    Handle(Geom_Surface) GS = BRep_Tool::Surface(Face);
+    Handle(GeomSurface) GS = BRepInspector::Surface(Face);
     GeomAdaptor_Surface  GAS(GS);
 
     gp_Ax3        Axis;
@@ -394,8 +394,8 @@ static void EvalParameters(const TopoDS_Edge&          Edge,
 
 //=================================================================================================
 
-void BRepFill_TrimSurfaceTool::IntersectWith(const TopoDS_Edge&    EdgeOnF1,
-                                             const TopoDS_Edge&    EdgeOnF2,
+void BRepFill_TrimSurfaceTool::IntersectWith(const TopoEdge&    EdgeOnF1,
+                                             const TopoEdge&    EdgeOnF2,
                                              TColgp_SequenceOfPnt& Points) const
 {
 #ifdef DRAW
@@ -404,10 +404,10 @@ void BRepFill_TrimSurfaceTool::IntersectWith(const TopoDS_Edge&    EdgeOnF1,
     char             name[256];
     Standard_Integer i1 = 0, i2 = 2;
     sprintf(name, "EdgeOnF1_%d_%d", i1, NBCALL);
-    DBRep::Set(name, EdgeOnF1);
+    DBRep1::Set(name, EdgeOnF1);
 
     sprintf(name, "EdgeOnF2_%d_%d", i2, NBCALL);
-    DBRep::Set(name, EdgeOnF2);
+    DBRep1::Set(name, EdgeOnF2);
   }
 
 #endif
@@ -454,18 +454,18 @@ Standard_Boolean BRepFill_TrimSurfaceTool::IsOnFace(const gp_Pnt2d& Point) const
 
 //=================================================================================================
 
-Standard_Real BRepFill_TrimSurfaceTool::ProjOn(const gp_Pnt2d& Point, const TopoDS_Edge& Edge) const
+Standard_Real BRepFill_TrimSurfaceTool::ProjOn(const gp_Pnt2d& Point, const TopoEdge& Edge) const
 {
   TopLoc_Location L;
   Standard_Real   f, l;
 
-  Handle(Geom_Curve)        C1 = BRep_Tool::Curve(Edge, L, f, l);
+  Handle(GeomCurve3d)        C1 = BRepInspector::Curve(Edge, L, f, l);
   Handle(Geom_TrimmedCurve) CT = new Geom_TrimmedCurve(C1, f, l);
   CT->Transform(L.Transformation());
 
   // projection of curves 3d in the plane xOy
-  Handle(Geom_Plane)   Plane = new Geom_Plane(0, 0, 1, 0);
-  Handle(Geom2d_Curve) C2d   = GeomProjLib::Curve2d(CT, Plane);
+  Handle(GeomPlane)   Plane = new GeomPlane(0, 0, 1, 0);
+  Handle(GeomCurve2d) C2d   = GeomProjLib::Curve2d(CT, Plane);
 
   // evaluate the projection of the point on the curve.
   Geom2dAPI_ProjectPointOnCurve Projector(Point, C2d);
@@ -487,9 +487,9 @@ Standard_Real BRepFill_TrimSurfaceTool::ProjOn(const gp_Pnt2d& Point, const Topo
 
 void BRepFill_TrimSurfaceTool::Project(const Standard_Real   U1,
                                        const Standard_Real   U2,
-                                       Handle(Geom_Curve)&   Curve,
-                                       Handle(Geom2d_Curve)& PCurve1,
-                                       Handle(Geom2d_Curve)& PCurve2,
+                                       Handle(GeomCurve3d)&   Curve,
+                                       Handle(GeomCurve2d)& PCurve1,
+                                       Handle(GeomCurve2d)& PCurve2,
                                        GeomAbs_Shape&        Cont) const
 {
   Handle(Geom2d_TrimmedCurve) CT = new Geom2d_TrimmedCurve(myBis, U1, U2);

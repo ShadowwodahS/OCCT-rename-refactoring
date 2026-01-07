@@ -31,14 +31,14 @@ HLRBRep_FaceData::HLRBRep_FaceData()
 
 //=================================================================================================
 
-void HLRBRep_FaceData::Set(const TopoDS_Face&       FG,
+void HLRBRep_FaceData::Set(const TopoFace&       FG,
                            const TopAbs_Orientation Or,
                            const Standard_Boolean   Cl,
                            const Standard_Integer   NW)
 {
   Closed(Cl);
   Geometry().Surface(FG);
-  myTolerance = (Standard_ShortReal)(BRep_Tool::Tolerance(FG));
+  myTolerance = (Standard_ShortReal)(BRepInspector::Tolerance(FG));
   Orientation(Or);
   Wires() = new HLRAlgo_WiresBlock(NW);
 }

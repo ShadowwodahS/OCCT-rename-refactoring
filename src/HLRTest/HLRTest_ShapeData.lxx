@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline void HLRTest_ShapeData::VisibleColor(const Draw_Color& CVis)
+inline void HLRTest_ShapeData::VisibleColor(const DrawColor& CVis)
 {
   myVColor = CVis;
 }
@@ -29,7 +29,7 @@ inline void HLRTest_ShapeData::VisibleColor(const Draw_Color& CVis)
 // purpose  :
 //=======================================================================
 
-inline void HLRTest_ShapeData::VisibleOutLineColor(const Draw_Color& COVis)
+inline void HLRTest_ShapeData::VisibleOutLineColor(const DrawColor& COVis)
 {
   myVOColor = COVis;
 }
@@ -39,7 +39,7 @@ inline void HLRTest_ShapeData::VisibleOutLineColor(const Draw_Color& COVis)
 // purpose  :
 //=======================================================================
 
-inline void HLRTest_ShapeData::VisibleIsoColor(const Draw_Color& CIVis)
+inline void HLRTest_ShapeData::VisibleIsoColor(const DrawColor& CIVis)
 {
   myVIColor = CIVis;
 }
@@ -49,7 +49,7 @@ inline void HLRTest_ShapeData::VisibleIsoColor(const Draw_Color& CIVis)
 // purpose  :
 //=======================================================================
 
-inline void HLRTest_ShapeData::HiddenColor(const Draw_Color& CHid)
+inline void HLRTest_ShapeData::HiddenColor(const DrawColor& CHid)
 {
   myHColor = CHid;
 }
@@ -59,7 +59,7 @@ inline void HLRTest_ShapeData::HiddenColor(const Draw_Color& CHid)
 // purpose  :
 //=======================================================================
 
-inline void HLRTest_ShapeData::HiddenOutLineColor(const Draw_Color& COHid)
+inline void HLRTest_ShapeData::HiddenOutLineColor(const DrawColor& COHid)
 {
   myHOColor = COHid;
 }
@@ -69,7 +69,7 @@ inline void HLRTest_ShapeData::HiddenOutLineColor(const Draw_Color& COHid)
 // purpose  :
 //=======================================================================
 
-inline void HLRTest_ShapeData::HiddenIsoColor(const Draw_Color& CIHid)
+inline void HLRTest_ShapeData::HiddenIsoColor(const DrawColor& CIHid)
 {
   myHIColor = CIHid;
 }
@@ -79,7 +79,7 @@ inline void HLRTest_ShapeData::HiddenIsoColor(const Draw_Color& CIHid)
 // purpose  :
 //=======================================================================
 
-inline Draw_Color HLRTest_ShapeData::VisibleColor() const
+inline DrawColor HLRTest_ShapeData::VisibleColor() const
 {
   return myVColor;
 }
@@ -89,7 +89,7 @@ inline Draw_Color HLRTest_ShapeData::VisibleColor() const
 // purpose  :
 //=======================================================================
 
-inline Draw_Color HLRTest_ShapeData::VisibleOutLineColor() const
+inline DrawColor HLRTest_ShapeData::VisibleOutLineColor() const
 {
   return myVOColor;
 }
@@ -99,7 +99,7 @@ inline Draw_Color HLRTest_ShapeData::VisibleOutLineColor() const
 // purpose  :
 //=======================================================================
 
-inline Draw_Color HLRTest_ShapeData::VisibleIsoColor() const
+inline DrawColor HLRTest_ShapeData::VisibleIsoColor() const
 {
   return myVIColor;
 }
@@ -109,7 +109,7 @@ inline Draw_Color HLRTest_ShapeData::VisibleIsoColor() const
 // purpose  :
 //=======================================================================
 
-inline Draw_Color HLRTest_ShapeData::HiddenColor() const
+inline DrawColor HLRTest_ShapeData::HiddenColor() const
 {
   return myHColor;
 }
@@ -119,7 +119,7 @@ inline Draw_Color HLRTest_ShapeData::HiddenColor() const
 // purpose  :
 //=======================================================================
 
-inline Draw_Color HLRTest_ShapeData::HiddenOutLineColor() const
+inline DrawColor HLRTest_ShapeData::HiddenOutLineColor() const
 {
   return myHOColor;
 }
@@ -129,7 +129,7 @@ inline Draw_Color HLRTest_ShapeData::HiddenOutLineColor() const
 // purpose  :
 //=======================================================================
 
-inline Draw_Color HLRTest_ShapeData::HiddenIsoColor() const
+inline DrawColor HLRTest_ShapeData::HiddenIsoColor() const
 {
   return myHIColor;
 }

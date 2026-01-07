@@ -134,7 +134,7 @@ void IGESToBRep_CurveAndSurface::UpdateMinMaxTol()
 {
   // #74 rln 11.03.99 S4135: Setting maximum tolerances according to
   // static parameter
-  myMaxTol = Max(Interface_Static::RVal("read.maxprecision.val"), myEpsGeom * myUnitFactor);
+  myMaxTol = Max(ExchangeConfig::RVal("read.maxprecision.val"), myEpsGeom * myUnitFactor);
   myMinTol = Precision::Confusion();
 }
 
@@ -155,11 +155,11 @@ void IGESToBRep_CurveAndSurface::SetModel(const Handle(IGESData_IGESModel)& mode
 
 //=================================================================================================
 
-TopoDS_Shape IGESToBRep_CurveAndSurface::TransferCurveAndSurface(
+TopoShape IGESToBRep_CurveAndSurface::TransferCurveAndSurface(
   const Handle(IGESData_IGESEntity)& start,
   const Message_ProgressRange&       theProgress)
 {
-  TopoDS_Shape res;
+  TopoShape res;
   if (start.IsNull())
   {
     Message_Msg msg1005("IGES_1005");
@@ -169,17 +169,17 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferCurveAndSurface(
   Handle(TCollection_HAsciiString) label = GetModel()->StringLabel(start);
   //  Standard_Integer typeNumber = start->TypeNumber();
 
-  if (IGESToBRep::IsTopoCurve(start))
+  if (IGESToBRep1::IsTopoCurve(start))
   {
     IGESToBRep_TopoCurve TC(*this);
     res = TC.TransferTopoCurve(start);
   }
-  else if (IGESToBRep::IsTopoSurface(start))
+  else if (IGESToBRep1::IsTopoSurface(start))
   {
     IGESToBRep_TopoSurface TS(*this);
     res = TS.TransferTopoSurface(start);
   }
-  else if (IGESToBRep::IsBRepEntity(start))
+  else if (IGESToBRep1::IsBRepEntity(start))
   {
     IGESToBRep_BRepEntity TS(*this);
     res = TS.TransferBRepEntity(start, theProgress);
@@ -209,7 +209,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferCurveAndSurface(
 
 //=================================================================================================
 
-TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_IGESEntity)& start,
+TopoShape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_IGESEntity)& start,
                                                           const Message_ProgressRange& theProgress)
 {
   // Declaration of messages//
@@ -221,7 +221,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
   // Message_Msg msg210 ("XSTEP_210");
   // Message_Msg msg202 ("XSTEP_202");
   ////////////////////////////
-  TopoDS_Shape res;
+  TopoShape res;
   Transform3d      T408;
   if (start.IsNull())
   {
@@ -236,9 +236,9 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
 
   // sln 13.06.2002 OCC448: Avoid transferring invisible sub entities which
   // logically depend on the one
-  Standard_Integer onlyvisible = Interface_Static::IVal("read.iges.onlyvisible");
+  Standard_Integer onlyvisible = ExchangeConfig::IVal("read.iges.onlyvisible");
 
-  if (IGESToBRep::IsCurveAndSurface(start))
+  if (IGESToBRep1::IsCurveAndSurface(start))
   {
     if (onlyvisible && start->BlankStatus() == 1)
       return res;
@@ -301,8 +301,8 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
   else if (start->IsKind(STANDARD_TYPE(IGESBasic_SubfigureDef)))
   {
     DeclareAndCast(IGESBasic_SubfigureDef, st308, start);
-    TopoDS_Compound group;
-    BRep_Builder    B;
+    TopoCompound group;
+    ShapeBuilder    B;
     B.MakeCompound(group);
     if (st308->NbEntities() < 1)
     {
@@ -314,7 +314,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
     for (Standard_Integer i = 1; i <= st308->NbEntities() && PS.More(); i++)
     {
       Message_ProgressRange aRange = PS.Next();
-      TopoDS_Shape          item;
+      TopoShape          item;
       if (st308->AssociatedEntity(i).IsNull())
       {
         Message_Msg msg1020("IGES_1020");
@@ -363,8 +363,8 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
       return res;
 
     DeclareAndCast(IGESBasic_Group, st402f1, start);
-    TopoDS_Compound group;
-    BRep_Builder    B;
+    TopoCompound group;
+    ShapeBuilder    B;
     B.MakeCompound(group);
     if (st402f1->NbEntities() < 1)
     {
@@ -378,7 +378,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
     for (Standard_Integer i = 1; i <= st402f1->NbEntities() && PS.More(); i++)
     {
       Message_ProgressRange aRange = PS.Next();
-      TopoDS_Shape          item;
+      TopoShape          item;
       if (st402f1->Entity(i).IsNull())
       {
         Message_Msg msg1020("IGES_1020");
@@ -437,9 +437,9 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
       return res;
 
     DeclareAndCast(IGESBasic_GroupWithoutBackP, st402f7, start);
-    TopoDS_Compound group;
+    TopoCompound group;
     // unused    Handle(TCollection_HAsciiString) label = GetModel()->StringLabel(st402f7);
-    BRep_Builder B;
+    ShapeBuilder B;
     B.MakeCompound(group);
     if (st402f7->NbEntities() < 1)
     {
@@ -453,7 +453,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::TransferGeometry(const Handle(IGESData_
     for (Standard_Integer i = 1; i <= st402f7->NbEntities() && PS.More(); i++)
     {
       Message_ProgressRange aRange = PS.Next();
-      TopoDS_Shape          item;
+      TopoShape          item;
       if (st402f7->Entity(i).IsNull())
       {
         Message_Msg msg1020("IGES_1020");
@@ -566,10 +566,10 @@ Standard_Boolean IGESToBRep_CurveAndSurface::HasShapeResult(
 
 //=================================================================================================
 
-TopoDS_Shape IGESToBRep_CurveAndSurface::GetShapeResult(
+TopoShape IGESToBRep_CurveAndSurface::GetShapeResult(
   const Handle(IGESData_IGESEntity)& start) const
 {
-  TopoDS_Shape res;
+  TopoShape res;
 
   DeclareAndCast(TransferBRep_ShapeBinder, binder, myTP->Find(start));
   if (binder.IsNull())
@@ -582,7 +582,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::GetShapeResult(
 //=================================================================================================
 
 void IGESToBRep_CurveAndSurface::SetShapeResult(const Handle(IGESData_IGESEntity)& start,
-                                                const TopoDS_Shape&                result)
+                                                const TopoShape&                result)
 {
   Handle(TransferBRep_ShapeBinder) binder = new TransferBRep_ShapeBinder;
   myTP->Bind(start, binder);
@@ -598,22 +598,22 @@ Standard_Integer IGESToBRep_CurveAndSurface::NbShapeResult(
   DeclareAndCast(TransferBRep_ShapeListBinder, binder, myTP->Find(start));
   if (binder.IsNull())
     return nbres;
-  nbres = binder->NbShapes();
+  nbres = binder->NbShapes1();
   return nbres;
 }
 
 //=================================================================================================
 
-TopoDS_Shape IGESToBRep_CurveAndSurface::GetShapeResult(const Handle(IGESData_IGESEntity)& start,
+TopoShape IGESToBRep_CurveAndSurface::GetShapeResult(const Handle(IGESData_IGESEntity)& start,
                                                         const Standard_Integer num) const
 {
-  TopoDS_Shape res;
+  TopoShape res;
 
   DeclareAndCast(TransferBRep_ShapeListBinder, binder, myTP->Find(start));
   if (binder.IsNull())
     return res;
 
-  if (num <= binder->NbShapes())
+  if (num <= binder->NbShapes1())
     res = binder->Shape(num);
   return res;
 }
@@ -621,7 +621,7 @@ TopoDS_Shape IGESToBRep_CurveAndSurface::GetShapeResult(const Handle(IGESData_IG
 //=================================================================================================
 
 void IGESToBRep_CurveAndSurface::AddShapeResult(const Handle(IGESData_IGESEntity)& start,
-                                                const TopoDS_Shape&                result)
+                                                const TopoShape&                result)
 {
   DeclareAndCast(TransferBRep_ShapeListBinder, binder, myTP->Find(start));
   if (binder.IsNull())
@@ -632,7 +632,7 @@ void IGESToBRep_CurveAndSurface::AddShapeResult(const Handle(IGESData_IGESEntity
   binder->AddResult(result);
 }
 
-void IGESToBRep_CurveAndSurface::SetSurface(const Handle(Geom_Surface)& theSurface)
+void IGESToBRep_CurveAndSurface::SetSurface(const Handle(GeomSurface)& theSurface)
 {
   if (mySurface != theSurface)
   {
@@ -642,7 +642,7 @@ void IGESToBRep_CurveAndSurface::SetSurface(const Handle(Geom_Surface)& theSurfa
   }
 }
 
-Handle(Geom_Surface) IGESToBRep_CurveAndSurface::Surface() const
+Handle(GeomSurface) IGESToBRep_CurveAndSurface::Surface() const
 {
   return mySurface;
 }

@@ -29,14 +29,14 @@ class Geom_ConicalSurface;
 //! ConicalSurface from Geom and the class
 //! ConicalSurface from StepGeom which describes a
 //! conical_surface from Prostep
-class GeomToStep_MakeConicalSurface : public GeomToStep_Root
+class GeomToStep_MakeConicalSurface : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeConicalSurface(
     const Handle(Geom_ConicalSurface)& CSurf,
-    const StepData_Factors&            theLocalFactors = StepData_Factors());
+    const ConversionFactors&            theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_ConicalSurface)& Value() const;
 

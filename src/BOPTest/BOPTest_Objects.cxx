@@ -44,7 +44,7 @@ public:
     pA1 = NCollection_BaseAllocator::CommonBaseAllocator();
     pA2 = NCollection_BaseAllocator::CommonBaseAllocator();
     //
-    myPaveFiller     = new BOPAlgo_PaveFiller(pA1);
+    myPaveFiller     = new BooleanPaveFiller(pA1);
     myBuilderDefault = new BOPAlgo_Builder(pA2);
     //
     myBuilder = myBuilderDefault;
@@ -73,7 +73,7 @@ public:
   Standard_Boolean IsValid() const { return (myPaveFiller != NULL); }
 
   // PaveFiller
-  BOPAlgo_PaveFiller& PaveFiller() { return *myPaveFiller; };
+  BooleanPaveFiller& PaveFiller() { return *myPaveFiller; };
 
   //
   // Builder
@@ -88,10 +88,10 @@ public:
   void SetBuilderDefault() { myBuilder = myBuilderDefault; };
 
   //
-  TopTools_ListOfShape& Shapes() { return myShapes; }
+  ShapeList& Shapes() { return myShapes; }
 
   //
-  TopTools_ListOfShape& Tools() { return myTools; }
+  ShapeList& Tools() { return myTools; }
 
   // Resets all options to default values
   void SetDefaultOptions()
@@ -175,12 +175,12 @@ protected:
   //
 protected:
   //
-  BOPAlgo_PaveFiller* myPaveFiller;
+  BooleanPaveFiller* myPaveFiller;
   BOPAlgo_Builder*    myBuilder;
   BOPAlgo_Builder*    myBuilderDefault;
   //
-  TopTools_ListOfShape myShapes;
-  TopTools_ListOfShape myTools;
+  ShapeList myShapes;
+  ShapeList myTools;
   Standard_Boolean     myRunParallel;
   Standard_Boolean     myNonDestructive;
   Standard_Real        myFuzzyValue;
@@ -226,7 +226,7 @@ void BOPTest_Objects::Clear()
 
 //=================================================================================================
 
-BOPAlgo_PaveFiller& BOPTest_Objects::PaveFiller()
+BooleanPaveFiller& BOPTest_Objects::PaveFiller()
 {
   return GetSession().PaveFiller();
 }
@@ -296,14 +296,14 @@ BOPAlgo_Splitter& BOPTest_Objects::Splitter()
 
 //=================================================================================================
 
-TopTools_ListOfShape& BOPTest_Objects::Shapes()
+ShapeList& BOPTest_Objects::Shapes()
 {
   return GetSession().Shapes();
 }
 
 //=================================================================================================
 
-TopTools_ListOfShape& BOPTest_Objects::Tools()
+ShapeList& BOPTest_Objects::Tools()
 {
   return GetSession().Tools();
 }

@@ -28,12 +28,12 @@ class RefObject;
 class StepShape_ConnectedFaceSet;
 class StepGeom_CompositeCurve;
 
-class STEPSelections_Counter
+class SelectionCounter
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT STEPSelections_Counter();
+  Standard_EXPORT SelectionCounter();
 
   Standard_EXPORT void Count(const Interface_Graph& graph, const Handle(RefObject)& start);
 

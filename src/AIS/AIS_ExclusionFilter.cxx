@@ -165,7 +165,7 @@ Standard_Boolean AIS_ExclusionFilter::IsOk(const Handle(SelectMgr_EntityOwner)& 
 
   if (EO.IsNull())
     return Standard_False;
-  Handle(AIS_InteractiveObject) IO = Handle(AIS_InteractiveObject)::DownCast(EO->Selectable());
+  Handle(VisualEntity) IO = Handle(VisualEntity)::DownCast(EO->Selectable());
   if (IO.IsNull())
     return Standard_False;
 

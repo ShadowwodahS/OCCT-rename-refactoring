@@ -22,9 +22,9 @@
 #include <Standard_Real.hxx>
 #include <Standard_Integer.hxx>
 class Draw_Text3D;
-class TopoDS_Shape;
+class TopoShape;
 class Point3d;
-class Draw_Display;
+class DrawDisplay;
 
 class BOPTest_DrawableShape;
 DEFINE_STANDARD_HANDLE(BOPTest_DrawableShape, DBRep_DrawableShape)
@@ -33,22 +33,22 @@ class BOPTest_DrawableShape : public DBRep_DrawableShape
 {
 
 public:
-  Standard_EXPORT BOPTest_DrawableShape(const TopoDS_Shape&    S,
-                                        const Draw_Color&      FreeCol,
-                                        const Draw_Color&      ConnCol,
-                                        const Draw_Color&      EdgeCol,
-                                        const Draw_Color&      IsosCol,
+  Standard_EXPORT BOPTest_DrawableShape(const TopoShape&    S,
+                                        const DrawColor&      FreeCol,
+                                        const DrawColor&      ConnCol,
+                                        const DrawColor&      EdgeCol,
+                                        const DrawColor&      IsosCol,
                                         const Standard_Real    size,
                                         const Standard_Integer nbisos,
                                         const Standard_Integer discret,
                                         const Standard_CString Text,
-                                        const Draw_Color&      TextColor);
+                                        const DrawColor&      TextColor);
 
-  Standard_EXPORT BOPTest_DrawableShape(const TopoDS_Shape&    S,
+  Standard_EXPORT BOPTest_DrawableShape(const TopoShape&    S,
                                         const Standard_CString Text,
-                                        const Draw_Color&      TextColor);
+                                        const DrawColor&      TextColor);
 
-  Standard_EXPORT virtual void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(BOPTest_DrawableShape, DBRep_DrawableShape)
 
@@ -57,7 +57,7 @@ private:
   Standard_EXPORT Point3d Pnt() const;
 
   Handle(Draw_Text3D) myText;
-  Draw_Color          myTextColor;
+  DrawColor          myTextColor;
 };
 
 #endif // _BOPTest_DrawableShape_HeaderFile

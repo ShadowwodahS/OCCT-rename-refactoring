@@ -40,18 +40,18 @@
 
 //=================================================================================================
 
-Handle(Geom_Curve) GeomAdaptor::MakeCurve(const Adaptor3d_Curve& HC)
+Handle(GeomCurve3d) GeomAdaptor1::MakeCurve(const Adaptor3d_Curve& HC)
 {
-  Handle(Geom_Curve) C;
+  Handle(GeomCurve3d) C;
 
   switch (HC.GetType())
   {
     case GeomAbs_Line:
-      C = new Geom_Line(HC.Line());
+      C = new GeomLine(HC.Line());
       break;
 
     case GeomAbs_Circle:
-      C = new Geom_Circle(HC.Circle());
+      C = new GeomCircle(HC.Circle());
       break;
 
     case GeomAbs_Ellipse:
@@ -67,15 +67,15 @@ Handle(Geom_Curve) GeomAdaptor::MakeCurve(const Adaptor3d_Curve& HC)
       break;
 
     case GeomAbs_BezierCurve:
-      C = Handle(Geom_BezierCurve)::DownCast(HC.Bezier()->Copy());
+      C = Handle(BezierCurve3d)::DownCast(HC.Bezier()->Copy());
       break;
 
     case GeomAbs_BSplineCurve:
-      C = Handle(Geom_BSplineCurve)::DownCast(HC.BSpline()->Copy());
+      C = Handle(BSplineCurve3d)::DownCast(HC.BSpline()->Copy());
       break;
 
     default:
-      throw Standard_DomainError("GeomAdaptor::MakeCurve : OtherCurve");
+      throw Standard_DomainError("GeomAdaptor1::MakeCurve : OtherCurve");
   }
 
   // trim the curve if necassary.
@@ -91,15 +91,15 @@ Handle(Geom_Curve) GeomAdaptor::MakeCurve(const Adaptor3d_Curve& HC)
 
 //=================================================================================================
 
-Handle(Geom_Surface) GeomAdaptor::MakeSurface(const Adaptor3d_Surface& HS,
+Handle(GeomSurface) GeomAdaptor1::MakeSurface(const Adaptor3d_Surface& HS,
                                               const Standard_Boolean   theTrimFlag)
 {
-  Handle(Geom_Surface) S;
+  Handle(GeomSurface) S;
 
   switch (HS.GetType())
   {
     case GeomAbs_Plane:
-      S = new Geom_Plane(HS.Plane());
+      S = new GeomPlane(HS.Plane());
       break;
 
     case GeomAbs_Cylinder:
@@ -127,21 +127,21 @@ Handle(Geom_Surface) GeomAdaptor::MakeSurface(const Adaptor3d_Surface& HS,
       break;
 
     case GeomAbs_SurfaceOfRevolution:
-      S = new Geom_SurfaceOfRevolution(GeomAdaptor::MakeCurve(*HS.BasisCurve()),
+      S = new Geom_SurfaceOfRevolution(GeomAdaptor1::MakeCurve(*HS.BasisCurve()),
                                        HS.AxeOfRevolution());
       break;
 
     case GeomAbs_SurfaceOfExtrusion:
       S =
-        new Geom_SurfaceOfLinearExtrusion(GeomAdaptor::MakeCurve(*HS.BasisCurve()), HS.Direction());
+        new Geom_SurfaceOfLinearExtrusion(GeomAdaptor1::MakeCurve(*HS.BasisCurve()), HS.Direction());
       break;
 
     case GeomAbs_OffsetSurface:
-      S = new Geom_OffsetSurface(GeomAdaptor::MakeSurface(*HS.BasisSurface()), HS.OffsetValue());
+      S = new Geom_OffsetSurface(GeomAdaptor1::MakeSurface(*HS.BasisSurface()), HS.OffsetValue());
       break;
 
     case GeomAbs_OtherSurface:
-      throw Standard_DomainError("GeomAdaptor::MakeSurface : OtherSurface");
+      throw Standard_DomainError("GeomAdaptor1::MakeSurface : OtherSurface");
       break;
   }
 

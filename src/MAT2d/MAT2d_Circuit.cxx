@@ -50,10 +50,10 @@ IMPLEMENT_STANDARD_RTTIEXT(MAT2d_Circuit, RefObject)
   #include <DrawTrSurf_Curve2d.hxx>
   #include <Draw_Marker2D.hxx>
 static Handle(DrawTrSurf_Curve2d) draw;
-Standard_EXPORT Draw_Viewer       dout;
+Standard_EXPORT DrawViewer       dout;
 #endif
 #ifdef OCCT_DEBUG
-static void MAT2d_DrawCurve(const Handle(Geom2d_Curve)& aCurve, const Standard_Integer Indice);
+static void MAT2d_DrawCurve(const Handle(GeomCurve2d)& aCurve, const Standard_Integer Indice);
 static Standard_Boolean AffichCircuit = 0;
 #endif
 
@@ -475,7 +475,7 @@ void MAT2d_Circuit::ConstructCircuit(const MAT2d_SequenceOfSequenceOfGeometry& F
     {
       if (geomElements.Value(i)->DynamicType() != STANDARD_TYPE(Geom2d_CartesianPoint))
       {
-        MAT2d_DrawCurve(Handle(Geom2d_Curve)::DownCast(geomElements.Value(i)), 2);
+        MAT2d_DrawCurve(Handle(GeomCurve2d)::DownCast(geomElements.Value(i)), 2);
       }
     }
   }
@@ -882,13 +882,13 @@ static Standard_Real CrossProd(const Handle(Geom2d_Geometry)& Geom1,
 //            Indice = 3 rouge,
 //            Indice = 4 vert.
 //==========================================================================
-void MAT2d_DrawCurve(const Handle(Geom2d_Curve)& aCurve, const Standard_Integer /*Indice*/)
+void MAT2d_DrawCurve(const Handle(GeomCurve2d)& aCurve, const Standard_Integer /*Indice*/)
 {
   Handle(TypeInfo) type = aCurve->DynamicType();
-  Handle(Geom2d_Curve)  curve, CurveDraw;
+  Handle(GeomCurve2d)  curve, CurveDraw;
   #ifdef DRAW
   Handle(DrawTrSurf_Curve2d) dr;
-  Draw_Color                 Couleur;
+  DrawColor                 Couleur;
   #endif
 
   if (type == STANDARD_TYPE(Geom2d_TrimmedCurve))

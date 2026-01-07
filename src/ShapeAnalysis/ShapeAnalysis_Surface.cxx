@@ -93,7 +93,7 @@ inline void RestrictBounds(double& theUf, double& theUl, double& theVf, double& 
 // S4135
 //=================================================================================================
 
-ShapeAnalysis_Surface::ShapeAnalysis_Surface(const Handle(Geom_Surface)& S)
+ShapeAnalysis_Surface::ShapeAnalysis_Surface(const Handle(GeomSurface)& S)
     : mySurf(S),
       myExtOK(Standard_False), //: 30
       myNbDeg(-1),
@@ -111,7 +111,7 @@ ShapeAnalysis_Surface::ShapeAnalysis_Surface(const Handle(Geom_Surface)& S)
 
 //=================================================================================================
 
-void ShapeAnalysis_Surface::Init(const Handle(Geom_Surface)& S)
+void ShapeAnalysis_Surface::Init(const Handle(GeomSurface)& S)
 {
   if (mySurf == S)
     return;
@@ -511,11 +511,11 @@ Standard_Boolean ShapeAnalysis_Surface::IsDegenerated(const gp_Pnt2d&     p2d1,
 // purpose  :
 //=======================================================================
 
-static Handle(Geom_Curve) ComputeIso(const Handle(Geom_Surface)& surf,
+static Handle(GeomCurve3d) ComputeIso(const Handle(GeomSurface)& surf,
                                      const Standard_Boolean      utype,
                                      const Standard_Real         par)
 {
-  Handle(Geom_Curve) iso;
+  Handle(GeomCurve3d) iso;
   try
   {
     OCC_CATCH_SIGNALS
@@ -553,7 +553,7 @@ void ShapeAnalysis_Surface::ComputeBoundIsos()
 
 //=================================================================================================
 
-Handle(Geom_Curve) ShapeAnalysis_Surface::UIso(const Standard_Real U)
+Handle(GeomCurve3d) ShapeAnalysis_Surface::UIso(const Standard_Real U)
 {
   if (U == myUF)
   {
@@ -570,7 +570,7 @@ Handle(Geom_Curve) ShapeAnalysis_Surface::UIso(const Standard_Real U)
 
 //=================================================================================================
 
-Handle(Geom_Curve) ShapeAnalysis_Surface::VIso(const Standard_Real V)
+Handle(GeomCurve3d) ShapeAnalysis_Surface::VIso(const Standard_Real V)
 {
   if (V == myVF)
   {
@@ -627,7 +627,7 @@ Standard_Boolean ShapeAnalysis_Surface::IsUClosed(const Standard_Real preci)
                                          //: Geom_SurfaceOfLinearExtrusion
         Handle(Geom_SurfaceOfLinearExtrusion) extr =
           Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(mySurf);
-        Handle(Geom_Curve) crv = extr->BasisCurve();
+        Handle(GeomCurve3d) crv = extr->BasisCurve();
         Standard_Real      f   = crv->FirstParameter();
         Standard_Real      l   = crv->LastParameter();
         //: r3 abv (smh) 30 Mar 99: protect against unexpected signals
@@ -836,7 +836,7 @@ Standard_Boolean ShapeAnalysis_Surface::IsVClosed(const Standard_Real preci)
       }
       case GeomAbs_SurfaceOfRevolution: {
         Handle(Geom_SurfaceOfRevolution) revol = Handle(Geom_SurfaceOfRevolution)::DownCast(mySurf);
-        Handle(Geom_Curve)               crv   = revol->BasisCurve();
+        Handle(GeomCurve3d)               crv   = revol->BasisCurve();
         Point3d                           p1    = crv->Value(crv->FirstParameter());
         Point3d                           p2    = crv->Value(crv->LastParameter());
         myVCloseVal                            = p1.SquareDistance(p2);
@@ -1234,7 +1234,7 @@ gp_Pnt2d ShapeAnalysis_Surface::ValueOfUV(const Point3d& P3D, const Standard_Rea
           RestrictBounds(uf, ul, vf, vl);
 
           //: 30 by abv 2.12.97: speed optimization
-          // code is taken from GeomAPI_ProjectPointOnSurf
+          // code is taken from PointOnSurfProjector
           if (!myExtOK)
           {
             //      Standard_Real du = Abs(ul-uf)/100;  Standard_Real dv = Abs(vl-vf)/100;
@@ -1463,7 +1463,7 @@ Standard_Real ShapeAnalysis_Surface::UVFromIso(const Point3d&       P3d,
     // modified by rln on 04/12/97 in order to use these variables later
     Standard_Boolean   UV  = Standard_True;
     Standard_Real      par = 0., other = 0., dist = 0.;
-    Handle(Geom_Curve) iso;
+    Handle(GeomCurve3d) iso;
     Adaptor3d_IsoCurve anIsoCurve(Adaptor3d());
     for (Standard_Integer num = 0; num < 6; num++)
     {

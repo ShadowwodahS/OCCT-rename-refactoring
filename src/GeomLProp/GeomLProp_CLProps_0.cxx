@@ -26,7 +26,7 @@
 #include <gp_Dir.hxx>
 #include <GeomLProp_CurveTool.hxx>
 
-#define Curve Handle(Geom_Curve)
+#define Curve Handle(GeomCurve3d)
 #define Curve_hxx <Geom_Curve.hxx>
 #define Vec Vector3d
 #define Vec_hxx <gp_Vec.hxx>
@@ -34,7 +34,7 @@
 #define Pnt_hxx <gp_Pnt.hxx>
 #define Dir Dir3d
 #define Dir_hxx <gp_Dir.hxx>
-#define Tool GeomLProp_CurveTool
+#define Tool CurveTool1
 #define Tool_hxx <GeomLProp_CurveTool.hxx>
 #define LProp_CLProps GeomLProp_CLProps
 #define LProp_CLProps_hxx <GeomLProp_CLProps.hxx>

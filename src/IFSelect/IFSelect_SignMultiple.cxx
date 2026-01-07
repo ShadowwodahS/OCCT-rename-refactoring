@@ -19,7 +19,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SignMultiple, IFSelect_Signature)
 
-static TCollection_AsciiString theval; // temporaire pour construire Value
+static AsciiString1 theval; // temporaire pour construire Value
 
 IFSelect_SignMultiple::IFSelect_SignMultiple(const Standard_CString name)
     : IFSelect_Signature(name)
@@ -49,7 +49,7 @@ Standard_CString IFSelect_SignMultiple::Value(const Handle(RefObject)&       ent
       tabul = -tabul;
     Handle(IFSelect_Signature) sign = Handle(IFSelect_Signature)::DownCast(thesubs.Value(i));
     Standard_CString           val  = sign->Value(ent, model);
-    TCollection_AsciiString    str(val);
+    AsciiString1    str(val);
     Standard_Integer           sl = str.Length();
     str.LeftJustify(tabul, ' ');
     if (sl > tabul && maxi)
@@ -65,7 +65,7 @@ Standard_CString IFSelect_SignMultiple::Value(const Handle(RefObject)&       ent
 
 Standard_Boolean IFSelect_SignMultiple::Matches(const Handle(RefObject)&       ent,
                                                 const Handle(Interface_InterfaceModel)& model,
-                                                const TCollection_AsciiString&          text,
+                                                const AsciiString1&          text,
                                                 const Standard_Boolean                  exact) const
 {
   if (exact)

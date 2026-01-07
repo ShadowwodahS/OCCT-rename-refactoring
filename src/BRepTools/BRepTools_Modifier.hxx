@@ -34,28 +34,28 @@
 #include <Message_ProgressRange.hxx>
 
 class BRepTools_Modification;
-class Geom_Curve;
-class Geom_Surface;
+class GeomCurve3d;
+class GeomSurface;
 
 //! Performs geometric modifications on a shape.
-class BRepTools_Modifier
+class ShapeModifier
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates an empty Modifier.
-  Standard_EXPORT BRepTools_Modifier(Standard_Boolean theMutableInput = Standard_False);
+  Standard_EXPORT ShapeModifier(Standard_Boolean theMutableInput = Standard_False);
 
   //! Creates a modifier on the shape <S>.
-  Standard_EXPORT BRepTools_Modifier(const TopoDS_Shape& S);
+  Standard_EXPORT ShapeModifier(const TopoShape& S);
 
   //! Creates a modifier on  the shape <S>, and performs
   //! the modifications described by <M>.
-  Standard_EXPORT BRepTools_Modifier(const TopoDS_Shape&                   S,
+  Standard_EXPORT ShapeModifier(const TopoShape&                   S,
                                      const Handle(BRepTools_Modification)& M);
 
   //! Initializes the modifier with the shape <S>.
-  Standard_EXPORT void Init(const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const TopoShape& S);
 
   //! Performs the modifications described by <M>.
   Standard_EXPORT void Perform(const Handle(BRepTools_Modification)& M,
@@ -74,30 +74,30 @@ public:
   Standard_EXPORT void SetMutableInput(Standard_Boolean theMutableInput);
 
   //! Returns the modified shape corresponding to <S>.
-  const TopoDS_Shape& ModifiedShape(const TopoDS_Shape& S) const;
+  const TopoShape& ModifiedShape(const TopoShape& S) const;
 
 protected:
 private:
   struct NewCurveInfo
   {
-    Handle(Geom_Curve) myCurve;
+    Handle(GeomCurve3d) myCurve;
     TopLoc_Location    myLoc;
     Standard_Real      myToler;
   };
 
   struct NewSurfaceInfo
   {
-    Handle(Geom_Surface) mySurface;
+    Handle(GeomSurface) mySurface;
     TopLoc_Location      myLoc;
     Standard_Real        myToler;
     Standard_Boolean     myRevWires;
     Standard_Boolean     myRevFace;
   };
 
-  Standard_EXPORT void Put(const TopoDS_Shape& S);
+  Standard_EXPORT void Put(const TopoShape& S);
 
   Standard_EXPORT Standard_Boolean
-    Rebuild(const TopoDS_Shape&                   S,
+    Rebuild(const TopoShape&                   S,
             const Handle(BRepTools_Modification)& M,
             Standard_Boolean&                     theNewGeom,
             const Message_ProgressRange&          theProgress = Message_ProgressRange());
@@ -115,10 +115,10 @@ private:
                                            const Handle(BRepTools_Modification)&            M);
 
   TopTools_DataMapOfShapeShape                                              myMap;
-  TopoDS_Shape                                                              myShape;
+  TopoShape                                                              myShape;
   Standard_Boolean                                                          myDone;
-  NCollection_DataMap<TopoDS_Edge, NewCurveInfo, TopTools_ShapeMapHasher>   myNCInfo;
-  NCollection_DataMap<TopoDS_Face, NewSurfaceInfo, TopTools_ShapeMapHasher> myNSInfo;
+  NCollection_DataMap<TopoEdge, NewCurveInfo, ShapeHasher>   myNCInfo;
+  NCollection_DataMap<TopoFace, NewSurfaceInfo, ShapeHasher> myNSInfo;
   TopTools_MapOfShape                                                       myNonUpdFace;
   TopTools_MapOfShape                                                       myHasNewGeom;
   Standard_Boolean                                                          myMutableInput;

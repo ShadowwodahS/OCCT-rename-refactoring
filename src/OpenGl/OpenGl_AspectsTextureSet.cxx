@@ -21,7 +21,7 @@
 
 namespace
 {
-static const TCollection_AsciiString THE_EMPTY_KEY;
+static const AsciiString1 THE_EMPTY_KEY;
 }
 
 //=================================================================================================
@@ -58,7 +58,7 @@ void OpenGl_AspectsTextureSet::Release(OpenGl_Context* theCtx)
       {
         // OpenGl_PointSprite will be actually released later by OpenGl_AspectsSprite,
         // see order OpenGl_Aspects::Release()
-        const TCollection_AsciiString aName = aTextureRes->ResourceId();
+        const AsciiString1 aName = aTextureRes->ResourceId();
         aTextureRes.Nullify(); // we need nullify all handles before ReleaseResource() call
         theCtx->ReleaseResource(aName, Standard_True);
       }
@@ -108,7 +108,7 @@ void OpenGl_AspectsTextureSet::UpdateRediness(const Handle(Graphic3d_Aspects)& t
       continue;
     }
 
-    const TCollection_AsciiString& aTextureKey = aTexture->GetId();
+    const AsciiString1& aTextureKey = aTexture->GetId();
     if (aTextureKey.IsEmpty() || aResource->ResourceId() != aTextureKey)
     {
       myIsTextureReady = Standard_False;
@@ -218,7 +218,7 @@ void OpenGl_AspectsTextureSet::build(const Handle(OpenGl_Context)&     theCtx,
         }
         else
         {
-          const TCollection_AsciiString aTextureKey = aResource->ResourceId();
+          const AsciiString1 aTextureKey = aResource->ResourceId();
           aResource.Nullify(); // we need nullify all handles before ReleaseResource() call
           theCtx->ReleaseResource(aTextureKey, Standard_True);
         }
@@ -226,7 +226,7 @@ void OpenGl_AspectsTextureSet::build(const Handle(OpenGl_Context)&     theCtx,
 
       if (!aTexture.IsNull())
       {
-        const TCollection_AsciiString& aTextureKeyNew = aTexture->GetId();
+        const AsciiString1& aTextureKeyNew = aTexture->GetId();
         if (aTextureKeyNew.IsEmpty()
             || !theCtx->GetResource<Handle(OpenGl_Texture)>(aTextureKeyNew, aResource))
         {

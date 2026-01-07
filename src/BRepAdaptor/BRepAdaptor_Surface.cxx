@@ -45,7 +45,7 @@ BRepAdaptor_Surface::BRepAdaptor_Surface() {}
 
 //=================================================================================================
 
-BRepAdaptor_Surface::BRepAdaptor_Surface(const TopoDS_Face& F, const Standard_Boolean R)
+BRepAdaptor_Surface::BRepAdaptor_Surface(const TopoFace& F, const Standard_Boolean R)
 {
   Initialize(F, R);
 }
@@ -68,18 +68,18 @@ Handle(Adaptor3d_Surface) BRepAdaptor_Surface::ShallowCopy() const
 
 //=================================================================================================
 
-void BRepAdaptor_Surface::Initialize(const TopoDS_Face& F, const Standard_Boolean Restriction)
+void BRepAdaptor_Surface::Initialize(const TopoFace& F, const Standard_Boolean Restriction)
 {
   myFace = F;
   TopLoc_Location             L;
-  const Handle(Geom_Surface)& aSurface = BRep_Tool::Surface(F, L);
+  const Handle(GeomSurface)& aSurface = BRepInspector::Surface(F, L);
   if (aSurface.IsNull())
     return;
 
   if (Restriction)
   {
     Standard_Real umin, umax, vmin, vmax;
-    BRepTools::UVBounds(F, umin, umax, vmin, vmax);
+    BRepTools1::UVBounds(F, umin, umax, vmin, vmax);
     mySurf.Load(aSurface, umin, umax, vmin, vmax);
   }
   else
@@ -110,7 +110,7 @@ const Transform3d& BRepAdaptor_Surface::Trsf() const
 
 //=================================================================================================
 
-const TopoDS_Face& BRepAdaptor_Surface::Face() const
+const TopoFace& BRepAdaptor_Surface::Face() const
 {
   return myFace;
 }
@@ -119,7 +119,7 @@ const TopoDS_Face& BRepAdaptor_Surface::Face() const
 
 Standard_Real BRepAdaptor_Surface::Tolerance() const
 {
-  return BRep_Tool::Tolerance(myFace);
+  return BRepInspector::Tolerance(myFace);
 }
 
 //=================================================================================================
@@ -143,7 +143,7 @@ Handle(Adaptor3d_Surface) BRepAdaptor_Surface::UTrim(const Standard_Real First,
                                                      const Standard_Real Tol) const
 {
   Handle(GeomAdaptor_Surface) HS = new GeomAdaptor_Surface();
-  HS->Load(Handle(Geom_Surface)::DownCast(mySurf.Surface()->Transformed(myTrsf)));
+  HS->Load(Handle(GeomSurface)::DownCast(mySurf.Surface()->Transformed(myTrsf)));
   return HS->UTrim(First, Last, Tol);
 }
 
@@ -154,7 +154,7 @@ Handle(Adaptor3d_Surface) BRepAdaptor_Surface::VTrim(const Standard_Real First,
                                                      const Standard_Real Tol) const
 {
   Handle(GeomAdaptor_Surface) HS = new GeomAdaptor_Surface();
-  HS->Load(Handle(Geom_Surface)::DownCast(mySurf.Surface()->Transformed(myTrsf)));
+  HS->Load(Handle(GeomSurface)::DownCast(mySurf.Surface()->Transformed(myTrsf)));
   return HS->VTrim(First, Last, Tol);
 }
 
@@ -313,7 +313,7 @@ Dir3d BRepAdaptor_Surface::Direction() const
 Handle(Adaptor3d_Curve) BRepAdaptor_Surface::BasisCurve() const
 {
   Handle(GeomAdaptor_Surface) HS = new GeomAdaptor_Surface();
-  HS->Load(Handle(Geom_Surface)::DownCast(mySurf.Surface()->Transformed(myTrsf)));
+  HS->Load(Handle(GeomSurface)::DownCast(mySurf.Surface()->Transformed(myTrsf)));
 
   return HS->BasisCurve();
 }
@@ -323,7 +323,7 @@ Handle(Adaptor3d_Curve) BRepAdaptor_Surface::BasisCurve() const
 Handle(Adaptor3d_Surface) BRepAdaptor_Surface::BasisSurface() const
 {
   Handle(GeomAdaptor_Surface) HS = new GeomAdaptor_Surface();
-  HS->Load(Handle(Geom_Surface)::DownCast(mySurf.Surface()->Transformed(myTrsf)));
+  HS->Load(Handle(GeomSurface)::DownCast(mySurf.Surface()->Transformed(myTrsf)));
   return HS->BasisSurface();
 }
 

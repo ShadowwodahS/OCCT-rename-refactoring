@@ -18,18 +18,18 @@
 
 #include <Standard_Handle.hxx>
 
-class TopoDS_Shape;
+class TopoShape;
 
 //! Reading from stereolithography format.
 //! Reads STL file and creates a shape composed of triangular faces, one per facet.
 //! IMPORTANT: This approach is very inefficient, especially for large files.
-//! IMPORTANT: Consider reading STL file to Poly_Triangulation object instead (see class RWStl).
-class StlAPI_Reader
+//! IMPORTANT: Consider reading STL file to MeshTriangulation object instead (see class RWStl1).
+class StlReader
 {
 public:
-  //! Reads STL file to the TopoDS_Shape (each triangle is converted to the face).
+  //! Reads STL file to the TopoShape (each triangle is converted to the face).
   //! @return True if reading is successful
-  Standard_EXPORT Standard_Boolean Read(TopoDS_Shape& theShape, const Standard_CString theFileName);
+  Standard_EXPORT Standard_Boolean Read(TopoShape& theShape, const Standard_CString theFileName);
 };
 
 #endif // _StlAPI_Reader_HeaderFile

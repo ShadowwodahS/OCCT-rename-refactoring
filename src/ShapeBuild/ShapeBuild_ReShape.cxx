@@ -35,13 +35,13 @@ ShapeBuild_ReShape::ShapeBuild_ReShape() {}
 
 //=================================================================================================
 
-TopoDS_Shape ShapeBuild_ReShape::Apply(const TopoDS_Shape&    shape,
+TopoShape ShapeBuild_ReShape::Apply(const TopoShape&    shape,
                                        const TopAbs_ShapeEnum until,
                                        const Standard_Integer buildmode)
 {
   if (shape.IsNull())
     return shape;
-  TopoDS_Shape newsh;
+  TopoShape newsh;
   if (Status(shape, newsh, Standard_False) != 0)
     return newsh;
 
@@ -52,12 +52,12 @@ TopoDS_Shape ShapeBuild_ReShape::Apply(const TopoDS_Shape&    shape,
   Standard_Integer modif = 0;
   if (st == TopAbs_COMPOUND || st == TopAbs_COMPSOLID)
   {
-    BRep_Builder    B;
-    TopoDS_Compound C;
+    ShapeBuilder    B;
+    TopoCompound C;
     B.MakeCompound(C);
     for (TopoDS_Iterator it(shape); it.More(); it.Next())
     {
-      const TopoDS_Shape& sh   = it.Value();
+      const TopoShape& sh   = it.Value();
       Standard_Integer    stat = Status(sh, newsh, Standard_False);
       if (stat != 0)
         modif = 1;
@@ -71,14 +71,14 @@ TopoDS_Shape ShapeBuild_ReShape::Apply(const TopoDS_Shape&    shape,
 
   if (st == TopAbs_SOLID)
   {
-    BRep_Builder    B;
-    TopoDS_Compound C;
+    ShapeBuilder    B;
+    TopoCompound C;
     B.MakeCompound(C);
-    TopoDS_Solid S;
+    TopoSolid S;
     B.MakeSolid(S);
     for (TopoDS_Iterator it(shape); it.More(); it.Next())
     {
-      const TopoDS_Shape& sh = it.Value();
+      const TopoShape& sh = it.Value();
       newsh                  = Apply(sh, until, buildmode);
       if (newsh.IsNull())
       {
@@ -87,9 +87,9 @@ TopoDS_Shape ShapeBuild_ReShape::Apply(const TopoDS_Shape&    shape,
       else if (newsh.ShapeType() != TopAbs_SHELL)
       {
         Standard_Integer nbsub = 0;
-        for (TopExp_Explorer exh(newsh, TopAbs_SHELL); exh.More(); exh.Next())
+        for (ShapeExplorer exh(newsh, TopAbs_SHELL); exh.More(); exh.Next())
         {
-          const TopoDS_Shape& onesh = exh.Current();
+          const TopoShape& onesh = exh.Current();
           B.Add(S, onesh);
           nbsub++;
         }
@@ -114,14 +114,14 @@ TopoDS_Shape ShapeBuild_ReShape::Apply(const TopoDS_Shape&    shape,
 
   if (st == TopAbs_SHELL)
   {
-    BRep_Builder    B;
-    TopoDS_Compound C;
+    ShapeBuilder    B;
+    TopoCompound C;
     B.MakeCompound(C);
-    TopoDS_Shell S;
+    TopoShell S;
     B.MakeShell(S);
     for (TopoDS_Iterator it(shape); it.More(); it.Next())
     {
-      const TopoDS_Shape& sh = it.Value();
+      const TopoShape& sh = it.Value();
       newsh                  = Apply(sh, until, buildmode);
       if (newsh.IsNull())
       {
@@ -130,9 +130,9 @@ TopoDS_Shape ShapeBuild_ReShape::Apply(const TopoDS_Shape&    shape,
       else if (newsh.ShapeType() != TopAbs_FACE)
       {
         Standard_Integer nbsub = 0;
-        for (TopExp_Explorer exf(newsh, TopAbs_FACE); exf.More(); exf.Next())
+        for (ShapeExplorer exf(newsh, TopAbs_FACE); exf.More(); exf.Next())
         {
-          const TopoDS_Shape& onesh = exf.Current();
+          const TopoShape& onesh = exf.Current();
           B.Add(S, onesh);
           nbsub++;
         }
@@ -152,7 +152,7 @@ TopoDS_Shape ShapeBuild_ReShape::Apply(const TopoDS_Shape&    shape,
       return C;
     else
     {
-      S.Closed(BRep_Tool::IsClosed(S));
+      S.Closed(BRepInspector::IsClosed(S));
       return S;
     }
   }
@@ -162,14 +162,14 @@ TopoDS_Shape ShapeBuild_ReShape::Apply(const TopoDS_Shape&    shape,
 
 //=================================================================================================
 
-TopoDS_Shape ShapeBuild_ReShape::Apply(const TopoDS_Shape& shape, const TopAbs_ShapeEnum until)
+TopoShape ShapeBuild_ReShape::Apply(const TopoShape& shape, const TopAbs_ShapeEnum until)
 {
   myStatus = ShapeExtend::EncodeStatus(ShapeExtend_OK);
   if (shape.IsNull())
     return shape;
 
   // apply direct replacement
-  TopoDS_Shape newsh = Value(shape);
+  TopoShape newsh = Value(shape);
 
   // if shape removed, return NULL
   if (newsh.IsNull())
@@ -182,7 +182,7 @@ TopoDS_Shape ShapeBuild_ReShape::Apply(const TopoDS_Shape& shape, const TopAbs_S
   Standard_Boolean aConsLoc = ModeConsiderLocation();
   if ((aConsLoc && !newsh.IsPartner(shape)) || (!aConsLoc && !newsh.IsSame(shape)))
   {
-    TopoDS_Shape res = Apply(newsh, until);
+    TopoShape res = Apply(newsh, until);
     myStatus |= ShapeExtend::EncodeStatus(ShapeExtend_DONE1);
     return res;
   }
@@ -194,9 +194,9 @@ TopoDS_Shape ShapeBuild_ReShape::Apply(const TopoDS_Shape& shape, const TopAbs_S
     return shape;
   // define allowed types of components
 
-  BRep_Builder B;
+  ShapeBuilder B;
 
-  TopoDS_Shape       result = shape.EmptyCopied();
+  TopoShape       result = shape.EmptyCopied();
   TopAbs_Orientation orient = shape.Orientation(); // JR/Hp: or -> orient
   result.Orientation(TopAbs_FORWARD);              // protect against INTERNAL or EXTERNAL shapes
   Standard_Boolean modif     = Standard_False;
@@ -205,7 +205,7 @@ TopoDS_Shape ShapeBuild_ReShape::Apply(const TopoDS_Shape& shape, const TopAbs_S
   // apply recorded modifications to subshapes
   for (TopoDS_Iterator it(shape, Standard_False); it.More(); it.Next())
   {
-    const TopoDS_Shape& sh = it.Value();
+    const TopoShape& sh = it.Value();
     newsh                  = Apply(sh, until);
     if (newsh != sh)
     {
@@ -227,7 +227,7 @@ TopoDS_Shape ShapeBuild_ReShape::Apply(const TopoDS_Shape& shape, const TopAbs_S
     Standard_Integer nitems = 0;
     for (TopoDS_Iterator subit(newsh); subit.More(); subit.Next(), nitems++)
     {
-      const TopoDS_Shape& subsh = subit.Value();
+      const TopoShape& subsh = subit.Value();
       if (subsh.ShapeType() == sh.ShapeType())
         B.Add(result, subsh);
       else
@@ -246,7 +246,7 @@ TopoDS_Shape ShapeBuild_ReShape::Apply(const TopoDS_Shape& shape, const TopAbs_S
     sbe.CopyRanges(TopoDS::Edge(result), TopoDS::Edge(shape));
   }
   else if (st == TopAbs_WIRE || st == TopAbs_SHELL)
-    result.Closed(BRep_Tool::IsClosed(result));
+    result.Closed(BRepInspector::IsClosed(result));
   result.Orientation(orient);
   myStatus = locStatus;
 
@@ -257,8 +257,8 @@ TopoDS_Shape ShapeBuild_ReShape::Apply(const TopoDS_Shape& shape, const TopAbs_S
 
 //=================================================================================================
 
-Standard_Integer ShapeBuild_ReShape::Status(const TopoDS_Shape&    ashape,
-                                            TopoDS_Shape&          newsh,
+Standard_Integer ShapeBuild_ReShape::Status(const TopoShape&    ashape,
+                                            TopoShape&          newsh,
                                             const Standard_Boolean last)
 {
   return BRepTools_ReShape::Status(ashape, newsh, last);

@@ -38,12 +38,12 @@ class IntSurf_PntOn2S;
 //! the solver used in intersection algorithm and required values are calculated.
 //! if myUseSolver = false, u1, v1, u2, v2 are considered as "exact" intersection points on two
 //! surfaces and required values are calculated directly using u1, v1, u2, v2
-class ApproxInt_SvSurfaces
+class SurfaceSurfaces
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  ApproxInt_SvSurfaces()
+  SurfaceSurfaces()
       : myUseSolver(false)
   {
   }
@@ -88,7 +88,7 @@ public:
                                                            const Standard_Real u2,
                                                            const Standard_Real v2,
                                                            gp_Vec2d&           Tg) = 0;
-  Standard_EXPORT virtual ~ApproxInt_SvSurfaces();
+  Standard_EXPORT virtual ~SurfaceSurfaces();
 
   void SetUseSolver(const Standard_Boolean theUseSol) { myUseSolver = theUseSol; }
 

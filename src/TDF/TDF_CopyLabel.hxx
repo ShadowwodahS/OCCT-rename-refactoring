@@ -37,22 +37,22 @@ public:
   Standard_EXPORT TDF_CopyLabel();
 
   //! CopyTool
-  Standard_EXPORT TDF_CopyLabel(const TDF_Label& aSource, const TDF_Label& aTarget);
+  Standard_EXPORT TDF_CopyLabel(const DataLabel& aSource, const DataLabel& aTarget);
 
   //! Loads  src  and  tgt  labels
-  Standard_EXPORT void Load(const TDF_Label& aSource, const TDF_Label& aTarget);
+  Standard_EXPORT void Load(const DataLabel& aSource, const DataLabel& aTarget);
 
   //! Sets  filter
   Standard_EXPORT void UseFilter(const TDF_IDFilter& aFilter);
 
   //! Check  external  references and  if  exist  fills  the  aExternals  Map
-  Standard_EXPORT static Standard_Boolean ExternalReferences(const TDF_Label&    Lab,
+  Standard_EXPORT static Standard_Boolean ExternalReferences(const DataLabel&    Lab,
                                                              TDF_AttributeMap&   aExternals,
                                                              const TDF_IDFilter& aFilter);
 
   //! Check  external  references and  if  exist  fills  the  aExternals  Map
-  Standard_EXPORT static void ExternalReferences(const TDF_Label&     aRefLab,
-                                                 const TDF_Label&     Lab,
+  Standard_EXPORT static void ExternalReferences(const DataLabel&     aRefLab,
+                                                 const DataLabel&     Lab,
                                                  TDF_AttributeMap&    aExternals,
                                                  const TDF_IDFilter&  aFilter,
                                                  Handle(TDF_DataSet)& aDataSet);
@@ -68,8 +68,8 @@ public:
 protected:
 private:
   Handle(TDF_RelocationTable) myRT;
-  TDF_Label                   mySL;
-  TDF_Label                   myTL;
+  DataLabel                   mySL;
+  DataLabel                   myTL;
   TDF_IDFilter                myFilter;
   TDF_AttributeMap            myMapOfExt;
   Standard_Boolean            myIsDone;

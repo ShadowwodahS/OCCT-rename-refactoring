@@ -36,9 +36,9 @@
 #include <TColStd_HArray1OfInteger.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-IGESDefs_ToolTabularData::IGESDefs_ToolTabularData() {}
+TabularDataTool::TabularDataTool() {}
 
-void IGESDefs_ToolTabularData::ReadOwnParams(const Handle(IGESDefs_TabularData)& ent,
+void TabularDataTool::ReadOwnParams(const Handle(IGESDefs_TabularData)& ent,
                                              const Handle(IGESData_IGESReaderData)& /* IR */,
                                              IGESData_ParamReader& PR) const
 {
@@ -140,7 +140,7 @@ void IGESDefs_ToolTabularData::ReadOwnParams(const Handle(IGESDefs_TabularData)&
   ent->Init(nbProps, propType, typesInd, nbValuesInd, valuesInd, valuesDep);
 }
 
-void IGESDefs_ToolTabularData::WriteOwnParams(const Handle(IGESDefs_TabularData)& ent,
+void TabularDataTool::WriteOwnParams(const Handle(IGESDefs_TabularData)& ent,
                                               IGESData_IGESWriter&                IW) const
 {
   Standard_Integer i, nbIndeps = ent->NbIndependents();
@@ -169,12 +169,12 @@ void IGESDefs_ToolTabularData::WriteOwnParams(const Handle(IGESDefs_TabularData)
     */
 }
 
-void IGESDefs_ToolTabularData::OwnShared(const Handle(IGESDefs_TabularData)& /* ent */,
+void TabularDataTool::OwnShared(const Handle(IGESDefs_TabularData)& /* ent */,
                                          Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESDefs_ToolTabularData::OwnCopy(const Handle(IGESDefs_TabularData)& another,
+void TabularDataTool::OwnCopy(const Handle(IGESDefs_TabularData)& another,
                                        const Handle(IGESDefs_TabularData)& ent,
                                        Interface_CopyTool& /* TC */) const
 {
@@ -209,10 +209,10 @@ void IGESDefs_ToolTabularData::OwnCopy(const Handle(IGESDefs_TabularData)& anoth
   ent->Init(nbProps, propType, typesInd, nbValuesInd, valuesInd, valuesDep);
 }
 
-IGESData_DirChecker IGESDefs_ToolTabularData::DirChecker(
+DirectoryChecker TabularDataTool::DirChecker(
   const Handle(IGESDefs_TabularData)& /* ent */) const
 {
-  IGESData_DirChecker DC(406, 11);
+  DirectoryChecker DC(406, 11);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -224,13 +224,13 @@ IGESData_DirChecker IGESDefs_ToolTabularData::DirChecker(
   return DC;
 }
 
-void IGESDefs_ToolTabularData::OwnCheck(const Handle(IGESDefs_TabularData)& /* ent */,
+void TabularDataTool::OwnCheck(const Handle(IGESDefs_TabularData)& /* ent */,
                                         const Interface_ShareTool&,
                                         Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESDefs_ToolTabularData::OwnDump(const Handle(IGESDefs_TabularData)& ent,
+void TabularDataTool::OwnDump(const Handle(IGESDefs_TabularData)& ent,
                                        const IGESData_IGESDumper& /* dumper */,
                                        Standard_OStream&      S,
                                        const Standard_Integer level) const

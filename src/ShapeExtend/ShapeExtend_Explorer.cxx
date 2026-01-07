@@ -29,11 +29,11 @@ ShapeExtend_Explorer::ShapeExtend_Explorer() {}
 
 //=================================================================================================
 
-TopoDS_Shape ShapeExtend_Explorer::CompoundFromSeq(
+TopoShape ShapeExtend_Explorer::CompoundFromSeq(
   const Handle(TopTools_HSequenceOfShape)& seqval) const
 {
-  BRep_Builder    B;
-  TopoDS_Compound C;
+  ShapeBuilder    B;
+  TopoCompound C;
   B.MakeCompound(C);
   Standard_Integer i, n = seqval->Length();
   for (i = 1; i <= n; i++)
@@ -44,12 +44,12 @@ TopoDS_Shape ShapeExtend_Explorer::CompoundFromSeq(
 //=================================================================================================
 
 static void FillList(const Handle(TopTools_HSequenceOfShape)& list,
-                     const TopoDS_Shape&                      comp,
+                     const TopoShape&                      comp,
                      const Standard_Boolean                   expcomp)
 {
   for (TopoDS_Iterator it(comp); it.More(); it.Next())
   {
-    const TopoDS_Shape& sub = it.Value();
+    const TopoShape& sub = it.Value();
     if (sub.ShapeType() != TopAbs_COMPOUND)
       list->Append(sub);
     else if (!expcomp)
@@ -60,7 +60,7 @@ static void FillList(const Handle(TopTools_HSequenceOfShape)& list,
 }
 
 Handle(TopTools_HSequenceOfShape) ShapeExtend_Explorer::SeqFromCompound(
-  const TopoDS_Shape&    comp,
+  const TopoShape&    comp,
   const Standard_Boolean expcomp) const
 {
   Handle(TopTools_HSequenceOfShape) list = new TopTools_HSequenceOfShape();
@@ -78,7 +78,7 @@ Handle(TopTools_HSequenceOfShape) ShapeExtend_Explorer::SeqFromCompound(
 //=================================================================================================
 
 void ShapeExtend_Explorer::ListFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval,
-                                       TopTools_ListOfShape&                    lisval,
+                                       ShapeList&                    lisval,
                                        const Standard_Boolean                   clear) const
 {
   if (clear)
@@ -93,7 +93,7 @@ void ShapeExtend_Explorer::ListFromSeq(const Handle(TopTools_HSequenceOfShape)& 
 //=================================================================================================
 
 Handle(TopTools_HSequenceOfShape) ShapeExtend_Explorer::SeqFromList(
-  const TopTools_ListOfShape& lisval) const
+  const ShapeList& lisval) const
 {
   Handle(TopTools_HSequenceOfShape)  seqval = new TopTools_HSequenceOfShape();
   TopTools_ListIteratorOfListOfShape it;
@@ -104,7 +104,7 @@ Handle(TopTools_HSequenceOfShape) ShapeExtend_Explorer::SeqFromList(
 
 //=================================================================================================
 
-TopAbs_ShapeEnum ShapeExtend_Explorer::ShapeType(const TopoDS_Shape&    shape,
+TopAbs_ShapeEnum ShapeExtend_Explorer::ShapeType(const TopoShape&    shape,
                                                  const Standard_Boolean compound) const
 {
   if (shape.IsNull())
@@ -115,7 +115,7 @@ TopAbs_ShapeEnum ShapeExtend_Explorer::ShapeType(const TopoDS_Shape&    shape,
   res = TopAbs_SHAPE;
   for (TopoDS_Iterator iter(shape); iter.More(); iter.Next())
   {
-    const TopoDS_Shape& sh = iter.Value();
+    const TopoShape& sh = iter.Value();
     if (sh.IsNull())
       continue;
     TopAbs_ShapeEnum typ = sh.ShapeType();
@@ -140,7 +140,7 @@ TopAbs_ShapeEnum ShapeExtend_Explorer::ShapeType(const TopoDS_Shape&    shape,
 
 //=================================================================================================
 
-TopoDS_Shape ShapeExtend_Explorer::SortedCompound(const TopoDS_Shape&    shape,
+TopoShape ShapeExtend_Explorer::SortedCompound(const TopoShape&    shape,
                                                   const TopAbs_ShapeEnum type,
                                                   const Standard_Boolean explore,
                                                   const Standard_Boolean compound) const
@@ -148,14 +148,14 @@ TopoDS_Shape ShapeExtend_Explorer::SortedCompound(const TopoDS_Shape&    shape,
   if (shape.IsNull())
     return shape;
   TopAbs_ShapeEnum typ = shape.ShapeType();
-  TopoDS_Shape     sh, sh0;
+  TopoShape     sh, sh0;
   Standard_Integer nb = 0;
 
   //  Compound : on le prend, soit tel quel, soit son contenu
   if (typ == TopAbs_COMPOUND || typ == TopAbs_COMPSOLID)
   {
-    TopoDS_Compound C;
-    BRep_Builder    B;
+    TopoCompound C;
+    ShapeBuilder    B;
     B.MakeCompound(C);
     for (TopoDS_Iterator it(shape); it.More(); it.Next())
     {
@@ -191,16 +191,16 @@ TopoDS_Shape ShapeExtend_Explorer::SortedCompound(const TopoDS_Shape&    shape,
     return shape;
   if (typ == TopAbs_EDGE && type == TopAbs_WIRE)
   {
-    BRep_Builder B;
-    TopoDS_Wire  W;
+    ShapeBuilder B;
+    TopoWire  W;
     B.MakeWire(W);
     B.Add(W, shape);
     return W;
   }
   if (typ == TopAbs_FACE && type == TopAbs_SHELL)
   {
-    BRep_Builder B;
-    TopoDS_Shell S;
+    ShapeBuilder B;
+    TopoShell S;
     B.MakeShell(S);
     B.Add(S, shape);
     return S;
@@ -209,7 +209,7 @@ TopoDS_Shape ShapeExtend_Explorer::SortedCompound(const TopoDS_Shape&    shape,
   //   Le reste : selon exploration
   if (!explore)
   {
-    TopoDS_Shape nulsh;
+    TopoShape nulsh;
     return nulsh;
   }
 
@@ -217,8 +217,8 @@ TopoDS_Shape ShapeExtend_Explorer::SortedCompound(const TopoDS_Shape&    shape,
   //  SOLID + mode COMPOUND : reconduire les SHELLs
   if (typ == TopAbs_SOLID && compound)
   {
-    TopoDS_Compound C;
-    BRep_Builder    B;
+    TopoCompound C;
+    ShapeBuilder    B;
     B.MakeCompound(C);
     for (TopoDS_Iterator it(shape); it.More(); it.Next())
     {
@@ -237,11 +237,11 @@ TopoDS_Shape ShapeExtend_Explorer::SortedCompound(const TopoDS_Shape&    shape,
   }
 
   //  Exploration classique
-  TopoDS_Compound CC;
-  BRep_Builder    BB;
+  TopoCompound CC;
+  ShapeBuilder    BB;
   BB.MakeCompound(CC);
   // Standard_Integer iena = Standard_False; //szv#4:S4163:12Mar99 unused
-  for (TopExp_Explorer aExp(shape, type); aExp.More(); aExp.Next())
+  for (ShapeExplorer aExp(shape, type); aExp.More(); aExp.Next())
   {
     nb++;
     sh = aExp.Current();
@@ -288,7 +288,7 @@ void ShapeExtend_Explorer::DispatchList(const Handle(TopTools_HSequenceOfShape)&
   Standard_Integer i, nb = list->Length();
   for (i = 1; i <= nb; i++)
   {
-    TopoDS_Shape sh = list->Value(i);
+    TopoShape sh = list->Value(i);
     if (sh.IsNull())
       continue;
     switch (sh.ShapeType())

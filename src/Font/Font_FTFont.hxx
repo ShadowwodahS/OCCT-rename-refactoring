@@ -83,7 +83,7 @@ public:
   //! @param theStrictLevel search strict level for using aliases and fallback
   //! @return true on success
   Standard_EXPORT static Handle(Font_FTFont) FindAndCreate(
-    const TCollection_AsciiString& theFontName,
+    const AsciiString1& theFontName,
     const Font_FontAspect          theFontAspect,
     const Font_FTFontParams&       theParams,
     const Font_StrictLevel         theStrictLevel = Font_StrictLevel_Any);
@@ -166,7 +166,7 @@ public:
   //! @param theParams   initialization parameters
   //! @param theFaceId   face id within the file (0 by default)
   //! @return true on success
-  bool Init(const TCollection_AsciiString& theFontPath,
+  bool Init(const AsciiString1& theFontPath,
             const Font_FTFontParams&       theParams,
             const Standard_Integer         theFaceId = 0)
   {
@@ -181,7 +181,7 @@ public:
   //! @param theFaceId   face id within the file (0 by default)
   //! @return true on success
   Standard_EXPORT bool Init(const Handle(NCollection_Buffer)& theData,
-                            const TCollection_AsciiString&    theFileName,
+                            const AsciiString1&    theFileName,
                             const Font_FTFontParams&          theParams,
                             const Standard_Integer            theFaceId = 0);
 
@@ -191,7 +191,7 @@ public:
   //! @param theParams      initialization parameters
   //! @param theStrictLevel search strict level for using aliases and fallback
   //! @return true on success
-  Standard_EXPORT bool FindAndInit(const TCollection_AsciiString& theFontName,
+  Standard_EXPORT bool FindAndInit(const AsciiString1& theFontName,
                                    Font_FontAspect                theFontAspect,
                                    const Font_FTFontParams&       theParams,
                                    Font_StrictLevel theStrictLevel = Font_StrictLevel_Any);
@@ -385,7 +385,7 @@ protected:
   Handle(Font_FTFont)        myFallbackFaces[Font_UnicodeSubset_NB]; //!< fallback fonts
   FT_Face                    myFTFace;                               //!< FT face object
   FT_Face                    myActiveFTFace; //!< active FT face object (the main of fallback)
-  TCollection_AsciiString    myFontPath;     //!< font path
+  AsciiString1    myFontPath;     //!< font path
   Font_FTFontParams          myFontParams;   //!< font initialization parameters
   Font_FontAspect            myFontAspect;   //!< font initialization aspect
   float                      myWidthScaling; //!< scale glyphs along X-axis

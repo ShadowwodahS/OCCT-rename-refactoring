@@ -26,18 +26,18 @@
 #include <Standard_Integer.hxx>
 #include <TDF_LabelList.hxx>
 #include <TopTools_IndexedMapOfShape.hxx>
-class TNaming_NamedShape;
-class TNaming_OldShapeIterator;
-class TopoDS_Shape;
-class TDF_Label;
+class ShapeAttribute;
+class OldShapeIterator;
+class TopoShape;
+class DataLabel;
 class TNaming_UsedShapes;
 
 //! A tool to get information on the topology of a
 //! named shape attribute.
-//! This information is typically a TopoDS_Shape object.
+//! This information is typically a TopoShape object.
 //! Using this tool, relations between named shapes
 //! are also accessible.
-class TNaming_Tool
+class Tool11
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -48,7 +48,7 @@ public:
   //! CurrentShape is the current state of the entities
   //! if they have been modified in other attributes of the same data structure.
   //! Each call to this function creates a new compound.
-  Standard_EXPORT static TopoDS_Shape CurrentShape(const Handle(TNaming_NamedShape)& NS);
+  Standard_EXPORT static TopoShape CurrentShape(const Handle(ShapeAttribute)& NS);
 
   //! Returns the shape CurrentShape contained in
   //! the named shape attribute NS, and present in
@@ -58,18 +58,18 @@ public:
   //! Each call to this function creates a new compound.
   //! Warning
   //! Only the contents of Updated are searched.R
-  Standard_EXPORT static TopoDS_Shape CurrentShape(const Handle(TNaming_NamedShape)& NS,
+  Standard_EXPORT static TopoShape CurrentShape(const Handle(ShapeAttribute)& NS,
                                                    const TDF_LabelMap&               Updated);
 
   //! Returns the NamedShape of the last Modification of <NS>.
   //! This shape is identified by a label.
-  Standard_EXPORT static Handle(TNaming_NamedShape) CurrentNamedShape(
-    const Handle(TNaming_NamedShape)& NS,
+  Standard_EXPORT static Handle(ShapeAttribute) CurrentNamedShape(
+    const Handle(ShapeAttribute)& NS,
     const TDF_LabelMap&               Updated);
 
   //! Returns NamedShape the last Modification of <NS>.
-  Standard_EXPORT static Handle(TNaming_NamedShape) CurrentNamedShape(
-    const Handle(TNaming_NamedShape)& NS);
+  Standard_EXPORT static Handle(ShapeAttribute) CurrentNamedShape(
+    const Handle(ShapeAttribute)& NS);
 
   //! Returns the named shape attribute defined by
   //! the shape aShape and the label anAccess.
@@ -89,18 +89,18 @@ public:
   //! MyPkg_MyClass::SameEdge
   //! (const Handle(OCafTest_Line)& L1
   //! const Handle(OCafTest_Line)& L2)
-  //! { Handle(TNaming_NamedShape)
+  //! { Handle(ShapeAttribute)
   //! NS1 = L1->NamedShape();
-  //! Handle(TNaming_NamedShape)
+  //! Handle(ShapeAttribute)
   //! NS2 = L2->NamedShape();
   //!
   //! return
-  //! BRepTools::Compare(NS1->Get(),NS2->Get());
+  //! BRepTools1::Compare(NS1->Get(),NS2->Get());
   //! }
   //! In the example above, the function SameEdge is
   //! created to compare the edges having two lines
   //! for geometric supports. If these edges are found
-  //! by BRepTools::Compare to be within the same
+  //! by BRepTools1::Compare to be within the same
   //! tolerance, they are considered to be the same.
   //! Warning
   //! To avoid sharing of names, a SELECTED
@@ -109,84 +109,84 @@ public:
   //! When the user of the name is removed, for
   //! example, it is difficult to know whether the name
   //! should be destroyed.
-  Standard_EXPORT static Handle(TNaming_NamedShape) NamedShape(const TopoDS_Shape& aShape,
-                                                               const TDF_Label&    anAcces);
+  Standard_EXPORT static Handle(ShapeAttribute) NamedShape(const TopoShape& aShape,
+                                                               const DataLabel&    anAcces);
 
   //! Returns the entities stored in the named shape attribute NS.
   //! If there is only one old-new pair, the new shape
   //! is returned. Otherwise, a Compound is returned.
   //! This compound is made out of all the new shapes found.
   //! Each call to this function creates a new compound.
-  Standard_EXPORT static TopoDS_Shape GetShape(const Handle(TNaming_NamedShape)& NS);
+  Standard_EXPORT static TopoShape GetShape(const Handle(ShapeAttribute)& NS);
 
   //! Returns the shape contained as OldShape in <NS>
-  Standard_EXPORT static TopoDS_Shape OriginalShape(const Handle(TNaming_NamedShape)& NS);
+  Standard_EXPORT static TopoShape OriginalShape(const Handle(ShapeAttribute)& NS);
 
   //! Returns the shape generated from S or by a
   //! modification of S and contained in the named
   //! shape Generation.
-  Standard_EXPORT static TopoDS_Shape GeneratedShape(const TopoDS_Shape&               S,
-                                                     const Handle(TNaming_NamedShape)& Generation);
+  Standard_EXPORT static TopoShape GeneratedShape(const TopoShape&               S,
+                                                     const Handle(ShapeAttribute)& Generation);
 
-  Standard_EXPORT static void Collect(const Handle(TNaming_NamedShape)& NS,
+  Standard_EXPORT static void Collect(const Handle(ShapeAttribute)& NS,
                                       TNaming_MapOfNamedShape&          Labels,
                                       const Standard_Boolean            OnlyModif = Standard_True);
 
   //! Returns True if <aShape> appears under a label.(DP)
-  Standard_EXPORT static Standard_Boolean HasLabel(const TDF_Label&    access,
-                                                   const TopoDS_Shape& aShape);
+  Standard_EXPORT static Standard_Boolean HasLabel(const DataLabel&    access,
+                                                   const TopoShape& aShape);
 
   //! Returns  the label  of   the first apparition  of
   //! <aShape>.  Transdef  is a value of the transaction
   //! of the first apparition of <aShape>.
-  Standard_EXPORT static TDF_Label Label(const TDF_Label&    access,
-                                         const TopoDS_Shape& aShape,
+  Standard_EXPORT static DataLabel Label(const DataLabel&    access,
+                                         const TopoShape& aShape,
                                          Standard_Integer&   TransDef);
 
   //! Returns the shape created from the shape
   //! aShape contained in the attribute anAcces.
-  Standard_EXPORT static TopoDS_Shape InitialShape(const TopoDS_Shape& aShape,
-                                                   const TDF_Label&    anAcces,
+  Standard_EXPORT static TopoShape InitialShape(const TopoShape& aShape,
+                                                   const DataLabel&    anAcces,
                                                    TDF_LabelList&      Labels);
 
   //! Returns the last transaction where the creation of S
   //! is valid.
-  Standard_EXPORT static Standard_Integer ValidUntil(const TDF_Label&    access,
-                                                     const TopoDS_Shape& S);
+  Standard_EXPORT static Standard_Integer ValidUntil(const DataLabel&    access,
+                                                     const TopoShape& S);
 
   //! Returns the current shape (a Wire or a Shell) built (in the data framework)
   //! from the shapes of the argument named shape.
   //! It is used for IDENTITY name type computation.
   Standard_EXPORT static void FindShape(const TDF_LabelMap&               Valid,
                                         const TDF_LabelMap&               Forbiden,
-                                        const Handle(TNaming_NamedShape)& Arg,
-                                        TopoDS_Shape&                     S);
+                                        const Handle(ShapeAttribute)& Arg,
+                                        TopoShape&                     S);
 
   friend class TNaming_Localizer;
-  friend class TNaming_NamedShape;
-  friend class TNaming_OldShapeIterator;
+  friend class ShapeAttribute;
+  friend class OldShapeIterator;
 
 protected:
 private:
   //! Returns True if <aShape> appears under a label.
   Standard_EXPORT static Standard_Boolean HasLabel(const Handle(TNaming_UsedShapes)& Shapes,
-                                                   const TopoDS_Shape&               aShape);
+                                                   const TopoShape&               aShape);
 
   //! Returns the last transaction where the creation of S
   //! is valid.
-  Standard_EXPORT static Standard_Integer ValidUntil(const TopoDS_Shape&               S,
+  Standard_EXPORT static Standard_Integer ValidUntil(const TopoShape&               S,
                                                      const Handle(TNaming_UsedShapes)& US);
 
   //! Returns  the label  of   the first apparition  of
   //! <aShape>.  Transdef  is a value of the transaction
   //! of the first apparition of <aShape>.
-  Standard_EXPORT static TDF_Label Label(const Handle(TNaming_UsedShapes)& Shapes,
-                                         const TopoDS_Shape&               aShape,
+  Standard_EXPORT static DataLabel Label(const Handle(TNaming_UsedShapes)& Shapes,
+                                         const TopoShape&               aShape,
                                          Standard_Integer&                 TransDef);
 
   Standard_EXPORT static void FirstOlds(const Handle(TNaming_UsedShapes)& Shapes,
-                                        const TopoDS_Shape&               S,
-                                        TNaming_OldShapeIterator&         it,
+                                        const TopoShape&               S,
+                                        OldShapeIterator&         it,
                                         TopTools_IndexedMapOfShape&       MS,
                                         TDF_LabelList&                    Labels);
 };

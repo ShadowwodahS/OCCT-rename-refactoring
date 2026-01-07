@@ -49,7 +49,7 @@ Standard_Boolean AIS_BadEdgeFilter::IsOk(const Handle(SelectMgr_EntityOwner)& EO
   if (aBO.IsNull())
     return Standard_True;
 
-  const TopoDS_Shape& aShape = aBO->Shape();
+  const TopoShape& aShape = aBO->Shape();
 
   if (myBadEdges.IsBound(myContour))
   {
@@ -65,7 +65,7 @@ Standard_Boolean AIS_BadEdgeFilter::IsOk(const Handle(SelectMgr_EntityOwner)& EO
 
 //=================================================================================================
 
-void AIS_BadEdgeFilter::AddEdge(const TopoDS_Edge& anEdge, const Standard_Integer Index)
+void AIS_BadEdgeFilter::AddEdge(const TopoEdge& anEdge, const Standard_Integer Index)
 {
   if (myBadEdges.IsBound(Index))
   {
@@ -73,7 +73,7 @@ void AIS_BadEdgeFilter::AddEdge(const TopoDS_Edge& anEdge, const Standard_Intege
   }
   else
   {
-    TopTools_ListOfShape LS;
+    ShapeList LS;
     LS.Append(anEdge);
     myBadEdges.Bind(Index, LS);
   }

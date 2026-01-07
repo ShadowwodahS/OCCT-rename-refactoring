@@ -29,7 +29,7 @@ class IGESSolid_SelectedComponent;
 DEFINE_STANDARD_HANDLE(IGESSolid_SelectedComponent, IGESData_IGESEntity)
 
 //! defines SelectedComponent, Type <182> Form Number <0>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! The Selected Component entity provides a means of
 //! selecting one component of a disjoint CSG solid
 class IGESSolid_SelectedComponent : public IGESData_IGESEntity

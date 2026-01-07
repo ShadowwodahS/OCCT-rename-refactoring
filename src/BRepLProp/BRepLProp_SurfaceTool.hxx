@@ -25,7 +25,7 @@ class BRepAdaptor_Surface;
 class Point3d;
 class Vector3d;
 
-class BRepLProp_SurfaceTool
+class SurfaceLocalPropsTool
 {
 public:
   DEFINE_STANDARD_ALLOC

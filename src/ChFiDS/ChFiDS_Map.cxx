@@ -24,28 +24,28 @@ ChFiDS_Map::ChFiDS_Map() {}
 
 //=================================================================================================
 
-void ChFiDS_Map::Fill(const TopoDS_Shape& S, const TopAbs_ShapeEnum T1, const TopAbs_ShapeEnum T2)
+void ChFiDS_Map::Fill(const TopoShape& S, const TopAbs_ShapeEnum T1, const TopAbs_ShapeEnum T2)
 {
-  TopExp::MapShapesAndAncestors(S, T1, T2, myMap);
+  TopExp1::MapShapesAndAncestors(S, T1, T2, myMap);
 }
 
 //=================================================================================================
 
-Standard_Boolean ChFiDS_Map::Contains(const TopoDS_Shape& S) const
+Standard_Boolean ChFiDS_Map::Contains(const TopoShape& S) const
 {
   return myMap.Contains(S);
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& ChFiDS_Map::FindFromKey(const TopoDS_Shape& S) const
+const ShapeList& ChFiDS_Map::FindFromKey(const TopoShape& S) const
 {
   return myMap.FindFromKey(S);
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& ChFiDS_Map::FindFromIndex(const Standard_Integer I) const
+const ShapeList& ChFiDS_Map::FindFromIndex(const Standard_Integer I) const
 {
   return myMap.FindFromIndex(I);
 }

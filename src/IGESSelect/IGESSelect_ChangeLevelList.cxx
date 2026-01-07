@@ -106,7 +106,7 @@ void IGESSelect_ChangeLevelList::Performing(IFSelect_ContextModif& ctx,
   }
 }
 
-TCollection_AsciiString IGESSelect_ChangeLevelList::Label() const
+AsciiString1 IGESSelect_ChangeLevelList::Label() const
 {
   char             labl[100];
   Standard_Integer oldl  = 0;
@@ -122,7 +122,7 @@ TCollection_AsciiString IGESSelect_ChangeLevelList::Label() const
     sprintf(labl, "Changes Level Lists containing %d", oldl);
   else
     sprintf(labl, "Changes all Level Lists in D.E. %d", oldl);
-  TCollection_AsciiString label(labl);
+  AsciiString1 label(labl);
   if (yanew)
     sprintf(labl, " to Number %d", newl);
   else

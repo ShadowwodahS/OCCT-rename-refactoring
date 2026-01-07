@@ -66,16 +66,16 @@ Standard_Boolean BinTObjDrivers_ObjectDriver::Paste(const BinObjMgt_Persistent& 
     // if we are here it means that the type was stored as an ascii string,
     // so rewind theSource and reget
     theSource.SetPosition(aSavedPos);
-    TCollection_AsciiString aName;
+    AsciiString1 aName;
     if (!(theSource >> aName))
       return Standard_False;
     anObject = TObj_Persistence::CreateNewObject(aName.ToCString(), theTarget->Label());
     if (anObject.IsNull())
     {
-      TCollection_AsciiString anEntry;
+      AsciiString1 anEntry;
       TDF_Tool::Entry(theTarget->Label(), anEntry);
       myMessageDriver->Send(
-        TCollection_ExtendedString("TObj_TObject retrieval: wrong object type name ") + aName
+        UtfString("TObj_TObject retrieval: wrong object type name ") + aName
           + ", entry " + anEntry,
         Message_Fail);
       TObj_Assistant::BindType(0);
@@ -124,7 +124,7 @@ void BinTObjDrivers_ObjectDriver::Paste(const Handle(TDF_Attribute)& theSource,
     // we first meet this type;
     // register a type and store a type name as a string
     TObj_Assistant::BindType(aType);
-    TCollection_AsciiString aName = aType->Name();
+    AsciiString1 aName = aType->Name();
     theTarget << aName;
   }
   else

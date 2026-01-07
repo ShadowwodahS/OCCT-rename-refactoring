@@ -29,7 +29,7 @@ class IGESSolid_Cylinder;
 DEFINE_STANDARD_HANDLE(IGESSolid_Cylinder, IGESData_IGESEntity)
 
 //! defines Cylinder, Type <154> Form Number <0>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! This defines a solid cylinder
 class IGESSolid_Cylinder : public IGESData_IGESEntity
 {

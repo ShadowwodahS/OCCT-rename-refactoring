@@ -37,7 +37,7 @@ inline Units_Quantity::Units_Quantity(const Standard_CString             aname,
 // purpose  :
 //=======================================================================
 
-inline TCollection_AsciiString Units_Quantity::Name() const
+inline AsciiString1 Units_Quantity::Name() const
 {
   return thename->String();
 }

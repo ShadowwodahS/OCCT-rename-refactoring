@@ -29,14 +29,14 @@ class XSControl_Vars;
 class Transfer_TransientProcess;
 class Interface_InterfaceModel;
 class Transfer_FinderProcess;
-class TopoDS_Shape;
+class TopoShape;
 class Interface_CheckIterator;
 
-class XSControl_WorkSession;
-DEFINE_STANDARD_HANDLE(XSControl_WorkSession, IFSelect_WorkSession)
+class ExchangeSession;
+DEFINE_STANDARD_HANDLE(ExchangeSession, IFSelect_WorkSession)
 
 using XSControl_WorkSessionMap =
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>;
+  NCollection_DataMap<AsciiString1, Handle(RefObject)>;
 
 //! This WorkSession completes the basic one, by adding :
 //! - use of Controller, with norm selection...
@@ -46,12 +46,12 @@ using XSControl_WorkSessionMap =
 //! are given by the user, according to the transfer to be
 //! i.e. it is interpreted by the Actors
 //! Each item is accessed by a Name
-class XSControl_WorkSession : public IFSelect_WorkSession
+class ExchangeSession : public IFSelect_WorkSession
 {
 public:
-  Standard_EXPORT XSControl_WorkSession();
+  Standard_EXPORT ExchangeSession();
 
-  ~XSControl_WorkSession() { ClearBinders(); }
+  ~ExchangeSession() { ClearBinders(); }
 
   //! In addition to basic ClearData, clears Transfer and Management
   //! for interactive use, for mode = 0,1,2 and over 4
@@ -176,7 +176,7 @@ public:
   //! Returns status :Done if OK, Fail if error during transfer,
   //! Error if transfer badly initialised
   Standard_EXPORT IFSelect_ReturnStatus
-    TransferWriteShape(const TopoDS_Shape&          theShape,
+    TransferWriteShape(const TopoShape&          theShape,
                        const Standard_Boolean       theCompGraph = Standard_True,
                        const Message_ProgressRange& theProgress  = Message_ProgressRange());
 
@@ -190,7 +190,7 @@ public:
 
   void SetVars(const Handle(XSControl_Vars)& theVars) { myVars = theVars; }
 
-  DEFINE_STANDARD_RTTIEXT(XSControl_WorkSession, IFSelect_WorkSession)
+  DEFINE_STANDARD_RTTIEXT(ExchangeSession, IFSelect_WorkSession)
 
 private:
   //! Clears binders

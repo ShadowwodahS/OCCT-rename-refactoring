@@ -28,10 +28,10 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Initializes all the functions
-  Standard_EXPORT static void Init(Draw_Interpretor& di);
+  Standard_EXPORT static void Init(DrawInterpreter& di);
 
-  //! Loads all Draw commands of  TKTObjDRAW. Used for plugin.
-  Standard_EXPORT static void Factory(Draw_Interpretor& theDI);
+  //! Loads all Draw1 commands of  TKTObjDRAW. Used for plugin.
+  Standard_EXPORT static void Factory(DrawInterpreter& theDI);
 
 protected:
 private:

@@ -23,8 +23,8 @@
 
 #include <Standard_Boolean.hxx>
 #include <TopoDS_Face.hxx>
-class Geom_Surface;
-class Geom_Curve;
+class GeomSurface;
+class GeomCurve3d;
 
 class Draft_FaceInfo
 {
@@ -33,37 +33,37 @@ public:
 
   Standard_EXPORT Draft_FaceInfo();
 
-  Standard_EXPORT Draft_FaceInfo(const Handle(Geom_Surface)& S,
+  Standard_EXPORT Draft_FaceInfo(const Handle(GeomSurface)& S,
                                  const Standard_Boolean      HasNewGeometry);
 
-  Standard_EXPORT void RootFace(const TopoDS_Face& F);
+  Standard_EXPORT void RootFace(const TopoFace& F);
 
   Standard_EXPORT Standard_Boolean NewGeometry() const;
 
-  Standard_EXPORT void Add(const TopoDS_Face& F);
+  Standard_EXPORT void Add(const TopoFace& F);
 
-  Standard_EXPORT const TopoDS_Face& FirstFace() const;
+  Standard_EXPORT const TopoFace& FirstFace() const;
 
-  Standard_EXPORT const TopoDS_Face& SecondFace() const;
+  Standard_EXPORT const TopoFace& SecondFace() const;
 
-  Standard_EXPORT const Handle(Geom_Surface)& Geometry() const;
+  Standard_EXPORT const Handle(GeomSurface)& Geometry() const;
 
-  Standard_EXPORT Handle(Geom_Surface)& ChangeGeometry();
+  Standard_EXPORT Handle(GeomSurface)& ChangeGeometry();
 
-  Standard_EXPORT const TopoDS_Face& RootFace() const;
+  Standard_EXPORT const TopoFace& RootFace() const;
 
-  Standard_EXPORT Handle(Geom_Curve)& ChangeCurve();
+  Standard_EXPORT Handle(GeomCurve3d)& ChangeCurve();
 
-  Standard_EXPORT const Handle(Geom_Curve)& Curve() const;
+  Standard_EXPORT const Handle(GeomCurve3d)& Curve() const;
 
 protected:
 private:
   Standard_Boolean     myNewGeom;
-  Handle(Geom_Surface) myGeom;
-  TopoDS_Face          myRootFace;
-  TopoDS_Face          myF1;
-  TopoDS_Face          myF2;
-  Handle(Geom_Curve)   myCurv;
+  Handle(GeomSurface) myGeom;
+  TopoFace          myRootFace;
+  TopoFace          myF1;
+  TopoFace          myF2;
+  Handle(GeomCurve3d)   myCurv;
 };
 
 #endif // _Draft_FaceInfo_HeaderFile

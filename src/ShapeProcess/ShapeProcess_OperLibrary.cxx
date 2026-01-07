@@ -52,8 +52,8 @@
 // purpose  : Applies BRepTools_Modification to a shape,
 //           taking into account sharing of components of compounds
 //=======================================================================
-TopoDS_Shape ShapeProcess_OperLibrary::ApplyModifier(
-  const TopoDS_Shape&                       S,
+TopoShape ShapeProcess_OperLibrary::ApplyModifier(
+  const TopoShape&                       S,
   const Handle(ShapeProcess_ShapeContext)&  context,
   const Handle(BRepTools_Modification)&     M,
   TopTools_DataMapOfShapeShape&             map,
@@ -61,21 +61,21 @@ TopoDS_Shape ShapeProcess_OperLibrary::ApplyModifier(
   Standard_Boolean                          theMutableInput)
 {
   // protect against INTERNAL/EXTERNAL shapes
-  TopoDS_Shape SF = S.Oriented(TopAbs_FORWARD);
+  TopoShape SF = S.Oriented(TopAbs_FORWARD);
 
   // Process COMPOUNDs separately in order to handle sharing in assemblies
   if (SF.ShapeType() == TopAbs_COMPOUND)
   {
     Standard_Boolean locModified = Standard_False;
-    TopoDS_Compound  C;
-    BRep_Builder     B;
+    TopoCompound  C;
+    ShapeBuilder     B;
     B.MakeCompound(C);
     for (TopoDS_Iterator it(SF); it.More(); it.Next())
     {
-      TopoDS_Shape    shape = it.Value();
+      TopoShape    shape = it.Value();
       TopLoc_Location L     = shape.Location(), nullLoc;
       shape.Location(nullLoc);
-      TopoDS_Shape res;
+      TopoShape res;
       if (map.IsBound(shape))
         res = map.Find(shape).Oriented(shape.Orientation());
 
@@ -97,7 +97,7 @@ TopoDS_Shape ShapeProcess_OperLibrary::ApplyModifier(
   }
 
   // Modify the shape
-  BRepTools_Modifier MD(SF);
+  ShapeModifier MD(SF);
   MD.SetMutableInput(theMutableInput);
   MD.Perform(M);
   context->RecordModification(SF, MD, msg);
@@ -121,7 +121,7 @@ static Standard_Boolean directfaces(const Handle(ShapeProcess_Context)& context,
   Handle(ShapeCustom_DirectModification) DM = new ShapeCustom_DirectModification;
   DM->SetMsgRegistrator(msg);
   TopTools_DataMapOfShapeShape map;
-  TopoDS_Shape                 res =
+  TopoShape                 res =
     ShapeProcess_OperLibrary::ApplyModifier(ctx->Result(), ctx, DM, map, msg, Standard_True);
   ctx->RecordModification(map, msg);
   ctx->SetResult(res);
@@ -282,7 +282,7 @@ static Standard_Boolean bsplinerestriction(const Handle(ShapeProcess_Context)& c
                                                                                  aParameters);
   LD->SetMsgRegistrator(msg);
   TopTools_DataMapOfShapeShape map;
-  TopoDS_Shape                 res =
+  TopoShape                 res =
     ShapeProcess_OperLibrary::ApplyModifier(ctx->Result(), ctx, LD, map, msg, Standard_True);
   ctx->RecordModification(map, msg);
   ctx->SetResult(res);
@@ -306,7 +306,7 @@ static Standard_Boolean torevol(const Handle(ShapeProcess_Context)& context,
   Handle(ShapeCustom_ConvertToRevolution) CR = new ShapeCustom_ConvertToRevolution();
   CR->SetMsgRegistrator(msg);
   TopTools_DataMapOfShapeShape map;
-  TopoDS_Shape                 res =
+  TopoShape                 res =
     ShapeProcess_OperLibrary::ApplyModifier(ctx->Result(), ctx, CR, map, msg, Standard_True);
   ctx->RecordModification(map, msg);
   ctx->SetResult(res);
@@ -330,7 +330,7 @@ static Standard_Boolean swepttoelem(const Handle(ShapeProcess_Context)& context,
   Handle(ShapeCustom_SweptToElementary) SE = new ShapeCustom_SweptToElementary();
   SE->SetMsgRegistrator(msg);
   TopTools_DataMapOfShapeShape map;
-  TopoDS_Shape                 res =
+  TopoShape                 res =
     ShapeProcess_OperLibrary::ApplyModifier(ctx->Result(), ctx, SE, map, msg, Standard_True);
   ctx->RecordModification(map, msg);
   ctx->SetResult(res);
@@ -431,7 +431,7 @@ static Standard_Boolean converttobspline(const Handle(ShapeProcess_Context)& con
   CBspl->SetMsgRegistrator(msg);
 
   TopTools_DataMapOfShapeShape map;
-  TopoDS_Shape                 res =
+  TopoShape                 res =
     ShapeProcess_OperLibrary::ApplyModifier(ctx->Result(), ctx, CBspl, map, msg, Standard_True);
   ctx->RecordModification(map, msg);
   ctx->SetResult(res);
@@ -555,7 +555,7 @@ static Standard_Boolean fixfacesize(const Handle(ShapeProcess_Context)& context,
     FSC.SetPrecision(aTol);
 
   FSC.Perform();
-  TopoDS_Shape newsh = FSC.Shape();
+  TopoShape newsh = FSC.Shape();
 
   if (newsh != ctx->Result())
   {
@@ -588,7 +588,7 @@ static Standard_Boolean fixwgaps(const Handle(ShapeProcess_Context)& context,
   sfwf->SetContext(reshape);
   sfwf->SetPrecision(aTol3d);
   sfwf->FixWireGaps();
-  TopoDS_Shape result = sfwf->Shape();
+  TopoShape result = sfwf->Shape();
 
   if (result != ctx->Result())
   {
@@ -629,7 +629,7 @@ static Standard_Boolean dropsmallsolids(const Handle(ShapeProcess_Context)& cont
 
   Handle(ShapeBuild_ReShape) aReShape = new ShapeBuild_ReShape;
 
-  TopoDS_Shape aResult;
+  TopoShape aResult;
   if (aMerge)
     aResult = FSS.Merge(ctx->Result(), aReShape);
   else
@@ -654,12 +654,12 @@ static Standard_Boolean dropsmalledges (const Handle(ShapeProcess_Context)& cont
 
   //Handle(ShapeBuild_ReShape) ctx = new ShapeBuild_ReShape;
   Handle(MoniFrame_Element) elem = astep->Operand();
-  TopoDS_Shape Shape = MoniShape::Shape(elem);
+  TopoShape Shape = MoniShape::Shape(elem);
   Standard_Real aTol3d = Precision::Confusion();
   Handle(MoniFrame_TypedValue) ptol3d   = aproc->StackParam("Tolerance3d",Standard_True);
   if (ptol3d->IsSetValue()) aTol3d = ptol3d->RealValue();
   Handle(ShapeBuild_ReShape) context;
-  TopoDS_Shape result = ShapeFix::RemoveSmallEdges(Shape,aTol3d,context);
+  TopoShape result = ShapeFix::RemoveSmallEdges(Shape,aTol3d,context);
   if (result == Shape) astep->AddTouched (aproc->Infos(),MoniShape::Element(Shape));
   else
     MoniShapeSW::UpdateFromReShape (aproc->Infos(), astep, Shape, context, TopAbs_FACE);
@@ -712,7 +712,7 @@ static Standard_Boolean fixshape(const Handle(ShapeProcess_Context)& context,
 
   Handle(ShapeFix_Shape) sfs = new ShapeFix_Shape;
   Handle(ShapeFix_Face)  sff = sfs->FixFaceTool();
-  Handle(ShapeFix_Wire)  sfw = sfs->FixWireTool();
+  Handle(WireHealer)  sfw = sfs->FixWireTool();
   sfs->SetMsgRegistrator(msg);
 
   sfs->SetPrecision(ctx->RealVal("Tolerance3d", Precision::Confusion()));
@@ -747,7 +747,7 @@ static Standard_Boolean fixshape(const Handle(ShapeProcess_Context)& context,
   sff->FixLoopWiresMode()         = ctx->IntegerVal("FixLoopWiresMode", -1);
   sff->FixSplitFaceMode()         = ctx->IntegerVal("FixSplitFaceMode", -1);
 
-  // parameters for ShapeFix_Wire
+  // parameters for WireHealer
   sfw->ModifyTopologyMode()      = ctx->BooleanVal("ModifyTopologyMode", Standard_False);
   sfw->ModifyGeometryMode()      = ctx->BooleanVal("ModifyGeometryMode", Standard_True);
   sfw->ClosedWireMode()          = ctx->BooleanVal("ClosedWireMode", Standard_True);
@@ -788,7 +788,7 @@ static Standard_Boolean fixshape(const Handle(ShapeProcess_Context)& context,
       return Standard_False;
     }
 
-    TopoDS_Shape result = sfs->Shape();
+    TopoShape result = sfs->Shape();
     if (result != ctx->Result() || (!msg.IsNull() && !msg->MapShape().IsEmpty()))
     {
       ctx->RecordModification(sfs->Context(), msg);
@@ -803,7 +803,7 @@ static Standard_Boolean fixshape(const Handle(ShapeProcess_Context)& context,
     return Standard_False;
   }
 
-  TopoDS_Shape result = sfs->Shape();
+  TopoShape result = sfs->Shape();
   if ((result != ctx->Result()) || (!msg.IsNull() && !msg->MapShape().IsEmpty()))
   {
     ctx->RecordModification(sfs->Context(), msg);
@@ -871,7 +871,7 @@ static Standard_Boolean splitcommonvertex(const Handle(ShapeProcess_Context)& co
   SCV.SetMsgRegistrator(msg);
 
   SCV.Perform();
-  TopoDS_Shape newsh = SCV.Shape();
+  TopoShape newsh = SCV.Shape();
 
   if (newsh != ctx->Result())
   {

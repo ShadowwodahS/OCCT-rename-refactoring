@@ -35,9 +35,9 @@
 #include <Standard_DomainError.hxx>
 
 // MGE 03/08/98
-IGESBasic_ToolGroup::IGESBasic_ToolGroup() {}
+GroupTool::GroupTool() {}
 
-void IGESBasic_ToolGroup::ReadOwnParams(const Handle(IGESBasic_Group)&         ent,
+void GroupTool::ReadOwnParams(const Handle(IGESBasic_Group)&         ent,
                                         const Handle(IGESData_IGESReaderData)& IR,
                                         IGESData_ParamReader&                  PR) const
 {
@@ -73,7 +73,7 @@ void IGESBasic_ToolGroup::ReadOwnParams(const Handle(IGESBasic_Group)&         e
   ent->Init(EntArray);
 }
 
-void IGESBasic_ToolGroup::WriteOwnParams(const Handle(IGESBasic_Group)& ent,
+void GroupTool::WriteOwnParams(const Handle(IGESBasic_Group)& ent,
                                          IGESData_IGESWriter&           IW) const
 {
   Standard_Integer upper = ent->NbEntities();
@@ -82,7 +82,7 @@ void IGESBasic_ToolGroup::WriteOwnParams(const Handle(IGESBasic_Group)& ent,
     IW.Send(ent->Entity(i));
 }
 
-void IGESBasic_ToolGroup::OwnShared(const Handle(IGESBasic_Group)& ent,
+void GroupTool::OwnShared(const Handle(IGESBasic_Group)& ent,
                                     Interface_EntityIterator&      iter) const
 {
   Standard_Integer upper = ent->NbEntities();
@@ -90,7 +90,7 @@ void IGESBasic_ToolGroup::OwnShared(const Handle(IGESBasic_Group)& ent,
     iter.GetOneItem(ent->Entity(i));
 }
 
-void IGESBasic_ToolGroup::OwnCopy(const Handle(IGESBasic_Group)& another,
+void GroupTool::OwnCopy(const Handle(IGESBasic_Group)& another,
                                   const Handle(IGESBasic_Group)& ent,
                                   Interface_CopyTool&            TC) const
 {
@@ -106,7 +106,7 @@ void IGESBasic_ToolGroup::OwnCopy(const Handle(IGESBasic_Group)& another,
   ent->Init(EntArray);
 }
 
-Standard_Boolean IGESBasic_ToolGroup::OwnCorrect(const Handle(IGESBasic_Group)& ent) const
+Standard_Boolean GroupTool::OwnCorrect(const Handle(IGESBasic_Group)& ent) const
 {
   Standard_Integer ianul = 0;
   Standard_Integer i, nbtrue = 0, nb = ent->NbEntities();
@@ -137,9 +137,9 @@ Standard_Boolean IGESBasic_ToolGroup::OwnCorrect(const Handle(IGESBasic_Group)& 
   return Standard_True;
 }
 
-IGESData_DirChecker IGESBasic_ToolGroup::DirChecker(const Handle(IGESBasic_Group)& /* ent */) const
+DirectoryChecker GroupTool::DirChecker(const Handle(IGESBasic_Group)& /* ent */) const
 {
-  IGESData_DirChecker DC(402, 1); // TypeNo. 402, Form no. 1
+  DirectoryChecker DC(402, 1); // TypeNo. 402, Form no. 1
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.BlankStatusIgnored();
@@ -147,7 +147,7 @@ IGESData_DirChecker IGESBasic_ToolGroup::DirChecker(const Handle(IGESBasic_Group
   return DC;
 }
 
-void IGESBasic_ToolGroup::OwnCheck(const Handle(IGESBasic_Group)& ent,
+void GroupTool::OwnCheck(const Handle(IGESBasic_Group)& ent,
                                    const Interface_ShareTool&,
                                    Handle(Interface_Check)& /* ach */) const
 {
@@ -167,7 +167,7 @@ void IGESBasic_ToolGroup::OwnCheck(const Handle(IGESBasic_Group)& ent,
   }
 }
 
-void IGESBasic_ToolGroup::OwnDump(const Handle(IGESBasic_Group)& ent,
+void GroupTool::OwnDump(const Handle(IGESBasic_Group)& ent,
                                   const IGESData_IGESDumper&     dumper,
                                   Standard_OStream&              S,
                                   const Standard_Integer         level) const

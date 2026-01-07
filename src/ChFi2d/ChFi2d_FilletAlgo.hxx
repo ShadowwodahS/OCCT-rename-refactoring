@@ -25,7 +25,7 @@
 #include <TColStd_SequenceOfBoolean.hxx>
 #include <TColStd_SequenceOfInteger.hxx>
 
-class FilletPoint;
+class FilletPoint1;
 
 //! Algorithm that creates fillet edge: arc tangent to two edges in the start
 //! and in the end vertices. Initial edges must be located on the plane and
@@ -62,19 +62,19 @@ public:
   Standard_EXPORT ChFi2d_FilletAlgo();
 
   //! A constructor of a fillet algorithm: accepts a wire consisting of two edges in a plane.
-  Standard_EXPORT ChFi2d_FilletAlgo(const TopoDS_Wire& theWire, const gp_Pln& thePlane);
+  Standard_EXPORT ChFi2d_FilletAlgo(const TopoWire& theWire, const gp_Pln& thePlane);
 
   //! A constructor of a fillet algorithm: accepts two edges in a plane.
-  Standard_EXPORT ChFi2d_FilletAlgo(const TopoDS_Edge& theEdge1,
-                                    const TopoDS_Edge& theEdge2,
+  Standard_EXPORT ChFi2d_FilletAlgo(const TopoEdge& theEdge1,
+                                    const TopoEdge& theEdge2,
                                     const gp_Pln&      thePlane);
 
   //! Initializes a fillet algorithm: accepts a wire consisting of two edges in a plane.
-  Standard_EXPORT void Init(const TopoDS_Wire& theWire, const gp_Pln& thePlane);
+  Standard_EXPORT void Init(const TopoWire& theWire, const gp_Pln& thePlane);
 
   //! Initializes a fillet algorithm: accepts two edges in a plane.
-  Standard_EXPORT void Init(const TopoDS_Edge& theEdge1,
-                            const TopoDS_Edge& theEdge2,
+  Standard_EXPORT void Init(const TopoEdge& theEdge1,
+                            const TopoEdge& theEdge2,
                             const gp_Pln&      thePlane);
 
   //! Constructs a fillet edge.
@@ -92,35 +92,35 @@ public:
   //! <thePoint> chooses a particular fillet in case of several fillets
   //! may be constructed (for example, a circle intersecting a segment in 2 points).
   //! Put the intersecting (or common) point of the edges.
-  Standard_EXPORT TopoDS_Edge Result(const Point3d&          thePoint,
-                                     TopoDS_Edge&           theEdge1,
-                                     TopoDS_Edge&           theEdge2,
+  Standard_EXPORT TopoEdge Result(const Point3d&          thePoint,
+                                     TopoEdge&           theEdge1,
+                                     TopoEdge&           theEdge2,
                                      const Standard_Integer iSolution = -1);
 
 private:
   //! Computes the value the function in the current point.
   //! <theLimit> is end parameter of the segment
-  void FillPoint(FilletPoint*, const Standard_Real theLimit);
+  void FillPoint(FilletPoint1*, const Standard_Real theLimit);
   //! Computes the derivative value of the function in the current point.
   //! <theDiffStep> is small step for approximate derivative computation
   //! <theFront> is direction of the step: from or reversed
-  void FillDiff(FilletPoint*, Standard_Real theDiffStep, Standard_Boolean theFront);
+  void FillDiff(FilletPoint1*, Standard_Real theDiffStep, Standard_Boolean theFront);
   //! Using Newton methods computes optimal point, that can be root of the
   //! function taking into account two input points, functions value and derivatives.
   //! Performs iteration until root is found or failed to find root.
   //! Stores roots in myResultParams.
-  void PerformNewton(FilletPoint*, FilletPoint*);
+  void PerformNewton(FilletPoint1*, FilletPoint1*);
   //! Splits segment by the parameter and calls Newton method for both segments.
   //! It supplies recursive iterations of the Newton methods calls
   //! (PerformNewton calls this function and this calls Netwton two times).
-  Standard_Boolean ProcessPoint(FilletPoint*, FilletPoint*, Standard_Real);
+  Standard_Boolean ProcessPoint(FilletPoint1*, FilletPoint1*, Standard_Real);
 
   //! Initial edges where the fillet must be computed.
-  TopoDS_Edge myEdge1, myEdge2;
+  TopoEdge myEdge1, myEdge2;
   //! Plane where fillet arc must be created.
-  Handle(Geom_Plane) myPlane;
+  Handle(GeomPlane) myPlane;
   //! Underlying curves of the initial edges
-  Handle(Geom2d_Curve) myCurve1, myCurve2;
+  Handle(GeomCurve2d) myCurve1, myCurve2;
   //! Start and end parameters of curves of initial edges.
   Standard_Real myStart1, myEnd1, myStart2, myEnd2, myRadius;
   //! List of params where roots were found.
@@ -138,11 +138,11 @@ private:
 
 //! Private class. Corresponds to the point on the first curve, computed
 //! fillet function and derivative on it.
-class FilletPoint
+class FilletPoint1
 {
 public:
   //! Creates a point on a first curve by parameter on this curve.
-  FilletPoint(const Standard_Real theParam);
+  FilletPoint1(const Standard_Real theParam);
 
   //! Changes the point position by changing point parameter on the first curve.
   void setParam(Standard_Real theParam) { myParam = theParam; }
@@ -181,14 +181,14 @@ public:
   void appendValue(Standard_Real theValue, Standard_Boolean theValid);
 
   //! Computes difference between this point and the given. Stores difference in myD.
-  Standard_Boolean calculateDiff(FilletPoint*);
+  Standard_Boolean calculateDiff(FilletPoint1*);
 
   //! Filters out the values and leaves the most optimal one.
-  void FilterPoints(FilletPoint*);
+  void FilterPoints(FilletPoint1*);
 
   //! Returns a pointer to created copy of the point
   //! warning: this is not the full copy! Copies only: myParam, myV, myD, myValid
-  FilletPoint* Copy();
+  FilletPoint1* Copy();
 
   //! Returns the index of the solution or zero if there is no solution
   Standard_Integer hasSolution(Standard_Real theRadius);

@@ -20,7 +20,7 @@
 
 //=================================================================================================
 
-BRepAlgoAPI_Common::BRepAlgoAPI_Common()
+BooleanCommon::BooleanCommon()
     : BRepAlgoAPI_BooleanOperation()
 {
   myOperation = BOPAlgo_COMMON;
@@ -28,7 +28,7 @@ BRepAlgoAPI_Common::BRepAlgoAPI_Common()
 
 //=================================================================================================
 
-BRepAlgoAPI_Common::BRepAlgoAPI_Common(const BOPAlgo_PaveFiller& aPF)
+BooleanCommon::BooleanCommon(const BooleanPaveFiller& aPF)
     : BRepAlgoAPI_BooleanOperation(aPF)
 {
   myOperation = BOPAlgo_COMMON;
@@ -36,12 +36,12 @@ BRepAlgoAPI_Common::BRepAlgoAPI_Common(const BOPAlgo_PaveFiller& aPF)
 
 //=================================================================================================
 
-BRepAlgoAPI_Common::~BRepAlgoAPI_Common() {}
+BooleanCommon::~BooleanCommon() {}
 
 //=================================================================================================
 
-BRepAlgoAPI_Common::BRepAlgoAPI_Common(const TopoDS_Shape&          S1,
-                                       const TopoDS_Shape&          S2,
+BooleanCommon::BooleanCommon(const TopoShape&          S1,
+                                       const TopoShape&          S2,
                                        const Message_ProgressRange& theRange)
     : BRepAlgoAPI_BooleanOperation(S1, S2, BOPAlgo_COMMON)
 {
@@ -50,9 +50,9 @@ BRepAlgoAPI_Common::BRepAlgoAPI_Common(const TopoDS_Shape&          S1,
 
 //=================================================================================================
 
-BRepAlgoAPI_Common::BRepAlgoAPI_Common(const TopoDS_Shape&          S1,
-                                       const TopoDS_Shape&          S2,
-                                       const BOPAlgo_PaveFiller&    aDSF,
+BooleanCommon::BooleanCommon(const TopoShape&          S1,
+                                       const TopoShape&          S2,
+                                       const BooleanPaveFiller&    aDSF,
                                        const Message_ProgressRange& theRange)
     : BRepAlgoAPI_BooleanOperation(S1, S2, aDSF, BOPAlgo_COMMON)
 {

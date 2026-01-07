@@ -21,7 +21,7 @@
 #include <Prs3d_Presentation.hxx>
 #include <Prs3d_TextAspect.hxx>
 
-class TCollection_ExtendedString;
+class UtfString;
 class Point3d;
 
 //! A framework to define the display of texts.
@@ -36,9 +36,9 @@ public:
   //! @param theText   text to draw
   //! @param theAttachmentPoint attachment point
   //! @return text to draw
-  Standard_EXPORT static Handle(Graphic3d_Text) Draw(const Handle(Graphic3d_Group)&    theGroup,
+  Standard_EXPORT static Handle(Graphic3d_Text) Draw1(const Handle(Graphic3d_Group)&    theGroup,
                                                      const Handle(Prs3d_TextAspect)&   theAspect,
-                                                     const TCollection_ExtendedString& theText,
+                                                     const UtfString& theText,
                                                      const Point3d& theAttachmentPoint);
 
   //! Draws the text label.
@@ -48,10 +48,10 @@ public:
   //! @param theOrientation location and orientation specified in the model 3D space
   //! @param theHasOwnAnchor
   //! @return text to draw
-  Standard_EXPORT static Handle(Graphic3d_Text) Draw(
+  Standard_EXPORT static Handle(Graphic3d_Text) Draw1(
     const Handle(Graphic3d_Group)&    theGroup,
     const Handle(Prs3d_TextAspect)&   theAspect,
-    const TCollection_ExtendedString& theText,
+    const UtfString& theText,
     const Frame3d&                     theOrientation,
     const Standard_Boolean            theHasOwnAnchor = Standard_True);
 };

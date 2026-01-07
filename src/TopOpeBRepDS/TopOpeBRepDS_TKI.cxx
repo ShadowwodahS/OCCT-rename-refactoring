@@ -178,8 +178,8 @@ void TopOpeBRepDS_TKI::Add(const TopOpeBRepDS_Kind                  K,
 
 //=================================================================================================
 
-void TopOpeBRepDS_TKI::DumpTKIIterator(const TCollection_AsciiString& s1,
-                                       const TCollection_AsciiString& s2)
+void TopOpeBRepDS_TKI::DumpTKIIterator(const AsciiString1& s1,
+                                       const AsciiString1& s2)
 {
   std::cout << s1;
   Init();

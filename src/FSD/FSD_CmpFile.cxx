@@ -32,7 +32,7 @@ FSD_CmpFile::FSD_CmpFile() {}
 //           write
 //=======================================================================
 
-Storage_Error FSD_CmpFile::IsGoodFileType(const TCollection_AsciiString& aName)
+Storage_Error FSD_CmpFile::IsGoodFileType(const AsciiString1& aName)
 {
   FSD_CmpFile   f;
   Storage_Error s;
@@ -41,7 +41,7 @@ Storage_Error FSD_CmpFile::IsGoodFileType(const TCollection_AsciiString& aName)
 
   if (s == Storage_VSOk)
   {
-    TCollection_AsciiString l;
+    AsciiString1 l;
     Standard_Size           len = strlen(FSD_CmpFile::MagicNumber());
 
     f.ReadChar(l, len);
@@ -59,7 +59,7 @@ Storage_Error FSD_CmpFile::IsGoodFileType(const TCollection_AsciiString& aName)
 
 //=================================================================================================
 
-Storage_Error FSD_CmpFile::Open(const TCollection_AsciiString& aName, const Storage_OpenMode aMode)
+Storage_Error FSD_CmpFile::Open(const AsciiString1& aName, const Storage_OpenMode aMode)
 {
   Storage_Error result = Storage_VSOk;
   SetName(aName);
@@ -135,10 +135,10 @@ Standard_CString FSD_CmpFile::MagicNumber()
 // purpose  : read from the current position to the end of line.
 //=======================================================================
 
-void FSD_CmpFile::ReadLine(TCollection_AsciiString& buffer)
+void FSD_CmpFile::ReadLine(AsciiString1& buffer)
 {
   buffer.Clear();
-  TCollection_AsciiString aBuf('\0');
+  AsciiString1 aBuf('\0');
   FSD_File::ReadLine(aBuf);
   for (Standard_Integer lv = aBuf.Length();
        lv >= 1 && (aBuf.Value(lv) == '\r' || (aBuf.Value(lv) == '\n'));
@@ -154,7 +154,7 @@ void FSD_CmpFile::ReadLine(TCollection_AsciiString& buffer)
 // purpose  : write from the current position to the end of line.
 //=======================================================================
 
-void FSD_CmpFile::WriteExtendedLine(const TCollection_ExtendedString& buffer)
+void FSD_CmpFile::WriteExtendedLine(const UtfString& buffer)
 {
 #if 0
   Standard_ExtString extBuffer;
@@ -186,7 +186,7 @@ void FSD_CmpFile::WriteExtendedLine(const TCollection_ExtendedString& buffer)
 
 //=================================================================================================
 
-void FSD_CmpFile::ReadExtendedLine(TCollection_ExtendedString& buffer)
+void FSD_CmpFile::ReadExtendedLine(UtfString& buffer)
 {
   Standard_ExtCharacter c;
   Standard_Integer      i;
@@ -207,10 +207,10 @@ void FSD_CmpFile::ReadExtendedLine(TCollection_ExtendedString& buffer)
 // purpose  : read from the first none space character position to the end of line.
 //=======================================================================
 
-void FSD_CmpFile::ReadString(TCollection_AsciiString& buffer)
+void FSD_CmpFile::ReadString(AsciiString1& buffer)
 {
   buffer.Clear();
-  TCollection_AsciiString aBuf('\0');
+  AsciiString1 aBuf('\0');
   FSD_File::ReadString(aBuf);
   for (Standard_Integer lv = aBuf.Length();
        lv >= 1 && (aBuf.Value(lv) == '\r' || (aBuf.Value(lv) == '\n'));
@@ -251,7 +251,7 @@ Storage_Error FSD_CmpFile::BeginWriteInfoSection()
 Storage_Error FSD_CmpFile::BeginReadInfoSection()
 {
   Storage_Error           s;
-  TCollection_AsciiString l;
+  AsciiString1 l;
   Standard_Size           len = strlen(FSD_CmpFile::MagicNumber());
 
   ReadChar(l, len);

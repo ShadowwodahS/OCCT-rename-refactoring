@@ -48,10 +48,10 @@
 // function : GetShapeTypeInfo
 // purpose :
 // =======================================================================
-TCollection_AsciiString VInspector_Tools::GetShapeTypeInfo(const TopAbs_ShapeEnum& theType)
+AsciiString1 VInspector_Tools::GetShapeTypeInfo(const TopAbs_ShapeEnum& theType)
 {
   Standard_SStream aSStream;
-  TopAbs::Print(theType, aSStream);
+  TopAbs1::Print(theType, aSStream);
   return aSStream.str().c_str();
 }
 
@@ -59,8 +59,8 @@ TCollection_AsciiString VInspector_Tools::GetShapeTypeInfo(const TopAbs_ShapeEnu
 // function : SelectedOwners
 // purpose :
 // =======================================================================
-int VInspector_Tools::SelectedOwners(const Handle(AIS_InteractiveContext)& theContext,
-                                     const Handle(AIS_InteractiveObject)&  theObject,
+int VInspector_Tools::SelectedOwners(const Handle(VisualContext)& theContext,
+                                     const Handle(VisualEntity)&  theObject,
                                      const bool                            theShapeInfoOnly)
 {
   QStringList anObjects;
@@ -76,8 +76,8 @@ int VInspector_Tools::SelectedOwners(const Handle(AIS_InteractiveContext)& theCo
 
     if (!theObject.IsNull())
     {
-      Handle(AIS_InteractiveObject) anOwnerPresentation =
-        Handle(AIS_InteractiveObject)::DownCast(anOwner->Selectable());
+      Handle(VisualEntity) anOwnerPresentation =
+        Handle(VisualEntity)::DownCast(anOwner->Selectable());
       if (anOwnerPresentation != theObject)
         continue;
     }
@@ -99,7 +99,7 @@ int VInspector_Tools::SelectedOwners(const Handle(AIS_InteractiveContext)& theCo
 // function : IsOwnerSelected
 // purpose :
 // =======================================================================
-bool VInspector_Tools::IsOwnerSelected(const Handle(AIS_InteractiveContext)& theContext,
+bool VInspector_Tools::IsOwnerSelected(const Handle(VisualContext)& theContext,
                                        const Handle(SelectMgr_EntityOwner)&  theOwner)
 {
   bool anIsSelected = false;
@@ -114,7 +114,7 @@ bool VInspector_Tools::IsOwnerSelected(const Handle(AIS_InteractiveContext)& the
 // purpose :
 // =======================================================================
 NCollection_List<Handle(SelectMgr_EntityOwner)> VInspector_Tools::ContextOwners(
-  const Handle(AIS_InteractiveContext)& theContext)
+  const Handle(VisualContext)& theContext)
 {
   NCollection_List<Handle(SelectMgr_EntityOwner)> aResultOwners;
   if (theContext.IsNull())
@@ -125,13 +125,13 @@ NCollection_List<Handle(SelectMgr_EntityOwner)> VInspector_Tools::ContextOwners(
   QList<size_t> aSelectedIds; // Remember of selected address in order to avoid duplicates
   for (AIS_ListIteratorOfListOfInteractive aIt(aListOfIO); aIt.More(); aIt.Next())
   {
-    Handle(AIS_InteractiveObject) anIO = aIt.Value();
+    Handle(VisualEntity) anIO = aIt.Value();
     if (anIO.IsNull())
       continue;
     for (SelectMgr_SequenceOfSelection::Iterator aSelIter(anIO->Selections()); aSelIter.More();
          aSelIter.Next())
     {
-      Handle(SelectMgr_Selection) aSelection = aSelIter.Value();
+      Handle(SelectionContainer) aSelection = aSelIter.Value();
       if (aSelection.IsNull())
         continue;
       for (NCollection_Vector<Handle(SelectMgr_SensitiveEntity)>::Iterator aSelEntIter(
@@ -160,13 +160,13 @@ NCollection_List<Handle(SelectMgr_EntityOwner)> VInspector_Tools::ContextOwners(
 // purpose :
 // =======================================================================
 NCollection_List<Handle(SelectMgr_EntityOwner)> VInspector_Tools::ActiveOwners(
-  const Handle(AIS_InteractiveContext)&            theContext,
+  const Handle(VisualContext)&            theContext,
   NCollection_List<Handle(SelectMgr_EntityOwner)>& theEmptySelectableOwners)
 {
   NCollection_List<Handle(SelectMgr_EntityOwner)> aResultOwners;
 
   // only local context is processed: TODO for global context
-  Handle(AIS_InteractiveContext) aContext = theContext;
+  Handle(VisualContext) aContext = theContext;
   if (aContext.IsNull())
     return aResultOwners;
   NCollection_List<Handle(SelectMgr_EntityOwner)> anActiveOwners;
@@ -190,7 +190,7 @@ NCollection_List<Handle(SelectMgr_EntityOwner)> VInspector_Tools::ActiveOwners(
     aResultOwners.Append(anOwner);
     Handle(SelectMgr_SelectableObject) aSelectable = anOwner->Selectable();
     if (aSelectable.IsNull()
-        || !theContext->IsDisplayed(Handle(AIS_InteractiveObject)::DownCast(aSelectable)))
+        || !theContext->IsDisplayed(Handle(VisualEntity)::DownCast(aSelectable)))
       theEmptySelectableOwners.Append(anOwner);
   }
   return aResultOwners;
@@ -201,7 +201,7 @@ NCollection_List<Handle(SelectMgr_EntityOwner)> VInspector_Tools::ActiveOwners(
 // purpose :
 // =======================================================================
 void VInspector_Tools::AddOrRemoveSelectedShapes(
-  const Handle(AIS_InteractiveContext)&                  theContext,
+  const Handle(VisualContext)&                  theContext,
   const NCollection_List<Handle(SelectMgr_EntityOwner)>& theOwners)
 {
   // TODO: the next two rows are to be removed later
@@ -225,14 +225,14 @@ void VInspector_Tools::AddOrRemoveSelectedShapes(
 // purpose :
 // =======================================================================
 void VInspector_Tools::AddOrRemovePresentations(
-  const Handle(AIS_InteractiveContext)&                  theContext,
-  const NCollection_List<Handle(AIS_InteractiveObject)>& thePresentations)
+  const Handle(VisualContext)&                  theContext,
+  const NCollection_List<Handle(VisualEntity)>& thePresentations)
 {
   // TODO: the next two rows are to be removed later
   theContext->UnhilightSelected(false);
   theContext->ClearSelected(false);
 
-  for (NCollection_List<Handle(AIS_InteractiveObject)>::Iterator anIOIt(thePresentations);
+  for (NCollection_List<Handle(VisualEntity)>::Iterator anIOIt(thePresentations);
        anIOIt.More();
        anIOIt.Next())
     theContext->AddOrRemoveSelected(anIOIt.Value(), false);
@@ -244,17 +244,17 @@ void VInspector_Tools::AddOrRemovePresentations(
 // function : GetInfo
 // purpose :
 // =======================================================================
-QList<QVariant> VInspector_Tools::GetInfo(Handle(AIS_InteractiveObject)& theObject)
+QList<QVariant> VInspector_Tools::GetInfo(Handle(VisualEntity)& theObject)
 {
   QList<QVariant> anInfo;
   anInfo.append(theObject->DynamicType()->Name());
   anInfo.append(Standard_Dump::GetPointerInfo(theObject, true).ToCString());
 
-  Handle(AIS_Shape) aShapeIO = Handle(AIS_Shape)::DownCast(theObject);
+  Handle(VisualShape) aShapeIO = Handle(VisualShape)::DownCast(theObject);
   if (aShapeIO.IsNull())
     return anInfo;
 
-  const TopoDS_Shape& aShape = aShapeIO->Shape();
+  const TopoShape& aShape = aShapeIO->Shape();
   if (!aShape.IsNull())
     anInfo.append(VInspector_Tools::GetShapeTypeInfo(aShape.ShapeType()).ToCString());
 
@@ -265,7 +265,7 @@ QList<QVariant> VInspector_Tools::GetInfo(Handle(AIS_InteractiveObject)& theObje
 // function : GetHighlightInfo
 // purpose :
 // =======================================================================
-QList<QVariant> VInspector_Tools::GetHighlightInfo(const Handle(AIS_InteractiveContext)& theContext)
+QList<QVariant> VInspector_Tools::GetHighlightInfo(const Handle(VisualContext)& theContext)
 {
   QList<QVariant> aValues;
   if (theContext.IsNull())
@@ -285,8 +285,8 @@ QList<QVariant> VInspector_Tools::GetHighlightInfo(const Handle(AIS_InteractiveC
     if (aSelectedIds.contains((size_t)anOwnerPtr))
       continue;
     aSelectedIds.append((size_t)anOwnerPtr);
-    Handle(AIS_InteractiveObject) anIO =
-      Handle(AIS_InteractiveObject)::DownCast(anOwner->Selectable());
+    Handle(VisualEntity) anIO =
+      Handle(VisualEntity)::DownCast(anOwner->Selectable());
     if (anIO.IsNull())
       continue;
     QList<QVariant> anIOInfo = VInspector_Tools::GetInfo(anIO);
@@ -310,7 +310,7 @@ QList<QVariant> VInspector_Tools::GetHighlightInfo(const Handle(AIS_InteractiveC
 // function : GetSelectedInfo
 // purpose :
 // =======================================================================
-QList<QVariant> VInspector_Tools::GetSelectedInfo(const Handle(AIS_InteractiveContext)& theContext)
+QList<QVariant> VInspector_Tools::GetSelectedInfo(const Handle(VisualContext)& theContext)
 {
   QList<QVariant> aValues;
   if (theContext.IsNull())
@@ -330,8 +330,8 @@ QList<QVariant> VInspector_Tools::GetSelectedInfo(const Handle(AIS_InteractiveCo
     if (aSelectedIds.contains((size_t)anOwnerPtr))
       continue;
     aSelectedIds.append((size_t)anOwnerPtr);
-    Handle(AIS_InteractiveObject) anIO =
-      Handle(AIS_InteractiveObject)::DownCast(anOwner->Selectable());
+    Handle(VisualEntity) anIO =
+      Handle(VisualEntity)::DownCast(anOwner->Selectable());
     if (anIO.IsNull())
       continue;
 
@@ -355,7 +355,7 @@ QList<QVariant> VInspector_Tools::GetSelectedInfo(const Handle(AIS_InteractiveCo
 // function : GetSelectedInfoPointers
 // purpose :
 // =======================================================================
-QString VInspector_Tools::GetSelectedInfoPointers(const Handle(AIS_InteractiveContext)& theContext)
+QString VInspector_Tools::GetSelectedInfoPointers(const Handle(VisualContext)& theContext)
 {
   QList<QVariant> aSelectedInfo = VInspector_Tools::GetSelectedInfo(theContext);
   return aSelectedInfo.size() > 2 ? aSelectedInfo[1].toString() : QString();
@@ -386,7 +386,7 @@ Standard_CString VInspector_Tools::DisplayActionTypeToString(View_DisplayActionT
 Standard_Boolean VInspector_Tools::DisplayActionTypeFromString(Standard_CString theTypeString,
                                                                View_DisplayActionType& theType)
 {
-  const TCollection_AsciiString aName(theTypeString);
+  const AsciiString1 aName(theTypeString);
   for (Standard_Integer aTypeIter = 0; aTypeIter <= View_DisplayActionType_RemoveId; ++aTypeIter)
   {
     Standard_CString aTypeName = VInspector_Table_PrintDisplayActionType[aTypeIter];

@@ -20,6 +20,6 @@
 #include <TDF_Label.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<TDF_Label> TDataStd_LabelArray1;
+typedef NCollection_Array1<DataLabel> TDataStd_LabelArray1;
 
 #endif

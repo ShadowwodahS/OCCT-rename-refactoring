@@ -29,11 +29,11 @@
 #include <TCollection_ExtendedString.hxx>
 #include <TopoDS_Shape.hxx>
 
-class Geom_Curve;
-class Geom_Plane;
-class Geom_Surface;
-class TopoDS_Edge;
-class TopoDS_Vertex;
+class GeomCurve3d;
+class GeomPlane;
+class GeomSurface;
+class TopoEdge;
+class TopoVertex;
 
 //! One of the four types of interactive object in
 //! AIS,comprising dimensions and constraints. Serves
@@ -44,9 +44,9 @@ class TopoDS_Vertex;
 //! -   1 - there is a connection to the first shape;
 //! -   2 - there is a connection to the second shape.
 //! The connection takes the form of an edge between the two shapes.
-class PrsDim_Relation : public AIS_InteractiveObject
+class PrsDim_Relation : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(PrsDim_Relation, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(PrsDim_Relation, VisualEntity)
 public:
   //! Allows you to provide settings for the color theColor
   //! of the lines representing the relation between the two shapes.
@@ -67,16 +67,16 @@ public:
   //! Returns true if the interactive object is movable.
   virtual Standard_Boolean IsMovable() const { return Standard_False; }
 
-  const TopoDS_Shape& FirstShape() const { return myFShape; }
+  const TopoShape& FirstShape() const { return myFShape; }
 
-  virtual void SetFirstShape(const TopoDS_Shape& aFShape) { myFShape = aFShape; }
+  virtual void SetFirstShape(const TopoShape& aFShape) { myFShape = aFShape; }
 
   //! Returns the second shape.
-  const TopoDS_Shape& SecondShape() const { return mySShape; }
+  const TopoShape& SecondShape() const { return mySShape; }
 
   //! Allows you to identify the second shape aSShape
   //! relative to the first.
-  virtual void SetSecondShape(const TopoDS_Shape& aSShape) { mySShape = aSShape; }
+  virtual void SetSecondShape(const TopoShape& aSShape) { mySShape = aSShape; }
 
   void SetBndBox(const Standard_Real theXmin,
                  const Standard_Real theYmin,
@@ -92,11 +92,11 @@ public:
   void UnsetBndBox() { myIsSetBndBox = Standard_False; }
 
   //! Returns the plane.
-  const Handle(Geom_Plane)& Plane() const { return myPlane; }
+  const Handle(GeomPlane)& Plane() const { return myPlane; }
 
   //! Allows you to set the plane thePlane. This is used to
   //! define relations and dimensions in several daughter classes.
-  void SetPlane(const Handle(Geom_Plane)& thePlane) { myPlane = thePlane; }
+  void SetPlane(const Handle(GeomPlane)& thePlane) { myPlane = thePlane; }
 
   //! Returns the value of each object in the relation.
   Standard_Real Value() const { return myVal; }
@@ -116,10 +116,10 @@ public:
   }
 
   //! Returns settings for text aspect.
-  const TCollection_ExtendedString& Text() const { return myText; }
+  const UtfString& Text() const { return myText; }
 
   //! Allows you to provide the settings theText for text aspect.
-  void SetText(const TCollection_ExtendedString& theText) { myText = theText; }
+  void SetText(const UtfString& theText) { myText = theText; }
 
   //! Returns the value for the size of the arrow identifying
   //! the relation between the two shapes.
@@ -193,8 +193,8 @@ protected:
   //! type - aProjTOL and aCallTOL -   and width of line, aWidth.
   Standard_EXPORT void ComputeProjEdgePresentation(
     const Handle(Prs3d_Presentation)& aPres,
-    const TopoDS_Edge&                anEdge,
-    const Handle(Geom_Curve)&         ProjCurve,
+    const TopoEdge&                anEdge,
+    const Handle(GeomCurve3d)&         ProjCurve,
     const Point3d&                     FirstP,
     const Point3d&                     LastP,
     const Quantity_NameOfColor        aColor   = Quantity_NOC_PURPLE,
@@ -208,7 +208,7 @@ protected:
   //! type - aProjTOM and aCallTOL -   and width of line, aWidth.
   Standard_EXPORT void ComputeProjVertexPresentation(
     const Handle(Prs3d_Presentation)& aPres,
-    const TopoDS_Vertex&              aVertex,
+    const TopoVertex&              aVertex,
     const Point3d&                     ProjPoint,
     const Quantity_NameOfColor        aColor   = Quantity_NOC_PURPLE,
     const Standard_Real               aWidth   = 2,
@@ -216,20 +216,20 @@ protected:
     const Aspect_TypeOfLine           aCallTOL = Aspect_TOL_DOT) const;
 
 protected:
-  TopoDS_Shape               myFShape;
-  TopoDS_Shape               mySShape;
-  Handle(Geom_Plane)         myPlane;
+  TopoShape               myFShape;
+  TopoShape               mySShape;
+  Handle(GeomPlane)         myPlane;
   Standard_Real              myVal;
   Point3d                     myPosition;
-  TCollection_ExtendedString myText;
+  UtfString myText;
   Standard_Real              myArrowSize;
   Standard_Boolean           myAutomaticPosition;
   DsgPrs_ArrowSide           mySymbolPrs;
   Standard_Integer           myExtShape;
   gp_Pln                     myFirstPlane;
   gp_Pln                     mySecondPlane;
-  Handle(Geom_Surface)       myFirstBasisSurf;
-  Handle(Geom_Surface)       mySecondBasisSurf;
+  Handle(GeomSurface)       myFirstBasisSurf;
+  Handle(GeomSurface)       mySecondBasisSurf;
   PrsDim_KindOfSurface       myFirstSurfType;
   PrsDim_KindOfSurface       mySecondSurfType;
   Standard_Real              myFirstOffset;
@@ -239,6 +239,6 @@ protected:
   Standard_Boolean           myArrowSizeIsDefined;
 };
 
-DEFINE_STANDARD_HANDLE(PrsDim_Relation, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(PrsDim_Relation, VisualEntity)
 
 #endif // _AIS_Relation_HeaderFile

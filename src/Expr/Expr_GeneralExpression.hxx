@@ -26,7 +26,7 @@
 #include <Expr_Array1OfNamedUnknown.hxx>
 #include <TColStd_Array1OfReal.hxx>
 class Expr_NamedUnknown;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class Expr_GeneralExpression;
 DEFINE_STANDARD_HANDLE(Expr_GeneralExpression, RefObject)
@@ -112,7 +112,7 @@ public:
   Standard_EXPORT Standard_Real EvaluateNumeric() const;
 
   //! returns a string representing <me> in a readable way.
-  Standard_EXPORT virtual TCollection_AsciiString String() const = 0;
+  Standard_EXPORT virtual AsciiString1 String() const = 0;
 
   DEFINE_STANDARD_RTTIEXT(Expr_GeneralExpression, RefObject)
 

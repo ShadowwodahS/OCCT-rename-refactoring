@@ -46,7 +46,7 @@ Standard_Boolean StdStorage_TypeData::Read(const Handle(Storage_BaseDriver)& the
   }
 
   Standard_Integer        aTypeNum;
-  TCollection_AsciiString aTypeName;
+  AsciiString1 aTypeName;
 
   Standard_Integer len = theDriver->TypeSectionSize();
   for (Standard_Integer i = 1; i <= len; i++)
@@ -126,7 +126,7 @@ Standard_Integer StdStorage_TypeData::NumberOfTypes() const
   return myPt.Extent();
 }
 
-Standard_Boolean StdStorage_TypeData::IsType(const TCollection_AsciiString& aName) const
+Standard_Boolean StdStorage_TypeData::IsType(const AsciiString1& aName) const
 {
   return myPt.Contains(aName);
 }
@@ -144,7 +144,7 @@ Handle(TColStd_HSequenceOfAsciiString) StdStorage_TypeData::Types() const
   return r;
 }
 
-void StdStorage_TypeData::AddType(const TCollection_AsciiString& aTypeName,
+void StdStorage_TypeData::AddType(const AsciiString1& aTypeName,
                                   const Standard_Integer         aTypeNum)
 {
   myPt.Add(aTypeName, aTypeNum);
@@ -153,7 +153,7 @@ void StdStorage_TypeData::AddType(const TCollection_AsciiString& aTypeName,
 
 Standard_Integer StdStorage_TypeData::AddType(const Handle(StdObjMgt_Persistent)& aPObj)
 {
-  TCollection_AsciiString aTypeName = aPObj->PName();
+  AsciiString1 aTypeName = aPObj->PName();
   if (IsType(aTypeName))
     return Type(aTypeName);
 
@@ -170,9 +170,9 @@ Standard_Integer StdStorage_TypeData::AddType(const Handle(StdObjMgt_Persistent)
   return aTypeId;
 }
 
-TCollection_AsciiString StdStorage_TypeData::Type(const Standard_Integer aTypeNum) const
+AsciiString1 StdStorage_TypeData::Type(const Standard_Integer aTypeNum) const
 {
-  TCollection_AsciiString r;
+  AsciiString1 r;
 
   if (aTypeNum <= myPt.Extent() && aTypeNum > 0)
     r = myPt.FindKey(aTypeNum);
@@ -186,7 +186,7 @@ TCollection_AsciiString StdStorage_TypeData::Type(const Standard_Integer aTypeNu
   return r;
 }
 
-Standard_Integer StdStorage_TypeData::Type(const TCollection_AsciiString& aTypeName) const
+Standard_Integer StdStorage_TypeData::Type(const AsciiString1& aTypeName) const
 {
   Standard_Integer r = 0;
 
@@ -205,7 +205,7 @@ Standard_Integer StdStorage_TypeData::Type(const TCollection_AsciiString& aTypeN
 StdObjMgt_Persistent::Instantiator StdStorage_TypeData::Instantiator(
   const Standard_Integer aTypeNum) const
 {
-  TCollection_AsciiString            aTypeName      = Type(aTypeNum);
+  AsciiString1            aTypeName      = Type(aTypeNum);
   StdObjMgt_Persistent::Instantiator anInstantiator = 0;
   if (!myMapOfPInst.Find(aTypeName, anInstantiator))
     return 0;
@@ -233,12 +233,12 @@ void StdStorage_TypeData::ClearErrorStatus()
   myErrorStatusExt.Clear();
 }
 
-TCollection_AsciiString StdStorage_TypeData::ErrorStatusExtension() const
+AsciiString1 StdStorage_TypeData::ErrorStatusExtension() const
 {
   return myErrorStatusExt;
 }
 
-void StdStorage_TypeData::SetErrorStatusExtension(const TCollection_AsciiString& anErrorExt)
+void StdStorage_TypeData::SetErrorStatusExtension(const AsciiString1& anErrorExt)
 {
   myErrorStatusExt = anErrorExt;
 }

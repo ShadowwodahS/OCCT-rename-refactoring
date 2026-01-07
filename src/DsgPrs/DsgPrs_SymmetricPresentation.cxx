@@ -40,7 +40,7 @@
 // Purpose: draws the representation of an axial symmetry between two segments.
 //===================================================================
 void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                       const Handle(Prs3d_Drawer)&       aDrawer,
+                                       const Handle(StyleDrawer)&       aDrawer,
                                        const Point3d&                     AttachmentPoint1,
                                        const Point3d&                     AttachmentPoint2,
                                        const Dir3d&                     aDirection1,
@@ -344,14 +344,14 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   if (outside)
     arrdir.Reverse();
   // arrow 1 ----
-  Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+  Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                     P1,
                     arrdir,
                     LA->ArrowAspect()->Angle(),
                     LA->ArrowAspect()->Length());
 
   // arrow 2 ----
-  Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+  Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                     P2,
                     arrdir.Reversed(),
                     LA->ArrowAspect()->Angle(),
@@ -456,7 +456,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
 // Purpose: draws the representation of an axial symmetry between two arcs.
 //===================================================================
 void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                       const Handle(Prs3d_Drawer)&       aDrawer,
+                                       const Handle(StyleDrawer)&       aDrawer,
                                        const Point3d&                     AttachmentPoint1,
                                        const Point3d&                     AttachmentPoint2,
                                        const gp_Circ&                    aCircle1,
@@ -623,14 +623,14 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
   if (outside)
     arrdir.Reverse();
   // arrow 1 ----
-  Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+  Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                     P1,
                     arrdir,
                     LA->ArrowAspect()->Angle(),
                     LA->ArrowAspect()->Length());
 
   // arrow 2 ----
-  Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+  Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                     P2,
                     arrdir.Reversed(),
                     LA->ArrowAspect()->Angle(),
@@ -724,7 +724,7 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
 // Purpose: draws the representation of an axial symmetry between two vertex.
 //===================================================================
 void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                       const Handle(Prs3d_Drawer)&       aDrawer,
+                                       const Handle(StyleDrawer)&       aDrawer,
                                        const Point3d&                     AttachmentPoint1,
                                        const Point3d&                     AttachmentPoint2,
                                        const gp_Lin&                     aAxis,
@@ -854,14 +854,14 @@ void DsgPrs_SymmetricPresentation::Add(const Handle(Prs3d_Presentation)& aPresen
     if (outside)
       arrdir.Reverse();
     // arrow 1 ----
-    Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+    Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                       P1,
                       arrdir,
                       LA->ArrowAspect()->Angle(),
                       LA->ArrowAspect()->Length());
 
     // arrow 2 ----
-    Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+    Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                       P2,
                       arrdir.Reversed(),
                       LA->ArrowAspect()->Angle(),

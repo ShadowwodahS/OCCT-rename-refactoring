@@ -25,15 +25,15 @@
 #include <TopoDSToStep_BuilderError.hxx>
 #include <TopoDSToStep_Root.hxx>
 #include <MoniTool_DataMapOfShapeTransient.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class TopoDSToStep_Tool;
 class Transfer_FinderProcess;
-class TopoDS_Edge;
-class TopoDS_Face;
+class TopoEdge;
+class TopoFace;
 
 //! This builder Class provides services to build
 //! a ProSTEP Wireframemodel from a Cas.Cad BRep.
-class TopoDSToStep_WireframeBuilder : public TopoDSToStep_Root
+class TopoDSToStep_WireframeBuilder : public Root3
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -41,42 +41,42 @@ public:
   Standard_EXPORT TopoDSToStep_WireframeBuilder();
 
   Standard_EXPORT TopoDSToStep_WireframeBuilder(
-    const TopoDS_Shape&     S,
+    const TopoShape&     S,
     TopoDSToStep_Tool&      T,
-    const StepData_Factors& theLocalFactors = StepData_Factors());
+    const ConversionFactors& theLocalFactors = ConversionFactors());
 
-  Standard_EXPORT void Init(const TopoDS_Shape&     S,
+  Standard_EXPORT void Init(const TopoShape&     S,
                             TopoDSToStep_Tool&      T,
-                            const StepData_Factors& theLocalFactors = StepData_Factors());
+                            const ConversionFactors& theLocalFactors = ConversionFactors());
 
   Standard_EXPORT TopoDSToStep_BuilderError Error() const;
 
   Standard_EXPORT const Handle(TColStd_HSequenceOfTransient)& Value() const;
 
-  //! Extraction of Trimmed Curves from TopoDS_Edge for the
+  //! Extraction of Trimmed Curves from TopoEdge for the
   //! Creation of a GeometricallyBoundedWireframeRepresentation
   Standard_EXPORT Standard_Boolean
-    GetTrimmedCurveFromEdge(const TopoDS_Edge&                    E,
-                            const TopoDS_Face&                    F,
+    GetTrimmedCurveFromEdge(const TopoEdge&                    E,
+                            const TopoFace&                    F,
                             MoniTool_DataMapOfShapeTransient&     M,
                             Handle(TColStd_HSequenceOfTransient)& L,
-                            const StepData_Factors& theLocalFactors = StepData_Factors()) const;
+                            const ConversionFactors& theLocalFactors = ConversionFactors()) const;
 
-  //! Extraction of Trimmed Curves from TopoDS_Face for the
+  //! Extraction of Trimmed Curves from TopoFace for the
   //! Creation of a GeometricallyBoundedWireframeRepresentation
   Standard_EXPORT Standard_Boolean
-    GetTrimmedCurveFromFace(const TopoDS_Face&                    F,
+    GetTrimmedCurveFromFace(const TopoFace&                    F,
                             MoniTool_DataMapOfShapeTransient&     M,
                             Handle(TColStd_HSequenceOfTransient)& L,
-                            const StepData_Factors& theLocalFactors = StepData_Factors()) const;
+                            const ConversionFactors& theLocalFactors = ConversionFactors()) const;
 
-  //! Extraction of Trimmed Curves from any TopoDS_Shape for the
+  //! Extraction of Trimmed Curves from any TopoShape for the
   //! Creation of a GeometricallyBoundedWireframeRepresentation
   Standard_EXPORT Standard_Boolean
-    GetTrimmedCurveFromShape(const TopoDS_Shape&                   S,
+    GetTrimmedCurveFromShape(const TopoShape&                   S,
                              MoniTool_DataMapOfShapeTransient&     M,
                              Handle(TColStd_HSequenceOfTransient)& L,
-                             const StepData_Factors& theLocalFactors = StepData_Factors()) const;
+                             const ConversionFactors& theLocalFactors = ConversionFactors()) const;
 
 protected:
 private:

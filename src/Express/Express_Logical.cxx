@@ -25,7 +25,7 @@ Express_Logical::Express_Logical() {}
 
 //=================================================================================================
 
-const TCollection_AsciiString Express_Logical::CPPName() const
+const AsciiString1 Express_Logical::CPPName() const
 {
   return "StepData_Logical";
 }

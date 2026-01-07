@@ -26,9 +26,9 @@
   #include <DBRep_DrawableShape.hxx>
   #include <TopoDS_Iterator.hxx>
   #include <TopTools_IndexedMapOfShape.hxx>
-static TCollection_AsciiString PRODINS("dins ");
+static AsciiString1 PRODINS("dins ");
 
-static void ShapeEnumToString(const TopAbs_ShapeEnum T, TCollection_AsciiString& N)
+static void ShapeEnumToString(const TopAbs_ShapeEnum T, AsciiString1& N)
 {
   if (T == TopAbs_SHAPE)
     N = "s";
@@ -83,7 +83,7 @@ TopOpeBRepBuild_ShapeSet::~TopOpeBRepBuild_ShapeSet() {}
 
 //=================================================================================================
 
-void TopOpeBRepBuild_ShapeSet::AddShape(const TopoDS_Shape& S)
+void TopOpeBRepBuild_ShapeSet::AddShape(const TopoShape& S)
 {
   Standard_Boolean chk = CheckShape(S);
 #ifdef OCCT_DEBUG
@@ -97,7 +97,7 @@ void TopOpeBRepBuild_ShapeSet::AddShape(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_ShapeSet::AddStartElement(const TopoDS_Shape& S)
+void TopOpeBRepBuild_ShapeSet::AddStartElement(const TopoShape& S)
 {
   Standard_Boolean chk = CheckShape(S);
 #ifdef OCCT_DEBUG
@@ -111,7 +111,7 @@ void TopOpeBRepBuild_ShapeSet::AddStartElement(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_ShapeSet::AddElement(const TopoDS_Shape& S)
+void TopOpeBRepBuild_ShapeSet::AddElement(const TopoShape& S)
 {
   Standard_Boolean chk = CheckShape(S);
 #ifdef OCCT_DEBUG
@@ -125,7 +125,7 @@ void TopOpeBRepBuild_ShapeSet::AddElement(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_ShapeSet::ProcessAddShape(const TopoDS_Shape& S)
+void TopOpeBRepBuild_ShapeSet::ProcessAddShape(const TopoShape& S)
 {
   if (!myOMSH.Contains(S))
   {
@@ -136,7 +136,7 @@ void TopOpeBRepBuild_ShapeSet::ProcessAddShape(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_ShapeSet::ProcessAddStartElement(const TopoDS_Shape& S)
+void TopOpeBRepBuild_ShapeSet::ProcessAddStartElement(const TopoShape& S)
 {
   if (!myOMSS.Contains(S))
   {
@@ -148,16 +148,16 @@ void TopOpeBRepBuild_ShapeSet::ProcessAddStartElement(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_ShapeSet::ProcessAddElement(const TopoDS_Shape& S)
+void TopOpeBRepBuild_ShapeSet::ProcessAddElement(const TopoShape& S)
 {
   if (!myOMES.Contains(S))
   {
     myOMES.Add(S);
-    TopTools_ListOfShape         Lemp;
+    ShapeList         Lemp;
     TopOpeBRepTool_ShapeExplorer Ex(S, mySubShapeType);
     for (; Ex.More(); Ex.Next())
     {
-      const TopoDS_Shape& subshape = Ex.Current();
+      const TopoShape& subshape = Ex.Current();
       Standard_Boolean    b        = (!mySubShapeMap.Contains(subshape));
       if (b)
         mySubShapeMap.Add(subshape, Lemp);
@@ -168,7 +168,7 @@ void TopOpeBRepBuild_ShapeSet::ProcessAddElement(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-const TopTools_ListOfShape& TopOpeBRepBuild_ShapeSet::StartElements() const
+const ShapeList& TopOpeBRepBuild_ShapeSet::StartElements() const
 {
   return myStartShapes;
 }
@@ -197,9 +197,9 @@ void TopOpeBRepBuild_ShapeSet::NextShape()
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepBuild_ShapeSet::Shape() const
+const TopoShape& TopOpeBRepBuild_ShapeSet::Shape() const
 {
-  const TopoDS_Shape& S = myShapesIter.Value();
+  const TopoShape& S = myShapesIter.Value();
   return S;
 }
 
@@ -227,15 +227,15 @@ void TopOpeBRepBuild_ShapeSet::NextStartElement()
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepBuild_ShapeSet::StartElement() const
+const TopoShape& TopOpeBRepBuild_ShapeSet::StartElement() const
 {
-  const TopoDS_Shape& S = myStartShapesIter.Value();
+  const TopoShape& S = myStartShapesIter.Value();
   return S;
 }
 
 //=================================================================================================
 
-void TopOpeBRepBuild_ShapeSet::InitNeighbours(const TopoDS_Shape& S)
+void TopOpeBRepBuild_ShapeSet::InitNeighbours(const TopoShape& S)
 {
   mySubShapeExplorer.Init(S, mySubShapeType);
   myCurrentShape = S;
@@ -269,15 +269,15 @@ void TopOpeBRepBuild_ShapeSet::NextNeighbour()
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepBuild_ShapeSet::Neighbour() const
+const TopoShape& TopOpeBRepBuild_ShapeSet::Neighbour() const
 {
-  const TopoDS_Shape& S = myIncidentShapesIter.Value();
+  const TopoShape& S = myIncidentShapesIter.Value();
   return S;
 }
 
 //=================================================================================================
 
-TopTools_ListOfShape& TopOpeBRepBuild_ShapeSet::ChangeStartShapes()
+ShapeList& TopOpeBRepBuild_ShapeSet::ChangeStartShapes()
 {
   return myStartShapes;
 }
@@ -292,8 +292,8 @@ void TopOpeBRepBuild_ShapeSet::FindNeighbours()
     // l = list of edges neighbour of edge myCurrentShape through
     // the vertex mySubShapeExplorer.Current(), which is a vertex of the
     // edge myCurrentShape.
-    const TopoDS_Shape&         V = mySubShapeExplorer.Current();
-    const TopTools_ListOfShape& l = MakeNeighboursList(myCurrentShape, V);
+    const TopoShape&         V = mySubShapeExplorer.Current();
+    const ShapeList& l = MakeNeighboursList(myCurrentShape, V);
 
     // myIncidentShapesIter iterates on the neighbour edges of the edge
     // given as InitNeighbours() argument (this edge has been stored
@@ -311,30 +311,30 @@ void TopOpeBRepBuild_ShapeSet::FindNeighbours()
 // function : MakeNeighboursList
 // purpose  : // (Earg = Edge, Varg = Vertex) to find connected to Earg by Varg
 //=======================================================================
-const TopTools_ListOfShape& TopOpeBRepBuild_ShapeSet::MakeNeighboursList(
-  const TopoDS_Shape& /*Earg*/,
-  const TopoDS_Shape& Varg)
+const ShapeList& TopOpeBRepBuild_ShapeSet::MakeNeighboursList(
+  const TopoShape& /*Earg*/,
+  const TopoShape& Varg)
 {
-  const TopTools_ListOfShape& l = mySubShapeMap.FindFromKey(Varg);
+  const ShapeList& l = mySubShapeMap.FindFromKey(Varg);
   return l;
 }
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepBuild_ShapeSet::MaxNumberSubShape(const TopoDS_Shape& Shape)
+Standard_Integer TopOpeBRepBuild_ShapeSet::MaxNumberSubShape(const TopoShape& Shape)
 {
   Standard_Integer                   i, m = 0;
   TopOpeBRepTool_ShapeExplorer       SE(Shape, mySubShapeType);
   TopTools_ListIteratorOfListOfShape LI;
   while (SE.More())
   {
-    const TopoDS_Shape& SubShape = SE.Current();
+    const TopoShape& SubShape = SE.Current();
     if (!mySubShapeMap.Contains(SubShape))
     {
       SE.Next();
       continue;
     }
-    const TopTools_ListOfShape& l = mySubShapeMap.FindFromKey(SubShape);
+    const ShapeList& l = mySubShapeMap.FindFromKey(SubShape);
     LI.Initialize(l);
     for (i = 0; LI.More(); LI.Next(), i++)
     {
@@ -369,7 +369,7 @@ Standard_Boolean TopOpeBRepBuild_ShapeSet::CheckShape() const
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_ShapeSet::CheckShape(const TopoDS_Shape&    S,
+Standard_Boolean TopOpeBRepBuild_ShapeSet::CheckShape(const TopoShape&    S,
                                                       const Standard_Boolean checkgeom)
 {
   if (!myCheckShape)
@@ -390,7 +390,7 @@ Standard_Boolean TopOpeBRepBuild_ShapeSet::CheckShape(const TopoDS_Shape&    S,
 //=================================================================================================
 
 void TopOpeBRepBuild_ShapeSet::DumpName(Standard_OStream&              OS,
-                                        const TCollection_AsciiString& str) const
+                                        const AsciiString1& str) const
 {
   OS << str << "(" << myDEBName << "," << myDEBNumber << ")";
 }
@@ -399,13 +399,13 @@ void TopOpeBRepBuild_ShapeSet::DumpName(Standard_OStream&              OS,
 
 #ifdef OCCT_DEBUG
 void TopOpeBRepBuild_ShapeSet::DumpCheck(Standard_OStream&              OS,
-                                         const TCollection_AsciiString& str,
-                                         const TopoDS_Shape&            S,
+                                         const AsciiString1& str,
+                                         const TopoShape&            S,
                                          const Standard_Boolean         chk
 #else
 void TopOpeBRepBuild_ShapeSet::DumpCheck(Standard_OStream&,
-                                         const TCollection_AsciiString&,
-                                         const TopoDS_Shape&,
+                                         const AsciiString1&,
+                                         const TopoShape&,
                                          const Standard_Boolean
 #endif
 ) const
@@ -421,7 +421,7 @@ void TopOpeBRepBuild_ShapeSet::DumpCheck(Standard_OStream&,
     {
       DumpName(OS, "*********************** ");
       OS << str << " ";
-      TopAbs::Print(t, OS);
+      TopAbs1::Print(t, OS);
       OS << " : incorrect" << std::endl;
     }
   }
@@ -431,7 +431,7 @@ void TopOpeBRepBuild_ShapeSet::DumpCheck(Standard_OStream&,
     {
       DumpName(OS, "");
       OS << str << " ";
-      TopAbs::Print(t, OS);
+      TopAbs1::Print(t, OS);
       OS << " : correct" << std::endl;
     }
   }
@@ -448,7 +448,7 @@ void TopOpeBRepBuild_ShapeSet::DumpSS()
   DumpName(std::cout, "\nDumpSS start ");
   TopTools_ListIteratorOfListOfShape it;
   Standard_Integer                   i, j, ne;
-  TCollection_AsciiString            s1("   ");
+  AsciiString1            s1("   ");
   InitShapes();
   std::cout << std::endl << "#Shapes : ";
   if (!MoreShapes())
@@ -456,9 +456,9 @@ void TopOpeBRepBuild_ShapeSet::DumpSS()
   std::cout << std::endl;
   for (i = 1; MoreShapes(); NextShape(), i++)
   {
-    TCollection_AsciiString ns = SNameori(Shape());
+    AsciiString1 ns = SNameori(Shape());
     std::cout << PRODINS << ns << "; # " << i << " draw" << std::endl;
-    DBRep::Set(ns.ToCString(), Shape());
+    DBRep1::Set(ns.ToCString(), Shape());
   }
 
   InitStartElements();
@@ -478,16 +478,16 @@ void TopOpeBRepBuild_ShapeSet::DumpSS()
   std::cout << std::endl;
   for (i = 1; MoreStartElements(); NextStartElement(), i++)
   {
-    const TopoDS_Shape&     e    = StartElement();
-    TCollection_AsciiString enam = SNameori(e);
+    const TopoShape&     e    = StartElement();
+    AsciiString1 enam = SNameori(e);
     InitNeighbours(e);
     if (MoreNeighbours())
     {
-      TCollection_AsciiString sne("clear; ");
+      AsciiString1 sne("clear; ");
       sne = sne + PRODINS + enam;
       for (ne = 1; MoreNeighbours(); NextNeighbour(), ne++)
       {
-        const TopoDS_Shape& N = Neighbour();
+        const TopoShape& N = Neighbour();
         sne                   = sne + " " + SNameori(N);
       }
       sne = sne + "; wclick; #draw";
@@ -502,17 +502,17 @@ void TopOpeBRepBuild_ShapeSet::DumpSS()
   std::cout << std::endl;
   for (i = 1, ism = 1; ism <= nsm; ism++, i++)
   {
-    const TopoDS_Shape&                v   = mySubShapeMap.FindKey(ism);
-    const TopTools_ListOfShape&        lsv = mySubShapeMap.FindFromIndex(ism);
+    const TopoShape&                v   = mySubShapeMap.FindKey(ism);
+    const ShapeList&        lsv = mySubShapeMap.FindFromIndex(ism);
     TopTools_ListIteratorOfListOfShape itle(lsv);
     if (itle.More())
     {
-      TCollection_AsciiString vnam = SName(v);
-      TCollection_AsciiString sle("clear; ");
+      AsciiString1 vnam = SName(v);
+      AsciiString1 sle("clear; ");
       sle = sle + PRODINS + vnam;
       for (j = 1; itle.More(); itle.Next(), j++)
       {
-        const TopoDS_Shape& e = itle.Value();
+        const TopoShape& e = itle.Value();
         sle                   = sle + " " + SNameori(e);
       }
       sle = sle + "; wclick; #draw";
@@ -531,7 +531,7 @@ void TopOpeBRepBuild_ShapeSet::DumpBB()
   DumpName(std::cout, "\nDumpBB ");
   TopTools_ListIteratorOfListOfShape it;
   Standard_Integer                   i, j, ne = 0, nb = 1, curr, currloc;
-  TCollection_AsciiString            s1("   "), stt, enam, nnam, vnam;
+  AsciiString1            s1("   "), stt, enam, nnam, vnam;
   InitShapes();
 
   std::cout << std::endl << "#Shapes : (block old) ";
@@ -541,14 +541,14 @@ void TopOpeBRepBuild_ShapeSet::DumpBB()
   for (i = 1; MoreShapes(); NextShape(), i++, nb++)
   {
     std::cout << "Block number" << nb << " (old)." << std::endl;
-    const TopoDS_Shape& e = Shape();
+    const TopoShape& e = Shape();
     TopoDS_Iterator     ShapIter(e);
     for (ne = 1; ShapIter.More(); ShapIter.Next(), ne++)
     {
-      const TopoDS_Shape& subsha = ShapIter.Value();
+      const TopoShape& subsha = ShapIter.Value();
       ShapeEnumToString(subsha.ShapeType(), stt);
       enam = stt + ne + "ShaB" + nb;
-      DBRep::Set(enam.ToCString(), subsha);
+      DBRep1::Set(enam.ToCString(), subsha);
       std::cout << "clear; " << PRODINS << enam << "; #draw" << std::endl;
     }
   }
@@ -562,7 +562,7 @@ void TopOpeBRepBuild_ShapeSet::DumpBB()
   mos.Clear();
   for (; MoreStartElements(); NextStartElement())
   {
-    const TopoDS_Shape& e = StartElement();
+    const TopoShape& e = StartElement();
     curr                  = mos.Extent();
     if (mos.Add(e) > curr)
     {
@@ -571,7 +571,7 @@ void TopOpeBRepBuild_ShapeSet::DumpBB()
       ne++;
       enam = "";
       enam = enam + "ste" + ne + "newB" + nb;
-      DBRep::Set(enam.ToCString(), e);
+      DBRep1::Set(enam.ToCString(), e);
 
       while (curr < mos.Extent())
       {
@@ -580,13 +580,13 @@ void TopOpeBRepBuild_ShapeSet::DumpBB()
         InitNeighbours(mos.FindKey(curr));
         for (; MoreNeighbours(); NextNeighbour())
         {
-          const TopoDS_Shape& N = Neighbour();
+          const TopoShape& N = Neighbour();
           if (mos.Add(N) > currloc)
           {
             currloc++;
             ne++;
             // to know if ste or ele is displayed; start
-            const TopTools_ListOfShape& LSE = StartElements();
+            const ShapeList& LSE = StartElements();
             it.Initialize(LSE);
             while (it.More())
               if (it.Value() == N)
@@ -597,12 +597,12 @@ void TopOpeBRepBuild_ShapeSet::DumpBB()
             if (it.More())
             {
               enam = enam + "ste" + ne + "newB" + nb;
-              DBRep::Set(enam.ToCString(), N);
+              DBRep1::Set(enam.ToCString(), N);
             }
             else
             {
               enam = enam + "ele" + ne + "newB" + nb;
-              DBRep::Set(enam.ToCString(), N);
+              DBRep1::Set(enam.ToCString(), N);
               std::cout << PRODINS << enam << "; #draw" << std::endl;
             }
           }
@@ -615,14 +615,14 @@ void TopOpeBRepBuild_ShapeSet::DumpBB()
 
 //=================================================================================================
 
-void TopOpeBRepBuild_ShapeSet::DEBName(const TCollection_AsciiString& N)
+void TopOpeBRepBuild_ShapeSet::DEBName(const AsciiString1& N)
 {
   myDEBName = N;
 }
 
 //=================================================================================================
 
-const TCollection_AsciiString& TopOpeBRepBuild_ShapeSet::DEBName() const
+const AsciiString1& TopOpeBRepBuild_ShapeSet::DEBName() const
 {
   return myDEBName;
 }
@@ -644,17 +644,17 @@ Standard_Integer TopOpeBRepBuild_ShapeSet::DEBNumber() const
 //=================================================================================================
 
 #ifdef DRAW
-TCollection_AsciiString TopOpeBRepBuild_ShapeSet::SName(const TopoDS_Shape& /*S*/,
-                                                        const TCollection_AsciiString& sb,
-                                                        const TCollection_AsciiString& sa) const
+AsciiString1 TopOpeBRepBuild_ShapeSet::SName(const TopoShape& /*S*/,
+                                                        const AsciiString1& sb,
+                                                        const AsciiString1& sa) const
 {
-  TCollection_AsciiString str;
+  AsciiString1 str;
 
   str                          = sb;
-  TCollection_AsciiString WESi = myDEBName.SubString(1, 1) + myDEBNumber;
+  AsciiString1 WESi = myDEBName.SubString(1, 1) + myDEBNumber;
   str                          = str + WESi;
   TopAbs_ShapeEnum        t    = S.ShapeType();
-  TCollection_AsciiString sts;
+  AsciiString1 sts;
   ShapeEnumToString(t, sts);
   sts.UpperCase();
   str                   = str + sts.SubString(1, 1);
@@ -675,11 +675,11 @@ TCollection_AsciiString TopOpeBRepBuild_ShapeSet::SName(const TopoDS_Shape& /*S*
   return str;
 }
 #else
-TCollection_AsciiString TopOpeBRepBuild_ShapeSet::SName(const TopoDS_Shape&,
-                                                        const TCollection_AsciiString&,
-                                                        const TCollection_AsciiString&) const
+AsciiString1 TopOpeBRepBuild_ShapeSet::SName(const TopoShape&,
+                                                        const AsciiString1&,
+                                                        const AsciiString1&) const
 {
-  TCollection_AsciiString str;
+  AsciiString1 str;
   return str;
 }
 #endif
@@ -687,23 +687,23 @@ TCollection_AsciiString TopOpeBRepBuild_ShapeSet::SName(const TopoDS_Shape&,
 //=================================================================================================
 
 #ifdef DRAW
-TCollection_AsciiString TopOpeBRepBuild_ShapeSet::SNameori(const TopoDS_Shape&            S,
-                                                           const TCollection_AsciiString& sb,
-                                                           const TCollection_AsciiString& sa) const
+AsciiString1 TopOpeBRepBuild_ShapeSet::SNameori(const TopoShape&            S,
+                                                           const AsciiString1& sb,
+                                                           const AsciiString1& sa) const
 {
-  TCollection_AsciiString str;
+  AsciiString1 str;
   str                         = sb + SName(S);
-  TCollection_AsciiString sto = TopAbs::ShapeOrientationToString(S.Orientation());
+  AsciiString1 sto = TopAbs1::ShapeOrientationToString(S.Orientation());
   str                         = str + sto.SubString(1, 1);
   str                         = str + sa;
   return str;
 }
 #else
-TCollection_AsciiString TopOpeBRepBuild_ShapeSet::SNameori(const TopoDS_Shape&,
-                                                           const TCollection_AsciiString&,
-                                                           const TCollection_AsciiString&) const
+AsciiString1 TopOpeBRepBuild_ShapeSet::SNameori(const TopoShape&,
+                                                           const AsciiString1&,
+                                                           const AsciiString1&) const
 {
-  TCollection_AsciiString str;
+  AsciiString1 str;
   return str;
 }
 #endif
@@ -711,33 +711,33 @@ TCollection_AsciiString TopOpeBRepBuild_ShapeSet::SNameori(const TopoDS_Shape&,
 //=================================================================================================
 
 #ifdef DRAW
-TCollection_AsciiString TopOpeBRepBuild_ShapeSet::SName(const TopTools_ListOfShape&    L,
-                                                        const TCollection_AsciiString& sb,
-                                                        const TCollection_AsciiString& /*sa*/) const
+AsciiString1 TopOpeBRepBuild_ShapeSet::SName(const ShapeList&    L,
+                                                        const AsciiString1& sb,
+                                                        const AsciiString1& /*sa*/) const
 {
-  TCollection_AsciiString str;
+  AsciiString1 str;
   for (TopTools_ListIteratorOfListOfShape it(L); it.More(); it.Next())
     str = str + sb + SName(it.Value()) + sa + " ";
   return str;
 }
 #else
-TCollection_AsciiString TopOpeBRepBuild_ShapeSet::SName(const TopTools_ListOfShape&,
-                                                        const TCollection_AsciiString&,
-                                                        const TCollection_AsciiString&) const
+AsciiString1 TopOpeBRepBuild_ShapeSet::SName(const ShapeList&,
+                                                        const AsciiString1&,
+                                                        const AsciiString1&) const
 {
-  TCollection_AsciiString str;
+  AsciiString1 str;
   return str;
 }
 #endif
 
 //=================================================================================================
 
-TCollection_AsciiString TopOpeBRepBuild_ShapeSet::SNameori(
-  const TopTools_ListOfShape& /*L*/,
-  const TCollection_AsciiString& /*sb*/,
-  const TCollection_AsciiString& /*sa*/) const
+AsciiString1 TopOpeBRepBuild_ShapeSet::SNameori(
+  const ShapeList& /*L*/,
+  const AsciiString1& /*sb*/,
+  const AsciiString1& /*sa*/) const
 {
-  TCollection_AsciiString str;
+  AsciiString1 str;
 #ifdef DRAW
   for (TopTools_ListIteratorOfListOfShape it(L); it.More(); it.Next())
     str = str + sb + SNameori(it.Value()) + sa + " ";

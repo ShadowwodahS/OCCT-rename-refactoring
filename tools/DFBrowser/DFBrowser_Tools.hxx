@@ -45,15 +45,15 @@ namespace DFBrowser_Tools
 //! Returns true if the label is not root, has attribute or at least one sub-label with attribute
 //! \param theLabel a label
 //! \return boolean result
-Standard_EXPORT bool IsEmptyLabel(const TDF_Label& theLabel);
+Standard_EXPORT bool IsEmptyLabel(const DataLabel& theLabel);
 
 //! Returns the label entry
 //! \param isUseShortInfo boolean value if value of name attribute should be included to result
 //! \return string value
-Standard_EXPORT QString GetLabelInfo(const TDF_Label& theLabel, const bool isUseShortInfo = true);
+Standard_EXPORT QString GetLabelInfo(const DataLabel& theLabel, const bool isUseShortInfo = true);
 
 //! Returns the label icon
-Standard_EXPORT QIcon GetLabelIcon(const TDF_Label& theLabel, bool isStandard16x16 = true);
+Standard_EXPORT QIcon GetLabelIcon(const DataLabel& theLabel, bool isStandard16x16 = true);
 } // namespace DFBrowser_Tools
 
 #endif

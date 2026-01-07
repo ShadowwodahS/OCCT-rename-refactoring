@@ -22,21 +22,21 @@
 #include <Geom_Surface.hxx>
 #include <Geom2d_Curve.hxx>
 
-class Geom_BezierCurve;
+class BezierCurve3d;
 class Geom_BezierSurface;
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 class Geom_BSplineSurface;
 class Geom2d_BezierCurve;
 class Geom2d_BSplineCurve;
 class Poly_Polygon2D;
 class Poly_Polygon3D;
-class Poly_Triangulation;
+class MeshTriangulation;
 struct DrawTrSurf_Params;
 
 //! This package supports the display of parametric curves and surfaces.
 //!
 //! The  Drawable deferred  classes is  inherited from
-//! the Drawable3D  class  from  the package Draw,  it
+//! the Drawable3D  class  from  the package Draw1,  it
 //! adds methods to  draw 3D Curves  and  Curves on 3D
 //! Surfaces.
 //!
@@ -45,7 +45,7 @@ struct DrawTrSurf_Params;
 //! packages Geom or Geom2d or a surface from Geom.
 //!
 //! The Triangulation and Polygon from the package Poly are also supported.
-class DrawTrSurf
+class DrawTrSurf1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -80,21 +80,21 @@ public:
   //! isSenseMarker indicates whether to render the
   //! sense glyph (arrow) for curves or not
   Standard_EXPORT static void Set(const Standard_CString      Name,
-                                  const Handle(Geom2d_Curve)& C,
+                                  const Handle(GeomCurve2d)& C,
                                   const Standard_Boolean      isSenseMarker = Standard_True);
 
   template <class T>
   static void Set(const Standard_CString Name,
                   const Handle(T)&       Arg,
                   typename opencascade::std::enable_if<
-                    opencascade::std::is_base_of<Geom2d_Curve, T>::value>::type* = 0)
+                    opencascade::std::is_base_of<GeomCurve2d, T>::value>::type* = 0)
   {
-    Set(Name, (const Handle(Geom2d_Curve)&)Arg);
+    Set(Name, (const Handle(GeomCurve2d)&)Arg);
   }
 
   //! Sets <T> in the variable <Name>.  Overwrite the
   //! variable if already set.
-  Standard_EXPORT static void Set(const Standard_CString Name, const Handle(Poly_Triangulation)& T);
+  Standard_EXPORT static void Set(const Standard_CString Name, const Handle(MeshTriangulation)& T);
 
   //! Sets <P> in the variable <Name>.  Overwrite the
   //! variable if already set.
@@ -118,19 +118,19 @@ public:
 
   //! Get  the variable <S>.  Returns a  null  handle if
   //! none, and print a warning message.
-  Standard_EXPORT static Handle(Geom_Curve) GetCurve(Standard_CString& Name);
+  Standard_EXPORT static Handle(GeomCurve3d) GetCurve(Standard_CString& Name);
 
   //! Get  the variable <S>.  Returns a  null  handle if
   //! none, and print a warning message.
-  Standard_EXPORT static Handle(Geom_BezierCurve) GetBezierCurve(Standard_CString& Name);
+  Standard_EXPORT static Handle(BezierCurve3d) GetBezierCurve(Standard_CString& Name);
 
   //! Get  the variable <S>.  Returns a  null  handle if
   //! none, and print a warning message.
-  Standard_EXPORT static Handle(Geom_BSplineCurve) GetBSplineCurve(Standard_CString& Name);
+  Standard_EXPORT static Handle(BSplineCurve3d) GetBSplineCurve(Standard_CString& Name);
 
   //! Get  the variable <S>.  Returns a  null  handle if
   //! none, and print a warning message.
-  Standard_EXPORT static Handle(Geom2d_Curve) GetCurve2d(Standard_CString& Name);
+  Standard_EXPORT static Handle(GeomCurve2d) GetCurve2d(Standard_CString& Name);
 
   //! Get  the variable <S>.  Returns a  null  handle if
   //! none, and print a warning message.
@@ -142,7 +142,7 @@ public:
 
   //! Get  the variable <S>.  Returns a  null  handle if
   //! none, and print a warning message.
-  Standard_EXPORT static Handle(Geom_Surface) GetSurface(Standard_CString& Name);
+  Standard_EXPORT static Handle(GeomSurface) GetSurface(Standard_CString& Name);
 
   //! Get  the variable <S>.  Returns a  null  handle if
   //! none, and print a warning message.
@@ -154,7 +154,7 @@ public:
 
   //! Get  the variable <S>.  Returns a  null  handle if
   //! none, and print a warning message.
-  Standard_EXPORT static Handle(Poly_Triangulation) GetTriangulation(Standard_CString& Name);
+  Standard_EXPORT static Handle(MeshTriangulation) GetTriangulation(Standard_CString& Name);
 
   //! Get  the variable <S>.  Returns a  null  handle if
   //! none, and print a warning message.
@@ -168,7 +168,7 @@ public:
   Standard_EXPORT static DrawTrSurf_Params& Parameters();
 
   //! defines display commands.
-  Standard_EXPORT static void BasicCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void BasicCommands(DrawInterpreter& I);
 };
 
 #endif // _DrawTrSurf_HeaderFile

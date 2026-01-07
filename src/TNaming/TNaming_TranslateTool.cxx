@@ -54,73 +54,73 @@ IMPLEMENT_STANDARD_RTTIEXT(TNaming_TranslateTool, RefObject)
 // function : Add
 // purpose  : Adds S2 in S1
 //=======================================================================
-void TNaming_TranslateTool::Add(TopoDS_Shape& S1, const TopoDS_Shape& S2) const
+void TNaming_TranslateTool::Add(TopoShape& S1, const TopoShape& S2) const
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.Add(S1, S2);
 }
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeVertex(TopoDS_Shape& S) const
+void TNaming_TranslateTool::MakeVertex(TopoShape& S) const
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeVertex(TopoDS::Vertex(S));
 }
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeEdge(TopoDS_Shape& S) const
+void TNaming_TranslateTool::MakeEdge(TopoShape& S) const
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeEdge(TopoDS::Edge(S));
 }
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeWire(TopoDS_Shape& S) const
+void TNaming_TranslateTool::MakeWire(TopoShape& S) const
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeWire(TopoDS::Wire(S));
 }
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeFace(TopoDS_Shape& S) const
+void TNaming_TranslateTool::MakeFace(TopoShape& S) const
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeFace(TopoDS::Face(S));
 }
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeShell(TopoDS_Shape& S) const
+void TNaming_TranslateTool::MakeShell(TopoShape& S) const
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeShell(TopoDS::Shell(S));
 }
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeSolid(TopoDS_Shape& S) const
+void TNaming_TranslateTool::MakeSolid(TopoShape& S) const
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeSolid(TopoDS::Solid(S));
 }
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeCompSolid(TopoDS_Shape& S) const
+void TNaming_TranslateTool::MakeCompSolid(TopoShape& S) const
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeCompSolid(TopoDS::CompSolid(S));
 }
 
 //=================================================================================================
 
-void TNaming_TranslateTool::MakeCompound(TopoDS_Shape& S) const
+void TNaming_TranslateTool::MakeCompound(TopoShape& S) const
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeCompound(TopoDS::Compound(S));
 }
 
@@ -128,8 +128,8 @@ void TNaming_TranslateTool::MakeCompound(TopoDS_Shape& S) const
 // Update methods
 //=================================================================================================
 
-void TNaming_TranslateTool::UpdateVertex(const TopoDS_Shape&                         S1,
-                                         TopoDS_Shape&                               S2,
+void TNaming_TranslateTool::UpdateVertex(const TopoShape&                         S1,
+                                         TopoShape&                               S2,
                                          TColStd_IndexedDataMapOfTransientTransient& aMap) const
 {
   const Handle(BRep_TVertex)& TTV1 = *((Handle(BRep_TVertex)*)&(S1.TShape()));
@@ -158,7 +158,7 @@ void TNaming_TranslateTool::UpdateVertex(const TopoDS_Shape&                    
       Handle(BRep_PointOnCurve) OC =
         new BRep_PointOnCurve(PR1->Parameter(), // the same geometry
                               PR1->Curve(),     // the same geometry
-                              TNaming_CopyShape::Translate(PR1->Location(), aMap));
+                              ShapeCopier::Translate(PR1->Location(), aMap));
       PR2 = OC;
     }
 
@@ -169,7 +169,7 @@ void TNaming_TranslateTool::UpdateVertex(const TopoDS_Shape&                    
         new BRep_PointOnCurveOnSurface(PR1->Parameter(),
                                        PR1->PCurve(),
                                        PR1->Surface(),
-                                       TNaming_CopyShape::Translate(PR1->Location(), aMap));
+                                       ShapeCopier::Translate(PR1->Location(), aMap));
       PR2 = OCS;
     }
 
@@ -180,7 +180,7 @@ void TNaming_TranslateTool::UpdateVertex(const TopoDS_Shape&                    
         new BRep_PointOnSurface(PR1->Parameter(),
                                 PR1->Parameter2(),
                                 PR1->Surface(),
-                                TNaming_CopyShape::Translate(PR1->Location(), aMap));
+                                ShapeCopier::Translate(PR1->Location(), aMap));
       PR2 = OS;
     }
 
@@ -197,8 +197,8 @@ void TNaming_TranslateTool::UpdateVertex(const TopoDS_Shape&                    
 // purpose  : Transient->Transient
 //=======================================================================
 
-void TNaming_TranslateTool::UpdateEdge(const TopoDS_Shape&                         S1,
-                                       TopoDS_Shape&                               S2,
+void TNaming_TranslateTool::UpdateEdge(const TopoShape&                         S1,
+                                       TopoShape&                               S2,
                                        TColStd_IndexedDataMapOfTransientTransient& aMap) const
 {
   const Handle(BRep_TEdge)& TTE1 = *((Handle(BRep_TEdge)*)&(S1.TShape()));
@@ -265,7 +265,7 @@ void TNaming_TranslateTool::UpdateEdge(const TopoDS_Shape&                      
     {
 
       CR2                = (Handle(BRep_CurveOn2Surfaces)::DownCast(CR))->Copy();
-      TopLoc_Location L2 = TNaming_CopyShape::Translate(CR->Location2(), aMap);
+      TopLoc_Location L2 = ShapeCopier::Translate(CR->Location2(), aMap);
       CR2->Location(L2);
     }
 
@@ -324,7 +324,7 @@ void TNaming_TranslateTool::UpdateEdge(const TopoDS_Shape&                      
       continue;
     }
 
-    TopLoc_Location L = TNaming_CopyShape::Translate(CR->Location(), aMap);
+    TopLoc_Location L = ShapeCopier::Translate(CR->Location(), aMap);
     CR2->Location(L);
 
     Standard_NullObject_Raise_if(CR2.IsNull(), "Null CurveRepresentation");
@@ -342,8 +342,8 @@ void TNaming_TranslateTool::UpdateEdge(const TopoDS_Shape&                      
 // purpose  : Transient->Transient
 //=======================================================================
 
-void TNaming_TranslateTool::UpdateFace(const TopoDS_Shape&                         S1,
-                                       TopoDS_Shape&                               S2,
+void TNaming_TranslateTool::UpdateFace(const TopoShape&                         S1,
+                                       TopoShape&                               S2,
                                        TColStd_IndexedDataMapOfTransientTransient& aMap) const
 {
   const Handle(BRep_TFace)& TTF1 = *((Handle(BRep_TFace)*)&(S1.TShape()));
@@ -356,7 +356,7 @@ void TNaming_TranslateTool::UpdateFace(const TopoDS_Shape&                      
   TTF2->Tolerance(TTF1->Tolerance());
 
   // location
-  TTF2->Location(TNaming_CopyShape::Translate(TTF1->Location(), aMap));
+  TTF2->Location(ShapeCopier::Translate(TTF1->Location(), aMap));
 
   // surface
   TTF2->Surface(TTF1->Surface());
@@ -371,7 +371,7 @@ void TNaming_TranslateTool::UpdateFace(const TopoDS_Shape&                      
 
 //=================================================================================================
 
-void TNaming_TranslateTool::UpdateShape(const TopoDS_Shape& S1, TopoDS_Shape& S2) const
+void TNaming_TranslateTool::UpdateShape(const TopoShape& S1, TopoShape& S2) const
 {
   // Transfer the flags
   S2.TShape()->Free(S1.TShape()->Free());

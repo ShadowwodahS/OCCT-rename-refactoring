@@ -36,13 +36,13 @@
 // function : fileNameInDataDir
 // purpose :
 // =======================================================================
-TCollection_AsciiString fileNameInDataDir(const TCollection_AsciiString& theEnvironmentDir,
-                                          const TCollection_AsciiString& theName)
+AsciiString1 fileNameInDataDir(const AsciiString1& theEnvironmentDir,
+                                          const AsciiString1& theName)
 {
   OSD_Environment anEnvironment(theEnvironmentDir);
 
-  TCollection_AsciiString aFileName = anEnvironment.Value();
-  aFileName += TCollection_AsciiString("/") + theName;
+  AsciiString1 aFileName = anEnvironment.Value();
+  aFileName += AsciiString1("/") + theName;
 
   return aFileName;
 }
@@ -51,7 +51,7 @@ TCollection_AsciiString fileNameInDataDir(const TCollection_AsciiString& theEnvi
 // function : setPluginSampleDirectory
 // purpose :
 // =======================================================================
-void setPluginSampleDirectory(const TCollection_AsciiString& theName,
+void setPluginSampleDirectory(const AsciiString1& theName,
                               TInspector_Communicator*       theCommunicator,
                               TInspector_OpenButton*         theButtonControl)
 {
@@ -59,9 +59,9 @@ void setPluginSampleDirectory(const TCollection_AsciiString& theName,
   TInspector_OpenFileDialog::GetPluginRecentlyOpenedFiles(theName,
                                                           theCommunicator,
                                                           aRecentlyOpenedFiles);
-  TCollection_AsciiString aFileName, anAdditionalFileName;
+  AsciiString1 aFileName, anAdditionalFileName;
   if (!aRecentlyOpenedFiles.isEmpty())
-    aFileName = TCollection_AsciiString(aRecentlyOpenedFiles.last().toUtf8().data());
+    aFileName = AsciiString1(aRecentlyOpenedFiles.last().toUtf8().data());
   if (aFileName.IsEmpty())
   {
     if (theName.IsEqual("TKDFBrowser"))
@@ -91,13 +91,13 @@ void setPluginSampleDirectory(const TCollection_AsciiString& theName,
 int main(int argc, char** argv)
 {
 #if QT_VERSION > 0x050000
-  TCollection_AsciiString aPlugindsDirName;
+  AsciiString1 aPlugindsDirName;
   if (TInspector_Communicator::PluginsDir(aPlugindsDirName))
     QApplication::addLibraryPath(aPlugindsDirName.ToCString());
 #endif
   QApplication anApp(argc, argv);
 
-  std::set<TCollection_AsciiString> aPlugins;
+  std::set<AsciiString1> aPlugins;
   for (int anArgId = 1; anArgId < argc; anArgId++)
   {
     if (!strcmp(argv[anArgId], "dfbrowser"))
@@ -123,7 +123,7 @@ int main(int argc, char** argv)
   }
 
   TInspector_OpenButton*  aButtonControl = new TInspector_OpenButton(0);
-  TCollection_AsciiString anActivatedPluginName;
+  AsciiString1 anActivatedPluginName;
   if (aPlugins.empty())
   {
     aPlugins.insert("TKDFBrowser");
@@ -136,11 +136,11 @@ int main(int argc, char** argv)
   else
     anActivatedPluginName = *aPlugins.rbegin();
 
-  for (std::set<TCollection_AsciiString>::const_iterator aPluginIt = aPlugins.begin();
+  for (std::set<AsciiString1>::const_iterator aPluginIt = aPlugins.begin();
        aPluginIt != aPlugins.end();
        aPluginIt++)
   {
-    TCollection_AsciiString aName = *aPluginIt;
+    AsciiString1 aName = *aPluginIt;
     aCommunicator->RegisterPlugin(aName);
     aCommunicator->Init(aName, aParameters);
     setPluginSampleDirectory(aName, aCommunicator, aButtonControl);

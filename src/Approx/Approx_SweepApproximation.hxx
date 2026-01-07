@@ -42,7 +42,7 @@
 #include <TColgp_SequenceOfArray1OfPnt2d.hxx>
 #include <gp_Vec.hxx>
 class Approx_SweepFunction;
-class AdvApprox_Cutting;
+class CuttingTool;
 
 //! Approximation  of  an  Surface   S(u,v)
 //! (and eventually associate  2d Curves) defined
@@ -176,8 +176,8 @@ private:
                                      const GeomAbs_Shape                  Continuity,
                                      const Standard_Integer               Degmax,
                                      const Standard_Integer               Segmax,
-                                     const AdvApprox_EvaluatorFunction&   TheApproxFunction,
-                                     const AdvApprox_Cutting&             TheCuttingTool);
+                                     const EvaluatorFunction&   TheApproxFunction,
+                                     const CuttingTool&             TheCuttingTool);
 
   Standard_EXPORT Standard_Boolean D0(const Standard_Real Param,
                                       const Standard_Real First,

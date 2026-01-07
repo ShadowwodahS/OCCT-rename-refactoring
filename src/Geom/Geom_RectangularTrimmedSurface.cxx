@@ -72,7 +72,7 @@ Handle(Geom_Geometry) Geom_RectangularTrimmedSurface::Copy() const
 
 Geom_RectangularTrimmedSurface::Geom_RectangularTrimmedSurface(
 
-  const Handle(Geom_Surface)& S,
+  const Handle(GeomSurface)& S,
   const Standard_Real         U1,
   const Standard_Real         U2,
   const Standard_Real         V1,
@@ -91,9 +91,9 @@ Geom_RectangularTrimmedSurface::Geom_RectangularTrimmedSurface(
   // kill trimmed basis surfaces
   Handle(Geom_RectangularTrimmedSurface) T = Handle(Geom_RectangularTrimmedSurface)::DownCast(S);
   if (!T.IsNull())
-    basisSurf = Handle(Geom_Surface)::DownCast(T->BasisSurface()->Copy());
+    basisSurf = Handle(GeomSurface)::DownCast(T->BasisSurface()->Copy());
   else
-    basisSurf = Handle(Geom_Surface)::DownCast(S->Copy());
+    basisSurf = Handle(GeomSurface)::DownCast(S->Copy());
 
   Handle(Geom_OffsetSurface) O = Handle(Geom_OffsetSurface)::DownCast(basisSurf);
   if (!O.IsNull())
@@ -110,7 +110,7 @@ Geom_RectangularTrimmedSurface::Geom_RectangularTrimmedSurface(
 
 Geom_RectangularTrimmedSurface::Geom_RectangularTrimmedSurface(
 
-  const Handle(Geom_Surface)& S,
+  const Handle(GeomSurface)& S,
   const Standard_Real         Param1,
   const Standard_Real         Param2,
   const Standard_Boolean      UTrim,
@@ -119,9 +119,9 @@ Geom_RectangularTrimmedSurface::Geom_RectangularTrimmedSurface(
   // kill trimmed basis surfaces
   Handle(Geom_RectangularTrimmedSurface) T = Handle(Geom_RectangularTrimmedSurface)::DownCast(S);
   if (!T.IsNull())
-    basisSurf = Handle(Geom_Surface)::DownCast(T->BasisSurface()->Copy());
+    basisSurf = Handle(GeomSurface)::DownCast(T->BasisSurface()->Copy());
   else
-    basisSurf = Handle(Geom_Surface)::DownCast(S->Copy());
+    basisSurf = Handle(GeomSurface)::DownCast(S->Copy());
 
   Handle(Geom_OffsetSurface) O = Handle(Geom_OffsetSurface)::DownCast(basisSurf);
   if (!O.IsNull())
@@ -353,7 +353,7 @@ Standard_Real Geom_RectangularTrimmedSurface::VReversedParameter(const Standard_
 
 //=================================================================================================
 
-Handle(Geom_Surface) Geom_RectangularTrimmedSurface::BasisSurface() const
+Handle(GeomSurface) Geom_RectangularTrimmedSurface::BasisSurface() const
 {
   return basisSurf;
 }
@@ -447,10 +447,10 @@ void Geom_RectangularTrimmedSurface::Bounds(Standard_Real& U1,
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_RectangularTrimmedSurface::UIso(const Standard_Real U) const
+Handle(GeomCurve3d) Geom_RectangularTrimmedSurface::UIso(const Standard_Real U) const
 {
 
-  Handle(Geom_Curve) C = basisSurf->UIso(U);
+  Handle(GeomCurve3d) C = basisSurf->UIso(U);
 
   if (isvtrimmed)
   {
@@ -466,10 +466,10 @@ Handle(Geom_Curve) Geom_RectangularTrimmedSurface::UIso(const Standard_Real U) c
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_RectangularTrimmedSurface::VIso(const Standard_Real V) const
+Handle(GeomCurve3d) Geom_RectangularTrimmedSurface::VIso(const Standard_Real V) const
 {
 
-  Handle(Geom_Curve) C = basisSurf->VIso(V);
+  Handle(GeomCurve3d) C = basisSurf->VIso(V);
 
   if (isutrimmed)
   {

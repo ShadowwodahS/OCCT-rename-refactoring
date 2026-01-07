@@ -28,7 +28,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Expr_NamedUnknown, Expr_NamedExpression)
 
-Expr_NamedUnknown::Expr_NamedUnknown(const TCollection_AsciiString& name)
+Expr_NamedUnknown::Expr_NamedUnknown(const AsciiString1& name)
 {
   SetName(name);
   myExpression.Nullify();
@@ -85,7 +85,7 @@ Handle(Expr_GeneralExpression) Expr_NamedUnknown::Copy() const
   Handle(Expr_NamedUnknown) cop = new Expr_NamedUnknown(GetName());
   if (IsAssigned())
   {
-    cop->Assign(Expr::CopyShare(myExpression));
+    cop->Assign(Expr1::CopyShare(myExpression));
   }
   return cop;
 }

@@ -22,7 +22,7 @@
 //=================================================================================================
 
 TopOpeBRepDS_PointIterator::TopOpeBRepDS_PointIterator(const TopOpeBRepDS_ListOfInterference& L)
-    : TopOpeBRepDS_InterferenceIterator(L)
+    : InterferenceIterator(L)
 {
   Match();
 }
@@ -49,7 +49,7 @@ Standard_Integer TopOpeBRepDS_PointIterator::Current() const
 TopAbs_Orientation TopOpeBRepDS_PointIterator::Orientation(const TopAbs_State S) const
 {
   Handle(TopOpeBRepDS_Interference) I = Value();
-  const TopOpeBRepDS_Transition&    T = I->Transition();
+  const StateTransition&    T = I->Transition();
   TopAbs_Orientation                o = T.Orientation(S);
   return o;
 }

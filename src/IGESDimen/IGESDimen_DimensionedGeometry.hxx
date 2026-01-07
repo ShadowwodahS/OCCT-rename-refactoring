@@ -27,7 +27,7 @@ class IGESDimen_DimensionedGeometry;
 DEFINE_STANDARD_HANDLE(IGESDimen_DimensionedGeometry, IGESData_IGESEntity)
 
 //! Defines IGES Dimensioned Geometry, Type <402> Form <13>,
-//! in package IGESDimen
+//! in package IGESDimen1
 //! This entity has been replaced by the new form of  Dimensioned
 //! Geometry Associativity Entity (Type 402, Form 21) and should no
 //! longer be used by preprocessors.

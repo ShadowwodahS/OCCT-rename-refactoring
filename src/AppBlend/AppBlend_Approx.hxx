@@ -29,7 +29,7 @@
 #include <TColgp_Array1OfPnt2d.hxx>
 
 //! Bspline approximation of a surface.
-class AppBlend_Approx
+class BlendApproximation
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -89,7 +89,7 @@ public:
   Standard_EXPORT virtual void TolReached(Standard_Real& Tol3d, Standard_Real& Tol2d) const = 0;
 
   Standard_EXPORT virtual Standard_Real TolCurveOnSurf(const Standard_Integer Index) const = 0;
-  Standard_EXPORT virtual ~AppBlend_Approx();
+  Standard_EXPORT virtual ~BlendApproximation();
 
 protected:
 private:

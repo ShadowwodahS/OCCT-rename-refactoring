@@ -46,7 +46,7 @@
 // purpose  : 2d fillets and chamfers
 //=======================================================================
 
-static Standard_Integer chfi2d(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer chfi2d(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
   {
@@ -55,7 +55,7 @@ static Standard_Integer chfi2d(Draw_Interpretor& di, Standard_Integer n, const c
   }
 
   // set up the algorithm
-  TopoDS_Shape F = DBRep::Get(a[2], TopAbs_FACE);
+  TopoShape F = DBRep1::Get(a[2], TopAbs_FACE);
   if (F.IsNull())
   {
     di << "chfi2d : " << a[2] << " not a face";
@@ -69,18 +69,18 @@ static Standard_Integer chfi2d(Draw_Interpretor& di, Standard_Integer n, const c
     return 1;
   }
 
-  TopoDS_Shape     res;
+  TopoShape     res;
   Standard_Boolean partial_result = Standard_False;
   Standard_Integer i              = 3;
   while (i + 1 < n)
   {
 
-    TopoDS_Shape aLocalEdge(DBRep::Get(a[i], TopAbs_EDGE));
-    TopoDS_Edge  E1 = TopoDS::Edge(aLocalEdge);
-    aLocalEdge      = DBRep::Get(a[i + 1], TopAbs_EDGE);
-    TopoDS_Edge E2  = TopoDS::Edge(aLocalEdge);
-    //    TopoDS_Edge E1 = TopoDS::Edge(DBRep::Get(a[i],TopAbs_EDGE));
-    //    TopoDS_Edge E2 = TopoDS::Edge(DBRep::Get(a[i+1],TopAbs_EDGE));
+    TopoShape aLocalEdge(DBRep1::Get(a[i], TopAbs_EDGE));
+    TopoEdge  E1 = TopoDS::Edge(aLocalEdge);
+    aLocalEdge      = DBRep1::Get(a[i + 1], TopAbs_EDGE);
+    TopoEdge E2  = TopoDS::Edge(aLocalEdge);
+    //    TopoEdge E1 = TopoDS::Edge(DBRep1::Get(a[i],TopAbs_EDGE));
+    //    TopoEdge E2 = TopoDS::Edge(DBRep1::Get(a[i+1],TopAbs_EDGE));
 
     if (E1.IsNull() || E2.IsNull())
     {
@@ -88,19 +88,19 @@ static Standard_Integer chfi2d(Draw_Interpretor& di, Standard_Integer n, const c
       if (partial_result)
       {
         di << " WARNING : this is a partial result ";
-        DBRep::Set(a[1], res);
+        DBRep1::Set(a[1], res);
       }
       return 1;
     }
 
-    TopoDS_Vertex V;
-    if (!TopExp::CommonVertex(E1, E2, V))
+    TopoVertex V;
+    if (!TopExp1::CommonVertex(E1, E2, V))
     {
       di << "chfi2d " << a[i] << " and " << a[i + 1] << " does not share a vertex";
       if (partial_result)
       {
         di << " WARNING : this is a partial result ";
-        DBRep::Set(a[1], res);
+        DBRep1::Set(a[1], res);
       }
       return 1;
     }
@@ -112,12 +112,12 @@ static Standard_Integer chfi2d(Draw_Interpretor& di, Standard_Integer n, const c
       if (partial_result)
       {
         di << " WARNING : this is a partial result ";
-        DBRep::Set(a[1], res);
+        DBRep1::Set(a[1], res);
       }
       return 1;
     }
 
-    Standard_Real p1 = Draw::Atof(a[i + 1]);
+    Standard_Real p1 = Draw1::Atof(a[i + 1]);
     if (*a[i] == 'F')
     {
       MF.AddFillet(V, p1);
@@ -130,11 +130,11 @@ static Standard_Integer chfi2d(Draw_Interpretor& di, Standard_Integer n, const c
         if (partial_result)
         {
           di << " WARNING : this is a partial result ";
-          DBRep::Set(a[1], res);
+          DBRep1::Set(a[1], res);
         }
         return 1;
       }
-      Standard_Real p2 = Draw::Atof(a[i + 2]);
+      Standard_Real p2 = Draw1::Atof(a[i + 2]);
       if (a[i][2] == 'D')
       {
         MF.AddChamfer(E1, E2, p1, p2);
@@ -151,7 +151,7 @@ static Standard_Integer chfi2d(Draw_Interpretor& di, Standard_Integer n, const c
       if (partial_result)
       {
         di << " WARNING : this is a partial result ";
-        DBRep::Set(a[1], res);
+        DBRep1::Set(a[1], res);
       }
       return 1;
     }
@@ -162,7 +162,7 @@ static Standard_Integer chfi2d(Draw_Interpretor& di, Standard_Integer n, const c
       if (partial_result)
       {
         di << " WARNING : this is a partial result ";
-        DBRep::Set(a[1], res);
+        DBRep1::Set(a[1], res);
       }
       return 1;
     }
@@ -173,7 +173,7 @@ static Standard_Integer chfi2d(Draw_Interpretor& di, Standard_Integer n, const c
       if (partial_result)
       {
         di << " WARNING : this is a partial result ";
-        DBRep::Set(a[1], res);
+        DBRep1::Set(a[1], res);
       }
       return 1;
     }
@@ -195,7 +195,7 @@ static Standard_Integer chfi2d(Draw_Interpretor& di, Standard_Integer n, const c
   }
 
   MF.Build();
-  DBRep::Set(a[1], MF);
+  DBRep1::Set(a[1], MF);
 
   return 0;
 }
@@ -207,19 +207,19 @@ static Standard_Integer chfi2d(Draw_Interpretor& di, Standard_Integer n, const c
 //         : (the edge are located not in a plane).
 //=======================================================================
 
-static Handle(Geom_Plane) findPlane(const TopoDS_Shape& S)
+static Handle(GeomPlane) findPlane(const TopoShape& S)
 {
-  Handle(Geom_Plane)       plane;
+  Handle(GeomPlane)       plane;
   BRepBuilderAPI_FindPlane planeFinder(S);
   if (planeFinder.Found())
     plane = planeFinder.Plane();
   return plane;
 }
 
-static Handle(Geom_Plane) findPlane(const TopoDS_Shape& E1, const TopoDS_Shape& E2)
+static Handle(GeomPlane) findPlane(const TopoShape& E1, const TopoShape& E2)
 {
-  BRep_Builder    B;
-  TopoDS_Compound C;
+  ShapeBuilder    B;
+  TopoCompound C;
   B.MakeCompound(C);
   B.Add(C, E1);
   B.Add(C, E2);
@@ -231,16 +231,16 @@ static Handle(Geom_Plane) findPlane(const TopoDS_Shape& E1, const TopoDS_Shape& 
 // purpose  : Find a common (or the most close) point of two edges.
 //=======================================================================
 
-static Point3d findCommonPoint(const TopoDS_Shape& E1, const TopoDS_Shape& E2)
+static Point3d findCommonPoint(const TopoShape& E1, const TopoShape& E2)
 {
-  TopoDS_Vertex v11, v12, v21, v22;
-  TopExp::Vertices(TopoDS::Edge(E1), v11, v12);
-  TopExp::Vertices(TopoDS::Edge(E2), v21, v22);
+  TopoVertex v11, v12, v21, v22;
+  TopExp1::Vertices(TopoDS::Edge(E1), v11, v12);
+  TopExp1::Vertices(TopoDS::Edge(E2), v21, v22);
 
-  Point3d p11 = BRep_Tool::Pnt(v11);
-  Point3d p12 = BRep_Tool::Pnt(v12);
-  Point3d p21 = BRep_Tool::Pnt(v21);
-  Point3d p22 = BRep_Tool::Pnt(v22);
+  Point3d p11 = BRepInspector::Pnt(v11);
+  Point3d p12 = BRepInspector::Pnt(v12);
+  Point3d p21 = BRepInspector::Pnt(v21);
+  Point3d p22 = BRepInspector::Pnt(v22);
 
   Point3d       common;
   const double d1121 = p11.SquareDistance(p21);
@@ -259,17 +259,17 @@ static Point3d findCommonPoint(const TopoDS_Shape& E1, const TopoDS_Shape& E2)
   return common;
 }
 
-static Point3d findCommonPoint(const TopoDS_Shape& W)
+static Point3d findCommonPoint(const TopoShape& W)
 {
   // The common point for two edges inside a wire
   // is a sharing vertex of two edges.
   TopTools_MapOfShape vertices;
-  TopExp_Explorer     aExp(W, TopAbs_VERTEX);
+  ShapeExplorer     aExp(W, TopAbs_VERTEX);
   for (; aExp.More(); aExp.Next())
   {
     if (!vertices.Add(aExp.Current()))
     {
-      return BRep_Tool::Pnt(TopoDS::Vertex(aExp.Current()));
+      return BRepInspector::Pnt(TopoDS::Vertex(aExp.Current()));
     }
   }
   return gp::Origin(); // not found
@@ -281,7 +281,7 @@ static Point3d findCommonPoint(const TopoDS_Shape& W)
 // usage    : fillet2d result wire (or edge1 edge2) radius
 //=======================================================================
 
-static Standard_Integer fillet2d(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer fillet2d(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 4 && n != 5)
   {
@@ -289,24 +289,24 @@ static Standard_Integer fillet2d(Draw_Interpretor& di, Standard_Integer n, const
     return 1;
   }
 
-  TopoDS_Shape E1, E2, W;
+  TopoShape E1, E2, W;
   if (n == 5)
   {
     // Get the edges.
-    E1 = DBRep::Get(a[2], TopAbs_EDGE, Standard_True);
-    E2 = DBRep::Get(a[3], TopAbs_EDGE, Standard_True);
+    E1 = DBRep1::Get(a[2], TopAbs_EDGE, Standard_True);
+    E2 = DBRep1::Get(a[3], TopAbs_EDGE, Standard_True);
   }
   else
   {
     // Get the wire.
-    W = DBRep::Get(a[2], TopAbs_WIRE, Standard_True);
+    W = DBRep1::Get(a[2], TopAbs_WIRE, Standard_True);
   }
 
   // Get the radius value.
   const Standard_Real radius = Atof(n == 5 ? a[4] : a[3]);
 
   // Find plane of the edges.
-  Handle(Geom_Plane) hPlane = n == 5 ? findPlane(E1, E2) : findPlane(W);
+  Handle(GeomPlane) hPlane = n == 5 ? findPlane(E1, E2) : findPlane(W);
   if (hPlane.IsNull())
   {
     di << "Error: the edges are located not in a plane.";
@@ -318,13 +318,13 @@ static Standard_Integer fillet2d(Draw_Interpretor& di, Standard_Integer n, const
   gp_Pln           plane = hPlane->Pln();
   if (n == 5)
   {
-    const TopoDS_Edge& e1 = TopoDS::Edge(E1);
-    const TopoDS_Edge& e2 = TopoDS::Edge(E2);
+    const TopoEdge& e1 = TopoDS::Edge(E1);
+    const TopoEdge& e2 = TopoDS::Edge(E2);
     algo.Init(e1, e2, plane);
   }
   else
   {
-    const TopoDS_Wire& w = TopoDS::Wire(W);
+    const TopoWire& w = TopoDS::Wire(W);
     algo.Init(w, plane);
   }
   Standard_Boolean status = algo.Perform(radius);
@@ -346,8 +346,8 @@ static Standard_Integer fillet2d(Draw_Interpretor& di, Standard_Integer n, const
   }
 
   // Get the result for the "nearest" solution (near the common point).
-  TopoDS_Edge M1, M2; // modified E1 and E2
-  TopoDS_Edge fillet = algo.Result(common, M1, M2);
+  TopoEdge M1, M2; // modified E1 and E2
+  TopoEdge fillet = algo.Result(common, M1, M2);
   if (fillet.IsNull())
   {
     di << "Error: the algorithm produced no result.";
@@ -355,21 +355,21 @@ static Standard_Integer fillet2d(Draw_Interpretor& di, Standard_Integer n, const
   }
 
   // Set result for DRAW.
-  DBRep::Set(a[1], fillet);
+  DBRep1::Set(a[1], fillet);
 
   // Update neighbour edges in DRAW.
   if (n == 5)
   {
-    DBRep::Set(a[2], M1);
-    DBRep::Set(a[3], M2);
+    DBRep1::Set(a[2], M1);
+    DBRep1::Set(a[3], M2);
   }
   else // recreate the wire using the fillet
   {
     BRepBuilderAPI_MakeWire mkWire(M1, fillet, M2);
     if (mkWire.IsDone())
-      DBRep::Set(a[1], mkWire.Wire());
+      DBRep1::Set(a[1], mkWire.Wire());
     else
-      DBRep::Set(a[1], fillet);
+      DBRep1::Set(a[1], fillet);
   }
   return 0;
 }
@@ -380,7 +380,7 @@ static Standard_Integer fillet2d(Draw_Interpretor& di, Standard_Integer n, const
 // usage    : chamfer2d result wire (or edge1 edge2) length1 length2
 //=======================================================================
 
-static Standard_Integer chamfer2d(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer chamfer2d(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 5 && n != 6)
   {
@@ -388,17 +388,17 @@ static Standard_Integer chamfer2d(Draw_Interpretor& di, Standard_Integer n, cons
     return 1;
   }
 
-  TopoDS_Shape W;
-  TopoDS_Shape E1, E2;
+  TopoShape W;
+  TopoShape E1, E2;
   if (n == 6)
   {
     // Get the edges.
-    E1 = DBRep::Get(a[2], TopAbs_EDGE, Standard_True);
-    E2 = DBRep::Get(a[3], TopAbs_EDGE, Standard_True);
+    E1 = DBRep1::Get(a[2], TopAbs_EDGE, Standard_True);
+    E2 = DBRep1::Get(a[3], TopAbs_EDGE, Standard_True);
   }
   else
   {
-    W = DBRep::Get(a[2], TopAbs_WIRE, Standard_True);
+    W = DBRep1::Get(a[2], TopAbs_WIRE, Standard_True);
   }
 
   // Get the lengths.
@@ -409,13 +409,13 @@ static Standard_Integer chamfer2d(Draw_Interpretor& di, Standard_Integer n, cons
   ChFi2d_ChamferAPI algo;
   if (n == 6)
   {
-    const TopoDS_Edge& e1 = TopoDS::Edge(E1);
-    const TopoDS_Edge& e2 = TopoDS::Edge(E2);
+    const TopoEdge& e1 = TopoDS::Edge(E1);
+    const TopoEdge& e2 = TopoDS::Edge(E2);
     algo.Init(e1, e2);
   }
   else
   {
-    const TopoDS_Wire& w = TopoDS::Wire(W);
+    const TopoWire& w = TopoDS::Wire(W);
     algo.Init(w);
   }
 
@@ -423,8 +423,8 @@ static Standard_Integer chamfer2d(Draw_Interpretor& di, Standard_Integer n, cons
   algo.Perform();
 
   // Get the result.
-  TopoDS_Edge M1, M2; // modified E1 and E2
-  TopoDS_Edge chamfer = algo.Result(M1, M2, length1, length2);
+  TopoEdge M1, M2; // modified E1 and E2
+  TopoEdge chamfer = algo.Result(M1, M2, length1, length2);
   if (chamfer.IsNull())
   {
     di << "Error: the algorithm produced no result.";
@@ -434,19 +434,19 @@ static Standard_Integer chamfer2d(Draw_Interpretor& di, Standard_Integer n, cons
   if (n == 6)
   {
     // Set result for DRAW.
-    DBRep::Set(a[1], chamfer);
+    DBRep1::Set(a[1], chamfer);
 
     // Update neighbour edges in DRAW.
-    DBRep::Set(a[2], M1);
-    DBRep::Set(a[3], M2);
+    DBRep1::Set(a[2], M1);
+    DBRep1::Set(a[3], M2);
   }
   else // recreate the wire using the chamfer
   {
     BRepBuilderAPI_MakeWire mkWire(M1, chamfer, M2);
     if (mkWire.IsDone())
-      DBRep::Set(a[1], mkWire.Wire());
+      DBRep1::Set(a[1], mkWire.Wire());
     else
-      DBRep::Set(a[1], chamfer);
+      DBRep1::Set(a[1], chamfer);
   }
 
   return 0;
@@ -454,14 +454,14 @@ static Standard_Integer chamfer2d(Draw_Interpretor& di, Standard_Integer n, cons
 
 //=================================================================================================
 
-void BRepTest::Fillet2DCommands(Draw_Interpretor& theCommands)
+void BRepTest::Fillet2DCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
     return;
   done = Standard_True;
 
-  DBRep::BasicCommands(theCommands);
+  DBRep1::BasicCommands(theCommands);
 
   const char* g = "TOPOLOGY Fillet2D construction commands";
 

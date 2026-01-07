@@ -23,8 +23,8 @@
 
 #include <GeomAbs_Shape.hxx>
 #include <LocalAnalysis_StatusErrorType.hxx>
-class Geom_Surface;
-class Geom2d_Curve;
+class GeomSurface;
+class GeomCurve2d;
 class GeomLProp_SLProps;
 
 //! This class gives tools to check local continuity C0
@@ -117,10 +117,10 @@ public:
   //! -------
   //! - the maximum  normal curvature gap between the two
   //! points
-  Standard_EXPORT LocalAnalysis_SurfaceContinuity(const Handle(Geom_Surface)& Surf1,
+  Standard_EXPORT LocalAnalysis_SurfaceContinuity(const Handle(GeomSurface)& Surf1,
                                                   const Standard_Real         u1,
                                                   const Standard_Real         v1,
-                                                  const Handle(Geom_Surface)& Surf2,
+                                                  const Handle(GeomSurface)& Surf2,
                                                   const Standard_Real         u2,
                                                   const Standard_Real         v2,
                                                   const GeomAbs_Shape         Order,
@@ -132,11 +132,11 @@ public:
                                                   const Standard_Real         Percent = 0.01,
                                                   const Standard_Real         Maxlen  = 10000);
 
-  Standard_EXPORT LocalAnalysis_SurfaceContinuity(const Handle(Geom2d_Curve)& curv1,
-                                                  const Handle(Geom2d_Curve)& curv2,
+  Standard_EXPORT LocalAnalysis_SurfaceContinuity(const Handle(GeomCurve2d)& curv1,
+                                                  const Handle(GeomCurve2d)& curv2,
                                                   const Standard_Real         U,
-                                                  const Handle(Geom_Surface)& Surf1,
-                                                  const Handle(Geom_Surface)& Surf2,
+                                                  const Handle(GeomSurface)& Surf1,
+                                                  const Handle(GeomSurface)& Surf2,
                                                   const GeomAbs_Shape         Order,
                                                   const Standard_Real         EpsNul  = 0.001,
                                                   const Standard_Real         EpsC0   = 0.001,

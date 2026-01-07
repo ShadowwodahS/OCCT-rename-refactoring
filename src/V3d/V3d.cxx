@@ -161,8 +161,8 @@ void V3d::CircleInPlane(const Handle(Graphic3d_Group)& gcircle,
   }
 }
 
-void V3d::SwitchViewsinWindow(const Handle(V3d_View)& aPreviousView,
-                              const Handle(V3d_View)& aNextView)
+void V3d::SwitchViewsinWindow(const Handle(ViewWindow)& aPreviousView,
+                              const Handle(ViewWindow)& aNextView)
 {
   aPreviousView->Viewer()->SetViewOff(aPreviousView);
   if (!aNextView->IfWindow())
@@ -182,7 +182,7 @@ Standard_CString V3d::TypeOfOrientationToString(V3d_TypeOfOrientation theType)
 Standard_Boolean V3d::TypeOfOrientationFromString(Standard_CString       theTypeString,
                                                   V3d_TypeOfOrientation& theType)
 {
-  TCollection_AsciiString aName(theTypeString);
+  AsciiString1 aName(theTypeString);
   aName.UpperCase();
   for (Standard_Integer aTypeIter = 0; aTypeIter <= V3d_XnegYnegZneg; ++aTypeIter)
   {

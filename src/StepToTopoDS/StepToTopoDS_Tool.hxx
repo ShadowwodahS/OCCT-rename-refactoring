@@ -27,14 +27,14 @@
 #include <Standard_Integer.hxx>
 class Transfer_TransientProcess;
 class StepShape_TopologicalRepresentationItem;
-class TopoDS_Shape;
+class TopoShape;
 class StepToTopoDS_PointPair;
-class TopoDS_Edge;
+class TopoEdge;
 class StepGeom_CartesianPoint;
-class TopoDS_Vertex;
-class Geom_Surface;
-class Geom_Curve;
-class Geom2d_Curve;
+class TopoVertex;
+class GeomSurface;
+class GeomCurve3d;
+class GeomCurve2d;
 
 //! This Tool Class provides Information to build
 //! a Cas.Cad BRep from a ProSTEP Shape model.
@@ -55,26 +55,26 @@ public:
     IsBound(const Handle(StepShape_TopologicalRepresentationItem)& TRI);
 
   Standard_EXPORT void Bind(const Handle(StepShape_TopologicalRepresentationItem)& TRI,
-                            const TopoDS_Shape&                                    S);
+                            const TopoShape&                                    S);
 
-  Standard_EXPORT const TopoDS_Shape& Find(
+  Standard_EXPORT const TopoShape& Find(
     const Handle(StepShape_TopologicalRepresentationItem)& TRI);
 
   Standard_EXPORT void ClearEdgeMap();
 
   Standard_EXPORT Standard_Boolean IsEdgeBound(const StepToTopoDS_PointPair& PP);
 
-  Standard_EXPORT void BindEdge(const StepToTopoDS_PointPair& PP, const TopoDS_Edge& E);
+  Standard_EXPORT void BindEdge(const StepToTopoDS_PointPair& PP, const TopoEdge& E);
 
-  Standard_EXPORT const TopoDS_Edge& FindEdge(const StepToTopoDS_PointPair& PP);
+  Standard_EXPORT const TopoEdge& FindEdge(const StepToTopoDS_PointPair& PP);
 
   Standard_EXPORT void ClearVertexMap();
 
   Standard_EXPORT Standard_Boolean IsVertexBound(const Handle(StepGeom_CartesianPoint)& PG);
 
-  Standard_EXPORT void BindVertex(const Handle(StepGeom_CartesianPoint)& P, const TopoDS_Vertex& V);
+  Standard_EXPORT void BindVertex(const Handle(StepGeom_CartesianPoint)& P, const TopoVertex& V);
 
-  Standard_EXPORT const TopoDS_Vertex& FindVertex(const Handle(StepGeom_CartesianPoint)& P);
+  Standard_EXPORT const TopoVertex& FindVertex(const Handle(StepGeom_CartesianPoint)& P);
 
   Standard_EXPORT void ComputePCurve(const Standard_Boolean B);
 
@@ -82,11 +82,11 @@ public:
 
   Standard_EXPORT Handle(Transfer_TransientProcess) TransientProcess() const;
 
-  Standard_EXPORT void AddContinuity(const Handle(Geom_Surface)& GeomSurf);
+  Standard_EXPORT void AddContinuity(const Handle(GeomSurface)& GeomSurf);
 
-  Standard_EXPORT void AddContinuity(const Handle(Geom_Curve)& GeomCurve);
+  Standard_EXPORT void AddContinuity(const Handle(GeomCurve3d)& GeomCurve);
 
-  Standard_EXPORT void AddContinuity(const Handle(Geom2d_Curve)& GeomCur2d);
+  Standard_EXPORT void AddContinuity(const Handle(GeomCurve2d)& GeomCur2d);
 
   Standard_EXPORT Standard_Integer C0Surf() const;
 

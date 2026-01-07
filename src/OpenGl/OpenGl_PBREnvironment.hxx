@@ -38,7 +38,7 @@ public:
     const Handle(OpenGl_Context)&  theCtx,
     unsigned int                   thePow2Size         = 9,
     unsigned int                   theSpecMapLevelsNum = 6,
-    const TCollection_AsciiString& theId               = "PBREnvironment");
+    const AsciiString1& theId               = "PBREnvironment");
 
 public:
   //! Binds diffuse and specular IBL maps to the corresponding texture units.
@@ -129,7 +129,7 @@ private:
   Standard_EXPORT OpenGl_PBREnvironment(const Handle(OpenGl_Context)&  theCtx,
                                         unsigned int                   thePowOf2Size          = 9,
                                         unsigned int                   theSpecMapLevelsNumber = 6,
-                                        const TCollection_AsciiString& theId = "PBREnvironment");
+                                        const AsciiString1& theId = "PBREnvironment");
 
 private:
   //! Enum classified the type of IBL map

@@ -29,7 +29,7 @@
 //=============================================================================
 GeomToStep_MakeSphericalSurface::GeomToStep_MakeSphericalSurface(
   const Handle(Geom_SphericalSurface)& S,
-  const StepData_Factors&              theLocalFactors)
+  const ConversionFactors&              theLocalFactors)
 {
   Handle(StepGeom_SphericalSurface) Surf;
   Handle(StepGeom_Axis2Placement3d) aPosition;

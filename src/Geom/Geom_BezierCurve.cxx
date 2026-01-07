@@ -42,7 +42,7 @@
 #include <Standard_Type.hxx>
 #include <TColStd_Array1OfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_BezierCurve, Geom_BoundedCurve)
+IMPLEMENT_STANDARD_RTTIEXT(BezierCurve3d, Geom_BoundedCurve)
 
 //=======================================================================
 // function : Rational
@@ -63,10 +63,10 @@ static Standard_Boolean Rational(const TColStd_Array1OfReal& W)
 
 //=================================================================================================
 
-Geom_BezierCurve::Geom_BezierCurve(const TColgp_Array1OfPnt& Poles)
+BezierCurve3d::BezierCurve3d(const TColgp_Array1OfPnt& Poles)
 {
   Standard_Integer nbpoles = Poles.Length();
-  if (nbpoles < 2 || nbpoles > (Geom_BezierCurve::MaxDegree() + 1))
+  if (nbpoles < 2 || nbpoles > (BezierCurve3d::MaxDegree() + 1))
     throw Standard_ConstructionError();
   //  copy the poles
   Handle(TColgp_HArray1OfPnt) npoles = new TColgp_HArray1OfPnt(1, nbpoles);
@@ -79,12 +79,12 @@ Geom_BezierCurve::Geom_BezierCurve(const TColgp_Array1OfPnt& Poles)
 
 //=================================================================================================
 
-Geom_BezierCurve::Geom_BezierCurve(const TColgp_Array1OfPnt&   Poles,
+BezierCurve3d::BezierCurve3d(const TColgp_Array1OfPnt&   Poles,
                                    const TColStd_Array1OfReal& Weights)
 {
   // copy the poles
   Standard_Integer nbpoles = Poles.Length();
-  if (nbpoles < 2 || nbpoles > (Geom_BezierCurve::MaxDegree() + 1))
+  if (nbpoles < 2 || nbpoles > (BezierCurve3d::MaxDegree() + 1))
     throw Standard_ConstructionError();
 
   Handle(TColgp_HArray1OfPnt) npoles = new TColgp_HArray1OfPnt(1, nbpoles);
@@ -125,13 +125,13 @@ Geom_BezierCurve::Geom_BezierCurve(const TColgp_Array1OfPnt&   Poles,
 // purpose  : increase degree
 //=======================================================================
 
-void Geom_BezierCurve::Increase(const Standard_Integer Deg)
+void BezierCurve3d::Increase(const Standard_Integer Deg)
 {
   if (Deg == Degree())
     return;
 
-  if (Deg < Degree() || Deg > Geom_BezierCurve::MaxDegree())
-    throw Standard_ConstructionError("Geom_BezierCurve::Increase");
+  if (Deg < Degree() || Deg > BezierCurve3d::MaxDegree())
+    throw Standard_ConstructionError("BezierCurve3d::Increase");
 
   Handle(TColgp_HArray1OfPnt) npoles = new TColgp_HArray1OfPnt(1, Deg + 1);
 
@@ -178,31 +178,31 @@ void Geom_BezierCurve::Increase(const Standard_Integer Deg)
 
 //=================================================================================================
 
-Standard_Integer Geom_BezierCurve::MaxDegree()
+Standard_Integer BezierCurve3d::MaxDegree()
 {
   return BSplCLib::MaxDegree();
 }
 
 //=================================================================================================
 
-void Geom_BezierCurve::InsertPoleAfter(const Standard_Integer Index, const Point3d& P)
+void BezierCurve3d::InsertPoleAfter(const Standard_Integer Index, const Point3d& P)
 {
   InsertPoleAfter(Index, P, 1.);
 }
 
 //=================================================================================================
 
-void Geom_BezierCurve::InsertPoleAfter(const Standard_Integer Index,
+void BezierCurve3d::InsertPoleAfter(const Standard_Integer Index,
                                        const Point3d&          P,
                                        const Standard_Real    Weight)
 {
   Standard_Integer nbpoles = NbPoles();
 
-  if (nbpoles >= Geom_BezierCurve::MaxDegree() || Weight <= gp::Resolution())
-    throw Standard_ConstructionError("Geom_BezierCurve::InsertPoleAfter");
+  if (nbpoles >= BezierCurve3d::MaxDegree() || Weight <= gp::Resolution())
+    throw Standard_ConstructionError("BezierCurve3d::InsertPoleAfter");
 
   if (Index < 0 || Index > nbpoles)
-    throw Standard_OutOfRange("Geom_BezierCurve::InsertPoleAfter");
+    throw Standard_OutOfRange("BezierCurve3d::InsertPoleAfter");
 
   Standard_Integer i;
 
@@ -249,14 +249,14 @@ void Geom_BezierCurve::InsertPoleAfter(const Standard_Integer Index,
 
 //=================================================================================================
 
-void Geom_BezierCurve::InsertPoleBefore(const Standard_Integer Index, const Point3d& P)
+void BezierCurve3d::InsertPoleBefore(const Standard_Integer Index, const Point3d& P)
 {
   InsertPoleAfter(Index - 1, P);
 }
 
 //=================================================================================================
 
-void Geom_BezierCurve::InsertPoleBefore(const Standard_Integer Index,
+void BezierCurve3d::InsertPoleBefore(const Standard_Integer Index,
                                         const Point3d&          P,
                                         const Standard_Real    Weight)
 {
@@ -265,15 +265,15 @@ void Geom_BezierCurve::InsertPoleBefore(const Standard_Integer Index,
 
 //=================================================================================================
 
-void Geom_BezierCurve::RemovePole(const Standard_Integer Index)
+void BezierCurve3d::RemovePole(const Standard_Integer Index)
 {
   Standard_Integer nbpoles = NbPoles();
 
   if (nbpoles <= 2)
-    throw Standard_ConstructionError("Geom_BezierCurve::RemovePole");
+    throw Standard_ConstructionError("BezierCurve3d::RemovePole");
 
   if (Index < 1 || Index > nbpoles)
-    throw Standard_OutOfRange("Geom_BezierCurve::RemovePole");
+    throw Standard_OutOfRange("BezierCurve3d::RemovePole");
 
   Standard_Integer i;
 
@@ -310,7 +310,7 @@ void Geom_BezierCurve::RemovePole(const Standard_Integer Index)
 
 //=================================================================================================
 
-void Geom_BezierCurve::Reverse()
+void BezierCurve3d::Reverse()
 {
   Point3d              P;
   Standard_Integer    i, nbpoles = NbPoles();
@@ -340,14 +340,14 @@ void Geom_BezierCurve::Reverse()
 
 //=================================================================================================
 
-Standard_Real Geom_BezierCurve::ReversedParameter(const Standard_Real U) const
+Standard_Real BezierCurve3d::ReversedParameter(const Standard_Real U) const
 {
   return (1. - U);
 }
 
 //=================================================================================================
 
-void Geom_BezierCurve::Segment(const Standard_Real U1, const Standard_Real U2)
+void BezierCurve3d::Segment(const Standard_Real U1, const Standard_Real U2)
 {
   closed = (Abs(Value(U1).Distance(Value(U2))) <= Precision::Confusion());
 
@@ -386,10 +386,10 @@ void Geom_BezierCurve::Segment(const Standard_Real U1, const Standard_Real U2)
 
 //=================================================================================================
 
-void Geom_BezierCurve::SetPole(const Standard_Integer Index, const Point3d& P)
+void BezierCurve3d::SetPole(const Standard_Integer Index, const Point3d& P)
 {
   if (Index < 1 || Index > NbPoles())
-    throw Standard_OutOfRange("Geom_BezierCurve::SetPole");
+    throw Standard_OutOfRange("BezierCurve3d::SetPole");
 
   TColgp_Array1OfPnt& cpoles = poles->ChangeArray1();
   cpoles(Index)              = P;
@@ -402,7 +402,7 @@ void Geom_BezierCurve::SetPole(const Standard_Integer Index, const Point3d& P)
 
 //=================================================================================================
 
-void Geom_BezierCurve::SetPole(const Standard_Integer Index,
+void BezierCurve3d::SetPole(const Standard_Integer Index,
                                const Point3d&          P,
                                const Standard_Real    Weight)
 {
@@ -412,14 +412,14 @@ void Geom_BezierCurve::SetPole(const Standard_Integer Index,
 
 //=================================================================================================
 
-void Geom_BezierCurve::SetWeight(const Standard_Integer Index, const Standard_Real Weight)
+void BezierCurve3d::SetWeight(const Standard_Integer Index, const Standard_Real Weight)
 {
   Standard_Integer nbpoles = NbPoles();
 
   if (Index < 1 || Index > nbpoles)
-    throw Standard_OutOfRange("Geom_BezierCurve::SetWeight");
+    throw Standard_OutOfRange("BezierCurve3d::SetWeight");
   if (Weight <= gp::Resolution())
-    throw Standard_ConstructionError("Geom_BezierCurve::SetWeight");
+    throw Standard_ConstructionError("BezierCurve3d::SetWeight");
 
   // compute new rationality
   Standard_Boolean wasrat = IsRational();
@@ -444,70 +444,70 @@ void Geom_BezierCurve::SetWeight(const Standard_Integer Index, const Standard_Re
 
 //=================================================================================================
 
-Standard_Boolean Geom_BezierCurve::IsClosed() const
+Standard_Boolean BezierCurve3d::IsClosed() const
 {
   return closed;
 }
 
 //=================================================================================================
 
-Standard_Boolean Geom_BezierCurve::IsCN(const Standard_Integer) const
+Standard_Boolean BezierCurve3d::IsCN(const Standard_Integer) const
 {
   return Standard_True;
 }
 
 //=================================================================================================
 
-Standard_Boolean Geom_BezierCurve::IsPeriodic() const
+Standard_Boolean BezierCurve3d::IsPeriodic() const
 {
   return Standard_False;
 }
 
 //=================================================================================================
 
-Standard_Boolean Geom_BezierCurve::IsRational() const
+Standard_Boolean BezierCurve3d::IsRational() const
 {
   return !weights.IsNull();
 }
 
 //=================================================================================================
 
-GeomAbs_Shape Geom_BezierCurve::Continuity() const
+GeomAbs_Shape BezierCurve3d::Continuity() const
 {
   return GeomAbs_CN;
 }
 
 //=================================================================================================
 
-Standard_Integer Geom_BezierCurve::Degree() const
+Standard_Integer BezierCurve3d::Degree() const
 {
   return poles->Length() - 1;
 }
 
 //=================================================================================================
 
-void Geom_BezierCurve::D0(const Standard_Real U, Point3d& P) const
+void BezierCurve3d::D0(const Standard_Real U, Point3d& P) const
 {
   BSplCLib::D0(U, Poles(), Weights(), P);
 }
 
 //=================================================================================================
 
-void Geom_BezierCurve::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
+void BezierCurve3d::D1(const Standard_Real U, Point3d& P, Vector3d& V1) const
 {
   BSplCLib::D1(U, Poles(), Weights(), P, V1);
 }
 
 //=================================================================================================
 
-void Geom_BezierCurve::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
+void BezierCurve3d::D2(const Standard_Real U, Point3d& P, Vector3d& V1, Vector3d& V2) const
 {
   BSplCLib::D2(U, Poles(), Weights(), P, V1, V2);
 }
 
 //=================================================================================================
 
-void Geom_BezierCurve::D3(const Standard_Real U,
+void BezierCurve3d::D3(const Standard_Real U,
                           Point3d&             P,
                           Vector3d&             V1,
                           Vector3d&             V2,
@@ -518,10 +518,10 @@ void Geom_BezierCurve::D3(const Standard_Real U,
 
 //=================================================================================================
 
-Vector3d Geom_BezierCurve::DN(const Standard_Real U, const Standard_Integer N) const
+Vector3d BezierCurve3d::DN(const Standard_Real U, const Standard_Integer N) const
 {
   if (N < 1)
-    throw Standard_RangeError("Geom_BezierCurve::DN");
+    throw Standard_RangeError("BezierCurve3d::DN");
   Vector3d V;
 
   TColStd_Array1OfReal bidknots(1, 2);
@@ -559,70 +559,70 @@ Vector3d Geom_BezierCurve::DN(const Standard_Real U, const Standard_Integer N) c
 
 //=================================================================================================
 
-Point3d Geom_BezierCurve::StartPoint() const
+Point3d BezierCurve3d::StartPoint() const
 {
   return poles->Value(1);
 }
 
 //=================================================================================================
 
-Point3d Geom_BezierCurve::EndPoint() const
+Point3d BezierCurve3d::EndPoint() const
 {
   return poles->Value(poles->Upper());
 }
 
 //=================================================================================================
 
-Standard_Real Geom_BezierCurve::FirstParameter() const
+Standard_Real BezierCurve3d::FirstParameter() const
 {
   return 0.0;
 }
 
 //=================================================================================================
 
-Standard_Real Geom_BezierCurve::LastParameter() const
+Standard_Real BezierCurve3d::LastParameter() const
 {
   return 1.0;
 }
 
 //=================================================================================================
 
-Standard_Integer Geom_BezierCurve::NbPoles() const
+Standard_Integer BezierCurve3d::NbPoles() const
 {
   return poles->Length();
 }
 
 //=================================================================================================
 
-const Point3d& Geom_BezierCurve::Pole(const Standard_Integer Index) const
+const Point3d& BezierCurve3d::Pole(const Standard_Integer Index) const
 {
   if (Index < 1 || Index > poles->Length())
-    throw Standard_OutOfRange("Geom_BezierCurve::Pole");
+    throw Standard_OutOfRange("BezierCurve3d::Pole");
   return poles->Value(Index);
 }
 
 //=================================================================================================
 
-void Geom_BezierCurve::Poles(TColgp_Array1OfPnt& P) const
+void BezierCurve3d::Poles(TColgp_Array1OfPnt& P) const
 {
   if (P.Length() != poles->Length())
-    throw Standard_DimensionError("Geom_BezierCurve::Poles");
+    throw Standard_DimensionError("BezierCurve3d::Poles");
   P = poles->Array1();
 }
 
 //=================================================================================================
 
-const TColgp_Array1OfPnt& Geom_BezierCurve::Poles() const
+const TColgp_Array1OfPnt& BezierCurve3d::Poles() const
 {
   return poles->Array1();
 }
 
 //=================================================================================================
 
-Standard_Real Geom_BezierCurve::Weight(const Standard_Integer Index) const
+Standard_Real BezierCurve3d::Weight(const Standard_Integer Index) const
 {
   if (Index < 1 || Index > poles->Length())
-    throw Standard_OutOfRange("Geom_BezierCurve::Weight");
+    throw Standard_OutOfRange("BezierCurve3d::Weight");
   if (IsRational())
     return weights->Value(Index);
   else
@@ -631,12 +631,12 @@ Standard_Real Geom_BezierCurve::Weight(const Standard_Integer Index) const
 
 //=================================================================================================
 
-void Geom_BezierCurve::Weights(TColStd_Array1OfReal& W) const
+void BezierCurve3d::Weights(TColStd_Array1OfReal& W) const
 {
 
   Standard_Integer nbpoles = NbPoles();
   if (W.Length() != nbpoles)
-    throw Standard_DimensionError("Geom_BezierCurve::Weights");
+    throw Standard_DimensionError("BezierCurve3d::Weights");
   if (IsRational())
     W = weights->Array1();
   else
@@ -649,7 +649,7 @@ void Geom_BezierCurve::Weights(TColStd_Array1OfReal& W) const
 
 //=================================================================================================
 
-void Geom_BezierCurve::Transform(const Transform3d& T)
+void BezierCurve3d::Transform(const Transform3d& T)
 {
   Standard_Integer    nbpoles = NbPoles();
   TColgp_Array1OfPnt& cpoles  = poles->ChangeArray1();
@@ -660,7 +660,7 @@ void Geom_BezierCurve::Transform(const Transform3d& T)
 
 //=================================================================================================
 
-void Geom_BezierCurve::Resolution(const Standard_Real Tolerance3D, Standard_Real& UTolerance)
+void BezierCurve3d::Resolution(const Standard_Real Tolerance3D, Standard_Real& UTolerance)
 {
   if (!maxderivinvok)
   {
@@ -693,20 +693,20 @@ void Geom_BezierCurve::Resolution(const Standard_Real Tolerance3D, Standard_Real
 
 //=================================================================================================
 
-Handle(Geom_Geometry) Geom_BezierCurve::Copy() const
+Handle(Geom_Geometry) BezierCurve3d::Copy() const
 {
 
-  Handle(Geom_BezierCurve) C;
+  Handle(BezierCurve3d) C;
   if (IsRational())
-    C = new Geom_BezierCurve(poles->Array1(), weights->Array1());
+    C = new BezierCurve3d(poles->Array1(), weights->Array1());
   else
-    C = new Geom_BezierCurve(poles->Array1());
+    C = new BezierCurve3d(poles->Array1());
   return C;
 }
 
 //=================================================================================================
 
-void Geom_BezierCurve::Init(const Handle(TColgp_HArray1OfPnt)&   Poles,
+void BezierCurve3d::Init(const Handle(TColgp_HArray1OfPnt)&   Poles,
                             const Handle(TColStd_HArray1OfReal)& Weights)
 {
   Standard_Integer nbpoles = Poles->Length();
@@ -728,7 +728,7 @@ void Geom_BezierCurve::Init(const Handle(TColgp_HArray1OfPnt)&   Poles,
 
 //=================================================================================================
 
-void Geom_BezierCurve::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void BezierCurve3d::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 

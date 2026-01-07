@@ -21,7 +21,7 @@
 #include <Standard_Type.hxx>
 
 #include <MoniTool_SignText.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 class RefObject;
 
 class Interface_SignLabel;
@@ -39,7 +39,7 @@ public:
 
   //! Considers context as an InterfaceModel and returns the Label
   //! computed by it
-  Standard_EXPORT TCollection_AsciiString
+  Standard_EXPORT AsciiString1
     Text(const Handle(RefObject)& ent,
          const Handle(RefObject)& context) const Standard_OVERRIDE;
 

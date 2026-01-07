@@ -31,7 +31,7 @@
 #include <Select3D_SensitiveSphere.hxx>
 #include <V3d_View.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_LightSource, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_LightSource, VisualEntity)
 IMPLEMENT_STANDARD_RTTIEXT(AIS_LightSourceOwner, SelectMgr_EntityOwner)
 
 //=================================================================================================
@@ -64,7 +64,7 @@ Standard_Boolean AIS_LightSourceOwner::HandleMouseClick(const Graphic3d_Vec2i&,
 //=================================================================================================
 
 void AIS_LightSourceOwner::HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                            const Handle(Prs3d_Drawer)&               theStyle,
+                                            const Handle(StyleDrawer)&               theStyle,
                                             const Standard_Integer                    theMode)
 {
   Handle(AIS_LightSource) aLightSource = Handle(AIS_LightSource)::DownCast(mySelectable);
@@ -218,7 +218,7 @@ AIS_LightSource::AIS_LightSource(const Handle(Graphic3d_CLight)& theLight)
   updateLightTransformPersistence();
 
   myDrawer->SetDisplayMode(0);
-  myDynHilightDrawer = new Prs3d_Drawer();
+  myDynHilightDrawer = new StyleDrawer();
   myDynHilightDrawer->Link(myDrawer);
   myDynHilightDrawer->SetDisplayMode(1);
   myDynHilightDrawer->SetColor(Quantity_NOC_CYAN1);
@@ -234,8 +234,8 @@ AIS_LightSource::AIS_LightSource(const Handle(Graphic3d_CLight)& theLight)
 
 //=================================================================================================
 
-Standard_Boolean AIS_LightSource::ProcessDragging(const Handle(AIS_InteractiveContext)& theCtx,
-                                                  const Handle(V3d_View)&               theView,
+Standard_Boolean AIS_LightSource::ProcessDragging(const Handle(VisualContext)& theCtx,
+                                                  const Handle(ViewWindow)&               theView,
                                                   const Handle(SelectMgr_EntityOwner)&  theOwner,
                                                   const Graphic3d_Vec2i&                theDragFrom,
                                                   const Graphic3d_Vec2i&                theDragTo,
@@ -536,10 +536,10 @@ void AIS_LightSource::Compute(const Handle(PrsMgr_PresentationManager)&,
 
   if (myToDisplayName)
   {
-    TCollection_AsciiString aPrefix =
+    AsciiString1 aPrefix =
       !myTransformPersistence.IsNull() && myTransformPersistence->IsTrihedronOr2d() ? "\n" : "   ";
-    TCollection_AsciiString aName = aPrefix + myLightSource->Name();
-    Prs3d_Text::Draw(thePrs->NewGroup(), myDrawer->TextAspect(), aName, gp::Origin());
+    AsciiString1 aName = aPrefix + myLightSource->Name();
+    Prs3d_Text::Draw1(thePrs->NewGroup(), myDrawer->TextAspect(), aName, gp::Origin());
   }
 }
 
@@ -829,7 +829,7 @@ void AIS_LightSource::computeSpot(const Handle(Prs3d_Presentation)& thePrs,
 
 //=================================================================================================
 
-void AIS_LightSource::ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+void AIS_LightSource::ComputeSelection(const Handle(SelectionContainer)& theSel,
                                        const Standard_Integer             theMode)
 {
   if (theMode != 0)

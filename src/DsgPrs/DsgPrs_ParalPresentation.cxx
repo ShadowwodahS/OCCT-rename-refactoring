@@ -30,8 +30,8 @@
 #include <TCollection_ExtendedString.hxx>
 
 void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                   const Handle(Prs3d_Drawer)&       aDrawer,
-                                   const TCollection_ExtendedString& aText,
+                                   const Handle(StyleDrawer)&       aDrawer,
+                                   const UtfString& aText,
                                    const Point3d&                     AttachmentPoint1,
                                    const Point3d&                     AttachmentPoint2,
                                    const Dir3d&                     aDirection,
@@ -86,7 +86,7 @@ void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
     arrdir.Reverse();
 
   // arrow 1 : 2nd group
-  Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+  Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                     Proj1,
                     arrdir,
                     LA->ArrowAspect()->Angle(),
@@ -96,7 +96,7 @@ void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
   // arrow 2 : 3rd group
-  Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+  Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                     Proj2,
                     arrdir.Reversed(),
                     LA->ArrowAspect()->Angle(),
@@ -105,7 +105,7 @@ void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
   aPresentation->NewGroup();
 
   // text : 4th group
-  Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), aText, offp);
+  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, offp);
 
   aPresentation->CurrentGroup()->SetPrimitivesAspect(LA->LineAspect()->Aspect());
 
@@ -125,8 +125,8 @@ void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
 // purpose  : it is possible to choose the symbol of extremities of the face (arrow, point...)
 //==========================================================================
 void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                   const Handle(Prs3d_Drawer)&       aDrawer,
-                                   const TCollection_ExtendedString& aText,
+                                   const Handle(StyleDrawer)&       aDrawer,
+                                   const UtfString& aText,
                                    const Point3d&                     AttachmentPoint1,
                                    const Point3d&                     AttachmentPoint2,
                                    const Dir3d&                     aDirection,
@@ -190,7 +190,7 @@ void DsgPrs_ParalPresentation::Add(const Handle(Prs3d_Presentation)& aPresentati
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   // text
-  Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), aText, offp);
+  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, offp);
 
   // arrows
   DsgPrs::ComputeSymbol(aPresentation, LA, Proj1, Proj2, arrdir, arrdir.Reversed(), ArrowPrs);

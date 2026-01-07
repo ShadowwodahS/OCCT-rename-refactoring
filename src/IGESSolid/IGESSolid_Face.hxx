@@ -28,7 +28,7 @@ class IGESSolid_Face;
 DEFINE_STANDARD_HANDLE(IGESSolid_Face, IGESData_IGESEntity)
 
 //! defines Face, Type <510> Form Number <1>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! Face entity is a bound (partial) which has finite area
 class IGESSolid_Face : public IGESData_IGESEntity
 {

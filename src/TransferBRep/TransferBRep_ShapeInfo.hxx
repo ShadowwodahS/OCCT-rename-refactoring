@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Type.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! Gives information on an object, see template DataInfo
 //! This class is for Shape
@@ -33,11 +33,11 @@ public:
 
   //! Returns the Type attached to an object
   //! Here, TShape (Shape has no Dynamic Type)
-  Standard_EXPORT static Handle(TypeInfo) Type(const TopoDS_Shape& ent);
+  Standard_EXPORT static Handle(TypeInfo) Type(const TopoShape& ent);
 
   //! Returns Type Name (string)
   //! Here, the true name of the Type of a Shape
-  Standard_EXPORT static Standard_CString TypeName(const TopoDS_Shape& ent);
+  Standard_EXPORT static Standard_CString TypeName(const TopoShape& ent);
 
 protected:
 private:

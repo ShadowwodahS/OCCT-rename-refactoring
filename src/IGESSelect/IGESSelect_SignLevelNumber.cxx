@@ -22,7 +22,7 @@
 #include <stdio.h>
 IMPLEMENT_STANDARD_RTTIEXT(IGESSelect_SignLevelNumber, IFSelect_Signature)
 
-static TCollection_AsciiString laval;
+static AsciiString1 laval;
 
 IGESSelect_SignLevelNumber::IGESSelect_SignLevelNumber(const Standard_Boolean countmode)
     : IFSelect_Signature("Level Number"),

@@ -85,7 +85,7 @@ public:
 
   //! Sends a message to be attached to the shape.
   //! Calls corresponding message of message registrator.
-  Standard_EXPORT void SendMsg(const TopoDS_Shape&   shape,
+  Standard_EXPORT void SendMsg(const TopoShape&   shape,
                                const Message_Msg&    message,
                                const Message_Gravity gravity = Message_Info) const;
 
@@ -95,14 +95,14 @@ public:
 
   //! Sends a warning to be attached to the shape.
   //! Calls SendMsg with gravity set to Message_Warning.
-  void SendWarning(const TopoDS_Shape& shape, const Message_Msg& message) const;
+  void SendWarning(const TopoShape& shape, const Message_Msg& message) const;
 
   //! Calls previous method for myShape.
   void SendWarning(const Message_Msg& message) const;
 
   //! Sends a fail to be attached to the shape.
   //! Calls SendMsg with gravity set to Message_Fail.
-  void SendFail(const TopoDS_Shape& shape, const Message_Msg& message) const;
+  void SendFail(const TopoShape& shape, const Message_Msg& message) const;
 
   //! Calls previous method for myShape.
   void SendFail(const Message_Msg& message) const;
@@ -115,7 +115,7 @@ protected:
   static Standard_Boolean NeedFix(const Standard_Integer flag,
                                   const Standard_Boolean def = Standard_True);
 
-  TopoDS_Shape myShape;
+  TopoShape myShape;
 
 private:
   Handle(ShapeBuild_ReShape)              myContext;

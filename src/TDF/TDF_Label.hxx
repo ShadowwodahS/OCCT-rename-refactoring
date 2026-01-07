@@ -51,13 +51,13 @@ class TDF_IDFilter;
 //! It is possible to get an attribute in accordance
 //! to an ID, or the yougest previous version of a
 //! current attribute.
-class TDF_Label
+class DataLabel
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs an empty label object.
-  TDF_Label();
+  DataLabel();
 
   //! Nullifies the label.
   void Nullify();
@@ -73,7 +73,7 @@ public:
 
   //! Returns the label father. This label may be null
   //! if the label is root.
-  const TDF_Label Father() const;
+  const DataLabel Father() const;
 
   //! Returns True if the <aLabel> is null, i.e. it has
   //! not been included in the data framework.
@@ -88,13 +88,13 @@ public:
 
   //! Returns True if the <aLabel> is equal to me (same
   //! LabelNode*).
-  Standard_Boolean IsEqual(const TDF_Label& aLabel) const;
+  Standard_Boolean IsEqual(const DataLabel& aLabel) const;
 
-  Standard_Boolean operator==(const TDF_Label& aLabel) const { return IsEqual(aLabel); }
+  Standard_Boolean operator==(const DataLabel& aLabel) const { return IsEqual(aLabel); }
 
-  Standard_Boolean IsDifferent(const TDF_Label& aLabel) const;
+  Standard_Boolean IsDifferent(const DataLabel& aLabel) const;
 
-  Standard_Boolean operator!=(const TDF_Label& aLabel) const { return IsDifferent(aLabel); }
+  Standard_Boolean operator!=(const DataLabel& aLabel) const { return IsDifferent(aLabel); }
 
   Standard_Boolean IsRoot() const;
 
@@ -190,14 +190,14 @@ public:
   //! Returns True if <me> is a descendant of
   //! <aLabel>. Attention: every label is its own
   //! descendant.
-  Standard_EXPORT Standard_Boolean IsDescendant(const TDF_Label& aLabel) const;
+  Standard_EXPORT Standard_Boolean IsDescendant(const DataLabel& aLabel) const;
 
   //! Returns the root label Root of the data structure.
   //! This has a depth of 0.
   //! Exceptions:
   //! Standard_NullObject if this label is null. This is
   //! because a null object can have no depth.
-  Standard_EXPORT const TDF_Label Root() const;
+  Standard_EXPORT const DataLabel Root() const;
 
   //! Returns true if this label has at least one child.
   Standard_Boolean HasChild() const;
@@ -210,16 +210,16 @@ public:
   //! If create is true and no child label is found, a new one is created.
   //! Example:
   //! //creating a label with tag 10 at Root
-  //! TDF_Label lab1 = aDF->Root().FindChild(10);
+  //! DataLabel lab1 = aDF->Root().FindChild(10);
   //! //creating labels 7 and 2 on label 10
-  //! TDF_Label lab2 = lab1.FindChild(7);
-  //! TDF_Label lab3 = lab1.FindChild(2);
-  Standard_EXPORT TDF_Label FindChild(const Standard_Integer aTag,
+  //! DataLabel lab2 = lab1.FindChild(7);
+  //! DataLabel lab3 = lab1.FindChild(2);
+  Standard_EXPORT DataLabel FindChild(const Standard_Integer aTag,
                                       const Standard_Boolean create = Standard_True) const;
 
   //! Create  a new child   label of me  using autoamtic
   //! delivery tags provided by TagSource.
-  TDF_Label NewChild() const;
+  DataLabel NewChild() const;
 
   //! Returns the current transaction index.
   Standard_EXPORT Standard_Integer Transaction() const;
@@ -229,14 +229,14 @@ public:
   //! on entry criterion).
   //!
   //! -C++: inline
-  Standard_EXPORT Standard_Boolean HasLowerNode(const TDF_Label& otherLabel) const;
+  Standard_EXPORT Standard_Boolean HasLowerNode(const DataLabel& otherLabel) const;
 
   //! Returns true if node address of <me> is greater
   //! than <otherLabel> one. Used to quickly sort labels
   //! (not on entry criterion).
   //!
   //! -C++: inline
-  Standard_EXPORT Standard_Boolean HasGreaterNode(const TDF_Label& otherLabel) const;
+  Standard_EXPORT Standard_Boolean HasGreaterNode(const DataLabel& otherLabel) const;
 
   //! Dumps the minimum information about <me> on
   //! <aStream>.
@@ -264,7 +264,7 @@ public:
 protected:
 private:
   //! Reserved to the friends.
-  TDF_Label(const TDF_LabelNodePtr& aNode);
+  DataLabel(const TDF_LabelNodePtr& aNode);
 
   //! Adds an Attribute to <toNode>. Raises if there is
   //! already one.

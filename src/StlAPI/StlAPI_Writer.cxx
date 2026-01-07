@@ -25,7 +25,7 @@
 
 //=================================================================================================
 
-StlAPI_Writer::StlAPI_Writer()
+StlWriter::StlWriter()
     : myASCIIMode(Standard_True)
 {
   //
@@ -33,7 +33,7 @@ StlAPI_Writer::StlAPI_Writer()
 
 //=================================================================================================
 
-Standard_Boolean StlAPI_Writer::Write(const TopoDS_Shape&          theShape,
+Standard_Boolean StlWriter::Write(const TopoShape&          theShape,
                                       const Standard_CString       theFileName,
                                       const Message_ProgressRange& theProgress)
 {
@@ -41,11 +41,11 @@ Standard_Boolean StlAPI_Writer::Write(const TopoDS_Shape&          theShape,
   Standard_Integer aNbTriangles = 0;
 
   // calculate total number of the nodes and triangles
-  for (TopExp_Explorer anExpSF(theShape, TopAbs_FACE); anExpSF.More(); anExpSF.Next())
+  for (ShapeExplorer anExpSF(theShape, TopAbs_FACE); anExpSF.More(); anExpSF.Next())
   {
     TopLoc_Location            aLoc;
-    Handle(Poly_Triangulation) aTriangulation =
-      BRep_Tool::Triangulation(TopoDS::Face(anExpSF.Current()), aLoc);
+    Handle(MeshTriangulation) aTriangulation =
+      BRepInspector::Triangulation(TopoDS::Face(anExpSF.Current()), aLoc);
     if (!aTriangulation.IsNull())
     {
       aNbNodes += aTriangulation->NbNodes();
@@ -60,17 +60,17 @@ Standard_Boolean StlAPI_Writer::Write(const TopoDS_Shape&          theShape,
   }
 
   // create temporary triangulation
-  Handle(Poly_Triangulation) aMesh = new Poly_Triangulation(aNbNodes, aNbTriangles, Standard_False);
+  Handle(MeshTriangulation) aMesh = new MeshTriangulation(aNbNodes, aNbTriangles, Standard_False);
   // count faces missing triangulation
   Standard_Integer aNbFacesNoTri = 0;
   // fill temporary triangulation
   Standard_Integer aNodeOffset    = 0;
   Standard_Integer aTriangleOffet = 0;
-  for (TopExp_Explorer anExpSF(theShape, TopAbs_FACE); anExpSF.More(); anExpSF.Next())
+  for (ShapeExplorer anExpSF(theShape, TopAbs_FACE); anExpSF.More(); anExpSF.Next())
   {
-    const TopoDS_Shape&        aFace = anExpSF.Current();
+    const TopoShape&        aFace = anExpSF.Current();
     TopLoc_Location            aLoc;
-    Handle(Poly_Triangulation) aTriangulation = BRep_Tool::Triangulation(TopoDS::Face(aFace), aLoc);
+    Handle(MeshTriangulation) aTriangulation = BRepInspector::Triangulation(TopoDS::Face(aFace), aLoc);
     if (aTriangulation.IsNull())
     {
       ++aNbFacesNoTri;
@@ -115,17 +115,17 @@ Standard_Boolean StlAPI_Writer::Write(const TopoDS_Shape&          theShape,
     aTriangleOffet += aTriangulation->NbTriangles();
   }
 
-  OSD_Path         aPath(theFileName);
-  Standard_Boolean isDone = (myASCIIMode ? RWStl::WriteAscii(aMesh, aPath, theProgress)
-                                         : RWStl::WriteBinary(aMesh, aPath, theProgress));
+  SystemPath         aPath(theFileName);
+  Standard_Boolean isDone = (myASCIIMode ? RWStl1::WriteAscii(aMesh, aPath, theProgress)
+                                         : RWStl1::WriteBinary(aMesh, aPath, theProgress));
 
   if (isDone && (aNbFacesNoTri > 0))
   {
     // Print warning with number of faces missing triangulation
-    TCollection_AsciiString aWarningMsg =
-      TCollection_AsciiString("Warning: ") + TCollection_AsciiString(aNbFacesNoTri)
-      + TCollection_AsciiString((aNbFacesNoTri == 1) ? " face has" : " faces have")
-      + TCollection_AsciiString(" been skipped due to null triangulation");
+    AsciiString1 aWarningMsg =
+      AsciiString1("Warning: ") + AsciiString1(aNbFacesNoTri)
+      + AsciiString1((aNbFacesNoTri == 1) ? " face has" : " faces have")
+      + AsciiString1(" been skipped due to null triangulation");
     Message::SendWarning(aWarningMsg);
   }
 

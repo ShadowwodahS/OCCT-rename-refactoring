@@ -26,8 +26,8 @@
 #include <TopTools_DataMapOfShapeShape.hxx>
 #include <Standard_Integer.hxx>
 
-class TopoDS_Edge;
-class TopoDS_Vertex;
+class TopoEdge;
+class TopoVertex;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -45,34 +45,34 @@ public:
 
   //! The face  <F> can be build  on a closed or an open
   //! wire.
-  Standard_EXPORT ChFi2d_Builder(const TopoDS_Face& F);
+  Standard_EXPORT ChFi2d_Builder(const TopoFace& F);
 
-  Standard_EXPORT void Init(const TopoDS_Face& F);
+  Standard_EXPORT void Init(const TopoFace& F);
 
-  Standard_EXPORT void Init(const TopoDS_Face& RefFace, const TopoDS_Face& ModFace);
+  Standard_EXPORT void Init(const TopoFace& RefFace, const TopoFace& ModFace);
 
   //! Add  a fillet  of   radius  <Radius> on  the  wire
   //! between the two edges connected to the vertex <V>.
   //! <AddFillet> returns the  fillet edge. The returned
   //! edge has  sense only   if the status   <status> is
   //! <IsDone>
-  Standard_EXPORT TopoDS_Edge AddFillet(const TopoDS_Vertex& V, const Standard_Real Radius);
+  Standard_EXPORT TopoEdge AddFillet(const TopoVertex& V, const Standard_Real Radius);
 
   //! modify the fillet radius and return the new fillet
   //! edge. this    edge has sense  only if   the status
   //! <status> is <IsDone>.
-  Standard_EXPORT TopoDS_Edge ModifyFillet(const TopoDS_Edge& Fillet, const Standard_Real Radius);
+  Standard_EXPORT TopoEdge ModifyFillet(const TopoEdge& Fillet, const Standard_Real Radius);
 
   //! removes the fillet <Fillet> and returns the vertex
   //! connecting the two adjacent edges to  this fillet.
-  Standard_EXPORT TopoDS_Vertex RemoveFillet(const TopoDS_Edge& Fillet);
+  Standard_EXPORT TopoVertex RemoveFillet(const TopoEdge& Fillet);
 
   //! Add a chamfer on  the  wire between the two  edges
   //! connected <E1> and  <E2>. <AddChamfer> returns the
   //! chamfer  edge. This  edge  has  sense only if  the
   //! status <status> is <IsDone>.
-  Standard_EXPORT TopoDS_Edge AddChamfer(const TopoDS_Edge&  E1,
-                                         const TopoDS_Edge&  E2,
+  Standard_EXPORT TopoEdge AddChamfer(const TopoEdge&  E1,
+                                         const TopoEdge&  E2,
                                          const Standard_Real D1,
                                          const Standard_Real D2);
 
@@ -83,8 +83,8 @@ public:
   //! returned   edge has sense   only   if the   status
   //! <status> is <IsDone>.
   //! Warning: The value of <Ang> must be expressed in Radian.
-  Standard_EXPORT TopoDS_Edge AddChamfer(const TopoDS_Edge&   E,
-                                         const TopoDS_Vertex& V,
+  Standard_EXPORT TopoEdge AddChamfer(const TopoEdge&   E,
+                                         const TopoVertex& V,
                                          const Standard_Real  D,
                                          const Standard_Real  Ang);
 
@@ -92,9 +92,9 @@ public:
   //! chamfer edge.
   //! This edge as sense only  if the status <status> is
   //! <IsDone>.
-  Standard_EXPORT TopoDS_Edge ModifyChamfer(const TopoDS_Edge&  Chamfer,
-                                            const TopoDS_Edge&  E1,
-                                            const TopoDS_Edge&  E2,
+  Standard_EXPORT TopoEdge ModifyChamfer(const TopoEdge&  Chamfer,
+                                            const TopoEdge&  E1,
+                                            const TopoEdge&  E2,
                                             const Standard_Real D1,
                                             const Standard_Real D2);
 
@@ -102,20 +102,20 @@ public:
   //! chamfer edge. This    edge as sense  only   if the
   //! status <status>   is  <IsDone>.
   //! Warning: The value of <Ang> must be expressed in Radian.
-  Standard_EXPORT TopoDS_Edge ModifyChamfer(const TopoDS_Edge&  Chamfer,
-                                            const TopoDS_Edge&  E,
+  Standard_EXPORT TopoEdge ModifyChamfer(const TopoEdge&  Chamfer,
+                                            const TopoEdge&  E,
                                             const Standard_Real D,
                                             const Standard_Real Ang);
 
   //! removes   the chamfer  <Chamfer>   and returns the
   //! vertex connecting  the two adjacent  edges to this
   //! chamfer.
-  Standard_EXPORT TopoDS_Vertex RemoveChamfer(const TopoDS_Edge& Chamfer);
+  Standard_EXPORT TopoVertex RemoveChamfer(const TopoEdge& Chamfer);
 
   //! returns the modified face
-  TopoDS_Face Result() const;
+  TopoFace Result() const;
 
-  Standard_Boolean IsModified(const TopoDS_Edge& E) const;
+  Standard_Boolean IsModified(const TopoEdge& E) const;
 
   //! returns the list of new edges
   const TopTools_SequenceOfShape& FilletEdges() const;
@@ -127,16 +127,16 @@ public:
 
   Standard_Integer NbChamfer() const;
 
-  Standard_Boolean HasDescendant(const TopoDS_Edge& E) const;
+  Standard_Boolean HasDescendant(const TopoEdge& E) const;
 
   //! returns the modified edge if <E> has descendant or
   //! <E> in the other case.
-  const TopoDS_Edge& DescendantEdge(const TopoDS_Edge& E) const;
+  const TopoEdge& DescendantEdge(const TopoEdge& E) const;
 
   //! Returns the parent edge of  <E>
   //! Warning: If <E>is a basis edge,  the returned edge would be
   //! equal to <E>
-  Standard_EXPORT const TopoDS_Edge& BasisEdge(const TopoDS_Edge& E) const;
+  Standard_EXPORT const TopoEdge& BasisEdge(const TopoEdge& E) const;
 
   ChFi2d_ConstructionError Status() const;
 
@@ -145,27 +145,27 @@ private:
   //! Is internally used by <AddFillet>.
   //! Warning: <TrimE1>, <TrimE2>, <Fillet> has sense only if the
   //! status <status> is equal to <IsDone>
-  Standard_EXPORT void ComputeFillet(const TopoDS_Vertex& V,
-                                     const TopoDS_Edge&   E1,
-                                     const TopoDS_Edge&   E2,
+  Standard_EXPORT void ComputeFillet(const TopoVertex& V,
+                                     const TopoEdge&   E1,
+                                     const TopoEdge&   E2,
                                      const Standard_Real  Radius,
-                                     TopoDS_Edge&         TrimE1,
-                                     TopoDS_Edge&         TrimE2,
-                                     TopoDS_Edge&         Fillet);
+                                     TopoEdge&         TrimE1,
+                                     TopoEdge&         TrimE2,
+                                     TopoEdge&         Fillet);
 
   //! Is internally used by  <AddChamfer>. The chamfer is
   //! computed  from  a  vertex,   two  edges   and  two
   //! distances
   //! Warning: <TrimE1>, <TrimE2> and <Chamfer> has sense only if
   //! if the status <status> is equal to <IsDone>
-  Standard_EXPORT void ComputeChamfer(const TopoDS_Vertex& V,
-                                      const TopoDS_Edge&   E1,
-                                      const TopoDS_Edge&   E2,
+  Standard_EXPORT void ComputeChamfer(const TopoVertex& V,
+                                      const TopoEdge&   E1,
+                                      const TopoEdge&   E2,
                                       const Standard_Real  D1,
                                       const Standard_Real  D2,
-                                      TopoDS_Edge&         TrimE1,
-                                      TopoDS_Edge&         TrimE2,
-                                      TopoDS_Edge&         Chamfer);
+                                      TopoEdge&         TrimE1,
+                                      TopoEdge&         TrimE2,
+                                      TopoEdge&         Chamfer);
 
   //! Is internally used by <AddChamfer>.  The chamfer is
   //! computed from   an  edge,  a  vertex,   a distance
@@ -173,14 +173,14 @@ private:
   //! Warning: <TrimE1>,  <TrimE2>, and <Chamfer> has
   //! sense only   if  the status <status> is   equal to
   //! <IsDone>
-  Standard_EXPORT void ComputeChamfer(const TopoDS_Vertex& V,
-                                      const TopoDS_Edge&   E1,
+  Standard_EXPORT void ComputeChamfer(const TopoVertex& V,
+                                      const TopoEdge&   E1,
                                       const Standard_Real  D,
                                       const Standard_Real  Ang,
-                                      const TopoDS_Edge&   E2,
-                                      TopoDS_Edge&         TrimE1,
-                                      TopoDS_Edge&         TrimE2,
-                                      TopoDS_Edge&         Chamfer);
+                                      const TopoEdge&   E2,
+                                      TopoEdge&         TrimE1,
+                                      TopoEdge&         TrimE2,
+                                      TopoEdge&         Chamfer);
 
   //! Is   internally  used     by  <ComputeFillet>.
   //! <NewExtr1> and  <NewExtr2>  will  contains the new
@@ -191,61 +191,61 @@ private:
   //! <FirstEdgeDegenerated>
   //! <LastEdgeDegenerated>
   //! <BothEdgesDegenerated>
-  Standard_EXPORT TopoDS_Edge BuildFilletEdge(const TopoDS_Vertex& V,
-                                              const TopoDS_Edge&   AdjEdge1,
-                                              const TopoDS_Edge&   AdjEdge2,
+  Standard_EXPORT TopoEdge BuildFilletEdge(const TopoVertex& V,
+                                              const TopoEdge&   AdjEdge1,
+                                              const TopoEdge&   AdjEdge2,
                                               const Standard_Real  Radius,
-                                              TopoDS_Vertex&       NewExtr1,
-                                              TopoDS_Vertex&       NewExtr2);
+                                              TopoVertex&       NewExtr1,
+                                              TopoVertex&       NewExtr2);
 
   //! Is   internally  used     by  <ComputeFillet>.
   //! <NewExtr1> and  <NewExtr2>  will  contains the new
   //! extremities of <AdjEdge1> and <AdjEdge2>
   //! Warning: The  returned  edge has sense   only if the status
   //! <status> is equal to <IsDone>
-  Standard_EXPORT TopoDS_Edge BuildChamferEdge(const TopoDS_Vertex& V,
-                                               const TopoDS_Edge&   AdjEdge1,
-                                               const TopoDS_Edge&   AdjEdge2,
+  Standard_EXPORT TopoEdge BuildChamferEdge(const TopoVertex& V,
+                                               const TopoEdge&   AdjEdge1,
+                                               const TopoEdge&   AdjEdge2,
                                                const Standard_Real  D1,
                                                const Standard_Real  D2,
-                                               TopoDS_Vertex&       NewExtr1,
-                                               TopoDS_Vertex&       NewExtr2);
+                                               TopoVertex&       NewExtr1,
+                                               TopoVertex&       NewExtr2);
 
   //! Is   internally  used     by  <ComputeFillet>.
   //! <NewExtr1> and  <NewExtr2>  will  contains the new
   //! extremities of <AdjEdge1> and <AdjEdge2>
   //! Warning: The  returned  edge has sense   only if the status
   //! <status> is equal to <IsDone>
-  Standard_EXPORT TopoDS_Edge BuildChamferEdge(const TopoDS_Vertex& V,
-                                               const TopoDS_Edge&   AdjEdge2,
+  Standard_EXPORT TopoEdge BuildChamferEdge(const TopoVertex& V,
+                                               const TopoEdge&   AdjEdge2,
                                                const Standard_Real  D,
                                                const Standard_Real  Ang,
-                                               const TopoDS_Edge&   AdjEdge1,
-                                               TopoDS_Vertex&       NewExtr1,
-                                               TopoDS_Vertex&       NewExtr2);
+                                               const TopoEdge&   AdjEdge1,
+                                               TopoVertex&       NewExtr1,
+                                               TopoVertex&       NewExtr2);
 
   //! replaces in  the  new face  <newFace> <OldE1>  and
   //! <OldE2>  by <E1>, <Fillet> and <E2>
   //! or by <Fillet> and <E2> if <E1> is degenerated
   //! or by <E1> and <Fillet> if <E2> is degenerated
   //! or by <Fillet> if <E1> and <E2> are degenerated .
-  Standard_EXPORT void BuildNewWire(const TopoDS_Edge& OldE1,
-                                    const TopoDS_Edge& OldE2,
-                                    const TopoDS_Edge& E1,
-                                    const TopoDS_Edge& Fillet,
-                                    const TopoDS_Edge& E2);
+  Standard_EXPORT void BuildNewWire(const TopoEdge& OldE1,
+                                    const TopoEdge& OldE2,
+                                    const TopoEdge& E1,
+                                    const TopoEdge& Fillet,
+                                    const TopoEdge& E2);
 
   //! Changes <OldExtr> of <E1> by <NewExtr>
-  Standard_EXPORT TopoDS_Edge BuildNewEdge(const TopoDS_Edge&   E1,
-                                           const TopoDS_Vertex& OldExtr,
-                                           const TopoDS_Vertex& NewExtr) const;
+  Standard_EXPORT TopoEdge BuildNewEdge(const TopoEdge&   E1,
+                                           const TopoVertex& OldExtr,
+                                           const TopoVertex& NewExtr) const;
 
   //! Changes <OldExtr> of <E1> by <NewExtr>
   //! returns E1 and IsDegenerated = Standard_True
   //! if the new edge is degenerated
-  Standard_EXPORT TopoDS_Edge BuildNewEdge(const TopoDS_Edge&   E1,
-                                           const TopoDS_Vertex& OldExtr,
-                                           const TopoDS_Vertex& NewExtr,
+  Standard_EXPORT TopoEdge BuildNewEdge(const TopoEdge&   E1,
+                                           const TopoVertex& OldExtr,
+                                           const TopoVertex& NewExtr,
                                            Standard_Boolean&    IsDegenerated) const;
 
   //! Writes <NewEdge> in  <fillets> if <Id> is equal to
@@ -253,27 +253,27 @@ private:
   //! Writes  the  modifications  in  <history> :
   //! <TrimE1> is given by <E1>, <TrimE2> by <E2>
   //! if <TrimE1> and <TrimE2> are not degenerated.
-  Standard_EXPORT void UpDateHistory(const TopoDS_Edge&     E1,
-                                     const TopoDS_Edge&     E2,
-                                     const TopoDS_Edge&     TrimE1,
-                                     const TopoDS_Edge&     TrimE2,
-                                     const TopoDS_Edge&     NewEdge,
+  Standard_EXPORT void UpDateHistory(const TopoEdge&     E1,
+                                     const TopoEdge&     E2,
+                                     const TopoEdge&     TrimE1,
+                                     const TopoEdge&     TrimE2,
+                                     const TopoEdge&     NewEdge,
                                      const Standard_Integer Id);
 
   //! Writes the  modifications in  <history> . <TrimE1>
   //! is given by <E1>, <TrimE2> by <E2>.
-  Standard_EXPORT void UpDateHistory(const TopoDS_Edge& E1,
-                                     const TopoDS_Edge& E2,
-                                     const TopoDS_Edge& TrimE1,
-                                     const TopoDS_Edge& TrimE2);
+  Standard_EXPORT void UpDateHistory(const TopoEdge& E1,
+                                     const TopoEdge& E2,
+                                     const TopoEdge& TrimE1,
+                                     const TopoEdge& TrimE2);
 
-  Standard_EXPORT Standard_Boolean IsAFillet(const TopoDS_Edge& E) const;
+  Standard_EXPORT Standard_Boolean IsAFillet(const TopoEdge& E) const;
 
-  Standard_EXPORT Standard_Boolean IsAChamfer(const TopoDS_Edge& E) const;
+  Standard_EXPORT Standard_Boolean IsAChamfer(const TopoEdge& E) const;
 
   ChFi2d_ConstructionError     status;
-  TopoDS_Face                  refFace;
-  TopoDS_Face                  newFace;
+  TopoFace                  refFace;
+  TopoFace                  newFace;
   TopTools_SequenceOfShape     fillets;
   TopTools_SequenceOfShape     chamfers;
   TopTools_DataMapOfShapeShape history;

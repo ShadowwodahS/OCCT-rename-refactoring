@@ -16,4 +16,4 @@
 
 //=================================================================================================
 
-ApproxInt_SvSurfaces::~ApproxInt_SvSurfaces() {}
+SurfaceSurfaces::~SurfaceSurfaces() {}

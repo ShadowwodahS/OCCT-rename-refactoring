@@ -46,9 +46,9 @@ Standard_EXPORT void debON(const Standard_Integer iF,
                            const TopAbs_State     TB2)
 {
   std::cout << "++ debON " << iF << " :TB1=";
-  TopAbs::Print(TB1, std::cout);
+  TopAbs1::Print(TB1, std::cout);
   std::cout << ",TB2=";
-  TopAbs::Print(TB2, std::cout);
+  TopAbs1::Print(TB2, std::cout);
   std::cout << std::endl;
 }
 
@@ -82,7 +82,7 @@ Standard_EXPORT void debfillonfemess(const Standard_Integer              iFOR,
                                      const Standard_Integer              iEG,
                                      const TopOpeBRepBuild_PBuilder&     PB,
                                      const TopOpeBRepBuild_PWireEdgeSet& PWES,
-                                     const TCollection_AsciiString&      str)
+                                     const AsciiString1&      str)
 {
   PB->GdumpSHASTA(iEG, TopAbs_ON, *PWES, str);
   debfillonfemess(iFOR, iEG);
@@ -94,12 +94,12 @@ Standard_EXPORT void debaddpwes(const Standard_Integer              iFOR,
                                 const TopAbs_Orientation            neworiE,
                                 const TopOpeBRepBuild_PBuilder&     PB,
                                 const TopOpeBRepBuild_PWireEdgeSet& PWES,
-                                const TCollection_AsciiString&      str1,
-                                const TCollection_AsciiString&      str2)
+                                const AsciiString1&      str1,
+                                const AsciiString1&      str2)
 {
   PB->GdumpSHASTA(iFOR, TB1, *PWES, str1, str2);
   std::cout << iEG << " : 1 edge ";
-  TopAbs::Print(neworiE, std::cout);
+  TopAbs1::Print(neworiE, std::cout);
   std::cout << std::endl;
 }
 
@@ -117,7 +117,7 @@ Standard_EXPORT void FUN_RaiseON()
   throw ExceptionBase("BuilderON");
 }
 
-static void FUN_cout(const TopoDS_Shape& eON)
+static void FUN_cout(const TopoShape& eON)
 {
   TopAbs_Orientation oE = eON.Orientation();
   if (oE == TopAbs_FORWARD)
@@ -136,9 +136,9 @@ static void FUN_cout(const TopoDS_Shape& eON)
 #define M_INTERNAL(st) (st == TopAbs_INTERNAL)
 #define M_EXTERNAL(st) (st == TopAbs_EXTERNAL)
 
-// NYI : TopOpeBRepTool_ShapeTool::ShapesSameOriented -> CurvesSameOriented NYI for E !line
-// Standard_IMPORT Standard_Boolean TopOpeBRepBuild_FUN_aresamegeom(const TopoDS_Shape& S1,const
-// TopoDS_Shape& S2);
+// NYI : ShapeTool::ShapesSameOriented -> CurvesSameOriented NYI for E !line
+// Standard_IMPORT Standard_Boolean TopOpeBRepBuild_FUN_aresamegeom(const TopoShape& S1,const
+// TopoShape& S2);
 
 //=================================================================================================
 
@@ -147,7 +147,7 @@ TopOpeBRepBuild_BuilderON::TopOpeBRepBuild_BuilderON() {}
 //=================================================================================================
 
 TopOpeBRepBuild_BuilderON::TopOpeBRepBuild_BuilderON(const TopOpeBRepBuild_PBuilder&     PB,
-                                                     const TopoDS_Shape&                 FOR,
+                                                     const TopoShape&                 FOR,
                                                      const TopOpeBRepBuild_PGTopo&       PG,
                                                      const TopOpeBRepTool_Plos&          PLSclass,
                                                      const TopOpeBRepBuild_PWireEdgeSet& PWES)
@@ -158,7 +158,7 @@ TopOpeBRepBuild_BuilderON::TopOpeBRepBuild_BuilderON(const TopOpeBRepBuild_PBuil
 //=================================================================================================
 
 void TopOpeBRepBuild_BuilderON::Perform(const TopOpeBRepBuild_PBuilder&     PB,
-                                        const TopoDS_Shape&                 FOR,
+                                        const TopoShape&                 FOR,
                                         const TopOpeBRepBuild_PGTopo&       PG,
                                         const TopOpeBRepTool_Plos&          PLSclass,
                                         const TopOpeBRepBuild_PWireEdgeSet& PWES)
@@ -205,16 +205,16 @@ Standard_Boolean TopOpeBRepBuild_BuilderON::GFillONCheckI(
 #ifdef OCCT_DEBUG
 //  Standard_Integer iFOR=BDS.Shape(myFace);
 #endif
-  const TopoDS_Edge& EG = TopoDS::Edge(BDS.Shape(GI, Standard_False));
+  const TopoEdge& EG = TopoDS::Edge(BDS.Shape(GI, Standard_False));
 #ifdef OCCT_DEBUG
 //  Standard_Integer iEG=BDS.Shape(EG, Standard_False);
 #endif
-  const TopoDS_Shape& FS = BDS.Shape(SI, Standard_False);
+  const TopoShape& FS = BDS.Shape(SI, Standard_False);
 #ifdef OCCT_DEBUG
 //  Standard_Integer iFS=BDS.Shape(FS, Standard_False);
 #endif
   TopAbs_ShapeEnum               ShapeInterf = TopAbs_FACE;
-  const TopOpeBRepDS_Transition& TFE         = SSI->Transition();
+  const StateTransition& TFE         = SSI->Transition();
   TopAbs_ShapeEnum               shab = TFE.ShapeBefore(), shaa = TFE.ShapeAfter();
   if (shaa != ShapeInterf || shab != ShapeInterf)
     return Standard_False;
@@ -225,12 +225,12 @@ Standard_Boolean TopOpeBRepBuild_BuilderON::GFillONCheckI(
   if (!keep)
     return Standard_False;
 
-  const TopTools_ListOfShape& lEspON = myPB->Splits(EG, TopAbs_ON);
+  const ShapeList& lEspON = myPB->Splits(EG, TopAbs_ON);
   if (lEspON.Extent() == 0)
     return Standard_False;
 
 #ifdef OCCT_DEBUG
-//  const TopoDS_Shape& EspON=lEspON.First();
+//  const TopoShape& EspON=lEspON.First();
 #endif
   Standard_Integer rankFS  = myPB->GShapeRank(FS);
   Standard_Integer rankFOR = myPB->GShapeRank(myFace);
@@ -257,8 +257,8 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES1(const Handle(TopOpeBRepDS_Inter
   if (!Iok)
     return;
 
-  const TopoDS_Edge& EG = TopoDS::Edge(BDS.Shape(GI));
-//  const TopoDS_Shape& FS=BDS.Shape(SI);
+  const TopoEdge& EG = TopoDS::Edge(BDS.Shape(GI));
+//  const TopoShape& FS=BDS.Shape(SI);
 #ifdef OCCT_DEBUG
 //  Standard_Integer iEG=BDS.Shape(EG);
 //  Standard_Integer iFS=BDS.Shape(FS);
@@ -270,24 +270,24 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES1(const Handle(TopOpeBRepDS_Inter
     debfillonfemess(iFOR, GI, myPB, myPWES, "--- GFillONPartsWES1");
 #endif
 
-  const TopTools_ListOfShape& lEspON = myPB->Splits(EG, TopAbs_ON);
+  const ShapeList& lEspON = myPB->Splits(EG, TopAbs_ON);
 #ifdef OCCT_DEBUG
 //  Standard_Integer nEspON=lEspON.Extent();
 #endif
   for (TopTools_ListIteratorOfListOfShape it(lEspON); it.More(); it.Next())
   {
-    const TopoDS_Shape& EspON = it.Value();
+    const TopoShape& EspON = it.Value();
     GFillONPartsWES2(I, EspON);
   }
 } // GFillONPartsWES1
 
 #ifdef OCCT_DEBUG
-Standard_EXPORT void FUN_coutmess(const TCollection_AsciiString& m)
+Standard_EXPORT void FUN_coutmess(const AsciiString1& m)
 {
   std::cout << m;
 }
 #else
-Standard_EXPORT void FUN_coutmess(const TCollection_AsciiString&) {}
+Standard_EXPORT void FUN_coutmess(const AsciiString1&) {}
 #endif
 
 //------------------------------------------------------
@@ -296,15 +296,15 @@ Standard_Boolean FUN_keepEON(const TopOpeBRepBuild_Builder& B,
 #else
 Standard_Boolean FUN_keepEON(const TopOpeBRepBuild_Builder&,
 #endif
-                             const TopoDS_Shape& sEG,
-                             const TopoDS_Shape& sFOR,
-                             const TopoDS_Shape& sFS,
+                             const TopoShape& sEG,
+                             const TopoShape& sFOR,
+                             const TopoShape& sFS,
 #ifdef OCCT_DEBUG
                              const Standard_Boolean EGBoundFOR,
 #else
                              const Standard_Boolean,
 #endif
-                             const TopOpeBRepDS_Transition& TFE,
+                             const StateTransition& TFE,
                              const TopAbs_State             TB1,
                              const TopAbs_State)
 //------------------------------------------------------
@@ -315,10 +315,10 @@ Standard_Boolean FUN_keepEON(const TopOpeBRepBuild_Builder&,
   // c'est a dire sur FF=FOR orientee FORWARD,par rapport a la matiere
   // definie par la face orientee FS.
   // on cherche oEGFF=orientation de EG dans FF
-  TopoDS_Edge EG = TopoDS::Edge(sEG);
-  TopoDS_Face FF = TopoDS::Face(sFOR);
+  TopoEdge EG = TopoDS::Edge(sEG);
+  TopoFace FF = TopoDS::Face(sFOR);
   FF.Orientation(TopAbs_FORWARD);
-  TopoDS_Face FS = TopoDS::Face(sFS);
+  TopoFace FS = TopoDS::Face(sFS);
 
 #ifdef OCCT_DEBUG
   Standard_Integer iEG; /*Standard_Boolean tEG=*/
@@ -340,7 +340,7 @@ Standard_Boolean FUN_keepEON(const TopOpeBRepBuild_Builder&,
   Standard_Boolean keep2 = Standard_True;
 #endif
   Standard_Boolean keep3      = Standard_True;
-  Standard_Boolean isclosedFF = BRep_Tool::IsClosed(EG, FF);
+  Standard_Boolean isclosedFF = BRepInspector::IsClosed(EG, FF);
   if (isclosedFF)
   {
 #ifdef OCCT_DEBUG
@@ -357,7 +357,7 @@ Standard_Boolean FUN_keepEON(const TopOpeBRepBuild_Builder&,
 #ifdef OCCT_DEBUG
     TopAbs_Orientation omatFS1 = TFE.Orientation(TB1);
     if (oEGFF == TopAbs_REVERSED)
-      omatFS1 = TopAbs::Complement(omatFS1);
+      omatFS1 = TopAbs1::Complement(omatFS1);
     keep1 = (omatFS1 == TopAbs_FORWARD);
 
     TopAbs_Orientation omatFS2 = TFE.Orientation(TB1);
@@ -444,9 +444,9 @@ static Standard_Integer FUN_Kpart(const GeomAbs_SurfaceType& ST1, const GeomAbs_
 }
 
 static Standard_Integer FUN_findeSD(const TopOpeBRepDS_DataStructure& BDS,
-                                    const TopoDS_Edge&                EspON,
-                                    const TopoDS_Edge&                EG,
-                                    const TopoDS_Face&                FOR,
+                                    const TopoEdge&                EspON,
+                                    const TopoEdge&                EG,
+                                    const TopoFace&                FOR,
                                     TopAbs_Orientation&               oeSD,
                                     const Standard_Integer            D)
 {
@@ -454,14 +454,14 @@ static Standard_Integer FUN_findeSD(const TopOpeBRepDS_DataStructure& BDS,
   Point3d        ptON;
   Standard_Real parON;
   FUN_tool_findPinE(EspON, ptON, parON);
-  TopTools_ListOfShape lesdSD;
+  ShapeList lesdSD;
   if (D == 3)
     FDS_HasSameDomain3d(BDS, EG, &lesdSD);
   if (D == 2)
     FDS_HasSameDomain2d(BDS, EG, &lesdSD);
   for (TopTools_ListIteratorOfListOfShape it(lesdSD); it.More(); it.Next())
   {
-    TopoDS_Edge        eSD = TopoDS::Edge(it.Value());
+    TopoEdge        eSD = TopoDS::Edge(it.Value());
     TopAbs_Orientation oesd;
     Standard_Boolean   eSDofFOR = FUN_tool_orientEinFFORWARD(eSD, FOR, oesd);
     if (!eSDofFOR)
@@ -477,13 +477,13 @@ static Standard_Integer FUN_findeSD(const TopOpeBRepDS_DataStructure& BDS,
   return 0;
 }
 
-static Standard_Boolean ComputeFaceCrvtInSec(const TopoDS_Face& aFace,
+static Standard_Boolean ComputeFaceCrvtInSec(const TopoFace& aFace,
                                              const gp_Pnt2d&    aP2d,
                                              const Dir3d&      aSecDir,
                                              Standard_Real&     aCrvt)
 {
   BRepAdaptor_Surface aSurf(aFace);
-  Standard_Integer    cn = BRepLProp_SurfaceTool::Continuity(aSurf);
+  Standard_Integer    cn = SurfaceLocalPropsTool::Continuity(aSurf);
   if (cn < 2)
     return Standard_False;
   BRepLProp_SLProps aProp(aSurf, aP2d.X(), aP2d.Y(), 2, Precision::Confusion());
@@ -509,7 +509,7 @@ static Standard_Boolean ComputeFaceCrvtInSec(const TopoDS_Face& aFace,
 //=================================================================================================
 
 void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Interference)& I,
-                                                 const TopoDS_Shape&                      EspON)
+                                                 const TopoShape&                      EspON)
 {
   const Handle(TopOpeBRepDS_HDataStructure)&  HDS = myPB->DataStructure();
   const TopOpeBRepDS_DataStructure&           BDS = HDS->DS();
@@ -521,17 +521,17 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
   TopOpeBRepDS_Kind GT, ST;
   Standard_Integer  GI, SI;
   FDS_data(SSI, GT, GI, ST, SI);
-  const TopOpeBRepDS_Transition& TFE        = SSI->Transition();
+  const StateTransition& TFE        = SSI->Transition();
   Standard_Boolean               EGBoundFOR = SSI->GBound();
-  const TopoDS_Face&             FOR        = TopoDS::Face(myFace);
+  const TopoFace&             FOR        = TopoDS::Face(myFace);
   Standard_Integer               iFOR       = BDS.Shape(FOR);
-  const TopoDS_Edge&             eON        = TopoDS::Edge(EspON);
-  const TopoDS_Edge&             EG         = TopoDS::Edge(BDS.Shape(GI));
+  const TopoEdge&             eON        = TopoDS::Edge(EspON);
+  const TopoEdge&             EG         = TopoDS::Edge(BDS.Shape(GI));
 #ifdef OCCT_DEBUG
   Standard_Integer iEG =
 #endif
     BDS.Shape(EG);
-  const TopoDS_Face& FS  = TopoDS::Face(BDS.Shape(SI));
+  const TopoFace& FS  = TopoDS::Face(BDS.Shape(SI));
   Standard_Integer   iFS = BDS.Shape(FS);
 
   Standard_Real tola = Precision::Angular() * 1.e3; // nyitol
@@ -559,13 +559,13 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
 //    Handle(TopOpeBRepDS_ShapeShapeInterference)::DownCast(I)->GBound();
 #endif
   Standard_Boolean     eghassd = HDS->HasSameDomain(EG);
-  TopTools_ListOfShape le3;
+  ShapeList le3;
   Standard_Boolean     eghassd3d = FDS_HasSameDomain3d(BDS, EG, &le3);
   Standard_Integer     ie3d      = 0;
   TopAbs_Orientation   oe3d      = TopAbs_EXTERNAL;
   Standard_Integer     ie2d      = 0;
   TopAbs_Orientation   oe2d      = TopAbs_EXTERNAL;
-  TopTools_ListOfShape lfcx;
+  ShapeList lfcx;
   FDSCNX_FaceEdgeConnexFaces(FS, EG, HDS, lfcx);
   Standard_Integer nlfcx = lfcx.Extent();
 
@@ -606,9 +606,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
 #endif
 
   Standard_Real factor = 1.e2;
-  Standard_Real tolEG  = BRep_Tool::Tolerance(EG) * factor;  // NYITOLXPU
-  Standard_Real tolFOR = BRep_Tool::Tolerance(FOR) * factor; // NYITOLXPU
-  Standard_Real tolFS  = BRep_Tool::Tolerance(FS) * factor;  // NYITOLXPU
+  Standard_Real tolEG  = BRepInspector::Tolerance(EG) * factor;  // NYITOLXPU
+  Standard_Real tolFOR = BRepInspector::Tolerance(FOR) * factor; // NYITOLXPU
+  Standard_Real tolFS  = BRepInspector::Tolerance(FS) * factor;  // NYITOLXPU
 
   Standard_Real f, l;
   FUN_tool_bounds(eON, f, l);
@@ -625,7 +625,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
   Standard_Boolean eONsoEsd = Standard_False;
   if (eghassd && (Iesd != 0))
   {
-    const TopoDS_Edge& Esd = TopoDS::Edge(BDS.Shape(Iesd));
+    const TopoEdge& Esd = TopoDS::Edge(BDS.Shape(Iesd));
     Standard_Boolean   ok  = FUN_tool_curvesSO(eON, Esd, eONsoEsd);
     if (!ok)
       return;
@@ -724,8 +724,8 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
   Standard_Boolean e3closedFOR = Standard_False;
   if (hassd3dON)
   {
-    const TopoDS_Edge& e3d = TopoDS::Edge(BDS.Shape(ie3d));
-    e3closedFOR            = BRep_Tool::IsClosed(e3d, FOR);
+    const TopoEdge& e3d = TopoDS::Edge(BDS.Shape(ie3d));
+    e3closedFOR            = BRepInspector::IsClosed(e3d, FOR);
   }
   yapc3 = yapc3 && e3closedFOR; // => !EGBoundFOR
 
@@ -739,9 +739,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       std::cout << "yap00(FOR" << iFOR << " FS" << iFS << " EG" << GI << ") ";
       std::cout << "TB1=";
-      TopAbs::Print(TB1, std::cout);
+      TopAbs1::Print(TB1, std::cout);
       std::cout << " TB2=";
-      TopAbs::Print(TB2, std::cout);
+      TopAbs1::Print(TB2, std::cout);
       std::cout << std::endl;
     }
 #endif
@@ -760,9 +760,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     if (!add)
       return;
 
-    const TopoDS_Shape& Esd    = BDS.Shape(Iesd);
+    const TopoShape& Esd    = BDS.Shape(Iesd);
     Standard_Boolean    isONFS = Standard_False;
-    TopExp_Explorer     ex(FS, TopAbs_EDGE);
+    ShapeExplorer     ex(FS, TopAbs_EDGE);
     for (; ex.More(); ex.Next())
       if (ex.Current().IsSame(Esd))
       {
@@ -782,9 +782,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
       return;
     TopAbs_Orientation neworiE = oeff;
     if (!samegeom && (M_FORWARD(neworiE) || M_REVERSED(neworiE)))
-      neworiE = TopAbs::Complement(neworiE);
+      neworiE = TopAbs1::Complement(neworiE);
 
-    TopoDS_Shape newE = EspON;
+    TopoShape newE = EspON;
     newE.Orientation(neworiE);
 #ifdef OCCT_DEBUG
     if (tEFOR)
@@ -806,9 +806,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       std::cout << "yap0(FOR" << iFOR << " FS" << iFS << " EG" << GI << ") ";
       std::cout << "TB1=";
-      TopAbs::Print(TB1, std::cout);
+      TopAbs1::Print(TB1, std::cout);
       std::cout << " TB2=";
-      TopAbs::Print(TB2, std::cout);
+      TopAbs1::Print(TB2, std::cout);
       std::cout << std::endl;
     }
 #endif
@@ -993,8 +993,8 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
         return;
     }
 
-    TopoDS_Face        newF = FOR;
-    TopoDS_Shape       newE = EspON;
+    TopoFace        newF = FOR;
+    TopoShape       newE = EspON;
     TopAbs_Orientation neworiE;
     FUN_tool_orientEinFFORWARD(EG, newF, neworiE);
 
@@ -1032,7 +1032,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
         }
       }
       if (reverse)
-        neworiE = TopAbs::Complement(neworiE);
+        neworiE = TopAbs1::Complement(neworiE);
     } // hsdFOR
 
     newE.Orientation(neworiE);
@@ -1056,13 +1056,13 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       std::cout << "yapc1(FOR" << iFOR << " FS" << iFS << " EG" << GI << ") ";
       std::cout << "TB1=";
-      TopAbs::Print(TB1, std::cout);
+      TopAbs1::Print(TB1, std::cout);
       std::cout << " TB2=";
-      TopAbs::Print(TB2, std::cout);
+      TopAbs1::Print(TB2, std::cout);
       std::cout << std::endl;
     }
 #endif
-    const TopoDS_Edge& e3d = TopoDS::Edge(BDS.Shape(ie3d));
+    const TopoEdge& e3d = TopoDS::Edge(BDS.Shape(ie3d));
 
     // e3d = SameDomain3d de EG, arete de FOR, qui contient EspON
     TopOpeBRepDS_Config cf;
@@ -1085,7 +1085,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
 #endif
       if (!samegeom)
-        oe3dk = TopAbs::Complement(oe3dk);
+        oe3dk = TopAbs1::Complement(oe3dk);
 #ifdef OCCT_DEBUG
     }
 #endif
@@ -1109,8 +1109,8 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       TopAbs_Orientation neworiE = oe3d;
       if (cf == TopOpeBRepDS_DIFFORIENTED)
-        neworiE = TopAbs::Complement(neworiE);
-      TopoDS_Shape newE = EspON;
+        neworiE = TopAbs1::Complement(neworiE);
+      TopoShape newE = EspON;
       newE.Orientation(neworiE);
 
 #ifdef OCCT_DEBUG
@@ -1135,9 +1135,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       std::cout << "yapc2(FOR" << iFOR << " FS" << iFS << " EG" << GI << ") ";
       std::cout << "TB1=";
-      TopAbs::Print(TB1, std::cout);
+      TopAbs1::Print(TB1, std::cout);
       std::cout << " TB2=";
-      TopAbs::Print(TB2, std::cout);
+      TopAbs1::Print(TB2, std::cout);
       std::cout << std::endl;
     }
 #endif
@@ -1166,7 +1166,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
         return;
     }
 
-    TopoDS_Shape       newE      = EspON;
+    TopoShape       newE      = EspON;
     Standard_Boolean   addFORREV = Standard_False;
     TopAbs_Orientation neworiEk  = TopAbs_EXTERNAL;
     if (!isclosedFF)
@@ -1250,9 +1250,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       std::cout << "yapc3(FOR" << iFOR << " FS" << iFS << " EG" << GI << ") ";
       std::cout << "TB1=";
-      TopAbs::Print(TB1, std::cout);
+      TopAbs1::Print(TB1, std::cout);
       std::cout << " TB2=";
-      TopAbs::Print(TB2, std::cout);
+      TopAbs1::Print(TB2, std::cout);
       std::cout << std::endl;
     }
 #endif
@@ -1271,7 +1271,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     if (giveoEinFOR)
       FUN_tool_orientEinFFORWARD(EG, FOR, neworiE);
 
-    TopoDS_Shape       newE      = EspON;
+    TopoShape       newE      = EspON;
     Standard_Boolean   addFORREV = Standard_False;
     TopAbs_Orientation neworiEk  = TopAbs_EXTERNAL;
 
@@ -1346,7 +1346,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
 #endif
 
       if (reverse)
-        neworiEk = TopAbs::Complement(neworiEk);
+        neworiEk = TopAbs1::Complement(neworiEk);
       newE.Orientation(neworiEk);
     }
 
@@ -1393,11 +1393,11 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
 
   if (nlfcx == 0)
     return;
-  const TopoDS_Face& FCX  = TopoDS::Face(lfcx.First());
+  const TopoFace& FCX  = TopoDS::Face(lfcx.First());
   Standard_Integer   iFCX = BDS.Shape(FCX);
 
   // faces samedomain de FCX
-  TopTools_ListOfShape LFSO, LFDO, LFSO1, LFDO1, LFSO2, LFDO2;
+  ShapeList LFSO, LFDO, LFSO1, LFDO1, LFSO2, LFDO2;
   myPB->GFindSamDomSODO(FCX, LFSO, LFDO);
   Standard_Integer rankFCX = myPB->GShapeRank(FCX),
                    rankX   = (rankFCX) ? ((rankFCX == 1) ? 2 : 1) : 0;
@@ -1415,7 +1415,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
   {
     for (TopTools_ListIteratorOfListOfShape i(LFSO2); i.More(); i.Next())
     {
-      const TopoDS_Shape& F = i.Value();
+      const TopoShape& F = i.Value();
       if (F.IsSame(FOR))
       {
         FFinSDSO = Standard_True;
@@ -1428,7 +1428,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
   {
     for (TopTools_ListIteratorOfListOfShape i(LFDO2); i.More(); i.Next())
     {
-      const TopoDS_Shape& F = i.Value();
+      const TopoShape& F = i.Value();
       if (F.IsSame(FOR))
       {
         FFinSDDO = Standard_True;
@@ -1446,7 +1446,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
   Standard_Boolean    FCXisref = (irefFCX == iFCX);
 
 #ifdef OCCT_DEBUG
-//  Standard_Real tolFCX = factor*BRep_Tool::Tolerance(FCX); //NYITOLXPU
+//  Standard_Real tolFCX = factor*BRepInspector::Tolerance(FCX); //NYITOLXPU
 #endif
 
   TopAbs_Orientation oegFCXF;
@@ -1577,9 +1577,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       std::cout << "yap1(FOR" << iFOR << " FCX" << iFCX << " EG" << GI << ") ";
       std::cout << "TB1=";
-      TopAbs::Print(TB1, std::cout);
+      TopAbs1::Print(TB1, std::cout);
       std::cout << " TB2=";
-      TopAbs::Print(TB2, std::cout);
+      TopAbs1::Print(TB2, std::cout);
       std::cout << std::endl;
     }
 
@@ -1599,7 +1599,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     Standard_Boolean b3de3 = Standard_False;
     Standard_Boolean b2de3 = Standard_False;
 
-    const TopoDS_Edge&                            e3   = TopoDS::Edge(le3.First());
+    const TopoEdge&                            e3   = TopoDS::Edge(le3.First());
     Standard_Integer                              ie3  = BDS.Shape(e3);
     Standard_Boolean                              ssif = Standard_False;
     Handle(TopOpeBRepDS_ShapeShapeInterference)   ssie3;
@@ -1624,7 +1624,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
       }
     }
 
-    TopOpeBRepDS_Transition TFEe3;
+    StateTransition TFEe3;
     TopAbs_State            TFEe3bef = TFEe3.Before();
     TopAbs_State            TFEe3aft = TFEe3.After();
     TopAbs_Orientation      oe3FORF  = TopAbs_FORWARD;
@@ -1639,10 +1639,10 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       if (oFOR != oFCX)
       {
-        oegFCXF = TopAbs::Complement(oegFCXF);
-        oe3FORF = TopAbs::Complement(oe3FORF);
+        oegFCXF = TopAbs1::Complement(oegFCXF);
+        oe3FORF = TopAbs1::Complement(oe3FORF);
       }
-      TopOpeBRepDS_Transition T1(oegFCXF);
+      StateTransition T1(oegFCXF);
       TopAbs_State            T1aft = T1.After();
       TopAbs_State            T1bef = T1.Before();
       if (oegFCXF == TopAbs_FORWARD)
@@ -1660,7 +1660,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
 
       if (ssif)
       {
-        TopOpeBRepDS_Transition T11(oe3FORF);
+        StateTransition T11(oe3FORF);
         TopAbs_State            T11aft = T11.After();
         TopAbs_State            T11bef = T11.Before();
         if (oe3FORF == TopAbs_FORWARD)
@@ -1682,10 +1682,10 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       if (oFOR == oFCX)
       {
-        oegFCXF = TopAbs::Complement(oegFCXF);
-        oe3FORF = TopAbs::Complement(oe3FORF);
+        oegFCXF = TopAbs1::Complement(oegFCXF);
+        oe3FORF = TopAbs1::Complement(oe3FORF);
       }
-      TopOpeBRepDS_Transition T2(oegFCXF);
+      StateTransition T2(oegFCXF);
       TopAbs_State            Taft = T2.After();
       TopAbs_State            Tbef = T2.Before();
       if (oegFCXF == TopAbs_FORWARD)
@@ -1703,7 +1703,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
 
       if (ssif)
       {
-        TopOpeBRepDS_Transition T22(oe3FORF);
+        StateTransition T22(oe3FORF);
         TopAbs_State            T22aft = T22.After();
         TopAbs_State            T22bef = T22.Before();
         if (oe3FORF == TopAbs_FORWARD)
@@ -1751,11 +1751,11 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     //    }
     else if (FORisref && !EGBoundFOR)
     {
-      const TopoDS_Edge& Esd = TopoDS::Edge(BDS.Shape(Iesd));
+      const TopoEdge& Esd = TopoDS::Edge(BDS.Shape(Iesd));
       FUN_tool_orientEinFFORWARD(Esd, TopoDS::Face(FOR), neworiE);
       Standard_Boolean reverse = (M_FORWARD(neworiE) || M_REVERSED(neworiE)) && (!eONsoEsd);
       if (reverse)
-        neworiE = TopAbs::Complement(neworiE);
+        neworiE = TopAbs1::Complement(neworiE);
       Standard_Boolean rev = myPB->Reverse(staFOR, staFCX);
       neworiE              = myPB->Orient(neworiE, rev);
     }
@@ -1766,17 +1766,17 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
         FUN_tool_orientEinFFORWARD(EG, FCX, neworiE);
       else if (rankrefFOR == rankFOR)
       {
-        const TopoDS_Edge& Esd = TopoDS::Edge(BDS.Shape(Iesd));
+        const TopoEdge& Esd = TopoDS::Edge(BDS.Shape(Iesd));
         FUN_tool_orientEinFFORWARD(Esd, TopoDS::Face(FOR), neworiE);
         Standard_Boolean reverse = (M_FORWARD(neworiE) || M_REVERSED(neworiE)) && (!eONsoEsd);
         if (reverse)
-          neworiE = TopAbs::Complement(neworiE);
+          neworiE = TopAbs1::Complement(neworiE);
       }
       Standard_Boolean rev = myPB->Reverse(staFOR, staFCX);
       neworiE              = myPB->Orient(neworiE, rev);
     }
 
-    TopoDS_Shape newE = EspON;
+    TopoShape newE = EspON;
     newE.Orientation(neworiE);
 
 #ifdef OCCT_DEBUG
@@ -1800,9 +1800,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       std::cout << "yap2(FOR" << iFOR << " FCX" << iFCX << " EG" << GI << ") ";
       std::cout << "TB1=";
-      TopAbs::Print(TB1, std::cout);
+      TopAbs1::Print(TB1, std::cout);
       std::cout << " TB2=";
-      TopAbs::Print(TB2, std::cout);
+      TopAbs1::Print(TB2, std::cout);
       std::cout << std::endl;
     }
 #endif
@@ -1822,9 +1822,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
       if (oFOR != oFCX)
       {
         // orientation topologique de EG dans la face mere
-        oegFCXF = TopAbs::Complement(oegFCXF);
+        oegFCXF = TopAbs1::Complement(oegFCXF);
       }
-      TopOpeBRepDS_Transition T1(oegFCXF);
+      StateTransition T1(oegFCXF);
       TopAbs_State            Taft = T1.After();
       TopAbs_State            Tbef = T1.Before();
       if (oegFCXF == TopAbs_FORWARD)
@@ -1845,9 +1845,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
       if (oFOR == oFCX)
       {
         // orientation topologique de EG dans la face mere
-        oegFCXF = TopAbs::Complement(oegFCXF);
+        oegFCXF = TopAbs1::Complement(oegFCXF);
       }
-      TopOpeBRepDS_Transition T2(oegFCXF);
+      StateTransition T2(oegFCXF);
       TopAbs_State            Taft = T2.After();
       TopAbs_State            Tbef = T2.Before();
       if (oegFCXF == TopAbs_FORWARD)
@@ -2013,7 +2013,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       if (opeCut)
       {
-        neworiE = TopAbs::Complement(neworiE);
+        neworiE = TopAbs1::Complement(neworiE);
       }
     } // FFinSDSO && ok
 
@@ -2025,8 +2025,8 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
         if (!ComOfCut)
         {
           //	  TopAbs_State TBEG = (rankEG == 1)? TB1 : TB2;
-          //	  if (TBEG == TopAbs_IN) neworiE = TopAbs::Complement(neworiE);
-          neworiE = TopAbs::Complement(neworiE); // xpu270898 : cto905E2 (FOR33,FCX16,EG19)
+          //	  if (TBEG == TopAbs_IN) neworiE = TopAbs1::Complement(neworiE);
+          neworiE = TopAbs1::Complement(neworiE); // xpu270898 : cto905E2 (FOR33,FCX16,EG19)
         }
         else if (ComOfCut)
         {
@@ -2036,7 +2036,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
       if (opeFus)
       {
         // en principe , l'operation locale est tjrs = OUT,IN
-        neworiE = TopAbs::Complement(neworiE);
+        neworiE = TopAbs1::Complement(neworiE);
       }
       if (opeCom)
       {
@@ -2055,7 +2055,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
         Standard_Boolean toreverse = (dot > 0);
 
         if (toreverse)
-          neworiE = TopAbs::Complement(neworiE);
+          neworiE = TopAbs1::Complement(neworiE);
       }
     } // FFinSDDO && ok
 
@@ -2068,9 +2068,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
         reverse = !reverse;
     } // xpu270598
     if (reverse)
-      neworiE = TopAbs::Complement(neworiE); // xpu270598
+      neworiE = TopAbs1::Complement(neworiE); // xpu270598
 
-    TopoDS_Shape newE = EspON;
+    TopoShape newE = EspON;
     newE.Orientation(neworiE);
 
 #ifdef OCCT_DEBUG
@@ -2094,9 +2094,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       std::cout << "yap6(FOR" << iFOR << " FCX" << iFCX << " EG" << GI << ") ";
       std::cout << "TB1=";
-      TopAbs::Print(TB1, std::cout);
+      TopAbs1::Print(TB1, std::cout);
       std::cout << " TB2=";
-      TopAbs::Print(TB2, std::cout);
+      TopAbs1::Print(TB2, std::cout);
       std::cout << std::endl;
     }
 #endif
@@ -2136,8 +2136,8 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
         //	b = shareG;
         // xpu231198 :PRO15946 (FOR11,EG24,FCX20)
         // xpu090299 (JAP60247, FOR6,FCX33,EG34)
-        const TopoDS_Edge&   Esd = TopoDS::Edge(BDS.Shape(Iesd));
-        TopTools_ListOfShape lfor;
+        const TopoEdge&   Esd = TopoDS::Edge(BDS.Shape(Iesd));
+        ShapeList lfor;
         FDSCNX_FaceEdgeConnexFaces(FOR, Esd, HDS, lfor);
         Standard_Integer nfor = lfor.Extent();
         if (nfor < 1)
@@ -2146,24 +2146,24 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
           return; // NYIRaise (invalid shape)
         else
         {
-          const TopoDS_Face& FF    = TopoDS::Face(lfor.First());
+          const TopoFace& FF    = TopoDS::Face(lfor.First());
           Standard_Real      tola1 = Precision::Angular() * 1.e2; // nyitolxpu
           Standard_Real      parEG;
           Standard_Boolean   ok1 = FUN_tool_parE(eON, parON, EG, parEG, tolEG);
           if (!ok1)
             return;
           Standard_Real matfs;
-          ok1 = TopOpeBRepTool_TOOL::Matter(FS, FCX, EG, parEG, tola1, matfs);
+          ok1 = TOOL1::Matter(FS, FCX, EG, parEG, tola1, matfs);
           if (!ok1)
             return;
 
-          Standard_Real    tolEsd = BRep_Tool::Tolerance(Esd) * factor; // NYITOLXPU
+          Standard_Real    tolEsd = BRepInspector::Tolerance(Esd) * factor; // NYITOLXPU
           Standard_Real    parEsd;
           Standard_Boolean ok2 = FUN_tool_parE(eON, parON, Esd, parEsd, tolEsd);
           if (!ok2)
             return;
           Standard_Real matfor;
-          ok2 = TopOpeBRepTool_TOOL::Matter(FOR, FF, Esd, parEsd, tola1, matfor);
+          ok2 = TOOL1::Matter(FOR, FF, Esd, parEsd, tola1, matfor);
           if (!ok2)
             return;
 
@@ -2217,9 +2217,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
         if (oFOR != oFCX)
         {
           // orientation topologique de EG dans la face mere
-          oegFCXF = TopAbs::Complement(oegFCXF);
+          oegFCXF = TopAbs1::Complement(oegFCXF);
         }
-        TopOpeBRepDS_Transition T1(oegFCXF);
+        StateTransition T1(oegFCXF);
         TopAbs_State            Taft = T1.After();
         TopAbs_State            Tbef = T1.Before();
         if (oegFCXF == TopAbs_FORWARD)
@@ -2253,8 +2253,8 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
           {
             // xpu181198 CTS21302(FOR22,EG9,FCX5)
             // ntOOFOR :
-            const TopoDS_Edge&   Esd = TopoDS::Edge(BDS.Shape(Iesd)); // rkEsd=rkFOR
-            TopTools_ListOfShape lfcFk;
+            const TopoEdge&   Esd = TopoDS::Edge(BDS.Shape(Iesd)); // rkEsd=rkFOR
+            ShapeList lfcFk;
             FDSCNX_FaceEdgeConnexFaces(FOR, Esd, HDS, lfcFk);
             if (lfcFk.Extent() != 1)
               return; // shape bizarre
@@ -2262,7 +2262,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
             ok = FUN_tool_parE(eON, parON, Esd, parEsd, tolEG);
             if (!ok)
               return;
-            const TopoDS_Face& OOFOR = TopoDS::Face(lfcFk.First());
+            const TopoFace& OOFOR = TopoDS::Face(lfcFk.First());
             gp_Pnt2d           uv;
             Standard_Real      dummy = 0;
             ok             = FUN_tool_paronEF(Esd, parEsd, OOFOR, uv, dummy); // rkEsd=rkOOFOR
@@ -2271,7 +2271,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
               ntOOFOR.Reverse();
               // xxFCX :
 #ifdef OCCT_DEBUG
-//	    Standard_Real t1 =factor*BRep_Tool::Tolerance(Esd);
+//	    Standard_Real t1 =factor*BRepInspector::Tolerance(Esd);
 #endif
             Standard_Real parEG;
             ok = FUN_tool_parE(Esd, parEsd, EG, parEG);
@@ -2307,11 +2307,11 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       // xpu280798 : cto902C1 (FOR=f9,FCX=f19,FS,f33,EG,e18)
       // as eghassdON : Esd = edge(Iesd) = bound FOR; eON is IN1d(Esd)
-      const TopoDS_Edge& Esd = TopoDS::Edge(BDS.Shape(Iesd));
+      const TopoEdge& Esd = TopoDS::Edge(BDS.Shape(Iesd));
       FUN_tool_orientEinFFORWARD(Esd, TopoDS::Face(FOR), neworiE);
       Standard_Boolean reverse = (M_FORWARD(neworiE) || M_REVERSED(neworiE)) && (!eONsoEsd);
       if (reverse)
-        neworiE = TopAbs::Complement(neworiE);
+        neworiE = TopAbs1::Complement(neworiE);
       Standard_Boolean rev = myPB->Reverse(staFOR, staFCX);
       neworiE              = myPB->Orient(neworiE, rev);
     }
@@ -2323,17 +2323,17 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
         FUN_tool_orientEinFFORWARD(EG, FCX, neworiE);
       else if (rankrefFOR == rankFOR)
       {
-        const TopoDS_Edge& Esd = TopoDS::Edge(BDS.Shape(Iesd));
+        const TopoEdge& Esd = TopoDS::Edge(BDS.Shape(Iesd));
         FUN_tool_orientEinFFORWARD(Esd, TopoDS::Face(FOR), neworiE);
         Standard_Boolean reverse = (M_FORWARD(neworiE) || M_REVERSED(neworiE)) && (!eONsoEsd);
         if (reverse)
-          neworiE = TopAbs::Complement(neworiE);
+          neworiE = TopAbs1::Complement(neworiE);
       }
       Standard_Boolean rev = myPB->Reverse(staFOR, staFCX);
       neworiE              = myPB->Orient(neworiE, rev);
     }
 
-    TopoDS_Shape newE = EspON;
+    TopoShape newE = EspON;
     newE.Orientation(neworiE);
 #ifdef OCCT_DEBUG
     if (tEFOR)
@@ -2351,13 +2351,13 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     if (addtwice)
     {
       // we have splitIN
-      TopoDS_Shape FtospIN = (TBFOR == TopAbs_IN) ? FOR : FCX;
+      TopoShape FtospIN = (TBFOR == TopAbs_IN) ? FOR : FCX;
       addtwice             = Standard_False;
-      TopExp_Explorer ex;
+      ShapeExplorer ex;
       for (ex.Init(FtospIN, TopAbs_EDGE); ex.More(); ex.Next())
       {
-        //      for (TopExp_Explorer ex(FtospIN,TopAbs_EDGE); ex.More(); ex.Next()){
-        const TopoDS_Shape& ee = ex.Current();
+        //      for (ShapeExplorer ex(FtospIN,TopAbs_EDGE); ex.More(); ex.Next()){
+        const TopoShape& ee = ex.Current();
         if (!BDS.HasShape(ee))
           continue;
         Standard_Boolean issp = myPB->IsSplit(ee, TopAbs_IN);
@@ -2369,7 +2369,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     }
     if (addtwice)
     {
-      neworiE = TopAbs::Complement(neworiE);
+      neworiE = TopAbs1::Complement(neworiE);
       newE.Orientation(neworiE);
 #ifdef OCCT_DEBUG
       if (tEFOR)
@@ -2392,9 +2392,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       std::cout << "yap3(FOR" << iFOR << " FCX" << iFCX << " EG" << GI << ") ";
       std::cout << "TB1=";
-      TopAbs::Print(TB1, std::cout);
+      TopAbs1::Print(TB1, std::cout);
       std::cout << " TB2=";
-      TopAbs::Print(TB2, std::cout);
+      TopAbs1::Print(TB2, std::cout);
       std::cout << std::endl;
     }
 #endif
@@ -2402,7 +2402,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     ie3d = ::FUN_findeSD(BDS, eON, EG, FOR, oe3d, 3);
     if (ie3d == 0)
       return;
-    const TopoDS_Edge& e3d = TopoDS::Edge(BDS.Shape(ie3d));
+    const TopoEdge& e3d = TopoDS::Edge(BDS.Shape(ie3d));
 
     TopOpeBRepDS_Config cf;
     Standard_Boolean    cfok = FDS_Config3d(EspON, e3d, cf);
@@ -2424,7 +2424,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
 #endif
       if (!samegeom)
-        oe3dk = TopAbs::Complement(oe3dk);
+        oe3dk = TopAbs1::Complement(oe3dk);
 #ifdef OCCT_DEBUG
     }
 #endif
@@ -2452,8 +2452,8 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       TopAbs_Orientation neworiE = oe3d;
       if (cf == TopOpeBRepDS_DIFFORIENTED)
-        neworiE = TopAbs::Complement(neworiE);
-      TopoDS_Shape newE = EspON;
+        neworiE = TopAbs1::Complement(neworiE);
+      TopoShape newE = EspON;
       newE.Orientation(neworiE);
 
 #ifdef OCCT_DEBUG
@@ -2478,9 +2478,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       std::cout << "yap5(FOR" << iFOR << " FCX" << iFCX << " EG" << GI << ") ";
       std::cout << "TB1=";
-      TopAbs::Print(TB1, std::cout);
+      TopAbs1::Print(TB1, std::cout);
       std::cout << " TB2=";
-      TopAbs::Print(TB2, std::cout);
+      TopAbs1::Print(TB2, std::cout);
       std::cout << std::endl;
     }
 #endif
@@ -2488,7 +2488,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     if (ie2d == 0)
       return;
 
-    const TopoDS_Edge&  e2d = TopoDS::Edge(BDS.Shape(ie2d));
+    const TopoEdge&  e2d = TopoDS::Edge(BDS.Shape(ie2d));
     TopOpeBRepDS_Config cf;
     Standard_Boolean    cfok = FDS_Config3d(EspON, e2d, cf);
     if (!cfok)
@@ -2508,7 +2508,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
 #endif
       if (!samegeom)
-        oe2dk = TopAbs::Complement(oe2dk);
+        oe2dk = TopAbs1::Complement(oe2dk);
 #ifdef OCCT_DEBUG
     }
 #endif
@@ -2528,8 +2528,8 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       TopAbs_Orientation neworiE = oe2d;
       if (cf == TopOpeBRepDS_DIFFORIENTED)
-        neworiE = TopAbs::Complement(neworiE);
-      TopoDS_Shape newE = EspON;
+        neworiE = TopAbs1::Complement(neworiE);
+      TopoShape newE = EspON;
       newE.Orientation(neworiE);
 
 #ifdef OCCT_DEBUG
@@ -2554,9 +2554,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       std::cout << "yap4(FOR" << iFOR << " FCX" << iFCX << " EG" << GI << ") ";
       std::cout << "TB1=";
-      TopAbs::Print(TB1, std::cout);
+      TopAbs1::Print(TB1, std::cout);
       std::cout << " TB2=";
-      TopAbs::Print(TB2, std::cout);
+      TopAbs1::Print(TB2, std::cout);
       std::cout << std::endl;
     }
 #endif
@@ -2564,7 +2564,7 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     TopAbs_Orientation oTFE = TFE.Orientation(TB1);
 
     TopAbs_Orientation neworiE = oTFE;
-    TopoDS_Shape       newE    = EspON;
+    TopoShape       newE    = EspON;
     newE.Orientation(neworiE);
 #ifdef OCCT_DEBUG
     if (tEFOR)
@@ -2588,19 +2588,19 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
     {
       std::cout << "yap7(FOR" << iFOR << " FCX" << iFCX << " EG" << GI << ") ";
       std::cout << "TB1=";
-      TopAbs::Print(TB1, std::cout);
+      TopAbs1::Print(TB1, std::cout);
       std::cout << " TB2=";
-      TopAbs::Print(TB2, std::cout);
+      TopAbs1::Print(TB2, std::cout);
       std::cout << std::endl;
     }
 #endif
     Standard_Boolean isbound = Standard_False;
     for (TopTools_ListIteratorOfListOfShape it(BDS.ShapeSameDomain(iFOR)); it.More(); it.Next())
     {
-      TopExp_Explorer ex(it.Value(), TopAbs_EDGE);
+      ShapeExplorer ex(it.Value(), TopAbs_EDGE);
       for (; ex.More(); ex.Next())
       {
-        const TopoDS_Shape& E = ex.Current();
+        const TopoShape& E = ex.Current();
         if (E.IsSame(EG))
         {
           isbound = Standard_True;
@@ -2633,9 +2633,9 @@ void TopOpeBRepBuild_BuilderON::GFillONPartsWES2(const Handle(TopOpeBRepDS_Inter
         samegeomref = !samegeomref;
     }
     if (!samegeomref)
-      neworiE = TopAbs::Complement(neworiE);
+      neworiE = TopAbs1::Complement(neworiE);
 
-    TopoDS_Shape newE = EspON;
+    TopoShape newE = EspON;
     newE.Orientation(neworiE);
 #ifdef OCCT_DEBUG
     if (tEFOR)

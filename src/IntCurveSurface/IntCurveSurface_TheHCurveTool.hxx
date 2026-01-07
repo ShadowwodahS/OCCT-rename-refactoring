@@ -35,8 +35,8 @@ class Standard_NoSuchObject;
 class Standard_DomainError;
 class Point3d;
 class Vector3d;
-class Geom_BezierCurve;
-class Geom_BSplineCurve;
+class BezierCurve3d;
+class BSplineCurve3d;
 
 class IntCurveSurface_TheHCurveTool
 {
@@ -162,9 +162,9 @@ public:
 
   static gp_Parab Parabola(const Handle(Adaptor3d_Curve)& C) { return C->Parabola(); }
 
-  static Handle(Geom_BezierCurve) Bezier(const Handle(Adaptor3d_Curve)& C) { return C->Bezier(); }
+  static Handle(BezierCurve3d) Bezier(const Handle(Adaptor3d_Curve)& C) { return C->Bezier(); }
 
-  static Handle(Geom_BSplineCurve) BSpline(const Handle(Adaptor3d_Curve)& C)
+  static Handle(BSplineCurve3d) BSpline(const Handle(Adaptor3d_Curve)& C)
   {
     return C->BSpline();
   }

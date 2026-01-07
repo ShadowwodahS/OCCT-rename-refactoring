@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(OpenGl_PointSprite, OpenGl_Texture)
 
 //=================================================================================================
 
-OpenGl_PointSprite::OpenGl_PointSprite(const TCollection_AsciiString& theResourceId)
+OpenGl_PointSprite::OpenGl_PointSprite(const AsciiString1& theResourceId)
     : OpenGl_Texture(theResourceId, Handle(Graphic3d_TextureParams)()),
       myBitmapList(0)
 {

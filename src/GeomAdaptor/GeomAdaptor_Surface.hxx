@@ -50,7 +50,7 @@ public:
   {
   }
 
-  GeomAdaptor_Surface(const Handle(Geom_Surface)& theSurf)
+  GeomAdaptor_Surface(const Handle(GeomSurface)& theSurf)
       : myTolU(0.),
         myTolV(0.)
   {
@@ -58,7 +58,7 @@ public:
   }
 
   //! Standard_ConstructionError is raised if UFirst>ULast or VFirst>VLast
-  GeomAdaptor_Surface(const Handle(Geom_Surface)& theSurf,
+  GeomAdaptor_Surface(const Handle(GeomSurface)& theSurf,
                       const Standard_Real         theUFirst,
                       const Standard_Real         theULast,
                       const Standard_Real         theVFirst,
@@ -72,7 +72,7 @@ public:
   //! Shallow copy of adaptor
   Standard_EXPORT virtual Handle(Adaptor3d_Surface) ShallowCopy() const Standard_OVERRIDE;
 
-  void Load(const Handle(Geom_Surface)& theSurf)
+  void Load(const Handle(GeomSurface)& theSurf)
   {
     if (theSurf.IsNull())
     {
@@ -85,7 +85,7 @@ public:
   }
 
   //! Standard_ConstructionError is raised if theUFirst>theULast or theVFirst>theVLast
-  void Load(const Handle(Geom_Surface)& theSurf,
+  void Load(const Handle(GeomSurface)& theSurf,
             const Standard_Real         theUFirst,
             const Standard_Real         theULast,
             const Standard_Real         theVFirst,
@@ -105,7 +105,7 @@ public:
     load(theSurf, theUFirst, theULast, theVFirst, theVLast, theTolU, theTolV);
   }
 
-  const Handle(Geom_Surface)& Surface() const { return mySurface; }
+  const Handle(GeomSurface)& Surface() const { return mySurface; }
 
   virtual Standard_Real FirstUParameter() const Standard_OVERRIDE { return myUFirst; }
 
@@ -319,7 +319,7 @@ private:
                                              const Standard_Integer USide,
                                              const Standard_Integer VSide) const;
 
-  Standard_EXPORT void load(const Handle(Geom_Surface)& S,
+  Standard_EXPORT void load(const Handle(GeomSurface)& S,
                             const Standard_Real         UFirst,
                             const Standard_Real         ULast,
                             const Standard_Real         VFirst,
@@ -333,7 +333,7 @@ private:
   Standard_EXPORT void RebuildCache(const Standard_Real theU, const Standard_Real theV) const;
 
 protected:
-  Handle(Geom_Surface) mySurface;
+  Handle(GeomSurface) mySurface;
   Standard_Real        myUFirst;
   Standard_Real        myULast;
   Standard_Real        myVFirst;

@@ -25,7 +25,7 @@
 class Interface_EntityIterator;
 class Interface_Graph;
 class RefObject;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class STEPSelections_SelectInstances;
 DEFINE_STANDARD_HANDLE(STEPSelections_SelectInstances, IFSelect_SelectExplore)
@@ -46,7 +46,7 @@ public:
             Interface_EntityIterator&         explored) const Standard_OVERRIDE;
 
   //! Returns a text defining the criterium : "Instances"
-  Standard_EXPORT TCollection_AsciiString ExploreLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExploreLabel() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(STEPSelections_SelectInstances, IFSelect_SelectExplore)
 

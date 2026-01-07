@@ -44,23 +44,23 @@ public:
   IntTools_CommonPrt& operator=(const IntTools_CommonPrt& Other) { return Assign(Other); }
 
   //! Sets the first edge.
-  Standard_EXPORT void SetEdge1(const TopoDS_Edge& anE);
+  Standard_EXPORT void SetEdge1(const TopoEdge& anE);
 
   //! Sets the second edge.
-  Standard_EXPORT void SetEdge2(const TopoDS_Edge& anE);
+  Standard_EXPORT void SetEdge2(const TopoEdge& anE);
 
   //! Sets the type of  the common  part
   //! Vertex  or  Edge
   Standard_EXPORT void SetType(const TopAbs_ShapeEnum aType);
 
   //! Sets the range of first edge.
-  Standard_EXPORT void SetRange1(const IntTools_Range& aR);
+  Standard_EXPORT void SetRange1(const IntToolsRange& aR);
 
   //! Sets the range of first edge.
   Standard_EXPORT void SetRange1(const Standard_Real tf, const Standard_Real tl);
 
   //! Appends the range of second edge.
-  Standard_EXPORT void AppendRange2(const IntTools_Range& aR);
+  Standard_EXPORT void AppendRange2(const IntToolsRange& aR);
 
   //! Appends the range of second edge.
   Standard_EXPORT void AppendRange2(const Standard_Real tf, const Standard_Real tl);
@@ -72,16 +72,16 @@ public:
   Standard_EXPORT void SetVertexParameter2(const Standard_Real tV);
 
   //! Returns the first edge.
-  Standard_EXPORT const TopoDS_Edge& Edge1() const;
+  Standard_EXPORT const TopoEdge& Edge1() const;
 
   //! Returns the second edge
-  Standard_EXPORT const TopoDS_Edge& Edge2() const;
+  Standard_EXPORT const TopoEdge& Edge2() const;
 
   //! Returns the type of  the common  part
   Standard_EXPORT TopAbs_ShapeEnum Type() const;
 
   //! Returns the range of first edge
-  Standard_EXPORT const IntTools_Range& Range1() const;
+  Standard_EXPORT const IntToolsRange& Range1() const;
 
   //! Returns the range of first edge.
   Standard_EXPORT void Range1(Standard_Real& tf, Standard_Real& tl) const;
@@ -115,10 +115,10 @@ public:
 
 protected:
 private:
-  TopoDS_Edge               myEdge1;
-  TopoDS_Edge               myEdge2;
+  TopoEdge               myEdge1;
+  TopoEdge               myEdge2;
   TopAbs_ShapeEnum          myType;
-  IntTools_Range            myRange1;
+  IntToolsRange            myRange1;
   Standard_Real             myVertPar1;
   Standard_Real             myVertPar2;
   IntTools_SequenceOfRanges myRanges2;

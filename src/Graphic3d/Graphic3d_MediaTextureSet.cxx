@@ -59,12 +59,12 @@ Graphic3d_MediaTextureSet::Graphic3d_MediaTextureSet()
   }
 
 #define EOL "\n"
-  TCollection_AsciiString aSrcVert = EOL
+  AsciiString1 aSrcVert = EOL
     "out vec2 TexCoord;" EOL "void main()" EOL "{" EOL "  TexCoord = occTexCoord.st;" EOL
     " gl_Position = occProjectionMatrix * occWorldViewMatrix * occModelWorldMatrix * occVertex;" EOL
     "}";
 
-  TCollection_AsciiString F_SHADER_YUV2RGB_MPEG =
+  AsciiString1 F_SHADER_YUV2RGB_MPEG =
     EOL "const float TheRangeBits = 1.0;" EOL "vec3 convertToRGB (in vec3 theYUV)" EOL "{" EOL
         "  vec3 aYUV = theYUV.rgb;" EOL "  aYUV   *= TheRangeBits;" EOL
         "  aYUV.x  = 1.1643 * (aYUV.x - 0.0625);" EOL "  aYUV.y -= 0.5;" EOL "  aYUV.z -= 0.5;" EOL
@@ -72,7 +72,7 @@ Graphic3d_MediaTextureSet::Graphic3d_MediaTextureSet()
         "  aColor.g = aYUV.x - 0.39173 * aYUV.y - 0.81290 * aYUV.z;" EOL
         "  aColor.b = aYUV.x +   2.017 * aYUV.y;" EOL "  return aColor;" EOL "}";
 
-  TCollection_AsciiString F_SHADER_YUV2RGB_FULL =
+  AsciiString1 F_SHADER_YUV2RGB_FULL =
     EOL "const float TheRangeBits = 1.0;" EOL "vec3 convertToRGB (in vec3 theYUV)" EOL "{" EOL
         "  vec3 aYUV = theYUV.rgb;" EOL "  aYUV   *= TheRangeBits;" EOL "  aYUV.x  = aYUV.x;" EOL
         "  aYUV.y -= 0.5;" EOL "  aYUV.z -= 0.5;" EOL "  vec3 aColor = vec3(0.0);" EOL
@@ -80,7 +80,7 @@ Graphic3d_MediaTextureSet::Graphic3d_MediaTextureSet()
         "  aColor.g = aYUV.x - 0.344 * aYUV.y - 0.714 * aYUV.z;" EOL
         "  aColor.b = aYUV.x + 1.772 * aYUV.y;" EOL "  return aColor;" EOL "}";
 
-  TCollection_AsciiString aSrcFrag = EOL
+  AsciiString1 aSrcFrag = EOL
     "in vec2 TexCoord;" EOL "uniform sampler2D occSampler1;" EOL
     "uniform sampler2D occSampler2;" EOL "vec3 convertToRGB (in vec3 theYUV);" EOL "void main()" EOL
     "{" EOL "  vec3 aYUV = vec3 (occTexture2D (occSampler0, TexCoord.st).r," EOL
@@ -130,7 +130,7 @@ void Graphic3d_MediaTextureSet::Notify()
 
 //=================================================================================================
 
-void Graphic3d_MediaTextureSet::OpenInput(const TCollection_AsciiString& thePath,
+void Graphic3d_MediaTextureSet::OpenInput(const AsciiString1& thePath,
                                           Standard_Boolean               theToWait)
 {
   if (myPlayerCtx.IsNull())

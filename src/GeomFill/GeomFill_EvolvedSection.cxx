@@ -39,14 +39,14 @@ static Standard_Integer NumSec = 0;
 static Standard_Boolean Affich = 0;
 #endif
 
-GeomFill_EvolvedSection::GeomFill_EvolvedSection(const Handle(Geom_Curve)&   C,
+GeomFill_EvolvedSection::GeomFill_EvolvedSection(const Handle(GeomCurve3d)&   C,
                                                  const Handle(Law_Function)& L)
 {
   L->Bounds(First, Last);
-  mySection = Handle(Geom_Curve)::DownCast(C->Copy());
+  mySection = Handle(GeomCurve3d)::DownCast(C->Copy());
   myLaw     = L->Trim(First, Last, 1.e-20);
   TLaw      = myLaw;
-  myCurve   = Handle(Geom_BSplineCurve)::DownCast(C);
+  myCurve   = Handle(BSplineCurve3d)::DownCast(C);
   if (myCurve.IsNull())
   {
     myCurve = GeomConvert::CurveToBSplineCurve(C, Convert_QuasiAngular);
@@ -62,7 +62,7 @@ GeomFill_EvolvedSection::GeomFill_EvolvedSection(const Handle(Geom_Curve)&   C,
   {
     char name[256];
     sprintf(name, "UnifSect_%d", ++NumSec);
-    DrawTrSurf::Set(name, myCurve);
+    DrawTrSurf1::Set(name, myCurve);
   }
 #endif
 }
@@ -349,7 +349,7 @@ Standard_Boolean GeomFill_EvolvedSection::IsConstant(Standard_Real& Error) const
   return isconst;
 }
 
-Handle(Geom_Curve) GeomFill_EvolvedSection::ConstantSection() const
+Handle(GeomCurve3d) GeomFill_EvolvedSection::ConstantSection() const
 {
   Standard_Real Err, scale;
   if (!IsConstant(Err))
@@ -359,8 +359,8 @@ Handle(Geom_Curve) GeomFill_EvolvedSection::ConstantSection() const
   scale = myLaw->Value(First) + myLaw->Value((First + Last) / 2) + myLaw->Value(Last);
   T.SetScale(P, scale / 3);
 
-  Handle(Geom_Curve) C;
-  C = Handle(Geom_Curve)::DownCast(mySection->Copy());
+  Handle(GeomCurve3d) C;
+  C = Handle(GeomCurve3d)::DownCast(mySection->Copy());
   C->Transform(T);
   return C;
 }

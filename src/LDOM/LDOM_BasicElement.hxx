@@ -28,13 +28,13 @@ class LDOM_BasicAttribute;
 //  Class LDOM_BasicElement
 //
 
-class LDOM_BasicElement : public LDOM_BasicNode
+class LDOM_BasicElement : public BasicNode
 {
 public:
   // ---------- PUBLIC METHODS ----------
 
   LDOM_BasicElement()
-      : LDOM_BasicNode(LDOM_Node::UNKNOWN),
+      : BasicNode(LDOM_Node::UNKNOWN),
         myTagName(NULL),
         myAttributeMask(0),
         myFirstChild(NULL)
@@ -59,12 +59,12 @@ public:
 
   const char* GetTagName() const { return myTagName; }
 
-  const LDOM_BasicNode* GetFirstChild() const { return myFirstChild; }
+  const BasicNode* GetFirstChild() const { return myFirstChild; }
 
-  Standard_EXPORT const LDOM_BasicNode* GetLastChild() const;
+  Standard_EXPORT const BasicNode* GetLastChild() const;
 
   Standard_EXPORT const LDOM_BasicAttribute& GetAttribute(const LDOMBasicString& aName,
-                                                          const LDOM_BasicNode*  aLastCh) const;
+                                                          const BasicNode*  aLastCh) const;
   //    Search for attribute name, using or setting myFirstAttribute
 
 protected:
@@ -73,20 +73,20 @@ protected:
   //  LDOM_BasicElement (const LDOM_Element& anElement);
   //    Constructor
 
-  Standard_EXPORT const LDOM_BasicNode* AddAttribute(const LDOMBasicString&         anAttrName,
+  Standard_EXPORT const BasicNode* AddAttribute(const LDOMBasicString&         anAttrName,
                                                      const LDOMBasicString&         anAttrValue,
                                                      const Handle(LDOM_MemManager)& aDoc,
-                                                     const LDOM_BasicNode*          aLastCh);
+                                                     const BasicNode*          aLastCh);
   //    add or replace an attribute to the element
 
-  Standard_EXPORT const LDOM_BasicNode* RemoveAttribute(const LDOMBasicString& aName,
-                                                        const LDOM_BasicNode*  aLastCh) const;
+  Standard_EXPORT const BasicNode* RemoveAttribute(const LDOMBasicString& aName,
+                                                        const BasicNode*  aLastCh) const;
 
-  Standard_EXPORT void RemoveChild(const LDOM_BasicNode* aChild) const;
+  Standard_EXPORT void RemoveChild(const BasicNode* aChild) const;
   //    remove a child element
 
-  Standard_EXPORT void AppendChild(const LDOM_BasicNode*  aChild,
-                                   const LDOM_BasicNode*& aLastCh) const;
+  Standard_EXPORT void AppendChild(const BasicNode*  aChild,
+                                   const BasicNode*& aLastCh) const;
   //    append a child node to the end of the list
 
 private:
@@ -97,8 +97,8 @@ private:
   friend class LDOM_Node;
   // ---------- PRIVATE METHODS ----------
 
-  const LDOM_BasicAttribute* GetFirstAttribute(const LDOM_BasicNode*&  aLastCh,
-                                               const LDOM_BasicNode**& thePrN) const;
+  const LDOM_BasicAttribute* GetFirstAttribute(const BasicNode*&  aLastCh,
+                                               const BasicNode**& thePrN) const;
 
   void RemoveNodes();
 
@@ -108,7 +108,7 @@ private:
   void AddElementsByTagName(LDOM_NodeList& aList, const LDOMBasicString& aTagName) const;
   //    remark: recursive
 
-  void AddAttributes(LDOM_NodeList& aList, const LDOM_BasicNode* aLastCh) const;
+  void AddAttributes(LDOM_NodeList& aList, const BasicNode* aLastCh) const;
   //    add attributes to list
 
 private:
@@ -117,7 +117,7 @@ private:
   //  LDOMBasicString       myTagName;
   const char*     myTagName;
   unsigned long   myAttributeMask;
-  LDOM_BasicNode* myFirstChild;
+  BasicNode* myFirstChild;
 };
 
 #endif

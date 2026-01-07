@@ -23,7 +23,7 @@
 #include <Standard_Integer.hxx>
 #include <TDF_Attribute.hxx>
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 
 class TDF_TagSource;
@@ -41,19 +41,19 @@ public:
 
   //! Find, or create, a  TagSource attribute. the TagSource
   //! attribute is returned.
-  Standard_EXPORT static Handle(TDF_TagSource) Set(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDF_TagSource) Set(const DataLabel& label);
 
   //! Find (or create) a  tagSource attribute located at <L>
   //! and make a new child label.
   //! TagSource methods
   //! =================
-  Standard_EXPORT static TDF_Label NewChild(const TDF_Label& L);
+  Standard_EXPORT static DataLabel NewChild(const DataLabel& L);
 
   Standard_EXPORT TDF_TagSource();
 
   Standard_EXPORT Standard_Integer NewTag();
 
-  Standard_EXPORT TDF_Label NewChild();
+  Standard_EXPORT DataLabel NewChild();
 
   Standard_EXPORT Standard_Integer Get() const;
 

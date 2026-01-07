@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline void TopOpeBRepBuild_BlockIterator::Initialize()
+inline void TopOpeBRepBuildBlockIterator::Initialize()
 {
   myValue = myLower;
 }
@@ -29,7 +29,7 @@ inline void TopOpeBRepBuild_BlockIterator::Initialize()
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean TopOpeBRepBuild_BlockIterator::More() const
+inline Standard_Boolean TopOpeBRepBuildBlockIterator::More() const
 {
   Standard_Boolean b = (myValue <= myUpper);
   return b;
@@ -40,7 +40,7 @@ inline Standard_Boolean TopOpeBRepBuild_BlockIterator::More() const
 // purpose  :
 //=======================================================================
 
-inline void TopOpeBRepBuild_BlockIterator::Next()
+inline void TopOpeBRepBuildBlockIterator::Next()
 {
   myValue++;
 }
@@ -50,7 +50,7 @@ inline void TopOpeBRepBuild_BlockIterator::Next()
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer TopOpeBRepBuild_BlockIterator::Value() const
+inline Standard_Integer TopOpeBRepBuildBlockIterator::Value() const
 {
   return myValue;
 }
@@ -60,7 +60,7 @@ inline Standard_Integer TopOpeBRepBuild_BlockIterator::Value() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer TopOpeBRepBuild_BlockIterator::Extent() const
+inline Standard_Integer TopOpeBRepBuildBlockIterator::Extent() const
 {
   if (myLower != 0)
   {

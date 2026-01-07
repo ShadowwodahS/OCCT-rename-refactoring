@@ -26,7 +26,7 @@
 #include <TopoDS_Face.hxx>
 #include <TopTools_MapOfShape.hxx>
 #include <TopAbs_Orientation.hxx>
-class TopoDS_Wire;
+class TopoWire;
 
 //! The WireExplorer is a tool to explore the edges of
 //! a wire in a connection order.
@@ -50,27 +50,27 @@ public:
   Standard_EXPORT BRepTools_WireExplorer();
 
   //! IInitializes an exploration  of the wire <W>.
-  Standard_EXPORT BRepTools_WireExplorer(const TopoDS_Wire& W);
+  Standard_EXPORT BRepTools_WireExplorer(const TopoWire& W);
 
   //! Initializes an exploration  of the wire <W>.
   //! F is used to select the edge connected to the
   //! previous in the parametric representation of <F>.
-  Standard_EXPORT BRepTools_WireExplorer(const TopoDS_Wire& W, const TopoDS_Face& F);
+  Standard_EXPORT BRepTools_WireExplorer(const TopoWire& W, const TopoFace& F);
 
   //! Initializes an exploration of the wire <W>.
-  Standard_EXPORT void Init(const TopoDS_Wire& W);
+  Standard_EXPORT void Init(const TopoWire& W);
 
   //! Initializes an exploration of the wire <W>.
   //! F is used to select the edge connected to the
   //! previous in the parametric representation of <F>.
-  Standard_EXPORT void Init(const TopoDS_Wire& W, const TopoDS_Face& F);
+  Standard_EXPORT void Init(const TopoWire& W, const TopoFace& F);
 
   //! Initializes an exploration of the wire <W>.
   //! F is used to select the edge connected to the
   //! previous in the parametric representation of <F>.
   //! <UMIn>, <UMax>, <VMin>, <VMax> - the UV bounds of the face <F>.
-  Standard_EXPORT void Init(const TopoDS_Wire&  W,
-                            const TopoDS_Face&  F,
+  Standard_EXPORT void Init(const TopoWire&  W,
+                            const TopoFace&  F,
                             const Standard_Real UMin,
                             const Standard_Real UMax,
                             const Standard_Real VMin,
@@ -83,14 +83,14 @@ public:
   Standard_EXPORT void Next();
 
   //! Returns the current edge.
-  Standard_EXPORT const TopoDS_Edge& Current() const;
+  Standard_EXPORT const TopoEdge& Current() const;
 
   //! Returns an Orientation for the current edge.
   Standard_EXPORT TopAbs_Orientation Orientation() const;
 
   //! Returns the vertex connecting the current  edge to
   //! the previous one.
-  Standard_EXPORT const TopoDS_Vertex& CurrentVertex() const;
+  Standard_EXPORT const TopoVertex& CurrentVertex() const;
 
   //! Clears the content of the explorer.
   Standard_EXPORT void Clear();
@@ -98,9 +98,9 @@ public:
 protected:
 private:
   TopTools_DataMapOfShapeListOfShape myMap;
-  TopoDS_Edge                        myEdge;
-  TopoDS_Vertex                      myVertex;
-  TopoDS_Face                        myFace;
+  TopoEdge                        myEdge;
+  TopoVertex                      myVertex;
+  TopoFace                        myFace;
   TopTools_MapOfShape                myDoubles;
   Standard_Boolean                   myReverse;
   Standard_Real                      myTolU;

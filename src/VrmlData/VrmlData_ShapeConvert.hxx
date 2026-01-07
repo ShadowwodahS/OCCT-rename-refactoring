@@ -24,24 +24,24 @@
 
 class VrmlData_Scene;
 class VrmlData_Coordinate;
-class TopoDS_Face;
+class TopoFace;
 class Poly_Polygon3D;
-class Poly_Triangulation;
+class MeshTriangulation;
 class XCAFPrs_Style;
-class TDocStd_Document;
-class TDF_Label;
+class AppDocument;
+class DataLabel;
 
 /**
  * Algorithm converting one shape or a set of shapes to VrmlData_Scene.
  */
 
-class VrmlData_ShapeConvert
+class ShapeConverter
 {
 public:
   typedef struct
   {
-    TCollection_AsciiString Name;
-    TopoDS_Shape            Shape;
+    AsciiString1 Name;
+    TopoShape            Shape;
     Handle(VrmlData_Node)   Node;
   } ShapeData;
 
@@ -50,12 +50,12 @@ public:
   /**
    * Constructor.
    * @param theScene
-   *   Scene receiving all Vrml data.
+   *   Scene receiving all Vrml1 data.
    * @param theScale
    *   Scale factor, considering that VRML standard specifies coordinates in
    *   meters. So if your data are in mm, you should provide theScale=0.001
    */
-  inline VrmlData_ShapeConvert(VrmlData_Scene& theScene, const Standard_Real theScale = 1.)
+  inline ShapeConverter(VrmlData_Scene& theScene, const Standard_Real theScale = 1.)
       : myScene(theScene),
         myScale(theScale),
         myDeflection(0.0),
@@ -67,7 +67,7 @@ public:
    * Add one shape to the internal list, may be called several times with
    * different shapes.
    */
-  Standard_EXPORT void AddShape(const TopoDS_Shape& theShape, const char* theName = 0L);
+  Standard_EXPORT void AddShape(const TopoShape& theShape, const char* theName = 0L);
 
   /**
    * Convert all accumulated shapes and store them in myScene.
@@ -93,13 +93,13 @@ public:
   /**
    * Add all shapes start from given document with colors and names to the internal structure
    */
-  Standard_EXPORT void ConvertDocument(const Handle(TDocStd_Document)& theDoc);
+  Standard_EXPORT void ConvertDocument(const Handle(AppDocument)& theDoc);
 
 protected:
   // ---------- PROTECTED METHODS ----------
 
-  Handle(VrmlData_Geometry) triToIndexedFaceSet(const Handle(Poly_Triangulation)&,
-                                                const TopoDS_Face&,
+  Handle(VrmlData_Geometry) triToIndexedFaceSet(const Handle(MeshTriangulation)&,
+                                                const TopoFace&,
                                                 const Handle(VrmlData_Coordinate)&);
 
   Handle(VrmlData_Geometry) polToIndexedLineSet(const Handle(Poly_Polygon3D)&);
@@ -108,25 +108,25 @@ protected:
 
   Handle(VrmlData_Appearance) defaultMaterialEdge() const;
 
-  Handle(VrmlData_Geometry) makeTShapeNode(const TopoDS_Shape&    theShape,
+  Handle(VrmlData_Geometry) makeTShapeNode(const TopoShape&    theShape,
                                            const TopAbs_ShapeEnum theShapeType,
                                            TopLoc_Location&       theLoc);
 
   void addAssembly(const Handle(VrmlData_Group)&   theParent,
-                   const TDF_Label&                theLabel,
-                   const Handle(TDocStd_Document)& theDoc,
+                   const DataLabel&                theLabel,
+                   const Handle(AppDocument)& theDoc,
                    const Standard_Boolean          theNeedCreateGroup);
 
   void addInstance(const Handle(VrmlData_Group)&   theParent,
-                   const TDF_Label&                theLabel,
-                   const Handle(TDocStd_Document)& theDoc);
+                   const DataLabel&                theLabel,
+                   const Handle(AppDocument)& theDoc);
 
   void addShape(const Handle(VrmlData_Group)&   theParent,
-                const TDF_Label&                theLabel,
-                const Handle(TDocStd_Document)& theDoc);
+                const DataLabel&                theLabel,
+                const Handle(AppDocument)& theDoc);
 
   Handle(VrmlData_Appearance) makeMaterialFromStyle(const XCAFPrs_Style& theStyle,
-                                                    const TDF_Label&     theAttribLab) const;
+                                                    const DataLabel&     theAttribLab) const;
 
 private:
   // ---------- PRIVATE FIELDS ----------
@@ -137,10 +137,10 @@ private:
 
   Standard_Real                                                myDeflection;
   Standard_Real                                                myDeflAngle;
-  NCollection_DataMap<TopoDS_Shape, Handle(VrmlData_Geometry)> myRelMap;
+  NCollection_DataMap<TopoShape, Handle(VrmlData_Geometry)> myRelMap;
 
   // ---------- PRIVATE METHODS ----------
-  void operator=(const VrmlData_ShapeConvert&);
+  void operator=(const ShapeConverter&);
 };
 
 #endif

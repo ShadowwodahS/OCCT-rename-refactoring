@@ -34,7 +34,7 @@
 class Approx_SweepFunction;
 
 //! Used to Approximate the blending surfaces.
-class BRepBlend_AppSurface : public AppBlend_Approx
+class BRepBlend_AppSurface : public BlendApproximation
 {
 public:
   DEFINE_STANDARD_ALLOC

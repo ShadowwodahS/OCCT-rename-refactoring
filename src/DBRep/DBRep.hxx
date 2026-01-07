@@ -21,13 +21,13 @@
 #include <Draw_Interpretor.hxx>
 #include <TopoDS_Shape.hxx>
 
-//! Used to display BRep objects  using the DrawTrSurf
+//! Used to display BRep objects  using the DrawTrSurf1
 //! package.
 //! The DrawableShape is a Display object build from a
 //! Shape.
 //! Provides methods to manage a directory of named shapes.
-//! Provides a set of Draw commands for Shapes.
-class DBRep
+//! Provides a set of Draw1 commands for Shapes.
+class DBRep1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -36,7 +36,7 @@ public:
   //! Implements ProgressIndicator for DRAW
   //! Sets  <S> in the  variable  <Name>.  Overwrite the
   //! variable if already set.
-  Standard_EXPORT static void Set(const Standard_CString Name, const TopoDS_Shape& S);
+  Standard_EXPORT static void Set(const Standard_CString Name, const TopoShape& S);
 
   //! Returns the shape in the variable.
   //! @param[in][out] theName   variable name, or "." to pick up shape interactively (the picked
@@ -44,7 +44,7 @@ public:
   //! @param[in] theType        shape type filter; function will return NULL if shape has different
   //! type
   //! @param[in] theToComplain  when TRUE, prints a message on cout if the variable is not set
-  static TopoDS_Shape Get(Standard_CString& theName,
+  static TopoShape Get(Standard_CString& theName,
                           TopAbs_ShapeEnum  theType       = TopAbs_SHAPE,
                           Standard_Boolean  theToComplain = Standard_False)
   {
@@ -57,12 +57,12 @@ public:
   //! @param[in] theType        shape type filter; function will return NULL if shape has different
   //! type
   //! @param[in] theToComplain  when TRUE, prints a message on cout if the variable is not set
-  static TopoDS_Shape Get(TCollection_AsciiString& theName,
+  static TopoShape Get(AsciiString1& theName,
                           TopAbs_ShapeEnum         theType       = TopAbs_SHAPE,
                           Standard_Boolean         theToComplain = Standard_False)
   {
     Standard_CString aNamePtr = theName.ToCString();
-    TopoDS_Shape     aShape   = getShape(aNamePtr, theType, theToComplain);
+    TopoShape     aShape   = getShape(aNamePtr, theType, theToComplain);
     if (aNamePtr != theName.ToCString())
     {
       theName = aNamePtr;
@@ -74,13 +74,13 @@ public:
   //! @param[in] theName  variable name
   //! @param[in] theType  shape type filter; function will return NULL if shape has different type
   //! @param[in] theToComplain  when TRUE, prints a message on cout if the variable is not set
-  static TopoDS_Shape GetExisting(const TCollection_AsciiString& theName,
+  static TopoShape GetExisting(const AsciiString1& theName,
                                   TopAbs_ShapeEnum               theType       = TopAbs_SHAPE,
                                   Standard_Boolean               theToComplain = Standard_False)
   {
     if (theName.Length() == 1 && theName.Value(1) == '.')
     {
-      return TopoDS_Shape();
+      return TopoShape();
     }
 
     Standard_CString aNamePtr = theName.ToCString();
@@ -88,10 +88,10 @@ public:
   }
 
   //! Defines the basic commands.
-  Standard_EXPORT static void BasicCommands(Draw_Interpretor& theCommands);
+  Standard_EXPORT static void BasicCommands(DrawInterpreter& theCommands);
 
   //! Return global parameters.
-  Standard_EXPORT static DBRep_Params& Parameters();
+  Standard_EXPORT static DrawParams& Parameters();
 
   //! True if HLR, False if wireframe.
   static Standard_Boolean HLRMode() { return Parameters().WithHLR; }
@@ -121,7 +121,7 @@ protected:
   //! @param[in] theType        shape type filter; function will return NULL if shape has different
   //! type
   //! @param[in] theToComplain  when TRUE, prints a message on cout if the variable is not set
-  Standard_EXPORT static TopoDS_Shape getShape(Standard_CString& theName,
+  Standard_EXPORT static TopoShape getShape(Standard_CString& theName,
                                                TopAbs_ShapeEnum  theType,
                                                Standard_Boolean  theToComplain);
 };

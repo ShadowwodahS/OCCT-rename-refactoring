@@ -27,7 +27,7 @@ IntTools_PntOnFace::IntTools_PntOnFace()
 
 //=================================================================================================
 
-void IntTools_PntOnFace::Init(const TopoDS_Face&  aF,
+void IntTools_PntOnFace::Init(const TopoFace&  aF,
                               const Point3d&       aP,
                               const Standard_Real anU,
                               const Standard_Real aV)
@@ -40,7 +40,7 @@ void IntTools_PntOnFace::Init(const TopoDS_Face&  aF,
 
 //=================================================================================================
 
-void IntTools_PntOnFace::SetFace(const TopoDS_Face& aF)
+void IntTools_PntOnFace::SetFace(const TopoFace& aF)
 {
   myFace = aF;
 }
@@ -69,7 +69,7 @@ void IntTools_PntOnFace::SetValid(const Standard_Boolean bF)
 
 //=================================================================================================
 
-const TopoDS_Face& IntTools_PntOnFace::Face() const
+const TopoFace& IntTools_PntOnFace::Face() const
 {
   return myFace;
 }

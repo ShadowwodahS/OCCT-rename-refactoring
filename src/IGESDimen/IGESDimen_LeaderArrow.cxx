@@ -32,7 +32,7 @@ IGESDimen_LeaderArrow::IGESDimen_LeaderArrow() {}
 void IGESDimen_LeaderArrow::Init(const Standard_Real               height,
                                  const Standard_Real               width,
                                  const Standard_Real               depth,
-                                 const gp_XY&                      position,
+                                 const Coords2d&                      position,
                                  const Handle(TColgp_HArray1OfXY)& segments)
 {
   if (segments->Lower() != 1)
@@ -95,7 +95,7 @@ gp_Pnt2d IGESDimen_LeaderArrow::SegmentTail(const Standard_Integer Index) const
 
 Point3d IGESDimen_LeaderArrow::TransformedSegmentTail(const Standard_Integer Index) const
 {
-  gp_XY  point2d = theSegmentTails->Value(Index);
+  Coords2d  point2d = theSegmentTails->Value(Index);
   gp_XYZ point(point2d.X(), point2d.Y(), ZDepth());
   if (HasTransf())
     Location().Transforms(point);

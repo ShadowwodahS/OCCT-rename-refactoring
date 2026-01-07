@@ -56,14 +56,14 @@ ShapeFix_EdgeProjAux::ShapeFix_EdgeProjAux()
 
 //=================================================================================================
 
-ShapeFix_EdgeProjAux::ShapeFix_EdgeProjAux(const TopoDS_Face& F, const TopoDS_Edge& E)
+ShapeFix_EdgeProjAux::ShapeFix_EdgeProjAux(const TopoFace& F, const TopoEdge& E)
 {
   Init(F, E);
 }
 
 //=================================================================================================
 
-void ShapeFix_EdgeProjAux::Init(const TopoDS_Face& F, const TopoDS_Edge& E)
+void ShapeFix_EdgeProjAux::Init(const TopoFace& F, const TopoEdge& E)
 {
   myFace       = F;
   myEdge       = E;
@@ -132,7 +132,7 @@ Standard_Real ShapeFix_EdgeProjAux::LastParam() const
 
 //=================================================================================================
 
-Standard_Boolean ShapeFix_EdgeProjAux::IsIso(const Handle(Geom2d_Curve)& /*theCurve2d*/)
+Standard_Boolean ShapeFix_EdgeProjAux::IsIso(const Handle(GeomCurve2d)& /*theCurve2d*/)
 {
   // Until an ISO is recognized by Adaptor3d_Curve
   /*
@@ -208,19 +208,19 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
   Standard_Real cl = 0., cf = 0.;
   // Extract Geometries
   myFirstDone = myLastDone        = Standard_False;
-  Handle(Geom_Surface) theSurface = BRep_Tool::Surface(myFace);
-  Handle(Geom2d_Curve) theCurve2d = BRep_Tool::CurveOnSurface(myEdge, myFace, cf, cl);
+  Handle(GeomSurface) theSurface = BRepInspector::Surface(myFace);
+  Handle(GeomCurve2d) theCurve2d = BRepInspector::CurveOnSurface(myEdge, myFace, cf, cl);
   if (theCurve2d.IsNull())
     return; //: r5 abv 6 Apr 99:  ec_turbine-A.stp, #4313
   myFirstParam = 0.;
   myLastParam  = 0.;
-  TopoDS_Vertex V1, V2;
-  TopExp::Vertices(myEdge, V1, V2);
+  TopoVertex V1, V2;
+  TopExp1::Vertices(myEdge, V1, V2);
   Point3d Pt1, Pt2;
   // pdn 28.12.98: r_39-db.stp #605: use ends of 3d curve instead of vertices
   ShapeAnalysis_Edge sae;
   Standard_Real      a, b;
-  Handle(Geom_Curve) C3d;
+  Handle(GeomCurve3d) C3d;
   if (sae.Curve3d(myEdge, C3d, a, b, Standard_False))
   {
     Pt1 = C3d->Value(a);
@@ -228,8 +228,8 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
   }
   else
   {
-    Pt1 = BRep_Tool::Pnt(V1);
-    Pt2 = BRep_Tool::Pnt(V2);
+    Pt1 = BRepInspector::Pnt(V1);
+    Pt2 = BRepInspector::Pnt(V2);
   }
   //: S4136  Standard_Real preci = BRepAPI::Precision();
   // pdn to manage degenerated case
@@ -470,7 +470,7 @@ void ShapeFix_EdgeProjAux::Init2d(const Standard_Real preci)
     myFirstParam = w1;
     w2 += ShapeAnalysis::AdjustToPeriod(w2, 0, period);
     myLastParam = w2;
-    Handle(Geom_Curve) C3d1;
+    Handle(GeomCurve3d) C3d1;
     if (!sae.Curve3d(myEdge, C3d1, cf, cl, Standard_False))
     {
       UpdateParam2d(theCurve2d);
@@ -522,16 +522,16 @@ void ShapeFix_EdgeProjAux::Init3d(const Standard_Real preci)
   Standard_Real cl, cf;
 
   // Extract Geometries
-  Handle(Geom_Surface) theSurface = BRep_Tool::Surface(myFace);
-  Handle(Geom2d_Curve) theCurve2d = BRep_Tool::CurveOnSurface(myEdge, myFace, cf, cl);
+  Handle(GeomSurface) theSurface = BRepInspector::Surface(myFace);
+  Handle(GeomCurve2d) theCurve2d = BRepInspector::CurveOnSurface(myEdge, myFace, cf, cl);
   if (theCurve2d.IsNull())
     return; //: r5 abv 6 Apr 99:  ec_turbine-A.stp, #4313
-  TopoDS_Vertex V1, V2;
+  TopoVertex V1, V2;
 
-  V1         = TopExp::FirstVertex(myEdge);
-  V2         = TopExp::LastVertex(myEdge);
-  Point3d Pt1 = BRep_Tool::Pnt(V1);
-  Point3d Pt2 = BRep_Tool::Pnt(V2);
+  V1         = TopExp1::FirstVertex(myEdge);
+  V2         = TopExp1::LastVertex(myEdge);
+  Point3d Pt1 = BRepInspector::Pnt(V1);
+  Point3d Pt2 = BRepInspector::Pnt(V2);
 
   GeomAdaptor_Surface         SA     = GeomAdaptor_Surface(theSurface);
   Handle(GeomAdaptor_Surface) myHSur = new GeomAdaptor_Surface(SA);
@@ -594,7 +594,7 @@ void ShapeFix_EdgeProjAux::Init3d(const Standard_Real preci)
 
 //=================================================================================================
 
-void ShapeFix_EdgeProjAux::UpdateParam2d(const Handle(Geom2d_Curve)& theCurve2d)
+void ShapeFix_EdgeProjAux::UpdateParam2d(const Handle(GeomCurve2d)& theCurve2d)
 {
   if (myFirstParam < myLastParam)
     return;

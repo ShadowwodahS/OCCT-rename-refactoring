@@ -35,19 +35,19 @@
 // purpose  : Projection orthogonal d'un point sur une courbe
 // pmn 8/10/98 : On retourne toujours une distance. (BUC60360)
 //=======================================================================
-Standard_Boolean BRepBlend_BlendTool::Project(const gp_Pnt2d& P,
+Standard_Boolean BlendTool::Project(const gp_Pnt2d& P,
                                               const Handle(Adaptor3d_Surface)&,
                                               const Handle(Adaptor2d_Curve2d)& C,
                                               Standard_Real&                   Paramproj,
                                               Standard_Real&                   Dist)
 {
-  Paramproj = BRepBlend_HCurve2dTool::FirstParameter(C);
+  Paramproj = HCurve2dTool::FirstParameter(C);
   gp_Pnt2d P2d;
-  BRepBlend_HCurve2dTool::D0(C, Paramproj, P2d);
+  HCurve2dTool::D0(C, Paramproj, P2d);
   Dist = P2d.Distance(P);
 
-  const Standard_Real t = BRepBlend_HCurve2dTool::LastParameter(C);
-  BRepBlend_HCurve2dTool::D0(C, t, P2d);
+  const Standard_Real t = HCurve2dTool::LastParameter(C);
+  HCurve2dTool::D0(C, t, P2d);
   if (P2d.Distance(P) < Dist)
   {
     Paramproj = t;
@@ -80,7 +80,7 @@ Standard_Boolean BRepBlend_BlendTool::Project(const gp_Pnt2d& P,
 // function : Inters
 // purpose  : Intersection d'un segment avec une courbe
 //=======================================================================
-Standard_Boolean BRepBlend_BlendTool::Inters(const gp_Pnt2d& P1,
+Standard_Boolean BlendTool::Inters(const gp_Pnt2d& P1,
                                              const gp_Pnt2d& P2,
                                              const Handle(Adaptor3d_Surface)&,
                                              const Handle(Adaptor2d_Curve2d)& C,
@@ -111,24 +111,24 @@ Standard_Boolean BRepBlend_BlendTool::Inters(const gp_Pnt2d& P1,
   return Standard_True;
 }
 
-Standard_Integer BRepBlend_BlendTool::NbSamplesV(const Handle(Adaptor3d_Surface)&,
+Standard_Integer BlendTool::NbSamplesV(const Handle(Adaptor3d_Surface)&,
                                                  const Standard_Real,
                                                  const Standard_Real)
 {
   return 10;
 }
 
-Standard_Integer BRepBlend_BlendTool::NbSamplesU(const Handle(Adaptor3d_Surface)&,
+Standard_Integer BlendTool::NbSamplesU(const Handle(Adaptor3d_Surface)&,
                                                  const Standard_Real,
                                                  const Standard_Real)
 {
   return 10;
 }
 
-void BRepBlend_BlendTool::Bounds(const Handle(Adaptor2d_Curve2d)& A,
+void BlendTool::Bounds(const Handle(Adaptor2d_Curve2d)& A,
                                  Standard_Real&                   Ufirst,
                                  Standard_Real&                   Ulast)
 {
-  Ufirst = BRepBlend_HCurve2dTool::FirstParameter(A);
-  Ulast  = BRepBlend_HCurve2dTool::LastParameter(A);
+  Ufirst = HCurve2dTool::FirstParameter(A);
+  Ulast  = HCurve2dTool::LastParameter(A);
 }

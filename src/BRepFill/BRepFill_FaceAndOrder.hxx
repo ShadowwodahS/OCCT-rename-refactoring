@@ -32,13 +32,13 @@ public:
 
   Standard_EXPORT BRepFill_FaceAndOrder();
 
-  Standard_EXPORT BRepFill_FaceAndOrder(const TopoDS_Face& aFace, const GeomAbs_Shape anOrder);
+  Standard_EXPORT BRepFill_FaceAndOrder(const TopoFace& aFace, const GeomAbs_Shape anOrder);
 
   friend class BRepFill_Filling;
 
 protected:
 private:
-  TopoDS_Face   myFace;
+  TopoFace   myFace;
   GeomAbs_Shape myOrder;
 };
 

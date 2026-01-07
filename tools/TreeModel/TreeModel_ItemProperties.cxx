@@ -47,12 +47,12 @@ void TreeModel_ItemProperties::Init()
 // =======================================================================
 void TreeModel_ItemProperties::InitByStream(const Standard_SStream& aStream)
 {
-  NCollection_IndexedDataMap<TCollection_AsciiString, Standard_DumpValue> aValues;
-  TCollection_AsciiString aStreamText = Standard_Dump::Text(aStream);
+  NCollection_IndexedDataMap<AsciiString1, Standard_DumpValue> aValues;
+  AsciiString1 aStreamText = Standard_Dump::Text(aStream);
   Standard_Dump::SplitJson(aStreamText, aValues);
 
   TreeModel_ItemStreamPtr aStreamParent = itemDynamicCast<TreeModel_ItemStream>(Item());
-  TCollection_AsciiString aKey;
+  AsciiString1 aKey;
   Standard_DumpValue      aKeyValue;
   if (!aStreamParent)
   {
@@ -72,7 +72,7 @@ void TreeModel_ItemProperties::InitByStream(const Standard_SStream& aStream)
   }
   else
   {
-    TCollection_AsciiString aValue;
+    AsciiString1 aValue;
     if (Item()->Parent())
     {
       const Handle(TreeModel_ItemProperties)& aParentProperties = Item()->Parent()->Properties();
@@ -202,11 +202,11 @@ ViewControl_EditType TreeModel_ItemProperties::EditType(const int, const int the
 // function : ReplaceValue
 // purpose :
 // =======================================================================
-Standard_Boolean ReplaceValue(const TCollection_AsciiString& theFromValue,
-                              const TCollection_AsciiString& theToValue,
+Standard_Boolean ReplaceValue(const AsciiString1& theFromValue,
+                              const AsciiString1& theToValue,
                               Standard_DumpValue&            theStreamValue)
 {
-  TCollection_AsciiString aStreamValue = theStreamValue.myValue;
+  AsciiString1 aStreamValue = theStreamValue.myValue;
 
   int aPosition = aStreamValue.FirstLocationInSet(theFromValue, 1, aStreamValue.Length());
   if (aPosition < 1)
@@ -215,8 +215,8 @@ Standard_Boolean ReplaceValue(const TCollection_AsciiString& theFromValue,
   aPosition +=
     2; // due to 'FirstLocationInSet' returns position taking into account '"\' as 1 position
 
-  TCollection_AsciiString aPartStart = aStreamValue.SubString(1, aPosition - 1);
-  TCollection_AsciiString aPartFinal =
+  AsciiString1 aPartStart = aStreamValue.SubString(1, aPosition - 1);
+  AsciiString1 aPartFinal =
     aStreamValue.SubString(aPosition + theFromValue.Length(), aStreamValue.Length());
   theStreamValue.myValue = aPartStart + theToValue + aPartFinal;
 
@@ -240,8 +240,8 @@ bool TreeModel_ItemProperties::SetData(const int       theRow,
 
   if (myRowValues.Size() == 1 && theColumn == 1)
   {
-    TCollection_AsciiString aStreamValue(theValue.toString().toStdString().c_str());
-    NCollection_IndexedDataMap<TCollection_AsciiString, Standard_DumpValue> aKeyToValues;
+    AsciiString1 aStreamValue(theValue.toString().toStdString().c_str());
+    NCollection_IndexedDataMap<AsciiString1, Standard_DumpValue> aKeyToValues;
     if (Standard_Dump::SplitJson(aStreamValue, aKeyToValues))
     {
       Standard_SStream aStream;
@@ -265,7 +265,7 @@ bool TreeModel_ItemProperties::SetData(const int       theRow,
       Item()->StoreItemProperties(theRow, theColumn, theValue);
       return true;
     }
-    TCollection_AsciiString aFromValue =
+    AsciiString1 aFromValue =
       myRowValues.ChangeFromIndex(1).Value.toString().toStdString().c_str();
     if (ReplaceValue(aFromValue, aStreamValue, myStreamValue))
     {
@@ -320,7 +320,7 @@ Qt::ItemFlags TreeModel_ItemProperties::TableFlags(const int, const int theColum
 // purpose :
 // =======================================================================
 void TreeModel_ItemProperties::ChildStream(const int                theRowId,
-                                           TCollection_AsciiString& theKey,
+                                           AsciiString1& theKey,
                                            Standard_DumpValue&      theValue) const
 {
   if (myChildren.Size() <= theRowId)

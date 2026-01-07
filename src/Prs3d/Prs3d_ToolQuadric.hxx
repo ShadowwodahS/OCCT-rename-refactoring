@@ -51,7 +51,7 @@ public:
   //! Generate primitives for 3D quadric surface presentation.
   //! @param[in] theTrsf  optional transformation to apply
   //! @return generated triangulation
-  Standard_EXPORT Handle(Poly_Triangulation) CreatePolyTriangulation(const Transform3d& theTrsf) const;
+  Standard_EXPORT Handle(MeshTriangulation) CreatePolyTriangulation(const Transform3d& theTrsf) const;
 
   //! Generate primitives for 3D quadric surface and fill the given array.
   //! @param[in][out] theArray  the array of vertices;
@@ -79,7 +79,7 @@ public:
   Standard_DEPRECATED(
     "Deprecated method, CreateTriangulation() and CreatePolyTriangulation() should be used instead")
   Standard_EXPORT void FillArray(Handle(Graphic3d_ArrayOfTriangles)& theArray,
-                                 Handle(Poly_Triangulation)&         theTriangulation,
+                                 Handle(MeshTriangulation)&         theTriangulation,
                                  const Transform3d&                      theTrsf) const;
 
 protected:

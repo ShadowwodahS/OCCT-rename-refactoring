@@ -59,14 +59,14 @@
 // purpose  : explore the faces and insert them
 //=======================================================================
 
-void HLRTopoBRep_DSFiller::Insert(const TopoDS_Shape&            S,
+void HLRTopoBRep_DSFiller::Insert(const TopoShape&            S,
                                   Contap_Contour&                FO,
                                   HLRTopoBRep_Data&              DS,
                                   BRepTopAdaptor_MapOfShapeTool& MST,
                                   const Standard_Integer         nbIso)
 {
   TopTools_MapOfShape ShapeMap;
-  TopExp_Explorer     ex(S, TopAbs_FACE);
+  ShapeExplorer     ex(S, TopAbs_FACE);
   DS.Clear();
   Standard_Boolean withPCurve = Standard_True; // instead of nbIso != 0;
   Standard_Integer f          = 0;
@@ -76,7 +76,7 @@ void HLRTopoBRep_DSFiller::Insert(const TopoDS_Shape&            S,
     if (ShapeMap.Add(ex.Current()))
     {
       f++;
-      TopoDS_Face S1 = TopoDS::Face(ex.Current());
+      TopoFace S1 = TopoDS::Face(ex.Current());
       S1.Orientation(TopAbs_FORWARD);
       Handle(BRepTopAdaptor_TopolTool) Domain;
       Handle(Adaptor3d_Surface)        Surface;
@@ -113,25 +113,25 @@ void HLRTopoBRep_DSFiller::Insert(const TopoDS_Shape&            S,
 //=======================================================================
 
 void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
-                                      const TopoDS_Face&     F,
+                                      const TopoFace&     F,
                                       Contap_Contour&        FO,
                                       HLRTopoBRep_Data&      DS,
                                       const Standard_Boolean withPCurve)
 {
   // Insert the intersections of FO in DS
 
-  const Standard_Real   tol  = BRep_Tool::Tolerance(F);
-  TopTools_ListOfShape& IntL = DS.AddIntL(F);
-  TopTools_ListOfShape& OutL = DS.AddOutL(F);
+  const Standard_Real   tol  = BRepInspector::Tolerance(F);
+  ShapeList& IntL = DS.AddIntL(F);
+  ShapeList& OutL = DS.AddOutL(F);
 
-  TopoDS_Vertex VF, VL;
+  TopoVertex VF, VL;
   /*
   TopTools_MapOfShape VM;
-  TopExp_Explorer ex(F,TopAbs_EDGE);
+  ShapeExplorer ex(F,TopAbs_EDGE);
   while (ex.More()) {
-    const TopoDS_Edge& E = TopoDS::Edge(ex.Current());
-    if (BRep_Tool::IsClosed(E,F)) {
-      TopExp::Vertices(E,VF,VL);
+    const TopoEdge& E = TopoDS::Edge(ex.Current());
+    if (BRepInspector::IsClosed(E,F)) {
+      TopExp1::Vertices(E,VF,VL);
       VM.Add(VF);
       VM.Add(VL);
     }
@@ -149,9 +149,9 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
     if (Line.TypeContour() == Contap_Restriction)
     {
       // OutLine on restriction
-      TopoDS_Edge E = (*(BRepAdaptor_Curve2d*)(Line.Arc().get())).Edge();
+      TopoEdge E = (*(BRepAdaptor_Curve2d*)(Line.Arc().get())).Edge();
       OutL.Append(E);
-      TopExp::Vertices(E, VF, VL);
+      TopExp1::Vertices(E, VF, VL);
       // insert the Internal points.
 
       for (CurPoint = 1; CurPoint <= NbPoints; CurPoint++)
@@ -159,9 +159,9 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
         Contap_Point P = Line.Vertex(CurPoint);
         if (P.IsInternal())
         {
-          if (P.Value().IsEqual(BRep_Tool::Pnt(VF), BRep_Tool::Tolerance(VF)))
+          if (P.Value().IsEqual(BRepInspector::Pnt(VF), BRepInspector::Tolerance(VF)))
           {
-            if (P.Value().IsEqual(BRep_Tool::Pnt(VL), BRep_Tool::Tolerance(VL)))
+            if (P.Value().IsEqual(BRepInspector::Pnt(VL), BRepInspector::Tolerance(VL)))
             {
               InsertVertex(P, tol, E, DS);
             }
@@ -190,8 +190,8 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
           if ((parL - parF) > Precision::PConfusion())
           {
 
-            Handle(Geom_Curve)   C;
-            Handle(Geom2d_Curve) C2d;
+            Handle(GeomCurve3d)   C;
+            Handle(GeomCurve2d) C2d;
             Standard_Real        first                     = parF;
             Standard_Real        last                      = parL;
             Standard_Boolean     InsuffisantNumberOfPoints = Standard_False;
@@ -200,10 +200,10 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
             {
 
               case Contap_Lin: {
-                C = new Geom_Line(Line.Line());
+                C = new GeomLine(Line.Line());
                 if (withPCurve)
                 {
-                  Handle(Geom_Surface) S   = BRep_Tool::Surface(F);
+                  Handle(GeomSurface) S   = BRepInspector::Surface(F);
                   Standard_Real        Tol = 1e-7;
                   C2d                      = GeomProjLib::Curve2d(C, first, last, S, Tol);
                 }
@@ -211,14 +211,14 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
               break;
 
               case Contap_Circle: {
-                C = new Geom_Circle(Line.Circle());
+                C = new GeomCircle(Line.Circle());
                 if (withPCurve)
                 {
                   TopLoc_Location      Loc;
-                  Handle(Geom_Surface) S = BRep_Tool::Surface(F, Loc);
+                  Handle(GeomSurface) S = BRepInspector::Surface(F, Loc);
                   if (!Loc.IsIdentity())
                   {
-                    S = Handle(Geom_Surface)::DownCast(S->Transformed(Loc.Transformation()));
+                    S = Handle(GeomSurface)::DownCast(S->Transformed(Loc.Transformation()));
                   }
                   Standard_Real Tol = 1e-7;
                   C2d               = GeomProjLib::Curve2d(C, first, last, S, Tol);
@@ -293,7 +293,7 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
                           Standard_Integer Degree = TheCurve.Degree();
                           TColgp_Array1OfPnt   Poles(1,TheCurve.NbPoles());
                           TheCurve.Curve(1,Poles);
-                          C   = new Geom_BSplineCurve(Poles,
+                          C   = new BSplineCurve3d(Poles,
                                           TheCurve.Knots(),
                                           TheCurve.Multiplicities(),
                                           Degree);
@@ -323,7 +323,7 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
                     Points.SetValue(i, Line.Point(i + ipF - 1).Value());
                   }
                   mults(1) = mults(nbp) = 2;
-                  C                     = new Geom_BSplineCurve(Points, knots, mults, 1);
+                  C                     = new BSplineCurve3d(Points, knots, mults, 1);
 
                   if (withPCurve)
                   {
@@ -371,9 +371,9 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
                     Points.SetValue(i, P);
                   }
                   mults(1) = mults(nbp) = 2;
-                  Handle(Geom_BSplineCurve)   AppC;
+                  Handle(BSplineCurve3d)   AppC;
                   Handle(Geom2d_BSplineCurve) AppC2d;
-                  AppC = new Geom_BSplineCurve(Points, knots, mults, 1);
+                  AppC = new BSplineCurve3d(Points, knots, mults, 1);
 
                   if (withPCurve)
                   {
@@ -446,7 +446,7 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
                     const AppParCurves_MultiBSpCurve& AppVal = Approx.Value(1);
                     TColgp_Array1OfPnt                poles3d(1, AppVal.NbPoles());
                     AppVal.Curve(1, poles3d);
-                    C = new Geom_BSplineCurve(poles3d,
+                    C = new BSplineCurve3d(poles3d,
                                               AppVal.Knots(),
                                               AppVal.Multiplicities(),
                                               AppVal.Degree());
@@ -475,8 +475,8 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
             // make the edge
             if (!InsuffisantNumberOfPoints)
             {
-              TopoDS_Edge  E;
-              BRep_Builder B;
+              TopoEdge  E;
+              ShapeBuilder B;
               B.MakeEdge(E, C, tol);
               VF.Orientation(TopAbs_FORWARD);
               VL.Orientation(TopAbs_REVERSED);
@@ -486,7 +486,7 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
 
               if (!C2d.IsNull())
               {
-                B.UpdateEdge(E, C2d, F, BRep_Tool::Tolerance(F));
+                B.UpdateEdge(E, C2d, F, BRepInspector::Tolerance(F));
               }
 
               // add the edge in the DS
@@ -504,32 +504,32 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
   TopTools_ListIteratorOfListOfShape itl1(IntL);
   for (; itl1.More(); itl1.Next())
   {
-    TopoDS_Edge anIntLine = TopoDS::Edge(itl1.Value());
+    TopoEdge anIntLine = TopoDS::Edge(itl1.Value());
     anIntLine.Orientation(TopAbs_FORWARD);
-    TopoDS_Vertex aVer[2];
-    TopExp::Vertices(anIntLine, aVer[0], aVer[1]);
+    TopoVertex aVer[2];
+    TopExp1::Vertices(anIntLine, aVer[0], aVer[1]);
     TopTools_ListIteratorOfListOfShape itl2 = itl1;
     for (; itl2.More(); itl2.Next())
     {
-      TopoDS_Edge anIntLine2 = TopoDS::Edge(itl2.Value());
+      TopoEdge anIntLine2 = TopoDS::Edge(itl2.Value());
       anIntLine2.Orientation(TopAbs_FORWARD);
       if (anIntLine2.IsSame(anIntLine))
         continue;
-      TopoDS_Vertex aVer2[2];
-      TopExp::Vertices(anIntLine2, aVer2[0], aVer2[1]);
+      TopoVertex aVer2[2];
+      TopExp1::Vertices(anIntLine2, aVer2[0], aVer2[1]);
       for (Standard_Integer i = 0; i < 2; i++)
       {
         if (i == 1 && aVer[0].IsSame(aVer[1]))
           continue;
-        Point3d Pnt1 = BRep_Tool::Pnt(aVer[i]);
+        Point3d Pnt1 = BRepInspector::Pnt(aVer[i]);
         for (Standard_Integer j = 0; j < 2; j++)
         {
           if (aVer[i].IsSame(aVer2[j]))
             continue;
-          Point3d Pnt2 = BRep_Tool::Pnt(aVer2[j]);
+          Point3d Pnt2 = BRepInspector::Pnt(aVer2[j]);
           if (Pnt1.SquareDistance(Pnt2) <= SqTol)
           {
-            BRep_Builder aBB;
+            ShapeBuilder aBB;
             aBB.Remove(anIntLine2, aVer2[j]);
             aVer[i].Orientation((j == 0) ? TopAbs_FORWARD : TopAbs_REVERSED);
             aBB.Add(anIntLine2, aVer[i]);
@@ -545,12 +545,12 @@ void HLRTopoBRep_DSFiller::InsertFace(const Standard_Integer /*FI*/,
 // purpose  : private, make a vertex from an intersection point
 //=======================================================================
 
-TopoDS_Vertex HLRTopoBRep_DSFiller::MakeVertex(const Contap_Point& P,
+TopoVertex HLRTopoBRep_DSFiller::MakeVertex(const Contap_Point& P,
                                                const Standard_Real tol,
                                                HLRTopoBRep_Data&   DS)
 {
-  BRep_Builder  B;
-  TopoDS_Vertex V;
+  ShapeBuilder  B;
+  TopoVertex V;
   if (P.IsVertex())
   {
     V = Handle(BRepTopAdaptor_HVertex)::DownCast(P.Vertex())->Vertex();
@@ -561,16 +561,16 @@ TopoDS_Vertex HLRTopoBRep_DSFiller::MakeVertex(const Contap_Point& P,
     // if on arc, insert in the DS
     if (P.IsOnArc())
     {
-      const TopoDS_Edge& E   = (*(BRepAdaptor_Curve2d*)(P.Arc().get())).Edge();
+      const TopoEdge& E   = (*(BRepAdaptor_Curve2d*)(P.Arc().get())).Edge();
       Standard_Real      Par = P.ParameterOnArc();
       const Point3d&      P3d = P.Value();
 
       for (DS.InitVertex(E); DS.MoreVertex(); DS.NextVertex())
       {
-        TopoDS_Vertex curV = DS.Vertex();
+        TopoVertex curV = DS.Vertex();
         Standard_Real curP = DS.Parameter();
-        const Point3d& PPP  = BRep_Tool::Pnt(curV);
-        Standard_Real TTT  = BRep_Tool::Tolerance(curV);
+        const Point3d& PPP  = BRepInspector::Pnt(curV);
+        Standard_Real TTT  = BRepInspector::Tolerance(curV);
         if (P3d.IsEqual(PPP, TTT))
         {
           V = curV;
@@ -611,11 +611,11 @@ TopoDS_Vertex HLRTopoBRep_DSFiller::MakeVertex(const Contap_Point& P,
 
 void HLRTopoBRep_DSFiller::InsertVertex(const Contap_Point& P,
                                         const Standard_Real tol,
-                                        const TopoDS_Edge&  E,
+                                        const TopoEdge&  E,
                                         HLRTopoBRep_Data&   DS)
 {
-  BRep_Builder  B;
-  TopoDS_Vertex V;
+  ShapeBuilder  B;
+  TopoVertex V;
 
   if (P.IsVertex())
   {
@@ -627,9 +627,9 @@ void HLRTopoBRep_DSFiller::InsertVertex(const Contap_Point& P,
 
     for (DS.InitVertex(E); DS.MoreVertex(); DS.NextVertex())
     {
-      TopoDS_Vertex curV = DS.Vertex();
+      TopoVertex curV = DS.Vertex();
       Standard_Real curP = DS.Parameter();
-      if (P.Value().IsEqual(BRep_Tool::Pnt(curV), BRep_Tool::Tolerance(curV)))
+      if (P.Value().IsEqual(BRepInspector::Pnt(curV), BRepInspector::Tolerance(curV)))
       {
         V = curV;
         break;
@@ -657,18 +657,18 @@ void HLRTopoBRep_DSFiller::InsertVertex(const Contap_Point& P,
 
 void HLRTopoBRep_DSFiller::ProcessEdges(HLRTopoBRep_Data& DS)
 {
-  BRep_Builder  B;
-  TopoDS_Edge   newE;
-  TopoDS_Vertex VF, VL, VI;
+  ShapeBuilder  B;
+  TopoEdge   newE;
+  TopoVertex VF, VL, VI;
   Standard_Real PF, PL, PI;
 
   for (DS.InitEdge(); DS.MoreEdge(); DS.NextEdge())
   {
-    TopoDS_Edge           E    = DS.Edge();
-    TopTools_ListOfShape& SplE = DS.AddSplE(E);
-    VF                         = TopExp::FirstVertex(E);
-    VL                         = TopExp::LastVertex(E);
-    BRep_Tool::Range(E, PF, PL);
+    TopoEdge           E    = DS.Edge();
+    ShapeList& SplE = DS.AddSplE(E);
+    VF                         = TopExp1::FirstVertex(E);
+    VL                         = TopExp1::LastVertex(E);
+    BRepInspector::Range(E, PF, PL);
     VF.Orientation(TopAbs_FORWARD);
     VL.Orientation(TopAbs_REVERSED);
 
@@ -681,9 +681,9 @@ void HLRTopoBRep_DSFiller::ProcessEdges(HLRTopoBRep_Data& DS)
       newE.EmptyCopy();
       newE.Orientation(TopAbs_FORWARD);
       B.Add(newE, VF);
-      B.UpdateVertex(VF, PF, newE, BRep_Tool::Tolerance(VF));
+      B.UpdateVertex(VF, PF, newE, BRepInspector::Tolerance(VF));
       B.Add(newE, VI);
-      B.UpdateVertex(VI, PI, newE, BRep_Tool::Tolerance(VI));
+      B.UpdateVertex(VI, PI, newE, BRepInspector::Tolerance(VI));
       newE.Orientation(E.Orientation());
       SplE.Append(newE);
       VF = VI;
@@ -694,9 +694,9 @@ void HLRTopoBRep_DSFiller::ProcessEdges(HLRTopoBRep_Data& DS)
     newE.EmptyCopy();
     newE.Orientation(TopAbs_FORWARD);
     B.Add(newE, VF);
-    B.UpdateVertex(VF, PF, newE, BRep_Tool::Tolerance(VF));
+    B.UpdateVertex(VF, PF, newE, BRepInspector::Tolerance(VF));
     B.Add(newE, VL);
-    B.UpdateVertex(VL, PL, newE, BRep_Tool::Tolerance(VL));
+    B.UpdateVertex(VL, PL, newE, BRepInspector::Tolerance(VL));
     newE.Orientation(E.Orientation());
     SplE.Append(newE);
   }

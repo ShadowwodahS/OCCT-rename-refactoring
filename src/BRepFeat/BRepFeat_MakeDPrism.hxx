@@ -27,9 +27,9 @@
 #include <BRepFeat_StatusError.hxx>
 #include <BRepFeat_Form.hxx>
 #include <Standard_Integer.hxx>
-class Geom_Curve;
-class TopoDS_Shape;
-class TopoDS_Edge;
+class GeomCurve3d;
+class TopoShape;
+class TopoEdge;
 
 //! Describes functions to build draft
 //! prism topologies from basis shape surfaces. These can be depressions or protrusions.
@@ -61,9 +61,9 @@ public:
   //! operation. If it is inside the basis shape, a local
   //! operation such as glueing can be performed.
   //! Initializes the draft prism class
-  BRepFeat_MakeDPrism(const TopoDS_Shape&    Sbase,
-                      const TopoDS_Face&     Pbase,
-                      const TopoDS_Face&     Skface,
+  BRepFeat_MakeDPrism(const TopoShape&    Sbase,
+                      const TopoFace&     Pbase,
+                      const TopoFace&     Skface,
                       const Standard_Real    Angle,
                       const Standard_Integer Fuse,
                       const Standard_Boolean Modify)
@@ -86,9 +86,9 @@ public:
   //! The sketch face Skface serves to determine the type of
   //! operation. If it is inside the basis shape, a local
   //! operation such as glueing can be performed.
-  Standard_EXPORT void Init(const TopoDS_Shape&    Sbase,
-                            const TopoDS_Face&     Pbase,
-                            const TopoDS_Face&     Skface,
+  Standard_EXPORT void Init(const TopoShape&    Sbase,
+                            const TopoFace&     Pbase,
+                            const TopoFace&     Skface,
                             const Standard_Real    Angle,
                             const Standard_Integer Fuse,
                             const Standard_Boolean Modify);
@@ -97,36 +97,36 @@ public:
   //! <OnFace>.
   //! Raises ConstructionError if the  face does not belong to the
   //! basis shape, or the edge to the prismed shape.
-  Standard_EXPORT void Add(const TopoDS_Edge& E, const TopoDS_Face& OnFace);
+  Standard_EXPORT void Add(const TopoEdge& E, const TopoFace& OnFace);
 
   Standard_EXPORT void Perform(const Standard_Real Height);
 
-  Standard_EXPORT void Perform(const TopoDS_Shape& Until);
+  Standard_EXPORT void Perform(const TopoShape& Until);
 
   //! Assigns one of the following semantics
   //! -   to a height Height
   //! -   to a face Until
   //! -   from a face From to a height Until.
   //! Reconstructs the feature topologically according to the semantic option chosen.
-  Standard_EXPORT void Perform(const TopoDS_Shape& From, const TopoDS_Shape& Until);
+  Standard_EXPORT void Perform(const TopoShape& From, const TopoShape& Until);
 
   //! Realizes a semi-infinite prism, limited by the position of the prism base.
   Standard_EXPORT void PerformUntilEnd();
 
   //! Realizes a semi-infinite prism, limited by the face Funtil.
-  Standard_EXPORT void PerformFromEnd(const TopoDS_Shape& FUntil);
+  Standard_EXPORT void PerformFromEnd(const TopoShape& FUntil);
 
   //! Builds an infinite prism. The infinite descendants will not be kept in the result.
   Standard_EXPORT void PerformThruAll();
 
   //! Assigns both a limiting shape, Until from
-  //! TopoDS_Shape, and a height, Height at which to stop
+  //! TopoShape, and a height, Height at which to stop
   //! generation of the prism feature.
-  Standard_EXPORT void PerformUntilHeight(const TopoDS_Shape& Until, const Standard_Real Height);
+  Standard_EXPORT void PerformUntilHeight(const TopoShape& Until, const Standard_Real Height);
 
   Standard_EXPORT void Curves(TColGeom_SequenceOfCurve& S);
 
-  Standard_EXPORT Handle(Geom_Curve) BarycCurve();
+  Standard_EXPORT Handle(GeomCurve3d) BarycCurve();
 
   //! Determination of TopEdges and LatEdges.
   //! sig = 1 -> TopEdges = FirstShape of the DPrism
@@ -134,20 +134,20 @@ public:
   Standard_EXPORT void BossEdges(const Standard_Integer sig);
 
   //! Returns the list of TopoDS Edges of the top of the boss.
-  Standard_EXPORT const TopTools_ListOfShape& TopEdges();
+  Standard_EXPORT const ShapeList& TopEdges();
 
   //! Returns the list of TopoDS Edges of the bottom of the boss.
-  Standard_EXPORT const TopTools_ListOfShape& LatEdges();
+  Standard_EXPORT const ShapeList& LatEdges();
 
 protected:
 private:
-  TopoDS_Face                        myPbase;
+  TopoFace                        myPbase;
   TopTools_DataMapOfShapeListOfShape mySlface;
   Standard_Real                      myAngle;
   TColGeom_SequenceOfCurve           myCurves;
-  Handle(Geom_Curve)                 myBCurve;
-  TopTools_ListOfShape               myTopEdges;
-  TopTools_ListOfShape               myLatEdges;
+  Handle(GeomCurve3d)                 myBCurve;
+  ShapeList               myTopEdges;
+  ShapeList               myLatEdges;
   BRepFeat_StatusError               myStatusError;
 };
 

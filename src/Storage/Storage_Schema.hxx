@@ -70,16 +70,16 @@ public:
   Standard_EXPORT Storage_Schema();
 
   //! returns version of the schema
-  Standard_EXPORT void SetVersion(const TCollection_AsciiString& aVersion);
+  Standard_EXPORT void SetVersion(const AsciiString1& aVersion);
 
   //! returns the version of the schema
-  Standard_EXPORT TCollection_AsciiString Version() const;
+  Standard_EXPORT AsciiString1 Version() const;
 
   //! set the schema's name
-  Standard_EXPORT void SetName(const TCollection_AsciiString& aSchemaName);
+  Standard_EXPORT void SetName(const AsciiString1& aSchemaName);
 
   //! returns the schema's name
-  Standard_EXPORT TCollection_AsciiString Name() const;
+  Standard_EXPORT AsciiString1 Name() const;
 
   //! Writes the data aggregated in aData into the
   //! container defined by the driver s. The storage
@@ -91,7 +91,7 @@ public:
                              const Handle(Storage_Data)&       aData) const;
 
   //! return a current date string
-  Standard_EXPORT static TCollection_AsciiString ICreationDate();
+  Standard_EXPORT static AsciiString1 ICreationDate();
 
   //! returns True if theType migration is identified
   //! the callback support provides a way to read a file
@@ -105,15 +105,15 @@ public:
   //! the schema doesn't know  how  to handle this
   //! type.
   Standard_EXPORT static Standard_Boolean CheckTypeMigration(
-    const TCollection_AsciiString& theTypeName,
-    TCollection_AsciiString&       theNewName);
+    const AsciiString1& theTypeName,
+    AsciiString1&       theNewName);
 
   //! add two functions to the callback list
-  Standard_EXPORT void AddReadUnknownTypeCallBack(const TCollection_AsciiString&  aTypeName,
+  Standard_EXPORT void AddReadUnknownTypeCallBack(const AsciiString1&  aTypeName,
                                                   const Handle(Storage_CallBack)& aCallBack);
 
   //! remove a callback for a type
-  Standard_EXPORT void RemoveReadUnknownTypeCallBack(const TCollection_AsciiString& aTypeName);
+  Standard_EXPORT void RemoveReadUnknownTypeCallBack(const AsciiString1& aTypeName);
 
   //! returns  a  list  of   type  name  with  installed
   //! callback.
@@ -166,16 +166,16 @@ public:
   DEFINE_STANDARD_RTTIEXT(Storage_Schema, RefObject)
 
 protected:
-  Standard_Boolean HasTypeBinding(const TCollection_AsciiString& aTypeName) const
+  Standard_Boolean HasTypeBinding(const AsciiString1& aTypeName) const
   {
     return Storage_Schema::ICurrentData()->InternalData()->myTypeBinding.IsBound(aTypeName);
   }
 
-  Standard_EXPORT void BindType(const TCollection_AsciiString&  aTypeName,
+  Standard_EXPORT void BindType(const AsciiString1&  aTypeName,
                                 const Handle(Storage_CallBack)& aCallBack) const;
 
   Standard_EXPORT Handle(Storage_CallBack) TypeBinding(
-    const TCollection_AsciiString& aTypeName) const;
+    const AsciiString1& aTypeName) const;
 
 private:
   Standard_EXPORT void Clear() const;
@@ -187,8 +187,8 @@ private:
   Storage_MapOfCallBack    myCallBack;
   Standard_Boolean         myCallBackState;
   Handle(Storage_CallBack) myDefaultCallBack;
-  TCollection_AsciiString  myName;
-  TCollection_AsciiString  myVersion;
+  AsciiString1  myName;
+  AsciiString1  myVersion;
 };
 
 #endif // _Storage_Schema_HeaderFile

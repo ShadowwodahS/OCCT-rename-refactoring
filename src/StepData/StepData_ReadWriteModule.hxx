@@ -22,7 +22,7 @@
 #include <Interface_ReaderModule.hxx>
 #include <TColStd_SequenceOfAsciiString.hxx>
 class Interface_FileReaderData;
-class TCollection_AsciiString;
+class AsciiString1;
 class Interface_Check;
 class RefObject;
 class StepData_StepReaderData;
@@ -56,7 +56,7 @@ public:
   //! Called by CaseNum (data,num) above for a Simple Type Entity
   //! Warning : CaseStep must give the same Value as Protocol does for the
   //! Entity type which corresponds to this Type given as a String
-  Standard_EXPORT virtual Standard_Integer CaseStep(const TCollection_AsciiString& atype) const = 0;
+  Standard_EXPORT virtual Standard_Integer CaseStep(const AsciiString1& atype) const = 0;
 
   //! Same a above but for a Complex Type Entity ("Plex")
   //! The provided Default recognizes nothing
@@ -78,14 +78,14 @@ public:
   //! Returns an empty String if <CN> is zero.
   //! Warning : For a Complex Type Entity, returns an Empty String
   //! (Complex Type must be managed by users)
-  Standard_EXPORT virtual const TCollection_AsciiString& StepType(
+  Standard_EXPORT virtual const AsciiString1& StepType(
     const Standard_Integer CN) const = 0;
 
   //! Function specific to STEP. Some STEP Types have a short form
   //! This method can be redefined to fill it
   //! By default, returns an empty string, which is then interpreted
   //! to take normal form from StepType
-  Standard_EXPORT virtual TCollection_AsciiString ShortType(const Standard_Integer CN) const;
+  Standard_EXPORT virtual AsciiString1 ShortType(const Standard_Integer CN) const;
 
   //! Function specific to STEP, which delivers the list of types
   //! which corresponds to a complex type. If <CN> is not for a

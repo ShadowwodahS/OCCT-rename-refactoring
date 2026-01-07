@@ -29,9 +29,9 @@
 #include <Interface_EntityIterator.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESAppli_ToolDrilledHole::IGESAppli_ToolDrilledHole() {}
+DrilledHoleTool::DrilledHoleTool() {}
 
-void IGESAppli_ToolDrilledHole::ReadOwnParams(const Handle(IGESAppli_DrilledHole)& ent,
+void DrilledHoleTool::ReadOwnParams(const Handle(IGESAppli_DrilledHole)& ent,
                                               const Handle(IGESData_IGESReaderData)& /*IR*/,
                                               IGESData_ParamReader& PR) const
 {
@@ -60,7 +60,7 @@ void IGESAppli_ToolDrilledHole::ReadOwnParams(const Handle(IGESAppli_DrilledHole
             tempNbHigherLayer);
 }
 
-void IGESAppli_ToolDrilledHole::WriteOwnParams(const Handle(IGESAppli_DrilledHole)& ent,
+void DrilledHoleTool::WriteOwnParams(const Handle(IGESAppli_DrilledHole)& ent,
                                                IGESData_IGESWriter&                 IW) const
 {
   IW.Send(ent->NbPropertyValues());
@@ -71,12 +71,12 @@ void IGESAppli_ToolDrilledHole::WriteOwnParams(const Handle(IGESAppli_DrilledHol
   IW.Send(ent->NbHigherLayer());
 }
 
-void IGESAppli_ToolDrilledHole::OwnShared(const Handle(IGESAppli_DrilledHole)& /*ent*/,
+void DrilledHoleTool::OwnShared(const Handle(IGESAppli_DrilledHole)& /*ent*/,
                                           Interface_EntityIterator& /*iter*/) const
 {
 }
 
-void IGESAppli_ToolDrilledHole::OwnCopy(const Handle(IGESAppli_DrilledHole)& another,
+void DrilledHoleTool::OwnCopy(const Handle(IGESAppli_DrilledHole)& another,
                                         const Handle(IGESAppli_DrilledHole)& ent,
                                         Interface_CopyTool& /*TC*/) const
 {
@@ -88,7 +88,7 @@ void IGESAppli_ToolDrilledHole::OwnCopy(const Handle(IGESAppli_DrilledHole)& ano
             another->NbHigherLayer());
 }
 
-Standard_Boolean IGESAppli_ToolDrilledHole::OwnCorrect(
+Standard_Boolean DrilledHoleTool::OwnCorrect(
   const Handle(IGESAppli_DrilledHole)& ent) const
 {
   Standard_Boolean res = (ent->NbPropertyValues() != 5);
@@ -108,10 +108,10 @@ Standard_Boolean IGESAppli_ToolDrilledHole::OwnCorrect(
   return res;
 }
 
-IGESData_DirChecker IGESAppli_ToolDrilledHole::DirChecker(
+DirectoryChecker DrilledHoleTool::DirChecker(
   const Handle(IGESAppli_DrilledHole)& /*ent*/) const
 {
-  IGESData_DirChecker DC(406, 6); // Form no = 6 & Type = 406
+  DirectoryChecker DC(406, 6); // Form no = 6 & Type = 406
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.BlankStatusIgnored();
@@ -120,7 +120,7 @@ IGESData_DirChecker IGESAppli_ToolDrilledHole::DirChecker(
   return DC;
 }
 
-void IGESAppli_ToolDrilledHole::OwnCheck(const Handle(IGESAppli_DrilledHole)& ent,
+void DrilledHoleTool::OwnCheck(const Handle(IGESAppli_DrilledHole)& ent,
                                          const Interface_ShareTool&,
                                          Handle(Interface_Check)& ach) const
 {
@@ -131,7 +131,7 @@ void IGESAppli_ToolDrilledHole::OwnCheck(const Handle(IGESAppli_DrilledHole)& en
     ach->AddFail("Number of Property Values != 5");
 }
 
-void IGESAppli_ToolDrilledHole::OwnDump(const Handle(IGESAppli_DrilledHole)& ent,
+void DrilledHoleTool::OwnDump(const Handle(IGESAppli_DrilledHole)& ent,
                                         const IGESData_IGESDumper& /*dumper*/,
                                         Standard_OStream& S,
                                         const Standard_Integer /*level*/) const

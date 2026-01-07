@@ -31,14 +31,14 @@ IntCurvesFace_ShapeIntersector::IntCurvesFace_ShapeIntersector()
 {
 }
 
-void IntCurvesFace_ShapeIntersector::Load(const TopoDS_Shape& theShape, const Standard_Real theTol)
+void IntCurvesFace_ShapeIntersector::Load(const TopoShape& theShape, const Standard_Real theTol)
 {
-  TopExp_Explorer  Ex;
+  ShapeExplorer  Ex;
   Standard_Integer i;
   for (myNbFaces = 0, i = 0, Ex.Init(theShape, TopAbs_FACE); Ex.More(); ++i, Ex.Next())
   {
     ++myNbFaces;
-    TopoDS_Face aCurrentFace = TopoDS::Face(Ex.Current());
+    TopoFace aCurrentFace = TopoDS::Face(Ex.Current());
     myIntersector.Append(new IntCurvesFace_Intersector(aCurrentFace, theTol));
   }
 }

@@ -32,12 +32,12 @@
 //! A  value  of  -1  (the  default)  means  do  not  traverse  any  children.
 //! A  value  of  -3  traverses  all  children,  making  the  switch  behave  exactly
 //! like  a  regular  Group.
-class Vrml_Switch
+class Switch
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_Switch(const Standard_Integer aWhichChild = -1);
+  Standard_EXPORT Switch(const Standard_Integer aWhichChild = -1);
 
   Standard_EXPORT void SetWhichChild(const Standard_Integer aWhichChild);
 

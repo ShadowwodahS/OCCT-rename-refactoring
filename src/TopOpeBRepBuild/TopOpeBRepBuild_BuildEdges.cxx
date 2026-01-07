@@ -41,7 +41,7 @@ void TopOpeBRepBuild_Builder::BuildEdges(const Standard_Integer                 
     std::cout << "\nBuildEdges on C " << iC << std::endl;
 #endif
   const TopOpeBRepDS_Curve&                C   = HDS->Curve(iC);
-  const Handle(Geom_Curve)&                C3D = C.Curve();
+  const Handle(GeomCurve3d)&                C3D = C.Curve();
   const Handle(TopOpeBRepDS_Interference)& I1  = C.GetSCI1();
   const Handle(TopOpeBRepDS_Interference)& I2  = C.GetSCI2();
   Standard_Boolean                         nnn = C3D.IsNull() && I1.IsNull() && I2.IsNull();
@@ -50,7 +50,7 @@ void TopOpeBRepBuild_Builder::BuildEdges(const Standard_Integer                 
     return;
   }
 
-  TopoDS_Shape              anEdge;
+  TopoShape              anEdge;
   const TopOpeBRepDS_Curve& curC = HDS->Curve(iC);
   myBuildTool.MakeEdge(anEdge, curC, HDS->DS());
   TopOpeBRepBuild_PaveSet    PVS(anEdge);
@@ -68,13 +68,13 @@ void TopOpeBRepBuild_Builder::BuildEdges(const Standard_Integer                 
     return;
   }
   TopOpeBRepBuild_EdgeBuilder EDBU(PVS, VCL);
-  TopTools_ListOfShape&       EL = ChangeNewEdges(iC);
+  ShapeList&       EL = ChangeNewEdges(iC);
   MakeEdges(anEdge, EDBU, EL);
   TopTools_ListIteratorOfListOfShape It(EL);
   Standard_Integer                   inewC = -1;
   for (; It.More(); It.Next())
   {
-    TopoDS_Edge& newEdge = TopoDS::Edge(It.ChangeValue());
+    TopoEdge& newEdge = TopoDS::Edge(It.ChangeValue());
     myBuildTool.RecomputeCurves(curC, TopoDS::Edge(anEdge), newEdge, inewC, HDS);
     if (inewC != -1)
       ChangeNewEdges(inewC).Append(newEdge);
@@ -87,7 +87,7 @@ void TopOpeBRepBuild_Builder::BuildEdges(const Standard_Integer                 
   {
     for (It.Initialize(EL); It.More(); It.Next())
     {
-      TopoDS_Edge& newEdge = TopoDS::Edge(It.ChangeValue());
+      TopoEdge& newEdge = TopoDS::Edge(It.ChangeValue());
       myBuildTool.UpdateEdge(anEdge, newEdge);
     }
   }
@@ -100,7 +100,7 @@ void TopOpeBRepBuild_Builder::BuildEdges(const Handle(TopOpeBRepDS_HDataStructur
   TopOpeBRepDS_DataStructure& BDS = HDS->ChangeDS();
 
   myNewEdges.Clear();
-  TopOpeBRepDS_CurveExplorer cex;
+  CurveExplorer cex;
 
   Standard_Integer ick = 0;
   for (cex.Init(BDS, Standard_False); cex.More(); cex.Next())
@@ -159,10 +159,10 @@ void TopOpeBRepBuild_Builder::BuildEdges(const Handle(TopOpeBRepDS_HDataStructur
       }
     }
   }
-  Standard_Integer is, ns = BDS.NbShapes();
+  Standard_Integer is, ns = BDS.NbShapes1();
   for (is = 1; is <= ns; is++)
   {
-    const TopoDS_Shape& S = BDS.Shape(is);
+    const TopoShape& S = BDS.Shape(is);
     if (S.IsNull())
       continue;
     Standard_Boolean test = (S.ShapeType() == TopAbs_EDGE);

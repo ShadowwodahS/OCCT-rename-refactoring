@@ -42,7 +42,7 @@ public:
         myIsDumpRes(Standard_False)
   {
     OSD_Environment         env("CSF_DEBUG_BOP");
-    TCollection_AsciiString pathdump = env.Value();
+    AsciiString1 pathdump = env.Value();
     myIsDump                         = (!pathdump.IsEmpty() ? Standard_True : Standard_False);
     myPath                           = pathdump.ToCString();
   };
@@ -66,9 +66,9 @@ public:
   Standard_Boolean IsDumpRes() const { return myIsDumpRes; };
 
   //
-  void Dump(const TopoDS_Shape& theShape1,
-            const TopoDS_Shape& theShape2,
-            const TopoDS_Shape& theResult,
+  void Dump(const TopoShape& theShape1,
+            const TopoShape& theShape2,
+            const TopoShape& theResult,
             BOPAlgo_Operation   theOperation);
   //
 protected:
@@ -88,7 +88,7 @@ BRepAlgoAPI_BooleanOperation::BRepAlgoAPI_BooleanOperation()
 
 //=================================================================================================
 
-BRepAlgoAPI_BooleanOperation::BRepAlgoAPI_BooleanOperation(const BOPAlgo_PaveFiller& thePF)
+BRepAlgoAPI_BooleanOperation::BRepAlgoAPI_BooleanOperation(const BooleanPaveFiller& thePF)
     : BRepAlgoAPI_BuilderAlgo(thePF),
       myOperation(BOPAlgo_UNKNOWN)
 {
@@ -96,8 +96,8 @@ BRepAlgoAPI_BooleanOperation::BRepAlgoAPI_BooleanOperation(const BOPAlgo_PaveFil
 
 //=================================================================================================
 
-BRepAlgoAPI_BooleanOperation::BRepAlgoAPI_BooleanOperation(const TopoDS_Shape&     theS1,
-                                                           const TopoDS_Shape&     theS2,
+BRepAlgoAPI_BooleanOperation::BRepAlgoAPI_BooleanOperation(const TopoShape&     theS1,
+                                                           const TopoShape&     theS2,
                                                            const BOPAlgo_Operation theOp)
     : BRepAlgoAPI_BuilderAlgo(),
       myOperation(theOp)
@@ -108,9 +108,9 @@ BRepAlgoAPI_BooleanOperation::BRepAlgoAPI_BooleanOperation(const TopoDS_Shape&  
 
 //=================================================================================================
 
-BRepAlgoAPI_BooleanOperation::BRepAlgoAPI_BooleanOperation(const TopoDS_Shape&       theS1,
-                                                           const TopoDS_Shape&       theS2,
-                                                           const BOPAlgo_PaveFiller& thePF,
+BRepAlgoAPI_BooleanOperation::BRepAlgoAPI_BooleanOperation(const TopoShape&       theS1,
+                                                           const TopoShape&       theS2,
+                                                           const BooleanPaveFiller& thePF,
                                                            const BOPAlgo_Operation   theOp)
     : BRepAlgoAPI_BuilderAlgo(thePF),
       myOperation(theOp)
@@ -151,7 +151,7 @@ void BRepAlgoAPI_BooleanOperation::Build(const Message_ProgressRange& theRange)
     }
   }
 
-  TCollection_AsciiString aPSName;
+  AsciiString1 aPSName;
   switch (myOperation)
   {
     case BOPAlgo_COMMON:
@@ -176,8 +176,8 @@ void BRepAlgoAPI_BooleanOperation::Build(const Message_ProgressRange& theRange)
   if (myIsIntersectionNeeded)
   {
     // Combine Objects and Tools into a single list for intersection
-    TopTools_ListOfShape aLArgs = myArguments;
-    for (TopTools_ListOfShape::Iterator it(myTools); it.More(); it.Next())
+    ShapeList aLArgs = myArguments;
+    for (ShapeList::Iterator it(myTools); it.More(); it.Next())
       aLArgs.Append(it.Value());
 
     // Perform intersection
@@ -187,7 +187,7 @@ void BRepAlgoAPI_BooleanOperation::Build(const Message_ProgressRange& theRange)
       if (aDumpOper.IsDump())
       {
         aDumpOper.SetIsDumpRes(Standard_False);
-        aDumpOper.Dump(myArguments.First(), myTools.First(), TopoDS_Shape(), myOperation);
+        aDumpOper.Dump(myArguments.First(), myTools.First(), TopoShape(), myOperation);
       }
       return;
     }
@@ -226,9 +226,9 @@ void BRepAlgoAPI_BooleanOperation::Build(const Message_ProgressRange& theRange)
 // function : Dump
 // purpose  : DEBUG: Dumping the shapes and script of the operation
 //=======================================================================
-void BRepAlgoAPI_DumpOper::Dump(const TopoDS_Shape& theShape1,
-                                const TopoDS_Shape& theShape2,
-                                const TopoDS_Shape& theResult,
+void BRepAlgoAPI_DumpOper::Dump(const TopoShape& theShape1,
+                                const TopoShape& theShape2,
+                                const TopoShape& theResult,
                                 BOPAlgo_Operation   theOperation)
 {
   if (!(myIsDumpArgs && myIsDumpRes))
@@ -236,16 +236,16 @@ void BRepAlgoAPI_DumpOper::Dump(const TopoDS_Shape& theShape1,
     return;
   }
   //
-  TCollection_AsciiString aPath(myPath);
+  AsciiString1 aPath(myPath);
   aPath += "/";
   Standard_Integer        aNumOper = 1;
   Standard_Boolean        isExist  = Standard_True;
-  TCollection_AsciiString aFileName;
+  AsciiString1 aFileName;
 
   while (isExist)
   {
-    aFileName = aPath + "BO_" + TCollection_AsciiString(aNumOper) + ".tcl";
-    OSD_File aScript(aFileName);
+    aFileName = aPath + "BO_" + AsciiString1(aNumOper) + ".tcl";
+    SystemFile aScript(aFileName);
     isExist = aScript.Exists();
     if (isExist)
       aNumOper++;
@@ -257,38 +257,38 @@ void BRepAlgoAPI_DumpOper::Dump(const TopoDS_Shape& theShape1,
   if (myIsDumpArgs)
     fprintf(afile, "%s\n", "# Arguments are invalid");
 
-  TCollection_AsciiString aName1;
-  TCollection_AsciiString aName2;
-  TCollection_AsciiString aNameRes;
+  AsciiString1 aName1;
+  AsciiString1 aName2;
+  AsciiString1 aNameRes;
   if (!theShape1.IsNull())
   {
-    aName1 = aPath + "Arg1_" + TCollection_AsciiString(aNumOper) + ".brep";
-    BRepTools::Write(theShape1, aName1.ToCString());
+    aName1 = aPath + "Arg1_" + AsciiString1(aNumOper) + ".brep";
+    BRepTools1::Write(theShape1, aName1.ToCString());
   }
   else
     fprintf(afile, "%s\n", "# First argument is Null ");
 
   if (!theShape2.IsNull())
   {
-    aName2 = aPath + "Arg2_" + TCollection_AsciiString(aNumOper) + ".brep";
+    aName2 = aPath + "Arg2_" + AsciiString1(aNumOper) + ".brep";
 
-    BRepTools::Write(theShape2, aName2.ToCString());
+    BRepTools1::Write(theShape2, aName2.ToCString());
   }
   else
     fprintf(afile, "%s\n", "# Second argument is Null ");
 
   if (!theResult.IsNull())
   {
-    aNameRes = aPath + "Result_" + TCollection_AsciiString(aNumOper) + ".brep";
+    aNameRes = aPath + "Result_" + AsciiString1(aNumOper) + ".brep";
 
-    BRepTools::Write(theResult, aNameRes.ToCString());
+    BRepTools1::Write(theResult, aNameRes.ToCString());
   }
   else
     fprintf(afile, "%s\n", "# Result is Null ");
 
   fprintf(afile, "%s %s %s\n", "restore", aName1.ToCString(), "arg1");
   fprintf(afile, "%s %s %s\n", "restore", aName2.ToCString(), "arg2");
-  TCollection_AsciiString aBopString;
+  AsciiString1 aBopString;
   switch (theOperation)
   {
     case BOPAlgo_COMMON:

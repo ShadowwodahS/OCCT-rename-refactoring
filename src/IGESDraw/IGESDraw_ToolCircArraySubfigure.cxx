@@ -33,9 +33,9 @@
 #include <Standard_DomainError.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 
-IGESDraw_ToolCircArraySubfigure::IGESDraw_ToolCircArraySubfigure() {}
+CircArraySubfigureTool::CircArraySubfigureTool() {}
 
-void IGESDraw_ToolCircArraySubfigure::ReadOwnParams(const Handle(IGESDraw_CircArraySubfigure)& ent,
+void CircArraySubfigureTool::ReadOwnParams(const Handle(IGESDraw_CircArraySubfigure)& ent,
                                                     const Handle(IGESData_IGESReaderData)&     IR,
                                                     IGESData_ParamReader& PR) const
 {
@@ -93,7 +93,7 @@ void IGESDraw_ToolCircArraySubfigure::ReadOwnParams(const Handle(IGESDraw_CircAr
             tempNumPos);
 }
 
-void IGESDraw_ToolCircArraySubfigure::WriteOwnParams(const Handle(IGESDraw_CircArraySubfigure)& ent,
+void CircArraySubfigureTool::WriteOwnParams(const Handle(IGESDraw_CircArraySubfigure)& ent,
                                                      IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->BaseEntity());
@@ -113,12 +113,12 @@ void IGESDraw_ToolCircArraySubfigure::WriteOwnParams(const Handle(IGESDraw_CircA
     IW.Send(ent->ListPosition(I));
 }
 
-void IGESDraw_ToolCircArraySubfigure::OwnShared(const Handle(IGESDraw_CircArraySubfigure)& /*ent*/,
+void CircArraySubfigureTool::OwnShared(const Handle(IGESDraw_CircArraySubfigure)& /*ent*/,
                                                 Interface_EntityIterator& /*iter*/) const
 {
 }
 
-void IGESDraw_ToolCircArraySubfigure::OwnCopy(const Handle(IGESDraw_CircArraySubfigure)& another,
+void CircArraySubfigureTool::OwnCopy(const Handle(IGESDraw_CircArraySubfigure)& another,
                                               const Handle(IGESDraw_CircArraySubfigure)& ent,
                                               Interface_CopyTool&                        TC) const
 {
@@ -152,10 +152,10 @@ void IGESDraw_ToolCircArraySubfigure::OwnCopy(const Handle(IGESDraw_CircArraySub
             tempNumPos);
 }
 
-IGESData_DirChecker IGESDraw_ToolCircArraySubfigure::DirChecker(
+DirectoryChecker CircArraySubfigureTool::DirChecker(
   const Handle(IGESDraw_CircArraySubfigure)& /*ent*/) const
 {
-  IGESData_DirChecker DC(414, 0);
+  DirectoryChecker DC(414, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.LineWeight(IGESData_DefValue);
@@ -165,13 +165,13 @@ IGESData_DirChecker IGESDraw_ToolCircArraySubfigure::DirChecker(
   return DC;
 }
 
-void IGESDraw_ToolCircArraySubfigure::OwnCheck(const Handle(IGESDraw_CircArraySubfigure)& /*ent*/,
+void CircArraySubfigureTool::OwnCheck(const Handle(IGESDraw_CircArraySubfigure)& /*ent*/,
                                                const Interface_ShareTool&,
                                                Handle(Interface_Check)& /*ach*/) const
 {
 }
 
-void IGESDraw_ToolCircArraySubfigure::OwnDump(const Handle(IGESDraw_CircArraySubfigure)& ent,
+void CircArraySubfigureTool::OwnDump(const Handle(IGESDraw_CircArraySubfigure)& ent,
                                               const IGESData_IGESDumper&                 dumper,
                                               Standard_OStream&                          S,
                                               const Standard_Integer level) const

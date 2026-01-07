@@ -41,7 +41,7 @@ static Standard_Real ComputeArea(const gp_XYZ& theP1, const gp_XYZ& theP2, const
 // function : ComputeArea
 // purpose  : Computes area of the triangle given by its three points (either 2D or3D)
 //=======================================================================
-static Standard_Real ComputeArea(const gp_XY& theP1, const gp_XY& theP2, const gp_XY& theP3)
+static Standard_Real ComputeArea(const Coords2d& theP1, const Coords2d& theP2, const Coords2d& theP3)
 {
   return 0.5 * Abs((theP3 - theP1).Crossed(theP2 - theP1));
 }
@@ -51,28 +51,28 @@ static Standard_Real ComputeArea(const gp_XY& theP1, const gp_XY& theP2, const g
 // purpose  : Performs checking
 //=======================================================================
 
-void MeshTest_CheckTopology::Perform(Draw_Interpretor& di)
+void MeshTest_CheckTopology::Perform(DrawInterpreter& di)
 {
   TopTools_IndexedMapOfShape                aMapF;
   TopTools_IndexedDataMapOfShapeListOfShape aMapEF;
-  TopExp::MapShapes(myShape, TopAbs_FACE, aMapF);
-  TopExp::MapShapesAndAncestors(myShape, TopAbs_EDGE, TopAbs_FACE, aMapEF);
+  TopExp1::MapShapes(myShape, TopAbs_FACE, aMapF);
+  TopExp1::MapShapesAndAncestors(myShape, TopAbs_EDGE, TopAbs_FACE, aMapEF);
 
   // check polygons
   Standard_Integer ie;
   for (ie = 1; ie <= aMapEF.Extent(); ie++)
   {
-    const TopoDS_Edge&          aEdge  = TopoDS::Edge(aMapEF.FindKey(ie));
-    const TopTools_ListOfShape& aFaces = aMapEF(ie);
+    const TopoEdge&          aEdge  = TopoDS::Edge(aMapEF.FindKey(ie));
+    const ShapeList& aFaces = aMapEF(ie);
     if (aFaces.Extent() < 2)
       continue;
 
     // get polygon on first face
-    const TopoDS_Face&                  aFace1 = TopoDS::Face(aFaces.First());
+    const TopoFace&                  aFace1 = TopoDS::Face(aFaces.First());
     TopLoc_Location                     aLoc1;
-    Handle(Poly_Triangulation)          aT1 = BRep_Tool::Triangulation(aFace1, aLoc1);
+    Handle(MeshTriangulation)          aT1 = BRepInspector::Triangulation(aFace1, aLoc1);
     Handle(Poly_PolygonOnTriangulation) aPoly1 =
-      BRep_Tool::PolygonOnTriangulation(aEdge, aT1, aLoc1);
+      BRepInspector::PolygonOnTriangulation(aEdge, aT1, aLoc1);
     if (aPoly1.IsNull() || aT1.IsNull())
     {
 #ifdef OCCT_DEBUG
@@ -87,11 +87,11 @@ void MeshTest_CheckTopology::Perform(Draw_Interpretor& di)
     it.Next();
     for (; it.More(); it.Next())
     {
-      const TopoDS_Face&                  aFace2 = TopoDS::Face(it.Value());
+      const TopoFace&                  aFace2 = TopoDS::Face(it.Value());
       TopLoc_Location                     aLoc2;
-      Handle(Poly_Triangulation)          aT2 = BRep_Tool::Triangulation(aFace2, aLoc2);
+      Handle(MeshTriangulation)          aT2 = BRepInspector::Triangulation(aFace2, aLoc2);
       Handle(Poly_PolygonOnTriangulation) aPoly2 =
-        BRep_Tool::PolygonOnTriangulation(aEdge, aT2, aLoc2);
+        BRepInspector::PolygonOnTriangulation(aEdge, aT2, aLoc2);
       if (aPoly2.IsNull() || aT2.IsNull())
       {
 #ifdef OCCT_DEBUG
@@ -109,7 +109,7 @@ void MeshTest_CheckTopology::Perform(Draw_Interpretor& di)
       }
 
       // check distances between corresponding points
-      Standard_Real aSqDefle = BRep_Tool::Tolerance(aEdge);
+      Standard_Real aSqDefle = BRepInspector::Tolerance(aEdge);
       aSqDefle *= aSqDefle;
       Standard_Integer iF1    = aMapF.FindIndex(aFace1);
       Standard_Integer iF2    = aMapF.FindIndex(aFace2);
@@ -138,9 +138,9 @@ void MeshTest_CheckTopology::Perform(Draw_Interpretor& di)
   Standard_Integer iF;
   for (iF = 1; iF <= aMapF.Extent(); iF++)
   {
-    const TopoDS_Face&         aFace = TopoDS::Face(aMapF.FindKey(iF));
+    const TopoFace&         aFace = TopoDS::Face(aMapF.FindKey(iF));
     TopLoc_Location            aLoc;
-    Handle(Poly_Triangulation) aT = BRep_Tool::Triangulation(aFace, aLoc);
+    Handle(MeshTriangulation) aT = BRepInspector::Triangulation(aFace, aLoc);
     if (aT.IsNull())
     {
       di << "face " << iF << " has no triangulation\n";
@@ -151,12 +151,12 @@ void MeshTest_CheckTopology::Perform(Draw_Interpretor& di)
 
     // remember boundary nodes
     TColStd_PackedMapOfInteger aMapBndNodes;
-    TopExp_Explorer            ex(aFace, TopAbs_EDGE);
+    ShapeExplorer            ex(aFace, TopAbs_EDGE);
     for (; ex.More(); ex.Next())
     {
-      const TopoDS_Edge&                  aEdge = TopoDS::Edge(ex.Current());
+      const TopoEdge&                  aEdge = TopoDS::Edge(ex.Current());
       Handle(Poly_PolygonOnTriangulation) aPoly =
-        BRep_Tool::PolygonOnTriangulation(aEdge, aT, aLoc);
+        BRepInspector::PolygonOnTriangulation(aEdge, aT, aLoc);
       if (aPoly.IsNull())
         continue;
       const TColStd_Array1OfInteger& aNodes = aPoly->Nodes();
@@ -190,7 +190,7 @@ void MeshTest_CheckTopology::Perform(Draw_Interpretor& di)
       }
       else if (aT->HasUVNodes())
       {
-        const gp_XY aPUV[3] = {aT->UVNode(n[0]).XY(), aT->UVNode(n[1]).XY(), aT->UVNode(n[2]).XY()};
+        const Coords2d aPUV[3] = {aT->UVNode(n[0]).XY(), aT->UVNode(n[1]).XY(), aT->UVNode(n[2]).XY()};
         anArea              = ComputeArea(aPUV[0], aPUV[1], aPUV[2]);
         if (anArea < Precision::SquarePConfusion())
         {

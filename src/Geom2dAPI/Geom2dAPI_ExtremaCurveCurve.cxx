@@ -28,8 +28,8 @@
 //}
 //=================================================================================================
 
-Geom2dAPI_ExtremaCurveCurve::Geom2dAPI_ExtremaCurveCurve(const Handle(Geom2d_Curve)& C1,
-                                                         const Handle(Geom2d_Curve)& C2,
+Geom2dAPI_ExtremaCurveCurve::Geom2dAPI_ExtremaCurveCurve(const Handle(GeomCurve2d)& C1,
+                                                         const Handle(GeomCurve2d)& C2,
                                                          const Standard_Real         U1min,
                                                          const Standard_Real         U1max,
                                                          const Standard_Real         U2min,

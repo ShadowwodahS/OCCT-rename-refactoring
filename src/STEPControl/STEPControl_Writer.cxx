@@ -32,15 +32,15 @@
 
 //=================================================================================================
 
-STEPControl_Writer::STEPControl_Writer()
+StepFileWriter::StepFileWriter()
 {
   STEPControl_Controller::Init();
-  SetWS(new XSControl_WorkSession);
+  SetWS(new ExchangeSession);
 }
 
 //=================================================================================================
 
-STEPControl_Writer::STEPControl_Writer(const Handle(XSControl_WorkSession)& WS,
+StepFileWriter::StepFileWriter(const Handle(ExchangeSession)& WS,
                                        const Standard_Boolean               scratch)
 {
   STEPControl_Controller::Init();
@@ -49,7 +49,7 @@ STEPControl_Writer::STEPControl_Writer(const Handle(XSControl_WorkSession)& WS,
 
 //=================================================================================================
 
-void STEPControl_Writer::SetWS(const Handle(XSControl_WorkSession)& WS,
+void StepFileWriter::SetWS(const Handle(ExchangeSession)& WS,
                                const Standard_Boolean               scratch)
 {
   thesession = WS;
@@ -60,14 +60,14 @@ void STEPControl_Writer::SetWS(const Handle(XSControl_WorkSession)& WS,
 
 //=================================================================================================
 
-Handle(XSControl_WorkSession) STEPControl_Writer::WS() const
+Handle(ExchangeSession) StepFileWriter::WS() const
 {
   return thesession;
 }
 
 //=================================================================================================
 
-Handle(StepData_StepModel) STEPControl_Writer::Model(const Standard_Boolean newone)
+Handle(StepData_StepModel) StepFileWriter::Model(const Standard_Boolean newone)
 {
   DeclareAndCast(StepData_StepModel, model, thesession->Model());
   if (newone || model.IsNull())
@@ -77,7 +77,7 @@ Handle(StepData_StepModel) STEPControl_Writer::Model(const Standard_Boolean newo
 
 //=================================================================================================
 
-void STEPControl_Writer::SetTolerance(const Standard_Real Tol)
+void StepFileWriter::SetTolerance(const Standard_Real Tol)
 {
   DeclareAndCast(STEPControl_ActorWrite, act, WS()->NormAdaptor()->ActorWrite());
   if (!act.IsNull())
@@ -86,14 +86,14 @@ void STEPControl_Writer::SetTolerance(const Standard_Real Tol)
 
 //=================================================================================================
 
-void STEPControl_Writer::UnsetTolerance()
+void StepFileWriter::UnsetTolerance()
 {
   SetTolerance(-1.);
 }
 
 //=================================================================================================
 
-IFSelect_ReturnStatus STEPControl_Writer::Transfer(const TopoDS_Shape&             sh,
+IFSelect_ReturnStatus StepFileWriter::Transfer(const TopoShape&             sh,
                                                    const STEPControl_StepModelType mode,
                                                    const Standard_Boolean          compgraph,
                                                    const Message_ProgressRange&    theProgress)
@@ -106,7 +106,7 @@ IFSelect_ReturnStatus STEPControl_Writer::Transfer(const TopoDS_Shape&          
   return Transfer(sh, mode, aStepModel->InternalParameters, compgraph, theProgress);
 }
 
-IFSelect_ReturnStatus STEPControl_Writer::Transfer(const TopoDS_Shape&             sh,
+IFSelect_ReturnStatus StepFileWriter::Transfer(const TopoShape&             sh,
                                                    const STEPControl_StepModelType mode,
                                                    const DESTEP_Parameters&        theParams,
                                                    const Standard_Boolean          compgraph,
@@ -154,7 +154,7 @@ IFSelect_ReturnStatus STEPControl_Writer::Transfer(const TopoDS_Shape&          
 
 //=================================================================================================
 
-IFSelect_ReturnStatus STEPControl_Writer::Write(const Standard_CString theFileName)
+IFSelect_ReturnStatus StepFileWriter::Write(const Standard_CString theFileName)
 {
   Handle(StepData_StepModel) aModel = Model();
   if (aModel.IsNull())
@@ -168,7 +168,7 @@ IFSelect_ReturnStatus STEPControl_Writer::Write(const Standard_CString theFileNa
 
 //=================================================================================================
 
-IFSelect_ReturnStatus STEPControl_Writer::WriteStream(std::ostream& theOStream)
+IFSelect_ReturnStatus StepFileWriter::WriteStream(std::ostream& theOStream)
 {
   Handle(StepData_StepModel) aModel = Model();
   if (aModel.IsNull())
@@ -191,7 +191,7 @@ IFSelect_ReturnStatus STEPControl_Writer::WriteStream(std::ostream& theOStream)
 
 //=================================================================================================
 
-void STEPControl_Writer::PrintStatsTransfer(const Standard_Integer what,
+void StepFileWriter::PrintStatsTransfer(const Standard_Integer what,
                                             const Standard_Integer mode) const
 {
   thesession->TransferWriter()->PrintStats(what, mode);
@@ -199,7 +199,7 @@ void STEPControl_Writer::PrintStatsTransfer(const Standard_Integer what,
 
 //=============================================================================
 
-void STEPControl_Writer::SetShapeFixParameters(
+void StepFileWriter::SetShapeFixParameters(
   const XSAlgo_ShapeProcessor::ParameterMap& theParameters)
 {
   if (Handle(Transfer_ActorOfFinderProcess) anActor = GetActor())
@@ -210,7 +210,7 @@ void STEPControl_Writer::SetShapeFixParameters(
 
 //=============================================================================
 
-void STEPControl_Writer::SetShapeFixParameters(XSAlgo_ShapeProcessor::ParameterMap&& theParameters)
+void StepFileWriter::SetShapeFixParameters(XSAlgo_ShapeProcessor::ParameterMap&& theParameters)
 {
   if (Handle(Transfer_ActorOfFinderProcess) anActor = GetActor())
   {
@@ -220,8 +220,8 @@ void STEPControl_Writer::SetShapeFixParameters(XSAlgo_ShapeProcessor::ParameterM
 
 //=============================================================================
 
-void STEPControl_Writer::SetShapeFixParameters(
-  const DE_ShapeFixParameters&               theParameters,
+void StepFileWriter::SetShapeFixParameters(
+  const ShapeFixParameters&               theParameters,
   const XSAlgo_ShapeProcessor::ParameterMap& theAdditionalParameters)
 {
   if (Handle(Transfer_ActorOfFinderProcess) anActor = GetActor())
@@ -232,7 +232,7 @@ void STEPControl_Writer::SetShapeFixParameters(
 
 //=============================================================================
 
-const XSAlgo_ShapeProcessor::ParameterMap& STEPControl_Writer::GetShapeFixParameters() const
+const XSAlgo_ShapeProcessor::ParameterMap& StepFileWriter::GetShapeFixParameters() const
 {
   static const XSAlgo_ShapeProcessor::ParameterMap anEmptyMap;
   const Handle(Transfer_ActorOfFinderProcess)      anActor = GetActor();
@@ -241,7 +241,7 @@ const XSAlgo_ShapeProcessor::ParameterMap& STEPControl_Writer::GetShapeFixParame
 
 //=============================================================================
 
-void STEPControl_Writer::SetShapeProcessFlags(const ShapeProcess::OperationsFlags& theFlags)
+void StepFileWriter::SetShapeProcessFlags(const ShapeProcess::OperationsFlags& theFlags)
 {
   if (Handle(Transfer_ActorOfFinderProcess) anActor = GetActor())
   {
@@ -251,7 +251,7 @@ void STEPControl_Writer::SetShapeProcessFlags(const ShapeProcess::OperationsFlag
 
 //=============================================================================
 
-const XSAlgo_ShapeProcessor::ProcessingFlags& STEPControl_Writer::GetShapeProcessFlags() const
+const XSAlgo_ShapeProcessor::ProcessingFlags& StepFileWriter::GetShapeProcessFlags() const
 {
   static const XSAlgo_ShapeProcessor::ProcessingFlags anEmptyFlags;
   const Handle(Transfer_ActorOfFinderProcess)         anActor = GetActor();
@@ -260,9 +260,9 @@ const XSAlgo_ShapeProcessor::ProcessingFlags& STEPControl_Writer::GetShapeProces
 
 //=============================================================================
 
-Handle(Transfer_ActorOfFinderProcess) STEPControl_Writer::GetActor() const
+Handle(Transfer_ActorOfFinderProcess) StepFileWriter::GetActor() const
 {
-  Handle(XSControl_WorkSession) aSession = WS();
+  Handle(ExchangeSession) aSession = WS();
   if (aSession.IsNull())
   {
     return nullptr;
@@ -279,7 +279,7 @@ Handle(Transfer_ActorOfFinderProcess) STEPControl_Writer::GetActor() const
 
 //=============================================================================
 
-void STEPControl_Writer::InitializeMissingParameters()
+void StepFileWriter::InitializeMissingParameters()
 {
   if (GetShapeFixParameters().IsEmpty())
   {

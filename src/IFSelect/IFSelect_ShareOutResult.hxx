@@ -29,7 +29,7 @@ class IFSelect_Dispatch;
 class Interface_InterfaceModel;
 class IFSelect_PacketList;
 class Interface_EntityIterator;
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! This class gives results computed from a ShareOut : simulation
 //! before transfer, helps to list entities ...
@@ -148,7 +148,7 @@ public:
   //! (computed by ShareOut)
   //! If current Packet has no associated name (see ShareOut),
   //! the returned value is Null
-  Standard_EXPORT TCollection_AsciiString FileName() const;
+  Standard_EXPORT AsciiString1 FileName() const;
 
 protected:
   Interface_Graph          thegraph;

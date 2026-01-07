@@ -20,19 +20,19 @@
 
 //=================================================================================================
 
-TopOpeBRepDS_GeometryData::TopOpeBRepDS_GeometryData() {}
+GeometryData::GeometryData() {}
 
 // modified by NIZNHY-PKV Tue Oct 30 09:25:59 2001 f
 //=================================================================================================
 
-TopOpeBRepDS_GeometryData::TopOpeBRepDS_GeometryData(const TopOpeBRepDS_GeometryData& Other)
+GeometryData::GeometryData(const GeometryData& Other)
 {
   Assign(Other);
 }
 
 //=================================================================================================
 
-void TopOpeBRepDS_GeometryData::Assign(const TopOpeBRepDS_GeometryData& Other)
+void GeometryData::Assign(const GeometryData& Other)
 {
   myInterferences.Clear();
 
@@ -47,21 +47,21 @@ void TopOpeBRepDS_GeometryData::Assign(const TopOpeBRepDS_GeometryData& Other)
 
 //=================================================================================================
 
-const TopOpeBRepDS_ListOfInterference& TopOpeBRepDS_GeometryData::Interferences() const
+const TopOpeBRepDS_ListOfInterference& GeometryData::Interferences() const
 {
   return myInterferences;
 }
 
 //=================================================================================================
 
-TopOpeBRepDS_ListOfInterference& TopOpeBRepDS_GeometryData::ChangeInterferences()
+TopOpeBRepDS_ListOfInterference& GeometryData::ChangeInterferences()
 {
   return myInterferences;
 }
 
 //=================================================================================================
 
-void TopOpeBRepDS_GeometryData::AddInterference(const Handle(TopOpeBRepDS_Interference)& I)
+void GeometryData::AddInterference(const Handle(TopOpeBRepDS_Interference)& I)
 {
   myInterferences.Append(I);
 }

@@ -29,7 +29,7 @@ class IGESSolid_ConeFrustum;
 DEFINE_STANDARD_HANDLE(IGESSolid_ConeFrustum, IGESData_IGESEntity)
 
 //! defines ConeFrustum, Type <156> Form Number <0>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! The Cone Frustum is defined by the center of the
 //! larger circular face of the frustum, its radius, a unit
 //! vector in the axis direction, a height in this direction

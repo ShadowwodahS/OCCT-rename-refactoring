@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(RWObj_ObjMaterialMap, RWMesh_MaterialMap)
 
 //=================================================================================================
 
-RWObj_ObjMaterialMap::RWObj_ObjMaterialMap(const TCollection_AsciiString& theFile)
+RWObj_ObjMaterialMap::RWObj_ObjMaterialMap(const AsciiString1& theFile)
     : RWMesh_MaterialMap(theFile),
       myFile(NULL)
 {
@@ -41,13 +41,13 @@ RWObj_ObjMaterialMap::~RWObj_ObjMaterialMap()
 
   if (myIsFailed)
   {
-    Message::SendFail(TCollection_AsciiString("File cannot be written\n") + myFileName);
+    Message::SendFail(AsciiString1("File cannot be written\n") + myFileName);
   }
 }
 
 //=================================================================================================
 
-TCollection_AsciiString RWObj_ObjMaterialMap::AddMaterial(const XCAFPrs_Style& theStyle)
+AsciiString1 RWObj_ObjMaterialMap::AddMaterial(const XCAFPrs_Style& theStyle)
 {
   if (myFile == NULL && !myIsFailed)
   {
@@ -60,7 +60,7 @@ TCollection_AsciiString RWObj_ObjMaterialMap::AddMaterial(const XCAFPrs_Style& t
   }
   if (myFile == NULL)
   {
-    return TCollection_AsciiString();
+    return AsciiString1();
   }
 
   return RWMesh_MaterialMap::AddMaterial(theStyle);
@@ -69,8 +69,8 @@ TCollection_AsciiString RWObj_ObjMaterialMap::AddMaterial(const XCAFPrs_Style& t
 //=================================================================================================
 
 void RWObj_ObjMaterialMap::DefineMaterial(const XCAFPrs_Style&           theStyle,
-                                          const TCollection_AsciiString& theKey,
-                                          const TCollection_AsciiString& theName)
+                                          const AsciiString1& theKey,
+                                          const AsciiString1& theName)
 {
   (void)theName;
   Fprintf(myFile, "newmtl %s\n", theKey.ToCString());
@@ -123,10 +123,10 @@ void RWObj_ObjMaterialMap::DefineMaterial(const XCAFPrs_Style&           theStyl
 
   if (const Handle(Image_Texture)& aBaseTexture = theStyle.BaseColorTexture())
   {
-    TCollection_AsciiString aTexture;
+    AsciiString1 aTexture;
     if (!myImageMap.Find(aBaseTexture, aTexture) && !myImageFailMap.Contains(aBaseTexture))
     {
-      if (CopyTexture(aTexture, aBaseTexture, TCollection_AsciiString(myImageMap.Extent() + 1)))
+      if (CopyTexture(aTexture, aBaseTexture, AsciiString1(myImageMap.Extent() + 1)))
       {
         myImageMap.Bind(aBaseTexture, aTexture);
       }

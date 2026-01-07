@@ -24,9 +24,9 @@
 #include <Standard_OStream.hxx>
 #include <Standard_IStream.hxx>
 #include <Standard_Integer.hxx>
-class Geom_Curve;
-class Geom2d_Curve;
-class Geom_Surface;
+class GeomCurve3d;
+class GeomCurve2d;
+class GeomSurface;
 
 class GeomTools_UndefinedTypeHandler;
 DEFINE_STANDARD_HANDLE(GeomTools_UndefinedTypeHandler, RefObject)
@@ -37,29 +37,29 @@ class GeomTools_UndefinedTypeHandler : public RefObject
 public:
   Standard_EXPORT GeomTools_UndefinedTypeHandler();
 
-  Standard_EXPORT virtual void PrintCurve(const Handle(Geom_Curve)& C,
+  Standard_EXPORT virtual void PrintCurve(const Handle(GeomCurve3d)& C,
                                           Standard_OStream&         OS,
                                           const Standard_Boolean    compact = Standard_False) const;
 
   Standard_EXPORT virtual Standard_IStream& ReadCurve(const Standard_Integer ctype,
                                                       Standard_IStream&      IS,
-                                                      Handle(Geom_Curve)&    C) const;
+                                                      Handle(GeomCurve3d)&    C) const;
 
-  Standard_EXPORT virtual void PrintCurve2d(const Handle(Geom2d_Curve)& C,
+  Standard_EXPORT virtual void PrintCurve2d(const Handle(GeomCurve2d)& C,
                                             Standard_OStream&           OS,
                                             const Standard_Boolean compact = Standard_False) const;
 
   Standard_EXPORT virtual Standard_IStream& ReadCurve2d(const Standard_Integer ctype,
                                                         Standard_IStream&      IS,
-                                                        Handle(Geom2d_Curve)&  C) const;
+                                                        Handle(GeomCurve2d)&  C) const;
 
-  Standard_EXPORT virtual void PrintSurface(const Handle(Geom_Surface)& S,
+  Standard_EXPORT virtual void PrintSurface(const Handle(GeomSurface)& S,
                                             Standard_OStream&           OS,
                                             const Standard_Boolean compact = Standard_False) const;
 
   Standard_EXPORT virtual Standard_IStream& ReadSurface(const Standard_Integer ctype,
                                                         Standard_IStream&      IS,
-                                                        Handle(Geom_Surface)&  S) const;
+                                                        Handle(GeomSurface)&  S) const;
 
   DEFINE_STANDARD_RTTIEXT(GeomTools_UndefinedTypeHandler, RefObject)
 

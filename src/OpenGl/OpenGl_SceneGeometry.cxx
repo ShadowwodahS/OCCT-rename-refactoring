@@ -423,7 +423,7 @@ Standard_Boolean OpenGl_RaytraceGeometry::AcquireTextures(const Handle(OpenGl_Co
           GL_DEBUG_TYPE_ERROR,
           0,
           GL_DEBUG_SEVERITY_HIGH,
-          TCollection_AsciiString("Error: Failed to get 64-bit handle of OpenGL texture ")
+          AsciiString1("Error: Failed to get 64-bit handle of OpenGL texture ")
             + OpenGl_Context::FormatGlError(anErr));
         myTextureHandles.clear();
         return Standard_False;
@@ -439,7 +439,7 @@ Standard_Boolean OpenGl_RaytraceGeometry::AcquireTextures(const Handle(OpenGl_Co
         GL_DEBUG_TYPE_ERROR,
         0,
         GL_DEBUG_SEVERITY_HIGH,
-        TCollection_AsciiString("Error: Failed to make OpenGL texture resident ")
+        AsciiString1("Error: Failed to make OpenGL texture resident ")
           + OpenGl_Context::FormatGlError(anErr));
       return Standard_False;
     }
@@ -471,7 +471,7 @@ Standard_Boolean OpenGl_RaytraceGeometry::ReleaseTextures(
         GL_DEBUG_TYPE_ERROR,
         0,
         GL_DEBUG_SEVERITY_HIGH,
-        TCollection_AsciiString("Error: Failed to make OpenGL texture non-resident ")
+        AsciiString1("Error: Failed to make OpenGL texture non-resident ")
           + OpenGl_Context::FormatGlError(anErr));
       return Standard_False;
     }
@@ -550,7 +550,7 @@ Standard_Boolean OpenGl_RaytraceGeometry::UpdateTextureHandles(
         GL_DEBUG_TYPE_ERROR,
         0,
         GL_DEBUG_SEVERITY_HIGH,
-        TCollection_AsciiString("Error: Failed to get 64-bit handle of OpenGL texture ")
+        AsciiString1("Error: Failed to get 64-bit handle of OpenGL texture ")
           + OpenGl_Context::FormatGlError(anErr));
       myTextureHandles.clear();
       return Standard_False;

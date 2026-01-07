@@ -21,13 +21,13 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TopoDS_Shape,
+typedef NCollection_DataMap<TopoShape,
                             Handle(StepBasic_ProductDefinition),
-                            TopTools_ShapeMapHasher>
+                            ShapeHasher>
   STEPCAFControl_DataMapOfShapePD;
-typedef NCollection_DataMap<TopoDS_Shape,
+typedef NCollection_DataMap<TopoShape,
                             Handle(StepBasic_ProductDefinition),
-                            TopTools_ShapeMapHasher>::Iterator
+                            ShapeHasher>::Iterator
   STEPCAFControl_DataMapIteratorOfDataMapOfShapePD;
 
 #endif

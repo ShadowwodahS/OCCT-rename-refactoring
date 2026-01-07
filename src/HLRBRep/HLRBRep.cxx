@@ -34,11 +34,11 @@
 
 //=================================================================================================
 
-TopoDS_Edge HLRBRep::MakeEdge(const HLRBRep_Curve& ec,
+TopoEdge HLRBRep::MakeEdge(const HLRBRep_Curve& ec,
                               const Standard_Real  U1,
                               const Standard_Real  U2)
 {
-  TopoDS_Edge         Edg;
+  TopoEdge         Edg;
   const Standard_Real sta = ec.Parameter2d(U1);
   const Standard_Real end = ec.Parameter2d(U2);
 
@@ -87,13 +87,13 @@ TopoDS_Edge HLRBRep::MakeEdge(const HLRBRep_Curve& ec,
     case GeomAbs_BSplineCurve: {
       Handle(Geom2d_BSplineCurve) ec2d;
       GeomAdaptor_Curve           GAcurve = ec.GetCurve().Curve();
-      TopoDS_Edge                 anEdge  = ec.GetCurve().Edge();
+      TopoEdge                 anEdge  = ec.GetCurve().Edge();
       Standard_Real               fpar, lpar;
-      Handle(Geom_Curve)          aCurve = BRep_Tool::Curve(anEdge, fpar, lpar);
+      Handle(GeomCurve3d)          aCurve = BRepInspector::Curve(anEdge, fpar, lpar);
       if (aCurve->DynamicType() == STANDARD_TYPE(Geom_TrimmedCurve))
         aCurve = (Handle(Geom_TrimmedCurve)::DownCast(aCurve))->BasisCurve();
-      Handle(Geom_BSplineCurve) BSplCurve(Handle(Geom_BSplineCurve)::DownCast(aCurve));
-      Handle(Geom_BSplineCurve) theCurve = Handle(Geom_BSplineCurve)::DownCast(BSplCurve->Copy());
+      Handle(BSplineCurve3d) BSplCurve(Handle(BSplineCurve3d)::DownCast(aCurve));
+      Handle(BSplineCurve3d) theCurve = Handle(BSplineCurve3d)::DownCast(BSplCurve->Copy());
       if (theCurve->IsPeriodic() && !GAcurve.IsClosed())
       {
         theCurve->Segment(sta, end);
@@ -180,30 +180,30 @@ TopoDS_Edge HLRBRep::MakeEdge(const HLRBRep_Curve& ec,
 
 //=================================================================================================
 
-TopoDS_Edge HLRBRep::MakeEdge3d(const HLRBRep_Curve& ec,
+TopoEdge HLRBRep::MakeEdge3d(const HLRBRep_Curve& ec,
                                 const Standard_Real  U1,
                                 const Standard_Real  U2)
 {
-  TopoDS_Edge Edg;
+  TopoEdge Edg;
   // const Standard_Real sta = ec.Parameter2d(U1);
   // const Standard_Real end = ec.Parameter2d(U2);
 
-  TopoDS_Edge   anEdge = ec.GetCurve().Edge();
+  TopoEdge   anEdge = ec.GetCurve().Edge();
   Standard_Real fpar, lpar;
-  // BRep_Tool::Range(anEdge, fpar, lpar);
-  // Handle(Geom_Curve) aCurve = BRep_Tool::Curve(anEdge, fpar, lpar);
+  // BRepInspector::Range(anEdge, fpar, lpar);
+  // Handle(GeomCurve3d) aCurve = BRepInspector::Curve(anEdge, fpar, lpar);
   BRepAdaptor_Curve BAcurve(anEdge);
   fpar = BAcurve.FirstParameter();
   lpar = BAcurve.LastParameter();
 
   Edg = TopoDS::Edge(anEdge.EmptyCopied());
   Edg.Orientation(TopAbs_FORWARD);
-  BRep_Builder BB;
+  ShapeBuilder BB;
   BB.Range(Edg, U1, U2);
 
   // Share vertices if possible
-  TopoDS_Vertex V1, V2, V1new, V2new;
-  TopExp::Vertices(anEdge, V1, V2);
+  TopoVertex V1, V2, V1new, V2new;
+  TopExp1::Vertices(anEdge, V1, V2);
 
   constexpr Standard_Real Tol = Precision::PConfusion();
   if (Abs(fpar - U1) <= Tol)

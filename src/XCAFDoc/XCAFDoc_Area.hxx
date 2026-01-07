@@ -23,7 +23,7 @@
 #include <TDataStd_Real.hxx>
 #include <Standard_OStream.hxx>
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 
 class XCAFDoc_Area;
 DEFINE_STANDARD_HANDLE(XCAFDoc_Area, TDataStd_Real)
@@ -45,13 +45,13 @@ public:
   Standard_EXPORT void Set(const Standard_Real vol);
 
   //! Find, or create, an Area attribute and set its value
-  Standard_EXPORT static Handle(XCAFDoc_Area) Set(const TDF_Label& label, const Standard_Real area);
+  Standard_EXPORT static Handle(XCAFDoc_Area) Set(const DataLabel& label, const Standard_Real area);
 
   Standard_EXPORT Standard_Real Get() const;
 
   //! Returns volume of area as argument and success status
   //! returns false if no such attribute at the <label>
-  Standard_EXPORT static Standard_Boolean Get(const TDF_Label& label, Standard_Real& area);
+  Standard_EXPORT static Standard_Boolean Get(const DataLabel& label, Standard_Real& area);
 
   Standard_EXPORT virtual Standard_OStream& Dump(Standard_OStream& anOS) const Standard_OVERRIDE;
 

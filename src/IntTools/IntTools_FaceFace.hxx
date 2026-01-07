@@ -46,8 +46,8 @@ public:
   //! Intersects underliing surfaces of F1 and F2
   //! Use sum of tolerance of F1 and F2 as intersection
   //! criteria
-  Standard_EXPORT void Perform(const TopoDS_Face&     F1,
-                               const TopoDS_Face&     F2,
+  Standard_EXPORT void Perform(const TopoFace&     F1,
+                               const TopoFace&     F2,
                                const Standard_Boolean theToRunParallel = Standard_False);
 
   //! Returns True if the intersection was successful
@@ -60,10 +60,10 @@ public:
   Standard_EXPORT const IntTools_SequenceOfPntOn2Faces& Points() const;
 
   //! Returns first of processed faces
-  Standard_EXPORT const TopoDS_Face& Face1() const;
+  Standard_EXPORT const TopoFace& Face1() const;
 
   //! Returns second of processed faces
-  Standard_EXPORT const TopoDS_Face& Face2() const;
+  Standard_EXPORT const TopoFace& Face2() const;
 
   //! Returns True if faces are tangent
   Standard_EXPORT Standard_Boolean TangentFaces() const;
@@ -117,8 +117,8 @@ protected:
   Standard_Real                  myFuzzyValue;
   IntTools_SequenceOfCurves      mySeqOfCurve;
   Standard_Boolean               myTangentFaces;
-  TopoDS_Face                    myFace1;
-  TopoDS_Face                    myFace2;
+  TopoFace                    myFace1;
+  TopoFace                    myFace2;
   IntTools_SequenceOfPntOn2Faces myPnts;
   IntSurf_ListOfPntOn2S          myListOfPnts;
   Handle(IntTools_Context)       myContext;

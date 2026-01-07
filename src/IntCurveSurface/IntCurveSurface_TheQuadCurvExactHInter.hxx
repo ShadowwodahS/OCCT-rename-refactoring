@@ -21,7 +21,7 @@
 #include <Adaptor3d_Surface.hxx>
 #include <TColStd_SequenceOfReal.hxx>
 
-class Adaptor3d_HSurfaceTool;
+class HSurfaceTool;
 class IntCurveSurface_TheHCurveTool;
 class IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter;
 

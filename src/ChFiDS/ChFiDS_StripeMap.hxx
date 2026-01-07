@@ -24,30 +24,30 @@
 #include <ChFiDS_IndexedDataMapOfVertexListOfStripe.hxx>
 #include <Standard_Integer.hxx>
 #include <ChFiDS_ListOfStripe.hxx>
-class TopoDS_Vertex;
+class TopoVertex;
 class ChFiDS_Stripe;
 
 //! encapsulation of IndexedDataMapOfVertexListOfStripe
-class ChFiDS_StripeMap
+class StripeMap
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT ChFiDS_StripeMap();
+  Standard_EXPORT StripeMap();
 
-  Standard_EXPORT void Add(const TopoDS_Vertex& V, const Handle(ChFiDS_Stripe)& F);
+  Standard_EXPORT void Add(const TopoVertex& V, const Handle(ChFiDS_Stripe)& F);
 
   Standard_Integer Extent() const;
 
-  Standard_EXPORT const ChFiDS_ListOfStripe& FindFromKey(const TopoDS_Vertex& V) const;
+  Standard_EXPORT const ChFiDS_ListOfStripe& FindFromKey(const TopoVertex& V) const;
 
-  const ChFiDS_ListOfStripe& operator()(const TopoDS_Vertex& V) const { return FindFromKey(V); }
+  const ChFiDS_ListOfStripe& operator()(const TopoVertex& V) const { return FindFromKey(V); }
 
   Standard_EXPORT const ChFiDS_ListOfStripe& FindFromIndex(const Standard_Integer I) const;
 
   const ChFiDS_ListOfStripe& operator()(const Standard_Integer I) const { return FindFromIndex(I); }
 
-  const TopoDS_Vertex& FindKey(const Standard_Integer I) const;
+  const TopoVertex& FindKey(const Standard_Integer I) const;
 
   Standard_EXPORT void Clear();
 

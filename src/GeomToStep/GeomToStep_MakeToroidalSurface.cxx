@@ -28,7 +28,7 @@
 //=============================================================================
 GeomToStep_MakeToroidalSurface::GeomToStep_MakeToroidalSurface(
   const Handle(Geom_ToroidalSurface)& S,
-  const StepData_Factors&             theLocalFactors)
+  const ConversionFactors&             theLocalFactors)
 {
   Handle(StepGeom_ToroidalSurface)  Surf;
   Handle(StepGeom_Axis2Placement3d) aPosition;

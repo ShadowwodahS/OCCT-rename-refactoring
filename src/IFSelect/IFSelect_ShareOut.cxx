@@ -350,7 +350,7 @@ Handle(TCollection_HAsciiString) IFSelect_ShareOut::Extension() const
   return theext;
 }
 
-TCollection_AsciiString IFSelect_ShareOut::FileName(const Standard_Integer dnum,
+AsciiString1 IFSelect_ShareOut::FileName(const Standard_Integer dnum,
                                                     const Standard_Integer pnum,
                                                     const Standard_Integer nbpack)
 {
@@ -367,7 +367,7 @@ TCollection_AsciiString IFSelect_ShareOut::FileName(const Standard_Integer dnum,
     sufnum = Standard_True; // numeroter sur noms par defaut, des le 1er sans 0
   }
 
-  TCollection_AsciiString res;
+  AsciiString1 res;
   if (!thepref.IsNull())
     res.AssignCat(thepref->ToCString());
   if (!rot.IsNull())

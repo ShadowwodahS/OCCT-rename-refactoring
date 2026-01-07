@@ -23,7 +23,7 @@
 
 #include <Interface_ParamType.hxx>
 #include <Standard_PCharacter.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! Auxiliary class to store a literal parameter in a file
 //! intermediate directory or in an UndefinedContent : a reference
@@ -42,7 +42,7 @@ public:
   Standard_EXPORT Interface_FileParameter();
 
   //! Fills fields (with Entity Number set to zero)
-  Standard_EXPORT void Init(const TCollection_AsciiString& val, const Interface_ParamType typ);
+  Standard_EXPORT void Init(const AsciiString1& val, const Interface_ParamType typ);
 
   //! Same as above, but builds the Value from a CString
   Standard_EXPORT void Init(const Standard_CString val, const Interface_ParamType typ);

@@ -80,7 +80,7 @@ inline Standard_Boolean BOPAlgo_MakerVolume::IsIntersect() const
 // function : Box
 // purpose  :
 //=======================================================================
-inline const TopoDS_Solid& BOPAlgo_MakerVolume::Box() const
+inline const TopoSolid& BOPAlgo_MakerVolume::Box() const
 {
   return mySBox;
 }
@@ -89,7 +89,7 @@ inline const TopoDS_Solid& BOPAlgo_MakerVolume::Box() const
 // function : Faces
 // purpose  :
 //=======================================================================
-inline const TopTools_ListOfShape& BOPAlgo_MakerVolume::Faces() const
+inline const ShapeList& BOPAlgo_MakerVolume::Faces() const
 {
   return myFaces;
 }

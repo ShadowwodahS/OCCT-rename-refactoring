@@ -25,8 +25,8 @@
 #include <BRepBuilderAPI_MakeShape.hxx>
 #include <GeomAbs_Shape.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Shape;
-class TopoDS_Edge;
+class TopoShape;
+class TopoEdge;
 
 //! A framework to define projection onto a shape
 //! according to the normal from each point to be projected.
@@ -46,17 +46,17 @@ public:
   //! to be projected from the shape added to this framework by Add.
   //! Default parameters of the algorithm: Tol3D = 1.e-04, Tol2D =sqr(tol3d)
   //! , InternalContinuity = GeomAbs_C2, MaxDegree = 14, MaxSeg = 16.
-  Standard_EXPORT BRepOffsetAPI_NormalProjection(const TopoDS_Shape& S);
+  Standard_EXPORT BRepOffsetAPI_NormalProjection(const TopoShape& S);
 
   //! Initializes the empty constructor framework with the shape S.
-  Standard_EXPORT void Init(const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const TopoShape& S);
 
   //! Adds the shape ToProj to the framework for calculation
   //! of the projection by Compute3d.
   //! ToProj is an edge or a wire and will be projected onto the basis shape.
   //! Exceptions
   //! Standard_ConstructionError if ToProj is not added.
-  Standard_EXPORT void Add(const TopoDS_Shape& ToProj);
+  Standard_EXPORT void Add(const TopoShape& ToProj);
 
   //! Sets the parameters  used  for computation
   //! Tol3 is the required  tolerance between the  3d projected
@@ -102,18 +102,18 @@ public:
   //! The construction of the result is performed by Build.
   //! Exceptions
   //! StdFail_NotDone if the projection was not performed.
-  Standard_EXPORT const TopoDS_Shape& Projection() const;
+  Standard_EXPORT const TopoShape& Projection() const;
 
   //! Returns the initial face corresponding to the projected edge E.
   //! Exceptions
   //! StdFail_NotDone if no face was found.
   //! Standard_NoSuchObject if a face corresponding to
   //! E has already been found.
-  Standard_EXPORT const TopoDS_Shape& Couple(const TopoDS_Edge& E) const;
+  Standard_EXPORT const TopoShape& Couple(const TopoEdge& E) const;
 
   //! Returns the  list   of shapes generated   from the
   //! shape <S>.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Generated(const TopoDS_Shape& S)
+  Standard_EXPORT virtual const ShapeList& Generated(const TopoShape& S)
     Standard_OVERRIDE;
 
   //! Returns the initial edge corresponding to the edge E
@@ -122,11 +122,11 @@ public:
   //! StdFail_NotDone if no edge was found.
   //! Standard_NoSuchObject if an edge corresponding to
   //! E has already been found.
-  Standard_EXPORT const TopoDS_Shape& Ancestor(const TopoDS_Edge& E) const;
+  Standard_EXPORT const TopoShape& Ancestor(const TopoEdge& E) const;
 
   //! build the result as a list of wire if possible in --
   //! a first returns a wire only if there is only a wire.
-  Standard_EXPORT Standard_Boolean BuildWire(TopTools_ListOfShape& Liste) const;
+  Standard_EXPORT Standard_Boolean BuildWire(ShapeList& Liste) const;
 
 protected:
 private:

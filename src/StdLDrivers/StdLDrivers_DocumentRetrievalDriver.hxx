@@ -26,7 +26,7 @@ class StdLDrivers_DocumentRetrievalDriver : public PCDM_RetrievalDriver
 public:
   //! Retrieve the content of a file into a new document.
   Standard_EXPORT virtual void Read(
-    const TCollection_ExtendedString& theFileName,
+    const UtfString& theFileName,
     const Handle(CDM_Document)&       theNewDocument,
     const Handle(CDM_Application)&    theApplication,
     const Handle(PCDM_ReaderFilter)&  theFilter = Handle(PCDM_ReaderFilter)(),
@@ -49,7 +49,7 @@ protected:
 
 private:
   //! Read persistent document from a file.
-  Handle(StdObjMgt_Persistent) read(const TCollection_ExtendedString& theFileName,
+  Handle(StdObjMgt_Persistent) read(const UtfString& theFileName,
                                     Storage_HeaderData&               theHeaderData);
 
   //! Update the reader status and raise an exception appropriate for the given storage error.

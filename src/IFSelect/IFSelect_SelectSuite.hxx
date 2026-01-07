@@ -89,13 +89,13 @@ public:
   //! Returns the Label
   //! Either it has been defined by SetLabel, or it will give
   //! "Suite of nn Selections"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectSuite, IFSelect_SelectDeduct)
 
 protected:
 private:
-  TCollection_AsciiString     thelab;
+  AsciiString1     thelab;
   TColStd_SequenceOfTransient thesel;
 };
 

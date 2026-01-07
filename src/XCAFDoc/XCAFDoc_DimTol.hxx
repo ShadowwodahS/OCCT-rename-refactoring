@@ -24,7 +24,7 @@
 #include <TDF_Attribute.hxx>
 class TCollection_HAsciiString;
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 
 class XCAFDoc_DimTol;
@@ -40,7 +40,7 @@ public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
   Standard_EXPORT static Handle(XCAFDoc_DimTol) Set(
-    const TDF_Label&                        label,
+    const DataLabel&                        label,
     const Standard_Integer                  kind,
     const Handle(TColStd_HArray1OfReal)&    aVal,
     const Handle(TCollection_HAsciiString)& aName,

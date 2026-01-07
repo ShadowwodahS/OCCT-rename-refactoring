@@ -68,11 +68,11 @@ Standard_Integer DNaming_PointDriver::Execute(Handle(TFunction_Logbook)& theLog)
 
   // perform calculations
 
-  Standard_Real aDX = DNaming::GetReal(aFunction, PNT_DX)->Get();
-  Standard_Real aDY = DNaming::GetReal(aFunction, PNT_DY)->Get();
-  Standard_Real aDZ = DNaming::GetReal(aFunction, PNT_DZ)->Get();
+  Standard_Real aDX = DNaming1::GetReal(aFunction, PNT_DX)->Get();
+  Standard_Real aDY = DNaming1::GetReal(aFunction, PNT_DY)->Get();
+  Standard_Real aDZ = DNaming1::GetReal(aFunction, PNT_DZ)->Get();
 
-  Handle(TNaming_NamedShape) aPrevPnt = DNaming::GetFunctionResult(aFunction);
+  Handle(ShapeAttribute) aPrevPnt = DNaming1::GetFunctionResult(aFunction);
   // Save location
   TopLoc_Location aLocation;
   if (!aPrevPnt.IsNull() && !aPrevPnt->IsEmpty())
@@ -82,8 +82,8 @@ Standard_Integer DNaming_PointDriver::Execute(Handle(TFunction_Logbook)& theLog)
   Point3d aPoint;
   if (aFunction->GetDriverGUID() == PNTRLT_GUID)
   {
-    Handle(TDataStd_UAttribute) aRefPnt   = DNaming::GetObjectArg(aFunction, PNTRLT_REF);
-    Handle(TNaming_NamedShape)  aRefPntNS = DNaming::GetObjectValue(aRefPnt);
+    Handle(TDataStd_UAttribute) aRefPnt   = DNaming1::GetObjectArg(aFunction, PNTRLT_REF);
+    Handle(ShapeAttribute)  aRefPntNS = DNaming1::GetObjectValue(aRefPnt);
     if (aRefPntNS.IsNull() || aRefPntNS->IsEmpty())
     {
 #ifdef OCCT_DEBUG
@@ -92,9 +92,9 @@ Standard_Integer DNaming_PointDriver::Execute(Handle(TFunction_Logbook)& theLog)
       aFunction->SetFailure(WRONG_ARGUMENT);
       return -1;
     }
-    TopoDS_Shape  aRefPntShape = aRefPntNS->Get();
-    TopoDS_Vertex aVertex      = TopoDS::Vertex(aRefPntShape);
-    aPoint                     = BRep_Tool::Pnt(aVertex);
+    TopoShape  aRefPntShape = aRefPntNS->Get();
+    TopoVertex aVertex      = TopoDS::Vertex(aRefPntShape);
+    aPoint                     = BRepInspector::Pnt(aVertex);
     aPoint.SetX(aPoint.X() + aDX);
     aPoint.SetY(aPoint.Y() + aDY);
     aPoint.SetZ(aPoint.Z() + aDZ);
@@ -111,13 +111,13 @@ Standard_Integer DNaming_PointDriver::Execute(Handle(TFunction_Logbook)& theLog)
   }
 
   // Naming
-  const TDF_Label& aResultLabel = RESPOSITION(aFunction);
+  const DataLabel& aResultLabel = RESPOSITION(aFunction);
   TNaming_Builder  aBuilder(aResultLabel);
   aBuilder.Generated(aMakeVertex.Shape());
 
   // restore location
   if (!aLocation.IsIdentity())
-    TNaming::Displace(aResultLabel, aLocation, Standard_True);
+    TNaming1::Displace(aResultLabel, aLocation, Standard_True);
 
   theLog->SetValid(aResultLabel, Standard_True);
 

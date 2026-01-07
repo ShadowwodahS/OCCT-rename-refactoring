@@ -26,7 +26,7 @@ IMPLEMENT_STANDARD_RTTIEXT(BRepApprox_ApproxLine, RefObject)
 
 //=================================================================================================
 
-BRepApprox_ApproxLine::BRepApprox_ApproxLine(const Handle(Geom_BSplineCurve)&   CurveXYZ,
+BRepApprox_ApproxLine::BRepApprox_ApproxLine(const Handle(BSplineCurve3d)&   CurveXYZ,
                                              const Handle(Geom2d_BSplineCurve)& CurveUV1,
                                              const Handle(Geom2d_BSplineCurve)& CurveUV2)
 {

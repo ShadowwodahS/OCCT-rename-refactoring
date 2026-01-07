@@ -32,10 +32,10 @@
 #include <TopAbs_State.hxx>
 
 class Adaptor3d_Curve;
-class TopoDS_Shape;
+class TopoShape;
 class gp_Lin;
 class Point3d;
-class TopoDS_Face;
+class TopoFace;
 
 class IntCurvesFace_ShapeIntersector
 {
@@ -44,7 +44,7 @@ public:
 
   Standard_EXPORT IntCurvesFace_ShapeIntersector();
 
-  Standard_EXPORT void Load(const TopoDS_Shape& Sh, const Standard_Real Tol);
+  Standard_EXPORT void Load(const TopoShape& Sh, const Standard_Real Tol);
 
   //! Perform the intersection between the
   //! segment L and the loaded shape.
@@ -132,7 +132,7 @@ public:
 
   //! Returns the significant face used to determine
   //! the intersection.
-  const TopoDS_Face& Face(const Standard_Integer I) const
+  const TopoFace& Face(const Standard_Integer I) const
   {
     Handle(IntCurvesFace_Intersector) anIntAdaptor = myIntersector(myIndexFace(myIndexPt(I)));
     return anIntAdaptor->Face();

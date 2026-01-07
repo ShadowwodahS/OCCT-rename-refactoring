@@ -35,7 +35,7 @@ public:
                                        const Standard_Integer                    thePriority = 0);
 
   Standard_EXPORT virtual void HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                                const Handle(Prs3d_Drawer)&               theStyle,
+                                                const Handle(StyleDrawer)&               theStyle,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT Standard_Boolean

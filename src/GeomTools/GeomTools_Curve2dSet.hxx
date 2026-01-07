@@ -27,7 +27,7 @@
 #include <Standard_IStream.hxx>
 #include <Message_ProgressRange.hxx>
 
-class Geom2d_Curve;
+class GeomCurve2d;
 
 //! Stores a set of Curves from Geom2d.
 class GeomTools_Curve2dSet
@@ -43,13 +43,13 @@ public:
 
   //! Incorporate a new Curve in the  set and returns
   //! its index.
-  Standard_EXPORT Standard_Integer Add(const Handle(Geom2d_Curve)& C);
+  Standard_EXPORT Standard_Integer Add(const Handle(GeomCurve2d)& C);
 
   //! Returns the Curve of index <I>.
-  Standard_EXPORT Handle(Geom2d_Curve) Curve2d(const Standard_Integer I) const;
+  Standard_EXPORT Handle(GeomCurve2d) Curve2d(const Standard_Integer I) const;
 
   //! Returns the index of <L>.
-  Standard_EXPORT Standard_Integer Index(const Handle(Geom2d_Curve)& C) const;
+  Standard_EXPORT Standard_Integer Index(const Handle(GeomCurve2d)& C) const;
 
   //! Dumps the content of me on the stream <OS>.
   Standard_EXPORT void Dump(Standard_OStream& OS) const;
@@ -67,14 +67,14 @@ public:
 
   //! Dumps the curve on the stream,  if compact is True
   //! use the compact format that can be read back.
-  Standard_EXPORT static void PrintCurve2d(const Handle(Geom2d_Curve)& C,
+  Standard_EXPORT static void PrintCurve2d(const Handle(GeomCurve2d)& C,
                                            Standard_OStream&           OS,
                                            const Standard_Boolean      compact = Standard_False);
 
   //! Reads the curve  from  the stream.  The  curve  is
   //! assumed   to have  been  written  with  the Print
   //! method (compact = True).
-  Standard_EXPORT static Handle(Geom2d_Curve) ReadCurve2d(Standard_IStream& IS);
+  Standard_EXPORT static Handle(GeomCurve2d) ReadCurve2d(Standard_IStream& IS);
 
 private:
   TColStd_IndexedMapOfTransient myMap;

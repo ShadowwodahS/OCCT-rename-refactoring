@@ -40,17 +40,17 @@ public:
   //! \param theParameters a list of parameters
   //! \param theToActivatePlugin a state whether the plugin should be immediately activated
   Standard_EXPORT virtual void SetParameters(
-    const TCollection_AsciiString&                      thePluginName,
+    const AsciiString1&                      thePluginName,
     const NCollection_List<Handle(RefObject)>& theParameters,
     const Standard_Boolean& theToActivatePlugin = Standard_False) Standard_OVERRIDE;
 
   //! Sets path to a directory for temporary plugin files. Sets the directory into preferences
   //! loader \param thePath a path
-  virtual void SetTemporaryDirectory(const TCollection_AsciiString& thePath) Standard_OVERRIDE;
+  virtual void SetTemporaryDirectory(const AsciiString1& thePath) Standard_OVERRIDE;
 
   //! Returns plugin preferences
   //! \param thePluginName a plugin name
-  virtual void GetPreferences(const TCollection_AsciiString&    thePluginName,
+  virtual void GetPreferences(const AsciiString1&    thePluginName,
                               TInspectorAPI_PreferencesDataMap& theItem) Standard_OVERRIDE
   {
     myPreferences->GetPreferences(thePluginName, theItem);
@@ -59,7 +59,7 @@ public:
   //! Stores plugin preferences
   //! \param thePluginName a plugin name
   //! \theItem container of plugin preferences values in form: <name, value>
-  virtual void SetPreferences(const TCollection_AsciiString&          thePluginName,
+  virtual void SetPreferences(const AsciiString1&          thePluginName,
                               const TInspectorAPI_PreferencesDataMap& theItem) Standard_OVERRIDE
   {
     myPreferences->SetPreferences(thePluginName, theItem);

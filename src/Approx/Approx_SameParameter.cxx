@@ -34,7 +34,7 @@
 
 //=================================================================================================
 
-class Approx_SameParameter_Evaluator : public AdvApprox_EvaluatorFunction
+class Approx_SameParameter_Evaluator : public EvaluatorFunction
 {
 public:
   Approx_SameParameter_Evaluator(const TColStd_Array1OfReal&      theFlatKnots,
@@ -265,9 +265,9 @@ static Standard_Boolean Check(const TColStd_Array1OfReal&     FlatKnots,
 
 //=================================================================================================
 
-Approx_SameParameter::Approx_SameParameter(const Handle(Geom_Curve)&   C3D,
-                                           const Handle(Geom2d_Curve)& C2D,
-                                           const Handle(Geom_Surface)& S,
+Approx_SameParameter::Approx_SameParameter(const Handle(GeomCurve3d)&   C3D,
+                                           const Handle(GeomCurve2d)& C2D,
+                                           const Handle(GeomSurface)& S,
                                            const Standard_Real         Tol)
     : myDeltaMin(Precision::PConfusion()),
       mySameParameter(Standard_True),
@@ -282,7 +282,7 @@ Approx_SameParameter::Approx_SameParameter(const Handle(Geom_Curve)&   C3D,
 //=================================================================================================
 
 Approx_SameParameter::Approx_SameParameter(const Handle(Adaptor3d_Curve)&   C3D,
-                                           const Handle(Geom2d_Curve)&      C2D,
+                                           const Handle(GeomCurve2d)&      C2D,
                                            const Handle(Adaptor3d_Surface)& S,
                                            const Standard_Real              Tol)
     : myDeltaMin(Precision::PConfusion()),
@@ -365,7 +365,7 @@ void Approx_SameParameter::Build(const Standard_Real Tolerance)
     if (aData.myNbPnt < aNbPnt)
     {
       myTolReached = ComputeTolReached(myC3d, aData.myCOnS, 2 * myNbSamples);
-      myCurve2d    = Geom2dAdaptor::MakeCurve(*myHCurve2d);
+      myCurve2d    = Geom2dAdaptor1::MakeCurve(*myHCurve2d);
       myDone       = Standard_False;
       return;
     }
@@ -482,7 +482,7 @@ void Approx_SameParameter::Build(const Standard_Real Tolerance)
     // Original 2d curve.
     aData.myCOnS.Load(myHCurve2d);
     myTolReached = ComputeTolReached(myC3d, aData.myCOnS, 2 * myNbSamples);
-    myCurve2d    = Geom2dAdaptor::MakeCurve(*myHCurve2d);
+    myCurve2d    = Geom2dAdaptor1::MakeCurve(*myHCurve2d);
 
     // Approximation curve.
     Standard_Integer     num_knots = aData.myNbPnt + 7;

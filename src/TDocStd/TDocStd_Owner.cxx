@@ -36,7 +36,7 @@ const Standard_GUID& TDocStd_Owner::GetID()
 
 //=================================================================================================
 
-void TDocStd_Owner::SetDocument(const Handle(TDF_Data)& indata, const Handle(TDocStd_Document)& doc)
+void TDocStd_Owner::SetDocument(const Handle(TDF_Data)& indata, const Handle(AppDocument)& doc)
 {
   Handle(TDocStd_Owner) A;
   if (!indata->Root().FindAttribute(TDocStd_Owner::GetID(), A))
@@ -53,7 +53,7 @@ void TDocStd_Owner::SetDocument(const Handle(TDF_Data)& indata, const Handle(TDo
 
 //=================================================================================================
 
-void TDocStd_Owner::SetDocument(const Handle(TDF_Data)& indata, TDocStd_Document* doc)
+void TDocStd_Owner::SetDocument(const Handle(TDF_Data)& indata, AppDocument* doc)
 {
   Handle(TDocStd_Owner) A;
   if (!indata->Root().FindAttribute(TDocStd_Owner::GetID(), A))
@@ -70,7 +70,7 @@ void TDocStd_Owner::SetDocument(const Handle(TDF_Data)& indata, TDocStd_Document
 
 //=================================================================================================
 
-Handle(TDocStd_Document) TDocStd_Owner::GetDocument(const Handle(TDF_Data)& ofdata)
+Handle(AppDocument) TDocStd_Owner::GetDocument(const Handle(TDF_Data)& ofdata)
 {
   Handle(TDocStd_Owner) A;
   if (!ofdata->Root().FindAttribute(TDocStd_Owner::GetID(), A))
@@ -86,23 +86,23 @@ TDocStd_Owner::TDocStd_Owner() {}
 
 //=================================================================================================
 
-void TDocStd_Owner::SetDocument(const Handle(TDocStd_Document)& document)
+void TDocStd_Owner::SetDocument(const Handle(AppDocument)& document)
 {
   myDocument = document.get();
 }
 
 //=================================================================================================
 
-void TDocStd_Owner::SetDocument(TDocStd_Document* document)
+void TDocStd_Owner::SetDocument(AppDocument* document)
 {
   myDocument = document;
 }
 
 //=================================================================================================
 
-Handle(TDocStd_Document) TDocStd_Owner::GetDocument() const
+Handle(AppDocument) TDocStd_Owner::GetDocument() const
 {
-  return Handle(TDocStd_Document)(myDocument);
+  return Handle(AppDocument)(myDocument);
 }
 
 //=================================================================================================

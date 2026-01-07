@@ -56,7 +56,7 @@
 #include <TColStd_HPackedMapOfInteger.hxx>
 #include <TColStd_MapIteratorOfPackedMapOfInteger.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(MeshVS_Mesh, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(MeshVS_Mesh, VisualEntity)
 
 //=================================================================================================
 
@@ -248,7 +248,7 @@ void MeshVS_Mesh::scanFacesForSharedNodes(const TColStd_PackedMapOfInteger& theA
 
 //=================================================================================================
 
-void MeshVS_Mesh::ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+void MeshVS_Mesh::ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                    const Standard_Integer             theMode)
 {
   OSD_Timer        gTimer;
@@ -951,7 +951,7 @@ void MeshVS_Mesh::HilightSelected(const Handle(PrsMgr_PresentationManager)& theP
     if (theOwners.Value(i) == GlobalSelOwner())
     {
       const Standard_Integer      aHiMode = HasHilightMode() ? HilightMode() : 0;
-      const Handle(Prs3d_Drawer)& aSelStyle =
+      const Handle(StyleDrawer)& aSelStyle =
         !HilightAttributes().IsNull() ? HilightAttributes() : GetContext()->SelectionStyle();
       thePM->Color(this, aSelStyle, aHiMode);
       continue;
@@ -1064,7 +1064,7 @@ void MeshVS_Mesh::HilightSelected(const Handle(PrsMgr_PresentationManager)& theP
 //=================================================================================================
 
 void MeshVS_Mesh::HilightOwnerWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                        const Handle(Prs3d_Drawer)&               theStyle,
+                                        const Handle(StyleDrawer)&               theStyle,
                                         const Handle(SelectMgr_EntityOwner)&      theOwner)
 {
   if (theOwner.IsNull())

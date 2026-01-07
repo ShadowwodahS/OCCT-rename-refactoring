@@ -22,9 +22,9 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TopoDS_Shape, TopTools_SequenceOfShape, TopTools_ShapeMapHasher>
+typedef NCollection_DataMap<TopoShape, TopTools_SequenceOfShape, ShapeHasher>
   TopTools_DataMapOfShapeSequenceOfShape;
-typedef NCollection_DataMap<TopoDS_Shape, TopTools_SequenceOfShape, TopTools_ShapeMapHasher>::
+typedef NCollection_DataMap<TopoShape, TopTools_SequenceOfShape, ShapeHasher>::
   Iterator TopTools_DataMapIteratorOfDataMapOfShapeSequenceOfShape;
 
 #endif

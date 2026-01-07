@@ -60,7 +60,7 @@ void DFBrowser_Module::CreateViewModel(void* theParent)
 // function : SetApplication
 // purpose :
 // =======================================================================
-void DFBrowser_Module::SetApplication(const Handle(TDocStd_Application)& theApplication)
+void DFBrowser_Module::SetApplication(const Handle(AppManager)& theApplication)
 {
   myOCAFViewModel->Init(theApplication);
 
@@ -74,14 +74,14 @@ void DFBrowser_Module::SetApplication(const Handle(TDocStd_Application)& theAppl
 // =======================================================================
 void DFBrowser_Module::SetExternalContext(const Handle(RefObject)& theContext)
 {
-  myExternalContext = Handle(AIS_InteractiveContext)::DownCast(theContext);
+  myExternalContext = Handle(VisualContext)::DownCast(theContext);
 }
 
 // =======================================================================
 // function : GetTDocStdApplication
 // purpose :
 // =======================================================================
-Handle(TDocStd_Application) DFBrowser_Module::GetTDocStdApplication() const
+Handle(AppManager) DFBrowser_Module::GetTDocStdApplication() const
 {
   return myOCAFViewModel->GetTDocStdApplication();
 }
@@ -185,7 +185,7 @@ QVariant DFBrowser_Module::GetAttributeInfo(Handle(TDF_Attribute) theAttribute,
       anAttributePane = dynamic_cast<DFBrowserPane_AttributePane*>(anAPIPane);
   }
 
-  TCollection_AsciiString anInfo;
+  AsciiString1 anInfo;
   if (theRole == DFBrowser_ItemRole_AdditionalInfo)
   {
     anInfo = XCAFDoc::AttributeInfo(theAttribute);

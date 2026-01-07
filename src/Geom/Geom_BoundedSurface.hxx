@@ -23,7 +23,7 @@
 #include <Geom_Surface.hxx>
 
 class Geom_BoundedSurface;
-DEFINE_STANDARD_HANDLE(Geom_BoundedSurface, Geom_Surface)
+DEFINE_STANDARD_HANDLE(Geom_BoundedSurface, GeomSurface)
 
 //! The root class for bounded surfaces in 3D space. A
 //! bounded surface is defined by a rectangle in its 2D parametric space, i.e.
@@ -39,7 +39,7 @@ DEFINE_STANDARD_HANDLE(Geom_BoundedSurface, Geom_Surface)
 //! - its v0 and v1 isoparametric curves in the v parametric direction.
 //! A bounded surface is finite.
 //! The common behavior of all bounded surfaces is
-//! described by the Geom_Surface class.
+//! described by the GeomSurface class.
 //! The Geom package provides three concrete
 //! implementations of bounded surfaces:
 //! - Geom_BezierSurface,
@@ -50,11 +50,11 @@ DEFINE_STANDARD_HANDLE(Geom_BoundedSurface, Geom_Surface)
 //! trims a surface using four isoparametric curves, i.e. it
 //! limits the variation of its parameters to a rectangle in
 //! 2D parametric space.
-class Geom_BoundedSurface : public Geom_Surface
+class Geom_BoundedSurface : public GeomSurface
 {
 
 public:
-  DEFINE_STANDARD_RTTIEXT(Geom_BoundedSurface, Geom_Surface)
+  DEFINE_STANDARD_RTTIEXT(Geom_BoundedSurface, GeomSurface)
 
 protected:
 private:

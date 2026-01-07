@@ -22,24 +22,24 @@
 
 #include <TColStd_IndexedDataMapOfTransientTransient.hxx>
 #include <TopTools_DataMapOfShapeShape.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
-//! only  for  Shape  Copy  test - to move in DNaming
-class TNaming_Translator
+//! only  for  Shape  Copy  test - to move in DNaming1
+class NamingTranslator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TNaming_Translator();
+  Standard_EXPORT NamingTranslator();
 
-  Standard_EXPORT void Add(const TopoDS_Shape& aShape);
+  Standard_EXPORT void Add(const TopoShape& aShape);
 
   Standard_EXPORT void Perform();
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 
   //! returns copied  shape
-  Standard_EXPORT const TopoDS_Shape Copied(const TopoDS_Shape& aShape) const;
+  Standard_EXPORT const TopoShape Copied(const TopoShape& aShape) const;
 
   //! returns  DataMap  of  results;  (shape <-> copied  shape)
   Standard_EXPORT const TopTools_DataMapOfShapeShape& Copied() const;

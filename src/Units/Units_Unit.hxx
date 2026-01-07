@@ -56,7 +56,7 @@ public:
   Standard_EXPORT Units_Unit(const Standard_CString aname);
 
   //! Returns the name of the unit <thename>
-  TCollection_AsciiString Name() const;
+  AsciiString1 Name() const;
 
   //! Adds a new symbol <asymbol> attached to <me>.
   Standard_EXPORT void Symbol(const Standard_CString asymbol);

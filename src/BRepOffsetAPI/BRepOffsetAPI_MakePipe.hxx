@@ -24,8 +24,8 @@
 #include <BRepFill_Pipe.hxx>
 #include <BRepPrimAPI_MakeSweep.hxx>
 #include <GeomFill_Trihedron.hxx>
-class TopoDS_Wire;
-class TopoDS_Shape;
+class TopoWire;
+class TopoShape;
 
 //! Describes functions to build pipes.
 //! A pipe is built a basis shape (called the profile) along
@@ -54,14 +54,14 @@ public:
   //! Exceptions
   //! Standard_DomainError if the profile is a solid or a
   //! composite solid.
-  Standard_EXPORT BRepOffsetAPI_MakePipe(const TopoDS_Wire& Spine, const TopoDS_Shape& Profile);
+  Standard_EXPORT BRepOffsetAPI_MakePipe(const TopoWire& Spine, const TopoShape& Profile);
 
   //! the same as previous but with setting of
   //! mode of sweep and the flag that indicates attempt
   //! to approximate a C1-continuous surface if a swept
   //! surface proved to be C0.
-  Standard_EXPORT BRepOffsetAPI_MakePipe(const TopoDS_Wire&       Spine,
-                                         const TopoDS_Shape&      Profile,
+  Standard_EXPORT BRepOffsetAPI_MakePipe(const TopoWire&       Spine,
+                                         const TopoShape&      Profile,
                                          const GeomFill_Trihedron aMode,
                                          const Standard_Boolean   ForceApproxC1 = Standard_False);
 
@@ -72,15 +72,15 @@ public:
     const Message_ProgressRange& theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Returns the  TopoDS  Shape of the bottom of the prism.
-  Standard_EXPORT TopoDS_Shape FirstShape() Standard_OVERRIDE;
+  Standard_EXPORT TopoShape FirstShape() Standard_OVERRIDE;
 
   //! Returns the TopoDS Shape of the top of the prism.
-  Standard_EXPORT TopoDS_Shape LastShape() Standard_OVERRIDE;
+  Standard_EXPORT TopoShape LastShape() Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const TopTools_ListOfShape& Generated(const TopoDS_Shape& S)
+  Standard_EXPORT virtual const ShapeList& Generated(const TopoShape& S)
     Standard_OVERRIDE;
 
-  Standard_EXPORT TopoDS_Shape Generated(const TopoDS_Shape& SSpine, const TopoDS_Shape& SProfile);
+  Standard_EXPORT TopoShape Generated(const TopoShape& SSpine, const TopoShape& SProfile);
 
   Standard_EXPORT Standard_Real ErrorOnSurface() const;
 

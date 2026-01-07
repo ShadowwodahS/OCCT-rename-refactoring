@@ -32,11 +32,11 @@
 #include <Message_ProgressRange.hxx>
 #include <XSAlgo_ShapeProcessor.hxx>
 
-class XSControl_WorkSession;
+class ExchangeSession;
 class Interface_InterfaceModel;
 class RefObject;
 class Transfer_ActorOfTransientProcess;
-class TopoDS_Shape;
+class TopoShape;
 
 //! A groundwork to convert a shape to data which complies
 //! with a particular norm. This data can be that of a whole
@@ -62,7 +62,7 @@ class TopoDS_Shape;
 //! Example:
 //! Control_Reader reader;
 //! IFSelect_ReturnStatus status = reader.ReadFile (filename.);
-//! When using IGESControl_Reader or STEPControl_Reader - as the
+//! When using IgesFileReader or StepFileReader - as the
 //! above example shows - the reader initializes the norm directly.
 //! Note that loading the file only stores the data. It does
 //! not translate this data. Shapes are accumulated by
@@ -85,7 +85,7 @@ public:
   //! Creates a Reader from an already existing Session, with a
   //! Controller already set
   //! Virtual destructor
-  Standard_EXPORT XSControl_Reader(const Handle(XSControl_WorkSession)& WS,
+  Standard_EXPORT XSControl_Reader(const Handle(ExchangeSession)& WS,
                                    const Standard_Boolean               scratch = Standard_True);
 
   //! Empty virtual destructor
@@ -96,11 +96,11 @@ public:
   Standard_EXPORT Standard_Boolean SetNorm(const Standard_CString norm);
 
   //! Sets a specific session to <me>
-  Standard_EXPORT void SetWS(const Handle(XSControl_WorkSession)& WS,
+  Standard_EXPORT void SetWS(const Handle(ExchangeSession)& WS,
                              const Standard_Boolean               scratch = Standard_True);
 
   //! Returns the session used in <me>
-  Standard_EXPORT Handle(XSControl_WorkSession) WS() const;
+  Standard_EXPORT Handle(ExchangeSession) WS() const;
 
   //! Loads a file and returns the read status
   //! Zero for a Model which complies with the Controller
@@ -201,20 +201,20 @@ public:
   Standard_EXPORT void ClearShapes();
 
   //! Returns the number of shapes produced by translation.
-  Standard_EXPORT Standard_Integer NbShapes() const;
+  Standard_EXPORT Standard_Integer NbShapes1() const;
 
   //! Returns the shape resulting
   //! from a translation and identified by the rank num.
   //! num equals 1 by default. In other words, the first shape
   //! resulting from the translation is returned.
-  Standard_EXPORT TopoDS_Shape Shape(const Standard_Integer num = 1) const;
+  Standard_EXPORT TopoShape Shape(const Standard_Integer num = 1) const;
 
   //! Returns all of the results in
   //! a single shape which is:
   //! - a null shape if there are no results,
   //! - a shape if there is one result,
   //! - a compound containing the resulting shapes if there are more than one.
-  Standard_EXPORT TopoDS_Shape OneShape() const;
+  Standard_EXPORT TopoShape OneShape() const;
 
   //! Prints the check list attached to loaded data, on the Standard
   //! Trace File (starts at std::cout)
@@ -303,7 +303,7 @@ public:
   //! @param theParameters the parameters for shape processing.
   //! @param theAdditionalParameters the additional parameters for shape processing.
   Standard_EXPORT void SetShapeFixParameters(
-    const DE_ShapeFixParameters&               theParameters,
+    const ShapeFixParameters&               theParameters,
     const XSAlgo_ShapeProcessor::ParameterMap& theAdditionalParameters = {});
 
   //! Returns parameters for shape processing that was set by SetParameters() method.
@@ -327,9 +327,9 @@ protected:
   //! This method should be implemented in the derived classes to return default parameters for
   //! shape fixing.
   //! @return Default parameters for shape fixing.
-  virtual DE_ShapeFixParameters GetDefaultShapeFixParameters() const
+  virtual ShapeFixParameters GetDefaultShapeFixParameters() const
   {
-    return DE_ShapeFixParameters();
+    return ShapeFixParameters();
   }
 
   //! Returns default flags for shape processing.
@@ -356,7 +356,7 @@ protected:
   TColStd_SequenceOfTransient theroots;
 
 private:
-  Handle(XSControl_WorkSession) thesession;
+  Handle(ExchangeSession) thesession;
   TopTools_SequenceOfShape      theshapes;
 };
 

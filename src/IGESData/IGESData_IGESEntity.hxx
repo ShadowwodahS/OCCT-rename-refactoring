@@ -28,7 +28,7 @@
 #include <IGESData_DefList.hxx>
 #include <Standard_CString.hxx>
 class TCollection_HAsciiString;
-class IGESData_IGESType;
+class IGESType;
 class IGESData_LineFontEntity;
 class IGESData_LevelListEntity;
 class IGESData_ViewKindEntity;
@@ -48,7 +48,7 @@ class IGESData_IGESEntity : public RefObject
 
 public:
   //! gives IGES typing info (includes "Type" and "Form" data)
-  Standard_EXPORT IGESData_IGESType IGESType() const;
+  Standard_EXPORT IGESType GetIGESType() const;
 
   //! gives IGES Type Number (often coupled with Form Number)
   Standard_EXPORT Standard_Integer TypeNumber() const;
@@ -328,7 +328,7 @@ public:
   friend class IGESData_ReadWriteModule;
   friend class IGESData_GeneralModule;
   friend class IGESData_IGESReaderTool;
-  friend class IGESData_DirChecker;
+  friend class DirectoryChecker;
 
   DEFINE_STANDARD_RTTIEXT(IGESData_IGESEntity, RefObject)
 
@@ -368,7 +368,7 @@ private:
   Standard_Integer                 theType;
   Standard_Integer                 theForm;
   Handle(IGESData_IGESEntity)      theStructure;
-  IGESData_DefSwitch               theDefLineFont;
+  DefinitionSwitch               theDefLineFont;
   Handle(IGESData_IGESEntity)      theLineFont;
   Standard_Integer                 theDefLevel;
   Handle(IGESData_IGESEntity)      theLevelList;
@@ -378,7 +378,7 @@ private:
   Standard_Integer                 theStatusNum;
   Standard_Integer                 theLWeightNum;
   Standard_Real                    theLWeightVal;
-  IGESData_DefSwitch               theDefColor;
+  DefinitionSwitch               theDefColor;
   Handle(IGESData_IGESEntity)      theColor;
   Standard_Character               theRes1[9];
   Standard_Character               theRes2[9];

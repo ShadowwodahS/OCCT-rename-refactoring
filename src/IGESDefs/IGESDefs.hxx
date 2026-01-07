@@ -25,7 +25,7 @@ class IGESDefs_Protocol;
 
 //! To embody general definitions of Entities
 //! (Parameters, Tables ...)
-class IGESDefs
+class IGESDefs1
 {
 public:
   DEFINE_STANDARD_ALLOC

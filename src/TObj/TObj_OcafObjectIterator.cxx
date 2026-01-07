@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TObj_OcafObjectIterator, TObj_LabelIterator)
 
 //=================================================================================================
 
-TObj_OcafObjectIterator::TObj_OcafObjectIterator(const TDF_Label&             theLabel,
+TObj_OcafObjectIterator::TObj_OcafObjectIterator(const DataLabel&             theLabel,
                                                  const Handle(TypeInfo)& theType,
                                                  const Standard_Boolean       theRecursive,
                                                  const Standard_Boolean       theAllSubChildren)
@@ -39,7 +39,7 @@ void TObj_OcafObjectIterator::MakeStep()
 {
   for (; myIterator.More() && myNode.IsNull();)
   {
-    TDF_Label           L = myIterator.Value();
+    DataLabel           L = myIterator.Value();
     Handle(TObj_Object) anObject;
     if (TObj_Object::GetObj(L, anObject))
     {

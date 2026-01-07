@@ -25,14 +25,14 @@
 #include <TopTools_DataMapOfShapeShape.hxx>
 
 class IGESData_IGESEntity;
-class TopoDS_Shape;
-class TopoDS_Vertex;
-class TopoDS_Edge;
-class TopoDS_Face;
-class Geom_Surface;
+class TopoShape;
+class TopoVertex;
+class TopoEdge;
+class TopoFace;
+class GeomSurface;
 class TopLoc_Location;
 class gp_Pnt2d;
-class TopoDS_Wire;
+class TopoWire;
 
 //! This class implements the transfer of Shape Entities
 //! from Geom To IGES. These can be :
@@ -52,19 +52,19 @@ public:
   //! this entity must be a Vertex or an Edge or a Wire.
   //! If this Entity could not be converted,
   //! this member returns a NullEntity.
-  Standard_EXPORT Handle(IGESData_IGESEntity) TransferWire(const TopoDS_Shape& start);
+  Standard_EXPORT Handle(IGESData_IGESEntity) TransferWire(const TopoShape& start);
 
   //! Transfert a Vertex entity from TopoDS to IGES
   //! If this Entity could not be converted,
   //! this member returns a NullEntity.
-  Standard_EXPORT Handle(IGESData_IGESEntity) TransferVertex(const TopoDS_Vertex& myvertex);
+  Standard_EXPORT Handle(IGESData_IGESEntity) TransferVertex(const TopoVertex& myvertex);
 
   //! Transfert a Vertex entity on an Edge from TopoDS to IGES
   //! Returns the parameter of myvertex on myedge.
   //! If this Entity could not be converted,
   //! this member returns a NullEntity.
-  Standard_EXPORT Handle(IGESData_IGESEntity) TransferVertex(const TopoDS_Vertex& myvertex,
-                                                             const TopoDS_Edge&   myedge,
+  Standard_EXPORT Handle(IGESData_IGESEntity) TransferVertex(const TopoVertex& myvertex,
+                                                             const TopoEdge&   myedge,
                                                              Standard_Real&       parameter);
 
   //! Transfert a Vertex entity of an edge on a Face
@@ -73,9 +73,9 @@ public:
   //! of myedge on myface
   //! If this Entity could not be converted,
   //! this member returns a NullEntity.
-  Standard_EXPORT Handle(IGESData_IGESEntity) TransferVertex(const TopoDS_Vertex& myvertex,
-                                                             const TopoDS_Edge&   myedge,
-                                                             const TopoDS_Face&   myface,
+  Standard_EXPORT Handle(IGESData_IGESEntity) TransferVertex(const TopoVertex& myvertex,
+                                                             const TopoEdge&   myedge,
+                                                             const TopoFace&   myface,
                                                              Standard_Real&       parameter);
 
   //! Transfert a Vertex entity of an edge on a Surface
@@ -84,9 +84,9 @@ public:
   //! of myedge on mysurface
   //! If this Entity could not be converted,
   //! this member returns a NullEntity.
-  Standard_EXPORT Handle(IGESData_IGESEntity) TransferVertex(const TopoDS_Vertex&        myvertex,
-                                                             const TopoDS_Edge&          myedge,
-                                                             const Handle(Geom_Surface)& mysurface,
+  Standard_EXPORT Handle(IGESData_IGESEntity) TransferVertex(const TopoVertex&        myvertex,
+                                                             const TopoEdge&          myedge,
+                                                             const Handle(GeomSurface)& mysurface,
                                                              const TopLoc_Location&      myloc,
                                                              Standard_Real&              parameter);
 
@@ -94,8 +94,8 @@ public:
   //! Returns the parameters of myvertex on myface
   //! If this Entity could not be converted,
   //! this member returns a NullEntity.
-  Standard_EXPORT Handle(IGESData_IGESEntity) TransferVertex(const TopoDS_Vertex& myvertex,
-                                                             const TopoDS_Face&   myface,
+  Standard_EXPORT Handle(IGESData_IGESEntity) TransferVertex(const TopoVertex& myvertex,
+                                                             const TopoFace&   myface,
                                                              gp_Pnt2d&            mypoint);
 
   //! Transfert an Edge 3d entity from TopoDS to IGES
@@ -106,7 +106,7 @@ public:
   //! @param[in] theIsBRepMode indicates if write mode is BRep
   //! @return Iges entity or null if could not be converted
   Standard_EXPORT Handle(IGESData_IGESEntity) TransferEdge(
-    const TopoDS_Edge&                  theEdge,
+    const TopoEdge&                  theEdge,
     const TopTools_DataMapOfShapeShape& theOriginMap,
     const Standard_Boolean              theIsBRepMode);
 
@@ -119,8 +119,8 @@ public:
   //! @param[in] theIsBRepMode indicates if write mode is BRep
   //! @return Iges entity or null if could not be converted
   Standard_EXPORT Handle(IGESData_IGESEntity) TransferEdge(
-    const TopoDS_Edge&                  theEdge,
-    const TopoDS_Face&                  theFace,
+    const TopoEdge&                  theEdge,
+    const TopoFace&                  theFace,
     const TopTools_DataMapOfShapeShape& theOriginMap,
     const Standard_Real                 theLength,
     const Standard_Boolean              theIsBRepMode);
@@ -128,7 +128,7 @@ public:
   //! Transfert a Wire entity from TopoDS to IGES
   //! If this Entity could not be converted,
   //! this member returns a NullEntity.
-  Standard_EXPORT Handle(IGESData_IGESEntity) TransferWire(const TopoDS_Wire& mywire);
+  Standard_EXPORT Handle(IGESData_IGESEntity) TransferWire(const TopoWire& mywire);
 
   //! Transfert a Wire entity from TopoDS to IGES.
   //! @param[in] theWire input wire
@@ -140,8 +140,8 @@ public:
   //! @return Iges entity (the curve associated to mywire in the parametric space of myface)
   //! or null if could not be converted
   Standard_EXPORT Handle(IGESData_IGESEntity) TransferWire(
-    const TopoDS_Wire&                  theWire,
-    const TopoDS_Face&                  theFace,
+    const TopoWire&                  theWire,
+    const TopoFace&                  theFace,
     const TopTools_DataMapOfShapeShape& theOriginMap,
     Handle(IGESData_IGESEntity)&        theCurve2d,
     const Standard_Real                 theLength);

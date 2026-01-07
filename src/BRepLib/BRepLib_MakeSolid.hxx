@@ -23,9 +23,9 @@
 #include <BRepLib_MakeShape.hxx>
 #include <BRepLib_ShapeModification.hxx>
 class TopoDS_CompSolid;
-class TopoDS_Shell;
-class TopoDS_Solid;
-class TopoDS_Face;
+class TopoShell;
+class TopoSolid;
+class TopoFace;
 
 //! Makes a solid from compsolid  or  shells.
 class BRepLib_MakeSolid : public BRepLib_MakeShape
@@ -40,36 +40,36 @@ public:
   Standard_EXPORT BRepLib_MakeSolid(const TopoDS_CompSolid& S);
 
   //! Make a solid from a shell.
-  Standard_EXPORT BRepLib_MakeSolid(const TopoDS_Shell& S);
+  Standard_EXPORT BRepLib_MakeSolid(const TopoShell& S);
 
   //! Make a solid from two shells.
-  Standard_EXPORT BRepLib_MakeSolid(const TopoDS_Shell& S1, const TopoDS_Shell& S2);
+  Standard_EXPORT BRepLib_MakeSolid(const TopoShell& S1, const TopoShell& S2);
 
   //! Make a solid from three shells.
-  Standard_EXPORT BRepLib_MakeSolid(const TopoDS_Shell& S1,
-                                    const TopoDS_Shell& S2,
-                                    const TopoDS_Shell& S3);
+  Standard_EXPORT BRepLib_MakeSolid(const TopoShell& S1,
+                                    const TopoShell& S2,
+                                    const TopoShell& S3);
 
   //! Make a solid from a solid. Useful for adding later.
-  Standard_EXPORT BRepLib_MakeSolid(const TopoDS_Solid& So);
+  Standard_EXPORT BRepLib_MakeSolid(const TopoSolid& So);
 
   //! Add a shell to a solid.
-  Standard_EXPORT BRepLib_MakeSolid(const TopoDS_Solid& So, const TopoDS_Shell& S);
+  Standard_EXPORT BRepLib_MakeSolid(const TopoSolid& So, const TopoShell& S);
 
   //! Add the shell to the current solid.
-  Standard_EXPORT void Add(const TopoDS_Shell& S);
+  Standard_EXPORT void Add(const TopoShell& S);
 
   //! Returns the new Solid.
-  Standard_EXPORT const TopoDS_Solid& Solid();
-  Standard_EXPORT                     operator TopoDS_Solid();
+  Standard_EXPORT const TopoSolid& Solid();
+  Standard_EXPORT                     operator TopoSolid();
 
   //! returns the status of the Face after
   //! the shape creation.
-  Standard_EXPORT virtual BRepLib_ShapeModification FaceStatus(const TopoDS_Face& F) const
+  Standard_EXPORT virtual BRepLib_ShapeModification FaceStatus(const TopoFace& F) const
     Standard_OVERRIDE;
 
 protected:
-  TopTools_ListOfShape myDeletedFaces;
+  ShapeList myDeletedFaces;
 
 private:
 };

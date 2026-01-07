@@ -45,7 +45,7 @@
 
 #include <ShapeUpgrade_UnifySameDomain.hxx>
 
-static Standard_Integer OCC426(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC426(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 8)
   {
@@ -61,13 +61,13 @@ static Standard_Integer OCC426(Draw_Interpretor& di, Standard_Integer argc, cons
   W1.Add(Point3d(10, 0, 0));
 
   Standard_Boolean OnlyPlane1 = Standard_False;
-  TopoDS_Face      F1         = BRepBuilderAPI_MakeFace(W1.Wire(), OnlyPlane1);
+  TopoFace      F1         = FaceMaker(W1.Wire(), OnlyPlane1);
 
   Point3d        P1(0, 0, 0);
   Dir3d        D1(0, 0, 30);
   Axis3d        A1(P1, D1);
   Standard_Real angle1 = 360 * (M_PI / 180.0);
-  TopoDS_Shape  rs1    = BRepPrimAPI_MakeRevol(F1, A1, angle1);
+  TopoShape  rs1    = BRepPrimAPI_MakeRevol(F1, A1, angle1);
 
   BRepBuilderAPI_MakePolygon W2;
   Standard_Real              f1 = 7.0710678118654752440;
@@ -79,13 +79,13 @@ static Standard_Integer OCC426(Draw_Interpretor& di, Standard_Integer argc, cons
   W2.Add(Point3d(f1, f1, 10));
 
   Standard_Boolean OnlyPlane2 = Standard_False;
-  TopoDS_Face      F2         = BRepBuilderAPI_MakeFace(W2.Wire(), OnlyPlane2);
+  TopoFace      F2         = FaceMaker(W2.Wire(), OnlyPlane2);
 
   Point3d        P2(0, 0, 0);
   Dir3d        D2(0, 0, 30);
   Axis3d        A2(P2, D2);
   Standard_Real angle2 = 270 * (M_PI / 180.0);
-  TopoDS_Shape  rs2    = BRepPrimAPI_MakeRevol(F2, A2, angle2);
+  TopoShape  rs2    = BRepPrimAPI_MakeRevol(F2, A2, angle2);
 
   BRepBuilderAPI_MakePolygon W3;
   W3.Add(Point3d(10, 0, 20));
@@ -95,40 +95,40 @@ static Standard_Integer OCC426(Draw_Interpretor& di, Standard_Integer argc, cons
   W3.Add(Point3d(10, 0, 20));
 
   Standard_Boolean OnlyPlane3 = Standard_False;
-  TopoDS_Face      F3         = BRepBuilderAPI_MakeFace(W3.Wire(), OnlyPlane3);
+  TopoFace      F3         = FaceMaker(W3.Wire(), OnlyPlane3);
 
   Point3d        P3(0, 0, 0);
   Dir3d        D3(0, 0, 30);
   Axis3d        A3(P3, D3);
   Standard_Real angle3 = 360 * (M_PI / 180.0);
-  TopoDS_Shape  rs3    = BRepPrimAPI_MakeRevol(F3, A3, angle3);
+  TopoShape  rs3    = BRepPrimAPI_MakeRevol(F3, A3, angle3);
 
-  di << "fuse32 = BRepAlgoAPI_Fuse(rs3, rs2)\n";
-  di << "fuse321 = BRepAlgoAPI_Fuse(fuse32, rs1)\n";
-  TopoDS_Shape fuse32  = BRepAlgoAPI_Fuse(rs3, rs2).Shape();
-  TopoDS_Shape fuse321 = BRepAlgoAPI_Fuse(fuse32, rs1).Shape();
+  di << "fuse32 = BooleanFuse(rs3, rs2)\n";
+  di << "fuse321 = BooleanFuse(fuse32, rs1)\n";
+  TopoShape fuse32  = BooleanFuse(rs3, rs2).Shape();
+  TopoShape fuse321 = BooleanFuse(fuse32, rs1).Shape();
 
   // unify the faces of the Fuse result
   ShapeUpgrade_UnifySameDomain anUnify(fuse321, Standard_True, Standard_True, Standard_True);
   anUnify.Build();
-  const TopoDS_Shape& aFuseUnif = anUnify.Shape();
+  const TopoShape& aFuseUnif = anUnify.Shape();
 
   // Give the mass calculation of the shape "aFuseUnif"
-  GProp_GProps G;
+  GeometricProperties G;
   BRepGProp::VolumeProperties(aFuseUnif, G);
   di << " \n";
   di << "Mass: " << G.Mass() << "\n\n";
 
   di << "Trianglating Faces .....\n";
-  TopExp_Explorer ExpFace;
+  ShapeExplorer ExpFace;
 
   for (ExpFace.Init(aFuseUnif, TopAbs_FACE); ExpFace.More(); ExpFace.Next())
   {
-    TopoDS_Face TopologicalFace = TopoDS::Face(ExpFace.Current());
+    TopoFace TopologicalFace = TopoDS::Face(ExpFace.Current());
     TopologicalFace.Orientation(TopAbs_FORWARD);
-    BRepMesh_IncrementalMesh   IM(TopologicalFace, 1);
+    MeshGenerator   IM(TopologicalFace, 1);
     TopLoc_Location            loc;
-    Handle(Poly_Triangulation) facing = BRep_Tool::Triangulation(TopologicalFace, loc);
+    Handle(MeshTriangulation) facing = BRepInspector::Triangulation(TopologicalFace, loc);
     if (facing.IsNull())
     {
       di << "Triangulation FAILED for this face\n";
@@ -139,7 +139,7 @@ static Standard_Integer OCC426(Draw_Interpretor& di, Standard_Integer argc, cons
   di << "Triangulation of all Faces Completed. \n\n";
 
   TopTools_IndexedDataMapOfShapeListOfShape edgemap;
-  TopExp::MapShapesAndAncestors(aFuseUnif, TopAbs_EDGE, TopAbs_SOLID, edgemap);
+  TopExp1::MapShapesAndAncestors(aFuseUnif, TopAbs_EDGE, TopAbs_SOLID, edgemap);
   di << "No. of Edges: " << edgemap.Extent() << "\n";
   ChFi3d_FilletShape       FShape = ChFi3d_Rational;
   BRepFilletAPI_MakeFillet blend(aFuseUnif, FShape);
@@ -147,7 +147,7 @@ static Standard_Integer OCC426(Draw_Interpretor& di, Standard_Integer argc, cons
   for (int i = 1; i <= edgemap.Extent(); i++)
   {
     // std::cout << "Adding Edge : " << i << std::endl;
-    TopoDS_Edge edg = TopoDS::Edge(edgemap.FindKey(i));
+    TopoEdge edg = TopoDS::Edge(edgemap.FindKey(i));
     if (!edg.IsNull())
       blend.Add(1, edg);
   }
@@ -155,14 +155,14 @@ static Standard_Integer OCC426(Draw_Interpretor& di, Standard_Integer argc, cons
   di << " \n";
   blend.Build();
 
-  // DBRep::Set ( argv[1], fuse321 );
-  DBRep::Set(argv[1], blend);
-  DBRep::Set(argv[2], rs1);
-  DBRep::Set(argv[3], rs2);
-  DBRep::Set(argv[4], rs3);
-  DBRep::Set(argv[5], fuse32);
-  DBRep::Set(argv[6], fuse321);
-  DBRep::Set(argv[7], aFuseUnif);
+  // DBRep1::Set ( argv[1], fuse321 );
+  DBRep1::Set(argv[1], blend);
+  DBRep1::Set(argv[2], rs1);
+  DBRep1::Set(argv[3], rs2);
+  DBRep1::Set(argv[4], rs3);
+  DBRep1::Set(argv[5], fuse32);
+  DBRep1::Set(argv[6], fuse321);
+  DBRep1::Set(argv[7], aFuseUnif);
 
   return 0;
 }
@@ -171,7 +171,7 @@ static Standard_Integer OCC426(Draw_Interpretor& di, Standard_Integer argc, cons
 
 //=================================================================================================
 
-static Standard_Integer isPeriodic(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer isPeriodic(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   try
   {
@@ -183,7 +183,7 @@ static Standard_Integer isPeriodic(Draw_Interpretor& di, Standard_Integer argc, 
       return 0;
     }
     // 2. Retrieve surface
-    Handle(Geom_Surface) aSurf = DrawTrSurf::GetSurface(argv[1]);
+    Handle(GeomSurface) aSurf = DrawTrSurf1::GetSurface(argv[1]);
     if (aSurf.IsNull())
     {
       di << "isperiodic FAULTY. argument of command is not a surface";
@@ -228,7 +228,7 @@ static Standard_Integer isPeriodic(Draw_Interpretor& di, Standard_Integer argc, 
 
 //=================================================================================================
 
-static Standard_Integer OCC486(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC486(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   try
   {
@@ -242,21 +242,21 @@ static Standard_Integer OCC486(Draw_Interpretor& di, Standard_Integer argc, cons
     Standard_Real du = 0;
     Standard_Real dv = 0;
 
-    Handle(Geom_Surface) GS;
-    GS = DrawTrSurf::GetSurface(argv[1]);
+    Handle(GeomSurface) GS;
+    GS = DrawTrSurf1::GetSurface(argv[1]);
     if (GS.IsNull())
     {
       di << "OCC486 FAULTY. Null surface /n";
       return 1;
     }
-    Point3d P3D(Draw::Atof(argv[2]), Draw::Atof(argv[3]), Draw::Atof(argv[4]));
+    Point3d P3D(Draw1::Atof(argv[2]), Draw1::Atof(argv[3]), Draw1::Atof(argv[4]));
 
     constexpr Standard_Real Tol = Precision::PConfusion();
     Extrema_ExtPS           myExtPS;
     if (argc > 5)
-      du = Draw::Atof(argv[5]);
+      du = Draw1::Atof(argv[5]);
     if (argc > 6)
-      dv = Draw::Atof(argv[6]);
+      dv = Draw1::Atof(argv[6]);
 
     Standard_Real uf, ul, vf, vl;
     GS->Bounds(uf, ul, vf, vl);
@@ -319,7 +319,7 @@ static Standard_Integer OCC486(Draw_Interpretor& di, Standard_Integer argc, cons
 
 //=================================================================================================
 
-static Standard_Integer OCC712(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC712(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 3)
   {
@@ -331,8 +331,8 @@ static Standard_Integer OCC712(Draw_Interpretor& di, Standard_Integer argc, cons
   //       Case:3   draftAngle = 10, slabThick = 40 --> Ok
   //
   //       --------------------------------------------------
-  Standard_Real draftAngle = Draw::Atof(argv[1]);
-  Standard_Real slabThick  = Draw::Atof(argv[2]);
+  Standard_Real draftAngle = Draw1::Atof(argv[1]);
+  Standard_Real slabThick  = Draw1::Atof(argv[2]);
 
   Standard_Real f1 = 75;
   Standard_Real f2 = 35;
@@ -351,10 +351,10 @@ static Standard_Integer OCC712(Draw_Interpretor& di, Standard_Integer argc, cons
   GC_MakeArcOfCircle arc3(p5, p6, p7);
   GC_MakeArcOfCircle arc4(p7, p8, p1);
 
-  TopoDS_Edge e1 = BRepBuilderAPI_MakeEdge(arc1.Value());
-  TopoDS_Edge e2 = BRepBuilderAPI_MakeEdge(arc2.Value());
-  TopoDS_Edge e3 = BRepBuilderAPI_MakeEdge(arc3.Value());
-  TopoDS_Edge e4 = BRepBuilderAPI_MakeEdge(arc4.Value());
+  TopoEdge e1 = EdgeMaker(arc1.Value());
+  TopoEdge e2 = EdgeMaker(arc2.Value());
+  TopoEdge e3 = EdgeMaker(arc3.Value());
+  TopoEdge e4 = EdgeMaker(arc4.Value());
 
   BRepBuilderAPI_MakeWire MW;
   MW.Add(e1);
@@ -367,17 +367,17 @@ static Standard_Integer OCC712(Draw_Interpretor& di, Standard_Integer argc, cons
     di << "my Wire not done\n";
     return 1;
   }
-  TopoDS_Wire W = MW.Wire();
+  TopoWire W = MW.Wire();
 
-  TopoDS_Face F = BRepBuilderAPI_MakeFace(W);
+  TopoFace F = FaceMaker(W);
   if (F.IsNull())
   {
     di << " Error in Face creation \n";
     return 1;
   }
 
-  Handle(Geom_Surface) surf    = BRep_Tool::Surface(F);
-  Handle(Geom_Plane)   P       = Handle(Geom_Plane)::DownCast(surf);
+  Handle(GeomSurface) surf    = BRepInspector::Surface(F);
+  Handle(GeomPlane)   P       = Handle(GeomPlane)::DownCast(surf);
   gp_Pln               slabPln = P->Pln();
 
   try
@@ -394,19 +394,19 @@ static Standard_Integer OCC712(Draw_Interpretor& di, Standard_Integer argc, cons
       return 1;
     }
 
-    TopoDS_Shape slabShape = slab.Shape();
+    TopoShape slabShape = slab.Shape();
     if (fabs(draftAngle) > 0.01)
     {
       Standard_Real            angle = draftAngle * (M_PI / 180.0);
       BRepOffsetAPI_DraftAngle draftSlab(slabShape);
 
-      TopoDS_Shape fShape = slab.FirstShape();
-      TopoDS_Shape lShape = slab.LastShape();
+      TopoShape fShape = slab.FirstShape();
+      TopoShape lShape = slab.LastShape();
 
-      TopExp_Explorer ex;
+      ShapeExplorer ex;
       for (ex.Init(slabShape, TopAbs_FACE); ex.More(); ex.Next())
       {
-        TopoDS_Face aFace = TopoDS::Face(ex.Current());
+        TopoFace aFace = TopoDS::Face(ex.Current());
         if (aFace.IsSame(fShape) || aFace.IsSame(lShape))
           continue;
         draftSlab.Add(aFace, slabDir, angle, slabPln);
@@ -426,7 +426,7 @@ static Standard_Integer OCC712(Draw_Interpretor& di, Standard_Integer argc, cons
         return 1;
       }
       slabShape = draftSlab.Shape();
-      DBRep::Set(argv[1], slabShape);
+      DBRep1::Set(argv[1], slabShape);
     }
   }
   catch (ExceptionBase const&) //--------------------> STEP:2
@@ -441,20 +441,20 @@ static Standard_Integer OCC712(Draw_Interpretor& di, Standard_Integer argc, cons
 //  performTriangulation
 //=======================================================================
 
-Standard_Integer performTriangulation(const TopoDS_Shape& aShape, Draw_Interpretor& di)
+Standard_Integer performTriangulation(const TopoShape& aShape, DrawInterpreter& di)
 {
   int                        failed = 0, total = 0;
-  TopExp_Explorer            ExpFace;
-  Handle(Poly_Triangulation) facing;
+  ShapeExplorer            ExpFace;
+  Handle(MeshTriangulation) facing;
 
   for (ExpFace.Init(aShape, TopAbs_FACE); ExpFace.More(); ExpFace.Next())
   {
     total++;
-    TopoDS_Face TopologicalFace = TopoDS::Face(ExpFace.Current());
+    TopoFace TopologicalFace = TopoDS::Face(ExpFace.Current());
     TopologicalFace.Orientation(TopAbs_FORWARD);
-    BRepMesh_IncrementalMesh IM(TopologicalFace, 1);
+    MeshGenerator IM(TopologicalFace, 1);
     TopLoc_Location          loc;
-    facing = BRep_Tool::Triangulation(TopologicalFace, loc);
+    facing = BRepInspector::Triangulation(TopologicalFace, loc);
     di << "Face " << total << " - ";
     if (facing.IsNull())
     {
@@ -483,7 +483,7 @@ Standard_Integer performTriangulation(const TopoDS_Shape& aShape, Draw_Interpret
 
 //=================================================================================================
 
-static Standard_Integer OCC822_1(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC822_1(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
 
   if (argc != 4)
@@ -498,10 +498,10 @@ static Standard_Integer OCC822_1(Draw_Interpretor& di, Standard_Integer argc, co
   Dir3d D1(0, 0, 1);
   Frame3d A1(P1, D1);
 
-  BRepPrimAPI_MakeCylinder cylMakerIn(A1, 40, 110);
-  BRepPrimAPI_MakeCylinder cylMakerOut(A1, 50, 100);
-  TopoDS_Shape             cylIn  = cylMakerIn.Shape();
-  TopoDS_Shape             cylOut = cylMakerOut.Shape();
+  CylinderMaker cylMakerIn(A1, 40, 110);
+  CylinderMaker cylMakerOut(A1, 50, 100);
+  TopoShape             cylIn  = cylMakerIn.Shape();
+  TopoShape             cylOut = cylMakerOut.Shape();
 
   Point3d P2(0, 0, 0);
   Dir3d D2(0, 0, -1);
@@ -509,8 +509,8 @@ static Standard_Integer OCC822_1(Draw_Interpretor& di, Standard_Integer argc, co
 
   BRepPrimAPI_MakeCone conMakerIn(A2, 40, 60, 110);
   BRepPrimAPI_MakeCone conMakerOut(A2, 50, 70, 100);
-  TopoDS_Shape         conIn  = conMakerIn.Shape();
-  TopoDS_Shape         conOut = conMakerOut.Shape();
+  TopoShape         conIn  = conMakerIn.Shape();
+  TopoShape         conOut = conMakerOut.Shape();
 
   di << "All primitives created.....  Creating Boolean\n";
 
@@ -518,19 +518,19 @@ static Standard_Integer OCC822_1(Draw_Interpretor& di, Standard_Integer argc, co
   {
     OCC_CATCH_SIGNALS
 
-    di << "theIn = BRepAlgoAPI_Fuse(cylIn, conIn)\n";
-    di << "theOut = BRepAlgoAPI_Fuse(cylOut, conOut)\n";
-    di << "theRes = BRepAlgoAPI_Cut(theOut, theIn)\n";
-    TopoDS_Shape theIn  = BRepAlgoAPI_Fuse(cylIn, conIn).Shape();
-    TopoDS_Shape theOut = BRepAlgoAPI_Fuse(cylOut, conOut).Shape();
-    TopoDS_Shape theRes = BRepAlgoAPI_Cut(theOut, theIn).Shape();
+    di << "theIn = BooleanFuse(cylIn, conIn)\n";
+    di << "theOut = BooleanFuse(cylOut, conOut)\n";
+    di << "theRes = BooleanCut(theOut, theIn)\n";
+    TopoShape theIn  = BooleanFuse(cylIn, conIn).Shape();
+    TopoShape theOut = BooleanFuse(cylOut, conOut).Shape();
+    TopoShape theRes = BooleanCut(theOut, theIn).Shape();
 
     if (index < argc)
-      DBRep::Set(argv[index++], theIn);
+      DBRep1::Set(argv[index++], theIn);
     if (index < argc)
-      DBRep::Set(argv[index++], theOut);
+      DBRep1::Set(argv[index++], theOut);
     if (index < argc)
-      DBRep::Set(argv[index++], theRes);
+      DBRep1::Set(argv[index++], theRes);
     di << "Booleans Created !    Triangulating !\n";
 
     performTriangulation(theRes, di);
@@ -554,7 +554,7 @@ static Standard_Integer OCC822_1(Draw_Interpretor& di, Standard_Integer argc, co
 //  OCC822_2
 //=======================================================================
 
-static Standard_Integer OCC822_2(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC822_2(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 4)
   {
@@ -568,15 +568,15 @@ static Standard_Integer OCC822_2(Draw_Interpretor& di, Standard_Integer argc, co
   Dir3d              zDir(0, 0, 1);
   Point3d              cen1(0, 0, 0);
   Frame3d              cor1(cen1, zDir, xDir);
-  BRepPrimAPI_MakeBox boxMaker(cor1, 100, 100, 100);
-  TopoDS_Shape        box = boxMaker.Shape();
+  BoxMaker boxMaker(cor1, 100, 100, 100);
+  TopoShape        box = boxMaker.Shape();
   if (index < argc)
-    DBRep::Set(argv[index++], box);
+    DBRep1::Set(argv[index++], box);
 
   BRepPrimAPI_MakeSphere sphereMaker(Point3d(100.0, 50.0, 50.0), 25.0);
-  TopoDS_Shape           sph = sphereMaker.Shape();
+  TopoShape           sph = sphereMaker.Shape();
   if (index < argc)
-    DBRep::Set(argv[index++], sph);
+    DBRep1::Set(argv[index++], sph);
 
   di << "All primitives created.....  Creating Cut Objects\n";
 
@@ -584,11 +584,11 @@ static Standard_Integer OCC822_2(Draw_Interpretor& di, Standard_Integer argc, co
   {
     OCC_CATCH_SIGNALS
 
-    di << "fuse = BRepAlgoAPI_Fuse(box, sph)\n";
-    TopoDS_Shape fuse = BRepAlgoAPI_Fuse(box, sph).Shape();
+    di << "fuse = BooleanFuse(box, sph)\n";
+    TopoShape fuse = BooleanFuse(box, sph).Shape();
 
     if (index < argc)
-      DBRep::Set(argv[index++], fuse);
+      DBRep1::Set(argv[index++], fuse);
     di << "Object Created !   Now Triangulating !";
 
     performTriangulation(fuse, di);
@@ -610,7 +610,7 @@ static Standard_Integer OCC822_2(Draw_Interpretor& di, Standard_Integer argc, co
 //  OCC823
 //=======================================================================
 
-static Standard_Integer OCC823(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC823(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 4)
   {
@@ -624,18 +624,18 @@ static Standard_Integer OCC823(Draw_Interpretor& di, Standard_Integer argc, cons
   Point3d                   P1(40, 50, 0);
   Dir3d                   D1(100, 0, 0);
   Frame3d                   A1(P1, D1);
-  BRepPrimAPI_MakeCylinder mkCyl1(A1, 20, 100);
-  TopoDS_Shape             cyl1 = mkCyl1.Shape();
+  CylinderMaker mkCyl1(A1, 20, 100);
+  TopoShape             cyl1 = mkCyl1.Shape();
   if (index < argc)
-    DBRep::Set(argv[index++], cyl1);
+    DBRep1::Set(argv[index++], cyl1);
 
   Point3d                   P2(100, 50, size);
   Dir3d                   D2(0, size, 80);
   Frame3d                   A2(P2, D2);
-  BRepPrimAPI_MakeCylinder mkCyl2(A2, 20, 80);
-  TopoDS_Shape             cyl2 = mkCyl2.Shape();
+  CylinderMaker mkCyl2(A2, 20, 80);
+  TopoShape             cyl2 = mkCyl2.Shape();
   if (index < argc)
-    DBRep::Set(argv[index++], cyl2);
+    DBRep1::Set(argv[index++], cyl2);
 
   di << "All primitives created.....  Creating Boolean\n";
 
@@ -643,11 +643,11 @@ static Standard_Integer OCC823(Draw_Interpretor& di, Standard_Integer argc, cons
   {
     OCC_CATCH_SIGNALS
 
-    di << "fuse = BRepAlgoAPI_Fuse(cyl2, cyl1)\n";
-    TopoDS_Shape fuse = BRepAlgoAPI_Fuse(cyl2, cyl1).Shape();
+    di << "fuse = BooleanFuse(cyl2, cyl1)\n";
+    TopoShape fuse = BooleanFuse(cyl2, cyl1).Shape();
 
     if (index < argc)
-      DBRep::Set(argv[index++], fuse);
+      DBRep1::Set(argv[index++], fuse);
     di << "Fuse Created !    Triangulating !\n";
 
     performTriangulation(fuse, di);
@@ -668,7 +668,7 @@ static Standard_Integer OCC823(Draw_Interpretor& di, Standard_Integer argc, cons
 //  OCC824
 //=======================================================================
 
-static Standard_Integer OCC824(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC824(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 4)
   {
@@ -681,15 +681,15 @@ static Standard_Integer OCC824(Draw_Interpretor& di, Standard_Integer argc, cons
   Point3d                   P1(100, 0, 0);
   Dir3d                   D1(-1, 0, 0);
   Frame3d                   A1(P1, D1);
-  BRepPrimAPI_MakeCylinder mkCyl(A1, 20, 100);
-  TopoDS_Shape             cyl = mkCyl.Shape();
+  CylinderMaker mkCyl(A1, 20, 100);
+  TopoShape             cyl = mkCyl.Shape();
   if (index < argc)
-    DBRep::Set(argv[index++], cyl);
+    DBRep1::Set(argv[index++], cyl);
 
   BRepPrimAPI_MakeSphere sphere(P1, 20.0);
-  TopoDS_Shape           sph = sphere.Shape();
+  TopoShape           sph = sphere.Shape();
   if (index < argc)
-    DBRep::Set(argv[index++], sph);
+    DBRep1::Set(argv[index++], sph);
 
   di << "All primitives created.....  Creating Boolean\n";
 
@@ -697,12 +697,12 @@ static Standard_Integer OCC824(Draw_Interpretor& di, Standard_Integer argc, cons
   {
     OCC_CATCH_SIGNALS
 
-    di << "fuse = BRepAlgoAPI_Fuse(cyl, sph)\n";
-    TopoDS_Shape fuse = BRepAlgoAPI_Fuse(cyl, sph).Shape();
+    di << "fuse = BooleanFuse(cyl, sph)\n";
+    TopoShape fuse = BooleanFuse(cyl, sph).Shape();
 
     di << "Fuse Created !    Triangulating !\n";
     if (index < argc)
-      DBRep::Set(argv[index++], fuse);
+      DBRep1::Set(argv[index++], fuse);
 
     performTriangulation(fuse, di);
   }
@@ -727,7 +727,7 @@ static Standard_Integer OCC824(Draw_Interpretor& di, Standard_Integer argc, cons
 //  OCC825
 //=======================================================================
 
-static Standard_Integer OCC825(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC825(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 6)
   {
@@ -747,24 +747,24 @@ static Standard_Integer OCC825(Draw_Interpretor& di, Standard_Integer argc, cons
 
   Handle(Geom_BezierSurface)  BezSurf = new Geom_BezierSurface(poles);
   Handle(Geom_BSplineSurface) BSpSurf = GeomConvert::SurfaceToBSplineSurface(BezSurf);
-  BRepBuilderAPI_MakeFace     faceMaker(BSpSurf, Precision::Confusion());
-  const TopoDS_Face&          face = faceMaker.Face();
+  FaceMaker     faceMaker(BSpSurf, Precision::Confusion());
+  const TopoFace&          face = faceMaker.Face();
 
   Point3d                     pnt(0, size, 0);
   BRepPrimAPI_MakeHalfSpace* hSpace = new BRepPrimAPI_MakeHalfSpace(face, pnt);
-  TopoDS_Shape               hsp    = hSpace->Solid();
+  TopoShape               hsp    = hSpace->Solid();
   if (index < argc)
-    DBRep::Set(argv[index++], hsp);
+    DBRep1::Set(argv[index++], hsp);
 
   BRepPrimAPI_MakeSphere sphere1(Point3d(0.0, 0.0, 0.0), 25.0);
-  TopoDS_Shape           sph1 = sphere1.Shape();
+  TopoShape           sph1 = sphere1.Shape();
   if (index < argc)
-    DBRep::Set(argv[index++], sph1);
+    DBRep1::Set(argv[index++], sph1);
 
   BRepPrimAPI_MakeSphere sphere2(Point3d(0.0, 0.00001, 0.0), 25.0);
-  TopoDS_Shape           sph2 = sphere2.Shape();
+  TopoShape           sph2 = sphere2.Shape();
   if (index < argc)
-    DBRep::Set(argv[index++], sph2);
+    DBRep1::Set(argv[index++], sph2);
 
   di << "All primitives created.....  Creating Cut Objects\n";
 
@@ -772,21 +772,21 @@ static Standard_Integer OCC825(Draw_Interpretor& di, Standard_Integer argc, cons
   {
     OCC_CATCH_SIGNALS
 
-    di << "cut1 = BRepAlgoAPI_Cut(sph1, hsp)\n";
-    TopoDS_Shape cut1 = BRepAlgoAPI_Cut(sph1, hsp).Shape();
+    di << "cut1 = BooleanCut(sph1, hsp)\n";
+    TopoShape cut1 = BooleanCut(sph1, hsp).Shape();
 
     if (index < argc)
-      DBRep::Set(argv[index++], cut1);
+      DBRep1::Set(argv[index++], cut1);
     di << "CUT 1 Created !   ";
 
-    di << "cut2 = BRepAlgoAPI_Cut(sph2, hsp)\n";
-    TopoDS_Shape cut2 = BRepAlgoAPI_Cut(sph2, hsp).Shape();
+    di << "cut2 = BooleanCut(sph2, hsp)\n";
+    TopoShape cut2 = BooleanCut(sph2, hsp).Shape();
 
     if (index < argc)
-      DBRep::Set(argv[index++], cut2);
+      DBRep1::Set(argv[index++], cut2);
     di << "CUT 2 Created !\n\n";
 
-    GProp_GProps G;
+    GeometricProperties G;
     BRepGProp::VolumeProperties(cut1, G);
     di << "CUT 1 Mass = " << G.Mass() << "\n\n";
     BRepGProp::VolumeProperties(cut2, G);
@@ -821,7 +821,7 @@ static Standard_Integer OCC825(Draw_Interpretor& di, Standard_Integer argc, cons
 //  OCC826
 //=======================================================================
 
-static Standard_Integer OCC826(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC826(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 4)
   {
@@ -844,20 +844,20 @@ static Standard_Integer OCC826(Draw_Interpretor& di, Standard_Integer argc, cons
   W1.Add(Point3d(x1, y1, 0));
 
   Standard_Boolean myFalse = Standard_False;
-  TopoDS_Face      F1      = BRepBuilderAPI_MakeFace(W1.Wire(), myFalse);
+  TopoFace      F1      = FaceMaker(W1.Wire(), myFalse);
 
   Point3d        P1(0, 0, 0);
   Dir3d        D1(0, 30, 0);
   Axis3d        A1(P1, D1);
   Standard_Real angle1 = 360 * (M_PI / 180.0);
-  TopoDS_Shape  rev    = BRepPrimAPI_MakeRevol(F1, A1, angle1);
+  TopoShape  rev    = BRepPrimAPI_MakeRevol(F1, A1, angle1);
   if (index < argc)
-    DBRep::Set(argv[index++], rev);
+    DBRep1::Set(argv[index++], rev);
 
   BRepPrimAPI_MakeSphere sphere(Point3d(166.373, 77.0402, 96.0555), 23.218586);
-  TopoDS_Shape           sph = sphere.Shape();
+  TopoShape           sph = sphere.Shape();
   if (index < argc)
-    DBRep::Set(argv[index++], sph);
+    DBRep1::Set(argv[index++], sph);
 
   di << "All primitives created.....  Creating Boolean\n";
 
@@ -865,11 +865,11 @@ static Standard_Integer OCC826(Draw_Interpretor& di, Standard_Integer argc, cons
   {
     OCC_CATCH_SIGNALS
 
-    di << "fuse = BRepAlgoAPI_Fuse(rev, sph)\n";
-    TopoDS_Shape fuse = BRepAlgoAPI_Fuse(rev, sph).Shape();
+    di << "fuse = BooleanFuse(rev, sph)\n";
+    TopoShape fuse = BooleanFuse(rev, sph).Shape();
 
     if (index < argc)
-      DBRep::Set(argv[index++], fuse);
+      DBRep1::Set(argv[index++], fuse);
     di << "Fuse Created !   Triangulating !\n";
     performTriangulation(fuse, di);
   }
@@ -891,7 +891,7 @@ static Standard_Integer OCC826(Draw_Interpretor& di, Standard_Integer argc, cons
 //  OCC827
 //=======================================================================
 
-static Standard_Integer OCC827(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC827(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 6)
   {
@@ -909,15 +909,15 @@ static Standard_Integer OCC827(Draw_Interpretor& di, Standard_Integer argc, cons
   W1.Add(Point3d(10, 0, 0));
 
   Standard_Boolean myFalse = Standard_False;
-  TopoDS_Face      F1      = BRepBuilderAPI_MakeFace(W1.Wire(), myFalse);
+  TopoFace      F1      = FaceMaker(W1.Wire(), myFalse);
 
   Point3d        P1(0, 0, 0);
   Dir3d        D1(0, 0, 30);
   Axis3d        A1(P1, D1);
   Standard_Real angle1 = 360 * (M_PI / 180.0);
-  TopoDS_Shape  rev    = BRepPrimAPI_MakeRevol(F1, A1, angle1);
+  TopoShape  rev    = BRepPrimAPI_MakeRevol(F1, A1, angle1);
   if (index < argc)
-    DBRep::Set(argv[index++], rev);
+    DBRep1::Set(argv[index++], rev);
 
   Point3d                P2(0, 0, 50);
   Dir3d                D2(0, 0, 30);
@@ -925,17 +925,17 @@ static Standard_Integer OCC827(Draw_Interpretor& di, Standard_Integer argc, cons
   Standard_Real         majRad = 15;
   Standard_Real         minRad = 5;
   BRepPrimAPI_MakeTorus Torus1(A2, majRad, minRad);
-  TopoDS_Shape          tor1 = Torus1.Shape();
+  TopoShape          tor1 = Torus1.Shape();
   if (index < argc)
-    DBRep::Set(argv[index++], tor1);
+    DBRep1::Set(argv[index++], tor1);
 
   Point3d                P3(0, 0, 10);
   Dir3d                D3(0, 0, 30);
   Frame3d                A3(P3, D3);
   BRepPrimAPI_MakeTorus Torus2(A3, majRad, minRad);
-  TopoDS_Shape          tor2 = Torus2.Shape();
+  TopoShape          tor2 = Torus2.Shape();
   if (index < argc)
-    DBRep::Set(argv[index++], tor2);
+    DBRep1::Set(argv[index++], tor2);
 
   di << "All primitives created.....  Creating Boolean\n";
 
@@ -943,18 +943,18 @@ static Standard_Integer OCC827(Draw_Interpretor& di, Standard_Integer argc, cons
   {
     OCC_CATCH_SIGNALS
 
-    di << "Fuse1 = BRepAlgoAPI_Fuse(tor1, rev)\n";
-    TopoDS_Shape fuse1 = BRepAlgoAPI_Fuse(tor1, rev).Shape();
+    di << "Fuse1 = BooleanFuse(tor1, rev)\n";
+    TopoShape fuse1 = BooleanFuse(tor1, rev).Shape();
 
     if (index < argc)
-      DBRep::Set(argv[index++], fuse1);
+      DBRep1::Set(argv[index++], fuse1);
     di << "Fuse1 Created !    Creating Fuse 2\n";
 
-    di << "Fuse2 = BRepAlgoAPI_Fuse(tor2, fuse1)\n";
-    TopoDS_Shape fuse2 = BRepAlgoAPI_Fuse(tor2, fuse1).Shape();
+    di << "Fuse2 = BooleanFuse(tor2, fuse1)\n";
+    TopoShape fuse2 = BooleanFuse(tor2, fuse1).Shape();
 
     if (index < argc)
-      DBRep::Set(argv[index++], fuse2);
+      DBRep1::Set(argv[index++], fuse2);
     di << "Fuse2 Created !    Triangulating !\n";
 
     performTriangulation(fuse2, di);
@@ -975,21 +975,21 @@ static Standard_Integer OCC827(Draw_Interpretor& di, Standard_Integer argc, cons
 //  performBlend
 //=======================================================================
 
-int performBlend(const TopoDS_Shape& aShape,
+int performBlend(const TopoShape& aShape,
                  Standard_Real       rad,
-                 TopoDS_Shape&       bShape,
-                 Draw_Interpretor&   di)
+                 TopoShape&       bShape,
+                 DrawInterpreter&   di)
 {
   Standard_Integer                          status = 0;
-  TopoDS_Shape                              newShape;
+  TopoShape                              newShape;
   TopTools_IndexedDataMapOfShapeListOfShape edgemap;
-  TopExp::MapShapesAndAncestors(aShape, TopAbs_EDGE, TopAbs_SOLID, edgemap);
+  TopExp1::MapShapesAndAncestors(aShape, TopAbs_EDGE, TopAbs_SOLID, edgemap);
   di << "Blending All Edges: No. of Edges: " << edgemap.Extent() << "\n";
   ChFi3d_FilletShape       FShape = ChFi3d_Rational;
   BRepFilletAPI_MakeFillet blend(aShape, FShape);
   for (int i = 1; i <= edgemap.Extent(); i++)
   {
-    TopoDS_Edge edg = TopoDS::Edge(edgemap.FindKey(i));
+    TopoEdge edg = TopoDS::Edge(edgemap.FindKey(i));
     if (!edg.IsNull())
       blend.Add(rad, edg);
   }
@@ -1030,7 +1030,7 @@ int performBlend(const TopoDS_Shape& aShape,
 //  OCC828
 //=======================================================================
 
-static Standard_Integer OCC828(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer OCC828(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc != 2)
   {
@@ -1059,13 +1059,13 @@ static Standard_Integer OCC828(Draw_Interpretor& di, Standard_Integer argc, cons
   GC_MakeSegment ln2(p23, p31);
   GC_MakeSegment ln3(p33, p11);
 
-  TopoDS_Edge e1 = BRepBuilderAPI_MakeEdge(arc1.Value());
-  TopoDS_Edge e2 = BRepBuilderAPI_MakeEdge(arc2.Value());
-  TopoDS_Edge e3 = BRepBuilderAPI_MakeEdge(arc3.Value());
+  TopoEdge e1 = EdgeMaker(arc1.Value());
+  TopoEdge e2 = EdgeMaker(arc2.Value());
+  TopoEdge e3 = EdgeMaker(arc3.Value());
 
-  TopoDS_Edge e4 = BRepBuilderAPI_MakeEdge(ln1.Value());
-  TopoDS_Edge e5 = BRepBuilderAPI_MakeEdge(ln2.Value());
-  TopoDS_Edge e6 = BRepBuilderAPI_MakeEdge(ln3.Value());
+  TopoEdge e4 = EdgeMaker(ln1.Value());
+  TopoEdge e5 = EdgeMaker(ln2.Value());
+  TopoEdge e6 = EdgeMaker(ln3.Value());
 
   BRepBuilderAPI_MakeWire MW;
   MW.Add(e1);
@@ -1081,8 +1081,8 @@ static Standard_Integer OCC828(Draw_Interpretor& di, Standard_Integer argc, cons
     return 1;
   }
 
-  TopoDS_Wire W = MW.Wire();
-  TopoDS_Face F = BRepBuilderAPI_MakeFace(W);
+  TopoWire W = MW.Wire();
+  TopoFace F = FaceMaker(W);
   if (F.IsNull())
   {
     di << " Error in Face creation \n";
@@ -1103,13 +1103,13 @@ static Standard_Integer OCC828(Draw_Interpretor& di, Standard_Integer argc, cons
       return 1;
     }
     if (index < argc)
-      DBRep::Set(argv[index++], slab.Shape());
+      DBRep1::Set(argv[index++], slab.Shape());
 
     //       std::cout << "Slab Successfully Created !   Now Blending ..." << std::endl;
-    //       TopoDS_Shape aShape;
+    //       TopoShape aShape;
     //       int ret = performBlend(slab.Shape(), radius, aShape);
     //       if (ret) return 1;
-    //       if (index < argc) DBRep::Set(argv[index++], aShape);
+    //       if (index < argc) DBRep1::Set(argv[index++], aShape);
 
     //       std::cout << "Blending Successfully Done !   Now Triangulating ..." << std::endl;
     //       performTriangulation(aShape);
@@ -1122,7 +1122,7 @@ static Standard_Integer OCC828(Draw_Interpretor& di, Standard_Integer argc, cons
   return 0;
 }
 
-void QABugs::Commands_10(Draw_Interpretor& theCommands)
+void QABugs::Commands_10(DrawInterpreter& theCommands)
 {
   const char* group = "QABugs";
 

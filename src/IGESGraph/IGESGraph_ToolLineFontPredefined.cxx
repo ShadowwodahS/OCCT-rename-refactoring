@@ -28,9 +28,9 @@
 #include <Interface_EntityIterator.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESGraph_ToolLineFontPredefined::IGESGraph_ToolLineFontPredefined() {}
+LineFontPredefinedTool::LineFontPredefinedTool() {}
 
-void IGESGraph_ToolLineFontPredefined::ReadOwnParams(
+void LineFontPredefinedTool::ReadOwnParams(
   const Handle(IGESGraph_LineFontPredefined)& ent,
   const Handle(IGESData_IGESReaderData)& /*IR*/,
   IGESData_ParamReader& PR) const
@@ -54,7 +54,7 @@ void IGESGraph_ToolLineFontPredefined::ReadOwnParams(
   ent->Init(nbPropertyValues, lineFontPatternCode);
 }
 
-void IGESGraph_ToolLineFontPredefined::WriteOwnParams(
+void LineFontPredefinedTool::WriteOwnParams(
   const Handle(IGESGraph_LineFontPredefined)& ent,
   IGESData_IGESWriter&                        IW) const
 {
@@ -62,20 +62,20 @@ void IGESGraph_ToolLineFontPredefined::WriteOwnParams(
   IW.Send(ent->LineFontPatternCode());
 }
 
-void IGESGraph_ToolLineFontPredefined::OwnShared(
+void LineFontPredefinedTool::OwnShared(
   const Handle(IGESGraph_LineFontPredefined)& /*ent*/,
   Interface_EntityIterator& /*iter*/) const
 {
 }
 
-void IGESGraph_ToolLineFontPredefined::OwnCopy(const Handle(IGESGraph_LineFontPredefined)& another,
+void LineFontPredefinedTool::OwnCopy(const Handle(IGESGraph_LineFontPredefined)& another,
                                                const Handle(IGESGraph_LineFontPredefined)& ent,
                                                Interface_CopyTool& /*TC*/) const
 {
   ent->Init(1, another->LineFontPatternCode());
 }
 
-Standard_Boolean IGESGraph_ToolLineFontPredefined::OwnCorrect(
+Standard_Boolean LineFontPredefinedTool::OwnCorrect(
   const Handle(IGESGraph_LineFontPredefined)& ent) const
 {
   Standard_Boolean res = (ent->NbPropertyValues() != 1);
@@ -84,10 +84,10 @@ Standard_Boolean IGESGraph_ToolLineFontPredefined::OwnCorrect(
   return res;
 }
 
-IGESData_DirChecker IGESGraph_ToolLineFontPredefined::DirChecker(
+DirectoryChecker LineFontPredefinedTool::DirChecker(
   const Handle(IGESGraph_LineFontPredefined)& /*ent*/) const
 {
-  IGESData_DirChecker DC(406, 19);
+  DirectoryChecker DC(406, 19);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -98,7 +98,7 @@ IGESData_DirChecker IGESGraph_ToolLineFontPredefined::DirChecker(
   return DC;
 }
 
-void IGESGraph_ToolLineFontPredefined::OwnCheck(const Handle(IGESGraph_LineFontPredefined)& ent,
+void LineFontPredefinedTool::OwnCheck(const Handle(IGESGraph_LineFontPredefined)& ent,
                                                 const Interface_ShareTool&,
                                                 Handle(Interface_Check)& ach) const
 {
@@ -106,7 +106,7 @@ void IGESGraph_ToolLineFontPredefined::OwnCheck(const Handle(IGESGraph_LineFontP
     ach->AddFail("No. of Property values : Value != 1");
 }
 
-void IGESGraph_ToolLineFontPredefined::OwnDump(const Handle(IGESGraph_LineFontPredefined)& ent,
+void LineFontPredefinedTool::OwnDump(const Handle(IGESGraph_LineFontPredefined)& ent,
                                                const IGESData_IGESDumper& /*dumper*/,
                                                Standard_OStream& S,
                                                const Standard_Integer /*level*/) const

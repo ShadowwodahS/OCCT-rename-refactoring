@@ -21,9 +21,9 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_IndexedDataMap.hxx>
 
-typedef NCollection_IndexedDataMap<TopoDS_Shape,
+typedef NCollection_IndexedDataMap<TopoShape,
                                    Handle(RefObject),
-                                   TopTools_ShapeMapHasher>
+                                   ShapeHasher>
   MoniTool_IndexedDataMapOfShapeTransient;
 
 #endif

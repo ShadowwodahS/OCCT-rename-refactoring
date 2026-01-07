@@ -20,10 +20,10 @@
 //! Sub-mesh definition for OBJ reader.
 struct RWObj_SubMesh
 {
-  TCollection_AsciiString Object;      //!< name of active object
-  TCollection_AsciiString Group;       //!< name of active group
-  TCollection_AsciiString SmoothGroup; //!< name of active smoothing group
-  TCollection_AsciiString Material;    //!< name of active material
+  AsciiString1 Object;      //!< name of active object
+  AsciiString1 Group;       //!< name of active group
+  AsciiString1 SmoothGroup; //!< name of active smoothing group
+  AsciiString1 Material;    //!< name of active material
 };
 
 #endif // _RWObj_SubMesh_HeaderFile

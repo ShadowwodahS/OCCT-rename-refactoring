@@ -65,7 +65,7 @@ Handle(Expr_GeneralExpression) Expr_Square::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_Square::Copy() const
 {
-  return new Expr_Square(Expr::CopyShare(Operand()));
+  return new Expr_Square(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_Square::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -94,7 +94,7 @@ Handle(Expr_GeneralExpression) Expr_Square::Derivative(const Handle(Expr_NamedUn
   Expr_SequenceOfGeneralExpression ops;
   ops.Append(coef);
   ops.Append(myder);
-  Handle(Expr_GeneralExpression) usedop = Expr::CopyShare(Operand());
+  Handle(Expr_GeneralExpression) usedop = Expr1::CopyShare(Operand());
   ops.Append(usedop);
   Handle(Expr_Product) resu = new Expr_Product(ops);
   return resu->ShallowSimplified();
@@ -107,9 +107,9 @@ Standard_Real Expr_Square::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return val * val;
 }
 
-TCollection_AsciiString Expr_Square::String() const
+AsciiString1 Expr_Square::String() const
 {
-  TCollection_AsciiString        str;
+  AsciiString1        str;
   Handle(Expr_GeneralExpression) op = Operand();
   if (op->NbSubExpressions() > 1)
   {

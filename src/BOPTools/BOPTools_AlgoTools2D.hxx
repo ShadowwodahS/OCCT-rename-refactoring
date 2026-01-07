@@ -22,18 +22,18 @@
 #include <Standard_Boolean.hxx>
 #include <Standard_Real.hxx>
 #include <Standard_Integer.hxx>
-class TopoDS_Edge;
-class TopoDS_Face;
+class TopoEdge;
+class TopoFace;
 class Vector3d;
-class Geom2d_Curve;
-class Geom_Curve;
+class GeomCurve2d;
+class GeomCurve3d;
 class BRepAdaptor_Surface;
 class IntTools_Context;
 
 //! The class contains handy static functions
 //! dealing with the topology
-//! This is the copy of the BOPTools_AlgoTools2D.cdl
-class BOPTools_AlgoTools2D
+//! This is the copy of the AlgoTools2D.cdl
+class AlgoTools2D
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -42,12 +42,12 @@ public:
   //! Raises exception Standard_ConstructionError if projection algorithm fails.<br>
   //! <theContext> - storage for caching the geometrical tools
   Standard_EXPORT static void BuildPCurveForEdgeOnFace(
-    const TopoDS_Edge&              aE,
-    const TopoDS_Face&              aF,
+    const TopoEdge&              aE,
+    const TopoFace&              aF,
     const Handle(IntTools_Context)& theContext = Handle(IntTools_Context)());
 
   //! Compute tangent for the edge  <aE> [in 3D]  at parameter <aT>
-  Standard_EXPORT static Standard_Boolean EdgeTangent(const TopoDS_Edge&  anE,
+  Standard_EXPORT static Standard_Boolean EdgeTangent(const TopoEdge&  anE,
                                                       const Standard_Real aT,
                                                       Vector3d&             Tau);
 
@@ -58,8 +58,8 @@ public:
   //! raise exception Standard_ConstructionError if projection algorithm fails.<br>
   //! <theContext> - storage for caching the geometrical tools
   Standard_EXPORT static void PointOnSurface(
-    const TopoDS_Edge&              aE,
-    const TopoDS_Face&              aF,
+    const TopoEdge&              aE,
+    const TopoFace&              aF,
     const Standard_Real             aT,
     Standard_Real&                  U,
     Standard_Real&                  V,
@@ -71,9 +71,9 @@ public:
   //! Raises exception Standard_ConstructionError if algorithm Make2D() fails.<br>
   //! <theContext> - storage for caching the geometrical tools
   Standard_EXPORT static void CurveOnSurface(
-    const TopoDS_Edge&              aE,
-    const TopoDS_Face&              aF,
-    Handle(Geom2d_Curve)&           aC,
+    const TopoEdge&              aE,
+    const TopoFace&              aF,
+    Handle(GeomCurve2d)&           aC,
     Standard_Real&                  aToler,
     const Handle(IntTools_Context)& theContext = Handle(IntTools_Context)());
 
@@ -84,9 +84,9 @@ public:
   //! Raises exception Standard_ConstructionError if algorithm Make2D() fails.<br>
   //! <theContext> - storage for caching the geometrical tools
   Standard_EXPORT static void CurveOnSurface(
-    const TopoDS_Edge&              aE,
-    const TopoDS_Face&              aF,
-    Handle(Geom2d_Curve)&           aC,
+    const TopoEdge&              aE,
+    const TopoFace&              aF,
+    Handle(GeomCurve2d)&           aC,
     Standard_Real&                  aFirst,
     Standard_Real&                  aLast,
     Standard_Real&                  aToler,
@@ -97,9 +97,9 @@ public:
   //! [aFirst, aLast] - range of the P-Curve
   //! [aToler] - reached tolerance
   //! If the P-Curve does not exist, aC.IsNull()=TRUE.
-  Standard_EXPORT static Standard_Boolean HasCurveOnSurface(const TopoDS_Edge&    aE,
-                                                            const TopoDS_Face&    aF,
-                                                            Handle(Geom2d_Curve)& aC,
+  Standard_EXPORT static Standard_Boolean HasCurveOnSurface(const TopoEdge&    aE,
+                                                            const TopoFace&    aF,
+                                                            Handle(GeomCurve2d)& aC,
                                                             Standard_Real&        aFirst,
                                                             Standard_Real&        aLast,
                                                             Standard_Real&        aToler);
@@ -107,27 +107,27 @@ public:
   //! Returns TRUE if the edge <aE>  has  P-Curve <aC>
   //! on surface <aF> .
   //! If the P-Curve does not exist, aC.IsNull()=TRUE.
-  Standard_EXPORT static Standard_Boolean HasCurveOnSurface(const TopoDS_Edge& aE,
-                                                            const TopoDS_Face& aF);
+  Standard_EXPORT static Standard_Boolean HasCurveOnSurface(const TopoEdge& aE,
+                                                            const TopoFace& aF);
 
   //! Adjust P-Curve <theC2D> (3D-curve <theC3D>) on surface of the face <theF>.<br>
   //! <theContext> - storage for caching the geometrical tools
   Standard_EXPORT static void AdjustPCurveOnFace(
-    const TopoDS_Face&              theF,
-    const Handle(Geom_Curve)&       theC3D,
-    const Handle(Geom2d_Curve)&     theC2D,
-    Handle(Geom2d_Curve)&           theC2DA,
+    const TopoFace&              theF,
+    const Handle(GeomCurve3d)&       theC3D,
+    const Handle(GeomCurve2d)&     theC2D,
+    Handle(GeomCurve2d)&           theC2DA,
     const Handle(IntTools_Context)& theContext = Handle(IntTools_Context)());
 
   //! Adjust P-Curve <aC2D> (3D-curve <C3D>) on surface <aF> .<br>
   //! [aT1,  aT2] - range to adjust<br>
   //! <theContext> - storage for caching the geometrical tools
   Standard_EXPORT static void AdjustPCurveOnFace(
-    const TopoDS_Face&              theF,
+    const TopoFace&              theF,
     const Standard_Real             theFirst,
     const Standard_Real             theLast,
-    const Handle(Geom2d_Curve)&     theC2D,
-    Handle(Geom2d_Curve)&           theC2DA,
+    const Handle(GeomCurve2d)&     theC2D,
+    Handle(GeomCurve2d)&           theC2DA,
     const Handle(IntTools_Context)& theContext = Handle(IntTools_Context)());
 
   //! Adjust P-Curve <aC2D> (3D-curve <C3D>) on surface <aF> .
@@ -135,15 +135,15 @@ public:
   Standard_EXPORT static void AdjustPCurveOnSurf(const BRepAdaptor_Surface&  aF,
                                                  const Standard_Real         aT1,
                                                  const Standard_Real         aT2,
-                                                 const Handle(Geom2d_Curve)& aC2D,
-                                                 Handle(Geom2d_Curve)&       aC2DA);
+                                                 const Handle(GeomCurve2d)& aC2D,
+                                                 Handle(GeomCurve2d)&       aC2DA);
 
   //! Compute intermediate  value in  between [aFirst, aLast] .
   Standard_EXPORT static Standard_Real IntermediatePoint(const Standard_Real aFirst,
                                                          const Standard_Real aLast);
 
   //! Compute intermediate value of parameter for the edge <anE>.
-  Standard_EXPORT static Standard_Real IntermediatePoint(const TopoDS_Edge& anE);
+  Standard_EXPORT static Standard_Real IntermediatePoint(const TopoEdge& anE);
 
   //! Make P-Curve <aC> for the edge <aE> on surface <aF> .<br>
   //! [aFirst, aLast] - range of the P-Curve<br>
@@ -151,9 +151,9 @@ public:
   //! Raises exception Standard_ConstructionError if algorithm fails.<br>
   //! <theContext> - storage for caching the geometrical tools
   Standard_EXPORT static void Make2D(
-    const TopoDS_Edge&              aE,
-    const TopoDS_Face&              aF,
-    Handle(Geom2d_Curve)&           aC,
+    const TopoEdge&              aE,
+    const TopoFace&              aF,
+    Handle(GeomCurve2d)&           aC,
     Standard_Real&                  aFirst,
     Standard_Real&                  aLast,
     Standard_Real&                  aToler,
@@ -164,9 +164,9 @@ public:
   //! Raises exception Standard_ConstructionError if projection algorithm fails.<br>
   //! <theContext> - storage for caching the geometrical tools
   Standard_EXPORT static void MakePCurveOnFace(
-    const TopoDS_Face&              aF,
-    const Handle(Geom_Curve)&       C3D,
-    Handle(Geom2d_Curve)&           aC,
+    const TopoFace&              aF,
+    const Handle(GeomCurve3d)&       C3D,
+    Handle(GeomCurve2d)&           aC,
     Standard_Real&                  aToler,
     const Handle(IntTools_Context)& theContext = Handle(IntTools_Context)());
 
@@ -176,11 +176,11 @@ public:
   //! Raises exception Standard_ConstructionError if projection algorithm fails.<br>
   //! <theContext> - storage for caching the geometrical tools
   Standard_EXPORT static void MakePCurveOnFace(
-    const TopoDS_Face&              aF,
-    const Handle(Geom_Curve)&       C3D,
+    const TopoFace&              aF,
+    const Handle(GeomCurve3d)&       C3D,
     const Standard_Real             aT1,
     const Standard_Real             aT2,
-    Handle(Geom2d_Curve)&           aC,
+    Handle(GeomCurve2d)&           aC,
     Standard_Real&                  aToler,
     const Handle(IntTools_Context)& theContext = Handle(IntTools_Context)());
 
@@ -188,9 +188,9 @@ public:
   //! to the edge <aEnew>
   //! Returns 0 in case of success
   Standard_EXPORT static Standard_Integer AttachExistingPCurve(
-    const TopoDS_Edge&              aEold,
-    const TopoDS_Edge&              aEnew,
-    const TopoDS_Face&              aF,
+    const TopoEdge&              aEold,
+    const TopoEdge&              aEnew,
+    const TopoFace&              aF,
     const Handle(IntTools_Context)& aCtx);
 
   //! Checks if CurveOnSurface of theE on theF matches with isoline of theF surface.
@@ -202,10 +202,10 @@ public:
   //! of the edge p-curve (on theF) in middle-point of the p-curve.
   //!
   //! This method should be used carefully
-  //! (e.g. BRep_Tool::IsClosed(...) together) in order to avoid
+  //! (e.g. BRepInspector::IsClosed(...) together) in order to avoid
   //! false classification some p-curves as isoline (e.g. circle on a plane).
-  Standard_EXPORT static void IsEdgeIsoline(const TopoDS_Edge& theE,
-                                            const TopoDS_Face& theF,
+  Standard_EXPORT static void IsEdgeIsoline(const TopoEdge& theE,
+                                            const TopoFace& theF,
                                             Standard_Boolean&  isTheUIso,
                                             Standard_Boolean&  isTheVIso);
 };

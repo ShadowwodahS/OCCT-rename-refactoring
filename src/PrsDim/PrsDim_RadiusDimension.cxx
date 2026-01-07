@@ -53,7 +53,7 @@ PrsDim_RadiusDimension::PrsDim_RadiusDimension(const gp_Circ& theCircle,
 
 //=================================================================================================
 
-PrsDim_RadiusDimension::PrsDim_RadiusDimension(const TopoDS_Shape& theShape)
+PrsDim_RadiusDimension::PrsDim_RadiusDimension(const TopoShape& theShape)
     : PrsDim_Dimension(PrsDim_KOD_RADIUS)
 {
   SetMeasuredGeometry(theShape);
@@ -84,7 +84,7 @@ void PrsDim_RadiusDimension::SetMeasuredGeometry(const gp_Circ&         theCircl
 
 //=================================================================================================
 
-void PrsDim_RadiusDimension::SetMeasuredGeometry(const TopoDS_Shape&    theShape,
+void PrsDim_RadiusDimension::SetMeasuredGeometry(const TopoShape&    theShape,
                                                  const Point3d&          theAnchorPoint,
                                                  const Standard_Boolean theHasAnchor)
 {
@@ -137,28 +137,28 @@ void PrsDim_RadiusDimension::ComputePlane()
 
 //=================================================================================================
 
-const TCollection_AsciiString& PrsDim_RadiusDimension::GetModelUnits() const
+const AsciiString1& PrsDim_RadiusDimension::GetModelUnits() const
 {
   return myDrawer->DimLengthModelUnits();
 }
 
 //=================================================================================================
 
-const TCollection_AsciiString& PrsDim_RadiusDimension::GetDisplayUnits() const
+const AsciiString1& PrsDim_RadiusDimension::GetDisplayUnits() const
 {
   return myDrawer->DimLengthDisplayUnits();
 }
 
 //=================================================================================================
 
-void PrsDim_RadiusDimension::SetModelUnits(const TCollection_AsciiString& theUnits)
+void PrsDim_RadiusDimension::SetModelUnits(const AsciiString1& theUnits)
 {
   myDrawer->SetDimLengthModelUnits(theUnits);
 }
 
 //=================================================================================================
 
-void PrsDim_RadiusDimension::SetDisplayUnits(const TCollection_AsciiString& theUnits)
+void PrsDim_RadiusDimension::SetDisplayUnits(const AsciiString1& theUnits)
 {
   myDrawer->SetDimLengthDisplayUnits(theUnits);
 }

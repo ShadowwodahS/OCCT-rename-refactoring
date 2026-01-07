@@ -233,7 +233,7 @@ void ShapeView_Window::SetPreferences(const TInspectorAPI_PreferencesDataMap& th
 // =======================================================================
 void ShapeView_Window::UpdateContent()
 {
-  TCollection_AsciiString aName = "TKShapeView";
+  AsciiString1 aName = "TKShapeView";
   if (myParameters->FindParameters(aName))
   {
     NCollection_List<Handle(RefObject)> aParameters = myParameters->Parameters(aName);
@@ -243,13 +243,13 @@ void ShapeView_Window::UpdateContent()
   }
   if (myParameters->FindFileNames(aName))
   {
-    for (NCollection_List<TCollection_AsciiString>::Iterator aFilesIt(
+    for (NCollection_List<AsciiString1>::Iterator aFilesIt(
            myParameters->FileNames(aName));
          aFilesIt.More();
          aFilesIt.Next())
       OpenFile(aFilesIt.Value());
 
-    NCollection_List<TCollection_AsciiString> aNames;
+    NCollection_List<AsciiString1> aNames;
     myParameters->SetFileNames(aName, aNames);
   }
   // make TopoDS_TShape selected if exist in select parameters
@@ -268,7 +268,7 @@ void ShapeView_Window::UpdateContent()
       if (aShapePointer.IsNull())
         continue;
 
-      TopoDS_Shape aShape;
+      TopoShape aShape;
       aShape.TShape(aShapePointer);
 
       QModelIndex aShapeIndex = aModel->FindIndex(aShape);
@@ -287,15 +287,15 @@ void ShapeView_Window::UpdateContent()
 // =======================================================================
 void ShapeView_Window::Init(NCollection_List<Handle(RefObject)>& theParameters)
 {
-  Handle(AIS_InteractiveContext)               aContext;
+  Handle(VisualContext)               aContext;
   NCollection_List<Handle(RefObject)> aParameters;
 
-  TCollection_AsciiString                   aPluginName("TKShapeView");
-  NCollection_List<TCollection_AsciiString> aSelectedParameters;
+  AsciiString1                   aPluginName("TKShapeView");
+  NCollection_List<AsciiString1> aSelectedParameters;
   if (myParameters->FindSelectedNames(aPluginName)) // selected names have TShape parameters
     aSelectedParameters = myParameters->GetSelectedNames(aPluginName);
 
-  NCollection_List<TCollection_AsciiString>::Iterator aParamsIt(aSelectedParameters);
+  NCollection_List<AsciiString1>::Iterator aParamsIt(aSelectedParameters);
   for (NCollection_List<Handle(RefObject)>::Iterator anObjectsIt(theParameters);
        anObjectsIt.More();
        anObjectsIt.Next())
@@ -304,7 +304,7 @@ void ShapeView_Window::Init(NCollection_List<Handle(RefObject)>& theParameters)
     Handle(TopoDS_TShape)      aShapePointer = Handle(TopoDS_TShape)::DownCast(anObject);
     if (!aShapePointer.IsNull())
     {
-      TopoDS_Shape aShape;
+      TopoShape aShape;
       aShape.TShape(aShapePointer);
       if (aParamsIt.More())
       {
@@ -318,23 +318,23 @@ void ShapeView_Window::Init(NCollection_List<Handle(RefObject)>& theParameters)
     {
       aParameters.Append(anObject);
       if (aContext.IsNull())
-        aContext = Handle(AIS_InteractiveContext)::DownCast(anObject);
+        aContext = Handle(VisualContext)::DownCast(anObject);
     }
   }
   if (!aContext.IsNull())
     myViewWindow->SetContext(View_ContextType_External, aContext);
 
   theParameters = aParameters;
-  myParameters->SetSelectedNames(aPluginName, NCollection_List<TCollection_AsciiString>());
+  myParameters->SetSelectedNames(aPluginName, NCollection_List<AsciiString1>());
 }
 
 // =======================================================================
 // function : OpenFile
 // purpose :
 // =======================================================================
-void ShapeView_Window::OpenFile(const TCollection_AsciiString& theFileName)
+void ShapeView_Window::OpenFile(const AsciiString1& theFileName)
 {
-  TopoDS_Shape aShape = Convert_Tools::ReadShape(theFileName);
+  TopoShape aShape = Convert_Tools::ReadShape(theFileName);
   if (!aShape.IsNull())
     addShape(aShape);
 }
@@ -353,7 +353,7 @@ void ShapeView_Window::RemoveAllShapes()
 // function : addShape
 // purpose :
 // =======================================================================
-void ShapeView_Window::addShape(const TopoDS_Shape& theShape)
+void ShapeView_Window::addShape(const TopoShape& theShape)
 {
   ShapeView_TreeModel* aModel = dynamic_cast<ShapeView_TreeModel*>(myTreeView->model());
   aModel->AddShape(theShape);
@@ -392,7 +392,7 @@ void ShapeView_Window::onTreeViewContextMenuRequested(const QPoint& thePosition)
                                                      myMainWindow,
                                                      this));
     ShapeView_ItemShapePtr aShapeItem    = itemDynamicCast<ShapeView_ItemShape>(anItemBase);
-    const TopoDS_Shape&    aShape        = aShapeItem->GetItemShape();
+    const TopoShape&    aShape        = aShapeItem->GetItemShape();
     TopAbs_ShapeEnum       anExplodeType = aShapeItem->ExplodeType();
     NCollection_List<TopAbs_ShapeEnum> anExplodeTypes;
     ShapeView_Tools::IsPossibleToExplode(aShape, anExplodeTypes);
@@ -404,7 +404,7 @@ void ShapeView_Window::onTreeViewContextMenuRequested(const QPoint& thePosition)
            anExpIterator.Next())
       {
         TopAbs_ShapeEnum aType = anExpIterator.Value();
-        QAction* anAction      = ViewControl_Tools::CreateAction(TopAbs::ShapeTypeToString(aType),
+        QAction* anAction      = ViewControl_Tools::CreateAction(TopAbs1::ShapeTypeToString(aType),
                                                             SLOT(onExplode()),
                                                             myMainWindow,
                                                             this);
@@ -448,7 +448,7 @@ void ShapeView_Window::onEraseAllPerformed()
 {
   ShapeView_TreeModel* aTreeModel = dynamic_cast<ShapeView_TreeModel*>(myTreeView->model());
 
-  // TODO: provide update for only visibility state for better performance  TopoDS_Shape
+  // TODO: provide update for only visibility state for better performance  TopoShape
   // myCustomShape;
 
   aTreeModel->Reset();
@@ -483,7 +483,7 @@ void ShapeView_Window::onExplode()
   if (anAction->text() == "NONE")
     aShapeType = TopAbs_SHAPE;
   else
-    aShapeType = TopAbs::ShapeTypeFromString(anAction->text().toStdString().c_str());
+    aShapeType = TopAbs1::ShapeTypeFromString(anAction->text().toStdString().c_str());
 
   myViewWindow->Displayer()->EraseAllPresentations();
   aShapeItem->SetExplodeType(aShapeType);
@@ -544,9 +544,9 @@ void ShapeView_Window::onExportToBREP()
   if (!anItem)
     return;
 
-  TCollection_AsciiString aFileNameIndiced = aFileName.toStdString().c_str();
-  const TopoDS_Shape&     aShape           = anItem->GetItemShape();
-  BRepTools::Write(aShape, aFileNameIndiced.ToCString());
+  AsciiString1 aFileNameIndiced = aFileName.toStdString().c_str();
+  const TopoShape&     aShape           = anItem->GetItemShape();
+  BRepTools1::Write(aShape, aFileNameIndiced.ToCString());
   anItem->SetFileName(aFileNameIndiced.ToCString());
   aFileName = aFileNameIndiced.ToCString();
 }

@@ -30,7 +30,7 @@ void TopOpeBRepBuild_Builder::BuildVertices(const Handle(TopOpeBRepDS_HDataStruc
 
   for (iP = 1; iP <= n; iP++)
   {
-    const TopOpeBRepDS_Point& aTBSPoint = HDS->Point(iP);
+    const Point1& aTBSPoint = HDS->Point(iP);
     myBuildTool.MakeVertex(ChangeNewVertex(iP), aTBSPoint);
   }
 }

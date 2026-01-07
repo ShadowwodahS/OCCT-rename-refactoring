@@ -46,9 +46,9 @@ Standard_Integer IFSelect_DispPerFiles::CountValue() const
   return pcount;
 }
 
-TCollection_AsciiString IFSelect_DispPerFiles::Label() const
+AsciiString1 IFSelect_DispPerFiles::Label() const
 {
-  TCollection_AsciiString lab(CountValue());
+  AsciiString1 lab(CountValue());
   lab.Insert(1, "Maximum ");
   lab.AssignCat(" Files");
   return lab;

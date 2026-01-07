@@ -49,7 +49,7 @@ Handle(Expr_GeneralExpression) Expr_Exponential::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_Exponential::Copy() const
 {
-  return new Expr_Exponential(Expr::CopyShare(Operand()));
+  return new Expr_Exponential(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_Exponential::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -76,7 +76,7 @@ Handle(Expr_GeneralExpression) Expr_Exponential::Derivative(
   }
   Handle(Expr_GeneralExpression) myexp = Operand();
   Handle(Expr_GeneralExpression) myder = myexp->Derivative(X);
-  Handle(Expr_Product)           resu  = Expr::CopyShare(this) * myder;
+  Handle(Expr_Product)           resu  = Expr1::CopyShare(this) * myder;
   return resu->ShallowSimplified();
 }
 
@@ -86,9 +86,9 @@ Standard_Real Expr_Exponential::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return ::Exp(Operand()->Evaluate(vars, vals));
 }
 
-TCollection_AsciiString Expr_Exponential::String() const
+AsciiString1 Expr_Exponential::String() const
 {
-  TCollection_AsciiString str("Exp(");
+  AsciiString1 str("Exp(");
   str += Operand()->String();
   str += ")";
   return str;

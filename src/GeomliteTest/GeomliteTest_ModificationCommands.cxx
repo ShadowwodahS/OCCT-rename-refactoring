@@ -38,12 +38,12 @@
 
 //=================================================================================================
 
-static Standard_Integer extendcurve(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer extendcurve(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
 
-  Handle(Geom_BoundedCurve) GB = Handle(Geom_BoundedCurve)::DownCast(DrawTrSurf::GetCurve(a[1]));
+  Handle(Geom_BoundedCurve) GB = Handle(Geom_BoundedCurve)::DownCast(DrawTrSurf1::GetCurve(a[1]));
   if (GB.IsNull())
   {
     di << "extendcurve needs a Bounded curve";
@@ -51,7 +51,7 @@ static Standard_Integer extendcurve(Draw_Interpretor& di, Standard_Integer n, co
   }
 
   Point3d P;
-  if (!DrawTrSurf::GetPoint(a[2], P))
+  if (!DrawTrSurf1::GetPoint(a[2], P))
     return 1;
   Standard_Boolean apres = Standard_True;
   if (n == 5)
@@ -61,28 +61,28 @@ static Standard_Integer extendcurve(Draw_Interpretor& di, Standard_Integer n, co
       apres = Standard_False;
     }
   }
-  Standard_Integer cont = Draw::Atoi(a[3]);
+  Standard_Integer cont = Draw1::Atoi(a[3]);
   GeomLib::ExtendCurveToPoint(GB, P, cont, apres);
-  DrawTrSurf::Set(a[1], GB);
+  DrawTrSurf1::Set(a[1], GB);
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer extendsurf(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer extendsurf(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 4)
     return 1;
 
   Handle(Geom_BoundedSurface) GB =
-    Handle(Geom_BoundedSurface)::DownCast(DrawTrSurf::GetSurface(a[1]));
+    Handle(Geom_BoundedSurface)::DownCast(DrawTrSurf1::GetSurface(a[1]));
   if (GB.IsNull())
   {
     di << "extendsurf needs a Bounded surface";
     return 1;
   }
-  Standard_Real    chord = Draw::Atof(a[2]);
-  Standard_Integer cont  = Draw::Atoi(a[3]);
+  Standard_Real    chord = Draw1::Atof(a[2]);
+  Standard_Integer cont  = Draw1::Atoi(a[3]);
   Standard_Boolean enU = Standard_True, apres = Standard_True;
   if (n >= 5)
   {
@@ -104,28 +104,28 @@ static Standard_Integer extendsurf(Draw_Interpretor& di, Standard_Integer n, con
   }
 
   GeomLib::ExtendSurfByLength(GB, chord, cont, enU, apres);
-  DrawTrSurf::Set(a[1], GB);
+  DrawTrSurf1::Set(a[1], GB);
 
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer samerange(Draw_Interpretor& /*di*/, Standard_Integer n, const char** a)
+static Standard_Integer samerange(DrawInterpreter& /*di*/, Standard_Integer n, const char** a)
 {
   if (n < 6)
     return 1;
-  Handle(Geom2d_Curve) C = DrawTrSurf::GetCurve2d(a[2]);
-  Handle(Geom2d_Curve) Res;
+  Handle(GeomCurve2d) C = DrawTrSurf1::GetCurve2d(a[2]);
+  Handle(GeomCurve2d) Res;
   Standard_Real        f, l, rf, rl;
-  f  = Draw::Atof(a[3]);
-  l  = Draw::Atof(a[4]);
-  rf = Draw::Atof(a[5]);
-  rl = Draw::Atof(a[6]);
+  f  = Draw1::Atof(a[3]);
+  l  = Draw1::Atof(a[4]);
+  rf = Draw1::Atof(a[5]);
+  rl = Draw1::Atof(a[6]);
 
   GeomLib::SameRange(Precision::PConfusion(), C, f, l, rf, rl, Res);
 
-  DrawTrSurf::Set(a[1], Res);
+  DrawTrSurf1::Set(a[1], Res);
 
   return 0;
 }
@@ -135,7 +135,7 @@ static Standard_Integer samerange(Draw_Interpretor& /*di*/, Standard_Integer n, 
 // purpose  : Changes a weight of a pole on B-spline curve/surface
 //=======================================================================
 
-static Standard_Integer setweight(Draw_Interpretor& /*di*/, Standard_Integer n, const char** a)
+static Standard_Integer setweight(DrawInterpreter& /*di*/, Standard_Integer n, const char** a)
 {
   if (n < 4 || n > 5)
   {
@@ -143,40 +143,40 @@ static Standard_Integer setweight(Draw_Interpretor& /*di*/, Standard_Integer n, 
     return 1;
   }
 
-  Standard_Integer anIndex1 = Draw::Atoi(a[2]);
-  Standard_Integer anIndex2 = n == 5 ? Draw::Atoi(a[3]) : 0;
-  Standard_Real    aWeight  = Draw::Atof(a[n - 1]);
+  Standard_Integer anIndex1 = Draw1::Atoi(a[2]);
+  Standard_Integer anIndex2 = n == 5 ? Draw1::Atoi(a[3]) : 0;
+  Standard_Real    aWeight  = Draw1::Atof(a[n - 1]);
 
-  Handle(Geom_BSplineCurve) aBSplCurve = DrawTrSurf::GetBSplineCurve(a[1]);
+  Handle(BSplineCurve3d) aBSplCurve = DrawTrSurf1::GetBSplineCurve(a[1]);
   if (!aBSplCurve.IsNull())
   {
     aBSplCurve->SetWeight(anIndex1, aWeight);
     return 0;
   }
 
-  Handle(Geom_BezierCurve) aBezCurve = DrawTrSurf::GetBezierCurve(a[1]);
+  Handle(BezierCurve3d) aBezCurve = DrawTrSurf1::GetBezierCurve(a[1]);
   if (!aBezCurve.IsNull())
   {
     aBezCurve->SetWeight(anIndex1, aWeight);
     return 0;
   }
 
-  Handle(Geom2d_BSplineCurve) aBSplCurve2d = DrawTrSurf::GetBSplineCurve2d(a[1]);
+  Handle(Geom2d_BSplineCurve) aBSplCurve2d = DrawTrSurf1::GetBSplineCurve2d(a[1]);
   if (!aBSplCurve2d.IsNull())
   {
     aBSplCurve2d->SetWeight(anIndex1, aWeight);
     return 0;
   }
 
-  Handle(Geom2d_BezierCurve) aBezCurve2d = DrawTrSurf::GetBezierCurve2d(a[1]);
+  Handle(Geom2d_BezierCurve) aBezCurve2d = DrawTrSurf1::GetBezierCurve2d(a[1]);
   if (!aBezCurve2d.IsNull())
   {
     aBezCurve2d->SetWeight(anIndex1, aWeight);
     return 0;
   }
 
-  Handle(Geom_BSplineSurface) aBSplSurf = DrawTrSurf::GetBSplineSurface(a[1]);
-  Handle(Geom_BezierSurface)  aBezSurf  = DrawTrSurf::GetBezierSurface(a[1]);
+  Handle(Geom_BSplineSurface) aBSplSurf = DrawTrSurf1::GetBSplineSurface(a[1]);
+  Handle(Geom_BezierSurface)  aBezSurf  = DrawTrSurf1::GetBezierSurface(a[1]);
   if (n != 5 && (!aBSplSurf.IsNull() || !aBezSurf.IsNull()))
   {
     Message::SendFail() << "Syntax error: Incorrect parameters";
@@ -201,14 +201,14 @@ static Standard_Integer setweight(Draw_Interpretor& /*di*/, Standard_Integer n, 
 
 //=================================================================================================
 
-void GeomliteTest::ModificationCommands(Draw_Interpretor& theCommands)
+void GeomliteTest::ModificationCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean loaded = Standard_False;
   if (loaded)
     return;
   loaded = Standard_True;
 
-  DrawTrSurf::BasicCommands(theCommands);
+  DrawTrSurf1::BasicCommands(theCommands);
 
   const char* g;
 

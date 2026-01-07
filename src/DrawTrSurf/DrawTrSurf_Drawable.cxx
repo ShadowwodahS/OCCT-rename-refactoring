@@ -50,7 +50,7 @@ DrawTrSurf_Drawable::DrawTrSurf_Drawable(
 // purpose  : draw a 2D curve
 //=======================================================================
 
-void DrawTrSurf_Drawable::DrawCurve2dOn(Adaptor2d_Curve2d& C, Draw_Display& aDisplay) const
+void DrawTrSurf_Drawable::DrawCurve2dOn(Adaptor2d_Curve2d& C, DrawDisplay& aDisplay) const
 {
   Point3d P;
 
@@ -102,7 +102,7 @@ void DrawTrSurf_Drawable::DrawCurve2dOn(Adaptor2d_Curve2d& C, Draw_Display& aDis
 // static function : PlotCurve
 // purpose  : draw a 3D curve
 //=======================================================================
-static void PlotCurve(Draw_Display&          aDisplay,
+static void PlotCurve(DrawDisplay&          aDisplay,
                       const Adaptor3d_Curve& C,
                       Standard_Real&         theFirstParam,
                       Standard_Real          theHalfStep,
@@ -133,7 +133,7 @@ static void PlotCurve(Draw_Display&          aDisplay,
 // purpose  : draw a 3D curve
 //=======================================================================
 
-void DrawTrSurf_Drawable::DrawCurveOn(Adaptor3d_Curve& C, Draw_Display& aDisplay) const
+void DrawTrSurf_Drawable::DrawCurveOn(Adaptor3d_Curve& C, DrawDisplay& aDisplay) const
 {
   Point3d P;
   if (myDrawMode == 1)
@@ -211,7 +211,7 @@ void DrawTrSurf_Drawable::DrawIsoCurveOn(Adaptor3d_IsoCurve&   C,
                                          const Standard_Real   P,
                                          const Standard_Real   F,
                                          const Standard_Real   L,
-                                         Draw_Display&         dis) const
+                                         DrawDisplay&         dis) const
 {
   C.Load(T, P, F, L);
   if ((C.GetType() == GeomAbs_BezierCurve) || (C.GetType() == GeomAbs_BSplineCurve))

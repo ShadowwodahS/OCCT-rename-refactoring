@@ -55,9 +55,9 @@ class IntTools_Context;
 class BOPDS_PaveBlock;
 class Point3d;
 class BOPDS_Curve;
-class TopoDS_Vertex;
-class TopoDS_Edge;
-class TopoDS_Face;
+class TopoVertex;
+class TopoEdge;
+class TopoFace;
 
 //!
 //! The class represents the Intersection phase of the
@@ -105,16 +105,16 @@ class TopoDS_Face;
 //! - *BOPAlgo_AlertIntersectionFailed* - in case some unexpected error occurred;<br>
 //! - *BOPAlgo_AlertNullInputShapes* - in case some of the arguments are null shapes.<br>
 //!
-class BOPAlgo_PaveFiller : public BOPAlgo_Algo
+class BooleanPaveFiller : public BOPAlgo_Algo
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BOPAlgo_PaveFiller();
+  Standard_EXPORT BooleanPaveFiller();
 
-  Standard_EXPORT virtual ~BOPAlgo_PaveFiller();
+  Standard_EXPORT virtual ~BooleanPaveFiller();
 
-  Standard_EXPORT BOPAlgo_PaveFiller(const Handle(NCollection_BaseAllocator)& theAllocator);
+  Standard_EXPORT BooleanPaveFiller(const Handle(NCollection_BaseAllocator)& theAllocator);
 
   Standard_EXPORT const BOPDS_DS& DS();
 
@@ -123,17 +123,17 @@ public:
   Standard_EXPORT const BOPDS_PIterator& Iterator();
 
   //! Sets the arguments for operation
-  void SetArguments(const TopTools_ListOfShape& theLS) { myArguments = theLS; }
+  void SetArguments(const ShapeList& theLS) { myArguments = theLS; }
 
   //! Adds the argument for operation
-  void AddArgument(const TopoDS_Shape& theShape) { myArguments.Append(theShape); }
+  void AddArgument(const TopoShape& theShape) { myArguments.Append(theShape); }
 
   //! Returns the list of arguments
-  const TopTools_ListOfShape& Arguments() const { return myArguments; }
+  const ShapeList& Arguments() const { return myArguments; }
 
   Standard_EXPORT const Handle(IntTools_Context)& Context();
 
-  Standard_EXPORT void SetSectionAttribute(const BOPAlgo_SectionAttribute& theSecAttr);
+  Standard_EXPORT void SetSectionAttribute(const SectionAttribute& theSecAttr);
 
   //! Sets the flag that defines the mode of treatment.
   //! In non-destructive mode the argument shapes are not modified. Instead
@@ -170,7 +170,7 @@ protected:
     BOPAlgo_DataMapOfIntegerMapOfPaveBlock;
 
   //! Sets non-destructive mode automatically if an argument
-  //! contains a locked sub-shape (see TopoDS_Shape::Locked()).
+  //! contains a locked sub-shape (see TopoShape::Locked()).
   Standard_EXPORT void SetNonDestructive();
 
   Standard_EXPORT void SetIsPrimary(const Standard_Boolean theFlag);
@@ -247,7 +247,7 @@ protected:
     const Message_ProgressRange&                   theRange,
     const Standard_Boolean                         theIsEEIntersection = Standard_True);
 
-  Standard_EXPORT Standard_Boolean CheckFacePaves(const TopoDS_Vertex&        theVnew,
+  Standard_EXPORT Standard_Boolean CheckFacePaves(const TopoVertex&        theVnew,
                                                   const TColStd_MapOfInteger& theMIF);
 
   Standard_EXPORT static Standard_Boolean CheckFacePaves(const Standard_Integer      theN,
@@ -285,8 +285,8 @@ protected:
                                                      Standard_Real&              aTolVExt,
                                                      const Standard_Integer      aType = 0);
 
-  Standard_EXPORT void PutBoundPaveOnCurve(const TopoDS_Face&     theF1,
-                                           const TopoDS_Face&     theF2,
+  Standard_EXPORT void PutBoundPaveOnCurve(const TopoFace&     theF1,
+                                           const TopoFace&     theF2,
                                            BOPDS_Curve&           theNC,
                                            TColStd_ListOfInteger& theLBV);
 
@@ -345,8 +345,8 @@ protected:
                                          TColStd_DataMapOfIntegerListOfInteger& aDMVLV);
 
   //! Puts stick paves on the curve <theNC>
-  Standard_EXPORT void PutStickPavesOnCurve(const TopoDS_Face&                     aF1,
-                                            const TopoDS_Face&                     aF2,
+  Standard_EXPORT void PutStickPavesOnCurve(const TopoFace&                     aF1,
+                                            const TopoFace&                     aF2,
                                             const TColStd_MapOfInteger&            theMI,
                                             const BOPDS_VectorOfCurve&             theVC,
                                             const Standard_Integer                 theIndex,
@@ -395,7 +395,7 @@ protected:
     const Standard_Integer                         theCur,
     const Standard_Integer                         nF1,
     const Standard_Integer                         nF2,
-    const TopoDS_Edge&                             theES,
+    const TopoEdge&                             theES,
     const BOPDS_IndexedMapOfPaveBlock&             theMPBOnIn,
     BOPTools_BoxTree&                              thePBTree,
     BOPDS_IndexedDataMapOfShapeCoupleOfPaveBlocks& theMSCPB,
@@ -521,7 +521,7 @@ protected:
   //! it will be saved in the map <thePBBox>.
   //! Returns FALSE in case the PB's range is less than the
   //! Precision::PConfusion(), otherwise returns TRUE.
-  Standard_EXPORT Standard_Boolean GetPBBox(const TopoDS_Edge&                theE,
+  Standard_EXPORT Standard_Boolean GetPBBox(const TopoEdge&                theE,
                                             const Handle(BOPDS_PaveBlock)&    thePB,
                                             BOPAlgo_DataMapOfPaveBlockBndBox& thePBBox,
                                             Standard_Real&                    theFirst,
@@ -549,8 +549,8 @@ protected:
   Standard_EXPORT void CheckSelfInterference();
 
   //! Adds the warning about failed intersection of pair of sub-shapes
-  Standard_EXPORT void AddIntersectionFailedWarning(const TopoDS_Shape& theS1,
-                                                    const TopoDS_Shape& theS2);
+  Standard_EXPORT void AddIntersectionFailedWarning(const TopoShape& theS1,
+                                                    const TopoShape& theS2);
 
   //! Repeat intersection of sub-shapes with increased vertices.
   Standard_EXPORT void RepeatIntersection(const Message_ProgressRange& theRange);
@@ -592,13 +592,13 @@ protected:
   Standard_EXPORT void RemoveMicroEdges();
 
   //! Auxiliary structure to hold the edge distance to the face
-  struct EdgeRangeDistance
+  struct EdgeRangeDistance1
   {
     Standard_Real First;
     Standard_Real Last;
     Standard_Real Distance;
 
-    EdgeRangeDistance(const Standard_Real theFirst    = 0.0,
+    EdgeRangeDistance1(const Standard_Real theFirst    = 0.0,
                       const Standard_Real theLast     = 0.0,
                       const Standard_Real theDistance = RealLast())
         : First(theFirst),
@@ -611,16 +611,16 @@ protected:
 protected: //! Analyzing Progress steps
   //! Filling steps for constant operations
   Standard_EXPORT void fillPIConstants(const Standard_Real theWhole,
-                                       BOPAlgo_PISteps&    theSteps) const Standard_OVERRIDE;
+                                       PISteps&    theSteps) const Standard_OVERRIDE;
   //! Filling steps for all other operations
-  Standard_EXPORT void fillPISteps(BOPAlgo_PISteps& theSteps) const Standard_OVERRIDE;
+  Standard_EXPORT void fillPISteps(PISteps& theSteps) const Standard_OVERRIDE;
 
 protected: //! Fields
-  TopTools_ListOfShape     myArguments;
+  ShapeList     myArguments;
   BOPDS_PDS                myDS;
   BOPDS_PIterator          myIterator;
   Handle(IntTools_Context) myContext;
-  BOPAlgo_SectionAttribute mySectionAttribute;
+  SectionAttribute mySectionAttribute;
   Standard_Boolean         myNonDestructive;
   Standard_Boolean         myIsPrimary;
   Standard_Boolean         myAvoidBuildPCurve;
@@ -634,8 +634,8 @@ protected: //! Fields
                                                 //! points, and should not be extended any longer to be put
                                                 //! on a section curve.
   
-  NCollection_DataMap <BOPDS_Pair,
-                       NCollection_List<EdgeRangeDistance>>
+  NCollection_DataMap <IndexPair,
+                       NCollection_List<EdgeRangeDistance1>>
                                             myDistances; //!< Map to store minimal distances between shapes
                                                          //!  which have no real intersections
   // clang-format on

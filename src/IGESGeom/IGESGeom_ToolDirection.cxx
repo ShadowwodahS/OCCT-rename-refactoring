@@ -33,14 +33,14 @@
 #include <Interface_ShareTool.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESGeom_ToolDirection::IGESGeom_ToolDirection() {}
+DirectionTool::DirectionTool() {}
 
-void IGESGeom_ToolDirection::ReadOwnParams(const Handle(IGESGeom_Direction)& ent,
+void DirectionTool::ReadOwnParams(const Handle(IGESGeom_Direction)& ent,
                                            const Handle(IGESData_IGESReaderData)& /* IR */,
                                            IGESData_ParamReader& PR) const
 {
   gp_XYZ aDirection;
-  gp_XY  tmpXY;
+  Coords2d  tmpXY;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
   Standard_Real tmpReal;
 
@@ -66,7 +66,7 @@ void IGESGeom_ToolDirection::ReadOwnParams(const Handle(IGESGeom_Direction)& ent
   ent->Init(aDirection);
 }
 
-void IGESGeom_ToolDirection::WriteOwnParams(const Handle(IGESGeom_Direction)& ent,
+void DirectionTool::WriteOwnParams(const Handle(IGESGeom_Direction)& ent,
                                             IGESData_IGESWriter&              IW) const
 {
   IW.Send(ent->Value().X());
@@ -74,22 +74,22 @@ void IGESGeom_ToolDirection::WriteOwnParams(const Handle(IGESGeom_Direction)& en
   IW.Send(ent->Value().Z());
 }
 
-void IGESGeom_ToolDirection::OwnShared(const Handle(IGESGeom_Direction)& /* ent */,
+void DirectionTool::OwnShared(const Handle(IGESGeom_Direction)& /* ent */,
                                        Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESGeom_ToolDirection::OwnCopy(const Handle(IGESGeom_Direction)& another,
+void DirectionTool::OwnCopy(const Handle(IGESGeom_Direction)& another,
                                      const Handle(IGESGeom_Direction)& ent,
                                      Interface_CopyTool& /* TC */) const
 {
   ent->Init(another->Value().XYZ());
 }
 
-IGESData_DirChecker IGESGeom_ToolDirection::DirChecker(
+DirectoryChecker DirectionTool::DirChecker(
   const Handle(IGESGeom_Direction)& /* ent */) const
 {
-  IGESData_DirChecker DC(123, 0);
+  DirectoryChecker DC(123, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   //  DC.LineWeight(IGESData_DefValue);
@@ -102,7 +102,7 @@ IGESData_DirChecker IGESGeom_ToolDirection::DirChecker(
   return DC;
 }
 
-void IGESGeom_ToolDirection::OwnCheck(const Handle(IGESGeom_Direction)& ent,
+void DirectionTool::OwnCheck(const Handle(IGESGeom_Direction)& ent,
                                       const Interface_ShareTool&,
                                       Handle(Interface_Check)& ach) const
 {
@@ -110,7 +110,7 @@ void IGESGeom_ToolDirection::OwnCheck(const Handle(IGESGeom_Direction)& ent,
     ach->AddFail("Direction : The values indicate no direction");
 }
 
-void IGESGeom_ToolDirection::OwnDump(const Handle(IGESGeom_Direction)& ent,
+void DirectionTool::OwnDump(const Handle(IGESGeom_Direction)& ent,
                                      const IGESData_IGESDumper& /* dumper */,
                                      Standard_OStream&      S,
                                      const Standard_Integer level) const

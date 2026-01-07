@@ -31,7 +31,7 @@ class IGESDimen_GeneralSymbol;
 DEFINE_STANDARD_HANDLE(IGESDimen_GeneralSymbol, IGESData_IGESEntity)
 
 //! defines General Symbol, Type <228>, Form <0-3,5001-9999>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Consists of zero or one (Form 0) or one (all other
 //! forms), one or more geometry entities which define
 //! a symbol, and zero, one or more associated leaders.

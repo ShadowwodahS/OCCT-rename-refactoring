@@ -22,7 +22,7 @@
 
 #include <Standard_Transient.hxx>
 #include <Standard_Integer.hxx>
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 class Geom2d_BSplineCurve;
 class IntSurf_LineOn2S;
 class IntSurf_PntOn2S;
@@ -34,7 +34,7 @@ class BRepApprox_ApproxLine : public RefObject
 {
 
 public:
-  Standard_EXPORT BRepApprox_ApproxLine(const Handle(Geom_BSplineCurve)&   CurveXYZ,
+  Standard_EXPORT BRepApprox_ApproxLine(const Handle(BSplineCurve3d)&   CurveXYZ,
                                         const Handle(Geom2d_BSplineCurve)& CurveUV1,
                                         const Handle(Geom2d_BSplineCurve)& CurveUV2);
 
@@ -51,7 +51,7 @@ public:
 
 protected:
 private:
-  Handle(Geom_BSplineCurve)   myCurveXYZ;
+  Handle(BSplineCurve3d)   myCurveXYZ;
   Handle(Geom2d_BSplineCurve) myCurveUV1;
   Handle(Geom2d_BSplineCurve) myCurveUV2;
   Handle(IntSurf_LineOn2S)    myLineOn2S;

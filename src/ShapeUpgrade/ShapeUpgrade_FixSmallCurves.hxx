@@ -26,8 +26,8 @@
 #include <ShapeExtend_Status.hxx>
 class ShapeUpgrade_SplitCurve3d;
 class ShapeUpgrade_SplitCurve2d;
-class Geom_Curve;
-class Geom2d_Curve;
+class GeomCurve3d;
+class GeomCurve2d;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -43,11 +43,11 @@ class ShapeUpgrade_FixSmallCurves : public ShapeUpgrade_Tool
 public:
   Standard_EXPORT ShapeUpgrade_FixSmallCurves();
 
-  Standard_EXPORT void Init(const TopoDS_Edge& theEdge, const TopoDS_Face& theFace);
+  Standard_EXPORT void Init(const TopoEdge& theEdge, const TopoFace& theFace);
 
-  Standard_EXPORT virtual Standard_Boolean Approx(Handle(Geom_Curve)&   Curve3d,
-                                                  Handle(Geom2d_Curve)& Curve2d,
-                                                  Handle(Geom2d_Curve)& Curve2dR,
+  Standard_EXPORT virtual Standard_Boolean Approx(Handle(GeomCurve3d)&   Curve3d,
+                                                  Handle(GeomCurve2d)& Curve2d,
+                                                  Handle(GeomCurve2d)& Curve2dR,
                                                   Standard_Real&        First,
                                                   Standard_Real&        Last);
 
@@ -77,8 +77,8 @@ protected:
   Standard_Integer                  myStatus;
   Handle(ShapeUpgrade_SplitCurve3d) mySplitCurve3dTool;
   Handle(ShapeUpgrade_SplitCurve2d) mySplitCurve2dTool;
-  TopoDS_Edge                       myEdge;
-  TopoDS_Face                       myFace;
+  TopoEdge                       myEdge;
+  TopoFace                       myFace;
 
 private:
 };

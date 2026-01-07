@@ -18,7 +18,7 @@
 
 #include <PrsDim_Relation.hxx>
 
-class Geom_Plane;
+class GeomPlane;
 class gp_Lin;
 class gp_Circ;
 class gp_Elips;
@@ -30,23 +30,23 @@ class PrsDim_MidPointRelation : public PrsDim_Relation
 {
   DEFINE_STANDARD_RTTIEXT(PrsDim_MidPointRelation, PrsDim_Relation)
 public:
-  Standard_EXPORT PrsDim_MidPointRelation(const TopoDS_Shape&       aSymmTool,
-                                          const TopoDS_Shape&       FirstShape,
-                                          const TopoDS_Shape&       SecondShape,
-                                          const Handle(Geom_Plane)& aPlane);
+  Standard_EXPORT PrsDim_MidPointRelation(const TopoShape&       aSymmTool,
+                                          const TopoShape&       FirstShape,
+                                          const TopoShape&       SecondShape,
+                                          const Handle(GeomPlane)& aPlane);
 
   virtual Standard_Boolean IsMovable() const Standard_OVERRIDE { return Standard_True; }
 
-  void SetTool(const TopoDS_Shape& aMidPointTool) { myTool = aMidPointTool; }
+  void SetTool(const TopoShape& aMidPointTool) { myTool = aMidPointTool; }
 
-  const TopoDS_Shape& GetTool() const { return myTool; }
+  const TopoShape& GetTool() const { return myTool; }
 
 private:
   Standard_EXPORT virtual void Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
                                        const Handle(Prs3d_Presentation)&         thePrs,
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   Standard_EXPORT void ComputeFaceFromPnt(const Handle(Prs3d_Presentation)& aprs,
@@ -87,7 +87,7 @@ private:
                                             const Standard_Boolean first);
 
 private:
-  TopoDS_Shape myTool;
+  TopoShape myTool;
   Point3d       myMidPoint;
   Point3d       myFAttach;
   Point3d       myFirstPnt1;

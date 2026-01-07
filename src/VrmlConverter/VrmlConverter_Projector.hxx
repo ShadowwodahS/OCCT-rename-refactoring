@@ -36,7 +36,7 @@
 class VrmlConverter_Projector;
 DEFINE_STANDARD_HANDLE(VrmlConverter_Projector, RefObject)
 
-//! defines projector  and calculates properties of cameras and lights from Vrml
+//! defines projector  and calculates properties of cameras and lights from Vrml1
 //! ( OrthograpicCamera, PerspectiveCamera, DirectionalLight, PointLight, SpotLight
 //! and  MatrixTransform  )  to display all scene  shapes  with  arbitrary locations
 //! for requested the Projection Vector,  High Point Direction and the Focus
@@ -87,7 +87,7 @@ private:
   Vrml_SpotLight             mySpotLight;
   VrmlConverter_TypeOfCamera myTypeOfCamera;
   VrmlConverter_TypeOfLight  myTypeOfLight;
-  Vrml_MatrixTransform       myMatrixTransform;
+  MatrixTransform       myMatrixTransform;
 };
 
 #endif // _VrmlConverter_Projector_HeaderFile

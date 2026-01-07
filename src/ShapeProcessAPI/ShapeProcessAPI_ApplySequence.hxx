@@ -28,7 +28,7 @@
 #include <Message_ProgressRange.hxx>
 
 class ShapeProcess_ShapeContext;
-class TopoDS_Shape;
+class TopoShape;
 
 //! Applies one of the sequence read from resource file.
 class ShapeProcessAPI_ApplySequence
@@ -49,8 +49,8 @@ public:
   //! If <fillmap> is True adds history "shape-shape" into myMap
   //! for shape and its subshapes until level <until> (included).
   //! If <until> is TopAbs_SHAPE,  all the subshapes are considered.
-  Standard_EXPORT TopoDS_Shape
-    PrepareShape(const TopoDS_Shape&          shape,
+  Standard_EXPORT TopoShape
+    PrepareShape(const TopoShape&          shape,
                  const Standard_Boolean       fillmap     = Standard_False,
                  const TopAbs_ShapeEnum       until       = TopAbs_SHAPE,
                  const Message_ProgressRange& theProgress = Message_ProgressRange());
@@ -70,7 +70,7 @@ protected:
 private:
   Handle(ShapeProcess_ShapeContext) myContext;
   TopTools_DataMapOfShapeShape      myMap;
-  TCollection_AsciiString           mySeq;
+  AsciiString1           mySeq;
 };
 
 #endif // _ShapeProcessAPI_ApplySequence_HeaderFile

@@ -22,7 +22,7 @@
 #include <TopTools_MapOfShape.hxx>
 #include <SelectMgr_Filter.hxx>
 #include <TopAbs_ShapeEnum.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class SelectMgr_EntityOwner;
 
 class AIS_C0RegularityFilter;
@@ -32,7 +32,7 @@ class AIS_C0RegularityFilter : public SelectMgr_Filter
 {
 
 public:
-  Standard_EXPORT AIS_C0RegularityFilter(const TopoDS_Shape& aShape);
+  Standard_EXPORT AIS_C0RegularityFilter(const TopoShape& aShape);
 
   Standard_EXPORT virtual Standard_Boolean ActsOn(const TopAbs_ShapeEnum aType) const
     Standard_OVERRIDE;

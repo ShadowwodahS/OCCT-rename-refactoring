@@ -44,7 +44,7 @@ StepToTopoDS_TranslateCurveBoundedSurface::StepToTopoDS_TranslateCurveBoundedSur
 StepToTopoDS_TranslateCurveBoundedSurface::StepToTopoDS_TranslateCurveBoundedSurface(
   const Handle(StepGeom_CurveBoundedSurface)& CBS,
   const Handle(Transfer_TransientProcess)&    TP,
-  const StepData_Factors&                     theLocalFactors)
+  const ConversionFactors&                     theLocalFactors)
 {
   Init(CBS, TP, theLocalFactors);
 }
@@ -54,7 +54,7 @@ StepToTopoDS_TranslateCurveBoundedSurface::StepToTopoDS_TranslateCurveBoundedSur
 Standard_Boolean StepToTopoDS_TranslateCurveBoundedSurface::Init(
   const Handle(StepGeom_CurveBoundedSurface)& CBS,
   const Handle(Transfer_TransientProcess)&    TP,
-  const StepData_Factors&                     theLocalFactors)
+  const ConversionFactors&                     theLocalFactors)
 {
   myFace.Nullify();
   if (CBS.IsNull())
@@ -62,7 +62,7 @@ Standard_Boolean StepToTopoDS_TranslateCurveBoundedSurface::Init(
 
   // translate basis surface
   Handle(StepGeom_Surface) S    = CBS->BasisSurface();
-  Handle(Geom_Surface)     Surf = StepToGeom::MakeSurface(S, theLocalFactors);
+  Handle(GeomSurface)     Surf = StepToGeom1::MakeSurface(S, theLocalFactors);
   if (Surf.IsNull())
   {
     TP->AddFail(CBS, "Basis surface not translated");
@@ -74,7 +74,7 @@ Standard_Boolean StepToTopoDS_TranslateCurveBoundedSurface::Init(
   Handle(StepGeom_BSplineSurface) sgbss = Handle(StepGeom_BSplineSurface)::DownCast(S);
   if (!sgbss.IsNull())
   {
-    Handle(Geom_Surface) periodicSurf = ShapeAlgo::AlgoContainer()->ConvertToPeriodic(Surf);
+    Handle(GeomSurface) periodicSurf = ShapeAlgo::AlgoContainer()->ConvertToPeriodic(Surf);
     if (!periodicSurf.IsNull())
     {
       TP->AddWarning(S, "Surface forced to be periodic");
@@ -83,7 +83,7 @@ Standard_Boolean StepToTopoDS_TranslateCurveBoundedSurface::Init(
   }
 
   // create face
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeFace(myFace, Surf, Precision::Confusion());
 
   // add natural bound if implicit
@@ -91,7 +91,7 @@ Standard_Boolean StepToTopoDS_TranslateCurveBoundedSurface::Init(
   {
     if (Surf->IsKind(STANDARD_TYPE(Geom_BoundedSurface)))
     {
-      BRepBuilderAPI_MakeFace mf(Surf, Precision::Confusion());
+      FaceMaker mf(Surf, Precision::Confusion());
       myFace = mf.Face();
     }
     else
@@ -121,7 +121,7 @@ Standard_Boolean StepToTopoDS_TranslateCurveBoundedSurface::Init(
 
 //=================================================================================================
 
-const TopoDS_Face& StepToTopoDS_TranslateCurveBoundedSurface::Value() const
+const TopoFace& StepToTopoDS_TranslateCurveBoundedSurface::Value() const
 {
   return myFace;
 }

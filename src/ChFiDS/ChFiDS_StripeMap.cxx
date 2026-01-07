@@ -19,11 +19,11 @@
 
 //=================================================================================================
 
-ChFiDS_StripeMap::ChFiDS_StripeMap() {}
+StripeMap::StripeMap() {}
 
 //=================================================================================================
 
-void ChFiDS_StripeMap::Add(const TopoDS_Vertex& V, const Handle(ChFiDS_Stripe)& F)
+void StripeMap::Add(const TopoVertex& V, const Handle(ChFiDS_Stripe)& F)
 {
   Standard_Integer Index = mymap.FindIndex(V);
   if (Index == 0)
@@ -36,19 +36,19 @@ void ChFiDS_StripeMap::Add(const TopoDS_Vertex& V, const Handle(ChFiDS_Stripe)& 
 
 //=================================================================================================
 
-const ChFiDS_ListOfStripe& ChFiDS_StripeMap::FindFromKey(const TopoDS_Vertex& V) const
+const ChFiDS_ListOfStripe& StripeMap::FindFromKey(const TopoVertex& V) const
 {
   return mymap.FindFromKey(V);
 }
 
 //=================================================================================================
 
-const ChFiDS_ListOfStripe& ChFiDS_StripeMap::FindFromIndex(const Standard_Integer I) const
+const ChFiDS_ListOfStripe& StripeMap::FindFromIndex(const Standard_Integer I) const
 {
   return mymap.FindFromIndex(I);
 }
 
-void ChFiDS_StripeMap::Clear()
+void StripeMap::Clear()
 {
   mymap.Clear();
 }

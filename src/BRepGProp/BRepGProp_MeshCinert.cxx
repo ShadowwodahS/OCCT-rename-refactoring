@@ -131,11 +131,11 @@ void BRepGProp_MeshCinert::Perform(const TColgp_Array1OfPnt& theNodes)
 
 //=================================================================================================
 
-void BRepGProp_MeshCinert::PreparePolygon(const TopoDS_Edge&           theE,
+void BRepGProp_MeshCinert::PreparePolygon(const TopoEdge&           theE,
                                           Handle(TColgp_HArray1OfPnt)& thePolyg)
 {
   TopLoc_Location               aLoc;
-  const Handle(Poly_Polygon3D)& aPolyg = BRep_Tool::Polygon3D(theE, aLoc);
+  const Handle(Poly_Polygon3D)& aPolyg = BRepInspector::Polygon3D(theE, aLoc);
   if (!aPolyg.IsNull())
   {
     const TColgp_Array1OfPnt& aNodes = aPolyg->Nodes();
@@ -160,9 +160,9 @@ void BRepGProp_MeshCinert::PreparePolygon(const TopoDS_Edge&           theE,
   }
 
   // Try to get PolygonOnTriangulation
-  Handle(Poly_Triangulation)          aTri;
+  Handle(MeshTriangulation)          aTri;
   Handle(Poly_PolygonOnTriangulation) aPOnTri;
-  BRep_Tool::PolygonOnTriangulation(theE, aPOnTri, aTri, aLoc);
+  BRepInspector::PolygonOnTriangulation(theE, aPOnTri, aTri, aLoc);
   if (!aPOnTri.IsNull())
   {
     Standard_Integer aNbNodes                = aPOnTri->NbNodes();
@@ -189,8 +189,8 @@ void BRepGProp_MeshCinert::PreparePolygon(const TopoDS_Edge&           theE,
   //
   // Try to get Polygon2D on Surface
   Handle(Poly_Polygon2D) aPolyg2D;
-  Handle(Geom_Surface)   aS;
-  BRep_Tool::PolygonOnSurface(theE, aPolyg2D, aS, aLoc);
+  Handle(GeomSurface)   aS;
+  BRepInspector::PolygonOnSurface(theE, aPolyg2D, aS, aLoc);
   if (!aPolyg2D.IsNull())
   {
     Standard_Integer aNbNodes            = aPolyg2D->NbNodes();

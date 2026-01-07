@@ -30,10 +30,10 @@
 
 class Resource_Manager;
 class CDM_Document;
-class TCollection_ExtendedString;
+class UtfString;
 
-class TDocStd_Application;
-DEFINE_STANDARD_HANDLE(TDocStd_Application, CDF_Application)
+class AppManager;
+DEFINE_STANDARD_HANDLE(AppManager, CDF_Application)
 
 //! The abstract root class for all application classes.
 //! They are in charge of:
@@ -49,7 +49,7 @@ DEFINE_STANDARD_HANDLE(TDocStd_Application, CDF_Application)
 //! which in its turn is the container of the data
 //! framework made up of labels and attributes.
 //! Besides furnishing a container for documents,
-//! TDocStd_Application provides the following
+//! AppManager provides the following
 //! services for them:
 //! -   Creation of new documents
 //! -   Activation of documents in sessions of an application
@@ -59,17 +59,17 @@ DEFINE_STANDARD_HANDLE(TDocStd_Application, CDF_Application)
 //! If a client needs detailed information concerning
 //! the events during the Open/Store operation, a MessageDriver
 //! based on Message_PrinterOStream may be used. In case of need client
-//! can implement his own version inheriting from Message_Printer class
+//! can implement his own version inheriting from LogPrinter class
 //! and add it to the Messenger.
 //! Also the trace level of messages can be tuned by setting trace level (SetTraceLevel (Gravity ))
 //! for the used Printer. By default, trace level is Message_Info, so that all messages are output.
 
-class TDocStd_Application : public CDF_Application
+class AppManager : public CDF_Application
 {
 
 public:
   //! Constructs the new instance and registers it in CDM_Session
-  Standard_EXPORT TDocStd_Application();
+  Standard_EXPORT AppManager();
 
   //! Check if meta data driver was successfully loaded
   //! by the application constructor
@@ -137,9 +137,9 @@ public:
   //!                    Null value is allowed (no possibility to read).
   //! @param theWriter - instance of the write driver for the format.
   //!                    Null value is allowed (no possibility to write).
-  Standard_EXPORT void DefineFormat(const TCollection_AsciiString&      theFormat,
-                                    const TCollection_AsciiString&      theDescription,
-                                    const TCollection_AsciiString&      theExtension,
+  Standard_EXPORT void DefineFormat(const AsciiString1&      theFormat,
+                                    const AsciiString1&      theDescription,
+                                    const AsciiString1&      theExtension,
                                     const Handle(PCDM_RetrievalDriver)& theReader,
                                     const Handle(PCDM_StorageDriver)&   theWriter);
 
@@ -161,7 +161,7 @@ public:
   //! any integer between 1 and n where n is the
   //! number of documents returned by NbDocument.
   //! Example
-  //! Handle(TDocStd_Application)
+  //! Handle(AppManager)
   //! anApp;
   //! if (!CafTest::Find(A)) return 1;
   //! Handle(TDocStd) aDoc;
@@ -169,20 +169,20 @@ public:
   //! for (Standard_Integer i = 1; i <= nbdoc; i++) {
   //! aApp->GetDocument(i,aDoc);
   Standard_EXPORT void GetDocument(const Standard_Integer    index,
-                                   Handle(TDocStd_Document)& aDoc) const;
+                                   Handle(AppDocument)& aDoc) const;
 
   //! Constructs the empty new document aDoc.
   //! This document will have the format format.
   //! If InitDocument is redefined for a specific
   //! application, the new document is handled by the
   //! applicative session.
-  Standard_EXPORT virtual void NewDocument(const TCollection_ExtendedString& format,
+  Standard_EXPORT virtual void NewDocument(const UtfString& format,
                                            Handle(CDM_Document)& aDoc) Standard_OVERRIDE;
 
   //! A non-virtual method taking a TDocStd_Documment object as an input.
   //! Internally it calls a virtual method NewDocument() with CDM_Document object.
-  Standard_EXPORT void NewDocument(const TCollection_ExtendedString& format,
-                                   Handle(TDocStd_Document)&         aDoc);
+  Standard_EXPORT void NewDocument(const UtfString& format,
+                                   Handle(AppDocument)&         aDoc);
 
   //! Initialize the document aDoc for the applicative session.
   //! This virtual function is called by NewDocument
@@ -196,7 +196,7 @@ public:
 
   //! Close the given document. the document is not any more
   //! handled by the applicative session.
-  Standard_EXPORT void Close(const Handle(TDocStd_Document)& aDoc);
+  Standard_EXPORT void Close(const Handle(AppDocument)& aDoc);
 
   //! Returns an index for the document found in the
   //! path path in this applicative session.
@@ -218,7 +218,7 @@ public:
   //! std::cout << "document " << insession << " is already in session" << std::endl;
   //! return 0;
   //! }
-  Standard_EXPORT Standard_Integer IsInSession(const TCollection_ExtendedString& path) const;
+  Standard_EXPORT Standard_Integer IsInSession(const UtfString& path) const;
 
   //! Retrieves the document from specified file.
   //! In order not to override a version of the document which is already in memory,
@@ -229,8 +229,8 @@ public:
   //! @param[in]  theRange  optional progress indicator
   //! @return reading status
   Standard_EXPORT PCDM_ReaderStatus
-    Open(const TCollection_ExtendedString& thePath,
-         Handle(TDocStd_Document)&         theDoc,
+    Open(const UtfString& thePath,
+         Handle(AppDocument)&         theDoc,
          const Handle(PCDM_ReaderFilter)&  theFilter,
          const Message_ProgressRange&      theRange = Message_ProgressRange());
 
@@ -241,8 +241,8 @@ public:
   //! @param[out] theDoc   result document
   //! @param[in]  theRange optional progress indicator
   //! @return reading status
-  PCDM_ReaderStatus Open(const TCollection_ExtendedString& thePath,
-                         Handle(TDocStd_Document)&         theDoc,
+  PCDM_ReaderStatus Open(const UtfString& thePath,
+                         Handle(AppDocument)&         theDoc,
                          const Message_ProgressRange&      theRange = Message_ProgressRange())
   {
     return Open(thePath, theDoc, Handle(PCDM_ReaderFilter)(), theRange);
@@ -256,7 +256,7 @@ public:
   //! @return reading status
   Standard_EXPORT PCDM_ReaderStatus
     Open(Standard_IStream&                theIStream,
-         Handle(TDocStd_Document)&        theDoc,
+         Handle(AppDocument)&        theDoc,
          const Handle(PCDM_ReaderFilter)& theFilter,
          const Message_ProgressRange&     theRange = Message_ProgressRange());
 
@@ -266,7 +266,7 @@ public:
   //! @param[in]     theRange   optional progress indicator
   //! @return reading status
   PCDM_ReaderStatus Open(Standard_IStream&            theIStream,
-                         Handle(TDocStd_Document)&    theDoc,
+                         Handle(AppDocument)&    theDoc,
                          const Message_ProgressRange& theRange = Message_ProgressRange())
   {
     return Open(theIStream, theDoc, Handle(PCDM_ReaderFilter)(), theRange);
@@ -275,14 +275,14 @@ public:
   //! Save the  active document  in the file  <name> in the
   //! path <path> ; o verwrites  the file  if  it already exists.
   Standard_EXPORT PCDM_StoreStatus
-    SaveAs(const Handle(TDocStd_Document)&   theDoc,
-           const TCollection_ExtendedString& path,
+    SaveAs(const Handle(AppDocument)&   theDoc,
+           const UtfString& path,
            const Message_ProgressRange&      theRange = Message_ProgressRange());
 
   //! Save theDoc to standard SEEKABLE stream theOStream.
   //! the stream should support SEEK functionality
   Standard_EXPORT PCDM_StoreStatus
-    SaveAs(const Handle(TDocStd_Document)& theDoc,
+    SaveAs(const Handle(AppDocument)& theDoc,
            Standard_OStream&               theOStream,
            const Message_ProgressRange&    theRange = Message_ProgressRange());
 
@@ -291,45 +291,45 @@ public:
   //! Standard_NotImplemented if the document
   //! was not retrieved in the applicative session by using Open.
   Standard_EXPORT PCDM_StoreStatus
-    Save(const Handle(TDocStd_Document)& theDoc,
+    Save(const Handle(AppDocument)& theDoc,
          const Message_ProgressRange&    theRange = Message_ProgressRange());
 
   //! Save the  active document  in the file  <name> in the
   //! path <path>  .  overwrite  the file  if  it
   //! already exist.
   Standard_EXPORT PCDM_StoreStatus
-    SaveAs(const Handle(TDocStd_Document)&   theDoc,
-           const TCollection_ExtendedString& path,
-           TCollection_ExtendedString&       theStatusMessage,
+    SaveAs(const Handle(AppDocument)&   theDoc,
+           const UtfString& path,
+           UtfString&       theStatusMessage,
            const Message_ProgressRange&      theRange = Message_ProgressRange());
 
   //! Save theDoc TO standard SEEKABLE stream theOStream.
   //! the stream should support SEEK functionality
   Standard_EXPORT PCDM_StoreStatus
-    SaveAs(const Handle(TDocStd_Document)& theDoc,
+    SaveAs(const Handle(AppDocument)& theDoc,
            Standard_OStream&               theOStream,
-           TCollection_ExtendedString&     theStatusMessage,
+           UtfString&     theStatusMessage,
            const Message_ProgressRange&    theRange = Message_ProgressRange());
 
   //! Save the document overwriting the previous file
   Standard_EXPORT PCDM_StoreStatus
-    Save(const Handle(TDocStd_Document)& theDoc,
-         TCollection_ExtendedString&     theStatusMessage,
+    Save(const Handle(AppDocument)& theDoc,
+         UtfString&     theStatusMessage,
          const Message_ProgressRange&    theRange = Message_ProgressRange());
 
   //! Notification that is fired at each OpenTransaction event.
-  Standard_EXPORT virtual void OnOpenTransaction(const Handle(TDocStd_Document)& theDoc);
+  Standard_EXPORT virtual void OnOpenTransaction(const Handle(AppDocument)& theDoc);
 
   //! Notification that is fired at each CommitTransaction event.
-  Standard_EXPORT virtual void OnCommitTransaction(const Handle(TDocStd_Document)& theDoc);
+  Standard_EXPORT virtual void OnCommitTransaction(const Handle(AppDocument)& theDoc);
 
   //! Notification that is fired at each AbortTransaction event.
-  Standard_EXPORT virtual void OnAbortTransaction(const Handle(TDocStd_Document)& theDoc);
+  Standard_EXPORT virtual void OnAbortTransaction(const Handle(AppDocument)& theDoc);
 
   //! Dumps the content of me into the stream
   Standard_EXPORT void DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth = -1) const;
 
-  DEFINE_STANDARD_RTTIEXT(TDocStd_Application, CDF_Application)
+  DEFINE_STANDARD_RTTIEXT(AppManager, CDF_Application)
 
 protected:
   Handle(Resource_Manager) myResources;

@@ -48,10 +48,10 @@ void IFSelect_ModifEditForm::Perform(IFSelect_ContextModif&                  ctx
   }
 }
 
-TCollection_AsciiString IFSelect_ModifEditForm::Label() const
+AsciiString1 IFSelect_ModifEditForm::Label() const
 {
   Standard_CString        editlab = theedit->Label();
-  TCollection_AsciiString lab("Apply EditForm");
+  AsciiString1 lab("Apply EditForm");
   if (editlab && editlab[0] != '\0')
   {
     lab.AssignCat(" : ");

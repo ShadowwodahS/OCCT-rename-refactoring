@@ -47,14 +47,14 @@ BRepAdaptor_Curve::BRepAdaptor_Curve() {}
 
 //=================================================================================================
 
-BRepAdaptor_Curve::BRepAdaptor_Curve(const TopoDS_Edge& E)
+BRepAdaptor_Curve::BRepAdaptor_Curve(const TopoEdge& E)
 {
   Initialize(E);
 }
 
 //=================================================================================================
 
-BRepAdaptor_Curve::BRepAdaptor_Curve(const TopoDS_Edge& E, const TopoDS_Face& F)
+BRepAdaptor_Curve::BRepAdaptor_Curve(const TopoEdge& E, const TopoFace& F)
 {
   Initialize(E, F);
 }
@@ -92,14 +92,14 @@ void BRepAdaptor_Curve::Reset()
 
 //=================================================================================================
 
-void BRepAdaptor_Curve::Initialize(const TopoDS_Edge& E)
+void BRepAdaptor_Curve::Initialize(const TopoEdge& E)
 {
   myConSurf.Nullify();
   myEdge = E;
   Standard_Real pf, pl;
 
   TopLoc_Location    L;
-  Handle(Geom_Curve) C = BRep_Tool::Curve(E, L, pf, pl);
+  Handle(GeomCurve3d) C = BRepInspector::Curve(E, L, pf, pl);
 
   if (!C.IsNull())
   {
@@ -107,9 +107,9 @@ void BRepAdaptor_Curve::Initialize(const TopoDS_Edge& E)
   }
   else
   {
-    Handle(Geom2d_Curve) PC;
-    Handle(Geom_Surface) S;
-    BRep_Tool::CurveOnSurface(E, PC, S, L, pf, pl);
+    Handle(GeomCurve2d) PC;
+    Handle(GeomSurface) S;
+    BRepInspector::CurveOnSurface(E, PC, S, L, pf, pl);
     if (!PC.IsNull())
     {
       Handle(GeomAdaptor_Surface) HS = new GeomAdaptor_Surface();
@@ -129,15 +129,15 @@ void BRepAdaptor_Curve::Initialize(const TopoDS_Edge& E)
 
 //=================================================================================================
 
-void BRepAdaptor_Curve::Initialize(const TopoDS_Edge& E, const TopoDS_Face& F)
+void BRepAdaptor_Curve::Initialize(const TopoEdge& E, const TopoFace& F)
 {
   myConSurf.Nullify();
 
   myEdge = E;
   TopLoc_Location      L;
   Standard_Real        pf, pl;
-  Handle(Geom_Surface) S  = BRep_Tool::Surface(F, L);
-  Handle(Geom2d_Curve) PC = BRep_Tool::CurveOnSurface(E, F, pf, pl);
+  Handle(GeomSurface) S  = BRepInspector::Surface(F, L);
+  Handle(GeomCurve2d) PC = BRepInspector::CurveOnSurface(E, F, pf, pl);
 
   Handle(GeomAdaptor_Surface) HS = new GeomAdaptor_Surface();
   HS->Load(S);
@@ -186,7 +186,7 @@ const Adaptor3d_CurveOnSurface& BRepAdaptor_Curve::CurveOnSurface() const
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepAdaptor_Curve::Edge() const
+const TopoEdge& BRepAdaptor_Curve::Edge() const
 {
   return myEdge;
 }
@@ -195,7 +195,7 @@ const TopoDS_Edge& BRepAdaptor_Curve::Edge() const
 
 Standard_Real BRepAdaptor_Curve::Tolerance() const
 {
-  return BRep_Tool::Tolerance(myEdge);
+  return BRepInspector::Tolerance(myEdge);
 }
 
 //=================================================================================================
@@ -279,7 +279,7 @@ Handle(Adaptor3d_Curve) BRepAdaptor_Curve::Trim(const Standard_Real First,
   if (myConSurf.IsNull())
   {
     Standard_Real      pf = FirstParameter(), pl = LastParameter();
-    Handle(Geom_Curve) C = myCurve.Curve();
+    Handle(GeomCurve3d) C = myCurve.Curve();
     const_cast<GeomAdaptor_Curve*>(&myCurve)->Load(C, First, Last);
     res = new BRepAdaptor_Curve(*this);
     const_cast<GeomAdaptor_Curve*>(&myCurve)->Load(C, pf, pl);
@@ -552,9 +552,9 @@ Standard_Integer BRepAdaptor_Curve::NbKnots() const
 
 //=================================================================================================
 
-Handle(Geom_BezierCurve) BRepAdaptor_Curve::Bezier() const
+Handle(BezierCurve3d) BRepAdaptor_Curve::Bezier() const
 {
-  Handle(Geom_BezierCurve) BC;
+  Handle(BezierCurve3d) BC;
   if (myConSurf.IsNull())
   {
     BC = myCurve.Bezier();
@@ -564,14 +564,14 @@ Handle(Geom_BezierCurve) BRepAdaptor_Curve::Bezier() const
     BC = myConSurf->Bezier();
   }
   return myTrsf.Form() == gp_Identity ? BC
-                                      : Handle(Geom_BezierCurve)::DownCast(BC->Transformed(myTrsf));
+                                      : Handle(BezierCurve3d)::DownCast(BC->Transformed(myTrsf));
 }
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) BRepAdaptor_Curve::BSpline() const
+Handle(BSplineCurve3d) BRepAdaptor_Curve::BSpline() const
 {
-  Handle(Geom_BSplineCurve) BS;
+  Handle(BSplineCurve3d) BS;
   if (myConSurf.IsNull())
   {
     BS = myCurve.BSpline();
@@ -582,7 +582,7 @@ Handle(Geom_BSplineCurve) BRepAdaptor_Curve::BSpline() const
   }
   return myTrsf.Form() == gp_Identity
            ? BS
-           : Handle(Geom_BSplineCurve)::DownCast(BS->Transformed(myTrsf));
+           : Handle(BSplineCurve3d)::DownCast(BS->Transformed(myTrsf));
 }
 
 //=================================================================================================

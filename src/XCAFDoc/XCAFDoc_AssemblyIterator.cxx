@@ -28,7 +28,7 @@
 // purpose  : Starts from free shapes
 // =======================================================================
 
-XCAFDoc_AssemblyIterator::XCAFDoc_AssemblyIterator(const Handle(TDocStd_Document)& theDoc,
+XCAFDoc_AssemblyIterator::XCAFDoc_AssemblyIterator(const Handle(AppDocument)& theDoc,
                                                    const Standard_Integer          theLevel)
     : myMaxLevel(theLevel),
       mySeedLevel(1)
@@ -57,7 +57,7 @@ XCAFDoc_AssemblyIterator::XCAFDoc_AssemblyIterator(const Handle(TDocStd_Document
 // purpose  : Starts from the specified root
 // =======================================================================
 
-XCAFDoc_AssemblyIterator::XCAFDoc_AssemblyIterator(const Handle(TDocStd_Document)& theDoc,
+XCAFDoc_AssemblyIterator::XCAFDoc_AssemblyIterator(const Handle(AppDocument)& theDoc,
                                                    const XCAFDoc_AssemblyItemId&   theRoot,
                                                    const Standard_Integer          theLevel)
     : myMaxLevel(theLevel),
@@ -79,7 +79,7 @@ XCAFDoc_AssemblyIterator::XCAFDoc_AssemblyIterator(const Handle(TDocStd_Document
   if (aSeed.myLabel.IsNull())
     return;
 
-  TDF_Label anOriginal;
+  DataLabel anOriginal;
   if (myShapeTool->GetReferredShape(aSeed.myLabel, anOriginal))
   {
     if (!myShapeTool->IsAssembly(aSeed.myLabel))
@@ -88,7 +88,7 @@ XCAFDoc_AssemblyIterator::XCAFDoc_AssemblyIterator(const Handle(TDocStd_Document
     }
     else
     {
-      TCollection_AsciiString aPathStr = theRoot.ToString();
+      AsciiString1 aPathStr = theRoot.ToString();
       Standard_Integer        anIndex  = aPathStr.SearchFromEnd("/");
       if (anIndex != -1)
       {
@@ -146,7 +146,7 @@ void XCAFDoc_AssemblyIterator::Next()
     AuxAssemblyItem anAuxItem;
     for (Standard_Integer l = aComponents.Length(); l >= 1; --l)
     {
-      TDF_Label aLabel = aComponents(l); // Insertion-level label
+      DataLabel aLabel = aComponents(l); // Insertion-level label
       createItem(aLabel, aCurrent.myItem.GetPath(), anAuxItem);
 
       // Set item to iterate
@@ -170,14 +170,14 @@ XCAFDoc_AssemblyItemId XCAFDoc_AssemblyIterator::Current() const
 // purpose  : Makes an assembly item id from the specified label
 // =======================================================================
 
-void XCAFDoc_AssemblyIterator::createItem(const TDF_Label&                 theLabel,
+void XCAFDoc_AssemblyIterator::createItem(const DataLabel&                 theLabel,
                                           const TColStd_ListOfAsciiString& theParentPath,
                                           AuxAssemblyItem&                 theAuxItem) const
 {
-  TCollection_AsciiString anEntry;
+  AsciiString1 anEntry;
   TDF_Tool::Entry(theLabel, anEntry);
 
-  TDF_Label anOriginal;
+  DataLabel anOriginal;
   if (myShapeTool->GetReferredShape(theLabel, anOriginal))
   {
     theAuxItem.myLabel = anOriginal;

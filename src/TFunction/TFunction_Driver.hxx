@@ -44,10 +44,10 @@ class TFunction_Driver : public RefObject
 
 public:
   //! Initializes the label L for this function prior to its  execution.
-  Standard_EXPORT void Init(const TDF_Label& L);
+  Standard_EXPORT void Init(const DataLabel& L);
 
   //! Returns the label of the driver for this function.
-  TDF_Label Label() const;
+  DataLabel Label() const;
 
   //! Validates labels of a function  in <log>.
   //! This function is the one initialized in this function driver.
@@ -85,7 +85,7 @@ protected:
   Standard_EXPORT TFunction_Driver();
 
 private:
-  TDF_Label myLabel;
+  DataLabel myLabel;
 };
 
 #include <TFunction_Driver.lxx>

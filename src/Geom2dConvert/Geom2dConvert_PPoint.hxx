@@ -36,8 +36,8 @@ public:
 
   //! Constructor.
   Standard_EXPORT inline Geom2dConvert_PPoint(const Standard_Real theParameter,
-                                              const gp_XY&        thePoint,
-                                              const gp_XY&        theD1)
+                                              const Coords2d&        thePoint,
+                                              const Coords2d&        theD1)
       : myParameter(theParameter),
         myPoint(thePoint),
         myD1(theD1)
@@ -58,13 +58,13 @@ public:
   inline Standard_Real Parameter() const { return myParameter; }
 
   //! Query the point location.
-  inline const gp_XY& Point() const { return myPoint.XY(); }
+  inline const Coords2d& Point() const { return myPoint.XY(); }
 
   //! Query the first derivatives.
-  inline const gp_XY& D1() const { return myD1.XY(); }
+  inline const Coords2d& D1() const { return myD1.XY(); }
 
   //! Change the value of the derivative at the point.
-  inline void SetD1(const gp_XY& theD1) { myD1.SetXY(theD1); }
+  inline void SetD1(const Coords2d& theD1) { myD1.SetXY(theD1); }
 
   //! Compare two values of this type.
   Standard_EXPORT Standard_Boolean operator==(const Geom2dConvert_PPoint&) const;

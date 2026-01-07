@@ -48,7 +48,7 @@ Standard_Boolean BinMDocStd_XLinkDriver::Paste(const BinObjMgt_Persistent&  theS
                                                const Handle(TDF_Attribute)& theTarget,
                                                BinObjMgt_RRelocationTable&) const
 {
-  TCollection_AsciiString aStr;
+  AsciiString1 aStr;
   Standard_Boolean        ok = theSource >> aStr;
   if (ok)
   {

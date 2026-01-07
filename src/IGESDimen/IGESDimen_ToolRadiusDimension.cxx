@@ -36,15 +36,15 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESDimen_ToolRadiusDimension::IGESDimen_ToolRadiusDimension() {}
+RadiusDimensionTool::RadiusDimensionTool() {}
 
-void IGESDimen_ToolRadiusDimension::ReadOwnParams(const Handle(IGESDimen_RadiusDimension)& ent,
+void RadiusDimensionTool::ReadOwnParams(const Handle(IGESDimen_RadiusDimension)& ent,
                                                   const Handle(IGESData_IGESReaderData)&   IR,
                                                   IGESData_ParamReader&                    PR) const
 {
   Handle(IGESDimen_GeneralNote) tempNote;
   Handle(IGESDimen_LeaderArrow) leadArr;
-  gp_XY                         arcCenter;
+  Coords2d                         arcCenter;
   Handle(IGESDimen_LeaderArrow) leadArr2;
   // Standard_Boolean st; //szv#4:S4163:12Mar99 not needed
 
@@ -74,7 +74,7 @@ void IGESDimen_ToolRadiusDimension::ReadOwnParams(const Handle(IGESDimen_RadiusD
   ent->Init(tempNote, leadArr, arcCenter, leadArr2);
 }
 
-void IGESDimen_ToolRadiusDimension::WriteOwnParams(const Handle(IGESDimen_RadiusDimension)& ent,
+void RadiusDimensionTool::WriteOwnParams(const Handle(IGESDimen_RadiusDimension)& ent,
                                                    IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->Note());
@@ -85,7 +85,7 @@ void IGESDimen_ToolRadiusDimension::WriteOwnParams(const Handle(IGESDimen_Radius
     IW.Send(ent->Leader2());
 }
 
-void IGESDimen_ToolRadiusDimension::OwnShared(const Handle(IGESDimen_RadiusDimension)& ent,
+void RadiusDimensionTool::OwnShared(const Handle(IGESDimen_RadiusDimension)& ent,
                                               Interface_EntityIterator&                iter) const
 {
   iter.GetOneItem(ent->Note());
@@ -93,13 +93,13 @@ void IGESDimen_ToolRadiusDimension::OwnShared(const Handle(IGESDimen_RadiusDimen
   iter.GetOneItem(ent->Leader2());
 }
 
-void IGESDimen_ToolRadiusDimension::OwnCopy(const Handle(IGESDimen_RadiusDimension)& another,
+void RadiusDimensionTool::OwnCopy(const Handle(IGESDimen_RadiusDimension)& another,
                                             const Handle(IGESDimen_RadiusDimension)& ent,
                                             Interface_CopyTool&                      TC) const
 {
   DeclareAndCast(IGESDimen_GeneralNote, tempNote, TC.Transferred(another->Note()));
   DeclareAndCast(IGESDimen_LeaderArrow, leadArr, TC.Transferred(another->Leader()));
-  gp_XY                         arcCenter = another->Center().XY();
+  Coords2d                         arcCenter = another->Center().XY();
   Handle(IGESDimen_LeaderArrow) leadArr2;
   if (another->HasLeader2())
     leadArr2 = GetCasted(IGESDimen_LeaderArrow, TC.Transferred(another->Leader2()));
@@ -107,10 +107,10 @@ void IGESDimen_ToolRadiusDimension::OwnCopy(const Handle(IGESDimen_RadiusDimensi
   ent->InitForm(another->FormNumber());
 }
 
-IGESData_DirChecker IGESDimen_ToolRadiusDimension::DirChecker(
+DirectoryChecker RadiusDimensionTool::DirChecker(
   const Handle(IGESDimen_RadiusDimension)& /* ent */) const
 {
-  IGESData_DirChecker DC(222, 0, 1);
+  DirectoryChecker DC(222, 0, 1);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.LineWeight(IGESData_DefValue);
@@ -121,7 +121,7 @@ IGESData_DirChecker IGESDimen_ToolRadiusDimension::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolRadiusDimension::OwnCheck(const Handle(IGESDimen_RadiusDimension)& ent,
+void RadiusDimensionTool::OwnCheck(const Handle(IGESDimen_RadiusDimension)& ent,
                                              const Interface_ShareTool&,
                                              Handle(Interface_Check)& ach) const
 {
@@ -130,7 +130,7 @@ void IGESDimen_ToolRadiusDimension::OwnCheck(const Handle(IGESDimen_RadiusDimens
   // Form 1 : Leader can be defined or not. Form 0 : only cannot
 }
 
-void IGESDimen_ToolRadiusDimension::OwnDump(const Handle(IGESDimen_RadiusDimension)& ent,
+void RadiusDimensionTool::OwnDump(const Handle(IGESDimen_RadiusDimension)& ent,
                                             const IGESData_IGESDumper&               dumper,
                                             Standard_OStream&                        S,
                                             const Standard_Integer                   level) const

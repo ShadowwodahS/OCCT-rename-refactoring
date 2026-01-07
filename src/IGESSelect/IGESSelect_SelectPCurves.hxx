@@ -25,7 +25,7 @@
 class RefObject;
 class Interface_Graph;
 class Interface_EntityIterator;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IGESSelect_SelectPCurves;
 DEFINE_STANDARD_HANDLE(IGESSelect_SelectPCurves, IFSelect_SelectExplore)
@@ -53,7 +53,7 @@ public:
 
   //! Returns a text defining the criterium : "Basic PCurves" or
   //! "Global PCurves"
-  Standard_EXPORT TCollection_AsciiString ExploreLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExploreLabel() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_SelectPCurves, IFSelect_SelectExplore)
 

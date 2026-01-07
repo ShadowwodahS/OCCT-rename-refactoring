@@ -48,7 +48,7 @@ Handle(Expr_GeneralExpression) Expr_UnaryMinus::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_UnaryMinus::Copy() const
 {
-  return -(Expr::CopyShare(Operand()));
+  return -(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_UnaryMinus::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -94,9 +94,9 @@ Standard_Real Expr_UnaryMinus::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return -Operand()->Evaluate(vars, vals);
 }
 
-TCollection_AsciiString Expr_UnaryMinus::String() const
+AsciiString1 Expr_UnaryMinus::String() const
 {
-  TCollection_AsciiString        str;
+  AsciiString1        str;
   Handle(Expr_GeneralExpression) op = Operand();
   if (op->NbSubExpressions() > 1)
   {

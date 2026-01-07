@@ -22,7 +22,7 @@
 
 #include <TColGeom2d_HArray1OfCurve.hxx>
 #include <ShapeUpgrade_SplitCurve.hxx>
-class Geom2d_Curve;
+class GeomCurve2d;
 
 class ShapeUpgrade_SplitCurve2d;
 DEFINE_STANDARD_HANDLE(ShapeUpgrade_SplitCurve2d, ShapeUpgrade_SplitCurve)
@@ -36,10 +36,10 @@ public:
   Standard_EXPORT ShapeUpgrade_SplitCurve2d();
 
   //! Initializes with pcurve with its first and last parameters.
-  Standard_EXPORT void Init(const Handle(Geom2d_Curve)& C);
+  Standard_EXPORT void Init(const Handle(GeomCurve2d)& C);
 
   //! Initializes with pcurve with its parameters.
-  Standard_EXPORT void Init(const Handle(Geom2d_Curve)& C,
+  Standard_EXPORT void Init(const Handle(GeomCurve2d)& C,
                             const Standard_Real         First,
                             const Standard_Real         Last);
 
@@ -54,7 +54,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(ShapeUpgrade_SplitCurve2d, ShapeUpgrade_SplitCurve)
 
 protected:
-  Handle(Geom2d_Curve)              myCurve;
+  Handle(GeomCurve2d)              myCurve;
   Handle(TColGeom2d_HArray1OfCurve) myResultingCurves;
 
 private:

@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <Standard_Transient.hxx>
 #include <ShapeExtend_Status.hxx>
-class Geom_Surface;
+class GeomSurface;
 class ShapeExtend_CompositeSurface;
 
 // resolve name collisions with X11 headers
@@ -44,10 +44,10 @@ public:
   Standard_EXPORT ShapeUpgrade_SplitSurface();
 
   //! Initializes with single supporting surface.
-  Standard_EXPORT void Init(const Handle(Geom_Surface)& S);
+  Standard_EXPORT void Init(const Handle(GeomSurface)& S);
 
   //! Initializes with single supporting surface with bounding parameters.
-  Standard_EXPORT void Init(const Handle(Geom_Surface)& S,
+  Standard_EXPORT void Init(const Handle(GeomSurface)& S,
                             const Standard_Real         UFirst,
                             const Standard_Real         ULast,
                             const Standard_Real         VFirst,
@@ -104,7 +104,7 @@ protected:
   Handle(TColStd_HSequenceOfReal)      myVSplitValues;
   Standard_Integer                     myNbResultingRow;
   Standard_Integer                     myNbResultingCol;
-  Handle(Geom_Surface)                 mySurface;
+  Handle(GeomSurface)                 mySurface;
   Standard_Integer                     myStatus;
   Handle(ShapeExtend_CompositeSurface) myResSurfaces;
   Standard_Real                        myArea;

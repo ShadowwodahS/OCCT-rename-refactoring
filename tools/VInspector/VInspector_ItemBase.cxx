@@ -24,7 +24,7 @@
 // =======================================================================
 void VInspector_ItemBase::Reset()
 {
-  myPresentationShape = TopoDS_Shape();
+  myPresentationShape = TopoShape();
   TreeModel_ItemBase::Reset();
 }
 
@@ -50,15 +50,15 @@ QVariant VInspector_ItemBase::initValue(const int theItemRole) const
 // function : GetContext
 // purpose :
 // =======================================================================
-Handle(AIS_InteractiveContext) VInspector_ItemBase::GetContext() const
+Handle(VisualContext) VInspector_ItemBase::GetContext() const
 {
   if (!myContext.IsNull())
     return myContext;
 
-  Handle(AIS_InteractiveContext) aContext;
+  Handle(VisualContext) aContext;
   if (dynamic_cast<const VInspector_ItemContext*>(this))
   {
-    return Handle(AIS_InteractiveContext)(); // context has not be set yet
+    return Handle(VisualContext)(); // context has not be set yet
   }
   else
   {
@@ -83,10 +83,10 @@ Handle(AIS_InteractiveContext) VInspector_ItemBase::GetContext() const
 // function : GetContext
 // purpose :
 // =======================================================================
-TopoDS_Shape VInspector_ItemBase::GetPresentationShape() const
+TopoShape VInspector_ItemBase::GetPresentationShape() const
 {
   if (Column() != TreeModel_ColumnType_Name)
-    return TopoDS_Shape();
+    return TopoShape();
 
   initItem();
   return myPresentationShape;

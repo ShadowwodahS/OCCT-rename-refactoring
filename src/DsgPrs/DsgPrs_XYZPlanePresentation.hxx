@@ -36,7 +36,7 @@ public:
   //! defined by the attribute manager aDrawer. Each
   //! triangular plane is defined by the points aPt1 aPt2 and aPt3.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Point3d&                     aPt1,
                                   const Point3d&                     aPt2,
                                   const Point3d&                     aPt3);

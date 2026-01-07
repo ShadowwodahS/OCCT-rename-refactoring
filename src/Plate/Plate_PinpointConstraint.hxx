@@ -32,12 +32,12 @@ public:
 
   Standard_EXPORT Plate_PinpointConstraint();
 
-  Standard_EXPORT Plate_PinpointConstraint(const gp_XY&           point2d,
+  Standard_EXPORT Plate_PinpointConstraint(const Coords2d&           point2d,
                                            const gp_XYZ&          ImposedValue,
                                            const Standard_Integer iu = 0,
                                            const Standard_Integer iv = 0);
 
-  const gp_XY& Pnt2d() const;
+  const Coords2d& Pnt2d() const;
 
   const Standard_Integer& Idu() const;
 
@@ -48,7 +48,7 @@ public:
 protected:
 private:
   gp_XYZ           value;
-  gp_XY            pnt2d;
+  Coords2d            pnt2d;
   Standard_Integer idu;
   Standard_Integer idv;
 };

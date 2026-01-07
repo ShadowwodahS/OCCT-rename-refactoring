@@ -61,7 +61,7 @@ public:
 
   //! As above with an AsciiString
   Standard_EXPORT IFSelect_SelectSignature(const Handle(IFSelect_Signature)& matcher,
-                                           const TCollection_AsciiString&    signtext,
+                                           const AsciiString1&    signtext,
                                            const Standard_Boolean            exact = Standard_True);
 
   //! Creates a SelectSignature with a Counter, more precisely a
@@ -95,7 +95,7 @@ public:
          const Handle(Interface_InterfaceModel)& model) const Standard_OVERRIDE;
 
   //! Returns Text used to Sort Entity on its Signature or SignCounter
-  Standard_EXPORT const TCollection_AsciiString& SignatureText() const;
+  Standard_EXPORT const AsciiString1& SignatureText() const;
 
   //! Returns True if match must be exact
   Standard_EXPORT Standard_Boolean IsExact() const;
@@ -103,7 +103,7 @@ public:
   //! Returns a text defining the criterium.
   //! (it refers to the text and exact flag to be matched, and is
   //! qualified by the Name provided by the Signature)
-  Standard_EXPORT TCollection_AsciiString ExtractLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExtractLabel() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectSignature, IFSelect_SelectExtract)
 
@@ -111,7 +111,7 @@ protected:
 private:
   Handle(IFSelect_Signature)    thematcher;
   Handle(IFSelect_SignCounter)  thecounter;
-  TCollection_AsciiString       thesigntext;
+  AsciiString1       thesigntext;
   Standard_Integer              theexact;
   TColStd_SequenceOfAsciiString thesignlist;
   TColStd_SequenceOfInteger     thesignmode;

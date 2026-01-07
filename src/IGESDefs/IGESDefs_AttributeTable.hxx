@@ -31,7 +31,7 @@ class IGESDefs_AttributeTable;
 DEFINE_STANDARD_HANDLE(IGESDefs_AttributeTable, IGESData_IGESEntity)
 
 //! defines IGES Attribute Table, Type <422> Form <0, 1>
-//! in package IGESDefs
+//! in package IGESDefs1
 //! This class is used to represent an occurrence of
 //! Attribute Table. This Class may be independent
 //! or dependent or pointed at by other Entities.

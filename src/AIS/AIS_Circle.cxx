@@ -33,12 +33,12 @@
 #include <Standard_Type.hxx>
 #include <StdPrs_DeflectionCurve.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_Circle, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_Circle, VisualEntity)
 
 //=================================================================================================
 
-AIS_Circle::AIS_Circle(const Handle(Geom_Circle)& aComponent)
-    : AIS_InteractiveObject(PrsMgr_TOP_AllView),
+AIS_Circle::AIS_Circle(const Handle(GeomCircle)& aComponent)
+    : VisualEntity(PrsMgr_TOP_AllView),
       myComponent(aComponent),
       myUStart(0.0),
       myUEnd(2.0 * M_PI),
@@ -49,11 +49,11 @@ AIS_Circle::AIS_Circle(const Handle(Geom_Circle)& aComponent)
 
 //=================================================================================================
 
-AIS_Circle::AIS_Circle(const Handle(Geom_Circle)& theComponent,
+AIS_Circle::AIS_Circle(const Handle(GeomCircle)& theComponent,
                        const Standard_Real        theUStart,
                        const Standard_Real        theUEnd,
                        const Standard_Boolean     theIsFilledCircleSens)
-    : AIS_InteractiveObject(PrsMgr_TOP_AllView),
+    : VisualEntity(PrsMgr_TOP_AllView),
       myComponent(theComponent),
       myUStart(theUStart),
       myUEnd(theUEnd),
@@ -80,7 +80,7 @@ void AIS_Circle::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void AIS_Circle::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+void AIS_Circle::ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                   const Standard_Integer /*aMode*/)
 {
 
@@ -223,7 +223,7 @@ void AIS_Circle::ComputeArc(const Handle(Prs3d_Presentation)& thePresentation)
 
 //=================================================================================================
 
-void AIS_Circle::ComputeCircleSelection(const Handle(SelectMgr_Selection)& theSelection)
+void AIS_Circle::ComputeCircleSelection(const Handle(SelectionContainer)& theSelection)
 {
   Handle(SelectMgr_EntityOwner)    anOwner = new SelectMgr_EntityOwner(this);
   Handle(Select3D_SensitiveCircle) aCirc =
@@ -233,7 +233,7 @@ void AIS_Circle::ComputeCircleSelection(const Handle(SelectMgr_Selection)& theSe
 
 //=================================================================================================
 
-void AIS_Circle::ComputeArcSelection(const Handle(SelectMgr_Selection)& theSelection)
+void AIS_Circle::ComputeArcSelection(const Handle(SelectionContainer)& theSelection)
 {
   Handle(SelectMgr_EntityOwner)  anOwner = new SelectMgr_EntityOwner(this);
   Handle(Select3D_SensitivePoly) aSeg    = new Select3D_SensitivePoly(anOwner,

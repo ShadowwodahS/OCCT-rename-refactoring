@@ -26,12 +26,12 @@
 class math_Matrix;
 
 //! used to store the "gradient of gradient"
-class BlendFunc_Tensor
+class Tensor
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BlendFunc_Tensor(const Standard_Integer NbRow,
+  Standard_EXPORT Tensor(const Standard_Integer NbRow,
                                    const Standard_Integer NbCol,
                                    const Standard_Integer NbMat);
 

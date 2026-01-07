@@ -130,7 +130,7 @@ public:
   //! Reset used parameters
   Standard_EXPORT void Reset();
 
-  Standard_EXPORT TCollection_AsciiString GetString(const ReadMode_ProductContext theMode)
+  Standard_EXPORT AsciiString1 GetString(const ReadMode_ProductContext theMode)
   {
     switch (theMode)
     {
@@ -146,7 +146,7 @@ public:
   }
 
   //! Returns default shape fix parameters for transferring STEP files.
-  Standard_EXPORT static DE_ShapeFixParameters GetDefaultShapeFixParameters();
+  Standard_EXPORT static ShapeFixParameters GetDefaultShapeFixParameters();
 
 public:
   // Common
@@ -189,7 +189,7 @@ public:
   WriteMode_Assembly WriteAssembly = WriteMode_Assembly_Auto; //<! Writing assembly mode
   WriteMode_StepSchema WriteSchema = WriteMode_StepSchema_AP214IS; //<! Defines the version of schema used for the output STEP file
   RWMode_Tessellated WriteTessellated = RWMode_Tessellated_OnNoBRep; //!< Defines whether tessellated shapes should be translated
-  TCollection_AsciiString WriteProductName; //<! Defines the text string that will be used for field 'name' of PRODUCT entities written to the STEP file
+  AsciiString1 WriteProductName; //<! Defines the text string that will be used for field 'name' of PRODUCT entities written to the STEP file
   bool WriteSurfaceCurMode = true; //<! Indicates whether parametric curves (curves in parametric space of surface) should be written into the STEP file
   UnitsMethods_LengthUnit WriteUnit = UnitsMethods_LengthUnit_Millimeter; //<! Defines a unit in which the STEP file should be written
   WriteMode_VertexMode WriteVertexMode = WriteMode_VertexMode_OneCompound; //<! Indicates which of free vertices writing mode is switch on

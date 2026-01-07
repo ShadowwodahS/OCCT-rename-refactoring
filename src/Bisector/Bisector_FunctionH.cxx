@@ -21,7 +21,7 @@
 
 //=================================================================================================
 
-Bisector_FunctionH::Bisector_FunctionH(const Handle(Geom2d_Curve)& C2,
+Bisector_FunctionH::Bisector_FunctionH(const Handle(GeomCurve2d)& C2,
                                        const gp_Pnt2d&             P1,
                                        const gp_Vec2d&             T1)
     : p1(P1),

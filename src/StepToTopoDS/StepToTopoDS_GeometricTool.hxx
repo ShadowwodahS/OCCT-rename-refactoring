@@ -27,11 +27,11 @@ class StepGeom_Surface;
 class StepGeom_Pcurve;
 class StepShape_Edge;
 class StepShape_EdgeLoop;
-class Geom_Curve;
+class GeomCurve3d;
 
 //! This class contains some algorithmic services
 //! specific to the mapping STEP to CAS.CADE
-class StepToTopoDS_GeometricTool
+class GeometricTool
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -51,7 +51,7 @@ public:
                                                      const Handle(StepShape_Edge)&        E,
                                                      const Handle(StepShape_EdgeLoop)&    EL);
 
-  Standard_EXPORT static Standard_Boolean UpdateParam3d(const Handle(Geom_Curve)& C,
+  Standard_EXPORT static Standard_Boolean UpdateParam3d(const Handle(GeomCurve3d)& C,
                                                         Standard_Real&            w1,
                                                         Standard_Real&            w2,
                                                         const Standard_Real       preci);

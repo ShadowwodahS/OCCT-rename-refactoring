@@ -16,7 +16,7 @@
 
 #include <Geom_ElementarySurface.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_ElementarySurface, Geom_Surface)
+IMPLEMENT_STANDARD_RTTIEXT(Geom_ElementarySurface, GeomSurface)
 
 //=================================================================================================
 
@@ -59,7 +59,7 @@ void Geom_ElementarySurface::DumpJson(Standard_OStream& theOStream, Standard_Int
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Geom_Surface)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, GeomSurface)
 
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &pos)
 }

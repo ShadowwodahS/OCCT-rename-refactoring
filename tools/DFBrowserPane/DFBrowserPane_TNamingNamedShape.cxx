@@ -148,7 +148,7 @@ QWidget* DFBrowserPane_TNamingNamedShape::CreateWidget(QWidget* theParent)
 // =======================================================================
 void DFBrowserPane_TNamingNamedShape::Init(const Handle(TDF_Attribute)& theAttribute)
 {
-  Handle(TNaming_NamedShape) aShapeAttr = Handle(TNaming_NamedShape)::DownCast(theAttribute);
+  Handle(ShapeAttribute) aShapeAttr = Handle(ShapeAttribute)::DownCast(theAttribute);
   myHelperExport.Clear();
 
   QList<QVariant> aValues;
@@ -157,12 +157,12 @@ void DFBrowserPane_TNamingNamedShape::Init(const Handle(TDF_Attribute)& theAttri
           << DFBrowserPane_Tools::ToName(DB_NS_TYPE, aShapeAttr->Evolution()).ToCString() << ""
           << "" << "";
 
-  NCollection_List<TopoDS_Shape> aShapes;
+  NCollection_List<TopoShape> aShapes;
   QList<int>                     aFreeRows;
   aFreeRows << 0 << 1;
 
-  TopoDS_Shape            aShape = aShapeAttr->Get();
-  TCollection_AsciiString aShapeInfo =
+  TopoShape            aShape = aShapeAttr->Get();
+  AsciiString1 aShapeInfo =
     !aShape.IsNull() ? Standard_Dump::GetPointerInfo(aShape.TShape()) : "";
   aValues << "Shape" << aShapeInfo.ToCString() << DFBrowserPane_Tools::ShapeTypeInfo(aShape) << ""
           << "";
@@ -170,8 +170,8 @@ void DFBrowserPane_TNamingNamedShape::Init(const Handle(TDF_Attribute)& theAttri
   if (aShape.IsNull())
     aFreeRows << 2;
 
-  TopoDS_Shape            aCurrentShape = TNaming_Tool::CurrentShape(aShapeAttr);
-  TCollection_AsciiString aCurrentShapeInfo =
+  TopoShape            aCurrentShape = Tool11::CurrentShape(aShapeAttr);
+  AsciiString1 aCurrentShapeInfo =
     !aCurrentShape.IsNull() ? Standard_Dump::GetPointerInfo(aCurrentShape.TShape()) : "";
   aValues << "CurrentShape" << aCurrentShapeInfo.ToCString()
           << DFBrowserPane_Tools::ShapeTypeInfo(aCurrentShape) << "" << "";
@@ -179,8 +179,8 @@ void DFBrowserPane_TNamingNamedShape::Init(const Handle(TDF_Attribute)& theAttri
   if (aCurrentShape.IsNull())
     aFreeRows << 3;
 
-  TopoDS_Shape            anOriginalShape = TNaming_Tool::OriginalShape(aShapeAttr);
-  TCollection_AsciiString anOriginalShapeInfo =
+  TopoShape            anOriginalShape = Tool11::OriginalShape(aShapeAttr);
+  AsciiString1 anOriginalShapeInfo =
     !anOriginalShape.IsNull() ? Standard_Dump::GetPointerInfo(anOriginalShape.TShape()) : "";
   aValues << "OriginalShape" << anOriginalShapeInfo.ToCString()
           << DFBrowserPane_Tools::ShapeTypeInfo(anOriginalShape) << "" << "";
@@ -204,7 +204,7 @@ void DFBrowserPane_TNamingNamedShape::Init(const Handle(TDF_Attribute)& theAttri
   }
   QModelIndexList anIndices;
   int             aRowId = 2;
-  for (NCollection_List<TopoDS_Shape>::Iterator aShapeIt(aShapes); aShapeIt.More();
+  for (NCollection_List<TopoShape>::Iterator aShapeIt(aShapes); aShapeIt.More();
        aShapeIt.Next(), aRowId++)
   {
     if (aShapeIt.Value().IsNull())
@@ -219,14 +219,14 @@ void DFBrowserPane_TNamingNamedShape::Init(const Handle(TDF_Attribute)& theAttri
   aValues.clear();
   aRowId            = 0;
   bool aHasModified = false;
-  for (TNaming_Iterator aShapeAttrIt(aShapeAttr); aShapeAttrIt.More();
+  for (Iterator1 aShapeAttrIt(aShapeAttr); aShapeAttrIt.More();
        aShapeAttrIt.Next(), aRowId++)
   {
-    const TopoDS_Shape& anOldShape = aShapeAttrIt.OldShape();
-    const TopoDS_Shape& aNewShape  = aShapeAttrIt.NewShape();
+    const TopoShape& anOldShape = aShapeAttrIt.OldShape();
+    const TopoShape& aNewShape  = aShapeAttrIt.NewShape();
 
-    Handle(TNaming_NamedShape) anOldAttr =
-      TNaming_Tool::NamedShape(anOldShape, aShapeAttr->Label());
+    Handle(ShapeAttribute) anOldAttr =
+      Tool11::NamedShape(anOldShape, aShapeAttr->Label());
     aValues << DFBrowserPane_Tools::ToName(DB_NS_TYPE, aShapeAttrIt.Evolution()).ToCString();
     aHasModified = aHasModified | aShapeAttrIt.IsModification();
 
@@ -235,7 +235,7 @@ void DFBrowserPane_TNamingNamedShape::Init(const Handle(TDF_Attribute)& theAttri
     QString aLabelInfo;
     if (!anOldAttr.IsNull())
     {
-      TDF_Label anOldLabel = anOldAttr->Label();
+      DataLabel anOldLabel = anOldAttr->Label();
       if (!anOldLabel.IsNull())
         aLabelInfo = QString(DFBrowserPane_Tools::GetEntry(anOldLabel).ToCString());
     }
@@ -259,11 +259,11 @@ void DFBrowserPane_TNamingNamedShape::Init(const Handle(TDF_Attribute)& theAttri
     myEvolutionPaneModel->Init(aValues);
 
     aRowId = 0;
-    for (TNaming_Iterator aShapeAttrIt(aShapeAttr); aShapeAttrIt.More();
+    for (Iterator1 aShapeAttrIt(aShapeAttr); aShapeAttrIt.More();
          aShapeAttrIt.Next(), aRowId++)
     {
-      const TopoDS_Shape& anOldShape = aShapeAttrIt.OldShape();
-      const TopoDS_Shape& aNewShape  = aShapeAttrIt.NewShape();
+      const TopoShape& anOldShape = aShapeAttrIt.OldShape();
+      const TopoShape& aNewShape  = aShapeAttrIt.NewShape();
 
       if (!aNewShape.IsNull())
       {
@@ -316,8 +316,8 @@ QVariant DFBrowserPane_TNamingNamedShape::GetAttributeInfo(
     case DFBrowserPane_ItemRole_Decoration_40x40:
       return QIcon(":/icons/named_shape_40x40.png");
     case Qt::ForegroundRole: {
-      TopoDS_Shape               aShape;
-      Handle(TNaming_NamedShape) anAttribute = Handle(TNaming_NamedShape)::DownCast(theAttribute);
+      TopoShape               aShape;
+      Handle(ShapeAttribute) anAttribute = Handle(ShapeAttribute)::DownCast(theAttribute);
       if (!anAttribute.IsNull())
         aShape = anAttribute->Get();
       if (aShape.IsNull())
@@ -341,7 +341,7 @@ void DFBrowserPane_TNamingNamedShape::GetShortAttributeInfo(
   const Handle(TDF_Attribute)& theAttribute,
   QList<QVariant>&             theValues)
 {
-  Handle(TNaming_NamedShape) aShapeAttribute = Handle(TNaming_NamedShape)::DownCast(theAttribute);
+  Handle(ShapeAttribute) aShapeAttribute = Handle(ShapeAttribute)::DownCast(theAttribute);
 
   if (aShapeAttribute->Get().IsNull())
     theValues.append("EMPTY SHAPE");
@@ -389,7 +389,7 @@ int DFBrowserPane_TNamingNamedShape::GetSelectionKind(QItemSelectionModel* theMo
 void DFBrowserPane_TNamingNamedShape::GetSelectionParameters(
   QItemSelectionModel*                          theModel,
   NCollection_List<Handle(RefObject)>& theParameters,
-  NCollection_List<TCollection_AsciiString>&    theItemNames)
+  NCollection_List<AsciiString1>&    theItemNames)
 {
   QTableView* aTableView = myTableView->GetTableView();
   if (aTableView->selectionModel() != theModel)
@@ -403,7 +403,7 @@ void DFBrowserPane_TNamingNamedShape::GetSelectionParameters(
   if (aSelectedIndex.column() != 4)
     return;
 
-  const TopoDS_Shape& aShape = myHelperExport.Shape(aSelectedIndex);
+  const TopoShape& aShape = myHelperExport.Shape(aSelectedIndex);
   if (aShape.IsNull())
     return;
   theParameters.Append(aShape.TShape());
@@ -415,7 +415,7 @@ void DFBrowserPane_TNamingNamedShape::GetSelectionParameters(
 // purpose :
 // =======================================================================
 void DFBrowserPane_TNamingNamedShape::GetReferences(const Handle(TDF_Attribute)& theAttribute,
-                                                    NCollection_List<TDF_Label>& theRefLabels,
+                                                    NCollection_List<DataLabel>& theRefLabels,
                                                     Handle(RefObject)&  theRefPresentation)
 {
   if (!myEvolutionTableView)
@@ -423,17 +423,17 @@ void DFBrowserPane_TNamingNamedShape::GetReferences(const Handle(TDF_Attribute)&
   QStringList aSelectedEntries =
     DFBrowserPane_TableView::GetSelectedColumnValues(myEvolutionTableView->GetTableView(), 9);
 
-  Handle(TNaming_NamedShape) aShapeAttr = Handle(TNaming_NamedShape)::DownCast(theAttribute);
-  for (TNaming_Iterator aShapeAttrIt(aShapeAttr); aShapeAttrIt.More(); aShapeAttrIt.Next())
+  Handle(ShapeAttribute) aShapeAttr = Handle(ShapeAttribute)::DownCast(theAttribute);
+  for (Iterator1 aShapeAttrIt(aShapeAttr); aShapeAttrIt.More(); aShapeAttrIt.Next())
   {
-    const TopoDS_Shape& anOldShape = aShapeAttrIt.OldShape();
+    const TopoShape& anOldShape = aShapeAttrIt.OldShape();
 
-    Handle(TNaming_NamedShape) anOldAttr =
-      TNaming_Tool::NamedShape(anOldShape, aShapeAttr->Label());
+    Handle(ShapeAttribute) anOldAttr =
+      Tool11::NamedShape(anOldShape, aShapeAttr->Label());
     QString aLabelInfo;
     if (!anOldAttr.IsNull())
     {
-      TDF_Label anOldLabel = anOldAttr->Label();
+      DataLabel anOldLabel = anOldAttr->Label();
       if (!anOldLabel.IsNull())
       {
         if (aSelectedEntries.contains(DFBrowserPane_Tools::GetEntry(anOldLabel).ToCString()))
@@ -441,10 +441,10 @@ void DFBrowserPane_TNamingNamedShape::GetReferences(const Handle(TDF_Attribute)&
       }
     }
   }
-  TopoDS_Shape aShape = getSelectedShapes();
+  TopoShape aShape = getSelectedShapes();
   if (!aShape.IsNull())
   {
-    Handle(AIS_Shape) aPresentation = new AIS_Shape(aShape);
+    Handle(VisualShape) aPresentation = new VisualShape(aShape);
     aPresentation->Attributes()->SetAutoTriangulation(Standard_False);
     theRefPresentation = aPresentation;
   }
@@ -458,15 +458,15 @@ Handle(RefObject) DFBrowserPane_TNamingNamedShape::GetPresentation(
   const Handle(TDF_Attribute)& theAttribute)
 {
   Handle(RefObject) aPresentation;
-  Handle(TNaming_NamedShape) aShapeAttr = Handle(TNaming_NamedShape)::DownCast(theAttribute);
+  Handle(ShapeAttribute) aShapeAttr = Handle(ShapeAttribute)::DownCast(theAttribute);
   if (aShapeAttr.IsNull())
     return aPresentation;
 
-  TopoDS_Shape aShape = aShapeAttr->Get();
+  TopoShape aShape = aShapeAttr->Get();
   if (aShape.IsNull())
     return aPresentation;
 
-  aPresentation = new AIS_Shape(aShape);
+  aPresentation = new VisualShape(aShape);
   return aPresentation;
 }
 
@@ -474,9 +474,9 @@ Handle(RefObject) DFBrowserPane_TNamingNamedShape::GetPresentation(
 // function : getSelectedShapes
 // purpose :
 // =======================================================================
-TopoDS_Shape DFBrowserPane_TNamingNamedShape::getSelectedShapes()
+TopoShape DFBrowserPane_TNamingNamedShape::getSelectedShapes()
 {
-  TopoDS_Shape aShape;
+  TopoShape aShape;
 
   if (!myTableView && !myEvolutionTableView)
     return aShape;
@@ -485,8 +485,8 @@ TopoDS_Shape DFBrowserPane_TNamingNamedShape::getSelectedShapes()
   QItemSelectionModel* aTableViewSelModel = myTableView->GetTableView()->selectionModel();
   QModelIndexList      anIndices          = aTableViewSelModel->selectedIndexes();
 
-  BRep_Builder    aBuilder;
-  TopoDS_Compound aComp;
+  ShapeBuilder    aBuilder;
+  TopoCompound aComp;
   aBuilder.MakeCompound(aComp);
   bool aHasShapes = false;
   for (QModelIndexList::const_iterator anIt = anIndices.begin(), aLast = anIndices.end();

@@ -49,8 +49,8 @@ Standard_Boolean XmlMXCAFDoc_LengthUnitDriver::Paste(const XmlObjMgt_Persistent&
 
   if (aNameStr == NULL)
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve LengthUnit attribute");
+    UtfString aMessageString =
+      UtfString("Cannot retrieve LengthUnit attribute");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
   }
@@ -58,15 +58,15 @@ Standard_Boolean XmlMXCAFDoc_LengthUnitDriver::Paste(const XmlObjMgt_Persistent&
   XmlObjMgt_DOMString      aUnitScaleValue = anElement.getAttribute(::UnitScaleValue());
   if (aUnitScaleValue == NULL)
   {
-    TCollection_ExtendedString aMessageString("Cannot retrieve LengthUnit scale factor");
+    UtfString aMessageString("Cannot retrieve LengthUnit scale factor");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
   }
-  TCollection_AsciiString aScaleFactor(aUnitScaleValue.GetString());
-  TCollection_AsciiString anUnitName(aNameStr.GetString());
+  AsciiString1 aScaleFactor(aUnitScaleValue.GetString());
+  AsciiString1 anUnitName(aNameStr.GetString());
   if (!aScaleFactor.IsRealValue(true))
   {
-    TCollection_ExtendedString aMessageString("Cannot retrieve LengthUnit scale factor");
+    UtfString aMessageString("Cannot retrieve LengthUnit scale factor");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
   }
@@ -86,7 +86,7 @@ void XmlMXCAFDoc_LengthUnitDriver::Paste(const Handle(TDF_Attribute)& theSource,
 {
   Handle(XCAFDoc_LengthUnit) anAtt     = Handle(XCAFDoc_LengthUnit)::DownCast(theSource);
   XmlObjMgt_DOMString        aNameUnit = anAtt->GetUnitName().ToCString();
-  XmlObjMgt_DOMString aValueUnit       = TCollection_AsciiString(anAtt->GetUnitValue()).ToCString();
+  XmlObjMgt_DOMString aValueUnit       = AsciiString1(anAtt->GetUnitValue()).ToCString();
   XmlObjMgt::SetStringValue(theTarget, aNameUnit);
   theTarget.Element().setAttribute(::UnitScaleValue(), aValueUnit);
 }

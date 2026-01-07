@@ -21,20 +21,20 @@ IMPLEMENT_STANDARD_RTTIEXT(RWMesh_TriangulationReader, RefObject)
 namespace
 {
 //! Forms string with loading statistic.
-static TCollection_AsciiString loadingStatistic(const TCollection_AsciiString& thePrefix,
+static AsciiString1 loadingStatistic(const AsciiString1& thePrefix,
                                                 const Standard_Integer         theExpectedNodesNb,
                                                 const Standard_Integer         theLoadedNodesNb,
                                                 const Standard_Integer theExpectedTrianglesNb,
                                                 const Standard_Integer theDegeneratedTrianglesNb,
                                                 const Standard_Integer theLoadedTrianglesNb)
 {
-  TCollection_AsciiString aNodesInfo;
+  AsciiString1 aNodesInfo;
   if (theExpectedNodesNb != theLoadedNodesNb)
   {
-    aNodesInfo = TCollection_AsciiString("Nodes: ") + theExpectedNodesNb + " expected / ";
-    aNodesInfo += TCollection_AsciiString(theLoadedNodesNb) + " loaded.";
+    aNodesInfo = AsciiString1("Nodes: ") + theExpectedNodesNb + " expected / ";
+    aNodesInfo += AsciiString1(theLoadedNodesNb) + " loaded.";
   }
-  TCollection_AsciiString aTrianglesInfo;
+  AsciiString1 aTrianglesInfo;
   if (theExpectedTrianglesNb != theLoadedTrianglesNb)
   {
     if (!aNodesInfo.IsEmpty())
@@ -42,17 +42,17 @@ static TCollection_AsciiString loadingStatistic(const TCollection_AsciiString& t
       aNodesInfo += " ";
     }
     aTrianglesInfo =
-      TCollection_AsciiString("Triangles: ") + theExpectedTrianglesNb + " expected / ";
+      AsciiString1("Triangles: ") + theExpectedTrianglesNb + " expected / ";
     if (theDegeneratedTrianglesNb != 0)
     {
       aTrianglesInfo +=
-        TCollection_AsciiString(theDegeneratedTrianglesNb) + " skipped degenerated / ";
+        AsciiString1(theDegeneratedTrianglesNb) + " skipped degenerated / ";
     }
-    aTrianglesInfo += TCollection_AsciiString(theLoadedTrianglesNb) + " loaded.";
+    aTrianglesInfo += AsciiString1(theLoadedTrianglesNb) + " loaded.";
   }
   if (aNodesInfo.IsEmpty() && aTrianglesInfo.IsEmpty())
   {
-    return TCollection_AsciiString();
+    return AsciiString1();
   }
   return thePrefix
          + ("Disconformity of the expected number of nodes/triangles for deferred mesh to the "
@@ -64,9 +64,9 @@ static TCollection_AsciiString loadingStatistic(const TCollection_AsciiString& t
 //=================================================================================================
 
 void RWMesh_TriangulationReader::LoadingStatistic::PrintStatistic(
-  const TCollection_AsciiString& thePrefix) const
+  const AsciiString1& thePrefix) const
 {
-  TCollection_AsciiString aStatisticInfo = loadingStatistic(thePrefix,
+  AsciiString1 aStatisticInfo = loadingStatistic(thePrefix,
                                                             ExpectedNodesNb,
                                                             LoadedNodesNb,
                                                             ExpectedTrianglesNb,
@@ -98,7 +98,7 @@ RWMesh_TriangulationReader::~RWMesh_TriangulationReader()
 //=================================================================================================
 
 bool RWMesh_TriangulationReader::Load(const Handle(RWMesh_TriangulationSource)& theSourceMesh,
-                                      const Handle(Poly_Triangulation)&         theDestMesh,
+                                      const Handle(MeshTriangulation)&         theDestMesh,
                                       const Handle(OSD_FileSystem)&             theFileSystem) const
 {
   Standard_ASSERT_RETURN(!theDestMesh.IsNull(),
@@ -124,7 +124,7 @@ bool RWMesh_TriangulationReader::Load(const Handle(RWMesh_TriangulationSource)& 
 
 bool RWMesh_TriangulationReader::finalizeLoading(
   const Handle(RWMesh_TriangulationSource)& theSourceMesh,
-  const Handle(Poly_Triangulation)&         theDestMesh) const
+  const Handle(MeshTriangulation)&         theDestMesh) const
 {
   if (!theSourceMesh->CachedMinMax().IsVoid())
   {
@@ -141,8 +141,8 @@ bool RWMesh_TriangulationReader::finalizeLoading(
   }
   else if (myToPrintDebugMessages)
   {
-    TCollection_AsciiString aStatisticInfo =
-      loadingStatistic(TCollection_AsciiString("[Mesh reader. File '") + myFileName + "']. ",
+    AsciiString1 aStatisticInfo =
+      loadingStatistic(AsciiString1("[Mesh1 reader. File '") + myFileName + "']. ",
                        theSourceMesh->NbDeferredNodes(),
                        theDestMesh->NbNodes(),
                        theSourceMesh->NbDeferredTriangles(),
@@ -155,7 +155,7 @@ bool RWMesh_TriangulationReader::finalizeLoading(
 
 //=================================================================================================
 
-bool RWMesh_TriangulationReader::setNbEdges(const Handle(Poly_Triangulation)& theMesh,
+bool RWMesh_TriangulationReader::setNbEdges(const Handle(MeshTriangulation)& theMesh,
                                             const Standard_Integer            theNbTris,
                                             const Standard_Boolean            theToCopyData) const
 {
@@ -175,7 +175,7 @@ bool RWMesh_TriangulationReader::setNbEdges(const Handle(Poly_Triangulation)& th
 
 //=================================================================================================
 
-Standard_Integer RWMesh_TriangulationReader::setEdge(const Handle(Poly_Triangulation)& theMesh,
+Standard_Integer RWMesh_TriangulationReader::setEdge(const Handle(MeshTriangulation)& theMesh,
                                                      const Standard_Integer            theIndex,
                                                      const Standard_Integer theEdge) const
 {

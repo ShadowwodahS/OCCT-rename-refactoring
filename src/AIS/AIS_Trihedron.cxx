@@ -44,7 +44,7 @@
 #include <SelectMgr_EntityOwner.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_Trihedron, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_Trihedron, VisualEntity)
 
 //=================================================================================================
 
@@ -174,7 +174,7 @@ void AIS_Trihedron::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
 
 //=================================================================================================
 
-void AIS_Trihedron::ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+void AIS_Trihedron::ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                      const Standard_Integer             theMode)
 {
   Handle(Prs3d_DatumAspect) anAspect = myDrawer->DatumAspect();
@@ -246,7 +246,7 @@ void AIS_Trihedron::ComputeSelection(const Handle(SelectMgr_Selection)& theSelec
 //=================================================================================================
 
 void AIS_Trihedron::HilightOwnerWithColor(const Handle(PrsMgr_PresentationManager)& thePM,
-                                          const Handle(Prs3d_Drawer)&               theStyle,
+                                          const Handle(StyleDrawer)&               theStyle,
                                           const Handle(SelectMgr_EntityOwner)&      theOwner)
 {
   Handle(AIS_TrihedronOwner) anOwner = Handle(AIS_TrihedronOwner)::DownCast(theOwner);
@@ -315,7 +315,7 @@ void AIS_Trihedron::HilightSelected(const Handle(PrsMgr_PresentationManager)& th
 
   const bool isShadingMode = myTrihDispMode == Prs3d_DM_Shaded;
 
-  Handle(Prs3d_Drawer) anAspect =
+  Handle(StyleDrawer) anAspect =
     !myHilightDrawer.IsNull() ? myHilightDrawer : GetContext()->SelectionStyle();
   for (SelectMgr_SequenceOfOwner::Iterator anIterator(theOwners); anIterator.More();
        anIterator.Next())
@@ -485,7 +485,7 @@ void AIS_Trihedron::computePresentation(const Handle(PrsMgr_PresentationManager)
       }
 
       const Standard_Real               anAxisLength = anAspect->AxisLength(aPart);
-      const TCollection_ExtendedString& aLabel       = myLabels[aPart];
+      const UtfString& aLabel       = myLabels[aPart];
       Dir3d                            aDir;
       switch (aPart)
       {
@@ -503,7 +503,7 @@ void AIS_Trihedron::computePresentation(const Handle(PrsMgr_PresentationManager)
       }
       Handle(Graphic3d_Group) aLabelGroup = thePrs->NewGroup();
       const Point3d            aPoint      = anOrigin.XYZ() + aDir.XYZ() * anAxisLength;
-      Prs3d_Text::Draw(aLabelGroup, anAspect->TextAspect(aPart), aLabel, aPoint);
+      Prs3d_Text::Draw1(aLabelGroup, anAspect->TextAspect(aPart), aLabel, aPoint);
     }
   }
 
@@ -911,7 +911,7 @@ void AIS_Trihedron::DumpJson(Standard_OStream& theOStream, Standard_Integer theD
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, AIS_InteractiveObject)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, VisualEntity)
 
   OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, myHasOwnSize)
   OCCT_DUMP_FIELD_VALUE_NUMERICAL(theOStream, myHasOwnTextColor)

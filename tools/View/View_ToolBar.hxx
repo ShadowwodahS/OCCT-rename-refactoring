@@ -56,7 +56,7 @@ public:
   //! \param theType a context type
   //! \param theContext a context
   Standard_EXPORT void SetContext(View_ContextType                      theType,
-                                  const Handle(AIS_InteractiveContext)& theContext);
+                                  const Handle(VisualContext)& theContext);
 
   //! \returns type of active item of context selector
   Standard_EXPORT View_ContextType CurrentContextType() const;
@@ -73,7 +73,7 @@ public:
   }
 
   //! \returns an active context of context selector
-  Standard_EXPORT Handle(AIS_InteractiveContext) CurrentContext() const;
+  Standard_EXPORT Handle(VisualContext) CurrentContext() const;
 
   //! \returns whether the action is checked(toggled). Acceptable only if the action is checkable.
   Standard_EXPORT bool IsActionChecked(const int theActionId) const;
@@ -115,7 +115,7 @@ private:
   int        myDefaultContextType; //!< type of context read from preferences
 
   QMap<View_ToolActionType, QToolButton*>                myActionsMap;       //!< tool actions
-  QMap<View_ContextType, Handle(AIS_InteractiveContext)> myViewContexts;     //!< contexts
+  QMap<View_ContextType, Handle(VisualContext)> myViewContexts;     //!< contexts
   QMap<View_ContextType, QString>                        myViewContextNames; //!< names of contexts
 };
 

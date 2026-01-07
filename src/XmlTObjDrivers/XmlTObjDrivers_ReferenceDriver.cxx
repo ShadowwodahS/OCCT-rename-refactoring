@@ -67,13 +67,13 @@ Standard_Boolean XmlTObjDrivers_ReferenceDriver::Paste(
   const XmlObjMgt_Element& anElement = Source;
 
   // get entries
-  TCollection_AsciiString RefEntry    = anElement.getAttribute(::ReferredEntry());
-  TCollection_AsciiString MasterEntry = anElement.getAttribute(::MasterEntry());
+  AsciiString1 RefEntry    = anElement.getAttribute(::ReferredEntry());
+  AsciiString1 MasterEntry = anElement.getAttribute(::MasterEntry());
   // entry in model holder
-  TCollection_AsciiString InHolderEntry = anElement.getAttribute(::ReferredModelEntry());
+  AsciiString1 InHolderEntry = anElement.getAttribute(::ReferredModelEntry());
 
   // master label
-  TDF_Label aLabel, aMasterLabel;
+  DataLabel aLabel, aMasterLabel;
   TDF_Tool::Label(Target->Label().Data(), MasterEntry, aMasterLabel);
   // referred label
   if (InHolderEntry.IsEmpty())
@@ -109,14 +109,14 @@ void XmlTObjDrivers_ReferenceDriver::Paste(const Handle(TDF_Attribute)& Source,
     return;
 
   // referred entry
-  TCollection_AsciiString entry;
-  TDF_Label               aLabel = aLObject->GetLabel();
+  AsciiString1 entry;
+  DataLabel               aLabel = aLObject->GetLabel();
   TDF_Tool::Entry(aLabel, entry);
   Target.Element().setAttribute(::ReferredEntry(), entry.ToCString());
 
   // master entry
   entry.Clear();
-  TDF_Label aMasterLabel = aSource->GetMasterLabel();
+  DataLabel aMasterLabel = aSource->GetMasterLabel();
   TDF_Tool::Entry(aMasterLabel, entry);
   Target.Element().setAttribute(::MasterEntry(), entry.ToCString());
 
@@ -125,6 +125,6 @@ void XmlTObjDrivers_ReferenceDriver::Paste(const Handle(TDF_Attribute)& Source,
     return;
 
   Handle(TObj_Model)      aModel = aLObject->GetModel();
-  TCollection_AsciiString aModelName(aModel->GetModelName()->String());
+  AsciiString1 aModelName(aModel->GetModelName()->String());
   Target.Element().setAttribute(::ReferredModelEntry(), aModelName.ToCString());
 }

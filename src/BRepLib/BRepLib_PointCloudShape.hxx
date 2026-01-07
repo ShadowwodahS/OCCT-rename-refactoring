@@ -31,17 +31,17 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructor initialized by shape
-  Standard_EXPORT BRepLib_PointCloudShape(const TopoDS_Shape& theShape = TopoDS_Shape(),
+  Standard_EXPORT BRepLib_PointCloudShape(const TopoShape& theShape = TopoShape(),
                                           const Standard_Real theTol   = Precision::Confusion());
 
   //! Virtual destructor
   Standard_EXPORT virtual ~BRepLib_PointCloudShape();
 
   //! Return loaded shape.
-  const TopoDS_Shape& Shape() const { return myShape; }
+  const TopoShape& Shape() const { return myShape; }
 
   //! Set shape.
-  void SetShape(const TopoDS_Shape& theShape) { myShape = theShape; }
+  void SetShape(const TopoShape& theShape) { myShape = theShape; }
 
   //! Return tolerance.
   Standard_Real Tolerance() const { return myTol; }
@@ -75,18 +75,18 @@ public:
 
 protected:
   //! Compute area of the specified face.
-  Standard_EXPORT Standard_Real faceArea(const TopoDS_Shape& theShape);
+  Standard_EXPORT Standard_Real faceArea(const TopoShape& theShape);
 
   //! Computes default density points per face.
   Standard_EXPORT Standard_Real computeDensity();
 
   //! Adds points to face in accordance with the specified density randomly in the specified range
   //! [0, Dist].
-  Standard_EXPORT Standard_Boolean addDensityPoints(const TopoDS_Shape& theFace);
+  Standard_EXPORT Standard_Boolean addDensityPoints(const TopoShape& theFace);
 
   //! Adds points to face by nodes of the existing triangulation randomly in the specified range [0,
   //! Dist].
-  Standard_EXPORT Standard_Boolean addTriangulationPoints(const TopoDS_Shape& theFace);
+  Standard_EXPORT Standard_Boolean addTriangulationPoints(const TopoShape& theFace);
 
 protected:
   //! Method to clear maps.
@@ -100,10 +100,10 @@ protected:
   Standard_EXPORT virtual void addPoint(const Point3d&       thePoint,
                                         const Vector3d&       theNorm,
                                         const gp_Pnt2d&     theUV,
-                                        const TopoDS_Shape& theFace) = 0;
+                                        const TopoShape& theFace) = 0;
 
 protected:
-  TopoDS_Shape                   myShape;
+  TopoShape                   myShape;
   Standard_Real                  myDist;
   Standard_Real                  myTol;
   TopTools_DataMapOfShapeReal    myFaceArea;

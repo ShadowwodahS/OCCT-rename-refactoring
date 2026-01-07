@@ -19,13 +19,13 @@
 //=================================================================================================
 
 Draw_View::Draw_View(Standard_Integer theId,
-                     Draw_Viewer*     theViewer,
+                     DrawViewer*     theViewer,
                      Standard_Integer theX,
                      Standard_Integer theY,
                      Standard_Integer theWidth,
                      Standard_Integer theHeight,
                      Aspect_Drawable  theWindow)
-    : Draw_Window("Win",
+    : DrawWindow("Win",
                   NCollection_Vec2<int>(theX, theY),
                   NCollection_Vec2<int>(theWidth, theHeight),
                   0,
@@ -60,8 +60,8 @@ static Aspect_Drawable findWindow(const char* theWindow)
 
 //=================================================================================================
 
-Draw_View::Draw_View(Standard_Integer theId, Draw_Viewer* theViewer, const char* theTitle)
-    : Draw_Window(theTitle,
+Draw_View::Draw_View(Standard_Integer theId, DrawViewer* theViewer, const char* theTitle)
+    : DrawWindow(theTitle,
                   NCollection_Vec2<int>(0),
                   NCollection_Vec2<int>(50),
                   0,
@@ -86,7 +86,7 @@ Draw_View::Draw_View(Standard_Integer theId, Draw_Viewer* theViewer, const char*
 
 Draw_View::~Draw_View()
 {
-  Draw_Window::Destroy();
+  DrawWindow::Destroy();
 }
 
 //=================================================================================================

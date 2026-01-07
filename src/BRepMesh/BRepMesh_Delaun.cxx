@@ -73,7 +73,7 @@ private:
   Handle(BRepMesh_DataStructureOfDelaun) myStructure;
 };
 
-void UpdateBndBox(const gp_XY& thePnt1, const gp_XY& thePnt2, Bnd_B2d& theBox)
+void UpdateBndBox(const Coords2d& thePnt1, const Coords2d& thePnt2, Bnd_B2d& theBox)
 {
   theBox.Add(thePnt1);
   theBox.Add(thePnt2);
@@ -100,7 +100,7 @@ BRepMesh_Delaun::BRepMesh_Delaun(const Handle(BRepMesh_DataStructureOfDelaun)& t
 
 //=======================================================================
 // function : BRepMesh_Delaun
-// purpose  : Creates the triangulation with an empty Mesh data structure
+// purpose  : Creates the triangulation with an empty Mesh1 data structure
 //=======================================================================
 BRepMesh_Delaun::BRepMesh_Delaun(IMeshData::Array1OfVertexOfDelaun& theVertices)
     : myCircles(theVertices.Length(),
@@ -119,7 +119,7 @@ BRepMesh_Delaun::BRepMesh_Delaun(IMeshData::Array1OfVertexOfDelaun& theVertices)
 
 //=======================================================================
 // function : BRepMesh_Delaun
-// purpose  : Creates the triangulation with and existent Mesh data structure
+// purpose  : Creates the triangulation with and existent Mesh1 data structure
 //=======================================================================
 BRepMesh_Delaun::BRepMesh_Delaun(const Handle(BRepMesh_DataStructureOfDelaun)& theOldMesh,
                                  IMeshData::Array1OfVertexOfDelaun&            theVertices)
@@ -137,7 +137,7 @@ BRepMesh_Delaun::BRepMesh_Delaun(const Handle(BRepMesh_DataStructureOfDelaun)& t
 
 //=======================================================================
 // function : BRepMesh_Delaun
-// purpose  : Creates the triangulation with and existent Mesh data structure
+// purpose  : Creates the triangulation with and existent Mesh1 data structure
 //=======================================================================
 BRepMesh_Delaun::BRepMesh_Delaun(const Handle(BRepMesh_DataStructureOfDelaun)& theOldMesh,
                                  IMeshData::VectorOfInteger&                   theVertexIndices)
@@ -152,7 +152,7 @@ BRepMesh_Delaun::BRepMesh_Delaun(const Handle(BRepMesh_DataStructureOfDelaun)& t
 
 //=======================================================================
 // function : BRepMesh_Delaun
-// purpose  : Creates the triangulation with and existent Mesh data structure
+// purpose  : Creates the triangulation with and existent Mesh1 data structure
 //=======================================================================
 BRepMesh_Delaun::BRepMesh_Delaun(const Handle(BRepMesh_DataStructureOfDelaun)& theOldMesh,
                                  IMeshData::VectorOfInteger&                   theVertexIndices,
@@ -234,7 +234,7 @@ void BRepMesh_Delaun::initCirclesTool(const Bnd_Box2d&       theBox,
     aScaler = 7;
   }
 
-  myCircles.SetMinMaxSize(gp_XY(aMinX, aMinY), gp_XY(aMaxX, aMaxY));
+  myCircles.SetMinMaxSize(Coords2d(aMinX, aMinY), Coords2d(aMaxX, aMaxY));
   myCircles.SetCellSize(aDeltaX / Max(theCellsCountU, aScaler),
                         aDeltaY / Max(theCellsCountV, aScaler));
 
@@ -347,7 +347,7 @@ void BRepMesh_Delaun::deleteTriangle(const Standard_Integer          theIndex,
 //=======================================================================
 // function : compute
 // purpose  : Computes the triangulation and add the vertices edges and
-//           triangles to the Mesh data structure
+//           triangles to the Mesh1 data structure
 //=======================================================================
 void BRepMesh_Delaun::compute(IMeshData::VectorOfInteger& theVertexIndexes)
 {
@@ -415,7 +415,7 @@ void BRepMesh_Delaun::createTriangles(const Standard_Integer          theVertexI
                                       IMeshData::MapOfIntegerInteger& thePoly)
 {
   IMeshData::ListOfInteger aLoopEdges, anExternalEdges;
-  const gp_XY&             aVertexCoord = myMeshData->GetNode(theVertexIndex).Coord();
+  const Coords2d&             aVertexCoord = myMeshData->GetNode(theVertexIndex).Coord();
 
   IMeshData::MapOfIntegerInteger::Iterator anEdges(thePoly);
   for (; anEdges.More(); anEdges.Next())
@@ -441,15 +441,15 @@ void BRepMesh_Delaun::createTriangles(const Standard_Integer          theVertexI
     const BRepMesh_Vertex& aFirstVertex = GetVertex(aNodes[0]);
     const BRepMesh_Vertex& aLastVertex  = GetVertex(aNodes[2]);
 
-    gp_XY         anEdgeDir(aLastVertex.Coord() - aFirstVertex.Coord());
+    Coords2d         anEdgeDir(aLastVertex.Coord() - aFirstVertex.Coord());
     Standard_Real anEdgeLen = anEdgeDir.Modulus();
     if (anEdgeLen < Precision)
       continue;
 
     anEdgeDir.SetCoord(anEdgeDir.X() / anEdgeLen, anEdgeDir.Y() / anEdgeLen);
 
-    gp_XY aFirstLinkDir(aFirstVertex.Coord() - aVertexCoord);
-    gp_XY aLastLinkDir(aVertexCoord - aLastVertex.Coord());
+    Coords2d aFirstLinkDir(aFirstVertex.Coord() - aVertexCoord);
+    Coords2d aLastLinkDir(aVertexCoord - aLastVertex.Coord());
 
     Standard_Real aDist12 = aFirstLinkDir ^ anEdgeDir;
     Standard_Real aDist23 = anEdgeDir ^ aLastLinkDir;
@@ -1473,7 +1473,7 @@ Standard_Boolean BRepMesh_Delaun::isVertexInsidePolygon(
   if (aPolyLen < 3)
     return Standard_False;
 
-  const gp_XY aCenterPointXY = GetVertex(theVertexId).Coord();
+  const Coords2d aCenterPointXY = GetVertex(theVertexId).Coord();
 
   const BRepMesh_Vertex& aFirstVertex = GetVertex(thePolygonVertices(0));
   gp_Vec2d               aPrevVertexDir(aFirstVertex.Coord() - aCenterPointXY);
@@ -2252,7 +2252,7 @@ Standard_Boolean BRepMesh_Delaun::UseEdge(const Standard_Integer /*theIndex*/)
       const BRepMesh_Vertex& aStartVertex = GetVertex( aStartNode );
       const BRepMesh_Vertex& aPivotVertex = GetVertex( aPivotNode );
 
-      gp_XY aVEdge   ( aPivotVertex.Coord() );
+      Coords2d aVEdge   ( aPivotVertex.Coord() );
       aVEdge.Subtract( aStartVertex.Coord() );
 
       Standard_Real    anAngle    = 0.;
@@ -2281,7 +2281,7 @@ Standard_Boolean BRepMesh_Delaun::UseEdge(const Standard_Integer /*theIndex*/)
             if ( anOtherNode == aPivotNode )
               anOtherNode = aNextEdge.LastNode();
 
-            gp_XY aVEdgeCur = GetVertex( anOtherNode ).Coord();
+            Coords2d aVEdgeCur = GetVertex( anOtherNode ).Coord();
             aVEdgeCur.Subtract( aPivotVertex.Coord() );
 
             anAngle = gp_Vec2d( aVEdge ).Angle( gp_Vec2d( aVEdgeCur ) );
@@ -2345,8 +2345,8 @@ Handle(IMeshData::MapOfInteger) BRepMesh_Delaun::getEdgesByType(
 // purpose  : Calculates distances between the given point and edges of
 //           triangle
 //=======================================================================
-Standard_Real BRepMesh_Delaun::calculateDist(const gp_XY            theVEdges[3],
-                                             const gp_XY            thePoints[3],
+Standard_Real BRepMesh_Delaun::calculateDist(const Coords2d            theVEdges[3],
+                                             const Coords2d            thePoints[3],
                                              const BRepMesh_Vertex& theVertex,
                                              Standard_Real          theDistance[3],
                                              Standard_Real          theSqModulus[3],
@@ -2396,12 +2396,12 @@ Standard_Boolean BRepMesh_Delaun::Contains(const Standard_Integer theTriangleId,
 
   myMeshData->ElementNodes(aElement, p);
 
-  gp_XY aPoints[3];
+  Coords2d aPoints[3];
   aPoints[0] = GetVertex(p[0]).Coord();
   aPoints[1] = GetVertex(p[1]).Coord();
   aPoints[2] = GetVertex(p[2]).Coord();
 
-  gp_XY aVEdges[3];
+  Coords2d aVEdges[3];
   aVEdges[0] = aPoints[1];
   aVEdges[0].Subtract(aPoints[0]);
 
@@ -2445,7 +2445,7 @@ BRepMesh_GeomTool::IntFlag BRepMesh_Delaun::intSegSeg(
   const Standard_Boolean isConsiderPointOnEdge,
   gp_Pnt2d&              theIntPnt) const
 {
-  gp_XY p1, p2, p3, p4;
+  Coords2d p1, p2, p3, p4;
   p1 = GetVertex(theEdg1.FirstNode()).Coord();
   p2 = GetVertex(theEdg1.LastNode()).Coord();
   p3 = GetVertex(theEdg2.FirstNode()).Coord();
@@ -2526,8 +2526,8 @@ Standard_CString BRepMesh_DumpPoly(void*            thePolygon,
   if (aMeshData.IsNull())
     return "Error: mesh data is empty";
 
-  TopoDS_Compound aMesh;
-  BRep_Builder    aBuilder;
+  TopoCompound aMesh;
+  ShapeBuilder    aBuilder;
   aBuilder.MakeCompound(aMesh);
 
   try
@@ -2544,17 +2544,17 @@ Standard_CString BRepMesh_DumpPoly(void*            thePolygon,
       {
         const Standard_Integer aNodeId = (i == 0) ? aLink.FirstNode() : aLink.LastNode();
 
-        const gp_XY& aNode = aMeshData->GetNode(aNodeId).Coord();
+        const Coords2d& aNode = aMeshData->GetNode(aNodeId).Coord();
         aPnt[i]            = Point3d(aNode.X(), aNode.Y(), 0.);
       }
 
       if (aPnt[0].SquareDistance(aPnt[1]) < Precision::SquareConfusion())
         continue;
 
-      aBuilder.Add(aMesh, BRepBuilderAPI_MakeEdge(aPnt[0], aPnt[1]));
+      aBuilder.Add(aMesh, EdgeMaker(aPnt[0], aPnt[1]));
     }
 
-    if (!BRepTools::Write(aMesh, theFileNameStr))
+    if (!BRepTools1::Write(aMesh, theFileNameStr))
       return "Error: write failed";
   }
   catch (ExceptionBase const& anException)

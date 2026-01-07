@@ -55,7 +55,7 @@ ShapeUpgrade_ShapeDivide::ShapeUpgrade_ShapeDivide()
 
 //=================================================================================================
 
-ShapeUpgrade_ShapeDivide::ShapeUpgrade_ShapeDivide(const TopoDS_Shape& S)
+ShapeUpgrade_ShapeDivide::ShapeUpgrade_ShapeDivide(const TopoShape& S)
     : myStatus(0)
 {
   myPrecision = myMinTol = Precision::Confusion();
@@ -69,7 +69,7 @@ ShapeUpgrade_ShapeDivide::ShapeUpgrade_ShapeDivide(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-void ShapeUpgrade_ShapeDivide::Init(const TopoDS_Shape& S)
+void ShapeUpgrade_ShapeDivide::Init(const TopoShape& S)
 {
   myShape = S;
 }
@@ -125,13 +125,13 @@ Standard_Boolean ShapeUpgrade_ShapeDivide::Perform(const Standard_Boolean newCon
   if (myShape.ShapeType() == TopAbs_COMPOUND)
   {
     Standard_Integer locStatus = myStatus;
-    TopoDS_Compound  C;
-    BRep_Builder     B;
+    TopoCompound  C;
+    ShapeBuilder     B;
     B.MakeCompound(C);
-    TopoDS_Shape savShape = myShape;
+    TopoShape savShape = myShape;
     for (TopoDS_Iterator it(savShape, Standard_False); it.More(); it.Next())
     {
-      TopoDS_Shape    shape = it.Value();
+      TopoShape    shape = it.Value();
       TopLoc_Location L     = shape.Location();
       if (myContext->ModeConsiderLocation())
       {
@@ -142,7 +142,7 @@ Standard_Boolean ShapeUpgrade_ShapeDivide::Perform(const Standard_Boolean newCon
       Perform(Standard_False);
       if (myContext->ModeConsiderLocation())
         myResult.Location(L);
-      myResult.Orientation(TopAbs::Compose(myResult.Orientation(), savShape.Orientation()));
+      myResult.Orientation(TopAbs1::Compose(myResult.Orientation(), savShape.Orientation()));
       B.Add(C, myResult);
       locStatus |= myStatus;
     }
@@ -174,19 +174,19 @@ Standard_Boolean ShapeUpgrade_ShapeDivide::Perform(const Standard_Boolean newCon
     }
     Message_Msg doneMsg = GetFaceMsg();
 
-    for (TopExp_Explorer exp(myShape, TopAbs_FACE); exp.More(); exp.Next())
+    for (ShapeExplorer exp(myShape, TopAbs_FACE); exp.More(); exp.Next())
     {
-      TopoDS_Shape tmpF = exp.Current().Oriented(TopAbs_FORWARD);
-      TopoDS_Face  F    = TopoDS::Face(tmpF); // protection against INTERNAL shapes: cts20105a.rle
-      TopoDS_Shape sh   = myContext->Apply(F, TopAbs_SHAPE);
-      for (TopExp_Explorer exp2(sh, TopAbs_FACE); exp2.More(); exp2.Next())
+      TopoShape tmpF = exp.Current().Oriented(TopAbs_FORWARD);
+      TopoFace  F    = TopoDS::Face(tmpF); // protection against INTERNAL shapes: cts20105a.rle
+      TopoShape sh   = myContext->Apply(F, TopAbs_SHAPE);
+      for (ShapeExplorer exp2(sh, TopAbs_FACE); exp2.More(); exp2.Next())
       {
         try
         {
           OCC_CATCH_SIGNALS
           for (; exp2.More(); exp2.Next())
           {
-            TopoDS_Face face = TopoDS::Face(exp2.Current());
+            TopoFace face = TopoDS::Face(exp2.Current());
             SplitFace->Init(face);
             SplitFace->SetContext(myContext);
             SplitFace->Perform();
@@ -232,23 +232,23 @@ Standard_Boolean ShapeUpgrade_ShapeDivide::Perform(const Standard_Boolean newCon
   Handle(ShapeUpgrade_WireDivide) SplitWire = SplitFace->GetWireDivideTool();
   if (!SplitWire.IsNull())
   {
-    SplitWire->SetFace(TopoDS_Face());
+    SplitWire->SetFace(TopoFace());
     SplitWire->SetPrecision(myPrecision);
     SplitWire->SetMaxTolerance(myMaxTol);
     SplitWire->SetMinTolerance(myMinTol);
     SplitWire->SetEdgeMode(myEdgeMode);
     Message_Msg doneMsg = GetWireMsg();
 
-    TopExp_Explorer exp; // svv Jan 10 2000 : porting on DEC
+    ShapeExplorer exp; // svv Jan 10 2000 : porting on DEC
     for (exp.Init(myShape, TopAbs_WIRE, TopAbs_FACE); exp.More(); exp.Next())
     {
       // smh#8
-      TopoDS_Shape tmpW = exp.Current().Oriented(TopAbs_FORWARD);
-      TopoDS_Wire  W    = TopoDS::Wire(tmpW); // protection against INTERNAL shapes
-      TopoDS_Shape sh   = myContext->Apply(W, TopAbs_SHAPE);
-      for (TopExp_Explorer exp2(sh, TopAbs_WIRE); exp2.More(); exp2.Next())
+      TopoShape tmpW = exp.Current().Oriented(TopAbs_FORWARD);
+      TopoWire  W    = TopoDS::Wire(tmpW); // protection against INTERNAL shapes
+      TopoShape sh   = myContext->Apply(W, TopAbs_SHAPE);
+      for (ShapeExplorer exp2(sh, TopAbs_WIRE); exp2.More(); exp2.Next())
       {
-        TopoDS_Wire wire = TopoDS::Wire(exp2.Current());
+        TopoWire wire = TopoDS::Wire(exp2.Current());
         SplitWire->Load(wire);
         SplitWire->SetContext(myContext);
         SplitWire->Perform();
@@ -270,18 +270,18 @@ Standard_Boolean ShapeUpgrade_ShapeDivide::Perform(const Standard_Boolean newCon
     for (exp.Init(myShape, TopAbs_EDGE, TopAbs_WIRE); exp.More(); exp.Next())
     {
       // smh#8
-      TopoDS_Shape tmpE = exp.Current().Oriented(TopAbs_FORWARD);
+      TopoShape tmpE = exp.Current().Oriented(TopAbs_FORWARD);
       // clang-format off
-      TopoDS_Edge E = TopoDS::Edge (tmpE );                                       // protection against INTERNAL shapes
+      TopoEdge E = TopoDS::Edge (tmpE );                                       // protection against INTERNAL shapes
       // clang-format on
-      TopoDS_Vertex V1, V2;
-      TopExp::Vertices(E, V2, V1);
+      TopoVertex V1, V2;
+      TopExp1::Vertices(E, V2, V1);
       if (V1.IsNull() && V2.IsNull())
         continue; // skl 27.10.2004 for OCC5624
-      TopoDS_Shape sh = myContext->Apply(E, TopAbs_SHAPE);
-      for (TopExp_Explorer exp2(sh, TopAbs_EDGE); exp2.More(); exp2.Next())
+      TopoShape sh = myContext->Apply(E, TopAbs_SHAPE);
+      for (ShapeExplorer exp2(sh, TopAbs_EDGE); exp2.More(); exp2.Next())
       {
-        TopoDS_Edge edge = TopoDS::Edge(exp2.Current());
+        TopoEdge edge = TopoDS::Edge(exp2.Current());
         SplitWire->Load(edge);
         SplitWire->SetContext(myContext);
         SplitWire->Perform();
@@ -304,7 +304,7 @@ Standard_Boolean ShapeUpgrade_ShapeDivide::Perform(const Standard_Boolean newCon
 
 //=================================================================================================
 
-TopoDS_Shape ShapeUpgrade_ShapeDivide::Result() const
+TopoShape ShapeUpgrade_ShapeDivide::Result() const
 {
   return myResult;
 }
@@ -370,7 +370,7 @@ Handle(ShapeExtend_BasicMsgRegistrator) ShapeUpgrade_ShapeDivide::MsgRegistrator
 
 //=================================================================================================
 
-void ShapeUpgrade_ShapeDivide::SendMsg(const TopoDS_Shape&   shape,
+void ShapeUpgrade_ShapeDivide::SendMsg(const TopoShape&   shape,
                                        const Message_Msg&    message,
                                        const Message_Gravity gravity) const
 {

@@ -27,7 +27,7 @@
 
 class CDM_Document;
 class CDM_MetaData;
-class TCollection_ExtendedString;
+class UtfString;
 
 class CDF_StoreList;
 DEFINE_STANDARD_HANDLE(CDF_StoreList, RefObject)
@@ -44,7 +44,7 @@ public:
   //! order of which they had been added.
   Standard_EXPORT PCDM_StoreStatus
     Store(Handle(CDM_MetaData)&        aMetaData,
-          TCollection_ExtendedString&  aStatusAssociatedText,
+          UtfString&  aStatusAssociatedText,
           const Message_ProgressRange& theRange = Message_ProgressRange());
 
   Standard_EXPORT void Init();

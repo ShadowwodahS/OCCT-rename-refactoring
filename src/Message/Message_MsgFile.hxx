@@ -21,8 +21,8 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Boolean.hxx>
-class TCollection_AsciiString;
-class TCollection_ExtendedString;
+class AsciiString1;
+class UtfString;
 
 //! A tool providing facility to load definitions of message strings from
 //! resource file(s).
@@ -87,20 +87,20 @@ public:
   //! the key of the message, <text> defines the message itself.
   //! If there already was defined the message identified by the
   //! same keyword, it is replaced with the new one.
-  Standard_EXPORT static Standard_Boolean AddMsg(const TCollection_AsciiString&    key,
-                                                 const TCollection_ExtendedString& text);
+  Standard_EXPORT static Standard_Boolean AddMsg(const AsciiString1&    key,
+                                                 const UtfString& text);
 
   //! Returns True if message with specified keyword is registered
-  Standard_EXPORT static Standard_Boolean HasMsg(const TCollection_AsciiString& key);
+  Standard_EXPORT static Standard_Boolean HasMsg(const AsciiString1& key);
 
-  Standard_EXPORT static const TCollection_ExtendedString& Msg(const Standard_CString key);
+  Standard_EXPORT static const UtfString& Msg(const Standard_CString key);
 
   //! Gives the text for the message identified by the keyword <key>.
   //! If there are no messages with such keyword defined, the error message is returned.
   //! In that case reference to static string is returned, it can be changed with next call(s) to
   //! Msg(). Note: The error message is constructed like 'Unknown message: <key>', and can itself be
   //! customized by defining message with key Message_Msg_BadKeyword.
-  Standard_EXPORT static const TCollection_ExtendedString& Msg(const TCollection_AsciiString& key);
+  Standard_EXPORT static const UtfString& Msg(const AsciiString1& key);
 };
 
 #endif // _Message_MsgFile_HeaderFile

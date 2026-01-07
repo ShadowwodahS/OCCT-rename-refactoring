@@ -26,7 +26,7 @@
 
 #include <BOPAlgo_Options.hxx>
 
-class BOPAlgo_PISteps;
+class PISteps;
 
 //! The class provides the root interface for the algorithms in Boolean Component.<br>
 class BOPAlgo_Algo : public BOPAlgo_Options
@@ -61,7 +61,7 @@ protected: //! @name Analyzing operations to fill progress indicator
   //! * fillPIConstants - method filling values for constant operations.
   //! * fillPISteps - method filling steps for the rest of operations.
   Standard_EXPORT void analyzeProgress(const Standard_Real theWhole,
-                                       BOPAlgo_PISteps&    theSteps) const;
+                                       PISteps&    theSteps) const;
 
   //! Fills the values for constant operations - the operations having constant relative running
   //! time.
@@ -69,7 +69,7 @@ protected: //! @name Analyzing operations to fill progress indicator
   //! to, if necessary.
   //! @param theSteps - steps of the operations supported by PI
   Standard_EXPORT virtual void fillPIConstants(const Standard_Real theWhole,
-                                               BOPAlgo_PISteps&    theSteps) const;
+                                               PISteps&    theSteps) const;
 
   //! Fills the values for the operations dependent on the inputs.
   //! Filled values may not be normalized to represent percentage of total running time.
@@ -79,7 +79,7 @@ protected: //! @name Analyzing operations to fill progress indicator
   //! step2 = 2 * number_of_input_edges;
   //! step3 = 10 * number_of_input_faces.
   //! Normalization of these values will be done automatically in analyzeProgress() method.
-  Standard_EXPORT virtual void fillPISteps(BOPAlgo_PISteps& theSteps) const;
+  Standard_EXPORT virtual void fillPISteps(PISteps& theSteps) const;
 };
 
 //! Additional root class to provide interface to be launched from parallel vector.
@@ -107,11 +107,11 @@ protected:
 
 //! Class for representing the relative contribution of each step of
 //! the operation to the whole progress
-class BOPAlgo_PISteps
+class PISteps
 {
 public:
   //! Constructor
-  BOPAlgo_PISteps(const Standard_Integer theNbOp)
+  PISteps(const Standard_Integer theNbOp)
       : mySteps(0, theNbOp - 1)
   {
     mySteps.Init(0);

@@ -17,7 +17,7 @@
 #include <Express_PredefinedType.hxx>
 #include <Standard_Type.hxx>
 
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! Implements EXPRESS type 'INTEGER'
 class Express_Integer : public Express_PredefinedType
@@ -28,7 +28,7 @@ public:
   Standard_EXPORT Express_Integer();
 
   //! Returns "Standard_Integer"
-  Standard_EXPORT virtual const TCollection_AsciiString CPPName() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const AsciiString1 CPPName() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Express_Integer, Express_PredefinedType)
 

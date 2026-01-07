@@ -35,9 +35,9 @@
 #include <TColStd_HArray1OfInteger.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-IGESDraw_ToolSegmentedViewsVisible::IGESDraw_ToolSegmentedViewsVisible() {}
+SegmentedViewsVisibleTool::SegmentedViewsVisibleTool() {}
 
-void IGESDraw_ToolSegmentedViewsVisible::ReadOwnParams(
+void SegmentedViewsVisibleTool::ReadOwnParams(
   const Handle(IGESDraw_SegmentedViewsVisible)& ent,
   const Handle(IGESData_IGESReaderData)&        IR,
   IGESData_ParamReader&                         PR) const
@@ -155,7 +155,7 @@ void IGESDraw_ToolSegmentedViewsVisible::ReadOwnParams(
             lineWeights);
 }
 
-void IGESDraw_ToolSegmentedViewsVisible::WriteOwnParams(
+void SegmentedViewsVisibleTool::WriteOwnParams(
   const Handle(IGESDraw_SegmentedViewsVisible)& ent,
   IGESData_IGESWriter&                          IW) const
 {
@@ -181,7 +181,7 @@ void IGESDraw_ToolSegmentedViewsVisible::WriteOwnParams(
   }
 }
 
-void IGESDraw_ToolSegmentedViewsVisible::OwnShared(
+void SegmentedViewsVisibleTool::OwnShared(
   const Handle(IGESDraw_SegmentedViewsVisible)& ent,
   Interface_EntityIterator&                     iter) const
 {
@@ -196,7 +196,7 @@ void IGESDraw_ToolSegmentedViewsVisible::OwnShared(
   }
 }
 
-void IGESDraw_ToolSegmentedViewsVisible::OwnCopy(
+void SegmentedViewsVisibleTool::OwnCopy(
   const Handle(IGESDraw_SegmentedViewsVisible)& another,
   const Handle(IGESDraw_SegmentedViewsVisible)& ent,
   Interface_CopyTool&                           TC) const
@@ -272,10 +272,10 @@ void IGESDraw_ToolSegmentedViewsVisible::OwnCopy(
             lineWeights);
 }
 
-IGESData_DirChecker IGESDraw_ToolSegmentedViewsVisible::DirChecker(
+DirectoryChecker SegmentedViewsVisibleTool::DirChecker(
   const Handle(IGESDraw_SegmentedViewsVisible)& /*ent*/) const
 {
-  IGESData_DirChecker DC(402, 19);
+  DirectoryChecker DC(402, 19);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -287,14 +287,14 @@ IGESData_DirChecker IGESDraw_ToolSegmentedViewsVisible::DirChecker(
   return DC;
 }
 
-void IGESDraw_ToolSegmentedViewsVisible::OwnCheck(
+void SegmentedViewsVisibleTool::OwnCheck(
   const Handle(IGESDraw_SegmentedViewsVisible)& /*ent*/,
   const Interface_ShareTool&,
   Handle(Interface_Check)& /*ach*/) const
 {
 }
 
-void IGESDraw_ToolSegmentedViewsVisible::OwnDump(const Handle(IGESDraw_SegmentedViewsVisible)& ent,
+void SegmentedViewsVisibleTool::OwnDump(const Handle(IGESDraw_SegmentedViewsVisible)& ent,
                                                  const IGESData_IGESDumper& dumper,
                                                  Standard_OStream&          S,
                                                  const Standard_Integer     level) const

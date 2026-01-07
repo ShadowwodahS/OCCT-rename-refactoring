@@ -33,15 +33,15 @@ BRepPrim_FaceBuilder::BRepPrim_FaceBuilder() {}
 
 //=================================================================================================
 
-BRepPrim_FaceBuilder::BRepPrim_FaceBuilder(const BRep_Builder& B, const Handle(Geom_Surface)& S)
+BRepPrim_FaceBuilder::BRepPrim_FaceBuilder(const ShapeBuilder& B, const Handle(GeomSurface)& S)
 {
   Init(B, S);
 }
 
 //=================================================================================================
 
-BRepPrim_FaceBuilder::BRepPrim_FaceBuilder(const BRep_Builder&         B,
-                                           const Handle(Geom_Surface)& S,
+BRepPrim_FaceBuilder::BRepPrim_FaceBuilder(const ShapeBuilder&         B,
+                                           const Handle(GeomSurface)& S,
                                            const Standard_Real         UMin,
                                            const Standard_Real         UMax,
                                            const Standard_Real         VMin,
@@ -52,7 +52,7 @@ BRepPrim_FaceBuilder::BRepPrim_FaceBuilder(const BRep_Builder&         B,
 
 //=================================================================================================
 
-void BRepPrim_FaceBuilder::Init(const BRep_Builder& B, const Handle(Geom_Surface)& S)
+void BRepPrim_FaceBuilder::Init(const ShapeBuilder& B, const Handle(GeomSurface)& S)
 {
   Standard_Real UMin, UMax, VMin, VMax;
   S->Bounds(UMin, UMax, VMin, VMax);
@@ -61,8 +61,8 @@ void BRepPrim_FaceBuilder::Init(const BRep_Builder& B, const Handle(Geom_Surface
 
 //=================================================================================================
 
-void BRepPrim_FaceBuilder::Init(const BRep_Builder&         B,
-                                const Handle(Geom_Surface)& S,
+void BRepPrim_FaceBuilder::Init(const ShapeBuilder&         B,
+                                const Handle(GeomSurface)& S,
                                 const Standard_Real         UMin,
                                 const Standard_Real         UMax,
                                 const Standard_Real         VMin,
@@ -140,7 +140,7 @@ void BRepPrim_FaceBuilder::Init(const BRep_Builder&         B,
   B.Add(myEdges[3], myVertex[3]);
 
   // insert edges in a wire and in the face
-  TopoDS_Wire W;
+  TopoWire W;
   B.MakeWire(W);
   B.Add(W, myEdges[0]);
   B.Add(W, myEdges[1]);
@@ -156,14 +156,14 @@ void BRepPrim_FaceBuilder::Init(const BRep_Builder&         B,
 
 //=================================================================================================
 
-const TopoDS_Face& BRepPrim_FaceBuilder::Face() const
+const TopoFace& BRepPrim_FaceBuilder::Face() const
 {
   return myFace;
 }
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepPrim_FaceBuilder::Edge(const Standard_Integer I) const
+const TopoEdge& BRepPrim_FaceBuilder::Edge(const Standard_Integer I) const
 {
   Standard_OutOfRange_Raise_if(I < 1 || I > 4, "BRepPrim_FaceBuilder::Edge");
   return myEdges[I - 1];
@@ -171,7 +171,7 @@ const TopoDS_Edge& BRepPrim_FaceBuilder::Edge(const Standard_Integer I) const
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepPrim_FaceBuilder::Vertex(const Standard_Integer I) const
+const TopoVertex& BRepPrim_FaceBuilder::Vertex(const Standard_Integer I) const
 {
   Standard_OutOfRange_Raise_if(I < 1 || I > 4, "BRepPrim_FaceBuilder::Vertex");
   return myVertex[I - 1];
@@ -179,7 +179,7 @@ const TopoDS_Vertex& BRepPrim_FaceBuilder::Vertex(const Standard_Integer I) cons
 
 //=================================================================================================
 
-BRepPrim_FaceBuilder::operator TopoDS_Face()
+BRepPrim_FaceBuilder::operator TopoFace()
 {
   return Face();
 }

@@ -47,11 +47,11 @@ IMPLEMENT_STANDARD_RTTIEXT(PrsDim_EqualDistanceRelation, PrsDim_Relation)
 
 //=================================================================================================
 
-PrsDim_EqualDistanceRelation::PrsDim_EqualDistanceRelation(const TopoDS_Shape&       aShape1,
-                                                           const TopoDS_Shape&       aShape2,
-                                                           const TopoDS_Shape&       aShape3,
-                                                           const TopoDS_Shape&       aShape4,
-                                                           const Handle(Geom_Plane)& aPlane)
+PrsDim_EqualDistanceRelation::PrsDim_EqualDistanceRelation(const TopoShape&       aShape1,
+                                                           const TopoShape&       aShape2,
+                                                           const TopoShape&       aShape3,
+                                                           const TopoShape&       aShape4,
+                                                           const Handle(GeomPlane)& aPlane)
     : PrsDim_Relation()
 {
   myFShape = aShape1;
@@ -202,7 +202,7 @@ void PrsDim_EqualDistanceRelation::Compute(const Handle(PrsMgr_PresentationManag
 
 //=================================================================================================
 
-void PrsDim_EqualDistanceRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+void PrsDim_EqualDistanceRelation::ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                                     const Standard_Integer)
 {
   Handle(SelectMgr_EntityOwner)     own = new SelectMgr_EntityOwner(this, 7);
@@ -242,7 +242,7 @@ void PrsDim_EqualDistanceRelation::ComputeSelection(const Handle(SelectMgr_Selec
     }
     else if (aCurve.GetType() == GeomAbs_Circle)
     {
-      Handle(Geom_Circle) aCircle  = Handle(Geom_Circle)::DownCast(aCurve.Curve().Curve());
+      Handle(GeomCircle) aCircle  = Handle(GeomCircle)::DownCast(aCurve.Curve().Curve());
       Standard_Real       FirstPar = ElCLib::Parameter(aCircle->Circ(), myAttachPoint1),
                     LastPar        = ElCLib::Parameter(aCircle->Circ(), myPoint1);
       if (LastPar < FirstPar)
@@ -269,7 +269,7 @@ void PrsDim_EqualDistanceRelation::ComputeSelection(const Handle(SelectMgr_Selec
     }
     else if (aCurve.GetType() == GeomAbs_Circle)
     {
-      Handle(Geom_Circle) aCircle  = Handle(Geom_Circle)::DownCast(aCurve.Curve().Curve());
+      Handle(GeomCircle) aCircle  = Handle(GeomCircle)::DownCast(aCurve.Curve().Curve());
       Standard_Real       FirstPar = ElCLib::Parameter(aCircle->Circ(), myAttachPoint2),
                     LastPar        = ElCLib::Parameter(aCircle->Circ(), myPoint2);
       if (LastPar < FirstPar)
@@ -296,7 +296,7 @@ void PrsDim_EqualDistanceRelation::ComputeSelection(const Handle(SelectMgr_Selec
     }
     else if (aCurve.GetType() == GeomAbs_Circle)
     {
-      Handle(Geom_Circle) aCircle  = Handle(Geom_Circle)::DownCast(aCurve.Curve().Curve());
+      Handle(GeomCircle) aCircle  = Handle(GeomCircle)::DownCast(aCurve.Curve().Curve());
       Standard_Real       FirstPar = ElCLib::Parameter(aCircle->Circ(), myAttachPoint3),
                     LastPar        = ElCLib::Parameter(aCircle->Circ(), myPoint3);
       if (LastPar < FirstPar)
@@ -328,7 +328,7 @@ void PrsDim_EqualDistanceRelation::ComputeSelection(const Handle(SelectMgr_Selec
     }
     else if (aCurve.GetType() == GeomAbs_Circle)
     {
-      Handle(Geom_Circle) aCircle  = Handle(Geom_Circle)::DownCast(aCurve.Curve().Curve());
+      Handle(GeomCircle) aCircle  = Handle(GeomCircle)::DownCast(aCurve.Curve().Curve());
       Standard_Real       FirstPar = ElCLib::Parameter(aCircle->Circ(), myAttachPoint4),
                     LastPar        = ElCLib::Parameter(aCircle->Circ(), myPoint4);
       if (LastPar < FirstPar)
@@ -349,11 +349,11 @@ void PrsDim_EqualDistanceRelation::ComputeSelection(const Handle(SelectMgr_Selec
 
 void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
   const Handle(Prs3d_Presentation)& aPresentation,
-  const Handle(Prs3d_Drawer)&       aDrawer,
+  const Handle(StyleDrawer)&       aDrawer,
   const Standard_Real               ArrowSize,
-  const TopoDS_Edge&                FirstEdge,
-  const TopoDS_Edge&                SecondEdge,
-  const Handle(Geom_Plane)&         Plane,
+  const TopoEdge&                FirstEdge,
+  const TopoEdge&                SecondEdge,
+  const Handle(GeomPlane)&         Plane,
   const Standard_Boolean            AutomaticPos,
   const Standard_Boolean            IsSetBndBox,
   const Bnd_Box&                    BndBox,
@@ -369,11 +369,11 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
   BRepAdaptor_Curve cu2(SecondEdge);
 
   // 3d lines
-  Handle(Geom_Curve) geom1, geom2;
+  Handle(GeomCurve3d) geom1, geom2;
   Point3d             ptat11, ptat12, ptat21, ptat22;
 
   Standard_Boolean   isInfinite1(Standard_False), isInfinite2(Standard_False);
-  Handle(Geom_Curve) extCurv;
+  Handle(GeomCurve3d) extCurv;
   Standard_Real      arrsize = ArrowSize; // size
   Standard_Real      Val     = 0.;
   Standard_Boolean   isInPlane1, isInPlane2;
@@ -401,8 +401,8 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
 
   if (cu1.GetType() == GeomAbs_Line && cu2.GetType() == GeomAbs_Line)
   {
-    Handle(Geom_Line) geom_lin1(Handle(Geom_Line)::DownCast(geom1));
-    Handle(Geom_Line) geom_lin2(Handle(Geom_Line)::DownCast(geom2));
+    Handle(GeomLine) geom_lin1(Handle(GeomLine)::DownCast(geom1));
+    Handle(GeomLine) geom_lin2(Handle(GeomLine)::DownCast(geom2));
     const gp_Lin&     l1 = geom_lin1->Lin();
     const gp_Lin&     l2 = geom_lin2->Lin();
 
@@ -511,8 +511,8 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
   if (cu1.GetType() == GeomAbs_Circle && cu2.GetType() == GeomAbs_Circle)
   {
     // Get first and last points of circles
-    Handle(Geom_Circle) aCir1(Handle(Geom_Circle)::DownCast(geom1));
-    Handle(Geom_Circle) aCir2(Handle(Geom_Circle)::DownCast(geom2));
+    Handle(GeomCircle) aCir1(Handle(GeomCircle)::DownCast(geom1));
+    Handle(GeomCircle) aCir2(Handle(GeomCircle)::DownCast(geom2));
     gp_Circ             aCirc1 = aCir1->Circ();
     gp_Circ             aCirc2 = aCir2->Circ();
 
@@ -615,11 +615,11 @@ void PrsDim_EqualDistanceRelation::ComputeTwoEdgesLength(
 
 void PrsDim_EqualDistanceRelation::ComputeTwoVerticesLength(
   const Handle(Prs3d_Presentation)& aPresentation,
-  const Handle(Prs3d_Drawer)&       aDrawer,
+  const Handle(StyleDrawer)&       aDrawer,
   const Standard_Real               ArrowSize,
-  const TopoDS_Vertex&              FirstVertex,
-  const TopoDS_Vertex&              SecondVertex,
-  const Handle(Geom_Plane)&         Plane,
+  const TopoVertex&              FirstVertex,
+  const TopoVertex&              SecondVertex,
+  const Handle(GeomPlane)&         Plane,
   const Standard_Boolean            AutomaticPos,
   const Standard_Boolean            IsSetBndBox,
   const Bnd_Box&                    BndBox,
@@ -709,11 +709,11 @@ void PrsDim_EqualDistanceRelation::ComputeTwoVerticesLength(
 
 void PrsDim_EqualDistanceRelation::ComputeOneEdgeOneVertexLength(
   const Handle(Prs3d_Presentation)& aPresentation,
-  const Handle(Prs3d_Drawer)&       aDrawer,
+  const Handle(StyleDrawer)&       aDrawer,
   const Standard_Real               ArrowSize,
-  const TopoDS_Shape&               FirstShape,
-  const TopoDS_Shape&               SecondShape,
-  const Handle(Geom_Plane)&         Plane,
+  const TopoShape&               FirstShape,
+  const TopoShape&               SecondShape,
+  const Handle(GeomPlane)&         Plane,
   const Standard_Boolean            AutomaticPos,
   const Standard_Boolean            IsSetBndBox,
   const Bnd_Box&                    BndBox,
@@ -724,12 +724,12 @@ void PrsDim_EqualDistanceRelation::ComputeOneEdgeOneVertexLength(
   Point3d&                           SecondExtreme,
   DsgPrs_ArrowSide&                 SymbolPrs)
 {
-  TopoDS_Vertex thevertex;
-  TopoDS_Edge   theedge;
+  TopoVertex thevertex;
+  TopoEdge   theedge;
 
   Point3d             ptonedge1, ptonedge2;
-  Handle(Geom_Curve) aCurve;
-  Handle(Geom_Curve) extCurv;
+  Handle(GeomCurve3d) aCurve;
+  Handle(GeomCurve3d) extCurv;
   Standard_Boolean   isInfinite;
   Standard_Real      Val;
   Standard_Boolean   isOnPlanEdge, isOnPlanVertex;
@@ -759,9 +759,9 @@ void PrsDim_EqualDistanceRelation::ComputeOneEdgeOneVertexLength(
   aPresentation->SetInfiniteState(isInfinite);
   PrsDim::ComputeGeometry(thevertex, FirstAttach, Plane, isOnPlanVertex);
 
-  if (aCurve->IsInstance(STANDARD_TYPE(Geom_Line)))
+  if (aCurve->IsInstance(STANDARD_TYPE(GeomLine)))
   {
-    Handle(Geom_Line) geom_lin(Handle(Geom_Line)::DownCast(aCurve));
+    Handle(GeomLine) geom_lin(Handle(GeomLine)::DownCast(aCurve));
     const gp_Lin&     l = geom_lin->Lin();
 
     // computation of Val
@@ -820,9 +820,9 @@ void PrsDim_EqualDistanceRelation::ComputeOneEdgeOneVertexLength(
                                                   FirstExtreme,
                                                   SecondExtreme);
   }
-  if (aCurve->IsInstance(STANDARD_TYPE(Geom_Circle)))
+  if (aCurve->IsInstance(STANDARD_TYPE(GeomCircle)))
   {
-    gp_Circ aCirc1 = (Handle(Geom_Circle)::DownCast(aCurve))->Circ();
+    gp_Circ aCirc1 = (Handle(GeomCircle)::DownCast(aCurve))->Circ();
     gp_Circ aCirc2(aCirc1);
     aCirc2.SetRadius(0); // create the second formal circle
     if (AutomaticPos)
@@ -836,7 +836,7 @@ void PrsDim_EqualDistanceRelation::ComputeOneEdgeOneVertexLength(
       SecondAttach       = ElCLib::Value(aPar, aCirc1);
     }
 
-    Handle(Geom_Circle) aCurve2 = new Geom_Circle(aCirc2);
+    Handle(GeomCircle) aCurve2 = new GeomCircle(aCirc2);
     DsgPrs_EqualDistancePresentation::AddIntervalBetweenTwoArcs(aPresentation,
                                                                 aDrawer,
                                                                 aCirc1,    // circle or arc

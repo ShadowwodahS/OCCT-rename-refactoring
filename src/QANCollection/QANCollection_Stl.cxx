@@ -546,7 +546,7 @@ void TestRandomIterator()
 
 //=================================================================================================
 
-static Standard_Integer QANListStlIterator(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer QANListStlIterator(DrawInterpreter&, Standard_Integer, const char**)
 {
   // compile-time tests
   TestForwardIterator<NCollection_List<Standard_Integer>>();
@@ -589,7 +589,7 @@ static Standard_Integer QANListStlIterator(Draw_Interpretor&, Standard_Integer, 
 
 //=================================================================================================
 
-static Standard_Integer QANMapStlIterator(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer QANMapStlIterator(DrawInterpreter&, Standard_Integer, const char**)
 {
   // compile-time tests
   //  TestForwardIterator <NCollection_Map<Standard_Integer> >();
@@ -609,7 +609,7 @@ static Standard_Integer QANMapStlIterator(Draw_Interpretor&, Standard_Integer, c
 
 //=================================================================================================
 
-static Standard_Integer QANIndexedMapStlIterator(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer QANIndexedMapStlIterator(DrawInterpreter&, Standard_Integer, const char**)
 {
   // compile-time tests
   //  TestForwardIterator <NCollection_IndexedMap<Standard_Integer> >();
@@ -630,7 +630,7 @@ static Standard_Integer QANIndexedMapStlIterator(Draw_Interpretor&, Standard_Int
 
 //=================================================================================================
 
-static Standard_Integer QANDataMapStlIterator(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer QANDataMapStlIterator(DrawInterpreter&, Standard_Integer, const char**)
 {
   // compile-time tests
   //  TestForwardIterator <NCollection_DataMap<int, int> >();
@@ -660,7 +660,7 @@ static Standard_Integer QANDataMapStlIterator(Draw_Interpretor&, Standard_Intege
 
 //=================================================================================================
 
-static Standard_Integer QANIndexedDataMapStlIterator(Draw_Interpretor&,
+static Standard_Integer QANIndexedDataMapStlIterator(DrawInterpreter&,
                                                      Standard_Integer,
                                                      const char**)
 {
@@ -695,7 +695,7 @@ static Standard_Integer QANIndexedDataMapStlIterator(Draw_Interpretor&,
 
 //=================================================================================================
 
-static Standard_Integer QANSequenceStlIterator(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer QANSequenceStlIterator(DrawInterpreter&, Standard_Integer, const char**)
 {
   // compile-time tests
   TestForwardIterator<NCollection_Sequence<int>>();
@@ -747,7 +747,7 @@ static Standard_Integer QANSequenceStlIterator(Draw_Interpretor&, Standard_Integ
 
 //=================================================================================================
 
-static Standard_Integer QANVectorStlIterator(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer QANVectorStlIterator(DrawInterpreter&, Standard_Integer, const char**)
 {
   // compile-time tests
   TestForwardIterator<NCollection_Vector<int>>();
@@ -832,7 +832,7 @@ static Standard_Integer QANVectorStlIterator(Draw_Interpretor&, Standard_Integer
 
 //=================================================================================================
 
-static Standard_Integer QANArray1StlIterator(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer QANArray1StlIterator(DrawInterpreter&, Standard_Integer, const char**)
 {
   // compile-time tests
   TestForwardIterator<NCollection_Vector<int>>();
@@ -893,7 +893,7 @@ static Standard_Integer QANArray1StlIterator(Draw_Interpretor&, Standard_Integer
 
 //=================================================================================================
 
-static Standard_Integer QANTestStlIterators(Draw_Interpretor& theInterpretor,
+static Standard_Integer QANTestStlIterators(DrawInterpreter& theInterpretor,
                                             Standard_Integer,
                                             const char**)
 {
@@ -912,7 +912,7 @@ static Standard_Integer QANTestStlIterators(Draw_Interpretor& theInterpretor,
 //=================================================================================================
 
 template <class CollectionType, class StlType>
-void TestPerformanceRandomIterator(Draw_Interpretor& di)
+void TestPerformanceRandomIterator(DrawInterpreter& di)
 {
   OSD_Timer aTimer;
 
@@ -969,7 +969,7 @@ void TestPerformanceRandomIterator(Draw_Interpretor& di)
 //=================================================================================================
 
 template <class CollectionType, class StlType>
-void TestPerformanceForwardIterator(Draw_Interpretor& di)
+void TestPerformanceForwardIterator(DrawInterpreter& di)
 {
   OSD_Timer aTimer;
 
@@ -1024,7 +1024,7 @@ void TestPerformanceForwardIterator(Draw_Interpretor& di)
 //=================================================================================================
 
 template <class CollectionType, class StlType>
-void TestPerformanceBidirIterator(Draw_Interpretor& di)
+void TestPerformanceBidirIterator(DrawInterpreter& di)
 {
   OSD_Timer aTimer;
 
@@ -1073,7 +1073,7 @@ void TestPerformanceBidirIterator(Draw_Interpretor& di)
 //=================================================================================================
 
 template <class CollectionType, class T>
-void TestPerformanceMapAccess(Draw_Interpretor& di)
+void TestPerformanceMapAccess(DrawInterpreter& di)
 {
   OSD_Timer aTimer;
 
@@ -1142,7 +1142,7 @@ void TestPerformanceMapAccess(Draw_Interpretor& di)
 
 //=================================================================================================
 
-static Standard_Integer QANTestNCollectionPerformance(Draw_Interpretor& di,
+static Standard_Integer QANTestNCollectionPerformance(DrawInterpreter& di,
                                                       Standard_Integer,
                                                       const char**)
 {
@@ -1180,7 +1180,7 @@ static Standard_Integer QANTestNCollectionPerformance(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANTestNCollectionIndexedMap(Draw_Interpretor& di,
+static Standard_Integer QANTestNCollectionIndexedMap(DrawInterpreter& di,
                                                      Standard_Integer,
                                                      const char**)
 {
@@ -1273,7 +1273,7 @@ static Standard_Integer QANTestNCollectionIndexedMap(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANTestNCollectionIndexedDataMap(Draw_Interpretor& di,
+static Standard_Integer QANTestNCollectionIndexedDataMap(DrawInterpreter& di,
                                                          Standard_Integer,
                                                          const char**)
 {
@@ -1366,7 +1366,7 @@ static Standard_Integer QANTestNCollectionIndexedDataMap(Draw_Interpretor& di,
 
 //=================================================================================================
 
-void QANCollection::CommandsStl(Draw_Interpretor& theCommands)
+void QANCollection::CommandsStl(DrawInterpreter& theCommands)
 {
   const char* aGroup = "QANCollection";
 

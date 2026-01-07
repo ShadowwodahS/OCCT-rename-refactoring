@@ -23,7 +23,7 @@
 
 #include <Standard_Real.hxx>
 #include <Standard_Boolean.hxx>
-class Geom_Surface;
+class GeomSurface;
 
 //! Converts a surface to the analytical form with given
 //! precision. Conversion is done only the surface is bspline
@@ -36,9 +36,9 @@ public:
 
   Standard_EXPORT ShapeCustom_Surface();
 
-  Standard_EXPORT ShapeCustom_Surface(const Handle(Geom_Surface)& S);
+  Standard_EXPORT ShapeCustom_Surface(const Handle(GeomSurface)& S);
 
-  Standard_EXPORT void Init(const Handle(Geom_Surface)& S);
+  Standard_EXPORT void Init(const Handle(GeomSurface)& S);
 
   //! Returns maximal deviation of converted surface from the original
   //! one computed by last call to ConvertToAnalytical
@@ -55,7 +55,7 @@ public:
   //! It works by analysing the case which can apply, creating the
   //! corresponding analytic surface, then checking coincidence
   //! Warning: Parameter laws are not kept, hence PCurves should be redone
-  Standard_EXPORT Handle(Geom_Surface) ConvertToAnalytical(const Standard_Real    tol,
+  Standard_EXPORT Handle(GeomSurface) ConvertToAnalytical(const Standard_Real    tol,
                                                            const Standard_Boolean substitute);
 
   //! Tries to convert the Surface to the Periodic form
@@ -63,12 +63,12 @@ public:
   //! Works only if the Surface is BSpline and is closed with
   //! Precision::Confusion()
   //! Else, or in case of failure, returns a Null Handle
-  Standard_EXPORT Handle(Geom_Surface) ConvertToPeriodic(const Standard_Boolean substitute,
+  Standard_EXPORT Handle(GeomSurface) ConvertToPeriodic(const Standard_Boolean substitute,
                                                          const Standard_Real    preci = -1);
 
 protected:
 private:
-  Handle(Geom_Surface) mySurf;
+  Handle(GeomSurface) mySurf;
   Standard_Real        myGap;
 };
 

@@ -28,11 +28,11 @@ class Point3d;
 class Vector3d;
 
 class ShapeExtend_ComplexCurve;
-DEFINE_STANDARD_HANDLE(ShapeExtend_ComplexCurve, Geom_Curve)
+DEFINE_STANDARD_HANDLE(ShapeExtend_ComplexCurve, GeomCurve3d)
 
 //! Defines a curve which consists of several segments.
 //! Implements basic interface to it.
-class ShapeExtend_ComplexCurve : public Geom_Curve
+class ShapeExtend_ComplexCurve : public GeomCurve3d
 {
 
 public:
@@ -40,7 +40,7 @@ public:
   Standard_EXPORT virtual Standard_Integer NbCurves() const = 0;
 
   //! Returns curve given by its index
-  Standard_EXPORT virtual const Handle(Geom_Curve)& Curve(const Standard_Integer index) const = 0;
+  Standard_EXPORT virtual const Handle(GeomCurve3d)& Curve(const Standard_Integer index) const = 0;
 
   //! Returns number of the curve for the given parameter U
   //! and local parameter UOut for the found curve
@@ -105,7 +105,7 @@ public:
   //! closure (sets fields myClosed)
   Standard_EXPORT Standard_Boolean CheckConnectivity(const Standard_Real Preci);
 
-  DEFINE_STANDARD_RTTIEXT(ShapeExtend_ComplexCurve, Geom_Curve)
+  DEFINE_STANDARD_RTTIEXT(ShapeExtend_ComplexCurve, GeomCurve3d)
 
 protected:
   Standard_EXPORT ShapeExtend_ComplexCurve();

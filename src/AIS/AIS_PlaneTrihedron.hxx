@@ -21,8 +21,8 @@
 #include <TCollection_AsciiString.hxx>
 
 class AIS_Line;
-class AIS_Point;
-class Geom_Plane;
+class VisualPoint;
+class GeomPlane;
 
 //! To construct a selectable 2d axis system in a 3d
 //! drawing. This can be placed anywhere in the 3d
@@ -41,19 +41,19 @@ class Geom_Plane;
 //! which   the values for length are stocked, for example,
 //! PlaneAspect for planes and LineAspect for
 //! trihedra. Change these values and recalculate the presentation.
-class AIS_PlaneTrihedron : public AIS_InteractiveObject
+class AIS_PlaneTrihedron : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_PlaneTrihedron, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_PlaneTrihedron, VisualEntity)
 public:
   //! Initializes the plane aPlane. The plane trihedron is
   //! constructed from this and an axis.
-  Standard_EXPORT AIS_PlaneTrihedron(const Handle(Geom_Plane)& aPlane);
+  Standard_EXPORT AIS_PlaneTrihedron(const Handle(GeomPlane)& aPlane);
 
   //! Returns the component specified in SetComponent.
-  Standard_EXPORT Handle(Geom_Plane) Component();
+  Standard_EXPORT Handle(GeomPlane) Component();
 
   //! Creates an instance of the component object aPlane.
-  Standard_EXPORT void SetComponent(const Handle(Geom_Plane)& aPlane);
+  Standard_EXPORT void SetComponent(const Handle(GeomPlane)& aPlane);
 
   //! Returns the "XAxis".
   Standard_EXPORT Handle(AIS_Line) XAxis() const;
@@ -62,7 +62,7 @@ public:
   Standard_EXPORT Handle(AIS_Line) YAxis() const;
 
   //! Returns the point of origin of the plane trihedron.
-  Standard_EXPORT Handle(AIS_Point) Position() const;
+  Standard_EXPORT Handle(VisualPoint) Position() const;
 
   //! Sets the length of the X and Y axes.
   Standard_EXPORT void SetLength(const Standard_Real theLength);
@@ -85,9 +85,9 @@ public:
   //! Allows you to provide settings for the color aColor.
   Standard_EXPORT virtual void SetColor(const Quantity_Color& theColor) Standard_OVERRIDE;
 
-  void SetXLabel(const TCollection_AsciiString& theLabel) { myXLabel = theLabel; }
+  void SetXLabel(const AsciiString1& theLabel) { myXLabel = theLabel; }
 
-  void SetYLabel(const TCollection_AsciiString& theLabel) { myYLabel = theLabel; }
+  void SetYLabel(const AsciiString1& theLabel) { myYLabel = theLabel; }
 
 protected:
   Standard_EXPORT virtual void Compute(const Handle(PrsMgr_PresentationManager)& theprsMgr,
@@ -95,16 +95,16 @@ protected:
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
 private:
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
 private:
-  Handle(Geom_Plane)            myPlane;
-  Handle(AIS_InteractiveObject) myShapes[3];
-  TCollection_AsciiString       myXLabel;
-  TCollection_AsciiString       myYLabel;
+  Handle(GeomPlane)            myPlane;
+  Handle(VisualEntity) myShapes[3];
+  AsciiString1       myXLabel;
+  AsciiString1       myYLabel;
 };
 
-DEFINE_STANDARD_HANDLE(AIS_PlaneTrihedron, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(AIS_PlaneTrihedron, VisualEntity)
 
 #endif // _AIS_PlaneTrihedron_HeaderFile

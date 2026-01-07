@@ -30,7 +30,7 @@ class Vector3d;
 //! This package provides a set of generic functions, that can
 //! instantiated to compute blendings between two surfaces
 //! (Constant radius, Evolutive radius, Ruled surface).
-class BlendFunc
+class BlendFunc1
 {
 public:
   DEFINE_STANDARD_ALLOC

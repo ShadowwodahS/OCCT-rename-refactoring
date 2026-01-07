@@ -43,7 +43,7 @@ const int DEFAULT_SPACING = 3;
 // purpose :
 // =======================================================================
 View_Window::View_Window(QWidget*                              theParent,
-                         const Handle(AIS_InteractiveContext)& theContext,
+                         const Handle(VisualContext)& theContext,
                          const bool                            isUseKeepView,
                          const bool                            isFitAllActive)
     : QWidget(theParent)
@@ -80,7 +80,7 @@ View_Window::View_Window(QWidget*                              theParent,
   aViewLayout->addWidget(myView, 1, 1);
   aViewLayout->setRowStretch(1, 1);
 
-  Handle(AIS_InteractiveContext) aContext = myView->GetViewer()->GetContext();
+  Handle(VisualContext) aContext = myView->GetViewer()->GetContext();
   myViewToolBar->SetContext(View_ContextType_Own, aContext);
 
   myDisplayer = new View_Displayer();
@@ -96,7 +96,7 @@ View_Window::View_Window(QWidget*                              theParent,
 // purpose :
 // =======================================================================
 void View_Window::SetContext(View_ContextType /*theType*/,
-                             const Handle(AIS_InteractiveContext)& theContext)
+                             const Handle(VisualContext)& theContext)
 {
   ViewToolBar()->SetContext(View_ContextType_External, theContext);
 }
@@ -125,7 +125,7 @@ void View_Window::SetInitProj(const Standard_Real theVx,
 // function : View
 // purpose :
 // =======================================================================
-Handle(V3d_View) View_Window::View() const
+Handle(ViewWindow) View_Window::View() const
 {
   return myView->GetViewer()->GetView();
 }
@@ -140,7 +140,7 @@ void View_Window::SaveState(View_Window*            theView,
 {
   QStringList      aCameraDirection;
   Standard_Real    aVX, aVY, aVZ;
-  Handle(V3d_View) aView = theView->View();
+  Handle(ViewWindow) aView = theView->View();
   if (aView.IsNull())
     return;
 
@@ -218,7 +218,7 @@ void View_Window::onViewSelectorActivated()
 
   myView->SetEnabledView(isViewEnabled);
 
-  Handle(AIS_InteractiveContext) aContext = myViewToolBar->CurrentContext();
+  Handle(VisualContext) aContext = myViewToolBar->CurrentContext();
   myDisplayer->EraseAllPresentations(true);
   emit eraseAllPerformed();
 
@@ -303,13 +303,13 @@ void View_Window::onSetOrientation()
 {
   QAction* anAction = (QAction*)(sender());
 
-  TCollection_AsciiString anOrientationStr(anAction->text().toStdString().c_str());
+  AsciiString1 anOrientationStr(anAction->text().toStdString().c_str());
 
   V3d_TypeOfOrientation anOrientationType;
   if (!V3d::TypeOfOrientationFromString(anOrientationStr.ToCString(), anOrientationType))
     return;
 
-  Handle(V3d_View) aView = myView->GetViewer()->GetView();
+  Handle(ViewWindow) aView = myView->GetViewer()->GetView();
   if (aView.IsNull())
     return;
 

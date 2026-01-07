@@ -31,7 +31,7 @@ public:
   }
 
   //! Fill a transient label with data.
-  void FillLabel(TDF_Label theLabel)
+  void FillLabel(DataLabel theLabel)
   {
     Standard_Integer i;
 
@@ -66,7 +66,7 @@ public:
       Standard_Integer aSubLabelTag = myLabelsIter.Value();
 
       // create and fill child label
-      TDF_Label aSubLabel = theLabel.FindChild(aSubLabelTag, Standard_True);
+      DataLabel aSubLabel = theLabel.FindChild(aSubLabelTag, Standard_True);
       FillLabel(aSubLabel);
     }
   }

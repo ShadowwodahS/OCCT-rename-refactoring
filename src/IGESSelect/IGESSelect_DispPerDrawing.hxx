@@ -22,7 +22,7 @@
 
 #include <IFSelect_Dispatch.hxx>
 class IGESSelect_ViewSorter;
-class TCollection_AsciiString;
+class AsciiString1;
 class Interface_Graph;
 class IFGraph_SubPartsIterator;
 class Interface_EntityIterator;
@@ -44,7 +44,7 @@ public:
   Standard_EXPORT IGESSelect_DispPerDrawing();
 
   //! Returns as Label, "One File per Drawing"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   //! Computes the list of produced Packets. Packets are computed
   //! by a ViewSorter (SortDrawings with also frames).

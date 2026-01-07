@@ -23,8 +23,8 @@
 
 #include <TopOpeBRepBuild_Area2dBuilder.hxx>
 #include <Standard_Boolean.hxx>
-class TopOpeBRepBuild_LoopSet;
-class TopOpeBRepBuild_LoopClassifier;
+class LoopSet;
+class LoopClassifier;
 
 //! The FaceAreaBuilder algorithm is used to construct Faces from a LoopSet,
 //! where the Loop is the composite topological object of the boundary,
@@ -44,12 +44,12 @@ public:
   //! Creates a FaceAreaBuilder to build faces on
   //! the (wires,blocks of edge) of <LS>, using the classifier <LC>.
   Standard_EXPORT TopOpeBRepBuild_FaceAreaBuilder(
-    TopOpeBRepBuild_LoopSet&        LS,
-    TopOpeBRepBuild_LoopClassifier& LC,
+    LoopSet&        LS,
+    LoopClassifier& LC,
     const Standard_Boolean          ForceClass = Standard_False);
 
-  Standard_EXPORT void InitFaceAreaBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                           TopOpeBRepBuild_LoopClassifier& LC,
+  Standard_EXPORT void InitFaceAreaBuilder(LoopSet&        LS,
+                                           LoopClassifier& LC,
                                            const Standard_Boolean ForceClass = Standard_False);
 
 protected:

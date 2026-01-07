@@ -34,7 +34,7 @@
 // purpose  : calculate  the Hermite coefficients of degree 3 from BS and
 //    	     store them in TAB(4 coefficients)
 //=======================================================================
-static void HermiteCoeff(const Handle(Geom_BSplineCurve)& BS, TColStd_Array1OfReal& TAB)
+static void HermiteCoeff(const Handle(BSplineCurve3d)& BS, TColStd_Array1OfReal& TAB)
 
 {
   TColStd_Array1OfReal    Knots(1, BS->NbKnots());
@@ -191,7 +191,7 @@ static void Polemax(const TColgp_Array1OfPnt2d& Poles, Standard_Integer& min, St
 //=======================================================================
 
 static void PolyTest(const TColStd_Array1OfReal&      Herm,
-                     const Handle(Geom_BSplineCurve)& BS,
+                     const Handle(BSplineCurve3d)& BS,
                      Standard_Real&                   U4,
                      Standard_Real&                   U5,
                      Standard_Integer&                boucle,
@@ -738,7 +738,7 @@ static void MovePoles(Handle(Geom2d_BSplineCurve)& BS)
 
 //=================================================================================================
 
-Handle(Geom2d_BSplineCurve) Hermit::Solution(const Handle(Geom_BSplineCurve)& BS,
+Handle(Geom2d_BSplineCurve) Hermit::Solution(const Handle(BSplineCurve3d)& BS,
                                              const Standard_Real              TolPoles,
                                              const Standard_Real              TolKnots)
 
@@ -938,7 +938,7 @@ Handle(Geom2d_BSplineCurve) Hermit::Solution(const Handle(Geom2d_BSplineCurve)& 
 
 //=================================================================================================
 
-void Hermit::Solutionbis(const Handle(Geom_BSplineCurve)& BS,
+void Hermit::Solutionbis(const Handle(BSplineCurve3d)& BS,
                          Standard_Real&                   Knotmin,
                          Standard_Real&                   Knotmax,
                          const Standard_Real              TolPoles,

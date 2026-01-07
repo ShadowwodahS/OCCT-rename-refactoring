@@ -22,7 +22,7 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_IndexedDataMap.hxx>
 
-typedef NCollection_IndexedDataMap<TopoDS_Face, Draft_FaceInfo, TopTools_ShapeMapHasher>
+typedef NCollection_IndexedDataMap<TopoFace, Draft_FaceInfo, ShapeHasher>
   Draft_IndexedDataMapOfFaceFaceInfo;
 
 #endif

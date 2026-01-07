@@ -244,7 +244,7 @@ void OpenGl_CappingAlgo::RenderCapping(const Handle(OpenGl_Workspace)& theWorksp
          aSubPlaneIter = aSubPlaneIter->ChainNextPlane().get(), ++aSubPlaneIndex)
     {
       // get resource for the plane
-      const TCollection_AsciiString&      aResId = aSubPlaneIter->GetId();
+      const AsciiString1&      aResId = aSubPlaneIter->GetId();
       Handle(OpenGl_CappingPlaneResource) aPlaneRes;
       if (!aContext->GetResource(aResId, aPlaneRes))
       {

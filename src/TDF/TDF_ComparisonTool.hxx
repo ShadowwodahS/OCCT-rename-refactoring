@@ -24,7 +24,7 @@
 class TDF_DataSet;
 class TDF_IDFilter;
 class TDF_RelocationTable;
-class TDF_Label;
+class DataLabel;
 
 //! This class provides services to compare sets of
 //! information. The use of this tool can works after
@@ -95,14 +95,14 @@ public:
 
   //! Returns true if all the labels of <aDataSet> are
   //! descendant of <aLabel>.
-  Standard_EXPORT static Standard_Boolean IsSelfContained(const TDF_Label&           aLabel,
+  Standard_EXPORT static Standard_Boolean IsSelfContained(const DataLabel&           aLabel,
                                                           const Handle(TDF_DataSet)& aDataSet);
 
 protected:
 private:
   //! Internal comparison method used by Compare(...).
-  Standard_EXPORT static void Compare(const TDF_Label&                   aSrcLabel,
-                                      const TDF_Label&                   aTrgLabel,
+  Standard_EXPORT static void Compare(const DataLabel&                   aSrcLabel,
+                                      const DataLabel&                   aTrgLabel,
                                       const Handle(TDF_DataSet)&         aSourceDataSet,
                                       const Handle(TDF_DataSet)&         aTargetDataSet,
                                       const TDF_IDFilter&                aFilter,

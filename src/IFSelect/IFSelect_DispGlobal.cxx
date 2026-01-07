@@ -24,9 +24,9 @@ IMPLEMENT_STANDARD_RTTIEXT(IFSelect_DispGlobal, IFSelect_Dispatch)
 // Genere un seul paquet avec la sortie finale
 IFSelect_DispGlobal::IFSelect_DispGlobal() {}
 
-TCollection_AsciiString IFSelect_DispGlobal::Label() const
+AsciiString1 IFSelect_DispGlobal::Label() const
 {
-  return TCollection_AsciiString("One File for All Input");
+  return AsciiString1("One File for All Input");
 }
 
 Standard_Boolean IFSelect_DispGlobal::LimitedMax(const Standard_Integer /* nbent */,

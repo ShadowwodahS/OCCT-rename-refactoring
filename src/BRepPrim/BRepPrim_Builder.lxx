@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline const BRep_Builder& BRepPrim_Builder::Builder() const
+inline const ShapeBuilder& BRepPrim_Builder::Builder() const
 {
   return myBuilder;
 }

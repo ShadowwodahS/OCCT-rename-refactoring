@@ -63,8 +63,8 @@ Standard_Boolean XmlMDataStd_ByteArrayDriver::Paste(const XmlObjMgt_Persistent& 
     aFirstInd = 1;
   else if (!aFirstIndex.GetInteger(aFirstInd))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the first index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the first index"
                                  " for ByteArray attribute as \"")
       + aFirstIndex + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -74,8 +74,8 @@ Standard_Boolean XmlMDataStd_ByteArrayDriver::Paste(const XmlObjMgt_Persistent& 
   // Read the LastIndex; the attribute should be present
   if (!anElement.getAttribute(::LastIndexString()).GetInteger(aLastInd))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the last index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the last index"
                                  " for ByteArray attribute as \"")
       + aFirstIndex + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -84,8 +84,8 @@ Standard_Boolean XmlMDataStd_ByteArrayDriver::Paste(const XmlObjMgt_Persistent& 
 
   if (aFirstInd > aLastInd)
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("The last index is greater than the first index"
+    UtfString aMessageString =
+      UtfString("The last index is greater than the first index"
                                  " for ByteArray attribute \"");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
@@ -112,8 +112,8 @@ Standard_Boolean XmlMDataStd_ByteArrayDriver::Paste(const XmlObjMgt_Persistent& 
   {
     if (!XmlObjMgt::GetInteger(aValueStr, aValue))
     {
-      TCollection_ExtendedString aMessageString =
-        TCollection_ExtendedString("Cannot retrieve integer member"
+      UtfString aMessageString =
+        UtfString("Cannot retrieve integer member"
                                    " for ByteArray attribute as \"")
         + aValueStr + "\"";
       myMessageDriver->Send(aMessageString, Message_Warning);
@@ -131,8 +131,8 @@ Standard_Boolean XmlMDataStd_ByteArrayDriver::Paste(const XmlObjMgt_Persistent& 
     Standard_Integer aDeltaValue;
     if (!anElement.getAttribute(::IsDeltaOn()).GetInteger(aDeltaValue))
     {
-      TCollection_ExtendedString aMessageString =
-        TCollection_ExtendedString("Cannot retrieve the isDelta value"
+      UtfString aMessageString =
+        UtfString("Cannot retrieve the isDelta value"
                                    " for ByteArray attribute as \"")
         + aDeltaValue + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);

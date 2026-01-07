@@ -30,9 +30,9 @@
 #include <Interface_Macros.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESDimen_ToolDimensionedGeometry::IGESDimen_ToolDimensionedGeometry() {}
+DimensionedGeometryTool::DimensionedGeometryTool() {}
 
-void IGESDimen_ToolDimensionedGeometry::ReadOwnParams(
+void DimensionedGeometryTool::ReadOwnParams(
   const Handle(IGESDimen_DimensionedGeometry)& ent,
   const Handle(IGESData_IGESReaderData)&       IR,
   IGESData_ParamReader&                        PR) const
@@ -71,7 +71,7 @@ void IGESDimen_ToolDimensionedGeometry::ReadOwnParams(
   ent->Init(tempNbDimen, aDimEntity, GeomEntities);
 }
 
-void IGESDimen_ToolDimensionedGeometry::WriteOwnParams(
+void DimensionedGeometryTool::WriteOwnParams(
   const Handle(IGESDimen_DimensionedGeometry)& ent,
   IGESData_IGESWriter&                         IW) const
 {
@@ -82,7 +82,7 @@ void IGESDimen_ToolDimensionedGeometry::WriteOwnParams(
     IW.Send(ent->GeometryEntity(i));
 }
 
-void IGESDimen_ToolDimensionedGeometry::OwnShared(const Handle(IGESDimen_DimensionedGeometry)& ent,
+void DimensionedGeometryTool::OwnShared(const Handle(IGESDimen_DimensionedGeometry)& ent,
                                                   Interface_EntityIterator& iter) const
 {
   iter.GetOneItem(ent->DimensionEntity());
@@ -90,7 +90,7 @@ void IGESDimen_ToolDimensionedGeometry::OwnShared(const Handle(IGESDimen_Dimensi
     iter.GetOneItem(ent->GeometryEntity(i));
 }
 
-void IGESDimen_ToolDimensionedGeometry::OwnCopy(
+void DimensionedGeometryTool::OwnCopy(
   const Handle(IGESDimen_DimensionedGeometry)& another,
   const Handle(IGESDimen_DimensionedGeometry)& ent,
   Interface_CopyTool&                          TC) const
@@ -107,7 +107,7 @@ void IGESDimen_ToolDimensionedGeometry::OwnCopy(
   ent->Init(nbDim, anentity, EntArray);
 }
 
-Standard_Boolean IGESDimen_ToolDimensionedGeometry::OwnCorrect(
+Standard_Boolean DimensionedGeometryTool::OwnCorrect(
   const Handle(IGESDimen_DimensionedGeometry)& ent) const
 {
   if (ent->NbDimensions() == 1)
@@ -121,10 +121,10 @@ Standard_Boolean IGESDimen_ToolDimensionedGeometry::OwnCorrect(
   return Standard_True;
 }
 
-IGESData_DirChecker IGESDimen_ToolDimensionedGeometry::DirChecker(
+DirectoryChecker DimensionedGeometryTool::DirChecker(
   const Handle(IGESDimen_DimensionedGeometry)& /* ent */) const
 {
-  IGESData_DirChecker DC(402, 13); // type no = 402; form no. = 13
+  DirectoryChecker DC(402, 13); // type no = 402; form no. = 13
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.BlankStatusIgnored();
@@ -132,7 +132,7 @@ IGESData_DirChecker IGESDimen_ToolDimensionedGeometry::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolDimensionedGeometry::OwnCheck(const Handle(IGESDimen_DimensionedGeometry)& ent,
+void DimensionedGeometryTool::OwnCheck(const Handle(IGESDimen_DimensionedGeometry)& ent,
                                                  const Interface_ShareTool&,
                                                  Handle(Interface_Check)& ach) const
 {
@@ -142,7 +142,7 @@ void IGESDimen_ToolDimensionedGeometry::OwnCheck(const Handle(IGESDimen_Dimensio
     ach->AddFail("Incorrect UseFlag");
 }
 
-void IGESDimen_ToolDimensionedGeometry::OwnDump(const Handle(IGESDimen_DimensionedGeometry)& ent,
+void DimensionedGeometryTool::OwnDump(const Handle(IGESDimen_DimensionedGeometry)& ent,
                                                 const IGESData_IGESDumper&                   dumper,
                                                 Standard_OStream&                            S,
                                                 const Standard_Integer level) const

@@ -41,7 +41,7 @@
 #define MTBpwes TopOpeBRepBuild_PWireEdgeSet
 #define MTBwes TopOpeBRepBuild_WireEdgeSet
 #define MTBsfs TopOpeBRepBuild_ShellFaceSet
-#define MTBgt TopOpeBRepBuild_GTopo
+#define MTBgt GTopologyClassifier
 #define MTBpvc TopOpeBRepBuild_PaveClassifier
 #define MTBpvs TopOpeBRepBuild_PaveSet
 #define MTBhpv Handle(TopOpeBRepBuild_Pave)

@@ -30,12 +30,12 @@ IMPLEMENT_STANDARD_RTTIEXT(Draw_ProgressIndicator, Message_ProgressIndicator)
 
 //=================================================================================================
 
-Draw_ProgressIndicator::Draw_ProgressIndicator(const Draw_Interpretor& di,
+Draw_ProgressIndicator::Draw_ProgressIndicator(const DrawInterpreter& di,
                                                Standard_Real           theUpdateThreshold)
     : myTclMode(DefaultTclMode()),
       myConsoleMode(DefaultConsoleMode()),
       myGraphMode(DefaultGraphMode()),
-      myDraw((Draw_Interpretor*)&di),
+      myDraw((DrawInterpreter*)&di),
       myShown(Standard_False),
       myBreak(Standard_False),
       myUpdateThreshold(0.01 * theUpdateThreshold),
@@ -60,7 +60,7 @@ void Draw_ProgressIndicator::Reset()
   if (myShown)
   {
     // eval will reset current string result - backup it beforehand
-    const TCollection_AsciiString aTclResStr(myDraw->Result());
+    const AsciiString1 aTclResStr(myDraw->Result());
     myDraw->Eval("destroy .xprogress");
     *myDraw << aTclResStr;
     myShown = Standard_False;
@@ -147,7 +147,7 @@ void Draw_ProgressIndicator::Show(const Message_ProgressScope& theScope,
     }
 
     // eval will reset current string result - backup it beforehand
-    const TCollection_AsciiString aTclResStr(myDraw->Result());
+    const AsciiString1 aTclResStr(myDraw->Result());
     if (!myShown)
     {
       char command[1024];

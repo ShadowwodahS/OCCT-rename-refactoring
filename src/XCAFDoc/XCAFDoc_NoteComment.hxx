@@ -27,7 +27,7 @@ public:
   Standard_EXPORT static const Standard_GUID& GetID();
 
   //! Finds a reference attribute on the given label and returns it, if it is found
-  Standard_EXPORT static Handle(XCAFDoc_NoteComment) Get(const TDF_Label& theLabel);
+  Standard_EXPORT static Handle(XCAFDoc_NoteComment) Get(const DataLabel& theLabel);
 
   //! Create (if not exist) a comment note on the given label.
   //! \param[in]  theLabel     - note label.
@@ -35,19 +35,19 @@ public:
   //! \param[in]  theTimeStamp - creation timestamp of the note.
   //! \param[in]  theComment   - comment text.
   Standard_EXPORT static Handle(XCAFDoc_NoteComment) Set(
-    const TDF_Label&                  theLabel,
-    const TCollection_ExtendedString& theUserName,
-    const TCollection_ExtendedString& theTimeStamp,
-    const TCollection_ExtendedString& theComment);
+    const DataLabel&                  theLabel,
+    const UtfString& theUserName,
+    const UtfString& theTimeStamp,
+    const UtfString& theComment);
 
   //! Creates an empty comment note.
   Standard_EXPORT XCAFDoc_NoteComment();
 
   //! Sets the comment text.
-  Standard_EXPORT void Set(const TCollection_ExtendedString& theComment);
+  Standard_EXPORT void Set(const UtfString& theComment);
 
   //! Returns the comment text.
-  const TCollection_ExtendedString& Comment() const { return myComment; }
+  const UtfString& Comment() const { return myComment; }
 
 public:
   // Overrides TDF_Attribute virtuals
@@ -59,7 +59,7 @@ public:
   Standard_EXPORT Standard_OStream& Dump(Standard_OStream& theOS) const Standard_OVERRIDE;
 
 protected:
-  TCollection_ExtendedString myComment; ///< Comment text.
+  UtfString myComment; ///< Comment text.
 };
 
 DEFINE_STANDARD_HANDLE(XCAFDoc_NoteComment, XCAFDoc_Note)

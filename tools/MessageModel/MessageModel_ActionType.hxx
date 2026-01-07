@@ -22,7 +22,7 @@ enum MessageModel_ActionType
   MessageModel_ActionType_Activate,          //!< set Message_Report active
   MessageModel_ActionType_Deactivate,        //!< set Message_Report not active
   MessageModel_ActionType_Clear,             //!< clear Message_Report alerts
-  MessageModel_ActionType_ExportToShapeView, //!< export TopoDS_Shape of selected item into
+  MessageModel_ActionType_ExportToShapeView, //!< export TopoShape of selected item into
                                              //!< TKShapeView plugin
   MessageModel_ActionType_TestMetric,        //!< test alerts
   MessageModel_ActionType_TestMessenger,     //!< test message view on messenger printer to report

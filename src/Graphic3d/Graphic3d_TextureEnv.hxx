@@ -22,7 +22,7 @@
 #include <Graphic3d_NameOfTextureEnv.hxx>
 #include <Graphic3d_TextureRoot.hxx>
 #include <Standard_Integer.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 
 class Graphic3d_TextureEnv;
 DEFINE_STANDARD_HANDLE(Graphic3d_TextureEnv, Graphic3d_TextureRoot)
@@ -33,7 +33,7 @@ class Graphic3d_TextureEnv : public Graphic3d_TextureRoot
 
 public:
   //! Creates an environment texture from a file.
-  Standard_EXPORT Graphic3d_TextureEnv(const TCollection_AsciiString& theFileName);
+  Standard_EXPORT Graphic3d_TextureEnv(const AsciiString1& theFileName);
 
   //! Creates an environment texture from a predefined texture name set.
   Standard_EXPORT Graphic3d_TextureEnv(const Graphic3d_NameOfTextureEnv theName);
@@ -49,7 +49,7 @@ public:
   Standard_EXPORT static Standard_Integer NumberOfTextures();
 
   //! Returns the name of the predefined texture of rank <aRank>
-  Standard_EXPORT static TCollection_AsciiString TextureName(const Standard_Integer theRank);
+  Standard_EXPORT static AsciiString1 TextureName(const Standard_Integer theRank);
 
   DEFINE_STANDARD_RTTIEXT(Graphic3d_TextureEnv, Graphic3d_TextureRoot)
 

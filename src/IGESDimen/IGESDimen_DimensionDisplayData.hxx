@@ -29,7 +29,7 @@ class IGESDimen_DimensionDisplayData;
 DEFINE_STANDARD_HANDLE(IGESDimen_DimensionDisplayData, IGESData_IGESEntity)
 
 //! Defines IGES Dimension Display Data, Type <406> Form <30>,
-//! in package IGESDimen
+//! in package IGESDimen1
 //! The Dimensional Display Data Property is optional but when
 //! present must be referenced by a dimension entity.
 //! The information it contains could be extracted from the text,

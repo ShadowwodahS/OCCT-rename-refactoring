@@ -24,14 +24,14 @@
 #include <Standard_Integer.hxx>
 class TopOpeBRep_VPointInter;
 
-class TopOpeBRep_VPointInterIterator
+class VPointIntersectionIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRep_VPointInterIterator();
+  Standard_EXPORT VPointIntersectionIterator();
 
-  Standard_EXPORT TopOpeBRep_VPointInterIterator(const TopOpeBRep_LineInter& LI);
+  Standard_EXPORT VPointIntersectionIterator(const TopOpeBRep_LineInter& LI);
 
   Standard_EXPORT void Init(const TopOpeBRep_LineInter& LI,
                             const Standard_Boolean      checkkeep = Standard_False);

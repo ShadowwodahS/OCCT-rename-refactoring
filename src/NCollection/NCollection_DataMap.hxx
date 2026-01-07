@@ -45,7 +45,7 @@
  *              an item in the map.
  */
 
-template <class TheKeyType, class TheItemType, class Hasher = NCollection_DefaultHasher<TheKeyType>>
+template <class TheKeyType, class TheItemType, class Hasher1 = NCollection_DefaultHasher<TheKeyType>>
 class NCollection_DataMap : public NCollection_BaseMap
 {
 public:
@@ -603,7 +603,7 @@ protected:
   }
 
 private:
-  Hasher myHasher;
+  Hasher1 myHasher;
 };
 
 #endif

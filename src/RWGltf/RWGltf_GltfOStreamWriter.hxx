@@ -21,11 +21,11 @@
 #include <Standard_WarningsRestore.hxx>
 
 //! rapidjson::Writer wrapper for forward declaration.
-class RWGltf_GltfOStreamWriter : public rapidjson::Writer<rapidjson::OStreamWrapper>
+class GltfBinaryWriter : public rapidjson::Writer<rapidjson::OStreamWrapper>
 {
 public:
   //! Main constructor.
-  RWGltf_GltfOStreamWriter(rapidjson::OStreamWrapper& theOStream)
+  GltfBinaryWriter(rapidjson::OStreamWrapper& theOStream)
       : rapidjson::Writer<rapidjson::OStreamWrapper>(theOStream)
   {
   }

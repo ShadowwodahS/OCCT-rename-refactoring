@@ -18,9 +18,9 @@
 #include <TCollection_ExtendedString.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<TCollection_ExtendedString, Standard_Integer>
+typedef NCollection_DataMap<UtfString, Standard_Integer>
   TColStd_DataMapOfStringInteger;
-typedef NCollection_DataMap<TCollection_ExtendedString, Standard_Integer>::Iterator
+typedef NCollection_DataMap<UtfString, Standard_Integer>::Iterator
   TColStd_DataMapIteratorOfDataMapOfStringInteger;
 
 #endif

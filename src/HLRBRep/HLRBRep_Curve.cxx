@@ -40,7 +40,7 @@ HLRBRep_Curve::HLRBRep_Curve() {}
 
 //=================================================================================================
 
-void HLRBRep_Curve::Curve(const TopoDS_Edge& E)
+void HLRBRep_Curve::Curve(const TopoEdge& E)
 {
   myCurve.Initialize(E);
 }
@@ -483,7 +483,7 @@ void HLRBRep_Curve::Poles(TColgp_Array1OfPnt2d& TP) const
 
 //=================================================================================================
 
-void HLRBRep_Curve::Poles(const Handle(Geom_BSplineCurve)& aCurve, TColgp_Array1OfPnt2d& TP) const
+void HLRBRep_Curve::Poles(const Handle(BSplineCurve3d)& aCurve, TColgp_Array1OfPnt2d& TP) const
 {
   Standard_Integer   i1 = TP.Lower();
   Standard_Integer   i2 = TP.Upper();
@@ -509,14 +509,14 @@ void HLRBRep_Curve::PolesAndWeights(TColgp_Array1OfPnt2d& TP, TColStd_Array1OfRe
 
   if (HLRBRep_BCurveTool::GetType(myCurve) == GeomAbs_BSplineCurve)
   {
-    Handle(Geom_BSplineCurve) HB = (HLRBRep_BCurveTool::BSpline(myCurve));
+    Handle(BSplineCurve3d) HB = (HLRBRep_BCurveTool::BSpline(myCurve));
     HB->Poles(TP3);
     HB->Weights(TW);
     //-- (HLRBRep_BCurveTool::BSpline(myCurve))->PolesAndWeights(TP3,TW);
   }
   else
   {
-    Handle(Geom_BezierCurve) HB = (HLRBRep_BCurveTool::Bezier(myCurve));
+    Handle(BezierCurve3d) HB = (HLRBRep_BCurveTool::Bezier(myCurve));
     HB->Poles(TP3);
     HB->Weights(TW);
     //-- (HLRBRep_BCurveTool::Bezier(myCurve))->PolesAndWeights(TP3,TW);
@@ -530,7 +530,7 @@ void HLRBRep_Curve::PolesAndWeights(TColgp_Array1OfPnt2d& TP, TColStd_Array1OfRe
 
 //=================================================================================================
 
-void HLRBRep_Curve::PolesAndWeights(const Handle(Geom_BSplineCurve)& aCurve,
+void HLRBRep_Curve::PolesAndWeights(const Handle(BSplineCurve3d)& aCurve,
                                     TColgp_Array1OfPnt2d&            TP,
                                     TColStd_Array1OfReal&            TW) const
 {
@@ -556,7 +556,7 @@ void HLRBRep_Curve::Knots(TColStd_Array1OfReal& kn) const
 {
   if (HLRBRep_BCurveTool::GetType(myCurve) == GeomAbs_BSplineCurve)
   {
-    Handle(Geom_BSplineCurve) HB = (HLRBRep_BCurveTool::BSpline(myCurve));
+    Handle(BSplineCurve3d) HB = (HLRBRep_BCurveTool::BSpline(myCurve));
     HB->Knots(kn);
   }
 }
@@ -567,7 +567,7 @@ void HLRBRep_Curve::Multiplicities(TColStd_Array1OfInteger& mu) const
 {
   if (HLRBRep_BCurveTool::GetType(myCurve) == GeomAbs_BSplineCurve)
   {
-    Handle(Geom_BSplineCurve) HB = (HLRBRep_BCurveTool::BSpline(myCurve));
+    Handle(BSplineCurve3d) HB = (HLRBRep_BCurveTool::BSpline(myCurve));
     HB->Multiplicities(mu);
   }
 }

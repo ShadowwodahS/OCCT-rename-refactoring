@@ -584,14 +584,14 @@ void BlendFunc_Ruled::GetMinimalWeight(TColStd_Array1OfReal& Weigths) const
 
 Standard_Integer BlendFunc_Ruled::NbIntervals(const GeomAbs_Shape S) const
 {
-  return curv->NbIntervals(BlendFunc::NextShape(S));
+  return curv->NbIntervals(BlendFunc1::NextShape(S));
 }
 
 //=================================================================================================
 
 void BlendFunc_Ruled::Intervals(TColStd_Array1OfReal& T, const GeomAbs_Shape S) const
 {
-  curv->Intervals(T, BlendFunc::NextShape(S));
+  curv->Intervals(T, BlendFunc1::NextShape(S));
 }
 
 //=================================================================================================
@@ -631,7 +631,7 @@ void BlendFunc_Ruled::Mults(TColStd_Array1OfInteger& TMults)
   TMults(TMults.Lower()) = TMults(TMults.Upper()) = 2;
 }
 
-Standard_Boolean BlendFunc_Ruled::Section(const Blend_Point& /*P*/,
+Standard_Boolean BlendFunc_Ruled::Section(const Point2& /*P*/,
                                           TColgp_Array1OfPnt& /*Poles*/,
                                           TColgp_Array1OfVec& /*DPoles*/,
                                           TColgp_Array1OfVec& /*D2Poles*/,
@@ -645,7 +645,7 @@ Standard_Boolean BlendFunc_Ruled::Section(const Blend_Point& /*P*/,
   return Standard_False;
 }
 
-Standard_Boolean BlendFunc_Ruled::Section(const Blend_Point&    P,
+Standard_Boolean BlendFunc_Ruled::Section(const Point2&    P,
                                           TColgp_Array1OfPnt&   Poles,
                                           TColgp_Array1OfVec&   DPoles,
                                           TColgp_Array1OfPnt2d& Poles2d,
@@ -685,7 +685,7 @@ Standard_Boolean BlendFunc_Ruled::Section(const Blend_Point&    P,
   return Standard_False;
 }
 
-void BlendFunc_Ruled::Section(const Blend_Point&    P,
+void BlendFunc_Ruled::Section(const Point2&    P,
                               TColgp_Array1OfPnt&   Poles,
                               TColgp_Array1OfPnt2d& Poles2d,
                               TColStd_Array1OfReal& Weights)

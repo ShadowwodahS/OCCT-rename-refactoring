@@ -24,13 +24,13 @@
 #include <Standard_Integer.hxx>
 #include <ShapeCustom_Modification.hxx>
 class ShapeCustom_RestrictionParameters;
-class TopoDS_Face;
-class Geom_Surface;
+class TopoFace;
+class GeomSurface;
 class TopLoc_Location;
-class TopoDS_Edge;
-class Geom_Curve;
-class Geom2d_Curve;
-class TopoDS_Vertex;
+class TopoEdge;
+class GeomCurve3d;
+class GeomCurve2d;
+class TopoVertex;
 class Point3d;
 
 class ShapeCustom_BSplineRestriction;
@@ -86,8 +86,8 @@ public:
   //!
   //! Otherwise, returns Standard_False, and <S>,   <L>,
   //! <Tol> , <RevWires> ,<RevFace> are not  significant.
-  Standard_EXPORT Standard_Boolean NewSurface(const TopoDS_Face&    F,
-                                              Handle(Geom_Surface)& S,
+  Standard_EXPORT Standard_Boolean NewSurface(const TopoFace&    F,
+                                              Handle(GeomSurface)& S,
                                               TopLoc_Location&      L,
                                               Standard_Real&        Tol,
                                               Standard_Boolean&     RevWires,
@@ -102,8 +102,8 @@ public:
   //! geometric support of the edge.
   //! In other cases returns Standard_False, and  <C>,  <L>,  <Tol> are not
   //! significant.
-  Standard_EXPORT Standard_Boolean NewCurve(const TopoDS_Edge&  E,
-                                            Handle(Geom_Curve)& C,
+  Standard_EXPORT Standard_Boolean NewCurve(const TopoEdge&  E,
+                                            Handle(GeomCurve3d)& C,
                                             TopLoc_Location&    L,
                                             Standard_Real&      Tol) Standard_OVERRIDE;
 
@@ -118,18 +118,18 @@ public:
   //!
   //! <NewE> is the new  edge created from  <E>.  <NewF>
   //! is the new face created from <F>. They may be useful.
-  Standard_EXPORT Standard_Boolean NewCurve2d(const TopoDS_Edge&    E,
-                                              const TopoDS_Face&    F,
-                                              const TopoDS_Edge&    NewE,
-                                              const TopoDS_Face&    NewF,
-                                              Handle(Geom2d_Curve)& C,
+  Standard_EXPORT Standard_Boolean NewCurve2d(const TopoEdge&    E,
+                                              const TopoFace&    F,
+                                              const TopoEdge&    NewE,
+                                              const TopoFace&    NewF,
+                                              Handle(GeomCurve2d)& C,
                                               Standard_Real&        Tol) Standard_OVERRIDE;
 
   //! Returns Standard_True if  the surface has been modified.
   //! if flag IsOf equals Standard_True Offset surfaces are approximated to Offset
   //! if Standard_False to BSpline
-  Standard_EXPORT Standard_Boolean ConvertSurface(const Handle(Geom_Surface)& aSurface,
-                                                  Handle(Geom_Surface)&       S,
+  Standard_EXPORT Standard_Boolean ConvertSurface(const Handle(GeomSurface)& aSurface,
+                                                  Handle(GeomSurface)&       S,
                                                   const Standard_Real         UF,
                                                   const Standard_Real         UL,
                                                   const Standard_Real         VF,
@@ -139,8 +139,8 @@ public:
   //! Returns Standard_True if  the curve has been modified.
   //! if flag IsOf equals Standard_True Offset curves are approximated to Offset
   //! if Standard_False to BSpline
-  Standard_EXPORT Standard_Boolean ConvertCurve(const Handle(Geom_Curve)& aCurve,
-                                                Handle(Geom_Curve)&       C,
+  Standard_EXPORT Standard_Boolean ConvertCurve(const Handle(GeomCurve3d)& aCurve,
+                                                Handle(GeomCurve3d)&       C,
                                                 const Standard_Boolean    IsConvert,
                                                 const Standard_Real       First,
                                                 const Standard_Real       Last,
@@ -150,8 +150,8 @@ public:
   //! Returns Standard_True if the pcurve has been modified.
   //! if flag IsOf equals Standard_True Offset pcurves are approximated to Offset
   //! if Standard_False to BSpline
-  Standard_EXPORT Standard_Boolean ConvertCurve2d(const Handle(Geom2d_Curve)& aCurve,
-                                                  Handle(Geom2d_Curve)&       C,
+  Standard_EXPORT Standard_Boolean ConvertCurve2d(const Handle(GeomCurve2d)& aCurve,
+                                                  Handle(GeomCurve2d)&       C,
                                                   const Standard_Boolean      IsConvert,
                                                   const Standard_Real         First,
                                                   const Standard_Real         Last,
@@ -219,21 +219,21 @@ public:
   //! Returns error for approximation surface.
   Standard_Real SurfaceError() const;
 
-  Standard_EXPORT Standard_Boolean NewPoint(const TopoDS_Vertex& V,
+  Standard_EXPORT Standard_Boolean NewPoint(const TopoVertex& V,
                                             Point3d&              P,
                                             Standard_Real&       Tol) Standard_OVERRIDE;
 
-  Standard_EXPORT Standard_Boolean NewParameter(const TopoDS_Vertex& V,
-                                                const TopoDS_Edge&   E,
+  Standard_EXPORT Standard_Boolean NewParameter(const TopoVertex& V,
+                                                const TopoEdge&   E,
                                                 Standard_Real&       P,
                                                 Standard_Real&       Tol) Standard_OVERRIDE;
 
-  Standard_EXPORT GeomAbs_Shape Continuity(const TopoDS_Edge& E,
-                                           const TopoDS_Face& F1,
-                                           const TopoDS_Face& F2,
-                                           const TopoDS_Edge& NewE,
-                                           const TopoDS_Face& NewF1,
-                                           const TopoDS_Face& NewF2) Standard_OVERRIDE;
+  Standard_EXPORT GeomAbs_Shape Continuity(const TopoEdge& E,
+                                           const TopoFace& F1,
+                                           const TopoFace& F2,
+                                           const TopoEdge& NewE,
+                                           const TopoFace& NewF1,
+                                           const TopoFace& NewF2) Standard_OVERRIDE;
 
   //! Returns error for approximation surface, curve3d and curve2d.
   Standard_EXPORT Standard_Real MaxErrors(Standard_Real& aCurve3dErr,

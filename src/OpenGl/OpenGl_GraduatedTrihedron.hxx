@@ -39,7 +39,7 @@ public:
   //! Destructor.
   Standard_EXPORT virtual ~OpenGl_GraduatedTrihedron();
 
-  //! Draw the element.
+  //! Draw1 the element.
   Standard_EXPORT virtual void Render(const Handle(OpenGl_Workspace)& theWorkspace) const
     Standard_OVERRIDE;
 

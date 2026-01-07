@@ -26,8 +26,8 @@
 #include <TCollection_AsciiString.hxx>
 #include <TopTools_ListOfShape.hxx>
 class TopOpeBRepDS_HDataStructure;
-class TCollection_AsciiString;
-class TopoDS_Shape;
+class AsciiString1;
+class TopoShape;
 
 class TopOpeBRepDS_Dumper
 {
@@ -36,20 +36,20 @@ public:
 
   Standard_EXPORT TopOpeBRepDS_Dumper(const Handle(TopOpeBRepDS_HDataStructure)& HDS);
 
-  Standard_EXPORT TCollection_AsciiString SDumpRefOri(const TopOpeBRepDS_Kind K,
+  Standard_EXPORT AsciiString1 SDumpRefOri(const TopOpeBRepDS_Kind K,
                                                       const Standard_Integer  I) const;
 
-  Standard_EXPORT TCollection_AsciiString SDumpRefOri(const TopoDS_Shape& S) const;
+  Standard_EXPORT AsciiString1 SDumpRefOri(const TopoShape& S) const;
 
-  Standard_EXPORT TCollection_AsciiString SPrintShape(const Standard_Integer I) const;
+  Standard_EXPORT AsciiString1 SPrintShape(const Standard_Integer I) const;
 
-  Standard_EXPORT TCollection_AsciiString SPrintShape(const TopoDS_Shape& S) const;
+  Standard_EXPORT AsciiString1 SPrintShape(const TopoShape& S) const;
 
-  Standard_EXPORT TCollection_AsciiString
-    SPrintShapeRefOri(const TopoDS_Shape& S, const TCollection_AsciiString& B = "") const;
+  Standard_EXPORT AsciiString1
+    SPrintShapeRefOri(const TopoShape& S, const AsciiString1& B = "") const;
 
-  Standard_EXPORT TCollection_AsciiString
-    SPrintShapeRefOri(const TopTools_ListOfShape& L, const TCollection_AsciiString& B = "") const;
+  Standard_EXPORT AsciiString1
+    SPrintShapeRefOri(const ShapeList& L, const AsciiString1& B = "") const;
 
 protected:
 private:

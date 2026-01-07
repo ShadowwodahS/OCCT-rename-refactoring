@@ -37,15 +37,15 @@ class Expr_NamedFunction : public Expr_GeneralFunction
 public:
   //! Creates a function of given variables <vars> with name
   //! <name> defined by the expression <exp>.
-  Standard_EXPORT Expr_NamedFunction(const TCollection_AsciiString&        name,
+  Standard_EXPORT Expr_NamedFunction(const AsciiString1&        name,
                                      const Handle(Expr_GeneralExpression)& exp,
                                      const Expr_Array1OfNamedUnknown&      vars);
 
   //! Sets the name <newname> to <me>.
-  Standard_EXPORT void SetName(const TCollection_AsciiString& newname);
+  Standard_EXPORT void SetName(const AsciiString1& newname);
 
   //! Returns the name assigned to <me>
-  Standard_EXPORT TCollection_AsciiString GetName() const;
+  Standard_EXPORT AsciiString1 GetName() const;
 
   //! Returns the number of variables of <me>.
   Standard_EXPORT Standard_Integer NbOfVariables() const Standard_OVERRIDE;
@@ -85,7 +85,7 @@ public:
   Standard_EXPORT Standard_Boolean
     IsLinearOnVariable(const Standard_Integer index) const Standard_OVERRIDE;
 
-  Standard_EXPORT TCollection_AsciiString GetStringName() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 GetStringName() const Standard_OVERRIDE;
 
   //! Returns equivalent expression of <me>.
   Standard_EXPORT Handle(Expr_GeneralExpression) Expression() const;
@@ -98,7 +98,7 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString        myName;
+  AsciiString1        myName;
   Handle(Expr_GeneralExpression) myExp;
   Expr_Array1OfNamedUnknown      myVariables;
 };

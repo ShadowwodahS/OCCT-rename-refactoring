@@ -17,11 +17,11 @@
 #include <TDataStd_Name.hxx>
 #include <TDF_Label.hxx>
 
-IMPLEMENT_DERIVED_ATTRIBUTE(TDataStd_Name, TDataStd_GenericExtString)
+IMPLEMENT_DERIVED_ATTRIBUTE(NameAttribute, TDataStd_GenericExtString)
 
 //=================================================================================================
 
-const Standard_GUID& TDataStd_Name::GetID()
+const Standard_GUID& NameAttribute::GetID()
 {
   static Standard_GUID TDataStd_NameID("2a96b608-ec8b-11d0-bee7-080009dc3333");
   return TDataStd_NameID;
@@ -31,14 +31,14 @@ const Standard_GUID& TDataStd_Name::GetID()
 // function : SetAttr
 // purpose  : Implements Set functionality
 //=======================================================================
-static Handle(TDataStd_Name) SetAttr(const TDF_Label&                  label,
-                                     const TCollection_ExtendedString& theString,
+static Handle(NameAttribute) SetAttr(const DataLabel&                  label,
+                                     const UtfString& theString,
                                      const Standard_GUID&              theGuid)
 {
-  Handle(TDataStd_Name) N;
+  Handle(NameAttribute) N;
   if (!label.FindAttribute(theGuid, N))
   {
-    N = new TDataStd_Name();
+    N = new NameAttribute();
     N->SetID(theGuid);
     label.AddAttribute(N);
   }
@@ -48,8 +48,8 @@ static Handle(TDataStd_Name) SetAttr(const TDF_Label&                  label,
 
 //=================================================================================================
 
-Handle(TDataStd_Name) TDataStd_Name::Set(const TDF_Label&                  label,
-                                         const TCollection_ExtendedString& theString)
+Handle(NameAttribute) NameAttribute::Set(const DataLabel&                  label,
+                                         const UtfString& theString)
 {
   return SetAttr(label, theString, GetID());
 }
@@ -59,23 +59,23 @@ Handle(TDataStd_Name) TDataStd_Name::Set(const TDF_Label&                  label
 // purpose  : Set user defined attribute
 //=======================================================================
 
-Handle(TDataStd_Name) TDataStd_Name::Set(const TDF_Label&                  label,
+Handle(NameAttribute) NameAttribute::Set(const DataLabel&                  label,
                                          const Standard_GUID&              theGuid,
-                                         const TCollection_ExtendedString& theString)
+                                         const UtfString& theString)
 {
   return SetAttr(label, theString, theGuid);
 }
 
 //=================================================================================================
 
-TDataStd_Name::TDataStd_Name()
+NameAttribute::NameAttribute()
 {
   myID = GetID();
 }
 
 //=================================================================================================
 
-void TDataStd_Name::Set(const TCollection_ExtendedString& S)
+void NameAttribute::Set(const UtfString& S)
 {
   if (myString == S)
     return;
@@ -86,7 +86,7 @@ void TDataStd_Name::Set(const TCollection_ExtendedString& S)
 
 //=================================================================================================
 
-void TDataStd_Name::SetID(const Standard_GUID& theGuid)
+void NameAttribute::SetID(const Standard_GUID& theGuid)
 {
   if (myID == theGuid)
     return;
@@ -100,7 +100,7 @@ void TDataStd_Name::SetID(const Standard_GUID& theGuid)
 // purpose  : sets default ID
 //=======================================================================
 
-void TDataStd_Name::SetID()
+void NameAttribute::SetID()
 {
   Backup();
   myID = GetID();
@@ -109,7 +109,7 @@ void TDataStd_Name::SetID()
 // TDF_Attribute methods
 //=================================================================================================
 
-Standard_OStream& TDataStd_Name::Dump(Standard_OStream& anOS) const
+Standard_OStream& NameAttribute::Dump(Standard_OStream& anOS) const
 {
   TDF_Attribute::Dump(anOS);
   anOS << " Name=|" << myString << "|";

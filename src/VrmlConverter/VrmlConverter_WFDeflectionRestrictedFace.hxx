@@ -32,7 +32,7 @@ class VrmlConverter_Drawer;
 //! class (Prs3d).    This kind  of the presentation
 //! is     converted       into   IndexedFaceSet   and
 //! IndexedLineSet ( VRML ).
-class VrmlConverter_WFDeflectionRestrictedFace
+class WFDeflectionRestrictedFaceConverter
 {
 public:
   DEFINE_STANDARD_ALLOC

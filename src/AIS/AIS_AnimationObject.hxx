@@ -32,9 +32,9 @@ public:
   //! @param[in] theTrsfStart     local transformation at the start of animation (e.g.
   //! theObject->LocalTransformation())
   //! @param[in] theTrsfEnd       local transformation at the end   of animation
-  Standard_EXPORT AIS_AnimationObject(const TCollection_AsciiString&        theAnimationName,
-                                      const Handle(AIS_InteractiveContext)& theContext,
-                                      const Handle(AIS_InteractiveObject)&  theObject,
+  Standard_EXPORT AIS_AnimationObject(const AsciiString1&        theAnimationName,
+                                      const Handle(VisualContext)& theContext,
+                                      const Handle(VisualEntity)&  theObject,
                                       const Transform3d&                        theTrsfStart,
                                       const Transform3d&                        theTrsfEnd);
 

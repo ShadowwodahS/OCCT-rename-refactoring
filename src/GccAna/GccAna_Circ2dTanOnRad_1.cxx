@@ -39,7 +39,7 @@
 //  Create solutions cirsol with center P and radius Radius.          +
 //  Fill the fields.                                                +
 //=========================================================================
-GccAna_Circ2dTanOnRad::GccAna_Circ2dTanOnRad(const GccEnt_QualifiedLin& Qualified1,
+Circle2dTangentOnRadius::Circle2dTangentOnRadius(const GccEnt_QualifiedLin& Qualified1,
                                              const gp_Lin2d&            OnLine,
                                              const Standard_Real        Radius,
                                              const Standard_Real        Tolerance)
@@ -132,12 +132,12 @@ GccAna_Circ2dTanOnRad::GccAna_Circ2dTanOnRad(const GccEnt_QualifiedLin& Qualifie
             TheSame1(NbrSol) = 0;
             if (gp_Vec2d(Center, origin1).Dot(gp_Dir2d(-dy1, dx1)) > 0.0)
             {
-              pnttg1sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius * gp_XY(-dy1, dx1));
+              pnttg1sol(NbrSol) = gp_Pnt2d(Center.XY() + Radius * Coords2d(-dy1, dx1));
               pntcen3(NbrSol)   = cirsol(1).Location();
             }
             else
             {
-              pnttg1sol(NbrSol) = gp_Pnt2d(Center.XY() - Radius * gp_XY(-dy1, dx1));
+              pnttg1sol(NbrSol) = gp_Pnt2d(Center.XY() - Radius * Coords2d(-dy1, dx1));
               pntcen3(NbrSol)   = cirsol(1).Location();
             }
             par1sol(NbrSol) = ElCLib::Parameter(cirsol(NbrSol), pnttg1sol(NbrSol));

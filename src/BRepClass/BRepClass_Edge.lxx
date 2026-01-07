@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Edge& BRepClass_Edge::Edge()
+inline TopoEdge& BRepClass_Edge::Edge()
 {
   return myEdge;
 }
@@ -29,7 +29,7 @@ inline TopoDS_Edge& BRepClass_Edge::Edge()
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Edge& BRepClass_Edge::Edge() const
+inline const TopoEdge& BRepClass_Edge::Edge() const
 {
   return myEdge;
 }
@@ -39,7 +39,7 @@ inline const TopoDS_Edge& BRepClass_Edge::Edge() const
 // purpose  :
 //=======================================================================
 
-inline TopoDS_Face& BRepClass_Edge::Face()
+inline TopoFace& BRepClass_Edge::Face()
 {
   return myFace;
 }
@@ -49,7 +49,7 @@ inline TopoDS_Face& BRepClass_Edge::Face()
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Face& BRepClass_Edge::Face() const
+inline const TopoFace& BRepClass_Edge::Face() const
 {
   return myFace;
 }

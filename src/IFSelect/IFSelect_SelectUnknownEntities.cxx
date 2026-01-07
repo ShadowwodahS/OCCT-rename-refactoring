@@ -29,7 +29,7 @@ Standard_Boolean IFSelect_SelectUnknownEntities::Sort(
   return model->IsUnknownEntity(model->Number(ent));
 }
 
-TCollection_AsciiString IFSelect_SelectUnknownEntities::ExtractLabel() const
+AsciiString1 IFSelect_SelectUnknownEntities::ExtractLabel() const
 {
-  return TCollection_AsciiString("Unrecognized type Entities");
+  return AsciiString1("Unrecognized type Entities");
 }

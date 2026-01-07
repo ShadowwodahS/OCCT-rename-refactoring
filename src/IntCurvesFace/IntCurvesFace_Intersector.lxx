@@ -80,7 +80,7 @@ inline Standard_Boolean IntCurvesFace_Intersector::IsParallel() const
   return myIsParallel;
 }
 
-inline const TopoDS_Face& IntCurvesFace_Intersector::Face() const
+inline const TopoFace& IntCurvesFace_Intersector::Face() const
 {
   return (face);
 }

@@ -37,7 +37,7 @@ public:
   Standard_EXPORT void SetBuilder(const Handle(SelectMgr_FrustumBuilder)& theBuilder);
 
   //! Saves camera definition and passes it to builder
-  Standard_EXPORT virtual void SetCamera(const Handle(Graphic3d_Camera)& theCamera)
+  Standard_EXPORT virtual void SetCamera(const Handle(CameraOn3d)& theCamera)
     Standard_OVERRIDE;
 
   Standard_EXPORT virtual void SetPixelTolerance(const Standard_Integer theTol) Standard_OVERRIDE;

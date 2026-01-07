@@ -24,14 +24,14 @@ STEPConstruct_Tool::STEPConstruct_Tool() {}
 
 //=================================================================================================
 
-STEPConstruct_Tool::STEPConstruct_Tool(const Handle(XSControl_WorkSession)& WS)
+STEPConstruct_Tool::STEPConstruct_Tool(const Handle(ExchangeSession)& WS)
 {
   SetWS(WS);
 }
 
 //=================================================================================================
 
-Standard_Boolean STEPConstruct_Tool::SetWS(const Handle(XSControl_WorkSession)& WS)
+Standard_Boolean STEPConstruct_Tool::SetWS(const Handle(ExchangeSession)& WS)
 {
   myWS.Nullify();
   myTransientProcess.Nullify();

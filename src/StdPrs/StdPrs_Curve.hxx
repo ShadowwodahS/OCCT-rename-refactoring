@@ -38,7 +38,7 @@ public:
   //! visualization approach is activated (it is activated by default).
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Adaptor3d_Curve&            aCurve,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Standard_Boolean            drawCurve = Standard_True);
 
   //! Adds to the presentation aPresentation the drawing of the curve aCurve.
@@ -51,7 +51,7 @@ public:
                                   const Adaptor3d_Curve&            aCurve,
                                   const Standard_Real               U1,
                                   const Standard_Real               U2,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Standard_Boolean            drawCurve = Standard_True);
 
   //! adds to the presentation aPresentation the drawing of the curve aCurve.
@@ -63,7 +63,7 @@ public:
   //! visualization approach is activated (it is activated by default).
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
                                   const Adaptor3d_Curve&            aCurve,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   TColgp_SequenceOfPnt&             Points,
                                   const Standard_Boolean            drawCurve = Standard_True);
 
@@ -92,7 +92,7 @@ public:
                                                 const Standard_Real         Z,
                                                 const Standard_Real         aDistance,
                                                 const Adaptor3d_Curve&      aCurve,
-                                                const Handle(Prs3d_Drawer)& aDrawer);
+                                                const Handle(StyleDrawer)& aDrawer);
 
   //! returns true if the distance between the point (X,Y,Z) and the
   //! drawing of the curve is less than aDistance.
@@ -116,7 +116,7 @@ public:
                                                 const Adaptor3d_Curve&      aCurve,
                                                 const Standard_Real         U1,
                                                 const Standard_Real         U2,
-                                                const Handle(Prs3d_Drawer)& aDrawer);
+                                                const Handle(StyleDrawer)& aDrawer);
 
   //! returns true if the distance between the point (X,Y,Z) and the
   //! drawing of the curve aCurve is less than aDistance.

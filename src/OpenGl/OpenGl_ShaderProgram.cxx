@@ -168,7 +168,7 @@ void OpenGl_VariableSetterSelector::Set(const Handle(OpenGl_Context)&           
 // purpose  : Creates uninitialized shader program
 // =======================================================================
 OpenGl_ShaderProgram::OpenGl_ShaderProgram(const Handle(Graphic3d_ShaderProgram)& theProxy,
-                                           const TCollection_AsciiString&         theId)
+                                           const AsciiString1&         theId)
     : OpenGl_NamedResource(!theProxy.IsNull() ? theProxy->GetId() : theId),
       myProgramID(NO_PROGRAM),
       myProxy(theProxy),
@@ -198,8 +198,8 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize(const Handle(OpenGl_Context)& 
     return Standard_False;
   }
 
-  TCollection_AsciiString aHeaderVer =
-    !myProxy.IsNull() ? myProxy->Header() : TCollection_AsciiString();
+  AsciiString1 aHeaderVer =
+    !myProxy.IsNull() ? myProxy->Header() : AsciiString1();
   int aShaderMask = 0;
   for (Graphic3d_ShaderObjectList::Iterator anIter(theShaders); anIter.More(); anIter.Next())
   {
@@ -341,7 +341,7 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize(const Handle(OpenGl_Context)& 
   {
     if (!anIter.Value()->IsDone())
     {
-      const TCollection_ExtendedString aMsg = "Error! Failed to get shader source";
+      const UtfString aMsg = "Error! Failed to get shader source";
       theCtx->PushMessage(GL_DEBUG_SOURCE_APPLICATION,
                           GL_DEBUG_TYPE_ERROR,
                           0,
@@ -363,7 +363,7 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize(const Handle(OpenGl_Context)& 
       return Standard_False;
     }
 
-    TCollection_AsciiString anExtensions = "// Enable extensions used in OCCT GLSL programs\n";
+    AsciiString1 anExtensions = "// Enable extensions used in OCCT GLSL programs\n";
     if (myNbFragOutputs > 1)
     {
       if (theCtx->hasDrawBuffers)
@@ -430,7 +430,7 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize(const Handle(OpenGl_Context)& 
                       "#extension GL_EXT_shader_io_blocks : enable\n";
     }
 
-    TCollection_AsciiString aPrecisionHeader;
+    AsciiString1 aPrecisionHeader;
     if (anIter.Value()->Type() == Graphic3d_TOS_FRAGMENT
         && theCtx->GraphicsLibrary() == Aspect_GraphicsLibrary_OpenGLES)
     {
@@ -440,7 +440,7 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize(const Handle(OpenGl_Context)& 
                                             "precision mediump int;\n";
     }
 
-    TCollection_AsciiString aHeaderType;
+    AsciiString1 aHeaderType;
     switch (anIter.Value()->Type())
     {
       case Graphic3d_TOS_COMPUTE: {
@@ -469,19 +469,19 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize(const Handle(OpenGl_Context)& 
       }
     }
 
-    TCollection_AsciiString aHeaderConstants;
+    AsciiString1 aHeaderConstants;
     myNbLightsMax     = !myProxy.IsNull() ? myProxy->NbLightsMax() : 0;
     myNbShadowMaps    = !myProxy.IsNull() ? myProxy->NbShadowMaps() : 0;
     myNbClipPlanesMax = !myProxy.IsNull() ? myProxy->NbClipPlanesMax() : 0;
-    aHeaderConstants += TCollection_AsciiString("#define THE_MAX_LIGHTS ") + myNbLightsMax + "\n";
+    aHeaderConstants += AsciiString1("#define THE_MAX_LIGHTS ") + myNbLightsMax + "\n";
     aHeaderConstants +=
-      TCollection_AsciiString("#define THE_MAX_CLIP_PLANES ") + myNbClipPlanesMax + "\n";
+      AsciiString1("#define THE_MAX_CLIP_PLANES ") + myNbClipPlanesMax + "\n";
     aHeaderConstants +=
-      TCollection_AsciiString("#define THE_NB_FRAG_OUTPUTS ") + myNbFragOutputs + "\n";
+      AsciiString1("#define THE_NB_FRAG_OUTPUTS ") + myNbFragOutputs + "\n";
     if (myNbShadowMaps > 0)
     {
       aHeaderConstants +=
-        TCollection_AsciiString("#define THE_NB_SHADOWMAPS ") + myNbShadowMaps + "\n";
+        AsciiString1("#define THE_NB_SHADOWMAPS ") + myNbShadowMaps + "\n";
     }
     if (theCtx->caps->useZeroToOneDepth && theCtx->arbClipControl)
     {
@@ -519,7 +519,7 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize(const Handle(OpenGl_Context)& 
       }
     }
 
-    const TCollection_AsciiString aSource =
+    const AsciiString1 aSource =
       aHeaderVer // #version   - header defining GLSL version, should be first
       + (!aHeaderVer.IsEmpty() ? "\n" : "")
       + anExtensions     // #extension - list of enabled extensions,   should be second
@@ -539,7 +539,7 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize(const Handle(OpenGl_Context)& 
 
     if (theCtx->caps->glslDumpLevel)
     {
-      TCollection_AsciiString anOutputSource = aSource;
+      AsciiString1 anOutputSource = aSource;
       if (theCtx->caps->glslDumpLevel == OpenGl_ShaderProgramDumpLevel_Short)
       {
         anOutputSource = aHeaderVer + (!aHeaderVer.IsEmpty() ? "\n" : "") + anExtensions
@@ -666,12 +666,12 @@ Standard_Boolean OpenGl_ShaderProgram::Initialize(const Handle(OpenGl_Context)& 
     SetUniform(theCtx, aLocSampler, GLint(theCtx->DepthPeelingFrontColorTexUnit()));
   }
 
-  const TCollection_AsciiString aSamplerNamePrefix("occSampler");
+  const AsciiString1 aSamplerNamePrefix("occSampler");
   const Standard_Integer        aNbUnitsMax =
     Max(theCtx->MaxCombinedTextureUnits(), Graphic3d_TextureUnit_NB);
   for (GLint aUnitIter = 0; aUnitIter < aNbUnitsMax; ++aUnitIter)
   {
-    const TCollection_AsciiString aName = aSamplerNamePrefix + aUnitIter;
+    const AsciiString1 aName = aSamplerNamePrefix + aUnitIter;
     if (const OpenGl_ShaderUniformLocation aLocSampler =
           GetUniformLocation(theCtx, aName.ToCString()))
     {
@@ -789,7 +789,7 @@ Standard_Boolean OpenGl_ShaderProgram::Link(const Handle(OpenGl_Context)& theCtx
 
   if (!link(theCtx))
   {
-    TCollection_AsciiString aLog;
+    AsciiString1 aLog;
     FetchInfoLog(theCtx, aLog);
     if (aLog.IsEmpty())
     {
@@ -799,13 +799,13 @@ Standard_Boolean OpenGl_ShaderProgram::Link(const Handle(OpenGl_Context)& theCtx
                         GL_DEBUG_TYPE_ERROR,
                         0,
                         GL_DEBUG_SEVERITY_HIGH,
-                        TCollection_AsciiString("Failed to link program object [") + myResourceId
+                        AsciiString1("Failed to link program object [") + myResourceId
                           + "]! Linker log:\n" + aLog);
     return false;
   }
   else if (theCtx->caps->glslWarnings)
   {
-    TCollection_AsciiString aLog;
+    AsciiString1 aLog;
     FetchInfoLog(theCtx, aLog);
     if (!aLog.IsEmpty() && !aLog.IsEqual("No errors.\n"))
     {
@@ -813,7 +813,7 @@ Standard_Boolean OpenGl_ShaderProgram::Link(const Handle(OpenGl_Context)& theCtx
                           GL_DEBUG_TYPE_PORTABILITY,
                           0,
                           GL_DEBUG_SEVERITY_LOW,
-                          TCollection_AsciiString("GLSL linker log [") + myResourceId + "]:\n"
+                          AsciiString1("GLSL linker log [") + myResourceId + "]:\n"
                             + aLog);
     }
   }
@@ -825,7 +825,7 @@ Standard_Boolean OpenGl_ShaderProgram::Link(const Handle(OpenGl_Context)& theCtx
 // purpose  : Fetches information log of the last link operation
 // =======================================================================
 Standard_Boolean OpenGl_ShaderProgram::FetchInfoLog(const Handle(OpenGl_Context)& theCtx,
-                                                    TCollection_AsciiString&      theOutput)
+                                                    AsciiString1&      theOutput)
 {
   if (myProgramID == NO_PROGRAM)
   {
@@ -1499,7 +1499,7 @@ void OpenGl_ShaderProgram::Release(OpenGl_Context* theCtx)
 //=================================================================================================
 
 Standard_Boolean OpenGl_ShaderProgram::UpdateDebugDump(const Handle(OpenGl_Context)&  theCtx,
-                                                       const TCollection_AsciiString& theFolder,
+                                                       const AsciiString1& theFolder,
                                                        Standard_Boolean               theToBeautify,
                                                        Standard_Boolean               theToReset)
 {
@@ -1508,7 +1508,7 @@ Standard_Boolean OpenGl_ShaderProgram::UpdateDebugDump(const Handle(OpenGl_Conte
     return Standard_False;
   }
 
-  TCollection_AsciiString aFolder = theFolder;
+  AsciiString1 aFolder = theFolder;
   if (aFolder.IsEmpty())
   {
     OSD_Environment aShaderVar("CSF_ShadersDirectoryDump");

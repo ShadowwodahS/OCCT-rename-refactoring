@@ -30,5 +30,5 @@ BinXCAFDrivers_DocumentStorageDriver::BinXCAFDrivers_DocumentStorageDriver() {}
 Handle(BinMDF_ADriverTable) BinXCAFDrivers_DocumentStorageDriver::AttributeDrivers(
   const Handle(Message_Messenger)& theMsgDriver)
 {
-  return BinXCAFDrivers::AttributeDrivers(theMsgDriver);
+  return BinXCAFDrivers1::AttributeDrivers(theMsgDriver);
 }

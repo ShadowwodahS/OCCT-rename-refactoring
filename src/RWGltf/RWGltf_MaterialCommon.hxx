@@ -25,8 +25,8 @@ public:
   Handle(Image_Texture)   AmbientTexture;  //!< image defining ambient color
   Handle(Image_Texture)   DiffuseTexture;  //!< image defining diffuse color
   Handle(Image_Texture)   SpecularTexture; //!< image defining specular color
-  TCollection_AsciiString Id;              //!< material identifier
-  TCollection_AsciiString Name;            //!< material name
+  AsciiString1 Id;              //!< material identifier
+  AsciiString1 Name;            //!< material name
   Quantity_Color          AmbientColor;
   Quantity_Color          DiffuseColor;
   Quantity_Color          SpecularColor;

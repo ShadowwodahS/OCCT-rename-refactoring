@@ -13,12 +13,12 @@
 
 #include <Vrml_TransformSeparator.hxx>
 
-Vrml_TransformSeparator::Vrml_TransformSeparator()
+TransformSeparator::TransformSeparator()
 {
   myFlagPrint = 0;
 }
 
-Standard_OStream& Vrml_TransformSeparator::Print(Standard_OStream& anOStream)
+Standard_OStream& TransformSeparator::Print(Standard_OStream& anOStream)
 {
   if (myFlagPrint == 0)
   {

@@ -29,7 +29,7 @@ class IGESGraph_LineFontDefPattern;
 DEFINE_STANDARD_HANDLE(IGESGraph_LineFontDefPattern, IGESData_LineFontEntity)
 
 //! defines IGESLineFontDefPattern, Type <304> Form <2>
-//! in package IGESGraph
+//! in package IGESGraph1
 //!
 //! Line Font may be defined by repetition of a basic pattern
 //! of visible-blank(or, on-off) segments superimposed on

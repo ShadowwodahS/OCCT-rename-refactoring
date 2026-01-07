@@ -28,20 +28,20 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Transform3d& T)
   Standard_Real V1[3], V2[3], V3[3];
   Standard_Real V[3];
 
-  BinTools::GetReal(IS, V1[0]);
-  BinTools::GetReal(IS, V1[1]);
-  BinTools::GetReal(IS, V1[2]);
-  BinTools::GetReal(IS, V[0]);
+  BinTools1::GetReal(IS, V1[0]);
+  BinTools1::GetReal(IS, V1[1]);
+  BinTools1::GetReal(IS, V1[2]);
+  BinTools1::GetReal(IS, V[0]);
 
-  BinTools::GetReal(IS, V2[0]);
-  BinTools::GetReal(IS, V2[1]);
-  BinTools::GetReal(IS, V2[2]);
-  BinTools::GetReal(IS, V[1]);
+  BinTools1::GetReal(IS, V2[0]);
+  BinTools1::GetReal(IS, V2[1]);
+  BinTools1::GetReal(IS, V2[2]);
+  BinTools1::GetReal(IS, V[1]);
 
-  BinTools::GetReal(IS, V3[0]);
-  BinTools::GetReal(IS, V3[1]);
-  BinTools::GetReal(IS, V3[2]);
-  BinTools::GetReal(IS, V[2]);
+  BinTools1::GetReal(IS, V3[0]);
+  BinTools1::GetReal(IS, V3[1]);
+  BinTools1::GetReal(IS, V3[2]);
+  BinTools1::GetReal(IS, V[2]);
 
   T.SetValues(V1[0], V1[1], V1[2], V[0], V2[0], V2[1], V2[2], V[1], V3[0], V3[1], V3[2], V[2]);
   return IS;
@@ -56,38 +56,38 @@ Standard_OStream& operator<<(Standard_OStream& OS, const Transform3d& T)
   gp_XYZ V = T.TranslationPart();
   gp_Mat M = T.VectorialPart();
 
-  BinTools::PutReal(OS, M(1, 1));
-  BinTools::PutReal(OS, M(1, 2));
-  BinTools::PutReal(OS, M(1, 3));
-  BinTools::PutReal(OS, V.Coord(1));
+  BinTools1::PutReal(OS, M(1, 1));
+  BinTools1::PutReal(OS, M(1, 2));
+  BinTools1::PutReal(OS, M(1, 3));
+  BinTools1::PutReal(OS, V.Coord(1));
 
-  BinTools::PutReal(OS, M(2, 1));
-  BinTools::PutReal(OS, M(2, 2));
-  BinTools::PutReal(OS, M(2, 3));
-  BinTools::PutReal(OS, V.Coord(2));
+  BinTools1::PutReal(OS, M(2, 1));
+  BinTools1::PutReal(OS, M(2, 2));
+  BinTools1::PutReal(OS, M(2, 3));
+  BinTools1::PutReal(OS, V.Coord(2));
 
-  BinTools::PutReal(OS, M(3, 1));
-  BinTools::PutReal(OS, M(3, 2));
-  BinTools::PutReal(OS, M(3, 3));
-  BinTools::PutReal(OS, V.Coord(3));
+  BinTools1::PutReal(OS, M(3, 1));
+  BinTools1::PutReal(OS, M(3, 2));
+  BinTools1::PutReal(OS, M(3, 3));
+  BinTools1::PutReal(OS, V.Coord(3));
 
   return OS;
 }
 
 //=================================================================================================
 
-BinTools_LocationSet::BinTools_LocationSet() {}
+LocationBinarySet::LocationBinarySet() {}
 
 //=================================================================================================
 
-void BinTools_LocationSet::Clear()
+void LocationBinarySet::Clear()
 {
   myMap.Clear();
 }
 
 //=================================================================================================
 
-Standard_Integer BinTools_LocationSet::Add(const TopLoc_Location& L)
+Standard_Integer LocationBinarySet::Add(const TopLoc_Location& L)
 {
   if (L.IsIdentity())
     return 0;
@@ -105,7 +105,7 @@ Standard_Integer BinTools_LocationSet::Add(const TopLoc_Location& L)
 
 //=================================================================================================
 
-const TopLoc_Location& BinTools_LocationSet::Location(const Standard_Integer I) const
+const TopLoc_Location& LocationBinarySet::Location(const Standard_Integer I) const
 {
   static TopLoc_Location identity;
   if (I == 0)
@@ -116,7 +116,7 @@ const TopLoc_Location& BinTools_LocationSet::Location(const Standard_Integer I) 
 
 //=================================================================================================
 
-Standard_Integer BinTools_LocationSet::Index(const TopLoc_Location& L) const
+Standard_Integer LocationBinarySet::Index(const TopLoc_Location& L) const
 {
   if (L.IsIdentity())
     return 0;
@@ -125,14 +125,14 @@ Standard_Integer BinTools_LocationSet::Index(const TopLoc_Location& L) const
 
 //=================================================================================================
 
-Standard_Integer BinTools_LocationSet::NbLocations() const
+Standard_Integer LocationBinarySet::NbLocations() const
 {
   return myMap.Extent();
 }
 
 //=================================================================================================
 
-void BinTools_LocationSet::Write(Standard_OStream& OS) const
+void LocationBinarySet::Write(Standard_OStream& OS) const
 {
 
   Standard_Integer i, nbLoc = myMap.Extent();
@@ -158,18 +158,18 @@ void BinTools_LocationSet::Write(Standard_OStream& OS) const
       else
       {
         OS.put((Standard_Byte)2); // 2
-        BinTools::PutInteger(OS, myMap.FindIndex(L1));
-        BinTools::PutInteger(OS, p);
+        BinTools1::PutInteger(OS, myMap.FindIndex(L1));
+        BinTools1::PutInteger(OS, p);
         while (!L2.IsIdentity())
         {
           L1 = L2.FirstDatum();
           p  = L2.FirstPower();
           L2 = L2.NextLocation();
-          BinTools::PutInteger(OS, myMap.FindIndex(L1));
-          BinTools::PutInteger(OS, p);
+          BinTools1::PutInteger(OS, myMap.FindIndex(L1));
+          BinTools1::PutInteger(OS, p);
         }
 
-        BinTools::PutInteger(OS, 0);
+        BinTools1::PutInteger(OS, 0);
       }
     }
   }
@@ -184,7 +184,7 @@ void BinTools_LocationSet::Write(Standard_OStream& OS) const
 
 //=================================================================================================
 
-void BinTools_LocationSet::Read(Standard_IStream& IS)
+void LocationBinarySet::Read(Standard_IStream& IS)
 {
 
   myMap.Clear();
@@ -195,7 +195,7 @@ void BinTools_LocationSet::Read(Standard_IStream& IS)
   if (IS.fail() || (strcmp(buffer, "Locations")))
   {
     Standard_SStream aMsg;
-    aMsg << "BinTools_LocationSet::Read: Not a location table" << std::endl;
+    aMsg << "LocationBinarySet::Read: Not a location table" << std::endl;
     throw ExceptionBase(aMsg.str().c_str());
     return;
   }
@@ -222,13 +222,13 @@ void BinTools_LocationSet::Read(Standard_IStream& IS)
       else if (aTypLoc == 2)
       {
         L = TopLoc_Location();
-        BinTools::GetInteger(IS, l1); // Index
+        BinTools1::GetInteger(IS, l1); // Index
         while (l1 != 0)
         {
-          BinTools::GetInteger(IS, p);
+          BinTools1::GetInteger(IS, p);
           TopLoc_Location L1 = myMap(l1);
           L                  = L1.Powered(p) * L;
-          BinTools::GetInteger(IS, l1);
+          BinTools1::GetInteger(IS, l1);
         }
       }
       else
@@ -244,7 +244,7 @@ void BinTools_LocationSet::Read(Standard_IStream& IS)
   catch (ExceptionBase const& anException)
   {
     Standard_SStream aMsg;
-    aMsg << "EXCEPTION in BinTools_LocationSet::Read(..)" << std::endl;
+    aMsg << "EXCEPTION in LocationBinarySet::Read(..)" << std::endl;
     aMsg << anException << std::endl;
     throw ExceptionBase(aMsg.str().c_str());
   }

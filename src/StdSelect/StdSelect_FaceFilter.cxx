@@ -54,7 +54,7 @@ Standard_Boolean StdSelect_FaceFilter::IsOk(const Handle(SelectMgr_EntityOwner)&
   if (aBO.IsNull())
     return Standard_False;
 
-  const TopoDS_Shape& anobj = aBO->Shape();
+  const TopoShape& anobj = aBO->Shape();
   if (anobj.ShapeType() != TopAbs_FACE)
     return Standard_False;
 

@@ -143,7 +143,7 @@ Handle(VrmlData_Node) VrmlData_Group::FindNode(const char* theName, Transform3d&
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Group::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_Group::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus;
   gp_XYZ               aBoxCenter(0., 0., 0.), aBoxSize(-1., -1., -1.);
@@ -193,7 +193,7 @@ VrmlData_ErrorStatus VrmlData_Group::Read(VrmlData_InBuffer& theBuffer)
     }
     else if (VRMLDATA_LCOMPARE(theBuffer.LinePtr, "collide"))
     {
-      TCollection_AsciiString aDummy;
+      AsciiString1 aDummy;
       aStatus = Scene().ReadWord(theBuffer, aDummy);
     }
     else if (VRMLDATA_LCOMPARE(theBuffer.LinePtr, "Switch"))
@@ -403,7 +403,7 @@ VrmlData_ErrorStatus VrmlData_Group::Read(VrmlData_InBuffer& theBuffer)
       }
     else if (VRMLDATA_LCOMPARE(theBuffer.LinePtr, "DEF"))
     {
-      TCollection_AsciiString aWord;
+      AsciiString1 aWord;
       if (OK(aStatus, VrmlData_Scene::ReadWord(theBuffer, aWord)))
       {
         setName(aWord.ToCString());
@@ -411,14 +411,14 @@ VrmlData_ErrorStatus VrmlData_Group::Read(VrmlData_InBuffer& theBuffer)
     }
     else if (VRMLDATA_LCOMPARE(theBuffer.LinePtr, "url"))
     {
-      NCollection_List<TCollection_AsciiString> lstURL;
+      NCollection_List<AsciiString1> lstURL;
       if (OK(aStatus, ReadMultiString(theBuffer, lstURL)))
       {
-        NCollection_List<TCollection_AsciiString>::Iterator anIter(lstURL);
+        NCollection_List<AsciiString1>::Iterator anIter(lstURL);
         for (; anIter.More(); anIter.Next())
         {
           std::ifstream                  aStream;
-          const TCollection_AsciiString& aFileName = anIter.Value();
+          const AsciiString1& aFileName = anIter.Value();
           if (!OK(aStatus, openFile(aStream, aFileName)))
             break;
           VrmlData_Scene aScene(Scene().Allocator());
@@ -444,7 +444,7 @@ VrmlData_ErrorStatus VrmlData_Group::Read(VrmlData_InBuffer& theBuffer)
             if (aNode->Name())
               if (*aNode->Name() != '\0')
               {
-                TCollection_AsciiString buf;
+                AsciiString1 buf;
                 buf += aFileName;
                 Standard_Integer aCharLocation = buf.Location(1, '.', 1, buf.Length());
                 if (aCharLocation != 0)
@@ -510,7 +510,7 @@ VrmlData_ErrorStatus VrmlData_Group::Read(VrmlData_InBuffer& theBuffer)
 
 //=================================================================================================
 
-void VrmlData_Group::Shape(TopoDS_Shape& theShape, VrmlData_DataMapOfShapeAppearance* pMapApp)
+void VrmlData_Group::Shape(TopoShape& theShape, VrmlData_DataMapOfShapeAppearance* pMapApp)
 {
   VrmlData_Scene::createShape(theShape, myNodes, pMapApp);
   theShape.Location(myTrsf, Standard_False);
@@ -519,17 +519,17 @@ void VrmlData_Group::Shape(TopoDS_Shape& theShape, VrmlData_DataMapOfShapeAppear
 //=================================================================================================
 
 VrmlData_ErrorStatus VrmlData_Group::openFile(Standard_IStream&              theStream,
-                                              const TCollection_AsciiString& theFilename)
+                                              const AsciiString1& theFilename)
 {
   std::ifstream&       aStream = static_cast<std::ifstream&>(theStream);
   VrmlData_ErrorStatus aStatus(VrmlData_EmptyData);
-  NCollection_List<TCollection_ExtendedString>::Iterator aDirIter = Scene().VrmlDirIterator();
+  NCollection_List<UtfString>::Iterator aDirIter = Scene().VrmlDirIterator();
   for (; aDirIter.More(); aDirIter.Next())
   {
     if (!aDirIter.Value().IsAscii())
       continue;
-    const TCollection_AsciiString aFullName =
-      TCollection_AsciiString(aDirIter.Value()) + theFilename;
+    const AsciiString1 aFullName =
+      AsciiString1(aDirIter.Value()) + theFilename;
     aStream.open(aFullName.ToCString(), std::ios::in);
     if (aStream.fail())
       aStream.clear();

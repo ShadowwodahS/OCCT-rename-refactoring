@@ -95,7 +95,7 @@ public:
                const TopAbs_Orientation   Orientation = TopAbs_FORWARD);
 
   //! Adds an element to the hatcher and returns its index.
-  Standard_Integer AddElement(const Handle(Geom2d_Curve)& Curve,
+  Standard_Integer AddElement(const Handle(GeomCurve2d)& Curve,
                               const TopAbs_Orientation    Orientation = TopAbs_FORWARD)
   {
     Geom2dAdaptor_Curve aGAC(Curve);

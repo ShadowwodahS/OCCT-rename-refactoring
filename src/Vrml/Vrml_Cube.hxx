@@ -31,12 +31,12 @@
 //! A cube's width is its extent along its object-space X axis, its height is
 //! its extent along the object-space Y axis, and its depth is its extent along its
 //! object-space Z axis.
-class Vrml_Cube
+class Cube1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_Cube(const Standard_Real aWidth  = 2,
+  Standard_EXPORT Cube1(const Standard_Real aWidth  = 2,
                             const Standard_Real aHeight = 2,
                             const Standard_Real aDepth  = 2);
 

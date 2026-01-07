@@ -32,7 +32,7 @@ public:
   Standard_EXPORT ShapeConstruct_MakeTriangulation(const TColgp_Array1OfPnt& pnts,
                                                    const Standard_Real       prec = 0.0);
 
-  Standard_EXPORT ShapeConstruct_MakeTriangulation(const TopoDS_Wire&  wire,
+  Standard_EXPORT ShapeConstruct_MakeTriangulation(const TopoWire&  wire,
                                                    const Standard_Real prec = 0.0);
 
   Standard_EXPORT virtual void Build(
@@ -42,12 +42,12 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void Triangulate(const TopoDS_Wire& wire);
+  Standard_EXPORT void Triangulate(const TopoWire& wire);
 
-  Standard_EXPORT void AddFacet(const TopoDS_Wire& wire);
+  Standard_EXPORT void AddFacet(const TopoWire& wire);
 
   Standard_Real myPrecision;
-  TopoDS_Wire   myWire;
+  TopoWire   myWire;
 };
 
 #endif // _ShapeConstruct_MakeTriangulation_HeaderFile

@@ -22,31 +22,31 @@
 #include <Standard_NoSuchObject.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_Curve, Geom_Geometry)
+IMPLEMENT_STANDARD_RTTIEXT(GeomCurve3d, Geom_Geometry)
 
-typedef Geom_Curve Curve;
+typedef GeomCurve3d Curve;
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_Curve::Reversed() const
+Handle(GeomCurve3d) GeomCurve3d::Reversed() const
 {
-  Handle(Geom_Curve) C = Handle(Geom_Curve)::DownCast(Copy());
+  Handle(GeomCurve3d) C = Handle(GeomCurve3d)::DownCast(Copy());
   C->Reverse();
   return C;
 }
 
 //=================================================================================================
 
-Standard_Real Geom_Curve::Period() const
+Standard_Real GeomCurve3d::Period() const
 {
-  Standard_NoSuchObject_Raise_if(!IsPeriodic(), "Geom_Curve::Period");
+  Standard_NoSuchObject_Raise_if(!IsPeriodic(), "GeomCurve3d::Period");
 
   return (LastParameter() - FirstParameter());
 }
 
 //=================================================================================================
 
-Point3d Geom_Curve::Value(const Standard_Real U) const
+Point3d GeomCurve3d::Value(const Standard_Real U) const
 {
   Point3d P;
   D0(U, P);
@@ -55,21 +55,21 @@ Point3d Geom_Curve::Value(const Standard_Real U) const
 
 //=================================================================================================
 
-Standard_Real Geom_Curve::TransformedParameter(const Standard_Real U, const Transform3d&) const
+Standard_Real GeomCurve3d::TransformedParameter(const Standard_Real U, const Transform3d&) const
 {
   return U;
 }
 
 //=================================================================================================
 
-Standard_Real Geom_Curve::ParametricTransformation(const Transform3d&) const
+Standard_Real GeomCurve3d::ParametricTransformation(const Transform3d&) const
 {
   return 1.;
 }
 
 //=================================================================================================
 
-void Geom_Curve::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void GeomCurve3d::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 

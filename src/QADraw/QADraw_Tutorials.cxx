@@ -42,9 +42,9 @@ namespace
 
 //! Custom AIS object from dox/samples/ais_object.md tutorial.
 //! Make sure to update tutorial after modifications in this code!
-class MyAisObject : public AIS_InteractiveObject
+class MyAisObject : public VisualEntity
 {
-  DEFINE_STANDARD_RTTI_INLINE(MyAisObject, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTI_INLINE(MyAisObject, VisualEntity)
 public:
   enum MyDispMode
   {
@@ -62,7 +62,7 @@ public:
                        const Handle(Prs3d_Presentation)&         thePrs,
                        const Standard_Integer                    theMode) override;
 
-  virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                 const Standard_Integer             theMode) override;
 
   virtual bool AcceptDisplayMode(const Standard_Integer theMode) const override
@@ -91,7 +91,7 @@ void MyAisObject::Compute(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
 {
   (void)thePrsMgr;
   const double aRadius = 100.0, aHeight = 100.0;
-  TopoDS_Shape aShape = BRepPrimAPI_MakeCylinder(aRadius, aHeight);
+  TopoShape aShape = CylinderMaker(aRadius, aHeight);
   if (theMode == MyDispMode_Main)
   {
     // use standard shape builders
@@ -172,7 +172,7 @@ public:
   void SetAnimation(const Handle(AIS_Animation)& theAnim) { myAnim = theAnim; }
 
   virtual void HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
-                                const Handle(Prs3d_Drawer)&               theStyle,
+                                const Handle(StyleDrawer)&               theStyle,
                                 const Standard_Integer                    theMode) override;
   virtual void Unhilight(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
                          const Standard_Integer                    theMode) override;
@@ -198,7 +198,7 @@ protected:
 };
 
 void MyAisOwner::HilightWithColor(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
-                                  const Handle(Prs3d_Drawer)&               theStyle,
+                                  const Handle(StyleDrawer)&               theStyle,
                                   const Standard_Integer                    theMode)
 {
   (void)theMode;
@@ -303,7 +303,7 @@ bool MyAisOwner::HandleMouseClick(const Graphic3d_Vec2i& thePoint,
   return true;
 }
 
-void MyAisObject::ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+void MyAisObject::ComputeSelection(const Handle(SelectionContainer)& theSel,
                                    const Standard_Integer             theMode)
 {
   if (theMode != 0)
@@ -312,7 +312,7 @@ void MyAisObject::ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
   }
 
   const double aRadius = 100.0, aHeight = 100.0;
-  TopoDS_Shape aShape = BRepPrimAPI_MakeCylinder(aRadius, aHeight);
+  TopoShape aShape = CylinderMaker(aRadius, aHeight);
   Bnd_Box      aBox;
   BRepBndLib::Add(aShape, aBox);
   Handle(MyAisOwner) anOwner = new MyAisOwner(this);
@@ -333,7 +333,7 @@ void MyAisObject::ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
 
 //=================================================================================================
 
-static Standard_Integer QATutorialAisObject(Draw_Interpretor& theDi,
+static Standard_Integer QATutorialAisObject(DrawInterpreter& theDi,
                                             Standard_Integer  theNbArgs,
                                             const char**      theArgVec)
 {
@@ -348,7 +348,7 @@ static Standard_Integer QATutorialAisObject(Draw_Interpretor& theDi,
     return 1;
   }
 
-  const TCollection_AsciiString aPrsName(theArgVec[1]);
+  const AsciiString1 aPrsName(theArgVec[1]);
 
   Handle(MyAisObject) aPrs = new MyAisObject();
   aPrs->SetAnimation(ViewerTest::CurrentEventManager()->ObjectsAnimation());
@@ -358,7 +358,7 @@ static Standard_Integer QATutorialAisObject(Draw_Interpretor& theDi,
 
 //=================================================================================================
 
-void QADraw::TutorialCommands(Draw_Interpretor& theCommands)
+void QADraw::TutorialCommands(DrawInterpreter& theCommands)
 {
   const char* aGroup = "QA_Commands";
 

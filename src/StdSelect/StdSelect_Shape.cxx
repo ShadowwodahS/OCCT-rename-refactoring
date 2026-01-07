@@ -25,8 +25,8 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(StdSelect_Shape, PrsMgr_PresentableObject)
 
-StdSelect_Shape::StdSelect_Shape(const TopoDS_Shape&         theShape,
-                                 const Handle(Prs3d_Drawer)& theDrawer)
+StdSelect_Shape::StdSelect_Shape(const TopoShape&         theShape,
+                                 const Handle(StyleDrawer)& theDrawer)
     : mysh(theShape)
 {
   if (!theDrawer.IsNull())

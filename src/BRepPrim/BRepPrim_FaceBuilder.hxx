@@ -25,8 +25,8 @@
 #include <TopoDS_Edge.hxx>
 #include <TopoDS_Face.hxx>
 #include <Standard_Integer.hxx>
-class BRep_Builder;
-class Geom_Surface;
+class ShapeBuilder;
+class GeomSurface;
 
 //! The  FaceBuilder is an algorithm   to build a BRep
 //! Face from a Geom Surface.
@@ -40,46 +40,46 @@ public:
 
   Standard_EXPORT BRepPrim_FaceBuilder();
 
-  Standard_EXPORT BRepPrim_FaceBuilder(const BRep_Builder& B, const Handle(Geom_Surface)& S);
+  Standard_EXPORT BRepPrim_FaceBuilder(const ShapeBuilder& B, const Handle(GeomSurface)& S);
 
-  Standard_EXPORT BRepPrim_FaceBuilder(const BRep_Builder&         B,
-                                       const Handle(Geom_Surface)& S,
+  Standard_EXPORT BRepPrim_FaceBuilder(const ShapeBuilder&         B,
+                                       const Handle(GeomSurface)& S,
                                        const Standard_Real         UMin,
                                        const Standard_Real         UMax,
                                        const Standard_Real         VMin,
                                        const Standard_Real         VMax);
 
-  Standard_EXPORT void Init(const BRep_Builder& B, const Handle(Geom_Surface)& S);
+  Standard_EXPORT void Init(const ShapeBuilder& B, const Handle(GeomSurface)& S);
 
-  Standard_EXPORT void Init(const BRep_Builder&         B,
-                            const Handle(Geom_Surface)& S,
+  Standard_EXPORT void Init(const ShapeBuilder&         B,
+                            const Handle(GeomSurface)& S,
                             const Standard_Real         UMin,
                             const Standard_Real         UMax,
                             const Standard_Real         VMin,
                             const Standard_Real         VMax);
 
-  Standard_EXPORT const TopoDS_Face& Face() const;
-  Standard_EXPORT                    operator TopoDS_Face();
+  Standard_EXPORT const TopoFace& Face() const;
+  Standard_EXPORT                    operator TopoFace();
 
   //! Returns the edge of index <I>
   //! 1 - Edge VMin
   //! 2 - Edge UMax
   //! 3 - Edge VMax
   //! 4 - Edge UMin
-  Standard_EXPORT const TopoDS_Edge& Edge(const Standard_Integer I) const;
+  Standard_EXPORT const TopoEdge& Edge(const Standard_Integer I) const;
 
   //! Returns the vertex of index <I>
   //! 1 - Vertex UMin,VMin
   //! 2 - Vertex UMax,VMin
   //! 3 - Vertex UMax,VMax
   //! 4 - Vertex UMin,VMax
-  Standard_EXPORT const TopoDS_Vertex& Vertex(const Standard_Integer I) const;
+  Standard_EXPORT const TopoVertex& Vertex(const Standard_Integer I) const;
 
 protected:
 private:
-  TopoDS_Vertex myVertex[4];
-  TopoDS_Edge   myEdges[4];
-  TopoDS_Face   myFace;
+  TopoVertex myVertex[4];
+  TopoEdge   myEdges[4];
+  TopoFace   myFace;
 };
 
 #endif // _BRepPrim_FaceBuilder_HeaderFile

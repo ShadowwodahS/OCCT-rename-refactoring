@@ -21,7 +21,7 @@
 #include <Bnd_B3f.hxx>
 #include <gp_Trsf.hxx>
 
-class TopoDS_Shape;
+class TopoShape;
 
 /**
  * Implementation of node "Group"
@@ -117,7 +117,7 @@ public:
   /**
    * Fill the Node internal data from the given input stream.
    */
-  Standard_EXPORT virtual VrmlData_ErrorStatus Read(VrmlData_InBuffer& theBuffer) Standard_OVERRIDE;
+  Standard_EXPORT virtual VrmlData_ErrorStatus Read(InputBuffer& theBuffer) Standard_OVERRIDE;
 
   /**
    * Write the Node to output stream.
@@ -136,7 +136,7 @@ public:
   /**
    * Get the shape representing the group geometry.
    */
-  Standard_EXPORT void Shape(TopoDS_Shape& theShape, VrmlData_DataMapOfShapeAppearance* pMapApp);
+  Standard_EXPORT void Shape(TopoShape& theShape, VrmlData_DataMapOfShapeAppearance* pMapApp);
 
 protected:
   // ---------- PROTECTED METHODS ----------
@@ -146,7 +146,7 @@ protected:
    * list myVrmlDir of the Scene.
    */
   Standard_EXPORT VrmlData_ErrorStatus openFile(Standard_IStream&              theStream,
-                                                const TCollection_AsciiString& theFilename);
+                                                const AsciiString1& theFilename);
 
 private:
   // ---------- PRIVATE FIELDS ----------

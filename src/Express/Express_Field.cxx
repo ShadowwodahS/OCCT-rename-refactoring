@@ -44,7 +44,7 @@ Express_Field::Express_Field(const Handle(TCollection_HAsciiString)& theName,
 
 //=================================================================================================
 
-const TCollection_AsciiString& Express_Field::Name() const
+const AsciiString1& Express_Field::Name() const
 {
   return myName->String();
 }

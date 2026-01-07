@@ -39,7 +39,7 @@ Interface_EntityIterator IFSelect_SelectIntersection::RootResult(const Interface
   return GC.Common();
 }
 
-TCollection_AsciiString IFSelect_SelectIntersection::Label() const
+AsciiString1 IFSelect_SelectIntersection::Label() const
 {
-  return TCollection_AsciiString("Intersection (AND)");
+  return AsciiString1("Intersection (AND)");
 }

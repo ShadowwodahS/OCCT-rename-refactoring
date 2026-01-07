@@ -29,7 +29,7 @@
 
 static Handle(HLRBRep_Algo) hider;
 #ifdef _WIN32
-Standard_IMPORT Draw_Viewer dout;
+Standard_IMPORT DrawViewer dout;
 #endif
 
 #include <BRepTopAdaptor_MapOfShapeTool.hxx>
@@ -38,14 +38,14 @@ Standard_IMPORT Draw_Viewer dout;
 
 void HLRTest::Set(const Standard_CString Name, const HLRAlgo_Projector& P)
 {
-  Draw::Set(Name, new HLRTest_Projector(P));
+  Draw1::Set(Name, new HLRTest_Projector(P));
 }
 
 //=================================================================================================
 
 Standard_Boolean HLRTest::GetProjector(Standard_CString& Name, HLRAlgo_Projector& P)
 {
-  Handle(HLRTest_Projector) HP = Handle(HLRTest_Projector)::DownCast(Draw::Get(Name));
+  Handle(HLRTest_Projector) HP = Handle(HLRTest_Projector)::DownCast(Draw1::Get(Name));
   if (HP.IsNull())
     return Standard_False;
   P = HP->Projector();
@@ -54,16 +54,16 @@ Standard_Boolean HLRTest::GetProjector(Standard_CString& Name, HLRAlgo_Projector
 
 //=================================================================================================
 
-void HLRTest::Set(const Standard_CString Name, const TopoDS_Shape& S)
+void HLRTest::Set(const Standard_CString Name, const TopoShape& S)
 {
-  Draw::Set(Name, new HLRTest_OutLiner(S));
+  Draw1::Set(Name, new HLRTest_OutLiner(S));
 }
 
 //=================================================================================================
 
 Handle(HLRTopoBRep_OutLiner) HLRTest::GetOutLiner(Standard_CString& Name)
 {
-  Handle(Draw_Drawable3D)  D  = Draw::Get(Name);
+  Handle(Draw_Drawable3D)  D  = Draw1::Get(Name);
   Handle(HLRTest_OutLiner) HS = Handle(HLRTest_OutLiner)::DownCast(D);
   if (!HS.IsNull())
     return HS->OutLiner();
@@ -73,7 +73,7 @@ Handle(HLRTopoBRep_OutLiner) HLRTest::GetOutLiner(Standard_CString& Name)
 
 //=================================================================================================
 
-static Standard_Integer hprj(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer hprj(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
@@ -81,17 +81,17 @@ static Standard_Integer hprj(Draw_Interpretor&, Standard_Integer n, const char**
   Frame3d anAx2 = gp::XOY();
   if (n == 11)
   {
-    Standard_Real x = Draw::Atof(a[2]);
-    Standard_Real y = Draw::Atof(a[3]);
-    Standard_Real z = Draw::Atof(a[4]);
+    Standard_Real x = Draw1::Atof(a[2]);
+    Standard_Real y = Draw1::Atof(a[3]);
+    Standard_Real z = Draw1::Atof(a[4]);
 
-    Standard_Real dx = Draw::Atof(a[5]);
-    Standard_Real dy = Draw::Atof(a[6]);
-    Standard_Real dz = Draw::Atof(a[7]);
+    Standard_Real dx = Draw1::Atof(a[5]);
+    Standard_Real dy = Draw1::Atof(a[6]);
+    Standard_Real dz = Draw1::Atof(a[7]);
 
-    Standard_Real dx1 = Draw::Atof(a[8]);
-    Standard_Real dy1 = Draw::Atof(a[9]);
-    Standard_Real dz1 = Draw::Atof(a[10]);
+    Standard_Real dx1 = Draw1::Atof(a[8]);
+    Standard_Real dy1 = Draw1::Atof(a[9]);
+    Standard_Real dz1 = Draw1::Atof(a[10]);
 
     Point3d anOrigin(x, y, z);
     Dir3d aNormal(dx, dy, dz);
@@ -106,12 +106,12 @@ static Standard_Integer hprj(Draw_Interpretor&, Standard_Integer n, const char**
 
 //=================================================================================================
 
-static Standard_Integer hout(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer hout(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
   const char*  name = a[2];
-  TopoDS_Shape S    = DBRep::Get(name);
+  TopoShape S    = DBRep1::Get(name);
   if (S.IsNull())
   {
     di << name << " is not a shape.\n";
@@ -123,13 +123,13 @@ static Standard_Integer hout(Draw_Interpretor& di, Standard_Integer n, const cha
 
 //=================================================================================================
 
-static Standard_Integer hfil(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer hfil(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   Standard_Integer nbIso = 0;
   if (n < 3)
     return 1;
   if (n > 3)
-    nbIso = Draw::Atoi(a[3]);
+    nbIso = Draw1::Atoi(a[3]);
   const char*                  name1 = a[1];
   Handle(HLRTopoBRep_OutLiner) HS    = HLRTest::GetOutLiner(name1);
   if (HS.IsNull())
@@ -151,7 +151,7 @@ static Standard_Integer hfil(Draw_Interpretor& di, Standard_Integer n, const cha
 
 //=================================================================================================
 
-static Standard_Integer sori(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer sori(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
@@ -163,13 +163,13 @@ static Standard_Integer sori(Draw_Interpretor& di, Standard_Integer n, const cha
     di << name2 << " is not an OutLiner.\n";
     return 1;
   }
-  DBRep::Set(name1, HS->OriginalShape());
+  DBRep1::Set(name1, HS->OriginalShape());
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer sout(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer sout(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
     return 1;
@@ -186,13 +186,13 @@ static Standard_Integer sout(Draw_Interpretor& di, Standard_Integer n, const cha
     di << name2 << " has no OutLinedShape.\n";
     return 1;
   }
-  DBRep::Set(name1, HS->OutLinedShape());
+  DBRep1::Set(name1, HS->OutLinedShape());
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer hloa(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer hloa(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
@@ -209,7 +209,7 @@ static Standard_Integer hloa(Draw_Interpretor& di, Standard_Integer n, const cha
 
 //=================================================================================================
 
-static Standard_Integer hrem(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer hrem(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n > 1)
   {
@@ -218,7 +218,7 @@ static Standard_Integer hrem(Draw_Interpretor& di, Standard_Integer n, const cha
     Handle(HLRTopoBRep_OutLiner) HS = HLRTest::GetOutLiner(name);
     if (HS.IsNull())
     {
-      TopoDS_Shape S = DBRep::Get(name);
+      TopoShape S = DBRep1::Get(name);
       if (S.IsNull())
       {
         di << name << " is not an OutLiner and not a shape.\n";
@@ -248,7 +248,7 @@ static Standard_Integer hrem(Draw_Interpretor& di, Standard_Integer n, const cha
   }
   else
   {
-    while (hider->NbShapes() > 0)
+    while (hider->NbShapes1() > 0)
     {
       hider->Remove(1);
     }
@@ -259,7 +259,7 @@ static Standard_Integer hrem(Draw_Interpretor& di, Standard_Integer n, const cha
 
 //=================================================================================================
 
-static Standard_Integer sprj(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer sprj(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
@@ -276,7 +276,7 @@ static Standard_Integer sprj(Draw_Interpretor& di, Standard_Integer n, const cha
 
 //=================================================================================================
 
-static Standard_Integer upda(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer upda(DrawInterpreter&, Standard_Integer, const char**)
 {
   hider->Update();
   return 0;
@@ -284,7 +284,7 @@ static Standard_Integer upda(Draw_Interpretor&, Standard_Integer, const char**)
 
 //=================================================================================================
 
-static Standard_Integer hide(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer hide(DrawInterpreter&, Standard_Integer, const char**)
 {
   hider->Hide();
   return 0;
@@ -292,7 +292,7 @@ static Standard_Integer hide(Draw_Interpretor&, Standard_Integer, const char**)
 
 //=================================================================================================
 
-static Standard_Integer show(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer show(DrawInterpreter&, Standard_Integer, const char**)
 {
   hider->ShowAll();
   return 0;
@@ -300,7 +300,7 @@ static Standard_Integer show(Draw_Interpretor&, Standard_Integer, const char**)
 
 //=================================================================================================
 
-static Standard_Integer hdbg(Draw_Interpretor& di, Standard_Integer, const char**)
+static Standard_Integer hdbg(DrawInterpreter& di, Standard_Integer, const char**)
 {
   hider->Debug(!hider->Debug());
   if (hider->Debug())
@@ -312,7 +312,7 @@ static Standard_Integer hdbg(Draw_Interpretor& di, Standard_Integer, const char*
 
 //=================================================================================================
 
-static Standard_Integer hnul(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer hnul(DrawInterpreter&, Standard_Integer, const char**)
 {
   hider->OutLinedShapeNullify();
   return 0;
@@ -320,13 +320,13 @@ static Standard_Integer hnul(Draw_Interpretor&, Standard_Integer, const char**)
 
 //=================================================================================================
 
-static Standard_Integer hres(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer hres(DrawInterpreter&, Standard_Integer n, const char** a)
 {
-  TopoDS_Shape S, V, V1, VN, VO, VI, H, H1, HN, HO, HI;
+  TopoShape S, V, V1, VN, VO, VI, H, H1, HN, HO, HI;
   if (n > 1)
   {
     const char* name = a[1];
-    S                = DBRep::Get(name);
+    S                = DBRep1::Get(name);
   }
   HLRBRep_HLRToShape HS(hider);
 
@@ -357,36 +357,36 @@ static Standard_Integer hres(Draw_Interpretor&, Standard_Integer n, const char**
     HI = HS.IsoLineHCompound(S);
   }
   if (!V.IsNull())
-    DBRep::Set("vl", V);
+    DBRep1::Set("vl", V);
   if (!V1.IsNull())
-    DBRep::Set("v1l", V1);
+    DBRep1::Set("v1l", V1);
   if (!VN.IsNull())
-    DBRep::Set("vnl", VN);
+    DBRep1::Set("vnl", VN);
   if (!VO.IsNull())
-    DBRep::Set("vol", VO);
+    DBRep1::Set("vol", VO);
   if (!VI.IsNull())
-    DBRep::Set("vil", VI);
+    DBRep1::Set("vil", VI);
   if (!H.IsNull())
-    DBRep::Set("hl", H);
+    DBRep1::Set("hl", H);
   if (!H1.IsNull())
-    DBRep::Set("h1l", H1);
+    DBRep1::Set("h1l", H1);
   if (!HN.IsNull())
-    DBRep::Set("hnl", HN);
+    DBRep1::Set("hnl", HN);
   if (!HO.IsNull())
-    DBRep::Set("hol", HO);
+    DBRep1::Set("hol", HO);
   if (!HI.IsNull())
-    DBRep::Set("hil", HI);
+    DBRep1::Set("hil", HI);
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer reflectlines(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer reflectlines(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 6)
     return 1;
 
-  TopoDS_Shape aShape = DBRep::Get(a[2]);
+  TopoShape aShape = DBRep1::Get(a[2]);
   if (aShape.IsNull())
     return 1;
 
@@ -413,20 +413,20 @@ static Standard_Integer reflectlines(Draw_Interpretor&, Standard_Integer n, cons
 
   Reflector.Perform();
 
-  TopoDS_Shape Result = Reflector.GetResult();
-  DBRep::Set(a[1], Result);
+  TopoShape Result = Reflector.GetResult();
+  DBRep1::Set(a[1], Result);
 
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer hlrin3d(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer hlrin3d(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 6)
     return 1;
 
-  TopoDS_Shape aShape = DBRep::Get(a[2]);
+  TopoShape aShape = DBRep1::Get(a[2]);
   if (aShape.IsNull())
     return 1;
 
@@ -453,36 +453,36 @@ static Standard_Integer hlrin3d(Draw_Interpretor&, Standard_Integer n, const cha
 
   Reflector.Perform();
 
-  TopoDS_Compound Result;
-  BRep_Builder    BB;
+  TopoCompound Result;
+  ShapeBuilder    BB;
   BB.MakeCompound(Result);
 
-  TopoDS_Shape SharpEdges =
+  TopoShape SharpEdges =
     Reflector.GetCompoundOf3dEdges(HLRBRep_Sharp, Standard_True, Standard_True);
   if (!SharpEdges.IsNull())
     BB.Add(Result, SharpEdges);
-  TopoDS_Shape OutLines =
+  TopoShape OutLines =
     Reflector.GetCompoundOf3dEdges(HLRBRep_OutLine, Standard_True, Standard_True);
   if (!OutLines.IsNull())
     BB.Add(Result, OutLines);
-  TopoDS_Shape SmoothEdges =
+  TopoShape SmoothEdges =
     Reflector.GetCompoundOf3dEdges(HLRBRep_Rg1Line, Standard_True, Standard_True);
   if (!SmoothEdges.IsNull())
     BB.Add(Result, SmoothEdges);
 
-  DBRep::Set(a[1], Result);
+  DBRep1::Set(a[1], Result);
 
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer hlrin2d(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer hlrin2d(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 9)
     return 1;
 
-  TopoDS_Shape aShape = DBRep::Get(a[2]);
+  TopoShape aShape = DBRep1::Get(a[2]);
   if (aShape.IsNull())
     return 1;
 
@@ -512,31 +512,31 @@ static Standard_Integer hlrin2d(Draw_Interpretor&, Standard_Integer n, const cha
 
   Reflector.Perform();
 
-  TopoDS_Compound Result;
-  BRep_Builder    BB;
+  TopoCompound Result;
+  ShapeBuilder    BB;
   BB.MakeCompound(Result);
 
-  TopoDS_Shape SharpEdges =
+  TopoShape SharpEdges =
     Reflector.GetCompoundOf3dEdges(HLRBRep_Sharp, Standard_True, Standard_False);
   if (!SharpEdges.IsNull())
     BB.Add(Result, SharpEdges);
-  TopoDS_Shape OutLines =
+  TopoShape OutLines =
     Reflector.GetCompoundOf3dEdges(HLRBRep_OutLine, Standard_True, Standard_False);
   if (!OutLines.IsNull())
     BB.Add(Result, OutLines);
-  TopoDS_Shape SmoothEdges =
+  TopoShape SmoothEdges =
     Reflector.GetCompoundOf3dEdges(HLRBRep_Rg1Line, Standard_True, Standard_False);
   if (!SmoothEdges.IsNull())
     BB.Add(Result, SmoothEdges);
 
-  DBRep::Set(a[1], Result);
+  DBRep1::Set(a[1], Result);
 
   return 0;
 }
 
 //=================================================================================================
 
-void HLRTest::Commands(Draw_Interpretor& theCommands)
+void HLRTest::Commands(DrawInterpreter& theCommands)
 {
   // Register save/restore tool
   HLRTest_Projector::RegisterFactory();

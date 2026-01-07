@@ -23,9 +23,9 @@
 #include <TCollection_AsciiString.hxx>
 
 // --- Enum : TrimmingPreference ---
-static TCollection_AsciiString tpParameter(".PARAMETER.");
-static TCollection_AsciiString tpUnspecified(".UNSPECIFIED.");
-static TCollection_AsciiString tpCartesian(".CARTESIAN.");
+static AsciiString1 tpParameter(".PARAMETER.");
+static AsciiString1 tpUnspecified(".UNSPECIFIED.");
+static AsciiString1 tpCartesian(".CARTESIAN.");
 
 RWStepGeom_RWTrimmedCurve::RWStepGeom_RWTrimmedCurve() {}
 

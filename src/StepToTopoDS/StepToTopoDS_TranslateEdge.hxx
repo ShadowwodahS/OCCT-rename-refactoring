@@ -26,17 +26,17 @@
 #include <StepToTopoDS_Root.hxx>
 class StepShape_Edge;
 class StepToTopoDS_Tool;
-class StepToTopoDS_NMTool;
+class NamingTool2;
 class StepGeom_Curve;
 class StepShape_EdgeCurve;
 class StepShape_Vertex;
-class TopoDS_Edge;
-class TopoDS_Vertex;
-class Geom2d_Curve;
+class TopoEdge;
+class TopoVertex;
+class GeomCurve2d;
 class StepGeom_Pcurve;
-class Geom_Surface;
+class GeomSurface;
 
-class StepToTopoDS_TranslateEdge : public StepToTopoDS_Root
+class StepToTopoDS_TranslateEdge : public Root2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -46,13 +46,13 @@ public:
   Standard_EXPORT StepToTopoDS_TranslateEdge(
     const Handle(StepShape_Edge)& E,
     StepToTopoDS_Tool&            T,
-    StepToTopoDS_NMTool&          NMTool,
-    const StepData_Factors&       theLocalFactors = StepData_Factors());
+    NamingTool2&          NMTool,
+    const ConversionFactors&       theLocalFactors = ConversionFactors());
 
   Standard_EXPORT void Init(const Handle(StepShape_Edge)& E,
                             StepToTopoDS_Tool&            T,
-                            StepToTopoDS_NMTool&          NMTool,
-                            const StepData_Factors&       theLocalFactors = StepData_Factors());
+                            NamingTool2&          NMTool,
+                            const ConversionFactors&       theLocalFactors = ConversionFactors());
 
   //! Warning! C3D is assumed to be a Curve 3D ...
   //! other cases to checked before calling this
@@ -61,25 +61,25 @@ public:
     const Handle(StepShape_EdgeCurve)& EC,
     const Handle(StepShape_Vertex)&    Vend,
     const Standard_Real                preci,
-    TopoDS_Edge&                       E,
-    TopoDS_Vertex&                     V1,
-    TopoDS_Vertex&                     V2,
+    TopoEdge&                       E,
+    TopoVertex&                     V1,
+    TopoVertex&                     V2,
     StepToTopoDS_Tool&                 T,
-    const StepData_Factors&            theLocalFactors = StepData_Factors());
+    const ConversionFactors&            theLocalFactors = ConversionFactors());
 
-  Standard_EXPORT Handle(Geom2d_Curve) MakePCurve(
+  Standard_EXPORT Handle(GeomCurve2d) MakePCurve(
     const Handle(StepGeom_Pcurve)& PCU,
-    const Handle(Geom_Surface)&    ConvSurf,
-    const StepData_Factors&        theLocalFactors = StepData_Factors()) const;
+    const Handle(GeomSurface)&    ConvSurf,
+    const ConversionFactors&        theLocalFactors = ConversionFactors()) const;
 
-  Standard_EXPORT const TopoDS_Shape& Value() const;
+  Standard_EXPORT const TopoShape& Value() const;
 
   Standard_EXPORT StepToTopoDS_TranslateEdgeError Error() const;
 
 protected:
 private:
   StepToTopoDS_TranslateEdgeError myError;
-  TopoDS_Shape                    myResult;
+  TopoShape                    myResult;
 };
 
 #endif // _StepToTopoDS_TranslateEdge_HeaderFile

@@ -17,7 +17,7 @@
 #include <StepToTopoDS.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-Handle(TCollection_HAsciiString) StepToTopoDS::DecodeBuilderError(
+Handle(TCollection_HAsciiString) StepToTopoDS1::DecodeBuilderError(
   const StepToTopoDS_BuilderError Error)
 {
   Handle(TCollection_HAsciiString) mess;
@@ -35,7 +35,7 @@ Handle(TCollection_HAsciiString) StepToTopoDS::DecodeBuilderError(
   return mess;
 }
 
-Handle(TCollection_HAsciiString) StepToTopoDS::DecodeShellError(
+Handle(TCollection_HAsciiString) StepToTopoDS1::DecodeShellError(
   const StepToTopoDS_TranslateShellError Error)
 {
   Handle(TCollection_HAsciiString) mess;
@@ -53,7 +53,7 @@ Handle(TCollection_HAsciiString) StepToTopoDS::DecodeShellError(
   return mess;
 }
 
-Handle(TCollection_HAsciiString) StepToTopoDS::DecodeFaceError(
+Handle(TCollection_HAsciiString) StepToTopoDS1::DecodeFaceError(
   const StepToTopoDS_TranslateFaceError Error)
 {
   Handle(TCollection_HAsciiString) mess;
@@ -71,7 +71,7 @@ Handle(TCollection_HAsciiString) StepToTopoDS::DecodeFaceError(
   return mess;
 }
 
-Handle(TCollection_HAsciiString) StepToTopoDS::DecodeEdgeError(
+Handle(TCollection_HAsciiString) StepToTopoDS1::DecodeEdgeError(
   const StepToTopoDS_TranslateEdgeError Error)
 {
   Handle(TCollection_HAsciiString) mess;
@@ -89,7 +89,7 @@ Handle(TCollection_HAsciiString) StepToTopoDS::DecodeEdgeError(
   return mess;
 }
 
-Handle(TCollection_HAsciiString) StepToTopoDS::DecodeVertexError(
+Handle(TCollection_HAsciiString) StepToTopoDS1::DecodeVertexError(
   const StepToTopoDS_TranslateVertexError Error)
 {
   Handle(TCollection_HAsciiString) mess;
@@ -107,7 +107,7 @@ Handle(TCollection_HAsciiString) StepToTopoDS::DecodeVertexError(
   return mess;
 }
 
-Handle(TCollection_HAsciiString) StepToTopoDS::DecodeVertexLoopError(
+Handle(TCollection_HAsciiString) StepToTopoDS1::DecodeVertexLoopError(
   const StepToTopoDS_TranslateVertexLoopError Error)
 {
   Handle(TCollection_HAsciiString) mess;
@@ -125,7 +125,7 @@ Handle(TCollection_HAsciiString) StepToTopoDS::DecodeVertexLoopError(
   return mess;
 }
 
-Handle(TCollection_HAsciiString) StepToTopoDS::DecodePolyLoopError(
+Handle(TCollection_HAsciiString) StepToTopoDS1::DecodePolyLoopError(
   const StepToTopoDS_TranslatePolyLoopError Error)
 {
   Handle(TCollection_HAsciiString) mess;
@@ -143,7 +143,7 @@ Handle(TCollection_HAsciiString) StepToTopoDS::DecodePolyLoopError(
   return mess;
 }
 
-Standard_CString StepToTopoDS::DecodeGeometricToolError(const StepToTopoDS_GeometricToolError Error)
+Standard_CString StepToTopoDS1::DecodeGeometricToolError(const StepToTopoDS_GeometricToolError Error)
 {
   Standard_CString mess = "";
   switch (Error)

@@ -27,7 +27,7 @@
 
 //! This  package  defines  extension of standard attributes for
 //! modelling  (mainly for work with geometry).
-class TDataXtd
+class TDataXtd1
 {
 public:
   DEFINE_STANDARD_ALLOC

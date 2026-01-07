@@ -34,7 +34,7 @@
 #define Pnt_hxx <gp_Pnt.hxx>
 #define Dir Dir3d
 #define Dir_hxx <gp_Dir.hxx>
-#define Tool BRepLProp_CurveTool
+#define Tool CurveLocalPropsTool
 #define Tool_hxx <BRepLProp_CurveTool.hxx>
 #define LProp_CLProps BRepLProp_CLProps
 #define LProp_CLProps_hxx <BRepLProp_CLProps.hxx>

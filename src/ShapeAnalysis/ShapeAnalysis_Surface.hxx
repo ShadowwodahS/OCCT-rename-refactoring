@@ -25,12 +25,12 @@
 #include <TColgp_SequenceOfPnt.hxx>
 #include <TColgp_SequenceOfPnt2d.hxx>
 
-class Geom_Surface;
-class Geom_Curve;
+class GeomSurface;
+class GeomCurve3d;
 
 DEFINE_STANDARD_HANDLE(ShapeAnalysis_Surface, RefObject)
 
-//! Complements standard tool Geom_Surface by providing additional
+//! Complements standard tool GeomSurface by providing additional
 //! functionality for detection surface singularities, checking
 //! spatial surface closure and computing projections of 3D points
 //! onto a surface.
@@ -44,7 +44,7 @@ DEFINE_STANDARD_HANDLE(ShapeAnalysis_Surface, RefObject)
 //! * The spatial closure
 //! The check for spatial closure is performed with given precision
 //! (default value is Precision::Confusion).
-//! If Geom_Surface says that the surface is closed, this class
+//! If GeomSurface says that the surface is closed, this class
 //! also says this. Otherwise additional analysis is performed.
 //!
 //! * The parameters of 3D point on the surface
@@ -60,10 +60,10 @@ class ShapeAnalysis_Surface : public RefObject
 
 public:
   //! Creates an analyzer object on the basis of existing surface
-  Standard_EXPORT ShapeAnalysis_Surface(const Handle(Geom_Surface)& S);
+  Standard_EXPORT ShapeAnalysis_Surface(const Handle(GeomSurface)& S);
 
   //! Loads existing surface
-  Standard_EXPORT void Init(const Handle(Geom_Surface)& S);
+  Standard_EXPORT void Init(const Handle(GeomSurface)& S);
 
   //! Reads all the data from another Surface, without recomputing
   Standard_EXPORT void Init(const Handle(ShapeAnalysis_Surface)& other);
@@ -74,7 +74,7 @@ public:
                                  const Standard_Real V2);
 
   //! Returns a surface being analyzed
-  const Handle(Geom_Surface)& Surface() const;
+  const Handle(GeomSurface)& Surface() const;
 
   //! Returns the Adaptor.
   //! Creates it if not yet done.
@@ -215,15 +215,15 @@ public:
 
   //! Returns a U-Iso. Null if not possible or failed
   //! Remark : bound isos are buffered
-  Standard_EXPORT Handle(Geom_Curve) UIso(const Standard_Real U);
+  Standard_EXPORT Handle(GeomCurve3d) UIso(const Standard_Real U);
 
   //! Returns a V-Iso. Null if not possible or failed
   //! Remark : bound isos are buffered
-  Standard_EXPORT Handle(Geom_Curve) VIso(const Standard_Real V);
+  Standard_EXPORT Handle(GeomCurve3d) VIso(const Standard_Real V);
 
   //! Tells if the Surface is spatially closed in U with given
   //! precision. If <preci> < 0 then Precision::Confusion is used.
-  //! If Geom_Surface says that the surface is U-closed, this method
+  //! If GeomSurface says that the surface is U-closed, this method
   //! also says this. Otherwise additional analysis is performed,
   //! comparing given precision with the following distances:
   //! - periodic B-Splines are closed,
@@ -240,7 +240,7 @@ public:
 
   //! Tells if the Surface is spatially closed in V with given
   //! precision. If <preci> < 0 then Precision::Confusion is used.
-  //! If Geom_Surface says that the surface is V-closed, this method
+  //! If GeomSurface says that the surface is V-closed, this method
   //! also says this. Otherwise additional analysis is performed,
   //! comparing given precision with the following distances:
   //! - periodic B-Splines are closed,
@@ -309,7 +309,7 @@ public:
   DEFINE_STANDARD_RTTIEXT(ShapeAnalysis_Surface, RefObject)
 
 protected:
-  Handle(Geom_Surface)        mySurf;
+  Handle(GeomSurface)        mySurf;
   Handle(GeomAdaptor_Surface) myAdSur;
   Extrema_ExtPS               myExtPS;
   Standard_Boolean            myExtOK;
@@ -326,10 +326,10 @@ protected:
   Standard_Real               myUL;
   Standard_Real               myVF;
   Standard_Real               myVL;
-  Handle(Geom_Curve)          myIsoUF;
-  Handle(Geom_Curve)          myIsoUL;
-  Handle(Geom_Curve)          myIsoVF;
-  Handle(Geom_Curve)          myIsoVL;
+  Handle(GeomCurve3d)          myIsoUF;
+  Handle(GeomCurve3d)          myIsoUL;
+  Handle(GeomCurve3d)          myIsoVF;
+  Handle(GeomCurve3d)          myIsoVL;
   Standard_Boolean            myIsoBoxes;
   Bnd_Box                     myBndUF;
   Bnd_Box                     myBndUL;

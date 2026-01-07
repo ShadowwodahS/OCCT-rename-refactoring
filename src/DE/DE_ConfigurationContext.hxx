@@ -17,7 +17,7 @@
 #include <NCollection_DataMap.hxx>
 #include <TColStd_ListOfAsciiString.hxx>
 
-typedef NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString> DE_ResourceMap;
+typedef NCollection_DataMap<AsciiString1, AsciiString1> DE_ResourceMap;
 
 //! Provides convenient interface to resource file
 //! Allows loading of the resource file and getting attributes'
@@ -37,108 +37,108 @@ public:
   //! Save all parameters with their values.
   //! @param[in] theConfiguration path to configuration file or string value
   //! @return true in case of success, false otherwise
-  Standard_EXPORT Standard_Boolean Load(const TCollection_AsciiString& theConfiguration);
+  Standard_EXPORT Standard_Boolean Load(const AsciiString1& theConfiguration);
 
   //! Import the resource file.
   //! Save all parameters with their values.
   //! @param[in] theFile path to the resource file
   //! @return true in case of success, false otherwise
-  Standard_EXPORT Standard_Boolean LoadFile(const TCollection_AsciiString& theFile);
+  Standard_EXPORT Standard_Boolean LoadFile(const AsciiString1& theFile);
 
   //! Import the resource string.
   //! Save all parameters with their values.
   //! @param[in] theResource string with resource content
   //! @return true in case of success, false otherwise
-  Standard_EXPORT Standard_Boolean LoadStr(const TCollection_AsciiString& theResource);
+  Standard_EXPORT Standard_Boolean LoadStr(const AsciiString1& theResource);
 
   //! Checks for existing the parameter name
   //! @param[in] theParam complex parameter name
   //! @param[in] theScope base parameter name
   //! @return Standard_True if parameter is defined in the resource file
-  Standard_EXPORT Standard_Boolean IsParamSet(const TCollection_AsciiString& theParam,
-                                              const TCollection_AsciiString& theScope = "") const;
+  Standard_EXPORT Standard_Boolean IsParamSet(const AsciiString1& theParam,
+                                              const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
   //! @param[in] theParam complex parameter name
   //! @param[out] theValue value to get by parameter
   //! @param[in] theScope base parameter name
   //! @return Standard_False if parameter is not defined or has a wrong type
-  Standard_EXPORT Standard_Boolean GetReal(const TCollection_AsciiString& theParam,
+  Standard_EXPORT Standard_Boolean GetReal(const AsciiString1& theParam,
                                            Standard_Real&                 theValue,
-                                           const TCollection_AsciiString& theScope = "") const;
+                                           const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
   //! @param[in] theParam complex parameter name
   //! @param[out] theValue value to get by parameter
   //! @param[in] theScope base parameter name
   //! @return Standard_False if parameter is not defined or has a wrong type
-  Standard_EXPORT Standard_Boolean GetInteger(const TCollection_AsciiString& theParam,
+  Standard_EXPORT Standard_Boolean GetInteger(const AsciiString1& theParam,
                                               Standard_Integer&              theValue,
-                                              const TCollection_AsciiString& theScope = "") const;
+                                              const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
   //! @param[in] theParam complex parameter name
   //! @param[out] theValue value to get by parameter
   //! @param[in] theScope base parameter name
   //! @return Standard_False if parameter is not defined or has a wrong type
-  Standard_EXPORT Standard_Boolean GetBoolean(const TCollection_AsciiString& theParam,
+  Standard_EXPORT Standard_Boolean GetBoolean(const AsciiString1& theParam,
                                               Standard_Boolean&              theValue,
-                                              const TCollection_AsciiString& theScope = "") const;
+                                              const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
   //! @param[in] theParam complex parameter name
   //! @param[out] theValue value to get by parameter
   //! @param[in] theScope base parameter name
   //! @return Standard_False if parameter is not defined or has a wrong type
-  Standard_EXPORT Standard_Boolean GetString(const TCollection_AsciiString& theParam,
-                                             TCollection_AsciiString&       theValue,
-                                             const TCollection_AsciiString& theScope = "") const;
+  Standard_EXPORT Standard_Boolean GetString(const AsciiString1& theParam,
+                                             AsciiString1&       theValue,
+                                             const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
   //! @param[in] theParam complex parameter name
   //! @param[out] theValue value to get by parameter
   //! @param[in] theScope base parameter name
   //! @return Standard_False if parameter is not defined or has a wrong type
-  Standard_EXPORT Standard_Boolean GetStringSeq(const TCollection_AsciiString& theParam,
+  Standard_EXPORT Standard_Boolean GetStringSeq(const AsciiString1& theParam,
                                                 TColStd_ListOfAsciiString&     theValue,
-                                                const TCollection_AsciiString& theScope = "") const;
+                                                const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
   //! @param[in] theParam complex parameter name
   //! @param[in] theDefValue value by default if param is not found or has wrong type
   //! @param[in] theScope base parameter name
   //! @return specific type value
-  Standard_EXPORT Standard_Real RealVal(const TCollection_AsciiString& theParam,
+  Standard_EXPORT Standard_Real RealVal(const AsciiString1& theParam,
                                         const Standard_Real            theDefValue,
-                                        const TCollection_AsciiString& theScope = "") const;
+                                        const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
   //! @param[in] theParam complex parameter name
   //! @param[in] theDefValue value by default if param is not found or has wrong type
   //! @param[in] theScope base parameter name
   //! @return specific type value
-  Standard_EXPORT Standard_Integer IntegerVal(const TCollection_AsciiString& theParam,
+  Standard_EXPORT Standard_Integer IntegerVal(const AsciiString1& theParam,
                                               const Standard_Integer         theDefValue,
-                                              const TCollection_AsciiString& theScope = "") const;
+                                              const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
   //! @param[in] theParam complex parameter name
   //! @param[in] theDefValue value by default if param is not found or has wrong type
   //! @param[in] theScope base parameter name
   //! @return specific type value
-  Standard_EXPORT Standard_Boolean BooleanVal(const TCollection_AsciiString& theParam,
+  Standard_EXPORT Standard_Boolean BooleanVal(const AsciiString1& theParam,
                                               const Standard_Boolean         theDefValue,
-                                              const TCollection_AsciiString& theScope = "") const;
+                                              const AsciiString1& theScope = "") const;
 
   //! Gets value of parameter as being of specific type
   //! @param[in] theParam complex parameter name
   //! @param[in] theDefValue value by default if param is not found or has wrong type
   //! @param[in] theScope base parameter name
   //! @return specific type value
-  Standard_EXPORT TCollection_AsciiString
-    StringVal(const TCollection_AsciiString& theParam,
-              const TCollection_AsciiString& theDefValue,
-              const TCollection_AsciiString& theScope = "") const;
+  Standard_EXPORT AsciiString1
+    StringVal(const AsciiString1& theParam,
+              const AsciiString1& theDefValue,
+              const AsciiString1& theScope = "") const;
 
   //! Gets internal resource map
   //! @return map with resource value
@@ -148,7 +148,7 @@ protected:
   //! Update the resource with param value from the line
   //! @paramp[in] theResourceLine line contains the parameter
   //! @return true if theResourceLine has loaded correctly
-  Standard_Boolean load(const TCollection_AsciiString& theResourceLine);
+  Standard_Boolean load(const AsciiString1& theResourceLine);
 
 private:
   DE_ResourceMap myResource; //!< Internal parameters map

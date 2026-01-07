@@ -19,14 +19,14 @@
 
 //=================================================================================================
 
-TopoDS_Shape StdPrs_BRepTextBuilder::Perform(StdPrs_BRepFont&                  theFont,
+TopoShape StdPrs_BRepTextBuilder::Perform(StdPrs_BRepFont&                  theFont,
                                              const Handle(Font_TextFormatter)& theFormatter,
                                              const gp_Ax3&                     thePenLoc)
 {
   Transform3d                aTrsf;
   gp_XYZ                 aPen;
-  TopoDS_Shape           aGlyphShape;
-  TopoDS_Compound        aResult;
+  TopoShape           aGlyphShape;
+  TopoCompound        aResult;
   Standard_Mutex::Sentry aSentry(theFont.Mutex());
 
   myBuilder.MakeCompound(aResult);
@@ -59,7 +59,7 @@ TopoDS_Shape StdPrs_BRepTextBuilder::Perform(StdPrs_BRepFont&                  t
 
 //=================================================================================================
 
-TopoDS_Shape StdPrs_BRepTextBuilder::Perform(StdPrs_BRepFont&                        theFont,
+TopoShape StdPrs_BRepTextBuilder::Perform(StdPrs_BRepFont&                        theFont,
                                              const NCollection_String&               theString,
                                              const gp_Ax3&                           thePenLoc,
                                              const Graphic3d_HorizontalTextAlignment theHAlign,

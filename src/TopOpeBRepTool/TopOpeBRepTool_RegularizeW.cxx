@@ -42,19 +42,19 @@
 extern Standard_Boolean           TopOpeBRepTool_GettraceREGUFA();
 static TopTools_IndexedMapOfShape STATIC_mapw, STATIC_mapf;
 
-static Standard_Integer FUN_adds(const TopoDS_Shape& s)
+static Standard_Integer FUN_adds(const TopoShape& s)
 {
   TopAbs_ShapeEnum        typ = s.ShapeType();
-  TCollection_AsciiString aa;
+  AsciiString1 aa;
   Standard_Integer        is = 0;
   if (typ == TopAbs_WIRE)
   {
-    aa = TCollection_AsciiString("wi");
+    aa = AsciiString1("wi");
     is = STATIC_mapw.Add(s);
   }
   if (typ == TopAbs_FACE)
   {
-    aa = TCollection_AsciiString("fa");
+    aa = AsciiString1("fa");
     is = STATIC_mapf.Add(s);
   }
   #ifdef DRAW
@@ -85,32 +85,32 @@ Standard_EXPORT void FUN_tool_coutsta(const Standard_Integer& sta,
 }
 #endif
 
-Standard_EXPORT void FUN_addOwlw(const TopoDS_Shape&         Ow,
-                                 const TopTools_ListOfShape& lw,
-                                 TopTools_ListOfShape&       lresu);
+Standard_EXPORT void FUN_addOwlw(const TopoShape&         Ow,
+                                 const ShapeList& lw,
+                                 ShapeList&       lresu);
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool::RegularizeWires(
-  const TopoDS_Face&                  theFace,
+Standard_Boolean TopOpeBRepTool1::RegularizeWires(
+  const TopoFace&                  theFace,
   TopTools_DataMapOfShapeListOfShape& mapoldWnewW,
   TopTools_DataMapOfShapeListOfShape& ESplits) // (e,esp); esp = splits of e
 {
   if (theFace.IsNull())
     return Standard_False;
-  TopoDS_Shape aLocalShape = theFace.Oriented(TopAbs_FORWARD);
-  TopoDS_Face  aFace       = TopoDS::Face(aLocalShape);
-  //  TopoDS_Face aFace = TopoDS::Face(theFace.Oriented(TopAbs_FORWARD));
+  TopoShape aLocalShape = theFace.Oriented(TopAbs_FORWARD);
+  TopoFace  aFace       = TopoDS::Face(aLocalShape);
+  //  TopoFace aFace = TopoDS::Face(theFace.Oriented(TopAbs_FORWARD));
 
   TopOpeBRepTool_REGUW REGUW(aFace);
   REGUW.SetOwNw(mapoldWnewW);
   REGUW.SetEsplits(ESplits);
 
   //  Standard_Boolean hasregu = Standard_False;
-  TopExp_Explorer exw(aFace, TopAbs_WIRE);
+  ShapeExplorer exw(aFace, TopAbs_WIRE);
   for (; exw.More(); exw.Next())
   {
-    const TopoDS_Shape& W = exw.Current();
+    const TopoShape& W = exw.Current();
     REGUW.Init(W);
     Standard_Boolean ok = REGUW.MapS();
     if (!ok)
@@ -130,17 +130,17 @@ Standard_Boolean TopOpeBRepTool::RegularizeWires(
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool::Regularize(const TopoDS_Face&                  theFace,
-                                            TopTools_ListOfShape&               aListOfFaces,
+Standard_Boolean TopOpeBRepTool1::Regularize(const TopoFace&                  theFace,
+                                            ShapeList&               aListOfFaces,
                                             TopTools_DataMapOfShapeListOfShape& ESplits)
 {
   TopOpeBRepTool_REGUW REGUW(theFace);
   aListOfFaces.Clear();
   TopTools_DataMapOfShapeListOfShape mapoldWnewW;
-  Standard_Boolean regu = TopOpeBRepTool::RegularizeWires(theFace, mapoldWnewW, ESplits);
+  Standard_Boolean regu = TopOpeBRepTool1::RegularizeWires(theFace, mapoldWnewW, ESplits);
   if (regu)
   {
-    regu = TopOpeBRepTool::RegularizeFace(theFace, mapoldWnewW, aListOfFaces);
+    regu = TopOpeBRepTool1::RegularizeFace(theFace, mapoldWnewW, aListOfFaces);
   }
   return regu;
 }
@@ -290,21 +290,21 @@ Standard_EXPORT Standard_Integer FUN_tool_classiBnd2d(const Bnd_Array1OfBox2d& B
   return res;
 }
 
-static Standard_Boolean FUN_tool_mkboundedF(const TopoDS_Wire& W, TopoDS_Face& boundedF)
+static Standard_Boolean FUN_tool_mkboundedF(const TopoWire& W, TopoFace& boundedF)
 {
   BRepLib_MakeFace mf(W, Standard_False);
   Standard_Boolean done = mf.IsDone();
   if (done) boundedF = mf.Face();
   return done;
 }
-Standard_Boolean FUN_tool_FindAPointInTheFace(const TopoDS_Face& F,
+Standard_Boolean FUN_tool_FindAPointInTheFace(const TopoFace& F,
                  Standard_Real& u, Standard_Real& v)
 {
   Standard_Boolean ok = BRepClass3d_SolidExplorer::FindAPointInTheFace(F,u,v);
   return ok;
 }
-static Standard_Boolean FUN_tool_GetFP2d(const TopoDS_Shape& W,
-                TopoDS_Shape& boundedF, gp_Pnt2d& p2d)
+static Standard_Boolean FUN_tool_GetFP2d(const TopoShape& W,
+                TopoShape& boundedF, gp_Pnt2d& p2d)
 {
   Standard_Boolean ok = FUN_tool_mkboundedF(TopoDS::Wire(W), TopoDS::Face(boundedF));
   if (!ok) return Standard_False;
@@ -332,9 +332,9 @@ static Standard_Integer FUN_tool_classiwithp2d(const TopTools_Array1OfShape& wi)
   for (Standard_Integer nite = 1; nite <= 2; nite++) {
     i = nite;
     j = (i == 1) ? 2 : 1;
-    TopoDS_Face f = TopoDS::Face(fa(j));
+    TopoFace f = TopoDS::Face(fa(j));
     const Point3d p = p3d(i);
-    Standard_Real tol = BRep_Tool::Tolerance(f);
+    Standard_Real tol = BRepInspector::Tolerance(f);
     BRepClass_FaceClassifier Fclass(f, p, tol);
     sta = Fclass.State();
     if (sta == TopAbs_IN) break;
@@ -351,7 +351,7 @@ static Standard_Integer FUN_tool_classiwithp2d(const TopTools_Array1OfShape& wi)
   return stares;
 }
 
-Standard_EXPORT Standard_Boolean FUN_tool_ClassifW(const TopoDS_Face& F,
+Standard_EXPORT Standard_Boolean FUN_tool_ClassifW(const TopoFace& F,
                       const TopTools_DataMapOfShapeListOfShape& mapoldWnewW,
                       TopTools_DataMapOfShapeListOfShape& mapWlow)
 {
@@ -376,18 +376,18 @@ Standard_EXPORT Standard_Boolean FUN_tool_ClassifW(const TopoDS_Face& F,
   // Filling <oldW> : list of wires of <F>
   // Filling <mapWlow> : with (non-split old wire, emptylos),
   //                          (split of old wire, emptylos)
-  TopTools_ListOfShape oldW;
+  ShapeList oldW;
   Standard_Integer noldW = mapoldWnewW.Extent();
   Standard_Boolean oneoldW = (noldW == 1);
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape ite(mapoldWnewW);
-  TopTools_ListOfShape emptylos;
+  ShapeList emptylos;
 
   // --------------
   // * noldW == 1 :
   // --------------
   if (oneoldW) {
-    const TopoDS_Wire& oldwi = TopoDS::Wire(ite.Key());
-    const TopTools_ListOfShape& low = ite.Value();
+    const TopoWire& oldwi = TopoDS::Wire(ite.Key());
+    const ShapeList& low = ite.Value();
     Standard_Integer nw = low.Extent();
     if (nw == 0) {mapWlow.Bind(oldwi,emptylos); return Standard_True;}
     if (nw == 1) {mapWlow.Bind(low.First(),emptylos); return Standard_True;}
@@ -441,7 +441,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_ClassifW(const TopoDS_Face& F,
     //  - key = wi(gre),
     //    item += wi(sma) && item += item(wi(sma))
     //  - unbinding key = (wi(sma))
-    TopTools_ListOfShape& lwgre = complWoldw.ChangeFind(wi(gre));
+    ShapeList& lwgre = complWoldw.ChangeFind(wi(gre));
     lwgre.Append(wi(sma));
     TopTools_ListIteratorOfListOfShape itwsma(complWoldw.Find(wi(sma)));
     for (; itwsma.More(); itwsma.Next()) lwgre.Append(itwsma.Value());
@@ -461,8 +461,8 @@ Standard_EXPORT Standard_Boolean FUN_tool_ClassifW(const TopoDS_Face& F,
   // * noldW > 1 :
   // -------------
   for (; ite.More(); ite.Next()){
-    const TopoDS_Wire& oldwi = TopoDS::Wire(ite.Key());
-    const TopTools_ListOfShape& low = ite.Value();
+    const TopoWire& oldwi = TopoDS::Wire(ite.Key());
+    const ShapeList& low = ite.Value();
     TopTools_ListIteratorOfListOfShape itlow(low);
     if (low.IsEmpty()) mapWlow.Bind(oldwi, emptylos);
     else
@@ -476,7 +476,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_ClassifW(const TopoDS_Face& F,
   // <OBnd2d>         : old wires' bounding boxes
   // <Owhassp>(k) : Owi(k) has splits
 
-  TopTools_ListOfShape oldWcopy; oldWcopy.Assign(oldW);
+  ShapeList oldWcopy; oldWcopy.Assign(oldW);
   for (TopTools_ListIteratorOfListOfShape itoldW(oldW); itoldW.More(); itoldW.Next()) {
 
     TopTools_Array1OfShape Owi(1,2);
@@ -522,7 +522,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_ClassifW(const TopoDS_Face& F,
       // Owhassp<k>  : newwi<k> = splits (Owi<k>)
       // !Owhassp<k> : newwi<k> = Owi<k>
       for (Standard_Integer i = 1; i <= 2; i++) {
-    const TopoDS_Shape& owi = Owi(i);
+    const TopoShape& owi = Owi(i);
     if (!Owhassp(i)) newwi(i).Append(owi);
     else             newwi(i) = mapoldWnewW.Find(owi);
       }
@@ -575,7 +575,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_ClassifW(const TopoDS_Face& F,
       //  - key = wi(gre),
       //    item += wi(sma) && item += item(wi(sma))
       //  - unbinding key = (wi(sma))
-      TopTools_ListOfShape& lwgre = mapWlow.ChangeFind(wi(gre));
+      ShapeList& lwgre = mapWlow.ChangeFind(wi(gre));
       lwgre.Append(wi(sma));
       TopTools_ListIteratorOfListOfShape itwsma(mapWlow.Find(wi(sma)));
       for (; itwsma.More(); itwsma.Next()) lwgre.Append(itwsma.Value());
@@ -593,27 +593,27 @@ Standard_EXPORT Standard_Boolean FUN_tool_ClassifW(const TopoDS_Face& F,
 // -------------------- building up faces ---------------------
 // ------------------------------------------------------------
 
-Standard_EXPORT Standard_Boolean FUN_tool_MakeFaces(const TopoDS_Face& theFace,
+Standard_EXPORT Standard_Boolean FUN_tool_MakeFaces(const TopoFace& theFace,
                        TopTools_DataMapOfShapeListOfShape& mapWlow,
-                       TopTools_ListOfShape& aListOfFaces)
+                       ShapeList& aListOfFaces)
 {
 #ifdef OCCT_DEBUG
   Standard_Boolean trc = TopOpeBRepTool_GettraceREGUFA();
   if (trc) std::cout<<"** MakeFaces :"<<std::endl;
 #endif
   Standard_Boolean toreverse = M_REVERSED(theFace.Orientation());
-  TopoDS_Face F = TopoDS::Face(theFace.Oriented(TopAbs_FORWARD));
-  BRep_Builder BB;
+  TopoFace F = TopoDS::Face(theFace.Oriented(TopAbs_FORWARD));
+  ShapeBuilder BB;
 
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itm(mapWlow);
   for (; itm.More(); itm.Next()) {
-    const TopoDS_Wire& wi = TopoDS::Wire(itm.Key());
-    TopoDS_Shape FF = F.EmptyCopied(); BB.Add(FF,wi);
+    const TopoWire& wi = TopoDS::Wire(itm.Key());
+    TopoShape FF = F.EmptyCopied(); BB.Add(FF,wi);
 //    BB.MakeFace(FF); // put a TShape
 
     TopTools_ListIteratorOfListOfShape itlow(itm.Value());
     for (; itlow.More(); itlow.Next()) {
-      const TopoDS_Wire& wwi = TopoDS::Wire(itlow.Value());
+      const TopoWire& wwi = TopoDS::Wire(itlow.Value());
       BB.Add(FF,wwi);
     }
 
@@ -634,7 +634,7 @@ Standard_EXPORT Standard_Boolean FUN_tool_MakeFaces(const TopoDS_Face& theFace,
 }*/
 
 Standard_EXPORT Standard_Boolean
-  FUN_tool_ClassifW(const TopoDS_Face&                        F,
+  FUN_tool_ClassifW(const TopoFace&                        F,
                     const TopTools_DataMapOfShapeListOfShape& mapOwNw,
                     TopTools_DataMapOfShapeListOfShape&       mapWlow)
 {
@@ -643,16 +643,16 @@ Standard_EXPORT Standard_Boolean
   if (trc)
     std::cout << "** ClassifW :" << std::endl;
 #endif
-  Standard_Real tolF        = BRep_Tool::Tolerance(F);
-  Standard_Real toluv       = TopOpeBRepTool_TOOL::TolUV(F, tolF);
-  TopoDS_Shape  aLocalShape = F.Oriented(TopAbs_FORWARD);
-  TopoDS_Face   FFOR        = TopoDS::Face(aLocalShape);
-  //  TopoDS_Face FFOR = TopoDS::Face(F.Oriented(TopAbs_FORWARD));
+  Standard_Real tolF        = BRepInspector::Tolerance(F);
+  Standard_Real toluv       = TOOL1::TolUV(F, tolF);
+  TopoShape  aLocalShape = F.Oriented(TopAbs_FORWARD);
+  TopoFace   FFOR        = TopoDS::Face(aLocalShape);
+  //  TopoFace FFOR = TopoDS::Face(F.Oriented(TopAbs_FORWARD));
   TopOpeBRepTool_CLASSI CLASSI;
   CLASSI.Init2d(FFOR);
 
-  TopTools_ListOfShape                                null;
-  TopTools_ListOfShape                                oldW;
+  ShapeList                                null;
+  ShapeList                                oldW;
   Standard_Integer                                    noldW = mapOwNw.Extent();
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itm(mapOwNw);
 
@@ -660,7 +660,7 @@ Standard_EXPORT Standard_Boolean
   // ---------
   if (noldW == 1)
   {
-    const TopTools_ListOfShape& low = itm.Value();
+    const ShapeList& low = itm.Value();
     Standard_Boolean            ok  = CLASSI.Classilist(low, mapWlow);
     if (!ok)
       return Standard_False;
@@ -669,13 +669,13 @@ Standard_EXPORT Standard_Boolean
 
   // noldW > 1
   // ---------
-  TopTools_ListOfShape lOws;
+  ShapeList lOws;
   for (; itm.More(); itm.Next())
   {
-    const TopoDS_Shape& owi = itm.Key();
+    const TopoShape& owi = itm.Key();
     lOws.Append(owi);
-    const TopTools_ListOfShape& low = itm.Value();
-    TopTools_ListOfShape        lwresu;
+    const ShapeList& low = itm.Value();
+    ShapeList        lwresu;
     FUN_addOwlw(owi, low, lwresu);
     TopTools_ListIteratorOfListOfShape itw(lwresu);
     for (; itw.More(); itw.Next())
@@ -692,13 +692,13 @@ Standard_EXPORT Standard_Boolean
       break;
 
     TopTools_ListIteratorOfListOfShape itOw(lOws);
-    const TopoDS_Shape&                Ow1  = itOw.Value();
+    const TopoShape&                Ow1  = itOw.Value();
     Standard_Boolean                   isb1 = mapWlow.IsBound(Ow1);
     isb1                                    = isb1 || !mapdone.Contains(Ow1);
     if (!isb1)
       continue;
 
-    const TopTools_ListOfShape& lw1 = mapOwNw.Find(Ow1);
+    const ShapeList& lw1 = mapOwNw.Find(Ow1);
 
     if (nOw == 1)
     {
@@ -710,7 +710,7 @@ Standard_EXPORT Standard_Boolean
 
     itOw.Next();
     Standard_Boolean OUTall = Standard_False;
-    TopoDS_Shape     Ow2;
+    TopoShape     Ow2;
     Standard_Integer sta12 = UNKNOWN;
     for (; itOw.More(); itOw.Next())
     {
@@ -734,7 +734,7 @@ Standard_EXPORT Standard_Boolean
     {
       // if (nw1 == 0) mapWlow binds already (Ow1,null);
       // else         {mapWlow binds already (w1k,null), w1k in lw1}
-      TopTools_ListOfShape ldone;
+      ShapeList ldone;
       FUN_addOwlw(Ow1, lw1, ldone);
       TopTools_ListIteratorOfListOfShape itw(ldone);
       for (; itw.More(); itw.Next())
@@ -755,13 +755,13 @@ Standard_EXPORT Standard_Boolean
         std::cout << std::endl;
       }
 #endif
-      const TopTools_ListOfShape& lw2 = mapOwNw.Find(Ow2);
+      const ShapeList& lw2 = mapOwNw.Find(Ow2);
 
-      TopTools_ListOfShape lw1r;
+      ShapeList lw1r;
       FUN_addOwlw(Ow1, lw1, lw1r);
-      TopTools_ListOfShape lw2r;
+      ShapeList lw2r;
       FUN_addOwlw(Ow2, lw2, lw2r);
-      TopTools_ListOfShape lgre, lsma;
+      ShapeList lgre, lsma;
       if (sta12 == oneINtwo)
       {
         lgre.Append(lw2r);
@@ -776,7 +776,7 @@ Standard_EXPORT Standard_Boolean
       TopTools_ListIteratorOfListOfShape itsma(lsma);
       for (; itsma.More(); itsma.Next())
       {
-        const TopoDS_Shape& wsma   = itsma.Value();
+        const TopoShape& wsma   = itsma.Value();
         Standard_Boolean    isbsma = mapWlow.IsBound(wsma);
         isbsma                     = isbsma || !mapdone.Contains(wsma);
         if (!isbsma)
@@ -785,7 +785,7 @@ Standard_EXPORT Standard_Boolean
         TopTools_ListIteratorOfListOfShape itgre(lgre);
         for (; itgre.More(); itgre.Next())
         {
-          const TopoDS_Shape& wgre   = itgre.Value();
+          const TopoShape& wgre   = itgre.Value();
           Standard_Boolean    isbgre = mapWlow.IsBound(wgre);
           isbgre                     = isbgre || !mapdone.Contains(wgre);
           if (!isbgre)
@@ -826,10 +826,10 @@ Standard_EXPORT Standard_Boolean
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool::RegularizeFace(
-  const TopoDS_Face&                        theFace,
+Standard_Boolean TopOpeBRepTool1::RegularizeFace(
+  const TopoFace&                        theFace,
   const TopTools_DataMapOfShapeListOfShape& mapoldWnewW,
-  TopTools_ListOfShape&                     newFaces)
+  ShapeList&                     newFaces)
 {
   // <mapWlow>
   // ---------
@@ -844,9 +844,9 @@ Standard_Boolean TopOpeBRepTool::RegularizeFace(
   // Classifying  wires :
   // -------------------
   //  Standard_Boolean classifok = FUN_tool_ClassifW(theFace, mapoldWnewW, mapWlow);
-  TopoDS_Shape aLocalShape = theFace.Oriented(TopAbs_FORWARD);
-  TopoDS_Face  aFace       = TopoDS::Face(aLocalShape);
-  //  TopoDS_Face aFace = TopoDS::Face(theFace.Oriented(TopAbs_FORWARD));
+  TopoShape aLocalShape = theFace.Oriented(TopAbs_FORWARD);
+  TopoFace  aFace       = TopoDS::Face(aLocalShape);
+  //  TopoFace aFace = TopoDS::Face(theFace.Oriented(TopAbs_FORWARD));
 
   Standard_Boolean classifok = FUN_tool_ClassifW(aFace, mapoldWnewW, mapWlow);
   if (!classifok)
@@ -854,7 +854,7 @@ Standard_Boolean TopOpeBRepTool::RegularizeFace(
 
   // <aListOfFaces>
   // -------------
-  Standard_Boolean facesbuilt = TopOpeBRepTool_TOOL::WireToFace(theFace, mapWlow, newFaces);
+  Standard_Boolean facesbuilt = TOOL1::WireToFace(theFace, mapWlow, newFaces);
   if (!facesbuilt)
     return Standard_False;
   return Standard_True;

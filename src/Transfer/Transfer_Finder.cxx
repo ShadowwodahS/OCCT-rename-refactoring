@@ -187,7 +187,7 @@ Standard_CString Transfer_Finder::StringAttribute(const Standard_CString name) c
   return hval->ToCString();
 }
 
-NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& Transfer_Finder::
+NCollection_DataMap<AsciiString1, Handle(RefObject)>& Transfer_Finder::
   AttrList()
 {
   return theattrib;
@@ -205,15 +205,15 @@ void Transfer_Finder::GetAttributes(const Handle(Transfer_Finder)& other,
 {
   if (other.IsNull())
     return;
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& list =
+  NCollection_DataMap<AsciiString1, Handle(RefObject)>& list =
     other->AttrList();
   if (list.IsEmpty())
     return;
 
-  NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>::Iterator iter(list);
+  NCollection_DataMap<AsciiString1, Handle(RefObject)>::Iterator iter(list);
   for (; iter.More(); iter.Next())
   {
-    const TCollection_AsciiString& name = iter.Key();
+    const AsciiString1& name = iter.Key();
     if (!name.StartsWith(fromname))
       continue;
     const Handle(RefObject)& atr    = iter.Value();

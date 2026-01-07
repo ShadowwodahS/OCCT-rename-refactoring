@@ -23,7 +23,7 @@
 #include <Geom2d_BoundedCurve.hxx>
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
-class Geom2d_Curve;
+class GeomCurve2d;
 class gp_Pnt2d;
 class gp_Vec2d;
 class gp_Trsf2d;
@@ -75,7 +75,7 @@ public:
   //! Raises ConstructionError the C is not periodic and U1 or U2 are out of
   //! the bounds of C.
   //! Raised if U1 = U2.
-  Standard_EXPORT Geom2d_TrimmedCurve(const Handle(Geom2d_Curve)& C,
+  Standard_EXPORT Geom2d_TrimmedCurve(const Handle(GeomCurve2d)& C,
                                       const Standard_Real         U1,
                                       const Standard_Real         U2,
                                       const Standard_Boolean      Sense        = Standard_True,
@@ -128,7 +128,7 @@ public:
   //! This function does not return a constant reference.
   //! Consequently, any modification of the returned value
   //! directly modifies the trimmed curve.
-  Standard_EXPORT Handle(Geom2d_Curve) BasisCurve() const;
+  Standard_EXPORT Handle(GeomCurve2d) BasisCurve() const;
 
   //! Returns the global continuity of the basis curve of this trimmed curve.
   //! C0 : only geometric continuity,
@@ -261,7 +261,7 @@ public:
 
 protected:
 private:
-  Handle(Geom2d_Curve) basisCurve;
+  Handle(GeomCurve2d) basisCurve;
   Standard_Real        uTrim1;
   Standard_Real        uTrim2;
 };

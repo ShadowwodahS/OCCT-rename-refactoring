@@ -155,14 +155,14 @@ static void d1(const Standard_Real              t,
   Vector3d Ort(C, S); // Ort = S - C
 
   gp_Vec2d dE_dt(-DC1_t * DS1_u, -DC1_t * DS1_v);
-  gp_XY    dE_du(DS1_u * DS1_u + Ort * DS2_u, DS1_u * DS1_v + Ort * DS2_uv);
-  gp_XY    dE_dv(DS1_v * DS1_u + Ort * DS2_uv, DS1_v * DS1_v + Ort * DS2_v);
+  Coords2d    dE_du(DS1_u * DS1_u + Ort * DS2_u, DS1_u * DS1_v + Ort * DS2_uv);
+  Coords2d    dE_dv(DS1_v * DS1_u + Ort * DS2_uv, DS1_v * DS1_v + Ort * DS2_v);
 
   Standard_Real det = dE_du.X() * dE_dv.Y() - dE_du.Y() * dE_dv.X();
   if (fabs(det) < gp::Resolution())
     throw Standard_ConstructionError();
 
-  gp_Mat2d M(gp_XY(dE_dv.Y() / det, -dE_du.Y() / det), gp_XY(-dE_dv.X() / det, dE_du.X() / det));
+  gp_Mat2d M(Coords2d(dE_dv.Y() / det, -dE_du.Y() / det), Coords2d(-dE_dv.X() / det, dE_du.X() / det));
 
   V = -gp_Vec2d(gp_Vec2d(M.Row(1)) * dE_dt, gp_Vec2d(M.Row(2)) * dE_dt);
 }
@@ -187,14 +187,14 @@ static void d2(const Standard_Real              t,
   Vector3d Ort(C, S);
 
   gp_Vec2d dE_dt(-DC1_t * DS1_u, -DC1_t * DS1_v);
-  gp_XY    dE_du(DS1_u * DS1_u + Ort * DS2_u, DS1_u * DS1_v + Ort * DS2_uv);
-  gp_XY    dE_dv(DS1_v * DS1_u + Ort * DS2_uv, DS1_v * DS1_v + Ort * DS2_v);
+  Coords2d    dE_du(DS1_u * DS1_u + Ort * DS2_u, DS1_u * DS1_v + Ort * DS2_uv);
+  Coords2d    dE_dv(DS1_v * DS1_u + Ort * DS2_uv, DS1_v * DS1_v + Ort * DS2_v);
 
   Standard_Real det = dE_du.X() * dE_dv.Y() - dE_du.Y() * dE_dv.X();
   if (fabs(det) < gp::Resolution())
     throw Standard_ConstructionError();
 
-  gp_Mat2d M(gp_XY(dE_dv.Y() / det, -dE_du.Y() / det), gp_XY(-dE_dv.X() / det, dE_du.X() / det));
+  gp_Mat2d M(Coords2d(dE_dv.Y() / det, -dE_du.Y() / det), Coords2d(-dE_dv.X() / det, dE_du.X() / det));
 
   // First derivative
   V1 = -gp_Vec2d(gp_Vec2d(M.Row(1)) * dE_dt, gp_Vec2d(M.Row(2)) * dE_dt);
@@ -254,16 +254,16 @@ static void d1CurvOnSurf(const Standard_Real t,
   Vector3d Ort(C, S);// Ort = S - C
 
   gp_Vec2d dE_dt(-DC1_t*DS1_u, -DC1_t*DS1_v);
-  gp_XY dE_du(DS1_u*DS1_u + Ort*DS2_u, 
+  Coords2d dE_du(DS1_u*DS1_u + Ort*DS2_u, 
     DS1_u*DS1_v + Ort*DS2_uv);
-  gp_XY dE_dv(DS1_v*DS1_u + Ort*DS2_uv, 
+  Coords2d dE_dv(DS1_v*DS1_u + Ort*DS2_uv, 
     DS1_v*DS1_v + Ort*DS2_v);
 
   Standard_Real det = dE_du.X()*dE_dv.Y() - dE_du.Y()*dE_dv.X();
   if (fabs(det) < gp::Resolution()) throw Standard_ConstructionError();
 
-  gp_Mat2d M(gp_XY(dE_dv.Y()/det, -dE_du.Y()/det), 
-    gp_XY(-dE_dv.X()/det, dE_du.X()/det));
+  gp_Mat2d M(Coords2d(dE_dv.Y()/det, -dE_du.Y()/det), 
+    Coords2d(-dE_dv.X()/det, dE_du.X()/det));
 
   V2d = - gp_Vec2d(gp_Vec2d(M.Row(1))*dE_dt, gp_Vec2d(M.Row(2))*dE_dt);
 
@@ -293,14 +293,14 @@ static void d2CurvOnSurf(const Standard_Real              t,
   Vector3d Ort(C, S);
 
   gp_Vec2d dE_dt(-DC1_t * DS1_u, -DC1_t * DS1_v);
-  gp_XY    dE_du(DS1_u * DS1_u + Ort * DS2_u, DS1_u * DS1_v + Ort * DS2_uv);
-  gp_XY    dE_dv(DS1_v * DS1_u + Ort * DS2_uv, DS1_v * DS1_v + Ort * DS2_v);
+  Coords2d    dE_du(DS1_u * DS1_u + Ort * DS2_u, DS1_u * DS1_v + Ort * DS2_uv);
+  Coords2d    dE_dv(DS1_v * DS1_u + Ort * DS2_uv, DS1_v * DS1_v + Ort * DS2_v);
 
   Standard_Real det = dE_du.X() * dE_dv.Y() - dE_du.Y() * dE_dv.X();
   if (fabs(det) < gp::Resolution())
     throw Standard_ConstructionError();
 
-  gp_Mat2d M(gp_XY(dE_dv.Y() / det, -dE_du.Y() / det), gp_XY(-dE_dv.X() / det, dE_du.X() / det));
+  gp_Mat2d M(Coords2d(dE_dv.Y() / det, -dE_du.Y() / det), Coords2d(-dE_dv.X() / det, dE_du.X() / det));
 
   // First derivative
   V12d = -gp_Vec2d(gp_Vec2d(M.Row(1)) * dE_dt, gp_Vec2d(M.Row(2)) * dE_dt);
@@ -1230,8 +1230,8 @@ void ProjLib_CompProjectedCurve::Perform()
   Point3d                    P;
   Handle(Adaptor2d_Curve2d) HPCur;
   Handle(Adaptor3d_Surface) HS = mySurface->ShallowCopy(); // For expand bounds of surface
-  Handle(Geom2d_Curve)      PCur2d;                        // Only for isoparametric projection
-  Handle(Geom_Curve)        PCur3d;
+  Handle(GeomCurve2d)      PCur2d;                        // Only for isoparametric projection
+  Handle(GeomCurve3d)        PCur3d;
 
   if (myProj2d == Standard_True)
   {
@@ -2070,14 +2070,14 @@ Standard_Real ProjLib_CompProjectedCurve::GetResult3dApproxError(
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) ProjLib_CompProjectedCurve::GetResult2dC(const Standard_Integer theIndex) const
+Handle(GeomCurve2d) ProjLib_CompProjectedCurve::GetResult2dC(const Standard_Integer theIndex) const
 {
   return myResult2dCurve->Value(theIndex);
 }
 
 //=================================================================================================
 
-Handle(Geom_Curve) ProjLib_CompProjectedCurve::GetResult3dC(const Standard_Integer theIndex) const
+Handle(GeomCurve3d) ProjLib_CompProjectedCurve::GetResult3dC(const Standard_Integer theIndex) const
 {
   return myResult3dCurve->Value(theIndex);
 }
@@ -2225,7 +2225,7 @@ void SplitOnDirection(SplitDS& theSplitDS)
       : theSplitDS.mySurface->LastVParameter() - theSplitDS.mySurface->FirstVParameter();
 
   // Create line which is represent periodic border.
-  Handle(Geom2d_Curve)        aC2GC = new Geom2d_Line(aStartPnt, aDir);
+  Handle(GeomCurve2d)        aC2GC = new Geom2d_Line(aStartPnt, aDir);
   Handle(Geom2dAdaptor_Curve) aC    = new Geom2dAdaptor_Curve(aC2GC, 0, aLast2DParam);
   Adaptor3d_CurveOnSurface    aCOnS(aC, theSplitDS.mySurface);
   theSplitDS.myExtCCCurve1      = &aCOnS;

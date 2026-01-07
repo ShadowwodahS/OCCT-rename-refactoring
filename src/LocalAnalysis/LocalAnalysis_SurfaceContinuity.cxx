@@ -310,10 +310,10 @@ void LocalAnalysis_SurfaceContinuity::ComputeAnalysis(GeomLProp_SLProps&  Surf1,
 
 /*********************************************************************************/
 
-LocalAnalysis_SurfaceContinuity::LocalAnalysis_SurfaceContinuity(const Handle(Geom_Surface)& Surf1,
+LocalAnalysis_SurfaceContinuity::LocalAnalysis_SurfaceContinuity(const Handle(GeomSurface)& Surf1,
                                                                  const Standard_Real         u1,
                                                                  const Standard_Real         v1,
-                                                                 const Handle(Geom_Surface)& Surf2,
+                                                                 const Handle(GeomSurface)& Surf2,
                                                                  const Standard_Real         u2,
                                                                  const Standard_Real         v2,
                                                                  const GeomAbs_Shape         Ordre,
@@ -397,11 +397,11 @@ LocalAnalysis_SurfaceContinuity::LocalAnalysis_SurfaceContinuity(const Handle(Ge
 
 /*********************************************************************************/
 
-LocalAnalysis_SurfaceContinuity::LocalAnalysis_SurfaceContinuity(const Handle(Geom2d_Curve)& curv1,
-                                                                 const Handle(Geom2d_Curve)& curv2,
+LocalAnalysis_SurfaceContinuity::LocalAnalysis_SurfaceContinuity(const Handle(GeomCurve2d)& curv1,
+                                                                 const Handle(GeomCurve2d)& curv2,
                                                                  const Standard_Real         U,
-                                                                 const Handle(Geom_Surface)& Surf1,
-                                                                 const Handle(Geom_Surface)& Surf2,
+                                                                 const Handle(GeomSurface)& Surf1,
+                                                                 const Handle(GeomSurface)& Surf2,
                                                                  const GeomAbs_Shape         Ordre,
                                                                  const Standard_Real         EpsNul,
                                                                  const Standard_Real         EpsC0,

@@ -38,9 +38,9 @@
 #include <TColgp_HArray1OfXY.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-IGESDraw_ToolDrawingWithRotation::IGESDraw_ToolDrawingWithRotation() {}
+DrawingWithRotationTool::DrawingWithRotationTool() {}
 
-void IGESDraw_ToolDrawingWithRotation::ReadOwnParams(
+void DrawingWithRotationTool::ReadOwnParams(
   const Handle(IGESDraw_DrawingWithRotation)& ent,
   const Handle(IGESData_IGESReaderData)&      IR,
   IGESData_ParamReader&                       PR) const
@@ -62,7 +62,7 @@ void IGESDraw_ToolDrawingWithRotation::ReadOwnParams(
     orientationAngles = new TColStd_HArray1OfReal(1, nbval);
 
     Handle(IGESData_ViewKindEntity) tempView;
-    gp_XY                           tempXY;
+    Coords2d                           tempXY;
     Standard_Real                   tempOrient;
 
     for (Standard_Integer i = 1; i <= nbval; i++)
@@ -130,7 +130,7 @@ void IGESDraw_ToolDrawingWithRotation::ReadOwnParams(
   ent->Init(views, viewOrigins, orientationAngles, annotations);
 }
 
-void IGESDraw_ToolDrawingWithRotation::WriteOwnParams(
+void DrawingWithRotationTool::WriteOwnParams(
   const Handle(IGESDraw_DrawingWithRotation)& ent,
   IGESData_IGESWriter&                        IW) const
 {
@@ -151,7 +151,7 @@ void IGESDraw_ToolDrawingWithRotation::WriteOwnParams(
     IW.Send(ent->Annotation(i));
 }
 
-void IGESDraw_ToolDrawingWithRotation::OwnShared(const Handle(IGESDraw_DrawingWithRotation)& ent,
+void DrawingWithRotationTool::OwnShared(const Handle(IGESDraw_DrawingWithRotation)& ent,
                                                  Interface_EntityIterator& iter) const
 {
   Standard_Integer Up = ent->NbViews();
@@ -163,7 +163,7 @@ void IGESDraw_ToolDrawingWithRotation::OwnShared(const Handle(IGESDraw_DrawingWi
     iter.GetOneItem(ent->Annotation(i));
 }
 
-void IGESDraw_ToolDrawingWithRotation::OwnCopy(const Handle(IGESDraw_DrawingWithRotation)& another,
+void DrawingWithRotationTool::OwnCopy(const Handle(IGESDraw_DrawingWithRotation)& another,
                                                const Handle(IGESDraw_DrawingWithRotation)& ent,
                                                Interface_CopyTool&                         TC) const
 {
@@ -203,7 +203,7 @@ void IGESDraw_ToolDrawingWithRotation::OwnCopy(const Handle(IGESDraw_DrawingWith
   ent->Init(views, viewOrigins, orientationAngles, annotations);
 }
 
-Standard_Boolean IGESDraw_ToolDrawingWithRotation::OwnCorrect(
+Standard_Boolean DrawingWithRotationTool::OwnCorrect(
   const Handle(IGESDraw_DrawingWithRotation)& ent) const
 {
   //  Vues vides : les supprimer
@@ -252,10 +252,10 @@ Standard_Boolean IGESDraw_ToolDrawingWithRotation::OwnCorrect(
   return Standard_True;
 }
 
-IGESData_DirChecker IGESDraw_ToolDrawingWithRotation::DirChecker(
+DirectoryChecker DrawingWithRotationTool::DirChecker(
   const Handle(IGESDraw_DrawingWithRotation)& /*ent*/) const
 {
-  IGESData_DirChecker DC(404, 1);
+  DirectoryChecker DC(404, 1);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -267,7 +267,7 @@ IGESData_DirChecker IGESDraw_ToolDrawingWithRotation::DirChecker(
   return DC;
 }
 
-void IGESDraw_ToolDrawingWithRotation::OwnCheck(const Handle(IGESDraw_DrawingWithRotation)& ent,
+void DrawingWithRotationTool::OwnCheck(const Handle(IGESDraw_DrawingWithRotation)& ent,
                                                 const Interface_ShareTool&,
                                                 Handle(Interface_Check)& ach) const
 {
@@ -302,7 +302,7 @@ void IGESDraw_ToolDrawingWithRotation::OwnCheck(const Handle(IGESDraw_DrawingWit
   }
 }
 
-void IGESDraw_ToolDrawingWithRotation::OwnDump(const Handle(IGESDraw_DrawingWithRotation)& ent,
+void DrawingWithRotationTool::OwnDump(const Handle(IGESDraw_DrawingWithRotation)& ent,
                                                const IGESData_IGESDumper&                  dumper,
                                                Standard_OStream&                           S,
                                                const Standard_Integer level) const

@@ -26,7 +26,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(Expr_NamedFunction, Expr_GeneralFunction)
 
-Expr_NamedFunction::Expr_NamedFunction(const TCollection_AsciiString&        name,
+Expr_NamedFunction::Expr_NamedFunction(const AsciiString1&        name,
                                        const Handle(Expr_GeneralExpression)& exp,
                                        const Expr_Array1OfNamedUnknown&      vars)
     : myVariables(vars.Lower(), vars.Upper())
@@ -36,12 +36,12 @@ Expr_NamedFunction::Expr_NamedFunction(const TCollection_AsciiString&        nam
   myExp       = exp;
 }
 
-void Expr_NamedFunction::SetName(const TCollection_AsciiString& newname)
+void Expr_NamedFunction::SetName(const AsciiString1& newname)
 {
   myName = newname;
 }
 
-TCollection_AsciiString Expr_NamedFunction::GetName() const
+AsciiString1 Expr_NamedFunction::GetName() const
 {
   return myName;
 }
@@ -68,7 +68,7 @@ Standard_Real Expr_NamedFunction::Evaluate(const Expr_Array1OfNamedUnknown& vars
 
 Handle(Expr_GeneralFunction) Expr_NamedFunction::Copy() const
 {
-  return new Expr_NamedFunction(myName, Expr::CopyShare(Expression()), myVariables);
+  return new Expr_NamedFunction(myName, Expr1::CopyShare(Expression()), myVariables);
 }
 
 Handle(Expr_GeneralFunction) Expr_NamedFunction::Derivative(
@@ -122,7 +122,7 @@ Standard_Boolean Expr_NamedFunction::IsLinearOnVariable(const Standard_Integer) 
   return myExp->IsLinear();
 }
 
-TCollection_AsciiString Expr_NamedFunction::GetStringName() const
+AsciiString1 Expr_NamedFunction::GetStringName() const
 {
   return myName;
 }

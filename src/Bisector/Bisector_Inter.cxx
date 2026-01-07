@@ -90,8 +90,8 @@ void Bisector_Inter::Perform(const Bisector_Bisec&  C1,
   Handle(Bisector_Curve) Bis1 = Handle(Bisector_Curve)::DownCast(C1.Value()->BasisCurve());
   Handle(Bisector_Curve) Bis2 = Handle(Bisector_Curve)::DownCast(C2.Value()->BasisCurve());
 
-  Handle(Geom2d_Curve)* SBis1 = new Handle(Geom2d_Curve)[Bis1->NbIntervals() + 1];
-  Handle(Geom2d_Curve)* SBis2 = new Handle(Geom2d_Curve)[Bis2->NbIntervals() + 1];
+  Handle(GeomCurve2d)* SBis1 = new Handle(GeomCurve2d)[Bis1->NbIntervals() + 1];
+  Handle(GeomCurve2d)* SBis2 = new Handle(GeomCurve2d)[Bis2->NbIntervals() + 1];
   IntRes2d_Domain*      SD1   = new IntRes2d_Domain[Bis1->NbIntervals() + 1];
   IntRes2d_Domain*      SD2   = new IntRes2d_Domain[Bis2->NbIntervals() + 1];
 
@@ -229,23 +229,23 @@ void Bisector_Inter::Perform(const Bisector_Bisec&  C1,
 
 //=================================================================================================
 
-void Bisector_Inter::SinglePerform(const Handle(Geom2d_Curve)& CBis1,
+void Bisector_Inter::SinglePerform(const Handle(GeomCurve2d)& CBis1,
                                    const IntRes2d_Domain&      D1,
-                                   const Handle(Geom2d_Curve)& CBis2,
+                                   const Handle(GeomCurve2d)& CBis2,
                                    const IntRes2d_Domain&      D2,
                                    const Standard_Real         TolConf,
                                    const Standard_Real         Tol,
                                    const Standard_Boolean      ComunElement)
 {
-  const Handle(Geom2d_Curve)& Bis1 = CBis1;
-  const Handle(Geom2d_Curve)& Bis2 = CBis2;
+  const Handle(GeomCurve2d)& Bis1 = CBis1;
+  const Handle(GeomCurve2d)& Bis2 = CBis2;
 
   Handle(TypeInfo) Type1 = Bis1->DynamicType();
   Handle(TypeInfo) Type2 = Bis2->DynamicType();
 
   if (Type1 == STANDARD_TYPE(Bisector_BisecAna) || Type2 == STANDARD_TYPE(Bisector_BisecAna))
   {
-    Handle(Geom2d_Curve) C2Bis1, C2Bis2;
+    Handle(GeomCurve2d) C2Bis1, C2Bis2;
     if (Type1 == STANDARD_TYPE(Bisector_BisecAna))
     {
       C2Bis1 = Handle(Bisector_BisecAna)::DownCast(Bis1)->Geom2dCurve();
@@ -332,16 +332,16 @@ void Bisector_Inter::SinglePerform(const Handle(Geom2d_Curve)& CBis1,
   if (Affich)
   {
     sprintf(name, "i1_%d", ++nbint);
-    DrawTrSurf::Set(name, Bis1);
+    DrawTrSurf1::Set(name, Bis1);
     sprintf(name, "i2_%d", nbint);
-    DrawTrSurf::Set(name, Bis2);
+    DrawTrSurf1::Set(name, Bis2);
     if (IsDone() && !IsEmpty())
     {
       for (Standard_Integer k = 1; k <= NbPoints(); k++)
       {
         gp_Pnt2d P = Point(k).Value();
         sprintf(name, "ip_%d_%d", nbint, k);
-        DrawTrSurf::Set(name, P);
+        DrawTrSurf1::Set(name, P);
       }
     }
   }
@@ -370,7 +370,7 @@ void Bisector_Inter::NeighbourPerform(const Handle(Bisector_BisecCC)& Bis1,
   constexpr Standard_Real Eps = Precision::PConfusion();
   gp_Pnt2d                PSol;
 
-  Handle(Geom2d_Curve)     Guide;
+  Handle(GeomCurve2d)     Guide;
   Handle(Bisector_BisecCC) BisTemp;
 
   // Change guiedline on Bis2.
@@ -418,7 +418,7 @@ void Bisector_Inter::NeighbourPerform(const Handle(Bisector_BisecCC)& Bis1,
 //=====================================================================================
 void Bisector_Inter::TestBound(const Handle(Geom2d_Line)&  Bis1,
                                const IntRes2d_Domain&      D1,
-                               const Handle(Geom2d_Curve)& Bis2,
+                               const Handle(GeomCurve2d)& Bis2,
                                const IntRes2d_Domain&      D2,
                                const Standard_Real         TolConf,
                                const Standard_Boolean      Reverse)

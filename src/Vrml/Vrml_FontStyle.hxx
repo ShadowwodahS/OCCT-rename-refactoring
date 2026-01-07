@@ -31,12 +31,12 @@
 //! The  size  field  specifies  the  height  (in  object  space  units)
 //! of  glyphs  rendered  and  determines  the  vertical  spacing  of
 //! adjacent  lines  of  text.
-class Vrml_FontStyle
+class FontStyle
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_FontStyle(const Standard_Real        aSize   = 10,
+  Standard_EXPORT FontStyle(const Standard_Real        aSize   = 10,
                                  const Vrml_FontStyleFamily aFamily = Vrml_SERIF,
                                  const Vrml_FontStyleStyle  aStyle  = Vrml_NONE);
 

@@ -32,7 +32,7 @@ BinMDataStd_GenericExtStringDriver::BinMDataStd_GenericExtStringDriver(
 
 Handle(TDF_Attribute) BinMDataStd_GenericExtStringDriver::NewEmpty() const
 {
-  return new TDataStd_Name;
+  return new NameAttribute;
 }
 
 //=================================================================================================
@@ -53,7 +53,7 @@ Standard_Boolean BinMDataStd_GenericExtStringDriver::Paste(
   BinObjMgt_RRelocationTable&  RelocTable) const
 {
   Handle(TDataStd_GenericExtString) aStrAttr = Handle(TDataStd_GenericExtString)::DownCast(Target);
-  TCollection_ExtendedString        aStr;
+  UtfString        aStr;
   Standard_Boolean                  ok = Source >> aStr;
   if (ok)
     aStrAttr->Set(aStr);

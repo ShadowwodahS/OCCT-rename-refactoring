@@ -28,7 +28,7 @@
 #include <Standard_Integer.hxx>
 #include <GeomAbs_IsoType.hxx>
 #include <Geom_SequenceOfBSplineSurface.hxx>
-class Geom_Surface;
+class GeomSurface;
 class Geom_BSplineSurface;
 
 class Geom_OsculatingSurface;
@@ -45,11 +45,11 @@ public:
   //! isoparametric  curve along on  the bounds of the surface
   //! relatively to the tolerance Tol and Builds the corresponding
   //! osculating surfaces.
-  Standard_EXPORT Geom_OsculatingSurface(const Handle(Geom_Surface)& BS, const Standard_Real Tol);
+  Standard_EXPORT Geom_OsculatingSurface(const Handle(GeomSurface)& BS, const Standard_Real Tol);
 
-  Standard_EXPORT void Init(const Handle(Geom_Surface)& BS, const Standard_Real Tol);
+  Standard_EXPORT void Init(const Handle(GeomSurface)& BS, const Standard_Real Tol);
 
-  Standard_EXPORT Handle(Geom_Surface) BasisSurface() const;
+  Standard_EXPORT Handle(GeomSurface) BasisSurface() const;
 
   Standard_EXPORT Standard_Real Tolerance() const;
 
@@ -84,7 +84,7 @@ private:
 
   //! returns    True    if  the    isoparametric     is
   //! quasi-punctual
-  Standard_EXPORT Standard_Boolean IsQPunctual(const Handle(Geom_Surface)& S,
+  Standard_EXPORT Standard_Boolean IsQPunctual(const Handle(GeomSurface)& S,
                                                const Standard_Real         Param,
                                                const GeomAbs_IsoType       IT,
                                                const Standard_Real         TolMin,
@@ -102,7 +102,7 @@ private:
 
   Standard_EXPORT const Geom_SequenceOfBSplineSurface& GetSeqOfL2() const;
 
-  Handle(Geom_Surface)                   myBasisSurf;
+  Handle(GeomSurface)                   myBasisSurf;
   Standard_Real                          myTol;
   Handle(Geom_HSequenceOfBSplineSurface) myOsculSurf1;
   Handle(Geom_HSequenceOfBSplineSurface) myOsculSurf2;

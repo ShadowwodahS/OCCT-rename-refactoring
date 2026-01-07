@@ -84,7 +84,7 @@ BRepToIGES_BRWire::BRepToIGES_BRWire(const BRepToIGES_BREntity& BR)
 // TransferWire
 //=============================================================================
 
-Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(const TopoDS_Shape& start)
+Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(const TopoShape& start)
 {
   Handle(IGESData_IGESEntity) res;
 
@@ -93,18 +93,18 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(const TopoDS_Shape&
 
   if (start.ShapeType() == TopAbs_VERTEX)
   {
-    TopoDS_Vertex V = TopoDS::Vertex(start);
+    TopoVertex V = TopoDS::Vertex(start);
     res             = TransferVertex(V);
   }
   else if (start.ShapeType() == TopAbs_EDGE)
   {
-    TopoDS_Edge                  E = TopoDS::Edge(start);
+    TopoEdge                  E = TopoDS::Edge(start);
     TopTools_DataMapOfShapeShape anEmptyMap;
     res = TransferEdge(E, anEmptyMap, Standard_False);
   }
   else if (start.ShapeType() == TopAbs_WIRE)
   {
-    TopoDS_Wire W = TopoDS::Wire(start);
+    TopoWire W = TopoDS::Wire(start);
     res           = TransferWire(W);
   }
   else
@@ -119,14 +119,14 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(const TopoDS_Shape&
 //
 //=============================================================================
 
-Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(const TopoDS_Vertex& myvertex)
+Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(const TopoVertex& myvertex)
 {
   Handle(IGESData_IGESEntity) res;
   if (myvertex.IsNull())
     return res;
 
   Handle(Geom_CartesianPoint) Point;
-  Point = new Geom_CartesianPoint(BRep_Tool::Pnt(myvertex));
+  Point = new Geom_CartesianPoint(BRepInspector::Pnt(myvertex));
   Handle(IGESData_IGESEntity) IVertex;
   if (!Point.IsNull())
   {
@@ -145,8 +145,8 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(const TopoDS_Vert
 //
 //=============================================================================
 
-Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(const TopoDS_Vertex& myvertex,
-                                                               const TopoDS_Edge&   myedge,
+Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(const TopoVertex& myvertex,
+                                                               const TopoEdge&   myedge,
                                                                Standard_Real&       parameter)
 {
   Handle(IGESData_IGESEntity) res;
@@ -156,7 +156,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(const TopoDS_Vert
   Handle(IGESData_IGESEntity) IVertex = TransferVertex(myvertex);
 
   // returns the parameter of myvertex on myedge
-  parameter = BRep_Tool::Parameter(myvertex, myedge);
+  parameter = BRepInspector::Parameter(myvertex, myedge);
 
   if (!IVertex.IsNull())
     res = IVertex;
@@ -168,9 +168,9 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(const TopoDS_Vert
 //
 //=============================================================================
 
-Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(const TopoDS_Vertex& myvertex,
-                                                               const TopoDS_Edge&   myedge,
-                                                               const TopoDS_Face&   myface,
+Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(const TopoVertex& myvertex,
+                                                               const TopoEdge&   myedge,
+                                                               const TopoFace&   myface,
                                                                Standard_Real&       parameter)
 {
   Handle(IGESData_IGESEntity) res;
@@ -180,7 +180,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(const TopoDS_Vert
   Handle(IGESData_IGESEntity) IVertex = TransferVertex(myvertex);
 
   // returns the parameter of myvertex on the pcurve of myedge on myface
-  parameter = BRep_Tool::Parameter(myvertex, myedge, myface);
+  parameter = BRepInspector::Parameter(myvertex, myedge, myface);
 
   if (!IVertex.IsNull())
     res = IVertex;
@@ -193,9 +193,9 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(const TopoDS_Vert
 //=============================================================================
 
 Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(
-  const TopoDS_Vertex&        myvertex,
-  const TopoDS_Edge&          myedge,
-  const Handle(Geom_Surface)& mysurface,
+  const TopoVertex&        myvertex,
+  const TopoEdge&          myedge,
+  const Handle(GeomSurface)& mysurface,
   const TopLoc_Location&      myloc,
   Standard_Real&              parameter)
 {
@@ -206,7 +206,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(
   Handle(IGESData_IGESEntity) IVertex = TransferVertex(myvertex);
 
   // returns the parameter of myvertex on the pcurve of myedge on mysurface
-  parameter = BRep_Tool::Parameter(myvertex, myedge, mysurface, myloc);
+  parameter = BRepInspector::Parameter(myvertex, myedge, mysurface, myloc);
 
   if (!IVertex.IsNull())
     res = IVertex;
@@ -218,8 +218,8 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(
 //
 //=============================================================================
 
-Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(const TopoDS_Vertex& myvertex,
-                                                               const TopoDS_Face&   myface,
+Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(const TopoVertex& myvertex,
+                                                               const TopoFace&   myface,
                                                                gp_Pnt2d&            mypoint)
 {
   Handle(IGESData_IGESEntity) res;
@@ -229,7 +229,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(const TopoDS_Vert
   Handle(IGESData_IGESEntity) IVertex = TransferVertex(myvertex);
 
   // returns the parameter of myvertex on myface
-  mypoint = BRep_Tool::Parameters(myvertex, myface);
+  mypoint = BRepInspector::Parameters(myvertex, myface);
 
   if (!IVertex.IsNull())
     res = IVertex;
@@ -241,7 +241,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferVertex(const TopoDS_Vert
 //=============================================================================
 
 Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
-  const TopoDS_Edge&                  theEdge,
+  const TopoEdge&                  theEdge,
   const TopTools_DataMapOfShapeShape& theOriginMap,
   const Standard_Boolean              theIsBRepMode)
 {
@@ -253,7 +253,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
   TopLoc_Location             L;
   Standard_Real               First, Last, U1, U2;
   Handle(IGESData_IGESEntity) ICurve;
-  Handle(Geom_Curve)          Curve3d = BRep_Tool::Curve(theEdge, L, First, Last);
+  Handle(GeomCurve3d)          Curve3d = BRepInspector::Curve(theEdge, L, First, Last);
 
   // #28 rln 19.10.98 UKI60155, etc.
   // Only Bezier will be converted into B-Spline, not Conic. This conertation
@@ -266,9 +266,9 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
   {
     Transform3d Tr = L.Transformation();
     if (Tr.Form() != gp_Identity)
-      Curve3d = Handle(Geom_Curve)::DownCast(Curve3d->Transformed(Tr));
+      Curve3d = Handle(GeomCurve3d)::DownCast(Curve3d->Transformed(Tr));
     else
-      Curve3d = Handle(Geom_Curve)::DownCast(Curve3d->Copy());
+      Curve3d = Handle(GeomCurve3d)::DownCast(Curve3d->Copy());
 
     if (theEdge.Orientation() == TopAbs_REVERSED && !theIsBRepMode)
     {
@@ -295,7 +295,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
     res = ICurve;
 
   // In the reverted face's case find an origin by the reverted
-  TopoDS_Edge anEdge = !theOriginMap.IsEmpty() ? TopoDS::Edge(theOriginMap.Find(theEdge)) : theEdge;
+  TopoEdge anEdge = !theOriginMap.IsEmpty() ? TopoDS::Edge(theOriginMap.Find(theEdge)) : theEdge;
   SetShapeResult(anEdge, res);
 
   return res;
@@ -306,15 +306,15 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
 //=============================================================================
 
 Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
-  const TopoDS_Edge&                  theEdge,
-  const TopoDS_Face&                  theFace,
+  const TopoEdge&                  theEdge,
+  const TopoFace&                  theFace,
   const TopTools_DataMapOfShapeShape& theOriginMap,
   const Standard_Real                 theLength,
   const Standard_Boolean              theIsBRepMode)
 {
   Handle(IGESData_IGESEntity) res;
   if (theEdge.IsNull() || GetPCurveMode() == 0
-      || (!theIsBRepMode && BRep_Tool::Degenerated(theEdge)))
+      || (!theIsBRepMode && BRepInspector::Degenerated(theEdge)))
     return res;
 
   // S4181 pdn 23.04.99 adjusting length factor according to analytic mode.
@@ -323,7 +323,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
 
   // returns the 2d curve associated to theEdge in the parametric space of theFace
   Standard_Real               First, Last;
-  Handle(Geom2d_Curve)        Curve2d = BRep_Tool::CurveOnSurface(theEdge, theFace, First, Last);
+  Handle(GeomCurve2d)        Curve2d = BRepInspector::CurveOnSurface(theEdge, theFace, First, Last);
   Handle(IGESData_IGESEntity) ICurve2d;
   // #29 rln 19.10.98
 
@@ -336,14 +336,14 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
     // It is necessary to invert (u,v) surfaces of revolution.
 
     TopLoc_Location      L;
-    Handle(Geom_Surface) st = BRep_Tool::Surface(theFace, L);
-    if (st->IsKind(STANDARD_TYPE(Geom_Plane)))
+    Handle(GeomSurface) st = BRepInspector::Surface(theFace, L);
+    if (st->IsKind(STANDARD_TYPE(GeomPlane)))
     {
       return res;
     }
     Standard_Real Ufirst, Ulast, Vfirst, Vlast;
-    BRepTools::UVBounds(theFace, Ufirst, Ulast, Vfirst, Vlast);
-    Handle(Geom_Surface) Surf;
+    BRepTools1::UVBounds(theFace, Ufirst, Ulast, Vfirst, Vlast);
+    Handle(GeomSurface) Surf;
 
     if (st->IsKind(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
     {
@@ -372,24 +372,24 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
     if (Surf->IsKind(STANDARD_TYPE(Geom_SurfaceOfRevolution)))
     {
       Handle(Geom_SurfaceOfRevolution) rev   = Handle(Geom_SurfaceOfRevolution)::DownCast(Surf);
-      Handle(Geom_Curve)               curve = rev->BasisCurve();
+      Handle(GeomCurve3d)               curve = rev->BasisCurve();
       // skl 31.05.2004 for OCC6004
       if (curve->IsKind(STANDARD_TYPE(Geom_TrimmedCurve)))
       {
         Handle(Geom_TrimmedCurve) tc = Handle(Geom_TrimmedCurve)::DownCast(curve);
         curve                        = tc->BasisCurve();
       }
-      if (curve->IsKind(STANDARD_TYPE(Geom_Line)))
+      if (curve->IsKind(STANDARD_TYPE(GeomLine)))
         needShift = Standard_True;
     }
     if (needShift)
     {
       gp_Trsf2d TR;
       TR.SetTranslation(gp_Pnt2d(0., 0.), gp_Pnt2d(0., -Vfirst));
-      Curve2d = Handle(Geom2d_Curve)::DownCast(Curve2d->Transformed(TR));
+      Curve2d = Handle(GeomCurve2d)::DownCast(Curve2d->Transformed(TR));
     }
     else
-      Curve2d = Handle(Geom2d_Curve)::DownCast(Curve2d->Copy());
+      Curve2d = Handle(GeomCurve2d)::DownCast(Curve2d->Copy());
 
     // shift pcurves on periodic BSpline surfaces (issue 26138)
     if (Surf->IsKind(STANDARD_TYPE(Geom_BSplineSurface)))
@@ -410,7 +410,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
       {
         gp_Trsf2d TR;
         TR.SetTranslation(gp_Pnt2d(0., 0.), gp_Pnt2d(uShift, vShift));
-        Curve2d = Handle(Geom2d_Curve)::DownCast(Curve2d->Transformed(TR));
+        Curve2d = Handle(GeomCurve2d)::DownCast(Curve2d->Transformed(TR));
       }
     }
 
@@ -461,7 +461,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
     // S4181 transfer functionality
     gp_Trsf2d     trans;
     Standard_Real uFact = 1.;
-    if (theIsBRepMode && Surf->IsKind(STANDARD_TYPE(Geom_Plane)))
+    if (theIsBRepMode && Surf->IsKind(STANDARD_TYPE(GeomPlane)))
     {
       trans.SetScale(gp_Pnt2d(0, 0), 1. / GetUnit());
     }
@@ -532,7 +532,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
     res = ICurve2d;
 
   // In the reverted face's case find an origin by the reverted
-  TopoDS_Edge anEdge = !theOriginMap.IsEmpty() ? TopoDS::Edge(theOriginMap.Find(theEdge)) : theEdge;
+  TopoEdge anEdge = !theOriginMap.IsEmpty() ? TopoDS::Edge(theOriginMap.Find(theEdge)) : theEdge;
   SetShapeResult(anEdge, res);
 
   return res;
@@ -542,7 +542,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferEdge(
 // TransferWire
 //=============================================================================
 
-Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(const TopoDS_Wire& mywire)
+Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(const TopoWire& mywire)
 {
   Handle(IGESData_IGESEntity) res;
   if (mywire.IsNull())
@@ -555,13 +555,13 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(const TopoDS_Wire& 
   Handle(IGESData_IGESEntity)          ent;
   Handle(TColStd_HSequenceOfTransient) Seq = new TColStd_HSequenceOfTransient();
 
-  TopExp_Explorer TE(mywire, TopAbs_VERTEX);
+  ShapeExplorer TE(mywire, TopAbs_VERTEX);
   if (TE.More())
   {
     BRepTools_WireExplorer WE;
     for (WE.Init(mywire); WE.More(); WE.Next())
     {
-      const TopoDS_Edge& E = WE.Current();
+      const TopoEdge& E = WE.Current();
       if (E.IsNull())
       {
         AddWarning(mywire, "an Edge is a null entity");
@@ -607,8 +607,8 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(const TopoDS_Wire& 
 //=============================================================================
 
 Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(
-  const TopoDS_Wire&                  theWire,
-  const TopoDS_Face&                  theFace,
+  const TopoWire&                  theWire,
+  const TopoFace&                  theFace,
   const TopTools_DataMapOfShapeShape& theOriginMap,
   Handle(IGESData_IGESEntity)&        theCurve2d,
   const Standard_Real                 theLength)
@@ -623,14 +623,14 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(
   Handle(TColStd_HSequenceOfTransient) Seq2d = new TColStd_HSequenceOfTransient();
 
   // create a 3d CompositeCurve and a 2d CompositeCurve
-  TopExp_Explorer TE(theWire, TopAbs_VERTEX);
+  ShapeExplorer TE(theWire, TopAbs_VERTEX);
   if (TE.More())
   {
     // PTV OCC908 workaround for KAS:dev version
     /*
     BRepTools_WireExplorer WE;
     for ( WE.Init(theWire,theFace); WE.More(); WE.Next()) {
-      TopoDS_Edge E = WE.Current();
+      TopoEdge E = WE.Current();
       if (E.IsNull()) {
     AddWarning(theWire, "an Edge is a null entity");
       }
@@ -642,13 +642,13 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(
       }
     }
     */
-    Handle(ShapeFix_Wire) aSFW = new ShapeFix_Wire(theWire, theFace, Precision::Confusion());
+    Handle(WireHealer) aSFW = new WireHealer(theWire, theFace, Precision::Confusion());
     aSFW->FixReorder();
     Handle(ShapeExtend_WireData) aSEWD = aSFW->WireData();
     Standard_Integer             nbE   = aSEWD->NbEdges();
     for (Standard_Integer windex = 1; windex <= nbE; windex++)
     {
-      TopoDS_Edge E = aSEWD->Edge(windex);
+      TopoEdge E = aSEWD->Edge(windex);
       if (E.IsNull())
       {
         AddWarning(theWire, "an Edge is a null entity");
@@ -711,7 +711,7 @@ Handle(IGESData_IGESEntity) BRepToIGES_BRWire ::TransferWire(
   }
 
   // In the reverted face's case find an origin by the reverted
-  TopoDS_Wire aWire = !theOriginMap.IsEmpty() ? TopoDS::Wire(theOriginMap.Find(theWire)) : theWire;
+  TopoWire aWire = !theOriginMap.IsEmpty() ? TopoDS::Wire(theOriginMap.Find(theWire)) : theWire;
   SetShapeResult(aWire, res);
 
   return res;

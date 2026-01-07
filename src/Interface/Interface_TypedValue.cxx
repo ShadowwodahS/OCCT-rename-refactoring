@@ -24,8 +24,8 @@ IMPLEMENT_STANDARD_RTTIEXT(Interface_TypedValue, MoniTool_TypedValue)
 //  svv#2
 // static Standard_Boolean StaticPath(const Handle(TCollection_HAsciiString)& val)
 //{
-//   OSD_Path apath;
-//   return apath.IsValid (TCollection_AsciiString(val->ToCString()));
+//   SystemPath apath;
+//   return apath.IsValid (AsciiString1(val->ToCString()));
 // }
 Interface_TypedValue::Interface_TypedValue(const Standard_CString    name,
                                            const Interface_ParamType type,

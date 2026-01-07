@@ -33,7 +33,7 @@ ShapeUpgrade_ShellSewing::ShapeUpgrade_ShellSewing()
 
 //=================================================================================================
 
-void ShapeUpgrade_ShellSewing::Init(const TopoDS_Shape& shape)
+void ShapeUpgrade_ShellSewing::Init(const TopoShape& shape)
 {
   if (shape.IsNull())
     return;
@@ -41,7 +41,7 @@ void ShapeUpgrade_ShellSewing::Init(const TopoDS_Shape& shape)
     myShells.Add(shape);
   else
   {
-    for (TopExp_Explorer exs(shape, TopAbs_SHELL); exs.More(); exs.Next())
+    for (ShapeExplorer exs(shape, TopAbs_SHELL); exs.More(); exs.Next())
     {
       myShells.Add(exs.Current());
     }
@@ -55,13 +55,13 @@ Standard_Integer ShapeUpgrade_ShellSewing::Prepare(const Standard_Real tol)
   Standard_Integer nb = myShells.Extent(), ns = 0;
   for (Standard_Integer i = 1; i <= nb; i++)
   {
-    TopoDS_Shell          sl = TopoDS::Shell(myShells.FindKey(i));
+    TopoShell          sl = TopoDS::Shell(myShells.FindKey(i));
     BRepBuilderAPI_Sewing ss(tol);
-    TopExp_Explorer       exp(sl, TopAbs_FACE);
+    ShapeExplorer       exp(sl, TopAbs_FACE);
     for (; exp.More(); exp.Next())
       ss.Add(exp.Current());
     ss.Perform();
-    TopoDS_Shape newsh = ss.SewedShape();
+    TopoShape newsh = ss.SewedShape();
     if (!newsh.IsNull())
     {
       myReShape->Replace(sl, newsh);
@@ -73,19 +73,19 @@ Standard_Integer ShapeUpgrade_ShellSewing::Prepare(const Standard_Real tol)
 
 //=================================================================================================
 
-TopoDS_Shape ShapeUpgrade_ShellSewing::Apply(const TopoDS_Shape& shape, const Standard_Real tol)
+TopoShape ShapeUpgrade_ShellSewing::Apply(const TopoShape& shape, const Standard_Real tol)
 {
   if (shape.IsNull() || myShells.Extent() == 0)
     return shape;
 
-  TopoDS_Shape res = myReShape->Apply(shape, TopAbs_FACE, 2);
+  TopoShape res = myReShape->Apply(shape, TopAbs_FACE, 2);
 
   //  A present orienter les solides correctement
   myReShape->Clear();
   Standard_Integer ns = 0;
-  for (TopExp_Explorer exd(shape, TopAbs_SOLID); exd.More(); exd.Next())
+  for (ShapeExplorer exd(shape, TopAbs_SOLID); exd.More(); exd.Next())
   {
-    TopoDS_Solid                sd = TopoDS::Solid(exd.Current());
+    TopoSolid                sd = TopoDS::Solid(exd.Current());
     BRepClass3d_SolidClassifier bsc3d(sd);
     bsc3d.PerformInfinitePoint(tol);
     if (bsc3d.State() == TopAbs_IN)
@@ -104,7 +104,7 @@ TopoDS_Shape ShapeUpgrade_ShellSewing::Apply(const TopoDS_Shape& shape, const St
 
 //=================================================================================================
 
-TopoDS_Shape ShapeUpgrade_ShellSewing::ApplySewing(const TopoDS_Shape& shape,
+TopoShape ShapeUpgrade_ShellSewing::ApplySewing(const TopoShape& shape,
                                                    const Standard_Real tol)
 {
   if (shape.IsNull())
@@ -121,5 +121,5 @@ TopoDS_Shape ShapeUpgrade_ShellSewing::ApplySewing(const TopoDS_Shape& shape,
   if (Prepare(t))
     return Apply(shape, t);
 
-  return TopoDS_Shape();
+  return TopoShape();
 }

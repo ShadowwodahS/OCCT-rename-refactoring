@@ -48,9 +48,9 @@ class Geom_Axis2Placement;
 //! From inside it, you take the aspect in which the values for length are stocked.
 //! For trihedron, this is Prs3d_Drawer_LineAspect.
 //! You change the values inside this Aspect and recalculate the presentation.
-class AIS_Trihedron : public AIS_InteractiveObject
+class AIS_Trihedron : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_Trihedron, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_Trihedron, VisualEntity)
 public:
   //! Initializes a trihedron entity.
   Standard_EXPORT AIS_Trihedron(const Handle(Geom_Axis2Placement)& theComponent);
@@ -149,10 +149,10 @@ public:
   }
 
   //! Returns text of axis. Parameter thePart should be XAxis, YAxis or ZAxis
-  const TCollection_ExtendedString& Label(Prs3d_DatumParts thePart) { return myLabels[thePart]; }
+  const UtfString& Label(Prs3d_DatumParts thePart) { return myLabels[thePart]; }
 
   //! Sets text label for trihedron axis. Parameter thePart should be XAxis, YAxis or ZAxis
-  void SetLabel(const Prs3d_DatumParts thePart, const TCollection_ExtendedString& theName)
+  void SetLabel(const Prs3d_DatumParts thePart, const UtfString& theName)
   {
     myLabels[thePart] = theName;
   }
@@ -193,7 +193,7 @@ public:
   //! this selectable object  ( for fast presentation draw ).
   Standard_EXPORT virtual void HilightOwnerWithColor(
     const Handle(PrsMgr_PresentationManager)& thePM,
-    const Handle(Prs3d_Drawer)&               theStyle,
+    const Handle(StyleDrawer)&               theStyle,
     const Handle(SelectMgr_EntityOwner)&      theOwner) Standard_OVERRIDE;
 
 protected:
@@ -203,7 +203,7 @@ protected:
                                const Standard_Integer                    theMode) Standard_OVERRIDE;
 
   //! Compute selection.
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Dumps the content of me into the stream
@@ -245,7 +245,7 @@ protected:
   Standard_Boolean            myHasOwnTextColor;
   Standard_Boolean            myHasOwnArrowColor;
 
-  TCollection_ExtendedString myLabels[Prs3d_DatumParts_NB];
+  UtfString myLabels[Prs3d_DatumParts_NB];
   Standard_Integer           mySelectionPriority[Prs3d_DatumParts_NB];
 
   Handle(Graphic3d_Group)            myPartToGroup[Prs3d_DatumParts_NB];
@@ -255,6 +255,6 @@ protected:
   Handle(Graphic3d_ArrayOfPrimitives) myPrimitives[Prs3d_DatumParts_NB];
 };
 
-DEFINE_STANDARD_HANDLE(AIS_Trihedron, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(AIS_Trihedron, VisualEntity)
 
 #endif // _AIS_Trihedron_HeaderFile

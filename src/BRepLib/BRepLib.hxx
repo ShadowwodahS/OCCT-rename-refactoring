@@ -30,12 +30,12 @@
 #include <TopTools_ListOfShape.hxx>
 #include <NCollection_List.hxx>
 
-class Geom2d_Curve;
+class GeomCurve2d;
 class Adaptor3d_Curve;
-class Geom_Plane;
-class TopoDS_Shape;
-class TopoDS_Solid;
-class TopoDS_Face;
+class GeomPlane;
+class TopoShape;
+class TopoSolid;
+class TopoFace;
 class BRepTools_ReShape;
 
 //! The BRepLib package provides general utilities for
@@ -60,16 +60,16 @@ public:
   Standard_EXPORT static Standard_Real Precision();
 
   //! Sets the current plane to P.
-  Standard_EXPORT static void Plane(const Handle(Geom_Plane)& P);
+  Standard_EXPORT static void Plane(const Handle(GeomPlane)& P);
 
   //! Returns the current plane.
-  Standard_EXPORT static const Handle(Geom_Plane)& Plane();
+  Standard_EXPORT static const Handle(GeomPlane)& Plane();
 
   //! checks if the Edge is same range IGNORING
   //! the same range flag of the edge
   //! Confusion argument is to compare real numbers
   //! idenpendently of any model space tolerance
-  Standard_EXPORT static Standard_Boolean CheckSameRange(const TopoDS_Edge&  E,
+  Standard_EXPORT static Standard_Boolean CheckSameRange(const TopoEdge&  E,
                                                          const Standard_Real Confusion = 1.0e-12);
 
   //! will make all the curve representation have
@@ -80,7 +80,7 @@ public:
   //! range of that curve. If not the first curve representation
   //! encountered in the list will give its range to
   //! the all the other curves.
-  Standard_EXPORT static void SameRange(const TopoDS_Edge&  E,
+  Standard_EXPORT static void SameRange(const TopoEdge&  E,
                                         const Standard_Real Tolerance = 1.0e-5);
 
   //! Computes the 3d curve for the edge  <E> if it does
@@ -88,7 +88,7 @@ public:
   //! or  existed. Returns False  if there is no  planar
   //! pcurve or the computation failed.
   //! <MaxSegment> >= 30 in approximation
-  Standard_EXPORT static Standard_Boolean BuildCurve3d(const TopoDS_Edge&  E,
+  Standard_EXPORT static Standard_Boolean BuildCurve3d(const TopoEdge&  E,
                                                        const Standard_Real Tolerance  = 1.0e-5,
                                                        const GeomAbs_Shape Continuity = GeomAbs_C1,
                                                        const Standard_Integer MaxDegree  = 14,
@@ -97,7 +97,7 @@ public:
   //! Computes  the 3d curves  for all the  edges of <S>
   //! return False if one of the computation failed.
   //! <MaxSegment> >= 30 in approximation
-  Standard_EXPORT static Standard_Boolean BuildCurves3d(const TopoDS_Shape& S,
+  Standard_EXPORT static Standard_Boolean BuildCurves3d(const TopoShape& S,
                                                         const Standard_Real Tolerance,
                                                         const GeomAbs_Shape Continuity = GeomAbs_C1,
                                                         const Standard_Integer MaxDegree  = 14,
@@ -105,26 +105,26 @@ public:
 
   //! Computes  the 3d curves  for all the  edges of <S>
   //! return False if one of the computation failed.
-  Standard_EXPORT static Standard_Boolean BuildCurves3d(const TopoDS_Shape& S);
+  Standard_EXPORT static Standard_Boolean BuildCurves3d(const TopoShape& S);
 
   //! Builds pcurve of edge on face if the surface is plane, and updates the edge.
-  Standard_EXPORT static void BuildPCurveForEdgeOnPlane(const TopoDS_Edge& theE,
-                                                        const TopoDS_Face& theF);
+  Standard_EXPORT static void BuildPCurveForEdgeOnPlane(const TopoEdge& theE,
+                                                        const TopoFace& theF);
 
   //! Builds pcurve of edge on face if the surface is plane, but does not update the edge.
   //! The output are the pcurve and the flag telling that pcurve was built.
-  Standard_EXPORT static void BuildPCurveForEdgeOnPlane(const TopoDS_Edge&    theE,
-                                                        const TopoDS_Face&    theF,
-                                                        Handle(Geom2d_Curve)& aC2D,
+  Standard_EXPORT static void BuildPCurveForEdgeOnPlane(const TopoEdge&    theE,
+                                                        const TopoFace&    theF,
+                                                        Handle(GeomCurve2d)& aC2D,
                                                         Standard_Boolean&     bToUpdate);
 
   //! Builds pcurves of edges on face if the surface is plane, and update the edges.
   template <class TCont>
-  static void BuildPCurveForEdgesOnPlane(const TCont& theLE, const TopoDS_Face& theF)
+  static void BuildPCurveForEdgesOnPlane(const TCont& theLE, const TopoFace& theF)
   {
     for (typename TCont::Iterator aIt(theLE); aIt.More(); aIt.Next())
     {
-      const TopoDS_Edge& aE = TopoDS::Edge(aIt.Value());
+      const TopoEdge& aE = TopoDS::Edge(aIt.Value());
       if (!aE.IsNull())
         BRepLib::BuildPCurveForEdgeOnPlane(aE, theF);
     }
@@ -138,7 +138,7 @@ public:
   //! Usually it should be around 10e-5
   //! contains all -- the curve representation of the edge
   //! returns True if the Edge tolerance had to be updated
-  Standard_EXPORT static Standard_Boolean UpdateEdgeTol(const TopoDS_Edge&  E,
+  Standard_EXPORT static Standard_Boolean UpdateEdgeTol(const TopoEdge&  E,
                                                         const Standard_Real MinToleranceRequest,
                                                         const Standard_Real MaxToleranceToCheck);
 
@@ -152,7 +152,7 @@ public:
   //! Warning :The  method is  very  slow  as it  checks all.
   //! Use  only  in interfaces or  processing assimilate batch
   Standard_EXPORT static Standard_Boolean UpdateEdgeTolerance(
-    const TopoDS_Shape& S,
+    const TopoShape& S,
     const Standard_Real MinToleranceRequest,
     const Standard_Real MaxToleranceToCheck);
 
@@ -160,7 +160,7 @@ public:
   //! the same parameter  as  the  3d curve.
   //! The algorithm is not done if the flag SameParameter
   //! was True  on the  Edge.
-  Standard_EXPORT static void SameParameter(const TopoDS_Edge&  theEdge,
+  Standard_EXPORT static void SameParameter(const TopoEdge&  theEdge,
                                             const Standard_Real Tolerance = 1.0e-5);
 
   //! Computes new 2d curve(s)  for the edge <theEdge> to have
@@ -172,7 +172,7 @@ public:
   //! If IsUseOldEdge is true then the input edge will be modified,
   //! otherwise the new copy of input edge will be created.
   //! Returns the new edge as a result, can be ignored if IsUseOldEdge is true.
-  Standard_EXPORT static TopoDS_Edge SameParameter(const TopoDS_Edge&     theEdge,
+  Standard_EXPORT static TopoEdge SameParameter(const TopoEdge&     theEdge,
                                                    const Standard_Real    theTolerance,
                                                    Standard_Real&         theNewTol,
                                                    const Standard_Boolean IsUseOldEdge);
@@ -181,7 +181,7 @@ public:
   //! to have the same parameter  as  the  3d curve.
   //! The algorithm is not done if the flag SameParameter
   //! was True  on an  Edge.
-  Standard_EXPORT static void SameParameter(const TopoDS_Shape&    S,
+  Standard_EXPORT static void SameParameter(const TopoShape&    S,
                                             const Standard_Real    Tolerance = 1.0e-5,
                                             const Standard_Boolean forced    = Standard_False);
 
@@ -193,7 +193,7 @@ public:
   //! modifications on the shape itself.
   //! Thus the input shape (and its subshapes) will not be modified, instead the reshaper will
   //! contain a modified empty-copies of original subshapes as substitutions.
-  Standard_EXPORT static void SameParameter(const TopoDS_Shape&    S,
+  Standard_EXPORT static void SameParameter(const TopoShape&    S,
                                             BRepTools_ReShape&     theReshaper,
                                             const Standard_Real    Tolerance = 1.0e-5,
                                             const Standard_Boolean forced    = Standard_False);
@@ -203,7 +203,7 @@ public:
   //! It is not necessary to use this call after
   //! SameParameter. (called in)
   Standard_EXPORT static void UpdateTolerances(
-    const TopoDS_Shape&    S,
+    const TopoShape&    S,
     const Standard_Boolean verifyFaceTolerance = Standard_False);
 
   //! Replaces tolerance   of  FACE EDGE VERTEX  by  the
@@ -215,78 +215,78 @@ public:
   //! Thus the input shape (and its subshapes) will not be modified, instead the reshaper will
   //! contain a modified empty-copies of original subshapes as substitutions.
   Standard_EXPORT static void UpdateTolerances(
-    const TopoDS_Shape&    S,
+    const TopoShape&    S,
     BRepTools_ReShape&     theReshaper,
     const Standard_Boolean verifyFaceTolerance = Standard_False);
 
   //! Checks tolerances of edges (including inner points) and vertices
   //! of a shape and updates them to satisfy "SameParameter" condition
-  Standard_EXPORT static void UpdateInnerTolerances(const TopoDS_Shape& S);
+  Standard_EXPORT static void UpdateInnerTolerances(const TopoShape& S);
 
   //! Orients the solid forward  and the  shell with the
   //! orientation to have  matter in the solid. Returns
   //! False if the solid is unOrientable (open or incoherent)
-  Standard_EXPORT static Standard_Boolean OrientClosedSolid(TopoDS_Solid& solid);
+  Standard_EXPORT static Standard_Boolean OrientClosedSolid(TopoSolid& solid);
 
   //! Returns the order of continuity between two faces
   //! connected by an edge
-  Standard_EXPORT static GeomAbs_Shape ContinuityOfFaces(const TopoDS_Edge&  theEdge,
-                                                         const TopoDS_Face&  theFace1,
-                                                         const TopoDS_Face&  theFace2,
+  Standard_EXPORT static GeomAbs_Shape ContinuityOfFaces(const TopoEdge&  theEdge,
+                                                         const TopoFace&  theFace1,
+                                                         const TopoFace&  theFace2,
                                                          const Standard_Real theAngleTol);
 
   //! Encodes the Regularity of edges on a Shape.
   //! Warning: <TolAng> is an angular tolerance, expressed in Rad.
   //! Warning: If the edges's regularity are coded before, nothing
   //! is done.
-  Standard_EXPORT static void EncodeRegularity(const TopoDS_Shape& S,
+  Standard_EXPORT static void EncodeRegularity(const TopoShape& S,
                                                const Standard_Real TolAng = 1.0e-10);
 
   //! Encodes the Regularity of edges in list <LE> on the shape <S>
   //! Warning: <TolAng> is an angular tolerance, expressed in Rad.
   //! Warning: If the edges's regularity are coded before, nothing
   //! is done.
-  Standard_EXPORT static void EncodeRegularity(const TopoDS_Shape&         S,
-                                               const TopTools_ListOfShape& LE,
+  Standard_EXPORT static void EncodeRegularity(const TopoShape&         S,
+                                               const ShapeList& LE,
                                                const Standard_Real         TolAng = 1.0e-10);
 
   //! Encodes the Regularity between <F1> and <F2> by <E>
   //! Warning: <TolAng> is an angular tolerance, expressed in Rad.
   //! Warning: If the edge's regularity is coded before, nothing
   //! is done.
-  Standard_EXPORT static void EncodeRegularity(TopoDS_Edge&        E,
-                                               const TopoDS_Face&  F1,
-                                               const TopoDS_Face&  F2,
+  Standard_EXPORT static void EncodeRegularity(TopoEdge&        E,
+                                               const TopoFace&  F1,
+                                               const TopoFace&  F2,
                                                const Standard_Real TolAng = 1.0e-10);
 
   //! Sorts in  LF the Faces of   S on the  complexity of
   //! their                  surfaces
   //! (Plane,Cylinder,Cone,Sphere,Torus,other)
-  Standard_EXPORT static void SortFaces(const TopoDS_Shape& S, TopTools_ListOfShape& LF);
+  Standard_EXPORT static void SortFaces(const TopoShape& S, ShapeList& LF);
 
   //! Sorts in  LF  the   Faces  of S   on the reverse
   //! complexity       of       their      surfaces
   //! (other,Torus,Sphere,Cone,Cylinder,Plane)
-  Standard_EXPORT static void ReverseSortFaces(const TopoDS_Shape& S, TopTools_ListOfShape& LF);
+  Standard_EXPORT static void ReverseSortFaces(const TopoShape& S, ShapeList& LF);
 
-  //! Corrects the normals in Poly_Triangulation of faces,
+  //! Corrects the normals in MeshTriangulation of faces,
   //! in such way that normals at nodes lying along smooth
   //! edges have the same value on both adjacent triangulations.
   //! Returns TRUE if any correction is done.
   Standard_EXPORT static Standard_Boolean EnsureNormalConsistency(
-    const TopoDS_Shape&    S,
+    const TopoShape&    S,
     const Standard_Real    theAngTol           = 0.001,
     const Standard_Boolean ForceComputeNormals = Standard_False);
 
-  //! Updates value of deflection in Poly_Triangulation of faces
+  //! Updates value of deflection in MeshTriangulation of faces
   //! by the maximum deviation measured on existing triangulation.
-  Standard_EXPORT static void UpdateDeflection(const TopoDS_Shape& S);
+  Standard_EXPORT static void UpdateDeflection(const TopoShape& S);
 
   //! Calculates the bounding sphere around the set of vertexes from the theLV list.
   //! Returns the center (theNewCenter) and the radius (theNewTol) of this sphere.
   //! This can be used to construct the new vertex which covers the given set of
   //! other vertices.
-  Standard_EXPORT static void BoundingVertex(const NCollection_List<TopoDS_Shape>& theLV,
+  Standard_EXPORT static void BoundingVertex(const NCollection_List<TopoShape>& theLV,
                                              Point3d&                               theNewCenter,
                                              Standard_Real&                        theNewTol);
 
@@ -309,7 +309,7 @@ public:
   //! Finds a range of 3d curve of the edge not covered by vertices tolerances.
   //! Returns false if there is no such range. Otherwise, sets theFirst and
   //! theLast as its bounds.
-  Standard_EXPORT static Standard_Boolean FindValidRange(const TopoDS_Edge& theEdge,
+  Standard_EXPORT static Standard_Boolean FindValidRange(const TopoEdge& theEdge,
                                                          Standard_Real&     theFirst,
                                                          Standard_Real&     theLast);
 
@@ -321,13 +321,13 @@ public:
   //! @param[in] theExtVMin  Defines whether to extend the face in VMin direction
   //! @param[in] theExtVMax  Defines whether to extend the face in VMax direction
   //! @param[in] theFExtended  The extended face
-  Standard_EXPORT static void ExtendFace(const TopoDS_Face&     theF,
+  Standard_EXPORT static void ExtendFace(const TopoFace&     theF,
                                          const Standard_Real    theExtVal,
                                          const Standard_Boolean theExtUMin,
                                          const Standard_Boolean theExtUMax,
                                          const Standard_Boolean theExtVMin,
                                          const Standard_Boolean theExtVMax,
-                                         TopoDS_Face&           theFExtended);
+                                         TopoFace&           theFExtended);
 };
 
 #endif // _BRepLib_HeaderFile

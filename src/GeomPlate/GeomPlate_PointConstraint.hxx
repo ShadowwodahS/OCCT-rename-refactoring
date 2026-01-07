@@ -26,7 +26,7 @@
 #include <gp_Vec.hxx>
 #include <Standard_Integer.hxx>
 #include <Standard_Transient.hxx>
-class Geom_Surface;
+class GeomSurface;
 
 class GeomPlate_PointConstraint;
 DEFINE_STANDARD_HANDLE(GeomPlate_PointConstraint, RefObject)
@@ -72,7 +72,7 @@ public:
   //! allowed between the constraint and the target surface.Creates a punctual constraint.
   Standard_EXPORT GeomPlate_PointConstraint(const Standard_Real         U,
                                             const Standard_Real         V,
-                                            const Handle(Geom_Surface)& Surf,
+                                            const Handle(GeomSurface)& Surf,
                                             const Standard_Integer      Order,
                                             const Standard_Real         TolDist = 0.0001,
                                             const Standard_Real         TolAng  = 0.01,
@@ -143,7 +143,7 @@ private:
   GeomLProp_SLProps    myLProp;
   Point3d               myPoint;
   gp_Pnt2d             myPt2d;
-  Handle(Geom_Surface) mySurf;
+  Handle(GeomSurface) mySurf;
   Vector3d               myD11;
   Vector3d               myD12;
   Vector3d               myD21;

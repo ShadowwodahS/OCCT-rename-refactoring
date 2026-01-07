@@ -34,8 +34,8 @@ template <>
 struct GCPnts_TCurveTypes<Adaptor3d_Curve>
 {
   typedef Point3d                Point;
-  typedef Geom_BezierCurve      BezierCurve;
-  typedef Geom_BSplineCurve     BSplineCurve;
+  typedef BezierCurve3d      BezierCurve;
+  typedef BSplineCurve3d     BSplineCurve;
   typedef GCPnts_DistFunction   DistFunction;
   typedef GCPnts_DistFunctionMV DistFunctionMV;
 };

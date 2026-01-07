@@ -162,9 +162,9 @@ public:
 
   Standard_EXPORT Standard_Integer NbKnots() const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Geom_BezierCurve) Bezier() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BezierCurve3d) Bezier() const Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Geom_BSplineCurve) BSpline() const Standard_OVERRIDE;
+  Standard_EXPORT Handle(BSplineCurve3d) BSpline() const Standard_OVERRIDE;
 
 private:
   Standard_EXPORT void EvalKPart();

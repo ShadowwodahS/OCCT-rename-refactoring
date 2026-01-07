@@ -41,7 +41,7 @@
 
 //=================================================================================================
 
-Handle(Geom_Surface) BRepOffset::Surface(const Handle(Geom_Surface)& Surface,
+Handle(GeomSurface) BRepOffset::Surface(const Handle(GeomSurface)& Surface,
                                          const Standard_Real         Offset,
                                          BRepOffset_Status&          theStatus,
                                          Standard_Boolean            allowC0)
@@ -49,16 +49,16 @@ Handle(Geom_Surface) BRepOffset::Surface(const Handle(Geom_Surface)& Surface,
   constexpr Standard_Real Tol = Precision::Confusion();
 
   theStatus = BRepOffset_Good;
-  Handle(Geom_Surface) Result;
+  Handle(GeomSurface) Result;
 
   Handle(TypeInfo) TheType = Surface->DynamicType();
 
-  if (TheType == STANDARD_TYPE(Geom_Plane))
+  if (TheType == STANDARD_TYPE(GeomPlane))
   {
-    Handle(Geom_Plane) P = Handle(Geom_Plane)::DownCast(Surface);
+    Handle(GeomPlane) P = Handle(GeomPlane)::DownCast(Surface);
     Vector3d             T = P->Position().XDirection() ^ P->Position().YDirection();
     T *= Offset;
-    Result = Handle(Geom_Plane)::DownCast(P->Translated(T));
+    Result = Handle(GeomPlane)::DownCast(P->Translated(T));
   }
   else if (TheType == STANDARD_TYPE(Geom_CylindricalSurface))
   {
@@ -173,7 +173,7 @@ Handle(Geom_Surface) BRepOffset::Surface(const Handle(Geom_Surface)& Surface,
       Handle(Geom_RectangularTrimmedSurface)::DownCast(Surface);
     Standard_Real U1, U2, V1, V2;
     S->Bounds(U1, U2, V1, V2);
-    Handle(Geom_Surface) Off = BRepOffset::Surface(S->BasisSurface(), Offset, theStatus, allowC0);
+    Handle(GeomSurface) Off = BRepOffset::Surface(S->BasisSurface(), Offset, theStatus, allowC0);
     Result                   = new Geom_RectangularTrimmedSurface(Off, U1, U2, V1, V2);
   }
   else if (TheType == STANDARD_TYPE(Geom_OffsetSurface))
@@ -190,8 +190,8 @@ Handle(Geom_Surface) BRepOffset::Surface(const Handle(Geom_Surface)& Surface,
 
 //=================================================================================================
 
-Handle(Geom_Surface) BRepOffset::CollapseSingularities(const Handle(Geom_Surface)& theSurface,
-                                                       const TopoDS_Face&          theFace,
+Handle(GeomSurface) BRepOffset::CollapseSingularities(const Handle(GeomSurface)& theSurface,
+                                                       const TopoFace&          theFace,
                                                        Standard_Real               thePrecision)
 {
   // check surface type to see if it can be processed
@@ -206,22 +206,22 @@ Handle(Geom_Surface) BRepOffset::CollapseSingularities(const Handle(Geom_Surface
   // find singularities (vertices of degenerated edges)
   NCollection_List<Point3d>        aDegenPnt;
   NCollection_List<Standard_Real> aDegenTol;
-  for (TopExp_Explorer anExp(theFace, TopAbs_EDGE); anExp.More(); anExp.Next())
+  for (ShapeExplorer anExp(theFace, TopAbs_EDGE); anExp.More(); anExp.Next())
   {
-    TopoDS_Edge anEdge = TopoDS::Edge(anExp.Current());
-    if (!BRep_Tool::Degenerated(anEdge))
+    TopoEdge anEdge = TopoDS::Edge(anExp.Current());
+    if (!BRepInspector::Degenerated(anEdge))
     {
       continue;
     }
-    TopoDS_Vertex aV1, aV2;
-    TopExp::Vertices(anEdge, aV1, aV2);
+    TopoVertex aV1, aV2;
+    TopExp1::Vertices(anEdge, aV1, aV2);
     if (!aV1.IsSame(aV2))
     {
       continue;
     }
 
-    aDegenPnt.Append(BRep_Tool::Pnt(aV1));
-    aDegenTol.Append(BRep_Tool::Tolerance(aV1));
+    aDegenPnt.Append(BRepInspector::Pnt(aV1));
+    aDegenTol.Append(BRepInspector::Tolerance(aV1));
   }
 
   // iterate by sides of the surface

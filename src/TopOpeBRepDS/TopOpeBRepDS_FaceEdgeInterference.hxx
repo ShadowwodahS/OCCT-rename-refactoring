@@ -24,7 +24,7 @@
 #include <Standard_Boolean.hxx>
 #include <TopOpeBRepDS_Config.hxx>
 #include <Standard_OStream.hxx>
-class TopOpeBRepDS_Transition;
+class StateTransition;
 
 class TopOpeBRepDS_FaceEdgeInterference;
 DEFINE_STANDARD_HANDLE(TopOpeBRepDS_FaceEdgeInterference, TopOpeBRepDS_ShapeShapeInterference)
@@ -35,7 +35,7 @@ class TopOpeBRepDS_FaceEdgeInterference : public TopOpeBRepDS_ShapeShapeInterfer
 
 public:
   //! Create an interference of EDGE <G> on FACE <S>.
-  Standard_EXPORT TopOpeBRepDS_FaceEdgeInterference(const TopOpeBRepDS_Transition& T,
+  Standard_EXPORT TopOpeBRepDS_FaceEdgeInterference(const StateTransition& T,
                                                     const Standard_Integer         S,
                                                     const Standard_Integer         G,
                                                     const Standard_Boolean         GIsBound,

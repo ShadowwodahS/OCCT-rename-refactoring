@@ -22,9 +22,9 @@
 //=======================================================================
 // function : Print the name of a State
 //=======================================================================
-TCollection_AsciiString TopOpeBRepDS::SPrint(const TopAbs_State S)
+AsciiString1 TopOpeBRepDS1::SPrint(const TopAbs_State S)
 {
-  TCollection_AsciiString s;
+  AsciiString1 s;
   switch (S)
   {
     case TopAbs_IN:
@@ -43,18 +43,18 @@ TCollection_AsciiString TopOpeBRepDS::SPrint(const TopAbs_State S)
   return s;
 }
 
-Standard_OStream& TopOpeBRepDS::Print(const TopAbs_State S, Standard_OStream& OS)
+Standard_OStream& TopOpeBRepDS1::Print(const TopAbs_State S, Standard_OStream& OS)
 {
-  OS << TopOpeBRepDS::SPrint(S);
+  OS << TopOpeBRepDS1::SPrint(S);
   return OS;
 }
 
 //=======================================================================
 // purpose  : print the name of a Kind
 //=======================================================================
-TCollection_AsciiString TopOpeBRepDS::SPrint(const TopOpeBRepDS_Kind k)
+AsciiString1 TopOpeBRepDS1::SPrint(const TopOpeBRepDS_Kind k)
 {
-  TCollection_AsciiString s;
+  AsciiString1 s;
   switch (k)
   {
     case TopOpeBRepDS_POINT:
@@ -96,32 +96,32 @@ TCollection_AsciiString TopOpeBRepDS::SPrint(const TopOpeBRepDS_Kind k)
   return s;
 }
 
-TCollection_AsciiString TopOpeBRepDS::SPrint(const TopOpeBRepDS_Kind        k,
+AsciiString1 TopOpeBRepDS1::SPrint(const TopOpeBRepDS_Kind        k,
                                              const Standard_Integer         i,
-                                             const TCollection_AsciiString& S1,
-                                             const TCollection_AsciiString& S2)
+                                             const AsciiString1& S1,
+                                             const AsciiString1& S2)
 {
-  TCollection_AsciiString si = "";
+  AsciiString1 si = "";
   if (i >= 0 && i <= 9)
     si = " ";
-  TCollection_AsciiString s =
-    S1 + "(" + TopOpeBRepDS::SPrint(k) + "," + si + TCollection_AsciiString(i) + ")" + S2;
+  AsciiString1 s =
+    S1 + "(" + TopOpeBRepDS1::SPrint(k) + "," + si + AsciiString1(i) + ")" + S2;
   return s;
 }
 
-Standard_OStream& TopOpeBRepDS::Print(const TopOpeBRepDS_Kind k, Standard_OStream& OS)
+Standard_OStream& TopOpeBRepDS1::Print(const TopOpeBRepDS_Kind k, Standard_OStream& OS)
 {
-  OS << TopOpeBRepDS::SPrint(k);
+  OS << TopOpeBRepDS1::SPrint(k);
   return OS;
 }
 
-Standard_OStream& TopOpeBRepDS::Print(const TopOpeBRepDS_Kind        k,
+Standard_OStream& TopOpeBRepDS1::Print(const TopOpeBRepDS_Kind        k,
                                       const Standard_Integer         i,
                                       Standard_OStream&              OS,
-                                      const TCollection_AsciiString& S1,
-                                      const TCollection_AsciiString& S2)
+                                      const AsciiString1& S1,
+                                      const AsciiString1& S2)
 {
-  OS << TopOpeBRepDS::SPrint(k, i, S1, S2);
+  OS << TopOpeBRepDS1::SPrint(k, i, S1, S2);
   OS.flush();
   return OS;
 }
@@ -129,38 +129,38 @@ Standard_OStream& TopOpeBRepDS::Print(const TopOpeBRepDS_Kind        k,
 //=======================================================================
 // purpose  : print the name of a ShapeEnum
 //=======================================================================
-TCollection_AsciiString TopOpeBRepDS::SPrint(const TopAbs_ShapeEnum t)
+AsciiString1 TopOpeBRepDS1::SPrint(const TopAbs_ShapeEnum t)
 {
-  return TopOpeBRepDS::SPrint(TopOpeBRepDS::ShapeToKind(t));
+  return TopOpeBRepDS1::SPrint(TopOpeBRepDS1::ShapeToKind(t));
 }
 
-TCollection_AsciiString TopOpeBRepDS::SPrint(const TopAbs_ShapeEnum t, const Standard_Integer i)
+AsciiString1 TopOpeBRepDS1::SPrint(const TopAbs_ShapeEnum t, const Standard_Integer i)
 {
-  return TopOpeBRepDS::SPrint(TopOpeBRepDS::ShapeToKind(t), i);
+  return TopOpeBRepDS1::SPrint(TopOpeBRepDS1::ShapeToKind(t), i);
 }
 
-Standard_OStream& TopOpeBRepDS::Print(const TopAbs_ShapeEnum t,
+Standard_OStream& TopOpeBRepDS1::Print(const TopAbs_ShapeEnum t,
                                       const Standard_Integer i,
                                       Standard_OStream&      s)
 {
-  s << TopOpeBRepDS::SPrint(TopOpeBRepDS::ShapeToKind(t), i);
+  s << TopOpeBRepDS1::SPrint(TopOpeBRepDS1::ShapeToKind(t), i);
   return s;
 }
 
 //=======================================================================
 // purpose  : print the name of a Orientation
 //=======================================================================
-TCollection_AsciiString TopOpeBRepDS::SPrint(const TopAbs_Orientation o)
+AsciiString1 TopOpeBRepDS1::SPrint(const TopAbs_Orientation o)
 {
-  return TopAbs::ShapeOrientationToString(o);
+  return TopAbs1::ShapeOrientationToString(o);
 }
 
 //=======================================================================
 // purpose  : print the name of a Config
 //=======================================================================
-TCollection_AsciiString TopOpeBRepDS::SPrint(const TopOpeBRepDS_Config C)
+AsciiString1 TopOpeBRepDS1::SPrint(const TopOpeBRepDS_Config C)
 {
-  TCollection_AsciiString SS;
+  AsciiString1 SS;
   switch (C)
   {
     case TopOpeBRepDS_UNSHGEOMETRY:
@@ -176,15 +176,15 @@ TCollection_AsciiString TopOpeBRepDS::SPrint(const TopOpeBRepDS_Config C)
   return SS;
 }
 
-Standard_OStream& TopOpeBRepDS::Print(const TopOpeBRepDS_Config C, Standard_OStream& OS)
+Standard_OStream& TopOpeBRepDS1::Print(const TopOpeBRepDS_Config C, Standard_OStream& OS)
 {
-  OS << TopOpeBRepDS::SPrint(C);
+  OS << TopOpeBRepDS1::SPrint(C);
   return OS;
 }
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS::IsTopology(const TopOpeBRepDS_Kind k)
+Standard_Boolean TopOpeBRepDS1::IsTopology(const TopOpeBRepDS_Kind k)
 {
   switch (k)
   {
@@ -219,7 +219,7 @@ Standard_Boolean TopOpeBRepDS::IsTopology(const TopOpeBRepDS_Kind k)
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepDS::IsGeometry(const TopOpeBRepDS_Kind k)
+Standard_Boolean TopOpeBRepDS1::IsGeometry(const TopOpeBRepDS_Kind k)
 {
   switch (k)
   {
@@ -240,7 +240,7 @@ Standard_Boolean TopOpeBRepDS::IsGeometry(const TopOpeBRepDS_Kind k)
 
 //=================================================================================================
 
-TopOpeBRepDS_Kind TopOpeBRepDS::ShapeToKind(const TopAbs_ShapeEnum S)
+TopOpeBRepDS_Kind TopOpeBRepDS1::ShapeToKind(const TopAbs_ShapeEnum S)
 {
   TopOpeBRepDS_Kind res = TopOpeBRepDS_SOLID; // bidon
   switch (S)
@@ -270,17 +270,17 @@ TopOpeBRepDS_Kind TopOpeBRepDS::ShapeToKind(const TopAbs_ShapeEnum S)
       res = TopOpeBRepDS_COMPOUND;
       break;
     default:
-      throw Standard_ProgramError("TopOpeBRepDS::ShapeToKind");
+      throw Standard_ProgramError("TopOpeBRepDS1::ShapeToKind");
   }
   return res;
 }
 
 //=================================================================================================
 
-TopAbs_ShapeEnum TopOpeBRepDS::KindToShape(const TopOpeBRepDS_Kind K)
+TopAbs_ShapeEnum TopOpeBRepDS1::KindToShape(const TopOpeBRepDS_Kind K)
 {
   TopAbs_ShapeEnum res = TopAbs_SHAPE; // bidon
-  if (!TopOpeBRepDS::IsTopology(K))
+  if (!TopOpeBRepDS1::IsTopology(K))
     return res;
 
   switch (K)
@@ -310,7 +310,7 @@ TopAbs_ShapeEnum TopOpeBRepDS::KindToShape(const TopOpeBRepDS_Kind K)
       res = TopAbs_COMPOUND;
       break;
     default:
-      throw Standard_ProgramError("TopOpeBRepDS::KindToShape");
+      throw Standard_ProgramError("TopOpeBRepDS1::KindToShape");
   }
   return res;
 }

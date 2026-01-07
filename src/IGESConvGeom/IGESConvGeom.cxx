@@ -34,10 +34,10 @@
 
 //=================================================================================================
 
-Standard_Integer IGESConvGeom::SplineCurveFromIGES(const Handle(IGESGeom_SplineCurve)& st,
+Standard_Integer IGESConvGeom1::SplineCurveFromIGES(const Handle(IGESGeom_SplineCurve)& st,
                                                    const Standard_Real /*epscoef*/,
                                                    const Standard_Real        epsgeom,
-                                                   Handle(Geom_BSplineCurve)& res)
+                                                   Handle(BSplineCurve3d)& res)
 {
   Standard_Integer returned = 0;
 
@@ -148,7 +148,7 @@ Standard_Integer IGESConvGeom::SplineCurveFromIGES(const Handle(IGESGeom_SplineC
   //    else
   //      AddFail(st, "Transformation : not a similarity");
   //  }
-  res = new Geom_BSplineCurve(bspoles, knots, multi, degree);
+  res = new BSplineCurve3d(bspoles, knots, multi, degree);
   //  GeomConvert_CompCurveToBSplineCurve CompCurve =
   //    GeomConvert_CompCurveToBSplineCurve(res);
   //  res = CompCurve.BSplineCurve();
@@ -157,7 +157,7 @@ Standard_Integer IGESConvGeom::SplineCurveFromIGES(const Handle(IGESGeom_SplineC
 
 //=================================================================================================
 
-Standard_Integer IGESConvGeom::IncreaseCurveContinuity(const Handle(Geom_BSplineCurve)& res,
+Standard_Integer IGESConvGeom1::IncreaseCurveContinuity(const Handle(BSplineCurve3d)& res,
                                                        const Standard_Real              epsgeom,
                                                        const Standard_Integer           continuity)
 {
@@ -203,7 +203,7 @@ Standard_Integer IGESConvGeom::IncreaseCurveContinuity(const Handle(Geom_BSpline
 
 //=================================================================================================
 
-Standard_Integer IGESConvGeom::IncreaseCurveContinuity(const Handle(Geom2d_BSplineCurve)& res,
+Standard_Integer IGESConvGeom1::IncreaseCurveContinuity(const Handle(Geom2d_BSplineCurve)& res,
                                                        const Standard_Real                epsgeom,
                                                        const Standard_Integer continuity)
 {
@@ -249,7 +249,7 @@ Standard_Integer IGESConvGeom::IncreaseCurveContinuity(const Handle(Geom2d_BSpli
 
 //=================================================================================================
 
-Standard_Integer IGESConvGeom::SplineSurfaceFromIGES(const Handle(IGESGeom_SplineSurface)& st,
+Standard_Integer IGESConvGeom1::SplineSurfaceFromIGES(const Handle(IGESGeom_SplineSurface)& st,
                                                      const Standard_Real /*epscoef*/,
                                                      const Standard_Real          epsgeom,
                                                      Handle(Geom_BSplineSurface)& res)
@@ -578,7 +578,7 @@ Standard_Integer IGESConvGeom::SplineSurfaceFromIGES(const Handle(IGESGeom_Splin
 
 //=================================================================================================
 
-Standard_Integer IGESConvGeom::IncreaseSurfaceContinuity(const Handle(Geom_BSplineSurface)& res,
+Standard_Integer IGESConvGeom1::IncreaseSurfaceContinuity(const Handle(Geom_BSplineSurface)& res,
                                                          const Standard_Real                epsgeom,
                                                          const Standard_Integer continuity)
 {

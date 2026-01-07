@@ -45,7 +45,7 @@ DBRep_HideData::DBRep_HideData()
 void DBRep_HideData::Set(const Standard_Integer viewID,
                          const Transform3d&         TProj,
                          const Standard_Real    focal,
-                         const TopoDS_Shape&    S,
+                         const TopoShape&    S,
                          const Standard_Real    ang)
 {
   myView  = viewID;
@@ -62,7 +62,7 @@ void DBRep_HideData::Set(const Standard_Integer viewID,
   HLRAlgo_EdgeIterator It;
   myBiPntVis.Clear();
   myBiPntHid.Clear();
-  TopoDS_Shape       Sori;
+  TopoShape       Sori;
   Standard_Boolean   reg1, regn, outl, intl;
   Standard_Address   Coordinates;
   HLRAlgo_EdgeStatus status;
@@ -144,12 +144,12 @@ Standard_Boolean DBRep_HideData::IsSame(const Transform3d& TProj, const Standard
 
 //=================================================================================================
 
-void DBRep_HideData::DrawOn(Draw_Display&          D,
+void DBRep_HideData::DrawOn(DrawDisplay&          D,
                             const Standard_Boolean withRg1,
                             const Standard_Boolean withRgN,
                             const Standard_Boolean withHid,
-                            const Draw_Color&      VisCol,
-                            const Draw_Color&      HidCol)
+                            const DrawColor&      VisCol,
+                            const DrawColor&      HidCol)
 {
   Standard_Boolean                   firstPick = Standard_True;
   HLRBRep_ListIteratorOfListOfBPoint It;
@@ -201,7 +201,7 @@ void DBRep_HideData::DrawOn(Draw_Display&          D,
 
 //=================================================================================================
 
-const TopoDS_Shape& DBRep_HideData::LastPick() const
+const TopoShape& DBRep_HideData::LastPick() const
 {
   return myPickShap;
 }

@@ -39,7 +39,7 @@ const Handle(Express_Type)& Express_ComplexType::Type() const
 
 //=================================================================================================
 
-const TCollection_AsciiString Express_ComplexType::CPPName() const
+const AsciiString1 Express_ComplexType::CPPName() const
 {
   // check if array 2
   Handle(Express_Type) aType = myType;
@@ -50,9 +50,9 @@ const TCollection_AsciiString Express_ComplexType::CPPName() const
   }
 
   // parse name of array argument
-  TCollection_AsciiString aName     = aType->CPPName();
+  AsciiString1 aName     = aType->CPPName();
   Standard_Integer        aSplitIdx = aName.Location(1, '_', 1, aName.Length());
-  TCollection_AsciiString aClassName;
+  AsciiString1 aClassName;
   if (aSplitIdx)
   {
     aClassName = aName.Split(aSplitIdx);
@@ -93,8 +93,8 @@ Standard_Boolean Express_ComplexType::Use() const
 
 //=================================================================================================
 
-void Express_ComplexType::Use2(const TCollection_AsciiString& theRefName,
-                               const TCollection_AsciiString& theRefPack) const
+void Express_ComplexType::Use2(const AsciiString1& theRefName,
+                               const AsciiString1& theRefPack) const
 {
   myType->Use2(theRefName, theRefPack);
 }

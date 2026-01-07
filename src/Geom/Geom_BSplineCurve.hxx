@@ -36,8 +36,8 @@ class Vector3d;
 class Transform3d;
 class Geom_Geometry;
 
-class Geom_BSplineCurve;
-DEFINE_STANDARD_HANDLE(Geom_BSplineCurve, Geom_BoundedCurve)
+class BSplineCurve3d;
+DEFINE_STANDARD_HANDLE(BSplineCurve3d, Geom_BoundedCurve)
 
 //! Definition of the B_spline curve.
 //! A B-spline curve can be
@@ -47,7 +47,7 @@ DEFINE_STANDARD_HANDLE(Geom_BSplineCurve, Geom_BoundedCurve)
 //!
 //! a b-spline curve is defined by :
 //! its degree; the degree for a
-//! Geom_BSplineCurve is limited to a value (25)
+//! BSplineCurve3d is limited to a value (25)
 //! which is defined and controlled by the system.
 //! This value is returned by the function MaxDegree;
 //! - its periodic or non-periodic nature;
@@ -70,7 +70,7 @@ DEFINE_STANDARD_HANDLE(Geom_BSplineCurve, Geom_BoundedCurve)
 //! poles are equal, the curve has a polynomial
 //! equation; it is therefore a non-rational curve.
 //! - a table of knots with their multiplicities. For a
-//! Geom_BSplineCurve, the table of knots is an
+//! BSplineCurve3d, the table of knots is an
 //! increasing sequence of reals without repetition;
 //! the multiplicities define the repetition of the knots.
 //! A BSpline curve is a piecewise polynomial or
@@ -125,13 +125,13 @@ DEFINE_STANDARD_HANDLE(Geom_BSplineCurve, Geom_BoundedCurve)
 //! . Modelisation des surfaces en CAO, Henri GIAUME Peugeot SA
 //! . Curves and Surfaces for Computer Aided Geometric Design,
 //! a practical guide Gerald Farin
-class Geom_BSplineCurve : public Geom_BoundedCurve
+class BSplineCurve3d : public Geom_BoundedCurve
 {
 
 public:
   //! Creates a  non-rational B_spline curve   on  the
   //! basis <Knots, Multiplicities> of degree <Degree>.
-  Standard_EXPORT Geom_BSplineCurve(const TColgp_Array1OfPnt&      Poles,
+  Standard_EXPORT BSplineCurve3d(const TColgp_Array1OfPnt&      Poles,
                                     const TColStd_Array1OfReal&    Knots,
                                     const TColStd_Array1OfInteger& Multiplicities,
                                     const Standard_Integer         Degree,
@@ -164,7 +164,7 @@ public:
   //! on periodic curves
   //!
   //! Poles.Length() == Sum(Mults(i)) except the first or last
-  Standard_EXPORT Geom_BSplineCurve(const TColgp_Array1OfPnt&      Poles,
+  Standard_EXPORT BSplineCurve3d(const TColgp_Array1OfPnt&      Poles,
                                     const TColStd_Array1OfReal&    Weights,
                                     const TColStd_Array1OfReal&    Knots,
                                     const TColStd_Array1OfInteger& Multiplicities,
@@ -179,7 +179,7 @@ public:
   //! or equal to the current degree.
   //! Exceptions
   //! Standard_ConstructionError if Degree is greater than
-  //! Geom_BSplineCurve::MaxDegree().
+  //! BSplineCurve3d::MaxDegree().
   Standard_EXPORT void IncreaseDegree(const Standard_Integer Degree);
 
   //! Increases the multiplicity  of the knot <Index> to
@@ -510,8 +510,8 @@ public:
   Standard_EXPORT GeomAbs_Shape Continuity() const Standard_OVERRIDE;
 
   //! Returns the degree of this BSpline curve.
-  //! The degree of a Geom_BSplineCurve curve cannot
-  //! be greater than Geom_BSplineCurve::MaxDegree().
+  //! The degree of a BSplineCurve3d curve cannot
+  //! be greater than BSplineCurve3d::MaxDegree().
   //! Computation of value and derivatives
   Standard_EXPORT Standard_Integer Degree() const;
 
@@ -823,14 +823,14 @@ public:
   Standard_EXPORT Handle(Geom_Geometry) Copy() const Standard_OVERRIDE;
 
   //! Compare two Bspline curve on identity;
-  Standard_EXPORT Standard_Boolean IsEqual(const Handle(Geom_BSplineCurve)& theOther,
+  Standard_EXPORT Standard_Boolean IsEqual(const Handle(BSplineCurve3d)& theOther,
                                            const Standard_Real              thePreci) const;
 
   //! Dumps the content of me into the stream
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_BSplineCurve, Geom_BoundedCurve)
+  DEFINE_STANDARD_RTTIEXT(BSplineCurve3d, Geom_BoundedCurve)
 
 protected:
 private:

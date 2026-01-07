@@ -22,7 +22,7 @@
 #include <Expr_SingleRelation.hxx>
 class Expr_GeneralExpression;
 class Expr_GeneralRelation;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class Expr_Different;
 DEFINE_STANDARD_HANDLE(Expr_Different, Expr_SingleRelation)
@@ -51,7 +51,7 @@ public:
   Standard_EXPORT Handle(Expr_GeneralRelation) Copy() const Standard_OVERRIDE;
 
   //! returns a string representing <me> in a readable way.
-  Standard_EXPORT TCollection_AsciiString String() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 String() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Expr_Different, Expr_SingleRelation)
 

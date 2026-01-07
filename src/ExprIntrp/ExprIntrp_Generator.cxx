@@ -46,7 +46,7 @@ const ExprIntrp_SequenceOfNamedExpression& ExprIntrp_Generator::GetNamed() const
 }
 
 Handle(Expr_NamedFunction) ExprIntrp_Generator::GetFunction(
-  const TCollection_AsciiString& name) const
+  const AsciiString1& name) const
 {
   for (Standard_Integer i = 1; i <= myFunctions.Length(); i++)
   {
@@ -60,7 +60,7 @@ Handle(Expr_NamedFunction) ExprIntrp_Generator::GetFunction(
 }
 
 Handle(Expr_NamedExpression) ExprIntrp_Generator::GetNamed(
-  const TCollection_AsciiString& name) const
+  const AsciiString1& name) const
 {
   for (Standard_Integer i = 1; i <= myNamed.Length(); i++)
   {

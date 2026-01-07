@@ -76,11 +76,11 @@ Standard_Size FSD_Base64::Encode(char*                theEncodedStr,
 // =======================================================================
 // function : Encode
 // =======================================================================
-TCollection_AsciiString FSD_Base64::Encode(const Standard_Byte* theData,
+AsciiString1 FSD_Base64::Encode(const Standard_Byte* theData,
                                            const Standard_Size  theDataLen)
 {
   Standard_Size           aStrLen = Encode(NULL, 0, theData, theDataLen);
-  TCollection_AsciiString aStr((Standard_Integer)aStrLen, 0);
+  AsciiString1 aStr((Standard_Integer)aStrLen, 0);
   Encode(const_cast<char*>(aStr.ToCString()), aStrLen, theData, theDataLen);
   return aStr;
 }

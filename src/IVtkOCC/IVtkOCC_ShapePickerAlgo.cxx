@@ -108,13 +108,13 @@ void IVtkOCC_ShapePickerAlgo::SetSelectionMode(const IVtk_IShape::Handle& theSha
     if (!aSelObj->HasSelection(theMode))
     {
       // then create a new selection in the given mode for this object (shape).
-      Handle(SelectMgr_Selection) aNewSelection = new SelectMgr_Selection(theMode);
+      Handle(SelectionContainer) aNewSelection = new SelectionContainer(theMode);
       aSelObj->AddSelection(aNewSelection, theMode);
       myViewerSelector->AddSelectionToObject(aSelObj, aNewSelection);
     }
 
     // Update the selection for the given mode according to its status.
-    const Handle(SelectMgr_Selection)& aSel = aSelObj->Selection(theMode);
+    const Handle(SelectionContainer)& aSel = aSelObj->Selection(theMode);
     switch (aSel->UpdateStatus())
     {
       case SelectMgr_TOU_Full: {
@@ -149,7 +149,7 @@ void IVtkOCC_ShapePickerAlgo::SetSelectionMode(const IVtk_IShape::Handle& theSha
     {
       if (aSelObj->HasSelection(theMode))
       {
-        const Handle(SelectMgr_Selection)& aSel = aSelObj->Selection(theMode);
+        const Handle(SelectionContainer)& aSel = aSelObj->Selection(theMode);
         myViewerSelector->Deactivate(aSel);
       }
     }
@@ -267,9 +267,9 @@ bool IVtkOCC_ShapePickerAlgo::processPicked()
   {
     // ViewerSelector detects sensitive entities under the mouse
     // and for each entity returns its entity owner.
-    // StdSelect_BRepOwner instance holds corresponding sub-shape (TopoDS_Shape)
+    // StdSelect_BRepOwner instance holds corresponding sub-shape (TopoShape)
     // and in general entity owners have a pointer to SelectableObject that can tell us
-    // what is the top-level TopoDS_Shape.
+    // what is the top-level TopoShape.
     anEntityOwner = Handle(StdSelect_BRepOwner)::DownCast(myViewerSelector->Picked(aDetectIt));
     if (!anEntityOwner.IsNull())
     {
@@ -298,16 +298,16 @@ bool IVtkOCC_ShapePickerAlgo::processPicked()
       }
 
       // Now try to guess if it's the top-level shape itself or just a sub-shape picked
-      TopoDS_Shape aTopLevelShape = aSelShape->GetShape();
-      TopoDS_Shape aSubShape      = anEntityOwner->Shape();
+      TopoShape aTopLevelShape = aSelShape->GetShape();
+      TopoShape aSubShape      = anEntityOwner->Shape();
       if (aTopLevelShape.IsNull())
       {
-        anOutput->SendAlarm() << "Error: OccShape with null top-level TopoDS_Shape picked!";
+        anOutput->SendAlarm() << "Error: OccShape with null top-level TopoShape picked!";
         continue;
       }
       if (aSubShape.IsNull())
       {
-        anOutput->SendAlarm() << "Error: EntityOwner with null TopoDS_Shape picked!";
+        anOutput->SendAlarm() << "Error: EntityOwner with null TopoShape picked!";
         continue;
       }
 

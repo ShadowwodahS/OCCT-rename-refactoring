@@ -132,7 +132,7 @@ public:
 
 private:
   //! Gets shape data for further refinement.
-  Standard_Boolean getInfoForRefinement(const TopoDS_Shape& theShapes,
+  Standard_Boolean getInfoForRefinement(const TopoShape& theShapes,
                                         TopAbs_ShapeEnum&   theShapeType,
                                         Standard_Integer&   theNbNodes,
                                         Standard_Real&      theStep);
@@ -154,13 +154,13 @@ private:
   Standard_Boolean getShapesAdditionalVertices();
 
   //! Gets additional vertices and their statuses on the edge with the input step.
-  Standard_Boolean getEdgeAdditionalVertices(const TopoDS_Edge&                  theEdge,
+  Standard_Boolean getEdgeAdditionalVertices(const TopoEdge&                  theEdge,
                                              const Standard_Real                 theStep,
                                              BVH_Array3d&                        theAddVertices,
                                              NCollection_Vector<ProxPnt_Status>& theAddStatuses);
 
   //! Gets additional vertices and their statuses on the face with the input step (triangle square).
-  Standard_Boolean getFaceAdditionalVertices(const TopoDS_Face&                  theFace,
+  Standard_Boolean getFaceAdditionalVertices(const TopoFace&                  theFace,
                                              const Standard_Real                 theStep,
                                              BVH_Array3d&                        theAddVertices,
                                              NCollection_Vector<ProxPnt_Status>& theAddStatuses);
@@ -186,9 +186,9 @@ private:
   BRepExtrema_ShapeList myShapeList2;
 
   //! The 1st shape.
-  TopoDS_Shape myShape1;
+  TopoShape myShape1;
   //! The 2nd shape.
-  TopoDS_Shape myShape2;
+  TopoShape myShape2;
 
   BVH_Array3d myAddVertices1; //!< Additional vertices on the 1st shape if its mesh is coarser.
   BVH_Array3d myAddVertices2; //!< Additional vertices on the 2nd shape if its mesh is coarser.

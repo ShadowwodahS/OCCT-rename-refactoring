@@ -56,7 +56,7 @@ public:
   //! returns true if the directory is empty.
   Standard_EXPORT Standard_Boolean IsEmpty() const;
 
-  friend class CDF_DirectoryIterator;
+  friend class DirectoryIterator;
 
   DEFINE_STANDARD_RTTIEXT(CDF_Directory, RefObject)
 

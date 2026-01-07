@@ -458,7 +458,7 @@ void GeomAPI_Interpolate::PerformPeriodic()
       deg1_mults.SetValue(ii, 1);
     }
 
-    myCurve  = new Geom_BSplineCurve(myPoints->Array1(),
+    myCurve  = new BSplineCurve3d(myPoints->Array1(),
                                     myParameters->Array1(),
                                     deg1_mults,
                                     degree,
@@ -603,7 +603,7 @@ void GeomAPI_Interpolate::PerformPeriodic()
     if (!inversion_problem)
     {
       TColgp_Array1OfPnt newpoles(poles.Value(1), 1, num_poles - 2);
-      myCurve  = new Geom_BSplineCurve(newpoles, myParameters->Array1(), mults, degree, myPeriodic);
+      myCurve  = new BSplineCurve3d(newpoles, myParameters->Array1(), mults, degree, myPeriodic);
       myIsDone = Standard_True;
     }
   }
@@ -672,7 +672,7 @@ void GeomAPI_Interpolate::PerformNonPeriodic()
       {
         poles.SetValue(ii, myPoints->Value(ii));
       }
-      myCurve  = new Geom_BSplineCurve(poles, myParameters->Array1(), mults, degree);
+      myCurve  = new BSplineCurve3d(poles, myParameters->Array1(), mults, degree);
       myIsDone = Standard_True;
       break;
     case 2:
@@ -690,7 +690,7 @@ void GeomAPI_Interpolate::PerformNonPeriodic()
                             inversion_problem);
       if (!inversion_problem)
       {
-        myCurve  = new Geom_BSplineCurve(poles, knots, mults, degree);
+        myCurve  = new BSplineCurve3d(poles, knots, mults, degree);
         myIsDone = Standard_True;
       }
       break;
@@ -797,7 +797,7 @@ void GeomAPI_Interpolate::PerformNonPeriodic()
                             inversion_problem);
       if (!inversion_problem)
       {
-        myCurve  = new Geom_BSplineCurve(poles, myParameters->Array1(), mults, degree);
+        myCurve  = new BSplineCurve3d(poles, myParameters->Array1(), mults, degree);
         myIsDone = Standard_True;
       }
       break;
@@ -805,11 +805,11 @@ void GeomAPI_Interpolate::PerformNonPeriodic()
 }
 
 //=======================================================================
-// function : Handle(Geom_BSplineCurve)&
+// function : Handle(BSplineCurve3d)&
 // purpose  :
 //=======================================================================
 
-const Handle(Geom_BSplineCurve)& GeomAPI_Interpolate::Curve() const
+const Handle(BSplineCurve3d)& GeomAPI_Interpolate::Curve() const
 {
   if (!myIsDone)
     throw StdFail_NotDone(" ");
@@ -818,7 +818,7 @@ const Handle(Geom_BSplineCurve)& GeomAPI_Interpolate::Curve() const
 
 //=================================================================================================
 
-GeomAPI_Interpolate::operator Handle(Geom_BSplineCurve)() const
+GeomAPI_Interpolate::operator Handle(BSplineCurve3d)() const
 {
   return myCurve;
 }

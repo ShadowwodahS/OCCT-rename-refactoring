@@ -73,7 +73,7 @@ TreeModel_ItemBasePtr DFBrowser_TreeModel::createRootItem(const int)
 // function : Init
 // purpose :
 // =======================================================================
-void DFBrowser_TreeModel::Init(const Handle(TDocStd_Application)& theApplication)
+void DFBrowser_TreeModel::Init(const Handle(AppManager)& theApplication)
 {
   DFBrowser_ItemApplicationPtr aRootItem = itemDynamicCast<DFBrowser_ItemApplication>(RootItem(0));
   Reset();
@@ -85,7 +85,7 @@ void DFBrowser_TreeModel::Init(const Handle(TDocStd_Application)& theApplication
 // function : GetTDocStdApplication
 // purpose :
 // =======================================================================
-Handle(TDocStd_Application) DFBrowser_TreeModel::GetTDocStdApplication() const
+Handle(AppManager) DFBrowser_TreeModel::GetTDocStdApplication() const
 {
   DFBrowser_ItemApplicationPtr aRootItem = itemDynamicCast<DFBrowser_ItemApplication>(RootItem(0));
   return aRootItem->GetApplication();
@@ -95,13 +95,13 @@ Handle(TDocStd_Application) DFBrowser_TreeModel::GetTDocStdApplication() const
 // function : FindIndex
 // purpose :
 // =======================================================================
-QModelIndex DFBrowser_TreeModel::FindIndex(const TDF_Label& theLabel) const
+QModelIndex DFBrowser_TreeModel::FindIndex(const DataLabel& theLabel) const
 {
-  TDF_Label aRoot = theLabel.Root();
+  DataLabel aRoot = theLabel.Root();
 
-  NCollection_List<TDF_Label> aLabels;
+  NCollection_List<DataLabel> aLabels;
   aLabels.Prepend(theLabel);
-  TDF_Label aFather = theLabel.Father();
+  DataLabel aFather = theLabel.Father();
   if (!aFather.IsNull())
   {
     while (aFather != aRoot)
@@ -131,11 +131,11 @@ QModelIndex DFBrowser_TreeModel::FindIndex(const TDF_Label& theLabel) const
   if (!aDocumentItemFound) // document is not found
     return QModelIndex();
 
-  for (NCollection_List<TDF_Label>::const_iterator aLabelIt = aLabels.begin();
+  for (NCollection_List<DataLabel>::const_iterator aLabelIt = aLabels.begin();
        aLabelIt != aLabels.end() && aParentIndex.isValid();
        aLabelIt++)
   {
-    const TDF_Label aLabel = *aLabelIt;
+    const DataLabel aLabel = *aLabelIt;
     for (int aParentChildId = 0, aCount = aParentItem->rowCount(); aParentChildId < aCount;
          aParentChildId++)
     {
@@ -242,7 +242,7 @@ QModelIndex DFBrowser_TreeModel::FindIndexByPath(const QStringList& theLabelEntr
 QModelIndex DFBrowser_TreeModel::FindIndexByAttribute(Handle(TDF_Attribute) theAttribute) const
 {
   QModelIndex     aFoundIndex;
-  const TDF_Label aLabel = theAttribute->Label();
+  const DataLabel aLabel = theAttribute->Label();
 
   QModelIndex aParentIndex = FindIndex(aLabel);
   if (!aParentIndex.isValid())
@@ -267,10 +267,10 @@ QModelIndex DFBrowser_TreeModel::FindIndexByAttribute(Handle(TDF_Attribute) theA
 // function : ConvertToIndices
 // purpose :
 // =======================================================================
-void DFBrowser_TreeModel::ConvertToIndices(const NCollection_List<TDF_Label>& theReferences,
+void DFBrowser_TreeModel::ConvertToIndices(const NCollection_List<DataLabel>& theReferences,
                                            QModelIndexList&                   theIndices)
 {
-  for (NCollection_List<TDF_Label>::Iterator aLabelItr(theReferences); aLabelItr.More();
+  for (NCollection_List<DataLabel>::Iterator aLabelItr(theReferences); aLabelItr.More();
        aLabelItr.Next())
     theIndices.append(FindIndex(aLabelItr.Value()));
 }

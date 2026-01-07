@@ -74,10 +74,10 @@
 // #include <ShapeAnalysis_Wire.hxx>
 // #include <ShapeUpgrade_ShellSewing.hxx>
 //  the plane (equation z=0) shared by PlaneDividedFaceContinuity and PlaneGridShell
-// static Handle(Geom_Plane) ThePlane= new Geom_Plane(0,0,1,0);
+// static Handle(GeomPlane) ThePlane= new GeomPlane(0,0,1,0);
 //=================================================================================================
 
-static Standard_Integer DT_ShapeDivide(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DT_ShapeDivide(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   // DT_ShapeDivide result Shape Tol
   // a[1]= result
@@ -92,7 +92,7 @@ static Standard_Integer DT_ShapeDivide(Draw_Interpretor& di, Standard_Integer n,
   }
 
   // try to read a shape:
-  TopoDS_Shape inputShape = DBRep::Get(a[2]);
+  TopoShape inputShape = DBRep1::Get(a[2]);
   if (inputShape.IsNull())
   {
     di << "Unknown shape\n";
@@ -108,13 +108,13 @@ static Standard_Integer DT_ShapeDivide(Draw_Interpretor& di, Standard_Integer n,
   // tolerance is optional
   if (n == 4)
   {
-    Standard_Real Tol = Draw::Atof(a[3]);
+    Standard_Real Tol = Draw1::Atof(a[3]);
     tool.SetTolerance(Tol);
   }
 
   //  theTool.SetGlobalCriterion(GeomAbs_C1);
   tool.Perform();
-  TopoDS_Shape res = tool.Result();
+  TopoShape res = tool.Result();
 
   if (tool.Status(ShapeExtend_OK))
     di << "Status: OK\n";
@@ -155,11 +155,11 @@ static Standard_Integer DT_ShapeDivide(Draw_Interpretor& di, Standard_Integer n,
 
   ShapeFix::SameParameter(res, Standard_False);
 
-  DBRep::Set(a[1], res);
+  DBRep1::Set(a[1], res);
   return 0;
 }
 
-static Standard_Integer DT_ShapeConvertRev(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DT_ShapeConvertRev(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 5)
   {
@@ -168,16 +168,16 @@ static Standard_Integer DT_ShapeConvertRev(Draw_Interpretor& di, Standard_Intege
   }
 
   // try to read a shape:
-  TopoDS_Shape inputShape = DBRep::Get(a[2]);
+  TopoShape inputShape = DBRep1::Get(a[2]);
   if (inputShape.IsNull())
   {
     di << "Unknown shape\n";
     return 1;
   }
 
-  Standard_Integer c2d   = Draw::Atoi(a[3]);
-  Standard_Integer c3d   = Draw::Atoi(a[4]);
-  TopoDS_Shape     revsh = ShapeCustom::ConvertToRevolution(inputShape);
+  Standard_Integer c2d   = Draw1::Atoi(a[3]);
+  Standard_Integer c3d   = Draw1::Atoi(a[4]);
+  TopoShape     revsh = ShapeCustom::ConvertToRevolution(inputShape);
   if (revsh.IsNull())
   {
     di << "NO RESULT\n";
@@ -205,7 +205,7 @@ static Standard_Integer DT_ShapeConvertRev(Draw_Interpretor& di, Standard_Intege
       tool.Set3dConicConversion(Standard_False);
   }
   tool.Perform();
-  TopoDS_Shape res = tool.Result();
+  TopoShape res = tool.Result();
 
   if (tool.Status(ShapeExtend_OK))
     di << "Status: OK\n";
@@ -246,7 +246,7 @@ static Standard_Integer DT_ShapeConvertRev(Draw_Interpretor& di, Standard_Intege
 
   ShapeFix::SameParameter(res, Standard_False);
 
-  DBRep::Set(a[1], res);
+  DBRep1::Set(a[1], res);
   return 0;
 }
 
@@ -255,7 +255,7 @@ static Standard_Integer DT_ShapeConvertRev(Draw_Interpretor& di, Standard_Intege
     // a[2] is a shape. managing:
     // DT_ShapeDivide result Face Tol
 
-    TopoDS_Face  inputFace = TopoDS::Face(inputShape);
+    TopoFace  inputFace = TopoDS::Face(inputShape);
     if (inputFace.IsNull()) {
       di << a[2] << " is not a face\n";
       return 1;
@@ -267,7 +267,7 @@ static Standard_Integer DT_ShapeConvertRev(Draw_Interpretor& di, Standard_Intege
 
     // tolerance is optional
     if (n==4) {
-      Standard_Real Tol=Draw::Atof(a[n-1]);
+      Standard_Real Tol=Draw1::Atof(a[n-1]);
       theTool.SetTolerance(Tol);
     }
 
@@ -294,20 +294,20 @@ static Standard_Integer DT_ShapeConvertRev(Draw_Interpretor& di, Standard_Intege
     di << "NoTolerance\n";
       return 1;
     }
-    TopoDS_Shell res = theTool.Shell();
-    DBRep::Set(a[1],res);
+    TopoShell res = theTool.Shell();
+    DBRep1::Set(a[1],res);
 
     return 0;
   }
   else {
     // not a face: we can use the empty constructor.
     ShapeUpgrade_ShapeDivideContinuity theTool;
-    Standard_Real Tol=Draw::Atof(a[n-1]);
+    Standard_Real Tol=Draw1::Atof(a[n-1]);
     theTool.SetTolerance(Tol);
     theTool.SetGlobalCriterion(GeomAbs_C1);
 
     // try to read a surface:
-    Handle(Geom_Surface) GS = DrawTrSurf::GetSurface(a[2]);
+    Handle(GeomSurface) GS = DrawTrSurf1::GetSurface(a[2]);
     if (! GS.IsNull()) {
       // a[2] is a surface. managing the configurations:
       // DT_ShapeDivide result Surface Tol
@@ -318,15 +318,15 @@ static Standard_Integer DT_ShapeConvertRev(Draw_Interpretor& di, Standard_Intege
 
       // try to read a Wire or a Face:
       if (n>=5) {
-    TopoDS_Shape inputBoundary=DBRep::Get(a[3]);
+    TopoShape inputBoundary=DBRep1::Get(a[3]);
     if (inputBoundary.IsNull()) {
       di << "Invalid Boundary\n";
       return 1;
     }
-    TopoDS_Wire WireBoundary = TopoDS::Wire(inputBoundary);
+    TopoWire WireBoundary = TopoDS::Wire(inputBoundary);
     if (!WireBoundary.IsNull()) {
       // DT_ShapeDivide result Surface Wire Surf Tol
-      Handle(Geom_Surface) WireSupport = DrawTrSurf::GetSurface(a[4]);
+      Handle(GeomSurface) WireSupport = DrawTrSurf1::GetSurface(a[4]);
       if (WireSupport.IsNull()) {
         di << "Invalid Surface supporting the Wire\n";
         return 1;
@@ -334,7 +334,7 @@ static Standard_Integer DT_ShapeConvertRev(Draw_Interpretor& di, Standard_Intege
       theTool.SetBoundary(WireBoundary, WireSupport);
     }
     else {
-      TopoDS_Face  FaceBoundary = TopoDS::Face(inputBoundary);
+      TopoFace  FaceBoundary = TopoDS::Face(inputBoundary);
       // DT_ShapeDivide result Surface Face Tol
       theTool.SetBoundary(FaceBoundary);
     }
@@ -350,8 +350,8 @@ static Standard_Integer DT_ShapeConvertRev(Draw_Interpretor& di, Standard_Intege
     return 1;
       }
       // number of surf:
-      Standard_Integer NbU=Draw::Atoi(a[2]);
-      Standard_Integer NbV=Draw::Atoi(a[3]);
+      Standard_Integer NbU=Draw1::Atoi(a[2]);
+      Standard_Integer NbV=Draw1::Atoi(a[3]);
       if (n < 4+NbU*NbV+1) {
     di << "bad number of arguments\n";
     return 1;
@@ -362,7 +362,7 @@ static Standard_Integer DT_ShapeConvertRev(Draw_Interpretor& di, Standard_Intege
 
       for (Standard_Integer iu=1; iu<=NbU; iu++) {
     for (Standard_Integer jv=1; jv<=NbV; jv++) {
-      Handle(Geom_Surface) GS = DrawTrSurf::GetSurface(a[4+(iu-1)*NbV+jv-1]);
+      Handle(GeomSurface) GS = DrawTrSurf1::GetSurface(a[4+(iu-1)*NbV+jv-1]);
       TheGridSurf->SetValue(iu,jv,GS);
     }
       }
@@ -370,15 +370,15 @@ static Standard_Integer DT_ShapeConvertRev(Draw_Interpretor& di, Standard_Intege
 
       // try to read a Wire or a Face:
       if (n>=6+NbU*NbV) {
-    TopoDS_Shape inputBoundary=DBRep::Get(a[4+NbU*NbV]);
+    TopoShape inputBoundary=DBRep1::Get(a[4+NbU*NbV]);
     if (inputBoundary.IsNull()) {
       di << "Invalid Boundary\n";
       return 1;
     }
-    TopoDS_Wire  WireBoundary = TopoDS::Wire(inputBoundary);
+    TopoWire  WireBoundary = TopoDS::Wire(inputBoundary);
     if (!WireBoundary.IsNull()) {
       // DT_ShapeDivide result Surface Wire Surf Tol
-      Handle(Geom_Surface) WireSupport = DrawTrSurf::GetSurface(a[4+NbU*NbV+1]);
+      Handle(GeomSurface) WireSupport = DrawTrSurf1::GetSurface(a[4+NbU*NbV+1]);
       if (WireSupport.IsNull()) {
         di << "Invalid Surface supporting the Wire\n";
         return 1;
@@ -386,7 +386,7 @@ static Standard_Integer DT_ShapeConvertRev(Draw_Interpretor& di, Standard_Intege
       theTool.SetBoundary(WireBoundary, WireSupport);
     }
     else {
-      TopoDS_Face  FaceBoundary = TopoDS::Face(inputBoundary);
+      TopoFace  FaceBoundary = TopoDS::Face(inputBoundary);
       // DT_ShapeDivide result Surface Face Tol
       theTool.SetBoundary(FaceBoundary);
     }
@@ -416,14 +416,14 @@ static Standard_Integer DT_ShapeConvertRev(Draw_Interpretor& di, Standard_Intege
       return 1;
     }
 
-    TopoDS_Shell res = theTool.Shell();
-    DBRep::Set(a[1],res);
+    TopoShell res = theTool.Shell();
+    DBRep1::Set(a[1],res);
 
     return 0;
   }
 }
 */
-static Standard_Integer DT_ShapeConvert(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DT_ShapeConvert(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 5)
   {
@@ -432,15 +432,15 @@ static Standard_Integer DT_ShapeConvert(Draw_Interpretor& di, Standard_Integer n
   }
 
   // try to read a shape:
-  TopoDS_Shape inputShape = DBRep::Get(a[2]);
+  TopoShape inputShape = DBRep1::Get(a[2]);
   if (inputShape.IsNull())
   {
     di << "Unknown shape\n";
     return 1;
   }
 
-  Standard_Integer c2d = Draw::Atoi(a[3]);
-  Standard_Integer c3d = Draw::Atoi(a[4]);
+  Standard_Integer c2d = Draw1::Atoi(a[3]);
+  Standard_Integer c3d = Draw1::Atoi(a[4]);
 
   ShapeUpgrade_ShapeConvertToBezier tool(inputShape);
   tool.SetSurfaceConversion(Standard_True);
@@ -449,7 +449,7 @@ static Standard_Integer DT_ShapeConvert(Draw_Interpretor& di, Standard_Integer n
   if (c3d)
     tool.Set3dConversion(Standard_True);
   tool.Perform();
-  TopoDS_Shape res = tool.Result();
+  TopoShape res = tool.Result();
 
   if (tool.Status(ShapeExtend_OK))
     di << "Status: OK\n";
@@ -490,11 +490,11 @@ static Standard_Integer DT_ShapeConvert(Draw_Interpretor& di, Standard_Integer n
 
   ShapeFix::SameParameter(res, Standard_False);
 
-  DBRep::Set(a[1], res);
+  DBRep1::Set(a[1], res);
   return 0;
 }
 
-static Standard_Integer DT_SplitAngle(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DT_SplitAngle(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
   {
@@ -502,7 +502,7 @@ static Standard_Integer DT_SplitAngle(Draw_Interpretor& di, Standard_Integer n, 
     return 1;
   }
 
-  TopoDS_Shape inputShape = DBRep::Get(a[2]);
+  TopoShape inputShape = DBRep1::Get(a[2]);
   if (inputShape.IsNull())
   {
     di << "Unknown shape\n";
@@ -512,14 +512,14 @@ static Standard_Integer DT_SplitAngle(Draw_Interpretor& di, Standard_Integer n, 
   Standard_Real maxangle = 95;
   if (n > 3)
   {
-    maxangle = Draw::Atof(a[3]);
+    maxangle = Draw1::Atof(a[3]);
     if (maxangle < 1)
       maxangle = 1;
   }
 
   ShapeUpgrade_ShapeDivideAngle tool(maxangle * M_PI / 180, inputShape);
   tool.Perform();
-  TopoDS_Shape res = tool.Result();
+  TopoShape res = tool.Result();
 
   if (tool.Status(ShapeExtend_OK))
     di << "Status: OK\n";
@@ -560,7 +560,7 @@ static Standard_Integer DT_SplitAngle(Draw_Interpretor& di, Standard_Integer n, 
 
   ShapeFix::SameParameter(res, Standard_False);
 
-  DBRep::Set(a[1], res);
+  DBRep1::Set(a[1], res);
   return 0;
 }
 
@@ -571,7 +571,7 @@ static Standard_Integer DT_SplitAngle(Draw_Interpretor& di, Standard_Integer n, 
 //
 //
 //=======================================================================
-static Standard_Integer DT_PlaneDividedFace (Draw_Interpretor& di,
+static Standard_Integer DT_PlaneDividedFace (DrawInterpreter& di,
                    Standard_Integer n, const char** a)
 
 {
@@ -584,9 +584,9 @@ static Standard_Integer DT_PlaneDividedFace (Draw_Interpretor& di,
     return 1;
   }
 
-  Standard_Real      Tol=Draw::Atof(a[3]);
-  TopoDS_Shape inputShape=DBRep::Get(a[2]);
-  TopoDS_Face  inputFace = TopoDS::Face(inputShape);
+  Standard_Real      Tol=Draw1::Atof(a[3]);
+  TopoShape inputShape=DBRep1::Get(a[2]);
+  TopoFace  inputFace = TopoDS::Face(inputShape);
   if (inputFace.IsNull()) {
     di << a[2] << " is not a face\n";
     return 1;
@@ -602,8 +602,8 @@ static Standard_Integer DT_PlaneDividedFace (Draw_Interpretor& di,
     return 1;
   }
 
-  TopoDS_Face res = theTool.Face();
-  DBRep::Set(a[1],res);
+  TopoFace res = theTool.Face();
+  DBRep1::Set(a[1],res);
 
   Standard_Real the2d3dFactor=theTool.Get2d3dFactor();
   di << "2d3dFactor="<<the2d3dFactor<< "\n";
@@ -616,7 +616,7 @@ static Standard_Integer DT_PlaneDividedFace (Draw_Interpretor& di,
 //
 //
 //=======================================================================
-static Standard_Integer DT_PlaneGridShell (Draw_Interpretor& di,
+static Standard_Integer DT_PlaneGridShell (DrawInterpreter& di,
                    Standard_Integer n, const char** a)
 
 {
@@ -630,8 +630,8 @@ static Standard_Integer DT_PlaneGridShell (Draw_Interpretor& di,
   // a[4+NbU+NbV+1] = Tol
 
   // number of knots:
-  Standard_Integer NbU=Draw::Atoi(a[2]);
-  Standard_Integer NbV=Draw::Atoi(a[3]);
+  Standard_Integer NbU=Draw1::Atoi(a[2]);
+  Standard_Integer NbV=Draw1::Atoi(a[3]);
   if (n != 4+NbU+NbV+1) {
     di << "bad number of arguments\n";
     return 1;
@@ -641,18 +641,18 @@ static Standard_Integer DT_PlaneGridShell (Draw_Interpretor& di,
   TColStd_Array1OfReal TheVKnots(1,NbV);
 
   for (Standard_Integer ii=1; ii<=NbU; ii++) {
-    TheUKnots(ii)=Draw::Atof(a[4+ii-1]);
+    TheUKnots(ii)=Draw1::Atof(a[4+ii-1]);
   }
   for (ii=1; ii<=NbV; ii++) {
-    TheVKnots(ii)=Draw::Atof(a[4+NbU+ii-1]);
+    TheVKnots(ii)=Draw1::Atof(a[4+NbU+ii-1]);
   }
 
-  Standard_Real Tol=Draw::Atof(a[4+NbU+NbV]);
+  Standard_Real Tol=Draw1::Atof(a[4+NbU+NbV]);
 
   ShapeUpgrade_PlaneGridShell TheGrid(ThePlane,TheUKnots,TheVKnots,Tol);
 
-  TopoDS_Shell res = TheGrid.Shell();
-  DBRep::Set(a[1],res);
+  TopoShell res = TheGrid.Shell();
+  DBRep1::Set(a[1],res);
 
   return 0;
 }
@@ -664,7 +664,7 @@ static Standard_Integer DT_PlaneGridShell (Draw_Interpretor& di,
 //
 //
 //=======================================================================
-static Standard_Integer DT_PlaneFaceCommon (Draw_Interpretor& di,
+static Standard_Integer DT_PlaneFaceCommon (DrawInterpreter& di,
                    Standard_Integer n, const char** a)
 
 {
@@ -677,15 +677,15 @@ static Standard_Integer DT_PlaneFaceCommon (Draw_Interpretor& di,
     return 1;
   }
 
-  TopoDS_Shape inputShape= DBRep::Get(a[2]);
-  TopoDS_Face  inputFace = TopoDS::Face(inputShape);
+  TopoShape inputShape= DBRep1::Get(a[2]);
+  TopoFace  inputFace = TopoDS::Face(inputShape);
   if (inputFace.IsNull()) {
     di << a[2] << " is not a face\n";
     return 1;
   }
 
-  inputShape = DBRep::Get(a[3]);
-  TopoDS_Shell inputShell = TopoDS::Shell(inputShape);
+  inputShape = DBRep1::Get(a[3]);
+  TopoShell inputShell = TopoDS::Shell(inputShape);
   if (inputShell.IsNull()) {
     di << a[3] << " is not a shell\n";
     return 1;
@@ -694,8 +694,8 @@ static Standard_Integer DT_PlaneFaceCommon (Draw_Interpretor& di,
   ShapeUpgrade_PlaneFaceCommon theTool;
   theTool.Init(inputFace,inputShell);
 
-  TopoDS_Shell res = theTool.Shell();
-  DBRep::Set(a[1],res);
+  TopoShell res = theTool.Shell();
+  DBRep1::Set(a[1],res);
 
   return 0;
 }*/
@@ -706,7 +706,7 @@ static Standard_Integer DT_PlaneFaceCommon (Draw_Interpretor& di,
 //
 //
 //=======================================================================
-static Standard_Integer DT_SplitCurve(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DT_SplitCurve(DrawInterpreter& di, Standard_Integer n, const char** a)
 
 {
   // a[1]= input curve. This name is used with a suffix to name the output curves
@@ -718,11 +718,11 @@ static Standard_Integer DT_SplitCurve(Draw_Interpretor& di, Standard_Integer n, 
     return 1;
   }
 
-  Standard_Real      Tol = Draw::Atof(a[2]);
-  Handle(Geom_Curve) GC  = DrawTrSurf::GetCurve(a[1]);
+  Standard_Real      Tol = Draw1::Atof(a[2]);
+  Handle(GeomCurve3d) GC  = DrawTrSurf1::GetCurve(a[1]);
   if (GC.IsNull())
     return 1;
-  Standard_Integer                            Split   = Draw::Atoi(a[3]);
+  Standard_Integer                            Split   = Draw1::Atoi(a[3]);
   Handle(ShapeUpgrade_SplitCurve3dContinuity) theTool = new ShapeUpgrade_SplitCurve3dContinuity;
   theTool->Init(GC);
   theTool->SetTolerance(Tol);
@@ -742,7 +742,7 @@ static Standard_Integer DT_SplitCurve(Draw_Interpretor& di, Standard_Integer n, 
     char name[100];
     Sprintf(name, "%s%s%d", a[1], "_", icurv);
     char* newname = name;
-    DrawTrSurf::Set(newname, theCurves->Value(icurv));
+    DrawTrSurf1::Set(newname, theCurves->Value(icurv));
     di.AppendElement(newname);
   }
   return 0;
@@ -754,7 +754,7 @@ static Standard_Integer DT_SplitCurve(Draw_Interpretor& di, Standard_Integer n, 
 //
 //
 //=======================================================================
-static Standard_Integer DT_SplitCurve2d(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DT_SplitCurve2d(DrawInterpreter& di, Standard_Integer n, const char** a)
 
 {
   // a[1]= input 2d curve. This name is used with a suffix to name the output curves
@@ -766,11 +766,11 @@ static Standard_Integer DT_SplitCurve2d(Draw_Interpretor& di, Standard_Integer n
     return 1;
   }
 
-  Standard_Real        Tol = Draw::Atof(a[2]);
-  Handle(Geom2d_Curve) GC  = DrawTrSurf::GetCurve2d(a[1]);
+  Standard_Real        Tol = Draw1::Atof(a[2]);
+  Handle(GeomCurve2d) GC  = DrawTrSurf1::GetCurve2d(a[1]);
   if (GC.IsNull())
     return 1;
-  Standard_Integer                            Split   = Draw::Atoi(a[3]);
+  Standard_Integer                            Split   = Draw1::Atoi(a[3]);
   Handle(ShapeUpgrade_SplitCurve2dContinuity) theTool = new ShapeUpgrade_SplitCurve2dContinuity;
   theTool->Init(GC);
   theTool->SetTolerance(Tol);
@@ -790,7 +790,7 @@ static Standard_Integer DT_SplitCurve2d(Draw_Interpretor& di, Standard_Integer n
     char name[100];
     Sprintf(name, "%s%s%d", a[1], "_", icurv);
     char* newname = name;
-    DrawTrSurf::Set(newname, theCurves->Value(icurv));
+    DrawTrSurf1::Set(newname, theCurves->Value(icurv));
     di.AppendElement(newname);
   }
   return 0;
@@ -803,7 +803,7 @@ static Standard_Integer DT_SplitCurve2d(Draw_Interpretor& di, Standard_Integer n
 //
 //=======================================================================
 /*
-static Standard_Integer DT_SplitWire (Draw_Interpretor& di,
+static Standard_Integer DT_SplitWire (DrawInterpreter& di,
                       Standard_Integer n, const char** a)
 {
 
@@ -812,7 +812,7 @@ static Standard_Integer DT_SplitWire (Draw_Interpretor& di,
     return 1;
   }
 
-  TopoDS_Face source = TopoDS::Face(DBRep::Get(a[2]));
+  TopoFace source = TopoDS::Face(DBRep1::Get(a[2]));
   if(source.IsNull()) {
     di <<"Shape is not face\n";
     return 1;
@@ -823,21 +823,21 @@ static Standard_Integer DT_SplitWire (Draw_Interpretor& di,
     return 1;
   }
 
-  TopoDS_Wire wire = TopoDS::Wire(wi.Value());
+  TopoWire wire = TopoDS::Wire(wi.Value());
   Handle(ShapeUpgrade_WireDivideContinuity) tool = new ShapeUpgrade_WireDivideContinuity;
   tool->Init(wire,source);
   if(n >=4 ) {
-    Standard_Real      Tol=Draw::Atof(a[3]);
+    Standard_Real      Tol=Draw1::Atof(a[3]);
   }
   Handle(ShapeBuild_ReShape) context = new ShapeBuild_ReShape;
   tool->Perform(context);
-  TopoDS_Wire result = tool->Wire();
-  DBRep::Set(a[1],result);
+  TopoWire result = tool->Wire();
+  DBRep1::Set(a[1],result);
   return 0;
 }
 */
 /*
-static Standard_Integer DT_SplitFace (Draw_Interpretor& di,
+static Standard_Integer DT_SplitFace (DrawInterpreter& di,
                       Standard_Integer n, const char** a)
 {
 
@@ -846,7 +846,7 @@ static Standard_Integer DT_SplitFace (Draw_Interpretor& di,
     return 1;
   }
 
-  TopoDS_Face source = TopoDS::Face(DBRep::Get(a[2]));
+  TopoFace source = TopoDS::Face(DBRep1::Get(a[2]));
   if(source.IsNull()) {
     di <<"Shape is not face\n";
     return 1;
@@ -854,13 +854,13 @@ static Standard_Integer DT_SplitFace (Draw_Interpretor& di,
   Handle(ShapeUpgrade_ShapeDivideContinuity) tool = new ShapeUpgrade_FaceDivideContinuity;
   tool->Init(source);
   if(n >=4 ) {
-    Standard_Real      Tol=Draw::Atof(a[3]);
+    Standard_Real      Tol=Draw1::Atof(a[3]);
     tool->SetPrecision(Tol);
   }
 
   Handle(ShapeBuild_ReShape) context = new ShapeBuild_ReShape;
   tool->Perform(context);
-  TopoDS_Shape result = tool->Result();
+  TopoShape result = tool->Result();
 
 
   if ( tool->Status ( ShapeExtend_OK ) ) di << "Status: OK\n";
@@ -885,12 +885,12 @@ static Standard_Integer DT_SplitFace (Draw_Interpretor& di,
 
   ShapeFix::SameParameter ( result, Standard_False );
 
-  DBRep::Set(a[1],result);
+  DBRep1::Set(a[1],result);
   return 0;
 }
 */
 
-static Standard_Integer DT_SplitSurface(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DT_SplitSurface(DrawInterpreter& di, Standard_Integer n, const char** a)
 
 {
   // a[1]= result (used with a suffix to name the output surfaces)
@@ -913,23 +913,23 @@ static Standard_Integer DT_SplitSurface(Draw_Interpretor& di, Standard_Integer n
   Handle(ShapeUpgrade_SplitSurfaceContinuity) theTool = new ShapeUpgrade_SplitSurfaceContinuity;//S4137
   // clang-format on
 
-  Standard_Real    Tol   = Draw::Atof(a[3]);
-  Standard_Integer Split = Draw::Atoi(a[4]);
+  Standard_Real    Tol   = Draw1::Atof(a[3]);
+  Standard_Integer Split = Draw1::Atoi(a[4]);
   theTool->SetTolerance(Tol);
   theTool->SetCriterion(GeomAbs_C1);
-  Handle(Geom_Surface) GS = DrawTrSurf::GetSurface(a[2]);
+  Handle(GeomSurface) GS = DrawTrSurf1::GetSurface(a[2]);
   /*
     if ( GS.IsNull()) {
       // Case of composite grid surface
       di << "composite surf\n";
-      Standard_Integer      nbU=Draw::Atoi(a[2]);
-      Standard_Integer      nbV=Draw::Atoi(a[3]);
+      Standard_Integer      nbU=Draw1::Atoi(a[2]);
+      Standard_Integer      nbV=Draw1::Atoi(a[3]);
       if (nbU==0 || nbV==0) return 1;
       Handle(TColGeom_HArray2OfSurface)
         theGrid= new TColGeom_HArray2OfSurface(1,nbU,1,nbV);
       for (Standard_Integer iu=1; iu<=nbU; iu++) {
         for (Standard_Integer iv=1; iv<=nbV; iv++) {
-      Handle(Geom_Surface) GS = DrawTrSurf::GetSurface(a[3+(iu-1)*nbV+iv]);
+      Handle(GeomSurface) GS = DrawTrSurf1::GetSurface(a[3+(iu-1)*nbV+iv]);
       theGrid->SetValue(iu,iv,GS);
         }
       }
@@ -982,7 +982,7 @@ static Standard_Integer DT_SplitSurface(Draw_Interpretor& di, Standard_Integer n
       char name[100];
       Sprintf(name, "%s%s%d%s%d", a[1], "_", irow, "_", icol);
       char* newname = name;
-      DrawTrSurf::Set(newname, theSurfaces->Value(irow, icol));
+      DrawTrSurf1::Set(newname, theSurfaces->Value(irow, icol));
       di.AppendElement(newname);
     }
   }
@@ -995,7 +995,7 @@ static Standard_Integer DT_SplitSurface(Draw_Interpretor& di, Standard_Integer n
 // purpose  :
 //
 //=======================================================================
-static Standard_Integer offset2dcurve(Draw_Interpretor& di,
+static Standard_Integer offset2dcurve(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -1007,12 +1007,12 @@ static Standard_Integer offset2dcurve(Draw_Interpretor& di,
   }
   //  Standard_CString arg1 = argv[1];
   //  Standard_CString arg2 = argv[2];
-  Standard_Real        Offset = Draw::Atof(argv[3]);
-  Handle(Geom2d_Curve) GC     = DrawTrSurf::GetCurve2d(argv[2]);
+  Standard_Real        Offset = Draw1::Atof(argv[3]);
+  Handle(GeomCurve2d) GC     = DrawTrSurf1::GetCurve2d(argv[2]);
   if (GC.IsNull())
     return 1;
   Handle(Geom2d_OffsetCurve) offcrv = new Geom2d_OffsetCurve(GC, Offset);
-  DrawTrSurf::Set(argv[1], offcrv);
+  DrawTrSurf1::Set(argv[1], offcrv);
   return 0;
 }
 
@@ -1021,7 +1021,7 @@ static Standard_Integer offset2dcurve(Draw_Interpretor& di,
 // purpose  :
 //
 //=======================================================================
-static Standard_Integer offsetcurve(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer offsetcurve(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 5)
   {
@@ -1031,21 +1031,21 @@ static Standard_Integer offsetcurve(Draw_Interpretor& di, Standard_Integer argc,
   }
   //  Standard_CString arg1 = argv[1];
   //  Standard_CString arg2 = argv[2];
-  Standard_Real      Offset = Draw::Atof(argv[3]);
-  Handle(Geom_Curve) GC     = DrawTrSurf::GetCurve(argv[2]);
+  Standard_Real      Offset = Draw1::Atof(argv[3]);
+  Handle(GeomCurve3d) GC     = DrawTrSurf1::GetCurve(argv[2]);
   if (GC.IsNull())
     return 1;
   Point3d point;
-  DrawTrSurf::GetPoint(argv[4], point);
+  DrawTrSurf1::GetPoint(argv[4], point);
   Dir3d                   dir(point.XYZ());
   Handle(Geom_OffsetCurve) offcrv = new Geom_OffsetCurve(GC, Offset, dir);
-  DrawTrSurf::Set(argv[1], offcrv);
+  DrawTrSurf1::Set(argv[1], offcrv);
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer splitface(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer splitface(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 5)
   {
@@ -1053,17 +1053,17 @@ static Standard_Integer splitface(Draw_Interpretor& di, Standard_Integer argc, c
     return 1;
   }
 
-  TopoDS_Shape aLocalShape = DBRep::Get(argv[2]);
-  TopoDS_Face  face        = TopoDS::Face(aLocalShape);
+  TopoShape aLocalShape = DBRep1::Get(argv[2]);
+  TopoFace  face        = TopoDS::Face(aLocalShape);
   if (face.IsNull())
   {
     di << argv[2] << " is not Face\n";
     return 1;
   }
 
-  Handle(Geom_Surface) S = BRep_Tool::Surface(face);
+  Handle(GeomSurface) S = BRepInspector::Surface(face);
   Standard_Real        Uf, Ul, Vf, Vl;
-  BRepTools::UVBounds(face, Uf, Ul, Vf, Vl);
+  BRepTools1::UVBounds(face, Uf, Ul, Vf, Vl);
   Standard_Real Umin, Umax, Vmin, Vmax;
   S->Bounds(Umin, Umax, Vmin, Vmax);
   if (Uf < Umin && !S->IsUPeriodic())
@@ -1116,7 +1116,7 @@ static Standard_Integer splitface(Draw_Interpretor& di, Standard_Integer argc, c
       byV = Standard_True;
     else
     {
-      Standard_Real           val  = Draw::Atof(argv[i]);
+      Standard_Real           val  = Draw1::Atof(argv[i]);
       TColStd_SequenceOfReal& vals = (byV ? vval : uval);
       if (vals.Length() > 0 && val - vals.Last() < Precision::PConfusion())
       {
@@ -1236,13 +1236,13 @@ static Standard_Integer splitface(Draw_Interpretor& di, Standard_Integer argc, c
   if (SUCS.Status(ShapeExtend_FAIL8))
     di << "Status: FAIL8\n";
 
-  TopoDS_Shape sh = SUCS.Result();
+  TopoShape sh = SUCS.Result();
   ShapeFix::SameParameter(sh, Standard_False);
-  DBRep::Set(argv[1], sh);
+  DBRep1::Set(argv[1], sh);
   return 0;
 }
 
-static Standard_Integer converttobspline(Draw_Interpretor& di,
+static Standard_Integer converttobspline(DrawInterpreter& di,
                                          Standard_Integer  argc,
                                          const char**      argv)
 {
@@ -1259,24 +1259,24 @@ static Standard_Integer converttobspline(Draw_Interpretor& di,
   }
   const char* options = (argc > 3 ? argv[3] : "ero");
 
-  TopoDS_Shape inputShape = DBRep::Get(argv[2]);
+  TopoShape inputShape = DBRep1::Get(argv[2]);
   if (inputShape.IsNull())
   {
     di << "Unknown shape\n";
     return 1;
   }
-  TopoDS_Shape revsh = ShapeCustom::ConvertToRevolution(inputShape);
-  TopoDS_Shape res   = ShapeCustom::ConvertToBSpline(revsh,
+  TopoShape revsh = ShapeCustom::ConvertToRevolution(inputShape);
+  TopoShape res   = ShapeCustom::ConvertToBSpline(revsh,
                                                    strchr(options, 'e') != 0,
                                                    strchr(options, 'r') != 0,
                                                    strchr(options, 'o') != 0,
                                                    strchr(options, 'p') != 0);
   ShapeFix::SameParameter(res, Standard_False);
-  DBRep::Set(argv[1], res);
+  DBRep1::Set(argv[1], res);
   return 0;
 }
 
-static Standard_Integer splitclosed(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer splitclosed(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
@@ -1284,7 +1284,7 @@ static Standard_Integer splitclosed(Draw_Interpretor& di, Standard_Integer argc,
     return 1;
   }
 
-  TopoDS_Shape inputShape = DBRep::Get(argv[2]);
+  TopoShape inputShape = DBRep1::Get(argv[2]);
   if (inputShape.IsNull())
   {
     di << "Unknown shape\n";
@@ -1293,14 +1293,14 @@ static Standard_Integer splitclosed(Draw_Interpretor& di, Standard_Integer argc,
 
   ShapeUpgrade_ShapeDivideClosed tool(inputShape);
   tool.Perform();
-  TopoDS_Shape res = tool.Result();
+  TopoShape res = tool.Result();
 
   ShapeFix::SameParameter(res, Standard_False);
-  DBRep::Set(argv[1], res);
+  DBRep1::Set(argv[1], res);
   return 0;
 }
 
-static Standard_Integer splitarea(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer splitarea(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
@@ -1308,30 +1308,30 @@ static Standard_Integer splitarea(Draw_Interpretor& di, Standard_Integer argc, c
     return 1;
   }
 
-  TopoDS_Shape inputShape = DBRep::Get(argv[2]);
+  TopoShape inputShape = DBRep1::Get(argv[2]);
   if (inputShape.IsNull())
   {
     di << "Unknown shape\n";
     return 1;
   }
-  Standard_Real aMaxArea = Draw::Atof(argv[3]);
+  Standard_Real aMaxArea = Draw1::Atof(argv[3]);
 
   ShapeUpgrade_ShapeDivideArea tool(inputShape);
   if (argc > 4)
   {
-    Standard_Real prec = Draw::Atof(argv[4]);
+    Standard_Real prec = Draw1::Atof(argv[4]);
     tool.SetPrecision(prec);
   }
   tool.MaxArea() = aMaxArea;
   tool.Perform();
-  TopoDS_Shape res = tool.Result();
+  TopoShape res = tool.Result();
 
   ShapeFix::SameParameter(res, Standard_False);
-  DBRep::Set(argv[1], res);
+  DBRep1::Set(argv[1], res);
   return 0;
 }
 
-static Standard_Integer splitbynumber(Draw_Interpretor& di,
+static Standard_Integer splitbynumber(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -1341,7 +1341,7 @@ static Standard_Integer splitbynumber(Draw_Interpretor& di,
     return 1;
   }
 
-  TopoDS_Shape inputShape = DBRep::Get(argv[2], TopAbs_FACE);
+  TopoShape inputShape = DBRep1::Get(argv[2], TopAbs_FACE);
   if (inputShape.IsNull())
   {
     di << "Unknown face\n";
@@ -1349,9 +1349,9 @@ static Standard_Integer splitbynumber(Draw_Interpretor& di,
   }
 
   Standard_Integer aNbParts, aNumber1 = 0, aNumber2 = 0;
-  aNbParts = aNumber1 = Draw::Atoi(argv[3]);
+  aNbParts = aNumber1 = Draw1::Atoi(argv[3]);
   if (argc > 4)
-    aNumber2 = Draw::Atoi(argv[4]);
+    aNumber2 = Draw1::Atoi(argv[4]);
 
   if (argc == 4 && aNbParts <= 0)
   {
@@ -1371,14 +1371,14 @@ static Standard_Integer splitbynumber(Draw_Interpretor& di,
   else
     tool.SetNumbersUVSplits(aNumber1, aNumber2);
   tool.Perform();
-  TopoDS_Shape res = tool.Result();
+  TopoShape res = tool.Result();
 
   ShapeFix::SameParameter(res, Standard_False);
-  DBRep::Set(argv[1], res);
+  DBRep1::Set(argv[1], res);
   return 0;
 }
 
-static Standard_Integer removeinternalwires(Draw_Interpretor& di,
+static Standard_Integer removeinternalwires(DrawInterpreter& di,
                                             Standard_Integer  argc,
                                             const char**      argv)
 {
@@ -1387,8 +1387,8 @@ static Standard_Integer removeinternalwires(Draw_Interpretor& di,
     di << "bad number of arguments\n";
     return 1;
   }
-  Standard_Real aMinArea   = Draw::Atof(argv[2]);
-  TopoDS_Shape  inputShape = DBRep::Get(argv[3]);
+  Standard_Real aMinArea   = Draw1::Atof(argv[2]);
+  TopoShape  inputShape = DBRep1::Get(argv[3]);
   if (inputShape.IsNull())
   {
     di << "Unknown shape\n";
@@ -1412,7 +1412,7 @@ static Standard_Integer removeinternalwires(Draw_Interpretor& di,
   {
     if (isShape)
     {
-      TopoDS_Shape aShape = DBRep::Get(argv[k]);
+      TopoShape aShape = DBRep1::Get(argv[k]);
       isShape             = !aShape.IsNull();
       if (isShape)
       {
@@ -1421,7 +1421,7 @@ static Standard_Integer removeinternalwires(Draw_Interpretor& di,
       }
     }
     if (!isShape)
-      aModeRemoveFaces = (Draw::Atoi(argv[k]) == 1);
+      aModeRemoveFaces = (Draw1::Atoi(argv[k]) == 1);
   }
 
   aTool->MinArea()        = aMinArea;
@@ -1444,13 +1444,13 @@ static Standard_Integer removeinternalwires(Draw_Interpretor& di,
     const TopTools_SequenceOfShape& aRemovedFaces = aTool->RemovedFaces();
     di << aRemovedFaces.Length() << " small faces were removed\n";
   }
-  TopoDS_Shape res = aTool->GetResult();
+  TopoShape res = aTool->GetResult();
 
-  DBRep::Set(argv[1], res);
+  DBRep1::Set(argv[1], res);
   return 0;
 }
 
-static Standard_Integer removeloc(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer removeloc(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
@@ -1459,16 +1459,16 @@ static Standard_Integer removeloc(Draw_Interpretor& di, Standard_Integer argc, c
     return 1;
   }
 
-  TopoDS_Shape aShape = DBRep::Get(argv[2]);
+  TopoShape aShape = DBRep1::Get(argv[2]);
   if (aShape.IsNull())
     return 1;
   ShapeUpgrade_RemoveLocations aRemLoc;
   if (argc > 3)
-    aRemLoc.SetRemoveLevel((TopAbs_ShapeEnum)Draw::Atoi(argv[3]));
+    aRemLoc.SetRemoveLevel((TopAbs_ShapeEnum)Draw1::Atoi(argv[3]));
   aRemLoc.Remove(aShape);
-  TopoDS_Shape aNewShape = aRemLoc.GetResult();
+  TopoShape aNewShape = aRemLoc.GetResult();
 
-  DBRep::Set(argv[1], aNewShape);
+  DBRep1::Set(argv[1], aNewShape);
   return 0;
 }
 
@@ -1481,7 +1481,7 @@ static ShapeUpgrade_UnifySameDomain& Unifier()
 //=======================================================================
 // unifysamedom
 //=======================================================================
-static Standard_Integer unifysamedom(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer unifysamedom(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
   {
@@ -1500,7 +1500,7 @@ static Standard_Integer unifysamedom(Draw_Interpretor& di, Standard_Integer n, c
     return 1;
   }
 
-  TopoDS_Shape aShape = DBRep::Get(a[2]);
+  TopoShape aShape = DBRep1::Get(a[2]);
   if (aShape.IsNull())
     return 1;
 
@@ -1512,13 +1512,13 @@ static Standard_Integer unifysamedom(Draw_Interpretor& di, Standard_Integer n, c
   Standard_Boolean    isSafeInputMode = Standard_True;
   Standard_Real       aLinTol         = Precision::Confusion();
   Standard_Real       aAngTol         = Precision::Angular();
-  TopoDS_Shape        aKeepShape;
+  TopoShape        aKeepShape;
   TopTools_MapOfShape aMapOfShapes;
 
   if (n > 3)
     for (int i = 3; i < n; i++)
     {
-      aKeepShape = DBRep::Get(a[i]);
+      aKeepShape = DBRep1::Get(a[i]);
       if (!aKeepShape.IsNull())
       {
         aMapOfShapes.Add(aKeepShape);
@@ -1540,9 +1540,9 @@ static Standard_Integer unifysamedom(Draw_Interpretor& di, Standard_Integer n, c
           if (++i < n)
           {
             if (a[i - 1][1] == 't')
-              aLinTol = Draw::Atof(a[i]);
+              aLinTol = Draw1::Atof(a[i]);
             else
-              aAngTol = Draw::Atof(a[i]) * (M_PI / 180.0);
+              aAngTol = Draw1::Atof(a[i]) * (M_PI / 180.0);
           }
           else
           {
@@ -1560,16 +1560,16 @@ static Standard_Integer unifysamedom(Draw_Interpretor& di, Standard_Integer n, c
   Unifier().SetLinearTolerance(aLinTol);
   Unifier().SetAngularTolerance(aAngTol);
   Unifier().Build();
-  TopoDS_Shape Result = Unifier().Shape();
+  TopoShape Result = Unifier().Shape();
 
   if (BRepTest_Objects::IsHistoryNeeded())
     BRepTest_Objects::SetHistory(Unifier().History());
 
-  DBRep::Set(a[1], Result);
+  DBRep1::Set(a[1], Result);
   return 0;
 }
 
-static Standard_Integer copytranslate(Draw_Interpretor& di,
+static Standard_Integer copytranslate(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -1578,22 +1578,22 @@ static Standard_Integer copytranslate(Draw_Interpretor& di,
     di << "bad number of arguments. Should be:  copytranslate res shape dx dy dz\n";
     return 1;
   }
-  TopoDS_Shape aShape = DBRep::Get(argv[2]);
+  TopoShape aShape = DBRep1::Get(argv[2]);
   if (aShape.IsNull())
     return 1;
-  Standard_Real aDx = Draw::Atof(argv[3]);
-  Standard_Real aDy = Draw::Atof(argv[4]);
-  Standard_Real aDz = Draw::Atof(argv[5]);
+  Standard_Real aDx = Draw1::Atof(argv[3]);
+  Standard_Real aDy = Draw1::Atof(argv[4]);
+  Standard_Real aDz = Draw1::Atof(argv[5]);
   Transform3d       aTrsf;
   aTrsf.SetTranslation(Vector3d(aDx, aDy, aDz));
   BRepBuilderAPI_Transform builderTransform(aTrsf);
   builderTransform.Perform(aShape, true);
-  TopoDS_Shape aNewShape = builderTransform.Shape();
-  DBRep::Set(argv[1], aNewShape);
+  TopoShape aNewShape = builderTransform.Shape();
+  DBRep1::Set(argv[1], aNewShape);
   return 0;
 }
 
-static Standard_Integer reshape(Draw_Interpretor& /*theDI*/,
+static Standard_Integer reshape(DrawInterpreter& /*theDI*/,
                                 Standard_Integer theArgc,
                                 const char**     theArgv)
 {
@@ -1603,7 +1603,7 @@ static Standard_Integer reshape(Draw_Interpretor& /*theDI*/,
     return 1;
   }
 
-  TopoDS_Shape aSource = DBRep::Get(theArgv[2]);
+  TopoShape aSource = DBRep1::Get(theArgv[2]);
   if (aSource.IsNull())
   {
     Message::SendFail() << "Error: source shape ('" << theArgv[2] << "') is null";
@@ -1618,7 +1618,7 @@ static Standard_Integer reshape(Draw_Interpretor& /*theDI*/,
   for (Standard_Integer i = 3; i < theArgc; ++i)
   {
     Standard_CString        anArg = theArgv[i];
-    TCollection_AsciiString anOpt(anArg);
+    AsciiString1 anOpt(anArg);
     anOpt.LowerCase();
 
     if (anOpt == "-replace")
@@ -1629,14 +1629,14 @@ static Standard_Integer reshape(Draw_Interpretor& /*theDI*/,
         return 1;
       }
 
-      TopoDS_Shape aWhat = DBRep::Get(theArgv[++i]);
+      TopoShape aWhat = DBRep1::Get(theArgv[++i]);
       if (aWhat.IsNull())
       {
         Message::SendFail() << "Error: argument shape ('" << theArgv[i] << "') is null";
         return 1;
       }
 
-      TopoDS_Shape aWith = DBRep::Get(theArgv[++i]);
+      TopoShape aWith = DBRep1::Get(theArgv[++i]);
       if (aWith.IsNull())
       {
         Message::SendFail() << "Error: replacement shape ('" << theArgv[i] << "') is null";
@@ -1653,7 +1653,7 @@ static Standard_Integer reshape(Draw_Interpretor& /*theDI*/,
         return 1;
       }
 
-      TopoDS_Shape aWhat = DBRep::Get(theArgv[++i]);
+      TopoShape aWhat = DBRep1::Get(theArgv[++i]);
       if (aWhat.IsNull())
       {
         Message::SendFail() << "Error: shape to remove ('" << theArgv[i] << "') is null";
@@ -1671,7 +1671,7 @@ static Standard_Integer reshape(Draw_Interpretor& /*theDI*/,
       }
 
       Standard_CString        aLevelCStr = theArgv[++i];
-      TCollection_AsciiString aLevelStr(aLevelCStr);
+      AsciiString1 aLevelStr(aLevelCStr);
       aLevelStr.LowerCase();
       if (aLevelStr == "compound" || aLevelStr == "cd")
         aShapeLevel = TopAbs_COMPOUND;
@@ -1705,20 +1705,20 @@ static Standard_Integer reshape(Draw_Interpretor& /*theDI*/,
   }
 
   // Apply all the recorded modifications
-  TopoDS_Shape aResult = aReShaper->Apply(aSource, aShapeLevel);
+  TopoShape aResult = aReShaper->Apply(aSource, aShapeLevel);
   if (aResult.IsNull())
   {
     Message::SendFail() << "Error: result shape is null";
     return 1;
   }
 
-  DBRep::Set(theArgv[1], aResult);
+  DBRep1::Set(theArgv[1], aResult);
   return 0;
 }
 
 //=================================================================================================
 
-void SWDRAW_ShapeUpgrade::InitCommands(Draw_Interpretor& theCommands)
+void SWDRAW_ShapeUpgrade::InitCommands(DrawInterpreter& theCommands)
 {
   static Standard_Integer initactor = 0;
   if (initactor)

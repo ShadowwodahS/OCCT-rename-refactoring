@@ -34,11 +34,11 @@
 // MGE 03/08/98
 //=================================================================================================
 
-IGESGeom_ToolTransformationMatrix::IGESGeom_ToolTransformationMatrix() {}
+TransformationMatrixTool::TransformationMatrixTool() {}
 
 //=================================================================================================
 
-void IGESGeom_ToolTransformationMatrix::ReadOwnParams(
+void TransformationMatrixTool::ReadOwnParams(
   const Handle(IGESGeom_TransformationMatrix)& ent,
   const Handle(IGESData_IGESReaderData)& /*IR*/,
   IGESData_ParamReader& PR) const
@@ -71,7 +71,7 @@ void IGESGeom_ToolTransformationMatrix::ReadOwnParams(
 
 //=================================================================================================
 
-void IGESGeom_ToolTransformationMatrix::WriteOwnParams(
+void TransformationMatrixTool::WriteOwnParams(
   const Handle(IGESGeom_TransformationMatrix)& ent,
   IGESData_IGESWriter&                         IW) const
 {
@@ -86,7 +86,7 @@ void IGESGeom_ToolTransformationMatrix::WriteOwnParams(
 
 //=================================================================================================
 
-void IGESGeom_ToolTransformationMatrix::OwnShared(
+void TransformationMatrixTool::OwnShared(
   const Handle(IGESGeom_TransformationMatrix)& /*ent*/,
   Interface_EntityIterator& /*iter*/) const
 {
@@ -94,7 +94,7 @@ void IGESGeom_ToolTransformationMatrix::OwnShared(
 
 //=================================================================================================
 
-void IGESGeom_ToolTransformationMatrix::OwnCopy(
+void TransformationMatrixTool::OwnCopy(
   const Handle(IGESGeom_TransformationMatrix)& another,
   const Handle(IGESGeom_TransformationMatrix)& ent,
   Interface_CopyTool& /*TC*/) const
@@ -114,7 +114,7 @@ void IGESGeom_ToolTransformationMatrix::OwnCopy(
 
 //=================================================================================================
 
-Standard_Boolean IGESGeom_ToolTransformationMatrix::OwnCorrect(
+Standard_Boolean TransformationMatrixTool::OwnCorrect(
   const Handle(IGESGeom_TransformationMatrix)& ent) const
 {
   if (ent->FormNumber() > 1)
@@ -128,10 +128,10 @@ Standard_Boolean IGESGeom_ToolTransformationMatrix::OwnCorrect(
 
 //=================================================================================================
 
-IGESData_DirChecker IGESGeom_ToolTransformationMatrix::DirChecker(
+DirectoryChecker TransformationMatrixTool::DirChecker(
   const Handle(IGESGeom_TransformationMatrix)& /*ent*/) const
 {
-  IGESData_DirChecker DC(124);
+  DirectoryChecker DC(124);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   //  DC.LineWeight(IGESData_DefAny);
@@ -146,7 +146,7 @@ IGESData_DirChecker IGESGeom_ToolTransformationMatrix::DirChecker(
 
 //=================================================================================================
 
-void IGESGeom_ToolTransformationMatrix::OwnCheck(const Handle(IGESGeom_TransformationMatrix)& ent,
+void TransformationMatrixTool::OwnCheck(const Handle(IGESGeom_TransformationMatrix)& ent,
                                                  const Interface_ShareTool&,
                                                  Handle(Interface_Check)& ach) const
 {
@@ -184,7 +184,7 @@ void IGESGeom_ToolTransformationMatrix::OwnCheck(const Handle(IGESGeom_Transform
 
 //=================================================================================================
 
-void IGESGeom_ToolTransformationMatrix::OwnDump(const Handle(IGESGeom_TransformationMatrix)& ent,
+void TransformationMatrixTool::OwnDump(const Handle(IGESGeom_TransformationMatrix)& ent,
                                                 const IGESData_IGESDumper& /*dumper*/,
                                                 Standard_OStream& S,
                                                 const Standard_Integer /*level*/) const

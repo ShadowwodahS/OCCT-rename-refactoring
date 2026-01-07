@@ -52,7 +52,7 @@ Handle(RefObject) StdDrivers::Factory(const Standard_GUID& aGUID)
 
 //=================================================================================================
 
-void StdDrivers::DefineFormat(const Handle(TDocStd_Application)& theApp)
+void StdDrivers::DefineFormat(const Handle(AppManager)& theApp)
 {
   theApp->DefineFormat("MDTV-Standard",
                        "Standard OCAF Document",

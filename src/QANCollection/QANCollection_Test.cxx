@@ -353,7 +353,7 @@ static void TestSequence(QANCollection_SequenceFunc& theS)
 
 // ===================== Test methods of Map type =============================
 ////////////////////////////////void TestMap  (QANCollection_Map& theM)
-static void TestMap(QANCollection_MapFunc& theM, Draw_Interpretor& theDI)
+static void TestMap(QANCollection_MapFunc& theM, DrawInterpreter& theDI)
 {
   {
     // Extent
@@ -668,7 +668,7 @@ static void TestIndexedDataMap(QANCollection_IDMapFunc& theM)
 
 //=================================================================================================
 
-Standard_Integer CheckArguments1(Draw_Interpretor& di,
+Standard_Integer CheckArguments1(DrawInterpreter& di,
                                  Standard_Integer  argc,
                                  const char**      argv,
                                  Standard_Integer& Lower,
@@ -679,8 +679,8 @@ Standard_Integer CheckArguments1(Draw_Interpretor& di,
     di << "Usage : " << argv[0] << " Lower Upper\n";
     return 1;
   }
-  Lower = Draw::Atoi(argv[1]);
-  Upper = Draw::Atoi(argv[2]);
+  Lower = Draw1::Atoi(argv[1]);
+  Upper = Draw1::Atoi(argv[2]);
   if (Lower > Upper)
   {
     di << "Lower > Upper\n";
@@ -691,7 +691,7 @@ Standard_Integer CheckArguments1(Draw_Interpretor& di,
 
 //=================================================================================================
 
-Standard_Integer CheckArguments2(Draw_Interpretor& di,
+Standard_Integer CheckArguments2(DrawInterpreter& di,
                                  Standard_Integer  argc,
                                  const char**      argv,
                                  Standard_Integer& LowerRow,
@@ -704,10 +704,10 @@ Standard_Integer CheckArguments2(Draw_Interpretor& di,
     di << "Usage : " << argv[0] << " LowerRow UpperRow LowerCol UpperCol\n";
     return 1;
   }
-  LowerRow = Draw::Atoi(argv[1]);
-  UpperRow = Draw::Atoi(argv[2]);
-  LowerCol = Draw::Atoi(argv[3]);
-  UpperCol = Draw::Atoi(argv[4]);
+  LowerRow = Draw1::Atoi(argv[1]);
+  UpperRow = Draw1::Atoi(argv[2]);
+  LowerCol = Draw1::Atoi(argv[3]);
+  UpperCol = Draw1::Atoi(argv[4]);
   if (LowerRow > UpperRow)
   {
     di << "LowerRow > UpperRow\n";
@@ -723,7 +723,7 @@ Standard_Integer CheckArguments2(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColTestArray1(Draw_Interpretor& di,
+static Standard_Integer QANColTestArray1(DrawInterpreter& di,
                                          Standard_Integer  argc,
                                          const char**      argv)
 {
@@ -739,7 +739,7 @@ static Standard_Integer QANColTestArray1(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColTestArray2(Draw_Interpretor& di,
+static Standard_Integer QANColTestArray2(DrawInterpreter& di,
                                          Standard_Integer  argc,
                                          const char**      argv)
 {
@@ -817,7 +817,7 @@ static Standard_Integer QANColTestArray2(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColTestMap(Draw_Interpretor& di,
+static Standard_Integer QANColTestMap(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -833,7 +833,7 @@ static Standard_Integer QANColTestMap(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColTestDataMap(Draw_Interpretor& di,
+static Standard_Integer QANColTestDataMap(DrawInterpreter& di,
                                           Standard_Integer  argc,
                                           const char**      argv)
 {
@@ -849,7 +849,7 @@ static Standard_Integer QANColTestDataMap(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColTestDoubleMap(Draw_Interpretor& di,
+static Standard_Integer QANColTestDoubleMap(DrawInterpreter& di,
                                             Standard_Integer  argc,
                                             const char**      argv)
 {
@@ -865,7 +865,7 @@ static Standard_Integer QANColTestDoubleMap(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColTestIndexedMap(Draw_Interpretor& di,
+static Standard_Integer QANColTestIndexedMap(DrawInterpreter& di,
                                              Standard_Integer  argc,
                                              const char**      argv)
 {
@@ -881,7 +881,7 @@ static Standard_Integer QANColTestIndexedMap(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColTestIndexedDataMap(Draw_Interpretor& di,
+static Standard_Integer QANColTestIndexedDataMap(DrawInterpreter& di,
                                                  Standard_Integer  argc,
                                                  const char**      argv)
 {
@@ -897,7 +897,7 @@ static Standard_Integer QANColTestIndexedDataMap(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColTestList(Draw_Interpretor& di,
+static Standard_Integer QANColTestList(DrawInterpreter& di,
                                        Standard_Integer  argc,
                                        const char**      argv)
 {
@@ -913,7 +913,7 @@ static Standard_Integer QANColTestList(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer QANColTestVector(Draw_Interpretor&, Standard_Integer, const char**)
+static Standard_Integer QANColTestVector(DrawInterpreter&, Standard_Integer, const char**)
 {
   // test method Append and copying of empty vector
   NCollection_Vector<int> aVec;
@@ -937,7 +937,7 @@ static Standard_Integer QANColTestVector(Draw_Interpretor&, Standard_Integer, co
 
 //=================================================================================================
 
-static Standard_Integer QANColTestSequence(Draw_Interpretor& di,
+static Standard_Integer QANColTestSequence(DrawInterpreter& di,
                                            Standard_Integer  argc,
                                            const char**      argv)
 {
@@ -986,7 +986,7 @@ static bool CheckArrayByValue(NCollection_Array1<double> theArray)
   return true;
 }
 
-static Standard_Integer QANColTestArrayMove(Draw_Interpretor& di,
+static Standard_Integer QANColTestArrayMove(DrawInterpreter& di,
                                             Standard_Integer  argc,
                                             const char**      argv)
 {
@@ -1036,7 +1036,7 @@ static inline double test_sscanf(const char* theStr)
 static int check_atof(const NCollection_Array2<char>& theStrings,
                       const char*                     theFormat,
                       double (*test_func)(const char*),
-                      Draw_Interpretor& di)
+                      DrawInterpreter& di)
 {
   int aNbErr = 0;
   for (int i = 0; i < theStrings.UpperRow(); i++)
@@ -1065,12 +1065,12 @@ static int check_atof(const NCollection_Array2<char>& theStrings,
 }
 
 // Test speed of standard and OCCT-specific (accelerated) functions to parse string to double
-static Standard_Integer QATestAtof(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer QATestAtof(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
-  int    aNbToTest = Max(100, (argc > 1 ? Draw::Atoi(argv[1]) : 1000000));
-  int    aNbDigits = (argc > 2 ? Draw::Atoi(argv[2]) : 10);
-  double aRangeMin = (argc > 3 ? Draw::Atof(argv[3]) : -1e9);
-  double aRangeMax = (argc > 4 ? Draw::Atof(argv[4]) : 1e9);
+  int    aNbToTest = Max(100, (argc > 1 ? Draw1::Atoi(argv[1]) : 1000000));
+  int    aNbDigits = (argc > 2 ? Draw1::Atoi(argv[2]) : 10);
+  double aRangeMin = (argc > 3 ? Draw1::Atof(argv[3]) : -1e9);
+  double aRangeMax = (argc > 4 ? Draw1::Atof(argv[4]) : 1e9);
 
   char aFormat[256];
   Sprintf(aFormat, "%%.%dlg", Max(2, Min(20, aNbDigits)));
@@ -1261,7 +1261,7 @@ static Standard_Integer QATestAtof(Draw_Interpretor& di, Standard_Integer argc, 
 
 // Test operations with NCollection_Vec4 that caused generation of invalid code by GCC
 // due to reinterpret_cast conversions of Vec4 internal buffer to Vec3 (see #29825)
-static Standard_Integer QANColTestVec4(Draw_Interpretor& theDI,
+static Standard_Integer QANColTestVec4(DrawInterpreter& theDI,
                                        Standard_Integer /*theNbArgs*/,
                                        const char** /*theArgVec*/)
 {
@@ -1306,7 +1306,7 @@ static Standard_Integer QANColTestVec4(Draw_Interpretor& theDI,
 }
 
 //! Print file path flags deduced from path string.
-static Standard_Integer QAOsdPathType(Draw_Interpretor& theDI,
+static Standard_Integer QAOsdPathType(DrawInterpreter& theDI,
                                       Standard_Integer  theNbArgs,
                                       const char**      theArgVec)
 {
@@ -1316,40 +1316,40 @@ static Standard_Integer QAOsdPathType(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TCollection_AsciiString aPath(theArgVec[1]);
-  if (OSD_Path::IsAbsolutePath(aPath.ToCString()))
+  AsciiString1 aPath(theArgVec[1]);
+  if (SystemPath::IsAbsolutePath(aPath.ToCString()))
   {
     theDI << "absolute ";
   }
-  if (OSD_Path::IsRelativePath(aPath.ToCString()))
+  if (SystemPath::IsRelativePath(aPath.ToCString()))
   {
     theDI << "relative ";
   }
-  if (OSD_Path::IsUnixPath(aPath.ToCString()))
+  if (SystemPath::IsUnixPath(aPath.ToCString()))
   {
     theDI << "unix ";
   }
-  if (OSD_Path::IsDosPath(aPath.ToCString()))
+  if (SystemPath::IsDosPath(aPath.ToCString()))
   {
     theDI << "dos ";
   }
-  if (OSD_Path::IsUncPath(aPath.ToCString()))
+  if (SystemPath::IsUncPath(aPath.ToCString()))
   {
     theDI << "unc ";
   }
-  if (OSD_Path::IsNtExtendedPath(aPath.ToCString()))
+  if (SystemPath::IsNtExtendedPath(aPath.ToCString()))
   {
     theDI << "ntextended ";
   }
-  if (OSD_Path::IsUncExtendedPath(aPath.ToCString()))
+  if (SystemPath::IsUncExtendedPath(aPath.ToCString()))
   {
     theDI << "uncextended ";
   }
-  if (OSD_Path::IsRemoteProtocolPath(aPath.ToCString()))
+  if (SystemPath::IsRemoteProtocolPath(aPath.ToCString()))
   {
     theDI << "protocol ";
   }
-  if (OSD_Path::IsContentProtocolPath(aPath.ToCString()))
+  if (SystemPath::IsContentProtocolPath(aPath.ToCString()))
   {
     theDI << "content ";
   }
@@ -1357,11 +1357,11 @@ static Standard_Integer QAOsdPathType(Draw_Interpretor& theDI,
 }
 
 //! Print file path part deduced from path string.
-static Standard_Integer QAOsdPathPart(Draw_Interpretor& theDI,
+static Standard_Integer QAOsdPathPart(DrawInterpreter& theDI,
                                       Standard_Integer  theNbArgs,
                                       const char**      theArgVec)
 {
-  TCollection_AsciiString aPath;
+  AsciiString1 aPath;
 
   enum PathPart
   {
@@ -1373,7 +1373,7 @@ static Standard_Integer QAOsdPathPart(Draw_Interpretor& theDI,
   PathPart aPart = PathPart_NONE;
   for (Standard_Integer anArgIter = 1; anArgIter < theNbArgs; ++anArgIter)
   {
-    TCollection_AsciiString anArgCase(theArgVec[anArgIter]);
+    AsciiString1 anArgCase(theArgVec[anArgIter]);
     anArgCase.LowerCase();
     if (aPart == PathPart_NONE && anArgCase == "-folder")
     {
@@ -1399,8 +1399,8 @@ static Standard_Integer QAOsdPathPart(Draw_Interpretor& theDI,
     return 1;
   }
 
-  TCollection_AsciiString aFolder, aFileName;
-  OSD_Path::FolderAndFileFromPath(aPath, aFolder, aFileName);
+  AsciiString1 aFolder, aFileName;
+  SystemPath::FolderAndFileFromPath(aPath, aFolder, aFileName);
   switch (aPart)
   {
     case PathPart_Folder:
@@ -1415,7 +1415,7 @@ static Standard_Integer QAOsdPathPart(Draw_Interpretor& theDI,
   }
 }
 
-void QANCollection::CommandsTest(Draw_Interpretor& theCommands)
+void QANCollection::CommandsTest(DrawInterpreter& theCommands)
 {
   const char* group = "QANCollection";
 

@@ -28,8 +28,8 @@
 #include <Standard_OStream.hxx>
 #include <TopoDS_Shape.hxx>
 
-class Draw_Display;
-class Poly_Triangulation;
+class DrawDisplay;
+class MeshTriangulation;
 class Transform3d;
 
 //! Drawable structure to display a  shape. Contains a
@@ -40,11 +40,11 @@ class DBRep_DrawableShape : public Draw_Drawable3D
   Draw_Drawable3D_FACTORY public :
 
       Standard_EXPORT
-      DBRep_DrawableShape(const TopoDS_Shape&    C,
-                          const Draw_Color&      FreeCol,
-                          const Draw_Color&      ConnCol,
-                          const Draw_Color&      EdgeCol,
-                          const Draw_Color&      IsosCol,
+      DBRep_DrawableShape(const TopoShape&    C,
+                          const DrawColor&      FreeCol,
+                          const DrawColor&      ConnCol,
+                          const DrawColor&      EdgeCol,
+                          const DrawColor&      IsosCol,
                           const Standard_Real    size,
                           const Standard_Integer nbisos,
                           const Standard_Integer discret);
@@ -62,7 +62,7 @@ class DBRep_DrawableShape : public Draw_Drawable3D
   Standard_EXPORT Standard_Integer Discret() const;
 
   //! Return const &
-  Standard_EXPORT TopoDS_Shape Shape() const;
+  Standard_EXPORT TopoShape Shape() const;
 
   //! When True  the orientations  of the edges and free
   //! vertices  are displayed.
@@ -93,9 +93,9 @@ class DBRep_DrawableShape : public Draw_Drawable3D
                                      Standard_Boolean& withHid,
                                      Standard_Real&    ang) const;
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
-  Standard_EXPORT void DisplayHiddenLines(Draw_Display& dis);
+  Standard_EXPORT void DisplayHiddenLines(DrawDisplay& dis);
 
   //! For variable copy.
   Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
@@ -107,11 +107,11 @@ class DBRep_DrawableShape : public Draw_Drawable3D
   Standard_EXPORT virtual void Save(Standard_OStream& theStream) const Standard_OVERRIDE;
 
   //! For variable whatis command.
-  Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
   //! Returns the subshape touched by the last pick.
   //! u,v are the parameters of the closest point.
-  Standard_EXPORT static void LastPick(TopoDS_Shape& S, Standard_Real& u, Standard_Real& v);
+  Standard_EXPORT static void LastPick(TopoShape& S, Standard_Real& u, Standard_Real& v);
 
 public:
   //! Auxiliary method computing nodal normals for presentation purposes.
@@ -121,7 +121,7 @@ public:
   //! @return FALSE if normals can not be computed
   Standard_EXPORT static Standard_Boolean addMeshNormals(
     NCollection_Vector<std::pair<Point3d, Point3d>>& theNormals,
-    const TopoDS_Face&                             theFace,
+    const TopoFace&                             theFace,
     const Standard_Real                            theLength);
 
   //! Auxiliary method computing nodal normals for presentation purposes.
@@ -129,8 +129,8 @@ public:
   //! @param[in] theShape     input shape which will be exploded into Faces
   //! @param[in] theLength    normal length
   Standard_EXPORT static void addMeshNormals(
-    NCollection_DataMap<TopoDS_Face, NCollection_Vector<std::pair<Point3d, Point3d>>>& theNormals,
-    const TopoDS_Shape&                                                              theShape,
+    NCollection_DataMap<TopoFace, NCollection_Vector<std::pair<Point3d, Point3d>>>& theNormals,
+    const TopoShape&                                                              theShape,
     const Standard_Real                                                              theLength);
 
   //! Auxiliary method computing surface normals distributed within the Face for presentation
@@ -143,7 +143,7 @@ public:
   //! @return FALSE if normals can not be computed
   Standard_EXPORT static Standard_Boolean addSurfaceNormals(
     NCollection_Vector<std::pair<Point3d, Point3d>>& theNormals,
-    const TopoDS_Face&                             theFace,
+    const TopoFace&                             theFace,
     const Standard_Real                            theLength,
     const Standard_Integer                         theNbAlongU,
     const Standard_Integer                         theNbAlongV);
@@ -157,20 +157,20 @@ public:
   //! @param[in] theNbAlongV   number along V
   //! @return FALSE if normals can not be computed
   Standard_EXPORT static void addSurfaceNormals(
-    NCollection_DataMap<TopoDS_Face, NCollection_Vector<std::pair<Point3d, Point3d>>>& theNormals,
-    const TopoDS_Shape&                                                              theShape,
+    NCollection_DataMap<TopoFace, NCollection_Vector<std::pair<Point3d, Point3d>>>& theNormals,
+    const TopoShape&                                                              theShape,
     const Standard_Real                                                              theLength,
     const Standard_Integer                                                           theNbAlongU,
     const Standard_Integer                                                           theNbAlongV);
 
 private:
-  void display(const Handle(Poly_Triangulation)& T, const Transform3d& tr, Draw_Display& dis) const;
+  void display(const Handle(MeshTriangulation)& T, const Transform3d& tr, DrawDisplay& dis) const;
 
   //! Updates internal data necessary for display
   void updateDisplayData() const;
 
 private:
-  TopoDS_Shape myShape;
+  TopoShape myShape;
 
   mutable DBRep_ListOfEdge myEdges;
   mutable DBRep_ListOfFace myFaces;
@@ -178,10 +178,10 @@ private:
 
   Standard_Real    mySize;
   Standard_Integer myDiscret;
-  Draw_Color       myFreeCol;
-  Draw_Color       myConnCol;
-  Draw_Color       myEdgeCol;
-  Draw_Color       myIsosCol;
+  DrawColor       myFreeCol;
+  DrawColor       myConnCol;
+  DrawColor       myEdgeCol;
+  DrawColor       myIsosCol;
   Standard_Integer myNbIsos;
   Standard_Boolean myDispOr;
   Standard_Boolean mytriangulations;

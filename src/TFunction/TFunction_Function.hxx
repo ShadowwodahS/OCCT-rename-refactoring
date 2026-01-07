@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <TDF_Attribute.hxx>
 #include <Standard_OStream.hxx>
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 class TDF_DataSet;
 
@@ -43,12 +43,12 @@ public:
   //! ==============
   //! Finds or Creates a function attribute on the label <L>.
   //! Returns the function attribute.
-  Standard_EXPORT static Handle(TFunction_Function) Set(const TDF_Label& L);
+  Standard_EXPORT static Handle(TFunction_Function) Set(const DataLabel& L);
 
   //! Finds or Creates a function attribute on the label <L>.
   //! Sets a driver ID to the function.
   //! Returns the function attribute.
-  Standard_EXPORT static Handle(TFunction_Function) Set(const TDF_Label&     L,
+  Standard_EXPORT static Handle(TFunction_Function) Set(const DataLabel&     L,
                                                         const Standard_GUID& DriverID);
 
   //! Returns the GUID for functions.

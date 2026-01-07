@@ -19,27 +19,27 @@
 
 #include <TopOpeBRepDS_EXPORT.hxx>
 Standard_EXPORT Handle(TopOpeBRepDS_Interference) MakeCPVInterference(
-  const TopOpeBRepDS_Transition& T, // transition
+  const StateTransition& T, // transition
   const Standard_Integer         S, // curve/edge index
   const Standard_Integer         G, // point/vertex index
   const Standard_Real            P, // parameter of G on S
   const TopOpeBRepDS_Kind        GK);      // POINT/VERTEX
 Standard_EXPORT Handle(TopOpeBRepDS_Interference) MakeEPVInterference(
-  const TopOpeBRepDS_Transition& T, // transition
+  const StateTransition& T, // transition
   const Standard_Integer         S, // curve/edge index
   const Standard_Integer         G, // point/vertex index
   const Standard_Real            P, // parameter of G on S
   const TopOpeBRepDS_Kind        GK,
   const Standard_Boolean         B); // G is a vertex (or not) of the interference master
 Standard_EXPORT Handle(TopOpeBRepDS_Interference) MakeEPVInterference(
-  const TopOpeBRepDS_Transition& T,  // transition
+  const StateTransition& T,  // transition
   const Standard_Integer         S,  // curve/edge index
   const Standard_Integer         G,  // point/vertex index
   const Standard_Real            P,  // parameter of G on S
   const TopOpeBRepDS_Kind        GK, // POINT/VERTEX
   const TopOpeBRepDS_Kind        SK,
   const Standard_Boolean         B); // G is a vertex (or not) of the interference master
-Standard_EXPORT Standard_Boolean FUN_hasStateShape(const TopOpeBRepDS_Transition& T,
+Standard_EXPORT Standard_Boolean FUN_hasStateShape(const StateTransition& T,
                                                    const TopAbs_State             state,
                                                    const TopAbs_ShapeEnum         shape);
 Standard_EXPORT Standard_Integer FUN_selectTRASHAinterference(TopOpeBRepDS_ListOfInterference& L1,
@@ -67,15 +67,15 @@ Standard_EXPORT Standard_Integer FUN_selectSIinterference(TopOpeBRepDS_ListOfInt
                                                           TopOpeBRepDS_ListOfInterference& L2);
 Standard_EXPORT Standard_Boolean FUN_interfhassupport(const TopOpeBRepDS_DataStructure&        DS,
                                                       const Handle(TopOpeBRepDS_Interference)& I,
-                                                      const TopoDS_Shape&                      S);
-Standard_EXPORT Standard_Boolean FUN_transitionEQUAL(const TopOpeBRepDS_Transition&,
-                                                     const TopOpeBRepDS_Transition&);
-Standard_EXPORT Standard_Boolean FUN_transitionSTATEEQUAL(const TopOpeBRepDS_Transition&,
-                                                          const TopOpeBRepDS_Transition&);
-Standard_EXPORT Standard_Boolean FUN_transitionSHAPEEQUAL(const TopOpeBRepDS_Transition&,
-                                                          const TopOpeBRepDS_Transition&);
-Standard_EXPORT Standard_Boolean FUN_transitionINDEXEQUAL(const TopOpeBRepDS_Transition&,
-                                                          const TopOpeBRepDS_Transition&);
+                                                      const TopoShape&                      S);
+Standard_EXPORT Standard_Boolean FUN_transitionEQUAL(const StateTransition&,
+                                                     const StateTransition&);
+Standard_EXPORT Standard_Boolean FUN_transitionSTATEEQUAL(const StateTransition&,
+                                                          const StateTransition&);
+Standard_EXPORT Standard_Boolean FUN_transitionSHAPEEQUAL(const StateTransition&,
+                                                          const StateTransition&);
+Standard_EXPORT Standard_Boolean FUN_transitionINDEXEQUAL(const StateTransition&,
+                                                          const StateTransition&);
 Standard_EXPORT void             FUN_reducedoublons(TopOpeBRepDS_ListOfInterference&  LI,
                                                     const TopOpeBRepDS_DataStructure& BDS,
                                                     const Standard_Integer            SIX);

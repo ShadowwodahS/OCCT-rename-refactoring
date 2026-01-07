@@ -189,18 +189,18 @@ const char THE_VERT_gl_Position_OUTLINE[] = EOL
 
 //=================================================================================================
 
-TCollection_AsciiString Graphic3d_ShaderManager::genLightKey(
+AsciiString1 Graphic3d_ShaderManager::genLightKey(
   const Handle(Graphic3d_LightSet)& theLights,
   const bool                        theHasShadowMap) const
 {
   if (theLights->NbEnabled() <= THE_NB_UNROLLED_LIGHTS_MAX)
   {
-    return theHasShadowMap ? TCollection_AsciiString("ls_") + theLights->KeyEnabledLong()
-                           : TCollection_AsciiString("l_") + theLights->KeyEnabledLong();
+    return theHasShadowMap ? AsciiString1("ls_") + theLights->KeyEnabledLong()
+                           : AsciiString1("l_") + theLights->KeyEnabledLong();
   }
 
   const Standard_Integer aMaxLimit = roundUpMaxLightSources(theLights->NbEnabled());
-  return TCollection_AsciiString("l_") + theLights->KeyEnabledShort() + aMaxLimit;
+  return AsciiString1("l_") + theLights->KeyEnabledShort() + aMaxLimit;
 }
 
 //=================================================================================================
@@ -245,7 +245,7 @@ bool Graphic3d_ShaderManager::hasGlslBitwiseOps() const
 //=================================================================================================
 
 int Graphic3d_ShaderManager::defaultGlslVersion(const Handle(Graphic3d_ShaderProgram)& theProgram,
-                                                const TCollection_AsciiString&         theName,
+                                                const AsciiString1&         theName,
                                                 int                                    theBits,
                                                 bool theUsesDerivates) const
 {
@@ -316,7 +316,7 @@ int Graphic3d_ShaderManager::defaultGlslVersion(const Handle(Graphic3d_ShaderPro
       }
       else
       {
-        TCollection_AsciiString aGles2Extensions;
+        AsciiString1 aGles2Extensions;
         if (theProgram->IsPBR())
         {
           if (IsGapiGreaterEqual(3, 0))
@@ -371,7 +371,7 @@ int Graphic3d_ShaderManager::defaultGlslVersion(const Handle(Graphic3d_ShaderPro
   // should fit Graphic3d_ShaderFlags_NB
   char aBitsStr[64];
   Sprintf(aBitsStr, "%04x", aBits);
-  theProgram->SetId(TCollection_AsciiString("occt_") + theName + aBitsStr);
+  theProgram->SetId(AsciiString1("occt_") + theName + aBitsStr);
   return aBits;
 }
 
@@ -379,7 +379,7 @@ int Graphic3d_ShaderManager::defaultGlslVersion(const Handle(Graphic3d_ShaderPro
 
 void Graphic3d_ShaderManager::defaultOitGlslVersion(
   const Handle(Graphic3d_ShaderProgram)& theProgram,
-  const TCollection_AsciiString&         theName,
+  const AsciiString1&         theName,
   bool                                   theMsaa) const
 {
   switch (myGapi)
@@ -423,7 +423,7 @@ void Graphic3d_ShaderManager::defaultOitGlslVersion(
       break;
     }
   }
-  theProgram->SetId(TCollection_AsciiString("occt_") + theName + (theMsaa ? "_msaa" : ""));
+  theProgram->SetId(AsciiString1("occt_") + theName + (theMsaa ? "_msaa" : ""));
 }
 
 //=================================================================================================
@@ -437,16 +437,16 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramFont() con
     Graphic3d_ShaderObject::ShaderVariable("vec2 TexCoord",
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
 
-  TCollection_AsciiString aSrcVert = TCollection_AsciiString()
+  AsciiString1 aSrcVert = AsciiString1()
                                      + EOL "void main()" EOL "{" EOL "  TexCoord = occTexCoord.st;"
                                      + THE_VERT_gl_Position + EOL "}";
 
-  TCollection_AsciiString aSrcGetAlpha =
+  AsciiString1 aSrcGetAlpha =
     myUseRedAlpha
       ? EOL "float getAlpha(void) { return occTexture2D(occSamplerBaseColor, TexCoord.st).r; }"
       : EOL "float getAlpha(void) { return occTexture2D(occSamplerBaseColor, TexCoord.st).a; }";
 
-  TCollection_AsciiString aSrcFrag =
+  AsciiString1 aSrcFrag =
     aSrcGetAlpha
     + EOL "void main()" EOL "{" EOL "  vec4 aColor = occColor;" EOL "  aColor.a *= getAlpha();" EOL
           "  if (aColor.a <= 0.285) discard;" EOL "  occSetFragColor (aColor);" EOL "}";
@@ -479,11 +479,11 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramFboBlit(
     Graphic3d_ShaderObject::ShaderVariable("vec2 TexCoord",
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
 
-  TCollection_AsciiString aSrcVert =
+  AsciiString1 aSrcVert =
     EOL "void main()" EOL "{" EOL "  TexCoord    = occVertex.zw;" EOL
         "  gl_Position = vec4(occVertex.x, occVertex.y, 0.0, 1.0);" EOL "}";
 
-  TCollection_AsciiString aSrcFrag;
+  AsciiString1 aSrcFrag;
   if (theNbSamples > 1)
   {
     if (myGapi == Aspect_GraphicsLibrary_OpenGLES)
@@ -502,7 +502,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramFboBlit(
     }
 
     aSrcFrag =
-      TCollection_AsciiString() + EOL "#define THE_NUM_SAMPLES " + theNbSamples
+      AsciiString1() + EOL "#define THE_NUM_SAMPLES " + theNbSamples
       + (theIsFallback_sRGB ? EOL "#define THE_SHIFT_sRGB" : "")
       + EOL "void main()" EOL "{" EOL "  ivec2 aSize  = textureSize (uColorSampler);" EOL
             "  ivec2 anUV   = ivec2 (vec2 (aSize) * TexCoord);" EOL
@@ -520,7 +520,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramFboBlit(
       Graphic3d_ShaderObject::ShaderVariable("sampler2D uColorSampler", Graphic3d_TOS_FRAGMENT));
     aUniforms.Append(
       Graphic3d_ShaderObject::ShaderVariable("sampler2D uDepthSampler", Graphic3d_TOS_FRAGMENT));
-    aSrcFrag = TCollection_AsciiString() + (theIsFallback_sRGB ? EOL "#define THE_SHIFT_sRGB" : "")
+    aSrcFrag = AsciiString1() + (theIsFallback_sRGB ? EOL "#define THE_SHIFT_sRGB" : "")
                + EOL "void main()" EOL "{" EOL
                      "  gl_FragDepth = occTexture2D (uDepthSampler, TexCoord).r;" EOL
                      "  vec4  aColor = occTexture2D (uColorSampler, TexCoord);" EOL
@@ -564,10 +564,10 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramFboBlit(
     }
   }
 
-  TCollection_AsciiString anId = "occt_blit";
+  AsciiString1 anId = "occt_blit";
   if (theNbSamples > 1)
   {
-    anId += TCollection_AsciiString("_msaa") + theNbSamples;
+    anId += AsciiString1("_msaa") + theNbSamples;
   }
   if (theIsFallback_sRGB)
   {
@@ -595,7 +595,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitComposi
   const Standard_Boolean theMsaa) const
 {
   Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
-  TCollection_AsciiString         aSrcVert, aSrcFrag;
+  AsciiString1         aSrcVert, aSrcFrag;
 
   Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
   aStageInOuts.Append(
@@ -652,7 +652,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitDepthPe
   Standard_Boolean theMsaa) const
 {
   Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
-  TCollection_AsciiString         aSrcVert, aSrcFrag;
+  AsciiString1         aSrcVert, aSrcFrag;
 
   Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
   aSrcVert = EOL "void main()" EOL "{" EOL
@@ -661,7 +661,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitDepthPe
   aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable(
     theMsaa ? "sampler2DMS uDepthPeelingBackColor" : "sampler2D uDepthPeelingBackColor",
     Graphic3d_TOS_FRAGMENT));
-  aSrcFrag = TCollection_AsciiString() + EOL "void main()" EOL "{" EOL "  #define THE_SAMPLE_ID "
+  aSrcFrag = AsciiString1() + EOL "void main()" EOL "{" EOL "  #define THE_SAMPLE_ID "
              + (theMsaa ? "gl_SampleID" : "0")
              + EOL "  occFragColor = texelFetch (uDepthPeelingBackColor, ivec2 (gl_FragCoord.xy), "
                    "THE_SAMPLE_ID);" EOL "  if (occFragColor.a == 0.0) { discard; }" EOL "}";
@@ -687,7 +687,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitDepthPe
   Standard_Boolean theMsaa) const
 {
   Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
-  TCollection_AsciiString         aSrcVert, aSrcFrag;
+  AsciiString1         aSrcVert, aSrcFrag;
 
   Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
   aSrcVert = EOL "void main()" EOL "{" EOL
@@ -700,7 +700,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitDepthPe
     theMsaa ? "sampler2DMS uDepthPeelingBackColor" : "sampler2D uDepthPeelingBackColor",
     Graphic3d_TOS_FRAGMENT));
   aSrcFrag =
-    TCollection_AsciiString() + EOL "void main()" EOL "{" EOL "  #define THE_SAMPLE_ID "
+    AsciiString1() + EOL "void main()" EOL "{" EOL "  #define THE_SAMPLE_ID "
     + (theMsaa ? "gl_SampleID" : "0")
     + EOL
     "  ivec2 aFragCoord  = ivec2 (gl_FragCoord.xy);" EOL
@@ -727,7 +727,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramOitDepthPe
 
 //=================================================================================================
 
-TCollection_AsciiString Graphic3d_ShaderManager::pointSpriteAlphaSrc(Standard_Integer theBits) const
+AsciiString1 Graphic3d_ShaderManager::pointSpriteAlphaSrc(Standard_Integer theBits) const
 {
   const bool isAlpha =
     (theBits & Graphic3d_ShaderFlags_PointSpriteA) == Graphic3d_ShaderFlags_PointSpriteA;
@@ -740,11 +740,11 @@ TCollection_AsciiString Graphic3d_ShaderManager::pointSpriteAlphaSrc(Standard_In
 
 //=================================================================================================
 
-TCollection_AsciiString Graphic3d_ShaderManager::pointSpriteShadingSrc(
-  const TCollection_AsciiString& theBaseColorSrc,
+AsciiString1 Graphic3d_ShaderManager::pointSpriteShadingSrc(
+  const AsciiString1& theBaseColorSrc,
   Standard_Integer               theBits) const
 {
-  TCollection_AsciiString aSrcFragGetColor;
+  AsciiString1 aSrcFragGetColor;
   if ((theBits & Graphic3d_ShaderFlags_PointSpriteA) == Graphic3d_ShaderFlags_PointSpriteA)
   {
     aSrcFragGetColor = pointSpriteAlphaSrc(theBits)
@@ -755,7 +755,7 @@ TCollection_AsciiString Graphic3d_ShaderManager::pointSpriteShadingSrc(
   else if ((theBits & Graphic3d_ShaderFlags_PointSprite) == Graphic3d_ShaderFlags_PointSprite)
   {
     aSrcFragGetColor =
-      TCollection_AsciiString()
+      AsciiString1()
       + EOL "vec4 getColor(void)" EOL "{" EOL "  vec4 aColor = " + theBaseColorSrc
       + ";" EOL "  aColor = occTexture2D(occSamplerPointSprite, " THE_VEC2_glPointCoord
         ") * aColor;" EOL "  if (aColor.a <= 0.1) discard;" EOL "  return aColor;" EOL "}";
@@ -765,17 +765,17 @@ TCollection_AsciiString Graphic3d_ShaderManager::pointSpriteShadingSrc(
 }
 
 //! Prepare GLSL source for geometry shader according to parameters.
-static TCollection_AsciiString prepareGeomMainSrc(
+static AsciiString1 prepareGeomMainSrc(
   Graphic3d_ShaderObject::ShaderVariableList& theUnifoms,
   Graphic3d_ShaderObject::ShaderVariableList& theStageInOuts,
   Standard_Integer                            theBits)
 {
   if ((theBits & Graphic3d_ShaderFlags_NeedsGeomShader) == 0)
   {
-    return TCollection_AsciiString();
+    return AsciiString1();
   }
 
-  TCollection_AsciiString aSrcMainGeom = EOL "void main()" EOL "{";
+  AsciiString1 aSrcMainGeom = EOL "void main()" EOL "{";
 
   if ((theBits & Graphic3d_ShaderFlags_MeshEdges) != 0)
   {
@@ -796,7 +796,7 @@ static TCollection_AsciiString prepareGeomMainSrc(
                                              Graphic3d_TOS_GEOMETRY | Graphic3d_TOS_FRAGMENT));
 
     aSrcMainGeom =
-      TCollection_AsciiString()
+      AsciiString1()
       + EOL "vec3 ViewPortTransform (vec4 theVec)" EOL "{" EOL
             "  vec3 aWinCoord = theVec.xyz / theVec.w;" EOL
             "  aWinCoord    = aWinCoord * 0.5 + 0.5;" EOL
@@ -820,7 +820,7 @@ static TCollection_AsciiString prepareGeomMainSrc(
 
   for (Standard_Integer aVertIter = 0; aVertIter < 3; ++aVertIter)
   {
-    const TCollection_AsciiString aVertIndex(aVertIter);
+    const AsciiString1 aVertIndex(aVertIter);
     // pass variables from Vertex shader to Fragment shader through Geometry shader
     for (Graphic3d_ShaderObject::ShaderVariableList::Iterator aVarListIter(theStageInOuts);
          aVarListIter.More();
@@ -828,17 +828,17 @@ static TCollection_AsciiString prepareGeomMainSrc(
     {
       if (aVarListIter.Value().Stages == (Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT))
       {
-        const TCollection_AsciiString aVarName = aVarListIter.Value().Name.Token(" ", 2);
+        const AsciiString1 aVarName = aVarListIter.Value().Name.Token(" ", 2);
         if (aVarName.Value(aVarName.Length()) == ']')
         {
           // copy the whole array
-          const TCollection_AsciiString aVarName2 = aVarName.Token("[", 1);
-          aSrcMainGeom += TCollection_AsciiString() + EOL "  geomOut." + aVarName2 + " = geomIn["
+          const AsciiString1 aVarName2 = aVarName.Token("[", 1);
+          aSrcMainGeom += AsciiString1() + EOL "  geomOut." + aVarName2 + " = geomIn["
                           + aVertIndex + "]." + aVarName2 + ";";
         }
         else
         {
-          aSrcMainGeom += TCollection_AsciiString() + EOL "  geomOut." + aVarName + " = geomIn["
+          aSrcMainGeom += AsciiString1() + EOL "  geomOut." + aVarName + " = geomIn["
                           + aVertIndex + "]." + aVarName + ";";
         }
       }
@@ -859,7 +859,7 @@ static TCollection_AsciiString prepareGeomMainSrc(
           break;
       }
     }
-    aSrcMainGeom += TCollection_AsciiString() + EOL "  gl_Position = gl_in[" + aVertIndex
+    aSrcMainGeom += AsciiString1() + EOL "  gl_Position = gl_in[" + aVertIndex
                     + "].gl_Position;" EOL "  EmitVertex();";
   }
   aSrcMainGeom += EOL "  EndPrimitive();" EOL "}";
@@ -874,11 +874,11 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
   Standard_Boolean theIsOutline) const
 {
   Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
-  TCollection_AsciiString         aSrcVert, aSrcVertExtraMain, aSrcVertExtraFunc, aSrcGetAlpha,
+  AsciiString1         aSrcVert, aSrcVertExtraMain, aSrcVertExtraFunc, aSrcGetAlpha,
     aSrcVertEndMain;
-  TCollection_AsciiString aSrcFrag, aSrcFragExtraMain;
-  TCollection_AsciiString aSrcFragGetColor     = EOL "vec4 getColor(void) { return occColor; }";
-  TCollection_AsciiString aSrcFragMainGetColor = EOL "  occSetFragColor (getFinalColor());";
+  AsciiString1 aSrcFrag, aSrcFragExtraMain;
+  AsciiString1 aSrcFragGetColor     = EOL "vec4 getColor(void) { return occColor; }";
+  AsciiString1 aSrcFragMainGetColor = EOL "  occSetFragColor (getFinalColor());";
   Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
 
   if ((theBits & Graphic3d_ShaderFlags_IsPoint) != 0)
@@ -1054,7 +1054,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
                             "  aPosition        = aPosition * 0.5 + 0.5;" EOL
                             "  ScreenSpaceCoord = aPosition.xy * occViewport.zw + occViewport.xy;";
       aSrcFragMainGetColor =
-        TCollection_AsciiString()
+        AsciiString1()
         + EOL "  vec2 anAxis = vec2 (0.0, 1.0);" EOL
               "  if (abs (dFdx (ScreenSpaceCoord.x)) - abs (dFdy (ScreenSpaceCoord.y)) > 0.001)" EOL
               "  {" EOL "    anAxis = vec2 (1.0, 0.0);" EOL "  }" EOL
@@ -1077,7 +1077,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
   aSrcVert = aSrcVertExtraFunc + EOL "void main()" EOL "{" + aSrcVertExtraMain
              + THE_VERT_gl_Position + aSrcVertEndMain + EOL "}";
 
-  TCollection_AsciiString aSrcGeom = prepareGeomMainSrc(aUniforms, aStageInOuts, theBits);
+  AsciiString1 aSrcGeom = prepareGeomMainSrc(aUniforms, aStageInOuts, theBits);
   aSrcFragGetColor += (theBits & Graphic3d_ShaderFlags_MeshEdges) != 0 ? THE_FRAG_WIREFRAME_COLOR
                                                                        : EOL
                         "#define getFinalColor getColor";
@@ -1119,7 +1119,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramUnlit(
 
 //=================================================================================================
 
-TCollection_AsciiString Graphic3d_ShaderManager::stdComputeLighting(
+AsciiString1 Graphic3d_ShaderManager::stdComputeLighting(
   Standard_Integer&                 theNbLights,
   const Handle(Graphic3d_LightSet)& theLights,
   Standard_Boolean                  theHasVertColor,
@@ -1127,7 +1127,7 @@ TCollection_AsciiString Graphic3d_ShaderManager::stdComputeLighting(
   Standard_Boolean                  theHasTexColor,
   Standard_Integer                  theNbShadowMaps) const
 {
-  TCollection_AsciiString aLightsFunc, aLightsLoop;
+  AsciiString1 aLightsFunc, aLightsLoop;
   theNbLights = 0;
   if (!theLights.IsNull())
   {
@@ -1271,7 +1271,7 @@ TCollection_AsciiString Graphic3d_ShaderManager::stdComputeLighting(
 
   if (!theIsPBR)
   {
-    return TCollection_AsciiString() + THE_FUNC_lightDef + Shaders_PointLightAttenuation_glsl
+    return AsciiString1() + THE_FUNC_lightDef + Shaders_PointLightAttenuation_glsl
            + aLightsFunc
            + EOL EOL "vec4 computeLighting (in vec3 theNormal," EOL
                      "                      in vec3 theView," EOL
@@ -1298,7 +1298,7 @@ TCollection_AsciiString Graphic3d_ShaderManager::stdComputeLighting(
   }
   else
   {
-    return TCollection_AsciiString() + THE_FUNC_PBR_lightDef + Shaders_PointLightAttenuation_glsl
+    return AsciiString1() + THE_FUNC_PBR_lightDef + Shaders_PointLightAttenuation_glsl
            + aLightsFunc
            + EOL EOL
            "vec4 computeLighting (in vec3 theNormal," EOL
@@ -1343,9 +1343,9 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramGouraud(
   Standard_Integer                  theBits) const
 {
   Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
-  TCollection_AsciiString         aSrcVert, aSrcVertColor, aSrcVertExtraMain;
-  TCollection_AsciiString         aSrcFrag, aSrcFragExtraMain;
-  TCollection_AsciiString         aSrcFragGetColor =
+  AsciiString1         aSrcVert, aSrcVertColor, aSrcVertExtraMain;
+  AsciiString1         aSrcFrag, aSrcFragExtraMain;
+  AsciiString1         aSrcFragGetColor =
     EOL "vec4 getColor(void) { return gl_FrontFacing ? FrontColor : BackColor; }";
   Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
   bool                                       toUseTexColor = false;
@@ -1445,10 +1445,10 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramGouraud(
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
 
   Standard_Integer              aNbLights = 0;
-  const TCollection_AsciiString aLights =
+  const AsciiString1 aLights =
     stdComputeLighting(aNbLights, theLights, !aSrcVertColor.IsEmpty(), false, toUseTexColor, 0);
   aSrcVert =
-    TCollection_AsciiString() + THE_FUNC_transformNormal_world + EOL + aSrcVertColor + aLights
+    AsciiString1() + THE_FUNC_transformNormal_world + EOL + aSrcVertColor + aLights
     + EOL "void main()" EOL "{" EOL "  vec4 aPositionWorld = occModelWorldMatrix * occVertex;" EOL
           "  vec3 aNormal        = transformNormal (occNormal);" EOL "  vec3 aView;" EOL
           "  if (occProjectionMatrix[3][3] == 1.0)" EOL "  {" EOL
@@ -1460,17 +1460,17 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramGouraud(
           "  BackColor   = computeLighting (aNormal, aView, aPositionWorld, false);"
     + aSrcVertExtraMain + THE_VERT_gl_Position + EOL "}";
 
-  TCollection_AsciiString aSrcGeom = prepareGeomMainSrc(aUniforms, aStageInOuts, theBits);
+  AsciiString1 aSrcGeom = prepareGeomMainSrc(aUniforms, aStageInOuts, theBits);
   aSrcFragGetColor += (theBits & Graphic3d_ShaderFlags_MeshEdges) != 0 ? THE_FRAG_WIREFRAME_COLOR
                                                                        : EOL
                         "#define getFinalColor getColor";
 
-  aSrcFrag = TCollection_AsciiString() + aSrcFragGetColor
+  aSrcFrag = AsciiString1() + aSrcFragGetColor
              + EOL "void main()" EOL "{" EOL "  if (occFragEarlyReturn()) { return; }"
              + aSrcFragExtraMain + EOL "  occSetFragColor (getFinalColor());" + EOL "}";
 
-  const TCollection_AsciiString aProgId =
-    TCollection_AsciiString("gouraud-") + genLightKey(theLights, false) + "-";
+  const AsciiString1 aProgId =
+    AsciiString1("gouraud-") + genLightKey(theLights, false) + "-";
   defaultGlslVersion(aProgramSrc, aProgId, theBits);
   aProgramSrc->SetDefaultSampler(false);
   aProgramSrc->SetNbLightsMax(aNbLights);
@@ -1511,8 +1511,8 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
   const Standard_Boolean            theIsPBR,
   const Standard_Integer            theNbShadowMaps) const
 {
-  TCollection_AsciiString aPhongCompLight =
-    TCollection_AsciiString()
+  AsciiString1 aPhongCompLight =
+    AsciiString1()
     + "computeLighting (normalize (Normal), normalize (View), PositionWorld, gl_FrontFacing)";
   const bool  isFlatNormal       = theIsFlatNormal && myHasFlatShading;
   const char* aDFdxSignReversion = myToReverseDFdxSign ? "-" : "";
@@ -1531,10 +1531,10 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
   Handle(Graphic3d_ShaderProgram) aProgramSrc = new Graphic3d_ShaderProgram();
   aProgramSrc->SetPBR(theIsPBR); // should be set before defaultGlslVersion()
 
-  TCollection_AsciiString aSrcVert, aSrcVertExtraFunc, aSrcVertExtraMain;
-  TCollection_AsciiString aSrcFrag, aSrcFragGetVertColor, aSrcFragExtraMain;
-  TCollection_AsciiString aSrcFragGetColor =
-    TCollection_AsciiString() + EOL "vec4 getColor(void) { return " + aPhongCompLight + "; }";
+  AsciiString1 aSrcVert, aSrcVertExtraFunc, aSrcVertExtraMain;
+  AsciiString1 aSrcFrag, aSrcFragGetVertColor, aSrcFragExtraMain;
+  AsciiString1 aSrcFragGetColor =
+    AsciiString1() + EOL "vec4 getColor(void) { return " + aPhongCompLight + "; }";
   Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
   if ((theBits & Graphic3d_ShaderFlags_IsPoint) != 0)
   {
@@ -1645,7 +1645,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
 
   if (isFlatNormal)
   {
-    aSrcFragExtraMain += TCollection_AsciiString() + EOL "  Normal = " + aDFdxSignReversion
+    aSrcFragExtraMain += AsciiString1() + EOL "  Normal = " + aDFdxSignReversion
                          + "normalize (cross (dFdx (PositionWorld.xyz / PositionWorld.w), dFdy "
                            "(PositionWorld.xyz / PositionWorld.w)));" EOL
                            "  if (!gl_FrontFacing) { Normal = -Normal; }";
@@ -1703,7 +1703,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
       "  }";
   }
 
-  aSrcVert = TCollection_AsciiString() + aSrcVertExtraFunc
+  aSrcVert = AsciiString1() + aSrcVertExtraFunc
              + EOL
              "void main()" EOL "{" EOL "  PositionWorld = occModelWorldMatrix * occVertex;" EOL
              "  if (occProjectionMatrix[3][3] == 1.0)" EOL "  {" EOL
@@ -1713,25 +1713,25 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramPhong(
              "    View = normalize (anEye - PositionWorld.xyz);" EOL "  }"
              + aSrcVertExtraMain + THE_VERT_gl_Position + EOL "}";
 
-  TCollection_AsciiString aSrcGeom = prepareGeomMainSrc(aUniforms, aStageInOuts, theBits);
+  AsciiString1 aSrcGeom = prepareGeomMainSrc(aUniforms, aStageInOuts, theBits);
   aSrcFragGetColor += (theBits & Graphic3d_ShaderFlags_MeshEdges) != 0 ? THE_FRAG_WIREFRAME_COLOR
                                                                        : EOL
                         "#define getFinalColor getColor";
 
   Standard_Integer              aNbLights = 0;
-  const TCollection_AsciiString aLights   = stdComputeLighting(aNbLights,
+  const AsciiString1 aLights   = stdComputeLighting(aNbLights,
                                                              theLights,
                                                              !aSrcFragGetVertColor.IsEmpty(),
                                                              theIsPBR,
                                                              toUseTexColor,
                                                              theNbShadowMaps);
-  aSrcFrag += TCollection_AsciiString() + EOL + aSrcFragGetVertColor + EOL "vec3  Normal;" + aLights
+  aSrcFrag += AsciiString1() + EOL + aSrcFragGetVertColor + EOL "vec3  Normal;" + aLights
               + aSrcFragGetColor
               + EOL EOL "void main()" EOL "{" EOL "  if (occFragEarlyReturn()) { return; }"
               + aSrcFragExtraMain + EOL "  occSetFragColor (getFinalColor());" + EOL "}";
 
-  const TCollection_AsciiString aProgId =
-    TCollection_AsciiString(theIsFlatNormal ? "flat-" : "phong-") + (theIsPBR ? "pbr-" : "")
+  const AsciiString1 aProgId =
+    AsciiString1(theIsFlatNormal ? "flat-" : "phong-") + (theIsPBR ? "pbr-" : "")
     + genLightKey(theLights, theNbShadowMaps > 0) + "-";
   defaultGlslVersion(aProgramSrc, aProgId, theBits, isFlatNormal);
   aProgramSrc->SetDefaultSampler(false);
@@ -1776,11 +1776,11 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramStereo(
   aStageInOuts.Append(
     Graphic3d_ShaderObject::ShaderVariable("vec2 TexCoord",
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
-  TCollection_AsciiString aSrcVert =
+  AsciiString1 aSrcVert =
     EOL "void main()" EOL "{" EOL "  TexCoord    = occVertex.zw;" EOL
         "  gl_Position = vec4(occVertex.x, occVertex.y, 0.0, 1.0);" EOL "}";
 
-  TCollection_AsciiString aSrcFrag;
+  AsciiString1 aSrcFrag;
   aUniforms.Append(
     Graphic3d_ShaderObject::ShaderVariable("sampler2D uLeftSampler", Graphic3d_TOS_FRAGMENT));
   aUniforms.Append(
@@ -1794,7 +1794,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramStereo(
         Graphic3d_ShaderObject::ShaderVariable("mat4 uMultL", Graphic3d_TOS_FRAGMENT));
       aUniforms.Append(
         Graphic3d_ShaderObject::ShaderVariable("mat4 uMultR", Graphic3d_TOS_FRAGMENT));
-      const TCollection_AsciiString aNormalize =
+      const AsciiString1 aNormalize =
         mySRgbState ? EOL "#define sRgb2linear(theColor) theColor" EOL
                           "#define linear2sRgb(theColor) theColor"
                     : EOL
@@ -1914,14 +1914,14 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getStdProgramBoundBox()
   aUniforms.Append(
     Graphic3d_ShaderObject::ShaderVariable("vec3 occBBoxSize", Graphic3d_TOS_VERTEX));
 
-  TCollection_AsciiString aSrcVert =
+  AsciiString1 aSrcVert =
     EOL "void main()" EOL "{" EOL
         "  vec4 aCenter = vec4(occVertex.xyz * occBBoxSize + occBBoxCenter, 1.0);" EOL
         "  vec4 aPos    = vec4(occVertex.xyz * occBBoxSize + occBBoxCenter, 1.0);" EOL
         "  gl_Position = occProjectionMatrix * occWorldViewMatrix * occModelWorldMatrix * aPos;" EOL
         "}";
 
-  TCollection_AsciiString aSrcFrag =
+  AsciiString1 aSrcFrag =
     EOL "void main()" EOL "{" EOL "  occSetFragColor (occColor);" EOL "}";
 
   defaultGlslVersion(aProgramSrc, "bndbox", 0);
@@ -1951,11 +1951,11 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getPBREnvBakingProgram(
 
   Graphic3d_ShaderObject::ShaderVariableList aUniforms, aStageInOuts;
 
-  TCollection_AsciiString aSrcVert =
-    TCollection_AsciiString() + THE_FUNC_cubemap_vector_transform + Shaders_PBREnvBaking_vs;
+  AsciiString1 aSrcVert =
+    AsciiString1() + THE_FUNC_cubemap_vector_transform + Shaders_PBREnvBaking_vs;
 
-  TCollection_AsciiString aSrcFrag =
-    TCollection_AsciiString() + THE_FUNC_cubemap_vector_transform + Shaders_PBRDistribution_glsl
+  AsciiString1 aSrcFrag =
+    AsciiString1() + THE_FUNC_cubemap_vector_transform + Shaders_PBRDistribution_glsl
     + ((theIndex == 0 || theIndex == 2) ? "\n#define THE_TO_BAKE_DIFFUSE\n"
                                         : "\n#define THE_TO_BAKE_SPECULAR\n")
     + (theIndex == 2 ? "\n#define THE_TO_PACK_FLOAT\n" : "") + Shaders_PBREnvBaking_fs;
@@ -2020,8 +2020,8 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getBgCubeMapProgram() c
   aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("int uYCoeff", Graphic3d_TOS_VERTEX));
   aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("int uZCoeff", Graphic3d_TOS_VERTEX));
 
-  TCollection_AsciiString aSrcVert =
-    TCollection_AsciiString() + THE_FUNC_cubemap_vector_transform
+  AsciiString1 aSrcVert =
+    AsciiString1() + THE_FUNC_cubemap_vector_transform
     + EOL "void main()" EOL "{" EOL
           "  ViewDirection = cubemapVectorTransform (occVertex.xyz, uYCoeff, uZCoeff);" EOL
           "  vec4 aPos = occProjectionMatrix * occWorldViewMatrix * vec4(occVertex.xyz, 1.0);"
@@ -2029,7 +2029,7 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getBgCubeMapProgram() c
     // which allows rendering skybox after everything else with depth test enabled (GL_LEQUAL)
     EOL "  gl_Position = aPos.xyww;" EOL "}";
 
-  TCollection_AsciiString aDepthClamp;
+  AsciiString1 aDepthClamp;
   if (myToEmulateDepthClamp)
   {
     // workaround Z clamping issues on some GPUs
@@ -2052,8 +2052,8 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getBgCubeMapProgram() c
     }
   }
 
-  TCollection_AsciiString aSrcFrag =
-    TCollection_AsciiString()
+  AsciiString1 aSrcFrag =
+    AsciiString1()
     + EOL "#define occEnvCubemap occSampler0" EOL "void main()" EOL "{" EOL
           "  occSetFragColor (vec4(occTextureCube (occEnvCubemap, ViewDirection).rgb, 1.0));"
     + aDepthClamp + EOL "}";
@@ -2085,12 +2085,12 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getBgSkydomeProgram() c
     Graphic3d_ShaderObject::ShaderVariable("vec2 TexCoord",
                                            Graphic3d_TOS_VERTEX | Graphic3d_TOS_FRAGMENT));
 
-  TCollection_AsciiString aSrcVert =
-    TCollection_AsciiString()
+  AsciiString1 aSrcVert =
+    AsciiString1()
     + EOL "void main()" EOL "{" EOL "  gl_Position = vec4 (occVertex.xy, 0.0, 1.0);" EOL
           "  TexCoord    = 0.5 * gl_Position.xy + vec2 (0.5);" EOL "}";
 
-  TCollection_AsciiString aSrcFrag = Shaders_SkydomBackground_fs;
+  AsciiString1 aSrcFrag = Shaders_SkydomBackground_fs;
 
   if (myGapi == Aspect_GraphicsLibrary_OpenGL)
   {
@@ -2128,14 +2128,14 @@ Handle(Graphic3d_ShaderProgram) Graphic3d_ShaderManager::getColoredQuadProgram()
   aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("vec3 uColor1", Graphic3d_TOS_FRAGMENT));
   aUniforms.Append(Graphic3d_ShaderObject::ShaderVariable("vec3 uColor2", Graphic3d_TOS_FRAGMENT));
 
-  TCollection_AsciiString aSrcVert = TCollection_AsciiString()
+  AsciiString1 aSrcVert = AsciiString1()
                                      + EOL
                                      "void main()" EOL "{" EOL "  TexCoord    = occTexCoord.st;" EOL
                                      "  gl_Position = occProjectionMatrix * occWorldViewMatrix * "
                                      "occModelWorldMatrix * occVertex;" EOL "}";
 
-  TCollection_AsciiString aSrcFrag =
-    TCollection_AsciiString()
+  AsciiString1 aSrcFrag =
+    AsciiString1()
     + EOL "void main()" EOL "{" EOL "  vec3 c1 = mix (uColor1, uColor2, TexCoord.x);" EOL
           "  occSetFragColor (vec4 (mix (uColor2, c1, TexCoord.y), 1.0));" EOL "}";
 

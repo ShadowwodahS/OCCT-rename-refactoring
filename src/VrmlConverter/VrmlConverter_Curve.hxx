@@ -35,7 +35,7 @@ class VrmlConverter_Drawer;
 //! class (VrmlConverter).
 //! This kind of the presentation is converted into
 //! IndexedLineSet ( VRML ).
-class VrmlConverter_Curve
+class CurveConverter
 {
 public:
   DEFINE_STANDARD_ALLOC

@@ -38,10 +38,10 @@ TopoDSToStep_MakeStepVertex::TopoDSToStep_MakeStepVertex()
   done = Standard_False;
 }
 
-TopoDSToStep_MakeStepVertex::TopoDSToStep_MakeStepVertex(const TopoDS_Vertex&                  V,
+TopoDSToStep_MakeStepVertex::TopoDSToStep_MakeStepVertex(const TopoVertex&                  V,
                                                          TopoDSToStep_Tool&                    T,
                                                          const Handle(Transfer_FinderProcess)& FP,
-                                                         const StepData_Factors& theLocalFactors)
+                                                         const ConversionFactors& theLocalFactors)
 {
   done = Standard_False;
   Init(V, T, FP, theLocalFactors);
@@ -52,10 +52,10 @@ TopoDSToStep_MakeStepVertex::TopoDSToStep_MakeStepVertex(const TopoDS_Vertex&   
 // Purpose :
 // ----------------------------------------------------------------------------
 
-void TopoDSToStep_MakeStepVertex::Init(const TopoDS_Vertex&                  aVertex,
+void TopoDSToStep_MakeStepVertex::Init(const TopoVertex&                  aVertex,
                                        TopoDSToStep_Tool&                    aTool,
                                        const Handle(Transfer_FinderProcess)& FP,
-                                       const StepData_Factors&               theLocalFactors)
+                                       const ConversionFactors&               theLocalFactors)
 {
 
   aTool.SetCurrentVertex(aVertex);
@@ -88,7 +88,7 @@ void TopoDSToStep_MakeStepVertex::Init(const TopoDS_Vertex&                  aVe
 
   Point3d P;
 
-  P = BRep_Tool::Pnt(aVertex);
+  P = BRepInspector::Pnt(aVertex);
   GeomToStep_MakeCartesianPoint    MkPoint(P, theLocalFactors.LengthFactor());
   Handle(StepGeom_CartesianPoint)  Gpms  = MkPoint.Value();
   Handle(StepShape_VertexPoint)    Vpms  = new StepShape_VertexPoint();

@@ -26,7 +26,7 @@
 #include <Standard_Transient.hxx>
 #include <Standard_Integer.hxx>
 class BRepAdaptor_Surface;
-class TopoDS_Shape;
+class TopoShape;
 
 class TopOpeBRep_Hctxee2d;
 DEFINE_STANDARD_HANDLE(TopOpeBRep_Hctxee2d, RefObject)
@@ -37,12 +37,12 @@ class TopOpeBRep_Hctxee2d : public RefObject
 public:
   Standard_EXPORT TopOpeBRep_Hctxee2d();
 
-  Standard_EXPORT void SetEdges(const TopoDS_Edge&         E1,
-                                const TopoDS_Edge&         E2,
+  Standard_EXPORT void SetEdges(const TopoEdge&         E1,
+                                const TopoEdge&         E2,
                                 const BRepAdaptor_Surface& BAS1,
                                 const BRepAdaptor_Surface& BAS2);
 
-  Standard_EXPORT const TopoDS_Shape& Edge(const Standard_Integer I) const;
+  Standard_EXPORT const TopoShape& Edge(const Standard_Integer I) const;
 
   Standard_EXPORT const Geom2dAdaptor_Curve& Curve(const Standard_Integer I) const;
 
@@ -52,10 +52,10 @@ public:
 
 protected:
 private:
-  TopoDS_Edge         myEdge1;
+  TopoEdge         myEdge1;
   Geom2dAdaptor_Curve myCurve1;
   IntRes2d_Domain     myDomain1;
-  TopoDS_Edge         myEdge2;
+  TopoEdge         myEdge2;
   Geom2dAdaptor_Curve myCurve2;
   IntRes2d_Domain     myDomain2;
 };

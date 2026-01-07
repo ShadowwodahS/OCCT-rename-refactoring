@@ -142,7 +142,7 @@ TInspector_Communicator* TInspector_OpenFileDialog::Communicator()
 // purpose :
 // =======================================================================
 void TInspector_OpenFileDialog::GetPluginRecentlyOpenedFiles(
-  const TCollection_AsciiString& thePluginName,
+  const AsciiString1& thePluginName,
   TInspector_Communicator*       theCommunicator,
   QStringList&                   theFileNames)
 {
@@ -170,7 +170,7 @@ void TInspector_OpenFileDialog::GetPluginRecentlyOpenedFiles(
 // purpose :
 // =======================================================================
 void TInspector_OpenFileDialog::SetPluginRecentlyOpenedFiles(
-  const TCollection_AsciiString& thePluginName,
+  const AsciiString1& thePluginName,
   TInspector_Communicator*       theCommunicator,
   QStringList&                   theFileNames)
 {
@@ -179,7 +179,7 @@ void TInspector_OpenFileDialog::SetPluginRecentlyOpenedFiles(
   TInspectorAPI_PreferencesDataMap aPreferencesItem;
   aParameters->GetPreferences(thePluginName, aPreferencesItem);
   aPreferencesItem.Bind("recently_opened_files",
-                        TCollection_AsciiString(theFileNames.join(";").toUtf8().data()));
+                        AsciiString1(theFileNames.join(";").toUtf8().data()));
 
   aParameters->SetPreferences(thePluginName, aPreferencesItem);
 }

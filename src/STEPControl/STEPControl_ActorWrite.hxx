@@ -30,7 +30,7 @@ class Transfer_Binder;
 class Transfer_FinderProcess;
 class StepShape_ShapeDefinitionRepresentation;
 class StepGeom_Axis2Placement3d;
-class TopoDS_Shape;
+class TopoShape;
 class StepShape_NonManifoldSurfaceShapeRepresentation;
 
 class STEPControl_ActorWrite;
@@ -57,7 +57,7 @@ public:
     const Handle(StepShape_ShapeDefinitionRepresentation)& SDR,
     Handle(StepGeom_Axis2Placement3d)&                     AX1,
     const Handle(Transfer_FinderProcess)&                  FP,
-    const StepData_Factors&                                theLocalFactors = StepData_Factors(),
+    const ConversionFactors&                                theLocalFactors = ConversionFactors(),
     const Handle(TopTools_HSequenceOfShape)&               shapeGroup      = NULL,
     const Standard_Boolean                                 isManifold      = Standard_True,
     const Message_ProgressRange&                           theProgress = Message_ProgressRange());
@@ -66,7 +66,7 @@ public:
     const Handle(Transfer_Finder)&                         start,
     const Handle(StepShape_ShapeDefinitionRepresentation)& SDR,
     const Handle(Transfer_FinderProcess)&                  FP,
-    const StepData_Factors&                                theLocalFactors = StepData_Factors(),
+    const ConversionFactors&                                theLocalFactors = ConversionFactors(),
     const Handle(TopTools_HSequenceOfShape)&               shapeGroup      = NULL,
     const Standard_Boolean                                 isManifold      = Standard_True,
     const Message_ProgressRange&                           theProgress = Message_ProgressRange());
@@ -75,7 +75,7 @@ public:
     const Handle(Transfer_Finder)&                         start,
     const Handle(StepShape_ShapeDefinitionRepresentation)& SDR,
     const Handle(Transfer_FinderProcess)&                  FP,
-    const StepData_Factors&                                theLocalFactors = StepData_Factors(),
+    const ConversionFactors&                                theLocalFactors = ConversionFactors(),
     const Message_ProgressRange&                           theProgress = Message_ProgressRange());
 
   Standard_EXPORT void SetMode(const STEPControl_StepModelType M);
@@ -94,7 +94,7 @@ public:
   //! the shape itself
   //! NOTE: this method can modify shape
   Standard_EXPORT virtual Standard_Boolean IsAssembly(const Handle(StepData_StepModel)& theModel,
-                                                      TopoDS_Shape&                     S) const;
+                                                      TopoShape&                     S) const;
 
   DEFINE_STANDARD_RTTIEXT(STEPControl_ActorWrite, Transfer_ActorOfFinderProcess)
 
@@ -117,7 +117,7 @@ private:
   //! @param[in] theShape shape to iterate, checked for compound type and sub shapes vertex type
   //! @param[out] theVertices sequence of found vertices via recursively iterate of shape
   //! @return TRUE if one or more vertex was found and all shapes were compound or vertex
-  Standard_Boolean separateShapeToSoloVertex(const TopoDS_Shape&       theShape,
+  Standard_Boolean separateShapeToSoloVertex(const TopoShape&       theShape,
                                              TopTools_SequenceOfShape& theVertices);
 
 private:

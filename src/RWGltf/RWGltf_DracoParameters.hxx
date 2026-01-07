@@ -15,9 +15,9 @@
 #define _RWGltf_DracoParameters_HeaderFile
 
 //! Draco compression parameters
-struct RWGltf_DracoParameters
+struct DracoParameters
 {
-  RWGltf_DracoParameters()
+  DracoParameters()
       : DracoCompression(false),
         CompressionLevel(7),
         QuantizePositionBits(14),

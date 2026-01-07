@@ -25,7 +25,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Image_Texture, RefObject)
 
 //=================================================================================================
 
-Image_Texture::Image_Texture(const TCollection_AsciiString& theFileName)
+Image_Texture::Image_Texture(const AsciiString1& theFileName)
     : myImagePath(theFileName),
       myOffset(-1),
       myLength(-1)
@@ -33,13 +33,13 @@ Image_Texture::Image_Texture(const TCollection_AsciiString& theFileName)
   // share textures with unique file paths
   if (!theFileName.IsEmpty())
   {
-    myTextureId = TCollection_AsciiString("texture://") + theFileName;
+    myTextureId = AsciiString1("texture://") + theFileName;
   }
 }
 
 //=================================================================================================
 
-Image_Texture::Image_Texture(const TCollection_AsciiString& theFileName,
+Image_Texture::Image_Texture(const AsciiString1& theFileName,
                              int64_t                        theOffset,
                              int64_t                        theLength)
     : myImagePath(theFileName),
@@ -51,21 +51,21 @@ Image_Texture::Image_Texture(const TCollection_AsciiString& theFileName,
   {
     char aBuff[60];
     Sprintf(aBuff, ";%" PRId64 ",%" PRId64, theOffset, theLength);
-    myTextureId = TCollection_AsciiString("texture://") + theFileName + aBuff;
+    myTextureId = AsciiString1("texture://") + theFileName + aBuff;
   }
 }
 
 //=================================================================================================
 
 Image_Texture::Image_Texture(const Handle(NCollection_Buffer)& theBuffer,
-                             const TCollection_AsciiString&    theId)
+                             const AsciiString1&    theId)
     : myBuffer(theBuffer),
       myOffset(-1),
       myLength(-1)
 {
   if (!theId.IsEmpty())
   {
-    myTextureId = TCollection_AsciiString("texturebuf://") + theId;
+    myTextureId = AsciiString1("texturebuf://") + theId;
   }
 }
 
@@ -88,7 +88,7 @@ Handle(Image_CompressedPixMap) Image_Texture::ReadCompressedImage(
     return Image_DDSParser::Load(theSupported, myImagePath, 0, myOffset);
   }
 
-  TCollection_AsciiString aFilePathLower = myImagePath;
+  AsciiString1 aFilePathLower = myImagePath;
   aFilePathLower.LowerCase();
   if (!aFilePathLower.EndsWith(".dds"))
   {
@@ -125,7 +125,7 @@ Handle(Image_PixMap) Image_Texture::ReadImage(const Handle(Image_SupportedFormat
 
 //=================================================================================================
 
-Handle(Image_PixMap) Image_Texture::loadImageFile(const TCollection_AsciiString& thePath) const
+Handle(Image_PixMap) Image_Texture::loadImageFile(const AsciiString1& thePath) const
 {
   Handle(Image_AlienPixMap) anImage = new Image_AlienPixMap();
   if (!anImage->Load(thePath))
@@ -138,7 +138,7 @@ Handle(Image_PixMap) Image_Texture::loadImageFile(const TCollection_AsciiString&
 //=================================================================================================
 
 Handle(Image_PixMap) Image_Texture::loadImageBuffer(const Handle(NCollection_Buffer)& theBuffer,
-                                                    const TCollection_AsciiString&    theId) const
+                                                    const AsciiString1&    theId) const
 {
   if (theBuffer.IsNull())
   {
@@ -146,7 +146,7 @@ Handle(Image_PixMap) Image_Texture::loadImageBuffer(const Handle(NCollection_Buf
   }
   else if (theBuffer->Size() > (Standard_Size)IntegerLast())
   {
-    Message::SendFail(TCollection_AsciiString("Error: Image file size is too big '") + theId + "'");
+    Message::SendFail(AsciiString1("Error: Image file size is too big '") + theId + "'");
     return Handle(Image_PixMap)();
   }
 
@@ -160,13 +160,13 @@ Handle(Image_PixMap) Image_Texture::loadImageBuffer(const Handle(NCollection_Buf
 
 //=================================================================================================
 
-Handle(Image_PixMap) Image_Texture::loadImageOffset(const TCollection_AsciiString& thePath,
+Handle(Image_PixMap) Image_Texture::loadImageOffset(const AsciiString1& thePath,
                                                     int64_t                        theOffset,
                                                     int64_t                        theLength) const
 {
   if (theLength > IntegerLast())
   {
-    Message::SendFail(TCollection_AsciiString("Error: Image file size is too big '") + thePath
+    Message::SendFail(AsciiString1("Error: Image file size is too big '") + thePath
                       + "'");
     return Handle(Image_PixMap)();
   }
@@ -176,14 +176,14 @@ Handle(Image_PixMap) Image_Texture::loadImageOffset(const TCollection_AsciiStrin
     aFileSystem->OpenIStream(thePath, std::ios::in | std::ios::binary);
   if (aFile.get() == NULL)
   {
-    Message::SendFail(TCollection_AsciiString("Error: Image file '") + thePath
+    Message::SendFail(AsciiString1("Error: Image file '") + thePath
                       + "' cannot be opened");
     return Handle(Image_PixMap)();
   }
   aFile->seekg((std::streamoff)theOffset, std::ios_base::beg);
   if (!aFile->good())
   {
-    Message::SendFail(TCollection_AsciiString("Error: Image is defined with invalid file offset '")
+    Message::SendFail(AsciiString1("Error: Image is defined with invalid file offset '")
                       + thePath + "'");
     return Handle(Image_PixMap)();
   }
@@ -198,16 +198,16 @@ Handle(Image_PixMap) Image_Texture::loadImageOffset(const TCollection_AsciiStrin
 
 //=================================================================================================
 
-TCollection_AsciiString Image_Texture::MimeType() const
+AsciiString1 Image_Texture::MimeType() const
 {
-  const TCollection_AsciiString aType = ProbeImageFileFormat();
+  const AsciiString1 aType = ProbeImageFileFormat();
   if (aType == "jpg")
   {
     return "image/jpeg";
   }
   else if (aType == "png" || aType == "bmp" || aType == "webp" || aType == "gif" || aType == "tiff")
   {
-    return TCollection_AsciiString("image/") + aType;
+    return AsciiString1("image/") + aType;
   }
   else if (aType == "dds")
   {
@@ -215,14 +215,14 @@ TCollection_AsciiString Image_Texture::MimeType() const
   }
   else if (!aType.IsEmpty())
   {
-    return TCollection_AsciiString("image/x-") + aType;
+    return AsciiString1("image/x-") + aType;
   }
-  return TCollection_AsciiString();
+  return AsciiString1();
 }
 
 //=================================================================================================
 
-TCollection_AsciiString Image_Texture::ProbeImageFileFormat() const
+AsciiString1 Image_Texture::ProbeImageFileFormat() const
 {
   static const Standard_Size THE_PROBE_SIZE = 20;
   char                       aBuffer[THE_PROBE_SIZE];
@@ -239,7 +239,7 @@ TCollection_AsciiString Image_Texture::ProbeImageFileFormat() const
       aFileSystem->OpenIStream(myImagePath, std::ios::in | std::ios::binary);
     if (aFileIn.get() == NULL)
     {
-      Message::SendFail(TCollection_AsciiString("Error: Unable to open file '") + myImagePath
+      Message::SendFail(AsciiString1("Error: Unable to open file '") + myImagePath
                         + "'");
       return false;
     }
@@ -249,7 +249,7 @@ TCollection_AsciiString Image_Texture::ProbeImageFileFormat() const
       if (!aFileIn->good())
       {
         Message::SendFail(
-          TCollection_AsciiString("Error: Image is defined with invalid file offset '")
+          AsciiString1("Error: Image is defined with invalid file offset '")
           + myImagePath + "'");
         return false;
       }
@@ -257,7 +257,7 @@ TCollection_AsciiString Image_Texture::ProbeImageFileFormat() const
 
     if (!aFileIn->read(aBuffer, THE_PROBE_SIZE))
     {
-      Message::SendFail(TCollection_AsciiString("Error: unable to read image file '") + myImagePath
+      Message::SendFail(AsciiString1("Error: unable to read image file '") + myImagePath
                         + "'");
       return false;
     }
@@ -302,14 +302,14 @@ TCollection_AsciiString Image_Texture::ProbeImageFileFormat() const
 
 //=================================================================================================
 
-Standard_Boolean Image_Texture::WriteImage(const TCollection_AsciiString& theFile)
+Standard_Boolean Image_Texture::WriteImage(const AsciiString1& theFile)
 {
   const Handle(OSD_FileSystem)& aFileSystem = OSD_FileSystem::DefaultFileSystem();
   std::shared_ptr<std::ostream> aFileOut =
     aFileSystem->OpenOStream(theFile, std::ios::out | std::ios::binary | std::ios::trunc);
   if (aFileOut.get() == NULL)
   {
-    Message::SendFail(TCollection_AsciiString("Error: Unable to create file '") + theFile + "'");
+    Message::SendFail(AsciiString1("Error: Unable to create file '") + theFile + "'");
     return false;
   }
 
@@ -321,7 +321,7 @@ Standard_Boolean Image_Texture::WriteImage(const TCollection_AsciiString& theFil
   aFileOut->flush();
   if (!aFileOut->good())
   {
-    Message::SendFail(TCollection_AsciiString("Error: Unable to write file '") + theFile + "'");
+    Message::SendFail(AsciiString1("Error: Unable to write file '") + theFile + "'");
     return false;
   }
   aFileOut.reset();
@@ -331,14 +331,14 @@ Standard_Boolean Image_Texture::WriteImage(const TCollection_AsciiString& theFil
 //=================================================================================================
 
 Standard_Boolean Image_Texture::WriteImage(std::ostream&                  theStream,
-                                           const TCollection_AsciiString& theFile)
+                                           const AsciiString1& theFile)
 {
   if (!myBuffer.IsNull())
   {
     theStream.write((const char*)myBuffer->Data(), myBuffer->Size());
     if (!theStream.good())
     {
-      Message::SendFail(TCollection_AsciiString("File '") + theFile + "' cannot be written");
+      Message::SendFail(AsciiString1("File '") + theFile + "' cannot be written");
       return false;
     }
     return true;
@@ -349,7 +349,7 @@ Standard_Boolean Image_Texture::WriteImage(std::ostream&                  theStr
     aFileSystem->OpenIStream(myImagePath, std::ios::in | std::ios::binary);
   if (aFileIn.get() == NULL)
   {
-    Message::SendFail(TCollection_AsciiString("Error: Unable to open file ") + myImagePath + "!");
+    Message::SendFail(AsciiString1("Error: Unable to open file ") + myImagePath + "!");
     return false;
   }
 
@@ -360,7 +360,7 @@ Standard_Boolean Image_Texture::WriteImage(std::ostream&                  theStr
     if (!aFileIn->good())
     {
       Message::SendFail(
-        TCollection_AsciiString("Error: Image is defined with invalid file offset '") + myImagePath
+        AsciiString1("Error: Image is defined with invalid file offset '") + myImagePath
         + "'");
       return false;
     }
@@ -382,7 +382,7 @@ Standard_Boolean Image_Texture::WriteImage(std::ostream&                  theStr
     }
     if (!aFileIn->read((char*)&aBuffer.ChangeFirst(), aChunkSize))
     {
-      Message::SendFail(TCollection_AsciiString("Error: unable to read image file '") + myImagePath
+      Message::SendFail(AsciiString1("Error: unable to read image file '") + myImagePath
                         + "'");
       return false;
     }
@@ -390,7 +390,7 @@ Standard_Boolean Image_Texture::WriteImage(std::ostream&                  theStr
   }
   if (!theStream.good())
   {
-    Message::SendFail(TCollection_AsciiString("File '") + theFile + "' can not be written");
+    Message::SendFail(AsciiString1("File '") + theFile + "' can not be written");
     return false;
   }
   return true;

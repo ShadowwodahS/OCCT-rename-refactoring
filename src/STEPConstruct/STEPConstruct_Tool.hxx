@@ -21,7 +21,7 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_Boolean.hxx>
-class XSControl_WorkSession;
+class ExchangeSession;
 class Transfer_FinderProcess;
 class Transfer_TransientProcess;
 class Interface_HGraph;
@@ -47,10 +47,10 @@ public:
   Standard_EXPORT STEPConstruct_Tool();
 
   //! Creates a tool and loads it with worksession
-  Standard_EXPORT STEPConstruct_Tool(const Handle(XSControl_WorkSession)& WS);
+  Standard_EXPORT STEPConstruct_Tool(const Handle(ExchangeSession)& WS);
 
   //! Returns currently loaded WorkSession
-  const Handle(XSControl_WorkSession)& WS() const;
+  const Handle(ExchangeSession)& WS() const;
 
   //! Returns current model (Null if not loaded)
   Handle(Interface_InterfaceModel) Model() const;
@@ -68,10 +68,10 @@ protected:
   //! Load worksession; returns True if succeeded
   //! Returns False if either FinderProcess of TransientProcess
   //! cannot be obtained or are Null
-  Standard_EXPORT Standard_Boolean SetWS(const Handle(XSControl_WorkSession)& WS);
+  Standard_EXPORT Standard_Boolean SetWS(const Handle(ExchangeSession)& WS);
 
 private:
-  Handle(XSControl_WorkSession)     myWS;
+  Handle(ExchangeSession)     myWS;
   Handle(Transfer_FinderProcess)    myFinderProcess;
   Handle(Transfer_TransientProcess) myTransientProcess;
   Handle(Interface_HGraph)          myHGraph;

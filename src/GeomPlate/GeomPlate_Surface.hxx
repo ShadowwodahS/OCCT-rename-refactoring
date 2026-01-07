@@ -27,13 +27,13 @@
 #include <TColgp_SequenceOfXY.hxx>
 class Transform3d;
 class gp_GTrsf2d;
-class Geom_Curve;
+class GeomCurve3d;
 class Point3d;
 class Vector3d;
 class Geom_Geometry;
 
 class GeomPlate_Surface;
-DEFINE_STANDARD_HANDLE(GeomPlate_Surface, Geom_Surface)
+DEFINE_STANDARD_HANDLE(GeomPlate_Surface, GeomSurface)
 
 //! Describes the characteristics of plate surface objects
 //! returned by BuildPlateSurface::Surface. These can be
@@ -43,11 +43,11 @@ DEFINE_STANDARD_HANDLE(GeomPlate_Surface, Geom_Surface)
 //! you want to use the resulting surface as the support for
 //! a shape. The algorithmically generated surface cannot
 //! fill this function as is, and as a result must be converted first.
-class GeomPlate_Surface : public Geom_Surface
+class GeomPlate_Surface : public GeomSurface
 {
 
 public:
-  Standard_EXPORT GeomPlate_Surface(const Handle(Geom_Surface)& Surfinit,
+  Standard_EXPORT GeomPlate_Surface(const Handle(GeomSurface)& Surfinit,
                                     const Plate_Plate&          Surfinter);
 
   //! Reverses the U direction of parametrization of <me>.
@@ -172,10 +172,10 @@ public:
   Standard_EXPORT virtual Standard_Real VPeriod() const Standard_OVERRIDE;
 
   //! Computes the U isoparametric curve.
-  Standard_EXPORT Handle(Geom_Curve) UIso(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) UIso(const Standard_Real U) const Standard_OVERRIDE;
 
   //! Computes the V isoparametric curve.
-  Standard_EXPORT Handle(Geom_Curve) VIso(const Standard_Real V) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) VIso(const Standard_Real V) const Standard_OVERRIDE;
 
   //! Global Continuity of the surface in direction U and V :
   //! C0 : only geometric continuity,
@@ -266,7 +266,7 @@ public:
   //! (see class Transformation of the package Geom).
   Standard_EXPORT void Transform(const Transform3d& T) Standard_OVERRIDE;
 
-  Standard_EXPORT Handle(Geom_Surface) CallSurfinit() const;
+  Standard_EXPORT Handle(GeomSurface) CallSurfinit() const;
 
   Standard_EXPORT void SetBounds(const Standard_Real Umin,
                                  const Standard_Real Umax,
@@ -280,12 +280,12 @@ public:
 
   Standard_EXPORT void Constraints(TColgp_SequenceOfXY& Seq) const;
 
-  DEFINE_STANDARD_RTTIEXT(GeomPlate_Surface, Geom_Surface)
+  DEFINE_STANDARD_RTTIEXT(GeomPlate_Surface, GeomSurface)
 
 protected:
 private:
   Plate_Plate          mySurfinter;
-  Handle(Geom_Surface) mySurfinit;
+  Handle(GeomSurface) mySurfinit;
   Standard_Real        myUmin;
   Standard_Real        myUmax;
   Standard_Real        myVmin;

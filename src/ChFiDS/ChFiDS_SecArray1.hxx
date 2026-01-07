@@ -20,6 +20,6 @@
 #include <ChFiDS_CircSection.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<ChFiDS_CircSection> ChFiDS_SecArray1;
+typedef NCollection_Array1<CircularSection> ChFiDS_SecArray1;
 
 #endif

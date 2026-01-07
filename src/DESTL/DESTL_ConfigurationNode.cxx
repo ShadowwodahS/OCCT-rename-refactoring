@@ -22,9 +22,9 @@ IMPLEMENT_STANDARD_RTTIEXT(DESTL_ConfigurationNode, DE_ConfigurationNode)
 
 namespace
 {
-static const TCollection_AsciiString& THE_CONFIGURATION_SCOPE()
+static const AsciiString1& THE_CONFIGURATION_SCOPE()
 {
-  static const TCollection_AsciiString aScope = "provider";
+  static const AsciiString1 aScope = "provider";
   return aScope;
 }
 
@@ -51,7 +51,7 @@ DESTL_ConfigurationNode::DESTL_ConfigurationNode(const Handle(DESTL_Configuratio
 
 bool DESTL_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
 {
-  TCollection_AsciiString aScope =
+  AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor();
 
   InternalParameters.ReadMergeAngle =
@@ -65,13 +65,13 @@ bool DESTL_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theRes
 
 //=================================================================================================
 
-TCollection_AsciiString DESTL_ConfigurationNode::Save() const
+AsciiString1 DESTL_ConfigurationNode::Save() const
 {
-  TCollection_AsciiString aResult;
+  AsciiString1 aResult;
   aResult += "!*****************************************************************************\n";
   aResult =
     aResult + "!Configuration Node " + " Vendor: " + GetVendor() + " Format: " + GetFormat() + "\n";
-  TCollection_AsciiString aScope =
+  AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor() + ".";
 
   aResult += "!\n";
@@ -134,16 +134,16 @@ bool DESTL_ConfigurationNode::IsExportSupported() const
 
 //=================================================================================================
 
-TCollection_AsciiString DESTL_ConfigurationNode::GetFormat() const
+AsciiString1 DESTL_ConfigurationNode::GetFormat() const
 {
-  return TCollection_AsciiString("STL");
+  return AsciiString1("STL");
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DESTL_ConfigurationNode::GetVendor() const
+AsciiString1 DESTL_ConfigurationNode::GetVendor() const
 {
-  return TCollection_AsciiString("OCC");
+  return AsciiString1("OCC");
 }
 
 //=================================================================================================

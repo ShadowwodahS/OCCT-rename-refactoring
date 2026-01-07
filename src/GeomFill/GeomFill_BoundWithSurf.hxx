@@ -57,8 +57,8 @@ public:
   //! -   the services provided by a curve lying on a surface from the package Geom
   //! -   and those required of the curve by the computation algorithm which uses it.
   //! The adapted curve is created in the following way:
-  //! Handle(Geom_Surface) mySurface = ... ;
-  //! Handle(Geom2d_Curve) myParamCurve = ... ;
+  //! Handle(GeomSurface) mySurface = ... ;
+  //! Handle(GeomCurve2d) myParamCurve = ... ;
   //! // where myParamCurve is a 2D curve in the parametric space of the surface mySurface
   //! Handle(GeomAdaptor_Surface)
   //! Surface = new

@@ -24,8 +24,8 @@
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_ListOfShape.hxx>
 
-class TopoDS_Face;
-class TopoDS_Wire;
+class TopoFace;
+class TopoWire;
 class Dir3d;
 class gp_Pln;
 
@@ -43,13 +43,13 @@ public:
   LocOpe_SplitDrafts() {}
 
   //! Creates the algorithm on the shape <S>.
-  LocOpe_SplitDrafts(const TopoDS_Shape& S)
+  LocOpe_SplitDrafts(const TopoShape& S)
       : myShape(S)
   {
   }
 
   //! Initializes the algorithm with the shape <S>.
-  Standard_EXPORT void Init(const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const TopoShape& S);
 
   //! Splits the face <F> of the former given shape with
   //! the wire  <W>.  The wire is  assumed to lie on the
@@ -66,8 +66,8 @@ public:
   //! the left part of the wire. If <ModifyRight> is set
   //! to <Standard_False>,no draft  angle  is applied to
   //! the right part of the wire.
-  Standard_EXPORT void Perform(const TopoDS_Face&     F,
-                               const TopoDS_Wire&     W,
+  Standard_EXPORT void Perform(const TopoFace&     F,
+                               const TopoWire&     W,
                                const Dir3d&          Extractg,
                                const gp_Pln&          NPlg,
                                const Standard_Real    Angleg,
@@ -85,8 +85,8 @@ public:
   //! plane (points belonging  to the neutral plane  are
   //! not modified). <Angle> is  the value of  the draft
   //! angle.
-  Standard_EXPORT void Perform(const TopoDS_Face&  F,
-                               const TopoDS_Wire&  W,
+  Standard_EXPORT void Perform(const TopoFace&  F,
+                               const TopoWire&  W,
                                const Dir3d&       Extract,
                                const gp_Pln&       NPl,
                                const Standard_Real Angle);
@@ -94,17 +94,17 @@ public:
   //! Returns <Standard_True> if the modification has been successfully performed.
   Standard_Boolean IsDone() const { return !myResult.IsNull(); }
 
-  const TopoDS_Shape& OriginalShape() const { return myShape; }
+  const TopoShape& OriginalShape() const { return myShape; }
 
   //! Returns the modified shape.
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
   //! Manages the descendant shapes.
-  Standard_EXPORT const TopTools_ListOfShape& ShapesFromShape(const TopoDS_Shape& S) const;
+  Standard_EXPORT const ShapeList& ShapesFromShape(const TopoShape& S) const;
 
 private:
-  TopoDS_Shape                       myShape;
-  TopoDS_Shape                       myResult;
+  TopoShape                       myShape;
+  TopoShape                       myResult;
   TopTools_DataMapOfShapeListOfShape myMap;
 };
 

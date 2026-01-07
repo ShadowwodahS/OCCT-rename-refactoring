@@ -28,7 +28,7 @@ class IGESBasic_Group;
 DEFINE_STANDARD_HANDLE(IGESBasic_Group, IGESData_IGESEntity)
 
 //! defines Group, Type <402> Form <1>
-//! in package IGESBasic
+//! in package IGESBasic1
 //! The Group Associativity allows a collection of a set
 //! of entities to be maintained as a single, logical
 //! entity

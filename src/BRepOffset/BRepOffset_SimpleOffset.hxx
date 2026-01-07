@@ -50,7 +50,7 @@ public:
   //! @param theInputShape shape to be offset
   //! @param theOffsetValue offset distance (signed)
   //! @param theTolerance tolerance for handling singular points
-  Standard_EXPORT BRepOffset_SimpleOffset(const TopoDS_Shape& theInputShape,
+  Standard_EXPORT BRepOffset_SimpleOffset(const TopoShape& theInputShape,
                                           const Standard_Real theOffsetValue,
                                           const Standard_Real theTolerance);
 
@@ -65,8 +65,8 @@ public:
   //! face changes in the  shells which contain  it.  --
   //! Here, <RevFace>  will  return Standard_True if the
   //! -- Transform3d is negative.
-  Standard_EXPORT Standard_Boolean NewSurface(const TopoDS_Face&    F,
-                                              Handle(Geom_Surface)& S,
+  Standard_EXPORT Standard_Boolean NewSurface(const TopoFace&    F,
+                                              Handle(GeomSurface)& S,
                                               TopLoc_Location&      L,
                                               Standard_Real&        Tol,
                                               Standard_Boolean&     RevWires,
@@ -78,8 +78,8 @@ public:
   //! the         new    tolerance.   Otherwise, returns
   //! Standard_False,    and  <C>,  <L>,   <Tol> are not
   //! significant.
-  Standard_EXPORT Standard_Boolean NewCurve(const TopoDS_Edge&  E,
-                                            Handle(Geom_Curve)& C,
+  Standard_EXPORT Standard_Boolean NewCurve(const TopoEdge&  E,
+                                            Handle(GeomCurve3d)& C,
                                             TopLoc_Location&    L,
                                             Standard_Real&      Tol) Standard_OVERRIDE;
 
@@ -88,7 +88,7 @@ public:
   //! support of the vertex,   <Tol> the new  tolerance.
   //! Otherwise, returns Standard_False, and <P>,  <Tol>
   //! are not significant.
-  Standard_EXPORT Standard_Boolean NewPoint(const TopoDS_Vertex& V,
+  Standard_EXPORT Standard_Boolean NewPoint(const TopoVertex& V,
                                             Point3d&              P,
                                             Standard_Real&       Tol) Standard_OVERRIDE;
 
@@ -98,11 +98,11 @@ public:
   //! new location, <Tol> the new tolerance.
   //! Otherwise, returns  Standard_False, and <C>,  <L>,
   //! <Tol> are not significant.
-  Standard_EXPORT Standard_Boolean NewCurve2d(const TopoDS_Edge&    E,
-                                              const TopoDS_Face&    F,
-                                              const TopoDS_Edge&    NewE,
-                                              const TopoDS_Face&    NewF,
-                                              Handle(Geom2d_Curve)& C,
+  Standard_EXPORT Standard_Boolean NewCurve2d(const TopoEdge&    E,
+                                              const TopoFace&    F,
+                                              const TopoEdge&    NewE,
+                                              const TopoFace&    NewF,
+                                              Handle(GeomCurve2d)& C,
                                               Standard_Real&        Tol) Standard_OVERRIDE;
 
   //! Returns Standard_True if the Vertex  <V> has a new
@@ -110,8 +110,8 @@ public:
   //! the parameter,    <Tol>  the     new    tolerance.
   //! Otherwise, returns Standard_False, and <P>,  <Tol>
   //! are not significant.
-  Standard_EXPORT Standard_Boolean NewParameter(const TopoDS_Vertex& V,
-                                                const TopoDS_Edge&   E,
+  Standard_EXPORT Standard_Boolean NewParameter(const TopoVertex& V,
+                                                const TopoEdge&   E,
                                                 Standard_Real&       P,
                                                 Standard_Real&       Tol) Standard_OVERRIDE;
 
@@ -121,30 +121,30 @@ public:
   //! <NewE> is the new  edge created from <E>.  <NewF1>
   //! (resp. <NewF2>) is the new  face created from <F1>
   //! (resp. <F2>).
-  Standard_EXPORT GeomAbs_Shape Continuity(const TopoDS_Edge& E,
-                                           const TopoDS_Face& F1,
-                                           const TopoDS_Face& F2,
-                                           const TopoDS_Edge& NewE,
-                                           const TopoDS_Face& NewF1,
-                                           const TopoDS_Face& NewF2) Standard_OVERRIDE;
+  Standard_EXPORT GeomAbs_Shape Continuity(const TopoEdge& E,
+                                           const TopoFace& F1,
+                                           const TopoFace& F2,
+                                           const TopoEdge& NewE,
+                                           const TopoFace& NewF1,
+                                           const TopoFace& NewF2) Standard_OVERRIDE;
 
 private:
   //! Method to fill new face data for single face.
-  void FillFaceData(const TopoDS_Face& theFace);
+  void FillFaceData(const TopoFace& theFace);
 
   //! Method to fill new edge data for single edge.
-  void FillEdgeData(const TopoDS_Edge&                               theEdge,
+  void FillEdgeData(const TopoEdge&                               theEdge,
                     const TopTools_IndexedDataMapOfShapeListOfShape& theEdgeFaceMap,
                     const Standard_Integer                           theIdx);
 
   //! Method to fill new vertex data for single vertex.
-  void FillVertexData(const TopoDS_Vertex&                             theVertex,
+  void FillVertexData(const TopoVertex&                             theVertex,
                       const TopTools_IndexedDataMapOfShapeListOfShape& theVertexEdgeMap,
                       const Standard_Integer                           theIdx);
 
   struct NewFaceData
   {
-    Handle(Geom_Surface) myOffsetS;
+    Handle(GeomSurface) myOffsetS;
     TopLoc_Location      myL;
     Standard_Real        myTol;
     Standard_Boolean     myRevWires;
@@ -153,7 +153,7 @@ private:
 
   struct NewEdgeData
   {
-    Handle(Geom_Curve) myOffsetC; // Resulting curve.
+    Handle(GeomCurve3d) myOffsetC; // Resulting curve.
     TopLoc_Location    myL;
     Standard_Real      myTol;
   };
@@ -165,20 +165,20 @@ private:
   };
 
   //! Fills offset data.
-  void FillOffsetData(const TopoDS_Shape& theInputShape);
+  void FillOffsetData(const TopoShape& theInputShape);
 
   //! Copy-assignment constructor and copy constructor are not allowed.
   void operator=(const BRepOffset_SimpleOffset&);
   BRepOffset_SimpleOffset(const BRepOffset_SimpleOffset&);
 
   //! Map of faces to new faces information.
-  NCollection_DataMap<TopoDS_Face, NewFaceData> myFaceInfo;
+  NCollection_DataMap<TopoFace, NewFaceData> myFaceInfo;
 
   //! Map of edges to new edges information.
-  NCollection_DataMap<TopoDS_Edge, NewEdgeData> myEdgeInfo;
+  NCollection_DataMap<TopoEdge, NewEdgeData> myEdgeInfo;
 
   //! Map of vertices to new vertices information.
-  NCollection_DataMap<TopoDS_Vertex, NewVertexData> myVertexInfo;
+  NCollection_DataMap<TopoVertex, NewVertexData> myVertexInfo;
 
   //! Offset value.
   Standard_Real myOffsetValue;

@@ -39,10 +39,10 @@ public:
   Graphic3d_TypeOfLightSource Type() const { return myType; }
 
   //! Returns light source name; empty string by default.
-  const TCollection_AsciiString& Name() const { return myName; }
+  const AsciiString1& Name() const { return myName; }
 
   //! Sets light source name.
-  void SetName(const TCollection_AsciiString& theName) { myName = theName; }
+  void SetName(const AsciiString1& theName) { myName = theName; }
 
   //! Returns the color of the light source; WHITE by default.
   const Quantity_Color& Color() const { return myColor.GetRGB(); }
@@ -218,7 +218,7 @@ public:
   //! @name low-level access methods
 public:
   //! @return light resource identifier string
-  const TCollection_AsciiString& GetId() const { return myId; }
+  const AsciiString1& GetId() const { return myId; }
 
   //! Packed light parameters.
   const Graphic3d_Vec4& PackedParams() const { return myParams; }
@@ -270,8 +270,8 @@ private:
   Graphic3d_CLight& operator=(const Graphic3d_CLight&);
 
 protected:
-  TCollection_AsciiString myId;                      //!< resource id
-  TCollection_AsciiString myName;                    //!< user given name
+  AsciiString1 myId;                      //!< resource id
+  AsciiString1 myName;                    //!< user given name
   Point3d                  myPosition;                //!< light position
   Quantity_ColorRGBA      myColor;                   //!< light color
   Graphic3d_Vec4          myDirection;               //!< direction of directional/spot light

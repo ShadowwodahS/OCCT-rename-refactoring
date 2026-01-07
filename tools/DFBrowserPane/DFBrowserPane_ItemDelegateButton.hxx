@@ -51,7 +51,7 @@ public:
   //! \param theRows an indices of rows
   void SetFreeRows(const QList<int>& theRows) { myFreeRows = theRows; }
 
-  //! Draw an icon in the cell
+  //! Draw1 an icon in the cell
   //! \param thePainter a painter
   //! \param theOption a paint options
   //! \param theIndex a view index

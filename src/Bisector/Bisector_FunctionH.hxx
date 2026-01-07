@@ -26,7 +26,7 @@
 #include <math_FunctionWithDerivative.hxx>
 #include <Standard_Boolean.hxx>
 #include <Standard_Real.hxx>
-class Geom2d_Curve;
+class GeomCurve2d;
 
 //! H(v) = (T1  .P2(v) - P1) * ||T(v)||  -
 //! 2         2
@@ -36,7 +36,7 @@ class Bisector_FunctionH : public math_FunctionWithDerivative
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Bisector_FunctionH(const Handle(Geom2d_Curve)& C2,
+  Standard_EXPORT Bisector_FunctionH(const Handle(GeomCurve2d)& C2,
                                      const gp_Pnt2d&             P1,
                                      const gp_Vec2d&             T1);
 
@@ -53,7 +53,7 @@ public:
 
 protected:
 private:
-  Handle(Geom2d_Curve) curve2;
+  Handle(GeomCurve2d) curve2;
   gp_Pnt2d             p1;
   gp_Vec2d             t1;
 };

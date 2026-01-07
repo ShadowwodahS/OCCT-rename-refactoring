@@ -30,7 +30,7 @@
 #include <TColgp_Array1OfVec.hxx>
 #include <TColgp_Array1OfVec2d.hxx>
 class BRepApprox_ApproxLine;
-class ApproxInt_SvSurfaces;
+class SurfaceSurfaces;
 
 class BRepApprox_TheMultiLineOfApprox
 {

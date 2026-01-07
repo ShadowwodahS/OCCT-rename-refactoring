@@ -21,7 +21,7 @@
 class TCollection_HAsciiString;
 class Express_HSequenceOfItem;
 class Express_Item;
-class TCollection_AsciiString;
+class AsciiString1;
 class Express_Type;
 
 //! Represents a schema as a list of items and provides general
@@ -59,7 +59,7 @@ public:
     const Standard_Boolean theSilent = Standard_False) const;
 
   //! Returns item by name
-  Standard_EXPORT Handle(Express_Item) Item(const TCollection_AsciiString& theName) const;
+  Standard_EXPORT Handle(Express_Item) Item(const AsciiString1& theName) const;
 
   //! Returns item by name
   Standard_EXPORT Handle(Express_Item) Item(const Handle(TCollection_HAsciiString)& theName) const;

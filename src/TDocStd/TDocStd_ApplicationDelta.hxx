@@ -34,9 +34,9 @@ public:
 
   TDocStd_SequenceOfDocument& GetDocuments();
 
-  const TCollection_ExtendedString& GetName() const;
+  const UtfString& GetName() const;
 
-  void SetName(const TCollection_ExtendedString& theName);
+  void SetName(const UtfString& theName);
 
   Standard_EXPORT void Dump(Standard_OStream& anOS) const;
 
@@ -45,7 +45,7 @@ public:
 protected:
 private:
   TDocStd_SequenceOfDocument myDocuments;
-  TCollection_ExtendedString myName;
+  UtfString myName;
 };
 
 #include <TDocStd_ApplicationDelta.lxx>

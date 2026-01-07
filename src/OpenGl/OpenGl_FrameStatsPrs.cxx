@@ -31,12 +31,12 @@ struct OpenGl_Vec3Vec4ub
 };
 
 //! Auxiliary function formatting rendering time in " 10 ms (100 FPS)" format.
-static TCollection_AsciiString formatTimeMs(Standard_Real theSeconds)
+static AsciiString1 formatTimeMs(Standard_Real theSeconds)
 {
   const Standard_Real aFpsVal = theSeconds != 0.0 ? 1.0 / theSeconds : 0.0;
   char                aFps[50];
   Sprintf(aFps, "%.1f", aFpsVal);
-  return TCollection_AsciiString() + Standard_Integer(theSeconds * 1000.0) + " ms (" + aFps
+  return AsciiString1() + Standard_Integer(theSeconds * 1000.0) + " ms (" + aFps
          + " FPS)";
 }
 } // namespace
@@ -342,7 +342,7 @@ void OpenGl_FrameStatsPrs::updateChart(const Handle(OpenGl_Workspace)& theWorksp
                                      ? Graphic3d_HTA_RIGHT
                                      : Graphic3d_HTA_LEFT);
     aParams.SetVerticalAlignment(Graphic3d_VTA_CENTER);
-    TCollection_AsciiString aLabels[3] = {TCollection_AsciiString() + 0 + " ms",
+    AsciiString1 aLabels[3] = {AsciiString1() + 0 + " ms",
                                           formatTimeMs(aMaxDuration * 0.5),
                                           formatTimeMs(aMaxDuration)};
 

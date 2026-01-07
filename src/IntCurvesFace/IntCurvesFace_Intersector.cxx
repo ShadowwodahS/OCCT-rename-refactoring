@@ -115,12 +115,12 @@ static void ComputeSamplePars(const Handle(Adaptor3d_Surface)& Hsurface,
 
 GeomAbs_SurfaceType IntCurvesFace_Intersector::SurfaceType() const
 {
-  return (Adaptor3d_HSurfaceTool::GetType(Hsurface));
+  return (HSurfaceTool::GetType(Hsurface));
 }
 
 //=================================================================================================
 
-IntCurvesFace_Intersector::IntCurvesFace_Intersector(const TopoDS_Face&     Face,
+IntCurvesFace_Intersector::IntCurvesFace_Intersector(const TopoFace&     Face,
                                                      const Standard_Real    aTol,
                                                      const Standard_Boolean aRestr,
                                                      const Standard_Boolean UseBToler)
@@ -138,7 +138,7 @@ IntCurvesFace_Intersector::IntCurvesFace_Intersector(const TopoDS_Face&     Face
   Hsurface    = new BRepAdaptor_Surface(surface);
   myTopolTool = new BRepTopAdaptor_TopolTool(Hsurface);
 
-  GeomAbs_SurfaceType SurfaceType = Adaptor3d_HSurfaceTool::GetType(Hsurface);
+  GeomAbs_SurfaceType SurfaceType = HSurfaceTool::GetType(Hsurface);
   if ((SurfaceType != GeomAbs_Plane) && (SurfaceType != GeomAbs_Cylinder)
       && (SurfaceType != GeomAbs_Cone) && (SurfaceType != GeomAbs_Sphere)
       && (SurfaceType != GeomAbs_Torus))
@@ -222,13 +222,13 @@ void IntCurvesFace_Intersector::InternalCall(const IntCurveSurface_HInter& HICS,
   if (HICS.IsDone() && HICS.NbPoints() > 0)
   {
     // Calculate tolerance for 2d classifier
-    Standard_Real   mintol3d = BRep_Tool::Tolerance(face);
+    Standard_Real   mintol3d = BRepInspector::Tolerance(face);
     Standard_Real   maxtol3d = mintol3d;
     Standard_Real   mintol2d = Tol, maxtol2d = Tol;
-    TopExp_Explorer anExp(face, TopAbs_EDGE);
+    ShapeExplorer anExp(face, TopAbs_EDGE);
     for (; anExp.More(); anExp.Next())
     {
-      Standard_Real curtol = BRep_Tool::Tolerance(TopoDS::Edge(anExp.Current()));
+      Standard_Real curtol = BRepInspector::Tolerance(TopoDS::Edge(anExp.Current()));
       mintol3d             = Min(mintol3d, curtol);
       maxtol3d             = Max(maxtol3d, curtol);
     }
@@ -259,9 +259,9 @@ void IntCurvesFace_Intersector::InternalCall(const IntCurveSurface_HInter& HICS,
           anExp.Init(face, TopAbs_EDGE);
           for (; anExp.More(); anExp.Next())
           {
-            TopoDS_Edge                 anE = TopoDS::Edge(anExp.Current());
+            TopoEdge                 anE = TopoDS::Edge(anExp.Current());
             Standard_Real               f, l;
-            Handle(Geom_Curve)          aPC = BRep_Tool::Curve(anE, f, l);
+            Handle(GeomCurve3d)          aPC = BRepInspector::Curve(anE, f, l);
             GeomAPI_ProjectPointOnCurve aProj(HICSPointindex.Pnt(), aPC, f, l);
             if (aProj.NbPoints() > 0)
             {
@@ -365,7 +365,7 @@ void IntCurvesFace_Intersector::Perform(const gp_Lin&       L,
   nbpnt = 0;
 
   IntCurveSurface_HInter    HICS;
-  Handle(Geom_Line)         geomline = new Geom_Line(L);
+  Handle(GeomLine)         geomline = new GeomLine(L);
   GeomAdaptor_Curve         LL(geomline);
   Handle(GeomAdaptor_Curve) HLL    = new GeomAdaptor_Curve(LL);
   Standard_Real             parinf = ParMin;

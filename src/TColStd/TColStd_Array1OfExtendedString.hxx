@@ -18,6 +18,6 @@
 #include <TCollection_ExtendedString.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<TCollection_ExtendedString> TColStd_Array1OfExtendedString;
+typedef NCollection_Array1<UtfString> TColStd_Array1OfExtendedString;
 
 #endif

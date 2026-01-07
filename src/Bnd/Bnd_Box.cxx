@@ -1120,7 +1120,7 @@ Standard_Boolean Bnd_Box::InitFromJson(const Standard_SStream& theSStream,
 {
   Standard_Integer aPos = theStreamPos;
 
-  TCollection_AsciiString aStreamStr = Standard_Dump::Text(theSStream);
+  AsciiString1 aStreamStr = Standard_Dump::Text(theSStream);
   OCCT_INIT_VECTOR_CLASS(aStreamStr, "CornerMin", aPos, 3, &Xmin, &Ymin, &Zmin)
   OCCT_INIT_VECTOR_CLASS(aStreamStr, "CornerMax", aPos, 3, &Xmax, &Ymax, &Zmax)
 

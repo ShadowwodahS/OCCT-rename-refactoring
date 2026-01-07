@@ -26,16 +26,16 @@
 class StepGeom_CompositeCurve;
 class Transfer_TransientProcess;
 class StepGeom_Surface;
-class Geom_Surface;
+class GeomSurface;
 
-//! Translate STEP entity composite_curve to TopoDS_Wire
+//! Translate STEP entity composite_curve to TopoWire
 //! If surface is given, the curve is assumed to lie on that
 //! surface and in case if any segment of it is a
 //! curve_on_surface, the pcurve for that segment will be taken.
 //! Note: a segment of composite_curve may be itself
 //! composite_curve. Only one-level protection against
 //! cyclic references is implemented.
-class StepToTopoDS_TranslateCompositeCurve : public StepToTopoDS_Root
+class StepToTopoDS_TranslateCompositeCurve : public Root2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -47,39 +47,39 @@ public:
   Standard_EXPORT StepToTopoDS_TranslateCompositeCurve(
     const Handle(StepGeom_CompositeCurve)&   CC,
     const Handle(Transfer_TransientProcess)& TP,
-    const StepData_Factors&                  theLocalFactors = StepData_Factors());
+    const ConversionFactors&                  theLocalFactors = ConversionFactors());
 
   //! Translates composite_curve lying on surface
   Standard_EXPORT StepToTopoDS_TranslateCompositeCurve(
     const Handle(StepGeom_CompositeCurve)&   CC,
     const Handle(Transfer_TransientProcess)& TP,
     const Handle(StepGeom_Surface)&          S,
-    const Handle(Geom_Surface)&              Surf,
-    const StepData_Factors&                  theLocalFactors = StepData_Factors());
+    const Handle(GeomSurface)&              Surf,
+    const ConversionFactors&                  theLocalFactors = ConversionFactors());
 
   //! Translates standalone composite_curve
   Standard_EXPORT Standard_Boolean
     Init(const Handle(StepGeom_CompositeCurve)&   CC,
          const Handle(Transfer_TransientProcess)& TP,
-         const StepData_Factors&                  theLocalFactors = StepData_Factors());
+         const ConversionFactors&                  theLocalFactors = ConversionFactors());
 
   //! Translates composite_curve lying on surface
   Standard_EXPORT Standard_Boolean
     Init(const Handle(StepGeom_CompositeCurve)&   CC,
          const Handle(Transfer_TransientProcess)& TP,
          const Handle(StepGeom_Surface)&          S,
-         const Handle(Geom_Surface)&              Surf,
-         const StepData_Factors&                  theLocalFactors = StepData_Factors());
+         const Handle(GeomSurface)&              Surf,
+         const ConversionFactors&                  theLocalFactors = ConversionFactors());
 
   //! Returns result of last translation or null wire if failed.
-  Standard_EXPORT const TopoDS_Wire& Value() const;
+  Standard_EXPORT const TopoWire& Value() const;
 
   //! Returns True if composite_curve contains a segment with infinite parameters.
   Standard_Boolean IsInfiniteSegment() const;
 
 protected:
 private:
-  TopoDS_Wire      myWire;
+  TopoWire      myWire;
   Standard_Boolean myInfiniteSegment;
 };
 

@@ -21,7 +21,7 @@
 
 #include <Standard_Real.hxx>
 #include <BRep_PointsOnSurface.hxx>
-class Geom_Surface;
+class GeomSurface;
 class TopLoc_Location;
 
 class BRep_PointOnSurface;
@@ -34,12 +34,12 @@ class BRep_PointOnSurface : public BRep_PointsOnSurface
 public:
   Standard_EXPORT BRep_PointOnSurface(const Standard_Real         P1,
                                       const Standard_Real         P2,
-                                      const Handle(Geom_Surface)& S,
+                                      const Handle(GeomSurface)& S,
                                       const TopLoc_Location&      L);
 
   Standard_EXPORT virtual Standard_Boolean IsPointOnSurface() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual Standard_Boolean IsPointOnSurface(const Handle(Geom_Surface)& S,
+  Standard_EXPORT virtual Standard_Boolean IsPointOnSurface(const Handle(GeomSurface)& S,
                                                             const TopLoc_Location&      L) const
     Standard_OVERRIDE;
 

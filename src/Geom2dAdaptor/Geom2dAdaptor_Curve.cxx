@@ -175,7 +175,7 @@ Geom2dAdaptor_Curve::Geom2dAdaptor_Curve()
 
 //=================================================================================================
 
-Geom2dAdaptor_Curve::Geom2dAdaptor_Curve(const Handle(Geom2d_Curve)& theCrv)
+Geom2dAdaptor_Curve::Geom2dAdaptor_Curve(const Handle(GeomCurve2d)& theCrv)
     : myTypeCurve(GeomAbs_OtherCurve),
       myFirst(0.0),
       myLast(0.0)
@@ -185,7 +185,7 @@ Geom2dAdaptor_Curve::Geom2dAdaptor_Curve(const Handle(Geom2d_Curve)& theCrv)
 
 //=================================================================================================
 
-Geom2dAdaptor_Curve::Geom2dAdaptor_Curve(const Handle(Geom2d_Curve)& theCrv,
+Geom2dAdaptor_Curve::Geom2dAdaptor_Curve(const Handle(GeomCurve2d)& theCrv,
                                          const Standard_Real         theUFirst,
                                          const Standard_Real         theULast)
     : myTypeCurve(GeomAbs_OtherCurve),
@@ -209,7 +209,7 @@ void Geom2dAdaptor_Curve::Reset()
 
 //=================================================================================================
 
-void Geom2dAdaptor_Curve::load(const Handle(Geom2d_Curve)& C,
+void Geom2dAdaptor_Curve::load(const Handle(GeomCurve2d)& C,
                                const Standard_Real         UFirst,
                                const Standard_Real         ULast)
 {
@@ -262,7 +262,7 @@ void Geom2dAdaptor_Curve::load(const Handle(Geom2d_Curve)& C,
       myTypeCurve                              = GeomAbs_OffsetCurve;
       Handle(Geom2d_OffsetCurve) anOffsetCurve = Handle(Geom2d_OffsetCurve)::DownCast(myCurve);
       // Create nested adaptor for base curve
-      Handle(Geom2d_Curve)        aBaseCurve   = anOffsetCurve->BasisCurve();
+      Handle(GeomCurve2d)        aBaseCurve   = anOffsetCurve->BasisCurve();
       Handle(Geom2dAdaptor_Curve) aBaseAdaptor = new Geom2dAdaptor_Curve(aBaseCurve);
       myNestedEvaluator = new Geom2dEvaluator_OffsetCurve(aBaseAdaptor, anOffsetCurve->Offset());
     }
@@ -900,7 +900,7 @@ Handle(Geom2d_BSplineCurve) Geom2dAdaptor_Curve::BSpline() const
   return myBSplineCurve;
 }
 
-static Standard_Integer nbPoints(const Handle(Geom2d_Curve)& theCurve)
+static Standard_Integer nbPoints(const Handle(GeomCurve2d)& theCurve)
 {
 
   Standard_Integer nbs = 20;
@@ -920,13 +920,13 @@ static Standard_Integer nbPoints(const Handle(Geom2d_Curve)& theCurve)
   }
   else if (theCurve->IsKind(STANDARD_TYPE(Geom2d_OffsetCurve)))
   {
-    Handle(Geom2d_Curve) aCurve = Handle(Geom2d_OffsetCurve)::DownCast(theCurve)->BasisCurve();
+    Handle(GeomCurve2d) aCurve = Handle(Geom2d_OffsetCurve)::DownCast(theCurve)->BasisCurve();
     return Max(nbs, nbPoints(aCurve));
   }
 
   else if (theCurve->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve)))
   {
-    Handle(Geom2d_Curve) aCurve = Handle(Geom2d_TrimmedCurve)::DownCast(theCurve)->BasisCurve();
+    Handle(GeomCurve2d) aCurve = Handle(Geom2d_TrimmedCurve)::DownCast(theCurve)->BasisCurve();
     return Max(nbs, nbPoints(aCurve));
   }
   if (nbs > 300)

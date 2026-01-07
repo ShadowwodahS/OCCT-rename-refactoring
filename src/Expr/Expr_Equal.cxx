@@ -56,10 +56,10 @@ void Expr_Equal::Simplify()
 
 Handle(Expr_GeneralRelation) Expr_Equal::Copy() const
 {
-  return new Expr_Equal(Expr::CopyShare(FirstMember()), Expr::CopyShare(SecondMember()));
+  return new Expr_Equal(Expr1::CopyShare(FirstMember()), Expr1::CopyShare(SecondMember()));
 }
 
-TCollection_AsciiString Expr_Equal::String() const
+AsciiString1 Expr_Equal::String() const
 {
   return FirstMember()->String() + " = " + SecondMember()->String();
 }

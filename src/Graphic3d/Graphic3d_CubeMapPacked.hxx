@@ -29,7 +29,7 @@ public:
   //! @theOrder - array containing six different indexes of cubemap sides which maps tile grid to
   //! cubemap sides
   Standard_EXPORT Graphic3d_CubeMapPacked(
-    const TCollection_AsciiString&         theFileName,
+    const AsciiString1&         theFileName,
     const Graphic3d_ValidatedCubeMapOrder& theOrder = Graphic3d_CubeMapOrder::Default());
 
   //! Initialization to set cubemap directly by PixMap.
@@ -65,7 +65,7 @@ private:
   //! Tries to load image from file and checks it after that.
   //! Does nothing in case of fail.
   void tryLoadImage(const Handle(Image_SupportedFormats)& theSupported,
-                    const TCollection_AsciiString&        theFilePath);
+                    const AsciiString1&        theFilePath);
 
 protected:
   Graphic3d_CubeMapOrder myOrder;       //!< order mapping tile grit to cubemap sides

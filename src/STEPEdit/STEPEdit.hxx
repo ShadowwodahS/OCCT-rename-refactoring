@@ -28,7 +28,7 @@ class IFSelect_SelectSignature;
 
 //! Provides tools to exploit and edit a set of STEP data :
 //! editors, selections ..
-class STEPEdit
+class STEPEdit1
 {
 public:
   DEFINE_STANDARD_ALLOC

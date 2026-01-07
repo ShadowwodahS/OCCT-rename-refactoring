@@ -37,7 +37,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(BRepFill_EdgeOnSurfLaw, BRepFill_LocationLaw)
 
-BRepFill_EdgeOnSurfLaw::BRepFill_EdgeOnSurfLaw(const TopoDS_Wire& Path, const TopoDS_Shape& Surf)
+BRepFill_EdgeOnSurfLaw::BRepFill_EdgeOnSurfLaw(const TopoWire& Path, const TopoShape& Surf)
 {
   hasresult = Standard_True;
   Init(Path);
@@ -46,11 +46,11 @@ BRepFill_EdgeOnSurfLaw::BRepFill_EdgeOnSurfLaw(const TopoDS_Wire& Path, const To
   Standard_Integer       ipath; //  ,NbEdge;
   TopAbs_Orientation     Or;
   BRepTools_WireExplorer wexp;
-  TopExp_Explorer        exp;
-  // Class BRep_Tool without fields and without Constructor :
-  //  BRep_Tool B;
-  TopoDS_Edge                        E;
-  Handle(Geom2d_Curve)               C;
+  ShapeExplorer        exp;
+  // Class BRepInspector without fields and without Constructor :
+  //  BRepInspector B;
+  TopoEdge                        E;
+  Handle(GeomCurve2d)               C;
   Handle(Geom2dAdaptor_Curve)        AC2d;
   Handle(Adaptor3d_CurveOnSurface)   AC;
   Handle(BRepAdaptor_Surface)        AS;
@@ -62,14 +62,14 @@ BRepFill_EdgeOnSurfLaw::BRepFill_EdgeOnSurfLaw(const TopoDS_Wire& Path, const To
   {
     E = wexp.Current();
     //    if (!B.Degenerated(E)) {
-    if (!BRep_Tool::Degenerated(E))
+    if (!BRepInspector::Degenerated(E))
     {
       ipath++;
       myEdges->SetValue(ipath, E);
       for (Trouve = Standard_False, exp.Init(Surf, TopAbs_FACE); exp.More() && !Trouve; exp.Next())
       {
-        const TopoDS_Face& F = TopoDS::Face(exp.Current());
-        C                    = BRep_Tool::CurveOnSurface(E, F, First, Last);
+        const TopoFace& F = TopoDS::Face(exp.Current());
+        C                    = BRepInspector::CurveOnSurface(E, F, First, Last);
         if (!C.IsNull())
         {
           Trouve = Standard_True;

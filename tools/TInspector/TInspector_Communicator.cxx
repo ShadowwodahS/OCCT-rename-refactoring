@@ -39,7 +39,7 @@ TInspector_Communicator::TInspector_Communicator()
     static int   argc   = 1;
     static char* argv[] = {(char*)"", 0};
 #if QT_VERSION > 0x050000
-    TCollection_AsciiString aPlugindsDirName;
+    AsciiString1 aPlugindsDirName;
     if (TInspector_Communicator::PluginsDir(aPlugindsDirName))
       QApplication::addLibraryPath(aPlugindsDirName.ToCString());
 #endif
@@ -52,18 +52,18 @@ TInspector_Communicator::TInspector_Communicator()
 // function : PluginsDir
 // purpose :
 // =======================================================================
-Standard_Boolean TInspector_Communicator::PluginsDir(TCollection_AsciiString& thePlugindsDirName)
+Standard_Boolean TInspector_Communicator::PluginsDir(AsciiString1& thePlugindsDirName)
 {
   OSD_Environment         anEnvironment("QTDIR");
-  TCollection_AsciiString aQtDirValue = anEnvironment.Value();
+  AsciiString1 aQtDirValue = anEnvironment.Value();
   if (!aQtDirValue.IsEmpty())
   {
     thePlugindsDirName = aQtDirValue + "/plugins";
     return Standard_True;
   }
   anEnvironment                      = OSD_Environment("PATH");
-  TCollection_AsciiString aPathValue = anEnvironment.Value();
-  TCollection_AsciiString aPathSep =
+  AsciiString1 aPathValue = anEnvironment.Value();
+  AsciiString1 aPathSep =
 #ifdef _WIN32
     ';';
 #else
@@ -75,7 +75,7 @@ Standard_Boolean TInspector_Communicator::PluginsDir(TCollection_AsciiString& th
     if (aSepIndex <= 1)
       break;
 
-    TCollection_AsciiString aCurPath = aPathValue.SubString(1, aSepIndex - 1);
+    AsciiString1 aCurPath = aPathValue.SubString(1, aSepIndex - 1);
     aPathValue                       = aSepIndex < aPathValue.Length()
                                          ? aPathValue.SubString(aSepIndex + 1, aPathValue.Length())
                                          : "";
@@ -83,7 +83,7 @@ Standard_Boolean TInspector_Communicator::PluginsDir(TCollection_AsciiString& th
       continue;
 
     aCurPath += "/../plugins";
-    OSD_Path      aPath(aCurPath);
+    SystemPath      aPath(aCurPath);
     OSD_Directory aCurDir(aPath);
     if (aCurDir.Exists())
     {

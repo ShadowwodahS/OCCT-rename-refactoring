@@ -150,11 +150,11 @@ public: //! @name static API
   //! @param[out] theParamOnSegment parameters of intersection point
   //! corresponding to first and second segment.
   //! @return status of intersection check.
-  Standard_EXPORT static IntFlag IntLinLin(const gp_XY& theStartPnt1,
-                                           const gp_XY& theEndPnt1,
-                                           const gp_XY& theStartPnt2,
-                                           const gp_XY& theEndPnt2,
-                                           gp_XY&       theIntPnt,
+  Standard_EXPORT static IntFlag IntLinLin(const Coords2d& theStartPnt1,
+                                           const Coords2d& theEndPnt1,
+                                           const Coords2d& theStartPnt2,
+                                           const Coords2d& theEndPnt2,
+                                           Coords2d&       theIntPnt,
                                            Standard_Real (&theParamOnSegment)[2]);
 
   //! Checks intersection between the two segments.
@@ -171,10 +171,10 @@ public: //! @name static API
   //! if FALSE returns NoIntersection flag.
   //! @param[out] theIntPnt point of intersection.
   //! @return status of intersection check.
-  Standard_EXPORT static IntFlag IntSegSeg(const gp_XY&           theStartPnt1,
-                                           const gp_XY&           theEndPnt1,
-                                           const gp_XY&           theStartPnt2,
-                                           const gp_XY&           theEndPnt2,
+  Standard_EXPORT static IntFlag IntSegSeg(const Coords2d&           theStartPnt1,
+                                           const Coords2d&           theEndPnt1,
+                                           const Coords2d&           theStartPnt2,
+                                           const Coords2d&           theEndPnt2,
                                            const Standard_Boolean isConsiderEndPointTouch,
                                            const Standard_Boolean isConsiderPointOnSegment,
                                            gp_Pnt2d&              theIntPnt);
@@ -216,12 +216,12 @@ private:
   //! @param thePointToCheck the point to classify.
   //! @return zero value if point is out of segment and non zero value
   //! if point is between the first and the second point of segment.
-  static Standard_Integer classifyPoint(const gp_XY& thePoint1,
-                                        const gp_XY& thePoint2,
-                                        const gp_XY& thePointToCheck);
+  static Standard_Integer classifyPoint(const Coords2d& thePoint1,
+                                        const Coords2d& thePoint2,
+                                        const Coords2d& thePointToCheck);
 
 private:
-  const TopoDS_Edge*          myEdge;
+  const TopoEdge*          myEdge;
   GCPnts_TangentialDeflection myDiscretTool;
   GeomAbs_IsoType             myIsoType;
 };

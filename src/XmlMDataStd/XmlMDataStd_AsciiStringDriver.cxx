@@ -49,7 +49,7 @@ Standard_Boolean XmlMDataStd_AsciiStringDriver::Paste(const XmlObjMgt_Persistent
 {
   if (!theTarget.IsNull())
   {
-    const TCollection_AsciiString aString = XmlObjMgt::GetStringValue(theSource);
+    const AsciiString1 aString = XmlObjMgt::GetStringValue(theSource);
     Handle(TDataStd_AsciiString)::DownCast(theTarget)->Set(aString);
     // attribute id
     Standard_GUID            aGUID;

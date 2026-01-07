@@ -118,8 +118,8 @@ static Standard_Integer CommandCmd(ClientData       theClientData,
                                    const char*      argv[])
 {
   Standard_Integer                code      = TCL_OK;
-  Draw_Interpretor::CallBackData* aCallback = (Draw_Interpretor::CallBackData*)theClientData;
-  Draw_Interpretor&               di        = *(aCallback->myDI);
+  DrawInterpreter::CallBackData* aCallback = (DrawInterpreter::CallBackData*)theClientData;
+  DrawInterpreter&               di        = *(aCallback->myDI);
 
   // log command execution, except commands manipulating log itself and echo
   Standard_Boolean isLogManipulation =
@@ -162,7 +162,7 @@ static Standard_Integer CommandCmd(ClientData       theClientData,
   {
     // fail if Draw_ExitOnCatch is set
     const char* toExitOnCatch = Tcl_GetVar(interp, "Draw_ExitOnCatch", TCL_GLOBAL_ONLY);
-    if (toExitOnCatch != NULL && Draw::Atoi(toExitOnCatch))
+    if (toExitOnCatch != NULL && Draw1::Atoi(toExitOnCatch))
     {
       Message::SendFail() << "An exception was caught " << anException;
 #ifdef _WIN32
@@ -180,7 +180,7 @@ static Standard_Integer CommandCmd(ClientData       theClientData,
   catch (std::exception const& theStdException)
   {
     const char* toExitOnCatch = Tcl_GetVar(interp, "Draw_ExitOnCatch", TCL_GLOBAL_ONLY);
-    if (toExitOnCatch != NULL && Draw::Atoi(toExitOnCatch))
+    if (toExitOnCatch != NULL && Draw1::Atoi(toExitOnCatch))
     {
       Message::SendFail() << "An exception was caught " << theStdException.what() << " ["
                           << typeid(theStdException).name() << "]";
@@ -200,7 +200,7 @@ static Standard_Integer CommandCmd(ClientData       theClientData,
   catch (...)
   {
     const char* toExitOnCatch = Tcl_GetVar(interp, "Draw_ExitOnCatch", TCL_GLOBAL_ONLY);
-    if (toExitOnCatch != NULL && Draw::Atoi(toExitOnCatch))
+    if (toExitOnCatch != NULL && Draw1::Atoi(toExitOnCatch))
     {
       Message::SendFail() << "UNKNOWN exception was caught ";
 #ifdef _WIN32
@@ -241,13 +241,13 @@ static Standard_Integer CommandCmd(ClientData       theClientData,
 
 static void CommandDelete(ClientData theClientData)
 {
-  Draw_Interpretor::CallBackData* aCallback = (Draw_Interpretor::CallBackData*)theClientData;
+  DrawInterpreter::CallBackData* aCallback = (DrawInterpreter::CallBackData*)theClientData;
   delete aCallback;
 }
 
 //=================================================================================================
 
-Draw_Interpretor::Draw_Interpretor()
+DrawInterpreter::DrawInterpreter()
     : // the tcl interpreter is not created immediately as it is kept
       // by a global variable and created and deleted before the main()
       myInterp(NULL),
@@ -262,7 +262,7 @@ Draw_Interpretor::Draw_Interpretor()
 
 //=================================================================================================
 
-Draw_Interpretor::Draw_Interpretor(const Draw_PInterp& theInterp)
+DrawInterpreter::DrawInterpreter(const Draw_PInterp& theInterp)
     : myInterp(theInterp),
       isAllocated(Standard_False),
       myDoLog(Standard_False),
@@ -278,7 +278,7 @@ Draw_Interpretor::Draw_Interpretor(const Draw_PInterp& theInterp)
 // purpose  : It is necessary to call this function
 //=======================================================================
 
-void Draw_Interpretor::Init()
+void DrawInterpreter::Init()
 {
   if (isAllocated)
     Tcl_DeleteInterp(myInterp);
@@ -288,7 +288,7 @@ void Draw_Interpretor::Init()
 
 //=================================================================================================
 
-void Draw_Interpretor::SetToColorize(Standard_Boolean theToColorize)
+void DrawInterpreter::SetToColorize(Standard_Boolean theToColorize)
 {
   myToColorize = theToColorize;
   for (Message_SequenceOfPrinters::Iterator aPrinterIter(Message::DefaultMessenger()->Printers());
@@ -305,10 +305,10 @@ void Draw_Interpretor::SetToColorize(Standard_Boolean theToColorize)
 
 //=================================================================================================
 
-void Draw_Interpretor::add(const Standard_CString          theCommandName,
+void DrawInterpreter::add(const Standard_CString          theCommandName,
                            const Standard_CString          theHelp,
                            const Standard_CString          theFileName,
-                           Draw_Interpretor::CallBackData* theCallback,
+                           DrawInterpreter::CallBackData* theCallback,
                            const Standard_CString          theGroup)
 {
   Standard_ASSERT_RAISE(myInterp != NULL, "Attempt to add command to Null interpretor");
@@ -329,7 +329,7 @@ void Draw_Interpretor::add(const Standard_CString          theCommandName,
     return;
   }
 
-  OSD_Path         aPath(theFileName);
+  SystemPath         aPath(theFileName);
   Standard_Integer nbTrek = aPath.TrekLength();
   for (Standard_Integer i = 2; i < nbTrek; ++i)
   {
@@ -337,7 +337,7 @@ void Draw_Interpretor::add(const Standard_CString          theCommandName,
   }
   aPath.SetDisk("");
   aPath.SetNode("");
-  TCollection_AsciiString aSrcPath;
+  AsciiString1 aSrcPath;
   aPath.SystemName(aSrcPath);
   if (aSrcPath.Value(1) == '/')
   {
@@ -348,7 +348,7 @@ void Draw_Interpretor::add(const Standard_CString          theCommandName,
 
 //=================================================================================================
 
-Standard_Boolean Draw_Interpretor::Remove(Standard_CString const n)
+Standard_Boolean DrawInterpreter::Remove(Standard_CString const n)
 {
   Standard_PCharacter pN;
   //
@@ -360,7 +360,7 @@ Standard_Boolean Draw_Interpretor::Remove(Standard_CString const n)
 
 //=================================================================================================
 
-Standard_CString Draw_Interpretor::Result() const
+Standard_CString DrawInterpreter::Result() const
 {
 #if ((TCL_MAJOR_VERSION > 8) || ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION >= 5)))
   return Tcl_GetStringResult(myInterp);
@@ -371,14 +371,14 @@ Standard_CString Draw_Interpretor::Result() const
 
 //=================================================================================================
 
-void Draw_Interpretor::Reset()
+void DrawInterpreter::Reset()
 {
   Tcl_ResetResult(myInterp);
 }
 
 //=================================================================================================
 
-Draw_Interpretor& Draw_Interpretor::Append(const Standard_CString s)
+DrawInterpreter& DrawInterpreter::Append(const Standard_CString s)
 {
   Tcl_AppendResult(myInterp, s, (Standard_CString)0);
   return *this;
@@ -386,14 +386,14 @@ Draw_Interpretor& Draw_Interpretor::Append(const Standard_CString s)
 
 //=================================================================================================
 
-Draw_Interpretor& Draw_Interpretor::Append(const TCollection_AsciiString& s)
+DrawInterpreter& DrawInterpreter::Append(const AsciiString1& s)
 {
   return Append(s.ToCString());
 }
 
 //=================================================================================================
 
-Draw_Interpretor& Draw_Interpretor::Append(const TCollection_ExtendedString& theString)
+DrawInterpreter& DrawInterpreter::Append(const UtfString& theString)
 {
 #ifdef TCL_USES_UTF8
   // Convert string to UTF-8 format for Tcl
@@ -403,7 +403,7 @@ Draw_Interpretor& Draw_Interpretor::Append(const TCollection_ExtendedString& the
   delete[] str;
 #else
   // put as ascii string, replacing non-ascii characters by '?'
-  TCollection_AsciiString str(theString, '?');
+  AsciiString1 str(theString, '?');
   Tcl_AppendResult(myInterp, str.ToCString(), (Standard_CString)0);
 #endif
   return *this;
@@ -411,7 +411,7 @@ Draw_Interpretor& Draw_Interpretor::Append(const TCollection_ExtendedString& the
 
 //=================================================================================================
 
-Draw_Interpretor& Draw_Interpretor::Append(const Standard_Integer i)
+DrawInterpreter& DrawInterpreter::Append(const Standard_Integer i)
 {
   char c[100];
   Sprintf(c, "%d", i);
@@ -421,7 +421,7 @@ Draw_Interpretor& Draw_Interpretor::Append(const Standard_Integer i)
 
 //=================================================================================================
 
-Draw_Interpretor& Draw_Interpretor::Append(const Standard_Real r)
+DrawInterpreter& DrawInterpreter::Append(const Standard_Real r)
 {
   char s[100];
   Sprintf(s, "%.17g", r);
@@ -431,28 +431,28 @@ Draw_Interpretor& Draw_Interpretor::Append(const Standard_Real r)
 
 //=================================================================================================
 
-Draw_Interpretor& Draw_Interpretor::Append(const Standard_SStream& s)
+DrawInterpreter& DrawInterpreter::Append(const Standard_SStream& s)
 {
   return Append(s.str().c_str());
 }
 
 //=================================================================================================
 
-void Draw_Interpretor::AppendElement(const Standard_CString s)
+void DrawInterpreter::AppendElement(const Standard_CString s)
 {
   Tcl_AppendElement(myInterp, s);
 }
 
 //=================================================================================================
 
-Standard_Integer Draw_Interpretor::Eval(const Standard_CString line)
+Standard_Integer DrawInterpreter::Eval(const Standard_CString line)
 {
   return Tcl_Eval(myInterp, line);
 }
 
 //=================================================================================================
 
-Standard_Integer Draw_Interpretor::RecordAndEval(const Standard_CString line,
+Standard_Integer DrawInterpreter::RecordAndEval(const Standard_CString line,
                                                  const Standard_Integer flags)
 {
   return Tcl_RecordAndEval(myInterp, line, flags);
@@ -460,23 +460,23 @@ Standard_Integer Draw_Interpretor::RecordAndEval(const Standard_CString line,
 
 //=================================================================================================
 
-Standard_Integer Draw_Interpretor::EvalFile(const Standard_CString fname)
+Standard_Integer DrawInterpreter::EvalFile(const Standard_CString fname)
 {
   return Tcl_EvalFile(myInterp, fname);
 }
 
 //=================================================================================================
 
-Standard_Integer Draw_Interpretor::PrintHelp(const Standard_CString theCommandName)
+Standard_Integer DrawInterpreter::PrintHelp(const Standard_CString theCommandName)
 {
-  TCollection_AsciiString aCmd     = TCollection_AsciiString("help ") + theCommandName;
+  AsciiString1 aCmd     = AsciiString1("help ") + theCommandName;
   Standard_PCharacter     aLinePtr = (Standard_PCharacter)aCmd.ToCString();
   return Tcl_Eval(myInterp, aLinePtr);
 }
 
 //=================================================================================================
 
-Standard_Boolean Draw_Interpretor::Complete(const Standard_CString line)
+Standard_Boolean DrawInterpreter::Complete(const Standard_CString line)
 {
   Standard_PCharacter pLine;
   //
@@ -486,7 +486,7 @@ Standard_Boolean Draw_Interpretor::Complete(const Standard_CString line)
 
 //=================================================================================================
 
-Draw_Interpretor::~Draw_Interpretor()
+DrawInterpreter::~DrawInterpreter()
 {
   SetDoLog(Standard_False);
   if (myFDLog >= 0)
@@ -517,13 +517,13 @@ Draw_Interpretor::~Draw_Interpretor()
 
 //=================================================================================================
 
-Draw_PInterp Draw_Interpretor::Interp() const
+Draw_PInterp DrawInterpreter::Interp() const
 {
-  Standard_DomainError_Raise_if(myInterp == NULL, "No call for  Draw_Interpretor::Init()");
+  Standard_DomainError_Raise_if(myInterp == NULL, "No call for  DrawInterpreter::Init()");
   return myInterp;
 }
 
-void Draw_Interpretor::Set(const Draw_PInterp& PIntrp)
+void DrawInterpreter::Set(const Draw_PInterp& PIntrp)
 {
   if (isAllocated)
     Tcl_DeleteInterp(myInterp);
@@ -533,7 +533,7 @@ void Draw_Interpretor::Set(const Draw_PInterp& PIntrp)
 
 //=================================================================================================
 
-void Draw_Interpretor::SetDoLog(Standard_Boolean doLog)
+void DrawInterpreter::SetDoLog(Standard_Boolean doLog)
 {
   if (myDoLog == doLog)
     return;
@@ -567,22 +567,22 @@ void Draw_Interpretor::SetDoLog(Standard_Boolean doLog)
   myDoLog = doLog;
 }
 
-void Draw_Interpretor::SetDoEcho(Standard_Boolean doEcho)
+void DrawInterpreter::SetDoEcho(Standard_Boolean doEcho)
 {
   myDoEcho = doEcho;
 }
 
-Standard_Boolean Draw_Interpretor::GetDoLog() const
+Standard_Boolean DrawInterpreter::GetDoLog() const
 {
   return myDoLog;
 }
 
-Standard_Boolean Draw_Interpretor::GetDoEcho() const
+Standard_Boolean DrawInterpreter::GetDoEcho() const
 {
   return myDoEcho;
 }
 
-void Draw_Interpretor::ResetLog()
+void DrawInterpreter::ResetLog()
 {
   if (myFDLog < 0)
     return;
@@ -602,7 +602,7 @@ void Draw_Interpretor::ResetLog()
   }
 }
 
-void Draw_Interpretor::AddLog(const Standard_CString theStr)
+void DrawInterpreter::AddLog(const Standard_CString theStr)
 {
   if (myFDLog < 0 || !theStr || !theStr[0])
     return;
@@ -617,9 +617,9 @@ void Draw_Interpretor::AddLog(const Standard_CString theStr)
   }
 }
 
-TCollection_AsciiString Draw_Interpretor::GetLog()
+AsciiString1 DrawInterpreter::GetLog()
 {
-  TCollection_AsciiString aLog;
+  AsciiString1 aLog;
   if (myFDLog < 0)
     return aLog;
 

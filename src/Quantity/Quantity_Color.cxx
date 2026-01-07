@@ -146,7 +146,7 @@ Standard_CString Quantity_Color::StringName(const Quantity_NameOfColor theName)
 Standard_Boolean Quantity_Color::ColorFromName(const Standard_CString theName,
                                                Quantity_NameOfColor&  theColor)
 {
-  TCollection_AsciiString aName(theName);
+  AsciiString1 aName(theName);
   aName.UpperCase();
   if (aName.Search("QUANTITY_NOC_") == 1)
   {

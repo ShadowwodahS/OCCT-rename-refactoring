@@ -24,8 +24,8 @@
 // function : Perform
 // purpose  : General intersection
 //=======================================================================
-void GeomInt_IntSS::Perform(const Handle(Geom_Surface)& S1,
-                            const Handle(Geom_Surface)& S2,
+void GeomInt_IntSS::Perform(const Handle(GeomSurface)& S1,
+                            const Handle(GeomSurface)& S2,
                             const Standard_Real         Tol,
                             const Standard_Boolean      Approx,
                             const Standard_Boolean      ApproxS1,
@@ -43,8 +43,8 @@ void GeomInt_IntSS::Perform(const Handle(Geom_Surface)& S1,
 // function : Perform
 // purpose  : General intersection with a Starting Point
 //=======================================================================
-void GeomInt_IntSS::Perform(const Handle(Geom_Surface)& S1,
-                            const Handle(Geom_Surface)& S2,
+void GeomInt_IntSS::Perform(const Handle(GeomSurface)& S1,
+                            const Handle(GeomSurface)& S2,
                             const Standard_Real         Tol,
                             const Standard_Real         U1,
                             const Standard_Real         V1,
@@ -157,7 +157,7 @@ void GeomInt_IntSS::InternalPerform(const Standard_Real    Tol,
 
 //=================================================================================================
 
-const Handle(Geom_Curve)& GeomInt_IntSS::Line(const Standard_Integer Index) const
+const Handle(GeomCurve3d)& GeomInt_IntSS::Line(const Standard_Integer Index) const
 {
   StdFail_NotDone_Raise_if(!myIntersector.IsDone(), "GeomInt_IntSS::Line");
   return sline(Index + myNbrestr);
@@ -165,7 +165,7 @@ const Handle(Geom_Curve)& GeomInt_IntSS::Line(const Standard_Integer Index) cons
 
 //=================================================================================================
 
-const Handle(Geom_Curve)& GeomInt_IntSS::Boundary(const Standard_Integer Index) const
+const Handle(GeomCurve3d)& GeomInt_IntSS::Boundary(const Standard_Integer Index) const
 {
   StdFail_NotDone_Raise_if(!myIntersector.IsDone(), "GeomInt_IntSS::Line");
   Standard_OutOfRange_Raise_if(Index <= 0 || Index > myNbrestr, "GeomInt_IntSS::Boundary");
@@ -203,7 +203,7 @@ Standard_Boolean GeomInt_IntSS::HasLineOnS2(const Standard_Integer index) const
 
 //=================================================================================================
 
-const Handle(Geom2d_Curve)& GeomInt_IntSS::LineOnS1(const Standard_Integer Index) const
+const Handle(GeomCurve2d)& GeomInt_IntSS::LineOnS1(const Standard_Integer Index) const
 {
   StdFail_NotDone_Raise_if(!myIntersector.IsDone(), "GeomInt_IntSS::LineOnS1");
   return slineS1(Index);
@@ -211,7 +211,7 @@ const Handle(Geom2d_Curve)& GeomInt_IntSS::LineOnS1(const Standard_Integer Index
 
 //=================================================================================================
 
-const Handle(Geom2d_Curve)& GeomInt_IntSS::LineOnS2(const Standard_Integer Index) const
+const Handle(GeomCurve2d)& GeomInt_IntSS::LineOnS2(const Standard_Integer Index) const
 {
   StdFail_NotDone_Raise_if(!myIntersector.IsDone(), "GeomInt_IntSS::LineOnS2");
   return slineS2(Index);

@@ -81,7 +81,7 @@ RWObj_Reader::RWObj_Reader()
 //=================================================================================================
 
 Standard_Boolean RWObj_Reader::read(std::istream&                  theStream,
-                                    const TCollection_AsciiString& theFile,
+                                    const AsciiString1& theFile,
                                     const Message_ProgressRange&   theProgress,
                                     const Standard_Boolean         theToProbe)
 {
@@ -101,14 +101,14 @@ Standard_Boolean RWObj_Reader::read(std::istream&                  theStream,
   myActiveSubMesh = RWObj_SubMesh();
 
   // determine file location to load associated files
-  TCollection_AsciiString aFileName;
-  OSD_Path::FolderAndFileFromPath(theFile, myFolder, aFileName);
+  AsciiString1 aFileName;
+  SystemPath::FolderAndFileFromPath(theFile, myFolder, aFileName);
   myCurrElem.resize(1024, -1);
 
   Standard_CLocaleSentry aLocaleSentry;
   if (!theStream.good())
   {
-    Message::SendFail(TCollection_AsciiString("Error: file '") + theFile + "' is not found");
+    Message::SendFail(AsciiString1("Error: file '") + theFile + "' is not found");
     return Standard_False;
   }
 
@@ -118,7 +118,7 @@ Standard_Boolean RWObj_Reader::read(std::istream&                  theStream,
   theStream.seekg(0, theStream.beg);
   if (aFileLen <= 0L)
   {
-    Message::SendFail(TCollection_AsciiString("Error: file '") + theFile + "' is empty");
+    Message::SendFail(AsciiString1("Error: file '") + theFile + "' is empty");
     return Standard_False;
   }
 
@@ -162,7 +162,7 @@ Standard_Boolean RWObj_Reader::read(std::istream&                  theStream,
     {
       if (isStart)
       {
-        TCollection_AsciiString aComment(aLine + 1);
+        AsciiString1 aComment(aLine + 1);
         aComment.LeftAdjust();
         aComment.RightAdjust();
         if (!aComment.IsEmpty())
@@ -247,7 +247,7 @@ Standard_Boolean RWObj_Reader::read(std::istream&                  theStream,
   }
 
   // collect external references
-  for (NCollection_DataMap<TCollection_AsciiString, RWObj_Material>::Iterator aMatIter(myMaterials);
+  for (NCollection_DataMap<AsciiString1, RWObj_Material>::Iterator aMatIter(myMaterials);
        aMatIter.More();
        aMatIter.Next())
   {
@@ -273,7 +273,7 @@ Standard_Boolean RWObj_Reader::read(std::istream&                  theStream,
   }
   if (myNbElemsBig != 0)
   {
-    Message::SendWarning(TCollection_AsciiString("Warning: OBJ reader, ") + myNbElemsBig
+    Message::SendWarning(AsciiString1("Warning: OBJ reader, ") + myNbElemsBig
                          + " polygon(s) have been split into triangles");
   }
 
@@ -346,7 +346,7 @@ void RWObj_Reader::pushIndices(const char* thePos)
       if (a3Indices[0] < myObjVerts.Lower() || a3Indices[0] > myObjVerts.Upper())
       {
         myToAbort = true;
-        Message::SendFail(TCollection_AsciiString("Error: invalid OBJ syntax at line ") + myNbLines
+        Message::SendFail(AsciiString1("Error: invalid OBJ syntax at line ") + myNbLines
                           + ": vertex index is out of range");
         return;
       }
@@ -357,12 +357,12 @@ void RWObj_Reader::pushIndices(const char* thePos)
       {
         if (myObjVertsUV.IsEmpty())
         {
-          Message::SendWarning(TCollection_AsciiString("Warning: invalid OBJ syntax at line ")
+          Message::SendWarning(AsciiString1("Warning: invalid OBJ syntax at line ")
                                + myNbLines + ": UV index is specified but no UV nodes are defined");
         }
         else if (a3Indices[1] < myObjVertsUV.Lower() || a3Indices[1] > myObjVertsUV.Upper())
         {
-          Message::SendWarning(TCollection_AsciiString("Warning: invalid OBJ syntax at line ")
+          Message::SendWarning(AsciiString1("Warning: invalid OBJ syntax at line ")
                                + myNbLines + ": UV index is out of range");
           setNodeUV(anIndex, Graphic3d_Vec2(0.0f, 0.0f));
         }
@@ -375,13 +375,13 @@ void RWObj_Reader::pushIndices(const char* thePos)
       {
         if (myObjNorms.IsEmpty())
         {
-          Message::SendWarning(TCollection_AsciiString("Warning: invalid OBJ syntax at line ")
+          Message::SendWarning(AsciiString1("Warning: invalid OBJ syntax at line ")
                                + myNbLines
                                + ": Normal index is specified but no Normals nodes are defined");
         }
         else if (a3Indices[2] < myObjNorms.Lower() || a3Indices[2] > myObjNorms.Upper())
         {
-          Message::SendWarning(TCollection_AsciiString("Warning: invalid OBJ syntax at line ")
+          Message::SendWarning(AsciiString1("Warning: invalid OBJ syntax at line ")
                                + myNbLines + ": Normal index is out of range");
           setNodeNormal(anIndex, Graphic3d_Vec3(0.0f, 0.0f, 1.0f));
         }
@@ -552,7 +552,7 @@ Standard_Integer RWObj_Reader::triangulatePolygon(
   {
     const Standard_Integer aNodeIndex = theIndices.Value(theIndices.Lower() + aNodeIter);
     const gp_XYZ           aPnt3d     = getNode(aNodeIndex).XYZ();
-    gp_XY                  aPnt2d(aXDir * aPnt3d, aYDir * aPnt3d);
+    Coords2d                  aPnt2d(aXDir * aPnt3d, aYDir * aPnt3d);
     BRepMesh_Vertex        aVertex(aPnt2d, aNodeIndex, BRepMesh_Frontier);
     anIndexes.Append(aMeshStructure->AddNode(aVertex));
   }
@@ -601,7 +601,7 @@ Standard_Integer RWObj_Reader::triangulatePolygon(
   }
   catch (ExceptionBase const& theFailure)
   {
-    Message::SendWarning(TCollection_AsciiString("Error: exception raised during polygon split\n[")
+    Message::SendWarning(AsciiString1("Error: exception raised during polygon split\n[")
                          + theFailure.GetMessageString() + "]");
   }
   return triangulatePolygonFan(theIndices);
@@ -611,7 +611,7 @@ Standard_Integer RWObj_Reader::triangulatePolygon(
 
 void RWObj_Reader::pushObject(const char* theObjectName)
 {
-  TCollection_AsciiString aNewObject;
+  AsciiString1 aNewObject;
   if (!RWObj_Tools::ReadName(theObjectName, aNewObject))
   {
     // empty group name is OK
@@ -627,7 +627,7 @@ void RWObj_Reader::pushObject(const char* theObjectName)
 
 void RWObj_Reader::pushGroup(const char* theGroupName)
 {
-  TCollection_AsciiString aNewGroup;
+  AsciiString1 aNewGroup;
   if (!RWObj_Tools::ReadName(theGroupName, aNewGroup))
   {
     // empty group name is OK
@@ -643,7 +643,7 @@ void RWObj_Reader::pushGroup(const char* theGroupName)
 
 void RWObj_Reader::pushSmoothGroup(const char* theSmoothGroupIndex)
 {
-  TCollection_AsciiString aNewSmoothGroup;
+  AsciiString1 aNewSmoothGroup;
   RWObj_Tools::ReadName(theSmoothGroupIndex, aNewSmoothGroup);
   if (aNewSmoothGroup == "off" || aNewSmoothGroup == "0")
   {
@@ -668,14 +668,14 @@ void RWObj_Reader::pushSmoothGroup(const char* theSmoothGroupIndex)
 
 void RWObj_Reader::pushMaterial(const char* theMaterialName)
 {
-  TCollection_AsciiString aNewMat;
+  AsciiString1 aNewMat;
   if (!RWObj_Tools::ReadName(theMaterialName, aNewMat))
   {
     // empty material name is allowed by specs
   }
   else if (!myMaterials.IsBound(aNewMat))
   {
-    Message::SendWarning(TCollection_AsciiString("Warning: use of undefined OBJ material at line ")
+    Message::SendWarning(AsciiString1("Warning: use of undefined OBJ material at line ")
                          + myNbLines);
     return;
   }
@@ -696,10 +696,10 @@ void RWObj_Reader::pushMaterial(const char* theMaterialName)
 
 void RWObj_Reader::readMaterialLib(const char* theFileName)
 {
-  TCollection_AsciiString aMatPath;
+  AsciiString1 aMatPath;
   if (!RWObj_Tools::ReadName(theFileName, aMatPath))
   {
-    Message::SendWarning(TCollection_AsciiString("Warning: invalid OBJ syntax at line ")
+    Message::SendWarning(AsciiString1("Warning: invalid OBJ syntax at line ")
                          + myNbLines);
     return;
   }
@@ -720,7 +720,7 @@ bool RWObj_Reader::checkMemory()
     return true;
   }
 
-  Message::SendFail(TCollection_AsciiString("Error: OBJ file content does not fit into ")
+  Message::SendFail(AsciiString1("Error: OBJ file content does not fit into ")
                     + Standard_Integer(myMemLimitBytes / (1024 * 1024)) + " MiB limit."
                     + "\nMesh data will be truncated.");
   myToAbort = true;

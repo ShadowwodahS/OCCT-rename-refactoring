@@ -73,12 +73,12 @@ void IGESSelect_SetGlobalParameter::Performing(IFSelect_ContextModif&           
     target->SetGlobalSection(GS);
 }
 
-TCollection_AsciiString IGESSelect_SetGlobalParameter::Label() const
+AsciiString1 IGESSelect_SetGlobalParameter::Label() const
 {
   char mess[80];
   if (theval.IsNull())
     sprintf(mess, "Set IGES Global Parameter (undefined)");
   else
     sprintf(mess, "Set IGES Global Parameter Number %d to %s", thenum, theval->ToCString());
-  return TCollection_AsciiString(mess);
+  return AsciiString1(mess);
 }

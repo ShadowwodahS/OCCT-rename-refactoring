@@ -69,9 +69,9 @@
 // ============================================================================
 static void DecodeMakeEdgeError(const BRepLib_MakeEdge&           ME,
                                 const Handle(RefObject)& orig,
-                                const Handle(Geom_Curve)&         myCurve,
-                                const TopoDS_Vertex&              V1,
-                                const TopoDS_Vertex&              V2,
+                                const Handle(GeomCurve3d)&         myCurve,
+                                const TopoVertex&              V1,
+                                const TopoVertex&              V2,
                                 const Standard_Real&              U1,
                                 const Standard_Real&              U2,
                                 StepToTopoDS_Tool&                aTool,
@@ -103,8 +103,8 @@ static void DecodeMakeEdgeError(const BRepLib_MakeEdge&           ME,
       break;
     case (BRepLib_DifferentsPointAndParameter):
       if (!ShapeConstruct_Curve().AdjustCurve(myCurve,
-                                              BRep_Tool::Pnt(V1),
-                                              BRep_Tool::Pnt(V2),
+                                              BRepInspector::Pnt(V1),
+                                              BRepInspector::Pnt(V2),
                                               Standard_True,
                                               Standard_True))
         TP->AddFail(orig, " Different Points and Parameters");
@@ -119,18 +119,18 @@ static void DecodeMakeEdgeError(const BRepLib_MakeEdge&           ME,
   std::cout << "Original Type   : " << orig->DynamicType() << std::endl;
   std::cout << "3D Curve Type   : " << myCurve->DynamicType() << std::endl;
   std::cout << "First Parameter : " << U1 << std::endl;
-  Point3d p1 = BRep_Tool::Pnt(V1);
+  Point3d p1 = BRepInspector::Pnt(V1);
   //  std::cout << "First Point     : ";
   std::cout << "First Vertex    : " << p1.X() << "  " << p1.Y() << "  " << p1.Z() << "  ";
   std::cout << "Distance Point - Vertex : ";
   Standard_Real d1 = p1.Distance(myCurve->Value(U1));
   std::cout << d1 << std::endl;
   std::cout << "Last  Parameter : " << U2 << std::endl;
-  Point3d p2 = BRep_Tool::Pnt(V2);
+  Point3d p2 = BRepInspector::Pnt(V2);
   //  std::cout << "Last  Point     : ";
   std::cout << "Last  Vertex    : " << p2.X() << "  " << p2.Y() << "  " << p2.Z() << "  ";
   std::cout << "Distance Point - Vertex : ";
-  Standard_Real d2 = BRep_Tool::Pnt(V2).Distance(myCurve->Value(U2));
+  Standard_Real d2 = BRepInspector::Pnt(V2).Distance(myCurve->Value(U2));
   std::cout << d2 << std::endl;
 #endif
 }
@@ -140,27 +140,27 @@ static void DecodeMakeEdgeError(const BRepLib_MakeEdge&           ME,
 // Purpose : Empty Constructor
 // ============================================================================
 
-static Handle(Geom_Curve) MakeCurve(const Handle(StepGeom_Curve)&            C1,
+static Handle(GeomCurve3d) MakeCurve(const Handle(StepGeom_Curve)&            C1,
                                     const Handle(Transfer_TransientProcess)& TP,
-                                    const StepData_Factors&                  theLocalFactors)
+                                    const ConversionFactors&                  theLocalFactors)
 {
-  Handle(Geom_Curve) C2 = Handle(Geom_Curve)::DownCast(TP->FindTransient(C1));
+  Handle(GeomCurve3d) C2 = Handle(GeomCurve3d)::DownCast(TP->FindTransient(C1));
   if (!C2.IsNull())
     return C2;
-  C2 = StepToGeom::MakeCurve(C1, theLocalFactors);
+  C2 = StepToGeom1::MakeCurve(C1, theLocalFactors);
   if (!C2.IsNull())
     TP->BindTransient(C1, C2);
   return C2;
 }
 
-static TopoDS_Edge MakeEdge(const Handle(Geom_Curve)& C3D,
-                            const TopoDS_Vertex&      V1,
-                            const TopoDS_Vertex&      V2,
+static TopoEdge MakeEdge(const Handle(GeomCurve3d)& C3D,
+                            const TopoVertex&      V1,
+                            const TopoVertex&      V2,
                             const Standard_Real       U1,
                             const Standard_Real       U2)
 {
-  BRep_Builder B;
-  TopoDS_Edge  E;
+  ShapeBuilder B;
+  TopoEdge  E;
   B.MakeEdge(E, C3D, Precision::Confusion());
   B.Add(E, V1);
   B.Add(E, V2);
@@ -187,8 +187,8 @@ StepToTopoDS_TranslateEdge::StepToTopoDS_TranslateEdge()
 
 StepToTopoDS_TranslateEdge::StepToTopoDS_TranslateEdge(const Handle(StepShape_Edge)& E,
                                                        StepToTopoDS_Tool&            T,
-                                                       StepToTopoDS_NMTool&          NMTool,
-                                                       const StepData_Factors& theLocalFactors)
+                                                       NamingTool2&          NMTool,
+                                                       const ConversionFactors& theLocalFactors)
 {
   Init(E, T, NMTool, theLocalFactors);
 }
@@ -202,8 +202,8 @@ StepToTopoDS_TranslateEdge::StepToTopoDS_TranslateEdge(const Handle(StepShape_Ed
 
 void StepToTopoDS_TranslateEdge::Init(const Handle(StepShape_Edge)& aEdge,
                                       StepToTopoDS_Tool&            aTool,
-                                      StepToTopoDS_NMTool&          NMTool,
-                                      const StepData_Factors&       theLocalFactors)
+                                      NamingTool2&          NMTool,
+                                      const ConversionFactors&       theLocalFactors)
 {
   Handle(Transfer_TransientProcess) TP = aTool.TransientProcess();
 
@@ -216,7 +216,7 @@ void StepToTopoDS_TranslateEdge::Init(const Handle(StepShape_Edge)& aEdge,
   if (aTool.IsBound(EC))
   {
     myResult = aTool.Find(EC);
-    if (BRep_Tool::Degenerated(TopoDS::Edge(myResult)))
+    if (BRepInspector::Degenerated(TopoDS::Edge(myResult)))
     {
       TP->AddWarning(EC, "Degenerated Edge in several faces : transferred for each face");
     }
@@ -233,7 +233,7 @@ void StepToTopoDS_TranslateEdge::Init(const Handle(StepShape_Edge)& aEdge,
   // [BEGIN] Proceed with non-manifold cases (ssv; 12.11.2010)
   if (NMTool.IsActive() && NMTool.IsBound(EC))
   {
-    TopoDS_Shape existingShape = NMTool.Find(EC);
+    TopoShape existingShape = NMTool.Find(EC);
     // Reverse shape's orientation if needed
     if (!OE->Orientation())
       existingShape.Reverse();
@@ -249,7 +249,7 @@ void StepToTopoDS_TranslateEdge::Init(const Handle(StepShape_Edge)& aEdge,
   if (NMTool.IsIDEASCase() && !anECName.IsNull() && !anECName->IsEmpty()
       && NMTool.IsBound(anECName->String()))
   {
-    TopoDS_Shape existingShape = NMTool.Find(anECName->String());
+    TopoShape existingShape = NMTool.Find(anECName->String());
     // Reverse shape's orientation if needed
     if (!OE->Orientation())
       existingShape.Reverse();
@@ -262,7 +262,7 @@ void StepToTopoDS_TranslateEdge::Init(const Handle(StepShape_Edge)& aEdge,
   }
   // [END] Proceed with I-DEAS-like STP (ssv; 15.11.2010)
 
-  BRep_Builder B;
+  ShapeBuilder B;
 
   Handle(StepGeom_Curve) C = EC->EdgeGeometry();
   if (C.IsNull())
@@ -272,7 +272,7 @@ void StepToTopoDS_TranslateEdge::Init(const Handle(StepShape_Edge)& aEdge,
     done    = Standard_False;
     return;
   }
-  TopoDS_Edge              E;
+  TopoEdge              E;
   Handle(StepShape_Vertex) Vstart, Vend;
 
   // -----------------------------------------------------------
@@ -293,7 +293,7 @@ void StepToTopoDS_TranslateEdge::Init(const Handle(StepShape_Edge)& aEdge,
     Vstart = EC->EdgeEnd();
   }
 
-  TopoDS_Vertex V1, V2;
+  TopoVertex V1, V2;
 
   StepToTopoDS_TranslateVertex myTranVertex1(Vstart, aTool, NMTool, theLocalFactors);
   StepToTopoDS_TranslateVertex myTranVertex2(Vend, aTool, NMTool, theLocalFactors);
@@ -374,7 +374,7 @@ void StepToTopoDS_TranslateEdge::Init(const Handle(StepShape_Edge)& aEdge,
 static void GetCartesianPoints(const Handle(StepShape_EdgeCurve)& EC,
                                Point3d&                            P1,
                                Point3d&                            P2,
-                               const StepData_Factors&            theLocalFactors)
+                               const ConversionFactors&            theLocalFactors)
 {
   for (Standard_Integer i = 1; i <= 2; i++)
   {
@@ -385,7 +385,7 @@ static void GetCartesianPoints(const Handle(StepShape_EdgeCurve)& EC,
       continue;
     const Handle(StepGeom_CartesianPoint) P =
       Handle(StepGeom_CartesianPoint)::DownCast(VP->VertexGeometry());
-    Handle(Geom_CartesianPoint) CP = StepToGeom::MakeCartesianPoint(P, theLocalFactors);
+    Handle(Geom_CartesianPoint) CP = StepToGeom1::MakeCartesianPoint(P, theLocalFactors);
     (i == 1 ? P1 : P2)             = CP->Pnt();
   }
 }
@@ -399,28 +399,28 @@ void StepToTopoDS_TranslateEdge::MakeFromCurve3D(const Handle(StepGeom_Curve)&  
                                                  const Handle(StepShape_EdgeCurve)& EC,
                                                  const Handle(StepShape_Vertex)&    Vend,
                                                  const Standard_Real                preci,
-                                                 TopoDS_Edge&                       E,
-                                                 TopoDS_Vertex&                     V1,
-                                                 TopoDS_Vertex&                     V2,
+                                                 TopoEdge&                       E,
+                                                 TopoVertex&                     V1,
+                                                 TopoVertex&                     V2,
                                                  StepToTopoDS_Tool&                 aTool,
-                                                 const StepData_Factors&            theLocalFactors)
+                                                 const ConversionFactors&            theLocalFactors)
 {
   Handle(Transfer_TransientProcess) TP = aTool.TransientProcess();
-  Handle(Geom_Curve)                C1 = MakeCurve(C3D, TP, theLocalFactors);
+  Handle(GeomCurve3d)                C1 = MakeCurve(C3D, TP, theLocalFactors);
   if (C1.IsNull())
   {
-    TP->AddFail(C3D, " Make Geom_Curve (3D) failed");
+    TP->AddFail(C3D, " Make GeomCurve3d (3D) failed");
     myError = StepToTopoDS_TranslateEdgeOther;
     done    = Standard_False;
     return;
   }
   // -- Statistics -- -> No Warning message
   aTool.AddContinuity(C1);
-  BRep_Builder  B;
+  ShapeBuilder  B;
   Standard_Real temp1, temp2, U1, U2;
   Point3d        pproj;
-  Point3d        pv1 = BRep_Tool::Pnt(V1);
-  Point3d        pv2 = BRep_Tool::Pnt(V2);
+  Point3d        pv1 = BRepInspector::Pnt(V1);
+  Point3d        pv2 = BRepInspector::Pnt(V2);
 
   //: e6 abv
   Point3d pnt1 = pv1, pnt2 = pv2;
@@ -430,7 +430,7 @@ void StepToTopoDS_TranslateEdge::MakeFromCurve3D(const Handle(StepGeom_Curve)&  
   temp1 = sac.Project(C1, pnt1, preci, pproj, U1, Standard_False);
   temp2 = sac.Project(C1, pnt2, preci, pproj, U2, Standard_False);
 
-  if (!StepToTopoDS_GeometricTool::UpdateParam3d(C1, U1, U2, preci))
+  if (!GeometricTool::UpdateParam3d(C1, U1, U2, preci))
     TP->AddWarning(C3D, "Update of 3D-Parameters has failed");
 
   //: d5: instead of AdjustCurve above which is incorrect if U1 and U2 are not ends
@@ -444,13 +444,13 @@ void StepToTopoDS_TranslateEdge::MakeFromCurve3D(const Handle(StepGeom_Curve)&  
     // design system): edge curve is line displaced from its true position but with correct
     // direction; we can shift the line in this case so that it passes through vertices correctly
     if (Abs(temp1 - temp2) < preci && Abs(U2 - U1 - pnt1.Distance(pnt2)) < Precision::Confusion()
-        && C1->IsKind(STANDARD_TYPE(Geom_Line)))
+        && C1->IsKind(STANDARD_TYPE(GeomLine)))
     {
-      Handle(Geom_Line) aLine    = Handle(Geom_Line)::DownCast(C1);
+      Handle(GeomLine) aLine    = Handle(GeomLine)::DownCast(C1);
       gp_Lin            aLin     = aLine->Lin();
       Point3d            anOrigin = pnt1.XYZ() - aLin.Position().Direction().XYZ() * U1;
       aLin.SetLocation(anOrigin);
-      C1 = new Geom_Line(aLin);
+      C1 = new GeomLine(aLin);
 
       TP->AddWarning(C3D, "Poor result from projection vertex / line 3d, line shifted");
     }
@@ -477,7 +477,7 @@ void StepToTopoDS_TranslateEdge::MakeFromCurve3D(const Handle(StepGeom_Curve)&  
       {
         // Attention : topology updating
         aTool.Bind(Vend, V1);
-        TopoDS_Shape aLocalShape = V1.Reversed();
+        TopoShape aLocalShape = V1.Reversed();
         V2                       = TopoDS::Vertex(aLocalShape);
         ME.Init(C1, V1, V2, U1, U2);
         if (ME.IsDone())
@@ -506,12 +506,12 @@ void StepToTopoDS_TranslateEdge::MakeFromCurve3D(const Handle(StepGeom_Curve)&  
         if (!V1.IsSame(V2))
         {
           TP->AddFail(EC, "This edge has null arc length");
-          Point3d P1 = BRep_Tool::Pnt(V1);
-          Point3d P2 = BRep_Tool::Pnt(V2);
+          Point3d P1 = BRepInspector::Pnt(V1);
+          Point3d P2 = BRepInspector::Pnt(V2);
           Vector3d avec(P1, P2);
           Dir3d adir(avec);
           gp_Lin alin(P1, adir);
-          C1 = new Geom_Line(alin);
+          C1 = new GeomLine(alin);
           U1 = 0.;
           U2 = P1.Distance(P2);
           E  = MakeEdge(C1, V1, V2, U1, U2); //,preci
@@ -538,19 +538,19 @@ void StepToTopoDS_TranslateEdge::MakeFromCurve3D(const Handle(StepGeom_Curve)&  
 // Method  : MakePCurve
 // Purpose : Computes an individual pcurve (i.e. curve 2d)
 // ============================================================================
-Handle(Geom2d_Curve) StepToTopoDS_TranslateEdge::MakePCurve(
+Handle(GeomCurve2d) StepToTopoDS_TranslateEdge::MakePCurve(
   const Handle(StepGeom_Pcurve)& PCU,
-  const Handle(Geom_Surface)&    ConvSurf,
-  const StepData_Factors&        theLocalFactors) const
+  const Handle(GeomSurface)&    ConvSurf,
+  const ConversionFactors&        theLocalFactors) const
 {
-  Handle(Geom2d_Curve)                              C2d;
+  Handle(GeomCurve2d)                              C2d;
   const Handle(StepRepr_DefinitionalRepresentation) DRI = PCU->ReferenceToCurve();
   if (DRI.IsNull())
     return C2d;
   const Handle(StepGeom_Curve) StepCurve = Handle(StepGeom_Curve)::DownCast(DRI->ItemsValue(1));
   try
   {
-    C2d = StepToGeom::MakeCurve2d(StepCurve, theLocalFactors);
+    C2d = StepToGeom1::MakeCurve2d(StepCurve, theLocalFactors);
     if (!C2d.IsNull())
     {
       // -- if the surface is a RectangularTrimmedSurface,
@@ -573,7 +573,7 @@ Handle(Geom2d_Curve) StepToTopoDS_TranslateEdge::MakePCurve(
 // Purpose : Returns the mapped edge
 // ============================================================================
 
-const TopoDS_Shape& StepToTopoDS_TranslateEdge::Value() const
+const TopoShape& StepToTopoDS_TranslateEdge::Value() const
 {
   StdFail_NotDone_Raise_if(!done, "StepToTopoDS_TranslateEdge::Value() - no result");
   return myResult;

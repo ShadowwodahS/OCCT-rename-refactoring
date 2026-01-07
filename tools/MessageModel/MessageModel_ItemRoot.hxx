@@ -32,14 +32,14 @@ struct MessageModel_ReportInformation
 {
   //! Constructor
   MessageModel_ReportInformation(Handle(Message_Report)         theReport,
-                                 const TCollection_AsciiString& theDescription)
+                                 const AsciiString1& theDescription)
       : myReport(theReport),
         myDescription(theDescription)
   {
   }
 
   Handle(Message_Report)  myReport;      //! report
-  TCollection_AsciiString myDescription; //! report description
+  AsciiString1 myDescription; //! report description
 };
 
 //! \class MessageModel_ItemRoot
@@ -64,7 +64,7 @@ public:
   //! \param theReport a report instance
   //! \param theReportDescription an additional report information
   void AddReport(const Handle(Message_Report)&  theReport,
-                 const TCollection_AsciiString& theReportDescription)
+                 const AsciiString1& theReportDescription)
   {
     myReports.Append(MessageModel_ReportInformation(theReport, theReportDescription));
   }
@@ -75,7 +75,7 @@ public:
   //! \param theReportDescription an additional report information
   Standard_EXPORT void SetReport(const int                      theRowId,
                                  const Handle(Message_Report)&  theReport,
-                                 const TCollection_AsciiString& theReportDescription = "");
+                                 const AsciiString1& theReportDescription = "");
 
   //! Returns true if report exists is in the list of the current reports
   //! \param theReport a report instance
@@ -92,11 +92,11 @@ public:
   //! \param theRowId an index of the report in the internal container.
   Standard_EXPORT const Handle(Message_Report)& GetReport(
     const int                theRowId,
-    TCollection_AsciiString& theReportDescription);
+    AsciiString1& theReportDescription);
 
   //! Set the item name
   //! \param theName text value
-  void SetName(const TCollection_AsciiString& theName) { myName = theName; }
+  void SetName(const AsciiString1& theName) { myName = theName; }
 
 protected:
   //! Return data value for the role.
@@ -123,7 +123,7 @@ private:
 
 private:
   NCollection_List<MessageModel_ReportInformation> myReports; //!< reports sent by algorithms
-  TCollection_AsciiString                          myName;    //!< DisplayRole data, if defined
+  AsciiString1                          myName;    //!< DisplayRole data, if defined
 };
 
 #endif

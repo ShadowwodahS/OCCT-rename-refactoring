@@ -28,7 +28,7 @@ class TreeModel_ItemStream;
 typedef QExplicitlySharedDataPointer<TreeModel_ItemStream> TreeModel_ItemStreamPtr;
 
 //! \class TreeModel_ItemStream
-//! Parent item, that corresponds to AIS_InteractiveContext
+//! Parent item, that corresponds to VisualContext
 //! Children of the item are:
 //! - "Property" item to show context attributes such as selection filters and drawer properties
 //! - presentation items to show all interactive elements displayed/erased in the context

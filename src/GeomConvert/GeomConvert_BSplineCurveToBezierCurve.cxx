@@ -25,9 +25,9 @@
 //=================================================================================================
 
 GeomConvert_BSplineCurveToBezierCurve::GeomConvert_BSplineCurveToBezierCurve(
-  const Handle(Geom_BSplineCurve)& BasisCurve)
+  const Handle(BSplineCurve3d)& BasisCurve)
 {
-  myCurve          = Handle(Geom_BSplineCurve)::DownCast(BasisCurve->Copy());
+  myCurve          = Handle(BSplineCurve3d)::DownCast(BasisCurve->Copy());
   Standard_Real Uf = myCurve->FirstParameter();
   Standard_Real Ul = myCurve->LastParameter();
   myCurve->Segment(Uf, Ul);
@@ -43,7 +43,7 @@ GeomConvert_BSplineCurveToBezierCurve::GeomConvert_BSplineCurveToBezierCurve(
 //=======================================================================Real I
 
 GeomConvert_BSplineCurveToBezierCurve::GeomConvert_BSplineCurveToBezierCurve(
-  const Handle(Geom_BSplineCurve)& BasisCurve,
+  const Handle(BSplineCurve3d)& BasisCurve,
   const Standard_Real              U1,
   const Standard_Real              U2,
   const Standard_Real              ParametricTolerance)
@@ -55,7 +55,7 @@ GeomConvert_BSplineCurveToBezierCurve::GeomConvert_BSplineCurveToBezierCurve(
   Standard_Real PTol = ParametricTolerance / 2;
 
   Standard_Integer I1, I2;
-  myCurve = Handle(Geom_BSplineCurve)::DownCast(BasisCurve->Copy());
+  myCurve = Handle(BSplineCurve3d)::DownCast(BasisCurve->Copy());
 
   myCurve->LocateU(U1, PTol, I1, I2);
   if (I1 == I2)
@@ -79,7 +79,7 @@ GeomConvert_BSplineCurveToBezierCurve::GeomConvert_BSplineCurveToBezierCurve(
 
 //=================================================================================================
 
-Handle(Geom_BezierCurve) GeomConvert_BSplineCurveToBezierCurve::Arc(const Standard_Integer Index)
+Handle(BezierCurve3d) GeomConvert_BSplineCurveToBezierCurve::Arc(const Standard_Integer Index)
 {
   if (Index < 1 || Index > myCurve->NbKnots() - 1)
   {
@@ -89,7 +89,7 @@ Handle(Geom_BezierCurve) GeomConvert_BSplineCurveToBezierCurve::Arc(const Standa
 
   TColgp_Array1OfPnt Poles(1, Deg + 1);
 
-  Handle(Geom_BezierCurve) C;
+  Handle(BezierCurve3d) C;
   if (myCurve->IsRational())
   {
     TColStd_Array1OfReal Weights(1, Deg + 1);
@@ -98,7 +98,7 @@ Handle(Geom_BezierCurve) GeomConvert_BSplineCurveToBezierCurve::Arc(const Standa
       Poles(i)   = myCurve->Pole(i + Deg * (Index - 1));
       Weights(i) = myCurve->Weight(i + Deg * (Index - 1));
     }
-    C = new Geom_BezierCurve(Poles, Weights);
+    C = new BezierCurve3d(Poles, Weights);
   }
   else
   {
@@ -106,7 +106,7 @@ Handle(Geom_BezierCurve) GeomConvert_BSplineCurveToBezierCurve::Arc(const Standa
     {
       Poles(i) = myCurve->Pole(i + Deg * (Index - 1));
     }
-    C = new Geom_BezierCurve(Poles);
+    C = new BezierCurve3d(Poles);
   }
   return C;
 }

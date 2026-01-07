@@ -43,12 +43,12 @@ public:
   Standard_EXPORT StepAP214_AutoDesignDateAndPersonItem();
 
   //! Recognizes a AutoDesignDateAndPersonItem Kind Entity that is :
-  //! 1     AutoDesignOrganizationAssignment from StepAP214,
+  //! 1     AutoDesignOrganizationAssignment from StepAP2141,
   //! 2     Product from StepBasic,
   //! 3     ProductDefinition from StepBasic,
   //! 4     ProductDefinitionFormation from StepBasic,
   //! 5     Representation from StepRepr,
-  //! 6     AutoDesignDocumentReference from StepAP214,
+  //! 6     AutoDesignDocumentReference from StepAP2141,
   //! 7     ExternallyDefinedRepresentation from StepRepr,
   //! 8     ProductDefinitionRelationship from StepBasic,
   //! 9     ProductDefinitionWithAssociatedDocuments from StepBasic

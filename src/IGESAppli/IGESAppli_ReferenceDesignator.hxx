@@ -27,7 +27,7 @@ class IGESAppli_ReferenceDesignator;
 DEFINE_STANDARD_HANDLE(IGESAppli_ReferenceDesignator, IGESData_IGESEntity)
 
 //! defines ReferenceDesignator, Type <406> Form <7>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Used to attach a text string containing the value of
 //! a component reference designator to an entity being
 //! used to represent a component.

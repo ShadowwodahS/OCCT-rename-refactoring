@@ -11,7 +11,7 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// pdn S4135 05.04.99 comment uninitialized Interface_Static::IVal("iges.convert.read");
+// pdn S4135 05.04.99 comment uninitialized ExchangeConfig::IVal("iges.convert.read");
 
 #include <gp_XY.hxx>
 #include <gp_XYZ.hxx>
@@ -181,24 +181,24 @@ Handle(IGESData_IGESEntity) IGESData_ParamReader::ParamEntity(
 
 //=================================================================================================
 
-IGESData_ParamCursor IGESData_ParamReader::Current() const
+ParameterCursor IGESData_ParamReader::Current() const
 {
-  return IGESData_ParamCursor(thecurr);
+  return ParameterCursor(thecurr);
 }
 
 //=================================================================================================
 
-IGESData_ParamCursor IGESData_ParamReader::CurrentList(const Standard_Integer nb,
+ParameterCursor IGESData_ParamReader::CurrentList(const Standard_Integer nb,
                                                        const Standard_Integer size) const
 {
-  return IGESData_ParamCursor(thecurr, nb, size);
+  return ParameterCursor(thecurr, nb, size);
 }
 
 // PrepareRead for MoniTool
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::PrepareRead(const IGESData_ParamCursor& PC,
+Standard_Boolean IGESData_ParamReader::PrepareRead(const ParameterCursor& PC,
                                                    const Standard_Boolean      several,
                                                    const Standard_Integer      size)
 {
@@ -232,7 +232,7 @@ Standard_Boolean IGESData_ParamReader::PrepareRead(const IGESData_ParamCursor& P
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::PrepareRead(const IGESData_ParamCursor& PC,
+Standard_Boolean IGESData_ParamReader::PrepareRead(const ParameterCursor& PC,
                                                    const Standard_CString      mess,
                                                    const Standard_Boolean      several,
                                                    const Standard_Integer      size)
@@ -324,7 +324,7 @@ Standard_Boolean IGESData_ParamReader::DefinedElseSkip()
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadInteger(const IGESData_ParamCursor& PC,
+Standard_Boolean IGESData_ParamReader::ReadInteger(const ParameterCursor& PC,
                                                    Standard_Integer&           val)
 {
   if (!PrepareRead(PC, Standard_False))
@@ -345,7 +345,7 @@ Standard_Boolean IGESData_ParamReader::ReadInteger(const IGESData_ParamCursor& P
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadInteger(const IGESData_ParamCursor& PC,
+Standard_Boolean IGESData_ParamReader::ReadInteger(const ParameterCursor& PC,
                                                    const Standard_CString      mess,
                                                    Standard_Integer&           val)
 {
@@ -370,7 +370,7 @@ Standard_Boolean IGESData_ParamReader::ReadInteger(const IGESData_ParamCursor& P
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadBoolean(const IGESData_ParamCursor& PC,
+Standard_Boolean IGESData_ParamReader::ReadBoolean(const ParameterCursor& PC,
                                                    const Message_Msg&          amsg,
                                                    Standard_Boolean&           val,
                                                    const Standard_Boolean      exact)
@@ -411,7 +411,7 @@ Standard_Boolean IGESData_ParamReader::ReadBoolean(const IGESData_ParamCursor& P
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadBoolean(const IGESData_ParamCursor& PC,
+Standard_Boolean IGESData_ParamReader::ReadBoolean(const ParameterCursor& PC,
                                                    const Standard_CString      mess,
                                                    Standard_Boolean&           val,
                                                    const Standard_Boolean      exact)
@@ -454,7 +454,7 @@ Standard_Boolean IGESData_ParamReader::ReadBoolean(const IGESData_ParamCursor& P
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadReal(const IGESData_ParamCursor& PC, Standard_Real& val)
+Standard_Boolean IGESData_ParamReader::ReadReal(const ParameterCursor& PC, Standard_Real& val)
 {
   if (!PrepareRead(PC, Standard_False))
     return Standard_False;
@@ -464,7 +464,7 @@ Standard_Boolean IGESData_ParamReader::ReadReal(const IGESData_ParamCursor& PC, 
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadReal(const IGESData_ParamCursor& PC,
+Standard_Boolean IGESData_ParamReader::ReadReal(const ParameterCursor& PC,
                                                 const Standard_CString      mess,
                                                 Standard_Real&              val)
 {
@@ -477,9 +477,9 @@ Standard_Boolean IGESData_ParamReader::ReadReal(const IGESData_ParamCursor& PC,
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadXY(const IGESData_ParamCursor& PC,
+Standard_Boolean IGESData_ParamReader::ReadXY(const ParameterCursor& PC,
                                               Message_Msg& /*amsg*/,
-                                              gp_XY& val)
+                                              Coords2d& val)
 {
   if (!PrepareRead(PC, Standard_False, 2))
     return Standard_False;
@@ -492,9 +492,9 @@ Standard_Boolean IGESData_ParamReader::ReadXY(const IGESData_ParamCursor& PC,
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadXY(const IGESData_ParamCursor& PC,
+Standard_Boolean IGESData_ParamReader::ReadXY(const ParameterCursor& PC,
                                               const Standard_CString      mess,
-                                              gp_XY&                      val)
+                                              Coords2d&                      val)
 {
   if (!PrepareRead(PC, mess, Standard_False, 2))
     return Standard_False;
@@ -509,7 +509,7 @@ Standard_Boolean IGESData_ParamReader::ReadXY(const IGESData_ParamCursor& PC,
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadXYZ(const IGESData_ParamCursor& PC,
+Standard_Boolean IGESData_ParamReader::ReadXYZ(const ParameterCursor& PC,
                                                Message_Msg& /*amsg*/,
                                                gp_XYZ& val)
 {
@@ -525,7 +525,7 @@ Standard_Boolean IGESData_ParamReader::ReadXYZ(const IGESData_ParamCursor& PC,
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadXYZ(const IGESData_ParamCursor& PC,
+Standard_Boolean IGESData_ParamReader::ReadXYZ(const ParameterCursor& PC,
                                                const Standard_CString      mess,
                                                gp_XYZ&                     val)
 {
@@ -543,7 +543,7 @@ Standard_Boolean IGESData_ParamReader::ReadXYZ(const IGESData_ParamCursor& PC,
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadText(const IGESData_ParamCursor&       thePC,
+Standard_Boolean IGESData_ParamReader::ReadText(const ParameterCursor&       thePC,
                                                 const Message_Msg&                theMsg,
                                                 Handle(TCollection_HAsciiString)& theVal)
 {
@@ -571,7 +571,7 @@ Standard_Boolean IGESData_ParamReader::ReadText(const IGESData_ParamCursor&     
     SendFail(theMsg);
     return Standard_False;
   }
-  const TCollection_AsciiString aSpecialSubString =
+  const AsciiString1 aSpecialSubString =
     aBaseValue->String().SubString(1, aSymbolLocation - 1);
   if (!aSpecialSubString.IsIntegerValue())
   {
@@ -585,7 +585,7 @@ Standard_Boolean IGESData_ParamReader::ReadText(const IGESData_ParamCursor&     
     SendWarning(theMsg);
     aResLength = aBaseLength - aSymbolLocation;
   }
-  TCollection_AsciiString aResString;
+  AsciiString1 aResString;
   if (aResLength > 0)
   {
     aResString = aBaseValue->String().SubString(aSymbolLocation + 1, aBaseLength);
@@ -596,7 +596,7 @@ Standard_Boolean IGESData_ParamReader::ReadText(const IGESData_ParamCursor&     
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadText(const IGESData_ParamCursor&       PC,
+Standard_Boolean IGESData_ParamReader::ReadText(const ParameterCursor&       PC,
                                                 const Standard_CString            mess,
                                                 Handle(TCollection_HAsciiString)& val)
 {
@@ -636,7 +636,7 @@ Standard_Boolean IGESData_ParamReader::ReadText(const IGESData_ParamCursor&     
 //=================================================================================================
 
 Standard_Boolean IGESData_ParamReader::ReadEntity(const Handle(IGESData_IGESReaderData)& IR,
-                                                  const IGESData_ParamCursor&            PC,
+                                                  const ParameterCursor&            PC,
                                                   IGESData_Status&                       aStatus,
                                                   Handle(IGESData_IGESEntity)&           val,
                                                   const Standard_Boolean                 canbenul)
@@ -694,7 +694,7 @@ Standard_Boolean IGESData_ParamReader::ReadEntity(const Handle(IGESData_IGESRead
 //=================================================================================================
 
 Standard_Boolean IGESData_ParamReader::ReadEntity(const Handle(IGESData_IGESReaderData)& IR,
-                                                  const IGESData_ParamCursor&            PC,
+                                                  const ParameterCursor&            PC,
                                                   const Standard_CString                 mess,
                                                   Handle(IGESData_IGESEntity)&           val,
                                                   const Standard_Boolean                 canbenul)
@@ -740,7 +740,7 @@ Standard_Boolean IGESData_ParamReader::ReadEntity(const Handle(IGESData_IGESRead
 //=================================================================================================
 
 Standard_Boolean IGESData_ParamReader::ReadEntity(const Handle(IGESData_IGESReaderData)& IR,
-                                                  const IGESData_ParamCursor&            PC,
+                                                  const ParameterCursor&            PC,
                                                   IGESData_Status&                       aStatus,
                                                   const Handle(TypeInfo)&           type,
                                                   Handle(IGESData_IGESEntity)&           val,
@@ -769,7 +769,7 @@ Standard_Boolean IGESData_ParamReader::ReadEntity(const Handle(IGESData_IGESRead
 //=================================================================================================
 
 Standard_Boolean IGESData_ParamReader::ReadEntity(const Handle(IGESData_IGESReaderData)& IR,
-                                                  const IGESData_ParamCursor&            PC,
+                                                  const ParameterCursor&            PC,
                                                   const Standard_CString                 mess,
                                                   const Handle(TypeInfo)&           type,
                                                   Handle(IGESData_IGESEntity)&           val,
@@ -794,7 +794,7 @@ Standard_Boolean IGESData_ParamReader::ReadEntity(const Handle(IGESData_IGESRead
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadInts(const IGESData_ParamCursor&       PC,
+Standard_Boolean IGESData_ParamReader::ReadInts(const ParameterCursor&       PC,
                                                 const Message_Msg&                amsg,
                                                 Handle(TColStd_HArray1OfInteger)& val,
                                                 const Standard_Integer            index)
@@ -830,7 +830,7 @@ Standard_Boolean IGESData_ParamReader::ReadInts(const IGESData_ParamCursor&     
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadInts(const IGESData_ParamCursor&       PC,
+Standard_Boolean IGESData_ParamReader::ReadInts(const ParameterCursor&       PC,
                                                 const Standard_CString            mess,
                                                 Handle(TColStd_HArray1OfInteger)& val,
                                                 const Standard_Integer            index)
@@ -870,7 +870,7 @@ Standard_Boolean IGESData_ParamReader::ReadInts(const IGESData_ParamCursor&     
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadReals(const IGESData_ParamCursor& PC,
+Standard_Boolean IGESData_ParamReader::ReadReals(const ParameterCursor& PC,
                                                  Message_Msg& /*amsg*/,
                                                  Handle(TColStd_HArray1OfReal)& val,
                                                  const Standard_Integer         index)
@@ -895,7 +895,7 @@ Standard_Boolean IGESData_ParamReader::ReadReals(const IGESData_ParamCursor& PC,
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadReals(const IGESData_ParamCursor&    PC,
+Standard_Boolean IGESData_ParamReader::ReadReals(const ParameterCursor&    PC,
                                                  const Standard_CString         mess,
                                                  Handle(TColStd_HArray1OfReal)& val,
                                                  const Standard_Integer         index)
@@ -922,7 +922,7 @@ Standard_Boolean IGESData_ParamReader::ReadReals(const IGESData_ParamCursor&    
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadTexts(const IGESData_ParamCursor&              PC,
+Standard_Boolean IGESData_ParamReader::ReadTexts(const ParameterCursor&              PC,
                                                  const Message_Msg&                       amsg,
                                                  Handle(Interface_HArray1OfHAsciiString)& val,
                                                  const Standard_Integer                   index)
@@ -972,7 +972,7 @@ Standard_Boolean IGESData_ParamReader::ReadTexts(const IGESData_ParamCursor&    
 
 //=================================================================================================
 
-Standard_Boolean IGESData_ParamReader::ReadTexts(const IGESData_ParamCursor&              PC,
+Standard_Boolean IGESData_ParamReader::ReadTexts(const ParameterCursor&              PC,
                                                  const Standard_CString                   mess,
                                                  Handle(Interface_HArray1OfHAsciiString)& val,
                                                  const Standard_Integer                   index)
@@ -1025,7 +1025,7 @@ Standard_Boolean IGESData_ParamReader::ReadTexts(const IGESData_ParamCursor&    
 //=================================================================================================
 
 Standard_Boolean IGESData_ParamReader::ReadEnts(const Handle(IGESData_IGESReaderData)& IR,
-                                                const IGESData_ParamCursor&            PC,
+                                                const ParameterCursor&            PC,
                                                 const Message_Msg&                     amsg,
                                                 Handle(IGESData_HArray1OfIGESEntity)&  val,
                                                 const Standard_Integer                 index)
@@ -1082,7 +1082,7 @@ Standard_Boolean IGESData_ParamReader::ReadEnts(const Handle(IGESData_IGESReader
 //=================================================================================================
 
 Standard_Boolean IGESData_ParamReader::ReadEnts(const Handle(IGESData_IGESReaderData)& IR,
-                                                const IGESData_ParamCursor&            PC,
+                                                const ParameterCursor&            PC,
                                                 const Standard_CString                 mess,
                                                 Handle(IGESData_HArray1OfIGESEntity)&  val,
                                                 const Standard_Integer                 index)
@@ -1151,7 +1151,7 @@ Standard_Boolean IGESData_ParamReader::ReadEnts(const Handle(IGESData_IGESReader
 //=================================================================================================
 
 Standard_Boolean IGESData_ParamReader::ReadEntList(const Handle(IGESData_IGESReaderData)& IR,
-                                                   const IGESData_ParamCursor&            PC,
+                                                   const ParameterCursor&            PC,
                                                    Message_Msg&                           amsg,
                                                    Interface_EntityList&                  val,
                                                    const Standard_Boolean                 ord)
@@ -1185,7 +1185,7 @@ Standard_Boolean IGESData_ParamReader::ReadEntList(const Handle(IGESData_IGESRea
     else if (IR->DirType(nval).Type() == 0)
     {
       Message_Msg Msg217("XSTEP_217");
-      SendWarning(TCollection_AsciiString(Msg217.Value()).ToCString());
+      SendWarning(AsciiString1(Msg217.Value()).ToCString());
     }
     else if (ord)
       val.Append(anent);
@@ -1198,7 +1198,7 @@ Standard_Boolean IGESData_ParamReader::ReadEntList(const Handle(IGESData_IGESRea
 //=================================================================================================
 
 Standard_Boolean IGESData_ParamReader::ReadEntList(const Handle(IGESData_IGESReaderData)& IR,
-                                                   const IGESData_ParamCursor&            PC,
+                                                   const ParameterCursor&            PC,
                                                    const Standard_CString                 mess,
                                                    Interface_EntityList&                  val,
                                                    const Standard_Boolean                 ord)
@@ -1242,7 +1242,7 @@ Standard_Boolean IGESData_ParamReader::ReadingReal(const Standard_Integer num, S
     if (!pbrealint)
     {
       if (testconv < 0)
-        testconv = 0; // Interface_Static::IVal("iges.convert.read");
+        testconv = 0; // ExchangeConfig::IVal("iges.convert.read");
       if (testconv > 0)
       {
         //   char ssem[100];
@@ -1274,7 +1274,7 @@ Standard_Boolean IGESData_ParamReader::ReadingReal(const Standard_Integer num, S
     if (!pbrealform)
     {
       if (testconv < 0)
-        testconv = 0; // Interface_Static::IVal("iges.convert.read");
+        testconv = 0; // ExchangeConfig::IVal("iges.convert.read");
       if (testconv > 0)
       {
         // char ssem[100];
@@ -1299,7 +1299,7 @@ Standard_Boolean IGESData_ParamReader::ReadingReal(const Standard_Integer num, S
     // char ssem[100];
     //  sprintf(ssem,": not given as Real, rank %d",num);
     //  AddFail (mess,ssem,": not given as Real, rank %d");
-    /*  TCollection_AsciiString mess = amsg.Value();
+    /*  AsciiString1 mess = amsg.Value();
       if ((mess.Search("ter %d"))||(mess.Search("tre %d")))
          amsg.AddInteger(num); // Parameter index
     */
@@ -1320,7 +1320,7 @@ Standard_Boolean IGESData_ParamReader::ReadingReal(const Standard_Integer num,
     if (!pbrealint)
     {
       if (testconv < 0)
-        testconv = 0; // Interface_Static::IVal("iges.convert.read");
+        testconv = 0; // ExchangeConfig::IVal("iges.convert.read");
       if (testconv > 0)
       {
         char ssem[100];
@@ -1352,7 +1352,7 @@ Standard_Boolean IGESData_ParamReader::ReadingReal(const Standard_Integer num,
     if (!pbrealform)
     {
       if (testconv < 0)
-        testconv = 0; // Interface_Static::IVal("iges.convert.read");
+        testconv = 0; // ExchangeConfig::IVal("iges.convert.read");
       if (testconv > 0)
       {
         char ssem[100];

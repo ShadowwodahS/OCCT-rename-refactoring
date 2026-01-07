@@ -36,7 +36,7 @@ public:
 
   //! Sets the context
   //! \param theLabel an object where the child items structure is found
-  void SetContext(const Handle(AIS_InteractiveContext)& theContext) { myContext = theContext; }
+  void SetContext(const Handle(VisualContext)& theContext) { myContext = theContext; }
 
   //! Returns true if the current context is not null
   //! \return a boolean value
@@ -44,7 +44,7 @@ public:
 
   //! Returns the current context. It iterates up by list of parents to found context item and
   //! return context \return a context
-  Standard_EXPORT Handle(AIS_InteractiveContext) GetContext() const;
+  Standard_EXPORT Handle(VisualContext) GetContext() const;
 
   //! Returns item information for the given role. Fills internal container if it was not filled yet
   //! \param theItemRole a value role
@@ -56,7 +56,7 @@ public:
 
   //! Returns shape of the item parameters
   //! \return generated shape of the item parameters
-  Standard_EXPORT virtual TopoDS_Shape GetPresentationShape() const;
+  Standard_EXPORT virtual TopoShape GetPresentationShape() const;
 
   //! Rebuild presentation shape if the item use it
   //! \return generated shape of the item parameters
@@ -65,7 +65,7 @@ public:
 protected:
   //! Build presentation shape
   //! \return generated shape of the item parameters
-  virtual TopoDS_Shape buildPresentationShape() { return TopoDS_Shape(); }
+  virtual TopoShape buildPresentationShape() { return TopoShape(); }
 
 protected:
   //! Constructor
@@ -79,8 +79,8 @@ protected:
   }
 
 protected:
-  Handle(AIS_InteractiveContext)  myContext;              //!< the current context
-  TopoDS_Shape                    myPresentationShape;    //!< item presentation shape
+  Handle(VisualContext)  myContext;              //!< the current context
+  TopoShape                    myPresentationShape;    //!< item presentation shape
   Handle(Graphic3d_TransformPers) myTransformPersistence; //!< item cached persistent
 };
 

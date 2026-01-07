@@ -58,7 +58,7 @@ QPushButton* TInspector_OpenButton::StartButton()
 void TInspector_OpenButton::onStartButtonClicked()
 {
   QPushButton*            aButton = (QPushButton*)sender();
-  TCollection_AsciiString aPluginName(aButton->objectName().toStdString().c_str());
+  AsciiString1 aPluginName(aButton->objectName().toStdString().c_str());
   if (aPluginName.IsEmpty())
     return;
 
@@ -81,7 +81,7 @@ void TInspector_OpenButton::onStartButtonClicked()
     QApplication::setOverrideCursor(Qt::WaitCursor);
     TInspector_OpenFileDialog::Communicator()->OpenFile(
       aPluginName,
-      TCollection_AsciiString(aFileName.toUtf8().data()));
+      AsciiString1(aFileName.toUtf8().data()));
 
     QFileInfo aFileInfo(aFileName);
     if (!aPluginRecentlyOpenedFiles.contains(aFileInfo.absoluteFilePath()))

@@ -22,7 +22,7 @@
 
 //=================================================================================================
 
-HLRAppli_ReflectLines::HLRAppli_ReflectLines(const TopoDS_Shape& aShape)
+HLRAppli_ReflectLines::HLRAppli_ReflectLines(const TopoShape& aShape)
 {
   myShape = aShape;
 }
@@ -77,13 +77,13 @@ void HLRAppli_ReflectLines::Perform()
 
 //=================================================================================================
 
-TopoDS_Shape HLRAppli_ReflectLines::GetCompoundOf3dEdges(const HLRBRep_TypeOfResultingEdge type,
+TopoShape HLRAppli_ReflectLines::GetCompoundOf3dEdges(const HLRBRep_TypeOfResultingEdge type,
                                                          const Standard_Boolean            visible,
                                                          const Standard_Boolean In3d) const
 {
   HLRBRep_HLRToShape aHLRToShape(myHLRAlgo);
 
-  TopoDS_Shape theCompound = aHLRToShape.CompoundOfEdges(type, visible, In3d);
+  TopoShape theCompound = aHLRToShape.CompoundOfEdges(type, visible, In3d);
 
   BRepLib::SameParameter(theCompound, Precision::PConfusion(), Standard_False);
 
@@ -92,7 +92,7 @@ TopoDS_Shape HLRAppli_ReflectLines::GetCompoundOf3dEdges(const HLRBRep_TypeOfRes
 
 //=================================================================================================
 
-TopoDS_Shape HLRAppli_ReflectLines::GetResult() const
+TopoShape HLRAppli_ReflectLines::GetResult() const
 {
   return GetCompoundOf3dEdges(HLRBRep_OutLine, Standard_True, Standard_True);
 }

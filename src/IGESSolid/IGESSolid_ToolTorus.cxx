@@ -34,9 +34,9 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESSolid_ToolTorus::IGESSolid_ToolTorus() {}
+TorusTool::TorusTool() {}
 
-void IGESSolid_ToolTorus::ReadOwnParams(const Handle(IGESSolid_Torus)& ent,
+void TorusTool::ReadOwnParams(const Handle(IGESSolid_Torus)& ent,
                                         const Handle(IGESData_IGESReaderData)& /* IR */,
                                         IGESData_ParamReader& PR) const
 {
@@ -115,7 +115,7 @@ void IGESSolid_ToolTorus::ReadOwnParams(const Handle(IGESSolid_Torus)& ent,
     PR.AddWarning("Axis poorly unitary, normalized");
 }
 
-void IGESSolid_ToolTorus::WriteOwnParams(const Handle(IGESSolid_Torus)& ent,
+void TorusTool::WriteOwnParams(const Handle(IGESSolid_Torus)& ent,
                                          IGESData_IGESWriter&           IW) const
 {
   IW.Send(ent->MajorRadius());
@@ -128,12 +128,12 @@ void IGESSolid_ToolTorus::WriteOwnParams(const Handle(IGESSolid_Torus)& ent,
   IW.Send(ent->Axis().Z());
 }
 
-void IGESSolid_ToolTorus::OwnShared(const Handle(IGESSolid_Torus)& /* ent */,
+void TorusTool::OwnShared(const Handle(IGESSolid_Torus)& /* ent */,
                                     Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESSolid_ToolTorus::OwnCopy(const Handle(IGESSolid_Torus)& another,
+void TorusTool::OwnCopy(const Handle(IGESSolid_Torus)& another,
                                   const Handle(IGESSolid_Torus)& ent,
                                   Interface_CopyTool& /* TC */) const
 {
@@ -143,9 +143,9 @@ void IGESSolid_ToolTorus::OwnCopy(const Handle(IGESSolid_Torus)& another,
             another->Axis().XYZ());
 }
 
-IGESData_DirChecker IGESSolid_ToolTorus::DirChecker(const Handle(IGESSolid_Torus)& /* ent */) const
+DirectoryChecker TorusTool::DirChecker(const Handle(IGESSolid_Torus)& /* ent */) const
 {
-  IGESData_DirChecker DC(160, 0);
+  DirectoryChecker DC(160, 0);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
@@ -156,7 +156,7 @@ IGESData_DirChecker IGESSolid_ToolTorus::DirChecker(const Handle(IGESSolid_Torus
   return DC;
 }
 
-void IGESSolid_ToolTorus::OwnCheck(const Handle(IGESSolid_Torus)& ent,
+void TorusTool::OwnCheck(const Handle(IGESSolid_Torus)& ent,
                                    const Interface_ShareTool&,
                                    Handle(Interface_Check)& ach) const
 {
@@ -168,7 +168,7 @@ void IGESSolid_ToolTorus::OwnCheck(const Handle(IGESSolid_Torus)& ent,
     ach->AddFail("Radius of disc : is not Less than Radius of revolution");
 }
 
-void IGESSolid_ToolTorus::OwnDump(const Handle(IGESSolid_Torus)& ent,
+void TorusTool::OwnDump(const Handle(IGESSolid_Torus)& ent,
                                   const IGESData_IGESDumper& /* dumper */,
                                   Standard_OStream&      S,
                                   const Standard_Integer level) const

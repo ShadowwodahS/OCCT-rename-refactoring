@@ -30,7 +30,7 @@
 // Geom2d
 //=============================================================================
 GeomToStep_MakeHyperbola::GeomToStep_MakeHyperbola(const Handle(Geom2d_Hyperbola)& C,
-                                                   const StepData_Factors&         theLocalFactors)
+                                                   const ConversionFactors&         theLocalFactors)
 {
   gp_Hypr2d gpHyp;
   gpHyp = C->Hypr2d();
@@ -57,7 +57,7 @@ GeomToStep_MakeHyperbola::GeomToStep_MakeHyperbola(const Handle(Geom2d_Hyperbola
 //=============================================================================
 
 GeomToStep_MakeHyperbola::GeomToStep_MakeHyperbola(const Handle(Geom_Hyperbola)& C,
-                                                   const StepData_Factors&       theLocalFactors)
+                                                   const ConversionFactors&       theLocalFactors)
 {
   gp_Hypr gpHyp;
   gpHyp = C->Hypr();

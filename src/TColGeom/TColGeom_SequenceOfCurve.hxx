@@ -20,6 +20,6 @@
 #include <Geom_Curve.hxx>
 #include <NCollection_Sequence.hxx>
 
-typedef NCollection_Sequence<Handle(Geom_Curve)> TColGeom_SequenceOfCurve;
+typedef NCollection_Sequence<Handle(GeomCurve3d)> TColGeom_SequenceOfCurve;
 
 #endif

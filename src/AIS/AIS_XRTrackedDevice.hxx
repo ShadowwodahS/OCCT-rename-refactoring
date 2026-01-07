@@ -21,9 +21,9 @@ class Graphic3d_ArrayOfTriangles;
 class Image_Texture;
 
 //! Auxiliary textured mesh presentation of tracked XR device.
-class AIS_XRTrackedDevice : public AIS_InteractiveObject
+class AIS_XRTrackedDevice : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_XRTrackedDevice, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_XRTrackedDevice, VisualEntity)
 public:
   //! Main constructor.
   Standard_EXPORT AIS_XRTrackedDevice(const Handle(Graphic3d_ArrayOfTriangles)& theTris,
@@ -69,7 +69,7 @@ protected:
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Compute selection.
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Compute laser ray presentation.

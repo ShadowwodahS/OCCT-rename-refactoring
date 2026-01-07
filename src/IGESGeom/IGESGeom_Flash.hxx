@@ -30,7 +30,7 @@ class IGESGeom_Flash;
 DEFINE_STANDARD_HANDLE(IGESGeom_Flash, IGESData_IGESEntity)
 
 //! defines IGESFlash, Type <125> Form <0 - 4>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A flash entity is a point in the ZT=0 plane that locates
 //! a particular closed area. That closed area can be defined
 //! in one of two ways. First, it can be an arbitrary closed
@@ -51,7 +51,7 @@ public:
   //! - aRotation  : Rotation of flash about reference point
   //! in radians
   //! - aReference : Pointer to the referenced entity or Null
-  Standard_EXPORT void Init(const gp_XY&                       aPoint,
+  Standard_EXPORT void Init(const Coords2d&                       aPoint,
                             const Standard_Real                aDim,
                             const Standard_Real                anotherDim,
                             const Standard_Real                aRotation,
@@ -89,7 +89,7 @@ public:
 
 protected:
 private:
-  gp_XY                       thePoint;
+  Coords2d                       thePoint;
   Standard_Real               theDim1;
   Standard_Real               theDim2;
   Standard_Real               theRotation;

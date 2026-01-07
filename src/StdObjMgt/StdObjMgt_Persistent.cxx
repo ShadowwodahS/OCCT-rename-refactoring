@@ -25,7 +25,7 @@ StdObjMgt_Persistent::StdObjMgt_Persistent()
 //           (to be overridden by document class;
 //           does nothing by default for other classes).
 //=======================================================================
-void StdObjMgt_Persistent::ImportDocument(const Handle(TDocStd_Document)&) const {}
+void StdObjMgt_Persistent::ImportDocument(const Handle(AppDocument)&) const {}
 
 //=======================================================================
 // function : CreateAttribute
@@ -85,7 +85,7 @@ Handle(TCollection_HExtendedString) StdObjMgt_Persistent::ExtString() const
 //           (to be overridden by extended string class;
 //           returns a null label by default for other classes)
 //=======================================================================
-TDF_Label StdObjMgt_Persistent::Label(const Handle(TDF_Data)&) const
+DataLabel StdObjMgt_Persistent::Label(const Handle(TDF_Data)&) const
 {
-  return TDF_Label();
+  return DataLabel();
 }

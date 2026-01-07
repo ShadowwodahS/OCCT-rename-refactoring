@@ -22,8 +22,8 @@
 
 class LDOM_MemManager;
 class LDOM_NullPtr;
-class TCollection_AsciiString;
-class TCollection_ExtendedString;
+class AsciiString1;
+class UtfString;
 
 //  Block of comments describing class LDOMBasicString
 //
@@ -82,9 +82,9 @@ public:
   }
 
   //      AGV auxiliary API
-  Standard_EXPORT operator TCollection_AsciiString() const;
+  Standard_EXPORT operator AsciiString1() const;
 
-  Standard_EXPORT operator TCollection_ExtendedString() const;
+  Standard_EXPORT operator UtfString() const;
 
   LDOMBasicString()
       : myType(LDOM_NULL)

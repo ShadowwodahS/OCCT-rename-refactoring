@@ -20,10 +20,10 @@
 
 //=================================================================================================
 
-TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GFusUnsh(const TopAbs_ShapeEnum t1,
+GTopologyClassifier GTopologyTool::GFusUnsh(const TopAbs_ShapeEnum t1,
                                                       const TopAbs_ShapeEnum t2)
 {
-  return TopOpeBRepBuild_GTopo(false,
+  return GTopologyClassifier(false,
                                false,
                                false,
                                false,
@@ -40,10 +40,10 @@ TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GFusUnsh(const TopAbs_ShapeEnum t1,
 
 //=================================================================================================
 
-TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GFusSame(const TopAbs_ShapeEnum t1,
+GTopologyClassifier GTopologyTool::GFusSame(const TopAbs_ShapeEnum t1,
                                                       const TopAbs_ShapeEnum t2)
 {
-  return TopOpeBRepBuild_GTopo(false,
+  return GTopologyClassifier(false,
                                false,
                                false,
                                false,
@@ -60,10 +60,10 @@ TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GFusSame(const TopAbs_ShapeEnum t1,
 
 //=================================================================================================
 
-TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GFusDiff(const TopAbs_ShapeEnum t1,
+GTopologyClassifier GTopologyTool::GFusDiff(const TopAbs_ShapeEnum t1,
                                                       const TopAbs_ShapeEnum t2)
 {
-  return TopOpeBRepBuild_GTopo(false,
+  return GTopologyClassifier(false,
                                false,
                                false,
                                false,
@@ -80,10 +80,10 @@ TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GFusDiff(const TopAbs_ShapeEnum t1,
 
 //=================================================================================================
 
-TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GCutUnsh(const TopAbs_ShapeEnum t1,
+GTopologyClassifier GTopologyTool::GCutUnsh(const TopAbs_ShapeEnum t1,
                                                       const TopAbs_ShapeEnum t2)
 {
-  return TopOpeBRepBuild_GTopo(false,
+  return GTopologyClassifier(false,
                                true,
                                false,
                                false,
@@ -100,10 +100,10 @@ TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GCutUnsh(const TopAbs_ShapeEnum t1,
 
 //=================================================================================================
 
-TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GCutSame(const TopAbs_ShapeEnum t1,
+GTopologyClassifier GTopologyTool::GCutSame(const TopAbs_ShapeEnum t1,
                                                       const TopAbs_ShapeEnum t2)
 {
-  return TopOpeBRepBuild_GTopo(false,
+  return GTopologyClassifier(false,
                                true,
                                false,
                                false,
@@ -120,10 +120,10 @@ TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GCutSame(const TopAbs_ShapeEnum t1,
 
 //=================================================================================================
 
-TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GCutDiff(const TopAbs_ShapeEnum t1,
+GTopologyClassifier GTopologyTool::GCutDiff(const TopAbs_ShapeEnum t1,
                                                       const TopAbs_ShapeEnum t2)
 {
-  return TopOpeBRepBuild_GTopo(false,
+  return GTopologyClassifier(false,
                                true,
                                false,
                                false,
@@ -140,10 +140,10 @@ TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GCutDiff(const TopAbs_ShapeEnum t1,
 
 //=================================================================================================
 
-TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GComUnsh(const TopAbs_ShapeEnum t1,
+GTopologyClassifier GTopologyTool::GComUnsh(const TopAbs_ShapeEnum t1,
                                                       const TopAbs_ShapeEnum t2)
 {
-  return TopOpeBRepBuild_GTopo(false,
+  return GTopologyClassifier(false,
                                true,
                                false,
                                true,
@@ -160,10 +160,10 @@ TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GComUnsh(const TopAbs_ShapeEnum t1,
 
 //=================================================================================================
 
-TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GComSame(const TopAbs_ShapeEnum t1,
+GTopologyClassifier GTopologyTool::GComSame(const TopAbs_ShapeEnum t1,
                                                       const TopAbs_ShapeEnum t2)
 {
-  return TopOpeBRepBuild_GTopo(false,
+  return GTopologyClassifier(false,
                                true,
                                false,
                                true,
@@ -180,10 +180,10 @@ TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GComSame(const TopAbs_ShapeEnum t1,
 
 //=================================================================================================
 
-TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GComDiff(const TopAbs_ShapeEnum t1,
+GTopologyClassifier GTopologyTool::GComDiff(const TopAbs_ShapeEnum t1,
                                                       const TopAbs_ShapeEnum t2)
 {
-  return TopOpeBRepBuild_GTopo(false,
+  return GTopologyClassifier(false,
                                true,
                                false,
                                true,
@@ -200,30 +200,30 @@ TopOpeBRepBuild_GTopo TopOpeBRepBuild_GTool::GComDiff(const TopAbs_ShapeEnum t1,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_GTool::Dump(Standard_OStream& OS)
+void GTopologyTool::Dump(Standard_OStream& OS)
 {
-  TopOpeBRepBuild_GIter gi;
-  TopOpeBRepBuild_GTopo g;
+  GTopologyIterator gi;
+  GTopologyClassifier g;
 
-  g = TopOpeBRepBuild_GTool::GFusUnsh(TopAbs_FACE, TopAbs_FACE);
+  g = GTopologyTool::GFusUnsh(TopAbs_FACE, TopAbs_FACE);
   g.Dump(OS);
   for (gi.Init(g); gi.More(); gi.Next())
     gi.Dump(OS);
   OS << std::endl;
 
-  g = TopOpeBRepBuild_GTool::GFusSame(TopAbs_FACE, TopAbs_FACE);
+  g = GTopologyTool::GFusSame(TopAbs_FACE, TopAbs_FACE);
   g.Dump(OS);
   for (gi.Init(g); gi.More(); gi.Next())
     gi.Dump(OS);
   OS << std::endl;
 
-  g = TopOpeBRepBuild_GTool::GFusDiff(TopAbs_FACE, TopAbs_FACE);
+  g = GTopologyTool::GFusDiff(TopAbs_FACE, TopAbs_FACE);
   g.Dump(OS);
   for (gi.Init(g); gi.More(); gi.Next())
     gi.Dump(OS);
   OS << std::endl;
 
-  g = TopOpeBRepBuild_GTool::GCutDiff(TopAbs_FACE, TopAbs_EDGE);
+  g = GTopologyTool::GCutDiff(TopAbs_FACE, TopAbs_EDGE);
   g.Dump(OS);
   for (gi.Init(g); gi.More(); gi.Next())
     gi.Dump(OS);

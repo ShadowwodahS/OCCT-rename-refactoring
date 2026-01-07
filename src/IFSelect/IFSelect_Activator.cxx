@@ -22,7 +22,7 @@
 
 IMPLEMENT_STANDARD_RTTIEXT(IFSelect_Activator, RefObject)
 
-static NCollection_DataMap<TCollection_AsciiString, Standard_Integer> thedico;
+static NCollection_DataMap<AsciiString1, Standard_Integer> thedico;
 static TColStd_SequenceOfInteger                                      thenums, themodes;
 static TColStd_SequenceOfTransient                                    theacts;
 
@@ -86,7 +86,7 @@ Handle(TColStd_HSequenceOfAsciiString) IFSelect_Activator::Commands(const Standa
                                                                     const Standard_CString command)
 {
   Standard_Integer                                                         num;
-  NCollection_DataMap<TCollection_AsciiString, Standard_Integer>::Iterator iter(thedico);
+  NCollection_DataMap<AsciiString1, Standard_Integer>::Iterator iter(thedico);
   Handle(TColStd_HSequenceOfAsciiString) list = new TColStd_HSequenceOfAsciiString();
   for (; iter.More(); iter.Next())
   {

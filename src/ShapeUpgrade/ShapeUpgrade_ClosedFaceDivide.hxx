@@ -22,7 +22,7 @@
 
 #include <Standard_Integer.hxx>
 #include <ShapeUpgrade_FaceDivide.hxx>
-class TopoDS_Face;
+class TopoFace;
 
 class ShapeUpgrade_ClosedFaceDivide;
 DEFINE_STANDARD_HANDLE(ShapeUpgrade_ClosedFaceDivide, ShapeUpgrade_FaceDivide)
@@ -38,7 +38,7 @@ public:
   Standard_EXPORT ShapeUpgrade_ClosedFaceDivide();
 
   //! Initialize by a Face.
-  Standard_EXPORT ShapeUpgrade_ClosedFaceDivide(const TopoDS_Face& F);
+  Standard_EXPORT ShapeUpgrade_ClosedFaceDivide(const TopoFace& F);
 
   //! Performs splitting of surface and computes the shell
   //! from source face.

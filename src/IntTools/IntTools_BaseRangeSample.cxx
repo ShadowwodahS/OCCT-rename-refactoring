@@ -15,12 +15,12 @@
 
 #include <IntTools_BaseRangeSample.hxx>
 
-IntTools_BaseRangeSample::IntTools_BaseRangeSample()
+BaseRangeSample::BaseRangeSample()
 {
   myDepth = 0;
 }
 
-IntTools_BaseRangeSample::IntTools_BaseRangeSample(const Standard_Integer theDepth)
+BaseRangeSample::BaseRangeSample(const Standard_Integer theDepth)
 {
   myDepth = theDepth;
 }

@@ -29,8 +29,8 @@ DEFINE_STANDARD_HANDLE(IGESData_FileProtocol, IGESData_Protocol)
 
 //! This class allows to define complex protocols, in order to
 //! treat various sub-sets (or the complete set) of the IGES Norm,
-//! such as Solid + Draw (which are normally independent), etc...
-//! While it inherits Protocol from IGESData, it admits UndefinedEntity too
+//! such as Solid + Draw1 (which are normally independent), etc...
+//! While it inherits Protocol from IGESData1, it admits UndefinedEntity too
 class IGESData_FileProtocol : public IGESData_Protocol
 {
 

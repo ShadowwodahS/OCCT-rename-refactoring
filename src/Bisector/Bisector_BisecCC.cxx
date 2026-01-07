@@ -43,13 +43,13 @@
 IMPLEMENT_STANDARD_RTTIEXT(Bisector_BisecCC, Bisector_Curve)
 
 static Standard_Boolean ProjOnCurve(const gp_Pnt2d&             P,
-                                    const Handle(Geom2d_Curve)& C,
+                                    const Handle(GeomCurve2d)& C,
                                     Standard_Real&              theParam);
 
-static Standard_Real Curvature(const Handle(Geom2d_Curve)& C, Standard_Real U, Standard_Real Tol);
+static Standard_Real Curvature(const Handle(GeomCurve2d)& C, Standard_Real U, Standard_Real Tol);
 
-static Standard_Boolean TestExtension(const Handle(Geom2d_Curve)& C1,
-                                      const Handle(Geom2d_Curve)& C2,
+static Standard_Boolean TestExtension(const Handle(GeomCurve2d)& C1,
+                                      const Handle(GeomCurve2d)& C2,
                                       const Standard_Integer      Start_End);
 
 static Standard_Boolean DiscretPar(const Standard_Real    DU,
@@ -78,8 +78,8 @@ Bisector_BisecCC::Bisector_BisecCC()
 
 //=================================================================================================
 
-Bisector_BisecCC::Bisector_BisecCC(const Handle(Geom2d_Curve)& Cu1,
-                                   const Handle(Geom2d_Curve)& Cu2,
+Bisector_BisecCC::Bisector_BisecCC(const Handle(GeomCurve2d)& Cu1,
+                                   const Handle(GeomCurve2d)& Cu2,
                                    const Standard_Real         Side1,
                                    const Standard_Real         Side2,
                                    const gp_Pnt2d&             Origin,
@@ -90,8 +90,8 @@ Bisector_BisecCC::Bisector_BisecCC(const Handle(Geom2d_Curve)& Cu1,
 
 //=================================================================================================
 
-void Bisector_BisecCC::Perform(const Handle(Geom2d_Curve)& Cu1,
-                               const Handle(Geom2d_Curve)& Cu2,
+void Bisector_BisecCC::Perform(const Handle(GeomCurve2d)& Cu1,
+                               const Handle(GeomCurve2d)& Cu2,
                                const Standard_Real         Side1,
                                const Standard_Real         Side2,
                                const gp_Pnt2d&             Origin,
@@ -100,8 +100,8 @@ void Bisector_BisecCC::Perform(const Handle(Geom2d_Curve)& Cu1,
   isEmpty = Standard_False;
   distMax = DistMax;
 
-  curve1 = Handle(Geom2d_Curve)::DownCast(Cu1->Copy());
-  curve2 = Handle(Geom2d_Curve)::DownCast(Cu2->Copy());
+  curve1 = Handle(GeomCurve2d)::DownCast(Cu1->Copy());
+  curve2 = Handle(GeomCurve2d)::DownCast(Cu2->Copy());
 
   sign1 = Side1;
   sign2 = Side2;
@@ -356,8 +356,8 @@ Standard_Real Bisector_BisecCC::ReversedParameter(const Standard_Real U) const
 
 Handle(Geom2d_Geometry) Bisector_BisecCC::Copy() const
 {
-  Handle(Geom2d_Curve) CopyCurve1 = Handle(Geom2d_Curve)::DownCast(curve1->Copy());
-  Handle(Geom2d_Curve) CopyCurve2 = Handle(Geom2d_Curve)::DownCast(curve2->Copy());
+  Handle(GeomCurve2d) CopyCurve1 = Handle(GeomCurve2d)::DownCast(curve1->Copy());
+  Handle(GeomCurve2d) CopyCurve2 = Handle(GeomCurve2d)::DownCast(curve2->Copy());
 
   Handle(Bisector_BisecCC) C = new Bisector_BisecCC();
 
@@ -556,7 +556,7 @@ Standard_Boolean Bisector_BisecCC::IsPeriodic() const
 
 //=================================================================================================
 
-static Standard_Real Curvature(const Handle(Geom2d_Curve)& C, Standard_Real U, Standard_Real Tol)
+static Standard_Real Curvature(const Handle(GeomCurve2d)& C, Standard_Real U, Standard_Real Tol)
 {
   Standard_Real K1;
   gp_Vec2d      D1, D2;
@@ -1300,8 +1300,8 @@ gp_Pnt2d Bisector_BisecCC::Extension(const Standard_Real U,
 
 //=================================================================================================
 
-static Standard_Boolean PointByInt(const Handle(Geom2d_Curve)& CA,
-                                   const Handle(Geom2d_Curve)& CB,
+static Standard_Boolean PointByInt(const Handle(GeomCurve2d)& CA,
+                                   const Handle(GeomCurve2d)& CB,
                                    const Standard_Real         SignA,
                                    const Standard_Real         SignB,
                                    const Standard_Real         UOnA,
@@ -1482,7 +1482,7 @@ void Bisector_BisecCC::SupLastParameter()
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) Bisector_BisecCC::Curve(const Standard_Integer I) const
+Handle(GeomCurve2d) Bisector_BisecCC::Curve(const Standard_Integer I) const
 {
   if (I == 1)
     return curve1;
@@ -1572,7 +1572,7 @@ void Bisector_BisecCC::Dump(const Standard_Integer, const Standard_Integer Offse
 
 //=================================================================================================
 
-void Bisector_BisecCC::Curve(const Standard_Integer I, const Handle(Geom2d_Curve)& C)
+void Bisector_BisecCC::Curve(const Standard_Integer I, const Handle(GeomCurve2d)& C)
 {
   if (I == 1)
     curve1 = C;
@@ -1730,7 +1730,7 @@ Standard_Real Bisector_BisecCC::SearchBound(const Standard_Real U1, const Standa
 //=================================================================================================
 
 static Standard_Boolean ProjOnCurve(const gp_Pnt2d&             P,
-                                    const Handle(Geom2d_Curve)& C,
+                                    const Handle(GeomCurve2d)& C,
                                     Standard_Real&              theParam)
 {
   // Standard_Real UOnCurve =0.;
@@ -1783,8 +1783,8 @@ static Standard_Boolean ProjOnCurve(const gp_Pnt2d&             P,
 
 //=================================================================================================
 
-static Standard_Boolean TestExtension(const Handle(Geom2d_Curve)& C1,
-                                      const Handle(Geom2d_Curve)& C2,
+static Standard_Boolean TestExtension(const Handle(GeomCurve2d)& C1,
+                                      const Handle(GeomCurve2d)& C2,
                                       const Standard_Integer      Start_End)
 {
   gp_Pnt2d         P1, P2;

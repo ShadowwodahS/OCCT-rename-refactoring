@@ -19,7 +19,7 @@
 #include <OpenGl_NamedResource.hxx>
 
 class gp_XYZ;
-class Graphic3d_Camera;
+class CameraOn3d;
 class Graphic3d_CLight;
 class Graphic3d_CView;
 class OpenGl_FrameBuffer;
@@ -59,7 +59,7 @@ public:
   void SetLightSource(const Handle(Graphic3d_CLight)& theLight) { myShadowLight = theLight; }
 
   //! Return rendering camera.
-  const Handle(Graphic3d_Camera)& Camera() const { return myShadowCamera; }
+  const Handle(CameraOn3d)& Camera() const { return myShadowCamera; }
 
   //! Return light source mapping matrix.
   const Graphic3d_Mat4& LightSourceMatrix() const { return myLightMatrix; }
@@ -81,7 +81,7 @@ public:
 private:
   Handle(OpenGl_FrameBuffer) myShadowMapFbo;  //!< frame buffer for rendering shadow map
   Handle(Graphic3d_CLight)   myShadowLight;   //!< light source to render shadow map
-  Handle(Graphic3d_Camera)   myShadowCamera;  //!< rendering camera
+  Handle(CameraOn3d)   myShadowCamera;  //!< rendering camera
   Graphic3d_Mat4             myLightMatrix;   //!< light source matrix
   Standard_ShortReal         myShadowMapBias; //!< shadowmap bias
 };

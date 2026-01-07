@@ -69,12 +69,12 @@ Standard_Boolean IsRightContour(const TColgp_SequenceOfPnt& pts, const Standard_
       Point3d             pc(center);
       Dir3d             pd(Norm);
       gp_Pln             pl(pc, pd);
-      Handle(Geom_Plane) thePlane = new Geom_Plane(pl);
+      Handle(GeomPlane) thePlane = new GeomPlane(pl);
 
-      BRep_Builder B;
-      TopoDS_Face  theFace;
+      ShapeBuilder B;
+      TopoFace  theFace;
       B.MakeFace(theFace, thePlane, Precision::Confusion());
-      TopoDS_Wire theWire = mkPoly.Wire();
+      TopoWire theWire = mkPoly.Wire();
       B.Add(theFace, theWire);
       Handle(ShapeAnalysis_Wire) saw = new ShapeAnalysis_Wire(theWire, theFace, prec);
       return !saw->CheckSelfIntersection();
@@ -130,7 +130,7 @@ ShapeConstruct_MakeTriangulation::ShapeConstruct_MakeTriangulation(const TColgp_
 
 //=================================================================================================
 
-ShapeConstruct_MakeTriangulation::ShapeConstruct_MakeTriangulation(const TopoDS_Wire&  wire,
+ShapeConstruct_MakeTriangulation::ShapeConstruct_MakeTriangulation(const TopoWire&  wire,
                                                                    const Standard_Real prec)
 {
   myPrecision = (prec > 0.0) ? prec : Precision::Confusion();
@@ -159,7 +159,7 @@ Standard_Boolean ShapeConstruct_MakeTriangulation::IsDone() const
 
 //=================================================================================================
 
-void ShapeConstruct_MakeTriangulation::Triangulate(const TopoDS_Wire& wire)
+void ShapeConstruct_MakeTriangulation::Triangulate(const TopoWire& wire)
 {
   // Fill sequence of edges
   Handle(TopTools_HSequenceOfShape) theEdges = new TopTools_HSequenceOfShape;
@@ -176,9 +176,9 @@ void ShapeConstruct_MakeTriangulation::Triangulate(const TopoDS_Wire& wire)
     ShapeAnalysis_Edge          sae;
     Handle(TColgp_HArray1OfPnt) theAPnt = new TColgp_HArray1OfPnt(1, NbEdges);
     for (Standard_Integer i = 1; i <= NbEdges; i++)
-      theAPnt->SetValue(i, BRep_Tool::Pnt(sae.FirstVertex(TopoDS::Edge(theEdges->Value(i)))));
+      theAPnt->SetValue(i, BRepInspector::Pnt(sae.FirstVertex(TopoDS::Edge(theEdges->Value(i)))));
 
-    TopoDS_Wire theNewWire;
+    TopoWire theNewWire;
 
     // Check planarity on array of points
     gp_XYZ Norm(0, 0, 0);
@@ -315,9 +315,9 @@ void ShapeConstruct_MakeTriangulation::Triangulate(const TopoDS_Wire& wire)
         Standard_Integer best1 = ((theC1 > theC2) ? 0 : 2);
 
         // Add "best" planar facets
-        BRep_Builder B;
-        TopoDS_Wire  theFacetWire;
-        TopoDS_Edge  theLEdge, theSLEdge;
+        ShapeBuilder B;
+        TopoWire  theFacetWire;
+        TopoEdge  theLEdge, theSLEdge;
         len = cindex / 4;
         // Check for special case - 1 shared line
         Standard_Boolean special = (len == 2 && theSegments(best1 + 1) == theSegments(4 + best1 + 2)
@@ -329,17 +329,17 @@ void ShapeConstruct_MakeTriangulation::Triangulate(const TopoDS_Wire& wire)
           rindex = theSegments(ii * 4 + best1 + 2);
           if (special && !theSLEdge.IsNull())
           {
-            TopoDS_Shape aLocalShape = theSLEdge.Reversed();
+            TopoShape aLocalShape = theSLEdge.Reversed();
             theLEdge                 = TopoDS::Edge(aLocalShape);
             //	    theLEdge = TopoDS::Edge(theSLEdge.Reversed());
           }
           else
           {
-            TopoDS_Vertex v1 = sae.FirstVertex(TopoDS::Edge(theEdges->Value(lindex)));
-            TopoDS_Vertex v2 = sae.FirstVertex(TopoDS::Edge(theEdges->Value(rindex)));
+            TopoVertex v1 = sae.FirstVertex(TopoDS::Edge(theEdges->Value(lindex)));
+            TopoVertex v2 = sae.FirstVertex(TopoDS::Edge(theEdges->Value(rindex)));
             v1.Orientation(TopAbs_FORWARD);
             v2.Orientation(TopAbs_REVERSED);
-            theLEdge  = BRepBuilderAPI_MakeEdge(v1, v2);
+            theLEdge  = EdgeMaker(v1, v2);
             theSLEdge = theLEdge;
           }
           // Create new facet wire
@@ -348,7 +348,7 @@ void ShapeConstruct_MakeTriangulation::Triangulate(const TopoDS_Wire& wire)
           Standard_Integer cur_edge = lindex;
           while (cur_edge != rindex)
           {
-            TopoDS_Edge theNEdge = TopoDS::Edge(theEdges->Value(cur_edge));
+            TopoEdge theNEdge = TopoDS::Edge(theEdges->Value(cur_edge));
             B.Add(theFacetWire, theNEdge);
             if (cur_edge == NbEdges)
               cur_edge = 1;
@@ -364,7 +364,7 @@ void ShapeConstruct_MakeTriangulation::Triangulate(const TopoDS_Wire& wire)
             cur_edge = pindex;
             while (cur_edge != lindex)
             {
-              TopoDS_Edge theNEdge = TopoDS::Edge(theEdges->Value(cur_edge));
+              TopoEdge theNEdge = TopoDS::Edge(theEdges->Value(cur_edge));
               B.Add(theNewWire, theNEdge);
               if (cur_edge == NbEdges)
                 cur_edge = 1;
@@ -390,7 +390,7 @@ void ShapeConstruct_MakeTriangulation::Triangulate(const TopoDS_Wire& wire)
 
 //=================================================================================================
 
-void ShapeConstruct_MakeTriangulation::AddFacet(const TopoDS_Wire& wire)
+void ShapeConstruct_MakeTriangulation::AddFacet(const TopoWire& wire)
 {
   if (wire.IsNull())
     return;
@@ -399,7 +399,7 @@ void ShapeConstruct_MakeTriangulation::AddFacet(const TopoDS_Wire& wire)
   ShapeAnalysis_Edge   sae;
   TColgp_SequenceOfPnt pts;
   for (TopoDS_Iterator ite(wire); ite.More(); ite.Next())
-    pts.Append(BRep_Tool::Pnt(sae.FirstVertex(TopoDS::Edge(ite.Value()))));
+    pts.Append(BRepInspector::Pnt(sae.FirstVertex(TopoDS::Edge(ite.Value()))));
   Standard_Integer i, nbp = pts.Length();
   if (nbp < 3)
     return;
@@ -443,11 +443,11 @@ void ShapeConstruct_MakeTriangulation::AddFacet(const TopoDS_Wire& wire)
   }
 
   gp_Pln             Pln(pts(1), Dir3d(Normal));
-  Handle(Geom_Plane) thePlane = new Geom_Plane(Pln);
+  Handle(GeomPlane) thePlane = new GeomPlane(Pln);
 
   // Mean plane created - build face
-  BRep_Builder B;
-  TopoDS_Face  theFace;
+  ShapeBuilder B;
+  TopoFace  theFace;
   B.MakeFace(theFace, thePlane, Precision::Confusion());
   B.Add(theFace, wire);
 
@@ -458,8 +458,8 @@ void ShapeConstruct_MakeTriangulation::AddFacet(const TopoDS_Wire& wire)
   {
     if (myShape.ShapeType() == TopAbs_FACE)
     {
-      TopoDS_Face  firstFace = TopoDS::Face(myShape);
-      TopoDS_Shell theShell;
+      TopoFace  firstFace = TopoDS::Face(myShape);
+      TopoShell theShell;
       B.MakeShell(theShell);
       myShape = theShell;
       B.Add(myShape, firstFace);

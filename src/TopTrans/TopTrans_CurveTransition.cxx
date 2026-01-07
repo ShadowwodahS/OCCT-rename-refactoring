@@ -85,7 +85,7 @@ void TopTrans_CurveTransition::Compare(const Standard_Real      Tole,
   if (S == TopAbs_INTERNAL)
   {
     if (T * myTgt < 0)
-      S = TopAbs::Reverse(O);
+      S = TopAbs1::Reverse(O);
     else
       S = O;
   }

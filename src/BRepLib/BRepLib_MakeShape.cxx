@@ -28,7 +28,7 @@ void BRepLib_MakeShape::Build() {}
 
 //=================================================================================================
 
-const TopoDS_Shape& BRepLib_MakeShape::Shape()
+const TopoShape& BRepLib_MakeShape::Shape()
 {
   if (!IsDone())
   {
@@ -41,21 +41,21 @@ const TopoDS_Shape& BRepLib_MakeShape::Shape()
 
 //=================================================================================================
 
-BRepLib_MakeShape::operator TopoDS_Shape()
+BRepLib_MakeShape::operator TopoShape()
 {
   return Shape();
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepLib_MakeShape::HasDescendants(const TopoDS_Face&) const
+Standard_Boolean BRepLib_MakeShape::HasDescendants(const TopoFace&) const
 {
   return (Standard_True);
 }
 
 //=================================================================================================
 
-BRepLib_ShapeModification BRepLib_MakeShape::FaceStatus(const TopoDS_Face&) const
+BRepLib_ShapeModification BRepLib_MakeShape::FaceStatus(const TopoFace&) const
 {
   BRepLib_ShapeModification myStatus = BRepLib_Trimmed;
   return myStatus;
@@ -63,7 +63,7 @@ BRepLib_ShapeModification BRepLib_MakeShape::FaceStatus(const TopoDS_Face&) cons
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepLib_MakeShape::DescendantFaces(const TopoDS_Face&)
+const ShapeList& BRepLib_MakeShape::DescendantFaces(const TopoFace&)
 {
   return myGenFaces;
 }
@@ -77,14 +77,14 @@ Standard_Integer BRepLib_MakeShape::NbSurfaces() const
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepLib_MakeShape::NewFaces(const Standard_Integer)
+const ShapeList& BRepLib_MakeShape::NewFaces(const Standard_Integer)
 {
   return myNewFaces;
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepLib_MakeShape::FacesFromEdges(const TopoDS_Edge&)
+const ShapeList& BRepLib_MakeShape::FacesFromEdges(const TopoEdge&)
 {
   return myEdgFaces;
 }

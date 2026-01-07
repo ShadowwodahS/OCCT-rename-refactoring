@@ -22,9 +22,9 @@ IMPLEMENT_STANDARD_RTTIEXT(DESTEP_ConfigurationNode, DE_ShapeFixConfigurationNod
 
 namespace
 {
-static const TCollection_AsciiString& THE_CONFIGURATION_SCOPE()
+static const AsciiString1& THE_CONFIGURATION_SCOPE()
 {
-  static const TCollection_AsciiString aScope = "provider";
+  static const AsciiString1 aScope = "provider";
   return aScope;
 }
 
@@ -53,7 +53,7 @@ DESTEP_ConfigurationNode::DESTEP_ConfigurationNode(const Handle(DESTEP_Configura
 
 bool DESTEP_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
 {
-  TCollection_AsciiString aScope =
+  AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor();
 
   InternalParameters.ReadBSplineContinuity =
@@ -200,13 +200,13 @@ bool DESTEP_ConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theRe
 
 //=================================================================================================
 
-TCollection_AsciiString DESTEP_ConfigurationNode::Save() const
+AsciiString1 DESTEP_ConfigurationNode::Save() const
 {
-  TCollection_AsciiString aResult;
+  AsciiString1 aResult;
   aResult += "!*****************************************************************************\n";
   aResult =
     aResult + "!Configuration Node " + " Vendor: " + GetVendor() + " Format: " + GetFormat() + "\n";
-  TCollection_AsciiString aScope =
+  AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor() + ".";
 
   aResult += "!\n";
@@ -599,16 +599,16 @@ bool DESTEP_ConfigurationNode::IsExportSupported() const
 
 //=================================================================================================
 
-TCollection_AsciiString DESTEP_ConfigurationNode::GetFormat() const
+AsciiString1 DESTEP_ConfigurationNode::GetFormat() const
 {
-  return TCollection_AsciiString("STEP");
+  return AsciiString1("STEP");
 }
 
 //=================================================================================================
 
-TCollection_AsciiString DESTEP_ConfigurationNode::GetVendor() const
+AsciiString1 DESTEP_ConfigurationNode::GetVendor() const
 {
-  return TCollection_AsciiString("OCC");
+  return AsciiString1("OCC");
 }
 
 //=================================================================================================

@@ -42,9 +42,9 @@ extern void debedbu(const Standard_Integer i)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GPVSMakeEdges(const TopoDS_Shape&      EF,
+void TopOpeBRepBuild_Builder::GPVSMakeEdges(const TopoShape&      EF,
                                             TopOpeBRepBuild_PaveSet& PVS,
-                                            TopTools_ListOfShape&    LOE) const
+                                            ShapeList&    LOE) const
 {
 #ifdef OCCT_DEBUG
   Standard_Integer iE;
@@ -76,9 +76,9 @@ void TopOpeBRepBuild_Builder::GPVSMakeEdges(const TopoDS_Shape&      EF,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::GEDBUMakeEdges(const TopoDS_Shape&          EF,
+void TopOpeBRepBuild_Builder::GEDBUMakeEdges(const TopoShape&          EF,
                                              TopOpeBRepBuild_EdgeBuilder& EDBU,
-                                             TopTools_ListOfShape&        LOE) const
+                                             ShapeList&        LOE) const
 {
 #ifdef OCCT_DEBUG
   Standard_Integer iE;
@@ -99,7 +99,7 @@ void TopOpeBRepBuild_Builder::GEDBUMakeEdges(const TopoDS_Shape&          EF,
   }
 #endif
 
-  TopoDS_Shape newEdge;
+  TopoShape newEdge;
   for (EDBU.InitEdge(); EDBU.MoreEdge(); EDBU.NextEdge())
   {
 
@@ -115,13 +115,13 @@ void TopOpeBRepBuild_Builder::GEDBUMakeEdges(const TopoDS_Shape&          EF,
 
     Standard_Integer nVF = 0, nVR = 0; // nb vertex FORWARD,REVERSED
 
-    TopoDS_Shape VF, VR; // gestion du bit Closed
+    TopoShape VF, VR; // gestion du bit Closed
     VF.Nullify();
     VR.Nullify();
 
     for (EDBU.InitVertex(); EDBU.MoreVertex(); EDBU.NextVertex())
     {
-      TopoDS_Shape       V    = EDBU.Vertex();
+      TopoShape       V    = EDBU.Vertex();
       TopAbs_Orientation Vori = V.Orientation();
 
       Standard_Boolean hassd = myDataStructure->HasSameDomain(V);
@@ -137,10 +137,10 @@ void TopOpeBRepBuild_Builder::GEDBUMakeEdges(const TopoDS_Shape&          EF,
         continue;
 
       Standard_Boolean equafound = Standard_False;
-      TopExp_Explorer  exE(newEdge, TopAbs_VERTEX);
+      ShapeExplorer  exE(newEdge, TopAbs_VERTEX);
       for (; exE.More(); exE.Next())
       {
-        const TopoDS_Shape& VE    = exE.Current();
+        const TopoShape& VE    = exE.Current();
         TopAbs_Orientation  oriVE = VE.Orientation();
 
         if (V.IsEqual(VE))
@@ -159,7 +159,7 @@ void TopOpeBRepBuild_Builder::GEDBUMakeEdges(const TopoDS_Shape&          EF,
         else if (oriVE == TopAbs_INTERNAL || oriVE == TopAbs_EXTERNAL)
         {
           Standard_Real parV  = EDBU.Parameter();
-          Standard_Real parVE = BRep_Tool::Parameter(TopoDS::Vertex(VE), TopoDS::Edge(newEdge));
+          Standard_Real parVE = BRepInspector::Parameter(TopoDS::Vertex(VE), TopoDS::Edge(newEdge));
           if (parV == parVE)
           {
             equafound = Standard_True;
@@ -195,8 +195,8 @@ void TopOpeBRepBuild_Builder::GEDBUMakeEdges(const TopoDS_Shape&          EF,
     {
       if (tosplit)
       {
-        TopTools_ListOfShape loe;
-        Standard_Boolean     ok = TopOpeBRepTool_TOOL::SplitE(TopoDS::Edge(newEdge), loe);
+        ShapeList loe;
+        Standard_Boolean     ok = TOOL1::SplitE(TopoDS::Edge(newEdge), loe);
         if (!ok)
           tosplit = Standard_False;
         else
@@ -210,9 +210,9 @@ void TopOpeBRepBuild_Builder::GEDBUMakeEdges(const TopoDS_Shape&          EF,
 #ifdef DRAW
   if (tSPS)
   {
-    TCollection_AsciiString str1;
+    AsciiString1 str1;
     str1 = "e";
-    TCollection_AsciiString str2;
+    AsciiString1 str2;
     str2 = iE;
     FDRAW_DINLOE("", LOE, str1, str2);
   }

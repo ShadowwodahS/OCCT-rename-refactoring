@@ -22,9 +22,9 @@
 #include <Standard_Handle.hxx>
 
 //! This class implements the common services for
-//! all classes of StepToTopoDS which report error
+//! all classes of StepToTopoDS1 which report error
 //! and sets and returns precision.
-class StepToTopoDS_Root
+class Root2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -44,7 +44,7 @@ public:
   void SetMaxTol(const Standard_Real maxpreci);
 
 protected:
-  Standard_EXPORT StepToTopoDS_Root();
+  Standard_EXPORT Root2();
 
   Standard_Boolean done;
 

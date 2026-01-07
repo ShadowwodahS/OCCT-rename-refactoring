@@ -55,11 +55,11 @@ Standard_Boolean XmlMDF_ReferenceDriver::Paste(const XmlObjMgt_Persistent&  theS
     return Standard_False;
   }
 
-  TCollection_AsciiString anEntry;
+  AsciiString1 anEntry;
   if (XmlObjMgt::GetTagEntryString(anXPath, anEntry) == Standard_False)
   {
-    TCollection_ExtendedString aMessage =
-      TCollection_ExtendedString("Cannot retrieve reference from \"") + anXPath + '\"';
+    UtfString aMessage =
+      UtfString("Cannot retrieve reference from \"") + anXPath + '\"';
     myMessageDriver->Send(aMessage, Message_Fail);
     return Standard_False;
   }
@@ -67,7 +67,7 @@ Standard_Boolean XmlMDF_ReferenceDriver::Paste(const XmlObjMgt_Persistent&  theS
   Handle(TDF_Reference) aRef = Handle(TDF_Reference)::DownCast(theTarget);
 
   // find label by entry
-  TDF_Label tLab; // Null label.
+  DataLabel tLab; // Null label.
   if (anEntry.Length() > 0)
   {
     TDF_Tool::Label(aRef->Label().Data(), anEntry, tLab, Standard_True);
@@ -96,14 +96,14 @@ void XmlMDF_ReferenceDriver::Paste(const Handle(TDF_Attribute)& theSource,
   Handle(TDF_Reference) aRef = Handle(TDF_Reference)::DownCast(theSource);
   if (!aRef.IsNull())
   {
-    const TDF_Label& lab    = aRef->Label();
-    const TDF_Label& refLab = aRef->Get();
+    const DataLabel& lab    = aRef->Label();
+    const DataLabel& refLab = aRef->Get();
     if (!lab.IsNull() && !refLab.IsNull())
     {
       if (lab.IsDescendant(refLab.Root()))
       {
         // Internal reference
-        TCollection_AsciiString anEntry;
+        AsciiString1 anEntry;
         TDF_Tool::Entry(refLab, anEntry);
 
         XmlObjMgt_DOMString aDOMString;

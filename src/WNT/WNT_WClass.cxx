@@ -28,20 +28,20 @@ IMPLEMENT_STANDARD_RTTIEXT(WNT_WClass, RefObject)
 
 //=================================================================================================
 
-WNT_WClass::WNT_WClass(const TCollection_AsciiString& theClassName,
+WNT_WClass::WNT_WClass(const AsciiString1& theClassName,
                        const Standard_Address         theWndProc,
                        const unsigned int             theStyle,
                        const Standard_Integer         theClassExtra,
                        const Standard_Integer         theWindowExtra,
                        const Aspect_Handle            theCursor,
                        const Aspect_Handle            theIcon,
-                       const TCollection_AsciiString& theMenuName)
+                       const AsciiString1& theMenuName)
     : myClassName(theClassName),
       myAppInstance(GetModuleHandleW(NULL)),
       myWndProc(NULL)
 {
-  const TCollection_ExtendedString aClassNameW(theClassName);
-  const TCollection_ExtendedString aMenuNameW(theMenuName);
+  const UtfString aClassNameW(theClassName);
+  const UtfString aMenuNameW(theMenuName);
   WNDCLASSW                        aWinClass;
   aWinClass.style         = (UINT)theStyle;
   aWinClass.lpfnWndProc   = theWndProc != NULL ? (WNDPROC)theWndProc : DefWindowProcW;
@@ -67,7 +67,7 @@ WNT_WClass::~WNT_WClass()
 {
   if (!myClassName.IsEmpty())
   {
-    const TCollection_ExtendedString aClassNameW(myClassName);
+    const UtfString aClassNameW(myClassName);
     UnregisterClassW(aClassNameW.ToWideString(), (HINSTANCE)myAppInstance);
   }
 }

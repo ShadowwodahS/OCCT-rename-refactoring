@@ -22,9 +22,9 @@
 #include <TFunction_Driver.hxx>
 #include <Standard_Integer.hxx>
 class TFunction_Logbook;
-class TDF_Label;
+class DataLabel;
 class BRepPrimAPI_MakeRevol;
-class TopoDS_Shape;
+class TopoShape;
 
 class DNaming_RevolutionDriver;
 DEFINE_STANDARD_HANDLE(DNaming_RevolutionDriver, TFunction_Driver)
@@ -62,10 +62,10 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void LoadNamingDS(const TDF_Label&       theResultLabel,
+  Standard_EXPORT void LoadNamingDS(const DataLabel&       theResultLabel,
                                     BRepPrimAPI_MakeRevol& mkRevol,
-                                    const TopoDS_Shape&    Basis,
-                                    const TopoDS_Shape&    Context) const;
+                                    const TopoShape&    Basis,
+                                    const TopoShape&    Context) const;
 };
 
 #endif // _DNaming_RevolutionDriver_HeaderFile

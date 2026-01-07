@@ -66,7 +66,7 @@ void BOPAlgo_Splitter::Perform(const Message_ProgressRange& theRange)
   }
   //
   // prepare shapes for intersection
-  TopTools_ListOfShape aLS;
+  ShapeList aLS;
   //
   TopTools_ListIteratorOfListOfShape aItLS(myArguments);
   for (; aItLS.More(); aItLS.Next())
@@ -80,7 +80,7 @@ void BOPAlgo_Splitter::Perform(const Message_ProgressRange& theRange)
     aLS.Append(aItLS.Value());
   }
   //
-  BOPAlgo_PaveFiller* pPF = new BOPAlgo_PaveFiller();
+  BooleanPaveFiller* pPF = new BooleanPaveFiller();
   pPF->SetArguments(aLS);
   pPF->SetRunParallel(myRunParallel);
 
@@ -113,7 +113,7 @@ void BOPAlgo_Splitter::BuildResult(const TopAbs_ShapeEnum theType)
       TopoDS_Iterator it(myShape);
       if (it.More())
       {
-        const TopoDS_Shape& aSFirst = it.Value();
+        const TopoShape& aSFirst = it.Value();
         it.Next();
         if (!it.More())
           myShape = aSFirst;

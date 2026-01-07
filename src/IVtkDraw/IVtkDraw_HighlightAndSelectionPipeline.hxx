@@ -39,7 +39,7 @@ typedef NCollection_DataMap<IVtk_IdType, vtkSmartPointer<IVtkTools_DisplayModeFi
 typedef NCollection_DataMap<IVtk_IdType, vtkSmartPointer<IVtkTools_SubPolyDataFilter>>
   SubShapesFiltersMap;
 
-class Prs3d_Drawer;
+class StyleDrawer;
 
 class IVtkDraw_HighlightAndSelectionPipeline;
 DEFINE_STANDARD_HANDLE(IVtkDraw_HighlightAndSelectionPipeline, RefObject)
@@ -61,9 +61,9 @@ public:
   };
 
 public:
-  IVtkDraw_HighlightAndSelectionPipeline(const TopoDS_Shape&         theShape,
+  IVtkDraw_HighlightAndSelectionPipeline(const TopoShape&         theShape,
                                          const Standard_Integer      theShapeID,
-                                         const Handle(Prs3d_Drawer)& theDrawerLink);
+                                         const Handle(StyleDrawer)& theDrawerLink);
 
   ~IVtkDraw_HighlightAndSelectionPipeline() {}
 

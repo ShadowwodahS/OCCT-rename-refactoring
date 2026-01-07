@@ -143,9 +143,9 @@ IGESSelect_EditDirPart::IGESSelect_EditDirPart()
   SetValue(23, sublab, "D19:Subscript", IFSelect_Optional);
 }
 
-TCollection_AsciiString IGESSelect_EditDirPart::Label() const
+AsciiString1 IGESSelect_EditDirPart::Label() const
 {
-  return TCollection_AsciiString("IGES Header");
+  return AsciiString1("IGES Header");
 }
 
 Standard_Boolean IGESSelect_EditDirPart::Recognize(const Handle(IFSelect_EditForm)& /*form*/) const

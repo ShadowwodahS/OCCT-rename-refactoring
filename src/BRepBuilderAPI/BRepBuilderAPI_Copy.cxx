@@ -26,7 +26,7 @@ BRepBuilderAPI_Copy::BRepBuilderAPI_Copy()
 
 //=================================================================================================
 
-BRepBuilderAPI_Copy::BRepBuilderAPI_Copy(const TopoDS_Shape&    S,
+BRepBuilderAPI_Copy::BRepBuilderAPI_Copy(const TopoShape&    S,
                                          const Standard_Boolean copyGeom,
                                          const Standard_Boolean copyMesh)
 {
@@ -36,7 +36,7 @@ BRepBuilderAPI_Copy::BRepBuilderAPI_Copy(const TopoDS_Shape&    S,
 
 //=================================================================================================
 
-void BRepBuilderAPI_Copy::Perform(const TopoDS_Shape&    S,
+void BRepBuilderAPI_Copy::Perform(const TopoShape&    S,
                                   const Standard_Boolean copyGeom,
                                   const Standard_Boolean copyMesh)
 {

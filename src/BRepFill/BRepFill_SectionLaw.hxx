@@ -27,10 +27,10 @@
 #include <Standard_Integer.hxx>
 #include <GeomAbs_Shape.hxx>
 class GeomFill_SectionLaw;
-class TopoDS_Vertex;
-class TopoDS_Shape;
-class TopoDS_Wire;
-class TopoDS_Edge;
+class TopoVertex;
+class TopoShape;
+class TopoWire;
+class TopoEdge;
 
 class BRepFill_SectionLaw;
 DEFINE_STANDARD_HANDLE(BRepFill_SectionLaw, RefObject)
@@ -44,7 +44,7 @@ public:
 
   Standard_EXPORT const Handle(GeomFill_SectionLaw)& Law(const Standard_Integer Index) const;
 
-  Standard_EXPORT Standard_Integer IndexOfEdge(const TopoDS_Shape& anEdge) const;
+  Standard_EXPORT Standard_Integer IndexOfEdge(const TopoShape& anEdge) const;
 
   Standard_EXPORT virtual Standard_Boolean IsConstant() const = 0;
 
@@ -65,14 +65,14 @@ public:
   Standard_EXPORT virtual Standard_Real VertexTol(const Standard_Integer Index,
                                                   const Standard_Real    Param) const = 0;
 
-  Standard_EXPORT virtual TopoDS_Vertex Vertex(const Standard_Integer Index,
+  Standard_EXPORT virtual TopoVertex Vertex(const Standard_Integer Index,
                                                const Standard_Real    Param) const = 0;
 
-  Standard_EXPORT virtual void D0(const Standard_Real U, TopoDS_Shape& S) = 0;
+  Standard_EXPORT virtual void D0(const Standard_Real U, TopoShape& S) = 0;
 
-  Standard_EXPORT void Init(const TopoDS_Wire& W);
+  Standard_EXPORT void Init(const TopoWire& W);
 
-  Standard_EXPORT TopoDS_Edge CurrentEdge();
+  Standard_EXPORT TopoEdge CurrentEdge();
 
   DEFINE_STANDARD_RTTIEXT(BRepFill_SectionLaw, RefObject)
 

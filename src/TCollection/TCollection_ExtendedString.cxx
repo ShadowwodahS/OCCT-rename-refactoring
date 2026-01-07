@@ -87,7 +87,7 @@ inline Standard_ExtCharacter* Standard_UNUSED
 //-----------------------------------------------------------------------------
 // Create an empty ExtendedString
 // ----------------------------------------------------------------------------
-TCollection_ExtendedString::TCollection_ExtendedString()
+UtfString::UtfString()
 {
   allocate(0);
 }
@@ -95,12 +95,12 @@ TCollection_ExtendedString::TCollection_ExtendedString()
 //----------------------------------------------------------------------------
 // Create an ExtendedString from a Standard_CString
 //----------------------------------------------------------------------------
-TCollection_ExtendedString::TCollection_ExtendedString(const Standard_CString theString,
+UtfString::UtfString(const Standard_CString theString,
                                                        const Standard_Boolean isMultiByte)
 {
   if (theString == NULL)
   {
-    throw Standard_NullObject("TCollection_ExtendedString : null parameter ");
+    throw Standard_NullObject("UtfString : null parameter ");
   }
 
   if (isMultiByte)
@@ -126,11 +126,11 @@ TCollection_ExtendedString::TCollection_ExtendedString(const Standard_CString th
 //---------------------------------------------------------------------------
 // Create an ExtendedString from an ExtString
 //--------------------------------------------------------------------------
-TCollection_ExtendedString::TCollection_ExtendedString(const Standard_ExtString theString)
+UtfString::UtfString(const Standard_ExtString theString)
 {
   if (theString == NULL)
   {
-    throw Standard_NullObject("TCollection_ExtendedString : null parameter ");
+    throw Standard_NullObject("UtfString : null parameter ");
   }
 
   for (mylength = 0; theString[mylength] != 0; ++mylength)
@@ -141,13 +141,13 @@ TCollection_ExtendedString::TCollection_ExtendedString(const Standard_ExtString 
 }
 
 // ----------------------------------------------------------------------------
-// TCollection_ExtendedString
+// UtfString
 // ----------------------------------------------------------------------------
-TCollection_ExtendedString::TCollection_ExtendedString(const Standard_WideChar* theStringUtf)
+UtfString::UtfString(const Standard_WideChar* theStringUtf)
 {
   if (theStringUtf == NULL)
   {
-    throw Standard_NullObject("TCollection_ExtendedString : null parameter ");
+    throw Standard_NullObject("UtfString : null parameter ");
   }
 
   mystring = fromWideString<sizeof(Standard_WideChar)>(theStringUtf, mylength);
@@ -156,7 +156,7 @@ TCollection_ExtendedString::TCollection_ExtendedString(const Standard_WideChar* 
 // ----------------------------------------------------------------------------
 // Create an asciistring from a Standard_Character
 // ----------------------------------------------------------------------------
-TCollection_ExtendedString::TCollection_ExtendedString(const Standard_Character aChar)
+UtfString::UtfString(const Standard_Character aChar)
 {
   if (aChar != '\0')
   {
@@ -172,7 +172,7 @@ TCollection_ExtendedString::TCollection_ExtendedString(const Standard_Character 
 //--------------------------------------------------------------------------
 // Create a string from a ExtCharacter
 // ----------------------------------------------------------------------------
-TCollection_ExtendedString::TCollection_ExtendedString(const Standard_ExtCharacter aChar)
+UtfString::UtfString(const Standard_ExtCharacter aChar)
 {
   allocate(1);
   mystring[0] = aChar;
@@ -181,7 +181,7 @@ TCollection_ExtendedString::TCollection_ExtendedString(const Standard_ExtCharact
 // ----------------------------------------------------------------------------
 // Create an AsciiString from a filler
 // ----------------------------------------------------------------------------
-TCollection_ExtendedString::TCollection_ExtendedString(const Standard_Integer      length,
+UtfString::UtfString(const Standard_Integer      length,
                                                        const Standard_ExtCharacter filler)
 {
   allocate(length);
@@ -192,7 +192,7 @@ TCollection_ExtendedString::TCollection_ExtendedString(const Standard_Integer   
 // ----------------------------------------------------------------------------
 // Create a String from an Integer
 // ----------------------------------------------------------------------------
-TCollection_ExtendedString::TCollection_ExtendedString(const Standard_Integer aValue)
+UtfString::UtfString(const Standard_Integer aValue)
 {
   union {
     int  bid;
@@ -208,7 +208,7 @@ TCollection_ExtendedString::TCollection_ExtendedString(const Standard_Integer aV
 // ----------------------------------------------------------------------------
 // Create a String from a real
 // ----------------------------------------------------------------------------
-TCollection_ExtendedString::TCollection_ExtendedString(const Standard_Real aValue)
+UtfString::UtfString(const Standard_Real aValue)
 {
   union {
     int  bid;
@@ -224,7 +224,7 @@ TCollection_ExtendedString::TCollection_ExtendedString(const Standard_Real aValu
 //-----------------------------------------------------------------------------
 // create an extendedstring from an extendedstring
 // ----------------------------------------------------------------------------
-TCollection_ExtendedString::TCollection_ExtendedString(const TCollection_ExtendedString& theOther)
+UtfString::UtfString(const UtfString& theOther)
 {
   allocate(theOther.mylength);
   memcpy(mystring, theOther.mystring, mylength * sizeof(Standard_ExtCharacter));
@@ -232,8 +232,8 @@ TCollection_ExtendedString::TCollection_ExtendedString(const TCollection_Extende
 
 //=================================================================================================
 
-TCollection_ExtendedString::TCollection_ExtendedString(
-  TCollection_ExtendedString&& theOther) noexcept
+UtfString::UtfString(
+  UtfString&& theOther) noexcept
 {
   if (theOther.mystring == THE_DEFAULT_EXT_CHAR_STRING)
   {
@@ -251,7 +251,7 @@ TCollection_ExtendedString::TCollection_ExtendedString(
 //---------------------------------------------------------------------------
 //  Create an extendedstring from an AsciiString
 //---------------------------------------------------------------------------
-TCollection_ExtendedString::TCollection_ExtendedString(const TCollection_AsciiString& theString,
+UtfString::UtfString(const AsciiString1& theString,
                                                        const Standard_Boolean         isMultiByte)
 {
   allocate(nbSymbols(theString.ToCString()));
@@ -270,7 +270,7 @@ TCollection_ExtendedString::TCollection_ExtendedString(const TCollection_AsciiSt
 // ----------------------------------------------------------------------------
 //  AssignCat
 // ----------------------------------------------------------------------------
-void TCollection_ExtendedString::AssignCat(const TCollection_ExtendedString& theOther)
+void UtfString::AssignCat(const UtfString& theOther)
 {
   if (theOther.mylength == 0)
   {
@@ -286,7 +286,7 @@ void TCollection_ExtendedString::AssignCat(const TCollection_ExtendedString& the
 // ----------------------------------------------------------------------------
 //  AssignCat
 // ----------------------------------------------------------------------------
-void TCollection_ExtendedString::AssignCat(const Standard_Utf16Char theChar)
+void UtfString::AssignCat(const Standard_Utf16Char theChar)
 {
   if (theChar != '\0')
   {
@@ -298,10 +298,10 @@ void TCollection_ExtendedString::AssignCat(const Standard_Utf16Char theChar)
 // ----------------------------------------------------------------------------
 // Cat
 // ----------------------------------------------------------------------------
-TCollection_ExtendedString TCollection_ExtendedString::Cat(
-  const TCollection_ExtendedString& other) const
+UtfString UtfString::Cat(
+  const UtfString& other) const
 {
-  TCollection_ExtendedString res(mylength + other.mylength, 0);
+  UtfString res(mylength + other.mylength, 0);
   if (mylength > 0)
     memcpy(res.mystring, mystring, mylength * sizeof(Standard_ExtCharacter));
   if (other.mylength > 0)
@@ -312,7 +312,7 @@ TCollection_ExtendedString TCollection_ExtendedString::Cat(
 // ----------------------------------------------------------------------------
 // ChangeAll
 // ----------------------------------------------------------------------------
-void TCollection_ExtendedString::ChangeAll(const Standard_ExtCharacter aChar,
+void UtfString::ChangeAll(const Standard_ExtCharacter aChar,
                                            const Standard_ExtCharacter NewChar)
 {
   for (int i = 0; i < mylength; i++)
@@ -323,7 +323,7 @@ void TCollection_ExtendedString::ChangeAll(const Standard_ExtCharacter aChar,
 // ----------------------------------------------------------------------------
 // Clear
 // ----------------------------------------------------------------------------
-void TCollection_ExtendedString::Clear()
+void UtfString::Clear()
 {
   deallocate();
 }
@@ -331,7 +331,7 @@ void TCollection_ExtendedString::Clear()
 // ----------------------------------------------------------------------------
 // Copy
 // ----------------------------------------------------------------------------
-void TCollection_ExtendedString::Copy(const TCollection_ExtendedString& fromwhere)
+void UtfString::Copy(const UtfString& fromwhere)
 {
   if (&fromwhere == this)
   {
@@ -351,7 +351,7 @@ void TCollection_ExtendedString::Copy(const TCollection_ExtendedString& fromwher
 
 //=================================================================================================
 
-void TCollection_ExtendedString::Move(TCollection_ExtendedString&& theOther)
+void UtfString::Move(UtfString&& theOther)
 {
   if (&theOther == this)
   {
@@ -377,7 +377,7 @@ void TCollection_ExtendedString::Move(TCollection_ExtendedString&& theOther)
 // ----------------------------------------------------------------------------
 // Swap
 // ----------------------------------------------------------------------------
-void TCollection_ExtendedString::Swap(TCollection_ExtendedString& theOther)
+void UtfString::Swap(UtfString& theOther)
 {
   if (&theOther == this)
   {
@@ -390,7 +390,7 @@ void TCollection_ExtendedString::Swap(TCollection_ExtendedString& theOther)
 // ----------------------------------------------------------------------------
 // Destroy
 // ----------------------------------------------------------------------------
-TCollection_ExtendedString::~TCollection_ExtendedString()
+UtfString::~UtfString()
 {
   deallocate();
 }
@@ -398,14 +398,14 @@ TCollection_ExtendedString::~TCollection_ExtendedString()
 //----------------------------------------------------------------------------
 // Insert a character before 'where'th character
 // ----------------------------------------------------------------------------
-void TCollection_ExtendedString::Insert(const Standard_Integer      where,
+void UtfString::Insert(const Standard_Integer      where,
                                         const Standard_ExtCharacter what)
 {
   if (where > mylength + 1)
-    throw Standard_OutOfRange("TCollection_ExtendedString::Insert : "
+    throw Standard_OutOfRange("UtfString::Insert : "
                               "Parameter where is too big");
   if (where < 0)
-    throw Standard_OutOfRange("TCollection_ExtendedString::Insert : "
+    throw Standard_OutOfRange("UtfString::Insert : "
                               "Parameter where is negative");
   reallocate(mylength + 1);
   if (where != mylength)
@@ -419,8 +419,8 @@ void TCollection_ExtendedString::Insert(const Standard_Integer      where,
 // ----------------------------------------------------------------------------
 // Insert
 // ----------------------------------------------------------------------------
-void TCollection_ExtendedString::Insert(const Standard_Integer            where,
-                                        const TCollection_ExtendedString& what)
+void UtfString::Insert(const Standard_Integer            where,
+                                        const UtfString& what)
 {
   Standard_ExtString swhat = what.mystring;
   if (where <= mylength + 1)
@@ -441,7 +441,7 @@ void TCollection_ExtendedString::Insert(const Standard_Integer            where,
   }
   else
   {
-    throw Standard_OutOfRange("TCollection_ExtendedString::Insert : "
+    throw Standard_OutOfRange("UtfString::Insert : "
                               "Parameter where is too big");
   }
 }
@@ -466,7 +466,7 @@ static int ExtStrCmp(const Standard_ExtString theStr1, const Standard_ExtString 
 // ----------------------------------------------------------------------------
 // IsEqual
 // ----------------------------------------------------------------------------
-Standard_Boolean TCollection_ExtendedString::IsEqual(const Standard_ExtString other) const
+Standard_Boolean UtfString::IsEqual(const Standard_ExtString other) const
 {
   return ExtStrCmp(mystring, other) == 0;
 }
@@ -474,7 +474,7 @@ Standard_Boolean TCollection_ExtendedString::IsEqual(const Standard_ExtString ot
 // ----------------------------------------------------------------------------
 // IsEqual
 // ----------------------------------------------------------------------------
-Standard_Boolean TCollection_ExtendedString::IsEqual(const TCollection_ExtendedString& other) const
+Standard_Boolean UtfString::IsEqual(const UtfString& other) const
 {
   return mylength == other.mylength
          && memcmp(mystring, other.mystring, (mylength + 1) * sizeof(Standard_ExtCharacter)) == 0;
@@ -483,7 +483,7 @@ Standard_Boolean TCollection_ExtendedString::IsEqual(const TCollection_ExtendedS
 // ----------------------------------------------------------------------------
 // IsDifferent
 // ----------------------------------------------------------------------------
-Standard_Boolean TCollection_ExtendedString::IsDifferent(const Standard_ExtString other) const
+Standard_Boolean UtfString::IsDifferent(const Standard_ExtString other) const
 {
   return ExtStrCmp(mystring, other) != 0;
 }
@@ -491,8 +491,8 @@ Standard_Boolean TCollection_ExtendedString::IsDifferent(const Standard_ExtStrin
 // ----------------------------------------------------------------------------
 // IsDifferent
 // ----------------------------------------------------------------------------
-Standard_Boolean TCollection_ExtendedString::IsDifferent(
-  const TCollection_ExtendedString& other) const
+Standard_Boolean UtfString::IsDifferent(
+  const UtfString& other) const
 {
   return mylength != other.mylength
          || memcmp(mystring, other.mystring, (mylength + 1) * sizeof(Standard_ExtCharacter)) != 0;
@@ -501,7 +501,7 @@ Standard_Boolean TCollection_ExtendedString::IsDifferent(
 // ----------------------------------------------------------------------------
 // IsLess
 // ----------------------------------------------------------------------------
-Standard_Boolean TCollection_ExtendedString::IsLess(const Standard_ExtString other) const
+Standard_Boolean UtfString::IsLess(const Standard_ExtString other) const
 {
   return ExtStrCmp(mystring, other) < 0;
 }
@@ -509,7 +509,7 @@ Standard_Boolean TCollection_ExtendedString::IsLess(const Standard_ExtString oth
 // ----------------------------------------------------------------------------
 // IsLess
 // ----------------------------------------------------------------------------
-Standard_Boolean TCollection_ExtendedString::IsLess(const TCollection_ExtendedString& other) const
+Standard_Boolean UtfString::IsLess(const UtfString& other) const
 {
   return ExtStrCmp(mystring, other.mystring) < 0;
 }
@@ -517,7 +517,7 @@ Standard_Boolean TCollection_ExtendedString::IsLess(const TCollection_ExtendedSt
 // ----------------------------------------------------------------------------
 // IsGreater
 // ----------------------------------------------------------------------------
-Standard_Boolean TCollection_ExtendedString::IsGreater(const Standard_ExtString other) const
+Standard_Boolean UtfString::IsGreater(const Standard_ExtString other) const
 {
   return ExtStrCmp(mystring, other) > 0;
 }
@@ -525,8 +525,8 @@ Standard_Boolean TCollection_ExtendedString::IsGreater(const Standard_ExtString 
 // ----------------------------------------------------------------------------
 // IsGreater
 // ----------------------------------------------------------------------------
-Standard_Boolean TCollection_ExtendedString::IsGreater(
-  const TCollection_ExtendedString& other) const
+Standard_Boolean UtfString::IsGreater(
+  const UtfString& other) const
 {
   return ExtStrCmp(mystring, other.mystring) > 0;
 }
@@ -534,8 +534,8 @@ Standard_Boolean TCollection_ExtendedString::IsGreater(
 // ----------------------------------------------------------------------------
 // StartsWith
 // ----------------------------------------------------------------------------
-Standard_Boolean TCollection_ExtendedString::StartsWith(
-  const TCollection_ExtendedString& theStartString) const
+Standard_Boolean UtfString::StartsWith(
+  const UtfString& theStartString) const
 {
   if (this == &theStartString)
   {
@@ -552,8 +552,8 @@ Standard_Boolean TCollection_ExtendedString::StartsWith(
 // ----------------------------------------------------------------------------
 // EndsWith
 // ----------------------------------------------------------------------------
-Standard_Boolean TCollection_ExtendedString::EndsWith(
-  const TCollection_ExtendedString& theEndString) const
+Standard_Boolean UtfString::EndsWith(
+  const UtfString& theEndString) const
 {
   if (this == &theEndString)
   {
@@ -570,7 +570,7 @@ Standard_Boolean TCollection_ExtendedString::EndsWith(
 // ----------------------------------------------------------------------------
 // IsAscii
 // ----------------------------------------------------------------------------
-Standard_Boolean TCollection_ExtendedString::IsAscii() const
+Standard_Boolean UtfString::IsAscii() const
 {
   for (Standard_Integer i = 0; i < mylength; i++)
     if (!IsAnAscii(mystring[i]))
@@ -581,7 +581,7 @@ Standard_Boolean TCollection_ExtendedString::IsAscii() const
 //------------------------------------------------------------------------
 //  Length
 // ----------------------------------------------------------------------------
-Standard_Integer TCollection_ExtendedString::Length() const
+Standard_Integer UtfString::Length() const
 {
   return mylength;
 }
@@ -589,17 +589,17 @@ Standard_Integer TCollection_ExtendedString::Length() const
 // ----------------------------------------------------------------------------
 // Print
 // ----------------------------------------------------------------------------
-void TCollection_ExtendedString::Print(Standard_OStream& theStream) const
+void UtfString::Print(Standard_OStream& theStream) const
 {
   if (mylength > 0)
   {
-    const TCollection_AsciiString aUtf8(mystring);
+    const AsciiString1 aUtf8(mystring);
     theStream << aUtf8;
   }
 }
 
 // ----------------------------------------------------------------------------
-Standard_OStream& operator<<(Standard_OStream& astream, const TCollection_ExtendedString& astring)
+Standard_OStream& operator<<(Standard_OStream& astream, const UtfString& astring)
 {
   astring.Print(astream);
   return astream;
@@ -608,7 +608,7 @@ Standard_OStream& operator<<(Standard_OStream& astream, const TCollection_Extend
 // ----------------------------------------------------------------------------
 // RemoveAll
 // ----------------------------------------------------------------------------
-void TCollection_ExtendedString::RemoveAll(const Standard_ExtCharacter what)
+void UtfString::RemoveAll(const Standard_ExtCharacter what)
 
 {
   if (mylength == 0)
@@ -624,7 +624,7 @@ void TCollection_ExtendedString::RemoveAll(const Standard_ExtCharacter what)
 // ----------------------------------------------------------------------------
 // Remove
 // ----------------------------------------------------------------------------
-void TCollection_ExtendedString::Remove(const Standard_Integer where,
+void UtfString::Remove(const Standard_Integer where,
                                         const Standard_Integer ahowmany)
 {
   if (where + ahowmany <= mylength + 1)
@@ -636,7 +636,7 @@ void TCollection_ExtendedString::Remove(const Standard_Integer where,
     mystring[mylength] = '\0';
   }
   else
-    throw Standard_OutOfRange("TCollection_ExtendedString::Remove: "
+    throw Standard_OutOfRange("UtfString::Remove: "
                               "Too many characters to erase or "
                               "invalid starting value.");
 }
@@ -644,7 +644,7 @@ void TCollection_ExtendedString::Remove(const Standard_Integer where,
 // ----------------------------------------------------------------------------
 // Search
 // ----------------------------------------------------------------------------
-Standard_Integer TCollection_ExtendedString::Search(const TCollection_ExtendedString& what) const
+Standard_Integer UtfString::Search(const UtfString& what) const
 {
   Standard_Integer   size  = what.mylength;
   Standard_ExtString swhat = what.mystring;
@@ -670,8 +670,8 @@ Standard_Integer TCollection_ExtendedString::Search(const TCollection_ExtendedSt
 // ----------------------------------------------------------------------------
 // SearchFromEnd
 // ----------------------------------------------------------------------------
-Standard_Integer TCollection_ExtendedString::SearchFromEnd(
-  const TCollection_ExtendedString& what) const
+Standard_Integer UtfString::SearchFromEnd(
+  const UtfString& what) const
 {
   Standard_Integer size = what.mylength;
   if (size)
@@ -697,7 +697,7 @@ Standard_Integer TCollection_ExtendedString::SearchFromEnd(
 // ----------------------------------------------------------------------------
 // SetValue
 // ----------------------------------------------------------------------------
-void TCollection_ExtendedString::SetValue(const Standard_Integer      where,
+void UtfString::SetValue(const Standard_Integer      where,
                                           const Standard_ExtCharacter what)
 {
   if (where > 0 && where <= mylength)
@@ -706,15 +706,15 @@ void TCollection_ExtendedString::SetValue(const Standard_Integer      where,
   }
   else
   {
-    throw Standard_OutOfRange("TCollection_ExtendedString::SetValue : parameter where");
+    throw Standard_OutOfRange("UtfString::SetValue : parameter where");
   }
 }
 
 // ----------------------------------------------------------------------------
 // SetValue
 // ----------------------------------------------------------------------------
-void TCollection_ExtendedString::SetValue(const Standard_Integer            where,
-                                          const TCollection_ExtendedString& what)
+void UtfString::SetValue(const Standard_Integer            where,
+                                          const UtfString& what)
 {
   if (where > 0 && where <= mylength + 1)
   {
@@ -729,37 +729,37 @@ void TCollection_ExtendedString::SetValue(const Standard_Integer            wher
       mystring[i] = swhat[i - (where - 1)];
   }
   else
-    throw Standard_OutOfRange("TCollection_ExtendedString::SetValue : "
+    throw Standard_OutOfRange("UtfString::SetValue : "
                               "parameter where");
 }
 
 // ----------------------------------------------------------------------------
 // Split
 // ----------------------------------------------------------------------------
-TCollection_ExtendedString TCollection_ExtendedString::Split(const Standard_Integer where)
+UtfString UtfString::Split(const Standard_Integer where)
 {
   if (where >= 0 && where < mylength)
   {
-    TCollection_ExtendedString res(&mystring[where]);
+    UtfString res(&mystring[where]);
     Trunc(where);
     return res;
   }
-  throw Standard_OutOfRange("TCollection_ExtendedString::Split index");
+  throw Standard_OutOfRange("UtfString::Split index");
 }
 
 // ----------------------------------------------------------------------------
 // Token
 // ----------------------------------------------------------------------------
-TCollection_ExtendedString TCollection_ExtendedString::Token(const Standard_ExtString separators,
+UtfString UtfString::Token(const Standard_ExtString separators,
                                                              const Standard_Integer whichone) const
 {
   if (mylength == 0)
   {
-    return TCollection_ExtendedString();
+    return UtfString();
   }
-  TCollection_ExtendedString res(mylength, 0);
+  UtfString res(mylength, 0);
   if (!separators)
-    throw Standard_NullObject("TCollection_ExtendedString::Token : "
+    throw Standard_NullObject("UtfString::Token : "
                               "parameter 'separators'");
 
   int                    i, j, k, l;
@@ -843,7 +843,7 @@ TCollection_ExtendedString TCollection_ExtendedString::Token(const Standard_ExtS
 // ----------------------------------------------------------------------------
 // ToExtString
 // ----------------------------------------------------------------------------
-Standard_ExtString TCollection_ExtendedString::ToExtString() const
+Standard_ExtString UtfString::ToExtString() const
 {
   return mystring;
 }
@@ -851,10 +851,10 @@ Standard_ExtString TCollection_ExtendedString::ToExtString() const
 // ----------------------------------------------------------------------------
 // Trunc
 // ----------------------------------------------------------------------------
-void TCollection_ExtendedString::Trunc(const Standard_Integer ahowmany)
+void UtfString::Trunc(const Standard_Integer ahowmany)
 {
   if (ahowmany < 0 || ahowmany > mylength)
-    throw Standard_OutOfRange("TCollection_ExtendedString::Trunc : "
+    throw Standard_OutOfRange("UtfString::Trunc : "
                               "parameter 'ahowmany'");
   mylength           = ahowmany;
   mystring[mylength] = '\0';
@@ -863,7 +863,7 @@ void TCollection_ExtendedString::Trunc(const Standard_Integer ahowmany)
 // ----------------------------------------------------------------------------
 // Value
 // ----------------------------------------------------------------------------
-Standard_ExtCharacter TCollection_ExtendedString::Value(const Standard_Integer where) const
+Standard_ExtCharacter UtfString::Value(const Standard_Integer where) const
 {
   if (where > 0 && where <= mylength)
   {
@@ -872,14 +872,14 @@ Standard_ExtCharacter TCollection_ExtendedString::Value(const Standard_Integer w
     else
       return 0;
   }
-  throw Standard_OutOfRange("TCollection_ExtendedString::Value : "
+  throw Standard_OutOfRange("UtfString::Value : "
                             "parameter where");
 }
 
 //----------------------------------------------------------------------------
 // Convert CString (including multibyte case) to UniCode representation
 //----------------------------------------------------------------------------
-Standard_Boolean TCollection_ExtendedString::ConvertToUnicode(const Standard_CString theStringUtf)
+Standard_Boolean UtfString::ConvertToUnicode(const Standard_CString theStringUtf)
 {
   NCollection_Utf8Iter   anIterRead(theStringUtf);
   Standard_ExtCharacter* anIterWrite = mystring;
@@ -904,7 +904,7 @@ Standard_Boolean TCollection_ExtendedString::ConvertToUnicode(const Standard_CSt
 //----------------------------------------------------------------------------
 // Returns expected CString length in UTF8 coding.
 //----------------------------------------------------------------------------
-Standard_Integer TCollection_ExtendedString::LengthOfCString() const
+Standard_Integer UtfString::LengthOfCString() const
 {
   Standard_Integer aSizeBytes = 0;
   for (NCollection_Utf16Iter anIter(mystring); *anIter != 0; ++anIter)
@@ -918,7 +918,7 @@ Standard_Integer TCollection_ExtendedString::LengthOfCString() const
 // Converts the internal <mystring> to UTF8 coding and returns length of the
 // out CString.
 //----------------------------------------------------------------------------
-Standard_Integer TCollection_ExtendedString::ToUTF8CString(Standard_PCharacter& theCString) const
+Standard_Integer UtfString::ToUTF8CString(Standard_PCharacter& theCString) const
 {
   NCollection_Utf16Iter anIterRead(mystring);
   Standard_Utf8Char*    anIterWrite = theCString;
@@ -938,7 +938,7 @@ Standard_Integer TCollection_ExtendedString::ToUTF8CString(Standard_PCharacter& 
 
 //=================================================================================================
 
-void TCollection_ExtendedString::allocate(const int theLength)
+void UtfString::allocate(const int theLength)
 {
   mylength = theLength;
   if (theLength == 0)
@@ -955,7 +955,7 @@ void TCollection_ExtendedString::allocate(const int theLength)
 
 //=================================================================================================
 
-void TCollection_ExtendedString::reallocate(const int theLength)
+void UtfString::reallocate(const int theLength)
 {
   if (theLength != 0)
   {
@@ -981,7 +981,7 @@ void TCollection_ExtendedString::reallocate(const int theLength)
 
 //=================================================================================================
 
-void TCollection_ExtendedString::deallocate()
+void UtfString::deallocate()
 {
   if (mystring != THE_DEFAULT_EXT_CHAR_STRING)
   {

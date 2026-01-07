@@ -50,7 +50,7 @@ Handle(Expr_GeneralExpression) Expr_Tangent::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_Tangent::Copy() const
 {
-  return new Expr_Tangent(Expr::CopyShare(Operand()));
+  return new Expr_Tangent(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_Tangent::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -76,7 +76,7 @@ Handle(Expr_GeneralExpression) Expr_Tangent::Derivative(const Handle(Expr_NamedU
   }
   Handle(Expr_GeneralExpression) myexp    = Operand();
   Handle(Expr_GeneralExpression) myder    = myexp->Derivative(X);
-  Handle(Expr_Cosine)            firstder = new Expr_Cosine(Expr::CopyShare(myexp));
+  Handle(Expr_Cosine)            firstder = new Expr_Cosine(Expr1::CopyShare(myexp));
   Handle(Expr_Square)            sq       = new Expr_Square(firstder->ShallowSimplified());
   Handle(Expr_Division)          resu     = myder / sq->ShallowSimplified();
   return resu->ShallowSimplified();
@@ -88,9 +88,9 @@ Standard_Real Expr_Tangent::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return ::Tan(Operand()->Evaluate(vars, vals));
 }
 
-TCollection_AsciiString Expr_Tangent::String() const
+AsciiString1 Expr_Tangent::String() const
 {
-  TCollection_AsciiString str("Tan(");
+  AsciiString1 str("Tan(");
   str += Operand()->String();
   str += ")";
   return str;

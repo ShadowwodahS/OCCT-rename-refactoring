@@ -74,10 +74,10 @@ void IntWalk_PWalking::ComputePasInit(const Standard_Real theDeltaU1,
   else
     pasuv[3] = Max(Increment * theDeltaV2, pasuv[3]);
 
-  const Standard_Real ResoU1tol = Adaptor3d_HSurfaceTool::UResolution(Caro1, tolconf);
-  const Standard_Real ResoV1tol = Adaptor3d_HSurfaceTool::VResolution(Caro1, tolconf);
-  const Standard_Real ResoU2tol = Adaptor3d_HSurfaceTool::UResolution(Caro2, tolconf);
-  const Standard_Real ResoV2tol = Adaptor3d_HSurfaceTool::VResolution(Caro2, tolconf);
+  const Standard_Real ResoU1tol = HSurfaceTool::UResolution(Caro1, tolconf);
+  const Standard_Real ResoV1tol = HSurfaceTool::VResolution(Caro1, tolconf);
+  const Standard_Real ResoU2tol = HSurfaceTool::UResolution(Caro2, tolconf);
+  const Standard_Real ResoV2tol = HSurfaceTool::VResolution(Caro2, tolconf);
 
   myStepMin[0] = Max(myStepMin[0], 2.0 * ResoU1tol);
   myStepMin[1] = Max(myStepMin[1], 2.0 * ResoV1tol);
@@ -213,21 +213,21 @@ IntWalk_PWalking::IntWalk_PWalking(const Handle(Adaptor3d_Surface)& Caro1,
   Standard_Real KELARG = 20.;
   //
   pasMax = Increment * 0.2; //-- June 25 99 after problems with precision
-  Um1    = Adaptor3d_HSurfaceTool::FirstUParameter(Caro1);
-  Vm1    = Adaptor3d_HSurfaceTool::FirstVParameter(Caro1);
-  UM1    = Adaptor3d_HSurfaceTool::LastUParameter(Caro1);
-  VM1    = Adaptor3d_HSurfaceTool::LastVParameter(Caro1);
+  Um1    = HSurfaceTool::FirstUParameter(Caro1);
+  Vm1    = HSurfaceTool::FirstVParameter(Caro1);
+  UM1    = HSurfaceTool::LastUParameter(Caro1);
+  VM1    = HSurfaceTool::LastVParameter(Caro1);
 
-  Um2 = Adaptor3d_HSurfaceTool::FirstUParameter(Caro2);
-  Vm2 = Adaptor3d_HSurfaceTool::FirstVParameter(Caro2);
-  UM2 = Adaptor3d_HSurfaceTool::LastUParameter(Caro2);
-  VM2 = Adaptor3d_HSurfaceTool::LastVParameter(Caro2);
+  Um2 = HSurfaceTool::FirstUParameter(Caro2);
+  Vm2 = HSurfaceTool::FirstVParameter(Caro2);
+  UM2 = HSurfaceTool::LastUParameter(Caro2);
+  VM2 = HSurfaceTool::LastVParameter(Caro2);
 
-  ResoU1 = Adaptor3d_HSurfaceTool::UResolution(Caro1, Precision::Confusion());
-  ResoV1 = Adaptor3d_HSurfaceTool::VResolution(Caro1, Precision::Confusion());
+  ResoU1 = HSurfaceTool::UResolution(Caro1, Precision::Confusion());
+  ResoV1 = HSurfaceTool::VResolution(Caro1, Precision::Confusion());
 
-  ResoU2 = Adaptor3d_HSurfaceTool::UResolution(Caro2, Precision::Confusion());
-  ResoV2 = Adaptor3d_HSurfaceTool::VResolution(Caro2, Precision::Confusion());
+  ResoU2 = HSurfaceTool::UResolution(Caro2, Precision::Confusion());
+  ResoV2 = HSurfaceTool::VResolution(Caro2, Precision::Confusion());
 
   Standard_Real NEWRESO;
   Standard_Real MAXVAL;
@@ -287,64 +287,64 @@ IntWalk_PWalking::IntWalk_PWalking(const Handle(Adaptor3d_Surface)& Caro1,
   if (ResoV2 > 0.0001 * pasuv[3])
     ResoV2 = 0.00001 * pasuv[3];
 
-  if (Adaptor3d_HSurfaceTool::IsUPeriodic(Caro1) == Standard_False)
+  if (HSurfaceTool::IsUPeriodic(Caro1) == Standard_False)
   {
     // UM1+=KELARG*pasuv[0];  Um1-=KELARG*pasuv[0];
   }
   else
   {
     Standard_Real t = UM1 - Um1;
-    if (t < Adaptor3d_HSurfaceTool::UPeriod(Caro1))
+    if (t < HSurfaceTool::UPeriod(Caro1))
     {
-      t = 0.5 * (Adaptor3d_HSurfaceTool::UPeriod(Caro1) - t);
+      t = 0.5 * (HSurfaceTool::UPeriod(Caro1) - t);
       t = (t > KELARG * pasuv[0]) ? KELARG * pasuv[0] : t;
       UM1 += t;
       Um1 -= t;
     }
   }
 
-  if (Adaptor3d_HSurfaceTool::IsVPeriodic(Caro1) == Standard_False)
+  if (HSurfaceTool::IsVPeriodic(Caro1) == Standard_False)
   {
     // VM1+=KELARG*pasuv[1];  Vm1-=KELARG*pasuv[1];
   }
   else
   {
     Standard_Real t = VM1 - Vm1;
-    if (t < Adaptor3d_HSurfaceTool::VPeriod(Caro1))
+    if (t < HSurfaceTool::VPeriod(Caro1))
     {
-      t = 0.5 * (Adaptor3d_HSurfaceTool::VPeriod(Caro1) - t);
+      t = 0.5 * (HSurfaceTool::VPeriod(Caro1) - t);
       t = (t > KELARG * pasuv[1]) ? KELARG * pasuv[1] : t;
       VM1 += t;
       Vm1 -= t;
     }
   }
 
-  if (Adaptor3d_HSurfaceTool::IsUPeriodic(Caro2) == Standard_False)
+  if (HSurfaceTool::IsUPeriodic(Caro2) == Standard_False)
   {
     // UM2+=KELARG*pasuv[2];  Um2-=KELARG*pasuv[2];
   }
   else
   {
     Standard_Real t = UM2 - Um2;
-    if (t < Adaptor3d_HSurfaceTool::UPeriod(Caro2))
+    if (t < HSurfaceTool::UPeriod(Caro2))
     {
-      t = 0.5 * (Adaptor3d_HSurfaceTool::UPeriod(Caro2) - t);
+      t = 0.5 * (HSurfaceTool::UPeriod(Caro2) - t);
       t = (t > KELARG * pasuv[2]) ? KELARG * pasuv[2] : t;
       UM2 += t;
       Um2 -= t;
     }
   }
 
-  if (Adaptor3d_HSurfaceTool::IsVPeriodic(Caro2) == Standard_False)
+  if (HSurfaceTool::IsVPeriodic(Caro2) == Standard_False)
   {
     // VM2+=KELARG*pasuv[3];  Vm2-=KELARG*pasuv[3];
   }
   else
   {
     Standard_Real t = VM2 - Vm2;
-    if (t < Adaptor3d_HSurfaceTool::VPeriod(Caro2))
+    if (t < HSurfaceTool::VPeriod(Caro2))
     {
-      t = 0.5 * (Adaptor3d_HSurfaceTool::VPeriod(Caro2) - t);
+      t = 0.5 * (HSurfaceTool::VPeriod(Caro2) - t);
       t = (t > KELARG * pasuv[3]) ? KELARG * pasuv[3] : t;
       VM2 += t;
       Vm2 -= t;
@@ -394,21 +394,21 @@ IntWalk_PWalking::IntWalk_PWalking(const Handle(Adaptor3d_Surface)& Caro1,
   //
   pasMax = Increment * 0.2; //-- June 25 99 after problems with precision
   //
-  Um1 = Adaptor3d_HSurfaceTool::FirstUParameter(Caro1);
-  Vm1 = Adaptor3d_HSurfaceTool::FirstVParameter(Caro1);
-  UM1 = Adaptor3d_HSurfaceTool::LastUParameter(Caro1);
-  VM1 = Adaptor3d_HSurfaceTool::LastVParameter(Caro1);
+  Um1 = HSurfaceTool::FirstUParameter(Caro1);
+  Vm1 = HSurfaceTool::FirstVParameter(Caro1);
+  UM1 = HSurfaceTool::LastUParameter(Caro1);
+  VM1 = HSurfaceTool::LastVParameter(Caro1);
 
-  Um2 = Adaptor3d_HSurfaceTool::FirstUParameter(Caro2);
-  Vm2 = Adaptor3d_HSurfaceTool::FirstVParameter(Caro2);
-  UM2 = Adaptor3d_HSurfaceTool::LastUParameter(Caro2);
-  VM2 = Adaptor3d_HSurfaceTool::LastVParameter(Caro2);
+  Um2 = HSurfaceTool::FirstUParameter(Caro2);
+  Vm2 = HSurfaceTool::FirstVParameter(Caro2);
+  UM2 = HSurfaceTool::LastUParameter(Caro2);
+  VM2 = HSurfaceTool::LastVParameter(Caro2);
 
-  ResoU1 = Adaptor3d_HSurfaceTool::UResolution(Caro1, Precision::Confusion());
-  ResoV1 = Adaptor3d_HSurfaceTool::VResolution(Caro1, Precision::Confusion());
+  ResoU1 = HSurfaceTool::UResolution(Caro1, Precision::Confusion());
+  ResoV1 = HSurfaceTool::VResolution(Caro1, Precision::Confusion());
 
-  ResoU2 = Adaptor3d_HSurfaceTool::UResolution(Caro2, Precision::Confusion());
-  ResoV2 = Adaptor3d_HSurfaceTool::VResolution(Caro2, Precision::Confusion());
+  ResoU2 = HSurfaceTool::UResolution(Caro2, Precision::Confusion());
+  ResoV2 = HSurfaceTool::VResolution(Caro2, Precision::Confusion());
   //
   Standard_Real NEWRESO, MAXVAL, MAXVAL2;
   //
@@ -465,7 +465,7 @@ IntWalk_PWalking::IntWalk_PWalking(const Handle(Adaptor3d_Surface)& Caro1,
   pasuv[2] = pasMax * Abs(UM2 - Um2);
   pasuv[3] = pasMax * Abs(VM2 - Vm2);
   //
-  if (Adaptor3d_HSurfaceTool::IsUPeriodic(Caro1) == Standard_False)
+  if (HSurfaceTool::IsUPeriodic(Caro1) == Standard_False)
   {
     UM1 += KELARG * pasuv[0];
     Um1 -= KELARG * pasuv[0];
@@ -473,16 +473,16 @@ IntWalk_PWalking::IntWalk_PWalking(const Handle(Adaptor3d_Surface)& Caro1,
   else
   {
     Standard_Real t = UM1 - Um1;
-    if (t < Adaptor3d_HSurfaceTool::UPeriod(Caro1))
+    if (t < HSurfaceTool::UPeriod(Caro1))
     {
-      t = 0.5 * (Adaptor3d_HSurfaceTool::UPeriod(Caro1) - t);
+      t = 0.5 * (HSurfaceTool::UPeriod(Caro1) - t);
       t = (t > KELARG * pasuv[0]) ? KELARG * pasuv[0] : t;
       UM1 += t;
       Um1 -= t;
     }
   }
   //
-  if (Adaptor3d_HSurfaceTool::IsVPeriodic(Caro1) == Standard_False)
+  if (HSurfaceTool::IsVPeriodic(Caro1) == Standard_False)
   {
     VM1 += KELARG * pasuv[1];
     Vm1 -= KELARG * pasuv[1];
@@ -490,16 +490,16 @@ IntWalk_PWalking::IntWalk_PWalking(const Handle(Adaptor3d_Surface)& Caro1,
   else
   {
     Standard_Real t = VM1 - Vm1;
-    if (t < Adaptor3d_HSurfaceTool::VPeriod(Caro1))
+    if (t < HSurfaceTool::VPeriod(Caro1))
     {
-      t = 0.5 * (Adaptor3d_HSurfaceTool::VPeriod(Caro1) - t);
+      t = 0.5 * (HSurfaceTool::VPeriod(Caro1) - t);
       t = (t > KELARG * pasuv[1]) ? KELARG * pasuv[1] : t;
       VM1 += t;
       Vm1 -= t;
     }
   }
   //
-  if (Adaptor3d_HSurfaceTool::IsUPeriodic(Caro2) == Standard_False)
+  if (HSurfaceTool::IsUPeriodic(Caro2) == Standard_False)
   {
     UM2 += KELARG * pasuv[2];
     Um2 -= KELARG * pasuv[2];
@@ -507,16 +507,16 @@ IntWalk_PWalking::IntWalk_PWalking(const Handle(Adaptor3d_Surface)& Caro1,
   else
   {
     Standard_Real t = UM2 - Um2;
-    if (t < Adaptor3d_HSurfaceTool::UPeriod(Caro2))
+    if (t < HSurfaceTool::UPeriod(Caro2))
     {
-      t = 0.5 * (Adaptor3d_HSurfaceTool::UPeriod(Caro2) - t);
+      t = 0.5 * (HSurfaceTool::UPeriod(Caro2) - t);
       t = (t > KELARG * pasuv[2]) ? KELARG * pasuv[2] : t;
       UM2 += t;
       Um2 -= t;
     }
   }
 
-  if (Adaptor3d_HSurfaceTool::IsVPeriodic(Caro2) == Standard_False)
+  if (HSurfaceTool::IsVPeriodic(Caro2) == Standard_False)
   {
     VM2 += KELARG * pasuv[3];
     Vm2 -= KELARG * pasuv[3];
@@ -524,9 +524,9 @@ IntWalk_PWalking::IntWalk_PWalking(const Handle(Adaptor3d_Surface)& Caro1,
   else
   {
     Standard_Real t = VM2 - Vm2;
-    if (t < Adaptor3d_HSurfaceTool::VPeriod(Caro2))
+    if (t < HSurfaceTool::VPeriod(Caro2))
     {
-      t = 0.5 * (Adaptor3d_HSurfaceTool::VPeriod(Caro2) - t);
+      t = 0.5 * (HSurfaceTool::VPeriod(Caro2) - t);
       t = (t > KELARG * pasuv[3]) ? KELARG * pasuv[3] : t;
       VM2 += t;
       Vm2 -= t;
@@ -720,15 +720,15 @@ void IntWalk_PWalking::Perform(const TColStd_Array1OfReal& ParDep,
   const Handle(Adaptor3d_Surface)& Caro1 = myIntersectionOn2S.Function().AuxillarSurface1();
   const Handle(Adaptor3d_Surface)& Caro2 = myIntersectionOn2S.Function().AuxillarSurface2();
   //
-  const Standard_Real UFirst1 = Adaptor3d_HSurfaceTool::FirstUParameter(Caro1);
-  const Standard_Real VFirst1 = Adaptor3d_HSurfaceTool::FirstVParameter(Caro1);
-  const Standard_Real ULast1  = Adaptor3d_HSurfaceTool::LastUParameter(Caro1);
-  const Standard_Real VLast1  = Adaptor3d_HSurfaceTool::LastVParameter(Caro1);
+  const Standard_Real UFirst1 = HSurfaceTool::FirstUParameter(Caro1);
+  const Standard_Real VFirst1 = HSurfaceTool::FirstVParameter(Caro1);
+  const Standard_Real ULast1  = HSurfaceTool::LastUParameter(Caro1);
+  const Standard_Real VLast1  = HSurfaceTool::LastVParameter(Caro1);
 
-  const Standard_Real UFirst2 = Adaptor3d_HSurfaceTool::FirstUParameter(Caro2);
-  const Standard_Real VFirst2 = Adaptor3d_HSurfaceTool::FirstVParameter(Caro2);
-  const Standard_Real ULast2  = Adaptor3d_HSurfaceTool::LastUParameter(Caro2);
-  const Standard_Real VLast2  = Adaptor3d_HSurfaceTool::LastVParameter(Caro2);
+  const Standard_Real UFirst2 = HSurfaceTool::FirstUParameter(Caro2);
+  const Standard_Real VFirst2 = HSurfaceTool::FirstVParameter(Caro2);
+  const Standard_Real ULast2  = HSurfaceTool::LastUParameter(Caro2);
+  const Standard_Real VLast2  = HSurfaceTool::LastVParameter(Caro2);
   //
   ComputePasInit(u1max - u1min, v1max - v1min, u2max - u2min, v2max - v2min);
 
@@ -1758,15 +1758,15 @@ Standard_Boolean IntWalk_PWalking::ExtendLineInCommonZone(
   const Handle(Adaptor3d_Surface)& Caro1 = myIntersectionOn2S.Function().AuxillarSurface1();
   const Handle(Adaptor3d_Surface)& Caro2 = myIntersectionOn2S.Function().AuxillarSurface2();
   //
-  const Standard_Real UFirst1 = Adaptor3d_HSurfaceTool::FirstUParameter(Caro1);
-  const Standard_Real VFirst1 = Adaptor3d_HSurfaceTool::FirstVParameter(Caro1);
-  const Standard_Real ULast1  = Adaptor3d_HSurfaceTool::LastUParameter(Caro1);
-  const Standard_Real VLast1  = Adaptor3d_HSurfaceTool::LastVParameter(Caro1);
+  const Standard_Real UFirst1 = HSurfaceTool::FirstUParameter(Caro1);
+  const Standard_Real VFirst1 = HSurfaceTool::FirstVParameter(Caro1);
+  const Standard_Real ULast1  = HSurfaceTool::LastUParameter(Caro1);
+  const Standard_Real VLast1  = HSurfaceTool::LastVParameter(Caro1);
 
-  const Standard_Real UFirst2 = Adaptor3d_HSurfaceTool::FirstUParameter(Caro2);
-  const Standard_Real VFirst2 = Adaptor3d_HSurfaceTool::FirstVParameter(Caro2);
-  const Standard_Real ULast2  = Adaptor3d_HSurfaceTool::LastUParameter(Caro2);
-  const Standard_Real VLast2  = Adaptor3d_HSurfaceTool::LastVParameter(Caro2);
+  const Standard_Real UFirst2 = HSurfaceTool::FirstUParameter(Caro2);
+  const Standard_Real VFirst2 = HSurfaceTool::FirstVParameter(Caro2);
+  const Standard_Real ULast2  = HSurfaceTool::LastUParameter(Caro2);
+  const Standard_Real VLast2  = HSurfaceTool::LastVParameter(Caro2);
 
   Standard_Boolean          bOutOfTangentZone = Standard_False;
   Standard_Boolean          bStop             = !myIntersectionOn2S.IsTangent();
@@ -2282,7 +2282,7 @@ Standard_Boolean IntWalk_PWalking::DistanceMinimizeByGradient(
   const Standard_Real aMinAddValU2 = Max(Epsilon(theInit(3)), aTolNul);
   const Standard_Real aMinAddValV2 = Max(Epsilon(theInit(4)), aTolNul);
 
-  Handle(Geom_Surface) aS1, aS2;
+  Handle(GeomSurface) aS1, aS2;
 
   if (theASurf1->GetType() != GeomAbs_BezierSurface
       && theASurf1->GetType() != GeomAbs_BSplineSurface)
@@ -3338,22 +3338,22 @@ IntWalk_StatusDeflection IntWalk_PWalking::TestDeflection(const IntImp_ConstIsop
         previousPoint.ParametersOnS2(CurU, CurV);
       Point3d CurPnt =
         (choixIso == IntImp_UIsoparametricOnCaro1 || choixIso == IntImp_VIsoparametricOnCaro1)
-          ? Adaptor3d_HSurfaceTool::Value(Caro1, CurU, CurV)
-          : Adaptor3d_HSurfaceTool::Value(Caro2, CurU, CurV);
+          ? HSurfaceTool::Value(Caro1, CurU, CurV)
+          : HSurfaceTool::Value(Caro2, CurU, CurV);
       Point3d OffsetPnt;
       switch (choixIso)
       {
         case IntImp_UIsoparametricOnCaro1:
-          OffsetPnt = Adaptor3d_HSurfaceTool::Value(Caro1, CurU + sensCheminement * pasuv[0], CurV);
+          OffsetPnt = HSurfaceTool::Value(Caro1, CurU + sensCheminement * pasuv[0], CurV);
           break;
         case IntImp_VIsoparametricOnCaro1:
-          OffsetPnt = Adaptor3d_HSurfaceTool::Value(Caro1, CurU, CurV + sensCheminement * pasuv[1]);
+          OffsetPnt = HSurfaceTool::Value(Caro1, CurU, CurV + sensCheminement * pasuv[1]);
           break;
         case IntImp_UIsoparametricOnCaro2:
-          OffsetPnt = Adaptor3d_HSurfaceTool::Value(Caro2, CurU + sensCheminement * pasuv[2], CurV);
+          OffsetPnt = HSurfaceTool::Value(Caro2, CurU + sensCheminement * pasuv[2], CurV);
           break;
         case IntImp_VIsoparametricOnCaro2:
-          OffsetPnt = Adaptor3d_HSurfaceTool::Value(Caro2, CurU, CurV + sensCheminement * pasuv[3]);
+          OffsetPnt = HSurfaceTool::Value(Caro2, CurU, CurV + sensCheminement * pasuv[3]);
           break;
         default:
           break;

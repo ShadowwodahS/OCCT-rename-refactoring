@@ -93,7 +93,7 @@ void DFBrowserPane_TDataStdTreeNode::Init(const Handle(TDF_Attribute)& theAttrib
     QList<QVariant> aValues;
     char            aStr[256];
     aTreeNode->ID().ToCString(aStr);
-    TCollection_AsciiString aString(aStr);
+    AsciiString1 aString(aStr);
     aValues << "GetDefaultTreeID" << DFBrowserPane_Tools::ToString(aString);
     getPaneModel()->Init(aValues);
     if (myTableView)
@@ -138,13 +138,13 @@ void DFBrowserPane_TDataStdTreeNode::GetShortAttributeInfo(
     QList<QVariant> aValues;
     char            aStr[256];
     aTNAttribute->ID().ToCString(aStr);
-    TCollection_AsciiString aString(aStr);
+    AsciiString1 aString(aStr);
     aGUIDPrefix = DFBrowserPane_Tools::ToString(aString);
   }
 
   if (aTNAttribute->HasFather())
   {
-    TDF_Label aLabel = aTNAttribute->Father()->Label();
+    DataLabel aLabel = aTNAttribute->Father()->Label();
     theValues.append(
       QString("%1 ==> %2").arg(aGUIDPrefix).arg(DFBrowserPane_Tools::GetEntry(aLabel).ToCString()));
   }
@@ -154,7 +154,7 @@ void DFBrowserPane_TDataStdTreeNode::GetShortAttributeInfo(
     QStringList               aRefs;
     while (!aFirstChild.IsNull())
     {
-      TDF_Label aLabel = aFirstChild->Label();
+      DataLabel aLabel = aFirstChild->Label();
       aRefs.append(DFBrowserPane_Tools::GetEntry(aLabel).ToCString());
       aFirstChild = aFirstChild->Next();
     }
@@ -167,7 +167,7 @@ void DFBrowserPane_TDataStdTreeNode::GetShortAttributeInfo(
 // purpose :
 // =======================================================================
 void DFBrowserPane_TDataStdTreeNode::GetReferences(const Handle(TDF_Attribute)& theAttribute,
-                                                   NCollection_List<TDF_Label>& theRefLabels,
+                                                   NCollection_List<DataLabel>& theRefLabels,
                                                    Handle(RefObject)&)
 {
   Handle(TDataStd_TreeNode) anAttribute = Handle(TDataStd_TreeNode)::DownCast(theAttribute);

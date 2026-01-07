@@ -24,12 +24,12 @@
 
 #include <stdio.h>
 #ifdef _WIN32
-Standard_IMPORT Draw_Viewer dout;
+Standard_IMPORT DrawViewer dout;
 #endif
 
 //=================================================================================================
 
-static Standard_Integer xdistcc(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer xdistcc(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 5)
   {
@@ -40,31 +40,31 @@ static Standard_Integer xdistcc(Draw_Interpretor&, Standard_Integer n, const cha
   Standard_Integer      i, aNbP, iSize;
   Standard_Real         aD, aT, aT1, aT2, dT;
   Point3d                aP1, aP2;
-  Handle(Geom_Curve)    aC1, aC2;
+  Handle(GeomCurve3d)    aC1, aC2;
   Handle(Draw_Marker3D) aMr;
-  Draw_Color            aColor(Draw_rouge);
+  DrawColor            aColor(Draw_rouge);
 
-  aC1 = DrawTrSurf::GetCurve(a[1]);
+  aC1 = DrawTrSurf1::GetCurve(a[1]);
   if (aC1.IsNull())
   {
     std::cout << a[1] << " is null curve" << std::endl;
     return 0;
   }
 
-  aC2 = DrawTrSurf::GetCurve(a[2]);
+  aC2 = DrawTrSurf1::GetCurve(a[2]);
   if (aC2.IsNull())
   {
     std::cout << a[2] << " is null curve" << std::endl;
     return 0;
   }
 
-  aT1 = Draw::Atof(a[3]);
-  aT2 = Draw::Atof(a[4]);
+  aT1 = Draw1::Atof(a[3]);
+  aT2 = Draw1::Atof(a[4]);
 
   aNbP = 10;
   if (n > 4)
   {
-    aNbP = Draw::Atoi(a[5]);
+    aNbP = Draw1::Atoi(a[5]);
   }
 
   iSize = 3;
@@ -104,7 +104,7 @@ static Standard_Integer xdistcc(Draw_Interpretor&, Standard_Integer n, const cha
 
 //=================================================================================================
 
-static Standard_Integer xdistc2dc2dss(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer xdistc2dc2dss(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 7)
   {
@@ -116,46 +116,46 @@ static Standard_Integer xdistc2dc2dss(Draw_Interpretor&, Standard_Integer n, con
   Standard_Real         aD, aT, aT1, aT2, dT;
   Point3d                aP1, aP2;
   gp_Pnt2d              aP2d1, aP2d2;
-  Handle(Geom2d_Curve)  aC2d1, aC2d2;
-  Handle(Geom_Surface)  aS1, aS2;
+  Handle(GeomCurve2d)  aC2d1, aC2d2;
+  Handle(GeomSurface)  aS1, aS2;
   Handle(Draw_Marker3D) aMr;
-  Draw_Color            aColor(Draw_rouge);
+  DrawColor            aColor(Draw_rouge);
 
-  aC2d1 = DrawTrSurf::GetCurve2d(a[1]);
+  aC2d1 = DrawTrSurf1::GetCurve2d(a[1]);
   if (aC2d1.IsNull())
   {
     std::cout << a[1] << " is null 2dcurve" << std::endl;
     return 0;
   }
 
-  aC2d2 = DrawTrSurf::GetCurve2d(a[2]);
+  aC2d2 = DrawTrSurf1::GetCurve2d(a[2]);
   if (aC2d2.IsNull())
   {
     std::cout << a[2] << " is null 2dcurve" << std::endl;
     return 0;
   }
 
-  aS1 = DrawTrSurf::GetSurface(a[3]);
+  aS1 = DrawTrSurf1::GetSurface(a[3]);
   if (aS1.IsNull())
   {
     std::cout << a[3] << " is null surface" << std::endl;
     return 0;
   }
 
-  aS2 = DrawTrSurf::GetSurface(a[4]);
+  aS2 = DrawTrSurf1::GetSurface(a[4]);
   if (aS2.IsNull())
   {
     std::cout << a[4] << " is null surface" << std::endl;
     return 0;
   }
 
-  aT1 = Draw::Atof(a[5]);
-  aT2 = Draw::Atof(a[6]);
+  aT1 = Draw1::Atof(a[5]);
+  aT2 = Draw1::Atof(a[6]);
 
   aNbP = 10;
   if (n > 6)
   {
-    aNbP = Draw::Atoi(a[7]);
+    aNbP = Draw1::Atoi(a[7]);
   }
 
   iSize = 3;
@@ -198,7 +198,7 @@ static Standard_Integer xdistc2dc2dss(Draw_Interpretor&, Standard_Integer n, con
 
 //=================================================================================================
 
-static Standard_Integer xdistcc2ds(Draw_Interpretor&, Standard_Integer n, const char** a)
+static Standard_Integer xdistcc2ds(DrawInterpreter&, Standard_Integer n, const char** a)
 {
   if (n < 6)
   {
@@ -210,40 +210,40 @@ static Standard_Integer xdistcc2ds(Draw_Interpretor&, Standard_Integer n, const 
   Standard_Real         aD, aT, aT1, aT2, dT;
   Point3d                aP, aPOnS;
   gp_Pnt2d              aP2d;
-  Handle(Geom_Curve)    aC;
-  Handle(Geom2d_Curve)  aC2d;
-  Handle(Geom_Surface)  aS;
+  Handle(GeomCurve3d)    aC;
+  Handle(GeomCurve2d)  aC2d;
+  Handle(GeomSurface)  aS;
   Handle(Draw_Marker3D) aMr;
-  Draw_Color            aColor(Draw_rouge);
+  DrawColor            aColor(Draw_rouge);
 
-  aC = DrawTrSurf::GetCurve(a[1]);
+  aC = DrawTrSurf1::GetCurve(a[1]);
   if (aC.IsNull())
   {
     std::cout << a[1] << " is null curve" << std::endl;
     return 0;
   }
 
-  aC2d = DrawTrSurf::GetCurve2d(a[2]);
+  aC2d = DrawTrSurf1::GetCurve2d(a[2]);
   if (aC2d.IsNull())
   {
     std::cout << a[2] << " is null 2dcurve" << std::endl;
     return 0;
   }
 
-  aS = DrawTrSurf::GetSurface(a[3]);
+  aS = DrawTrSurf1::GetSurface(a[3]);
   if (aS.IsNull())
   {
     std::cout << a[3] << " is null surface" << std::endl;
     return 0;
   }
 
-  aT1 = Draw::Atof(a[4]);
-  aT2 = Draw::Atof(a[5]);
+  aT1 = Draw1::Atof(a[4]);
+  aT2 = Draw1::Atof(a[5]);
 
   aNbP = 10;
   if (n > 5)
   {
-    aNbP = Draw::Atoi(a[6]);
+    aNbP = Draw1::Atoi(a[6]);
   }
 
   iSize = 3;
@@ -285,7 +285,7 @@ static Standard_Integer xdistcc2ds(Draw_Interpretor&, Standard_Integer n, const 
 
 //=================================================================================================
 
-static Standard_Integer xdistcs(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer xdistcs(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 6)
   {
@@ -303,38 +303,38 @@ static Standard_Integer xdistcs(Draw_Interpretor& di, Standard_Integer n, const 
   Standard_Integer           i, aNbP, iSize;
   Standard_Real              aTol, aD, aT, aT1, aT2, dT;
   Point3d                     aP;
-  Handle(Geom_Curve)         aC;
-  Handle(Geom_Surface)       aS;
-  GeomAPI_ProjectPointOnSurf aPPS;
+  Handle(GeomCurve3d)         aC;
+  Handle(GeomSurface)       aS;
+  PointOnSurfProjector aPPS;
   Handle(Draw_Marker3D)      aMr;
-  Draw_Color                 aColor(Draw_rouge);
+  DrawColor                 aColor(Draw_rouge);
   //
   aTol = 1.e-7;
   //
-  aC = DrawTrSurf::GetCurve(a[1]);
+  aC = DrawTrSurf1::GetCurve(a[1]);
   if (aC.IsNull())
   {
     di << "Error: " << a[1] << " is not a curve!\n";
     return 0;
   }
   //
-  aS = DrawTrSurf::GetSurface(a[2]);
+  aS = DrawTrSurf1::GetSurface(a[2]);
   if (aS.IsNull())
   {
     di << "Error: " << a[2] << " is not a surface!\n";
     return 0;
   }
   //
-  aT1 = Draw::Atof(a[3]);
-  aT2 = Draw::Atof(a[4]);
+  aT1 = Draw1::Atof(a[3]);
+  aT2 = Draw1::Atof(a[4]);
   //
   aNbP = 10;
   if (n > 5)
   {
-    aNbP = Draw::Atoi(a[5]);
+    aNbP = Draw1::Atoi(a[5]);
   }
-  Standard_Real anErrTol = (n > 6 ? Draw::Atof(a[6]) : RealLast());
-  Standard_Real aWarnTol = (n > 7 ? Draw::Atof(a[7]) : RealLast());
+  Standard_Real anErrTol = (n > 6 ? Draw1::Atof(a[6]) : RealLast());
+  Standard_Real aWarnTol = (n > 7 ? Draw1::Atof(a[7]) : RealLast());
   //
   iSize = 3;
   //
@@ -355,7 +355,7 @@ static Standard_Integer xdistcs(Draw_Interpretor& di, Standard_Integer n, const 
     bRet = aPPS.IsDone();
     if (!bRet)
     {
-      di << "Error: GeomAPI_ProjectPointOnSurf failed\n";
+      di << "Error: PointOnSurfProjector failed\n";
       return 0;
     }
     //
@@ -391,7 +391,7 @@ static Standard_Integer xdistcs(Draw_Interpretor& di, Standard_Integer n, const 
 
 //=================================================================================================
 
-void GeometryTest::TestProjCommands(Draw_Interpretor& theCommands)
+void GeometryTest::TestProjCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean loaded = Standard_False;
@@ -399,7 +399,7 @@ void GeometryTest::TestProjCommands(Draw_Interpretor& theCommands)
     return;
   loaded = Standard_True;
 
-  DrawTrSurf::BasicCommands(theCommands);
+  DrawTrSurf1::BasicCommands(theCommands);
 
   const char* g;
 

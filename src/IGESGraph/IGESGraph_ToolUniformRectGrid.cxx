@@ -33,9 +33,9 @@
 #include <Interface_ShareTool.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESGraph_ToolUniformRectGrid::IGESGraph_ToolUniformRectGrid() {}
+UniformRectGridTool::UniformRectGridTool() {}
 
-void IGESGraph_ToolUniformRectGrid::ReadOwnParams(const Handle(IGESGraph_UniformRectGrid)& ent,
+void UniformRectGridTool::ReadOwnParams(const Handle(IGESGraph_UniformRectGrid)& ent,
                                                   const Handle(IGESData_IGESReaderData)& /*IR*/,
                                                   IGESData_ParamReader& PR) const
 {
@@ -43,8 +43,8 @@ void IGESGraph_ToolUniformRectGrid::ReadOwnParams(const Handle(IGESGraph_Uniform
   Standard_Integer finite;
   Standard_Integer line;
   Standard_Integer weighted;
-  gp_XY            gridPoint;
-  gp_XY            gridSpacing;
+  Coords2d            gridPoint;
+  Coords2d            gridSpacing;
   Standard_Integer nbPointsX = 0;
   Standard_Integer nbPointsY = 0;
 
@@ -80,7 +80,7 @@ void IGESGraph_ToolUniformRectGrid::ReadOwnParams(const Handle(IGESGraph_Uniform
   ent->Init(nbPropertyValues, finite, line, weighted, gridPoint, gridSpacing, nbPointsX, nbPointsY);
 }
 
-void IGESGraph_ToolUniformRectGrid::WriteOwnParams(const Handle(IGESGraph_UniformRectGrid)& ent,
+void UniformRectGridTool::WriteOwnParams(const Handle(IGESGraph_UniformRectGrid)& ent,
                                                    IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->NbPropertyValues());
@@ -95,12 +95,12 @@ void IGESGraph_ToolUniformRectGrid::WriteOwnParams(const Handle(IGESGraph_Unifor
   IW.Send(ent->NbPointsY());
 }
 
-void IGESGraph_ToolUniformRectGrid::OwnShared(const Handle(IGESGraph_UniformRectGrid)& /*ent*/,
+void UniformRectGridTool::OwnShared(const Handle(IGESGraph_UniformRectGrid)& /*ent*/,
                                               Interface_EntityIterator& /*iter*/) const
 {
 }
 
-void IGESGraph_ToolUniformRectGrid::OwnCopy(const Handle(IGESGraph_UniformRectGrid)& another,
+void UniformRectGridTool::OwnCopy(const Handle(IGESGraph_UniformRectGrid)& another,
                                             const Handle(IGESGraph_UniformRectGrid)& ent,
                                             Interface_CopyTool& /*TC*/) const
 {
@@ -114,7 +114,7 @@ void IGESGraph_ToolUniformRectGrid::OwnCopy(const Handle(IGESGraph_UniformRectGr
             another->NbPointsY());
 }
 
-Standard_Boolean IGESGraph_ToolUniformRectGrid::OwnCorrect(
+Standard_Boolean UniformRectGridTool::OwnCorrect(
   const Handle(IGESGraph_UniformRectGrid)& ent) const
 {
   Standard_Boolean res = (ent->NbPropertyValues() != 9);
@@ -130,10 +130,10 @@ Standard_Boolean IGESGraph_ToolUniformRectGrid::OwnCorrect(
   return res;
 }
 
-IGESData_DirChecker IGESGraph_ToolUniformRectGrid::DirChecker(
+DirectoryChecker UniformRectGridTool::DirChecker(
   const Handle(IGESGraph_UniformRectGrid)& /*ent*/) const
 {
-  IGESData_DirChecker DC(406, 22);
+  DirectoryChecker DC(406, 22);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -144,7 +144,7 @@ IGESData_DirChecker IGESGraph_ToolUniformRectGrid::DirChecker(
   return DC;
 }
 
-void IGESGraph_ToolUniformRectGrid::OwnCheck(const Handle(IGESGraph_UniformRectGrid)& ent,
+void UniformRectGridTool::OwnCheck(const Handle(IGESGraph_UniformRectGrid)& ent,
                                              const Interface_ShareTool&,
                                              Handle(Interface_Check)& ach) const
 {
@@ -158,7 +158,7 @@ void IGESGraph_ToolUniformRectGrid::OwnCheck(const Handle(IGESGraph_UniformRectG
     ach->AddFail("No. of Property values : Value != 9");
 }
 
-void IGESGraph_ToolUniformRectGrid::OwnDump(const Handle(IGESGraph_UniformRectGrid)& ent,
+void UniformRectGridTool::OwnDump(const Handle(IGESGraph_UniformRectGrid)& ent,
                                             const IGESData_IGESDumper& /*dumper*/,
                                             Standard_OStream& S,
                                             const Standard_Integer /*level*/) const

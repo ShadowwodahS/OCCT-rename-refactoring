@@ -26,7 +26,7 @@
 #include <Standard_Integer.hxx>
 #include <Geom2dHatch_Hatcher.hxx>
 #include <NCollection_IndexedDataMap.hxx>
-class TopoDS_Face;
+class TopoFace;
 class DBRep_Face;
 
 //! Creation of isoparametric curves.
@@ -36,7 +36,7 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates the builder.
-  Standard_EXPORT DBRep_IsoBuilder(const TopoDS_Face&     TopologicalFace,
+  Standard_EXPORT DBRep_IsoBuilder(const TopoFace&     TopologicalFace,
                                    const Standard_Real    Infinite,
                                    const Standard_Integer NbIsos);
 
@@ -48,7 +48,7 @@ public:
   Standard_EXPORT void LoadIsos(const Handle(DBRep_Face)& Face) const;
 
 protected:
-  typedef NCollection_IndexedDataMap<TopoDS_Shape, Handle(Geom2d_Curve)> DataMapOfEdgePCurve;
+  typedef NCollection_IndexedDataMap<TopoShape, Handle(GeomCurve2d)> DataMapOfEdgePCurve;
 
   //! Adds to the hatcher the 2D segments connecting the p-curves
   //! of the neighboring edges to close the 2D gaps which are
@@ -57,7 +57,7 @@ protected:
   //! such gaps.
   //! The method also trims the intersecting 2D curves of the face,
   //! forbidding the iso-lines beyond the face boundaries.
-  Standard_EXPORT void FillGaps(const TopoDS_Face& theFace, DataMapOfEdgePCurve& theEdgePCurveMap);
+  Standard_EXPORT void FillGaps(const TopoFace& theFace, DataMapOfEdgePCurve& theEdgePCurveMap);
 
 private:
   Standard_Real           myInfinite;

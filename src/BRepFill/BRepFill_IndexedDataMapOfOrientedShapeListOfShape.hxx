@@ -21,7 +21,7 @@
 #include <TopTools_ListOfShape.hxx>
 #include <NCollection_IndexedDataMap.hxx>
 
-typedef NCollection_IndexedDataMap<TopoDS_Shape, TopTools_ListOfShape>
+typedef NCollection_IndexedDataMap<TopoShape, ShapeList>
   BRepFill_IndexedDataMapOfOrientedShapeListOfShape;
 
 #endif

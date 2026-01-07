@@ -112,11 +112,11 @@ Standard_Boolean ShapeAlgo_AlgoContainer::ConnectNextWire(
 
 //=================================================================================================
 
-void ShapeAlgo_AlgoContainer::ApproxBSplineCurve(const Handle(Geom_BSplineCurve)& bspline,
+void ShapeAlgo_AlgoContainer::ApproxBSplineCurve(const Handle(BSplineCurve3d)& bspline,
                                                  TColGeom_SequenceOfCurve&        seq) const
 {
   seq.Clear();
-  Handle(Geom_BSplineCurve) res, modifCurve;
+  Handle(BSplineCurve3d) res, modifCurve;
   TColGeom_SequenceOfCurve  SCurve;
 
   // si la BSpline est de degre 1 , on approxime .
@@ -180,8 +180,8 @@ void ShapeAlgo_AlgoContainer::ApproxBSplineCurve(const Handle(Geom_BSplineCurve)
           newPoles(j) = Poles(PoleIndex++);
         }
 
-        Handle(Geom_BSplineCurve) newC =
-          new Geom_BSplineCurve(newPoles, newWeigs, newKnots, newMults, deg);
+        Handle(BSplineCurve3d) newC =
+          new BSplineCurve3d(newPoles, newWeigs, newKnots, newMults, deg);
         SCurve.Append(newC);
         I1    = ipole + 1;
         jpole = 1;
@@ -193,7 +193,7 @@ void ShapeAlgo_AlgoContainer::ApproxBSplineCurve(const Handle(Geom_BSplineCurve)
     }
   }
 
-  Handle(Geom_BSplineCurve) mycurve;
+  Handle(BSplineCurve3d) mycurve;
   Standard_Integer          nbcurves = SCurve.Length();
   if (nbcurves == 0)
   {
@@ -203,7 +203,7 @@ void ShapeAlgo_AlgoContainer::ApproxBSplineCurve(const Handle(Geom_BSplineCurve)
 
   for (Standard_Integer itab = 1; itab <= nbcurves; itab++)
   {
-    mycurve = Handle(Geom_BSplineCurve)::DownCast(SCurve.Value(itab));
+    mycurve = Handle(BSplineCurve3d)::DownCast(SCurve.Value(itab));
     jpole   = mycurve->NbPoles();
     if (jpole > 2)
     {
@@ -241,7 +241,7 @@ void ShapeAlgo_AlgoContainer::ApproxBSplineCurve(const Handle(Geom_BSplineCurve)
         TColgp_Array1OfPnt                tpoles(1, nbpoles);
         mbspc.Curve(1, tpoles);
         modifCurve =
-          new Geom_BSplineCurve(tpoles, mbspc.Knots(), mbspc.Multiplicities(), mbspc.Degree());
+          new BSplineCurve3d(tpoles, mbspc.Knots(), mbspc.Multiplicities(), mbspc.Degree());
       }
     }
     else
@@ -401,7 +401,7 @@ void ShapeAlgo_AlgoContainer::ApproxBSplineCurve(const Handle(Geom2d_BSplineCurv
 
 //=================================================================================================
 
-TopoDS_Shape ShapeAlgo_AlgoContainer::C0ShapeToC1Shape(const TopoDS_Shape& shape,
+TopoShape ShapeAlgo_AlgoContainer::C0ShapeToC1Shape(const TopoShape& shape,
                                                        const Standard_Real tol) const
 {
   ShapeUpgrade_ShapeDivideContinuity sdc(shape);
@@ -415,7 +415,7 @@ TopoDS_Shape ShapeAlgo_AlgoContainer::C0ShapeToC1Shape(const TopoDS_Shape& shape
 //=================================================================================================
 
 Handle(Geom_BSplineSurface) ShapeAlgo_AlgoContainer::ConvertSurfaceToBSpline(
-  const Handle(Geom_Surface)& surf,
+  const Handle(GeomSurface)& surf,
   const Standard_Real         UF,
   const Standard_Real         UL,
   const Standard_Real         VF,
@@ -434,15 +434,15 @@ Handle(Geom_BSplineSurface) ShapeAlgo_AlgoContainer::ConvertSurfaceToBSpline(
 
 //=================================================================================================
 
-Standard_Boolean ShapeAlgo_AlgoContainer::HomoWires(const TopoDS_Wire& wireIn1,
-                                                    const TopoDS_Wire& wireIn2,
-                                                    TopoDS_Wire&       wireOut1,
-                                                    TopoDS_Wire&       wireOut2,
+Standard_Boolean ShapeAlgo_AlgoContainer::HomoWires(const TopoWire& wireIn1,
+                                                    const TopoWire& wireIn2,
+                                                    TopoWire&       wireOut1,
+                                                    TopoWire&       wireOut2,
                                                     const Standard_Boolean) const
 {
   // Standard_Boolean res = Standard_False; //szv#4:S4163:12Mar99 not needed
   TopoDS_Iterator Cook, Perry;
-  TopoDS_Edge     edge1, edge2;
+  TopoEdge     edge1, edge2;
   TopLoc_Location loc1, loc2;
   //  BRepBuilderAPI_MakeWire makeWire1, makeWire2;
   ShapeExtend_WireData makeWire1, makeWire2;
@@ -453,20 +453,20 @@ Standard_Boolean ShapeAlgo_AlgoContainer::HomoWires(const TopoDS_Wire& wireIn1,
   Standard_Real        last1, last2;
   Standard_Real        delta1, delta2;
 
-  Handle(Geom_Curve) crv1;
-  Handle(Geom_Curve) crv2;
+  Handle(GeomCurve3d) crv1;
+  Handle(GeomCurve3d) crv2;
 
   // Standard_Boolean notEnd  = Standard_True; //szv#4:S4163:12Mar99 unused
   Standard_Integer nbCreatedEdges = 0;
   // gka
-  // TopoDS_Vertex v11,v12,v21,v22
-  Handle(ShapeFix_Wire) sfw = new ShapeFix_Wire();
+  // TopoVertex v11,v12,v21,v22
+  Handle(WireHealer) sfw = new WireHealer();
   sfw->Load(wireIn1);
   sfw->FixReorder();
-  TopoDS_Wire wireIn11 = sfw->Wire();
+  TopoWire wireIn11 = sfw->Wire();
   sfw->Load(wireIn2);
   sfw->FixReorder();
-  TopoDS_Wire wireIn22 = sfw->Wire();
+  TopoWire wireIn22 = sfw->Wire();
 
   iterCook = iterPerry = Standard_True;
   length1 = length2 = 0.;
@@ -475,14 +475,14 @@ Standard_Boolean ShapeAlgo_AlgoContainer::HomoWires(const TopoDS_Wire& wireIn1,
   {
     nEdges1++;
     edge1 = TopoDS::Edge(Cook.Value());
-    crv1  = BRep_Tool::Curve(edge1, loc1, first1, last1);
+    crv1  = BRepInspector::Curve(edge1, loc1, first1, last1);
     length1 += last1 - first1;
   }
   for (Perry.Initialize(wireIn22); Perry.More(); Perry.Next())
   {
     nEdges2++;
     edge2 = TopoDS::Edge(Perry.Value());
-    crv2  = BRep_Tool::Curve(edge2, loc2, first2, last2);
+    crv2  = BRepInspector::Curve(edge2, loc2, first2, last2);
     length2 += last2 - first2;
   }
   Standard_Real epsilon = Precision::PConfusion() * (length1 + length2);
@@ -531,8 +531,8 @@ Standard_Boolean ShapeAlgo_AlgoContainer::HomoWires(const TopoDS_Wire& wireIn1,
     IsToReverse1 = Standard_True;
   if (edge2.Orientation() == TopAbs_REVERSED)
     IsToReverse2 = Standard_True;
-  crv1   = BRep_Tool::Curve(edge1, loc1, first1, last1);
-  crv2   = BRep_Tool::Curve(edge2, loc2, first2, last2);
+  crv1   = BRepInspector::Curve(edge1, loc1, first1, last1);
+  crv2   = BRepInspector::Curve(edge2, loc2, first2, last2);
   delta1 = last1 - first1;
   delta2 = last2 - first2;
   while (nbCreatedEdges < (nEdges1 + nEdges2 - 1))
@@ -540,7 +540,7 @@ Standard_Boolean ShapeAlgo_AlgoContainer::HomoWires(const TopoDS_Wire& wireIn1,
 
     if ((delta1 * ratio - delta2) > epsilon)
     {
-      BRepBuilderAPI_MakeEdge makeEdge1;
+      EdgeMaker makeEdge1;
       if (!IsToReverse1)
       {
         makeEdge1.Init(crv1, first1, first1 + delta2 / ratio);
@@ -551,7 +551,7 @@ Standard_Boolean ShapeAlgo_AlgoContainer::HomoWires(const TopoDS_Wire& wireIn1,
         makeEdge1.Init(crv1, last1 - delta2 / ratio, last1);
         last1 -= delta2 / ratio;
       }
-      BRepBuilderAPI_MakeEdge makeEdge2(crv2, first2, last2);
+      EdgeMaker makeEdge2(crv2, first2, last2);
       edge1 = makeEdge1.Edge();
       edge2 = makeEdge2.Edge();
       // essai mjm du 22/05/97
@@ -563,8 +563,8 @@ Standard_Boolean ShapeAlgo_AlgoContainer::HomoWires(const TopoDS_Wire& wireIn1,
     }
     else if (Abs(delta1 * ratio - delta2) <= epsilon)
     {
-      BRepBuilderAPI_MakeEdge makeEdge1(crv1, first1, last1);
-      BRepBuilderAPI_MakeEdge makeEdge2(crv2, first2, last2);
+      EdgeMaker makeEdge1(crv1, first1, last1);
+      EdgeMaker makeEdge2(crv2, first2, last2);
       edge1     = makeEdge1.Edge();
       edge2     = makeEdge2.Edge();
       iterCook  = Standard_True;
@@ -573,9 +573,9 @@ Standard_Boolean ShapeAlgo_AlgoContainer::HomoWires(const TopoDS_Wire& wireIn1,
     }
     else /*((delta1*ratio - delta2) < -epsilon)*/
     {
-      BRepBuilderAPI_MakeEdge makeEdge1(crv1, first1, last1);
+      EdgeMaker makeEdge1(crv1, first1, last1);
       edge1 = makeEdge1.Edge();
-      BRepBuilderAPI_MakeEdge makeEdge2;
+      EdgeMaker makeEdge2;
       if (!IsToReverse2)
       {
         makeEdge2.Init(crv2, first2, first2 + delta1 * ratio);
@@ -623,7 +623,7 @@ Standard_Boolean ShapeAlgo_AlgoContainer::HomoWires(const TopoDS_Wire& wireIn1,
         IsToReverse1 = Standard_True;
       else
         IsToReverse1 = Standard_False;
-      crv1   = BRep_Tool::Curve(edge1, loc1, first1, last1);
+      crv1   = BRepInspector::Curve(edge1, loc1, first1, last1);
       delta1 = last1 - first1;
     }
     if (iterPerry)
@@ -634,7 +634,7 @@ Standard_Boolean ShapeAlgo_AlgoContainer::HomoWires(const TopoDS_Wire& wireIn1,
         IsToReverse2 = Standard_True;
       else
         IsToReverse2 = Standard_False;
-      crv2   = BRep_Tool::Curve(edge2, loc2, first2, last2);
+      crv2   = BRepInspector::Curve(edge2, loc2, first2, last2);
       delta2 = last2 - first2;
     }
   }
@@ -644,7 +644,7 @@ Standard_Boolean ShapeAlgo_AlgoContainer::HomoWires(const TopoDS_Wire& wireIn1,
 //=================================================================================================
 
 Standard_Boolean ShapeAlgo_AlgoContainer::C0BSplineToSequenceOfC1BSplineCurve(
-  const Handle(Geom_BSplineCurve)&          BS,
+  const Handle(BSplineCurve3d)&          BS,
   Handle(TColGeom_HSequenceOfBoundedCurve)& seqBS) const
 {
   return ShapeUpgrade::C0BSplineToSequenceOfC1BSplineCurve(BS, seqBS);
@@ -661,15 +661,15 @@ Standard_Boolean ShapeAlgo_AlgoContainer::C0BSplineToSequenceOfC1BSplineCurve(
 
 //=================================================================================================
 
-TopoDS_Wire ShapeAlgo_AlgoContainer::OuterWire(const TopoDS_Face& face) const
+TopoWire ShapeAlgo_AlgoContainer::OuterWire(const TopoFace& face) const
 {
   return ShapeAnalysis::OuterWire(face);
 }
 
 //=================================================================================================
 
-Handle(Geom_Surface) ShapeAlgo_AlgoContainer::ConvertToPeriodic(
-  const Handle(Geom_Surface)& surf) const
+Handle(GeomSurface) ShapeAlgo_AlgoContainer::ConvertToPeriodic(
+  const Handle(GeomSurface)& surf) const
 {
   ShapeCustom_Surface scs(surf);
   return scs.ConvertToPeriodic(Standard_False);
@@ -677,7 +677,7 @@ Handle(Geom_Surface) ShapeAlgo_AlgoContainer::ConvertToPeriodic(
 
 //=================================================================================================
 
-void ShapeAlgo_AlgoContainer::GetFaceUVBounds(const TopoDS_Face& F,
+void ShapeAlgo_AlgoContainer::GetFaceUVBounds(const TopoFace& F,
                                               Standard_Real&     Umin,
                                               Standard_Real&     Umax,
                                               Standard_Real&     Vmin,
@@ -688,8 +688,8 @@ void ShapeAlgo_AlgoContainer::GetFaceUVBounds(const TopoDS_Face& F,
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) ShapeAlgo_AlgoContainer::ConvertCurveToBSpline(
-  const Handle(Geom_Curve)& C3D,
+Handle(BSplineCurve3d) ShapeAlgo_AlgoContainer::ConvertCurveToBSpline(
+  const Handle(GeomCurve3d)& C3D,
   const Standard_Real       First,
   const Standard_Real       Last,
   const Standard_Real       Tol3d,

@@ -154,7 +154,7 @@ void TDF_Delta::Labels(TDF_LabelList& aLabelList) const
   for (TDF_ListIteratorOfLabelList it1(aLabelList); it1.More(); it1.Next())
   {
 #ifdef OCCT_DEBUG_DELTA
-    const TDF_Label& lab1 = it1.Value();
+    const DataLabel& lab1 = it1.Value();
     inList                = labMap.Add(lab1);
     if (!inList)
     {
@@ -175,7 +175,7 @@ void TDF_Delta::Labels(TDF_LabelList& aLabelList) const
   for (TDF_ListIteratorOfAttributeDeltaList it2(myAttDeltaList); it2.More(); it2.Next())
   {
 #ifdef OCCT_DEBUG_DELTA
-    const TDF_Label& lab1 = it2.Value()->Label();
+    const DataLabel& lab1 = it2.Value()->Label();
     inList                = labMap.Add(lab1);
     if (!inList)
     {

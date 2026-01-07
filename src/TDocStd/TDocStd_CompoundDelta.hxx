@@ -35,7 +35,7 @@ public:
   //! <anEndTime>. Reserved to TDF_Data.
   Standard_EXPORT TDocStd_CompoundDelta();
 
-  friend class TDocStd_Document;
+  friend class AppDocument;
 
   DEFINE_STANDARD_RTTIEXT(TDocStd_CompoundDelta, TDF_Delta)
 

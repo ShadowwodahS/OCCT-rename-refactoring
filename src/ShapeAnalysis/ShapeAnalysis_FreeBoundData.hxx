@@ -52,15 +52,15 @@ public:
   //! Empty constructor
   Standard_EXPORT ShapeAnalysis_FreeBoundData();
 
-  //! Creates object with contour given in the form of TopoDS_Wire
-  Standard_EXPORT ShapeAnalysis_FreeBoundData(const TopoDS_Wire& freebound);
+  //! Creates object with contour given in the form of TopoWire
+  Standard_EXPORT ShapeAnalysis_FreeBoundData(const TopoWire& freebound);
 
   //! Clears all properties of the contour.
   //! Contour bound itself is not cleared.
   Standard_EXPORT void Clear();
 
   //! Sets contour
-  void SetFreeBound(const TopoDS_Wire& freebound);
+  void SetFreeBound(const TopoWire& freebound);
 
   //! Sets area of the contour
   void SetArea(const Standard_Real area);
@@ -75,10 +75,10 @@ public:
   void SetWidth(const Standard_Real width);
 
   //! Adds notch on the contour with its maximum width
-  Standard_EXPORT void AddNotch(const TopoDS_Wire& notch, const Standard_Real width);
+  Standard_EXPORT void AddNotch(const TopoWire& notch, const Standard_Real width);
 
   //! Returns contour
-  TopoDS_Wire FreeBound() const;
+  TopoWire FreeBound() const;
 
   //! Returns area of the contour
   Standard_Real Area() const;
@@ -99,21 +99,21 @@ public:
   Handle(TopTools_HSequenceOfShape) Notches() const;
 
   //! Returns notch on the contour
-  TopoDS_Wire Notch(const Standard_Integer index) const;
+  TopoWire Notch(const Standard_Integer index) const;
 
   //! Returns maximum width of notch specified by its rank number
   //! on the contour
   Standard_EXPORT Standard_Real NotchWidth(const Standard_Integer index) const;
 
-  //! Returns maximum width of notch specified as TopoDS_Wire
+  //! Returns maximum width of notch specified as TopoWire
   //! on the contour
-  Standard_EXPORT Standard_Real NotchWidth(const TopoDS_Wire& notch) const;
+  Standard_EXPORT Standard_Real NotchWidth(const TopoWire& notch) const;
 
   DEFINE_STANDARD_RTTIEXT(ShapeAnalysis_FreeBoundData, RefObject)
 
 protected:
 private:
-  TopoDS_Wire                       myBound;
+  TopoWire                       myBound;
   Standard_Real                     myArea;
   Standard_Real                     myPerimeter;
   Standard_Real                     myRatio;

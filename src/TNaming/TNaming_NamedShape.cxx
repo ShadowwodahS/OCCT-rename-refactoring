@@ -43,13 +43,13 @@
 #include <TNaming_UsedShapes.hxx>
 #include <TopoDS_Shape.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(TNaming_NamedShape, TDF_Attribute)
+IMPLEMENT_STANDARD_RTTIEXT(ShapeAttribute, TDF_Attribute)
 
 // Defines the nodes classes
 // #define MDTV_DEB_HASL
 //=================================================================================================
 
-const Standard_GUID& TNaming_NamedShape::GetID()
+const Standard_GUID& ShapeAttribute::GetID()
 {
   static Standard_GUID TNaming_NamedShapeID("c4ef4200-568f-11d1-8940-080009dc3333");
   return TNaming_NamedShapeID;
@@ -73,7 +73,7 @@ public:
   }
 
   // Label : Donne le Label
-  TDF_Label Label();
+  DataLabel Label();
 
   // NextSameShape
   TNaming_Node* NextSameShape(TNaming_RefShape* prs);
@@ -91,7 +91,7 @@ public:
 
   TNaming_PtrRefShape myOld;
   TNaming_PtrRefShape myNew;
-  TNaming_NamedShape* myAtt;
+  ShapeAttribute* myAtt;
   TNaming_PtrNode     nextSameAttribute;
   TNaming_PtrNode     nextSameOld;
   TNaming_PtrNode     nextSameNew;
@@ -110,7 +110,7 @@ TNaming_Node* TNaming_Node::NextSameShape(TNaming_RefShape* prs)
 
 //=================================================================================================
 
-TDF_Label TNaming_Node::Label()
+DataLabel TNaming_Node::Label()
 {
   return myAtt->Label();
 }
@@ -140,12 +140,12 @@ void TNaming_Node::DumpJson(Standard_OStream& theOStream, Standard_Integer theDe
               OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, nextSameNew)}
 
 //**********************************************************************
-// Methods of TNaming_NamedShape
+// Methods of ShapeAttribute
 //**********************************************************************
 
 //=================================================================================================
 
-TNaming_NamedShape::TNaming_NamedShape()
+ShapeAttribute::ShapeAttribute()
 {
   myNode      = 0L;
   myVersion   = 0;
@@ -154,17 +154,17 @@ TNaming_NamedShape::TNaming_NamedShape()
 
 //=================================================================================================
 
-Standard_Boolean TNaming_NamedShape::IsEmpty() const
+Standard_Boolean ShapeAttribute::IsEmpty() const
 {
-  TNaming_Iterator it(this);
+  Iterator1 it(this);
   return !it.More();
 }
 
 //=================================================================================================
 
-TopoDS_Shape TNaming_NamedShape::Get() const
+TopoShape ShapeAttribute::Get() const
 {
-  return TNaming_Tool::GetShape(this);
+  return Tool11::GetShape(this);
 }
 
 //=================================================================================================
@@ -255,7 +255,7 @@ static void RemoveNode(Standard_Boolean                   MapExist,
 
 //=================================================================================================
 
-void TNaming_NamedShape::Clear()
+void ShapeAttribute::Clear()
 {
   if (Label().IsNull())
   {
@@ -301,7 +301,7 @@ void TNaming_NamedShape::Clear()
 
 //=================================================================================================
 
-void TNaming_NamedShape::BeforeRemoval()
+void ShapeAttribute::BeforeRemoval()
 {
   Clear();
 }
@@ -311,7 +311,7 @@ void TNaming_NamedShape::BeforeRemoval()
 // purpose  : before application of a TDF_Delta.
 //=======================================================================
 
-Standard_Boolean TNaming_NamedShape::BeforeUndo(const Handle(TDF_AttributeDelta)& /*anAttDelta*/,
+Standard_Boolean ShapeAttribute::BeforeUndo(const Handle(TDF_AttributeDelta)& /*anAttDelta*/,
                                                 const Standard_Boolean /*forceIt*/)
 {
   //  if (anAttDelta->IsKind(STANDARD_TYPE(TDF_DeltaOnAddition))) {
@@ -325,7 +325,7 @@ Standard_Boolean TNaming_NamedShape::BeforeUndo(const Handle(TDF_AttributeDelta)
 // purpose  : After application of a TDF_Delta.
 //=======================================================================
 
-Standard_Boolean TNaming_NamedShape::AfterUndo(const Handle(TDF_AttributeDelta)& anAttDelta,
+Standard_Boolean ShapeAttribute::AfterUndo(const Handle(TDF_AttributeDelta)& anAttDelta,
                                                const Standard_Boolean /*forceIt*/)
 {
   if (anAttDelta->IsKind(STANDARD_TYPE(TDF_DeltaOnAddition)))
@@ -370,12 +370,12 @@ Standard_Boolean TNaming_NamedShape::AfterUndo(const Handle(TDF_AttributeDelta)&
 
 //=================================================================================================
 
-Handle(TDF_Attribute) TNaming_NamedShape::BackupCopy() const
+Handle(TDF_Attribute) ShapeAttribute::BackupCopy() const
 {
   // Remarque dans le copy il est important de reporter le noeud de l attribut
   // pour ne pas casser le chemin nextSameShape.
 
-  Handle(TNaming_NamedShape) Cop = new TNaming_NamedShape();
+  Handle(ShapeAttribute) Cop = new ShapeAttribute();
   Cop->myNode                    = myNode;
   Cop->myEvolution               = myEvolution;
   Cop->myVersion                 = myVersion;
@@ -383,7 +383,7 @@ Handle(TDF_Attribute) TNaming_NamedShape::BackupCopy() const
   // Mise a jour de myAtt sur les noeuds dans l attribut.
   TNaming_Node* CN = Cop->myNode;
 
-  Handle(TNaming_NamedShape) A = this;
+  Handle(ShapeAttribute) A = this;
   A->myNode                    = 0L;
 
   while (CN != 0L)
@@ -396,11 +396,11 @@ Handle(TDF_Attribute) TNaming_NamedShape::BackupCopy() const
 
 //=================================================================================================
 
-void TNaming_NamedShape::Restore(const Handle(TDF_Attribute)& anAttribute)
+void ShapeAttribute::Restore(const Handle(TDF_Attribute)& anAttribute)
 {
   Clear();
 
-  TNaming_NamedShape* PAtt = (TNaming_NamedShape*)anAttribute.operator->();
+  ShapeAttribute* PAtt = (ShapeAttribute*)anAttribute.operator->();
   myNode                   = PAtt->myNode;
   myEvolution              = PAtt->myEvolution;
   myVersion                = PAtt->myVersion;
@@ -417,61 +417,61 @@ void TNaming_NamedShape::Restore(const Handle(TDF_Attribute)& anAttribute)
 
 //=================================================================================================
 
-Handle(TDF_DeltaOnModification) TNaming_NamedShape::DeltaOnModification(
+Handle(TDF_DeltaOnModification) ShapeAttribute::DeltaOnModification(
   const Handle(TDF_Attribute)& anOldAttribute) const
 {
 
-  return new TNaming_DeltaOnModification(Handle(TNaming_NamedShape)::DownCast(anOldAttribute));
+  return new TNaming_DeltaOnModification(Handle(ShapeAttribute)::DownCast(anOldAttribute));
 }
 
 //=================================================================================================
 
-void TNaming_NamedShape::DeltaOnModification(const Handle(TDF_DeltaOnModification)& aDelta)
+void ShapeAttribute::DeltaOnModification(const Handle(TDF_DeltaOnModification)& aDelta)
 {
   aDelta->Apply();
 }
 
 //=================================================================================================
 
-Handle(TDF_DeltaOnRemoval) TNaming_NamedShape::DeltaOnRemoval() const
+Handle(TDF_DeltaOnRemoval) ShapeAttribute::DeltaOnRemoval() const
 {
   return new TNaming_DeltaOnRemoval(this);
 }
 
 //=================================================================================================
 
-Handle(TDF_Attribute) TNaming_NamedShape::NewEmpty() const
+Handle(TDF_Attribute) ShapeAttribute::NewEmpty() const
 {
-  return new TNaming_NamedShape();
+  return new ShapeAttribute();
 }
 
 //=================================================================================================
 
-void TNaming_NamedShape::Paste(const Handle(TDF_Attribute)&       into,
+void ShapeAttribute::Paste(const Handle(TDF_Attribute)&       into,
                                const Handle(TDF_RelocationTable)& Tab) const
 {
-  TDF_Label Lab = into->Label();
+  DataLabel Lab = into->Label();
   if (Lab.IsNull())
   {
-    throw Standard_NullObject("TNaming_NamedShape::Paste");
+    throw Standard_NullObject("ShapeAttribute::Paste");
   }
   TNaming_Builder B(Lab);
 
-  TNaming_Iterator It(this);
+  Iterator1 It(this);
   for (; It.More(); It.Next())
   {
-    const TopoDS_Shape& OS      = It.OldShape();
-    const TopoDS_Shape& NS      = It.NewShape();
+    const TopoShape& OS      = It.OldShape();
+    const TopoShape& NS      = It.NewShape();
     TNaming_Evolution   aStatus = It.Evolution();
 
     // Modification_1 24.06.99 (szy)
-    TopoDS_Shape copOS, copNS;
+    TopoShape copOS, copNS;
     if (aStatus != TNaming_PRIMITIVE)
-      TNaming_CopyShape::CopyTool(OS, Tab->TransientTable(), copOS);
+      ShapeCopier::CopyTool(OS, Tab->TransientTable(), copOS);
     else
       copOS.Nullify();
     if (aStatus != TNaming_DELETE)
-      TNaming_CopyShape::CopyTool(NS, Tab->TransientTable(), copNS);
+      ShapeCopier::CopyTool(NS, Tab->TransientTable(), copNS);
     else
       copNS.Nullify();
 
@@ -506,7 +506,7 @@ void TNaming_NamedShape::Paste(const Handle(TDF_Attribute)&       into,
 
 //=================================================================================================
 
-void TNaming_NamedShape::References(const Handle(TDF_DataSet)& aDataSet) const
+void ShapeAttribute::References(const Handle(TDF_DataSet)& aDataSet) const
 {
   // Recherche des dependances.
   // Pour chaque OldShape de l attribut on ajoute au dataSet son label d origine.
@@ -533,7 +533,7 @@ void TNaming_NamedShape::References(const Handle(TDF_DataSet)& aDataSet) const
 
 //=================================================================================================
 
-void TNaming_NamedShape::Add(TNaming_Node*& pdn)
+void ShapeAttribute::Add(TNaming_Node*& pdn)
 {
   pdn->myAtt = this;
   if (myNode != 0L)
@@ -545,7 +545,7 @@ void TNaming_NamedShape::Add(TNaming_Node*& pdn)
 
 //=================================================================================================
 
-Standard_OStream& TNaming_NamedShape::Dump(Standard_OStream& anOS) const
+Standard_OStream& ShapeAttribute::Dump(Standard_OStream& anOS) const
 {
   return anOS;
 }
@@ -560,10 +560,10 @@ Standard_OStream& TNaming_NamedShape::Dump(Standard_OStream& anOS) const
 
 ///=================================================================================================
 
-TNaming_Builder::TNaming_Builder(const TDF_Label& L)
+TNaming_Builder::TNaming_Builder(const DataLabel& L)
 {
   // Find or Build Map;
-  const TDF_Label& root = L.Root();
+  const DataLabel& root = L.Root();
   if (!root.FindAttribute(TNaming_UsedShapes::GetID(), myShapes))
   {
     myShapes = new TNaming_UsedShapes();
@@ -571,9 +571,9 @@ TNaming_Builder::TNaming_Builder(const TDF_Label& L)
   }
 
   // Find Or Build Attribute in LIns.
-  if (!L.FindAttribute(TNaming_NamedShape::GetID(), myAtt))
+  if (!L.FindAttribute(ShapeAttribute::GetID(), myAtt))
   {
-    myAtt = new TNaming_NamedShape();
+    myAtt = new ShapeAttribute();
     L.AddAttribute(myAtt);
   }
   else
@@ -586,7 +586,7 @@ TNaming_Builder::TNaming_Builder(const TDF_Label& L)
 
 //=================================================================================================
 
-Handle(TNaming_NamedShape) TNaming_Builder::NamedShape() const
+Handle(ShapeAttribute) TNaming_Builder::NamedShape() const
 {
   return myAtt;
 }
@@ -626,7 +626,7 @@ static void UpdateFirstUseOrNextSameShape(TNaming_RefShape*& prs, TNaming_Node*&
 
 //=================================================================================================
 
-void TNaming_Builder::Generated(const TopoDS_Shape& newShape)
+void TNaming_Builder::Generated(const TopoShape& newShape)
 {
   if (myAtt->myNode == 0L)
     myAtt->myEvolution = TNaming_PRIMITIVE;
@@ -665,7 +665,7 @@ void TNaming_Builder::Generated(const TopoDS_Shape& newShape)
 
 //=================================================================================================
 
-void TNaming_Builder::Delete(const TopoDS_Shape& oldShape)
+void TNaming_Builder::Delete(const TopoShape& oldShape)
 {
   if (myAtt->myNode == 0L)
     myAtt->myEvolution = TNaming_DELETE;
@@ -689,7 +689,7 @@ void TNaming_Builder::Delete(const TopoDS_Shape& oldShape)
     myShapes->myMap.Bind(oldShape, pos);
   }
 
-  TopoDS_Shape nullShape;
+  TopoShape nullShape;
   pns = new TNaming_RefShape(nullShape);
   myShapes->myMap.Bind(nullShape, pns);
 
@@ -701,7 +701,7 @@ void TNaming_Builder::Delete(const TopoDS_Shape& oldShape)
 
 //=================================================================================================
 
-void TNaming_Builder::Generated(const TopoDS_Shape& oldShape, const TopoDS_Shape& newShape)
+void TNaming_Builder::Generated(const TopoShape& oldShape, const TopoShape& newShape)
 {
   if (myAtt->myNode == 0L)
     myAtt->myEvolution = TNaming_GENERATED;
@@ -744,7 +744,7 @@ void TNaming_Builder::Generated(const TopoDS_Shape& oldShape, const TopoDS_Shape
 
 //=================================================================================================
 
-void TNaming_Builder::Modify(const TopoDS_Shape& oldShape, const TopoDS_Shape& newShape)
+void TNaming_Builder::Modify(const TopoShape& oldShape, const TopoShape& newShape)
 {
   if (myAtt->myNode == 0L)
     myAtt->myEvolution = TNaming_MODIFY;
@@ -787,7 +787,7 @@ void TNaming_Builder::Modify(const TopoDS_Shape& oldShape, const TopoDS_Shape& n
 
 //=================================================================================================
 
-void TNaming_Builder::Select(const TopoDS_Shape& S, const TopoDS_Shape& InS)
+void TNaming_Builder::Select(const TopoShape& S, const TopoShape& InS)
 {
   if (myAtt->myNode == 0L)
     myAtt->myEvolution = TNaming_SELECTED;
@@ -822,12 +822,12 @@ void TNaming_Builder::Select(const TopoDS_Shape& S, const TopoDS_Shape& InS)
 }
 
 //**********************************************************************
-// Methods of the TNaming_Iterator class
+// Methods of the Iterator1 class
 //**********************************************************************
 
 //=================================================================================================
 
-TNaming_Iterator::TNaming_Iterator(const Handle(TNaming_NamedShape)& Att)
+Iterator1::Iterator1(const Handle(ShapeAttribute)& Att)
     : myTrans(-1)
 {
   myNode = Att->myNode;
@@ -835,11 +835,11 @@ TNaming_Iterator::TNaming_Iterator(const Handle(TNaming_NamedShape)& Att)
 
 //=================================================================================================
 
-TNaming_Iterator::TNaming_Iterator(const TDF_Label& Lab)
+Iterator1::Iterator1(const DataLabel& Lab)
     : myTrans(-1)
 {
-  Handle(TNaming_NamedShape) Att;
-  if (Lab.FindAttribute(TNaming_NamedShape::GetID(), Att))
+  Handle(ShapeAttribute) Att;
+  if (Lab.FindAttribute(ShapeAttribute::GetID(), Att))
   {
     myNode = Att->myNode;
   }
@@ -851,39 +851,39 @@ TNaming_Iterator::TNaming_Iterator(const TDF_Label& Lab)
 
 //=================================================================================================
 
-TNaming_Iterator::TNaming_Iterator(const TDF_Label& Lab, const Standard_Integer Trans)
+Iterator1::Iterator1(const DataLabel& Lab, const Standard_Integer Trans)
     : myTrans(Trans)
 {
   Handle(TDF_Attribute) Att;
-  if (Lab.FindAttribute(TNaming_NamedShape::GetID(), Trans, Att))
+  if (Lab.FindAttribute(ShapeAttribute::GetID(), Trans, Att))
   {
-    myNode = Handle(TNaming_NamedShape)::DownCast(Att)->myNode;
+    myNode = Handle(ShapeAttribute)::DownCast(Att)->myNode;
   }
   else
   {
     myNode = 0L;
 #ifdef OCCT_DEBUG
-    std::cout << "TNaming_Iterator : No Shape for this label" << std::endl;
+    std::cout << "Iterator1 : No Shape for this label" << std::endl;
 #endif
   }
 }
 
 //=================================================================================================
 
-void TNaming_Iterator::Next()
+void Iterator1::Next()
 {
-  Standard_NoMoreObject_Raise_if(myNode == 0L, "TNaming_Iterator::Next");
+  Standard_NoMoreObject_Raise_if(myNode == 0L, "Iterator1::Next");
   myNode = myNode->nextSameAttribute;
 }
 
 //=================================================================================================
 
-const TopoDS_Shape& TNaming_Iterator::OldShape() const
+const TopoShape& Iterator1::OldShape() const
 {
-  Standard_NoSuchObject_Raise_if(myNode == 0L, "TNaming_Iterator::OldShape");
+  Standard_NoSuchObject_Raise_if(myNode == 0L, "Iterator1::OldShape");
   if (myNode->myOld == 0L)
   {
-    static TopoDS_Shape NullShape;
+    static TopoShape NullShape;
     return NullShape;
   }
   return myNode->myOld->Shape();
@@ -891,12 +891,12 @@ const TopoDS_Shape& TNaming_Iterator::OldShape() const
 
 //=================================================================================================
 
-const TopoDS_Shape& TNaming_Iterator::NewShape() const
+const TopoShape& Iterator1::NewShape() const
 {
-  Standard_NoSuchObject_Raise_if(myNode == 0L, "TNaming_Iterator::NewShape");
+  Standard_NoSuchObject_Raise_if(myNode == 0L, "Iterator1::NewShape");
   if (myNode->myNew == 0L)
   {
-    static TopoDS_Shape NullShape;
+    static TopoShape NullShape;
     return NullShape;
   }
   return myNode->myNew->Shape();
@@ -904,23 +904,23 @@ const TopoDS_Shape& TNaming_Iterator::NewShape() const
 
 //=================================================================================================
 
-Standard_Boolean TNaming_Iterator::IsModification() const
+Standard_Boolean Iterator1::IsModification() const
 {
-  Standard_NoSuchObject_Raise_if(myNode == 0L, "TNaming_Iterator::IsModification");
+  Standard_NoSuchObject_Raise_if(myNode == 0L, "Iterator1::IsModification");
   return (myNode->myAtt->myEvolution == TNaming_MODIFY
           || myNode->myAtt->myEvolution == TNaming_DELETE);
 }
 
 //=================================================================================================
 
-TNaming_Evolution TNaming_Iterator::Evolution() const
+TNaming_Evolution Iterator1::Evolution() const
 {
-  Standard_NoSuchObject_Raise_if(myNode == 0L, "TNaming_Iterator::IsModification");
+  Standard_NoSuchObject_Raise_if(myNode == 0L, "Iterator1::IsModification");
   return myNode->myAtt->myEvolution;
 }
 
 //**********************************************************************
-// Methods of the TNaming_NewShapeIterator class
+// Methods of the NewShapeIterator class
 //**********************************************************************
 
 //=======================================================================
@@ -970,13 +970,13 @@ static void SelectSameShape(TNaming_Node*&          myNode,
 
 //=================================================================================================
 
-TNaming_NewShapeIterator::TNaming_NewShapeIterator(const TopoDS_Shape&               aShape,
+NewShapeIterator::NewShapeIterator(const TopoShape&               aShape,
                                                    const Standard_Integer            Trans,
                                                    const Handle(TNaming_UsedShapes)& Shapes)
     : myTrans(Trans)
 {
   Standard_NoSuchObject_Raise_if(!Shapes->Map().IsBound(aShape),
-                                 "TNaming_NewShapeIterator::TNaming_NewShapeIterator aShape");
+                                 "NewShapeIterator::NewShapeIterator aShape");
   TNaming_RefShape* RS = Shapes->Map().ChangeFind(aShape);
   myNode               = RS->FirstUse();
   Standard_Boolean Old(Standard_True);
@@ -985,16 +985,16 @@ TNaming_NewShapeIterator::TNaming_NewShapeIterator(const TopoDS_Shape&          
 
 //=================================================================================================
 
-TNaming_NewShapeIterator::TNaming_NewShapeIterator(const TopoDS_Shape&    aShape,
+NewShapeIterator::NewShapeIterator(const TopoShape&    aShape,
                                                    const Standard_Integer Trans,
-                                                   const TDF_Label&       access)
+                                                   const DataLabel&       access)
     : myTrans(Trans)
 {
   Handle(TNaming_UsedShapes) Shapes;
   if (access.Root().FindAttribute(TNaming_UsedShapes::GetID(), Shapes))
   {
     Standard_NoSuchObject_Raise_if(!Shapes->Map().IsBound(aShape),
-                                   "TNaming_NewShapeIterator::TNaming_NewShapeIterator aShape");
+                                   "NewShapeIterator::NewShapeIterator aShape");
     TNaming_RefShape* RS = Shapes->Map().ChangeFind(aShape);
     myNode               = RS->FirstUse();
     Standard_Boolean Old(Standard_True);
@@ -1004,11 +1004,11 @@ TNaming_NewShapeIterator::TNaming_NewShapeIterator(const TopoDS_Shape&    aShape
 
 //=================================================================================================
 
-TNaming_NewShapeIterator::TNaming_NewShapeIterator(const TNaming_Iterator& anIterator)
+NewShapeIterator::NewShapeIterator(const Iterator1& anIterator)
     : myTrans(anIterator.myTrans)
 {
   Standard_NoSuchObject_Raise_if(anIterator.myNode == 0L,
-                                 "TNaming_NewShapeIterator::TNaming_NewShapeIterator");
+                                 "NewShapeIterator::NewShapeIterator");
   myNode               = anIterator.myNode;
   TNaming_RefShape* RS = myNode->myNew;
   if (RS == 0L)
@@ -1024,12 +1024,12 @@ TNaming_NewShapeIterator::TNaming_NewShapeIterator(const TNaming_Iterator& anIte
 
 //=================================================================================================
 
-TNaming_NewShapeIterator::TNaming_NewShapeIterator(const TopoDS_Shape&               aShape,
+NewShapeIterator::NewShapeIterator(const TopoShape&               aShape,
                                                    const Handle(TNaming_UsedShapes)& Shapes)
     : myTrans(-1)
 {
   Standard_NoSuchObject_Raise_if(!Shapes->Map().IsBound(aShape),
-                                 "TNaming_NewShapeIterator::TNaming_NewShapeIterator aShape");
+                                 "NewShapeIterator::NewShapeIterator aShape");
   TNaming_RefShape* RS = Shapes->Map().ChangeFind(aShape);
   myNode               = RS->FirstUse();
   Standard_Boolean Old(Standard_True);
@@ -1038,15 +1038,15 @@ TNaming_NewShapeIterator::TNaming_NewShapeIterator(const TopoDS_Shape&          
 
 //=================================================================================================
 
-TNaming_NewShapeIterator::TNaming_NewShapeIterator(const TopoDS_Shape& aShape,
-                                                   const TDF_Label&    access)
+NewShapeIterator::NewShapeIterator(const TopoShape& aShape,
+                                                   const DataLabel&    access)
     : myTrans(-1)
 {
   Handle(TNaming_UsedShapes) Shapes;
   if (access.Root().FindAttribute(TNaming_UsedShapes::GetID(), Shapes))
   {
     Standard_NoSuchObject_Raise_if(!Shapes->Map().IsBound(aShape),
-                                   "TNaming_NewShapeIterator::TNaming_NewShapeIterator aShape");
+                                   "NewShapeIterator::NewShapeIterator aShape");
     Standard_Boolean  Old(Standard_True);
     TNaming_RefShape* RS = Shapes->Map().ChangeFind(aShape);
     myNode               = RS->FirstUse();
@@ -1056,11 +1056,11 @@ TNaming_NewShapeIterator::TNaming_NewShapeIterator(const TopoDS_Shape& aShape,
 
 //=================================================================================================
 
-TNaming_NewShapeIterator::TNaming_NewShapeIterator(const TNaming_NewShapeIterator& anIterator)
+NewShapeIterator::NewShapeIterator(const NewShapeIterator& anIterator)
     : myTrans(anIterator.myTrans)
 {
   Standard_NoSuchObject_Raise_if(anIterator.myNode == 0L,
-                                 "TNaming_NewShapeIterator::TNaming_NewShapeIterator");
+                                 "NewShapeIterator::NewShapeIterator");
   myNode               = anIterator.myNode;
   TNaming_RefShape* RS = myNode->myNew;
   if (RS == 0L)
@@ -1076,7 +1076,7 @@ TNaming_NewShapeIterator::TNaming_NewShapeIterator(const TNaming_NewShapeIterato
 
 //=================================================================================================
 
-void TNaming_NewShapeIterator::Next()
+void NewShapeIterator::Next()
 {
   TNaming_RefShape* RS = myNode->myOld;
   myNode               = myNode->NextSameShape(RS);
@@ -1086,50 +1086,50 @@ void TNaming_NewShapeIterator::Next()
 
 //=================================================================================================
 
-TDF_Label TNaming_NewShapeIterator::Label() const
+DataLabel NewShapeIterator::Label() const
 {
-  Standard_NoSuchObject_Raise_if(myNode == 0L, "TNaming_NewShapeIterator::Label");
+  Standard_NoSuchObject_Raise_if(myNode == 0L, "NewShapeIterator::Label");
   return myNode->Label();
 }
 
 //=================================================================================================
 
-Handle(TNaming_NamedShape) TNaming_NewShapeIterator::NamedShape() const
+Handle(ShapeAttribute) NewShapeIterator::NamedShape() const
 {
-  Standard_NoSuchObject_Raise_if(myNode == 0L, "TNaming_NewShapeIterator::Label");
+  Standard_NoSuchObject_Raise_if(myNode == 0L, "NewShapeIterator::Label");
   return myNode->myAtt;
 }
 
 //=================================================================================================
 
-const TopoDS_Shape& TNaming_NewShapeIterator::Shape() const
+const TopoShape& NewShapeIterator::Shape() const
 {
-  Standard_NoSuchObject_Raise_if(myNode == 0L, "TNaming_NewShapeIterator::Shape");
+  Standard_NoSuchObject_Raise_if(myNode == 0L, "NewShapeIterator::Shape");
   return myNode->myNew->Shape();
 }
 
 //=================================================================================================
 
-Standard_Boolean TNaming_NewShapeIterator::IsModification() const
+Standard_Boolean NewShapeIterator::IsModification() const
 {
-  Standard_NoSuchObject_Raise_if(myNode == 0L, "TNaming_NewShapeIterator::IsModification");
+  Standard_NoSuchObject_Raise_if(myNode == 0L, "NewShapeIterator::IsModification");
 
   return (myNode->myAtt->myEvolution == TNaming_MODIFY
           || myNode->myAtt->myEvolution == TNaming_DELETE);
 }
 
 //**********************************************************************
-// Methods of the TNaming_OldShapeIterator class
+// Methods of the OldShapeIterator class
 //**********************************************************************
 //=================================================================================================
 
-TNaming_OldShapeIterator::TNaming_OldShapeIterator(const TopoDS_Shape&               aShape,
+OldShapeIterator::OldShapeIterator(const TopoShape&               aShape,
                                                    const Standard_Integer            Trans,
                                                    const Handle(TNaming_UsedShapes)& Shapes)
     : myTrans(Trans)
 {
   Standard_NoSuchObject_Raise_if(!Shapes->Map().IsBound(aShape),
-                                 "TNaming_OldShapeIterator::TNaming_OldShapeIterator aShape");
+                                 "OldShapeIterator::OldShapeIterator aShape");
   TNaming_RefShape* RS = Shapes->Map().ChangeFind(aShape);
   myNode               = RS->FirstUse();
   Standard_Boolean Old(Standard_False);
@@ -1138,16 +1138,16 @@ TNaming_OldShapeIterator::TNaming_OldShapeIterator(const TopoDS_Shape&          
 
 //=================================================================================================
 
-TNaming_OldShapeIterator::TNaming_OldShapeIterator(const TopoDS_Shape&    aShape,
+OldShapeIterator::OldShapeIterator(const TopoShape&    aShape,
                                                    const Standard_Integer Trans,
-                                                   const TDF_Label&       access)
+                                                   const DataLabel&       access)
     : myTrans(Trans)
 {
   Handle(TNaming_UsedShapes) Shapes;
   if (access.Root().FindAttribute(TNaming_UsedShapes::GetID(), Shapes))
   {
     Standard_NoSuchObject_Raise_if(!Shapes->Map().IsBound(aShape),
-                                   "TNaming_OldShapeIterator::TNaming_OldShapeIterator aShape");
+                                   "OldShapeIterator::OldShapeIterator aShape");
     TNaming_RefShape* RS = Shapes->Map().ChangeFind(aShape);
     myNode               = RS->FirstUse();
     Standard_Boolean Old(Standard_False);
@@ -1157,12 +1157,12 @@ TNaming_OldShapeIterator::TNaming_OldShapeIterator(const TopoDS_Shape&    aShape
 
 //=================================================================================================
 
-TNaming_OldShapeIterator::TNaming_OldShapeIterator(const TopoDS_Shape&               aShape,
+OldShapeIterator::OldShapeIterator(const TopoShape&               aShape,
                                                    const Handle(TNaming_UsedShapes)& Shapes)
     : myTrans(-1)
 {
   Standard_NoSuchObject_Raise_if(!Shapes->Map().IsBound(aShape),
-                                 "TNaming_OldShapeIterator::TNaming_OldShapeIterator aShape");
+                                 "OldShapeIterator::OldShapeIterator aShape");
   TNaming_RefShape* RS = Shapes->Map().ChangeFind(aShape);
   myNode               = RS->FirstUse();
   Standard_Boolean Old(Standard_False);
@@ -1171,15 +1171,15 @@ TNaming_OldShapeIterator::TNaming_OldShapeIterator(const TopoDS_Shape&          
 
 //=================================================================================================
 
-TNaming_OldShapeIterator::TNaming_OldShapeIterator(const TopoDS_Shape& aShape,
-                                                   const TDF_Label&    access)
+OldShapeIterator::OldShapeIterator(const TopoShape& aShape,
+                                                   const DataLabel&    access)
     : myTrans(-1)
 {
   Handle(TNaming_UsedShapes) Shapes;
   if (access.Root().FindAttribute(TNaming_UsedShapes::GetID(), Shapes))
   {
     Standard_NoSuchObject_Raise_if(!Shapes->Map().IsBound(aShape),
-                                   "TNaming_OldShapeIterator::TNaming_OldShapeIterator aShape");
+                                   "OldShapeIterator::OldShapeIterator aShape");
     TNaming_RefShape* RS = Shapes->Map().ChangeFind(aShape);
     myNode               = RS->FirstUse();
     Standard_Boolean Old(Standard_False);
@@ -1189,11 +1189,11 @@ TNaming_OldShapeIterator::TNaming_OldShapeIterator(const TopoDS_Shape& aShape,
 
 //=================================================================================================
 
-TNaming_OldShapeIterator::TNaming_OldShapeIterator(const TNaming_Iterator& anIterator)
+OldShapeIterator::OldShapeIterator(const Iterator1& anIterator)
     : myTrans(anIterator.myTrans)
 {
   Standard_NoSuchObject_Raise_if(anIterator.myNode == 0L,
-                                 "TNaming_OldShapeIterator::TNaming_OldShapeIterator");
+                                 "OldShapeIterator::OldShapeIterator");
   myNode               = anIterator.myNode;
   TNaming_RefShape* RS = myNode->myNew;
   if (RS == 0L)
@@ -1209,11 +1209,11 @@ TNaming_OldShapeIterator::TNaming_OldShapeIterator(const TNaming_Iterator& anIte
 
 //=================================================================================================
 
-TNaming_OldShapeIterator::TNaming_OldShapeIterator(const TNaming_OldShapeIterator& anIterator)
+OldShapeIterator::OldShapeIterator(const OldShapeIterator& anIterator)
     : myTrans(anIterator.myTrans)
 {
   Standard_NoSuchObject_Raise_if(anIterator.myNode == 0L,
-                                 "TNaming_OldShapeIterator::TNaming_OldShapeIterator");
+                                 "OldShapeIterator::OldShapeIterator");
   myNode               = anIterator.myNode;
   TNaming_RefShape* RS = myNode->myOld;
   if (RS == 0L)
@@ -1229,7 +1229,7 @@ TNaming_OldShapeIterator::TNaming_OldShapeIterator(const TNaming_OldShapeIterato
 
 //=================================================================================================
 
-void TNaming_OldShapeIterator::Next()
+void OldShapeIterator::Next()
 {
   Standard_Boolean  Old = Standard_False;
   TNaming_RefShape* RS  = myNode->myNew;
@@ -1239,36 +1239,36 @@ void TNaming_OldShapeIterator::Next()
 
 //=================================================================================================
 
-TDF_Label TNaming_OldShapeIterator::Label() const
+DataLabel OldShapeIterator::Label() const
 {
   if (myNode == 0L)
-    throw Standard_NoSuchObject("TNaming_OldShapeIterator::Label");
+    throw Standard_NoSuchObject("OldShapeIterator::Label");
   return myNode->Label();
 }
 
 //=================================================================================================
 
-Handle(TNaming_NamedShape) TNaming_OldShapeIterator::NamedShape() const
+Handle(ShapeAttribute) OldShapeIterator::NamedShape() const
 {
   if (myNode == 0L)
-    throw Standard_NoSuchObject("TNaming_OldShapeIterator::Label");
+    throw Standard_NoSuchObject("OldShapeIterator::Label");
   return myNode->myAtt;
 }
 
 //=================================================================================================
 
-const TopoDS_Shape& TNaming_OldShapeIterator::Shape() const
+const TopoShape& OldShapeIterator::Shape() const
 {
   if (myNode == 0L)
-    throw Standard_NoSuchObject("TNaming_OldShapeIterator::Shape");
+    throw Standard_NoSuchObject("OldShapeIterator::Shape");
   return myNode->myOld->Shape();
 }
 
 //=================================================================================================
 
-Standard_Boolean TNaming_OldShapeIterator::IsModification() const
+Standard_Boolean OldShapeIterator::IsModification() const
 {
-  Standard_NoSuchObject_Raise_if(myNode == 0L, "TNaming_OldShapeIterator::IsModification");
+  Standard_NoSuchObject_Raise_if(myNode == 0L, "OldShapeIterator::IsModification");
   return (myNode->myAtt->myEvolution == TNaming_MODIFY
           || myNode->myAtt->myEvolution == TNaming_DELETE);
 }
@@ -1279,7 +1279,7 @@ Standard_Boolean TNaming_OldShapeIterator::IsModification() const
 
 //=================================================================================================
 
-TNaming_SameShapeIterator::TNaming_SameShapeIterator(const TopoDS_Shape&               aShape,
+SameShapeIterator::SameShapeIterator(const TopoShape&               aShape,
                                                      const Handle(TNaming_UsedShapes)& Shapes)
 {
   TNaming_RefShape* RS = Shapes->Map().ChangeFind(aShape);
@@ -1289,8 +1289,8 @@ TNaming_SameShapeIterator::TNaming_SameShapeIterator(const TopoDS_Shape&        
 
 //=================================================================================================
 
-TNaming_SameShapeIterator::TNaming_SameShapeIterator(const TopoDS_Shape& aShape,
-                                                     const TDF_Label&    access)
+SameShapeIterator::SameShapeIterator(const TopoShape& aShape,
+                                                     const DataLabel&    access)
 {
   Handle(TNaming_UsedShapes) Shapes;
   if (access.Root().FindAttribute(TNaming_UsedShapes::GetID(), Shapes))
@@ -1303,7 +1303,7 @@ TNaming_SameShapeIterator::TNaming_SameShapeIterator(const TopoDS_Shape& aShape,
 
 //=================================================================================================
 
-void TNaming_SameShapeIterator::Next()
+void SameShapeIterator::Next()
 {
   TNaming_RefShape* prs;
   if (myIsNew)
@@ -1318,9 +1318,9 @@ void TNaming_SameShapeIterator::Next()
 
 //=================================================================================================
 
-TDF_Label TNaming_SameShapeIterator::Label() const
+DataLabel SameShapeIterator::Label() const
 {
-  Standard_NoSuchObject_Raise_if(myNode == 0L, "TNaming_SameShapeIterator::Label");
+  Standard_NoSuchObject_Raise_if(myNode == 0L, "SameShapeIterator::Label");
   return myNode->Label();
 }
 
@@ -1329,14 +1329,14 @@ TDF_Label TNaming_SameShapeIterator::Label() const
 //**********************************************************************
 //=================================================================================================
 
-TDF_Label TNaming_RefShape::Label() const
+DataLabel TNaming_RefShape::Label() const
 {
   return myFirstUse->myAtt->Label();
 }
 
 //=================================================================================================
 
-Handle(TNaming_NamedShape) TNaming_RefShape::NamedShape() const
+Handle(ShapeAttribute) TNaming_RefShape::NamedShape() const
 {
   return myFirstUse->myAtt;
 }
@@ -1345,19 +1345,19 @@ Handle(TNaming_NamedShape) TNaming_RefShape::NamedShape() const
 
 void TNaming_RefShape::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
-  OCCT_DUMP_CLASS_BEGIN(theOStream, TNaming_NamedShape);
+  OCCT_DUMP_CLASS_BEGIN(theOStream, ShapeAttribute);
 
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &myShape);
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, myFirstUse);
 }
 
 //**********************************************************************
-// Methods of the TNaming_Tool class
+// Methods of the Tool11 class
 //**********************************************************************
 
 //=================================================================================================
 
-Standard_Boolean TNaming_Tool::HasLabel(const TDF_Label& access, const TopoDS_Shape& S)
+Standard_Boolean Tool11::HasLabel(const DataLabel& access, const TopoShape& S)
 {
   Handle(TNaming_UsedShapes) US;
   if (access.Root().FindAttribute(TNaming_UsedShapes::GetID(), US))
@@ -1372,14 +1372,14 @@ Standard_Boolean TNaming_Tool::HasLabel(const TDF_Label& access, const TopoDS_Sh
 
 //=================================================================================================
 
-TDF_Label TNaming_Tool::Label(const TDF_Label&    access,
-                              const TopoDS_Shape& S,
+DataLabel Tool11::Label(const DataLabel&    access,
+                              const TopoShape& S,
                               Standard_Integer&   Trans)
 {
-  Standard_NoSuchObject_Raise_if(!TNaming_Tool::HasLabel(access, S), "TNaming_Tool::Label");
+  Standard_NoSuchObject_Raise_if(!Tool11::HasLabel(access, S), "Tool11::Label");
   Handle(TNaming_UsedShapes) US;
   access.Root().FindAttribute(TNaming_UsedShapes::GetID(), US);
-  return TNaming_Tool::Label(US, S, Trans);
+  return Tool11::Label(US, S, Trans);
 }
 
 //=======================================================================
@@ -1387,29 +1387,29 @@ TDF_Label TNaming_Tool::Label(const TDF_Label&    access,
 // purpose  : un shape est valid tant que l attribut ou il est cree est valid
 //=======================================================================
 
-Standard_Integer TNaming_Tool::ValidUntil(const TDF_Label& access, const TopoDS_Shape& S)
+Standard_Integer Tool11::ValidUntil(const DataLabel& access, const TopoShape& S)
 {
-  Standard_NoSuchObject_Raise_if(!TNaming_Tool::HasLabel(access, S), "TNaming_Tool::ValidUntil");
+  Standard_NoSuchObject_Raise_if(!Tool11::HasLabel(access, S), "Tool11::ValidUntil");
   Handle(TNaming_UsedShapes) US;
   access.Root().FindAttribute(TNaming_UsedShapes::GetID(), US);
-  return TNaming_Tool::ValidUntil(S, US);
+  return Tool11::ValidUntil(S, US);
 }
 
 //=================================================================================================
 
-Standard_Boolean TNaming_Tool::HasLabel(const Handle(TNaming_UsedShapes)& Shapes,
-                                        const TopoDS_Shape&               S)
+Standard_Boolean Tool11::HasLabel(const Handle(TNaming_UsedShapes)& Shapes,
+                                        const TopoShape&               S)
 {
   return (Shapes->Map().IsBound(S));
 }
 
 //=================================================================================================
 
-TDF_Label TNaming_Tool::Label(const Handle(TNaming_UsedShapes)& Shapes,
-                              const TopoDS_Shape&               S,
+DataLabel Tool11::Label(const Handle(TNaming_UsedShapes)& Shapes,
+                              const TopoShape&               S,
                               Standard_Integer&                 Trans)
 {
-  Standard_NoSuchObject_Raise_if(!TNaming_Tool::HasLabel(Shapes, S), "TNaming_Tool::Label");
+  Standard_NoSuchObject_Raise_if(!Tool11::HasLabel(Shapes, S), "Tool11::Label");
   TNaming_RefShape* prs = Shapes->Map().Find(S);
   TNaming_Node*     pdn = prs->FirstUse();
 
@@ -1420,20 +1420,20 @@ TDF_Label TNaming_Tool::Label(const Handle(TNaming_UsedShapes)& Shapes,
   if (pdn == 0L)
     pdn = prs->FirstUse();
 
-  TDF_Label L = pdn->Label();
+  DataLabel L = pdn->Label();
   Trans       = pdn->myAtt->Transaction();
   return L;
 }
 
 //=================================================================================================
 
-Handle(TNaming_NamedShape) TNaming_Tool::NamedShape(const TopoDS_Shape& S, const TDF_Label& Acces)
+Handle(ShapeAttribute) Tool11::NamedShape(const TopoShape& S, const DataLabel& Acces)
 {
   Handle(TNaming_UsedShapes) US;
   Acces.Root().FindAttribute(TNaming_UsedShapes::GetID(), US);
-  Handle(TNaming_NamedShape) NS;
+  Handle(ShapeAttribute) NS;
 
-  if (!TNaming_Tool::HasLabel(US, S))
+  if (!Tool11::HasLabel(US, S))
   {
     return NS;
   }
@@ -1463,8 +1463,8 @@ Handle(TNaming_NamedShape) TNaming_Tool::NamedShape(const TopoDS_Shape& S, const
 
   // VERUE EN ATTENDANT DE REVOIR ABORT 03/11/98
   // Protection pour eviter de renvoyer un attribut backuped
-  TDF_Label Lab = res->Label();
-  Lab.FindAttribute(TNaming_NamedShape::GetID(), NS);
+  DataLabel Lab = res->Label();
+  Lab.FindAttribute(ShapeAttribute::GetID(), NS);
   return NS;
   //  return res->myAtt;
 }
@@ -1474,10 +1474,10 @@ Handle(TNaming_NamedShape) TNaming_Tool::NamedShape(const TopoDS_Shape& S, const
 // purpose  : un shape est valid tant que l attribut ou il est cree est valid
 //=======================================================================
 
-Standard_Integer TNaming_Tool::ValidUntil(const TopoDS_Shape&               S,
+Standard_Integer Tool11::ValidUntil(const TopoShape&               S,
                                           const Handle(TNaming_UsedShapes)& US)
 {
-  Standard_NoSuchObject_Raise_if(!TNaming_Tool::HasLabel(US, S), "TNaming_Tool::ValidUntil");
+  Standard_NoSuchObject_Raise_if(!Tool11::HasLabel(US, S), "Tool11::ValidUntil");
 
   TNaming_RefShape* RS = US->Map().ChangeFind(S);
   Standard_Integer  Cur;
@@ -1499,7 +1499,7 @@ Standard_Integer TNaming_Tool::ValidUntil(const TopoDS_Shape&               S,
 
 //=================================================================================================
 
-void TNaming_NamedShape::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
+void ShapeAttribute::DumpJson(Standard_OStream& theOStream, Standard_Integer theDepth) const
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
@@ -1508,7 +1508,7 @@ void TNaming_NamedShape::DumpJson(Standard_OStream& theOStream, Standard_Integer
   TNaming_Node* p = myNode;
   if (p != 0L)
   {
-    TCollection_AsciiString aLabel;
+    AsciiString1 aLabel;
     TDF_Tool::Entry(myNode->Label(), aLabel);
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aLabel)
   }

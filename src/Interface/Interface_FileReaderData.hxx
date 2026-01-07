@@ -26,7 +26,7 @@
 #include <Standard_CString.hxx>
 #include <Interface_ParamType.hxx>
 class Interface_ParamSet;
-class TCollection_AsciiString;
+class AsciiString1;
 class Interface_FileParameter;
 class Interface_ParamList;
 
@@ -86,7 +86,7 @@ public:
   //! Remark that the content of the AsciiString is locally copied
   //! (because its content is most often lost after using)
   Standard_EXPORT void AddParam(const Standard_Integer         num,
-                                const TCollection_AsciiString& aval,
+                                const AsciiString1& aval,
                                 const Interface_ParamType      atype,
                                 const Standard_Integer         nument = 0);
 

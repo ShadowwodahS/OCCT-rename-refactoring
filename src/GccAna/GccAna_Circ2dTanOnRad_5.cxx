@@ -35,7 +35,7 @@
 //  of found solutions.                                                   +
 //  Create solutions cirsol.                                              +
 //=========================================================================
-GccAna_Circ2dTanOnRad::GccAna_Circ2dTanOnRad(const gp_Pnt2d&     Point1,
+Circle2dTangentOnRadius::Circle2dTangentOnRadius(const gp_Pnt2d&     Point1,
                                              const gp_Circ2d&    OnCirc,
                                              const Standard_Real Radius,
                                              const Standard_Real Tolerance)

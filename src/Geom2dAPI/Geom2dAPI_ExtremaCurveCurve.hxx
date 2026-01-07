@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <Extrema_ExtCC2d.hxx>
 #include <Geom2dAdaptor_Curve.hxx>
-class Geom2d_Curve;
+class GeomCurve2d;
 class gp_Pnt2d;
 
 //! Describes functions for computing all the extrema
@@ -63,8 +63,8 @@ public:
   //! Warning
   //! Use the function NbExtrema to obtain the number
   //! of solutions. If this algorithm fails, NbExtrema returns 0.
-  Standard_EXPORT Geom2dAPI_ExtremaCurveCurve(const Handle(Geom2d_Curve)& C1,
-                                              const Handle(Geom2d_Curve)& C2,
+  Standard_EXPORT Geom2dAPI_ExtremaCurveCurve(const Handle(GeomCurve2d)& C1,
+                                              const Handle(GeomCurve2d)& C2,
                                               const Standard_Real         U1min,
                                               const Standard_Real         U1max,
                                               const Standard_Real         U2min,

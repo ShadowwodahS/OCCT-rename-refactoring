@@ -26,7 +26,7 @@
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_ListOfShape.hxx>
 #include <TColGeom_SequenceOfCurve.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 
 //! Defines a prism (using Prism from BRepSweep)
 //! with modifications provided for the Prism feature.
@@ -37,38 +37,38 @@ public:
 
   Standard_EXPORT LocOpe_Prism();
 
-  Standard_EXPORT LocOpe_Prism(const TopoDS_Shape& Base, const Vector3d& V);
+  Standard_EXPORT LocOpe_Prism(const TopoShape& Base, const Vector3d& V);
 
-  Standard_EXPORT LocOpe_Prism(const TopoDS_Shape& Base, const Vector3d& V, const Vector3d& Vectra);
+  Standard_EXPORT LocOpe_Prism(const TopoShape& Base, const Vector3d& V, const Vector3d& Vectra);
 
-  Standard_EXPORT void Perform(const TopoDS_Shape& Base, const Vector3d& V);
+  Standard_EXPORT void Perform(const TopoShape& Base, const Vector3d& V);
 
-  Standard_EXPORT void Perform(const TopoDS_Shape& Base, const Vector3d& V, const Vector3d& Vtra);
+  Standard_EXPORT void Perform(const TopoShape& Base, const Vector3d& V, const Vector3d& Vtra);
 
-  Standard_EXPORT const TopoDS_Shape& FirstShape() const;
+  Standard_EXPORT const TopoShape& FirstShape() const;
 
-  Standard_EXPORT const TopoDS_Shape& LastShape() const;
+  Standard_EXPORT const TopoShape& LastShape() const;
 
-  Standard_EXPORT const TopoDS_Shape& Shape() const;
+  Standard_EXPORT const TopoShape& Shape() const;
 
-  Standard_EXPORT const TopTools_ListOfShape& Shapes(const TopoDS_Shape& S) const;
+  Standard_EXPORT const ShapeList& Shapes(const TopoShape& S) const;
 
   Standard_EXPORT void Curves(TColGeom_SequenceOfCurve& SCurves) const;
 
-  Standard_EXPORT Handle(Geom_Curve) BarycCurve() const;
+  Standard_EXPORT Handle(GeomCurve3d) BarycCurve() const;
 
 protected:
 private:
   Standard_EXPORT void IntPerf();
 
-  TopoDS_Shape                       myBase;
+  TopoShape                       myBase;
   Vector3d                             myVec;
   Vector3d                             myTra;
   Standard_Boolean                   myIsTrans;
   Standard_Boolean                   myDone;
-  TopoDS_Shape                       myRes;
-  TopoDS_Shape                       myFirstShape;
-  TopoDS_Shape                       myLastShape;
+  TopoShape                       myRes;
+  TopoShape                       myFirstShape;
+  TopoShape                       myLastShape;
   TopTools_DataMapOfShapeListOfShape myMap;
 };
 

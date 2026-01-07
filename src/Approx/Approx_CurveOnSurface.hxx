@@ -21,7 +21,7 @@
 #include <Adaptor3d_Surface.hxx>
 #include <GeomAbs_Shape.hxx>
 
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 class Geom2d_BSplineCurve;
 
 //! Approximation of   curve on surface
@@ -60,7 +60,7 @@ public:
 
   Standard_EXPORT Standard_Boolean HasResult() const;
 
-  Standard_EXPORT Handle(Geom_BSplineCurve) Curve3d() const;
+  Standard_EXPORT Handle(BSplineCurve3d) Curve3d() const;
 
   Standard_EXPORT Standard_Real MaxError3d() const;
 
@@ -130,7 +130,7 @@ private:
   Standard_Real myTol;
 
   Handle(Geom2d_BSplineCurve) myCurve2d;
-  Handle(Geom_BSplineCurve)   myCurve3d;
+  Handle(BSplineCurve3d)   myCurve3d;
   Standard_Boolean            myIsDone;
   Standard_Boolean            myHasResult;
   Standard_Real               myError3d;

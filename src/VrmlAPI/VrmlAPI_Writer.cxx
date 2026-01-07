@@ -238,7 +238,7 @@ Handle(Vrml_Material) VrmlAPI_Writer::GetUnfreeBoundsMaterial() const
   return myUnfreeBoundsMaterial;
 }
 
-Standard_Boolean VrmlAPI_Writer::Write(const TopoDS_Shape&    aShape,
+Standard_Boolean VrmlAPI_Writer::Write(const TopoShape&    aShape,
                                        const Standard_CString aFile,
                                        const Standard_Integer aVersion) const
 {
@@ -250,11 +250,11 @@ Standard_Boolean VrmlAPI_Writer::Write(const TopoDS_Shape&    aShape,
   return Standard_False;
 }
 
-Standard_Boolean VrmlAPI_Writer::write_v1(const TopoDS_Shape&    aShape,
+Standard_Boolean VrmlAPI_Writer::write_v1(const TopoShape&    aShape,
                                           const Standard_CString aFile) const
 {
-  OSD_Path                thePath(aFile);
-  TCollection_AsciiString theFile;
+  SystemPath                thePath(aFile);
+  AsciiString1 theFile;
   thePath.SystemName(theFile);
   const Handle(OSD_FileSystem)& aFileSystem = OSD_FileSystem::DefaultFileSystem();
   std::shared_ptr<std::ostream> anOutFile =
@@ -309,15 +309,15 @@ Standard_Boolean VrmlAPI_Writer::write_v1(const TopoDS_Shape&    aShape,
   Shapes.SetValue(1, aShape);
 
   // Check shape tessellation
-  TopExp_Explorer  anExp(aShape, TopAbs_FACE);
+  ShapeExplorer  anExp(aShape, TopAbs_FACE);
   TopLoc_Location  aLoc;
   Standard_Boolean hasTriangles = Standard_False;
   for (; anExp.More(); anExp.Next())
   {
-    const TopoDS_Face& aFace = TopoDS::Face(anExp.Current());
+    const TopoFace& aFace = TopoDS::Face(anExp.Current());
     if (!aFace.IsNull())
     {
-      Handle(Poly_Triangulation) aTri = BRep_Tool::Triangulation(aFace, aLoc);
+      Handle(MeshTriangulation) aTri = BRepInspector::Triangulation(aFace, aLoc);
 
       if (!aTri.IsNull())
       {
@@ -335,18 +335,18 @@ Standard_Boolean VrmlAPI_Writer::write_v1(const TopoDS_Shape&    aShape,
   VrmlConverter_TypeOfCamera      Camera = VrmlConverter_PerspectiveCamera;
   Handle(VrmlConverter_Projector) projector =
     new VrmlConverter_Projector(Shapes, Focus, DX, DY, DZ, XUp, YUp, ZUp, Camera, Light);
-  Vrml::VrmlHeaderWriter(*anOutFile);
+  Vrml1::VrmlHeaderWriter(*anOutFile);
   if (myRepresentation == VrmlAPI_BothRepresentation)
-    Vrml::CommentWriter(
+    Vrml1::CommentWriter(
       " This file contents both Shaded and Wire Frame representation of selected Shape ",
       *anOutFile);
   if (myRepresentation == VrmlAPI_ShadedRepresentation)
-    Vrml::CommentWriter(" This file contents only Shaded representation of selected Shape ",
+    Vrml1::CommentWriter(" This file contents only Shaded representation of selected Shape ",
                         *anOutFile);
   if (myRepresentation == VrmlAPI_WireFrameRepresentation)
-    Vrml::CommentWriter(" This file contents only Wire Frame representation of selected Shape ",
+    Vrml1::CommentWriter(" This file contents only Wire Frame representation of selected Shape ",
                         *anOutFile);
-  Vrml_Separator S1;
+  Separator S1;
   S1.Print(*anOutFile);
   projector->Add(*anOutFile);
   Light  = VrmlConverter_DirectionLight;
@@ -354,27 +354,27 @@ Standard_Boolean VrmlAPI_Writer::write_v1(const TopoDS_Shape&    aShape,
   Handle(VrmlConverter_Projector) projector1 =
     new VrmlConverter_Projector(Shapes, Focus, DX, DY, DZ, XUp, YUp, ZUp, Camera, Light);
   projector1->Add(*anOutFile);
-  Vrml_Separator S2;
+  Separator S2;
   S2.Print(*anOutFile);
   if ((myRepresentation == VrmlAPI_ShadedRepresentation
        || myRepresentation == VrmlAPI_BothRepresentation)
       && hasTriangles)
   {
-    Vrml_Group Group1;
+    Group Group1;
     Group1.Print(*anOutFile);
     Vrml_Instancing I2("Shaded representation of shape");
     I2.DEF(*anOutFile);
-    VrmlConverter_ShadedShape::Add(*anOutFile, aShape, myDrawer);
+    ShadedShapeConverter::Add(*anOutFile, aShape, myDrawer);
     Group1.Print(*anOutFile);
   }
   if (myRepresentation == VrmlAPI_WireFrameRepresentation
       || myRepresentation == VrmlAPI_BothRepresentation)
   {
-    Vrml_Group Group2;
+    Group Group2;
     Group2.Print(*anOutFile);
     Vrml_Instancing I3("Wire Frame representation of shape");
     I3.DEF(*anOutFile);
-    VrmlConverter_WFDeflectionShape::Add(*anOutFile, aShape, myDrawer);
+    WFDeflectionShapeConverter::Add(*anOutFile, aShape, myDrawer);
     Group2.Print(*anOutFile);
   }
   S2.Print(*anOutFile);
@@ -384,7 +384,7 @@ Standard_Boolean VrmlAPI_Writer::write_v1(const TopoDS_Shape&    aShape,
   return anOutFile->good();
 }
 
-Standard_Boolean VrmlAPI_Writer::write_v2(const TopoDS_Shape&    aShape,
+Standard_Boolean VrmlAPI_Writer::write_v2(const TopoShape&    aShape,
                                           const Standard_CString aFile) const
 {
   Standard_Boolean anExtFace = Standard_False;
@@ -398,7 +398,7 @@ Standard_Boolean VrmlAPI_Writer::write_v2(const TopoDS_Shape&    aShape,
     anExtEdge = Standard_True;
 
   VrmlData_Scene        aScene;
-  VrmlData_ShapeConvert aConv(aScene);
+  ShapeConverter aConv(aScene);
   aConv.AddShape(aShape);
   aConv.Convert(anExtFace, anExtEdge);
 
@@ -417,12 +417,12 @@ Standard_Boolean VrmlAPI_Writer::write_v2(const TopoDS_Shape&    aShape,
 
 //=================================================================================================
 
-Standard_Boolean VrmlAPI_Writer::WriteDoc(const Handle(TDocStd_Document)& theDoc,
+Standard_Boolean VrmlAPI_Writer::WriteDoc(const Handle(AppDocument)& theDoc,
                                           const Standard_CString          theFile,
                                           const Standard_Real             theScale) const
 {
   VrmlData_Scene        aScene;
-  VrmlData_ShapeConvert aConv(aScene, theScale);
+  ShapeConverter aConv(aScene, theScale);
   aConv.ConvertDocument(theDoc);
 
   const Handle(OSD_FileSystem)& aFileSystem = OSD_FileSystem::DefaultFileSystem();

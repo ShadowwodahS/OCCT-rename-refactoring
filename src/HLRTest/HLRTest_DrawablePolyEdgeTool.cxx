@@ -60,7 +60,7 @@ HLRTest_DrawablePolyEdgeTool::HLRTest_DrawablePolyEdgeTool(const Handle(HLRBRep_
   myBiPntHid.Clear();
   Standard_Address   Coordinates;
   HLRAlgo_EdgeStatus status;
-  TopoDS_Shape       S;
+  TopoShape       S;
   Standard_Boolean   reg1, regn, outl, intl;
 
   for (myAlgo->InitHide(); myAlgo->MoreHide(); myAlgo->NextHide())
@@ -112,7 +112,7 @@ HLRTest_DrawablePolyEdgeTool::HLRTest_DrawablePolyEdgeTool(const Handle(HLRBRep_
 
 //=================================================================================================
 
-void HLRTest_DrawablePolyEdgeTool::DrawOn(Draw_Display& D) const
+void HLRTest_DrawablePolyEdgeTool::DrawOn(DrawDisplay& D) const
 {
   if (myViewId == D.ViewId())
   {
@@ -156,7 +156,7 @@ void HLRTest_DrawablePolyEdgeTool::DrawOn(Draw_Display& D) const
     else
     {
       Standard_Address Coordinates;
-      TopoDS_Shape     S;
+      TopoShape     S;
       Standard_Boolean reg1, regn, outl, intl;
       D.SetColor(Draw_vert);
 

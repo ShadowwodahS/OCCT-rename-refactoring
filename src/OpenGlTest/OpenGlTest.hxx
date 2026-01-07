@@ -16,17 +16,17 @@
 
 #include <Draw_Interpretor.hxx>
 
-//! This package defines a set of Draw commands for testing of TKOpenGl library.
+//! This package defines a set of Draw1 commands for testing of TKOpenGl library.
 class OpenGlTest
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  //! Adds Draw commands to the draw interpreter.
-  Standard_EXPORT static void Commands(Draw_Interpretor& theDI);
+  //! Adds Draw1 commands to the draw interpreter.
+  Standard_EXPORT static void Commands(DrawInterpreter& theDI);
 
   //! Plugin entry point function.
-  Standard_EXPORT static void Factory(Draw_Interpretor& theDI);
+  Standard_EXPORT static void Factory(DrawInterpreter& theDI);
 };
 
 #endif // _OpenGlTest_HeaderFile

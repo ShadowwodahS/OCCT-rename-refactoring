@@ -22,8 +22,8 @@
 #include <gp_Pnt2d.hxx>
 #include <BRep_GCurve.hxx>
 #include <Standard_Real.hxx>
-class Geom2d_Curve;
-class Geom_Surface;
+class GeomCurve2d;
+class GeomSurface;
 class TopLoc_Location;
 class Point3d;
 class BRep_CurveRepresentation;
@@ -37,8 +37,8 @@ class BRep_CurveOnSurface : public BRep_GCurve
 {
 
 public:
-  Standard_EXPORT BRep_CurveOnSurface(const Handle(Geom2d_Curve)& PC,
-                                      const Handle(Geom_Surface)& S,
+  Standard_EXPORT BRep_CurveOnSurface(const Handle(GeomCurve2d)& PC,
+                                      const Handle(GeomSurface)& S,
                                       const TopLoc_Location&      L);
 
   void SetUVPoints(const gp_Pnt2d& P1, const gp_Pnt2d& P2);
@@ -52,15 +52,15 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsCurveOnSurface() const Standard_OVERRIDE;
 
   //! A curve in the parametric space of a surface.
-  Standard_EXPORT virtual Standard_Boolean IsCurveOnSurface(const Handle(Geom_Surface)& S,
+  Standard_EXPORT virtual Standard_Boolean IsCurveOnSurface(const Handle(GeomSurface)& S,
                                                             const TopLoc_Location&      L) const
     Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const Handle(Geom_Surface)& Surface() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(GeomSurface)& Surface() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual const Handle(Geom2d_Curve)& PCurve() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const Handle(GeomCurve2d)& PCurve() const Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void PCurve(const Handle(Geom2d_Curve)& C) Standard_OVERRIDE;
+  Standard_EXPORT virtual void PCurve(const Handle(GeomCurve2d)& C) Standard_OVERRIDE;
 
   //! Return a copy of this representation.
   Standard_EXPORT virtual Handle(BRep_CurveRepresentation) Copy() const Standard_OVERRIDE;
@@ -80,8 +80,8 @@ protected:
   gp_Pnt2d myUV2;
 
 private:
-  Handle(Geom2d_Curve) myPCurve;
-  Handle(Geom_Surface) mySurface;
+  Handle(GeomCurve2d) myPCurve;
+  Handle(GeomSurface) mySurface;
 };
 
 #include <BRep_CurveOnSurface.lxx>

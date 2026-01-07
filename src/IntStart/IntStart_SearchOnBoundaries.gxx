@@ -390,17 +390,17 @@ void BoundedArc (const TheArc& A,
       Adaptor3d_CurveOnSurface ConS(A, aSurf);
       TypeConS = ConS.GetType();
 #ifdef OCCT_DEBUG
-      Handle(Geom_Curve) CurveConS;
+      Handle(GeomCurve3d) CurveConS;
       switch(TypeConS)
       {
       case GeomAbs_Line:
         {
-          CurveConS = new Geom_Line(ConS.Line());
+          CurveConS = new GeomLine(ConS.Line());
           break;
         }
       case GeomAbs_Circle:
         {
-          CurveConS = new Geom_Circle(ConS.Circle());
+          CurveConS = new GeomCircle(ConS.Circle());
           break;
         }
       case GeomAbs_Ellipse:
@@ -438,12 +438,12 @@ void BoundedArc (const TheArc& A,
       }
 #endif
       Handle(Adaptor3d_CurveOnSurface) HConS = new Adaptor3d_CurveOnSurface(ConS);
-      Handle(Geom_Surface) QuadSurf;
+      Handle(GeomSurface) QuadSurf;
       switch (TypeQuad)
       {
       case GeomAbs_Plane:
         {
-          QuadSurf = new Geom_Plane(aQuadric.Plane());
+          QuadSurf = new GeomPlane(aQuadric.Plane());
           break;
         }
       case GeomAbs_Cylinder:
@@ -986,9 +986,9 @@ Standard_Boolean IsRegularity(const TheArc& /*A*/,
     return Standard_False;
   }
   
-  TopoDS_Edge* anE=(TopoDS_Edge*)anEAddress;
+  TopoEdge* anE=(TopoEdge*)anEAddress;
   
-  return (BRep_Tool::HasContinuity(*anE));
+  return (BRepInspector::HasContinuity(*anE));
 }
 
 //=======================================================================
@@ -1008,9 +1008,9 @@ Standard_Integer TreatLC (const TheArc& A,
     return anExitCode;
   }
   
-  TopoDS_Edge* anE=(TopoDS_Edge*)anEAddress;
+  TopoEdge* anE=(TopoEdge*)anEAddress;
 
-  if (BRep_Tool::Degenerated(*anE)) {
+  if (BRepInspector::Degenerated(*anE)) {
     return anExitCode;
   }
   
@@ -1030,12 +1030,12 @@ Standard_Integer TreatLC (const TheArc& A,
   }
   
   Standard_Real f, l, U1f, U1l, U2f, U2l, UEgde, TOL, aDist, aR, aRRel, Tol;
-  Handle(Geom_Curve) aCEdge=BRep_Tool::Curve(*anE, f, l);
+  Handle(GeomCurve3d) aCEdge=BRepInspector::Curve(*anE, f, l);
   
   gp_Cylinder aCyl=aQuadric.Cylinder();
   const Axis3d& anAx1=aCyl.Axis();
   gp_Lin aLin(anAx1);
-  Handle(Geom_Line) aCAxis=new Geom_Line (aLin);
+  Handle(GeomLine) aCAxis=new GeomLine (aLin);
   aR=aCyl.Radius();
   
   U1f = aCAxis->FirstParameter();

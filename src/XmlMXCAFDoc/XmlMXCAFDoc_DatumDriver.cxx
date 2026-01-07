@@ -52,8 +52,8 @@ Standard_Boolean XmlMXCAFDoc_DatumDriver::Paste(const XmlObjMgt_Persistent&  the
 
   if (aNameStr == NULL)
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve Datum attribute");
+    UtfString aMessageString =
+      UtfString("Cannot retrieve Datum attribute");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
   }
@@ -64,7 +64,7 @@ Standard_Boolean XmlMXCAFDoc_DatumDriver::Paste(const XmlObjMgt_Persistent&  the
   XmlObjMgt_DOMString anIdStr   = anElement.getAttribute(::IdIndexString());
   if (aDescrStr == NULL || anIdStr == NULL)
   {
-    TCollection_ExtendedString aMessageString(
+    UtfString aMessageString(
       "Cannot retrieve Datum attribute description or identification");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;

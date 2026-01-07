@@ -36,25 +36,25 @@ class PCDM_RetrievalDriver : public PCDM_Reader
 
 public:
   Standard_EXPORT static Standard_Integer DocumentVersion(
-    const TCollection_ExtendedString& theFileName,
+    const UtfString& theFileName,
     const Handle(Message_Messenger)&  theMsgDriver);
 
   Standard_EXPORT static Standard_Integer ReferenceCounter(
-    const TCollection_ExtendedString& theFileName,
+    const UtfString& theFileName,
     const Handle(Message_Messenger)&  theMsgDriver);
 
-  Standard_EXPORT void SetFormat(const TCollection_ExtendedString& aformat);
+  Standard_EXPORT void SetFormat(const UtfString& aformat);
 
-  Standard_EXPORT TCollection_ExtendedString GetFormat() const;
+  Standard_EXPORT UtfString GetFormat() const;
 
   DEFINE_STANDARD_RTTIEXT(PCDM_RetrievalDriver, PCDM_Reader)
 
 private:
-  Standard_EXPORT static void References(const TCollection_ExtendedString& theFileName,
+  Standard_EXPORT static void References(const UtfString& theFileName,
                                          PCDM_SequenceOfReference&         theReferences,
                                          const Handle(Message_Messenger)&  theMsgDriver);
 
-  TCollection_ExtendedString myFormat;
+  UtfString myFormat;
 };
 
 #endif // _PCDM_RetrievalDriver_HeaderFile

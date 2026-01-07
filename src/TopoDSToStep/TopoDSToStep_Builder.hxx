@@ -28,13 +28,13 @@
 
 class StepShape_TopologicalRepresentationItem;
 class StepVisual_TessellatedItem;
-class TopoDS_Shape;
+class TopoShape;
 class TopoDSToStep_Tool;
 class Transfer_FinderProcess;
 
 //! This builder Class provides services to build
 //! a ProSTEP Shape model from a Cas.Cad BRep.
-class TopoDSToStep_Builder : public TopoDSToStep_Root
+class TopoDSToStep_Builder : public Root3
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -42,18 +42,18 @@ public:
   Standard_EXPORT TopoDSToStep_Builder();
 
   Standard_EXPORT TopoDSToStep_Builder(
-    const TopoDS_Shape&                   S,
+    const TopoShape&                   S,
     TopoDSToStep_Tool&                    T,
     const Handle(Transfer_FinderProcess)& FP,
     const Standard_Integer                theTessellatedGeomParam,
-    const StepData_Factors&               theLocalFactors = StepData_Factors(),
+    const ConversionFactors&               theLocalFactors = ConversionFactors(),
     const Message_ProgressRange&          theProgress     = Message_ProgressRange());
 
-  Standard_EXPORT void Init(const TopoDS_Shape&                   S,
+  Standard_EXPORT void Init(const TopoShape&                   S,
                             TopoDSToStep_Tool&                    T,
                             const Handle(Transfer_FinderProcess)& FP,
                             const Standard_Integer                theTessellatedGeomParam,
-                            const StepData_Factors&      theLocalFactors = StepData_Factors(),
+                            const ConversionFactors&      theLocalFactors = ConversionFactors(),
                             const Message_ProgressRange& theProgress     = Message_ProgressRange());
 
   Standard_EXPORT TopoDSToStep_BuilderError Error() const;

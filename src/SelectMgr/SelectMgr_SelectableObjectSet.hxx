@@ -145,7 +145,7 @@ public:
 
   //! Updates outdated BVH trees and remembers the last state of the
   //! camera view-projection matrices and viewport (window) dimensions.
-  Standard_EXPORT void UpdateBVH(const Handle(Graphic3d_Camera)& theCam,
+  Standard_EXPORT void UpdateBVH(const Handle(CameraOn3d)& theCam,
                                  const Graphic3d_Vec2i&          theWinSize);
 
   //! Marks every BVH subset for update.

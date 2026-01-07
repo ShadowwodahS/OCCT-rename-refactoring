@@ -20,8 +20,8 @@
 #include <TCollection_ExtendedString.hxx>
 #include <NCollection_List.hxx>
 
-typedef NCollection_List<TCollection_ExtendedString> TDataStd_ListOfExtendedString;
-typedef NCollection_List<TCollection_ExtendedString>::Iterator
+typedef NCollection_List<UtfString> TDataStd_ListOfExtendedString;
+typedef NCollection_List<UtfString>::Iterator
   TDataStd_ListIteratorOfListOfExtendedString;
 
 #endif

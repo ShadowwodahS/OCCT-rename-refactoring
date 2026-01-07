@@ -22,9 +22,9 @@
 #include <XmlObjMgt_Element.hxx>
 #include <TopAbs_Orientation.hxx>
 #include <XmlObjMgt_Document.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
-//! The XmlMNaming_Shape1 is the Persistent view of a TopoDS_Shape.
+//! The XmlMNaming_Shape1 is the Persistent view of a TopoShape.
 //!
 //! a  Shape1 contains :
 //! - a reference to a TShape
@@ -55,7 +55,7 @@ public:
                                 const Standard_Integer   LocID,
                                 const TopAbs_Orientation Orient);
 
-  Standard_EXPORT void SetVertex(const TopoDS_Shape& theVertex);
+  Standard_EXPORT void SetVertex(const TopoShape& theVertex);
 
 protected:
 private:

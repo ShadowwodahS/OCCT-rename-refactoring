@@ -81,7 +81,7 @@ void Interface_FileReaderData::AddParam(const Standard_Integer /*num*/,
 }
 
 void Interface_FileReaderData::AddParam(const Standard_Integer /*num*/,
-                                        const TCollection_AsciiString& aval,
+                                        const AsciiString1& aval,
                                         const Interface_ParamType      atype,
                                         const Standard_Integer         nument)
 {

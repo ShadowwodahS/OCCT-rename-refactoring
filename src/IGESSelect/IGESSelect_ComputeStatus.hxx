@@ -24,7 +24,7 @@
 class IFSelect_ContextModif;
 class IGESData_IGESModel;
 class Interface_CopyTool;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IGESSelect_ComputeStatus;
 DEFINE_STANDARD_HANDLE(IGESSelect_ComputeStatus, IGESSelect_ModelModifier)
@@ -34,7 +34,7 @@ DEFINE_STANDARD_HANDLE(IGESSelect_ComputeStatus, IGESSelect_ModelModifier)
 //! some definite values according the way they are referenced.
 //! (see definitions of Logical use, Physical use, etc...)
 //!
-//! Works by calling a BasicEditor from IGESData. Works on the
+//! Works by calling a BasicEditor from IGESData1. Works on the
 //! whole produced (target) model, because computation is global.
 class IGESSelect_ComputeStatus : public IGESSelect_ModelModifier
 {
@@ -53,7 +53,7 @@ public:
 
   //! Returns a text which is
   //! "Compute Subordinate Status and Use Flag"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_ComputeStatus, IGESSelect_ModelModifier)
 

@@ -13,34 +13,34 @@
 
 #include <IGESData_IGESType.hxx>
 
-IGESData_IGESType::IGESData_IGESType()
+IGESType::IGESType()
 {
   thetype = 0;
   theform = 0;
 }
 
-IGESData_IGESType::IGESData_IGESType(const Standard_Integer atype, const Standard_Integer aform)
+IGESType::IGESType(const Standard_Integer atype, const Standard_Integer aform)
 {
   thetype = atype;
   theform = aform;
 }
 
-Standard_Integer IGESData_IGESType::Type() const
+Standard_Integer IGESType::Type() const
 {
   return thetype;
 }
 
-Standard_Integer IGESData_IGESType::Form() const
+Standard_Integer IGESType::Form() const
 {
   return theform;
 }
 
-Standard_Boolean IGESData_IGESType::IsEqual(const IGESData_IGESType& other) const
+Standard_Boolean IGESType::IsEqual(const IGESType& other) const
 {
   return (thetype == other.Type() && theform == other.Form());
 }
 
-void IGESData_IGESType::Nullify()
+void IGESType::Nullify()
 {
   thetype = 0;
   theform = 0;

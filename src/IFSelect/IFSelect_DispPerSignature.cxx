@@ -44,11 +44,11 @@ Standard_CString IFSelect_DispPerSignature::SignName() const
   return (Standard_CString)(thesign.IsNull() ? "???" : thesign->Name());
 }
 
-TCollection_AsciiString IFSelect_DispPerSignature::Label() const
+AsciiString1 IFSelect_DispPerSignature::Label() const
 {
   char lab[50];
   sprintf(lab, "One File per Signature %s", SignName());
-  return TCollection_AsciiString(lab);
+  return AsciiString1(lab);
 }
 
 Standard_Boolean IFSelect_DispPerSignature::LimitedMax(const Standard_Integer nbent,

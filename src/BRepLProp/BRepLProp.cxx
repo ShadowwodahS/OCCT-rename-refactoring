@@ -25,7 +25,7 @@
 
 //=================================================================================================
 
-GeomAbs_Shape BRepLProp::Continuity(const BRepAdaptor_Curve& C1,
+GeomAbs_Shape BRepLProp1::Continuity(const BRepAdaptor_Curve& C1,
                                     const BRepAdaptor_Curve& C2,
                                     const Standard_Real      u1,
                                     const Standard_Real      u2,
@@ -97,8 +97,8 @@ GeomAbs_Shape BRepLProp::Continuity(const BRepAdaptor_Curve& C1,
       cont = GeomAbs_C2;
     }
   }
-  const TopoDS_Edge& E1 = C1.Edge();
-  const TopoDS_Edge& E2 = C2.Edge();
+  const TopoEdge& E1 = C1.Edge();
+  const TopoEdge& E2 = C2.Edge();
   if (E1.IsSame(E2) && C1.IsPeriodic() && cont >= GeomAbs_G1)
     cont = GeomAbs_CN;
   return cont;
@@ -106,7 +106,7 @@ GeomAbs_Shape BRepLProp::Continuity(const BRepAdaptor_Curve& C1,
 
 //=================================================================================================
 
-GeomAbs_Shape BRepLProp::Continuity(const BRepAdaptor_Curve& C1,
+GeomAbs_Shape BRepLProp1::Continuity(const BRepAdaptor_Curve& C1,
                                     const BRepAdaptor_Curve& C2,
                                     const Standard_Real      u1,
                                     const Standard_Real      u2)

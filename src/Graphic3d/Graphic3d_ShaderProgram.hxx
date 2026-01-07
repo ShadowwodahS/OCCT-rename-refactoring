@@ -57,16 +57,16 @@ public:
   Standard_EXPORT virtual Standard_Boolean IsDone() const;
 
   //! Returns unique ID used to manage resource in graphic driver.
-  const TCollection_AsciiString& GetId() const { return myID; }
+  const AsciiString1& GetId() const { return myID; }
 
   //! Sets unique ID used to manage resource in graphic driver.
   //! WARNING! Graphic3d_ShaderProgram constructor generates a unique id for proper resource
   //! management; however if application overrides it, it is responsibility of application to avoid
   //! name collisions.
-  void SetId(const TCollection_AsciiString& theId) { myID = theId; }
+  void SetId(const AsciiString1& theId) { myID = theId; }
 
   //! Returns GLSL header (version code and extensions).
-  const TCollection_AsciiString& Header() const { return myHeader; }
+  const AsciiString1& Header() const { return myHeader; }
 
   //! Setup GLSL header containing language version code and used extensions.
   //! Will be prepended to the very beginning of the source code.
@@ -75,10 +75,10 @@ public:
   //!   #version 300 es
   //!   #extension GL_ARB_bindless_texture : require
   //! @endcode
-  void SetHeader(const TCollection_AsciiString& theHeader) { myHeader = theHeader; }
+  void SetHeader(const AsciiString1& theHeader) { myHeader = theHeader; }
 
   //! Append line to GLSL header.
-  void AppendToHeader(const TCollection_AsciiString& theHeaderLine)
+  void AppendToHeader(const AsciiString1& theHeaderLine)
   {
     if (!myHeader.IsEmpty())
     {
@@ -178,60 +178,60 @@ public:
   //! The list of pushed variables is automatically cleared after applying to GLSL program.
   //! Thus after program recreation even unchanged uniforms should be pushed anew.
   template <class T>
-  Standard_Boolean PushVariable(const TCollection_AsciiString& theName, const T& theValue);
+  Standard_Boolean PushVariable(const AsciiString1& theName, const T& theValue);
 
   //! Removes all custom uniform variables from the program.
   Standard_EXPORT void ClearVariables();
 
   //! Pushes float uniform.
-  Standard_Boolean PushVariableFloat(const TCollection_AsciiString& theName, const float theValue)
+  Standard_Boolean PushVariableFloat(const AsciiString1& theName, const float theValue)
   {
     return PushVariable(theName, theValue);
   }
 
   //! Pushes vec2 uniform.
-  Standard_Boolean PushVariableVec2(const TCollection_AsciiString& theName,
+  Standard_Boolean PushVariableVec2(const AsciiString1& theName,
                                     const Graphic3d_Vec2&          theValue)
   {
     return PushVariable(theName, theValue);
   }
 
   //! Pushes vec3 uniform.
-  Standard_Boolean PushVariableVec3(const TCollection_AsciiString& theName,
+  Standard_Boolean PushVariableVec3(const AsciiString1& theName,
                                     const Graphic3d_Vec3&          theValue)
   {
     return PushVariable(theName, theValue);
   }
 
   //! Pushes vec4 uniform.
-  Standard_Boolean PushVariableVec4(const TCollection_AsciiString& theName,
+  Standard_Boolean PushVariableVec4(const AsciiString1& theName,
                                     const Graphic3d_Vec4&          theValue)
   {
     return PushVariable(theName, theValue);
   }
 
   //! Pushes int uniform.
-  Standard_Boolean PushVariableInt(const TCollection_AsciiString& theName, const int theValue)
+  Standard_Boolean PushVariableInt(const AsciiString1& theName, const int theValue)
   {
     return PushVariable(theName, theValue);
   }
 
   //! Pushes vec2i uniform.
-  Standard_Boolean PushVariableVec2i(const TCollection_AsciiString& theName,
+  Standard_Boolean PushVariableVec2i(const AsciiString1& theName,
                                      const Graphic3d_Vec2i&         theValue)
   {
     return PushVariable(theName, theValue);
   }
 
   //! Pushes vec3i uniform.
-  Standard_Boolean PushVariableVec3i(const TCollection_AsciiString& theName,
+  Standard_Boolean PushVariableVec3i(const AsciiString1& theName,
                                      const Graphic3d_Vec3i&         theValue)
   {
     return PushVariable(theName, theValue);
   }
 
   //! Pushes vec4i uniform.
-  Standard_Boolean PushVariableVec4i(const TCollection_AsciiString& theName,
+  Standard_Boolean PushVariableVec4i(const AsciiString1& theName,
                                      const Graphic3d_Vec4i&         theValue)
   {
     return PushVariable(theName, theValue);
@@ -241,15 +241,15 @@ public:
   //! The path to GLSL programs determined from CSF_ShadersDirectory or CASROOT environment
   //! variables.
   //! @return the root folder with default GLSL programs.
-  Standard_EXPORT static const TCollection_AsciiString& ShadersFolder();
+  Standard_EXPORT static const AsciiString1& ShadersFolder();
 
 private:
-  TCollection_AsciiString       myID;            //!< the unique identifier of program object
+  AsciiString1       myID;            //!< the unique identifier of program object
   Graphic3d_ShaderObjectList    myShaderObjects; //!< the list of attached shader objects
   Graphic3d_ShaderVariableList  myVariables;     //!< the list of custom uniform variables
   Graphic3d_ShaderAttributeList myAttributes;    //!< the list of custom vertex attributes
   // clang-format off
-  TCollection_AsciiString       myHeader;        //!< GLSL header with version code and used extensions
+  AsciiString1       myHeader;        //!< GLSL header with version code and used extensions
   Standard_Integer              myNbLightsMax;   //!< length of array of light sources (THE_MAX_LIGHTS)
   Standard_Integer              myNbShadowMaps;  //!< length of array of shadow maps (THE_NB_SHADOWMAPS)
   Standard_Integer              myNbClipPlanesMax; //!< length of array of clipping planes (THE_MAX_CLIP_PLANES)
@@ -270,7 +270,7 @@ DEFINE_STANDARD_HANDLE(Graphic3d_ShaderProgram, RefObject)
 // =======================================================================
 template <class T>
 inline Standard_Boolean Graphic3d_ShaderProgram::PushVariable(
-  const TCollection_AsciiString& theName,
+  const AsciiString1& theName,
   const T&                       theValue)
 {
   Handle(Graphic3d_ShaderVariable) aVariable = Graphic3d_ShaderVariable::Create(theName, theValue);

@@ -28,9 +28,9 @@ IMPLEMENT_STANDARD_RTTIEXT(StdPrs_HLRShape, StdPrs_HLRShapeI)
 //=================================================================================================
 
 void StdPrs_HLRShape::ComputeHLR(const Handle(Prs3d_Presentation)& thePresentation,
-                                 const TopoDS_Shape&               theShape,
-                                 const Handle(Prs3d_Drawer)&       theDrawer,
-                                 const Handle(Graphic3d_Camera)&   theProjector) const
+                                 const TopoShape&               theShape,
+                                 const Handle(StyleDrawer)&       theDrawer,
+                                 const Handle(CameraOn3d)&   theProjector) const
 {
   Dir3d  aBackDir = -theProjector->Direction();
   Dir3d  aXpers   = theProjector->Up().Crossed(aBackDir);

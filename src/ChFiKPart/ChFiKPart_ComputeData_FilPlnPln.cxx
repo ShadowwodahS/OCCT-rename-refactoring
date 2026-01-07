@@ -126,7 +126,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   gp_Lin2d lin2dPln(p2dPln, dir2dPln);
   Handle(Geom2d_Line) GLin2dPln1 = new Geom2d_Line(lin2dPln);
   gp_Lin              linPln(P, AxisCylinder);
-  Handle(Geom_Line)   GLinPln1 = new Geom_Line(linPln);
+  Handle(GeomLine)   GLinPln1 = new GeomLine(linPln);
   gp_Lin2d            lin2dCyl(gp_Pnt2d(0., 0.), gp::DY2d());
   Handle(Geom2d_Line) GLin2dCyl1 = new Geom2d_Line(lin2dCyl);
   TopAbs_Orientation  trans;
@@ -157,7 +157,7 @@ Standard_Boolean ChFiKPart_MakeFillet(TopOpeBRepDS_DataStructure&    DStr,
   Handle(Geom2d_Line) GLin2dPln2 = new Geom2d_Line(lin2dPln);
   linPln.SetLocation(P);
   linPln.SetDirection(AxisCylinder);
-  Handle(Geom_Line) GLinPln2 = new Geom_Line(linPln);
+  Handle(GeomLine) GLinPln2 = new GeomLine(linPln);
   lin2dCyl.SetLocation(gp_Pnt2d(Ang, 0.));
   Handle(Geom2d_Line) GLin2dCyl2 = new Geom2d_Line(lin2dCyl);
   if (toreverse)

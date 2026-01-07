@@ -51,7 +51,7 @@ void IFSelect_ParamEditor::AddConstantText(const Standard_CString val,
   SetValue(NbValues(), tv, shortname, IFSelect_EditRead);
 }
 
-TCollection_AsciiString IFSelect_ParamEditor::Label() const
+AsciiString1 IFSelect_ParamEditor::Label() const
 {
   return thelabel;
 }
@@ -104,7 +104,7 @@ Handle(IFSelect_ParamEditor) IFSelect_ParamEditor::StaticEditor(
   editor = new IFSelect_ParamEditor(nb + 10, label);
   for (i = 1; i <= nb; i++)
   {
-    Handle(Interface_Static) val = Interface_Static::Static(list->Value(i)->ToCString());
+    Handle(ExchangeConfig) val = ExchangeConfig::Static(list->Value(i)->ToCString());
     if (!val.IsNull())
       editor->AddValue(val);
   }

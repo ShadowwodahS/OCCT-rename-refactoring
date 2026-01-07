@@ -51,7 +51,7 @@ public:
 
   //! Creates a filter to read only sub-labels of a label-path.
   //! Like, for "0:2" it will read all attributes for labels "0:2", "0:2:1", etc.
-  Standard_EXPORT PCDM_ReaderFilter(const TCollection_AsciiString& theEntryToRead);
+  Standard_EXPORT PCDM_ReaderFilter(const AsciiString1& theEntryToRead);
 
   //! Creates a filter to append the content of file to open to existing document.
   Standard_EXPORT PCDM_ReaderFilter(const AppendMode theAppend);
@@ -66,7 +66,7 @@ public:
   }
 
   //! Adds skipped attribute by type name.
-  Standard_EXPORT void AddSkipped(const TCollection_AsciiString& theSkipped)
+  Standard_EXPORT void AddSkipped(const AsciiString1& theSkipped)
   {
     mySkip.Add(theSkipped);
   }
@@ -78,10 +78,10 @@ public:
   }
 
   //! Adds attribute to read by type name. Disables the skipped attributes added.
-  Standard_EXPORT void AddRead(const TCollection_AsciiString& theRead) { myRead.Add(theRead); }
+  Standard_EXPORT void AddRead(const AsciiString1& theRead) { myRead.Add(theRead); }
 
   //! Adds sub-tree path (like "0:2").
-  Standard_EXPORT void AddPath(const TCollection_AsciiString& theEntryToRead)
+  Standard_EXPORT void AddPath(const AsciiString1& theEntryToRead)
   {
     mySubTrees.Append(theEntryToRead);
   }
@@ -94,12 +94,12 @@ public:
     const Handle(TypeInfo)& theAttributeID) const;
   //! Returns true if attribute must be read.
   Standard_EXPORT virtual Standard_Boolean IsPassedAttr(
-    const TCollection_AsciiString& theAttributeType) const;
+    const AsciiString1& theAttributeType) const;
   //! Returns true if content of the label must be read.
-  Standard_EXPORT virtual Standard_Boolean IsPassed(const TCollection_AsciiString& theEntry) const;
+  Standard_EXPORT virtual Standard_Boolean IsPassed(const AsciiString1& theEntry) const;
   //! Returns true if some sub-label of the given label is passed.
   Standard_EXPORT virtual Standard_Boolean IsSubPassed(
-    const TCollection_AsciiString& theEntry) const;
+    const AsciiString1& theEntry) const;
   //! Returns true if only part of the document tree will be retrieved.
   Standard_EXPORT virtual Standard_Boolean IsPartTree();
 
@@ -137,11 +137,11 @@ protected:
   //! Append mode for reading files into existing document
   AppendMode myAppend;
   //! Class names of attributes that must be skipped during the read
-  NCollection_Map<TCollection_AsciiString> mySkip;
+  NCollection_Map<AsciiString1> mySkip;
   //! Class names of only attributes to read (if it is not empty, mySkip is unused)
-  NCollection_Map<TCollection_AsciiString> myRead;
+  NCollection_Map<AsciiString1> myRead;
   //! Paths to the labels that must be read. If it is empty, read all.
-  NCollection_List<TCollection_AsciiString> mySubTrees;
+  NCollection_List<AsciiString1> mySubTrees;
 
   //! Map from tag of a label to sub-tree of this tag. Used for fast browsing the tree
   //! and compare with entities that must be read.

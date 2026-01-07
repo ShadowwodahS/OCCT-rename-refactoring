@@ -24,7 +24,7 @@ class BinMDF_ADriverTable;
 class Message_Messenger;
 
 //! Storage and Retrieval drivers for TFunction modelling attributes.
-class BinMFunction
+class BinMFunction1
 {
 public:
   DEFINE_STANDARD_ALLOC

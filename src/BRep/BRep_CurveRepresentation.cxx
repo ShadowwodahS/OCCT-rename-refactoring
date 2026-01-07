@@ -64,7 +64,7 @@ Standard_Boolean BRep_CurveRepresentation::IsRegularity() const
 
 //=================================================================================================
 
-Standard_Boolean BRep_CurveRepresentation::IsCurveOnSurface(const Handle(Geom_Surface)&,
+Standard_Boolean BRep_CurveRepresentation::IsCurveOnSurface(const Handle(GeomSurface)&,
                                                             const TopLoc_Location&) const
 {
   return Standard_False;
@@ -72,8 +72,8 @@ Standard_Boolean BRep_CurveRepresentation::IsCurveOnSurface(const Handle(Geom_Su
 
 //=================================================================================================
 
-Standard_Boolean BRep_CurveRepresentation::IsRegularity(const Handle(Geom_Surface)&,
-                                                        const Handle(Geom_Surface)&,
+Standard_Boolean BRep_CurveRepresentation::IsRegularity(const Handle(GeomSurface)&,
+                                                        const Handle(GeomSurface)&,
                                                         const TopLoc_Location&,
                                                         const TopLoc_Location&) const
 {
@@ -97,7 +97,7 @@ Standard_Boolean BRep_CurveRepresentation::IsPolygonOnTriangulation() const
 //=================================================================================================
 
 Standard_Boolean BRep_CurveRepresentation::IsPolygonOnTriangulation(
-  const Handle(Poly_Triangulation)&,
+  const Handle(MeshTriangulation)&,
   const TopLoc_Location&) const
 {
   return Standard_False;
@@ -126,7 +126,7 @@ Standard_Boolean BRep_CurveRepresentation::IsPolygonOnSurface() const
 
 //=================================================================================================
 
-Standard_Boolean BRep_CurveRepresentation::IsPolygonOnSurface(const Handle(Geom_Surface)&,
+Standard_Boolean BRep_CurveRepresentation::IsPolygonOnSurface(const Handle(GeomSurface)&,
                                                               const TopLoc_Location&) const
 {
   return Standard_False;
@@ -134,49 +134,49 @@ Standard_Boolean BRep_CurveRepresentation::IsPolygonOnSurface(const Handle(Geom_
 
 //=================================================================================================
 
-const Handle(Geom_Curve)& BRep_CurveRepresentation::Curve3D() const
+const Handle(GeomCurve3d)& BRep_CurveRepresentation::Curve3D() const
 {
   throw Standard_DomainError("BRep_CurveRepresentation");
 }
 
 //=================================================================================================
 
-void BRep_CurveRepresentation::Curve3D(const Handle(Geom_Curve)&)
+void BRep_CurveRepresentation::Curve3D(const Handle(GeomCurve3d)&)
 {
   throw Standard_DomainError("BRep_CurveRepresentation");
 }
 
 //=================================================================================================
 
-const Handle(Geom_Surface)& BRep_CurveRepresentation::Surface() const
+const Handle(GeomSurface)& BRep_CurveRepresentation::Surface() const
 {
   throw Standard_DomainError("BRep_CurveRepresentation");
 }
 
 //=================================================================================================
 
-const Handle(Geom2d_Curve)& BRep_CurveRepresentation::PCurve() const
+const Handle(GeomCurve2d)& BRep_CurveRepresentation::PCurve() const
 {
   throw Standard_DomainError("BRep_CurveRepresentation");
 }
 
 //=================================================================================================
 
-const Handle(Geom2d_Curve)& BRep_CurveRepresentation::PCurve2() const
+const Handle(GeomCurve2d)& BRep_CurveRepresentation::PCurve2() const
 {
   throw Standard_DomainError("BRep_CurveRepresentation");
 }
 
 //=================================================================================================
 
-void BRep_CurveRepresentation::PCurve(const Handle(Geom2d_Curve)&)
+void BRep_CurveRepresentation::PCurve(const Handle(GeomCurve2d)&)
 {
   throw Standard_DomainError("BRep_CurveRepresentation");
 }
 
 //=================================================================================================
 
-void BRep_CurveRepresentation::PCurve2(const Handle(Geom2d_Curve)&)
+void BRep_CurveRepresentation::PCurve2(const Handle(GeomCurve2d)&)
 {
   throw Standard_DomainError("BRep_CurveRepresentation");
 }
@@ -197,7 +197,7 @@ void BRep_CurveRepresentation::Continuity(const GeomAbs_Shape)
 
 //=================================================================================================
 
-const Handle(Geom_Surface)& BRep_CurveRepresentation::Surface2() const
+const Handle(GeomSurface)& BRep_CurveRepresentation::Surface2() const
 {
   throw Standard_DomainError("BRep_CurveRepresentation");
 }
@@ -267,7 +267,7 @@ const Handle(Poly_PolygonOnTriangulation)& BRep_CurveRepresentation::PolygonOnTr
 
 //=================================================================================================
 
-const Handle(Poly_Triangulation)& BRep_CurveRepresentation::Triangulation() const
+const Handle(MeshTriangulation)& BRep_CurveRepresentation::Triangulation() const
 {
   throw Standard_DomainError("BRep_CurveRepresentation");
 }

@@ -45,8 +45,8 @@ class StdPrs_WFShape_IsoFunctor
 public:
   StdPrs_WFShape_IsoFunctor(Prs3d_NListOfSequenceOfPnt&     thePolylinesU,
                             Prs3d_NListOfSequenceOfPnt&     thePolylinesV,
-                            const std::vector<TopoDS_Face>& theFaces,
-                            const Handle(Prs3d_Drawer)&     theDrawer,
+                            const std::vector<TopoFace>& theFaces,
+                            const Handle(StyleDrawer)&     theDrawer,
                             Standard_Real                   theShapeDeflection)
       : myPolylinesU(thePolylinesU),
         myPolylinesV(thePolylinesV),
@@ -60,7 +60,7 @@ public:
   void operator()(const Standard_Integer& theIndex) const
   {
     Prs3d_NListOfSequenceOfPnt aPolylinesU, aPolylinesV;
-    const TopoDS_Face&         aFace = myFaces[theIndex];
+    const TopoFace&         aFace = myFaces[theIndex];
     StdPrs_Isolines::Add(aFace, myDrawer, myShapeDeflection, aPolylinesU, aPolylinesV);
     {
       Standard_Mutex::Sentry aLock(myMutex);
@@ -75,8 +75,8 @@ private:
 private:
   Prs3d_NListOfSequenceOfPnt&     myPolylinesU;
   Prs3d_NListOfSequenceOfPnt&     myPolylinesV;
-  const std::vector<TopoDS_Face>& myFaces;
-  const Handle(Prs3d_Drawer)&     myDrawer;
+  const std::vector<TopoFace>& myFaces;
+  const Handle(StyleDrawer)&     myDrawer;
   mutable Standard_Mutex          myMutex;
   const Standard_Real             myShapeDeflection;
 };
@@ -84,8 +84,8 @@ private:
 //=================================================================================================
 
 void StdPrs_WFShape::Add(const Handle(Prs3d_Presentation)& thePresentation,
-                         const TopoDS_Shape&               theShape,
-                         const Handle(Prs3d_Drawer)&       theDrawer,
+                         const TopoShape&               theShape,
+                         const Handle(StyleDrawer)&       theDrawer,
                          Standard_Boolean                  theIsParallel)
 {
   if (theShape.IsNull())
@@ -112,7 +112,7 @@ void StdPrs_WFShape::Add(const Handle(Prs3d_Presentation)& thePresentation,
   const Standard_Real             aShapeDeflection =
     StdPrs_ToolTriangulatedShape::GetDeflection(theShape, theDrawer);
 
-  // Draw isolines
+  // Draw1 isolines
   {
     Prs3d_NListOfSequenceOfPnt  aUPolylines, aVPolylines;
     Prs3d_NListOfSequenceOfPnt* aUPolylinesPtr = &aUPolylines;
@@ -137,7 +137,7 @@ void StdPrs_WFShape::Add(const Handle(Prs3d_Presentation)& thePresentation,
     if (theIsParallel)
     {
       Standard_Integer aNbFaces = 0;
-      for (TopExp_Explorer aFaceExplorer(theShape, TopAbs_FACE); aFaceExplorer.More();
+      for (ShapeExplorer aFaceExplorer(theShape, TopAbs_FACE); aFaceExplorer.More();
            aFaceExplorer.Next())
       {
         ++aNbFaces;
@@ -145,12 +145,12 @@ void StdPrs_WFShape::Add(const Handle(Prs3d_Presentation)& thePresentation,
       if (aNbFaces > 1)
       {
         isParallelIso = true;
-        std::vector<TopoDS_Face> aFaces(aNbFaces);
+        std::vector<TopoFace> aFaces(aNbFaces);
         aNbFaces = 0;
-        for (TopExp_Explorer aFaceExplorer(theShape, TopAbs_FACE); aFaceExplorer.More();
+        for (ShapeExplorer aFaceExplorer(theShape, TopAbs_FACE); aFaceExplorer.More();
              aFaceExplorer.Next())
         {
-          const TopoDS_Face& aFace = TopoDS::Face(aFaceExplorer.Current());
+          const TopoFace& aFace = TopoDS::Face(aFaceExplorer.Current());
           if (theDrawer->IsoOnPlane() || !StdPrs_ShapeTool::IsPlanarFace(aFace))
           {
             aFaces[aNbFaces++] = aFace;
@@ -168,10 +168,10 @@ void StdPrs_WFShape::Add(const Handle(Prs3d_Presentation)& thePresentation,
 
     if (!isParallelIso)
     {
-      for (TopExp_Explorer aFaceExplorer(theShape, TopAbs_FACE); aFaceExplorer.More();
+      for (ShapeExplorer aFaceExplorer(theShape, TopAbs_FACE); aFaceExplorer.More();
            aFaceExplorer.Next())
       {
-        const TopoDS_Face& aFace = TopoDS::Face(aFaceExplorer.Current());
+        const TopoFace& aFace = TopoDS::Face(aFaceExplorer.Current());
         if (theDrawer->IsoOnPlane() || !StdPrs_ShapeTool::IsPlanarFace(aFace))
         {
           StdPrs_Isolines::Add(aFace,
@@ -233,8 +233,8 @@ void StdPrs_WFShape::Add(const Handle(Prs3d_Presentation)& thePresentation,
 //=================================================================================================
 
 Handle(Graphic3d_ArrayOfPrimitives) StdPrs_WFShape::AddAllEdges(
-  const TopoDS_Shape&         theShape,
-  const Handle(Prs3d_Drawer)& theDrawer)
+  const TopoShape&         theShape,
+  const Handle(StyleDrawer)& theDrawer)
 {
   const Standard_Real aShapeDeflection =
     StdPrs_ToolTriangulatedShape::GetDeflection(theShape, theDrawer);
@@ -245,8 +245,8 @@ Handle(Graphic3d_ArrayOfPrimitives) StdPrs_WFShape::AddAllEdges(
 
 //=================================================================================================
 
-void StdPrs_WFShape::addEdges(const TopoDS_Shape&         theShape,
-                              const Handle(Prs3d_Drawer)& theDrawer,
+void StdPrs_WFShape::addEdges(const TopoShape&         theShape,
+                              const Handle(StyleDrawer)& theDrawer,
                               Standard_Real               theShapeDeflection,
                               Prs3d_NListOfSequenceOfPnt* theWire,
                               Prs3d_NListOfSequenceOfPnt* theFree,
@@ -257,13 +257,13 @@ void StdPrs_WFShape::addEdges(const TopoDS_Shape&         theShape,
     return;
   }
 
-  TopTools_ListOfShape                      aLWire, aLFree, aLUnFree;
+  ShapeList                      aLWire, aLFree, aLUnFree;
   TopTools_IndexedDataMapOfShapeListOfShape anEdgeMap;
-  TopExp::MapShapesAndAncestors(theShape, TopAbs_EDGE, TopAbs_FACE, anEdgeMap);
+  TopExp1::MapShapesAndAncestors(theShape, TopAbs_EDGE, TopAbs_FACE, anEdgeMap);
   for (TopTools_IndexedDataMapOfShapeListOfShape::Iterator anEdgeIter(anEdgeMap); anEdgeIter.More();
        anEdgeIter.Next())
   {
-    const TopoDS_Edge&     anEdge        = TopoDS::Edge(anEdgeIter.Key());
+    const TopoEdge&     anEdge        = TopoDS::Edge(anEdgeIter.Key());
     const Standard_Integer aNbNeighbours = anEdgeIter.Value().Extent();
     switch (aNbNeighbours)
     {
@@ -307,16 +307,16 @@ void StdPrs_WFShape::addEdges(const TopoDS_Shape&         theShape,
 
 //=================================================================================================
 
-void StdPrs_WFShape::addEdges(const TopTools_ListOfShape& theEdges,
-                              const Handle(Prs3d_Drawer)& theDrawer,
+void StdPrs_WFShape::addEdges(const ShapeList& theEdges,
+                              const Handle(StyleDrawer)& theDrawer,
                               const Standard_Real         theShapeDeflection,
                               Prs3d_NListOfSequenceOfPnt& thePolylines)
 {
   TopTools_ListIteratorOfListOfShape anEdgesIter;
   for (anEdgesIter.Initialize(theEdges); anEdgesIter.More(); anEdgesIter.Next())
   {
-    const TopoDS_Edge& anEdge = TopoDS::Edge(anEdgesIter.Value());
-    if (BRep_Tool::Degenerated(anEdge))
+    const TopoEdge& anEdge = TopoDS::Edge(anEdgesIter.Value());
+    if (BRepInspector::Degenerated(anEdge))
     {
       continue;
     }
@@ -324,9 +324,9 @@ void StdPrs_WFShape::addEdges(const TopTools_ListOfShape& theEdges,
     Handle(TColgp_HSequenceOfPnt) aPoints = new TColgp_HSequenceOfPnt;
 
     TopLoc_Location                     aLocation;
-    Handle(Poly_Triangulation)          aTriangulation;
+    Handle(MeshTriangulation)          aTriangulation;
     Handle(Poly_PolygonOnTriangulation) anEdgeIndicies;
-    BRep_Tool::PolygonOnTriangulation(anEdge, anEdgeIndicies, aTriangulation, aLocation);
+    BRepInspector::PolygonOnTriangulation(anEdge, anEdgeIndicies, aTriangulation, aLocation);
     Handle(Poly_Polygon3D) aPolygon;
 
     if (!anEdgeIndicies.IsNull())
@@ -350,7 +350,7 @@ void StdPrs_WFShape::addEdges(const TopTools_ListOfShape& theEdges,
         }
       }
     }
-    else if (!(aPolygon = BRep_Tool::Polygon3D(anEdge, aLocation)).IsNull())
+    else if (!(aPolygon = BRepInspector::Polygon3D(anEdge, aLocation)).IsNull())
     {
       // Presentation based on triangulation of the free edge on a surface.
       const TColgp_Array1OfPnt& aNodes  = aPolygon->Nodes();
@@ -370,7 +370,7 @@ void StdPrs_WFShape::addEdges(const TopTools_ListOfShape& theEdges,
         }
       }
     }
-    else if (BRep_Tool::IsGeometric(anEdge))
+    else if (BRepInspector::IsGeometric(anEdge))
     {
       // Default presentation for edges without triangulation.
       BRepAdaptor_Curve aCurve(anEdge);
@@ -392,7 +392,7 @@ void StdPrs_WFShape::addEdges(const TopTools_ListOfShape& theEdges,
 //=================================================================================================
 
 Handle(Graphic3d_ArrayOfPrimitives) StdPrs_WFShape::AddEdgesOnTriangulation(
-  const TopoDS_Shape&    theShape,
+  const TopoShape&    theShape,
   const Standard_Boolean theToExcludeGeometric)
 {
   TColgp_SequenceOfPnt aSeqPnts;
@@ -415,22 +415,22 @@ Handle(Graphic3d_ArrayOfPrimitives) StdPrs_WFShape::AddEdgesOnTriangulation(
 //=================================================================================================
 
 void StdPrs_WFShape::AddEdgesOnTriangulation(TColgp_SequenceOfPnt&  theSegments,
-                                             const TopoDS_Shape&    theShape,
+                                             const TopoShape&    theShape,
                                              const Standard_Boolean theToExcludeGeometric)
 {
   TopLoc_Location aLocation, aDummyLoc;
-  for (TopExp_Explorer aFaceIter(theShape, TopAbs_FACE); aFaceIter.More(); aFaceIter.Next())
+  for (ShapeExplorer aFaceIter(theShape, TopAbs_FACE); aFaceIter.More(); aFaceIter.Next())
   {
-    const TopoDS_Face& aFace = TopoDS::Face(aFaceIter.Current());
+    const TopoFace& aFace = TopoDS::Face(aFaceIter.Current());
     if (theToExcludeGeometric)
     {
-      const Handle(Geom_Surface)& aSurf = BRep_Tool::Surface(aFace, aDummyLoc);
+      const Handle(GeomSurface)& aSurf = BRepInspector::Surface(aFace, aDummyLoc);
       if (!aSurf.IsNull())
       {
         continue;
       }
     }
-    if (const Handle(Poly_Triangulation)& aPolyTri = BRep_Tool::Triangulation(aFace, aLocation))
+    if (const Handle(MeshTriangulation)& aPolyTri = BRepInspector::Triangulation(aFace, aLocation))
     {
       Prs3d::AddFreeEdges(theSegments, aPolyTri, aLocation);
     }
@@ -439,40 +439,40 @@ void StdPrs_WFShape::AddEdgesOnTriangulation(TColgp_SequenceOfPnt&  theSegments,
 
 //=================================================================================================
 
-Handle(Graphic3d_ArrayOfPoints) StdPrs_WFShape::AddVertexes(const TopoDS_Shape&  theShape,
+Handle(Graphic3d_ArrayOfPoints) StdPrs_WFShape::AddVertexes(const TopoShape&  theShape,
                                                             Prs3d_VertexDrawMode theVertexMode)
 {
   TColgp_SequenceOfPnt aShapeVertices;
   if (theVertexMode == Prs3d_VDM_All)
   {
-    for (TopExp_Explorer aVertIter(theShape, TopAbs_VERTEX); aVertIter.More(); aVertIter.Next())
+    for (ShapeExplorer aVertIter(theShape, TopAbs_VERTEX); aVertIter.More(); aVertIter.Next())
     {
-      const TopoDS_Vertex& aVert = TopoDS::Vertex(aVertIter.Current());
-      aShapeVertices.Append(BRep_Tool::Pnt(aVert));
+      const TopoVertex& aVert = TopoDS::Vertex(aVertIter.Current());
+      aShapeVertices.Append(BRepInspector::Pnt(aVert));
     }
   }
   else
   {
     // isolated vertices
-    for (TopExp_Explorer aVertIter(theShape, TopAbs_VERTEX, TopAbs_EDGE); aVertIter.More();
+    for (ShapeExplorer aVertIter(theShape, TopAbs_VERTEX, TopAbs_EDGE); aVertIter.More();
          aVertIter.Next())
     {
-      const TopoDS_Vertex& aVert = TopoDS::Vertex(aVertIter.Current());
-      aShapeVertices.Append(BRep_Tool::Pnt(aVert));
+      const TopoVertex& aVert = TopoDS::Vertex(aVertIter.Current());
+      aShapeVertices.Append(BRepInspector::Pnt(aVert));
     }
 
     // internal vertices
-    for (TopExp_Explorer anEdgeIter(theShape, TopAbs_EDGE); anEdgeIter.More(); anEdgeIter.Next())
+    for (ShapeExplorer anEdgeIter(theShape, TopAbs_EDGE); anEdgeIter.More(); anEdgeIter.Next())
     {
       for (TopoDS_Iterator aVertIter(anEdgeIter.Current(), Standard_False, Standard_True);
            aVertIter.More();
            aVertIter.Next())
       {
-        const TopoDS_Shape& aVertSh = aVertIter.Value();
+        const TopoShape& aVertSh = aVertIter.Value();
         if (aVertSh.Orientation() == TopAbs_INTERNAL && aVertSh.ShapeType() == TopAbs_VERTEX)
         {
-          const TopoDS_Vertex& aVert = TopoDS::Vertex(aVertSh);
-          aShapeVertices.Append(BRep_Tool::Pnt(aVert));
+          const TopoVertex& aVert = TopoDS::Vertex(aVertSh);
+          aShapeVertices.Append(BRepInspector::Pnt(aVert));
         }
       }
     }

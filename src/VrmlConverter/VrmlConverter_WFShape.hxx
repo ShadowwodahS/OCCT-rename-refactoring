@@ -22,7 +22,7 @@
 #include <Standard_Handle.hxx>
 
 #include <Standard_OStream.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class VrmlConverter_Drawer;
 
 //! WFShape - computes the wireframe presentation of
@@ -34,13 +34,13 @@ class VrmlConverter_Drawer;
 //! specify in aDrawer.
 //! This kind of the presentation is converted into
 //! IndexedLineSet and PointSet  ( VRML ).
-class VrmlConverter_WFShape
+class WFShapeConverter
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT static void Add(Standard_OStream&                   anOStream,
-                                  const TopoDS_Shape&                 aShape,
+                                  const TopoShape&                 aShape,
                                   const Handle(VrmlConverter_Drawer)& aDrawer);
 
 protected:

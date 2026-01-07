@@ -40,7 +40,7 @@ const Standard_GUID& TDataXtd_Axis::GetID()
 
 //=================================================================================================
 
-Handle(TDataXtd_Axis) TDataXtd_Axis::Set(const TDF_Label& L)
+Handle(TDataXtd_Axis) TDataXtd_Axis::Set(const DataLabel& L)
 {
   Handle(TDataXtd_Axis) A;
   if (!L.FindAttribute(TDataXtd_Axis::GetID(), A))
@@ -53,17 +53,17 @@ Handle(TDataXtd_Axis) TDataXtd_Axis::Set(const TDF_Label& L)
 
 //=================================================================================================
 
-Handle(TDataXtd_Axis) TDataXtd_Axis::Set(const TDF_Label& L, const gp_Lin& line)
+Handle(TDataXtd_Axis) TDataXtd_Axis::Set(const DataLabel& L, const gp_Lin& line)
 {
   Handle(TDataXtd_Axis) A = Set(L);
 
-  Handle(TNaming_NamedShape) aNS;
-  if (L.FindAttribute(TNaming_NamedShape::GetID(), aNS))
+  Handle(ShapeAttribute) aNS;
+  if (L.FindAttribute(ShapeAttribute::GetID(), aNS))
   {
     if (!aNS->Get().IsNull())
       if (aNS->Get().ShapeType() == TopAbs_EDGE)
       {
-        TopoDS_Edge       anEdge = TopoDS::Edge(aNS->Get());
+        TopoEdge       anEdge = TopoDS::Edge(aNS->Get());
         BRepAdaptor_Curve anAdaptor(anEdge);
         if (anAdaptor.GetType() == GeomAbs_Line)
         {
@@ -79,7 +79,7 @@ Handle(TDataXtd_Axis) TDataXtd_Axis::Set(const TDF_Label& L, const gp_Lin& line)
       }
   }
   TNaming_Builder B(L);
-  B.Generated(BRepBuilderAPI_MakeEdge(line));
+  B.Generated(EdgeMaker(line));
   return A;
 }
 

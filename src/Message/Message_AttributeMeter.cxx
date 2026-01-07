@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Message_AttributeMeter, Message_Attribute)
 
 //=================================================================================================
 
-Message_AttributeMeter::Message_AttributeMeter(const TCollection_AsciiString& theName)
+Message_AttributeMeter::Message_AttributeMeter(const AsciiString1& theName)
     : Message_Attribute(theName)
 {
 }

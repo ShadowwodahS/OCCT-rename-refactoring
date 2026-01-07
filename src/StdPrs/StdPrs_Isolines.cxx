@@ -142,8 +142,8 @@ static void findLimits(const Adaptor3d_Curve& theCurve,
 //=================================================================================================
 
 void StdPrs_Isolines::AddOnTriangulation(const Handle(Prs3d_Presentation)& thePresentation,
-                                         const TopoDS_Face&                theFace,
-                                         const Handle(Prs3d_Drawer)&       theDrawer)
+                                         const TopoFace&                theFace,
+                                         const Handle(StyleDrawer)&       theDrawer)
 {
   Prs3d_NListOfSequenceOfPnt aUPolylines, aVPolylines;
   AddOnTriangulation(theFace, theDrawer, aUPolylines, aVPolylines);
@@ -153,8 +153,8 @@ void StdPrs_Isolines::AddOnTriangulation(const Handle(Prs3d_Presentation)& thePr
 
 //=================================================================================================
 
-void StdPrs_Isolines::AddOnTriangulation(const TopoDS_Face&          theFace,
-                                         const Handle(Prs3d_Drawer)& theDrawer,
+void StdPrs_Isolines::AddOnTriangulation(const TopoFace&          theFace,
+                                         const Handle(StyleDrawer)& theDrawer,
                                          Prs3d_NListOfSequenceOfPnt& theUPolylines,
                                          Prs3d_NListOfSequenceOfPnt& theVPolylines)
 {
@@ -182,7 +182,7 @@ void StdPrs_Isolines::AddOnTriangulation(const TopoDS_Face&          theFace,
 
   // Access surface definition.
   TopLoc_Location      aLocSurface;
-  Handle(Geom_Surface) aSurface = BRep_Tool::Surface(theFace, aLocSurface);
+  Handle(GeomSurface) aSurface = BRepInspector::Surface(theFace, aLocSurface);
   if (aSurface.IsNull())
   {
     return;
@@ -190,8 +190,8 @@ void StdPrs_Isolines::AddOnTriangulation(const TopoDS_Face&          theFace,
 
   // Access triangulation.
   TopLoc_Location                   aLocTriangulation;
-  const Handle(Poly_Triangulation)& aTriangulation =
-    BRep_Tool::Triangulation(theFace, aLocTriangulation);
+  const Handle(MeshTriangulation)& aTriangulation =
+    BRepInspector::Triangulation(theFace, aLocTriangulation);
   if (aTriangulation.IsNull())
   {
     return;
@@ -200,7 +200,7 @@ void StdPrs_Isolines::AddOnTriangulation(const TopoDS_Face&          theFace,
   // Setup equal location for surface and triangulation.
   if (!aLocTriangulation.IsEqual(aLocSurface))
   {
-    aSurface = Handle(Geom_Surface)::DownCast(
+    aSurface = Handle(GeomSurface)::DownCast(
       aSurface->Transformed((aLocSurface / aLocTriangulation).Transformation()));
   }
 
@@ -234,10 +234,10 @@ void StdPrs_Isolines::AddOnTriangulation(const TopoDS_Face&          theFace,
 //=================================================================================================
 
 void StdPrs_Isolines::AddOnTriangulation(const Handle(Prs3d_Presentation)& thePresentation,
-                                         const Handle(Poly_Triangulation)& theTriangulation,
-                                         const Handle(Geom_Surface)&       theSurface,
+                                         const Handle(MeshTriangulation)& theTriangulation,
+                                         const Handle(GeomSurface)&       theSurface,
                                          const TopLoc_Location&            theLocation,
-                                         const Handle(Prs3d_Drawer)&       theDrawer,
+                                         const Handle(StyleDrawer)&       theDrawer,
                                          const TColStd_SequenceOfReal&     theUIsoParams,
                                          const TColStd_SequenceOfReal&     theVIsoParams)
 {
@@ -255,8 +255,8 @@ void StdPrs_Isolines::AddOnTriangulation(const Handle(Prs3d_Presentation)& thePr
 
 //=================================================================================================
 
-void StdPrs_Isolines::addOnTriangulation(const Handle(Poly_Triangulation)& theTriangulation,
-                                         const Handle(Geom_Surface)&       theSurface,
+void StdPrs_Isolines::addOnTriangulation(const Handle(MeshTriangulation)& theTriangulation,
+                                         const Handle(GeomSurface)&       theSurface,
                                          const TopLoc_Location&            theLocation,
                                          const TColStd_SequenceOfReal&     theUIsoParams,
                                          const TColStd_SequenceOfReal&     theVIsoParams,
@@ -332,8 +332,8 @@ void StdPrs_Isolines::addOnTriangulation(const Handle(Poly_Triangulation)& theTr
 //=================================================================================================
 
 void StdPrs_Isolines::AddOnSurface(const Handle(Prs3d_Presentation)& thePresentation,
-                                   const TopoDS_Face&                theFace,
-                                   const Handle(Prs3d_Drawer)&       theDrawer,
+                                   const TopoFace&                theFace,
+                                   const Handle(StyleDrawer)&       theDrawer,
                                    const Standard_Real               theDeflection)
 {
   Prs3d_NListOfSequenceOfPnt aUPolylines, aVPolylines;
@@ -344,8 +344,8 @@ void StdPrs_Isolines::AddOnSurface(const Handle(Prs3d_Presentation)& thePresenta
 
 //=================================================================================================
 
-void StdPrs_Isolines::AddOnSurface(const TopoDS_Face&          theFace,
-                                   const Handle(Prs3d_Drawer)& theDrawer,
+void StdPrs_Isolines::AddOnSurface(const TopoFace&          theFace,
+                                   const Handle(StyleDrawer)& theDrawer,
                                    const Standard_Real         theDeflection,
                                    Prs3d_NListOfSequenceOfPnt& theUPolylines,
                                    Prs3d_NListOfSequenceOfPnt& theVPolylines)
@@ -385,7 +385,7 @@ void StdPrs_Isolines::AddOnSurface(const TopoDS_Face&          theFace,
 
 void StdPrs_Isolines::AddOnSurface(const Handle(Prs3d_Presentation)&  thePresentation,
                                    const Handle(BRepAdaptor_Surface)& theSurface,
-                                   const Handle(Prs3d_Drawer)&        theDrawer,
+                                   const Handle(StyleDrawer)&        theDrawer,
                                    const Standard_Real                theDeflection,
                                    const TColStd_SequenceOfReal&      theUIsoParams,
                                    const TColStd_SequenceOfReal&      theVIsoParams)
@@ -405,7 +405,7 @@ void StdPrs_Isolines::AddOnSurface(const Handle(Prs3d_Presentation)&  thePresent
 //=================================================================================================
 
 void StdPrs_Isolines::addOnSurface(const Handle(BRepAdaptor_Surface)& theSurface,
-                                   const Handle(Prs3d_Drawer)&        theDrawer,
+                                   const Handle(StyleDrawer)&        theDrawer,
                                    const Standard_Real                theDeflection,
                                    const TColStd_SequenceOfReal&      theUIsoParams,
                                    const TColStd_SequenceOfReal&      theVIsoParams,
@@ -552,7 +552,7 @@ void StdPrs_Isolines::addOnSurface(const Handle(BRepAdaptor_Surface)& theSurface
     // Use surface definition for evaluation of Bezier, B-spline surface.
     // Use isoline adapter for other types of surfaces.
     GeomAbs_SurfaceType  aSurfType = theSurface->GetType();
-    Handle(Geom_Surface) aBSurface;
+    Handle(GeomSurface) aBSurface;
     GeomAdaptor_Curve    aBSurfaceCurve;
     Adaptor3d_IsoCurve   aCanonicalCurve;
     if (aSurfType == GeomAbs_BezierSurface)
@@ -641,7 +641,7 @@ void StdPrs_Isolines::addOnSurface(const Handle(BRepAdaptor_Surface)& theSurface
 
 //=================================================================================================
 
-void StdPrs_Isolines::UVIsoParameters(const TopoDS_Face&      theFace,
+void StdPrs_Isolines::UVIsoParameters(const TopoFace&      theFace,
                                       const Standard_Integer  theNbIsoU,
                                       const Standard_Integer  theNbIsoV,
                                       const Standard_Real     theUVLimit,
@@ -654,13 +654,13 @@ void StdPrs_Isolines::UVIsoParameters(const TopoDS_Face&      theFace,
 {
 
   TopLoc_Location             aLocation;
-  const Handle(Geom_Surface)& aSurface = BRep_Tool::Surface(theFace, aLocation);
+  const Handle(GeomSurface)& aSurface = BRepInspector::Surface(theFace, aLocation);
   if (aSurface.IsNull())
   {
     return;
   }
 
-  BRepTools::UVBounds(theFace, theUmin, theUmax, theVmin, theVmax);
+  BRepTools1::UVBounds(theFace, theUmin, theUmax, theVmin, theVmax);
 
   Standard_Real aUmin = theUmin;
   Standard_Real aUmax = theUmax;
@@ -707,7 +707,7 @@ void StdPrs_Isolines::UVIsoParameters(const TopoDS_Face&      theFace,
 
 //=================================================================================================
 
-Standard_Boolean StdPrs_Isolines::findSegmentOnTriangulation(const Handle(Geom_Surface)& theSurface,
+Standard_Boolean StdPrs_Isolines::findSegmentOnTriangulation(const Handle(GeomSurface)& theSurface,
                                                              const bool                  theIsU,
                                                              const gp_Lin2d&             theIsoline,
                                                              const Point3d*   theNodesXYZ,
@@ -796,7 +796,7 @@ Standard_Boolean StdPrs_Isolines::findSegmentOnTriangulation(const Handle(Geom_S
     {
       // Do linear interpolation of point coordinates by triangulation nodes.
       // Get 3d point on surface.
-      Handle(Geom_Curve) anIso1, anIso2;
+      Handle(GeomCurve3d) anIso1, anIso2;
       Standard_Real      aPntOnNode1Iso = 0.0;
       Standard_Real      aPntOnNode2Iso = 0.0;
       Standard_Real      aPntOnNode3Iso = 0.0;

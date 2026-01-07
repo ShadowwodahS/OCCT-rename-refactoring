@@ -34,7 +34,7 @@ class RWGltf_CafReader::CafReader_GltfBaseLoadingFunctor
 {
 public:
   //! Main constructor.
-  CafReader_GltfBaseLoadingFunctor(NCollection_Vector<TopoDS_Face>& theFaceList,
+  CafReader_GltfBaseLoadingFunctor(NCollection_Vector<TopoFace>& theFaceList,
                                    const Message_ProgressRange&     theProgress,
                                    const OSD_ThreadPool::Launcher&  theThreadPool)
       : myFaceList(&theFaceList),
@@ -48,13 +48,13 @@ public:
   void operator()(int theThreadIndex, int theFaceIndex) const
   {
     TopLoc_Location                       aDummyLoc;
-    TopoDS_Face&                          aFace = myFaceList->ChangeValue(theFaceIndex);
+    TopoFace&                          aFace = myFaceList->ChangeValue(theFaceIndex);
     Handle(RWGltf_GltfLatePrimitiveArray) aLateData =
-      Handle(RWGltf_GltfLatePrimitiveArray)::DownCast(BRep_Tool::Triangulation(aFace, aDummyLoc));
-    Handle(Poly_Triangulation) aPolyData = loadData(aLateData, theThreadIndex);
+      Handle(RWGltf_GltfLatePrimitiveArray)::DownCast(BRepInspector::Triangulation(aFace, aDummyLoc));
+    Handle(MeshTriangulation) aPolyData = loadData(aLateData, theThreadIndex);
     if (!aPolyData.IsNull())
     {
-      BRep_Builder aBuilder;
+      ShapeBuilder aBuilder;
       // clang-format off
       aBuilder.UpdateFace (aFace, aPolyData); // replace all "proxy"-triangulations of face by loaded active one.
       // clang-format on
@@ -72,12 +72,12 @@ public:
 
 protected:
   //! Load primitive array.
-  virtual Handle(Poly_Triangulation) loadData(
+  virtual Handle(MeshTriangulation) loadData(
     const Handle(RWGltf_GltfLatePrimitiveArray)& theLateData,
     int                                          theThreadIndex) const = 0;
 
 protected:
-  NCollection_Vector<TopoDS_Face>* myFaceList;
+  NCollection_Vector<TopoFace>* myFaceList;
   mutable Standard_Mutex           myMutex;
   mutable Message_ProgressScope    myProgress;
   const OSD_ThreadPool::Launcher&  myThreadPool;
@@ -95,7 +95,7 @@ public:
 
   //! Main constructor.
   CafReader_GltfFullDataLoadingFunctor(RWGltf_CafReader*                myCafReader,
-                                       NCollection_Vector<TopoDS_Face>& theFaceList,
+                                       NCollection_Vector<TopoFace>& theFaceList,
                                        const Message_ProgressRange&     theProgress,
                                        const OSD_ThreadPool::Launcher&  theThreadPool)
       : CafReader_GltfBaseLoadingFunctor(theFaceList, theProgress, theThreadPool),
@@ -107,7 +107,7 @@ public:
 
 protected:
   //! Load primitive array.
-  virtual Handle(Poly_Triangulation) loadData(
+  virtual Handle(MeshTriangulation) loadData(
     const Handle(RWGltf_GltfLatePrimitiveArray)& theLateData,
     int                                          theThreadIndex) const Standard_OVERRIDE
   {
@@ -117,7 +117,7 @@ protected:
       aTlsData.FileSystem = new OSD_CachedFileSystem();
     }
     // Load stream data if exists
-    if (Handle(Poly_Triangulation) aStreamLoadedData = theLateData->LoadStreamData())
+    if (Handle(MeshTriangulation) aStreamLoadedData = theLateData->LoadStreamData())
     {
       return aStreamLoadedData;
     }
@@ -125,7 +125,7 @@ protected:
     if (myCafReader->ToKeepLateData())
     {
       theLateData->LoadDeferredData(aTlsData.FileSystem);
-      return Handle(Poly_Triangulation)();
+      return Handle(MeshTriangulation)();
     }
     return theLateData->DetachedLoadDeferredData(aTlsData.FileSystem);
   }
@@ -141,7 +141,7 @@ class RWGltf_CafReader::CafReader_GltfStreamDataLoadingFunctor
 {
 public:
   //! Main constructor.
-  CafReader_GltfStreamDataLoadingFunctor(NCollection_Vector<TopoDS_Face>& theFaceList,
+  CafReader_GltfStreamDataLoadingFunctor(NCollection_Vector<TopoFace>& theFaceList,
                                          const Message_ProgressRange&     theProgress,
                                          const OSD_ThreadPool::Launcher&  theThreadPool)
       : CafReader_GltfBaseLoadingFunctor(theFaceList, theProgress, theThreadPool)
@@ -151,7 +151,7 @@ public:
 
 protected:
   //! Load primitive array.
-  virtual Handle(Poly_Triangulation) loadData(
+  virtual Handle(MeshTriangulation) loadData(
     const Handle(RWGltf_GltfLatePrimitiveArray)& theLateData,
     int                                          theThreadIndex) const Standard_OVERRIDE
   {
@@ -179,7 +179,7 @@ RWGltf_CafReader::RWGltf_CafReader()
 //=================================================================================================
 
 Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  theStream,
-                                               const TCollection_AsciiString& theFile,
+                                               const AsciiString1& theFile,
                                                const Message_ProgressRange&   theProgress,
                                                const Standard_Boolean         theToProbe)
 {
@@ -188,7 +188,7 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
 
   if (!theStream.good())
   {
-    Message::SendFail(TCollection_AsciiString("File '") + theFile + "' is not found");
+    Message::SendFail(AsciiString1("File '") + theFile + "' is not found");
     return false;
   }
 
@@ -208,7 +208,7 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
     {
       if (*aLen < 20)
       {
-        Message::SendFail(TCollection_AsciiString("File '") + theFile + "' has broken glTF format");
+        Message::SendFail(AsciiString1("File '") + theFile + "' has broken glTF format");
         return false;
       }
 
@@ -224,7 +224,7 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
       aBinBodyLen    = int64_t(*aLen) - aBinBodyOffset;
       if (*aSceneFormat != 0)
       {
-        Message::SendFail(TCollection_AsciiString("File '") + theFile
+        Message::SendFail(AsciiString1("File '") + theFile
                           + "' is written using unsupported Scene format");
         return false;
       }
@@ -233,7 +233,7 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
     {
       if (*aVer != 2)
       {
-        Message::SendWarning(TCollection_AsciiString("File '") + theFile
+        Message::SendWarning(AsciiString1("File '") + theFile
                              + "' is written using unknown version " + int(*aVer));
       }
 
@@ -248,7 +248,7 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
         theStream.read(aChunkHeader2, sizeof(aChunkHeader2));
         if (!theStream.good())
         {
-          Message::SendFail(TCollection_AsciiString("File '") + theFile
+          Message::SendFail(AsciiString1("File '") + theFile
                             + "' is written using unsupported format");
           return false;
         }
@@ -279,8 +279,8 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
     theStream.seekg(0, std::ios_base::beg);
   }
 
-  TCollection_AsciiString anErrPrefix =
-    TCollection_AsciiString("File '") + theFile + "' defines invalid glTF!\n";
+  AsciiString1 anErrPrefix =
+    AsciiString1("File '") + theFile + "' defines invalid glTF!\n";
   RWGltf_GltfJsonParser aDoc(myRootShapes);
   aDoc.SetFilePath(theFile);
   aDoc.SetProbeHeader(theToProbe);
@@ -317,11 +317,11 @@ Standard_Boolean RWGltf_CafReader::performMesh(std::istream&                  th
   {
     if (aRes.Code() == rapidjson::kParseErrorDocumentEmpty)
     {
-      Message::SendFail(TCollection_AsciiString("File '") + theFile + "' is empty");
+      Message::SendFail(AsciiString1("File '") + theFile + "' is empty");
       return false;
     }
-    TCollection_AsciiString anErrDesc(RWGltf_GltfJsonParser::FormatParseError(aRes.Code()));
-    Message::SendFail(TCollection_AsciiString("File '") + theFile
+    AsciiString1 anErrDesc(RWGltf_GltfJsonParser::FormatParseError(aRes.Code()));
+    Message::SendFail(AsciiString1("File '") + theFile
                       + "' defines invalid JSON document!\n" + anErrDesc + " [at offset "
                       + (int)aRes.Offset() + "].");
     return false;
@@ -355,8 +355,8 @@ Handle(RWMesh_TriangulationReader) RWGltf_CafReader::createMeshReaderContext() c
 
 //=================================================================================================
 
-Standard_Boolean RWGltf_CafReader::readLateData(NCollection_Vector<TopoDS_Face>& theFaces,
-                                                const TCollection_AsciiString&   theFile,
+Standard_Boolean RWGltf_CafReader::readLateData(NCollection_Vector<TopoFace>& theFaces,
+                                                const AsciiString1&   theFile,
                                                 const Message_ProgressRange&     theProgress)
 {
   Handle(RWGltf_TriangulationReader) aReader =
@@ -397,15 +397,15 @@ Standard_Boolean RWGltf_CafReader::readLateData(NCollection_Vector<TopoDS_Face>&
 //=================================================================================================
 
 void RWGltf_CafReader::updateLateDataReader(
-  NCollection_Vector<TopoDS_Face>&          theFaces,
+  NCollection_Vector<TopoFace>&          theFaces,
   const Handle(RWMesh_TriangulationReader)& theReader) const
 {
   TopLoc_Location aDummyLoc;
-  for (NCollection_Vector<TopoDS_Face>::Iterator aFaceIter(theFaces); aFaceIter.More();
+  for (NCollection_Vector<TopoFace>::Iterator aFaceIter(theFaces); aFaceIter.More();
        aFaceIter.Next())
   {
-    const TopoDS_Face& aFace = aFaceIter.Value();
-    for (Poly_ListOfTriangulation::Iterator anIter(BRep_Tool::Triangulations(aFace, aDummyLoc));
+    const TopoFace& aFace = aFaceIter.Value();
+    for (Poly_ListOfTriangulation::Iterator anIter(BRepInspector::Triangulations(aFace, aDummyLoc));
          anIter.More();
          anIter.Next())
     {

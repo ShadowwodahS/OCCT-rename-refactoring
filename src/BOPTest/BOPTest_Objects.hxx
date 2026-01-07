@@ -24,7 +24,7 @@
 #include <BOPAlgo_CellsBuilder.hxx>
 #include <BOPAlgo_GlueEnum.hxx>
 //
-class BOPAlgo_PaveFiller;
+class BooleanPaveFiller;
 class BOPAlgo_Builder;
 class BOPAlgo_BOP;
 class BOPAlgo_Section;
@@ -35,7 +35,7 @@ class BOPTest_Objects
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static BOPAlgo_PaveFiller& PaveFiller();
+  Standard_EXPORT static BooleanPaveFiller& PaveFiller();
 
   Standard_EXPORT static void Init();
 
@@ -53,9 +53,9 @@ public:
 
   Standard_EXPORT static BOPAlgo_Splitter& Splitter();
 
-  Standard_EXPORT static TopTools_ListOfShape& Shapes();
+  Standard_EXPORT static ShapeList& Shapes();
 
-  Standard_EXPORT static TopTools_ListOfShape& Tools();
+  Standard_EXPORT static ShapeList& Tools();
 
   Standard_EXPORT static void SetBuilder(const BOPAlgo_PBuilder& theBuilder);
 

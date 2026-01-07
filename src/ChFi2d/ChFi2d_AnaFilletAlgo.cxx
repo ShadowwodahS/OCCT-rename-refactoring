@@ -41,7 +41,7 @@ static Standard_Boolean isCW(const BRepAdaptor_Curve& AC)
 {
   const Standard_Real f      = AC.FirstParameter();
   const Standard_Real l      = AC.LastParameter();
-  Handle(Geom_Circle) circle = Handle(Geom_Circle)::DownCast(AC.Curve().Curve());
+  Handle(GeomCircle) circle = Handle(GeomCircle)::DownCast(AC.Curve().Curve());
   Point3d              start  = AC.Value(f);
   Point3d              end    = AC.Value(l);
   Point3d              center = AC.Circle().Location();
@@ -103,7 +103,7 @@ ChFi2d_AnaFilletAlgo::ChFi2d_AnaFilletAlgo()
 // It expects two edges having a common point of type:
 // - segment
 // - arc of circle.
-ChFi2d_AnaFilletAlgo::ChFi2d_AnaFilletAlgo(const TopoDS_Wire& theWire, const gp_Pln& thePlane)
+ChFi2d_AnaFilletAlgo::ChFi2d_AnaFilletAlgo(const TopoWire& theWire, const gp_Pln& thePlane)
     : plane(thePlane),
       segment1(Standard_False),
       x11(0.0),
@@ -131,8 +131,8 @@ ChFi2d_AnaFilletAlgo::ChFi2d_AnaFilletAlgo(const TopoDS_Wire& theWire, const gp_
 // It expects two edges having a common point of type:
 // - segment
 // - arc of circle.
-ChFi2d_AnaFilletAlgo::ChFi2d_AnaFilletAlgo(const TopoDS_Edge& theEdge1,
-                                           const TopoDS_Edge& theEdge2,
+ChFi2d_AnaFilletAlgo::ChFi2d_AnaFilletAlgo(const TopoEdge& theEdge1,
+                                           const TopoEdge& theEdge2,
                                            const gp_Pln&      thePlane)
     : plane(thePlane),
       segment1(Standard_False),
@@ -159,7 +159,7 @@ ChFi2d_AnaFilletAlgo::ChFi2d_AnaFilletAlgo(const TopoDS_Edge& theEdge1,
 }
 
 // Initializes the class by a wire consisting of two edges.
-void ChFi2d_AnaFilletAlgo::Init(const TopoDS_Wire& theWire, const gp_Pln& thePlane)
+void ChFi2d_AnaFilletAlgo::Init(const TopoWire& theWire, const gp_Pln& thePlane)
 {
   plane = thePlane;
   TopoDS_Iterator itr(theWire);
@@ -179,13 +179,13 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoDS_Wire& theWire, const gp_Pln& thePla
   if (AC1.GetType() != GeomAbs_Line && AC1.GetType() != GeomAbs_Circle)
     throw Standard_TypeMismatch("A segment or an arc of circle is expected.");
 
-  TopoDS_Vertex v1, v2;
-  TopExp::Vertices(e1, v1, v2, Standard_True);
+  TopoVertex v1, v2;
+  TopExp1::Vertices(e1, v1, v2, Standard_True);
   if (v1.IsNull() || v2.IsNull())
     throw ExceptionBase("An infinite edge.");
 
-  Point3d   P1 = BRep_Tool::Pnt(v1);
-  Point3d   P2 = BRep_Tool::Pnt(v2);
+  Point3d   P1 = BRepInspector::Pnt(v1);
+  Point3d   P2 = BRepInspector::Pnt(v2);
   gp_Pnt2d p1 = ProjLib::Project(thePlane, P1);
   gp_Pnt2d p2 = ProjLib::Project(thePlane, P2);
   p1.Coord(x11, y11);
@@ -209,12 +209,12 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoDS_Wire& theWire, const gp_Pln& thePla
   if (AC2.GetType() != GeomAbs_Line && AC2.GetType() != GeomAbs_Circle)
     throw Standard_TypeMismatch("A segment or an arc of circle is expected.");
 
-  TopExp::Vertices(e2, v1, v2, Standard_True);
+  TopExp1::Vertices(e2, v1, v2, Standard_True);
   if (v1.IsNull() || v2.IsNull())
     throw ExceptionBase("An infinite edge.");
 
-  P1 = BRep_Tool::Pnt(v1);
-  P2 = BRep_Tool::Pnt(v2);
+  P1 = BRepInspector::Pnt(v1);
+  P2 = BRepInspector::Pnt(v2);
   p1 = ProjLib::Project(thePlane, P1);
   p2 = ProjLib::Project(thePlane, P2);
   p1.Coord(x21, y21);
@@ -235,23 +235,23 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoDS_Wire& theWire, const gp_Pln& thePla
 }
 
 // Initializes the class by two edges.
-void ChFi2d_AnaFilletAlgo::Init(const TopoDS_Edge& theEdge1,
-                                const TopoDS_Edge& theEdge2,
+void ChFi2d_AnaFilletAlgo::Init(const TopoEdge& theEdge1,
+                                const TopoEdge& theEdge2,
                                 const gp_Pln&      thePlane)
 {
   // Make a wire consisting of two edges.
 
   // Get common point.
-  TopoDS_Vertex v11, v12, v21, v22;
-  TopExp::Vertices(theEdge1, v11, v12, Standard_True);
-  TopExp::Vertices(theEdge2, v21, v22, Standard_True);
+  TopoVertex v11, v12, v21, v22;
+  TopExp1::Vertices(theEdge1, v11, v12, Standard_True);
+  TopExp1::Vertices(theEdge2, v21, v22, Standard_True);
   if (v11.IsNull() || v12.IsNull() || v21.IsNull() || v22.IsNull())
     throw ExceptionBase("An infinite edge.");
 
-  Point3d p11 = BRep_Tool::Pnt(v11);
-  Point3d p12 = BRep_Tool::Pnt(v12);
-  Point3d p21 = BRep_Tool::Pnt(v21);
-  Point3d p22 = BRep_Tool::Pnt(v22);
+  Point3d p11 = BRepInspector::Pnt(v11);
+  Point3d p12 = BRepInspector::Pnt(v12);
+  Point3d p21 = BRepInspector::Pnt(v21);
+  Point3d p22 = BRepInspector::Pnt(v22);
 
   Point3d pcommon;
   if (IsEqual(p11, p21) || IsEqual(p11, p22))
@@ -285,7 +285,7 @@ void ChFi2d_AnaFilletAlgo::Init(const TopoDS_Edge& theEdge1,
   if (!mkWire.IsDone())
     throw ExceptionBase("Can't make a wire.");
 
-  const TopoDS_Wire& W = mkWire.Wire();
+  const TopoWire& W = mkWire.Wire();
   Init(W, thePlane);
 }
 
@@ -313,11 +313,11 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
     BRepBuilderAPI_MakeWire mkWire(e1, e2);
     if (mkWire.IsDone())
     {
-      const TopoDS_Wire&      W = mkWire.Wire();
-      BRepBuilderAPI_MakeFace mkFace(plane);
+      const TopoWire&      W = mkWire.Wire();
+      FaceMaker mkFace(plane);
       if (mkFace.IsDone())
       {
-        const TopoDS_Face& F = mkFace.Face();
+        const TopoFace& F = mkFace.Face();
         ShapeAnalysis_Wire analyzer(W, F, Precision::Confusion());
         if (analyzer.CheckSelfIntersection() == Standard_True)
         {
@@ -443,7 +443,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
     }
 
     // Make arc.
-    BRepBuilderAPI_MakeEdge mkEdge(circ, pstart, pend);
+    EdgeMaker mkEdge(circ, pstart, pend);
     bRet = mkEdge.IsDone();
     if (bRet)
     {
@@ -465,14 +465,14 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
       }
       if (segment1)
       {
-        BRepBuilderAPI_MakeEdge mkSegment1;
+        EdgeMaker mkSegment1;
         mkSegment1.Init(AC1.Curve().Curve(), p1, p2);
         if (mkSegment1.IsDone())
           shrinke1 = mkSegment1.Edge();
       }
       else
       {
-        BRepBuilderAPI_MakeEdge mkCirc1;
+        EdgeMaker mkCirc1;
         mkCirc1.Init(AC1.Curve().Curve(), p1, p2);
         if (mkCirc1.IsDone())
           shrinke1 = mkCirc1.Edge();
@@ -492,14 +492,14 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
       }
       if (segment2)
       {
-        BRepBuilderAPI_MakeEdge mkSegment2;
+        EdgeMaker mkSegment2;
         mkSegment2.Init(AC2.Curve().Curve(), p1, p2);
         if (mkSegment2.IsDone())
           shrinke2 = mkSegment2.Edge();
       }
       else
       {
-        BRepBuilderAPI_MakeEdge mkCirc2;
+        EdgeMaker mkCirc2;
         mkCirc2.Init(AC2.Curve().Curve(), p1, p2);
         if (mkCirc2.IsDone())
           shrinke2 = mkCirc2.Edge();
@@ -513,7 +513,7 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Perform(const Standard_Real radius)
 }
 
 // Retrieves a result (fillet and shrinked neighbours).
-const TopoDS_Edge& ChFi2d_AnaFilletAlgo::Result(TopoDS_Edge& theE1, TopoDS_Edge& theE2)
+const TopoEdge& ChFi2d_AnaFilletAlgo::Result(TopoEdge& theE1, TopoEdge& theE2)
 {
   theE1 = shrinke1;
   theE2 = shrinke2;
@@ -937,15 +937,15 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::ArcFilletArc(const Standard_Real radius,
 
 // Cuts intersecting edges of a contour.
 Standard_Boolean ChFi2d_AnaFilletAlgo::Cut(const gp_Pln& thePlane,
-                                           TopoDS_Edge&  theE1,
-                                           TopoDS_Edge&  theE2)
+                                           TopoEdge&  theE1,
+                                           TopoEdge&  theE2)
 {
   Point3d                    p;
   Standard_Boolean          found(Standard_False);
   Standard_Real             param1 = 0.0, param2 = 0.0;
   Standard_Real             f1, l1, f2, l2;
-  Handle(Geom_Curve)        c1 = BRep_Tool::Curve(theE1, f1, l1);
-  Handle(Geom_Curve)        c2 = BRep_Tool::Curve(theE2, f2, l2);
+  Handle(GeomCurve3d)        c1 = BRepInspector::Curve(theE1, f1, l1);
+  Handle(GeomCurve3d)        c2 = BRepInspector::Curve(theE2, f2, l2);
   GeomAPI_ExtremaCurveCurve extrema(c1, c2, f1, l1, f2, l2);
   if (extrema.NbExtrema())
   {
@@ -969,12 +969,12 @@ Standard_Boolean ChFi2d_AnaFilletAlgo::Cut(const gp_Pln& thePlane,
 
   if (found)
   {
-    BRepBuilderAPI_MakeEdge mkEdge1(c1, f1, param1);
+    EdgeMaker mkEdge1(c1, f1, param1);
     if (mkEdge1.IsDone())
     {
       theE1 = mkEdge1.Edge();
 
-      BRepBuilderAPI_MakeEdge mkEdge2(c2, param2, l2);
+      EdgeMaker mkEdge2(c2, param2, l2);
       if (mkEdge2.IsDone())
       {
         theE2 = mkEdge2.Edge();

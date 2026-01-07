@@ -51,7 +51,7 @@ const Standard_GUID& TDataXtd_Geometry::GetID()
 
 //=================================================================================================
 
-Handle(TDataXtd_Geometry) TDataXtd_Geometry::Set(const TDF_Label& L)
+Handle(TDataXtd_Geometry) TDataXtd_Geometry::Set(const DataLabel& L)
 {
   Handle(TDataXtd_Geometry) A;
   if (!L.FindAttribute(TDataXtd_Geometry::GetID(), A))
@@ -65,10 +65,10 @@ Handle(TDataXtd_Geometry) TDataXtd_Geometry::Set(const TDF_Label& L)
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Point(const TDF_Label& L, Point3d& G)
+Standard_Boolean TDataXtd_Geometry::Point(const DataLabel& L, Point3d& G)
 {
-  Handle(TNaming_NamedShape) NS;
-  if (L.FindAttribute(TNaming_NamedShape::GetID(), NS))
+  Handle(ShapeAttribute) NS;
+  if (L.FindAttribute(ShapeAttribute::GetID(), NS))
   {
     return Point(NS, G);
   }
@@ -77,15 +77,15 @@ Standard_Boolean TDataXtd_Geometry::Point(const TDF_Label& L, Point3d& G)
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Point(const Handle(TNaming_NamedShape)& NS, Point3d& G)
+Standard_Boolean TDataXtd_Geometry::Point(const Handle(ShapeAttribute)& NS, Point3d& G)
 {
-  const TopoDS_Shape& shape = TNaming_Tool::GetShape(NS);
+  const TopoShape& shape = Tool11::GetShape(NS);
   if (shape.IsNull())
     return Standard_False;
   if (shape.ShapeType() == TopAbs_VERTEX)
   {
-    const TopoDS_Vertex& vertex = TopoDS::Vertex(shape);
-    G                           = BRep_Tool::Pnt(TopoDS::Vertex(vertex));
+    const TopoVertex& vertex = TopoDS::Vertex(shape);
+    G                           = BRepInspector::Pnt(TopoDS::Vertex(vertex));
     return Standard_True;
   }
   return Standard_False;
@@ -93,10 +93,10 @@ Standard_Boolean TDataXtd_Geometry::Point(const Handle(TNaming_NamedShape)& NS, 
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Axis(const TDF_Label& L, Axis3d& G)
+Standard_Boolean TDataXtd_Geometry::Axis(const DataLabel& L, Axis3d& G)
 {
-  Handle(TNaming_NamedShape) NS;
-  if (L.FindAttribute(TNaming_NamedShape::GetID(), NS))
+  Handle(ShapeAttribute) NS;
+  if (L.FindAttribute(ShapeAttribute::GetID(), NS))
   {
     return Axis(NS, G);
   }
@@ -105,7 +105,7 @@ Standard_Boolean TDataXtd_Geometry::Axis(const TDF_Label& L, Axis3d& G)
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Axis(const Handle(TNaming_NamedShape)& NS, Axis3d& G)
+Standard_Boolean TDataXtd_Geometry::Axis(const Handle(ShapeAttribute)& NS, Axis3d& G)
 {
   gp_Lin lin;
   if (Line(NS, lin))
@@ -118,10 +118,10 @@ Standard_Boolean TDataXtd_Geometry::Axis(const Handle(TNaming_NamedShape)& NS, A
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Line(const TDF_Label& L, gp_Lin& G)
+Standard_Boolean TDataXtd_Geometry::Line(const DataLabel& L, gp_Lin& G)
 {
-  Handle(TNaming_NamedShape) NS;
-  if (L.FindAttribute(TNaming_NamedShape::GetID(), NS))
+  Handle(ShapeAttribute) NS;
+  if (L.FindAttribute(ShapeAttribute::GetID(), NS))
   {
     return Line(NS, G);
   }
@@ -130,22 +130,22 @@ Standard_Boolean TDataXtd_Geometry::Line(const TDF_Label& L, gp_Lin& G)
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Line(const Handle(TNaming_NamedShape)& NS, gp_Lin& G)
+Standard_Boolean TDataXtd_Geometry::Line(const Handle(ShapeAttribute)& NS, gp_Lin& G)
 {
-  const TopoDS_Shape& shape = TNaming_Tool::GetShape(NS);
+  const TopoShape& shape = Tool11::GetShape(NS);
   if (shape.IsNull())
     return Standard_False;
   if (shape.ShapeType() == TopAbs_EDGE)
   {
-    const TopoDS_Edge& edge = TopoDS::Edge(shape);
+    const TopoEdge& edge = TopoDS::Edge(shape);
     Standard_Real      first, last;
     // TopLoc_Location loc;
-    Handle(Geom_Curve) curve = BRep_Tool::Curve(edge, first, last);
+    Handle(GeomCurve3d) curve = BRepInspector::Curve(edge, first, last);
     if (!curve.IsNull())
     {
       if (curve->IsInstance(STANDARD_TYPE(Geom_TrimmedCurve)))
         curve = (Handle(Geom_TrimmedCurve)::DownCast(curve))->BasisCurve();
-      Handle(Geom_Line) C = Handle(Geom_Line)::DownCast(curve);
+      Handle(GeomLine) C = Handle(GeomLine)::DownCast(curve);
       if (!C.IsNull())
       {
         G = C->Lin();
@@ -158,10 +158,10 @@ Standard_Boolean TDataXtd_Geometry::Line(const Handle(TNaming_NamedShape)& NS, g
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Circle(const TDF_Label& L, gp_Circ& G)
+Standard_Boolean TDataXtd_Geometry::Circle(const DataLabel& L, gp_Circ& G)
 {
-  Handle(TNaming_NamedShape) NS;
-  if (L.FindAttribute(TNaming_NamedShape::GetID(), NS))
+  Handle(ShapeAttribute) NS;
+  if (L.FindAttribute(ShapeAttribute::GetID(), NS))
   {
     return Circle(NS, G);
   }
@@ -170,22 +170,22 @@ Standard_Boolean TDataXtd_Geometry::Circle(const TDF_Label& L, gp_Circ& G)
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Circle(const Handle(TNaming_NamedShape)& NS, gp_Circ& G)
+Standard_Boolean TDataXtd_Geometry::Circle(const Handle(ShapeAttribute)& NS, gp_Circ& G)
 {
-  const TopoDS_Shape& shape = TNaming_Tool::GetShape(NS);
+  const TopoShape& shape = Tool11::GetShape(NS);
   if (shape.IsNull())
     return Standard_False;
   if (shape.ShapeType() == TopAbs_EDGE)
   {
-    const TopoDS_Edge& edge = TopoDS::Edge(shape);
+    const TopoEdge& edge = TopoDS::Edge(shape);
     Standard_Real      first, last;
     // TopLoc_Location loc;
-    Handle(Geom_Curve) curve = BRep_Tool::Curve(edge, first, last);
+    Handle(GeomCurve3d) curve = BRepInspector::Curve(edge, first, last);
     if (!curve.IsNull())
     {
       if (curve->IsInstance(STANDARD_TYPE(Geom_TrimmedCurve)))
         curve = (Handle(Geom_TrimmedCurve)::DownCast(curve))->BasisCurve();
-      Handle(Geom_Circle) C = Handle(Geom_Circle)::DownCast(curve);
+      Handle(GeomCircle) C = Handle(GeomCircle)::DownCast(curve);
       if (!C.IsNull())
       {
         G = C->Circ();
@@ -198,10 +198,10 @@ Standard_Boolean TDataXtd_Geometry::Circle(const Handle(TNaming_NamedShape)& NS,
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Ellipse(const TDF_Label& L, gp_Elips& G)
+Standard_Boolean TDataXtd_Geometry::Ellipse(const DataLabel& L, gp_Elips& G)
 {
-  Handle(TNaming_NamedShape) NS;
-  if (L.FindAttribute(TNaming_NamedShape::GetID(), NS))
+  Handle(ShapeAttribute) NS;
+  if (L.FindAttribute(ShapeAttribute::GetID(), NS))
   {
     return Ellipse(NS, G);
   }
@@ -210,16 +210,16 @@ Standard_Boolean TDataXtd_Geometry::Ellipse(const TDF_Label& L, gp_Elips& G)
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Ellipse(const Handle(TNaming_NamedShape)& NS, gp_Elips& G)
+Standard_Boolean TDataXtd_Geometry::Ellipse(const Handle(ShapeAttribute)& NS, gp_Elips& G)
 {
-  const TopoDS_Shape& shape = TNaming_Tool::GetShape(NS);
+  const TopoShape& shape = Tool11::GetShape(NS);
   if (shape.IsNull())
     return Standard_False;
   if (shape.ShapeType() == TopAbs_EDGE)
   {
-    const TopoDS_Edge& edge = TopoDS::Edge(shape);
+    const TopoEdge& edge = TopoDS::Edge(shape);
     Standard_Real      first, last;
-    Handle(Geom_Curve) curve = BRep_Tool::Curve(edge, first, last);
+    Handle(GeomCurve3d) curve = BRepInspector::Curve(edge, first, last);
     if (!curve.IsNull())
     {
       if (curve->IsInstance(STANDARD_TYPE(Geom_TrimmedCurve)))
@@ -237,10 +237,10 @@ Standard_Boolean TDataXtd_Geometry::Ellipse(const Handle(TNaming_NamedShape)& NS
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Plane(const TDF_Label& L, gp_Pln& G)
+Standard_Boolean TDataXtd_Geometry::Plane(const DataLabel& L, gp_Pln& G)
 {
-  Handle(TNaming_NamedShape) NS;
-  if (L.FindAttribute(TNaming_NamedShape::GetID(), NS))
+  Handle(ShapeAttribute) NS;
+  if (L.FindAttribute(ShapeAttribute::GetID(), NS))
   {
     return Plane(NS, G);
   }
@@ -249,20 +249,20 @@ Standard_Boolean TDataXtd_Geometry::Plane(const TDF_Label& L, gp_Pln& G)
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Plane(const Handle(TNaming_NamedShape)& NS, gp_Pln& G)
+Standard_Boolean TDataXtd_Geometry::Plane(const Handle(ShapeAttribute)& NS, gp_Pln& G)
 {
-  const TopoDS_Shape& shape = TNaming_Tool::GetShape(NS);
+  const TopoShape& shape = Tool11::GetShape(NS);
   if (shape.IsNull())
     return Standard_False;
   if (shape.ShapeType() == TopAbs_FACE)
   {
-    const TopoDS_Face&   face    = TopoDS::Face(shape);
-    Handle(Geom_Surface) surface = BRep_Tool::Surface(face);
+    const TopoFace&   face    = TopoDS::Face(shape);
+    Handle(GeomSurface) surface = BRepInspector::Surface(face);
     if (!surface.IsNull())
     {
       if (surface->IsInstance(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
         surface = Handle(Geom_RectangularTrimmedSurface)::DownCast(surface)->BasisSurface();
-      Handle(Geom_Plane) S = Handle(Geom_Plane)::DownCast(surface);
+      Handle(GeomPlane) S = Handle(GeomPlane)::DownCast(surface);
       if (!S.IsNull())
       {
         G = S->Pln();
@@ -275,10 +275,10 @@ Standard_Boolean TDataXtd_Geometry::Plane(const Handle(TNaming_NamedShape)& NS, 
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Cylinder(const TDF_Label& L, gp_Cylinder& G)
+Standard_Boolean TDataXtd_Geometry::Cylinder(const DataLabel& L, gp_Cylinder& G)
 {
-  Handle(TNaming_NamedShape) NS;
-  if (L.FindAttribute(TNaming_NamedShape::GetID(), NS))
+  Handle(ShapeAttribute) NS;
+  if (L.FindAttribute(ShapeAttribute::GetID(), NS))
   {
     return Cylinder(NS, G);
   }
@@ -287,15 +287,15 @@ Standard_Boolean TDataXtd_Geometry::Cylinder(const TDF_Label& L, gp_Cylinder& G)
 
 //=================================================================================================
 
-Standard_Boolean TDataXtd_Geometry::Cylinder(const Handle(TNaming_NamedShape)& NS, gp_Cylinder& G)
+Standard_Boolean TDataXtd_Geometry::Cylinder(const Handle(ShapeAttribute)& NS, gp_Cylinder& G)
 {
-  const TopoDS_Shape& shape = TNaming_Tool::GetShape(NS);
+  const TopoShape& shape = Tool11::GetShape(NS);
   if (shape.IsNull())
     return Standard_False;
   if (shape.ShapeType() == TopAbs_FACE)
   {
-    const TopoDS_Face&   face    = TopoDS::Face(shape);
-    Handle(Geom_Surface) surface = BRep_Tool::Surface(face);
+    const TopoFace&   face    = TopoDS::Face(shape);
+    Handle(GeomSurface) surface = BRepInspector::Surface(face);
     if (!surface.IsNull())
     {
       if (surface->IsInstance(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
@@ -313,10 +313,10 @@ Standard_Boolean TDataXtd_Geometry::Cylinder(const Handle(TNaming_NamedShape)& N
 
 //=================================================================================================
 
-TDataXtd_GeometryEnum TDataXtd_Geometry::Type(const TDF_Label& L)
+TDataXtd_GeometryEnum TDataXtd_Geometry::Type(const DataLabel& L)
 {
-  Handle(TNaming_NamedShape) NS;
-  if (L.FindAttribute(TNaming_NamedShape::GetID(), NS))
+  Handle(ShapeAttribute) NS;
+  if (L.FindAttribute(ShapeAttribute::GetID(), NS))
   {
     return Type(NS);
   }
@@ -325,10 +325,10 @@ TDataXtd_GeometryEnum TDataXtd_Geometry::Type(const TDF_Label& L)
 
 //=================================================================================================
 
-TDataXtd_GeometryEnum TDataXtd_Geometry::Type(const Handle(TNaming_NamedShape)& NS)
+TDataXtd_GeometryEnum TDataXtd_Geometry::Type(const Handle(ShapeAttribute)& NS)
 {
   TDataXtd_GeometryEnum type(TDataXtd_ANY_GEOM);
-  const TopoDS_Shape&   shape = TNaming_Tool::GetShape(NS);
+  const TopoShape&   shape = Tool11::GetShape(NS);
   switch (shape.ShapeType())
   {
     case TopAbs_VERTEX: {
@@ -336,21 +336,21 @@ TDataXtd_GeometryEnum TDataXtd_Geometry::Type(const Handle(TNaming_NamedShape)& 
       break;
     }
     case TopAbs_EDGE: {
-      const TopoDS_Edge& edge = TopoDS::Edge(shape);
+      const TopoEdge& edge = TopoDS::Edge(shape);
       Standard_Real      first, last;
       // TopLoc_Location loc;
-      Handle(Geom_Curve) curve = BRep_Tool::Curve(edge, first, last);
+      Handle(GeomCurve3d) curve = BRepInspector::Curve(edge, first, last);
       if (!curve.IsNull())
       {
         if (curve->IsInstance(STANDARD_TYPE(Geom_TrimmedCurve)))
         {
           curve = (Handle(Geom_TrimmedCurve)::DownCast(curve))->BasisCurve();
         }
-        if (curve->IsInstance(STANDARD_TYPE(Geom_Line)))
+        if (curve->IsInstance(STANDARD_TYPE(GeomLine)))
         {
           type = TDataXtd_LINE;
         }
-        else if (curve->IsInstance(STANDARD_TYPE(Geom_Circle)))
+        else if (curve->IsInstance(STANDARD_TYPE(GeomCircle)))
         {
           type = TDataXtd_CIRCLE;
         }
@@ -368,8 +368,8 @@ TDataXtd_GeometryEnum TDataXtd_Geometry::Type(const Handle(TNaming_NamedShape)& 
       break;
     }
     case TopAbs_FACE: {
-      const TopoDS_Face&   face    = TopoDS::Face(shape);
-      Handle(Geom_Surface) surface = BRep_Tool::Surface(face);
+      const TopoFace&   face    = TopoDS::Face(shape);
+      Handle(GeomSurface) surface = BRepInspector::Surface(face);
       if (!surface.IsNull())
       {
         if (surface->IsInstance(STANDARD_TYPE(Geom_RectangularTrimmedSurface)))
@@ -380,7 +380,7 @@ TDataXtd_GeometryEnum TDataXtd_Geometry::Type(const Handle(TNaming_NamedShape)& 
         {
           type = TDataXtd_CYLINDER;
         }
-        else if (surface->IsInstance(STANDARD_TYPE(Geom_Plane)))
+        else if (surface->IsInstance(STANDARD_TYPE(GeomPlane)))
         {
           type = TDataXtd_PLANE;
         }
@@ -459,6 +459,6 @@ void TDataXtd_Geometry::Paste(const Handle(TDF_Attribute)& Into,
 Standard_OStream& TDataXtd_Geometry::Dump(Standard_OStream& anOS) const
 {
   anOS << "Geometry ";
-  TDataXtd::Print(GetType(), anOS);
+  TDataXtd1::Print(GetType(), anOS);
   return anOS;
 }

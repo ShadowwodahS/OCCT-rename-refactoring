@@ -24,7 +24,7 @@
 #include <TColgp_Array1OfPnt.hxx>
 #include <Standard_Boolean.hxx>
 class GeomInt_TheMultiLineOfWLApprox;
-class ApproxInt_SvSurfaces;
+class SurfaceSurfaces;
 
 class GeomInt_TheMultiLineToolOfWLApprox
 {
@@ -126,7 +126,7 @@ private:
 
 #define TheMultiLine GeomInt_TheMultiLineOfWLApprox
 #define TheMultiLine_hxx <GeomInt_TheMultiLineOfWLApprox.hxx>
-#define TheMultiMPoint ApproxInt_SvSurfaces
+#define TheMultiMPoint SurfaceSurfaces
 #define TheMultiMPoint_hxx <ApproxInt_SvSurfaces.hxx>
 #define ApproxInt_MultiLineTool GeomInt_TheMultiLineToolOfWLApprox
 #define ApproxInt_MultiLineTool_hxx <GeomInt_TheMultiLineToolOfWLApprox.hxx>

@@ -23,7 +23,7 @@
 #include <Standard_Boolean.hxx>
 #include <Standard_OStream.hxx>
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 class TDF_RelocationTable;
 
 class XCAFDoc_Centroid;
@@ -44,7 +44,7 @@ public:
   //! the Location attribute is returned.
   //! Location methods
   //! ===============
-  Standard_EXPORT static Handle(XCAFDoc_Centroid) Set(const TDF_Label& label, const Point3d& pnt);
+  Standard_EXPORT static Handle(XCAFDoc_Centroid) Set(const DataLabel& label, const Point3d& pnt);
 
   Standard_EXPORT void Set(const Point3d& pnt);
 
@@ -52,7 +52,7 @@ public:
 
   //! Returns point as argument
   //! returns false if no such attribute at the <label>
-  Standard_EXPORT static Standard_Boolean Get(const TDF_Label& label, Point3d& pnt);
+  Standard_EXPORT static Standard_Boolean Get(const DataLabel& label, Point3d& pnt);
 
   Standard_EXPORT const Standard_GUID& ID() const Standard_OVERRIDE;
 

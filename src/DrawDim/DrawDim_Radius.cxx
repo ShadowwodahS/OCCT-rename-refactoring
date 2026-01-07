@@ -32,31 +32,31 @@ IMPLEMENT_STANDARD_RTTIEXT(DrawDim_Radius, DrawDim_Dimension)
 
 //=================================================================================================
 
-DrawDim_Radius::DrawDim_Radius(const TopoDS_Face& cylinder)
+DrawDim_Radius::DrawDim_Radius(const TopoFace& cylinder)
 {
   myCylinder = cylinder;
 }
 
 //=================================================================================================
 
-const TopoDS_Face& DrawDim_Radius::Cylinder() const
+const TopoFace& DrawDim_Radius::Cylinder() const
 {
   return myCylinder;
 }
 
 //=================================================================================================
 
-void DrawDim_Radius::Cylinder(const TopoDS_Face& face)
+void DrawDim_Radius::Cylinder(const TopoFace& face)
 {
   myCylinder = face;
 }
 
 //=================================================================================================
 
-void DrawDim_Radius::DrawOn(Draw_Display& dis) const
+void DrawDim_Radius::DrawOn(DrawDisplay& dis) const
 {
   // input
-  TopoDS_Shape myFShape = myCylinder;
+  TopoShape myFShape = myCylinder;
 
   // output
   Point3d  myPosition;
@@ -79,8 +79,8 @@ void DrawDim_Radius::DrawOn(Draw_Display& dis) const
   Standard_Real vMoy = (vFirst + vLast) / 2;
   Point3d        curpos;
   surfAlgo.D0(uMoy, vMoy, curpos);
-  const Handle(Geom_Surface)& surf = surfAlgo.Surface().Surface();
-  Handle(Geom_Curve)          aCurve;
+  const Handle(GeomSurface)& surf = surfAlgo.Surface().Surface();
+  Handle(GeomCurve3d)          aCurve;
   if (surf->DynamicType() == STANDARD_TYPE(Geom_ToroidalSurface))
   {
     aCurve = surf->UIso(uMoy);
@@ -92,9 +92,9 @@ void DrawDim_Radius::DrawOn(Draw_Display& dis) const
     aCurve = surf->VIso(vMoy);
   }
 
-  if (aCurve->DynamicType() == STANDARD_TYPE(Geom_Circle))
+  if (aCurve->DynamicType() == STANDARD_TYPE(GeomCircle))
   {
-    myCircle = Handle(Geom_Circle)::DownCast(aCurve)->Circ();
+    myCircle = Handle(GeomCircle)::DownCast(aCurve)->Circ();
   } // if (aCurve->DynamicType() ...
 
   else
@@ -112,6 +112,6 @@ void DrawDim_Radius::DrawOn(Draw_Display& dis) const
   // DISPLAY
   // Add(myText, curpos, mCircle, uFirst, uLast)
 
-  dis.Draw(myCircle, uFirst, uLast);
+  dis.Draw1(myCircle, uFirst, uLast);
   dis.DrawMarker(myPosition, Draw_Losange);
 }

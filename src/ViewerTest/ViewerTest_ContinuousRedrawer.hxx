@@ -19,7 +19,7 @@
 #include <Standard_Mutex.hxx>
 #include <Standard_Type.hxx>
 
-class V3d_View;
+class ViewWindow;
 
 //! Auxiliary tool performing continuous redraws of specified window.
 //! Tool creates an extra working thread pushing content invalidation messages to specific window
@@ -41,10 +41,10 @@ public:
   bool IsStarted() const { return myThread.GetId() != 0; }
 
   //! Start thread.
-  Standard_EXPORT void Start(const Handle(V3d_View)& theView, Standard_Real theTargetFps);
+  Standard_EXPORT void Start(const Handle(ViewWindow)& theView, Standard_Real theTargetFps);
 
   //! Stop thread.
-  Standard_EXPORT void Stop(const Handle(V3d_View)& theView = NULL);
+  Standard_EXPORT void Stop(const Handle(ViewWindow)& theView = NULL);
 
   //! Return TRUE if redrawer thread is in paused state.
   bool IsPaused() const { return myToPause; }
@@ -68,7 +68,7 @@ private:
   ViewerTest_ContinuousRedrawer();
 
 private:
-  Handle(V3d_View)   myView;      //!< view to invalidate
+  Handle(ViewWindow)   myView;      //!< view to invalidate
   OSD_Thread         myThread;    //!< working thread
   Standard_Mutex     myMutex;     //!< mutex for accessing common variables
   Standard_Condition myWakeEvent; //!< event to wake up working thread

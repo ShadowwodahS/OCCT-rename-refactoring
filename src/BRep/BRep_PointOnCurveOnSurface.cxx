@@ -25,8 +25,8 @@ IMPLEMENT_STANDARD_RTTIEXT(BRep_PointOnCurveOnSurface, BRep_PointsOnSurface)
 //=================================================================================================
 
 BRep_PointOnCurveOnSurface::BRep_PointOnCurveOnSurface(const Standard_Real         P,
-                                                       const Handle(Geom2d_Curve)& C,
-                                                       const Handle(Geom_Surface)& S,
+                                                       const Handle(GeomCurve2d)& C,
+                                                       const Handle(GeomSurface)& S,
                                                        const TopLoc_Location&      L)
     : BRep_PointsOnSurface(P, S, L),
       myPCurve(C)
@@ -42,8 +42,8 @@ Standard_Boolean BRep_PointOnCurveOnSurface::IsPointOnCurveOnSurface() const
 
 //=================================================================================================
 
-Standard_Boolean BRep_PointOnCurveOnSurface::IsPointOnCurveOnSurface(const Handle(Geom2d_Curve)& PC,
-                                                                     const Handle(Geom_Surface)& S,
+Standard_Boolean BRep_PointOnCurveOnSurface::IsPointOnCurveOnSurface(const Handle(GeomCurve2d)& PC,
+                                                                     const Handle(GeomSurface)& S,
                                                                      const TopLoc_Location& L) const
 {
   return (myPCurve == PC) && (Surface() == S) && (Location() == L);
@@ -51,14 +51,14 @@ Standard_Boolean BRep_PointOnCurveOnSurface::IsPointOnCurveOnSurface(const Handl
 
 //=================================================================================================
 
-const Handle(Geom2d_Curve)& BRep_PointOnCurveOnSurface::PCurve() const
+const Handle(GeomCurve2d)& BRep_PointOnCurveOnSurface::PCurve() const
 {
   return myPCurve;
 }
 
 //=================================================================================================
 
-void BRep_PointOnCurveOnSurface::PCurve(const Handle(Geom2d_Curve)& C)
+void BRep_PointOnCurveOnSurface::PCurve(const Handle(GeomCurve2d)& C)
 {
   myPCurve = C;
 }

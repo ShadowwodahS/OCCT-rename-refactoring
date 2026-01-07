@@ -60,17 +60,17 @@
 #include <TopTools_SequenceOfShape.hxx>
 
 #ifdef OCCT_DEBUG_EFV
-static void EdgesFromVertex(const TopoDS_Wire&   W,
-                            const TopoDS_Vertex& V,
-                            TopoDS_Edge&         E1,
-                            TopoDS_Edge&         E2)
+static void EdgesFromVertex(const TopoWire&   W,
+                            const TopoVertex& V,
+                            TopoEdge&         E1,
+                            TopoEdge&         E2)
 {
   TopTools_IndexedDataMapOfShapeListOfShape Map;
-  TopExp::MapShapesAndAncestors(W, TopAbs_VERTEX, TopAbs_EDGE, Map);
+  TopExp1::MapShapesAndAncestors(W, TopAbs_VERTEX, TopAbs_EDGE, Map);
 
-  const TopTools_ListOfShape& List = Map.FindFromKey(V);
-  TopoDS_Edge                 e1   = TopoDS::Edge(List.First());
-  TopoDS_Edge                 e2   = TopoDS::Edge(List.Last());
+  const ShapeList& List = Map.FindFromKey(V);
+  TopoEdge                 e1   = TopoDS::Edge(List.First());
+  TopoEdge                 e2   = TopoDS::Edge(List.Last());
 
   BRepTools_WireExplorer anExp;
   Standard_Integer       I1 = 0, I2 = 0, NE = 0;
@@ -78,7 +78,7 @@ static void EdgesFromVertex(const TopoDS_Wire&   W,
   for (anExp.Init(W); anExp.More(); anExp.Next())
   {
     NE++;
-    const TopoDS_Edge& ECur = anExp.Current();
+    const TopoEdge& ECur = anExp.Current();
     if (e1.IsSame(ECur))
     {
       I1 = NE;
@@ -127,16 +127,16 @@ static void EdgesFromVertex(const TopoDS_Wire&   W,
 //           in <theEdgeNewEdges> recursively
 //=======================================================================
 
-static void AddNewEdge(const TopoDS_Shape&                           theEdge,
+static void AddNewEdge(const TopoShape&                           theEdge,
                        const TopTools_DataMapOfShapeSequenceOfShape& theEdgeNewEdges,
-                       TopTools_ListOfShape&                         ListNewEdges)
+                       ShapeList&                         ListNewEdges)
 {
   if (theEdgeNewEdges.IsBound(theEdge))
   {
     const TopTools_SequenceOfShape& NewEdges = theEdgeNewEdges(theEdge);
     for (Standard_Integer i = 1; i <= NewEdges.Length(); i++)
     {
-      const TopoDS_Shape& anEdge = NewEdges(i);
+      const TopoShape& anEdge = NewEdges(i);
       AddNewEdge(anEdge, theEdgeNewEdges, ListNewEdges);
     }
   }
@@ -144,11 +144,11 @@ static void AddNewEdge(const TopoDS_Shape&                           theEdge,
     ListNewEdges.Append(theEdge);
 }
 
-static void SeqOfVertices(const TopoDS_Wire& W, TopTools_SequenceOfShape& S)
+static void SeqOfVertices(const TopoWire& W, TopTools_SequenceOfShape& S)
 {
   S.Clear();
   Standard_Integer jj;
-  TopExp_Explorer  PE;
+  ShapeExplorer  PE;
   for (PE.Init(W, TopAbs_VERTEX); PE.More(); PE.Next())
   {
     Standard_Boolean trouve = Standard_False;
@@ -162,14 +162,14 @@ static void SeqOfVertices(const TopoDS_Wire& W, TopTools_SequenceOfShape& S)
   }
 }
 
-static Standard_Boolean PlaneOfWire(const TopoDS_Wire& W, gp_Pln& P)
+static Standard_Boolean PlaneOfWire(const TopoWire& W, gp_Pln& P)
 {
   Standard_Boolean     isplane = Standard_True;
   BRepLib_FindSurface  findPlanarSurf;
-  Handle(Geom_Surface) S;
+  Handle(GeomSurface) S;
   TopLoc_Location      L;
 
-  GProp_GProps     GP;
+  GeometricProperties     GP;
   Point3d           Bary;
   Standard_Boolean isBaryDefined = Standard_False;
 
@@ -180,8 +180,8 @@ static Standard_Boolean PlaneOfWire(const TopoDS_Wire& W, gp_Pln& P)
   if (!wClosed)
   {
     // it is checked if the vertices are the same.
-    TopoDS_Vertex V1, V2;
-    TopExp::Vertices(W, V1, V2);
+    TopoVertex V1, V2;
+    TopExp1::Vertices(W, V1, V2);
     if (V1.IsSame(V2))
       wClosed = Standard_True;
   }
@@ -199,7 +199,7 @@ static Standard_Boolean PlaneOfWire(const TopoDS_Wire& W, gp_Pln& P)
       GeomAdaptor_Curve AdC;
       Standard_Real     first, last;
       anIter.Initialize(W);
-      AdC.Load(BRep_Tool::Curve(TopoDS::Edge(anIter.Value()), first, last));
+      AdC.Load(BRepInspector::Curve(TopoDS::Edge(anIter.Value()), first, last));
 
       if (AdC.GetType() == GeomAbs_Circle)
       {
@@ -227,8 +227,8 @@ static Standard_Boolean PlaneOfWire(const TopoDS_Wire& W, gp_Pln& P)
     S = findPlanarSurf.Surface();
     L = findPlanarSurf.Location();
     if (!L.IsIdentity())
-      S = Handle(Geom_Surface)::DownCast(S->Transformed(L.Transformation()));
-    P = (Handle(Geom_Plane)::DownCast(S))->Pln();
+      S = Handle(GeomSurface)::DownCast(S->Transformed(L.Transformation()));
+    P = (Handle(GeomPlane)::DownCast(S))->Pln();
     P.SetLocation(Bary);
   }
   else
@@ -272,7 +272,7 @@ static Standard_Boolean PlaneOfWire(const TopoDS_Wire& W, gp_Pln& P)
       }
       Dir3d     XDir(Vec);
       gp_Ax3     repere(Bary, NDir, XDir);
-      Geom_Plane GPlan(repere);
+      GeomPlane GPlan(repere);
       P = GPlan.Pln();
     }
   }
@@ -280,7 +280,7 @@ static Standard_Boolean PlaneOfWire(const TopoDS_Wire& W, gp_Pln& P)
   return isplane;
 }
 
-static void WireContinuity(const TopoDS_Wire& W, GeomAbs_Shape& contW)
+static void WireContinuity(const TopoWire& W, GeomAbs_Shape& contW)
 {
   contW = GeomAbs_CN;
   GeomAbs_Shape    cont;
@@ -293,7 +293,7 @@ static void WireContinuity(const TopoDS_Wire& W, GeomAbs_Shape& contW)
   {
     nbEdges++;
     Edges->Append(anExp.Current());
-    if (BRep_Tool::Degenerated(anExp.Current()))
+    if (BRepInspector::Degenerated(anExp.Current()))
       IsDegenerated = Standard_True;
   }
 
@@ -305,7 +305,7 @@ static void WireContinuity(const TopoDS_Wire& W, GeomAbs_Shape& contW)
     for (Standard_Integer j = 1; j <= nbEdges; j++)
     {
 
-      TopoDS_Edge Edge1, Edge2;
+      TopoEdge Edge1, Edge2;
 
       if (j == nbEdges)
       {
@@ -318,21 +318,21 @@ static void WireContinuity(const TopoDS_Wire& W, GeomAbs_Shape& contW)
         Edge2 = TopoDS::Edge(Edges->Value(j + 1));
       }
 
-      TopoDS_Vertex V1, V2, Vbid;
-      TopExp::Vertices(Edge1, Vbid, V1, Standard_True);
-      TopExp::Vertices(Edge2, V2, Vbid, Standard_True);
-      Standard_Real     U1 = BRep_Tool::Parameter(V1, Edge1);
-      Standard_Real     U2 = BRep_Tool::Parameter(V2, Edge2);
+      TopoVertex V1, V2, Vbid;
+      TopExp1::Vertices(Edge1, Vbid, V1, Standard_True);
+      TopExp1::Vertices(Edge2, V2, Vbid, Standard_True);
+      Standard_Real     U1 = BRepInspector::Parameter(V1, Edge1);
+      Standard_Real     U2 = BRepInspector::Parameter(V2, Edge2);
       BRepAdaptor_Curve Curve1(Edge1);
       BRepAdaptor_Curve Curve2(Edge2);
-      Standard_Real     Eps = BRep_Tool::Tolerance(V2) + BRep_Tool::Tolerance(V1);
+      Standard_Real     Eps = BRepInspector::Tolerance(V2) + BRepInspector::Tolerance(V1);
 
       if (j == nbEdges)
         testconti = Curve1.Value(U1).IsEqual(Curve2.Value(U2), Eps);
 
       if (testconti)
       {
-        cont = BRepLProp::Continuity(Curve1, Curve2, U1, U2, Eps, Precision::Angular());
+        cont = BRepLProp1::Continuity(Curve1, Curve2, U1, U2, Eps, Precision::Angular());
         if (cont <= contW)
           contW = cont;
       }
@@ -340,7 +340,7 @@ static void WireContinuity(const TopoDS_Wire& W, GeomAbs_Shape& contW)
   }
 }
 
-static void TrimEdge(const TopoDS_Edge&            CurrentEdge,
+static void TrimEdge(const TopoEdge&            CurrentEdge,
                      const TColStd_SequenceOfReal& CutValues,
                      const Standard_Real           t0,
                      const Standard_Real           t1,
@@ -351,11 +351,11 @@ static void TrimEdge(const TopoDS_Edge&            CurrentEdge,
   S.Clear();
   Standard_Integer   j, ndec = CutValues.Length();
   Standard_Real      first, last, m0, m1;
-  Handle(Geom_Curve) C = BRep_Tool::Curve(CurrentEdge, first, last);
+  Handle(GeomCurve3d) C = BRepInspector::Curve(CurrentEdge, first, last);
 
-  TopoDS_Vertex      Vf, Vl, Vbid, V0, V1;
+  TopoVertex      Vf, Vl, Vbid, V0, V1;
   TopAbs_Orientation CurrentOrient = CurrentEdge.Orientation();
-  TopExp::Vertices(CurrentEdge, Vf, Vl);
+  TopExp1::Vertices(CurrentEdge, Vf, Vl);
   Vbid.Nullify();
 
   if (SeqOrder)
@@ -371,11 +371,11 @@ static void TrimEdge(const TopoDS_Edge&            CurrentEdge,
       {
         return;
       }
-      TopoDS_Edge CutE = BRepLib_MakeEdge(C, V0, Vbid, m0, m1);
+      TopoEdge CutE = BRepLib_MakeEdge(C, V0, Vbid, m0, m1);
       CutE.Orientation(CurrentOrient);
       S.Append(CutE);
       m0 = m1;
-      V0 = TopExp::LastVertex(CutE);
+      V0 = TopExp1::LastVertex(CutE);
       if (j == ndec)
       {
         // last piece
@@ -383,7 +383,7 @@ static void TrimEdge(const TopoDS_Edge&            CurrentEdge,
         {
           return;
         }
-        TopoDS_Edge LastE = BRepLib_MakeEdge(C, V0, Vl, m0, last);
+        TopoEdge LastE = BRepLib_MakeEdge(C, V0, Vl, m0, last);
         LastE.Orientation(CurrentOrient);
         S.Append(LastE);
       }
@@ -402,11 +402,11 @@ static void TrimEdge(const TopoDS_Edge&            CurrentEdge,
       {
         return;
       }
-      TopoDS_Edge CutE = BRepLib_MakeEdge(C, Vbid, V1, m0, m1);
+      TopoEdge CutE = BRepLib_MakeEdge(C, Vbid, V1, m0, m1);
       CutE.Orientation(CurrentOrient);
       S.Append(CutE);
       m1 = m0;
-      V1 = TopExp::FirstVertex(CutE);
+      V1 = TopExp1::FirstVertex(CutE);
       if (j == 1)
       {
         // last piece
@@ -414,7 +414,7 @@ static void TrimEdge(const TopoDS_Edge&            CurrentEdge,
         {
           return;
         }
-        TopoDS_Edge LastE = BRepLib_MakeEdge(C, Vf, V1, first, m1);
+        TopoEdge LastE = BRepLib_MakeEdge(C, Vf, V1, first, m1);
         LastE.Orientation(CurrentOrient);
         S.Append(LastE);
       }
@@ -422,21 +422,21 @@ static void TrimEdge(const TopoDS_Edge&            CurrentEdge,
   }
 }
 
-static Standard_Boolean SearchRoot(const TopoDS_Vertex&                      V,
+static Standard_Boolean SearchRoot(const TopoVertex&                      V,
                                    const TopTools_DataMapOfShapeListOfShape& Map,
-                                   TopoDS_Vertex&                            VRoot)
+                                   TopoVertex&                            VRoot)
 {
   Standard_Boolean trouve = Standard_False;
   VRoot.Nullify();
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape it;
   for (it.Initialize(Map); it.More(); it.Next())
   {
-    const TopTools_ListOfShape&        List = it.Value();
+    const ShapeList&        List = it.Value();
     TopTools_ListIteratorOfListOfShape itL;
     Standard_Boolean                   ilyest = Standard_False;
     for (itL.Initialize(List); itL.More(); itL.Next())
     {
-      TopoDS_Vertex Vcur = TopoDS::Vertex(itL.Value());
+      TopoVertex Vcur = TopoDS::Vertex(itL.Value());
       if (Vcur.IsSame(V))
       {
         ilyest = Standard_True;
@@ -455,9 +455,9 @@ static Standard_Boolean SearchRoot(const TopoDS_Vertex&                      V,
   return trouve;
 }
 
-static Standard_Boolean SearchVertex(const TopTools_ListOfShape& List,
-                                     const TopoDS_Wire&          W,
-                                     TopoDS_Vertex&              VonW)
+static Standard_Boolean SearchVertex(const ShapeList& List,
+                                     const TopoWire&          W,
+                                     TopoVertex&              VonW)
 {
   Standard_Boolean trouve = Standard_False;
   VonW.Nullify();
@@ -465,12 +465,12 @@ static Standard_Boolean SearchVertex(const TopTools_ListOfShape& List,
   SeqOfVertices(W, SeqV);
   for (Standard_Integer ii = 1; ii <= SeqV.Length(); ii++)
   {
-    TopoDS_Vertex                      Vi = TopoDS::Vertex(SeqV.Value(ii));
+    TopoVertex                      Vi = TopoDS::Vertex(SeqV.Value(ii));
     TopTools_ListIteratorOfListOfShape itL;
     Standard_Boolean                   ilyest = Standard_False;
     for (itL.Initialize(List); itL.More(); itL.Next())
     {
-      TopoDS_Vertex Vcur = TopoDS::Vertex(itL.Value());
+      TopoVertex Vcur = TopoDS::Vertex(itL.Value());
       if (Vcur.IsSame(Vi))
       {
         ilyest = Standard_True;
@@ -493,9 +493,9 @@ static Standard_Boolean EdgeIntersectOnWire(const Point3d&                      
                                             const Point3d&                             P2,
                                             Standard_Real                             percent,
                                             const TopTools_DataMapOfShapeListOfShape& Map,
-                                            const TopoDS_Wire&                        W,
-                                            TopoDS_Vertex&                            Vsol,
-                                            TopoDS_Wire&                              newW,
+                                            const TopoWire&                        W,
+                                            TopoVertex&                            Vsol,
+                                            TopoWire&                              newW,
                                             TopTools_DataMapOfShapeSequenceOfShape& theEdgeNewEdges)
 {
 
@@ -521,7 +521,7 @@ static Standard_Boolean EdgeIntersectOnWire(const Point3d&                      
   Standard_Real    diag         = BP1.Distance(BP2);
   Standard_Real    dernierparam = diag;
   BRepLib_MakeEdge ME(droite, 0., dernierparam);
-  TopoDS_Edge      ECur = BRepLib_MakeEdge(droite, 0., P1.Distance(P2));
+  TopoEdge      ECur = BRepLib_MakeEdge(droite, 0., P1.Distance(P2));
 
   // calculate the intersection by BRepExtrema (point of min distance)
   BRepExtrema_DistShapeShape DSS(ME.Edge(), W);
@@ -549,33 +549,33 @@ static Standard_Boolean EdgeIntersectOnWire(const Point3d&                      
     NewVertex = (DSS.SupportTypeShape2(isol) != BRepExtrema_IsVertex);
     if (NewVertex)
     {
-      TopoDS_Edge   E   = TopoDS::Edge(DSS.SupportOnShape2(isol));
+      TopoEdge   E   = TopoDS::Edge(DSS.SupportOnShape2(isol));
       Standard_Real tol = Precision::PConfusion();
       Standard_Real first, last, param;
-      BRep_Tool::Range(E, first, last);
+      BRepInspector::Range(E, first, last);
       tol = Max(tol, percent * Abs(last - first));
       DSS.ParOnEdgeS2(isol, param);
       if (Abs(first - param) < tol)
       {
         NewVertex = Standard_False;
-        Vsol      = TopExp::FirstVertex(E);
+        Vsol      = TopExp1::FirstVertex(E);
       }
       else if (Abs(last - param) < tol)
       {
         NewVertex = Standard_False;
-        Vsol      = TopExp::LastVertex(E);
+        Vsol      = TopExp1::LastVertex(E);
       }
       // check
       if (!NewVertex)
       {
-        TopoDS_Vertex VRoot;
+        TopoVertex VRoot;
         if (SearchRoot(Vsol, Map, VRoot))
           NewVertex = Standard_True;
       }
     }
     else
     {
-      TopoDS_Shape aLocalShape = DSS.SupportOnShape2(isol);
+      TopoShape aLocalShape = DSS.SupportOnShape2(isol);
       Vsol                     = TopoDS::Vertex(aLocalShape);
       //      Vsol = TopoDS::Vertex(DSS.SupportOnShape2(isol));
     }
@@ -583,20 +583,20 @@ static Standard_Boolean EdgeIntersectOnWire(const Point3d&                      
     // it is required to cut the edge
     if (NewVertex)
     {
-      TopoDS_Shape aLocalShape = DSS.SupportOnShape2(isol);
-      TopoDS_Edge  E           = TopoDS::Edge(aLocalShape);
-      //      TopoDS_Edge E = TopoDS::Edge(DSS.SupportOnShape2(isol));
+      TopoShape aLocalShape = DSS.SupportOnShape2(isol);
+      TopoEdge  E           = TopoDS::Edge(aLocalShape);
+      //      TopoEdge E = TopoDS::Edge(DSS.SupportOnShape2(isol));
       TopTools_SequenceOfShape EmptySeq;
       theEdgeNewEdges.Bind(E, EmptySeq);
       Standard_Real first, last, param;
       DSS.ParOnEdgeS2(isol, param);
-      BRep_Tool::Range(E, first, last);
+      BRepInspector::Range(E, first, last);
       BRepLib_MakeWire MW;
       for (anExp.Init(W); anExp.More(); anExp.Next())
       {
         if (E.IsSame(anExp.Current()))
         {
-          Standard_Boolean         SO = (anExp.CurrentVertex().IsSame(TopExp::FirstVertex(E)));
+          Standard_Boolean         SO = (anExp.CurrentVertex().IsSame(TopExp1::FirstVertex(E)));
           TopTools_SequenceOfShape SE;
           SE.Clear();
           TColStd_SequenceOfReal SR;
@@ -608,13 +608,13 @@ static Standard_Boolean EdgeIntersectOnWire(const Point3d&                      
             return Standard_False;
           }
           theEdgeNewEdges(E) = SE;
-          TopoDS_Vertex VV1, VV2;
-          TopExp::Vertices(TopoDS::Edge(SE.Value(1)), VV1, VV2);
-          if (TopExp::FirstVertex(E).IsSame(VV1) || TopExp::LastVertex(E).IsSame(VV1))
+          TopoVertex VV1, VV2;
+          TopExp1::Vertices(TopoDS::Edge(SE.Value(1)), VV1, VV2);
+          if (TopExp1::FirstVertex(E).IsSame(VV1) || TopExp1::LastVertex(E).IsSame(VV1))
           {
             Vsol = VV2;
           }
-          if (TopExp::FirstVertex(E).IsSame(VV2) || TopExp::LastVertex(E).IsSame(VV2))
+          if (TopExp1::FirstVertex(E).IsSame(VV2) || TopExp1::LastVertex(E).IsSame(VV2))
           {
             Vsol = VV1;
           }
@@ -683,17 +683,17 @@ static void Transform(const Standard_Boolean WithRotation,
   }
 }
 
-static void BuildConnectedEdges(const TopoDS_Wire&    aWire,
-                                const TopoDS_Edge&    StartEdge,
-                                const TopoDS_Vertex&  StartVertex,
-                                TopTools_ListOfShape& ConnectedEdges)
+static void BuildConnectedEdges(const TopoWire&    aWire,
+                                const TopoEdge&    StartEdge,
+                                const TopoVertex&  StartVertex,
+                                ShapeList& ConnectedEdges)
 {
   TopTools_IndexedDataMapOfShapeListOfShape MapVE;
-  TopExp::MapShapesAndAncestors(aWire, TopAbs_VERTEX, TopAbs_EDGE, MapVE);
-  TopoDS_Edge   CurEdge   = StartEdge;
-  TopoDS_Vertex CurVertex = StartVertex;
-  TopoDS_Vertex Origin, V1, V2;
-  TopExp::Vertices(StartEdge, V1, V2);
+  TopExp1::MapShapesAndAncestors(aWire, TopAbs_VERTEX, TopAbs_EDGE, MapVE);
+  TopoEdge   CurEdge   = StartEdge;
+  TopoVertex CurVertex = StartVertex;
+  TopoVertex Origin, V1, V2;
+  TopExp1::Vertices(StartEdge, V1, V2);
   Origin = (V1.IsSame(StartVertex)) ? V2 : V1;
 
   for (;;)
@@ -701,11 +701,11 @@ static void BuildConnectedEdges(const TopoDS_Wire&    aWire,
     TopTools_ListIteratorOfListOfShape itE(MapVE.FindFromKey(CurVertex));
     for (; itE.More(); itE.Next())
     {
-      TopoDS_Edge anEdge = TopoDS::Edge(itE.Value());
+      TopoEdge anEdge = TopoDS::Edge(itE.Value());
       if (!anEdge.IsSame(CurEdge))
       {
         ConnectedEdges.Append(anEdge);
-        TopExp::Vertices(anEdge, V1, V2);
+        TopExp1::Vertices(anEdge, V1, V2);
         CurVertex = (V1.IsSame(CurVertex)) ? V2 : V1;
         CurEdge   = anEdge;
         break;
@@ -718,21 +718,21 @@ static void BuildConnectedEdges(const TopoDS_Wire&    aWire,
 
 //=================================================================================================
 
-BRepFill_CompatibleWires::BRepFill_CompatibleWires()
+CompatibleWires::CompatibleWires()
     : myStatus(BRepFill_ThruSectionErrorStatus_NotDone)
 {
 }
 
 //=================================================================================================
 
-BRepFill_CompatibleWires::BRepFill_CompatibleWires(const TopTools_SequenceOfShape& Sections)
+CompatibleWires::CompatibleWires(const TopTools_SequenceOfShape& Sections)
 {
   Init(Sections);
 }
 
 //=================================================================================================
 
-void BRepFill_CompatibleWires::Init(const TopTools_SequenceOfShape& Sections)
+void CompatibleWires::Init(const TopTools_SequenceOfShape& Sections)
 {
   myInit    = Sections;
   myWork    = Sections;
@@ -743,7 +743,7 @@ void BRepFill_CompatibleWires::Init(const TopTools_SequenceOfShape& Sections)
 
 //=================================================================================================
 
-void BRepFill_CompatibleWires::SetPercent(const Standard_Real Percent)
+void CompatibleWires::SetPercent(const Standard_Real Percent)
 {
   if (0. < Percent && Percent < 1.)
     myPercent = Percent;
@@ -751,22 +751,22 @@ void BRepFill_CompatibleWires::SetPercent(const Standard_Real Percent)
 
 //=================================================================================================
 
-Standard_Boolean BRepFill_CompatibleWires::IsDone() const
+Standard_Boolean CompatibleWires::IsDone() const
 {
   return myStatus == BRepFill_ThruSectionErrorStatus_Done;
 }
 
 //=================================================================================================
 
-const TopTools_SequenceOfShape& BRepFill_CompatibleWires::Shape() const
+const TopTools_SequenceOfShape& CompatibleWires::Shape() const
 {
   return myWork;
 }
 
 //=================================================================================================
 
-const TopTools_ListOfShape& BRepFill_CompatibleWires::GeneratedShapes(
-  const TopoDS_Edge& SubSection) const
+const ShapeList& CompatibleWires::GeneratedShapes(
+  const TopoEdge& SubSection) const
 {
 
   if (myMap.IsBound(SubSection))
@@ -775,28 +775,28 @@ const TopTools_ListOfShape& BRepFill_CompatibleWires::GeneratedShapes(
   }
   else
   {
-    static TopTools_ListOfShape Empty;
+    static ShapeList Empty;
     return Empty;
   }
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepFill_CompatibleWires::IsDegeneratedFirstSection() const
+Standard_Boolean CompatibleWires::IsDegeneratedFirstSection() const
 {
   return myDegen1;
 }
 
 //=================================================================================================
 
-Standard_Boolean BRepFill_CompatibleWires::IsDegeneratedLastSection() const
+Standard_Boolean CompatibleWires::IsDegeneratedLastSection() const
 {
   return myDegen2;
 }
 
 //=================================================================================================
 
-void BRepFill_CompatibleWires::Perform(const Standard_Boolean WithRotation)
+void CompatibleWires::Perform(const Standard_Boolean WithRotation)
 {
   myStatus = BRepFill_ThruSectionErrorStatus_Done;
   // compute origin and orientation on wires to avoid twisted results
@@ -814,10 +814,10 @@ void BRepFill_CompatibleWires::Perform(const Standard_Boolean WithRotation)
   GeomAbs_Shape           cont;
   for (i = 1; i <= nbSects; i++)
   {
-    TopoDS_Shape aLocalShape = myWork(i).Oriented(TopAbs_FORWARD);
+    TopoShape aLocalShape = myWork(i).Oriented(TopAbs_FORWARD);
     myWork(i)                = TopoDS::Wire(aLocalShape);
     //    myWork(i) = TopoDS::Wire(myWork(i).Oriented(TopAbs_FORWARD));
-    TopoDS_Wire W = TopoDS::Wire(myWork(i));
+    TopoWire W = TopoDS::Wire(myWork(i));
     WireContinuity(W, cont);
     if (cont < contS)
       contS = cont;
@@ -837,13 +837,13 @@ void BRepFill_CompatibleWires::Perform(const Standard_Boolean WithRotation)
   report = (nbmax != nbmin || contS >= GeomAbs_C1);
 
   // initialization of the map
-  TopTools_ListOfShape Empty;
+  ShapeList Empty;
   for (i = 1; i <= nbSects; i++)
   {
-    TopoDS_Wire W = TopoDS::Wire(myWork(i));
+    TopoWire W = TopoDS::Wire(myWork(i));
     for (anExp.Init(W); anExp.More(); anExp.Next())
     {
-      TopoDS_Edge E = TopoDS::Edge(anExp.Current());
+      TopoEdge E = TopoDS::Edge(anExp.Current());
       myMap.Bind(E, Empty);
       myMap(E).Append(E);
     }
@@ -856,7 +856,7 @@ void BRepFill_CompatibleWires::Perform(const Standard_Boolean WithRotation)
   myDegen1 = Standard_True;
   for (anExp.Init(TopoDS::Wire(myWork(ideb))); anExp.More(); anExp.Next())
   {
-    myDegen1 = myDegen1 && (BRep_Tool::Degenerated(anExp.Current()));
+    myDegen1 = myDegen1 && (BRepInspector::Degenerated(anExp.Current()));
   }
   if (myDegen1)
     ideb++;
@@ -864,7 +864,7 @@ void BRepFill_CompatibleWires::Perform(const Standard_Boolean WithRotation)
   myDegen2 = Standard_True;
   for (anExp.Init(TopoDS::Wire(myWork(ifin))); anExp.More(); anExp.Next())
   {
-    myDegen2 = myDegen2 && (BRep_Tool::Degenerated(anExp.Current()));
+    myDegen2 = myDegen2 && (BRepInspector::Degenerated(anExp.Current()));
   }
   if (myDegen2)
     ifin--;
@@ -876,8 +876,8 @@ void BRepFill_CompatibleWires::Perform(const Standard_Boolean WithRotation)
     if (!wClosed)
     {
       // check if the vertices are the same.
-      TopoDS_Vertex V1, V2;
-      TopExp::Vertices(TopoDS::Wire(myWork(i)), V1, V2);
+      TopoVertex V1, V2;
+      TopExp1::Vertices(TopoDS::Wire(myWork(i)), V1, V2);
       if (V1.IsSame(V2))
         wClosed = Standard_True;
     }
@@ -925,14 +925,14 @@ void BRepFill_CompatibleWires::Perform(const Standard_Boolean WithRotation)
 
 //=================================================================================================
 
-const TopTools_DataMapOfShapeListOfShape& BRepFill_CompatibleWires::Generated() const
+const TopTools_DataMapOfShapeListOfShape& CompatibleWires::Generated() const
 {
   return myMap;
 }
 
 //=================================================================================================
 
-void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean WithRotation)
+void CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean WithRotation)
 {
 
   // initialisation
@@ -969,8 +969,8 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
     TopoDS_Iterator  anItw(myWork(i));
     for (; anItw.More(); anItw.Next())
     {
-      const TopoDS_Edge& anEdge = TopoDS::Edge(anItw.Value());
-      if (BRep_Tool::Degenerated(anEdge))
+      const TopoEdge& anEdge = TopoDS::Edge(anItw.Value());
+      if (BRepInspector::Degenerated(anEdge))
       {
         hasDegEdge = Standard_True;
         break;
@@ -978,13 +978,13 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
     }
     if (hasDegEdge)
     {
-      TopoDS_Wire  aNewWire;
-      BRep_Builder aBBuilder;
+      TopoWire  aNewWire;
+      ShapeBuilder aBBuilder;
       aBBuilder.MakeWire(aNewWire);
       for (anItw.Initialize(myWork(i)); anItw.More(); anItw.Next())
       {
-        const TopoDS_Edge& anEdge = TopoDS::Edge(anItw.Value());
-        if (!BRep_Tool::Degenerated(anEdge))
+        const TopoEdge& anEdge = TopoDS::Edge(anItw.Value());
+        if (!BRepInspector::Degenerated(anEdge))
           aBBuilder.Add(aNewWire, anEdge);
       }
       myWork(i) = aNewWire;
@@ -1017,13 +1017,13 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
   if (myDegen1)
   {
     SeqOfVertices(TopoDS::Wire(myWork(1)), SeqV);
-    Pos->SetValue(1, BRep_Tool::Pnt(TopoDS::Vertex(SeqV.Value(1))));
+    Pos->SetValue(1, BRepInspector::Pnt(TopoDS::Vertex(SeqV.Value(1))));
     Axe->SetValue(1, Axe->Value(ideb));
   }
   if (myDegen2)
   {
     SeqOfVertices(TopoDS::Wire(myWork(NbSects)), SeqV);
-    Pos->SetValue(NbSects, BRep_Tool::Pnt(TopoDS::Vertex(SeqV.Value(1))));
+    Pos->SetValue(NbSects, BRepInspector::Pnt(TopoDS::Vertex(SeqV.Value(1))));
     Axe->SetValue(NbSects, Axe->Value(ifin));
   }
 
@@ -1035,7 +1035,7 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
   for (i = ifin; i > ideb; i--)
   {
 
-    const TopoDS_Wire& wire1 = TopoDS::Wire(myWork(i));
+    const TopoWire& wire1 = TopoDS::Wire(myWork(i));
 
     // sequence of vertices of the first wire
     SeqOfVertices(wire1, SeqV);
@@ -1049,15 +1049,15 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
     for (ii = 1; ii <= SeqV.Length(); ii++)
     {
 
-      TopoDS_Vertex Vi = TopoDS::Vertex(SeqV.Value(ii));
+      TopoVertex Vi = TopoDS::Vertex(SeqV.Value(ii));
 
       // init of RMap for Vi
-      TopTools_ListOfShape Init;
+      ShapeList Init;
       Init.Clear();
       RMap.Bind(Vi, Init);
 
       // it is required to find intersection Vi - wire2
-      Point3d Pi = BRep_Tool::Pnt(Vi);
+      Point3d Pi = BRepInspector::Pnt(Vi);
 
       // return Pi in the current plane
       Point3d Pnew;
@@ -1070,10 +1070,10 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
                 Pnew);
 
       // calculate the intersection
-      TopoDS_Shape     Support;
+      TopoShape     Support;
       Standard_Boolean NewVertex;
-      TopoDS_Vertex    Vsol;
-      TopoDS_Wire      newwire;
+      TopoVertex    Vsol;
+      TopoWire      newwire;
       if (Pnew.Distance(Pos->Value(i - 1)) > Precision::Confusion())
       {
         Standard_Real percent = myPercent;
@@ -1100,13 +1100,13 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
   MapVLV.Clear();
   for (ii = 1; ii <= SizeMap; ii++)
   {
-    TopoDS_Vertex        Vi = TopoDS::Vertex(SeqV.Value(ii));
-    TopTools_ListOfShape Init;
+    TopoVertex        Vi = TopoDS::Vertex(SeqV.Value(ii));
+    ShapeList Init;
     Init.Clear();
     Init.Append(Vi);
     MapVLV.Bind(Vi, Init);
     Standard_Integer NbV = 1;
-    TopoDS_Vertex    V0, V1;
+    TopoVertex    V0, V1;
     V0                       = Vi;
     Standard_Boolean tantque = SearchRoot(V0, RMap, V1);
     while (tantque)
@@ -1130,7 +1130,7 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
   for (i = ideb; i < ifin; i++)
   {
 
-    const TopoDS_Wire& wire1 = TopoDS::Wire(myWork(i));
+    const TopoWire& wire1 = TopoDS::Wire(myWork(i));
 
     // sequence of vertices of the first wire
     SeqOfVertices(wire1, SeqV);
@@ -1141,20 +1141,20 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
     }
 
     // next wire
-    const TopoDS_Wire& wire2 = TopoDS::Wire(myWork(i + 1));
+    const TopoWire& wire2 = TopoDS::Wire(myWork(i + 1));
 
     // loop on vertices of wire1
     for (ii = 1; ii <= SeqV.Length(); ii++)
     {
 
-      TopoDS_Vertex Vi = TopoDS::Vertex(SeqV.Value(ii));
-      TopoDS_Vertex VRoot;
+      TopoVertex Vi = TopoDS::Vertex(SeqV.Value(ii));
+      TopoVertex VRoot;
       VRoot.Nullify();
       Standard_Boolean intersect = Standard_True;
       if (SearchRoot(Vi, MapVLV, VRoot))
       {
-        const TopTools_ListOfShape& LVi = MapVLV(VRoot);
-        TopoDS_Vertex               VonW;
+        const ShapeList& LVi = MapVLV(VRoot);
+        TopoVertex               VonW;
         VonW.Nullify();
         intersect = (!SearchVertex(LVi, wire2, VonW));
       }
@@ -1162,7 +1162,7 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
       if (intersect)
       {
         // it is necessary to find intersection Vi - wire2
-        Point3d Pi = BRep_Tool::Pnt(Vi);
+        Point3d Pi = BRepInspector::Pnt(Vi);
 
         // return Pi in the current plane
         Point3d Pnew;
@@ -1175,10 +1175,10 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
                   Pnew);
 
         // calculate the intersection
-        TopoDS_Shape     Support;
+        TopoShape     Support;
         Standard_Boolean NewVertex;
-        TopoDS_Vertex    Vsol;
-        TopoDS_Wire      newwire;
+        TopoVertex    Vsol;
+        TopoWire      newwire;
         if (Pnew.Distance(Pos->Value(i + 1)) > Precision::Confusion())
         {
           Standard_Real percent = myPercent;
@@ -1199,7 +1199,7 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
   } // loop on i
 
   // regularize wires following MapVLV
-  TopoDS_Wire wire = TopoDS::Wire(myWork(ideb));
+  TopoWire wire = TopoDS::Wire(myWork(ideb));
 
   // except for the last if the sections loop
   Standard_Integer ibout = ifin;
@@ -1212,11 +1212,11 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
     BRepLib_MakeWire MW;
 
     anExp.Init(wire);
-    TopoDS_Edge   ECur = anExp.Current();
-    TopoDS_Vertex VF, VL;
-    TopExp::Vertices(ECur, VF, VL, Standard_True);
-    Standard_Real                      U1 = BRep_Tool::Parameter(VF, ECur);
-    Standard_Real                      U2 = BRep_Tool::Parameter(VL, ECur);
+    TopoEdge   ECur = anExp.Current();
+    TopoVertex VF, VL;
+    TopExp1::Vertices(ECur, VF, VL, Standard_True);
+    Standard_Real                      U1 = BRepInspector::Parameter(VF, ECur);
+    Standard_Real                      U2 = BRepInspector::Parameter(VL, ECur);
     BRepAdaptor_Curve                  Curve(ECur);
     Point3d                             PPs = Curve.Value(0.1 * (U1 + 9 * U2));
     TopTools_ListIteratorOfListOfShape itF(MapVLV(VF)), itL(MapVLV(VL));
@@ -1227,23 +1227,23 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
       itL.Next();
       rang++;
     }
-    TopoDS_Vertex   V1 = TopoDS::Vertex(itF.Value()), V2 = TopoDS::Vertex(itL.Value());
-    TopoDS_Edge     Esol;
+    TopoVertex   V1 = TopoDS::Vertex(itF.Value()), V2 = TopoDS::Vertex(itL.Value());
+    TopoEdge     Esol;
     Standard_Real   scalmax = 0.;
     TopoDS_Iterator itW(myWork(i));
 
     for (; itW.More(); itW.Next())
     {
-      TopoDS_Edge   E = TopoDS::Edge(itW.Value());
-      TopoDS_Vertex VVF, VVL;
-      TopExp::Vertices(E, VVF, VVL, Standard_True);
+      TopoEdge   E = TopoDS::Edge(itW.Value());
+      TopoVertex VVF, VVL;
+      TopExp1::Vertices(E, VVF, VVL, Standard_True);
 
       // parse candidate edges
       Standard_Real scal1, scal2;
       if ((V1.IsSame(VVF) && V2.IsSame(VVL)) || (V2.IsSame(VVF) && V1.IsSame(VVL)))
       {
-        Standard_Real     U1param = BRep_Tool::Parameter(VVF, E);
-        Standard_Real     U2param = BRep_Tool::Parameter(VVL, E);
+        Standard_Real     U1param = BRepInspector::Parameter(VVF, E);
+        Standard_Real     U2param = BRepInspector::Parameter(VVL, E);
         BRepAdaptor_Curve CurveE(E);
         Point3d            PP1 = CurveE.Value(0.1 * (U1param + 9 * U2param));
         Point3d            PP2 = CurveE.Value(0.1 * (9 * U1param + U2param));
@@ -1281,7 +1281,7 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
         if (scal2 > scalmax)
         {
           scalmax                  = scal2;
-          TopoDS_Shape aLocalShape = E.Reversed();
+          TopoShape aLocalShape = E.Reversed();
           Esol                     = TopoDS::Edge(aLocalShape);
         }
       }
@@ -1293,27 +1293,27 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
     }
     MW.Add(Esol);
 
-    TopTools_ListOfShape ConnectedEdges;
+    ShapeList ConnectedEdges;
     BuildConnectedEdges(TopoDS::Wire(myWork(i)), Esol, V2, ConnectedEdges);
 
     TopTools_ListIteratorOfListOfShape itCE(ConnectedEdges);
     for (; anExp.More() && itCE.More(); anExp.Next(), itCE.Next())
     {
       ECur = anExp.Current();
-      TopExp::Vertices(ECur, VF, VL, Standard_True);
-      U1 = BRep_Tool::Parameter(VF, ECur);
-      U2 = BRep_Tool::Parameter(VL, ECur);
+      TopExp1::Vertices(ECur, VF, VL, Standard_True);
+      U1 = BRepInspector::Parameter(VF, ECur);
+      U2 = BRepInspector::Parameter(VL, ECur);
       Curve.Initialize(ECur);
       PPs = Curve.Value(0.1 * (U1 + 9 * U2));
 
-      TopoDS_Edge   E = TopoDS::Edge(itCE.Value());
-      TopoDS_Vertex VVF, VVL;
-      TopExp::Vertices(E, VVF, VVL, Standard_True);
+      TopoEdge   E = TopoDS::Edge(itCE.Value());
+      TopoVertex VVF, VVL;
+      TopExp1::Vertices(E, VVF, VVL, Standard_True);
 
       // parse candidate edges
       Standard_Real scal1, scal2;
-      U1 = BRep_Tool::Parameter(VVF, E);
-      U2 = BRep_Tool::Parameter(VVL, E);
+      U1 = BRepInspector::Parameter(VVF, E);
+      U2 = BRepInspector::Parameter(VVL, E);
       Curve.Initialize(E);
       Point3d PP1 = Curve.Value(0.1 * (U1 + 9 * U2));
       Point3d PP2 = Curve.Value(0.1 * (9 * U1 + U2));
@@ -1356,8 +1356,8 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
     TopoDS_Iterator iter1(myWork(myWork.Length())), iter2(myWork(1));
     for (; iter1.More(); iter1.Next(), iter2.Next())
     {
-      const TopoDS_Shape& anEdge   = iter1.Value();
-      const TopoDS_Shape& aNewEdge = iter2.Value();
+      const TopoShape& anEdge   = iter1.Value();
+      const TopoShape& aNewEdge = iter2.Value();
       if (!anEdge.IsSame(aNewEdge))
       {
         TopTools_SequenceOfShape aSeq;
@@ -1394,8 +1394,8 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
   TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itmap(myMap);
   for (; itmap.More(); itmap.Next())
   {
-    const TopoDS_Shape&  anEdge = itmap.Key();
-    TopTools_ListOfShape ListOfNewEdges;
+    const TopoShape&  anEdge = itmap.Key();
+    ShapeList ListOfNewEdges;
 
     // for each edge of <myMap> find all newest edges
     // in <EdgeNewEdges> recursively
@@ -1407,7 +1407,7 @@ void BRepFill_CompatibleWires::SameNumberByPolarMethod(const Standard_Boolean Wi
 
 //=================================================================================================
 
-void BRepFill_CompatibleWires::SameNumberByACR(const Standard_Boolean report)
+void CompatibleWires::SameNumberByACR(const Standard_Boolean report)
 {
   // find the dimension
   Standard_Integer       ideb = 1, ifin = myWork.Length();
@@ -1457,7 +1457,7 @@ void BRepFill_CompatibleWires::SameNumberByACR(const Standard_Boolean report)
       for (i = 1; i <= nbSects; i++)
       {
         // current wire
-        const TopoDS_Wire& wire1 = TopoDS::Wire(myWork(i));
+        const TopoWire& wire1 = TopoDS::Wire(myWork(i));
         Standard_Integer   nbE   = 0;
         for (anExp.Init(wire1); anExp.More(); anExp.Next())
         {
@@ -1466,7 +1466,7 @@ void BRepFill_CompatibleWires::SameNumberByACR(const Standard_Boolean report)
         // length and ACR of the wire
         TColStd_Array1OfReal ACR(0, nbE);
         ACR.Init(0);
-        BRepFill::ComputeACR(wire1, ACR);
+        BRepFill1::ComputeACR(wire1, ACR);
         WireLen(i) = ACR(0);
         // insertion of ACR of the wire in the table of cuts
         for (j = 1; j < ACR.Length() - 1; j++)
@@ -1534,45 +1534,45 @@ void BRepFill_CompatibleWires::SameNumberByACR(const Standard_Boolean report)
       // insertion of cuts in each wire
       for (i = 1; i <= nbSects; i++)
       {
-        const TopoDS_Wire& oldwire = TopoDS::Wire(myWork(i));
+        const TopoWire& oldwire = TopoDS::Wire(myWork(i));
         Standard_Real      tol     = Precision::Confusion();
         if (WireLen(i) > gp::Resolution())
           tol /= WireLen(i);
-        TopoDS_Wire            newwire = BRepFill::InsertACR(oldwire, dec3, tol);
+        TopoWire            newwire = BRepFill1::InsertACR(oldwire, dec3, tol);
         BRepTools_WireExplorer anExp1, anExp2;
         anExp1.Init(oldwire);
         anExp2.Init(newwire);
         for (; anExp1.More(); anExp1.Next())
         {
-          const TopoDS_Edge& Ecur = anExp1.Current();
+          const TopoEdge& Ecur = anExp1.Current();
           if (!Ecur.IsSame(TopoDS::Edge(anExp2.Current())))
           {
-            TopTools_ListOfShape LE;
+            ShapeList LE;
             LE.Clear();
             Point3d               P1, P2;
-            const TopoDS_Vertex& V1 = anExp1.CurrentVertex();
-            TopoDS_Vertex        VF, VR;
-            TopExp::Vertices(Ecur, VF, VR, Standard_True);
+            const TopoVertex& V1 = anExp1.CurrentVertex();
+            TopoVertex        VF, VR;
+            TopExp1::Vertices(Ecur, VF, VR, Standard_True);
             if (V1.IsSame(VF))
-              P1 = BRep_Tool::Pnt(VR);
+              P1 = BRepInspector::Pnt(VR);
             if (V1.IsSame(VR))
-              P1 = BRep_Tool::Pnt(VF);
-            TopoDS_Vertex V2 = anExp2.CurrentVertex();
-            TopExp::Vertices(TopoDS::Edge(anExp2.Current()), VF, VR, Standard_True);
+              P1 = BRepInspector::Pnt(VF);
+            TopoVertex V2 = anExp2.CurrentVertex();
+            TopExp1::Vertices(TopoDS::Edge(anExp2.Current()), VF, VR, Standard_True);
             if (V2.IsSame(VF))
-              P2 = BRep_Tool::Pnt(VR);
+              P2 = BRepInspector::Pnt(VR);
             if (V2.IsSame(VR))
-              P2 = BRep_Tool::Pnt(VF);
+              P2 = BRepInspector::Pnt(VF);
             while (P1.Distance(P2) > 1.e-3)
             {
               LE.Append(anExp2.Current());
               anExp2.Next();
               V2 = anExp2.CurrentVertex();
-              TopExp::Vertices(TopoDS::Edge(anExp2.Current()), VF, VR, Standard_True);
+              TopExp1::Vertices(TopoDS::Edge(anExp2.Current()), VF, VR, Standard_True);
               if (V2.IsSame(VF))
-                P2 = BRep_Tool::Pnt(VR);
+                P2 = BRepInspector::Pnt(VR);
               if (V2.IsSame(VR))
-                P2 = BRep_Tool::Pnt(VF);
+                P2 = BRepInspector::Pnt(VF);
               if (P1.Distance(P2) <= 1.e-3)
               {
                 LE.Append(anExp2.Current());
@@ -1582,7 +1582,7 @@ void BRepFill_CompatibleWires::SameNumberByACR(const Standard_Boolean report)
 
             TopTools_DataMapIteratorOfDataMapOfShapeListOfShape itmap;
             // TopTools_ListIteratorOfListOfShape itlist;
-            TopoDS_Edge      Ancestor;
+            TopoEdge      Ancestor;
             Standard_Boolean found = Standard_False;
 
             for (itmap.Initialize(myMap); itmap.More() && (!found); itmap.Next())
@@ -1590,7 +1590,7 @@ void BRepFill_CompatibleWires::SameNumberByACR(const Standard_Boolean report)
               TopTools_ListIteratorOfListOfShape itlist(itmap.Value());
               while (itlist.More() && (!found))
               {
-                TopoDS_Edge ECur = TopoDS::Edge(itlist.Value());
+                TopoEdge ECur = TopoDS::Edge(itlist.Value());
 
                 if (Ecur.IsSame(ECur))
                 {
@@ -1643,11 +1643,11 @@ void BRepFill_CompatibleWires::SameNumberByACR(const Standard_Boolean report)
 
 //=================================================================================================
 
-void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
+void CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
 {
   // reorganize the wires respecting orientation and origin
 
-  TopoDS_Vertex Vdeb, Vfin;
+  TopoVertex Vdeb, Vfin;
   Point3d        Pdeb, Psuiv, PPs;
 
   BRepTools_WireExplorer anExp;
@@ -1670,8 +1670,8 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
     if (!wClosed)
     {
       // check if the vertices are the same.
-      TopoDS_Vertex V1, V2;
-      TopExp::Vertices(TopoDS::Wire(myWork(i)), V1, V2);
+      TopoVertex V1, V2;
+      TopExp1::Vertices(TopoDS::Wire(myWork(i)), V1, V2);
       if (V1.IsSame(V2))
         wClosed = Standard_True;
     }
@@ -1712,12 +1712,12 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
     TopTools_SequenceOfShape SeqV;
     if (myDegen1) {
       SeqOfVertices(TopoDS::Wire(myWork(1)),SeqV);
-      Pos->SetValue(1,BRep_Tool::Pnt(TopoDS::Vertex(SeqV.Value(1))));
+      Pos->SetValue(1,BRepInspector::Pnt(TopoDS::Vertex(SeqV.Value(1))));
       Axe->SetValue(1,Axe->Value(ideb));
     }
     if (myDegen2) {
       SeqOfVertices(TopoDS::Wire(myWork(NbSects)),SeqV);
-      Pos->SetValue(NbSects,BRep_Tool::Pnt(TopoDS::Vertex(SeqV.Value(1))));
+      Pos->SetValue(NbSects,BRepInspector::Pnt(TopoDS::Vertex(SeqV.Value(1))));
       Axe->SetValue(NbSects,Axe->Value(ifin));
     }
   */
@@ -1726,7 +1726,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
   TopTools_SequenceOfShape PrevSeq;
   TopTools_SequenceOfShape PrevEseq;
   Standard_Integer         theLength = 0;
-  const TopoDS_Wire&       wire      = TopoDS::Wire(myWork(ideb));
+  const TopoWire&       wire      = TopoDS::Wire(myWork(ideb));
   for (anExp.Init(wire); anExp.More(); anExp.Next())
   {
     PrevSeq.Append(anExp.CurrentVertex());
@@ -1743,7 +1743,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
   Vector3d NormalOfFirstPlane = FirstPlane.Axis().Direction();
   for (i = ideb + 1; i <= ifin; i++)
   {
-    const TopoDS_Wire& aWire = TopoDS::Wire(myWork(i));
+    const TopoWire& aWire = TopoDS::Wire(myWork(i));
 
     // Compute offset vector as current bary center projected on first plane
     // to first bary center
@@ -1755,8 +1755,8 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
     CurBary.Translate(-anOffsetProj); // projected current bary center
     Vector3d Offset(CurBary, PrevBary);
 
-    TopoDS_Wire  newwire;
-    BRep_Builder BB;
+    TopoWire  newwire;
+    ShapeBuilder BB;
     BB.MakeWire(newwire);
 
     TopTools_SequenceOfShape SeqVertices, SeqEdges;
@@ -1782,15 +1782,15 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
         Standard_Real SumDist = 0.;
         for (k = j, n = 1; k <= theLength; k++, n++)
         {
-          const TopoDS_Vertex& Vprev = TopoDS::Vertex(PrevSeq(n));
-          Point3d               Pprev = BRep_Tool::Pnt(Vprev);
-          const TopoDS_Vertex& V     = TopoDS::Vertex(SeqVertices(k));
-          Point3d               P     = BRep_Tool::Pnt(V).XYZ() + Offset.XYZ();
+          const TopoVertex& Vprev = TopoDS::Vertex(PrevSeq(n));
+          Point3d               Pprev = BRepInspector::Pnt(Vprev);
+          const TopoVertex& V     = TopoDS::Vertex(SeqVertices(k));
+          Point3d               P     = BRepInspector::Pnt(V).XYZ() + Offset.XYZ();
           SumDist += Pprev.Distance(P);
           if (NbSamples > 0)
           {
-            const TopoDS_Edge& PrevEdge = TopoDS::Edge(PrevEseq(n));
-            const TopoDS_Edge& CurEdge  = TopoDS::Edge(SeqEdges(k));
+            const TopoEdge& PrevEdge = TopoDS::Edge(PrevEseq(n));
+            const TopoEdge& CurEdge  = TopoDS::Edge(SeqEdges(k));
             BRepAdaptor_Curve  PrevEcurve(PrevEdge);
             BRepAdaptor_Curve  Ecurve(CurEdge);
             Standard_Real      SampleOnPrev =
@@ -1815,15 +1815,15 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
         }
         for (k = 1; k < j; k++, n++)
         {
-          const TopoDS_Vertex& Vprev = TopoDS::Vertex(PrevSeq(n));
-          Point3d               Pprev = BRep_Tool::Pnt(Vprev);
-          const TopoDS_Vertex& V     = TopoDS::Vertex(SeqVertices(k));
-          Point3d               P     = BRep_Tool::Pnt(V).XYZ() + Offset.XYZ();
+          const TopoVertex& Vprev = TopoDS::Vertex(PrevSeq(n));
+          Point3d               Pprev = BRepInspector::Pnt(Vprev);
+          const TopoVertex& V     = TopoDS::Vertex(SeqVertices(k));
+          Point3d               P     = BRepInspector::Pnt(V).XYZ() + Offset.XYZ();
           SumDist += Pprev.Distance(P);
           if (NbSamples > 0)
           {
-            const TopoDS_Edge& PrevEdge = TopoDS::Edge(PrevEseq(n));
-            const TopoDS_Edge& CurEdge  = TopoDS::Edge(SeqEdges(k));
+            const TopoEdge& PrevEdge = TopoDS::Edge(PrevEseq(n));
+            const TopoEdge& CurEdge  = TopoDS::Edge(SeqEdges(k));
             BRepAdaptor_Curve  PrevEcurve(PrevEdge);
             BRepAdaptor_Curve  Ecurve(CurEdge);
             Standard_Real      SampleOnPrev =
@@ -1857,18 +1857,18 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
         SumDist = 0.;
         for (k = j, n = 1; k >= 1; k--, n++)
         {
-          const TopoDS_Vertex& Vprev = TopoDS::Vertex(PrevSeq(n));
-          Point3d               Pprev = BRep_Tool::Pnt(Vprev);
-          const TopoDS_Vertex& V     = TopoDS::Vertex(SeqVertices(k));
-          Point3d               P     = BRep_Tool::Pnt(V).XYZ() + Offset.XYZ();
+          const TopoVertex& Vprev = TopoDS::Vertex(PrevSeq(n));
+          Point3d               Pprev = BRepInspector::Pnt(Vprev);
+          const TopoVertex& V     = TopoDS::Vertex(SeqVertices(k));
+          Point3d               P     = BRepInspector::Pnt(V).XYZ() + Offset.XYZ();
           SumDist += Pprev.Distance(P);
           if (NbSamples > 0)
           {
             Standard_Integer k_cur = k - 1;
             if (k_cur == 0)
               k_cur = theLength;
-            const TopoDS_Edge& PrevEdge = TopoDS::Edge(PrevEseq(n));
-            const TopoDS_Edge& CurEdge  = TopoDS::Edge(SeqEdges(k_cur));
+            const TopoEdge& PrevEdge = TopoDS::Edge(PrevEseq(n));
+            const TopoEdge& CurEdge  = TopoDS::Edge(SeqEdges(k_cur));
             BRepAdaptor_Curve  PrevEcurve(PrevEdge);
             BRepAdaptor_Curve  Ecurve(CurEdge);
             Standard_Real      SampleOnPrev =
@@ -1893,15 +1893,15 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
         }
         for (k = theLength; k > j; k--, n++)
         {
-          const TopoDS_Vertex& Vprev = TopoDS::Vertex(PrevSeq(n));
-          Point3d               Pprev = BRep_Tool::Pnt(Vprev);
-          const TopoDS_Vertex& V     = TopoDS::Vertex(SeqVertices(k));
-          Point3d               P     = BRep_Tool::Pnt(V).XYZ() + Offset.XYZ();
+          const TopoVertex& Vprev = TopoDS::Vertex(PrevSeq(n));
+          Point3d               Pprev = BRepInspector::Pnt(Vprev);
+          const TopoVertex& V     = TopoDS::Vertex(SeqVertices(k));
+          Point3d               P     = BRepInspector::Pnt(V).XYZ() + Offset.XYZ();
           SumDist += Pprev.Distance(P);
           if (NbSamples > 0)
           {
-            const TopoDS_Edge& PrevEdge = TopoDS::Edge(PrevEseq(n));
-            const TopoDS_Edge& CurEdge  = TopoDS::Edge(SeqEdges(k - 1));
+            const TopoEdge& PrevEdge = TopoDS::Edge(PrevEseq(n));
+            const TopoEdge& CurEdge  = TopoDS::Edge(SeqEdges(k - 1));
             BRepAdaptor_Curve  PrevEcurve(PrevEdge);
             BRepAdaptor_Curve  Ecurve(CurEdge);
             Standard_Real      SampleOnPrev =
@@ -1953,14 +1953,14 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
     {
       for (j = jmin - 1; j >= 1; j--)
       {
-        TopoDS_Shape aLocalShape = SeqEdges(j).Reversed();
+        TopoShape aLocalShape = SeqEdges(j).Reversed();
         BB.Add(newwire, TopoDS::Edge(aLocalShape));
         // PrevSeq.Append( SeqVertices(j) );
         PrevEseq.Append(SeqEdges(j).Reversed());
       }
       for (j = theLength; j >= jmin; j--)
       {
-        TopoDS_Shape aLocalShape = SeqEdges(j).Reversed();
+        TopoShape aLocalShape = SeqEdges(j).Reversed();
         BB.Add(newwire, TopoDS::Edge(aLocalShape));
         // PrevSeq.Append( SeqVertices(j) );
         PrevEseq.Append(SeqEdges(j).Reversed());
@@ -1982,12 +1982,12 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
   for (i = ideb; i <= myWork.Length(); i++)
   {
 
-    const TopoDS_Wire& wire = TopoDS::Wire(myWork(i));
+    const TopoWire& wire = TopoDS::Wire(myWork(i));
 
     Standard_Integer nbEdges = 0;
     for (anExp.Init(TopoDS::Wire(myWork(i))); anExp.More(); anExp.Next())
       nbEdges++;
-    TopExp::Vertices(wire, Vdeb, Vfin);
+    TopExp1::Vertices(wire, Vdeb, Vfin);
     Standard_Boolean wClosed = wire.Closed();
     if (!wClosed)
     {
@@ -1996,15 +1996,15 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
         wClosed = Standard_True;
     }
 
-    TopoDS_Vertex Vsuiv, VF, VR;
-    TopoDS_Wire   newwire;
-    BRep_Builder  BW;
+    TopoVertex Vsuiv, VF, VR;
+    TopoWire   newwire;
+    ShapeBuilder  BW;
     BW.MakeWire(newwire);
     if (i == ideb)
     {
       anExp.Init(wire);
-      const TopoDS_Edge Ecur = TopoDS::Edge(anExp.Current());
-      TopExp::Vertices(Ecur, VF, VR);
+      const TopoEdge Ecur = TopoDS::Edge(anExp.Current());
+      TopExp1::Vertices(Ecur, VF, VR);
       if (Vdeb.IsSame(VF))
         Vsuiv = VR;
       else if (Vdeb.IsSame(VR))
@@ -2023,10 +2023,10 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
           Vsuiv = VR;
         }
       }
-      Pdeb                 = BRep_Tool::Pnt(Vdeb);
-      Psuiv                = BRep_Tool::Pnt(Vsuiv);
-      Standard_Real     U1 = BRep_Tool::Parameter(Vdeb, Ecur);
-      Standard_Real     U2 = BRep_Tool::Parameter(Vsuiv, Ecur);
+      Pdeb                 = BRepInspector::Pnt(Vdeb);
+      Psuiv                = BRepInspector::Pnt(Vsuiv);
+      Standard_Real     U1 = BRepInspector::Parameter(Vdeb, Ecur);
+      Standard_Real     U2 = BRepInspector::Parameter(Vsuiv, Ecur);
       BRepAdaptor_Curve Curve(Ecur);
       PPs          = Curve.Value(0.25 * (U1 + 3 * U2));
       myWork(ideb) = wire;
@@ -2059,12 +2059,12 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
 
       Standard_Real    distmini, dist;
       Standard_Integer rang = 0, rangdeb = 0;
-      TopoDS_Vertex    Vmini;
+      TopoVertex    Vmini;
       Point3d           Pmini, P1, P2;
       SeqOfVertices(wire, SeqV);
       if (SeqV.Length() > NbMaxV)
       {
-        myStatus = BRepFill::ThruSectionsError_Failed;
+        myStatus = BRepFill1::ThruSectionsError_Failed;
         return;
       }
       if (!polar)
@@ -2073,7 +2073,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
         distmini = Precision::Infinite();
         for (Standard_Integer ii = 1; ii <= SeqV.Length(); ii++)
         {
-          P1   = BRep_Tool::Pnt(TopoDS::Vertex(SeqV.Value(ii)));
+          P1   = BRepInspector::Pnt(TopoDS::Vertex(SeqV.Value(ii)));
           dist = P1.Distance(Pnew);
           if (dist < distmini)
           {
@@ -2082,20 +2082,20 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
           }
         }
         if (!Vmini.IsNull())
-          Pmini = BRep_Tool::Pnt(Vmini);
+          Pmini = BRepInspector::Pnt(Vmini);
       }
       else
       {
 
         // recherche du vertex correspondant a la projection conique
         Standard_Real angmin, angV, eta = Precision::Angular();
-        TopoDS_Vertex Vopti;
+        TopoVertex Vopti;
         angmin   = M_PI / 2;
         distmini = Precision::Infinite();
         Dir3d dir0(Vector3d(Pnew, P.Location()));
         for (Standard_Integer ii = 1; ii <= SeqV.Length(); ii++)
         {
-          P1   = BRep_Tool::Pnt(TopoDS::Vertex(SeqV.Value(ii)));
+          P1   = BRepInspector::Pnt(TopoDS::Vertex(SeqV.Value(ii)));
           dist = Pnew.Distance(P1);
           if (dist < Precision::Confusion())
           {
@@ -2126,19 +2126,19 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
         }
         Point3d Popti;
         if (!Vopti.IsNull())
-          Popti = BRep_Tool::Pnt(Vopti);
+          Popti = BRepInspector::Pnt(Vopti);
         Vmini = Vopti;
       }
 
       distmini = Precision::Infinite();
       for (anExp.Init(wire); anExp.More(); anExp.Next())
       {
-        TopoDS_Edge   Ecur = anExp.Current();
-        TopoDS_Vertex Vcur = anExp.CurrentVertex();
-        TopExp::Vertices(Ecur, VF, VR);
+        TopoEdge   Ecur = anExp.Current();
+        TopoVertex Vcur = anExp.CurrentVertex();
+        TopExp1::Vertices(Ecur, VF, VR);
         if (VF.IsSame(Vmini))
         {
-          P1   = BRep_Tool::Pnt(VR);
+          P1   = BRepInspector::Pnt(VR);
           dist = P1.Distance(Pnext);
           if (dist <= distmini)
           {
@@ -2148,7 +2148,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
         }
         if (VR.IsSame(Vmini))
         {
-          P1   = BRep_Tool::Pnt(VF);
+          P1   = BRepInspector::Pnt(VF);
           dist = P1.Distance(Pnext);
           if (dist < distmini)
           {
@@ -2170,11 +2170,11 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
       {
         // cas general
         Point3d        Pbout = Pnext;
-        TopoDS_Edge   E1, E2;
-        TopoDS_Vertex V1, V2;
+        TopoEdge   E1, E2;
+        TopoVertex V1, V2;
         EdgesFromVertex(wire, Vmini, E1, E2);
 
-        TopExp::Vertices(E1, V1, V2, Standard_True);
+        TopExp1::Vertices(E1, V1, V2, Standard_True);
   #ifndef OCCT_DEBUG
         Standard_Real U1 = 0, U2 = 0;
   #else
@@ -2182,25 +2182,25 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
   #endif
         if (Vmini.IsSame(V1))
         {
-          P1 = BRep_Tool::Pnt(V2);
-          U1 = 0.25 * (BRep_Tool::Parameter(V1, E1) + 3 * BRep_Tool::Parameter(V2, E1));
+          P1 = BRepInspector::Pnt(V2);
+          U1 = 0.25 * (BRepInspector::Parameter(V1, E1) + 3 * BRepInspector::Parameter(V2, E1));
         }
         if (Vmini.IsSame(V2))
         {
-          P1 = BRep_Tool::Pnt(V1);
-          U1 = 0.25 * (3 * BRep_Tool::Parameter(V1, E1) + BRep_Tool::Parameter(V2, E1));
+          P1 = BRepInspector::Pnt(V1);
+          U1 = 0.25 * (3 * BRepInspector::Parameter(V1, E1) + BRepInspector::Parameter(V2, E1));
         }
 
-        TopExp::Vertices(E2, V1, V2, Standard_True);
+        TopExp1::Vertices(E2, V1, V2, Standard_True);
         if (Vmini.IsSame(V1))
         {
-          P2 = BRep_Tool::Pnt(V2);
-          U2 = 0.25 * (BRep_Tool::Parameter(V1, E2) + 3 * BRep_Tool::Parameter(V2, E2));
+          P2 = BRepInspector::Pnt(V2);
+          U2 = 0.25 * (BRepInspector::Parameter(V1, E2) + 3 * BRepInspector::Parameter(V2, E2));
         }
         if (Vmini.IsSame(V2))
         {
-          P2 = BRep_Tool::Pnt(V1);
-          U2 = 0.25 * (3 * BRep_Tool::Parameter(V1, E2) + BRep_Tool::Parameter(V2, E2));
+          P2 = BRepInspector::Pnt(V1);
+          U2 = 0.25 * (3 * BRepInspector::Parameter(V1, E2) + BRepInspector::Parameter(V2, E2));
         }
 
         if (Abs(Pbout.Distance(P1) - Pbout.Distance(P2)) < Precision::Confusion())
@@ -2223,7 +2223,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
           for (anExp.Init(wire); anExp.More(); anExp.Next())
           {
             rang++;
-            TopoDS_Edge Ecur = anExp.Current();
+            TopoEdge Ecur = anExp.Current();
             if (E1.IsSame(Ecur))
             {
               rangdeb = rang;
@@ -2240,7 +2240,7 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
           for (anExp.Init(wire); anExp.More(); anExp.Next())
           {
             rang++;
-            TopoDS_Edge Ecur = anExp.Current();
+            TopoEdge Ecur = anExp.Current();
             if (E2.IsSame(Ecur))
             {
               rangdeb = rang;
@@ -2273,13 +2273,13 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
       {
         for (rang = rangdeb; rang >= 1; rang--)
         {
-          TopoDS_Shape aLocalShape = SeqEdges.Value(rang).Reversed();
+          TopoShape aLocalShape = SeqEdges.Value(rang).Reversed();
           BW.Add(newwire, TopoDS::Edge(aLocalShape));
           //	  BW.Add(newwire,TopoDS::Edge(SeqEdges.Value(rang).Reversed()));
         }
         for (rang = nbEdges; rang > rangdeb; rang--)
         {
-          TopoDS_Shape aLocalShape = SeqEdges.Value(rang).Reversed();
+          TopoShape aLocalShape = SeqEdges.Value(rang).Reversed();
           BW.Add(newwire, TopoDS::Edge(aLocalShape));
           //	  BW.Add(newwire,TopoDS::Edge(SeqEdges.Value(rang).Reversed()));
         }
@@ -2289,9 +2289,9 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
 
       // on passe au wire suivant
       if (!Vmini.IsNull())
-        Pdeb = BRep_Tool::Pnt(Vmini);
+        Pdeb = BRepInspector::Pnt(Vmini);
       if (!Vsuiv.IsNull())
-        Psuiv = BRep_Tool::Pnt(Vsuiv);
+        Psuiv = BRepInspector::Pnt(Vsuiv);
     }
   }
 #endif
@@ -2303,13 +2303,13 @@ void BRepFill_CompatibleWires::ComputeOrigin(const Standard_Boolean /*polar*/)
 
 //=================================================================================================
 
-void BRepFill_CompatibleWires::SearchOrigin()
+void CompatibleWires::SearchOrigin()
 {
   // reorganize the open wires respecting orientation and origin
 
   gp_Pln P0, P;
 
-  TopoDS_Vertex Vdeb, Vfin;
+  TopoVertex Vdeb, Vfin;
   Point3d        Pdeb, Pfin; //,Psuiv;
 
   BRepTools_WireExplorer anExp;
@@ -2336,21 +2336,21 @@ void BRepFill_CompatibleWires::SearchOrigin()
 
   // init
 
-  TopoDS_Wire wire1 = TopoDS::Wire(myWork(ideb));
+  TopoWire wire1 = TopoDS::Wire(myWork(ideb));
   wire1.Orientation(TopAbs_FORWARD);
-  TopExp::Vertices(wire1, Vdeb, Vfin);
-  Pdeb                     = BRep_Tool::Pnt(Vdeb);
-  Pfin                     = BRep_Tool::Pnt(Vfin);
+  TopExp1::Vertices(wire1, Vdeb, Vfin);
+  Pdeb                     = BRepInspector::Pnt(Vdeb);
+  Pfin                     = BRepInspector::Pnt(Vfin);
   Standard_Boolean isline0 = (!PlaneOfWire(wire1, P0)), isline;
   myWork(ideb)             = wire1;
   // OCC86
   anExp.Init(wire1);
-  TopoDS_Edge E0 = anExp.Current(), E;
+  TopoEdge E0 = anExp.Current(), E;
 
   for (i = ideb + 1; i <= ifin; i++)
   {
 
-    TopoDS_Wire wire = TopoDS::Wire(myWork(i));
+    TopoWire wire = TopoDS::Wire(myWork(i));
     wire.Orientation(TopAbs_FORWARD);
 
     TopTools_SequenceOfShape SeqEdges;
@@ -2362,12 +2362,12 @@ void BRepFill_CompatibleWires::SearchOrigin()
       SeqEdges.Append(anExp.Current());
       nbEdges++;
     }
-    TopExp::Vertices(wire, Vdeb, Vfin);
+    TopExp1::Vertices(wire, Vdeb, Vfin);
     isline = (!PlaneOfWire(wire, P));
 
-    TopoDS_Vertex Vmini;
-    TopoDS_Wire   newwire;
-    BRep_Builder  BW;
+    TopoVertex Vmini;
+    TopoWire   newwire;
+    ShapeBuilder  BW;
     BW.MakeWire(newwire);
     Standard_Boolean parcours = Standard_True;
 
@@ -2375,7 +2375,7 @@ void BRepFill_CompatibleWires::SearchOrigin()
     {
 
       // particular case of straight segments
-      Point3d        P1 = BRep_Tool::Pnt(Vdeb), P2 = BRep_Tool::Pnt(Vfin);
+      Point3d        P1 = BRepInspector::Pnt(Vdeb), P2 = BRepInspector::Pnt(Vfin);
       Standard_Real dist1, dist2;
       dist1    = Pdeb.Distance(P1) + Pfin.Distance(P2);
       dist2    = Pdeb.Distance(P2) + Pfin.Distance(P1);
@@ -2385,7 +2385,7 @@ void BRepFill_CompatibleWires::SearchOrigin()
     else
     {
       // OCC86
-      Point3d P1 = BRep_Tool::Pnt(Vdeb), P1o = Pdeb, P2 = BRep_Tool::Pnt(Vfin), P2o = Pfin;
+      Point3d P1 = BRepInspector::Pnt(Vdeb), P1o = Pdeb, P2 = BRepInspector::Pnt(Vfin), P2o = Pfin;
       /*    // return Pdeb in the current plane
             Point3d Pnew = Pdeb.Translated (P0.Location(),P.Location());
             Axis3d A0 = P0.Axis();
@@ -2434,7 +2434,7 @@ void BRepFill_CompatibleWires::SearchOrigin()
     {
       for (rang = 1; rang <= nbEdges; rang++)
       {
-        TopoDS_Shape alocalshape = SeqEdges.Value(rang);
+        TopoShape alocalshape = SeqEdges.Value(rang);
         BW.Add(newwire, TopoDS::Edge(alocalshape));
         //	BW.Add(newwire,TopoDS::Edge(SeqEdges.Value(rang)));
       }
@@ -2443,7 +2443,7 @@ void BRepFill_CompatibleWires::SearchOrigin()
     {
       for (rang = nbEdges; rang >= 1; rang--)
       {
-        TopoDS_Shape alocalshape = SeqEdges.Value(rang).Reversed();
+        TopoShape alocalshape = SeqEdges.Value(rang).Reversed();
         BW.Add(newwire, TopoDS::Edge(alocalshape));
         //	BW.Add(newwire,TopoDS::Edge(SeqEdges.Value(rang).Reversed()));
       }
@@ -2456,13 +2456,13 @@ void BRepFill_CompatibleWires::SearchOrigin()
     // passe to the next wire
     if (parcours)
     {
-      Pdeb = BRep_Tool::Pnt(Vdeb);
-      Pfin = BRep_Tool::Pnt(Vfin);
+      Pdeb = BRepInspector::Pnt(Vdeb);
+      Pfin = BRepInspector::Pnt(Vfin);
     }
     else
     {
-      Pfin = BRep_Tool::Pnt(Vdeb);
-      Pdeb = BRep_Tool::Pnt(Vfin);
+      Pfin = BRepInspector::Pnt(Vdeb);
+      Pdeb = BRepInspector::Pnt(Vfin);
     }
     P0      = P;
     isline0 = isline;

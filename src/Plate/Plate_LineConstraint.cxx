@@ -18,7 +18,7 @@
 #include <gp_XY.hxx>
 #include <Plate_LineConstraint.hxx>
 
-Plate_LineConstraint::Plate_LineConstraint(const gp_XY&           point2d,
+Plate_LineConstraint::Plate_LineConstraint(const Coords2d&           point2d,
                                            const gp_Lin&          lin,
                                            const Standard_Integer iu,
                                            const Standard_Integer iv)

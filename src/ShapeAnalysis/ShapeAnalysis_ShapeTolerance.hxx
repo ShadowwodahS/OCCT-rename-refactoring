@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <TopAbs_ShapeEnum.hxx>
 #include <TopTools_HSequenceOfShape.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! Tool for computing shape tolerances (minimal, maximal, average),
 //! finding shape with tolerance matching given criteria,
@@ -50,21 +50,21 @@ public:
   //! FACE   : only faces,
   //! SHELL  : combined SHELL + FACE, for each face (and containing
   //! shell), also checks EDGE and VERTEX
-  Standard_EXPORT Standard_Real Tolerance(const TopoDS_Shape&    shape,
+  Standard_EXPORT Standard_Real Tolerance(const TopoShape&    shape,
                                           const Standard_Integer mode,
                                           const TopAbs_ShapeEnum type = TopAbs_SHAPE);
 
   //! Determines which shapes have a tolerance over the given value
   //! <type> is interpreted as in the method Tolerance
   Standard_EXPORT Handle(TopTools_HSequenceOfShape) OverTolerance(
-    const TopoDS_Shape&    shape,
+    const TopoShape&    shape,
     const Standard_Real    value,
     const TopAbs_ShapeEnum type = TopAbs_SHAPE) const;
 
   //! Determines which shapes have a tolerance within a given interval
   //! <type> is interpreted as in the method Tolerance
   Standard_EXPORT Handle(TopTools_HSequenceOfShape) InTolerance(
-    const TopoDS_Shape&    shape,
+    const TopoShape&    shape,
     const Standard_Real    valmin,
     const Standard_Real    valmax,
     const TopAbs_ShapeEnum type = TopAbs_SHAPE) const;
@@ -74,7 +74,7 @@ public:
 
   //! Adds data on new Shape to compute Cumulated Tolerance
   //! (prepares three computations : maximal, average, minimal)
-  Standard_EXPORT void AddTolerance(const TopoDS_Shape&    shape,
+  Standard_EXPORT void AddTolerance(const TopoShape&    shape,
                                     const TopAbs_ShapeEnum type = TopAbs_SHAPE);
 
   //! Returns the computed tolerance according to the <mode>

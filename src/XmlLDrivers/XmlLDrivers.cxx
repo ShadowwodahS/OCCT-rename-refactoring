@@ -65,7 +65,7 @@ const Handle(RefObject)& XmlLDrivers::Factory(const Standard_GUID& theGUID)
 // function : CreationDate
 // purpose  : mm/dd/yy
 //=======================================================================
-TCollection_AsciiString XmlLDrivers::CreationDate()
+AsciiString1 XmlLDrivers::CreationDate()
 {
   Standard_Character nowstr[SLENGTH];
   time_t             nowbin;
@@ -92,7 +92,7 @@ TCollection_AsciiString XmlLDrivers::CreationDate()
 
 //=================================================================================================
 
-void XmlLDrivers::DefineFormat(const Handle(TDocStd_Application)& theApp)
+void XmlLDrivers::DefineFormat(const Handle(AppManager)& theApp)
 {
   theApp->DefineFormat("XmlLOcaf",
                        "Xml Lite OCAF Document",

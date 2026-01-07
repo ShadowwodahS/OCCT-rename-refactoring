@@ -22,7 +22,7 @@
 #include <TopTools_ShapeMapHasher.hxx>
 #include <NCollection_IndexedDataMap.hxx>
 
-typedef NCollection_IndexedDataMap<TopoDS_Vertex, ChFiDS_ListOfStripe, TopTools_ShapeMapHasher>
+typedef NCollection_IndexedDataMap<TopoVertex, ChFiDS_ListOfStripe, ShapeHasher>
   ChFiDS_IndexedDataMapOfVertexListOfStripe;
 
 #endif

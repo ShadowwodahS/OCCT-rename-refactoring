@@ -36,7 +36,7 @@ class BRepClass_FaceExplorer
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepClass_FaceExplorer(const TopoDS_Face& F);
+  Standard_EXPORT BRepClass_FaceExplorer(const TopoFace& F);
 
   //! Checks the point and change its coords if it is located too far
   //! from the bounding box of the face. New Coordinates of the point
@@ -108,9 +108,9 @@ protected:
   Standard_EXPORT void ComputeFaceBounds();
 
 private:
-  TopoDS_Face                               myFace;
-  TopExp_Explorer                           myWExplorer;
-  TopExp_Explorer                           myEExplorer;
+  TopoFace                               myFace;
+  ShapeExplorer                           myWExplorer;
+  ShapeExplorer                           myEExplorer;
   Standard_Integer                          myCurEdgeInd;
   Standard_Real                             myCurEdgePar;
   Standard_Real                             myMaxTolerance;

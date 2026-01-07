@@ -22,16 +22,16 @@ class RefObject;
 class Standard_GUID;
 class BinMDF_ADriverTable;
 class Message_Messenger;
-class TDocStd_Application;
+class AppManager;
 
-class BinDrivers
+class BinDrivers1
 {
 public:
   Standard_EXPORT static const Handle(RefObject)& Factory(const Standard_GUID& theGUID);
 
   //! Defines format "BinOcaf" and registers its read and write drivers
   //! in the specified application
-  Standard_EXPORT static void DefineFormat(const Handle(TDocStd_Application)& theApp);
+  Standard_EXPORT static void DefineFormat(const Handle(AppManager)& theApp);
 
   //! Creates the table of drivers of types supported
   Standard_EXPORT static Handle(BinMDF_ADriverTable) AttributeDrivers(

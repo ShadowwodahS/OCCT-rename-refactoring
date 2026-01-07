@@ -22,7 +22,7 @@ class XCAFPrs_DocumentIdIterator
 {
 public:
   //! Main constructor.
-  XCAFPrs_DocumentIdIterator(const TCollection_AsciiString& thePath)
+  XCAFPrs_DocumentIdIterator(const AsciiString1& thePath)
       : myPath(thePath),
         myPosition(0)
   {
@@ -33,7 +33,7 @@ public:
   bool More() const { return !mySubId.IsEmpty(); }
 
   //! Return current value.
-  const TCollection_AsciiString& Value() const { return mySubId; }
+  const AsciiString1& Value() const { return mySubId; }
 
   //! Find the next value.
   void Next();
@@ -43,8 +43,8 @@ private:
   XCAFPrs_DocumentIdIterator& operator=(const XCAFPrs_DocumentIdIterator&);
 
 private:
-  const TCollection_AsciiString& myPath;     //!< full path
-  TCollection_AsciiString        mySubId;    //!< current value
+  const AsciiString1& myPath;     //!< full path
+  AsciiString1        mySubId;    //!< current value
   Standard_Integer               myPosition; //!< last processed new-line symbol
 };
 

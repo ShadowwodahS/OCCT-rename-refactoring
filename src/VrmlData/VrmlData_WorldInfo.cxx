@@ -106,7 +106,7 @@ Handle(VrmlData_Node) VrmlData_WorldInfo::Clone(const Handle(VrmlData_Node)& the
 // purpose  : Read the Node from input stream.
 //=======================================================================
 
-VrmlData_ErrorStatus VrmlData_WorldInfo::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_WorldInfo::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus;
   while (OK(aStatus, VrmlData_Scene::ReadLine(theBuffer)))
@@ -114,16 +114,16 @@ VrmlData_ErrorStatus VrmlData_WorldInfo::Read(VrmlData_InBuffer& theBuffer)
 
     if (VRMLDATA_LCOMPARE(theBuffer.LinePtr, "title"))
     {
-      TCollection_AsciiString aTitleString;
+      AsciiString1 aTitleString;
       if (OK(aStatus, ReadString(theBuffer, aTitleString)))
         SetTitle(aTitleString.ToCString());
     }
     else if (VRMLDATA_LCOMPARE(theBuffer.LinePtr, "info"))
     {
-      NCollection_List<TCollection_AsciiString> lstInfo;
+      NCollection_List<AsciiString1> lstInfo;
       if (OK(aStatus, ReadMultiString(theBuffer, lstInfo)))
       {
-        NCollection_List<TCollection_AsciiString>::Iterator anIter(lstInfo);
+        NCollection_List<AsciiString1>::Iterator anIter(lstInfo);
         for (; anIter.More(); anIter.Next())
           AddInfo(anIter.Value().ToCString());
       }

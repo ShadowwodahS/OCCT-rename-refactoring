@@ -29,13 +29,13 @@ class BRepBlend_Line;
 class Adaptor3d_TopolTool;
 class StdFail_NotDone;
 class Adaptor3d_HVertex;
-class BRepBlend_HCurve2dTool;
-class Adaptor3d_HSurfaceTool;
-class BRepBlend_HCurveTool;
-class BRepBlend_BlendTool;
+class HCurve2dTool;
+class HSurfaceTool;
+class HCurveTool1;
+class BlendTool;
 class BRepBlend_PointOnRst;
 class BRepBlend_Extremity;
-class Blend_Point;
+class Point2;
 class Blend_Function;
 class Blend_FuncInv;
 class Point3d;
@@ -58,7 +58,7 @@ public:
                                            const Handle(Adaptor3d_TopolTool)& RecDomain2);
 
   //! To define singular points computed before walking.
-  Standard_EXPORT void AddSingularPoint(const Blend_Point& P);
+  Standard_EXPORT void AddSingularPoint(const Point2& P);
 
   Standard_EXPORT void Perform(Blend_Function&        F,
                                Blend_FuncInv&         FInv,
@@ -176,7 +176,7 @@ private:
                                              const Handle(Adaptor3d_HVertex)& Vtx);
 
   Standard_EXPORT Blend_Status CheckDeflection(const Standard_Boolean OnFirst,
-                                               const Blend_Point&     CurPoint);
+                                               const Point2&     CurPoint);
 
   Standard_EXPORT Blend_Status TestArret(Blend_Function&        F,
                                          const Blend_Status     State,
@@ -184,7 +184,7 @@ private:
                                          const Standard_Boolean TestSolution   = Standard_True,
                                          const Standard_Boolean TestLengthStep = Standard_False);
 
-  Blend_Point                 previousP;
+  Point2                 previousP;
   Handle(BRepBlend_Line)      line;
   math_Vector                 sol;
   Blend_SequenceOfPoint       jalons;

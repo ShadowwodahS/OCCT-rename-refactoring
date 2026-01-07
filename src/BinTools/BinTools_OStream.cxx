@@ -19,7 +19,7 @@
 
 //=================================================================================================
 
-BinTools_OStream::BinTools_OStream(Standard_OStream& theStream)
+BinaryOutputStream::BinaryOutputStream(Standard_OStream& theStream)
     : myStream(&theStream),
       myPosition(theStream.tellp())
 {
@@ -27,7 +27,7 @@ BinTools_OStream::BinTools_OStream(Standard_OStream& theStream)
 
 //=================================================================================================
 
-void BinTools_OStream::WriteReference(const uint64_t& thePosition)
+void BinaryOutputStream::WriteReference(const uint64_t& thePosition)
 {
   uint64_t aDelta = myPosition - thePosition;
   if (aDelta <= 0xFF)
@@ -70,7 +70,7 @@ void BinTools_OStream::WriteReference(const uint64_t& thePosition)
 
 //=================================================================================================
 
-void BinTools_OStream::WriteShape(const TopAbs_ShapeEnum&   theType,
+void BinaryOutputStream::WriteShape(const TopAbs_ShapeEnum&   theType,
                                   const TopAbs_Orientation& theOrientation)
 {
   Standard_Byte aType =
@@ -84,7 +84,7 @@ void BinTools_OStream::WriteShape(const TopAbs_ShapeEnum&   theType,
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const BinTools_ObjectType& theType)
+BinaryOutputStream& BinaryOutputStream::operator<<(const BinTools_ObjectType& theType)
 {
   myStream->put((Standard_Byte)theType);
   myPosition += sizeof(Standard_Byte);
@@ -95,7 +95,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const BinTools_ObjectType& theTyp
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const Standard_Byte& theValue)
+BinaryOutputStream& BinaryOutputStream::operator<<(const Standard_Byte& theValue)
 {
   myStream->put(theValue);
   myPosition += sizeof(Standard_Byte);
@@ -106,7 +106,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const Standard_Byte& theValue)
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const Standard_Real& theValue)
+BinaryOutputStream& BinaryOutputStream::operator<<(const Standard_Real& theValue)
 {
 #if DO_INVERSE
   const Standard_Real aRValue = FSD_BinaryFile::InverseReal(theValue);
@@ -122,7 +122,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const Standard_Real& theValue)
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const Standard_Boolean& theValue)
+BinaryOutputStream& BinaryOutputStream::operator<<(const Standard_Boolean& theValue)
 {
   myStream->put((Standard_Byte)(theValue ? 1 : 0));
   myPosition += sizeof(Standard_Byte);
@@ -133,7 +133,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const Standard_Boolean& theValue)
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const Standard_Integer& theValue)
+BinaryOutputStream& BinaryOutputStream::operator<<(const Standard_Integer& theValue)
 {
 #if DO_INVERSE
   const Standard_Integer aRValue = FSD_BinaryFile::InverseInt(theValue);
@@ -149,7 +149,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const Standard_Integer& theValue)
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const Standard_ExtCharacter& theValue)
+BinaryOutputStream& BinaryOutputStream::operator<<(const Standard_ExtCharacter& theValue)
 {
 #if DO_INVERSE
   const Standard_ExtCharacter aRValue = FSD_BinaryFile::InverseExtChar(theValue);
@@ -165,7 +165,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const Standard_ExtCharacter& theV
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const Point3d& theValue)
+BinaryOutputStream& BinaryOutputStream::operator<<(const Point3d& theValue)
 {
 #if DO_INVERSE
   myRealBuf[0] = FSD_BinaryFile::InverseReal(theValue.X());
@@ -185,7 +185,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const Point3d& theValue)
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const Dir3d& theValue)
+BinaryOutputStream& BinaryOutputStream::operator<<(const Dir3d& theValue)
 {
 #if DO_INVERSE
   myRealBuf[0] = FSD_BinaryFile::InverseReal(theValue.X());
@@ -205,7 +205,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const Dir3d& theValue)
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const gp_Pnt2d& theValue)
+BinaryOutputStream& BinaryOutputStream::operator<<(const gp_Pnt2d& theValue)
 {
 #if DO_INVERSE
   myRealBuf[0] = FSD_BinaryFile::InverseReal(theValue.X());
@@ -223,7 +223,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const gp_Pnt2d& theValue)
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const gp_Dir2d& theValue)
+BinaryOutputStream& BinaryOutputStream::operator<<(const gp_Dir2d& theValue)
 {
 #if DO_INVERSE
   myRealBuf[0] = FSD_BinaryFile::InverseReal(theValue.X());
@@ -241,7 +241,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const gp_Dir2d& theValue)
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const Transform3d& theValue)
+BinaryOutputStream& BinaryOutputStream::operator<<(const Transform3d& theValue)
 {
   gp_XYZ aTr  = theValue.TranslationPart();
   gp_Mat aMat = theValue.VectorialPart();
@@ -281,7 +281,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const Transform3d& theValue)
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const Poly_Triangle& theValue)
+BinaryOutputStream& BinaryOutputStream::operator<<(const Poly_Triangle& theValue)
 {
   theValue.Value(1);
 #if DO_INVERSE
@@ -302,7 +302,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const Poly_Triangle& theValue)
 // function : operator <<
 // purpose  :
 //=======================================================================
-BinTools_OStream& BinTools_OStream::operator<<(const gp_Vec3f& theValue)
+BinaryOutputStream& BinaryOutputStream::operator<<(const gp_Vec3f& theValue)
 {
 #if DO_INVERSE
   myFloatBuf[0] = FSD_BinaryFile::InverseShortReal(theValue.x());
@@ -320,7 +320,7 @@ BinTools_OStream& BinTools_OStream::operator<<(const gp_Vec3f& theValue)
 
 //=================================================================================================
 
-void BinTools_OStream::PutBools(const Standard_Boolean theValue1,
+void BinaryOutputStream::PutBools(const Standard_Boolean theValue1,
                                 const Standard_Boolean theValue2,
                                 const Standard_Boolean theValue3)
 {
@@ -331,7 +331,7 @@ void BinTools_OStream::PutBools(const Standard_Boolean theValue1,
 
 //=================================================================================================
 
-void BinTools_OStream::PutBools(const Standard_Boolean theValue1,
+void BinaryOutputStream::PutBools(const Standard_Boolean theValue1,
                                 const Standard_Boolean theValue2,
                                 const Standard_Boolean theValue3,
                                 const Standard_Boolean theValue4,

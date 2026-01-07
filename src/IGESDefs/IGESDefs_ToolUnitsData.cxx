@@ -32,9 +32,9 @@
 #include <TCollection_HAsciiString.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 
-IGESDefs_ToolUnitsData::IGESDefs_ToolUnitsData() {}
+UnitsDataTool::UnitsDataTool() {}
 
-void IGESDefs_ToolUnitsData::ReadOwnParams(const Handle(IGESDefs_UnitsData)& ent,
+void UnitsDataTool::ReadOwnParams(const Handle(IGESDefs_UnitsData)& ent,
                                            const Handle(IGESData_IGESReaderData)& /* IR */,
                                            IGESData_ParamReader& PR) const
 {
@@ -81,7 +81,7 @@ void IGESDefs_ToolUnitsData::ReadOwnParams(const Handle(IGESDefs_UnitsData)& ent
   ent->Init(unitTypes, unitValues, unitScales);
 }
 
-void IGESDefs_ToolUnitsData::WriteOwnParams(const Handle(IGESDefs_UnitsData)& ent,
+void UnitsDataTool::WriteOwnParams(const Handle(IGESDefs_UnitsData)& ent,
                                             IGESData_IGESWriter&              IW) const
 {
   Standard_Integer upper = ent->NbUnits();
@@ -95,12 +95,12 @@ void IGESDefs_ToolUnitsData::WriteOwnParams(const Handle(IGESDefs_UnitsData)& en
   }
 }
 
-void IGESDefs_ToolUnitsData::OwnShared(const Handle(IGESDefs_UnitsData)& /* ent */,
+void UnitsDataTool::OwnShared(const Handle(IGESDefs_UnitsData)& /* ent */,
                                        Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESDefs_ToolUnitsData::OwnCopy(const Handle(IGESDefs_UnitsData)& another,
+void UnitsDataTool::OwnCopy(const Handle(IGESDefs_UnitsData)& another,
                                      const Handle(IGESDefs_UnitsData)& ent,
                                      Interface_CopyTool& /* TC */) const
 {
@@ -127,10 +127,10 @@ void IGESDefs_ToolUnitsData::OwnCopy(const Handle(IGESDefs_UnitsData)& another,
   ent->Init(unitTypes, unitValues, unitScales);
 }
 
-IGESData_DirChecker IGESDefs_ToolUnitsData::DirChecker(
+DirectoryChecker UnitsDataTool::DirChecker(
   const Handle(IGESDefs_UnitsData)& /* ent */) const
 {
-  IGESData_DirChecker DC(316, 0);
+  DirectoryChecker DC(316, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -142,13 +142,13 @@ IGESData_DirChecker IGESDefs_ToolUnitsData::DirChecker(
   return DC;
 }
 
-void IGESDefs_ToolUnitsData::OwnCheck(const Handle(IGESDefs_UnitsData)& /* ent */,
+void UnitsDataTool::OwnCheck(const Handle(IGESDefs_UnitsData)& /* ent */,
                                       const Interface_ShareTool&,
                                       Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESDefs_ToolUnitsData::OwnDump(const Handle(IGESDefs_UnitsData)& ent,
+void UnitsDataTool::OwnDump(const Handle(IGESDefs_UnitsData)& ent,
                                      const IGESData_IGESDumper& /* dumper */,
                                      Standard_OStream&      S,
                                      const Standard_Integer level) const

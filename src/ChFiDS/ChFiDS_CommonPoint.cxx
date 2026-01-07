@@ -49,7 +49,7 @@ void ChFiDS_CommonPoint::Reset()
 //=======================================================================
 
 void ChFiDS_CommonPoint::SetArc(const Standard_Real      Tol,
-                                const TopoDS_Edge&       A,
+                                const TopoEdge&       A,
                                 const Standard_Real      Param,
                                 const TopAbs_Orientation TArc)
 {
@@ -70,7 +70,7 @@ void ChFiDS_CommonPoint::SetParameter(const Standard_Real Param)
 
 //=================================================================================================
 
-const TopoDS_Edge& ChFiDS_CommonPoint::Arc() const
+const TopoEdge& ChFiDS_CommonPoint::Arc() const
 {
   if (!isonarc)
   {

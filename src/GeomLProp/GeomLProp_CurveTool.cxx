@@ -20,12 +20,12 @@
 #include <gp_Pnt.hxx>
 #include <gp_Vec.hxx>
 
-void GeomLProp_CurveTool::Value(const Handle(Geom_Curve)& C, const Standard_Real U, Point3d& P)
+void CurveTool1::Value(const Handle(GeomCurve3d)& C, const Standard_Real U, Point3d& P)
 {
   P = C->Value(U);
 }
 
-void GeomLProp_CurveTool::D1(const Handle(Geom_Curve)& C,
+void CurveTool1::D1(const Handle(GeomCurve3d)& C,
                              const Standard_Real       U,
                              Point3d&                   P,
                              Vector3d&                   V1)
@@ -33,7 +33,7 @@ void GeomLProp_CurveTool::D1(const Handle(Geom_Curve)& C,
   C->D1(U, P, V1);
 }
 
-void GeomLProp_CurveTool::D2(const Handle(Geom_Curve)& C,
+void CurveTool1::D2(const Handle(GeomCurve3d)& C,
                              const Standard_Real       U,
                              Point3d&                   P,
                              Vector3d&                   V1,
@@ -42,7 +42,7 @@ void GeomLProp_CurveTool::D2(const Handle(Geom_Curve)& C,
   C->D2(U, P, V1, V2);
 }
 
-void GeomLProp_CurveTool::D3(const Handle(Geom_Curve)& C,
+void CurveTool1::D3(const Handle(GeomCurve3d)& C,
                              const Standard_Real       U,
                              Point3d&                   P,
                              Vector3d&                   V1,
@@ -52,7 +52,7 @@ void GeomLProp_CurveTool::D3(const Handle(Geom_Curve)& C,
   C->D3(U, P, V1, V2, V3);
 }
 
-Standard_Integer GeomLProp_CurveTool::Continuity(const Handle(Geom_Curve)& C)
+Standard_Integer CurveTool1::Continuity(const Handle(GeomCurve3d)& C)
 {
   GeomAbs_Shape s = C->Continuity();
   switch (s)
@@ -75,12 +75,12 @@ Standard_Integer GeomLProp_CurveTool::Continuity(const Handle(Geom_Curve)& C)
   return 0;
 }
 
-Standard_Real GeomLProp_CurveTool::FirstParameter(const Handle(Geom_Curve)& C)
+Standard_Real CurveTool1::FirstParameter(const Handle(GeomCurve3d)& C)
 {
   return C->FirstParameter();
 }
 
-Standard_Real GeomLProp_CurveTool::LastParameter(const Handle(Geom_Curve)& C)
+Standard_Real CurveTool1::LastParameter(const Handle(GeomCurve3d)& C)
 {
   return C->LastParameter();
 }

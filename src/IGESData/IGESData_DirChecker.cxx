@@ -28,7 +28,7 @@
 // Chaque critere est par defaut inhibe
 //=================================================================================================
 
-IGESData_DirChecker::IGESData_DirChecker()
+DirectoryChecker::DirectoryChecker()
 {
   thetype = theform1 = theform2 = 0;
   thestructure = thelinefont = thelineweig = thecolor = IGESData_ErrorRef;
@@ -38,7 +38,7 @@ IGESData_DirChecker::IGESData_DirChecker()
 
 //=================================================================================================
 
-IGESData_DirChecker::IGESData_DirChecker(const Standard_Integer atype)
+DirectoryChecker::DirectoryChecker(const Standard_Integer atype)
 {
   thetype      = atype;
   theform1     = 0;
@@ -50,7 +50,7 @@ IGESData_DirChecker::IGESData_DirChecker(const Standard_Integer atype)
 
 //=================================================================================================
 
-IGESData_DirChecker::IGESData_DirChecker(const Standard_Integer atype, const Standard_Integer aform)
+DirectoryChecker::DirectoryChecker(const Standard_Integer atype, const Standard_Integer aform)
 {
   thetype  = atype;
   theform1 = theform2 = aform; // forme : valeur requise
@@ -61,7 +61,7 @@ IGESData_DirChecker::IGESData_DirChecker(const Standard_Integer atype, const Sta
 
 //=================================================================================================
 
-IGESData_DirChecker::IGESData_DirChecker(const Standard_Integer atype,
+DirectoryChecker::DirectoryChecker(const Standard_Integer atype,
                                          const Standard_Integer aform1,
                                          const Standard_Integer aform2)
 {
@@ -75,21 +75,21 @@ IGESData_DirChecker::IGESData_DirChecker(const Standard_Integer atype,
 
 //=================================================================================================
 
-Standard_Boolean IGESData_DirChecker::IsSet() const
+Standard_Boolean DirectoryChecker::IsSet() const
 {
   return isitset;
 }
 
 //=================================================================================================
 
-void IGESData_DirChecker::SetDefault()
+void DirectoryChecker::SetDefault()
 {
   Structure(IGESData_DefVoid);
 } // Option par defaut
 
 //=================================================================================================
 
-void IGESData_DirChecker::Structure(const IGESData_DefType crit)
+void DirectoryChecker::Structure(const IGESData_DefType crit)
 {
   isitset      = Standard_True;
   thestructure = crit;
@@ -97,7 +97,7 @@ void IGESData_DirChecker::Structure(const IGESData_DefType crit)
 
 //=================================================================================================
 
-void IGESData_DirChecker::LineFont(const IGESData_DefType crit)
+void DirectoryChecker::LineFont(const IGESData_DefType crit)
 {
   isitset     = Standard_True;
   thelinefont = crit;
@@ -105,7 +105,7 @@ void IGESData_DirChecker::LineFont(const IGESData_DefType crit)
 
 //=================================================================================================
 
-void IGESData_DirChecker::LineWeight(const IGESData_DefType crit)
+void DirectoryChecker::LineWeight(const IGESData_DefType crit)
 {
   isitset     = Standard_True;
   thelineweig = crit;
@@ -113,7 +113,7 @@ void IGESData_DirChecker::LineWeight(const IGESData_DefType crit)
 
 //=================================================================================================
 
-void IGESData_DirChecker::Color(const IGESData_DefType crit)
+void DirectoryChecker::Color(const IGESData_DefType crit)
 {
   isitset  = Standard_True;
   thecolor = crit;
@@ -121,7 +121,7 @@ void IGESData_DirChecker::Color(const IGESData_DefType crit)
 
 //=================================================================================================
 
-void IGESData_DirChecker::GraphicsIgnored(const Standard_Integer hierarchy)
+void DirectoryChecker::GraphicsIgnored(const Standard_Integer hierarchy)
 {
   isitset     = Standard_True;
   thegraphier = hierarchy;
@@ -129,7 +129,7 @@ void IGESData_DirChecker::GraphicsIgnored(const Standard_Integer hierarchy)
 
 //=================================================================================================
 
-void IGESData_DirChecker::BlankStatusIgnored()
+void DirectoryChecker::BlankStatusIgnored()
 {
   isitset    = Standard_True;
   theblankst = -10;
@@ -137,7 +137,7 @@ void IGESData_DirChecker::BlankStatusIgnored()
 
 //=================================================================================================
 
-void IGESData_DirChecker::BlankStatusRequired(const Standard_Integer val)
+void DirectoryChecker::BlankStatusRequired(const Standard_Integer val)
 {
   isitset    = Standard_True;
   theblankst = val;
@@ -145,7 +145,7 @@ void IGESData_DirChecker::BlankStatusRequired(const Standard_Integer val)
 
 //=================================================================================================
 
-void IGESData_DirChecker::SubordinateStatusIgnored()
+void DirectoryChecker::SubordinateStatusIgnored()
 {
   isitset     = Standard_True;
   thesubordst = -10;
@@ -153,7 +153,7 @@ void IGESData_DirChecker::SubordinateStatusIgnored()
 
 //=================================================================================================
 
-void IGESData_DirChecker::SubordinateStatusRequired(const Standard_Integer val)
+void DirectoryChecker::SubordinateStatusRequired(const Standard_Integer val)
 {
   isitset     = Standard_True;
   thesubordst = val;
@@ -161,7 +161,7 @@ void IGESData_DirChecker::SubordinateStatusRequired(const Standard_Integer val)
 
 //=================================================================================================
 
-void IGESData_DirChecker::UseFlagIgnored()
+void DirectoryChecker::UseFlagIgnored()
 {
   isitset    = Standard_True;
   theuseflag = -10;
@@ -169,7 +169,7 @@ void IGESData_DirChecker::UseFlagIgnored()
 
 //=================================================================================================
 
-void IGESData_DirChecker::UseFlagRequired(const Standard_Integer val)
+void DirectoryChecker::UseFlagRequired(const Standard_Integer val)
 {
   isitset    = Standard_True;
   theuseflag = val;
@@ -177,7 +177,7 @@ void IGESData_DirChecker::UseFlagRequired(const Standard_Integer val)
 
 //=================================================================================================
 
-void IGESData_DirChecker::HierarchyStatusIgnored()
+void DirectoryChecker::HierarchyStatusIgnored()
 {
   isitset   = Standard_True;
   thehierst = -10;
@@ -185,7 +185,7 @@ void IGESData_DirChecker::HierarchyStatusIgnored()
 
 //=================================================================================================
 
-void IGESData_DirChecker::HierarchyStatusRequired(const Standard_Integer val)
+void DirectoryChecker::HierarchyStatusRequired(const Standard_Integer val)
 {
   isitset   = Standard_True;
   thehierst = val;
@@ -193,7 +193,7 @@ void IGESData_DirChecker::HierarchyStatusRequired(const Standard_Integer val)
 
 //=================================================================================================
 
-void IGESData_DirChecker::Check(Handle(Interface_Check)&           ach,
+void DirectoryChecker::Check(Handle(Interface_Check)&           ach,
                                 const Handle(IGESData_IGESEntity)& ent) const
 {
   // MGE 23/07/98
@@ -319,7 +319,7 @@ void IGESData_DirChecker::Check(Handle(Interface_Check)&           ach,
 
 //=================================================================================================
 
-void IGESData_DirChecker::CheckTypeAndForm(Handle(Interface_Check)&           ach,
+void DirectoryChecker::CheckTypeAndForm(Handle(Interface_Check)&           ach,
                                            const Handle(IGESData_IGESEntity)& ent) const
 {
   // CKY 30 NOV 2001 : This method is called for immediate check on reading
@@ -358,7 +358,7 @@ void IGESData_DirChecker::CheckTypeAndForm(Handle(Interface_Check)&           ac
 
 //=================================================================================================
 
-Standard_Boolean IGESData_DirChecker::Correct(const Handle(IGESData_IGESEntity)& ent) const
+Standard_Boolean DirectoryChecker::Correct(const Handle(IGESData_IGESEntity)& ent) const
 {
   Standard_Boolean done = Standard_False;
   Standard_Integer type = ent->TypeNumber();

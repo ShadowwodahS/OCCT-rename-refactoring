@@ -20,6 +20,6 @@
 #include <TCollection_AsciiString.hxx>
 #include <NCollection_IndexedMap.hxx>
 
-typedef NCollection_IndexedMap<TCollection_AsciiString> Interface_IndexedMapOfAsciiString;
+typedef NCollection_IndexedMap<AsciiString1> Interface_IndexedMapOfAsciiString;
 
 #endif

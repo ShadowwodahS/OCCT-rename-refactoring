@@ -35,9 +35,9 @@
 #include <Standard_DomainError.hxx>
 #include <TColgp_HArray1OfXY.hxx>
 
-IGESDimen_ToolWitnessLine::IGESDimen_ToolWitnessLine() {}
+WitnessLineTool::WitnessLineTool() {}
 
-void IGESDimen_ToolWitnessLine::ReadOwnParams(const Handle(IGESDimen_WitnessLine)& ent,
+void WitnessLineTool::ReadOwnParams(const Handle(IGESDimen_WitnessLine)& ent,
                                               const Handle(IGESData_IGESReaderData)& /* IR */,
                                               IGESData_ParamReader& PR) const
 {
@@ -62,7 +62,7 @@ void IGESDimen_ToolWitnessLine::ReadOwnParams(const Handle(IGESDimen_WitnessLine
   if (!dataPoints.IsNull())
     for (Standard_Integer i = 1; i <= nbval; i++)
     {
-      gp_XY tempXY;
+      Coords2d tempXY;
       PR.ReadXY(PR.CurrentList(1, 2), "Data Points", tempXY); // szv#4:S4163:12Mar99 `st=` not
                                                               // needed
       dataPoints->SetValue(i, tempXY);
@@ -72,7 +72,7 @@ void IGESDimen_ToolWitnessLine::ReadOwnParams(const Handle(IGESDimen_WitnessLine
   ent->Init(datatype, zDisplacement, dataPoints);
 }
 
-void IGESDimen_ToolWitnessLine::WriteOwnParams(const Handle(IGESDimen_WitnessLine)& ent,
+void WitnessLineTool::WriteOwnParams(const Handle(IGESDimen_WitnessLine)& ent,
                                                IGESData_IGESWriter&                 IW) const
 {
   Standard_Integer upper = ent->NbPoints();
@@ -86,12 +86,12 @@ void IGESDimen_ToolWitnessLine::WriteOwnParams(const Handle(IGESDimen_WitnessLin
   }
 }
 
-void IGESDimen_ToolWitnessLine::OwnShared(const Handle(IGESDimen_WitnessLine)& /* ent */,
+void WitnessLineTool::OwnShared(const Handle(IGESDimen_WitnessLine)& /* ent */,
                                           Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESDimen_ToolWitnessLine::OwnCopy(const Handle(IGESDimen_WitnessLine)& another,
+void WitnessLineTool::OwnCopy(const Handle(IGESDimen_WitnessLine)& another,
                                         const Handle(IGESDimen_WitnessLine)& ent,
                                         Interface_CopyTool& /* TC */) const
 {
@@ -104,13 +104,13 @@ void IGESDimen_ToolWitnessLine::OwnCopy(const Handle(IGESDimen_WitnessLine)& ano
   for (Standard_Integer i = 1; i <= nbval; i++)
   {
     Point3d tempPnt = (another->Point(i));
-    gp_XY  tempPnt2d(tempPnt.X(), tempPnt.Y());
+    Coords2d  tempPnt2d(tempPnt.X(), tempPnt.Y());
     dataPoints->SetValue(i, tempPnt2d);
   }
   ent->Init(datatype, zDisplacement, dataPoints);
 }
 
-Standard_Boolean IGESDimen_ToolWitnessLine::OwnCorrect(
+Standard_Boolean WitnessLineTool::OwnCorrect(
   const Handle(IGESDimen_WitnessLine)& ent) const
 {
   Standard_Boolean res = (ent->RankLineFont() != 1);
@@ -127,15 +127,15 @@ Standard_Boolean IGESDimen_ToolWitnessLine::OwnCorrect(
     return Standard_False; // rien pu faire (est-ce possible ?)
   Handle(TColgp_HArray1OfXY) pts = new TColgp_HArray1OfXY(1, nb);
   for (Standard_Integer i = 1; i <= nb; i++)
-    pts->SetValue(i, gp_XY(ent->Point(i).X(), ent->Point(i).Y()));
+    pts->SetValue(i, Coords2d(ent->Point(i).X(), ent->Point(i).Y()));
   ent->Init(1, ent->ZDisplacement(), pts);
   return Standard_True;
 }
 
-IGESData_DirChecker IGESDimen_ToolWitnessLine::DirChecker(
+DirectoryChecker WitnessLineTool::DirChecker(
   const Handle(IGESDimen_WitnessLine)& /* ent */) const
 {
-  IGESData_DirChecker DC(106, 40);
+  DirectoryChecker DC(106, 40);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefValue);
   DC.LineWeight(IGESData_DefValue);
@@ -145,7 +145,7 @@ IGESData_DirChecker IGESDimen_ToolWitnessLine::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolWitnessLine::OwnCheck(const Handle(IGESDimen_WitnessLine)& ent,
+void WitnessLineTool::OwnCheck(const Handle(IGESDimen_WitnessLine)& ent,
                                          const Interface_ShareTool&,
                                          Handle(Interface_Check)& ach) const
 {
@@ -159,7 +159,7 @@ void IGESDimen_ToolWitnessLine::OwnCheck(const Handle(IGESDimen_WitnessLine)& en
     ach->AddFail("Number of data points is not odd");
 }
 
-void IGESDimen_ToolWitnessLine::OwnDump(const Handle(IGESDimen_WitnessLine)& ent,
+void WitnessLineTool::OwnDump(const Handle(IGESDimen_WitnessLine)& ent,
                                         const IGESData_IGESDumper& /* dumper */,
                                         Standard_OStream&      S,
                                         const Standard_Integer level) const

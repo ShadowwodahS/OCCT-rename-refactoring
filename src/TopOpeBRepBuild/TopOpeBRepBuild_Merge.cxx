@@ -43,12 +43,12 @@ extern Standard_Boolean TopOpeBRepBuild_GettraceSPS();
 // static Standard_Integer ifvNbFace = 0;
 // static char *name = "                 ";
 //-------------
-static void CorrectEdgeOrientation(TopoDS_Shape& aWire)
+static void CorrectEdgeOrientation(TopoShape& aWire)
 {
 
-  TopTools_ListOfShape anEdgeList, anAuxList, aTrueEdgeList;
-  BRep_Builder         BB;
-  TopoDS_Vertex        vf, vl, v1f, v1l;
+  ShapeList anEdgeList, anAuxList, aTrueEdgeList;
+  ShapeBuilder         BB;
+  TopoVertex        vf, vl, v1f, v1l;
   Standard_Boolean     append = Standard_True;
 
   TopoDS_Iterator tdi(aWire, Standard_False, Standard_False);
@@ -61,8 +61,8 @@ static void CorrectEdgeOrientation(TopoDS_Shape& aWire)
 
   TopTools_ListIteratorOfListOfShape anIt(anEdgeList);
 
-  TopoDS_Shape anCurEdge = anIt.Value();
-  TopExp::Vertices(TopoDS::Edge(anCurEdge), vf, vl, Standard_True);
+  TopoShape anCurEdge = anIt.Value();
+  TopExp1::Vertices(TopoDS::Edge(anCurEdge), vf, vl, Standard_True);
   aTrueEdgeList.Append(anCurEdge);
   anIt.Next();
 
@@ -73,7 +73,7 @@ static void CorrectEdgeOrientation(TopoDS_Shape& aWire)
     {
       append    = Standard_False;
       anCurEdge = anIt.Value();
-      TopExp::Vertices(TopoDS::Edge(anCurEdge), v1f, v1l, Standard_True);
+      TopExp1::Vertices(TopoDS::Edge(anCurEdge), v1f, v1l, Standard_True);
       if (v1f.IsSame(vl))
       {
         aTrueEdgeList.Append(anCurEdge);
@@ -91,7 +91,7 @@ static void CorrectEdgeOrientation(TopoDS_Shape& aWire)
 
       if (v1l.IsSame(vl))
       {
-        TopoDS_Shape anRevEdge = anCurEdge.Reversed();
+        TopoShape anRevEdge = anCurEdge.Reversed();
         aTrueEdgeList.Append(anRevEdge);
         vl     = v1f;
         append = Standard_True;
@@ -99,7 +99,7 @@ static void CorrectEdgeOrientation(TopoDS_Shape& aWire)
       }
       if (v1f.IsSame(vf))
       {
-        TopoDS_Shape anRevEdge = anCurEdge.Reversed();
+        TopoShape anRevEdge = anCurEdge.Reversed();
         aTrueEdgeList.Append(anRevEdge);
         vf     = v1l;
         append = Standard_True;
@@ -125,14 +125,14 @@ static void CorrectEdgeOrientation(TopoDS_Shape& aWire)
     BB.Add(aWire, anIt.Value());
 }
 
-static void CorrectUnclosedWire(TopoDS_Shape& aWire)
+static void CorrectUnclosedWire(TopoShape& aWire)
 {
   //  std::cout << "-------CorrectUnclosedWire" << std::endl;
-  BRep_Builder    BB;
+  ShapeBuilder    BB;
   TopoDS_Iterator tdi(aWire, Standard_False, Standard_False);
   for (; tdi.More(); tdi.Next())
   {
-    const TopoDS_Shape& ed  = tdi.Value();
+    const TopoShape& ed  = tdi.Value();
     Standard_Integer    nbv = ed.NbChildren();
     if (nbv <= 1)
     {
@@ -143,15 +143,15 @@ static void CorrectUnclosedWire(TopoDS_Shape& aWire)
 
   TopTools_IndexedDataMapOfShapeListOfShape VElists;
   VElists.Clear();
-  TopExp::MapShapesAndAncestors(aWire, TopAbs_VERTEX, TopAbs_EDGE, VElists);
+  TopExp1::MapShapesAndAncestors(aWire, TopAbs_VERTEX, TopAbs_EDGE, VElists);
   Standard_Integer nbVer = VElists.Extent(), i;
 
   for (i = 1; i <= nbVer; i++)
   {
-    const TopTools_ListOfShape& Elist = VElists.FindFromIndex(i);
+    const ShapeList& Elist = VElists.FindFromIndex(i);
     if (Elist.Extent() == 1)
     {
-      const TopoDS_Shape& anEdge = Elist.First();
+      const TopoShape& anEdge = Elist.First();
       //      std::cout << "Remove redundant edge" << std::endl;
       BB.Remove(aWire, anEdge);
     }
@@ -160,9 +160,9 @@ static void CorrectUnclosedWire(TopoDS_Shape& aWire)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::MergeShapes(const TopoDS_Shape& S1,
+void TopOpeBRepBuild_Builder::MergeShapes(const TopoShape& S1,
                                           const TopAbs_State  ToBuild1,
-                                          const TopoDS_Shape& S2,
+                                          const TopoShape& S2,
                                           const TopAbs_State  ToBuild2)
 {
   Standard_Boolean lesmemes = S1.IsEqual(S2);
@@ -291,12 +291,12 @@ void TopOpeBRepBuild_Builder::MergeShapes(const TopoDS_Shape& S1,
   {
     if (t1 == TopAbs_COMPOUND)
     {
-      TopTools_ListOfShape& L1 = ChangeMerged(S1, ToBuild1);
+      ShapeList& L1 = ChangeMerged(S1, ToBuild1);
       ex1.Init(S1, tex1);
       if (ex1.More())
       {
-        const TopoDS_Shape&   SS1  = ex1.Current();
-        TopTools_ListOfShape& LSS1 = ChangeMerged(SS1, ToBuild1);
+        const TopoShape&   SS1  = ex1.Current();
+        ShapeList& LSS1 = ChangeMerged(SS1, ToBuild1);
         L1                         = LSS1;
       }
     }
@@ -306,12 +306,12 @@ void TopOpeBRepBuild_Builder::MergeShapes(const TopoDS_Shape& S1,
   {
     if (t2 == TopAbs_COMPOUND)
     {
-      TopTools_ListOfShape& L2 = ChangeMerged(S2, ToBuild2);
+      ShapeList& L2 = ChangeMerged(S2, ToBuild2);
       ex2.Init(S2, tex2);
       if (ex2.More())
       {
-        const TopoDS_Shape&   SS2  = ex2.Current();
-        TopTools_ListOfShape& LSS2 = ChangeMerged(SS2, ToBuild2);
+        const TopoShape&   SS2  = ex2.Current();
+        ShapeList& LSS2 = ChangeMerged(SS2, ToBuild2);
         L2                         = LSS2;
       }
     }
@@ -338,9 +338,9 @@ void TopOpeBRepBuild_Builder::ChangeClassify(const Standard_Boolean classify)
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::MergeSolids(const TopoDS_Shape& S1,
+void TopOpeBRepBuild_Builder::MergeSolids(const TopoShape& S1,
                                           const TopAbs_State  ToBuild1,
-                                          const TopoDS_Shape& S2,
+                                          const TopoShape& S2,
                                           const TopAbs_State  ToBuild2)
 {
   MergeShapes(S1, ToBuild1, S2, ToBuild2);
@@ -348,19 +348,19 @@ void TopOpeBRepBuild_Builder::MergeSolids(const TopoDS_Shape& S1,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::MergeSolid(const TopoDS_Shape& S, const TopAbs_State ToBuild)
+void TopOpeBRepBuild_Builder::MergeSolid(const TopoShape& S, const TopAbs_State ToBuild)
 {
-  TopoDS_Shape Snull;
+  TopoShape Snull;
   MergeShapes(S, ToBuild, Snull, ToBuild);
 } // MergeSolid
 
 //=================================================================================================
 
 void TopOpeBRepBuild_Builder::MakeSolids(TopOpeBRepBuild_SolidBuilder& SOBU,
-                                         TopTools_ListOfShape&         L)
+                                         ShapeList&         L)
 {
-  TopoDS_Shape newSolid;
-  TopoDS_Shape newShell;
+  TopoShape newSolid;
+  TopoShape newShell;
   for (SOBU.InitSolid(); SOBU.MoreSolid(); SOBU.NextSolid())
   {
     myBuildTool.MakeSolid(newSolid);
@@ -374,7 +374,7 @@ void TopOpeBRepBuild_Builder::MakeSolids(TopOpeBRepBuild_SolidBuilder& SOBU,
         myBuildTool.MakeShell(newShell);
         for (SOBU.InitFace(); SOBU.MoreFace(); SOBU.NextFace())
         {
-          const TopoDS_Shape& F = SOBU.Face();
+          const TopoShape& F = SOBU.Face();
           myBuildTool.AddShellFace(newShell, F);
         }
       }
@@ -390,9 +390,9 @@ void TopOpeBRepBuild_Builder::MakeSolids(TopOpeBRepBuild_SolidBuilder& SOBU,
 //=================================================================================================
 
 void TopOpeBRepBuild_Builder::MakeShells(TopOpeBRepBuild_SolidBuilder& SOBU,
-                                         TopTools_ListOfShape&         L)
+                                         ShapeList&         L)
 {
-  TopoDS_Shape newShell;
+  TopoShape newShell;
   for (SOBU.InitShell(); SOBU.MoreShell(); SOBU.NextShell())
   {
     Standard_Boolean isold = SOBU.IsOldShell();
@@ -403,7 +403,7 @@ void TopOpeBRepBuild_Builder::MakeShells(TopOpeBRepBuild_SolidBuilder& SOBU,
       myBuildTool.MakeShell(newShell);
       for (SOBU.InitFace(); SOBU.MoreFace(); SOBU.NextFace())
       {
-        const TopoDS_Shape& F = SOBU.Face();
+        const TopoShape& F = SOBU.Face();
         myBuildTool.AddShellFace(newShell, F);
       }
     }
@@ -413,9 +413,9 @@ void TopOpeBRepBuild_Builder::MakeShells(TopOpeBRepBuild_SolidBuilder& SOBU,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::MakeFaces(const TopoDS_Shape&          aFace,
+void TopOpeBRepBuild_Builder::MakeFaces(const TopoShape&          aFace,
                                         TopOpeBRepBuild_FaceBuilder& FABU,
-                                        TopTools_ListOfShape&        L)
+                                        ShapeList&        L)
 {
 #ifdef OCCT_DEBUG
   Standard_Integer iF   = 0;
@@ -426,8 +426,8 @@ void TopOpeBRepBuild_Builder::MakeFaces(const TopoDS_Shape&          aFace,
   }
 #endif
   Standard_Boolean hashds = (!myDataStructure.IsNull());
-  TopoDS_Shape     newFace;
-  TopoDS_Shape     newWire;
+  TopoShape     newFace;
+  TopoShape     newWire;
 
   for (FABU.InitFace(); FABU.MoreFace(); FABU.NextFace())
   {
@@ -439,7 +439,7 @@ void TopOpeBRepBuild_Builder::MakeFaces(const TopoDS_Shape&          aFace,
       hns                                   = BDS.HasNewSurface(aFace);
       if (hns)
       {
-        const Handle(Geom_Surface)& SU = BDS.NewSurface(aFace);
+        const Handle(GeomSurface)& SU = BDS.NewSurface(aFace);
         myBuildTool.UpdateSurface(newFace, SU);
       }
     }
@@ -454,7 +454,7 @@ void TopOpeBRepBuild_Builder::MakeFaces(const TopoDS_Shape&          aFace,
         myBuildTool.MakeWire(newWire);
         for (FABU.InitEdge(); FABU.MoreEdge(); FABU.NextEdge())
         {
-          const TopoDS_Shape& E = FABU.Edge();
+          const TopoShape& E = FABU.Edge();
           if (hns)
             myBuildTool.UpdateSurface(E, aFace, newFace);
           myBuildTool.AddWireEdge(newWire, E);
@@ -490,9 +490,9 @@ void TopOpeBRepBuild_Builder::MakeFaces(const TopoDS_Shape&          aFace,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::MakeEdges(const TopoDS_Shape&          anEdge,
+void TopOpeBRepBuild_Builder::MakeEdges(const TopoShape&          anEdge,
                                         TopOpeBRepBuild_EdgeBuilder& EDBU,
-                                        TopTools_ListOfShape&        L)
+                                        ShapeList&        L)
 {
 #ifdef OCCT_DEBUG
   Standard_Integer iE;
@@ -500,7 +500,7 @@ void TopOpeBRepBuild_Builder::MakeEdges(const TopoDS_Shape&          anEdge,
   Standard_Integer ne   = 0;
 #endif
 
-  TopoDS_Shape newEdge;
+  TopoShape newEdge;
   for (EDBU.InitEdge(); EDBU.MoreEdge(); EDBU.NextEdge())
   {
 
@@ -516,7 +516,7 @@ void TopOpeBRepBuild_Builder::MakeEdges(const TopoDS_Shape&          anEdge,
     Standard_Boolean hasvertex = Standard_False;
     for (EDBU.InitVertex(); EDBU.MoreVertex(); EDBU.NextVertex())
     {
-      TopoDS_Shape       V    = EDBU.Vertex();
+      TopoShape       V    = EDBU.Vertex();
       TopAbs_Orientation Vori = V.Orientation();
 
       Standard_Boolean hassd = myDataStructure->HasSameDomain(V);
@@ -533,10 +533,10 @@ void TopOpeBRepBuild_Builder::MakeEdges(const TopoDS_Shape&          anEdge,
       {
         // betonnage
         Standard_Boolean equafound = Standard_False;
-        TopExp_Explorer  exE(newEdge, TopAbs_VERTEX);
+        ShapeExplorer  exE(newEdge, TopAbs_VERTEX);
         for (; exE.More(); exE.Next())
         {
-          const TopoDS_Shape& VE    = exE.Current();
+          const TopoShape& VE    = exE.Current();
           TopAbs_Orientation  oriVE = VE.Orientation();
           if (V.IsEqual(VE))
           {
@@ -554,7 +554,7 @@ void TopOpeBRepBuild_Builder::MakeEdges(const TopoDS_Shape&          anEdge,
           else if (oriVE == TopAbs_INTERNAL || oriVE == TopAbs_EXTERNAL)
           {
             Standard_Real parV  = EDBU.Parameter();
-            Standard_Real parVE = BRep_Tool::Parameter(TopoDS::Vertex(VE), TopoDS::Edge(newEdge));
+            Standard_Real parVE = BRepInspector::Parameter(TopoDS::Vertex(VE), TopoDS::Edge(newEdge));
             if (parV == parVE)
             {
               equafound = Standard_True;
@@ -594,7 +594,7 @@ void TopOpeBRepBuild_Builder::MakeEdges(const TopoDS_Shape&          anEdge,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepBuild_Builder::IsMerged(const TopoDS_Shape& S,
+Standard_Boolean TopOpeBRepBuild_Builder::IsMerged(const TopoShape& S,
                                                    const TopAbs_State  ToBuild) const
 {
   const TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State* p = NULL;
@@ -614,7 +614,7 @@ Standard_Boolean TopOpeBRepBuild_Builder::IsMerged(const TopoDS_Shape& S,
   }
   else
   {
-    const TopTools_ListOfShape& L       = Merged(S, ToBuild);
+    const ShapeList& L       = Merged(S, ToBuild);
     Standard_Boolean            isempty = L.IsEmpty();
     return (!isempty);
   }
@@ -622,7 +622,7 @@ Standard_Boolean TopOpeBRepBuild_Builder::IsMerged(const TopoDS_Shape& S,
 
 //=================================================================================================
 
-const TopTools_ListOfShape& TopOpeBRepBuild_Builder::Merged(const TopoDS_Shape& S,
+const ShapeList& TopOpeBRepBuild_Builder::Merged(const TopoShape& S,
                                                             const TopAbs_State  ToBuild) const
 {
   const TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State* p = NULL;
@@ -641,14 +641,14 @@ const TopTools_ListOfShape& TopOpeBRepBuild_Builder::Merged(const TopoDS_Shape& 
   }
   else
   {
-    const TopTools_ListOfShape& L = (*p)(S).ListOnState();
+    const ShapeList& L = (*p)(S).ListOnState();
     return L;
   }
 } // Merged
 
 //=================================================================================================
 
-TopTools_ListOfShape& TopOpeBRepBuild_Builder::ChangeMerged(const TopoDS_Shape& S,
+ShapeList& TopOpeBRepBuild_Builder::ChangeMerged(const TopoShape& S,
                                                             const TopAbs_State  ToBuild)
 {
   TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State* p = NULL;
@@ -663,18 +663,18 @@ TopTools_ListOfShape& TopOpeBRepBuild_Builder::ChangeMerged(const TopoDS_Shape& 
 
   if (!(*p).IsBound(S))
   {
-    TopOpeBRepDS_ListOfShapeOn1State thelist;
+    ShapeListOnState thelist;
     (*p).Bind(S, thelist);
   }
-  TopTools_ListOfShape& L = (*p)(S).ChangeListOnState();
+  ShapeList& L = (*p)(S).ChangeListOnState();
   return L;
 } // ChangeMerged
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::MergeEdges(const TopTools_ListOfShape&, // L1,
+void TopOpeBRepBuild_Builder::MergeEdges(const ShapeList&, // L1,
                                          const TopAbs_State,          // ToBuild1,
-                                         const TopTools_ListOfShape&, // L2,
+                                         const ShapeList&, // L2,
                                          const TopAbs_State,          // ToBuild2,
                                          const Standard_Boolean,      // Keepon1,
                                          const Standard_Boolean,      // Keepon2,
@@ -684,9 +684,9 @@ void TopOpeBRepBuild_Builder::MergeEdges(const TopTools_ListOfShape&, // L1,
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Builder::MergeFaces(const TopTools_ListOfShape&, // S1,
+void TopOpeBRepBuild_Builder::MergeFaces(const ShapeList&, // S1,
                                          const TopAbs_State,          // ToBuild1,
-                                         const TopTools_ListOfShape&, // S2,
+                                         const ShapeList&, // S2,
                                          const TopAbs_State,          // ToBuild2
                                          const Standard_Boolean,      // onA,
                                          const Standard_Boolean,      // onB,

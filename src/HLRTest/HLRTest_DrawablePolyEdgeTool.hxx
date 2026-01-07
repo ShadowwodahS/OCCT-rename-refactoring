@@ -24,7 +24,7 @@
 #include <HLRBRep_ListOfBPoint.hxx>
 #include <Draw_Drawable3D.hxx>
 class HLRBRep_PolyAlgo;
-class Draw_Display;
+class DrawDisplay;
 
 class HLRTest_DrawablePolyEdgeTool;
 DEFINE_STANDARD_HANDLE(HLRTest_DrawablePolyEdgeTool, Draw_Drawable3D)
@@ -54,7 +54,7 @@ public:
 
   Standard_Boolean DisplayHidden() const;
 
-  Standard_EXPORT void DrawOn(Draw_Display& D) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& D) const Standard_OVERRIDE;
 
   Standard_Boolean Debug() const;
 

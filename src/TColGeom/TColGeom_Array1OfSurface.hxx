@@ -20,6 +20,6 @@
 #include <Geom_Surface.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Handle(Geom_Surface)> TColGeom_Array1OfSurface;
+typedef NCollection_Array1<Handle(GeomSurface)> TColGeom_Array1OfSurface;
 
 #endif

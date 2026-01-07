@@ -32,7 +32,7 @@ IMPLEMENT_STANDARD_RTTIEXT(IFSelect_SessionPilot, IFSelect_Activator)
 #define MAXCARS 1000
 
 static int                     THE_IFSelect_SessionPilot_initactor = 0;
-static TCollection_AsciiString nulword;
+static AsciiString1 nulword;
 
 // #define DEBUG_TRACE
 
@@ -96,7 +96,7 @@ void IFSelect_SessionPilot::SetRecordMode(const Standard_Boolean mode)
   therecord = mode;
 }
 
-void IFSelect_SessionPilot::SetCommandLine(const TCollection_AsciiString& command)
+void IFSelect_SessionPilot::SetCommandLine(const AsciiString1& command)
 {
   Standard_Integer lc = command.Length();
   if (lc > 200)
@@ -194,7 +194,7 @@ void IFSelect_SessionPilot::SetCommandLine(const TCollection_AsciiString& comman
   theobjrec.Nullify();
 }
 
-const TCollection_AsciiString& IFSelect_SessionPilot::CommandLine() const
+const AsciiString1& IFSelect_SessionPilot::CommandLine() const
 {
   return thecommand;
 }
@@ -213,7 +213,7 @@ Standard_Integer IFSelect_SessionPilot::NbWords() const
   return thenbwords;
 }
 
-const TCollection_AsciiString& IFSelect_SessionPilot::Word(const Standard_Integer num) const
+const AsciiString1& IFSelect_SessionPilot::Word(const Standard_Integer num) const
 {
   if (num < thenbwords)
     return thewords(num);
@@ -262,7 +262,7 @@ Standard_Integer IFSelect_SessionPilot::NbCommands() const
   return thecomlist.Length();
 }
 
-const TCollection_AsciiString& IFSelect_SessionPilot::Command(const Standard_Integer num) const
+const AsciiString1& IFSelect_SessionPilot::Command(const Standard_Integer num) const
 {
   return thecomlist(num);
 }
@@ -319,7 +319,7 @@ IFSelect_ReturnStatus IFSelect_SessionPilot::ReadScript(const Standard_CString f
     if (ligne[0] == '\0')
       continue;
     //    On interprete cette commande
-    TCollection_AsciiString command(ligne);
+    AsciiString1 command(ligne);
     if (lefic)
       std::cout << file << ":" << command; // le return est dans la ligne ... !
     stat = Execute(command);
@@ -387,14 +387,14 @@ IFSelect_ReturnStatus IFSelect_SessionPilot::Perform()
   return IFSelect_RetError; // pas reconnu donc incorrect
 }
 
-IFSelect_ReturnStatus IFSelect_SessionPilot::ExecuteAlias(const TCollection_AsciiString& alias)
+IFSelect_ReturnStatus IFSelect_SessionPilot::ExecuteAlias(const AsciiString1& alias)
 {
   if (alias.Length() > 0)
     thewords(0) = alias;
   return Perform();
 }
 
-IFSelect_ReturnStatus IFSelect_SessionPilot::Execute(const TCollection_AsciiString& command)
+IFSelect_ReturnStatus IFSelect_SessionPilot::Execute(const AsciiString1& command)
 {
   SetCommandLine(command);
   return Perform();
@@ -466,7 +466,7 @@ IFSelect_ReturnStatus IFSelect_SessionPilot::Do(const Standard_Integer          
         std::cout << " -- Liste des Commands Disponibles --" << std::endl;
         for (Standard_Integer i = 1; i <= nb; i++)
         {
-          const TCollection_AsciiString& uncom  = list->Value(i);
+          const AsciiString1& uncom  = list->Value(i);
           Standard_Integer               loncom = uncom.Length();
           nbcom++;
           if (nbcom > MAXCOMPERLINE)
@@ -594,7 +594,7 @@ IFSelect_ReturnStatus IFSelect_SessionPilot::Do(const Standard_Integer          
         std::cout << "Donner nom de fichier" << std::endl;
         return IFSelect_RetError;
       }
-      return session->ReadScript(TCollection_AsciiString(session->Word(1)).ToCString());
+      return session->ReadScript(AsciiString1(session->Word(1)).ToCString());
       //          On recopie la string parce que Word(1) change tout le temps !
     }
 
@@ -622,7 +622,7 @@ IFSelect_ReturnStatus IFSelect_SessionPilot::Do(const Standard_Integer          
       {
 
         theobjrec.Nullify();
-        TCollection_AsciiString name = Word(1);
+        AsciiString1 name = Word(1);
         //  Le nom ne doit pas etre deja pris !
         if (thesession.IsNull())
         {

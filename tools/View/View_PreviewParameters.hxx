@@ -38,7 +38,7 @@ public:
   virtual ~View_PreviewParameters() {}
 
   //! Returns main control
-  const Handle(Prs3d_Drawer)& GetDrawer() const { return myDrawer; }
+  const Handle(StyleDrawer)& GetDrawer() const { return myDrawer; }
 
   //! Saves state of preview parameters in a container in form: key, value. It saves:
   //! - visibility of columns,
@@ -74,7 +74,7 @@ public:
   }
 
 private:
-  Handle(Prs3d_Drawer) myDrawer; //!< attributes for preview presentation
+  Handle(StyleDrawer) myDrawer; //!< attributes for preview presentation
 };
 
 #endif

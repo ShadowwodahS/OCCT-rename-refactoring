@@ -31,7 +31,7 @@ class IGESGeom_BSplineSurface;
 DEFINE_STANDARD_HANDLE(IGESGeom_BSplineSurface, IGESData_IGESEntity)
 
 //! defines IGESBSplineSurface, Type <128> Form <0-9>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A parametric equation obtained by dividing two summations
 //! involving weights (which are real numbers), the control
 //! points, and B-Spline basis functions

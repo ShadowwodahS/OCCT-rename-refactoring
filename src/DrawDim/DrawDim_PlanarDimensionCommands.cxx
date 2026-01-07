@@ -39,7 +39,7 @@
 
 //=================================================================================================
 
-static Standard_Integer DrawDim_DISTANCE(Draw_Interpretor& di,
+static Standard_Integer DrawDim_DISTANCE(DrawInterpreter& di,
                                          Standard_Integer  nb,
                                          const char**      arg)
 {
@@ -54,11 +54,11 @@ static Standard_Integer DrawDim_DISTANCE(Draw_Interpretor& di,
     Handle(DrawDim_PlanarDistance) DIST;
     if (nb == 5)
     {
-      TopoDS_Shape aLocalShape = DBRep::Get(arg[2], TopAbs_FACE);
-      TopoDS_Face  plan        = TopoDS::Face(aLocalShape);
-      //      TopoDS_Face plan =  TopoDS::Face(DBRep::Get(arg[2],TopAbs_FACE));
-      TopoDS_Shape geom1 = DBRep::Get(arg[3]);
-      TopoDS_Shape geom2 = DBRep::Get(arg[4]);
+      TopoShape aLocalShape = DBRep1::Get(arg[2], TopAbs_FACE);
+      TopoFace  plan        = TopoDS::Face(aLocalShape);
+      //      TopoFace plan =  TopoDS::Face(DBRep1::Get(arg[2],TopAbs_FACE));
+      TopoShape geom1 = DBRep1::Get(arg[3]);
+      TopoShape geom2 = DBRep1::Get(arg[4]);
       if (!plan.IsNull() && !geom1.IsNull() && !geom2.IsNull())
       {
         if (geom1.ShapeType() == TopAbs_VERTEX && geom2.ShapeType() == TopAbs_VERTEX)
@@ -75,7 +75,7 @@ static Standard_Integer DrawDim_DISTANCE(Draw_Interpretor& di,
         }
         if (!DIST.IsNull())
         {
-          Draw::Set(arg[1], DIST);
+          Draw1::Set(arg[1], DIST);
           return 0;
         }
       }
@@ -87,7 +87,7 @@ static Standard_Integer DrawDim_DISTANCE(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer DrawDim_ANGLE(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer DrawDim_ANGLE(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
   if (nb == 1)
   {
@@ -98,22 +98,22 @@ static Standard_Integer DrawDim_ANGLE(Draw_Interpretor& di, Standard_Integer nb,
     Handle(DrawDim_PlanarAngle) DIST;
     if (nb == 5)
     {
-      TopoDS_Shape aLocalShape = DBRep::Get(arg[2], TopAbs_FACE);
-      TopoDS_Face  plan        = TopoDS::Face(aLocalShape);
-      aLocalShape              = DBRep::Get(arg[3], TopAbs_EDGE);
-      TopoDS_Edge line1        = TopoDS::Edge(aLocalShape);
-      aLocalShape              = DBRep::Get(arg[4], TopAbs_EDGE);
-      TopoDS_Edge line2        = TopoDS::Edge(aLocalShape);
-      //      TopoDS_Face plan =  TopoDS::Face(DBRep::Get(arg[2],TopAbs_FACE));
-      //      TopoDS_Edge line1 = TopoDS::Edge(DBRep::Get(arg[3],TopAbs_EDGE));
-      //      TopoDS_Edge line2 = TopoDS::Edge(DBRep::Get(arg[4],TopAbs_EDGE));
+      TopoShape aLocalShape = DBRep1::Get(arg[2], TopAbs_FACE);
+      TopoFace  plan        = TopoDS::Face(aLocalShape);
+      aLocalShape              = DBRep1::Get(arg[3], TopAbs_EDGE);
+      TopoEdge line1        = TopoDS::Edge(aLocalShape);
+      aLocalShape              = DBRep1::Get(arg[4], TopAbs_EDGE);
+      TopoEdge line2        = TopoDS::Edge(aLocalShape);
+      //      TopoFace plan =  TopoDS::Face(DBRep1::Get(arg[2],TopAbs_FACE));
+      //      TopoEdge line1 = TopoDS::Edge(DBRep1::Get(arg[3],TopAbs_EDGE));
+      //      TopoEdge line2 = TopoDS::Edge(DBRep1::Get(arg[4],TopAbs_EDGE));
       if (!plan.IsNull() && !line1.IsNull() && !line2.IsNull())
       {
         DIST = new DrawDim_PlanarAngle(plan, line1, line2);
       }
       if (!DIST.IsNull())
       {
-        Draw::Set(arg[1], DIST);
+        Draw1::Set(arg[1], DIST);
         return 0;
       }
     }
@@ -124,7 +124,7 @@ static Standard_Integer DrawDim_ANGLE(Draw_Interpretor& di, Standard_Integer nb,
 
 //=================================================================================================
 
-static Standard_Integer DrawDim_RADIUS(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer DrawDim_RADIUS(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
   if (nb == 1)
   {
@@ -135,12 +135,12 @@ static Standard_Integer DrawDim_RADIUS(Draw_Interpretor& di, Standard_Integer nb
     Handle(DrawDim_PlanarRadius) DIST;
     if (nb == 4)
     {
-      TopoDS_Shape aLocalShape = DBRep::Get(arg[2], TopAbs_FACE);
-      TopoDS_Face  plan        = TopoDS::Face(aLocalShape);
-      aLocalShape              = DBRep::Get(arg[3], TopAbs_EDGE);
-      TopoDS_Edge cercle       = TopoDS::Edge(aLocalShape);
-      //      TopoDS_Face plan =  TopoDS::Face(DBRep::Get(arg[2],TopAbs_FACE));
-      //      TopoDS_Edge cercle = TopoDS::Edge(DBRep::Get(arg[3],TopAbs_EDGE));
+      TopoShape aLocalShape = DBRep1::Get(arg[2], TopAbs_FACE);
+      TopoFace  plan        = TopoDS::Face(aLocalShape);
+      aLocalShape              = DBRep1::Get(arg[3], TopAbs_EDGE);
+      TopoEdge cercle       = TopoDS::Edge(aLocalShape);
+      //      TopoFace plan =  TopoDS::Face(DBRep1::Get(arg[2],TopAbs_FACE));
+      //      TopoEdge cercle = TopoDS::Edge(DBRep1::Get(arg[3],TopAbs_EDGE));
       if (!plan.IsNull() && !cercle.IsNull())
       {
         DIST = new DrawDim_PlanarRadius(cercle);
@@ -148,7 +148,7 @@ static Standard_Integer DrawDim_RADIUS(Draw_Interpretor& di, Standard_Integer nb
     }
     if (!DIST.IsNull())
     {
-      Draw::Set(arg[1], DIST);
+      Draw1::Set(arg[1], DIST);
       return 0;
     }
   }
@@ -158,25 +158,25 @@ static Standard_Integer DrawDim_RADIUS(Draw_Interpretor& di, Standard_Integer nb
 
 //=================================================================================================
 
-static Standard_Integer DrawDim_CENTER(Draw_Interpretor& di, Standard_Integer nb, const char** arg)
+static Standard_Integer DrawDim_CENTER(DrawInterpreter& di, Standard_Integer nb, const char** arg)
 {
   if (nb == 3)
   {
-    TopoDS_Shape aLocalShape = DBRep::Get(arg[2], TopAbs_EDGE);
-    TopoDS_Edge  edge        = TopoDS::Edge(aLocalShape);
-    //    TopoDS_Edge edge = TopoDS::Edge(DBRep::Get(arg[2],TopAbs_EDGE));
+    TopoShape aLocalShape = DBRep1::Get(arg[2], TopAbs_EDGE);
+    TopoEdge  edge        = TopoDS::Edge(aLocalShape);
+    //    TopoEdge edge = TopoDS::Edge(DBRep1::Get(arg[2],TopAbs_EDGE));
     Standard_Real      f, l;
-    Handle(Geom_Curve) curve = BRep_Tool::Curve(edge, f, l);
-    if (curve->IsKind(STANDARD_TYPE(Geom_Circle)))
+    Handle(GeomCurve3d) curve = BRepInspector::Curve(edge, f, l);
+    if (curve->IsKind(STANDARD_TYPE(GeomCircle)))
     {
-      gp_Circ circle = Handle(Geom_Circle)::DownCast(curve)->Circ();
+      gp_Circ circle = Handle(GeomCircle)::DownCast(curve)->Circ();
       Point3d  center = circle.Location();
       //: abv: avoid dependence on TKTopAlgo
-      TopoDS_Vertex vc;
+      TopoVertex vc;
       //      = BRepBuilderAPI_MakeVertex (center);
-      BRep_Builder B;
+      ShapeBuilder B;
       B.MakeVertex(vc, center, Precision::Confusion());
-      DBRep::Set(arg[1], vc);
+      DBRep1::Set(arg[1], vc);
       return 0;
     }
   }
@@ -186,50 +186,50 @@ static Standard_Integer DrawDim_CENTER(Draw_Interpretor& di, Standard_Integer nb
 
 //=================================================================================================
 
-static Standard_Integer DrawDim_VARIABLES(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DrawDim_VARIABLES(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 2)
     return 1;
-  TopoDS_Shape aLocalShape = DBRep::Get(a[1], TopAbs_FACE);
-  TopoDS_Face  F           = TopoDS::Face(aLocalShape);
-  //  TopoDS_Face F = TopoDS::Face(DBRep::Get(a[1],TopAbs_FACE));
+  TopoShape aLocalShape = DBRep1::Get(a[1], TopAbs_FACE);
+  TopoFace  F           = TopoDS::Face(aLocalShape);
+  //  TopoFace F = TopoDS::Face(DBRep1::Get(a[1],TopAbs_FACE));
   if (F.IsNull())
     return 0;
 
   Standard_Integer    i = 0;
-  TopoDS_Vertex       vf, vl;
+  TopoVertex       vf, vl;
   TopTools_MapOfShape M;
   M.Add(F);
-  TopExp_Explorer ex(F, TopAbs_EDGE);
+  ShapeExplorer ex(F, TopAbs_EDGE);
   while (ex.More())
   {
     if (M.Add(ex.Current()))
     {
-      TopExp::Vertices(TopoDS::Edge(ex.Current()), vf, vl);
+      TopExp1::Vertices(TopoDS::Edge(ex.Current()), vf, vl);
       if (M.Add(vf))
       {
         i++;
         char* p = (char*)malloc(100);
         Sprintf(p, "%s_%dv", a[1], i);
-        DBRep::Set(p, vf);
+        DBRep1::Set(p, vf);
         di.AppendElement(p);
-        DrawDim::DrawShapeName(vf, p);
+        DrawDim1::DrawShapeName(vf, p);
       }
       if (M.Add(vl))
       {
         i++;
         char* p = (char*)malloc(100);
         Sprintf(p, "%s_%dv", a[1], i);
-        DBRep::Set(p, vl);
+        DBRep1::Set(p, vl);
         di.AppendElement(p);
-        DrawDim::DrawShapeName(vl, p);
+        DrawDim1::DrawShapeName(vl, p);
       }
       i++;
       char* p = (char*)malloc(100);
       Sprintf(p, "%s_%de", a[1], i);
-      DBRep::Set(p, ex.Current());
+      DBRep1::Set(p, ex.Current());
       di.AppendElement(p);
-      DrawDim::DrawShapeName(ex.Current(), p);
+      DrawDim1::DrawShapeName(ex.Current(), p);
     }
     ex.Next();
   }
@@ -238,29 +238,29 @@ static Standard_Integer DrawDim_VARIABLES(Draw_Interpretor& di, Standard_Integer
 
 //=================================================================================================
 
-static Standard_Integer DrawDim_SPLACEMENT(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DrawDim_SPLACEMENT(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n == 4)
   {
-    TopoDS_Shape shape       = DBRep::Get(a[1]);
-    TopoDS_Shape aLocalShape = DBRep::Get(a[2], TopAbs_FACE);
-    TopoDS_Face  from        = TopoDS::Face(aLocalShape);
-    aLocalShape              = DBRep::Get(a[3], TopAbs_FACE);
-    TopoDS_Face to           = TopoDS::Face(aLocalShape);
-    //    TopoDS_Face from = TopoDS::Face(DBRep::Get(a[2],TopAbs_FACE));
-    //    TopoDS_Face to = TopoDS::Face(DBRep::Get(a[3],TopAbs_FACE));
+    TopoShape shape       = DBRep1::Get(a[1]);
+    TopoShape aLocalShape = DBRep1::Get(a[2], TopAbs_FACE);
+    TopoFace  from        = TopoDS::Face(aLocalShape);
+    aLocalShape              = DBRep1::Get(a[3], TopAbs_FACE);
+    TopoFace to           = TopoDS::Face(aLocalShape);
+    //    TopoFace from = TopoDS::Face(DBRep1::Get(a[2],TopAbs_FACE));
+    //    TopoFace to = TopoDS::Face(DBRep1::Get(a[3],TopAbs_FACE));
     if (!shape.IsNull() && !from.IsNull() && !to.IsNull())
     {
       gp_Pln pfrom, pto;
-      DrawDim::Pln(from, pfrom);
-      DrawDim::Pln(to, pto);
+      DrawDim1::Pln(from, pfrom);
+      DrawDim1::Pln(to, pto);
       gp_Ax3  axfrom(pfrom.Position());
       gp_Ax3  axto(pto.Position());
       Transform3d trsf;
       trsf.SetDisplacement(axfrom, axto);
       TopLoc_Location move(trsf);
       shape.Move(move);
-      DBRep::Set(a[1], shape);
+      DBRep1::Set(a[1], shape);
       return 0;
     }
   }
@@ -270,28 +270,28 @@ static Standard_Integer DrawDim_SPLACEMENT(Draw_Interpretor& di, Standard_Intege
 
 //=================================================================================================
 
-static Standard_Integer DrawDim_GPLACEMENT(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DrawDim_GPLACEMENT(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n == 4)
   {
-    Handle(Geom_Geometry) geom        = DrawTrSurf::Get(a[1]);
-    TopoDS_Shape          aLocalShape = DBRep::Get(a[2], TopAbs_FACE);
-    TopoDS_Face           from        = TopoDS::Face(aLocalShape);
-    aLocalShape                       = DBRep::Get(a[3], TopAbs_FACE);
-    TopoDS_Face to                    = TopoDS::Face(aLocalShape);
-    //    TopoDS_Face from = TopoDS::Face(DBRep::Get(a[2],TopAbs_FACE));
-    //    TopoDS_Face to = TopoDS::Face(DBRep::Get(a[3],TopAbs_FACE));
+    Handle(Geom_Geometry) geom        = DrawTrSurf1::Get(a[1]);
+    TopoShape          aLocalShape = DBRep1::Get(a[2], TopAbs_FACE);
+    TopoFace           from        = TopoDS::Face(aLocalShape);
+    aLocalShape                       = DBRep1::Get(a[3], TopAbs_FACE);
+    TopoFace to                    = TopoDS::Face(aLocalShape);
+    //    TopoFace from = TopoDS::Face(DBRep1::Get(a[2],TopAbs_FACE));
+    //    TopoFace to = TopoDS::Face(DBRep1::Get(a[3],TopAbs_FACE));
     if (!geom.IsNull() && !from.IsNull() && !to.IsNull())
     {
       gp_Pln pfrom, pto;
-      DrawDim::Pln(from, pfrom);
-      DrawDim::Pln(to, pto);
+      DrawDim1::Pln(from, pfrom);
+      DrawDim1::Pln(to, pto);
       gp_Ax3  axfrom(pfrom.Position());
       gp_Ax3  axto(pto.Position());
       Transform3d trsf;
       trsf.SetDisplacement(axfrom, axto);
       Handle(Geom_Geometry) newgeom = geom->Transformed(trsf);
-      DrawTrSurf::Set(a[1], newgeom);
+      DrawTrSurf1::Set(a[1], newgeom);
       return 0;
     }
   }
@@ -301,7 +301,7 @@ static Standard_Integer DrawDim_GPLACEMENT(Draw_Interpretor& di, Standard_Intege
 
 //=================================================================================================
 
-void DrawDim::PlanarDimensionCommands(Draw_Interpretor& theCommands)
+void DrawDim1::PlanarDimensionCommands(DrawInterpreter& theCommands)
 {
   // syntaxes
   theCommands.Add("distance", "distance,no args to get help", __FILE__, DrawDim_DISTANCE);

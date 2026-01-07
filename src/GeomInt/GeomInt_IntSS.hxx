@@ -25,9 +25,9 @@
 #include <gp_Pnt.hxx>
 #include <GeomInt_VectorOfReal.hxx>
 
-class Geom_Surface;
-class Geom_Curve;
-class Geom2d_Curve;
+class GeomSurface;
+class GeomCurve3d;
+class GeomCurve2d;
 class gp_Pnt2d;
 class IntPatch_RLine;
 class Bnd_Box2d;
@@ -42,16 +42,16 @@ public:
   GeomInt_IntSS();
 
   //! performs general intersection of two surfaces just now
-  GeomInt_IntSS(const Handle(Geom_Surface)& S1,
-                const Handle(Geom_Surface)& S2,
+  GeomInt_IntSS(const Handle(GeomSurface)& S1,
+                const Handle(GeomSurface)& S2,
                 const Standard_Real         Tol,
                 const Standard_Boolean      Approx   = Standard_True,
                 const Standard_Boolean      ApproxS1 = Standard_False,
                 const Standard_Boolean      ApproxS2 = Standard_False);
 
   //! general intersection of two surfaces
-  Standard_EXPORT void Perform(const Handle(Geom_Surface)& S1,
-                               const Handle(Geom_Surface)& S2,
+  Standard_EXPORT void Perform(const Handle(GeomSurface)& S1,
+                               const Handle(GeomSurface)& S2,
                                const Standard_Real         Tol,
                                const Standard_Boolean      Approx   = Standard_True,
                                const Standard_Boolean      ApproxS1 = Standard_False,
@@ -66,8 +66,8 @@ public:
                const Standard_Boolean             ApproxS2 = Standard_False);
 
   //! general intersection using a starting point
-  Standard_EXPORT void Perform(const Handle(Geom_Surface)& S1,
-                               const Handle(Geom_Surface)& S2,
+  Standard_EXPORT void Perform(const Handle(GeomSurface)& S1,
+                               const Handle(GeomSurface)& S2,
                                const Standard_Real         Tol,
                                const Standard_Real         U1,
                                const Standard_Real         V1,
@@ -97,19 +97,19 @@ public:
 
   Standard_Integer NbLines() const;
 
-  Standard_EXPORT const Handle(Geom_Curve)& Line(const Standard_Integer Index) const;
+  Standard_EXPORT const Handle(GeomCurve3d)& Line(const Standard_Integer Index) const;
 
   Standard_EXPORT Standard_Boolean HasLineOnS1(const Standard_Integer Index) const;
 
-  Standard_EXPORT const Handle(Geom2d_Curve)& LineOnS1(const Standard_Integer Index) const;
+  Standard_EXPORT const Handle(GeomCurve2d)& LineOnS1(const Standard_Integer Index) const;
 
   Standard_EXPORT Standard_Boolean HasLineOnS2(const Standard_Integer Index) const;
 
-  Standard_EXPORT const Handle(Geom2d_Curve)& LineOnS2(const Standard_Integer Index) const;
+  Standard_EXPORT const Handle(GeomCurve2d)& LineOnS2(const Standard_Integer Index) const;
 
   Standard_Integer NbBoundaries() const;
 
-  Standard_EXPORT const Handle(Geom_Curve)& Boundary(const Standard_Integer Index) const;
+  Standard_EXPORT const Handle(GeomCurve3d)& Boundary(const Standard_Integer Index) const;
 
   Standard_Integer NbPoints() const;
 
@@ -127,9 +127,9 @@ public:
   Standard_EXPORT static void TreatRLine(const Handle(IntPatch_RLine)&      theRL,
                                          const Handle(GeomAdaptor_Surface)& theHS1,
                                          const Handle(GeomAdaptor_Surface)& theHS2,
-                                         Handle(Geom_Curve)&                theC3d,
-                                         Handle(Geom2d_Curve)&              theC2d1,
-                                         Handle(Geom2d_Curve)&              theC2d2,
+                                         Handle(GeomCurve3d)&                theC3d,
+                                         Handle(GeomCurve2d)&              theC2d1,
+                                         Handle(GeomCurve2d)&              theC2d2,
                                          Standard_Real&                     theTolReached);
 
   //! creates 2D-curve on given surface from given 3D-curve
@@ -140,28 +140,28 @@ public:
                                            const Standard_Real         theVmin,
                                            const Standard_Real         theVmax,
                                            Standard_Real&              theTol,
-                                           const Handle(Geom_Surface)& theSurface,
-                                           const Handle(Geom_Curve)&   theCurve,
-                                           Handle(Geom2d_Curve)&       theCurve2d);
+                                           const Handle(GeomSurface)& theSurface,
+                                           const Handle(GeomCurve3d)&   theCurve,
+                                           Handle(GeomCurve2d)&       theCurve2d);
 
   //! creates 2D-curve on given surface from given 3D-curve
   Standard_EXPORT static void BuildPCurves(const Standard_Real         f,
                                            const Standard_Real         l,
                                            Standard_Real&              Tol,
-                                           const Handle(Geom_Surface)& S,
-                                           const Handle(Geom_Curve)&   C,
-                                           Handle(Geom2d_Curve)&       C2d);
+                                           const Handle(GeomSurface)& S,
+                                           const Handle(GeomCurve3d)&   C,
+                                           Handle(GeomCurve2d)&       C2d);
 
   //! puts into theArrayOfParameters the parameters of intersection
   //! points of given theC2d1 and theC2d2 curves with the boundaries
   //! of the source surface.
-  Standard_EXPORT static void TrimILineOnSurfBoundaries(const Handle(Geom2d_Curve)& theC2d1,
-                                                        const Handle(Geom2d_Curve)& theC2d2,
+  Standard_EXPORT static void TrimILineOnSurfBoundaries(const Handle(GeomCurve2d)& theC2d1,
+                                                        const Handle(GeomCurve2d)& theC2d2,
                                                         const Bnd_Box2d&            theBound1,
                                                         const Bnd_Box2d&            theBound2,
                                                         GeomInt_VectorOfReal& theArrayOfParameters);
 
-  Standard_EXPORT static Handle(Geom_Curve) MakeBSpline(const Handle(IntPatch_WLine)& WL,
+  Standard_EXPORT static Handle(GeomCurve3d) MakeBSpline(const Handle(IntPatch_WLine)& WL,
                                                         const Standard_Integer        ideb,
                                                         const Standard_Integer        ifin);
 

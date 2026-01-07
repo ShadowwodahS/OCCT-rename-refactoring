@@ -40,17 +40,17 @@ class GccInt_Bisec;
 //! -   defining the construction of the bisecting curves,
 //! -   implementing the construction algorithm, and
 //! -   consulting the result.
-class GccAna_CircPnt2dBisec
+class CirclePoint2dBisector
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Constructs bisecting curves between the circle Circle1 and the point Point2.
-  Standard_EXPORT GccAna_CircPnt2dBisec(const gp_Circ2d& Circle1, const gp_Pnt2d& Point2);
+  Standard_EXPORT CirclePoint2dBisector(const gp_Circ2d& Circle1, const gp_Pnt2d& Point2);
 
   //! Constructs bisecting curves between the circle Circle1 and the point Point2.
   //! Tolerance is used.
-  Standard_EXPORT GccAna_CircPnt2dBisec(const gp_Circ2d&    Circle1,
+  Standard_EXPORT CirclePoint2dBisector(const gp_Circ2d&    Circle1,
                                         const gp_Pnt2d&     Point2,
                                         const Standard_Real Tolerance);
 

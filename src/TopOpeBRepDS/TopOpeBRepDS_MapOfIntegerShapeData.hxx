@@ -20,9 +20,9 @@
 #include <TopOpeBRepDS_ShapeData.hxx>
 #include <NCollection_DataMap.hxx>
 
-typedef NCollection_DataMap<Standard_Integer, TopOpeBRepDS_ShapeData>
+typedef NCollection_DataMap<Standard_Integer, ShapeData1>
   TopOpeBRepDS_MapOfIntegerShapeData;
-typedef NCollection_DataMap<Standard_Integer, TopOpeBRepDS_ShapeData>::Iterator
+typedef NCollection_DataMap<Standard_Integer, ShapeData1>::Iterator
   TopOpeBRepDS_DataMapIteratorOfMapOfIntegerShapeData;
 
 #endif

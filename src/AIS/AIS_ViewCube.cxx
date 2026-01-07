@@ -29,7 +29,7 @@
 #include <V3d.hxx>
 #include <V3d_View.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_ViewCube, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_ViewCube, VisualEntity)
 IMPLEMENT_STANDARD_RTTIEXT(AIS_ViewCubeOwner, SelectMgr_EntityOwner)
 IMPLEMENT_STANDARD_RTTIEXT(AIS_ViewCubeSensitive, Select3D_SensitivePrimitiveArray)
 
@@ -131,9 +131,9 @@ AIS_ViewCube::AIS_ViewCube()
       myToDisplayEdges(true),
       myToDisplayVertices(true),
       myIsYup(false),
-      myViewAnimation(new AIS_AnimationCamera("AIS_ViewCube", Handle(V3d_View)())),
-      myStartState(new Graphic3d_Camera()),
-      myEndState(new Graphic3d_Camera()),
+      myViewAnimation(new AIS_AnimationCamera("AIS_ViewCube", Handle(ViewWindow)())),
+      myStartState(new CameraOn3d()),
+      myEndState(new CameraOn3d()),
       myToAutoStartAnim(true),
       myIsFixedAnimation(true),
       myToFitSelected(true),
@@ -150,7 +150,7 @@ AIS_ViewCube::AIS_ViewCube()
   myDrawer->SetTextAspect(new Prs3d_TextAspect());
   myDrawer->SetShadingAspect(new Prs3d_ShadingAspect());
 
-  myDynHilightDrawer = new Prs3d_Drawer();
+  myDynHilightDrawer = new StyleDrawer();
   myDynHilightDrawer->SetLink(myDrawer);
   myDynHilightDrawer->SetShadingAspect(new Prs3d_ShadingAspect());
 
@@ -248,7 +248,7 @@ void AIS_ViewCube::SetYup(Standard_Boolean theIsYup, Standard_Boolean theToUpdat
                                                             V3d_TypeOfOrientation_Yup_Right};
   if (theToUpdateLabels)
   {
-    NCollection_Array1<TCollection_AsciiString> aLabels(0, 5);
+    NCollection_Array1<AsciiString1> aLabels(0, 5);
     for (Standard_Integer aLabelIter = 0; aLabelIter < 6; ++aLabelIter)
     {
       myBoxSideLabels.Find(!myIsYup ? THE_YUP_ORI_LIST[aLabelIter] : THE_ZUP_ORI_LIST[aLabelIter],
@@ -327,12 +327,12 @@ void AIS_ViewCube::SetRoundRadius(const Standard_Real theValue)
 void AIS_ViewCube::createRoundRectangleTriangles(const Handle(Graphic3d_ArrayOfTriangles)& theTris,
                                                  Standard_Integer& theNbNodes,
                                                  Standard_Integer& theNbTris,
-                                                 const gp_XY&      theSize,
+                                                 const Coords2d&      theSize,
                                                  Standard_Real     theRadius,
                                                  const Transform3d&    theTrsf)
 {
   const Standard_Real    aRadius = Min(theRadius, Min(theSize.X(), theSize.Y()) * 0.5);
-  const gp_XY            aHSize(theSize.X() * 0.5 - aRadius, theSize.Y() * 0.5 - aRadius);
+  const Coords2d            aHSize(theSize.X() * 0.5 - aRadius, theSize.Y() * 0.5 - aRadius);
   const Dir3d           aNorm      = gp::DZ().Transformed(theTrsf);
   const Standard_Integer aVertFirst = !theTris.IsNull() ? theTris->VertexNumber() : 0;
   if (aRadius > 0.0)
@@ -452,7 +452,7 @@ void AIS_ViewCube::createBoxSideTriangles(const Handle(Graphic3d_ArrayOfTriangle
   createRoundRectangleTriangles(theTris,
                                 theNbNodes,
                                 theNbTris,
-                                gp_XY(mySize, mySize),
+                                Coords2d(mySize, mySize),
                                 myRoundRadius * mySize,
                                 aTrsf);
 }
@@ -465,11 +465,11 @@ void AIS_ViewCube::createBoxEdgeTriangles(const Handle(Graphic3d_ArrayOfTriangle
                                           V3d_TypeOfOrientation theDirection) const
 {
   const Standard_Real aThickness =
-    Max(myBoxFacetExtension * gp_XY(1.0, 1.0).Modulus() - myBoxEdgeGap, myBoxEdgeMinSize);
+    Max(myBoxFacetExtension * Coords2d(1.0, 1.0).Modulus() - myBoxEdgeGap, myBoxEdgeMinSize);
 
   const Dir3d aDir = V3d::GetProjAxis(theDirection);
   const Point3d aPos =
-    aDir.XYZ() * (mySize * 0.5 * gp_XY(1.0, 1.0).Modulus() + myBoxFacetExtension * Cos(M_PI_4));
+    aDir.XYZ() * (mySize * 0.5 * Coords2d(1.0, 1.0).Modulus() + myBoxFacetExtension * Cos(M_PI_4));
   const Frame3d aPosition(aPos, aDir.Reversed());
 
   gp_Ax3  aSystem(aPosition);
@@ -479,7 +479,7 @@ void AIS_ViewCube::createBoxEdgeTriangles(const Handle(Graphic3d_ArrayOfTriangle
   createRoundRectangleTriangles(theTris,
                                 theNbNodes,
                                 theNbTris,
-                                gp_XY(aThickness, mySize),
+                                Coords2d(aThickness, mySize),
                                 myRoundRadius * mySize,
                                 aTrsf);
 }
@@ -504,7 +504,7 @@ void AIS_ViewCube::createBoxCornerTriangles(const Handle(Graphic3d_ArrayOfTriang
       return;
     }
 
-    const Standard_Real anEdgeHWidth = myBoxFacetExtension * gp_XY(1.0, 1.0).Modulus() * 0.5;
+    const Standard_Real anEdgeHWidth = myBoxFacetExtension * Coords2d(1.0, 1.0).Modulus() * 0.5;
     const Standard_Real aHeight      = anEdgeHWidth * Sqrt(2.0 / 3.0); // tetrahedron height
     const Point3d        aPos = aDir.XYZ() * (aHSize * Vector3d(1.0, 1.0, 1.0).Magnitude() + aHeight);
     const Frame3d        aPosition(aPos, aDir.Reversed());
@@ -618,7 +618,7 @@ void AIS_ViewCube::Compute(const Handle(PrsMgr_PresentationManager)&,
                                 THE_NB_ARROW_FACETTES);
       anAxisGroup->AddPrimitiveArray(aTriangleArray);
 
-      TCollection_AsciiString anAxisLabel;
+      AsciiString1 anAxisLabel;
       if (aDatumAspect->ToDrawLabels() && myAxesLabels.Find(aPart, anAxisLabel)
           && !anAxisLabel.IsEmpty())
       {
@@ -627,9 +627,9 @@ void AIS_ViewCube::Compute(const Handle(PrsMgr_PresentationManager)&,
           anAx1.Location().Translated(Vector3d(anAx1.Direction().X() * (anAxisSize + anArrowLength),
                                              anAx1.Direction().Y() * (anAxisSize + anArrowLength),
                                              anAx1.Direction().Z() * (anAxisSize + anArrowLength)));
-        Prs3d_Text::Draw(anAxisLabelGroup,
+        Prs3d_Text::Draw1(anAxisLabelGroup,
                          aDatumAspect->TextAspect(aPart),
-                         TCollection_ExtendedString(anAxisLabel),
+                         UtfString(anAxisLabel),
                          aTextOrigin);
       }
     }
@@ -717,7 +717,7 @@ void AIS_ViewCube::Compute(const Handle(PrsMgr_PresentationManager)&,
     {
       const V3d_TypeOfOrientation anOrient = (V3d_TypeOfOrientation)aPartIter;
 
-      TCollection_AsciiString aLabel;
+      AsciiString1 aLabel;
       if (!myBoxSideLabels.Find(anOrient, aLabel) || aLabel.IsEmpty())
       {
         continue;
@@ -824,7 +824,7 @@ void AIS_ViewCube::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void AIS_ViewCube::ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+void AIS_ViewCube::ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                     const Standard_Integer             theMode)
 {
   if (theMode != 0)
@@ -886,8 +886,8 @@ Standard_Boolean AIS_ViewCube::HasAnimation() const
 
 //=================================================================================================
 
-void AIS_ViewCube::viewFitAll(const Handle(V3d_View)&         theView,
-                              const Handle(Graphic3d_Camera)& theCamera)
+void AIS_ViewCube::viewFitAll(const Handle(ViewWindow)&         theView,
+                              const Handle(CameraOn3d)& theCamera)
 {
   Bnd_Box aBndBox = myToFitSelected ? GetContext()->BoundingBoxOfSelection(theView)
                                     : theView->View()->MinMaxValues();
@@ -905,7 +905,7 @@ void AIS_ViewCube::viewFitAll(const Handle(V3d_View)&         theView,
 
 void AIS_ViewCube::StartAnimation(const Handle(AIS_ViewCubeOwner)& theOwner)
 {
-  Handle(V3d_View) aView = GetContext()->LastActiveView();
+  Handle(ViewWindow) aView = GetContext()->LastActiveView();
   if (theOwner.IsNull() || aView.IsNull())
   {
     return;
@@ -916,7 +916,7 @@ void AIS_ViewCube::StartAnimation(const Handle(AIS_ViewCubeOwner)& theOwner)
 
   {
     {
-      Handle(Graphic3d_Camera) aBackupCamera      = aView->Camera();
+      Handle(CameraOn3d) aBackupCamera      = aView->Camera();
       const bool               wasImmediateUpdate = aView->SetImmediateUpdate(false);
       aView->SetCamera(myEndState);
       aView->SetProj(theOwner->MainOrientation(), myIsYup);
@@ -969,7 +969,7 @@ Standard_Boolean AIS_ViewCube::updateAnimation()
   {
     myViewAnimation->Stop();
     onAnimationFinished();
-    myViewAnimation->SetView(Handle(V3d_View)());
+    myViewAnimation->SetView(Handle(ViewWindow)());
     return Standard_False;
   }
   return Standard_True;
@@ -979,7 +979,7 @@ Standard_Boolean AIS_ViewCube::updateAnimation()
 
 Standard_Boolean AIS_ViewCube::UpdateAnimation(const Standard_Boolean theToUpdate)
 {
-  Handle(V3d_View) aView = myViewAnimation->View();
+  Handle(ViewWindow) aView = myViewAnimation->View();
   if (!HasAnimation() || !updateAnimation())
   {
     return Standard_False;
@@ -1017,7 +1017,7 @@ void AIS_ViewCube::HandleClick(const Handle(AIS_ViewCubeOwner)& theOwner)
 //=================================================================================================
 
 void AIS_ViewCube::HilightOwnerWithColor(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
-                                         const Handle(Prs3d_Drawer)&               theStyle,
+                                         const Handle(StyleDrawer)&               theStyle,
                                          const Handle(SelectMgr_EntityOwner)&      theOwner)
 {
   if (theOwner.IsNull() || !thePrsMgr->IsImmediateModeOn())
@@ -1064,7 +1064,7 @@ void AIS_ViewCube::HilightOwnerWithColor(const Handle(PrsMgr_PresentationManager
 void AIS_ViewCube::HilightSelected(const Handle(PrsMgr_PresentationManager)&,
                                    const SelectMgr_SequenceOfOwner& theSeq)
 {
-  // this method should never be called since AIS_InteractiveObject::HandleClick() has been
+  // this method should never be called since VisualEntity::HandleClick() has been
   // overridden
   if (theSeq.Size() == 1)
   {

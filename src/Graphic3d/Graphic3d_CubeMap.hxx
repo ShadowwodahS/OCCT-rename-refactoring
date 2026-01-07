@@ -25,7 +25,7 @@ class Graphic3d_CubeMap : public Graphic3d_TextureMap
   DEFINE_STANDARD_RTTIEXT(Graphic3d_CubeMap, Graphic3d_TextureMap)
 public:
   //! Constructor defining loading cubemap from file.
-  Standard_EXPORT Graphic3d_CubeMap(const TCollection_AsciiString& theFileName,
+  Standard_EXPORT Graphic3d_CubeMap(const AsciiString1& theFileName,
                                     Standard_Boolean theToGenerateMipmaps = Standard_False);
 
   //! Constructor defining direct cubemap initialization from PixMap.

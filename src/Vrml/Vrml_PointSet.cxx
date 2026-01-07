@@ -13,33 +13,33 @@
 
 #include <Vrml_PointSet.hxx>
 
-Vrml_PointSet::Vrml_PointSet(const Standard_Integer aStartIndex, const Standard_Integer aNumPoints)
+PointSet::PointSet(const Standard_Integer aStartIndex, const Standard_Integer aNumPoints)
 {
   myStartIndex = aStartIndex;
   myNumPoints  = aNumPoints;
 }
 
-void Vrml_PointSet::SetStartIndex(const Standard_Integer aStartIndex)
+void PointSet::SetStartIndex(const Standard_Integer aStartIndex)
 {
   myStartIndex = aStartIndex;
 }
 
-Standard_Integer Vrml_PointSet::StartIndex() const
+Standard_Integer PointSet::StartIndex() const
 {
   return myStartIndex;
 }
 
-void Vrml_PointSet::SetNumPoints(const Standard_Integer aNumPoints)
+void PointSet::SetNumPoints(const Standard_Integer aNumPoints)
 {
   myNumPoints = aNumPoints;
 }
 
-Standard_Integer Vrml_PointSet::NumPoints() const
+Standard_Integer PointSet::NumPoints() const
 {
   return myNumPoints;
 }
 
-Standard_OStream& Vrml_PointSet::Print(Standard_OStream& anOStream) const
+Standard_OStream& PointSet::Print(Standard_OStream& anOStream) const
 {
   anOStream << "PointSet {\n";
   if (myStartIndex != 0 || myNumPoints != -1)

@@ -53,7 +53,7 @@ TObj_Persistence::~TObj_Persistence()
 //=================================================================================================
 
 Handle(TObj_Object) TObj_Persistence::CreateNewObject(const Standard_CString theType,
-                                                      const TDF_Label&       theLabel)
+                                                      const DataLabel&       theLabel)
 {
   if (getMapOfTypes().IsBound(theType))
   {

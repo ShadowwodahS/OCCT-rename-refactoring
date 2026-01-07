@@ -32,12 +32,12 @@ public:
 
   Standard_EXPORT AdvApp2Var_Node(const Standard_Integer iu, const Standard_Integer iv);
 
-  Standard_EXPORT AdvApp2Var_Node(const gp_XY&           UV,
+  Standard_EXPORT AdvApp2Var_Node(const Coords2d&           UV,
                                   const Standard_Integer iu,
                                   const Standard_Integer iv);
 
   //! Returns the coordinates (U,V) of the node
-  const gp_XY& Coord() const { return myCoord; }
+  const Coords2d& Coord() const { return myCoord; }
 
   //! changes the coordinates (U,V) to (x1,x2)
   void SetCoord(const Standard_Real x1, const Standard_Real x2)
@@ -93,7 +93,7 @@ private:
 private:
   TColgp_Array2OfPnt   myTruePoints;
   TColStd_Array2OfReal myErrors;
-  gp_XY                myCoord;
+  Coords2d                myCoord;
   Standard_Integer     myOrdInU;
   Standard_Integer     myOrdInV;
 };

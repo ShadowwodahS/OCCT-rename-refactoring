@@ -48,9 +48,9 @@ static Handle(IGESData_FileProtocol) IGESProto;
 IGESSelect_WorkLibrary::IGESSelect_WorkLibrary(const Standard_Boolean modefnes)
     : themodefnes(modefnes)
 {
-  IGESSolid::Init();
-  IGESAppli::Init();
-  IGESDefs::Init();
+  IGESSolid1::Init();
+  IGESAppli1::Init();
+  IGESDefs1::Init();
 
   if (!deja)
   {
@@ -150,8 +150,8 @@ Handle(IGESData_Protocol) IGESSelect_WorkLibrary::DefineProtocol()
 {
   if (!IGESProto.IsNull())
     return IGESProto;
-  Handle(IGESData_Protocol) IGESProto1 = IGESSolid::Protocol();
-  Handle(IGESData_Protocol) IGESProto2 = IGESAppli::Protocol();
+  Handle(IGESData_Protocol) IGESProto1 = IGESSolid1::Protocol();
+  Handle(IGESData_Protocol) IGESProto2 = IGESAppli1::Protocol();
   //  Handle(IGESData_FileProtocol) IGESProto  = new IGESData_FileProtocol;
   IGESProto = new IGESData_FileProtocol;
   IGESProto->Add(IGESProto1);

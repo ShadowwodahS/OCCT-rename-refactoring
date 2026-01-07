@@ -61,7 +61,7 @@ public:
   }
 
   //! Returns the report description or NULL
-  const TCollection_AsciiString& GetDescription() const { return myDescription; }
+  const AsciiString1& GetDescription() const { return myDescription; }
 
   //! Inits the item, fills internal containers
   Standard_EXPORT virtual void Init() Standard_OVERRIDE;
@@ -120,7 +120,7 @@ private:
     myChildAlerts; //!< container of child alerts
 
   Handle(Message_Report)  myReport;      //!< current report
-  TCollection_AsciiString myDescription; //!< description
+  AsciiString1 myDescription; //!< description
 };
 
 #endif

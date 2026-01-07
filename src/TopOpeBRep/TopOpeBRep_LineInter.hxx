@@ -40,9 +40,9 @@ class IntPatch_WLine;
 class IntPatch_GLine;
 class BRepAdaptor_Surface;
 class TopOpeBRep_VPointInter;
-class Geom_Curve;
-class TCollection_AsciiString;
-class TopOpeBRep_Bipoint;
+class GeomCurve3d;
+class AsciiString1;
+class Bipoint;
 
 class TopOpeBRep_LineInter
 {
@@ -55,7 +55,7 @@ public:
                                const BRepAdaptor_Surface&   S1,
                                const BRepAdaptor_Surface&   S2);
 
-  void SetFaces(const TopoDS_Face& F1, const TopoDS_Face& F2);
+  void SetFaces(const TopoFace& F1, const TopoFace& F2);
 
   TopOpeBRep_TypeLineCurve TypeLineCurve() const;
 
@@ -97,7 +97,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbWPoint() const;
 
-  Standard_EXPORT const TopOpeBRep_WPointInter& WPoint(const Standard_Integer I);
+  Standard_EXPORT const WPointIntersection& WPoint(const Standard_Integer I);
 
   IntSurf_TypeTrans TransitionOnS1() const;
 
@@ -107,13 +107,13 @@ public:
 
   IntSurf_Situation SituationS2() const;
 
-  Standard_EXPORT Handle(Geom_Curve) Curve() const;
+  Standard_EXPORT Handle(GeomCurve3d) Curve() const;
 
-  Standard_EXPORT Handle(Geom_Curve) Curve(const Standard_Real parmin,
+  Standard_EXPORT Handle(GeomCurve3d) Curve(const Standard_Real parmin,
                                            const Standard_Real parmax) const;
 
   //! returns the edge of a RESTRICTION line (or a null edge).
-  Standard_EXPORT const TopoDS_Shape& Arc() const;
+  Standard_EXPORT const TopoShape& Arc() const;
 
   //! returns true if Arc() edge (of a RESTRICTION line) is
   //! an edge of the original face <Index> (1 or 2).
@@ -131,7 +131,7 @@ public:
 
   Standard_EXPORT void ComputeFaceFaceTransition();
 
-  Standard_EXPORT const TopOpeBRepDS_Transition& FaceFaceTransition(const Standard_Integer I) const;
+  Standard_EXPORT const StateTransition& FaceFaceTransition(const Standard_Integer I) const;
 
   void Index(const Standard_Integer I);
 
@@ -140,12 +140,12 @@ public:
   Standard_EXPORT void DumpType() const;
 
   Standard_EXPORT void DumpVPoint(const Standard_Integer         I,
-                                  const TCollection_AsciiString& s1,
-                                  const TCollection_AsciiString& s2) const;
+                                  const AsciiString1& s1,
+                                  const AsciiString1& s2) const;
 
-  Standard_EXPORT void DumpBipoint(const TopOpeBRep_Bipoint&      B,
-                                   const TCollection_AsciiString& s1,
-                                   const TCollection_AsciiString& s2) const;
+  Standard_EXPORT void DumpBipoint(const Bipoint&      B,
+                                   const AsciiString1& s1,
+                                   const AsciiString1& s2) const;
 
   Standard_EXPORT void SetTraceIndex(const Standard_Integer exF1, const Standard_Integer exF2);
 
@@ -171,13 +171,13 @@ private:
   Handle(IntPatch_RLine)                  myILR;
   Handle(IntPatch_WLine)                  myILW;
   Handle(IntPatch_GLine)                  myILG;
-  TopOpeBRep_WPointInter                  myCurrentWP;
+  WPointIntersection                  myCurrentWP;
   Handle(TopOpeBRep_HArray1OfVPointInter) myHAVP;
-  TopoDS_Face                             myF1;
-  TopoDS_Face                             myF2;
-  TopOpeBRepDS_Transition                 myLineTonF1;
-  TopOpeBRepDS_Transition                 myLineTonF2;
-  TopoDS_Shape                            myNullShape;
+  TopoFace                             myF1;
+  TopoFace                             myF2;
+  StateTransition                 myLineTonF1;
+  StateTransition                 myLineTonF2;
+  TopoShape                            myNullShape;
   Standard_Integer                        myexF1;
   Standard_Integer                        myexF2;
 };

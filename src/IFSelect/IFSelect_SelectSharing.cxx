@@ -34,7 +34,7 @@ Interface_EntityIterator IFSelect_SelectSharing::RootResult(const Interface_Grap
   return Interface_GraphContent(GG);
 }
 
-TCollection_AsciiString IFSelect_SelectSharing::Label() const
+AsciiString1 IFSelect_SelectSharing::Label() const
 {
-  return TCollection_AsciiString("Sharing Entities (one level)");
+  return AsciiString1("Sharing Entities (one level)");
 }

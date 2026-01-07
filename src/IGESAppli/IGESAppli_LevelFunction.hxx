@@ -27,7 +27,7 @@ class IGESAppli_LevelFunction;
 DEFINE_STANDARD_HANDLE(IGESAppli_LevelFunction, IGESData_IGESEntity)
 
 //! defines LevelFunction, Type <406> Form <3>
-//! in package IGESAppli
+//! in package IGESAppli1
 //! Used to transfer the meaning or intended use of a level
 //! in the sending system
 class IGESAppli_LevelFunction : public IGESData_IGESEntity

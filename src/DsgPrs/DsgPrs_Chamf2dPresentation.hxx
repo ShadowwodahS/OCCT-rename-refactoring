@@ -26,7 +26,7 @@
 #include <Prs3d_Presentation.hxx>
 
 class Point3d;
-class TCollection_ExtendedString;
+class UtfString;
 
 //! Framework for display of 2D chamfers.
 class DsgPrs_Chamf2dPresentation
@@ -41,10 +41,10 @@ public:
   //! object aPresentation. Their display attributes are
   //! defined by the attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Point3d&                     aPntAttach,
                                   const Point3d&                     aPntEnd,
-                                  const TCollection_ExtendedString& aText);
+                                  const UtfString& aText);
 
   //! Defines the display of texts, symbols and icons used
   //! to present 2D chamfers.
@@ -56,10 +56,10 @@ public:
   //! at the point of attachment has a display defined by a
   //! value of the enumeration DsgPrs_Arrowside.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Point3d&                     aPntAttach,
                                   const Point3d&                     aPntEnd,
-                                  const TCollection_ExtendedString& aText,
+                                  const UtfString& aText,
                                   const DsgPrs_ArrowSide            ArrowSide);
 
 protected:

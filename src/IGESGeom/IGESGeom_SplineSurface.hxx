@@ -28,7 +28,7 @@ class IGESGeom_SplineSurface;
 DEFINE_STANDARD_HANDLE(IGESGeom_SplineSurface, IGESData_IGESEntity)
 
 //! defines IGESSplineSurface, Type <114> Form <0>
-//! in package IGESGeom
+//! in package IGESGeom1
 //! A parametric spline surface is a grid of polynomial
 //! patches. Patch could be of the type Linear, Quadratic,
 //! Cubic, Wilson-Fowler, Modified Wilson-Fowler, B-Spline

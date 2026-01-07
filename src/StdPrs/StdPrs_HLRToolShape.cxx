@@ -17,7 +17,7 @@
 #include <StdPrs_HLRToolShape.hxx>
 #include <TopoDS_Shape.hxx>
 
-StdPrs_HLRToolShape::StdPrs_HLRToolShape(const TopoDS_Shape&      TheShape,
+StdPrs_HLRToolShape::StdPrs_HLRToolShape(const TopoShape&      TheShape,
                                          const HLRAlgo_Projector& TheProjector)
 {
   Handle(HLRBRep_Algo) Hider = new HLRBRep_Algo();

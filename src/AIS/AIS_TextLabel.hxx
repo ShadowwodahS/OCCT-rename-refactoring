@@ -27,7 +27,7 @@
 class Font_TextFormatter;
 
 //! Presentation of the text.
-class AIS_TextLabel : public AIS_InteractiveObject
+class AIS_TextLabel : public VisualEntity
 {
 public:
   //! Default constructor
@@ -52,7 +52,7 @@ public:
   virtual void SetMaterial(const Graphic3d_MaterialAspect&) Standard_OVERRIDE {}
 
   //! Setup text.
-  Standard_EXPORT void SetText(const TCollection_ExtendedString& theText);
+  Standard_EXPORT void SetText(const UtfString& theText);
 
   //! Setup position.
   Standard_EXPORT void SetPosition(const Point3d& thePosition);
@@ -88,10 +88,10 @@ public:
   Standard_EXPORT const Point3d& Position() const;
 
   //! Returns the label text.
-  const TCollection_ExtendedString& Text() const { return myText; }
+  const UtfString& Text() const { return myText; }
 
   //! Returns the font of the label text.
-  Standard_EXPORT const TCollection_AsciiString& FontName() const;
+  Standard_EXPORT const AsciiString1& FontName() const;
 
   //! Returns the font aspect of the label text.
   Standard_EXPORT Font_FontAspect FontAspect() const;
@@ -145,7 +145,7 @@ protected:
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Compute selection
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Calculate label center, width and height
@@ -161,7 +161,7 @@ protected:
 protected:
   Handle(Font_TextFormatter) myFormatter;
 
-  TCollection_ExtendedString myText;
+  UtfString myText;
   Frame3d                     myOrientation3D;
   Standard_Boolean           myHasOrientation3D;
   Standard_Boolean           myHasOwnAnchorPoint;
@@ -169,9 +169,9 @@ protected:
 
 public:
   //! CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(AIS_TextLabel, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_TextLabel, VisualEntity)
 };
 
-DEFINE_STANDARD_HANDLE(AIS_TextLabel, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(AIS_TextLabel, VisualEntity)
 
 #endif // _AIS_TextLabel_HeaderFile

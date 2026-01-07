@@ -30,15 +30,15 @@ class BRepCheck_Result : public RefObject
 {
 
 public:
-  Standard_EXPORT void Init(const TopoDS_Shape& S);
+  Standard_EXPORT void Init(const TopoShape& S);
 
-  Standard_EXPORT virtual void InContext(const TopoDS_Shape& ContextShape) = 0;
+  Standard_EXPORT virtual void InContext(const TopoShape& ContextShape) = 0;
 
   Standard_EXPORT virtual void Minimum() = 0;
 
   Standard_EXPORT virtual void Blind() = 0;
 
-  Standard_EXPORT void SetFailStatus(const TopoDS_Shape& S);
+  Standard_EXPORT void SetFailStatus(const TopoShape& S);
 
   const BRepCheck_ListOfStatus& Status() const { return *myMap(myShape); }
 
@@ -50,7 +50,7 @@ public:
 
   Standard_Boolean MoreShapeInContext() const { return myIter.More(); }
 
-  const TopoDS_Shape& ContextualShape() const { return myIter.Key(); }
+  const TopoShape& ContextualShape() const { return myIter.Key(); }
 
   const BRepCheck_ListOfStatus& StatusOnShape() const { return *myIter.Value(); }
 
@@ -58,12 +58,12 @@ public:
 
   Standard_EXPORT void SetParallel(Standard_Boolean theIsParallel);
 
-  Standard_Boolean IsStatusOnShape(const TopoDS_Shape& theShape) const
+  Standard_Boolean IsStatusOnShape(const TopoShape& theShape) const
   {
     return myMap.IsBound(theShape);
   }
 
-  const BRepCheck_ListOfStatus& StatusOnShape(const TopoDS_Shape& theShape) const
+  const BRepCheck_ListOfStatus& StatusOnShape(const TopoShape& theShape) const
   {
     return *myMap.Find(theShape);
   }
@@ -76,7 +76,7 @@ protected:
   Standard_EXPORT BRepCheck_Result();
 
 protected:
-  TopoDS_Shape                         myShape;
+  TopoShape                         myShape;
   Standard_Boolean                     myMin;
   Standard_Boolean                     myBlind;
   BRepCheck_DataMapOfShapeListOfStatus myMap;

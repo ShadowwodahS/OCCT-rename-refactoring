@@ -30,7 +30,7 @@ class IGESGraph_UniformRectGrid;
 DEFINE_STANDARD_HANDLE(IGESGraph_UniformRectGrid, IGESData_IGESEntity)
 
 //! defines IGESUniformRectGrid, Type <406> Form <22>
-//! in package IGESGraph
+//! in package IGESGraph1
 //!
 //! Stores sufficient information for the creation of
 //! a uniform rectangular grid within a drawing
@@ -54,8 +54,8 @@ public:
                             const Standard_Integer finite,
                             const Standard_Integer line,
                             const Standard_Integer weighted,
-                            const gp_XY&           aGridPoint,
-                            const gp_XY&           aGridSpacing,
+                            const Coords2d&           aGridPoint,
+                            const Coords2d&           aGridSpacing,
                             const Standard_Integer pointsX,
                             const Standard_Integer pointsY);
 
@@ -99,8 +99,8 @@ private:
   Standard_Integer isItFinite;
   Standard_Integer isItLine;
   Standard_Integer isItWeighted;
-  gp_XY            theGridPoint;
-  gp_XY            theGridSpacing;
+  Coords2d            theGridPoint;
+  Coords2d            theGridSpacing;
   Standard_Integer theNbPointsX;
   Standard_Integer theNbPointsY;
 };

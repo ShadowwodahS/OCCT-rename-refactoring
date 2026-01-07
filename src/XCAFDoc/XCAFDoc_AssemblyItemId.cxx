@@ -24,7 +24,7 @@ XCAFDoc_AssemblyItemId::XCAFDoc_AssemblyItemId(const TColStd_ListOfAsciiString& 
   Init(thePath);
 }
 
-XCAFDoc_AssemblyItemId::XCAFDoc_AssemblyItemId(const TCollection_AsciiString& theString)
+XCAFDoc_AssemblyItemId::XCAFDoc_AssemblyItemId(const AsciiString1& theString)
 {
   Init(theString);
 }
@@ -34,13 +34,13 @@ void XCAFDoc_AssemblyItemId::Init(const TColStd_ListOfAsciiString& thePath)
   myPath = thePath;
 }
 
-void XCAFDoc_AssemblyItemId::Init(const TCollection_AsciiString& theString)
+void XCAFDoc_AssemblyItemId::Init(const AsciiString1& theString)
 {
   myPath.Clear();
 
   for (Standard_Integer iEntry = 1;; ++iEntry)
   {
-    TCollection_AsciiString anEntry = theString.Token("/", iEntry);
+    AsciiString1 anEntry = theString.Token("/", iEntry);
     if (anEntry.IsEmpty())
       break;
 
@@ -101,9 +101,9 @@ const TColStd_ListOfAsciiString& XCAFDoc_AssemblyItemId::GetPath() const
   return myPath;
 }
 
-TCollection_AsciiString XCAFDoc_AssemblyItemId::ToString() const
+AsciiString1 XCAFDoc_AssemblyItemId::ToString() const
 {
-  TCollection_AsciiString aStr;
+  AsciiString1 aStr;
   for (TColStd_ListOfAsciiString::Iterator anIt(myPath); anIt.More(); anIt.Next())
   {
     aStr += '/';
@@ -121,7 +121,7 @@ void XCAFDoc_AssemblyItemId::DumpJson(Standard_OStream& theOStream, Standard_Int
 
   for (TColStd_ListOfAsciiString::Iterator aPathIt(myPath); aPathIt.More(); aPathIt.Next())
   {
-    TCollection_AsciiString aPath = aPathIt.Value();
+    AsciiString1 aPath = aPathIt.Value();
     OCCT_DUMP_FIELD_VALUE_STRING(theOStream, aPath)
   }
 }

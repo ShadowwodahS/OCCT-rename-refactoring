@@ -38,11 +38,11 @@
 // MGE 29/07/98
 //=================================================================================================
 
-IGESGeom_ToolBSplineCurve::IGESGeom_ToolBSplineCurve() {}
+BSplineCurveTool::BSplineCurveTool() {}
 
 //=================================================================================================
 
-void IGESGeom_ToolBSplineCurve::ReadOwnParams(const Handle(IGESGeom_BSplineCurve)& ent,
+void BSplineCurveTool::ReadOwnParams(const Handle(IGESGeom_BSplineCurve)& ent,
                                               const Handle(IGESData_IGESReaderData)& /* IR */,
                                               IGESData_ParamReader& PR) const
 {
@@ -218,7 +218,7 @@ void IGESGeom_ToolBSplineCurve::ReadOwnParams(const Handle(IGESGeom_BSplineCurve
 
 //=================================================================================================
 
-void IGESGeom_ToolBSplineCurve::WriteOwnParams(const Handle(IGESGeom_BSplineCurve)& ent,
+void BSplineCurveTool::WriteOwnParams(const Handle(IGESGeom_BSplineCurve)& ent,
                                                IGESData_IGESWriter&                 IW) const
 {
   Standard_Integer low, up;
@@ -257,14 +257,14 @@ void IGESGeom_ToolBSplineCurve::WriteOwnParams(const Handle(IGESGeom_BSplineCurv
 
 //=================================================================================================
 
-void IGESGeom_ToolBSplineCurve::OwnShared(const Handle(IGESGeom_BSplineCurve)& /* ent */,
+void BSplineCurveTool::OwnShared(const Handle(IGESGeom_BSplineCurve)& /* ent */,
                                           Interface_EntityIterator& /* iter */) const
 {
 }
 
 //=================================================================================================
 
-void IGESGeom_ToolBSplineCurve::OwnCopy(const Handle(IGESGeom_BSplineCurve)& another,
+void BSplineCurveTool::OwnCopy(const Handle(IGESGeom_BSplineCurve)& another,
                                         const Handle(IGESGeom_BSplineCurve)& ent,
                                         Interface_CopyTool& /* TC */) const
 {
@@ -323,10 +323,10 @@ void IGESGeom_ToolBSplineCurve::OwnCopy(const Handle(IGESGeom_BSplineCurve)& ano
 
 //=================================================================================================
 
-IGESData_DirChecker IGESGeom_ToolBSplineCurve::DirChecker(
+DirectoryChecker BSplineCurveTool::DirChecker(
   const Handle(IGESGeom_BSplineCurve)& /* ent */) const
 {
-  IGESData_DirChecker DC(126, 0, 5);
+  DirectoryChecker DC(126, 0, 5);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   //  DC.LineWeight(IGESData_DefValue);
@@ -337,7 +337,7 @@ IGESData_DirChecker IGESGeom_ToolBSplineCurve::DirChecker(
 
 //=================================================================================================
 
-void IGESGeom_ToolBSplineCurve::OwnCheck(const Handle(IGESGeom_BSplineCurve)& ent,
+void BSplineCurveTool::OwnCheck(const Handle(IGESGeom_BSplineCurve)& ent,
                                          const Interface_ShareTool&,
                                          Handle(Interface_Check)& ach) const
 {
@@ -407,13 +407,13 @@ void IGESGeom_ToolBSplineCurve::OwnCheck(const Handle(IGESGeom_BSplineCurve)& en
 
 //=================================================================================================
 
-void IGESGeom_ToolBSplineCurve::OwnDump(const Handle(IGESGeom_BSplineCurve)& ent,
+void BSplineCurveTool::OwnDump(const Handle(IGESGeom_BSplineCurve)& ent,
                                         const IGESData_IGESDumper& /* dumper */,
                                         Standard_OStream&      S,
                                         const Standard_Integer level) const
 {
   Standard_Integer upind = ent->UpperIndex();
-  S << "BSplineCurve from IGESGeom\n"
+  S << "BSplineCurve from IGESGeom1\n"
     << "Sum UpperIndex : " << upind << "   Degree : " << ent->Degree() << "  "
     << (ent->IsPlanar() ? "Planar" : "NonPlanar") << "\n"
     << (ent->IsClosed() ? "Closed" : "Open") << "  "

@@ -63,24 +63,24 @@ void GeomTools_Curve2dSet::Clear()
 
 //=================================================================================================
 
-Standard_Integer GeomTools_Curve2dSet::Add(const Handle(Geom2d_Curve)& S)
+Standard_Integer GeomTools_Curve2dSet::Add(const Handle(GeomCurve2d)& S)
 {
   return myMap.Add(S);
 }
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) GeomTools_Curve2dSet::Curve2d(const Standard_Integer I) const
+Handle(GeomCurve2d) GeomTools_Curve2dSet::Curve2d(const Standard_Integer I) const
 {
   if (I <= 0 || I > myMap.Extent())
-    return Handle(Geom2d_Curve)();
+    return Handle(GeomCurve2d)();
 
-  return Handle(Geom2d_Curve)::DownCast(myMap(I));
+  return Handle(GeomCurve2d)::DownCast(myMap(I));
 }
 
 //=================================================================================================
 
-Standard_Integer GeomTools_Curve2dSet::Index(const Handle(Geom2d_Curve)& S) const
+Standard_Integer GeomTools_Curve2dSet::Index(const Handle(GeomCurve2d)& S) const
 {
   return myMap.FindIndex(S);
 }
@@ -414,7 +414,7 @@ static void Print(const Handle(Geom2d_OffsetCurve)& C,
 
 //=================================================================================================
 
-void GeomTools_Curve2dSet::PrintCurve2d(const Handle(Geom2d_Curve)& C,
+void GeomTools_Curve2dSet::PrintCurve2d(const Handle(GeomCurve2d)& C,
                                         Standard_OStream&           OS,
                                         const Standard_Boolean      compact)
 {
@@ -478,7 +478,7 @@ void GeomTools_Curve2dSet::Dump(Standard_OStream& OS) const
   for (i = 1; i <= nbsurf; i++)
   {
     OS << std::setw(4) << i << " : ";
-    PrintCurve2d(Handle(Geom2d_Curve)::DownCast(myMap(i)), OS, Standard_False);
+    PrintCurve2d(Handle(GeomCurve2d)::DownCast(myMap(i)), OS, Standard_False);
   }
 }
 
@@ -494,7 +494,7 @@ void GeomTools_Curve2dSet::Write(Standard_OStream&            OS,
   Message_ProgressScope aPS(theProgress, "2D Curves", nbsurf);
   for (i = 1; i <= nbsurf && aPS.More(); i++, aPS.Next())
   {
-    PrintCurve2d(Handle(Geom2d_Curve)::DownCast(myMap(i)), OS, Standard_True);
+    PrintCurve2d(Handle(GeomCurve2d)::DownCast(myMap(i)), OS, Standard_True);
   }
   OS.precision(prec);
 }
@@ -660,7 +660,7 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_TrimmedC
   Standard_Real p1 = 0., p2 = 0.;
   GeomTools::GetReal(IS, p1);
   GeomTools::GetReal(IS, p2);
-  Handle(Geom2d_Curve) BC = GeomTools_Curve2dSet::ReadCurve2d(IS);
+  Handle(GeomCurve2d) BC = GeomTools_Curve2dSet::ReadCurve2d(IS);
   C                       = new Geom2d_TrimmedCurve(BC, p1, p2);
   return IS;
 }
@@ -671,18 +671,18 @@ static Standard_IStream& operator>>(Standard_IStream& IS, Handle(Geom2d_OffsetCu
 {
   Standard_Real p = 0.;
   GeomTools::GetReal(IS, p);
-  Handle(Geom2d_Curve) BC = GeomTools_Curve2dSet::ReadCurve2d(IS);
+  Handle(GeomCurve2d) BC = GeomTools_Curve2dSet::ReadCurve2d(IS);
   C                       = new Geom2d_OffsetCurve(BC, p);
   return IS;
 }
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) GeomTools_Curve2dSet::ReadCurve2d(Standard_IStream& IS)
+Handle(GeomCurve2d) GeomTools_Curve2dSet::ReadCurve2d(Standard_IStream& IS)
 {
   Standard_Integer ctype;
 
-  Handle(Geom2d_Curve) C;
+  Handle(GeomCurve2d) C;
   try
   {
     OCC_CATCH_SIGNALS
@@ -754,7 +754,7 @@ Handle(Geom2d_Curve) GeomTools_Curve2dSet::ReadCurve2d(Standard_IStream& IS)
       break;
 
       default: {
-        Handle(Geom2d_Curve) CC;
+        Handle(GeomCurve2d) CC;
         GeomTools::GetUndefinedTypeHandler()->ReadCurve2d(ctype, IS, CC);
         C = CC;
       }
@@ -789,7 +789,7 @@ void GeomTools_Curve2dSet::Read(Standard_IStream& IS, const Message_ProgressRang
   Message_ProgressScope aPS(theProgress, "2D Curves", nbcurve);
   for (i = 1; i <= nbcurve && aPS.More(); i++, aPS.Next())
   {
-    Handle(Geom2d_Curve) C = GeomTools_Curve2dSet::ReadCurve2d(IS);
+    Handle(GeomCurve2d) C = GeomTools_Curve2dSet::ReadCurve2d(IS);
     myMap.Add(C);
   }
 }

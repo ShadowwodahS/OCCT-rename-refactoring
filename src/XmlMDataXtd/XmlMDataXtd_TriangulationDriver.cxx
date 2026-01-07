@@ -102,11 +102,11 @@ Standard_Boolean XmlMDataXtd_TriangulationDriver::Paste(const XmlObjMgt_Persiste
     Triangles(i).Set(n1, n2, n3);
   }
 
-  Handle(Poly_Triangulation) PT;
+  Handle(MeshTriangulation) PT;
   if (hasUV)
-    PT = new Poly_Triangulation(Nodes, UVNodes, Triangles);
+    PT = new MeshTriangulation(Nodes, UVNodes, Triangles);
   else
-    PT = new Poly_Triangulation(Nodes, Triangles);
+    PT = new MeshTriangulation(Nodes, Triangles);
   PT->Deflection(deflection);
 
   attribute->Set(PT);
@@ -134,7 +134,7 @@ void XmlMDataXtd_TriangulationDriver::Paste(const Handle(TDF_Attribute)& theSour
 
     // Analyse the size of the triangulation
     // (to allocate properly the string array).
-    const Handle(Poly_Triangulation)& PT          = attribute->Get();
+    const Handle(MeshTriangulation)& PT          = attribute->Get();
     Standard_Integer                  nbNodes     = PT->NbNodes();
     Standard_Integer                  nbTriangles = PT->NbTriangles();
     Standard_Integer                  size        = PT->NbNodes();

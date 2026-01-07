@@ -21,7 +21,7 @@
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& BRepTools_Modifier::ModifiedShape(const TopoDS_Shape& S) const
+inline const TopoShape& ShapeModifier::ModifiedShape(const TopoShape& S) const
 {
   if (!myMap.IsBound(S))
   {
@@ -34,7 +34,7 @@ inline const TopoDS_Shape& BRepTools_Modifier::ModifiedShape(const TopoDS_Shape&
 // function : IsDone
 // purpose  :
 //=======================================================================
-inline Standard_Boolean BRepTools_Modifier::IsDone() const
+inline Standard_Boolean ShapeModifier::IsDone() const
 {
   return myDone;
 }

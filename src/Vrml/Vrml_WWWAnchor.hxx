@@ -38,17 +38,17 @@ class Vrml_WWWAnchor
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT Vrml_WWWAnchor(const TCollection_AsciiString& aName        = "",
-                                 const TCollection_AsciiString& aDescription = "",
+  Standard_EXPORT Vrml_WWWAnchor(const AsciiString1& aName        = "",
+                                 const AsciiString1& aDescription = "",
                                  const Vrml_WWWAnchorMap        aMap         = Vrml_MAP_NONE);
 
-  Standard_EXPORT void SetName(const TCollection_AsciiString& aName);
+  Standard_EXPORT void SetName(const AsciiString1& aName);
 
-  Standard_EXPORT TCollection_AsciiString Name() const;
+  Standard_EXPORT AsciiString1 Name() const;
 
-  Standard_EXPORT void SetDescription(const TCollection_AsciiString& aDescription);
+  Standard_EXPORT void SetDescription(const AsciiString1& aDescription);
 
-  Standard_EXPORT TCollection_AsciiString Description() const;
+  Standard_EXPORT AsciiString1 Description() const;
 
   Standard_EXPORT void SetMap(const Vrml_WWWAnchorMap aMap);
 
@@ -58,8 +58,8 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString myName;
-  TCollection_AsciiString myDescription;
+  AsciiString1 myName;
+  AsciiString1 myDescription;
   Vrml_WWWAnchorMap       myMap;
 };
 

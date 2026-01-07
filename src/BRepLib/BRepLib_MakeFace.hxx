@@ -23,15 +23,15 @@
 
 #include <BRepLib_FaceError.hxx>
 #include <BRepLib_MakeShape.hxx>
-class TopoDS_Face;
+class TopoFace;
 class gp_Pln;
 class gp_Cylinder;
 class gp_Cone;
 class gp_Sphere;
 class gp_Torus;
-class Geom_Surface;
-class TopoDS_Wire;
-class Geom_Curve;
+class GeomSurface;
+class TopoWire;
+class GeomCurve3d;
 
 //! Provides methods to build faces.
 //!
@@ -67,7 +67,7 @@ public:
   Standard_EXPORT BRepLib_MakeFace();
 
   //! Load a face. Useful to add wires.
-  Standard_EXPORT BRepLib_MakeFace(const TopoDS_Face& F);
+  Standard_EXPORT BRepLib_MakeFace(const TopoFace& F);
 
   //! Make a face from a plane.
   Standard_EXPORT BRepLib_MakeFace(const gp_Pln& P);
@@ -86,7 +86,7 @@ public:
 
   //! Make a face from a Surface. Accepts tolerance value (TolDegen)
   //! for resolution of degenerated edges.
-  Standard_EXPORT BRepLib_MakeFace(const Handle(Geom_Surface)& S, const Standard_Real TolDegen);
+  Standard_EXPORT BRepLib_MakeFace(const Handle(GeomSurface)& S, const Standard_Real TolDegen);
 
   //! Make a face from a plane.
   Standard_EXPORT BRepLib_MakeFace(const gp_Pln&       P,
@@ -126,7 +126,7 @@ public:
   //! Make a face from a Surface. Accepts min & max parameters
   //! to construct the face's bounds. Also accepts tolerance value (TolDegen)
   //! for resolution of degenerated edges.
-  Standard_EXPORT BRepLib_MakeFace(const Handle(Geom_Surface)& S,
+  Standard_EXPORT BRepLib_MakeFace(const Handle(GeomSurface)& S,
                                    const Standard_Real         UMin,
                                    const Standard_Real         UMax,
                                    const Standard_Real         VMin,
@@ -137,57 +137,57 @@ public:
   //! if <OnlyPlane> is true, the computed surface will be
   //! a plane. If it is not possible to find a plane, the
   //! flag NotDone will be set.
-  Standard_EXPORT BRepLib_MakeFace(const TopoDS_Wire&     W,
+  Standard_EXPORT BRepLib_MakeFace(const TopoWire&     W,
                                    const Standard_Boolean OnlyPlane = Standard_False);
 
   //! Make a face from a plane and a wire.
   Standard_EXPORT BRepLib_MakeFace(const gp_Pln&          P,
-                                   const TopoDS_Wire&     W,
+                                   const TopoWire&     W,
                                    const Standard_Boolean Inside = Standard_True);
 
   //! Make a face from a cylinder and a wire.
   Standard_EXPORT BRepLib_MakeFace(const gp_Cylinder&     C,
-                                   const TopoDS_Wire&     W,
+                                   const TopoWire&     W,
                                    const Standard_Boolean Inside = Standard_True);
 
   //! Make a face from a cone and a wire.
   Standard_EXPORT BRepLib_MakeFace(const gp_Cone&         C,
-                                   const TopoDS_Wire&     W,
+                                   const TopoWire&     W,
                                    const Standard_Boolean Inside = Standard_True);
 
   //! Make a face from a sphere and a wire.
   Standard_EXPORT BRepLib_MakeFace(const gp_Sphere&       S,
-                                   const TopoDS_Wire&     W,
+                                   const TopoWire&     W,
                                    const Standard_Boolean Inside = Standard_True);
 
   //! Make a face from a torus and a wire.
   Standard_EXPORT BRepLib_MakeFace(const gp_Torus&        C,
-                                   const TopoDS_Wire&     W,
+                                   const TopoWire&     W,
                                    const Standard_Boolean Inside = Standard_True);
 
   //! Make a face from a Surface and a wire.
-  Standard_EXPORT BRepLib_MakeFace(const Handle(Geom_Surface)& S,
-                                   const TopoDS_Wire&          W,
+  Standard_EXPORT BRepLib_MakeFace(const Handle(GeomSurface)& S,
+                                   const TopoWire&          W,
                                    const Standard_Boolean      Inside = Standard_True);
 
   //! Adds the wire <W> in the face <F>
-  Standard_EXPORT BRepLib_MakeFace(const TopoDS_Face& F, const TopoDS_Wire& W);
+  Standard_EXPORT BRepLib_MakeFace(const TopoFace& F, const TopoWire& W);
 
   //! Load the face.
-  Standard_EXPORT void Init(const TopoDS_Face& F);
+  Standard_EXPORT void Init(const TopoFace& F);
 
   //! Creates the face  from the  surface. If Bound is
   //! True a wire is made from the natural bounds.
   //! Accepts tolerance value (TolDegen) for resolution
   //! of degenerated edges.
-  Standard_EXPORT void Init(const Handle(Geom_Surface)& S,
+  Standard_EXPORT void Init(const Handle(GeomSurface)& S,
                             const Standard_Boolean      Bound,
                             const Standard_Real         TolDegen);
 
   //! Creates the face from the surface and the min-max
   //! values. Accepts tolerance value (TolDegen) for resolution
   //! of degenerated edges.
-  Standard_EXPORT void Init(const Handle(Geom_Surface)& S,
+  Standard_EXPORT void Init(const Handle(GeomSurface)& S,
                             const Standard_Real         UMin,
                             const Standard_Real         UMax,
                             const Standard_Real         VMin,
@@ -195,20 +195,20 @@ public:
                             const Standard_Real         TolDegen);
 
   //! Adds the wire <W> in the current face.
-  Standard_EXPORT void Add(const TopoDS_Wire& W);
+  Standard_EXPORT void Add(const TopoWire& W);
 
   Standard_EXPORT BRepLib_FaceError Error() const;
 
   //! Returns the new face.
-  Standard_EXPORT const TopoDS_Face& Face() const;
-  Standard_EXPORT                    operator TopoDS_Face() const;
+  Standard_EXPORT const TopoFace& Face() const;
+  Standard_EXPORT                    operator TopoFace() const;
 
   //! Checks the specified curve is degenerated
   //! according to specified tolerance.
   //! Returns <theActTol> less than <theMaxTol>, which shows
   //! actual tolerance to decide the curve is degenerated.
   //! Warning: For internal use of BRepLib_MakeFace and BRepLib_MakeShell.
-  Standard_EXPORT static Standard_Boolean IsDegenerated(const Handle(Geom_Curve)& theCurve,
+  Standard_EXPORT static Standard_Boolean IsDegenerated(const Handle(GeomCurve3d)& theCurve,
                                                         const Standard_Real       theMaxTol,
                                                         Standard_Real&            theActTol);
 

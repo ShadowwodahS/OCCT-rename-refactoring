@@ -36,10 +36,10 @@
 #include <TopOpeBRepDS_ShapeSurface.hxx>
 #include <TopOpeBRepDS_IndexedDataMapOfShapeWithState.hxx>
 #include <TopOpeBRepDS_Config.hxx>
-class Geom_Surface;
-class TopoDS_Edge;
+class GeomSurface;
+class TopoEdge;
 class TopOpeBRepDS_Interference;
-class TopOpeBRepDS_ShapeWithState;
+class ShapeWithState;
 
 //! The DataStructure stores :
 //!
@@ -83,42 +83,42 @@ public:
   Standard_EXPORT void ChangeKeepCurve(TopOpeBRepDS_Curve& C, const Standard_Boolean FindKeep);
 
   //! Insert a new point. Returns the index.
-  Standard_EXPORT Standard_Integer AddPoint(const TopOpeBRepDS_Point& PDS);
+  Standard_EXPORT Standard_Integer AddPoint(const Point1& PDS);
 
   //! Insert a new point. Returns the index.
-  Standard_EXPORT Standard_Integer AddPointSS(const TopOpeBRepDS_Point& PDS,
-                                              const TopoDS_Shape&       S1,
-                                              const TopoDS_Shape&       S2);
+  Standard_EXPORT Standard_Integer AddPointSS(const Point1& PDS,
+                                              const TopoShape&       S1,
+                                              const TopoShape&       S2);
 
   Standard_EXPORT void RemovePoint(const Standard_Integer I);
 
   Standard_EXPORT Standard_Boolean KeepPoint(const Standard_Integer I) const;
 
-  Standard_EXPORT Standard_Boolean KeepPoint(const TopOpeBRepDS_Point& P) const;
+  Standard_EXPORT Standard_Boolean KeepPoint(const Point1& P) const;
 
   Standard_EXPORT void ChangeKeepPoint(const Standard_Integer I, const Standard_Boolean FindKeep);
 
-  Standard_EXPORT void ChangeKeepPoint(TopOpeBRepDS_Point& P, const Standard_Boolean FindKeep);
+  Standard_EXPORT void ChangeKeepPoint(Point1& P, const Standard_Boolean FindKeep);
 
   //! Insert a shape S. Returns the index.
-  Standard_EXPORT Standard_Integer AddShape(const TopoDS_Shape& S);
+  Standard_EXPORT Standard_Integer AddShape(const TopoShape& S);
 
   //! Insert a shape S which ancestor is I = 1 or 2. Returns the index.
-  Standard_EXPORT Standard_Integer AddShape(const TopoDS_Shape& S, const Standard_Integer I);
+  Standard_EXPORT Standard_Integer AddShape(const TopoShape& S, const Standard_Integer I);
 
   Standard_EXPORT Standard_Boolean KeepShape(const Standard_Integer I,
                                              const Standard_Boolean FindKeep = Standard_True) const;
 
-  Standard_EXPORT Standard_Boolean KeepShape(const TopoDS_Shape&    S,
+  Standard_EXPORT Standard_Boolean KeepShape(const TopoShape&    S,
                                              const Standard_Boolean FindKeep = Standard_True) const;
 
   Standard_EXPORT void ChangeKeepShape(const Standard_Integer I, const Standard_Boolean FindKeep);
 
-  Standard_EXPORT void ChangeKeepShape(const TopoDS_Shape& S, const Standard_Boolean FindKeep);
+  Standard_EXPORT void ChangeKeepShape(const TopoShape& S, const Standard_Boolean FindKeep);
 
   Standard_EXPORT void InitSectionEdges();
 
-  Standard_EXPORT Standard_Integer AddSectionEdge(const TopoDS_Edge& E);
+  Standard_EXPORT Standard_Integer AddSectionEdge(const TopoEdge& E);
 
   Standard_EXPORT const TopOpeBRepDS_ListOfInterference& SurfaceInterferences(
     const Standard_Integer I) const;
@@ -139,10 +139,10 @@ public:
     const Standard_Integer I);
 
   Standard_EXPORT const TopOpeBRepDS_ListOfInterference& ShapeInterferences(
-    const TopoDS_Shape&    S,
+    const TopoShape&    S,
     const Standard_Boolean FindKeep = Standard_True) const;
 
-  Standard_EXPORT TopOpeBRepDS_ListOfInterference& ChangeShapeInterferences(const TopoDS_Shape& S);
+  Standard_EXPORT TopOpeBRepDS_ListOfInterference& ChangeShapeInterferences(const TopoShape& S);
 
   Standard_EXPORT const TopOpeBRepDS_ListOfInterference& ShapeInterferences(
     const Standard_Integer I,
@@ -151,69 +151,69 @@ public:
   Standard_EXPORT TopOpeBRepDS_ListOfInterference& ChangeShapeInterferences(
     const Standard_Integer I);
 
-  Standard_EXPORT const TopTools_ListOfShape& ShapeSameDomain(const TopoDS_Shape& S) const;
+  Standard_EXPORT const ShapeList& ShapeSameDomain(const TopoShape& S) const;
 
-  Standard_EXPORT TopTools_ListOfShape& ChangeShapeSameDomain(const TopoDS_Shape& S);
+  Standard_EXPORT ShapeList& ChangeShapeSameDomain(const TopoShape& S);
 
-  Standard_EXPORT const TopTools_ListOfShape& ShapeSameDomain(const Standard_Integer I) const;
+  Standard_EXPORT const ShapeList& ShapeSameDomain(const Standard_Integer I) const;
 
-  Standard_EXPORT TopTools_ListOfShape& ChangeShapeSameDomain(const Standard_Integer I);
+  Standard_EXPORT ShapeList& ChangeShapeSameDomain(const Standard_Integer I);
 
   Standard_EXPORT TopOpeBRepDS_MapOfShapeData& ChangeShapes();
 
-  Standard_EXPORT void AddShapeSameDomain(const TopoDS_Shape& S, const TopoDS_Shape& SSD);
+  Standard_EXPORT void AddShapeSameDomain(const TopoShape& S, const TopoShape& SSD);
 
-  Standard_EXPORT void RemoveShapeSameDomain(const TopoDS_Shape& S, const TopoDS_Shape& SSD);
+  Standard_EXPORT void RemoveShapeSameDomain(const TopoShape& S, const TopoShape& SSD);
 
   Standard_EXPORT Standard_Integer SameDomainRef(const Standard_Integer I) const;
 
-  Standard_EXPORT Standard_Integer SameDomainRef(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Integer SameDomainRef(const TopoShape& S) const;
 
   Standard_EXPORT void SameDomainRef(const Standard_Integer I, const Standard_Integer Ref);
 
-  Standard_EXPORT void SameDomainRef(const TopoDS_Shape& S, const Standard_Integer Ref);
+  Standard_EXPORT void SameDomainRef(const TopoShape& S, const Standard_Integer Ref);
 
   Standard_EXPORT TopOpeBRepDS_Config SameDomainOri(const Standard_Integer I) const;
 
-  Standard_EXPORT TopOpeBRepDS_Config SameDomainOri(const TopoDS_Shape& S) const;
+  Standard_EXPORT TopOpeBRepDS_Config SameDomainOri(const TopoShape& S) const;
 
   Standard_EXPORT void SameDomainOri(const Standard_Integer I, const TopOpeBRepDS_Config Ori);
 
-  Standard_EXPORT void SameDomainOri(const TopoDS_Shape& S, const TopOpeBRepDS_Config Ori);
+  Standard_EXPORT void SameDomainOri(const TopoShape& S, const TopOpeBRepDS_Config Ori);
 
   Standard_EXPORT Standard_Integer SameDomainInd(const Standard_Integer I) const;
 
-  Standard_EXPORT Standard_Integer SameDomainInd(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Integer SameDomainInd(const TopoShape& S) const;
 
   Standard_EXPORT void SameDomainInd(const Standard_Integer I, const Standard_Integer Ind);
 
-  Standard_EXPORT void SameDomainInd(const TopoDS_Shape& S, const Standard_Integer Ind);
+  Standard_EXPORT void SameDomainInd(const TopoShape& S, const Standard_Integer Ind);
 
   Standard_EXPORT Standard_Integer AncestorRank(const Standard_Integer I) const;
 
-  Standard_EXPORT Standard_Integer AncestorRank(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Integer AncestorRank(const TopoShape& S) const;
 
   Standard_EXPORT void AncestorRank(const Standard_Integer I, const Standard_Integer Ianc);
 
-  Standard_EXPORT void AncestorRank(const TopoDS_Shape& S, const Standard_Integer Ianc);
+  Standard_EXPORT void AncestorRank(const TopoShape& S, const Standard_Integer Ianc);
 
-  Standard_EXPORT void AddShapeInterference(const TopoDS_Shape&                      S,
+  Standard_EXPORT void AddShapeInterference(const TopoShape&                      S,
                                             const Handle(TopOpeBRepDS_Interference)& I);
 
-  Standard_EXPORT void RemoveShapeInterference(const TopoDS_Shape&                      S,
+  Standard_EXPORT void RemoveShapeInterference(const TopoShape&                      S,
                                                const Handle(TopOpeBRepDS_Interference)& I);
 
-  Standard_EXPORT void FillShapesSameDomain(const TopoDS_Shape&    S1,
-                                            const TopoDS_Shape&    S2,
+  Standard_EXPORT void FillShapesSameDomain(const TopoShape&    S1,
+                                            const TopoShape&    S2,
                                             const Standard_Boolean refFirst = Standard_True);
 
-  Standard_EXPORT void FillShapesSameDomain(const TopoDS_Shape&       S1,
-                                            const TopoDS_Shape&       S2,
+  Standard_EXPORT void FillShapesSameDomain(const TopoShape&       S1,
+                                            const TopoShape&       S2,
                                             const TopOpeBRepDS_Config c1,
                                             const TopOpeBRepDS_Config c2,
                                             const Standard_Boolean    refFirst = Standard_True);
 
-  Standard_EXPORT void UnfillShapesSameDomain(const TopoDS_Shape& S1, const TopoDS_Shape& S2);
+  Standard_EXPORT void UnfillShapesSameDomain(const TopoShape& S1, const TopoShape& S2);
 
   Standard_EXPORT Standard_Integer NbSurfaces() const;
 
@@ -223,7 +223,7 @@ public:
 
   Standard_EXPORT Standard_Integer NbPoints() const;
 
-  Standard_EXPORT Standard_Integer NbShapes() const;
+  Standard_EXPORT Standard_Integer NbShapes1() const;
 
   Standard_EXPORT Standard_Integer NbSectionEdges() const;
 
@@ -240,31 +240,31 @@ public:
   Standard_EXPORT TopOpeBRepDS_Curve& ChangeCurve(const Standard_Integer I);
 
   //! Returns the point of index <I>.
-  Standard_EXPORT const TopOpeBRepDS_Point& Point(const Standard_Integer I) const;
+  Standard_EXPORT const Point1& Point(const Standard_Integer I) const;
 
   //! Returns the point of index <I>.
-  Standard_EXPORT TopOpeBRepDS_Point& ChangePoint(const Standard_Integer I);
+  Standard_EXPORT Point1& ChangePoint(const Standard_Integer I);
 
   //! returns the shape of index I stored in
   //! the map myShapes, accessing a list of interference.
-  Standard_EXPORT const TopoDS_Shape& Shape(const Standard_Integer I,
+  Standard_EXPORT const TopoShape& Shape(const Standard_Integer I,
                                             const Standard_Boolean FindKeep = Standard_True) const;
 
   //! returns the index of shape <S> stored in
   //! the map myShapes, accessing a list of interference.
   //! returns 0 if <S> is not in the map.
-  Standard_EXPORT Standard_Integer Shape(const TopoDS_Shape&    S,
+  Standard_EXPORT Standard_Integer Shape(const TopoShape&    S,
                                          const Standard_Boolean FindKeep = Standard_True) const;
 
-  Standard_EXPORT const TopoDS_Edge& SectionEdge(
+  Standard_EXPORT const TopoEdge& SectionEdge(
     const Standard_Integer I,
     const Standard_Boolean FindKeep = Standard_True) const;
 
   Standard_EXPORT Standard_Integer
-    SectionEdge(const TopoDS_Edge& E, const Standard_Boolean FindKeep = Standard_True) const;
+    SectionEdge(const TopoEdge& E, const Standard_Boolean FindKeep = Standard_True) const;
 
   Standard_EXPORT Standard_Boolean
-    IsSectionEdge(const TopoDS_Edge& E, const Standard_Boolean FindKeep = Standard_True) const;
+    IsSectionEdge(const TopoEdge& E, const Standard_Boolean FindKeep = Standard_True) const;
 
   //! Returns True if <S> has new geometries, i.e :
   //! True si :
@@ -272,17 +272,17 @@ public:
   //! S a une liste d'interferences non vide.
   //! S = SOLID, FACE, EDGE : true/false
   //! S = SHELL, WIRE, VERTEX : false.
-  Standard_EXPORT Standard_Boolean HasGeometry(const TopoDS_Shape& S) const;
+  Standard_EXPORT Standard_Boolean HasGeometry(const TopoShape& S) const;
 
   //! Returns True if <S> est dans myShapes
-  Standard_EXPORT Standard_Boolean HasShape(const TopoDS_Shape&    S,
+  Standard_EXPORT Standard_Boolean HasShape(const TopoShape&    S,
                                             const Standard_Boolean FindKeep = Standard_True) const;
 
-  Standard_EXPORT void SetNewSurface(const TopoDS_Shape& F, const Handle(Geom_Surface)& S);
+  Standard_EXPORT void SetNewSurface(const TopoShape& F, const Handle(GeomSurface)& S);
 
-  Standard_EXPORT Standard_Boolean HasNewSurface(const TopoDS_Shape& F) const;
+  Standard_EXPORT Standard_Boolean HasNewSurface(const TopoShape& F) const;
 
-  Standard_EXPORT const Handle(Geom_Surface)& NewSurface(const TopoDS_Shape& F) const;
+  Standard_EXPORT const Handle(GeomSurface)& NewSurface(const TopoShape& F) const;
 
   Standard_EXPORT void Isfafa(const Standard_Boolean isfafa);
 
@@ -293,18 +293,18 @@ public:
   Standard_EXPORT TopOpeBRepDS_IndexedDataMapOfShapeWithState& ChangeMapOfShapeWithStateTool();
 
   Standard_EXPORT TopOpeBRepDS_IndexedDataMapOfShapeWithState& ChangeMapOfShapeWithState(
-    const TopoDS_Shape& aShape,
+    const TopoShape& aShape,
     Standard_Boolean&   aFlag);
 
-  Standard_EXPORT const TopOpeBRepDS_ShapeWithState& GetShapeWithState(
-    const TopoDS_Shape& aShape) const;
+  Standard_EXPORT const ShapeWithState& GetShapeWithState(
+    const TopoShape& aShape) const;
 
   Standard_EXPORT TopTools_IndexedMapOfShape& ChangeMapOfRejectedShapesObj();
 
   Standard_EXPORT TopTools_IndexedMapOfShape& ChangeMapOfRejectedShapesTool();
 
   friend class TopOpeBRepDS_SurfaceExplorer;
-  friend class TopOpeBRepDS_CurveExplorer;
+  friend class CurveExplorer;
   friend class TopOpeBRepDS_PointExplorer;
 
 protected:
@@ -322,12 +322,12 @@ private:
   TopOpeBRepDS_MapOfShapeData                 myShapes;
   TopTools_IndexedMapOfShape                  mySectionEdges;
   TopOpeBRepDS_ListOfInterference             myEmptyListOfInterference;
-  TopTools_ListOfShape                        myEmptyListOfShape;
-  TopoDS_Shape                                myEmptyShape;
-  TopOpeBRepDS_Point                          myEmptyPoint;
+  ShapeList                        myEmptyListOfShape;
+  TopoShape                                myEmptyShape;
+  Point1                          myEmptyPoint;
   TopOpeBRepDS_Surface                        myEmptySurface;
   TopOpeBRepDS_Curve                          myEmptyCurve;
-  Handle(Geom_Surface)                        myEmptyGSurface;
+  Handle(GeomSurface)                        myEmptyGSurface;
   TopOpeBRepDS_ShapeSurface                   myNewSurface;
   Standard_Boolean                            myIsfafa;
   Standard_Integer                            myI;

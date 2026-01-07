@@ -30,7 +30,7 @@
 #include <Plate_PinpointConstraint.hxx>
 #include <Plate_Plate.hxx>
 
-NLPlate_NLPlate::NLPlate_NLPlate(const Handle(Geom_Surface)& InitialSurface)
+NLPlate_NLPlate::NLPlate_NLPlate(const Handle(GeomSurface)& InitialSurface)
     : myInitialSurface(InitialSurface),
       OK(Standard_False)
 {
@@ -146,14 +146,14 @@ void NLPlate_NLPlate::Init()
 
 //=======================================================================
 
-gp_XYZ NLPlate_NLPlate::Evaluate(const gp_XY& point2d) const
+gp_XYZ NLPlate_NLPlate::Evaluate(const Coords2d& point2d) const
 {
   return EvaluateDerivative(point2d, 0, 0);
 }
 
 //=======================================================================
 
-gp_XYZ NLPlate_NLPlate::EvaluateDerivative(const gp_XY&           point2d,
+gp_XYZ NLPlate_NLPlate::EvaluateDerivative(const Coords2d&           point2d,
                                            const Standard_Integer iu,
                                            const Standard_Integer iv) const
 {
@@ -204,7 +204,7 @@ Standard_Boolean NLPlate_NLPlate::Iterate(const Standard_Integer ConstraintOrder
     Standard_Integer                      Order = HGPP->ActiveOrder();
     if (ConstraintOrder < Order)
       Order = ConstraintOrder;
-    const gp_XY& UV = HGPP->UV();
+    const Coords2d& UV = HGPP->UV();
 
     if ((Order >= 0) && HGPP->IsG0())
     {
@@ -326,7 +326,7 @@ void NLPlate_NLPlate::ConstraintsSliding(const Standard_Integer NbIterations)
     const Handle(NLPlate_HGPPConstraint)& HGPP = myHGPPConstraints(index);
     if (HGPP->UVFreeSliding() && HGPP->IsG0())
     {
-      gp_XY        UV = HGPP->UV();
+      Coords2d        UV = HGPP->UV();
       gp_XYZ       P0 = Evaluate(UV);
       const gp_XYZ P1 = HGPP->G0Target();
       for (Standard_Integer iter = 1; iter <= NbIterations; iter++)

@@ -27,10 +27,10 @@
 #include <TCollection_ExtendedString.hxx>
 
 void DsgPrs_Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                     const Handle(Prs3d_Drawer)&       aDrawer,
+                                     const Handle(StyleDrawer)&       aDrawer,
                                      const Point3d&                     aPntAttach,
                                      const Point3d&                     aPntEnd,
-                                     const TCollection_ExtendedString& aText)
+                                     const UtfString& aText)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
 
@@ -42,13 +42,13 @@ void DsgPrs_Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
   Dir3d ArrowDir(aPntAttach.XYZ() - aPntEnd.XYZ());
-  Prs3d_Arrow::Draw(aPresentation->CurrentGroup(),
+  Prs3d_Arrow::Draw1(aPresentation->CurrentGroup(),
                     aPntAttach,
                     ArrowDir,
                     LA->ArrowAspect()->Angle(),
                     LA->ArrowAspect()->Length());
 
-  Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntEnd);
+  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntEnd);
 }
 
 //==========================================================================
@@ -57,10 +57,10 @@ void DsgPrs_Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
 //==========================================================================
 
 void DsgPrs_Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                     const Handle(Prs3d_Drawer)&       aDrawer,
+                                     const Handle(StyleDrawer)&       aDrawer,
                                      const Point3d&                     aPntAttach,
                                      const Point3d&                     aPntEnd,
-                                     const TCollection_ExtendedString& aText,
+                                     const UtfString& aText,
                                      const DsgPrs_ArrowSide            ArrowPrs)
 {
   Handle(Prs3d_DimensionAspect) LA = aDrawer->DimensionAspect();
@@ -72,7 +72,7 @@ void DsgPrs_Chamf2dPresentation::Add(const Handle(Prs3d_Presentation)& aPresenta
   aPrims->AddVertex(aPntEnd);
   aPresentation->CurrentGroup()->AddPrimitiveArray(aPrims);
 
-  Prs3d_Text::Draw(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntEnd);
+  Prs3d_Text::Draw1(aPresentation->CurrentGroup(), LA->TextAspect(), aText, aPntEnd);
 
   Dir3d ArrowDir(aPntAttach.XYZ() - aPntEnd.XYZ());
   Dir3d ArrowDir1 = ArrowDir;

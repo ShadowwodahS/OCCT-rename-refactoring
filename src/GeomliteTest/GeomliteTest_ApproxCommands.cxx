@@ -49,10 +49,10 @@
 #include <AppDef_Array1OfMultiPointConstraint.hxx>
 
 #ifdef _WIN32
-Standard_IMPORT Draw_Viewer dout;
+Standard_IMPORT DrawViewer dout;
 #endif
 
-// Draw_Color DrawTrSurf_CurveColor(const Draw_Color);
+// DrawColor DrawTrSurf_CurveColor(const DrawColor);
 
 //=======================================================================
 // function :  NbConstraint
@@ -103,7 +103,7 @@ static Standard_Integer NbConstraint(const AppParCurves_Constraint C1,
 // function : PointsByPick
 //=======================================================================
 static Standard_Integer PointsByPick(Handle(AppDef_HArray1OfMultiPointConstraint)& MPC,
-                                     Draw_Interpretor&                             di)
+                                     DrawInterpreter&                             di)
 {
   Standard_Integer id, XX, YY, b, i;
 
@@ -200,7 +200,7 @@ static Standard_Integer PointsByPick(Handle(AppDef_HArray1OfMultiPointConstraint
 static void PointsByFile(Handle(AppDef_HArray1OfMultiPointConstraint)&   MPC,
                          Handle(AppParCurves_HArray1OfConstraintCouple)& TABofCC,
                          std::ifstream&                                  iFile,
-                         Draw_Interpretor&                               di)
+                         DrawInterpreter&                               di)
 {
   Standard_Integer nbp, i, nbc;
   char             c;
@@ -338,7 +338,7 @@ static void PointsByFile(Handle(AppDef_HArray1OfMultiPointConstraint)&   MPC,
 }
 
 //==================================================================================
-static Standard_Integer smoothing(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer smoothing(DrawInterpreter& di, Standard_Integer n, const char** a)
 //==================================================================================
 //  Tolerance < 0 lissage "filtre"
 //  Tolerance > 0 lissage avec respect de l'erreur max
@@ -366,7 +366,7 @@ static Standard_Integer smoothing(Draw_Interpretor& di, Standard_Integer n, cons
   }
   if (n == 3)
   {
-    Tolerance = Draw::Atof(a[2]);
+    Tolerance = Draw1::Atof(a[2]);
     if (Abs(Tolerance) < Precision::Confusion() * 1.e-7)
     {
       Constraint = AppParCurves_PassPoint;
@@ -381,7 +381,7 @@ static Standard_Integer smoothing(Draw_Interpretor& di, Standard_Integer n, cons
   else if (n >= 4)
   {
     Standard_Integer ific = 3;
-    Tolerance             = Draw::Atof(a[2]);
+    Tolerance             = Draw1::Atof(a[2]);
     if (Abs(Tolerance) < Precision::Confusion() * 1.e-7)
     {
       Constraint = AppParCurves_PassPoint;
@@ -393,7 +393,7 @@ static Standard_Integer smoothing(Draw_Interpretor& di, Standard_Integer n, cons
 
     if (!strcmp(a[3], "-D"))
     {
-      DegMax = Draw::Atoi(a[4]);
+      DegMax = Draw1::Atoi(a[4]);
       ific   = 5;
     }
 
@@ -470,7 +470,7 @@ static Standard_Integer smoothing(Draw_Interpretor& di, Standard_Integer n, cons
 
     Handle(DrawTrSurf_BSplineCurve2d) DC = new DrawTrSurf_BSplineCurve2d(Cvliss);
     DC->ClearPoles();
-    Draw::Set(a[1], DC);
+    Draw1::Set(a[1], DC);
     if (id != 0)
       dout.RepaintView(id);
   }
@@ -514,12 +514,12 @@ static Standard_Integer smoothing(Draw_Interpretor& di, Standard_Integer n, cons
 
     TColgp_Array1OfPnt ThePoles(1, AnMuC.NbPoles());
     AnMuC.Curve(1, ThePoles);
-    Handle(Geom_BSplineCurve) Cvliss =
-      new (Geom_BSplineCurve)(ThePoles, AnMuC.Knots(), AnMuC.Multiplicities(), AnMuC.Degree());
+    Handle(BSplineCurve3d) Cvliss =
+      new (BSplineCurve3d)(ThePoles, AnMuC.Knots(), AnMuC.Multiplicities(), AnMuC.Degree());
 
     Handle(DrawTrSurf_BSplineCurve) DC = new DrawTrSurf_BSplineCurve(Cvliss);
     DC->ClearPoles();
-    Draw::Set(a[1], DC);
+    Draw1::Set(a[1], DC);
     if (id != 0)
       dout.RepaintView(id);
   }
@@ -527,7 +527,7 @@ static Standard_Integer smoothing(Draw_Interpretor& di, Standard_Integer n, cons
 }
 
 //=============================================================================
-static Standard_Integer smoothingbybezier(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer smoothingbybezier(DrawInterpreter& di, Standard_Integer n, const char** a)
 //============================================================================
 {
   Standard_Real                                  Tolerance  = 0;
@@ -562,8 +562,8 @@ static Standard_Integer smoothingbybezier(Draw_Interpretor& di, Standard_Integer
   }
   if (n >= 5)
   {
-    Tolerance = Draw::Atof(a[2]);
-    Degree    = Draw::Atoi(a[3]);
+    Tolerance = Draw1::Atof(a[2]);
+    Degree    = Draw1::Atoi(a[3]);
     if (!strcmp(a[4], "-GR"))
     {
       methode = 1;
@@ -687,7 +687,7 @@ static Standard_Integer smoothingbybezier(Draw_Interpretor& di, Standard_Integer
     Handle(Geom2d_BezierCurve) Cvliss = new (Geom2d_BezierCurve)(ThePoints->Array1());
 
     Handle(DrawTrSurf_BezierCurve2d) DC = new (DrawTrSurf_BezierCurve2d)(Cvliss);
-    Draw::Set(a[1], DC);
+    Draw1::Set(a[1], DC);
     if (id != 0)
       dout.RepaintView(id);
   }
@@ -766,10 +766,10 @@ static Standard_Integer smoothingbybezier(Draw_Interpretor& di, Standard_Integer
       AnMuC.Curve(1, ThePoints->ChangeArray1());
     }
 
-    Handle(Geom_BezierCurve) Cvliss = new (Geom_BezierCurve)(ThePoints->Array1());
+    Handle(BezierCurve3d) Cvliss = new (BezierCurve3d)(ThePoints->Array1());
 
     Handle(DrawTrSurf_BezierCurve) DC = new DrawTrSurf_BezierCurve(Cvliss);
-    Draw::Set(a[1], DC);
+    Draw1::Set(a[1], DC);
     if (id != 0)
       dout.RepaintView(id);
   }
@@ -778,7 +778,7 @@ static Standard_Integer smoothingbybezier(Draw_Interpretor& di, Standard_Integer
 
 //=================================================================================================
 
-void GeomliteTest::ApproxCommands(Draw_Interpretor& theCommands)
+void GeomliteTest::ApproxCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean loaded = Standard_False;
@@ -786,7 +786,7 @@ void GeomliteTest::ApproxCommands(Draw_Interpretor& theCommands)
     return;
   loaded = Standard_True;
 
-  DrawTrSurf::BasicCommands(theCommands);
+  DrawTrSurf1::BasicCommands(theCommands);
 
   const char* g;
   // constrained constructs

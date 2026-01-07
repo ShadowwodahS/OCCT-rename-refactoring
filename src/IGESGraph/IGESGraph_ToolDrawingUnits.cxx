@@ -31,9 +31,9 @@
 #include <Message_Messenger.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESGraph_ToolDrawingUnits::IGESGraph_ToolDrawingUnits() {}
+DrawingUnitsTool::DrawingUnitsTool() {}
 
-void IGESGraph_ToolDrawingUnits::ReadOwnParams(const Handle(IGESGraph_DrawingUnits)& ent,
+void DrawingUnitsTool::ReadOwnParams(const Handle(IGESGraph_DrawingUnits)& ent,
                                                const Handle(IGESData_IGESReaderData)& /*IR*/,
                                                IGESData_ParamReader& PR) const
 {
@@ -60,7 +60,7 @@ void IGESGraph_ToolDrawingUnits::ReadOwnParams(const Handle(IGESGraph_DrawingUni
   ent->Init(nbPropertyValues, flag, unit);
 }
 
-void IGESGraph_ToolDrawingUnits::WriteOwnParams(const Handle(IGESGraph_DrawingUnits)& ent,
+void DrawingUnitsTool::WriteOwnParams(const Handle(IGESGraph_DrawingUnits)& ent,
                                                 IGESData_IGESWriter&                  IW) const
 {
   IW.Send(ent->NbPropertyValues());
@@ -68,12 +68,12 @@ void IGESGraph_ToolDrawingUnits::WriteOwnParams(const Handle(IGESGraph_DrawingUn
   IW.Send(ent->Unit());
 }
 
-void IGESGraph_ToolDrawingUnits::OwnShared(const Handle(IGESGraph_DrawingUnits)& /*ent*/,
+void DrawingUnitsTool::OwnShared(const Handle(IGESGraph_DrawingUnits)& /*ent*/,
                                            Interface_EntityIterator& /*iter*/) const
 {
 }
 
-void IGESGraph_ToolDrawingUnits::OwnCopy(const Handle(IGESGraph_DrawingUnits)& another,
+void DrawingUnitsTool::OwnCopy(const Handle(IGESGraph_DrawingUnits)& another,
                                          const Handle(IGESGraph_DrawingUnits)& ent,
                                          Interface_CopyTool& /*TC*/) const
 {
@@ -88,7 +88,7 @@ void IGESGraph_ToolDrawingUnits::OwnCopy(const Handle(IGESGraph_DrawingUnits)& a
   ent->Init(NbPropertyValues, Flag, Unit);
 }
 
-Standard_Boolean IGESGraph_ToolDrawingUnits::OwnCorrect(
+Standard_Boolean DrawingUnitsTool::OwnCorrect(
   const Handle(IGESGraph_DrawingUnits)& ent) const
 {
   Standard_Boolean res = (ent->NbPropertyValues() != 2);
@@ -174,10 +174,10 @@ Standard_Boolean IGESGraph_ToolDrawingUnits::OwnCorrect(
   return res;
 }
 
-IGESData_DirChecker IGESGraph_ToolDrawingUnits::DirChecker(
+DirectoryChecker DrawingUnitsTool::DirChecker(
   const Handle(IGESGraph_DrawingUnits)& /*ent*/) const
 {
-  IGESData_DirChecker DC(406, 17);
+  DirectoryChecker DC(406, 17);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -188,7 +188,7 @@ IGESData_DirChecker IGESGraph_ToolDrawingUnits::DirChecker(
   return DC;
 }
 
-void IGESGraph_ToolDrawingUnits::OwnCheck(const Handle(IGESGraph_DrawingUnits)& ent,
+void DrawingUnitsTool::OwnCheck(const Handle(IGESGraph_DrawingUnits)& ent,
                                           const Interface_ShareTool&,
                                           Handle(Interface_Check)& ach) const
 {
@@ -249,7 +249,7 @@ void IGESGraph_ToolDrawingUnits::OwnCheck(const Handle(IGESGraph_DrawingUnits)& 
   }
 }
 
-void IGESGraph_ToolDrawingUnits::OwnDump(const Handle(IGESGraph_DrawingUnits)& ent,
+void DrawingUnitsTool::OwnDump(const Handle(IGESGraph_DrawingUnits)& ent,
                                          const IGESData_IGESDumper& /*dumper*/,
                                          Standard_OStream& S,
                                          const Standard_Integer /*level*/) const

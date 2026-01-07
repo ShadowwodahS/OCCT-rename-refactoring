@@ -40,7 +40,7 @@ public:
   //! object aPresentation. Their display attributes are
   //! defined by the attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Point3d&                     aCenter,
                                   const Standard_Real               aRadius,
                                   const Dir3d&                     aNorm,

@@ -17,7 +17,7 @@
 #include <gp_XY.hxx>
 #include <gp_XYZ.hxx>
 
-inline Standard_Real Plate_Plate::Polm(const gp_XY&           point2d,
+inline Standard_Real Plate_Plate::Polm(const Coords2d&           point2d,
                                        const Standard_Integer iu,
                                        const Standard_Integer iv,
                                        const Standard_Integer idu,
@@ -69,7 +69,7 @@ inline gp_XYZ& Plate_Plate::Solution(const Standard_Integer index) const
   return ((gp_XYZ*)solution)[index];
 }
 
-inline gp_XY& Plate_Plate::Points(const Standard_Integer index) const
+inline Coords2d& Plate_Plate::Points(const Standard_Integer index) const
 {
-  return ((gp_XY*)points)[index];
+  return ((Coords2d*)points)[index];
 }

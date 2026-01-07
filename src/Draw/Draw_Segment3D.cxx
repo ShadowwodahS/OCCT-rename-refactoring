@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Draw_Segment3D, Draw_Drawable3D)
 
 //=================================================================================================
 
-Draw_Segment3D::Draw_Segment3D(const Point3d& p1, const Point3d& p2, const Draw_Color& col)
+Draw_Segment3D::Draw_Segment3D(const Point3d& p1, const Point3d& p2, const DrawColor& col)
     : myFirst(p1),
       myLast(p2),
       myColor(col)
@@ -32,10 +32,10 @@ Draw_Segment3D::Draw_Segment3D(const Point3d& p1, const Point3d& p2, const Draw_
 
 //=================================================================================================
 
-void Draw_Segment3D::DrawOn(Draw_Display& dis) const
+void Draw_Segment3D::DrawOn(DrawDisplay& dis) const
 {
   dis.SetColor(myColor);
-  dis.Draw(myFirst, myLast);
+  dis.Draw1(myFirst, myLast);
 }
 
 //=================================================================================================

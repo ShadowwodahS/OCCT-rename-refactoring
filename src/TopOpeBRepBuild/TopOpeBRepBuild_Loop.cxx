@@ -20,7 +20,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TopOpeBRepBuild_Loop, RefObject)
 
 //=================================================================================================
 
-TopOpeBRepBuild_Loop::TopOpeBRepBuild_Loop(const TopoDS_Shape& S)
+TopOpeBRepBuild_Loop::TopOpeBRepBuild_Loop(const TopoShape& S)
     : myIsShape(Standard_True),
       myShape(S),
       myBlockIterator(0, 0)
@@ -29,7 +29,7 @@ TopOpeBRepBuild_Loop::TopOpeBRepBuild_Loop(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-TopOpeBRepBuild_Loop::TopOpeBRepBuild_Loop(const TopOpeBRepBuild_BlockIterator& BI)
+TopOpeBRepBuild_Loop::TopOpeBRepBuild_Loop(const TopOpeBRepBuildBlockIterator& BI)
     : myIsShape(Standard_False),
       myBlockIterator(BI)
 {
@@ -44,14 +44,14 @@ Standard_Boolean TopOpeBRepBuild_Loop::IsShape() const
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepBuild_Loop::Shape() const
+const TopoShape& TopOpeBRepBuild_Loop::Shape() const
 {
   return myShape;
 }
 
 //=================================================================================================
 
-const TopOpeBRepBuild_BlockIterator& TopOpeBRepBuild_Loop::BlockIterator() const
+const TopOpeBRepBuildBlockIterator& TopOpeBRepBuild_Loop::BlockIterator() const
 {
   return myBlockIterator;
 }

@@ -62,10 +62,10 @@ TopoDSToStep_MakeStepEdge::TopoDSToStep_MakeStepEdge()
   done = Standard_False;
 }
 
-TopoDSToStep_MakeStepEdge::TopoDSToStep_MakeStepEdge(const TopoDS_Edge&                    E,
+TopoDSToStep_MakeStepEdge::TopoDSToStep_MakeStepEdge(const TopoEdge&                    E,
                                                      TopoDSToStep_Tool&                    T,
                                                      const Handle(Transfer_FinderProcess)& FP,
-                                                     const StepData_Factors& theLocalFactors)
+                                                     const ConversionFactors& theLocalFactors)
 {
   done = Standard_False;
   Init(E, T, FP, theLocalFactors);
@@ -76,10 +76,10 @@ TopoDSToStep_MakeStepEdge::TopoDSToStep_MakeStepEdge(const TopoDS_Edge&         
 // Purpose :
 // ----------------------------------------------------------------------------
 
-void TopoDSToStep_MakeStepEdge::Init(const TopoDS_Edge&                    aEdge,
+void TopoDSToStep_MakeStepEdge::Init(const TopoEdge&                    aEdge,
                                      TopoDSToStep_Tool&                    aTool,
                                      const Handle(Transfer_FinderProcess)& FP,
-                                     const StepData_Factors&               theLocalFactors)
+                                     const ConversionFactors&               theLocalFactors)
 {
   // ------------------------------------------------------------------
   // The edge is given with its relative orientation (i.e. in the wire)
@@ -118,7 +118,7 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoDS_Edge&                    aEdge
   Standard_Real    U, U1, U2;
   Point3d           P;
 
-  Standard_Boolean isSeam = BRep_Tool::IsClosed(aEdge, aTool.CurrentFace());
+  Standard_Boolean isSeam = BRepInspector::IsClosed(aEdge, aTool.CurrentFace());
 
   //: i4 abv 02 Sep 98: ProSTEP TR8 Motor.rle f3 & f62: check that edge
   // participates twice in the wires of the face before making it seam
@@ -129,7 +129,7 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoDS_Edge&                    aEdge
   if (isSeam)
   {
     Standard_Integer count = 0;
-    TopExp_Explorer  exp(aTool.CurrentFace(), TopAbs_EDGE);
+    ShapeExplorer  exp(aTool.CurrentFace(), TopAbs_EDGE);
     for (; exp.More(); exp.Next())
       if (aEdge.IsSame(exp.Current()))
         count++;
@@ -150,9 +150,9 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoDS_Edge&                    aEdge
 
   Handle(StepShape_Vertex)                        V1, V2;
   Handle(StepShape_TopologicalRepresentationItem) Gpms2;
-  TopoDS_Vertex                                   Vfirst, Vlast;
+  TopoVertex                                   Vfirst, Vlast;
 
-  TopExp::Vertices(aEdge, Vfirst, Vlast);
+  TopExp1::Vertices(aEdge, Vfirst, Vlast);
 
   TopoDSToStep_MakeStepVertex MkVertex;
 
@@ -185,11 +185,11 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoDS_Edge&                    aEdge
   // ---------------------------------------
   BRepAdaptor_Curve      CA = BRepAdaptor_Curve(aEdge);
   Handle(StepGeom_Curve) Gpms;
-  Handle(Geom_Curve)     C = CA.Curve().Curve();
+  Handle(GeomCurve3d)     C = CA.Curve().Curve();
 
   if (!C.IsNull())
   {
-    C           = Handle(Geom_Curve)::DownCast(C->Copy());
+    C           = Handle(GeomCurve3d)::DownCast(C->Copy());
     Transform3d Tr1 = CA.Trsf();
     C->Transform(Tr1);
     // Special treatment is needed for very short edges based on periodic curves.
@@ -208,8 +208,8 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoDS_Edge&                    aEdge
       // if range obtained from projection of vertices contradicts with range
       // of the edge tnen vertices are swapped to keep results correct after import
       // (see test de step_5 A1)
-      Point3d              aP1 = BRep_Tool::Pnt(Vfirst);
-      Point3d              aP2 = BRep_Tool::Pnt(Vlast);
+      Point3d              aP1 = BRepInspector::Pnt(Vfirst);
+      Point3d              aP2 = BRepInspector::Pnt(Vlast);
       Point3d              pproj;
       ShapeAnalysis_Curve sac;
       sac.Project(C, aP1, Tolerance(), pproj, U1, Standard_False);
@@ -229,10 +229,10 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoDS_Edge&                    aEdge
       // If vertices overlap, we cut only needed part of the BSpline curve.
       // Note that this method cannot be used for canonic curves
       // (STEP does not support trimmed curves in AIC 514).
-      if (C->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+      if (C->IsKind(STANDARD_TYPE(BSplineCurve3d)))
       {
-        Standard_Real    aTolV1       = BRep_Tool::Tolerance(Vfirst);
-        Standard_Real    aTolV2       = BRep_Tool::Tolerance(Vlast);
+        Standard_Real    aTolV1       = BRepInspector::Tolerance(Vfirst);
+        Standard_Real    aTolV2       = BRepInspector::Tolerance(Vlast);
         Point3d           aP11         = CA.Value(CA.FirstParameter());
         Point3d           aP12         = CA.Value(CA.LastParameter());
         Point3d           aPm          = CA.Value((CA.FirstParameter() + CA.LastParameter()) * 0.5);
@@ -241,10 +241,10 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoDS_Edge&                    aEdge
         Standard_Real    aDist2m      = aP12.Distance(aPm);
         Standard_Real    aDistMax     = Max(Max(aDist1m, aDist2m), aDist11);
         Standard_Boolean isSmallCurve = (aDistMax <= aTolV1 || aDistMax <= aTolV2);
-        if (BRepTools::Compare(Vfirst, Vlast) && isSmallCurve && dpar > Precision::PConfusion()
+        if (BRepTools1::Compare(Vfirst, Vlast) && isSmallCurve && dpar > Precision::PConfusion()
             && dpar <= 0.1 * C->Period())
         {
-          Handle(Geom_BSplineCurve) aBspl1 = Handle(Geom_BSplineCurve)::DownCast(C->Copy());
+          Handle(BSplineCurve3d) aBspl1 = Handle(BSplineCurve3d)::DownCast(C->Copy());
           aBspl1->Segment(CA.FirstParameter(), CA.LastParameter());
           C = aBspl1;
         }
@@ -272,7 +272,7 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoDS_Edge&                    aEdge
       U1                    = CA.FirstParameter();
       U2                    = CA.LastParameter();
       Vector3d              V = Vector3d(CA.Value(U1), CA.Value(U2));
-      Handle(Geom_Line)   L = new Geom_Line(CA.Value(U1), Dir3d(V));
+      Handle(GeomLine)   L = new GeomLine(CA.Value(U1), Dir3d(V));
       GeomToStep_MakeLine MkLine(L, theLocalFactors);
       Gpms = MkLine.Value();
     }
@@ -293,11 +293,11 @@ void TopoDSToStep_MakeStepEdge::Init(const TopoDS_Edge&                    aEdge
         Knots.SetValue(i, U);
         Mult.SetValue(i, 1);
       }
-      // Points.SetValue(1, BRep_Tool::Pnt(Vfirst));
-      // Points.SetValue(Nbpt, BRep_Tool::Pnt(Vlast));
+      // Points.SetValue(1, BRepInspector::Pnt(Vfirst));
+      // Points.SetValue(Nbpt, BRepInspector::Pnt(Vlast));
       Mult.SetValue(1, 2);
       Mult.SetValue(Nbpt, 2);
-      Handle(Geom_Curve)   Bs = new Geom_BSplineCurve(Points, Knots, Mult, 1);
+      Handle(GeomCurve3d)   Bs = new BSplineCurve3d(Points, Knots, Mult, 1);
       GeomToStep_MakeCurve MkCurve(Bs, theLocalFactors);
       Gpms = MkCurve.Value();
     }

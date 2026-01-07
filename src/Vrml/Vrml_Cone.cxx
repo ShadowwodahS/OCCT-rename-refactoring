@@ -13,7 +13,7 @@
 
 #include <Vrml_Cone.hxx>
 
-Vrml_Cone::Vrml_Cone(const Vrml_ConeParts aParts,
+Cone::Cone(const Vrml_ConeParts aParts,
                      const Standard_Real  aBottomRadius,
                      const Standard_Real  aHeight)
 {
@@ -22,37 +22,37 @@ Vrml_Cone::Vrml_Cone(const Vrml_ConeParts aParts,
   myHeight       = aHeight;
 }
 
-void Vrml_Cone::SetParts(const Vrml_ConeParts aParts)
+void Cone::SetParts(const Vrml_ConeParts aParts)
 {
   myParts = aParts;
 }
 
-Vrml_ConeParts Vrml_Cone::Parts() const
+Vrml_ConeParts Cone::Parts() const
 {
   return myParts;
 }
 
-void Vrml_Cone::SetBottomRadius(const Standard_Real aBottomRadius)
+void Cone::SetBottomRadius(const Standard_Real aBottomRadius)
 {
   myBottomRadius = aBottomRadius;
 }
 
-Standard_Real Vrml_Cone::BottomRadius() const
+Standard_Real Cone::BottomRadius() const
 {
   return myBottomRadius;
 }
 
-void Vrml_Cone::SetHeight(const Standard_Real aHeight)
+void Cone::SetHeight(const Standard_Real aHeight)
 {
   myHeight = aHeight;
 }
 
-Standard_Real Vrml_Cone::Height() const
+Standard_Real Cone::Height() const
 {
   return myHeight;
 }
 
-Standard_OStream& Vrml_Cone::Print(Standard_OStream& anOStream) const
+Standard_OStream& Cone::Print(Standard_OStream& anOStream) const
 {
   anOStream << "Cone {\n";
 

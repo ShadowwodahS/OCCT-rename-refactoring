@@ -68,7 +68,7 @@ static Standard_Real GetDeflection(const Handle(BRepAdaptor_Surface)&  aFace,
 
 //=================================================================================================
 
-void VrmlConverter_WFDeflectionRestrictedFace::Add(Standard_OStream&                   anOStream,
+void WFDeflectionRestrictedFaceConverter::Add(Standard_OStream&                   anOStream,
                                                    const Handle(BRepAdaptor_Surface)&  aFace,
                                                    const Standard_Boolean              DrawUIso,
                                                    const Standard_Boolean              DrawVIso,
@@ -212,11 +212,11 @@ void VrmlConverter_WFDeflectionRestrictedFace::Add(Standard_OStream&            
   laU = aDrawer->UIsoAspect();
   laV = aDrawer->VIsoAspect();
 
-  Vrml_Separator SE1;
-  Vrml_Separator SE2;
-  Vrml_Separator SE3;
+  Separator SE1;
+  Separator SE2;
+  Separator SE3;
 
-  Standard_Boolean flag = Standard_False; // to check a call of Vrml_Separator.Print(anOStream)
+  Standard_Boolean flag = Standard_False; // to check a call of Separator.Print(anOStream)
 
   SE1.Print(anOStream);
 
@@ -255,7 +255,7 @@ void VrmlConverter_WFDeflectionRestrictedFace::Add(Standard_OStream&            
 
             anIso.Load(GeomAbs_IsoU, Coord, b1, b2);
 
-            VrmlConverter_DeflectionCurve::Add(anOStream, anIso, Deflection, aDrawer);
+            DeflectionCurveConverter::Add(anOStream, anIso, Deflection, aDrawer);
           }
         }
       }
@@ -303,7 +303,7 @@ void VrmlConverter_WFDeflectionRestrictedFace::Add(Standard_OStream&            
 
             anIso.Load(GeomAbs_IsoV, Coord, b1, b2);
 
-            VrmlConverter_DeflectionCurve::Add(anOStream, anIso, Deflection, aDrawer);
+            DeflectionCurveConverter::Add(anOStream, anIso, Deflection, aDrawer);
           }
         }
       }
@@ -327,7 +327,7 @@ void VrmlConverter_WFDeflectionRestrictedFace::Add(Standard_OStream&            
 
 //=================================================================================================
 
-void VrmlConverter_WFDeflectionRestrictedFace::Add(Standard_OStream&                   anOStream,
+void WFDeflectionRestrictedFaceConverter::Add(Standard_OStream&                   anOStream,
                                                    const Handle(BRepAdaptor_Surface)&  aFace,
                                                    const Handle(VrmlConverter_Drawer)& aDrawer)
 {
@@ -337,7 +337,7 @@ void VrmlConverter_WFDeflectionRestrictedFace::Add(Standard_OStream&            
   Standard_Integer finu = aDrawer->UIsoAspect()->Number();
   Standard_Integer finv = aDrawer->VIsoAspect()->Number();
 
-  VrmlConverter_WFDeflectionRestrictedFace::Add(anOStream,
+  WFDeflectionRestrictedFaceConverter::Add(anOStream,
                                                 aFace,
                                                 Standard_True,
                                                 Standard_True,
@@ -349,7 +349,7 @@ void VrmlConverter_WFDeflectionRestrictedFace::Add(Standard_OStream&            
 
 //=================================================================================================
 
-void VrmlConverter_WFDeflectionRestrictedFace::AddUIso(Standard_OStream&                  anOStream,
+void WFDeflectionRestrictedFaceConverter::AddUIso(Standard_OStream&                  anOStream,
                                                        const Handle(BRepAdaptor_Surface)& aFace,
                                                        const Handle(VrmlConverter_Drawer)& aDrawer)
 {
@@ -358,7 +358,7 @@ void VrmlConverter_WFDeflectionRestrictedFace::AddUIso(Standard_OStream&        
 
   Standard_Integer finu = aDrawer->UIsoAspect()->Number();
   Standard_Integer finv = aDrawer->VIsoAspect()->Number();
-  VrmlConverter_WFDeflectionRestrictedFace::Add(anOStream,
+  WFDeflectionRestrictedFaceConverter::Add(anOStream,
                                                 aFace,
                                                 Standard_True,
                                                 Standard_False,
@@ -370,7 +370,7 @@ void VrmlConverter_WFDeflectionRestrictedFace::AddUIso(Standard_OStream&        
 
 //=================================================================================================
 
-void VrmlConverter_WFDeflectionRestrictedFace::AddVIso(Standard_OStream&                  anOStream,
+void WFDeflectionRestrictedFaceConverter::AddVIso(Standard_OStream&                  anOStream,
                                                        const Handle(BRepAdaptor_Surface)& aFace,
                                                        const Handle(VrmlConverter_Drawer)& aDrawer)
 {
@@ -379,7 +379,7 @@ void VrmlConverter_WFDeflectionRestrictedFace::AddVIso(Standard_OStream&        
 
   Standard_Integer finu = aDrawer->UIsoAspect()->Number();
   Standard_Integer finv = aDrawer->VIsoAspect()->Number();
-  VrmlConverter_WFDeflectionRestrictedFace::Add(anOStream,
+  WFDeflectionRestrictedFaceConverter::Add(anOStream,
                                                 aFace,
                                                 Standard_False,
                                                 Standard_True,

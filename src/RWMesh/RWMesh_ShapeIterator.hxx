@@ -25,7 +25,7 @@
 
 #include <algorithm>
 
-class TDF_Label;
+class DataLabel;
 
 //! This is a virtual base class for other shape iterators.
 //! Provides an abstract interface for iterating over the elements of a shape.
@@ -35,10 +35,10 @@ class RWMesh_ShapeIterator
 {
 public:
   //! Return explored shape.
-  const TopoDS_Shape& ExploredShape() const { return myIter.ExploredShape(); }
+  const TopoShape& ExploredShape() const { return myIter.ExploredShape(); }
 
   //! Return shape.
-  Standard_EXPORT virtual const TopoDS_Shape& Shape() const = 0;
+  Standard_EXPORT virtual const TopoShape& Shape() const = 0;
 
   //! Return true if iterator points to the valid triangulation.
   Standard_EXPORT virtual bool More() const = 0;
@@ -86,7 +86,7 @@ protected:
   virtual Point3d node(const Standard_Integer theNode) const = 0;
 
   //! Main constructor.
-  RWMesh_ShapeIterator(const TDF_Label&       theLabel,
+  RWMesh_ShapeIterator(const DataLabel&       theLabel,
                        const TopLoc_Location& theLocation,
                        const TopAbs_ShapeEnum theShapeTypeFind,
                        const TopAbs_ShapeEnum theShapeTypeAvoid,
@@ -94,13 +94,13 @@ protected:
                        const XCAFPrs_Style&   theStyle       = XCAFPrs_Style());
 
   //! Auxiliary constructor.
-  RWMesh_ShapeIterator(const TopoDS_Shape&    theShape,
+  RWMesh_ShapeIterator(const TopoShape&    theShape,
                        const TopAbs_ShapeEnum theShapeTypeFind,
                        const TopAbs_ShapeEnum theShapeTypeAvoid,
                        const XCAFPrs_Style&   theStyle = XCAFPrs_Style());
 
   //! Dispatch shape styles.
-  void dispatchStyles(const TDF_Label&       theLabel,
+  void dispatchStyles(const DataLabel&       theLabel,
                       const TopLoc_Location& theLocation,
                       const XCAFPrs_Style&   theStyle);
 
@@ -116,12 +116,12 @@ protected:
   void initShape();
 
 protected:
-  NCollection_DataMap<TopoDS_Shape, XCAFPrs_Style, TopTools_ShapeMapHasher>
+  NCollection_DataMap<TopoShape, XCAFPrs_Style, ShapeHasher>
                    myStyles;      //!< Shape -> Style map
   XCAFPrs_Style    myDefStyle;    //!< default style for shapes without dedicated style
   Standard_Boolean myToMapColors; //!< flag to dispatch styles
 
-  TopExp_Explorer    myIter;      //!< shape explorer
+  ShapeExplorer    myIter;      //!< shape explorer
   TopLoc_Location    myLocation;  //!< current shape location
   Transform3d            myTrsf;      //!< current shape transformation
   XCAFPrs_Style      myStyle;     //!< current shape style

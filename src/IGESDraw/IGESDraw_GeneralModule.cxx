@@ -66,7 +66,7 @@ void IGESDraw_GeneralModule::OwnSharedCase(const Standard_Integer             CN
       DeclareAndCast(IGESDraw_CircArraySubfigure, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolCircArraySubfigure tool;
+      CircArraySubfigureTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -74,7 +74,7 @@ void IGESDraw_GeneralModule::OwnSharedCase(const Standard_Integer             CN
       DeclareAndCast(IGESDraw_ConnectPoint, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolConnectPoint tool;
+      ConnectPointTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -82,7 +82,7 @@ void IGESDraw_GeneralModule::OwnSharedCase(const Standard_Integer             CN
       DeclareAndCast(IGESDraw_Drawing, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolDrawing tool;
+      DrawingTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -90,7 +90,7 @@ void IGESDraw_GeneralModule::OwnSharedCase(const Standard_Integer             CN
       DeclareAndCast(IGESDraw_DrawingWithRotation, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolDrawingWithRotation tool;
+      DrawingWithRotationTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -98,7 +98,7 @@ void IGESDraw_GeneralModule::OwnSharedCase(const Standard_Integer             CN
       DeclareAndCast(IGESDraw_LabelDisplay, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolLabelDisplay tool;
+      LabelDisplayTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -106,7 +106,7 @@ void IGESDraw_GeneralModule::OwnSharedCase(const Standard_Integer             CN
       DeclareAndCast(IGESDraw_NetworkSubfigure, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolNetworkSubfigure tool;
+      NetworkSubfigureTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -114,7 +114,7 @@ void IGESDraw_GeneralModule::OwnSharedCase(const Standard_Integer             CN
       DeclareAndCast(IGESDraw_NetworkSubfigureDef, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolNetworkSubfigureDef tool;
+      NetworkSubfigureDefTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -122,7 +122,7 @@ void IGESDraw_GeneralModule::OwnSharedCase(const Standard_Integer             CN
       DeclareAndCast(IGESDraw_PerspectiveView, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolPerspectiveView tool;
+      PerspectiveViewTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -130,7 +130,7 @@ void IGESDraw_GeneralModule::OwnSharedCase(const Standard_Integer             CN
       DeclareAndCast(IGESDraw_Planar, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolPlanar tool;
+      PlanarTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -138,7 +138,7 @@ void IGESDraw_GeneralModule::OwnSharedCase(const Standard_Integer             CN
       DeclareAndCast(IGESDraw_RectArraySubfigure, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolRectArraySubfigure tool;
+      RectArraySubfigureTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -146,7 +146,7 @@ void IGESDraw_GeneralModule::OwnSharedCase(const Standard_Integer             CN
       DeclareAndCast(IGESDraw_SegmentedViewsVisible, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolSegmentedViewsVisible tool;
+      SegmentedViewsVisibleTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -154,7 +154,7 @@ void IGESDraw_GeneralModule::OwnSharedCase(const Standard_Integer             CN
       DeclareAndCast(IGESDraw_View, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolView tool;
+      ViewTool1 tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -162,7 +162,7 @@ void IGESDraw_GeneralModule::OwnSharedCase(const Standard_Integer             CN
       DeclareAndCast(IGESDraw_ViewsVisible, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolViewsVisible tool;
+      ViewsVisibleTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -170,7 +170,7 @@ void IGESDraw_GeneralModule::OwnSharedCase(const Standard_Integer             CN
       DeclareAndCast(IGESDraw_ViewsVisibleWithAttr, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolViewsVisibleWithAttr tool;
+      ViewsVisibleWithAttrTool tool;
       tool.OwnShared(anent, iter);
     }
     break;
@@ -189,7 +189,7 @@ void IGESDraw_GeneralModule::OwnImpliedCase(const Standard_Integer             C
       DeclareAndCast(IGESDraw_ViewsVisible, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolViewsVisible tool;
+      ViewsVisibleTool tool;
       tool.OwnImplied(anent, iter);
     }
     break;
@@ -197,7 +197,7 @@ void IGESDraw_GeneralModule::OwnImpliedCase(const Standard_Integer             C
       DeclareAndCast(IGESDraw_ViewsVisibleWithAttr, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolViewsVisibleWithAttr tool;
+      ViewsVisibleWithAttrTool tool;
       tool.OwnImplied(anent, iter);
     }
     break;
@@ -206,7 +206,7 @@ void IGESDraw_GeneralModule::OwnImpliedCase(const Standard_Integer             C
   }
 }
 
-IGESData_DirChecker IGESDraw_GeneralModule::DirChecker(const Standard_Integer             CN,
+DirectoryChecker IGESDraw_GeneralModule::DirChecker(const Standard_Integer             CN,
                                                        const Handle(IGESData_IGESEntity)& ent) const
 {
   switch (CN)
@@ -215,104 +215,104 @@ IGESData_DirChecker IGESDraw_GeneralModule::DirChecker(const Standard_Integer   
       DeclareAndCast(IGESDraw_CircArraySubfigure, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolCircArraySubfigure tool;
+      CircArraySubfigureTool tool;
       return tool.DirChecker(anent);
     }
     case 2: {
       DeclareAndCast(IGESDraw_ConnectPoint, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolConnectPoint tool;
+      ConnectPointTool tool;
       return tool.DirChecker(anent);
     }
     case 3: {
       DeclareAndCast(IGESDraw_Drawing, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolDrawing tool;
+      DrawingTool tool;
       return tool.DirChecker(anent);
     }
     case 4: {
       DeclareAndCast(IGESDraw_DrawingWithRotation, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolDrawingWithRotation tool;
+      DrawingWithRotationTool tool;
       return tool.DirChecker(anent);
     }
     case 5: {
       DeclareAndCast(IGESDraw_LabelDisplay, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolLabelDisplay tool;
+      LabelDisplayTool tool;
       return tool.DirChecker(anent);
     }
     case 6: {
       DeclareAndCast(IGESDraw_NetworkSubfigure, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolNetworkSubfigure tool;
+      NetworkSubfigureTool tool;
       return tool.DirChecker(anent);
     }
     case 7: {
       DeclareAndCast(IGESDraw_NetworkSubfigureDef, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolNetworkSubfigureDef tool;
+      NetworkSubfigureDefTool tool;
       return tool.DirChecker(anent);
     }
     case 8: {
       DeclareAndCast(IGESDraw_PerspectiveView, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolPerspectiveView tool;
+      PerspectiveViewTool tool;
       return tool.DirChecker(anent);
     }
     case 9: {
       DeclareAndCast(IGESDraw_Planar, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolPlanar tool;
+      PlanarTool tool;
       return tool.DirChecker(anent);
     }
     case 10: {
       DeclareAndCast(IGESDraw_RectArraySubfigure, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolRectArraySubfigure tool;
+      RectArraySubfigureTool tool;
       return tool.DirChecker(anent);
     }
     case 11: {
       DeclareAndCast(IGESDraw_SegmentedViewsVisible, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolSegmentedViewsVisible tool;
+      SegmentedViewsVisibleTool tool;
       return tool.DirChecker(anent);
     }
     case 12: {
       DeclareAndCast(IGESDraw_View, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolView tool;
+      ViewTool1 tool;
       return tool.DirChecker(anent);
     }
     case 13: {
       DeclareAndCast(IGESDraw_ViewsVisible, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolViewsVisible tool;
+      ViewsVisibleTool tool;
       return tool.DirChecker(anent);
     }
     case 14: {
       DeclareAndCast(IGESDraw_ViewsVisibleWithAttr, anent, ent);
       if (anent.IsNull())
         break;
-      IGESDraw_ToolViewsVisibleWithAttr tool;
+      ViewsVisibleWithAttrTool tool;
       return tool.DirChecker(anent);
     }
     default:
       break;
   }
-  return IGESData_DirChecker(); // by default, no specific criterium
+  return DirectoryChecker(); // by default, no specific criterium
 }
 
 void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
@@ -326,7 +326,7 @@ void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
       DeclareAndCast(IGESDraw_CircArraySubfigure, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolCircArraySubfigure tool;
+      CircArraySubfigureTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -334,7 +334,7 @@ void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
       DeclareAndCast(IGESDraw_ConnectPoint, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolConnectPoint tool;
+      ConnectPointTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -342,7 +342,7 @@ void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
       DeclareAndCast(IGESDraw_Drawing, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolDrawing tool;
+      DrawingTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -350,7 +350,7 @@ void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
       DeclareAndCast(IGESDraw_DrawingWithRotation, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolDrawingWithRotation tool;
+      DrawingWithRotationTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -358,7 +358,7 @@ void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
       DeclareAndCast(IGESDraw_LabelDisplay, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolLabelDisplay tool;
+      LabelDisplayTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -366,7 +366,7 @@ void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
       DeclareAndCast(IGESDraw_NetworkSubfigure, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolNetworkSubfigure tool;
+      NetworkSubfigureTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -374,7 +374,7 @@ void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
       DeclareAndCast(IGESDraw_NetworkSubfigureDef, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolNetworkSubfigureDef tool;
+      NetworkSubfigureDefTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -382,7 +382,7 @@ void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
       DeclareAndCast(IGESDraw_PerspectiveView, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolPerspectiveView tool;
+      PerspectiveViewTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -390,7 +390,7 @@ void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
       DeclareAndCast(IGESDraw_Planar, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolPlanar tool;
+      PlanarTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -398,7 +398,7 @@ void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
       DeclareAndCast(IGESDraw_RectArraySubfigure, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolRectArraySubfigure tool;
+      RectArraySubfigureTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -406,7 +406,7 @@ void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
       DeclareAndCast(IGESDraw_SegmentedViewsVisible, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolSegmentedViewsVisible tool;
+      SegmentedViewsVisibleTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -414,7 +414,7 @@ void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
       DeclareAndCast(IGESDraw_View, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolView tool;
+      ViewTool1 tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -422,7 +422,7 @@ void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
       DeclareAndCast(IGESDraw_ViewsVisible, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolViewsVisible tool;
+      ViewsVisibleTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -430,7 +430,7 @@ void IGESDraw_GeneralModule::OwnCheckCase(const Standard_Integer             CN,
       DeclareAndCast(IGESDraw_ViewsVisibleWithAttr, anent, ent);
       if (anent.IsNull())
         return;
-      IGESDraw_ToolViewsVisibleWithAttr tool;
+      ViewsVisibleWithAttrTool tool;
       tool.OwnCheck(anent, shares, ach);
     }
     break;
@@ -502,98 +502,98 @@ void IGESDraw_GeneralModule::OwnCopyCase(const Standard_Integer             CN,
     case 1: {
       DeclareAndCast(IGESDraw_CircArraySubfigure, enfr, entfrom);
       DeclareAndCast(IGESDraw_CircArraySubfigure, ento, entto);
-      IGESDraw_ToolCircArraySubfigure tool;
+      CircArraySubfigureTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 2: {
       DeclareAndCast(IGESDraw_ConnectPoint, enfr, entfrom);
       DeclareAndCast(IGESDraw_ConnectPoint, ento, entto);
-      IGESDraw_ToolConnectPoint tool;
+      ConnectPointTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 3: {
       DeclareAndCast(IGESDraw_Drawing, enfr, entfrom);
       DeclareAndCast(IGESDraw_Drawing, ento, entto);
-      IGESDraw_ToolDrawing tool;
+      DrawingTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 4: {
       DeclareAndCast(IGESDraw_DrawingWithRotation, enfr, entfrom);
       DeclareAndCast(IGESDraw_DrawingWithRotation, ento, entto);
-      IGESDraw_ToolDrawingWithRotation tool;
+      DrawingWithRotationTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 5: {
       DeclareAndCast(IGESDraw_LabelDisplay, enfr, entfrom);
       DeclareAndCast(IGESDraw_LabelDisplay, ento, entto);
-      IGESDraw_ToolLabelDisplay tool;
+      LabelDisplayTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 6: {
       DeclareAndCast(IGESDraw_NetworkSubfigure, enfr, entfrom);
       DeclareAndCast(IGESDraw_NetworkSubfigure, ento, entto);
-      IGESDraw_ToolNetworkSubfigure tool;
+      NetworkSubfigureTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 7: {
       DeclareAndCast(IGESDraw_NetworkSubfigureDef, enfr, entfrom);
       DeclareAndCast(IGESDraw_NetworkSubfigureDef, ento, entto);
-      IGESDraw_ToolNetworkSubfigureDef tool;
+      NetworkSubfigureDefTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 8: {
       DeclareAndCast(IGESDraw_PerspectiveView, enfr, entfrom);
       DeclareAndCast(IGESDraw_PerspectiveView, ento, entto);
-      IGESDraw_ToolPerspectiveView tool;
+      PerspectiveViewTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 9: {
       DeclareAndCast(IGESDraw_Planar, enfr, entfrom);
       DeclareAndCast(IGESDraw_Planar, ento, entto);
-      IGESDraw_ToolPlanar tool;
+      PlanarTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 10: {
       DeclareAndCast(IGESDraw_RectArraySubfigure, enfr, entfrom);
       DeclareAndCast(IGESDraw_RectArraySubfigure, ento, entto);
-      IGESDraw_ToolRectArraySubfigure tool;
+      RectArraySubfigureTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 11: {
       DeclareAndCast(IGESDraw_SegmentedViewsVisible, enfr, entfrom);
       DeclareAndCast(IGESDraw_SegmentedViewsVisible, ento, entto);
-      IGESDraw_ToolSegmentedViewsVisible tool;
+      SegmentedViewsVisibleTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 12: {
       DeclareAndCast(IGESDraw_View, enfr, entfrom);
       DeclareAndCast(IGESDraw_View, ento, entto);
-      IGESDraw_ToolView tool;
+      ViewTool1 tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 13: {
       DeclareAndCast(IGESDraw_ViewsVisible, enfr, entfrom);
       DeclareAndCast(IGESDraw_ViewsVisible, ento, entto);
-      IGESDraw_ToolViewsVisible tool;
+      ViewsVisibleTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
     case 14: {
       DeclareAndCast(IGESDraw_ViewsVisibleWithAttr, enfr, entfrom);
       DeclareAndCast(IGESDraw_ViewsVisibleWithAttr, ento, entto);
-      IGESDraw_ToolViewsVisibleWithAttr tool;
+      ViewsVisibleWithAttrTool tool;
       tool.OwnCopy(enfr, ento, TC);
     }
     break;
@@ -612,14 +612,14 @@ void IGESDraw_GeneralModule::OwnRenewCase(const Standard_Integer             CN,
     case 13: {
       DeclareAndCast(IGESDraw_ViewsVisible, enfr, entfrom);
       DeclareAndCast(IGESDraw_ViewsVisible, ento, entto);
-      IGESDraw_ToolViewsVisible tool;
+      ViewsVisibleTool tool;
       tool.OwnRenew(enfr, ento, TC);
     }
     break;
     case 14: {
       DeclareAndCast(IGESDraw_ViewsVisibleWithAttr, enfr, entfrom);
       DeclareAndCast(IGESDraw_ViewsVisibleWithAttr, ento, entto);
-      IGESDraw_ToolViewsVisibleWithAttr tool;
+      ViewsVisibleWithAttrTool tool;
       tool.OwnRenew(enfr, ento, TC);
     }
     break;
@@ -635,13 +635,13 @@ void IGESDraw_GeneralModule::OwnDeleteCase(const Standard_Integer             CN
   {
     case 13: {
       DeclareAndCast(IGESDraw_ViewsVisible, anent, ent);
-      IGESDraw_ToolViewsVisible tool;
+      ViewsVisibleTool tool;
       tool.OwnWhenDelete(anent);
     }
     break;
     case 14: {
       DeclareAndCast(IGESDraw_ViewsVisibleWithAttr, anent, ent);
-      IGESDraw_ToolViewsVisibleWithAttr tool;
+      ViewsVisibleWithAttrTool tool;
       tool.OwnWhenDelete(anent);
     }
     break;

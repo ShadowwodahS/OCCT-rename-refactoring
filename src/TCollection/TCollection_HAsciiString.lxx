@@ -39,7 +39,7 @@ inline Standard_Integer TCollection_HAsciiString::Length() const
 // ----------------------------------------------------------------------------
 // String
 // ----------------------------------------------------------------------------
-inline const TCollection_AsciiString& TCollection_HAsciiString::String() const
+inline const AsciiString1& TCollection_HAsciiString::String() const
 {
   return myString;
 }
@@ -59,7 +59,7 @@ struct hash<Handle(TCollection_HAsciiString)>
   {
     if (theString.IsNull())
       return 0;
-    return std::hash<TCollection_AsciiString>{}(theString->String());
+    return std::hash<AsciiString1>{}(theString->String());
   }
 };
 

@@ -225,7 +225,7 @@ Standard_Boolean TransferBRep_Reader::IsDone() const
 
 //   ######    RESULTAT : SHAPES    ######
 
-Standard_Integer TransferBRep_Reader::NbShapes() const
+Standard_Integer TransferBRep_Reader::NbShapes1() const
 {
   return theShapes->Length();
 }
@@ -235,14 +235,14 @@ Handle(TopTools_HSequenceOfShape) TransferBRep_Reader::Shapes() const
   return theShapes;
 }
 
-const TopoDS_Shape& TransferBRep_Reader::Shape(const Standard_Integer num) const
+const TopoShape& TransferBRep_Reader::Shape(const Standard_Integer num) const
 {
   return theShapes->Value(num);
 }
 
-TopoDS_Shape TransferBRep_Reader::OneShape() const
+TopoShape TransferBRep_Reader::OneShape() const
 {
-  TopoDS_Shape     res;
+  TopoShape     res;
   Standard_Integer nb = theShapes->Length();
   if (nb == 0)
     return res;
@@ -250,8 +250,8 @@ TopoDS_Shape TransferBRep_Reader::OneShape() const
     return theShapes->Value(1);
   else
   {
-    TopoDS_Compound C;
-    BRep_Builder    B;
+    TopoCompound C;
+    ShapeBuilder    B;
     B.MakeCompound(C);
     for (Standard_Integer i = 1; i <= nb; i++)
       B.Add(C, theShapes->Value(i));
@@ -259,7 +259,7 @@ TopoDS_Shape TransferBRep_Reader::OneShape() const
   }
 }
 
-TopoDS_Shape TransferBRep_Reader::ShapeResult(const Handle(RefObject)& ent) const
+TopoShape TransferBRep_Reader::ShapeResult(const Handle(RefObject)& ent) const
 {
   return TransferBRep::ShapeResult(theProc, ent);
 }

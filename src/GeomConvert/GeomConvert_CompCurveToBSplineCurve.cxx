@@ -46,10 +46,10 @@ GeomConvert_CompCurveToBSplineCurve::GeomConvert_CompCurveToBSplineCurve(
     : myTol(Precision::Confusion()),
       myType(Parameterisation)
 {
-  Handle(Geom_BSplineCurve) Bs = Handle(Geom_BSplineCurve)::DownCast(BasisCurve);
+  Handle(BSplineCurve3d) Bs = Handle(BSplineCurve3d)::DownCast(BasisCurve);
   if (!Bs.IsNull())
   {
-    myCurve = Handle(Geom_BSplineCurve)::DownCast(BasisCurve->Copy());
+    myCurve = Handle(BSplineCurve3d)::DownCast(BasisCurve->Copy());
   }
   else
   {
@@ -66,10 +66,10 @@ Standard_Boolean GeomConvert_CompCurveToBSplineCurve::Add(const Handle(Geom_Boun
                                                           const Standard_Integer MinM)
 {
   // conversion
-  Handle(Geom_BSplineCurve) Bs = Handle(Geom_BSplineCurve)::DownCast(NewCurve);
+  Handle(BSplineCurve3d) Bs = Handle(BSplineCurve3d)::DownCast(NewCurve);
   if (!Bs.IsNull())
   {
-    Bs = Handle(Geom_BSplineCurve)::DownCast(NewCurve->Copy());
+    Bs = Handle(BSplineCurve3d)::DownCast(NewCurve->Copy());
   }
   else
   {
@@ -124,8 +124,8 @@ Standard_Boolean GeomConvert_CompCurveToBSplineCurve::Add(const Handle(Geom_Boun
   return Standard_False;
 }
 
-void GeomConvert_CompCurveToBSplineCurve::Add(Handle(Geom_BSplineCurve)& FirstCurve,
-                                              Handle(Geom_BSplineCurve)& SecondCurve,
+void GeomConvert_CompCurveToBSplineCurve::Add(Handle(BSplineCurve3d)& FirstCurve,
+                                              Handle(BSplineCurve3d)& SecondCurve,
                                               const Standard_Boolean     After,
                                               const Standard_Boolean     WithRatio,
                                               const Standard_Integer     MinM)
@@ -235,7 +235,7 @@ void GeomConvert_CompCurveToBSplineCurve::Add(Handle(Geom_BSplineCurve)& FirstCu
   }
 
   // Creation de la BSpline
-  myCurve = new (Geom_BSplineCurve)(Poles, Poids, Noeuds, Mults, Deg);
+  myCurve = new (BSplineCurve3d)(Poles, Poids, Noeuds, Mults, Deg);
 
   // Reduction eventuelle de la multiplicite jusqu'a MinM
   Standard_Boolean Ok = Standard_True;
@@ -249,7 +249,7 @@ void GeomConvert_CompCurveToBSplineCurve::Add(Handle(Geom_BSplineCurve)& FirstCu
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) GeomConvert_CompCurveToBSplineCurve::BSplineCurve() const
+Handle(BSplineCurve3d) GeomConvert_CompCurveToBSplineCurve::BSplineCurve() const
 {
   return myCurve;
 }

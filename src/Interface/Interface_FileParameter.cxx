@@ -24,7 +24,7 @@ Interface_FileParameter::Interface_FileParameter()
 
 //=================================================================================================
 
-void Interface_FileParameter::Init(const TCollection_AsciiString& val,
+void Interface_FileParameter::Init(const AsciiString1& val,
                                    const Interface_ParamType      typ)
 {
   theval = new char[val.Length() + 1];

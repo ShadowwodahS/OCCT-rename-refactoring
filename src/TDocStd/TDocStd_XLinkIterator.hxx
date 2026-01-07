@@ -22,7 +22,7 @@
 
 #include <TDocStd_XLinkPtr.hxx>
 #include <Standard_Boolean.hxx>
-class TDocStd_Document;
+class AppDocument;
 
 //! Iterates on Reference attributes.
 //! This is an iterator giving all the external references
@@ -36,10 +36,10 @@ public:
   Standard_EXPORT TDocStd_XLinkIterator();
 
   //! Creates an iterator on Reference of <D>.
-  Standard_EXPORT TDocStd_XLinkIterator(const Handle(TDocStd_Document)& D);
+  Standard_EXPORT TDocStd_XLinkIterator(const Handle(AppDocument)& D);
 
   //! Restarts an iteration with <D>.
-  Standard_EXPORT void Initialize(const Handle(TDocStd_Document)& D);
+  Standard_EXPORT void Initialize(const Handle(AppDocument)& D);
 
   //! Returns True if there is a current Item in the
   //! iteration.
@@ -53,7 +53,7 @@ public:
 
 protected:
 private:
-  Standard_EXPORT void Init(const Handle(TDocStd_Document)& D);
+  Standard_EXPORT void Init(const Handle(AppDocument)& D);
 
   TDocStd_XLinkPtr myValue;
 };

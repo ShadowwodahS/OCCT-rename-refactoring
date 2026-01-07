@@ -32,10 +32,10 @@ class IGESData_IGESModel;
 //! As in XSControl_Reader, you specify the list using a selection.
 //! For translation of iges files it is possible to use the following sequence:
 //! To change parameters of translation
-//! class Interface_Static should be used before the beginning of translation
+//! class ExchangeConfig should be used before the beginning of translation
 //! (see IGES Parameters and General Parameters)
 //! Creation of reader
-//! IGESControl_Reader reader;
+//! IgesFileReader reader;
 //! To load a file in a model use method:
 //! reader.ReadFile("filename.igs")
 //! To check a loading file use method Check:
@@ -54,24 +54,24 @@ class IGESData_IGESModel;
 //! reader.TransferEntity(ent) or reader.Transfer(num);
 //! To obtain a result the following method can be used:
 //! reader.IsDone()
-//! reader.NbShapes() and reader.Shape(num); or reader.OneShape();
+//! reader.NbShapes1() and reader.Shape(num); or reader.OneShape();
 //! To print the results of transfer use method:
 //! reader.PrintTransferInfo(failwarn,mode); where printfail is equal to the
 //! value of enumeration IFSelect_PrintFail, mode see above.
 //! Gets correspondence between an IGES entity and a result shape obtained therefrom.
 //! reader.TransientProcess();
-//! TopoDS_Shape shape =
+//! TopoShape shape =
 //! TransferBRep::ShapeResult(reader.TransientProcess(),ent);
-class IGESControl_Reader : public XSControl_Reader
+class IgesFileReader : public XSControl_Reader
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates a Reader from scratch
-  Standard_EXPORT IGESControl_Reader();
+  Standard_EXPORT IgesFileReader();
 
   //! Creates a Reader from an already existing Session
-  Standard_EXPORT IGESControl_Reader(const Handle(XSControl_WorkSession)& WS,
+  Standard_EXPORT IgesFileReader(const Handle(ExchangeSession)& WS,
                                      const Standard_Boolean               scratch = Standard_True);
 
   //! Set the transion of ALL Roots (if theReadOnlyVisible is False)
@@ -96,7 +96,7 @@ public:
 protected:
   //! Returns default parameters for shape fixing.
   //! @return default parameters for shape fixing.
-  Standard_EXPORT virtual DE_ShapeFixParameters GetDefaultShapeFixParameters() const
+  Standard_EXPORT virtual ShapeFixParameters GetDefaultShapeFixParameters() const
     Standard_OVERRIDE;
 
   //! Returns default flags for shape processing.

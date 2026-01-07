@@ -27,7 +27,7 @@
 class IGESData_IGESModel;
 class Transfer_FinderProcess;
 class IGESData_IGESEntity;
-class TopoDS_Shape;
+class TopoShape;
 class RefObject;
 
 //! provides methods to transfer BRep entity from CASCADE to IGES.
@@ -62,14 +62,14 @@ public:
   //! Returns the result of the transfert of any Shape
   //! If  the transfer has  failed, this member return a NullEntity.
   Standard_EXPORT virtual Handle(IGESData_IGESEntity) TransferShape(
-    const TopoDS_Shape&          start,
+    const TopoShape&          start,
     const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Records a new Fail message
-  Standard_EXPORT void AddFail(const TopoDS_Shape& start, const Standard_CString amess);
+  Standard_EXPORT void AddFail(const TopoShape& start, const Standard_CString amess);
 
   //! Records a new Warning message
-  Standard_EXPORT void AddWarning(const TopoDS_Shape& start, const Standard_CString amess);
+  Standard_EXPORT void AddWarning(const TopoShape& start, const Standard_CString amess);
 
   //! Records a new Fail message
   Standard_EXPORT void AddFail(const Handle(RefObject)& start,
@@ -81,14 +81,14 @@ public:
 
   //! Returns True if start was already treated and has a result in "TheMap"
   //! else returns False.
-  Standard_EXPORT Standard_Boolean HasShapeResult(const TopoDS_Shape& start) const;
+  Standard_EXPORT Standard_Boolean HasShapeResult(const TopoShape& start) const;
 
   //! Returns the result of the transfer of the Shape "start" contained
   //! in "TheMap" . (if HasShapeResult is True).
-  Standard_EXPORT Handle(RefObject) GetShapeResult(const TopoDS_Shape& start) const;
+  Standard_EXPORT Handle(RefObject) GetShapeResult(const TopoShape& start) const;
 
   //! set in "TheMap" the result of the transfer of the Shape "start".
-  Standard_EXPORT void SetShapeResult(const TopoDS_Shape&               start,
+  Standard_EXPORT void SetShapeResult(const TopoShape&               start,
                                       const Handle(RefObject)& result);
 
   //! Returns True if start was already treated and has a result in "TheMap"

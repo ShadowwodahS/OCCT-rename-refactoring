@@ -17,22 +17,22 @@
 #include <TopOpeBRepBuild_GIter.hxx>
 #include <TopOpeBRepBuild_GTopo.hxx>
 
-#define MYGTOPO (*((TopOpeBRepBuild_GTopo*)mypG))
+#define MYGTOPO (*((GTopologyClassifier*)mypG))
 
-TopOpeBRepBuild_GIter::TopOpeBRepBuild_GIter()
+GTopologyIterator::GTopologyIterator()
     : myII(0),
       mypG(NULL)
 {
 }
 
-TopOpeBRepBuild_GIter::TopOpeBRepBuild_GIter(const TopOpeBRepBuild_GTopo& G)
+GTopologyIterator::GTopologyIterator(const GTopologyClassifier& G)
     : myII(0),
       mypG(NULL)
 {
   Init(G);
 }
 
-void TopOpeBRepBuild_GIter::Find()
+void GTopologyIterator::Find()
 {
   while (myII <= 8)
   {
@@ -43,19 +43,19 @@ void TopOpeBRepBuild_GIter::Find()
   }
 }
 
-void TopOpeBRepBuild_GIter::Init()
+void GTopologyIterator::Init()
 {
   myII = 0;
   Find();
 }
 
-void TopOpeBRepBuild_GIter::Init(const TopOpeBRepBuild_GTopo& G)
+void GTopologyIterator::Init(const GTopologyClassifier& G)
 {
   mypG = (Standard_Address)&G;
   Init();
 }
 
-Standard_Boolean TopOpeBRepBuild_GIter::More() const
+Standard_Boolean GTopologyIterator::More() const
 {
   if (myII <= 8)
   {
@@ -66,13 +66,13 @@ Standard_Boolean TopOpeBRepBuild_GIter::More() const
     return Standard_False;
 }
 
-void TopOpeBRepBuild_GIter::Next()
+void GTopologyIterator::Next()
 {
   myII++;
   Find();
 }
 
-void TopOpeBRepBuild_GIter::Current(TopAbs_State& s1, TopAbs_State& s2) const
+void GTopologyIterator::Current(TopAbs_State& s1, TopAbs_State& s2) const
 {
   if (!More())
   {
@@ -85,13 +85,13 @@ void TopOpeBRepBuild_GIter::Current(TopAbs_State& s1, TopAbs_State& s2) const
   s2 = MYGTOPO.GState(i2);
 }
 
-void TopOpeBRepBuild_GIter::Dump(Standard_OStream& OS) const
+void GTopologyIterator::Dump(Standard_OStream& OS) const
 {
   if (!More())
     return;
   TopAbs_State s1, s2;
   Current(s1, s2);
   Standard_Boolean b = MYGTOPO.Value(s1, s2);
-  TopOpeBRepBuild_GTopo::DumpSSB(OS, s1, s2, b);
+  GTopologyClassifier::DumpSSB(OS, s1, s2, b);
   OS << std::endl;
 }

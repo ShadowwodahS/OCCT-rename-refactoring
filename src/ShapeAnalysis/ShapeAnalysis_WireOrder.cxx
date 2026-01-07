@@ -132,7 +132,7 @@ void ShapeAnalysis_WireOrder::Add(const gp_XYZ& theStart3d, const gp_XYZ& theEnd
 
 //=================================================================================================
 
-void ShapeAnalysis_WireOrder::Add(const gp_XY& theStart2d, const gp_XY& theEnd2d)
+void ShapeAnalysis_WireOrder::Add(const Coords2d& theStart2d, const Coords2d& theEnd2d)
 {
   if (myMode == Mode2D)
   {
@@ -148,8 +148,8 @@ void ShapeAnalysis_WireOrder::Add(const gp_XY& theStart2d, const gp_XY& theEnd2d
 
 void ShapeAnalysis_WireOrder::Add(const gp_XYZ& theStart3d,
                                   const gp_XYZ& theEnd3d,
-                                  const gp_XY&  theStart2d,
-                                  const gp_XY&  theEnd2d)
+                                  const Coords2d&  theStart2d,
+                                  const Coords2d&  theEnd2d)
 {
   if (myMode == ModeBoth)
   {
@@ -728,8 +728,8 @@ void ShapeAnalysis_WireOrder::XYZ(const Standard_Integer theIdx,
 //=================================================================================================
 
 void ShapeAnalysis_WireOrder::XY(const Standard_Integer theIdx,
-                                 gp_XY&                 theStart2D,
-                                 gp_XY&                 theEnd2D) const
+                                 Coords2d&                 theStart2D,
+                                 Coords2d&                 theEnd2D) const
 {
   if (myMode == ModeBoth)
   {

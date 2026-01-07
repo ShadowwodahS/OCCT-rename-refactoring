@@ -93,7 +93,7 @@ Standard_Boolean IGESSelect_SelectBypassSubfigure::Explore(const Standard_Intege
   return Standard_True;
 }
 
-TCollection_AsciiString IGESSelect_SelectBypassSubfigure::ExploreLabel() const
+AsciiString1 IGESSelect_SelectBypassSubfigure::ExploreLabel() const
 {
-  return TCollection_AsciiString("Content of Subfigures");
+  return AsciiString1("Content of Subfigures");
 }

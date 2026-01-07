@@ -71,12 +71,12 @@ void DFBrowserPane_TNamingUsedShapes::GetValues(const Handle(TDF_Attribute)& the
   if (anAttribute.IsNull())
     return;
 
-  std::list<TCollection_AsciiString> aReferences;
+  std::list<AsciiString1> aReferences;
   TNaming_DataMapOfShapePtrRefShape& aMap = anAttribute->Map();
   for (TNaming_DataMapIteratorOfDataMapOfShapePtrRefShape aRefIt(aMap); aRefIt.More();
        aRefIt.Next())
   {
-    TopoDS_Shape        aShape       = aRefIt.Key();
+    TopoShape        aShape       = aRefIt.Key();
     TNaming_PtrRefShape aPtrRefShape = aRefIt.Value();
 
     if (!aShape.IsNull())
@@ -90,7 +90,7 @@ void DFBrowserPane_TNamingUsedShapes::GetValues(const Handle(TDF_Attribute)& the
     if (aPtrRefShape && aPtrRefShape->FirstUse())
     {
       theValues.append(DFBrowserPane_Tools::GetEntry(aPtrRefShape->Label()).ToCString());
-      const TopoDS_Shape& aValueShape = aPtrRefShape->Shape();
+      const TopoShape& aValueShape = aPtrRefShape->Shape();
       theValues.append(!aValueShape.IsNull()
                          ? Standard_Dump::GetPointerInfo(aValueShape.TShape()->This()).ToCString()
                          : "");

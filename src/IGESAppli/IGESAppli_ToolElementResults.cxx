@@ -40,9 +40,9 @@
 
 #include <stdio.h>
 
-IGESAppli_ToolElementResults::IGESAppli_ToolElementResults() {}
+ElementResultsTool::ElementResultsTool() {}
 
-void IGESAppli_ToolElementResults::ReadOwnParams(const Handle(IGESAppli_ElementResults)& ent,
+void ElementResultsTool::ReadOwnParams(const Handle(IGESAppli_ElementResults)& ent,
                                                  const Handle(IGESData_IGESReaderData)&  IR,
                                                  IGESData_ParamReader&                   PR) const
 {
@@ -134,7 +134,7 @@ void IGESAppli_ToolElementResults::ReadOwnParams(const Handle(IGESAppli_ElementR
             allResultData);
 }
 
-void IGESAppli_ToolElementResults::WriteOwnParams(const Handle(IGESAppli_ElementResults)& ent,
+void ElementResultsTool::WriteOwnParams(const Handle(IGESAppli_ElementResults)& ent,
                                                   IGESData_IGESWriter&                    IW) const
 {
   Standard_Integer i, j;
@@ -164,7 +164,7 @@ void IGESAppli_ToolElementResults::WriteOwnParams(const Handle(IGESAppli_Element
   }
 }
 
-void IGESAppli_ToolElementResults::OwnShared(const Handle(IGESAppli_ElementResults)& ent,
+void ElementResultsTool::OwnShared(const Handle(IGESAppli_ElementResults)& ent,
                                              Interface_EntityIterator&               iter) const
 {
   Standard_Integer i;
@@ -174,7 +174,7 @@ void IGESAppli_ToolElementResults::OwnShared(const Handle(IGESAppli_ElementResul
     iter.GetOneItem(ent->Element(i));
 }
 
-void IGESAppli_ToolElementResults::OwnCopy(const Handle(IGESAppli_ElementResults)& another,
+void ElementResultsTool::OwnCopy(const Handle(IGESAppli_ElementResults)& another,
                                            const Handle(IGESAppli_ElementResults)& ent,
                                            Interface_CopyTool&                     TC) const
 {
@@ -243,10 +243,10 @@ void IGESAppli_ToolElementResults::OwnCopy(const Handle(IGESAppli_ElementResults
   ent->SetFormNumber(another->FormNumber());
 }
 
-IGESData_DirChecker IGESAppli_ToolElementResults::DirChecker(
+DirectoryChecker ElementResultsTool::DirChecker(
   const Handle(IGESAppli_ElementResults)& /* ent  */) const
 {
-  IGESData_DirChecker DC(148, 0, 34);
+  DirectoryChecker DC(148, 0, 34);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -258,7 +258,7 @@ IGESData_DirChecker IGESAppli_ToolElementResults::DirChecker(
   return DC;
 }
 
-void IGESAppli_ToolElementResults::OwnCheck(const Handle(IGESAppli_ElementResults)& ent,
+void ElementResultsTool::OwnCheck(const Handle(IGESAppli_ElementResults)& ent,
                                             const Interface_ShareTool&,
                                             Handle(Interface_Check)& ach) const
 // UNFINISHED
@@ -444,7 +444,7 @@ void IGESAppli_ToolElementResults::OwnCheck(const Handle(IGESAppli_ElementResult
   }
 }
 
-void IGESAppli_ToolElementResults::OwnDump(const Handle(IGESAppli_ElementResults)& ent,
+void ElementResultsTool::OwnDump(const Handle(IGESAppli_ElementResults)& ent,
                                            const IGESData_IGESDumper&              dumper,
                                            Standard_OStream&                       S,
                                            const Standard_Integer level) const // UNFINISHED

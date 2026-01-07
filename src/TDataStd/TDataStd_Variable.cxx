@@ -40,7 +40,7 @@ const Standard_GUID& TDataStd_Variable::GetID()
 
 //=================================================================================================
 
-Handle(TDataStd_Variable) TDataStd_Variable::Set(const TDF_Label& L)
+Handle(TDataStd_Variable) TDataStd_Variable::Set(const DataLabel& L)
 {
   Handle(TDataStd_Variable) A;
   if (!L.FindAttribute(TDataStd_Variable::GetID(), A))
@@ -61,17 +61,17 @@ TDataStd_Variable::TDataStd_Variable()
 
 //=================================================================================================
 
-void TDataStd_Variable::Name(const TCollection_ExtendedString& string)
+void TDataStd_Variable::Name(const UtfString& string)
 {
-  TDataStd_Name::Set(Label(), string);
+  NameAttribute::Set(Label(), string);
 }
 
 //=================================================================================================
 
-const TCollection_ExtendedString& TDataStd_Variable::Name() const
+const UtfString& TDataStd_Variable::Name() const
 {
-  Handle(TDataStd_Name) N;
-  if (!Label().FindAttribute(TDataStd_Name::GetID(), N))
+  Handle(NameAttribute) N;
+  if (!Label().FindAttribute(NameAttribute::GetID(), N))
   {
     throw Standard_DomainError("TDataStd_Variable::Name : invalid model");
   }
@@ -199,7 +199,7 @@ void TDataStd_Variable::Constant(const Standard_Boolean status)
 
 //=================================================================================================
 
-void TDataStd_Variable::Unit(const TCollection_AsciiString& unit)
+void TDataStd_Variable::Unit(const AsciiString1& unit)
 {
   // OCC2932 correction
   if (myUnit == unit)
@@ -211,7 +211,7 @@ void TDataStd_Variable::Unit(const TCollection_AsciiString& unit)
 
 //=================================================================================================
 
-const TCollection_AsciiString& TDataStd_Variable::Unit() const
+const AsciiString1& TDataStd_Variable::Unit() const
 {
   return myUnit;
 }
@@ -253,8 +253,8 @@ void TDataStd_Variable::Paste(const Handle(TDF_Attribute)& Into,
 
 void TDataStd_Variable::References(const Handle(TDF_DataSet)& DS) const
 {
-  Handle(TDataStd_Name) N;
-  if (Label().FindAttribute(TDataStd_Name::GetID(), N))
+  Handle(NameAttribute) N;
+  if (Label().FindAttribute(NameAttribute::GetID(), N))
   {
     DS->AddAttribute(N);
   }

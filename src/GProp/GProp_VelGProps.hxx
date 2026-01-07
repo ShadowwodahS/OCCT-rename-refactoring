@@ -30,7 +30,7 @@ class gp_Torus;
 //! Computes the global properties and the volume of a geometric solid
 //! (3D closed region of space)
 //! The solid can be elementary(definition in the gp package)
-class GProp_VelGProps : public GProp_GProps
+class GProp_VelGProps : public GeometricProperties
 {
 public:
   DEFINE_STANDARD_ALLOC

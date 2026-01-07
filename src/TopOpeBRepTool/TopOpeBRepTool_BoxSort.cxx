@@ -85,7 +85,7 @@ void TopOpeBRepTool_BoxSort::Clear()
 
 //=================================================================================================
 
-void TopOpeBRepTool_BoxSort::AddBoxes(const TopoDS_Shape&    S,
+void TopOpeBRepTool_BoxSort::AddBoxes(const TopoShape&    S,
                                       const TopAbs_ShapeEnum TS,
                                       const TopAbs_ShapeEnum TA)
 {
@@ -96,7 +96,7 @@ void TopOpeBRepTool_BoxSort::AddBoxes(const TopoDS_Shape&    S,
 
 //=================================================================================================
 
-void TopOpeBRepTool_BoxSort::MakeHAB(const TopoDS_Shape&    S,
+void TopOpeBRepTool_BoxSort::MakeHAB(const TopoShape&    S,
                                      const TopAbs_ShapeEnum TS,
                                      const TopAbs_ShapeEnum TA)
 {
@@ -105,7 +105,7 @@ void TopOpeBRepTool_BoxSort::MakeHAB(const TopoDS_Shape&    S,
 #endif
     S.ShapeType();
   Standard_Integer n = 0;
-  TopExp_Explorer  ex;
+  ShapeExplorer  ex;
   for (ex.Init(S, TS, TA); ex.More(); ex.Next())
     n++;
 
@@ -118,7 +118,7 @@ void TopOpeBRepTool_BoxSort::MakeHAB(const TopoDS_Shape&    S,
   for (ex.Init(S, TS, TA); ex.More(); ex.Next())
   {
     i++;
-    const TopoDS_Shape& ss = ex.Current();
+    const TopoShape& ss = ex.Current();
     Standard_Boolean    hb = myHBT->HasBox(ss);
     if (!hb)
       myHBT->AddBox(ss);
@@ -132,7 +132,7 @@ void TopOpeBRepTool_BoxSort::MakeHAB(const TopoDS_Shape&    S,
   if (TBOX)
   {
     std::cout << "# BS::MakeHAB : ";
-    TopAbs::Print(t, std::cout);
+    TopAbs1::Print(t, std::cout);
     std::cout << " : " << n << "\n";
     std::cout.flush();
   }
@@ -162,7 +162,7 @@ void TopOpeBRepTool_BoxSort::MakeHABCOB(const Handle(Bnd_HArray1OfBox)& HAB, Bnd
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepTool_BoxSort::HABShape(const Standard_Integer I) const
+const TopoShape& TopOpeBRepTool_BoxSort::HABShape(const Standard_Integer I) const
 {
   Standard_Integer iu = myHAI->Upper();
   Standard_Boolean b  = (I >= 1 && I <= iu);
@@ -171,13 +171,13 @@ const TopoDS_Shape& TopOpeBRepTool_BoxSort::HABShape(const Standard_Integer I) c
     throw Standard_ProgramError("BS::Box3");
   }
   Standard_Integer    im = myHAI->Value(I);
-  const TopoDS_Shape& S  = myHBT->Shape(im);
+  const TopoShape& S  = myHBT->Shape(im);
   return S;
 }
 
 //=================================================================================================
 
-void TopOpeBRepTool_BoxSort::MakeCOB(const TopoDS_Shape&    S,
+void TopOpeBRepTool_BoxSort::MakeCOB(const TopoShape&    S,
                                      const TopAbs_ShapeEnum TS,
                                      const TopAbs_ShapeEnum TA)
 {
@@ -195,7 +195,7 @@ void TopOpeBRepTool_BoxSort::MakeCOB(const TopoDS_Shape&    S,
 
 //=================================================================================================
 
-void TopOpeBRepTool_BoxSort::AddBoxesMakeCOB(const TopoDS_Shape&    S,
+void TopOpeBRepTool_BoxSort::AddBoxesMakeCOB(const TopoShape&    S,
                                              const TopAbs_ShapeEnum TS,
                                              const TopAbs_ShapeEnum TA)
 {
@@ -205,7 +205,7 @@ void TopOpeBRepTool_BoxSort::AddBoxesMakeCOB(const TopoDS_Shape&    S,
 
 //=================================================================================================
 
-const MTClioloi& TopOpeBRepTool_BoxSort::Compare(const TopoDS_Shape& S)
+const MTClioloi& TopOpeBRepTool_BoxSort::Compare(const TopoShape& S)
 {
   if (myHBT.IsNull())
     myHBT = new TopOpeBRepTool_HBoxTool();
@@ -222,11 +222,11 @@ const MTClioloi& TopOpeBRepTool_BoxSort::Compare(const TopoDS_Shape& S)
 
   if (t == TopAbs_FACE)
   {
-    const TopoDS_Face& F    = TopoDS::Face(S);
-    Standard_Boolean   natu = BRep_Tool::NaturalRestriction(F);
+    const TopoFace& F    = TopoDS::Face(S);
+    Standard_Boolean   natu = BRepInspector::NaturalRestriction(F);
     if (natu)
     {
-      Handle(Geom_Surface) surf = BRep_Tool::Surface(F);
+      Handle(GeomSurface) surf = BRepInspector::Surface(F);
       GeomAdaptor_Surface  GAS(surf);
       GeomAbs_SurfaceType  suty = GAS.GetType();
       isPlane                   = (suty == GeomAbs_Plane);
@@ -244,9 +244,9 @@ const MTClioloi& TopOpeBRepTool_BoxSort::Compare(const TopoDS_Shape& S)
   }
   else if (t == TopAbs_EDGE)
   {
-    const TopoDS_Edge& E = TopoDS::Edge(S);
-    TopoDS_Vertex      V1, V2;
-    TopExp::Vertices(E, V1, V2);
+    const TopoEdge& E = TopoDS::Edge(S);
+    TopoVertex      V1, V2;
+    TopExp1::Vertices(E, V1, V2);
     Standard_Boolean perso = (V1.IsNull() || V2.IsNull());
     if (perso)
     {
@@ -290,16 +290,16 @@ const MTClioloi& TopOpeBRepTool_BoxSort::Compare(const TopoDS_Shape& S)
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepTool_BoxSort::TouchedShape(const MTClioloi& LI) const
+const TopoShape& TopOpeBRepTool_BoxSort::TouchedShape(const MTClioloi& LI) const
 {
   Standard_Integer    icur = LI.Value();
-  const TopoDS_Shape& Scur = HABShape(icur);
+  const TopoShape& Scur = HABShape(icur);
   return Scur;
 }
 
 //=================================================================================================
 
-const Bnd_Box& TopOpeBRepTool_BoxSort::Box(const TopoDS_Shape& S) const
+const Bnd_Box& TopOpeBRepTool_BoxSort::Box(const TopoShape& S) const
 {
   if (myHBT.IsNull())
   {

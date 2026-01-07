@@ -101,22 +101,22 @@ static void SetSameWeights(TColStd_Array1OfReal& W1,
 //                   CC1 = C1
 //=======================================================================
 
-static Standard_Boolean Arrange(const Handle(Geom_BezierCurve)& C1,
-                                const Handle(Geom_BezierCurve)& C2,
-                                const Handle(Geom_BezierCurve)& C3,
-                                const Handle(Geom_BezierCurve)& C4,
-                                Handle(Geom_BezierCurve)&       CC1,
-                                Handle(Geom_BezierCurve)&       CC2,
-                                Handle(Geom_BezierCurve)&       CC3,
-                                Handle(Geom_BezierCurve)&       CC4,
+static Standard_Boolean Arrange(const Handle(BezierCurve3d)& C1,
+                                const Handle(BezierCurve3d)& C2,
+                                const Handle(BezierCurve3d)& C3,
+                                const Handle(BezierCurve3d)& C4,
+                                Handle(BezierCurve3d)&       CC1,
+                                Handle(BezierCurve3d)&       CC2,
+                                Handle(BezierCurve3d)&       CC3,
+                                Handle(BezierCurve3d)&       CC4,
                                 const Standard_Real             Tol)
 {
-  Handle(Geom_BezierCurve) GC[4];
-  Handle(Geom_BezierCurve) Dummy;
-  GC[0] = Handle(Geom_BezierCurve)::DownCast(C1->Copy());
-  GC[1] = Handle(Geom_BezierCurve)::DownCast(C2->Copy());
-  GC[2] = Handle(Geom_BezierCurve)::DownCast(C3->Copy());
-  GC[3] = Handle(Geom_BezierCurve)::DownCast(C4->Copy());
+  Handle(BezierCurve3d) GC[4];
+  Handle(BezierCurve3d) Dummy;
+  GC[0] = Handle(BezierCurve3d)::DownCast(C1->Copy());
+  GC[1] = Handle(BezierCurve3d)::DownCast(C2->Copy());
+  GC[2] = Handle(BezierCurve3d)::DownCast(C3->Copy());
+  GC[3] = Handle(BezierCurve3d)::DownCast(C4->Copy());
 
   Standard_Integer i, j;
   Standard_Boolean Trouve;
@@ -135,7 +135,7 @@ static Standard_Boolean Arrange(const Handle(Geom_BezierCurve)& C1,
       }
       else if (GC[j]->EndPoint().Distance(GC[i - 1]->EndPoint()) < Tol)
       {
-        GC[j]  = Handle(Geom_BezierCurve)::DownCast(GC[j]->Reversed());
+        GC[j]  = Handle(BezierCurve3d)::DownCast(GC[j]->Reversed());
         Dummy  = GC[i];
         GC[i]  = GC[j];
         GC[j]  = Dummy;
@@ -148,8 +148,8 @@ static Standard_Boolean Arrange(const Handle(Geom_BezierCurve)& C1,
 
   CC1 = GC[0];
   CC2 = GC[1];
-  CC3 = Handle(Geom_BezierCurve)::DownCast(GC[2]->Reversed());
-  CC4 = Handle(Geom_BezierCurve)::DownCast(GC[3]->Reversed());
+  CC3 = Handle(BezierCurve3d)::DownCast(GC[2]->Reversed());
+  CC4 = Handle(BezierCurve3d)::DownCast(GC[3]->Reversed());
 
   return Standard_True;
 }
@@ -160,10 +160,10 @@ GeomFill_BezierCurves::GeomFill_BezierCurves() {}
 
 //=================================================================================================
 
-GeomFill_BezierCurves::GeomFill_BezierCurves(const Handle(Geom_BezierCurve)& C1,
-                                             const Handle(Geom_BezierCurve)& C2,
-                                             const Handle(Geom_BezierCurve)& C3,
-                                             const Handle(Geom_BezierCurve)& C4,
+GeomFill_BezierCurves::GeomFill_BezierCurves(const Handle(BezierCurve3d)& C1,
+                                             const Handle(BezierCurve3d)& C2,
+                                             const Handle(BezierCurve3d)& C3,
+                                             const Handle(BezierCurve3d)& C4,
                                              const GeomFill_FillingStyle     Type)
 {
   Init(C1, C2, C3, C4, Type);
@@ -171,9 +171,9 @@ GeomFill_BezierCurves::GeomFill_BezierCurves(const Handle(Geom_BezierCurve)& C1,
 
 //=================================================================================================
 
-GeomFill_BezierCurves::GeomFill_BezierCurves(const Handle(Geom_BezierCurve)& C1,
-                                             const Handle(Geom_BezierCurve)& C2,
-                                             const Handle(Geom_BezierCurve)& C3,
+GeomFill_BezierCurves::GeomFill_BezierCurves(const Handle(BezierCurve3d)& C1,
+                                             const Handle(BezierCurve3d)& C2,
+                                             const Handle(BezierCurve3d)& C3,
                                              const GeomFill_FillingStyle     Type)
 {
   Init(C1, C2, C3, Type);
@@ -181,8 +181,8 @@ GeomFill_BezierCurves::GeomFill_BezierCurves(const Handle(Geom_BezierCurve)& C1,
 
 //=================================================================================================
 
-GeomFill_BezierCurves::GeomFill_BezierCurves(const Handle(Geom_BezierCurve)& C1,
-                                             const Handle(Geom_BezierCurve)& C2,
+GeomFill_BezierCurves::GeomFill_BezierCurves(const Handle(BezierCurve3d)& C1,
+                                             const Handle(BezierCurve3d)& C2,
                                              const GeomFill_FillingStyle     Type)
 {
   Init(C1, C2, Type);
@@ -190,14 +190,14 @@ GeomFill_BezierCurves::GeomFill_BezierCurves(const Handle(Geom_BezierCurve)& C1,
 
 //=================================================================================================
 
-void GeomFill_BezierCurves::Init(const Handle(Geom_BezierCurve)& C1,
-                                 const Handle(Geom_BezierCurve)& C2,
-                                 const Handle(Geom_BezierCurve)& C3,
-                                 const Handle(Geom_BezierCurve)& C4,
+void GeomFill_BezierCurves::Init(const Handle(BezierCurve3d)& C1,
+                                 const Handle(BezierCurve3d)& C2,
+                                 const Handle(BezierCurve3d)& C3,
+                                 const Handle(BezierCurve3d)& C4,
                                  const GeomFill_FillingStyle     Type)
 {
   // On ordonne les courbes
-  Handle(Geom_BezierCurve) CC1, CC2, CC3, CC4;
+  Handle(BezierCurve3d) CC1, CC2, CC3, CC4;
 
   constexpr Standard_Real Tol = Precision::Confusion();
 #ifndef No_Exception
@@ -322,12 +322,12 @@ void GeomFill_BezierCurves::Init(const Handle(Geom_BezierCurve)& C1,
 
 //=================================================================================================
 
-void GeomFill_BezierCurves::Init(const Handle(Geom_BezierCurve)& C1,
-                                 const Handle(Geom_BezierCurve)& C2,
-                                 const Handle(Geom_BezierCurve)& C3,
+void GeomFill_BezierCurves::Init(const Handle(BezierCurve3d)& C1,
+                                 const Handle(BezierCurve3d)& C2,
+                                 const Handle(BezierCurve3d)& C3,
                                  const GeomFill_FillingStyle     Type)
 {
-  Handle(Geom_BezierCurve) C4;
+  Handle(BezierCurve3d) C4;
   TColgp_Array1OfPnt       Poles(1, 2);
   Standard_Real            Tol = Precision::Confusion();
   Tol                          = Tol * Tol;
@@ -344,18 +344,18 @@ void GeomFill_BezierCurves::Init(const Handle(Geom_BezierCurve)& C1,
     Poles(2) = C3->EndPoint();
   //  Poles(1) = C1->StartPoint();
   //  Poles(2) = C1->StartPoint();
-  C4 = new Geom_BezierCurve(Poles);
+  C4 = new BezierCurve3d(Poles);
   Init(C1, C2, C3, C4, Type);
 }
 
 //=================================================================================================
 
-void GeomFill_BezierCurves::Init(const Handle(Geom_BezierCurve)& C1,
-                                 const Handle(Geom_BezierCurve)& C2,
+void GeomFill_BezierCurves::Init(const Handle(BezierCurve3d)& C1,
+                                 const Handle(BezierCurve3d)& C2,
                                  const GeomFill_FillingStyle     Type)
 {
-  Handle(Geom_BezierCurve) CC1 = Handle(Geom_BezierCurve)::DownCast(C1->Copy());
-  Handle(Geom_BezierCurve) CC2 = Handle(Geom_BezierCurve)::DownCast(C2->Copy());
+  Handle(BezierCurve3d) CC1 = Handle(BezierCurve3d)::DownCast(C1->Copy());
+  Handle(BezierCurve3d) CC2 = Handle(BezierCurve3d)::DownCast(C2->Copy());
 
   Standard_Integer Deg1 = CC1->Degree();
   Standard_Integer Deg2 = CC2->Degree();

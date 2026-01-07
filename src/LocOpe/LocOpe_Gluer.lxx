@@ -33,7 +33,7 @@ inline LocOpe_Gluer::LocOpe_Gluer()
 // purpose  :
 //=======================================================================
 
-inline LocOpe_Gluer::LocOpe_Gluer(const TopoDS_Shape& Sbase, const TopoDS_Shape& Snew)
+inline LocOpe_Gluer::LocOpe_Gluer(const TopoShape& Sbase, const TopoShape& Snew)
     : myDone(Standard_False),
       mySb(Sbase),
       mySn(Snew),
@@ -57,7 +57,7 @@ inline Standard_Boolean LocOpe_Gluer::IsDone() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& LocOpe_Gluer::ResultingShape() const
+inline const TopoShape& LocOpe_Gluer::ResultingShape() const
 {
   if (!myDone)
   {
@@ -71,7 +71,7 @@ inline const TopoDS_Shape& LocOpe_Gluer::ResultingShape() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& LocOpe_Gluer::BasisShape() const
+inline const TopoShape& LocOpe_Gluer::BasisShape() const
 {
   return mySb;
 }
@@ -81,7 +81,7 @@ inline const TopoDS_Shape& LocOpe_Gluer::BasisShape() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& LocOpe_Gluer::GluedShape() const
+inline const TopoShape& LocOpe_Gluer::GluedShape() const
 {
   return mySn;
 }
@@ -101,7 +101,7 @@ inline LocOpe_Operation LocOpe_Gluer::OpeType() const
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& LocOpe_Gluer::Edges() const
+inline const ShapeList& LocOpe_Gluer::Edges() const
 {
   return myEdges;
 }
@@ -111,7 +111,7 @@ inline const TopTools_ListOfShape& LocOpe_Gluer::Edges() const
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& LocOpe_Gluer::TgtEdges() const
+inline const ShapeList& LocOpe_Gluer::TgtEdges() const
 {
   return myTgtEdges;
 }

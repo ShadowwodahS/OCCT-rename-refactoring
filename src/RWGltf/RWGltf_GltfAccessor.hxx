@@ -21,7 +21,7 @@
 #include <Standard_TypeDef.hxx>
 
 //! Low-level glTF data structure defining Accessor.
-struct RWGltf_GltfAccessor
+struct GltfAccessor
 {
   static const int INVALID_ID = -1;
 
@@ -36,7 +36,7 @@ public:
   bool                        IsCompressed;  //!< flag indicating KHR_draco_mesh_compression
 
   //! Empty constructor.
-  RWGltf_GltfAccessor()
+  GltfAccessor()
       : Id(INVALID_ID),
         ByteOffset(0),
         Count(0),

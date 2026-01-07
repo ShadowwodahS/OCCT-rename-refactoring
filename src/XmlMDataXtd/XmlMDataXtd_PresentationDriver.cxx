@@ -57,7 +57,7 @@ Standard_Boolean XmlMDataXtd_PresentationDriver::Paste(const XmlObjMgt_Persisten
                                                        const Handle(TDF_Attribute)& theTarget,
                                                        XmlObjMgt_RRelocationTable&) const
 {
-  TCollection_ExtendedString aMessageString;
+  UtfString aMessageString;
   XmlObjMgt_DOMString        aDOMStr;
 
   Handle(TDataXtd_Presentation) aTPrs  = Handle(TDataXtd_Presentation)::DownCast(theTarget);
@@ -86,7 +86,7 @@ Standard_Boolean XmlMDataXtd_PresentationDriver::Paste(const XmlObjMgt_Persisten
     if (!aDOMStr.GetInteger(anIValue))
     {
       aMessageString =
-        TCollection_ExtendedString("Cannot retrieve Integer value from \"") + aDOMStr + "\"";
+        UtfString("Cannot retrieve Integer value from \"") + aDOMStr + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);
       return Standard_False;
     }
@@ -107,7 +107,7 @@ Standard_Boolean XmlMDataXtd_PresentationDriver::Paste(const XmlObjMgt_Persisten
     if (!aDOMStr.GetInteger(anIValue))
     {
       aMessageString =
-        TCollection_ExtendedString("Cannot retrieve Integer value from \"") + aDOMStr + "\"";
+        UtfString("Cannot retrieve Integer value from \"") + aDOMStr + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);
       return Standard_False;
     }
@@ -127,7 +127,7 @@ Standard_Boolean XmlMDataXtd_PresentationDriver::Paste(const XmlObjMgt_Persisten
     if (!XmlObjMgt::GetReal(aDOMStr, aValue))
     {
       aMessageString =
-        TCollection_ExtendedString("Cannot retrieve Real value from \"") + aDOMStr + "\"";
+        UtfString("Cannot retrieve Real value from \"") + aDOMStr + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);
       return Standard_False;
     }
@@ -145,7 +145,7 @@ Standard_Boolean XmlMDataXtd_PresentationDriver::Paste(const XmlObjMgt_Persisten
     if (!XmlObjMgt::GetReal(aDOMStr, aValue))
     {
       aMessageString =
-        TCollection_ExtendedString("Cannot retrieve Real value from \"") + aDOMStr + "\"";
+        UtfString("Cannot retrieve Real value from \"") + aDOMStr + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);
       return Standard_False;
     }
@@ -163,7 +163,7 @@ Standard_Boolean XmlMDataXtd_PresentationDriver::Paste(const XmlObjMgt_Persisten
     if (!aDOMStr.GetInteger(anIValue))
     {
       aMessageString =
-        TCollection_ExtendedString("Cannot retrieve Integer value from \"") + aDOMStr + "\"";
+        UtfString("Cannot retrieve Integer value from \"") + aDOMStr + "\"";
       myMessageDriver->Send(aMessageString, Message_Fail);
       return Standard_False;
     }
@@ -219,14 +219,14 @@ void XmlMDataXtd_PresentationDriver::Paste(const Handle(TDF_Attribute)& theSourc
   // transparency
   if (aTPrs->HasOwnTransparency())
   {
-    TCollection_AsciiString aRNbStr(aTPrs->Transparency());
+    AsciiString1 aRNbStr(aTPrs->Transparency());
     theTarget.Element().setAttribute(::TransparencyString(), aRNbStr.ToCString());
   }
 
   // width
   if (aTPrs->HasOwnWidth())
   {
-    TCollection_AsciiString aRNbStr(aTPrs->Width());
+    AsciiString1 aRNbStr(aTPrs->Width());
     theTarget.Element().setAttribute(::WidthString(), aRNbStr.ToCString());
   }
 

@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 #include <Draw_Drawable2D.hxx>
 class gp_Pnt2d;
-class Draw_Display;
+class DrawDisplay;
 
 class Draw_Axis2D;
 DEFINE_STANDARD_HANDLE(Draw_Axis2D, Draw_Drawable2D)
@@ -33,24 +33,24 @@ class Draw_Axis2D : public Draw_Drawable2D
 {
 
 public:
-  Standard_EXPORT Draw_Axis2D(const Draw_Color& col, const Standard_Integer Size = 5);
+  Standard_EXPORT Draw_Axis2D(const DrawColor& col, const Standard_Integer Size = 5);
 
   Standard_EXPORT Draw_Axis2D(const gp_Pnt2d&        p,
-                              const Draw_Color&      col,
+                              const DrawColor&      col,
                               const Standard_Integer Size = 5);
 
   Standard_EXPORT Draw_Axis2D(const gp_Ax22d&        A,
-                              const Draw_Color&      col,
+                              const DrawColor&      col,
                               const Standard_Integer Size = 5);
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(Draw_Axis2D, Draw_Drawable2D)
 
 protected:
 private:
   gp_Ax22d         myAxes;
-  Draw_Color       myColor;
+  DrawColor       myColor;
   Standard_Integer mySize;
 };
 

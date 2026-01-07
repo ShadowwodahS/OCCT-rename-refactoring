@@ -22,7 +22,7 @@
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Compound& ShapeAnalysis_FreeBounds::GetClosedWires() const
+inline const TopoCompound& ShapeAnalysis_FreeBounds::GetClosedWires() const
 {
   return myWires;
 }
@@ -32,7 +32,7 @@ inline const TopoDS_Compound& ShapeAnalysis_FreeBounds::GetClosedWires() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Compound& ShapeAnalysis_FreeBounds::GetOpenWires() const
+inline const TopoCompound& ShapeAnalysis_FreeBounds::GetOpenWires() const
 {
   return myEdges;
 }

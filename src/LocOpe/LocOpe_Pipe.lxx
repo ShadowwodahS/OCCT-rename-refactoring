@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& LocOpe_Pipe::Spine() const
+inline const TopoShape& LocOpe_Pipe::Spine() const
 {
   return myPipe.Spine();
 }
@@ -29,7 +29,7 @@ inline const TopoDS_Shape& LocOpe_Pipe::Spine() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& LocOpe_Pipe::Profile() const
+inline const TopoShape& LocOpe_Pipe::Profile() const
 {
   return myPipe.Profile();
 }
@@ -39,7 +39,7 @@ inline const TopoDS_Shape& LocOpe_Pipe::Profile() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& LocOpe_Pipe::FirstShape() const
+inline const TopoShape& LocOpe_Pipe::FirstShape() const
 {
   return myPipe.FirstShape();
 }
@@ -49,7 +49,7 @@ inline const TopoDS_Shape& LocOpe_Pipe::FirstShape() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& LocOpe_Pipe::LastShape() const
+inline const TopoShape& LocOpe_Pipe::LastShape() const
 {
   return myPipe.LastShape();
 }

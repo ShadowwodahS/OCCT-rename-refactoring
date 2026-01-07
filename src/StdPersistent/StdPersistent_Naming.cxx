@@ -22,7 +22,7 @@
 // function : Import
 // purpose  : Import transient attribute from the persistent data
 //=======================================================================
-void StdPersistent_Naming::NamedShape::Import(const Handle(TNaming_NamedShape)& theAttribute) const
+void StdPersistent_Naming::NamedShape::Import(const Handle(ShapeAttribute)& theAttribute) const
 {
   theAttribute->SetVersion(myVersion);
 
@@ -35,8 +35,8 @@ void StdPersistent_Naming::NamedShape::Import(const Handle(TNaming_NamedShape)& 
   StdPersistent_HArray1OfShape1::Iterator aNewShapesIter(*myNewShapes->Array());
   for (; aNewShapesIter.More(); aOldShapesIter.Next(), aNewShapesIter.Next())
   {
-    TopoDS_Shape aOldShape = aOldShapesIter.Value().Import();
-    TopoDS_Shape aNewShape = aNewShapesIter.Value().Import();
+    TopoShape aOldShape = aOldShapesIter.Value().Import();
+    TopoShape aNewShape = aNewShapesIter.Value().Import();
 
     switch (myShapeStatus)
     {
@@ -98,7 +98,7 @@ void StdPersistent_Naming::Name::Import(TNaming_Name& theName, const Handle(TDF_
       if (aPersistent)
       {
         Handle(TDF_Attribute) anArg = aPersistent->GetAttribute();
-        theName.Append(Handle(TNaming_NamedShape)::DownCast(anArg));
+        theName.Append(Handle(ShapeAttribute)::DownCast(anArg));
       }
     }
   }
@@ -106,7 +106,7 @@ void StdPersistent_Naming::Name::Import(TNaming_Name& theName, const Handle(TDF_
   if (myStop)
   {
     Handle(TDF_Attribute) aStop = myStop->GetAttribute();
-    theName.StopNamedShape(Handle(TNaming_NamedShape)::DownCast(aStop));
+    theName.StopNamedShape(Handle(ShapeAttribute)::DownCast(aStop));
   }
 
   theName.Index(myIndex);
@@ -197,14 +197,14 @@ void StdPersistent_Naming::Naming_1::ImportAttribute()
 {
   Naming::ImportAttribute();
 
-  Handle(TNaming_NamedShape) aNamedShape;
-  if (myTransient->Label().FindAttribute(TNaming_NamedShape::GetID(), aNamedShape)
+  Handle(ShapeAttribute) aNamedShape;
+  if (myTransient->Label().FindAttribute(ShapeAttribute::GetID(), aNamedShape)
       && aNamedShape->Evolution() == TNaming_SELECTED)
   {
-    for (TNaming_Iterator anIter(aNamedShape); anIter.More(); anIter.Next())
+    for (Iterator1 anIter(aNamedShape); anIter.More(); anIter.Next())
     {
-      const TopoDS_Shape& aOldShape = anIter.OldShape();
-      const TopoDS_Shape& aNewShape = anIter.NewShape();
+      const TopoShape& aOldShape = anIter.OldShape();
+      const TopoShape& aNewShape = anIter.NewShape();
 
       if (!aOldShape.IsNull() && aOldShape.ShapeType() == TopAbs_VERTEX && !aNewShape.IsNull()
           && aNewShape.ShapeType() != TopAbs_VERTEX)

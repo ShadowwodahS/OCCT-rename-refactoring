@@ -17,11 +17,11 @@
 #include <StdFail_NotDone.hxx>
 
 //=======================================================================
-// function : TopOpeBRepBuild_FuseFace
+// function : FaceFusionBuilder
 // purpose  :
 //=======================================================================
 
-inline TopOpeBRepBuild_FuseFace::TopOpeBRepBuild_FuseFace()
+inline FaceFusionBuilder::FaceFusionBuilder()
     : myInternal(Standard_False),
       myModified(Standard_False),
       myDone(Standard_False)
@@ -29,12 +29,12 @@ inline TopOpeBRepBuild_FuseFace::TopOpeBRepBuild_FuseFace()
 }
 
 //=======================================================================
-// function : TopOpeBRepBuild_FuseFace
+// function : FaceFusionBuilder
 // purpose  :
 //=======================================================================
 
-inline TopOpeBRepBuild_FuseFace::TopOpeBRepBuild_FuseFace(const TopTools_ListOfShape& LIF,
-                                                          const TopTools_ListOfShape& LRF,
+inline FaceFusionBuilder::FaceFusionBuilder(const ShapeList& LIF,
+                                                          const ShapeList& LRF,
                                                           const Standard_Integer      CXM)
 {
   Init(LIF, LRF, CXM);
@@ -45,7 +45,7 @@ inline TopOpeBRepBuild_FuseFace::TopOpeBRepBuild_FuseFace(const TopTools_ListOfS
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean TopOpeBRepBuild_FuseFace::IsDone() const
+inline Standard_Boolean FaceFusionBuilder::IsDone() const
 {
   return myDone;
 }
@@ -55,7 +55,7 @@ inline Standard_Boolean TopOpeBRepBuild_FuseFace::IsDone() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Boolean TopOpeBRepBuild_FuseFace::IsModified() const
+inline Standard_Boolean FaceFusionBuilder::IsModified() const
 {
   return myModified;
 }
@@ -65,7 +65,7 @@ inline Standard_Boolean TopOpeBRepBuild_FuseFace::IsModified() const
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& TopOpeBRepBuild_FuseFace::LFuseFace() const
+inline const ShapeList& FaceFusionBuilder::LFuseFace() const
 {
   return myLFF;
 }
@@ -75,7 +75,7 @@ inline const TopTools_ListOfShape& TopOpeBRepBuild_FuseFace::LFuseFace() const
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& TopOpeBRepBuild_FuseFace::LInternEdge() const
+inline const ShapeList& FaceFusionBuilder::LInternEdge() const
 {
   return myLIE;
 }
@@ -85,7 +85,7 @@ inline const TopTools_ListOfShape& TopOpeBRepBuild_FuseFace::LInternEdge() const
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& TopOpeBRepBuild_FuseFace::LExternEdge() const
+inline const ShapeList& FaceFusionBuilder::LExternEdge() const
 {
   return myLEE;
 }
@@ -95,7 +95,7 @@ inline const TopTools_ListOfShape& TopOpeBRepBuild_FuseFace::LExternEdge() const
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& TopOpeBRepBuild_FuseFace::LModifEdge() const
+inline const ShapeList& FaceFusionBuilder::LModifEdge() const
 {
   return myLME;
 }
@@ -105,7 +105,7 @@ inline const TopTools_ListOfShape& TopOpeBRepBuild_FuseFace::LModifEdge() const
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& TopOpeBRepBuild_FuseFace::LInternVertex() const
+inline const ShapeList& FaceFusionBuilder::LInternVertex() const
 {
   return myLIV;
 }
@@ -115,7 +115,7 @@ inline const TopTools_ListOfShape& TopOpeBRepBuild_FuseFace::LInternVertex() con
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& TopOpeBRepBuild_FuseFace::LExternVertex() const
+inline const ShapeList& FaceFusionBuilder::LExternVertex() const
 {
   return myLEV;
 }
@@ -125,7 +125,7 @@ inline const TopTools_ListOfShape& TopOpeBRepBuild_FuseFace::LExternVertex() con
 // purpose  :
 //=======================================================================
 
-inline const TopTools_ListOfShape& TopOpeBRepBuild_FuseFace::LModifVertex() const
+inline const ShapeList& FaceFusionBuilder::LModifVertex() const
 {
   return myLMV;
 }

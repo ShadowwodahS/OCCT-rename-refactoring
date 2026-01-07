@@ -13,8 +13,8 @@
 
 #include <Vrml_WWWAnchor.hxx>
 
-Vrml_WWWAnchor::Vrml_WWWAnchor(const TCollection_AsciiString& aName,
-                               const TCollection_AsciiString& aDescription,
+Vrml_WWWAnchor::Vrml_WWWAnchor(const AsciiString1& aName,
+                               const AsciiString1& aDescription,
                                const Vrml_WWWAnchorMap        aMap)
 {
   myName        = aName;
@@ -22,22 +22,22 @@ Vrml_WWWAnchor::Vrml_WWWAnchor(const TCollection_AsciiString& aName,
   myMap         = aMap;
 }
 
-void Vrml_WWWAnchor::SetName(const TCollection_AsciiString& aName)
+void Vrml_WWWAnchor::SetName(const AsciiString1& aName)
 {
   myName = aName;
 }
 
-TCollection_AsciiString Vrml_WWWAnchor::Name() const
+AsciiString1 Vrml_WWWAnchor::Name() const
 {
   return myName;
 }
 
-void Vrml_WWWAnchor::SetDescription(const TCollection_AsciiString& aDescription)
+void Vrml_WWWAnchor::SetDescription(const AsciiString1& aDescription)
 {
   myDescription = aDescription;
 }
 
-TCollection_AsciiString Vrml_WWWAnchor::Description() const
+AsciiString1 Vrml_WWWAnchor::Description() const
 {
   return myDescription;
 }

@@ -24,7 +24,7 @@
 #include <IMeshData_Types.hxx>
 #include <BRepAdaptor_Surface.hxx>
 
-class TopoDS_Wire;
+class TopoWire;
 
 //! Interface class representing discrete model of a face.
 //! Face model contains one or several wires.
@@ -40,7 +40,7 @@ public:
 
   //! Adds wire to discrete model of face.
   Standard_EXPORT virtual const IMeshData::IWireHandle& AddWire(
-    const TopoDS_Wire&     theWire,
+    const TopoWire&     theWire,
     const Standard_Integer theEdgeNb = 0) = 0;
 
   //! Returns discrete edge with the given index.
@@ -50,8 +50,8 @@ public:
   //! Returns face's surface.
   const Handle(BRepAdaptor_Surface)& GetSurface() const { return mySurface; }
 
-  //! Returns TopoDS_Face attached to model.
-  const TopoDS_Face& GetFace() const { return TopoDS::Face(GetShape()); }
+  //! Returns TopoFace attached to model.
+  const TopoFace& GetFace() const { return TopoDS::Face(GetShape()); }
 
   //! Returns whether the face discrete model is valid.
   Standard_Boolean IsValid() const
@@ -65,7 +65,7 @@ public:
 protected:
   //! Constructor.
   //! Initializes empty model.
-  IMeshData_Face(const TopoDS_Face& theFace)
+  IMeshData_Face(const TopoFace& theFace)
       : IMeshData_TessellatedShape(theFace)
   {
     BRepAdaptor_Surface aSurfAdaptor(GetFace(), Standard_False);

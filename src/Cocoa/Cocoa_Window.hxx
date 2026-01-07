@@ -137,7 +137,7 @@ public:
   virtual Aspect_FBConfig NativeFBConfig() const Standard_OVERRIDE { return NULL; }
 
   //! Sets window title.
-  Standard_EXPORT virtual void SetTitle(const TCollection_AsciiString& theTitle) Standard_OVERRIDE;
+  Standard_EXPORT virtual void SetTitle(const AsciiString1& theTitle) Standard_OVERRIDE;
 
   //! Invalidate entire window content by setting NSView::setNeedsDisplay property.
   //! Call will be implicitly redirected to the main thread when called from non-GUI thread.

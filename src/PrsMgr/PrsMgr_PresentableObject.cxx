@@ -42,7 +42,7 @@ const Transform3d& PrsMgr_PresentableObject::getIdentityTrsf()
 PrsMgr_PresentableObject::PrsMgr_PresentableObject(const PrsMgr_TypeOfPresentation3d theType)
     : myParent(NULL),
       myViewAffinity(new Graphic3d_ViewAffinity()),
-      myDrawer(new Prs3d_Drawer()),
+      myDrawer(new StyleDrawer()),
       myTypeOfPresentation3d(theType),
       myDisplayStatus(PrsMgr_DisplayStatus_None),
       //
@@ -93,7 +93,7 @@ void PrsMgr_PresentableObject::Fill(const Handle(PrsMgr_PresentationManager)& th
 
 //=================================================================================================
 
-void PrsMgr_PresentableObject::computeHLR(const Handle(Graphic3d_Camera)&,
+void PrsMgr_PresentableObject::computeHLR(const Handle(CameraOn3d)&,
                                           const Handle(TopLoc_Datum3D)&,
                                           const Handle(Prs3d_Presentation)&)
 {
@@ -471,7 +471,7 @@ void PrsMgr_PresentableObject::SetMutable(const Standard_Boolean theIsMutable)
 
 void PrsMgr_PresentableObject::UnsetAttributes()
 {
-  Handle(Prs3d_Drawer) aDrawer = new Prs3d_Drawer();
+  Handle(StyleDrawer) aDrawer = new StyleDrawer();
   if (myDrawer->HasLink())
   {
     aDrawer->Link(myDrawer->Link());
@@ -490,7 +490,7 @@ void PrsMgr_PresentableObject::SetHilightMode(const Standard_Integer theMode)
 {
   if (myHilightDrawer.IsNull())
   {
-    myHilightDrawer = new Prs3d_Drawer();
+    myHilightDrawer = new StyleDrawer();
     myHilightDrawer->Link(myDrawer);
     myHilightDrawer->SetAutoTriangulation(Standard_False);
     myHilightDrawer->SetColor(Quantity_NOC_GRAY80);
@@ -498,7 +498,7 @@ void PrsMgr_PresentableObject::SetHilightMode(const Standard_Integer theMode)
   }
   if (myDynHilightDrawer.IsNull())
   {
-    myDynHilightDrawer = new Prs3d_Drawer();
+    myDynHilightDrawer = new StyleDrawer();
     myDynHilightDrawer->Link(myDrawer);
     myDynHilightDrawer->SetColor(Quantity_NOC_CYAN1);
     myDynHilightDrawer->SetAutoTriangulation(Standard_False);

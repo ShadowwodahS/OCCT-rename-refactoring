@@ -13,28 +13,28 @@
 
 #include <Vrml_Scale.hxx>
 
-Vrml_Scale::Vrml_Scale()
+Scale::Scale()
 {
   Vector3d tmpV(1, 1, 1);
   myScaleFactor = tmpV;
 }
 
-Vrml_Scale::Vrml_Scale(const Vector3d& aScaleFactor)
+Scale::Scale(const Vector3d& aScaleFactor)
 {
   myScaleFactor = aScaleFactor;
 }
 
-void Vrml_Scale::SetScaleFactor(const Vector3d& aScaleFactor)
+void Scale::SetScaleFactor(const Vector3d& aScaleFactor)
 {
   myScaleFactor = aScaleFactor;
 }
 
-Vector3d Vrml_Scale::ScaleFactor() const
+Vector3d Scale::ScaleFactor() const
 {
   return myScaleFactor;
 }
 
-Standard_OStream& Vrml_Scale::Print(Standard_OStream& anOStream) const
+Standard_OStream& Scale::Print(Standard_OStream& anOStream) const
 {
   anOStream << "Scale {\n";
 

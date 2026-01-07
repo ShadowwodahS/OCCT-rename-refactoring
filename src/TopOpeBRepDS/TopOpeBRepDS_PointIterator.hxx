@@ -28,7 +28,7 @@
 #include <TopAbs_State.hxx>
 class TopOpeBRepDS_Interference;
 
-class TopOpeBRepDS_PointIterator : public TopOpeBRepDS_InterferenceIterator
+class TopOpeBRepDS_PointIterator : public InterferenceIterator
 {
 public:
   DEFINE_STANDARD_ALLOC

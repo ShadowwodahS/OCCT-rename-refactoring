@@ -25,14 +25,14 @@ IMPLEMENT_STANDARD_RTTIEXT(HLRTest_OutLiner, Draw_Drawable3D)
 
 //=================================================================================================
 
-HLRTest_OutLiner::HLRTest_OutLiner(const TopoDS_Shape& S)
+HLRTest_OutLiner::HLRTest_OutLiner(const TopoShape& S)
 {
   myOutLiner = new HLRTopoBRep_OutLiner(S);
 }
 
 //=================================================================================================
 
-void HLRTest_OutLiner::DrawOn(Draw_Display& /*dis*/) const {}
+void HLRTest_OutLiner::DrawOn(DrawDisplay& /*dis*/) const {}
 
 //=================================================================================================
 
@@ -51,7 +51,7 @@ void HLRTest_OutLiner::Dump(Standard_OStream& S) const
 
 //=================================================================================================
 
-void HLRTest_OutLiner::Whatis(Draw_Interpretor& I) const
+void HLRTest_OutLiner::Whatis(DrawInterpreter& I) const
 {
   I << "outliner";
 }

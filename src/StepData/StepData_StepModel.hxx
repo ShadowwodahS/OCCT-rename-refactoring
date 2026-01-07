@@ -71,7 +71,7 @@ public:
   //! Specific Check, checks Header Items with HeaderProtocol
   Standard_EXPORT virtual void VerifyCheck(Handle(Interface_Check)& ach) const Standard_OVERRIDE;
 
-  //! Dumps the Header, with the Header Protocol of StepData.
+  //! Dumps the Header, with the Header Protocol of StepData1.
   //! If the Header Protocol is not defined, for each Header Entity,
   //! prints its Type. Else sends the Header under the form of
   //! HEADER Section of an Ascii Step File

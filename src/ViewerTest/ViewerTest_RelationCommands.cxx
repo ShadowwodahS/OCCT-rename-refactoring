@@ -75,12 +75,12 @@
 #include <V3d_View.hxx>
 #include <ViewerTest_DoubleMapIteratorOfDoubleMapOfInteractiveAndName.hxx>
 
-extern Standard_Boolean VDisplayAISObject(const TCollection_AsciiString&       theName,
-                                          const Handle(AIS_InteractiveObject)& theAISObj,
+extern Standard_Boolean VDisplayAISObject(const AsciiString1&       theName,
+                                          const Handle(VisualEntity)& theAISObj,
                                           Standard_Boolean theReplaceIfExists = Standard_True);
 extern ViewerTest_DoubleMapOfInteractiveAndName& GetMapOfAIS();
 extern int                             ViewerMainLoop(Standard_Integer argc, const char** argv);
-extern Handle(AIS_InteractiveContext)& TheAISContext();
+extern Handle(VisualContext)& TheAISContext();
 
 #define VertexMask 0x01
 #define EdgeMask 0x02
@@ -93,7 +93,7 @@ extern Handle(AIS_InteractiveContext)& TheAISContext();
 //=======================================================================
 static Point3d Get3DPointAtMousePosition()
 {
-  Handle(V3d_View) aView = ViewerTest::CurrentView();
+  Handle(ViewWindow) aView = ViewerTest::CurrentView();
 
   Standard_Real xv, yv, zv;
   aView->Proj(xv, yv, zv);
@@ -109,8 +109,8 @@ static Point3d Get3DPointAtMousePosition()
   gp_Lin aLine(Point3d(aX, aY, aZ), Dir3d(aDX, aDY, aDZ));
 
   // Compute intersection
-  Handle(Geom_Line)  aGeomLine  = new Geom_Line(aLine);
-  Handle(Geom_Plane) aGeomPlane = new Geom_Plane(aPlane);
+  Handle(GeomLine)  aGeomLine  = new GeomLine(aLine);
+  Handle(GeomPlane) aGeomPlane = new GeomPlane(aPlane);
   GeomAPI_IntCS      anIntersector(aGeomLine, aGeomPlane);
   if (!anIntersector.IsDone() || anIntersector.NbPoints() == 0)
   {
@@ -130,7 +130,7 @@ static Standard_Boolean Get3DPointAtMousePosition(const Point3d& theFirstPoint,
 {
   theOutputPoint = gp::Origin();
 
-  Handle(V3d_View) aView = ViewerTest::CurrentView();
+  Handle(ViewWindow) aView = ViewerTest::CurrentView();
 
   Standard_Integer aPixX, aPixY;
   Standard_Real    aX, aY, aZ, aDx, aDy, aDz, aUx, aUy, aUz;
@@ -155,8 +155,8 @@ static Standard_Boolean Get3DPointAtMousePosition(const Point3d& theFirstPoint,
   gp_Pln aViewPlane = gce_MakePln(theFirstPoint, aDimNormal);
 
   // Get intersection of view plane and projection line
-  Handle(Geom_Plane) aPlane    = new Geom_Plane(aViewPlane);
-  Handle(Geom_Line)  aProjLine = new Geom_Line(aProjLin);
+  Handle(GeomPlane) aPlane    = new GeomPlane(aViewPlane);
+  Handle(GeomLine)  aProjLine = new GeomLine(aProjLin);
   GeomAPI_IntCS      anIntersector(aProjLine, aPlane);
   if (!anIntersector.IsDone() || anIntersector.NbPoints() == 0)
   {
@@ -197,9 +197,9 @@ static int ParseDimensionParams(
   const Handle(Prs3d_DimensionAspect)&                                   theAspect,
   Standard_Boolean&                                                      theIsCustomPlane,
   gp_Pln&                                                                thePlane,
-  NCollection_DataMap<TCollection_AsciiString, Standard_Real>&           theRealParams,
-  NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString>& theStringParams,
-  NCollection_List<Handle(AIS_InteractiveObject)>*                       theShapeList = NULL)
+  NCollection_DataMap<AsciiString1, Standard_Real>&           theRealParams,
+  NCollection_DataMap<AsciiString1, AsciiString1>& theStringParams,
+  NCollection_List<Handle(VisualEntity)>*                       theShapeList = NULL)
 {
   theRealParams.Clear();
   theStringParams.Clear();
@@ -209,7 +209,7 @@ static int ParseDimensionParams(
   // Begin from the second parameter: the first one is dimension name
   for (Standard_Integer anIt = theStartIndex; anIt < theArgNum; ++anIt)
   {
-    TCollection_AsciiString aParam(theArgVec[anIt]);
+    AsciiString1 aParam(theArgVec[anIt]);
     aParam.LowerCase();
 
     if (aParam.Search("-") == -1)
@@ -245,10 +245,10 @@ static int ParseDimensionParams(
       for (TheAISContext()->InitSelected(); TheAISContext()->MoreSelected();
            TheAISContext()->NextSelected())
       {
-        TopoDS_Shape aShape = TheAISContext()->SelectedShape();
+        TopoShape aShape = TheAISContext()->SelectedShape();
         if (!aShape.IsNull())
         {
-          theShapeList->Append(new AIS_Shape(aShape));
+          theShapeList->Append(new VisualShape(aShape));
         }
       }
       continue;
@@ -273,13 +273,13 @@ static int ParseDimensionParams(
       do
       {
         anIt++;
-        TCollection_AsciiString       anArgString = theArgVec[anIt];
-        Handle(AIS_InteractiveObject) anAISObject;
+        AsciiString1       anArgString = theArgVec[anIt];
+        Handle(VisualEntity) anAISObject;
         Standard_CString              aStr   = anArgString.ToCString();
-        TopoDS_Shape                  aShape = DBRep::Get(aStr);
+        TopoShape                  aShape = DBRep1::Get(aStr);
         if (!aShape.IsNull())
         {
-          anAISObject = new AIS_Shape(aShape);
+          anAISObject = new VisualShape(aShape);
         }
         else if (!GetMapOfAIS().Find2(anArgString, anAISObject) || anAISObject.IsNull())
         {
@@ -294,7 +294,7 @@ static int ParseDimensionParams(
       do
       {
         anIt++;
-        TCollection_AsciiString aValue(theArgVec[anIt]);
+        AsciiString1 aValue(theArgVec[anIt]);
         aValue.LowerCase();
         if (aValue.IsEqual("3d"))
         {
@@ -314,7 +314,7 @@ static int ParseDimensionParams(
         }
         else if (aValue.IsIntegerValue()) // text size
         {
-          theAspect->TextAspect()->SetHeight(Draw::Atoi(aValue.ToCString()));
+          theAspect->TextAspect()->SetHeight(Draw1::Atoi(aValue.ToCString()));
         }
       } while (anIt + 1 < theArgNum && theArgVec[anIt + 1][0] != '-');
     }
@@ -333,7 +333,7 @@ static int ParseDimensionParams(
       do
       {
         anIt++;
-        TCollection_AsciiString aParamValue(theArgVec[anIt]);
+        AsciiString1 aParamValue(theArgVec[anIt]);
         aParamValue.LowerCase();
 
         if (aParamValue == "left")
@@ -373,7 +373,7 @@ static int ParseDimensionParams(
     }
     else if (aParam.IsEqual("-arrow"))
     {
-      TCollection_AsciiString aLocalParam(theArgVec[++anIt]);
+      AsciiString1 aLocalParam(theArgVec[++anIt]);
       aLocalParam.LowerCase();
 
       if (aLocalParam == "external")
@@ -391,9 +391,9 @@ static int ParseDimensionParams(
     }
     else if (aParam.IsEqual("-zoomablearrow"))
     {
-      TCollection_AsciiString aValue(theArgVec[++anIt]);
+      AsciiString1 aValue(theArgVec[++anIt]);
       Standard_Boolean        isZoomableArrow = Standard_True;
-      if (!Draw::ParseOnOff(aValue.ToCString(), isZoomableArrow))
+      if (!Draw1::ParseOnOff(aValue.ToCString(), isZoomableArrow))
       {
         Message::SendFail() << "Error: zoomable arrow value should be 0 or 1.";
         return 1;
@@ -402,29 +402,29 @@ static int ParseDimensionParams(
     }
     else if (aParam.IsEqual("-arrowlength") || aParam.IsEqual("-arlen"))
     {
-      TCollection_AsciiString aValue(theArgVec[++anIt]);
+      AsciiString1 aValue(theArgVec[++anIt]);
       if (!aValue.IsRealValue(Standard_True))
       {
         Message::SendFail() << "Error: arrow length should be float degree value.";
         return 1;
       }
-      theAspect->ArrowAspect()->SetLength(Draw::Atof(aValue.ToCString()));
+      theAspect->ArrowAspect()->SetLength(Draw1::Atof(aValue.ToCString()));
     }
     else if (aParam.IsEqual("-arrowangle") || aParam.IsEqual("-arangle"))
     {
-      TCollection_AsciiString aValue(theArgVec[++anIt]);
+      AsciiString1 aValue(theArgVec[++anIt]);
       if (!aValue.IsRealValue(Standard_True))
       {
         Message::SendFail("Error: arrow angle should be float degree value.");
         return 1;
       }
-      theAspect->ArrowAspect()->SetAngle(Draw::Atof(aValue.ToCString()));
+      theAspect->ArrowAspect()->SetAngle(Draw1::Atof(aValue.ToCString()));
     }
     else if (aParam.IsEqual("-color"))
     {
       Quantity_Color   aColor;
       Standard_Integer aNbParsed =
-        Draw::ParseColor(theArgNum - anIt - 1, theArgVec + anIt + 1, aColor);
+        Draw1::ParseColor(theArgNum - anIt - 1, theArgVec + anIt + 1, aColor);
       anIt += aNbParsed;
       if (aNbParsed == 0)
       {
@@ -435,17 +435,17 @@ static int ParseDimensionParams(
     }
     else if (aParam.IsEqual("-extension"))
     {
-      TCollection_AsciiString aLocalParam(theArgVec[++anIt]);
+      AsciiString1 aLocalParam(theArgVec[++anIt]);
       if (!aLocalParam.IsRealValue(Standard_True))
       {
         Message::SendFail("Error: extension size for dimension should be real value.");
         return 1;
       }
-      theAspect->SetExtensionSize(Draw::Atof(aLocalParam.ToCString()));
+      theAspect->SetExtensionSize(Draw1::Atof(aLocalParam.ToCString()));
     }
     else if (aParam.IsEqual("-plane"))
     {
-      TCollection_AsciiString aValue(theArgVec[++anIt]);
+      AsciiString1 aValue(theArgVec[++anIt]);
       aValue.LowerCase();
       if (aValue == "xoy")
       {
@@ -470,41 +470,41 @@ static int ParseDimensionParams(
     }
     else if (aParam.IsEqual("-flyout"))
     {
-      TCollection_AsciiString aLocalParam(theArgVec[++anIt]);
+      AsciiString1 aLocalParam(theArgVec[++anIt]);
       if (!aLocalParam.IsRealValue(Standard_True))
       {
         Message::SendFail("Error: flyout for dimension should be real value.");
         return 1;
       }
 
-      theRealParams.Bind("flyout", Draw::Atof(aLocalParam.ToCString()));
+      theRealParams.Bind("flyout", Draw1::Atof(aLocalParam.ToCString()));
     }
     else if (aParam.IsEqual("-value"))
     {
-      TCollection_AsciiString aLocalParam(theArgVec[++anIt]);
+      AsciiString1 aLocalParam(theArgVec[++anIt]);
       if (!aLocalParam.IsRealValue(Standard_True))
       {
         Message::SendFail("Error: dimension value for dimension should be real value");
         return 1;
       }
 
-      theRealParams.Bind("value", Draw::Atof(aLocalParam.ToCString()));
+      theRealParams.Bind("value", Draw1::Atof(aLocalParam.ToCString()));
     }
     else if (aParam.IsEqual("-textvalue"))
     {
-      TCollection_AsciiString aLocalParam(theArgVec[++anIt]);
+      AsciiString1 aLocalParam(theArgVec[++anIt]);
 
       theStringParams.Bind("textvalue", aLocalParam);
     }
     else if (aParam.IsEqual("-modelunits"))
     {
-      TCollection_AsciiString aLocalParam(theArgVec[++anIt]);
+      AsciiString1 aLocalParam(theArgVec[++anIt]);
 
       theStringParams.Bind("modelunits", aLocalParam);
     }
     else if (aParam.IsEqual("-dispunits"))
     {
-      TCollection_AsciiString aLocalParam(theArgVec[++anIt]);
+      AsciiString1 aLocalParam(theArgVec[++anIt]);
 
       theStringParams.Bind("dispunits", aLocalParam);
     }
@@ -524,8 +524,8 @@ static int ParseDimensionParams(
 //=======================================================================
 static void SetDimensionParams(
   const Handle(PrsDim_Dimension)&                                              theDim,
-  const NCollection_DataMap<TCollection_AsciiString, Standard_Real>&           theRealParams,
-  const NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString>& theStringParams)
+  const NCollection_DataMap<AsciiString1, Standard_Real>&           theRealParams,
+  const NCollection_DataMap<AsciiString1, AsciiString1>& theStringParams)
 {
   if (theRealParams.IsBound("flyout"))
   {
@@ -569,14 +569,14 @@ static int ParseAngleDimensionParams(
   Standard_Integer                                                       theArgNum,
   const char**                                                           theArgVec,
   Standard_Integer                                                       theStartIndex,
-  NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString>& theStringParams)
+  NCollection_DataMap<AsciiString1, AsciiString1>& theStringParams)
 {
   theStringParams.Clear();
 
   // Begin from the second parameter: the first one is dimension name
   for (Standard_Integer anIt = theStartIndex; anIt < theArgNum; ++anIt)
   {
-    TCollection_AsciiString aParam(theArgVec[anIt]);
+    AsciiString1 aParam(theArgVec[anIt]);
     aParam.LowerCase();
 
     if (aParam.Search("-") == -1)
@@ -594,13 +594,13 @@ static int ParseAngleDimensionParams(
 
     if (aParam.IsEqual("-type"))
     {
-      TCollection_AsciiString aLocalParam(theArgVec[++anIt]);
+      AsciiString1 aLocalParam(theArgVec[++anIt]);
 
       theStringParams.Bind("type", aLocalParam);
     }
     else if (aParam.IsEqual("-showarrow"))
     {
-      TCollection_AsciiString aLocalParam(theArgVec[++anIt]);
+      AsciiString1 aLocalParam(theArgVec[++anIt]);
 
       theStringParams.Bind("showarrow", aLocalParam);
     }
@@ -620,7 +620,7 @@ static int ParseAngleDimensionParams(
 //=======================================================================
 static void SetAngleDimensionParams(
   const Handle(PrsDim_Dimension)&                                              theDim,
-  const NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString>& theStringParams)
+  const NCollection_DataMap<AsciiString1, AsciiString1>& theStringParams)
 {
   Handle(PrsDim_AngleDimension) anAngleDim = Handle(PrsDim_AngleDimension)::DownCast(theDim);
   if (anAngleDim.IsNull())
@@ -631,7 +631,7 @@ static void SetAngleDimensionParams(
   if (theStringParams.IsBound("type"))
   {
     PrsDim_TypeOfAngle      anAngleType    = PrsDim_TypeOfAngle_Interior;
-    TCollection_AsciiString anAngleTypeStr = theStringParams.Find("type");
+    AsciiString1 anAngleTypeStr = theStringParams.Find("type");
     if (anAngleTypeStr.IsEqual("interior"))
     {
       anAngleType = PrsDim_TypeOfAngle_Interior;
@@ -650,7 +650,7 @@ static void SetAngleDimensionParams(
   if (theStringParams.IsBound("showarrow"))
   {
     PrsDim_TypeOfAngleArrowVisibility anArrowType    = PrsDim_TypeOfAngleArrowVisibility_Both;
-    TCollection_AsciiString           anArrowTypeStr = theStringParams.Find("showarrow");
+    AsciiString1           anArrowTypeStr = theStringParams.Find("showarrow");
     if (anArrowTypeStr.IsEqual("both"))
     {
       anArrowType = PrsDim_TypeOfAngleArrowVisibility_Both;
@@ -680,7 +680,7 @@ static void SetAngleDimensionParams(
 // purpose  : Command for building dimension presentations: angle,
 //           length, radius, diameter
 //=======================================================================
-static int VDimBuilder(Draw_Interpretor& /*theDi*/,
+static int VDimBuilder(DrawInterpreter& /*theDi*/,
                        Standard_Integer theArgsNb,
                        const char**     theArgs)
 {
@@ -691,17 +691,17 @@ static int VDimBuilder(Draw_Interpretor& /*theDi*/,
   }
 
   // Parse parameters
-  TCollection_AsciiString aName(theArgs[1]);
+  AsciiString1 aName(theArgs[1]);
 
-  NCollection_List<Handle(AIS_InteractiveObject)> aShapes;
+  NCollection_List<Handle(VisualEntity)> aShapes;
   Handle(Prs3d_DimensionAspect)                   anAspect      = new Prs3d_DimensionAspect();
   Standard_Boolean                                isPlaneCustom = Standard_False;
   gp_Pln                                          aWorkingPlane;
 
-  NCollection_DataMap<TCollection_AsciiString, Standard_Real>           aRealParams;
-  NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString> aStringParams;
+  NCollection_DataMap<AsciiString1, Standard_Real>           aRealParams;
+  NCollection_DataMap<AsciiString1, AsciiString1> aStringParams;
 
-  TCollection_AsciiString aDimType(theArgs[2]);
+  AsciiString1 aDimType(theArgs[2]);
   aDimType.LowerCase();
   PrsDim_KindOfDimension aKindOfDimension;
   if (aDimType == "-length")
@@ -746,7 +746,7 @@ static int VDimBuilder(Draw_Interpretor& /*theDi*/,
     case PrsDim_KOD_LENGTH: {
       if (aShapes.Extent() == 1)
       {
-        Handle(AIS_Shape) aFirstShapePrs = Handle(AIS_Shape)::DownCast(aShapes.First());
+        Handle(VisualShape) aFirstShapePrs = Handle(VisualShape)::DownCast(aShapes.First());
         if (aFirstShapePrs.IsNull() || aFirstShapePrs->Shape().ShapeType() != TopAbs_EDGE)
         {
           Message::SendFail("Error: wrong shape type");
@@ -759,9 +759,9 @@ static int VDimBuilder(Draw_Interpretor& /*theDi*/,
         }
 
         // Adjust working plane
-        TopoDS_Edge   anEdge = TopoDS::Edge(aFirstShapePrs->Shape());
-        TopoDS_Vertex aFirst, aSecond;
-        TopExp::Vertices(anEdge, aFirst, aSecond);
+        TopoEdge   anEdge = TopoDS::Edge(aFirstShapePrs->Shape());
+        TopoVertex aFirst, aSecond;
+        TopExp1::Vertices(anEdge, aFirst, aSecond);
         aDim = new PrsDim_LengthDimension(anEdge, aWorkingPlane);
 
         // Move standard plane (XOY, YOZ or ZOX) to the first point to make it working for dimension
@@ -769,23 +769,23 @@ static int VDimBuilder(Draw_Interpretor& /*theDi*/,
       }
       else if (aShapes.Extent() == 2)
       {
-        TopoDS_Shape aShape1, aShape2;
+        TopoShape aShape1, aShape2;
 
         // Getting shapes
-        if (Handle(AIS_Point) aPntPrs = Handle(AIS_Point)::DownCast(aShapes.First()))
+        if (Handle(VisualPoint) aPntPrs = Handle(VisualPoint)::DownCast(aShapes.First()))
         {
           aShape1 = aPntPrs->Vertex();
         }
-        else if (Handle(AIS_Shape) aShapePrs = Handle(AIS_Shape)::DownCast(aShapes.First()))
+        else if (Handle(VisualShape) aShapePrs = Handle(VisualShape)::DownCast(aShapes.First()))
         {
           aShape1 = aShapePrs->Shape();
         }
 
-        if (Handle(AIS_Point) aPntPrs = Handle(AIS_Point)::DownCast(aShapes.Last()))
+        if (Handle(VisualPoint) aPntPrs = Handle(VisualPoint)::DownCast(aShapes.Last()))
         {
           aShape2 = aPntPrs->Vertex();
         }
-        else if (Handle(AIS_Shape) aShapePrs = Handle(AIS_Shape)::DownCast(aShapes.Last()))
+        else if (Handle(VisualShape) aShapePrs = Handle(VisualShape)::DownCast(aShapes.Last()))
         {
           aShape2 = aShapePrs->Shape();
         }
@@ -802,11 +802,11 @@ static int VDimBuilder(Draw_Interpretor& /*theDi*/,
         {
           if (aShape1.ShapeType() == TopAbs_VERTEX)
           {
-            aWorkingPlane.SetLocation(BRep_Tool::Pnt(TopoDS::Vertex(aShape1)));
+            aWorkingPlane.SetLocation(BRepInspector::Pnt(TopoDS::Vertex(aShape1)));
           }
           else if (aShape2.ShapeType() == TopAbs_VERTEX)
           {
-            aWorkingPlane.SetLocation(BRep_Tool::Pnt(TopoDS::Vertex(aShape2)));
+            aWorkingPlane.SetLocation(BRepInspector::Pnt(TopoDS::Vertex(aShape2)));
           }
           aLenDim->SetCustomPlane(aWorkingPlane);
         }
@@ -830,7 +830,7 @@ static int VDimBuilder(Draw_Interpretor& /*theDi*/,
       switch (aShapes.Extent())
       {
         case 1: {
-          if (Handle(AIS_Shape) aShape = Handle(AIS_Shape)::DownCast(aShapes.First()))
+          if (Handle(VisualShape) aShape = Handle(VisualShape)::DownCast(aShapes.First()))
           {
             if (aShape->Shape().ShapeType() == TopAbs_FACE)
             {
@@ -840,8 +840,8 @@ static int VDimBuilder(Draw_Interpretor& /*theDi*/,
           break;
         }
         case 2: {
-          Handle(AIS_Shape) aShape1 = Handle(AIS_Shape)::DownCast(aShapes.First());
-          Handle(AIS_Shape) aShape2 = Handle(AIS_Shape)::DownCast(aShapes.Last());
+          Handle(VisualShape) aShape1 = Handle(VisualShape)::DownCast(aShapes.First());
+          Handle(VisualShape) aShape2 = Handle(VisualShape)::DownCast(aShapes.Last());
           if (!aShape1.IsNull() && !aShape2.IsNull() && aShape1->Shape().ShapeType() == TopAbs_EDGE
               && aShape2->Shape().ShapeType() == TopAbs_EDGE)
           {
@@ -858,11 +858,11 @@ static int VDimBuilder(Draw_Interpretor& /*theDi*/,
         case 3: {
           Point3d           aPnts[3];
           Standard_Integer aPntIndex = 0;
-          for (NCollection_List<Handle(AIS_InteractiveObject)>::Iterator aPntIter(aShapes);
+          for (NCollection_List<Handle(VisualEntity)>::Iterator aPntIter(aShapes);
                aPntIter.More();
                aPntIter.Next())
           {
-            if (Handle(AIS_Point) aPoint = Handle(AIS_Point)::DownCast(aPntIter.Value()))
+            if (Handle(VisualPoint) aPoint = Handle(VisualPoint)::DownCast(aPntIter.Value()))
             {
               aPnts[aPntIndex++] = aPoint->Component()->Pnt();
             }
@@ -885,11 +885,11 @@ static int VDimBuilder(Draw_Interpretor& /*theDi*/,
     {
       Point3d anAnchor;
       bool   hasAnchor = false;
-      for (NCollection_List<Handle(AIS_InteractiveObject)>::Iterator aShapeIter(aShapes);
+      for (NCollection_List<Handle(VisualEntity)>::Iterator aShapeIter(aShapes);
            aShapeIter.More();
            aShapeIter.Next())
       {
-        if (Handle(AIS_Point) aPoint = Handle(AIS_Point)::DownCast(aShapeIter.Value()))
+        if (Handle(VisualPoint) aPoint = Handle(VisualPoint)::DownCast(aShapeIter.Value()))
         {
           hasAnchor = true;
           anAnchor  = aPoint->Component()->Pnt();
@@ -915,7 +915,7 @@ static int VDimBuilder(Draw_Interpretor& /*theDi*/,
           aDim = new PrsDim_RadiusDimension(aCircle);
         }
       }
-      else if (Handle(AIS_Shape) aShape = Handle(AIS_Shape)::DownCast(aShapes.First()))
+      else if (Handle(VisualShape) aShape = Handle(VisualShape)::DownCast(aShapes.First()))
       {
         Handle(PrsDim_RadiusDimension) aRadDim = new PrsDim_RadiusDimension(aShape->Shape());
         if (hasAnchor)
@@ -942,7 +942,7 @@ static int VDimBuilder(Draw_Interpretor& /*theDi*/,
         }
         else
         {
-          Handle(AIS_Shape) aShape = Handle(AIS_Shape)::DownCast(aShapes.First());
+          Handle(VisualShape) aShape = Handle(VisualShape)::DownCast(aShapes.First());
           if (aShape.IsNull())
           {
             Message::SendFail("Error: shape for radius is of wrong type");
@@ -985,7 +985,7 @@ static int VDimBuilder(Draw_Interpretor& /*theDi*/,
 namespace
 {
 //! If the given shapes are edges then check whether they are parallel else return true.
-Standard_Boolean IsParallel(const TopoDS_Shape& theShape1, const TopoDS_Shape& theShape2)
+Standard_Boolean IsParallel(const TopoShape& theShape1, const TopoShape& theShape2)
 {
   if (theShape1.ShapeType() == TopAbs_EDGE && theShape2.ShapeType() == TopAbs_EDGE)
   {
@@ -1001,7 +1001,7 @@ Standard_Boolean IsParallel(const TopoDS_Shape& theShape1, const TopoDS_Shape& t
 // function : VRelationBuilder
 // purpose  : Command for building relation presentation
 //=======================================================================
-static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
+static int VRelationBuilder(DrawInterpreter& /*theDi*/,
                             Standard_Integer theArgsNb,
                             const char**     theArgs)
 {
@@ -1011,8 +1011,8 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
     return 1;
   }
 
-  TCollection_AsciiString aName(theArgs[1]);
-  TCollection_AsciiString aType(theArgs[2]);
+  AsciiString1 aName(theArgs[1]);
+  AsciiString1 aType(theArgs[2]);
 
   PrsDim_KindOfRelation aKindOfRelation = PrsDim_KOR_NONE;
   if (aType == "-concentric")
@@ -1056,7 +1056,7 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
     aKindOfRelation = PrsDim_KOR_SYMMETRIC;
   }
 
-  TopTools_ListOfShape aShapes;
+  ShapeList aShapes;
   ViewerTest::GetSelectedShapes(aShapes);
 
   // Build relation.
@@ -1070,8 +1070,8 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         return 1;
       }
 
-      const TopoDS_Shape& aShape1 = aShapes.First();
-      const TopoDS_Shape& aShape2 = aShapes.Last();
+      const TopoShape& aShape1 = aShapes.First();
+      const TopoShape& aShape2 = aShapes.Last();
 
       if (!(aShape1.ShapeType() == TopAbs_EDGE && aShape2.ShapeType() == TopAbs_EDGE))
       {
@@ -1097,10 +1097,10 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         return 1;
       }
 
-      TopoDS_Shape aSelectedShapes[4];
+      TopoShape aSelectedShapes[4];
 
       Standard_Integer               anIdx = 0;
-      TopTools_ListOfShape::Iterator anIter(aShapes);
+      ShapeList::Iterator anIter(aShapes);
       for (; anIter.More(); anIter.Next(), ++anIdx)
       {
         aSelectedShapes[anIdx] = anIter.Value();
@@ -1116,36 +1116,36 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
       Point3d A, B, C;
       if (aSelectedShapes[0].ShapeType() == TopAbs_EDGE)
       {
-        TopoDS_Vertex Va, Vb;
-        TopExp::Vertices(TopoDS::Edge(aSelectedShapes[0]), Va, Vb);
-        A = BRep_Tool::Pnt(Va);
-        B = BRep_Tool::Pnt(Vb);
+        TopoVertex Va, Vb;
+        TopExp1::Vertices(TopoDS::Edge(aSelectedShapes[0]), Va, Vb);
+        A = BRepInspector::Pnt(Va);
+        B = BRepInspector::Pnt(Vb);
 
         if (aSelectedShapes[1].ShapeType() == TopAbs_EDGE)
         {
-          TopoDS_Vertex Vc, Vd;
-          TopExp::Vertices(TopoDS::Edge(aSelectedShapes[1]), Vc, Vd);
-          C = BRep_Tool::Pnt(Vc);
+          TopoVertex Vc, Vd;
+          TopExp1::Vertices(TopoDS::Edge(aSelectedShapes[1]), Vc, Vd);
+          C = BRepInspector::Pnt(Vc);
         }
         else
         {
-          C = BRep_Tool::Pnt(TopoDS::Vertex(aSelectedShapes[1]));
+          C = BRepInspector::Pnt(TopoDS::Vertex(aSelectedShapes[1]));
         }
       }
       else
       {
-        A = BRep_Tool::Pnt(TopoDS::Vertex(aSelectedShapes[0]));
+        A = BRepInspector::Pnt(TopoDS::Vertex(aSelectedShapes[0]));
 
         if (aSelectedShapes[1].ShapeType() == TopAbs_EDGE)
         {
-          TopoDS_Vertex Vb, Vc;
-          TopExp::Vertices(TopoDS::Edge(aSelectedShapes[1]), Vb, Vc);
-          B = BRep_Tool::Pnt(Vb);
-          C = BRep_Tool::Pnt(Vc);
+          TopoVertex Vb, Vc;
+          TopExp1::Vertices(TopoDS::Edge(aSelectedShapes[1]), Vb, Vc);
+          B = BRepInspector::Pnt(Vb);
+          C = BRepInspector::Pnt(Vc);
         }
         else
         {
-          B = BRep_Tool::Pnt(TopoDS::Vertex(aSelectedShapes[1]));
+          B = BRepInspector::Pnt(TopoDS::Vertex(aSelectedShapes[1]));
           C.SetX(B.X() + 5.0);
           C.SetY(B.Y() + 5.0);
           C.SetZ(B.Z() + 5.0);
@@ -1168,16 +1168,16 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         return 1;
       }
 
-      const TopoDS_Shape& aShape1 = aShapes.First();
-      const TopoDS_Shape& aShape2 = (aShapes.Extent() == 2) ? aShapes.Last() : aShape1;
+      const TopoShape& aShape1 = aShapes.First();
+      const TopoShape& aShape2 = (aShapes.Extent() == 2) ? aShapes.Last() : aShape1;
       if (!(aShape1.ShapeType() == TopAbs_EDGE && aShape2.ShapeType() == TopAbs_EDGE))
       {
         Message::SendFail("Syntax error: selected shapes are not edges");
         return 1;
       }
 
-      TopoDS_Edge       anEdge1 = TopoDS::Edge(aShape1);
-      TopoDS_Edge       anEdge2 = TopoDS::Edge(aShape2);
+      TopoEdge       anEdge1 = TopoDS::Edge(aShape1);
+      TopoEdge       anEdge2 = TopoDS::Edge(aShape2);
       BRepAdaptor_Curve aCurve1(anEdge1);
       Point3d            A = aCurve1.Value(0.1);
       Point3d            B = aCurve1.Value(0.5);
@@ -1194,14 +1194,14 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         return 1;
       }
 
-      const TopoDS_Shape& aShape = aShapes.First();
+      const TopoShape& aShape = aShapes.First();
       if (aShape.ShapeType() != TopAbs_EDGE)
       {
         Message::SendFail("Syntax error: selected shapes are not edges");
         return 1;
       }
 
-      TopoDS_Edge       anEdge = TopoDS::Edge(aShape);
+      TopoEdge       anEdge = TopoDS::Edge(aShape);
       BRepAdaptor_Curve aCurve(anEdge);
       Point3d            A = aCurve.Value(0.1);
       Point3d            B = aCurve.Value(0.5);
@@ -1219,13 +1219,13 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         return 1;
       }
 
-      const TopoDS_Shape& aShapeA = aShapes.First();
-      const TopoDS_Shape& aShapeB = aShapes.Last();
+      const TopoShape& aShapeA = aShapes.First();
+      const TopoShape& aShapeB = aShapes.Last();
 
       Point3d A, B, C;
       if (aShapeA.ShapeType() == TopAbs_EDGE)
       {
-        TopoDS_Edge       anEdgeA = TopoDS::Edge(aShapeA);
+        TopoEdge       anEdgeA = TopoDS::Edge(aShapeA);
         BRepAdaptor_Curve aCurveA(anEdgeA);
 
         A = aCurveA.Value(0.1);
@@ -1238,7 +1238,7 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
       {
         if (aShapeB.ShapeType() == TopAbs_EDGE)
         {
-          TopoDS_Edge       anEdgeB = TopoDS::Edge(aShapeB);
+          TopoEdge       anEdgeB = TopoDS::Edge(aShapeB);
           BRepAdaptor_Curve aCurveB(anEdgeB);
 
           A = aCurveB.Value(0.1);
@@ -1249,9 +1249,9 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         }
         else if (aShapeB.ShapeType() == TopAbs_FACE)
         {
-          TopoDS_Face       aFaceB = TopoDS::Face(aShapeB);
-          TopExp_Explorer   aFaceExp(aFaceB, TopAbs_EDGE);
-          TopoDS_Edge       anEdgeFromB = TopoDS::Edge(aFaceExp.Current());
+          TopoFace       aFaceB = TopoDS::Face(aShapeB);
+          ShapeExplorer   aFaceExp(aFaceB, TopAbs_EDGE);
+          TopoEdge       anEdgeFromB = TopoDS::Edge(aFaceExp.Current());
           BRepAdaptor_Curve aCurveB(anEdgeFromB);
           A = aCurveB.Value(0.1);
           B = aCurveB.Value(0.5);
@@ -1259,8 +1259,8 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         }
         else
         {
-          A = BRep_Tool::Pnt(TopoDS::Vertex(aShapeA));
-          B = BRep_Tool::Pnt(TopoDS::Vertex(aShapeB));
+          A = BRepInspector::Pnt(TopoDS::Vertex(aShapeA));
+          B = BRepInspector::Pnt(TopoDS::Vertex(aShapeB));
           C.SetX(B.X() + 5.0);
           C.SetY(B.Y() + 5.0);
           C.SetZ(B.Z() + 5.0);
@@ -1268,9 +1268,9 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
       }
       else
       {
-        TopoDS_Face       aFaceA = TopoDS::Face(aShapeA);
-        TopExp_Explorer   aFaceExp(aFaceA, TopAbs_EDGE);
-        TopoDS_Edge       anEdgeFromA = TopoDS::Edge(aFaceExp.Current());
+        TopoFace       aFaceA = TopoDS::Face(aShapeA);
+        ShapeExplorer   aFaceExp(aFaceA, TopAbs_EDGE);
+        TopoEdge       anEdgeFromA = TopoDS::Edge(aFaceExp.Current());
         BRepAdaptor_Curve aCurveA(anEdgeFromA);
         A = aCurveA.Value(0.1);
         B = aCurveA.Value(0.5);
@@ -1288,16 +1288,16 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         return 1;
       }
 
-      const TopoDS_Shape& aShape1 = aShapes.First();
-      const TopoDS_Shape& aShape2 = aShapes.Last();
+      const TopoShape& aShape1 = aShapes.First();
+      const TopoShape& aShape2 = aShapes.Last();
       if (!(aShape1.ShapeType() == TopAbs_FACE && aShape2.ShapeType() == TopAbs_FACE))
       {
         Message::SendFail("Syntax error: selected shapes are not faces");
         return 1;
       }
 
-      TopoDS_Face aFace1 = TopoDS::Face(aShape1);
-      TopoDS_Face aFace2 = TopoDS::Face(aShape2);
+      TopoFace aFace1 = TopoDS::Face(aShape1);
+      TopoFace aFace2 = TopoDS::Face(aShape2);
 
       BRepExtrema_ExtFF aDelta(aFace1, aFace2);
       if (!aDelta.IsParallel())
@@ -1307,8 +1307,8 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
       }
 
       Standard_Real              aDist = Round(sqrt(aDelta.SquareDistance(1)) * 10.0) / 10.0;
-      TCollection_ExtendedString aMessage(TCollection_ExtendedString("offset=")
-                                          + TCollection_ExtendedString(aDist));
+      UtfString aMessage(UtfString("offset=")
+                                          + UtfString(aDist));
       aRelation = new PrsDim_OffsetDimension(aFace1, aFace2, aDist, aMessage);
       break;
     }
@@ -1319,12 +1319,12 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         return 1;
       }
 
-      const TopoDS_Shape& aShapeA = aShapes.First();
-      const TopoDS_Shape& aShapeB = aShapes.Last();
+      const TopoShape& aShapeA = aShapes.First();
+      const TopoShape& aShapeB = aShapes.Last();
       if (aShapeA.ShapeType() == TopAbs_EDGE)
       {
-        TopoDS_Edge       anEdgeA = TopoDS::Edge(aShapeA);
-        TopoDS_Edge       anEdgeB = TopoDS::Edge(aShapeB);
+        TopoEdge       anEdgeA = TopoDS::Edge(aShapeA);
+        TopoEdge       anEdgeB = TopoDS::Edge(aShapeB);
         BRepExtrema_ExtCC aDeltaEdge(anEdgeA, anEdgeB);
 
         if (!aDeltaEdge.IsParallel())
@@ -1346,8 +1346,8 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
       }
       else
       {
-        TopoDS_Face aFaceA = TopoDS::Face(aShapeA);
-        TopoDS_Face aFaceB = TopoDS::Face(aShapeB);
+        TopoFace aFaceA = TopoDS::Face(aShapeA);
+        TopoFace aFaceB = TopoDS::Face(aShapeB);
 
         BRepExtrema_ExtFF aDeltaFace(aFaceA, aFaceB);
         if (!aDeltaFace.IsParallel())
@@ -1356,11 +1356,11 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
           return 1;
         }
 
-        TopExp_Explorer aFaceExpA(aFaceA, TopAbs_EDGE);
-        TopExp_Explorer aFaceExpB(aFaceB, TopAbs_EDGE);
+        ShapeExplorer aFaceExpA(aFaceA, TopAbs_EDGE);
+        ShapeExplorer aFaceExpB(aFaceB, TopAbs_EDGE);
 
-        TopoDS_Edge anEdgeA = TopoDS::Edge(aFaceExpA.Current());
-        TopoDS_Edge anEdgeB = TopoDS::Edge(aFaceExpB.Current());
+        TopoEdge anEdgeA = TopoDS::Edge(aFaceExpA.Current());
+        TopoEdge anEdgeB = TopoDS::Edge(aFaceExpB.Current());
 
         BRepAdaptor_Curve aCurveA(anEdgeA);
         BRepAdaptor_Curve aCurveB(anEdgeB);
@@ -1381,13 +1381,13 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         return 1;
       }
 
-      const TopoDS_Shape& aShapeA = aShapes.First();
-      const TopoDS_Shape& aShapeB = aShapes.Last();
+      const TopoShape& aShapeA = aShapes.First();
+      const TopoShape& aShapeB = aShapes.Last();
 
       if (aShapeA.ShapeType() == TopAbs_EDGE)
       {
-        TopoDS_Edge anEdgeA = TopoDS::Edge(aShapeA);
-        TopoDS_Edge anEdgeB = TopoDS::Edge(aShapeB);
+        TopoEdge anEdgeA = TopoDS::Edge(aShapeA);
+        TopoEdge anEdgeB = TopoDS::Edge(aShapeB);
 
         BRepAdaptor_Curve aCurveA(anEdgeA);
         BRepAdaptor_Curve aCurveB(anEdgeB);
@@ -1402,14 +1402,14 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
       }
       else
       {
-        TopoDS_Face aFaceA = TopoDS::Face(aShapeA);
-        TopoDS_Face aFaceB = TopoDS::Face(aShapeB);
+        TopoFace aFaceA = TopoDS::Face(aShapeA);
+        TopoFace aFaceB = TopoDS::Face(aShapeB);
 
-        TopExp_Explorer aFaceExpA(aFaceA, TopAbs_EDGE);
-        TopExp_Explorer aFaceExpB(aFaceB, TopAbs_EDGE);
+        ShapeExplorer aFaceExpA(aFaceA, TopAbs_EDGE);
+        ShapeExplorer aFaceExpB(aFaceB, TopAbs_EDGE);
 
-        TopoDS_Edge anEdgeA = TopoDS::Edge(aFaceExpA.Current());
-        TopoDS_Edge anEdgeB = TopoDS::Edge(aFaceExpB.Current());
+        TopoEdge anEdgeA = TopoDS::Edge(aFaceExpA.Current());
+        TopoEdge anEdgeB = TopoDS::Edge(aFaceExpB.Current());
 
         BRepAdaptor_Curve aCurveA(anEdgeA);
         BRepAdaptor_Curve aCurveB(anEdgeB);
@@ -1432,13 +1432,13 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         return 1;
       }
 
-      const TopoDS_Shape& aShapeA = aShapes.First();
-      const TopoDS_Shape& aShapeB = aShapes.Last();
+      const TopoShape& aShapeA = aShapes.First();
+      const TopoShape& aShapeB = aShapes.Last();
 
       if (aShapeA.ShapeType() == TopAbs_EDGE)
       {
-        TopoDS_Edge anEdgeA = TopoDS::Edge(aShapeA);
-        TopoDS_Edge anEdgeB = TopoDS::Edge(aShapeB);
+        TopoEdge anEdgeA = TopoDS::Edge(aShapeA);
+        TopoEdge anEdgeB = TopoDS::Edge(aShapeB);
 
         BRepAdaptor_Curve aCurveA(anEdgeA);
         BRepAdaptor_Curve aCurveB(anEdgeB);
@@ -1453,14 +1453,14 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
       }
       else
       {
-        TopoDS_Face aFaceA = TopoDS::Face(aShapeA);
-        TopoDS_Face aFaceB = TopoDS::Face(aShapeB);
+        TopoFace aFaceA = TopoDS::Face(aShapeA);
+        TopoFace aFaceB = TopoDS::Face(aShapeB);
 
-        TopExp_Explorer aFaceExpA(aFaceA, TopAbs_EDGE);
-        TopExp_Explorer aFaceExpB(aFaceB, TopAbs_EDGE);
+        ShapeExplorer aFaceExpA(aFaceA, TopAbs_EDGE);
+        ShapeExplorer aFaceExpB(aFaceB, TopAbs_EDGE);
 
-        TopoDS_Edge anEdgeA = TopoDS::Edge(aFaceExpA.Current());
-        TopoDS_Edge anEdgeB = TopoDS::Edge(aFaceExpB.Current());
+        TopoEdge anEdgeA = TopoDS::Edge(aFaceExpA.Current());
+        TopoEdge anEdgeB = TopoDS::Edge(aFaceExpB.Current());
 
         BRepAdaptor_Curve aCurveA(anEdgeA);
         BRepAdaptor_Curve aCurveB(anEdgeB);
@@ -1482,20 +1482,20 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
         return 1;
       }
 
-      TopoDS_Shape                   aSelectedShapes[3];
+      TopoShape                   aSelectedShapes[3];
       Standard_Integer               anIdx = 0;
-      TopTools_ListOfShape::Iterator anIter(aShapes);
+      ShapeList::Iterator anIter(aShapes);
       for (; anIter.More(); anIter.Next(), ++anIdx)
       {
         aSelectedShapes[anIdx] = anIter.Value();
       }
 
-      TopoDS_Edge anEdgeA = TopoDS::Edge(aSelectedShapes[0]);
+      TopoEdge anEdgeA = TopoDS::Edge(aSelectedShapes[0]);
       if (aSelectedShapes[1].ShapeType() == TopAbs_EDGE)
       {
         // 1 - edge,  2 - edge, 3 - edge.
-        TopoDS_Edge anEdgeB = TopoDS::Edge(aSelectedShapes[1]);
-        TopoDS_Edge anEdgeC = TopoDS::Edge(aSelectedShapes[2]);
+        TopoEdge anEdgeB = TopoDS::Edge(aSelectedShapes[1]);
+        TopoEdge anEdgeC = TopoDS::Edge(aSelectedShapes[2]);
 
         BRepExtrema_ExtCC aDeltaEdgeAB(anEdgeA, anEdgeB);
         BRepExtrema_ExtCC aDeltaEdgeAC(anEdgeA, anEdgeC);
@@ -1511,11 +1511,11 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
           return 1;
         }
 
-        TopoDS_Vertex Va, Vb, Vc, Vd;
-        TopExp::Vertices(anEdgeB, Va, Vb);
-        TopExp::Vertices(anEdgeC, Vc, Vd);
-        Point3d A = BRep_Tool::Pnt(Va);
-        Point3d B = BRep_Tool::Pnt(Vc);
+        TopoVertex Va, Vb, Vc, Vd;
+        TopExp1::Vertices(anEdgeB, Va, Vb);
+        TopExp1::Vertices(anEdgeC, Vc, Vd);
+        Point3d A = BRepInspector::Pnt(Va);
+        Point3d B = BRepInspector::Pnt(Vc);
         Point3d C = Get3DPointAtMousePosition();
 
         GC_MakePlane aMkPlane(A, B, C);
@@ -1525,15 +1525,15 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
       else
       {
         // 1 - edge, 2 - vertex, 3 - vertex
-        TopoDS_Vertex aVertexB = TopoDS::Vertex(aSelectedShapes[1]);
-        TopoDS_Vertex aVertexC = TopoDS::Vertex(aSelectedShapes[2]);
+        TopoVertex aVertexB = TopoDS::Vertex(aSelectedShapes[1]);
+        TopoVertex aVertexC = TopoDS::Vertex(aSelectedShapes[2]);
 
-        Point3d B = BRep_Tool::Pnt(aVertexB);
-        Point3d C = BRep_Tool::Pnt(aVertexC);
+        Point3d B = BRepInspector::Pnt(aVertexB);
+        Point3d C = BRepInspector::Pnt(aVertexC);
 
-        TopoDS_Vertex Va, Vb;
-        TopExp::Vertices(anEdgeA, Va, Vb);
-        Point3d A = BRep_Tool::Pnt(Va);
+        TopoVertex Va, Vb;
+        TopExp1::Vertices(anEdgeA, Va, Vb);
+        Point3d A = BRepInspector::Pnt(Va);
 
         GC_MakePlane aMkPlane(A, B, C);
         aRelation = new PrsDim_SymmetricRelation(anEdgeA, aVertexB, aVertexC, aMkPlane.Value());
@@ -1555,7 +1555,7 @@ static int VRelationBuilder(Draw_Interpretor& /*theDi*/,
 // function : VDimParam
 // purpose  : Sets aspect parameters to dimension.
 //=======================================================================
-static int VDimParam(Draw_Interpretor& theDi, Standard_Integer theArgNum, const char** theArgVec)
+static int VDimParam(DrawInterpreter& theDi, Standard_Integer theArgNum, const char** theArgVec)
 {
   if (theArgNum < 3)
   {
@@ -1563,15 +1563,15 @@ static int VDimParam(Draw_Interpretor& theDi, Standard_Integer theArgNum, const 
     return 1;
   }
 
-  TCollection_AsciiString aName(theArgVec[1]);
+  AsciiString1 aName(theArgVec[1]);
   gp_Pln                  aWorkingPlane;
   Standard_Boolean        isCustomPlane = Standard_False;
   Standard_Boolean        toUpdate      = Standard_True;
 
-  NCollection_DataMap<TCollection_AsciiString, Standard_Real>           aRealParams;
-  NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString> aStringParams;
+  NCollection_DataMap<AsciiString1, Standard_Real>           aRealParams;
+  NCollection_DataMap<AsciiString1, AsciiString1> aStringParams;
 
-  Handle(AIS_InteractiveObject) anObject;
+  Handle(VisualEntity) anObject;
   if (!GetMapOfAIS().Find2(aName, anObject))
   {
     theDi << theArgVec[0] << "error: no object with this name.\n";
@@ -1624,7 +1624,7 @@ static int VDimParam(Draw_Interpretor& theDi, Standard_Integer theArgNum, const 
 // function : VLengthParam
 // purpose  : Sets parameters to length dimension.
 //=======================================================================
-static int VLengthParam(Draw_Interpretor&, Standard_Integer theArgNum, const char** theArgVec)
+static int VLengthParam(DrawInterpreter&, Standard_Integer theArgNum, const char** theArgVec)
 {
   if (theArgNum < 3)
   {
@@ -1632,8 +1632,8 @@ static int VLengthParam(Draw_Interpretor&, Standard_Integer theArgNum, const cha
     return 1;
   }
 
-  TCollection_AsciiString       aName(theArgVec[1]);
-  Handle(AIS_InteractiveObject) anObject;
+  AsciiString1       aName(theArgVec[1]);
+  Handle(VisualEntity) anObject;
   if (!GetMapOfAIS().Find2(aName, anObject))
   {
     Message::SendFail() << "Syntax error: no object with name '" << aName << "'";
@@ -1650,7 +1650,7 @@ static int VLengthParam(Draw_Interpretor&, Standard_Integer theArgNum, const cha
   // parse direction value
   Dir3d                  aDirection;
   int                     anArgumentIt = 2;
-  TCollection_AsciiString aParam(theArgVec[anArgumentIt]);
+  AsciiString1 aParam(theArgVec[anArgumentIt]);
   aParam.LowerCase();
 
   bool isCustomDirection = false;
@@ -1663,7 +1663,7 @@ static int VLengthParam(Draw_Interpretor&, Standard_Integer theArgNum, const cha
     }
     anArgumentIt++;
     isCustomDirection              = Standard_True;
-    TCollection_AsciiString aValue = theArgVec[anArgumentIt];
+    AsciiString1 aValue = theArgVec[anArgumentIt];
     aValue.LowerCase();
     if (aValue == "ox")
       aDirection = gp::DX();
@@ -1684,7 +1684,7 @@ static int VLengthParam(Draw_Interpretor&, Standard_Integer theArgNum, const cha
       TColStd_SequenceOfReal aCoords;
       for (; anArgumentIt < theArgNum; ++anArgumentIt)
       {
-        TCollection_AsciiString anArg(theArgVec[anArgumentIt]);
+        AsciiString1 anArg(theArgVec[anArgumentIt]);
         if (!anArg.IsRealValue(Standard_True))
         {
           break;
@@ -1721,7 +1721,7 @@ static int VLengthParam(Draw_Interpretor&, Standard_Integer theArgNum, const cha
 // function : VAngleParam
 // purpose  : Sets aspect parameters to angle dimension.
 //=======================================================================
-static int VAngleParam(Draw_Interpretor& theDi, Standard_Integer theArgNum, const char** theArgVec)
+static int VAngleParam(DrawInterpreter& theDi, Standard_Integer theArgNum, const char** theArgVec)
 {
   if (theArgNum < 3)
   {
@@ -1729,12 +1729,12 @@ static int VAngleParam(Draw_Interpretor& theDi, Standard_Integer theArgNum, cons
     return 1;
   }
 
-  TCollection_AsciiString aName(theArgVec[1]);
+  AsciiString1 aName(theArgVec[1]);
   gp_Pln                  aWorkingPlane;
   Standard_Boolean        toUpdate = Standard_True;
 
-  NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString> aStringParams;
-  Handle(AIS_InteractiveObject)                                         anObject;
+  NCollection_DataMap<AsciiString1, AsciiString1> aStringParams;
+  Handle(VisualEntity)                                         anObject;
   if (!GetMapOfAIS().Find2(aName, anObject))
   {
     theDi << theArgVec[0] << "error: no object with this name.\n";
@@ -1776,7 +1776,7 @@ static int VAngleParam(Draw_Interpretor& theDi, Standard_Integer theArgNum, cons
 //           position and updates the object.
 // draw args: vmovedim [name] [x y z]
 //=======================================================================
-static int VMoveDim(Draw_Interpretor& theDi, Standard_Integer theArgNum, const char** theArgVec)
+static int VMoveDim(DrawInterpreter& theDi, Standard_Integer theArgNum, const char** theArgVec)
 {
   if (theArgNum > 5)
   {
@@ -1788,14 +1788,14 @@ static int VMoveDim(Draw_Interpretor& theDi, Standard_Integer theArgNum, const c
   Standard_Boolean isNameSet  = (theArgNum == 2 || theArgNum == 5);
   Standard_Boolean isPointSet = (theArgNum == 4 || theArgNum == 5);
 
-  Handle(AIS_InteractiveObject) aPickedObj;
+  Handle(VisualEntity) aPickedObj;
   Point3d                        aPoint(gp::Origin());
   Standard_Integer              aMaxPickNum = 5;
 
   // Find object
   if (isNameSet)
   {
-    TCollection_AsciiString aName(theArgVec[1]);
+    AsciiString1 aName(theArgVec[1]);
     if (!GetMapOfAIS().Find2(aName, aPickedObj) || aPickedObj.IsNull())
     {
       theDi << theArgVec[0] << " error: no object with this name.\n";
@@ -1928,12 +1928,12 @@ static int VMoveDim(Draw_Interpretor& theDi, Standard_Integer theArgNum, const c
 
 //=================================================================================================
 
-void ViewerTest::RelationCommands(Draw_Interpretor& theCommands)
+void ViewerTest::RelationCommands(DrawInterpreter& theCommands)
 {
   const char* aGroup    = "AIS Viewer";
   const char* aFileName = __FILE__;
   auto        addCmd =
-    [&](const char* theName, Draw_Interpretor::CommandFunction theFunc, const char* theHelp) {
+    [&](const char* theName, DrawInterpreter::CommandFunction theFunc, const char* theHelp) {
       theCommands.Add(theName, theHelp, aFileName, theFunc, aGroup);
     };
 

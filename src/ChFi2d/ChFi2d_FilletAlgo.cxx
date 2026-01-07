@@ -45,7 +45,7 @@ ChFi2d_FilletAlgo::ChFi2d_FilletAlgo()
 {
 }
 
-ChFi2d_FilletAlgo::ChFi2d_FilletAlgo(const TopoDS_Wire& theWire, const gp_Pln& thePlane)
+ChFi2d_FilletAlgo::ChFi2d_FilletAlgo(const TopoWire& theWire, const gp_Pln& thePlane)
     : myStart1(0.0),
       myEnd1(0.0),
       myStart2(0.0),
@@ -58,8 +58,8 @@ ChFi2d_FilletAlgo::ChFi2d_FilletAlgo(const TopoDS_Wire& theWire, const gp_Pln& t
   Init(theWire, thePlane);
 }
 
-ChFi2d_FilletAlgo::ChFi2d_FilletAlgo(const TopoDS_Edge& theEdge1,
-                                     const TopoDS_Edge& theEdge2,
+ChFi2d_FilletAlgo::ChFi2d_FilletAlgo(const TopoEdge& theEdge1,
+                                     const TopoEdge& theEdge2,
                                      const gp_Pln&      thePlane)
     : myEdge1(theEdge1),
       myEdge2(theEdge2),
@@ -75,9 +75,9 @@ ChFi2d_FilletAlgo::ChFi2d_FilletAlgo(const TopoDS_Edge& theEdge1,
   Init(theEdge1, theEdge2, thePlane);
 }
 
-void ChFi2d_FilletAlgo::Init(const TopoDS_Wire& theWire, const gp_Pln& thePlane)
+void ChFi2d_FilletAlgo::Init(const TopoWire& theWire, const gp_Pln& thePlane)
 {
-  TopoDS_Edge     theEdge1, theEdge2;
+  TopoEdge     theEdge1, theEdge2;
   TopoDS_Iterator itr(theWire);
   for (; itr.More(); itr.Next())
   {
@@ -94,11 +94,11 @@ void ChFi2d_FilletAlgo::Init(const TopoDS_Wire& theWire, const gp_Pln& thePlane)
   Init(theEdge1, theEdge2, thePlane);
 }
 
-void ChFi2d_FilletAlgo::Init(const TopoDS_Edge& theEdge1,
-                             const TopoDS_Edge& theEdge2,
+void ChFi2d_FilletAlgo::Init(const TopoEdge& theEdge1,
+                             const TopoEdge& theEdge2,
                              const gp_Pln&      thePlane)
 {
-  myPlane = new Geom_Plane(thePlane);
+  myPlane = new GeomPlane(thePlane);
 
   myEdgesExchnged = Standard_False;
 
@@ -116,8 +116,8 @@ void ChFi2d_FilletAlgo::Init(const TopoDS_Edge& theEdge1,
     myEdge2 = theEdge2;
   }
 
-  Handle(Geom_Curve) aCurve1 = BRep_Tool::Curve(myEdge1, myStart1, myEnd1);
-  Handle(Geom_Curve) aCurve2 = BRep_Tool::Curve(myEdge2, myStart2, myEnd2);
+  Handle(GeomCurve3d) aCurve1 = BRepInspector::Curve(myEdge1, myStart1, myEnd1);
+  Handle(GeomCurve3d) aCurve2 = BRepInspector::Curve(myEdge2, myStart2, myEnd2);
 
   myCurve1 = GeomProjLib::Curve2d(aCurve1, myStart1, myEnd1, myPlane);
   myCurve2 = GeomProjLib::Curve2d(aCurve2, myStart2, myEnd2, myPlane);
@@ -131,10 +131,10 @@ void ChFi2d_FilletAlgo::Init(const TopoDS_Edge& theEdge1,
   {
     if (myEnd2 - myStart2 < myEnd1 - myStart1)
     { // first curve must be parametrically shorter
-      TopoDS_Edge anEdge          = myEdge1;
+      TopoEdge anEdge          = myEdge1;
       myEdge1                     = myEdge2;
       myEdge2                     = anEdge;
-      Handle(Geom2d_Curve) aCurve = myCurve1;
+      Handle(GeomCurve2d) aCurve = myCurve1;
       myCurve1                    = myCurve2;
       myCurve2                    = aCurve;
       Standard_Real a             = myStart1;
@@ -151,7 +151,7 @@ void ChFi2d_FilletAlgo::Init(const TopoDS_Edge& theEdge1,
 //! This function returns true if linear segment from start point of the
 //! fillet arc to the end point is intersected by the first or second
 //! curve: in this case fillet is invalid.
-static Standard_Boolean IsRadiusIntersected(const Handle(Geom2d_Curve)& theCurve,
+static Standard_Boolean IsRadiusIntersected(const Handle(GeomCurve2d)& theCurve,
                                             const Standard_Real         theCurveMin,
                                             const double                theCurveMax,
                                             const gp_Pnt2d              theStart,
@@ -185,7 +185,7 @@ static Standard_Boolean IsRadiusIntersected(const Handle(Geom2d_Curve)& theCurve
     if (gp_Vec2d(aPoint, theStart).IsOpposite(gp_Vec2d(aPoint, theEnd), Precision::Angular()))
       return Standard_True;
   }
-  const Handle(Geom2d_Curve)& aCurve = theCurve;
+  const Handle(GeomCurve2d)& aCurve = theCurve;
   for (a = anInter.NbSegments(); a > 0; a--)
   {
     // anInter.Segment(a, aCurve); //not implemented (bug in OCC)
@@ -219,7 +219,7 @@ static Standard_Boolean IsRadiusIntersected(const Handle(Geom2d_Curve)& theCurve
   return Standard_False;
 }
 
-void ChFi2d_FilletAlgo::FillPoint(FilletPoint* thePoint, const Standard_Real theLimit)
+void ChFi2d_FilletAlgo::FillPoint(FilletPoint1* thePoint, const Standard_Real theLimit)
 {
 
   // on the intersection point
@@ -284,12 +284,12 @@ void ChFi2d_FilletAlgo::FillPoint(FilletPoint* thePoint, const Standard_Real the
   }
 }
 
-void ChFi2d_FilletAlgo::FillDiff(FilletPoint*     thePoint,
+void ChFi2d_FilletAlgo::FillDiff(FilletPoint1*     thePoint,
                                  Standard_Real    theDiffStep,
                                  Standard_Boolean theFront)
 {
   Standard_Real aDelta = theFront ? (theDiffStep) : (-theDiffStep);
-  FilletPoint*  aDiff  = new FilletPoint(thePoint->getParam() + aDelta);
+  FilletPoint1*  aDiff  = new FilletPoint1(thePoint->getParam() + aDelta);
   FillPoint(aDiff, aDelta * 999.);
   if (!thePoint->calculateDiff(aDiff))
   {
@@ -336,7 +336,7 @@ Standard_Boolean ChFi2d_FilletAlgo::Perform(const Standard_Real theRadius)
   int aCycle;
   for (aCycle = 2, myStartSide = Standard_False; aCycle; myStartSide = !myStartSide, aCycle--)
   {
-    FilletPoint *aLeft = NULL, *aRight;
+    FilletPoint1 *aLeft = NULL, *aRight;
 
     for (aParam = myStart1 + aStep;
          aParam < myEnd1 || Abs(myEnd1 - aParam) < Precision::Confusion();
@@ -344,12 +344,12 @@ Standard_Boolean ChFi2d_FilletAlgo::Perform(const Standard_Real theRadius)
     {
       if (!aLeft)
       {
-        aLeft = new FilletPoint(aParam - aStep);
+        aLeft = new FilletPoint1(aParam - aStep);
         FillPoint(aLeft, aParam);
         FillDiff(aLeft, aDStep, Standard_True);
       }
 
-      aRight = new FilletPoint(aParam);
+      aRight = new FilletPoint1(aParam);
       FillPoint(aRight, aParam - aStep);
       FillDiff(aRight, aDStep, Standard_False);
 
@@ -365,8 +365,8 @@ Standard_Boolean ChFi2d_FilletAlgo::Perform(const Standard_Real theRadius)
   return !myResultParams.IsEmpty();
 }
 
-Standard_Boolean ChFi2d_FilletAlgo::ProcessPoint(FilletPoint*  theLeft,
-                                                 FilletPoint*  theRight,
+Standard_Boolean ChFi2d_FilletAlgo::ProcessPoint(FilletPoint1*  theLeft,
+                                                 FilletPoint1*  theRight,
                                                  Standard_Real theParameter)
 {
   if (theParameter >= theLeft->getParam() && theParameter < theRight->getParam())
@@ -397,8 +397,8 @@ Standard_Boolean ChFi2d_FilletAlgo::ProcessPoint(FilletPoint*  theLeft,
       }
     }
 
-    FilletPoint* aPoint1 = theLeft->Copy();
-    FilletPoint* aPoint2 = new FilletPoint(theParameter);
+    FilletPoint1* aPoint1 = theLeft->Copy();
+    FilletPoint1* aPoint2 = new FilletPoint1(theParameter);
     FillPoint(aPoint2, aPoint1->getParam());
     FillDiff(aPoint2, diffx, Standard_True);
 
@@ -415,7 +415,7 @@ Standard_Boolean ChFi2d_FilletAlgo::ProcessPoint(FilletPoint*  theLeft,
   return Standard_False;
 }
 
-void ChFi2d_FilletAlgo::PerformNewton(FilletPoint* theLeft, FilletPoint* theRight)
+void ChFi2d_FilletAlgo::PerformNewton(FilletPoint1* theLeft, FilletPoint1* theRight)
 {
   int a;
   // check the left: if this is solution store it and remove it from the list of researching points
@@ -520,7 +520,7 @@ int ChFi2d_FilletAlgo::NbResults(const Point3d& thePoint)
   for (; anIter.More(); anIter.Next(), i++)
   {
     myStartSide         = (myResultOrientation.Value(i)) ? Standard_True : Standard_False;
-    FilletPoint* aPoint = new FilletPoint(anIter.Value());
+    FilletPoint1* aPoint = new FilletPoint1(anIter.Value());
     FillPoint(aPoint, anIter.Value() + 1.);
     if (aPoint->hasSolution(myRadius))
       nb++;
@@ -532,12 +532,12 @@ int ChFi2d_FilletAlgo::NbResults(const Point3d& thePoint)
 
 // returns result (fillet edge, modified edge1, modified edge2), nearest to the given point
 // <thePoint>
-TopoDS_Edge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
-                                      TopoDS_Edge&  theEdge1,
-                                      TopoDS_Edge&  theEdge2,
+TopoEdge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
+                                      TopoEdge&  theEdge1,
+                                      TopoEdge&  theEdge2,
                                       const int     iSolution)
 {
-  TopoDS_Edge   aResult;
+  TopoEdge   aResult;
   gp_Pnt2d      aTargetPoint2d;
   Standard_Real aX, aY;
   ElSLib::PlaneParameters(myPlane->Pln().Position(), thePoint, aX, aY);
@@ -545,13 +545,13 @@ TopoDS_Edge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
 
   // choose the nearest circle
   Standard_Real                    aDistance = 0.0, aP;
-  FilletPoint*                     aNearest;
+  FilletPoint1*                     aNearest;
   int                              a, iSol = 1;
   TColStd_ListIteratorOfListOfReal anIter(myResultParams);
   for (aNearest = NULL, a = 1; anIter.More(); anIter.Next(), a++)
   {
     myStartSide         = (myResultOrientation.Value(a)) ? Standard_True : Standard_False;
-    FilletPoint* aPoint = new FilletPoint(anIter.Value());
+    FilletPoint1* aPoint = new FilletPoint1(anIter.Value());
     FillPoint(aPoint, anIter.Value() + 1.);
     if (!aPoint->hasSolution(myRadius))
     {
@@ -588,8 +588,8 @@ TopoDS_Edge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
   Point3d              aCenter = ElSLib::PlaneValue(aNearest->getCenter().X(),
                                       aNearest->getCenter().Y(),
                                       myPlane->Pln().Position());
-  Handle(Geom_Circle) aCircle =
-    new Geom_Circle(Frame3d(aCenter, myPlane->Pln().Axis().Direction()), myRadius);
+  Handle(GeomCircle) aCircle =
+    new GeomCircle(Frame3d(aCenter, myPlane->Pln().Axis().Direction()), myRadius);
   gp_Pnt2d aPoint2d1, aPoint2d2;
   myCurve1->D0(aNearest->getParam(), aPoint2d1);
   myCurve2->D0(aNearest->getParam2(), aPoint2d2);
@@ -617,14 +617,14 @@ TopoDS_Edge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
                              || (aParam1 > aTargetParam && aParam2 > aTargetParam));
   if (aParam1 > aParam2)
     aIsOut = !aIsOut;
-  BRepBuilderAPI_MakeEdge aBuilder(aCircle->Circ(),
+  EdgeMaker aBuilder(aCircle->Circ(),
                                    aIsOut ? aParam2 : aParam1,
                                    aIsOut ? aParam1 : aParam2);
   aResult = aBuilder.Edge();
 
   // divide edges
   Standard_Real      aStart, anEnd;
-  Handle(Geom_Curve) aCurve = BRep_Tool::Curve(myEdge1, aStart, anEnd);
+  Handle(GeomCurve3d) aCurve = BRepInspector::Curve(myEdge1, aStart, anEnd);
   Vector3d             aDir;
   aCurve->D1(aNearest->getParam(), aPoint1, aDir);
 
@@ -642,13 +642,13 @@ TopoDS_Edge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
   if (fabs(aStart - anEnd) < Precision::Confusion())
     anEnd = aStart + Precision::Confusion();
   // Divide edge
-  BRepBuilderAPI_MakeEdge aDivider1(aCurve, aStart, anEnd);
+  EdgeMaker aDivider1(aCurve, aStart, anEnd);
   if (myEdgesExchnged)
     theEdge2 = aDivider1.Edge();
   else
     theEdge1 = aDivider1.Edge();
 
-  aCurve = BRep_Tool::Curve(myEdge2, aStart, anEnd);
+  aCurve = BRepInspector::Curve(myEdge2, aStart, anEnd);
   aCurve->D1(aNearest->getParam2(), aPoint2, aDir);
 
   aCircle->D1(aParam2, aPoint2, aCircleDir);
@@ -663,7 +663,7 @@ TopoDS_Edge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
   // cases. So we are again bug compatible
   if (fabs(aStart - anEnd) < Precision::Confusion())
     anEnd = aStart + Precision::Confusion();
-  BRepBuilderAPI_MakeEdge aDivider2(aCurve, aStart, anEnd);
+  EdgeMaker aDivider2(aCurve, aStart, anEnd);
   if (myEdgesExchnged)
     theEdge1 = aDivider2.Edge();
   else
@@ -673,13 +673,13 @@ TopoDS_Edge ChFi2d_FilletAlgo::Result(const Point3d& thePoint,
   return aResult;
 }
 
-FilletPoint::FilletPoint(const Standard_Real theParam)
+FilletPoint1::FilletPoint1(const Standard_Real theParam)
     : myParam(theParam),
       myParam2(0.0)
 {
 }
 
-void FilletPoint::appendValue(Standard_Real theValue, Standard_Boolean theValid)
+void FilletPoint1::appendValue(Standard_Real theValue, Standard_Boolean theValid)
 {
   Standard_Integer a;
   for (a = 1; a <= myV.Length(); a++)
@@ -695,7 +695,7 @@ void FilletPoint::appendValue(Standard_Real theValue, Standard_Boolean theValid)
   myValid.Append(theValid);
 }
 
-Standard_Boolean FilletPoint::calculateDiff(FilletPoint* thePoint)
+Standard_Boolean FilletPoint1::calculateDiff(FilletPoint1* thePoint)
 {
   Standard_Integer a;
   Standard_Boolean aDiffsSet = (myD.Length() != 0);
@@ -735,7 +735,7 @@ Standard_Boolean FilletPoint::calculateDiff(FilletPoint* thePoint)
   return Standard_False;
 }
 
-void FilletPoint::FilterPoints(FilletPoint* thePoint)
+void FilletPoint1::FilterPoints(FilletPoint1* thePoint)
 {
   Standard_Integer       a, b;
   TColStd_SequenceOfReal aDiffs;
@@ -844,9 +844,9 @@ void FilletPoint::FilterPoints(FilletPoint* thePoint)
   } // for a...
 }
 
-FilletPoint* FilletPoint::Copy()
+FilletPoint1* FilletPoint1::Copy()
 {
-  FilletPoint*     aCopy = new FilletPoint(myParam);
+  FilletPoint1*     aCopy = new FilletPoint1(myParam);
   Standard_Integer a;
   for (a = 1; a <= myV.Length(); a++)
   {
@@ -857,7 +857,7 @@ FilletPoint* FilletPoint::Copy()
   return aCopy;
 }
 
-int FilletPoint::hasSolution(const Standard_Real theRadius)
+int FilletPoint1::hasSolution(const Standard_Real theRadius)
 {
   Standard_Integer a;
   for (a = 1; a <= myV.Length(); a++)
@@ -869,7 +869,7 @@ int FilletPoint::hasSolution(const Standard_Real theRadius)
   return 0;
 }
 
-void FilletPoint::remove(int theIndex)
+void FilletPoint1::remove(int theIndex)
 {
   myV.Remove(theIndex);
   myD.Remove(theIndex);

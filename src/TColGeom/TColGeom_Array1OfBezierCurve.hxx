@@ -20,6 +20,6 @@
 #include <Geom_BezierCurve.hxx>
 #include <NCollection_Array1.hxx>
 
-typedef NCollection_Array1<Handle(Geom_BezierCurve)> TColGeom_Array1OfBezierCurve;
+typedef NCollection_Array1<Handle(BezierCurve3d)> TColGeom_Array1OfBezierCurve;
 
 #endif

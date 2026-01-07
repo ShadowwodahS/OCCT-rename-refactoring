@@ -24,13 +24,13 @@ class LDOM_CharacterData;
 //  Class LDOM_BasicText
 //
 
-class LDOM_BasicText : public LDOM_BasicNode
+class LDOM_BasicText : public BasicNode
 {
 public:
   // ---------- PUBLIC METHODS ----------
 
   LDOM_BasicText()
-      : LDOM_BasicNode(LDOM_Node::UNKNOWN)
+      : BasicNode(LDOM_Node::UNKNOWN)
   {
   }
 
@@ -55,7 +55,7 @@ private:
   friend class LDOM_BasicElement;
 
   LDOM_BasicText(const LDOM_Node::NodeType aType, const LDOMBasicString& aData)
-      : LDOM_BasicNode(aType),
+      : BasicNode(aType),
         myValue(aData)
   {
   }

@@ -23,7 +23,7 @@
 
 #include <GeomAbs_Shape.hxx>
 #include <LocalAnalysis_StatusErrorType.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 class GeomLProp_CLProps;
 
 //! This class gives tools to check local continuity C0
@@ -122,9 +122,9 @@ public:
   //!
   //! where curvat1 is the curvature at the first point
   //! and curvat2 the curvature at the second point
-  Standard_EXPORT LocalAnalysis_CurveContinuity(const Handle(Geom_Curve)& Curv1,
+  Standard_EXPORT LocalAnalysis_CurveContinuity(const Handle(GeomCurve3d)& Curv1,
                                                 const Standard_Real       u1,
-                                                const Handle(Geom_Curve)& Curv2,
+                                                const Handle(GeomCurve3d)& Curv2,
                                                 const Standard_Real       u2,
                                                 const GeomAbs_Shape       Order,
                                                 const Standard_Real       EpsNul  = 0.001,

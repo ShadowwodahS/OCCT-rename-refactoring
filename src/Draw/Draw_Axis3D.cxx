@@ -29,7 +29,7 @@ extern Standard_Boolean Draw_Bounds;
 
 //=================================================================================================
 
-Draw_Axis3D::Draw_Axis3D(const Draw_Color& col, const Standard_Integer Size)
+Draw_Axis3D::Draw_Axis3D(const DrawColor& col, const Standard_Integer Size)
     : myAxes(gp::XOY()),
       myColor(col),
       mySize(Size)
@@ -38,7 +38,7 @@ Draw_Axis3D::Draw_Axis3D(const Draw_Color& col, const Standard_Integer Size)
 
 //=================================================================================================
 
-Draw_Axis3D::Draw_Axis3D(const Point3d& p, const Draw_Color& col, const Standard_Integer Size)
+Draw_Axis3D::Draw_Axis3D(const Point3d& p, const DrawColor& col, const Standard_Integer Size)
     : myAxes(p, gp::DZ(), gp::DX()),
       myColor(col),
       mySize(Size)
@@ -47,7 +47,7 @@ Draw_Axis3D::Draw_Axis3D(const Point3d& p, const Draw_Color& col, const Standard
 
 //=================================================================================================
 
-Draw_Axis3D::Draw_Axis3D(const gp_Ax3& a, const Draw_Color& col, const Standard_Integer Size)
+Draw_Axis3D::Draw_Axis3D(const gp_Ax3& a, const DrawColor& col, const Standard_Integer Size)
     : myAxes(a),
       myColor(col),
       mySize(Size)
@@ -56,7 +56,7 @@ Draw_Axis3D::Draw_Axis3D(const gp_Ax3& a, const Draw_Color& col, const Standard_
 
 //=================================================================================================
 
-void Draw_Axis3D::DrawOn(Draw_Display& dis) const
+void Draw_Axis3D::DrawOn(DrawDisplay& dis) const
 {
   Draw_Bounds = Standard_False;
   dis.SetColor(myColor);
@@ -64,13 +64,13 @@ void Draw_Axis3D::DrawOn(Draw_Display& dis) const
   z               = (Standard_Real)mySize / z;
   Point3d P, P0 = myAxes.Location();
   P = P0.Translated(Vector3d(myAxes.XDirection()) * z);
-  dis.Draw(P0, P);
+  dis.Draw1(P0, P);
   dis.DrawString(P, "X");
   P = P0.Translated(Vector3d(myAxes.YDirection()) * z);
-  dis.Draw(P0, P);
+  dis.Draw1(P0, P);
   dis.DrawString(P, "Y");
   P = P0.Translated(Vector3d(myAxes.Direction()) * z);
-  dis.Draw(P0, P);
+  dis.Draw1(P0, P);
   dis.DrawString(P, "Z");
   Draw_Bounds = Standard_True;
 }

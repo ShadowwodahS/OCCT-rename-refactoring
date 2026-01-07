@@ -35,11 +35,11 @@
 // MGE 28/07/98
 //=================================================================================================
 
-IGESGeom_ToolCopiousData::IGESGeom_ToolCopiousData() {}
+CopiousDataTool::CopiousDataTool() {}
 
 //=================================================================================================
 
-void IGESGeom_ToolCopiousData::ReadOwnParams(const Handle(IGESGeom_CopiousData)& ent,
+void CopiousDataTool::ReadOwnParams(const Handle(IGESGeom_CopiousData)& ent,
                                              const Handle(IGESData_IGESReaderData)& /* IR */,
                                              IGESData_ParamReader& PR) const
 {
@@ -102,7 +102,7 @@ void IGESGeom_ToolCopiousData::ReadOwnParams(const Handle(IGESGeom_CopiousData)&
 
 //=================================================================================================
 
-void IGESGeom_ToolCopiousData::WriteOwnParams(const Handle(IGESGeom_CopiousData)& ent,
+void CopiousDataTool::WriteOwnParams(const Handle(IGESGeom_CopiousData)& ent,
                                               IGESData_IGESWriter&                IW) const
 {
   Standard_Integer upper = ent->NbPoints();
@@ -128,14 +128,14 @@ void IGESGeom_ToolCopiousData::WriteOwnParams(const Handle(IGESGeom_CopiousData)
 
 //=================================================================================================
 
-void IGESGeom_ToolCopiousData::OwnShared(const Handle(IGESGeom_CopiousData)& /* ent */,
+void CopiousDataTool::OwnShared(const Handle(IGESGeom_CopiousData)& /* ent */,
                                          Interface_EntityIterator& /* iter */) const
 {
 }
 
 //=================================================================================================
 
-void IGESGeom_ToolCopiousData::OwnCopy(const Handle(IGESGeom_CopiousData)& another,
+void CopiousDataTool::OwnCopy(const Handle(IGESGeom_CopiousData)& another,
                                        const Handle(IGESGeom_CopiousData)& ent,
                                        Interface_CopyTool& /* TC */) const
 {
@@ -191,10 +191,10 @@ void IGESGeom_ToolCopiousData::OwnCopy(const Handle(IGESGeom_CopiousData)& anoth
 
 //=================================================================================================
 
-IGESData_DirChecker IGESGeom_ToolCopiousData::DirChecker(
+DirectoryChecker CopiousDataTool::DirChecker(
   const Handle(IGESGeom_CopiousData)& ent) const
 {
-  IGESData_DirChecker DC(106, 1, 63);
+  DirectoryChecker DC(106, 1, 63);
   DC.Structure(IGESData_DefVoid);
   if (ent->FormNumber() <= 3)
   {
@@ -213,7 +213,7 @@ IGESData_DirChecker IGESGeom_ToolCopiousData::DirChecker(
 
 //=================================================================================================
 
-void IGESGeom_ToolCopiousData::OwnCheck(const Handle(IGESGeom_CopiousData)& ent,
+void CopiousDataTool::OwnCheck(const Handle(IGESGeom_CopiousData)& ent,
                                         const Interface_ShareTool&,
                                         Handle(Interface_Check)& ach) const
 {
@@ -246,7 +246,7 @@ void IGESGeom_ToolCopiousData::OwnCheck(const Handle(IGESGeom_CopiousData)& ent,
 
 //=================================================================================================
 
-void IGESGeom_ToolCopiousData::OwnDump(const Handle(IGESGeom_CopiousData)& ent,
+void CopiousDataTool::OwnDump(const Handle(IGESGeom_CopiousData)& ent,
                                        const IGESData_IGESDumper& /* dumper */,
                                        Standard_OStream&      S,
                                        const Standard_Integer level) const

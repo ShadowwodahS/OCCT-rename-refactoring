@@ -31,7 +31,7 @@ SelectMgr_BaseFrustum::SelectMgr_BaseFrustum()
 
 //=================================================================================================
 
-void SelectMgr_BaseFrustum::SetCamera(const Handle(Graphic3d_Camera)& theCamera)
+void SelectMgr_BaseFrustum::SetCamera(const Handle(CameraOn3d)& theCamera)
 {
   SelectMgr_BaseIntersector::SetCamera(theCamera);
   if (!myBuilder.IsNull())

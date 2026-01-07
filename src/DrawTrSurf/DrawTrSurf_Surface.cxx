@@ -30,7 +30,7 @@ Standard_Real DrawTrSurf_SurfaceLimit = 400;
 
 //=================================================================================================
 
-DrawTrSurf_Surface::DrawTrSurf_Surface(const Handle(Geom_Surface)& S)
+DrawTrSurf_Surface::DrawTrSurf_Surface(const Handle(GeomSurface)& S)
     : DrawTrSurf_Drawable(16, 0.01, 1)
 {
   surf       = S;
@@ -42,11 +42,11 @@ DrawTrSurf_Surface::DrawTrSurf_Surface(const Handle(Geom_Surface)& S)
 
 //=================================================================================================
 
-DrawTrSurf_Surface::DrawTrSurf_Surface(const Handle(Geom_Surface)& S,
+DrawTrSurf_Surface::DrawTrSurf_Surface(const Handle(GeomSurface)& S,
                                        const Standard_Integer      Nu,
                                        const Standard_Integer      Nv,
-                                       const Draw_Color&           BoundsColor,
-                                       const Draw_Color&           IsosColor,
+                                       const DrawColor&           BoundsColor,
+                                       const DrawColor&           IsosColor,
                                        const Standard_Integer      Discret,
                                        const Standard_Real         Deflection,
                                        const Standard_Integer      DrawMode)
@@ -61,14 +61,14 @@ DrawTrSurf_Surface::DrawTrSurf_Surface(const Handle(Geom_Surface)& S,
 
 //=================================================================================================
 
-void DrawTrSurf_Surface::DrawOn(Draw_Display& dis) const
+void DrawTrSurf_Surface::DrawOn(DrawDisplay& dis) const
 {
   DrawOn(dis, Standard_True);
 }
 
 //=================================================================================================
 
-void DrawTrSurf_Surface::DrawOn(Draw_Display& dis, const Standard_Boolean Iso) const
+void DrawTrSurf_Surface::DrawOn(DrawDisplay& dis, const Standard_Boolean Iso) const
 {
   Standard_Real UFirst, ULast, VFirst, VLast;
   surf->Bounds(UFirst, ULast, VFirst, VLast);
@@ -226,7 +226,7 @@ void DrawTrSurf_Surface::ClearIsos()
 Handle(Draw_Drawable3D) DrawTrSurf_Surface::Copy() const
 {
   Handle(DrawTrSurf_Surface) DS =
-    new DrawTrSurf_Surface(Handle(Geom_Surface)::DownCast(surf->Copy()),
+    new DrawTrSurf_Surface(Handle(GeomSurface)::DownCast(surf->Copy()),
                            nbUIsos,
                            nbVIsos,
                            boundsLook,
@@ -256,8 +256,8 @@ void DrawTrSurf_Surface::Save(Standard_OStream& theStream) const
 
 Handle(Draw_Drawable3D) DrawTrSurf_Surface::Restore(std::istream& theStream)
 {
-  const DrawTrSurf_Params&   aParams      = DrawTrSurf::Parameters();
-  Handle(Geom_Surface)       aGeomSurface = GeomTools_SurfaceSet::ReadSurface(theStream);
+  const DrawTrSurf_Params&   aParams      = DrawTrSurf1::Parameters();
+  Handle(GeomSurface)       aGeomSurface = GeomTools_SurfaceSet::ReadSurface(theStream);
   Handle(DrawTrSurf_Surface) aDrawSurface = new DrawTrSurf_Surface(aGeomSurface,
                                                                    aParams.NbUIsos,
                                                                    aParams.NbVIsos,
@@ -271,7 +271,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_Surface::Restore(std::istream& theStream)
 
 //=================================================================================================
 
-void DrawTrSurf_Surface::Whatis(Draw_Interpretor& S) const
+void DrawTrSurf_Surface::Whatis(DrawInterpreter& S) const
 {
   S << "a surface";
 }

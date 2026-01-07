@@ -18,7 +18,7 @@
 #include <Express_Type.hxx>
 #include <Standard_Type.hxx>
 
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! Implements TYPE = type (alias) item of the EXPRESS
 //! schema, with interface for deferred Item class.
@@ -34,7 +34,7 @@ public:
   Standard_EXPORT const Handle(Express_Type)& Type() const;
 
   //! Returns name of aliased type
-  Standard_EXPORT virtual const TCollection_AsciiString CPPName() const Standard_OVERRIDE;
+  Standard_EXPORT virtual const AsciiString1 CPPName() const Standard_OVERRIDE;
 
   //! Create HXX/CXX files from item
   Standard_EXPORT virtual Standard_Boolean GenerateClass() const Standard_OVERRIDE;

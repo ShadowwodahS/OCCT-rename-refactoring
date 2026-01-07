@@ -67,9 +67,9 @@ class ShapeUpgrade_UnifySameDomain : public RefObject
 {
 
 public:
-  typedef NCollection_DataMap<TopoDS_Shape, Handle(Geom_Plane), TopTools_ShapeMapHasher>
+  typedef NCollection_DataMap<TopoShape, Handle(GeomPlane), ShapeHasher>
     DataMapOfFacePlane;
-  typedef NCollection_DataMap<TopoDS_Shape, TopTools_MapOfShape, TopTools_ShapeMapHasher>
+  typedef NCollection_DataMap<TopoShape, TopTools_MapOfShape, ShapeHasher>
     DataMapOfShapeMapOfShape;
 
   //! Empty constructor
@@ -78,7 +78,7 @@ public:
   //! Constructor defining input shape and necessary flags.
   //! It does not perform unification.
   Standard_EXPORT ShapeUpgrade_UnifySameDomain(
-    const TopoDS_Shape&    aShape,
+    const TopoShape&    aShape,
     const Standard_Boolean UnifyEdges     = Standard_True,
     const Standard_Boolean UnifyFaces     = Standard_True,
     const Standard_Boolean ConcatBSplines = Standard_False);
@@ -87,7 +87,7 @@ public:
   //! It does not perform unification.
   //! If you intend to nullify the History place holder do it after
   //! initialization.
-  Standard_EXPORT void Initialize(const TopoDS_Shape&    aShape,
+  Standard_EXPORT void Initialize(const TopoShape&    aShape,
                                   const Standard_Boolean UnifyEdges     = Standard_True,
                                   const Standard_Boolean UnifyFaces     = Standard_True,
                                   const Standard_Boolean ConcatBSplines = Standard_False);
@@ -103,7 +103,7 @@ public:
   //! If the shape is a vertex it forbids merging of connected edges.
   //! If the shape is a edge it forbids merging of connected faces.
   //! This method can be called several times to keep several shapes.
-  Standard_EXPORT void KeepShape(const TopoDS_Shape& theShape);
+  Standard_EXPORT void KeepShape(const TopoShape& theShape);
 
   //! Sets the map of shapes for avoid merging of the faces/edges.
   //! It allows passing a ready to use map instead of calling many times
@@ -131,7 +131,7 @@ public:
   Standard_EXPORT void Build();
 
   //! Gives the resulting shape
-  const TopoDS_Shape& Shape() const { return myShape; }
+  const TopoShape& Shape() const { return myShape; }
 
   //! Returns the history of the processed shapes.
   const Handle(BRepTools_History)& History() const { return myHistory; }
@@ -153,7 +153,7 @@ protected:
   //! group of smothly connected edges, which are common for the same couple of faces
   Standard_EXPORT void UnifyEdges();
 
-  void IntUnifyFaces(const TopoDS_Shape&                              theInpShape,
+  void IntUnifyFaces(const TopoShape&                              theInpShape,
                      const TopTools_IndexedDataMapOfShapeListOfShape& theGMapEdgeFaces,
                      const DataMapOfShapeMapOfShape&                  theGMapFaceShells,
                      const TopTools_MapOfShape&                       theFreeBoundMap);
@@ -173,10 +173,10 @@ protected:
   //! Merges a sequence of edges into one edge if possible
   Standard_Boolean MergeSubSeq(const TopTools_SequenceOfShape&                  theChain,
                                const TopTools_IndexedDataMapOfShapeListOfShape& theVFmap,
-                               TopoDS_Edge&                                     OutEdge);
+                               TopoEdge&                                     OutEdge);
 
   //! Unifies the pcurve of the chain into one pcurve of the edge
-  void UnionPCurves(const TopTools_SequenceOfShape& theChain, TopoDS_Edge& theEdge);
+  void UnionPCurves(const TopTools_SequenceOfShape& theChain, TopoEdge& theEdge);
 
   //! Fills the history of the modifications during the operation.
   Standard_EXPORT void FillHistory();
@@ -193,7 +193,7 @@ private:
                              const TopTools_IndexedDataMapOfShapeListOfShape& theVFmap);
 
 private:
-  TopoDS_Shape                              myInitShape;
+  TopoShape                              myInitShape;
   Standard_Real                             myLinTol;
   Standard_Real                             myAngTol;
   Standard_Boolean                          myUnifyFaces;
@@ -201,7 +201,7 @@ private:
   Standard_Boolean                          myConcatBSplines;
   Standard_Boolean                          myAllowInternal;
   Standard_Boolean                          mySafeInputMode;
-  TopoDS_Shape                              myShape;
+  TopoShape                              myShape;
   Handle(ShapeBuild_ReShape)                myContext;
   TopTools_MapOfShape                       myKeepShapes;
   DataMapOfFacePlane                        myFacePlaneMap;

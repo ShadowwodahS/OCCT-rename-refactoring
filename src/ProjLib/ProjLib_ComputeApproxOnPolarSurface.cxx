@@ -104,7 +104,7 @@ static void computePeriodicity(const Handle(Adaptor3d_Surface)& theSurf,
   // Param space may be reduced in case of rectangular trimmed surface,
   // in this case really trimmed bounds should be set as unperiodic.
   Standard_Real        aTrimF, aTrimL, aBaseF, aBaseL, aDummyF, aDummyL;
-  Handle(Geom_Surface) aS = GeomAdaptor::MakeSurface(*theSurf, Standard_False); // Not trim.
+  Handle(GeomSurface) aS = GeomAdaptor1::MakeSurface(*theSurf, Standard_False); // Not trim.
   // U param space.
   if (theSurf->IsUPeriodic())
   {
@@ -361,17 +361,17 @@ static gp_Pnt2d Function_Value(const Standard_Real theU, const aFuncStruct& theD
   GeomAdaptor_Surface SurfLittle;
   if (Type == GeomAbs_BSplineSurface)
   {
-    Handle(Geom_Surface) GBSS(theData.mySurf->BSpline());
+    Handle(GeomSurface) GBSS(theData.mySurf->BSpline());
     SurfLittle.Load(GBSS, uInfLi, uSupLi, vInfLi, vSupLi);
   }
   else if (Type == GeomAbs_BezierSurface)
   {
-    Handle(Geom_Surface) GS(theData.mySurf->Bezier());
+    Handle(GeomSurface) GS(theData.mySurf->Bezier());
     SurfLittle.Load(GS, uInfLi, uSupLi, vInfLi, vSupLi);
   }
   else if (Type == GeomAbs_OffsetSurface)
   {
-    Handle(Geom_Surface) GS = GeomAdaptor::MakeSurface(*theData.mySurf);
+    Handle(GeomSurface) GS = GeomAdaptor1::MakeSurface(*theData.mySurf);
     SurfLittle.Load(GS, uInfLi, uSupLi, vInfLi, vSupLi);
   }
   else
@@ -574,7 +574,7 @@ ProjLib_ComputeApproxOnPolarSurface::ProjLib_ComputeApproxOnPolarSurface(
       // myBSpline2d is the pcurve that is found. It is translated to obtain myCurve2d
       myBSpline                  = bsc;
       Handle(Geom2d_Geometry) GG = myBSpline->Translated(P2d, P2dBis);
-      my2ndCurve                 = Handle(Geom2d_Curve)::DownCast(GG);
+      my2ndCurve                 = Handle(GeomCurve2d)::DownCast(GG);
     }
     else
     {
@@ -697,7 +697,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::Perform(
   if (typeCurve == GeomAbs_BSplineCurve)
   {
     TColStd_ListOfTransient   LOfBSpline2d;
-    Handle(Geom_BSplineCurve) BSC     = Curve->BSpline();
+    Handle(BSplineCurve3d) BSC     = Curve->BSpline();
     Standard_Integer          nbInter = Curve->NbIntervals(GeomAbs_C1);
     if (nbInter > 1)
     {
@@ -722,7 +722,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::Perform(
       Standard_Boolean C2dIsToCompute;
       C2dIsToCompute = InitialCurve2d.IsNull();
       Handle(Geom2d_BSplineCurve) BSC2d;
-      Handle(Geom2d_Curve)        G2dC;
+      Handle(GeomCurve2d)        G2dC;
 
       if (!C2dIsToCompute)
       {
@@ -1640,7 +1640,7 @@ Handle(Adaptor2d_Curve2d) ProjLib_ComputeApproxOnPolarSurface::BuildInitialCurve
 #ifdef OCCT_DEBUG
 //    char name [100];
 //    sprintf(name,"%s_%d","build",compteur++);
-//    DrawTrSurf::Set(name,myBSpline);
+//    DrawTrSurf1::Set(name,myBSpline);
 #endif
     return IC2d;
   }
@@ -1685,7 +1685,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
     if (TheTypeC == GeomAbs_BSplineCurve)
     {
       myTolReached                  = Precision::Confusion();
-      Handle(Geom_BSplineCurve) BSC = Curve->BSpline();
+      Handle(BSplineCurve3d) BSC = Curve->BSpline();
       TColgp_Array1OfPnt2d      Poles2d(1, Curve->NbPoles());
       for (i = 1; i <= Curve->NbPoles(); i++)
       {
@@ -1712,7 +1712,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
     if (TheTypeC == GeomAbs_BezierCurve)
     {
       myTolReached                = Precision::Confusion();
-      Handle(Geom_BezierCurve) BC = Curve->Bezier();
+      Handle(BezierCurve3d) BC = Curve->Bezier();
       TColgp_Array1OfPnt2d     Poles2d(1, Curve->NbPoles());
       for (i = 1; i <= Curve->NbPoles(); i++)
       {
@@ -1756,7 +1756,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
         if (TheTypeC == GeomAbs_BSplineCurve)
         {
           myTolReached                  = Tol3d;
-          Handle(Geom_BSplineCurve) BSC = Curve->BSpline();
+          Handle(BSplineCurve3d) BSC = Curve->BSpline();
           TColgp_Array1OfPnt2d      Poles2d(1, Curve->NbPoles());
           for (i = 1; i <= Curve->NbPoles(); i++)
           {
@@ -1806,7 +1806,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
         if (TheTypeC == GeomAbs_BezierCurve)
         {
           myTolReached                = Tol3d;
-          Handle(Geom_BezierCurve) BC = Curve->Bezier();
+          Handle(BezierCurve3d) BC = Curve->Bezier();
           TColgp_Array1OfPnt2d     Poles2d(1, Curve->NbPoles());
           for (i = 1; i <= Curve->NbPoles(); i++)
           {
@@ -1878,7 +1878,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
         if (TheTypeC == GeomAbs_BSplineCurve)
         {
           myTolReached                  = Tol3d;
-          Handle(Geom_BSplineCurve) BSC = Curve->BSpline();
+          Handle(BSplineCurve3d) BSC = Curve->BSpline();
           TColgp_Array1OfPnt2d      Poles2d(1, Curve->NbPoles());
           for (i = 1; i <= Curve->NbPoles(); i++)
           {
@@ -1928,7 +1928,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
         if (TheTypeC == GeomAbs_BezierCurve)
         {
           myTolReached                = Tol3d;
-          Handle(Geom_BezierCurve) BC = Curve->Bezier();
+          Handle(BezierCurve3d) BC = Curve->Bezier();
           TColgp_Array1OfPnt2d     Poles2d(1, Curve->NbPoles());
           for (i = 1; i <= Curve->NbPoles(); i++)
           {
@@ -2007,16 +2007,16 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::ProjectUsingIni
     new Geom2d_BSplineCurve(DummyPoles, DummyKnots, DummyMults, 1);
   #ifdef DRAW
   Standard_CString Temp = "bs2d";
-  DrawTrSurf::Set(Temp, DummyC2d);
+  DrawTrSurf1::Set(Temp, DummyC2d);
   #endif
-  //  DrawTrSurf::Set((Standard_CString ) "bs2d",DummyC2d);
+  //  DrawTrSurf1::Set((Standard_CString ) "bs2d",DummyC2d);
   Handle(Geom2dAdaptor_Curve) DDD = Handle(Geom2dAdaptor_Curve)::DownCast(InitCurve2d);
 
   #ifdef DRAW
   Temp = "initc2d";
-  DrawTrSurf::Set(Temp, DDD->ChangeCurve2d().Curve());
+  DrawTrSurf1::Set(Temp, DDD->ChangeCurve2d().Curve());
   #endif
-//  DrawTrSurf::Set((Standard_CString ) "initc2d",DDD->ChangeCurve2d().Curve());
+//  DrawTrSurf1::Set((Standard_CString ) "initc2d",DDD->ChangeCurve2d().Curve());
 #endif
 
   Standard_Integer Deg1, Deg2;
@@ -2164,7 +2164,7 @@ Handle(Geom2d_BSplineCurve) ProjLib_ComputeApproxOnPolarSurface::BSpline() const
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) ProjLib_ComputeApproxOnPolarSurface::Curve2d() const
+Handle(GeomCurve2d) ProjLib_ComputeApproxOnPolarSurface::Curve2d() const
 
 {
   Standard_NoSuchObject_Raise_if(!myProjIsDone, "ProjLib_ComputeApproxOnPolarSurface:2ndCurve2d");

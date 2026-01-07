@@ -36,7 +36,7 @@
 class SelectMgr_SensitiveEntitySet;
 class SelectMgr_EntityOwner;
 class Select3D_SensitiveEntity;
-class V3d_View;
+class ViewWindow;
 
 // resolve name collisions with X11 headers
 #ifdef Status
@@ -73,7 +73,7 @@ typedef NCollection_DataMap<Standard_Integer, SelectMgr_SelectingVolumeManager>
 //! OnePicked, to get the object closest to the pick position.
 //! Viewer selectors are driven by
 //! SelectMgr_SelectionManager, and manipulate
-//! the SelectMgr_Selection objects given to them by
+//! the SelectionContainer objects given to them by
 //! the selection manager.
 //!
 //! Tolerances are applied to the entities in the following way:
@@ -213,9 +213,9 @@ public:
 
   //! Returns the selection status Status of the selection aSelection.
   Standard_EXPORT SelectMgr_StateOfSelection
-    Status(const Handle(SelectMgr_Selection)& theSelection) const;
+    Status(const Handle(SelectionContainer)& theSelection) const;
 
-  Standard_EXPORT TCollection_AsciiString
+  Standard_EXPORT AsciiString1
     Status(const Handle(SelectMgr_SelectableObject)& theSelectableObject) const;
 
   //! Returns the list of active entity owners
@@ -227,7 +227,7 @@ public:
 
   //! Adds new selection to the object and builds its BVH tree
   Standard_EXPORT void AddSelectionToObject(const Handle(SelectMgr_SelectableObject)& theObject,
-                                            const Handle(SelectMgr_Selection)&        theSelection);
+                                            const Handle(SelectionContainer)&        theSelection);
 
   //! Moves existing object from set of not transform persistence objects
   //! to set of transform persistence objects (or vice versa).
@@ -238,7 +238,7 @@ public:
 
   //! Removes selection of the object and marks its BVH tree for rebuild
   Standard_EXPORT void RemoveSelectionOfObject(const Handle(SelectMgr_SelectableObject)& theObject,
-                                               const Handle(SelectMgr_Selection)& theSelection);
+                                               const Handle(SelectionContainer)& theSelection);
 
   //! Marks BVH of selectable objects for rebuild. Parameter theIsForce set as true
   //! guarantees that 1st level BVH for the viewer selector will be rebuilt during this call
@@ -269,7 +269,7 @@ public:
   //! the mouse <theXPix> and <theYPix>. The selector looks for touched areas and owners.
   Standard_EXPORT void Pick(const Standard_Integer  theXPix,
                             const Standard_Integer  theYPix,
-                            const Handle(V3d_View)& theView);
+                            const Handle(ViewWindow)& theView);
 
   //! Picks the sensitive entity according to the minimum
   //! and maximum pixel values <theXPMin>, <theYPMin>, <theXPMax>
@@ -278,16 +278,16 @@ public:
                             const Standard_Integer  theYPMin,
                             const Standard_Integer  theXPMax,
                             const Standard_Integer  theYPMax,
-                            const Handle(V3d_View)& theView);
+                            const Handle(ViewWindow)& theView);
 
   //! pick action - input pixel values for polyline selection for selection.
   Standard_EXPORT void Pick(const TColgp_Array1OfPnt2d& thePolyline,
-                            const Handle(V3d_View)&     theView);
+                            const Handle(ViewWindow)&     theView);
 
   //! Picks the sensitive entity according to the input axis.
   //! This is geometric intersection 3D objects by axis
   //! (camera parameters are ignored and objects with transform persistence are skipped).
-  Standard_EXPORT void Pick(const Axis3d& theAxis, const Handle(V3d_View)& theView);
+  Standard_EXPORT void Pick(const Axis3d& theAxis, const Handle(ViewWindow)& theView);
 
   //! Dump of detection results into image.
   //! This method performs axis picking for each pixel in the image
@@ -297,19 +297,19 @@ public:
   //! @param theType        type of image to define
   //! @param thePickedIndex index of picked entity (1 means topmost)
   Standard_EXPORT Standard_Boolean ToPixMap(Image_PixMap&                        theImage,
-                                            const Handle(V3d_View)&              theView,
+                                            const Handle(ViewWindow)&              theView,
                                             const StdSelect_TypeOfSelectionImage theType,
                                             const Standard_Integer thePickedIndex = 1);
 
 public:
   //! Displays sensitives in view <theView>.
-  Standard_EXPORT void DisplaySensitive(const Handle(V3d_View)& theView);
+  Standard_EXPORT void DisplaySensitive(const Handle(ViewWindow)& theView);
 
-  Standard_EXPORT void ClearSensitive(const Handle(V3d_View)& theView);
+  Standard_EXPORT void ClearSensitive(const Handle(ViewWindow)& theView);
 
-  Standard_EXPORT void DisplaySensitive(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT void DisplaySensitive(const Handle(SelectionContainer)& theSel,
                                         const Transform3d&                     theTrsf,
-                                        const Handle(V3d_View)&            theView,
+                                        const Handle(ViewWindow)&            theView,
                                         const Standard_Boolean theToClearOthers = Standard_True);
 
   //! Dumps the content of me into the stream
@@ -345,7 +345,7 @@ protected:
   //!        object's transformation persistence.
   Standard_EXPORT void traverseObject(const Handle(SelectMgr_SelectableObject)& theObject,
                                       const SelectMgr_SelectingVolumeManager&   theMgr,
-                                      const Handle(Graphic3d_Camera)&           theCamera,
+                                      const Handle(CameraOn3d)&           theCamera,
                                       const Graphic3d_Mat4d&                    theProjectionMat,
                                       const Graphic3d_Mat4d&                    theWorldViewMat,
                                       const Graphic3d_Vec2i&                    theWinSize);
@@ -357,7 +357,7 @@ protected:
                                     SelectMgr_SelectingVolumeManager&       theMgr);
 
   //! Update z-layers order map.
-  Standard_EXPORT void updateZLayers(const Handle(V3d_View)& theView);
+  Standard_EXPORT void updateZLayers(const Handle(ViewWindow)& theView);
 
 private:
   //! Checks if the entity given requires to scale current selecting frustum
@@ -367,12 +367,12 @@ private:
   //! custom tolerance. Otherwise, pure entity sensitivity factor will be returned.
   Standard_Integer sensitivity(const Handle(Select3D_SensitiveEntity)& theEntity) const;
 
-  void Activate(const Handle(SelectMgr_Selection)& theSelection);
+  void Activate(const Handle(SelectionContainer)& theSelection);
 
-  void Deactivate(const Handle(SelectMgr_Selection)& theSelection);
+  void Deactivate(const Handle(SelectionContainer)& theSelection);
 
   //! removes a Selection from the Selector
-  void Remove(const Handle(SelectMgr_Selection)& aSelection);
+  void Remove(const Handle(SelectionContainer)& aSelection);
 
   //! Internal function that checks if a current selecting frustum needs to be scaled and
   //! transformed for the entity and performs necessary calculations.

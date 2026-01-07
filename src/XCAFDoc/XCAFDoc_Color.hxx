@@ -22,7 +22,7 @@
 #include <TDF_Attribute.hxx>
 #include <Quantity_NameOfColor.hxx>
 class Standard_GUID;
-class TDF_Label;
+class DataLabel;
 class Quantity_Color;
 class TDF_RelocationTable;
 
@@ -38,17 +38,17 @@ public:
 
   Standard_EXPORT static const Standard_GUID& GetID();
 
-  Standard_EXPORT static Handle(XCAFDoc_Color) Set(const TDF_Label& label, const Quantity_Color& C);
+  Standard_EXPORT static Handle(XCAFDoc_Color) Set(const DataLabel& label, const Quantity_Color& C);
 
-  Standard_EXPORT static Handle(XCAFDoc_Color) Set(const TDF_Label&          label,
+  Standard_EXPORT static Handle(XCAFDoc_Color) Set(const DataLabel&          label,
                                                    const Quantity_ColorRGBA& C);
 
-  Standard_EXPORT static Handle(XCAFDoc_Color) Set(const TDF_Label&           label,
+  Standard_EXPORT static Handle(XCAFDoc_Color) Set(const DataLabel&           label,
                                                    const Quantity_NameOfColor C);
 
   //! Find, or create, a Color attribute and set it's value
   //! the Color attribute is returned.
-  Standard_EXPORT static Handle(XCAFDoc_Color) Set(const TDF_Label&    label,
+  Standard_EXPORT static Handle(XCAFDoc_Color) Set(const DataLabel&    label,
                                                    const Standard_Real R,
                                                    const Standard_Real G,
                                                    const Standard_Real B,

@@ -13,29 +13,29 @@
 
 #include <Vrml_Separator.hxx>
 
-Vrml_Separator::Vrml_Separator(const Vrml_SeparatorRenderCulling aRenderCulling)
+Separator::Separator(const Vrml_SeparatorRenderCulling aRenderCulling)
 {
   myRenderCulling = aRenderCulling;
   myFlagPrint     = 0;
 }
 
-Vrml_Separator::Vrml_Separator()
+Separator::Separator()
 {
   myRenderCulling = Vrml_AUTO;
   myFlagPrint     = 0;
 }
 
-void Vrml_Separator::SetRenderCulling(const Vrml_SeparatorRenderCulling aRenderCulling)
+void Separator::SetRenderCulling(const Vrml_SeparatorRenderCulling aRenderCulling)
 {
   myRenderCulling = aRenderCulling;
 }
 
-Vrml_SeparatorRenderCulling Vrml_Separator::RenderCulling() const
+Vrml_SeparatorRenderCulling Separator::RenderCulling() const
 {
   return myRenderCulling;
 }
 
-Standard_OStream& Vrml_Separator::Print(Standard_OStream& anOStream)
+Standard_OStream& Separator::Print(Standard_OStream& anOStream)
 {
   if (myFlagPrint == 0)
   {

@@ -38,7 +38,7 @@ Handle(IFSelect_Signature) IFSelect_SelectSignedSharing::Signature() const
   return thematcher;
 }
 
-const TCollection_AsciiString& IFSelect_SelectSignedSharing::SignatureText() const
+const AsciiString1& IFSelect_SelectSignedSharing::SignatureText() const
 {
   return thesigntext;
 }
@@ -76,9 +76,9 @@ Standard_Boolean IFSelect_SelectSignedSharing::Explore(const Standard_Integer   
   return Standard_True;
 }
 
-TCollection_AsciiString IFSelect_SelectSignedSharing::ExploreLabel() const
+AsciiString1 IFSelect_SelectSignedSharing::ExploreLabel() const
 {
-  TCollection_AsciiString lab("Sharing,");
+  AsciiString1 lab("Sharing,");
   lab.AssignCat(thematcher->Name());
   if (theexact)
     lab.AssignCat(" matching ");

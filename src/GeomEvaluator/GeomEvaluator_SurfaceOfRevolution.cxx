@@ -21,7 +21,7 @@
 IMPLEMENT_STANDARD_RTTIEXT(GeomEvaluator_SurfaceOfRevolution, GeomEvaluator_Surface)
 
 GeomEvaluator_SurfaceOfRevolution::GeomEvaluator_SurfaceOfRevolution(
-  const Handle(Geom_Curve)& theBase,
+  const Handle(GeomCurve3d)& theBase,
   const Dir3d&             theRevolDir,
   const Point3d&             theRevolLoc)
     : GeomEvaluator_Surface(),

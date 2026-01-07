@@ -23,7 +23,7 @@
 
 #include <TColStd_SequenceOfAsciiString.hxx>
 #include <Standard_CString.hxx>
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! This class gives a way of conversion between the value of an
 //! enumeration and its representation in STEP
@@ -41,7 +41,7 @@ class TCollection_AsciiString;
 //! It is possible to define subclasses on it, which directly give
 //! the good list of definition texts, and accepts a enumeration
 //! of the good type instead of an integer
-class StepData_EnumTool
+class EnumTool
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -52,13 +52,13 @@ public:
   //! enumeration, if dots are not presents they are added
   //!
   //! Such a static constructor allows to build a static description
-  //! as : static StepData_EnumTool myenumtool("e0","e1"...);
+  //! as : static EnumTool myenumtool("e0","e1"...);
   //! then use it without having to initialise it
   //!
   //! A null definition can be input by given "$" :the corresponding
   //! position is attached to "null/undefined" value (as one
   //! particular item of the enumeration list)
-  Standard_EXPORT StepData_EnumTool(const Standard_CString e0  = "",
+  Standard_EXPORT EnumTool(const Standard_CString e0  = "",
                                     const Standard_CString e1  = "",
                                     const Standard_CString e2  = "",
                                     const Standard_CString e3  = "",
@@ -111,7 +111,7 @@ public:
   //! creation time (i.e. by AddDefinition only)
   //!
   //! This allows to build a static description by a first pass :
-  //! static StepData_EnumTool myenumtool("e0" ...);
+  //! static EnumTool myenumtool("e0" ...);
   //! ...
   //! if (!myenumtool.IsSet()) {             for further inits
   //! myenumtool.AddDefinition("e21");
@@ -139,7 +139,7 @@ public:
   //! Returns the text which corresponds to a given numeric value
   //! It is limited by dots
   //! If num is out of range, returns an empty string
-  Standard_EXPORT const TCollection_AsciiString& Text(const Standard_Integer num) const;
+  Standard_EXPORT const AsciiString1& Text(const Standard_Integer num) const;
 
   //! Returns the numeric value found for a text
   //! The text must be in capitals and limited by dots
@@ -147,7 +147,7 @@ public:
   Standard_EXPORT Standard_Integer Value(const Standard_CString txt) const;
 
   //! Same as above but works on an AsciiString
-  Standard_EXPORT Standard_Integer Value(const TCollection_AsciiString& txt) const;
+  Standard_EXPORT Standard_Integer Value(const AsciiString1& txt) const;
 
 protected:
 private:

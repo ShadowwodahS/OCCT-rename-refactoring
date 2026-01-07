@@ -24,7 +24,7 @@
 #include <Standard_Transient.hxx>
 class Resource_Manager;
 class Message_Messenger;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class ShapeProcess_Context;
 DEFINE_STANDARD_HANDLE(ShapeProcess_Context, RefObject)
@@ -82,7 +82,7 @@ public:
   //! Get value of parameter as being of specific type
   //! Returns False if parameter is not defined or has a wrong type
   Standard_EXPORT Standard_Boolean GetString(const Standard_CString   param,
-                                             TCollection_AsciiString& val) const;
+                                             AsciiString1& val) const;
 
   Standard_EXPORT Standard_Real RealVal(const Standard_CString param,
                                         const Standard_Real    def) const;

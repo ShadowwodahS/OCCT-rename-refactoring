@@ -139,7 +139,7 @@ static Handle(Image_PixMap) mergeImages(const Handle(Image_PixMap)& theImage1,
   return aResultImage;
 }
 
-//! Draw inner point as filled rectangle
+//! Draw1 inner point as filled rectangle
 static Handle(TColStd_HArray1OfByte) fillPointBitmap(const Standard_Integer theSize)
 {
   const Standard_Integer        aNbBytes = (theSize / 8 + (theSize % 8 ? 1 : 0)) * theSize;
@@ -179,11 +179,11 @@ Graphic3d_MarkerImage::Graphic3d_MarkerImage(const Handle(Image_PixMap)& theImag
       myWidth((Standard_Integer)theImage->Width()),
       myHeight((Standard_Integer)theImage->Height())
 {
-  myImageId = TCollection_AsciiString("Graphic3d_MarkerImage_")
-              + TCollection_AsciiString(Standard_Atomic_Increment(&THE_MARKER_IMAGE_COUNTER));
+  myImageId = AsciiString1("Graphic3d_MarkerImage_")
+              + AsciiString1(Standard_Atomic_Increment(&THE_MARKER_IMAGE_COUNTER));
 
-  myImageAlphaId = TCollection_AsciiString("Graphic3d_MarkerImageAlpha_")
-                   + TCollection_AsciiString(THE_MARKER_IMAGE_COUNTER);
+  myImageAlphaId = AsciiString1("Graphic3d_MarkerImageAlpha_")
+                   + AsciiString1(THE_MARKER_IMAGE_COUNTER);
 
   if (!theImageAlpha.IsNull())
   {
@@ -201,8 +201,8 @@ Graphic3d_MarkerImage::Graphic3d_MarkerImage(const Handle(Image_PixMap)& theImag
 
 //=================================================================================================
 
-Graphic3d_MarkerImage::Graphic3d_MarkerImage(const TCollection_AsciiString& theId,
-                                             const TCollection_AsciiString& theAlphaId,
+Graphic3d_MarkerImage::Graphic3d_MarkerImage(const AsciiString1& theId,
+                                             const AsciiString1& theAlphaId,
                                              const Handle(Image_PixMap)&    theImage,
                                              const Handle(Image_PixMap)&    theImageAlpha)
     : myImageId(theId),
@@ -237,11 +237,11 @@ Graphic3d_MarkerImage::Graphic3d_MarkerImage(const Handle(TColStd_HArray1OfByte)
       myWidth(theWidth),
       myHeight(theHeight)
 {
-  myImageId = TCollection_AsciiString("Graphic3d_MarkerImage_")
-              + TCollection_AsciiString(Standard_Atomic_Increment(&THE_MARKER_IMAGE_COUNTER));
+  myImageId = AsciiString1("Graphic3d_MarkerImage_")
+              + AsciiString1(Standard_Atomic_Increment(&THE_MARKER_IMAGE_COUNTER));
 
-  myImageAlphaId = TCollection_AsciiString("Graphic3d_MarkerImageAlpha_")
-                   + TCollection_AsciiString(THE_MARKER_IMAGE_COUNTER);
+  myImageAlphaId = AsciiString1("Graphic3d_MarkerImageAlpha_")
+                   + AsciiString1(THE_MARKER_IMAGE_COUNTER);
 }
 
 //=================================================================================================
@@ -370,14 +370,14 @@ const Handle(Image_PixMap)& Graphic3d_MarkerImage::GetImageAlpha()
 
 //=================================================================================================
 
-const TCollection_AsciiString& Graphic3d_MarkerImage::GetImageId() const
+const AsciiString1& Graphic3d_MarkerImage::GetImageId() const
 {
   return myImageId;
 }
 
 //=================================================================================================
 
-const TCollection_AsciiString& Graphic3d_MarkerImage::GetImageAlphaId() const
+const AsciiString1& Graphic3d_MarkerImage::GetImageAlphaId() const
 {
   return myImageAlphaId;
 }
@@ -405,9 +405,9 @@ Handle(Graphic3d_MarkerImage) Graphic3d_MarkerImage::StandardMarker(
 
   // predefined markers are defined with 0.5 step
   const Standard_Integer  aScaleInt = Standard_Integer(theScale * 10.0f + 0.5f);
-  TCollection_AsciiString aKey      = TCollection_AsciiString("Graphic3d_MarkerImage_")
+  AsciiString1 aKey      = AsciiString1("Graphic3d_MarkerImage_")
                                  + THE_MARKER_NAMES[theMarkerType] + "_" + aScaleInt;
-  TCollection_AsciiString aKeyA = TCollection_AsciiString("Graphic3d_MarkerImageAlpha_")
+  AsciiString1 aKeyA = AsciiString1("Graphic3d_MarkerImageAlpha_")
                                   + THE_MARKER_NAMES[theMarkerType] + "_" + aScaleInt;
   if (theMarkerType == Aspect_TOM_BALL)
   {

@@ -33,8 +33,8 @@ TopOpeBRepBuild_EdgeBuilder::TopOpeBRepBuild_EdgeBuilder(TopOpeBRepBuild_PaveSet
 
 //=================================================================================================
 
-void TopOpeBRepBuild_EdgeBuilder::InitEdgeBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                                  TopOpeBRepBuild_LoopClassifier& LC,
+void TopOpeBRepBuild_EdgeBuilder::InitEdgeBuilder(LoopSet&        LS,
+                                                  LoopClassifier& LC,
                                                   const Standard_Boolean          ForceClass)
 {
   InitAreaBuilder(LS, LC, ForceClass);
@@ -86,11 +86,11 @@ void TopOpeBRepBuild_EdgeBuilder::NextVertex()
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepBuild_EdgeBuilder::Vertex() const
+const TopoShape& TopOpeBRepBuild_EdgeBuilder::Vertex() const
 {
   const Handle(TopOpeBRepBuild_Loop)& L = Loop();
   Handle(TopOpeBRepBuild_Pave)        PV(Handle(TopOpeBRepBuild_Pave)::DownCast(L));
-  const TopoDS_Shape&                 V = PV->Vertex();
+  const TopoShape&                 V = PV->Vertex();
   return V;
 }
 

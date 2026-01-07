@@ -215,7 +215,7 @@ TopOpeBRep_VPointInter& TopOpeBRep_LineInter::ChangeVPoint(const Standard_Intege
 
 void TopOpeBRep_LineInter::SetINL()
 {
-  TopOpeBRep_VPointInterIterator VPI(*this);
+  VPointIntersectionIterator VPI(*this);
   if (!VPI.More())
   {
     myINL = Standard_False;
@@ -258,7 +258,7 @@ void TopOpeBRep_LineInter::SetIsVClosed()
     }
   }*/
 
-  TopOpeBRep_VPointInterIterator VPI(*this);
+  VPointIntersectionIterator VPI(*this);
   Standard_Integer               nV   = myNbVPoint;
   Standard_Real                  pmin = RealLast(), pmax = RealFirst();
   Standard_Integer               imin = 0, imax = 0; // index of IsOnArc VPoints
@@ -313,7 +313,7 @@ void TopOpeBRep_LineInter::SetIsVClosed()
 void TopOpeBRep_LineInter::SetHasVPonR()
 {
   myHasVPonR = Standard_False;
-  TopOpeBRep_VPointInterIterator VPI(*this);
+  VPointIntersectionIterator VPI(*this);
   for (; VPI.More(); VPI.Next())
   {
     const TopOpeBRep_VPointInter& P = VPI.CurrentVP();
@@ -332,7 +332,7 @@ void TopOpeBRep_LineInter::SetVPBounds()
   myVPF = myVPL = myVPN = 0;
   myVPBDefined          = Standard_True;
 
-  TopOpeBRep_VPointInterIterator VPI(*this);
+  VPointIntersectionIterator VPI(*this);
   Standard_Integer               f = myNbVPoint + 1, l = 0, n = 0;
 
   for (; VPI.More(); VPI.Next())
@@ -428,7 +428,7 @@ void TopOpeBRep_LineInter::Bounds(Standard_Real& theFirst, Standard_Real& theLas
 
 Standard_Boolean TopOpeBRep_LineInter::HasVInternal()
 {
-  TopOpeBRep_VPointInterIterator VPI(*this);
+  VPointIntersectionIterator VPI(*this);
   for (; VPI.More(); VPI.Next())
   {
     if (VPI.CurrentVP().IsInternal())
@@ -453,7 +453,7 @@ Standard_Integer TopOpeBRep_LineInter::NbWPoint() const
 
 //=================================================================================================
 
-const TopOpeBRep_WPointInter& TopOpeBRep_LineInter::WPoint(const Standard_Integer IW)
+const WPointIntersection& TopOpeBRep_LineInter::WPoint(const Standard_Integer IW)
 {
   switch (myTypeLineCurve)
   {
@@ -471,17 +471,17 @@ const TopOpeBRep_WPointInter& TopOpeBRep_LineInter::WPoint(const Standard_Intege
 
 //=================================================================================================
 
-Handle(Geom_Curve) TopOpeBRep_LineInter::Curve() const
+Handle(GeomCurve3d) TopOpeBRep_LineInter::Curve() const
 {
   // Build the 3d curve
-  Handle(Geom_Curve) C3D;
+  Handle(GeomCurve3d) C3D;
   switch (myTypeLineCurve)
   {
     case TopOpeBRep_LINE:
-      C3D = new Geom_Line(myILG->Line());
+      C3D = new GeomLine(myILG->Line());
       break;
     case TopOpeBRep_CIRCLE:
-      C3D = new Geom_Circle(myILG->Circle());
+      C3D = new GeomCircle(myILG->Circle());
       break;
     case TopOpeBRep_ELLIPSE:
       C3D = new Geom_Ellipse(myILG->Ellipse());
@@ -502,17 +502,17 @@ Handle(Geom_Curve) TopOpeBRep_LineInter::Curve() const
 
 //=================================================================================================
 
-Handle(Geom_Curve) TopOpeBRep_LineInter::Curve(const Standard_Real parmin,
+Handle(GeomCurve3d) TopOpeBRep_LineInter::Curve(const Standard_Real parmin,
                                                const Standard_Real parmax) const
 {
   // Build the trimmed 3d curve
-  Handle(Geom_Curve)        C3D  = Curve();
+  Handle(GeomCurve3d)        C3D  = Curve();
   Handle(Geom_TrimmedCurve) TC3D = new Geom_TrimmedCurve(C3D, parmin, parmax);
 #ifdef OCCT_DEBUG
   if (TopOpeBRep_GettraceCONIC())
   {
     std::cout << "TopOpeBRep_LineInter::Curve on a ";
-    TopOpeBRep::Print(myTypeLineCurve, std::cout);
+    TopOpeBRep1::Print(myTypeLineCurve, std::cout);
     std::cout << std::endl;
     std::cout << "  ... Trimmed from " << parmin << " to " << parmax << std::endl;
   }
@@ -522,7 +522,7 @@ Handle(Geom_Curve) TopOpeBRep_LineInter::Curve(const Standard_Real parmin,
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRep_LineInter::Arc() const
+const TopoShape& TopOpeBRep_LineInter::Arc() const
 {
   if (myTypeLineCurve == TopOpeBRep_RESTRICTION)
   {
@@ -530,14 +530,14 @@ const TopoDS_Shape& TopOpeBRep_LineInter::Arc() const
     {
       const Handle(Adaptor2d_Curve2d)& AHC2D = myILR->ArcOnS1();
       const BRepAdaptor_Curve2d&       BC2DP = *((BRepAdaptor_Curve2d*)AHC2D.get());
-      const TopoDS_Shape&              S     = BC2DP.Edge();
+      const TopoShape&              S     = BC2DP.Edge();
       return S;
     }
     else
     {
       const Handle(Adaptor2d_Curve2d)& AHC2D = myILR->ArcOnS2();
       const BRepAdaptor_Curve2d&       BC2DP = *((BRepAdaptor_Curve2d*)AHC2D.get());
-      const TopoDS_Shape&              S     = BC2DP.Edge();
+      const TopoShape&              S     = BC2DP.Edge();
       return S;
     }
   }
@@ -581,13 +581,13 @@ void TopOpeBRep_LineInter::ComputeFaceFaceTransition()
 {
   TopAbs_Orientation F1ori = myF1.Orientation();
   TopAbs_Orientation F2ori = myF2.Orientation();
-  myLineTonF1              = TopOpeBRep_FFTransitionTool::ProcessFaceTransition(*this, 1, F2ori);
-  myLineTonF2              = TopOpeBRep_FFTransitionTool::ProcessFaceTransition(*this, 2, F1ori);
+  myLineTonF1              = FaceFaceTransitionTool::ProcessFaceTransition(*this, 1, F2ori);
+  myLineTonF2              = FaceFaceTransitionTool::ProcessFaceTransition(*this, 2, F1ori);
 }
 
 //=================================================================================================
 
-const TopOpeBRepDS_Transition& TopOpeBRep_LineInter::FaceFaceTransition(
+const StateTransition& TopOpeBRep_LineInter::FaceFaceTransition(
   const Standard_Integer I) const
 {
   if (I == 1)
@@ -602,7 +602,7 @@ const TopOpeBRepDS_Transition& TopOpeBRep_LineInter::FaceFaceTransition(
 void TopOpeBRep_LineInter::DumpType() const
 {
 #ifdef OCCT_DEBUG
-  TopOpeBRep::Print(myTypeLineCurve, std::cout);
+  TopOpeBRep1::Print(myTypeLineCurve, std::cout);
 #endif
 }
 
@@ -610,12 +610,12 @@ void TopOpeBRep_LineInter::DumpType() const
 
 void TopOpeBRep_LineInter::DumpVPoint
 #ifndef OCCT_DEBUG
-  (const Standard_Integer, const TCollection_AsciiString&, const TCollection_AsciiString&) const
+  (const Standard_Integer, const AsciiString1&, const AsciiString1&) const
 {
 #else
   (const Standard_Integer         I,
-   const TCollection_AsciiString& s1,
-   const TCollection_AsciiString& s2) const
+   const AsciiString1& s1,
+   const AsciiString1& s2) const
 {
   const TopOpeBRep_VPointInter& VP = VPoint(I);
   const Point3d&                 P  = VP.Value();
@@ -632,12 +632,12 @@ void TopOpeBRep_LineInter::DumpVPoint
 
 void TopOpeBRep_LineInter::DumpBipoint
 #ifndef OCCT_DEBUG
-  (const TopOpeBRep_Bipoint&, const TCollection_AsciiString&, const TCollection_AsciiString&) const
+  (const Bipoint&, const AsciiString1&, const AsciiString1&) const
 {
 #else
-  (const TopOpeBRep_Bipoint&      bip,
-   const TCollection_AsciiString& s1,
-   const TCollection_AsciiString& s2) const
+  (const Bipoint&      bip,
+   const AsciiString1& s1,
+   const AsciiString1& s2) const
 {
   Standard_Integer i1 = bip.I1();
   Standard_Integer i2 = bip.I2();
@@ -676,9 +676,9 @@ Standard_OStream& TopOpeBRep_LineInter::DumpLineTransitions(Standard_OStream& OS
 {
 #ifdef OCCT_DEBUG
   OS << "transition from f1 / f2 ";
-  TopAbs::Print(myF2.Orientation(), OS);
+  TopAbs1::Print(myF2.Orientation(), OS);
   OS << "transition from f2 / f1 ";
-  TopAbs::Print(myF1.Orientation(), OS);
+  TopAbs1::Print(myF1.Orientation(), OS);
 #endif
   return OS;
 }

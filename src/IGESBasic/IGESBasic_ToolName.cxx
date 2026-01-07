@@ -30,9 +30,9 @@
 #include <Interface_ShareTool.hxx>
 #include <TCollection_HAsciiString.hxx>
 
-IGESBasic_ToolName::IGESBasic_ToolName() {}
+NameTool::NameTool() {}
 
-void IGESBasic_ToolName::ReadOwnParams(const Handle(IGESBasic_Name)& ent,
+void NameTool::ReadOwnParams(const Handle(IGESBasic_Name)& ent,
                                        const Handle(IGESData_IGESReaderData)& /* IR */,
                                        IGESData_ParamReader& PR) const
 {
@@ -49,19 +49,19 @@ void IGESBasic_ToolName::ReadOwnParams(const Handle(IGESBasic_Name)& ent,
   ent->Init(tempNbPropertyValues, tempName);
 }
 
-void IGESBasic_ToolName::WriteOwnParams(const Handle(IGESBasic_Name)& ent,
+void NameTool::WriteOwnParams(const Handle(IGESBasic_Name)& ent,
                                         IGESData_IGESWriter&          IW) const
 {
   IW.Send(ent->NbPropertyValues());
   IW.Send(ent->Value());
 }
 
-void IGESBasic_ToolName::OwnShared(const Handle(IGESBasic_Name)& /* ent */,
+void NameTool::OwnShared(const Handle(IGESBasic_Name)& /* ent */,
                                    Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESBasic_ToolName::OwnCopy(const Handle(IGESBasic_Name)& another,
+void NameTool::OwnCopy(const Handle(IGESBasic_Name)& another,
                                  const Handle(IGESBasic_Name)& ent,
                                  Interface_CopyTool& /* TC */) const
 {
@@ -72,7 +72,7 @@ void IGESBasic_ToolName::OwnCopy(const Handle(IGESBasic_Name)& another,
   ent->Init(aNbPropertyValues, aName);
 }
 
-Standard_Boolean IGESBasic_ToolName::OwnCorrect(const Handle(IGESBasic_Name)& ent) const
+Standard_Boolean NameTool::OwnCorrect(const Handle(IGESBasic_Name)& ent) const
 {
   Standard_Boolean res = (ent->NbPropertyValues() != 1);
   if (res)
@@ -80,9 +80,9 @@ Standard_Boolean IGESBasic_ToolName::OwnCorrect(const Handle(IGESBasic_Name)& en
   return res; // nbpropertyvalues = 1
 }
 
-IGESData_DirChecker IGESBasic_ToolName::DirChecker(const Handle(IGESBasic_Name)& /*ent*/) const
+DirectoryChecker NameTool::DirChecker(const Handle(IGESBasic_Name)& /*ent*/) const
 {
-  IGESData_DirChecker DC(406, 15); // Form no = 15 & Type = 406
+  DirectoryChecker DC(406, 15); // Form no = 15 & Type = 406
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.BlankStatusIgnored();
@@ -91,7 +91,7 @@ IGESData_DirChecker IGESBasic_ToolName::DirChecker(const Handle(IGESBasic_Name)&
   return DC;
 }
 
-void IGESBasic_ToolName::OwnCheck(const Handle(IGESBasic_Name)& ent,
+void NameTool::OwnCheck(const Handle(IGESBasic_Name)& ent,
                                   const Interface_ShareTool&,
                                   Handle(Interface_Check)& ach) const
 {
@@ -99,7 +99,7 @@ void IGESBasic_ToolName::OwnCheck(const Handle(IGESBasic_Name)& ent,
     ach->AddFail("Number of Property Values != 1");
 }
 
-void IGESBasic_ToolName::OwnDump(const Handle(IGESBasic_Name)& ent,
+void NameTool::OwnDump(const Handle(IGESBasic_Name)& ent,
                                  const IGESData_IGESDumper& /* dumper */,
                                  Standard_OStream& S,
                                  const Standard_Integer /* level */) const

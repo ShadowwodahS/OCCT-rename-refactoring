@@ -34,15 +34,15 @@ class TopOpeBRepBuild_Loop : public RefObject
 {
 
 public:
-  Standard_EXPORT TopOpeBRepBuild_Loop(const TopoDS_Shape& S);
+  Standard_EXPORT TopOpeBRepBuild_Loop(const TopoShape& S);
 
-  Standard_EXPORT TopOpeBRepBuild_Loop(const TopOpeBRepBuild_BlockIterator& BI);
+  Standard_EXPORT TopOpeBRepBuild_Loop(const TopOpeBRepBuildBlockIterator& BI);
 
   Standard_EXPORT virtual Standard_Boolean IsShape() const;
 
-  Standard_EXPORT virtual const TopoDS_Shape& Shape() const;
+  Standard_EXPORT virtual const TopoShape& Shape() const;
 
-  Standard_EXPORT const TopOpeBRepBuild_BlockIterator& BlockIterator() const;
+  Standard_EXPORT const TopOpeBRepBuildBlockIterator& BlockIterator() const;
 
   Standard_EXPORT virtual void Dump() const;
 
@@ -50,8 +50,8 @@ public:
 
 protected:
   Standard_Boolean              myIsShape;
-  TopoDS_Shape                  myShape;
-  TopOpeBRepBuild_BlockIterator myBlockIterator;
+  TopoShape                  myShape;
+  TopOpeBRepBuildBlockIterator myBlockIterator;
 
 private:
 };

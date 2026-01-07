@@ -46,12 +46,12 @@
 // purpose  : Creates a new data framework.
 //=======================================================================
 
-static Standard_Integer MakeDF(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer MakeDF(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
 
-  Handle(Draw_Drawable3D) D = Draw::Get(a[1]);
+  Handle(Draw_Drawable3D) D = Draw1::Get(a[1]);
   Handle(DDF_Data)        NewDDF;
 
   if (!D.IsNull())
@@ -66,7 +66,7 @@ static Standard_Integer MakeDF(Draw_Interpretor& di, Standard_Integer n, const c
 
   Handle(TDF_Data) NewDF = new TDF_Data();
   NewDDF                 = new DDF_Data(NewDF);
-  Draw::Set(a[1], NewDDF);
+  Draw1::Set(a[1], NewDDF);
   // DeltaDS.Nullify();
   return 0;
 }
@@ -76,25 +76,25 @@ static Standard_Integer MakeDF(Draw_Interpretor& di, Standard_Integer n, const c
 // purpose  : Creates a new data framework.
 //=======================================================================
 
-static Standard_Integer ClearDF(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer ClearDF(DrawInterpreter& di, Standard_Integer n, const char** a)
 
 {
   if (n < 2)
     return 1;
 
-  Handle(Draw_Drawable3D) D = Draw::Get(a[1]);
-  Handle(DDF_Data)        DDF;
+  Handle(Draw_Drawable3D) D = Draw1::Get(a[1]);
+  Handle(DDF_Data)        DDF1;
 
   if (!D.IsNull())
   {
-    DDF = Handle(DDF_Data)::DownCast(D);
-    if (!DDF.IsNull())
+    DDF1 = Handle(DDF_Data)::DownCast(D);
+    if (!DDF1.IsNull())
     {
-      Handle(TDF_Data) DF = DDF->DataFramework();
+      Handle(TDF_Data) DF = DDF1->DataFramework();
       if (!DF.IsNull())
       {
         Handle(TDF_Data) NewEmpty = new TDF_Data;
-        DDF->DataFramework(NewEmpty);
+        DDF1->DataFramework(NewEmpty);
         // DeltaDS.Nullify();
       }
       return 0;
@@ -108,7 +108,7 @@ static Standard_Integer ClearDF(Draw_Interpretor& di, Standard_Integer n, const 
 
 //=================================================================================================
 
-static Standard_Integer CopyDF(Draw_Interpretor& /*di*/, Standard_Integer n, const char** a)
+static Standard_Integer CopyDF(DrawInterpreter& /*di*/, Standard_Integer n, const char** a)
 {
   if (n < 4 || n > 5)
     return 1;
@@ -118,7 +118,7 @@ static Standard_Integer CopyDF(Draw_Interpretor& /*di*/, Standard_Integer n, con
   Standard_CString Entry1;
   Standard_CString Entry2;
 
-  if (!DDF::GetDF(a[1], DF1))
+  if (!DDF1::GetDF(a[1], DF1))
     return 1;
 
   Entry1 = a[2];
@@ -131,19 +131,19 @@ static Standard_Integer CopyDF(Draw_Interpretor& /*di*/, Standard_Integer n, con
   }
   else if (n == 5)
   {
-    if (!DDF::GetDF(a[3], DF2))
+    if (!DDF1::GetDF(a[3], DF2))
       return 1;
     Entry2 = a[4];
   }
 
-  TDF_Label Label1;
-  if (!DDF::FindLabel(DF1, Entry1, Label1))
+  DataLabel Label1;
+  if (!DDF1::FindLabel(DF1, Entry1, Label1))
     return 1;
 
-  TDF_Label Label2;
-  if (!DDF::FindLabel(DF2, Entry2, Label2, Standard_False))
+  DataLabel Label2;
+  if (!DDF1::FindLabel(DF2, Entry2, Label2, Standard_False))
   {
-    DDF::AddLabel(DF2, Entry2, Label2);
+    DDF1::AddLabel(DF2, Entry2, Label2);
   }
 
   Handle(TDF_DataSet) DataSet = new TDF_DataSet;
@@ -158,15 +158,15 @@ static Standard_Integer CopyDF(Draw_Interpretor& /*di*/, Standard_Integer n, con
 
 //=================================================================================================
 
-static Standard_Integer MiniDumpDF(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer MiniDumpDF(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
 
   Handle(Draw_Drawable3D) D;
-  Handle(DDF_Data)        DDF;
+  Handle(DDF_Data)        DDF1;
 
-  D = Draw::Get(a[1]);
+  D = Draw1::Get(a[1]);
 
   if (D.IsNull())
   {
@@ -174,9 +174,9 @@ static Standard_Integer MiniDumpDF(Draw_Interpretor& di, Standard_Integer n, con
     return Standard_False;
   }
 
-  DDF = Handle(DDF_Data)::DownCast(D);
+  DDF1 = Handle(DDF_Data)::DownCast(D);
 
-  if (DDF.IsNull())
+  if (DDF1.IsNull())
   {
     di << "DDF_BasicCommands : Sorry this Data Framework doesn't exist\n";
     return Standard_False;
@@ -184,9 +184,9 @@ static Standard_Integer MiniDumpDF(Draw_Interpretor& di, Standard_Integer n, con
 
   di << "*********** Dump of " << a[1] << " ***********\n";
 
-  // DDF->DataFramework()->Dump(std::cout);
+  // DDF1->DataFramework()->Dump(std::cout);
   Standard_SStream aSStream;
-  DDF->DataFramework()->Dump(aSStream);
+  DDF1->DataFramework()->Dump(aSStream);
   aSStream << std::ends;
   di << aSStream << "\n";
 
@@ -198,15 +198,15 @@ static Standard_Integer MiniDumpDF(Draw_Interpretor& di, Standard_Integer n, con
 // purpose  : eXtended deep dump of a DataFramework
 //=======================================================================
 
-static Standard_Integer XDumpDF(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer XDumpDF(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
     return 1;
 
   Handle(Draw_Drawable3D) D;
-  Handle(DDF_Data)        DDF;
+  Handle(DDF_Data)        DDF1;
 
-  D = Draw::Get(a[1]);
+  D = Draw1::Get(a[1]);
 
   if (D.IsNull())
   {
@@ -214,9 +214,9 @@ static Standard_Integer XDumpDF(Draw_Interpretor& di, Standard_Integer n, const 
     return Standard_False;
   }
 
-  DDF = Handle(DDF_Data)::DownCast(D);
+  DDF1 = Handle(DDF_Data)::DownCast(D);
 
-  if (DDF.IsNull())
+  if (DDF1.IsNull())
   {
     di << "DDF_BasicCommands : Sorry this Data Framework doesn't exist\n";
     return Standard_False;
@@ -225,9 +225,9 @@ static Standard_Integer XDumpDF(Draw_Interpretor& di, Standard_Integer n, const 
   di << "*********** Dump of " << a[1] << " ***********\n";
 
   TDF_IDFilter filter(Standard_False);
-  // TDF_Tool::ExtendedDeepDump(cout,DDF->DataFramework(),filter);
+  // TDF_Tool::ExtendedDeepDump(cout,DDF1->DataFramework(),filter);
   Standard_SStream aSStream;
-  TDF_Tool::ExtendedDeepDump(aSStream, DDF->DataFramework(), filter);
+  TDF_Tool::ExtendedDeepDump(aSStream, DDF1->DataFramework(), filter);
   aSStream << std::ends;
   di << aSStream << "\n";
 
@@ -239,22 +239,22 @@ static Standard_Integer XDumpDF(Draw_Interpretor& di, Standard_Integer n, const 
 // purpose  : CopyLabel (DF,fromlabel,tolabel)
 //=======================================================================
 
-static Standard_Integer CopyLabel_SCopy(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer CopyLabel_SCopy(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
-  TDF_Label SOURCE, TARGET;
+  DataLabel SOURCE, TARGET;
   if (n == 4)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
-    if (!DDF::FindLabel(DF, a[2], SOURCE))
+    if (!DDF1::FindLabel(DF, a[2], SOURCE))
       return 1;
-    if (DDF::FindLabel(DF, a[3], TARGET))
+    if (DDF1::FindLabel(DF, a[3], TARGET))
     {
       di << " target label is already set \n";
       return 1;
     }
-    DDF::AddLabel(DF, a[3], TARGET);
+    DDF1::AddLabel(DF, a[3], TARGET);
     TDF_CopyLabel cop;
     cop.Load(SOURCE, TARGET);
     cop.Perform();
@@ -273,17 +273,17 @@ static Standard_Integer CopyLabel_SCopy(Draw_Interpretor& di, Standard_Integer n
 //         : in order to find shareable attributes
 //=======================================================================
 
-static Standard_Integer DDF_CheckAttrs(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DDF_CheckAttrs(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
-  TDF_Label SOURCE, TARGET;
+  DataLabel SOURCE, TARGET;
   if (n == 4)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
-    if (!DDF::FindLabel(DF, a[2], SOURCE))
+    if (!DDF1::FindLabel(DF, a[2], SOURCE))
       return 1;
-    if (!DDF::FindLabel(DF, a[3], TARGET))
+    if (!DDF1::FindLabel(DF, a[3], TARGET))
       return 1;
 
     Handle(TDF_DataSet) ds1  = new TDF_DataSet();
@@ -314,7 +314,7 @@ static Standard_Integer DDF_CheckAttrs(Draw_Interpretor& di, Standard_Integer n,
             if (tAtt->IsInstance(sAtt->DynamicType()))
               if (tAtt == sAtt)
               {
-                TCollection_AsciiString entr1, entr2;
+                AsciiString1 entr1, entr2;
                 if (!Shar)
                 {
                   TDF_Tool::Entry(SOURCE, entr1);
@@ -350,16 +350,16 @@ static Standard_Integer DDF_CheckAttrs(Draw_Interpretor& di, Standard_Integer n,
 // purpose  : CheckLabel (DOC,label1,label2)
 //         : prints all structure of first level attributes with its references
 //=======================================================================
-static Standard_Integer DDF_CheckLabel(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer DDF_CheckLabel(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
-  //  TDF_Label SOURCE,TARGET;
-  TDF_Label SOURCE;
+  //  DataLabel SOURCE,TARGET;
+  DataLabel SOURCE;
   if (n == 3)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(a[1], DF))
+    if (!DDF1::GetDF(a[1], DF))
       return 1;
-    if (!DDF::FindLabel(DF, a[2], SOURCE))
+    if (!DDF1::FindLabel(DF, a[2], SOURCE))
       return 1;
 
     Handle(TDF_DataSet) ds1 = new TDF_DataSet();
@@ -372,7 +372,7 @@ static Standard_Integer DDF_CheckLabel(Draw_Interpretor& di, Standard_Integer n,
       for (TDF_MapIteratorOfAttributeMap attMItr(attMap); attMItr.More(); attMItr.Next())
       {
         const Handle(TDF_Attribute)& sAtt = attMItr.Key();
-        TCollection_AsciiString      entry;
+        AsciiString1      entry;
         TDF_Tool::Entry(sAtt->Label(), entry);
         // std::cout<<"\t\tReferences attribute dynamic type = "<<sAtt->DynamicType()<<",\tLabel =
         // "<<entry<<std::endl;
@@ -392,7 +392,7 @@ static Standard_Integer DDF_CheckLabel(Draw_Interpretor& di, Standard_Integer n,
 // function : DDF_SetAccessByEntry
 // purpose  : SetAccessByEntry DOC 1|0
 //=======================================================================
-static Standard_Integer DDF_SetAccessByEntry(Draw_Interpretor& di,
+static Standard_Integer DDF_SetAccessByEntry(DrawInterpreter& di,
                                              Standard_Integer  nb,
                                              const char**      a)
 {
@@ -405,9 +405,9 @@ static Standard_Integer DDF_SetAccessByEntry(Draw_Interpretor& di,
   else
   {
     Handle(TDF_Data) aDF;
-    if (DDF::GetDF(a[1], aDF))
+    if (DDF1::GetDF(a[1], aDF))
     {
-      Standard_Boolean aSet = (Draw::Atoi(a[2]) == 1);
+      Standard_Boolean aSet = (Draw1::Atoi(a[2]) == 1);
       aDF->SetAccessByEntries(aSet);
     }
     else
@@ -422,7 +422,7 @@ static Standard_Integer DDF_SetAccessByEntry(Draw_Interpretor& di,
 
 //=================================================================================================
 
-void DDF::DataCommands(Draw_Interpretor& theCommands)
+void DDF1::DataCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)

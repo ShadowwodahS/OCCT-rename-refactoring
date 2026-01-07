@@ -27,14 +27,14 @@ IMPLEMENT_TOBJOCAF_PERSISTENCE(TObj_Partition)
 
 //=================================================================================================
 
-TObj_Partition::TObj_Partition(const TDF_Label& theLabel, const Standard_Boolean theSetName)
+TObj_Partition::TObj_Partition(const DataLabel& theLabel, const Standard_Boolean theSetName)
     : TObj_Object(theLabel, theSetName)
 {
 }
 
 //=================================================================================================
 
-Handle(TObj_Partition) TObj_Partition::Create(const TDF_Label&       theLabel,
+Handle(TObj_Partition) TObj_Partition::Create(const DataLabel&       theLabel,
                                               const Standard_Boolean theSetName)
 {
   Handle(TObj_Partition) aPartition = new TObj_Partition(theLabel, theSetName);
@@ -44,9 +44,9 @@ Handle(TObj_Partition) TObj_Partition::Create(const TDF_Label&       theLabel,
 
 //=================================================================================================
 
-TDF_Label TObj_Partition::NewLabel() const
+DataLabel TObj_Partition::NewLabel() const
 {
-  TDF_Label     aLabel;
+  DataLabel     aLabel;
   TDF_TagSource aTag;
   aLabel = aTag.NewChild(GetChildLabel());
   return aLabel;
@@ -90,7 +90,7 @@ Handle(TObj_Partition) TObj_Partition::GetPartition(const Handle(TObj_Object)& t
   Handle(TObj_Partition) aPartition;
   if (!theObject.IsNull())
   {
-    TDF_Label aLabel = theObject->GetLabel().Father();
+    DataLabel aLabel = theObject->GetLabel().Father();
 
     // find partition which contains the object
     while (aPartition.IsNull() && !aLabel.IsNull())
@@ -149,7 +149,7 @@ Standard_Boolean TObj_Partition::SetName(const Handle(TCollection_HExtendedStrin
   if (!anOldName.IsNull() && theName->String().IsEqual(anOldName->String()))
     return Standard_True;
 
-  TDataStd_Name::Set(GetLabel(), theName->String());
+  NameAttribute::Set(GetLabel(), theName->String());
   return Standard_True;
 }
 

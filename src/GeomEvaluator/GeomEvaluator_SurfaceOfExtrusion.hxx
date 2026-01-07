@@ -25,7 +25,7 @@ class GeomEvaluator_SurfaceOfExtrusion : public GeomEvaluator_Surface
 {
 public:
   //! Initialize evaluator by surface
-  Standard_EXPORT GeomEvaluator_SurfaceOfExtrusion(const Handle(Geom_Curve)& theBase,
+  Standard_EXPORT GeomEvaluator_SurfaceOfExtrusion(const Handle(GeomCurve3d)& theBase,
                                                    const Dir3d&             theExtrusionDir);
   //! Initialize evaluator by surface adaptor
   Standard_EXPORT GeomEvaluator_SurfaceOfExtrusion(const Handle(Adaptor3d_Curve)& theBase,
@@ -86,7 +86,7 @@ private:
   }
 
 private:
-  Handle(Geom_Curve)      myBaseCurve;
+  Handle(GeomCurve3d)      myBaseCurve;
   Handle(Adaptor3d_Curve) myBaseAdaptor;
 
   Dir3d myDirection;

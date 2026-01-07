@@ -33,15 +33,15 @@
 
 //=================================================================================================
 
-static Standard_Integer setView(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setView(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XSetView Doc shape_label1 ... shape_labelN gdt_label1 ... gdt_labelN\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -54,7 +54,7 @@ static Standard_Integer setView(Draw_Interpretor& di, Standard_Integer argc, con
   TDF_LabelSequence aShapes, aGDTs;
   for (Standard_Integer i = 2; i < argc; i++)
   {
-    TDF_Label aLabel;
+    DataLabel aLabel;
     TDF_Tool::Label(aDoc->GetData(), argv[i], aLabel);
     if (aLabel.IsNull())
       continue;
@@ -68,9 +68,9 @@ static Standard_Integer setView(Draw_Interpretor& di, Standard_Integer argc, con
   if (aShapes.Length() == 0 && aGDTs.Length() == 0)
     return 1;
 
-  TDF_Label aViewL = aViewTool->AddView();
+  DataLabel aViewL = aViewTool->AddView();
   aViewTool->SetView(aShapes, aGDTs, aViewL);
-  TCollection_AsciiString anEntry;
+  AsciiString1 anEntry;
   TDF_Tool::Entry(aViewL, anEntry);
   di << anEntry << "\n";
   return 0;
@@ -78,15 +78,15 @@ static Standard_Integer setView(Draw_Interpretor& di, Standard_Integer argc, con
 
 //=================================================================================================
 
-static Standard_Integer removeView(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer removeView(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XRemoveView Doc View_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -94,7 +94,7 @@ static Standard_Integer removeView(Draw_Interpretor& di, Standard_Integer argc, 
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -107,7 +107,7 @@ static Standard_Integer removeView(Draw_Interpretor& di, Standard_Integer argc, 
 
 //=================================================================================================
 
-static Standard_Integer setClippingPlanes(Draw_Interpretor& di,
+static Standard_Integer setClippingPlanes(DrawInterpreter& di,
                                           Standard_Integer  argc,
                                           const char**      argv)
 {
@@ -116,8 +116,8 @@ static Standard_Integer setClippingPlanes(Draw_Interpretor& di,
     di << "Use: XSetClippingPlanes Doc view_label plane_label1 ... plane_labelN";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -130,7 +130,7 @@ static Standard_Integer setClippingPlanes(Draw_Interpretor& di,
   TDF_LabelSequence aCPlanes;
   for (Standard_Integer i = 3; i < argc; i++)
   {
-    TDF_Label aLabel;
+    DataLabel aLabel;
     TDF_Tool::Label(aDoc->GetData(), argv[i], aLabel);
     if (aLabel.IsNull())
       continue;
@@ -141,7 +141,7 @@ static Standard_Integer setClippingPlanes(Draw_Interpretor& di,
   if (aCPlanes.Length() == 0)
     return 1;
 
-  TDF_Label aViewL;
+  DataLabel aViewL;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aViewL);
   aViewTool->SetClippingPlanes(aCPlanes, aViewL);
   return 0;
@@ -149,15 +149,15 @@ static Standard_Integer setClippingPlanes(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer isView(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer isView(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XIsView Doc Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -165,7 +165,7 @@ static Standard_Integer isView(Draw_Interpretor& di, Standard_Integer argc, cons
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -183,15 +183,15 @@ static Standard_Integer isView(Draw_Interpretor& di, Standard_Integer argc, cons
 
 //=================================================================================================
 
-static Standard_Integer getRefShapes(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getRefShapes(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetViewShapes Doc ViewLabel\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -199,7 +199,7 @@ static Standard_Integer getRefShapes(Draw_Interpretor& di, Standard_Integer argc
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull() || !aViewTool->IsView(aLabel))
   {
@@ -211,7 +211,7 @@ static Standard_Integer getRefShapes(Draw_Interpretor& di, Standard_Integer argc
   aViewTool->GetRefShapeLabel(aLabel, aShapes);
   for (Standard_Integer i = 1; i <= aShapes.Length(); i++)
   {
-    TCollection_AsciiString anEntry;
+    AsciiString1 anEntry;
     TDF_Tool::Entry(aShapes.Value(i), anEntry);
     di << anEntry << " ";
   }
@@ -220,15 +220,15 @@ static Standard_Integer getRefShapes(Draw_Interpretor& di, Standard_Integer argc
 
 //=================================================================================================
 
-static Standard_Integer getRefGDTs(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getRefGDTs(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetViewGDTs Doc ViewLabel\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -236,7 +236,7 @@ static Standard_Integer getRefGDTs(Draw_Interpretor& di, Standard_Integer argc, 
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull() || !aViewTool->IsView(aLabel))
   {
@@ -252,7 +252,7 @@ static Standard_Integer getRefGDTs(Draw_Interpretor& di, Standard_Integer argc, 
   }
   for (Standard_Integer i = 1; i <= aGDTs.Length(); i++)
   {
-    TCollection_AsciiString anEntry;
+    AsciiString1 anEntry;
     TDF_Tool::Entry(aGDTs.Value(i), anEntry);
     di << anEntry << " ";
   }
@@ -261,7 +261,7 @@ static Standard_Integer getRefGDTs(Draw_Interpretor& di, Standard_Integer argc, 
 
 //=================================================================================================
 
-static Standard_Integer getRefClippingPlanes(Draw_Interpretor& di,
+static Standard_Integer getRefClippingPlanes(DrawInterpreter& di,
                                              Standard_Integer  argc,
                                              const char**      argv)
 {
@@ -270,8 +270,8 @@ static Standard_Integer getRefClippingPlanes(Draw_Interpretor& di,
     di << "Use: XGetViewClippingPlanes Doc ViewLabel\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -279,7 +279,7 @@ static Standard_Integer getRefClippingPlanes(Draw_Interpretor& di,
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull() || !aViewTool->IsView(aLabel))
   {
@@ -295,7 +295,7 @@ static Standard_Integer getRefClippingPlanes(Draw_Interpretor& di,
   }
   for (Standard_Integer i = 1; i <= aCPlanes.Length(); i++)
   {
-    TCollection_AsciiString anEntry;
+    AsciiString1 anEntry;
     TDF_Tool::Entry(aCPlanes.Value(i), anEntry);
     di << anEntry << " ";
   }
@@ -304,15 +304,15 @@ static Standard_Integer getRefClippingPlanes(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer setName(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setName(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XSetViewName Doc ViewLabel name\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -320,7 +320,7 @@ static Standard_Integer setName(Draw_Interpretor& di, Standard_Integer argc, con
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -339,15 +339,15 @@ static Standard_Integer setName(Draw_Interpretor& di, Standard_Integer argc, con
 
 //=================================================================================================
 
-static Standard_Integer getName(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getName(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetViewName Doc View_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -355,7 +355,7 @@ static Standard_Integer getName(Draw_Interpretor& di, Standard_Integer argc, con
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -372,15 +372,15 @@ static Standard_Integer getName(Draw_Interpretor& di, Standard_Integer argc, con
 
 //=================================================================================================
 
-static Standard_Integer setType(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setType(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
     di << "Use: XSetViewType Doc ViewLabel type (central/parallel/no_camera)\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -388,7 +388,7 @@ static Standard_Integer setType(Draw_Interpretor& di, Standard_Integer argc, con
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -412,15 +412,15 @@ static Standard_Integer setType(Draw_Interpretor& di, Standard_Integer argc, con
 
 //=================================================================================================
 
-static Standard_Integer getType(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getType(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetViewType Doc View_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -428,7 +428,7 @@ static Standard_Integer getType(Draw_Interpretor& di, Standard_Integer argc, con
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -457,7 +457,7 @@ static Standard_Integer getType(Draw_Interpretor& di, Standard_Integer argc, con
 
 //=================================================================================================
 
-static Standard_Integer setProjectionPoint(Draw_Interpretor& di,
+static Standard_Integer setProjectionPoint(DrawInterpreter& di,
                                            Standard_Integer  argc,
                                            const char**      argv)
 {
@@ -466,8 +466,8 @@ static Standard_Integer setProjectionPoint(Draw_Interpretor& di,
     di << "Use: XSetViewProjectionPoint Doc ViewLabel x y z\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -475,7 +475,7 @@ static Standard_Integer setProjectionPoint(Draw_Interpretor& di,
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -487,7 +487,7 @@ static Standard_Integer setProjectionPoint(Draw_Interpretor& di,
   {
     Handle(XCAFView_Object) anObj = aView->GetObject();
     anObj->SetProjectionPoint(
-      Point3d(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5])));
+      Point3d(Draw1::Atof(argv[3]), Draw1::Atof(argv[4]), Draw1::Atof(argv[5])));
     aView->SetObject(anObj);
   }
   return 0;
@@ -495,7 +495,7 @@ static Standard_Integer setProjectionPoint(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer getProjectionPoint(Draw_Interpretor& di,
+static Standard_Integer getProjectionPoint(DrawInterpreter& di,
                                            Standard_Integer  argc,
                                            const char**      argv)
 {
@@ -504,8 +504,8 @@ static Standard_Integer getProjectionPoint(Draw_Interpretor& di,
     di << "Use: XGetViewProjectionPoint Doc ViewLabel\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -513,7 +513,7 @@ static Standard_Integer getProjectionPoint(Draw_Interpretor& di,
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -531,15 +531,15 @@ static Standard_Integer getProjectionPoint(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer setViewDir(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setViewDir(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 6)
   {
     di << "Use: XSetViewDir Doc ViewLabel x y z\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -547,7 +547,7 @@ static Standard_Integer setViewDir(Draw_Interpretor& di, Standard_Integer argc, 
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -558,7 +558,7 @@ static Standard_Integer setViewDir(Draw_Interpretor& di, Standard_Integer argc, 
   if (aLabel.FindAttribute(XCAFDoc_View::GetID(), aView))
   {
     Handle(XCAFView_Object) anObj = aView->GetObject();
-    anObj->SetViewDirection(Dir3d(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5])));
+    anObj->SetViewDirection(Dir3d(Draw1::Atof(argv[3]), Draw1::Atof(argv[4]), Draw1::Atof(argv[5])));
     aView->SetObject(anObj);
   }
   return 0;
@@ -566,15 +566,15 @@ static Standard_Integer setViewDir(Draw_Interpretor& di, Standard_Integer argc, 
 
 //=================================================================================================
 
-static Standard_Integer getViewDir(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getViewDir(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetViewDir Doc ViewLabel\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -582,7 +582,7 @@ static Standard_Integer getViewDir(Draw_Interpretor& di, Standard_Integer argc, 
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -600,15 +600,15 @@ static Standard_Integer getViewDir(Draw_Interpretor& di, Standard_Integer argc, 
 
 //=================================================================================================
 
-static Standard_Integer setUpDir(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setUpDir(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 6)
   {
     di << "Use: XSetViewUpDir Doc ViewLabel x y z\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -616,7 +616,7 @@ static Standard_Integer setUpDir(Draw_Interpretor& di, Standard_Integer argc, co
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -627,7 +627,7 @@ static Standard_Integer setUpDir(Draw_Interpretor& di, Standard_Integer argc, co
   if (aLabel.FindAttribute(XCAFDoc_View::GetID(), aView))
   {
     Handle(XCAFView_Object) anObj = aView->GetObject();
-    anObj->SetUpDirection(Dir3d(Draw::Atof(argv[3]), Draw::Atof(argv[4]), Draw::Atof(argv[5])));
+    anObj->SetUpDirection(Dir3d(Draw1::Atof(argv[3]), Draw1::Atof(argv[4]), Draw1::Atof(argv[5])));
     aView->SetObject(anObj);
   }
   return 0;
@@ -635,15 +635,15 @@ static Standard_Integer setUpDir(Draw_Interpretor& di, Standard_Integer argc, co
 
 //=================================================================================================
 
-static Standard_Integer getUpDir(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getUpDir(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XGetViewUpDir Doc ViewLabel\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -651,7 +651,7 @@ static Standard_Integer getUpDir(Draw_Interpretor& di, Standard_Integer argc, co
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -669,7 +669,7 @@ static Standard_Integer getUpDir(Draw_Interpretor& di, Standard_Integer argc, co
 
 //=================================================================================================
 
-static Standard_Integer setZoomFactor(Draw_Interpretor& di,
+static Standard_Integer setZoomFactor(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -678,8 +678,8 @@ static Standard_Integer setZoomFactor(Draw_Interpretor& di,
     di << "Use: XSetViewZoom Doc View_Label value\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -687,7 +687,7 @@ static Standard_Integer setZoomFactor(Draw_Interpretor& di,
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -698,7 +698,7 @@ static Standard_Integer setZoomFactor(Draw_Interpretor& di,
   if (aLabel.FindAttribute(XCAFDoc_View::GetID(), aView))
   {
     Handle(XCAFView_Object) anObj = aView->GetObject();
-    anObj->SetZoomFactor(Draw::Atof(argv[3]));
+    anObj->SetZoomFactor(Draw1::Atof(argv[3]));
     aView->SetObject(anObj);
   }
   return 0;
@@ -706,7 +706,7 @@ static Standard_Integer setZoomFactor(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer getZoomFactor(Draw_Interpretor& di,
+static Standard_Integer getZoomFactor(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -715,8 +715,8 @@ static Standard_Integer getZoomFactor(Draw_Interpretor& di,
     di << "Use: XGetViewZoom Doc View_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -724,7 +724,7 @@ static Standard_Integer getZoomFactor(Draw_Interpretor& di,
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -741,7 +741,7 @@ static Standard_Integer getZoomFactor(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer setWindowSize(Draw_Interpretor& di,
+static Standard_Integer setWindowSize(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -750,8 +750,8 @@ static Standard_Integer setWindowSize(Draw_Interpretor& di,
     di << "Use: XSetViewWindowSize Doc ViewLabel width height\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -759,7 +759,7 @@ static Standard_Integer setWindowSize(Draw_Interpretor& di,
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -770,8 +770,8 @@ static Standard_Integer setWindowSize(Draw_Interpretor& di,
   if (aLabel.FindAttribute(XCAFDoc_View::GetID(), aView))
   {
     Handle(XCAFView_Object) anObj = aView->GetObject();
-    anObj->SetWindowHorizontalSize(Draw::Atof(argv[3]));
-    anObj->SetWindowVerticalSize(Draw::Atof(argv[4]));
+    anObj->SetWindowHorizontalSize(Draw1::Atof(argv[3]));
+    anObj->SetWindowVerticalSize(Draw1::Atof(argv[4]));
     aView->SetObject(anObj);
   }
   return 0;
@@ -779,7 +779,7 @@ static Standard_Integer setWindowSize(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer getWindowSize(Draw_Interpretor& di,
+static Standard_Integer getWindowSize(DrawInterpreter& di,
                                       Standard_Integer  argc,
                                       const char**      argv)
 {
@@ -788,8 +788,8 @@ static Standard_Integer getWindowSize(Draw_Interpretor& di,
     di << "Use: XSetViewWindowSize Doc Dim_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -797,7 +797,7 @@ static Standard_Integer getWindowSize(Draw_Interpretor& di,
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -815,7 +815,7 @@ static Standard_Integer getWindowSize(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer setFrontPlaneDistance(Draw_Interpretor& di,
+static Standard_Integer setFrontPlaneDistance(DrawInterpreter& di,
                                               Standard_Integer  argc,
                                               const char**      argv)
 {
@@ -824,8 +824,8 @@ static Standard_Integer setFrontPlaneDistance(Draw_Interpretor& di,
     di << "Use: XSetViewFrontPlaneDistance Doc View_Label value\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -833,7 +833,7 @@ static Standard_Integer setFrontPlaneDistance(Draw_Interpretor& di,
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -844,7 +844,7 @@ static Standard_Integer setFrontPlaneDistance(Draw_Interpretor& di,
   if (aLabel.FindAttribute(XCAFDoc_View::GetID(), aView))
   {
     Handle(XCAFView_Object) anObj = aView->GetObject();
-    anObj->SetFrontPlaneDistance(Draw::Atof(argv[3]));
+    anObj->SetFrontPlaneDistance(Draw1::Atof(argv[3]));
     aView->SetObject(anObj);
   }
   return 0;
@@ -852,7 +852,7 @@ static Standard_Integer setFrontPlaneDistance(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer unsetFrontPlaneDistance(Draw_Interpretor& di,
+static Standard_Integer unsetFrontPlaneDistance(DrawInterpreter& di,
                                                 Standard_Integer  argc,
                                                 const char**      argv)
 {
@@ -861,8 +861,8 @@ static Standard_Integer unsetFrontPlaneDistance(Draw_Interpretor& di,
     di << "Use: XUnsetViewFrontPlaneDistance Doc View_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -870,7 +870,7 @@ static Standard_Integer unsetFrontPlaneDistance(Draw_Interpretor& di,
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -889,7 +889,7 @@ static Standard_Integer unsetFrontPlaneDistance(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer getFrontPlaneDistance(Draw_Interpretor& di,
+static Standard_Integer getFrontPlaneDistance(DrawInterpreter& di,
                                               Standard_Integer  argc,
                                               const char**      argv)
 {
@@ -898,8 +898,8 @@ static Standard_Integer getFrontPlaneDistance(Draw_Interpretor& di,
     di << "Use: XGetViewFrontPlaneDistance Doc View_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -907,7 +907,7 @@ static Standard_Integer getFrontPlaneDistance(Draw_Interpretor& di,
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -927,7 +927,7 @@ static Standard_Integer getFrontPlaneDistance(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer setBackPlaneDistance(Draw_Interpretor& di,
+static Standard_Integer setBackPlaneDistance(DrawInterpreter& di,
                                              Standard_Integer  argc,
                                              const char**      argv)
 {
@@ -936,8 +936,8 @@ static Standard_Integer setBackPlaneDistance(Draw_Interpretor& di,
     di << "Use: XSetViewBackPlaneDistance Doc View_Label value\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -945,7 +945,7 @@ static Standard_Integer setBackPlaneDistance(Draw_Interpretor& di,
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -956,7 +956,7 @@ static Standard_Integer setBackPlaneDistance(Draw_Interpretor& di,
   if (aLabel.FindAttribute(XCAFDoc_View::GetID(), aView))
   {
     Handle(XCAFView_Object) anObj = aView->GetObject();
-    anObj->SetBackPlaneDistance(Draw::Atof(argv[3]));
+    anObj->SetBackPlaneDistance(Draw1::Atof(argv[3]));
     aView->SetObject(anObj);
   }
   return 0;
@@ -964,7 +964,7 @@ static Standard_Integer setBackPlaneDistance(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer unsetBackPlaneDistance(Draw_Interpretor& di,
+static Standard_Integer unsetBackPlaneDistance(DrawInterpreter& di,
                                                Standard_Integer  argc,
                                                const char**      argv)
 {
@@ -973,8 +973,8 @@ static Standard_Integer unsetBackPlaneDistance(Draw_Interpretor& di,
     di << "Use: XUnsetViewBackPlaneDistance Doc View_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -982,7 +982,7 @@ static Standard_Integer unsetBackPlaneDistance(Draw_Interpretor& di,
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1001,7 +1001,7 @@ static Standard_Integer unsetBackPlaneDistance(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer getBackPlaneDistance(Draw_Interpretor& di,
+static Standard_Integer getBackPlaneDistance(DrawInterpreter& di,
                                              Standard_Integer  argc,
                                              const char**      argv)
 {
@@ -1010,8 +1010,8 @@ static Standard_Integer getBackPlaneDistance(Draw_Interpretor& di,
     di << "Use: XGetViewFrontPlaneDistance Doc View_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1019,7 +1019,7 @@ static Standard_Integer getBackPlaneDistance(Draw_Interpretor& di,
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1039,7 +1039,7 @@ static Standard_Integer getBackPlaneDistance(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer setViewVolumeSidesClipping(Draw_Interpretor& di,
+static Standard_Integer setViewVolumeSidesClipping(DrawInterpreter& di,
                                                    Standard_Integer  argc,
                                                    const char**      argv)
 {
@@ -1048,8 +1048,8 @@ static Standard_Integer setViewVolumeSidesClipping(Draw_Interpretor& di,
     di << "Use: XSetViewVolumeSidesClipping Doc View_Label value\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1057,7 +1057,7 @@ static Standard_Integer setViewVolumeSidesClipping(Draw_Interpretor& di,
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1068,7 +1068,7 @@ static Standard_Integer setViewVolumeSidesClipping(Draw_Interpretor& di,
   if (aLabel.FindAttribute(XCAFDoc_View::GetID(), aView))
   {
     Handle(XCAFView_Object) anObj = aView->GetObject();
-    anObj->SetViewVolumeSidesClipping((Draw::Atoi(argv[3])) == 1);
+    anObj->SetViewVolumeSidesClipping((Draw1::Atoi(argv[3])) == 1);
     aView->SetObject(anObj);
   }
   return 0;
@@ -1076,7 +1076,7 @@ static Standard_Integer setViewVolumeSidesClipping(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer getViewVolumeSidesClipping(Draw_Interpretor& di,
+static Standard_Integer getViewVolumeSidesClipping(DrawInterpreter& di,
                                                    Standard_Integer  argc,
                                                    const char**      argv)
 {
@@ -1085,8 +1085,8 @@ static Standard_Integer getViewVolumeSidesClipping(Draw_Interpretor& di,
     di << "Use: XGetViewVolumeSidesClipping Doc View_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1094,7 +1094,7 @@ static Standard_Integer getViewVolumeSidesClipping(Draw_Interpretor& di,
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1111,15 +1111,15 @@ static Standard_Integer getViewVolumeSidesClipping(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer dump(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer dump(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
     di << "Use: XDumpView Doc View_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1127,7 +1127,7 @@ static Standard_Integer dump(Draw_Interpretor& di, Standard_Integer argc, const 
   }
   Handle(XCAFDoc_ViewTool) aViewTool = XCAFDoc_DocumentTool::ViewTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   Handle(XCAFDoc_View) aView;
   if (aLabel.IsNull() || !(aLabel.FindAttribute(XCAFDoc_View::GetID(), aView)))
@@ -1141,7 +1141,7 @@ static Standard_Integer dump(Draw_Interpretor& di, Standard_Integer argc, const 
   di << "Reference shapes: ";
   for (Standard_Integer i = 1; i <= aShapes.Length(); i++)
   {
-    TCollection_AsciiString anEntry;
+    AsciiString1 anEntry;
     TDF_Tool::Entry(aShapes.Value(i), anEntry);
     di << anEntry << " ";
   }
@@ -1152,7 +1152,7 @@ static Standard_Integer dump(Draw_Interpretor& di, Standard_Integer argc, const 
   di << "Reference GD&Ts: ";
   for (Standard_Integer i = 1; i <= aGDTs.Length(); i++)
   {
-    TCollection_AsciiString anEntry;
+    AsciiString1 anEntry;
     TDF_Tool::Entry(aGDTs.Value(i), anEntry);
     di << anEntry << " ";
   }
@@ -1163,7 +1163,7 @@ static Standard_Integer dump(Draw_Interpretor& di, Standard_Integer argc, const 
   di << "Reference Clipping Planes: ";
   for (Standard_Integer i = 1; i <= aCPlanes.Length(); i++)
   {
-    TCollection_AsciiString anEntry;
+    AsciiString1 anEntry;
     TDF_Tool::Entry(aCPlanes.Value(i), anEntry);
     di << anEntry << " ";
   }
@@ -1216,7 +1216,7 @@ static Standard_Integer dump(Draw_Interpretor& di, Standard_Integer argc, const 
 
 //=================================================================================================
 
-static Standard_Integer addClippingPlane(Draw_Interpretor& di,
+static Standard_Integer addClippingPlane(DrawInterpreter& di,
                                          Standard_Integer  argc,
                                          const char**      argv)
 {
@@ -1225,8 +1225,8 @@ static Standard_Integer addClippingPlane(Draw_Interpretor& di,
     di << "Use: XAddClippingPlane Doc plane name capping[0/1]";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1235,7 +1235,7 @@ static Standard_Integer addClippingPlane(Draw_Interpretor& di,
   Handle(XCAFDoc_ClippingPlaneTool) aCPlaneTool =
     XCAFDoc_DocumentTool::ClippingPlaneTool(aDoc->Main());
   gp_Pln             aPlane;
-  Handle(Geom_Plane) aSurf = Handle(Geom_Plane)::DownCast(DrawTrSurf::GetSurface(argv[2]));
+  Handle(GeomPlane) aSurf = Handle(GeomPlane)::DownCast(DrawTrSurf1::GetSurface(argv[2]));
   if (aSurf.IsNull())
   {
     std::cout << argv[2] << " is not a plane" << std::endl;
@@ -1245,8 +1245,8 @@ static Standard_Integer addClippingPlane(Draw_Interpretor& di,
   Handle(TCollection_HAsciiString) aName    = new TCollection_HAsciiString(argv[3]);
   Standard_Boolean                 aCapping = (argv[4][0] == '1');
 
-  TDF_Label               aCPlaneL = aCPlaneTool->AddClippingPlane(aPlane, aName, aCapping);
-  TCollection_AsciiString anEntry;
+  DataLabel               aCPlaneL = aCPlaneTool->AddClippingPlane(aPlane, aName, aCapping);
+  AsciiString1 anEntry;
   TDF_Tool::Entry(aCPlaneL, anEntry);
   di << anEntry << "\n";
   return 0;
@@ -1254,7 +1254,7 @@ static Standard_Integer addClippingPlane(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer getClippingPlane(Draw_Interpretor& di,
+static Standard_Integer getClippingPlane(DrawInterpreter& di,
                                          Standard_Integer  argc,
                                          const char**      argv)
 {
@@ -1263,8 +1263,8 @@ static Standard_Integer getClippingPlane(Draw_Interpretor& di,
     di << "Use: XGetClippingPlane Doc ClippingPlane_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1273,7 +1273,7 @@ static Standard_Integer getClippingPlane(Draw_Interpretor& di,
   Handle(XCAFDoc_ClippingPlaneTool) aClippingPlaneTool =
     XCAFDoc_DocumentTool::ClippingPlaneTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1284,15 +1284,15 @@ static Standard_Integer getClippingPlane(Draw_Interpretor& di,
   Handle(TCollection_HAsciiString) aName;
   Standard_Boolean                 aCapping;
   aClippingPlaneTool->GetClippingPlane(aLabel, aPlane, aName, aCapping);
-  Handle(Geom_Plane) aCPlane = new Geom_Plane(aPlane);
-  DrawTrSurf::Set(aName->ToCString(), aCPlane);
+  Handle(GeomPlane) aCPlane = new GeomPlane(aPlane);
+  DrawTrSurf1::Set(aName->ToCString(), aCPlane);
   di << aName->ToCString();
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer removeClippingPlane(Draw_Interpretor& di,
+static Standard_Integer removeClippingPlane(DrawInterpreter& di,
                                             Standard_Integer  argc,
                                             const char**      argv)
 {
@@ -1301,8 +1301,8 @@ static Standard_Integer removeClippingPlane(Draw_Interpretor& di,
     di << "Use: XRemoveClippingPlane Doc ClippingPlane_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1311,7 +1311,7 @@ static Standard_Integer removeClippingPlane(Draw_Interpretor& di,
   Handle(XCAFDoc_ClippingPlaneTool) aClippingPlaneTool =
     XCAFDoc_DocumentTool::ClippingPlaneTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1328,7 +1328,7 @@ static Standard_Integer removeClippingPlane(Draw_Interpretor& di,
 
 //=================================================================================================
 
-static Standard_Integer getClippingPlaneCapping(Draw_Interpretor& di,
+static Standard_Integer getClippingPlaneCapping(DrawInterpreter& di,
                                                 Standard_Integer  argc,
                                                 const char**      argv)
 {
@@ -1337,8 +1337,8 @@ static Standard_Integer getClippingPlaneCapping(Draw_Interpretor& di,
     di << "Use: XGetClippingPlaneCapping Doc ClippingPlane_Label\n";
     return 1;
   }
-  Handle(TDocStd_Document) aDoc;
-  DDocStd::GetDocument(argv[1], aDoc);
+  Handle(AppDocument) aDoc;
+  DDocStd1::GetDocument(argv[1], aDoc);
   if (aDoc.IsNull())
   {
     di << argv[1] << " is not a document\n";
@@ -1347,7 +1347,7 @@ static Standard_Integer getClippingPlaneCapping(Draw_Interpretor& di,
   Handle(XCAFDoc_ClippingPlaneTool) aClippingPlaneTool =
     XCAFDoc_DocumentTool::ClippingPlaneTool(aDoc->Main());
 
-  TDF_Label aLabel;
+  DataLabel aLabel;
   TDF_Tool::Label(aDoc->GetData(), argv[2], aLabel);
   if (aLabel.IsNull())
   {
@@ -1360,7 +1360,7 @@ static Standard_Integer getClippingPlaneCapping(Draw_Interpretor& di,
 
 //=================================================================================================
 
-void XDEDRAW_Views::InitCommands(Draw_Interpretor& di)
+void XDEDRAW_Views::InitCommands(DrawInterpreter& di)
 {
   static Standard_Boolean initactor = Standard_False;
   if (initactor)

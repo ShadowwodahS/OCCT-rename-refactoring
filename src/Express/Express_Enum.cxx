@@ -44,13 +44,13 @@ const Handle(TColStd_HSequenceOfHAsciiString)& Express_Enum::Names() const
 
 Standard_Boolean Express_Enum::GenerateClass() const
 {
-  const TCollection_AsciiString aCPPName = CPPName();
+  const AsciiString1 aCPPName = CPPName();
   Message::SendInfo() << "Generating ENUMERATION " << aCPPName;
 
   // create a package directory (if not yet exist)
   OSD_Protection          aProt(OSD_RWXD, OSD_RWXD, OSD_RX, OSD_RX);
-  TCollection_AsciiString aPack = GetPackageName();
-  OSD_Path                aPath(aPack);
+  AsciiString1 aPack = GetPackageName();
+  SystemPath                aPath(aPack);
   OSD_Directory           aDir(aPath);
   aDir.Build(aProt);
   aPack += "/";
@@ -63,7 +63,7 @@ Standard_Boolean Express_Enum::GenerateClass() const
   Standard_OStream& anOS = *aStreamPtr;
 
   // write header
-  Express::WriteFileStamp(anOS);
+  Express1::WriteFileStamp(anOS);
 
   // write defines
   anOS << "#ifndef _" << aCPPName
@@ -76,7 +76,7 @@ Standard_Boolean Express_Enum::GenerateClass() const
        << aCPPName
        << "\n"
           "{\n";
-  TCollection_AsciiString aPrefix = Express::EnumPrefix(Name());
+  AsciiString1 aPrefix = Express1::EnumPrefix(Name());
   for (Standard_Integer i = 1; i <= myNames->Length(); i++)
   {
     if (i > 1)

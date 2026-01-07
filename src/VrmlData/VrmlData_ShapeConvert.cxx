@@ -52,10 +52,10 @@
 
 //=================================================================================================
 
-void VrmlData_ShapeConvert::AddShape(const TopoDS_Shape& theShape, const char* theName)
+void ShapeConverter::AddShape(const TopoShape& theShape, const char* theName)
 {
   ShapeData aData; /* = { - compilation problem on SUN
-     TCollection_AsciiString(),
+     AsciiString1(),
      theShape,
      NULL
    };*/
@@ -93,23 +93,23 @@ void VrmlData_ShapeConvert::AddShape(const TopoDS_Shape& theShape, const char* t
 
 //=================================================================================================
 
-Handle(VrmlData_Geometry) VrmlData_ShapeConvert::makeTShapeNode(const TopoDS_Shape&    theShape,
+Handle(VrmlData_Geometry) ShapeConverter::makeTShapeNode(const TopoShape&    theShape,
                                                                 const TopAbs_ShapeEnum theShapeType,
                                                                 TopLoc_Location&       theLoc)
 {
   Handle(VrmlData_Geometry) aTShapeNode = 0L;
   const Standard_Boolean    isReverse   = (theShape.Orientation() == TopAbs_REVERSED);
 
-  TopoDS_Shape aTestedShape;
+  TopoShape aTestedShape;
   aTestedShape.TShape(theShape.TShape());
   aTestedShape.Orientation(isReverse ? TopAbs_REVERSED : TopAbs_FORWARD);
   switch (theShapeType)
   {
     case TopAbs_FACE: {
-      const TopoDS_Face& aFace = TopoDS::Face(theShape);
+      const TopoFace& aFace = TopoDS::Face(theShape);
       if (aFace.IsNull() == Standard_False)
       {
-        Handle(Poly_Triangulation) aTri = BRep_Tool::Triangulation(aFace, theLoc);
+        Handle(MeshTriangulation) aTri = BRepInspector::Triangulation(aFace, theLoc);
 
         if (myRelMap.IsBound(aTestedShape))
         {
@@ -119,7 +119,7 @@ Handle(VrmlData_Geometry) VrmlData_ShapeConvert::makeTShapeNode(const TopoDS_Sha
 
         if (aTri.IsNull() == Standard_False)
         {
-          TopoDS_Shape aTestedShapeRev = aTestedShape;
+          TopoShape aTestedShapeRev = aTestedShape;
           aTestedShapeRev.Orientation(isReverse ? TopAbs_FORWARD : TopAbs_REVERSED);
           Handle(VrmlData_IndexedFaceSet) aFaceSetToReuse;
           if (myRelMap.IsBound(aTestedShapeRev))
@@ -138,14 +138,14 @@ Handle(VrmlData_Geometry) VrmlData_ShapeConvert::makeTShapeNode(const TopoDS_Sha
     }
     break;
     case TopAbs_WIRE: {
-      const TopoDS_Wire& aWire = TopoDS::Wire(theShape);
+      const TopoWire& aWire = TopoDS::Wire(theShape);
       if (aWire.IsNull() == Standard_False)
       {
       }
     }
     break;
     case TopAbs_EDGE: {
-      const TopoDS_Edge& aEdge = TopoDS::Edge(theShape);
+      const TopoEdge& aEdge = TopoDS::Edge(theShape);
       if (aEdge.IsNull() == Standard_False)
       {
         if (myRelMap.IsBound(aTestedShape))
@@ -164,9 +164,9 @@ Handle(VrmlData_Geometry) VrmlData_ShapeConvert::makeTShapeNode(const TopoDS_Sha
 
         // try to find PolygonOnTriangulation
         Handle(Poly_PolygonOnTriangulation) aPT;
-        Handle(Poly_Triangulation)          aT;
+        Handle(MeshTriangulation)          aT;
         TopLoc_Location                     aL;
-        BRep_Tool::PolygonOnTriangulation(aEdge, aPT, aT, aL);
+        BRepInspector::PolygonOnTriangulation(aEdge, aPT, aT, aL);
 
         // If PolygonOnTriangulation was found -> get the Polygon3D
         Handle(Poly_Polygon3D) aPol;
@@ -188,7 +188,7 @@ Handle(VrmlData_Geometry) VrmlData_ShapeConvert::makeTShapeNode(const TopoDS_Sha
         }
         else
         {
-          aPol = BRep_Tool::Polygon3D(aEdge, aL);
+          aPol = BRepInspector::Polygon3D(aEdge, aL);
 
           // If polygon was not found -> generate it
           if (aPol.IsNull())
@@ -231,7 +231,7 @@ Handle(VrmlData_Geometry) VrmlData_ShapeConvert::makeTShapeNode(const TopoDS_Sha
 
 //=================================================================================================
 
-void VrmlData_ShapeConvert::Convert(const Standard_Boolean theExtractFaces,
+void ShapeConverter::Convert(const Standard_Boolean theExtractFaces,
                                     const Standard_Boolean theExtractEdges,
                                     const Standard_Real    theDeflection,
                                     const Standard_Real    theDeflAngle)
@@ -250,15 +250,15 @@ void VrmlData_ShapeConvert::Convert(const Standard_Boolean theExtractFaces,
 
   // Relocation map for converted shapes. We should distinguish both TShape
   // and Orientation in this map.
-  // NCollection_DataMap <TopoDS_Shape,Handle(VrmlData_Geometry)>
+  // NCollection_DataMap <TopoShape,Handle(VrmlData_Geometry)>
   //  aRelMap (100, anAlloc);
-  myRelMap = NCollection_DataMap<TopoDS_Shape, Handle(VrmlData_Geometry)>(100, anAlloc);
+  myRelMap = NCollection_DataMap<TopoShape, Handle(VrmlData_Geometry)>(100, anAlloc);
 
   NCollection_List<ShapeData>::Iterator anIter(myShapes);
   for (; anIter.More(); anIter.Next())
   {
     ShapeData&              aData   = anIter.ChangeValue();
-    TCollection_AsciiString aGrName = aData.Name;
+    AsciiString1 aGrName = aData.Name;
     aGrName.ChangeAll(' ', '_');
     aGrName.ChangeAll('#', '_');
     Handle(VrmlData_Group) aGroup = new VrmlData_Group(myScene, aGrName.ToCString());
@@ -270,10 +270,10 @@ void VrmlData_ShapeConvert::Convert(const Standard_Boolean theExtractFaces,
       if (!Extract[i])
         continue;
 
-      TopExp_Explorer anExp(aData.Shape, ShapeType[i]);
+      ShapeExplorer anExp(aData.Shape, ShapeType[i]);
       for (; anExp.More(); anExp.Next())
       {
-        const TopoDS_Shape&       aShape = anExp.Current();
+        const TopoShape&       aShape = anExp.Current();
         TopLoc_Location           aLoc;
         Handle(VrmlData_Geometry) aTShapeNode = makeTShapeNode(aShape, ShapeType[i], aLoc);
         if (!aTShapeNode.IsNull())
@@ -312,9 +312,9 @@ void VrmlData_ShapeConvert::Convert(const Standard_Boolean theExtractFaces,
 
 //=================================================================================================
 
-Handle(VrmlData_Geometry) VrmlData_ShapeConvert::triToIndexedFaceSet(
-  const Handle(Poly_Triangulation)&  theTri,
-  const TopoDS_Face&                 theFace,
+Handle(VrmlData_Geometry) ShapeConverter::triToIndexedFaceSet(
+  const Handle(MeshTriangulation)&  theTri,
+  const TopoFace&                 theFace,
   const Handle(VrmlData_Coordinate)& theCoord)
 {
   Standard_Integer       i;
@@ -415,7 +415,7 @@ Handle(VrmlData_Geometry) VrmlData_ShapeConvert::triToIndexedFaceSet(
   // Create the Normals node (if UV- values are available)
   TopLoc_Location            aLoc;
   constexpr Standard_Real    aConf2   = Precision::SquareConfusion();
-  const Handle(Geom_Surface) aSurface = BRep_Tool::Surface(theFace, aLoc);
+  const Handle(GeomSurface) aSurface = BRepInspector::Surface(theFace, aLoc);
   if (theTri->HasUVNodes() && aSurface.IsNull() == Standard_False)
   {
     if (aSurface->IsCNu(1) && aSurface->IsCNv(1))
@@ -478,7 +478,7 @@ Handle(VrmlData_Geometry) VrmlData_ShapeConvert::triToIndexedFaceSet(
 // purpose  : single polygon3D => IndexedLineSet
 //=======================================================================
 
-Handle(VrmlData_Geometry) VrmlData_ShapeConvert::polToIndexedLineSet(
+Handle(VrmlData_Geometry) ShapeConverter::polToIndexedLineSet(
   const Handle(Poly_Polygon3D)& thePol)
 {
   Standard_Integer                        i;
@@ -516,7 +516,7 @@ Handle(VrmlData_Geometry) VrmlData_ShapeConvert::polToIndexedLineSet(
 
 //=================================================================================================
 
-Handle(VrmlData_Appearance) VrmlData_ShapeConvert::defaultMaterialFace() const
+Handle(VrmlData_Appearance) ShapeConverter::defaultMaterialFace() const
 {
   static char                 aNodeName[] = "__defaultMaterialFace";
   Handle(VrmlData_Appearance) anAppearance =
@@ -537,7 +537,7 @@ Handle(VrmlData_Appearance) VrmlData_ShapeConvert::defaultMaterialFace() const
 
 //=================================================================================================
 
-Handle(VrmlData_Appearance) VrmlData_ShapeConvert::defaultMaterialEdge() const
+Handle(VrmlData_Appearance) ShapeConverter::defaultMaterialEdge() const
 {
   static char                 aNodeName[] = "__defaultMaterialEdge";
   Handle(VrmlData_Appearance) anAppearance =
@@ -560,42 +560,42 @@ Handle(VrmlData_Appearance) VrmlData_ShapeConvert::defaultMaterialEdge() const
 // function : addShape
 // purpose  : Adds the shape from the document
 //=======================================================================
-void VrmlData_ShapeConvert::addShape(const Handle(VrmlData_Group)&   theParent,
-                                     const TDF_Label&                theLabel,
-                                     const Handle(TDocStd_Document)& theDoc)
+void ShapeConverter::addShape(const Handle(VrmlData_Group)&   theParent,
+                                     const DataLabel&                theLabel,
+                                     const Handle(AppDocument)& theDoc)
 {
   Handle(XCAFDoc_ShapeTool)       aShapeTool = XCAFDoc_DocumentTool::ShapeTool(theDoc->Main());
   Handle(XCAFDoc_ColorTool)       aColorTool = XCAFDoc_DocumentTool::ColorTool(theDoc->Main());
   Handle(XCAFDoc_VisMaterialTool) aMatTool = XCAFDoc_DocumentTool::VisMaterialTool(theDoc->Main());
 
-  NCollection_DataMap<TopoDS_Shape, TDF_Label> aChildShapeToLabels;
+  NCollection_DataMap<TopoShape, DataLabel> aChildShapeToLabels;
   TDF_LabelSequence                            aChildLabels;
   aShapeTool->GetSubShapes(theLabel, aChildLabels);
   for (TDF_LabelSequence::Iterator aChildIter(aChildLabels); aChildIter.More(); aChildIter.Next())
   {
-    const TDF_Label& aChildLabel = aChildIter.Value();
-    TopoDS_Shape     aChildShape;
+    const DataLabel& aChildLabel = aChildIter.Value();
+    TopoShape     aChildShape;
     if (aShapeTool->GetShape(aChildLabel, aChildShape))
     {
       aChildShapeToLabels.Bind(aChildShape, aChildLabel);
     }
   }
 
-  const TopoDS_Shape     aShape = aShapeTool->GetShape(theLabel);
+  const TopoShape     aShape = aShapeTool->GetShape(theLabel);
   Handle(VrmlData_Group) aGroup = 0L;
-  TopExp_Explorer        anExp(aShape, TopAbs_FACE);
+  ShapeExplorer        anExp(aShape, TopAbs_FACE);
   Standard_Integer       nbFaces = 0;
   for (; anExp.More(); anExp.Next())
   {
     nbFaces++;
   }
-  Handle(TDataStd_Name) aNameAttribute;
-  theLabel.FindAttribute(TDataStd_Name::GetID(), aNameAttribute);
+  Handle(NameAttribute) aNameAttribute;
+  theLabel.FindAttribute(NameAttribute::GetID(), aNameAttribute);
   if (nbFaces > 1)
   {
     if (!aNameAttribute.IsNull())
     {
-      TCollection_AsciiString aName = aNameAttribute->Get();
+      AsciiString1 aName = aNameAttribute->Get();
       aName.ChangeAll(' ', '_');
       aName.ChangeAll('#', '_');
       aGroup = new VrmlData_Group(myScene, aName.ToCString());
@@ -621,7 +621,7 @@ void VrmlData_ShapeConvert::addShape(const Handle(VrmlData_Group)&   theParent,
       Handle(VrmlData_ShapeNode) aShapeNode = 0L;
       if (aGroup.IsNull() && !aNameAttribute.IsNull())
       {
-        TCollection_AsciiString aName = aNameAttribute->Get();
+        AsciiString1 aName = aNameAttribute->Get();
         aName.ChangeAll(' ', '_');
         aName.ChangeAll('#', '_');
         aShapeNode = new VrmlData_ShapeNode(myScene, aName.ToCString());
@@ -634,7 +634,7 @@ void VrmlData_ShapeConvert::addShape(const Handle(VrmlData_Group)&   theParent,
       // set color
       XCAFPrs_Style      aStyle;
       Quantity_ColorRGBA aColor;
-      TDF_Label          aLabel, anAttribLab;
+      DataLabel          aLabel, anAttribLab;
       if (aChildShapeToLabels.Find(anExp.Current(), aLabel))
       {
         Handle(XCAFDoc_VisMaterial) aVisMat = aMatTool->GetShapeMaterial(aLabel);
@@ -719,9 +719,9 @@ void VrmlData_ShapeConvert::addShape(const Handle(VrmlData_Group)&   theParent,
 // function : addInstance
 // purpose  : Adds the reference from the document
 //=======================================================================
-void VrmlData_ShapeConvert::addInstance(const Handle(VrmlData_Group)&   theParent,
-                                        const TDF_Label&                theLabel,
-                                        const Handle(TDocStd_Document)& theDoc)
+void ShapeConverter::addInstance(const Handle(VrmlData_Group)&   theParent,
+                                        const DataLabel&                theLabel,
+                                        const Handle(AppDocument)& theDoc)
 {
   Handle(XCAFDoc_ShapeTool) aShapeTool = XCAFDoc_DocumentTool::ShapeTool(theDoc->Main());
 
@@ -745,13 +745,13 @@ void VrmlData_ShapeConvert::addInstance(const Handle(VrmlData_Group)&   theParen
     }
   }
 
-  Handle(TDataStd_Name) aNameAttribute;
-  theLabel.FindAttribute(TDataStd_Name::GetID(), aNameAttribute);
+  Handle(NameAttribute) aNameAttribute;
+  theLabel.FindAttribute(NameAttribute::GetID(), aNameAttribute);
 
-  TDF_Label aRefLabel;
+  DataLabel aRefLabel;
   aShapeTool->GetReferredShape(theLabel, aRefLabel);
-  Handle(TDataStd_Name) aRefNameAttribute;
-  aRefLabel.FindAttribute(TDataStd_Name::GetID(), aRefNameAttribute);
+  Handle(NameAttribute) aRefNameAttribute;
+  aRefLabel.FindAttribute(NameAttribute::GetID(), aRefNameAttribute);
 
   if (aShapeTool->IsSimpleShape(aRefLabel))
   {
@@ -767,9 +767,9 @@ void VrmlData_ShapeConvert::addInstance(const Handle(VrmlData_Group)&   theParen
 // function : addAssembly
 // purpose  : Adds the assembly from the document
 //=======================================================================
-void VrmlData_ShapeConvert::addAssembly(const Handle(VrmlData_Group)&   theParent,
-                                        const TDF_Label&                theLabel,
-                                        const Handle(TDocStd_Document)& theDoc,
+void ShapeConverter::addAssembly(const Handle(VrmlData_Group)&   theParent,
+                                        const DataLabel&                theLabel,
+                                        const Handle(AppDocument)& theDoc,
                                         const Standard_Boolean          theNeedCreateGroup)
 {
   Handle(XCAFDoc_ShapeTool) aShapeTool = XCAFDoc_DocumentTool::ShapeTool(theDoc->Main());
@@ -777,11 +777,11 @@ void VrmlData_ShapeConvert::addAssembly(const Handle(VrmlData_Group)&   theParen
   Handle(VrmlData_Group) anAssembly = 0L;
   if (theNeedCreateGroup)
   {
-    Handle(TDataStd_Name) aNameAttribute;
-    theLabel.FindAttribute(TDataStd_Name::GetID(), aNameAttribute);
+    Handle(NameAttribute) aNameAttribute;
+    theLabel.FindAttribute(NameAttribute::GetID(), aNameAttribute);
     if (!aNameAttribute.IsNull())
     {
-      TCollection_AsciiString aName = aNameAttribute->Get();
+      AsciiString1 aName = aNameAttribute->Get();
       aName.ChangeAll(' ', '_');
       aName.ChangeAll('#', '_');
       anAssembly = new VrmlData_Group(myScene, aName.ToCString());
@@ -812,7 +812,7 @@ void VrmlData_ShapeConvert::addAssembly(const Handle(VrmlData_Group)&   theParen
   aShapeTool->GetComponents(theLabel, aChildLabels);
   for (TDF_LabelSequence::Iterator aChildIter(aChildLabels); aChildIter.More(); aChildIter.Next())
   {
-    const TDF_Label& aChildLabel = aChildIter.Value();
+    const DataLabel& aChildLabel = aChildIter.Value();
     if (aShapeTool->IsAssembly(aChildLabel))
     {
       addAssembly((anAssembly.IsNull() ? theParent : anAssembly),
@@ -833,7 +833,7 @@ void VrmlData_ShapeConvert::addAssembly(const Handle(VrmlData_Group)&   theParen
 
 //=================================================================================================
 
-void VrmlData_ShapeConvert::ConvertDocument(const Handle(TDocStd_Document)& theDoc)
+void ShapeConverter::ConvertDocument(const Handle(AppDocument)& theDoc)
 {
   Handle(XCAFDoc_ShapeTool) aShapeTool = XCAFDoc_DocumentTool::ShapeTool(theDoc->Main());
 
@@ -849,7 +849,7 @@ void VrmlData_ShapeConvert::ConvertDocument(const Handle(TDocStd_Document)& theD
 
   for (TDF_LabelSequence::Iterator aRootIter(aFreeShapeLabels); aRootIter.More(); aRootIter.Next())
   {
-    const TDF_Label& aFreeShapeLabel = aRootIter.Value();
+    const DataLabel& aFreeShapeLabel = aRootIter.Value();
     if (aShapeTool->IsAssembly(aFreeShapeLabel))
     {
       addAssembly(aGroup, aFreeShapeLabel, theDoc, Standard_True);
@@ -867,16 +867,16 @@ void VrmlData_ShapeConvert::ConvertDocument(const Handle(TDocStd_Document)& theD
 
 //=================================================================================================
 
-Handle(VrmlData_Appearance) VrmlData_ShapeConvert::makeMaterialFromStyle(
+Handle(VrmlData_Appearance) ShapeConverter::makeMaterialFromStyle(
   const XCAFPrs_Style& theStyle,
-  const TDF_Label&     theAttribLab) const
+  const DataLabel&     theAttribLab) const
 {
   const Quantity_ColorRGBA aColor =
     !theStyle.Material().IsNull() ? theStyle.Material()->BaseColor() : theStyle.GetColorSurfRGBA();
 
-  TCollection_AsciiString aNodeName = "_materialFace_";
-  Handle(TDataStd_Name)   aNameAttribute;
-  if (theAttribLab.FindAttribute(TDataStd_Name::GetID(), aNameAttribute))
+  AsciiString1 aNodeName = "_materialFace_";
+  Handle(NameAttribute)   aNameAttribute;
+  if (theAttribLab.FindAttribute(NameAttribute::GetID(), aNameAttribute))
   {
     aNodeName.AssignCat(aNameAttribute->Get());
     Standard_Integer n = aNodeName.Search(" ");

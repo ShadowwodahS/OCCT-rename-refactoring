@@ -29,9 +29,9 @@ IMPLEMENT_STANDARD_RTTIEXT(DE_Wrapper, RefObject)
 
 namespace
 {
-static const TCollection_AsciiString& THE_CONFIGURATION_SCOPE()
+static const AsciiString1& THE_CONFIGURATION_SCOPE()
 {
-  static const TCollection_AsciiString aScope("global");
+  static const AsciiString1 aScope("global");
   return aScope;
 }
 
@@ -98,9 +98,9 @@ Standard_Mutex& DE_Wrapper::GlobalLoadMutex()
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Read(const TCollection_AsciiString&  thePath,
-                                  const Handle(TDocStd_Document)& theDocument,
-                                  Handle(XSControl_WorkSession)&  theWS,
+Standard_Boolean DE_Wrapper::Read(const AsciiString1&  thePath,
+                                  const Handle(AppDocument)& theDocument,
+                                  Handle(ExchangeSession)&  theWS,
                                   const Message_ProgressRange&    theProgress)
 {
   if (theDocument.IsNull())
@@ -121,9 +121,9 @@ Standard_Boolean DE_Wrapper::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Write(const TCollection_AsciiString&  thePath,
-                                   const Handle(TDocStd_Document)& theDocument,
-                                   Handle(XSControl_WorkSession)&  theWS,
+Standard_Boolean DE_Wrapper::Write(const AsciiString1&  thePath,
+                                   const Handle(AppDocument)& theDocument,
+                                   Handle(ExchangeSession)&  theWS,
                                    const Message_ProgressRange&    theProgress)
 {
   if (theDocument.IsNull())
@@ -144,8 +144,8 @@ Standard_Boolean DE_Wrapper::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Read(const TCollection_AsciiString&  thePath,
-                                  const Handle(TDocStd_Document)& theDocument,
+Standard_Boolean DE_Wrapper::Read(const AsciiString1&  thePath,
+                                  const Handle(AppDocument)& theDocument,
                                   const Message_ProgressRange&    theProgress)
 {
   if (theDocument.IsNull())
@@ -162,8 +162,8 @@ Standard_Boolean DE_Wrapper::Read(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Write(const TCollection_AsciiString&  thePath,
-                                   const Handle(TDocStd_Document)& theDocument,
+Standard_Boolean DE_Wrapper::Write(const AsciiString1&  thePath,
+                                   const Handle(AppDocument)& theDocument,
                                    const Message_ProgressRange&    theProgress)
 {
   if (theDocument.IsNull())
@@ -180,9 +180,9 @@ Standard_Boolean DE_Wrapper::Write(const TCollection_AsciiString&  thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Read(const TCollection_AsciiString& thePath,
-                                  TopoDS_Shape&                  theShape,
-                                  Handle(XSControl_WorkSession)& theWS,
+Standard_Boolean DE_Wrapper::Read(const AsciiString1& thePath,
+                                  TopoShape&                  theShape,
+                                  Handle(ExchangeSession)& theWS,
                                   const Message_ProgressRange&   theProgress)
 {
   if (theWS.IsNull())
@@ -199,9 +199,9 @@ Standard_Boolean DE_Wrapper::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Write(const TCollection_AsciiString& thePath,
-                                   const TopoDS_Shape&            theShape,
-                                   Handle(XSControl_WorkSession)& theWS,
+Standard_Boolean DE_Wrapper::Write(const AsciiString1& thePath,
+                                   const TopoShape&            theShape,
+                                   Handle(ExchangeSession)& theWS,
                                    const Message_ProgressRange&   theProgress)
 {
   if (theWS.IsNull())
@@ -218,8 +218,8 @@ Standard_Boolean DE_Wrapper::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Read(const TCollection_AsciiString& thePath,
-                                  TopoDS_Shape&                  theShape,
+Standard_Boolean DE_Wrapper::Read(const AsciiString1& thePath,
+                                  TopoShape&                  theShape,
                                   const Message_ProgressRange&   theProgress)
 {
 
@@ -233,8 +233,8 @@ Standard_Boolean DE_Wrapper::Read(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Write(const TCollection_AsciiString& thePath,
-                                   const TopoDS_Shape&            theShape,
+Standard_Boolean DE_Wrapper::Write(const AsciiString1& thePath,
+                                   const TopoShape&            theShape,
                                    const Message_ProgressRange&   theProgress)
 {
   Handle(DE_Provider) aProvider;
@@ -247,7 +247,7 @@ Standard_Boolean DE_Wrapper::Write(const TCollection_AsciiString& thePath,
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Load(const TCollection_AsciiString& theResource,
+Standard_Boolean DE_Wrapper::Load(const AsciiString1& theResource,
                                   const Standard_Boolean         theIsRecursive)
 {
   Handle(DE_ConfigurationContext) aResource = new DE_ConfigurationContext();
@@ -284,13 +284,13 @@ Standard_Boolean DE_Wrapper::Load(const Handle(DE_ConfigurationContext)& theReso
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Save(const TCollection_AsciiString&   theResourcePath,
+Standard_Boolean DE_Wrapper::Save(const AsciiString1&   theResourcePath,
                                   const Standard_Boolean           theIsRecursive,
                                   const TColStd_ListOfAsciiString& theFormats,
                                   const TColStd_ListOfAsciiString& theVendors)
 {
-  OSD_Path       aPath = theResourcePath;
-  OSD_File       aFile(aPath);
+  SystemPath       aPath = theResourcePath;
+  SystemFile       aFile(aPath);
   OSD_Protection aProt;
   {
     try
@@ -307,7 +307,7 @@ Standard_Boolean DE_Wrapper::Save(const TCollection_AsciiString&   theResourcePa
   {
     return Standard_False;
   }
-  TCollection_AsciiString aResConfiguration = Save(theIsRecursive, theFormats, theVendors);
+  AsciiString1 aResConfiguration = Save(theIsRecursive, theFormats, theVendors);
   aFile.Write(aResConfiguration, aResConfiguration.Length());
   aFile.Close();
   return Standard_True;
@@ -315,11 +315,11 @@ Standard_Boolean DE_Wrapper::Save(const TCollection_AsciiString&   theResourcePa
 
 //=================================================================================================
 
-TCollection_AsciiString DE_Wrapper::Save(const Standard_Boolean           theIsRecursive,
+AsciiString1 DE_Wrapper::Save(const Standard_Boolean           theIsRecursive,
                                          const TColStd_ListOfAsciiString& theFormats,
                                          const TColStd_ListOfAsciiString& theVendors)
 {
-  TCollection_AsciiString aResult;
+  AsciiString1 aResult;
   aResult += "!Description of the config file for DE toolkit\n";
   aResult += "!*****************************************************************************\n";
   aResult += "!\n";
@@ -333,12 +333,12 @@ TCollection_AsciiString DE_Wrapper::Save(const Standard_Boolean           theIsR
   for (DE_ConfigurationFormatMap::Iterator aFormatIter(myConfiguration); aFormatIter.More();
        aFormatIter.Next())
   {
-    const TCollection_AsciiString& aFormat = aFormatIter.Key();
+    const AsciiString1& aFormat = aFormatIter.Key();
     aResult += THE_CONFIGURATION_SCOPE() + '.' + "priority" + '.' + aFormat + " :\t ";
     for (DE_ConfigurationVendorMap::Iterator aVendorIter(aFormatIter.Value()); aVendorIter.More();
          aVendorIter.Next())
     {
-      const TCollection_AsciiString& aVendorName = aVendorIter.Value()->GetVendor();
+      const AsciiString1& aVendorName = aVendorIter.Value()->GetVendor();
       aResult += aVendorName + " ";
     }
     aResult += "\n";
@@ -384,8 +384,8 @@ Standard_Boolean DE_Wrapper::Bind(const Handle(DE_ConfigurationNode)& theNode)
   {
     return Standard_False;
   }
-  const TCollection_AsciiString aFileFormat = theNode->GetFormat();
-  const TCollection_AsciiString aVendorName = theNode->GetVendor();
+  const AsciiString1 aFileFormat = theNode->GetFormat();
+  const AsciiString1 aVendorName = theNode->GetVendor();
   DE_ConfigurationVendorMap*    aVendorMap  = myConfiguration.ChangeSeek(aFileFormat);
   if (aVendorMap == NULL)
   {
@@ -403,8 +403,8 @@ Standard_Boolean DE_Wrapper::UnBind(const Handle(DE_ConfigurationNode)& theNode)
   {
     return false;
   }
-  const TCollection_AsciiString aFileFormat = theNode->GetFormat();
-  const TCollection_AsciiString aVendorName = theNode->GetVendor();
+  const AsciiString1 aFileFormat = theNode->GetFormat();
+  const AsciiString1 aVendorName = theNode->GetVendor();
   DE_ConfigurationVendorMap*    aVendorMap  = myConfiguration.ChangeSeek(aFileFormat);
   if (aVendorMap == NULL)
   {
@@ -417,8 +417,8 @@ Standard_Boolean DE_Wrapper::UnBind(const Handle(DE_ConfigurationNode)& theNode)
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::Find(const TCollection_AsciiString& theFormat,
-                                  const TCollection_AsciiString& theVendor,
+Standard_Boolean DE_Wrapper::Find(const AsciiString1& theFormat,
+                                  const AsciiString1& theVendor,
                                   Handle(DE_ConfigurationNode)&  theNode) const
 {
   const DE_ConfigurationVendorMap* aVendorMap = myConfiguration.Seek(theFormat);
@@ -427,7 +427,7 @@ Standard_Boolean DE_Wrapper::Find(const TCollection_AsciiString& theFormat,
 
 //=================================================================================================
 
-void DE_Wrapper::ChangePriority(const TCollection_AsciiString&   theFormat,
+void DE_Wrapper::ChangePriority(const AsciiString1&   theFormat,
                                 const TColStd_ListOfAsciiString& theVendorPriority,
                                 const Standard_Boolean           theToDisable)
 {
@@ -441,7 +441,7 @@ void DE_Wrapper::ChangePriority(const TCollection_AsciiString&   theFormat,
   for (TColStd_ListOfAsciiString::Iterator aPriorIter(theVendorPriority); aPriorIter.More();
        aPriorIter.Next())
   {
-    const TCollection_AsciiString& aVendorName = aPriorIter.Value();
+    const AsciiString1& aVendorName = aPriorIter.Value();
     Handle(DE_ConfigurationNode)   aNode;
     if (aVendorMap.FindFromKey(aVendorName, aNode))
     {
@@ -453,7 +453,7 @@ void DE_Wrapper::ChangePriority(const TCollection_AsciiString&   theFormat,
   for (DE_ConfigurationVendorMap::Iterator aVendorIter(aVendorMap); aVendorIter.More();
        aVendorIter.Next())
   {
-    const TCollection_AsciiString& aVendorName = aVendorIter.Key();
+    const AsciiString1& aVendorName = aVendorIter.Key();
     if (!theVendorPriority.Contains(aVendorName))
     {
       const Handle(DE_ConfigurationNode)& aNode = aVendorIter.Value();
@@ -495,7 +495,7 @@ Handle(DE_Wrapper) DE_Wrapper::Copy() const
 
 //=================================================================================================
 
-Standard_Boolean DE_Wrapper::FindProvider(const TCollection_AsciiString& thePath,
+Standard_Boolean DE_Wrapper::FindProvider(const AsciiString1& thePath,
                                           const Standard_Boolean         theToImport,
                                           Handle(DE_Provider)&           theProvider) const
 {
@@ -512,8 +512,8 @@ Standard_Boolean DE_Wrapper::FindProvider(const TCollection_AsciiString& thePath
       aBuffer->ChangeData()[2047] = '\0';
     }
   }
-  OSD_Path                      aPath(thePath);
-  const TCollection_AsciiString anExtr = aPath.Extension();
+  SystemPath                      aPath(thePath);
+  const AsciiString1 anExtr = aPath.Extension();
   for (DE_ConfigurationFormatMap::Iterator aFormatIter(myConfiguration); aFormatIter.More();
        aFormatIter.Next())
   {
@@ -560,7 +560,7 @@ Standard_EXPORT void DE_Wrapper::UpdateLoad(const Standard_Boolean theToForceUpd
 
 void DE_Wrapper::sort(const Handle(DE_ConfigurationContext)& theResource)
 {
-  const TCollection_AsciiString aScope(THE_CONFIGURATION_SCOPE() + '.' + "priority");
+  const AsciiString1 aScope(THE_CONFIGURATION_SCOPE() + '.' + "priority");
   for (DE_ConfigurationFormatMap::Iterator aFormatIter(myConfiguration); aFormatIter.More();
        aFormatIter.Next())
   {

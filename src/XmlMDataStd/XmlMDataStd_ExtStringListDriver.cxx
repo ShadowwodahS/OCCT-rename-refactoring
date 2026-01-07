@@ -61,8 +61,8 @@ Standard_Boolean XmlMDataStd_ExtStringListDriver::Paste(const XmlObjMgt_Persiste
     aFirstInd = 1;
   else if (!aFirstIndex.GetInteger(aFirstInd))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the first index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the first index"
                                  " for ExtStringList attribute as \"")
       + aFirstIndex + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -72,8 +72,8 @@ Standard_Boolean XmlMDataStd_ExtStringListDriver::Paste(const XmlObjMgt_Persiste
   // Read the LastIndex; the attribute should present
   if (!anElement.getAttribute(::LastIndexString()).GetInteger(aLastInd))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the last index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the last index"
                                  " for ExtStringList attribute as \"")
       + aFirstIndex + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -96,14 +96,14 @@ Standard_Boolean XmlMDataStd_ExtStringListDriver::Paste(const XmlObjMgt_Persiste
   {
     if (!anElement.hasChildNodes())
     {
-      TCollection_ExtendedString aMessageString =
-        TCollection_ExtendedString("Cannot retrieve a list of extended strings");
+      UtfString aMessageString =
+        UtfString("Cannot retrieve a list of extended strings");
       myMessageDriver->Send(aMessageString, Message_Warning);
     }
 
     LDOM_Node                  aCurNode    = anElement.getFirstChild();
     LDOM_Element*              aCurElement = (LDOM_Element*)&aCurNode;
-    TCollection_ExtendedString aValueStr;
+    UtfString aValueStr;
     while (*aCurElement != anElement.getLastChild())
     {
       XmlObjMgt::GetExtendedString(*aCurElement, aValueStr);
@@ -139,7 +139,7 @@ void XmlMDataStd_ExtStringListDriver::Paste(const Handle(TDF_Attribute)& theSour
   TDataStd_ListIteratorOfListOfExtendedString itr(anExtStringList->List());
   for (; itr.More(); itr.Next())
   {
-    const TCollection_ExtendedString& aValueStr  = itr.Value();
+    const UtfString& aValueStr  = itr.Value();
     XmlObjMgt_Element                 aCurTarget = aDoc.createElement(::ExtString());
     XmlObjMgt::SetExtendedString(aCurTarget, aValueStr);
     anElement.appendChild(aCurTarget);

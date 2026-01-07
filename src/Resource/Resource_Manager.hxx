@@ -60,9 +60,9 @@ public:
   //! @param[in] theDefaultsDirectory   default folder for looking description file
   //! @param[in] theUserDefaultsDirectory  user folder for looking description file
   //! @param[in] theIsVerbose  print verbose messages
-  Standard_EXPORT Resource_Manager(const TCollection_AsciiString& theName,
-                                   const TCollection_AsciiString& theDefaultsDirectory,
-                                   const TCollection_AsciiString& theUserDefaultsDirectory,
+  Standard_EXPORT Resource_Manager(const AsciiString1& theName,
+                                   const AsciiString1& theDefaultsDirectory,
+                                   const AsciiString1& theUserDefaultsDirectory,
                                    const Standard_Boolean         theIsVerbose = Standard_False);
 
   //! Save the user resource structure in the specified file.
@@ -73,8 +73,8 @@ public:
   Standard_EXPORT Standard_Boolean Find(const Standard_CString aResource) const;
 
   //! returns True if the Resource does exist.
-  Standard_EXPORT Standard_Boolean Find(const TCollection_AsciiString& theResource,
-                                        TCollection_AsciiString&       theValue) const;
+  Standard_EXPORT Standard_Boolean Find(const AsciiString1& theResource,
+                                        AsciiString1&       theValue) const;
 
   //! Gets the value of an integer resource according to its
   //! instance and its type.
@@ -115,7 +115,7 @@ public:
   //! Gets the resource file full path by its name.
   //! If corresponding environment variable is not set
   //! or file doesn't exist returns empty string.
-  Standard_EXPORT static void GetResourcePath(TCollection_AsciiString& aPath,
+  Standard_EXPORT static void GetResourcePath(AsciiString1& aPath,
                                               const Standard_CString   aName,
                                               const Standard_Boolean   isUserDefaults);
 
@@ -127,11 +127,11 @@ public:
   Standard_Boolean IsInitialized() const { return myInitialized; }
 
 private:
-  Standard_EXPORT void Load(const TCollection_AsciiString&            thePath,
+  Standard_EXPORT void Load(const AsciiString1&            thePath,
                             Resource_DataMapOfAsciiStringAsciiString& aMap);
 
 private:
-  TCollection_AsciiString                     myName;
+  AsciiString1                     myName;
   Resource_DataMapOfAsciiStringAsciiString    myRefMap;
   Resource_DataMapOfAsciiStringAsciiString    myUserMap;
   Resource_DataMapOfAsciiStringExtendedString myExtStrMap;

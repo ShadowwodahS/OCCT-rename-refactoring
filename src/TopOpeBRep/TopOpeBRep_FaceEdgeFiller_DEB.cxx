@@ -39,8 +39,8 @@ void FEINT_DUMPPOINTS(TopOpeBRep_FaceEdgeIntersector& FEINT, const TopOpeBRepDS_
   std::cout << "---------- F/E : " << FEINT.NbPoints() << " p ";
   std::cout << std::endl;
 
-  const TopoDS_Shape& FF = FEINT.Shape(1);
-  const TopoDS_Shape& EE = FEINT.Shape(2);
+  const TopoShape& FF = FEINT.Shape(1);
+  const TopoShape& EE = FEINT.Shape(2);
 
   Standard_Integer FFindex = BDS.Shape(FF);
   Standard_Integer EEindex = BDS.Shape(EE);
@@ -48,10 +48,10 @@ void FEINT_DUMPPOINTS(TopOpeBRep_FaceEdgeIntersector& FEINT, const TopOpeBRepDS_
   TopAbs_Orientation FFori = FF.Orientation();
   TopAbs_Orientation EEori = EE.Orientation();
   std::cout << "FF = " << FFindex << " ";
-  TopAbs::Print(FFori, std::cout);
+  TopAbs1::Print(FFori, std::cout);
   std::cout << ", ";
   std::cout << "EE = " << EEindex << " ";
-  TopAbs::Print(EEori, std::cout);
+  TopAbs1::Print(EEori, std::cout);
   std::cout << std::endl;
 
   Standard_Integer ip = 1;
@@ -62,13 +62,13 @@ void FEINT_DUMPPOINTS(TopOpeBRep_FaceEdgeIntersector& FEINT, const TopOpeBRepDS_
     TopAbs_State  sta  = FEINT.State();
     Standard_Real parE = FEINT.Parameter();
 
-    TopOpeBRepDS_Transition T1, T2;
+    StateTransition T1, T2;
     T1 = FEINT.Transition(1, EEori); // EEori bidon
     T2 = FEINT.Transition(2, FFori);
 
-    TopoDS_Vertex    V1;
+    TopoVertex    V1;
     Standard_Boolean isvertexF = FEINT.IsVertex(1, V1);
-    TopoDS_Vertex    V2;
+    TopoVertex    V2;
     Standard_Boolean isvertexE = FEINT.IsVertex(2, V2);
 
     std::cout << std::endl;
@@ -81,7 +81,7 @@ void FEINT_DUMPPOINTS(TopOpeBRep_FaceEdgeIntersector& FEINT, const TopOpeBRepDS_
       std::cout << "IS VERTEX, ";
     std::cout << " pUV = " << pUV.X() << " " << pUV.Y() << std::endl;
     std::cout << " sta = ";
-    TopAbs::Print(sta, std::cout);
+    TopAbs1::Print(sta, std::cout);
     std::cout << std::endl;
 
     std::cout << "\t";

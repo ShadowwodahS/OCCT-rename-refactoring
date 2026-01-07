@@ -36,10 +36,10 @@ public:
   Standard_EXPORT ShapeUpgrade_RemoveLocations();
 
   //! Removes all location correspondingly to RemoveLevel.
-  Standard_EXPORT Standard_Boolean Remove(const TopoDS_Shape& theShape);
+  Standard_EXPORT Standard_Boolean Remove(const TopoShape& theShape);
 
   //! Returns shape with removed locations.
-  TopoDS_Shape GetResult() const;
+  TopoShape GetResult() const;
 
   //! sets level starting with that location will be removed,
   //! by default TopAbs_SHAPE. In this case locations will be kept for specified shape
@@ -52,7 +52,7 @@ public:
   TopAbs_ShapeEnum RemoveLevel() const;
 
   //! Returns modified shape obtained from initial shape.
-  TopoDS_Shape ModifiedShape(const TopoDS_Shape& theInitShape) const;
+  TopoShape ModifiedShape(const TopoShape& theInitShape) const;
 
   //! Returns map of modified shapes.
   const TopTools_DataMapOfShapeShape& GetModifiedShapesMap() const { return myMapNewShapes; }
@@ -61,13 +61,13 @@ public:
 
 protected:
 private:
-  Standard_EXPORT Standard_Boolean MakeNewShape(const TopoDS_Shape&    theShape,
-                                                const TopoDS_Shape&    theAncShape,
-                                                TopoDS_Shape&          theNewShape,
+  Standard_EXPORT Standard_Boolean MakeNewShape(const TopoShape&    theShape,
+                                                const TopoShape&    theAncShape,
+                                                TopoShape&          theNewShape,
                                                 const Standard_Boolean theRemoveLoc);
 
   TopAbs_ShapeEnum             myLevelRemoving;
-  TopoDS_Shape                 myShape;
+  TopoShape                 myShape;
   TopTools_DataMapOfShapeShape myMapNewShapes;
 };
 

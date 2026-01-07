@@ -27,7 +27,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TDocStd_Modified, TDF_Attribute)
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_Modified::IsEmpty(const TDF_Label& access)
+Standard_Boolean TDocStd_Modified::IsEmpty(const DataLabel& access)
 {
   Handle(TDocStd_Modified) MDF;
   if (!access.Root().FindAttribute(TDocStd_Modified::GetID(), MDF))
@@ -40,7 +40,7 @@ Standard_Boolean TDocStd_Modified::IsEmpty(const TDF_Label& access)
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_Modified::Add(const TDF_Label& alabel)
+Standard_Boolean TDocStd_Modified::Add(const DataLabel& alabel)
 {
   Handle(TDocStd_Modified) MDF;
   if (!alabel.Root().FindAttribute(TDocStd_Modified::GetID(), MDF))
@@ -53,7 +53,7 @@ Standard_Boolean TDocStd_Modified::Add(const TDF_Label& alabel)
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_Modified::Remove(const TDF_Label& alabel)
+Standard_Boolean TDocStd_Modified::Remove(const DataLabel& alabel)
 {
   Handle(TDocStd_Modified) MDF;
   if (!alabel.Root().FindAttribute(TDocStd_Modified::GetID(), MDF))
@@ -66,7 +66,7 @@ Standard_Boolean TDocStd_Modified::Remove(const TDF_Label& alabel)
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_Modified::Contains(const TDF_Label& alabel)
+Standard_Boolean TDocStd_Modified::Contains(const DataLabel& alabel)
 {
   Handle(TDocStd_Modified) MDF;
   if (!alabel.Root().FindAttribute(TDocStd_Modified::GetID(), MDF))
@@ -78,7 +78,7 @@ Standard_Boolean TDocStd_Modified::Contains(const TDF_Label& alabel)
 
 //=================================================================================================
 
-const TDF_LabelMap& TDocStd_Modified::Get(const TDF_Label& access)
+const TDF_LabelMap& TDocStd_Modified::Get(const DataLabel& access)
 {
   Handle(TDocStd_Modified) MDF;
   if (!access.Root().FindAttribute(TDocStd_Modified::GetID(), MDF))
@@ -90,7 +90,7 @@ const TDF_LabelMap& TDocStd_Modified::Get(const TDF_Label& access)
 
 //=================================================================================================
 
-void TDocStd_Modified::Clear(const TDF_Label& access)
+void TDocStd_Modified::Clear(const DataLabel& access)
 {
   Handle(TDocStd_Modified) MDF;
   if (!access.Root().FindAttribute(TDocStd_Modified::GetID(), MDF))
@@ -115,7 +115,7 @@ TDocStd_Modified::TDocStd_Modified() {}
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_Modified::AddLabel(const TDF_Label& L)
+Standard_Boolean TDocStd_Modified::AddLabel(const DataLabel& L)
 {
   Backup();
   return myModified.Add(L);
@@ -123,7 +123,7 @@ Standard_Boolean TDocStd_Modified::AddLabel(const TDF_Label& L)
 
 //=================================================================================================
 
-Standard_Boolean TDocStd_Modified::RemoveLabel(const TDF_Label& L)
+Standard_Boolean TDocStd_Modified::RemoveLabel(const DataLabel& L)
 {
   Backup();
   return myModified.Remove(L);

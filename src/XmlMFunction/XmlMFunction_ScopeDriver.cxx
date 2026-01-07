@@ -67,8 +67,8 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
   // Read the LastIndex; the attribute should present
   if (!anElement.getAttribute(::LastIDIndex()).GetInteger(aLastInd))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the last index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the last index"
                                  " for Scope attribute");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
@@ -80,8 +80,8 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
     Standard_Integer anInteger;
     if (!XmlObjMgt::GetStringValue(anElement).GetInteger(anInteger))
     {
-      TCollection_ExtendedString aMessageString =
-        TCollection_ExtendedString("Cannot retrieve integer member"
+      UtfString aMessageString =
+        UtfString("Cannot retrieve integer member"
                                    " for Scope attribute as \"");
       myMessageDriver->Send(aMessageString, Message_Fail);
       return Standard_False;
@@ -96,8 +96,8 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
     {
       if (!XmlObjMgt::GetInteger(aValueStr, aValue))
       {
-        TCollection_ExtendedString aMessageString =
-          TCollection_ExtendedString("Cannot retrieve integer member"
+        UtfString aMessageString =
+          UtfString("Cannot retrieve integer member"
                                      " for Scope attribute as \"")
           + aValueStr + "\"";
         myMessageDriver->Send(aMessageString, Message_Fail);
@@ -115,8 +115,8 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
   // Read the LastIndex; the attribute should present
   if (!anElement.getAttribute(::LastLabelIndex()).GetInteger(aLastInd))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the last index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the last index"
                                  " for Scope attribute");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
@@ -125,8 +125,8 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
 
   if (!anElement.hasChildNodes())
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve an array of labels");
+    UtfString aMessageString =
+      UtfString("Cannot retrieve an array of labels");
     myMessageDriver->Send(aMessageString, Message_Fail);
     return Standard_False;
   }
@@ -143,16 +143,16 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
       aCurElement = (LDOM_Element*)&aCurNode;
       continue;
     }
-    TCollection_AsciiString anEntry;
+    AsciiString1 anEntry;
     if (XmlObjMgt::GetTagEntryString(aValueStr, anEntry) == Standard_False)
     {
-      TCollection_ExtendedString aMessage =
-        TCollection_ExtendedString("Cannot retrieve reference from \"") + aValueStr + '\"';
+      UtfString aMessage =
+        UtfString("Cannot retrieve reference from \"") + aValueStr + '\"';
       myMessageDriver->Send(aMessage, Message_Fail);
       return Standard_False;
     }
     // Find label by entry
-    TDF_Label tLab; // Null label.
+    DataLabel tLab; // Null label.
     if (anEntry.Length() > 0)
     {
       TDF_Tool::Label(S->Label().Data(), anEntry, tLab, Standard_True);
@@ -169,16 +169,16 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
     myMessageDriver->Send("Cannot retrieve reference string from element", Message_Fail);
     return Standard_False;
   }
-  TCollection_AsciiString anEntry;
+  AsciiString1 anEntry;
   if (XmlObjMgt::GetTagEntryString(aValueStr, anEntry) == Standard_False)
   {
-    TCollection_ExtendedString aMessage =
-      TCollection_ExtendedString("Cannot retrieve reference from \"") + aValueStr + '\"';
+    UtfString aMessage =
+      UtfString("Cannot retrieve reference from \"") + aValueStr + '\"';
     myMessageDriver->Send(aMessage, Message_Fail);
     return Standard_False;
   }
   // Find label by entry
-  TDF_Label tLab; // Null label.
+  DataLabel tLab; // Null label.
   if (anEntry.Length() > 0)
   {
     TDF_Tool::Label(S->Label().Data(), anEntry, tLab, Standard_True);
@@ -188,8 +188,8 @@ Standard_Boolean XmlMFunction_ScopeDriver::Paste(const XmlObjMgt_Persistent&  th
   // Check equality of lengths of the list of IDs & Labels.
   if (nbIDs != nbLabels)
   {
-    TCollection_ExtendedString aMessage =
-      TCollection_ExtendedString("Numbers of IDs & Labels are different");
+    UtfString aMessage =
+      UtfString("Numbers of IDs & Labels are different");
     myMessageDriver->Send(aMessage, Message_Fail);
     return Standard_False;
   }
@@ -226,12 +226,12 @@ void XmlMFunction_ScopeDriver::Paste(const Handle(TDF_Attribute)& theSource,
 
   theTarget.Element().setAttribute(::LastIDIndex(), S->GetFunctions().Extent());
 
-  TCollection_AsciiString                              aValueStr;
+  AsciiString1                              aValueStr;
   TFunction_DoubleMapIteratorOfDoubleMapOfIntegerLabel itrd(S->GetFunctions());
   for (; itrd.More(); itrd.Next())
   {
     const Standard_Integer ID = itrd.Key1();
-    aValueStr += TCollection_AsciiString(ID);
+    aValueStr += AsciiString1(ID);
     aValueStr += ' ';
   }
   aValueStr += "\n";
@@ -248,9 +248,9 @@ void XmlMFunction_ScopeDriver::Paste(const Handle(TDF_Attribute)& theSource,
 
   for (itrd.Initialize(S->GetFunctions()); itrd.More(); itrd.Next())
   {
-    TDF_Label L = itrd.Key2();
+    DataLabel L = itrd.Key2();
 
-    TCollection_AsciiString anEntry;
+    AsciiString1 anEntry;
     TDF_Tool::Entry(L, anEntry);
 
     XmlObjMgt_DOMString aDOMString;

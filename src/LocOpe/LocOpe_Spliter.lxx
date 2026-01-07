@@ -31,7 +31,7 @@ inline LocOpe_Spliter::LocOpe_Spliter()
 // purpose  :
 //=======================================================================
 
-inline LocOpe_Spliter::LocOpe_Spliter(const TopoDS_Shape& S)
+inline LocOpe_Spliter::LocOpe_Spliter(const TopoShape& S)
     : myShape(S),
       myDone(Standard_False)
 {
@@ -42,7 +42,7 @@ inline LocOpe_Spliter::LocOpe_Spliter(const TopoDS_Shape& S)
 // purpose  :
 //=======================================================================
 
-inline void LocOpe_Spliter::Init(const TopoDS_Shape& S)
+inline void LocOpe_Spliter::Init(const TopoShape& S)
 {
   myShape = S;
   myDone  = Standard_False;
@@ -63,7 +63,7 @@ inline Standard_Boolean LocOpe_Spliter::IsDone() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& LocOpe_Spliter::Shape() const
+inline const TopoShape& LocOpe_Spliter::Shape() const
 {
   return myShape;
 }
@@ -73,7 +73,7 @@ inline const TopoDS_Shape& LocOpe_Spliter::Shape() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& LocOpe_Spliter::ResultingShape() const
+inline const TopoShape& LocOpe_Spliter::ResultingShape() const
 {
   if (!myDone)
   {

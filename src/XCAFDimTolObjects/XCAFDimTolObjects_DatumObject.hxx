@@ -72,10 +72,10 @@ public:
   Standard_EXPORT void AddModifier(const XCAFDimTolObjects_DatumSingleModif theModifier);
 
   //! Returns datum target shape.
-  Standard_EXPORT TopoDS_Shape GetDatumTarget() const;
+  Standard_EXPORT TopoShape GetDatumTarget() const;
 
   //! Sets datum target shape.
-  Standard_EXPORT void SetDatumTarget(const TopoDS_Shape& theShape);
+  Standard_EXPORT void SetDatumTarget(const TopoShape& theShape);
 
   //! Returns datum position in the related geometric tolerance object.
   Standard_EXPORT Standard_Integer GetPosition() const;
@@ -164,7 +164,7 @@ public:
   Standard_Boolean HasPointText() const { return myHasPntText; }
 
   //! Set graphical presentation for object.
-  void SetPresentation(const TopoDS_Shape&                     thePresentation,
+  void SetPresentation(const TopoShape&                     thePresentation,
                        const Handle(TCollection_HAsciiString)& thePresentationName)
   {
     myPresentation     = thePresentation;
@@ -172,7 +172,7 @@ public:
   }
 
   //! Returns graphical presentation of the object.
-  TopoDS_Shape GetPresentation() const { return myPresentation; }
+  TopoShape GetPresentation() const { return myPresentation; }
 
   //! Returns graphical presentation of the object.
   Handle(TCollection_HAsciiString) GetPresentationName() const { return myPresentationName; }
@@ -191,7 +191,7 @@ private:
   XCAFDimTolObjects_DatumModifiersSequence myModifiers;
   XCAFDimTolObjects_DatumModifWithValue    myModifierWithValue;
   Standard_Real                            myValueOfModifier;
-  TopoDS_Shape                             myDatumTarget;
+  TopoShape                             myDatumTarget;
   Standard_Integer                         myPosition;
   Standard_Boolean                         myIsDTarget;
   Standard_Boolean                         myIsValidDT;
@@ -206,7 +206,7 @@ private:
   Standard_Boolean                         myHasPlane;
   Standard_Boolean                         myHasPnt;
   Standard_Boolean                         myHasPntText;
-  TopoDS_Shape                             myPresentation;
+  TopoShape                             myPresentation;
   Handle(TCollection_HAsciiString)         mySemanticName;
   Handle(TCollection_HAsciiString)         myPresentationName;
 };

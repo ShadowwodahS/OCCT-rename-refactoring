@@ -81,7 +81,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_Block, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolBlock tool;
+      BlockTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -89,7 +89,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_BooleanTree, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolBooleanTree tool;
+      BooleanTreeTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -97,7 +97,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_ConeFrustum, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolConeFrustum tool;
+      ConeFrustumTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -105,7 +105,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_ConicalSurface, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolConicalSurface tool;
+      ConicalSurfaceTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -113,7 +113,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_Cylinder, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolCylinder tool;
+      CylinderTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -121,7 +121,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_CylindricalSurface, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolCylindricalSurface tool;
+      CylindricalSurfaceTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -129,7 +129,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_EdgeList, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolEdgeList tool;
+      EdgeListTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -137,7 +137,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_Ellipsoid, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolEllipsoid tool;
+      EllipsoidTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -145,7 +145,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_Face, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolFace tool;
+      FaceTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -153,7 +153,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_Loop, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolLoop tool;
+      LoopTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -161,7 +161,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_ManifoldSolid, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolManifoldSolid tool;
+      ManifoldSolidTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -169,7 +169,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_PlaneSurface, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolPlaneSurface tool;
+      PlaneSurfaceTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -177,7 +177,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_RightAngularWedge, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolRightAngularWedge tool;
+      RightAngularWedgeTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -185,7 +185,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_SelectedComponent, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolSelectedComponent tool;
+      SelectedComponentTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -193,7 +193,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_Shell, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolShell tool;
+      ShellTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -201,7 +201,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_SolidAssembly, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolSolidAssembly tool;
+      SolidAssemblyTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -209,7 +209,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_SolidInstance, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolSolidInstance tool;
+      SolidInstanceTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -217,7 +217,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_SolidOfLinearExtrusion, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolSolidOfLinearExtrusion tool;
+      SolidOfLinearExtrusionTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -225,7 +225,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_SolidOfRevolution, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolSolidOfRevolution tool;
+      SolidOfRevolutionTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -233,7 +233,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_Sphere, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolSphere tool;
+      SphereTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -241,7 +241,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_SphericalSurface, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolSphericalSurface tool;
+      SphericalSurfaceTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -249,7 +249,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_ToroidalSurface, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolToroidalSurface tool;
+      ToroidalSurfaceTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -257,7 +257,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_Torus, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolTorus tool;
+      TorusTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;
@@ -265,7 +265,7 @@ void IGESSolid_SpecificModule::OwnDump(const Standard_Integer             CN,
       DeclareAndCast(IGESSolid_VertexList, anent, ent);
       if (anent.IsNull())
         return;
-      IGESSolid_ToolVertexList tool;
+      VertexListTool tool;
       tool.OwnDump(anent, dumper, S, own);
     }
     break;

@@ -48,7 +48,7 @@ public:
   //! Returns True if a starting object is bound with SEVERAL
   //! results : Here, returns always False
   //! But it can have next results
-  Standard_EXPORT TransferBRep_BinderOfShape(const TopoDS_Shape& res);
+  Standard_EXPORT TransferBRep_BinderOfShape(const TopoShape& res);
 
   //! Returns the Type permitted for the Result, i.e. the Type
   //! of the Parameter Class <Shape from TopoDS> (statically defined)
@@ -58,22 +58,22 @@ public:
   Standard_EXPORT Standard_CString ResultTypeName() const Standard_OVERRIDE;
 
   //! Defines the Result
-  Standard_EXPORT void SetResult(const TopoDS_Shape& res);
+  Standard_EXPORT void SetResult(const TopoShape& res);
 
   //! Returns the defined Result, if there is one
-  Standard_EXPORT const TopoDS_Shape& Result() const;
+  Standard_EXPORT const TopoShape& Result() const;
 
   //! Returns the defined Result, if there is one, and allows to
   //! change it (avoids Result + SetResult).
   //! Admits that Result can be not yet defined
   //! Warning : a call to CResult causes Result to be known as defined
-  Standard_EXPORT TopoDS_Shape& CResult();
+  Standard_EXPORT TopoShape& CResult();
 
   DEFINE_STANDARD_RTTIEXT(TransferBRep_BinderOfShape, Transfer_Binder)
 
 protected:
 private:
-  TopoDS_Shape theres;
+  TopoShape theres;
 };
 
 #endif // _TransferBRep_BinderOfShape_HeaderFile

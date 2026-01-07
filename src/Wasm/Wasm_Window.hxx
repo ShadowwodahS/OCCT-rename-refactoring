@@ -62,7 +62,7 @@ public:
   //! @param[in] theToScaleBacking when TRUE, window will automatically scale backing store of
   //! canvas
   //!                              basing on DevicePixelRatio() scale factor within DoResize()
-  Standard_EXPORT Wasm_Window(const TCollection_AsciiString& theCanvasId,
+  Standard_EXPORT Wasm_Window(const AsciiString1& theCanvasId,
                               const bool                     theToScaleBacking = true);
 
   //! Destroys the window.
@@ -107,7 +107,7 @@ public:
   Standard_EXPORT void SetSizeBacking(const Graphic3d_Vec2i& theSize);
 
   //! Returns canvas id.
-  const TCollection_AsciiString& CanvasId() const { return myCanvasId; }
+  const AsciiString1& CanvasId() const { return myCanvasId; }
 
   //! Current EGL implementation in Emscripten accepts only 0 for native window id.
   virtual Aspect_Drawable NativeHandle() const Standard_OVERRIDE { return 0; }
@@ -196,7 +196,7 @@ public:
                                                  const EmscriptenFocusEvent* theEvent);
 
 protected:
-  TCollection_AsciiString  myCanvasId;
+  AsciiString1  myCanvasId;
   Graphic3d_Vec2i          mySize;
   Standard_Real            myDevicePixelRatio;
   Standard_Boolean         myToScaleBacking;

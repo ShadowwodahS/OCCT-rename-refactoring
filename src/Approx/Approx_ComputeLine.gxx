@@ -87,7 +87,7 @@ static void DUMP(const AppParCurves_MultiCurve& C) {
   Standard_Integer i;
   Standard_Integer nbpoles = C.NbPoles();
 
-  Handle(Geom_BezierCurve) BSp;
+  Handle(BezierCurve3d) BSp;
   Handle(Geom2d_BezierCurve) BSp2d;
 
   TColgp_Array1OfPnt tabPoles(1, nbpoles);
@@ -98,12 +98,12 @@ static void DUMP(const AppParCurves_MultiCurve& C) {
   for (i = 1; i <= C.NbCurves(); i++) {
     if (C.Dimension(i) == 3) {
       C.Curve(i, tabPoles);
-      BSp = new Geom_BezierCurve(tabPoles);
+      BSp = new BezierCurve3d(tabPoles);
       sprintf(solname, "%s%i%s_%i", "c", i, "3d", nbappel);
 #ifdef DRAW
       char* Temp = solname;
-      DrawTrSurf::Set(Temp, BSp);
-//      DrawTrSurf::Set(solname, BSp);
+      DrawTrSurf1::Set(Temp, BSp);
+//      DrawTrSurf1::Set(solname, BSp);
 #endif
     }
     else {
@@ -112,8 +112,8 @@ static void DUMP(const AppParCurves_MultiCurve& C) {
       sprintf(solname, "%s%i%s_%i", "c", i, "2d", nbappel);
 #ifdef DRAW
       char* Temp = solname;
-      DrawTrSurf::Set(Temp, BSp2d);
-//      DrawTrSurf::Set(solname, BSp2d);
+      DrawTrSurf1::Set(Temp, BSp2d);
+//      DrawTrSurf1::Set(solname, BSp2d);
 #endif
     }
   }
@@ -164,9 +164,9 @@ static Standard_Boolean CheckMultiCurve(const AppParCurves_MultiCurve& theMultiC
     TColgp_Array1OfPnt aPoles(1, theMultiCurve.NbPoles());
     theMultiCurve.Curve(1, aPoles);
 #ifdef DRAW
-    Handle(Geom_Curve) theBezier = new Geom_BezierCurve(aPoles);
+    Handle(GeomCurve3d) theBezier = new BezierCurve3d(aPoles);
     sprintf(name, "bc3d_%d_%d", indc, nbbc);
-    DrawTrSurf::Set(name, theBezier);
+    DrawTrSurf1::Set(name, theBezier);
 #endif
     Vector3d FirstVec, SecondVec;
     Standard_Integer indp = 2;
@@ -214,7 +214,7 @@ static Standard_Boolean CheckMultiCurve(const AppParCurves_MultiCurve& theMultiC
         LineTool::Value(theLine, ipoint, tabP);
         Point3d aPnt = tabP(1);
         sprintf(name, "p%d", ipoint);
-        DrawTrSurf::Set(name, aPnt);
+        DrawTrSurf1::Set(name, aPnt);
       }
 #endif
       for (Standard_Integer FirstInd = theIndfirst;
@@ -298,9 +298,9 @@ static Standard_Boolean CheckMultiCurve(const AppParCurves_MultiCurve& theMultiC
     TColgp_Array1OfPnt2d aPoles2d(1, theMultiCurve.NbPoles());
     theMultiCurve.Curve(1, aPoles2d);
 #ifdef DRAW
-    Handle(Geom2d_Curve) theBezier2d = new Geom2d_BezierCurve(aPoles2d);
+    Handle(GeomCurve2d) theBezier2d = new Geom2d_BezierCurve(aPoles2d);
     sprintf(name, "bc2d_%d_%d", indc, nbbc);
-    DrawTrSurf::Set(name, theBezier2d);
+    DrawTrSurf1::Set(name, theBezier2d);
 #endif
     const Standard_Real aSqNormToler = Epsilon(1.0)*Epsilon(1.0);
     gp_Vec2d FirstVec(aPoles2d(1), aPoles2d(2)), SecondVec;
@@ -345,7 +345,7 @@ static Standard_Boolean CheckMultiCurve(const AppParCurves_MultiCurve& theMultiC
         LineTool::Value(theLine, ipoint, tabP2d);
         gp_Pnt2d aPnt2d = tabP2d(1);
         sprintf(name, "p%d", ipoint);
-        DrawTrSurf::Set(name, aPnt2d);
+        DrawTrSurf1::Set(name, aPnt2d);
       }
 #endif
       for (Standard_Integer FirstInd = theIndfirst;

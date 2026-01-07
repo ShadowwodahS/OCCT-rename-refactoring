@@ -30,7 +30,7 @@ class IGESSolid_EdgeList;
 DEFINE_STANDARD_HANDLE(IGESSolid_EdgeList, IGESData_IGESEntity)
 
 //! defines EdgeList, Type <504> Form <1>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! EdgeList is defined as a segment joining two vertices
 //! It contains one or more edge tuples.
 class IGESSolid_EdgeList : public IGESData_IGESEntity

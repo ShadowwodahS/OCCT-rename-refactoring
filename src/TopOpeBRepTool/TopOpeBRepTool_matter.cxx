@@ -62,9 +62,9 @@ Standard_EXPORT gp_Dir2d FUN_tool_nC2dINSIDES(const gp_Dir2d& tgC2d)
 }
 
 // ----------------------------------------------------------------------
-// Standard_EXPORT Vector3d FUN_tool_getgeomxx(const TopoDS_Face& Fi,
-Standard_EXPORT Vector3d FUN_tool_getgeomxx(const TopoDS_Face&,
-                                          const TopoDS_Edge&  Ei,
+// Standard_EXPORT Vector3d FUN_tool_getgeomxx(const TopoFace& Fi,
+Standard_EXPORT Vector3d FUN_tool_getgeomxx(const TopoFace&,
+                                          const TopoEdge&  Ei,
                                           const Standard_Real parEi,
                                           const Dir3d&       ngFi)
 {
@@ -76,7 +76,7 @@ Standard_EXPORT Vector3d FUN_tool_getgeomxx(const TopoDS_Face&,
   // <XX> is oriented inside 2d <F> if <E> is FORWARD in <F>
 
   Vector3d           tgEi;
-  Standard_Boolean ok = TopOpeBRepTool_TOOL::TggeomE(parEi, Ei, tgEi);
+  Standard_Boolean ok = TOOL1::TggeomE(parEi, Ei, tgEi);
   if (!ok)
     return Vector3d(0., 0., 0.); // NYIRAISE
   Dir3d XX = FUN_tool_nCinsideS(tgEi, ngFi);
@@ -84,8 +84,8 @@ Standard_EXPORT Vector3d FUN_tool_getgeomxx(const TopoDS_Face&,
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Vector3d FUN_tool_getgeomxx(const TopoDS_Face&  Fi,
-                                          const TopoDS_Edge&  Ei,
+Standard_EXPORT Vector3d FUN_tool_getgeomxx(const TopoFace&  Fi,
+                                          const TopoEdge&  Ei,
                                           const Standard_Real parOnEi)
 {
   Vector3d           xx(1., 0., 0.);
@@ -99,8 +99,8 @@ Standard_EXPORT Vector3d FUN_tool_getgeomxx(const TopoDS_Face&  Fi,
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_getxx(const TopoDS_Face&  Fi,
-                                                const TopoDS_Edge&  Ei,
+Standard_EXPORT Standard_Boolean FUN_tool_getxx(const TopoFace&  Fi,
+                                                const TopoEdge&  Ei,
                                                 const Standard_Real parEi,
                                                 const Dir3d&       ngFi,
                                                 Dir3d&             XX)
@@ -119,12 +119,12 @@ Standard_EXPORT Standard_Boolean FUN_tool_getxx(const TopoDS_Face&  Fi,
 }
 
 // ----------------------------------------------------------------------
-Standard_EXPORT Standard_Boolean FUN_tool_getxx(const TopoDS_Face&  Fi,
-                                                const TopoDS_Edge&  Ei,
+Standard_EXPORT Standard_Boolean FUN_tool_getxx(const TopoFace&  Fi,
+                                                const TopoEdge&  Ei,
                                                 const Standard_Real parEi,
                                                 Dir3d&             XX)
 {
-  Standard_Real    tolFi = BRep_Tool::Tolerance(Fi) * 1.e2; // nyitol
+  Standard_Real    tolFi = BRepInspector::Tolerance(Fi) * 1.e2; // nyitol
   gp_Pnt2d         uv;
   Standard_Boolean ok = FUN_tool_parF(Ei, parEi, Fi, uv, tolFi);
   if (!ok)
@@ -136,8 +136,8 @@ Standard_EXPORT Standard_Boolean FUN_tool_getxx(const TopoDS_Face&  Fi,
 
 // ----------------------------------------------------------------------
 Standard_EXPORT Standard_Boolean
-  FUN_tool_getdxx(const TopoDS_Face& F,
-                  const TopoDS_Edge& E,
+  FUN_tool_getdxx(const TopoFace& F,
+                  const TopoEdge& E,
                   //                                                 const Standard_Real parE,
                   const Standard_Real,
                   gp_Vec2d& dxx)
@@ -155,7 +155,7 @@ Standard_EXPORT Standard_Boolean
   Standard_Boolean isoU, isoV;
   gp_Dir2d         d2d;
   gp_Pnt2d         o2d;
-  Standard_Boolean iso = TopOpeBRepTool_TOOL::UVISO(E, F, isoU, isoV, d2d, o2d);
+  Standard_Boolean iso = TOOL1::UVISO(E, F, isoU, isoV, d2d, o2d);
   if (!iso)
     return Standard_False;
   Standard_Real u1, u2, v1, v2;

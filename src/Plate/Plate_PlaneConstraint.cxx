@@ -19,7 +19,7 @@
 #include <Plate_PinpointConstraint.hxx>
 #include <Plate_PlaneConstraint.hxx>
 
-Plate_PlaneConstraint::Plate_PlaneConstraint(const gp_XY&           point2d,
+Plate_PlaneConstraint::Plate_PlaneConstraint(const Coords2d&           point2d,
                                              const gp_Pln&          pln,
                                              const Standard_Integer iu,
                                              const Standard_Integer iv)

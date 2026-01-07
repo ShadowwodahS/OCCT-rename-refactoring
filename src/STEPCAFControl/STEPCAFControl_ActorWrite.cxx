@@ -43,7 +43,7 @@ void STEPCAFControl_ActorWrite::ClearMap()
 
 //=================================================================================================
 
-void STEPCAFControl_ActorWrite::RegisterAssembly(const TopoDS_Shape& S)
+void STEPCAFControl_ActorWrite::RegisterAssembly(const TopoShape& S)
 {
   if (!myStdMode && S.ShapeType() == TopAbs_COMPOUND)
     myMap.Add(S);
@@ -52,7 +52,7 @@ void STEPCAFControl_ActorWrite::RegisterAssembly(const TopoDS_Shape& S)
 //=================================================================================================
 
 Standard_Boolean STEPCAFControl_ActorWrite::IsAssembly(const Handle(StepData_StepModel)& theModel,
-                                                       TopoDS_Shape&                     S) const
+                                                       TopoShape&                     S) const
 {
   if (myStdMode)
     return STEPControl_ActorWrite::IsAssembly(theModel, S);

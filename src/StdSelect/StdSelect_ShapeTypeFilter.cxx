@@ -37,7 +37,7 @@ Standard_Boolean StdSelect_ShapeTypeFilter::IsOk(const Handle(SelectMgr_EntityOw
   Handle(StdSelect_BRepOwner) BRO = Handle(StdSelect_BRepOwner)::DownCast(EO);
   if (BRO.IsNull() || !BRO->HasShape())
     return Standard_False;
-  const TopoDS_Shape& anobj = BRO->Shape();
+  const TopoShape& anobj = BRO->Shape();
   return anobj.ShapeType() == myType;
 }
 

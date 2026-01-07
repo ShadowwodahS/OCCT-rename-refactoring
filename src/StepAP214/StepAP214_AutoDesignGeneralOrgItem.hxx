@@ -49,7 +49,7 @@ public:
   //! 5     ProductDefinitionWithAssociatedDocuments from StepBasic,
   //! 6     Representation from StepRepr
   //! 7     ExternallyDefinedRepresentation from StepRepr,
-  //! 8     AutoDesignDocumentReference from StepAP214,
+  //! 8     AutoDesignDocumentReference from StepAP2141,
   //! 0 else
   Standard_EXPORT Standard_Integer CaseNum(const Handle(RefObject)& ent) const;
 

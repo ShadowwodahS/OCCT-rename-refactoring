@@ -26,14 +26,14 @@
 #include <TopAbs_State.hxx>
 #include <Standard_OStream.hxx>
 
-class TopOpeBRepBuild_GTopo
+class GTopologyClassifier
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepBuild_GTopo();
+  Standard_EXPORT GTopologyClassifier();
 
-  Standard_EXPORT TopOpeBRepBuild_GTopo(const Standard_Boolean    II,
+  Standard_EXPORT GTopologyClassifier(const Standard_Boolean    II,
                                         const Standard_Boolean    IN,
                                         const Standard_Boolean    IO,
                                         const Standard_Boolean    NI,
@@ -115,7 +115,7 @@ public:
 
   Standard_EXPORT Standard_Boolean Reverse() const;
 
-  Standard_EXPORT TopOpeBRepBuild_GTopo CopyPermuted() const;
+  Standard_EXPORT GTopologyClassifier CopyPermuted() const;
 
 protected:
 private:

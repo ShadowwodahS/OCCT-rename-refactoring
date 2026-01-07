@@ -18,7 +18,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TransferBRep_BinderOfShape, Transfer_Binder)
 
 TransferBRep_BinderOfShape::TransferBRep_BinderOfShape() {}
 
-TransferBRep_BinderOfShape::TransferBRep_BinderOfShape(const TopoDS_Shape& res)
+TransferBRep_BinderOfShape::TransferBRep_BinderOfShape(const TopoShape& res)
     : theres(res)
 {
   SetResultPresent();
@@ -29,25 +29,25 @@ TransferBRep_BinderOfShape::TransferBRep_BinderOfShape(const TopoDS_Shape& res)
 
 Handle(TypeInfo) TransferBRep_BinderOfShape::ResultType() const
 // clang-format off
-{  return  TransferBRep_ShapeInfo::Type (theres);  }  // correspond a "STANDARD_TYPE(TopoDS_Shape)"
+{  return  TransferBRep_ShapeInfo::Type (theres);  }  // correspond a "STANDARD_TYPE(TopoShape)"
 
 Standard_CString  TransferBRep_BinderOfShape::ResultTypeName () const
-{  return  TransferBRep_ShapeInfo::TypeName (theres);  }  // correspond a "STANDARD_TYPE(TopoDS_Shape)"
+{  return  TransferBRep_ShapeInfo::TypeName (theres);  }  // correspond a "STANDARD_TYPE(TopoShape)"
 
 // clang-format on
 
-void TransferBRep_BinderOfShape::SetResult(const TopoDS_Shape& res)
+void TransferBRep_BinderOfShape::SetResult(const TopoShape& res)
 {
   SetResultPresent();
   theres = res;
 }
 
-const TopoDS_Shape& TransferBRep_BinderOfShape::Result() const
+const TopoShape& TransferBRep_BinderOfShape::Result() const
 {
   return theres;
 }
 
-TopoDS_Shape& TransferBRep_BinderOfShape::CResult()
+TopoShape& TransferBRep_BinderOfShape::CResult()
 {
   SetResultPresent();
   return theres;

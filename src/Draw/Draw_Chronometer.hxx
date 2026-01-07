@@ -33,7 +33,7 @@ public:
   OSD_Timer& Timer() { return myTimer; }
 
   //! Does nothing,
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   //! For variable copy.
   Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
@@ -42,7 +42,7 @@ public:
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;
 
   //! For variable whatis command.
-  Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
 private:
   OSD_Timer myTimer;

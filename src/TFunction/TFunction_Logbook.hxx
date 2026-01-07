@@ -24,7 +24,7 @@
 #include <TDF_LabelMap.hxx>
 #include <TDF_Attribute.hxx>
 #include <Standard_OStream.hxx>
-class TDF_Label;
+class DataLabel;
 class Standard_GUID;
 class TFunction_Logbook;
 class TDF_RelocationTable;
@@ -43,7 +43,7 @@ class TFunction_Logbook : public TDF_Attribute
 public:
   //! Finds or Creates a TFunction_Logbook attribute at the root label accessed by <Access>.
   //! Returns the attribute.
-  Standard_EXPORT static Handle(TFunction_Logbook) Set(const TDF_Label& Access);
+  Standard_EXPORT static Handle(TFunction_Logbook) Set(const DataLabel& Access);
 
   //! Returns the GUID for logbook attribute.
   Standard_EXPORT static const Standard_GUID& GetID();
@@ -61,15 +61,15 @@ public:
 
   //! Sets the label L as a touched label in this logbook.
   //! In other words, L is understood to have been modified by the end user.
-  void SetTouched(const TDF_Label& L);
+  void SetTouched(const DataLabel& L);
 
   //! Sets the label L as an impacted label in this logbook.
   //! This method is called by execution of the function driver.
-  Standard_EXPORT void SetImpacted(const TDF_Label&       L,
+  Standard_EXPORT void SetImpacted(const DataLabel&       L,
                                    const Standard_Boolean WithChildren = Standard_False);
 
   //! Sets the label L as a valid label in this logbook.
-  Standard_EXPORT void SetValid(const TDF_Label&       L,
+  Standard_EXPORT void SetValid(const DataLabel&       L,
                                 const Standard_Boolean WithChildren = Standard_False);
   Standard_EXPORT void SetValid(const TDF_LabelMap& Ls);
 
@@ -78,7 +78,7 @@ public:
   //! If <WithChildren> is set to true, the method checks
   //! all the sublabels of <L> too.
   Standard_EXPORT Standard_Boolean
-    IsModified(const TDF_Label& L, const Standard_Boolean WithChildren = Standard_False) const;
+    IsModified(const DataLabel& L, const Standard_Boolean WithChildren = Standard_False) const;
 
   //! Returns the map of touched labels in this logbook.
   //! A touched label is the one modified by the end user.

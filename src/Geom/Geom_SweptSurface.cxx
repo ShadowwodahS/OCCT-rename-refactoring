@@ -19,7 +19,7 @@
 #include <gp_Dir.hxx>
 #include <Standard_Type.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Geom_SweptSurface, Geom_Surface)
+IMPLEMENT_STANDARD_RTTIEXT(Geom_SweptSurface, GeomSurface)
 
 //=================================================================================================
 
@@ -37,7 +37,7 @@ const Dir3d& Geom_SweptSurface::Direction() const
 
 //=================================================================================================
 
-Handle(Geom_Curve) Geom_SweptSurface::BasisCurve() const
+Handle(GeomCurve3d) Geom_SweptSurface::BasisCurve() const
 {
   return basisCurve;
 }
@@ -48,7 +48,7 @@ void Geom_SweptSurface::DumpJson(Standard_OStream& theOStream, Standard_Integer 
 {
   OCCT_DUMP_TRANSIENT_CLASS_BEGIN(theOStream)
 
-  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, Geom_Surface)
+  OCCT_DUMP_BASE_CLASS(theOStream, theDepth, GeomSurface)
 
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, basisCurve.get())
   OCCT_DUMP_FIELD_VALUES_DUMPED(theOStream, theDepth, &direction)

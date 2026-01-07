@@ -17,7 +17,7 @@
 #define _TDataXtd_Shape_HeaderFile
 
 #include <TDataStd_GenericEmpty.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class TDF_DataSet;
 
 class TDataXtd_Shape;
@@ -34,20 +34,20 @@ public:
   //! try to retrieve a Shape attribute at <current> label
   //! or in  fathers  label of  <current>. Returns True  if
   //! found and set <S>.
-  Standard_EXPORT static Standard_Boolean Find(const TDF_Label& current, Handle(TDataXtd_Shape)& S);
+  Standard_EXPORT static Standard_Boolean Find(const DataLabel& current, Handle(TDataXtd_Shape)& S);
 
   //! Find, or create, a Shape attribute.  the Shape attribute
   //! is returned. Raises if <label> has attribute.
-  Standard_EXPORT static Handle(TDataXtd_Shape) New(const TDF_Label& label);
+  Standard_EXPORT static Handle(TDataXtd_Shape) New(const DataLabel& label);
 
   //! Create or update associated NamedShape attribute.  the
   //! Shape attribute is returned.
-  Standard_EXPORT static Handle(TDataXtd_Shape) Set(const TDF_Label&    label,
-                                                    const TopoDS_Shape& shape);
+  Standard_EXPORT static Handle(TDataXtd_Shape) Set(const DataLabel&    label,
+                                                    const TopoShape& shape);
 
   //! the Shape from  associated NamedShape attribute
   //! is returned.
-  Standard_EXPORT static TopoDS_Shape Get(const TDF_Label& label);
+  Standard_EXPORT static TopoShape Get(const DataLabel& label);
 
   //! Shape methods
   //! ============

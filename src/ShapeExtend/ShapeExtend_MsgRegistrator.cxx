@@ -56,7 +56,7 @@ void ShapeExtend_MsgRegistrator::Send(const Handle(RefObject)& object,
 
 //=================================================================================================
 
-void ShapeExtend_MsgRegistrator::Send(const TopoDS_Shape& shape,
+void ShapeExtend_MsgRegistrator::Send(const TopoShape& shape,
                                       const Message_Msg&  message,
                                       const Message_Gravity)
 {

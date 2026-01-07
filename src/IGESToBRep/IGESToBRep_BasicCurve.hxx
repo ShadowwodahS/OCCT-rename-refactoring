@@ -22,13 +22,13 @@
 #include <Standard_Handle.hxx>
 
 #include <IGESToBRep_CurveAndSurface.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 class IGESData_IGESEntity;
-class Geom2d_Curve;
+class GeomCurve2d;
 class IGESGeom_BSplineCurve;
 class IGESGeom_CircularArc;
 class IGESGeom_ConicArc;
-class Geom_BSplineCurve;
+class BSplineCurve3d;
 class IGESGeom_CopiousData;
 class Geom2d_BSplineCurve;
 class IGESGeom_Line;
@@ -70,44 +70,44 @@ public:
                                         const Standard_Boolean optimized);
 
   //! Transfert  a  IGESEntity which  answer True  to  the
-  //! member : IGESToBRep::IsBasicCurve(IGESEntity).  If this
+  //! member : IGESToBRep1::IsBasicCurve(IGESEntity).  If this
   //! Entity could not be converted, this member returns a NullEntity.
-  Standard_EXPORT Handle(Geom_Curve) TransferBasicCurve(const Handle(IGESData_IGESEntity)& start);
+  Standard_EXPORT Handle(GeomCurve3d) TransferBasicCurve(const Handle(IGESData_IGESEntity)& start);
 
   //! Transfert  a  IGESEntity which  answer True  to  the
-  //! member : IGESToBRep::IsBasicCurve(IGESEntity).
+  //! member : IGESToBRep1::IsBasicCurve(IGESEntity).
   //! The IGESEntity must be a curve UV and its associed TRSF must
   //! be planar .If this Entity could not be converted, this member
   //! returns a NullEntity.
-  Standard_EXPORT Handle(Geom2d_Curve) Transfer2dBasicCurve(
+  Standard_EXPORT Handle(GeomCurve2d) Transfer2dBasicCurve(
     const Handle(IGESData_IGESEntity)& start);
 
-  Standard_EXPORT Handle(Geom_Curve) TransferBSplineCurve(
+  Standard_EXPORT Handle(GeomCurve3d) TransferBSplineCurve(
     const Handle(IGESGeom_BSplineCurve)& start);
 
-  Standard_EXPORT Handle(Geom2d_Curve) Transfer2dBSplineCurve(
+  Standard_EXPORT Handle(GeomCurve2d) Transfer2dBSplineCurve(
     const Handle(IGESGeom_BSplineCurve)& start);
 
-  Standard_EXPORT Handle(Geom_Curve) TransferCircularArc(const Handle(IGESGeom_CircularArc)& start);
+  Standard_EXPORT Handle(GeomCurve3d) TransferCircularArc(const Handle(IGESGeom_CircularArc)& start);
 
-  Standard_EXPORT Handle(Geom2d_Curve) Transfer2dCircularArc(
+  Standard_EXPORT Handle(GeomCurve2d) Transfer2dCircularArc(
     const Handle(IGESGeom_CircularArc)& start);
 
-  Standard_EXPORT Handle(Geom_Curve) TransferConicArc(const Handle(IGESGeom_ConicArc)& start);
+  Standard_EXPORT Handle(GeomCurve3d) TransferConicArc(const Handle(IGESGeom_ConicArc)& start);
 
-  Standard_EXPORT Handle(Geom2d_Curve) Transfer2dConicArc(const Handle(IGESGeom_ConicArc)& start);
+  Standard_EXPORT Handle(GeomCurve2d) Transfer2dConicArc(const Handle(IGESGeom_ConicArc)& start);
 
-  Standard_EXPORT Handle(Geom_BSplineCurve) TransferCopiousData(
+  Standard_EXPORT Handle(BSplineCurve3d) TransferCopiousData(
     const Handle(IGESGeom_CopiousData)& start);
 
   Standard_EXPORT Handle(Geom2d_BSplineCurve) Transfer2dCopiousData(
     const Handle(IGESGeom_CopiousData)& start);
 
-  Standard_EXPORT Handle(Geom_Curve) TransferLine(const Handle(IGESGeom_Line)& start);
+  Standard_EXPORT Handle(GeomCurve3d) TransferLine(const Handle(IGESGeom_Line)& start);
 
-  Standard_EXPORT Handle(Geom2d_Curve) Transfer2dLine(const Handle(IGESGeom_Line)& start);
+  Standard_EXPORT Handle(GeomCurve2d) Transfer2dLine(const Handle(IGESGeom_Line)& start);
 
-  Standard_EXPORT Handle(Geom_BSplineCurve) TransferSplineCurve(
+  Standard_EXPORT Handle(BSplineCurve3d) TransferSplineCurve(
     const Handle(IGESGeom_SplineCurve)& start);
 
   Standard_EXPORT Handle(Geom2d_BSplineCurve) Transfer2dSplineCurve(

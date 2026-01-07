@@ -24,11 +24,11 @@
 #include <DsgPrs_ArrowSide.hxx>
 #include <Prs3d_Presentation.hxx>
 
-class TCollection_ExtendedString;
+class UtfString;
 class Point3d;
 class Dir3d;
 class gp_Pln;
-class Geom_Surface;
+class GeomSurface;
 
 //! Framework for displaying lengths.
 //! The length displayed is indicated by line segments
@@ -47,8 +47,8 @@ public:
   //! The line and text attributes are specified by the
   //! attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
                                   const Dir3d&                     aDirection,
@@ -65,8 +65,8 @@ public:
   //! The line, text and arrow attributes are specified by the
   //! attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
                                   const Dir3d&                     aDirection,
@@ -85,8 +85,8 @@ public:
   //! The line, text and arrow attributes are specified by the
   //! attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
                                   const gp_Pln&                     PlaneOfFaces,
@@ -106,9 +106,9 @@ public:
   //! The line, text and arrow attributes are specified by the
   //! attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
-                                  const TCollection_ExtendedString& aText,
-                                  const Handle(Geom_Surface)&       SecondSurf,
+                                  const Handle(StyleDrawer)&       aDrawer,
+                                  const UtfString& aText,
+                                  const Handle(GeomSurface)&       SecondSurf,
                                   const Point3d&                     AttachmentPoint1,
                                   const Point3d&                     AttachmentPoint2,
                                   const Dir3d&                     aDirection,
@@ -123,7 +123,7 @@ public:
   //! whether arrows will be displayed at either or both ends of the length.
   //! The line and arrow attributes are specified by the attribute manager aDrawer.
   Standard_EXPORT static void Add(const Handle(Prs3d_Presentation)& aPresentation,
-                                  const Handle(Prs3d_Drawer)&       aDrawer,
+                                  const Handle(StyleDrawer)&       aDrawer,
                                   const Point3d&                     Pt1,
                                   const Point3d&                     Pt2,
                                   const DsgPrs_ArrowSide            ArrowSide);

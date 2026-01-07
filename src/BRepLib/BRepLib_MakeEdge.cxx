@@ -54,14 +54,14 @@
 // function : Project
 // purpose  : project a vertex on a curve
 //=======================================================================
-static Standard_Boolean Project(const Handle(Geom_Curve)& C,
-                                const TopoDS_Vertex&      V,
+static Standard_Boolean Project(const Handle(GeomCurve3d)& C,
+                                const TopoVertex&      V,
                                 Standard_Real&            p)
 {
-  Standard_Real Eps2 = BRep_Tool::Tolerance(V);
+  Standard_Real Eps2 = BRepInspector::Tolerance(V);
   Eps2 *= Eps2;
 
-  Point3d            P = BRep_Tool::Pnt(V);
+  Point3d            P = BRepInspector::Pnt(V);
   GeomAdaptor_Curve GAC(C);
 
   // Afin de faire les extremas, on verifie les distances en bout
@@ -117,13 +117,13 @@ static Standard_Boolean Project(const Handle(Geom_Curve)& C,
 // purpose  : project a vertex on a curve on surface
 //=======================================================================
 
-static Standard_Boolean Project(const Handle(Geom2d_Curve)& C,
-                                const Handle(Geom_Surface)& S,
-                                const TopoDS_Vertex&        V,
+static Standard_Boolean Project(const Handle(GeomCurve2d)& C,
+                                const Handle(GeomSurface)& S,
+                                const TopoVertex&        V,
                                 Standard_Real&              p)
 {
-  Point3d        P    = BRep_Tool::Pnt(V);
-  Standard_Real Eps2 = BRep_Tool::Tolerance(V);
+  Point3d        P    = BRepInspector::Pnt(V);
+  Standard_Real Eps2 = BRepInspector::Tolerance(V);
   Eps2 *= Eps2;
 
   Handle(Geom2dAdaptor_Curve) HG2AHC = new Geom2dAdaptor_Curve(C);
@@ -186,10 +186,10 @@ BRepLib_MakeEdge::BRepLib_MakeEdge()
 
 //=================================================================================================
 
-BRepLib_MakeEdge::BRepLib_MakeEdge(const TopoDS_Vertex& V1, const TopoDS_Vertex& V2)
+BRepLib_MakeEdge::BRepLib_MakeEdge(const TopoVertex& V1, const TopoVertex& V2)
 {
-  Point3d        P1 = BRep_Tool::Pnt(V1);
-  Point3d        P2 = BRep_Tool::Pnt(V2);
+  Point3d        P1 = BRepInspector::Pnt(V1);
+  Point3d        P2 = BRepInspector::Pnt(V2);
   Standard_Real l  = P1.Distance(P2);
   if (l <= gp::Resolution())
   {
@@ -197,7 +197,7 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const TopoDS_Vertex& V1, const TopoDS_Vertex&
     return;
   }
   gp_Lin            L(P1, Vector3d(P1, P2));
-  Handle(Geom_Line) GL = new Geom_Line(L);
+  Handle(GeomLine) GL = new GeomLine(L);
   Init(GL, V1, V2, 0, l);
 }
 
@@ -212,7 +212,7 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const Point3d& P1, const Point3d& P2)
     return;
   }
   gp_Lin            L(P1, Vector3d(P1, P2));
-  Handle(Geom_Line) GL = new Geom_Line(L);
+  Handle(GeomLine) GL = new GeomLine(L);
   Init(GL, P1, P2, 0, l);
 }
 
@@ -220,7 +220,7 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const Point3d& P1, const Point3d& P2)
 
 BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Lin& L)
 {
-  Handle(Geom_Line) GL = new Geom_Line(L);
+  Handle(GeomLine) GL = new GeomLine(L);
   Init(GL);
 }
 
@@ -228,7 +228,7 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Lin& L)
 
 BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Lin& L, const Standard_Real p1, const Standard_Real p2)
 {
-  Handle(Geom_Line) GL = new Geom_Line(L);
+  Handle(GeomLine) GL = new GeomLine(L);
   Init(GL, p1, p2);
 }
 
@@ -236,17 +236,17 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Lin& L, const Standard_Real p1, cons
 
 BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Lin& L, const Point3d& P1, const Point3d& P2)
 {
-  Handle(Geom_Line) GL = new Geom_Line(L);
+  Handle(GeomLine) GL = new GeomLine(L);
   Init(GL, P1, P2);
 }
 
 //=================================================================================================
 
 BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Lin&        L,
-                                   const TopoDS_Vertex& V1,
-                                   const TopoDS_Vertex& V2)
+                                   const TopoVertex& V1,
+                                   const TopoVertex& V2)
 {
-  Handle(Geom_Line) GL = new Geom_Line(L);
+  Handle(GeomLine) GL = new GeomLine(L);
   Init(GL, V1, V2);
 }
 
@@ -254,7 +254,7 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Lin&        L,
 
 BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Circ& C)
 {
-  Handle(Geom_Circle) GC = new Geom_Circle(C);
+  Handle(GeomCircle) GC = new GeomCircle(C);
   Init(GC);
 }
 
@@ -262,7 +262,7 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Circ& C)
 
 BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Circ& C, const Standard_Real p1, const Standard_Real p2)
 {
-  Handle(Geom_Circle) GC = new Geom_Circle(C);
+  Handle(GeomCircle) GC = new GeomCircle(C);
   Init(GC, p1, p2);
 }
 
@@ -270,17 +270,17 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Circ& C, const Standard_Real p1, con
 
 BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Circ& C, const Point3d& P1, const Point3d& P2)
 {
-  Handle(Geom_Circle) GC = new Geom_Circle(C);
+  Handle(GeomCircle) GC = new GeomCircle(C);
   Init(GC, P1, P2);
 }
 
 //=================================================================================================
 
 BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Circ&       C,
-                                   const TopoDS_Vertex& V1,
-                                   const TopoDS_Vertex& V2)
+                                   const TopoVertex& V1,
+                                   const TopoVertex& V2)
 {
-  Handle(Geom_Circle) GC = new Geom_Circle(C);
+  Handle(GeomCircle) GC = new GeomCircle(C);
   Init(GC, V1, V2);
 }
 
@@ -313,8 +313,8 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Elips& E, const Point3d& P1, const P
 //=================================================================================================
 
 BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Elips&      E,
-                                   const TopoDS_Vertex& V1,
-                                   const TopoDS_Vertex& V2)
+                                   const TopoVertex& V1,
+                                   const TopoVertex& V2)
 {
   Handle(Geom_Ellipse) GE = new Geom_Ellipse(E);
   Init(GE, V1, V2);
@@ -347,8 +347,8 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Hypr& H, const Point3d& P1, const Po
 //=================================================================================================
 
 BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Hypr&       H,
-                                   const TopoDS_Vertex& V1,
-                                   const TopoDS_Vertex& V2)
+                                   const TopoVertex& V1,
+                                   const TopoVertex& V2)
 {
   Handle(Geom_Hyperbola) GH = new Geom_Hyperbola(H);
   Init(GH, V1, V2);
@@ -383,8 +383,8 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Parab& P, const Point3d& P1, const P
 //=================================================================================================
 
 BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Parab&      P,
-                                   const TopoDS_Vertex& V1,
-                                   const TopoDS_Vertex& V2)
+                                   const TopoVertex& V1,
+                                   const TopoVertex& V2)
 {
   Handle(Geom_Parabola) GP = new Geom_Parabola(P);
   Init(GP, V1, V2);
@@ -392,14 +392,14 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const gp_Parab&      P,
 
 //=================================================================================================
 
-BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom_Curve)& L)
+BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(GeomCurve3d)& L)
 {
   Init(L);
 }
 
 //=================================================================================================
 
-BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom_Curve)& L,
+BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(GeomCurve3d)& L,
                                    const Standard_Real       p1,
                                    const Standard_Real       p2)
 {
@@ -408,23 +408,23 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom_Curve)& L,
 
 //=================================================================================================
 
-BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom_Curve)& L, const Point3d& P1, const Point3d& P2)
+BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(GeomCurve3d)& L, const Point3d& P1, const Point3d& P2)
 {
   Init(L, P1, P2);
 }
 
 //=================================================================================================
 
-BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom_Curve)& L,
-                                   const TopoDS_Vertex&      V1,
-                                   const TopoDS_Vertex&      V2)
+BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(GeomCurve3d)& L,
+                                   const TopoVertex&      V1,
+                                   const TopoVertex&      V2)
 {
   Init(L, V1, V2);
 }
 
 //=================================================================================================
 
-BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom_Curve)& L,
+BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(GeomCurve3d)& L,
                                    const Point3d&             P1,
                                    const Point3d&             P2,
                                    const Standard_Real       p1,
@@ -435,9 +435,9 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom_Curve)& L,
 
 //=================================================================================================
 
-BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom_Curve)& L,
-                                   const TopoDS_Vertex&      V1,
-                                   const TopoDS_Vertex&      V2,
+BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(GeomCurve3d)& L,
+                                   const TopoVertex&      V1,
+                                   const TopoVertex&      V2,
                                    const Standard_Real       p1,
                                    const Standard_Real       p2)
 {
@@ -446,15 +446,15 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom_Curve)& L,
 
 //=================================================================================================
 
-BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom2d_Curve)& L, const Handle(Geom_Surface)& S)
+BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(GeomCurve2d)& L, const Handle(GeomSurface)& S)
 {
   Init(L, S);
 }
 
 //=================================================================================================
 
-BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom2d_Curve)& L,
-                                   const Handle(Geom_Surface)& S,
+BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(GeomCurve2d)& L,
+                                   const Handle(GeomSurface)& S,
                                    const Standard_Real         p1,
                                    const Standard_Real         p2)
 {
@@ -463,8 +463,8 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom2d_Curve)& L,
 
 //=================================================================================================
 
-BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom2d_Curve)& L,
-                                   const Handle(Geom_Surface)& S,
+BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(GeomCurve2d)& L,
+                                   const Handle(GeomSurface)& S,
                                    const Point3d&               P1,
                                    const Point3d&               P2)
 {
@@ -473,18 +473,18 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom2d_Curve)& L,
 
 //=================================================================================================
 
-BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom2d_Curve)& L,
-                                   const Handle(Geom_Surface)& S,
-                                   const TopoDS_Vertex&        V1,
-                                   const TopoDS_Vertex&        V2)
+BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(GeomCurve2d)& L,
+                                   const Handle(GeomSurface)& S,
+                                   const TopoVertex&        V1,
+                                   const TopoVertex&        V2)
 {
   Init(L, S, V1, V2);
 }
 
 //=================================================================================================
 
-BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom2d_Curve)& L,
-                                   const Handle(Geom_Surface)& S,
+BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(GeomCurve2d)& L,
+                                   const Handle(GeomSurface)& S,
                                    const Point3d&               P1,
                                    const Point3d&               P2,
                                    const Standard_Real         p1,
@@ -495,10 +495,10 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom2d_Curve)& L,
 
 //=================================================================================================
 
-BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom2d_Curve)& L,
-                                   const Handle(Geom_Surface)& S,
-                                   const TopoDS_Vertex&        V1,
-                                   const TopoDS_Vertex&        V2,
+BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(GeomCurve2d)& L,
+                                   const Handle(GeomSurface)& S,
+                                   const TopoVertex&        V1,
+                                   const TopoVertex&        V2,
                                    const Standard_Real         p1,
                                    const Standard_Real         p2)
 {
@@ -507,31 +507,31 @@ BRepLib_MakeEdge::BRepLib_MakeEdge(const Handle(Geom2d_Curve)& L,
 
 //=================================================================================================
 
-void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& C)
+void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& C)
 {
   Init(C, C->FirstParameter(), C->LastParameter());
 }
 
 //=================================================================================================
 
-void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& C,
+void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& C,
                             const Standard_Real       p1,
                             const Standard_Real       p2)
 {
-  //  BRep_Builder B;
+  //  ShapeBuilder B;
 
-  TopoDS_Vertex V1, V2;
+  TopoVertex V1, V2;
   Init(C, V1, V2, p1, p2);
 }
 
 //=================================================================================================
 
-void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& C, const Point3d& P1, const Point3d& P2)
+void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& C, const Point3d& P1, const Point3d& P2)
 {
   Standard_Real Tol = BRepLib::Precision();
 
-  BRep_Builder  B;
-  TopoDS_Vertex V1, V2;
+  ShapeBuilder  B;
+  TopoVertex V1, V2;
   B.MakeVertex(V1, P1, Tol);
   if (P1.Distance(P2) < Tol)
     V2 = V1;
@@ -543,9 +543,9 @@ void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& C, const Point3d& P1, cons
 
 //=================================================================================================
 
-void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& C,
-                            const TopoDS_Vertex&      V1,
-                            const TopoDS_Vertex&      V2)
+void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& C,
+                            const TopoVertex&      V1,
+                            const TopoVertex&      V2)
 {
   // try projecting the vertices on the curve
 
@@ -571,16 +571,16 @@ void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& C,
 
 //=================================================================================================
 
-void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& C,
+void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& C,
                             const Point3d&             P1,
                             const Point3d&             P2,
                             const Standard_Real       p1,
                             const Standard_Real       p2)
 {
   Standard_Real Tol = BRepLib::Precision();
-  BRep_Builder  B;
+  ShapeBuilder  B;
 
-  TopoDS_Vertex V1, V2;
+  TopoVertex V1, V2;
   B.MakeVertex(V1, P1, Tol);
   if (P1.Distance(P2) < Tol)
     V2 = V1;
@@ -595,14 +595,14 @@ void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& C,
 // purpose  : this one really makes the job ...
 //=======================================================================
 
-void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& CC,
-                            const TopoDS_Vertex&      VV1,
-                            const TopoDS_Vertex&      VV2,
+void BRepLib_MakeEdge::Init(const Handle(GeomCurve3d)& CC,
+                            const TopoVertex&      VV1,
+                            const TopoVertex&      VV2,
                             const Standard_Real       pp1,
                             const Standard_Real       pp2)
 {
   // kill trimmed curves
-  Handle(Geom_Curve)        C  = CC;
+  Handle(GeomCurve3d)        C  = CC;
   Handle(Geom_TrimmedCurve) CT = Handle(Geom_TrimmedCurve)::DownCast(C);
   while (!CT.IsNull())
   {
@@ -619,7 +619,7 @@ void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& CC,
   Standard_Boolean        periodic = C->IsPeriodic();
   GeomAdaptor_Curve       aCA(C);
 
-  TopoDS_Vertex V1, V2;
+  TopoVertex V1, V2;
   if (periodic)
   {
     // adjust in period
@@ -669,7 +669,7 @@ void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& CC,
     P2 = aCA.Value(p2);
 
   Standard_Real preci = BRepLib::Precision();
-  BRep_Builder  B;
+  ShapeBuilder  B;
 
   // check for closed curve
   Standard_Boolean closed      = Standard_False;
@@ -696,7 +696,7 @@ void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& CC,
         myError = BRepLib_DifferentPointsOnClosedCurve;
         return;
       }
-      else if (P1.Distance(BRep_Tool::Pnt(V1)) > Max(preci, BRep_Tool::Tolerance(V1)))
+      else if (P1.Distance(BRepInspector::Pnt(V1)) > Max(preci, BRepInspector::Tolerance(V1)))
       {
         myError = BRepLib_DifferentPointsOnClosedCurve;
         return;
@@ -727,7 +727,7 @@ void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& CC,
       {
         B.MakeVertex(V1, P1, preci);
       }
-      else if (P1.Distance(BRep_Tool::Pnt(V1)) > Max(preci, BRep_Tool::Tolerance(V1)))
+      else if (P1.Distance(BRepInspector::Pnt(V1)) > Max(preci, BRepInspector::Tolerance(V1)))
       {
         myError = BRepLib_DifferentsPointAndParameter;
         return;
@@ -748,7 +748,7 @@ void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& CC,
       {
         B.MakeVertex(V2, P2, preci);
       }
-      else if (P2.Distance(BRep_Tool::Pnt(V2)) > Max(preci, BRep_Tool::Tolerance(V2)))
+      else if (P2.Distance(BRepInspector::Pnt(V2)) > Max(preci, BRepInspector::Tolerance(V2)))
       {
         myError = BRepLib_DifferentsPointAndParameter;
         return;
@@ -761,7 +761,7 @@ void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& CC,
   myVertex1 = V1;
   myVertex2 = V2;
 
-  TopoDS_Edge& E = TopoDS::Edge(myShape);
+  TopoEdge& E = TopoDS::Edge(myShape);
   B.MakeEdge(E, C, preci);
   if (!V1.IsNull())
   {
@@ -781,35 +781,35 @@ void BRepLib_MakeEdge::Init(const Handle(Geom_Curve)& CC,
 
 //=================================================================================================
 
-void BRepLib_MakeEdge::Init(const Handle(Geom2d_Curve)& C, const Handle(Geom_Surface)& S)
+void BRepLib_MakeEdge::Init(const Handle(GeomCurve2d)& C, const Handle(GeomSurface)& S)
 {
   Init(C, S, C->FirstParameter(), C->LastParameter());
 }
 
 //=================================================================================================
 
-void BRepLib_MakeEdge::Init(const Handle(Geom2d_Curve)& C,
-                            const Handle(Geom_Surface)& S,
+void BRepLib_MakeEdge::Init(const Handle(GeomCurve2d)& C,
+                            const Handle(GeomSurface)& S,
                             const Standard_Real         p1,
                             const Standard_Real         p2)
 {
-  //  BRep_Builder B;
+  //  ShapeBuilder B;
 
-  TopoDS_Vertex V1, V2;
+  TopoVertex V1, V2;
   Init(C, S, V1, V2, p1, p2);
 }
 
 //=================================================================================================
 
-void BRepLib_MakeEdge::Init(const Handle(Geom2d_Curve)& C,
-                            const Handle(Geom_Surface)& S,
+void BRepLib_MakeEdge::Init(const Handle(GeomCurve2d)& C,
+                            const Handle(GeomSurface)& S,
                             const Point3d&               P1,
                             const Point3d&               P2)
 {
   Standard_Real Tol = BRepLib::Precision();
 
-  BRep_Builder  B;
-  TopoDS_Vertex V1, V2;
+  ShapeBuilder  B;
+  TopoVertex V1, V2;
   B.MakeVertex(V1, P1, Tol);
   if (P1.Distance(P2) < Tol)
     V2 = V1;
@@ -821,10 +821,10 @@ void BRepLib_MakeEdge::Init(const Handle(Geom2d_Curve)& C,
 
 //=================================================================================================
 
-void BRepLib_MakeEdge::Init(const Handle(Geom2d_Curve)& C,
-                            const Handle(Geom_Surface)& S,
-                            const TopoDS_Vertex&        V1,
-                            const TopoDS_Vertex&        V2)
+void BRepLib_MakeEdge::Init(const Handle(GeomCurve2d)& C,
+                            const Handle(GeomSurface)& S,
+                            const TopoVertex&        V1,
+                            const TopoVertex&        V2)
 {
   // try projecting the vertices on the curve
 
@@ -850,17 +850,17 @@ void BRepLib_MakeEdge::Init(const Handle(Geom2d_Curve)& C,
 
 //=================================================================================================
 
-void BRepLib_MakeEdge::Init(const Handle(Geom2d_Curve)& C,
-                            const Handle(Geom_Surface)& S,
+void BRepLib_MakeEdge::Init(const Handle(GeomCurve2d)& C,
+                            const Handle(GeomSurface)& S,
                             const Point3d&               P1,
                             const Point3d&               P2,
                             const Standard_Real         p1,
                             const Standard_Real         p2)
 {
   Standard_Real Tol = BRepLib::Precision();
-  BRep_Builder  B;
+  ShapeBuilder  B;
 
-  TopoDS_Vertex V1, V2;
+  TopoVertex V1, V2;
   B.MakeVertex(V1, P1, Tol);
   if (P1.Distance(P2) < Tol)
     V2 = V1;
@@ -875,15 +875,15 @@ void BRepLib_MakeEdge::Init(const Handle(Geom2d_Curve)& C,
 // purpose  : this one really makes the job ...
 //=======================================================================
 
-void BRepLib_MakeEdge::Init(const Handle(Geom2d_Curve)& CC,
-                            const Handle(Geom_Surface)& S,
-                            const TopoDS_Vertex&        VV1,
-                            const TopoDS_Vertex&        VV2,
+void BRepLib_MakeEdge::Init(const Handle(GeomCurve2d)& CC,
+                            const Handle(GeomSurface)& S,
+                            const TopoVertex&        VV1,
+                            const TopoVertex&        VV2,
                             const Standard_Real         pp1,
                             const Standard_Real         pp2)
 {
   // kill trimmed curves
-  Handle(Geom2d_Curve)        C  = CC;
+  Handle(GeomCurve2d)        C  = CC;
   Handle(Geom2d_TrimmedCurve) CT = Handle(Geom2d_TrimmedCurve)::DownCast(C);
   while (!CT.IsNull())
   {
@@ -899,7 +899,7 @@ void BRepLib_MakeEdge::Init(const Handle(Geom2d_Curve)& CC,
   constexpr Standard_Real epsilon  = Precision::PConfusion();
   Standard_Boolean        periodic = C->IsPeriodic();
 
-  TopoDS_Vertex    V1, V2;
+  TopoVertex    V1, V2;
   Standard_Boolean reverse = Standard_False;
 
   if (periodic)
@@ -952,7 +952,7 @@ void BRepLib_MakeEdge::Init(const Handle(Geom2d_Curve)& CC,
   }
 
   Standard_Real preci = BRepLib::Precision();
-  BRep_Builder  B;
+  ShapeBuilder  B;
 
   // check for closed curve
   Standard_Boolean closed = Standard_False;
@@ -978,7 +978,7 @@ void BRepLib_MakeEdge::Init(const Handle(Geom2d_Curve)& CC,
         myError = BRepLib_DifferentPointsOnClosedCurve;
         return;
       }
-      else if (P1.Distance(BRep_Tool::Pnt(V1)) > Max(preci, BRep_Tool::Tolerance(V1)))
+      else if (P1.Distance(BRepInspector::Pnt(V1)) > Max(preci, BRepInspector::Tolerance(V1)))
       {
         myError = BRepLib_DifferentPointsOnClosedCurve;
         return;
@@ -1003,7 +1003,7 @@ void BRepLib_MakeEdge::Init(const Handle(Geom2d_Curve)& CC,
       {
         B.MakeVertex(V1, P1, preci);
       }
-      else if (P1.Distance(BRep_Tool::Pnt(V1)) > Max(preci, BRep_Tool::Tolerance(V1)))
+      else if (P1.Distance(BRepInspector::Pnt(V1)) > Max(preci, BRepInspector::Tolerance(V1)))
       {
         myError = BRepLib_DifferentsPointAndParameter;
         return;
@@ -1024,7 +1024,7 @@ void BRepLib_MakeEdge::Init(const Handle(Geom2d_Curve)& CC,
       {
         B.MakeVertex(V2, P2, preci);
       }
-      else if (P2.Distance(BRep_Tool::Pnt(V2)) > Max(preci, BRep_Tool::Tolerance(V2)))
+      else if (P2.Distance(BRepInspector::Pnt(V2)) > Max(preci, BRepInspector::Tolerance(V2)))
       {
         myError = BRepLib_DifferentsPointAndParameter;
         return;
@@ -1037,7 +1037,7 @@ void BRepLib_MakeEdge::Init(const Handle(Geom2d_Curve)& CC,
   myVertex1 = V1;
   myVertex2 = V2;
 
-  TopoDS_Edge& E = TopoDS::Edge(myShape);
+  TopoEdge& E = TopoDS::Edge(myShape);
   B.MakeEdge(E);
   B.UpdateEdge(E, C, S, TopLoc_Location(), preci);
 
@@ -1067,14 +1067,14 @@ BRepLib_EdgeError BRepLib_MakeEdge::Error() const
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepLib_MakeEdge::Edge()
+const TopoEdge& BRepLib_MakeEdge::Edge()
 {
   return TopoDS::Edge(Shape());
 }
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepLib_MakeEdge::Vertex1() const
+const TopoVertex& BRepLib_MakeEdge::Vertex1() const
 {
   Check();
   return myVertex1;
@@ -1082,7 +1082,7 @@ const TopoDS_Vertex& BRepLib_MakeEdge::Vertex1() const
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepLib_MakeEdge::Vertex2() const
+const TopoVertex& BRepLib_MakeEdge::Vertex2() const
 {
   Check();
   return myVertex2;
@@ -1090,7 +1090,7 @@ const TopoDS_Vertex& BRepLib_MakeEdge::Vertex2() const
 
 //=================================================================================================
 
-BRepLib_MakeEdge::operator TopoDS_Edge()
+BRepLib_MakeEdge::operator TopoEdge()
 {
   return Edge();
 }

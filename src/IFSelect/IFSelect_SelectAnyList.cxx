@@ -116,7 +116,7 @@ Interface_EntityIterator IFSelect_SelectAnyList::RootResult(const Interface_Grap
   return iter;
 }
 
-TCollection_AsciiString IFSelect_SelectAnyList::Label() const
+AsciiString1 IFSelect_SelectAnyList::Label() const
 {
   char             lab[30];
   Standard_Integer rankfrom = 0;
@@ -134,7 +134,7 @@ TCollection_AsciiString IFSelect_SelectAnyList::Label() const
   else
     sprintf(lab, " (%d -> %d)", rankfrom, rankto);
 
-  TCollection_AsciiString labl("In List ");
+  AsciiString1 labl("In List ");
   labl.AssignCat(ListLabel());
   labl.AssignCat(lab);
   return labl;

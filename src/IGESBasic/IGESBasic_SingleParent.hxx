@@ -28,7 +28,7 @@ class IGESBasic_SingleParent;
 DEFINE_STANDARD_HANDLE(IGESBasic_SingleParent, IGESData_SingleParentEntity)
 
 //! defines SingleParent, Type <402> Form <9>
-//! in package IGESBasic
+//! in package IGESBasic1
 //! It defines a logical structure of one independent
 //! (parent) entity and one or more subordinate (children)
 //! entities

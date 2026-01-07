@@ -43,7 +43,7 @@ public:
 
   Standard_EXPORT Handle(Vrml_Material) Material() const;
 
-  //! defines the necessary of writing  own  Material from Vrml into  output  OStream.
+  //! defines the necessary of writing  own  Material from Vrml1 into  output  OStream.
   //! By default False  -  the material is not writing into OStream,
   //! True  -  the material is writing.
   Standard_EXPORT void SetHasMaterial(const Standard_Boolean OnOff);

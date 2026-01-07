@@ -32,9 +32,9 @@
 #include <TNaming_ListOfNamedShape.hxx>
 #include <TNaming_MapOfNamedShape.hxx>
 class TNaming_UsedShapes;
-class TopoDS_Shape;
-class TDF_Label;
-class TNaming_NamedShape;
+class TopoShape;
+class DataLabel;
+class ShapeAttribute;
 
 class TNaming_Localizer
 {
@@ -45,51 +45,51 @@ public:
 
   Standard_EXPORT void Init(const Handle(TNaming_UsedShapes)& US, const Standard_Integer CurTrans);
 
-  Standard_EXPORT const TopTools_MapOfShape& SubShapes(const TopoDS_Shape&    S,
+  Standard_EXPORT const TopTools_MapOfShape& SubShapes(const TopoShape&    S,
                                                        const TopAbs_ShapeEnum Type);
 
   Standard_EXPORT const TopTools_IndexedDataMapOfShapeListOfShape& Ancestors(
-    const TopoDS_Shape&    S,
+    const TopoShape&    S,
     const TopAbs_ShapeEnum Type);
 
-  Standard_EXPORT void FindFeaturesInAncestors(const TopoDS_Shape&  S,
-                                               const TopoDS_Shape&  In,
+  Standard_EXPORT void FindFeaturesInAncestors(const TopoShape&  S,
+                                               const TopoShape&  In,
                                                TopTools_MapOfShape& AncInFeatures);
 
-  Standard_EXPORT void GoBack(const TopoDS_Shape&       S,
-                              const TDF_Label&          Lab,
+  Standard_EXPORT void GoBack(const TopoShape&       S,
+                              const DataLabel&          Lab,
                               const TNaming_Evolution   Evol,
-                              TopTools_ListOfShape&     OldS,
+                              ShapeList&     OldS,
                               TNaming_ListOfNamedShape& OldLab);
 
-  Standard_EXPORT void Backward(const Handle(TNaming_NamedShape)& NS,
-                                const TopoDS_Shape&               S,
+  Standard_EXPORT void Backward(const Handle(ShapeAttribute)& NS,
+                                const TopoShape&               S,
                                 TNaming_MapOfNamedShape&          Primitives,
                                 TopTools_MapOfShape&              ValidShapes);
 
-  Standard_EXPORT void FindNeighbourg(const TopoDS_Shape&  Cont,
-                                      const TopoDS_Shape&  S,
+  Standard_EXPORT void FindNeighbourg(const TopoShape&  Cont,
+                                      const TopoShape&  S,
                                       TopTools_MapOfShape& Neighbourg);
 
-  Standard_EXPORT static Standard_Boolean IsNew(const TopoDS_Shape&               S,
-                                                const Handle(TNaming_NamedShape)& NS);
+  Standard_EXPORT static Standard_Boolean IsNew(const TopoShape&               S,
+                                                const Handle(ShapeAttribute)& NS);
 
-  Standard_EXPORT static void FindGenerator(const Handle(TNaming_NamedShape)& NS,
-                                            const TopoDS_Shape&               S,
-                                            TopTools_ListOfShape&             theListOfGenerators);
+  Standard_EXPORT static void FindGenerator(const Handle(ShapeAttribute)& NS,
+                                            const TopoShape&               S,
+                                            ShapeList&             theListOfGenerators);
 
   //! Finds context of the shape <S>.
-  Standard_EXPORT static void FindShapeContext(const Handle(TNaming_NamedShape)& NS,
-                                               const TopoDS_Shape&               theS,
-                                               TopoDS_Shape&                     theSC);
+  Standard_EXPORT static void FindShapeContext(const Handle(ShapeAttribute)& NS,
+                                               const TopoShape&               theS,
+                                               TopoShape&                     theSC);
 
 protected:
 private:
   Standard_Integer                               myCurTrans;
   Handle(TNaming_UsedShapes)                     myUS;
-  TopTools_ListOfShape                           myShapeWithSubShapes;
+  ShapeList                           myShapeWithSubShapes;
   TNaming_ListOfMapOfShape                       mySubShapes;
-  TopTools_ListOfShape                           myShapeWithAncestors;
+  ShapeList                           myShapeWithAncestors;
   TNaming_ListOfIndexedDataMapOfShapeListOfShape myAncestors;
 };
 

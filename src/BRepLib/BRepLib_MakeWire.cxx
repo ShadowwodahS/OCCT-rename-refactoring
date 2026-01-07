@@ -37,14 +37,14 @@ BRepLib_MakeWire::BRepLib_MakeWire()
 
 //=================================================================================================
 
-BRepLib_MakeWire::BRepLib_MakeWire(const TopoDS_Edge& E)
+BRepLib_MakeWire::BRepLib_MakeWire(const TopoEdge& E)
 {
   Add(E);
 }
 
 //=================================================================================================
 
-BRepLib_MakeWire::BRepLib_MakeWire(const TopoDS_Edge& E1, const TopoDS_Edge& E2)
+BRepLib_MakeWire::BRepLib_MakeWire(const TopoEdge& E1, const TopoEdge& E2)
 {
   Add(E1);
   Add(E2);
@@ -52,9 +52,9 @@ BRepLib_MakeWire::BRepLib_MakeWire(const TopoDS_Edge& E1, const TopoDS_Edge& E2)
 
 //=================================================================================================
 
-BRepLib_MakeWire::BRepLib_MakeWire(const TopoDS_Edge& E1,
-                                   const TopoDS_Edge& E2,
-                                   const TopoDS_Edge& E3)
+BRepLib_MakeWire::BRepLib_MakeWire(const TopoEdge& E1,
+                                   const TopoEdge& E2,
+                                   const TopoEdge& E3)
 {
   Add(E1);
   Add(E2);
@@ -63,10 +63,10 @@ BRepLib_MakeWire::BRepLib_MakeWire(const TopoDS_Edge& E1,
 
 //=================================================================================================
 
-BRepLib_MakeWire::BRepLib_MakeWire(const TopoDS_Edge& E1,
-                                   const TopoDS_Edge& E2,
-                                   const TopoDS_Edge& E3,
-                                   const TopoDS_Edge& E4)
+BRepLib_MakeWire::BRepLib_MakeWire(const TopoEdge& E1,
+                                   const TopoEdge& E2,
+                                   const TopoEdge& E3,
+                                   const TopoEdge& E4)
 {
   Add(E1);
   Add(E2);
@@ -76,14 +76,14 @@ BRepLib_MakeWire::BRepLib_MakeWire(const TopoDS_Edge& E1,
 
 //=================================================================================================
 
-BRepLib_MakeWire::BRepLib_MakeWire(const TopoDS_Wire& W)
+BRepLib_MakeWire::BRepLib_MakeWire(const TopoWire& W)
 {
   Add(W);
 }
 
 //=================================================================================================
 
-BRepLib_MakeWire::BRepLib_MakeWire(const TopoDS_Wire& W, const TopoDS_Edge& E)
+BRepLib_MakeWire::BRepLib_MakeWire(const TopoWire& W, const TopoEdge& E)
 {
   Add(W);
   Add(E);
@@ -91,7 +91,7 @@ BRepLib_MakeWire::BRepLib_MakeWire(const TopoDS_Wire& W, const TopoDS_Edge& E)
 
 //=================================================================================================
 
-void BRepLib_MakeWire::Add(const TopoDS_Wire& W)
+void BRepLib_MakeWire::Add(const TopoWire& W)
 {
   for (TopoDS_Iterator it(W); it.More(); it.Next())
   {
@@ -103,7 +103,7 @@ void BRepLib_MakeWire::Add(const TopoDS_Wire& W)
 
 //=================================================================================================
 
-void BRepLib_MakeWire::Add(const TopoDS_Edge& E)
+void BRepLib_MakeWire::Add(const TopoEdge& E)
 {
   Add(E, Standard_True);
 }
@@ -111,12 +111,12 @@ void BRepLib_MakeWire::Add(const TopoDS_Edge& E)
 //=======================================================================
 // function : Add
 // purpose  :
-// PMN  19/03/1998  For the Problem of performance TopExp::Vertices are not used on wire
+// PMN  19/03/1998  For the Problem of performance TopExp1::Vertices are not used on wire
 // PMN  10/09/1998  In case if the wire is previously closed (or degenerated)
-//                  TopExp::Vertices is used to reduce the ambiguity.
+//                  TopExp1::Vertices is used to reduce the ambiguity.
 // IsCheckGeometryProximity flag : If true => check for the geometry proximity of vertices
 //=======================================================================
-void BRepLib_MakeWire::Add(const TopoDS_Edge& E, Standard_Boolean IsCheckGeometryProximity)
+void BRepLib_MakeWire::Add(const TopoEdge& E, Standard_Boolean IsCheckGeometryProximity)
 {
 
   Standard_Boolean forward = Standard_False;
@@ -125,7 +125,7 @@ void BRepLib_MakeWire::Add(const TopoDS_Edge& E, Standard_Boolean IsCheckGeometr
   // to tell if it has been decided to add reversed
   Standard_Boolean init = Standard_False;
   // To know if it is necessary to calculate VL, VF
-  BRep_Builder    B;
+  ShapeBuilder    B;
   TopoDS_Iterator it;
 
   if (myEdge.IsNull())
@@ -145,9 +145,9 @@ void BRepLib_MakeWire::Add(const TopoDS_Edge& E, Standard_Boolean IsCheckGeometr
   else
   {
     init                     = myShape.Closed(); // If it is closed no control
-    TopoDS_Shape aLocalShape = E.Oriented(TopAbs_FORWARD);
-    TopoDS_Edge  EE          = TopoDS::Edge(aLocalShape);
-    //    TopoDS_Edge EE = TopoDS::Edge(E.Oriented(TopAbs_FORWARD));
+    TopoShape aLocalShape = E.Oriented(TopAbs_FORWARD);
+    TopoEdge  EE          = TopoDS::Edge(aLocalShape);
+    //    TopoEdge EE = TopoDS::Edge(E.Oriented(TopAbs_FORWARD));
 
     // test the vertices of the edge
 
@@ -163,7 +163,7 @@ void BRepLib_MakeWire::Add(const TopoDS_Edge& E, Standard_Boolean IsCheckGeometr
     for (it.Initialize(EE); it.More(); it.Next())
     {
 
-      const TopoDS_Vertex& VE = TopoDS::Vertex(it.Value());
+      const TopoVertex& VE = TopoDS::Vertex(it.Value());
 
       // if the vertex is in the wire, ok for the connection
       if (myVertices.Contains(VE))
@@ -203,15 +203,15 @@ void BRepLib_MakeWire::Add(const TopoDS_Edge& E, Standard_Boolean IsCheckGeometr
       else if (IsCheckGeometryProximity)
       {
         // search if there is a similar vertex in the edge
-        Point3d PE = BRep_Tool::Pnt(VE);
+        Point3d PE = BRepInspector::Pnt(VE);
 
         for (Standard_Integer i = 1; i <= myVertices.Extent(); i++)
         {
-          const TopoDS_Vertex& VW = TopoDS::Vertex(myVertices.FindKey(i));
-          Point3d               PW = BRep_Tool::Pnt(VW);
+          const TopoVertex& VW = TopoDS::Vertex(myVertices.FindKey(i));
+          Point3d               PW = BRepInspector::Pnt(VW);
           Standard_Real        l  = PE.Distance(PW);
 
-          if ((l < BRep_Tool::Tolerance(VE)) || (l < BRep_Tool::Tolerance(VW)))
+          if ((l < BRepInspector::Tolerance(VE)) || (l < BRepInspector::Tolerance(VW)))
           {
             copyedge = Standard_True;
             if (myError != BRepLib_NonManifoldWire)
@@ -270,23 +270,23 @@ void BRepLib_MakeWire::Add(const TopoDS_Edge& E, Standard_Boolean IsCheckGeometr
       else
       {
         // copy the edge
-        TopoDS_Shape Dummy = EE.EmptyCopied();
+        TopoShape Dummy = EE.EmptyCopied();
         myEdge             = TopoDS::Edge(Dummy);
 
         for (it.Initialize(EE); it.More(); it.Next())
         {
 
-          const TopoDS_Vertex& VE = TopoDS::Vertex(it.Value());
-          Point3d               PE = BRep_Tool::Pnt(VE);
+          const TopoVertex& VE = TopoDS::Vertex(it.Value());
+          Point3d               PE = BRepInspector::Pnt(VE);
 
           Standard_Boolean newvertex = Standard_False;
           for (Standard_Integer i = 1; i <= myVertices.Extent(); i++)
           {
-            const TopoDS_Vertex& VW = TopoDS::Vertex(myVertices.FindKey(i));
-            Point3d               PW = BRep_Tool::Pnt(VW);
+            const TopoVertex& VW = TopoDS::Vertex(myVertices.FindKey(i));
+            Point3d               PW = BRepInspector::Pnt(VW);
             Standard_Real        l  = PE.Distance(PW), tolE, tolW;
-            tolW                    = BRep_Tool::Tolerance(VW);
-            tolE                    = BRep_Tool::Tolerance(VE);
+            tolW                    = BRepInspector::Tolerance(VW);
+            tolE                    = BRepInspector::Tolerance(VE);
 
             if ((l < tolE) || (l < tolW))
             {
@@ -349,13 +349,13 @@ void BRepLib_MakeWire::Add(const TopoDS_Edge& E, Standard_Boolean IsCheckGeometr
 
   // Initialize VF, VL
   if (init)
-    TopExp::Vertices(TopoDS::Wire(myShape), VF, VL);
+    TopExp1::Vertices(TopoDS::Wire(myShape), VF, VL);
   else
   {
     if (myError == BRepLib_WireDone)
     { // Update only
-      TopoDS_Vertex V1, V2, VRef;
-      TopExp::Vertices(myEdge, V1, V2);
+      TopoVertex V1, V2, VRef;
+      TopExp1::Vertices(myEdge, V1, V2);
       if (V1.IsSame(myVertex))
         VRef = V2;
       else if (V2.IsSame(myVertex))
@@ -393,7 +393,7 @@ void BRepLib_MakeWire::Add(const TopoDS_Edge& E, Standard_Boolean IsCheckGeometr
     }
     if (myError == BRepLib_NonManifoldWire)
     {
-      VF = VL = TopoDS_Vertex(); // nullify
+      VF = VL = TopoVertex(); // nullify
     }
   }
   // Test myShape is closed
@@ -406,28 +406,28 @@ void BRepLib_MakeWire::Add(const TopoDS_Edge& E, Standard_Boolean IsCheckGeometr
 
 //=================================================================================================
 
-const TopoDS_Wire& BRepLib_MakeWire::Wire()
+const TopoWire& BRepLib_MakeWire::Wire()
 {
   return TopoDS::Wire(Shape());
 }
 
 //=================================================================================================
 
-const TopoDS_Edge& BRepLib_MakeWire::Edge() const
+const TopoEdge& BRepLib_MakeWire::Edge() const
 {
   return myEdge;
 }
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepLib_MakeWire::Vertex() const
+const TopoVertex& BRepLib_MakeWire::Vertex() const
 {
   return myVertex;
 }
 
 //=================================================================================================
 
-BRepLib_MakeWire::operator TopoDS_Wire()
+BRepLib_MakeWire::operator TopoWire()
 {
   return Wire();
 }

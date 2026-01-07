@@ -66,7 +66,7 @@ Standard_Boolean BinMDataStd_BooleanArrayDriver::Paste(
     bytes->SetValue(i, aTargetArray.Value(i));
   }
   anAtt->SetInternalArray(bytes);
-  BinMDataStd::SetAttributeID(theSource,
+  BinMDataStd1::SetAttributeID(theSource,
                               anAtt,
                               theRelocTable.GetHeaderData()->StorageVersion().IntegerValue());
   return Standard_True;

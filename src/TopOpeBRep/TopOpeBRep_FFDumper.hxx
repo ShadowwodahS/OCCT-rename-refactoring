@@ -28,7 +28,7 @@
 #include <TopOpeBRepDS_Kind.hxx>
 class TopOpeBRep_LineInter;
 class TopOpeBRep_VPointInter;
-class TopoDS_Shape;
+class TopoShape;
 
 class TopOpeBRep_FFDumper;
 DEFINE_STANDARD_HANDLE(TopOpeBRep_FFDumper, RefObject)
@@ -49,7 +49,7 @@ public:
 
   Standard_EXPORT void DumpVP(const TopOpeBRep_VPointInter& VP, const Standard_Integer ISI);
 
-  Standard_EXPORT Standard_Integer ExploreIndex(const TopoDS_Shape&    S,
+  Standard_EXPORT Standard_Integer ExploreIndex(const TopoShape&    S,
                                                 const Standard_Integer ISI) const;
 
   Standard_EXPORT void DumpDSP(const TopOpeBRep_VPointInter& VP,
@@ -64,8 +64,8 @@ public:
 protected:
 private:
   TopOpeBRep_PFacesFiller        myPFF;
-  TopoDS_Face                    myF1;
-  TopoDS_Face                    myF2;
+  TopoFace                    myF1;
+  TopoFace                    myF2;
   TopTools_DataMapOfShapeInteger myEM1;
   TopTools_DataMapOfShapeInteger myEM2;
   Standard_Integer               myEn1;

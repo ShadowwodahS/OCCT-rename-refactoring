@@ -25,21 +25,21 @@
 
 BRepLib_MakeVertex::BRepLib_MakeVertex(const Point3d& P)
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeVertex(TopoDS::Vertex(myShape), P, BRepLib::Precision());
   Done();
 }
 
 //=================================================================================================
 
-const TopoDS_Vertex& BRepLib_MakeVertex::Vertex()
+const TopoVertex& BRepLib_MakeVertex::Vertex()
 {
   return TopoDS::Vertex(Shape());
 }
 
 //=================================================================================================
 
-BRepLib_MakeVertex::operator TopoDS_Vertex()
+BRepLib_MakeVertex::operator TopoVertex()
 {
   return Vertex();
 }

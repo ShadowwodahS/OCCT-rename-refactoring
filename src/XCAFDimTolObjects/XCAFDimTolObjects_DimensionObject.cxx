@@ -391,14 +391,14 @@ void XCAFDimTolObjects_DimensionObject::AddModifier(
 
 //=================================================================================================
 
-TopoDS_Edge XCAFDimTolObjects_DimensionObject::GetPath() const
+TopoEdge XCAFDimTolObjects_DimensionObject::GetPath() const
 {
   return myPath;
 }
 
 //=================================================================================================
 
-void XCAFDimTolObjects_DimensionObject::SetPath(const TopoDS_Edge& thePath)
+void XCAFDimTolObjects_DimensionObject::SetPath(const TopoEdge& thePath)
 {
   if (!thePath.IsNull())
   {

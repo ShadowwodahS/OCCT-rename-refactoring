@@ -39,11 +39,11 @@
 // MGE 03/08/98
 //=================================================================================================
 
-IGESSolid_ToolEdgeList::IGESSolid_ToolEdgeList() {}
+EdgeListTool::EdgeListTool() {}
 
 //=================================================================================================
 
-void IGESSolid_ToolEdgeList::ReadOwnParams(const Handle(IGESSolid_EdgeList)&      ent,
+void EdgeListTool::ReadOwnParams(const Handle(IGESSolid_EdgeList)&      ent,
                                            const Handle(IGESData_IGESReaderData)& IR,
                                            IGESData_ParamReader&                  PR) const
 {
@@ -214,7 +214,7 @@ void IGESSolid_ToolEdgeList::ReadOwnParams(const Handle(IGESSolid_EdgeList)&    
 
 //=================================================================================================
 
-void IGESSolid_ToolEdgeList::WriteOwnParams(const Handle(IGESSolid_EdgeList)& ent,
+void EdgeListTool::WriteOwnParams(const Handle(IGESSolid_EdgeList)& ent,
                                             IGESData_IGESWriter&              IW) const
 {
   Standard_Integer length = ent->NbEdges();
@@ -232,7 +232,7 @@ void IGESSolid_ToolEdgeList::WriteOwnParams(const Handle(IGESSolid_EdgeList)& en
 
 //=================================================================================================
 
-void IGESSolid_ToolEdgeList::OwnShared(const Handle(IGESSolid_EdgeList)& ent,
+void EdgeListTool::OwnShared(const Handle(IGESSolid_EdgeList)& ent,
                                        Interface_EntityIterator&         iter) const
 {
   Standard_Integer length = ent->NbEdges();
@@ -246,7 +246,7 @@ void IGESSolid_ToolEdgeList::OwnShared(const Handle(IGESSolid_EdgeList)& ent,
 
 //=================================================================================================
 
-void IGESSolid_ToolEdgeList::OwnCopy(const Handle(IGESSolid_EdgeList)& another,
+void EdgeListTool::OwnCopy(const Handle(IGESSolid_EdgeList)& another,
                                      const Handle(IGESSolid_EdgeList)& ent,
                                      Interface_CopyTool&               TC) const
 {
@@ -291,10 +291,10 @@ void IGESSolid_ToolEdgeList::OwnCopy(const Handle(IGESSolid_EdgeList)& another,
 
 //=================================================================================================
 
-IGESData_DirChecker IGESSolid_ToolEdgeList::DirChecker(
+DirectoryChecker EdgeListTool::DirChecker(
   const Handle(IGESSolid_EdgeList)& /* ent */) const
 {
-  IGESData_DirChecker DC(504, 1);
+  DirectoryChecker DC(504, 1);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
@@ -308,7 +308,7 @@ IGESData_DirChecker IGESSolid_ToolEdgeList::DirChecker(
 
 //=================================================================================================
 
-void IGESSolid_ToolEdgeList::OwnCheck(const Handle(IGESSolid_EdgeList)& ent,
+void EdgeListTool::OwnCheck(const Handle(IGESSolid_EdgeList)& ent,
                                       const Interface_ShareTool&,
                                       Handle(Interface_Check)& ach) const
 {
@@ -327,7 +327,7 @@ void IGESSolid_ToolEdgeList::OwnCheck(const Handle(IGESSolid_EdgeList)& ent,
 
 //=================================================================================================
 
-void IGESSolid_ToolEdgeList::OwnDump(const Handle(IGESSolid_EdgeList)& ent,
+void EdgeListTool::OwnDump(const Handle(IGESSolid_EdgeList)& ent,
                                      const IGESData_IGESDumper&        dumper,
                                      Standard_OStream&                 S,
                                      const Standard_Integer            level) const

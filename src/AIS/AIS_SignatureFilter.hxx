@@ -65,7 +65,7 @@ public:
   Standard_EXPORT AIS_SignatureFilter(const AIS_KindOfInteractive aGivenKind,
                                       const Standard_Integer      aGivenSignature);
 
-  //! Returns False if the transient is not an AIS_InteractiveObject.
+  //! Returns False if the transient is not an VisualEntity.
   //! Returns False if the signature of InteractiveObject
   //! is not the same as the stored one in the filter...
   Standard_EXPORT Standard_Boolean

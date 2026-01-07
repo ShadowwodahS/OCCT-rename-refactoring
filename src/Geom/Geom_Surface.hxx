@@ -24,15 +24,15 @@ class gp_GTrsf2d;
 class Point3d;
 class Vector3d;
 
-class Geom_Surface;
-DEFINE_STANDARD_HANDLE(Geom_Surface, Geom_Geometry)
+class GeomSurface;
+DEFINE_STANDARD_HANDLE(GeomSurface, Geom_Geometry)
 
 //! Describes the common behavior of surfaces in 3D space.
 //! The Geom package provides many implementations of concrete derived surfaces,
 //! such as planes, cylinders, cones, spheres and tori, surfaces of linear extrusion,
 //! surfaces of revolution, Bezier and BSpline surfaces, and so on.
 //! The key characteristic of these surfaces is that they are parameterized.
-//! Geom_Surface demonstrates:
+//! GeomSurface demonstrates:
 //! - how to work with the parametric equation of a surface
 //!   to compute the point of parameters (u, v), and, at this point, the 1st, 2nd ... Nth
 //!   derivative;
@@ -49,7 +49,7 @@ DEFINE_STANDARD_HANDLE(Geom_Surface, Geom_Geometry)
 //! Warning
 //! The Geom package does not prevent the construction of
 //! surfaces with null areas, or surfaces which self-intersect.
-class Geom_Surface : public Geom_Geometry
+class GeomSurface : public Geom_Geometry
 {
 
 public:
@@ -60,7 +60,7 @@ public:
   //! Reverses the U direction of parametrization of <me>.
   //! The bounds of the surface are not modified.
   //! A copy of <me> is returned.
-  Standard_NODISCARD Standard_EXPORT Handle(Geom_Surface) UReversed() const;
+  Standard_NODISCARD Standard_EXPORT Handle(GeomSurface) UReversed() const;
 
   //! Returns the  parameter on the  Ureversed surface for
   //! the point of parameter U on <me>.
@@ -80,7 +80,7 @@ public:
   //! Reverses the V direction of parametrization of <me>.
   //! The bounds of the surface are not modified.
   //! A copy of <me> is returned.
-  Standard_NODISCARD Standard_EXPORT Handle(Geom_Surface) VReversed() const;
+  Standard_NODISCARD Standard_EXPORT Handle(GeomSurface) VReversed() const;
 
   //! Returns the  parameter on the  Vreversed surface for
   //! the point of parameter V on <me>.
@@ -186,10 +186,10 @@ public:
   Standard_EXPORT virtual Standard_Real VPeriod() const;
 
   //! Computes the U isoparametric curve.
-  Standard_EXPORT virtual Handle(Geom_Curve) UIso(const Standard_Real U) const = 0;
+  Standard_EXPORT virtual Handle(GeomCurve3d) UIso(const Standard_Real U) const = 0;
 
   //! Computes the V isoparametric curve.
-  Standard_EXPORT virtual Handle(Geom_Curve) VIso(const Standard_Real V) const = 0;
+  Standard_EXPORT virtual Handle(GeomCurve3d) VIso(const Standard_Real V) const = 0;
 
   //! Returns the Global Continuity of the surface in direction U and V :
   //! - C0: only geometric continuity,
@@ -281,7 +281,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_Surface, Geom_Geometry)
+  DEFINE_STANDARD_RTTIEXT(GeomSurface, Geom_Geometry)
 };
 
 #endif // _Geom_Surface_HeaderFile

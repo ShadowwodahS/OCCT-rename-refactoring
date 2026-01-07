@@ -40,9 +40,9 @@ IMPLEMENT_STANDARD_RTTIEXT(PrsDim_ConcentricRelation, PrsDim_Relation)
 
 //=================================================================================================
 
-PrsDim_ConcentricRelation::PrsDim_ConcentricRelation(const TopoDS_Shape&       aFShape,
-                                                     const TopoDS_Shape&       aSShape,
-                                                     const Handle(Geom_Plane)& aPlane)
+PrsDim_ConcentricRelation::PrsDim_ConcentricRelation(const TopoShape&       aFShape,
+                                                     const TopoShape&       aSShape,
+                                                     const Handle(GeomPlane)& aPlane)
 {
   myFShape = aFShape;
   mySShape = aSShape;
@@ -86,8 +86,8 @@ void PrsDim_ConcentricRelation::Compute(const Handle(PrsMgr_PresentationManager)
 void PrsDim_ConcentricRelation::ComputeEdgeVertexConcentric(
   const Handle(Prs3d_Presentation)& aPresentation)
 {
-  TopoDS_Edge   E;
-  TopoDS_Vertex V;
+  TopoEdge   E;
+  TopoVertex V;
   if (myFShape.ShapeType() == TopAbs_EDGE)
   {
     E = TopoDS::Edge(myFShape);
@@ -99,8 +99,8 @@ void PrsDim_ConcentricRelation::ComputeEdgeVertexConcentric(
     V = TopoDS::Vertex(myFShape);
   }
   Point3d             p1, p2;
-  Handle(Geom_Curve) C;
-  Handle(Geom_Curve) extCurv;
+  Handle(GeomCurve3d) C;
+  Handle(GeomCurve3d) extCurv;
   Standard_Boolean   isInfinite;
   Standard_Boolean   isOnPlanEdge, isOnPlanVertex;
   if (!PrsDim::ComputeGeometry(E, C, p1, p2, extCurv, isInfinite, isOnPlanEdge, myPlane))
@@ -108,7 +108,7 @@ void PrsDim_ConcentricRelation::ComputeEdgeVertexConcentric(
   Point3d P;
   PrsDim::ComputeGeometry(V, P, myPlane, isOnPlanVertex);
 
-  Handle(Geom_Circle) CIRCLE(Handle(Geom_Circle)::DownCast(C));
+  Handle(GeomCircle) CIRCLE(Handle(GeomCircle)::DownCast(C));
   myCenter = CIRCLE->Location();
   myRad    = Min(CIRCLE->Radius() / 5., 15.);
   Dir3d vec(p1.XYZ() - myCenter.XYZ());
@@ -126,7 +126,7 @@ void PrsDim_ConcentricRelation::ComputeEdgeVertexConcentric(
 void PrsDim_ConcentricRelation::ComputeTwoVerticesConcentric(
   const Handle(Prs3d_Presentation)& aPresentation)
 {
-  TopoDS_Vertex V1, V2;
+  TopoVertex V1, V2;
   V1 = TopoDS::Vertex(myFShape);
   V2 = TopoDS::Vertex(myFShape);
   Standard_Boolean isOnPlanVertex1(Standard_True), isOnPlanVertex2(Standard_True);
@@ -154,9 +154,9 @@ void PrsDim_ConcentricRelation::ComputeTwoEdgesConcentric(
   BRepAdaptor_Curve curv2(TopoDS::Edge(mySShape));
 
   Point3d             ptat11, ptat12, ptat21, ptat22;
-  Handle(Geom_Curve) geom1, geom2;
+  Handle(GeomCurve3d) geom1, geom2;
   Standard_Boolean   isInfinite1, isInfinite2;
-  Handle(Geom_Curve) extCurv;
+  Handle(GeomCurve3d) extCurv;
   if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape),
                                TopoDS::Edge(mySShape),
                                myExtShape,
@@ -174,8 +174,8 @@ void PrsDim_ConcentricRelation::ComputeTwoEdgesConcentric(
     return;
   }
 
-  Handle(Geom_Circle) gcirc1(Handle(Geom_Circle)::DownCast(geom1));
-  Handle(Geom_Circle) gcirc2(Handle(Geom_Circle)::DownCast(geom2));
+  Handle(GeomCircle) gcirc1(Handle(GeomCircle)::DownCast(geom1));
+  Handle(GeomCircle) gcirc2(Handle(GeomCircle)::DownCast(geom2));
 
   myCenter = gcirc1->Location();
 
@@ -220,7 +220,7 @@ void PrsDim_ConcentricRelation::ComputeTwoEdgesConcentric(
 
 //=================================================================================================
 
-void PrsDim_ConcentricRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+void PrsDim_ConcentricRelation::ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                                  const Standard_Integer)
 {
   Handle(SelectMgr_EntityOwner) anOwner = new SelectMgr_EntityOwner(this, 7);

@@ -28,10 +28,10 @@ class MeshVS_DataSource;
 class MeshVS_Drawer;
 class SelectMgr_EntityOwner;
 
-DEFINE_STANDARD_HANDLE(MeshVS_Mesh, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(MeshVS_Mesh, VisualEntity)
 
 //! the main class provides interface to create mesh presentation as a whole
-class MeshVS_Mesh : public AIS_InteractiveObject
+class MeshVS_Mesh : public VisualEntity
 {
 
 public:
@@ -51,19 +51,19 @@ public:
                                        const Standard_Integer theDispMode) Standard_OVERRIDE;
 
   //! Computes selection according to SelectMode
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer             theSelMode)
     Standard_OVERRIDE;
 
-  //! Draw selected owners presentation
+  //! Draw1 selected owners presentation
   Standard_EXPORT virtual void HilightSelected(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
                                                const SelectMgr_SequenceOfOwner&          theOwners)
     Standard_OVERRIDE;
 
-  //! Draw hilighted owner presentation
+  //! Draw1 hilighted owner presentation
   Standard_EXPORT virtual void HilightOwnerWithColor(
     const Handle(PrsMgr_PresentationManager)& thePM,
-    const Handle(Prs3d_Drawer)&               theColor,
+    const Handle(StyleDrawer)&               theColor,
     const Handle(SelectMgr_EntityOwner)&      theOwner) Standard_OVERRIDE;
 
   //! Clears internal selection presentation
@@ -191,7 +191,7 @@ or directly iterate under sequence of builders.")
 
   friend class MeshVS_PrsBuilder;
 
-  DEFINE_STANDARD_RTTIEXT(MeshVS_Mesh, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(MeshVS_Mesh, VisualEntity)
 
 protected:
   //! Stores all vertices that belong to one of the faces to the given map

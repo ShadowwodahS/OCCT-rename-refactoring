@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline const Standard_GUID& TNaming_NamedShape::ID() const
+inline const Standard_GUID& ShapeAttribute::ID() const
 {
   return GetID();
 }
@@ -29,7 +29,7 @@ inline const Standard_GUID& TNaming_NamedShape::ID() const
 // purpose  :
 //=======================================================================
 
-inline TNaming_Evolution TNaming_NamedShape::Evolution() const
+inline TNaming_Evolution ShapeAttribute::Evolution() const
 {
   return myEvolution;
 }
@@ -39,7 +39,7 @@ inline TNaming_Evolution TNaming_NamedShape::Evolution() const
 // purpose  :
 //=======================================================================
 
-inline Standard_Integer TNaming_NamedShape::Version() const
+inline Standard_Integer ShapeAttribute::Version() const
 {
   return myVersion;
 }
@@ -49,7 +49,7 @@ inline Standard_Integer TNaming_NamedShape::Version() const
 // purpose  :
 //=======================================================================
 
-inline void TNaming_NamedShape::SetVersion(const Standard_Integer v)
+inline void ShapeAttribute::SetVersion(const Standard_Integer v)
 {
   myVersion = v;
 }

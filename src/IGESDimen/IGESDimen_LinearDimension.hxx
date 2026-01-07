@@ -30,7 +30,7 @@ class IGESDimen_LinearDimension;
 DEFINE_STANDARD_HANDLE(IGESDimen_LinearDimension, IGESData_IGESEntity)
 
 //! defines LinearDimension, Type <216> Form <0>
-//! in package IGESDimen
+//! in package IGESDimen1
 //! Used for linear dimensioning
 class IGESDimen_LinearDimension : public IGESData_IGESEntity
 {

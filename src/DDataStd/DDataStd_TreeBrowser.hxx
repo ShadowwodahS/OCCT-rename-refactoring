@@ -22,8 +22,8 @@
 #include <Draw_Drawable3D.hxx>
 #include <Standard_OStream.hxx>
 #include <Draw_Interpretor.hxx>
-class Draw_Display;
-class TCollection_AsciiString;
+class DrawDisplay;
+class AsciiString1;
 class TDataStd_TreeNode;
 
 class DDataStd_TreeBrowser;
@@ -35,9 +35,9 @@ class DDataStd_TreeBrowser : public Draw_Drawable3D
 {
 
 public:
-  Standard_EXPORT DDataStd_TreeBrowser(const TDF_Label& root);
+  Standard_EXPORT DDataStd_TreeBrowser(const DataLabel& root);
 
-  Standard_EXPORT void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
   Standard_EXPORT virtual Handle(Draw_Drawable3D) Copy() const Standard_OVERRIDE;
 
@@ -45,19 +45,19 @@ public:
 
   //! Specific methods
   //! ================
-  Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
-  Standard_EXPORT void Label(const TDF_Label& root);
+  Standard_EXPORT void Label(const DataLabel& root);
 
-  Standard_EXPORT TDF_Label Label() const;
+  Standard_EXPORT DataLabel Label() const;
 
   //! Returns   a   string composed with  the   TreeNode  of
   //! <myLabel>.
-  Standard_EXPORT TCollection_AsciiString OpenRoot() const;
+  Standard_EXPORT AsciiString1 OpenRoot() const;
 
   //! Returns a string composed   with the sub-TreeNodes of
   //! <L>
-  Standard_EXPORT TCollection_AsciiString OpenNode(const TDF_Label& L) const;
+  Standard_EXPORT AsciiString1 OpenNode(const DataLabel& L) const;
 
   DEFINE_STANDARD_RTTIEXT(DDataStd_TreeBrowser, Draw_Drawable3D)
 
@@ -66,9 +66,9 @@ private:
   //! Returns a string composed with the sub-TreeNodes
   //! of <aTreeNode>. Used to implement other methods.
   Standard_EXPORT void OpenNode(const Handle(TDataStd_TreeNode)& aTreeNode,
-                                TCollection_AsciiString&         aList) const;
+                                AsciiString1&         aList) const;
 
-  TDF_Label myRoot;
+  DataLabel myRoot;
 };
 
 #endif // _DDataStd_TreeBrowser_HeaderFile

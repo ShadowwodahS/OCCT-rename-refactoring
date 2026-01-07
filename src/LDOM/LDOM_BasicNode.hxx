@@ -20,10 +20,10 @@
 
 class LDOM_NullPtr;
 
-//  Block of comments describing class LDOM_BasicNode
+//  Block of comments describing class BasicNode
 //
 
-class LDOM_BasicNode
+class BasicNode
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -33,12 +33,12 @@ public:
 
   LDOM_Node::NodeType getNodeType() const { return myNodeType; }
 
-  Standard_EXPORT const LDOM_BasicNode* GetSibling() const;
+  Standard_EXPORT const BasicNode* GetSibling() const;
 
 protected:
   // ---------- PROTECTED METHODS ----------
 
-  LDOM_BasicNode()
+  BasicNode()
       : myNodeType(LDOM_Node::UNKNOWN),
         mySibling(NULL)
   {
@@ -46,7 +46,7 @@ protected:
 
   //    Empty constructor
 
-  LDOM_BasicNode(LDOM_Node::NodeType aType)
+  BasicNode(LDOM_Node::NodeType aType)
       : myNodeType(aType),
         mySibling(NULL)
   {
@@ -54,7 +54,7 @@ protected:
 
   //    Constructor
 
-  LDOM_BasicNode(const LDOM_BasicNode& anOther)
+  BasicNode(const BasicNode& anOther)
       : myNodeType(anOther.getNodeType()),
         mySibling(anOther.GetSibling())
   {
@@ -62,15 +62,15 @@ protected:
 
   //    Copy constructor
 
-  LDOM_BasicNode& operator=(const LDOM_NullPtr*)
+  BasicNode& operator=(const LDOM_NullPtr*)
   {
     myNodeType = LDOM_Node::UNKNOWN;
     return *this;
   }
 
-  Standard_EXPORT LDOM_BasicNode& operator=(const LDOM_BasicNode& anOther);
+  Standard_EXPORT BasicNode& operator=(const BasicNode& anOther);
 
-  void SetSibling(const LDOM_BasicNode* anOther) { mySibling = anOther; }
+  void SetSibling(const BasicNode* anOther) { mySibling = anOther; }
 
 protected:
   friend class LDOM_BasicElement;
@@ -79,7 +79,7 @@ protected:
   // ---------- PROTECTED FIELDSS ----------
 
   LDOM_Node::NodeType   myNodeType;
-  const LDOM_BasicNode* mySibling;
+  const BasicNode* mySibling;
 };
 
 #endif

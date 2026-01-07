@@ -27,11 +27,11 @@
 #include <TopTools_SequenceOfShape.hxx>
 #include <XSAlgo_ShapeProcessor.hxx>
 
-struct DE_ShapeFixParameters;
+struct ShapeFixParameters;
 class IGESData_IGESModel;
 class IGESToBRep_Actor;
 class Transfer_TransientProcess;
-class TopoDS_Shape;
+class TopoShape;
 
 //! A simple way to read geometric IGES data.
 //! Encapsulates reading file and calling transfer tools
@@ -99,17 +99,17 @@ public:
   Standard_EXPORT Standard_Real UsedTolerance() const;
 
   //! Returns the number of shapes produced by the translation.
-  Standard_EXPORT Standard_Integer NbShapes() const;
+  Standard_EXPORT Standard_Integer NbShapes1() const;
 
   //! Returns the num the resulting shape in a translation operation.
-  Standard_EXPORT TopoDS_Shape Shape(const Standard_Integer num = 1) const;
+  Standard_EXPORT TopoShape Shape(const Standard_Integer num = 1) const;
 
   //! Returns all of the results in a
   //! single shape which is:
   //! - a null shape if there are no results,
   //! - a shape if there is one result,
   //! - a compound containing the resulting shapes if there are several.
-  Standard_EXPORT TopoDS_Shape OneShape() const;
+  Standard_EXPORT TopoShape OneShape() const;
 
   //! Sets parameters for shape processing.
   //! @param theParameters the parameters for shape processing.
@@ -128,7 +128,7 @@ public:
   //! @param theParameters the parameters for shape processing.
   //! @param theAdditionalParameters the additional parameters for shape processing.
   Standard_EXPORT void SetShapeFixParameters(
-    const DE_ShapeFixParameters&               theParameters,
+    const ShapeFixParameters&               theParameters,
     const XSAlgo_ShapeProcessor::ParameterMap& theAdditionalParameters = {});
 
   //! Returns parameters for shape processing that was set by SetParameters() method.

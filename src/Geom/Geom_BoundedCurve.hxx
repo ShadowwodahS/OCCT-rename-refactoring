@@ -24,7 +24,7 @@
 class Point3d;
 
 class Geom_BoundedCurve;
-DEFINE_STANDARD_HANDLE(Geom_BoundedCurve, Geom_Curve)
+DEFINE_STANDARD_HANDLE(Geom_BoundedCurve, GeomCurve3d)
 
 //! The abstract class BoundedCurve describes the
 //! common behavior of bounded curves in 3D space. A
@@ -36,12 +36,12 @@ DEFINE_STANDARD_HANDLE(Geom_BoundedCurve, Geom_Curve)
 //! The length of a bounded curve is finite.
 //! The Geom package provides three concrete classes of bounded curves:
 //! - two frequently used mathematical formulations of complex curves:
-//! - Geom_BezierCurve,
-//! - Geom_BSplineCurve, and
+//! - BezierCurve3d,
+//! - BSplineCurve3d, and
 //! - Geom_TrimmedCurve to trim a curve, i.e. to only
 //! take part of the curve limited by two values of the
 //! parameter of the basis curve.
-class Geom_BoundedCurve : public Geom_Curve
+class Geom_BoundedCurve : public GeomCurve3d
 {
 
 public:
@@ -55,7 +55,7 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_BoundedCurve, Geom_Curve)
+  DEFINE_STANDARD_RTTIEXT(Geom_BoundedCurve, GeomCurve3d)
 
 protected:
 private:

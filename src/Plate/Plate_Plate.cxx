@@ -85,7 +85,7 @@ Plate_Plate::Plate_Plate(const Plate_Plate& Ref)
     {
       if (Ref.points != 0)
       {
-        points = new gp_XY[n_el];
+        points = new Coords2d[n_el];
         for (i = 0; i < n_el; i++)
         {
           Points(i) = Ref.Points(i);
@@ -149,7 +149,7 @@ Plate_Plate& Plate_Plate::Copy(const Plate_Plate& Ref)
     {
       if (Ref.points != 0)
       {
-        points = new gp_XY[n_el];
+        points = new Coords2d[n_el];
         for (i = 0; i < n_el; i++)
         {
           Points(i) = Ref.Points(i);
@@ -335,8 +335,8 @@ void Plate_Plate::SolveTI1(const Standard_Integer       IterationNumber,
   n_dim = n_el + order * (order + 1) / 2;
   math_Matrix mat(0, n_dim - 1, 0, n_dim - 1, 0.);
 
-  delete[] (gp_XY*)points;
-  points = new gp_XY[n_el];
+  delete[] (Coords2d*)points;
+  points = new Coords2d[n_el];
   Standard_Integer i;
   for (i = 0; i < n_el; i++)
     Points(i) = myConstraints(i + 1).Pnt2d();
@@ -476,8 +476,8 @@ void Plate_Plate::SolveTI2(const Standard_Integer       IterationNumber,
 
   Standard_Integer n_dimat = nCC1 + nCC2 + order * (order + 1) / 2;
 
-  delete[] (gp_XY*)points;
-  points = new gp_XY[n_el];
+  delete[] (Coords2d*)points;
+  points = new Coords2d[n_el];
   delete[] (Standard_Integer*)deru;
   deru = new Standard_Integer[n_el];
   delete[] (Standard_Integer*)derv;
@@ -631,8 +631,8 @@ void Plate_Plate::SolveTI3(const Standard_Integer       IterationNumber,
   Standard_Integer n_dimsousmat = nCC1 + nCC2 + nbm;
   Standard_Integer n_dimat      = 3 * n_dimsousmat + nCC3;
 
-  delete[] (gp_XY*)points;
-  points = new gp_XY[n_el];
+  delete[] (Coords2d*)points;
+  points = new Coords2d[n_el];
   delete[] (Standard_Integer*)deru;
   deru = new Standard_Integer[n_el];
   delete[] (Standard_Integer*)derv;
@@ -1112,7 +1112,7 @@ void Plate_Plate::Init()
   delete[] (gp_XYZ*)solution;
   solution = 0;
 
-  delete[] (gp_XY*)points;
+  delete[] (Coords2d*)points;
   points = 0;
 
   delete[] (Standard_Integer*)deru;
@@ -1130,7 +1130,7 @@ void Plate_Plate::Init()
 
 //=================================================================================================
 
-gp_XYZ Plate_Plate::Evaluate(const gp_XY& point2d) const
+gp_XYZ Plate_Plate::Evaluate(const Coords2d& point2d) const
 {
   if (solution == 0)
     return gp_XYZ(0, 0, 0);
@@ -1161,7 +1161,7 @@ gp_XYZ Plate_Plate::Evaluate(const gp_XY& point2d) const
 
 //=================================================================================================
 
-gp_XYZ Plate_Plate::EvaluateDerivative(const gp_XY&           point2d,
+gp_XYZ Plate_Plate::EvaluateDerivative(const Coords2d&           point2d,
                                        const Standard_Integer iu,
                                        const Standard_Integer iv) const
 {
@@ -1227,7 +1227,7 @@ Standard_Integer Plate_Plate::Continuity() const
 // of Laplcian at the power order
 //=======================================================================
 
-Standard_Real Plate_Plate::SolEm(const gp_XY&           point2d,
+Standard_Real Plate_Plate::SolEm(const Coords2d&           point2d,
                                  const Standard_Integer iu,
                                  const Standard_Integer iv) const
 {

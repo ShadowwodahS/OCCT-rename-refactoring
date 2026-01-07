@@ -30,7 +30,7 @@
 #include <XSControl_Vars.hxx>
 #include <XSControl_WorkSession.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(XSControl_WorkSession, IFSelect_WorkSession)
+IMPLEMENT_STANDARD_RTTIEXT(ExchangeSession, IFSelect_WorkSession)
 
 namespace
 {
@@ -39,7 +39,7 @@ static Standard_Mutex WS_GLOBAL_MUTEX; //!< Mutex to prevent data races during r
 
 //=================================================================================================
 
-XSControl_WorkSession::XSControl_WorkSession()
+ExchangeSession::ExchangeSession()
     : myTransferReader(new XSControl_TransferReader),
       myTransferWriter(new XSControl_TransferWriter),
       myVars(new XSControl_Vars)
@@ -48,7 +48,7 @@ XSControl_WorkSession::XSControl_WorkSession()
 
 //=================================================================================================
 
-void XSControl_WorkSession::ClearData(const Standard_Integer mode)
+void ExchangeSession::ClearData(const Standard_Integer mode)
 {
   // 1-2-3-4 : standard IFSelect
   if (mode >= 1 && mode <= 4)
@@ -70,7 +70,7 @@ void XSControl_WorkSession::ClearData(const Standard_Integer mode)
 
 //=================================================================================================
 
-Standard_Boolean XSControl_WorkSession::SelectNorm(const Standard_CString normname)
+Standard_Boolean ExchangeSession::SelectNorm(const Standard_CString normname)
 {
   const Standard_Mutex::Sentry aMutexLock(WS_GLOBAL_MUTEX);
   // Old norm and results
@@ -89,7 +89,7 @@ Standard_Boolean XSControl_WorkSession::SelectNorm(const Standard_CString normna
 
 //=================================================================================================
 
-void XSControl_WorkSession::SetController(const Handle(XSControl_Controller)& ctl)
+void ExchangeSession::SetController(const Handle(XSControl_Controller)& ctl)
 {
   myController = ctl;
 
@@ -102,7 +102,7 @@ void XSControl_WorkSession::SetController(const Handle(XSControl_Controller)& ct
   ClearFile();
 
   // Set worksession parameters from the controller
-  Handle(XSControl_WorkSession) aWorkSession(this);
+  Handle(ExchangeSession) aWorkSession(this);
   myController->Customise(aWorkSession);
 
   myTransferReader->SetController(myController);
@@ -111,7 +111,7 @@ void XSControl_WorkSession::SetController(const Handle(XSControl_Controller)& ct
 
 //=================================================================================================
 
-Standard_CString XSControl_WorkSession::SelectedNorm(const Standard_Boolean rsc) const
+Standard_CString ExchangeSession::SelectedNorm(const Standard_Boolean rsc) const
 {
   // JR/Hp :
   Standard_CString astr = (Standard_CString)(myController.IsNull() ? "" : myController->Name(rsc));
@@ -124,8 +124,8 @@ Standard_CString XSControl_WorkSession::SelectedNorm(const Standard_Boolean rsc)
 
 //=================================================================================================
 
-void XSControl_WorkSession::SetAllContext(
-  const NCollection_DataMap<TCollection_AsciiString, Handle(RefObject)>& context)
+void ExchangeSession::SetAllContext(
+  const NCollection_DataMap<AsciiString1, Handle(RefObject)>& context)
 {
   myContext                   = context;
   myTransferReader->Context() = context;
@@ -133,7 +133,7 @@ void XSControl_WorkSession::SetAllContext(
 
 //=================================================================================================
 
-void XSControl_WorkSession::ClearContext()
+void ExchangeSession::ClearContext()
 {
   myContext.Clear();
   myTransferReader->Context().Clear();
@@ -145,7 +145,7 @@ void XSControl_WorkSession::ClearContext()
 
 //=================================================================================================
 
-Standard_Boolean XSControl_WorkSession::PrintTransferStatus(const Standard_Integer num,
+Standard_Boolean ExchangeSession::PrintTransferStatus(const Standard_Integer num,
                                                             const Standard_Boolean wri,
                                                             Standard_OStream&      S) const
 {
@@ -274,7 +274,7 @@ Standard_Boolean XSControl_WorkSession::PrintTransferStatus(const Standard_Integ
 
 //=================================================================================================
 
-void XSControl_WorkSession::InitTransferReader(const Standard_Integer mode)
+void ExchangeSession::InitTransferReader(const Standard_Integer mode)
 {
   if (mode == 0 || mode == 5)
     myTransferReader->Clear(-1); // full clear
@@ -320,7 +320,7 @@ void XSControl_WorkSession::InitTransferReader(const Standard_Integer mode)
 
 //=================================================================================================
 
-void XSControl_WorkSession::SetTransferReader(const Handle(XSControl_TransferReader)& TR)
+void ExchangeSession::SetTransferReader(const Handle(XSControl_TransferReader)& TR)
 {
   if (myTransferReader != TR) // i1 pdn 03.04.99 BUC60301
     myTransferReader = TR;
@@ -339,14 +339,14 @@ void XSControl_WorkSession::SetTransferReader(const Handle(XSControl_TransferRea
 
 //=================================================================================================
 
-Handle(Transfer_TransientProcess) XSControl_WorkSession::MapReader() const
+Handle(Transfer_TransientProcess) ExchangeSession::MapReader() const
 {
   return myTransferReader->TransientProcess();
 }
 
 //=================================================================================================
 
-Standard_Boolean XSControl_WorkSession::SetMapReader(const Handle(Transfer_TransientProcess)& TP)
+Standard_Boolean ExchangeSession::SetMapReader(const Handle(Transfer_TransientProcess)& TP)
 {
   if (TP.IsNull())
     return Standard_False;
@@ -368,7 +368,7 @@ Standard_Boolean XSControl_WorkSession::SetMapReader(const Handle(Transfer_Trans
 
 //=================================================================================================
 
-Handle(RefObject) XSControl_WorkSession::Result(const Handle(RefObject)& ent,
+Handle(RefObject) ExchangeSession::Result(const Handle(RefObject)& ent,
                                                          const Standard_Integer mode) const
 {
   Standard_Integer ouca = (mode % 10);
@@ -401,7 +401,7 @@ Handle(RefObject) XSControl_WorkSession::Result(const Handle(RefObject)& ent,
 
 //=================================================================================================
 
-Standard_Integer XSControl_WorkSession::TransferReadOne(const Handle(RefObject)& ent,
+Standard_Integer ExchangeSession::TransferReadOne(const Handle(RefObject)& ent,
                                                         const Message_ProgressRange& theProgress)
 {
   Handle(Interface_InterfaceModel) model = Model();
@@ -417,7 +417,7 @@ Standard_Integer XSControl_WorkSession::TransferReadOne(const Handle(RefObject)&
 
 //=================================================================================================
 
-Standard_Integer XSControl_WorkSession::TransferReadRoots(const Message_ProgressRange& theProgress)
+Standard_Integer ExchangeSession::TransferReadRoots(const Message_ProgressRange& theProgress)
 {
   return myTransferReader->TransferRoots(Graph(), theProgress);
 }
@@ -428,7 +428,7 @@ Standard_Integer XSControl_WorkSession::TransferReadRoots(const Message_Progress
 
 //=================================================================================================
 
-Handle(Interface_InterfaceModel) XSControl_WorkSession::NewModel()
+Handle(Interface_InterfaceModel) ExchangeSession::NewModel()
 {
   const Standard_Mutex::Sentry     aMutexLock(WS_GLOBAL_MUTEX);
   Handle(Interface_InterfaceModel) newmod;
@@ -448,8 +448,8 @@ Handle(Interface_InterfaceModel) XSControl_WorkSession::NewModel()
 
 //=================================================================================================
 
-IFSelect_ReturnStatus XSControl_WorkSession::TransferWriteShape(
-  const TopoDS_Shape&          shape,
+IFSelect_ReturnStatus ExchangeSession::TransferWriteShape(
+  const TopoShape&          shape,
   const Standard_Boolean       compgraph,
   const Message_ProgressRange& theProgress)
 {
@@ -477,14 +477,14 @@ IFSelect_ReturnStatus XSControl_WorkSession::TransferWriteShape(
 
 //=================================================================================================
 
-Interface_CheckIterator XSControl_WorkSession::TransferWriteCheckList() const
+Interface_CheckIterator ExchangeSession::TransferWriteCheckList() const
 {
   return myTransferWriter->ResultCheckList(Model());
 }
 
 //=================================================================================================
 
-void XSControl_WorkSession::ClearBinders()
+void ExchangeSession::ClearBinders()
 {
   const Handle(Transfer_FinderProcess)& FP = myTransferWriter->FinderProcess();
   // Due to big number of chains of binders it is necessary to

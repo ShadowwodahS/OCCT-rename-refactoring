@@ -35,9 +35,9 @@ inline BRepFeat_MakeRevolutionForm::BRepFeat_MakeRevolutionForm()
 // purpose  :
 //=======================================================================
 
-inline BRepFeat_MakeRevolutionForm::BRepFeat_MakeRevolutionForm(const TopoDS_Shape&       Sbase,
-                                                                const TopoDS_Wire&        W,
-                                                                const Handle(Geom_Plane)& P,
+inline BRepFeat_MakeRevolutionForm::BRepFeat_MakeRevolutionForm(const TopoShape&       Sbase,
+                                                                const TopoWire&        W,
+                                                                const Handle(GeomPlane)& P,
                                                                 const Axis3d&             Axis,
                                                                 const Standard_Real       H1,
                                                                 const Standard_Real       H2,

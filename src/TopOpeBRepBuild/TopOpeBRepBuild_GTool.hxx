@@ -22,38 +22,38 @@
 
 #include <TopAbs_ShapeEnum.hxx>
 #include <Standard_OStream.hxx>
-class TopOpeBRepBuild_GTopo;
+class GTopologyClassifier;
 
-class TopOpeBRepBuild_GTool
+class GTopologyTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT static TopOpeBRepBuild_GTopo GFusUnsh(const TopAbs_ShapeEnum s1,
+  Standard_EXPORT static GTopologyClassifier GFusUnsh(const TopAbs_ShapeEnum s1,
                                                         const TopAbs_ShapeEnum s2);
 
-  Standard_EXPORT static TopOpeBRepBuild_GTopo GFusSame(const TopAbs_ShapeEnum s1,
+  Standard_EXPORT static GTopologyClassifier GFusSame(const TopAbs_ShapeEnum s1,
                                                         const TopAbs_ShapeEnum s2);
 
-  Standard_EXPORT static TopOpeBRepBuild_GTopo GFusDiff(const TopAbs_ShapeEnum s1,
+  Standard_EXPORT static GTopologyClassifier GFusDiff(const TopAbs_ShapeEnum s1,
                                                         const TopAbs_ShapeEnum s2);
 
-  Standard_EXPORT static TopOpeBRepBuild_GTopo GCutUnsh(const TopAbs_ShapeEnum s1,
+  Standard_EXPORT static GTopologyClassifier GCutUnsh(const TopAbs_ShapeEnum s1,
                                                         const TopAbs_ShapeEnum s2);
 
-  Standard_EXPORT static TopOpeBRepBuild_GTopo GCutSame(const TopAbs_ShapeEnum s1,
+  Standard_EXPORT static GTopologyClassifier GCutSame(const TopAbs_ShapeEnum s1,
                                                         const TopAbs_ShapeEnum s2);
 
-  Standard_EXPORT static TopOpeBRepBuild_GTopo GCutDiff(const TopAbs_ShapeEnum s1,
+  Standard_EXPORT static GTopologyClassifier GCutDiff(const TopAbs_ShapeEnum s1,
                                                         const TopAbs_ShapeEnum s2);
 
-  Standard_EXPORT static TopOpeBRepBuild_GTopo GComUnsh(const TopAbs_ShapeEnum s1,
+  Standard_EXPORT static GTopologyClassifier GComUnsh(const TopAbs_ShapeEnum s1,
                                                         const TopAbs_ShapeEnum s2);
 
-  Standard_EXPORT static TopOpeBRepBuild_GTopo GComSame(const TopAbs_ShapeEnum s1,
+  Standard_EXPORT static GTopologyClassifier GComSame(const TopAbs_ShapeEnum s1,
                                                         const TopAbs_ShapeEnum s2);
 
-  Standard_EXPORT static TopOpeBRepBuild_GTopo GComDiff(const TopAbs_ShapeEnum s1,
+  Standard_EXPORT static GTopologyClassifier GComDiff(const TopAbs_ShapeEnum s1,
                                                         const TopAbs_ShapeEnum s2);
 
   Standard_EXPORT static void Dump(Standard_OStream& OS);

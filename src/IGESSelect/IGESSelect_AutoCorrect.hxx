@@ -24,7 +24,7 @@
 class IFSelect_ContextModif;
 class IGESData_IGESModel;
 class Interface_CopyTool;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IGESSelect_AutoCorrect;
 DEFINE_STANDARD_HANDLE(IGESSelect_AutoCorrect, IGESSelect_ModelModifier)
@@ -36,7 +36,7 @@ DEFINE_STANDARD_HANDLE(IGESSelect_AutoCorrect, IGESSelect_ModelModifier)
 //! Also nullifies items of Directory Part, Associativities, and
 //! Properties, which are not (or not longer) in <target> Model.
 //!
-//! Works by calling a BasicEditor from IGESData
+//! Works by calling a BasicEditor from IGESData1
 //! Works with the specific IGES Services : DirChecker which
 //! allows to correct data in "Directory Part" of Entities (such
 //! as required values for status, or references to be null), and
@@ -66,7 +66,7 @@ public:
 
   //! Returns a text which is
   //! "Auto-correction of IGES Entities"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_AutoCorrect, IGESSelect_ModelModifier)
 

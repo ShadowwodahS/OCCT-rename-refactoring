@@ -20,10 +20,10 @@
 
 //=================================================================================================
 
-void TopOpeBRepTool_AncestorsTool::MakeAncestors(const TopoDS_Shape&                        S,
+void AncestorsTool::MakeAncestors(const TopoShape&                        S,
                                                  const TopAbs_ShapeEnum                     TS,
                                                  const TopAbs_ShapeEnum                     TA,
                                                  TopTools_IndexedDataMapOfShapeListOfShape& M)
 {
-  TopExp::MapShapesAndAncestors(S, TS, TA, M);
+  TopExp1::MapShapesAndAncestors(S, TS, TA, M);
 }

@@ -37,9 +37,9 @@
 #include <Message_Messenger.hxx>
 #include <Standard_DomainError.hxx>
 
-IGESDimen_ToolAngularDimension::IGESDimen_ToolAngularDimension() {}
+AngularDimensionTool::AngularDimensionTool() {}
 
-void IGESDimen_ToolAngularDimension::ReadOwnParams(const Handle(IGESDimen_AngularDimension)& ent,
+void AngularDimensionTool::ReadOwnParams(const Handle(IGESDimen_AngularDimension)& ent,
                                                    const Handle(IGESData_IGESReaderData)&    IR,
                                                    IGESData_ParamReader& PR) const
 {
@@ -48,7 +48,7 @@ void IGESDimen_ToolAngularDimension::ReadOwnParams(const Handle(IGESDimen_Angula
   Handle(IGESDimen_GeneralNote) note;
   Handle(IGESDimen_WitnessLine) firstWitness;
   Handle(IGESDimen_WitnessLine) secondWitness;
-  gp_XY                         vertex;
+  Coords2d                         vertex;
   Standard_Real                 radius;
   Handle(IGESDimen_LeaderArrow) firstLeader;
   Handle(IGESDimen_LeaderArrow) secondLeader;
@@ -89,7 +89,7 @@ void IGESDimen_ToolAngularDimension::ReadOwnParams(const Handle(IGESDimen_Angula
   ent->Init(note, firstWitness, secondWitness, vertex, radius, firstLeader, secondLeader);
 }
 
-void IGESDimen_ToolAngularDimension::WriteOwnParams(const Handle(IGESDimen_AngularDimension)& ent,
+void AngularDimensionTool::WriteOwnParams(const Handle(IGESDimen_AngularDimension)& ent,
                                                     IGESData_IGESWriter& IW) const
 {
   IW.Send(ent->Note());
@@ -102,7 +102,7 @@ void IGESDimen_ToolAngularDimension::WriteOwnParams(const Handle(IGESDimen_Angul
   IW.Send(ent->SecondLeader());
 }
 
-void IGESDimen_ToolAngularDimension::OwnShared(const Handle(IGESDimen_AngularDimension)& ent,
+void AngularDimensionTool::OwnShared(const Handle(IGESDimen_AngularDimension)& ent,
                                                Interface_EntityIterator&                 iter) const
 {
   iter.GetOneItem(ent->Note());
@@ -112,7 +112,7 @@ void IGESDimen_ToolAngularDimension::OwnShared(const Handle(IGESDimen_AngularDim
   iter.GetOneItem(ent->SecondLeader());
 }
 
-void IGESDimen_ToolAngularDimension::OwnCopy(const Handle(IGESDimen_AngularDimension)& another,
+void AngularDimensionTool::OwnCopy(const Handle(IGESDimen_AngularDimension)& another,
                                              const Handle(IGESDimen_AngularDimension)& ent,
                                              Interface_CopyTool&                       TC) const
 {
@@ -121,7 +121,7 @@ void IGESDimen_ToolAngularDimension::OwnCopy(const Handle(IGESDimen_AngularDimen
   DeclareAndCast(IGESDimen_WitnessLine,
                  secondWitness,
                  TC.Transferred(another->SecondWitnessLine()));
-  gp_XY         vertex = (another->Vertex()).XY();
+  Coords2d         vertex = (another->Vertex()).XY();
   Standard_Real radius = another->Radius();
   DeclareAndCast(IGESDimen_LeaderArrow, firstLeader, TC.Transferred(another->FirstLeader()));
   DeclareAndCast(IGESDimen_LeaderArrow, secondLeader, TC.Transferred(another->SecondLeader()));
@@ -129,10 +129,10 @@ void IGESDimen_ToolAngularDimension::OwnCopy(const Handle(IGESDimen_AngularDimen
   ent->Init(note, firstWitness, secondWitness, vertex, radius, firstLeader, secondLeader);
 }
 
-IGESData_DirChecker IGESDimen_ToolAngularDimension::DirChecker(
+DirectoryChecker AngularDimensionTool::DirChecker(
   const Handle(IGESDimen_AngularDimension)& /* ent */) const
 {
-  IGESData_DirChecker DC(202, 0);
+  DirectoryChecker DC(202, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.LineWeight(IGESData_DefValue);
@@ -141,13 +141,13 @@ IGESData_DirChecker IGESDimen_ToolAngularDimension::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolAngularDimension::OwnCheck(const Handle(IGESDimen_AngularDimension)& /* ent */,
+void AngularDimensionTool::OwnCheck(const Handle(IGESDimen_AngularDimension)& /* ent */,
                                               const Interface_ShareTool&,
                                               Handle(Interface_Check)& /* ach */) const
 {
 }
 
-void IGESDimen_ToolAngularDimension::OwnDump(const Handle(IGESDimen_AngularDimension)& ent,
+void AngularDimensionTool::OwnDump(const Handle(IGESDimen_AngularDimension)& ent,
                                              const IGESData_IGESDumper&                dumper,
                                              Standard_OStream&                         S,
                                              const Standard_Integer                    level) const

@@ -51,7 +51,7 @@ Handle(Expr_GeneralExpression) Expr_ArgSinh::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_ArgSinh::Copy() const
 {
-  return new Expr_ArgSinh(Expr::CopyShare(Operand()));
+  return new Expr_ArgSinh(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_ArgSinh::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -82,7 +82,7 @@ Handle(Expr_GeneralExpression) Expr_ArgSinh::Derivative(const Handle(Expr_NamedU
   Handle(Expr_GeneralExpression) op    = Operand();
   Handle(Expr_GeneralExpression) derop = op->Derivative(X);
 
-  Handle(Expr_Square) sq = new Expr_Square(Expr::CopyShare(op));
+  Handle(Expr_Square) sq = new Expr_Square(Expr1::CopyShare(op));
   // X2 + 1
   Handle(Expr_Sum) thesum = sq->ShallowSimplified() + 1.0;
 
@@ -102,9 +102,9 @@ Standard_Real Expr_ArgSinh::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return ::Log(val + ::Sqrt(::Square(val) + 1.0));
 }
 
-TCollection_AsciiString Expr_ArgSinh::String() const
+AsciiString1 Expr_ArgSinh::String() const
 {
-  TCollection_AsciiString str("ASinh(");
+  AsciiString1 str("ASinh(");
   str += Operand()->String();
   str += ")";
   return str;

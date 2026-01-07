@@ -11,39 +11,39 @@
 // Alternatively, this file may be used under the terms of Open CASCADE
 // commercial license or contractual agreement.
 
-// IGESData_ParamCursor inline
+// ParameterCursor inline
 
-inline Standard_Integer IGESData_ParamCursor::Start() const
+inline Standard_Integer ParameterCursor::Start() const
 {
   return thestart;
 }
 
-inline Standard_Integer IGESData_ParamCursor::Limit() const
+inline Standard_Integer ParameterCursor::Limit() const
 {
   return thelimit;
 }
 
-inline Standard_Integer IGESData_ParamCursor::Count() const
+inline Standard_Integer ParameterCursor::Count() const
 {
   return thecount;
 }
 
-inline Standard_Integer IGESData_ParamCursor::ItemSize() const
+inline Standard_Integer ParameterCursor::ItemSize() const
 {
   return theisize;
 }
 
-inline Standard_Integer IGESData_ParamCursor::TermSize() const
+inline Standard_Integer ParameterCursor::TermSize() const
 {
   return thetsize;
 }
 
-inline Standard_Integer IGESData_ParamCursor::Offset() const
+inline Standard_Integer ParameterCursor::Offset() const
 {
   return theoffst;
 }
 
-inline Standard_Boolean IGESData_ParamCursor::Advance() const
+inline Standard_Boolean ParameterCursor::Advance() const
 {
   return theadv;
 }

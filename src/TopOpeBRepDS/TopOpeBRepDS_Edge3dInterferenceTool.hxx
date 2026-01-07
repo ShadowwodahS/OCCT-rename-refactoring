@@ -38,16 +38,16 @@ public:
 
   Standard_EXPORT TopOpeBRepDS_Edge3dInterferenceTool();
 
-  Standard_EXPORT void InitPointVertex(const Standard_Integer IsVertex, const TopoDS_Shape& VonOO);
+  Standard_EXPORT void InitPointVertex(const Standard_Integer IsVertex, const TopoShape& VonOO);
 
-  Standard_EXPORT void Init(const TopoDS_Shape&                      Eref,
-                            const TopoDS_Shape&                      E,
-                            const TopoDS_Shape&                      F,
+  Standard_EXPORT void Init(const TopoShape&                      Eref,
+                            const TopoShape&                      E,
+                            const TopoShape&                      F,
                             const Handle(TopOpeBRepDS_Interference)& I);
 
-  Standard_EXPORT void Add(const TopoDS_Shape&                      Eref,
-                           const TopoDS_Shape&                      E,
-                           const TopoDS_Shape&                      F,
+  Standard_EXPORT void Add(const TopoShape&                      Eref,
+                           const TopoShape&                      E,
+                           const TopoShape&                      F,
                            const Handle(TopOpeBRepDS_Interference)& I);
 
   Standard_EXPORT void Transition(const Handle(TopOpeBRepDS_Interference)& I) const;
@@ -59,7 +59,7 @@ private:
   Standard_Real              myTole;
   Standard_Boolean           myrefdef;
   Standard_Integer           myIsVertex;
-  TopoDS_Shape               myVonOO;
+  TopoShape               myVonOO;
   Point3d                     myP3d;
   Dir3d                     myTgtref;
 };

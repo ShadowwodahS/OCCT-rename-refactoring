@@ -18,7 +18,7 @@
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) RWObj::ReadFile(const Standard_CString       theFile,
+Handle(MeshTriangulation) RWObj1::ReadFile(const Standard_CString       theFile,
                                            const Message_ProgressRange& theProgress)
 {
   RWObj_TriangulationReader aReader;

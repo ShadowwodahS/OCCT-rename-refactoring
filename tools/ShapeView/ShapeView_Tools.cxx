@@ -27,7 +27,7 @@
 // purpose :
 // =======================================================================
 Standard_Boolean ShapeView_Tools::IsPossibleToExplode(
-  const TopoDS_Shape&                 theShape,
+  const TopoShape&                 theShape,
   NCollection_List<TopAbs_ShapeEnum>& theExplodeTypes)
 {
   TopAbs_ShapeEnum aShapeType = theShape.ShapeType();

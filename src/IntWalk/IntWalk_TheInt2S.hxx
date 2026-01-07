@@ -26,7 +26,7 @@
 #include <TColStd_Array1OfReal.hxx>
 #include <IntImp_ConstIsoparametric.hxx>
 
-class Adaptor3d_HSurfaceTool;
+class HSurfaceTool;
 class math_FunctionSetRoot;
 
 class IntWalk_TheInt2S
@@ -130,7 +130,7 @@ private:
 
 #define ThePSurface Handle(Adaptor3d_Surface)
 #define ThePSurface_hxx <Adaptor3d_Surface.hxx>
-#define ThePSurfaceTool Adaptor3d_HSurfaceTool
+#define ThePSurfaceTool HSurfaceTool
 #define ThePSurfaceTool_hxx <Adaptor3d_HSurfaceTool.hxx>
 #define IntImp_TheFunction IntWalk_TheFunctionOfTheInt2S
 #define IntImp_TheFunction_hxx <IntWalk_TheFunctionOfTheInt2S.hxx>

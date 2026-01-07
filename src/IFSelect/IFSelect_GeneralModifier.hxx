@@ -23,7 +23,7 @@
 #include <Standard_Transient.hxx>
 class IFSelect_Selection;
 class IFSelect_Dispatch;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_GeneralModifier;
 DEFINE_STANDARD_HANDLE(IFSelect_GeneralModifier, RefObject)
@@ -93,7 +93,7 @@ public:
   Standard_EXPORT Handle(IFSelect_Selection) Selection() const;
 
   //! Returns a short text which defines the operation performed
-  Standard_EXPORT virtual TCollection_AsciiString Label() const = 0;
+  Standard_EXPORT virtual AsciiString1 Label() const = 0;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_GeneralModifier, RefObject)
 

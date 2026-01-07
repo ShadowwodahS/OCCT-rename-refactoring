@@ -25,7 +25,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Draw_Marker3D, Draw_Drawable3D)
 
 Draw_Marker3D::Draw_Marker3D(const Point3d&          P,
                              const Draw_MarkerShape T,
-                             const Draw_Color&      C,
+                             const DrawColor&      C,
                              const Standard_Integer S)
     : myPos(P),
       myCol(C),
@@ -40,7 +40,7 @@ Draw_Marker3D::Draw_Marker3D(const Point3d&          P,
 
 Draw_Marker3D::Draw_Marker3D(const Point3d&          P,
                              const Draw_MarkerShape T,
-                             const Draw_Color&      C,
+                             const DrawColor&      C,
                              const Standard_Real    RSize)
     : myPos(P),
       myCol(C),
@@ -53,7 +53,7 @@ Draw_Marker3D::Draw_Marker3D(const Point3d&          P,
 
 //=================================================================================================
 
-void Draw_Marker3D::DrawOn(Draw_Display& D) const
+void Draw_Marker3D::DrawOn(DrawDisplay& D) const
 {
   D.SetColor(myCol);
   if (myIsRSiz)

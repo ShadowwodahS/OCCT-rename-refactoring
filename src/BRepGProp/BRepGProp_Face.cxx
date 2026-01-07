@@ -160,10 +160,10 @@ void BRepGProp_Face::Bounds(Standard_Real& U1,
 
 //=================================================================================================
 
-bool BRepGProp_Face::Load(const TopoDS_Edge& E)
+bool BRepGProp_Face::Load(const TopoEdge& E)
 {
   Standard_Real        a, b;
-  Handle(Geom2d_Curve) C = BRep_Tool::CurveOnSurface(E, mySurface.Face(), a, b);
+  Handle(GeomCurve2d) C = BRepInspector::CurveOnSurface(E, mySurface.Face(), a, b);
   if (C.IsNull())
   {
     return false;
@@ -181,9 +181,9 @@ bool BRepGProp_Face::Load(const TopoDS_Edge& E)
 
 //=================================================================================================
 
-void BRepGProp_Face::Load(const TopoDS_Face& F)
+void BRepGProp_Face::Load(const TopoFace& F)
 {
-  TopoDS_Shape aLocalShape = F.Oriented(TopAbs_FORWARD);
+  TopoShape aLocalShape = F.Oriented(TopAbs_FORWARD);
   mySurface.Initialize(TopoDS::Face(aLocalShape));
   //  mySurface.Initialize(TopoDS::Face(F.Oriented(TopAbs_FORWARD)));
   mySReverse = (F.Orientation() == TopAbs_REVERSED);
@@ -557,7 +557,7 @@ void BRepGProp_Face::Load(const Standard_Boolean IsFirstParam, const GeomAbs_Iso
   else
     return;
 
-  Handle(Geom2d_Curve) aLin = new Geom2d_Line(aLoc, aDir);
+  Handle(GeomCurve2d) aLin = new Geom2d_Line(aLoc, aDir);
 
   myCurve.Load(aLin, 0., aLen);
 }
@@ -645,7 +645,7 @@ void BRepGProp_Face::GetUKnots(const Standard_Real            theUMin,
     if (mySurface.GetType() == GeomAbs_SurfaceOfExtrusion)
     {
       GeomAdaptor_Curve    aCurve;
-      Handle(Geom_Surface) aSurf = mySurface.Surface().Surface();
+      Handle(GeomSurface) aSurf = mySurface.Surface().Surface();
 
       aCurve.Load(Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(aSurf)->BasisCurve());
       isCBSpline = aCurve.GetType() == GeomAbs_BSplineCurve;
@@ -661,7 +661,7 @@ void BRepGProp_Face::GetUKnots(const Standard_Real            theUMin,
     if (isSBSpline)
     {
       // Get U knots of BSpline surface.
-      Handle(Geom_Surface)        aSurf = mySurface.Surface().Surface();
+      Handle(GeomSurface)        aSurf = mySurface.Surface().Surface();
       Handle(Geom_BSplineSurface) aBSplSurf;
 
       aBSplSurf = Handle(Geom_BSplineSurface)::DownCast(aSurf);
@@ -674,8 +674,8 @@ void BRepGProp_Face::GetUKnots(const Standard_Real            theUMin,
       // Get U knots of BSpline curve - basis curve of
       // the surface of linear extrusion.
       GeomAdaptor_Curve         aCurve;
-      Handle(Geom_Surface)      aSurf = mySurface.Surface().Surface();
-      Handle(Geom_BSplineCurve) aBSplCurve;
+      Handle(GeomSurface)      aSurf = mySurface.Surface().Surface();
+      Handle(BSplineCurve3d) aBSplCurve;
 
       aCurve.Load(Handle(Geom_SurfaceOfLinearExtrusion)::DownCast(aSurf)->BasisCurve());
       aBSplCurve = aCurve.BSpline();
@@ -711,7 +711,7 @@ void BRepGProp_Face::GetTKnots(const Standard_Real            theTMin,
     Standard_Integer              aNbKnots;
 
     // Get V knots of BSpline surface.
-    Handle(Geom_Surface)        aSurf = mySurface.Surface().Surface();
+    Handle(GeomSurface)        aSurf = mySurface.Surface().Surface();
     Handle(Geom_BSplineSurface) aBSplSurf;
 
     aBSplSurf  = Handle(Geom_BSplineSurface)::DownCast(aSurf);

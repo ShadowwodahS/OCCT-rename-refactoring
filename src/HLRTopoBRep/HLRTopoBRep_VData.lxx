@@ -39,7 +39,7 @@ inline Standard_Real HLRTopoBRep_VData::Parameter() const
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Shape& HLRTopoBRep_VData::Vertex() const
+inline const TopoShape& HLRTopoBRep_VData::Vertex() const
 {
   return myVertex;
 }

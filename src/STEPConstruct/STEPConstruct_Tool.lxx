@@ -25,7 +25,7 @@
 // purpose  :
 //=======================================================================
 
-inline const Handle(XSControl_WorkSession)& STEPConstruct_Tool::WS() const
+inline const Handle(ExchangeSession)& STEPConstruct_Tool::WS() const
 {
   return myWS;
 }

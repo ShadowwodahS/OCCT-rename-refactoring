@@ -19,7 +19,7 @@
 // purpose  :
 //=======================================================================
 
-inline const TopoDS_Edge& DBRep_Edge::Edge() const
+inline const TopoEdge& DBRep_Edge::Edge() const
 {
   return myEdge;
 }
@@ -29,7 +29,7 @@ inline const TopoDS_Edge& DBRep_Edge::Edge() const
 // purpose  :
 //=======================================================================
 
-inline void DBRep_Edge::Edge(const TopoDS_Edge& E)
+inline void DBRep_Edge::Edge(const TopoEdge& E)
 {
   myEdge = E;
 }
@@ -39,7 +39,7 @@ inline void DBRep_Edge::Edge(const TopoDS_Edge& E)
 // purpose  :
 //=======================================================================
 
-inline const Draw_Color& DBRep_Edge::Color() const
+inline const DrawColor& DBRep_Edge::Color() const
 {
   return myColor;
 }
@@ -49,7 +49,7 @@ inline const Draw_Color& DBRep_Edge::Color() const
 // purpose  :
 //=======================================================================
 
-inline void DBRep_Edge::Color(const Draw_Color& C)
+inline void DBRep_Edge::Color(const DrawColor& C)
 {
   myColor = C;
 }

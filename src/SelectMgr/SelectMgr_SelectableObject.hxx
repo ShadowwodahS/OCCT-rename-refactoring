@@ -28,7 +28,7 @@ class SelectMgr_EntityOwner;
 //! A framework to supply the structure of the object to be selected.
 //! At the first pick, this structure is created by calling the appropriate algorithm and retaining
 //! this framework for further picking. This abstract framework is inherited in Application
-//! Interactive Services (AIS), notably in AIS_InteractiveObject. Consequently, 3D selection should
+//! Interactive Services (AIS), notably in VisualEntity. Consequently, 3D selection should
 //! be handled by the relevant daughter classes and their member functions in AIS. This is
 //! particularly true in the creation of new interactive objects.
 //!
@@ -55,11 +55,11 @@ public:
   //! Selectable Object.
   //! @param theSelection selection to fill
   //! @param theMode selection mode to create sensitive primitives
-  virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSelection,
+  virtual void ComputeSelection(const Handle(SelectionContainer)& theSelection,
                                 const Standard_Integer             theMode) = 0;
 
   //! Informs the graphic context that the interactive Object may be decomposed into sub-shapes for
-  //! dynamic selection. The most used Interactive Object is AIS_Shape.
+  //! dynamic selection. The most used Interactive Object is VisualShape.
   virtual Standard_Boolean AcceptShapeDecomposition() const { return Standard_False; }
 
   //! Re-computes the sensitive primitives for all modes. IMPORTANT: Do not use
@@ -77,7 +77,7 @@ public:
 
   //! Adds the selection aSelection with the selection mode
   //! index aMode to this framework.
-  Standard_EXPORT void AddSelection(const Handle(SelectMgr_Selection)& aSelection,
+  Standard_EXPORT void AddSelection(const Handle(SelectionContainer)& aSelection,
                                     const Standard_Integer             aMode);
 
   //! Empties all the selections in the SelectableObject
@@ -89,7 +89,7 @@ public:
   Standard_EXPORT void ClearSelections(const Standard_Boolean update = Standard_False);
 
   //! Returns the selection having specified selection mode or NULL.
-  Standard_EXPORT const Handle(SelectMgr_Selection)& Selection(
+  Standard_EXPORT const Handle(SelectionContainer)& Selection(
     const Standard_Integer theMode) const;
 
   //! Returns true if a selection corresponding to the selection mode theMode was computed for this
@@ -109,7 +109,7 @@ public:
 
   //! Updates locations in all sensitive entities from <aSelection>
   //! and in corresponding entity owners.
-  Standard_EXPORT virtual void UpdateTransformations(const Handle(SelectMgr_Selection)& aSelection);
+  Standard_EXPORT virtual void UpdateTransformations(const Handle(SelectionContainer)& aSelection);
 
   //! Method which draws selected owners ( for fast presentation draw )
   Standard_EXPORT virtual void HilightSelected(const Handle(PrsMgr_PresentationManager)& thePrsMgr,
@@ -131,7 +131,7 @@ public:
   //! this selectable object  ( for fast presentation draw )
   Standard_EXPORT virtual void HilightOwnerWithColor(
     const Handle(PrsMgr_PresentationManager)& thePM,
-    const Handle(Prs3d_Drawer)&               theStyle,
+    const Handle(StyleDrawer)&               theStyle,
     const Handle(SelectMgr_EntityOwner)&      theOwner);
 
   //! If returns True, the old mechanism for highlighting selected objects is used (HilightSelected

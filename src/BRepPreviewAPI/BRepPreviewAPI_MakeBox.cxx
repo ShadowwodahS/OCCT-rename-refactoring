@@ -95,7 +95,7 @@ void BRepPreviewAPI_MakeBox::makeVertex(const Point3d& thePoint)
 
 void BRepPreviewAPI_MakeBox::makeEdge(const Point3d& thePoint1, const Point3d& thePoint2)
 {
-  myShape = BRepBuilderAPI_MakeEdge(thePoint1, thePoint2);
+  myShape = EdgeMaker(thePoint1, thePoint2);
 }
 
 //=================================================================================================
@@ -105,13 +105,13 @@ void BRepPreviewAPI_MakeBox::makeRectangle(const Point3d& thePnt1,
                                            const Point3d& thePnt3,
                                            const Point3d& thePnt4)
 {
-  TopoDS_Edge anEdge1 = BRepBuilderAPI_MakeEdge(thePnt1, thePnt2);
-  TopoDS_Edge anEdge2 = BRepBuilderAPI_MakeEdge(thePnt2, thePnt3);
-  TopoDS_Edge anEdge3 = BRepBuilderAPI_MakeEdge(thePnt3, thePnt4);
-  TopoDS_Edge anEdge4 = BRepBuilderAPI_MakeEdge(thePnt4, thePnt1);
+  TopoEdge anEdge1 = EdgeMaker(thePnt1, thePnt2);
+  TopoEdge anEdge2 = EdgeMaker(thePnt2, thePnt3);
+  TopoEdge anEdge3 = EdgeMaker(thePnt3, thePnt4);
+  TopoEdge anEdge4 = EdgeMaker(thePnt4, thePnt1);
 
   BRepBuilderAPI_MakeWire aWire(anEdge1, anEdge2, anEdge3, anEdge4);
-  BRepBuilderAPI_MakeFace aFace(aWire);
+  FaceMaker aFace(aWire);
 
   myShape = aFace.Shape();
 }

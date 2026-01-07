@@ -25,19 +25,19 @@
 #include <Standard_Integer.hxx>
 #include <TopAbs_Orientation.hxx>
 
-class TopOpeBRepDS_Transition
+class StateTransition
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepDS_Transition();
+  Standard_EXPORT StateTransition();
 
-  Standard_EXPORT TopOpeBRepDS_Transition(const TopAbs_State     StateBefore,
+  Standard_EXPORT StateTransition(const TopAbs_State     StateBefore,
                                           const TopAbs_State     StateAfter,
                                           const TopAbs_ShapeEnum ShapeBefore = TopAbs_FACE,
                                           const TopAbs_ShapeEnum ShapeAfter  = TopAbs_FACE);
 
-  Standard_EXPORT TopOpeBRepDS_Transition(const TopAbs_Orientation O);
+  Standard_EXPORT StateTransition(const TopAbs_Orientation O);
 
   Standard_EXPORT void Set(const TopAbs_State     StateBefore,
                            const TopAbs_State     StateAfter,
@@ -104,7 +104,7 @@ public:
   Standard_EXPORT TopAbs_Orientation Orientation(const TopAbs_State     S,
                                                  const TopAbs_ShapeEnum T = TopAbs_FACE) const;
 
-  Standard_EXPORT TopOpeBRepDS_Transition Complement() const;
+  Standard_EXPORT StateTransition Complement() const;
 
   //! returns True if both states are UNKNOWN
   Standard_EXPORT Standard_Boolean IsUnknown() const;

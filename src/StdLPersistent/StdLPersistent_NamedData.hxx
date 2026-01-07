@@ -38,7 +38,7 @@ class StdLPersistent_NamedData : public StdObjMgt_Attribute<TDataStd_NamedData>
 
     inline operator bool() const { return !myKeys.IsNull(); }
 
-    const TCollection_ExtendedString& Key(Standard_Integer theIndex) const
+    const UtfString& Key(Standard_Integer theIndex) const
     {
       return myKeys->Array()->Value(theIndex)->ExtString()->String();
     }

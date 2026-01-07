@@ -15,7 +15,7 @@
 #include <gp_Trsf.hxx>
 #include <Vrml_MatrixTransform.hxx>
 
-Vrml_MatrixTransform::Vrml_MatrixTransform()
+MatrixTransform::MatrixTransform()
 {
   //  SetValues(me : in out;
   //    	        a11, a12, a13, a14,
@@ -30,22 +30,22 @@ Vrml_MatrixTransform::Vrml_MatrixTransform()
   myMatrix = T;
 }
 
-Vrml_MatrixTransform::Vrml_MatrixTransform(const Transform3d& aMatrix)
+MatrixTransform::MatrixTransform(const Transform3d& aMatrix)
 {
   myMatrix = aMatrix;
 }
 
-void Vrml_MatrixTransform::SetMatrix(const Transform3d& aMatrix)
+void MatrixTransform::SetMatrix(const Transform3d& aMatrix)
 {
   myMatrix = aMatrix;
 }
 
-Transform3d Vrml_MatrixTransform::Matrix() const
+Transform3d MatrixTransform::Matrix() const
 {
   return myMatrix;
 }
 
-Standard_OStream& Vrml_MatrixTransform::Print(Standard_OStream& anOStream) const
+Standard_OStream& MatrixTransform::Print(Standard_OStream& anOStream) const
 {
   Standard_Integer i, j;
   anOStream << "MatrixTransform {\n";

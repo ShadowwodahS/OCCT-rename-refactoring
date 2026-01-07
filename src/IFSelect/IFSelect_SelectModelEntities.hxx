@@ -23,7 +23,7 @@
 #include <IFSelect_SelectBase.hxx>
 class Interface_EntityIterator;
 class Interface_Graph;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IFSelect_SelectModelEntities;
 DEFINE_STANDARD_HANDLE(IFSelect_SelectModelEntities, IFSelect_SelectBase)
@@ -48,7 +48,7 @@ public:
     Standard_OVERRIDE;
 
   //! Returns a text defining the criterium : "Model Entities"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectModelEntities, IFSelect_SelectBase)
 

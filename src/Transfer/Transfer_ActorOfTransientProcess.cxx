@@ -75,7 +75,7 @@ void Transfer_ActorOfTransientProcess::SetShapeFixParameters(
 //=============================================================================
 
 void Transfer_ActorOfTransientProcess::SetShapeFixParameters(
-  const DE_ShapeFixParameters&               theParameters,
+  const ShapeFixParameters&               theParameters,
   const XSAlgo_ShapeProcessor::ParameterMap& theAdditionalParameters)
 {
   XSAlgo_ShapeProcessor::SetShapeFixParameters(theParameters,

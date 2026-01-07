@@ -25,9 +25,9 @@
 
 //=================================================================================================
 
-Handle(Graphic3d_Text) Prs3d_Text::Draw(const Handle(Graphic3d_Group)&    theGroup,
+Handle(Graphic3d_Text) Prs3d_Text::Draw1(const Handle(Graphic3d_Group)&    theGroup,
                                         const Handle(Prs3d_TextAspect)&   theAspect,
-                                        const TCollection_ExtendedString& theText,
+                                        const UtfString& theText,
                                         const Point3d&                     theAttachmentPoint)
 {
   theGroup->SetPrimitivesAspect(theAspect->Aspect());
@@ -43,9 +43,9 @@ Handle(Graphic3d_Text) Prs3d_Text::Draw(const Handle(Graphic3d_Group)&    theGro
 
 //=================================================================================================
 
-Handle(Graphic3d_Text) Prs3d_Text::Draw(const Handle(Graphic3d_Group)&    theGroup,
+Handle(Graphic3d_Text) Prs3d_Text::Draw1(const Handle(Graphic3d_Group)&    theGroup,
                                         const Handle(Prs3d_TextAspect)&   theAspect,
-                                        const TCollection_ExtendedString& theText,
+                                        const UtfString& theText,
                                         const Frame3d&                     theOrientation,
                                         const Standard_Boolean            theHasOwnAnchor)
 {

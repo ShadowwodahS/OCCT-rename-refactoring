@@ -26,7 +26,7 @@
 #include <TopAbs_ShapeEnum.hxx>
 #include <Standard_Boolean.hxx>
 #include <Standard_OStream.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class TopOpeBRepTool_ShapeExplorer;
 
 //! Find, among the subshapes SS of a reference shape
@@ -41,11 +41,11 @@ public:
 
   Standard_EXPORT void Clear();
 
-  Standard_EXPORT void AddBoxesMakeCOB(const TopoDS_Shape&    S,
+  Standard_EXPORT void AddBoxesMakeCOB(const TopoShape&    S,
                                        const TopAbs_ShapeEnum TS,
                                        const TopAbs_ShapeEnum TA = TopAbs_SHAPE);
 
-  Standard_EXPORT void Init(const TopoDS_Shape& E);
+  Standard_EXPORT void Init(const TopoShape& E);
 
   Standard_EXPORT void Init(TopOpeBRepTool_ShapeExplorer& X);
 
@@ -53,7 +53,7 @@ public:
 
   Standard_EXPORT void Next();
 
-  Standard_EXPORT const TopoDS_Shape& Current() const;
+  Standard_EXPORT const TopoShape& Current() const;
 
   Standard_EXPORT const TopOpeBRepTool_BoxSort& BoxSort() const;
 

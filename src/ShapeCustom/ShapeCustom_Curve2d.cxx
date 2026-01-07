@@ -96,7 +96,7 @@ Standard_Boolean ShapeCustom_Curve2d::IsLinear(const TColgp_Array1OfPnt2d& thePo
 
 //=================================================================================================
 
-Handle(Geom2d_Line) ShapeCustom_Curve2d::ConvertToLine2d(const Handle(Geom2d_Curve)& theCurve,
+Handle(Geom2d_Line) ShapeCustom_Curve2d::ConvertToLine2d(const Handle(GeomCurve2d)& theCurve,
                                                          const Standard_Real         c1,
                                                          const Standard_Real         c2,
                                                          const Standard_Real         theTolerance,

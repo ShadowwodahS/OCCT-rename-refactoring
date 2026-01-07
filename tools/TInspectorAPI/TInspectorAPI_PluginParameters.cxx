@@ -22,7 +22,7 @@ IMPLEMENT_STANDARD_RTTIEXT(TInspectorAPI_PluginParameters, RefObject)
 // purpose :
 // =======================================================================
 void TInspectorAPI_PluginParameters::SetParameters(
-  const TCollection_AsciiString&                      thePluginName,
+  const AsciiString1&                      thePluginName,
   const NCollection_List<Handle(RefObject)>& theParameters,
   const Standard_Boolean&)
 {
@@ -36,14 +36,14 @@ void TInspectorAPI_PluginParameters::SetParameters(
 // function : AddFileName
 // purpose :
 // =======================================================================
-void TInspectorAPI_PluginParameters::AddFileName(const TCollection_AsciiString& thePluginName,
-                                                 const TCollection_AsciiString& theFileName)
+void TInspectorAPI_PluginParameters::AddFileName(const AsciiString1& thePluginName,
+                                                 const AsciiString1& theFileName)
 {
   if (myFileNames.IsBound(thePluginName))
     myFileNames.ChangeFind(thePluginName).Append(theFileName);
   else
   {
-    NCollection_List<TCollection_AsciiString> aNames;
+    NCollection_List<AsciiString1> aNames;
     aNames.Append(theFileName);
     myFileNames.Bind(thePluginName, aNames);
   }
@@ -54,8 +54,8 @@ void TInspectorAPI_PluginParameters::AddFileName(const TCollection_AsciiString& 
 // purpose :
 // =======================================================================
 void TInspectorAPI_PluginParameters::SetFileNames(
-  const TCollection_AsciiString&                   thePluginName,
-  const NCollection_List<TCollection_AsciiString>& theFileNames)
+  const AsciiString1&                   thePluginName,
+  const NCollection_List<AsciiString1>& theFileNames)
 {
   if (theFileNames.Size() > 0)
     myFileNames.Bind(thePluginName, theFileNames);
@@ -68,8 +68,8 @@ void TInspectorAPI_PluginParameters::SetFileNames(
 // purpose :
 // =======================================================================
 void TInspectorAPI_PluginParameters::SetSelectedNames(
-  const TCollection_AsciiString&                   thePluginName,
-  const NCollection_List<TCollection_AsciiString>& theItemNames)
+  const AsciiString1&                   thePluginName,
+  const NCollection_List<AsciiString1>& theItemNames)
 {
   mySelectedItemNames.Bind(thePluginName, theItemNames);
 }
@@ -79,7 +79,7 @@ void TInspectorAPI_PluginParameters::SetSelectedNames(
 // purpose :
 // =======================================================================
 void TInspectorAPI_PluginParameters::SetSelected(
-  const TCollection_AsciiString&                      thePluginName,
+  const AsciiString1&                      thePluginName,
   const NCollection_List<Handle(RefObject)>& theObjects)
 {
   if (theObjects.Size() > 0)
@@ -92,7 +92,7 @@ void TInspectorAPI_PluginParameters::SetSelected(
 // function : FindParameters
 // purpose :
 // =======================================================================
-bool TInspectorAPI_PluginParameters::FindParameters(const TCollection_AsciiString& thePluginName)
+bool TInspectorAPI_PluginParameters::FindParameters(const AsciiString1& thePluginName)
 {
   return myParameters.IsBound(thePluginName);
 }
@@ -102,7 +102,7 @@ bool TInspectorAPI_PluginParameters::FindParameters(const TCollection_AsciiStrin
 // purpose :
 // =======================================================================
 const NCollection_List<Handle(RefObject)>& TInspectorAPI_PluginParameters::Parameters(
-  const TCollection_AsciiString& thePluginName)
+  const AsciiString1& thePluginName)
 {
   return myParameters.Find(thePluginName);
 }
@@ -111,7 +111,7 @@ const NCollection_List<Handle(RefObject)>& TInspectorAPI_PluginParameters::Param
 // function : FindFileNames
 // purpose :
 // =======================================================================
-bool TInspectorAPI_PluginParameters::FindFileNames(const TCollection_AsciiString& thePluginName)
+bool TInspectorAPI_PluginParameters::FindFileNames(const AsciiString1& thePluginName)
 {
   return myFileNames.IsBound(thePluginName);
 }
@@ -120,8 +120,8 @@ bool TInspectorAPI_PluginParameters::FindFileNames(const TCollection_AsciiString
 // function : FileNames
 // purpose :
 // =======================================================================
-const NCollection_List<TCollection_AsciiString>& TInspectorAPI_PluginParameters::FileNames(
-  const TCollection_AsciiString& thePluginName)
+const NCollection_List<AsciiString1>& TInspectorAPI_PluginParameters::FileNames(
+  const AsciiString1& thePluginName)
 {
   return myFileNames.Find(thePluginName);
 }
@@ -130,7 +130,7 @@ const NCollection_List<TCollection_AsciiString>& TInspectorAPI_PluginParameters:
 // function : FindSelectedNames
 // purpose :
 // =======================================================================
-bool TInspectorAPI_PluginParameters::FindSelectedNames(const TCollection_AsciiString& thePluginName)
+bool TInspectorAPI_PluginParameters::FindSelectedNames(const AsciiString1& thePluginName)
 {
   return mySelectedItemNames.IsBound(thePluginName);
 }
@@ -139,8 +139,8 @@ bool TInspectorAPI_PluginParameters::FindSelectedNames(const TCollection_AsciiSt
 // function : GetSelectedNames
 // purpose :
 // =======================================================================
-const NCollection_List<TCollection_AsciiString>& TInspectorAPI_PluginParameters::GetSelectedNames(
-  const TCollection_AsciiString& thePluginName)
+const NCollection_List<AsciiString1>& TInspectorAPI_PluginParameters::GetSelectedNames(
+  const AsciiString1& thePluginName)
 {
   return mySelectedItemNames.Find(thePluginName);
 }
@@ -150,7 +150,7 @@ const NCollection_List<TCollection_AsciiString>& TInspectorAPI_PluginParameters:
 // purpose :
 // =======================================================================
 Standard_Boolean TInspectorAPI_PluginParameters::GetSelectedObjects(
-  const TCollection_AsciiString&                thePluginName,
+  const AsciiString1&                thePluginName,
   NCollection_List<Handle(RefObject)>& theObjects)
 {
   return mySelectedObjects.Find(thePluginName, theObjects);
@@ -160,9 +160,9 @@ Standard_Boolean TInspectorAPI_PluginParameters::GetSelectedObjects(
 // function : toString
 // purpose :
 // =======================================================================
-TCollection_AsciiString toString(const TopLoc_Location& theLocation)
+AsciiString1 toString(const TopLoc_Location& theLocation)
 {
-  TCollection_AsciiString anInfo;
+  AsciiString1 anInfo;
   Transform3d                 aTrsf = theLocation.Transformation();
   for (int aRowId = 1; aRowId <= 3; aRowId++)
   {
@@ -172,7 +172,7 @@ TCollection_AsciiString toString(const TopLoc_Location& theLocation)
     {
       if (aColumnId > 1)
         anInfo += ",";
-      anInfo += TCollection_AsciiString(aTrsf.Value(aRowId, aColumnId));
+      anInfo += AsciiString1(aTrsf.Value(aRowId, aColumnId));
     }
   }
   return anInfo;
@@ -182,35 +182,35 @@ TCollection_AsciiString toString(const TopLoc_Location& theLocation)
 // function : ParametersToString
 // purpose :
 // =======================================================================
-TCollection_AsciiString TInspectorAPI_PluginParameters::ParametersToString(
-  const TopoDS_Shape& theShape)
+AsciiString1 TInspectorAPI_PluginParameters::ParametersToString(
+  const TopoShape& theShape)
 {
   const TopLoc_Location&  aLocation    = theShape.Location();
-  TCollection_AsciiString aLocationStr = toString(aLocation);
+  AsciiString1 aLocationStr = toString(aLocation);
 
   TopAbs_Orientation anOrientation = theShape.Orientation();
   Standard_SStream   aSStream;
-  TopAbs::Print(anOrientation, aSStream);
-  return TCollection_AsciiString(aSStream.str().c_str()) + ":" + aLocationStr;
+  TopAbs1::Print(anOrientation, aSStream);
+  return AsciiString1(aSStream.str().c_str()) + ":" + aLocationStr;
 }
 
 // =======================================================================
 // function : fromString
 // purpose :
 // =======================================================================
-TopLoc_Location fromString(const TCollection_AsciiString& theValue)
+TopLoc_Location fromString(const AsciiString1& theValue)
 {
   NCollection_Mat4<Standard_Real> aValues;
 
-  TCollection_AsciiString aCurrentString = theValue;
+  AsciiString1 aCurrentString = theValue;
   Standard_Integer        aPosition      = aCurrentString.Search(" ");
   if (aPosition < 0)
     return TopLoc_Location();
-  TCollection_AsciiString aTailString = aCurrentString.Split(aPosition);
+  AsciiString1 aTailString = aCurrentString.Split(aPosition);
   Standard_Integer        aRow        = 0;
   while (!aCurrentString.IsEmpty())
   {
-    TCollection_AsciiString aValueString = aCurrentString;
+    AsciiString1 aValueString = aCurrentString;
     aPosition                            = aValueString.Search(",");
     if (aPosition < 0)
       break;
@@ -231,7 +231,7 @@ TopLoc_Location fromString(const TCollection_AsciiString& theValue)
       if (aPosition < 0)
       {
         aValueString   = aCurrentString;
-        aCurrentString = TCollection_AsciiString();
+        aCurrentString = AsciiString1();
       }
       else
         aCurrentString = aValueString.Split(aPosition);
@@ -243,7 +243,7 @@ TopLoc_Location fromString(const TCollection_AsciiString& theValue)
     if (aPosition < 0)
     {
       aCurrentString = aTailString;
-      aTailString    = TCollection_AsciiString();
+      aTailString    = AsciiString1();
     }
     else
       aTailString = aCurrentString.Split(aPosition);
@@ -273,19 +273,19 @@ TopLoc_Location fromString(const TCollection_AsciiString& theValue)
 // function : ParametersToShape
 // purpose :
 // =======================================================================
-void TInspectorAPI_PluginParameters::ParametersToShape(const TCollection_AsciiString& theValue,
-                                                       TopoDS_Shape&                  theShape)
+void TInspectorAPI_PluginParameters::ParametersToShape(const AsciiString1& theValue,
+                                                       TopoShape&                  theShape)
 {
   int                     aSeparatorPos    = theValue.Search(":");
-  TCollection_AsciiString anOrientationStr = theValue;
-  TCollection_AsciiString aLocationStr     = anOrientationStr.Split(aSeparatorPos);
+  AsciiString1 anOrientationStr = theValue;
+  AsciiString1 aLocationStr     = anOrientationStr.Split(aSeparatorPos);
   // orientation
   if (anOrientationStr.Length() < 2)
     return;
   anOrientationStr.Split(anOrientationStr.Length() - 1);
 
   TopAbs_Orientation anOrientation;
-  if (!TopAbs::ShapeOrientationFromString(anOrientationStr.ToCString(), anOrientation))
+  if (!TopAbs1::ShapeOrientationFromString(anOrientationStr.ToCString(), anOrientation))
     return;
   // location
   TopLoc_Location aLocation = fromString(aLocationStr);

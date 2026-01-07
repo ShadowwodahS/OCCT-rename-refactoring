@@ -24,13 +24,13 @@
 #include <TopTools_HSequenceOfShape.hxx>
 #include <TopTools_ListOfShape.hxx>
 #include <TopAbs_ShapeEnum.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! This class is intended to
 //! explore shapes and convert different representations
 //! (list, sequence, compound) of complex shapes. It provides tools for:
-//! - obtaining type of the shapes in context of TopoDS_Compound,
-//! - exploring shapes in context of  TopoDS_Compound,
+//! - obtaining type of the shapes in context of TopoCompound,
+//! - exploring shapes in context of  TopoCompound,
 //! - converting different representations of shapes (list, sequence, compound).
 class ShapeExtend_Explorer
 {
@@ -41,7 +41,7 @@ public:
   Standard_EXPORT ShapeExtend_Explorer();
 
   //! Converts a sequence of Shapes to a Compound
-  Standard_EXPORT TopoDS_Shape
+  Standard_EXPORT TopoShape
     CompoundFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval) const;
 
   //! Converts a Compound to a list of Shapes
@@ -51,26 +51,26 @@ public:
   //! then if <expcomp> is True, if a sub-shape is a Compound, it
   //! is not put to the list but its sub-shapes are (recursive)
   Standard_EXPORT Handle(TopTools_HSequenceOfShape) SeqFromCompound(
-    const TopoDS_Shape&    comp,
+    const TopoShape&    comp,
     const Standard_Boolean expcomp) const;
 
   //! Converts a Sequence of Shapes to a List of Shapes
   //! <clear> if True (D), commands the list to start from scratch
   //! else, the list is cumulated
   Standard_EXPORT void ListFromSeq(const Handle(TopTools_HSequenceOfShape)& seqval,
-                                   TopTools_ListOfShape&                    lisval,
+                                   ShapeList&                    lisval,
                                    const Standard_Boolean clear = Standard_True) const;
 
   //! Converts a List of Shapes to a Sequence of Shapes
   Standard_EXPORT Handle(TopTools_HSequenceOfShape) SeqFromList(
-    const TopTools_ListOfShape& lisval) const;
+    const ShapeList& lisval) const;
 
   //! Returns the type of a Shape: true type if <compound> is False
   //! If <compound> is True and <shape> is a Compound, iterates on
   //! its items. If all are of the same type, returns this type.
   //! Else, returns COMPOUND. If it is empty, returns SHAPE
   //! For a Null Shape, returns SHAPE
-  Standard_EXPORT TopAbs_ShapeEnum ShapeType(const TopoDS_Shape&    shape,
+  Standard_EXPORT TopAbs_ShapeEnum ShapeType(const TopoShape&    shape,
                                              const Standard_Boolean compound) const;
 
   //! Builds a COMPOUND from the given shape.
@@ -84,7 +84,7 @@ public:
   //! If <compound> is True, gathers items in compounds which
   //! correspond to starting COMPOUND,SOLID or SHELL containers, or
   //! items directly contained in a Compound
-  Standard_EXPORT TopoDS_Shape SortedCompound(const TopoDS_Shape&    shape,
+  Standard_EXPORT TopoShape SortedCompound(const TopoShape&    shape,
                                               const TopAbs_ShapeEnum type,
                                               const Standard_Boolean explore,
                                               const Standard_Boolean compound) const;

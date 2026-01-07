@@ -17,7 +17,7 @@
 #include <LDOM_NodeList.hxx>
 #include <LDOM_BasicNode.hxx>
 
-typedef const LDOM_BasicNode* LDOM_BasicNodePtr;
+typedef const BasicNode* LDOM_BasicNodePtr;
 
 DECLARE_SEQUENCE(LDOM_BasicNodeSequence, LDOM_BasicNodePtr)
 IMPLEMENT_SEQUENCE(LDOM_BasicNodeSequence, LDOM_BasicNodePtr)
@@ -39,7 +39,7 @@ LDOM_NodeList::LDOM_NodeList(const Handle(LDOM_MemManager)& aDoc)
 
 //=================================================================================================
 
-void LDOM_NodeList::Append(const LDOM_BasicNode& aNode) const
+void LDOM_NodeList::Append(const BasicNode& aNode) const
 {
   mySeq->Append(&aNode);
 }

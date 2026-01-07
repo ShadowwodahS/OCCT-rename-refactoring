@@ -20,7 +20,7 @@
 #include <Message_ProgressRange.hxx>
 
 //! This is a common interface for meshing algorithms
-//! instantiated by Mesh Factory and implemented by plugins.
+//! instantiated by Mesh1 Factory and implemented by plugins.
 class BRepMesh_DiscretRoot : public RefObject
 {
 public:
@@ -28,9 +28,9 @@ public:
   Standard_EXPORT virtual ~BRepMesh_DiscretRoot();
 
   //! Set the shape to triangulate.
-  void SetShape(const TopoDS_Shape& theShape) { myShape = theShape; }
+  void SetShape(const TopoShape& theShape) { myShape = theShape; }
 
-  const TopoDS_Shape& Shape() const { return myShape; }
+  const TopoShape& Shape() const { return myShape; }
 
   //! Returns true if triangualtion was performed and has success.
   Standard_Boolean IsDone() const { return myIsDone; }
@@ -52,7 +52,7 @@ protected:
 
   Standard_EXPORT virtual void init();
 
-  TopoDS_Shape     myShape;
+  TopoShape     myShape;
   Standard_Boolean myIsDone;
 };
 

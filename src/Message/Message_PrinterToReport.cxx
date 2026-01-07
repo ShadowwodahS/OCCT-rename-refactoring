@@ -22,7 +22,7 @@
 #include <Standard_Dump.hxx>
 #include <TCollection_ExtendedString.hxx>
 
-IMPLEMENT_STANDARD_RTTIEXT(Message_PrinterToReport, Message_Printer)
+IMPLEMENT_STANDARD_RTTIEXT(Message_PrinterToReport, LogPrinter)
 
 //=================================================================================================
 
@@ -58,7 +58,7 @@ void Message_PrinterToReport::SendStringStream(const Standard_SStream& theStream
   {
     if (!myName.IsEmpty())
     {
-      TCollection_AsciiString aName = myName;
+      AsciiString1 aName = myName;
       myName.Clear();
       send(aName, theGravity);
     }
@@ -85,12 +85,12 @@ void Message_PrinterToReport::SendObject(const Handle(RefObject)& theObject,
 
 //=================================================================================================
 
-void Message_PrinterToReport::send(const TCollection_AsciiString& theString,
+void Message_PrinterToReport::send(const AsciiString1& theString,
                                    const Message_Gravity          theGravity) const
 {
   if (!myName.IsEmpty())
   {
-    TCollection_AsciiString aName = myName;
+    AsciiString1 aName = myName;
     myName.Clear();
     send(aName, theGravity);
   }
@@ -106,7 +106,7 @@ void Message_PrinterToReport::send(const TCollection_AsciiString& theString,
 
 //=================================================================================================
 
-void Message_PrinterToReport::sendMetricAlert(const TCollection_AsciiString& theValue,
+void Message_PrinterToReport::sendMetricAlert(const AsciiString1& theValue,
                                               const Message_Gravity          theGravity) const
 {
   Message_AlertExtended::AddAlert(Report(), new Message_AttributeMeter(theValue), theGravity);

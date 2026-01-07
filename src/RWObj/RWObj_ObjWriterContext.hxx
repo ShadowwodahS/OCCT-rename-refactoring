@@ -23,7 +23,7 @@ class RWObj_ObjWriterContext
 {
 public:
   //! Main constructor.
-  Standard_EXPORT RWObj_ObjWriterContext(const TCollection_AsciiString& theName);
+  Standard_EXPORT RWObj_ObjWriterContext(const AsciiString1& theName);
 
   //! Destructor, will emit error message if file was not closed.
   Standard_EXPORT ~RWObj_ObjWriterContext();
@@ -49,14 +49,14 @@ public:
   //! Write the header.
   Standard_EXPORT bool WriteHeader(const Standard_Integer                      theNbNodes,
                                    const Standard_Integer                      theNbElems,
-                                   const TCollection_AsciiString&              theMatLib,
+                                   const AsciiString1&              theMatLib,
                                    const TColStd_IndexedDataMapOfStringString& theFileInfo);
 
   //! Return active material or empty string if not set.
-  const TCollection_AsciiString& ActiveMaterial() const { return myActiveMaterial; }
+  const AsciiString1& ActiveMaterial() const { return myActiveMaterial; }
 
   //! Set active material.
-  Standard_EXPORT bool WriteActiveMaterial(const TCollection_AsciiString& theMaterial);
+  Standard_EXPORT bool WriteActiveMaterial(const AsciiString1& theMaterial);
 
   //! Writing a triangle
   Standard_EXPORT bool WriteTriangle(const Graphic3d_Vec3i& theTri);
@@ -74,7 +74,7 @@ public:
   Standard_EXPORT bool WriteTexCoord(const Graphic3d_Vec2& theValue);
 
   //! Writing a group name
-  Standard_EXPORT bool WriteGroup(const TCollection_AsciiString& theValue);
+  Standard_EXPORT bool WriteGroup(const AsciiString1& theValue);
 
   //! Increment indices shift.
   Standard_EXPORT void FlushFace(Standard_Integer theNbNodes);
@@ -84,8 +84,8 @@ public:
 
 private:
   FILE*                   myFile;
-  TCollection_AsciiString myName;
-  TCollection_AsciiString myActiveMaterial;
+  AsciiString1 myName;
+  AsciiString1 myActiveMaterial;
   Graphic3d_Vec4i         myElemPosFirst;
   Graphic3d_Vec4i         myElemNormFirst;
   Graphic3d_Vec4i         myElemUVFirst;

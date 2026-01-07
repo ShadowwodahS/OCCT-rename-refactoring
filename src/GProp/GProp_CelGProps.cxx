@@ -79,7 +79,7 @@ void GProp_CelGProps::Perform(const gp_Circ& C, const Standard_Real U1, const St
     gp_Mat(gp_XYZ(V1(1), V2(1), V3(1)), gp_XYZ(V1(2), V2(2), V3(2)), gp_XYZ(V1(3), V2(3), V3(3)));
 
   gp_Mat Hop;
-  GProp::HOperator(g, loc, dim, Hop);
+  GProp1::HOperator(g, loc, dim, Hop);
   inertia = inertia + Hop;
 }
 

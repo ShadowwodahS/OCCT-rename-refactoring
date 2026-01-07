@@ -24,7 +24,7 @@ BRepBuilderAPI_MakeShell::BRepBuilderAPI_MakeShell() {}
 
 //=================================================================================================
 
-BRepBuilderAPI_MakeShell::BRepBuilderAPI_MakeShell(const Handle(Geom_Surface)& S,
+BRepBuilderAPI_MakeShell::BRepBuilderAPI_MakeShell(const Handle(GeomSurface)& S,
                                                    const Standard_Boolean      Segment)
     : myMakeShell(S, Segment)
 {
@@ -37,7 +37,7 @@ BRepBuilderAPI_MakeShell::BRepBuilderAPI_MakeShell(const Handle(Geom_Surface)& S
 
 //=================================================================================================
 
-BRepBuilderAPI_MakeShell::BRepBuilderAPI_MakeShell(const Handle(Geom_Surface)& S,
+BRepBuilderAPI_MakeShell::BRepBuilderAPI_MakeShell(const Handle(GeomSurface)& S,
                                                    const Standard_Real         UMin,
                                                    const Standard_Real         UMax,
                                                    const Standard_Real         VMin,
@@ -54,7 +54,7 @@ BRepBuilderAPI_MakeShell::BRepBuilderAPI_MakeShell(const Handle(Geom_Surface)& S
 
 //=================================================================================================
 
-void BRepBuilderAPI_MakeShell::Init(const Handle(Geom_Surface)& S,
+void BRepBuilderAPI_MakeShell::Init(const Handle(GeomSurface)& S,
                                     const Standard_Real         UMin,
                                     const Standard_Real         UMax,
                                     const Standard_Real         VMin,
@@ -101,18 +101,18 @@ BRepBuilderAPI_ShellError BRepBuilderAPI_MakeShell::Error() const
 }
 
 //=======================================================================
-// function : TopoDS_Shell&
+// function : TopoShell&
 // purpose  :
 //=======================================================================
 
-const TopoDS_Shell& BRepBuilderAPI_MakeShell::Shell() const
+const TopoShell& BRepBuilderAPI_MakeShell::Shell() const
 {
   return myMakeShell.Shell();
 }
 
 //=================================================================================================
 
-BRepBuilderAPI_MakeShell::operator TopoDS_Shell() const
+BRepBuilderAPI_MakeShell::operator TopoShell() const
 {
   return Shell();
 }

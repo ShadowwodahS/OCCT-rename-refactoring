@@ -24,7 +24,7 @@
 #include <BRepBuilderAPI_Collect.hxx>
 #include <BRepBuilderAPI_ModifyShape.hxx>
 #include <TopTools_ListOfShape.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! Geometric transformation on a shape.
 //! The transformation to be applied is defined as a gp_GTrsf
@@ -71,7 +71,7 @@ public:
   //! Note: the constructed framework can be reused to
   //! apply the same geometric transformation to other
   //! shapes: just specify them with the function Perform.
-  Standard_EXPORT BRepBuilderAPI_GTransform(const TopoDS_Shape&    S,
+  Standard_EXPORT BRepBuilderAPI_GTransform(const TopoShape&    S,
                                             const gp_GTrsf&        T,
                                             const Standard_Boolean Copy = Standard_False);
 
@@ -87,15 +87,15 @@ public:
   //! Note: this framework can be reused to apply the same
   //! geometric transformation to other shapes: just specify
   //! them by calling the function Perform again.
-  Standard_EXPORT void Perform(const TopoDS_Shape& S, const Standard_Boolean Copy = Standard_False);
+  Standard_EXPORT void Perform(const TopoShape& S, const Standard_Boolean Copy = Standard_False);
 
   //! Returns the list  of shapes modified from the shape
   //! <S>.
-  Standard_EXPORT virtual const TopTools_ListOfShape& Modified(const TopoDS_Shape& S)
+  Standard_EXPORT virtual const ShapeList& Modified(const TopoShape& S)
     Standard_OVERRIDE;
 
   //! Returns the modified shape corresponding to <S>.
-  Standard_EXPORT virtual TopoDS_Shape ModifiedShape(const TopoDS_Shape& S) const Standard_OVERRIDE;
+  Standard_EXPORT virtual TopoShape ModifiedShape(const TopoShape& S) const Standard_OVERRIDE;
 
 protected:
 private:

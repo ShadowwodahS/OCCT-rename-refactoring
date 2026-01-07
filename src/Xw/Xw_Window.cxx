@@ -388,7 +388,7 @@ void Xw_Window::Size(Standard_Integer& theWidth, Standard_Integer& theHeight) co
 
 //=================================================================================================
 
-void Xw_Window::SetTitle(const TCollection_AsciiString& theTitle)
+void Xw_Window::SetTitle(const AsciiString1& theTitle)
 {
   if (myXWindow != 0)
   {

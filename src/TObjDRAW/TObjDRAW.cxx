@@ -88,7 +88,7 @@ protected:
   };
 
 public:
-  Standard_EXPORT TObjDRAW_Object(const TDF_Label& theLab)
+  Standard_EXPORT TObjDRAW_Object(const DataLabel& theLab)
       : TObj_Object(theLab)
   {
   }
@@ -123,7 +123,7 @@ public:
   //! add child object
   Standard_EXPORT Handle(TObj_Object) AddChild()
   {
-    TDF_Label aChL = getChildLabel(ChildTag_Child).NewChild();
+    DataLabel aChL = getChildLabel(ChildTag_Child).NewChild();
     return new TObjDRAW_Object(aChL);
   }
 
@@ -143,7 +143,7 @@ IMPLEMENT_TOBJOCAF_PERSISTENCE(TObjDRAW_Object)
 
 //=================================================================================================
 
-static Standard_Integer newModel(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer newModel(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 2)
   {
@@ -151,18 +151,18 @@ static Standard_Integer newModel(Draw_Interpretor& di, Standard_Integer argc, co
     return 1;
   }
 
-  Handle(TDocStd_Document)     D;
+  Handle(AppDocument)     D;
   Handle(DDocStd_DrawDocument) DD;
 
-  if (!DDocStd::GetDocument(argv[1], D, Standard_False))
+  if (!DDocStd1::GetDocument(argv[1], D, Standard_False))
   {
     Handle(TObjDRAW_Model) aModel = new TObjDRAW_Model();
     // initializes the new model: filename is empty
     aModel->Load("");
     D  = aModel->GetDocument();
     DD = new DDocStd_DrawDocument(D);
-    TDataStd_Name::Set(D->GetData()->Root(), argv[1]);
-    Draw::Set(argv[1], DD);
+    NameAttribute::Set(D->GetData()->Root(), argv[1]);
+    Draw1::Set(argv[1], DD);
     di << "document " << argv[1] << " created\n";
   }
   else
@@ -174,11 +174,11 @@ static Standard_Integer newModel(Draw_Interpretor& di, Standard_Integer argc, co
 static Handle(TObj_Model) getModelByName(const char* theName)
 {
   Handle(TObj_Model)       aModel;
-  Handle(TDocStd_Document) D;
-  if (!DDocStd::GetDocument(theName, D))
+  Handle(AppDocument) D;
+  if (!DDocStd1::GetDocument(theName, D))
     return aModel;
 
-  TDF_Label           aLabel = D->Main();
+  DataLabel           aLabel = D->Main();
   Handle(TObj_TModel) aModelAttr;
   if (!aLabel.IsNull() && aLabel.FindAttribute(TObj_TModel::GetID(), aModelAttr))
     aModel = aModelAttr->Model();
@@ -187,7 +187,7 @@ static Handle(TObj_Model) getModelByName(const char* theName)
 
 //=================================================================================================
 
-static Standard_Integer saveModel(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer saveModel(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 2)
   {
@@ -218,7 +218,7 @@ static Standard_Integer saveModel(Draw_Interpretor& di, Standard_Integer argc, c
       isSaved = aModel->SaveAs(*aFileStream);
     }
     else
-      isSaved = aModel->SaveAs(TCollection_ExtendedString(argv[2], Standard_True));
+      isSaved = aModel->SaveAs(UtfString(argv[2], Standard_True));
   }
   else
     isSaved = aModel->Save();
@@ -233,7 +233,7 @@ static Standard_Integer saveModel(Draw_Interpretor& di, Standard_Integer argc, c
 
 //=================================================================================================
 
-static Standard_Integer loadModel(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer loadModel(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
@@ -253,7 +253,7 @@ static Standard_Integer loadModel(Draw_Interpretor& di, Standard_Integer argc, c
 
   Standard_Boolean           isLoaded = Standard_False;
   Handle(TObj_Model)         aModel   = getModelByName(argv[1]);
-  TCollection_ExtendedString aPath(argv[2], Standard_True);
+  UtfString aPath(argv[2], Standard_True);
   if (aModel.IsNull())
   {
     // create new
@@ -270,11 +270,11 @@ static Standard_Integer loadModel(Draw_Interpretor& di, Standard_Integer argc, c
 
     if (isLoaded)
     {
-      Handle(TDocStd_Document)     D  = aModel->GetDocument();
+      Handle(AppDocument)     D  = aModel->GetDocument();
       Handle(DDocStd_DrawDocument) DD = new DDocStd_DrawDocument(D);
 
-      TDataStd_Name::Set(D->GetData()->Root(), argv[1]);
-      Draw::Set(argv[1], DD);
+      NameAttribute::Set(D->GetData()->Root(), argv[1]);
+      Draw1::Set(argv[1], DD);
     }
   }
   else
@@ -292,7 +292,7 @@ static Standard_Integer loadModel(Draw_Interpretor& di, Standard_Integer argc, c
 
 //=================================================================================================
 
-static Standard_Integer closeModel(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer closeModel(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 2)
   {
@@ -310,7 +310,7 @@ static Standard_Integer closeModel(Draw_Interpretor& di, Standard_Integer argc, 
 
 //=================================================================================================
 
-static Standard_Integer addObj(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer addObj(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
@@ -345,7 +345,7 @@ static Handle(TObjDRAW_Object) getObjByName(const char* modelName, const char* o
 
 //=================================================================================================
 
-static Standard_Integer setVal(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setVal(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
@@ -360,21 +360,21 @@ static Standard_Integer setVal(Draw_Interpretor& di, Standard_Integer argc, cons
   }
   if (!strcmp(argv[3], "-r"))
   {
-    int                           Nb   = Draw::Atoi(argv[4]);
+    int                           Nb   = Draw1::Atoi(argv[4]);
     Handle(TColStd_HArray1OfReal) rArr = new TColStd_HArray1OfReal(1, Nb);
     for (int i = 1; i <= Nb; i++)
-      rArr->SetValue(i, Draw::Atof(argv[4 + i]));
+      rArr->SetValue(i, Draw1::Atof(argv[4 + i]));
     tObj->SetRealArr(rArr);
   }
   else
-    tObj->SetInt(Draw::Atoi(argv[3]));
+    tObj->SetInt(Draw1::Atoi(argv[3]));
 
   return 0;
 }
 
 //=================================================================================================
 
-static Standard_Integer getVal(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getVal(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
@@ -407,7 +407,7 @@ static Standard_Integer getVal(Draw_Interpretor& di, Standard_Integer argc, cons
 
 //=================================================================================================
 
-static Standard_Integer setRef(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer setRef(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
@@ -429,7 +429,7 @@ static Standard_Integer setRef(Draw_Interpretor& di, Standard_Integer argc, cons
 
 //=================================================================================================
 
-static Standard_Integer getRef(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getRef(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
@@ -448,7 +448,7 @@ static Standard_Integer getRef(Draw_Interpretor& di, Standard_Integer argc, cons
     return 1;
   else
   {
-    TCollection_AsciiString aName;
+    AsciiString1 aName;
     aRefObj->GetName(aName);
     di << aName.ToCString();
   }
@@ -458,7 +458,7 @@ static Standard_Integer getRef(Draw_Interpretor& di, Standard_Integer argc, cons
 
 //=================================================================================================
 
-static Standard_Integer addChild(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer addChild(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 4)
   {
@@ -485,7 +485,7 @@ static Standard_Integer addChild(Draw_Interpretor& di, Standard_Integer argc, co
 
 //=================================================================================================
 
-static Standard_Integer getChildren(Draw_Interpretor& di, Standard_Integer argc, const char** argv)
+static Standard_Integer getChildren(DrawInterpreter& di, Standard_Integer argc, const char** argv)
 {
   if (argc < 3)
   {
@@ -511,7 +511,7 @@ static Standard_Integer getChildren(Draw_Interpretor& di, Standard_Integer argc,
   for (; anItr->More(); anItr->Next(), i++)
   {
     Handle(TObj_Object)     anObj = anItr->Value();
-    TCollection_AsciiString aName;
+    AsciiString1 aName;
     anObj->GetName(aName);
     if (i > 0)
       di << " ";
@@ -523,7 +523,7 @@ static Standard_Integer getChildren(Draw_Interpretor& di, Standard_Integer argc,
 
 //=================================================================================================
 
-static Standard_Integer hasModifications(Draw_Interpretor& di,
+static Standard_Integer hasModifications(DrawInterpreter& di,
                                          Standard_Integer  argc,
                                          const char**      argv)
 {
@@ -546,7 +546,7 @@ static Standard_Integer hasModifications(Draw_Interpretor& di,
 
 //=================================================================================================
 
-void TObjDRAW::Init(Draw_Interpretor& di)
+void TObjDRAW::Init(DrawInterpreter& di)
 {
   static Standard_Boolean initactor = Standard_False;
   if (initactor)
@@ -627,21 +627,21 @@ void TObjDRAW::Init(Draw_Interpretor& di)
 // TObjDRAW::Factory
 
 //==============================================================================
-void TObjDRAW::Factory(Draw_Interpretor& theDI)
+void TObjDRAW::Factory(DrawInterpreter& theDI)
 {
   // Initialize TObj OCAF formats
-  Handle(TDocStd_Application) anApp = TObj_Application::GetInstance(); // DDocStd::GetApplication();
-  BinTObjDrivers::DefineFormat(anApp);
+  Handle(AppManager) anApp = TObj_Application::GetInstance(); // DDocStd1::GetApplication();
+  BinTObjDrivers1::DefineFormat(anApp);
   XmlTObjDrivers::DefineFormat(anApp);
 
   // define formats for TObj specific application
-  BinTObjDrivers::DefineFormat(anApp);
+  BinTObjDrivers1::DefineFormat(anApp);
   XmlTObjDrivers::DefineFormat(anApp);
 
   TObjDRAW::Init(theDI);
 
 #ifdef OCCT_DEBUG
-  theDI << "Draw Plugin : All TKTObjDRAW commands are loaded\n";
+  theDI << "Draw1 Plugin : All TKTObjDRAW commands are loaded\n";
 #endif
 }
 

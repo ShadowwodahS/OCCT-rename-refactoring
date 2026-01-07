@@ -41,9 +41,9 @@
 
 #include <stdio.h>
 
-IGESDefs_ToolAttributeDef::IGESDefs_ToolAttributeDef() {}
+AttributeDefTool::AttributeDefTool() {}
 
-void IGESDefs_ToolAttributeDef::ReadOwnParams(const Handle(IGESDefs_AttributeDef)&   ent,
+void AttributeDefTool::ReadOwnParams(const Handle(IGESDefs_AttributeDef)&   ent,
                                               const Handle(IGESData_IGESReaderData)& IR,
                                               IGESData_ParamReader&                  PR) const
 {
@@ -223,7 +223,7 @@ void IGESDefs_ToolAttributeDef::ReadOwnParams(const Handle(IGESDefs_AttributeDef
             attrValuePointers);
 }
 
-void IGESDefs_ToolAttributeDef::WriteOwnParams(const Handle(IGESDefs_AttributeDef)& ent,
+void AttributeDefTool::WriteOwnParams(const Handle(IGESDefs_AttributeDef)& ent,
                                                IGESData_IGESWriter&                 IW) const
 {
   if (ent->HasTableName())
@@ -278,7 +278,7 @@ void IGESDefs_ToolAttributeDef::WriteOwnParams(const Handle(IGESDefs_AttributeDe
   }
 }
 
-void IGESDefs_ToolAttributeDef::OwnShared(const Handle(IGESDefs_AttributeDef)& ent,
+void AttributeDefTool::OwnShared(const Handle(IGESDefs_AttributeDef)& ent,
                                           Interface_EntityIterator&            iter) const
 {
   Standard_Integer upper = ent->NbAttributes();
@@ -299,7 +299,7 @@ void IGESDefs_ToolAttributeDef::OwnShared(const Handle(IGESDefs_AttributeDef)& e
   }
 }
 
-void IGESDefs_ToolAttributeDef::OwnCopy(const Handle(IGESDefs_AttributeDef)& another,
+void AttributeDefTool::OwnCopy(const Handle(IGESDefs_AttributeDef)& another,
                                         const Handle(IGESDefs_AttributeDef)& ent,
                                         Interface_CopyTool&                  TC) const
 {
@@ -418,10 +418,10 @@ void IGESDefs_ToolAttributeDef::OwnCopy(const Handle(IGESDefs_AttributeDef)& ano
             attrValuePointers);
 }
 
-IGESData_DirChecker IGESDefs_ToolAttributeDef::DirChecker(
+DirectoryChecker AttributeDefTool::DirChecker(
   const Handle(IGESDefs_AttributeDef)& /* ent */) const
 {
-  IGESData_DirChecker DC(322, 0, 2);
+  DirectoryChecker DC(322, 0, 2);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   DC.LineWeight(IGESData_DefValue);
@@ -433,7 +433,7 @@ IGESData_DirChecker IGESDefs_ToolAttributeDef::DirChecker(
   return DC;
 }
 
-void IGESDefs_ToolAttributeDef::OwnCheck(const Handle(IGESDefs_AttributeDef)& ent,
+void AttributeDefTool::OwnCheck(const Handle(IGESDefs_AttributeDef)& ent,
                                          const Interface_ShareTool&,
                                          Handle(Interface_Check)& ach) const
 {
@@ -507,7 +507,7 @@ void IGESDefs_ToolAttributeDef::OwnCheck(const Handle(IGESDefs_AttributeDef)& en
   }
 }
 
-void IGESDefs_ToolAttributeDef::OwnDump(const Handle(IGESDefs_AttributeDef)& ent,
+void AttributeDefTool::OwnDump(const Handle(IGESDefs_AttributeDef)& ent,
                                         const IGESData_IGESDumper&           dumper,
                                         Standard_OStream&                    S,
                                         const Standard_Integer               level) const

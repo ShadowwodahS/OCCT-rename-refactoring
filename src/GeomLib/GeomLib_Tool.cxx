@@ -39,7 +39,7 @@ static const Standard_Real PARTOLERANCE = 1.e-9;
 //           or computation fails
 //=======================================================================
 
-Standard_Boolean GeomLib_Tool::Parameter(const Handle(Geom_Curve)& Curve,
+Standard_Boolean GeomLib_Tool::Parameter(const Handle(GeomCurve3d)& Curve,
                                          const Point3d&             Point,
                                          const Standard_Real       MaxDist,
                                          Standard_Real&            U)
@@ -89,7 +89,7 @@ Standard_Boolean GeomLib_Tool::Parameter(const Handle(Geom_Curve)& Curve,
 //           or computation fails
 //=======================================================================
 
-Standard_Boolean GeomLib_Tool::Parameters(const Handle(Geom_Surface)& Surface,
+Standard_Boolean GeomLib_Tool::Parameters(const Handle(GeomSurface)& Surface,
                                           const Point3d&               Point,
                                           const Standard_Real         MaxDist,
                                           Standard_Real&              U,
@@ -143,7 +143,7 @@ Standard_Boolean GeomLib_Tool::Parameters(const Handle(Geom_Surface)& Surface,
 //           or computation fails
 //=======================================================================
 
-Standard_Boolean GeomLib_Tool::Parameter(const Handle(Geom2d_Curve)& Curve,
+Standard_Boolean GeomLib_Tool::Parameter(const Handle(GeomCurve2d)& Curve,
                                          const gp_Pnt2d&             Point,
                                          const Standard_Real         MaxDist,
                                          Standard_Real&              U)
@@ -194,7 +194,7 @@ class FuncSolveDeviation : public math_MultipleVarFunction
 public:
   //! Constructor. Initializes the curve and the line
   //! going through two given points.
-  FuncSolveDeviation(const Geom2dAdaptor_Curve& theCurve, const gp_XY& thePf, const gp_XY& thePl)
+  FuncSolveDeviation(const Geom2dAdaptor_Curve& theCurve, const Coords2d& thePf, const Coords2d& thePl)
       : myCurve(theCurve),
         myPRef(thePf)
   {
@@ -208,7 +208,7 @@ public:
   void UpdateFields(const Standard_Real theParam)
   {
     myCurve.D0(theParam, myPointOnCurve);
-    const gp_XY aVt = myPointOnCurve.XY() - myPRef;
+    const Coords2d aVt = myPointOnCurve.XY() - myPRef;
     myVecCurvLine   = aVt.Dot(myDirRef) * myDirRef / mySqMod - aVt;
   }
 
@@ -222,7 +222,7 @@ public:
     gp_Vec2d aD2;
     myCurve.D2(theParam, myPointOnCurve, aD1, aD2);
 
-    const gp_XY aVt = myPointOnCurve.XY() - myPRef;
+    const Coords2d aVt = myPointOnCurve.XY() - myPRef;
     theVal          = aVt.Crossed(myDirRef);
     theD1           = aD1.Crossed(myDirRef);
     theD2           = 2.0 * (theD1 * theD1 + theVal * aD2.Crossed(myDirRef));
@@ -282,7 +282,7 @@ private:
   Standard_Boolean myIsValid;
 
   //! Sets the given line
-  gp_XY myPRef, myDirRef;
+  Coords2d myPRef, myDirRef;
 
   //! Last computed point in the curve
   gp_Pnt2d myPointOnCurve;

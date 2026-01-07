@@ -24,15 +24,15 @@
 #include <Transfer_Binder.hxx>
 #include <Standard_Integer.hxx>
 #include <TopAbs_ShapeEnum.hxx>
-class TopoDS_Shape;
-class TopoDS_Vertex;
-class TopoDS_Edge;
-class TopoDS_Wire;
-class TopoDS_Face;
-class TopoDS_Shell;
-class TopoDS_Solid;
+class TopoShape;
+class TopoVertex;
+class TopoEdge;
+class TopoWire;
+class TopoFace;
+class TopoShell;
+class TopoSolid;
 class TopoDS_CompSolid;
-class TopoDS_Compound;
+class TopoCompound;
 
 class TransferBRep_ShapeListBinder;
 DEFINE_STANDARD_HANDLE(TransferBRep_ShapeListBinder, Transfer_Binder)
@@ -56,34 +56,34 @@ public:
   Standard_EXPORT Standard_CString ResultTypeName() const Standard_OVERRIDE;
 
   //! Adds an item to the result list
-  Standard_EXPORT void AddResult(const TopoDS_Shape& res);
+  Standard_EXPORT void AddResult(const TopoShape& res);
 
   Standard_EXPORT Handle(TopTools_HSequenceOfShape) Result() const;
 
   //! Changes an already defined sub-result
-  Standard_EXPORT void SetResult(const Standard_Integer num, const TopoDS_Shape& res);
+  Standard_EXPORT void SetResult(const Standard_Integer num, const TopoShape& res);
 
-  Standard_EXPORT Standard_Integer NbShapes() const;
+  Standard_EXPORT Standard_Integer NbShapes1() const;
 
-  Standard_EXPORT const TopoDS_Shape& Shape(const Standard_Integer num) const;
+  Standard_EXPORT const TopoShape& Shape(const Standard_Integer num) const;
 
   Standard_EXPORT TopAbs_ShapeEnum ShapeType(const Standard_Integer num) const;
 
-  Standard_EXPORT TopoDS_Vertex Vertex(const Standard_Integer num) const;
+  Standard_EXPORT TopoVertex Vertex(const Standard_Integer num) const;
 
-  Standard_EXPORT TopoDS_Edge Edge(const Standard_Integer num) const;
+  Standard_EXPORT TopoEdge Edge(const Standard_Integer num) const;
 
-  Standard_EXPORT TopoDS_Wire Wire(const Standard_Integer num) const;
+  Standard_EXPORT TopoWire Wire(const Standard_Integer num) const;
 
-  Standard_EXPORT TopoDS_Face Face(const Standard_Integer num) const;
+  Standard_EXPORT TopoFace Face(const Standard_Integer num) const;
 
-  Standard_EXPORT TopoDS_Shell Shell(const Standard_Integer num) const;
+  Standard_EXPORT TopoShell Shell(const Standard_Integer num) const;
 
-  Standard_EXPORT TopoDS_Solid Solid(const Standard_Integer num) const;
+  Standard_EXPORT TopoSolid Solid(const Standard_Integer num) const;
 
   Standard_EXPORT TopoDS_CompSolid CompSolid(const Standard_Integer num) const;
 
-  Standard_EXPORT TopoDS_Compound Compound(const Standard_Integer num) const;
+  Standard_EXPORT TopoCompound Compound(const Standard_Integer num) const;
 
   DEFINE_STANDARD_RTTIEXT(TransferBRep_ShapeListBinder, Transfer_Binder)
 

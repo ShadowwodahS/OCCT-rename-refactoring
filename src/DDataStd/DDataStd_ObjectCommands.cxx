@@ -34,7 +34,7 @@
 //=======================================================================
 // function : NewDirectory (DF, entry )
 //=======================================================================
-static Standard_Integer DDataStd_NewDirectory(Draw_Interpretor& di,
+static Standard_Integer DDataStd_NewDirectory(DrawInterpreter& di,
                                               Standard_Integer  nb,
                                               const char**      arg)
 {
@@ -44,10 +44,10 @@ static Standard_Integer DDataStd_NewDirectory(Draw_Interpretor& di,
     return 1;
   }
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(arg[1], DF))
+  if (!DDF1::GetDF(arg[1], DF))
     return 1;
-  TDF_Label label;
-  DDF::AddLabel(DF, arg[2], label);
+  DataLabel label;
+  DDF1::AddLabel(DF, arg[2], label);
   TDataStd_Directory::New(label);
   return 0;
 }
@@ -55,7 +55,7 @@ static Standard_Integer DDataStd_NewDirectory(Draw_Interpretor& di,
 //=======================================================================
 // function : AddDirectory (DF, entry )
 //=======================================================================
-static Standard_Integer DDataStd_AddDirectory(Draw_Interpretor& di,
+static Standard_Integer DDataStd_AddDirectory(DrawInterpreter& di,
                                               Standard_Integer  nb,
                                               const char**      arg)
 {
@@ -65,10 +65,10 @@ static Standard_Integer DDataStd_AddDirectory(Draw_Interpretor& di,
     return 1;
   }
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(arg[1], DF))
+  if (!DDF1::GetDF(arg[1], DF))
     return 1;
-  TDF_Label label;
-  if (!DDF::FindLabel(DF, arg[2], label))
+  DataLabel label;
+  if (!DDF1::FindLabel(DF, arg[2], label))
   {
     di << "No label for entry" << "\n";
     return 1;
@@ -77,7 +77,7 @@ static Standard_Integer DDataStd_AddDirectory(Draw_Interpretor& di,
   if (TDataStd_Directory::Find(label, A))
   {
     Handle(TDataStd_Directory) Dir = TDataStd_Directory::AddDirectory(A);
-    TCollection_AsciiString    entry;
+    AsciiString1    entry;
     TDF_Tool::Entry(Dir->Label(), entry);
     di << entry.ToCString() << " "; // return a label to draw
     return 0;
@@ -89,7 +89,7 @@ static Standard_Integer DDataStd_AddDirectory(Draw_Interpretor& di,
 //=======================================================================
 // function : MakeObjectLabel (DF, entry )
 //=======================================================================
-static Standard_Integer DDataStd_MakeObjectLabel(Draw_Interpretor& di,
+static Standard_Integer DDataStd_MakeObjectLabel(DrawInterpreter& di,
                                                  Standard_Integer  nb,
                                                  const char**      arg)
 {
@@ -99,10 +99,10 @@ static Standard_Integer DDataStd_MakeObjectLabel(Draw_Interpretor& di,
     return 1;
   }
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(arg[1], DF))
+  if (!DDF1::GetDF(arg[1], DF))
     return 1;
-  TDF_Label label;
-  if (!DDF::FindLabel(DF, arg[2], label))
+  DataLabel label;
+  if (!DDF1::FindLabel(DF, arg[2], label))
   {
     di << "No label for entry" << "\n";
     return 1;
@@ -110,7 +110,7 @@ static Standard_Integer DDataStd_MakeObjectLabel(Draw_Interpretor& di,
   Handle(TDataStd_Directory) A;
   if (TDataStd_Directory::Find(label, A))
   {
-    TCollection_AsciiString entry;
+    AsciiString1 entry;
     TDF_Tool::Entry(TDataStd_Directory::MakeObjectLabel(A), entry);
     di << entry.ToCString() << " "; // return a label to draw
     return 0;
@@ -124,17 +124,17 @@ static Standard_Integer DDataStd_MakeObjectLabel(Draw_Interpretor& di,
 // purpose  : NewNoteBook (DF, entry)
 //=======================================================================
 
-static Standard_Integer DDataStd_NewNoteBook(Draw_Interpretor& di,
+static Standard_Integer DDataStd_NewNoteBook(DrawInterpreter& di,
                                              Standard_Integer  nb,
                                              const char**      arg)
 {
   if (nb == 3)
   {
     Handle(TDF_Data) DF;
-    if (!DDF::GetDF(arg[1], DF))
+    if (!DDF1::GetDF(arg[1], DF))
       return 1;
-    TDF_Label L;
-    DDF::AddLabel(DF, arg[2], L);
+    DataLabel L;
+    DDF1::AddLabel(DF, arg[2], L);
     TDataStd_NoteBook::New(L);
     return 0;
   }
@@ -145,7 +145,7 @@ static Standard_Integer DDataStd_NewNoteBook(Draw_Interpretor& di,
 //=======================================================================
 // function : NewShape (DF, entry,  [in_shape] )
 //=======================================================================
-static Standard_Integer DDataStd_NewShape(Draw_Interpretor& di,
+static Standard_Integer DDataStd_NewShape(DrawInterpreter& di,
                                           Standard_Integer  nb,
                                           const char**      arg)
 {
@@ -156,13 +156,13 @@ static Standard_Integer DDataStd_NewShape(Draw_Interpretor& di,
     return 1;
   }
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(arg[1], DF))
+  if (!DDF1::GetDF(arg[1], DF))
     return 1;
-  TDF_Label label;
-  DDF::AddLabel(DF, arg[2], label);
+  DataLabel label;
+  DDF1::AddLabel(DF, arg[2], label);
   if (nb == 4)
   {
-    TopoDS_Shape shape = DBRep::Get(arg[3]);
+    TopoShape shape = DBRep1::Get(arg[3]);
     if (shape.IsNull())
     {
       di << "Shape argument is invalid" << "\n";
@@ -178,7 +178,7 @@ static Standard_Integer DDataStd_NewShape(Draw_Interpretor& di,
 //=======================================================================
 // function : GetShape2 (DF, entry, out_shape )
 //=======================================================================
-static Standard_Integer DDataStd_GetShape2(Draw_Interpretor& di,
+static Standard_Integer DDataStd_GetShape2(DrawInterpreter& di,
                                            Standard_Integer  nb,
                                            const char**      arg)
 {
@@ -188,22 +188,22 @@ static Standard_Integer DDataStd_GetShape2(Draw_Interpretor& di,
     return 1;
   }
   Handle(TDF_Data) DF;
-  if (!DDF::GetDF(arg[1], DF))
+  if (!DDF1::GetDF(arg[1], DF))
     return 1;
-  TDF_Label label;
-  if (!DDF::FindLabel(DF, arg[2], label))
+  DataLabel label;
+  if (!DDF1::FindLabel(DF, arg[2], label))
   {
     di << "No label for entry" << "\n";
     return 1;
   }
-  DBRep::Set(arg[3], TDataXtd_Shape::Get(label));
+  DBRep1::Set(arg[3], TDataXtd_Shape::Get(label));
 
   return 0;
 }
 
 //=================================================================================================
 
-void DDataStd::ObjectCommands(Draw_Interpretor& theCommands)
+void DDataStd1::ObjectCommands(DrawInterpreter& theCommands)
 {
 
   static Standard_Boolean done = Standard_False;

@@ -26,7 +26,7 @@
 //! This is a base class for OCAF based TObj models
 //!  with declared virtual methods
 //!
-class TObj_Application : public TDocStd_Application
+class TObj_Application : public AppManager
 {
 public:
   //! Returns static instance of the application
@@ -42,36 +42,36 @@ public:
 
   //! Saving the OCAF document to a file
   Standard_EXPORT virtual Standard_Boolean SaveDocument(
-    const Handle(TDocStd_Document)&   theSourceDoc,
-    const TCollection_ExtendedString& theTargetFile);
+    const Handle(AppDocument)&   theSourceDoc,
+    const UtfString& theTargetFile);
 
   //! Saving the OCAF document to a stream
   Standard_EXPORT virtual Standard_Boolean SaveDocument(
-    const Handle(TDocStd_Document)& theSourceDoc,
+    const Handle(AppDocument)& theSourceDoc,
     Standard_OStream&               theOStream);
 
   //! Loading the OCAF document from a file
   Standard_EXPORT virtual Standard_Boolean LoadDocument(
-    const TCollection_ExtendedString& theSourceFile,
-    Handle(TDocStd_Document)&         theTargetDoc);
+    const UtfString& theSourceFile,
+    Handle(AppDocument)&         theTargetDoc);
 
   //! Loading the OCAF document from a stream
   Standard_EXPORT virtual Standard_Boolean LoadDocument(Standard_IStream&         theIStream,
-                                                        Handle(TDocStd_Document)& theTargetDoc);
+                                                        Handle(AppDocument)& theTargetDoc);
 
   //! Create the OCAF document from scratch
   virtual Standard_EXPORT Standard_Boolean
-    CreateNewDocument(Handle(TDocStd_Document)&         theDoc,
-                      const TCollection_ExtendedString& theFormat);
+    CreateNewDocument(Handle(AppDocument)&         theDoc,
+                      const UtfString& theFormat);
 
   //! Signal error during Load or Save
   //! Default imiplementation is empty
-  virtual Standard_EXPORT void ErrorMessage(const TCollection_ExtendedString& theMsg,
+  virtual Standard_EXPORT void ErrorMessage(const UtfString& theMsg,
                                             const Message_Gravity             theLevel);
 
   //! Signal error during Load or Save
   //! Default imiplementation invoke previous declaration with 0
-  virtual void ErrorMessage(const TCollection_ExtendedString& theMsg)
+  virtual void ErrorMessage(const UtfString& theMsg)
   {
     ErrorMessage(theMsg, Message_Alarm);
   }
@@ -104,10 +104,10 @@ protected:
   Standard_EXPORT TObj_Application();
 
   //! Sets an error occurred on storage of a document.
-  void SetError(const PCDM_StoreStatus theStatus, const TCollection_ExtendedString& theInfo);
+  void SetError(const PCDM_StoreStatus theStatus, const UtfString& theInfo);
 
   //! Sets an error occurred on reading of a document.
-  void SetError(const PCDM_ReaderStatus theStatus, const TCollection_ExtendedString& theInfo);
+  void SetError(const PCDM_ReaderStatus theStatus, const UtfString& theInfo);
 
 private:
   /**
@@ -120,10 +120,10 @@ private:
 
 public:
   //! CASCADE RTTI
-  DEFINE_STANDARD_RTTIEXT(TObj_Application, TDocStd_Application)
+  DEFINE_STANDARD_RTTIEXT(TObj_Application, AppManager)
 };
 
 //! Define handle class
-DEFINE_STANDARD_HANDLE(TObj_Application, TDocStd_Application)
+DEFINE_STANDARD_HANDLE(TObj_Application, AppManager)
 
 #endif

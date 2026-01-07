@@ -57,29 +57,29 @@ void FUN_tro(const Standard_Integer i)
     std::cout << "CLOSING";
 }
 
-Standard_EXPORT Standard_Integer FUN_adds(const TopoDS_Shape& s)
+Standard_EXPORT Standard_Integer FUN_adds(const TopoShape& s)
 {
   TopAbs_ShapeEnum        typ = s.ShapeType();
-  TCollection_AsciiString aa;
+  AsciiString1 aa;
   Standard_Integer        is = 0;
   if (typ == TopAbs_VERTEX)
   {
-    aa = TCollection_AsciiString("v");
+    aa = AsciiString1("v");
     is = STATIC_mapv.Add(s);
   }
   if (typ == TopAbs_EDGE)
   {
-    aa = TCollection_AsciiString("e");
+    aa = AsciiString1("e");
     is = STATIC_mapeds.Add(s);
   }
   if (typ == TopAbs_WIRE)
   {
-    aa = TCollection_AsciiString("wi");
+    aa = AsciiString1("wi");
     is = STATIC_mapw.Add(s);
   }
   if (typ == TopAbs_FACE)
   {
-    aa = TCollection_AsciiString("f");
+    aa = AsciiString1("f");
     is = STATIC_mapf.Add(s);
   }
   #ifdef DRAW
@@ -94,14 +94,14 @@ Standard_EXPORT Standard_Integer FUN_adds(const TopoDS_Shape& s)
 extern void FUN_tool_tori(const TopAbs_Orientation Or);
 
 void FUN_tool_Add(TopTools_DataMapOfShapeListOfShape& map,
-                  const TopoDS_Shape&                 key,
-                  const TopoDS_Shape&                 subitem)
+                  const TopoShape&                 key,
+                  const TopoShape&                 subitem)
 {
   if (map.IsBound(key))
     map.ChangeFind(key).Append(subitem);
   else
   {
-    TopTools_ListOfShape los;
+    ShapeList los;
     los.Append(subitem);
     map.Bind(key, los);
   }
@@ -119,7 +119,7 @@ static void FUN_Raise()
 
 //=================================================================================================
 
-TopOpeBRepTool_REGUW::TopOpeBRepTool_REGUW(const TopoDS_Face& Fref)
+TopOpeBRepTool_REGUW::TopOpeBRepTool_REGUW(const TopoFace& Fref)
     : myCORRISO(Fref)
 {
   myS.Nullify();
@@ -137,7 +137,7 @@ TopOpeBRepTool_REGUW::TopOpeBRepTool_REGUW(const TopoDS_Face& Fref)
 
 //=================================================================================================
 
-const TopoDS_Face& TopOpeBRepTool_REGUW::Fref() const
+const TopoFace& TopOpeBRepTool_REGUW::Fref() const
 {
   return (myCORRISO.Fref());
 }
@@ -191,7 +191,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::SplitEds()
   for (i = 1; i <= mymapvEds.Extent(); i++)
   {
     const TopOpeBRepTool_connexity& co = mymapvEds(i);
-    TopTools_ListOfShape            loe;
+    ShapeList            loe;
     Standard_Integer                ni = co.IsInternal(loe);
     if (ni == 0)
       continue;
@@ -202,14 +202,14 @@ Standard_Boolean TopOpeBRepTool_REGUW::SplitEds()
 
   for (i = 1; i <= mehasIv.Extent(); i++)
   {
-    const TopoDS_Edge&   e = TopoDS::Edge(mehasIv.FindKey(i));
-    TopTools_ListOfShape splits;
+    const TopoEdge&   e = TopoDS::Edge(mehasIv.FindKey(i));
+    ShapeList splits;
     Standard_Boolean     issp   = Standard_False;
     Standard_Boolean     isdone = myEsplits.IsBound(e);
     if (isdone)
       splits.Assign(myEsplits.Find(e));
     else
-      issp = TopOpeBRepTool_TOOL::SplitE(e, splits);
+      issp = TOOL1::SplitE(e, splits);
     if (issp)
       hasnewsplits = Standard_True;
 #ifdef OCCT_DEBUG
@@ -223,22 +223,22 @@ Standard_Boolean TopOpeBRepTool_REGUW::SplitEds()
     TopTools_ListIteratorOfListOfShape ite(splits);
     for (; ite.More(); ite.Next())
     {
-      const TopoDS_Shape& esp = ite.Value();
+      const TopoShape& esp = ite.Value();
 #ifdef OCCT_DEBUG
       if (trc)
       {
         std::cout << " e" << FUN_adds(esp);
       }
 #endif
-      TopExp_Explorer exvv(esp, TopAbs_VERTEX);
+      ShapeExplorer exvv(esp, TopAbs_VERTEX);
       for (; exvv.More(); exvv.Next())
       {
-        const TopoDS_Shape&       vv  = exvv.Current();
+        const TopoShape&       vv  = exvv.Current();
         TopOpeBRepTool_connexity& co  = mymapvEds.ChangeFromKey(vv);
         Standard_Boolean          isb = co.RemoveItem(INTERNAL, e);
         if (!isb)
           continue;
-        Standard_Integer ivv = TopOpeBRepTool_TOOL::OriinSorclosed(vv, esp);
+        Standard_Integer ivv = TOOL1::OriinSorclosed(vv, esp);
         co.AddItem(ivv, esp);
       } // exvv(exvv,VERTEX)
     } // ite(splits)
@@ -252,7 +252,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::SplitEds()
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepTool_REGUW::S() const
+const TopoShape& TopOpeBRepTool_REGUW::S() const
 {
   if (!HasInit())
     throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
@@ -261,7 +261,7 @@ const TopoDS_Shape& TopOpeBRepTool_REGUW::S() const
 
 //=================================================================================================
 
-void TopOpeBRepTool_REGUW::Init(const TopoDS_Shape& S)
+void TopOpeBRepTool_REGUW::Init(const TopoShape& S)
 {
   myS = S;
   InitStep(S);
@@ -276,11 +276,11 @@ Standard_Boolean TopOpeBRepTool_REGUW::HasInit() const
 
 //=================================================================================================
 
-void TopOpeBRepTool_REGUW::InitStep(const TopoDS_Shape& S)
+void TopOpeBRepTool_REGUW::InitStep(const TopoShape& S)
 {
   if (!HasInit())
     throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
-  TopoDS_Shape null;
+  TopoShape null;
   myCORRISO.Init(null);
   myCORRISO.Init(S);
 
@@ -328,23 +328,23 @@ Standard_Boolean TopOpeBRepTool_REGUW::MapS()
 
   // A MULTIPLE vertex has its single UV representation's connexity > 2
 
-  const TopoDS_Shape& CS = myCORRISO.S();
-  TopExp_Explorer     exe(CS, TopAbs_EDGE);
+  const TopoShape& CS = myCORRISO.S();
+  ShapeExplorer     exe(CS, TopAbs_EDGE);
   for (; exe.More(); exe.Next())
   {
-    const TopoDS_Edge& ed = TopoDS::Edge(exe.Current());
+    const TopoEdge& ed = TopoDS::Edge(exe.Current());
 
-    Standard_Boolean isdgE = BRep_Tool::Degenerated(ed);
-    Standard_Boolean iscE  = TopOpeBRepTool_TOOL::IsClosingE(ed, myCORRISO.S(), Fref());
+    Standard_Boolean isdgE = BRepInspector::Degenerated(ed);
+    Standard_Boolean iscE  = TOOL1::IsClosingE(ed, myCORRISO.S(), Fref());
     iscE                   = iscE && !isdgE; // closing ed
-    TopoDS_Shape     vcl;
-    Standard_Boolean isvcl = TopOpeBRepTool_TOOL::ClosedE(ed, TopoDS::Vertex(vcl));
+    TopoShape     vcl;
+    Standard_Boolean isvcl = TOOL1::ClosedE(ed, TopoDS::Vertex(vcl));
     isvcl                  = isvcl && !isdgE;
 
-    TopExp_Explorer exv(ed, TopAbs_VERTEX);
+    ShapeExplorer exv(ed, TopAbs_VERTEX);
     for (; exv.More(); exv.Next())
     {
-      const TopoDS_Vertex&     v   = TopoDS::Vertex(exv.Current());
+      const TopoVertex&     v   = TopoDS::Vertex(exv.Current());
       Standard_Boolean         isb = mymapvEds.Contains(v);
       TopOpeBRepTool_connexity theconnexity(v);
       if (!isb)
@@ -371,7 +371,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::MapS()
       }
       else
       {
-        Standard_Integer iov = TopOpeBRepTool_TOOL::OriinSor(v, ed, Standard_False); // iov != 0
+        Standard_Integer iov = TOOL1::OriinSor(v, ed, Standard_False); // iov != 0
         co.AddItem(iov, ed);
       }
 
@@ -383,12 +383,12 @@ Standard_Boolean TopOpeBRepTool_REGUW::MapS()
   {
     for (Standard_Integer iv = 1; iv <= mymapvEds.Extent(); iv++)
     {
-      const TopoDS_Vertex& v = TopoDS::Vertex(mymapvEds.FindKey(iv));
+      const TopoVertex& v = TopoDS::Vertex(mymapvEds.FindKey(iv));
       std::cout << "#v" << FUN_adds(v) << " :\n";
       const TopOpeBRepTool_connexity& co = mymapvEds(iv);
       for (Standard_Integer i = 1; i <= 5; i++)
       {
-        TopTools_ListOfShape eds;
+        ShapeList eds;
         Standard_Integer     ieds = co.Item(i, eds);
         if (ieds == 0)
           continue;
@@ -398,17 +398,17 @@ Standard_Boolean TopOpeBRepTool_REGUW::MapS()
         TopTools_ListIteratorOfListOfShape ite(eds);
         for (; ite.More(); ite.Next())
         {
-          const TopoDS_Edge& e = TopoDS::Edge(ite.Value());
+          const TopoEdge& e = TopoDS::Edge(ite.Value());
           std::cout << "e" << FUN_adds(e);
           FUN_tool_tori(e.Orientation());
-          TopoDS_Vertex    vclo;
-          Standard_Boolean cloE = TopOpeBRepTool_TOOL::ClosedE(e, vclo);
+          TopoVertex    vclo;
+          Standard_Boolean cloE = TOOL1::ClosedE(e, vclo);
           if (cloE)
             std::cout << "closed";
-          Standard_Boolean dgE = BRep_Tool::Degenerated(e);
+          Standard_Boolean dgE = BRepInspector::Degenerated(e);
           if (dgE)
             std::cout << "degenerated";
-          Standard_Boolean iscE = TopOpeBRepTool_TOOL::IsClosingE(e, myCORRISO.S(), Fref());
+          Standard_Boolean iscE = TOOL1::IsClosingE(e, myCORRISO.S(), Fref());
           if (iscE)
             std::cout << "closing";
           std::cout << " ";
@@ -426,7 +426,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::MapS()
   Standard_Integer i;
   for (i = 1; i <= mymapvEds.Extent(); i++)
   {
-    const TopoDS_Shape&             v      = mymapvEds.FindKey(i);
+    const TopoShape&             v      = mymapvEds.FindKey(i);
     const TopOpeBRepTool_connexity& co     = mymapvEds(i);
     Standard_Boolean                faulty = co.IsFaulty();
     if (faulty)
@@ -440,19 +440,19 @@ Standard_Boolean TopOpeBRepTool_REGUW::MapS()
 } // MapS
 
 static void FUN_nextdata(const Standard_Integer      iStep,
-                         const TopoDS_Edge&          e,
-                         const Handle(Geom2d_Curve)& pc,
-                         TopoDS_Vertex&              v,
+                         const TopoEdge&          e,
+                         const Handle(GeomCurve2d)& pc,
+                         TopoVertex&              v,
                          gp_Pnt2d&                   p2d,
                          gp_Dir2d&                   tg)
 // prequesitory : pc = 2drep(e),
 // ori(v,e)=iv1e1 -> v, p2d=pt2d(v,e), tg=tg2d(v,e).
 {
   Standard_Integer iv1e1       = (iStep == 1) ? FORWARD : REVERSED;
-  TopoDS_Shape     aLocalShape = TopOpeBRepTool_TOOL::Vertex(iv1e1, e);
+  TopoShape     aLocalShape = TOOL1::Vertex(iv1e1, e);
   v                            = TopoDS::Vertex(aLocalShape);
-  //  v = TopoDS::Vertex(TopOpeBRepTool_TOOL::Vertex(iv1e1,e));
-  Standard_Real    par1   = TopOpeBRepTool_TOOL::ParE(iv1e1, e);
+  //  v = TopoDS::Vertex(TOOL1::Vertex(iv1e1,e));
+  Standard_Real    par1   = TOOL1::ParE(iv1e1, e);
   Standard_Boolean line   = FUN_tool_line(pc);
   Standard_Boolean quad   = FUN_tool_quad(pc); // mytg2d is reapproximated if PCquad
   Standard_Boolean approx = quad && (!line);
@@ -463,7 +463,7 @@ static void FUN_nextdata(const Standard_Integer      iStep,
     p2d = pc->Value(par1);
 
     Standard_Integer iv0e1 = (iStep == 1) ? REVERSED : FORWARD;
-    Standard_Real    par0  = TopOpeBRepTool_TOOL::ParE(iv0e1, e);
+    Standard_Real    par0  = TOOL1::ParE(iv0e1, e);
     // Getting a point near point<Index> of <E>
     Standard_Real x   = 0.2345;
     Standard_Real par = (1 - x) * par1 + x * par0;
@@ -498,7 +498,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::InitBlock()
   TopTools_ListIteratorOfListOfShape itmu(myListVmultiple);
   while (itmu.More())
   {
-    const TopoDS_Shape&             vmu  = itmu.Value();
+    const TopoShape&             vmu  = itmu.Value();
     const TopOpeBRepTool_connexity& cmu  = mymapvEds.FindFromKey(vmu);
     Standard_Boolean                mult = cmu.IsMultiple();
     if (!mult)
@@ -516,13 +516,13 @@ Standard_Boolean TopOpeBRepTool_REGUW::InitBlock()
     Standard_Integer i;
     for (i = 1; i <= mymapvEds.Extent(); i++)
     {
-      const TopoDS_Vertex&            v  = TopoDS::Vertex(mymapvEds.FindKey(i));
+      const TopoVertex&            v  = TopoDS::Vertex(mymapvEds.FindKey(i));
       const TopOpeBRepTool_connexity& co = mymapvEds(i);
-      TopTools_ListOfShape            lea;
+      ShapeList            lea;
       Standard_Integer                nea = co.Item(iv0e1, lea);
-      TopTools_ListOfShape            leb;
+      ShapeList            leb;
       Standard_Integer                neb = co.Item(CLOSING, leb);
-      TopTools_ListOfShape            le;
+      ShapeList            le;
       le.Append(lea);
       le.Append(leb);
       Standard_Integer ne = nea + neb;
@@ -542,11 +542,11 @@ Standard_Boolean TopOpeBRepTool_REGUW::InitBlock()
   // myed :
   const TopOpeBRepTool_connexity& co = mymapvEds.FindFromKey(myv0);
 
-  TopTools_ListOfShape lea;
+  ShapeList lea;
   Standard_Integer     nea = co.Item(iv0e1, lea);
-  TopTools_ListOfShape leb;
+  ShapeList leb;
   Standard_Integer     neb = co.Item(CLOSING, leb);
-  TopTools_ListOfShape le;
+  ShapeList le;
   le.Append(lea);
   le.Append(leb);
   Standard_Integer ne = nea + neb;
@@ -560,14 +560,14 @@ Standard_Boolean TopOpeBRepTool_REGUW::InitBlock()
     TopTools_ListIteratorOfListOfShape itb(le);
     for (; itb.More(); itb.Next())
     {
-      const TopoDS_Edge& eb   = TopoDS::Edge(itb.Value());
-      Standard_Boolean   iscE = TopOpeBRepTool_TOOL::IsClosingE(myed, myCORRISO.S(), Fref());
+      const TopoEdge& eb   = TopoDS::Edge(itb.Value());
+      Standard_Boolean   iscE = TOOL1::IsClosingE(myed, myCORRISO.S(), Fref());
       if (!iscE)
       {
         myed = eb;
         break;
       }
-      Standard_Integer iov0 = TopOpeBRepTool_TOOL::OriinSorclosed(myv0, myed);
+      Standard_Integer iov0 = TOOL1::OriinSorclosed(myv0, myed);
       if (iov0 != iv0e1)
         continue;
     } // itb(leb)
@@ -575,10 +575,10 @@ Standard_Boolean TopOpeBRepTool_REGUW::InitBlock()
   if (myed.IsNull())
     return Standard_False;
 
-  TopExp_Explorer exv(myed, TopAbs_VERTEX);
+  ShapeExplorer exv(myed, TopAbs_VERTEX);
   for (; exv.More(); exv.Next())
   {
-    const TopoDS_Shape&       vcur = exv.Current();
+    const TopoShape&       vcur = exv.Current();
     TopOpeBRepTool_connexity& cco  = mymapvEds.ChangeFromKey(vcur);
     // #ifdef OCCT_DEBUG
     //     Standard_Boolean ok =
@@ -593,8 +593,8 @@ Standard_Boolean TopOpeBRepTool_REGUW::InitBlock()
   if (!bound)
     return Standard_False;
   Standard_Real               f, l, tol;
-  const Handle(Geom2d_Curve)& pc   = c2df.PC(f, l, tol);
-  Standard_Real               par0 = TopOpeBRepTool_TOOL::ParE(iv0e1, myed);
+  const Handle(GeomCurve2d)& pc   = c2df.PC(f, l, tol);
+  Standard_Real               par0 = TOOL1::ParE(iv0e1, myed);
   pc->D0(par0, myp2d0);
 
   // myv, myp2d, mytg2d :
@@ -616,8 +616,8 @@ Standard_Boolean TopOpeBRepTool_REGUW::InitBlock()
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_REGUW::NearestE(const TopTools_ListOfShape& loe,
-                                                TopoDS_Edge&                efound) const
+Standard_Boolean TopOpeBRepTool_REGUW::NearestE(const ShapeList& loe,
+                                                TopoEdge&                efound) const
 {
 #ifdef OCCT_DEBUG
   Standard_Boolean trc = TopOpeBRepTool_GettraceREGUFA();
@@ -643,14 +643,14 @@ Standard_Boolean TopOpeBRepTool_REGUW::NearestE(const TopTools_ListOfShape& loe,
   if (!isbfound)
     return Standard_False;
 
-  gp_Vec2d tg2dfound = TopOpeBRepTool_TOOL::tryTg2dApp(iv0e1, efound, c2defound, fac);
+  gp_Vec2d tg2dfound = TOOL1::tryTg2dApp(iv0e1, efound, c2defound, fac);
   if (M_REVERSED(efound.Orientation()))
     tg2dfound.Reverse();
   Standard_Real angfound = 1.e7;
   if (iStep == 1)
-    angfound = TopOpeBRepTool_TOOL::Matter(mytg2d, tg2dfound);
+    angfound = TOOL1::Matter(mytg2d, tg2dfound);
   else
-    angfound = 2. * M_PI - TopOpeBRepTool_TOOL::Matter(tg2dfound, mytg2d);
+    angfound = 2. * M_PI - TOOL1::Matter(tg2dfound, mytg2d);
 #ifdef OCCT_DEBUG
   if (trc)
     std::cout << "ang(e" << FUN_adds(myed) << ",e" << FUN_adds(efound) << ")=" << angfound
@@ -664,7 +664,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::NearestE(const TopTools_ListOfShape& loe,
   //     iStep=2 : oppomatterang2d(efound,ecur) = min(ei,ecur)
   for (; ite.More(); ite.Next())
   {
-    const TopoDS_Edge& ei = TopoDS::Edge(ite.Value());
+    const TopoEdge& ei = TopoDS::Edge(ite.Value());
     // for INTERNAL edge eI -> eF+eR
     if (ei.IsSame(myed))
       continue;
@@ -673,15 +673,15 @@ Standard_Boolean TopOpeBRepTool_REGUW::NearestE(const TopTools_ListOfShape& loe,
     Standard_Boolean    isbi = myCORRISO.UVRep(ei, c2dei);
     if (!isbi)
       return Standard_False;
-    gp_Vec2d tg2di = TopOpeBRepTool_TOOL::tryTg2dApp(iv0e1, ei, c2dei, fac);
+    gp_Vec2d tg2di = TOOL1::tryTg2dApp(iv0e1, ei, c2dei, fac);
     if (M_REVERSED(ei.Orientation()))
       tg2di.Reverse();
 
     Standard_Real angi = 1.e7;
     if (iStep == 1)
-      angi = TopOpeBRepTool_TOOL::Matter(mytg2d, tg2di);
+      angi = TOOL1::Matter(mytg2d, tg2di);
     else
-      angi = 2. * M_PI - TopOpeBRepTool_TOOL::Matter(tg2di, mytg2d);
+      angi = 2. * M_PI - TOOL1::Matter(tg2di, mytg2d);
     Standard_Boolean eq = Abs(angi - angfound) < tola;
 #ifdef OCCT_DEBUG
     if (trc)
@@ -720,11 +720,11 @@ Standard_Boolean TopOpeBRepTool_REGUW::NextinBlock()
   const TopOpeBRepTool_connexity& co    = mymapvEds.FindFromKey(myv);
 
   // {e} : e is connexed to <myv> && ori(<myv>,e)=iv0e1
-  TopTools_ListOfShape lea;
+  ShapeList lea;
   Standard_Integer     nea = co.Item(iv0e1, lea);
-  TopTools_ListOfShape leb;
+  ShapeList leb;
   Standard_Integer     neb = co.Item(CLOSING, leb);
-  TopTools_ListOfShape le;
+  ShapeList le;
   le.Append(lea);
   le.Append(leb);
   Standard_Integer ne = nea + neb;
@@ -732,7 +732,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::NextinBlock()
   TopTools_ListIteratorOfListOfShape ite(le);
   while (ite.More())
   {
-    const TopoDS_Edge& e = TopoDS::Edge(ite.Value());
+    const TopoEdge& e = TopoDS::Edge(ite.Value());
 #ifdef OCCT_DEBUG
     if (trc)
       std::cout << " e" << FUN_adds(e);
@@ -757,8 +757,8 @@ Standard_Boolean TopOpeBRepTool_REGUW::NextinBlock()
       return Standard_False;
     }
     Standard_Real               f, l, tol;
-    const Handle(Geom2d_Curve)& pc  = c2df.PC(f, l, tol);
-    Standard_Real               par = TopOpeBRepTool_TOOL::ParE(iv0e1, e);
+    const Handle(GeomCurve2d)& pc  = c2df.PC(f, l, tol);
+    Standard_Real               par = TOOL1::ParE(iv0e1, e);
     gp_Pnt2d                    p2de;
     pc->D0(par, p2de);
 
@@ -791,7 +791,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::NextinBlock()
     myed = TopoDS::Edge(le.First());
   else
   {
-    TopoDS_Edge      efound;
+    TopoEdge      efound;
     Standard_Boolean found = NearestE(le, efound);
     if (!found)
     {
@@ -801,7 +801,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::NextinBlock()
     myed = efound;
   }
 
-  TopExp_Explorer exv(myed, TopAbs_VERTEX);
+  ShapeExplorer exv(myed, TopAbs_VERTEX);
   for (; exv.More(); exv.Next())
   {
     TopOpeBRepTool_connexity& cco = mymapvEds.ChangeFromKey(exv.Current());
@@ -815,7 +815,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::NextinBlock()
   TopOpeBRepTool_C2DF c2df;
   myCORRISO.UVRep(myed, c2df);
   Standard_Real               f, l, tol;
-  const Handle(Geom2d_Curve)& pc = c2df.PC(f, l, tol);
+  const Handle(GeomCurve2d)& pc = c2df.PC(f, l, tol);
   ::FUN_nextdata(iStep, myed, pc, myv, myp2d, mytg2d);
 
 #ifdef OCCT_DEBUG
@@ -836,11 +836,11 @@ Standard_Boolean TopOpeBRepTool_REGUW::NextinBlock()
 
 Standard_Boolean TopOpeBRepTool_REGUW::REGU(const Standard_Integer istep,
 #ifdef OCCT_DEBUG
-                                            const TopoDS_Shape& Scur,
+                                            const TopoShape& Scur,
 #else
-                                            const TopoDS_Shape&,
+                                            const TopoShape&,
 #endif
-                                            TopTools_ListOfShape& Splits)
+                                            ShapeList& Splits)
 {
   if (!HasInit())
     throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
@@ -890,7 +890,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::REGU(const Standard_Integer istep,
   // We should in fact use bounding boxes on pcurves but this is too expensive!!!
   mytol2d = 1.e-5;
   isinit0 = Standard_True;
-  TopTools_ListOfShape loEcur, loW;
+  ShapeList loEcur, loW;
 
   Standard_Integer                   nite = 0;
   Standard_Integer                   nE   = myCORRISO.Eds().Extent(); // recall myCORRISO.Init(myS);
@@ -940,17 +940,17 @@ Standard_Boolean TopOpeBRepTool_REGUW::REGU(const Standard_Integer istep,
       TopTools_ListIteratorOfListOfShape ite1(loEcur);
       for (; ite1.More(); ite1.Next())
       {
-        const TopoDS_Shape& e = ite1.Value();
-        TopExp_Explorer     exv(e, TopAbs_VERTEX);
+        const TopoShape& e = ite1.Value();
+        ShapeExplorer     exv(e, TopAbs_VERTEX);
         for (; exv.More(); exv.Next())
         {
-          const TopoDS_Shape&                v  = exv.Current();
+          const TopoShape&                v  = exv.Current();
           TopOpeBRepTool_connexity&          co = mymapvEds.ChangeFromKey(v);
-          TopTools_ListOfShape&              le = co.ChangeItem(INTERNAL);
+          ShapeList&              le = co.ChangeItem(INTERNAL);
           TopTools_ListIteratorOfListOfShape itte(le);
           while (itte.More())
           {
-            const TopoDS_Shape& ee = itte.Value();
+            const TopoShape& ee = itte.Value();
             TopAbs_Orientation  oe = ee.Orientation();
             if (M_INTERNAL(oe) || M_EXTERNAL(oe))
             {
@@ -976,7 +976,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::REGU(const Standard_Integer istep,
         return Standard_True;
       } // onewok
 
-      TopoDS_Wire      newW;
+      TopoWire      newW;
       Standard_Boolean wiok = FUN_tool_MakeWire(loEcur, newW);
       if (wiok)
         loW.Append(newW);
@@ -1042,11 +1042,11 @@ Standard_Boolean TopOpeBRepTool_REGUW::REGU()
 {
   if (!HasInit())
     throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
-  TopTools_ListOfShape null;
+  ShapeList null;
 
   Standard_Boolean toregu = !myListVmultiple.IsEmpty();
   toregu                  = toregu || hasnewsplits;
-  TopTools_ListOfShape Splits;
+  ShapeList Splits;
   if (!toregu)
   {
     myOwNw.Bind(S(), Splits);
@@ -1054,7 +1054,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::REGU()
   }
 
   // iStep = 1;
-  TopTools_ListOfShape loS;
+  ShapeList loS;
   Standard_Boolean     ok = REGU(1, S(), loS);
   if (!ok)
   {
@@ -1069,7 +1069,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::REGU()
   TopTools_ListIteratorOfListOfShape it(loS);
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape& Scur = it.Value();
+    const TopoShape& Scur = it.Value();
     InitStep(Scur);
     MapS();
     Standard_Boolean toregu1 = !myListVmultiple.IsEmpty();
@@ -1079,7 +1079,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::REGU()
       continue;
     }
 
-    TopTools_ListOfShape sp;
+    ShapeList sp;
     ok = REGU(2, Scur, sp);
     if (!ok)
     {
@@ -1096,7 +1096,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::REGU()
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_REGUW::GetSplits(TopTools_ListOfShape& Splits) const
+Standard_Boolean TopOpeBRepTool_REGUW::GetSplits(ShapeList& Splits) const
 {
   if (!HasInit())
     throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
@@ -1109,7 +1109,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::GetSplits(TopTools_ListOfShape& Splits) c
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_REGUW::Connexity(const TopoDS_Vertex&      v,
+Standard_Boolean TopOpeBRepTool_REGUW::Connexity(const TopoVertex&      v,
                                                  TopOpeBRepTool_connexity& co) const
 {
   if (!HasInit())
@@ -1123,9 +1123,9 @@ Standard_Boolean TopOpeBRepTool_REGUW::Connexity(const TopoDS_Vertex&      v,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_REGUW::AddNewConnexity(const TopoDS_Vertex&   v,
+Standard_Boolean TopOpeBRepTool_REGUW::AddNewConnexity(const TopoVertex&   v,
                                                        const Standard_Integer OriKey,
-                                                       const TopoDS_Edge&     e)
+                                                       const TopoEdge&     e)
 {
   if (!HasInit())
     throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
@@ -1148,11 +1148,11 @@ Standard_Boolean TopOpeBRepTool_REGUW::AddNewConnexity(const TopoDS_Vertex&   v,
     FUN_tro(OriKey);
     std::cout << " in  e" << FUN_adds(e);
     FUN_tool_tori(e.Orientation());
-    TopoDS_Vertex    vclo;
-    Standard_Boolean cloE = TopOpeBRepTool_TOOL::ClosedE(e, vclo);
+    TopoVertex    vclo;
+    Standard_Boolean cloE = TOOL1::ClosedE(e, vclo);
     if (cloE)
       std::cout << " closed";
-    Standard_Boolean dgE = BRep_Tool::Degenerated(e);
+    Standard_Boolean dgE = BRepInspector::Degenerated(e);
     if (dgE)
       std::cout << " degenerated";
     std::cout << std::endl;
@@ -1163,9 +1163,9 @@ Standard_Boolean TopOpeBRepTool_REGUW::AddNewConnexity(const TopoDS_Vertex&   v,
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_REGUW::RemoveOldConnexity(const TopoDS_Vertex&   v,
+Standard_Boolean TopOpeBRepTool_REGUW::RemoveOldConnexity(const TopoVertex&   v,
                                                           const Standard_Integer OriKey,
-                                                          const TopoDS_Edge&     e)
+                                                          const TopoEdge&     e)
 {
   if (!HasInit())
     throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");
@@ -1187,11 +1187,11 @@ Standard_Boolean TopOpeBRepTool_REGUW::RemoveOldConnexity(const TopoDS_Vertex&  
   {
     std::cout << "** removing old connexity : v" << FUN_adds(v) << " for e" << FUN_adds(e);
     FUN_tool_tori(e.Orientation());
-    TopoDS_Vertex    vclo;
-    Standard_Boolean cloE = TopOpeBRepTool_TOOL::ClosedE(e, vclo);
+    TopoVertex    vclo;
+    Standard_Boolean cloE = TOOL1::ClosedE(e, vclo);
     if (cloE)
       std::cout << " closed";
-    Standard_Boolean dgE = BRep_Tool::Degenerated(e);
+    Standard_Boolean dgE = BRepInspector::Degenerated(e);
     if (dgE)
       std::cout << " degenerated";
     std::cout << std::endl;
@@ -1202,7 +1202,7 @@ Standard_Boolean TopOpeBRepTool_REGUW::RemoveOldConnexity(const TopoDS_Vertex&  
 
 //=================================================================================================
 
-Standard_Boolean TopOpeBRepTool_REGUW::UpdateMultiple(const TopoDS_Vertex& v)
+Standard_Boolean TopOpeBRepTool_REGUW::UpdateMultiple(const TopoVertex& v)
 {
   if (!HasInit())
     throw ExceptionBase("TopOpeBRepTool_REGUW : NO INIT");

@@ -13,27 +13,27 @@
 
 #include <Vrml_MaterialBinding.hxx>
 
-Vrml_MaterialBinding::Vrml_MaterialBinding(const Vrml_MaterialBindingAndNormalBinding aValue)
+MaterialBinding::MaterialBinding(const Vrml_MaterialBindingAndNormalBinding aValue)
 {
   myValue = aValue;
 }
 
-Vrml_MaterialBinding::Vrml_MaterialBinding()
+MaterialBinding::MaterialBinding()
 {
   myValue = Vrml_DEFAULT;
 }
 
-void Vrml_MaterialBinding::SetValue(const Vrml_MaterialBindingAndNormalBinding aValue)
+void MaterialBinding::SetValue(const Vrml_MaterialBindingAndNormalBinding aValue)
 {
   myValue = aValue;
 }
 
-Vrml_MaterialBindingAndNormalBinding Vrml_MaterialBinding::Value() const
+Vrml_MaterialBindingAndNormalBinding MaterialBinding::Value() const
 {
   return myValue;
 }
 
-Standard_OStream& Vrml_MaterialBinding::Print(Standard_OStream& anOStream) const
+Standard_OStream& MaterialBinding::Print(Standard_OStream& anOStream) const
 {
   anOStream << "MaterialBinding {\n";
   switch (myValue)

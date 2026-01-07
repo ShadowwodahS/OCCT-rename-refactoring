@@ -86,7 +86,7 @@ void IGESData_IGESReaderData::SetDirPart(const Standard_Integer num,
                                          const Standard_CString label,
                                          const Standard_CString subs)
 {
-  IGESData_DirPart& DP = thedirs(num);
+  DirectoryPart& DP = thedirs(num);
   DP.Init(i1,
           i2,
           i3,
@@ -112,7 +112,7 @@ void IGESData_IGESReaderData::SetDirPart(const Standard_Integer num,
   // InitParams(num); gka optimization memory
 }
 
-const IGESData_DirPart& IGESData_IGESReaderData::DirPart(const Standard_Integer num) const
+const DirectoryPart& IGESData_IGESReaderData::DirPart(const Standard_Integer num) const
 {
   return thedirs(num);
 }
@@ -163,7 +163,7 @@ void IGESData_IGESReaderData::DirValues(const Standard_Integer num,
                       subs);
 }
 
-IGESData_IGESType IGESData_IGESReaderData::DirType(const Standard_Integer num) const
+IGESType IGESData_IGESReaderData::DirType(const Standard_Integer num) const
 {
   return thedirs(num).Type();
 }

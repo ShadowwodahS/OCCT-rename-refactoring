@@ -35,7 +35,7 @@
 // function : Catenate
 // purpose  : Join several triangulations to one new triangulation object
 //=======================================================================
-Handle(Poly_Triangulation) Poly::Catenate(const Poly_ListOfTriangulation& lstTri)
+Handle(MeshTriangulation) Poly::Catenate(const Poly_ListOfTriangulation& lstTri)
 {
   Standard_Integer nNodes(0);
   Standard_Integer nTrian(0);
@@ -44,7 +44,7 @@ Handle(Poly_Triangulation) Poly::Catenate(const Poly_ListOfTriangulation& lstTri
   Poly_ListOfTriangulation::Iterator anIter(lstTri);
   for (; anIter.More(); anIter.Next())
   {
-    const Handle(Poly_Triangulation)& aTri = anIter.Value();
+    const Handle(MeshTriangulation)& aTri = anIter.Value();
     if (!aTri.IsNull())
     {
       nNodes += aTri->NbNodes();
@@ -54,16 +54,16 @@ Handle(Poly_Triangulation) Poly::Catenate(const Poly_ListOfTriangulation& lstTri
 
   if (nNodes == 0)
   {
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
 
-  Handle(Poly_Triangulation) aResult  = new Poly_Triangulation(nNodes, nTrian, Standard_False);
+  Handle(MeshTriangulation) aResult  = new MeshTriangulation(nNodes, nTrian, Standard_False);
   Standard_Integer           iNode[3] = {};
   nNodes                              = 0;
   nTrian                              = 0;
   for (anIter.Init(lstTri); anIter.More(); anIter.Next())
   {
-    const Handle(Poly_Triangulation)& aTri = anIter.Value();
+    const Handle(MeshTriangulation)& aTri = anIter.Value();
     if (aTri.IsNull())
     {
       continue;
@@ -89,11 +89,11 @@ Handle(Poly_Triangulation) Poly::Catenate(const Poly_ListOfTriangulation& lstTri
 
 //=================================================================================================
 
-void Poly::Write(const Handle(Poly_Triangulation)& T,
+void Poly::Write(const Handle(MeshTriangulation)& T,
                  Standard_OStream&                 OS,
                  const Standard_Boolean            Compact)
 {
-  OS << "Poly_Triangulation\n";
+  OS << "MeshTriangulation\n";
   if (Compact)
   {
     OS << T->NbNodes() << " " << T->NbTriangles() << " ";
@@ -276,7 +276,7 @@ void Poly::Write(const Handle(Poly_Polygon2D)& P,
 
 //=================================================================================================
 
-void Poly::Dump(const Handle(Poly_Triangulation)& T, Standard_OStream& OS)
+void Poly::Dump(const Handle(MeshTriangulation)& T, Standard_OStream& OS)
 {
   Poly::Write(T, OS, Standard_False);
 }
@@ -297,18 +297,18 @@ void Poly::Dump(const Handle(Poly_Polygon2D)& P, Standard_OStream& OS)
 
 //=================================================================================================
 
-Handle(Poly_Triangulation) Poly::ReadTriangulation(Standard_IStream& IS)
+Handle(MeshTriangulation) Poly::ReadTriangulation(Standard_IStream& IS)
 {
   // Read a triangulation
 
   char line[100];
   IS >> line;
-  if (strcmp(line, "Poly_Triangulation"))
+  if (strcmp(line, "MeshTriangulation"))
   {
 #ifdef OCCT_DEBUG
     std::cout << "Not a Triangulation in the file" << std::endl;
 #endif
-    return Handle(Poly_Triangulation)();
+    return Handle(MeshTriangulation)();
   }
 
   Standard_Integer nbNodes, nbTriangles;
@@ -350,12 +350,12 @@ Handle(Poly_Triangulation) Poly::ReadTriangulation(Standard_IStream& IS)
     Triangles(i).Set(n1, n2, n3);
   }
 
-  Handle(Poly_Triangulation) T;
+  Handle(MeshTriangulation) T;
 
   if (hasUV)
-    T = new Poly_Triangulation(Nodes, UVNodes, Triangles);
+    T = new MeshTriangulation(Nodes, UVNodes, Triangles);
   else
-    T = new Poly_Triangulation(Nodes, Triangles);
+    T = new MeshTriangulation(Nodes, Triangles);
 
   T->Deflection(d);
 
@@ -460,22 +460,22 @@ Handle(Poly_Polygon2D) Poly::ReadPolygon2D(Standard_IStream& IS)
 
 //=================================================================================================
 
-void Poly::ComputeNormals(const Handle(Poly_Triangulation)& theTri)
+void Poly::ComputeNormals(const Handle(MeshTriangulation)& theTri)
 {
   theTri->ComputeNormals();
 }
 
 //=================================================================================================
 
-Standard_Real Poly::PointOnTriangle(const gp_XY& theP1,
-                                    const gp_XY& theP2,
-                                    const gp_XY& theP3,
-                                    const gp_XY& theP,
-                                    gp_XY&       theUV)
+Standard_Real Poly::PointOnTriangle(const Coords2d& theP1,
+                                    const Coords2d& theP2,
+                                    const Coords2d& theP3,
+                                    const Coords2d& theP,
+                                    Coords2d&       theUV)
 {
-  gp_XY         aDP  = theP - theP1;
-  gp_XY         aDU  = theP2 - theP1;
-  gp_XY         aDV  = theP3 - theP1;
+  Coords2d         aDP  = theP - theP1;
+  Coords2d         aDU  = theP2 - theP1;
+  Coords2d         aDV  = theP3 - theP1;
   Standard_Real aDet = aDU ^ aDV;
 
   // case of non-degenerated triangle
@@ -511,7 +511,7 @@ Standard_Real Poly::PointOnTriangle(const gp_XY& theP1,
     }
 
     // project on side U+V=1
-    gp_XY         aDUV = aDV - aDU;
+    Coords2d         aDUV = aDV - aDU;
     Standard_Real v    = Min(1., Max(0., ((aDP - aDU) * aDUV) / aDUV.SquareModulus()));
     d                  = (theP2 + v * aDUV - theP).SquareModulus();
     if (d < aD)
@@ -568,7 +568,7 @@ Standard_Real Poly::PointOnTriangle(const gp_XY& theP1,
 
 //=================================================================================================
 
-Standard_Boolean Poly::Intersect(const Handle(Poly_Triangulation)& theTri,
+Standard_Boolean Poly::Intersect(const Handle(MeshTriangulation)& theTri,
                                  const Axis3d&                     theAxis,
                                  const Standard_Boolean            theIsClosest,
                                  Poly_Triangle&                    theTriangle,

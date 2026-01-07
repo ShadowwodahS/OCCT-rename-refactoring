@@ -50,7 +50,7 @@ Standard_Boolean BinMXCAFDoc_NoteCommentDriver::Paste(
   if (aNote.IsNull())
     return Standard_False;
 
-  TCollection_ExtendedString aComment;
+  UtfString aComment;
   if (!(theSource >> aComment))
     return Standard_False;
 

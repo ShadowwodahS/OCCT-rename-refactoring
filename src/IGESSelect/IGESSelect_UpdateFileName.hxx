@@ -24,7 +24,7 @@
 class IFSelect_ContextModif;
 class IGESData_IGESModel;
 class Interface_CopyTool;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class IGESSelect_UpdateFileName;
 DEFINE_STANDARD_HANDLE(IGESSelect_UpdateFileName, IGESSelect_ModelModifier)
@@ -51,7 +51,7 @@ public:
 
   //! Returns a text which is
   //! "Updates IGES File Name to new current one"
-  Standard_EXPORT TCollection_AsciiString Label() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 Label() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IGESSelect_UpdateFileName, IGESSelect_ModelModifier)
 

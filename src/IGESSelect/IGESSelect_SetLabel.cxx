@@ -69,9 +69,9 @@ void IGESSelect_SetLabel::Performing(IFSelect_ContextModif&            ctx,
   }
 }
 
-TCollection_AsciiString IGESSelect_SetLabel::Label() const
+AsciiString1 IGESSelect_SetLabel::Label() const
 {
-  TCollection_AsciiString lab;
+  AsciiString1 lab;
   if (themode == 0)
     lab.AssignCat("Clear Short Label");
   if (themode == 1)

@@ -39,35 +39,35 @@ class Graphic3d_Group;
 class Graphic3d_Structure;
 class V3d_CircularGrid;
 class V3d_RectangularGrid;
-class V3d_View;
+class ViewWindow;
 
 //! Defines services on Viewer type objects.
 //! The methods of this class allow editing and
 //! interrogation of the parameters linked to the viewer
 //! its friend classes (View,light,plane).
-class V3d_Viewer : public RefObject
+class ViewManager : public RefObject
 {
-  friend class V3d_View;
-  DEFINE_STANDARD_RTTIEXT(V3d_Viewer, RefObject)
+  friend class ViewWindow;
+  DEFINE_STANDARD_RTTIEXT(ViewManager, RefObject)
 public:
   //! Create a Viewer with the given graphic driver and with default parameters:
   //! - View orientation: V3d_XposYnegZpos
   //! - View background: Quantity_NOC_GRAY30
   //! - Shading model: V3d_GOURAUD
-  Standard_EXPORT V3d_Viewer(const Handle(Graphic3d_GraphicDriver)& theDriver);
+  Standard_EXPORT ViewManager(const Handle(Graphic3d_GraphicDriver)& theDriver);
 
   //! Returns True if One View more can be defined in this Viewer.
   Standard_EXPORT Standard_Boolean IfMoreViews() const;
 
   //! Creates a view in the viewer according to its default parameters.
-  Standard_EXPORT Handle(V3d_View) CreateView();
+  Standard_EXPORT Handle(ViewWindow) CreateView();
 
   //! Activates all of the views of a viewer attached to a window.
   Standard_EXPORT void SetViewOn();
 
   //! Activates a particular view in the Viewer.
   //! Must be call if the Window attached to the view has been Deiconified.
-  Standard_EXPORT void SetViewOn(const Handle(V3d_View)& theView);
+  Standard_EXPORT void SetViewOn(const Handle(ViewWindow)& theView);
 
   //! Deactivates all the views of a Viewer
   //! attached to a window.
@@ -76,7 +76,7 @@ public:
   //! Deactivates a particular view in the Viewer.
   //! Must be call if the Window attached to the view
   //! has been Iconified .
-  Standard_EXPORT void SetViewOff(const Handle(V3d_View)& theView);
+  Standard_EXPORT void SetViewOff(const Handle(ViewWindow)& theView);
 
   //! Deprecated, Redraw() should be used instead.
   void Update() { Redraw(); }
@@ -103,7 +103,7 @@ public:
   Handle(Graphic3d_StructureManager) StructureManager() const { return myStructureManager; }
 
   //! Return default Rendering Parameters.
-  //! By default these parameters are set in a new V3d_View.
+  //! By default these parameters are set in a new ViewWindow.
   const Graphic3d_RenderingParams& DefaultRenderingParams() const
   {
     return myDefaultRenderingParams;
@@ -444,11 +444,11 @@ public: //! @name grid management
                                                        const Standard_Real OffSet);
 
   //! Display grid echo at requested point in the view.
-  Standard_EXPORT void ShowGridEcho(const Handle(V3d_View)& theView,
+  Standard_EXPORT void ShowGridEcho(const Handle(ViewWindow)& theView,
                                     const Graphic3d_Vertex& thePoint);
 
   //! Temporarily hide grid echo.
-  Standard_EXPORT void HideGridEcho(const Handle(V3d_View)& theView);
+  Standard_EXPORT void HideGridEcho(const Handle(ViewWindow)& theView);
 
 public: //! @name deprecated methods
   //! Returns Standard_True if a grid is activated in <me>.
@@ -477,7 +477,7 @@ public: //! @name deprecated methods
 
   Standard_DEPRECATED("Deprecated method - ActiveViews() should be used instead")
 
-  const Handle(V3d_View)& ActiveView() const { return myActiveViewsIterator.Value(); }
+  const Handle(ViewWindow)& ActiveView() const { return myActiveViewsIterator.Value(); }
 
   //! Initializes an internal iterator on the Defined views.
   Standard_DEPRECATED("Deprecated method - DefinedViews() should be used instead")
@@ -500,7 +500,7 @@ public: //! @name deprecated methods
 
   Standard_DEPRECATED("Deprecated method - DefinedViews() should be used instead")
 
-  const Handle(V3d_View)& DefinedView() const { return myDefinedViewsIterator.Value(); }
+  const Handle(ViewWindow)& DefinedView() const { return myDefinedViewsIterator.Value(); }
 
   //! Initializes an internal iteratator on the active Lights.
   Standard_DEPRECATED("Deprecated method - ActiveLights() should be used instead")
@@ -552,10 +552,10 @@ private:
   const Aspect_Background& GetBackgroundColor() const { return myBackground; }
 
   //! Adds View in Sequence Of Views.
-  Standard_EXPORT void AddView(const Handle(V3d_View)& theView);
+  Standard_EXPORT void AddView(const Handle(ViewWindow)& theView);
 
   //! Delete View in Sequence Of Views.
-  Standard_EXPORT void DelView(const V3d_View* theView);
+  Standard_EXPORT void DelView(const ViewWindow* theView);
 
 private:
   Handle(Graphic3d_GraphicDriver)    myDriver;
@@ -599,6 +599,6 @@ private:
   Graphic3d_Vertex                 myGridEchoLastVert;
 };
 
-DEFINE_STANDARD_HANDLE(V3d_Viewer, RefObject)
+DEFINE_STANDARD_HANDLE(ViewManager, RefObject)
 
 #endif // _V3d_Viewer_HeaderFile

@@ -53,7 +53,7 @@ protected:
   Handle(Image_Texture) myImageSource;
 };
 
-IMPLEMENT_STANDARD_RTTIEXT(AIS_XRTrackedDevice, AIS_InteractiveObject)
+IMPLEMENT_STANDARD_RTTIEXT(AIS_XRTrackedDevice, VisualEntity)
 
 //=================================================================================================
 
@@ -176,7 +176,7 @@ void AIS_XRTrackedDevice::Compute(const Handle(PrsMgr_PresentationManager)&,
 
 //=================================================================================================
 
-void AIS_XRTrackedDevice::ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+void AIS_XRTrackedDevice::ComputeSelection(const Handle(SelectionContainer)& theSel,
                                            const Standard_Integer             theMode)
 {
   if (theMode != 0)

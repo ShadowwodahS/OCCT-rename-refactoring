@@ -186,10 +186,10 @@ void IntPatch_Intersection::Perform(const Handle(Adaptor3d_Surface)&   S1,
       ProjLib_ProjectOnPlane  Projector(anAxis);
       Projector.Load(aBasisCurve, Precision::Confusion());
       Handle(GeomAdaptor_Curve)   aProjCurve = Projector.GetResult();
-      Handle(Geom_Plane)          aPlane     = new Geom_Plane(anAxis);
+      Handle(GeomPlane)          aPlane     = new GeomPlane(anAxis);
       Handle(GeomAdaptor_Surface) aGAHsurf   = new GeomAdaptor_Surface(aPlane);
       ProjLib_ProjectedCurve      aProjectedCurve(aGAHsurf, aProjCurve);
-      Handle(Geom2d_Curve)        aPCurve;
+      Handle(GeomCurve2d)        aPCurve;
       ProjLib::MakePCurveOfType(aProjectedCurve, aPCurve);
       Geom2dAdaptor_Curve AC(aPCurve,
                              aProjectedCurve.FirstParameter(),
@@ -378,44 +378,44 @@ static void FUN_TrimInfSurf(const Point3d&                    Pmin,
 //================================================================================
 // function: FUN_GetUiso
 //================================================================================
-static void FUN_GetUiso(const Handle(Geom_Surface)& GS,
+static void FUN_GetUiso(const Handle(GeomSurface)& GS,
                         const GeomAbs_SurfaceType&  T,
                         const Standard_Real&        FirstV,
                         const Standard_Real&        LastV,
                         const Standard_Boolean&     IsVC,
                         const Standard_Boolean&     IsVP,
                         const Standard_Real&        U,
-                        Handle(Geom_Curve)&         I)
+                        Handle(GeomCurve3d)&         I)
 {
   if (T != GeomAbs_OffsetSurface)
   {
-    Handle(Geom_Curve) gc = GS->UIso(U);
+    Handle(GeomCurve3d) gc = GS->UIso(U);
     if (IsVP && (FirstV == 0.0 && LastV == (2. * M_PI)))
       I = gc;
     else
     {
       Handle(Geom_TrimmedCurve) gtc = new Geom_TrimmedCurve(gc, FirstV, LastV);
-      // szv:I = Handle(Geom_Curve)::DownCast(gtc);
+      // szv:I = Handle(GeomCurve3d)::DownCast(gtc);
       I = gtc;
     }
   }
   else // OffsetSurface
   {
     const Handle(Geom_OffsetSurface) gos  = Handle(Geom_OffsetSurface)::DownCast(GS);
-    const Handle(Geom_Surface)       bs   = gos->BasisSurface();
-    Handle(Geom_Curve)               gcbs = bs->UIso(U);
+    const Handle(GeomSurface)       bs   = gos->BasisSurface();
+    Handle(GeomCurve3d)               gcbs = bs->UIso(U);
     GeomAdaptor_Curve                gac(gcbs);
     const GeomAbs_CurveType          GACT = gac.GetType();
     if (IsVP || IsVC || GACT == GeomAbs_BSplineCurve || GACT == GeomAbs_BezierCurve
         || Abs(LastV - FirstV) < 1.e+5)
     {
-      Handle(Geom_Curve) gc = gos->UIso(U);
+      Handle(GeomCurve3d) gc = gos->UIso(U);
       if (IsVP && (FirstV == 0.0 && LastV == (2 * M_PI)))
         I = gc;
       else
       {
         Handle(Geom_TrimmedCurve) gtc = new Geom_TrimmedCurve(gc, FirstV, LastV);
-        // szv:I = Handle(Geom_Curve)::DownCast(gtc);
+        // szv:I = Handle(GeomCurve3d)::DownCast(gtc);
         I = gtc;
       }
     }
@@ -473,44 +473,44 @@ static void FUN_GetUiso(const Handle(Geom_Surface)& GS,
 //================================================================================
 // function: FUN_GetViso
 //================================================================================
-static void FUN_GetViso(const Handle(Geom_Surface)& GS,
+static void FUN_GetViso(const Handle(GeomSurface)& GS,
                         const GeomAbs_SurfaceType&  T,
                         const Standard_Real&        FirstU,
                         const Standard_Real&        LastU,
                         const Standard_Boolean&     IsUC,
                         const Standard_Boolean&     IsUP,
                         const Standard_Real&        V,
-                        Handle(Geom_Curve)&         I)
+                        Handle(GeomCurve3d)&         I)
 {
   if (T != GeomAbs_OffsetSurface)
   {
-    Handle(Geom_Curve) gc = GS->VIso(V);
+    Handle(GeomCurve3d) gc = GS->VIso(V);
     if (IsUP && (FirstU == 0.0 && LastU == (2 * M_PI)))
       I = gc;
     else
     {
       Handle(Geom_TrimmedCurve) gtc = new Geom_TrimmedCurve(gc, FirstU, LastU);
-      // szv:I = Handle(Geom_Curve)::DownCast(gtc);
+      // szv:I = Handle(GeomCurve3d)::DownCast(gtc);
       I = gtc;
     }
   }
   else // OffsetSurface
   {
     const Handle(Geom_OffsetSurface) gos  = Handle(Geom_OffsetSurface)::DownCast(GS);
-    const Handle(Geom_Surface)       bs   = gos->BasisSurface();
-    Handle(Geom_Curve)               gcbs = bs->VIso(V);
+    const Handle(GeomSurface)       bs   = gos->BasisSurface();
+    Handle(GeomCurve3d)               gcbs = bs->VIso(V);
     GeomAdaptor_Curve                gac(gcbs);
     const GeomAbs_CurveType          GACT = gac.GetType();
     if (IsUP || IsUC || GACT == GeomAbs_BSplineCurve || GACT == GeomAbs_BezierCurve
         || Abs(LastU - FirstU) < 1.e+5)
     {
-      Handle(Geom_Curve) gc = gos->VIso(V);
+      Handle(GeomCurve3d) gc = gos->VIso(V);
       if (IsUP && (FirstU == 0.0 && LastU == (2 * M_PI)))
         I = gc;
       else
       {
         Handle(Geom_TrimmedCurve) gtc = new Geom_TrimmedCurve(gc, FirstU, LastU);
-        // szv:I = Handle(Geom_Curve)::DownCast(gtc);
+        // szv:I = Handle(GeomCurve3d)::DownCast(gtc);
         I = gtc;
       }
     }
@@ -581,11 +581,11 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
   DV                                        = Vector3d(0., 0., 1.);
   Standard_Boolean           isoS1isLine[2] = {0, 0};
   Standard_Boolean           isoS2isLine[2] = {0, 0};
-  Handle(Geom_Curve)         C1, C2;
+  Handle(GeomCurve3d)         C1, C2;
   const GeomAdaptor_Surface& gas1 = *(GeomAdaptor_Surface*)(S1.get());
   const GeomAdaptor_Surface& gas2 = *(GeomAdaptor_Surface*)(S2.get());
-  const Handle(Geom_Surface) gs1  = gas1.Surface();
-  const Handle(Geom_Surface) gs2  = gas2.Surface();
+  const Handle(GeomSurface) gs1  = gas1.Surface();
+  const Handle(GeomSurface) gs2  = gas2.Surface();
   Standard_Real              MS1[2], MS2[2];
   MS1[0] = 0.5 * (S1->LastUParameter() + S1->FirstUParameter());
   MS1[1] = 0.5 * (S1->LastVParameter() + S1->FirstVParameter());
@@ -600,7 +600,7 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
     else
     {
       const Handle(Geom_OffsetSurface) gos = Handle(Geom_OffsetSurface)::DownCast(gs1);
-      const Handle(Geom_Surface)       bs  = gos->BasisSurface();
+      const Handle(GeomSurface)       bs  = gos->BasisSurface();
       C1                                   = bs->UIso(MS1[0]);
     }
     GeomAdaptor_Curve gac(C1);
@@ -614,7 +614,7 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
     else
     {
       const Handle(Geom_OffsetSurface) gos = Handle(Geom_OffsetSurface)::DownCast(gs1);
-      const Handle(Geom_Surface)       bs  = gos->BasisSurface();
+      const Handle(GeomSurface)       bs  = gos->BasisSurface();
       C1                                   = bs->VIso(MS1[1]);
     }
     GeomAdaptor_Curve gac(C1);
@@ -630,7 +630,7 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
     else
     {
       const Handle(Geom_OffsetSurface) gos = Handle(Geom_OffsetSurface)::DownCast(gs2);
-      const Handle(Geom_Surface)       bs  = gos->BasisSurface();
+      const Handle(GeomSurface)       bs  = gos->BasisSurface();
       C2                                   = bs->UIso(MS2[0]);
     }
     GeomAdaptor_Curve gac(C2);
@@ -644,7 +644,7 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
     else
     {
       const Handle(Geom_OffsetSurface) gos = Handle(Geom_OffsetSurface)::DownCast(gs2);
-      const Handle(Geom_Surface)       bs  = gos->BasisSurface();
+      const Handle(GeomSurface)       bs  = gos->BasisSurface();
       C2                                   = bs->VIso(MS2[1]);
     }
     GeomAdaptor_Curve gac(C2);
@@ -755,13 +755,13 @@ static void FUN_PL_Intersection(const Handle(Adaptor3d_Surface)& S1,
   if (C1.IsNull() || C2.IsNull())
     return;
   DV                       = derS1[iso];
-  Handle(Geom_Plane) GPln  = new Geom_Plane(gp_Pln(puvS1, Dir3d(DV)));
-  Handle(Geom_Curve) C1Prj = GeomProjLib::ProjectOnPlane(C1, GPln, Dir3d(DV), Standard_True);
-  Handle(Geom_Curve) C2Prj = GeomProjLib::ProjectOnPlane(C2, GPln, Dir3d(DV), Standard_True);
+  Handle(GeomPlane) GPln  = new GeomPlane(gp_Pln(puvS1, Dir3d(DV)));
+  Handle(GeomCurve3d) C1Prj = GeomProjLib::ProjectOnPlane(C1, GPln, Dir3d(DV), Standard_True);
+  Handle(GeomCurve3d) C2Prj = GeomProjLib::ProjectOnPlane(C2, GPln, Dir3d(DV), Standard_True);
   if (C1Prj.IsNull() || C2Prj.IsNull())
     return;
-  Handle(Geom2d_Curve)      C1Prj2d = GeomProjLib::Curve2d(C1Prj, GPln);
-  Handle(Geom2d_Curve)      C2Prj2d = GeomProjLib::Curve2d(C2Prj, GPln);
+  Handle(GeomCurve2d)      C1Prj2d = GeomProjLib::Curve2d(C1Prj, GPln);
+  Handle(GeomCurve2d)      C2Prj2d = GeomProjLib::Curve2d(C2Prj, GPln);
   Geom2dAPI_InterCurveCurve ICC(C1Prj2d, C2Prj2d, 1.0e-7);
   if (ICC.NbPoints() > 0)
   {
@@ -857,13 +857,13 @@ static void FUN_TrimBothSurf(const Handle(Adaptor3d_Surface)& S1,
 {
   const GeomAdaptor_Surface& gas1 = *(GeomAdaptor_Surface*)(S1.get());
   const GeomAdaptor_Surface& gas2 = *(GeomAdaptor_Surface*)(S2.get());
-  const Handle(Geom_Surface) gs1  = gas1.Surface();
-  const Handle(Geom_Surface) gs2  = gas2.Surface();
+  const Handle(GeomSurface) gs1  = gas1.Surface();
+  const Handle(GeomSurface) gs2  = gas2.Surface();
   const Standard_Real        UM1  = 0.5 * (S1->LastUParameter() + S1->FirstUParameter());
   const Standard_Real        UM2  = 0.5 * (S2->LastUParameter() + S2->FirstUParameter());
   const Standard_Real        VM1  = 0.5 * (S1->LastVParameter() + S1->FirstVParameter());
   const Standard_Real        VM2  = 0.5 * (S2->LastVParameter() + S2->FirstVParameter());
-  Handle(Geom_Curve)         visoS1, visoS2, uisoS1, uisoS2;
+  Handle(GeomCurve3d)         visoS1, visoS2, uisoS1, uisoS2;
   if (T1 != GeomAbs_OffsetSurface)
   {
     visoS1 = gs1->VIso(VM1);
@@ -872,7 +872,7 @@ static void FUN_TrimBothSurf(const Handle(Adaptor3d_Surface)& S1,
   else
   {
     const Handle(Geom_OffsetSurface) gos = Handle(Geom_OffsetSurface)::DownCast(gs1);
-    const Handle(Geom_Surface)       bs  = gos->BasisSurface();
+    const Handle(GeomSurface)       bs  = gos->BasisSurface();
     visoS1                               = bs->VIso(VM1);
     uisoS1                               = bs->UIso(UM1);
   }
@@ -884,7 +884,7 @@ static void FUN_TrimBothSurf(const Handle(Adaptor3d_Surface)& S1,
   else
   {
     const Handle(Geom_OffsetSurface) gos = Handle(Geom_OffsetSurface)::DownCast(gs2);
-    const Handle(Geom_Surface)       bs  = gos->BasisSurface();
+    const Handle(GeomSurface)       bs  = gos->BasisSurface();
     visoS2                               = bs->VIso(VM2);
     uisoS2                               = bs->UIso(UM2);
   }

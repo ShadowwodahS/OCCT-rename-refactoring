@@ -46,11 +46,11 @@
 // MGE 03/08/98
 //=================================================================================================
 
-IGESSolid_ToolLoop::IGESSolid_ToolLoop() {}
+LoopTool::LoopTool() {}
 
 //=================================================================================================
 
-void IGESSolid_ToolLoop::ReadOwnParams(const Handle(IGESSolid_Loop)&          ent,
+void LoopTool::ReadOwnParams(const Handle(IGESSolid_Loop)&          ent,
                                        const Handle(IGESData_IGESReaderData)& IR,
                                        IGESData_ParamReader&                  PR) const
 {
@@ -213,7 +213,7 @@ void IGESSolid_ToolLoop::ReadOwnParams(const Handle(IGESSolid_Loop)&          en
 
 //=================================================================================================
 
-void IGESSolid_ToolLoop::WriteOwnParams(const Handle(IGESSolid_Loop)& ent,
+void LoopTool::WriteOwnParams(const Handle(IGESSolid_Loop)& ent,
                                         IGESData_IGESWriter&          IW) const
 {
   Standard_Integer i, j;
@@ -237,7 +237,7 @@ void IGESSolid_ToolLoop::WriteOwnParams(const Handle(IGESSolid_Loop)& ent,
 
 //=================================================================================================
 
-void IGESSolid_ToolLoop::OwnShared(const Handle(IGESSolid_Loop)& ent,
+void LoopTool::OwnShared(const Handle(IGESSolid_Loop)& ent,
                                    Interface_EntityIterator&     iter) const
 {
   Standard_Integer i, j;
@@ -253,7 +253,7 @@ void IGESSolid_ToolLoop::OwnShared(const Handle(IGESSolid_Loop)& ent,
 
 //=================================================================================================
 
-void IGESSolid_ToolLoop::OwnCopy(const Handle(IGESSolid_Loop)& another,
+void LoopTool::OwnCopy(const Handle(IGESSolid_Loop)& another,
                                  const Handle(IGESSolid_Loop)& ent,
                                  Interface_CopyTool&           TC) const
 {
@@ -312,9 +312,9 @@ void IGESSolid_ToolLoop::OwnCopy(const Handle(IGESSolid_Loop)& another,
 
 //=================================================================================================
 
-IGESData_DirChecker IGESSolid_ToolLoop::DirChecker(const Handle(IGESSolid_Loop)& /* ent  */) const
+DirectoryChecker LoopTool::DirChecker(const Handle(IGESSolid_Loop)& /* ent  */) const
 {
-  IGESData_DirChecker DC(508, 0, 1);
+  DirectoryChecker DC(508, 0, 1);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
@@ -327,7 +327,7 @@ IGESData_DirChecker IGESSolid_ToolLoop::DirChecker(const Handle(IGESSolid_Loop)&
 
 //=================================================================================================
 
-void IGESSolid_ToolLoop::OwnCheck(const Handle(IGESSolid_Loop)& ent,
+void LoopTool::OwnCheck(const Handle(IGESSolid_Loop)& ent,
                                   const Interface_ShareTool&,
                                   Handle(Interface_Check)& ach) const
 {
@@ -348,7 +348,7 @@ void IGESSolid_ToolLoop::OwnCheck(const Handle(IGESSolid_Loop)& ent,
 
 //=================================================================================================
 
-void IGESSolid_ToolLoop::OwnDump(const Handle(IGESSolid_Loop)& ent,
+void LoopTool::OwnDump(const Handle(IGESSolid_Loop)& ent,
                                  const IGESData_IGESDumper&    dumper,
                                  Standard_OStream&             S,
                                  const Standard_Integer        level) const

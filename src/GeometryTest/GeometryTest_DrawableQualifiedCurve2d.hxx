@@ -20,7 +20,7 @@
 #include <DrawTrSurf_Curve2d.hxx>
 #include <GccEnt_Position.hxx>
 
-class Geom2d_Curve;
+class GeomCurve2d;
 
 class GeometryTest_DrawableQualifiedCurve2d;
 DEFINE_STANDARD_HANDLE(GeometryTest_DrawableQualifiedCurve2d, DrawTrSurf_Curve)
@@ -33,14 +33,14 @@ class GeometryTest_DrawableQualifiedCurve2d : public DrawTrSurf_Curve2d
 public:
   //! Creates a drawable curve from a curve of package Geom.
   Standard_EXPORT GeometryTest_DrawableQualifiedCurve2d(
-    const Handle(Geom2d_Curve)& theCurve,
+    const Handle(GeomCurve2d)& theCurve,
     const GccEnt_Position       thePosition,
     const Standard_Boolean      theDispOrigin = Standard_True);
 
   //! Creates a drawable curve from a curve of package Geom.
   Standard_EXPORT GeometryTest_DrawableQualifiedCurve2d(
-    const Handle(Geom2d_Curve)& theCurve,
-    const Draw_Color&           theColor,
+    const Handle(GeomCurve2d)& theCurve,
+    const DrawColor&           theColor,
     const Standard_Integer      theDiscret,
     const GccEnt_Position       thePosition,
     const Standard_Boolean      theDispOrigin     = Standard_True,
@@ -57,14 +57,14 @@ public:
 
   //! Paints the drawable presentation in given display
   //! \param theDisplay
-  Standard_EXPORT void DrawOn(Draw_Display& theDisplay) const Standard_OVERRIDE;
+  Standard_EXPORT void DrawOn(DrawDisplay& theDisplay) const Standard_OVERRIDE;
 
   //! For variable dump.
   Standard_EXPORT virtual void Dump(Standard_OStream& S) const Standard_OVERRIDE;
 
   //! For variable whatis command. Set  as a result  the
   //! type of the variable.
-  Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(GeometryTest_DrawableQualifiedCurve2d, DrawTrSurf_Curve2d)
 

@@ -37,11 +37,11 @@
 // MGE 03/08/98
 //=================================================================================================
 
-IGESSolid_ToolVertexList::IGESSolid_ToolVertexList() {}
+VertexListTool::VertexListTool() {}
 
 //=================================================================================================
 
-void IGESSolid_ToolVertexList::ReadOwnParams(const Handle(IGESSolid_VertexList)& ent,
+void VertexListTool::ReadOwnParams(const Handle(IGESSolid_VertexList)& ent,
                                              const Handle(IGESData_IGESReaderData)& /* IR */,
                                              IGESData_ParamReader& PR) const
 {
@@ -89,7 +89,7 @@ void IGESSolid_ToolVertexList::ReadOwnParams(const Handle(IGESSolid_VertexList)&
 
 //=================================================================================================
 
-void IGESSolid_ToolVertexList::WriteOwnParams(const Handle(IGESSolid_VertexList)& ent,
+void VertexListTool::WriteOwnParams(const Handle(IGESSolid_VertexList)& ent,
                                               IGESData_IGESWriter&                IW) const
 {
   Standard_Integer nbitems = ent->NbVertices();
@@ -106,14 +106,14 @@ void IGESSolid_ToolVertexList::WriteOwnParams(const Handle(IGESSolid_VertexList)
 
 //=================================================================================================
 
-void IGESSolid_ToolVertexList::OwnShared(const Handle(IGESSolid_VertexList)& /* ent */,
+void VertexListTool::OwnShared(const Handle(IGESSolid_VertexList)& /* ent */,
                                          Interface_EntityIterator& /* iter */) const
 {
 }
 
 //=================================================================================================
 
-void IGESSolid_ToolVertexList::OwnCopy(const Handle(IGESSolid_VertexList)& another,
+void VertexListTool::OwnCopy(const Handle(IGESSolid_VertexList)& another,
                                        const Handle(IGESSolid_VertexList)& ent,
                                        Interface_CopyTool& /* TC */) const
 {
@@ -131,10 +131,10 @@ void IGESSolid_ToolVertexList::OwnCopy(const Handle(IGESSolid_VertexList)& anoth
 
 //=================================================================================================
 
-IGESData_DirChecker IGESSolid_ToolVertexList::DirChecker(
+DirectoryChecker VertexListTool::DirChecker(
   const Handle(IGESSolid_VertexList)& /* ent */) const
 {
-  IGESData_DirChecker DC(502, 1);
+  DirectoryChecker DC(502, 1);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
@@ -148,7 +148,7 @@ IGESData_DirChecker IGESSolid_ToolVertexList::DirChecker(
 
 //=================================================================================================
 
-void IGESSolid_ToolVertexList::OwnCheck(const Handle(IGESSolid_VertexList)& ent,
+void VertexListTool::OwnCheck(const Handle(IGESSolid_VertexList)& ent,
                                         const Interface_ShareTool&,
                                         Handle(Interface_Check)& ach) const
 {
@@ -167,7 +167,7 @@ void IGESSolid_ToolVertexList::OwnCheck(const Handle(IGESSolid_VertexList)& ent,
 
 //=================================================================================================
 
-void IGESSolid_ToolVertexList::OwnDump(const Handle(IGESSolid_VertexList)& ent,
+void VertexListTool::OwnDump(const Handle(IGESSolid_VertexList)& ent,
                                        const IGESData_IGESDumper& /* dumper */,
                                        Standard_OStream&      S,
                                        const Standard_Integer level) const

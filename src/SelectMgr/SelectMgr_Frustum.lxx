@@ -577,14 +577,14 @@ Standard_Boolean SelectMgr_Frustum<N>::isSegmentsIntersect(const Point3d& thePnt
     aSnd[2] = thePnt1Seg2.Z();
     aSnd[3] = thePnt2Seg2.Z();
   }
-  const gp_Mat2d aMat(gp_XY(aFst[0] - aFst[1], aSnd[0] - aSnd[1]),
-                      gp_XY(aFst[3] - aFst[2], aSnd[3] - aSnd[2]));
+  const gp_Mat2d aMat(Coords2d(aFst[0] - aFst[1], aSnd[0] - aSnd[1]),
+                      Coords2d(aFst[3] - aFst[2], aSnd[3] - aSnd[2]));
 
-  const gp_Mat2d aMatU(gp_XY(aFst[0] - aFst[2], aSnd[0] - aSnd[2]),
-                       gp_XY(aFst[3] - aFst[2], aSnd[3] - aSnd[2]));
+  const gp_Mat2d aMatU(Coords2d(aFst[0] - aFst[2], aSnd[0] - aSnd[2]),
+                       Coords2d(aFst[3] - aFst[2], aSnd[3] - aSnd[2]));
 
-  const gp_Mat2d aMatV(gp_XY(aFst[0] - aFst[1], aSnd[0] - aSnd[1]),
-                       gp_XY(aFst[0] - aFst[2], aSnd[0] - aSnd[2]));
+  const gp_Mat2d aMatV(Coords2d(aFst[0] - aFst[1], aSnd[0] - aSnd[1]),
+                       Coords2d(aFst[0] - aFst[2], aSnd[0] - aSnd[2]));
   if (aMat.Determinant() == 0.0)
   {
     return false;

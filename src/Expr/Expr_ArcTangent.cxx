@@ -50,7 +50,7 @@ Handle(Expr_GeneralExpression) Expr_ArcTangent::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_ArcTangent::Copy() const
 {
-  return new Expr_ArcTangent(Expr::CopyShare(Operand()));
+  return new Expr_ArcTangent(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_ArcTangent::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -81,7 +81,7 @@ Handle(Expr_GeneralExpression) Expr_ArcTangent::Derivative(const Handle(Expr_Nam
   Handle(Expr_GeneralExpression) op    = Operand();
   Handle(Expr_GeneralExpression) derop = op->Derivative(X);
 
-  Handle(Expr_Square) sq = new Expr_Square(Expr::CopyShare(op));
+  Handle(Expr_Square) sq = new Expr_Square(Expr1::CopyShare(op));
   // 1 + X2
   Handle(Expr_Sum) thesum = 1.0 + sq->ShallowSimplified();
 
@@ -97,9 +97,9 @@ Standard_Real Expr_ArcTangent::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return ::ATan(Operand()->Evaluate(vars, vals));
 }
 
-TCollection_AsciiString Expr_ArcTangent::String() const
+AsciiString1 Expr_ArcTangent::String() const
 {
-  TCollection_AsciiString str("ATan(");
+  AsciiString1 str("ATan(");
   str += Operand()->String();
   str += ")";
   return str;

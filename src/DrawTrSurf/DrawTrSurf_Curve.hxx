@@ -21,8 +21,8 @@
 #include <DrawTrSurf_Drawable.hxx>
 #include <Draw_Interpretor.hxx>
 
-class Geom_Curve;
-class Draw_Display;
+class GeomCurve3d;
+class DrawDisplay;
 
 DEFINE_STANDARD_HANDLE(DrawTrSurf_Curve, DrawTrSurf_Drawable)
 
@@ -34,11 +34,11 @@ class DrawTrSurf_Curve : public DrawTrSurf_Drawable
 
       //! creates a drawable curve from a curve of package Geom.
       Standard_EXPORT
-      DrawTrSurf_Curve(const Handle(Geom_Curve)& C,
+      DrawTrSurf_Curve(const Handle(GeomCurve3d)& C,
                        const Standard_Boolean    DispOrigin = Standard_True);
 
-  Standard_EXPORT DrawTrSurf_Curve(const Handle(Geom_Curve)& C,
-                                   const Draw_Color&         aColor,
+  Standard_EXPORT DrawTrSurf_Curve(const Handle(GeomCurve3d)& C,
+                                   const DrawColor&         aColor,
                                    const Standard_Integer    Discret,
                                    const Standard_Real       Deflection,
                                    const Standard_Integer    DrawMode,
@@ -47,11 +47,11 @@ class DrawTrSurf_Curve : public DrawTrSurf_Drawable
                                    const Standard_Real       RadiusMax      = 1.0e3,
                                    const Standard_Real       RatioOfRadius  = 0.1);
 
-  Standard_EXPORT virtual void DrawOn(Draw_Display& dis) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void DrawOn(DrawDisplay& dis) const Standard_OVERRIDE;
 
-  Handle(Geom_Curve) GetCurve() const { return curv; }
+  Handle(GeomCurve3d) GetCurve() const { return curv; }
 
-  void SetColor(const Draw_Color& theColor) { look = theColor; }
+  void SetColor(const DrawColor& theColor) { look = theColor; }
 
   Standard_Boolean DisplayOrigin() const { return disporigin; }
 
@@ -65,7 +65,7 @@ class DrawTrSurf_Curve : public DrawTrSurf_Drawable
 
   void SetRadiusRatio(const Standard_Real theRatio) { radiusratio = theRatio; }
 
-  Draw_Color Color() const { return look; }
+  DrawColor Color() const { return look; }
 
   Standard_Real RadiusMax() const { return radiusmax; }
 
@@ -81,11 +81,11 @@ class DrawTrSurf_Curve : public DrawTrSurf_Drawable
   Standard_EXPORT virtual void Save(Standard_OStream& theStream) const Standard_OVERRIDE;
 
   //! For variable whatis command. Set as a result the type of the variable.
-  Standard_EXPORT virtual void Whatis(Draw_Interpretor& I) const Standard_OVERRIDE;
+  Standard_EXPORT virtual void Whatis(DrawInterpreter& I) const Standard_OVERRIDE;
 
 protected:
-  Handle(Geom_Curve) curv;
-  Draw_Color         look;
+  Handle(GeomCurve3d) curv;
+  DrawColor         look;
   Standard_Boolean   disporigin;
   Standard_Boolean   dispcurvradius;
   Standard_Real      radiusmax;

@@ -25,7 +25,7 @@ class IGESSolid_SolidInstance;
 DEFINE_STANDARD_HANDLE(IGESSolid_SolidInstance, IGESData_IGESEntity)
 
 //! defines SolidInstance, Type <430> Form Number <0>
-//! in package IGESSolid
+//! in package IGESSolid1
 //! This provides a mechanism for replicating a solid
 //! representation.
 //!

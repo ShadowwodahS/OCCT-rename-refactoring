@@ -28,7 +28,7 @@ inline Standard_Integer TDataXtd_PatternStd::Signature() const
 // purpose  :
 //=======================================================================
 
-inline Handle(TNaming_NamedShape) TDataXtd_PatternStd::Axis1() const
+inline Handle(ShapeAttribute) TDataXtd_PatternStd::Axis1() const
 {
   return myAxis1;
 }
@@ -38,7 +38,7 @@ inline Handle(TNaming_NamedShape) TDataXtd_PatternStd::Axis1() const
 // purpose  :
 //=======================================================================
 
-inline Handle(TNaming_NamedShape) TDataXtd_PatternStd::Axis2() const
+inline Handle(ShapeAttribute) TDataXtd_PatternStd::Axis2() const
 {
   return myAxis2;
 }
@@ -88,7 +88,7 @@ inline Handle(TDataStd_Real) TDataXtd_PatternStd::Value2() const
 // purpose  :
 //=======================================================================
 
-inline Handle(TDataStd_Integer) TDataXtd_PatternStd::NbInstances1() const
+inline Handle(IntAttribute) TDataXtd_PatternStd::NbInstances1() const
 {
   return myNb1;
 }
@@ -98,7 +98,7 @@ inline Handle(TDataStd_Integer) TDataXtd_PatternStd::NbInstances1() const
 // purpose  :
 //=======================================================================
 
-inline Handle(TDataStd_Integer) TDataXtd_PatternStd::NbInstances2() const
+inline Handle(IntAttribute) TDataXtd_PatternStd::NbInstances2() const
 {
   return myNb2;
 }
@@ -108,7 +108,7 @@ inline Handle(TDataStd_Integer) TDataXtd_PatternStd::NbInstances2() const
 // purpose  :
 //=======================================================================
 
-inline Handle(TNaming_NamedShape) TDataXtd_PatternStd::Mirror() const
+inline Handle(ShapeAttribute) TDataXtd_PatternStd::Mirror() const
 {
   return myMirror;
 }

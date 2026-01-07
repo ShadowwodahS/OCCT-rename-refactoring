@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Draw_Segment2D, Draw_Drawable2D)
 
 //=================================================================================================
 
-Draw_Segment2D::Draw_Segment2D(const gp_Pnt2d& p1, const gp_Pnt2d& p2, const Draw_Color& col)
+Draw_Segment2D::Draw_Segment2D(const gp_Pnt2d& p1, const gp_Pnt2d& p2, const DrawColor& col)
     : myFirst(p1),
       myLast(p2),
       myColor(col)
@@ -32,10 +32,10 @@ Draw_Segment2D::Draw_Segment2D(const gp_Pnt2d& p1, const gp_Pnt2d& p2, const Dra
 
 //=================================================================================================
 
-void Draw_Segment2D::DrawOn(Draw_Display& dis) const
+void Draw_Segment2D::DrawOn(DrawDisplay& dis) const
 {
   dis.SetColor(myColor);
-  dis.Draw(myFirst, myLast);
+  dis.Draw1(myFirst, myLast);
 }
 
 //=================================================================================================
@@ -68,7 +68,7 @@ void Draw_Segment2D::Last(const gp_Pnt2d& P)
 
 //=================================================================================================
 
-void Draw_Segment2D::Whatis(Draw_Interpretor& S) const
+void Draw_Segment2D::Whatis(DrawInterpreter& S) const
 {
   S << "segment 2d";
 }

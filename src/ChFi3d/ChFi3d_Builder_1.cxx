@@ -65,18 +65,18 @@
 extern Standard_Boolean ChFi3d_GetcontextFORCEBLEND();
 #endif
 
-static void ReorderFaces(TopoDS_Face&         theF1,
-                         TopoDS_Face&         theF2,
-                         const TopoDS_Face&   theFirstFace,
-                         const TopoDS_Edge&   thePrevEdge,
-                         const TopoDS_Vertex& theCommonVertex,
+static void ReorderFaces(TopoFace&         theF1,
+                         TopoFace&         theF2,
+                         const TopoFace&   theFirstFace,
+                         const TopoEdge&   thePrevEdge,
+                         const TopoVertex& theCommonVertex,
                          const ChFiDS_Map&    theEFmap)
 {
   if (theF1.IsSame(theFirstFace))
     return;
   else if (theF2.IsSame(theFirstFace))
   {
-    TopoDS_Face TmpFace = theF1;
+    TopoFace TmpFace = theF1;
     theF1               = theF2;
     theF2               = TmpFace;
     return;
@@ -84,19 +84,19 @@ static void ReorderFaces(TopoDS_Face&         theF1,
 
   // Loop until find <theF1> or <theF2>
   Standard_Boolean ToExchange = Standard_False;
-  TopoDS_Edge      PrevEdge   = thePrevEdge, CurEdge;
-  TopoDS_Face      PrevFace   = theFirstFace, CurFace;
+  TopoEdge      PrevEdge   = thePrevEdge, CurEdge;
+  TopoFace      PrevFace   = theFirstFace, CurFace;
   for (;;)
   {
     TopTools_IndexedDataMapOfShapeListOfShape VEmap;
-    TopExp::MapShapesAndAncestors(PrevFace, TopAbs_VERTEX, TopAbs_EDGE, VEmap);
-    const TopTools_ListOfShape& Elist = VEmap.FindFromKey(theCommonVertex);
+    TopExp1::MapShapesAndAncestors(PrevFace, TopAbs_VERTEX, TopAbs_EDGE, VEmap);
+    const ShapeList& Elist = VEmap.FindFromKey(theCommonVertex);
     if (PrevEdge.IsSame(Elist.First()))
       CurEdge = TopoDS::Edge(Elist.Last());
     else
       CurEdge = TopoDS::Edge(Elist.First());
 
-    const TopTools_ListOfShape& Flist = theEFmap.FindFromKey(CurEdge);
+    const ShapeList& Flist = theEFmap.FindFromKey(CurEdge);
     if (PrevFace.IsSame(Flist.First()))
       CurFace = TopoDS::Face(Flist.Last());
     else
@@ -116,7 +116,7 @@ static void ReorderFaces(TopoDS_Face&         theF1,
 
   if (ToExchange)
   {
-    TopoDS_Face TmpFace = theF1;
+    TopoFace TmpFace = theF1;
     theF1               = theF2;
     theF2               = TmpFace;
   }
@@ -131,7 +131,7 @@ static void ConcatCurves(TColGeom_SequenceOfCurve& theCurves,
     Standard_Boolean                    Success = Standard_False;
     for (Standard_Integer i = 1; i <= theCurves.Length(); i++)
     {
-      const Handle(Geom_Curve)& aCurve        = theCurves(i);
+      const Handle(GeomCurve3d)& aCurve        = theCurves(i);
       Handle(Geom_BoundedCurve) aBoundedCurve = Handle(Geom_BoundedCurve)::DownCast(aCurve);
       Success                                 = Concat.Add(aBoundedCurve, 1.e-5, Standard_True);
       if (!Success)
@@ -142,22 +142,22 @@ static void ConcatCurves(TColGeom_SequenceOfCurve& theCurves,
         i--;
       }
     }
-    Handle(Geom_Curve) aNewCurve = Concat.BSplineCurve();
+    Handle(GeomCurve3d) aNewCurve = Concat.BSplineCurve();
     theNewCurves.Append(aNewCurve);
   }
 }
 
-static TopoDS_Edge MakeOffsetEdge(const TopoDS_Edge&         theEdge,
+static TopoEdge MakeOffsetEdge(const TopoEdge&         theEdge,
                                   const Standard_Real        Distance,
                                   const BRepAdaptor_Surface& S1,
                                   const BRepAdaptor_Surface& S2)
 {
-  TopoDS_Edge OffsetEdge;
+  TopoEdge OffsetEdge;
 
-  const TopoDS_Face&   F1     = S1.Face();
-  const TopoDS_Face&   F2     = S2.Face();
-  Handle(Geom_Surface) GS1    = BRep_Tool::Surface(F1);
-  Handle(Geom_Surface) TrGS1  = new Geom_RectangularTrimmedSurface(GS1,
+  const TopoFace&   F1     = S1.Face();
+  const TopoFace&   F2     = S2.Face();
+  Handle(GeomSurface) GS1    = BRepInspector::Surface(F1);
+  Handle(GeomSurface) TrGS1  = new Geom_RectangularTrimmedSurface(GS1,
                                                                   S1.FirstUParameter(),
                                                                   S1.LastUParameter(),
                                                                   S1.FirstVParameter(),
@@ -166,11 +166,11 @@ static TopoDS_Edge MakeOffsetEdge(const TopoDS_Edge&         theEdge,
   if (F1.Orientation() == TopAbs_REVERSED)
     Offset = Distance;
   Handle(Geom_OffsetSurface) MakeOffsetSurf = new Geom_OffsetSurface(TrGS1, Offset);
-  Handle(Geom_Surface)       OffsetTrGS1    = MakeOffsetSurf->Surface();
+  Handle(GeomSurface)       OffsetTrGS1    = MakeOffsetSurf->Surface();
   if (OffsetTrGS1.IsNull())
     OffsetTrGS1 = MakeOffsetSurf;
-  Handle(Geom_Surface) GS2   = BRep_Tool::Surface(F2);
-  Handle(Geom_Surface) TrGS2 = new Geom_RectangularTrimmedSurface(GS2,
+  Handle(GeomSurface) GS2   = BRepInspector::Surface(F2);
+  Handle(GeomSurface) TrGS2 = new Geom_RectangularTrimmedSurface(GS2,
                                                                   S2.FirstUParameter(),
                                                                   S2.LastUParameter(),
                                                                   S2.FirstVParameter(),
@@ -181,7 +181,7 @@ static TopoDS_Edge MakeOffsetEdge(const TopoDS_Edge&         theEdge,
     return OffsetEdge;
   }
 
-  Handle(Geom_Curve) IntCurve = Intersector.Line(1);
+  Handle(GeomCurve3d) IntCurve = Intersector.Line(1);
   Point3d             Ends[2];
   BRepAdaptor_Curve  aBAcurve(theEdge);
   Ends[0] = aBAcurve.Value(aBAcurve.FirstParameter());
@@ -289,7 +289,7 @@ static TopoDS_Edge MakeOffsetEdge(const TopoDS_Edge&         theEdge,
   if (Abs(FirstDiff) > ParTol ||
       Abs(LastDiff)  > ParTol)
   {
-    Handle(Geom_BSplineCurve) BsplCurve = Handle(Geom_BSplineCurve)::DownCast(IntCurve);
+    Handle(BSplineCurve3d) BsplCurve = Handle(BSplineCurve3d)::DownCast(IntCurve);
     TColStd_Array1OfReal aKnots(1, BsplCurve->NbKnots());
     BsplCurve->Knots(aKnots);
     BSplCLib::Reparametrize(aBAcurve.FirstParameter(), aBAcurve.LastParameter(), aKnots);
@@ -306,7 +306,7 @@ static TopoDS_Edge MakeOffsetEdge(const TopoDS_Edge&         theEdge,
 
 static TopOpeBRepDS_BuildTool mkbuildtool()
 {
-  TopOpeBRepTool_GeomTool GT2(TopOpeBRepTool_BSPLINE1,
+  GeomTool1 GT2(TopOpeBRepTool_BSPLINE1,
                               Standard_True,
                               Standard_False,
                               Standard_False);
@@ -318,7 +318,7 @@ static TopOpeBRepDS_BuildTool mkbuildtool()
 
 //=================================================================================================
 
-ChFi3d_Builder::ChFi3d_Builder(const TopoDS_Shape& S, const Standard_Real Ta)
+ChFi3d_Builder::ChFi3d_Builder(const TopoShape& S, const Standard_Real Ta)
     : done(Standard_False),
       myShape(S)
 {
@@ -368,7 +368,7 @@ Standard_Boolean ChFi3d_Builder::IsDone() const
 
 //=================================================================================================
 
-TopoDS_Shape ChFi3d_Builder::Shape() const
+TopoShape ChFi3d_Builder::Shape() const
 {
   Standard_NoSuchObject_Raise_if(!done, "ChFi3d_Builder::Shape() - no result");
   return myShapeResult;
@@ -437,7 +437,7 @@ Standard_Integer ChFi3d_Builder::NbComputedSurfaces(const Standard_Integer IC) c
 
 //=================================================================================================
 
-Handle(Geom_Surface) ChFi3d_Builder::ComputedSurface(const Standard_Integer IC,
+Handle(GeomSurface) ChFi3d_Builder::ComputedSurface(const Standard_Integer IC,
                                                      const Standard_Integer IS) const
 {
   ChFiDS_ListIteratorOfListOfStripe itel;
@@ -466,10 +466,10 @@ Standard_Integer ChFi3d_Builder::NbFaultyVertices() const
 
 //=================================================================================================
 
-TopoDS_Vertex ChFi3d_Builder::FaultyVertex(const Standard_Integer IV) const
+TopoVertex ChFi3d_Builder::FaultyVertex(const Standard_Integer IV) const
 {
   TopTools_ListIteratorOfListOfShape it;
-  TopoDS_Vertex                      V;
+  TopoVertex                      V;
   Standard_Integer                   k = 0;
   for (it.Initialize(badvertices); it.More(); it.Next())
   {
@@ -492,7 +492,7 @@ Standard_Boolean ChFi3d_Builder::HasResult() const
 
 //=================================================================================================
 
-TopoDS_Shape ChFi3d_Builder::BadShape() const
+TopoShape ChFi3d_Builder::BadShape() const
 {
   Standard_NoSuchObject_Raise_if(!hasresult, "ChFi3d_Builder::BadShape() - no result");
   return badShape;
@@ -532,14 +532,14 @@ Handle(TopOpeBRepBuild_HBuilder) ChFi3d_Builder::Builder() const
 //           on e1, consider all faces starting at a common top.
 //=======================================================================
 
-Standard_Boolean ChFi3d_Builder::FaceTangency(const TopoDS_Edge&   E0,
-                                              const TopoDS_Edge&   E1,
-                                              const TopoDS_Vertex& V) const
+Standard_Boolean ChFi3d_Builder::FaceTangency(const TopoEdge&   E0,
+                                              const TopoEdge&   E1,
+                                              const TopoVertex& V) const
 {
   TopTools_ListIteratorOfListOfShape It, Jt;
-  TopoDS_Edge                        Ec;
+  TopoEdge                        Ec;
   Standard_Integer                   Nbf;
-  TopoDS_Face                        F[2];
+  TopoFace                        F[2];
 
   // It is checked if the connection is not on a regular edge.
   for (It.Initialize(myEFMap(E1)), Nbf = 0; It.More(); It.Next(), Nbf++)
@@ -551,8 +551,8 @@ Standard_Boolean ChFi3d_Builder::FaceTangency(const TopoDS_Edge&   E0,
   if (Nbf < 2)
     return Standard_False;
   //  Modified by Sergey KHROMOV - Fri Dec 21 17:44:19 2001 Begin
-  // if (BRep_Tool::Continuity(E1,F[0],F[1]) != GeomAbs_C0) {
-  if (ChFi3d::IsTangentFaces(E1, F[0], F[1]))
+  // if (BRepInspector::Continuity(E1,F[0],F[1]) != GeomAbs_C0) {
+  if (ChFi3d1::IsTangentFaces(E1, F[0], F[1]))
   {
     //  Modified by Sergey KHROMOV - Fri Dec 21 17:44:21 2001 End
     return Standard_False;
@@ -562,7 +562,7 @@ Standard_Boolean ChFi3d_Builder::FaceTangency(const TopoDS_Edge&   E0,
   {
     Ec = TopoDS::Edge(Jt.Value());
     if (!Ec.IsSame(E0) && !Ec.IsSame(E1) && Ec.Orientation() != TopAbs_INTERNAL
-        && Ec.Orientation() != TopAbs_EXTERNAL && !BRep_Tool::Degenerated(Ec))
+        && Ec.Orientation() != TopAbs_EXTERNAL && !BRepInspector::Degenerated(Ec))
     {
       for (It.Initialize(myEFMap(Ec)), Nbf = 0; It.More(); It.Next(), Nbf++)
       {
@@ -573,8 +573,8 @@ Standard_Boolean ChFi3d_Builder::FaceTangency(const TopoDS_Edge&   E0,
       if (Nbf < 2)
         return Standard_False;
       //  Modified by Sergey KHROMOV - Tue Dec 18 18:10:40 2001 Begin
-      //    if (BRep_Tool::Continuity(Ec,F[0],F[1]) < GeomAbs_G1) {
-      if (!ChFi3d::IsTangentFaces(Ec, F[0], F[1]))
+      //    if (BRepInspector::Continuity(Ec,F[0],F[1]) < GeomAbs_G1) {
+      if (!ChFi3d1::IsTangentFaces(Ec, F[0], F[1]))
       {
         //  Modified by Sergey KHROMOV - Tue Dec 18 18:10:41 2001 End
         return Standard_False;
@@ -588,29 +588,29 @@ Standard_Boolean ChFi3d_Builder::FaceTangency(const TopoDS_Edge&   E0,
 // function : TangentExtremity
 // purpose  : Test if 2 faces are tangent at the end of an edge
 //=======================================================================
-static Standard_Boolean TangentExtremity(const TopoDS_Vertex&               V,
-                                         const TopoDS_Edge&                 E,
+static Standard_Boolean TangentExtremity(const TopoVertex&               V,
+                                         const TopoEdge&                 E,
                                          const Handle(BRepAdaptor_Surface)& hs1,
                                          const Handle(BRepAdaptor_Surface)& hs2,
                                          //					 const Standard_Real t3d,
                                          const Standard_Real tang)
 {
-  TopoDS_Face        f1 = hs1->Face();
+  TopoFace        f1 = hs1->Face();
   TopAbs_Orientation O1 = f1.Orientation();
   f1.Orientation(TopAbs_FORWARD);
-  TopoDS_Face        f2 = hs2->Face();
+  TopoFace        f2 = hs2->Face();
   TopAbs_Orientation O2 = f2.Orientation();
   f2.Orientation(TopAbs_FORWARD);
-  TopoDS_Edge e1 = E, e2 = E;
+  TopoEdge e1 = E, e2 = E;
   e1.Orientation(TopAbs_FORWARD);
   e2.Orientation(TopAbs_FORWARD);
-  if (f1.IsSame(f2) && BRep_Tool::IsClosed(e1, f1))
+  if (f1.IsSame(f2) && BRepInspector::IsClosed(e1, f1))
     e2.Orientation(TopAbs_REVERSED);
-  Standard_Real        p1 = BRep_Tool::Parameter(V, e1, f1);
-  Standard_Real        p2 = BRep_Tool::Parameter(V, e2, f2);
+  Standard_Real        p1 = BRepInspector::Parameter(V, e1, f1);
+  Standard_Real        p2 = BRepInspector::Parameter(V, e2, f2);
   Standard_Real        u, v, f, l, Eps = 1.e-9;
   Vector3d               n1, n2; //   Point3d pt1,pt2;
-  Handle(Geom2d_Curve) pc1 = BRep_Tool::CurveOnSurface(e1, f1, f, l);
+  Handle(GeomCurve2d) pc1 = BRepInspector::CurveOnSurface(e1, f1, f, l);
   pc1->Value(p1).Coord(u, v);
   BRepLProp_SLProps theProp1(*hs1, u, v, 1, Eps);
   if (theProp1.IsNormalDefined())
@@ -622,7 +622,7 @@ static Standard_Boolean TangentExtremity(const TopoDS_Vertex&               V,
   else
     return Standard_False; // It is not known...
 
-  Handle(Geom2d_Curve) pc2 = BRep_Tool::CurveOnSurface(e2, f2, f, l);
+  Handle(GeomCurve2d) pc2 = BRepInspector::CurveOnSurface(e2, f2, f, l);
   pc2->Value(p2).Coord(u, v);
   BRepLProp_SLProps theProp2(*hs2, u, v, 1, Eps);
   if (theProp2.IsNormalDefined())
@@ -641,12 +641,12 @@ static Standard_Boolean TangentExtremity(const TopoDS_Vertex&               V,
 // function : TangentOnVertex
 // purpose  : Test if support faces of an edge are tangent at end.
 //=======================================================================
-static Standard_Boolean TangentOnVertex(const TopoDS_Vertex& V,
-                                        const TopoDS_Edge&   E,
+static Standard_Boolean TangentOnVertex(const TopoVertex& V,
+                                        const TopoEdge&   E,
                                         const ChFiDS_Map&    EFMap,
                                         const Standard_Real  tang)
 {
-  TopoDS_Face ff1, ff2;
+  TopoFace ff1, ff2;
   ChFi3d_conexfaces(E, ff1, ff2, EFMap);
   if (ff1.IsNull() || ff2.IsNull())
     return 0;
@@ -668,8 +668,8 @@ void ChFi3d_Builder::PerformExtremity(const Handle(ChFiDS_Spine)& Spine)
 
   for (Standard_Integer ii = 1; ii <= 2; ii++)
   {
-    TopoDS_Edge                 E[3];
-    TopoDS_Vertex               V;
+    TopoEdge                 E[3];
+    TopoVertex               V;
     ChFiDS_State                sst;
     Standard_Integer            iedge;
     Handle(BRepAdaptor_Surface) hs1, hs2;
@@ -705,12 +705,12 @@ void ChFi3d_Builder::PerformExtremity(const Handle(ChFiDS_Spine)& Spine)
       Standard_Integer IndOfE = 0;
       for (It.Initialize(myVEMap(V)); It.More(); It.Next())
       {
-        TopoDS_Edge anEdge = TopoDS::Edge(It.Value());
-        if (BRep_Tool::Degenerated(anEdge))
+        TopoEdge anEdge = TopoDS::Edge(It.Value());
+        if (BRepInspector::Degenerated(anEdge))
           continue;
-        TopoDS_Face F1, F2;
+        TopoFace F1, F2;
         ChFi3d_conexfaces(anEdge, F1, F2, myEFMap);
-        if (!F2.IsNull() && ChFi3d::IsTangentFaces(anEdge, F1, F2, GeomAbs_G2)) // smooth edge
+        if (!F2.IsNull() && ChFi3d1::IsTangentFaces(anEdge, F1, F2, GeomAbs_G2)) // smooth edge
         {
           if (!F1.IsSame(F2))
           {
@@ -731,8 +731,8 @@ void ChFi3d_Builder::PerformExtremity(const Handle(ChFiDS_Spine)& Spine)
         }
         else
         {
-          TopoDS_Vertex V1, V2;
-          TopExp::Vertices(anEdge, V1, V2);
+          TopoVertex V1, V2;
+          TopExp1::Vertices(anEdge, V1, V2);
           if (V1.IsSame(V2)) // edge is closed - two ends of the edge in the vertex
           {
             Standard_Integer anInd = EdgesOfV.FindIndex(anEdge);
@@ -774,7 +774,7 @@ void ChFi3d_Builder::PerformExtremity(const Handle(ChFiDS_Spine)& Spine)
     {
       jf++;
       Standard_Integer    kf  = 1;
-      const TopoDS_Shape& cur = It.Value();
+      const TopoShape& cur = It.Value();
       for (Jt.Initialize(myVFMap(Spine->FirstVertex())); Jt.More() && (kf < jf); Jt.Next(), kf++)
       {
         if (cur.IsSame(Jt.Value()))
@@ -796,7 +796,7 @@ void ChFi3d_Builder::PerformExtremity(const Handle(ChFiDS_Spine)& Spine)
     {
       jf++;
       Standard_Integer    kf  = 1;
-      const TopoDS_Shape& cur = It.Value();
+      const TopoShape& cur = It.Value();
       for (Jt.Initialize(myVFMap(Spine->LastVertex())); Jt.More() && (kf < jf); Jt.Next(), kf++)
       {
         if (cur.IsSame(Jt.Value()))
@@ -825,7 +825,7 @@ void ChFi3d_Builder::PerformExtremity(const Handle(ChFiDS_Spine)& Spine)
 
 Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spine,
                                                 const Standard_Real         Offset,
-                                                const TopoDS_Face&          theFirstFace)
+                                                const TopoFace&          theFirstFace)
 {
   Standard_Real                      ta = angular;
   TopTools_ListIteratorOfListOfShape It;
@@ -835,22 +835,22 @@ Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spin
   Standard_Boolean                   degeneOnEc;
   Point3d                             P2;
   Vector3d                             V1, V2;
-  TopoDS_Vertex                      Ve1, VStart, FVEc, LVEc, FVEv, LVEv;
-  TopoDS_Edge                        Ev, Ec(Spine->Edges(1));
-  if (BRep_Tool::Degenerated(Ec))
+  TopoVertex                      Ve1, VStart, FVEc, LVEc, FVEv, LVEv;
+  TopoEdge                        Ev, Ec(Spine->Edges(1));
+  if (BRepInspector::Degenerated(Ec))
     return 0;
   // it is checked if the edge is a cut edge
-  TopoDS_Face ff1, ff2;
+  TopoFace ff1, ff2;
   ChFi3d_conexfaces(Ec, ff1, ff2, myEFMap);
   if (ff1.IsNull() || ff2.IsNull())
     return 0;
   //  Modified by Sergey KHROMOV - Fri Dec 21 17:46:22 2001 End
-  // if(BRep_Tool::Continuity(Ec,ff1,ff2) != GeomAbs_C0) return 0;
-  if (ChFi3d::IsTangentFaces(Ec, ff1, ff2))
+  // if(BRepInspector::Continuity(Ec,ff1,ff2) != GeomAbs_C0) return 0;
+  if (ChFi3d1::IsTangentFaces(Ec, ff1, ff2))
     return 0;
   //  Modified by Sergey KHROMOV - Fri Dec 21 17:46:24 2001 Begin
 
-  TopoDS_Face FirstFace = ff1;
+  TopoFace FirstFace = ff1;
   if (!theFirstFace.IsNull() && ff2.IsSame(theFirstFace))
   {
     FirstFace = ff2;
@@ -861,7 +861,7 @@ Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spin
 
   // Define concavity
   ChFiDS_TypeOfConcavity TypeOfConcavity =
-    ChFi3d::DefineConnectType(Ec, ff1, ff2, 1.e-5, Standard_True);
+    ChFi3d1::DefineConnectType(Ec, ff1, ff2, 1.e-5, Standard_True);
   Spine->SetTypeOfConcavity(TypeOfConcavity);
 
   Standard_Boolean    ToRestrict = (Offset > 0) ? Standard_True : Standard_False;
@@ -869,14 +869,14 @@ Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spin
   BRepAdaptor_Surface Sb2(ff2, ToRestrict);
   if (Offset > 0)
   {
-    TopoDS_Edge OffsetEdge = MakeOffsetEdge(Ec, Offset, Sb1, Sb2);
+    TopoEdge OffsetEdge = MakeOffsetEdge(Ec, Offset, Sb1, Sb2);
     OffsetEdge.Orientation(Ec.Orientation());
     Spine->SetOffsetEdges(OffsetEdge);
   }
 
   BRepAdaptor_Curve  CEc, CEv;
   TopAbs_Orientation curor = Ec.Orientation();
-  TopExp::Vertices(Ec, VStart, LVEc);
+  TopExp1::Vertices(Ec, VStart, LVEc);
 
   Standard_Boolean Fini = Standard_False;
   Standard_Integer Nb;
@@ -884,9 +884,9 @@ Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spin
   if (VStart.IsSame(LVEc))
   { // case if only one edge is closed
     CEc.Initialize(Ec);
-    Wl = BRep_Tool::Parameter(VStart, Ec);
+    Wl = BRepInspector::Parameter(VStart, Ec);
     CEc.D1(Wl, P2, V1);
-    Wl = BRep_Tool::Parameter(LVEc, Ec);
+    Wl = BRepInspector::Parameter(LVEc, Ec);
     CEc.D1(Wl, P2, V2);
     Standard_Boolean IsFaceTangency = FaceTangency(Ec, Ec, VStart);
     if (V1.IsParallel(V2, ta) || IsFaceTangency)
@@ -914,7 +914,7 @@ Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spin
     while (!Fini)
     {
       CurSt      = ChFiDS_FreeBoundary;
-      Wl         = BRep_Tool::Parameter(LVEc, Ec);
+      Wl         = BRepInspector::Parameter(LVEc, Ec);
       degeneOnEc = TangentOnVertex(LVEc, Ec, myEFMap, ta);
       CEc.Initialize(Ec);
       CEc.D1(Wl, P2, V1);
@@ -923,9 +923,9 @@ Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spin
       for (It.Initialize(myVEMap(LVEc)); It.More(); It.Next())
       {
         Ev = TopoDS::Edge(It.Value());
-        if (!Ev.IsSame(Ec) && !BRep_Tool::Degenerated(Ev))
+        if (!Ev.IsSame(Ec) && !BRepInspector::Degenerated(Ev))
         {
-          TopExp::Vertices(Ev, FVEv, LVEv);
+          TopExp1::Vertices(Ev, FVEv, LVEv);
           if (LVEc.IsSame(LVEv))
           {
             Ve1  = FVEv;
@@ -936,7 +936,7 @@ Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spin
           else
             Or1 = TopAbs_FORWARD;
 
-          Wf = BRep_Tool::Parameter(FVEv, Ev);
+          Wf = BRepInspector::Parameter(FVEv, Ev);
           CEv.Initialize(Ev);
           CEv.D1(Wf, P2, V2);
           Standard_Real    av1v2    = V1.Angle(V2);
@@ -955,23 +955,23 @@ Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spin
           if (OnAjoute)
           {
             Fini = Standard_False; // If this can be useful (Cf PRO14713)
-            TopoDS_Vertex CommonVertex;
-            TopExp::CommonVertex(Ec, Ev, CommonVertex);
-            TopoDS_Edge PrevEdge = Ec;
+            TopoVertex CommonVertex;
+            TopExp1::CommonVertex(Ec, Ev, CommonVertex);
+            TopoEdge PrevEdge = Ec;
             Ec                   = Ev;
             //	    Ec = TopoDS::Edge(Ev);
             Ec.Orientation(Or1);
             Wl   = Wf;
             LVEc = LVEv;
             Spine->SetEdges(Ec);
-            TopoDS_Face CurF1, CurF2;
+            TopoFace CurF1, CurF2;
             ChFi3d_conexfaces(Ec, CurF1, CurF2, myEFMap);
             ReorderFaces(CurF1, CurF2, FirstFace, PrevEdge, CommonVertex, myEFMap);
             myEdgeFirstFace.Bind(Ec, CurF1);
             if (Offset > 0)
             {
               BRepAdaptor_Surface CurSb1(CurF1), CurSb2(CurF2);
-              TopoDS_Edge         anOffsetEdge = MakeOffsetEdge(Ec, Offset, CurSb1, CurSb2);
+              TopoEdge         anOffsetEdge = MakeOffsetEdge(Ec, Offset, CurSb1, CurSb2);
               anOffsetEdge.Orientation(Or1);
               Spine->SetOffsetEdges(anOffsetEdge);
             }
@@ -1020,7 +1020,7 @@ Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spin
       while (!Fini)
       {
         CurSt      = ChFiDS_FreeBoundary;
-        Wl         = BRep_Tool::Parameter(FVEc, Ec);
+        Wl         = BRepInspector::Parameter(FVEc, Ec);
         degeneOnEc = TangentOnVertex(FVEc, Ec, myEFMap, ta);
         CEc.Initialize(Ec);
         CEc.D1(Wl, P2, V1);
@@ -1029,9 +1029,9 @@ Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spin
         for (It.Initialize(myVEMap(FVEc)); It.More(); It.Next())
         {
           Ev = TopoDS::Edge(It.Value());
-          if (!Ev.IsSame(Ec) && !BRep_Tool::Degenerated(Ev))
+          if (!Ev.IsSame(Ec) && !BRepInspector::Degenerated(Ev))
           {
-            TopExp::Vertices(Ev, FVEv, LVEv);
+            TopExp1::Vertices(Ev, FVEv, LVEv);
             if (FVEc.IsSame(FVEv))
             {
               Ve1  = FVEv;
@@ -1043,7 +1043,7 @@ Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spin
             {
               Or1 = TopAbs_FORWARD;
             }
-            Wf = BRep_Tool::Parameter(LVEv, Ev);
+            Wf = BRepInspector::Parameter(LVEv, Ev);
             CEv.Initialize(Ev);
             CEv.D1(Wf, P2, V2);
             Standard_Real    av1v2    = V1.Angle(V2);
@@ -1057,23 +1057,23 @@ Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spin
             }
             if (OnAjoute)
             {
-              TopoDS_Vertex CommonVertex;
-              TopExp::CommonVertex(Ec, Ev, CommonVertex);
-              TopoDS_Edge PrevEdge = Ec;
+              TopoVertex CommonVertex;
+              TopExp1::CommonVertex(Ec, Ev, CommonVertex);
+              TopoEdge PrevEdge = Ec;
               Ec                   = Ev;
               //	      Ec = TopoDS::Edge(Ev);
               Ec.Orientation(Or1);
               Wl   = Wf;
               FVEc = FVEv;
               Spine->PutInFirst(Ec);
-              TopoDS_Face CurF1, CurF2;
+              TopoFace CurF1, CurF2;
               ChFi3d_conexfaces(Ec, CurF1, CurF2, myEFMap);
               ReorderFaces(CurF1, CurF2, FirstFace, PrevEdge, CommonVertex, myEFMap);
               myEdgeFirstFace.Bind(Ec, CurF1);
               if (Offset > 0)
               {
                 BRepAdaptor_Surface CurSb1(CurF1), CurSb2(CurF2);
-                TopoDS_Edge         anOffsetEdge = MakeOffsetEdge(Ec, Offset, CurSb1, CurSb2);
+                TopoEdge         anOffsetEdge = MakeOffsetEdge(Ec, Offset, CurSb1, CurSb2);
                 anOffsetEdge.Orientation(Or1);
                 Spine->PutInFirstOffset(anOffsetEdge);
               }
@@ -1102,7 +1102,7 @@ Standard_Boolean ChFi3d_Builder::PerformElement(const Handle(ChFiDS_Spine)& Spin
 
 //=================================================================================================
 
-void ChFi3d_Builder::Remove(const TopoDS_Edge& E)
+void ChFi3d_Builder::Remove(const TopoEdge& E)
 {
   ChFiDS_ListIteratorOfListOfStripe itel(myListStripe);
 
@@ -1150,7 +1150,7 @@ Standard_Integer ChFi3d_Builder::NbElements() const
 
 //=================================================================================================
 
-Standard_Integer ChFi3d_Builder::Contains(const TopoDS_Edge& E) const
+Standard_Integer ChFi3d_Builder::Contains(const TopoEdge& E) const
 {
   Standard_Integer                  i = 1, j;
   ChFiDS_ListIteratorOfListOfStripe itel(myListStripe);
@@ -1170,7 +1170,7 @@ Standard_Integer ChFi3d_Builder::Contains(const TopoDS_Edge& E) const
 
 //=================================================================================================
 
-Standard_Integer ChFi3d_Builder::Contains(const TopoDS_Edge& E,
+Standard_Integer ChFi3d_Builder::Contains(const TopoEdge& E,
                                           Standard_Integer&  IndexInSpine) const
 {
   Standard_Integer i = 1, j;
@@ -1207,29 +1207,29 @@ Standard_Real ChFi3d_Builder::Length(const Standard_Integer IC) const
 
 //=================================================================================================
 
-TopoDS_Vertex ChFi3d_Builder::FirstVertex(const Standard_Integer IC) const
+TopoVertex ChFi3d_Builder::FirstVertex(const Standard_Integer IC) const
 {
   if (IC <= NbElements())
   {
     return Value(IC)->FirstVertex();
   }
-  return TopoDS_Vertex();
+  return TopoVertex();
 }
 
 //=================================================================================================
 
-TopoDS_Vertex ChFi3d_Builder::LastVertex(const Standard_Integer IC) const
+TopoVertex ChFi3d_Builder::LastVertex(const Standard_Integer IC) const
 {
   if (IC <= NbElements())
   {
     return Value(IC)->LastVertex();
   }
-  return TopoDS_Vertex();
+  return TopoVertex();
 }
 
 //=================================================================================================
 
-Standard_Real ChFi3d_Builder::Abscissa(const Standard_Integer IC, const TopoDS_Vertex& V) const
+Standard_Real ChFi3d_Builder::Abscissa(const Standard_Integer IC, const TopoVertex& V) const
 {
   if (IC <= NbElements())
   {
@@ -1241,7 +1241,7 @@ Standard_Real ChFi3d_Builder::Abscissa(const Standard_Integer IC, const TopoDS_V
 //=================================================================================================
 
 Standard_Real ChFi3d_Builder::RelativeAbscissa(const Standard_Integer IC,
-                                               const TopoDS_Vertex&   V) const
+                                               const TopoVertex&   V) const
 {
   if (IC <= NbElements())
   {

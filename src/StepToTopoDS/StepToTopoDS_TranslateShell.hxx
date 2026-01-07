@@ -29,9 +29,9 @@
 class StepShape_ConnectedFaceSet;
 class StepVisual_TessellatedShell;
 class StepToTopoDS_Tool;
-class StepToTopoDS_NMTool;
+class NamingTool2;
 
-class StepToTopoDS_TranslateShell : public StepToTopoDS_Root
+class StepToTopoDS_TranslateShell : public Root2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -40,26 +40,26 @@ public:
 
   Standard_EXPORT void Init(const Handle(StepShape_ConnectedFaceSet)& CFS,
                             StepToTopoDS_Tool&                        T,
-                            StepToTopoDS_NMTool&                      NMTool,
-                            const StepData_Factors&      theLocalFactors = StepData_Factors(),
+                            NamingTool2&                      NMTool,
+                            const ConversionFactors&      theLocalFactors = ConversionFactors(),
                             const Message_ProgressRange& theProgress     = Message_ProgressRange());
 
   Standard_EXPORT void Init(const Handle(StepVisual_TessellatedShell)& theTSh,
                             StepToTopoDS_Tool&                         theTool,
-                            StepToTopoDS_NMTool&                       theNMTool,
+                            NamingTool2&                       theNMTool,
                             const Standard_Boolean       theReadTessellatedWhenNoBRepOnly,
                             Standard_Boolean&            theHasGeom,
-                            const StepData_Factors&      theLocalFactors = StepData_Factors(),
+                            const ConversionFactors&      theLocalFactors = ConversionFactors(),
                             const Message_ProgressRange& theProgress     = Message_ProgressRange());
 
-  Standard_EXPORT const TopoDS_Shape& Value() const;
+  Standard_EXPORT const TopoShape& Value() const;
 
   Standard_EXPORT StepToTopoDS_TranslateShellError Error() const;
 
 protected:
 private:
   StepToTopoDS_TranslateShellError myError;
-  TopoDS_Shape                     myResult;
+  TopoShape                     myResult;
 };
 
 #endif // _StepToTopoDS_TranslateShell_HeaderFile

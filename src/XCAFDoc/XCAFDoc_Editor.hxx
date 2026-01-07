@@ -37,8 +37,8 @@ public:
   //! @param[in] theRecursively recursively expand a compound subshape
   //! @return True if shape successfully expanded
   Standard_EXPORT static Standard_Boolean Expand(
-    const TDF_Label&       theDoc,
-    const TDF_Label&       theShape,
+    const DataLabel&       theDoc,
+    const DataLabel&       theShape,
     const Standard_Boolean theRecursively = Standard_True);
 
   //! Converts all compounds shapes in the document to assembly
@@ -46,7 +46,7 @@ public:
   //! @param[in] theRecursively recursively expand a compound subshape
   //! @return True if shape successfully expanded
   Standard_EXPORT static Standard_Boolean Expand(
-    const TDF_Label&       theDoc,
+    const DataLabel&       theDoc,
     const Standard_Boolean theRecursively = Standard_True);
 
   //! Clones all labels to a new position, keeping the structure with all the attributes
@@ -57,7 +57,7 @@ public:
   //! @return True if shape successfully extracted
   Standard_EXPORT static Standard_Boolean Extract(
     const TDF_LabelSequence& theSrcLabels,
-    const TDF_Label&         theDstLabel,
+    const DataLabel&         theDstLabel,
     const Standard_Boolean   theIsNoVisMat = Standard_False);
 
   //! Clones the label to a new position, keeping the structure with all the attributes
@@ -67,8 +67,8 @@ public:
   //! @param[in] theIsNoVisMat get a VisMaterial attributes as is or convert to color
   //! @return True if shape successfully extracted
   Standard_EXPORT static Standard_Boolean Extract(
-    const TDF_Label&       theSrcLabel,
-    const TDF_Label&       theDstLabel,
+    const DataLabel&       theSrcLabel,
+    const DataLabel&       theDstLabel,
     const Standard_Boolean theIsNoVisMat = Standard_False);
 
   //! Copies shapes label with keeping of shape structure (recursively)
@@ -77,7 +77,7 @@ public:
   //! @param[in] theDstShapeTool shape tool to set
   //! @param[out] theMap relating map of the original shapes label and labels created from them
   //! @return result shape label
-  Standard_EXPORT static TDF_Label CloneShapeLabel(const TDF_Label&                 theSrcLabel,
+  Standard_EXPORT static DataLabel CloneShapeLabel(const DataLabel&                 theSrcLabel,
                                                    const Handle(XCAFDoc_ShapeTool)& theSrcShapeTool,
                                                    const Handle(XCAFDoc_ShapeTool)& theDstShapeTool,
                                                    TDF_LabelDataMap&                theMap);
@@ -95,8 +95,8 @@ public:
   //! @param[in] theToCopyAttributes copying of other node attributes, for example, a shape's
   //! property
   Standard_EXPORT static void CloneMetaData(
-    const TDF_Label&                                                               theSrcLabel,
-    const TDF_Label&                                                               theDstLabel,
+    const DataLabel&                                                               theSrcLabel,
+    const DataLabel&                                                               theDstLabel,
     NCollection_DataMap<Handle(XCAFDoc_VisMaterial), Handle(XCAFDoc_VisMaterial)>* theVisMatMap,
     const Standard_Boolean theToCopyColor       = Standard_True,
     const Standard_Boolean theToCopyLayer       = Standard_True,
@@ -107,13 +107,13 @@ public:
   //! Gets shape labels that has down relation with the input label.
   //! @param[in] theLabel input label
   //! @param[out] theRelatedLabels output labels
-  Standard_EXPORT static void GetParentShapeLabels(const TDF_Label& theLabel,
+  Standard_EXPORT static void GetParentShapeLabels(const DataLabel& theLabel,
                                                    TDF_LabelMap&    theRelatedLabels);
 
   //! Gets shape labels that has up relation with the input label.
   //! @param[in] theLabel input label
   //! @param[out] theRelatedLabels output labels
-  Standard_EXPORT static void GetChildShapeLabels(const TDF_Label& theLabel,
+  Standard_EXPORT static void GetChildShapeLabels(const DataLabel& theLabel,
                                                   TDF_LabelMap&    theRelatedLabels);
 
   //! Filters original shape tree with keeping structure.
@@ -146,7 +146,7 @@ public:
   //!                              otherwise - returns false
   //! @return true in case of success, otherwise - false.
   Standard_EXPORT static Standard_Boolean RescaleGeometry(
-    const TDF_Label&       theLabel,
+    const DataLabel&       theLabel,
     const Standard_Real    theScaleFactor,
     const Standard_Boolean theForceIfNotRoot = Standard_False);
 };

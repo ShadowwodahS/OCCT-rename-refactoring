@@ -17,38 +17,38 @@
 //  soit comme rang dans une table (-> valeur > 0 ce rang),
 //  soit comme reference (-> valeur < 0), la reference elle-meme est ailleurs
 //=======================================================================
-// function : IGESData_DefSwitch
+// function : DefinitionSwitch
 // purpose  : Default constructor.
 //=======================================================================
-IGESData_DefSwitch::IGESData_DefSwitch()
+DefinitionSwitch::DefinitionSwitch()
     : theval(0)
 {
 }
 
 //=================================================================================================
 
-void IGESData_DefSwitch::SetVoid()
+void DefinitionSwitch::SetVoid()
 {
   theval = 0;
 }
 
 //=================================================================================================
 
-void IGESData_DefSwitch::SetReference()
+void DefinitionSwitch::SetReference()
 {
   theval = -1;
 }
 
 //=================================================================================================
 
-void IGESData_DefSwitch::SetRank(const Standard_Integer theRank)
+void DefinitionSwitch::SetRank(const Standard_Integer theRank)
 {
   theval = theRank;
 }
 
 //=================================================================================================
 
-IGESData_DefType IGESData_DefSwitch::DefType() const
+IGESData_DefType DefinitionSwitch::DefType() const
 {
   if (theval < 0)
     return IGESData_DefReference;
@@ -61,7 +61,7 @@ IGESData_DefType IGESData_DefSwitch::DefType() const
 
 //=================================================================================================
 
-Standard_Integer IGESData_DefSwitch::Value() const
+Standard_Integer DefinitionSwitch::Value() const
 {
   return theval;
 }

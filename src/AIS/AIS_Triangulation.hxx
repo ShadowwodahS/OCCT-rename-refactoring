@@ -19,20 +19,20 @@
 #include <TColStd_HArray1OfInteger.hxx>
 #include <AIS_InteractiveObject.hxx>
 
-class Poly_Triangulation;
+class MeshTriangulation;
 
-DEFINE_STANDARD_HANDLE(AIS_Triangulation, AIS_InteractiveObject)
+DEFINE_STANDARD_HANDLE(AIS_Triangulation, VisualEntity)
 
-//! Interactive object that draws data from  Poly_Triangulation, optionally with colors associated
+//! Interactive object that draws data from  MeshTriangulation, optionally with colors associated
 //! with each triangulation vertex. For maximum efficiency colors are represented as 32-bit integers
 //! instead of classic Quantity_Color values.
 //! Interactive selection of triangles and vertices is not yet implemented.
-class AIS_Triangulation : public AIS_InteractiveObject
+class AIS_Triangulation : public VisualEntity
 {
-  DEFINE_STANDARD_RTTIEXT(AIS_Triangulation, AIS_InteractiveObject)
+  DEFINE_STANDARD_RTTIEXT(AIS_Triangulation, VisualEntity)
 public:
   //! Constructs the Triangulation display object
-  Standard_EXPORT AIS_Triangulation(const Handle(Poly_Triangulation)& aTriangulation);
+  Standard_EXPORT AIS_Triangulation(const Handle(MeshTriangulation)& aTriangulation);
 
   //! Set the color for each node.
   //! Each 32-bit color is Alpha << 24 + Blue << 16 + Green << 8 + Red
@@ -46,10 +46,10 @@ public:
   //! Returns true if triangulation has vertex colors.
   Standard_Boolean HasVertexColors() const { return (myFlagColor == 1); }
 
-  Standard_EXPORT void SetTriangulation(const Handle(Poly_Triangulation)& aTriangulation);
+  Standard_EXPORT void SetTriangulation(const Handle(MeshTriangulation)& aTriangulation);
 
-  //! Returns Poly_Triangulation .
-  Standard_EXPORT Handle(Poly_Triangulation) GetTriangulation() const;
+  //! Returns MeshTriangulation .
+  Standard_EXPORT Handle(MeshTriangulation) GetTriangulation() const;
 
   //! Sets the value aValue for transparency in the reconstructed compound shape.
   Standard_EXPORT virtual void SetTransparency(const Standard_Real aValue = 0.6) Standard_OVERRIDE;
@@ -65,7 +65,7 @@ private:
                                        const Handle(Prs3d_Presentation)&         thePrs,
                                        const Standard_Integer theMode) Standard_OVERRIDE;
 
-  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectMgr_Selection)& theSel,
+  Standard_EXPORT virtual void ComputeSelection(const Handle(SelectionContainer)& theSel,
                                                 const Standard_Integer theMode) Standard_OVERRIDE;
 
   //! Attenuates 32-bit color by a given attenuation factor (0...1):
@@ -77,7 +77,7 @@ private:
   Standard_EXPORT Graphic3d_Vec4ub attenuateColor(const Standard_Integer theColor,
                                                   const Standard_Real    theComponent);
 
-  Handle(Poly_Triangulation)       myTriangulation;
+  Handle(MeshTriangulation)       myTriangulation;
   Handle(TColStd_HArray1OfInteger) myColor;
   Standard_Integer                 myFlagColor;
   Standard_Integer                 myNbNodes;

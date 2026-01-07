@@ -23,7 +23,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Graphic3d_TextureMap, Graphic3d_TextureRoot)
 
 //=================================================================================================
 
-Graphic3d_TextureMap::Graphic3d_TextureMap(const TCollection_AsciiString& theFileName,
+Graphic3d_TextureMap::Graphic3d_TextureMap(const AsciiString1& theFileName,
                                            const Graphic3d_TypeOfTexture  theType)
     : Graphic3d_TextureRoot(theFileName, theType)
 {

@@ -48,9 +48,9 @@ IMPLEMENT_STANDARD_RTTIEXT(PrsDim_PerpendicularRelation, PrsDim_Relation)
 // function : Constructor
 // purpose  : TwoEdgesPerpendicular
 //=======================================================================
-PrsDim_PerpendicularRelation::PrsDim_PerpendicularRelation(const TopoDS_Shape&       aFShape,
-                                                           const TopoDS_Shape&       aSShape,
-                                                           const Handle(Geom_Plane)& aPlane)
+PrsDim_PerpendicularRelation::PrsDim_PerpendicularRelation(const TopoShape&       aFShape,
+                                                           const TopoShape&       aSShape,
+                                                           const Handle(GeomPlane)& aPlane)
     : PrsDim_Relation()
 {
   myFShape = aFShape;
@@ -62,8 +62,8 @@ PrsDim_PerpendicularRelation::PrsDim_PerpendicularRelation(const TopoDS_Shape&  
 // function : Constructor
 // purpose  : TwoFacesPerpendicular
 //=======================================================================
-PrsDim_PerpendicularRelation::PrsDim_PerpendicularRelation(const TopoDS_Shape& aFShape,
-                                                           const TopoDS_Shape& aSShape)
+PrsDim_PerpendicularRelation::PrsDim_PerpendicularRelation(const TopoShape& aFShape,
+                                                           const TopoShape& aSShape)
     : PrsDim_Relation()
 {
   myFShape = aFShape;
@@ -99,7 +99,7 @@ void PrsDim_PerpendicularRelation::Compute(const Handle(PrsMgr_PresentationManag
 
 //=================================================================================================
 
-void PrsDim_PerpendicularRelation::ComputeSelection(const Handle(SelectMgr_Selection)& aSelection,
+void PrsDim_PerpendicularRelation::ComputeSelection(const Handle(SelectionContainer)& aSelection,
                                                     const Standard_Integer)
 {
   Handle(SelectMgr_EntityOwner)     own = new SelectMgr_EntityOwner(this, 7);
@@ -154,10 +154,10 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
   const Handle(Prs3d_Presentation)& aPresentation)
 {
   // 3d lines
-  Handle(Geom_Curve) geom1, geom2;
+  Handle(GeomCurve3d) geom1, geom2;
   Point3d             pint3d, p1, p2, pAx1, pAx2, ptat11, ptat12, ptat21, ptat22;
   Standard_Boolean   isInfinite1, isInfinite2;
-  Handle(Geom_Curve) extCurv;
+  Handle(GeomCurve3d) extCurv;
   if (!PrsDim::ComputeGeometry(TopoDS::Edge(myFShape),
                                TopoDS::Edge(mySShape),
                                myExtShape,
@@ -175,24 +175,24 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
 
   Standard_Boolean interOut1(Standard_False), interOut2(Standard_False);
 
-  Handle(Geom_Line) geom_lin1;
-  Handle(Geom_Line) geom_lin2;
+  Handle(GeomLine) geom_lin1;
+  Handle(GeomLine) geom_lin2;
   if (geom1->IsInstance(STANDARD_TYPE(Geom_Ellipse)))
   {
     Handle(Geom_Ellipse) geom_el(Handle(Geom_Ellipse)::DownCast(geom1));
     // construct lines through focuses
     Axis3d elAx = geom_el->XAxis();
     gp_Lin ll(elAx);
-    geom_lin1              = new Geom_Line(ll);
+    geom_lin1              = new GeomLine(ll);
     Standard_Real focex    = geom_el->MajorRadius() - geom_el->Focal() / 2.0;
     Vector3d        transvec = Vector3d(elAx.Direction()) * focex;
     ptat11                 = geom_el->Focus1().Translated(transvec);
     ptat12                 = geom_el->Focus2().Translated(-transvec);
     interOut1              = Standard_True;
   }
-  else if (geom1->IsInstance(STANDARD_TYPE(Geom_Line)))
+  else if (geom1->IsInstance(STANDARD_TYPE(GeomLine)))
   {
-    geom_lin1 = Handle(Geom_Line)::DownCast(geom1);
+    geom_lin1 = Handle(GeomLine)::DownCast(geom1);
   }
   else
     return;
@@ -203,26 +203,26 @@ void PrsDim_PerpendicularRelation::ComputeTwoEdgesPerpendicular(
     // construct lines through focuses
     Axis3d elAx = geom_el->XAxis();
     gp_Lin ll(elAx);
-    geom_lin2              = new Geom_Line(ll);
+    geom_lin2              = new GeomLine(ll);
     Standard_Real focex    = geom_el->MajorRadius() - geom_el->Focal() / 2.0;
     Vector3d        transvec = Vector3d(elAx.Direction()) * focex;
     ptat21                 = geom_el->Focus1().Translated(transvec);
     ptat22                 = geom_el->Focus2().Translated(-transvec);
     interOut2              = Standard_True;
   }
-  else if (geom2->IsInstance(STANDARD_TYPE(Geom_Line)))
+  else if (geom2->IsInstance(STANDARD_TYPE(GeomLine)))
   {
-    geom_lin2 = Handle(Geom_Line)::DownCast(geom2);
+    geom_lin2 = Handle(GeomLine)::DownCast(geom2);
   }
   else
     return;
 
   // current face
-  BRepBuilderAPI_MakeFace makeface(myPlane->Pln());
+  FaceMaker makeface(myPlane->Pln());
   BRepAdaptor_Surface     adp(makeface.Face());
 
   // 2d lines => projection of 3d on current plane
-  Handle(Geom2d_Curve) aGeom2dCurve = GeomAPI::To2d(geom_lin1, myPlane->Pln());
+  Handle(GeomCurve2d) aGeom2dCurve = GeomAPI::To2d(geom_lin1, myPlane->Pln());
   Handle(Geom2d_Line)  lin1_2d      = Handle(Geom2d_Line)::DownCast(aGeom2dCurve);
   aGeom2dCurve                      = GeomAPI::To2d(geom_lin2, myPlane->Pln());
   Handle(Geom2d_Line)      lin2_2d  = Handle(Geom2d_Line)::DownCast(aGeom2dCurve);

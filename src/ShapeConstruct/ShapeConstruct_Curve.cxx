@@ -41,7 +41,7 @@
 // sln 29.12.2001 OCC90 : Method FixKnots was added
 //=================================================================================================
 
-Standard_Boolean ShapeConstruct_Curve::AdjustCurve(const Handle(Geom_Curve)& C3D,
+Standard_Boolean ShapeConstruct_Curve::AdjustCurve(const Handle(GeomCurve3d)& C3D,
                                                    const Point3d&             P1,
                                                    const Point3d&             P2,
                                                    const Standard_Boolean    take1,
@@ -50,9 +50,9 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurve(const Handle(Geom_Curve)& C3D
   if (!take1 && !take2)
     return Standard_True;
 
-  if (C3D->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (C3D->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    Handle(Geom_BSplineCurve) BSPL = Handle(Geom_BSplineCurve)::DownCast(C3D);
+    Handle(BSplineCurve3d) BSPL = Handle(BSplineCurve3d)::DownCast(C3D);
     if (take1)
       BSPL->SetPole(1, P1);
     if (take2)
@@ -60,9 +60,9 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurve(const Handle(Geom_Curve)& C3D
     return Standard_True;
   }
 
-  if (C3D->IsKind(STANDARD_TYPE(Geom_Line)))
+  if (C3D->IsKind(STANDARD_TYPE(GeomLine)))
   {
-    Handle(Geom_Line) L3D = Handle(Geom_Line)::DownCast(C3D);
+    Handle(GeomLine) L3D = Handle(GeomLine)::DownCast(C3D);
     //   ATTENTION, P1 et P2 sont supposes tous deux pertinents ...
     Vector3d        avec(P1, P2);
     Dir3d        adir(avec);
@@ -78,15 +78,15 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurve(const Handle(Geom_Curve)& C3D
 
 //=================================================================================================
 
-Standard_Boolean ShapeConstruct_Curve::AdjustCurveSegment(const Handle(Geom_Curve)& C3D,
+Standard_Boolean ShapeConstruct_Curve::AdjustCurveSegment(const Handle(GeomCurve3d)& C3D,
                                                           const Point3d&             P1,
                                                           const Point3d&             P2,
                                                           const Standard_Real       U1,
                                                           const Standard_Real       U2) const
 {
-  if (C3D->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (C3D->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    Handle(Geom_BSplineCurve) BSPL = Handle(Geom_BSplineCurve)::DownCast(C3D);
+    Handle(BSplineCurve3d) BSPL = Handle(BSplineCurve3d)::DownCast(C3D);
     //    Forcer l extremite c est bien
     //    Propager sur le reste, c est pas mal non plus
     if (U1 >= U2)
@@ -99,9 +99,9 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurveSegment(const Handle(Geom_Curv
     return Standard_True;
   }
 
-  if (C3D->IsKind(STANDARD_TYPE(Geom_Line)))
+  if (C3D->IsKind(STANDARD_TYPE(GeomLine)))
   {
-    Handle(Geom_Line) L3D = Handle(Geom_Line)::DownCast(C3D);
+    Handle(GeomLine) L3D = Handle(GeomLine)::DownCast(C3D);
     //   ATTENTION, P1 et P2 sont supposes tous deux pertinents ...
     //   NB : on ne s aide pas de U1 et U2
     Vector3d        avec(P1, P2);
@@ -118,7 +118,7 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurveSegment(const Handle(Geom_Curv
 
 //=================================================================================================
 
-Standard_Boolean ShapeConstruct_Curve::AdjustCurve2d(const Handle(Geom2d_Curve)& C2D,
+Standard_Boolean ShapeConstruct_Curve::AdjustCurve2d(const Handle(GeomCurve2d)& C2D,
                                                      const gp_Pnt2d&             P1,
                                                      const gp_Pnt2d&             P2,
                                                      const Standard_Boolean      take1,
@@ -155,20 +155,20 @@ Standard_Boolean ShapeConstruct_Curve::AdjustCurve2d(const Handle(Geom2d_Curve)&
 
 //=================================================================================================
 
-Handle(Geom_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(Geom_Curve)& C,
+Handle(BSplineCurve3d) ShapeConstruct_Curve::ConvertToBSpline(const Handle(GeomCurve3d)& C,
                                                                  const Standard_Real       first,
                                                                  const Standard_Real       last,
                                                                  const Standard_Real prec) const
 {
-  Handle(Geom_BSplineCurve) bspl;
+  Handle(BSplineCurve3d) bspl;
 
-  if (C->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (C->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    bspl = Handle(Geom_BSplineCurve)::DownCast(C);
+    bspl = Handle(BSplineCurve3d)::DownCast(C);
   }
-  else if (C->IsKind(STANDARD_TYPE(Geom_BezierCurve)) || C->IsKind(STANDARD_TYPE(Geom_Line)))
+  else if (C->IsKind(STANDARD_TYPE(BezierCurve3d)) || C->IsKind(STANDARD_TYPE(GeomLine)))
   {
-    Handle(Geom_Curve) tc = new Geom_TrimmedCurve(C, first, last);
+    Handle(GeomCurve3d) tc = new Geom_TrimmedCurve(C, first, last);
     try
     {
       OCC_CATCH_SIGNALS
@@ -205,7 +205,7 @@ Handle(Geom_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(Ge
     try
     {
       OCC_CATCH_SIGNALS
-      bspl = Handle(Geom_BSplineCurve)::DownCast(bspl->Copy());
+      bspl = Handle(BSplineCurve3d)::DownCast(bspl->Copy());
       bspl->Segment(fbsp, lbsp);
       return bspl;
     }
@@ -221,7 +221,7 @@ Handle(Geom_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(Ge
   }
 
   // Approx is used for conics and when ordinary methods fail
-  Handle(Geom_Curve) newc = C;
+  Handle(GeomCurve3d) newc = C;
   if (!bspl.IsNull())
   {
     newc = bspl;
@@ -248,7 +248,7 @@ Handle(Geom_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(Ge
 
 //=================================================================================================
 
-Handle(Geom2d_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(Geom2d_Curve)& C,
+Handle(Geom2d_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(GeomCurve2d)& C,
                                                                    const Standard_Real first,
                                                                    const Standard_Real last,
                                                                    const Standard_Real prec) const
@@ -261,7 +261,7 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(
   }
   else if (C->IsKind(STANDARD_TYPE(Geom2d_BezierCurve)) || C->IsKind(STANDARD_TYPE(Geom2d_Line)))
   {
-    Handle(Geom2d_Curve) tc = new Geom2d_TrimmedCurve(C, first, last);
+    Handle(GeomCurve2d) tc = new Geom2d_TrimmedCurve(C, first, last);
     try
     {
       OCC_CATCH_SIGNALS
@@ -315,7 +315,7 @@ Handle(Geom2d_BSplineCurve) ShapeConstruct_Curve::ConvertToBSpline(const Handle(
   }
 
   // Approx is used for conics and when ordinary methods fail
-  Handle(Geom2d_Curve) newc = C;
+  Handle(GeomCurve2d) newc = C;
   if (!bspl.IsNull())
   {
     newc = bspl;

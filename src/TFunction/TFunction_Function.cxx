@@ -39,7 +39,7 @@ const Standard_GUID& TFunction_Function::GetID()
 // purpose  : Finds or creates a function attribute
 //=======================================================================
 
-Handle(TFunction_Function) TFunction_Function::Set(const TDF_Label& L)
+Handle(TFunction_Function) TFunction_Function::Set(const DataLabel& L)
 {
   Handle(TFunction_Function) F;
   if (!L.FindAttribute(TFunction_Function::GetID(), F))
@@ -56,7 +56,7 @@ Handle(TFunction_Function) TFunction_Function::Set(const TDF_Label& L)
 //         : a driver for it
 //=======================================================================
 
-Handle(TFunction_Function) TFunction_Function::Set(const TDF_Label&     L,
+Handle(TFunction_Function) TFunction_Function::Set(const DataLabel&     L,
                                                    const Standard_GUID& DriverID)
 {
   Handle(TFunction_Function) F;
@@ -84,7 +84,7 @@ const Standard_GUID& TFunction_Function::ID() const
 // purpose  : Finds a function if it is on the label
 //=======================================================================
 
-// Standard_Boolean TFunction_Function::Find(const TDF_Label& L,
+// Standard_Boolean TFunction_Function::Find(const DataLabel& L,
 // 					  Handle(TFunction_Function)& F)
 // {
 //   if (!L.FindAttribute(TFunction_Function::GetID(), F))

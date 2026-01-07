@@ -29,24 +29,24 @@ public:
   Standard_EXPORT BRepTools_PurgeLocations();
 
   //! Removes all locations correspondingly to criterium from theShape.
-  Standard_EXPORT Standard_Boolean Perform(const TopoDS_Shape& theShape);
+  Standard_EXPORT Standard_Boolean Perform(const TopoShape& theShape);
 
   //! Returns shape with removed locations.
-  Standard_EXPORT const TopoDS_Shape& GetResult() const;
+  Standard_EXPORT const TopoShape& GetResult() const;
 
   Standard_EXPORT Standard_Boolean IsDone() const;
 
   //! Returns modified shape obtained from initial shape.
-  TopoDS_Shape ModifiedShape(const TopoDS_Shape& theInitShape) const;
+  TopoShape ModifiedShape(const TopoShape& theInitShape) const;
 
 private:
-  void             AddShape(const TopoDS_Shape& theS);
-  Standard_Boolean PurgeLocation(const TopoDS_Shape& theS, TopoDS_Shape& theRes);
+  void             AddShape(const TopoShape& theS);
+  Standard_Boolean PurgeLocation(const TopoShape& theS, TopoShape& theRes);
 
   Standard_Boolean             myDone;
-  TopoDS_Shape                 myShape;
+  TopoShape                 myShape;
   TopTools_IndexedMapOfShape   myMapShapes;
-  TopTools_LocationSet         myLocations;
+  LocationSet1         myLocations;
   TopTools_DataMapOfShapeShape myMapNewShapes;
   Handle(BRepTools_ReShape)    myReShape;
 };

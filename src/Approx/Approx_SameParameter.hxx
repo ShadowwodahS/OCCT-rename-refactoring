@@ -20,9 +20,9 @@
 #include <Adaptor3d_CurveOnSurface.hxx>
 #include <Adaptor3d_Surface.hxx>
 
-class Geom_Curve;
-class Geom2d_Curve;
-class Geom_Surface;
+class GeomCurve3d;
+class GeomCurve2d;
+class GeomSurface;
 
 //! Approximation of a  PCurve  on a surface to  make its
 //! parameter be the same that the parameter of a given 3d
@@ -33,14 +33,14 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Warning: the C3D and C2D must have the same parametric domain.
-  Standard_EXPORT Approx_SameParameter(const Handle(Geom_Curve)&   C3D,
-                                       const Handle(Geom2d_Curve)& C2D,
-                                       const Handle(Geom_Surface)& S,
+  Standard_EXPORT Approx_SameParameter(const Handle(GeomCurve3d)&   C3D,
+                                       const Handle(GeomCurve2d)& C2D,
+                                       const Handle(GeomSurface)& S,
                                        const Standard_Real         Tol);
 
   //! Warning: the C3D and C2D must have the same parametric domain.
   Standard_EXPORT Approx_SameParameter(const Handle(Adaptor3d_Curve)&   C3D,
-                                       const Handle(Geom2d_Curve)&      C2D,
+                                       const Handle(GeomCurve2d)&      C2D,
                                        const Handle(Adaptor3d_Surface)& S,
                                        const Standard_Real              Tol);
 
@@ -66,7 +66,7 @@ public:
   //! Returns the 2D curve that has the same parameter as
   //! the 3D curve once evaluated on the surface up to the
   //! specified tolerance.
-  Handle(Geom2d_Curve) Curve2d() const { return myCurve2d; }
+  Handle(GeomCurve2d) Curve2d() const { return myCurve2d; }
 
   //! Returns the 3D curve that has the same parameter as
   //! the 3D curve once evaluated on the surface up to the
@@ -166,7 +166,7 @@ private:
   Standard_Boolean                 mySameParameter;
   Standard_Boolean                 myDone;
   Standard_Real                    myTolReached;
-  Handle(Geom2d_Curve)             myCurve2d;
+  Handle(GeomCurve2d)             myCurve2d;
   Handle(Adaptor2d_Curve2d)        myHCurve2d;
   Handle(Adaptor3d_Curve)          myC3d;
   Handle(Adaptor3d_Surface)        mySurf;

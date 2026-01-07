@@ -54,7 +54,7 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const Point3d& P1, const Point3d& P2, con
     sense  = Standard_True;
     // modified by NIZNHY-PKV Thu Mar  3 10:53:04 2005t
 
-    Handle(Geom_Circle) Circ = new Geom_Circle(C);
+    Handle(GeomCircle) Circ = new GeomCircle(C);
     TheArc                   = new Geom_TrimmedCurve(Circ, Alpha1, Alpha3, sense);
   }
 }
@@ -112,7 +112,7 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const Point3d& P1, const Vector3d& V, con
         cir                        = gp_Circ(Frame3d(pInt, Daxe, d), Rad);
         Standard_Real       Alpha1 = ElCLib::Parameter(cir, P1);
         Standard_Real       Alpha3 = ElCLib::Parameter(cir, P2);
-        Handle(Geom_Circle) Circ   = new Geom_Circle(cir);
+        Handle(GeomCircle) Circ   = new GeomCircle(cir);
         TheArc                     = new Geom_TrimmedCurve(Circ, Alpha1, Alpha3, Standard_True);
       }
     }
@@ -128,7 +128,7 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const gp_Circ&         Circ,
 {
   Standard_Real       Alpha1 = ElCLib::Parameter(Circ, P1);
   Standard_Real       Alpha2 = ElCLib::Parameter(Circ, P2);
-  Handle(Geom_Circle) C      = new Geom_Circle(Circ);
+  Handle(GeomCircle) C      = new GeomCircle(Circ);
   TheArc                     = new Geom_TrimmedCurve(C, Alpha1, Alpha2, Sense);
   TheError                   = gce_Done;
 }
@@ -141,7 +141,7 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const gp_Circ&         Circ,
                                        const Standard_Boolean Sense)
 {
   Standard_Real       Alphafirst = ElCLib::Parameter(Circ, P);
-  Handle(Geom_Circle) C          = new Geom_Circle(Circ);
+  Handle(GeomCircle) C          = new GeomCircle(Circ);
   TheArc                         = new Geom_TrimmedCurve(C, Alphafirst, Alpha, Sense);
   TheError                       = gce_Done;
 }
@@ -153,7 +153,7 @@ GC_MakeArcOfCircle::GC_MakeArcOfCircle(const gp_Circ&         Circ,
                                        const Standard_Real    Alpha2,
                                        const Standard_Boolean Sense)
 {
-  Handle(Geom_Circle) C = new Geom_Circle(Circ);
+  Handle(GeomCircle) C = new GeomCircle(Circ);
   TheArc                = new Geom_TrimmedCurve(C, Alpha1, Alpha2, Sense);
   TheError              = gce_Done;
 }

@@ -48,10 +48,10 @@ FairCurve_Energy::FairCurve_Energy(const Handle(TColgp_HArray1OfPnt2d)& Poles,
       MyHessian(0, MyNbValues + MyNbValues * (MyNbValues + 1) / 2)
 {
   // chesk angles in reference (Ox,Oy)
-  gp_XY L0(Cos(Angle1), Sin(Angle1)), L1(-Cos(Angle2), Sin(Angle2));
+  Coords2d L0(Cos(Angle1), Sin(Angle1)), L1(-Cos(Angle2), Sin(Angle2));
   MyLinearForm.SetValue(0, L0);
   MyLinearForm.SetValue(1, L1);
-  gp_XY Q0(-Sin(Angle1), Cos(Angle1)), Q1(Sin(Angle2), Cos(Angle2));
+  Coords2d Q0(-Sin(Angle1), Cos(Angle1)), Q1(Sin(Angle2), Cos(Angle2));
   MyQuadForm.SetValue(0, ((double)Degree) / (Degree - 1) * Curvature1 * Q0);
   MyQuadForm.SetValue(1, ((double)Degree) / (Degree - 1) * Curvature2 * Q1);
 }
@@ -89,7 +89,7 @@ void FairCurve_Energy::Gradient1(const math_Vector& Vect, math_Vector& Grad)
   // .... by calculation
   if (MyContrOrder1 >= 1)
   {
-    gp_XY DPole(Vect(Vdeb), Vect(Vdeb + 1));
+    Coords2d DPole(Vect(Vdeb), Vect(Vdeb + 1));
     Grad(DebG) = MyLinearForm(0) * DPole;
     Vdeb += 2;
     DebG += 1;
@@ -98,7 +98,7 @@ void FairCurve_Energy::Gradient1(const math_Vector& Vect, math_Vector& Grad)
   {
     Standard_Real Lambda0 =
       MyPoles->Value(MyPoles->Lower()).Distance(MyPoles->Value(MyPoles->Lower() + 1));
-    gp_XY DPole(Vect(Vdeb), Vect(Vdeb + 1));
+    Coords2d DPole(Vect(Vdeb), Vect(Vdeb + 1));
     Grad(DebG - 1) += (MyLinearForm(0) + 2 * Lambda0 * MyQuadForm(0)) * DPole;
     Grad(DebG) = MyLinearForm(0) * DPole;
     Vdeb += 2;
@@ -111,7 +111,7 @@ void FairCurve_Energy::Gradient1(const math_Vector& Vect, math_Vector& Grad)
   }
   if (MyContrOrder2 >= 1)
   {
-    gp_XY DPole(Vect(Vfin - 1), Vect(Vfin));
+    Coords2d DPole(Vect(Vfin - 1), Vect(Vfin));
     Grad(FinG) = MyLinearForm(1) * DPole;
     FinG -= 1;
   }
@@ -119,7 +119,7 @@ void FairCurve_Energy::Gradient1(const math_Vector& Vect, math_Vector& Grad)
   {
     Standard_Real Lambda1 =
       MyPoles->Value(MyPoles->Upper()).Distance(MyPoles->Value(MyPoles->Upper() - 1));
-    gp_XY DPole(Vect(Vfin - 3), Vect(Vfin - 2));
+    Coords2d DPole(Vect(Vfin - 3), Vect(Vfin - 2));
     Grad(FinG)     = Grad(FinG + 1) + (MyLinearForm(1) + 2 * Lambda1 * MyQuadForm(1)) * DPole;
     Grad(FinG + 1) = MyLinearForm(1) * DPole;
     FinG -= 1;
@@ -206,11 +206,11 @@ void FairCurve_Energy::Hessian1(const math_Vector& Vect, math_Matrix& H)
 
     if (MyContrOrder1 >= 2)
     {
-      gp_XY Laux = (MyLinearForm(0) + 2 * Lambda0 * MyQuadForm(0));
+      Coords2d Laux = (MyLinearForm(0) + 2 * Lambda0 * MyQuadForm(0));
       jj         = Vdeb - 2 * (MyContrOrder1 - 1);
       kk         = Indice(jj, jj - 2);     // X1X2
       ii         = Indice(jj + 1, jj - 2); // X1Y2
-      gp_XY Aux(Vect(kk + 2), Vect(ii + 3));
+      Coords2d Aux(Vect(kk + 2), Vect(ii + 3));
 
       H(1, 1) +=
         2
@@ -261,7 +261,7 @@ void FairCurve_Energy::Hessian1(const math_Vector& Vect, math_Matrix& H)
     if (MyWithAuxValue)
     {
       kk = Indice(Vup, Vdeb - 2 * (MyContrOrder1 - 1));
-      gp_XY Pole(Vect(kk), Vect(kk + 1));
+      Coords2d Pole(Vect(kk), Vect(kk + 1));
       H(MyNbVar, 1) += (MyLinearForm(0) + 2 * Lambda0 * MyQuadForm(0)) * Pole;
       H(MyNbVar, 2) = MyLinearForm(0).X() * Vect(kk) + MyLinearForm(0).Y() * Vect(kk + 1);
     }
@@ -308,7 +308,7 @@ void FairCurve_Energy::Hessian1(const math_Vector& Vect, math_Matrix& H)
     if (MyContrOrder2 >= 2)
     {
       // H(jj,jj) +=
-      gp_XY Laux          = (MyLinearForm(1) + 2 * Lambda1 * MyQuadForm(1));
+      Coords2d Laux          = (MyLinearForm(1) + 2 * Lambda1 * MyQuadForm(1));
       jj                  = Vfin + 2 * MyContrOrder2 - 3;
       kk                  = Indice(jj + 2, jj); // Xn-1Xn-2
       ii                  = Indice(jj + 3, jj); // Yn-1Xn-2
@@ -325,7 +325,7 @@ void FairCurve_Energy::Hessian1(const math_Vector& Vect, math_Matrix& H)
 
       H(FinH + 2, FinH + 1) =
         Cos1 * Vect(kk) + CosSin1 * (Vect(ii) + Vect(kk + 1)) / 2 + Sin1 * Vect(ii + 1);
-      gp_XY Aux(Vect(ll), Vect(ll + jj + 1));
+      Coords2d Aux(Vect(ll), Vect(ll + jj + 1));
       H(FinH + 2, FinH + 1) +=
         Laux * MyLinearForm(1).Multiplied(Aux)
         + (Laux.X() * MyLinearForm(1).Y() + Laux.Y() * MyLinearForm(1).X()) * Vect(ll + jj);
@@ -374,7 +374,7 @@ void FairCurve_Energy::Hessian1(const math_Vector& Vect, math_Matrix& H)
     if (MyContrOrder2 >= 2)
     {
       kk = Indice(Vup, Vfin + 2 * MyContrOrder2 - 3);
-      gp_XY Pole(Vect(kk), Vect(kk + 1));
+      Coords2d Pole(Vect(kk), Vect(kk + 1));
       H(MyNbVar, FinH + 1) += (MyLinearForm(1) + 2 * Lambda1 * MyQuadForm(1)) * Pole;
       H(MyNbVar, FinH + 2) = MyLinearForm(1) * Pole;
     }

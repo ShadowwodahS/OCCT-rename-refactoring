@@ -31,9 +31,9 @@
 #include <Interface_Macros.hxx>
 #include <Interface_ShareTool.hxx>
 
-IGESSolid_ToolCylindricalSurface::IGESSolid_ToolCylindricalSurface() {}
+CylindricalSurfaceTool::CylindricalSurfaceTool() {}
 
-void IGESSolid_ToolCylindricalSurface::ReadOwnParams(
+void CylindricalSurfaceTool::ReadOwnParams(
   const Handle(IGESSolid_CylindricalSurface)& ent,
   const Handle(IGESData_IGESReaderData)&      IR,
   IGESData_ParamReader&                       PR) const
@@ -69,7 +69,7 @@ void IGESSolid_ToolCylindricalSurface::ReadOwnParams(
   ent->Init(tempLocation, tempAxis, tempRadius, tempRefdir);
 }
 
-void IGESSolid_ToolCylindricalSurface::WriteOwnParams(
+void CylindricalSurfaceTool::WriteOwnParams(
   const Handle(IGESSolid_CylindricalSurface)& ent,
   IGESData_IGESWriter&                        IW) const
 {
@@ -80,7 +80,7 @@ void IGESSolid_ToolCylindricalSurface::WriteOwnParams(
     IW.Send(ent->ReferenceDir());
 }
 
-void IGESSolid_ToolCylindricalSurface::OwnShared(const Handle(IGESSolid_CylindricalSurface)& ent,
+void CylindricalSurfaceTool::OwnShared(const Handle(IGESSolid_CylindricalSurface)& ent,
                                                  Interface_EntityIterator& iter) const
 {
   iter.GetOneItem(ent->LocationPoint());
@@ -88,7 +88,7 @@ void IGESSolid_ToolCylindricalSurface::OwnShared(const Handle(IGESSolid_Cylindri
   iter.GetOneItem(ent->ReferenceDir());
 }
 
-void IGESSolid_ToolCylindricalSurface::OwnCopy(const Handle(IGESSolid_CylindricalSurface)& another,
+void CylindricalSurfaceTool::OwnCopy(const Handle(IGESSolid_CylindricalSurface)& another,
                                                const Handle(IGESSolid_CylindricalSurface)& ent,
                                                Interface_CopyTool&                         TC) const
 {
@@ -109,10 +109,10 @@ void IGESSolid_ToolCylindricalSurface::OwnCopy(const Handle(IGESSolid_Cylindrica
   }
 }
 
-IGESData_DirChecker IGESSolid_ToolCylindricalSurface::DirChecker(
+DirectoryChecker CylindricalSurfaceTool::DirChecker(
   const Handle(IGESSolid_CylindricalSurface)& /*ent*/) const
 {
-  IGESData_DirChecker DC(192, 0, 1);
+  DirectoryChecker DC(192, 0, 1);
 
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
@@ -124,7 +124,7 @@ IGESData_DirChecker IGESSolid_ToolCylindricalSurface::DirChecker(
   return DC;
 }
 
-void IGESSolid_ToolCylindricalSurface::OwnCheck(const Handle(IGESSolid_CylindricalSurface)& ent,
+void CylindricalSurfaceTool::OwnCheck(const Handle(IGESSolid_CylindricalSurface)& ent,
                                                 const Interface_ShareTool&,
                                                 Handle(Interface_Check)& ach) const
 {
@@ -137,7 +137,7 @@ void IGESSolid_ToolCylindricalSurface::OwnCheck(const Handle(IGESSolid_Cylindric
     ach->AddFail("Parametrised Status Mismatches with Form Number");
 }
 
-void IGESSolid_ToolCylindricalSurface::OwnDump(const Handle(IGESSolid_CylindricalSurface)& ent,
+void CylindricalSurfaceTool::OwnDump(const Handle(IGESSolid_CylindricalSurface)& ent,
                                                const IGESData_IGESDumper&                  dumper,
                                                Standard_OStream&                           S,
                                                const Standard_Integer level) const

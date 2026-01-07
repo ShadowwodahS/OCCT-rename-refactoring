@@ -23,9 +23,9 @@
 #include <IMeshTools_Parameters.hxx>
 #include <IMeshData_Types.hxx>
 
-class TopoDS_Face;
-class TopoDS_Edge;
-class TopoDS_Wire;
+class TopoFace;
+class TopoEdge;
+class TopoWire;
 
 //! Builds discrete model of a shape by adding faces and free edges.
 //! Computes deflection for corresponded shape and checks whether it
@@ -40,17 +40,17 @@ public:
   //! Destructor.
   Standard_EXPORT virtual ~BRepMesh_ShapeVisitor();
 
-  //! Handles TopoDS_Face object.
-  Standard_EXPORT virtual void Visit(const TopoDS_Face& theFace) Standard_OVERRIDE;
+  //! Handles TopoFace object.
+  Standard_EXPORT virtual void Visit(const TopoFace& theFace) Standard_OVERRIDE;
 
-  //! Handles TopoDS_Edge object.
-  Standard_EXPORT virtual void Visit(const TopoDS_Edge& theEdge) Standard_OVERRIDE;
+  //! Handles TopoEdge object.
+  Standard_EXPORT virtual void Visit(const TopoEdge& theEdge) Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(BRepMesh_ShapeVisitor, IMeshTools_ShapeVisitor)
 
 private:
   //! Adds wire to face discrete model.
-  Standard_Boolean addWire(const TopoDS_Wire& theWire, const IMeshData::IFaceHandle& theDFace);
+  Standard_Boolean addWire(const TopoWire& theWire, const IMeshData::IFaceHandle& theDFace);
 
 private:
   Handle(IMeshData_Model)       myModel;

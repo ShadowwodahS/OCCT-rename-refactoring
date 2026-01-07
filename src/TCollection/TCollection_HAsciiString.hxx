@@ -63,10 +63,10 @@ public:
   Standard_EXPORT TCollection_HAsciiString(const Standard_Real value);
 
   //! Initializes a HAsciiString with a AsciiString.
-  Standard_EXPORT TCollection_HAsciiString(const TCollection_AsciiString& aString);
+  Standard_EXPORT TCollection_HAsciiString(const AsciiString1& aString);
 
   //! Initializes a HAsciiString with a AsciiString.
-  TCollection_HAsciiString(TCollection_AsciiString&& theString) noexcept
+  TCollection_HAsciiString(AsciiString1&& theString) noexcept
       : myString(std::move(theString))
   {
   }
@@ -481,7 +481,7 @@ public:
   Standard_EXPORT Standard_Character Value(const Standard_Integer where) const;
 
   //! Returns the field myString.
-  const TCollection_AsciiString& String() const;
+  const AsciiString1& String() const;
 
   Standard_EXPORT Standard_Boolean IsSameState(const Handle(TCollection_HAsciiString)& other) const;
 
@@ -489,7 +489,7 @@ public:
 
 protected:
 private:
-  TCollection_AsciiString myString;
+  AsciiString1 myString;
 };
 
 #include <TCollection_HAsciiString.lxx>

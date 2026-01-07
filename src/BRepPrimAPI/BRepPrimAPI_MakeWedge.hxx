@@ -24,8 +24,8 @@
 #include <BRepPrim_Wedge.hxx>
 #include <BRepBuilderAPI_MakeShape.hxx>
 class Frame3d;
-class TopoDS_Shell;
-class TopoDS_Solid;
+class TopoShell;
+class TopoSolid;
 
 //! Describes functions to build wedges, i.e. boxes with inclined faces.
 //! A MakeWedge object provides a framework for:
@@ -77,12 +77,12 @@ public:
     const Message_ProgressRange& theRange = Message_ProgressRange()) Standard_OVERRIDE;
 
   //! Returns the constructed box in the form of a shell.
-  Standard_EXPORT const TopoDS_Shell& Shell();
-  Standard_EXPORT                     operator TopoDS_Shell();
+  Standard_EXPORT const TopoShell& Shell();
+  Standard_EXPORT                     operator TopoShell();
 
   //! Returns the constructed box in the form of a solid.
-  Standard_EXPORT const TopoDS_Solid& Solid();
-  Standard_EXPORT                     operator TopoDS_Solid();
+  Standard_EXPORT const TopoSolid& Solid();
+  Standard_EXPORT                     operator TopoSolid();
 
 protected:
 private:

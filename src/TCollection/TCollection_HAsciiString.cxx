@@ -39,7 +39,7 @@ TCollection_HAsciiString::TCollection_HAsciiString(const Standard_CString messag
 // ----------------------------------------------------------------------------
 // Create
 // ----------------------------------------------------------------------------
-TCollection_HAsciiString::TCollection_HAsciiString(const TCollection_AsciiString& astring)
+TCollection_HAsciiString::TCollection_HAsciiString(const AsciiString1& astring)
     : myString(astring)
 {
 }
@@ -324,7 +324,7 @@ Standard_Boolean TCollection_HAsciiString::IsSameString(const Handle(TCollection
 {
   if (S.IsNull())
     throw Standard_NullObject("TCollection_HAsciiString::IsSameString");
-  return TCollection_AsciiString::IsSameString(myString, S->myString, CaseSensitive);
+  return AsciiString1::IsSameString(myString, S->myString, CaseSensitive);
 }
 
 //------------------------------------------------------------------------

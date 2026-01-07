@@ -79,14 +79,14 @@ Standard_Integer IFSelect_SessionFile::NbLines() const
   return thelist.Length();
 }
 
-const TCollection_AsciiString& IFSelect_SessionFile::Line(const Standard_Integer num) const
+const AsciiString1& IFSelect_SessionFile::Line(const Standard_Integer num) const
 {
   return thelist.Value(num);
 }
 
 void IFSelect_SessionFile::AddLine(const Standard_CString line)
 {
-  thelist.Append(TCollection_AsciiString(line));
+  thelist.Append(AsciiString1(line));
 }
 
 void IFSelect_SessionFile::RemoveLastLine()
@@ -133,7 +133,7 @@ Standard_Boolean IFSelect_SessionFile::ReadFile(const Standard_CString filename)
       header = Standard_True;
     }
     ligne[200] = '\0'; // fin forcee ...
-    TCollection_AsciiString onemore(ligne);
+    AsciiString1 onemore(ligne);
     thelist.Append(onemore);
   }
   fclose(lefic);
@@ -507,7 +507,7 @@ Standard_Integer IFSelect_SessionFile::ReadSession()
       return 1;
     if (theline.Length() == 0)
       continue;
-    const TCollection_AsciiString& ungen = theline.Value(1);
+    const AsciiString1& ungen = theline.Value(1);
     if (ungen.Value(1) == '!')
       break; // fin des generaux
     if (ungen.IsEqual("ErrorHandle"))
@@ -567,7 +567,7 @@ Standard_Integer IFSelect_SessionFile::ReadSession()
       continue;
     }
     //    Attention, un texte peut contenir des blancs ...  repartir de line(thenl)
-    TCollection_AsciiString oneline = thelist.Value(thenl);
+    AsciiString1 oneline = thelist.Value(thenl);
     Standard_Integer        iw = 0, inc = 0;
     for (Standard_Integer ic = 1; ic <= oneline.Length(); ic++)
     {
@@ -899,7 +899,7 @@ void IFSelect_SessionFile::SplitLine(const Standard_CString line)
       {
         word     = Standard_False;
         mot[nbc] = '\0';
-        theline.Append(TCollection_AsciiString(mot));
+        theline.Append(AsciiString1(mot));
       }
       if (line[i] == '\0' || line[i] == '\n')
         break;
@@ -914,7 +914,7 @@ Standard_Boolean IFSelect_SessionFile::ReadOwn(Handle(RefObject)& item)
 
   if (theline.Length() < 2)
     return Standard_False;
-  const TCollection_AsciiString& type = theline.Value(2);
+  const AsciiString1& type = theline.Value(2);
   if (thelastgen < 2)
     thelastgen = 2; // mini : ident+type d abord
                     //  thelastgen = theline.Length();
@@ -938,7 +938,7 @@ void IFSelect_SessionFile::AddItem(const Handle(RefObject)& item,
 {
   Message_Messenger::StreamBuffer sout = Message::SendInfo();
 
-  const TCollection_AsciiString& name = theline.Value(1);
+  const AsciiString1& name = theline.Value(1);
   Standard_Integer               id   = 0;
   if (!item.IsNull())
   {
@@ -1045,7 +1045,7 @@ Standard_Boolean IFSelect_SessionFile::IsVoid(const Standard_Integer num) const
   Standard_Integer nm = num + thelastgen;
   if (nm <= 0 || nm > theline.Length())
     return Standard_True;
-  const TCollection_AsciiString& term = theline.Value(nm);
+  const AsciiString1& term = theline.Value(nm);
   return (term.IsEqual("$") || term.IsEqual(":$"));
 }
 
@@ -1054,7 +1054,7 @@ Standard_Boolean IFSelect_SessionFile::IsText(const Standard_Integer num) const
   Standard_Integer nm = num + thelastgen;
   if (nm <= 0 || nm > theline.Length())
     return Standard_False;
-  const TCollection_AsciiString& term = theline.Value(nm);
+  const AsciiString1& term = theline.Value(nm);
   if (term.Value(1) == ':')
     return Standard_False;
   if (term.Value(1) == '#')
@@ -1064,15 +1064,15 @@ Standard_Boolean IFSelect_SessionFile::IsText(const Standard_Integer num) const
   return Standard_True;
 }
 
-const TCollection_AsciiString& IFSelect_SessionFile::ParamValue(const Standard_Integer num) const
+const AsciiString1& IFSelect_SessionFile::ParamValue(const Standard_Integer num) const
 {
   return theline.Value(num + thelastgen);
 }
 
-TCollection_AsciiString IFSelect_SessionFile::TextValue(const Standard_Integer num) const
+AsciiString1 IFSelect_SessionFile::TextValue(const Standard_Integer num) const
 {
   Standard_Integer        nm = num + thelastgen;
-  TCollection_AsciiString res;
+  AsciiString1 res;
   if (nm <= 0 || nm > theline.Length())
     return res;
   res = theline.Value(nm);
@@ -1094,7 +1094,7 @@ Handle(RefObject) IFSelect_SessionFile::ItemValue(const Standard_Integer num) co
   if (nm <= 0 || nm > theline.Length())
     return res;
   Standard_Integer        id;
-  TCollection_AsciiString name = theline.Value(nm);
+  AsciiString1 name = theline.Value(nm);
   if (name.Value(1) == ':')
     name.Remove(1);
   if (name.IsEqual("$"))

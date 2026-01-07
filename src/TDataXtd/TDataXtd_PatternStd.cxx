@@ -42,7 +42,7 @@ const Standard_GUID& TDataXtd_PatternStd::GetPatternID()
 
 //=================================================================================================
 
-Handle(TDataXtd_PatternStd) TDataXtd_PatternStd::Set(const TDF_Label& L)
+Handle(TDataXtd_PatternStd) TDataXtd_PatternStd::Set(const DataLabel& L)
 {
   Handle(TDataXtd_PatternStd) A;
   if (!L.FindAttribute(TDataXtd_Pattern::GetID(), A))
@@ -76,7 +76,7 @@ void TDataXtd_PatternStd::Signature(const Standard_Integer signature)
 
 //=================================================================================================
 
-void TDataXtd_PatternStd::Axis1(const Handle(TNaming_NamedShape)& Axis1)
+void TDataXtd_PatternStd::Axis1(const Handle(ShapeAttribute)& Axis1)
 {
   // OCC2932 correction
   if (!myAxis1.IsNull())
@@ -89,7 +89,7 @@ void TDataXtd_PatternStd::Axis1(const Handle(TNaming_NamedShape)& Axis1)
 
 //=================================================================================================
 
-void TDataXtd_PatternStd::Axis2(const Handle(TNaming_NamedShape)& Axis2)
+void TDataXtd_PatternStd::Axis2(const Handle(ShapeAttribute)& Axis2)
 {
   // OCC2932 correction
   if (!myAxis2.IsNull())
@@ -152,7 +152,7 @@ void TDataXtd_PatternStd::Value2(const Handle(TDataStd_Real)& value)
 
 //=================================================================================================
 
-void TDataXtd_PatternStd::NbInstances1(const Handle(TDataStd_Integer)& NbInstances1)
+void TDataXtd_PatternStd::NbInstances1(const Handle(IntAttribute)& NbInstances1)
 {
   // OCC2932 correction
   if (!myNb1.IsNull())
@@ -165,7 +165,7 @@ void TDataXtd_PatternStd::NbInstances1(const Handle(TDataStd_Integer)& NbInstanc
 
 //=================================================================================================
 
-void TDataXtd_PatternStd::NbInstances2(const Handle(TDataStd_Integer)& NbInstances2)
+void TDataXtd_PatternStd::NbInstances2(const Handle(IntAttribute)& NbInstances2)
 {
   // OCC2932 correction
   if (!myNb2.IsNull())
@@ -178,7 +178,7 @@ void TDataXtd_PatternStd::NbInstances2(const Handle(TDataStd_Integer)& NbInstanc
 
 //=================================================================================================
 
-void TDataXtd_PatternStd::Mirror(const Handle(TNaming_NamedShape)& plane)
+void TDataXtd_PatternStd::Mirror(const Handle(ShapeAttribute)& plane)
 {
   // OCC2932 correction
   if (!myMirror.IsNull())
@@ -329,9 +329,9 @@ void TDataXtd_PatternStd::Paste(const Handle(TDF_Attribute)&       Into,
 
   if (mySignature < 5)
   {
-    Handle(TNaming_NamedShape) axis;
+    Handle(ShapeAttribute) axis;
     Handle(TDataStd_Real)      value;
-    Handle(TDataStd_Integer)   nb;
+    Handle(IntAttribute)   nb;
 
     RT->HasRelocation(myAxis1, axis);
     intof->Axis1(axis);
@@ -352,7 +352,7 @@ void TDataXtd_PatternStd::Paste(const Handle(TDF_Attribute)&       Into,
   }
   else
   {
-    Handle(TNaming_NamedShape) plane;
+    Handle(ShapeAttribute) plane;
     RT->HasRelocation(myMirror, plane);
     intof->Mirror(plane);
   }

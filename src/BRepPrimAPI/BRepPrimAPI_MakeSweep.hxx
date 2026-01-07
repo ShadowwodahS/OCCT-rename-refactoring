@@ -21,7 +21,7 @@
 #include <Standard_DefineAlloc.hxx>
 
 #include <BRepBuilderAPI_MakeShape.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! The abstract class MakeSweep is
 //! the root class of swept primitives.
@@ -45,10 +45,10 @@ public:
   DEFINE_STANDARD_ALLOC
 
   //! Returns the  TopoDS  Shape of the bottom of the sweep.
-  Standard_EXPORT virtual TopoDS_Shape FirstShape() = 0;
+  Standard_EXPORT virtual TopoShape FirstShape() = 0;
 
   //! Returns the TopoDS Shape of the top of the sweep.
-  Standard_EXPORT virtual TopoDS_Shape LastShape() = 0;
+  Standard_EXPORT virtual TopoShape LastShape() = 0;
 
 protected:
 private:

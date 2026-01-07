@@ -38,16 +38,16 @@ Standard_EXPORT void debkeep(const Standard_Integer i)
 // return true if LS is not empty && (position == TB)
 // (return always true if LS is empty)
 //=======================================================================
-Standard_Boolean TopOpeBRepBuild_Builder::GKeepShape(const TopoDS_Shape&         S,
-                                                     const TopTools_ListOfShape& LSclass,
+Standard_Boolean TopOpeBRepBuild_Builder::GKeepShape(const TopoShape&         S,
+                                                     const ShapeList& LSclass,
                                                      const TopAbs_State          TB)
 {
   TopAbs_State pos;
   return GKeepShape1(S, LSclass, TB, pos);
 }
 
-Standard_Boolean TopOpeBRepBuild_Builder::GKeepShape1(const TopoDS_Shape&         S,
-                                                      const TopTools_ListOfShape& LSclass,
+Standard_Boolean TopOpeBRepBuild_Builder::GKeepShape1(const TopoShape&         S,
+                                                      const ShapeList& LSclass,
                                                       const TopAbs_State          TB,
                                                       TopAbs_State&               pos)
 {
@@ -97,7 +97,7 @@ Standard_Boolean TopOpeBRepBuild_Builder::GKeepShape1(const TopoDS_Shape&       
     else
       std::cout << " is NOT kept";
     std::cout << " ";
-    TopAbs::Print(TB, std::cout);
+    TopAbs1::Print(TB, std::cout);
     std::cout << " / ";
     if (LSclass.IsEmpty())
       std::cout << "empty list";
@@ -122,14 +122,14 @@ Standard_Boolean TopOpeBRepBuild_Builder::GKeepShape1(const TopoDS_Shape&       
 //=======================================================================
 void TopOpeBRepBuild_Builder::GKeepShapes
 #ifdef OCCT_DEBUG
-  (const TopoDS_Shape& S,
+  (const TopoShape& S,
 #else
-  (const TopoDS_Shape&,
+  (const TopoShape&,
 #endif
-   const TopTools_ListOfShape& LSclass,
+   const ShapeList& LSclass,
    const TopAbs_State          TB,
-   const TopTools_ListOfShape& Lin,
-   TopTools_ListOfShape&       Lou)
+   const ShapeList& Lin,
+   ShapeList&       Lou)
 {
 #ifdef OCCT_DEBUG
   Standard_Integer iS;
@@ -144,7 +144,7 @@ void TopOpeBRepBuild_Builder::GKeepShapes
   TopTools_ListIteratorOfListOfShape it(Lin);
   for (; it.More(); it.Next())
   {
-    const TopoDS_Shape& SL = it.Value();
+    const TopoShape& SL = it.Value();
 
     Standard_Boolean keep = Standard_True;
     if (!LSclass.IsEmpty())
@@ -163,7 +163,7 @@ void TopOpeBRepBuild_Builder::GKeepShapes
     if (tSPS)
     {
       std::cout << "new ";
-      TopAbs::Print(t, std::cout);
+      TopAbs1::Print(t, std::cout);
       std::cout << " " << ++n;
     }
     if (tSPS)
@@ -178,7 +178,7 @@ void TopOpeBRepBuild_Builder::GKeepShapes
     if (tSPS)
     {
       std::cout << " ";
-      TopAbs::Print(TB, std::cout);
+      TopAbs1::Print(TB, std::cout);
       std::cout << " / ";
     }
     if (tSPS)

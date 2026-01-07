@@ -22,9 +22,9 @@
 #include <Standard_Handle.hxx>
 
 #include <IGESToBRep_CurveAndSurface.hxx>
-class Geom_Surface;
+class GeomSurface;
 class IGESData_IGESEntity;
-class Geom_Plane;
+class GeomPlane;
 class IGESSolid_PlaneSurface;
 class Geom_CylindricalSurface;
 class IGESSolid_CylindricalSurface;
@@ -66,11 +66,11 @@ public:
                                           const Standard_Boolean optimized);
 
   //! Returns Surface  from Geom if the last transfer has succeeded.
-  Standard_EXPORT Handle(Geom_Surface) TransferBasicSurface(
+  Standard_EXPORT Handle(GeomSurface) TransferBasicSurface(
     const Handle(IGESData_IGESEntity)& start);
 
   //! Returns Plane from Geom if the transfer has succeeded.
-  Standard_EXPORT Handle(Geom_Plane) TransferPlaneSurface(
+  Standard_EXPORT Handle(GeomPlane) TransferPlaneSurface(
     const Handle(IGESSolid_PlaneSurface)& start);
 
   //! Returns CylindricalSurface from Geom if the transfer has succeeded.

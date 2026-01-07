@@ -65,18 +65,18 @@ Standard_Integer DNaming_BoxDriver::Execute(Handle(TFunction_Logbook)& theLog) c
 
   // perform calculations
 
-  Standard_Real aDX = DNaming::GetReal(aFunction, BOX_DX)->Get();
-  Standard_Real aDY = DNaming::GetReal(aFunction, BOX_DY)->Get();
-  Standard_Real aDZ = DNaming::GetReal(aFunction, BOX_DZ)->Get();
+  Standard_Real aDX = DNaming1::GetReal(aFunction, BOX_DX)->Get();
+  Standard_Real aDY = DNaming1::GetReal(aFunction, BOX_DY)->Get();
+  Standard_Real aDZ = DNaming1::GetReal(aFunction, BOX_DZ)->Get();
 
-  Handle(TNaming_NamedShape) aPrevBox = DNaming::GetFunctionResult(aFunction);
+  Handle(ShapeAttribute) aPrevBox = DNaming1::GetFunctionResult(aFunction);
   // Save location
   TopLoc_Location aLocation;
   if (!aPrevBox.IsNull() && !aPrevBox->IsEmpty())
   {
     aLocation = aPrevBox->Get().Location();
   }
-  BRepPrimAPI_MakeBox aMakeBox(aDX, aDY, aDZ);
+  BoxMaker aMakeBox(aDX, aDY, aDZ);
   aMakeBox.Build();
   if (!aMakeBox.IsDone())
   {
@@ -84,7 +84,7 @@ Standard_Integer DNaming_BoxDriver::Execute(Handle(TFunction_Logbook)& theLog) c
     return -1;
   }
 
-  TopoDS_Shape       aResult = aMakeBox.Solid();
+  TopoShape       aResult = aMakeBox.Solid();
   BRepCheck_Analyzer aCheck(aResult);
   if (!aCheck.IsValid(aResult))
   {
@@ -97,7 +97,7 @@ Standard_Integer DNaming_BoxDriver::Execute(Handle(TFunction_Logbook)& theLog) c
 
   // restore location
   if (!aLocation.IsIdentity())
-    TNaming::Displace(RESPOSITION(aFunction), aLocation, Standard_True);
+    TNaming1::Displace(RESPOSITION(aFunction), aLocation, Standard_True);
 
   theLog->SetValid(RESPOSITION(aFunction), Standard_True);
 
@@ -107,33 +107,33 @@ Standard_Integer DNaming_BoxDriver::Execute(Handle(TFunction_Logbook)& theLog) c
 
 //=================================================================================================
 
-void DNaming_BoxDriver::LoadNamingDS(const TDF_Label& theResultLabel, BRepPrimAPI_MakeBox& MS) const
+void DNaming_BoxDriver::LoadNamingDS(const DataLabel& theResultLabel, BoxMaker& MS) const
 {
   TNaming_Builder Builder(theResultLabel);
   Builder.Generated(MS.Solid());
 
   // Load the faces of the box :
-  TopoDS_Face     BottomFace = MS.BottomFace();
+  TopoFace     BottomFace = MS.BottomFace();
   TNaming_Builder BOF(theResultLabel.FindChild(1, Standard_True));
   BOF.Generated(BottomFace);
 
-  TopoDS_Face     TopFace = MS.TopFace();
+  TopoFace     TopFace = MS.TopFace();
   TNaming_Builder TF(theResultLabel.FindChild(2, Standard_True));
   TF.Generated(TopFace);
 
-  TopoDS_Face     FrontFace = MS.FrontFace();
+  TopoFace     FrontFace = MS.FrontFace();
   TNaming_Builder FF(theResultLabel.FindChild(3, Standard_True));
   FF.Generated(FrontFace);
 
-  TopoDS_Face     RightFace = MS.RightFace();
+  TopoFace     RightFace = MS.RightFace();
   TNaming_Builder RF(theResultLabel.FindChild(4, Standard_True));
   RF.Generated(RightFace);
 
-  TopoDS_Face     BackFace = MS.BackFace();
+  TopoFace     BackFace = MS.BackFace();
   TNaming_Builder BF(theResultLabel.FindChild(5, Standard_True));
   BF.Generated(BackFace);
 
-  TopoDS_Face     LeftFace = MS.LeftFace();
+  TopoFace     LeftFace = MS.LeftFace();
   TNaming_Builder LF(theResultLabel.FindChild(6, Standard_True));
   LF.Generated(LeftFace);
 }

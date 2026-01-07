@@ -32,10 +32,10 @@ public:
         myAngle(-1.) {};
 
   //
-  void SetEdge(const TopoDS_Edge& theE) { myEdge = theE; };
+  void SetEdge(const TopoEdge& theE) { myEdge = theE; };
 
   //
-  const TopoDS_Edge& Edge() const { return myEdge; };
+  const TopoEdge& Edge() const { return myEdge; };
 
   //
   void SetPassed(const Standard_Boolean theFlag) { myPassed = theFlag; };
@@ -63,7 +63,7 @@ public:
 
   //
 protected:
-  TopoDS_Edge      myEdge;
+  TopoEdge      myEdge;
   Standard_Boolean myPassed;
   Standard_Boolean myInFlag;
   Standard_Boolean myIsInside;
@@ -77,16 +77,16 @@ typedef BOPAlgo_ListOfEdgeInfo::Iterator   BOPAlgo_ListIteratorOfListOfEdgeInfo;
 #include <NCollection_IndexedDataMap.hxx>
 #include <TopTools_ShapeMapHasher.hxx>
 
-typedef NCollection_IndexedDataMap<TopoDS_Shape, BOPAlgo_ListOfEdgeInfo, TopTools_ShapeMapHasher>
+typedef NCollection_IndexedDataMap<TopoShape, BOPAlgo_ListOfEdgeInfo, ShapeHasher>
   BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo;
 
 //=======================================================================
 // function : MakeWire
 // purpose  :
 //=======================================================================
-inline void BOPAlgo_WireSplitter::MakeWire(TopTools_ListOfShape& aLE, TopoDS_Wire& aWire)
+inline void BOPAlgo_WireSplitter::MakeWire(ShapeList& aLE, TopoWire& aWire)
 {
-  BRep_Builder aBB;
+  ShapeBuilder aBB;
   aBB.MakeWire(aWire);
   //
   TopTools_ListIteratorOfListOfShape aIt(aLE);
@@ -94,5 +94,5 @@ inline void BOPAlgo_WireSplitter::MakeWire(TopTools_ListOfShape& aLE, TopoDS_Wir
   {
     aBB.Add(aWire, aIt.Value());
   }
-  aWire.Closed(BRep_Tool::IsClosed(aWire));
+  aWire.Closed(BRepInspector::IsClosed(aWire));
 }

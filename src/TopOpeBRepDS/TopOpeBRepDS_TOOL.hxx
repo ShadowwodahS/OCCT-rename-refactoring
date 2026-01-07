@@ -25,24 +25,24 @@
 #include <TopTools_ListOfShape.hxx>
 #include <TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State.hxx>
 class TopOpeBRepDS_HDataStructure;
-class TopoDS_Edge;
-class TopoDS_Shape;
+class TopoEdge;
+class TopoShape;
 
-class TopOpeBRepDS_TOOL
+class DataStructureTool
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT static Standard_Integer EShareG(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
-                                                  const TopoDS_Edge&                         E,
-                                                  TopTools_ListOfShape&                      lEsd);
+                                                  const TopoEdge&                         E,
+                                                  ShapeList&                      lEsd);
 
   Standard_EXPORT static Standard_Boolean ShareG(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
                                                  const Standard_Integer                     is1,
                                                  const Standard_Integer                     is2);
 
   Standard_EXPORT static Standard_Boolean GetEsd(const Handle(TopOpeBRepDS_HDataStructure)& HDS,
-                                                 const TopoDS_Shape&                        S,
+                                                 const TopoShape&                        S,
                                                  const Standard_Integer                     ie,
                                                  Standard_Integer&                          iesd);
 
@@ -51,7 +51,7 @@ public:
     const TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State& MspON,
     const Standard_Integer                                i1,
     const Standard_Integer                                i2,
-    TopoDS_Shape&                                         spON);
+    TopoShape&                                         spON);
 
   Standard_EXPORT static Standard_Boolean GetConfig(
     const Handle(TopOpeBRepDS_HDataStructure)&            HDS,

@@ -23,16 +23,16 @@
 
 #include <GeomToIGES_GeomEntity.hxx>
 class IGESData_IGESEntity;
-class Geom_Curve;
+class GeomCurve3d;
 class Geom_BoundedCurve;
-class Geom_BSplineCurve;
-class Geom_BezierCurve;
+class BSplineCurve3d;
+class BezierCurve3d;
 class Geom_TrimmedCurve;
 class Geom_Conic;
-class Geom_Circle;
+class GeomCircle;
 class Geom_Ellipse;
 class Geom_Hyperbola;
-class Geom_Line;
+class GeomLine;
 class Geom_Parabola;
 class Geom_OffsetCurve;
 
@@ -64,7 +64,7 @@ public:
   //! Transfert  a  GeometryEntity which  answer True  to  the
   //! member : BRepToIGES::IsGeomCurve(Geometry).  If this
   //! Entity could not be converted, this member returns a NullEntity.
-  Standard_EXPORT Handle(IGESData_IGESEntity) TransferCurve(const Handle(Geom_Curve)& start,
+  Standard_EXPORT Handle(IGESData_IGESEntity) TransferCurve(const Handle(GeomCurve3d)& start,
                                                             const Standard_Real       Udeb,
                                                             const Standard_Real       Ufin);
 
@@ -72,11 +72,11 @@ public:
                                                             const Standard_Real              Udeb,
                                                             const Standard_Real              Ufin);
 
-  Standard_EXPORT Handle(IGESData_IGESEntity) TransferCurve(const Handle(Geom_BSplineCurve)& start,
+  Standard_EXPORT Handle(IGESData_IGESEntity) TransferCurve(const Handle(BSplineCurve3d)& start,
                                                             const Standard_Real              Udeb,
                                                             const Standard_Real              Ufin);
 
-  Standard_EXPORT Handle(IGESData_IGESEntity) TransferCurve(const Handle(Geom_BezierCurve)& start,
+  Standard_EXPORT Handle(IGESData_IGESEntity) TransferCurve(const Handle(BezierCurve3d)& start,
                                                             const Standard_Real             Udeb,
                                                             const Standard_Real             Ufin);
 
@@ -88,7 +88,7 @@ public:
                                                             const Standard_Real       Udeb,
                                                             const Standard_Real       Ufin);
 
-  Standard_EXPORT Handle(IGESData_IGESEntity) TransferCurve(const Handle(Geom_Circle)& start,
+  Standard_EXPORT Handle(IGESData_IGESEntity) TransferCurve(const Handle(GeomCircle)& start,
                                                             const Standard_Real        Udeb,
                                                             const Standard_Real        Ufin);
 
@@ -100,7 +100,7 @@ public:
                                                             const Standard_Real           Udeb,
                                                             const Standard_Real           Ufin);
 
-  Standard_EXPORT Handle(IGESData_IGESEntity) TransferCurve(const Handle(Geom_Line)& start,
+  Standard_EXPORT Handle(IGESData_IGESEntity) TransferCurve(const Handle(GeomLine)& start,
                                                             const Standard_Real      Udeb,
                                                             const Standard_Real      Ufin);
 

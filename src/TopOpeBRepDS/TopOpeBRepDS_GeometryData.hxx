@@ -25,18 +25,18 @@
 class TopOpeBRepDS_Interference;
 
 //! mother-class of SurfaceData, CurveData, PointData
-class TopOpeBRepDS_GeometryData
+class GeometryData
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepDS_GeometryData();
+  Standard_EXPORT GeometryData();
 
-  Standard_EXPORT TopOpeBRepDS_GeometryData(const TopOpeBRepDS_GeometryData& Other);
+  Standard_EXPORT GeometryData(const GeometryData& Other);
 
-  Standard_EXPORT void Assign(const TopOpeBRepDS_GeometryData& Other);
+  Standard_EXPORT void Assign(const GeometryData& Other);
 
-  void operator=(const TopOpeBRepDS_GeometryData& Other) { Assign(Other); }
+  void operator=(const GeometryData& Other) { Assign(Other); }
 
   Standard_EXPORT const TopOpeBRepDS_ListOfInterference& Interferences() const;
 

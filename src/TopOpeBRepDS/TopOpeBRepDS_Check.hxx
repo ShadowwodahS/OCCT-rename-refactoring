@@ -62,7 +62,7 @@ public:
   //! Verifie que les Shapes existent bien dans la DS
   //! Utile pour les Shapes SameDomain
   //! si la liste est vide, renvoie vrai
-  Standard_EXPORT Standard_Boolean CheckShapes(const TopTools_ListOfShape& LS) const;
+  Standard_EXPORT Standard_Boolean CheckShapes(const ShapeList& LS) const;
 
   //! Verifie que les Vertex   non   SameDomain sont bien
   //! nonSameDomain, que  les  vertex sameDomain sont  bien

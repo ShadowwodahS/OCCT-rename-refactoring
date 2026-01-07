@@ -19,7 +19,7 @@
 #include <AIS_InteractiveContext.hxx>
 #include <V3d_View.hxx>
 
-class TCollection_AsciiString;
+class AsciiString1;
 
 //! Auxiliary tool to control view updates.
 class ViewerTest_AutoUpdater
@@ -35,14 +35,14 @@ public:
 
 public:
   //! Constructor
-  Standard_EXPORT ViewerTest_AutoUpdater(const Handle(AIS_InteractiveContext)& theContext,
-                                         const Handle(V3d_View)&               theView);
+  Standard_EXPORT ViewerTest_AutoUpdater(const Handle(VisualContext)& theContext,
+                                         const Handle(ViewWindow)&               theView);
 
   //! Destructor to automatically update view
   Standard_EXPORT ~ViewerTest_AutoUpdater();
 
   //! Parse redraw mode argument
-  Standard_EXPORT Standard_Boolean parseRedrawMode(const TCollection_AsciiString& theArg);
+  Standard_EXPORT Standard_Boolean parseRedrawMode(const AsciiString1& theArg);
 
   //! Disable autoupdate
   Standard_EXPORT void Invalidate();
@@ -51,8 +51,8 @@ public:
   Standard_EXPORT void Update();
 
 private:
-  Handle(AIS_InteractiveContext)     myContext;
-  Handle(V3d_View)                   myView;
+  Handle(VisualContext)     myContext;
+  Handle(ViewWindow)                   myView;
   ViewerTest_AutoUpdater::RedrawMode myToUpdate;
   Standard_Boolean                   myWasAutoUpdate;
 };

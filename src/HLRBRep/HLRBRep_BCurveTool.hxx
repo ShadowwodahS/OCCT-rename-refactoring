@@ -36,8 +36,8 @@
 class BRepAdaptor_Curve;
 class Point3d;
 class Vector3d;
-class Geom_BezierCurve;
-class Geom_BSplineCurve;
+class BezierCurve3d;
+class BSplineCurve3d;
 
 class HLRBRep_BCurveTool
 {
@@ -126,9 +126,9 @@ public:
 
   static gp_Parab Parabola(const BRepAdaptor_Curve& C);
 
-  Standard_EXPORT static Handle(Geom_BezierCurve) Bezier(const BRepAdaptor_Curve& C);
+  Standard_EXPORT static Handle(BezierCurve3d) Bezier(const BRepAdaptor_Curve& C);
 
-  Standard_EXPORT static Handle(Geom_BSplineCurve) BSpline(const BRepAdaptor_Curve& C);
+  Standard_EXPORT static Handle(BSplineCurve3d) BSpline(const BRepAdaptor_Curve& C);
 
   static Standard_Integer Degree(const BRepAdaptor_Curve& C);
 

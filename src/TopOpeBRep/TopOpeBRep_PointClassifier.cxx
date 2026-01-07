@@ -37,7 +37,7 @@ void TopOpeBRep_PointClassifier::Init()
 
 //=================================================================================================
 
-void TopOpeBRep_PointClassifier::Load(const TopoDS_Face& F)
+void TopOpeBRep_PointClassifier::Load(const TopoFace& F)
 {
   Standard_Boolean found = myTopolToolMap.IsBound(F);
   if (!found)
@@ -54,7 +54,7 @@ void TopOpeBRep_PointClassifier::Load(const TopoDS_Face& F)
 
 //=================================================================================================
 
-TopAbs_State TopOpeBRep_PointClassifier::Classify(const TopoDS_Face&  F,
+TopAbs_State TopOpeBRep_PointClassifier::Classify(const TopoFace&  F,
                                                   const gp_Pnt2d&     P2d,
                                                   const Standard_Real Tol)
 {

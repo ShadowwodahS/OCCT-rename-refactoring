@@ -29,9 +29,9 @@ public:
   //! @param[in] theAxis          rotation axis
   //! @param[in] theAngleStart    rotation angle at the start of animation
   //! @param[in] theAngleEnd      rotation angle at the end   of animation
-  Standard_EXPORT AIS_AnimationAxisRotation(const TCollection_AsciiString&        theAnimationName,
-                                            const Handle(AIS_InteractiveContext)& theContext,
-                                            const Handle(AIS_InteractiveObject)&  theObject,
+  Standard_EXPORT AIS_AnimationAxisRotation(const AsciiString1&        theAnimationName,
+                                            const Handle(VisualContext)& theContext,
+                                            const Handle(VisualEntity)&  theObject,
                                             const Axis3d&                         theAxis,
                                             const Standard_Real                   theAngleStart,
                                             const Standard_Real                   theAngleEnd);

@@ -206,7 +206,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   // NB: in the case 'pointu', no pcurve on the plane surface
   // and no intersection plane-chamfer are needed
   Handle(Geom2d_Circle) GCir2dPln;
-  Handle(Geom_Circle)   GCirPln;
+  Handle(GeomCircle)   GCirPln;
   Frame3d                CirAx2 = ConAx3.Ax2();
   CirAx2.SetLocation(PtPl);
 
@@ -215,7 +215,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
 
     // intersection plane-chamfer
     gp_Circ CirPln(CirAx2, Rad);
-    GCirPln = new Geom_Circle(CirPln);
+    GCirPln = new GeomCircle(CirPln);
 
     // pcurve on the plane
     ElSLib::PlaneParameters(PosPl, Pt, u, v);
@@ -270,7 +270,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   // intersection cylinder-chamfer
   CirAx2.SetLocation(Or);
   gp_Circ             CirCyl(CirAx2, ConRad);
-  Handle(Geom_Circle) GCirCyl = new Geom_Circle(CirCyl);
+  Handle(GeomCircle) GCirCyl = new GeomCircle(CirCyl);
 
   // pcurve on the chamfer
   p2dch.SetCoord(0., 0.);
@@ -447,7 +447,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   }
   gp_Ax3 AxCh(POnPln, XDir.Crossed(YDir), XDir);
 
-  Handle(Geom_Plane) Chamfer = new Geom_Plane(AxCh);
+  Handle(GeomPlane) Chamfer = new GeomPlane(AxCh);
   Data->ChangeSurf(ChFiKPart_IndexSurfaceInDS(Chamfer, DStr));
 
   // FaceInterferences are loaded with pcurves and curves 3d.
@@ -463,7 +463,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   ElSLib::PlaneParameters(AxCh, POnPln, U, VOnChamfer);
   gp_Lin2d LOnChamfer(gp_Pnt2d(U, VOnChamfer), gp::DX2d());
 
-  Handle(Geom_Line)   L3d  = new Geom_Line(C3d);
+  Handle(GeomLine)   L3d  = new GeomLine(C3d);
   Handle(Geom2d_Line) LFac = new Geom2d_Line(Lin2dPln);
   Handle(Geom2d_Line) LFil = new Geom2d_Line(LOnChamfer);
 
@@ -479,7 +479,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   // It is checked if the orientation of the Chamfer is the same as of the plane
   if (toreverse)
   {
-    Data->ChangeOrientation() = TopAbs::Reverse(Ofpl);
+    Data->ChangeOrientation() = TopAbs1::Reverse(Ofpl);
   }
   else
   {
@@ -523,7 +523,7 @@ Standard_Boolean ChFiKPart_MakeChamfer(TopOpeBRepDS_DataStructure&    DStr,
   ElSLib::PlaneParameters(AxCh, POnCyl, U, VOnChamfer);
   LOnChamfer = gp_Lin2d(gp_Pnt2d(U, VOnChamfer), gp::DX2d());
 
-  L3d  = new Geom_Line(C3d);
+  L3d  = new GeomLine(C3d);
   LFac = new Geom2d_Line(Lin2dCyl);
   LFil = new Geom2d_Line(LOnChamfer);
 

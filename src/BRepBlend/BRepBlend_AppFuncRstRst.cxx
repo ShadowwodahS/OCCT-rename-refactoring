@@ -32,12 +32,12 @@ BRepBlend_AppFuncRstRst::BRepBlend_AppFuncRstRst(Handle(BRepBlend_Line)& Line,
 void BRepBlend_AppFuncRstRst::Point(const Blend_AppFunction& Func,
                                     const Standard_Real      Param,
                                     const math_Vector&       theSol,
-                                    Blend_Point&             Pnt) const
+                                    Point2&             Pnt) const
 {
   Pnt.SetValue(Func.Pnt1(), Func.Pnt2(), Param, theSol(1), theSol(2));
 }
 
-void BRepBlend_AppFuncRstRst::Vec(math_Vector& theSol, const Blend_Point& Pnt) const
+void BRepBlend_AppFuncRstRst::Vec(math_Vector& theSol, const Point2& Pnt) const
 {
   theSol(1) = Pnt.ParameterOnC1();
   theSol(2) = Pnt.ParameterOnC2();

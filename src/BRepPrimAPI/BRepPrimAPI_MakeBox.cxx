@@ -39,7 +39,7 @@ inline Point3d pmin(const Point3d&       p,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeBox::BRepPrimAPI_MakeBox(const Standard_Real dx,
+BoxMaker::BoxMaker(const Standard_Real dx,
                                          const Standard_Real dy,
                                          const Standard_Real dz)
     : myWedge(Frame3d(pmin(Point3d(0, 0, 0), dx, dy, dz), Dir3d(0, 0, 1), Dir3d(1, 0, 0)),
@@ -51,7 +51,7 @@ BRepPrimAPI_MakeBox::BRepPrimAPI_MakeBox(const Standard_Real dx,
 
 //=================================================================================================
 
-BRepPrimAPI_MakeBox::BRepPrimAPI_MakeBox(const Point3d&       P,
+BoxMaker::BoxMaker(const Point3d&       P,
                                          const Standard_Real dx,
                                          const Standard_Real dy,
                                          const Standard_Real dz)
@@ -69,7 +69,7 @@ inline Point3d pmin(const Point3d& p1, const Point3d& p2)
   return Point3d(Min(p1.X(), p2.X()), Min(p1.Y(), p2.Y()), Min(p1.Z(), p2.Z()));
 }
 
-BRepPrimAPI_MakeBox::BRepPrimAPI_MakeBox(const Point3d& P1, const Point3d& P2)
+BoxMaker::BoxMaker(const Point3d& P1, const Point3d& P2)
     : myWedge(Frame3d(pmin(P1, P2), Dir3d(0, 0, 1), Dir3d(1, 0, 0)),
               Abs(P2.X() - P1.X()),
               Abs(P2.Y() - P1.Y()),
@@ -79,7 +79,7 @@ BRepPrimAPI_MakeBox::BRepPrimAPI_MakeBox(const Point3d& P1, const Point3d& P2)
 
 //=================================================================================================
 
-BRepPrimAPI_MakeBox::BRepPrimAPI_MakeBox(const Frame3d&       Axes,
+BoxMaker::BoxMaker(const Frame3d&       Axes,
                                          const Standard_Real dx,
                                          const Standard_Real dy,
                                          const Standard_Real dz)
@@ -89,7 +89,7 @@ BRepPrimAPI_MakeBox::BRepPrimAPI_MakeBox(const Frame3d&       Axes,
 
 //=================================================================================================
 
-void BRepPrimAPI_MakeBox::Init(const Standard_Real theDX,
+void BoxMaker::Init(const Standard_Real theDX,
                                const Standard_Real theDY,
                                const Standard_Real theDZ)
 {
@@ -102,7 +102,7 @@ void BRepPrimAPI_MakeBox::Init(const Standard_Real theDX,
 
 //=================================================================================================
 
-void BRepPrimAPI_MakeBox::Init(const Point3d&       thePnt,
+void BoxMaker::Init(const Point3d&       thePnt,
                                const Standard_Real theDX,
                                const Standard_Real theDY,
                                const Standard_Real theDZ)
@@ -116,7 +116,7 @@ void BRepPrimAPI_MakeBox::Init(const Point3d&       thePnt,
 
 //=================================================================================================
 
-void BRepPrimAPI_MakeBox::Init(const Point3d& thePnt1, const Point3d& thePnt2)
+void BoxMaker::Init(const Point3d& thePnt1, const Point3d& thePnt2)
 {
   myWedge = BRepPrim_Wedge(Frame3d(pmin(thePnt1, thePnt2), Dir3d(0, 0, 1), Dir3d(1, 0, 0)),
                            Abs(thePnt2.X() - thePnt1.X()),
@@ -126,7 +126,7 @@ void BRepPrimAPI_MakeBox::Init(const Point3d& thePnt1, const Point3d& thePnt2)
 
 //=================================================================================================
 
-void BRepPrimAPI_MakeBox::Init(const Frame3d&       theAxes,
+void BoxMaker::Init(const Frame3d&       theAxes,
                                const Standard_Real theDX,
                                const Standard_Real theDY,
                                const Standard_Real theDZ)
@@ -136,14 +136,14 @@ void BRepPrimAPI_MakeBox::Init(const Frame3d&       theAxes,
 
 //=================================================================================================
 
-BRepPrim_Wedge& BRepPrimAPI_MakeBox::Wedge()
+BRepPrim_Wedge& BoxMaker::Wedge()
 {
   return myWedge;
 }
 
 //=================================================================================================
 
-const TopoDS_Shell& BRepPrimAPI_MakeBox::Shell()
+const TopoShell& BoxMaker::Shell()
 {
   myShape = myWedge.Shell();
   Done();
@@ -152,16 +152,16 @@ const TopoDS_Shell& BRepPrimAPI_MakeBox::Shell()
 
 //=================================================================================================
 
-void BRepPrimAPI_MakeBox::Build(const Message_ProgressRange& /*theRange*/)
+void BoxMaker::Build(const Message_ProgressRange& /*theRange*/)
 {
   Solid();
 }
 
 //=================================================================================================
 
-const TopoDS_Solid& BRepPrimAPI_MakeBox::Solid()
+const TopoSolid& BoxMaker::Solid()
 {
-  BRep_Builder B;
+  ShapeBuilder B;
   B.MakeSolid(TopoDS::Solid(myShape));
   B.Add(myShape, myWedge.Shell());
   Done();
@@ -170,21 +170,21 @@ const TopoDS_Solid& BRepPrimAPI_MakeBox::Solid()
 
 //=================================================================================================
 
-BRepPrimAPI_MakeBox::operator TopoDS_Shell()
+BoxMaker::operator TopoShell()
 {
   return Shell();
 }
 
 //=================================================================================================
 
-BRepPrimAPI_MakeBox::operator TopoDS_Solid()
+BoxMaker::operator TopoSolid()
 {
   return Solid();
 }
 
 //=================================================================================================
 
-const TopoDS_Face& BRepPrimAPI_MakeBox::BottomFace()
+const TopoFace& BoxMaker::BottomFace()
 {
 
   return myWedge.Face(BRepPrim_ZMin);
@@ -192,7 +192,7 @@ const TopoDS_Face& BRepPrimAPI_MakeBox::BottomFace()
 
 //=================================================================================================
 
-const TopoDS_Face& BRepPrimAPI_MakeBox::BackFace()
+const TopoFace& BoxMaker::BackFace()
 {
 
   return myWedge.Face(BRepPrim_XMin);
@@ -200,7 +200,7 @@ const TopoDS_Face& BRepPrimAPI_MakeBox::BackFace()
 
 //=================================================================================================
 
-const TopoDS_Face& BRepPrimAPI_MakeBox::FrontFace()
+const TopoFace& BoxMaker::FrontFace()
 {
 
   return myWedge.Face(BRepPrim_XMax);
@@ -208,7 +208,7 @@ const TopoDS_Face& BRepPrimAPI_MakeBox::FrontFace()
 
 //=================================================================================================
 
-const TopoDS_Face& BRepPrimAPI_MakeBox::LeftFace()
+const TopoFace& BoxMaker::LeftFace()
 {
 
   return myWedge.Face(BRepPrim_YMin);
@@ -216,7 +216,7 @@ const TopoDS_Face& BRepPrimAPI_MakeBox::LeftFace()
 
 //=================================================================================================
 
-const TopoDS_Face& BRepPrimAPI_MakeBox::RightFace()
+const TopoFace& BoxMaker::RightFace()
 {
 
   return myWedge.Face(BRepPrim_YMax);
@@ -224,7 +224,7 @@ const TopoDS_Face& BRepPrimAPI_MakeBox::RightFace()
 
 //=================================================================================================
 
-const TopoDS_Face& BRepPrimAPI_MakeBox::TopFace()
+const TopoFace& BoxMaker::TopFace()
 {
 
   return myWedge.Face(BRepPrim_ZMax);

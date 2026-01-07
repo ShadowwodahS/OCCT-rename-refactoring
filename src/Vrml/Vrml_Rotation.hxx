@@ -34,17 +34,17 @@ public:
 
   Standard_EXPORT Vrml_Rotation();
 
-  Standard_EXPORT Vrml_Rotation(const Vrml_SFRotation& aRotation);
+  Standard_EXPORT Vrml_Rotation(const SFRotation& aRotation);
 
-  Standard_EXPORT void SetRotation(const Vrml_SFRotation& aRotation);
+  Standard_EXPORT void SetRotation(const SFRotation& aRotation);
 
-  Standard_EXPORT Vrml_SFRotation Rotation() const;
+  Standard_EXPORT SFRotation Rotation() const;
 
   Standard_EXPORT Standard_OStream& Print(Standard_OStream& anOStream) const;
 
 protected:
 private:
-  Vrml_SFRotation myRotation;
+  SFRotation myRotation;
 };
 
 #endif // _Vrml_Rotation_HeaderFile

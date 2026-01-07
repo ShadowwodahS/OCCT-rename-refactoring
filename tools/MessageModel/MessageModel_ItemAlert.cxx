@@ -94,7 +94,7 @@ QVariant MessageModel_ItemAlert::initValue(const int theRole) const
   {
     if (theRole == Qt::DisplayRole)
     {
-      TCollection_AsciiString aMessageKey = anAlert->GetMessageKey();
+      AsciiString1 aMessageKey = anAlert->GetMessageKey();
       if (aMessageKey.IsEmpty() && !Properties().IsNull())
         aMessageKey = Properties()->Key();
       return aMessageKey.ToCString();
@@ -236,9 +236,9 @@ bool MessageModel_ItemAlert::SetStream(const Standard_SStream& theSStream,
 
   Handle(Message_AttributeStream) anAttributeStream =
     Handle(Message_AttributeStream)::DownCast(anExtendedAlert->Attribute());
-  TCollection_AsciiString aStreamValue = Standard_Dump::Text(anAttributeStream->Stream());
+  AsciiString1 aStreamValue = Standard_Dump::Text(anAttributeStream->Stream());
 
-  TCollection_AsciiString aNewValue = Standard_Dump::Text(theSStream);
+  AsciiString1 aNewValue = Standard_Dump::Text(theSStream);
 
   Standard_SStream aStream;
   aStream << aStreamValue.SubString(1, theStartPos - 1);

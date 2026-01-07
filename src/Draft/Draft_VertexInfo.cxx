@@ -26,7 +26,7 @@ Draft_VertexInfo::Draft_VertexInfo() {}
 
 //=================================================================================================
 
-void Draft_VertexInfo::Add(const TopoDS_Edge& E)
+void Draft_VertexInfo::Add(const TopoEdge& E)
 {
   for (myItEd.Initialize(myEdges); myItEd.More(); myItEd.Next())
   {
@@ -58,7 +58,7 @@ Point3d& Draft_VertexInfo::ChangeGeometry()
 
 //=================================================================================================
 
-Standard_Real Draft_VertexInfo::Parameter(const TopoDS_Edge& E)
+Standard_Real Draft_VertexInfo::Parameter(const TopoEdge& E)
 {
   TColStd_ListIteratorOfListOfReal itp(myParams);
   myItEd.Initialize(myEdges);
@@ -74,7 +74,7 @@ Standard_Real Draft_VertexInfo::Parameter(const TopoDS_Edge& E)
 
 //=================================================================================================
 
-Standard_Real& Draft_VertexInfo::ChangeParameter(const TopoDS_Edge& E)
+Standard_Real& Draft_VertexInfo::ChangeParameter(const TopoEdge& E)
 {
   TColStd_ListIteratorOfListOfReal itp(myParams);
   myItEd.Initialize(myEdges);
@@ -97,7 +97,7 @@ void Draft_VertexInfo::InitEdgeIterator()
 
 //=================================================================================================
 
-const TopoDS_Edge& Draft_VertexInfo::Edge() const
+const TopoEdge& Draft_VertexInfo::Edge() const
 {
   return TopoDS::Edge(myItEd.Value());
 }

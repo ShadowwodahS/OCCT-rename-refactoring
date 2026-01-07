@@ -19,7 +19,7 @@ IMPLEMENT_STANDARD_RTTIEXT(Message_AttributeStream, Message_Attribute)
 //=================================================================================================
 
 Message_AttributeStream::Message_AttributeStream(const Standard_SStream&        theStream,
-                                                 const TCollection_AsciiString& theName)
+                                                 const AsciiString1& theName)
     : Message_Attribute(theName)
 {
   SetStream(theStream);

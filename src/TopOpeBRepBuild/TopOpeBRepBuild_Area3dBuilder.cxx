@@ -25,8 +25,8 @@ TopOpeBRepBuild_Area3dBuilder::TopOpeBRepBuild_Area3dBuilder() {}
 
 //=================================================================================================
 
-TopOpeBRepBuild_Area3dBuilder::TopOpeBRepBuild_Area3dBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                                             TopOpeBRepBuild_LoopClassifier& LC,
+TopOpeBRepBuild_Area3dBuilder::TopOpeBRepBuild_Area3dBuilder(LoopSet&        LS,
+                                                             LoopClassifier& LC,
                                                              const Standard_Boolean ForceClass)
 {
   InitAreaBuilder(LS, LC, ForceClass);
@@ -34,8 +34,8 @@ TopOpeBRepBuild_Area3dBuilder::TopOpeBRepBuild_Area3dBuilder(TopOpeBRepBuild_Loo
 
 //=================================================================================================
 
-void TopOpeBRepBuild_Area3dBuilder::InitAreaBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                                    TopOpeBRepBuild_LoopClassifier& LC,
+void TopOpeBRepBuild_Area3dBuilder::InitAreaBuilder(LoopSet&        LS,
+                                                    LoopClassifier& LC,
                                                     const Standard_Boolean          ForceClass)
 {
   TopAbs_State     state;

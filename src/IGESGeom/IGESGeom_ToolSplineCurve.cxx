@@ -35,9 +35,9 @@
 #include <stdio.h>
 
 // MGE 29/07/98
-IGESGeom_ToolSplineCurve::IGESGeom_ToolSplineCurve() {}
+SplineCurveTool::SplineCurveTool() {}
 
-void IGESGeom_ToolSplineCurve::ReadOwnParams(const Handle(IGESGeom_SplineCurve)& ent,
+void SplineCurveTool::ReadOwnParams(const Handle(IGESGeom_SplineCurve)& ent,
                                              const Handle(IGESData_IGESReaderData)& /* IR */,
                                              IGESData_ParamReader& PR) const
 {
@@ -193,7 +193,7 @@ void IGESGeom_ToolSplineCurve::ReadOwnParams(const Handle(IGESGeom_SplineCurve)&
   }
 }
 
-void IGESGeom_ToolSplineCurve::WriteOwnParams(const Handle(IGESGeom_SplineCurve)& ent,
+void SplineCurveTool::WriteOwnParams(const Handle(IGESGeom_SplineCurve)& ent,
                                               IGESData_IGESWriter&                IW) const
 {
   IW.Send(ent->SplineType());
@@ -243,12 +243,12 @@ void IGESGeom_ToolSplineCurve::WriteOwnParams(const Handle(IGESGeom_SplineCurve)
   IW.Send(DZ);
 }
 
-void IGESGeom_ToolSplineCurve::OwnShared(const Handle(IGESGeom_SplineCurve)& /* ent */,
+void SplineCurveTool::OwnShared(const Handle(IGESGeom_SplineCurve)& /* ent */,
                                          Interface_EntityIterator& /* iter */) const
 {
 }
 
-void IGESGeom_ToolSplineCurve::OwnCopy(const Handle(IGESGeom_SplineCurve)& another,
+void SplineCurveTool::OwnCopy(const Handle(IGESGeom_SplineCurve)& another,
                                        const Handle(IGESGeom_SplineCurve)& ent,
                                        Interface_CopyTool& /* TC */) const
 {
@@ -322,10 +322,10 @@ void IGESGeom_ToolSplineCurve::OwnCopy(const Handle(IGESGeom_SplineCurve)& anoth
             allZvalues);
 }
 
-IGESData_DirChecker IGESGeom_ToolSplineCurve::DirChecker(
+DirectoryChecker SplineCurveTool::DirChecker(
   const Handle(IGESGeom_SplineCurve)& /* ent */) const
 {
-  IGESData_DirChecker DC(112, 0);
+  DirectoryChecker DC(112, 0);
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefAny);
   //  DC.LineWeight(IGESData_DefValue);
@@ -335,7 +335,7 @@ IGESData_DirChecker IGESGeom_ToolSplineCurve::DirChecker(
   return DC;
 }
 
-void IGESGeom_ToolSplineCurve::OwnCheck(const Handle(IGESGeom_SplineCurve)& ent,
+void SplineCurveTool::OwnCheck(const Handle(IGESGeom_SplineCurve)& ent,
                                         const Interface_ShareTool&,
                                         Handle(Interface_Check)& ach) const
 {
@@ -368,7 +368,7 @@ void IGESGeom_ToolSplineCurve::OwnCheck(const Handle(IGESGeom_SplineCurve)& ent,
   }
 }
 
-void IGESGeom_ToolSplineCurve::OwnDump(const Handle(IGESGeom_SplineCurve)& ent,
+void SplineCurveTool::OwnDump(const Handle(IGESGeom_SplineCurve)& ent,
                                        const IGESData_IGESDumper& /* dumper */,
                                        Standard_OStream&      S,
                                        const Standard_Integer level) const

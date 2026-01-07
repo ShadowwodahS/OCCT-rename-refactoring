@@ -33,9 +33,9 @@
 #include <Interface_ShareTool.hxx>
 #include <Message_Messenger.hxx>
 
-IGESAppli_ToolNode::IGESAppli_ToolNode() {}
+NodeTool::NodeTool() {}
 
-void IGESAppli_ToolNode::ReadOwnParams(const Handle(IGESAppli_Node)&          ent,
+void NodeTool::ReadOwnParams(const Handle(IGESAppli_Node)&          ent,
                                        const Handle(IGESData_IGESReaderData)& IR,
                                        IGESData_ParamReader&                  PR) const
 {
@@ -58,7 +58,7 @@ void IGESAppli_ToolNode::ReadOwnParams(const Handle(IGESAppli_Node)&          en
   ent->Init(tempCoordinates, tempSystem);
 }
 
-void IGESAppli_ToolNode::WriteOwnParams(const Handle(IGESAppli_Node)& ent,
+void NodeTool::WriteOwnParams(const Handle(IGESAppli_Node)& ent,
                                         IGESData_IGESWriter&          IW) const
 {
   IW.Send(ent->Coord().X());
@@ -67,13 +67,13 @@ void IGESAppli_ToolNode::WriteOwnParams(const Handle(IGESAppli_Node)& ent,
   IW.Send(ent->System());
 }
 
-void IGESAppli_ToolNode::OwnShared(const Handle(IGESAppli_Node)& ent,
+void NodeTool::OwnShared(const Handle(IGESAppli_Node)& ent,
                                    Interface_EntityIterator&     iter) const
 {
   iter.GetOneItem(ent->System());
 }
 
-void IGESAppli_ToolNode::OwnCopy(const Handle(IGESAppli_Node)& another,
+void NodeTool::OwnCopy(const Handle(IGESAppli_Node)& another,
                                  const Handle(IGESAppli_Node)& ent,
                                  Interface_CopyTool&           TC) const
 {
@@ -83,9 +83,9 @@ void IGESAppli_ToolNode::OwnCopy(const Handle(IGESAppli_Node)& another,
   ent->Init(aCoord, aSystem);
 }
 
-IGESData_DirChecker IGESAppli_ToolNode::DirChecker(const Handle(IGESAppli_Node)& /*ent*/) const
+DirectoryChecker NodeTool::DirChecker(const Handle(IGESAppli_Node)& /*ent*/) const
 {
-  IGESData_DirChecker DC(134, 0); // Form no = 0 & Type = 134
+  DirectoryChecker DC(134, 0); // Form no = 0 & Type = 134
   DC.Structure(IGESData_DefVoid);
   DC.LineFont(IGESData_DefVoid);
   DC.LineWeight(IGESData_DefVoid);
@@ -94,7 +94,7 @@ IGESData_DirChecker IGESAppli_ToolNode::DirChecker(const Handle(IGESAppli_Node)&
   return DC;
 }
 
-void IGESAppli_ToolNode::OwnCheck(const Handle(IGESAppli_Node)& ent,
+void NodeTool::OwnCheck(const Handle(IGESAppli_Node)& ent,
                                   const Interface_ShareTool&,
                                   Handle(Interface_Check)& ach) const
 {
@@ -107,7 +107,7 @@ void IGESAppli_ToolNode::OwnCheck(const Handle(IGESAppli_Node)& ent,
       ach->AddFail("System : Incorrect FormNumber (not 10-11-12)");
 }
 
-void IGESAppli_ToolNode::OwnDump(const Handle(IGESAppli_Node)& ent,
+void NodeTool::OwnDump(const Handle(IGESAppli_Node)& ent,
                                  const IGESData_IGESDumper&    dumper,
                                  Standard_OStream&             S,
                                  const Standard_Integer        level) const

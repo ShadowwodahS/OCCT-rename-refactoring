@@ -26,7 +26,7 @@
 //! It can be a gp_Trsf2d, an affinity, or you can
 //! define your own transformation giving the corresponding matrix of transformation.
 //!
-//! With a gp_GTrsf2d you can transform only a doublet of coordinates gp_XY.
+//! With a gp_GTrsf2d you can transform only a doublet of coordinates Coords2d.
 //! It is not possible to transform other geometric objects
 //! because these transformations can change the nature of non-elementary geometric objects.
 //! A gp_GTrsf2d is represented with a 2 rows * 3 columns matrix:
@@ -66,7 +66,7 @@ public:
   //! Creates   a transformation based on the matrix theM and the
   //! vector theV where theM defines the vectorial part of the
   //! transformation, and theV the translation part.
-  gp_GTrsf2d(const gp_Mat2d& theM, const gp_XY& theV)
+  gp_GTrsf2d(const gp_Mat2d& theM, const Coords2d& theV)
       : matrix(theM),
         loc(theV)
   {
@@ -91,7 +91,7 @@ public:
 
   //! Replaces the translation part of this
   //! transformation by the coordinates of the number pair theCoord.
-  Standard_EXPORT void SetTranslationPart(const gp_XY& theCoord);
+  Standard_EXPORT void SetTranslationPart(const Coords2d& theCoord);
 
   //! Assigns the vectorial and translation parts of theT to this transformation.
   void SetTrsf2d(const gp_Trsf2d& theT);
@@ -126,7 +126,7 @@ public:
   gp_TrsfForm Form() const { return shape; }
 
   //! Returns the translation part of the GTrsf2d.
-  const gp_XY& TranslationPart() const { return loc; }
+  const Coords2d& TranslationPart() const { return loc; }
 
   //! Computes the vectorial part of the GTrsf2d. The returned
   //! Matrix is a 2*2 matrix.
@@ -161,10 +161,10 @@ public:
   //! //composition :
   //! Tcomp = T2.Multiplied(T1);         // or   (Tcomp = T2 * T1)
   //! // transformation of a point
-  //! gp_XY P(10.,3.);
-  //! gp_XY P1(P);
+  //! Coords2d P(10.,3.);
+  //! Coords2d P1(P);
   //! Tcomp.Transforms(P1);               //using Tcomp
-  //! gp_XY P2(P);
+  //! Coords2d P2(P);
   //! T1.Transforms(P2);                  //using T1 then T2
   //! T2.Transforms(P2);                  // P1 = P2 !!!
   //! @endcode
@@ -202,11 +202,11 @@ public:
     return aT;
   }
 
-  void Transforms(gp_XY& theCoord) const;
+  void Transforms(Coords2d& theCoord) const;
 
-  Standard_NODISCARD gp_XY Transformed(const gp_XY& theCoord) const
+  Standard_NODISCARD Coords2d Transformed(const Coords2d& theCoord) const
   {
-    gp_XY aNewCoord = theCoord;
+    Coords2d aNewCoord = theCoord;
     Transforms(aNewCoord);
     return aNewCoord;
   }
@@ -228,7 +228,7 @@ public:
 
 private:
   gp_Mat2d      matrix;
-  gp_XY         loc;
+  Coords2d         loc;
   gp_TrsfForm   shape;
   Standard_Real scale;
 };
@@ -302,7 +302,7 @@ inline Standard_Real gp_GTrsf2d::Value(const Standard_Integer theRow,
 // function : Transforms
 // purpose :
 //=======================================================================
-inline void gp_GTrsf2d::Transforms(gp_XY& theCoord) const
+inline void gp_GTrsf2d::Transforms(Coords2d& theCoord) const
 {
   theCoord.Multiply(matrix);
   if (!(shape == gp_Other) && !(scale == 1.0))
@@ -318,7 +318,7 @@ inline void gp_GTrsf2d::Transforms(gp_XY& theCoord) const
 //=======================================================================
 inline void gp_GTrsf2d::Transforms(Standard_Real& theX, Standard_Real& theY) const
 {
-  gp_XY aDoublet(theX, theY);
+  Coords2d aDoublet(theX, theY);
   aDoublet.Multiply(matrix);
   if (!(shape == gp_Other) && !(scale == 1.0))
   {

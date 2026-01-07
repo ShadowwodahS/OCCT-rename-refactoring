@@ -41,38 +41,38 @@
 #include <stdio.h>
 //
 //
-static BOPAlgo_PaveFiller* pPF = NULL;
+static BooleanPaveFiller* pPF = NULL;
 //
 
-static Standard_Integer bopsmt(Draw_Interpretor&       di,
+static Standard_Integer bopsmt(DrawInterpreter&       di,
                                Standard_Integer        n,
                                const char**            a,
                                const BOPAlgo_Operation aOp);
 //
-static Standard_Integer bsmt(Draw_Interpretor&       di,
+static Standard_Integer bsmt(DrawInterpreter&       di,
                              Standard_Integer        n,
                              const char**            a,
                              const BOPAlgo_Operation aOp);
 //
-static Standard_Integer bop(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopsection(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer boptuc(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopcut(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopfuse(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bopcommon(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer bop(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopsection(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer boptuc(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopcut(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopfuse(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bopcommon(DrawInterpreter&, Standard_Integer, const char**);
 //
-static Standard_Integer bsection(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer btuc(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bcut(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bfuse(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer bcommon(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer bsection(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer btuc(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bcut(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bfuse(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer bcommon(DrawInterpreter&, Standard_Integer, const char**);
 //
-static Standard_Integer bopcurves(Draw_Interpretor&, Standard_Integer, const char**);
-static Standard_Integer mkvolume(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer bopcurves(DrawInterpreter&, Standard_Integer, const char**);
+static Standard_Integer mkvolume(DrawInterpreter&, Standard_Integer, const char**);
 
 //=================================================================================================
 
-void BOPTest::BOPCommands(Draw_Interpretor& theCommands)
+void BOPTest::BOPCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -117,12 +117,12 @@ void BOPTest::BOPCommands(Draw_Interpretor& theCommands)
 
 //=================================================================================================
 
-Standard_Integer bop(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bop(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   Standard_Boolean     bRunParallel, bNonDestructive;
   Standard_Real        aTol;
-  TopoDS_Shape         aS1, aS2;
-  TopTools_ListOfShape aLC;
+  TopoShape         aS1, aS2;
+  ShapeList aLC;
   //
   if (n != 3)
   {
@@ -130,8 +130,8 @@ Standard_Integer bop(Draw_Interpretor& di, Standard_Integer n, const char** a)
     return 0;
   }
   //
-  aS1 = DBRep::Get(a[1]);
-  aS2 = DBRep::Get(a[2]);
+  aS1 = DBRep1::Get(a[1]);
+  aS2 = DBRep1::Get(a[2]);
   //
   if (aS1.IsNull() || aS2.IsNull())
   {
@@ -154,7 +154,7 @@ Standard_Integer bop(Draw_Interpretor& di, Standard_Integer n, const char** a)
     pPF = NULL;
   }
   Handle(NCollection_BaseAllocator) aAL = NCollection_BaseAllocator::CommonBaseAllocator();
-  pPF                                   = new BOPAlgo_PaveFiller(aAL);
+  pPF                                   = new BooleanPaveFiller(aAL);
   //
   pPF->SetArguments(aLC);
   pPF->SetFuzzyValue(aTol);
@@ -171,35 +171,35 @@ Standard_Integer bop(Draw_Interpretor& di, Standard_Integer n, const char** a)
 
 //=================================================================================================
 
-Standard_Integer bopcommon(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopcommon(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   return bopsmt(di, n, a, BOPAlgo_COMMON);
 }
 
 //=================================================================================================
 
-Standard_Integer bopfuse(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopfuse(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   return bopsmt(di, n, a, BOPAlgo_FUSE);
 }
 
 //=================================================================================================
 
-Standard_Integer bopcut(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopcut(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   return bopsmt(di, n, a, BOPAlgo_CUT);
 }
 
 //=================================================================================================
 
-Standard_Integer boptuc(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer boptuc(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   return bopsmt(di, n, a, BOPAlgo_CUT21);
 }
 
 //=================================================================================================
 
-Standard_Integer bopsmt(Draw_Interpretor&       di,
+Standard_Integer bopsmt(DrawInterpreter&       di,
                         Standard_Integer        n,
                         const char**            a,
                         const BOPAlgo_Operation aOp)
@@ -226,7 +226,7 @@ Standard_Integer bopsmt(Draw_Interpretor&       di,
   Standard_Integer aNb;
   BOPAlgo_BOP      aBOP;
   //
-  const TopTools_ListOfShape& aLC = pPF->Arguments();
+  const ShapeList& aLC = pPF->Arguments();
   aNb                             = aLC.Extent();
   if (aNb != 2)
   {
@@ -237,8 +237,8 @@ Standard_Integer bopsmt(Draw_Interpretor&       di,
   bRunParallel                             = BOPTest_Objects::RunParallel();
   Handle(Draw_ProgressIndicator) aProgress = new Draw_ProgressIndicator(di, 1);
   //
-  const TopoDS_Shape& aS1 = aLC.First();
-  const TopoDS_Shape& aS2 = aLC.Last();
+  const TopoShape& aS1 = aLC.First();
+  const TopoShape& aS2 = aLC.Last();
   //
   aBOP.AddArgument(aS1);
   aBOP.AddTool(aS2);
@@ -259,20 +259,20 @@ Standard_Integer bopsmt(Draw_Interpretor&       di,
     return 0;
   }
   //
-  const TopoDS_Shape& aR = aBOP.Shape();
+  const TopoShape& aR = aBOP.Shape();
   if (aR.IsNull())
   {
     di << " null shape\n";
     return 0;
   }
   //
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bopsection(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopsection(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 2)
   {
@@ -296,7 +296,7 @@ Standard_Integer bopsection(Draw_Interpretor& di, Standard_Integer n, const char
   Standard_Integer aNb;
   BOPAlgo_Section  aBOP;
   //
-  const TopTools_ListOfShape& aLC = pPF->Arguments();
+  const ShapeList& aLC = pPF->Arguments();
   aNb                             = aLC.Extent();
   if (aNb != 2)
   {
@@ -306,8 +306,8 @@ Standard_Integer bopsection(Draw_Interpretor& di, Standard_Integer n, const char
   //
   bRunParallel = BOPTest_Objects::RunParallel();
   //
-  const TopoDS_Shape& aS1 = aLC.First();
-  const TopoDS_Shape& aS2 = aLC.Last();
+  const TopoShape& aS1 = aLC.First();
+  const TopoShape& aS2 = aLC.Last();
   //
   aBOP.AddArgument(aS1);
   aBOP.AddArgument(aS2);
@@ -328,48 +328,48 @@ Standard_Integer bopsection(Draw_Interpretor& di, Standard_Integer n, const char
     return 0;
   }
   //
-  const TopoDS_Shape& aR = aBOP.Shape();
+  const TopoShape& aR = aBOP.Shape();
   if (aR.IsNull())
   {
     di << " null shape\n";
     return 0;
   }
   //
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bcommon(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bcommon(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   return bsmt(di, n, a, BOPAlgo_COMMON);
 }
 
 //=================================================================================================
 
-Standard_Integer bfuse(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bfuse(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   return bsmt(di, n, a, BOPAlgo_FUSE);
 }
 
 //=================================================================================================
 
-Standard_Integer bcut(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bcut(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   return bsmt(di, n, a, BOPAlgo_CUT);
 }
 
 //=================================================================================================
 
-Standard_Integer btuc(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer btuc(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   return bsmt(di, n, a, BOPAlgo_CUT21);
 }
 
 //=================================================================================================
 
-Standard_Integer bsection(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bsection(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 4)
   {
@@ -377,10 +377,10 @@ Standard_Integer bsection(Draw_Interpretor& di, Standard_Integer n, const char**
     return 0;
   }
   //
-  TopoDS_Shape aS1, aS2;
+  TopoShape aS1, aS2;
   //
-  aS1 = DBRep::Get(a[2]);
-  aS2 = DBRep::Get(a[3]);
+  aS1 = DBRep1::Get(a[2]);
+  aS2 = DBRep1::Get(a[3]);
   if (aS1.IsNull() || aS2.IsNull())
   {
     di << " Null shapes are not allowed \n";
@@ -453,25 +453,25 @@ Standard_Integer bsection(Draw_Interpretor& di, Standard_Integer n, const char**
     return 0;
   }
   //
-  const TopoDS_Shape& aR = aSec.Shape();
+  const TopoShape& aR = aSec.Shape();
   if (aR.IsNull())
   {
     di << " null shape\n";
     return 0;
   }
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bsmt(Draw_Interpretor&       di,
+Standard_Integer bsmt(DrawInterpreter&       di,
                       Standard_Integer        n,
                       const char**            a,
                       const BOPAlgo_Operation aOp)
 {
-  TopoDS_Shape         aS1, aS2;
-  TopTools_ListOfShape aLC;
+  TopoShape         aS1, aS2;
+  ShapeList aLC;
   //
   if (n != 4)
   {
@@ -479,8 +479,8 @@ Standard_Integer bsmt(Draw_Interpretor&       di,
     return 0;
   }
   //
-  aS1 = DBRep::Get(a[2]);
-  aS2 = DBRep::Get(a[3]);
+  aS1 = DBRep1::Get(a[2]);
+  aS2 = DBRep1::Get(a[3]);
   //
   if (aS1.IsNull() || aS2.IsNull())
   {
@@ -517,20 +517,20 @@ Standard_Integer bsmt(Draw_Interpretor&       di,
   {
     return 0;
   }
-  const TopoDS_Shape& aR = aBOP.Shape();
+  const TopoShape& aR = aBOP.Shape();
   if (aR.IsNull())
   {
     di << " null shape\n";
     return 0;
   }
   //
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   return 0;
 }
 
 //=================================================================================================
 
-Standard_Integer bopcurves(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer bopcurves(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
   {
@@ -539,8 +539,8 @@ Standard_Integer bopcurves(Draw_Interpretor& di, Standard_Integer n, const char*
     return 1;
   }
   //
-  TopoDS_Shape     S1 = DBRep::Get(a[1]);
-  TopoDS_Shape     S2 = DBRep::Get(a[2]);
+  TopoShape     S1 = DBRep1::Get(a[1]);
+  TopoShape     S2 = DBRep1::Get(a[2]);
   TopAbs_ShapeEnum aType;
   //
   if (S1.IsNull() || S2.IsNull())
@@ -562,14 +562,14 @@ Standard_Integer bopcurves(Draw_Interpretor& di, Standard_Integer n, const char*
     return 1;
   }
   //
-  const TopoDS_Face& aF1 = *(TopoDS_Face*)(&S1);
-  const TopoDS_Face& aF2 = *(TopoDS_Face*)(&S2);
+  const TopoFace& aF1 = *(TopoFace*)(&S1);
+  const TopoFace& aF2 = *(TopoFace*)(&S2);
   //
   Standard_Boolean        aToApproxC3d, aToApproxC2dOnS1, aToApproxC2dOnS2, anIsDone;
   Standard_Integer        aNbCurves, aNbPoints;
   Standard_Real           anAppTol;
   IntSurf_ListOfPntOn2S   aListOfPnts;
-  TCollection_AsciiString aNm("c_"), aNp("p_");
+  AsciiString1 aNm("c_"), aNp("p_");
   //
   anAppTol         = 0.0000001;
   aToApproxC3d     = Standard_True;
@@ -596,10 +596,10 @@ Standard_Integer bopcurves(Draw_Interpretor& di, Standard_Integer n, const char*
     else if (!strcasecmp(a[i], "-p"))
     {
       IntSurf_PntOn2S     aPt;
-      const Standard_Real aU1 = Draw::Atof(a[++i]);
-      const Standard_Real aV1 = Draw::Atof(a[++i]);
-      const Standard_Real aU2 = Draw::Atof(a[++i]);
-      const Standard_Real aV2 = Draw::Atof(a[++i]);
+      const Standard_Real aU1 = Draw1::Atof(a[++i]);
+      const Standard_Real aV1 = Draw1::Atof(a[++i]);
+      const Standard_Real aU2 = Draw1::Atof(a[++i]);
+      const Standard_Real aV2 = Draw1::Atof(a[++i]);
 
       aPt.SetValue(aU1, aV1, aU2, aV2);
       aListOfPnts.Append(aPt);
@@ -670,7 +670,7 @@ Standard_Integer bopcurves(Draw_Interpretor& di, Standard_Integer n, const char*
     {
       const IntTools_Curve& anIC = aSCs(i);
 
-      const Handle(Geom_Curve)& aC3D = anIC.Curve();
+      const Handle(GeomCurve3d)& aC3D = anIC.Curve();
 
       if (aC3D.IsNull())
       {
@@ -678,16 +678,16 @@ Standard_Integer bopcurves(Draw_Interpretor& di, Standard_Integer n, const char*
         continue;
       }
 
-      TCollection_AsciiString anIndx(i), aNmx;
+      AsciiString1 anIndx(i), aNmx;
       aNmx = aNm + anIndx;
 
       Standard_CString nameC = aNmx.ToCString();
 
-      DrawTrSurf::Set(nameC, aC3D);
+      DrawTrSurf1::Set(nameC, aC3D);
       di << nameC << " ";
       //
-      const Handle(Geom2d_Curve)& aPC1 = anIC.FirstCurve2d();
-      const Handle(Geom2d_Curve)& aPC2 = anIC.SecondCurve2d();
+      const Handle(GeomCurve2d)& aPC1 = anIC.FirstCurve2d();
+      const Handle(GeomCurve2d)& aPC2 = anIC.SecondCurve2d();
       //
       if (!aPC1.IsNull() || !aPC2.IsNull())
       {
@@ -695,21 +695,21 @@ Standard_Integer bopcurves(Draw_Interpretor& di, Standard_Integer n, const char*
         //
         if (!aPC1.IsNull())
         {
-          TCollection_AsciiString pc1N("c2d1_"), pc1Nx;
+          AsciiString1 pc1N("c2d1_"), pc1Nx;
           pc1Nx                     = pc1N + anIndx;
           Standard_CString nameC2d1 = pc1Nx.ToCString();
           //
-          DrawTrSurf::Set(nameC2d1, aPC1);
+          DrawTrSurf1::Set(nameC2d1, aPC1);
           di << nameC2d1;
         }
         //
         if (!aPC2.IsNull())
         {
-          TCollection_AsciiString pc2N("c2d2_"), pc2Nx;
+          AsciiString1 pc2N("c2d2_"), pc2Nx;
           pc2Nx                     = pc2N + anIndx;
           Standard_CString nameC2d2 = pc2Nx.ToCString();
           //
-          DrawTrSurf::Set(nameC2d2, aPC2);
+          DrawTrSurf1::Set(nameC2d2, aPC2);
           //
           if (!aPC1.IsNull())
           {
@@ -743,11 +743,11 @@ Standard_Integer bopcurves(Draw_Interpretor& di, Standard_Integer n, const char*
       const IntTools_PntOn2Faces& aPi = aSPs(i);
       const Point3d&               aP  = aPi.P1().Pnt();
       //
-      TCollection_AsciiString anIndx(i), aNmx;
+      AsciiString1 anIndx(i), aNmx;
       aNmx                   = aNp + anIndx;
       Standard_CString nameP = aNmx.ToCString();
       //
-      DrawTrSurf::Set(nameP, aP);
+      DrawTrSurf1::Set(nameP, aP);
       di << nameP << " ";
     }
     di << "\n";
@@ -758,7 +758,7 @@ Standard_Integer bopcurves(Draw_Interpretor& di, Standard_Integer n, const char*
 
 //=================================================================================================
 
-Standard_Integer mkvolume(Draw_Interpretor& di, Standard_Integer n, const char** a)
+Standard_Integer mkvolume(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n < 3)
   {
@@ -777,8 +777,8 @@ Standard_Integer mkvolume(Draw_Interpretor& di, Standard_Integer n, const char**
   Standard_Boolean     bCompounds, bAvoidInternal;
   Standard_Integer     i;
   Standard_Real        aTol;
-  TopoDS_Shape         aS;
-  TopTools_ListOfShape aLS;
+  TopoShape         aS;
+  ShapeList aLS;
   //
   aTol                   = BOPTest_Objects::FuzzyValue();
   bRunParallel           = BOPTest_Objects::RunParallel();
@@ -791,7 +791,7 @@ Standard_Integer mkvolume(Draw_Interpretor& di, Standard_Integer n, const char**
   //
   for (i = 2; i < n; ++i)
   {
-    aS = DBRep::Get(a[i]);
+    aS = DBRep1::Get(a[i]);
     if (!aS.IsNull())
     {
       aLS.Append(aS);
@@ -823,17 +823,17 @@ Standard_Integer mkvolume(Draw_Interpretor& di, Standard_Integer n, const char**
   // treat list of arguments for the case of compounds
   if (bToIntersect && bCompounds)
   {
-    TopTools_ListOfShape               aLSx;
+    ShapeList               aLSx;
     TopTools_ListIteratorOfListOfShape aItLS;
     //
     aItLS.Initialize(aLS);
     for (; aItLS.More(); aItLS.Next())
     {
-      const TopoDS_Shape& aSx = aItLS.Value();
+      const TopoShape& aSx = aItLS.Value();
       TopoDS_Iterator     aItS(aSx);
       for (; aItS.More(); aItS.Next())
       {
-        const TopoDS_Shape& aSxS = aItS.Value();
+        const TopoShape& aSxS = aItS.Value();
         aLSx.Append(aSxS);
       }
     }
@@ -866,9 +866,9 @@ Standard_Integer mkvolume(Draw_Interpretor& di, Standard_Integer n, const char**
     return 0;
   }
   //
-  const TopoDS_Shape& aR = aMV.Shape();
+  const TopoShape& aR = aMV.Shape();
   //
-  DBRep::Set(a[1], aR);
+  DBRep1::Set(a[1], aR);
   //
   return 0;
 }

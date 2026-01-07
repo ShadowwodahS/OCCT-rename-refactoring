@@ -24,7 +24,7 @@
 #include <Standard_Integer.hxx>
 class Expr_GeneralExpression;
 class Expr_NamedUnknown;
-class TCollection_AsciiString;
+class AsciiString1;
 
 class Expr_GeneralRelation;
 DEFINE_STANDARD_HANDLE(Expr_GeneralRelation, RefObject)
@@ -75,7 +75,7 @@ public:
                                        const Handle(Expr_GeneralExpression)& with) = 0;
 
   //! returns a string representing <me> in a readable way.
-  Standard_EXPORT virtual TCollection_AsciiString String() const = 0;
+  Standard_EXPORT virtual AsciiString1 String() const = 0;
 
   DEFINE_STANDARD_RTTIEXT(Expr_GeneralRelation, RefObject)
 

@@ -28,8 +28,8 @@
 #include <TopOpeBRepBuild_ListOfLoop.hxx>
 #include <TopOpeBRepBuild_LoopEnum.hxx>
 #include <Standard_Integer.hxx>
-class TopOpeBRepBuild_LoopSet;
-class TopOpeBRepBuild_LoopClassifier;
+class LoopSet;
+class LoopClassifier;
 class TopOpeBRepBuild_Loop;
 
 //! The AreaBuilder algorithm is  used  to
@@ -49,25 +49,25 @@ class TopOpeBRepBuild_Loop;
 //! A AreaBuilder is built with :
 //! - a LoopSet describing the object to reconstruct.
 //! - a LoopClassifier providing the classification algorithm.
-class TopOpeBRepBuild_AreaBuilder
+class AreaBuilder
 {
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT TopOpeBRepBuild_AreaBuilder();
+  Standard_EXPORT AreaBuilder();
 
   //! Creates a AreaBuilder to build the areas on
   //! the shapes described by <LS> using the classifier <LC>.
-  Standard_EXPORT TopOpeBRepBuild_AreaBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                              TopOpeBRepBuild_LoopClassifier& LC,
+  Standard_EXPORT AreaBuilder(LoopSet&        LS,
+                                              LoopClassifier& LC,
                                               const Standard_Boolean ForceClass = Standard_False);
 
-  Standard_EXPORT virtual ~TopOpeBRepBuild_AreaBuilder();
+  Standard_EXPORT virtual ~AreaBuilder();
 
   //! Sets a AreaBuilder to find the areas on
   //! the shapes described by <LS> using the classifier <LC>.
-  Standard_EXPORT virtual void InitAreaBuilder(TopOpeBRepBuild_LoopSet&        LS,
-                                               TopOpeBRepBuild_LoopClassifier& LC,
+  Standard_EXPORT virtual void InitAreaBuilder(LoopSet&        LS,
+                                               LoopClassifier& LC,
                                                const Standard_Boolean ForceClass = Standard_False);
 
   //! Initialize iteration on areas.
@@ -103,7 +103,7 @@ public:
                                                             const Standard_Address s2 = NULL) const;
 
 protected:
-  Standard_EXPORT TopAbs_State CompareLoopWithListOfLoop(TopOpeBRepBuild_LoopClassifier&     LC,
+  Standard_EXPORT TopAbs_State CompareLoopWithListOfLoop(LoopClassifier&     LC,
                                                          const Handle(TopOpeBRepBuild_Loop)& L,
                                                          const TopOpeBRepBuild_ListOfLoop&   LOL,
                                                          const TopOpeBRepBuild_LoopEnum le) const;

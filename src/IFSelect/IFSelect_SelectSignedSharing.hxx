@@ -50,7 +50,7 @@ public:
   Standard_EXPORT Handle(IFSelect_Signature) Signature() const;
 
   //! Returns Text used to Sort Entity on its Signature
-  Standard_EXPORT const TCollection_AsciiString& SignatureText() const;
+  Standard_EXPORT const AsciiString1& SignatureText() const;
 
   //! Returns True if match must be exact
   Standard_EXPORT Standard_Boolean IsExact() const;
@@ -67,14 +67,14 @@ public:
   //! Returns a text defining the criterium.
   //! (it refers to the text and exact flag to be matched, and is
   //! qualified by the Name provided by the Signature)
-  Standard_EXPORT TCollection_AsciiString ExploreLabel() const Standard_OVERRIDE;
+  Standard_EXPORT AsciiString1 ExploreLabel() const Standard_OVERRIDE;
 
   DEFINE_STANDARD_RTTIEXT(IFSelect_SelectSignedSharing, IFSelect_SelectExplore)
 
 protected:
 private:
   Handle(IFSelect_Signature) thematcher;
-  TCollection_AsciiString    thesigntext;
+  AsciiString1    thesigntext;
   Standard_Boolean           theexact;
 };
 

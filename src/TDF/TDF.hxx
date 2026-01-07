@@ -22,7 +22,7 @@
 
 #include <Standard_Boolean.hxx>
 class Standard_GUID;
-class TCollection_ExtendedString;
+class UtfString;
 
 //! This package provides data framework for binding
 //! features and data structures.
@@ -48,15 +48,15 @@ public:
 
   //! Sets link between GUID and ProgID in hidden DataMap
   Standard_EXPORT static void AddLinkGUIDToProgID(const Standard_GUID&              ID,
-                                                  const TCollection_ExtendedString& ProgID);
+                                                  const UtfString& ProgID);
 
   //! Returns True if there is GUID for given <ProgID> then GUID is returned in <ID>
-  Standard_EXPORT static Standard_Boolean GUIDFromProgID(const TCollection_ExtendedString& ProgID,
+  Standard_EXPORT static Standard_Boolean GUIDFromProgID(const UtfString& ProgID,
                                                          Standard_GUID&                    ID);
 
   //! Returns True if there is ProgID for given <ID> then ProgID is returned in <ProgID>
   Standard_EXPORT static Standard_Boolean ProgIDFromGUID(const Standard_GUID&        ID,
-                                                         TCollection_ExtendedString& ProgID);
+                                                         UtfString& ProgID);
 };
 
 #endif // _TDF_HeaderFile

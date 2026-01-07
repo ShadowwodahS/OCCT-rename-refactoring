@@ -26,9 +26,9 @@ static Standard_CString unspec                      = "unspecified";
 static Standard_Mutex            gMapTypesMutex;
 static volatile Standard_Boolean gMapTypesInit = Standard_False;
 
-static NCollection_Vector<TCollection_AsciiString>& theCats()
+static NCollection_Vector<AsciiString1>& theCats()
 {
-  static NCollection_Vector<TCollection_AsciiString> aCat;
+  static NCollection_Vector<AsciiString1> aCat;
   return aCat;
 }
 
@@ -84,7 +84,7 @@ Standard_Integer Interface_Category::AddCategory(const Standard_CString theName)
   Standard_Integer aNum = Interface_Category::Number(theName);
   if (aNum > 0)
     return aNum;
-  theCats().Append(TCollection_AsciiString(theName));
+  theCats().Append(AsciiString1(theName));
   return theCats().Length() + 1;
 }
 

@@ -46,13 +46,13 @@
 
 //
 //  Modified by Sergey KHROMOV - Thu Dec  5 10:38:14 2002 Begin
-static TopoDS_Edge MakeEdge(const Handle(Geom2d_Curve)& theCurve,
-                            const TopoDS_Face&          theFace,
-                            const TopoDS_Vertex&        theVFirst,
-                            const TopoDS_Vertex&        theVLast);
+static TopoEdge MakeEdge(const Handle(GeomCurve2d)& theCurve,
+                            const TopoFace&          theFace,
+                            const TopoVertex&        theVFirst,
+                            const TopoVertex&        theVLast);
 //  Modified by Sergey KHROMOV - Thu Dec  5 10:38:16 2002 End
 //
-static GeomAbs_CurveType           GetCurveType(const Handle(Geom2d_Curve)& theC2d);
+static GeomAbs_CurveType           GetCurveType(const Handle(GeomCurve2d)& theC2d);
 static Handle(Geom2d_TrimmedCurve) AdjustCurveEnd(const Handle(Geom2d_BoundedCurve)& theC2d,
                                                   const gp_Pnt2d                     theP,
                                                   const Standard_Boolean             isFirst);
@@ -67,23 +67,23 @@ BRepMAT2d_Explorer::BRepMAT2d_Explorer()
 
 //=================================================================================================
 
-BRepMAT2d_Explorer::BRepMAT2d_Explorer(const TopoDS_Face& aFace)
+BRepMAT2d_Explorer::BRepMAT2d_Explorer(const TopoFace& aFace)
 {
   Perform(aFace);
 }
 
 //=================================================================================================
 
-void BRepMAT2d_Explorer::Perform(const TopoDS_Face& aFace)
+void BRepMAT2d_Explorer::Perform(const TopoFace& aFace)
 {
   Clear();
   myShape       = aFace;
-  TopoDS_Face F = TopoDS::Face(aFace);
+  TopoFace F = TopoDS::Face(aFace);
   F.Orientation(TopAbs_FORWARD);
-  TopExp_Explorer Exp(F, TopAbs_WIRE);
+  ShapeExplorer Exp(F, TopAbs_WIRE);
   //  Modified by Sergey KHROMOV - Tue Nov 26 16:10:37 2002 Begin
-  Handle(Geom_Surface) aSurf = BRep_Tool::Surface(F);
-  TopoDS_Face          aNewF = BRepBuilderAPI_MakeFace(aSurf, Precision::Confusion());
+  Handle(GeomSurface) aSurf = BRepInspector::Surface(F);
+  TopoFace          aNewF = FaceMaker(aSurf, Precision::Confusion());
 
   while (Exp.More())
   {
@@ -100,13 +100,13 @@ void BRepMAT2d_Explorer::Perform(const TopoDS_Face& aFace)
 
 //=================================================================================================
 
-void BRepMAT2d_Explorer::Add(const TopoDS_Wire& Spine,
-                             const TopoDS_Face& aFace,
-                             TopoDS_Face&       aNewFace)
+void BRepMAT2d_Explorer::Add(const TopoWire& Spine,
+                             const TopoFace& aFace,
+                             TopoFace&       aNewFace)
 {
   //  Modified by skv - Wed Jun 23 12:23:01 2004 Integration Begin
   //  Taking into account side of bisecting loci construction.
-  //   TopoDS_Wire                         aWFwd = TopoDS::Wire(Spine.Oriented(TopAbs_FORWARD));
+  //   TopoWire                         aWFwd = TopoDS::Wire(Spine.Oriented(TopAbs_FORWARD));
   //   BRepTools_WireExplorer              anExp(aWFwd, aFace);
   BRepTools_WireExplorer anExp(Spine, aFace);
   //  Modified by skv - Wed Jun 23 12:23:02 2004 Integration End
@@ -120,10 +120,10 @@ void BRepMAT2d_Explorer::Add(const TopoDS_Wire& Spine,
   NewContour();
   myIsClosed(currentContour) = (Spine.Closed()) ? Standard_True : Standard_False;
 
-  TopoDS_Edge                 aFirstEdge = anExp.Current();
-  TopoDS_Edge                 aPrevEdge  = aFirstEdge;
+  TopoEdge                 aFirstEdge = anExp.Current();
+  TopoEdge                 aPrevEdge  = aFirstEdge;
   Standard_Real               UFirst, ULast, aD;
-  Handle(Geom2d_Curve)        C2d;
+  Handle(GeomCurve2d)        C2d;
   Handle(Geom2d_TrimmedCurve) CT2d;
   Handle(Geom2d_TrimmedCurve) aFirstCurve;
   gp_Pnt2d                    aPFirst;
@@ -138,7 +138,7 @@ void BRepMAT2d_Explorer::Add(const TopoDS_Wire& Spine,
 
   // Treatment of the first edge of a wire.
   anOldNewE.Add(aFirstEdge, aFirstEdge);
-  C2d  = BRep_Tool::CurveOnSurface(aFirstEdge, aFace, UFirst, ULast);
+  C2d  = BRepInspector::CurveOnSurface(aFirstEdge, aFace, UFirst, ULast);
   CT2d = new Geom2d_TrimmedCurve(C2d, UFirst, ULast);
 
   if (aFirstEdge.Orientation() == TopAbs_REVERSED)
@@ -154,10 +154,10 @@ void BRepMAT2d_Explorer::Add(const TopoDS_Wire& Spine,
   // Treatment of the next edges:
   for (; anExp.More(); anExp.Next())
   {
-    const TopoDS_Edge& anEdge = anExp.Current();
+    const TopoEdge& anEdge = anExp.Current();
 
     anOldNewE.Add(anEdge, anEdge);
-    C2d  = BRep_Tool::CurveOnSurface(anEdge, aFace, UFirst, ULast);
+    C2d  = BRepInspector::CurveOnSurface(anEdge, aFace, UFirst, ULast);
     CT2d = new Geom2d_TrimmedCurve(C2d, UFirst, ULast);
 
     if (anEdge.Orientation() == TopAbs_REVERSED)
@@ -187,9 +187,9 @@ void BRepMAT2d_Explorer::Add(const TopoDS_Wire& Spine,
       {
         CT2d = AdjustCurveEnd(CT2d, aPLast, Standard_True);
         // Creation of new edge.
-        TopoDS_Edge   aNewEdge;
-        TopoDS_Vertex aVf = TopExp::FirstVertex(anEdge);
-        TopoDS_Vertex aVl = TopExp::LastVertex(anEdge);
+        TopoEdge   aNewEdge;
+        TopoVertex aVf = TopExp1::FirstVertex(anEdge);
+        TopoVertex aVl = TopExp1::LastVertex(anEdge);
 
         if (anEdge.Orientation() == TopAbs_FORWARD)
           aNewEdge = MakeEdge(CT2d, aNewFace, aVf, aVl);
@@ -206,9 +206,9 @@ void BRepMAT2d_Explorer::Add(const TopoDS_Wire& Spine,
         CPrev       = AdjustCurveEnd(CPrev, aP, Standard_False);
         theCurves.ChangeValue(currentContour).ChangeValue(aNbC) = CPrev;
         // Change previous edge
-        TopoDS_Edge   aNewEdge;
-        TopoDS_Vertex aVf = TopExp::FirstVertex(aPrevEdge);
-        TopoDS_Vertex aVl = TopExp::LastVertex(aPrevEdge);
+        TopoEdge   aNewEdge;
+        TopoVertex aVf = TopExp1::FirstVertex(aPrevEdge);
+        TopoVertex aVl = TopExp1::LastVertex(aPrevEdge);
 
         if (aPrevEdge.Orientation() == TopAbs_FORWARD)
           aNewEdge = MakeEdge(CPrev, aNewFace, aVf, aVl);
@@ -245,9 +245,9 @@ void BRepMAT2d_Explorer::Add(const TopoDS_Wire& Spine,
       aFirstCurve = AdjustCurveEnd(aFirstCurve, aPLast, Standard_True);
       theCurves.ChangeValue(currentContour).ChangeValue(1) = aFirstCurve;
       // Creation of new edge.
-      TopoDS_Edge   aNewEdge;
-      TopoDS_Vertex aVf = TopExp::FirstVertex(aFirstEdge);
-      TopoDS_Vertex aVl = TopExp::LastVertex(aFirstEdge);
+      TopoEdge   aNewEdge;
+      TopoVertex aVf = TopExp1::FirstVertex(aFirstEdge);
+      TopoVertex aVl = TopExp1::LastVertex(aFirstEdge);
 
       if (aFirstEdge.Orientation() == TopAbs_FORWARD)
         aNewEdge = MakeEdge(aFirstCurve, aNewFace, aVf, aVl);
@@ -264,9 +264,9 @@ void BRepMAT2d_Explorer::Add(const TopoDS_Wire& Spine,
       CPrev       = AdjustCurveEnd(CPrev, aP, Standard_False);
       theCurves.ChangeValue(currentContour).ChangeValue(aNbC) = CPrev;
       // Change previous edge
-      TopoDS_Edge   aNewEdge;
-      TopoDS_Vertex aVf = TopExp::FirstVertex(aPrevEdge);
-      TopoDS_Vertex aVl = TopExp::LastVertex(aPrevEdge);
+      TopoEdge   aNewEdge;
+      TopoVertex aVf = TopExp1::FirstVertex(aPrevEdge);
+      TopoVertex aVl = TopExp1::LastVertex(aPrevEdge);
 
       if (aPrevEdge.Orientation() == TopAbs_FORWARD)
         aNewEdge = MakeEdge(CPrev, aNewFace, aVf, aVl);
@@ -279,8 +279,8 @@ void BRepMAT2d_Explorer::Add(const TopoDS_Wire& Spine,
     }
   }
 
-  TopoDS_Wire  aNewWire;
-  BRep_Builder aBuilder;
+  TopoWire  aNewWire;
+  ShapeBuilder aBuilder;
 
   if (isModif)
   {
@@ -291,8 +291,8 @@ void BRepMAT2d_Explorer::Add(const TopoDS_Wire& Spine,
 
     for (i = 1; i <= aNbEdges; i++)
     {
-      const TopoDS_Shape& aKey     = anOldNewE.FindKey(i);
-      const TopoDS_Shape& aNewEdge = anOldNewE.FindFromIndex(i);
+      const TopoShape& aKey     = anOldNewE.FindKey(i);
+      const TopoShape& aNewEdge = anOldNewE.FindFromIndex(i);
 
       aBuilder.Add(aNewWire, aNewEdge);
       myModifShapes.Add(aKey, aNewEdge);
@@ -365,7 +365,7 @@ void BRepMAT2d_Explorer::NewContour()
 
 //=================================================================================================
 
-void BRepMAT2d_Explorer::Add(const Handle(Geom2d_Curve)& aCurve)
+void BRepMAT2d_Explorer::Add(const Handle(GeomCurve2d)& aCurve)
 {
   theCurves.ChangeValue(currentContour).Append(aCurve);
 }
@@ -408,14 +408,14 @@ void BRepMAT2d_Explorer::Next()
 
 //=================================================================================================
 
-Handle(Geom2d_Curve) BRepMAT2d_Explorer::Value() const
+Handle(GeomCurve2d) BRepMAT2d_Explorer::Value() const
 {
   return theCurves.Value(currentContour).Value(current);
 }
 
 //=================================================================================================
 
-TopoDS_Shape BRepMAT2d_Explorer::Shape() const
+TopoShape BRepMAT2d_Explorer::Shape() const
 {
   return myShape;
 }
@@ -430,11 +430,11 @@ const TColGeom2d_SequenceOfCurve& BRepMAT2d_Explorer::Contour(const Standard_Int
 //  Modified by Sergey KHROMOV - Wed Mar  6 17:40:07 2002 Begin
 //=================================================================================================
 
-Standard_Boolean BRepMAT2d_Explorer::IsModified(const TopoDS_Shape& aShape) const
+Standard_Boolean BRepMAT2d_Explorer::IsModified(const TopoShape& aShape) const
 {
   if (myModifShapes.Contains(aShape))
   {
-    const TopoDS_Shape&    aNewShape = myModifShapes.FindFromKey(aShape);
+    const TopoShape&    aNewShape = myModifShapes.FindFromKey(aShape);
     const Standard_Boolean isSame    = aNewShape.IsSame(aShape);
 
     return !isSame;
@@ -445,11 +445,11 @@ Standard_Boolean BRepMAT2d_Explorer::IsModified(const TopoDS_Shape& aShape) cons
 
 //=================================================================================================
 
-TopoDS_Shape BRepMAT2d_Explorer::ModifiedShape(const TopoDS_Shape& aShape) const
+TopoShape BRepMAT2d_Explorer::ModifiedShape(const TopoShape& aShape) const
 {
   if (myModifShapes.Contains(aShape))
   {
-    const TopoDS_Shape& aNewShape = myModifShapes.FindFromKey(aShape);
+    const TopoShape& aNewShape = myModifShapes.FindFromKey(aShape);
 
     return aNewShape;
   }
@@ -469,13 +469,13 @@ const TColStd_SequenceOfBoolean& BRepMAT2d_Explorer::GetIsClosed() const
 // purpose  : Creation of an edge by 2d curve, face and two vertices.
 //=======================================================================
 
-TopoDS_Edge MakeEdge(const Handle(Geom2d_Curve)& theCurve,
-                     const TopoDS_Face&          theFace,
-                     const TopoDS_Vertex&        theVFirst,
-                     const TopoDS_Vertex&        theVLast)
+TopoEdge MakeEdge(const Handle(GeomCurve2d)& theCurve,
+                     const TopoFace&          theFace,
+                     const TopoVertex&        theVFirst,
+                     const TopoVertex&        theVLast)
 {
-  TopoDS_Edge             aNewEdge;
-  BRep_Builder            aBuilder;
+  TopoEdge             aNewEdge;
+  ShapeBuilder            aBuilder;
   constexpr Standard_Real aTol  = Precision::Confusion();
   Standard_Real           aFPar = theCurve->FirstParameter();
   Standard_Real           aLPar = theCurve->LastParameter();
@@ -496,7 +496,7 @@ TopoDS_Edge MakeEdge(const Handle(Geom2d_Curve)& theCurve,
 // purpose  : Get curve type.
 //=======================================================================
 
-GeomAbs_CurveType GetCurveType(const Handle(Geom2d_Curve)& theC2d)
+GeomAbs_CurveType GetCurveType(const Handle(GeomCurve2d)& theC2d)
 {
   GeomAbs_CurveType     aTypeCurve = GeomAbs_OtherCurve;
   Handle(TypeInfo) TheType    = theC2d->DynamicType();

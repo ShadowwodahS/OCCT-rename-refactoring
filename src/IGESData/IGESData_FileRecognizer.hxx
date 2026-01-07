@@ -23,7 +23,7 @@
 #include <Standard_Transient.hxx>
 class IGESData_IGESEntity;
 class Standard_NoSuchObject;
-class IGESData_IGESType;
+class IGESType;
 
 class IGESData_FileRecognizer;
 DEFINE_STANDARD_HANDLE(IGESData_FileRecognizer, RefObject)
@@ -37,7 +37,7 @@ public:
   //! In case of Failure, simply Returns False
   //! Works by calling deferred method Eval, and in case of failure,
   //! looks for Added Recognizers to work
-  Standard_EXPORT Standard_Boolean Evaluate(const IGESData_IGESType&     akey,
+  Standard_EXPORT Standard_Boolean Evaluate(const IGESType&     akey,
                                             Handle(IGESData_IGESEntity)& res);
 
   //! Returns result of last recognition (call of Evaluate)
@@ -68,7 +68,7 @@ protected:
   //! each precise type of Recognizer
   //! For a suitable type of akey, it calls SetOK(result) where
   //! result is an empty result of appropriate type, then returns
-  Standard_EXPORT virtual void Eval(const IGESData_IGESType& akey) = 0;
+  Standard_EXPORT virtual void Eval(const IGESType& akey) = 0;
 
 private:
   Handle(IGESData_IGESEntity)     theres;

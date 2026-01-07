@@ -38,7 +38,7 @@ public:
   //! The path to textures determined from CSF_MDTVTexturesDirectory or CASROOT environment
   //! variables.
   //! @return the root folder with default textures.
-  Standard_EXPORT static TCollection_AsciiString TexturesFolder();
+  Standard_EXPORT static AsciiString1 TexturesFolder();
 
 public:
   //! Destructor.
@@ -50,7 +50,7 @@ public:
 
   //! Returns the full path of the defined texture.
   //! It could be empty path if GetImage() is overridden to load image not from file.
-  const OSD_Path& Path() const { return myPath; }
+  const SystemPath& Path() const { return myPath; }
 
   //! @return the texture type.
   Graphic3d_TypeOfTexture Type() const { return myType; }
@@ -71,7 +71,7 @@ public:
   //! for each instance of Graphic3d_AspectFillArea3d where texture will be used.
   //!
   //! @return texture identifier.
-  const TCollection_AsciiString& GetId() const { return myTexId; }
+  const AsciiString1& GetId() const { return myTexId; }
 
   //! Return image revision.
   Standard_Size Revision() const { return myRevision; }
@@ -134,7 +134,7 @@ protected:
   //! Creates a texture from a file
   //! Warning: Note that if <FileName> is NULL the texture must be realized
   //! using LoadTexture(image) method.
-  Standard_EXPORT Graphic3d_TextureRoot(const TCollection_AsciiString& theFileName,
+  Standard_EXPORT Graphic3d_TextureRoot(const AsciiString1& theFileName,
                                         const Graphic3d_TypeOfTexture  theType);
 
   //! Creates a texture from pixmap.
@@ -157,9 +157,9 @@ protected:
 protected:
   Handle(Graphic3d_TextureParams) myParams; //!< associated texture parameters
   // clang-format off
-  TCollection_AsciiString         myTexId;      //!< unique identifier of this resource (for sharing graphic resource); should never be modified outside constructor
+  AsciiString1         myTexId;      //!< unique identifier of this resource (for sharing graphic resource); should never be modified outside constructor
   Handle(Image_PixMap)            myPixMap;     //!< image pixmap - as one of the ways for defining the texture source
-  OSD_Path                        myPath;       //!< image file path - as one of the ways for defining the texture source
+  SystemPath                        myPath;       //!< image file path - as one of the ways for defining the texture source
   Standard_Size                   myRevision;   //!< image revision - for signaling changes in the texture source (e.g. file update, pixmap update)
   Graphic3d_TypeOfTexture         myType;       //!< texture type
   Standard_Boolean                myIsColorMap; //!< flag indicating color nature of values within the texture

@@ -25,16 +25,16 @@
 class CDF_Directory;
 class CDM_Document;
 
-class CDF_DirectoryIterator
+class DirectoryIterator
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! creates an Iterator with the directory
   //! of the current CDF.
-  Standard_EXPORT CDF_DirectoryIterator();
+  Standard_EXPORT DirectoryIterator();
 
-  Standard_EXPORT CDF_DirectoryIterator(const Handle(CDF_Directory)& aDirectory);
+  Standard_EXPORT DirectoryIterator(const Handle(CDF_Directory)& aDirectory);
 
   //! Returns True if there are more entries to return
   Standard_EXPORT Standard_Boolean MoreDocument();

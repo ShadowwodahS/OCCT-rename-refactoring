@@ -35,18 +35,18 @@
 extern Standard_Boolean BRepFeat_GettraceFEAT();
 #endif
 
-static void MajMap(const TopoDS_Shape&, // base
+static void MajMap(const TopoShape&, // base
                    LocOpe_Pipe&,
                    TopTools_DataMapOfShapeListOfShape&, // myMap
-                   TopoDS_Shape&,                       // myFShape
-                   TopoDS_Shape&);                      // myLShape
+                   TopoShape&,                       // myFShape
+                   TopoShape&);                      // myLShape
 
 //=================================================================================================
 
-void BRepFeat_MakePipe::Init(const TopoDS_Shape&    Sbase,
-                             const TopoDS_Shape&    Pbase,
-                             const TopoDS_Face&     Skface,
-                             const TopoDS_Wire&     Spine,
+void BRepFeat_MakePipe::Init(const TopoShape&    Sbase,
+                             const TopoShape&    Pbase,
+                             const TopoFace&     Skface,
+                             const TopoWire&     Spine,
                              const Standard_Integer Mode,
                              const Standard_Boolean Modify)
 {
@@ -91,10 +91,10 @@ void BRepFeat_MakePipe::Init(const TopoDS_Shape&    Sbase,
   myMap.Clear();
   myFShape.Nullify();
   myLShape.Nullify();
-  TopExp_Explorer exp;
+  ShapeExplorer exp;
   for (exp.Init(mySbase, TopAbs_FACE); exp.More(); exp.Next())
   {
-    TopTools_ListOfShape thelist;
+    ShapeList thelist;
     myMap.Bind(exp.Current(), thelist);
     myMap(exp.Current()).Append(exp.Current());
   }
@@ -118,14 +118,14 @@ void BRepFeat_MakePipe::Init(const TopoDS_Shape&    Sbase,
 // purpose  : add faces of gluing
 //=======================================================================
 
-void BRepFeat_MakePipe::Add(const TopoDS_Edge& E, const TopoDS_Face& F)
+void BRepFeat_MakePipe::Add(const TopoEdge& E, const TopoFace& F)
 {
 #ifdef OCCT_DEBUG
   Standard_Boolean trc = BRepFeat_GettraceFEAT();
   if (trc)
     std::cout << "BRepFeat_MakePipe::Add(Edge,face)" << std::endl;
 #endif
-  TopExp_Explorer exp;
+  ShapeExplorer exp;
   for (exp.Init(mySbase, TopAbs_FACE); exp.More(); exp.Next())
   {
     if (exp.Current().IsSame(F))
@@ -152,7 +152,7 @@ void BRepFeat_MakePipe::Add(const TopoDS_Edge& E, const TopoDS_Face& F)
 
   if (!mySlface.IsBound(F))
   {
-    TopTools_ListOfShape thelist1;
+    ShapeList thelist1;
     mySlface.Bind(F, thelist1);
   }
   TopTools_ListIteratorOfListOfShape itl(mySlface(F));
@@ -185,9 +185,9 @@ void BRepFeat_MakePipe::Perform()
   myGluedF.Clear();
   myPerfSelection = BRepFeat_NoSelection;
   PerfSelectionValid();
-  TopoDS_Shape theBase = myPbase;
+  TopoShape theBase = myPbase;
   LocOpe_Pipe  thePipe(mySpine, theBase);
-  TopoDS_Shape VraiPipe = thePipe.Shape();
+  TopoShape VraiPipe = thePipe.Shape();
   MajMap(myPbase, thePipe, myMap, myFShape, myLShape);
   myGShape = VraiPipe;
   GeneratedShapeValid();
@@ -198,14 +198,14 @@ void BRepFeat_MakePipe::Perform()
   {
     if (myFuse == 1)
     {
-      BRepAlgoAPI_Fuse f(mySbase, myGShape);
+      BooleanFuse f(mySbase, myGShape);
       myShape = f.Shape();
       UpdateDescendants(f, myShape, Standard_False);
       Done();
     }
     else if (myFuse == 0)
     {
-      BRepAlgoAPI_Cut c(mySbase, myGShape);
+      BooleanCut c(mySbase, myGShape);
       myShape = c.Shape();
       UpdateDescendants(c, myShape, Standard_False);
       Done();
@@ -220,7 +220,7 @@ void BRepFeat_MakePipe::Perform()
   {
     myFShape = thePipe.FirstShape();
     TColgp_SequenceOfPnt spt;
-    LocOpe::SampleEdges(myFShape, spt);
+    LocOpe1::SampleEdges(myFShape, spt);
     myCurves = thePipe.Curves(spt);
     myBCurve = thePipe.BarycCurve();
     GlobalPerform();
@@ -232,7 +232,7 @@ void BRepFeat_MakePipe::Perform()
 // purpose  : till shape Until
 //=======================================================================
 
-void BRepFeat_MakePipe::Perform(const TopoDS_Shape& Until)
+void BRepFeat_MakePipe::Perform(const TopoShape& Until)
 {
 #ifdef OCCT_DEBUG
   Standard_Boolean trc = BRepFeat_GettraceFEAT();
@@ -243,7 +243,7 @@ void BRepFeat_MakePipe::Perform(const TopoDS_Shape& Until)
   {
     throw Standard_ConstructionError();
   }
-  TopExp_Explorer exp(Until, TopAbs_FACE);
+  ShapeExplorer exp(Until, TopAbs_FACE);
   if (!exp.More())
   {
     throw Standard_ConstructionError();
@@ -257,7 +257,7 @@ void BRepFeat_MakePipe::Perform(const TopoDS_Shape& Until)
   TransformShapeFU(1);
   ShapeUntilValid();
   LocOpe_Pipe  thePipe(mySpine, myPbase);
-  TopoDS_Shape VraiTuyau = thePipe.Shape();
+  TopoShape VraiTuyau = thePipe.Shape();
   MajMap(myPbase, thePipe, myMap, myFShape, myLShape);
   myGShape = VraiTuyau;
   GeneratedShapeValid();
@@ -266,7 +266,7 @@ void BRepFeat_MakePipe::Perform(const TopoDS_Shape& Until)
 
   myFShape = thePipe.FirstShape();
   TColgp_SequenceOfPnt spt;
-  LocOpe::SampleEdges(myFShape, spt);
+  LocOpe1::SampleEdges(myFShape, spt);
   myCurves = thePipe.Curves(spt);
   myBCurve = thePipe.BarycCurve();
   GlobalPerform();
@@ -277,7 +277,7 @@ void BRepFeat_MakePipe::Perform(const TopoDS_Shape& Until)
 // purpose  : between From and Until
 //=======================================================================
 
-void BRepFeat_MakePipe::Perform(const TopoDS_Shape& From, const TopoDS_Shape& Until)
+void BRepFeat_MakePipe::Perform(const TopoShape& From, const TopoShape& Until)
 {
 #ifdef OCCT_DEBUG
   Standard_Boolean trc = BRepFeat_GettraceFEAT();
@@ -304,7 +304,7 @@ void BRepFeat_MakePipe::Perform(const TopoDS_Shape& From, const TopoDS_Shape& Un
   myGluedF.Clear();
   myPerfSelection = BRepFeat_SelectionFU;
   PerfSelectionValid();
-  TopExp_Explorer exp(From, TopAbs_FACE);
+  ShapeExplorer exp(From, TopAbs_FACE);
   if (!exp.More())
   {
     throw Standard_ConstructionError();
@@ -321,7 +321,7 @@ void BRepFeat_MakePipe::Perform(const TopoDS_Shape& From, const TopoDS_Shape& Un
   TransformShapeFU(1);
   ShapeUntilValid();
   LocOpe_Pipe  thePipe(mySpine, myPbase);
-  TopoDS_Shape VraiTuyau = thePipe.Shape();
+  TopoShape VraiTuyau = thePipe.Shape();
   MajMap(myPbase, thePipe, myMap, myFShape, myLShape);
   myGShape = VraiTuyau;
   GeneratedShapeValid();
@@ -331,7 +331,7 @@ void BRepFeat_MakePipe::Perform(const TopoDS_Shape& From, const TopoDS_Shape& Un
 
   myFShape = thePipe.FirstShape();
   TColgp_SequenceOfPnt spt;
-  LocOpe::SampleEdges(myFShape, spt);
+  LocOpe1::SampleEdges(myFShape, spt);
   myCurves = thePipe.Curves(spt);
   myBCurve = thePipe.BarycCurve();
   GlobalPerform();
@@ -352,7 +352,7 @@ void BRepFeat_MakePipe::Curves(TColGeom_SequenceOfCurve& scur)
 // purpose  : pass through the center of mass
 //=======================================================================
 
-Handle(Geom_Curve) BRepFeat_MakePipe::BarycCurve()
+Handle(GeomCurve3d) BRepFeat_MakePipe::BarycCurve()
 {
   return myBCurve;
 }
@@ -362,17 +362,17 @@ Handle(Geom_Curve) BRepFeat_MakePipe::BarycCurve()
 // purpose  : management of descendants
 //=======================================================================
 
-static void MajMap(const TopoDS_Shape&                 theB,
+static void MajMap(const TopoShape&                 theB,
                    LocOpe_Pipe&                        theP,
                    TopTools_DataMapOfShapeListOfShape& theMap,    // myMap
-                   TopoDS_Shape&                       theFShape, // myFShape
-                   TopoDS_Shape&                       theLShape)                       // myLShape
+                   TopoShape&                       theFShape, // myFShape
+                   TopoShape&                       theLShape)                       // myLShape
 {
-  TopExp_Explorer exp(theP.FirstShape(), TopAbs_WIRE);
+  ShapeExplorer exp(theP.FirstShape(), TopAbs_WIRE);
   if (exp.More())
   {
     theFShape = exp.Current();
-    TopTools_ListOfShape thelist2;
+    ShapeList thelist2;
     theMap.Bind(theFShape, thelist2);
     for (exp.Init(theP.FirstShape(), TopAbs_FACE); exp.More(); exp.Next())
     {
@@ -384,7 +384,7 @@ static void MajMap(const TopoDS_Shape&                 theB,
   if (exp.More())
   {
     theLShape = exp.Current();
-    TopTools_ListOfShape thelist3;
+    ShapeList thelist3;
     theMap.Bind(theLShape, thelist3);
     for (exp.Init(theP.LastShape(), TopAbs_FACE); exp.More(); exp.Next())
     {
@@ -396,7 +396,7 @@ static void MajMap(const TopoDS_Shape&                 theB,
   {
     if (!theMap.IsBound(exp.Current()))
     {
-      TopTools_ListOfShape thelist4;
+      ShapeList thelist4;
       theMap.Bind(exp.Current(), thelist4);
       theMap(exp.Current()) = theP.Shapes(exp.Current());
     }

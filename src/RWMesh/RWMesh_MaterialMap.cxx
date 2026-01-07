@@ -26,16 +26,16 @@ IMPLEMENT_STANDARD_RTTIEXT(RWMesh_MaterialMap, RefObject)
 
 //=================================================================================================
 
-RWMesh_MaterialMap::RWMesh_MaterialMap(const TCollection_AsciiString& theFile)
+RWMesh_MaterialMap::RWMesh_MaterialMap(const AsciiString1& theFile)
     : myFileName(theFile),
       myKeyPrefix("mat_"),
       myNbMaterials(0),
       myIsFailed(false),
       myMatNameAsKey(true)
 {
-  TCollection_AsciiString aFileName, aFileExt;
-  OSD_Path::FolderAndFileFromPath(theFile, myFolder, aFileName);
-  OSD_Path::FileNameAndExtension(aFileName, myShortFileNameBase, aFileExt);
+  AsciiString1 aFileName, aFileExt;
+  SystemPath::FolderAndFileFromPath(theFile, myFolder, aFileName);
+  SystemPath::FileNameAndExtension(aFileName, myShortFileNameBase, aFileExt);
   if (myFolder.IsEmpty())
   {
     myFolder = ".";
@@ -51,14 +51,14 @@ RWMesh_MaterialMap::~RWMesh_MaterialMap()
 
 //=================================================================================================
 
-TCollection_AsciiString RWMesh_MaterialMap::AddMaterial(const XCAFPrs_Style& theStyle)
+AsciiString1 RWMesh_MaterialMap::AddMaterial(const XCAFPrs_Style& theStyle)
 {
   if (myStyles.IsBound1(theStyle))
   {
     return myStyles.Find1(theStyle);
   }
 
-  TCollection_AsciiString aMatKey, aMatName, aMatNameSuffix;
+  AsciiString1 aMatKey, aMatName, aMatNameSuffix;
   int                     aCounter    = 0;
   int*                    aCounterPtr = &myNbMaterials;
   if (myMatNameAsKey)
@@ -66,9 +66,9 @@ TCollection_AsciiString RWMesh_MaterialMap::AddMaterial(const XCAFPrs_Style& the
     if (!theStyle.Material().IsNull() && !theStyle.Material()->IsEmpty())
     {
       aCounterPtr = &aCounter;
-      Handle(TDataStd_Name) aNodeName;
+      Handle(NameAttribute) aNodeName;
       if (!theStyle.Material()->Label().IsNull()
-          && theStyle.Material()->Label().FindAttribute(TDataStd_Name::GetID(), aNodeName))
+          && theStyle.Material()->Label().FindAttribute(NameAttribute::GetID(), aNodeName))
       {
         aMatName = aNodeName->Get();
       }
@@ -119,8 +119,8 @@ TCollection_AsciiString RWMesh_MaterialMap::AddMaterial(const XCAFPrs_Style& the
 
 //=================================================================================================
 
-bool RWMesh_MaterialMap::copyFileTo(const TCollection_AsciiString& theFileSrc,
-                                    const TCollection_AsciiString& theFileDst)
+bool RWMesh_MaterialMap::copyFileTo(const AsciiString1& theFileSrc,
+                                    const AsciiString1& theFileDst)
 {
   if (theFileSrc.IsEmpty() || theFileDst.IsEmpty())
   {
@@ -133,12 +133,12 @@ bool RWMesh_MaterialMap::copyFileTo(const TCollection_AsciiString& theFileSrc,
 
   try
   {
-    OSD_Path aSrcPath(theFileSrc);
-    OSD_Path aDstPath(theFileDst);
-    OSD_File aFileSrc(aSrcPath);
+    SystemPath aSrcPath(theFileSrc);
+    SystemPath aDstPath(theFileDst);
+    SystemFile aFileSrc(aSrcPath);
     if (!aFileSrc.Exists())
     {
-      Message::SendFail(TCollection_AsciiString("Failed to copy file - source file '") + theFileSrc
+      Message::SendFail(AsciiString1("Failed to copy file - source file '") + theFileSrc
                         + "' does not exist");
       return false;
     }
@@ -147,7 +147,7 @@ bool RWMesh_MaterialMap::copyFileTo(const TCollection_AsciiString& theFileSrc,
   }
   catch (ExceptionBase const& theException)
   {
-    Message::SendFail(TCollection_AsciiString("Failed to copy file\n")
+    Message::SendFail(AsciiString1("Failed to copy file\n")
                       + theException.GetMessageString());
     return false;
   }
@@ -155,31 +155,31 @@ bool RWMesh_MaterialMap::copyFileTo(const TCollection_AsciiString& theFileSrc,
 
 //=================================================================================================
 
-bool RWMesh_MaterialMap::CopyTexture(TCollection_AsciiString&       theResTexture,
+bool RWMesh_MaterialMap::CopyTexture(AsciiString1&       theResTexture,
                                      const Handle(Image_Texture)&   theTexture,
-                                     const TCollection_AsciiString& theKey)
+                                     const AsciiString1& theKey)
 {
   CreateTextureFolder();
 
-  TCollection_AsciiString aTexFileName;
-  TCollection_AsciiString aTextureSrc = theTexture->FilePath();
+  AsciiString1 aTexFileName;
+  AsciiString1 aTextureSrc = theTexture->FilePath();
   if (!aTextureSrc.IsEmpty() && theTexture->FileOffset() <= 0 && theTexture->FileLength() <= 0)
   {
-    TCollection_AsciiString aSrcTexFolder;
-    OSD_Path::FolderAndFileFromPath(aTextureSrc, aSrcTexFolder, aTexFileName);
-    const TCollection_AsciiString aResTexFile = myTexFolder + aTexFileName;
+    AsciiString1 aSrcTexFolder;
+    SystemPath::FolderAndFileFromPath(aTextureSrc, aSrcTexFolder, aTexFileName);
+    const AsciiString1 aResTexFile = myTexFolder + aTexFileName;
     theResTexture                             = myTexFolderShort + aTexFileName;
     return copyFileTo(aTextureSrc, aResTexFile);
   }
 
-  TCollection_AsciiString anExt = theTexture->ProbeImageFileFormat();
+  AsciiString1 anExt = theTexture->ProbeImageFileFormat();
   if (anExt.IsEmpty())
   {
     anExt = "bin";
   }
   aTexFileName = theKey + "." + anExt;
 
-  const TCollection_AsciiString aResTexFile = myTexFolder + aTexFileName;
+  const AsciiString1 aResTexFile = myTexFolder + aTexFileName;
   theResTexture                             = myTexFolderShort + aTexFileName;
   return theTexture->WriteImage(aResTexFile);
 }
@@ -195,14 +195,14 @@ bool RWMesh_MaterialMap::CreateTextureFolder()
 
   myTexFolderShort = myShortFileNameBase + "_textures/";
   myTexFolder      = myFolder + "/" + myTexFolderShort;
-  OSD_Path      aTexFolderPath(myTexFolder);
+  SystemPath      aTexFolderPath(myTexFolder);
   OSD_Directory aTexDir(aTexFolderPath);
   if (aTexDir.Exists())
   {
     return true;
   }
 
-  OSD_Path      aResFolderPath(myFolder);
+  SystemPath      aResFolderPath(myFolder);
   OSD_Directory aResDir(aResFolderPath);
   if (!aResDir.Exists())
   {

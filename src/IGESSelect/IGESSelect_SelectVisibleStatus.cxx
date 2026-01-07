@@ -34,7 +34,7 @@ Standard_Boolean IGESSelect_SelectVisibleStatus::Sort(
   return (igesent->BlankStatus() == 0);
 }
 
-TCollection_AsciiString IGESSelect_SelectVisibleStatus::ExtractLabel() const
+AsciiString1 IGESSelect_SelectVisibleStatus::ExtractLabel() const
 {
-  return TCollection_AsciiString("IGES Entity, Status Visible");
+  return AsciiString1("IGES Entity, Status Visible");
 }

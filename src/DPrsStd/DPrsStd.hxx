@@ -24,7 +24,7 @@
 
 //! commands for presentation based on AIS
 //! ======================================
-class DPrsStd
+class DPrsStd1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -32,19 +32,19 @@ public:
   //! Presentation commands
   //! =====================
   //! to load all sketch commands
-  Standard_EXPORT static void AllCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void AllCommands(DrawInterpreter& I);
 
   //! to display....etc... ais presentation
-  Standard_EXPORT static void AISPresentationCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void AISPresentationCommands(DrawInterpreter& I);
 
   //! to repaint...etc... ais viewer
-  Standard_EXPORT static void AISViewerCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void AISViewerCommands(DrawInterpreter& I);
 
   //! set/get position attribute
-  Standard_EXPORT static void BasicCommands(Draw_Interpretor& I);
+  Standard_EXPORT static void BasicCommands(DrawInterpreter& I);
 
-  //! Loads all Draw commands of  TKDCAF. Used for plugin.
-  Standard_EXPORT static void Factory(Draw_Interpretor& theDI);
+  //! Loads all Draw1 commands of  TKDCAF. Used for plugin.
+  Standard_EXPORT static void Factory(DrawInterpreter& theDI);
 
 protected:
 private:

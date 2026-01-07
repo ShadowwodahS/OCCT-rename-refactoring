@@ -63,8 +63,8 @@ Standard_Boolean XmlMDataStd_ReferenceListDriver::Paste(const XmlObjMgt_Persiste
     aFirstInd = 1;
   else if (!aFirstIndex.GetInteger(aFirstInd))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the first index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the first index"
                                  " for ReferenceList attribute as \"")
       + aFirstIndex + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -74,8 +74,8 @@ Standard_Boolean XmlMDataStd_ReferenceListDriver::Paste(const XmlObjMgt_Persiste
   // Read the LastIndex; the attribute should present
   if (!anElement.getAttribute(::LastIndexString()).GetInteger(aLastInd))
   {
-    TCollection_ExtendedString aMessageString =
-      TCollection_ExtendedString("Cannot retrieve the last index"
+    UtfString aMessageString =
+      UtfString("Cannot retrieve the last index"
                                  " for ReferenceList attribute as \"")
       + aFirstIndex + "\"";
     myMessageDriver->Send(aMessageString, Message_Fail);
@@ -97,8 +97,8 @@ Standard_Boolean XmlMDataStd_ReferenceListDriver::Paste(const XmlObjMgt_Persiste
   {
     if (!anElement.hasChildNodes())
     {
-      TCollection_ExtendedString aMessageString =
-        TCollection_ExtendedString("Cannot retrieve a list of reference");
+      UtfString aMessageString =
+        UtfString("Cannot retrieve a list of reference");
       myMessageDriver->Send(aMessageString, Message_Fail);
       return Standard_False;
     }
@@ -114,16 +114,16 @@ Standard_Boolean XmlMDataStd_ReferenceListDriver::Paste(const XmlObjMgt_Persiste
         myMessageDriver->Send("Cannot retrieve reference string from element", Message_Fail);
         return Standard_False;
       }
-      TCollection_AsciiString anEntry;
+      AsciiString1 anEntry;
       if (XmlObjMgt::GetTagEntryString(aValueStr, anEntry) == Standard_False)
       {
-        TCollection_ExtendedString aMessage =
-          TCollection_ExtendedString("Cannot retrieve reference from \"") + aValueStr + '\"';
+        UtfString aMessage =
+          UtfString("Cannot retrieve reference from \"") + aValueStr + '\"';
         myMessageDriver->Send(aMessage, Message_Fail);
         return Standard_False;
       }
       // Find label by entry
-      TDF_Label tLab; // Null label.
+      DataLabel tLab; // Null label.
       if (anEntry.Length() > 0)
         TDF_Tool::Label(aReferenceList->Label().Data(), anEntry, tLab, Standard_True);
 
@@ -139,16 +139,16 @@ Standard_Boolean XmlMDataStd_ReferenceListDriver::Paste(const XmlObjMgt_Persiste
       myMessageDriver->Send("Cannot retrieve reference string from element", Message_Fail);
       return Standard_False;
     }
-    TCollection_AsciiString anEntry;
+    AsciiString1 anEntry;
     if (XmlObjMgt::GetTagEntryString(aValueStr, anEntry) == Standard_False)
     {
-      TCollection_ExtendedString aMessage =
-        TCollection_ExtendedString("Cannot retrieve reference from \"") + aValueStr + '\"';
+      UtfString aMessage =
+        UtfString("Cannot retrieve reference from \"") + aValueStr + '\"';
       myMessageDriver->Send(aMessage, Message_Fail);
       return Standard_False;
     }
     // Find label by entry
-    TDF_Label tLab; // Null label.
+    DataLabel tLab; // Null label.
     if (anEntry.Length() > 0)
     {
       TDF_Tool::Label(aReferenceList->Label().Data(), anEntry, tLab, Standard_True);
@@ -169,7 +169,7 @@ void XmlMDataStd_ReferenceListDriver::Paste(const Handle(TDF_Attribute)& theSour
 {
   const Handle(TDataStd_ReferenceList) aReferenceList =
     Handle(TDataStd_ReferenceList)::DownCast(theSource);
-  TDF_Label L = aReferenceList->Label();
+  DataLabel L = aReferenceList->Label();
   if (L.IsNull())
   {
     myMessageDriver->Send("Label of a ReferenceList is Null.", Message_Fail);
@@ -189,7 +189,7 @@ void XmlMDataStd_ReferenceListDriver::Paste(const Handle(TDF_Attribute)& theSour
     if (L.IsDescendant(itr.Value().Root()))
     {
       // Internal reference
-      TCollection_AsciiString anEntry;
+      AsciiString1 anEntry;
       TDF_Tool::Entry(itr.Value(), anEntry);
 
       XmlObjMgt_DOMString aDOMString;

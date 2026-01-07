@@ -37,23 +37,23 @@
 //! relation to other shapes).
 //! Note: A Shape is empty if it references an underlying
 //! shape which has an empty list of shapes.
-class TopoDS_Shape
+class TopoShape
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   //! Creates a NULL Shape referring to nothing.
-  TopoDS_Shape()
+  TopoShape()
       : myOrient(TopAbs_EXTERNAL)
   {
   }
 
   //! Generalized move constructor, accepting also sub-classes
-  //! (TopoDS_Shape hierarchy declares only fake sub-classes with no extra fields).
+  //! (TopoShape hierarchy declares only fake sub-classes with no extra fields).
   template <class T2>
-  TopoDS_Shape(
+  TopoShape(
     T2&& theOther,
-    typename std::enable_if<opencascade::std::is_base_of<TopoDS_Shape, T2>::value>::type* = 0)
+    typename std::enable_if<opencascade::std::is_base_of<TopoShape, T2>::value>::type* = 0)
       : myTShape(std::forward<T2>(theOther).myTShape),
         myLocation(std::forward<T2>(theOther).myLocation),
         myOrient(std::forward<T2>(theOther).myOrient)
@@ -62,8 +62,8 @@ public:
 
   //! Generalized move assignment operator.
   template <class T2>
-  typename std::enable_if<opencascade::std::is_base_of<TopoDS_Shape, T2>::value,
-                          TopoDS_Shape>::type&
+  typename std::enable_if<opencascade::std::is_base_of<TopoShape, T2>::value,
+                          TopoShape>::type&
     operator=(T2&& theOther)
   {
     myTShape   = std::forward<T2>(theOther).myTShape;
@@ -107,10 +107,10 @@ public:
   //! @param theLoc the new local coordinate system.
   //! @param theRaiseExc flag to raise exception in case of transformation with scale or negative.
   //! @return the located shape.
-  TopoDS_Shape Located(const TopLoc_Location& theLoc,
+  TopoShape Located(const TopLoc_Location& theLoc,
                        const Standard_Boolean theRaiseExc = Standard_False) const
   {
-    TopoDS_Shape aShape(*this);
+    TopoShape aShape(*this);
     aShape.Location(theLoc, theRaiseExc);
     return aShape;
   }
@@ -123,9 +123,9 @@ public:
 
   //! Returns  a    shape  similar  to  <me>   with  the
   //! orientation set to <Or>.
-  TopoDS_Shape Oriented(TopAbs_Orientation theOrient) const
+  TopoShape Oriented(TopAbs_Orientation theOrient) const
   {
-    TopoDS_Shape aShape(*this);
+    TopoShape aShape(*this);
     aShape.Orientation(theOrient);
     return aShape;
   }
@@ -205,52 +205,52 @@ public:
   //! @param thePosition the transformation to apply.
   //! @param theRaiseExc flag to raise exception in case of transformation with scale or negative.
   //! @return the moved shape.
-  TopoDS_Shape Moved(const TopLoc_Location& thePosition,
+  TopoShape Moved(const TopLoc_Location& thePosition,
                      const Standard_Boolean theRaiseExc = Standard_False) const
   {
-    TopoDS_Shape aShape(*this);
+    TopoShape aShape(*this);
     aShape.Move(thePosition, theRaiseExc);
     return aShape;
   }
 
   //! Reverses the orientation, using the Reverse method
-  //! from the TopAbs package.
-  void Reverse() { myOrient = TopAbs::Reverse(myOrient); }
+  //! from the TopAbs1 package.
+  void Reverse() { myOrient = TopAbs1::Reverse(myOrient); }
 
   //! Returns    a shape  similar    to  <me>  with  the
   //! orientation  reversed, using  the   Reverse method
-  //! from the TopAbs package.
-  TopoDS_Shape Reversed() const
+  //! from the TopAbs1 package.
+  TopoShape Reversed() const
   {
-    TopoDS_Shape aShape(*this);
+    TopoShape aShape(*this);
     aShape.Reverse();
     return aShape;
   }
 
   //! Complements the orientation, using the  Complement
-  //! method from the TopAbs package.
-  void Complement() { myOrient = TopAbs::Complement(myOrient); }
+  //! method from the TopAbs1 package.
+  void Complement() { myOrient = TopAbs1::Complement(myOrient); }
 
   //! Returns  a   shape  similar  to   <me>   with  the
   //! orientation complemented,  using   the  Complement
-  //! method from the TopAbs package.
-  TopoDS_Shape Complemented() const
+  //! method from the TopAbs1 package.
+  TopoShape Complemented() const
   {
-    TopoDS_Shape aShape(*this);
+    TopoShape aShape(*this);
     aShape.Complement();
     return aShape;
   }
 
   //! Updates the Shape Orientation by composition with theOrient,
-  //! using the Compose method from the TopAbs package.
-  void Compose(TopAbs_Orientation theOrient) { myOrient = TopAbs::Compose(myOrient, theOrient); }
+  //! using the Compose method from the TopAbs1 package.
+  void Compose(TopAbs_Orientation theOrient) { myOrient = TopAbs1::Compose(myOrient, theOrient); }
 
   //! Returns  a  shape   similar   to  <me>   with  the
   //! orientation composed with theOrient, using the
-  //! Compose method from the TopAbs package.
-  TopoDS_Shape Composed(TopAbs_Orientation theOrient) const
+  //! Compose method from the TopAbs1 package.
+  TopoShape Composed(TopAbs_Orientation theOrient) const
   {
-    TopoDS_Shape aShape(*this);
+    TopoShape aShape(*this);
     aShape.Compose(theOrient);
     return aShape;
   }
@@ -262,7 +262,7 @@ public:
   //! Returns True if two shapes  are partners, i.e.  if
   //! they   share   the   same  TShape.  Locations  and
   //! Orientations may differ.
-  Standard_Boolean IsPartner(const TopoDS_Shape& theOther) const
+  Standard_Boolean IsPartner(const TopoShape& theOther) const
   {
     return (myTShape == theOther.myTShape);
   }
@@ -270,7 +270,7 @@ public:
   //! Returns True if two shapes are same, i.e.  if they
   //! share  the  same TShape  with the same  Locations.
   //! Orientations may differ.
-  Standard_Boolean IsSame(const TopoDS_Shape& theOther) const
+  Standard_Boolean IsSame(const TopoShape& theOther) const
   {
     return myTShape == theOther.myTShape && myLocation == theOther.myLocation;
   }
@@ -278,18 +278,18 @@ public:
   //! Returns True if two shapes are equal, i.e. if they
   //! share the same TShape with  the same Locations and
   //! Orientations.
-  Standard_Boolean IsEqual(const TopoDS_Shape& theOther) const
+  Standard_Boolean IsEqual(const TopoShape& theOther) const
   {
     return myTShape == theOther.myTShape && myLocation == theOther.myLocation
            && myOrient == theOther.myOrient;
   }
 
-  Standard_Boolean operator==(const TopoDS_Shape& theOther) const { return IsEqual(theOther); }
+  Standard_Boolean operator==(const TopoShape& theOther) const { return IsEqual(theOther); }
 
   //! Negation of the IsEqual method.
-  Standard_Boolean IsNotEqual(const TopoDS_Shape& theOther) const { return !IsEqual(theOther); }
+  Standard_Boolean IsNotEqual(const TopoShape& theOther) const { return !IsEqual(theOther); }
 
-  Standard_Boolean operator!=(const TopoDS_Shape& theOther) const { return IsNotEqual(theOther); }
+  Standard_Boolean operator!=(const TopoShape& theOther) const { return IsNotEqual(theOther); }
 
   //! Replace   <me> by  a  new   Shape with the    same
   //! Orientation and Location and a new TShape with the
@@ -299,9 +299,9 @@ public:
   //! Returns a new Shape with the  same Orientation and
   //! Location and  a new TShape  with the same geometry
   //! and no sub-shapes.
-  TopoDS_Shape EmptyCopied() const
+  TopoShape EmptyCopied() const
   {
-    TopoDS_Shape aShape(*this);
+    TopoShape aShape(*this);
     aShape.EmptyCopy();
     return aShape;
   }
@@ -333,9 +333,9 @@ private:
 namespace std
 {
 template <>
-struct hash<TopoDS_Shape>
+struct hash<TopoShape>
 {
-  size_t operator()(const TopoDS_Shape& theShape) const noexcept
+  size_t operator()(const TopoShape& theShape) const noexcept
   {
     const size_t aHL = std::hash<TopLoc_Location>{}(theShape.Location());
     return aHL == 0

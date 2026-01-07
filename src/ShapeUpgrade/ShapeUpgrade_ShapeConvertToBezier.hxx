@@ -23,7 +23,7 @@
 
 #include <Standard_Integer.hxx>
 #include <ShapeUpgrade_ShapeDivide.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class ShapeUpgrade_FaceDivide;
 class Message_Msg;
 
@@ -41,7 +41,7 @@ public:
   Standard_EXPORT ShapeUpgrade_ShapeConvertToBezier();
 
   //! Initialize by a Shape.
-  Standard_EXPORT ShapeUpgrade_ShapeConvertToBezier(const TopoDS_Shape& S);
+  Standard_EXPORT ShapeUpgrade_ShapeConvertToBezier(const TopoShape& S);
 
   //! Sets mode for conversion 2D curves to bezier.
   void Set2dConversion(const Standard_Boolean mode);
@@ -62,16 +62,16 @@ public:
   //! Returns the surface conversion mode.
   Standard_Boolean GetSurfaceConversion() const;
 
-  //! Sets mode for conversion Geom_Line to bezier.
+  //! Sets mode for conversion GeomLine to bezier.
   void Set3dLineConversion(const Standard_Boolean mode);
 
-  //! Returns the Geom_Line conversion mode.
+  //! Returns the GeomLine conversion mode.
   Standard_Boolean Get3dLineConversion() const;
 
-  //! Sets mode for conversion Geom_Circle to bezier.
+  //! Sets mode for conversion GeomCircle to bezier.
   void Set3dCircleConversion(const Standard_Boolean mode);
 
-  //! Returns the Geom_Circle conversion mode.
+  //! Returns the GeomCircle conversion mode.
   Standard_Boolean Get3dCircleConversion() const;
 
   //! Sets mode for conversion Geom_Conic to bezier.
@@ -80,7 +80,7 @@ public:
   //! Returns the Geom_Conic conversion mode.
   Standard_Boolean Get3dConicConversion() const;
 
-  //! Sets mode for conversion Geom_Plane to Bezier
+  //! Sets mode for conversion GeomPlane to Bezier
   void SetPlaneMode(const Standard_Boolean mode);
 
   //! Returns the Geom_Pline conversion mode.

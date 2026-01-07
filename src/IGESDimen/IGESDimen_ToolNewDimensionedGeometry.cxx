@@ -37,9 +37,9 @@
 #include <TColgp_HArray1OfXYZ.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 
-IGESDimen_ToolNewDimensionedGeometry::IGESDimen_ToolNewDimensionedGeometry() {}
+NewDimensionedGeometryTool::NewDimensionedGeometryTool() {}
 
-void IGESDimen_ToolNewDimensionedGeometry::ReadOwnParams(
+void NewDimensionedGeometryTool::ReadOwnParams(
   const Handle(IGESDimen_NewDimensionedGeometry)& ent,
   const Handle(IGESData_IGESReaderData)&          IR,
   IGESData_ParamReader&                           PR) const
@@ -105,7 +105,7 @@ void IGESDimen_ToolNewDimensionedGeometry::ReadOwnParams(
             tempPoints);
 }
 
-void IGESDimen_ToolNewDimensionedGeometry::WriteOwnParams(
+void NewDimensionedGeometryTool::WriteOwnParams(
   const Handle(IGESDimen_NewDimensionedGeometry)& ent,
   IGESData_IGESWriter&                            IW) const
 {
@@ -125,7 +125,7 @@ void IGESDimen_ToolNewDimensionedGeometry::WriteOwnParams(
   }
 }
 
-void IGESDimen_ToolNewDimensionedGeometry::OwnShared(
+void NewDimensionedGeometryTool::OwnShared(
   const Handle(IGESDimen_NewDimensionedGeometry)& ent,
   Interface_EntityIterator&                       iter) const
 {
@@ -135,7 +135,7 @@ void IGESDimen_ToolNewDimensionedGeometry::OwnShared(
     iter.GetOneItem(ent->GeometryEntity(i));
 }
 
-void IGESDimen_ToolNewDimensionedGeometry::OwnCopy(
+void NewDimensionedGeometryTool::OwnCopy(
   const Handle(IGESDimen_NewDimensionedGeometry)& another,
   const Handle(IGESDimen_NewDimensionedGeometry)& ent,
   Interface_CopyTool&                             TC) const
@@ -166,7 +166,7 @@ void IGESDimen_ToolNewDimensionedGeometry::OwnCopy(
             tempPoints);
 }
 
-Standard_Boolean IGESDimen_ToolNewDimensionedGeometry::OwnCorrect(
+Standard_Boolean NewDimensionedGeometryTool::OwnCorrect(
   const Handle(IGESDimen_NewDimensionedGeometry)& ent) const
 {
   Standard_Boolean res = ent->HasTransf();
@@ -199,10 +199,10 @@ Standard_Boolean IGESDimen_ToolNewDimensionedGeometry::OwnCorrect(
   return Standard_True;
 }
 
-IGESData_DirChecker IGESDimen_ToolNewDimensionedGeometry::DirChecker(
+DirectoryChecker NewDimensionedGeometryTool::DirChecker(
   const Handle(IGESDimen_NewDimensionedGeometry)& /* ent */) const
 {
-  IGESData_DirChecker DC(402, 21);
+  DirectoryChecker DC(402, 21);
   DC.Structure(IGESData_DefVoid);
   DC.GraphicsIgnored();
   DC.LineFont(IGESData_DefVoid);
@@ -215,7 +215,7 @@ IGESData_DirChecker IGESDimen_ToolNewDimensionedGeometry::DirChecker(
   return DC;
 }
 
-void IGESDimen_ToolNewDimensionedGeometry::OwnCheck(
+void NewDimensionedGeometryTool::OwnCheck(
   const Handle(IGESDimen_NewDimensionedGeometry)& ent,
   const Interface_ShareTool&,
   Handle(Interface_Check)& ach) const
@@ -226,7 +226,7 @@ void IGESDimen_ToolNewDimensionedGeometry::OwnCheck(
     ach->AddWarning("Transformation Matrix exists, ignored");
 }
 
-void IGESDimen_ToolNewDimensionedGeometry::OwnDump(
+void NewDimensionedGeometryTool::OwnDump(
   const Handle(IGESDimen_NewDimensionedGeometry)& ent,
   const IGESData_IGESDumper&                      dumper,
   Standard_OStream&                               S,

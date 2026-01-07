@@ -26,11 +26,11 @@
 #include <DBRep.hxx>
 #include <Draw_ProgressIndicator.hxx>
 
-static Standard_Integer RemoveFeatures(Draw_Interpretor&, Standard_Integer, const char**);
+static Standard_Integer RemoveFeatures(DrawInterpreter&, Standard_Integer, const char**);
 
 //=================================================================================================
 
-void BOPTest::RemoveFeaturesCommands(Draw_Interpretor& theCommands)
+void BOPTest::RemoveFeaturesCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean done = Standard_False;
   if (done)
@@ -53,7 +53,7 @@ void BOPTest::RemoveFeaturesCommands(Draw_Interpretor& theCommands)
 
 //=================================================================================================
 
-Standard_Integer RemoveFeatures(Draw_Interpretor& theDI,
+Standard_Integer RemoveFeatures(DrawInterpreter& theDI,
                                 Standard_Integer  theArgc,
                                 const char**      theArgv)
 {
@@ -64,7 +64,7 @@ Standard_Integer RemoveFeatures(Draw_Interpretor& theDI,
   }
 
   // Get the shape to remove the features from
-  TopoDS_Shape aShape = DBRep::Get(theArgv[2]);
+  TopoShape aShape = DBRep1::Get(theArgv[2]);
   if (aShape.IsNull())
   {
     theDI << "Error: " << theArgv[2] << " is a null shape.\n";
@@ -77,7 +77,7 @@ Standard_Integer RemoveFeatures(Draw_Interpretor& theDI,
   // Add faces to remove
   for (Standard_Integer i = 3; i < theArgc; ++i)
   {
-    TopoDS_Shape aF = DBRep::Get(theArgv[i]);
+    TopoShape aF = DBRep1::Get(theArgv[i]);
     if (aF.IsNull())
     {
       if (!strcmp(theArgv[i], "-parallel"))
@@ -108,8 +108,8 @@ Standard_Integer RemoveFeatures(Draw_Interpretor& theDI,
   if (aRF.HasErrors())
     return 0;
 
-  const TopoDS_Shape& aResult = aRF.Shape();
-  DBRep::Set(theArgv[1], aResult);
+  const TopoShape& aResult = aRF.Shape();
+  DBRep1::Set(theArgv[1], aResult);
 
   return 0;
 }

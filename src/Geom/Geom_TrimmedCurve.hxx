@@ -23,7 +23,7 @@
 #include <Geom_BoundedCurve.hxx>
 #include <GeomAbs_Shape.hxx>
 #include <Standard_Integer.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 class Point3d;
 class Vector3d;
 class Transform3d;
@@ -79,7 +79,7 @@ public:
   //! - C is not periodic and U1 or U2 is outside the
   //! bounds of C, or
   //! - U1 is equal to U2.
-  Standard_EXPORT Geom_TrimmedCurve(const Handle(Geom_Curve)& C,
+  Standard_EXPORT Geom_TrimmedCurve(const Handle(GeomCurve3d)& C,
                                     const Standard_Real       U1,
                                     const Standard_Real       U2,
                                     const Standard_Boolean    Sense             = Standard_True,
@@ -133,7 +133,7 @@ public:
   //! This function does not return a constant reference.
   //! Consequently, any modification of the returned value
   //! directly modifies the trimmed curve.
-  Standard_EXPORT Handle(Geom_Curve) BasisCurve() const;
+  Standard_EXPORT Handle(GeomCurve3d) BasisCurve() const;
 
   //! Returns the continuity of the curve :
   //! C0 : only geometric continuity,
@@ -262,7 +262,7 @@ public:
 
 protected:
 private:
-  Handle(Geom_Curve) basisCurve;
+  Handle(GeomCurve3d) basisCurve;
   Standard_Real      uTrim1;
   Standard_Real      uTrim2;
 };

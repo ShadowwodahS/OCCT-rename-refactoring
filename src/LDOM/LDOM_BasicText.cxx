@@ -20,7 +20,7 @@
 //=================================================================================================
 
 LDOM_BasicText::LDOM_BasicText(const LDOM_CharacterData& aText)
-    : LDOM_BasicNode(aText.Origin()),
+    : BasicNode(aText.Origin()),
       myValue(aText.getData())
 {
 }
@@ -47,6 +47,6 @@ LDOM_BasicText& LDOM_BasicText::Create(const LDOM_Node::NodeType      aType,
 LDOM_BasicText& LDOM_BasicText::operator=(const LDOM_NullPtr* aNull)
 {
   myValue = aNull;
-  LDOM_BasicNode::operator=(aNull);
+  BasicNode::operator=(aNull);
   return *this;
 }

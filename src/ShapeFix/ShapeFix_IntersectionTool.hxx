@@ -23,12 +23,12 @@
 #include <Standard_Integer.hxx>
 #include <ShapeFix_DataMapOfShapeBox2d.hxx>
 class ShapeBuild_ReShape;
-class TopoDS_Edge;
-class TopoDS_Vertex;
-class TopoDS_Face;
+class TopoEdge;
+class TopoVertex;
+class TopoFace;
 class ShapeExtend_WireData;
 class Bnd_Box2d;
-class Geom2d_Curve;
+class GeomCurve2d;
 
 //! Tool for fixing selfintersecting wire
 //! and intersecting wires
@@ -48,63 +48,63 @@ public:
   //! Split edge on two new edges using new vertex "vert"
   //! and "param" - parameter for splitting
   //! The "face" is necessary for pcurves and using TransferParameterProj
-  Standard_EXPORT Standard_Boolean SplitEdge(const TopoDS_Edge&   edge,
+  Standard_EXPORT Standard_Boolean SplitEdge(const TopoEdge&   edge,
                                              const Standard_Real  param,
-                                             const TopoDS_Vertex& vert,
-                                             const TopoDS_Face&   face,
-                                             TopoDS_Edge&         newE1,
-                                             TopoDS_Edge&         newE2,
+                                             const TopoVertex& vert,
+                                             const TopoFace&   face,
+                                             TopoEdge&         newE1,
+                                             TopoEdge&         newE2,
                                              const Standard_Real  preci) const;
 
   //! Cut edge by parameters pend and cut
-  Standard_EXPORT Standard_Boolean CutEdge(const TopoDS_Edge&  edge,
+  Standard_EXPORT Standard_Boolean CutEdge(const TopoEdge&  edge,
                                            const Standard_Real pend,
                                            const Standard_Real cut,
-                                           const TopoDS_Face&  face,
+                                           const TopoFace&  face,
                                            Standard_Boolean&   iscutline) const;
 
   Standard_EXPORT Standard_Boolean FixSelfIntersectWire(Handle(ShapeExtend_WireData)& sewd,
-                                                        const TopoDS_Face&            face,
+                                                        const TopoFace&            face,
                                                         Standard_Integer&             NbSplit,
                                                         Standard_Integer&             NbCut,
                                                         Standard_Integer& NbRemoved) const;
 
-  Standard_EXPORT Standard_Boolean FixIntersectingWires(TopoDS_Face& face) const;
+  Standard_EXPORT Standard_Boolean FixIntersectingWires(TopoFace& face) const;
 
 protected:
 private:
   Standard_EXPORT Standard_Boolean SplitEdge1(const Handle(ShapeExtend_WireData)& sewd,
-                                              const TopoDS_Face&                  face,
+                                              const TopoFace&                  face,
                                               const Standard_Integer              num,
                                               const Standard_Real                 param,
-                                              const TopoDS_Vertex&                vert,
+                                              const TopoVertex&                vert,
                                               const Standard_Real                 preci,
                                               ShapeFix_DataMapOfShapeBox2d&       boxes) const;
 
   Standard_EXPORT Standard_Boolean SplitEdge2(const Handle(ShapeExtend_WireData)& sewd,
-                                              const TopoDS_Face&                  face,
+                                              const TopoFace&                  face,
                                               const Standard_Integer              num,
                                               const Standard_Real                 param1,
                                               const Standard_Real                 param2,
-                                              const TopoDS_Vertex&                vert,
+                                              const TopoVertex&                vert,
                                               const Standard_Real                 preci,
                                               ShapeFix_DataMapOfShapeBox2d&       boxes) const;
 
   Standard_EXPORT Standard_Boolean UnionVertexes(const Handle(ShapeExtend_WireData)& sewd,
-                                                 TopoDS_Edge&                        edge1,
-                                                 TopoDS_Edge&                        edge2,
+                                                 TopoEdge&                        edge1,
+                                                 TopoEdge&                        edge2,
                                                  const Standard_Integer              num2,
                                                  ShapeFix_DataMapOfShapeBox2d&       boxes,
                                                  const Bnd_Box2d&                    B2) const;
 
   Standard_EXPORT Standard_Boolean FindVertAndSplitEdge(const Standard_Real         param1,
-                                                        const TopoDS_Edge&          edge1,
-                                                        const TopoDS_Edge&          edge2,
-                                                        const Handle(Geom2d_Curve)& Crv1,
+                                                        const TopoEdge&          edge1,
+                                                        const TopoEdge&          edge2,
+                                                        const Handle(GeomCurve2d)& Crv1,
                                                         Standard_Real&              MaxTolVert,
                                                         Standard_Integer&           num1,
                                                         const Handle(ShapeExtend_WireData)& sewd,
-                                                        const TopoDS_Face&                  face,
+                                                        const TopoFace&                  face,
                                                         ShapeFix_DataMapOfShapeBox2d&       boxes,
                                                         const Standard_Boolean aTmpKey) const;
 

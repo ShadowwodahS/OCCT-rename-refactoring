@@ -53,10 +53,10 @@ void BRepCheck::Add(BRepCheck_ListOfStatus& lst, const BRepCheck_Status stat)
 
 //=================================================================================================
 
-Standard_Boolean BRepCheck::SelfIntersection(const TopoDS_Wire& W,
-                                             const TopoDS_Face& myFace,
-                                             TopoDS_Edge&       RetE1,
-                                             TopoDS_Edge&       RetE2)
+Standard_Boolean BRepCheck::SelfIntersection(const TopoWire& W,
+                                             const TopoFace& myFace,
+                                             TopoEdge&       RetE1,
+                                             TopoEdge&       RetE2)
 {
   Handle(BRepCheck_Wire) chkw = new BRepCheck_Wire(W);
   BRepCheck_Status       stat = chkw->SelfIntersect(myFace, RetE1, RetE2);

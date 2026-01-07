@@ -66,7 +66,7 @@ TopOpeBRepBuild_FaceBuilder::TopOpeBRepBuild_FaceBuilder() {}
 //=================================================================================================
 
 TopOpeBRepBuild_FaceBuilder::TopOpeBRepBuild_FaceBuilder(TopOpeBRepBuild_WireEdgeSet& WES,
-                                                         const TopoDS_Shape&          F,
+                                                         const TopoShape&          F,
                                                          const Standard_Boolean       ForceClass)
 {
   InitFaceBuilder(WES, F, ForceClass);
@@ -75,36 +75,36 @@ TopOpeBRepBuild_FaceBuilder::TopOpeBRepBuild_FaceBuilder(TopOpeBRepBuild_WireEdg
 //=================================================================================================
 
 void TopOpeBRepBuild_FaceBuilder::InitFaceBuilder(TopOpeBRepBuild_WireEdgeSet& WES,
-                                                  const TopoDS_Shape&          F,
+                                                  const TopoShape&          F,
                                                   const Standard_Boolean       ForceClass)
 {
   myFace = TopoDS::Face(F);
   MakeLoops(WES);
-  TopOpeBRepBuild_BlockBuilder&      BB = myBlockBuilder;
+  BlockBuilder&      BB = myBlockBuilder;
   TopOpeBRepBuild_WireEdgeClassifier WEC(F, BB);
-  TopOpeBRepBuild_LoopSet&           LS = myLoopSet;
+  LoopSet&           LS = myLoopSet;
   myFaceAreaBuilder.InitFaceAreaBuilder(LS, WEC, ForceClass);
 }
 
 //---------------------------------------------------------------
-void FUN_DetectVerticesOn1Edge(const TopoDS_Shape& W, TopTools_IndexedDataMapOfShapeShape& mapVon1E)
+void FUN_DetectVerticesOn1Edge(const TopoShape& W, TopTools_IndexedDataMapOfShapeShape& mapVon1E)
 {
   // Fills the map <mapVon1edge>,with vertices of <W> of 3d connexity 1.
   TopTools_IndexedDataMapOfShapeListOfShape mapVedges;
-  TopExp::MapShapesAndAncestors(W, TopAbs_VERTEX, TopAbs_EDGE, mapVedges);
+  TopExp1::MapShapesAndAncestors(W, TopAbs_VERTEX, TopAbs_EDGE, mapVedges);
   Standard_Integer nV = mapVedges.Extent();
 
   for (Standard_Integer i = 1; i <= nV; i++)
   {
-    const TopoDS_Shape& V = mapVedges.FindKey(i);
+    const TopoShape& V = mapVedges.FindKey(i);
     if (V.Orientation() == TopAbs_INTERNAL)
       continue;
 
-    const TopTools_ListOfShape& loE = mapVedges.FindFromIndex(i);
+    const ShapeList& loE = mapVedges.FindFromIndex(i);
     if (loE.Extent() < 2)
     {
       // Keeping INTERNAL or EXTERNAL edges
-      const TopoDS_Shape& E    = loE.First();
+      const TopoShape& E    = loE.First();
       TopAbs_Orientation  oriE = E.Orientation();
       if ((oriE == TopAbs_INTERNAL) || (oriE == TopAbs_EXTERNAL))
         continue;
@@ -137,9 +137,9 @@ Standard_Integer FUN_AnalyzemapVon1E(const TopTools_IndexedDataMapOfShapeShape& 
   }
   else if (nV == 1)
   {
-    const TopoDS_Shape& E       = mapVon1E.FindFromIndex(1);
-    Standard_Boolean    Eclosed = BRep_Tool::IsClosed(E);
-    Standard_Boolean    dgE     = BRep_Tool::Degenerated(TopoDS::Edge(E));
+    const TopoShape& E       = mapVon1E.FindFromIndex(1);
+    Standard_Boolean    Eclosed = BRepInspector::IsClosed(E);
+    Standard_Boolean    dgE     = BRepInspector::Degenerated(TopoDS::Edge(E));
     if (dgE)
       res = ISVERTEX;
     else if (Eclosed)
@@ -155,12 +155,12 @@ Standard_Integer FUN_AnalyzemapVon1E(const TopTools_IndexedDataMapOfShapeShape& 
     Standard_Real tol = Precision::Confusion();
     for (Standard_Integer i = 1; i <= nV; i++)
     {
-      const TopoDS_Vertex& vi = TopoDS::Vertex(mapVon1E.FindKey(i));
-      Point3d               pi = BRep_Tool::Pnt(vi);
+      const TopoVertex& vi = TopoDS::Vertex(mapVon1E.FindKey(i));
+      Point3d               pi = BRepInspector::Pnt(vi);
       for (Standard_Integer j = i + 1; j <= nV; j++)
       {
-        const TopoDS_Vertex& vj   = TopoDS::Vertex(mapVon1E.FindKey(j));
-        Point3d               pj   = BRep_Tool::Pnt(vj);
+        const TopoVertex& vj   = TopoDS::Vertex(mapVon1E.FindKey(j));
+        Point3d               pj   = BRepInspector::Pnt(vj);
         Standard_Boolean     same = pi.IsEqual(pj, tol);
         if (same)
         {
@@ -192,7 +192,7 @@ Standard_Integer FUN_AnalyzemapVon1E(const TopTools_IndexedDataMapOfShapeShape& 
 void FUN_AnalyzemapVon1EDRAW(const Standard_Integer                     res,
                              const TopTools_IndexedDataMapOfShapeShape& mapVon1E,
                              const TopTools_IndexedDataMapOfShapeShape& mapVV,
-                             const TopoDS_Shape&                        W,
+                             const TopoShape&                        W,
                              const Standard_Integer                     iiwi,
                              TopTools_IndexedDataMapOfShapeShape&       mapVon1EdgeDRAW,
                              TopTools_IndexedDataMapOfShapeShape&       mapVVsameGDRAW)
@@ -212,7 +212,7 @@ void FUN_AnalyzemapVon1EDRAW(const Standard_Integer                     res,
   else if (res == GCLOSEDW)
   {
     std::cout << " is Gclosed :" << std::endl;
-    TCollection_AsciiString aa("w_");
+    AsciiString1 aa("w_");
     FUN_tool_draw(aa, W, iiwi);
     Standard_Integer i;
     for (i = 1; i <= mapVV.Extent(); i++)
@@ -234,7 +234,7 @@ void FUN_AnalyzemapVon1EDRAW(const Standard_Integer                     res,
   else if (res == UNCLOSEDW)
   {
     std::cout << " is unclosed " << std::endl;
-    TCollection_AsciiString aa("w_");
+    AsciiString1 aa("w_");
     FUN_tool_draw(aa, W, iiwi);
   }
   std::cout << std::endl;
@@ -284,13 +284,13 @@ void TopOpeBRepBuild_FaceBuilder::DetectUnclosedWire(
       if (isold)
         continue;
 
-      TopoDS_Compound cmp;
-      BRep_Builder    BB;
+      TopoCompound cmp;
+      ShapeBuilder    BB;
       BB.MakeCompound(cmp);
       InitEdge();
       for (; MoreEdge(); NextEdge())
         AddEdgeWire(Edge(), cmp);
-      TopoDS_Shape W = cmp;
+      TopoShape W = cmp;
 
       // <mapVon1E> binds vertices of connexity 1 attached to one non-closed,non-degenerated edge.
       TopTools_IndexedDataMapOfShapeShape mapVon1E;
@@ -327,30 +327,30 @@ void TopOpeBRepBuild_FaceBuilder::DetectUnclosedWire(
 #ifdef RM_HANGING
         // MSV Oct 4, 2001: remove hanging edges
         TopTools_IndexedDataMapOfShapeListOfShape mapVE;
-        TopExp::MapShapesAndAncestors(W, TopAbs_VERTEX, TopAbs_EDGE, mapVE);
+        TopExp1::MapShapesAndAncestors(W, TopAbs_VERTEX, TopAbs_EDGE, mapVE);
         Standard_Integer nV = mapVon1E.Extent();
         for (Standard_Integer i = 1; i <= nV; i++)
         {
-          TopoDS_Vertex V = TopoDS::Vertex(mapVon1E.FindKey(i));
+          TopoVertex V = TopoDS::Vertex(mapVon1E.FindKey(i));
           if (mapVV.Contains(V))
             continue; // V is in same geometry pair
           while (1)
           {
-            const TopTools_ListOfShape& LE = mapVE.FindFromKey(V);
+            const ShapeList& LE = mapVE.FindFromKey(V);
 
             // get not yet processed edge, count the number of such edges
             Standard_Integer                   nEdges = 0;
-            TopoDS_Edge                        Edge;
+            TopoEdge                        Edge;
             TColStd_ListOfInteger              LOI;
             TopTools_ListIteratorOfListOfShape itE(LE);
             for (; itE.More() && nEdges <= 1; itE.Next())
             {
-              const TopoDS_Edge& E = TopoDS::Edge(itE.Value());
+              const TopoEdge& E = TopoDS::Edge(itE.Value());
               Standard_Integer   I = myBlockBuilder.Element(E);
-              if (!BRep_Tool::IsClosed(E) && myBlockBuilder.ElementIsValid(I))
+              if (!BRepInspector::IsClosed(E) && myBlockBuilder.ElementIsValid(I))
               {
-                TopoDS_Vertex Vf, Vl;
-                TopExp::Vertices(E, Vf, Vl);
+                TopoVertex Vf, Vl;
+                TopExp1::Vertices(E, Vf, Vl);
                 LOI.Append(I);
                 // consider not small edges only
                 if (!Vf.IsSame(Vl))
@@ -369,8 +369,8 @@ void TopOpeBRepBuild_FaceBuilder::DetectUnclosedWire(
               myBlockBuilder.SetValid(itLOI.Value(), Standard_False);
 
             // get other vertex
-            TopoDS_Vertex aV1, aV2, otherV;
-            TopExp::Vertices(Edge, aV1, aV2);
+            TopoVertex aV1, aV2, otherV;
+            TopExp1::Vertices(Edge, aV1, aV2);
             if (aV1.IsSame(V))
               otherV = aV2;
             else if (aV2.IsSame(V))
@@ -381,10 +381,10 @@ void TopOpeBRepBuild_FaceBuilder::DetectUnclosedWire(
           }
         }
 #else
-        TopExp_Explorer ex;
+        ShapeExplorer ex;
         for (ex.Init(W, TopAbs_EDGE); ex.More(); ex.Next())
         {
-          //	for (TopExp_Explorer ex(W,TopAbs_EDGE);ex.More();ex.Next()) {
+          //	for (ShapeExplorer ex(W,TopAbs_EDGE);ex.More();ex.Next()) {
           Standard_Integer I = myBlockBuilder.Element(ex.Current());
           myBlockBuilder.SetValid(I, Standard_False);
         }
@@ -411,21 +411,21 @@ void TopOpeBRepBuild_FaceBuilder::CorrectGclosedWire(
   Standard_Integer nVV = mapVVref.Extent();
   for (Standard_Integer i = 1; i <= nVV; i++)
   {
-    const TopoDS_Vertex& V    = TopoDS::Vertex(mapVVref.FindKey(i));
-    const TopoDS_Vertex& Vref = TopoDS::Vertex(mapVVref.FindFromIndex(i));
+    const TopoVertex& V    = TopoDS::Vertex(mapVVref.FindKey(i));
+    const TopoVertex& Vref = TopoDS::Vertex(mapVVref.FindFromIndex(i));
 
     if (V.IsSame(Vref))
       continue;
 
-    TopoDS_Edge   E      = TopoDS::Edge(mapVon1Edge.FindFromKey(V));
-    Standard_Real paronE = BRep_Tool::Parameter(V, E);
+    TopoEdge   E      = TopoDS::Edge(mapVon1Edge.FindFromKey(V));
+    Standard_Real paronE = BRepInspector::Parameter(V, E);
 
-    BRep_Builder BB;
+    ShapeBuilder BB;
     E.Free(Standard_True);
     BB.Remove(E, V);
-    TopoDS_Shape  aLocalShape = Vref.Oriented(V.Orientation());
-    TopoDS_Vertex newVref     = TopoDS::Vertex(aLocalShape);
-    //    TopoDS_Vertex newVref = TopoDS::Vertex(Vref.Oriented(V.Orientation()));
+    TopoShape  aLocalShape = Vref.Oriented(V.Orientation());
+    TopoVertex newVref     = TopoDS::Vertex(aLocalShape);
+    //    TopoVertex newVref = TopoDS::Vertex(Vref.Oriented(V.Orientation()));
     BB.Add(E, newVref);
     TopOpeBRepDS_BuildTool BT;
     BT.Parameter(E, newVref, paronE);
@@ -436,8 +436,8 @@ void TopOpeBRepBuild_FaceBuilder::CorrectGclosedWire(
 
 void TopOpeBRepBuild_FaceBuilder::DetectPseudoInternalEdge(TopTools_IndexedMapOfShape& MapE)
 {
-  TopoDS_Compound cmp;
-  BRep_Builder    BB;
+  TopoCompound cmp;
+  ShapeBuilder    BB;
   BB.MakeCompound(cmp);
   InitFace();
   for (; MoreFace(); NextFace())
@@ -455,24 +455,24 @@ void TopOpeBRepBuild_FaceBuilder::DetectPseudoInternalEdge(TopTools_IndexedMapOf
   } // MoreFace
 
   TopTools_IndexedDataMapOfShapeListOfShape mapVOE;
-  TopExp::MapShapesAndAncestors(cmp, TopAbs_VERTEX, TopAbs_EDGE, mapVOE);
+  TopExp1::MapShapesAndAncestors(cmp, TopAbs_VERTEX, TopAbs_EDGE, mapVOE);
   Standard_Integer nv = mapVOE.Extent();
 
   MapE.Clear();
   for (Standard_Integer i = 1; i <= nv; i++)
   {
-    const TopTools_ListOfShape& le = mapVOE.FindFromIndex(i);
+    const ShapeList& le = mapVOE.FindFromIndex(i);
     Standard_Integer            ne = le.Extent();
     if (ne == 2)
     {
       TopTools_ListIteratorOfListOfShape ile(le);
-      const TopoDS_Shape&                e1 = ile.Value();
+      const TopoShape&                e1 = ile.Value();
       ile.Next();
-      const TopoDS_Shape& e2    = ile.Value();
+      const TopoShape& e2    = ile.Value();
       Standard_Boolean    same  = e1.IsSame(e2);
       TopAbs_Orientation  o1    = e1.Orientation();
       TopAbs_Orientation  o2    = e2.Orientation();
-      Standard_Boolean    o1co2 = (o1 == TopAbs::Complement(o2));
+      Standard_Boolean    o1co2 = (o1 == TopAbs1::Complement(o2));
 
       if (same && o1co2)
       {
@@ -490,7 +490,7 @@ void TopOpeBRepBuild_FaceBuilder::DetectPseudoInternalEdge(TopTools_IndexedMapOf
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepBuild_FaceBuilder::Face() const
+const TopoShape& TopOpeBRepBuild_FaceBuilder::Face() const
 {
   return myFace;
 }
@@ -552,10 +552,10 @@ Standard_Boolean TopOpeBRepBuild_FaceBuilder::IsOldWire() const
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepBuild_FaceBuilder::OldWire() const
+const TopoShape& TopOpeBRepBuild_FaceBuilder::OldWire() const
 {
   const Handle(TopOpeBRepBuild_Loop)& L = myFaceAreaBuilder.Loop();
-  const TopoDS_Shape&                 B = L->Shape();
+  const TopoShape&                 B = L->Shape();
   return B;
 }
 
@@ -613,7 +613,7 @@ void TopOpeBRepBuild_FaceBuilder::NextEdge()
 
 //=================================================================================================
 
-const TopoDS_Shape& TopOpeBRepBuild_FaceBuilder::Edge() const
+const TopoShape& TopOpeBRepBuild_FaceBuilder::Edge() const
 {
   if (!myBlockIterator.More())
     throw ExceptionBase("OutOfRange");
@@ -623,13 +623,13 @@ const TopoDS_Shape& TopOpeBRepBuild_FaceBuilder::Edge() const
   if (!isvalid)
     throw ExceptionBase("Edge not Valid");
 
-  const TopoDS_Shape& E = myBlockBuilder.Element(i);
+  const TopoShape& E = myBlockBuilder.Element(i);
   return E;
 }
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepBuild_FaceBuilder::EdgeConnexity(const TopoDS_Shape& /*E*/) const
+Standard_Integer TopOpeBRepBuild_FaceBuilder::EdgeConnexity(const TopoShape& /*E*/) const
 {
 #ifdef OCCT_DEBUG
   throw Standard_ProgramError("FaceBuilder::EdgeConnexity management disactivated");
@@ -643,19 +643,19 @@ Standard_Integer TopOpeBRepBuild_FaceBuilder::EdgeConnexity(const TopoDS_Shape& 
 
 //=================================================================================================
 
-Standard_Integer TopOpeBRepBuild_FaceBuilder::AddEdgeWire(const TopoDS_Shape& E,
-                                                          TopoDS_Shape&       W) const
+Standard_Integer TopOpeBRepBuild_FaceBuilder::AddEdgeWire(const TopoShape& E,
+                                                          TopoShape&       W) const
 {
   Standard_Integer nadd = 0;
-  BRep_Builder     BB;
+  ShapeBuilder     BB;
   BB.Add(W, E);
   nadd++;
   //  Standard_Integer nmosi = EdgeConnexity(E);
   //  Standard_Boolean addEC = (nmosi == 1);
   //  if (addEC) {
   //    TopAbs_Orientation oe = E.Orientation();
-  //    TopAbs_Orientation oc = TopAbs::Complement(oe);
-  //    TopoDS_Shape EC = E.Oriented(oc);
+  //    TopAbs_Orientation oc = TopAbs1::Complement(oe);
+  //    TopoShape EC = E.Oriented(oc);
   //    BB.Add(W,EC);nadd++;
   //  }
   return nadd;
@@ -665,7 +665,7 @@ Standard_Integer TopOpeBRepBuild_FaceBuilder::AddEdgeWire(const TopoDS_Shape& E,
 
 void TopOpeBRepBuild_FaceBuilder::MakeLoops(TopOpeBRepBuild_ShapeSet& SS)
 {
-  TopOpeBRepBuild_BlockBuilder& BB = myBlockBuilder;
+  BlockBuilder& BB = myBlockBuilder;
   TopOpeBRepBuild_ListOfLoop&   LL = myLoopSet.ChangeListOfLoop();
 
   // Build blocks on elements of SS
@@ -679,7 +679,7 @@ void TopOpeBRepBuild_FaceBuilder::MakeLoops(TopOpeBRepBuild_ShapeSet& SS)
   LL.Clear();
   for (SS.InitShapes(); SS.MoreShapes(); SS.NextShape())
   {
-    const TopoDS_Shape&          S         = SS.Shape();
+    const TopoShape&          S         = SS.Shape();
     Handle(TopOpeBRepBuild_Loop) ShapeLoop = new TopOpeBRepBuild_Loop(S);
     LL.Append(ShapeLoop);
   }
@@ -687,7 +687,7 @@ void TopOpeBRepBuild_FaceBuilder::MakeLoops(TopOpeBRepBuild_ShapeSet& SS)
   // Add blocks of BB as block loops
   for (BB.InitBlock(); BB.MoreBlock(); BB.NextBlock())
   {
-    TopOpeBRepBuild_BlockIterator BI        = BB.BlockIterator();
+    TopOpeBRepBuildBlockIterator BI        = BB.BlockIterator();
     Handle(TopOpeBRepBuild_Loop)  BlockLoop = new TopOpeBRepBuild_Loop(BI);
     LL.Append(BlockLoop);
   }

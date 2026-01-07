@@ -34,14 +34,14 @@ public:
 
   //! Automatic placement
   Standard_EXPORT BRepFill_SectionPlacement(const Handle(BRepFill_LocationLaw)& Law,
-                                            const TopoDS_Shape&                 Section,
+                                            const TopoShape&                 Section,
                                             const Standard_Boolean WithContact    = Standard_False,
                                             const Standard_Boolean WithCorrection = Standard_False);
 
   //! Placement on vertex
   Standard_EXPORT BRepFill_SectionPlacement(const Handle(BRepFill_LocationLaw)& Law,
-                                            const TopoDS_Shape&                 Section,
-                                            const TopoDS_Shape&                 Vertex,
+                                            const TopoShape&                 Section,
+                                            const TopoShape&                 Vertex,
                                             const Standard_Boolean WithContact    = Standard_False,
                                             const Standard_Boolean WithCorrection = Standard_False);
 
@@ -53,10 +53,10 @@ protected:
 private:
   Standard_EXPORT void Perform(const Standard_Boolean WithContact,
                                const Standard_Boolean WithCorrection,
-                               const TopoDS_Shape&    Vertex);
+                               const TopoShape&    Vertex);
 
   Handle(BRepFill_LocationLaw) myLaw;
-  TopoDS_Shape                 mySection;
+  TopoShape                 mySection;
   Transform3d                      myTrsf;
   Standard_Real                myParam;
   Standard_Integer             myIndex;

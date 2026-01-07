@@ -130,14 +130,14 @@ void XCAFDimTolObjects_DatumObject::AddModifier(
 
 //=================================================================================================
 
-TopoDS_Shape XCAFDimTolObjects_DatumObject::GetDatumTarget() const
+TopoShape XCAFDimTolObjects_DatumObject::GetDatumTarget() const
 {
   return myDatumTarget;
 }
 
 //=================================================================================================
 
-void XCAFDimTolObjects_DatumObject::SetDatumTarget(const TopoDS_Shape& theShape)
+void XCAFDimTolObjects_DatumObject::SetDatumTarget(const TopoShape& theShape)
 {
   myDatumTarget = theShape;
 }

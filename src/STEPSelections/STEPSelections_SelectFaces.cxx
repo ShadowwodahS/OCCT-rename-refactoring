@@ -66,7 +66,7 @@ Standard_Boolean STEPSelections_SelectFaces::Explore(const Standard_Integer /*le
   return isSome;
 }
 
-TCollection_AsciiString STEPSelections_SelectFaces::ExploreLabel() const
+AsciiString1 STEPSelections_SelectFaces::ExploreLabel() const
 {
-  return TCollection_AsciiString("Faces");
+  return AsciiString1("Faces");
 }

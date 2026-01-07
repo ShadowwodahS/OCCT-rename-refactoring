@@ -155,7 +155,7 @@ void StepData_StepReaderTool::BeginRead(const Handle(Interface_InterfaceModel)& 
     AnalyseRecord(i, ent, ach);
     if (ent->IsKind(STANDARD_TYPE(StepData_UndefinedEntity)))
     {
-      TCollection_AsciiString mess("Header Entity not Recognized, StepType: ");
+      AsciiString1 mess("Header Entity not Recognized, StepType: ");
       mess.AssignCat(stepdat->RecordType(i));
       ach->AddWarning(mess.ToCString());
     }
@@ -209,10 +209,10 @@ Standard_Boolean StepData_StepReaderTool::AnalyseRecord(const Standard_Integer  
   }
   else
   {
-    //  Pas trouve : tenter UndefinedEntity de StepData
+    //  Pas trouve : tenter UndefinedEntity de StepData1
     DeclareAndCast(StepData_UndefinedEntity, und, anent);
     if (und.IsNull())
-      acheck->AddFail("# Entity neither Recognized nor set as UndefinedEntity from StepData #");
+      acheck->AddFail("# Entity neither Recognized nor set as UndefinedEntity from StepData1 #");
     else
       und->ReadRecord(stepdat, num, acheck);
   }

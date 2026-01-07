@@ -107,10 +107,10 @@ void IGESControl_IGESBoundary::Check(const Standard_Boolean result,
 //=======================================================================
 // function : Connect
 // purpose  : Connects theNextWD to theWD using theSAW.
-//           First, connects edges of theNextWD by calling ShapeFix_Wire::FixConnected(). This
+//           First, connects edges of theNextWD by calling WireHealer::FixConnected(). This
 //           is necessary when theNextWD was built using multiple curves from the Composite
 //           Curve (as ShapeExtend_WireData::Wire() would otherwise produce a wrong
-//           disconnected TopoDS_Wire).
+//           disconnected TopoWire).
 //           FixConnected() will only update the edges resulting from different composite
 //           curve segments. Edges resulting from splitting C0 curve will already be
 //           connected.
@@ -127,7 +127,7 @@ static Standard_Boolean Connect(const Handle(ShapeAnalysis_Wire)&   theSAW,
   theSAW->Load(theWD);
   if (theConnectNextWD)
   {
-    Handle(ShapeFix_Wire) sfw = new ShapeFix_Wire;
+    Handle(WireHealer) sfw = new WireHealer;
     sfw->Load(theNextWD);
     sfw->ClosedWireMode() = Standard_False; // internal connections are enough
     sfw->FixConnected();
@@ -179,13 +179,13 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
     len3d = scurve3d->NbEdges();
   else
   {
-    IGESToBRep::IGESCurveToSequenceOfIGESCurve(icurve3d, seq3d);
+    IGESToBRep1::IGESCurveToSequenceOfIGESCurve(icurve3d, seq3d);
     len3d = seq3d->Length();
   }
   if (!curves2d.IsNull())
   {
     for (Standard_Integer i = 1; i <= curves2d->Length(); i++)
-      IGESToBRep::IGESCurveToSequenceOfIGESCurve(curves2d->Value(i), seq2d);
+      IGESToBRep1::IGESCurveToSequenceOfIGESCurve(curves2d->Value(i), seq2d);
     len2d = seq2d->Length();
   }
 
@@ -225,7 +225,7 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
     }
     else
     {
-      TopoDS_Shape Sh = TC.TransferTopoCurve(icurve3d);
+      TopoShape Sh = TC.TransferTopoCurve(icurve3d);
       if (!Sh.IsNull())
       {
         Gsewd3d->Add(Sh);
@@ -244,7 +244,7 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
   {
     for (Standard_Integer i = curves2d->Lower(); i <= curves2d->Upper(); i++)
     {
-      TopoDS_Shape Sh = TC.Transfer2dTopoCurve(curves2d->Value(i), myface, mytrsf, myuFact);
+      TopoShape Sh = TC.Transfer2dTopoCurve(curves2d->Value(i), myface, mytrsf, myuFact);
       if (!Sh.IsNull())
         Gsewd2d->Add(Sh);
     }
@@ -268,7 +268,7 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
         Lsewd3d->Add(scurve3d->Edge(i));
       else
       {
-        TopoDS_Shape shape3d =
+        TopoShape shape3d =
           TC.TransferTopoCurve(Handle(IGESData_IGESEntity)::DownCast(seq3d->Value(i)));
         if (!shape3d.IsNull())
         {
@@ -288,7 +288,7 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
 
       Handle(ShapeExtend_WireData) Lsewd2d = new ShapeExtend_WireData;
       TC.SetBadCase(Standard_False); //: 27
-      TopoDS_Shape shape2d =
+      TopoShape shape2d =
         TC.Transfer2dTopoCurve(Handle(IGESData_IGESEntity)::DownCast(seq2d->Value(i)),
                                myface,
                                mytrsf,
@@ -336,8 +336,8 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
         Handle(ShapeFix_Edge) sfe = new ShapeFix_Edge;
         for (Standard_Integer iedge = 1; iedge <= Lsewd3d->NbEdges(); iedge++)
         {
-          TopoDS_Edge edge3d = Lsewd3d->Edge(iedge), edge2d = Lsewd2d->Edge(iedge);
-          if (!IGESToBRep::TransferPCurve(edge2d, edge3d, myface))
+          TopoEdge edge3d = Lsewd3d->Edge(iedge), edge2d = Lsewd2d->Edge(iedge);
+          if (!IGESToBRep1::TransferPCurve(edge2d, edge3d, myface))
             continue;
           if (sfe->FixReversed2d(edge3d, myface))
           {
@@ -347,20 +347,20 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
 #endif
           }
           // #74 rln 10.03.99 S4135: handling use of BRepLib::SameParameter by new static parameter
-          if (Interface_Static::IVal("read.stdsameparameter.mode"))
+          if (ExchangeConfig::IVal("read.stdsameparameter.mode"))
           {
             Standard_Real first, last;
-            BRep_Tool::Range(edge3d, first, last);
+            BRepInspector::Range(edge3d, first, last);
             // pdn 08.04.99 S4135 optimizing in computation of SPTol
             // choosing tolerance according to Approx_SameParameter: 50 * 22
             Standard_Real SPTol = Min(precision, Abs(last - first) / 1000);
-            BRep_Builder  B;
+            ShapeBuilder  B;
             B.SameParameter(edge3d, Standard_False);
             sfe->FixSameParameter(edge3d, SPTol);
           }
           else
             sfe->FixSameParameter(edge3d);
-          Standard_Real maxdev = BRep_Tool::Tolerance(edge3d);
+          Standard_Real maxdev = BRepInspector::Tolerance(edge3d);
           // pdn 08.04.99 S4135 recomputing only if deviation is greater than maxtol
           if (maxdev > maxtol)
           { //: e2
@@ -407,7 +407,7 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
             Gsewd3d->Add(scurve3d->Edge(j));
           else
           {
-            TopoDS_Shape Sh =
+            TopoShape Sh =
               TC.TransferTopoCurve(Handle(IGESData_IGESEntity)::DownCast(seq3d->Value(j)));
             if (!Sh.IsNull())
               Gsewd3d->Add(Sh);
@@ -420,7 +420,7 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
         Gsewd2d = new ShapeExtend_WireData;
         for (Standard_Integer k = 1; k <= len2d; k++)
         {
-          TopoDS_Shape Sh =
+          TopoShape Sh =
             TC.Transfer2dTopoCurve(Handle(IGESData_IGESEntity)::DownCast(seq2d->Value(k)),
                                    myface,
                                    mytrsf,
@@ -432,12 +432,12 @@ Standard_Boolean IGESControl_IGESBoundary::Transfer(
         {
           ReverseCurves2d(Gsewd2d, myface);
         }
-        Handle(ShapeFix_Wire) sfw3 = new ShapeFix_Wire(Gsewd3d->Wire(), myface, precision);
+        Handle(WireHealer) sfw3 = new WireHealer(Gsewd3d->Wire(), myface, precision);
         sfw3->Perform();
-        TopoDS_Wire           w3   = sfw3->Wire();
-        Handle(ShapeFix_Wire) sfw2 = new ShapeFix_Wire(Gsewd2d->Wire(), myface, precision);
+        TopoWire           w3   = sfw3->Wire();
+        Handle(WireHealer) sfw2 = new WireHealer(Gsewd2d->Wire(), myface, precision);
         sfw2->Perform();
-        TopoDS_Wire                  w2 = sfw2->Wire();
+        TopoWire                  w2 = sfw2->Wire();
         ShapeAnalysis_ShapeTolerance ST;
         double                       tol3 = ST.Tolerance(w3, 1);
         double                       tol2 = ST.Tolerance(w2, 1);

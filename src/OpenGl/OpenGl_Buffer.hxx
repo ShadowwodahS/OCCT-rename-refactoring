@@ -27,7 +27,7 @@ public:
   static const unsigned int NO_BUFFER = 0;
 
   //! Format VBO target enumeration value.
-  Standard_EXPORT static TCollection_AsciiString FormatTarget(unsigned int theTarget);
+  Standard_EXPORT static AsciiString1 FormatTarget(unsigned int theTarget);
 
 public:
   //! Create uninitialized buffer.

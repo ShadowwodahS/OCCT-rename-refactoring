@@ -52,7 +52,7 @@ Handle(Expr_GeneralExpression) Expr_ArcCosine::ShallowSimplified() const
 
 Handle(Expr_GeneralExpression) Expr_ArcCosine::Copy() const
 {
-  return new Expr_ArcCosine(Expr::CopyShare(Operand()));
+  return new Expr_ArcCosine(Expr1::CopyShare(Operand()));
 }
 
 Standard_Boolean Expr_ArcCosine::IsIdentical(const Handle(Expr_GeneralExpression)& Other) const
@@ -83,7 +83,7 @@ Handle(Expr_GeneralExpression) Expr_ArcCosine::Derivative(const Handle(Expr_Name
   Handle(Expr_GeneralExpression) op    = Operand();
   Handle(Expr_GeneralExpression) derop = op->Derivative(X);
 
-  Handle(Expr_Square) sq = new Expr_Square(Expr::CopyShare(op));
+  Handle(Expr_Square) sq = new Expr_Square(Expr1::CopyShare(op));
   // 1 - X2
   Handle(Expr_Difference) thedif = 1.0 - sq->ShallowSimplified();
 
@@ -104,9 +104,9 @@ Standard_Real Expr_ArcCosine::Evaluate(const Expr_Array1OfNamedUnknown& vars,
   return ::ACos(Operand()->Evaluate(vars, vals));
 }
 
-TCollection_AsciiString Expr_ArcCosine::String() const
+AsciiString1 Expr_ArcCosine::String() const
 {
-  TCollection_AsciiString str("ACos(");
+  AsciiString1 str("ACos(");
   str += Operand()->String();
   str += ")";
   return str;

@@ -24,7 +24,7 @@
 #include <TopoDS_Face.hxx>
 #include <TopAbs_Orientation.hxx>
 class Point3d;
-class TopoDS_Face;
+class TopoFace;
 
 class LocOpe_PntFace
 {
@@ -40,7 +40,7 @@ public:
   }
 
   LocOpe_PntFace(const Point3d&            P,
-                 const TopoDS_Face&       F,
+                 const TopoFace&       F,
                  const TopAbs_Orientation Or,
                  const Standard_Real      Param,
                  const Standard_Real      UPar,
@@ -56,7 +56,7 @@ public:
 
   const Point3d& Pnt() const { return myPnt; }
 
-  const TopoDS_Face& Face() const { return myFace; }
+  const TopoFace& Face() const { return myFace; }
 
   TopAbs_Orientation Orientation() const { return myOri; }
 
@@ -70,7 +70,7 @@ public:
 
 private:
   Point3d             myPnt;
-  TopoDS_Face        myFace;
+  TopoFace        myFace;
   TopAbs_Orientation myOri;
   Standard_Real      myPar;
   Standard_Real      myUPar;

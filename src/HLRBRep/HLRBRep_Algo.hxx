@@ -21,7 +21,7 @@
 
 #include <HLRBRep_InternalAlgo.hxx>
 #include <Standard_Integer.hxx>
-class TopoDS_Shape;
+class TopoShape;
 class RefObject;
 
 class HLRBRep_Algo;
@@ -75,18 +75,18 @@ public:
   Standard_EXPORT HLRBRep_Algo(const Handle(HLRBRep_Algo)& A);
 
   //! add the Shape <S>.
-  Standard_EXPORT void Add(const TopoDS_Shape&               S,
+  Standard_EXPORT void Add(const TopoShape&               S,
                            const Handle(RefObject)& SData,
                            const Standard_Integer            nbIso = 0);
 
   //! Adds the shape S to this framework, and
   //! specifies the number of isoparameters nbiso desired in visualizing S.
   //! You may add as many shapes as you wish. Use the function Add once for each shape.
-  Standard_EXPORT void Add(const TopoDS_Shape& S, const Standard_Integer nbIso = 0);
+  Standard_EXPORT void Add(const TopoShape& S, const Standard_Integer nbIso = 0);
 
   //! return  the index  of  the  Shape <S>  and
   //! return 0 if the Shape <S> is not found.
-  Standard_EXPORT Standard_Integer Index(const TopoDS_Shape& S);
+  Standard_EXPORT Standard_Integer Index(const TopoShape& S);
 
   //! nullify all the results of OutLiner from HLRTopoBRep.
   Standard_EXPORT void OutLinedShapeNullify();

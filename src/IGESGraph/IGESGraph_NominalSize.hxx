@@ -28,7 +28,7 @@ class IGESGraph_NominalSize;
 DEFINE_STANDARD_HANDLE(IGESGraph_NominalSize, IGESData_IGESEntity)
 
 //! defines IGESNominalSize, Type <406> Form <13>
-//! in package IGESGraph
+//! in package IGESGraph1
 //!
 //! Specifies a value, a name, and optionally a
 //! reference to an engineering standard

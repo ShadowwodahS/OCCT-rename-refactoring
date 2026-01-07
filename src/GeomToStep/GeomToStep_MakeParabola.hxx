@@ -29,18 +29,18 @@ class Geom_Parabola;
 //! This class implements the mapping between the class
 //! Parabola from Geom and the class Parabola from
 //! StepGeom which describes a Parabola from ProSTEP
-class GeomToStep_MakeParabola : public GeomToStep_Root
+class GeomToStep_MakeParabola : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeParabola(
     const Handle(Geom2d_Parabola)& C,
-    const StepData_Factors&        theLocalFactors = StepData_Factors());
+    const ConversionFactors&        theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeParabola(
     const Handle(Geom_Parabola)& C,
-    const StepData_Factors&      theLocalFactors = StepData_Factors());
+    const ConversionFactors&      theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_Parabola)& Value() const;
 

@@ -22,17 +22,17 @@
 #include <Standard_DefineAlloc.hxx>
 
 //! Hash tool, used for generating maps of shapes in topology.
-class TopTools_ShapeMapHasher
+class ShapeHasher
 {
 public:
   DEFINE_STANDARD_ALLOC;
 
-  size_t operator()(const TopoDS_Shape& theShape) const noexcept
+  size_t operator()(const TopoShape& theShape) const noexcept
   {
-    return std::hash<TopoDS_Shape>{}(theShape);
+    return std::hash<TopoShape>{}(theShape);
   }
 
-  bool operator()(const TopoDS_Shape& S1, const TopoDS_Shape& S2) const noexcept
+  bool operator()(const TopoShape& S1, const TopoShape& S2) const noexcept
   {
     return S1.IsSame(S2);
   }

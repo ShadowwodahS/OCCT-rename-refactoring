@@ -30,7 +30,7 @@
 #include <Standard_Boolean.hxx>
 class BRepFill_DraftLaw;
 class BRepFill_SectionLaw;
-class Geom_Surface;
+class GeomSurface;
 class Bnd_Box;
 
 class BRepFill_Draft
@@ -38,7 +38,7 @@ class BRepFill_Draft
 public:
   DEFINE_STANDARD_ALLOC
 
-  Standard_EXPORT BRepFill_Draft(const TopoDS_Shape& Shape,
+  Standard_EXPORT BRepFill_Draft(const TopoShape& Shape,
                                  const Dir3d&       Dir,
                                  const Standard_Real Angle);
 
@@ -50,10 +50,10 @@ public:
 
   Standard_EXPORT void Perform(const Standard_Real LengthMax);
 
-  Standard_EXPORT void Perform(const Handle(Geom_Surface)& Surface,
+  Standard_EXPORT void Perform(const Handle(GeomSurface)& Surface,
                                const Standard_Boolean      KeepInsideSurface = Standard_True);
 
-  Standard_EXPORT void Perform(const TopoDS_Shape&    StopShape,
+  Standard_EXPORT void Perform(const TopoShape&    StopShape,
                                const Standard_Boolean KeepOutSide = Standard_True);
 
   Standard_EXPORT Standard_Boolean IsDone() const;
@@ -61,24 +61,24 @@ public:
   //! Returns the draft surface
   //! To have the complete shape
   //! you have to use the Shape() methode.
-  Standard_EXPORT TopoDS_Shell Shell() const;
+  Standard_EXPORT TopoShell Shell() const;
 
   //! Returns the  list   of shapes generated   from the
   //! shape <S>.
-  Standard_EXPORT const TopTools_ListOfShape& Generated(const TopoDS_Shape& S);
+  Standard_EXPORT const ShapeList& Generated(const TopoShape& S);
 
-  Standard_EXPORT TopoDS_Shape Shape() const;
+  Standard_EXPORT TopoShape Shape() const;
 
 protected:
 private:
-  Standard_EXPORT void Init(const Handle(Geom_Surface)& Surf,
+  Standard_EXPORT void Init(const Handle(GeomSurface)& Surf,
                             const Standard_Real         Length,
                             const Bnd_Box&              Box);
 
-  Standard_EXPORT void BuildShell(const Handle(Geom_Surface)& Surf,
+  Standard_EXPORT void BuildShell(const Handle(GeomSurface)& Surf,
                                   const Standard_Boolean      KeepOutSide = Standard_False);
 
-  Standard_EXPORT Standard_Boolean Fuse(const TopoDS_Shape& S, const Standard_Boolean KeepOutSide);
+  Standard_EXPORT Standard_Boolean Fuse(const TopoShape& S, const Standard_Boolean KeepOutSide);
 
   Standard_EXPORT Standard_Boolean Sewing();
 
@@ -91,11 +91,11 @@ private:
   Handle(BRepFill_SectionLaw)     mySec;
   Handle(TopTools_HArray2OfShape) mySections;
   Handle(TopTools_HArray2OfShape) myFaces;
-  TopTools_ListOfShape            myGenerated;
-  TopoDS_Shape                    myShape;
-  TopoDS_Shape                    myTop;
-  TopoDS_Shell                    myShell;
-  TopoDS_Wire                     myWire;
+  ShapeList            myGenerated;
+  TopoShape                    myShape;
+  TopoShape                    myTop;
+  TopoShell                    myShell;
+  TopoWire                     myWire;
   GeomAbs_Shape                   myCont;
   BRepFill_TransitionStyle        myStyle;
   Standard_Boolean                IsInternal;

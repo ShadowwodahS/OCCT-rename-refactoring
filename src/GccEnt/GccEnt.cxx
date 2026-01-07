@@ -45,7 +45,7 @@ Standard_CString GccEnt::PositionToString(GccEnt_Position thePosition)
 Standard_Boolean GccEnt::PositionFromString(Standard_CString thePositionString,
                                             GccEnt_Position& thePosition)
 {
-  TCollection_AsciiString aName(thePositionString);
+  AsciiString1 aName(thePositionString);
   aName.UpperCase();
   for (Standard_Integer aTypeIter = 0; aTypeIter <= GccEnt_noqualifier; ++aTypeIter)
   {

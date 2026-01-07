@@ -18,7 +18,7 @@
 #define _Convert_ParameterisationType_HeaderFile
 
 //! Identifies a type of parameterization of a circle or ellipse represented as a BSpline curve.
-//! For a circle with a center C and a radius R (for example a Geom2d_Circle or a Geom_Circle),
+//! For a circle with a center C and a radius R (for example a Geom2d_Circle or a GeomCircle),
 //! the natural parameterization is angular. It uses the angle Theta made by the vector CM with
 //! the 'X Axis' of the circle's local coordinate system as parameter for the current point M. The
 //! coordinates of the point M are as follows:

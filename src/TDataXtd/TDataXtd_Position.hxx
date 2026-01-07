@@ -21,7 +21,7 @@
 
 #include <gp_Pnt.hxx>
 #include <TDF_Attribute.hxx>
-class TDF_Label;
+class DataLabel;
 class Standard_GUID;
 class TDF_RelocationTable;
 
@@ -34,15 +34,15 @@ class TDataXtd_Position : public TDF_Attribute
 
 public:
   //! Create if not found the TDataXtd_Position attribute set its position to <aPos>
-  Standard_EXPORT static void Set(const TDF_Label& aLabel, const Point3d& aPos);
+  Standard_EXPORT static void Set(const DataLabel& aLabel, const Point3d& aPos);
 
   //! Find an existing, or create an empty, Position.
   //! the Position attribute is returned.
-  Standard_EXPORT static Handle(TDataXtd_Position) Set(const TDF_Label& aLabel);
+  Standard_EXPORT static Handle(TDataXtd_Position) Set(const DataLabel& aLabel);
 
   //! Search label <aLabel) for the TDataXtd_Position attribute and get its position
   //! if found returns True
-  Standard_EXPORT static Standard_Boolean Get(const TDF_Label& aLabel, Point3d& aPos);
+  Standard_EXPORT static Standard_Boolean Get(const DataLabel& aLabel, Point3d& aPos);
 
   Standard_EXPORT TDataXtd_Position();
 

@@ -103,14 +103,14 @@ private:
     }
 
     // Commit polygons related to separate face.
-    const TopoDS_Edge&                                  aEdge = theDEdge->GetEdge();
+    const TopoEdge&                                  aEdge = theDEdge->GetEdge();
     IMeshData::IDMapOfIFacePtrsListOfIPCurves::Iterator aPolygonIt(aMapOfPCurves);
     for (; aPolygonIt.More(); aPolygonIt.Next())
     {
-      const TopoDS_Face& aFace = aPolygonIt.Key()->GetFace();
+      const TopoFace& aFace = aPolygonIt.Key()->GetFace();
 
       TopLoc_Location                   aLoc;
-      const Handle(Poly_Triangulation)& aTriangulation = BRep_Tool::Triangulation(aFace, aLoc);
+      const Handle(MeshTriangulation)& aTriangulation = BRepInspector::Triangulation(aFace, aLoc);
 
       if (!aTriangulation.IsNull())
       {
@@ -184,8 +184,8 @@ public:
     BRepLib::UpdateDeflection(aDFace->GetFace());
 
     TopLoc_Location                   aLoc;
-    const Handle(Poly_Triangulation)& aTriangulation =
-      BRep_Tool::Triangulation(aDFace->GetFace(), aLoc);
+    const Handle(MeshTriangulation)& aTriangulation =
+      BRepInspector::Triangulation(aDFace->GetFace(), aLoc);
 
     if (!aTriangulation.IsNull())
     {
@@ -227,7 +227,7 @@ Standard_Boolean BRepMesh_ModelPostProcessor::performInternal(
                     Standard_True /*!theParameters.InParallel*/);
 
   // Estimate deflection here due to BRepLib::EstimateDeflection requires
-  // existence of both Poly_Triangulation and Poly_PolygonOnTriangulation.
+  // existence of both MeshTriangulation and Poly_PolygonOnTriangulation.
   OSD_Parallel::For(0,
                     theModel->FacesNb(),
                     DeflectionEstimator(theModel, theParameters),

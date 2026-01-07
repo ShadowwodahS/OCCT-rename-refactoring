@@ -27,10 +27,10 @@
 #include <TShort_HArray1OfShortReal.hxx>
 
 class OSD_FileSystem;
-class Poly_Triangulation;
+class MeshTriangulation;
 class Poly_TriangulationParameters;
 
-DEFINE_STANDARD_HANDLE(Poly_Triangulation, RefObject)
+DEFINE_STANDARD_HANDLE(MeshTriangulation, RefObject)
 
 //! Provides a triangulation for a surface, a set of surfaces, or more generally a shape.
 //!
@@ -56,12 +56,12 @@ DEFINE_STANDARD_HANDLE(Poly_Triangulation, RefObject)
 //! In many cases, algorithms do not need to work with the exact representation of a surface.
 //! A triangular representation induces simpler and more robust adjusting, faster performances, and
 //! the results are as good.
-class Poly_Triangulation : public RefObject
+class MeshTriangulation : public RefObject
 {
-  DEFINE_STANDARD_RTTIEXT(Poly_Triangulation, RefObject)
+  DEFINE_STANDARD_RTTIEXT(MeshTriangulation, RefObject)
 public:
   //! Constructs an empty triangulation.
-  Standard_EXPORT Poly_Triangulation();
+  Standard_EXPORT MeshTriangulation();
 
   //! Constructs a triangulation from a set of triangles.
   //! The triangulation is initialized without a triangle or a node,
@@ -71,7 +71,7 @@ public:
   //! @param[in] theHasUVNodes   indicates whether 2D nodes will be associated with 3D ones,
   //!                            (i.e. to enable a 2D representation)
   //! @param[in] theHasNormals   indicates whether normals will be given and associated with nodes
-  Standard_EXPORT Poly_Triangulation(const Standard_Integer theNbNodes,
+  Standard_EXPORT MeshTriangulation(const Standard_Integer theNbNodes,
                                      const Standard_Integer theNbTriangles,
                                      const Standard_Boolean theHasUVNodes,
                                      const Standard_Boolean theHasNormals = false);
@@ -79,7 +79,7 @@ public:
   //! Constructs a triangulation from a set of triangles. The
   //! triangulation is initialized with 3D points from Nodes and triangles
   //! from Triangles.
-  Standard_EXPORT Poly_Triangulation(const TColgp_Array1OfPnt&    Nodes,
+  Standard_EXPORT MeshTriangulation(const TColgp_Array1OfPnt&    Nodes,
                                      const Poly_Array1OfTriangle& Triangles);
 
   //! Constructs a triangulation from a set of triangles. The
@@ -89,18 +89,18 @@ public:
   //! (u, v) parameters of the corresponding 3D point
   //! from Nodes on the surface approximated by the
   //! constructed triangulation.
-  Standard_EXPORT Poly_Triangulation(const TColgp_Array1OfPnt&    Nodes,
+  Standard_EXPORT MeshTriangulation(const TColgp_Array1OfPnt&    Nodes,
                                      const TColgp_Array1OfPnt2d&  UVNodes,
                                      const Poly_Array1OfTriangle& Triangles);
 
   //! Destructor
-  Standard_EXPORT virtual ~Poly_Triangulation();
+  Standard_EXPORT virtual ~MeshTriangulation();
 
   //! Creates full copy of current triangulation
-  Standard_EXPORT virtual Handle(Poly_Triangulation) Copy() const;
+  Standard_EXPORT virtual Handle(MeshTriangulation) Copy() const;
 
   //! Copy constructor for triangulation.
-  Standard_EXPORT Poly_Triangulation(const Handle(Poly_Triangulation)& theTriangulation);
+  Standard_EXPORT MeshTriangulation(const Handle(MeshTriangulation)& theTriangulation);
 
   //! Returns the deflection of this triangulation.
   Standard_Real Deflection() const { return myDeflection; }
@@ -295,23 +295,23 @@ public:
 
 public:
   //! Returns the table of 3D points for read-only access or NULL if nodes array is undefined.
-  //! Poly_Triangulation::Node() should be used instead when possible.
-  //! Returned object should not be used after Poly_Triangulation destruction.
+  //! MeshTriangulation::Node() should be used instead when possible.
+  //! Returned object should not be used after MeshTriangulation destruction.
   Standard_EXPORT Handle(TColgp_HArray1OfPnt) MapNodeArray() const;
 
   //! Returns the triangle array for read-only access or NULL if triangle array is undefined.
-  //! Poly_Triangulation::Triangle() should be used instead when possible.
-  //! Returned object should not be used after Poly_Triangulation destruction.
+  //! MeshTriangulation::Triangle() should be used instead when possible.
+  //! Returned object should not be used after MeshTriangulation destruction.
   Standard_EXPORT Handle(Poly_HArray1OfTriangle) MapTriangleArray() const;
 
   //! Returns the table of 2D nodes for read-only access or NULL if UV nodes array is undefined.
-  //! Poly_Triangulation::UVNode() should be used instead when possible.
-  //! Returned object should not be used after Poly_Triangulation destruction.
+  //! MeshTriangulation::UVNode() should be used instead when possible.
+  //! Returned object should not be used after MeshTriangulation destruction.
   Standard_EXPORT Handle(TColgp_HArray1OfPnt2d) MapUVNodeArray() const;
 
   //! Returns the table of per-vertex normals for read-only access or NULL if normals array is
-  //! undefined. Poly_Triangulation::Normal() should be used instead when possible. Returned object
-  //! should not be used after Poly_Triangulation destruction.
+  //! undefined. MeshTriangulation::Normal() should be used instead when possible. Returned object
+  //! should not be used after MeshTriangulation destruction.
   Standard_EXPORT Handle(TShort_HArray1OfShortReal) MapNormalArray() const;
 
 public:
@@ -368,22 +368,22 @@ public: //! @name late-load deferred data interface
   Standard_EXPORT virtual Standard_Boolean LoadDeferredData(
     const Handle(OSD_FileSystem)& theFileSystem = Handle(OSD_FileSystem)());
 
-  //! Loads triangulation data into new Poly_Triangulation object
+  //! Loads triangulation data into new MeshTriangulation object
   //! from some deferred storage using specified shared input file system.
-  Standard_EXPORT virtual Handle(Poly_Triangulation) DetachedLoadDeferredData(
+  Standard_EXPORT virtual Handle(MeshTriangulation) DetachedLoadDeferredData(
     const Handle(OSD_FileSystem)& theFileSystem = Handle(OSD_FileSystem)()) const;
 
   //! Releases triangulation data if it has connected deferred storage.
   Standard_EXPORT virtual Standard_Boolean UnloadDeferredData();
 
 protected:
-  //! Creates new triangulation object (can be inheritor of Poly_Triangulation).
-  virtual Handle(Poly_Triangulation) createNewEntity() const { return new Poly_Triangulation(); }
+  //! Creates new triangulation object (can be inheritor of MeshTriangulation).
+  virtual Handle(MeshTriangulation) createNewEntity() const { return new MeshTriangulation(); }
 
   //! Load triangulation data from deferred storage using specified shared input file system.
   virtual Standard_Boolean loadDeferredData(
     const Handle(OSD_FileSystem)&     theFileSystem,
-    const Handle(Poly_Triangulation)& theDestTriangulation) const
+    const Handle(MeshTriangulation)& theDestTriangulation) const
   {
     (void)theFileSystem;
     (void)theDestTriangulation;

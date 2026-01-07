@@ -303,7 +303,7 @@ private:
   Standard_Boolean                 thecomplete;
   Standard_Boolean                 theloaded;
   Standard_Boolean                 thekeepst;
-  TCollection_AsciiString          thelabel;
+  AsciiString1          thelabel;
   TColStd_Array1OfInteger          thenums;
   TColStd_Array1OfTransient        theorigs;
   TColStd_Array1OfTransient        themodifs;

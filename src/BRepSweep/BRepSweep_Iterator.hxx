@@ -24,7 +24,7 @@
 #include <TopoDS_Iterator.hxx>
 #include <Standard_Boolean.hxx>
 #include <TopAbs_Orientation.hxx>
-class TopoDS_Shape;
+class TopoShape;
 
 //! This class provides iteration services required by
 //! the Generating Line (TopoDS Shape) of a BRepSweep.
@@ -38,7 +38,7 @@ public:
   Standard_EXPORT BRepSweep_Iterator();
 
   //! Reset the Iterator on sub-shapes of <aShape>.
-  Standard_EXPORT void Init(const TopoDS_Shape& aShape);
+  Standard_EXPORT void Init(const TopoShape& aShape);
 
   //! Returns True if there is a current sub-shape.
   Standard_Boolean More() const;
@@ -47,7 +47,7 @@ public:
   Standard_EXPORT void Next();
 
   //! Returns the current sub-shape.
-  const TopoDS_Shape& Value() const;
+  const TopoShape& Value() const;
 
   //! Returns the orientation of the current sub-shape.
   TopAbs_Orientation Orientation() const;

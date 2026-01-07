@@ -27,10 +27,10 @@
 //  (Modules are created and loaded in appropriate libraries, once by Init)
 static Handle(IGESAppli_Protocol) protocol;
 
-void IGESAppli::Init()
+void IGESAppli1::Init()
 {
-  IGESDefs::Init();
-  IGESDraw::Init();
+  IGESDefs1::Init();
+  IGESDraw1::Init();
   if (protocol.IsNull())
   {
     protocol = new IGESAppli_Protocol;
@@ -41,7 +41,7 @@ void IGESAppli::Init()
   }
 }
 
-Handle(IGESAppli_Protocol) IGESAppli::Protocol()
+Handle(IGESAppli_Protocol) IGESAppli1::Protocol()
 {
   return protocol;
 }

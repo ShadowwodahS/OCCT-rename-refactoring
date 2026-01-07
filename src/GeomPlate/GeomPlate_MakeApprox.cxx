@@ -36,7 +36,7 @@ class GeomPlate_MakeApprox_Eval : public AdvApp2Var_EvaluatorFunc2Var
 {
 
 public:
-  GeomPlate_MakeApprox_Eval(const Handle(Geom_Surface)& theSurf)
+  GeomPlate_MakeApprox_Eval(const Handle(GeomSurface)& theSurf)
       : mySurf(theSurf)
   {
   }
@@ -54,7 +54,7 @@ public:
                         Standard_Integer* theErrorCode) const;
 
 private:
-  Handle(Geom_Surface) mySurf;
+  Handle(GeomSurface) mySurf;
 };
 
 void GeomPlate_MakeApprox_Eval::Evaluate(Standard_Integer* Dimension,
@@ -358,7 +358,7 @@ GeomPlate_MakeApprox::GeomPlate_MakeApprox(const Handle(GeomPlate_Surface)& Surf
     Standard_Integer i, nbp = Seq2d.Length();
     for (i = 1; i <= nbp; i++)
     {
-      gp_XY  P2d = Seq2d.Value(i);
+      Coords2d  P2d = Seq2d.Value(i);
       Point3d PP;
       Vector3d v1h, v2h, v3h;
       if (CritOrder == 0)

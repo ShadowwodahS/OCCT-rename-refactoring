@@ -22,9 +22,9 @@
 
 //=======================================================================
 // function : prj
-// purpose  : Draw command for Conical and Cylindrical projection
+// purpose  : Draw1 command for Conical and Cylindrical projection
 //=======================================================================
-static Standard_Integer prj(Draw_Interpretor& di, Standard_Integer n, const char** a)
+static Standard_Integer prj(DrawInterpreter& di, Standard_Integer n, const char** a)
 {
   if (n != 7)
   {
@@ -32,15 +32,15 @@ static Standard_Integer prj(Draw_Interpretor& di, Standard_Integer n, const char
     return 1;
   }
   //
-  TopoDS_Shape anInputWire  = DBRep::Get(a[2]);
-  TopoDS_Shape anInputShape = DBRep::Get(a[3]);
+  TopoShape anInputWire  = DBRep1::Get(a[2]);
+  TopoShape anInputShape = DBRep1::Get(a[3]);
   if (anInputWire.IsNull() || anInputShape.IsNull())
   {
     di << "Null input shapes\n";
     return 1;
   }
   //
-  Standard_Real X = Draw::Atof(a[4]), Y = Draw::Atof(a[5]), Z = Draw::Atof(a[6]);
+  Standard_Real X = Draw1::Atof(a[4]), Y = Draw1::Atof(a[5]), Z = Draw1::Atof(a[6]);
   //
   Standard_Boolean bCylProj = !strcmp(a[0], "prj");
   //
@@ -58,7 +58,7 @@ static Standard_Integer prj(Draw_Interpretor& di, Standard_Integer n, const char
   {
     char name[255];
     Sprintf(name, "%s_%d", a[1], i);
-    DBRep::Set(name, aPrj.Current());
+    DBRep1::Set(name, aPrj.Current());
     di << name << " ";
   }
   //
@@ -68,7 +68,7 @@ static Standard_Integer prj(Draw_Interpretor& di, Standard_Integer n, const char
 
 /*********************************************************************************/
 
-void BRepTest::ProjectionCommands(Draw_Interpretor& theCommands)
+void BRepTest::ProjectionCommands(DrawInterpreter& theCommands)
 {
   static Standard_Boolean loaded = Standard_False;
   if (loaded)

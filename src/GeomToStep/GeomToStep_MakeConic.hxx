@@ -30,18 +30,18 @@ class Geom2d_Conic;
 //! Conic from Geom and the class Conic from StepGeom
 //! which describes a Conic from prostep. As Conic is an abstract
 //! Conic this class is an access to the sub-class required.
-class GeomToStep_MakeConic : public GeomToStep_Root
+class GeomToStep_MakeConic : public Root1
 {
 public:
   DEFINE_STANDARD_ALLOC
 
   Standard_EXPORT GeomToStep_MakeConic(
     const Handle(Geom_Conic)& C,
-    const StepData_Factors&   theLocalFactors = StepData_Factors());
+    const ConversionFactors&   theLocalFactors = ConversionFactors());
 
   Standard_EXPORT GeomToStep_MakeConic(
     const Handle(Geom2d_Conic)& C,
-    const StepData_Factors&     theLocalFactors = StepData_Factors());
+    const ConversionFactors&     theLocalFactors = ConversionFactors());
 
   Standard_EXPORT const Handle(StepGeom_Conic)& Value() const;
 

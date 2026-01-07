@@ -21,9 +21,9 @@ IMPLEMENT_STANDARD_RTTIEXT(DE_ShapeFixConfigurationNode, DE_ConfigurationNode)
 
 namespace
 {
-static const TCollection_AsciiString& THE_CONFIGURATION_SCOPE()
+static const AsciiString1& THE_CONFIGURATION_SCOPE()
 {
-  static const TCollection_AsciiString aScope = "provider";
+  static const AsciiString1 aScope = "provider";
   return aScope;
 }
 } // namespace
@@ -48,7 +48,7 @@ DE_ShapeFixConfigurationNode::DE_ShapeFixConfigurationNode(
 
 bool DE_ShapeFixConfigurationNode::Load(const Handle(DE_ConfigurationContext)& theResource)
 {
-  TCollection_AsciiString aScope =
+  AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor() + ".healing";
 
   ShapeFixParameters.Tolerance3d =
@@ -57,212 +57,212 @@ bool DE_ShapeFixConfigurationNode::Load(const Handle(DE_ConfigurationContext)& t
     theResource->RealVal("max.tolerance3d", ShapeFixParameters.MaxTolerance3d, aScope);
   ShapeFixParameters.MinTolerance3d =
     theResource->RealVal("min.tolerance3d", ShapeFixParameters.MinTolerance3d, aScope);
-  ShapeFixParameters.FixFreeShellMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixFreeShellMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "free.shell",
     (int)ShapeFixParameters.FixFreeShellMode,
     aScope);
   ShapeFixParameters.FixFreeFaceMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("free.face",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("free.face",
                                                             (int)ShapeFixParameters.FixFreeFaceMode,
                                                             aScope);
   ShapeFixParameters.FixFreeWireMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("free.wire",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("free.wire",
                                                             (int)ShapeFixParameters.FixFreeWireMode,
                                                             aScope);
-  ShapeFixParameters.FixSameParameterMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixSameParameterMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "same.parameter",
     (int)ShapeFixParameters.FixSameParameterMode,
     aScope);
   ShapeFixParameters.FixSolidMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("solid",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("solid",
                                                             (int)ShapeFixParameters.FixSolidMode,
                                                             aScope);
   ShapeFixParameters.FixShellOrientationMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+    (ShapeFixParameters::FixMode)theResource->IntegerVal(
       "shell.orientation",
       (int)ShapeFixParameters.FixShellOrientationMode,
       aScope);
-  ShapeFixParameters.CreateOpenSolidMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.CreateOpenSolidMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "create.open.solid",
     (int)ShapeFixParameters.CreateOpenSolidMode,
     aScope);
   ShapeFixParameters.FixShellMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("shell",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("shell",
                                                             (int)ShapeFixParameters.FixShellMode,
                                                             aScope);
   ShapeFixParameters.FixFaceOrientationMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+    (ShapeFixParameters::FixMode)theResource->IntegerVal(
       "face.orientation",
       (int)ShapeFixParameters.FixFaceOrientationMode,
       aScope);
   ShapeFixParameters.FixFaceMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("face",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("face",
                                                             (int)ShapeFixParameters.FixFaceMode,
                                                             aScope);
   ShapeFixParameters.FixWireMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("wire",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("wire",
                                                             (int)ShapeFixParameters.FixWireMode,
                                                             aScope);
-  ShapeFixParameters.FixOrientationMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixOrientationMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "orientation",
     (int)ShapeFixParameters.FixOrientationMode,
     aScope);
   ShapeFixParameters.FixAddNaturalBoundMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+    (ShapeFixParameters::FixMode)theResource->IntegerVal(
       "add.natural.bound",
       (int)ShapeFixParameters.FixAddNaturalBoundMode,
       aScope);
-  ShapeFixParameters.FixMissingSeamMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixMissingSeamMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "missing.seam",
     (int)ShapeFixParameters.FixMissingSeamMode,
     aScope);
-  ShapeFixParameters.FixSmallAreaWireMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixSmallAreaWireMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "small.area.wire",
     (int)ShapeFixParameters.FixSmallAreaWireMode,
     aScope);
   ShapeFixParameters.RemoveSmallAreaFaceMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+    (ShapeFixParameters::FixMode)theResource->IntegerVal(
       "remove.small.area.face",
       (int)ShapeFixParameters.RemoveSmallAreaFaceMode,
       aScope);
   ShapeFixParameters.FixIntersectingWiresMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+    (ShapeFixParameters::FixMode)theResource->IntegerVal(
       "intersecting.wires",
       (int)ShapeFixParameters.FixIntersectingWiresMode,
       aScope);
-  ShapeFixParameters.FixLoopWiresMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixLoopWiresMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "loop.wires",
     (int)ShapeFixParameters.FixLoopWiresMode,
     aScope);
-  ShapeFixParameters.FixSplitFaceMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixSplitFaceMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "split.face",
     (int)ShapeFixParameters.FixSplitFaceMode,
     aScope);
   ShapeFixParameters.AutoCorrectPrecisionMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+    (ShapeFixParameters::FixMode)theResource->IntegerVal(
       "auto.correct.precision",
       (int)ShapeFixParameters.AutoCorrectPrecisionMode,
       aScope);
-  ShapeFixParameters.ModifyTopologyMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.ModifyTopologyMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "modify.topology",
     (int)ShapeFixParameters.ModifyTopologyMode,
     aScope);
-  ShapeFixParameters.ModifyGeometryMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.ModifyGeometryMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "modify.geometry",
     (int)ShapeFixParameters.ModifyGeometryMode,
     aScope);
   ShapeFixParameters.ClosedWireMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("closed.wire",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("closed.wire",
                                                             (int)ShapeFixParameters.ClosedWireMode,
                                                             aScope);
-  ShapeFixParameters.PreferencePCurveMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.PreferencePCurveMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "preference.pcurve",
     (int)ShapeFixParameters.PreferencePCurveMode,
     aScope);
   ShapeFixParameters.FixReorderMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("reorder.edges",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("reorder.edges",
                                                             (int)ShapeFixParameters.FixReorderMode,
                                                             aScope);
   ShapeFixParameters.FixSmallMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("remove.small.edges",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("remove.small.edges",
                                                             (int)ShapeFixParameters.FixSmallMode,
                                                             aScope);
-  ShapeFixParameters.FixConnectedMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixConnectedMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "connected.edges",
     (int)ShapeFixParameters.FixConnectedMode,
     aScope);
-  ShapeFixParameters.FixEdgeCurvesMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixEdgeCurvesMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "edge.curves",
     (int)ShapeFixParameters.FixEdgeCurvesMode,
     aScope);
-  ShapeFixParameters.FixDegeneratedMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixDegeneratedMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "add.degenerated.edges",
     (int)ShapeFixParameters.FixDegeneratedMode,
     aScope);
   ShapeFixParameters.FixLackingMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("add.lacking.edges",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("add.lacking.edges",
                                                             (int)ShapeFixParameters.FixLackingMode,
                                                             aScope);
   ShapeFixParameters.FixSelfIntersectionMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+    (ShapeFixParameters::FixMode)theResource->IntegerVal(
       "selfintersection",
       (int)ShapeFixParameters.FixSelfIntersectionMode,
       aScope);
   ShapeFixParameters.RemoveLoopMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("remove.loop",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("remove.loop",
                                                             (int)ShapeFixParameters.RemoveLoopMode,
                                                             aScope);
-  ShapeFixParameters.FixReversed2dMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixReversed2dMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "reversed2d",
     (int)ShapeFixParameters.FixReversed2dMode,
     aScope);
-  ShapeFixParameters.FixRemovePCurveMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixRemovePCurveMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "remove.pcurve",
     (int)ShapeFixParameters.FixRemovePCurveMode,
     aScope);
-  ShapeFixParameters.FixRemoveCurve3dMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixRemoveCurve3dMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "remove.curve3d",
     (int)ShapeFixParameters.FixRemoveCurve3dMode,
     aScope);
-  ShapeFixParameters.FixAddPCurveMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixAddPCurveMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "add.pcurve",
     (int)ShapeFixParameters.FixAddPCurveMode,
     aScope);
-  ShapeFixParameters.FixAddCurve3dMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixAddCurve3dMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "add.curve3d",
     (int)ShapeFixParameters.FixAddCurve3dMode,
     aScope);
   ShapeFixParameters.FixSeamMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("correct.order.in.seam",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("correct.order.in.seam",
                                                             (int)ShapeFixParameters.FixSeamMode,
                                                             aScope);
   ShapeFixParameters.FixShiftedMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("shifted",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("shifted",
                                                             (int)ShapeFixParameters.FixShiftedMode,
                                                             aScope);
   ShapeFixParameters.FixEdgeSameParameterMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+    (ShapeFixParameters::FixMode)theResource->IntegerVal(
       "edge.same.parameter",
       (int)ShapeFixParameters.FixEdgeSameParameterMode,
       aScope);
-  ShapeFixParameters.FixNotchedEdgesMode = (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+  ShapeFixParameters.FixNotchedEdgesMode = (ShapeFixParameters::FixMode)theResource->IntegerVal(
     "notched.edges",
     (int)ShapeFixParameters.FixNotchedEdgesMode,
     aScope);
   ShapeFixParameters.FixTailMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("tail",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("tail",
                                                             (int)ShapeFixParameters.FixTailMode,
                                                             aScope);
   ShapeFixParameters.MaxTailAngle =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("max.tail.angle",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("max.tail.angle",
                                                             (int)ShapeFixParameters.MaxTailAngle,
                                                             aScope);
   ShapeFixParameters.MaxTailWidth =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal("max.tail.width",
+    (ShapeFixParameters::FixMode)theResource->IntegerVal("max.tail.width",
                                                             (int)ShapeFixParameters.MaxTailWidth,
                                                             aScope);
   ShapeFixParameters.FixSelfIntersectingEdgeMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+    (ShapeFixParameters::FixMode)theResource->IntegerVal(
       "selfintersecting.edge",
       (int)ShapeFixParameters.FixSelfIntersectingEdgeMode,
       aScope);
   ShapeFixParameters.FixIntersectingEdgesMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+    (ShapeFixParameters::FixMode)theResource->IntegerVal(
       "intersecting.edges",
       (int)ShapeFixParameters.FixIntersectingEdgesMode,
       aScope);
   ShapeFixParameters.FixNonAdjacentIntersectingEdgesMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+    (ShapeFixParameters::FixMode)theResource->IntegerVal(
       "nonadjacent.intersecting.edges",
       (int)ShapeFixParameters.FixNonAdjacentIntersectingEdgesMode,
       aScope);
   ShapeFixParameters.FixVertexPositionMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+    (ShapeFixParameters::FixMode)theResource->IntegerVal(
       "vertex.position",
       (int)ShapeFixParameters.FixVertexPositionMode,
       aScope);
   ShapeFixParameters.FixVertexToleranceMode =
-    (DE_ShapeFixParameters::FixMode)theResource->IntegerVal(
+    (ShapeFixParameters::FixMode)theResource->IntegerVal(
       "vertex.tolerance",
       (int)ShapeFixParameters.FixVertexToleranceMode,
       aScope);
@@ -272,10 +272,10 @@ bool DE_ShapeFixConfigurationNode::Load(const Handle(DE_ConfigurationContext)& t
 
 //=================================================================================================
 
-TCollection_AsciiString DE_ShapeFixConfigurationNode::Save() const
+AsciiString1 DE_ShapeFixConfigurationNode::Save() const
 {
-  TCollection_AsciiString aResult;
-  TCollection_AsciiString aScope =
+  AsciiString1 aResult;
+  AsciiString1 aScope =
     THE_CONFIGURATION_SCOPE() + "." + GetFormat() + "." + GetVendor() + ".healing.";
 
   aResult += "!\n";
@@ -315,7 +315,7 @@ TCollection_AsciiString DE_ShapeFixConfigurationNode::Save() const
   aResult += "!\n";
 
   aResult += "!\n";
-  aResult += "!Defines the mode for applying fixes of ShapeFix_Wire for ShapeFix_Shape\n";
+  aResult += "!Defines the mode for applying fixes of WireHealer for ShapeFix_Shape\n";
   aResult += "!Default value: \"FixOrNot\"(-1). Available values: \"FixOrNot\"(-1), \"NotFix\"(0), "
              "\"Fix\"(1)\n";
   aResult += aScope + "free.wire :\t " + (int)ShapeFixParameters.FixFreeWireMode + "\n";
@@ -377,7 +377,7 @@ TCollection_AsciiString DE_ShapeFixConfigurationNode::Save() const
   aResult += "!\n";
 
   aResult += "!\n";
-  aResult += "!Defines the mode for applying fixes of ShapeFix_Wire\n";
+  aResult += "!Defines the mode for applying fixes of WireHealer\n";
   aResult += "!Default value: \"FixOrNot\"(-1). Available values: \"FixOrNot\"(-1), \"NotFix\"(0), "
              "\"Fix\"(1)\n";
   aResult += aScope + "wire :\t " + (int)ShapeFixParameters.FixWireMode + "\n";

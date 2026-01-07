@@ -22,12 +22,12 @@
 #include <Standard_Handle.hxx>
 
 #include <GeomAbs_Shape.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 
 //! These global functions compute the degree of
 //! continuity of a 3D curve built by concatenation of two
 //! other curves (or portions of curves) at their junction point.
-class GeomLProp
+class GeomLProp1
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -38,8 +38,8 @@ public:
   //! u2 on C2 must be confused.
   //! tl and ta are the linear and angular tolerance used two
   //! compare the derivative.
-  Standard_EXPORT static GeomAbs_Shape Continuity(const Handle(Geom_Curve)& C1,
-                                                  const Handle(Geom_Curve)& C2,
+  Standard_EXPORT static GeomAbs_Shape Continuity(const Handle(GeomCurve3d)& C1,
+                                                  const Handle(GeomCurve3d)& C2,
                                                   const Standard_Real       u1,
                                                   const Standard_Real       u2,
                                                   const Standard_Boolean    r1,
@@ -49,8 +49,8 @@ public:
 
   //! The  same  as  preceding   but   using  the   standard
   //! tolerances from package Precision.
-  Standard_EXPORT static GeomAbs_Shape Continuity(const Handle(Geom_Curve)& C1,
-                                                  const Handle(Geom_Curve)& C2,
+  Standard_EXPORT static GeomAbs_Shape Continuity(const Handle(GeomCurve3d)& C1,
+                                                  const Handle(GeomCurve3d)& C2,
                                                   const Standard_Real       u1,
                                                   const Standard_Real       u2,
                                                   const Standard_Boolean    r1,

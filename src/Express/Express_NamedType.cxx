@@ -39,7 +39,7 @@ Express_NamedType::Express_NamedType(const Handle(TCollection_HAsciiString)& the
 
 //=================================================================================================
 
-const TCollection_AsciiString& Express_NamedType::Name() const
+const AsciiString1& Express_NamedType::Name() const
 {
   return myName->String();
 }
@@ -67,7 +67,7 @@ void Express_NamedType::SetItem(const Handle(Express_Item)& theItem)
 
 //=================================================================================================
 
-const TCollection_AsciiString Express_NamedType::CPPName() const
+const AsciiString1 Express_NamedType::CPPName() const
 {
   return myItem->CPPName();
 }
@@ -125,8 +125,8 @@ Standard_Boolean Express_NamedType::Use() const
 
 //=================================================================================================
 
-void Express_NamedType::Use2(const TCollection_AsciiString& theRefName,
-                             const TCollection_AsciiString& theRefPack) const
+void Express_NamedType::Use2(const AsciiString1& theRefName,
+                             const AsciiString1& theRefPack) const
 {
   myItem->Use2(theRefName, theRefPack);
 }

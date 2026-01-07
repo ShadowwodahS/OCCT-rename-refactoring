@@ -27,7 +27,7 @@
 #include <Draw_Appli.hxx>
 #include <Standard_PCharacter.hxx>
 
-typedef void (*FDraw_InitAppli)(Draw_Interpretor&);
+typedef void (*FDraw_InitAppli)(DrawInterpreter&);
 
 Standard_EXPORT Standard_Integer Draw_Main(Standard_Integer      argc,
                                            Standard_PCharacter   argv[],

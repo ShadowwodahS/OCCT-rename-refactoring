@@ -22,7 +22,7 @@
 
 #include <algorithm>
 
-class TDF_Label;
+class DataLabel;
 
 //! Auxiliary class to iterate through triangulated faces.
 //! Class is designed to provide an interface for iterating over the faces
@@ -37,7 +37,7 @@ public:
   //! @param[in] theLocation Location of the face
   //! @param[in] theToMapColors Flag to indicate if colors should be mapped
   //! @param[in] theStyle Style information for the face
-  Standard_EXPORT RWMesh_FaceIterator(const TDF_Label&       theLabel,
+  Standard_EXPORT RWMesh_FaceIterator(const DataLabel&       theLabel,
                                       const TopLoc_Location& theLocation,
                                       const Standard_Boolean theToMapColors = false,
                                       const XCAFPrs_Style&   theStyle       = XCAFPrs_Style());
@@ -45,7 +45,7 @@ public:
   //! Auxiliary constructor.
   //! @param[in] theShape Shape containing the face data
   //! @param[in] theStyle Style information for the face
-  Standard_EXPORT RWMesh_FaceIterator(const TopoDS_Shape&  theShape,
+  Standard_EXPORT RWMesh_FaceIterator(const TopoShape&  theShape,
                                       const XCAFPrs_Style& theStyle = XCAFPrs_Style());
 
   //! Return true if iterator points to the valid triangulation.
@@ -55,13 +55,13 @@ public:
   Standard_EXPORT void Next() Standard_OVERRIDE;
 
   //! Return current face.
-  const TopoDS_Face& Face() const { return myFace; }
+  const TopoFace& Face() const { return myFace; }
 
   //! Return current face.
-  const TopoDS_Shape& Shape() const Standard_OVERRIDE { return myFace; }
+  const TopoShape& Shape() const Standard_OVERRIDE { return myFace; }
 
   //! Return current face triangulation.
-  const Handle(Poly_Triangulation)& Triangulation() const { return myPolyTriang; }
+  const Handle(MeshTriangulation)& Triangulation() const { return myPolyTriang; }
 
   //! Return true if mesh data is defined.
   bool IsEmptyMesh() const { return IsEmpty(); }
@@ -176,8 +176,8 @@ private:
 
 private:
   // clang-format off
-  TopoDS_Face                myFace;        //!< current face
-  Handle(Poly_Triangulation) myPolyTriang;  //!< triangulation of current face
+  TopoFace                myFace;        //!< current face
+  Handle(MeshTriangulation) myPolyTriang;  //!< triangulation of current face
   mutable BRepLProp_SLProps  mySLTool;      //!< auxiliary tool for fetching normals from surface
   BRepAdaptor_Surface        myFaceAdaptor; //!< surface adaptor for fetching normals from surface
   Standard_Boolean           myHasNormals;  //!< flag indicating that current face has normals

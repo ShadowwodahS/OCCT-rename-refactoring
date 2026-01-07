@@ -19,7 +19,7 @@
 class RefObject;
 class Standard_GUID;
 class StdObjMgt_MapOfInstantiators;
-class TDocStd_Application;
+class AppManager;
 
 class StdLDrivers
 {
@@ -30,7 +30,7 @@ public:
 
   //! Defines format "OCC-StdLite" and registers its retrieval driver
   //! in the specified application
-  Standard_EXPORT static void DefineFormat(const Handle(TDocStd_Application)& theApp);
+  Standard_EXPORT static void DefineFormat(const Handle(AppManager)& theApp);
 
   //! Register types.
   Standard_EXPORT static void BindTypes(StdObjMgt_MapOfInstantiators& theMap);

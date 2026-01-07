@@ -28,9 +28,9 @@
 namespace
 {
 
-XCAFDoc_AssemblyItemId labeledItem(const TDF_Label& theLabel)
+XCAFDoc_AssemblyItemId labeledItem(const DataLabel& theLabel)
 {
-  TCollection_AsciiString anEntry;
+  AsciiString1 anEntry;
   TDF_Tool::Entry(theLabel, anEntry);
   return XCAFDoc_AssemblyItemId(anEntry);
 }
@@ -55,7 +55,7 @@ const Standard_GUID& XCAFDoc_NotesTool::GetID()
 
 //=================================================================================================
 
-Handle(XCAFDoc_NotesTool) XCAFDoc_NotesTool::Set(const TDF_Label& theLabel)
+Handle(XCAFDoc_NotesTool) XCAFDoc_NotesTool::Set(const DataLabel& theLabel)
 {
   Handle(XCAFDoc_NotesTool) aTool;
   if (!theLabel.IsNull() && !theLabel.FindAttribute(XCAFDoc_NotesTool::GetID(), aTool))
@@ -72,14 +72,14 @@ XCAFDoc_NotesTool::XCAFDoc_NotesTool() {}
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_NotesTool::GetNotesLabel() const
+DataLabel XCAFDoc_NotesTool::GetNotesLabel() const
 {
   return Label().FindChild(NotesTool_NotesRoot);
 }
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_NotesTool::GetAnnotatedItemsLabel() const
+DataLabel XCAFDoc_NotesTool::GetAnnotatedItemsLabel() const
 {
   return Label().FindChild(NotesTool_AnnotatedItemsRoot);
 }
@@ -91,7 +91,7 @@ Standard_Integer XCAFDoc_NotesTool::NbNotes() const
   Standard_Integer nbNotes = 0;
   for (TDF_ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
   {
-    const TDF_Label aLabel = anIter.Value();
+    const DataLabel aLabel = anIter.Value();
     if (!XCAFDoc_Note::Get(aLabel).IsNull())
       ++nbNotes;
   }
@@ -118,7 +118,7 @@ void XCAFDoc_NotesTool::GetNotes(TDF_LabelSequence& theNoteLabels) const
 {
   for (TDF_ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
   {
-    const TDF_Label aLabel = anIter.Value();
+    const DataLabel aLabel = anIter.Value();
     if (!XCAFDoc_Note::Get(aLabel).IsNull())
       theNoteLabels.Append(aLabel);
   }
@@ -145,14 +145,14 @@ Standard_Boolean XCAFDoc_NotesTool::IsAnnotatedItem(const XCAFDoc_AssemblyItemId
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_NotesTool::IsAnnotatedItem(const TDF_Label& theItemLabel) const
+Standard_Boolean XCAFDoc_NotesTool::IsAnnotatedItem(const DataLabel& theItemLabel) const
 {
   return IsAnnotatedItem(labeledItem(theItemLabel));
 }
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_NotesTool::FindAnnotatedItem(const XCAFDoc_AssemblyItemId& theItemId) const
+DataLabel XCAFDoc_NotesTool::FindAnnotatedItem(const XCAFDoc_AssemblyItemId& theItemId) const
 {
   for (TDF_ChildIDIterator anIter(GetAnnotatedItemsLabel(), XCAFDoc_AssemblyItemRef::GetID());
        anIter.More();
@@ -163,19 +163,19 @@ TDF_Label XCAFDoc_NotesTool::FindAnnotatedItem(const XCAFDoc_AssemblyItemId& the
     if (!anItemRef.IsNull() && anItemRef->GetItem().IsEqual(theItemId) && !anItemRef->HasExtraRef())
       return anItemRef->Label();
   }
-  return TDF_Label();
+  return DataLabel();
 }
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_NotesTool::FindAnnotatedItem(const TDF_Label& theItemLabel) const
+DataLabel XCAFDoc_NotesTool::FindAnnotatedItem(const DataLabel& theItemLabel) const
 {
   return FindAnnotatedItem(labeledItem(theItemLabel));
 }
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_NotesTool::FindAnnotatedItemAttr(const XCAFDoc_AssemblyItemId& theItemId,
+DataLabel XCAFDoc_NotesTool::FindAnnotatedItemAttr(const XCAFDoc_AssemblyItemId& theItemId,
                                                    const Standard_GUID&          theGUID) const
 {
   for (TDF_ChildIDIterator anIter(GetAnnotatedItemsLabel(), XCAFDoc_AssemblyItemRef::GetID());
@@ -188,12 +188,12 @@ TDF_Label XCAFDoc_NotesTool::FindAnnotatedItemAttr(const XCAFDoc_AssemblyItemId&
         && anItemRef->GetGUID() == theGUID)
       return anItemRef->Label();
   }
-  return TDF_Label();
+  return DataLabel();
 }
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_NotesTool::FindAnnotatedItemAttr(const TDF_Label&     theItemLabel,
+DataLabel XCAFDoc_NotesTool::FindAnnotatedItemAttr(const DataLabel&     theItemLabel,
                                                    const Standard_GUID& theGUID) const
 {
   return FindAnnotatedItemAttr(labeledItem(theItemLabel), theGUID);
@@ -201,7 +201,7 @@ TDF_Label XCAFDoc_NotesTool::FindAnnotatedItemAttr(const TDF_Label&     theItemL
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_NotesTool::FindAnnotatedItemSubshape(const XCAFDoc_AssemblyItemId& theItemId,
+DataLabel XCAFDoc_NotesTool::FindAnnotatedItemSubshape(const XCAFDoc_AssemblyItemId& theItemId,
                                                        Standard_Integer theSubshapeIndex) const
 {
   for (TDF_ChildIDIterator anIter(GetAnnotatedItemsLabel(), XCAFDoc_AssemblyItemRef::GetID());
@@ -214,12 +214,12 @@ TDF_Label XCAFDoc_NotesTool::FindAnnotatedItemSubshape(const XCAFDoc_AssemblyIte
         && anItemRef->GetSubshapeIndex() == theSubshapeIndex)
       return anItemRef->Label();
   }
-  return TDF_Label();
+  return DataLabel();
 }
 
 //=================================================================================================
 
-TDF_Label XCAFDoc_NotesTool::FindAnnotatedItemSubshape(const TDF_Label& theItemLabel,
+DataLabel XCAFDoc_NotesTool::FindAnnotatedItemSubshape(const DataLabel& theItemLabel,
                                                        Standard_Integer theSubshapeIndex) const
 {
   return FindAnnotatedItemSubshape(labeledItem(theItemLabel), theSubshapeIndex);
@@ -228,11 +228,11 @@ TDF_Label XCAFDoc_NotesTool::FindAnnotatedItemSubshape(const TDF_Label& theItemL
 //=================================================================================================
 
 Handle(XCAFDoc_Note) XCAFDoc_NotesTool::CreateComment(
-  const TCollection_ExtendedString& theUserName,
-  const TCollection_ExtendedString& theTimeStamp,
-  const TCollection_ExtendedString& theComment)
+  const UtfString& theUserName,
+  const UtfString& theTimeStamp,
+  const UtfString& theComment)
 {
-  TDF_Label     aNoteLabel;
+  DataLabel     aNoteLabel;
   TDF_TagSource aTag;
   aNoteLabel = aTag.NewChild(GetNotesLabel());
   return XCAFDoc_NoteComment::Set(aNoteLabel, theUserName, theTimeStamp, theComment);
@@ -241,11 +241,11 @@ Handle(XCAFDoc_Note) XCAFDoc_NotesTool::CreateComment(
 //=================================================================================================
 
 Handle(XCAFDoc_Note) XCAFDoc_NotesTool::CreateBalloon(
-  const TCollection_ExtendedString& theUserName,
-  const TCollection_ExtendedString& theTimeStamp,
-  const TCollection_ExtendedString& theComment)
+  const UtfString& theUserName,
+  const UtfString& theTimeStamp,
+  const UtfString& theComment)
 {
-  TDF_Label     aNoteLabel;
+  DataLabel     aNoteLabel;
   TDF_TagSource aTag;
   aNoteLabel = aTag.NewChild(GetNotesLabel());
   return XCAFDoc_NoteBalloon::Set(aNoteLabel, theUserName, theTimeStamp, theComment);
@@ -254,13 +254,13 @@ Handle(XCAFDoc_Note) XCAFDoc_NotesTool::CreateBalloon(
 //=================================================================================================
 
 Handle(XCAFDoc_Note) XCAFDoc_NotesTool::CreateBinData(
-  const TCollection_ExtendedString& theUserName,
-  const TCollection_ExtendedString& theTimeStamp,
-  const TCollection_ExtendedString& theTitle,
-  const TCollection_AsciiString&    theMIMEtype,
-  OSD_File&                         theFile)
+  const UtfString& theUserName,
+  const UtfString& theTimeStamp,
+  const UtfString& theTitle,
+  const AsciiString1&    theMIMEtype,
+  SystemFile&                         theFile)
 {
-  TDF_Label     aNoteLabel;
+  DataLabel     aNoteLabel;
   TDF_TagSource aTag;
   aNoteLabel = aTag.NewChild(GetNotesLabel());
   return XCAFDoc_NoteBinData::Set(aNoteLabel,
@@ -274,13 +274,13 @@ Handle(XCAFDoc_Note) XCAFDoc_NotesTool::CreateBinData(
 //=================================================================================================
 
 Handle(XCAFDoc_Note) XCAFDoc_NotesTool::CreateBinData(
-  const TCollection_ExtendedString&    theUserName,
-  const TCollection_ExtendedString&    theTimeStamp,
-  const TCollection_ExtendedString&    theTitle,
-  const TCollection_AsciiString&       theMIMEtype,
+  const UtfString&    theUserName,
+  const UtfString&    theTimeStamp,
+  const UtfString&    theTitle,
+  const AsciiString1&       theMIMEtype,
   const Handle(TColStd_HArray1OfByte)& theData)
 {
-  TDF_Label     aNoteLabel;
+  DataLabel     aNoteLabel;
   TDF_TagSource aTag;
   aNoteLabel = aTag.NewChild(GetNotesLabel());
   return XCAFDoc_NoteBinData::Set(aNoteLabel,
@@ -296,7 +296,7 @@ Handle(XCAFDoc_Note) XCAFDoc_NotesTool::CreateBinData(
 Standard_Integer XCAFDoc_NotesTool::GetNotes(const XCAFDoc_AssemblyItemId& theItemId,
                                              TDF_LabelSequence&            theNoteLabels) const
 {
-  TDF_Label anAnnotatedItem = FindAnnotatedItem(theItemId);
+  DataLabel anAnnotatedItem = FindAnnotatedItem(theItemId);
   if (anAnnotatedItem.IsNull())
     return 0;
 
@@ -316,7 +316,7 @@ Standard_Integer XCAFDoc_NotesTool::GetNotes(const XCAFDoc_AssemblyItemId& theIt
 
 //=================================================================================================
 
-Standard_Integer XCAFDoc_NotesTool::GetNotes(const TDF_Label&   theItemLabel,
+Standard_Integer XCAFDoc_NotesTool::GetNotes(const DataLabel&   theItemLabel,
                                              TDF_LabelSequence& theNoteLabels) const
 {
   return GetNotes(labeledItem(theItemLabel), theNoteLabels);
@@ -328,7 +328,7 @@ Standard_Integer XCAFDoc_NotesTool::GetAttrNotes(const XCAFDoc_AssemblyItemId& t
                                                  const Standard_GUID&          theGUID,
                                                  TDF_LabelSequence&            theNoteLabels) const
 {
-  TDF_Label anAnnotatedItem = FindAnnotatedItemAttr(theItemId, theGUID);
+  DataLabel anAnnotatedItem = FindAnnotatedItemAttr(theItemId, theGUID);
   if (anAnnotatedItem.IsNull())
     return 0;
 
@@ -348,7 +348,7 @@ Standard_Integer XCAFDoc_NotesTool::GetAttrNotes(const XCAFDoc_AssemblyItemId& t
 
 //=================================================================================================
 
-Standard_Integer XCAFDoc_NotesTool::GetAttrNotes(const TDF_Label&     theItemLabel,
+Standard_Integer XCAFDoc_NotesTool::GetAttrNotes(const DataLabel&     theItemLabel,
                                                  const Standard_GUID& theGUID,
                                                  TDF_LabelSequence&   theNoteLabels) const
 {
@@ -361,7 +361,7 @@ Standard_Integer XCAFDoc_NotesTool::GetSubshapeNotes(const XCAFDoc_AssemblyItemI
                                                      Standard_Integer              theSubshapeIndex,
                                                      TDF_LabelSequence& theNoteLabels) const
 {
-  TDF_Label anAnnotatedItem = FindAnnotatedItemSubshape(theItemId, theSubshapeIndex);
+  DataLabel anAnnotatedItem = FindAnnotatedItemSubshape(theItemId, theSubshapeIndex);
   if (anAnnotatedItem.IsNull())
     return 0;
 
@@ -381,7 +381,7 @@ Standard_Integer XCAFDoc_NotesTool::GetSubshapeNotes(const XCAFDoc_AssemblyItemI
 
 //=================================================================================================
 
-Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNote(const TDF_Label& theNoteLabel,
+Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNote(const DataLabel& theNoteLabel,
                                                            const XCAFDoc_AssemblyItemId& theItemId)
 {
   Handle(XCAFDoc_AssemblyItemRef) anItemRef;
@@ -390,7 +390,7 @@ Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNote(const TDF_Label& theN
     return anItemRef;
 
   Handle(XCAFDoc_GraphNode) aChild;
-  TDF_Label                 anAnnotatedItem = FindAnnotatedItem(theItemId);
+  DataLabel                 anAnnotatedItem = FindAnnotatedItem(theItemId);
   if (anAnnotatedItem.IsNull())
   {
     TDF_TagSource aTag;
@@ -429,8 +429,8 @@ Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNote(const TDF_Label& theN
 
 //=================================================================================================
 
-Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNote(const TDF_Label& theNoteLabel,
-                                                           const TDF_Label& theItemLabel)
+Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNote(const DataLabel& theNoteLabel,
+                                                           const DataLabel& theItemLabel)
 {
   return AddNote(theNoteLabel, labeledItem(theItemLabel));
 }
@@ -438,7 +438,7 @@ Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNote(const TDF_Label& theN
 //=================================================================================================
 
 Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNoteToAttr(
-  const TDF_Label&              theNoteLabel,
+  const DataLabel&              theNoteLabel,
   const XCAFDoc_AssemblyItemId& theItemId,
   const Standard_GUID&          theGUID)
 {
@@ -448,7 +448,7 @@ Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNoteToAttr(
     return anItemRef;
 
   Handle(XCAFDoc_GraphNode) aChild;
-  TDF_Label                 anAnnotatedItem = FindAnnotatedItemAttr(theItemId, theGUID);
+  DataLabel                 anAnnotatedItem = FindAnnotatedItemAttr(theItemId, theGUID);
   if (anAnnotatedItem.IsNull())
   {
     TDF_TagSource aTag;
@@ -489,8 +489,8 @@ Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNoteToAttr(
 
 //=================================================================================================
 
-Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNoteToAttr(const TDF_Label&     theNoteLabel,
-                                                                 const TDF_Label&     theItemLabel,
+Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNoteToAttr(const DataLabel&     theNoteLabel,
+                                                                 const DataLabel&     theItemLabel,
                                                                  const Standard_GUID& theGUID)
 {
   return AddNoteToAttr(theNoteLabel, labeledItem(theItemLabel), theGUID);
@@ -499,7 +499,7 @@ Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNoteToAttr(const TDF_Label
 //=================================================================================================
 
 Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNoteToSubshape(
-  const TDF_Label&              theNoteLabel,
+  const DataLabel&              theNoteLabel,
   const XCAFDoc_AssemblyItemId& theItemId,
   Standard_Integer              theSubshapeIndex)
 {
@@ -509,7 +509,7 @@ Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNoteToSubshape(
     return anItemRef;
 
   Handle(XCAFDoc_GraphNode) aChild;
-  TDF_Label anAnnotatedItem = FindAnnotatedItemSubshape(theItemId, theSubshapeIndex);
+  DataLabel anAnnotatedItem = FindAnnotatedItemSubshape(theItemId, theSubshapeIndex);
   if (anAnnotatedItem.IsNull())
   {
     TDF_TagSource aTag;
@@ -551,8 +551,8 @@ Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNoteToSubshape(
 //=================================================================================================
 
 Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNoteToSubshape(
-  const TDF_Label& theNoteLabel,
-  const TDF_Label& theItemLabel,
+  const DataLabel& theNoteLabel,
+  const DataLabel& theItemLabel,
   Standard_Integer theSubshapeIndex)
 {
   return AddNoteToSubshape(theNoteLabel, labeledItem(theItemLabel), theSubshapeIndex);
@@ -560,7 +560,7 @@ Handle(XCAFDoc_AssemblyItemRef) XCAFDoc_NotesTool::AddNoteToSubshape(
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_NotesTool::RemoveNote(const TDF_Label&              theNoteLabel,
+Standard_Boolean XCAFDoc_NotesTool::RemoveNote(const DataLabel&              theNoteLabel,
                                                const XCAFDoc_AssemblyItemId& theItemId,
                                                Standard_Boolean              theDelIfOrphan)
 {
@@ -573,7 +573,7 @@ Standard_Boolean XCAFDoc_NotesTool::RemoveNote(const TDF_Label&              the
   if (!theNoteLabel.FindAttribute(XCAFDoc::NoteRefGUID(), aFather))
     return Standard_False;
 
-  TDF_Label anAnnotatedItem = FindAnnotatedItem(theItemId);
+  DataLabel anAnnotatedItem = FindAnnotatedItem(theItemId);
   if (anAnnotatedItem.IsNull())
     return Standard_False;
 
@@ -593,8 +593,8 @@ Standard_Boolean XCAFDoc_NotesTool::RemoveNote(const TDF_Label&              the
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_NotesTool::RemoveNote(const TDF_Label& theNoteLabel,
-                                               const TDF_Label& theItemLabel,
+Standard_Boolean XCAFDoc_NotesTool::RemoveNote(const DataLabel& theNoteLabel,
+                                               const DataLabel& theItemLabel,
                                                Standard_Boolean theDelIfOrphan)
 {
   return RemoveNote(theNoteLabel, labeledItem(theItemLabel), theDelIfOrphan);
@@ -602,7 +602,7 @@ Standard_Boolean XCAFDoc_NotesTool::RemoveNote(const TDF_Label& theNoteLabel,
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_NotesTool::RemoveSubshapeNote(const TDF_Label&              theNoteLabel,
+Standard_Boolean XCAFDoc_NotesTool::RemoveSubshapeNote(const DataLabel&              theNoteLabel,
                                                        const XCAFDoc_AssemblyItemId& theItemId,
                                                        Standard_Integer theSubshapeIndex,
                                                        Standard_Boolean theDelIfOrphan)
@@ -616,7 +616,7 @@ Standard_Boolean XCAFDoc_NotesTool::RemoveSubshapeNote(const TDF_Label&         
   if (!theNoteLabel.FindAttribute(XCAFDoc::NoteRefGUID(), aFather))
     return Standard_False;
 
-  TDF_Label anAnnotatedItem = FindAnnotatedItemSubshape(theItemId, theSubshapeIndex);
+  DataLabel anAnnotatedItem = FindAnnotatedItemSubshape(theItemId, theSubshapeIndex);
   if (anAnnotatedItem.IsNull())
     return Standard_False;
 
@@ -636,8 +636,8 @@ Standard_Boolean XCAFDoc_NotesTool::RemoveSubshapeNote(const TDF_Label&         
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_NotesTool::RemoveSubshapeNote(const TDF_Label& theNoteLabel,
-                                                       const TDF_Label& theItemLabel,
+Standard_Boolean XCAFDoc_NotesTool::RemoveSubshapeNote(const DataLabel& theNoteLabel,
+                                                       const DataLabel& theItemLabel,
                                                        Standard_Integer theSubshapeIndex,
                                                        Standard_Boolean theDelIfOrphan)
 {
@@ -649,7 +649,7 @@ Standard_Boolean XCAFDoc_NotesTool::RemoveSubshapeNote(const TDF_Label& theNoteL
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_NotesTool::RemoveAttrNote(const TDF_Label&              theNoteLabel,
+Standard_Boolean XCAFDoc_NotesTool::RemoveAttrNote(const DataLabel&              theNoteLabel,
                                                    const XCAFDoc_AssemblyItemId& theItemId,
                                                    const Standard_GUID&          theGUID,
                                                    Standard_Boolean              theDelIfOrphan)
@@ -663,7 +663,7 @@ Standard_Boolean XCAFDoc_NotesTool::RemoveAttrNote(const TDF_Label&             
   if (!theNoteLabel.FindAttribute(XCAFDoc::NoteRefGUID(), aFather))
     return Standard_False;
 
-  TDF_Label anAnnotatedItem = FindAnnotatedItemAttr(theItemId, theGUID);
+  DataLabel anAnnotatedItem = FindAnnotatedItemAttr(theItemId, theGUID);
   if (anAnnotatedItem.IsNull())
     return Standard_False;
 
@@ -683,8 +683,8 @@ Standard_Boolean XCAFDoc_NotesTool::RemoveAttrNote(const TDF_Label&             
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_NotesTool::RemoveAttrNote(const TDF_Label&     theNoteLabel,
-                                                   const TDF_Label&     theItemLabel,
+Standard_Boolean XCAFDoc_NotesTool::RemoveAttrNote(const DataLabel&     theNoteLabel,
+                                                   const DataLabel&     theItemLabel,
                                                    const Standard_GUID& theGUID,
                                                    Standard_Boolean     theDelIfOrphan)
 {
@@ -696,7 +696,7 @@ Standard_Boolean XCAFDoc_NotesTool::RemoveAttrNote(const TDF_Label&     theNoteL
 Standard_Boolean XCAFDoc_NotesTool::RemoveAllNotes(const XCAFDoc_AssemblyItemId& theItemId,
                                                    Standard_Boolean              theDelIfOrphan)
 {
-  TDF_Label anAnnotatedItem = FindAnnotatedItem(theItemId);
+  DataLabel anAnnotatedItem = FindAnnotatedItem(theItemId);
   if (anAnnotatedItem.IsNull())
     return Standard_False;
 
@@ -723,7 +723,7 @@ Standard_Boolean XCAFDoc_NotesTool::RemoveAllNotes(const XCAFDoc_AssemblyItemId&
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_NotesTool::RemoveAllNotes(const TDF_Label& theItemLabel,
+Standard_Boolean XCAFDoc_NotesTool::RemoveAllNotes(const DataLabel& theItemLabel,
                                                    Standard_Boolean theDelIfOrphan)
 {
   return RemoveAllNotes(labeledItem(theItemLabel), theDelIfOrphan);
@@ -735,7 +735,7 @@ Standard_Boolean XCAFDoc_NotesTool::RemoveAllSubshapeNotes(const XCAFDoc_Assembl
                                                            Standard_Integer theSubshapeIndex,
                                                            Standard_Boolean theDelIfOrphan)
 {
-  TDF_Label anAnnotatedItem = FindAnnotatedItemSubshape(theItemId, theSubshapeIndex);
+  DataLabel anAnnotatedItem = FindAnnotatedItemSubshape(theItemId, theSubshapeIndex);
   if (anAnnotatedItem.IsNull())
     return Standard_False;
 
@@ -766,7 +766,7 @@ Standard_Boolean XCAFDoc_NotesTool::RemoveAllAttrNotes(const XCAFDoc_AssemblyIte
                                                        const Standard_GUID&          theGUID,
                                                        Standard_Boolean              theDelIfOrphan)
 {
-  TDF_Label anAnnotatedItem = FindAnnotatedItemAttr(theItemId, theGUID);
+  DataLabel anAnnotatedItem = FindAnnotatedItemAttr(theItemId, theGUID);
   if (anAnnotatedItem.IsNull())
     return Standard_False;
 
@@ -793,7 +793,7 @@ Standard_Boolean XCAFDoc_NotesTool::RemoveAllAttrNotes(const XCAFDoc_AssemblyIte
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_NotesTool::RemoveAllAttrNotes(const TDF_Label&     theItemLabel,
+Standard_Boolean XCAFDoc_NotesTool::RemoveAllAttrNotes(const DataLabel&     theItemLabel,
                                                        const Standard_GUID& theGUID,
                                                        Standard_Boolean     theDelIfOrphan)
 {
@@ -802,7 +802,7 @@ Standard_Boolean XCAFDoc_NotesTool::RemoveAllAttrNotes(const TDF_Label&     theI
 
 //=================================================================================================
 
-Standard_Boolean XCAFDoc_NotesTool::DeleteNote(const TDF_Label& theNoteLabel)
+Standard_Boolean XCAFDoc_NotesTool::DeleteNote(const DataLabel& theNoteLabel)
 {
   Handle(XCAFDoc_Note) aNote = XCAFDoc_Note::Get(theNoteLabel);
   if (!aNote.IsNull())
@@ -857,7 +857,7 @@ Standard_Integer XCAFDoc_NotesTool::NbOrphanNotes() const
   Standard_Integer nbNotes = 0;
   for (TDF_ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
   {
-    const TDF_Label      aLabel = anIter.Value();
+    const DataLabel      aLabel = anIter.Value();
     Handle(XCAFDoc_Note) aNote  = XCAFDoc_Note::Get(aLabel);
     if (!aNote.IsNull() && aNote->IsOrphan())
       ++nbNotes;
@@ -871,7 +871,7 @@ void XCAFDoc_NotesTool::GetOrphanNotes(TDF_LabelSequence& theNoteLabels) const
 {
   for (TDF_ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
   {
-    const TDF_Label      aLabel = anIter.Value();
+    const DataLabel      aLabel = anIter.Value();
     Handle(XCAFDoc_Note) aNote  = XCAFDoc_Note::Get(aLabel);
     if (!aNote.IsNull() && aNote->IsOrphan())
       theNoteLabels.Append(aLabel);
@@ -885,7 +885,7 @@ Standard_Integer XCAFDoc_NotesTool::DeleteOrphanNotes()
   Standard_Integer nbNotes = 0;
   for (TDF_ChildIterator anIter(GetNotesLabel()); anIter.More(); anIter.Next())
   {
-    const TDF_Label      aLabel = anIter.Value();
+    const DataLabel      aLabel = anIter.Value();
     Handle(XCAFDoc_Note) aNote  = XCAFDoc_Note::Get(aLabel);
     if (!aNote.IsNull() && aNote->IsOrphan() && DeleteNote(aLabel))
       ++nbNotes;

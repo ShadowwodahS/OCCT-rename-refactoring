@@ -28,8 +28,8 @@
 #include <Standard_OStream.hxx>
 class Point3d;
 class gp_Pnt2d;
-class TopoDS_Edge;
-class TopoDS_Face;
+class TopoEdge;
+class TopoFace;
 
 class TopOpeBRep_VPointInter
 {
@@ -64,9 +64,9 @@ public:
 
   Standard_Real Tolerance() const;
 
-  Standard_EXPORT const TopoDS_Shape& ArcOnS1() const;
+  Standard_EXPORT const TopoShape& ArcOnS1() const;
 
-  Standard_EXPORT const TopoDS_Shape& ArcOnS2() const;
+  Standard_EXPORT const TopoShape& ArcOnS2() const;
 
   Standard_Real ParameterOnLine() const;
 
@@ -80,7 +80,7 @@ public:
   //! on the domain of the first patch, i-e when the function
   //! IsVertexOnS1 returns True.
   //! Otherwise, an exception is raised.
-  Standard_EXPORT const TopoDS_Shape& VertexOnS1() const;
+  Standard_EXPORT const TopoShape& VertexOnS1() const;
 
   Standard_Real ParameterOnArc2() const;
 
@@ -92,7 +92,7 @@ public:
   //! on the domain of the second patch, i-e when the function
   //! IsVertexOnS2 returns True.
   //! Otherwise, an exception is raised.
-  Standard_EXPORT const TopoDS_Shape& VertexOnS2() const;
+  Standard_EXPORT const TopoShape& VertexOnS2() const;
 
   Standard_Boolean IsInternal() const;
 
@@ -110,12 +110,12 @@ public:
 
   //! set the shape Eon of shape I (1,2) containing the point,
   //! and parameter <Par> of point on <Eon>.
-  Standard_EXPORT void EdgeON(const TopoDS_Shape&    Eon,
+  Standard_EXPORT void EdgeON(const TopoShape&    Eon,
                               const Standard_Real    Par,
                               const Standard_Integer I);
 
   //! get the edge of shape I (1,2) containing the point.
-  Standard_EXPORT const TopoDS_Shape& EdgeON(const Standard_Integer I) const;
+  Standard_EXPORT const TopoShape& EdgeON(const Standard_Integer I) const;
 
   //! get the parameter on edge of shape I (1,2) containing the point.
   Standard_EXPORT Standard_Real EdgeONParameter(const Standard_Integer I) const;
@@ -133,7 +133,7 @@ public:
   //! get the edge of shape I (1,2) containing the point.
   //! Returned shape is null if the VPoint is not on an edge
   //! of shape I (1,2).
-  Standard_EXPORT const TopoDS_Shape& Edge(const Standard_Integer I) const;
+  Standard_EXPORT const TopoShape& Edge(const Standard_Integer I) const;
 
   //! get the parameter on edge of shape I (1,2) containing the point
   Standard_EXPORT Standard_Real EdgeParameter(const Standard_Integer I) const;
@@ -143,14 +143,14 @@ public:
 
   Standard_EXPORT Standard_Boolean IsVertex(const Standard_Integer I) const;
 
-  Standard_EXPORT const TopoDS_Shape& Vertex(const Standard_Integer I) const;
+  Standard_EXPORT const TopoShape& Vertex(const Standard_Integer I) const;
 
   //! set myKeep value according to current states.
   Standard_EXPORT void UpdateKeep();
 
   //! Returns value of myKeep (does not evaluate states)
   //! False at creation of VPoint.
-  //! Updated by State(State from TopAbs,Integer from Standard)
+  //! Updated by State(State from TopAbs1,Integer from Standard)
   Standard_Boolean Keep() const;
 
   //! updates VPointInter flag "keep" with <keep>.
@@ -162,18 +162,18 @@ public:
 
   //! returns <false> if the vpoint is not given on arc <E>,
   //! else returns <par> parameter on <E>
-  Standard_EXPORT Standard_Boolean ParonE(const TopoDS_Edge& E, Standard_Real& par) const;
+  Standard_EXPORT Standard_Boolean ParonE(const TopoEdge& E, Standard_Real& par) const;
 
   void Index(const Standard_Integer I);
 
   Standard_Integer Index() const;
 
   Standard_EXPORT Standard_OStream& Dump(const Standard_Integer I,
-                                         const TopoDS_Face&     F,
+                                         const TopoFace&     F,
                                          Standard_OStream&      OS) const;
 
-  Standard_EXPORT Standard_OStream& Dump(const TopoDS_Face& F1,
-                                         const TopoDS_Face& F2,
+  Standard_EXPORT Standard_OStream& Dump(const TopoFace& F1,
+                                         const TopoFace& F2,
                                          Standard_OStream&  OS) const;
 
   Standard_EXPORT TopOpeBRep_PThePointOfIntersection PThePointOfIntersectionDummy() const;
@@ -185,12 +185,12 @@ private:
   TopAbs_State                       myState1;
   TopAbs_State                       myState2;
   Standard_Boolean                   myKeep;
-  TopoDS_Shape                       myEdgeON1;
-  TopoDS_Shape                       myEdgeON2;
+  TopoShape                       myEdgeON1;
+  TopoShape                       myEdgeON2;
   Standard_Real                      myEdgeONPar1;
   Standard_Real                      myEdgeONPar2;
   Standard_Integer                   myIndex;
-  TopoDS_Shape                       myNullShape;
+  TopoShape                       myNullShape;
   Standard_Integer                   myS1;
   Standard_Integer                   myS2;
 };

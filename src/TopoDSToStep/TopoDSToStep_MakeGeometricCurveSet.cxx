@@ -32,9 +32,9 @@
 // Create a GeometricCurveSet of StepShape from a Shape of TopoDS
 //=============================================================================
 TopoDSToStep_MakeGeometricCurveSet::TopoDSToStep_MakeGeometricCurveSet(
-  const TopoDS_Shape&                   aShape,
+  const TopoShape&                   aShape,
   const Handle(Transfer_FinderProcess)& FP,
-  const StepData_Factors&               theLocalFactors)
+  const ConversionFactors&               theLocalFactors)
 {
   done = Standard_False;
   Handle(TColStd_HSequenceOfTransient) itemList;
@@ -42,7 +42,7 @@ TopoDSToStep_MakeGeometricCurveSet::TopoDSToStep_MakeGeometricCurveSet(
   Handle(StepData_StepModel) aStepModel = Handle(StepData_StepModel)::DownCast(FP->Model());
   TopoDSToStep_Tool aTool(aMap, Standard_False, aStepModel->InternalParameters.WriteSurfaceCurMode);
   TopoDSToStep_WireframeBuilder wirefB(aShape, aTool, theLocalFactors);
-  TopoDSToStep::AddResult(FP, aTool);
+  TopoDSToStep1::AddResult(FP, aTool);
 
   Handle(StepShape_GeometricCurveSet) aGCSet = new StepShape_GeometricCurveSet;
   Handle(TCollection_HAsciiString)    empty  = new TCollection_HAsciiString("");

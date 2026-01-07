@@ -35,14 +35,14 @@ DrawTrSurf_Polygon3D::DrawTrSurf_Polygon3D(const Handle(Poly_Polygon3D)& P)
 
 //=================================================================================================
 
-void DrawTrSurf_Polygon3D::DrawOn(Draw_Display& dis) const
+void DrawTrSurf_Polygon3D::DrawOn(DrawDisplay& dis) const
 {
   dis.SetColor(Draw_jaune);
 
   const TColgp_Array1OfPnt& Points = myPolygon3D->Nodes();
   for (Standard_Integer i = Points.Lower(); i <= Points.Upper() - 1; i++)
   {
-    dis.Draw(Points(i), Points(i + 1));
+    dis.Draw1(Points(i), Points(i + 1));
   }
 
   if (myNodes)
@@ -98,7 +98,7 @@ Handle(Draw_Drawable3D) DrawTrSurf_Polygon3D::Restore(Standard_IStream& theStrea
 
 //=================================================================================================
 
-void DrawTrSurf_Polygon3D::Whatis(Draw_Interpretor& I) const
+void DrawTrSurf_Polygon3D::Whatis(DrawInterpreter& I) const
 {
   I << "polygon3D";
 }

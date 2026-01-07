@@ -36,7 +36,7 @@ BRepAlgoAPI_Algo::~BRepAlgoAPI_Algo() {}
 
 //=================================================================================================
 
-const TopoDS_Shape& BRepAlgoAPI_Algo::Shape()
+const TopoShape& BRepAlgoAPI_Algo::Shape()
 {
   return myShape;
 }

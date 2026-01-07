@@ -27,7 +27,7 @@ class IGESBasic_Name;
 DEFINE_STANDARD_HANDLE(IGESBasic_Name, IGESData_NameEntity)
 
 //! defines Name, Type <406> Form <15>
-//! in package IGESBasic
+//! in package IGESBasic1
 //! Used to specify a user defined name
 class IGESBasic_Name : public IGESData_NameEntity
 {

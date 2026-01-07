@@ -26,9 +26,9 @@
 #include <StepToTopoDS_Root.hxx>
 class StepShape_VertexLoop;
 class StepToTopoDS_Tool;
-class StepToTopoDS_NMTool;
+class NamingTool2;
 
-class StepToTopoDS_TranslateVertexLoop : public StepToTopoDS_Root
+class StepToTopoDS_TranslateVertexLoop : public Root2
 {
 public:
   DEFINE_STANDARD_ALLOC
@@ -38,22 +38,22 @@ public:
   Standard_EXPORT StepToTopoDS_TranslateVertexLoop(
     const Handle(StepShape_VertexLoop)& VL,
     StepToTopoDS_Tool&                  T,
-    StepToTopoDS_NMTool&                NMTool,
-    const StepData_Factors&             theLocalFactors = StepData_Factors());
+    NamingTool2&                NMTool,
+    const ConversionFactors&             theLocalFactors = ConversionFactors());
 
   Standard_EXPORT void Init(const Handle(StepShape_VertexLoop)& VL,
                             StepToTopoDS_Tool&                  T,
-                            StepToTopoDS_NMTool&                NMTool,
-                            const StepData_Factors& theLocalFactors = StepData_Factors());
+                            NamingTool2&                NMTool,
+                            const ConversionFactors& theLocalFactors = ConversionFactors());
 
-  Standard_EXPORT const TopoDS_Shape& Value() const;
+  Standard_EXPORT const TopoShape& Value() const;
 
   Standard_EXPORT StepToTopoDS_TranslateVertexLoopError Error() const;
 
 protected:
 private:
   StepToTopoDS_TranslateVertexLoopError myError;
-  TopoDS_Shape                          myResult;
+  TopoShape                          myResult;
 };
 
 #endif // _StepToTopoDS_TranslateVertexLoop_HeaderFile

@@ -26,15 +26,15 @@
 class HeaderSection_Protocol;
 DEFINE_STANDARD_HANDLE(HeaderSection_Protocol, StepData_Protocol)
 
-//! Protocol for HeaderSection Entities
-//! It requires HeaderSection as a Resource
+//! Protocol for HeaderSection1 Entities
+//! It requires HeaderSection1 as a Resource
 class HeaderSection_Protocol : public StepData_Protocol
 {
 
 public:
   Standard_EXPORT HeaderSection_Protocol();
 
-  //! Returns a Case Number for each of the HeaderSection Entities
+  //! Returns a Case Number for each of the HeaderSection1 Entities
   Standard_EXPORT virtual Standard_Integer TypeNumber(const Handle(TypeInfo)& atype) const
     Standard_OVERRIDE;
 

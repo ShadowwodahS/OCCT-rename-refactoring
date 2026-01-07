@@ -60,12 +60,12 @@ void BRepMAT2d_LinkTopoBilo::Perform(const BRepMAT2d_Explorer&       Explo,
   myMap.Clear();
   myBEShape.Clear();
 
-  TopoDS_Shape     S          = Explo.Shape();
+  TopoShape     S          = Explo.Shape();
   Standard_Integer IndContour = 1;
 
   if (S.ShapeType() == TopAbs_FACE)
   {
-    TopExp_Explorer Exp(S, TopAbs_WIRE);
+    ShapeExplorer Exp(S, TopAbs_WIRE);
 
     while (Exp.More())
     {
@@ -82,7 +82,7 @@ void BRepMAT2d_LinkTopoBilo::Perform(const BRepMAT2d_Explorer&       Explo,
 
 //=================================================================================================
 
-void BRepMAT2d_LinkTopoBilo::Init(const TopoDS_Shape& S)
+void BRepMAT2d_LinkTopoBilo::Init(const TopoShape& S)
 {
   isEmpty = Standard_False;
   current = 1;
@@ -117,7 +117,7 @@ Handle(MAT_BasicElt) BRepMAT2d_LinkTopoBilo::Value() const
 
 //=================================================================================================
 
-TopoDS_Shape BRepMAT2d_LinkTopoBilo::GeneratingShape(const Handle(MAT_BasicElt)& BE) const
+TopoShape BRepMAT2d_LinkTopoBilo::GeneratingShape(const Handle(MAT_BasicElt)& BE) const
 {
   return myBEShape(BE);
 }
@@ -129,15 +129,15 @@ static void LinkToContour(const BRepMAT2d_Explorer&        Explo,
 
 //=================================================================================================
 
-void BRepMAT2d_LinkTopoBilo::LinkToWire(const TopoDS_Wire&              W,
+void BRepMAT2d_LinkTopoBilo::LinkToWire(const TopoWire&              W,
                                         const BRepMAT2d_Explorer&       Explo,
                                         const Standard_Integer          IndC,
                                         const BRepMAT2d_BisectingLocus& BiLo)
 {
   BRepTools_WireExplorer   TheExp(W);
   Standard_Integer         KC;
-  TopoDS_Vertex            VF, VL;
-  TopoDS_Shape             S;
+  TopoVertex            VF, VL;
+  TopoShape             S;
   Handle(MAT_BasicElt)     BE;
   Handle(TypeInfo)    Type;
   TopTools_SequenceOfShape TopoSeq;
@@ -171,11 +171,11 @@ void BRepMAT2d_LinkTopoBilo::LinkToWire(const TopoDS_Wire&              W,
     {
       if (S.Orientation() == TopAbs_REVERSED)
       {
-        TopExp::Vertices(TopoDS::Edge(S), VL, VF);
+        TopExp1::Vertices(TopoDS::Edge(S), VL, VF);
       }
       else
       {
-        TopExp::Vertices(TopoDS::Edge(S), VF, VL);
+        TopExp1::Vertices(TopoDS::Edge(S), VF, VL);
       }
       if (KC > 0)
         S = VL;
@@ -189,7 +189,7 @@ void BRepMAT2d_LinkTopoBilo::LinkToWire(const TopoDS_Wire&              W,
     myMap(S).Append(BE);
 
     if (KC < 0)
-      myBEShape.Bind(BE, S.Oriented(TopAbs::Reverse(S.Orientation())));
+      myBEShape.Bind(BE, S.Oriented(TopAbs1::Reverse(S.Orientation())));
     else
       myBEShape.Bind(BE, S);
   }

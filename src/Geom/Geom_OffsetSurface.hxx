@@ -24,7 +24,7 @@
 #include <Geom_Surface.hxx>
 #include <Standard_Integer.hxx>
 #include <GeomEvaluator_OffsetSurface.hxx>
-class Geom_Curve;
+class GeomCurve3d;
 class Point3d;
 class Vector3d;
 class Geom_BSplineSurface;
@@ -33,7 +33,7 @@ class gp_GTrsf2d;
 class Geom_Geometry;
 
 class Geom_OffsetSurface;
-DEFINE_STANDARD_HANDLE(Geom_OffsetSurface, Geom_Surface)
+DEFINE_STANDARD_HANDLE(Geom_OffsetSurface, GeomSurface)
 
 //! Describes an offset surface in 3D space.
 //! An offset surface is defined by:
@@ -57,7 +57,7 @@ DEFINE_STANDARD_HANDLE(Geom_OffsetSurface, Geom_Surface)
 //! user as no check is made at the time of construction
 //! to detect points with multiple possible normal
 //! directions (for example, the top of a conical surface).
-class Geom_OffsetSurface : public Geom_Surface
+class Geom_OffsetSurface : public GeomSurface
 {
 
 public:
@@ -85,7 +85,7 @@ public:
   //! Warnings :
   //! No check is done to verify that a unique normal direction is
   //! defined at any point of the basis surface S.
-  Standard_EXPORT Geom_OffsetSurface(const Handle(Geom_Surface)& S,
+  Standard_EXPORT Geom_OffsetSurface(const Handle(GeomSurface)& S,
                                      const Standard_Real         Offset,
                                      const Standard_Boolean      isNotCheckC0 = Standard_False);
 
@@ -98,7 +98,7 @@ public:
   //! Exceptions
   //! Standard_ConstructionError if the surface S is not
   //! at least "C1" continuous.
-  Standard_EXPORT void SetBasisSurface(const Handle(Geom_Surface)& S,
+  Standard_EXPORT void SetBasisSurface(const Handle(GeomSurface)& S,
                                        const Standard_Boolean      isNotCheckC0 = Standard_False);
 
   //! Changes this offset surface by assigning D as the offset value.
@@ -109,7 +109,7 @@ public:
 
   //! Returns the basis surface of this offset surface.
   //! Note: The basis surface can be an offset surface.
-  inline const Handle(Geom_Surface)& BasisSurface() const { return basisSurf; }
+  inline const Handle(GeomSurface)& BasisSurface() const { return basisSurf; }
 
   //! Returns osculating surface if base surface is B-spline or Bezier
   inline const Handle(Geom_OsculatingSurface)& OsculatingSurface() const { return myOscSurf; }
@@ -216,7 +216,7 @@ public:
   Standard_EXPORT virtual Standard_Real VPeriod() const Standard_OVERRIDE;
 
   //! Computes the U isoparametric curve.
-  Standard_EXPORT Handle(Geom_Curve) UIso(const Standard_Real U) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) UIso(const Standard_Real U) const Standard_OVERRIDE;
 
   //! Computes the V isoparametric curve.
   //!
@@ -227,7 +227,7 @@ public:
   //! not defined on the basis surface for the parametric value (U,V).
   //! No check is done at the creation time and we suppose
   //! in this package that the offset surface can be defined at any point.
-  Standard_EXPORT Handle(Geom_Curve) VIso(const Standard_Real V) const Standard_OVERRIDE;
+  Standard_EXPORT Handle(GeomCurve3d) VIso(const Standard_Real V) const Standard_OVERRIDE;
 
   //! @code
   //!   P (U, V) = Pbasis + Offset * Ndir
@@ -351,7 +351,7 @@ public:
   //! when  the basis surface   is a canonic  surface or a
   //! rectangular  limited surface on canonic surface or if
   //! the offset is null.
-  Standard_EXPORT Handle(Geom_Surface) Surface() const;
+  Standard_EXPORT Handle(GeomSurface) Surface() const;
 
   //! if Standard_True, L is  the local osculating surface
   //! along U at  the point U,V.   It means that  DL/DU is
@@ -381,11 +381,11 @@ public:
   Standard_EXPORT virtual void DumpJson(Standard_OStream& theOStream,
                                         Standard_Integer  theDepth = -1) const Standard_OVERRIDE;
 
-  DEFINE_STANDARD_RTTIEXT(Geom_OffsetSurface, Geom_Surface)
+  DEFINE_STANDARD_RTTIEXT(Geom_OffsetSurface, GeomSurface)
 
 private:
-  Handle(Geom_Surface)                basisSurf;
-  Handle(Geom_Surface)                equivSurf;
+  Handle(GeomSurface)                basisSurf;
+  Handle(GeomSurface)                equivSurf;
   Standard_Real                       offsetValue;
   Handle(Geom_OsculatingSurface)      myOscSurf;
   GeomAbs_Shape                       myBasisSurfContinuity;

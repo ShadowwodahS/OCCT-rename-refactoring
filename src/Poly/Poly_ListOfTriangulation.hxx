@@ -19,9 +19,9 @@
 #include <Poly_Triangulation.hxx>
 
 /**
- * List of Poly_Triangulation instances.
+ * List of MeshTriangulation instances.
  */
 
-typedef NCollection_List<Handle(Poly_Triangulation)> Poly_ListOfTriangulation;
+typedef NCollection_List<Handle(MeshTriangulation)> Poly_ListOfTriangulation;
 
 #endif

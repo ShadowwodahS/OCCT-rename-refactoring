@@ -23,34 +23,34 @@
 #include <NCollection_Sequence.hxx>
 
 //! This class provides methods to read and write triangulation from / to the STL files.
-class RWStl
+class RWStl1
 {
 public:
   //! Write triangulation to binary STL file.
   //! binary format of an STL file.
   //! Returns false if the cannot be opened;
   Standard_EXPORT static Standard_Boolean WriteBinary(
-    const Handle(Poly_Triangulation)& theMesh,
-    const OSD_Path&                   thePath,
+    const Handle(MeshTriangulation)& theMesh,
+    const SystemPath&                   thePath,
     const Message_ProgressRange&      theProgress = Message_ProgressRange());
 
   //! write the meshing in a file following the
   //! Ascii  format of an STL file.
   //! Returns false if the cannot be opened;
   Standard_EXPORT static Standard_Boolean WriteAscii(
-    const Handle(Poly_Triangulation)& theMesh,
-    const OSD_Path&                   thePath,
+    const Handle(MeshTriangulation)& theMesh,
+    const SystemPath&                   thePath,
     const Message_ProgressRange&      theProgress = Message_ProgressRange());
 
   //! Read specified STL file and returns its content as triangulation.
   //! In case of error, returns Null handle.
-  Standard_EXPORT static Handle(Poly_Triangulation) ReadFile(
-    const OSD_Path&              theFile,
+  Standard_EXPORT static Handle(MeshTriangulation) ReadFile(
+    const SystemPath&              theFile,
     const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Read specified STL file and returns its content as triangulation.
   //! In case of error, returns Null handle.
-  static Handle(Poly_Triangulation) ReadFile(
+  static Handle(MeshTriangulation) ReadFile(
     const Standard_CString       theFile,
     const Message_ProgressRange& theProgress = Message_ProgressRange())
   {
@@ -63,7 +63,7 @@ public:
   //! M_PI/2 means ignore angle
   //! @param[in] theProgress progress indicator
   //! @return result triangulation or NULL in case of error
-  Standard_EXPORT static Handle(Poly_Triangulation) ReadFile(
+  Standard_EXPORT static Handle(MeshTriangulation) ReadFile(
     const Standard_CString       theFile,
     const Standard_Real          theMergeAngle,
     const Message_ProgressRange& theProgress = Message_ProgressRange());
@@ -77,29 +77,29 @@ public:
   Standard_EXPORT static void ReadFile(
     const Standard_CString                            theFile,
     const Standard_Real                               theMergeAngle,
-    NCollection_Sequence<Handle(Poly_Triangulation)>& theTriangList,
+    NCollection_Sequence<Handle(MeshTriangulation)>& theTriangList,
     const Message_ProgressRange&                      theProgress = Message_ProgressRange());
 
   //! Read triangulation from a binary STL file
   //! In case of error, returns Null handle.
-  Standard_EXPORT static Handle(Poly_Triangulation) ReadBinary(
-    const OSD_Path&              thePath,
+  Standard_EXPORT static Handle(MeshTriangulation) ReadBinary(
+    const SystemPath&              thePath,
     const Message_ProgressRange& theProgress = Message_ProgressRange());
 
   //! Read triangulation from an Ascii STL file
   //! In case of error, returns Null handle.
-  Standard_EXPORT static Handle(Poly_Triangulation) ReadAscii(
-    const OSD_Path&              thePath,
+  Standard_EXPORT static Handle(MeshTriangulation) ReadAscii(
+    const SystemPath&              thePath,
     const Message_ProgressRange& theProgress = Message_ProgressRange());
 
 private:
   //! Write ASCII version.
-  static Standard_Boolean writeASCII(const Handle(Poly_Triangulation)& theMesh,
+  static Standard_Boolean writeASCII(const Handle(MeshTriangulation)& theMesh,
                                      FILE*                             theFile,
                                      const Message_ProgressRange&      theProgress);
 
   //! Write binary version.
-  static Standard_Boolean writeBinary(const Handle(Poly_Triangulation)& theMesh,
+  static Standard_Boolean writeBinary(const Handle(MeshTriangulation)& theMesh,
                                       FILE*                             theFile,
                                       const Message_ProgressRange&      theProgress);
 };

@@ -21,8 +21,8 @@
 #include <GeomAbs_Shape.hxx>
 #include <Standard_OStream.hxx>
 
-class Geom_BSplineCurve;
-class Geom_Curve;
+class BSplineCurve3d;
+class GeomCurve3d;
 
 //! A framework to convert a 3D curve to a 3D BSpline.
 //! This is done by approximation to a BSpline curve within a given tolerance.
@@ -39,7 +39,7 @@ public:
   //! MaxSegments allowed in the resulting BSpline curve, and
   //! -      the highest degree MaxDeg which the
   //! polynomial defining the BSpline curve may have.
-  Standard_EXPORT GeomConvert_ApproxCurve(const Handle(Geom_Curve)& Curve,
+  Standard_EXPORT GeomConvert_ApproxCurve(const Handle(GeomCurve3d)& Curve,
                                           const Standard_Real       Tol3d,
                                           const GeomAbs_Shape       Order,
                                           const Standard_Integer    MaxSegments,
@@ -60,7 +60,7 @@ public:
                                           const Standard_Integer         MaxDegree);
 
   //! Returns the BSpline curve resulting from the approximation algorithm.
-  Standard_EXPORT Handle(Geom_BSplineCurve) Curve() const;
+  Standard_EXPORT Handle(BSplineCurve3d) Curve() const;
 
   //! returns  Standard_True  if  the  approximation  has
   //! been  done  within  required tolerance
@@ -90,7 +90,7 @@ private:
 
   Standard_Boolean          myIsDone;
   Standard_Boolean          myHasResult;
-  Handle(Geom_BSplineCurve) myBSplCurve;
+  Handle(BSplineCurve3d) myBSplCurve;
   Standard_Real             myMaxError;
 };
 

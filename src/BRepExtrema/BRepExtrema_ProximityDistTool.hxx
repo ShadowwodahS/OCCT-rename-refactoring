@@ -131,14 +131,14 @@ public: //! @name Reject/Accept implementations
 public:
   //! Returns true if the node is on the boarder.
   Standard_EXPORT static Standard_Boolean IsNodeOnBorder(const Standard_Integer theNodeIdx,
-                                                         const Handle(Poly_Triangulation)& theTr);
+                                                         const Handle(MeshTriangulation)& theTr);
 
   //! Returns true if the edge is on the boarder.
   Standard_EXPORT static Standard_Boolean IsEdgeOnBorder(
     const Standard_Integer            theTrgIdx,
     const Standard_Integer            theFirstEdgeNodeIdx,
     const Standard_Integer            theSecondEdgeNodeIdx,
-    const Handle(Poly_Triangulation)& theTr);
+    const Handle(MeshTriangulation)& theTr);
 
 public:
   //! Returns points on triangles sets, which provide the proximity distance.

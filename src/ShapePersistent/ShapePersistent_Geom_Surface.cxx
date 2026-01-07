@@ -24,7 +24,7 @@
 
 #include <gp_Ax1.hxx>
 
-Handle(Geom_Surface) ShapePersistent_Geom_Surface::pLinearExtrusion::Import() const
+Handle(GeomSurface) ShapePersistent_Geom_Surface::pLinearExtrusion::Import() const
 {
   if (myBasisCurve.IsNull())
     return NULL;
@@ -32,7 +32,7 @@ Handle(Geom_Surface) ShapePersistent_Geom_Surface::pLinearExtrusion::Import() co
   return new Geom_SurfaceOfLinearExtrusion(myBasisCurve->Import(), myDirection);
 }
 
-Handle(Geom_Surface) ShapePersistent_Geom_Surface::pRevolution::Import() const
+Handle(GeomSurface) ShapePersistent_Geom_Surface::pRevolution::Import() const
 {
   if (myBasisCurve.IsNull())
     return NULL;
@@ -40,7 +40,7 @@ Handle(Geom_Surface) ShapePersistent_Geom_Surface::pRevolution::Import() const
   return new Geom_SurfaceOfRevolution(myBasisCurve->Import(), Axis3d(myLocation, myDirection));
 }
 
-Handle(Geom_Surface) ShapePersistent_Geom_Surface::pBezier::Import() const
+Handle(GeomSurface) ShapePersistent_Geom_Surface::pBezier::Import() const
 {
   if (myPoles.IsNull())
     return NULL;
@@ -55,7 +55,7 @@ Handle(Geom_Surface) ShapePersistent_Geom_Surface::pBezier::Import() const
     return new Geom_BezierSurface(*myPoles->Array());
 }
 
-Handle(Geom_Surface) ShapePersistent_Geom_Surface::pBSpline::Import() const
+Handle(GeomSurface) ShapePersistent_Geom_Surface::pBSpline::Import() const
 {
   if (myPoles.IsNull() || myUKnots.IsNull() || myVKnots.IsNull() || myUMultiplicities.IsNull()
       || myVMultiplicities.IsNull())
@@ -89,7 +89,7 @@ Handle(Geom_Surface) ShapePersistent_Geom_Surface::pBSpline::Import() const
                                    myVPeriodic);
 }
 
-Handle(Geom_Surface) ShapePersistent_Geom_Surface::pRectangularTrimmed::Import() const
+Handle(GeomSurface) ShapePersistent_Geom_Surface::pRectangularTrimmed::Import() const
 {
   if (myBasisSurface.IsNull())
     return NULL;
@@ -101,7 +101,7 @@ Handle(Geom_Surface) ShapePersistent_Geom_Surface::pRectangularTrimmed::Import()
                                             myLastV);
 }
 
-Handle(Geom_Surface) ShapePersistent_Geom_Surface::pOffset::Import() const
+Handle(GeomSurface) ShapePersistent_Geom_Surface::pOffset::Import() const
 {
   if (myBasisSurface.IsNull())
     return NULL;
@@ -125,7 +125,7 @@ Standard_CString ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface,
 template <>
 Standard_CString ShapePersistent_Geom::instance<
   ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
-  Geom_Plane,
+  GeomPlane,
   gp_Ax3>::PName() const
 {
   return "PGeom_Plane";
@@ -134,15 +134,15 @@ Standard_CString ShapePersistent_Geom::instance<
 template <>
 void ShapePersistent_Geom::instance<
   ShapePersistent_Geom::subBase_gp<ShapePersistent_Geom::Surface, gp_Ax3>,
-  Geom_Plane,
+  GeomPlane,
   gp_Ax3>::Write(StdObjMgt_WriteData& theWriteData) const
 {
-  Handle(Geom_Plane) aMyGeom = Handle(Geom_Plane)::DownCast(myTransient);
+  Handle(GeomPlane) aMyGeom = Handle(GeomPlane)::DownCast(myTransient);
   theWriteData << aMyGeom->Position();
 }
 
 Handle(ShapePersistent_Geom::Surface) ShapePersistent_Geom_Surface::Translate(
-  const Handle(Geom_Plane)&         theSurf,
+  const Handle(GeomPlane)&         theSurf,
   StdObjMgt_TransientPersistentMap& theMap)
 {
   Handle(ShapePersistent_Geom::Surface) aPS;

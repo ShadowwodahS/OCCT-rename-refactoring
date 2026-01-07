@@ -57,7 +57,7 @@ const Handle(RefObject)& XmlTObjDrivers::Factory(const Standard_GUID& aGUID)
 
 //=================================================================================================
 
-void XmlTObjDrivers::DefineFormat(const Handle(TDocStd_Application)& theApp)
+void XmlTObjDrivers::DefineFormat(const Handle(AppManager)& theApp)
 {
   theApp->DefineFormat("TObjXml",
                        "Xml TObj OCAF Document",

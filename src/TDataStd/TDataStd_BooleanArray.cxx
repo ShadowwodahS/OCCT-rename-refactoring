@@ -62,7 +62,7 @@ const Standard_GUID& TDataStd_BooleanArray::GetID()
 // function : SetAttr
 // purpose  : Implements Set functionality
 //=======================================================================
-static Handle(TDataStd_BooleanArray) SetAttr(const TDF_Label&       label,
+static Handle(TDataStd_BooleanArray) SetAttr(const DataLabel&       label,
                                              const Standard_Integer lower,
                                              const Standard_Integer upper,
                                              const Standard_GUID&   theGuid)
@@ -104,7 +104,7 @@ void TDataStd_BooleanArray::Init(const Standard_Integer lower, const Standard_In
 
 //=================================================================================================
 
-Handle(TDataStd_BooleanArray) TDataStd_BooleanArray::Set(const TDF_Label&       label,
+Handle(TDataStd_BooleanArray) TDataStd_BooleanArray::Set(const DataLabel&       label,
                                                          const Standard_Integer lower,
                                                          const Standard_Integer upper)
 {
@@ -115,7 +115,7 @@ Handle(TDataStd_BooleanArray) TDataStd_BooleanArray::Set(const TDF_Label&       
 // function : Set
 // purpose  : Set user defined attribute with specific ID
 //=======================================================================
-Handle(TDataStd_BooleanArray) TDataStd_BooleanArray::Set(const TDF_Label&       label,
+Handle(TDataStd_BooleanArray) TDataStd_BooleanArray::Set(const DataLabel&       label,
                                                          const Standard_GUID&   theGuid,
                                                          const Standard_Integer lower,
                                                          const Standard_Integer upper)

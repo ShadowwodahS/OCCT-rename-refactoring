@@ -79,10 +79,10 @@ void TDF_CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
 
   for (TDF_ListIteratorOfLabelList labLItr(rootLst); labLItr.More(); labLItr.Next())
   {
-    const TDF_Label& sLab = labLItr.Value();
+    const DataLabel& sLab = labLItr.Value();
     if (theLabMap.IsBound(sLab))
     {
-      TDF_Label tIns(theLabMap.Find(sLab));
+      DataLabel tIns(theLabMap.Find(sLab));
       TDF_CopyTool::CopyLabels(sLab, tIns, theLabMap, theAttMap, srcLabs, srcAtts);
     }
     // if not bound : do nothing!
@@ -114,8 +114,8 @@ void TDF_CopyTool::Copy(const Handle(TDF_DataSet)&         aSourceDataSet,
 // purpose  : Internal root label copy recursive method.
 //=======================================================================
 
-void TDF_CopyTool::CopyLabels(const TDF_Label&        aSLabel,
-                              TDF_Label&              aTargetLabel,
+void TDF_CopyTool::CopyLabels(const DataLabel&        aSLabel,
+                              DataLabel&              aTargetLabel,
                               TDF_LabelDataMap&       aLabMap,
                               TDF_AttributeDataMap&   aAttMap,
                               const TDF_LabelMap&     aSrcLabelMap,
@@ -126,10 +126,10 @@ void TDF_CopyTool::CopyLabels(const TDF_Label&        aSLabel,
   // Does the same for the children.
   for (TDF_ChildIterator childItr(aSLabel); childItr.More(); childItr.Next())
   {
-    const TDF_Label& childSLab = childItr.Value();
+    const DataLabel& childSLab = childItr.Value();
     if (aSrcLabelMap.Contains(childSLab))
     {
-      TDF_Label childTIns;
+      DataLabel childTIns;
       if (aLabMap.IsBound(childSLab))
       {
         childTIns = aLabMap.Find(childSLab);
@@ -155,8 +155,8 @@ void TDF_CopyTool::CopyLabels(const TDF_Label&        aSLabel,
 // purpose  : Internal attribute copy method.
 //=======================================================================
 
-void TDF_CopyTool::CopyAttributes(const TDF_Label&        aSLabel,
-                                  TDF_Label&              aTargetLabel,
+void TDF_CopyTool::CopyAttributes(const DataLabel&        aSLabel,
+                                  DataLabel&              aTargetLabel,
                                   TDF_AttributeDataMap&   aAttMap,
                                   const TDF_AttributeMap& aSrcAttributeMap)
 {

@@ -29,7 +29,7 @@ class LProp_NotDefined;
 class Vector3d;
 class Point3d;
 class Dir3d;
-class LProp3d_CurveTool;
+class CurveTool2;
 
 class LProp3d_CLProps
 {

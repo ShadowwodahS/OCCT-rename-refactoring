@@ -40,7 +40,7 @@ IMPLEMENT_STANDARD_RTTIEXT(VrmlData_IndexedFaceSet, VrmlData_Faceted)
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_Faceted::readData(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_Faceted::readData(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus aStatus(VrmlData_EmptyData);
   Standard_Boolean     aBool;
@@ -203,8 +203,8 @@ const Handle(TopoDS_TShape)& VrmlData_IndexedFaceSet::TShape()
   }
 
   // Triangulation creation
-  Handle(Poly_Triangulation) aTriangulation =
-    new Poly_Triangulation(aNodes.Length(), aTriangles.Extent(), Standard_False);
+  Handle(MeshTriangulation) aTriangulation =
+    new MeshTriangulation(aNodes.Length(), aTriangles.Extent(), Standard_False);
   // Copy the triangulation vertices
   for (i = 0; i < aNodes.Length(); i++)
   {
@@ -312,7 +312,7 @@ Handle(VrmlData_Node) VrmlData_IndexedFaceSet::Clone(const Handle(VrmlData_Node)
 
 //=================================================================================================
 
-VrmlData_ErrorStatus VrmlData_IndexedFaceSet::Read(VrmlData_InBuffer& theBuffer)
+VrmlData_ErrorStatus VrmlData_IndexedFaceSet::Read(InputBuffer& theBuffer)
 {
   VrmlData_ErrorStatus  aStatus;
   const VrmlData_Scene& aScene = Scene();
@@ -391,7 +391,7 @@ VrmlData_ErrorStatus VrmlData_IndexedFaceSet::Read(VrmlData_InBuffer& theBuffer)
 // //purpose  : static (local) function
 // //=======================================================================
 
-// VrmlData_ErrorStatus dummyReadBrackets (VrmlData_InBuffer& theBuffer)
+// VrmlData_ErrorStatus dummyReadBrackets (InputBuffer& theBuffer)
 // {
 //   VrmlData_ErrorStatus aStatus;
 //   Standard_Integer aLevelCounter (0);

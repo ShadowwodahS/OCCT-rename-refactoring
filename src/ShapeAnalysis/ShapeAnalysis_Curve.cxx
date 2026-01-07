@@ -99,7 +99,7 @@ static void ProjectOnSegments(const Adaptor3d_Curve& AC,
 
 //=================================================================================================
 
-Standard_Real ShapeAnalysis_Curve::Project(const Handle(Geom_Curve)& C3D,
+Standard_Real ShapeAnalysis_Curve::Project(const Handle(GeomCurve3d)& C3D,
                                            const Point3d&             P3D,
                                            const Standard_Real       preci,
                                            Point3d&                   proj,
@@ -116,7 +116,7 @@ Standard_Real ShapeAnalysis_Curve::Project(const Handle(Geom_Curve)& C3D,
 
 //=================================================================================================
 
-Standard_Real ShapeAnalysis_Curve::Project(const Handle(Geom_Curve)& C3D,
+Standard_Real ShapeAnalysis_Curve::Project(const Handle(GeomCurve3d)& C3D,
                                            const Point3d&             P3D,
                                            const Standard_Real       preci,
                                            Point3d&                   proj,
@@ -425,7 +425,7 @@ Standard_Real ShapeAnalysis_Curve::ProjectAct(const Adaptor3d_Curve& C3D,
 //=======================================================================
 
 Standard_Real ShapeAnalysis_Curve::NextProject(const Standard_Real       paramPrev,
-                                               const Handle(Geom_Curve)& C3D,
+                                               const Handle(GeomCurve3d)& C3D,
                                                const Point3d&             P3D,
                                                const Standard_Real       preci,
                                                Point3d&                   proj,
@@ -506,7 +506,7 @@ Standard_Real ShapeAnalysis_Curve::NextProject(const Standard_Real    paramPrev,
 // purpose  : Copied from StepToTopoDS_GeometricTuul::UpdateParam3d (Aug 2001)
 //=======================================================================
 
-Standard_Boolean ShapeAnalysis_Curve::ValidateRange(const Handle(Geom_Curve)& theCurve,
+Standard_Boolean ShapeAnalysis_Curve::ValidateRange(const Handle(GeomCurve3d)& theCurve,
                                                     Standard_Real&            First,
                                                     Standard_Real&            Last,
                                                     const Standard_Real       preci) const
@@ -597,9 +597,9 @@ Standard_Boolean ShapeAnalysis_Curve::ValidateRange(const Handle(Geom_Curve)& th
     }
   }
   // The curve is closed within the 3D tolerance
-  else if (theCurve->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  else if (theCurve->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    Handle(Geom_BSplineCurve) aBSpline = Handle(Geom_BSplineCurve)::DownCast(theCurve);
+    Handle(BSplineCurve3d) aBSpline = Handle(BSplineCurve3d)::DownCast(theCurve);
     if (aBSpline->StartPoint().Distance(aBSpline->EndPoint()) <= preci)
     {
       //: S4136	<= BRepAPI::Precision()) {
@@ -681,7 +681,7 @@ Standard_Boolean ShapeAnalysis_Curve::ValidateRange(const Handle(Geom_Curve)& th
 //=======================================================================
 
 // search for extremum using Newton
-static Standard_Integer SearchForExtremum(const Handle(Geom2d_Curve)& C2d,
+static Standard_Integer SearchForExtremum(const Handle(GeomCurve2d)& C2d,
                                           const Standard_Real         First,
                                           const Standard_Real         Last,
                                           const gp_Vec2d&             dir,
@@ -720,7 +720,7 @@ static Standard_Integer SearchForExtremum(const Handle(Geom2d_Curve)& C2d,
   return Standard_True;
 }
 
-void ShapeAnalysis_Curve::FillBndBox(const Handle(Geom2d_Curve)& C2d,
+void ShapeAnalysis_Curve::FillBndBox(const Handle(GeomCurve2d)& C2d,
                                      const Standard_Real         First,
                                      const Standard_Real         Last,
                                      const Standard_Integer      NPoints,
@@ -780,8 +780,8 @@ void ShapeAnalysis_Curve::FillBndBox(const Handle(Geom2d_Curve)& C2d,
 
 //=================================================================================================
 
-Standard_Integer ShapeAnalysis_Curve::SelectForwardSeam(const Handle(Geom2d_Curve)& C1,
-                                                        const Handle(Geom2d_Curve)& C2) const
+Standard_Integer ShapeAnalysis_Curve::SelectForwardSeam(const Handle(GeomCurve2d)& C1,
+                                                        const Handle(GeomCurve2d)& C2) const
 {
   //  SelectForward est destine a devenir un outil distinct
   //  Il est sans doute optimisable !
@@ -901,9 +901,9 @@ static gp_XYZ GetAnyNormal(const gp_XYZ& orig)
 
 //=================================================================================================
 
-static void AppendControlPoles(TColgp_SequenceOfPnt& seq, const Handle(Geom_Curve)& curve)
+static void AppendControlPoles(TColgp_SequenceOfPnt& seq, const Handle(GeomCurve3d)& curve)
 {
-  if (curve->IsKind(STANDARD_TYPE(Geom_Line)))
+  if (curve->IsKind(STANDARD_TYPE(GeomLine)))
   {
     seq.Append(curve->Value(0));
     seq.Append(curve->Value(1));
@@ -919,15 +919,15 @@ static void AppendControlPoles(TColgp_SequenceOfPnt& seq, const Handle(Geom_Curv
     // DeclareAndCast(Geom_TrimmedCurve, Trimmed, curve);
     Handle(Geom_TrimmedCurve) Trimmed = Handle(Geom_TrimmedCurve)::DownCast(curve);
     //     AppendControlPoles(seq,Trimmed->BasisCurve());
-    Handle(Geom_Curve) aBaseCrv = Trimmed->BasisCurve();
+    Handle(GeomCurve3d) aBaseCrv = Trimmed->BasisCurve();
     Standard_Boolean   done     = Standard_False;
-    if (aBaseCrv->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+    if (aBaseCrv->IsKind(STANDARD_TYPE(BSplineCurve3d)))
     {
       try
       {
         OCC_CATCH_SIGNALS
         Handle(Geom_Geometry)     Ctmp = aBaseCrv->Copy();
-        Handle(Geom_BSplineCurve) bslp = Handle(Geom_BSplineCurve)::DownCast(Ctmp);
+        Handle(BSplineCurve3d) bslp = Handle(BSplineCurve3d)::DownCast(Ctmp);
         bslp->Segment(curve->FirstParameter(), curve->LastParameter());
         AppendControlPoles(seq, bslp);
         done = Standard_True;
@@ -936,13 +936,13 @@ static void AppendControlPoles(TColgp_SequenceOfPnt& seq, const Handle(Geom_Curv
       {
       }
     }
-    else if (aBaseCrv->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+    else if (aBaseCrv->IsKind(STANDARD_TYPE(BezierCurve3d)))
     {
       try
       {
         OCC_CATCH_SIGNALS
         Handle(Geom_Geometry)    Ctmp = aBaseCrv->Copy();
-        Handle(Geom_BezierCurve) bz   = Handle(Geom_BezierCurve)::DownCast(Ctmp);
+        Handle(BezierCurve3d) bz   = Handle(BezierCurve3d)::DownCast(Ctmp);
         bz->Segment(curve->FirstParameter(), curve->LastParameter());
         AppendControlPoles(seq, bz);
         done = Standard_True;
@@ -967,20 +967,20 @@ static void AppendControlPoles(TColgp_SequenceOfPnt& seq, const Handle(Geom_Curv
     seq.Append(curve->Value((curve->FirstParameter() + curve->LastParameter()) / 2.));
     seq.Append(curve->Value(curve->LastParameter()));
   }
-  else if (curve->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  else if (curve->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    // DeclareAndCast(Geom_BSplineCurve, BSpline, curve);
-    Handle(Geom_BSplineCurve) BSpline = Handle(Geom_BSplineCurve)::DownCast(curve);
+    // DeclareAndCast(BSplineCurve3d, BSpline, curve);
+    Handle(BSplineCurve3d) BSpline = Handle(BSplineCurve3d)::DownCast(curve);
     TColgp_Array1OfPnt        Poles(1, BSpline->NbPoles());
     BSpline->Poles(Poles);
     for (Standard_Integer i = 1; i <= BSpline->NbPoles(); i++)
       seq.Append(Poles(i));
   }
-  else if (curve->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+  else if (curve->IsKind(STANDARD_TYPE(BezierCurve3d)))
   {
-    // DeclareAndCast(Geom_BezierCurve, Bezier, curve);
-    // Handle(Geom_BezierCurve) Bezier = Handle(Geom_BezierCurve)::DownCast(curve);
-    Handle(Geom_BezierCurve) Bezier = Handle(Geom_BezierCurve)::DownCast(curve);
+    // DeclareAndCast(BezierCurve3d, Bezier, curve);
+    // Handle(BezierCurve3d) Bezier = Handle(BezierCurve3d)::DownCast(curve);
+    Handle(BezierCurve3d) Bezier = Handle(BezierCurve3d)::DownCast(curve);
     TColgp_Array1OfPnt       Poles(1, Bezier->NbPoles());
     Bezier->Poles(Poles);
     for (Standard_Integer i = 1; i <= Bezier->NbPoles(); i++)
@@ -1063,17 +1063,17 @@ Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const TColgp_Array1OfPnt& pnts,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const Handle(Geom_Curve)& curve,
+Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const Handle(GeomCurve3d)& curve,
                                                gp_XYZ&                   Normal,
                                                const Standard_Real       preci)
 {
   Standard_Real    precision = (preci > 0.0) ? preci : Precision::Confusion();
   Standard_Boolean noNorm    = (Normal.SquareModulus() == 0);
 
-  if (curve->IsKind(STANDARD_TYPE(Geom_Line)))
+  if (curve->IsKind(STANDARD_TYPE(GeomLine)))
   {
-    // DeclareAndCast(Geom_Line, Line, curve);
-    Handle(Geom_Line) Line = Handle(Geom_Line)::DownCast(curve);
+    // DeclareAndCast(GeomLine, Line, curve);
+    Handle(GeomLine) Line = Handle(GeomLine)::DownCast(curve);
     gp_XYZ            N1   = Line->Position().Direction().XYZ();
     if (noNorm)
     {
@@ -1111,19 +1111,19 @@ Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const Handle(Geom_Curve)& curve,
     return IsPlanar(OffsetC->BasisCurve(), Normal, precision);
   }
 
-  if (curve->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  if (curve->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    // DeclareAndCast(Geom_BSplineCurve, BSpline, curve);
-    Handle(Geom_BSplineCurve) BSpline = Handle(Geom_BSplineCurve)::DownCast(curve);
+    // DeclareAndCast(BSplineCurve3d, BSpline, curve);
+    Handle(BSplineCurve3d) BSpline = Handle(BSplineCurve3d)::DownCast(curve);
     TColgp_Array1OfPnt        Poles(1, BSpline->NbPoles());
     BSpline->Poles(Poles);
     return IsPlanar(Poles, Normal, precision);
   }
 
-  if (curve->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+  if (curve->IsKind(STANDARD_TYPE(BezierCurve3d)))
   {
-    // DeclareAndCast(Geom_BezierCurve, Bezier, curve);
-    Handle(Geom_BezierCurve) Bezier = Handle(Geom_BezierCurve)::DownCast(curve);
+    // DeclareAndCast(BezierCurve3d, Bezier, curve);
+    Handle(BezierCurve3d) Bezier = Handle(BezierCurve3d)::DownCast(curve);
     TColgp_Array1OfPnt       Poles(1, Bezier->NbPoles());
     Bezier->Poles(Poles);
     return IsPlanar(Poles, Normal, precision);
@@ -1148,7 +1148,7 @@ Standard_Boolean ShapeAnalysis_Curve::IsPlanar(const Handle(Geom_Curve)& curve,
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Curve::GetSamplePoints(const Handle(Geom_Curve)& curve,
+Standard_Boolean ShapeAnalysis_Curve::GetSamplePoints(const Handle(GeomCurve3d)& curve,
                                                       const Standard_Real       first,
                                                       const Standard_Real       last,
                                                       TColgp_SequenceOfPnt&     seq)
@@ -1159,22 +1159,22 @@ Standard_Boolean ShapeAnalysis_Curve::GetSamplePoints(const Handle(Geom_Curve)& 
 
   Standard_Integer aK  = (Standard_Integer)ceil((last - first) / adelta);
   Standard_Integer nbp = 100 * aK;
-  if (curve->IsKind(STANDARD_TYPE(Geom_Line)))
+  if (curve->IsKind(STANDARD_TYPE(GeomLine)))
     nbp = 2;
-  else if (curve->IsKind(STANDARD_TYPE(Geom_Circle)))
+  else if (curve->IsKind(STANDARD_TYPE(GeomCircle)))
     nbp = 360 * aK;
 
-  else if (curve->IsKind(STANDARD_TYPE(Geom_BSplineCurve)))
+  else if (curve->IsKind(STANDARD_TYPE(BSplineCurve3d)))
   {
-    Handle(Geom_BSplineCurve) aBspl = Handle(Geom_BSplineCurve)::DownCast(curve);
+    Handle(BSplineCurve3d) aBspl = Handle(BSplineCurve3d)::DownCast(curve);
 
     nbp = aBspl->NbKnots() * aBspl->Degree() * aK;
     if (nbp < 2.0)
       nbp = 2;
   }
-  else if (curve->IsKind(STANDARD_TYPE(Geom_BezierCurve)))
+  else if (curve->IsKind(STANDARD_TYPE(BezierCurve3d)))
   {
-    Handle(Geom_BezierCurve) aB = Handle(Geom_BezierCurve)::DownCast(curve);
+    Handle(BezierCurve3d) aB = Handle(BezierCurve3d)::DownCast(curve);
     nbp                         = 3 + aB->NbPoles();
   }
   else if (curve->IsKind(STANDARD_TYPE(Geom_OffsetCurve)))
@@ -1198,7 +1198,7 @@ Standard_Boolean ShapeAnalysis_Curve::GetSamplePoints(const Handle(Geom_Curve)& 
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Curve::GetSamplePoints(const Handle(Geom2d_Curve)& curve,
+Standard_Boolean ShapeAnalysis_Curve::GetSamplePoints(const Handle(GeomCurve2d)& curve,
                                                       const Standard_Real         first,
                                                       const Standard_Real         last,
                                                       TColgp_SequenceOfPnt2d&     seq)
@@ -1301,7 +1301,7 @@ Standard_Boolean ShapeAnalysis_Curve::GetSamplePoints(const Handle(Geom2d_Curve)
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Curve::IsClosed(const Handle(Geom_Curve)& theCurve,
+Standard_Boolean ShapeAnalysis_Curve::IsClosed(const Handle(GeomCurve3d)& theCurve,
                                                const Standard_Real       preci)
 {
   if (theCurve->IsClosed())
@@ -1324,12 +1324,12 @@ Standard_Boolean ShapeAnalysis_Curve::IsClosed(const Handle(Geom_Curve)& theCurv
 
 //=================================================================================================
 
-Standard_Boolean ShapeAnalysis_Curve::IsPeriodic(const Handle(Geom_Curve)& theCurve)
+Standard_Boolean ShapeAnalysis_Curve::IsPeriodic(const Handle(GeomCurve3d)& theCurve)
 {
   // 15.11.2002 PTV OCC966
   // remove regressions in DE tests (diva, divb, divc, toe3) in KAS:dev
   // ask IsPeriodic on BasisCurve
-  Handle(Geom_Curve) aTmpCurve = theCurve;
+  Handle(GeomCurve3d) aTmpCurve = theCurve;
   while ((aTmpCurve->IsKind(STANDARD_TYPE(Geom_OffsetCurve)))
          || (aTmpCurve->IsKind(STANDARD_TYPE(Geom_TrimmedCurve))))
   {
@@ -1341,12 +1341,12 @@ Standard_Boolean ShapeAnalysis_Curve::IsPeriodic(const Handle(Geom_Curve)& theCu
   return aTmpCurve->IsPeriodic();
 }
 
-Standard_Boolean ShapeAnalysis_Curve::IsPeriodic(const Handle(Geom2d_Curve)& theCurve)
+Standard_Boolean ShapeAnalysis_Curve::IsPeriodic(const Handle(GeomCurve2d)& theCurve)
 {
   // 15.11.2002 PTV OCC966
   // remove regressions in DE tests (diva, divb, divc, toe3) in KAS:dev
   // ask IsPeriodic on BasisCurve
-  Handle(Geom2d_Curve) aTmpCurve = theCurve;
+  Handle(GeomCurve2d) aTmpCurve = theCurve;
   while ((aTmpCurve->IsKind(STANDARD_TYPE(Geom2d_OffsetCurve)))
          || (aTmpCurve->IsKind(STANDARD_TYPE(Geom2d_TrimmedCurve))))
   {
